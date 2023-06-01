@@ -1,0 +1,54 @@
+.tabs-component
+  border: solid 1px #eaecef
+  border-radius 6px
+  margin-bottom 5px
+
+.tabs-component-tabs
+  border-radius 6px
+  margin-bottom 5px
+  padding: 0 1.25rem
+
+@media (min-width: 700px)
+  .tabs-component-tabs
+    border 0
+    align-items stretch
+    display flex
+    justify-content flex-start
+    margin-bottom -1px
+
+.tabs-component-tab
+  color #999
+  font-size 14px
+  font-weight 600
+  margin-right 0
+  list-style none
+  border: none
+  margin-top: 8px
+  &:hover
+    color #666
+  &.is-active
+    border-bottom solid 1px #ea894d
+
+@media (min-width: 700px)
+  .tabs-component-tab
+    border-radius 3px 3px 0 0
+    margin-right .5em
+    &.is-active
+      border-bottom solid 1px #ea894d
+      z-index 2
+
+.tabs-component-tab-a
+  align-items center
+  color inherit
+  display flex
+  padding .75em 1em
+  text-decoration none
+
+.tabs-component-panels
+  padding 4em 1.75rem
+
+@media (min-width: 700px)
+  .tabs-component-panels
+    border-radius 0 6px 6px 6px
+    box-shadow 0 0 10px rgba(0, 0, 0, .05)
+    padding 4em 2em
