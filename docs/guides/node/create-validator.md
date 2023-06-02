@@ -139,7 +139,7 @@ If you need to confirm your node's address, you can quickly retrieve it via the 
 When you've entered that information, press the `Stake` button and approve the transaction.
 It will be sent to the Ethereum network, and once included in a block, you're all set!
 
-If you run `rocketpool node status`, you should see your staked RPL appear under the `=== RPL Stake and Minipools ===` section.
+If you run `rocketpool node status`, you should see your staked RPL appear under the `=== RPL Stake ===` section.
 
 #### Removing an address from the stake whitelist
 
