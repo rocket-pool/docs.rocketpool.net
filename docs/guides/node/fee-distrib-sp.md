@@ -8,8 +8,8 @@ In general, priority fees provide almost as much ETH to you as Beacon Chain rewa
 
 ::: tip NOTE
 As a quick reminder here's a breakdown of the different types of rewards and which layer they're provided on:
-- Consensus Layer (locked until withdrawals): attestations, block proposals, sync committees, slashing reports
-- Execution Layer (liquid): priority fees and MEV (discussed in the next section) from block proposals
+- Consensus Layer: attestations, block proposals, sync committees, slashing reports
+- Execution Layer: priority fees and MEV (discussed in the next section) from block proposals
 :::
 
 
