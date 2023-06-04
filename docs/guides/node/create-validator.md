@@ -17,7 +17,7 @@ With the Atlas update, Rocket Pool allows bond amounts of either **8 ETH** or **
 This bond represents your literal stake in the game as a validator; if your node is penalized for poor performance or slashed for violating the rules of the protocol, the penalty is taken from your bond.
 
 In addition to your ETH bond, creating a validator also requires **supplemental collateral** in the form of the **RPL token**.
-The amount of RPL you need to stake depends on your bond size; the minimum is 10% of your *borrowed* amount of ETH, and the maximum is 150% of your *bonded* amound of ETH.
+The amount of RPL you need to stake depends on your bond size; the minimum is 10% of your *borrowed* amount of ETH, and the maximum is 150% of your *bonded* amount of ETH.
 
 If choosing **8 ETH**, you stake 8 of your own ETH and "borrow" 24 ETH from the staking pool to complete the validator.
 The minimum RPL stake is **2.4 ETH worth of RPL** (10% of 24), and the maximum is **12 ETH worth of RPL** (150% of 8).
