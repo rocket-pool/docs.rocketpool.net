@@ -45,11 +45,7 @@ Please select the mode you use to configure your node below from the tabs below.
 Open the `rocketpool service config` TUI and go to the `Smartnode and TX Fees` section.
 Here, you will see two options at the bottom:
 
-<center>
-
-![](./images/tui-odao.png)
-
-</center>
+![](./images/tui-odao.png){ style="display: block; margin: 0 auto" }
 
 The `Archive-Mode EC URL` must be the HTTP endpoint of the RPC API for your Archive Execution Client.
 **Note that if you are already using your Archive EC as your primary client in Externally-Managed mode, you can ignore this setting.**

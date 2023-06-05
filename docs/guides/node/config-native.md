@@ -32,11 +32,7 @@ You can choose to re-open the Wizard from there if you prefer it, and all of you
 
 When you run the config UI for the first time (or if you choose to run the Wizard again later), you will be presented with a screen that looks like this:
 
-<center>
-
-![](./images/tui-native-welcome.png)
-
-</center>
+![](./images/tui-native-welcome.png){ style="display: block; margin: 0 auto" }
 
 ::: tip TIP
 To use the Wizard, **press the `Arrow Keys` (up/down/left/right) to navigate between things such as buttons (choices) or text boxes**.
@@ -66,11 +62,7 @@ When you're ready to begin, press `Next`.
 
 In the next screen, you will be asked to choose which network you want to use:
 
-<center>
-
-![](./images/tui-native-network.png)
-
-</center>
+![](./images/tui-native-network.png){ style="display: block; margin: 0 auto" }
 
 You can highlight the different choices with the `Up` and `Down` arrow keys (or `Tab` and `Shift+Tab`).
 When you change choices, the **Description** box on the right will show you a brief description of each option.
@@ -85,11 +77,7 @@ If you're ready to create a real Rocket Pool node on Mainnet to earn real reward
 
 The next screen will prompt you for the URL of your Execution client's HTTP-based RPC API:
 
-<center>
-
-![](./images/tui-native-ec.png)
-
-</center>
+![](./images/tui-native-ec.png){ style="display: block; margin: 0 auto" }
 
 Enter `http://127.0.0.1:8545` here if you plan to run an Execution client on the same machine as the Smartnode (in the rest of this guide, we will assume this is what you plan to do).
 However, if you already have an Execution client set up elsewhere, use its URL here instead.
@@ -103,19 +91,12 @@ Next, you'll be asked which Consensus client you are using (or plan to use).
 Because each Consensus client has slightly different behavior, the Smartnode needs to know which one you're using so it can adapt its own behavior accordingly.
 Choose your client from the list in the following screen:
 
-<center>
-
-![](./images/tui-native-cc.png)
-
-</center>
+![](./images/tui-native-cc.png){ style="display: block; margin: 0 auto" }
 
 Next, you will see a screen prompting you for your client's API URL:
 
-<center>
+![](./images/tui-native-cc-url.png){ style="display: block; margin: 0 auto" }
 
-![](./images/tui-native-cc-url.png)
-
-</center>
 
 Enter `http://127.0.0.1:5052` here if you plan to run the Beacon Node of your Consensus client on the same machine as the Smartnode (in the rest of this guide, we will assume this is what you plan to do).
 However, if you already have a Beacon Node set up elsewhere, use its URL here instead.
@@ -125,11 +106,7 @@ However, if you already have a Beacon Node set up elsewhere, use its URL here in
 
 The next screen will have a few other miscellaneous settings:
 
-<center>
-
-![](./images/tui-native-other.png)
-
-</center>
+![](./images/tui-native-other.png){ style="display: block; margin: 0 auto" }
 
 Leave these as the default options unless you have decided to use a directory other than `/srv/rocketpool` for your Smartnode installation.
 
@@ -146,19 +123,11 @@ In this situation, your primary node machine will still be responsible for attes
 
 Rocket Pool has the ability to integrate with Prometheus and Grafana to produce convenient web-based dashboards that let you observe your node's health at a glance:
 
-<center>
-
-![](./images/nimbus-dashboard.png)
-
-</center>
+![](./images/nimbus-dashboard.png){ style="display: block; margin: 0 auto" }
 
 The final question in the Wizard will ask you if you want to enable this:
 
-<center>
-
-![](./images/tui-native-metrics.png)
-
-</center>
+![](./images/tui-native-metrics.png){ style="display: block; margin: 0 auto" }
 
 If you choose to enable it, you will learn more about setting it up and how to use it in the [Setting up the Grafana Dashboard](./grafana) section later in the process.
 
@@ -175,11 +144,7 @@ Since the Merge of the Execution and Consensus layers in September 2022, Ethereu
 
 Starting with Smartnode v1.7.0, MEV is now *opt-out* so a notification about configuring it is presented as part of the initial setup, as you see in the next screen:
 
-<center>
-
-![](./images/tui-native-mev.png)
-
-</center>
+![](./images/tui-native-mev.png){ style="display: block; margin: 0 auto" }
 
 [Please read our MEV guide to learn more about MEV, its configuration, and what to do in this section of the wizard.](./mev)
 Return here when you're finished.
@@ -190,11 +155,7 @@ Return here when you're finished.
 After this question, you've finished setting up the Smartnode configuration.
 You will see the following dialog:
 
-<center>
-
-![](./images/tui-native-finished.png)
-
-</center>
+![](./images/tui-native-finished.png){ style="display: block; margin: 0 auto" }
 
 If you're happy with your setup and are ready to start the Smartnode, click `Save and Exit` here.
 
@@ -212,11 +173,7 @@ If you would like to review all of the settings and customize many additional se
 
 If you've already run `rp service config`, instead of being greeted by the Wizard, you will see the **Settings Manager** screen:
 
-<center>
-
-![](./images/tui-native-settings-home.png)
-
-</center>
+![](./images/tui-native-settings-home.png){ style="display: block; margin: 0 auto" }
 
 There are three main features of this screen:
 
@@ -244,11 +201,7 @@ Feel free to explore them; nothing you do will be saved until you go through the
 From the home screen, select any one of the categories with the `Enter` key to view the settings for that category.
 For example, here is the screen for the **Smartnode and TX Fees** category:
 
-<center>
-
-![](./images/tui-native-smartnode.png)
-
-</center>
+![](./images/tui-native-smartnode.png){ style="display: block; margin: 0 auto" }
 
 Use the `Arrow Keys` to move up and down between the settings.
 The currently selected one will have a white square at the end of it (if it's a text box or a check box), or will be highlighted in white (if it's a drop down).
@@ -276,11 +229,7 @@ The settings manager uses the following setting types and UI elements:
 Text boxes are used to enter arbitrary strings of text or numbers.
 They look like this:
 
-<center>
-
-![](./images/tui-textbox.png)
-
-</center>
+![](./images/tui-textbox.png){ style="display: block; margin: 0 auto" }
 
 Enter your desired values into them, then **press `Enter` or use the `Arrow Keys` to navigate to a different setting in order to preserve your changes.**
 If you don't, the Settings Manager will assume you're still updating that setting and won't mark it as changed yet.
@@ -291,21 +240,13 @@ If you don't, the Settings Manager will assume you're still updating that settin
 Drop downs are used to select an option from a list of choices.
 They look like this (when they're open):
 
-<center>
-
-![](./images/tui-dropdown-open.png)
-
-</center>
+![](./images/tui-dropdown-open.png){ style="display: block; margin: 0 auto" }
 
 The **green** item is the one that is currently selected.
 Use the `Arrow Keys` to change options - as you do, the **Description Box** on the right will update to tell you more about the currently selected option.
 When you're happy with your choice, press `Enter` to choose the selected option and the drop down will close, revealing the option that is currently selected:
 
-<center>
-
-![](./images/tui-dropdown-closed.png)
-
-</center>
+![](./images/tui-dropdown-closed.png){ style="display: block; margin: 0 auto" }
 
 
 #### Check Boxes
@@ -313,20 +254,13 @@ When you're happy with your choice, press `Enter` to choose the selected option 
 Check boxes are used for simple Yes/No questions.
 They look like this:
 
-<center>
-
-![](./images/tui-checkbox-checked.png)
-
-</center>
+![](./images/tui-checkbox-checked.png){ style="display: block; margin: 0 auto" }
 
 When they are checked, they will have an `X` in the middle as you see above.
 When they are *unchecked*, they will simply be blank like this:
 
-<center>
 
-![](./images/tui-checkbox-unchecked.png)
-
-</center>
+![](./images/tui-checkbox-unchecked.png){ style="display: block; margin: 0 auto" }
 
 To change the setting, simply select it and press `Enter`.
 
@@ -338,11 +272,7 @@ As a reminder, to get to it, press the `Tab` key.
 
 You will be presented with a view that looks like this:
 
-<center>
-
-![](./images/tui-native-review.png)
-
-</center>
+![](./images/tui-native-review.png){ style="display: block; margin: 0 auto" }
 
 The **Review Box** here will present all of the settings you've changed, showing the old values and the new ones.
 For example, the first line here shows that the **RPL Claim Gas Threshold** used to be `150`, and it's been changed to `40`.

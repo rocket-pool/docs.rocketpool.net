@@ -82,11 +82,7 @@ rocketpool node status
 
 The output will look like this:
 
-<center>
-
-![](../node/images/status-fee-distributor.png)
-
-</center>
+![](../node/images/status-fee-distributor.png){ style="display: block; margin: 0 auto" }
 
 To initialize your node's distributor, simply run this new command:
 
@@ -148,33 +144,22 @@ rocketpool node claim-rewards
 
 As intervals go by and you accumulate rewards, the output will look like this:
 
-<center>
-
-![](../node/images/claim-rewards-gb.png)
-
-</center>
+![](../node/images/claim-rewards-gb.png){ style="display: block; margin: 0 auto" }
 
 Here you can quickly see how many rewards you've earned at each interval, and can decide which ones you want to claim.
 Note that **Ropsten's interval time is set to 1 day to facilitate testing.**
 
 You can also specify an amount you want to restake during this claim:
 
-<center>
+![](../node/images/autostake.png){ style="display: block; margin: 0 auto" }
 
-![](../node/images/autostake.png)
-
-</center>
 
 This will let you compound your RPL rewards in one transaction, using substantially less gas than you currently need to use today.
 
 ::: tip NOTE
 If you prefer to build the rewards checkpoint manually instead of downloading the one created by the Oracle DAO, you can change this setting from `Download` to `Generate` in the TUI:
 
-<center>
-
-![](../node/images/tui-generate-tree.png)
-
-</center>
+![](../node/images/tui-generate-tree.png){ style="display: block; margin: 0 auto" }
 
 As the tip implies, you will need access to an archive node to do this.
 If your local Execution client is not an archive node, you can specify a separate one (such as Infura or Alchemy) in the `Archive-Mode EC URL` box below it.

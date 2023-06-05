@@ -111,11 +111,7 @@ Select which network you're using from the tabs below to be taken to it:
 Start by connecting your wallet to the website using MetaMask, WalletConnect, or any of the other methods the website supports.
 You will then be presented with this dialog:
 
-<center>
-
-![](./images/stake-behalf-1.png)
-
-</center>
+![](./images/stake-behalf-1.png){ style="display: block; margin: 0 auto" }
 
 This is a two-step process.
 First, enter the amount of RPL you want to stake and click `Approve` - this will **approve** the staking contract to access that much RPL in your wallet, but **no more than that amount**.
@@ -126,11 +122,7 @@ You can approve more than the amount you intend to stake if you trust the Rocket
 
 Once the RPL is approved, you will see this dialog:
 
-<center>
-
-![](./images/stake-behalf-2.png)
-
-</center>
+![](./images/stake-behalf-2.png){ style="display: block; margin: 0 auto" }
 
 Enter the amount of RPL you want to stake in the `Stake RPL` box, and enter your node's address in the `on behalf of Node Address` box.
 **Make sure you have the correct node address before doing this!**

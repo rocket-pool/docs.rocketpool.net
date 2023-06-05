@@ -35,11 +35,7 @@ You can choose to re-open the Wizard from there if you prefer it, and all of you
 
 When you run the config UI for the first time (or if you choose to run the Wizard again later), you will be presented with a screen that looks like this:
 
-<center>
-
-![](./images/tui-first-time.png)
-
-</center>
+![](./images/tui-first-time.png){ style="display: block; margin: 0 auto" }
 
 ::: tip TIP
 To use the Wizard, **press the `Arrow Keys` (up/down/left/right) to navigate between things such as buttons (choices) or text boxes**.
@@ -69,11 +65,7 @@ When you're ready to begin, press `Next`.
 
 In the next screen, you will be asked to choose which network you want to use:
 
-<center>
-
-![](./images/tui-network.png)
-
-</center>
+![](./images/tui-network.png){ style="display: block; margin: 0 auto" }
 
 You can highlight the different choices with the `Up` and `Down` arrow keys (or `Tab` and `Shift+Tab`).
 When you change choices, the **Description** box on the right will show you a brief description of each option.
@@ -87,11 +79,7 @@ If you're ready to create a real Rocket Pool node on Mainnet to earn real reward
 
 You will be presented with two options for client mode:
 
-<center>
-
-![](./images/tui-client-mode.png)
-
-</center>
+![](./images/tui-client-mode.png){ style="display: block; margin: 0 auto" }
 
 **Locally Managed** (also known as **"Docker Mode"**) is the default choice.
 Use it if you don't already have a client pair and you want the Smartnode to manage one for you.
@@ -117,11 +105,7 @@ Choose which mode you'd like to use for managing your Execution client and follo
 
 If you want the Smartnode to manage an Execution client for you, the next screen will ask you to pick a client:
 
-<center>
-
-![](./images/tui-ec-selection.png)
-
-</center>
+![](./images/tui-ec-selection.png){ style="display: block; margin: 0 auto" }
 
 Please refer to the [Choosing your ETH clients](./eth-clients#eth1-clients) section for a description of each option.
 Once you've made your choice, click on the appropriate tab below to learn how to configure it:
@@ -149,11 +133,7 @@ And with that, your Execution client is all set!
 
 For an externally managed Execution client, the next screen will prompt you for the URLs of its HTTP-based RPC (web3) API and its Websocket-based RPC API:
 
-<center>
-
-![](./images/tui-external-ec.png)
-
-</center>
+![](./images/tui-external-ec.png){ style="display: block; margin: 0 auto" }
 
 The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting transactions.
 **If you don't already have your client's API port enabled and accessible from your Smartnode machine, you will need to set it up now.**
@@ -183,11 +163,7 @@ Choose which mode you selected earlier from the tabs below:
 
 If you want the Smartnode to manage a Consensus client for you, the next screen will ask you to pick a client:
 
-<center>
-
-![](./images/tui-local-cc.png)
-
-</center>
+![](./images/tui-local-cc.png){ style="display: block; margin: 0 auto" }
 
 **The preferred choice** for the overall health and diversity of the network is the **Random (Recommended)** choice, which will randomly choose among one of the four supported Consensus clients for you.
 
@@ -211,11 +187,7 @@ Once you've made your choice or have been assigned a random client, click on the
 
 The first option in Lighthouse's configuration will ask about your validator's **graffiti** message:
 
-<center>
-
-![](./images/tui-local-graffiti.png)
-
-</center>
+![](./images/tui-local-graffiti.png){ style="display: block; margin: 0 auto" }
 
 This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
 The message will be preserved forever, so think of it like a fun little way to leave your mark!
@@ -226,11 +198,7 @@ If you'd like to see some examples of what validators are using for Graffiti tod
 
 Next up is an option to enable or disable **Checkpoint Sync**:
 
-<center>
-
-![](./images/tui-local-checkpoint.png)
-
-</center>
+![](./images/tui-local-checkpoint.png){ style="display: block; margin: 0 auto" }
 
 Lighthouse has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
 This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
@@ -242,11 +210,7 @@ See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) 
 
 The final question will ask if you want to enable Doppelgänger Protection:
 
-<center>
-
-![](./images/tui-local-dd.png)
-
-</center>
+![](./images/tui-local-dd.png){ style="display: block; margin: 0 auto" }
 
 Lighthouse supports a feature called [Doppelgänger Detection](https://lighthouse-book.sigmaprime.io/validator-doppelganger.html).
 In a nutshell, this feature will **intentionally** miss a few attestations after Lighthouse's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
@@ -267,11 +231,7 @@ Think of it as cheap insurance for your minipools; you'll miss a trivial bit of 
 
 The first option in Nimbus's configuration will ask about your validator's **graffiti** message:
 
-<center>
-
-![](./images/tui-local-graffiti.png)
-
-</center>
+![](./images/tui-local-graffiti.png){ style="display: block; margin: 0 auto" }
 
 This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
 The message will be preserved forever, so think of it like a fun little way to leave your mark!
@@ -282,11 +242,7 @@ If you'd like to see some examples of what validators are using for Graffiti tod
 
 Next up is an option to enable or disable **Checkpoint Sync**:
 
-<center>
-
-![](./images/tui-local-checkpoint.png)
-
-</center>
+![](./images/tui-local-checkpoint.png){ style="display: block; margin: 0 auto" }
 
 Nimbus has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
 This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
@@ -298,11 +254,7 @@ See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) 
 
 The final question will ask if you want to enable Doppelgänger Protection:
 
-<center>
-
-![](./images/tui-local-dd.png)
-
-</center>
+![](./images/tui-local-dd.png){ style="display: block; margin: 0 auto" }
 
 Nimbus supports a feature called [Doppelgänger Protection](https://nimbus.guide/faq.html#why-does-my-validator-miss-two-epochs-of-attestations-after-restarting).
 In a nutshell, this feature will **intentionally** miss a few attestations after Nimbus restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
@@ -323,11 +275,7 @@ Think of it as cheap insurance for your minipools; you'll miss a trivial bit of 
 
 The first option in Prysm's configuration will ask about your validator's **graffiti** message:
 
-<center>
-
-![](./images/tui-local-graffiti.png)
-
-</center>
+![](./images/tui-local-graffiti.png){ style="display: block; margin: 0 auto" }
 
 This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
 The message will be preserved forever, so think of it like a fun little way to leave your mark!
@@ -338,11 +286,7 @@ If you'd like to see some examples of what validators are using for Graffiti tod
 
 Next up is an option to enable or disable **Checkpoint Sync**:
 
-<center>
-
-![](./images/tui-local-checkpoint.png)
-
-</center>
+![](./images/tui-local-checkpoint.png){ style="display: block; margin: 0 auto" }
 
 Prysm has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
 This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
@@ -354,11 +298,7 @@ See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) 
 
 The final question will ask if you want to enable Doppelgänger Protection:
 
-<center>
-
-![](./images/tui-local-dd.png)
-
-</center>
+![](./images/tui-local-dd.png){ style="display: block; margin: 0 auto" }
 
 Prysm supports a feature called Doppelgänger Protection.
 In a nutshell, this feature will **intentionally** miss a few attestations after Prysm's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
@@ -379,11 +319,7 @@ Think of it as cheap insurance for your minipools; you'll miss a trivial bit of 
 
 The first option in Teku's configuration will ask about your validator's **graffiti** message:
 
-<center>
-
-![](./images/tui-local-graffiti.png)
-
-</center>
+![](./images/tui-local-graffiti.png){ style="display: block; margin: 0 auto" }
 
 This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
 The message will be preserved forever, so think of it like a fun little way to leave your mark!
@@ -394,11 +330,7 @@ If you'd like to see some examples of what validators are using for Graffiti tod
 
 The final question is an option to enable or disable **Checkpoint Sync**:
 
-<center>
-
-![](./images/tui-local-checkpoint.png)
-
-</center>
+![](./images/tui-local-checkpoint.png){ style="display: block; margin: 0 auto" }
 
 Teku has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
 This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
@@ -412,11 +344,7 @@ See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) 
 
 The first option in Lodestar's configuration will ask about your validator's **graffiti** message:
 
-<center>
-
-![](./images/tui-local-graffiti.png)
-
-</center>
+![](./images/tui-local-graffiti.png){ style="display: block; margin: 0 auto" }
 
 This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
 The message will be preserved forever, so think of it like a fun little way to leave your mark!
@@ -427,11 +355,7 @@ If you'd like to see some examples of what validators are using for Graffiti tod
 
 Next up is an option to enable or disable **Checkpoint Sync**:
 
-<center>
-
-![](./images/tui-local-checkpoint.png)
-
-</center>
+![](./images/tui-local-checkpoint.png){ style="display: block; margin: 0 auto" }
 
 Lodestar has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
 This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
@@ -443,11 +367,7 @@ See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) 
 
 The final question will ask if you want to enable Doppelgänger Protection:
 
-<center>
-
-![](./images/tui-local-dd.png)
-
-</center>
+![](./images/tui-local-dd.png){ style="display: block; margin: 0 auto" }
 
 Lodestar supports a feature called Doppelgänger Detection.
 In a nutshell, this feature will **intentionally** miss a few attestations after Lodestar's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
@@ -478,11 +398,7 @@ Each router has a different way of doing this, so **you'll need to check out you
 Because each Consensus client has slightly different behavior, the Smartnode needs to know which one you're using externally so it can adapt its own behavior accordingly.
 Start by choosing which client you have from the list in the next screen:
 
-<center>
-
-![](./images/tui-external-cc.png)
-
-</center>
+![](./images/tui-external-cc.png){ style="display: block; margin: 0 auto" }
 
 ::: warning NOTE
 At this time, **Nimbus** is not compatible with External mode because it cannot run as a standalone Validator Container (VC) yet.
@@ -496,11 +412,7 @@ Select your client from the tabs below to learn how to finish configuring it.
 
 Start by specifying the URL for your Lighthouse Beacon Node's API:
 
-<center>
-
-![](./images/tui-external-lh.png)
-
-</center>
+![](./images/tui-external-lh.png){ style="display: block; margin: 0 auto" }
 
 The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
 **If you don't already have the API port enabled and accessible from your Smartnode machine, you will need to set it up now.**
@@ -513,11 +425,7 @@ You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your
 
 Next, it will ask about your validator's **graffiti** message:
 
-<center>
-
-![](./images/tui-external-graffiti.png)
-
-</center>
+![](./images/tui-external-graffiti.png){ style="display: block; margin: 0 auto" }
 
 This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
 The message will be preserved forever, so think of it like a fun little way to leave your mark!
@@ -528,11 +436,7 @@ If you'd like to see some examples of what validators are using for Graffiti tod
 
 The final question will ask if you want to enable Doppelgänger Protection:
 
-<center>
-
-![](./images/tui-external-dd.png)
-
-</center>
+![](./images/tui-external-dd.png){ style="display: block; margin: 0 auto" }
 
 Lighthouse supports a feature called [Doppelgänger Detection](https://lighthouse-book.sigmaprime.io/validator-doppelganger.html).
 In a nutshell, this feature will **intentionally** miss a few attestations after Lighthouse's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
@@ -553,11 +457,7 @@ Think of it as cheap insurance for your minipools; you'll miss a trivial bit of 
 
 Start by specifying the URL for your Prysm Beacon Node's API and the URL for its JSON-RPC API:
 
-<center>
-
-![](./images/tui-external-prysm.png)
-
-</center>
+![](./images/tui-external-prysm.png){ style="display: block; margin: 0 auto" }
 
 The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
 It will prepare its Prysm Validator Client with the JSON-RPC URL so it can communicate with your Beacon Node, as *Prysm's Validator Client currently cannot work over the HTTP API.*
@@ -573,11 +473,7 @@ You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your
 
 Next, it will ask about your validator's **graffiti** message:
 
-<center>
-
-![](./images/tui-external-graffiti.png)
-
-</center>
+![](./images/tui-external-graffiti.png){ style="display: block; margin: 0 auto" }
 
 This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
 The message will be preserved forever, so think of it like a fun little way to leave your mark!
@@ -588,11 +484,7 @@ If you'd like to see some examples of what validators are using for Graffiti tod
 
 The final question will ask if you want to enable Doppelgänger Protection:
 
-<center>
-
-![](./images/tui-external-dd.png)
-
-</center>
+![](./images/tui-external-dd.png){ style="display: block; margin: 0 auto" }
 
 Prysm supports a feature called Doppelgänger Protection.
 In a nutshell, this feature will **intentionally** miss a few attestations after Prysm's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
@@ -613,11 +505,7 @@ Think of it as cheap insurance for your minipools; you'll miss a trivial bit of 
 
 Start by specifying the URL for your Teku Beacon Node's API:
 
-<center>
-
-![](./images/tui-external-teku.png)
-
-</center>
+![](./images/tui-external-teku.png){ style="display: block; margin: 0 auto" }
 
 The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
 **If you don't already have the API port enabled and accessible from your Smartnode machine, you will need to set it up now.**
@@ -630,11 +518,7 @@ You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your
 
 Next, it will ask about your validator's **graffiti** message:
 
-<center>
-
-![](./images/tui-external-graffiti.png)
-
-</center>
+![](./images/tui-external-graffiti.png){ style="display: block; margin: 0 auto" }
 
 This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
 The message will be preserved forever, so think of it like a fun little way to leave your mark!
@@ -688,19 +572,11 @@ In this situation, your primary node machine will still be responsible for attes
 
 Rocket Pool comes with the ability to display a detailed dashboard showing metrics about your node's hardware health, system updates, your validator performance, your rewards, information about the overall Rocket Pool network, and more:
 
-<center>
-
-![](./images/nimbus-dashboard.png)
-
-</center>
+![](./images/nimbus-dashboard.png){ style="display: block; margin: 0 auto" }
 
 The next question in the Wizard will ask you if you want to enable this:
 
-<center>
-
-![](./images/tui-metrics.png)
-
-</center>
+![](./images/tui-metrics.png){ style="display: block; margin: 0 auto" }
 
 If you choose to enable it, you will learn more about setting it up and how to use it in the [Setting up the Grafana Dashboard](./grafana) section later in the process.
 
@@ -717,11 +593,7 @@ Since the Merge of the Execution and Consensus layers in September 2022, Ethereu
 
 Starting with Smartnode v1.7.0, MEV is now *opt-out* so its configuration is presented as part of the initial setup, as you see in the next screen:
 
-<center>
-
-![](./images/tui-mev-mode.png)
-
-</center>
+![](./images/tui-mev-mode.png){ style="display: block; margin: 0 auto" }
 
 [Please read our MEV guide to learn more about MEV, its configuration, and what to do in this section of the wizard.](./mev)
 Return here when you're finished.
@@ -732,11 +604,7 @@ Return here when you're finished.
 After this question, you've finished setting up the Smartnode!
 You will see the following dialog:
 
-<center>
-
-![](./images/tui-finished.png)
-
-</center>
+![](./images/tui-finished.png){ style="display: block; margin: 0 auto" }
 
 If you're happy with your setup and are ready to start the Smartnode, click `Save and Exit` here and go to the [Securing your Node](./securing-your-node) section next.
 
@@ -747,11 +615,7 @@ If you would like to review all of the settings and customize many additional se
 
 If you've already run `rocketpool service config`, instead of being greeted by the Wizard, you will see the **Settings Manager** screen:
 
-<center>
-
-![](./images/tui-settings-manager.png)
-
-</center>
+![](./images/tui-settings-manager.png){ style="display: block; margin: 0 auto" }
 
 There are three main features of this screen:
 
@@ -779,11 +643,7 @@ Feel free to explore them; nothing you do will be saved until you go through the
 From the home screen, select any one of the categories with the `Enter` key to view the settings for that category.
 For example, here is the screen for the **Smartnode and TX Fees** category:
 
-<center>
-
-![](./images/tui-smartnode.png)
-
-</center>
+![](./images/tui-smartnode.png){ style="display: block; margin: 0 auto" }
 
 Use the `Arrow Keys` to move up and down between the settings.
 The currently selected one will have a white square at the end of it (if it's a text box or a check box), or will be highlighted in white (if it's a drop down).
@@ -811,11 +671,7 @@ The settings manager uses the following setting types and UI elements:
 Text boxes are used to enter arbitrary strings of text or numbers.
 They look like this:
 
-<center>
-
-![](./images/tui-textbox.png)
-
-</center>
+![](./images/tui-textbox.png){ style="display: block; margin: 0 auto" }
 
 Enter your desired values into them, then **press `Enter` or use the `Arrow Keys` to navigate to a different setting in order to preserve your changes.**
 If you don't, the Settings Manager will assume you're still updating that setting and won't mark it as changed yet.
@@ -826,42 +682,25 @@ If you don't, the Settings Manager will assume you're still updating that settin
 Drop downs are used to select an option from a list of choices.
 They look like this (when they're open):
 
-<center>
-
-![](./images/tui-dropdown-open.png)
-
-</center>
+![](./images/tui-dropdown-open.png){ style="display: block; margin: 0 auto" }
 
 The **green** item is the one that is currently selected.
 Use the `Arrow Keys` to change options - as you do, the **Description Box** on the right will update to tell you more about the currently selected option.
 When you're happy with your choice, press `Enter` to choose the selected option and the drop down will close, revealing the option that is currently selected:
 
-<center>
-
-![](./images/tui-dropdown-closed.png)
-
-</center>
-
+![](./images/tui-dropdown-closed.png){ style="display: block; margin: 0 auto" }
 
 #### Check Boxes
 
 Check boxes are used for simple Yes/No questions.
 They look like this:
 
-<center>
-
-![](./images/tui-checkbox-checked.png)
-
-</center>
+![](./images/tui-checkbox-checked.png){ style="display: block; margin: 0 auto" }
 
 When they are checked, they will have an `X` in the middle as you see above.
 When they are *unchecked*, they will simply be blank like this:
 
-<center>
-
-![](./images/tui-checkbox-unchecked.png)
-
-</center>
+![](./images/tui-checkbox-unchecked.png){ style="display: block; margin: 0 auto" }
 
 To change the setting, simply select it and press `Enter`.
 
@@ -873,11 +712,7 @@ As a reminder, to get to it, press the `Tab` key.
 
 You will be presented with a view that looks like this:
 
-<center>
-
-![](./images/tui-review.png)
-
-</center>
+![](./images/tui-review.png){ style="display: block; margin: 0 auto" }
 
 The **Review Box** here will present all of the settings you've changed, showing the old values and the new ones.
 For example, the first line here shows that the **RPL Claim Gas Threshold** used to be `150`, and it's been changed to `40`.

@@ -37,20 +37,12 @@ Follow the instructions on their site to install the extension, create an accoun
 Next, open the MetaMask panel using its icon in your browser toolbar.
 Click on the **network dropdown** in the toolbar at the top and ensure that **Ethereum Mainnet** is selected:
 
-<center>
-
-![](./images/mm_network_main.png)
-
-</center>
+![](./images/mm_network_main.png){ style="display: block; margin: 0 auto" }
 
 Finally, add the rETH token to MetaMask so you can see your balance and access it for trading.
 Click the **Assets** tab, then click **Add Token**:
 
-<center>
-
-![](./images/mm_add_token.png)
-
-</center>
+![](./images/mm_add_token.png){ style="display: block; margin: 0 auto" }
 
 Ensure that **Custom Token** is selected in this dialog.
 In the **Token Contract Address** box, put the following value:
@@ -75,11 +67,7 @@ Now that your wallet is set up and funded, head to this URL which will open Bala
 
 The page will look like this initially:
 
-<center>
-
-![](./images/balancer.png)
-
-</center>
+![](./images/balancer.png){ style="display: block; margin: 0 auto" }
 
 Click on the `Connect wallet` button in the top-right corner.
 You will be prompted with a screen that asks you which wallet provider you want to use.
@@ -95,22 +83,14 @@ Click **Next**.
 
 It will then ask if you would like to give Balancer access to view the addresses of your accounts:
 
-<center>
-
-![](./images/bal_connect.png)
-
-</center>
+![](./images/bal_connect.png){ style="display: block; margin: 0 auto" }
 
 Click **Connect** and after a brief pause window, your wallet will be connected to Balancer.
 You should now see its ETH balance in the top left side of the screen.
 
 Now, enter the amount of ETH you want to swap and Balancer's UI will show you the amount of rETH you will receive in return:
 
-<center>
-
-![](./images/bal_swap.png)
-
-</center>
+![](./images/bal_swap.png){ style="display: block; margin: 0 auto" }
 
 ::: warning NOTE
 Notice that the amount of rETH you receive will be **less than** the amount of ETH you put in.
@@ -122,11 +102,7 @@ Click **Preview** to see the details of the trade, including the minimum amount 
 If you're satisfied, click **Confirm trade**.
 This will send the request to MetaMask, where you can review the total transaction cost before confirming it:
 
-<center>
-
-![](./images/mm_gas.png)
-
-</center>
+![](./images/mm_gas.png){ style="display: block; margin: 0 auto" }
 
 ::: warning NOTE
 Pay **close attention** to the estimated gas fee here, highlighted in red.
@@ -151,11 +127,7 @@ Head to this URL which will open Uniswap and automatically show swapping ETH for
 ::: warning NOTE
 You may initially be prompted with a warning that looks like this:
 
-<center>
-
-![](./images/unknown_token.jpg)
-
-</center>
+![](./images/unknown_token.jpg){ style="display: block; margin: 0 auto" }
 
 This is just a temporary warning until Uniswap adds rETH to its canonical token list.
 As long as the token address is `0xae78736cd615f374d3085123a210448e74fc6393`, you can add it safely.
@@ -163,11 +135,7 @@ As long as the token address is `0xae78736cd615f374d3085123a210448e74fc6393`, yo
 
 The page will look like this initially:
 
-<center>
-
-![](./images/uni_connect.png)
-
-</center>
+![](./images/uni_connect.png){ style="display: block; margin: 0 auto" }
 
 Click on one of the `Connect Wallet` buttons such as the highlighted one in the top-right corner.
 You will be prompted with a screen that asks you which wallet provider you want to use.
@@ -183,22 +151,14 @@ Click **Next**.
 
 It will then ask if you would like to give Uniswap access to view the addresses of your accounts:
 
-<center>
-
-![](./images/mm_connect.png)
-
-</center>
+![](./images/mm_connect.png){ style="display: block; margin: 0 auto" }
 
 Click **Connect** and after a brief pause window, your wallet will be connected to Uniswap.
 You should now see its ETH balance in the top right corner of the screen.
 
 Now, enter the amount of ETH you want to swap and Uniswap's UI will show you the amount of rETH you will receive in return:
 
-<center>
-
-![](./images/uni_swap.png)
-
-</center>
+![](./images/uni_swap.png){ style="display: block; margin: 0 auto" }
 
 ::: warning NOTE
 Notice that the amount of rETH you receive will be **less than** the amount of ETH you put in.
@@ -210,11 +170,7 @@ Click **Swap** to see the details of the trade, including the minimum amount you
 If you're satisfied, click **Confirm Swap**.
 This will send the request to MetaMask, where you can review the total transaction cost before confirming it:
 
-<center>
-
-![](./images/mm_gas.png)
-
-</center>
+![](./images/mm_gas.png){ style="display: block; margin: 0 auto" }
 
 ::: warning NOTE
 Pay **close attention** to the estimated gas fee here, highlighted in red.

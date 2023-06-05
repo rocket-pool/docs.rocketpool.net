@@ -86,13 +86,9 @@ MEV-Boost is [open source](https://github.com/flashbots/mev-boost) and has been 
 
 Below is a good visual depiction of how the entire MEV ecosystem functions, and where MEV-Boost fits in:
 
-![](./images/mev-boost-integration-overview.png)
-
-<center>
+![](./images/mev-boost-integration-overview.png){ style="display: block; margin: 0 auto" }
 
 *Image courtesy of Flashbots*
-
-</center>
 
 The Rocket Pool Smartnode comes with MEV-Boost directly bundled in by default, enabling our **Docker Mode** and **Hybrid Mode** node operators to seamlessly take advantage of it.
 **Native Mode** users will need to set it up manually.
@@ -150,21 +146,13 @@ To learn how to configure MEV-Boost, please select which mode you are using belo
 Configuring MEV-Boost is easy with the Smartnode's configuration TUI.
 Start by running `rocketpool service config` and navigate to the `MEV-Boost` option:
 
-<center>
-
-![](./images/tui-mev-boost.png)
-
-</center>
+![](./images/tui-mev-boost.png){ style="display: block; margin: 0 auto" }
 
 Check the box labeled `Enable MEV-Boost` to enable it.
 
 Once enabled, The screen will look like this (*as of Smartnode v1.7.0*):
 
-<center>
-
-![](./images/tui-mev-boost-main.png)
-
-</center>
+![](./images/tui-mev-boost-main.png){ style="display: block; margin: 0 auto" }
 
 Below is a description of each option and how to use them.
 
@@ -193,21 +181,13 @@ See below for instructions on how to check that it's working as expected.
 Configuring MEV-Boost is easy with the Smartnode's configuration TUI.
 Start by running `rocketpool service config` and navigate to the `MEV-Boost` option:
 
-<center>
-
-![](./images/tui-mev-boost.png)
-
-</center>
+![](./images/tui-mev-boost.png){ style="display: block; margin: 0 auto" }
 
 Check the box labeled `Enable MEV-Boost` to enable it.
 
 Once enabled, The screen will look like this (*as of Smartnode v1.7.0*):
 
-<center>
-
-![](./images/tui-mev-boost-main.png)
-
-</center>
+![](./images/tui-mev-boost-main.png){ style="display: block; margin: 0 auto" }
 
 Check the box labeled `Enable MEV-Boost` to enable it.
 

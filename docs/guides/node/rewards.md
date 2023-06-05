@@ -111,21 +111,13 @@ rocketpool node claim-rewards
 
 As intervals go by and you accumulate rewards, the output will look like this:
 
-<center>
-
-![](./images/claim-rewards-gb.png)
-
-</center>
+![](./images/claim-rewards-gb.png){ style="display: block; margin: 0 auto" }
 
 Here you can quickly see how many rewards you've earned at each interval, and can decide which one(s) you want to claim.
 
 You can also specify an amount you want to restake during this claim:
 
-<center>
-
-![](./images/autostake.png)
-
-</center>
+![](./images/autostake.png){ style="display: block; margin: 0 auto" }
 
 This will let you compound your RPL rewards in one transaction, which saves on gas costs.
 

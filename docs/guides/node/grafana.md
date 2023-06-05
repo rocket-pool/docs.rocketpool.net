@@ -490,20 +490,12 @@ rocketpool service start
 
 To test the SMTP settings, go to the **Alerting** menu and click **Contact points**.
 
-<center>
-
-![](./images/grafana-contact-points.png)
-
-</center>
+![](./images/grafana-contact-points.png){ style="display: block; margin: 0 auto" }
 
 Click **New contact point** and select **Email** as the Contact point type.
 Enter an email address in the **Addresses** section and click **Test**.
 
-<center>
-
-![](./images/grafana-new-contact-point.png)
-
-</center>
+![](./images/grafana-new-contact-point.png){ style="display: block; margin: 0 auto" }
 
 Check to see that the test email was received.
 Click **Save contact point*** when finished.

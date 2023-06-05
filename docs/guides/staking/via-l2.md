@@ -48,11 +48,7 @@ Follow the instructions on their site to install the extension, create an accoun
 Next, open the MetaMask panel using its icon in your browser toolbar.
 Click on the **network dropdown** in the toolbar at the top and ensure that **Ethereum Mainnet** is selected:
 
-<center>
-
-![](./images/mm_network_main.png)
-
-</center>
+![](./images/mm_network_main.png){ style="display: block; margin: 0 auto" }
 
 The address directly below that is your **Ethereum wallet address**.
 
@@ -71,11 +67,7 @@ Navigate to the Hop exchange website here:
 
 The home screen should look like this:
 
-<center>
-
-![](./images/hop.png)
-
-</center>
+![](./images/hop.png){ style="display: block; margin: 0 auto" }
 
 Start by clicking on the **Connect a Wallet** button in the top right corner.
 You will be prompted with a screen that asks you which wallet provider you want to use.
@@ -91,11 +83,7 @@ Click **Next**.
 
 It will then ask if you would like to give Hop access to view the addresses of your accounts:
 
-<center>
-
-![](./images/hop_connect.png)
-
-</center>
+![](./images/hop_connect.png){ style="display: block; margin: 0 auto" }
 
 Click **Connect** and after a brief pause, your wallet will be connected to Hop.
 You should now see its ETH balance in the top right corner of the screen.
@@ -104,11 +92,7 @@ Now, you can use the two dropdowns in the **From** and **To (estimated)** boxes 
 
 For example, this is what it would look like to send 0.1 ETH from Layer 1 to Arbitrum:
 
-<center>
-
-![](./images/hop_send.png)
-
-</center>
+![](./images/hop_send.png){ style="display: block; margin: 0 auto" }
 
 ::: warning NOTE
 As a reminder, Uniswap (and thus Rocket Pool staking) is currently **only supported on Optimism and Arbitrum**.
@@ -118,12 +102,7 @@ You must select one of those networks.
 When you're ready, click the **Send** button.
 Metamask will pop up with a confirmation dialog that shows you the gas fee associated with the transaction:
 
-
-<center>
-
-![](./images/hop_confirm.png)
-
-</center>
+![](./images/hop_confirm.png){ style="display: block; margin: 0 auto" }
 
 If you are comfortable with those gas fees, click **Confirm** to begin the transaction.
 After a few moments, MetaMask will pop up with a successful transaction confirmation message, and your ETH will now be available on your Layer 2 network of choice!
@@ -137,11 +116,7 @@ Now that your wallet is set up and funded, head to this URL which will open Unis
 
 The page will look like this initially:
 
-<center>
-
-![](./images/uni_connect.png)
-
-</center>
+![](./images/uni_connect.png){ style="display: block; margin: 0 auto" }
 
 Click on one of the `Connect Wallet` buttons such as the highlighted one in the top-right corner.
 You will be prompted with a screen that asks you which wallet provider you want to use.
@@ -159,19 +134,11 @@ You should now see its ETH balance in the top right corner of the screen.
 The first thing to do is change your network from the Ethereum mainnet to the Layer 2 you just swapped to.
 Click on the network dropdown at the top right of the screen (highlighted in red here):
 
-<center>
-
-![](./images/uni_network.png)
-
-</center>
+![](./images/uni_network.png){ style="display: block; margin: 0 auto" }
 
 Once you do, MetaMask will prompt you to confirm that you want to add a custom network:
 
-<center>
-
-![](./images/uni_net_confirm.png)
-
-</center>
+![](./images/uni_net_confirm.png){ style="display: block; margin: 0 auto" }
 
 Click **Approve** and then click **Switch Network**.
 This will change MetaMask to use the new Layer 2 network instead of Ethereum's mainnet for transactions.
@@ -187,11 +154,7 @@ It's easy to accidentally switch to a different network and forget!
 The next step is to add the rETH token to MetaMask so you can see your balance and access it for trading.
 Click the **Assets** tab, then click **Add Token**:
 
-<center>
-
-![](./images/mm_add_token.png)
-
-</center>
+![](./images/mm_add_token.png){ style="display: block; margin: 0 auto" }
 
 Ensure that **Custom Token** is selected in this dialog, and select the appropriate tab for the Layer 2 network you chose below:
 
@@ -232,11 +195,7 @@ Click on the **Select a token** dropdown and enter the address for rETH that you
 ::: warning NOTE
 You may initially be prompted with a warning that looks like this:
 
-<center>
-
-![](./images/unknown_token.jpg)
-
-</center>
+![](./images/unknown_token.jpg){ style="display: block; margin: 0 auto" }
 
 This is just a temporary warning until Uniswap adds rETH to its canonical token list on the Layer you're using.
 As long as the token address is `0x9bcef72be871e61ed4fbbc7630889bee758eb81d` on Optimism or `0xec70dcb4a1efa46b8f2d97c310c9c4790ba5ffa8` on Arbitrum, you can add it safely.
@@ -244,11 +203,7 @@ As long as the token address is `0x9bcef72be871e61ed4fbbc7630889bee758eb81d` on 
 
 Next, enter the amount of ETH you want to swap and Uniswap's UI will show you the amount of rETH you will receive in return:
 
-<center>
-
-![](./images/arb_swap.png)
-
-</center>
+![](./images/arb_swap.png){ style="display: block; margin: 0 auto" }
 
 ::: warning NOTE
 Notice that the amount of rETH you receive will be **less than** the amount of ETH you put in.
@@ -260,11 +215,7 @@ Now click **Swap** to see the details of the trade, including the minimum amount
 If you're satisfied, click **Confirm Swap**.
 This will send the request to MetaMask, where you can review the total transaction cost before confirming it:
 
-<center>
-
-![](./images/arb_gas.png)
-
-</center>
+![](./images/arb_gas.png){ style="display: block; margin: 0 auto" }
 
 ::: tip NOTE
 Pay **close attention** to the estimated gas fee here.

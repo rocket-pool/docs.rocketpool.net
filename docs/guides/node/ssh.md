@@ -21,11 +21,7 @@ Powershell has SSH included, so you can use it right away without installing any
 
 You can find it by opening the Start menu and typing `Powershell` into the search bar; there will be several options, but option you want is simply called `Windows Powershell`:
 
-<center>
-
-![](./images/powershell.png)
-
-</center>
+![](./images/powershell.png){ style="display: block; margin: 0 auto" }
 
 This will open up a terminal with a blue background.
 You can use `ssh` from here - see below for instructions on how to do that.

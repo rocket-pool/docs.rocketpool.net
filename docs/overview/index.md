@@ -8,7 +8,7 @@ For more information on these two groups that make up the protocol, we'd highly 
 
 The core premise behind a protocol is to ensure the network is not beholden to any one party. This is a principle directly linked to Ethereum and ETH itself, and a mindset used at every stage of the process as Rocket Pool has evolved.
 
-[![A 10,000 foot view of the components which make up the Rocket Pool Staking Protocol](/images/rp-infographic-staking-protocol.png)](https://www.rocketpool.net/images/rp-infographic-staking-protocol.png)
+[![A 10,000 foot view of the components which make up the Rocket Pool Staking Protocol](/images/rp-infographic-staking-protocol.png)](/images/rp-infographic-staking-protocol.png){:target="_blank"}
 
 Rocket Pool strives to embody the core ethos of Ethereum and DeFi, specifically the non-custodial, trustless nature that allows self-sovereignty to truly thrive.
 

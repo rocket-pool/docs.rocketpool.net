@@ -66,11 +66,7 @@ The rETH/ETH exchange rate is updated approximately every 24 hours based on the 
 
 To illustrate this point, here is a chart of rETH's value (relative to ETH) over time - as expected, it demonstrates slow but steady growth:
 
-<center>
-
-![](./images/reth_rate.png)
-
-</center>
+![](./images/reth_rate.png){ style="display: block; margin: 0 auto" }
 
 Let's do a simple example as a demonstration.
 

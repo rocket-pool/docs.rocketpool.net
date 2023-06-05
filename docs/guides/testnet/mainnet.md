@@ -60,11 +60,7 @@ rocketpool service config
 
 Next, open the **Smartnode and TX Fees** category and change the **Network** drop down from `Prater Testnet` to `Ethereum Mainnet`:
 
-<center>
-
-![](../node/images/tui-change-network.png)
-
-</center>
+![](../node/images/tui-change-network.png){ style="display: block; margin: 0 auto" }
 
 When you save and exit, you will be prompted with a notification that everything is about to be erased and a confirmation dialog:
 

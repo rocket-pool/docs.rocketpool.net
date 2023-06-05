@@ -68,12 +68,7 @@ rocketpool node status
 
 The output will look like this:
 
-<center>
-
-![](../node/images/status-fee-distributor.png)
-
-</center>
-
+![](../node/images/status-fee-distributor.png){ style="display: block; margin: 0 auto" }
 
 ### Initializing the Fee Distributor
 
@@ -116,11 +111,7 @@ If you've ever had a streak of bad luck and gone months without a proposal, or i
 
 To make the math easy to understand, community member Ken Smith has put together a [massive analysis](https://raw.githubusercontent.com/htimsk/SPanalysis/main/report/Analysis%20of%20the%20Smoothing%20Pool.pdf) comparing the profitability of the Smoothing Pool and the Fee Distributor, which is summarized nicely with this chart:
 
-<center>
-
-![](../node/images/sp-chart.png)
-
-</center>
+![](../node/images/sp-chart.png){ style="display: block; margin: 0 auto" }
 
 In short, as long as the Smoothing Pool has more minipools than you do, it's more likely that you'll come out ahead by joining it. You can view how many nodes and minipools are opted in using community member Peteris's excellent [Rocketscan website](https://rocketscan.io/smoothingpool).
 

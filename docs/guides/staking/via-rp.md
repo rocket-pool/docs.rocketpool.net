@@ -27,20 +27,12 @@ Follow the instructions on their site to install the extension, create an accoun
 Next, open the MetaMask panel using its icon in your browser toolbar.
 Click on the **network dropdown** in the toolbar at the top and select **Goerli Test Network**:
 
-<center>
-
-![](./images/mm_network.png)
-
-</center>
+![](./images/mm_network.png){ style="display: block; margin: 0 auto" }
 
 Finally, add the rETH token to MetaMask so you can see your balance and access it for trading.
 Click the **Assets** tab, then click **Add Token**:
 
-<center>
-
-![](./images/mm_add_token.png)
-
-</center>
+![](./images/mm_add_token.png){ style="display: block; margin: 0 auto" }
 
 Ensure that **Custom Token** is selected in this dialog.
 In the **Token Contract Address** box, put the following value:
@@ -60,11 +52,7 @@ Once you have some Goerli ETH to test with, head to [https://testnet.rocketpool.
 
 The page should look like this:
 
-<center>
-
-![](./images/rp_test_site.png)
-
-</center>
+![](./images/rp_test_site.png){ style="display: block; margin: 0 auto" }
 
 If you see a notice about a web3 browser being required, or the current network ID being unsupported, make sure you’ve completed the previous steps correctly before continuing.
 
@@ -77,20 +65,12 @@ Follow the instructions on their site to install the extension, create an accoun
 Next, open the MetaMask panel using its icon in your browser toolbar.
 Click on the **network dropdown** in the toolbar at the top and ensure that **Ethereum Mainnet** is selected:
 
-<center>
-
-![](./images/mm_network_main.png)
-
-</center>
+![](./images/mm_network_main.png){ style="display: block; margin: 0 auto" }
 
 Finally, add the rETH token to MetaMask so you can see your balance and access it for trading.
 Click the **Assets** tab, then click **Add Token**:
 
-<center>
-
-![](./images/mm_add_token.png)
-
-</center>
+![](./images/mm_add_token.png){ style="display: block; margin: 0 auto" }
 
 Ensure that **Custom Token** is selected in this dialog.
 In the **Token Contract Address** box, put the following value:
@@ -110,11 +90,7 @@ Once you have some ETH to stake, head to [https://stake.rocketpool.net/](https:/
 
 The page should look like this:
 
-<center>
-
-![](./images/rp_test_site.png)
-
-</center>
+![](./images/rp_test_site.png){ style="display: block; margin: 0 auto" }
 
 If you see a notice about a web3 browser being required, or the current network ID being unsupported, make sure you’ve completed the previous steps correctly before continuing.
 
@@ -126,21 +102,13 @@ Once you're at the site, click on the **connect wallet** button. Please read thr
 MetaMask will prompt you to select an account to connect to the website.
 Choose one, confirm a few permissions, and you’ll see your balances update in the UI. You can also see an overview of your balances by clicking the wallet icon located at the top right of the window.
 
-<center>
-
-![](https://cdn-rocketpool.s3.us-west-2.amazonaws.com/rp_balances.mp4)
-
-</center>
+![](https://cdn-rocketpool.s3.us-west-2.amazonaws.com/rp_balances.mp4){ style="display: block; margin: 0 auto" }
 
 Now, all that's left to do is deposit your ETH and receive some rETH back!
 
 Enter the amount of ETH you want to deposit in the **Stake ETH** input field on the screen, then click the **Stake** button.
 
-<center>
-
-![](https://cdn-rocketpool.s3.us-west-2.amazonaws.com/stake.mp4)
-
-</center>
+![](https://cdn-rocketpool.s3.us-west-2.amazonaws.com/stake.mp4){ style="display: block; margin: 0 auto" }
 
 MetaMask will pop up with a window asking you to confirm your transaction.
 
@@ -163,11 +131,7 @@ All you need to do is hold onto your rETH, and you'll automatically gain your st
 
 When you're ready to unstake and trade your rETH back for ETH, head back to the staking website and click on the **double arrow button** in the middle of the trade amounts dialog to switch to rETH mode:
 
-<center>
-
-![](https://cdn-rocketpool.s3.us-west-2.amazonaws.com/unstake.mp4)
-
-</center>
+![](https://cdn-rocketpool.s3.us-west-2.amazonaws.com/unstake.mp4){ style="display: block; margin: 0 auto" }
 
 As with staking, enter an amount of rETH to unstake and click the **Unstake** button.
 Once again, a confirmation dialog will appear in MetaMask.

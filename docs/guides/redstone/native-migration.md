@@ -169,19 +169,11 @@ The rETH address is always safe no matter what.
 
 **Once Redstone has been deployed**, you can see the exact address that you should set your fee recipient to via `rocketpool node status`. For example, if you are opted into the Smoothing Pool, it will show the Smoothing Pool's address and note that you must use it as your fee recipient:
 
-<center>
-
-![](../node/images/native-fee-rc-in.png)
-
-</center>
+![](../node/images/native-fee-rc-in.png){ style="display: block; margin: 0 auto" }
 
 If you are *not* opted into the Smoothing Pool, it will show your fee distributor address and note that you must use it as your fee recipient:
 
-<center>
-
-![](../node/images/native-fee-rc-out.png)
-
-</center>
+![](../node/images/native-fee-rc-out.png){ style="display: block; margin: 0 auto" }
 
 Select your Consensus client below to learn how to configure it.
 

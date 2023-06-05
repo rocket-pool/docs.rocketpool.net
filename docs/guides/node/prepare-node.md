@@ -116,26 +116,26 @@ Note that Ledger Live will not show your balance on the test network, but other 
 1. Run `rocketpool node set-withdrawal-address <your cold wallet address or ENS name>`. Your new withdrawal address will be marked as "pending". Until you confirm it, **your old withdrawal address will still be used**.
 2. To confirm it, you must send a special transaction **from your new withdrawal address** to the minipool contract to verify that you own the withdrawal address.
    1. The easiest way to do this is to navigate to the Rocket Pool withdrawal address site (for the [Prater Testnet](https://testnet.rocketpool.net/withdrawal/) or for [Mainnet](https://stake.rocketpool.net/withdrawal/)).
-   2. If you haven't already connected Metamask or WalletConnect to the Rocket Pool website, do this now. Click the **select wallet** button in the center of the screen, and choose MetaMask or WalletConnect based on which wallet you would like to use. You will then be prompted asking you to confirm the connection. For example, using MetaMask:
-   <center>
-   ![](./images/connect-metamask.png)
-   </center>
+2. If you haven't already connected Metamask or WalletConnect to the Rocket Pool website, do this now. Click the **select wallet** button in the center of the screen, and choose MetaMask or WalletConnect based on which wallet you would like to use. You will then be prompted asking you to confirm the connection. For example, using MetaMask:
+
+   ![](./images/connect-metamask.png){ style="display: block; margin: 0 auto" }
+   
    Click **Next**, then click **Confirm** to enable the Rocket Pool website to use your wallet.
    3. Select **Withdrawal Address** from the top menu (or the hamburger menu on the left side if you're on a mobile device).
    4. You will see this prompt:
-   <center>
-   ![](./images/node-address.png)
-   </center>
+   
+   ![](./images/node-address.png){ style="display: block; margin: 0 auto" }
+3. 
    Type your **node wallet address** here and click on the **Check Mark button** to continue.
-   5. You will be prompted with a question asking if you want to set a new node withdrawal address or confirm a pending one. Select **Confirm**.
-   6. Now, there should be a new confirmation dialog in your wallet. Again, using MetaMask as an example, click the MetaMask icon to open it and you should see something like this:
-   <center>
-   ![](./images/confirm-address.png)
-   </center>
+   1. You will be prompted with a question asking if you want to set a new node withdrawal address or confirm a pending one. Select **Confirm**.
+   2. Now, there should be a new confirmation dialog in your wallet. Again, using MetaMask as an example, click the MetaMask icon to open it and you should see something like this:
+   
+   ![](./images/confirm-address.png){ style="display: block; margin: 0 auto" }
+
    Click **Confirm** to send the transaction to the network. This will take some time until it gets mined, but once it does, you will see a confirmation dialog:
-   <center>
-   ![](./images/confirmed.png)
-   </center>
+
+   ![](./images/confirmed.png){ style="display: block; margin: 0 auto" }
+
 3. Your new withdrawal address will now be confirmed and activated. You can view this with `rocketpool node status`.
 
 

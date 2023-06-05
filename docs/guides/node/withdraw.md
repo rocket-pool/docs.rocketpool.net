@@ -36,11 +36,7 @@ If you need the validator public key for the minipool you just exited, you can r
 You can view your validator's exit status on a Beacon Chain explorer such as [https://beaconcha.in](https://beaconcha.in) (or [https://prater.beaconcha.in](https://prater.beaconcha.in) for the Prater Testnet).
 It will take some time for your status to be updated, but once it is you will see it in the "exiting" state:
 
-<center>
-
-![](./images/exiting.png)
-
-</center>
+![](./images/exiting.png){ style="display: block; margin: 0 auto" }
 
 Here you can see the Status is `Exiting`, the epoch it will exit on is highlighted (5224), and the "Exited" icon will be pulsing green to indicate the operation is in progress.
 It may take some time for your validator to exit, *especially* if there are a large number of validators exiting the Beacon Chain at the same time; the protocol is designed to only allow a small number of validators to exit per epoch so you may have to wait your turn.
@@ -48,11 +44,7 @@ It may take some time for your validator to exit, *especially* if there are a la
 Once your exit epoch has passed, your validator will officially exit the chain and will no longer attest or propose blocks.
 You can confirm this in your Validator Client logs, or on the explorer:
 
-<center>
-
-![](./images/exited.png)
-
-</center>
+![](./images/exited.png){ style="display: block; margin: 0 auto" }
 
 The status has changed to `Exited` and there is some text underneath that indicates your **withdrawable epoch** (which should be 256 epochs after you exit, or about 27 hours).
 Beaconcha.in also conveniently provides the local timestamps for when your validator will exit and when it will be withdrawable.

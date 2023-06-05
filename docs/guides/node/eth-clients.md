@@ -12,13 +12,11 @@ Otherwise, read on to learn more about your choices for Execution and Consensus 
 ::: warning NOTE
 As of March 2023, the distribution of clients on the Beacon Chain looks roughly like this:
 
-<center>
 
-![](./images/ethereum-client-diversity.png)
+![](./images/ethereum-client-diversity.png){ style="display: block; margin: 0 auto" }
 
 *Data obtained from [https://clientdiversity.org](https://clientdiversity.org)*
 
-</center>
 
 The overwhelming majority of node operators are currently using Geth as an Execution Client and either Prysm or Lighthouse as a Consensus Client.
 In the interest of supporting the health of the Execution Layer (formerly ETH1) and the Beacon Chain (formerly ETH2), we currently recommend that you consider using different clients.

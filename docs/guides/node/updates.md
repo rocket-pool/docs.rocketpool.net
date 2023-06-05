@@ -318,20 +318,12 @@ rocketpool service config
 To change the Execution client version, go to the **Execution Client (ETH1)** category.
 Modify the **Container Tag** setting:
 
-<center>
-
-![](./images/tui-ec-container-tag.png)
-
-</center>
+![](./images/tui-ec-container-tag.png){ style="display: block; margin: 0 auto" }
 
 To change the Consensus client version, go to the **Consensus Client (ETH2)** category.
 Modify the **Container Tag** setting:
 
-<center>
-
-![](./images/tui-cc-container-tag.png)
-
-</center>
+![](./images/tui-cc-container-tag.png){ style="display: block; margin: 0 auto" }
 
 ::: warning NOTE
 This process is slightly different for **Prysm**, because the Smartnode stack needs to use the *DEBUG* images that Prysm provides instead of the normally versioned ones.

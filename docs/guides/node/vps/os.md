@@ -11,11 +11,7 @@ You should be able to extrapolate how to apply these steps to any provider once 
 The first step is to [create an AWS account](https://portal.aws.amazon.com/billing/signup) if you don't already have one.
 Follow the instructions provided in that link or log in with an existing account, and you will eventually make it to your management console dashboard:
 
-<center>
-
-![](./images/aws-console.png)
-
-</center>
+![](./images/aws-console.png){ style="display: block; margin: 0 auto" }
 
 Next, click on the drop-down at the top right of the screen to select the geographic region you want your server to physically reside in.
 Servers cannot be moved between regions once they're created, so you want to ensure you're happy with the currently selected option before actually creating the server.
@@ -24,11 +20,8 @@ Now, click **Services** in the toolbar.
 Go to the **Compute** section and select **EC2**.
 Your dashboard should change to a view similar to this:
 
-<center>
+![](./images/ec2-dashboard.png){ style="display: block; margin: 0 auto" }
 
-![](./images/ec2-dashboard.png)
-
-</center>
 
 Click the orange **Launch Instance** button and select **Launch Instance** from the list of options to create a new machine.
 You will be presented with a marketplace of Amazon Machine Images.
@@ -96,11 +89,7 @@ If you cannot procure a static address, you will have to go to the AWS console a
 
 The security group table should now resemble this:
 
-<center>
-
-![](./images/security-group.png)
-
-</center>
+![](./images/security-group.png){ style="display: block; margin: 0 auto" }
 
 Now, review all of the instance details to make sure you're happy with them, and click **Launch** when you're satisfied.
 When the **SSH key pair** prompt appears, select **Create a new key pair**.
