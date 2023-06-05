@@ -28,7 +28,7 @@ export default defineConfig({
       },
     },
     editLink: {
-      pattern: "https://github.com/rocket-pool/docs.rocketpool.net/edit/main/src/:path",
+      pattern: "https://github.com/rocket-pool/docs.rocketpool.net/edit/main/docs/:path",
       text: "Suggest changes to this page",
     },
     socialLinks: [
