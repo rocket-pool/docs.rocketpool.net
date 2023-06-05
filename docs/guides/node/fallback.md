@@ -3,7 +3,7 @@
 Starting with **1.5.0** of the Smartnode stack, you can provide a "fallback" Execution client and Consensus client pair that can take over for your primary clients if they ever go offline (such as because [you use Geth and need to prune it](./pruning)).
 In this situation, your primary node machine will still be responsible for attesting and proposing blocks with your minipools' validator keys, but it will connect to an external machine to interact with the Execution layer and Beacon chains.
 
-Essentially, it allows you to *temporarily* use another pair of clients for things like querying the chains, sending transactions, and receiving blocks to attest to.
+Essentially, it allows you to _temporarily_ use another pair of clients for things like querying the chains, sending transactions, and receiving blocks to attest to.
 This pair can be externally managed (like Hybrid mode), or it can be another Rocket Pool node (another Docker mode machine that has the API ports exposed, which we'll cover below).
 
 Once your node's primary clients are back online, the Smartnode and your Validator client will switch back to them automatically.
@@ -15,19 +15,17 @@ Fallback nodes have an Execution and Consensus client pair synced to the chain a
 If your main node ever goes offline, **your fallback will not start validating for you.**
 :::
 
-
 ## Supported Clients
 
 As of v1.9.0, all our supported validator clients have added Fallback support with only a few limitations:
 
 | Name       | Supports Fallback | Valid Fallback Clients                                                       |
-|------------|-------------------|------------------------------------------------------------------------------|
+| ---------- | ----------------- | ---------------------------------------------------------------------------- |
 | Lighthouse | Yes               | Any (doppelganger protection off)<br>Lighthouse (doppelganger protection on) |
 | Nimbus     | Yes               | Any                                                                          |
 | Prysm      | Yes               | Prysm                                                                        |
 | Teku       | Yes               | Any                                                                          |
 | Lodestar   | Yes               | Any                                                                          |
-
 
 ## Setting up a New Node (Docker Mode)
 
@@ -42,20 +40,22 @@ If you already have a 2nd node ready and have its RPC ports exposed, feel free t
 1. Follow the steps in the guide on setting up a node ([local](./local/hardware) or [remote](./vps/providers)).
 2. Once the machine is ready, [install the Smartnode stack](./docker).
 3. Run `rocketpool service config` to specify which clients you'd like to use.
+
    1. When you get to the end of the wizard and it asks if you'd like to review your settings, select **Yes**.
    2. Enter the `Execution Client` settings.
    3. Check the `Expose RPC Ports` box:
 
-    ![](./images/tui-ec-expose-ports.png){ style="display: block; margin: 0 auto" }
-    
-    4. Go back and enter the `Consensus Client` settings.
-    5. Check the `Expose API Port` box (and, if you're using **Prysm**, the `Expose RPC Port` box as well):
+   ![](./images/tui-ec-expose-ports.png){ style="display: block; margin: 0 auto" }
 
-    ![](./images/tui-cc-expose-ports.png){ style="display: block; margin: 0 auto" }
+   4. Go back and enter the `Consensus Client` settings.
+   5. Check the `Expose API Port` box (and, if you're using **Prysm**, the `Expose RPC Port` box as well):
 
-    6. Save the settings and start the Smartnode.
+   ![](./images/tui-cc-expose-ports.png){ style="display: block; margin: 0 auto" }
+
+   6. Save the settings and start the Smartnode.
 
 4. Skip to the [Securing your Node](./securing-your-node) guide to set up SSH and the proper security posture on it.
+
    1. If you have `ufw` installed, you will need to add rules to allow incoming traffic to the API ports (`8545`, `8546`, and `5052` by default; also `5053` if you're using **Prysm**).
 
 5. That's it! You can stop here.
@@ -66,7 +66,6 @@ Leave this node without a wallet and without validator keys.
 
 Its only job is to have a synced Execution client and Consensus client.
 :::
-
 
 ## Connecting your Main Node to the Fallback Node
 
@@ -84,7 +83,7 @@ The final page should look like this:
 ::: tip NOTE
 **Native mode** users can follow the same steps, though the TUI will look slightly different from the above screenshot.
 
-Note that this will only provide the **Smartnode itself** (the daemon service) with fallback support; **you will have to update your Validator client service's arguments manually to give it access to the fallback clients.** 
+Note that this will only provide the **Smartnode itself** (the daemon service) with fallback support; **you will have to update your Validator client service's arguments manually to give it access to the fallback clients.**
 :::
 
 Press `enter` on the final box to ensure that it's confirmed, then save the settings and apply the changes.
@@ -104,7 +103,6 @@ Your fallback consensus client is fully synced.
 
 If it shows that both the fallback Execution and Consensus client are synced, then you're all set!
 
-
 ## Testing the Fallback Clients
 
 If you'd like to be absolutely sure that your configuration is going to work by testing the fallback clients, simply stop the Execution and Consensus clients on your main node:
@@ -113,7 +111,7 @@ If you'd like to be absolutely sure that your configuration is going to work by 
 docker stop rocketpool_eth1 rocketpool_eth2
 ```
 
-Then run any command that queries the chain, such as  `rocketpool network stats`.
+Then run any command that queries the chain, such as `rocketpool network stats`.
 You will see a warning message at the top indicating that one (or both) of your primary clients are offline, and that it's reverting to the fallback clients:
 
 ```
@@ -157,7 +155,6 @@ docker start rocketpool_eth1 rocketpool_eth2
 
 And you're done!
 Your fallback setup is working.
-
 
 ## Next Steps
 

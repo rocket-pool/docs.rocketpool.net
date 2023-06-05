@@ -3,7 +3,7 @@
 In this section, we'll go over the various methods for configuring the Smartnode if you're using the **Native setup** that doesn't use Docker at all.
 
 ::: warning NOTE
-If you're using a Docker-based setup, please visit the [Docker configuration guide](config-docker) instead. 
+If you're using a Docker-based setup, please visit the [Docker configuration guide](config-docker) instead.
 :::
 
 There are three ways to configure it:
@@ -13,7 +13,6 @@ There are three ways to configure it:
 - Headlessly via the [Command Line](#configuring-via-the-command-line) - this is an option for people who run the Smartnode in a headless (non-interactive) environment and need to configure it automatically.
 
 Choose which mode you'd like to learn more about from the list above, or simply scroll through each option below.
-
 
 ## Configuring via the Wizard
 
@@ -53,10 +52,9 @@ For example, on the screen above, you could press the `left` and `right` arrow k
 
 Pressing `Enter` while `Next` is selected will proceeed to the next screen.
 Pressing `Enter` while `Quit` is selected will quit the Wizard without saving.
-::: 
+:::
 
 When you're ready to begin, press `Next`.
-
 
 ### Choosing a Network
 
@@ -72,7 +70,6 @@ If you want to practice running a Rocket Pool node on the Prater test network wi
 
 If you're ready to create a real Rocket Pool node on Mainnet to earn real rewards, select **Mainnet**.
 
-
 ### Execution Client Setup
 
 The next screen will prompt you for the URL of your Execution client's HTTP-based RPC API:
@@ -83,7 +80,6 @@ Enter `http://127.0.0.1:8545` here if you plan to run an Execution client on the
 However, if you already have an Execution client set up elsewhere, use its URL here instead.
 
 Note that you can always change this by running `rp service config` again later.
-
 
 ### Consensus Client Setup
 
@@ -97,10 +93,8 @@ Next, you will see a screen prompting you for your client's API URL:
 
 ![](./images/tui-native-cc-url.png){ style="display: block; margin: 0 auto" }
 
-
 Enter `http://127.0.0.1:5052` here if you plan to run the Beacon Node of your Consensus client on the same machine as the Smartnode (in the rest of this guide, we will assume this is what you plan to do).
 However, if you already have a Beacon Node set up elsewhere, use its URL here instead.
-
 
 ### Other Settings
 
@@ -110,14 +104,12 @@ The next screen will have a few other miscellaneous settings:
 
 Leave these as the default options unless you have decided to use a directory other than `/srv/rocketpool` for your Smartnode installation.
 
-
 ### Fallback Clients
 
 Starting with 1.5.0 of the Smartnode stack, you can provide a "fallback" Execution client and Consensus client pair that can take over for your primary clients if they ever go offline (such as because you use Geth and need to prune it).
-In this situation, your primary node machine will still be responsible for attesting and proposing blocks with your minipools' validator keys, but it will connect to an external machine to interact with the Execution layer and Beacon chains. 
+In this situation, your primary node machine will still be responsible for attesting and proposing blocks with your minipools' validator keys, but it will connect to an external machine to interact with the Execution layer and Beacon chains.
 
 [To learn more about fall back nodes, see this section](./fallback) and return here when you're done.
-
 
 ### Metrics
 
@@ -137,18 +129,16 @@ Rocket Pool does not collect any of the telemetry or send it to a separate servi
 It's purely there for you to use so you can monitor your own node!
 :::
 
-
 ### MEV Configuration
 
 Since the Merge of the Execution and Consensus layers in September 2022, Ethereum validators now have the ability to earn priority fees and participate in Maximal Extractable Value (or MEV for short).
 
-Starting with Smartnode v1.7.0, MEV is now *opt-out* so a notification about configuring it is presented as part of the initial setup, as you see in the next screen:
+Starting with Smartnode v1.7.0, MEV is now _opt-out_ so a notification about configuring it is presented as part of the initial setup, as you see in the next screen:
 
 ![](./images/tui-native-mev.png){ style="display: block; margin: 0 auto" }
 
 [Please read our MEV guide to learn more about MEV, its configuration, and what to do in this section of the wizard.](./mev)
 Return here when you're finished.
-
 
 ### Completion
 
@@ -168,7 +158,6 @@ sudo systemctl restart rp-node rp-watchtower
 
 If you would like to review all of the settings and customize many additional settings that weren't included in the Wizard, click `Review All Settings` and go to the [next section](#configuring-via-the-settings-manager).
 
-
 ## Configuring via the Settings Manager
 
 If you've already run `rp service config`, instead of being greeted by the Wizard, you will see the **Settings Manager** screen:
@@ -184,7 +173,7 @@ There are three main features of this screen:
 ::: tip TIP
 To use the Settings Manager, **press the `Arrow Keys` (up/down/left/right) to navigate between options in the home page**.
 
-Press `Tab` to go **between the category list (1) and the buttons (2 and 3)** at the bottom of the screen. 
+Press `Tab` to go **between the category list (1) and the buttons (2 and 3)** at the bottom of the screen.
 The button that's currently selected will be **highlighted in green**.
 
 **Press `Enter` or `Space` to select a button**, analogous to clicking on it with the mouse.
@@ -194,7 +183,6 @@ The button that's currently selected will be **highlighted in green**.
 
 As you scroll through the categories list, each option will have a helpful description appear in the **Description Box** to the right of the screen.
 Feel free to explore them; nothing you do will be saved until you go through the Review dialog via the **Review Changes and Save** button, and you can press **Ctrl+C** at any time to exit without saving, so you won't accidentally mess something up by playing with the settings here.
-
 
 ### Configuring the Settings
 
@@ -219,7 +207,6 @@ As a reminder, nothing will be saved to disk until you go through the Review dia
 You are encouraged to explore all of the settings to learn about them.
 :::
 
-
 ### The Setting Types and How to Use Them
 
 The settings manager uses the following setting types and UI elements:
@@ -234,7 +221,6 @@ They look like this:
 Enter your desired values into them, then **press `Enter` or use the `Arrow Keys` to navigate to a different setting in order to preserve your changes.**
 If you don't, the Settings Manager will assume you're still updating that setting and won't mark it as changed yet.
 
-
 #### Drop Downs
 
 Drop downs are used to select an option from a list of choices.
@@ -248,7 +234,6 @@ When you're happy with your choice, press `Enter` to choose the selected option 
 
 ![](./images/tui-dropdown-closed.png){ style="display: block; margin: 0 auto" }
 
-
 #### Check Boxes
 
 Check boxes are used for simple Yes/No questions.
@@ -257,13 +242,11 @@ They look like this:
 ![](./images/tui-checkbox-checked.png){ style="display: block; margin: 0 auto" }
 
 When they are checked, they will have an `X` in the middle as you see above.
-When they are *unchecked*, they will simply be blank like this:
-
+When they are _unchecked_, they will simply be blank like this:
 
 ![](./images/tui-checkbox-unchecked.png){ style="display: block; margin: 0 auto" }
 
 To change the setting, simply select it and press `Enter`.
-
 
 ### Saving Changes
 
@@ -296,7 +279,6 @@ Otherwise, now you can restart your daemon services with:
 ```
 sudo systemctl restart rp-node rp-watchtower
 ```
-
 
 ## Configuring via the Command Line
 

@@ -11,7 +11,6 @@ When you have decided that you no longer want to run a minipool and want to acce
 
 We'll cover each step below.
 
-
 ### Sending the Exit Request
 
 If you want to exit the validator attached to a minipool, run the following command:
@@ -39,7 +38,7 @@ It will take some time for your status to be updated, but once it is you will se
 ![](./images/exiting.png){ style="display: block; margin: 0 auto" }
 
 Here you can see the Status is `Exiting`, the epoch it will exit on is highlighted (5224), and the "Exited" icon will be pulsing green to indicate the operation is in progress.
-It may take some time for your validator to exit, *especially* if there are a large number of validators exiting the Beacon Chain at the same time; the protocol is designed to only allow a small number of validators to exit per epoch so you may have to wait your turn.
+It may take some time for your validator to exit, _especially_ if there are a large number of validators exiting the Beacon Chain at the same time; the protocol is designed to only allow a small number of validators to exit per epoch so you may have to wait your turn.
 
 Once your exit epoch has passed, your validator will officially exit the chain and will no longer attest or propose blocks.
 You can confirm this in your Validator Client logs, or on the explorer:
@@ -51,7 +50,7 @@ Beaconcha.in also conveniently provides the local timestamps for when your valid
 
 Once it has entered the **withdrawable** state, your validator will be enqueued by the Beacon Chain for rewards distribution.
 This queue depends on how many validators are currently withdrawing.
-Once it's your turn, the Beacon Chain will *automatically* send your balance to your minipool's address on the Execution layer.
+Once it's your turn, the Beacon Chain will _automatically_ send your balance to your minipool's address on the Execution layer.
 At this point, you can access it using the Smartnode CLI to do a distribution.
 
 ### Distributing Full Rewards
@@ -91,21 +90,21 @@ You can verify it by looking at the transaction on a block explorer; for example
 At this point, your effective RPL will be updated to remove this minipool from the calculation.
 You can now unstake any RPL you have that would put you over the 150% limit.
 
-To unstake RPL against the node, run the following command: 
+To unstake RPL against the node, run the following command:
 
 ```
 rocketpool node withdraw-rpl
 ```
 
-
 ## A Note on the Old Delegate
 
 The **original minipool delegate** assigned to every minipool from Rocket Pool's launch until Atlas's deployment was built with two assumptions in mind:
+
 1. The only time your minipool will ever have a balance is after the validator has exited the Beacon Chain.
 2. The Oracle DAO will change your minipool's state from "staking" to "withdrawable" once the balance has been transferred from the Beacon Chain to the minipool contract.
 
 The first point is clearly no longer relevant now that Ethereum is being upgraded to support skimming.
-The second point is *also* no longer true, because the Oracle DAO is **no longer** going to flag "withdrawable" minipools.
+The second point is _also_ no longer true, because the Oracle DAO is **no longer** going to flag "withdrawable" minipools.
 This was an intentional design decision to reduce the power that the Oracle DAO yields over Rocket Pool node operators and allow them to access rewards without any supplemental requirement on trusted parties.
 
 Because of these deficiencies, the Smartnode CLI **no longer supports** withdrawals or fund distribution on the original minipool delegate.
@@ -113,8 +112,9 @@ If you'd like to access your rewards, you **must** upgrade to the Atlas delegate
 
 ::: danger DANGER
 If you are an advanced user and bypass the CLI to invoke the distribution functionality on the contract directly via a third-party tool, be advised of the following things:
+
 1. The delegate's distribution function will revert if the minipool's balance is **below 16 ETH**. Balances below 16 ETH **cannot be accessed.**
-2. If the minipool has **between 16 and 32 ETH** in its balance, distribution by the original delegate will assume your validator has been **slashed**. It will return 16 ETH to the staking pool and give you whatever is left over. It will *only* function properly if the minipool balance is above 32 ETH.
+2. If the minipool has **between 16 and 32 ETH** in its balance, distribution by the original delegate will assume your validator has been **slashed**. It will return 16 ETH to the staking pool and give you whatever is left over. It will _only_ function properly if the minipool balance is above 32 ETH.
 3. The minipool will never enter the `finalized` state because the Oracle DAO will never mark it as `withdrawable`, so even though you may be able to access your ETH, **your RPL will be locked** until you upgrade to the Atlas delegate.
 
 Because of these points, we **strongly recommend** you just upgrade to the Atlas delegate in the first place and avoid them entirely.

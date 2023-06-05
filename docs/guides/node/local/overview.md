@@ -2,7 +2,6 @@
 
 This section is aimed at helping you understand the process of preparing a local machine for use as a Rocket Pool node at home.
 
-
 ## Guides
 
 [Selecting Staking Hardware](./hardware) shows a wide variety of viable hardware configurations for node operation, hopefully helping you find inspiration when picking what to get for yourself.

@@ -12,9 +12,9 @@ Create a new Network instance.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `web3` | `default` | A valid Web3 instance |
+| Name        | Type                     | Description                             |
+| :---------- | :----------------------- | :-------------------------------------- |
+| `web3`      | `default`                | A valid Web3 instance                   |
 | `contracts` | [`Contracts`](Contracts) | A Rocket Pool contract manager instance |
 
 #### Defined in
@@ -39,7 +39,7 @@ a Promise<Contract\> with a web3.eth.contract instance of the rocketNetworkBalan
 
 rocketpool/network/network.ts:24
 
-___
+---
 
 ### rocketNetworkFees
 
@@ -57,7 +57,7 @@ a Promise<Contract\> with a web3.eth.contract instance of the rocketNetworkFees 
 
 rocketpool/network/network.ts:32
 
-___
+---
 
 ### rocketNetworkPrices
 
@@ -84,6 +84,7 @@ rocketpool/network/network.ts:40
 Get the block that current network balances are set for
 
 **`example`** using Typescript
+
 ```ts
 const block = rp.network.getBalancesBlock().then((val: number) => { val };
 ```
@@ -99,7 +100,7 @@ set for
 
 rocketpool/network/network.ts:54
 
-___
+---
 
 ### getTotalETHBalance
 
@@ -108,6 +109,7 @@ ___
 Get the current network total ETH balance in Wei
 
 **`example`** using Typescript
+
 ```ts
 const balanceInWei = rp.network.getTotalETHBalance().then((val: string) => { val };
 // convert to Ether if needed
@@ -124,7 +126,7 @@ a Promise<string\> that resolves to a string representing the current network to
 
 rocketpool/network/network.ts:73
 
-___
+---
 
 ### getStakingETHBalance
 
@@ -133,6 +135,7 @@ ___
 Get the current network staking ETH balance in Wei
 
 **`example`** using Typescript
+
 ```ts
 const balanceInWei = rp.network.getStakingETHBalance().then((val: string) => { val };
 // convert to Ether if needed
@@ -149,7 +152,7 @@ a Promise<string\> that resolves to a string representing the current network st
 
 rocketpool/network/network.ts:90
 
-___
+---
 
 ### getTotalRETHSupply
 
@@ -158,6 +161,7 @@ ___
 Get the current network total rETH supply in Wei
 
 **`example`** using Typescript
+
 ```ts
 const balanceInWei = rp.network.getTotalRETHSupply().then((val: string) => { val };
 // convert to Ether if needed
@@ -174,7 +178,7 @@ a Promise<string\> that resolves to a string representing the rETH supply in Wei
 
 rocketpool/network/network.ts:107
 
-___
+---
 
 ### getETHUtilizationRate
 
@@ -183,6 +187,7 @@ ___
 Get the current network ETH utilization rate
 
 **`example`** using Typescript
+
 ```ts
 const utilizationRate = rp.network.getETHUtilizationRate().then((val: string) => { val };
 ```
@@ -198,7 +203,7 @@ parsed from Wei)
 
 rocketpool/network/network.ts:123
 
-___
+---
 
 ### getNodeDemand
 
@@ -207,6 +212,7 @@ ___
 Get the current network node demand in Wei
 
 **`example`** using Typescript
+
 ```ts
 const balanceInWei = rp.network.getNodeDemand().then((val: string) => { val };
 // convert to Ether if needed
@@ -223,7 +229,7 @@ a Promise<string\> that resolves to a string representing the current node deman
 
 rocketpool/network/network.ts:142
 
-___
+---
 
 ### getNodeFee
 
@@ -232,6 +238,7 @@ ___
 Get the current network node demand
 
 **`example`** using Typescript
+
 ```ts
 const nodeFee = rp.network.getNodeFee().then((val: number) => { val };
 ```
@@ -246,7 +253,7 @@ a Promise<string\> that resolves to a number representing the current node fee
 
 rocketpool/network/network.ts:157
 
-___
+---
 
 ### getNodeFeeByDemand
 
@@ -255,6 +262,7 @@ ___
 Get the network node commission rate by demand value
 
 **`example`** using Typescript
+
 ```ts
 const demand = web3.utils.toWei("0.75", "ether");
 const nodeFeeByDemand = rp.network.getNodeFeeByDemand(demand).then((val: string) => { val };
@@ -262,8 +270,8 @@ const nodeFeeByDemand = rp.network.getNodeFeeByDemand(demand).then((val: string)
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name     | Type     | Description                      |
+| :------- | :------- | :------------------------------- |
 | `demand` | `string` | A string representing the demand |
 
 #### Returns
@@ -276,7 +284,7 @@ a Promise<number\> that resolves to a number representing the network node commi
 
 rocketpool/network/network.ts:174
 
-___
+---
 
 ### getRPLPrice
 
@@ -285,6 +293,7 @@ ___
 Get the network RPL Price
 
 **`example`** using Typescript
+
 ```ts
 const rplPrice = rp.network.getRPLPrice().then((val: number) => { val };
 ```
@@ -299,7 +308,7 @@ a Promise<number\> that resolves to a number representing the network RPL price
 
 rocketpool/network/network.ts:189
 
-___
+---
 
 ### getPricesBlock
 
@@ -308,6 +317,7 @@ ___
 Get the prices block
 
 **`example`** using Typescript
+
 ```ts
 const block = rp.network.getPricesBlock().then((val: number) => { val };
 ```
@@ -322,7 +332,7 @@ a Promise<number\> that resolves to a number representing the prices block
 
 rocketpool/network/network.ts:204
 
-___
+---
 
 ### getLatestReportableBlock
 
@@ -331,6 +341,7 @@ ___
 Get latest reportable block
 
 **`example`** using Typescript
+
 ```ts
 const latestReportableBlock = rp.network.getLatestReportableBlock().then((val: string) => { val };
 ```
@@ -345,7 +356,7 @@ a Promise<string\> that resolves to a string representing the latest reportable 
 
 rocketpool/network/network.ts:219
 
-___
+---
 
 ### getEffectiveRPLStake
 
@@ -354,6 +365,7 @@ ___
 Get effective RPL stake
 
 **`example`** using Typescript
+
 ```ts
 const effectiveRPLStake = rp.network.getEffectiveRPLStake().then((val: string) => { val };
 ```
@@ -368,7 +380,7 @@ a Promise<string\> that resolves to a string representing the effective RPL stak
 
 rocketpool/network/network.ts:234
 
-___
+---
 
 ### getEffectiveRPLStakeUpdatedBlock
 
@@ -377,6 +389,7 @@ ___
 Get the block that the effective RPL stake was updated at
 
 **`example`** using Typescript
+
 ```ts
 const block = rp.network.getEffectiveRPLStakeUpdatedBlock().then((val: string) => { val };
 ```
@@ -391,7 +404,7 @@ a Promise<string\> that resolves to a string representing the block the effectiv
 
 rocketpool/network/network.ts:249
 
-___
+---
 
 ### submitBalances
 
@@ -400,6 +413,7 @@ ___
 Submit node balances (Restricted to oDAO nodes)
 
 **`example`** using Typescript
+
 ```ts
 const block = await web3.eth.getBlockNumber();
 const totalEth = web3.utils.toWei("1", "ether");
@@ -416,14 +430,14 @@ const txReceipt = rp.network.submitBalances(block, totalEth, stakingEth, rethSup
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `block` | `number` | A string representing the block |
-| `totalEth` | `string` | A string representing the totalEth in Wei |
-| `stakingEth` | `string` | A string representing the stakingEth in Wei |
-| `rethSupply` | `string` | A string representing the rethSupply in Wei |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `block`           | `number`              | A string representing the block                     |
+| `totalEth`        | `string`              | A string representing the totalEth in Wei           |
+| `stakingEth`      | `string`              | A string representing the stakingEth in Wei         |
+| `rethSupply`      | `string`              | A string representing the rethSupply in Wei         |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 
@@ -435,7 +449,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/network/network.ts:280
 
-___
+---
 
 ### submitPrices
 
@@ -444,6 +458,7 @@ ___
 Submit prices (Restricted to oDAO nodes)
 
 **`example`** using Typescript
+
 ```ts
 const block = await web3.eth.getBlockNumber();
 const rplPrice = web3.utils.toWei("1", "ether");
@@ -459,13 +474,13 @@ const txReceipt = rp.network.submitPrices(block, rplPrice, effectiveRplStake, op
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `block` | `number` | A string representing the block |
-| `rplPrice` | `string` | A string representing the rplPrice in Wei |
-| `effectiveRplStake` | `string` | A string representing the effective RPL stake |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name                | Type                  | Description                                         |
+| :------------------ | :-------------------- | :-------------------------------------------------- |
+| `block`             | `number`              | A string representing the block                     |
+| `rplPrice`          | `string`              | A string representing the rplPrice in Wei           |
+| `effectiveRplStake` | `string`              | A string representing the effective RPL stake       |
+| `options?`          | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?`   | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 
@@ -477,7 +492,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/network/network.ts:316
 
-___
+---
 
 ### executeUpdatePrices
 
@@ -486,6 +501,7 @@ ___
 Execute prices (Restricted to oDAO nodes)
 
 **`example`** using Typescript
+
 ```ts
 const block = await web3.eth.getBlockNumber();
 const rplPrice = web3.utils.toWei("1", "ether");
@@ -501,13 +517,13 @@ const txReceipt = rp.network.executeUpdatePrices(block, rplPrice, effectiveRplSt
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `block` | `number` | A string representing the block |
-| `rplPrice` | `string` | A string representing the rplPrice in Wei |
-| `effectiveRplStake` | `string` | A string representing the effective RPL stake |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name                | Type                  | Description                                         |
+| :------------------ | :-------------------- | :-------------------------------------------------- |
+| `block`             | `number`              | A string representing the block                     |
+| `rplPrice`          | `string`              | A string representing the rplPrice in Wei           |
+| `effectiveRplStake` | `string`              | A string representing the effective RPL stake       |
+| `options?`          | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?`   | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 
@@ -519,7 +535,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/network/network.ts:351
 
-___
+---
 
 ### executeUpdateBalances
 
@@ -528,6 +544,7 @@ ___
 Execute Update Balances (Restricted to oDAO nodes)
 
 **`example`** using Typescript
+
 ```ts
 const block = await web3.eth.getBlockNumber();
 const totalEth = web3.utils.toWei("1", "ether");
@@ -544,14 +561,14 @@ const txReceipt = rp.network.executeUpdateBalances(block, totalEth, stakingEth, 
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `block` | `number` | A string representing the block |
-| `totalEth` | `string` | A string representing the totalEth in Wei |
-| `stakingEth` | `string` | A string representing the stakingEth in Wei |
-| `rethSupply` | `string` | A string representing the rethSupply in Wei |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `block`           | `number`              | A string representing the block                     |
+| `totalEth`        | `string`              | A string representing the totalEth in Wei           |
+| `stakingEth`      | `string`              | A string representing the stakingEth in Wei         |
+| `rethSupply`      | `string`              | A string representing the rethSupply in Wei         |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 

@@ -7,17 +7,15 @@
 The main reason for extending the Rocket Pool network is to implement custom deposit logic which funnels user deposits into the deposit pool.
 For example, a fund manager may wish to stake their users' ETH in Rocket Pool via their own smart contracts, and abstract the use of Rocket Pool itself away from their users.
 
-**Note:** the `RocketDepositPool` contract address should *not* be hard-coded in your contracts, but retrieved from `RocketStorage` dynamically.
-
+**Note:** the `RocketDepositPool` contract address should _not_ be hard-coded in your contracts, but retrieved from `RocketStorage` dynamically.
 
 <br>
 
 ## Implementation
 
-
 The following describes a basic example contract which forwards deposited ETH into Rocket Pool and minted rETH back to the caller::
 
-``` solidity
+```solidity
 import "RocketStorageInterface.sol";
 import "RocketDepositPoolInterface.sol";
 import "RocketTokenRETHInterface.sol";

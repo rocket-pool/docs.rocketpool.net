@@ -12,9 +12,9 @@ Create a new DAOProposal instance.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `web3` | `default` | A valid Web3 instance |
+| Name        | Type                     | Description                             |
+| :---------- | :----------------------- | :-------------------------------------- |
+| `web3`      | `default`                | A valid Web3 instance                   |
 | `contracts` | [`Contracts`](Contracts) | A Rocket Pool contract manager instance |
 
 #### Defined in
@@ -48,6 +48,7 @@ rocketpool/dao/proposals.ts:24
 Return the total of DAO Proposals
 
 **`example`** using Typescript
+
 ```ts
 const enabled = rp.dao.proposals.getTotal().then((val: number) => { val };
 ```
@@ -62,7 +63,7 @@ a Promise<number\> that resolves to a number representing if node registrations 
 
 rocketpool/dao/proposals.ts:37
 
-___
+---
 
 ### getState
 
@@ -71,6 +72,7 @@ ___
 Return the state of a DAO proposal
 
 **`example`** using Typescript
+
 ```ts
 const proposalID = 5; // fictional proposal to invite user Kermit
 const state = rp.dao.proposals.getState(proposalID).then((val: number) => { val };
@@ -78,8 +80,8 @@ const state = rp.dao.proposals.getState(proposalID).then((val: number) => { val 
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name         | Type     | Description                      |
+| :----------- | :------- | :------------------------------- |
 | `proposalID` | `number` | A number representing proposalID |
 
 #### Returns
@@ -92,7 +94,7 @@ a Promise<number\> that resolves to a number representing the state of a DAO pro
 
 rocketpool/dao/proposals.ts:54
 
-___
+---
 
 ### getVotesFor
 
@@ -101,6 +103,7 @@ ___
 Return the number of votes for a specific DAO proposal
 
 **`example`** using Typescript
+
 ```ts
 const proposalID = 5; // fictional proposal to invite user Kermit
 const voteFor = rp.dao.proposals.getVotesFor(proposalID).then((val: number) => { val };
@@ -108,8 +111,8 @@ const voteFor = rp.dao.proposals.getVotesFor(proposalID).then((val: number) => {
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name         | Type     | Description                      |
+| :----------- | :------- | :------------------------------- |
 | `proposalID` | `number` | A number representing proposalID |
 
 #### Returns
@@ -122,7 +125,7 @@ a Promise<number\> that resolves to a number representing the votes for a specif
 
 rocketpool/dao/proposals.ts:71
 
-___
+---
 
 ### getVotesRequired
 
@@ -131,6 +134,7 @@ ___
 Return the number of votes required for a specific DAO proposal
 
 **`example`** using Typescript
+
 ```ts
 const proposalID = 5; // fictional proposal to invite user Kermit
 const votesRequired = rp.dao.proposals.getVotesRequired(proposalID).then((val: number) => { val };
@@ -138,8 +142,8 @@ const votesRequired = rp.dao.proposals.getVotesRequired(proposalID).then((val: n
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name         | Type     | Description                      |
+| :----------- | :------- | :------------------------------- |
 | `proposalID` | `number` | A number representing proposalID |
 
 #### Returns
@@ -152,7 +156,7 @@ a Promise<number\> that resolves to a number representing the votes required for
 
 rocketpool/dao/proposals.ts:88
 
-___
+---
 
 ### getStart
 
@@ -161,6 +165,7 @@ ___
 Return the start block of this proposal
 
 **`example`** using Typescript
+
 ```ts
 const proposalID = 5; // fictional proposal to invite user Kermit
 const state = rp.dao.proposals.getStart(proposalID).then((val: number) => { val };
@@ -168,8 +173,8 @@ const state = rp.dao.proposals.getStart(proposalID).then((val: number) => { val 
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name         | Type     | Description                      |
+| :----------- | :------- | :------------------------------- |
 | `proposalID` | `number` | A number representing proposalID |
 
 #### Returns
@@ -182,7 +187,7 @@ a Promise<number\> that resolves to a number representing the start block for th
 
 rocketpool/dao/proposals.ts:105
 
-___
+---
 
 ### getEnd
 
@@ -191,6 +196,7 @@ ___
 Return the end block of this proposal
 
 **`example`** using Typescript
+
 ```ts
 const proposalID = 5; // fictional proposal to invite user Kermit
 const state = rp.dao.proposals.getEnd(proposalID).then((val: number) => { val };
@@ -198,8 +204,8 @@ const state = rp.dao.proposals.getEnd(proposalID).then((val: number) => { val };
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name         | Type     | Description                      |
+| :----------- | :------- | :------------------------------- |
 | `proposalID` | `number` | A number representing proposalID |
 
 #### Returns
@@ -212,7 +218,7 @@ a Promise<number\> that resolves to a number representing the end block for the 
 
 rocketpool/dao/proposals.ts:122
 
-___
+---
 
 ### getVotesAgainst
 
@@ -221,6 +227,7 @@ ___
 Return the number of votes against a specific DAO proposal
 
 **`example`** using Typescript
+
 ```ts
 const proposalID = 5; // fictional proposal to invite user Kermit
 const voteFor = rp.dao.proposals.getVotesAgainst(proposalID).then((val: number) => { val };
@@ -228,8 +235,8 @@ const voteFor = rp.dao.proposals.getVotesAgainst(proposalID).then((val: number) 
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name         | Type     | Description                      |
+| :----------- | :------- | :------------------------------- |
 | `proposalID` | `number` | A number representing proposalID |
 
 #### Returns
@@ -242,7 +249,7 @@ a Promise<number\> that resolves to a number representing the votes against a sp
 
 rocketpool/dao/proposals.ts:139
 
-___
+---
 
 ### getExpires
 
@@ -251,6 +258,7 @@ ___
 Return the block a specific DAO proposal expires
 
 **`example`** using Typescript
+
 ```ts
 const proposalID = 5; // fictional proposal to invite user Kermit
 const state = rp.dao.proposals.getEnd(proposalID).then((val: number) => { val };
@@ -258,8 +266,8 @@ const state = rp.dao.proposals.getEnd(proposalID).then((val: number) => { val };
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name         | Type     | Description                      |
+| :----------- | :------- | :------------------------------- |
 | `proposalID` | `number` | A number representing proposalID |
 
 #### Returns

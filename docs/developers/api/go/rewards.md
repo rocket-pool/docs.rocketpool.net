@@ -6,29 +6,28 @@ import "github.com/rocket-pool/rocketpool-go/rewards"
 
 ## Index
 
-- [func CalculateLifetimeNodeRewards(rp *rocketpool.RocketPool, claimerAddress common.Address, intervalSize *big.Int) (*big.Int, error)](<#func-calculatelifetimenoderewards>)
-- [func CalculateLifetimeTrustedNodeRewards(rp *rocketpool.RocketPool, claimerAddress common.Address, intervalSize *big.Int) (*big.Int, error)](<#func-calculatelifetimetrustednoderewards>)
-- [func ClaimNodeRewards(rp *rocketpool.RocketPool, opts *bind.TransactOpts) (common.Hash, error)](<#func-claimnoderewards>)
-- [func ClaimTrustedNodeRewards(rp *rocketpool.RocketPool, opts *bind.TransactOpts) (common.Hash, error)](<#func-claimtrustednoderewards>)
-- [func EstimateClaimNodeRewardsGas(rp *rocketpool.RocketPool, opts *bind.TransactOpts) (rocketpool.GasInfo, error)](<#func-estimateclaimnoderewardsgas>)
-- [func EstimateClaimTrustedNodeRewardsGas(rp *rocketpool.RocketPool, opts *bind.TransactOpts) (rocketpool.GasInfo, error)](<#func-estimateclaimtrustednoderewardsgas>)
-- [func GetClaimIntervalTime(rp *rocketpool.RocketPool, opts *bind.CallOpts) (time.Duration, error)](<#func-getclaimintervaltime>)
-- [func GetClaimIntervalTimeStart(rp *rocketpool.RocketPool, opts *bind.CallOpts) (time.Time, error)](<#func-getclaimintervaltimestart>)
-- [func GetNodeClaimPossible(rp *rocketpool.RocketPool, claimerAddress common.Address, opts *bind.CallOpts) (bool, error)](<#func-getnodeclaimpossible>)
-- [func GetNodeClaimRewardsAmount(rp *rocketpool.RocketPool, claimerAddress common.Address, opts *bind.CallOpts) (*big.Int, error)](<#func-getnodeclaimrewardsamount>)
-- [func GetNodeClaimRewardsPerc(rp *rocketpool.RocketPool, claimerAddress common.Address, opts *bind.CallOpts) (float64, error)](<#func-getnodeclaimrewardsperc>)
-- [func GetNodeClaimsEnabled(rp *rocketpool.RocketPool, opts *bind.CallOpts) (bool, error)](<#func-getnodeclaimsenabled>)
-- [func GetNodeOperatorRewardsPercent(rp *rocketpool.RocketPool, opts *bind.CallOpts) (float64, error)](<#func-getnodeoperatorrewardspercent>)
-- [func GetNodeRegistrationTime(rp *rocketpool.RocketPool, claimerAddress common.Address, opts *bind.CallOpts) (time.Time, error)](<#func-getnoderegistrationtime>)
-- [func GetTrustedNodeClaimPossible(rp *rocketpool.RocketPool, claimerAddress common.Address, opts *bind.CallOpts) (bool, error)](<#func-gettrustednodeclaimpossible>)
-- [func GetTrustedNodeClaimRewardsAmount(rp *rocketpool.RocketPool, claimerAddress common.Address, opts *bind.CallOpts) (*big.Int, error)](<#func-gettrustednodeclaimrewardsamount>)
-- [func GetTrustedNodeClaimRewardsPerc(rp *rocketpool.RocketPool, claimerAddress common.Address, opts *bind.CallOpts) (float64, error)](<#func-gettrustednodeclaimrewardsperc>)
-- [func GetTrustedNodeClaimsEnabled(rp *rocketpool.RocketPool, opts *bind.CallOpts) (bool, error)](<#func-gettrustednodeclaimsenabled>)
-- [func GetTrustedNodeOperatorRewardsPercent(rp *rocketpool.RocketPool, opts *bind.CallOpts) (float64, error)](<#func-gettrustednodeoperatorrewardspercent>)
-- [func GetTrustedNodeRegistrationTime(rp *rocketpool.RocketPool, claimerAddress common.Address, opts *bind.CallOpts) (time.Time, error)](<#func-gettrustednoderegistrationtime>)
+- [func CalculateLifetimeNodeRewards(rp *rocketpool.RocketPool, claimerAddress common.Address, intervalSize *big.Int) (\*big.Int, error)](#func-calculatelifetimenoderewards)
+- [func CalculateLifetimeTrustedNodeRewards(rp *rocketpool.RocketPool, claimerAddress common.Address, intervalSize *big.Int) (\*big.Int, error)](#func-calculatelifetimetrustednoderewards)
+- [func ClaimNodeRewards(rp *rocketpool.RocketPool, opts *bind.TransactOpts) (common.Hash, error)](#func-claimnoderewards)
+- [func ClaimTrustedNodeRewards(rp *rocketpool.RocketPool, opts *bind.TransactOpts) (common.Hash, error)](#func-claimtrustednoderewards)
+- [func EstimateClaimNodeRewardsGas(rp *rocketpool.RocketPool, opts *bind.TransactOpts) (rocketpool.GasInfo, error)](#func-estimateclaimnoderewardsgas)
+- [func EstimateClaimTrustedNodeRewardsGas(rp *rocketpool.RocketPool, opts *bind.TransactOpts) (rocketpool.GasInfo, error)](#func-estimateclaimtrustednoderewardsgas)
+- [func GetClaimIntervalTime(rp *rocketpool.RocketPool, opts *bind.CallOpts) (time.Duration, error)](#func-getclaimintervaltime)
+- [func GetClaimIntervalTimeStart(rp *rocketpool.RocketPool, opts *bind.CallOpts) (time.Time, error)](#func-getclaimintervaltimestart)
+- [func GetNodeClaimPossible(rp *rocketpool.RocketPool, claimerAddress common.Address, opts *bind.CallOpts) (bool, error)](#func-getnodeclaimpossible)
+- [func GetNodeClaimRewardsAmount(rp *rocketpool.RocketPool, claimerAddress common.Address, opts *bind.CallOpts) (\*big.Int, error)](#func-getnodeclaimrewardsamount)
+- [func GetNodeClaimRewardsPerc(rp *rocketpool.RocketPool, claimerAddress common.Address, opts *bind.CallOpts) (float64, error)](#func-getnodeclaimrewardsperc)
+- [func GetNodeClaimsEnabled(rp *rocketpool.RocketPool, opts *bind.CallOpts) (bool, error)](#func-getnodeclaimsenabled)
+- [func GetNodeOperatorRewardsPercent(rp *rocketpool.RocketPool, opts *bind.CallOpts) (float64, error)](#func-getnodeoperatorrewardspercent)
+- [func GetNodeRegistrationTime(rp *rocketpool.RocketPool, claimerAddress common.Address, opts *bind.CallOpts) (time.Time, error)](#func-getnoderegistrationtime)
+- [func GetTrustedNodeClaimPossible(rp *rocketpool.RocketPool, claimerAddress common.Address, opts *bind.CallOpts) (bool, error)](#func-gettrustednodeclaimpossible)
+- [func GetTrustedNodeClaimRewardsAmount(rp *rocketpool.RocketPool, claimerAddress common.Address, opts *bind.CallOpts) (\*big.Int, error)](#func-gettrustednodeclaimrewardsamount)
+- [func GetTrustedNodeClaimRewardsPerc(rp *rocketpool.RocketPool, claimerAddress common.Address, opts *bind.CallOpts) (float64, error)](#func-gettrustednodeclaimrewardsperc)
+- [func GetTrustedNodeClaimsEnabled(rp *rocketpool.RocketPool, opts *bind.CallOpts) (bool, error)](#func-gettrustednodeclaimsenabled)
+- [func GetTrustedNodeOperatorRewardsPercent(rp *rocketpool.RocketPool, opts *bind.CallOpts) (float64, error)](#func-gettrustednodeoperatorrewardspercent)
+- [func GetTrustedNodeRegistrationTime(rp *rocketpool.RocketPool, claimerAddress common.Address, opts *bind.CallOpts) (time.Time, error)](#func-gettrustednoderegistrationtime)
 
-
-## func [CalculateLifetimeNodeRewards](<https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/node.go#L75>)
+## func [CalculateLifetimeNodeRewards](https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/node.go#L75)
 
 ```go
 func CalculateLifetimeNodeRewards(rp *rocketpool.RocketPool, claimerAddress common.Address, intervalSize *big.Int) (*big.Int, error)
@@ -36,7 +35,7 @@ func CalculateLifetimeNodeRewards(rp *rocketpool.RocketPool, claimerAddress comm
 
 Filters through token claim events and sums the total amount claimed by claimerAddress
 
-## func [CalculateLifetimeTrustedNodeRewards](<https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/trusted-node.go#L76>)
+## func [CalculateLifetimeTrustedNodeRewards](https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/trusted-node.go#L76)
 
 ```go
 func CalculateLifetimeTrustedNodeRewards(rp *rocketpool.RocketPool, claimerAddress common.Address, intervalSize *big.Int) (*big.Int, error)
@@ -44,7 +43,7 @@ func CalculateLifetimeTrustedNodeRewards(rp *rocketpool.RocketPool, claimerAddre
 
 Filters through token claim events and sums the total amount claimed by claimerAddress
 
-## func [ClaimNodeRewards](<https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/node.go#L66>)
+## func [ClaimNodeRewards](https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/node.go#L66)
 
 ```go
 func ClaimNodeRewards(rp *rocketpool.RocketPool, opts *bind.TransactOpts) (common.Hash, error)
@@ -52,7 +51,7 @@ func ClaimNodeRewards(rp *rocketpool.RocketPool, opts *bind.TransactOpts) (commo
 
 Claim node rewards
 
-## func [ClaimTrustedNodeRewards](<https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/trusted-node.go#L66>)
+## func [ClaimTrustedNodeRewards](https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/trusted-node.go#L66)
 
 ```go
 func ClaimTrustedNodeRewards(rp *rocketpool.RocketPool, opts *bind.TransactOpts) (common.Hash, error)
@@ -60,7 +59,7 @@ func ClaimTrustedNodeRewards(rp *rocketpool.RocketPool, opts *bind.TransactOpts)
 
 Claim trusted node rewards
 
-## func [EstimateClaimNodeRewardsGas](<https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/node.go#L56>)
+## func [EstimateClaimNodeRewardsGas](https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/node.go#L56)
 
 ```go
 func EstimateClaimNodeRewardsGas(rp *rocketpool.RocketPool, opts *bind.TransactOpts) (rocketpool.GasInfo, error)
@@ -68,7 +67,7 @@ func EstimateClaimNodeRewardsGas(rp *rocketpool.RocketPool, opts *bind.TransactO
 
 Estimate the gas of ClaimNodeRewards
 
-## func [EstimateClaimTrustedNodeRewardsGas](<https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/trusted-node.go#L56>)
+## func [EstimateClaimTrustedNodeRewardsGas](https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/trusted-node.go#L56)
 
 ```go
 func EstimateClaimTrustedNodeRewardsGas(rp *rocketpool.RocketPool, opts *bind.TransactOpts) (rocketpool.GasInfo, error)
@@ -76,7 +75,7 @@ func EstimateClaimTrustedNodeRewardsGas(rp *rocketpool.RocketPool, opts *bind.Tr
 
 Estimate the gas of ClaimTrustedNodeRewards
 
-## func [GetClaimIntervalTime](<https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/rewards.go#L103>)
+## func [GetClaimIntervalTime](https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/rewards.go#L103)
 
 ```go
 func GetClaimIntervalTime(rp *rocketpool.RocketPool, opts *bind.CallOpts) (time.Duration, error)
@@ -84,7 +83,7 @@ func GetClaimIntervalTime(rp *rocketpool.RocketPool, opts *bind.CallOpts) (time.
 
 Get the number of seconds in a claim interval
 
-## func [GetClaimIntervalTimeStart](<https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/rewards.go#L89>)
+## func [GetClaimIntervalTimeStart](https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/rewards.go#L89)
 
 ```go
 func GetClaimIntervalTimeStart(rp *rocketpool.RocketPool, opts *bind.CallOpts) (time.Time, error)
@@ -92,7 +91,7 @@ func GetClaimIntervalTimeStart(rp *rocketpool.RocketPool, opts *bind.CallOpts) (
 
 Get the timestamp that the current rewards interval started
 
-## func [GetNodeClaimPossible](<https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/node.go#L26>)
+## func [GetNodeClaimPossible](https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/node.go#L26)
 
 ```go
 func GetNodeClaimPossible(rp *rocketpool.RocketPool, claimerAddress common.Address, opts *bind.CallOpts) (bool, error)
@@ -100,7 +99,7 @@ func GetNodeClaimPossible(rp *rocketpool.RocketPool, claimerAddress common.Addre
 
 Get whether a node rewards claimer can claim
 
-## func [GetNodeClaimRewardsAmount](<https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/node.go#L46>)
+## func [GetNodeClaimRewardsAmount](https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/node.go#L46)
 
 ```go
 func GetNodeClaimRewardsAmount(rp *rocketpool.RocketPool, claimerAddress common.Address, opts *bind.CallOpts) (*big.Int, error)
@@ -108,7 +107,7 @@ func GetNodeClaimRewardsAmount(rp *rocketpool.RocketPool, claimerAddress common.
 
 Get the total amount of rewards available for a node rewards claimer
 
-## func [GetNodeClaimRewardsPerc](<https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/node.go#L36>)
+## func [GetNodeClaimRewardsPerc](https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/node.go#L36)
 
 ```go
 func GetNodeClaimRewardsPerc(rp *rocketpool.RocketPool, claimerAddress common.Address, opts *bind.CallOpts) (float64, error)
@@ -116,7 +115,7 @@ func GetNodeClaimRewardsPerc(rp *rocketpool.RocketPool, claimerAddress common.Ad
 
 Get the percentage of rewards available for a node rewards claimer
 
-## func [GetNodeClaimsEnabled](<https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/node.go#L16>)
+## func [GetNodeClaimsEnabled](https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/node.go#L16)
 
 ```go
 func GetNodeClaimsEnabled(rp *rocketpool.RocketPool, opts *bind.CallOpts) (bool, error)
@@ -124,7 +123,7 @@ func GetNodeClaimsEnabled(rp *rocketpool.RocketPool, opts *bind.CallOpts) (bool,
 
 Get whether node reward claims are enabled
 
-## func [GetNodeOperatorRewardsPercent](<https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/rewards.go#L117>)
+## func [GetNodeOperatorRewardsPercent](https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/rewards.go#L117)
 
 ```go
 func GetNodeOperatorRewardsPercent(rp *rocketpool.RocketPool, opts *bind.CallOpts) (float64, error)
@@ -132,7 +131,7 @@ func GetNodeOperatorRewardsPercent(rp *rocketpool.RocketPool, opts *bind.CallOpt
 
 Get the percent of checkpoint rewards that goes to node operators
 
-## func [GetNodeRegistrationTime](<https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/node.go#L114>)
+## func [GetNodeRegistrationTime](https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/node.go#L114)
 
 ```go
 func GetNodeRegistrationTime(rp *rocketpool.RocketPool, claimerAddress common.Address, opts *bind.CallOpts) (time.Time, error)
@@ -140,7 +139,7 @@ func GetNodeRegistrationTime(rp *rocketpool.RocketPool, claimerAddress common.Ad
 
 Get the time that the user registered as a claimer
 
-## func [GetTrustedNodeClaimPossible](<https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/trusted-node.go#L26>)
+## func [GetTrustedNodeClaimPossible](https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/trusted-node.go#L26)
 
 ```go
 func GetTrustedNodeClaimPossible(rp *rocketpool.RocketPool, claimerAddress common.Address, opts *bind.CallOpts) (bool, error)
@@ -148,7 +147,7 @@ func GetTrustedNodeClaimPossible(rp *rocketpool.RocketPool, claimerAddress commo
 
 Get whether a trusted node rewards claimer can claim
 
-## func [GetTrustedNodeClaimRewardsAmount](<https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/trusted-node.go#L46>)
+## func [GetTrustedNodeClaimRewardsAmount](https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/trusted-node.go#L46)
 
 ```go
 func GetTrustedNodeClaimRewardsAmount(rp *rocketpool.RocketPool, claimerAddress common.Address, opts *bind.CallOpts) (*big.Int, error)
@@ -156,7 +155,7 @@ func GetTrustedNodeClaimRewardsAmount(rp *rocketpool.RocketPool, claimerAddress 
 
 Get the total amount of rewards available for a trusted node rewards claimer
 
-## func [GetTrustedNodeClaimRewardsPerc](<https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/trusted-node.go#L36>)
+## func [GetTrustedNodeClaimRewardsPerc](https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/trusted-node.go#L36)
 
 ```go
 func GetTrustedNodeClaimRewardsPerc(rp *rocketpool.RocketPool, claimerAddress common.Address, opts *bind.CallOpts) (float64, error)
@@ -164,7 +163,7 @@ func GetTrustedNodeClaimRewardsPerc(rp *rocketpool.RocketPool, claimerAddress co
 
 Get the percentage of rewards available for a trusted node rewards claimer
 
-## func [GetTrustedNodeClaimsEnabled](<https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/trusted-node.go#L16>)
+## func [GetTrustedNodeClaimsEnabled](https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/trusted-node.go#L16)
 
 ```go
 func GetTrustedNodeClaimsEnabled(rp *rocketpool.RocketPool, opts *bind.CallOpts) (bool, error)
@@ -172,7 +171,7 @@ func GetTrustedNodeClaimsEnabled(rp *rocketpool.RocketPool, opts *bind.CallOpts)
 
 Get whether trusted node reward claims are enabled
 
-## func [GetTrustedNodeOperatorRewardsPercent](<https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/rewards.go#L131>)
+## func [GetTrustedNodeOperatorRewardsPercent](https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/rewards.go#L131)
 
 ```go
 func GetTrustedNodeOperatorRewardsPercent(rp *rocketpool.RocketPool, opts *bind.CallOpts) (float64, error)
@@ -180,11 +179,10 @@ func GetTrustedNodeOperatorRewardsPercent(rp *rocketpool.RocketPool, opts *bind.
 
 Get the percent of checkpoint rewards that goes to ODAO members
 
-## func [GetTrustedNodeRegistrationTime](<https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/trusted-node.go#L115>)
+## func [GetTrustedNodeRegistrationTime](https://github.com/rocket-pool/rocketpool-go/blob/release/rewards/trusted-node.go#L115)
 
 ```go
 func GetTrustedNodeRegistrationTime(rp *rocketpool.RocketPool, claimerAddress common.Address, opts *bind.CallOpts) (time.Time, error)
 ```
 
 Get the time that the user registered as a claimer
-

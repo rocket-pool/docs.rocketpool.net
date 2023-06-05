@@ -4,7 +4,6 @@ One of the responsibilities of a node operator is making sure your system is up 
 Automatic updates are convenient but can interfere with your node operation, so it may be preferable to run them manually.
 In either case, **you must make sure that your machine is regularly patched!**
 
-
 ::: tip NOTE
 Most of the time, updating will not require your system to be down for more than a few minutes.
 You might be concerned that such downtime will negatively affect your Beacon Chain balance.
@@ -13,7 +12,7 @@ Rest assured, the penalty for being offline for such a short period of time is *
 Each attestation you miss will penalize you for slightly less than the amount you'd earn from a successful attestation.
 As a rule of thumb, if you're offline for an hour, you will earn it all back after being online for an hour again.
 
-Also note that there is **absolutely no chance** that you will be *slashed* by going offline for a short time.
+Also note that there is **absolutely no chance** that you will be _slashed_ by going offline for a short time.
 Slashing only occurs if you attack the network, and going offline for maintenance does not count as attacking the network.
 
 **Please keep your systems up to date - don't worry about the downtime penalties!**
@@ -36,9 +35,9 @@ This will access the package servers and check to see if any of your installed p
 If updates are available, the output will look like this:
 
 ```
-Fetched 3974 kB in 2s (1641 kB/s)                                 
+Fetched 3974 kB in 2s (1641 kB/s)
 Reading package lists... Done
-Building dependency tree       
+Building dependency tree
 Reading state information... Done
 12 packages can be upgraded. Run 'apt list --upgradable' to see them.
 ```
@@ -72,7 +71,7 @@ Next, check if your system needs to be rebooted:
 cat /var/run/reboot-required
 ```
 
-If the above command prints `No such file or directory`, then reboot is not required and you can skip the step below. 
+If the above command prints `No such file or directory`, then reboot is not required and you can skip the step below.
 
 However if the command prints `*** System restart required ***`, then you should restart your machine to finish applying the updates when you are able:
 
@@ -81,8 +80,6 @@ sudo reboot
 ```
 
 Rocket Pool will gracefully shut down and automatically start back up with the system once it reboots.
-
-
 
 ::::: tab macOS
 To update the OS packages, use the UI to select `Apple -> Software Update`.
@@ -94,7 +91,6 @@ brew update && brew upgrade
 ```
 
 ::::::
-
 
 ## Updating the Smartnode Stack
 
@@ -113,7 +109,7 @@ When you have completed the Smartnode upgrade, the Grafana dashboard will still 
 It will automatically clear within a day when the system next auto-checks for updates.
 
 If you want to clear it immediately after the update, simply run:
-```sudo apt update```
+`sudo apt update`
 :::
 
 The steps to upgrade depend on which mode your node uses. Select from the options below:
@@ -122,6 +118,7 @@ The steps to upgrade depend on which mode your node uses. Select from the option
 ::::: tab Linux (Docker or Hybrid Mode)
 
 Stop the Rocket Pool services:
+
 ```
 rocketpool service stop
 ```
@@ -185,6 +182,7 @@ You will have to do this manually (see the next section below).
 :::
 
 Stop the Rocket Pool services:
+
 ```
 sudo systemctl stop rp-node rp-watchtower
 ```
@@ -247,6 +245,7 @@ Both the client and service should match the new release version.
 ::::: tab macOS (Docker or Hybrid Mode)
 
 Stop the Rocket Pool services:
+
 ```
 rocketpool service stop
 ```
@@ -254,11 +253,13 @@ rocketpool service stop
 Download the new Smartnode CLI:
 
 For `x64` systems (most Macs):
+
 ```shell
 wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-darwin-amd64 -O /usr/local/bin/rocketpool
 ```
 
 For `arm64` systems, such as the Mac mini with M1:
+
 ```shell
 wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-darwin-arm64 -O /opt/homebrew/bin/rocketpool
 ```
@@ -298,11 +299,10 @@ Both the client and service should match the new release version.
 
 ::::::
 
-
 ## Manually Updating the Execution or Consensus Client
 
 Each new release of the Smartnode stack will come with updated references to the latest compatible versions to the Execution and Consensus Docker containers.
-In some cases, however, you might want to upgrade one of those clients *before* waiting for a new Smartnode stack release.
+In some cases, however, you might want to upgrade one of those clients _before_ waiting for a new Smartnode stack release.
 This section will show you how to do just that.
 
 :::::: tabs
@@ -326,7 +326,7 @@ Modify the **Container Tag** setting:
 ![](./images/tui-cc-container-tag.png){ style="display: block; margin: 0 auto" }
 
 ::: warning NOTE
-This process is slightly different for **Prysm**, because the Smartnode stack needs to use the *DEBUG* images that Prysm provides instead of the normally versioned ones.
+This process is slightly different for **Prysm**, because the Smartnode stack needs to use the _DEBUG_ images that Prysm provides instead of the normally versioned ones.
 For help upgrading Prysm manually, please visit the `smart-nodes` channel in the Rocket Pool Discord.
 :::
 

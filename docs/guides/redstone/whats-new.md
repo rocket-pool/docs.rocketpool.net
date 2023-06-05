@@ -11,8 +11,7 @@ For detailed information on how to prepare your node for the upgrade and what to
 - [Guide for Docker Mode](./docker-migration)
 - [Guide for Hybrid Mode](./hybrid-migration)
 - [Guide for Native Mode](./native-migration)
-:::
-
+  :::
 
 ## Client Changes and The Merge
 
@@ -23,20 +22,22 @@ While this comes with some exciting financial benefits (which will be discussed 
 Below is a brief summary of the changes to client behavior as part of The Merge:
 
 - Your Execution client now uses three API ports:
+
   - One for HTTP access to its API (**default 8545**)
   - One for Websocket access to its API (**default 8546**)
   - One for the new **Engine API** used by Consensus clients after The Merge (**default 8551**)
 
 - Execution clients now require a Consensus client to function, and Consensus clients now require an Execution client to function.
+
   - **Neither one can operate in isolation any longer.**
 
 - One Execution client must be linked to one, and only one, Consensus client (and vice versa).
+
   - You will not be able to link multiple Execution clients to a single Consensus client, or multiple Consensus clients to a single Execution client.
   - Because of this, **fallback execution clients are no longer available** for Rocket Pool node operators.
 
 - **Full execution clients** are required.
   - Remote providers (like Infura and Pocket) can no longer be used by any validators, Rocket Pool or otherwise.
-
 
 ## Fee Recipients and Your Distributor
 
@@ -102,24 +103,22 @@ rocketpool node distribute-fees
 
 This will send your share of the rewards to your **withdrawal address**.
 
-
 ## Rocket Pool Protocol Changes
 
 In addition to the Execution and Consensus client changes and the new priority fees, the Rocket Pool protocol itself has undergone some important changes you should be aware of.
-
 
 ### New Rewards System
 
 One of the most significant changes introduced with the Redstone update is the **new rewards system**.
 This is a complete overhaul of the way node operators receive their RPL rewards (and ETH from the Smoothing Pool - discussed later).
 
-The *old* rewards system had the following drawbacks:
+The _old_ rewards system had the following drawbacks:
 
 - Claiming cost approximately 400k gas, which is quite expensive.
 - Node operators had to claim the rewards at each interval (every 28 days), or would forfeit them. This meant the gas costs could become prohibitively expensive for node operators with small amounts of RPL.
-- Rewards were determined at the time of the *claim*, not at the time of the checkpoint. If a user staked a significant amount of RPL between the checkpoint and your claim, your rewards could be diluted and you'd receive less RPL than you were expecting.
+- Rewards were determined at the time of the _claim_, not at the time of the checkpoint. If a user staked a significant amount of RPL between the checkpoint and your claim, your rewards could be diluted and you'd receive less RPL than you were expecting.
 
-The *new* claims system solves all of these problems.
+The _new_ claims system solves all of these problems.
 
 At every interval, the Oracle DAO will collectively create a **true snapshot** of the state of the node operators in the Rocket Pool network, including all of their effective stake amounts.
 This information is compiled into a [Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree) - an extremely efficient way to make all of the details available to smart contracts.
@@ -153,7 +152,6 @@ You can also specify an amount you want to restake during this claim:
 
 ![](../node/images/autostake.png){ style="display: block; margin: 0 auto" }
 
-
 This will let you compound your RPL rewards in one transaction, using substantially less gas than you currently need to use today.
 
 ::: tip NOTE
@@ -167,11 +165,10 @@ This URL will only be used when generating Merkle trees; it will not be used for
 :::
 
 ::: danger WARNING
-If you are below 10% RPL collateral *at the time of the snapshot*, you will not be eligible for rewards for that snapshot.
+If you are below 10% RPL collateral _at the time of the snapshot_, you will not be eligible for rewards for that snapshot.
 Unlike the current system, where you can simply "top off" before you claim in order to become eligible again, this will be locked in that snapshot forever and **you will never receive rewards for that period**.
 You **must** be above 10% collateral at the time of a snapshot in order to receive rewards for that period.
 :::
-
 
 ### Smoothing Pool
 
@@ -194,9 +191,11 @@ To help clarify the details, the Smoothing Pool uses the following rules:
 - The node operator's total share is determined by the average commission of every minipool in every node opted into the Smoothing Pool.
 
 - Anyone can opt in at any time. They must wait a full rewards interval (1 day on Ropsten, 28 days on Mainnet) before opting out to prevent gaming the system.
+
   - Once opted out, you must wait another full interval to opt back in.
 
 - The Smoothing Pool calculates the "share" of each minipool (portion of the pool's ETH for the interval) owned by each node opted in.
+
   - The share is a function of your minipool's performance during the interval (calculated by looking at how many attestations you sent on the Beacon Chain, and how many you missed), and your minipool's commission rate.
 
 - Your node's total share is the sum of your minipool shares.
@@ -219,7 +218,6 @@ To leave the pool, run this command:
 rocketpool node leave-smoothing-pool
 ```
 
-
 ### The Penalty System
 
 To ensure that node operators don't "cheat" by manually modifying the fee recipient used in their Validator Client, Rocket Pool employs a penalty system.
@@ -239,7 +237,6 @@ Infractions are at a **minipool** level, not a **node** level.
 The Smartnode software is designed to ensure honest users will never get penalized, even if it must take the Validator Client offline to do so.
 If this happens, you will stop attesting and will see error messages in your log files about why the Smartnode can't correctly set your fee recipient.
 
-
 ## Guides for Pre- and Post-Upgrade
 
 For detailed information on how to prepare your node for the upgrade and what to do after the upgrade, please look at the following guides:
@@ -247,4 +244,3 @@ For detailed information on how to prepare your node for the upgrade and what to
 - [Guide for Docker Mode](./docker-migration)
 - [Guide for Hybrid Mode](./hybrid-migration)
 - [Guide for Native Mode](./native-migration)
-

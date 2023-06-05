@@ -12,9 +12,9 @@ Create a new Deposit instance.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `web3` | `default` | A valid Web3 instance |
+| Name        | Type                     | Description                             |
+| :---------- | :----------------------- | :-------------------------------------- |
+| `web3`      | `default`                | A valid Web3 instance                   |
 | `contracts` | [`Contracts`](Contracts) | A Rocket Pool contract manager instance |
 
 #### Defined in
@@ -48,6 +48,7 @@ rocketpool/deposit/deposit.ts:24
 Get the current deposit pool balance in Wei
 
 **`example`** using Typescript
+
 ```ts
 const balanceInWei = rp.deposit.getBalance().then((val: string) => { val };
 // convert to Ether if needed
@@ -64,7 +65,7 @@ a Promise<string\> that resolves to a string representing the current deposit po
 
 rocketpool/deposit/deposit.ts:39
 
-___
+---
 
 ### getExcessBalance
 
@@ -73,6 +74,7 @@ ___
 Get the excess balance in Wei
 
 **`example`** using Typescript
+
 ```ts
 const balanceInWei = rp.deposit.getExcessBalance().then((val: string) => { val };
 // convert to Ether if needed
@@ -89,7 +91,7 @@ a Promise<string\> that resolves to a string representing the current excess bal
 
 rocketpool/deposit/deposit.ts:56
 
-___
+---
 
 ### getUserLastDepositBlock
 
@@ -98,14 +100,15 @@ ___
 Get the block of the last user deposit
 
 **`example`** using Typescript
+
 ```ts
 const block = rp.deposit.getUserLastDepositBlock().then((val: number) => { val };
 ```
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type     |
+| :-------- | :------- |
 | `address` | `string` |
 
 #### Returns
@@ -118,7 +121,7 @@ a Promise<number\> that resolves to a number representing the block of the last 
 
 rocketpool/deposit/deposit.ts:71
 
-___
+---
 
 ### deposit
 
@@ -127,6 +130,7 @@ ___
 Make a deposit
 
 **`example`** using Typescript
+
 ```ts
 const nodeAddress = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const options = {
@@ -139,10 +143,10 @@ const txReceipt = rp.deposit.deposit(options).then((txReceipt: TransactionReceip
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 
@@ -154,7 +158,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/deposit/deposit.ts:94
 
-___
+---
 
 ### assignDeposits
 
@@ -163,6 +167,7 @@ ___
 Assign Deposits
 
 **`example`** using Typescript
+
 ```ts
 const nodeAddress = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const options = {
@@ -174,10 +179,10 @@ const txReceipt = rp.deposit.assignDeposits(options).then((txReceipt: Transactio
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 

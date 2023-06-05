@@ -16,7 +16,7 @@ The `RocketStorage` contract also stores the addresses of all other network cont
 
 To begin interacting with the Rocket Pool network, first create an instance of the `RocketStorage` contract using its [interface](https://github.com/rocket-pool/rocketpool/blob/master/contracts/interface/RocketStorageInterface.sol):
 
-``` solidity
+```solidity
 import "RocketStorageInterface.sol";
 
 contract Example {
@@ -29,13 +29,14 @@ contract Example {
 
 }
 ```
+
 The above constructor should be called with the address of the `RocketStorage` contract on the appropriate network.
 
 Because of Rocket Pool's architecture, the addresses of other contracts should not be used directly but retrieved from the blockchain before use. Network upgrades may have occurred since the previous interaction, resulting in outdated addresses. `RocketStorage` can never change address, so it is safe to store a reference to it.
 
 Other contract instances can be created using the appropriate interface taken from the [Rocket Pool repository](https://github.com/rocket-pool/rocketpool/tree/master/contracts/interface), e.g.:
 
-``` solidity
+```solidity
 import "RocketStorageInterface.sol";
 import "RocketDepositPoolInterface.sol";
 
@@ -57,47 +58,49 @@ contract Example {
 
 }
 ```
+
 The Rocket Pool contracts, as defined in `RocketStorage`, are:
-* `rocketVault` - Stores ETH held by network contracts (internal, not upgradeable)
-* `rocketAuctionManager` - Handles the auctioning of RPL slashed from node operators' stake
-* `rocketDepositPool` - Accepts user-deposited ETH and handles assignment to minipools
-* `rocketMinipoolManager` - Creates & manages all minipools in the network
-* `rocketMinipoolQueue` - Organises minipools into a queue for ETH assignment
-* `rocketMinipoolStatus` - Handles minipool status updates from watchtower nodes
-* `rocketMinipoolPenalty` - Stores penalties applied to node operators by the oDAO
-* `rocketNetworkBalances` - Handles network balance updates from watchtower nodes
-* `rocketNetworkFees` - Calculates node commission rates based on network node demand
-* `rocketNetworkPrices` - Handles RPL price and effective stake updates from watchtower nodes
-* `rocketNetworkWithdrawal` - Handles processing of beacon chain validator withdrawals
-* `rocketRewardsPool` - Handles the distribution of rewards to each rewards contract
-* `rocketClaimDAO` - Handles the claiming of rewards for the pDAO
-* `rocketClaimNode` - Handles the claiming of rewards for node operators
-* `rocketClaimTrustedNode` - Handles the claiming of rewards for the oDAO
-* `rocketNodeDeposit` - Handles node deposits for minipool creation
-* `rocketNodeManager` - Registers & manages all nodes in the network
-* `rocketNodeStaking` - Handles node staking and unstaking
-* `rocketDAOProposal` - Contains common oDAO and pDAO functionality
-* `rocketDAONodeTrusted` - Handles oDAO related proposals
-* `rocketDAONodeTrustedProposals` - Contains oDAO proposal functionality (internal)
-* `rocketDAONodeTrustedActions` - Contains oDAO action functionality (internal)
-* `rocketDAONodeTrustedUpgrade` - Handles oDAO contract upgrade functionality (internal)
-* `rocketDAONodeTrustedSettingsMembers` - Handles settings relating to trusted members
-* `rocketDAONodeTrustedSettingsProposals` - Handles settings relating to proposals
-* `rocketDAONodeTrustedSettingsMinipool` - Handles settings relating to minipools
-* `rocketDAOProtocol` - Handles pDAO related proposals
-* `rocketDAOProtocolProposals` - Handles pDAO proposal functionality (internal)
-* `rocketDAOProtocolActions` - Handles pDAO action functionality (internal)
-* `rocketDAOProtocolSettingsInflation` - Handles settings related to inflation
-* `rocketDAOProtocolSettingsRewards` - Handles settings related to rewards
-* `rocketDAOProtocolSettingsAuction` - Handles settings related to auction system
-* `rocketDAOProtocolSettingsNode` - Handles settings related to node operators
-* `rocketDAOProtocolSettingsNetwork` - Handles settings related to the network
-* `rocketDAOProtocolSettingsDeposit` - Handles settings related to deposits
-* `rocketDAOProtocolSettingsMinipool` - Handles settings related to minipools
-* `rocketTokenRETH` - The rETH token contract (not upgradeable)
-* `rocketTokenRPL` - The RPL token contract (not upgradeable)
-* `addressQueueStorage` - A utility contract (internal)
-* `addressSetStorage` - A utility contract (internal)
+
+- `rocketVault` - Stores ETH held by network contracts (internal, not upgradeable)
+- `rocketAuctionManager` - Handles the auctioning of RPL slashed from node operators' stake
+- `rocketDepositPool` - Accepts user-deposited ETH and handles assignment to minipools
+- `rocketMinipoolManager` - Creates & manages all minipools in the network
+- `rocketMinipoolQueue` - Organises minipools into a queue for ETH assignment
+- `rocketMinipoolStatus` - Handles minipool status updates from watchtower nodes
+- `rocketMinipoolPenalty` - Stores penalties applied to node operators by the oDAO
+- `rocketNetworkBalances` - Handles network balance updates from watchtower nodes
+- `rocketNetworkFees` - Calculates node commission rates based on network node demand
+- `rocketNetworkPrices` - Handles RPL price and effective stake updates from watchtower nodes
+- `rocketNetworkWithdrawal` - Handles processing of beacon chain validator withdrawals
+- `rocketRewardsPool` - Handles the distribution of rewards to each rewards contract
+- `rocketClaimDAO` - Handles the claiming of rewards for the pDAO
+- `rocketClaimNode` - Handles the claiming of rewards for node operators
+- `rocketClaimTrustedNode` - Handles the claiming of rewards for the oDAO
+- `rocketNodeDeposit` - Handles node deposits for minipool creation
+- `rocketNodeManager` - Registers & manages all nodes in the network
+- `rocketNodeStaking` - Handles node staking and unstaking
+- `rocketDAOProposal` - Contains common oDAO and pDAO functionality
+- `rocketDAONodeTrusted` - Handles oDAO related proposals
+- `rocketDAONodeTrustedProposals` - Contains oDAO proposal functionality (internal)
+- `rocketDAONodeTrustedActions` - Contains oDAO action functionality (internal)
+- `rocketDAONodeTrustedUpgrade` - Handles oDAO contract upgrade functionality (internal)
+- `rocketDAONodeTrustedSettingsMembers` - Handles settings relating to trusted members
+- `rocketDAONodeTrustedSettingsProposals` - Handles settings relating to proposals
+- `rocketDAONodeTrustedSettingsMinipool` - Handles settings relating to minipools
+- `rocketDAOProtocol` - Handles pDAO related proposals
+- `rocketDAOProtocolProposals` - Handles pDAO proposal functionality (internal)
+- `rocketDAOProtocolActions` - Handles pDAO action functionality (internal)
+- `rocketDAOProtocolSettingsInflation` - Handles settings related to inflation
+- `rocketDAOProtocolSettingsRewards` - Handles settings related to rewards
+- `rocketDAOProtocolSettingsAuction` - Handles settings related to auction system
+- `rocketDAOProtocolSettingsNode` - Handles settings related to node operators
+- `rocketDAOProtocolSettingsNetwork` - Handles settings related to the network
+- `rocketDAOProtocolSettingsDeposit` - Handles settings related to deposits
+- `rocketDAOProtocolSettingsMinipool` - Handles settings related to minipools
+- `rocketTokenRETH` - The rETH token contract (not upgradeable)
+- `rocketTokenRPL` - The RPL token contract (not upgradeable)
+- `addressQueueStorage` - A utility contract (internal)
+- `addressSetStorage` - A utility contract (internal)
 
 Contracts marked as “internal” do not provide methods which are accessible to the general public, and so are generally not useful for extension. For information on specific contract methods, consult their interfaces in the [Rocket Pool repository](https://github.com/rocket-pool/rocketpool/tree/master/contracts/interface).
 
@@ -111,7 +114,7 @@ Note: the `RocketDepositPool` contract address should not be hard-coded in your 
 
 The following describes a basic example contract which forwards deposited ETH into Rocket Pool and minted rETH back to the caller:
 
-``` solidity
+```solidity
 import "RocketStorageInterface.sol";
 import "RocketDepositPoolInterface.sol";
 import "RocketTokenRETHInterface.sol";
@@ -142,7 +145,7 @@ contract Example {
         // Update user's balance
         balances[msg.sender] += rethMinted;
     }
-    
+
     // After 24 hours it's possible to transfer the tokens
     withdraw() external {
         // Load contracts

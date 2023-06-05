@@ -7,7 +7,7 @@ That being said, one of the main concerns (especially in recent times) is the co
 
 To help reduce this, the Ethereum network has started adopting the use of [rollups](https://www.youtube.com/watch?v=7pWxCklcNsU) - also known as **Layer 2**.
 
-Layer 2 comprises several separate networks that live underneath Ethereum, executing lots of transactions like Ethereum normally would, but rolling all of them up into one single "mega" transaction and posting *that* to the main Ethereum chain instead.
+Layer 2 comprises several separate networks that live underneath Ethereum, executing lots of transactions like Ethereum normally would, but rolling all of them up into one single "mega" transaction and posting _that_ to the main Ethereum chain instead.
 Ideally, this means you'd get all of the security benefits associated with Ethereum's decentralized nature, but enjoy **much lower gas fees** for your transactions since execution and storage costs on Layer 2s can be much lower and only a portion of your transactions must be stored on Layer 1 where state is much more expensive.
 
 Rocket Pool currently supports two Layer 2 networks: [Optimism](https://www.optimism.io/) and [Arbitrum](https://arbitrum.io/).
@@ -19,7 +19,7 @@ If this is important to you because you want to stake a small amount of ETH, the
 
 The disadvantage is that you might not get the best deal on rETH.
 Uniswap requires a small fee that's given to its liquidity providers, and large transactions will require large liquidity pools in order to get good deals without too much price impact.
-Layer 2 networks tend to have lower rETH liquidity than the main Ethereum network. 
+Layer 2 networks tend to have lower rETH liquidity than the main Ethereum network.
 
 Therefore, we recommend you compare the total rETH you would get on a Layer 2 network with what you'd get via the other methods to determine if it makes sense for you to pursue this path.
 
@@ -39,7 +39,6 @@ For demonstration purposes, we're going to use [MetaMask](https://metamask.io/) 
 
 **You should be able to follow along using similar steps with a different wallet if you choose - just find the comparable function in your wallet for each step.**
 
-
 ## Setting up MetaMask on Mainnet
 
 Start by installing [MetaMask](https://metamask.io/) if you haven't already.
@@ -55,11 +54,10 @@ The address directly below that is your **Ethereum wallet address**.
 Before going any further, you will need to supply this wallet with ETH.
 If you don't already have ETH in the account from prior usage, you can do this by transferring ETH from an existing account to this wallet address.
 
-
 ## Transferring ETH from Layer 1 to Layer 2 via Hop
 
 There are several ways to bridge ETH from the Ethereum Mainnet to a Layer 2 network.
-In this demonstration, we're going to use the [Hop](https://docs.hop.exchange/faq) protocol - a simple and reliable way to move ETH (and a few other coins) from Layer 1 to several Layer 2 networks, or between Layer 2 networks. 
+In this demonstration, we're going to use the [Hop](https://docs.hop.exchange/faq) protocol - a simple and reliable way to move ETH (and a few other coins) from Layer 1 to several Layer 2 networks, or between Layer 2 networks.
 
 Navigate to the Hop exchange website here:
 
@@ -107,7 +105,6 @@ Metamask will pop up with a confirmation dialog that shows you the gas fee assoc
 If you are comfortable with those gas fees, click **Confirm** to begin the transaction.
 After a few moments, MetaMask will pop up with a successful transaction confirmation message, and your ETH will now be available on your Layer 2 network of choice!
 
-
 ## Connecting to Uniswap on Layer 2
 
 Now that your wallet is set up and funded, head to this URL which will open Uniswap and automatically show swapping ETH for rETH:
@@ -144,10 +141,9 @@ Click **Approve** and then click **Switch Network**.
 This will change MetaMask to use the new Layer 2 network instead of Ethereum's mainnet for transactions.
 
 ::: warning NOTE
-Before you do any transactions with MetaMask, *always* verify which network it's currently using by opening MetaMask and looking at the network dropdown on the top!
+Before you do any transactions with MetaMask, _always_ verify which network it's currently using by opening MetaMask and looking at the network dropdown on the top!
 It's easy to accidentally switch to a different network and forget!
 :::
-
 
 ## Adding rETH to MetaMask
 
@@ -185,7 +181,6 @@ Accept the rest of the prompts, and then you will see the rETH token appear in y
 
 ::::::
 
-
 ## Swapping ETH for rETH with Uniswap
 
 The final step of the process is to do the swap!
@@ -220,7 +215,7 @@ This will send the request to MetaMask, where you can review the total transacti
 ::: tip NOTE
 Pay **close attention** to the estimated gas fee here.
 You will likely notice that it is **approximately 10x cheaper** in terms of gas fees to do this swap on a Layer 2 network than it is on the Ethereum Mainnet!
-::: 
+:::
 
 If you are happy with the gas fees relative to the total amount of rETH you'll be receiving, click **Confirm** to submit the transaction.
 After a short period, you should see a notification from MetaMask that it completed successfully, and you will now see the rETH token in your wallet.

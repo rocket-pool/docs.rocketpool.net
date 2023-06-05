@@ -12,9 +12,9 @@ Create a new Auction instance.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `web3` | `default` | A valid Web3 instance |
+| Name        | Type                     | Description                             |
+| :---------- | :----------------------- | :-------------------------------------- |
+| `web3`      | `default`                | A valid Web3 instance                   |
 | `contracts` | [`Contracts`](Contracts) | A Rocket Pool contract manager instance |
 
 #### Defined in
@@ -48,14 +48,15 @@ rocketpool/auction/auction.ts:24
 Check if the lot exists given a lot index
 
 **`example`** using Typescript
+
 ```ts
 const exists = rp.auction.getLotExists(lotIndex).then((val: boolean) => { val };
 ```
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name       | Type     | Description                         |
+| :--------- | :------- | :---------------------------------- |
 | `lotIndex` | `number` | A number representing the lot index |
 
 #### Returns
@@ -68,7 +69,7 @@ a Promise<boolean\> that resolves to a boolean representing whether the lot exis
 
 rocketpool/auction/auction.ts:38
 
-___
+---
 
 ### getLotStartBlock
 
@@ -77,14 +78,15 @@ ___
 Return the lot start block given a lot index
 
 **`example`** using Typescript
+
 ```ts
 const lotStartBlock = rp.auction.getLotStartBlock(lotIndex).then((val: number) => { val };
 ```
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name       | Type     | Description                         |
+| :--------- | :------- | :---------------------------------- |
 | `lotIndex` | `number` | A number representing the Lot Index |
 
 #### Returns
@@ -97,7 +99,7 @@ a Promise<number\> that resolves to a number representing the lot start block
 
 rocketpool/auction/auction.ts:54
 
-___
+---
 
 ### getLotEndBlock
 
@@ -106,14 +108,15 @@ ___
 Return the lot end block given a lot index
 
 **`example`** using Typescript
+
 ```ts
 const lotEndBlock = rp.auction.getLotEndBlock(lotIndex).then((val: number) => { val };
 ```
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name       | Type     | Description                         |
+| :--------- | :------- | :---------------------------------- |
 | `lotIndex` | `number` | A number representing the lot index |
 
 #### Returns
@@ -126,7 +129,7 @@ a Promise<number\> that resolves to a number representing the lot end block
 
 rocketpool/auction/auction.ts:70
 
-___
+---
 
 ### getLotStartPrice
 
@@ -135,14 +138,15 @@ ___
 Return the lot start price given a lot index
 
 **`example`** using Typescript
+
 ```ts
 const lotStartPrice = rp.auction.getLotStartPrice(lotIndex).then((val: number) => { val };
 ```
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name       | Type     | Description                         |
+| :--------- | :------- | :---------------------------------- |
 | `lotIndex` | `number` | A number representing the lot index |
 
 #### Returns
@@ -155,7 +159,7 @@ a Promise<number\> that resolves to a number representing the lot start price
 
 rocketpool/auction/auction.ts:86
 
-___
+---
 
 ### getLotReservePrice
 
@@ -164,14 +168,15 @@ ___
 Return the lot reserve price given a lot index
 
 **`example`** using Typescript
+
 ```ts
 const lotReservePrice = rp.auction.getLotReservePrice(lotIndex).then((val: number) => { val };
 ```
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name       | Type     | Description                         |
+| :--------- | :------- | :---------------------------------- |
 | `lotIndex` | `number` | A number representing the lot index |
 
 #### Returns
@@ -184,7 +189,7 @@ a Promise<number\> that resolves to a number representing the Lot Reserve Price
 
 rocketpool/auction/auction.ts:102
 
-___
+---
 
 ### getLotTotalBidAmount
 
@@ -193,14 +198,15 @@ ___
 Return the lot total bid amount given a lot index
 
 **`example`** using Typescript
+
 ```ts
 const lotTotalBidAmount = rp.auction.getLotTotalBidAmount(lotIndex).then((val: number) => { val };
 ```
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name       | Type     | Description                         |
+| :--------- | :------- | :---------------------------------- |
 | `lotIndex` | `number` | A number representing the lot index |
 
 #### Returns
@@ -213,7 +219,7 @@ a Promise<number\> that resolves to a number representing the lot total bid amou
 
 rocketpool/auction/auction.ts:118
 
-___
+---
 
 ### getLotTotalRPLAmount
 
@@ -222,14 +228,15 @@ ___
 Return the lot total RPL amount given a lot index
 
 **`example`** using Typescript
+
 ```ts
 const lotTotalRPLAmount = rp.auction.getLotTotalRPLAmount(lotIndex).then((val: number) => { val };
 ```
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name       | Type     | Description                         |
+| :--------- | :------- | :---------------------------------- |
 | `lotIndex` | `number` | A number representing the lot index |
 
 #### Returns
@@ -242,7 +249,7 @@ a Promise<number\> that resolves to a number representing the lot total RPL amou
 
 rocketpool/auction/auction.ts:134
 
-___
+---
 
 ### getLotAddressBidAmount
 
@@ -251,15 +258,16 @@ ___
 Return the lot address bid amount given a lot index and a bidder address
 
 **`example`** using Typescript
+
 ```ts
 const lotAddressBidAmount = rp.auction.getLotAddressBidAmount(lotIndex, bidderAddress).then((val: number) => { val };
 ```
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `lotIndex` | `number` | A number representing the lot index |
+| Name            | Type     | Description                              |
+| :-------------- | :------- | :--------------------------------------- |
+| `lotIndex`      | `number` | A number representing the lot index      |
 | `bidderAddress` | `string` | A string representing the bidder address |
 
 #### Returns
@@ -272,7 +280,7 @@ a Promise<number\> that resolves to a number representing the lot address bid am
 
 rocketpool/auction/auction.ts:151
 
-___
+---
 
 ### getLotPriceByTotalBids
 
@@ -281,14 +289,15 @@ ___
 Return the lot current orice by total bids given a lot index
 
 **`example`** using Typescript
+
 ```ts
 const lotPriceByTotalBids = rp.auction.getLotPriceByTotalBids(lotIndex).then((val: number) => { val };
 ```
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name       | Type     | Description                         |
+| :--------- | :------- | :---------------------------------- |
 | `lotIndex` | `number` | A number representing the lot index |
 
 #### Returns
@@ -301,7 +310,7 @@ a Promise<number\> that resolves to a number representing the lot price by total
 
 rocketpool/auction/auction.ts:167
 
-___
+---
 
 ### getLotCurrentPrice
 
@@ -310,14 +319,15 @@ ___
 Return the current lot price given a lot index
 
 **`example`** using Typescript
+
 ```ts
 const lotCurrentPrice = rp.auction.getLotCurrentPrice(lotIndex).then((val: number) => { val };
 ```
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name       | Type     | Description                         |
+| :--------- | :------- | :---------------------------------- |
 | `lotIndex` | `number` | A number representing the lot index |
 
 #### Returns
@@ -330,7 +340,7 @@ a Promise<number\> that resolves to a number representing the lot's current pric
 
 rocketpool/auction/auction.ts:183
 
-___
+---
 
 ### getLotClaimedRPLAmount
 
@@ -339,14 +349,15 @@ ___
 Return the lot claimed RPL amount given a lot index
 
 **`example`** using Typescript
+
 ```ts
 const lotClaimedRPLAmount = rp.auction.getLotClaimedRPLAmount(lotIndex).then((val: number) => { val };
 ```
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name       | Type     | Description                         |
+| :--------- | :------- | :---------------------------------- |
 | `lotIndex` | `number` | A number representing the lot Index |
 
 #### Returns
@@ -359,7 +370,7 @@ a Promise<number\> that resolves to a number representing the lot's claimed RPL 
 
 rocketpool/auction/auction.ts:199
 
-___
+---
 
 ### getLotRemainingRPLAmount
 
@@ -368,14 +379,15 @@ ___
 Return the lot remaining RPL amount given a lot index
 
 **`example`** using Typescript
+
 ```ts
 const lotRemainingRPLAmount = rp.auction.getLotRemainingRPLAmount(lotIndex).then((val: number) => { val };
 ```
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name       | Type     | Description                         |
+| :--------- | :------- | :---------------------------------- |
 | `lotIndex` | `number` | A number representing the lot index |
 
 #### Returns
@@ -388,7 +400,7 @@ a Promise<number\> that resolves to a number representing the lot's remaining RP
 
 rocketpool/auction/auction.ts:215
 
-___
+---
 
 ### getLotIsCleared
 
@@ -397,14 +409,15 @@ ___
 Check if a lot is cleared given a lot index
 
 **`example`** using Typescript
+
 ```ts
 const lotCleared = rp.auction.getLotIsCleared(lotIndex).then((val: number) => { val };
 ```
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name       | Type     | Description                         |
+| :--------- | :------- | :---------------------------------- |
 | `lotIndex` | `number` | A number representing the lot index |
 
 #### Returns
@@ -417,7 +430,7 @@ a Promise<boolean\> that resolves to a boolean representing whether the lot is c
 
 rocketpool/auction/auction.ts:231
 
-___
+---
 
 ### getTotalRPLBalance
 
@@ -426,6 +439,7 @@ ___
 Return the total RPL balance
 
 **`example`** using Typescript
+
 ```ts
 const totalRPLBalance = rp.auction.getTotalRPLBalance(lotIndex).then((val: number) => { val };
 ```
@@ -440,7 +454,7 @@ a Promise<number\> that resolves to a number representing the total RPL balance
 
 rocketpool/auction/auction.ts:247
 
-___
+---
 
 ### getAllottedRPLBalance
 
@@ -449,6 +463,7 @@ ___
 Return the allotted RPL balance
 
 **`example`** using Typescript
+
 ```ts
 const allottedRPLBalance = rp.auction.getAllottedRPLBalance(lotIndex).then((val: number) => { val };
 ```
@@ -463,7 +478,7 @@ a Promise<number\> that resolves to a number representing the allotted RPL balan
 
 rocketpool/auction/auction.ts:263
 
-___
+---
 
 ### getRemainingRPLBalance
 
@@ -472,6 +487,7 @@ ___
 Return the remaining RPL balance
 
 **`example`** using Typescript
+
 ```ts
 const remainingRPLBalance = rp.auction.getRemainingRPLBalance(lotIndex).then((val: number) => { val };
 ```
@@ -486,7 +502,7 @@ a Promise<number\> that resolves to a number representing the remaining RPL bala
 
 rocketpool/auction/auction.ts:279
 
-___
+---
 
 ### getLotCount
 
@@ -495,6 +511,7 @@ ___
 Return the Lot Count
 
 **`example`** using Typescript
+
 ```ts
 const lotCount = rp.auction.getLotCount(lotIndex).then((val: number) => { val };
 ```
@@ -509,7 +526,7 @@ a Promise<number\> that resolves to a number representing the lot count
 
 rocketpool/auction/auction.ts:295
 
-___
+---
 
 ### getLotPriceAtBlock
 
@@ -518,16 +535,17 @@ ___
 Return the lot price at a specified block given a lot index
 
 **`example`** using Typescript
+
 ```ts
 const lotPrice = rp.auction.getLotPriceAtBlock(lotIndex, block).then((val: number) => { val };
 ```
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name       | Type     | Description                         |
+| :--------- | :------- | :---------------------------------- |
 | `lotIndex` | `number` | A number representing the lot index |
-| `block` | `number` | A number representing the block |
+| `block`    | `number` | A number representing the block     |
 
 #### Returns
 
@@ -539,7 +557,7 @@ a Promise<number\> that resolves to a number representing the lot price at the s
 
 rocketpool/auction/auction.ts:312
 
-___
+---
 
 ### getLotRPLRecovered
 
@@ -548,14 +566,15 @@ ___
 Return the Lot RPL Recovered given a lot index
 
 **`example`** using Typescript
+
 ```ts
 const lotRPLRecovered = rp.auction.getLotRPLRecovered(lotIndex).then((val: number) => { val };
 ```
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name       | Type     | Description                         |
+| :--------- | :------- | :---------------------------------- |
 | `lotIndex` | `number` | A number representing the lot index |
 
 #### Returns
@@ -568,7 +587,7 @@ a Promise<number\> that resolves to a number representing the lot RPL recovered
 
 rocketpool/auction/auction.ts:329
 
-___
+---
 
 ### createLot
 
@@ -577,6 +596,7 @@ ___
 Create a new lot for auction
 
 **`example`** using Typescript
+
 ```ts
 const options = {
 		from: '0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294',
@@ -587,10 +607,10 @@ const txReceipt = rp.auction.createLot(options).then((txReceipt: TransactionRece
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 
@@ -602,7 +622,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/auction/auction.ts:350
 
-___
+---
 
 ### claimBid
 
@@ -611,6 +631,7 @@ ___
 Create bid on a lot
 
 **`example`** using Typescript
+
 ```ts
 const options = {
 		from: '0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294',
@@ -621,11 +642,11 @@ const txReceipt = rp.auction.claimBid(lotIndex, options).then((txReceipt: Transa
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `lotIndex` | `number` | A number representing the lot index |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `lotIndex`        | `number`              | A number representing the lot index                 |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 
@@ -637,7 +658,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/auction/auction.ts:372
 
-___
+---
 
 ### placeBid
 
@@ -646,6 +667,7 @@ ___
 Place bid on a lot
 
 **`example`** using Typescript
+
 ```ts
 const options = {
 		from: '0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294',
@@ -656,11 +678,11 @@ const txReceipt = rp.auction.placeBid(lotIndex, options).then((txReceipt: Transa
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `lotIndex` | `number` | A number representing the lot ondex |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `lotIndex`        | `number`              | A number representing the lot ondex                 |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 
@@ -672,7 +694,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/auction/auction.ts:394
 
-___
+---
 
 ### recoverUnclaimedRPL
 
@@ -681,6 +703,7 @@ ___
 Recover Unclaimed RPL
 
 **`example`** using Typescript
+
 ```ts
 const options = {
 		from: '0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294',
@@ -691,11 +714,11 @@ const txReceipt = rp.auction.recoverUnclaimedRPL(lotIndex, options).then((txRece
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `lotIndex` | `number` | A number representing the lot index |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `lotIndex`        | `number`              | A number representing the lot index                 |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 

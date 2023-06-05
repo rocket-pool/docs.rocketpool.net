@@ -5,19 +5,18 @@ The minipool handles a portion of your ETH, known as the **bond amount**, and a 
 It merges them together to form 32 ETH in total, which is then sent to the Beacon Chain deposit contract to create a new validator.
 Thus, in order to create a validator using Rocket Pool, you need to **create a minipool**.
 
-
 ## Choosing a Bond Size
 
 ::: warning NOTE
 8-ETH bonded minipools are a feature of the [**Atlas**](../atlas/whats-new) upgrade, which was launched on April 17th 2023.
-::: 
+:::
 
 Before creating a minipool, the first step is to choose the amount of ETH you want to bond.
 With the Atlas update, Rocket Pool allows bond amounts of either **8 ETH** or **16 ETH**.
 This bond represents your literal stake in the game as a validator; if your node is penalized for poor performance or slashed for violating the rules of the protocol, the penalty is taken from your bond.
 
 In addition to your ETH bond, creating a validator also requires **supplemental collateral** in the form of the **RPL token**.
-The amount of RPL you need to stake depends on your bond size; the minimum is 10% of your *borrowed* amount of ETH, and the maximum is 150% of your *bonded* amount of ETH.
+The amount of RPL you need to stake depends on your bond size; the minimum is 10% of your _borrowed_ amount of ETH, and the maximum is 150% of your _bonded_ amount of ETH.
 
 If choosing **8 ETH**, you stake 8 of your own ETH and "borrow" 24 ETH from the staking pool to complete the validator.
 The minimum RPL stake is **2.4 ETH worth of RPL** (10% of 24), and the maximum is **12 ETH worth of RPL** (150% of 8).
@@ -25,11 +24,10 @@ The minimum RPL stake is **2.4 ETH worth of RPL** (10% of 24), and the maximum i
 If choosing **16 ETH** you stake 16 of your own ETH and borrow 16 ETH from the staking pool to complete the validator.
 The minimum RPL stake is **1.6 ETH worth of RPL** (10% of 16), and the maximum is **24 ETH worth of RPL** (150% of 16).
 
-
 ### Rewards
 
-From a profitability perspective (looking *purely* at ETH rewards and ignoring RPL), two 8-ETH bonded minipools with a 14% commission provide *more rewards* to the node operator than even *16-ETH bonded minipools at 20% commission* (which, as of Redstone, is the highest possible reward configuration).
-At the same time, they also provide more rewards to the *rETH holders* as well due to the fact that the node operators are more efficiently putting the capital of the rETH holders to work.
+From a profitability perspective (looking _purely_ at ETH rewards and ignoring RPL), two 8-ETH bonded minipools with a 14% commission provide _more rewards_ to the node operator than even _16-ETH bonded minipools at 20% commission_ (which, as of Redstone, is the highest possible reward configuration).
+At the same time, they also provide more rewards to the _rETH holders_ as well due to the fact that the node operators are more efficiently putting the capital of the rETH holders to work.
 
 Let's walk through a simple example to illustrate.
 Say we are a node operator with 16 ETH available to stake (plus the required RPL bond).
@@ -61,7 +59,6 @@ rETH Share = 2 - 0.71
 
 In other words, a node operator will earn **18% more ETH** via two 8-ETH minipools than they would with a single 16-ETH minipool at 20% commission.
 
-
 ## Staking RPL
 
 Before you can create a minipool, you'll first need to stake your RPL collateral.
@@ -76,11 +73,10 @@ When you stake RPL, you do it for your **entire node**.
 This means you'll only need to handle the total RPL stake for your node if you plan to run multiple minipools.
 :::
 
-
 ### Staking via the Website
 
-The easiest and safest way to stake RPL for your node is to use the protocol's **Stake-on-Behalf** feature, which was 
-reintroduced with the Atlas upgrade. This way, you can stake RPL for your node while the RPL is still in the wallet 
+The easiest and safest way to stake RPL for your node is to use the protocol's **Stake-on-Behalf** feature, which was
+reintroduced with the Atlas upgrade. This way, you can stake RPL for your node while the RPL is still in the wallet
 you used to acquire it. In other words, you **don't need to send RPL to your node's hot wallet** in order to stake it.
 
 #### Whitelisting an address to stake on behalf
@@ -177,7 +173,7 @@ Please choose an amount of RPL to stake:
 Select how much you'd like to stake, then confirm the operation.
 
 The first time you run this command, it will involve two transactions - one to **approve** the Rocket Pool staking contract to access your RPL, and one to **stake** your RPL with it.
-Subsequent runs will only require the **stake** transaction, since the token has already been approved. 
+Subsequent runs will only require the **stake** transaction, since the token has already been approved.
 
 Once both transactions finish, you can check your staked RPL amount with `rocketpool node status`.
 The following portion of the output is what you want to verify:
@@ -192,7 +188,6 @@ The node has enough RPL staked to make 1 more 8-ETH minipools (or 2 more 16-ETH 
 ```
 
 This will show you how many minipools you can make of each bond size based on your RPL collateral.
-
 
 ## (Optional) Finding a Custom Vanity Address for your Minipool
 
@@ -247,6 +242,7 @@ On average, it will take a few seconds to find a 6-character prefix, a few minut
 
 ::: tip NOTE
 The salt that gets generated is specific to the following variables:
+
 - The network you're using (either the Prater Testnet or Mainnet)
 - The node address
 - The bond amount
@@ -256,7 +252,6 @@ If you change any of those variables, the minipool address for a given salt will
 :::
 
 For more advanced usage (such as searching for a different node address or changing how many CPU cores are used for searching), take a look at the help text with `rocketpool minipool find-vanity-address --help`.
-
 
 ## Depositing ETH and Creating a Minipool
 
@@ -284,6 +279,7 @@ If you want to use a salt for a vanity address that you found using the process 
 ```
 rocketpool node deposit --salt <your salt, e.g. 0x1234abcd>
 ```
+
 :::
 
 You will first see a note that depositing a new minipool will **automatically distribute** any balance in your node's [fee distributor](./fee-distrib-sp) contract (used to capture MEV rewards if you're not opted into the [Smoothing Pool](./fee-distrib-sp#the-smoothing-pool)):
@@ -313,7 +309,7 @@ You currently have 8.00 ETH in your credit balance.
 This deposit will use 8.000000 ETH from your credit balance and will not require any ETH from your node.
 ```
 
-You will next be prompted with the network's current gas costs recommendations; confirm your gas price selection and follow the rest of the prompts. 
+You will next be prompted with the network's current gas costs recommendations; confirm your gas price selection and follow the rest of the prompts.
 
 ```
 Your consensus client is synced, you may safely create a minipool.
@@ -362,7 +358,6 @@ Pay close attention to the total cost and ensure that you accept it.
 If you accept, your minipool creation will be triggered.
 Once the transaction completes, you will be given the address of your new minipool contract on the eth1 chain and its corresponding validator public key on the Beacon Chain.
 You can visit these with any block explorers if you'd like.
-
 
 ## Confirming a Successful Stake
 
@@ -439,7 +434,7 @@ Expected rewards:     16.010614 ETH
 Use latest delegate:  no
 Delegate address:     <your delegate address>
 Rollback delegate:    <none>
-Effective delegate:   <your delegate address> 
+Effective delegate:   <your delegate address>
 
 
 0 finalized minipool(s):
@@ -454,16 +449,14 @@ You have officially created a validator with Rocket Pool!
 
 Have a look at the next sections in Monitoring and Maintenance to learn how to watch your validator's performance and health over time.
 
-
 ## Creating Multiple Minipools
 
 Conveniently, your Rocket Pool node is capable of hosting as many minipools as you want.
 You **do not** need to create a new node for each minipool.
 
 If you would like to make a second (or third, or fourth...) minipool for your node, all you need to do is run `rocketpool node deposit` again.
-Note that you may need to stake more RPL first to maintain an overall collateral level of at least 10% of your *borrowed* ETH before you do this.
+Note that you may need to stake more RPL first to maintain an overall collateral level of at least 10% of your _borrowed_ ETH before you do this.
 Also, you won't be able to reuse an old vanity address salt - you'll need to search for another unique one for each of your minipools.
-
 
 ## Next Steps
 

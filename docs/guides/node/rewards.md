@@ -29,7 +29,6 @@ The rewards system has the following features:
 For more information on how the Merkle Tree is built and how rewards are calculated, [please visit our `research` repository and view the official specifications](https://github.com/rocket-pool/rocketpool-research/tree/master/Merkle%20Rewards%20System).
 We've provided a brief explanation of them below.
 
-
 ### RPL Rewards
 
 RPL's current rewards rate is **5% inflation per year**.
@@ -41,7 +40,7 @@ The effective stake is essentially how much RPL collateral they've staked agains
 Thus, for a single minipool with a 16 ETH deposit, the maximum effective stake is 24 ETH worth of RPL (which varies with the ETH/RPL ratio).
 Staking more RPL than this will not result in higher rewards.
 
-For example: if 48,300 RPL were minted, your node had 1000 effective RPL staked, and the total effective stake of the network was 1,000,000 RPL, then your rewards for the checkpoint would be 48,300 * 1000 / 1000000 = **48.3 RPL**. 
+For example: if 48,300 RPL were minted, your node had 1000 effective RPL staked, and the total effective stake of the network was 1,000,000 RPL, then your rewards for the checkpoint would be 48,300 \* 1000 / 1000000 = **48.3 RPL**.
 
 If less than 28 days have passed between the time when you registered your node and the checkpoint, your rewards in that first rewards interval will be **pro-rated** to account for that. For example, if you registered on day 14 if the interval, you would receive 50% of normal rewards.
 
@@ -57,7 +56,6 @@ If you are below 10% during the checkpoint, **you will not be eligible for any r
 Therefore it is **crucial** that you maintain at least 10% collateral at all times.
 :::
 
-
 ### Smoothing Pool ETH Rewards
 
 Along with RPL rewards, the Smoothing Pool's entire ETH balance is distributed during rewards checkpoints.
@@ -67,12 +65,12 @@ The remaining portion will be distributed amongst the eligible node operators.
 Nodes that are opted into the smoothing pool for the interval, even if only part of the time, are eligible for a portion of the Smoothing Pool's total balance.
 The balance is snapshotted at the rewards checkpoint, and the Oracle DAO determines each eligible node's portion.
 The portion is determined by the following factors:
+
 - Amount of time in the Smoothing Pool this interval
 - Attestation performance on the Beacon Chain for each minipool
 - The commission of each minipool
 
 If you'd like to know more, please see the `research` repository linked above for a full breakdown of how the rewards are calculated.
-
 
 ### (Optional) Generating the Rewards Tree
 
@@ -81,6 +79,7 @@ Building this tree currently takes approximately 2 hours, and the rewards for th
 Once it's available, your node will automatically download this file and you'll be able to view and claim your rewards for that interval.
 
 If you'd like to generate the tree yourself instead of downloading the pre-built one from the Oracle DAO, you can do so!
+
 - Enter the `rocketpool service config` TUI.
 - Navigate to the `Smartnode and TX Fees` section.
 - Change the `Rewards Tree Mode` from `Download` to `Generate`.
@@ -99,7 +98,6 @@ rocketpool network generate-rewards-tree
 ```
 
 Follow the prompts, and then use `rocketpool service logs watchtower` to view its progress.
-
 
 ## Claiming Rewards
 
@@ -150,8 +148,8 @@ Your node has received 208.551820 RPL staking rewards in total.
 
 You may claim these rewards at any time. You no longer need to claim them within this interval.
 ```
-:::
 
+:::
 
 ## Execution-Layer Rewards in your Fee Distributor
 
@@ -166,10 +164,9 @@ To learn more about the Smoothing Pool, please visit https://docs.rocketpool.net
 The node's fee distributor 0xA0bfbFC582f5814585f8455Ed6D7B620eA9a9EE4 has a balance of 1.143598 ETH.
 ```
 
-
 ### Distributing the Balance
 
-To access the Fee Distributor's balance, you will **distribute** it (hence the name, *Fee Distributor*).
+To access the Fee Distributor's balance, you will **distribute** it (hence the name, _Fee Distributor_).
 This will calculate your share of the rewards (based on your node's average minipool commission) and send it to your node's withdrawal address; the rest is sent to the staking pool.
 
 Distribution can be done **at any time**.
@@ -182,6 +179,7 @@ rocketpool node distribute-fees
 ```
 
 This will show how much goes to you and how much goes to the staking pool:
+
 ```
 Your node's average commission is 15.00%.
 Your fee distributor's balance of 1.143599 ETH will be distributed as follows:

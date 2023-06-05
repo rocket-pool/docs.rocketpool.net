@@ -12,9 +12,9 @@ Create a new Network Settings instance.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `web3` | `default` | A valid Web3 instance |
+| Name        | Type                     | Description                             |
+| :---------- | :----------------------- | :-------------------------------------- |
+| `web3`      | `default`                | A valid Web3 instance                   |
 | `contracts` | [`Contracts`](Contracts) | A Rocket Pool contract manager instance |
 
 #### Defined in
@@ -48,6 +48,7 @@ rocketpool/settings/network.ts:22
 Return the threshold of trusted nodes that must reach consensus on oracle data to commit it
 
 **`example`** using Typescript
+
 ```ts
 const nodeConsensusThreshold = rp.settings.network.getNodeConsensusThreshold().then((val: number) => { val };
 ```
@@ -62,7 +63,7 @@ a Promise<number\> that resolves to a number representing the threshold of trust
 
 rocketpool/settings/network.ts:35
 
-___
+---
 
 ### getSubmitBalancesEnabled
 
@@ -71,6 +72,7 @@ ___
 Return if balance submissions are enabled
 
 **`example`** using Typescript
+
 ```ts
 const enabled = rp.settings.network.getSubmitBalancesEnabled().then((val: boolean) => { val };
 ```
@@ -85,7 +87,7 @@ a Promise<boolean\> that resolves to a boolean representing the threshold of tru
 
 rocketpool/settings/network.ts:52
 
-___
+---
 
 ### getSubmitBalancesFrequency
 
@@ -94,6 +96,7 @@ ___
 Return the frequency in blocks at which network balances should be submitted by trusted nodes
 
 **`example`** using Typescript
+
 ```ts
 const enabled = rp.settings.network.getSubmitBalancesFrequency().then((val: number) => { val };
 ```
@@ -108,7 +111,7 @@ a Promise<number\> that resolves to a number representing the frequency in block
 
 rocketpool/settings/network.ts:67
 
-___
+---
 
 ### getMinimumNodeFee
 
@@ -117,6 +120,7 @@ ___
 Return the minimum node fee
 
 **`example`** using Typescript
+
 ```ts
 const enabled = rp.settings.network.getMinimumNodeFee().then((val: number) => { val };
 ```
@@ -131,7 +135,7 @@ a Promise<number\> that resolves to a number representing the minimum node fee
 
 rocketpool/settings/network.ts:84
 
-___
+---
 
 ### getTargetNodeFee
 
@@ -140,6 +144,7 @@ ___
 Return the target node fee
 
 **`example`** using Typescript
+
 ```ts
 const enabled = rp.settings.network.getTargetNodeFee().then((val: number) => { val };
 ```
@@ -154,7 +159,7 @@ a Promise<number\> that resolves to a number representing the target node fee
 
 rocketpool/settings/network.ts:101
 
-___
+---
 
 ### getMaximumNodeFee
 
@@ -163,6 +168,7 @@ ___
 Return the maximum node fee
 
 **`example`** using Typescript
+
 ```ts
 const enabled = rp.settings.network.getMaximumNodeFee().then((val: number) => { val };
 ```
@@ -177,7 +183,7 @@ a Promise<number\> that resolves to a number representing the maximum node fee
 
 rocketpool/settings/network.ts:118
 
-___
+---
 
 ### getNodeFeeDemandRange
 
@@ -186,6 +192,7 @@ ___
 Return the range of node demand values in Wei to base fee calculations on (from negative to positive value)
 
 **`example`** using Typescript
+
 ```ts
 const enabled = rp.settings.network.getNodeFeeDemandRange().then((val: string) => { val };
 ```
@@ -200,7 +207,7 @@ a Promise<string\> that resolves to a string representing the range of node dema
 
 rocketpool/settings/network.ts:135
 
-___
+---
 
 ### getTargetRethCollateralRate
 
@@ -209,6 +216,7 @@ ___
 Return the target rETH collateralization rate
 
 **`example`** using Typescript
+
 ```ts
 const enabled = rp.settings.network.getTargetRethCollateralRate().then((val: number) => { val };
 ```
@@ -223,7 +231,7 @@ a Promise<number\> that resolves to a number representing the target rETH collat
 
 rocketpool/settings/network.ts:150
 
-___
+---
 
 ### getRethDespositDelay
 
@@ -232,6 +240,7 @@ ___
 Return the rETH deposit delay setting
 
 **`example`** using Typescript
+
 ```ts
 const enabled = rp.settings.network.getRethDespositDelay().then((val: number) => { val };
 ```

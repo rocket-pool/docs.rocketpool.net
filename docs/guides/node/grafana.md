@@ -19,7 +19,6 @@ The standard dashboard includes the following information all in a convenient fo
 
 In this guide, we'll show you how to enable Rocket Pool's metrics system so you can use this dashboard - or even build your own!
 
-
 ## Overview of the Rocket Pool Metrics Stack
 
 If you choose to enable metrics during the Smartnode configuration process, your node will add the following processes:
@@ -32,8 +31,8 @@ If you choose to enable metrics during the Smartnode configuration process, your
 The default configuration will create Docker containers with all of these services that live alongside the rest of the Smartnode's Docker containers.
 It will open up a port on your node machine for Grafana, so you can access its dashboard from any machine on your local network with a browser.
 
-
 ## Enabling the Metrics Server
+
 :::::: tabs
 ::::: tab Docker
 Enabling metrics in Docker mode is the easiest of all.
@@ -82,6 +81,7 @@ This will be the most common use case.
 
 Please check whether your local network uses the `192.168.1.xxx` structure first.
 You may have to change the command below to match your local network's configuration if it uses a different address structure (e.g. `192.168.99.xxx`).
+
 ```shell
 # This assumes your local IP structure is 192.168.1.xxx
 sudo ufw allow from 192.168.1.0/24 proto tcp to any port 3100 comment 'Allow grafana from local network'
@@ -103,14 +103,15 @@ sudo ufw allow from 192.168.1.0/16 proto tcp to any port 3100 comment 'Allow gra
 ::::nestedTab Anywhere
 This will let you access Grafana from anywhere.
 If you want to access it from outside your local network, you will still need to forward the Grafana port (default 3100) in your router settings.
+
 ```shell
 # Allow any IP to connect to Grafana
 sudo ufw allow 3100/tcp comment 'Allow grafana from anywhere'
 ```
+
 ^^^^^^
 
 :::
-
 
 After you reconfigure the Smartnode to enable / disable metrics, you'll have to run the following commands for the changes to take effect:
 
@@ -137,7 +138,7 @@ This service is different for every Operating System, but it has been confirmed 
 
 ::: warning NOTE
 Enabling the service automatically is incompatible with SELinux.
-If your system has SELinux enabled by default (as is the case with CentOS and Fedora), the installation command will get you *most of the way there* but will also give you instructions on how to finish the process manually at the end.
+If your system has SELinux enabled by default (as is the case with CentOS and Fedora), the installation command will get you _most of the way there_ but will also give you instructions on how to finish the process manually at the end.
 :::
 
 During this check, it will also compare your installed Rocket Pool Smartnode version with the latest release, and inform you if there's a new release available.
@@ -152,16 +153,13 @@ After that, you should be all set.
 
 ::::: tab Hybrid
 
-*Coming soon!*
-
+_Coming soon!_
 
 ::::: tab Native
 
-*Coming soon!*
+_Coming soon!_
 
 ::::::
-
-
 
 ## Setting up Grafana
 
@@ -211,17 +209,15 @@ You will be able to log into Grafana using the default `admin` credentials once 
 Thanks to community member **tedsteen**'s work, Grafana will automatically connect to your Prometheus instance so it has access to the metrics that it collects.
 All you need to do is grab the dashboard!
 
-
 ::::: tab Hybrid
 
-*Coming soon!*
+_Coming soon!_
 
 ::::: tab Native
 
-*Coming soon!*
+_Coming soon!_
 
 ::::::
-
 
 ## Importing the Rocket Pool Dashboard
 
@@ -248,9 +244,7 @@ At first glance, you should see lots of information about your node and your val
 Each box comes with a handy tooltip on the top left corner (the `i` icon) that you can hover over to learn more about it.
 For example, here is the tooltip for the **Your Validator Share** box:
 
-
 ![](./images/tooltip.png)
-
 
 However, we aren't done setting things up yet - there is still a little more configuration to do.
 
@@ -260,21 +254,17 @@ Some of the boxes (notably the APR ones) have been temporarily disabled due to t
 They will be enabled again in a future version of the Smartnode that can track historical rewards properly.
 :::
 
-
 ## Tailoring the Hardware Monitor to your System
 
 Now that the dashboard is up, you might notice that a few boxes are empty such as **SSD Latency** and **Network Usage**.
 We have to tailor the dashboard to your specific hardware so it knows how to capture these things.
-
 
 ### CPU Temp
 
 To update your CPU temperature gauge, click the title of the **CPU Temp** box and select **Edit** from the drop down.
 Your screen will now look something like this:
 
-
 ![](./images/cpu-temp.png)
-
 
 This is Grafana's edit mode, where you can change what is displayed and how it looks.
 We're interested in the query box highlighted in red, to the right of the **Metrics browser** button.
@@ -293,9 +283,7 @@ To do this, follow these steps:
 1. Remove the `, sensor=""` portion so it ends with `chip=""}`. For clarity, the whole thing should now be `node_hwmon_temp_celsius{job="node", chip=""}`.
 2. Put your cursor in-between the quote marks of `chip=""` and press `Ctrl+Spacebar`. This will bring up an auto-complete box with the available options, which looks like this:
 
-
 ![](./images/grafana-autocomplete.png)
-
 
 3. Select the option that corresponds to your system's CPU.
 4. Once that's selected, add `, sensor=""` back into the string. Place your cursor in-between the quote marks of `sensor=""` and press `Ctrl+Spacebar` to get another auto-complete menu. Select the sensor you want to monitor.
@@ -304,6 +292,7 @@ To do this, follow these steps:
 If you don't know which `chip` or `sensor` is correct, you'll have to try all of them until you find the one that looks right. To help with this, install the `lm-sensors` package (for example, `sudo apt install lm-sensors` on Debian / Ubuntu) and run the `sensors -u` command to provide what sensors your computer has. You can try to correlate a chip ID from Grafana's list with what you see here based on their names and IDs.
 
 For example, this is one of the outputs of our `sensors -u` command:
+
 ```
 k10temp-pci-00c3
 Tctl:
@@ -321,7 +310,6 @@ Once you're happy with your selections, click the blue **Apply** button in the t
 Not all system expose CPU temperature info - notably virtual machines or cloud-based systems.
 If yours doesn't have anything in the auto-complete field for `chip`, this is probably the case and you won't be able to monitor your CPU temperature.
 :::
-
 
 ### SSD Latency
 
@@ -361,7 +349,7 @@ Look in the `MOUNTPOINT` column for an entry simply labeled `/`, then follow tha
 
 Typically this will be `sda` for SATA drives or `nvme0n1` for NVMe drives.
 
-If you *did* change Docker's default location to a different drive, or if you're running a hybrid / native setup, you should be able to use the same technique of "following the mount point" to determine which device your chain data resides on.
+If you _did_ change Docker's default location to a different drive, or if you're running a hybrid / native setup, you should be able to use the same technique of "following the mount point" to determine which device your chain data resides on.
 :::
 
 Optionally, you can also track latency of a second disk on your system.
@@ -369,7 +357,6 @@ This is aimed at people that keep their Operating System and chain data on separ
 To set this up, simply follow the instructions above for the last two query fields, substituting `device=""` portion values with those of the disk you want to track.
 
 Once you're happy with your selections, click the blue **Apply** button in the top right corner of the screen to save the settings.
-
 
 ### Network Usage
 
@@ -407,14 +394,12 @@ The device listed there is the one you want to use - in this example, `eth0`.
 
 Once you're happy with your selections, click the blue **Apply** button in the top right corner of the screen to save the settings.
 
-
 ### Total Net I/O
 
 This tracks the total amount of data you've sent and received.
 You might find it useful to watch if, for example, your ISP limits you to a certain amount of data per month.
 
 The setup is identical to the **Network Usage** box above, so simply follow those instructions for this box too.
-
 
 ### Disk Space Used
 
@@ -429,13 +414,11 @@ This is aimed at people that keep their Operating System and chain data on separ
 Set this up by following the same process, but instead of looking at which partition has `/` in the `MOUNTPOINT` column, you want to look for the one that has whatever your second drive's mount point is.
 Update the second query field with the disk associated with that partition.
 
-
 ### Disk Temp
 
 This tracks the current temperature of your Operating System disk. The steps are the same as the **CPU Temp** box above, so simply follow those instructions for this box too, substituting CPU chip and sensor values with those of your Operating System disk. Fill these values into the first query field.
 
 Optionally, you can also track the current temperature of a second disk on your system. Set this up by following the same process, substituting the chip and sensor values with those of your second drive. Fill these values into the second query field.
-
 
 ## Customizing the Dashboard
 
@@ -443,7 +426,6 @@ While the standard dashboard tries to do a good job capturing everything you'd w
 You can add new graphs, change the way graphs look, move things around, and much more!
 
 Take a look at [Grafana's Tutorials](https://grafana.com/tutorials/) page to learn how to play with it and set it up to your liking.
-
 
 ## Customizing the Metrics Stack
 
@@ -455,7 +437,6 @@ In general, [Grafana configuration options](https://grafana.com/docs/grafana/lat
 GF_<SectionName>_<KeyName>
 ```
 
-
 ### Grafana SMTP Settings for Sending Emails
 
 To send emails from Grafana, e.g. for alerts or to invite other users, SMTP settings need to be configured in the Rocket Pool Metrics Stack.
@@ -464,6 +445,7 @@ See the [Grafana SMTP configuration](https://grafana.com/docs/grafana/latest/adm
 Open `~/.rocketpool/override/grafana.yml` in a text editor.
 Add an `environment` section below the `x-rp-comment: Add your customizations below this line` line, replacing the values below with those for your SMTP provider.
 If using Gmail and [2-Step Verification](https://support.google.com/accounts/answer/185839) is enabled, create an [App Password](https://support.google.com/mail/answer/185833?hl=en) for this service.
+
 ```yaml
 version: "3.7"
 services:
@@ -472,7 +454,7 @@ services:
     environment:
       ## SMTP settings start, replace values with those of your SMTP provider
       - GF_SMTP_ENABLED=true
-      - GF_SMTP_HOST=mail.example.com:<port>  # Gmail users should use smtp.gmail.com:587
+      - GF_SMTP_HOST=mail.example.com:<port> # Gmail users should use smtp.gmail.com:587
       - GF_SMTP_USER=admin@example.com
       - GF_SMTP_PASSWORD=password
       - GF_SMTP_FROM_ADDRESS=admin@example.com
@@ -498,4 +480,4 @@ Enter an email address in the **Addresses** section and click **Test**.
 ![](./images/grafana-new-contact-point.png){ style="display: block; margin: 0 auto" }
 
 Check to see that the test email was received.
-Click **Save contact point*** when finished.
+Click **Save contact point\*** when finished.

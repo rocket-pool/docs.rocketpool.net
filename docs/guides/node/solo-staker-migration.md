@@ -4,7 +4,7 @@ When the Beacon Chain was first launched, validators were created with a special
 
 The validator key is a "hot key", which means it needs to be stored on an active machine connected to the Internet; this is the key used to sign your attestations and proposals, and also serves as your "address" on the Beacon Chain (the hex string used to identify your validator).
 
-The withdrawal key, on the other hand, is a "cold key" which means it does *not* (and in fact, *should not*) be stored on an active machine connected to the Internet.
+The withdrawal key, on the other hand, is a "cold key" which means it does _not_ (and in fact, _should not_) be stored on an active machine connected to the Internet.
 It is intended to be locked away in cold storage so it cannot be accessed until it is needed.
 Unlike the validator key, the withdrawal key isn't responsible for validation duties at all.
 Instead, its only job is to manage the withdrawing of your validator's funds on the Beacon Chain (once withdrawals had been implemented).
@@ -18,19 +18,20 @@ Luckily, they have been implemented in a way that makes it possible for an exist
 If you are interested in learning more about this process, then this guide is for you.
 We'll cover how withdrawals work on Ethereum at a high-level, explain how the conversion process works, and end with a detailed walkthrough of how to convert your validator into a minipool.
 
-
 ## Why Would I Convert?
 
-Before getting into the technical details, a very important question to answer is *why* a solo staker would consider this process in the first place.
+Before getting into the technical details, a very important question to answer is _why_ a solo staker would consider this process in the first place.
 Conversion into a minipool is not for everyone, but this section will help you make an informed choice about whether or not it's something you'd like to pursue.
 
 Rocket Pool minipools enjoy several advantages over conventional solo staking validators:
+
 - They **earn commission** on the portion of ETH they borrow from the pool stakers (currently either 16 or 24 ETH).
 - Your existing 32 ETH bond could be used to create up to **three additional validators** (on top of the one you already have).
 - They are eligible for participation in the [Smoothing Pool](fee-distrib-sp#the-smoothing-pool) which pools all Execution layer rewards (e.g., from block proposals and [MEV rewards](mev)) and fairly distributes them among participants during each rewards interval.
 - They earn RPL inflation rewards (which currently provide a higher APR than ETH staking rewards).
 
 That being said, there are some differences that are important to highlight:
+
 - Staking with Rocket Pool requires you to buy and stake the **RPL token** as collateral.
 - You will have to accept **smart contract risk**, as the protocol is implemented as a series of smart contracts.
 - Similarly, conventional node operation leverages the **Smartnode stack**; you will have to accept any risks associated with installing and running that software on your node.
@@ -40,7 +41,6 @@ That being said, there are some differences that are important to highlight:
 
 We encourage you to carefully go through these pros and cons before deciding to convert your solo validator.
 If you would like to continue with the process, please read the next sections.
-
 
 ## Prerequisites
 
@@ -55,11 +55,10 @@ In order to begin the conversion process, you will need to meet the following cr
 
 If none of these conditions are blockers for you, then you are eligible to begin validator conversion.
 
-
 ## Process Overview
 
 The first step is to **create a new "vacant" minipool**.
-Unlike conventional minipools, which make a new validator during their creation, vacant minipools are special minipools designed to manage *existing* validators.
+Unlike conventional minipools, which make a new validator during their creation, vacant minipools are special minipools designed to manage _existing_ validators.
 As a consequence, vacant minipools behave slightly differently than conventional minipools during the `prelaunch` stage.
 Once initialization is finished and they enter the `staking` stage, they become conventional minipools.
 
@@ -75,13 +74,13 @@ At this point your new minipool will enter the **scrub check** period, where the
 This includes:
 
 - The withdrawal credentials either haven't been migrated yet (are still the original `0x00` BLS key credentials) or have been migrated to the minipool's address. Migrating them to any other Execution layer address will cause the pool to be scrubbed.
-  - If the withdrawal credentials are still the original `0x00` BLS key credentials by the time the scrub check period ends, the pool will be scrubbed. 
+  - If the withdrawal credentials are still the original `0x00` BLS key credentials by the time the scrub check period ends, the pool will be scrubbed.
 - The validator is in the actively staking state for the duration of the check. If it transitions to the slashed, exited, or withdrawn states, the pool will be scrubbed.
 
 ::: tip NOTE
 A **scrubbed** vacant minipool means that it is not a part of the Rocket Pool network, but it will still give you (the node operator) access to all of your funds via the typical token retrieval methods in the CLI.
 Funds are **not lost** if vacant minipools are scrubbed.
-More information on scrubbed minipools, their ramifications, and how to use them is included later in this guide. 
+More information on scrubbed minipools, their ramifications, and how to use them is included later in this guide.
 :::
 
 After the scrub check passes, you will be able to **promote** your vacant minipool.
@@ -92,7 +91,6 @@ As part of the process, the network will snapshot your total rewards on the Beac
 It will recognize that all of those rewards belong to you and shouldn't be shared with the staking pool, so it will provide them all as a **refund** you can claim at any time once promotion is complete.
 
 Below is a detailed walkthrough of the conversion process, including instructions for each step.
-
 
 ## Step 1: Creating a Vacant Minipool
 
@@ -156,9 +154,7 @@ If you decline this process now, you can resume it at a later time using the CLI
 Read the [**Step 2**](#step-2-changing-the-validators-withdrawal-credentials) and [**Step 3**](#optional-step-3-import-the-validator-key) sections below to learn how to do this.
 :::
 
-
 ### Automatic Withdrawal Credential Change and Key Import
-
 
 ::: danger WARNING
 If you choose to have the Smartnode automatically change your withdrawal credentials and import your validator's private key, it is **essential** that you remove the validator key from your old Validator Client that you manage on your own, and **shut down the old Validator Client** to ensure it does not have the key loaded into memory still.
@@ -169,7 +165,7 @@ You can verify this by looking at a chain explorer such as [https://beaconcha.in
 If you do not wait for at least 15 minutes, your validator **WILL BE SLASHED** when the Smartnode's Validator Client begins attesting with your validator's key!
 
 We strongly recommend you enable **doppelganger detection** in the Smartnode configuration as well, to be as safe as possible against the risk of slashing.
-:::  
+:::
 
 If you choose to automatically import the validator key and change the withdrawal credentials to the minipool address, the Smartnode will first ask for the mnemonic used to generate both your validator's BLS private key and its corresponding original withdrawal key:
 
@@ -202,9 +198,7 @@ Restarting Validator Client... done!
 With that, steps 2 and 3 have been completed.
 You can verify that the withdrawal credentials have been properly changed and that the key is actively validating by using a chain explorer such as [https://beaconcha.in](https://beaconcha.in)
 
-
 Go to the [Step 4](#step-4-waiting-for-the-scrub-check) section to learn about the scrub check.
-
 
 ## Step 2: Changing the Validator's Withdrawal Credentials
 
@@ -252,7 +246,6 @@ Changing withdrawal credentials to the minipool address... done!
 That's it!
 You can verify that the withdrawal credentials have been properly changed by using a chain explorer such as [https://beaconcha.in](https://beaconcha.in).
 
-
 ## (Optional) Step 3: Import the Validator Key
 
 Once you convert your validator into a minipool, you may want to have the Smartnode's Validator Client run it instead of the one you currently manage on your own.
@@ -264,7 +257,7 @@ This has a few advantages:
 However, there are some **very important considerations** to understand before doing this:
 
 - You **must ensure** that your validator's key has been removed from your own Validator Client, and that you have waited for at least 15 minutes after removing it before importing it into the Smartnode. See the warning box below.
-- You **must ensure** that you have your validator keystore *and its password file* backed up, because commands like `rocketpool wallet recover` and `rocketpool wallet rebuild` **cannot** regenerate them without a backup since they weren't derived from the Smartnode wallet's mnemonic.
+- You **must ensure** that you have your validator keystore _and its password file_ backed up, because commands like `rocketpool wallet recover` and `rocketpool wallet rebuild` **cannot** regenerate them without a backup since they weren't derived from the Smartnode wallet's mnemonic.
 
 If you would like to import your validator key into the Smartnode, continue reading below.
 
@@ -306,7 +299,6 @@ Enter Word Number 24 of your mnemonic:
 After this, it will cycle through the different keys generated from that mnemonic until it finds your validator's public key.
 It will then import it, and ask if you'd like to restart the Smartnode's Validator Client so it loads your key:
 
-
 ```
 Importing validator key... done!
 Would you like to restart the Smartnode's Validator Client now so it loads your validator's key? [y/n]
@@ -316,12 +308,12 @@ Restarting Validator Client... done!
 
 With that, your validator key is now imported into the Smartnode and you should see it begin attesting.
 You can confirm by following the Validator Client's logs with this command:
+
 ```
 rocketpool service logs validator
 ```
 
 You can also verify that a chain explorer such as [https://beaconcha.in](https://beaconcha.in) can see your Validator Client attesting with your validator's key.
-
 
 ## Step 4: Assign the Correct Fee Recipient
 
@@ -334,7 +326,7 @@ If you do not do this and leave it on the fee recipient for your solo validators
 If you remove it from your own VC and import it into the VC managed by Rocket Pool, your fee recipient will be assigned to the correct address automatically by the `node` process.
 :::
 
-As you may retain other solo-staking keys in your VC that you do *not* want to set to the fee distributor or Smoothing Pool, the only way to accomplish this is to use a VC configuration file to manually set the fee recipient for the validator being migrated.
+As you may retain other solo-staking keys in your VC that you do _not_ want to set to the fee distributor or Smoothing Pool, the only way to accomplish this is to use a VC configuration file to manually set the fee recipient for the validator being migrated.
 
 This process depends on which Consensus Client you use; consult the documentation for the specifics but here are some helpful links:
 
@@ -348,7 +340,6 @@ This process depends on which Consensus Client you use; consult the documentatio
 
 [Teku: via `validators-proposer-config`](https://docs.teku.consensys.net/how-to/configure/use-proposer-config-file)
 
-
 ## Step 5: Waiting for the Scrub Check
 
 By this time, you should have completed steps 1 and 2 (creating the vacant minipool and changing your validator's withdrawal credentials) and optionally step 3 (importing the key into the Smartnode).
@@ -356,10 +347,13 @@ The next step is to wait for the **scrub check** to complete.
 This is a process carried out by the Oracle DAO to verify the following:
 
 1. Your validator's balance on the Beacon Chain (and your minipool's balance on the Execution layer) must add up to **at least** the balance your validator had when you first created the vacant minipool, minus a small buffer of 0.01 ETH to account for any accidental missed attestations during maintenance.
-  - For example, if your validator had a Beacon Chain balance of 35 ETH when you performed step 1, the combined Beacon Chain and minipool balances must be **at least** 34.99 ETH throughout the entire duration of the scrub check.
+
+- For example, if your validator had a Beacon Chain balance of 35 ETH when you performed step 1, the combined Beacon Chain and minipool balances must be **at least** 34.99 ETH throughout the entire duration of the scrub check.
+
 2. Your validator must remain in the **actively staking** status for the entire scrub check - it cannot be slashed, exited, or withdrawn.
 3. Your validator's withdrawal credentials must either be the **original BLS-based withdrawal key credentials**, or the **new 0x01 credentials using the minipool's address**. Any other credentials will cause the minipool to be scrubbed.
-  - You are given a grace period of **approximately 2 and a half days** to perform the withdrawal credentials change (85% of the scrub period's 3-day duration).
+
+- You are given a grace period of **approximately 2 and a half days** to perform the withdrawal credentials change (85% of the scrub period's 3-day duration).
 
 The scrub check is transient; you don't have to do anything during this time other than keep your validator online and performing well.
 
@@ -378,14 +372,13 @@ rocketpool_node  | 2023/03/06 04:51:32 Minipool 0x8F3F149e4416a94e0ee909dE32f8A1
 
 It will last for **3 days**, after which you have passed and can proceed to [Step 5](#step-5-promoting-the-minipool) to promote the vacant minipool into a full one.
 
-
 ### Working with Scrubbed Minipools
 
 If your minipool unfortunately fails the scrub check and is dissolved, don't worry - your capital isn't lost.
 Dissolved vacant minipools essentially act as simplified withdrawal addresses:
 
 - They are not technically part of the Rocket Pool network.
-- Any capital deposited into the minipool belongs *solely* to the node operator. It *does not* get split with the pool stakers.
+- Any capital deposited into the minipool belongs _solely_ to the node operator. It _does not_ get split with the pool stakers.
 - You are not awarded a deposit credit for creating the minipool.
 
 You can access the minipool's balance at any time with the following command:
@@ -403,7 +396,6 @@ rocketpool minipool close
 ```
 
 Once again, this will send the minipool's full balance to your node's withdrawal address.
-
 
 ## Step 6: Promoting the Minipool
 
@@ -434,11 +426,11 @@ rocketpool minipool promote
 
 From here, simply select your vacant minipool from the list of minipools eligible for promotion and submit the transaction.
 
-
 ## Claiming your Original Pre-Conversion Rewards
 
 Upon promotion, your minipool will enter the `staking` status and has officially become a regular Rocket Pool minipool.
 You can review the details with this command:
+
 ```
 rocketpool minipool status
 ```
@@ -462,11 +454,12 @@ Total EL rewards:      0.086779 ETH
 ```
 
 Here you can see the following important information:
+
 - `Node deposit` shows how much ETH you personally bonded as part of this minipool (in this case, 8 ETH).
 - `RP deposit` shows how much ETH you borrowed from the pool stakers to create the minipool (in this case, 24 ETH).
-- `Available refund` shows how much of the minipool's balance goes directly to you (is *not* shared with the pool stakers. This amounts to your all of your rewards on the Beacon Chain at the time you created the vacant minipool.
+- `Available refund` shows how much of the minipool's balance goes directly to you (is _not_ shared with the pool stakers. This amounts to your all of your rewards on the Beacon Chain at the time you created the vacant minipool.
 - `Minipool Balance (EL)` shows the total balance of the minipool contract.
-- `Your portion (EL)` shows how much of the balance belongs to you *after* subtracting the refund from the minipool's balance. In other words, this is your share of the rewards you've earned *after* you created the vacant minipool.
+- `Your portion (EL)` shows how much of the balance belongs to you _after_ subtracting the refund from the minipool's balance. In other words, this is your share of the rewards you've earned _after_ you created the vacant minipool.
 - `Total EL rewards` is your refund plus your post-conversion rewards.
 
 To claim your refund, run the following command:
@@ -476,7 +469,6 @@ rocketpool minipool refund
 ```
 
 Simply select your minipool from the list, approve the transaction, and your refund will be sent to your node's withdrawal address.
-
 
 ## Using your Node Credit
 

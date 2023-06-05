@@ -9,6 +9,7 @@ You can safely ignore it, but are welcome to read it if you are interested.
 The **Oracle DAO** is the group of special Rocket Pool nodes that are responsible for the administrative duties required by the protocol that cannot be achieved by Smart Contracts due to technical limitations.
 They are essentially the same as normal Rocket Pool nodes; they use the same tools, can be configured with the same methods, and can even run regular minipools, but they come with supplemental tasks that they perform.
 This includes things such as:
+
 - Shuttling information from the Beacon Chain to the Execution Layer, including validator status and balances
 - Ensuring minipools are creating using validator public keys that aren't already in use, and [have the proper withdrawal credentials](https://github.com/rocket-pool/rocketpool-research/blob/master/Reports/withdrawal-creds-exploit) so the protocol can safely fund them
 - Constructing the rewards Merkle tree at the end of each rewards period and uploading it to IPFS for other node operators to access
@@ -16,11 +17,10 @@ This includes things such as:
 - Proposing and voting on modifications to the core protocol, including changing parameters and approving contract upgrades
 - Proposing and voting on the Oracle DAO roster, including inviting and removing other Oracle DAO members
 
-As a reward for fulfilling these duties, the Oracle DAO is collectively given 15% of the total RPL inflation produced at each rewards period, divided evenly among its members. 
+As a reward for fulfilling these duties, the Oracle DAO is collectively given 15% of the total RPL inflation produced at each rewards period, divided evenly among its members.
 
 Unlike normal Rocket Pool nodes, which can be created and run permissionlessly by anyone, membership in the Oracle DAO is **invite only** by existing members.
 If you have recently been invited to join the Oracle DAO, this section of the guide will help you understand your role, get your node set up, and ensure that it stays healthy.
-
 
 ## Requirements
 
@@ -37,23 +37,20 @@ To run an Oracle DAO node, you will require the following:
 - A [web3.storage](https://web3.storage/) account, used for submitting the generated rewards tree artifacts to their IPFS pinning service.
 
 ::: warning NOTE
-If you simply cannot run an on-premises archive node and *must* rely on a third-party service, consider the following:
+If you simply cannot run an on-premises archive node and _must_ rely on a third-party service, consider the following:
 
 If you plan to use **Infura** for your Archive Mode fallback, you must have at least the **Team** plan.
 The free tier and the Developer tier are not sufficient.
 
 If you plan to use **Alchemy**, you must have at least the **Growth** plan.
 The free tier is not sufficient.
-::: 
-
+:::
 
 ## Activities
 
 Oracle DAO duties are split into two parts.
 
 1. **Automated duties**: these are duties related to routine Rocket Pool operation, such as shuttling information from the Consensus Layer to the Execution Layer, calculating various aspects of the protocol off-chain, and submitting them as updates to the Smart Contracts. Each of these is performed automatically by the `watchtower` daemon process and do not require manual intervention so long as your Execution and Consensus Clients, and your `watchtower` daemon, are all operating normally.
-   
 2. **Manual duties**: these are duties that require your own decision making and out-of-band communication with the rest of the Oracle DAO to perform. They include things such as voting on contract upgrades, changing parameters, and inviting or kicking members to/from the Oracle DAO. These can all be done via the standard Smartnode CLI.
-
 
 Read the next section to learn how to set up your Oracle DAO node.

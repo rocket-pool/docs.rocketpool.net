@@ -2,7 +2,7 @@
 
 ::: tip NOTE
 This is meant for `geth` and `nethermind` users.
-Besu does *not* need to be pruned.
+Besu does _not_ need to be pruned.
 :::
 
 If you use `geth` or `nethermind` as your primary Execution (ETH1) client, you will likely notice that your node's free disk space slowly decreases over time.
@@ -27,7 +27,6 @@ You will need to do it manually.
 Please refer to the documentation for your Execution client to learn how to prune it.
 :::
 
-
 ## Prerequisites
 
 Select the client you're using from the tabs below.
@@ -51,15 +50,14 @@ With that in mind, the following two conditions are required to successfully pru
 
 - A working fallback node configured
 - At least **50 GB** of free space remaining on your SSD
-:::::
-::::: tab Nethermind
-Nethermind is able to stay online while it prunes, meaning you do not require a fallback node to continue attesting.
-Note, however, that pruning is **an extremely resource-intesive task** and you may see an increase in your attestations' inclusion distance and missed attestations during it.
+  :::::
+  ::::: tab Nethermind
+  Nethermind is able to stay online while it prunes, meaning you do not require a fallback node to continue attesting.
+  Note, however, that pruning is **an extremely resource-intesive task** and you may see an increase in your attestations' inclusion distance and missed attestations during it.
 
 Nethermind does not require any special prerequisites; you are able to prune it at any time.
 :::::
 ::::::
-
 
 ## Starting a Prune
 
@@ -86,6 +84,7 @@ Are you sure you want to prune your main execution client? [y/n]
 ```
 
 If you do have one enabled, you will see the following prompt instead:
+
 ```
 This will shut down your main execution client and prune its database, freeing up disk space.
 Once pruning is complete, your execution client will restart automatically.

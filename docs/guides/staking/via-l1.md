@@ -12,7 +12,7 @@ This means exchanging with this pool will have **much lower slippage** and **low
 Other decentralized exchanges don't have this property, so you may find that their exchange rate is slightly lower.
 
 Regardless of which pool you use, they all **tend to have lower gas fees** than staking via the official Rocket Pool website.
-This makes them a great choice for users that want to stake a small amount of ETH, though it's always a good idea to compare the rate you would receive on an exchange with the exchange rate according to Rocket Pool. 
+This makes them a great choice for users that want to stake a small amount of ETH, though it's always a good idea to compare the rate you would receive on an exchange with the exchange rate according to Rocket Pool.
 
 In the following examples, we will show how to swap ETH for rETH using both Balancer and Uniswap.
 
@@ -27,7 +27,6 @@ This process can be completed with any web3-compatible wallet.
 For demonstration purposes, we're going to use [MetaMask](https://metamask.io/) as it is one of the more popular wallet choices.
 
 **You should be able to follow along using similar steps with a different wallet if you choose - just find the comparable function in your wallet for each step.**
-
 
 ## Setting up MetaMask
 
@@ -57,7 +56,6 @@ Accept the rest of the prompts, and then you will see the rETH token appear in y
 
 Now that you have a wallet address in MetaMask, you need to transfer some ETH into it.
 **You will need to supply this from an existing wallet or buy ETH on an exchange.**
-
 
 ## Swapping for rETH via Balancer
 
@@ -109,13 +107,12 @@ Pay **close attention** to the estimated gas fee here, highlighted in red.
 If it's a significant amount of your overall transaction (here it's over 17%), then it will take a **very long time** before you break even on staking rewards.
 
 If this is the case, you should either wait for the network's average gas price to drop, or [consider using a Layer 2 solution instead](./via-l2).
-::: 
+:::
 
 If you are happy with the gas fees relative to the total amount of rETH you'll be receiving, click **Confirm** to submit the transaction.
 After a short period, you should see a notification from MetaMask that it completed successfully, and you will now see the rETH token in your wallet.
 
 That's it! You're now staking with Rocket Pool. All you need to do is hold onto your rETH, and you'll automatically gain your staking rewards as the value of the rETH token increases.
-
 
 ## Swapping for rETH via Uniswap
 
@@ -177,7 +174,7 @@ Pay **close attention** to the estimated gas fee here, highlighted in red.
 If it's a significant amount of your overall transaction (here it's over 17%), then it will take a **very long time** before you break even on staking rewards.
 
 If this is the case, you should either wait for the network's average gas price to drop, or [consider using a Layer 2 solution instead](./via-l2).
-::: 
+:::
 
 If you are happy with the gas fees relative to the total amount of rETH you'll be receiving, click **Confirm** to submit the transaction.
 After a short period, you should see a notification from MetaMask that it completed successfully, and you will now see the rETH token in your wallet.

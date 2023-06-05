@@ -3,15 +3,15 @@
 Now that [the Merge](https://ethereum.org/en/upgrades/merge/) has passed, node operators receive **priority fees** (**tips**) from the transactions they include in any blocks that they propose to the Ethereum chain.
 These fees come from and stay on the Execution layer.
 
-Unlike most validation rewards which are locked on the Consensus layer (until withdrawals are enabled), these fees are *immediately liquid*.
+Unlike most validation rewards which are locked on the Consensus layer (until withdrawals are enabled), these fees are _immediately liquid_.
 In general, priority fees provide almost as much ETH to you as Beacon Chain rewards do, so they are a very nice benefit of the Merge.
 
 ::: tip NOTE
 As a quick reminder here's a breakdown of the different types of rewards and which layer they're provided on:
+
 - Consensus Layer: attestations, block proposals, sync committees, slashing reports
 - Execution Layer: priority fees and MEV (discussed in the next section) from block proposals
-:::
-
+  :::
 
 ## Fee Recipients
 
@@ -26,6 +26,7 @@ Rocket Pool is designed to fairly distribute these rewards between you and the r
 The exact portion depends on the number of 8 ETH-bonded versus 16 ETH-bonded minipools you have.
 
 To that end, the Smartnode will automatically set your node's `fee recipient` to either of these special contracts:
+
 - Your node's own personal **Fee Distributor** (the default)
 - The **Smoothing Pool** (opt-in)
 
@@ -37,7 +38,6 @@ The **Smoothing Pool** is a special opt-in contract that allows all participatin
 This is a very compelling feature for node operators that don't want to worry about the luck factor involved in getting block proposals with high priority fees, and would rather have a nice, regular, consistent set of monthly earnings.
 
 We'll cover both of these below so you understand the difference and whether or not you want to join the Smoothing Pool.
-
 
 ## Your Fee Distributor
 
@@ -58,8 +58,8 @@ This is okay, because your Distributor will gain access to all of this existing 
 
 **By default, your node will use its Fee Distributor as the fee recipient for your validators.**
 
-
 ### Viewing its Address and Balance
+
 You can view your fee distributor's address and balance as part of:
 
 ```
@@ -100,7 +100,6 @@ You may have a taxable event whenever this method is called.
 Please keep these conditions in mind when deciding whether or not to use the Smoothing Pool (discussed below).
 :::
 
-
 ## The Smoothing Pool
 
 The **Smoothing Pool** is a unique opt-in feature of the Rocket Pool network that is available to our node operators.
@@ -115,21 +114,23 @@ To make the math easy to understand, community member Ken Smith has put together
 
 In short, as long as the Smoothing Pool has more minipools than you do, it's more likely that you'll come out ahead by joining it. You can view how many nodes and minipools are opted in using community member Peteris's excellent [Rocketscan website](https://rocketscan.io/smoothingpool).
 
-
 ### The Rules
 
 The Smoothing Pool uses the following rules:
 
 - During a Rocket Pool rewards checkpoint when the Smoothing Pool's balance is distributed, the contract's total ETH balance is split in two.
+
   - rETH stakers receive half, minus the **average commission** of all opted-in node operators.
   - The remainder goes to the node operators that opted in.
 
 - Opting into the Smoothing Pool is done on a **node level**. If you opt in, all of your minipools are opted in.
 
 - Anyone can opt in at any time. They must wait a full rewards interval (3 days on Prater, 28 days on Mainnet) before opting out to prevent gaming the system.
+
   - Once opted out, they must wait another full interval to opt back in.
 
 - The Smoothing Pool calculates the "share" of each minipool (portion of the pool's ETH for the interval) owned by each node opted in.
+
   - The share is a function of your minipool's performance during the interval (calculated by looking at how many attestations you sent on the Beacon Chain, and how many you missed), and your minipool's commission rate.
 
 - Your node's total share is the sum of your minipool shares.
@@ -138,8 +139,7 @@ The Smoothing Pool uses the following rules:
   - If you were opted in for the full interval, you receive your full share.
   - If you were opted in for 30% of an interval, you receive 30% of your full share.
 
-If you are interested in the complete technical details of Smoothing Pool rewards calculation, please review the [full specification here](https://github.com/rocket-pool/rocketpool-research/blob/master/Merkle%20Rewards%20System/rewards-calculation-spec#smoothing-pool-rewards). 
-
+If you are interested in the complete technical details of Smoothing Pool rewards calculation, please review the [full specification here](https://github.com/rocket-pool/rocketpool-research/blob/master/Merkle%20Rewards%20System/rewards-calculation-spec#smoothing-pool-rewards).
 
 ### Joining and Leaving the Smoothing Pool
 
@@ -158,7 +158,6 @@ rocketpool node leave-smoothing-pool
 ```
 
 This will record you as opted-out in the Rocket Pool contracts, and once a small delay has passed, will automatically change your Validator Client's `fee recipient` from the Smoothing Pool contract back to your node's Fee Distributor contract.
-
 
 ### Claiming Rewards from the Smoothing Pool
 
@@ -194,7 +193,6 @@ Which intervals would you like to claim? Use a comma separated list (such as '1,
 Note that the Smoothing Pool rewards in Interval 1 here indicate that the node was opted in during that interval and received rewards accordingly.
 
 We'll cover more about claiming RPL and Smoothing Pool rewards later in the guide, in the [Claiming Rewards](./rewards) section.
-
 
 ## Next Steps
 

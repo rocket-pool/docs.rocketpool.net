@@ -12,11 +12,9 @@ Otherwise, read on to learn more about your choices for Execution and Consensus 
 ::: warning NOTE
 As of March 2023, the distribution of clients on the Beacon Chain looks roughly like this:
 
-
 ![](./images/ethereum-client-diversity.png){ style="display: block; margin: 0 auto" }
 
-*Data obtained from [https://clientdiversity.org](https://clientdiversity.org)*
-
+_Data obtained from [https://clientdiversity.org](https://clientdiversity.org)_
 
 The overwhelming majority of node operators are currently using Geth as an Execution Client and either Prysm or Lighthouse as a Consensus Client.
 In the interest of supporting the health of the Execution Layer (formerly ETH1) and the Beacon Chain (formerly ETH2), we currently recommend that you consider using different clients.
@@ -35,7 +33,6 @@ For users that would like to get up and running quickly, the Smartnode installer
 For users that have a specific client they'd like to use in mind, we provide the ability to easily choose one during Rocket Pool's installation.
 The options below help to describe each client so you can make an informed decision if you'd like to specify which one you want.
 
-
 ## Execution Clients
 
 Rocket Pool supports three different Execution clients: **Geth**, **Besu**, and **Nethermind**.
@@ -43,7 +40,6 @@ Rocket Pool supports three different Execution clients: **Geth**, **Besu**, and 
 Running an Execution client involves storing a copy of the Execution layer blockchain on your machine.
 It interacts via peer-to-peer communications with other EC nodes to record and verify new blocks and transactions.
 A full Execution client is **required** to run a validator now that the Execution and Consensus layers have merged.
-
 
 ### Geth
 
@@ -64,16 +60,15 @@ The frequency you need to prune will depend on your SSD's size.
 For more information on pruning Geth, view the [Pruning the Execution Client](./pruning) page.
 :::
 
-
 ### Besu
+
 Hyperledger [Besu](https://besu.hyperledger.org/en/stable/) is an open-source Ethereum client developed under the Apache 2.0 license and written in [Java](https://en.wikipedia.org/wiki/Java_%28programming_language%29).
 Besu's most exciting features is its use of [Bonsai Tries](https://consensys.net/blog/news/bonsai-tries-a-big-update-for-small-state-storage-in-hyperledger-besu/) for state storage. In addition to their better performance characterstics, Bonsai Tries give Besu two interesting advantages over the other clients:
 
-1. Besu does *not* need to be pruned at all; it is effectively maintenance-free in that respect
+1. Besu does _not_ need to be pruned at all; it is effectively maintenance-free in that respect
 2. Besu is able to revisit any past block in the blockchain, though it does this by rewinding each block so reaching blocks from long ago may take some time.
 
 Besu currently recommends at least **16 GB of RAM**, though it is possible to run successfully with 8 GB.
-
 
 ### Nethermind
 
@@ -98,15 +93,13 @@ This makes it a compelling choice for nodes because they won't have any down tim
 For more information on pruning Nethermind, view the [Pruning the Execution Client](./pruning) page.
 :::
 
-
 ### Client Comparison Table
 
-| Client     | Type  | CPU Usage | Minimum RAM Usage | Sync Time |
-| ---------- | ----- | --------- | ----------------- | --------- |
-| Geth       | Full  | Moderate  | 4 GB              | Moderate  |
-| Besu       | Full  | Moderate  | 6 GB              | Slow      |
-| Nethermind | Full  | Moderate  | 16 GB             | Fast      |
-
+| Client     | Type | CPU Usage | Minimum RAM Usage | Sync Time |
+| ---------- | ---- | --------- | ----------------- | --------- |
+| Geth       | Full | Moderate  | 4 GB              | Moderate  |
+| Besu       | Full | Moderate  | 6 GB              | Slow      |
+| Nethermind | Full | Moderate  | 16 GB             | Fast      |
 
 ## Consensus Clients
 
@@ -121,7 +114,6 @@ By default, the Rocket Pool installer will offer to select a random consensus cl
 This will help contribute to the overall **diversity of the network**.
 This is important from a security perspective: if one client is used by a majority of nodes and suffers from a severe bug or attack, it might cause all of those nodes to fail and thus threaten the entire Beacon Chain's stability.
 
-
 ### Lighthouse
 
 [Lighthouse](https://lighthouse.sigmaprime.io/) is an open-source Ethereum 2.0 maintained by [Sigma Prime](https://sigmaprime.io/).
@@ -133,7 +125,6 @@ Lighthouse has no official affiliation with the Ethereum Foundation and will con
 
 Lighthouse is implemented in [Rust](https://www.rust-lang.org/) and will maintain a focus on security and efficiency.
 
-
 ### Lodestar
 
 [Lodestar](https://lodestar.chainsafe.io/) is the fifth open-source Ethereum consensus client maintained by [ChainSafe Systems](https://chainsafe.io/). Our flagship product is our production-capable beacon chain and validator client for Ethereum consensus. Our software and tooling is uniquely situated as the go-to for researchers and developers for rapid prototyping and browser usage. Millions of developers around the world are familiar with Typescript, and Lodestar's high-quality codebases are excellent introductions to the Ethereum world.
@@ -141,7 +132,6 @@ Lighthouse is implemented in [Rust](https://www.rust-lang.org/) and will maintai
 Lodestar has also been a leader in light client research, standardization, and implementation of Ethereum light clients. We strive to work with other client implementers, researchers and developers to demonstrate the importance of having browsers utilize trustless data directly from the blockchain.
 
 Lodestar's niche is in its implementation language, [Typescript](https://www.typescriptlang.org/).
-
 
 ### Nimbus
 
@@ -153,13 +143,11 @@ Its low resource consumption makes it easy to run Nimbus together with other wor
 
 Nimbus is written in [Nim](https://nim-lang.org/) and maintained by the [Status.im team](https://status.im/about/).
 
-
 ### Prysm
 
 The [Prysm](https://docs.prylabs.network/docs/getting-started/#what-is-prysm) project is a full-featured implementation for the Ethereum 2.0 network written entirely in the [Go programming language](https://golang.org/).
 
 Created by [Prysmatic Labs](https://prysmaticlabs.com/), Prysm implements the official [Ethereum 2.0 specification](https://github.com/ethereum/eth2.0-specs), which is the product of an ongoing collective research and development effort by various teams across the Ethereum ecosystem including the [Ethereum Foundation](https://ethereum.org/).
-
 
 ### Teku
 
@@ -168,11 +156,10 @@ PegaSys is an arm of [ConsenSys](https://consensys.net/) dedicated to building e
 
 Teku is Apache 2.0 licensed and written in Java, a language notable for its maturity & ubiquity.
 
-
 ### Client Comparison Table
 
 | Client     | CPU Usage | Minimum RAM Usage | Sync Time                    |
-|------------| --------- | ----------------- | ---------------------------- |
+| ---------- | --------- | ----------------- | ---------------------------- |
 | Lighthouse | Moderate  | 2 GB              | Instant with checkpoint sync |
 | Lodestar   | Moderate  | 4 GB              | Instant with checkpoint sync |
 | Nimbus     | Low       | 0.75 GB           | Instant with checkpoint sync |

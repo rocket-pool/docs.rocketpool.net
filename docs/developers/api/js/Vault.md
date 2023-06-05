@@ -12,9 +12,9 @@ Create a new Vault instance.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `web3` | `default` | A valid Web3 instance |
+| Name        | Type                     | Description                             |
+| :---------- | :----------------------- | :-------------------------------------- |
+| `web3`      | `default`                | A valid Web3 instance                   |
 | `contracts` | [`Contracts`](Contracts) | A Rocket Pool contract manager instance |
 
 #### Defined in
@@ -48,6 +48,7 @@ rocketpool/vault/vault.ts:22
 Retrieve the RocketVault contract address
 
 **`example`** using Typescript
+
 ```ts
 const rocketVault = rp.vault.getAddress().then((val: string) => { val };
 ```
@@ -62,7 +63,7 @@ a Promise<string\> that resolves to the Rocket Vault contract address
 
 rocketpool/vault/vault.ts:35
 
-___
+---
 
 ### balanceOfToken
 
@@ -71,16 +72,17 @@ ___
 Retrieve the balance of a token when providing a contract & token address
 
 **`example`** using Typescript
+
 ```ts
 const rplBalance = rp.vault.balanceOfToken("rocketClaimDAO", rocketTokenRPLAddress).then((val: string) => { val }
 ```
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name              | Type     | Description                                |
+| :---------------- | :------- | :----------------------------------------- |
 | `contractAddress` | `string` | A string representing the contract address |
-| `tokenAddress` | `string` | A string representing the token address |
+| `tokenAddress`    | `string` | A string representing the token address    |
 
 #### Returns
 

@@ -1,6 +1,6 @@
-let id = 0
+let id = 0;
 
 export const useUid = () => {
-    id++
-    return '' + id
-}
+  id++;
+  return "" + id;
+};

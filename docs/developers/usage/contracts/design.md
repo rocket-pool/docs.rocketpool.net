@@ -12,14 +12,13 @@ The `RocketStorage` contract also stores the addresses of all other network cont
 Using this architecture, the network can be upgraded by deploying new versions of an existing contract, and updating its address in storage.
 This gives Rocket Pool the flexibility required to fix bugs or implement new features to improve the network.
 
-
 <br>
 
 ## Interacting With Rocket Pool
 
 To begin interacting with the Rocket Pool network, first create an instance of the `RocketStorage` contract using [its interface](https://github.com/rocket-pool/rocketpool/blob/master/contracts/interface/RocketStorageInterface.sol):
 
-``` solidity
+```solidity
 import "RocketStorageInterface.sol";
 
 contract Example {
@@ -40,7 +39,7 @@ Network upgrades may have occurred since the previous interaction, resulting in 
 
 Other contract instances can be created using the appropriate interface taken from the [Rocket Pool repository](https://github.com/rocket-pool/rocketpool/tree/master/contracts/interface), e.g.:
 
-``` solidity
+```solidity
 import "RocketStorageInterface.sol";
 import "RocketDepositPoolInterface.sol";
 
@@ -63,33 +62,33 @@ contract Example {
 
 The Rocket Pool contracts, as defined in `RocketStorage`, are:
 
-* `rocketRole` - Handles assignment of privileged admin roles (internal)
-* `rocketVault` - Stores ETH held by network contracts (internal, not upgradeable)
-* `rocketUpgrade` - Provides upgrade functionality for the network (internal)
+- `rocketRole` - Handles assignment of privileged admin roles (internal)
+- `rocketVault` - Stores ETH held by network contracts (internal, not upgradeable)
+- `rocketUpgrade` - Provides upgrade functionality for the network (internal)
 
-* `rocketDepositPool` - Accepts user-deposited ETH and handles assignment to minipools
+- `rocketDepositPool` - Accepts user-deposited ETH and handles assignment to minipools
 
-* `rocketMinipoolFactory` - Creates minipool contract instances (internal)
-* `rocketMinipoolManager` - Creates & manages all minipools in the network
-* `rocketMinipoolQueue` - Organises minipools into a queue for ETH assignment
-* `rocketMinipoolStatus` - Handles minipool status updates from watchtower nodes
+- `rocketMinipoolFactory` - Creates minipool contract instances (internal)
+- `rocketMinipoolManager` - Creates & manages all minipools in the network
+- `rocketMinipoolQueue` - Organises minipools into a queue for ETH assignment
+- `rocketMinipoolStatus` - Handles minipool status updates from watchtower nodes
 
-* `rocketNetworkBalances` - Handles network balance updates from watchtower nodes
-* `rocketNetworkFees` - Calculates node commission rates based on network node demand
-* `rocketNetworkWithdrawal` - Handles processing of beacon chain validator withdrawals
+- `rocketNetworkBalances` - Handles network balance updates from watchtower nodes
+- `rocketNetworkFees` - Calculates node commission rates based on network node demand
+- `rocketNetworkWithdrawal` - Handles processing of beacon chain validator withdrawals
 
-* `rocketNodeDeposit` - Handles node deposits for minipool creation
-* `rocketNodeManager` - Registers & manages all nodes in the network
+- `rocketNodeDeposit` - Handles node deposits for minipool creation
+- `rocketNodeManager` - Registers & manages all nodes in the network
 
-* `rocketDAOProtocolSettingsDeposit` - Provides network settings relating to deposits
-* `rocketDAOProtocolSettingsMinipool` - Provides network settings relating to minipools
-* `rocketDAOProtocolSettingsNetwork` - Provides miscellaneous network settings
-* `rocketDAOProtocolSettingsNode` - Provides network settings relating to nodes
+- `rocketDAOProtocolSettingsDeposit` - Provides network settings relating to deposits
+- `rocketDAOProtocolSettingsMinipool` - Provides network settings relating to minipools
+- `rocketDAOProtocolSettingsNetwork` - Provides miscellaneous network settings
+- `rocketDAOProtocolSettingsNode` - Provides network settings relating to nodes
 
-* `rocketTokenRETH` - The rETH token contract (not upgradeable)
+- `rocketTokenRETH` - The rETH token contract (not upgradeable)
 
-* `addressQueueStorage` - A utility contract (internal)
-* `addressSetStorage` - A utility contract (internal)
+- `addressQueueStorage` - A utility contract (internal)
+- `addressSetStorage` - A utility contract (internal)
 
 Contracts marked as "internal" do not provide methods which are accessible to the general public, and so are generally not useful for extension.
 For information on specific contract methods, consult their interfaces in the [Rocket Pool repository](https://github.com/rocket-pool/rocketpool/tree/master/contracts/interface).

@@ -28,7 +28,6 @@ If you specified a different installation directory, substitute it accordingly i
 The Smartnode's configuration is stored in `~/.rocketpool/user-settings.yml`.
 You can save this and replace it to restore all of your Smartnode settings (i.e., the things you specified in `rocketpool service config`).
 
-
 ### Execution Client / ETH1 Client Chain Data
 
 The Execution client's chain data is likely the most important thing to back up.
@@ -47,11 +46,9 @@ If the file doesn't exist, you use the default location.
 
 For detailed instructions on how to efficiently back up your Execution chain data, please see the [Backing up your Execution Chain Data](#backing-up-your-execution-chain-data) section below.
 
-
 ### Monitoring & Metrics Data
 
 This data is stored within the `rocketpool_grafana-storage` Docker volume, which by default is located at `/var/lib/docker/volumes/rocketpool_grafana-storage` (or `/<your external mount point>/docker/volumes/rocketpool_prometheus-data` if you customized your Docker storage location).
-
 
 ## Items That Should **Not** Be Backed Up
 
@@ -60,17 +57,15 @@ This data is stored within the `rocketpool_grafana-storage` Docker volume, which
 Your node wallet's private key and the password file used to encrypt it are stored in `~/.rocketpool/data/wallet` and `~/.rocketpool/data/password` respectively.
 These files don't generally need to be backed up, as they can be recovered from your mnemonic using `rocketpool wallet recover`.
 
-If, for some reason, you *do* decide to back up these files, you will need to be **extremely careful** about how you store them.
+If, for some reason, you _do_ decide to back up these files, you will need to be **extremely careful** about how you store them.
 Anyone who gains access to these files will gain access to your node wallet, its validators, and any funds you have stored on it for things like gas.
 
 We **strongly recommend** you do not back up these files and just use your wallet mnemonic to recover them if necessary.
 
-
-### Consensus Client / ETH2 Client Chain Data  
+### Consensus Client / ETH2 Client Chain Data
 
 Unlike the Execution layer data, the Consensus layer data is not nearly as important to your node thanks to [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
 Consensus clients can easily use this technique to immediately resync to the head of the Beacon chain and resume validation duties.
-
 
 ## Backing up your Execution Chain Data
 
@@ -79,7 +74,7 @@ Under the hood, this utilizes `rsync`, a powerful backup/copy tool within Linux.
 
 `rsync` compares the files in the source directory (your Docker volume) and the target directory (your backup location).
 If a source file doesn't exist in the target directory, it will be copied entirely.
-However, if it *does* exist, `rsync` will only copy the *changes* between the two files.
+However, if it _does_ exist, `rsync` will only copy the _changes_ between the two files.
 
 This means the first backup will take a good amount of time as it must copy all of the data initially.
 Subsequent backups will only copy the changes between your previous backup and now, making the process much faster.
@@ -88,7 +83,6 @@ As part of a backup strategy, you may want to plan to run `export-eth1-data` on 
 To ensure the integrity of the chain data, running this command will **safely shut down the Execution client before backing up its data**.
 If you elect to schedule it every week, your Execution client will only be down for a few minutes while it updates the backup.
 This is certainly better than the days it would take to resync the data from scratch.
-
 
 To trigger a backup, start by **mounting the storage medium you want to export the data to**.
 For example, this could be an external hard drive.
@@ -136,7 +130,7 @@ This will stop your Execution client and begin copying its chain data to your ta
 You will see the progress of each individual file go past the screen as it runs.
 
 ::: warning NOTE
-It's important that you *do not* exit the terminal while this is running.
+It's important that you _do not_ exit the terminal while this is running.
 If you do, the copy will continue to run in the background but you won't be able to follow its progress!
 :::
 
@@ -144,8 +138,7 @@ Once it's finished, it will automatically restart your Execution client containe
 
 **Note that your existing chain data is not deleted from your node after the export is complete!**
 
-
-### Restoring Your Execution Chain Data 
+### Restoring Your Execution Chain Data
 
 If you ever need to restore your backed up chain data, simply run the following command.
 

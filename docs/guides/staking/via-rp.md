@@ -8,7 +8,6 @@ No extra fees, no slippage, no liquidity issues, no sandwiching or front running
 The disadvantage is that the gas fee might be quite expensive if you are staking a small amount of ETH - **we strongly recommend you check this before approving the transaction.**
 Also, there is a limit to the amount of ETH that can be in the pool at any given time, so it's possible that the pool could be full until Node Operators pull ETH from it and stake that ETH on the Beacon Chain.
 
-
 The process is slightly different for the Prater Testnet and Mainnet, so choose the network you are interested in from the tabs below.
 
 :::::: tabs
@@ -18,7 +17,7 @@ The process is slightly different for the Prater Testnet and Mainnet, so choose 
 When practicing staking on the test network, you **do not need to provide any of your real ETH** during this process.
 You will be given **fake test ETH** to use instead.
 
-**Do not attempt to move your real ETH on mainnet to the testnet or you will lose it permanently!** 
+**Do not attempt to move your real ETH on mainnet to the testnet or you will lose it permanently!**
 :::
 
 Start by installing [MetaMask](https://metamask.io/) if you haven't already.
@@ -55,7 +54,6 @@ The page should look like this:
 ![](./images/rp_test_site.png){ style="display: block; margin: 0 auto" }
 
 If you see a notice about a web3 browser being required, or the current network ID being unsupported, make sure you’ve completed the previous steps correctly before continuing.
-
 
 ::::: tab Preparing on the Ethereum Mainnet
 
@@ -96,7 +94,6 @@ If you see a notice about a web3 browser being required, or the current network 
 
 ::::::
 
-
 Once you're at the site, click on the **connect wallet** button. Please read through and accept the Terms of Service & Privacy Policy, this will enable different ways to connect, then click **connect metamask**.
 
 MetaMask will prompt you to select an account to connect to the website.
@@ -125,7 +122,6 @@ rETH and ETH have a **dynamic exchange rate**: as the Rocket Pool network earns 
 That's it!
 You're now staking with Rocket Pool.
 All you need to do is hold onto your rETH, and you'll automatically gain your staking rewards as the value of the rETH token increases.
-
 
 ## Unstaking
 

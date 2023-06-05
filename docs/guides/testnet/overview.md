@@ -3,7 +3,7 @@
 An Ethereum **test network** (`testnet` for short) is an Ethereum blockchain, functionally identical to the standard Ethereum blockchain, but it's intended to be used for testing smart contracts before they go live onto the main "real" blockchain (called `mainnet`).
 Testnets run in parallel with mainnet - there are actually several of them running right now!
 
-You can read more about some of the ETH1 testnets [here](https://support.mycrypto.com/how-to/getting-started/where-to-get-testnet-ether) if you like. 
+You can read more about some of the ETH1 testnets [here](https://support.mycrypto.com/how-to/getting-started/where-to-get-testnet-ether) if you like.
 Rocket Pool uses **Goerli** for its ETH1 testnet.
 You can use a block explorer for it here if you'd like to take a look at it: [https://goerli.etherscan.io/](https://goerli.etherscan.io/)
 
@@ -20,7 +20,6 @@ You will **lose your funds** forever if you do this!
 You should only use test ETH that you received on the Goerli network from a faucet (described below)!
 :::
 
-
 ## Configuring the Testnet
 
 [The default configuration of Rocket Pool using Docker](../node/install-modes) handles all of the settings involved in using a testnet for you automatically.
@@ -36,7 +35,6 @@ If you're using [a different setup](../node/install-modes) with an external ETH1
 - For **Lodestar**: prefix the launch command with `LODESTAR_NETWORK=goerli`
 
 Check the next section to learn how to get some test ETH on Goerli, which you'll need to test Rocket Pool out.
-
 
 ## Getting Test ETH on Goerli
 
@@ -74,7 +72,7 @@ If you aren't planning to register a node and just want some ETH to test staking
 without the angle brackets.
 If your wallet doesn't have any ETH already, the bot will send your wallet 1 ETH to test with.
 
-If you *are* planning to run a node, do the following:
+If you _are_ planning to run a node, do the following:
 
 1. Start by running the `!goerliEth` command above to acquire enough gas to register your node
 2. Register your node (see the [Preparing your Node](../node/prepare-node) page for instructions)
@@ -84,7 +82,7 @@ If you *are* planning to run a node, do the following:
 !nodeOperator <your goerli address>
 ```
 
-In order to use `!nodeOperator`, the address you provide it *must* be a registered Rocket Pool node.
+In order to use `!nodeOperator`, the address you provide it _must_ be a registered Rocket Pool node.
 Therefore, you must follow these 3 steps in that order.
 
 ::: warning NOTE
@@ -92,7 +90,6 @@ To prevent abuse, there is a cooldown timer on sending messages in the faucet ch
 Therefore, there will be a delay between when you can run the `!goerliEth` and `!nodeOperator` commands.
 If you want to bypass this, you can always ask for help - someone who has a cooldown available will likely be able to run the command for you.
 :::
-
 
 ## Getting Test RPL on Goerli
 

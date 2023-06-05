@@ -7,7 +7,6 @@ If you already have one in mind, great!
 You can skip to the next section.
 If you aren't sure yet, then read on for some information about your options.
 
-
 ## Full Node Requirements
 
 A **full node** is one that runs both an Execution (ETH1) Client and Consensus (ETH2) Client along with the Rocket Pool stack.
@@ -23,14 +22,15 @@ Here is a simple breakdown of what is required to run a full Rocket Pool node we
 - At least **10Mbps of bandwidth both up and down**. A full node usually takes around 8Mbps to 10Mbps up & down of network traffic, depending on your configuration and number of minipools.
 - **No data cap** imposed by your ISP. Running a full node will take a lot of data - we have seen reports of over 2 TB per month on chain data alone. This can be mitigated somewhat with a few settings tweaks to the ETH clients, but as a rule of thumb, don't run a full node if your Internet plan comes with a monthly data cap.
 - **Stable electricity**. For the same reason as needing a stable Internet connection, you also want to have reliable power. This can be mitigated with a large UPS (backup battery) to deal with short blackouts.
-- A **computer** with sufficient specs. This is pretty flexible because it *really* depends on what Execution (ETH1) and Consensus (ETH2) client you use, and what settings you configure them with. The computer can be a local machine, or it can be a Virtual Private Server (VPS) hosted in the cloud. Read below for some more information on those two options, and how to decide which is best for you.
+- A **computer** with sufficient specs. This is pretty flexible because it _really_ depends on what Execution (ETH1) and Consensus (ETH2) client you use, and what settings you configure them with. The computer can be a local machine, or it can be a Virtual Private Server (VPS) hosted in the cloud. Read below for some more information on those two options, and how to decide which is best for you.
 
-The following are considered *minimum* requirements:
-  - Linux or macOS Operating System
-  - Quad core CPU (or dual-core hyperthreaded); both `x64` and `arm64` are supported
-  - 8 GB of RAM (preferably DDR4)
-  - 2 TB of free **SSD Disk Space** (*note: this only applies to mainnet; the Prater testnet only requires about 200 GB*)
-    - A spinning platter hard drive *is generally not fast enough* to handle the constant random reads and writes that blockchain activity requires; you MUST use a solid state drive.
+The following are considered _minimum_ requirements:
+
+- Linux or macOS Operating System
+- Quad core CPU (or dual-core hyperthreaded); both `x64` and `arm64` are supported
+- 8 GB of RAM (preferably DDR4)
+- 2 TB of free **SSD Disk Space** (_note: this only applies to mainnet; the Prater testnet only requires about 200 GB_)
+  - A spinning platter hard drive _is generally not fast enough_ to handle the constant random reads and writes that blockchain activity requires; you MUST use a solid state drive.
 
 Typical configurations tend to use 16 or 32 GB of RAM for future proofing, but at the time of Rocket Pool's launch, the above is sufficient to run a node.
 
@@ -38,7 +38,6 @@ Typical configurations tend to use 16 or 32 GB of RAM for future proofing, but a
 At this time, only **Linux** and **macOS** platforms are supported.
 **Windows is not currently supported** for Smartnode operation.
 :::
-
 
 ## Running a Local Node
 
@@ -60,7 +59,6 @@ Disadvantages:
 - Vulnerable to theft
 
 If the advantages sound like they outweigh the disadvantages for you, then take a look at our [Local Node Operator's Guide](local/hardware.html).
-
 
 ## Running a VPS on the Cloud
 

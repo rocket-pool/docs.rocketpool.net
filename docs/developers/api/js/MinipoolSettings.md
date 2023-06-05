@@ -12,9 +12,9 @@ Create a new Minipool Settings instance.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `web3` | `default` | A valid Web3 instance |
+| Name        | Type                     | Description                             |
+| :---------- | :----------------------- | :-------------------------------------- |
+| `web3`      | `default`                | A valid Web3 instance                   |
 | `contracts` | [`Contracts`](Contracts) | A Rocket Pool contract manager instance |
 
 #### Defined in
@@ -48,6 +48,7 @@ rocketpool/settings/minipool.ts:22
 Return the balance required to launch a minipool setting in Wei
 
 **`example`** using Typescript
+
 ```ts
 const launchBalance = rp.settings.minipool.getLaunchBalance().then((val: string) => { val };
 ```
@@ -62,7 +63,7 @@ a Promise<string\> that resolves to a string representing the balance required t
 
 rocketpool/settings/minipool.ts:35
 
-___
+---
 
 ### getFullDepositNodeAmount
 
@@ -71,6 +72,7 @@ ___
 Return the full node deposit amounts setting in Wei
 
 **`example`** using Typescript
+
 ```ts
 const fullDepositNodeAmount = rp.settings.minipool.getFullDepositNodeAmount().then((val: string) => { val };
 ```
@@ -85,7 +87,7 @@ a Promise<string\> that resolves to a string representing the full node deposit 
 
 rocketpool/settings/minipool.ts:50
 
-___
+---
 
 ### getHalfDepositNodeAmount
 
@@ -94,6 +96,7 @@ ___
 Return the half node deposit amounts setting in Wei
 
 **`example`** using Typescript
+
 ```ts
 const halfDepositNodeAmount = rp.settings.minipool.getHalfDepositNodeAmount().then((val: string) => { val };
 ```
@@ -108,7 +111,7 @@ a Promise<string\> that resolves to a string representing the half node deposit 
 
 rocketpool/settings/minipool.ts:65
 
-___
+---
 
 ### getEmptyDepositNodeAmount
 
@@ -117,6 +120,7 @@ ___
 Return the empty node deposit amounts setting in Wei
 
 **`example`** using Typescript
+
 ```ts
 const emptyDepositNodeAmount = rp.settings.minipool.getEmptyDepositNodeAmount().then((val: string) => { val };
 ```
@@ -131,7 +135,7 @@ a Promise<string\> that resolves to a string representing the empty node deposit
 
 rocketpool/settings/minipool.ts:80
 
-___
+---
 
 ### getFullDepositUserAmount
 
@@ -140,6 +144,7 @@ ___
 Return the full user deposit amount setting in Wei
 
 **`example`** using Typescript
+
 ```ts
 const fullDepositUserAmount = rp.settings.minipool.getFullDepositUserAmount().then((val: string) => { val };
 ```
@@ -154,7 +159,7 @@ a Promise<string\> that resolves to a string representing the full user deposit 
 
 rocketpool/settings/minipool.ts:95
 
-___
+---
 
 ### getHalfDepositUserAmount
 
@@ -163,6 +168,7 @@ ___
 Return the half user deposit amount setting in Wei
 
 **`example`** using Typescript
+
 ```ts
 const halfDepositUserAmount = rp.settings.minipool.getHalfDepositUserAmount().then((val: string) => { val };
 ```
@@ -177,7 +183,7 @@ a Promise<string\> that resolves to a string representing the half user deposit 
 
 rocketpool/settings/minipool.ts:110
 
-___
+---
 
 ### getEmptyDepositUserAmount
 
@@ -186,6 +192,7 @@ ___
 Return the empty user deposit amount setting in Wei
 
 **`example`** using Typescript
+
 ```ts
 const emptyDepositUserAmount = rp.settings.minipool.getEmptyDepositUserAmount().then((val: string) => { val };
 ```
@@ -200,7 +207,7 @@ a Promise<string\> that resolves to a string representing the empty user deposit
 
 rocketpool/settings/minipool.ts:125
 
-___
+---
 
 ### getSubmitWithdrawableEnabled
 
@@ -209,6 +216,7 @@ ___
 Return the minipool withdrawable event submissions setting
 
 **`example`** using Typescript
+
 ```ts
 const enabled = rp.settings.minipool.getSubmitWithdrawableEnabled().then((val: boolean) => { val };
 ```
@@ -223,7 +231,7 @@ a Promise<boolean\> that resolves to a boolean representing if minipool withdraw
 
 rocketpool/settings/minipool.ts:140
 
-___
+---
 
 ### getLaunchTimeout
 
@@ -232,6 +240,7 @@ ___
 Return the period in blocks for prelaunch minipools to launch
 
 **`example`** using Typescript
+
 ```ts
 const launchTimeout = rp.settings.minipool.getLaunchTimeout().then((val: number) => { val };
 ```
@@ -246,7 +255,7 @@ a Promise<number\> that resolves to a number representing the period in blocks f
 
 rocketpool/settings/minipool.ts:155
 
-___
+---
 
 ### getWithdrawalDelay
 
@@ -255,6 +264,7 @@ ___
 Return the withdrawal delay setting in blocks
 
 **`example`** using Typescript
+
 ```ts
 const withdrawalDelay = rp.settings.minipool.getWithdrawalDelay().then((val: number) => { val };
 ```

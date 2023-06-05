@@ -12,9 +12,9 @@ Create a new Contract instance.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `web3` | `default` | A valid Web3 instance |
+| Name            | Type                           | Description                                                             |
+| :-------------- | :----------------------------- | :---------------------------------------------------------------------- |
+| `web3`          | `default`                      | A valid Web3 instance                                                   |
 | `RocketStorage` | `string` \| `ContractArtifact` | a RocketStorage address as a string or ContractArtifact (JSON ABI file) |
 
 #### Defined in
@@ -31,7 +31,7 @@ rocketpool/contracts/contracts.ts:23
 
 rocketpool/contracts/contracts.ts:12
 
-___
+---
 
 ### addresses
 
@@ -45,7 +45,7 @@ ___
 
 rocketpool/contracts/contracts.ts:13
 
-___
+---
 
 ### abis
 
@@ -59,7 +59,7 @@ ___
 
 rocketpool/contracts/contracts.ts:14
 
-___
+---
 
 ### contracts
 
@@ -81,8 +81,8 @@ rocketpool/contracts/contracts.ts:15
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name   | Type     |
+| :----- | :------- |
 | `name` | `string` |
 
 #### Returns
@@ -97,8 +97,8 @@ rocketpool/contracts/contracts.ts:35
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name    | Type       |
+| :------ | :--------- |
 | `names` | `string`[] |
 
 #### Returns
@@ -109,7 +109,7 @@ rocketpool/contracts/contracts.ts:35
 
 rocketpool/contracts/contracts.ts:36
 
-___
+---
 
 ### abi
 
@@ -117,8 +117,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name   | Type     |
+| :----- | :------- |
 | `name` | `string` |
 
 #### Returns
@@ -133,8 +133,8 @@ rocketpool/contracts/contracts.ts:55
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name    | Type       |
+| :------ | :--------- |
 | `names` | `string`[] |
 
 #### Returns
@@ -145,7 +145,7 @@ rocketpool/contracts/contracts.ts:55
 
 rocketpool/contracts/contracts.ts:56
 
-___
+---
 
 ### get
 
@@ -153,8 +153,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name   | Type     |
+| :----- | :------- |
 | `name` | `string` |
 
 #### Returns
@@ -169,8 +169,8 @@ rocketpool/contracts/contracts.ts:75
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name    | Type       |
+| :------ | :--------- |
 | `names` | `string`[] |
 
 #### Returns
@@ -181,7 +181,7 @@ rocketpool/contracts/contracts.ts:75
 
 rocketpool/contracts/contracts.ts:76
 
-___
+---
 
 ### make
 
@@ -190,15 +190,16 @@ ___
 Create a new contract instance with the specified ABI name and address
 
 **`example`** using Typescript
+
 ```ts
 const minipool = await rp.contracts.make("rocketMinipoolDelegate", "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294");
 ```
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `name` | `string` | A string representing the name of the contract |
+| Name      | Type     | Description                                                |
+| :-------- | :------- | :--------------------------------------------------------- |
+| `name`    | `string` | A string representing the name of the contract             |
 | `address` | `string` | A string representing the address of the specific instance |
 
 #### Returns

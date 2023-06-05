@@ -6,7 +6,7 @@ Luckily, the Smartnode is designed to hide all of that complexity so it's quick 
 In this section, we'll go over the various methods for configuring the Smartnode if you're using the **Docker-based setup** or a **Hybrid setup** where you connect to externally managed Execution or Consensus clients (e.g., clients you manage outside of the Smartnode for solo staking).
 
 ::: warning NOTE
-If you're using Native mode without Docker, please visit the [Native configuration guide](config-native) instead. 
+If you're using Native mode without Docker, please visit the [Native configuration guide](config-native) instead.
 :::
 
 There are three ways to configure it:
@@ -16,7 +16,6 @@ There are three ways to configure it:
 - Headlessly via the [Command Line](#configuring-via-the-command-line) - this is an option for people who run the Smartnode in a headless (non-interactive) environment and need to configure it automatically.
 
 Choose which mode you'd like to learn more about from the list above, or simply scroll through each option below.
-
 
 ## Configuring via the Wizard
 
@@ -56,10 +55,9 @@ For example, on the screen above, you could press the `left` and `right` arrow k
 
 Pressing `Enter` while `Next` is selected will proceeed to the next screen.
 Pressing `Enter` while `Quit` is selected will quit the Wizard without saving.
-::: 
+:::
 
 When you're ready to begin, press `Next`.
-
 
 ### Choosing a Network
 
@@ -84,17 +82,16 @@ You will be presented with two options for client mode:
 **Locally Managed** (also known as **"Docker Mode"**) is the default choice.
 Use it if you don't already have a client pair and you want the Smartnode to manage one for you.
 By choosing this, the Smartnode will create, configure and manage an Execution & Consensus Client pair as Docker containers.
-Don't worry, you'll get to choose *which* client you want to run next.
+Don't worry, you'll get to choose _which_ client you want to run next.
 
 **Externally Managed** (also known as **"Hybrid Mode"**) is a convenient choice for users that already have an Execution & Consensus client pair running elsewhere that they manage manually.
 By choosing this, the Smartnode will simply connect to your existing clients and will not run one of its own.
 For example, users can use this to plug into the clients that they currently use for solo staking; that way, they don't need to have two separate copies of the clients.
 
 :::warning NOTE
-Since the Execution-Consensus Layer Merge, you *cannot* mix and match these modes (e.g., you cannot have a local Execution client but an externally-managed Consensus client).
+Since the Execution-Consensus Layer Merge, you _cannot_ mix and match these modes (e.g., you cannot have a local Execution client but an externally-managed Consensus client).
 You must either choose all locally-managed or all externally-managed.
 :::
-
 
 ### Execution Client Setup
 
@@ -123,9 +120,8 @@ Each router has a different way of doing this, so **you'll need to check out you
 
 ::: warning NOTE
 Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your Execution client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead. 
+You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your Execution client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
 :::
-
 
 And with that, your Execution client is all set!
 
@@ -144,7 +140,7 @@ You can leave it blank if you do not need it.
 
 ::: warning NOTE
 Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your fallback Execution client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead. 
+You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your fallback Execution client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
 :::
 
 When you're happy with your fallback Execution client choices, proceed to the next step.
@@ -218,7 +214,7 @@ In a nutshell, this feature will **intentionally** miss a few attestations after
 Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
 After its short waiting period, Lighthouse would start validating normally.
 
-*However*, if there *is* another machine running with your validator keys attached, then Lighthouse will immediately shut down and issue an error message in its log files.
+_However_, if there _is_ another machine running with your validator keys attached, then Lighthouse will immediately shut down and issue an error message in its log files.
 The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
 When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
 
@@ -262,7 +258,7 @@ In a nutshell, this feature will **intentionally** miss a few attestations after
 Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
 After its short waiting period, Nimbus would start validating normally.
 
-*However*, if there *is* another machine running with your validator keys attached, then Nimbus will immediately shut down and issue an error message in its log files.
+_However_, if there _is_ another machine running with your validator keys attached, then Nimbus will immediately shut down and issue an error message in its log files.
 The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
 When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
 
@@ -306,7 +302,7 @@ In a nutshell, this feature will **intentionally** miss a few attestations after
 Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
 After its short waiting period, Prysm would start validating normally.
 
-*However*, if there *is* another machine running with your validator keys attached, then Prysm will immediately shut down and issue an error message in its log files.
+_However_, if there _is_ another machine running with your validator keys attached, then Prysm will immediately shut down and issue an error message in its log files.
 The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
 When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
 
@@ -375,7 +371,7 @@ In a nutshell, this feature will **intentionally** miss a few attestations after
 Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
 After its short waiting period, Lodestar would start validating normally.
 
-*However*, if there *is* another machine running with your validator keys attached, then Lodestar will immediately shut down and issue an error message in its log files.
+_However_, if there _is_ another machine running with your validator keys attached, then Lodestar will immediately shut down and issue an error message in its log files.
 The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
 When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
 
@@ -388,7 +384,7 @@ Think of it as cheap insurance for your minipools; you'll miss a trivial bit of 
 
 ::: warning NOTE
 **Open up the P2P port in your router's port forwarding setup**. Configure it to forward **port 9001** on both TCP and UDP to your machine's local IP address.
-This way, other Consensus clients can discover it and communicate with it from the outside. This will help your Consensus client sync quickly and improve performance (and thus rewards). 
+This way, other Consensus clients can discover it and communicate with it from the outside. This will help your Consensus client sync quickly and improve performance (and thus rewards).
 
 Each router has a different way of doing this, so **you'll need to check out your router's manual on how to set up port forwarding**.
 :::
@@ -420,7 +416,7 @@ See [Lighthouse's documentation](https://lighthouse-book.sigmaprime.io/api-bn.ht
 
 ::: warning NOTE
 Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead. 
+You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
 :::
 
 Next, it will ask about your validator's **graffiti** message:
@@ -444,7 +440,7 @@ In a nutshell, this feature will **intentionally** miss a few attestations after
 Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
 After its short waiting period, Lighthouse would start validating normally.
 
-*However*, if there *is* another machine running with your validator keys attached, then Lighthouse will immediately shut down and issue an error message in its log files.
+_However_, if there _is_ another machine running with your validator keys attached, then Lighthouse will immediately shut down and issue an error message in its log files.
 The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
 When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
 
@@ -460,15 +456,15 @@ Start by specifying the URL for your Prysm Beacon Node's API and the URL for its
 ![](./images/tui-external-prysm.png){ style="display: block; margin: 0 auto" }
 
 The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
-It will prepare its Prysm Validator Client with the JSON-RPC URL so it can communicate with your Beacon Node, as *Prysm's Validator Client currently cannot work over the HTTP API.*
+It will prepare its Prysm Validator Client with the JSON-RPC URL so it can communicate with your Beacon Node, as _Prysm's Validator Client currently cannot work over the HTTP API._
 
 **If you don't already have the API ports enabled and accessible from your Smartnode machine, you will need to set them up now.**
 See [Prysm's documentation](https://docs.prylabs.network/docs/prysm-usage/parameters) for instructions on how to do this.
-**You will need the `grpc-gateway` *and* the `rpc-host` enabled.**
+**You will need the `grpc-gateway` _and_ the `rpc-host` enabled.**
 
 ::: warning NOTE
 Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead. 
+You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
 :::
 
 Next, it will ask about your validator's **graffiti** message:
@@ -492,7 +488,7 @@ In a nutshell, this feature will **intentionally** miss a few attestations after
 Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
 After its short waiting period, Prysm would start validating normally.
 
-*However*, if there *is* another machine running with your validator keys attached, then Prysm will immediately shut down and issue an error message in its log files.
+_However_, if there _is_ another machine running with your validator keys attached, then Prysm will immediately shut down and issue an error message in its log files.
 The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
 When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
 
@@ -513,7 +509,7 @@ See [Teku's documentation](https://docs.teku.consensys.net/en/latest/Reference/C
 
 ::: warning NOTE
 Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead. 
+You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
 :::
 
 Next, it will ask about your validator's **graffiti** message:
@@ -529,7 +525,6 @@ If you'd like to see some examples of what validators are using for Graffiti tod
 
 ^^^^^^
 ::::::
-
 
 #### Beacon Chain Checkpoint Syncing
 
@@ -550,23 +545,22 @@ Choose a relevant checkpoint sync url and paste in the terminal during `rocketpo
 After that, your Beacon node will automatically connect to the checkpoint sync node when it first starts up and instantly pull down the latest state of the chain!
 
 ::: warning NOTE
-Checkpoint Sync will only occur if you *don't have any Beacon Chain data yet*.
+Checkpoint Sync will only occur if you _don't have any Beacon Chain data yet_.
 In other words, if you start syncing normally and decide to checkpoint sync later, you will have to remove your chain data first in order for checkpoint sync to work.
 This can easily be done with the following command:
 
 ```
 rocketpool service resync-eth2
 ```
+
 :::
 
-
-### Fallback Node 
+### Fallback Node
 
 Starting with 1.5.0 of the Smartnode stack, you can provide a "fallback" Execution client and Consensus client pair that can take over for your primary clients if they ever go offline (such as because you use Geth and need to prune it).
-In this situation, your primary node machine will still be responsible for attesting and proposing blocks with your minipools' validator keys, but it will connect to an external machine to interact with the Execution layer and Beacon chains. 
+In this situation, your primary node machine will still be responsible for attesting and proposing blocks with your minipools' validator keys, but it will connect to an external machine to interact with the Execution layer and Beacon chains.
 
 [To learn more about fall back nodes, see this section](./fallback) and return here when you're done.
-
 
 ### Metrics Configuration
 
@@ -586,18 +580,16 @@ Rocket Pool does not collect any of the telemetry or send it to a separate servi
 It's purely there for you to use so you can monitor your own node!
 :::
 
-
 ### MEV Configuration
 
 Since the Merge of the Execution and Consensus layers in September 2022, Ethereum validators now have the ability to earn priority fees and participate in Maximal Extractable Value (or MEV for short).
 
-Starting with Smartnode v1.7.0, MEV is now *opt-out* so its configuration is presented as part of the initial setup, as you see in the next screen:
+Starting with Smartnode v1.7.0, MEV is now _opt-out_ so its configuration is presented as part of the initial setup, as you see in the next screen:
 
 ![](./images/tui-mev-mode.png){ style="display: block; margin: 0 auto" }
 
 [Please read our MEV guide to learn more about MEV, its configuration, and what to do in this section of the wizard.](./mev)
 Return here when you're finished.
-
 
 ### Completion
 
@@ -609,7 +601,6 @@ You will see the following dialog:
 If you're happy with your setup and are ready to start the Smartnode, click `Save and Exit` here and go to the [Securing your Node](./securing-your-node) section next.
 
 If you would like to review all of the settings and customize many additional settings that weren't included in the Wizard, click `Review All Settings` and go to the [next section](#configuring-via-the-settings-manager).
-
 
 ## Configuring via the Settings Manager
 
@@ -626,7 +617,7 @@ There are three main features of this screen:
 ::: tip TIP
 To use the Settings Manager, **press the `Arrow Keys` (up/down/left/right) to navigate between options in the home page**.
 
-Press `Tab` to go **between the category list (1) and the buttons (2 and 3)** at the bottom of the screen. 
+Press `Tab` to go **between the category list (1) and the buttons (2 and 3)** at the bottom of the screen.
 The button that's currently selected will be **highlighted in green**.
 
 **Press `Enter` or `Space` to select a button**, analogous to clicking on it with the mouse.
@@ -636,7 +627,6 @@ The button that's currently selected will be **highlighted in green**.
 
 As you scroll through the categories list, each option will have a helpful description appear in the **Description Box** to the right of the screen.
 Feel free to explore them; nothing you do will be saved until you go through the Review dialog via the **Review Changes and Save** button, and you can press **Ctrl+C** at any time to exit without saving, so you won't accidentally mess something up by playing with the settings here.
-
 
 ### Configuring the Settings
 
@@ -661,7 +651,6 @@ As a reminder, nothing will be saved to disk until you go through the Review dia
 You are encouraged to explore all of the settings to learn about them and see what your Smartnode can do!
 :::
 
-
 ### The Setting Types and How to Use Them
 
 The settings manager uses the following setting types and UI elements:
@@ -675,7 +664,6 @@ They look like this:
 
 Enter your desired values into them, then **press `Enter` or use the `Arrow Keys` to navigate to a different setting in order to preserve your changes.**
 If you don't, the Settings Manager will assume you're still updating that setting and won't mark it as changed yet.
-
 
 #### Drop Downs
 
@@ -698,12 +686,11 @@ They look like this:
 ![](./images/tui-checkbox-checked.png){ style="display: block; margin: 0 auto" }
 
 When they are checked, they will have an `X` in the middle as you see above.
-When they are *unchecked*, they will simply be blank like this:
+When they are _unchecked_, they will simply be blank like this:
 
 ![](./images/tui-checkbox-unchecked.png){ style="display: block; margin: 0 auto" }
 
 To change the setting, simply select it and press `Enter`.
-
 
 ### Saving Changes
 
@@ -757,11 +744,14 @@ You can safely ignore it.
 ::: tip NOTE
 If you are running Mac OS, you may see an issue complaining about node_exporter.
 You will need to run these commands to fix.
+
 ```
 rocketpool service stop
 nano ~/.rocketpool/override/exporter.yml
 ```
+
 Replace the entire contents of the file with:
+
 ```
 # Enter your own customizations for the node exporter container here. These changes will persist after upgrades, so you only need to do them once.
 #
@@ -774,9 +764,9 @@ services:
     x-rp-comment: Add your customizations below this line
     volumes:   ["/proc:/host/proc:ro","/sys:/host/sys:ro"]
 ```
-then finally ```rocketpool service start```.
-:::
 
+then finally `rocketpool service start`.
+:::
 
 ## Configuring via the Command Line
 
@@ -820,7 +810,6 @@ Using this text, you can find the option(s) you want to set and specify them via
 This command builds on top of your existing configuration, so if you have some settings already saved and just want to modify others, you don't need to repeat them.
 It will only update settings that you include as arguments to this command.
 :::
-
 
 ## Next Steps
 

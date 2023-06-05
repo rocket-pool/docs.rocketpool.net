@@ -2,10 +2,10 @@
 
 In this section, you'll learn about how to monitor the health of your node and your validators, track your earnings, and perform periodic maintenance such as updates.
 
-
 ## Prerequisites
 
 Before configuring your Smartnode, please make sure you:
+
 - Have set up a node machine (or virtual machine) and secured it (via the [Securing your Node](../securing-your-node) guide)
 - Have the Smartnode [installed](../installing/overview) and [configured](../config/overview) on it
 - Have a node wallet loaded on your Smartnode
@@ -13,14 +13,13 @@ Before configuring your Smartnode, please make sure you:
 - Provisioned your node with [a withdrawal address](../prepare-node#setting-your-withdrawal-address), set up your [fallback clients](../fallback) (optional), opted into the [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (optional), and configured [MEV](../mev)
 - Created at least one [minipool](../create-validator)
 
-
 ## Guides
 
 [Monitoring your Node's Performance](../performance) provides some tools and tutorials for keeping tabs on your node's health (from a resource perspective, such as CPU and RAM consumption) and your validators' performance on the Beacon Chain.
 It covers a lot of fundamental tools you'll use during your tenure as an Ethereum validator.
 
 [Setting up the Grafana Dashboard](../grafana) walks through setting up the Smartnode stack's metrics tracker and the Grafana dashboard - a one stop shop for monitoring everything about your node and validators, and a staple in each node operator's arsenal.
-We *strongly* recommend exploring the Grafana dashboard and regularly checking in on it.
+We _strongly_ recommend exploring the Grafana dashboard and regularly checking in on it.
 
 [Checking for Updates](../updates) covers the crucial processes of regularly updating your node with new security patches, how to update the Smartnode after a new release, and how to manually update client versions if your clients of choice release a new version that the Smartnode's latest release doesn't include yet.
 You should familiarize yourself with this entire section, as you may need to refer to it whenever an update is released.

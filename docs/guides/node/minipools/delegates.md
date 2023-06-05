@@ -7,7 +7,7 @@ All reward and staking balance withdrawals from the Beacon Chain will be sent to
 Each minipool is unique to ensure that you (the node operator) have ultimate control over it.
 Nobody else controls it, nobody else can change it; it's entirely at your command.
 
-That being said, in order to minimize gas costs during node deposits, the minipool *itself* contains very little actual functionality.
+That being said, in order to minimize gas costs during node deposits, the minipool _itself_ contains very little actual functionality.
 Almost everything it can do is deferred to a **delegate** contract.
 
 The minipool delegate contract is a special contract that contains the bulk of the logic required by minipools - things like fairly distributing the balance between you and the pool stakers, for example.
@@ -19,7 +19,6 @@ For example, in the Atlas update, we introduced a new delegate that had support 
 Minipool can have their delegates upgraded to take advantage of this new functionality.
 Delegate upgrades are **opt-in**, so you can decide if and when you want to use them.
 That being said, they are usually required in order to take advantage of new functionality that network upgrades introduce.
-
 
 ### Upgrading your Delegate
 
@@ -58,7 +57,7 @@ Successfully upgraded minipool 0x7e5702a2cE66B5B35E59B9Ac00eEAAa547881e40.
 ```
 
 You can verify that it's using the latest delegate with `rocketpool minipool status`.
-Any minipools that are *not* using the latest delegate will have a yellow notification under their status letting you know that they can be upgraded:
+Any minipools that are _not_ using the latest delegate will have a yellow notification under their status letting you know that they can be upgraded:
 
 ```
 Address:              0x7E5703fdA638CD86c316B9EbAF76927fF695ADC5

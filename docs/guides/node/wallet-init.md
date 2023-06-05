@@ -26,7 +26,6 @@ It is **essential** that you write this mnemonic down because this is the only t
 Anyone with this phrase can gain control of your wallet.
 :::
 
-
 Once you confirm your mnemonic phrase, you will be presented with the unique ETH1 address for your node wallet.
 
 ::::: tab Recovering or Importing an Existing Wallet
@@ -35,7 +34,6 @@ If you already have a node wallet that you created in a previous installation of
 
 Return here when you're finished.
 ::::::
-
 
 ::: warning NOTE
 As of the current build, Rocket Pool needs to have access to your wallet's private key in order to perform its automatic duties.
@@ -50,7 +48,6 @@ Your wallet's private key will be stored in a file located at `~/.rocketpool/dat
 
 The password used to encrypt your wallet's key will be stored in `~/.rocketpool/data/password`.
 This is the file that must be protected at all times.
-
 
 ::::: tab Native Mode
 The wallet and password files will be stored in the `data` directory under the Rocket Pool directory that you set up earlier (e.g. `/srv/rocketpool`).

@@ -32,7 +32,6 @@ PuTTY is a special program that includes a terminal dedicated for SSH usage, but
 Instead of using `ssh` as you would with the other tools, PuTTY will do this for you automatically - all you need to provide are the username and password.
 For information on how to use PuTTY, take a look at [this great tutorial](https://tonyteaches.tech/putty-ssh-windows-tutorial/).
 
-
 ::::: tab Using a Linux or macOS Machine
 
 Using SSH from a Linux or macOS machine is trivial; if you're already using one of these, then you've likely already interacted with the terminal at some point.
@@ -59,7 +58,7 @@ ssh staker@192.168.1.10
 
 The first time you do this, you will see a message presenting the public key that your node is using - if you are familiar with how to verify this key, you can do so now.
 Otherwise, if you trust that you have the correct node IP address in your `ssh` command, you can just say `yes` to accept it.
-You only need to do this once. 
+You only need to do this once.
 
 The client will then prompt you for your user's password; once you enter that, you're in!
 You will be greeted with a welcome message, some details about your machine, and a new prompt.
@@ -82,6 +81,7 @@ echo "alias ethnode='ssh staker@192.168.1.10'" >> ~/.bash_aliases
 ```
 
 Reload the alias list to make your current terminal window aware of the new alias:
+
 ```sh
 source ~/.bash_aliases
 ```

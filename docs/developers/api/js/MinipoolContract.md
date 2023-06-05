@@ -12,11 +12,11 @@ Create a new Minipool Contract instance.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `web3` | `default` | A valid Web3 instance |
-| `address` | `string` | - |
-| `contract` | `Contract` | - |
+| Name       | Type       | Description           |
+| :--------- | :--------- | :-------------------- |
+| `web3`     | `default`  | A valid Web3 instance |
+| `address`  | `string`   | -                     |
+| `contract` | `Contract` | -                     |
 
 #### Defined in
 
@@ -28,7 +28,7 @@ rocketpool/minipool/minipool-contract.ts:43
 
 • `Readonly` **address**: `string`
 
-___
+---
 
 ### contract
 
@@ -43,6 +43,7 @@ ___
 Get status details
 
 **`example`** using Typescript
+
 ```ts
 const statusDetails = minipool.getStatusDetails().then((val: StatusDetails) => { val };
 ```
@@ -57,7 +58,7 @@ a Promise<StatusDetails\> that resolves to a StatusDetails object (status, block
 
 rocketpool/minipool/minipool-contract.ts:54
 
-___
+---
 
 ### getStatus
 
@@ -66,6 +67,7 @@ ___
 Get status of a minipool
 
 **`example`** using Typescript
+
 ```ts
 const status = minipool.getStatus().then((val: number) => { val };
 ```
@@ -80,7 +82,7 @@ a Promise<number\> that resolves to a number representing the minipool status
 
 rocketpool/minipool/minipool-contract.ts:73
 
-___
+---
 
 ### getStatusBlock
 
@@ -89,6 +91,7 @@ ___
 Get status block of a minipool
 
 **`example`** using Typescript
+
 ```ts
 const statusBlock = minipool.getStatusBlock().then((val: number) => { val };
 ```
@@ -103,7 +106,7 @@ a Promise<number\> that resolves to a number representing the status block of a 
 
 rocketpool/minipool/minipool-contract.ts:86
 
-___
+---
 
 ### getStatusTime
 
@@ -112,6 +115,7 @@ ___
 Get status timestamp of a minipool
 
 **`example`** using Typescript
+
 ```ts
 const statusTime = minipool.getStatusBlock().then((val: Date) => { val };
 ```
@@ -126,7 +130,7 @@ a Promise<Date\> that resolves to a Date representing the timestamp a minipool s
 
 rocketpool/minipool/minipool-contract.ts:102
 
-___
+---
 
 ### getDepositType
 
@@ -135,6 +139,7 @@ ___
 Get the deposit type
 
 **`example`** using Typescript
+
 ```ts
 const depositType = minipool.getDepositType().then((val: number) => { val };
 ```
@@ -149,7 +154,7 @@ a Promise<number\> that resolves to a number representing the deposit type
 
 rocketpool/minipool/minipool-contract.ts:118
 
-___
+---
 
 ### getNodeDetails
 
@@ -158,6 +163,7 @@ ___
 Get the node details of a minipool
 
 **`example`** using Typescript
+
 ```ts
 const nodeDetails = minipool.getNodeDetails().then((val: NodeDetails) => { val };
 ```
@@ -172,7 +178,7 @@ a Promise<NodeDetails\> that resolves to a NodeDetails object representing detai
 
 rocketpool/minipool/minipool-contract.ts:131
 
-___
+---
 
 ### getNodeAddress
 
@@ -181,6 +187,7 @@ ___
 Get the node address of a minipool
 
 **`example`** using Typescript
+
 ```ts
 const nodeAddress = minipool.getNodeAddress().then((val: string) => { val };
 ```
@@ -195,7 +202,7 @@ a Promise<string\> that resolves to a string representing the node address of th
 
 rocketpool/minipool/minipool-contract.ts:158
 
-___
+---
 
 ### getNodeFee
 
@@ -204,6 +211,7 @@ ___
 Get the node fee of a minipool
 
 **`example`** using Typescript
+
 ```ts
 const nodeFee = minipool.getNodeFee().then((val: number) => { val };
 ```
@@ -218,7 +226,7 @@ a Promise<number\> that resolves to a number representing the node fee of the mi
 
 rocketpool/minipool/minipool-contract.ts:171
 
-___
+---
 
 ### getNodeDepositBalance
 
@@ -227,6 +235,7 @@ ___
 Get the node deposit balance of a minipool
 
 **`example`** using Typescript
+
 ```ts
 const nodeBalanceDeposit = minipool.getNodeDepositBalance().then((val: string) => { val };
 ```
@@ -241,7 +250,7 @@ a Promise<string\> that resolves to a string representing the node deposit balan
 
 rocketpool/minipool/minipool-contract.ts:184
 
-___
+---
 
 ### getNodeRefundBalance
 
@@ -250,6 +259,7 @@ ___
 Get the node refund balance of a minipool
 
 **`example`** using Typescript
+
 ```ts
 const nodeRefundDeposit = minipool.getNodeRefundBalance().then((val: string) => { val };
 ```
@@ -264,7 +274,7 @@ a Promise<string\> that resolves to a string representing the node refund balanc
 
 rocketpool/minipool/minipool-contract.ts:197
 
-___
+---
 
 ### getNodeDepositAssigned
 
@@ -273,6 +283,7 @@ ___
 Get if a node deposit has been assigned for a minipool
 
 **`example`** using Typescript
+
 ```ts
 const nodeDepositAssigned = minipool.getNodeDepositAssigned().then((val: boolean) => { val };
 ```
@@ -287,7 +298,7 @@ a Promise<boolean\> that resolves to a boolean representing if a node deposit ha
 
 rocketpool/minipool/minipool-contract.ts:210
 
-___
+---
 
 ### getScrubVoted
 
@@ -296,6 +307,7 @@ ___
 Get if a minipool has had scrub votes
 
 **`example`** using Typescript
+
 ```ts
 const scrubVoted = minipool.getScrubVoted().then((val: boolean) => { val };
 ```
@@ -310,7 +322,7 @@ a Promise<boolean\> that resolves to a boolean representing if a minipool has ha
 
 rocketpool/minipool/minipool-contract.ts:223
 
-___
+---
 
 ### getTotalScrubVotes
 
@@ -319,6 +331,7 @@ ___
 Get the total scrub votes for a minipool
 
 **`example`** using Typescript
+
 ```ts
 const totalScrubVotes = minipool.getTotalScrubVotes().then((val: number) => { val };
 ```
@@ -333,7 +346,7 @@ a Promise<number\> that resolves to a number representing the total number of sc
 
 rocketpool/minipool/minipool-contract.ts:236
 
-___
+---
 
 ### getUserDetails
 
@@ -342,6 +355,7 @@ ___
 Get user deposit details
 
 **`example`** using Typescript
+
 ```ts
 const userDetails = minipool.getUserDetails().then((val: UserDetails) => { val };
 ```
@@ -356,7 +370,7 @@ a Promise<UserDetails\> that resolves to a UserDetails object representing the u
 
 rocketpool/minipool/minipool-contract.ts:249
 
-___
+---
 
 ### getUserDepositBalance
 
@@ -365,6 +379,7 @@ ___
 Get user deposit balance
 
 **`example`** using Typescript
+
 ```ts
 const userDepositBalance = minipool.getUserDepositBalance().then((val: string) => { val };
 ```
@@ -379,7 +394,7 @@ a Promise<string\> that resolves to a string representing the user deposit balan
 
 rocketpool/minipool/minipool-contract.ts:268
 
-___
+---
 
 ### getUserDepositAssigned
 
@@ -388,6 +403,7 @@ ___
 Get user deposit assigned
 
 **`example`** using Typescript
+
 ```ts
 const userDepositAssigned = minipool.getUserDepositAssigned().then((val: boolean) => { val };
 ```
@@ -402,7 +418,7 @@ a Promise<boolean\> that resolves to a boolean representing if the user deposit 
 
 rocketpool/minipool/minipool-contract.ts:281
 
-___
+---
 
 ### getUserDepositAssignedTime
 
@@ -411,6 +427,7 @@ ___
 Get a timestamp for when the user deposit was assigned for the minipool
 
 **`example`** using Typescript
+
 ```ts
 const userDepositAssignedTime = minipool.getUserDepositAssignedTime().then((val: boolean) => { val };
 ```
@@ -425,7 +442,7 @@ a Promise<Date\> that resolves to a Date representing the timestamp the user dep
 
 rocketpool/minipool/minipool-contract.ts:294
 
-___
+---
 
 ### getStakingDetails
 
@@ -434,6 +451,7 @@ ___
 Get a staking details for a minipool
 
 **`example`** using Typescript
+
 ```ts
 const stakingDetails = minipool.getStakingDetails().then((val: StakingDetails) => { val };
 ```
@@ -448,7 +466,7 @@ a Promise<StakingDetails\> that resolves to a StakingDetails object representing
 
 rocketpool/minipool/minipool-contract.ts:310
 
-___
+---
 
 ### getStakingStartBalance
 
@@ -457,6 +475,7 @@ ___
 Get a staking start balance for a minipool
 
 **`example`** using Typescript
+
 ```ts
 const stakingStartBalance = minipool.getStakingStartBalance().then((val: string) => { val };
 ```
@@ -471,7 +490,7 @@ a Promise<string\> that resolves to a string representing the staking start bala
 
 rocketpool/minipool/minipool-contract.ts:328
 
-___
+---
 
 ### getStakingEndBalance
 
@@ -480,6 +499,7 @@ ___
 Get a staking end balance for a minipool
 
 **`example`** using Typescript
+
 ```ts
 const stakingEndBalance = minipool.getStakingEndBalance().then((val: string) => { val };
 ```
@@ -494,7 +514,7 @@ a Promise<string\> that resolves to a string representing the staking end balanc
 
 rocketpool/minipool/minipool-contract.ts:341
 
-___
+---
 
 ### getWithdrawalCredentials
 
@@ -503,6 +523,7 @@ ___
 Get a minipool's withdrawal credentials
 
 **`example`** using Typescript
+
 ```ts
 const withdrawalCredentials = minipool.getWithdrawalCredentials().then((val: string) => { val };
 ```
@@ -517,7 +538,7 @@ a Promise<string\> that resolves to a string representing the minipool's withdra
 
 rocketpool/minipool/minipool-contract.ts:354
 
-___
+---
 
 ### getNodeWithdrawn
 
@@ -526,6 +547,7 @@ ___
 Check if a minipool's node is withdrawn
 
 **`example`** using Typescript
+
 ```ts
 const nodeWithdrawn = minipool.getNodeWithdrawn().then((val: boolean) => { val };
 ```
@@ -540,7 +562,7 @@ a Promise<boolean\> that resolves to a boolean representing if the minipool's no
 
 rocketpool/minipool/minipool-contract.ts:367
 
-___
+---
 
 ### dissolve
 
@@ -549,6 +571,7 @@ ___
 Dissolve the minipool
 
 **`example`** using Typescript
+
 ```ts
 const node = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const options = {
@@ -560,10 +583,10 @@ const txReceipt = minipool.dissolve(options).then((txReceipt: TransactionReceipt
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 
@@ -575,7 +598,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/minipool/minipool-contract.ts:387
 
-___
+---
 
 ### slash
 
@@ -584,6 +607,7 @@ ___
 Slash the minipool
 
 **`example`** using Typescript
+
 ```ts
 const node = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const options = {
@@ -595,10 +619,10 @@ const txReceipt = minipool.slash(options).then((txReceipt: TransactionReceipt) =
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 
@@ -610,7 +634,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/minipool/minipool-contract.ts:407
 
-___
+---
 
 ### refund
 
@@ -619,6 +643,7 @@ ___
 Refund node ETH refinanced from user deposited ETH
 
 **`example`** using Typescript
+
 ```ts
 const owner = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294"; // must be the owner of the minipool
 const options = {
@@ -630,10 +655,10 @@ const txReceipt = minipool.refund(options).then((txReceipt: TransactionReceipt) 
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 
@@ -645,7 +670,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/minipool/minipool-contract.ts:427
 
-___
+---
 
 ### stake
 
@@ -655,6 +680,7 @@ Progress the minipool to staking, sending its ETH deposit to the VRC
 Only accepts calls from the minipool owner (node) while in prelaunch and once scrub period has ended
 
 **`example`** using Typescript
+
 ```ts
 const validatorSignature = <Buffer 01 23 45 67 89 ab cd ef 01 23 45 67 89 ab cd ef 01 23 45 67 89 ab cd ef 01 23 45 67 89 ab cd ef 01 23 45 67 89 ab cd ef 01 23 45 67 89 ab cd ef 01 23>;
 const depositDataRoot = <Buffer 48 ad 0b 82 2c d6 81 f9 c9 8b 06 a1 8b 93 4b df 7f 40 76 80 fb 7a 3b 5c cd 2c 92 a6 4a 58 e9 05>;
@@ -668,12 +694,12 @@ const txReceipt = minipool.stake(validatorSignature, depositDataRoot, options).t
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `validatorSignature` | `Buffer` | A buffer containing the validator signature |
-| `depositDataRoot` | `Buffer` | A buffer containing the deposit data |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name                 | Type                  | Description                                         |
+| :------------------- | :-------------------- | :-------------------------------------------------- |
+| `validatorSignature` | `Buffer`              | A buffer containing the validator signature         |
+| `depositDataRoot`    | `Buffer`              | A buffer containing the deposit data                |
+| `options?`           | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?`    | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 
@@ -685,7 +711,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/minipool/minipool-contract.ts:452
 
-___
+---
 
 ### finalise
 
@@ -694,6 +720,7 @@ ___
 Finalise and unlock their RPL stake
 
 **`example`** using Typescript
+
 ```ts
 const owner = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294"; // must be the owner of the minipool
 const options = {
@@ -705,10 +732,10 @@ const txReceipt = minipool.finalise(options).then((txReceipt: TransactionReceipt
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 
@@ -720,7 +747,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/minipool/minipool-contract.ts:472
 
-___
+---
 
 ### withdraw
 
@@ -729,6 +756,7 @@ ___
 Withdraw node balances & rewards from the minipool and close it
 
 **`example`** using Typescript
+
 ```ts
 const owner = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294"; // must be the owner of the minipool
 const options = {
@@ -740,10 +768,10 @@ const txReceipt = minipool.withdraw(options).then((txReceipt: TransactionReceipt
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 
@@ -755,7 +783,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/minipool/minipool-contract.ts:492
 
-___
+---
 
 ### distributeBalanceAndFinalise
 
@@ -764,6 +792,7 @@ ___
 Distributes the contract's balance and finalises the pool
 
 **`example`** using Typescript
+
 ```ts
 const owner = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294"; // must be the owner of the minipool
 const options = {
@@ -775,10 +804,10 @@ const txReceipt = minipool.distributeBalanceAndFinalise(options).then((txReceipt
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 
@@ -790,7 +819,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/minipool/minipool-contract.ts:512
 
-___
+---
 
 ### distributeBalance
 
@@ -801,6 +830,7 @@ When called during staking status, requires 16 ether in the pool
 When called by non-owner with less than 16 ether, requires 14 days to have passed since being made withdrawable
 
 **`example`** using Typescript
+
 ```ts
 const owner = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294"; // must be the owner of the minipool
 const options = {
@@ -812,10 +842,10 @@ const txReceipt = minipool.distributeBalance(options).then((txReceipt: Transacti
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 
@@ -827,7 +857,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/minipool/minipool-contract.ts:534
 
-___
+---
 
 ### voteScrub
 
@@ -836,6 +866,7 @@ ___
 Mark a minipool as scrub, we don't want no scrubs
 
 **`example`** using Typescript
+
 ```ts
 const daoMember = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294"; // can only be called by a DAO member
 const options = {
@@ -847,10 +878,10 @@ const txReceipt = minipool.voteScrub(options).then((txReceipt: TransactionReceip
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 
@@ -862,7 +893,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/minipool/minipool-contract.ts:554
 
-___
+---
 
 ### close
 
@@ -871,6 +902,7 @@ ___
 Withdraw node balances from the minipool and close it
 
 **`example`** using Typescript
+
 ```ts
 const owner = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294"; // must be the owner of the minipool
 const options = {
@@ -882,10 +914,10 @@ const txReceipt = minipool.close(options).then((txReceipt: TransactionReceipt) =
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 

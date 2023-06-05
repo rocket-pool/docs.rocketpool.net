@@ -6,7 +6,6 @@ This guide will introduce you to how staking with Rocket Pool works (how your ET
 If you're not interested in how staking works and just want to learn how to stake, [**click here to skip to that section.**](#how-to-stake-with-rocket-pool)
 :::
 
-
 ## How Ethereum Staking Works
 
 Before getting into Rocket Pool, let's talk about staking on Ethereum in general.
@@ -24,12 +23,12 @@ Validators in Ethereum are assigned attestations and block proposals **on a sche
 This is very different from the old Proof of Work (PoW) system, where everyone is constantly trying to race each other and come up with the next block before everyone else.
 This means that unlike PoW where a miner isn't guaranteed to earn a block reward unless they find the next block, Proof of Stake validators are guaranteed to have slow, steady income as long as they perform their duties.
 
-Initially, validator rewards simply accrued on the Beacon Chain against each validator and were inaccessible by their operator. As of the "Shapella" hard fork, validator rewards are routinely ["skimmed"](../node/skimming) to the Execution Layer address defined by the validator's withdrawal credentials. 
+Initially, validator rewards simply accrued on the Beacon Chain against each validator and were inaccessible by their operator. As of the "Shapella" hard fork, validator rewards are routinely ["skimmed"](../node/skimming) to the Execution Layer address defined by the validator's withdrawal credentials.
 
-Additionally, now that the Execution and Consensus layers have merged, validators are *also* awarded with **priority fees** for transactions included in blocks they propose.
+Additionally, now that the Execution and Consensus layers have merged, validators are _also_ awarded with **priority fees** for transactions included in blocks they propose.
 These priority fees are paid **directly on the Execution layer** according the "Fee Recipient" set by the block proposer.
 If the validator is participating in [a MEV network](https://ethereum.org/en/developers/docs/mev/) to propose a block built by someone else, that builder will provide a supplemental tip to the validator known as a **MEV reward**.
-This is *also* available directly on the Execution layer and is provided at the same time as priority fees.
+This is _also_ available directly on the Execution layer and is provided at the same time as priority fees.
 
 ## How Rocket Pool Works
 
@@ -43,7 +42,6 @@ The only difference is in how the minipool was created and how withdrawals work 
 All of the creation, withdrawing, and rewards delegation is handled by Rocket Pool's **smart contracts** on the Execution layer.
 This makes it completely decentralized.
 
-
 ## The rETH Token
 
 As a Rocket Pool staker, your role is to deposit ETH into the deposit pool which will enable a node operator to create a new Beacon Chain validator.
@@ -51,6 +49,7 @@ You can stake as little as **0.01 ETH**.
 
 In doing so, you will be given a token called **rETH**. rETH represents both **how much** ETH you deposited, and **when** you deposited it.
 The ratio includes rewards that Rocket Pool node operators earn from:
+
 - The Beacon Chain itself
 - Priority fees from block proposals
 - MEV rewards from block proposals
@@ -83,7 +82,6 @@ This means **as long as you are holding rETH**, you are staking with Rocket Pool
 **You do not need to get it from Rocket Pool directly.**
 For example, you can purchase rETH on an exchange; as every rETH token is exactly the same, you will **automatically receive the benefits of staking just by holding the token!**
 
-
 ::: warning NOTE
 Trading rETH back for ETH directly with Rocket Pool is only possible when the staking pool has enough ETH in it to handle your trade.
 ETH in this pool comes from two sources:
@@ -98,7 +96,6 @@ In this scenario, you may find other ways to trade your rETH back to ETH (such a
 As an alternative to holding onto and eventually returning your rETH to the Rocket Pool, you are also free to **use it in DeFi applications**.
 You can trade it, lend it, use it as collateral... as rETH is a standard ERC20 token, you can use it in any way you could use any other token.
 
-
 ## Tax Implications
 
 Each country has its own tax laws, and it would be impossible to document them all here.  
@@ -107,13 +104,14 @@ However, because rETH inherently accumulates value while the actual amount of th
 
 This may make rETH **a preferable staking token for long-term holding** if your country separates short-term and long-term capital gains taxes.
 
-Tax laws related to cryptocurrencies are in their infancy; each user should do their own research and consider speaking with a tax professional.  
+Tax laws related to cryptocurrencies are in their infancy; each user should do their own research and consider speaking with a tax professional.
 
 Below are some helpful sites that offer tax assistance to users related to Ethereum.
 **This is not an official endorsement - users are advised to do their own research regarding tax implications and strategies**:
- - [https://koinly.io/](https://koinly.io/)
- - [https://cryptotaxcalculator.io/](https://cryptotaxcalculator.io/)
- - [https://rotki.com/](https://rotki.com/)
+
+- [https://koinly.io/](https://koinly.io/)
+- [https://cryptotaxcalculator.io/](https://cryptotaxcalculator.io/)
+- [https://rotki.com/](https://rotki.com/)
 
 ## How to Stake with Rocket Pool
 
@@ -126,8 +124,8 @@ If you have never used an Ethereum wallet before, we strongly encourage you to l
 The sections below include some steps that are demonstrated with MetaMask as an example; they should translate to your wallet of choice easily enough for you to follow along.
 :::
 
-
 ### Via Rocket Pool Directly
+
 With this method, you will use a web3 wallet (such as MetaMask) and interact with Rocket Pool's website to swap ETH for rETH and vice-versa.
 This method is **guaranteed** to provide you with the exact amount of rETH that your ETH is worth, since it's coming directly from Rocket Pool's smart contracts, but it can be somewhat expensive if the network's gas prices are high and you're staking a relatively small amount of ETH.
 
@@ -137,8 +135,8 @@ If you are practicing staking on the Prater Testnet, the direct method above is 
 
 [Click here to learn how to stake via Rocket Pool directly.](./via-rp)
 
-
 ### Via a Decentralized Exchange on Ethereum (Layer 1)
+
 With this method, you will access a decentralized exchange such as [Balancer](https://docs.balancer.fi/) or [Uniswap](https://docs.uniswap.org/protocol/introduction) and purchase rETH using your token of choice, just like you would do any other token swap.
 
 Rocket Pool has officially created a [Balancer composable stable pool](https://docs.balancer.fi/products/balancer-pools/composable-stable-pools).
@@ -151,15 +149,13 @@ Note that this is a conventional pool, so **you will be affected by slippage and
 
 [Click here to learn how to swap ETH for rETH via a decentralized exchange on Layer 1.](./via-l1)
 
-
 ### Via a Decentralized Exchange on a Layer 2 Network
-With this method, you will start by bridging your existing ETH (or other tokens of choice) onto an Ethereum Layer 2 network such as [Optimism](https://www.optimism.io/) or [Arbitrum](https://arbitrum.io/) and then use a decentralized exchange on the network to purchase rETH. If you already have tokens on a Layer 2 network, this method is compelling because **the transaction fees are ~10x smaller than on the Ethereum mainnet**. However, if you have not used a Layer 2 network before, it does require a few additional steps to get set up. 
+
+With this method, you will start by bridging your existing ETH (or other tokens of choice) onto an Ethereum Layer 2 network such as [Optimism](https://www.optimism.io/) or [Arbitrum](https://arbitrum.io/) and then use a decentralized exchange on the network to purchase rETH. If you already have tokens on a Layer 2 network, this method is compelling because **the transaction fees are ~10x smaller than on the Ethereum mainnet**. However, if you have not used a Layer 2 network before, it does require a few additional steps to get set up.
 
 [Click here to learn how to swap ETH for rETH via a decentralized exchange on a Layer 2 network.](./via-l2)
 
-
 ### Video Demonstration
-
 
 Community member **Kevster** has put together a helpful video that demonstrates each of these options step-by-step:
 

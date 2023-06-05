@@ -9,18 +9,16 @@ Running a node on a general-use machine, such as your daily work desktop or a ga
 **For maximum safety, please build a new machine that is dedicated exclusively to running a node.**
 :::
 
-
 ## System Requirements
 
 Below is a brief description of the software and hardware requirements that a Rocket Pool node requires.
 This guide assumes that you already have your machine physically built, and the operating system installed.
 
-
 ### Supported Operating Systems
 
 Rocket Pool's Smartnode client currently supports **Linux** and **macOS** systems.
 
-At this time, **Windows** can be used to remotely manage a remote Linux or Mac machine, but the Smartnode itself cannot currently run on a Windows system. However, Rocket Pool *can* be run on a Linux [virtual machine](https://en.wikipedia.org/wiki/System_virtual_machine) hosted by a Windows machine.
+At this time, **Windows** can be used to remotely manage a remote Linux or Mac machine, but the Smartnode itself cannot currently run on a Windows system. However, Rocket Pool _can_ be run on a Linux [virtual machine](https://en.wikipedia.org/wiki/System_virtual_machine) hosted by a Windows machine.
 This setup is not recommended over simply installing Linux as the host operating system, but it does work if necessary.
 Note that it will require extra resource overhead, and comes with its own set of security risks, so we do not advise using this setup when staking real Ether on the main network.
 
@@ -28,7 +26,6 @@ Rocket Pool is natively compatible with **AMD64 (x64)** and **arm64 (aarch64)** 
 For other architectures, you will need to compile the smartnode clients from source.
 
 Note that the user must have **root / Administrator** access (or **sudo** privileges) to install the Smartnode.
-
 
 #### Linux Support
 
@@ -45,34 +42,32 @@ Some manual steps will be required during installation.
 For `arm64` systems, the Smartnode installer only natively supports Debian and Debian-based distros such as Ubuntu.
 For other distros, manual steps will be required during installation.
 
-
 ### Hardware Requirements
 
 The hardware requirements for a node depend largely on which Execution and Consensus clients you decide to run.
 As shown in [the hardware guide](./hardware), there is a wide range of possible configurations that work well.
 However, for the sake of completeness, we have assembled the following hardware profiles:
 
-
 #### Low-Power Full Node
+
 - CPU: Quad-core 1.6+ GHz
 - RAM: 8 GB DDR4 2400 MHz
-- SSD: 2 TB, 15k Read IOPS, 5k Write IOPS*
+- SSD: 2 TB, 15k Read IOPS, 5k Write IOPS\*
 - Network: 10+ Mbps, 1.5+ TB monthly data cap
 - Execution Client: Geth (in low-cache mode)
 - Consensus Client: Nimbus
 
-
 #### Typical Full Node
+
 - CPU: Quad-core, 2.6+ GHz
 - RAM: 16 GB DDR4 3200 MHz
-- SSD: 2 TB, 15k Read IOPS, 5k Write IOPS*
+- SSD: 2 TB, 15k Read IOPS, 5k Write IOPS\*
 - Network: 25+ Mbps, 1.5+ TB monthly data cap
 - Execution Client: Any
 - Consensus Client: Any
 
-*\* If you are unsure if your disk meets these performance requirements, `fio` is a good way to test them.
-See [here](https://arstech.net/how-to-measure-disk-performance-iops-with-fio-in-linux/) for Linux instructions, and [here](https://www.nivas.hr/blog/2017/09/19/measuring-disk-io-performance-macos/) for MacOS instructions.*
-
+_\* If you are unsure if your disk meets these performance requirements, `fio` is a good way to test them.
+See [here](https://arstech.net/how-to-measure-disk-performance-iops-with-fio-in-linux/) for Linux instructions, and [here](https://www.nivas.hr/blog/2017/09/19/measuring-disk-io-performance-macos/) for MacOS instructions._
 
 ## Installing the Operating System
 
@@ -82,7 +77,7 @@ If you're installing Linux from scratch, each of the distributions listed above 
 As an example though, we will walk you through the process of installing and preparing **Debian Server**.
 Debian is a good choice for node operation because it focuses on **maximum stability and reliability** - both of which are highly desirable for node machines that must be running 24/7.
 
-[Here is a good step-by-step guide](https://itslinuxfoss.com/debian-11-bullseye-guide/) with screenshots that shows you how to install Debian on your node machine from scratch. 
+[Here is a good step-by-step guide](https://itslinuxfoss.com/debian-11-bullseye-guide/) with screenshots that shows you how to install Debian on your node machine from scratch.
 
 ::: tip
 We have a few helpful amendments to the guide linked above, which you may want to follow:
@@ -90,12 +85,11 @@ We have a few helpful amendments to the guide linked above, which you may want t
 - When prompted to set up a **root password**, we recommend leaving it **blank**. This will disable the `root` account and instead install the `sudo` package, allowing your user to perform root operations by re-entering its password to elevate its permissions. This is analogous to the way Ubuntu Linux is set up, which may be more familiar to users.
 - In the **Software selection** screen towards the end, you may not want to have a desktop GUI installed.
   - Desktop GUIs are largely unnecessary for a node; they add extra overhead and most of the time will not be used since you'll be remote controlling it via the terminal anyway, so we prefer to **uncheck GNOME and Debian desktop environment** here.
-  - If you *do* want a desktop UI on your node, we recommend you **uncheck GNOME and check XFCE** instead, as it's lighter on system resources.
+  - If you _do_ want a desktop UI on your node, we recommend you **uncheck GNOME and check XFCE** instead, as it's lighter on system resources.
   - Uncheck **web server**, but leave **SSH server** and **standard system utilities** checked.
-- If you have created a flash drive from an iso, you may need to disable the CD-ROM repository in order to run `apt`.  You can find an explanation of how to do this [here](https://www.linuxtechi.com/things-to-do-after-installing-debian-11/).
+- If you have created a flash drive from an iso, you may need to disable the CD-ROM repository in order to run `apt`. You can find an explanation of how to do this [here](https://www.linuxtechi.com/things-to-do-after-installing-debian-11/).
 - Your system may be set up to sleep/hibernate by default. To disable these settings, you can run the following command: `sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target`
-:::
-
+  :::
 
 ### Installing `sudo`
 
@@ -116,8 +110,7 @@ usermod -aG sudo $USER
 ```
 
 Then restart the machine.
-You should now be able to run commands via `sudo` such as `sudo apt update`. 
-
+You should now be able to run commands via `sudo` such as `sudo apt update`.
 
 ### Using SSH
 
@@ -127,9 +120,11 @@ An easy way to do this is with `ifconfig` which is built into the 'net-tools' pa
 ```
 sudo apt update
 ```
+
 ```
 sudo apt install net-tools
 ```
+
 ```
 sudo ifconfig
 ```
@@ -162,14 +157,13 @@ Once this is done, you can log into the machine's terminal remotely from your la
 If you aren't familiar with `ssh`, take a look at the [Intro to Secure Shell](../ssh) guide.
 
 ::: warning NOTE
-At this point, you should *strongly consider* configuring your router to make your node's IP address **static**.
+At this point, you should _strongly consider_ configuring your router to make your node's IP address **static**.
 This means that your node will have the same IP address forever, so you can always SSH into it using that IP address.
 Otherwise, it's possible that your node's IP could change at some point, and the above SSH command will no longer work.
 You'll have to enter your router's configuration to find out what your node's new IP address is.
 
 Each router is different, so you will need to consult your router's documentation to learn how to assign a static IP address.
 :::
-
 
 ## Setting up Swap Space
 
@@ -179,7 +173,6 @@ What we're going to do now is add what's called **swap space**.
 Essentially, it means we're going to use the SSD as "backup RAM" in case something goes horribly, horribly wrong and your server runs out of regular RAM.
 The SSD isn't nearly as fast as the regular RAM, so if it hits the swap space it will slow things down, but it won't completely crash and break everything.
 Think of this as extra insurance that you'll (most likely) never need.
-
 
 ### Creating a Swap File
 
@@ -193,31 +186,37 @@ Just substitute whatever number you want in as we go.
 
 Enter this, which will create a new file called `/swapfile` and fill it with 16 GB of zeros.
 To change the amount, just change the number in `count=16` to whatever you want. **Note that this is going to take a long time, but that's ok.**
+
 ```
 sudo dd if=/dev/zero of=/swapfile bs=1G count=16 status=progress
 ```
 
 Next, set the permissions so only the root user can read or write to it (for security):
+
 ```
 sudo chmod 600 /swapfile
 ```
 
 Now, mark it as a swap file:
+
 ```
 sudo mkswap /swapfile
 ```
 
 Next, enable it:
+
 ```
 sudo swapon /swapfile
 ```
 
 Finally, add it to the mount table so it automatically loads when your server reboots:
+
 ```
 sudo nano /etc/fstab
 ```
 
 Add a new line at the end that looks like this:
+
 ```
 /swapfile                            none            swap    sw              0       0
 ```
@@ -225,6 +224,7 @@ Add a new line at the end that looks like this:
 Press `Ctrl+O` and `Enter` to save, then `Ctrl+X` and `Enter` to exit.
 
 To verify that it's active, run these commands:
+
 ```
 sudo apt install htop
 htop
@@ -239,7 +239,6 @@ If it shows `0K / 0K` then it did not work and you'll have to confirm that you e
 
 Press `q` or `F10` to quit out of `htop` and get back to the terminal.
 
-
 ### Configuring Swappiness and Cache Pressure
 
 By default, Linux will eagerly use a lot of swap space to take some of the pressure off of the system's RAM.
@@ -251,24 +250,26 @@ We also want to turn down the "cache pressure", which dictates how quickly the s
 Since we're going to have a lot of spare RAM with our setup, we can make this "10" which will leave the cache in memory for a while, reducing disk I/O.
 
 To set these, run these commands:
+
 ```
 sudo sysctl vm.swappiness=6
 sudo sysctl vm.vfs_cache_pressure=10
 ```
 
 Now, put them into the `sysctl.conf` file so they are reapplied after a reboot:
+
 ```
 sudo nano /etc/sysctl.conf
 ```
 
 Add these two lines to the end:
+
 ```
 vm.swappiness=6
 vm.vfs_cache_pressure=10
 ```
 
 Then save and exit like you've done before (`Ctrl+O`, `Ctrl+X`).
-
 
 ### Pre-installation System Checks
 

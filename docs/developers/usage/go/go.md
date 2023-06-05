@@ -1,7 +1,7 @@
 # [WIP] Go Library
 
-*The following page is written for **v1.0.1** of the library.*
-*We will update it with any breaking changes as they come, but otherwise assume that newer versions are still compatible with the descriptions here.*
+_The following page is written for **v1.0.1** of the library._
+_We will update it with any breaking changes as they come, but otherwise assume that newer versions are still compatible with the descriptions here._
 
 Rocket Pool is a decentralized staking platform for the Ethereum Beacon Chain that is built entirely using smart contracts on the Ethereum blockchain.
 This library wraps those smart contracts so they can be used in Go programs.
@@ -11,7 +11,6 @@ This page demonstrates several simple examples that a provide a walkthrough of R
 ::: warning NOTE
 This guide assumes you are already familiar with the Go ecosystem and how to use the language.
 :::
-
 
 ## Installing and Importing the Go Library
 
@@ -34,23 +33,24 @@ Run `go mod tidy` afterwards to pull down the appropriate version into your cach
 
 As you may expect, all of the packages contained in the library stem from the `github.com/rocket-pool/rocketpool-go/` package.
 
-
 ## Initializing the Rocket Pool Manager
 
 The core interface to all of Rocket Pool's contracts is the [rocketpool.RocketPool](../../api/go/rocketpool#type-rocketpool) type.
 It is created in this section using the [rocketpool.NewRocketPool()](../../api/go/rocketpool#func-newrocketpool) function.
 
 Use the following imports:
+
 ```go
 import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
-	
+
 	"github.com/rocket-pool/rocketpool-go/rocketpool"
 )
 ```
 
 Now, create the contract manager:
+
 ```go
 // Set up the arguments
 eth1Address := "http://my-eth1-client:port"
@@ -78,7 +78,6 @@ The second parameter is created using the hex string of the `RocketStorage` cont
 You can retrieve this address from the [Smartnode configuration file for Prater](https://github.com/rocket-pool/smartnode-install/blob/master/amd64/rp-smartnode-install/network/prater/config.yml#L2) or [the configuration file for Mainnet](https://github.com/rocket-pool/smartnode-install/blob/master/amd64/rp-smartnode-install/network/mainnet/config.yml#L2), depending on which you want to use.
 
 Once you have this manager object created, you can use it to interact with the rest of the library.
-
 
 ## A Simple Example: Reading the Deposit Pool's Balance
 
@@ -108,13 +107,11 @@ fmt.Printf("Deposit Pool Balance: %f\n", eth.WeiToEth(depositPoolBalance))
 
 The [deposit.GetBalance()](../../api/go/deposit#func-getbalance) function will return the amount of ETH in the staking pool.
 
-
 ### Converting Between Wei, Gwei, and ETH Values
 
 Note that most of the functions in the Go bindings use `*big.Int` as a construct for passing numbers back and forth between the smart contracts.
 To make these more user-friendly, they can be easily converted into floats using the [eth.WeiToEth()](../../api/go/utils-eth#func-weitoeth) utility function and back using the [eth.EthToWei()](../../api/go/utils-eth#func-ethtowei) function.
 The [utils/eth](../../api/go/utils-eth) package has several such helper methods to convert back and forth between human-readable values and values that are used by the smart contracts.
-
 
 ## Transaction Example: Staking with the Staking Pool
 
@@ -151,7 +148,6 @@ var privateKey *ecdsa.PrivateKey
 chainID := big.NewInt(1)
 ```
 
-
 ### Preparing Transactor Options
 
 Next, prepare the transactor options:
@@ -183,7 +179,6 @@ opts.Value = eth.EthToWei(amountToStake)
 
 This is another instance where the `eth.EthToWei()` utility function comes in handy.
 
-
 ### Simulating Transactions and Calculating Gas Limits
 
 Now that the options are set, simulate the transaction:
@@ -204,7 +199,6 @@ This will run through the transaction as though it were real, but not actually c
 It will verify that the transaction is valid and will succeed (e.g. nothing in the current state will cause it to revert).
 If the simulation succeeds, it will provide some information about the expected gas cost of the function.
 If the simulation fails, it will return an error indicating why (e.g. the revert message that the contract returned).
-
 
 ### Executing Transactions
 
@@ -228,7 +222,6 @@ fmt.Printf("Transaction submitted with hash %s\n", txHash.Hex())
 All transaction functions (such as [deposit.Deposit()](../../api/go/deposit#func-deposit) used here) will return the hash of the transaction that was submitted.
 You can display this to the user (presumably with a link to a chain explorer).
 
-
 ### Waiting for Transactions to Finish
 
 If you want to wait for the transaction to complete before moving forward, you can do the following:
@@ -249,11 +242,9 @@ fmt.Println("Successfully staked ETH for rETH!")
 
 This leverages the [utils.WaitForTransaction()](../../api/go/utils#func-waitfortransaction) function to block until the transaction has been successfully mined.
 
-
 ## Pool Staking Reference
 
 This section describes common operations involving the staking pool.
-
 
 ### Statistics
 
@@ -269,6 +260,7 @@ return balanceEth, nil
 ```
 
 The ETH/rETH exchange rate:
+
 ```go
 exchangeRate, err := tokens.GetRETHExchangeRate(rp, nil)
 if err != nil {
@@ -276,7 +268,6 @@ if err != nil {
 }
 return exchangeRate, nil
 ```
-
 
 ### Staking ETH for rETH
 
@@ -320,7 +311,6 @@ if err != nil {
 return nil
 ```
 
-
 ### Unstaking rETH for ETH
 
 Unstaking uses the [tokens.BurnRETH()](../../api/go/tokens#func-burnreth) function:
@@ -362,11 +352,9 @@ if err != nil {
 return nil
 ```
 
-
 ## Network Statistics Reference
 
 This section describes how to get some useful statistics about the Rocket Pool network.
-
 
 ### Node Count
 
@@ -379,15 +367,15 @@ if err != nil {
 }
 ```
 
-
 ### Minipool Count
 
 The number of minipools can be retrieved with [minipool.GetMinipoolCountPerStatus()](../../api/go/minipool#func-getminipoolcountperstatus) for active minipools, which breaks up into counts for each different status.
 The number of finalized pools can be retrieved with [minipool.GetFinalisedMinipoolCount()](../../api/go/minipool#func-getfinalisedminipoolcount).
 
 The statuses are described as follows:
+
 - **Initialized**: waiting for a deposit still
-- **Prelaunch:** deposits are done, waiting to be staked by the node operator's `rocketpool_node` container 
+- **Prelaunch:** deposits are done, waiting to be staked by the node operator's `rocketpool_node` container
 - **Staking:** deposited, validator created, and active (or pending) on the Beacon Chain
 - **Dissolved:** staking failed, funds returned to the node operator and staking pool
 - **Withdrawable:** exited from the Beacon Chain, waiting for rewards to be withdrawn to the minipool
@@ -416,7 +404,6 @@ withdrawableCount -= finalizedCount
 return nil
 ```
 
-
 ### Current Node Fee (Commission Rate)
 
 The [network.GetNodeFee()](../../api/go/network#func-getnodefee) function will retrieve the current commission rate for new minipools based on the size of the deposit pool:
@@ -427,7 +414,6 @@ if err != nil {
     return fmt.Errorf("Error getting current node fee for new minipools: %w", err)
 }
 ```
-
 
 ### Total and Effective Total RPL Staked
 
@@ -441,7 +427,7 @@ if err != nil {
 totalValueStaked := eth.WeiToEth(totalValueStakedWei)
 ```
 
-The *effective* total amount of RPL staked (which honors the 150% collateral reward limit) comes from the [node.GetTotalEffectiveRPLStake()](../../api/go/node#func-gettotaleffectiverplstake) function:
+The _effective_ total amount of RPL staked (which honors the 150% collateral reward limit) comes from the [node.GetTotalEffectiveRPLStake()](../../api/go/node#func-gettotaleffectiverplstake) function:
 
 ```go
 totalEffectiveStakedWei, err := node.GetTotalEffectiveRPLStake(rp, nil)
@@ -450,7 +436,6 @@ if err != nil {
 }
 totalEffectiveStaked := eth.WeiToEth(totalEffectiveStakedWei)
 ```
-
 
 ### Next Checkpoint Time
 

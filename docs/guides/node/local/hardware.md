@@ -18,14 +18,12 @@ Component failure might happen at some point, but don't stress about it.
 Downtime does not get you slashed unless you are offline during a major outage of the entire Ethereum network.
 :::
 
-
 ## Hardware Requirements
 
 Ethereum validators are not very computationally expensive, which is to say that once your Execution and Consensus clients are running, any additional validator will use **a very small amount of additional resources**.
-This grows up to 64 validators, at which point the resources required for adding a 65th validator and beyond are negligible. 
+This grows up to 64 validators, at which point the resources required for adding a 65th validator and beyond are negligible.
 
 In our experience, most setups, including mini-PCs and NUCs, are capable of running an effectively unlimited number of validators.
-
 
 ### CPU Requirements
 
@@ -36,7 +34,7 @@ After the initial sync, the CPU is not used as heavily.
 CPU naming can be deceptive; an Intel Core i5 from 2010 is usually **less powerful** than a core i3 from 2022.
 Many community members use Intel NUC devices because of their small form factor, but an old i5 NUC may be a worse choice than a new i3.
 For this reason, we recommend using a "modern" CPU that is, at most, a few years old.
-More specifically, **for x64-based CPUs**, we recommend a CPU that supports the [BMI2](https://en.wikipedia.org/wiki/X86_Bit_manipulation_instruction_set#BMI2_(Bit_Manipulation_Instruction_Set_2)) extension - check the manufacturer's specs for your CPU to see if it is supported.
+More specifically, **for x64-based CPUs**, we recommend a CPU that supports the [BMI2](<https://en.wikipedia.org/wiki/X86_Bit_manipulation_instruction_set#BMI2_(Bit_Manipulation_Instruction_Set_2)>) extension - check the manufacturer's specs for your CPU to see if it is supported.
 Not all modern CPUs support this; for example, Celeron CPUs tend not to include it.
 
 ARM-based CPUs (such as the Mac M1 or M2, or the Rock 5B) do not apply to the BMI2 extension above.
@@ -57,7 +55,6 @@ It is rare to find a CPU with only 2 threads.
 
 **Guideline: any modern CPU with at least 4 threads.**
 
-
 ### RAM Requirements
 
 Rocket Pool nodes can operate with as little as 8 GB of RAM.
@@ -68,7 +65,6 @@ The exact type of RAM (such as DDR3 or DDR4) is not as important; generally DDR3
 
 **Guideline: at least 16 GB of RAM.**
 
-
 ### SSD Requirements
 
 This element is more important than most people expect.
@@ -76,7 +72,7 @@ The Execution client relies heavily on IOPS, or "operations per second".
 In practice, this means that:
 
 - HDD (spinning platter) drives will not work
-- SATA or external USB 3.0+ SSDs *can* work
+- SATA or external USB 3.0+ SSDs _can_ work
 - NVMe SSD drives are preferred
 
 If you already have an SSD you want to use and want to be sure it has sufficient performance for node operation.
@@ -106,7 +102,6 @@ You will have peace of mind with a larger drive.
 
 **Guideline: a 2 TB SSD that has TLC or better, with a DRAM cache. NVMe preferred.**
 
-
 ### Common Accessories
 
 Many node operators improve their setups beyond the minimum requirements.
@@ -118,12 +113,10 @@ Some common additions include:
 
 These are all convenient to have, but not required to run a Rocket Pool node.
 
-
 ## Example Setups
 
 In this section, we'll showcase a few of the varied builds that Rocket Pool's community has created for themselves.
 They are examples of what people are using, not recommendations for how you should run your setup.
-
 
 ### Xer0's Server
 
@@ -135,6 +128,7 @@ To that end, Xer0 devised and built a full ATX server - much like a traditional 
 Their setup includes a six-core Xeon Bronze 3204 (1.9 GHz), 8 DDR4 slots, and an M.2 slot... though since this is essentially a home server build, the exact components are completely up to the end user.
 
 Xer0's setup:
+
 - Motherboard: [Supermicro X11SPI-TF](https://www.newegg.com/supermicro-mbd-x11spi-tf-o-intel-xeon-scalable-processors-single-socket-p-supported-cpu-tdp-suppor/p/1B4-005W-00153) ($440)
 - CPU: [Xeon Bronze 3204](https://www.amazon.com/Intel-BX806954216-Bronze-1-9GHz-FC-LGA14B/dp/B07RTBMWVJ) ($248)
 - RAM: [NEMIX 2x32GB DDR4 ECC 2933MHz](https://www.amazon.com/2x32GB-DDR4-2933-PC4-23400-Registered-Memory/dp/B07V1YG2VV) ($359)
@@ -146,14 +140,13 @@ Xer0's setup:
 
 Here are Xer0's comments on why they chose this setup:
 
-*Obviously there is no need to build a monstrosity for simply staking on the Ethereum network, but I do have a few reasons why I built something like this.*
+_Obviously there is no need to build a monstrosity for simply staking on the Ethereum network, but I do have a few reasons why I built something like this._
 
-1. *Now I believe that 1 or more validators in the future will be worth much more than what we are seeing right now, so I wanted to buy something that will be able to support the network for at least the next 10-20 years without a hiccup.*
-1. *By creating a machine that has at this many cores I've also given myself a lot more headroom to the point of I could run an L2 aggregator on top of this without any problems (regarding hardware) and anything else that I'd want to run on a server.* :)
-1. *I like building computers, and so I built it…*
-1. *With a server build, It gives me a lot more flexibility with hardware and features that most computers don't have natively.*
-1. *A bit of future proof (just in-case)* :wink:
-
+1. _Now I believe that 1 or more validators in the future will be worth much more than what we are seeing right now, so I wanted to buy something that will be able to support the network for at least the next 10-20 years without a hiccup._
+1. _By creating a machine that has at this many cores I've also given myself a lot more headroom to the point of I could run an L2 aggregator on top of this without any problems (regarding hardware) and anything else that I'd want to run on a server._ :)
+1. _I like building computers, and so I built it…_
+1. _With a server build, It gives me a lot more flexibility with hardware and features that most computers don't have natively._
+1. _A bit of future proof (just in-case)_ :wink:
 
 ### Darcius's Shelf Rig
 
@@ -166,6 +159,7 @@ It is truly one of the most high-performance rigs of the Rocket Pool nodes, but 
 With thousands of Rocket Pool minipools active to watch, that job takes a lot of horsepower... but his shelf rig is easily up to the task.
 
 Darcius's setup:
+
 - Motherboard: [MSI MPG B550I Mini-ITX AMD](https://www.newegg.com/msi-mpg-b550i-gaming-edge-wifi/p/N82E16813144323) ($200)
 - CPU: [AMD Ryzen 7 5800x](https://www.newegg.com/amd-ryzen-7-5800x/p/N82E16819113665) ($490)
 - RAM: [Corsair Vengeance RGB Pro 2x16GB DDR4 3600MHz](https://www.newegg.com/p/0RN-00P8-000A5) ($390)
@@ -173,7 +167,6 @@ Darcius's setup:
 - Case: [SilverStone SST-SG13B Mini-ITX](https://www.amazon.com/SilverStone-Technology-Mini-ITX-Computer-SST-SG13WB-USA/dp/B07MNC3JCB) ($52)
 - PSU: [SilverStone Strider Platinum 550W](https://www.newegg.com/silverstone-strider-platinum-series-ps-st55f-pt-550w/p/N82E16817256154) ($140)
 - **Total: $1587**
-
 
 ### Yorick's microATX Build
 
@@ -187,6 +180,7 @@ The Intel version uses a quad core i3-9100F (3.6 GHz) or a Xeon CPU, and the AMD
 For both configurations, he suggests 16 GB of ECC RAM, and a 1 TB NVMe SSD.
 
 Yorick's Setup:
+
 - Motherboard: [SuperMicro X11SCL-F-O](https://www.newegg.com/supermicro-mbd-x11scl-f-o-8th-generation-intel-core-i3-pentium-celeron-processor-intel-xeon-pro/p/N82E16813183671) ($200)
 - CPU: [Intel i3-9100F](https://www.newegg.com/intel-core-i3-9th-gen-core-i3-9100f/p/N82E16819118072) ($150)
 - RAM: [Samsung 1x16GB DDR4 ECC UDIMM 2400MHz](https://www.newegg.com/samsung-16gb-288-pin-ddr4-sdram/p/1WK-002G-00080) ($100)
@@ -197,12 +191,12 @@ Yorick's Setup:
 - **Total: About $886**
 
 Here are Yorick's comments on why he chose this setup:
-- *It is at the same or lower cost as some NUCs*
-- *It has ECC RAM, which means that if memory fails - which it does now and then - I will know, because the system will tell me. I do not have to run memtest87 for 4-5 days to figure out whether my problem with instability is even memory-related. I protect my time fiercely so I can spend it bloviating on Discord instead of troubleshooting hardware*
-- *It has IPMI, which is remote management via Ethernet/browser of the entire machine, including UEFI and power-cycle. I should be allowed to go on extended vacation and still have full remote access.*
-- *If I want redundant storage so eventual SSD failure is a non-event, I can do that*
-- *It allows for great flexibility in build choices. I can choose however much RAM and compute I want; I can choose to run a NAS with virtualization tech like TrueNAS Scale and run the node on there alongside some other home-servery stuff.*
 
+- _It is at the same or lower cost as some NUCs_
+- _It has ECC RAM, which means that if memory fails - which it does now and then - I will know, because the system will tell me. I do not have to run memtest87 for 4-5 days to figure out whether my problem with instability is even memory-related. I protect my time fiercely so I can spend it bloviating on Discord instead of troubleshooting hardware_
+- _It has IPMI, which is remote management via Ethernet/browser of the entire machine, including UEFI and power-cycle. I should be allowed to go on extended vacation and still have full remote access._
+- _If I want redundant storage so eventual SSD failure is a non-event, I can do that_
+- _It allows for great flexibility in build choices. I can choose however much RAM and compute I want; I can choose to run a NAS with virtualization tech like TrueNAS Scale and run the node on there alongside some other home-servery stuff._
 
 ### Drez's Laptop
 
@@ -216,6 +210,7 @@ Being a laptop, it also comes with its own battery (which offsets the need for a
 They added some additional upgrades over time, giving the laptop even more power for extra peace of mind.
 
 Drez's setup:
+
 - Laptop: [MSI GE70 2PE Apache Pro](https://www.msi.com/Laptop/GE70-2PE-Apache-Pro/Specification) ($1800)
 - RAM: 2x8GB DDR3 1333Mhz (Included)
 - SSD: [Samsung 860 EVO 1TB 2.5" SATA](https://www.amazon.com/Samsung-Inch-Internal-MZ-76E1T0B-AM/dp/B078DPCY3T) ($110)
@@ -223,10 +218,9 @@ Drez's setup:
 
 Here are Drez's comments on why they chose this setup:
 
-*Main reason i am gonna stake on this laptop is because i already had spare one and dont need to spend extra money on a new server.
+_Main reason i am gonna stake on this laptop is because i already had spare one and dont need to spend extra money on a new server.
 I like its mobility, compactness, built-in screen for easy monitoring.
-In case of overheating i bought a laptop cooling pad and spare CPU cooler just in case, i also recommend to change thermal compound paste especially if you're gonna run on an older machine*
-
+In case of overheating i bought a laptop cooling pad and spare CPU cooler just in case, i also recommend to change thermal compound paste especially if you're gonna run on an older machine_
 
 ## NUCs (Next Unit of Computing) and Mini-PCs
 
@@ -236,7 +230,6 @@ A NUC (Next Unit of Computing) is essentially a small, self-contained computer t
 NUCs are great for most stakers that only run a few validators because of their low maintenance, low monthly running costs, and ease of setup.
 Unlike PCs, NUCs come preassembled in a case; all you need to do is add some RAM, add an SSD, and you're up and running!
 Below are a few examples of NUC setups that some Rocket Pool veterans use and recommend.
-
 
 ### Ken's NUC8i5BEK
 
@@ -248,6 +241,7 @@ It normally draws about 20 watts, but Discord user **Ken** has been able to opti
 It is more than capable of handling any Execution (ETH1) and any Consensus (ETH2) client, making it an excellent choice for a lightweight, efficient node machine.
 
 Ken's Setup:
+
 - Base: [Intel NUC8i5BEK](https://www.amazon.com/Intel-NUC-Mainstream-Kit-NUC8i5BEK/dp/B07GX67SBM) ($349)
 - RAM: [Dell Memory Upgrade - 1x16GB DDR4 SODIMM 3200MHz](https://www.dell.com/en-us/shop/dell-memory-upgrade-16gb-1rx8-ddr4-sodimm-3200mhz/apd/ab371022/memory) ($112)
 - SSD: [ADATA XPG S7 Series 2TB M.2 2280 NVMe SSD](https://www.amazon.com/XPG-S7-Gen3x4-Solid-State/dp/B08BDZQJP5) ($230)
@@ -256,12 +250,11 @@ Ken's Setup:
 
 Here are Ken's comments on why he chose this setup:
 
-- *Small size and footprint, the power supply is a brick on the power cord (like a laptop), single-board computer, x86 architecture, low purchase price point, low power consumption (~10W), 3-year warranty, and an active manufacture product line (Intel).*
-- *8th generations are plenty fast and at a lower price point than the latest generation chips.*
-- *I upgraded to a fan-less (passively cooled) case, so the NUC is absolutely silent (0 dB) as I’m leaving it my home office (a stock NUC is near silent already).*
-- *Plus no mechanical wear on the fan bearings.*
-- *Resale or re-purpose value if I decide to retire this hardware platform as my RP node - NUC’s make a great workstation computer.*
-
+- _Small size and footprint, the power supply is a brick on the power cord (like a laptop), single-board computer, x86 architecture, low purchase price point, low power consumption (~10W), 3-year warranty, and an active manufacture product line (Intel)._
+- _8th generations are plenty fast and at a lower price point than the latest generation chips._
+- _I upgraded to a fan-less (passively cooled) case, so the NUC is absolutely silent (0 dB) as I’m leaving it my home office (a stock NUC is near silent already)._
+- _Plus no mechanical wear on the fan bearings._
+- _Resale or re-purpose value if I decide to retire this hardware platform as my RP node - NUC’s make a great workstation computer._
 
 ### GreyWizard's NUC10i7FNH
 
@@ -275,6 +268,7 @@ It is an incredibly powerful machine, given its power consumption and size.
 Discord user **GreyWizard** uses this NUC for his node - the extra power gives him peace of mind knowing that no matter what the future of the Ethereum 2.0 chain holds, his machine will be able to handle it.
 
 GreyWizard's Setup:
+
 - Base: [Intel BXNUC10I7FNH1](https://www.newegg.com/intel-bxnuc10i7fnh1/p/N82E16856102227) ($445)
 - RAM: 2x [Samsung M471A4G43MB1 32GB DDR4 SODIMM 2666 MHz](https://www.newegg.com/samsung-32gb-260-pin-ddr4-so-dimm/p/0RM-002H-00156) ($154 ea.)
 - SSD: [Samsung 970 EVO Plus 2TB M.2 2280 NVMe SSD](https://www.newegg.com/samsung-970-evo-plus-2tb/p/N82E16820147744) ($315)
@@ -282,19 +276,19 @@ GreyWizard's Setup:
 
 Here are GreyWizard's comments on why he chose this setup:
 
-*I went with the i7 NUC mostly because it felt like the best combination of outstanding performance relative to overall size and overhead.
+_I went with the i7 NUC mostly because it felt like the best combination of outstanding performance relative to overall size and overhead.
 I also looked at other options like building a Micro ATX-sized machine.
 After pricing one with the specs I was looking for, this Intel NUC ended up being about the same price, and the form factor is really tough to beat.
 I like having the extra headroom for performance/peace of mind, and I acknowledge that this is almost certainly way overkill.
-I consider staking as a serious investment and I don't want to worry if my hardware will be sufficient.*
+I consider staking as a serious investment and I don't want to worry if my hardware will be sufficient._
 
-*Tips for other people considering this as an option...*
-- *The NUC does run pretty warm, similar temps to a laptop. If you worry about CPU temp and you want something powerful, then you should look at small desktop setups like Micro ATX.*
-- *You will want to make sure there is plenty of room around your NUC for airflow. Plan to clean the area regularly to prevent dust buildup.*
-- *Make sure to check compatibility for your RAM cards. The different NUCs support varying degrees of total RAM, RAM speeds, etc.*
-- *If you go with the NUC, I'd suggest you give yourself room to grow when selecting RAM... For example, spend a bit extra and get a single 32gb RAM card rather than 2x16 so you can expand later if you want (assuming your NUC will support 64gb in this example)*
-- *Feel free to reach out to me on Discord if you would like to discuss.*
+_Tips for other people considering this as an option..._
 
+- _The NUC does run pretty warm, similar temps to a laptop. If you worry about CPU temp and you want something powerful, then you should look at small desktop setups like Micro ATX._
+- _You will want to make sure there is plenty of room around your NUC for airflow. Plan to clean the area regularly to prevent dust buildup._
+- _Make sure to check compatibility for your RAM cards. The different NUCs support varying degrees of total RAM, RAM speeds, etc._
+- _If you go with the NUC, I'd suggest you give yourself room to grow when selecting RAM... For example, spend a bit extra and get a single 32gb RAM card rather than 2x16 so you can expand later if you want (assuming your NUC will support 64gb in this example)_
+- _Feel free to reach out to me on Discord if you would like to discuss._
 
 ### Actioncj17's PN50
 
@@ -307,6 +301,7 @@ It also comes with a 90 watt power supply, though in practice it doesn't require
 Discord user **actioncj17** has tried several different setups, but prefers the PN50 over everything... though they happily admit that it's overkill for running a Rocket Pool node.
 
 Actioncj17's Setup:
+
 - Base: [ASUS PN50 4700u](https://www.newegg.com/asus-pn50-bbr066md/p/N82E16856110206) ($583)
 - RAM: [HyperX Impact 2x16GB DDR4 SODIMM 3200MHz](https://www.newegg.com/hyperx-32gb-260-pin-ddr4-so-dimm/p/N82E16820104836) ($220)
 - SSD: [Samsung 970 EVO Plus 2TB M.2 2280 NVMe SSD](https://www.newegg.com/samsung-970-evo-plus-2tb/p/N82E16820147744) ($315)
@@ -314,7 +309,7 @@ Actioncj17's Setup:
 
 Here are actioncj17's comments on why they chose this setup:
 
-*My answer to why I chose the Asus PN50 is quite simple.
+_My answer to why I chose the Asus PN50 is quite simple.
 I wanted to see how badass AMD's Ryzen 7 4700U was.
 Let’s just say I’m not disappointed.
 I actually started with the Intel NUC10FNK.
@@ -322,8 +317,7 @@ I put 32gb of ram and 1tb 970 evo plus nvme m.2 in the nuc and it blazes.
 I have no complaints with the nuc and it works fine but I get more out of my PN50.
 I’d say both setups are overkill for staking on Rocketpool but a little future proofing doesn’t hurt.
 They both have small footprints and the nuc is actually much quieter since it is fanless.
-All in all the PN50 is a better bang for your buck if you can get your hands on one.*
-
+All in all the PN50 is a better bang for your buck if you can get your hands on one._
 
 ### Moralcompass's Mini-PC
 
@@ -336,13 +330,15 @@ The interesting thing about this choice is that it is completely passively coole
 While there are many variations of fanless mini PCs, moralcompass found one that worked for them and has stuck with it.
 
 Moralcompass's Setup:
+
 - Base: [Partaker Fanless Mini PC - i5 8250U](https://www.aliexpress.com/item/1005001867740130.html?spm=a2g0s.9042311.0.0.66e94c4d0ORiVh) ($387)
 - RAM: [Crucial 1x32GB DDR4 SODIMM 2666MHz](https://www.newegg.com/crucial-32gb-260-pin-ddr4-so-dimm/p/N82E16820156239) ($153)
 - SSD: [Silicon Power 1TB M.2 2280 NVMe SSD](https://www.amazon.com/Silicon-Power-Gen3x4-000MB-SU001TBP34A80M28AB/dp/B07L6GF81L) ($115)
 - **Total: $655**
 
 Here are moralcompass's comments on why they chose this setup:
-- *No moving parts, no noise.*
-- *Dual intel NIC (in case I decide to repurpose this as my router one day)*
-- *NVME + SATA slots (prefer NVME for speed and options with higher TBW endurance. SATA gives option of HDD or SSD. I avoided M.SATA interfaces because these SSDs seem to be turning legacy)*
-- *USB and serial ports available for graceful shutdown signal from UPS*
+
+- _No moving parts, no noise._
+- _Dual intel NIC (in case I decide to repurpose this as my router one day)_
+- _NVME + SATA slots (prefer NVME for speed and options with higher TBW endurance. SATA gives option of HDD or SSD. I avoided M.SATA interfaces because these SSDs seem to be turning legacy)_
+- _USB and serial ports available for graceful shutdown signal from UPS_

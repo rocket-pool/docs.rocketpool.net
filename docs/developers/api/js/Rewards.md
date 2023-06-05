@@ -12,9 +12,9 @@ Create a new Rewards instance.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `web3` | `default` | A valid Web3 instance |
+| Name        | Type                     | Description                             |
+| :---------- | :----------------------- | :-------------------------------------- |
+| `web3`      | `default`                | A valid Web3 instance                   |
 | `contracts` | [`Contracts`](Contracts) | A Rocket Pool contract manager instance |
 
 #### Defined in
@@ -50,6 +50,7 @@ Get claim rewards amount
 **`params`** address a string representing the node address
 
 **`example`** using Typescript
+
 ```ts
 const address = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const claimPossible = rp.rewards.claimTrustedNode.getClaimRewardsAmount(address).then((val: string) => { val };
@@ -57,8 +58,8 @@ const claimPossible = rp.rewards.claimTrustedNode.getClaimRewardsAmount(address)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type     |
+| :-------- | :------- |
 | `address` | `string` |
 
 #### Returns
@@ -71,7 +72,7 @@ a Promise<string\> that resolves to a string representing the claim rewards amou
 
 rocketpool/rewards/claim-trusted-node.ts:40
 
-___
+---
 
 ### claim
 
@@ -80,6 +81,7 @@ ___
 Claim from a trusted node
 
 **`example`** using Typescript
+
 ```ts
 const trustedNode = "0x421433c3f99529A704Ec2270E1A68fa66DD8bD79";
 const options = {
@@ -91,10 +93,10 @@ const txReceipt = rp.rewards.claimTrustedNode(options).then((txReceipt: Transact
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 

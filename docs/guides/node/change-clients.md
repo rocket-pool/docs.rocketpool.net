@@ -12,7 +12,6 @@ Here are a few examples:
 Luckily, the Smartnode stack makes changing clients extremely easy.
 All it takes is a few changes in the Configuration TUI, and some optional extra commands to back up your existing client data before changing clients.
 
-
 ## Changing Execution Clients
 
 Prior to changing your Execution client, it's worth noting the following points:
@@ -21,14 +20,12 @@ Prior to changing your Execution client, it's worth noting the following points:
 - By default, the Smartnode will leave your old client's chain data on your drive in case you want to revert back to your old Execution client and pick up where you left off. You may want to **export it to a different location** and delete it to free up space prior to changing clients, since Execution clients can use hundreds of gigabytes. We have steps below on how to do this.
 - While your new client is resyncing, most of the Smartnode CLI functions will be offline since they rely on the Execution client. **You should have a fallback Execution client available before doing this to mitigate the downtime on your Smartnode.**
 
-
 ### (Optional) Export your Execution Client's Database
 
 The first step in the process is an optional one: if you like, you can export your existing chain data for your current Execution client.
 This will let you free up valuable disk space on your node for your new Execution client, and you can keep the old chain data around in case you want to revert back to the old client and pick up where you left off.
 
 Please refer to the [Backing Up Your Node](./backups##backing-up-your-execution-chain-data) guide for details.
-
 
 ### Change your Selected Execution Client
 
@@ -53,12 +50,11 @@ As usual, you can follow it with `rocketpool service logs eth1`.
 **We recommend you do this to verify there are no errors, and that it works properly.**
 
 ::: danger NOTE
-Now that the Execution and Consensus layers have merged, taking down your Execution client will *also* take down your Consensus client until your Execution client has finished resyncing.
+Now that the Execution and Consensus layers have merged, taking down your Execution client will _also_ take down your Consensus client until your Execution client has finished resyncing.
 This means your node will **stop attesting and proposing blocks, and it will leak ETH instead of earning it!**
 
 To avoid this and continue validating while your Execution client resyncs, **please set up a [fallback node](./fallback)**.
 :::
-
 
 ### (Recommended) Remove your Old Chain Data
 
@@ -76,7 +72,6 @@ This will delete all of your Execution client data and start it over.
 Since you just selected a new Execution client, it won't be affected by this - essentially, all it will do is delete your old chain data.
 You should do this as soon as possible after switching clients to prevent unnecessary loss of progress on your new client.
 :::
-
 
 ## Changing Consensus Clients
 

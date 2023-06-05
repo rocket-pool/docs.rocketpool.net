@@ -5,7 +5,6 @@ Writing guides for all of them would be somewhat impractical, but in this sectio
 Specifically, we'll cover how to select the appropriate virtual hardware configuration and how to prepare the Operating System for Rocket Pool.  
 You should be able to extrapolate how to apply these steps to any provider once you've become familiar with their ecosystem.
 
-
 ## Creating an EC2 Virtual Machine
 
 The first step is to [create an AWS account](https://portal.aws.amazon.com/billing/signup) if you don't already have one.
@@ -21,7 +20,6 @@ Go to the **Compute** section and select **EC2**.
 Your dashboard should change to a view similar to this:
 
 ![](./images/ec2-dashboard.png){ style="display: block; margin: 0 auto" }
-
 
 Click the orange **Launch Instance** button and select **Launch Instance** from the list of options to create a new machine.
 You will be presented with a marketplace of Amazon Machine Images.
@@ -117,8 +115,7 @@ Next, select the new address in the list.
 Click the **Actions** button above it, then click **Associate Elastic IP Address**.
 Leave the resource type set to **Instance** and select the Rocket Pool Smartnode instance you just created from the list.
 Click **Associate** to assign the address to your virtual server.
-Now, if you look under the *Associated Instance ID** column of the address, you can verify that it has your machine assigned to it.
-
+Now, if you look under the \*Associated Instance ID\*\* column of the address, you can verify that it has your machine assigned to it.
 
 ## Accessing the Machine
 
@@ -132,7 +129,6 @@ If you stored your keys in the `.ssh` folder, this will use the private key pair
 
 Once here, you have complete terminal access to the system.
 
-
 ## Setting up Swap Space
 
 In most cases, if you choose your Execution (ETH1) and Consensus (ETH2) clients and your instance type carefully, you should not run out of RAM.
@@ -141,7 +137,6 @@ What we're going to do now is add what's called **swap space**.
 Essentially, it means we're going to use the SSD as "backup RAM" in case something goes horribly, horribly wrong and your server runs out of regular RAM.
 The SSD isn't nearly as fast as the regular RAM, so if it hits the swap space it will slow things down, but it won't completely crash and break everything.
 Think of this as extra insurance that you'll (most likely) never need.
-
 
 ### Creating a Swap File
 
@@ -155,31 +150,37 @@ Just substitute whatever number you want in as we go.
 
 Enter this, which will create a new file called `/swapfile` and fill it with 16 GB of zeros.
 To change the amount, just change the number in `count=16` to whatever you want. **Note that this is going to take a long time, but that's ok.**
+
 ```
 sudo dd if=/dev/zero of=/swapfile bs=1G count=16 status=progress
 ```
 
 Next, set the permissions so only the root user can read or write to it (for security):
+
 ```
 sudo chmod 600 /swapfile
 ```
 
 Now, mark it as a swap file:
+
 ```
 sudo mkswap /swapfile
 ```
 
 Next, enable it:
+
 ```
 sudo swapon /swapfile
 ```
 
 Finally, add it to the mount table so it automatically loads when your server reboots:
+
 ```
 sudo nano /etc/fstab
 ```
 
 Add a new line at the end that looks like this:
+
 ```
 /swapfile                            none            swap    sw              0       0
 ```
@@ -187,6 +188,7 @@ Add a new line at the end that looks like this:
 Press `Ctrl+O` and `Enter` to save, then `Ctrl+X` and `Enter` to exit.
 
 To verify that it's active, run these commands:
+
 ```
 sudo apt install htop
 htop
@@ -201,7 +203,6 @@ If it shows `0K / 0K` then it did not work and you'll have to confirm that you e
 
 Press `q` or `F10` to quit out of `htop` and get back to the terminal.
 
-
 ### Configuring Swappiness and Cache Pressure
 
 By default, Linux will eagerly use a lot of swap space to take some of the pressure off of the system's RAM.
@@ -213,17 +214,20 @@ We also want to turn down the "cache pressure", which dictates how quickly the s
 Since we're going to have a lot of spare RAM with our setup, we can make this "10" which will leave the cache in memory for a while, reducing disk I/O.
 
 To set these, run these commands:
+
 ```
 sudo sysctl vm.swappiness=6
 sudo sysctl vm.vfs_cache_pressure=10
 ```
 
 Now, put them into the `sysctl.conf` file so they are reapplied after a reboot:
+
 ```
 sudo nano /etc/sysctl.conf
 ```
 
 Add these two lines to the end:
+
 ```
 vm.swappiness=6
 vm.vfs_cache_pressure=10

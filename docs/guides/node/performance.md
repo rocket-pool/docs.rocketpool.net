@@ -210,7 +210,6 @@ Fill your desired nickname and click the `Save changes`button.
 
 ![](../node/images/paste-signed-message.png)
 
-
 ### Uptimerobot: Port-scanning for Uptime
 
 The [Uptimerobot](https://uptimerobot.com/) service is a simple service that scans an IP address for an open port.

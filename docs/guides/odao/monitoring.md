@@ -12,7 +12,6 @@ Doing so involves the following:
 
 In this section, we'll describe a few examples of how to do these via the Smartnode's built-in [Grafana](https://grafana.com/) support.
 
-
 ## The Standard Rocket Pool Dashboard
 
 The Smartnode provides a convenient dashboard that allows you to monitor many of the metrics listed above.
@@ -33,7 +32,6 @@ Operating System and Smartnode updates require the update tracker, which you can
 
 For information on how to prepare the metrics system and the Smartnode dashboard, please visit the [Monitoring your Node's Performance](../node/performance) and the [Setting up the Grafana Dashboard](../node/grafana) pages of the Smartnode documentation.
 
-
 ## The Oracle DAO Dashboard
 
 We have also constructed a simple dashboard specifically tailored towards Oracle DAO members:
@@ -43,10 +41,10 @@ We have also constructed a simple dashboard specifically tailored towards Oracle
 This dashboard that tracks the following:
 
 - The status of the Oracle DAO proposals that need to be voted on or executed (more details on these in the next section)
-- The history of submissions for price and balance updates*
+- The history of submissions for price and balance updates\*
 - The ETH balances of each Oracle DAO node
 
-**Note that price and balance submission currently requires a quorum of 51% of nodes to agree on each one, at which point the submission is canonized. Submissions from other members will revert as they are no longer required, so if your node does not submit for a given interval, it doesn't mean that it's offline. You should be concerned if you miss more than 5 consecutive intervals in a row, and should check your `watchtower` daemon logs to verify there aren't any issues.*
+\*_Note that price and balance submission currently requires a quorum of 51% of nodes to agree on each one, at which point the submission is canonized. Submissions from other members will revert as they are no longer required, so if your node does not submit for a given interval, it doesn't mean that it's offline. You should be concerned if you miss more than 5 consecutive intervals in a row, and should check your `watchtower` daemon logs to verify there aren't any issues._
 
 Enabling this dashboard is a two-step process.
 
@@ -58,7 +56,6 @@ If you are running in Docker or Hybrid mode, this will restart your `node` daemo
 If you are running in Native mode, please restart the `node` service manually.
 
 Second, import the [Oracle DAO dashboard](https://grafana.com/grafana/dashboards/15003-odao-member-dashboard/) from Grafana Labs (ID `15003`) into your node's local Grafana server.
-
 
 ## Checking the Logs
 
@@ -79,7 +76,6 @@ rocketpool service logs watchtower -t 2000
 
 will show the last 2000 lines.
 As this will get cluttered very fast, you may want to pipe this into a utility like `less` so it is scrollable.
-
 
 ## Next Steps
 

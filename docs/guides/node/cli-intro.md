@@ -6,7 +6,6 @@ You will use it to create new minipools, check on the status of everything, clai
 Once you've finished syncing the Execution (ETH1) and Beacon (ETH2) chains, all of the commands will be available for you to use.
 In this section, we'll go over a brief tour of some of the more common ones and some other tricks that the CLI can do.
 
-
 ## Learning About the Commands
 
 To list all of the available commands, type:
@@ -61,8 +60,9 @@ COPYRIGHT:
    (c) 2021 Rocket Pool Pty Ltd
 ```
 
-## Service Commands 
-The service group involves managing the various services the smart node manages for you. 
+## Service Commands
+
+The service group involves managing the various services the smart node manages for you.
 
 Here is what the `rocketpool service help` output will show:
 
@@ -98,24 +98,24 @@ OPTIONS:
    --compose-file value, -f value  Optional compose files to override the standard Rocket Pool docker compose YAML files; this flag may be defined multiple times
    --help, -h                      show help
 ```
+
 ### `status`
 
 This command shows you the current running status of each of the Docker containers managed by Rocket Pool.
 For example, the default Docker install's output looks like this:
 
 ```
-        Name                       Command              State                                                       Ports                                                     
+        Name                       Command              State                                                       Ports
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-rocketpool_api          /bin/sleep infinity             Up                                                                                                                    
+rocketpool_api          /bin/sleep infinity             Up
 rocketpool_eth1         sh /setup/start-node.sh         Up      0.0.0.0:30303->30303/tcp,:::30303->30303/tcp, 0.0.0.0:30303->30303/udp,:::30303->30303/udp, 8545/tcp, 8546/tcp
-rocketpool_eth2         sh /setup/start-beacon.sh       Up      0.0.0.0:9001->9001/tcp,:::9001->9001/tcp, 0.0.0.0:9001->9001/udp,:::9001->9001/udp                            
-rocketpool_node         /go/bin/rocketpool node         Up                                                                                                                    
-rocketpool_validator    sh /setup/start-validator.sh    Up                                                                                                                    
+rocketpool_eth2         sh /setup/start-beacon.sh       Up      0.0.0.0:9001->9001/tcp,:::9001->9001/tcp, 0.0.0.0:9001->9001/udp,:::9001->9001/udp
+rocketpool_node         /go/bin/rocketpool node         Up
+rocketpool_validator    sh /setup/start-validator.sh    Up
 rocketpool_watchtower   /go/bin/rocketpool watchtower   Up
 ```
 
 You can use it to quickly check if any of the Docker containers are having trouble, or to make sure that a `start` or `stop` command worked correctly.
-
 
 ### `start` and `stop`
 
@@ -127,7 +127,6 @@ The `pause` command does the same thing as `stop`.
 It's just left over as a legacy command from earlier versions of Rocket Pool.
 :::
 
-
 ### `logs`
 
 This command is another one you should have already seen.
@@ -138,7 +137,6 @@ If you simply do `rocketpool service logs` without any other arguments, it will 
 
 If you want to focus on one container's output, you can add an argument to the end to specify the container.
 Valid values are `eth1`, `eth2`, `validator`, `api`, `node`, and `watchtower`.
-
 
 ### `stats`
 
@@ -159,8 +157,8 @@ a3c22f54eff0   rocketpool_node         0.00%     12.13MiB / 62.78GiB   0.02%    
 ```
 
 ::: tip NOTE
-The RAM statistic here shows **total allocated memory**, which includes *virtual* memory.
-It does not show the raw *resident* memory consumption.
+The RAM statistic here shows **total allocated memory**, which includes _virtual_ memory.
+It does not show the raw _resident_ memory consumption.
 
 Similarly, the CPU usage shows the total amount of CPU consumption averaged over all of the CPU cores that the container uses.
 Here, the CPU for ETH2 shows almost 100% because it is using Nimbus, which is single-threaded.
@@ -168,14 +166,12 @@ Here, the CPU for ETH2 shows almost 100% because it is using Nimbus, which is si
 You may find that a program like `htop` offers better insight into actual resource consumption.
 :::
 
-
 ### `config`
 
 This command runs through the configuration interview again.
 You can use it if you want to change your selection of Execution (ETH1) or Consensus (ETH2) client, or change some of the parameters that you initially specified when you selected them (such as your validator's graffiti message, the max number of peers to connect to, and so on).
 
 You can call this command at any time, but the changes won't take effect until you call `rocketpool service stop` and `rocketpool service start`.
-
 
 ### `terminate`
 
@@ -189,7 +185,6 @@ This will irreversibly remove your chain data, which means you'll need to sync E
 This will **not** remove your wallet and password files, your configured settings, or your validator keys.
 To remove those, you will need to delete the `~/.rocketpool/data` folder in Docker or Hybrid Mode, or the corresponding directory in Native Mode.
 :::
-
 
 ## Node Commands
 
@@ -233,7 +228,6 @@ OPTIONS:
 
 Below is a summary of some of the commands you'll tend to need during typical node operation.
 
-
 ### `status`
 
 This command will give you a high-level view of your entire node at a glance.
@@ -270,7 +264,6 @@ The node has a total of 1 active minipool(s):
 
 ```
 
-
 ### `sync`
 
 This command will show you the current sync status of your Execution (ETH1) and Consensus (ETH2) clients.
@@ -292,14 +285,13 @@ You do not have a fallback consensus client enabled.
 
 Note that **Prysm** currently doesn't provide its completion percent - you'll need to look in the `eth2` logs if you use it.
 
-
 ### `stake-rpl`
 
 This command is what you'll use when you want to add more RPL collateral to your node.
 Doing so will increase your collateral ratio, which will increase your RPL rewards at each checkpoint (more on this later).
 It may allow you to run more minipools or withdraw your rewards for the current checkpoint if your collateral is currently too low.
 
-Unlike the other commands so far, this one is actually *interactive* because it will trigger a transaction - it isn't simply informational.
+Unlike the other commands so far, this one is actually _interactive_ because it will trigger a transaction - it isn't simply informational.
 
 It will first ask you how much RPL you'd like to stake, with some pre-defined options for convenience or the ability to specify a custom amount:
 
@@ -338,8 +330,7 @@ Waiting for the transaction to be mined... **DO NOT EXIT!** This transaction is 
 ```
 
 Most operations only require one transaction, so the CLI will wait until it has been mined and then exit.
-However, `stake-rpl` is one of the few commands that requires *two* transactions, so this dialog will appear twice.
-
+However, `stake-rpl` is one of the few commands that requires _two_ transactions, so this dialog will appear twice.
 
 ### `deposit`
 
@@ -349,7 +340,6 @@ You will be prompted with the expected gas cost for the transaction and one fina
 If you accept, your ETH deposit will be processed and you will create a new minipool (and a corresponding ETH2 validator).
 
 (For more information, see the next section on [Creating a Minipool](./create-validator)).
-
 
 ### `claim-rewards`
 
@@ -373,7 +363,7 @@ You can also specify an amount you want to restake during this claim:
 This will let you compound your RPL rewards in one transaction, using substantially less gas than you currently needed to use with the legacy claim system.
 
 ::: danger WARNING
-If you are below 10% RPL collateral *at the time of the snapshot*, you will not be eligible for rewards for that snapshot.
+If you are below 10% RPL collateral _at the time of the snapshot_, you will not be eligible for rewards for that snapshot.
 Unlike the current system, where you can simply "top off" before you claim in order to become eligible again, this will be locked in that snapshot forever and **you will never receive rewards for that period**.
 You **must** be above 10% collateral at the time of a snapshot in order to receive rewards for that period.
 :::
@@ -388,8 +378,8 @@ If your local Execution client is not an archive node, you can specify a separat
 This URL will only be used when generating Merkle trees; it will not be used for validation duties.
 :::
 
-
 ### `join-smoothing-pool`
+
 ```
 rocketpool node join-smoothing-pool
 ```
@@ -398,8 +388,8 @@ This will record you as opted-in in the Rocket Pool contracts and automatically 
 
 Note that once you opt in, there is a **28 day cooldown** (one full rewards interval length) until you can opt out.
 
-
 ### `leave-smoothing-pool`
+
 ```
 rocketpool node leave-smoothing-pool
 ```
@@ -408,8 +398,8 @@ This will opt you out of the Smoothing Pool if you're currently opted in, and ha
 Once **the next epoch after the current epoch** is finalized, it will automatically change your node's `fee recipient` from the Smoothing Pool back to your node's distributor contract.
 This is to ensure you don't get penalized for front-running the exit process when you see that you have a proposal coming up.
 
-
 ### `initialize-fee-distributor`
+
 To initialize your node's distributor, simply run this new command:
 
 ```
@@ -420,8 +410,8 @@ rocketpool node initialize-fee-distributor
 After the Redstone update, you must call this function before you can create any new minipools with `rocketpool node deposit`.
 :::
 
-
 ### `distribute-fees`
+
 When your distributor has been initialized, you can claim and distribute its entire balance using the following command:
 
 ```
@@ -429,7 +419,6 @@ rocketpool node distribute-fees
 ```
 
 This will send your share of the rewards to your **withdrawal address**.
-
 
 ### `send`
 
@@ -455,7 +444,6 @@ rocketpool node send 1 eth <my friend's address>
 ```
 
 would send 1 ETH to my friend.
-
 
 ## Minipool Commands
 
@@ -487,7 +475,6 @@ OPTIONS:
 
 Below is a summary of the commands that you'll typically use.
 
-
 ### `status`
 
 This command simply provides a summary of each of your minipools.
@@ -511,11 +498,9 @@ Validator index:      0
 Validator seen:       yes
 ```
 
-
 ### `refund`
 
 This command lets you pull 16 ETH back from a minipool if you deposited 32 ETH to create one, once Rocket Pool was able to contribute 16 ETH from the rETH staking pool.
-
 
 ### `exit`
 
@@ -523,11 +508,9 @@ This command submits a voluntary exit for your validator on the Beacon Chain.
 Use this when you want to close a validator and withdraw its final ETH balance.
 Note that **this cannot be undone** - once you trigger an exit, the validator will shut down permanently.
 
-
 ## Useful Flags
 
 There are some useful global flags that you can add to some of the above commands, which you may want to take advantage of.
-
 
 ### Setting a Custom Max Fee or Priority Fee (Gas Price)
 
@@ -591,7 +574,6 @@ This shows that regardless of what max fee the network recommends, it will use y
 If you set a manual max fee, we strongly encourage you to use a third-party gas price oracle such as [EtherChain](https://etherchain.org/tools/gasnow) to determine if that fee is high enough for the current network conditions before submitting the transaction.
 :::
 
-
 ### Canceling / Overwriting a Stuck Transaction
 
 Sometimes, you might run into a scenario where you sent a transaction to the network but you used a gas price that is far too low for the network conditions, and it will take a prohibitively long time to execute.
@@ -602,7 +584,7 @@ Every Ethereum wallet, including your node wallet, sends transactions sequential
 Each transaction you send has a number called a `nonce` that identifies where it lives in that sequence.
 The very first transaction you send will have a `nonce` of 0, the next one you send will have a `nonce` of 1, and so on.
 
-This overwriting technique involves sending a *new* transaction that uses the same `nonce` as your existing *stuck* transaction, but will ideally include a higher gas price than the stuck one.
+This overwriting technique involves sending a _new_ transaction that uses the same `nonce` as your existing _stuck_ transaction, but will ideally include a higher gas price than the stuck one.
 This means that the new one will be mined first.
 As soon as it's mined into a block, the old one will be discarded from the network as though it was never sent in the first place.
 
@@ -638,7 +620,6 @@ Are you sure you want to send 0.000100 eth to <node wallet address>? This action
 The Smartnode stack will automatically check to make sure that the `nonce` you have provided is valid (it refers to a pending transaction) before sending it and wasting your gas accidentally.
 If not, it will return an error message.
 Otherwise, it will go through and provide you with the transaction details so you can monitor it to confirm that it did, in fact, overwrite your old stuck transaction.
-
 
 That's it for the common CLI commands.
 In the next section, we'll walk through how to create a minipool and start validating on the Beacon Chain.

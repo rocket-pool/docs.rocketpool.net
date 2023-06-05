@@ -12,9 +12,9 @@ Create a new Minipool instance.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `web3` | `default` | A valid Web3 instance |
+| Name        | Type                     | Description                             |
+| :---------- | :----------------------- | :-------------------------------------- |
+| `web3`      | `default`                | A valid Web3 instance                   |
 | `contracts` | [`Contracts`](Contracts) | A Rocket Pool Contract Manager Instance |
 
 #### Defined in
@@ -39,7 +39,7 @@ a Promise<Contract\> with a web3.eth.contract instance of the rocketMinipoolMana
 
 rocketpool/minipool/minipool.ts:33
 
-___
+---
 
 ### rocketMinipoolQueue
 
@@ -57,7 +57,7 @@ a Promise<Contract\> with a web3.eth.contract instance of the rocketMinipoolQueu
 
 rocketpool/minipool/minipool.ts:41
 
-___
+---
 
 ### rocketMinipoolStatus
 
@@ -75,7 +75,7 @@ a Promise<Contract\> with a web3.eth.contract instance of the rocketMinipoolStat
 
 rocketpool/minipool/minipool.ts:49
 
-___
+---
 
 ### rocketMinipool
 
@@ -102,6 +102,7 @@ rocketpool/minipool/minipool.ts:57
 Get all minipool details
 
 **`example`** using Typescript
+
 ```ts
 const minipools = rp.minipool.getMinipools().then((val: MinipoolDetails[]) => { val };
 ```
@@ -116,7 +117,7 @@ a Promise<MinipoolDetails[]\> that resolves to an array of MinipoolDetails (addr
 
 rocketpool/minipool/minipool.ts:70
 
-___
+---
 
 ### getMinipoolAddresses
 
@@ -125,6 +126,7 @@ ___
 Get all minipool addresses
 
 **`example`** using Typescript
+
 ```ts
 const addresses = rp.minipool.getMinipoolAddresses().then((val: string[]) => { val };
 ```
@@ -139,7 +141,7 @@ a Promise<string[]\> that resolves to an array of minipool addresses as strings
 
 rocketpool/minipool/minipool.ts:89
 
-___
+---
 
 ### getNodeMinipools
 
@@ -150,6 +152,7 @@ Get all node's minipool details
 **`params`** nodeAddress a string representing the node address you which to return details for
 
 **`example`** using Typescript
+
 ```ts
 const nodeAddress = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const details = rp.minipool.getNodeMinipools(nodeAddress).then((val: MinipoolDetails[]) => { val };
@@ -157,8 +160,8 @@ const details = rp.minipool.getNodeMinipools(nodeAddress).then((val: MinipoolDet
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name          | Type     |
+| :------------ | :------- |
 | `nodeAddress` | `string` |
 
 #### Returns
@@ -171,7 +174,7 @@ a Promise<MinipoolDetails[]\> that resolves to an array of MinipoolDetails about
 
 rocketpool/minipool/minipool.ts:110
 
-___
+---
 
 ### getNodeMinipoolAddresses
 
@@ -182,6 +185,7 @@ Get all node's minipool addresses
 **`params`** nodeAddress a string representing the node address you which to return details for
 
 **`example`** using Typescript
+
 ```ts
 const nodeAddress = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const minipoolAddresses = rp.minipool.getNodeMinipoolAddresses(nodeAddress).then((val: string[]) => { val };
@@ -189,8 +193,8 @@ const minipoolAddresses = rp.minipool.getNodeMinipoolAddresses(nodeAddress).then
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name          | Type     |
+| :------------ | :------- |
 | `nodeAddress` | `string` |
 
 #### Returns
@@ -203,7 +207,7 @@ a Promise<string[]\> that resolves to an array of strings containing the minipoo
 
 rocketpool/minipool/minipool.ts:131
 
-___
+---
 
 ### getMinipoolDetails
 
@@ -214,6 +218,7 @@ Get all minipool's details
 **`params`** nodeAddress a string representing the node address you which to return details for
 
 **`example`** using Typescript
+
 ```ts
 const nodeAddress = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const minipoolDetails = rp.minipool.getMinipoolDetails(nodeAddress).then((val: MinipoolDetails) => { val };
@@ -221,8 +226,8 @@ const minipoolDetails = rp.minipool.getMinipoolDetails(nodeAddress).then((val: M
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type     |
+| :-------- | :------- |
 | `address` | `string` |
 
 #### Returns
@@ -235,7 +240,7 @@ a Promise<MinipoolDetails\> that resolves to a singular MinipoolDetails with det
 
 rocketpool/minipool/minipool.ts:152
 
-___
+---
 
 ### getMinipoolCount
 
@@ -244,6 +249,7 @@ ___
 Get all the total minipool count
 
 **`example`** using Typescript
+
 ```ts
 const totalMinipools = rp.minipool.getMinipoolCount().then((val: number) => { val };
 ```
@@ -258,7 +264,7 @@ a Promise<number\> that resolves to a number representing the total minipool cou
 
 rocketpool/minipool/minipool.ts:171
 
-___
+---
 
 ### getMinipoolAt
 
@@ -269,6 +275,7 @@ Get a minipool address by index
 **`params`** index a number representing the index of the minipool you wish to lookup
 
 **`example`** using Typescript
+
 ```ts
 const index = 5;
 const address = rp.minipool.getMinipoolAt(index).then((val: string) => { val };
@@ -276,8 +283,8 @@ const address = rp.minipool.getMinipoolAt(index).then((val: string) => { val };
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name    | Type     |
+| :------ | :------- |
 | `index` | `number` |
 
 #### Returns
@@ -290,7 +297,7 @@ a Promise<string\> that resolves to a string representing the minipool address
 
 rocketpool/minipool/minipool.ts:190
 
-___
+---
 
 ### getNodeMinipoolCount
 
@@ -301,6 +308,7 @@ Get a node's total minipool count
 **`params`** nodeAddress a string representing the node address you which to return details for
 
 **`example`** using Typescript
+
 ```ts
 const nodeAddress = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const nodeMinipoolCount = rp.minipool.getNodeMinipoolCount(nodeAddress).then((val: number) => { val };
@@ -308,8 +316,8 @@ const nodeMinipoolCount = rp.minipool.getNodeMinipoolCount(nodeAddress).then((va
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name          | Type     |
+| :------------ | :------- |
 | `nodeAddress` | `string` |
 
 #### Returns
@@ -322,7 +330,7 @@ a Promise<number\> that resolves to a number representing the node's total minip
 
 rocketpool/minipool/minipool.ts:207
 
-___
+---
 
 ### getStakingMinipoolCount
 
@@ -331,6 +339,7 @@ ___
 Get the staking minipool count
 
 **`example`** using Typescript
+
 ```ts
 const stakingMinipoolCount = rp.minipool.getStakingMinipoolCount().then((val: number) => { val };
 ```
@@ -345,7 +354,7 @@ a Promise<number\> that resolves to a number representing the total staking mini
 
 rocketpool/minipool/minipool.ts:224
 
-___
+---
 
 ### getNodeStakingMinipoolCount
 
@@ -356,6 +365,7 @@ Get the node's staking minipool count
 **`params`** nodeAddress a string representing the node address you which to return details for
 
 **`example`** using Typescript
+
 ```ts
 const nodeAddress = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const nodeStakingMinipoolCount = rp.minipool.getNodeStakingMinipoolCount(nodeAddress).then((val: number) => { val };
@@ -363,8 +373,8 @@ const nodeStakingMinipoolCount = rp.minipool.getNodeStakingMinipoolCount(nodeAdd
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name          | Type     |
+| :------------ | :------- |
 | `nodeAddress` | `string` |
 
 #### Returns
@@ -377,7 +387,7 @@ a Promise<number\> that resolves to a number representing the node's staking min
 
 rocketpool/minipool/minipool.ts:241
 
-___
+---
 
 ### getNodeActiveMinipoolCount
 
@@ -388,6 +398,7 @@ Get the node's active minipool count
 **`params`** nodeAddress a string representing the node address you which to return details for
 
 **`example`** using Typescript
+
 ```ts
 const nodeAddress = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const nodeActiveMinipoolCount = rp.minipool.getNodeActiveMinipoolCount(nodeAddress).then((val: number) => { val };
@@ -395,8 +406,8 @@ const nodeActiveMinipoolCount = rp.minipool.getNodeActiveMinipoolCount(nodeAddre
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name          | Type     |
+| :------------ | :------- |
 | `nodeAddress` | `string` |
 
 #### Returns
@@ -409,7 +420,7 @@ a Promise<number\> that resolves to a number representing the node's active mini
 
 rocketpool/minipool/minipool.ts:258
 
-___
+---
 
 ### getNodeMinipoolAt
 
@@ -422,6 +433,7 @@ Get the node's minipool address by index
 **`params`** index a number representing the index of
 
 **`example`** using Typescript
+
 ```ts
 const nodeAddress = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const index = 2;
@@ -430,10 +442,10 @@ const address = rp.minipool.getNodeMinipoolAt(nodeAddress, index).then((val: str
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name          | Type     |
+| :------------ | :------- |
 | `nodeAddress` | `string` |
-| `index` | `number` |
+| `index`       | `number` |
 
 #### Returns
 
@@ -445,7 +457,7 @@ a Promise<string\> that resolves to a string representing the minipool address a
 
 rocketpool/minipool/minipool.ts:277
 
-___
+---
 
 ### getMinipoolByPubkey
 
@@ -456,6 +468,7 @@ Get a minipool address by validator pubkey
 **`params`** validatorPubkey a string representing the validator pub key
 
 **`example`** using Typescript
+
 ```ts
 const validatorPubkey = "0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003";
 const address = rp.minipool.getMinipoolByPubkey(nodeAddress).then((val: string) => { val };
@@ -463,8 +476,8 @@ const address = rp.minipool.getMinipoolByPubkey(nodeAddress).then((val: string) 
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name              | Type     |
+| :---------------- | :------- |
 | `validatorPubkey` | `string` |
 
 #### Returns
@@ -477,7 +490,7 @@ a Promise<string\> that resolves to a string representing the minipool address a
 
 rocketpool/minipool/minipool.ts:294
 
-___
+---
 
 ### getMinipoolExists
 
@@ -488,6 +501,7 @@ Check whether a minipool exists
 **`params`** address a string representing the minipool address you to check against
 
 **`example`** using Typescript
+
 ```ts
 const address = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const exists = rp.minipool.getMinipoolExists(nodeAddress).then((val: boolean) => { val };
@@ -495,8 +509,8 @@ const exists = rp.minipool.getMinipoolExists(nodeAddress).then((val: boolean) =>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type     |
+| :-------- | :------- |
 | `address` | `string` |
 
 #### Returns
@@ -509,7 +523,7 @@ a Promise<boolean\> that resolves to a boolean representing if a minipool exists
 
 rocketpool/minipool/minipool.ts:311
 
-___
+---
 
 ### getMinipoolPubkey
 
@@ -520,6 +534,7 @@ Get a minipool's validator pubkey
 **`params`** address a string representing the minipool address
 
 **`example`** using Typescript
+
 ```ts
 const address = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const address = rp.minipool.getMinipoolPubkey(nodeAddress).then((val: string) => { val };
@@ -527,8 +542,8 @@ const address = rp.minipool.getMinipoolPubkey(nodeAddress).then((val: string) =>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type     |
+| :-------- | :------- |
 | `address` | `string` |
 
 #### Returns
@@ -541,7 +556,7 @@ a Promise<string\> that resolves to a string representing the pubkey for the pro
 
 rocketpool/minipool/minipool.ts:328
 
-___
+---
 
 ### getMinipoolWithdrawalCredentials
 
@@ -552,6 +567,7 @@ Get a minipool's withdrawal credentials
 **`params`** address a string representing the minipool address
 
 **`example`** using Typescript
+
 ```ts
 const address = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const address = rp.minipool.getMinipoolWithdrawalCredentials(nodeAddress).then((val: string) => { val };
@@ -559,8 +575,8 @@ const address = rp.minipool.getMinipoolWithdrawalCredentials(nodeAddress).then((
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type     |
+| :-------- | :------- |
 | `address` | `string` |
 
 #### Returns
@@ -573,7 +589,7 @@ a Promise<string\> that resolves to a string representing the minipool credentia
 
 rocketpool/minipool/minipool.ts:345
 
-___
+---
 
 ### getQueueLength
 
@@ -584,14 +600,15 @@ Get the minipool queue length
 **`params`** depositType a number representing the deposit type
 
 **`example`** using Typescript
+
 ```ts
 const length = rp.minipool.getQueueLength(1).then((val: number) => { val };
 ```
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name          | Type     |
+| :------------ | :------- |
 | `depositType` | `number` |
 
 #### Returns
@@ -604,7 +621,7 @@ a Promise<number\> that resolves to a number representing the minipool queue len
 
 rocketpool/minipool/minipool.ts:361
 
-___
+---
 
 ### getQueueTotalLength
 
@@ -613,6 +630,7 @@ ___
 Get the total minipool queue length
 
 **`example`** using Typescript
+
 ```ts
 const totalLength = rp.minipool.getQueueTotalLength().then((val: number) => { val };
 ```
@@ -627,7 +645,7 @@ a Promise<number\> that resolves to a number representing the total minipool que
 
 rocketpool/minipool/minipool.ts:376
 
-___
+---
 
 ### getQueueTotalCapacity
 
@@ -636,6 +654,7 @@ ___
 Get the total capacity of queued minipools in Wei
 
 **`example`** using Typescript
+
 ```ts
 const totalLength = rp.minipool.getQueueTotalCapacity().then((val: string) => { val };
 ```
@@ -650,7 +669,7 @@ a Promise<string\> that resolves to a number representing the total capacity of 
 
 rocketpool/minipool/minipool.ts:393
 
-___
+---
 
 ### getQueueEffectiveCapacity
 
@@ -659,6 +678,7 @@ ___
 Get the effective capacity of queued minipools in Wei (used in node demand calculations)
 
 **`example`** using Typescript
+
 ```ts
 const queueEffectiveCapacity = rp.minipool.getQueueEffectiveCapacity().then((val: string) => { val };
 ```
@@ -673,7 +693,7 @@ a Promise<string\> that resolves to a number representing the effective capacity
 
 rocketpool/minipool/minipool.ts:408
 
-___
+---
 
 ### getQueueNextCapacity
 
@@ -682,6 +702,7 @@ ___
 Get the capacity of the next available minipool in Wei
 
 **`example`** using Typescript
+
 ```ts
 const queueNextCapacity = rp.minipool.getQueueNextCapacity().then((val: string) => { val };
 ```
@@ -696,7 +717,7 @@ a Promise<string\> that resolves to a number representing the capacity of the ne
 
 rocketpool/minipool/minipool.ts:423
 
-___
+---
 
 ### getMinipoolNodeRewardAmount
 
@@ -713,18 +734,19 @@ Get the node reward amount for a minipool by node fee, user deposit balance, and
 **`params`** endBalance a sttring representing the end balance in Wei
 
 **`example`** using Typescript
+
 ```ts
 const rewardsAmount = rp.minipool.getMinipoolNodeRewardAmount(nodeFee, userDepositBalance, startBalance, endBalance).then((val: string) => { val };
 ```
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `nodeFee` | `number` |
+| Name                 | Type     |
+| :------------------- | :------- |
+| `nodeFee`            | `number` |
 | `userDepositBalance` | `string` |
-| `startBalance` | `string` |
-| `endBalance` | `string` |
+| `startBalance`       | `string` |
+| `endBalance`         | `string` |
 
 #### Returns
 
@@ -736,7 +758,7 @@ a Promise<string\> that resolves to a string representing the minipool node rewa
 
 rocketpool/minipool/minipool.ts:442
 
-___
+---
 
 ### getMinipoolContract
 
@@ -747,6 +769,7 @@ Get a MinipoolContract instance
 **`params`** address a string representing the address of the minipool
 
 **`example`** using Typescript
+
 ```ts
 const address = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const minipoolContract = rp.minipool.getMinipoolContract(address).then((val: MinipoolContract) => { val };
@@ -754,8 +777,8 @@ const minipoolContract = rp.minipool.getMinipoolContract(address).then((val: Min
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type     |
+| :-------- | :------- |
 | `address` | `string` |
 
 #### Returns
@@ -768,7 +791,7 @@ a Promise<MinipoolContract\> that resolves to a MinipoolContract representing th
 
 rocketpool/minipool/minipool.ts:461
 
-___
+---
 
 ### getEffectiveDelegate
 
@@ -779,6 +802,7 @@ Get the effective delegate
 **`params`** address a string representing the address of the minipool
 
 **`example`** using Typescript
+
 ```ts
 const address = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const effectiveDelegate = rp.minipool.getEffectiveDelegate(address).then((val: string) => { val };
@@ -786,8 +810,8 @@ const effectiveDelegate = rp.minipool.getEffectiveDelegate(address).then((val: s
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type     |
+| :-------- | :------- |
 | `address` | `string` |
 
 #### Returns
@@ -800,7 +824,7 @@ a Promise<string\> that resolves to the address of the effective delegate
 
 rocketpool/minipool/minipool.ts:478
 
-___
+---
 
 ### submitMinipoolWithdrawable
 
@@ -809,6 +833,7 @@ ___
 Submit a minipool as withdrawable
 
 **`example`** using Typescript
+
 ```ts
 const minipoolAddress = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const trustedNode = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
@@ -821,11 +846,11 @@ const txReceipt = rp.minipool.submitWithdrawable(minipoolAddress, options).then(
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `minipoolAddress` | `string` | A string representing the address of the minipool |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `minipoolAddress` | `string`              | A string representing the address of the minipool   |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 

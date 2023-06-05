@@ -9,12 +9,10 @@ Running a node on a general-use machine, such as your daily work desktop, presen
 **For maximum safety, please build a new machine that is dedicated exclusively to running a node.**
 :::
 
-
 ## System Requirements
 
 Below is a brief description of the software and hardware requirements that a Rocket Pool node requires.
 This guide assumes that you already have your machine physically built, and the operating system installed.
-
 
 ### Supported Operating Systems
 
@@ -24,17 +22,17 @@ Rocket Pool recommends you use the latest version of macOS for your hardware.
 
 You will need to install the following pre-requisites:
 
-```Docker Desktop``` by [downloading the binary](https://www.docker.com/products/docker-desktop) installer from the website and dragging it to your Applications folder.
+`Docker Desktop` by [downloading the binary](https://www.docker.com/products/docker-desktop) installer from the website and dragging it to your Applications folder.
 
-```XCode Command Line Tools``` can be downloaded by opening up the Terminal application (located in /Applications/Utilties) and executing the following command:
+`XCode Command Line Tools` can be downloaded by opening up the Terminal application (located in /Applications/Utilties) and executing the following command:
 
 ```
 xcode-select --install
 ```
 
-We highly recommend using [Homebrew](https://brew.sh) as your package manager for Mac. It allows you to install packages easily using the ```brew``` command.
+We highly recommend using [Homebrew](https://brew.sh) as your package manager for Mac. It allows you to install packages easily using the `brew` command.
 
-For example, to install ```wget``` using Homebrew execute the following command in the Terminal:
+For example, to install `wget` using Homebrew execute the following command in the Terminal:
 
 ```
 brew install wget
@@ -44,32 +42,31 @@ Please ensure your Firewall (Settings -> Security & Privacy -> Firewall) is turn
 
 ![](../local/images/mac/docker-firewall.png)
 
-
 ### Hardware Requirements
 
 The hardware requirements for a node depend largely on which Execution (ETH1) and Consensus (ETH2) clients you decide to run.
 As shown in [the hardware guide](./hardware), there is a wide range of possible configurations that work well.
 However, for the sake of completeness, we have assembled the following hardware profiles:
 
-
 #### Low-Power Full Node
+
 - CPU: Quad-core 1.6+ GHz
 - RAM: 8 GB DDR4 2400 MHz
-- SSD: 2 TB, 15k Read IOPS, 5k Write IOPS**
+- SSD: 2 TB, 15k Read IOPS, 5k Write IOPS\*\*
 - Network: 10+ Mbps, 1.5+ TB monthly data cap
-- Execution Client: Geth (in low-cache mode), Besu 
+- Execution Client: Geth (in low-cache mode), Besu
 - Consensus Client: Nimbus, Lighthouse, Prysm
 
-
 #### Typical Full Node
+
 - CPU: Quad-core, 2.6+ GHz
 - RAM: 16 GB DDR4 3200 MHz
-- SSD: 2 TB, 15k Read IOPS, 5k Write IOPS**
+- SSD: 2 TB, 15k Read IOPS, 5k Write IOPS\*\*
 - Network: 25+ Mbps, 1.5+ TB monthly data cap
 - Execution Client: Any
 - Consensus Client: Any
 
-*\*
+\*\*
 The Execution blockchain [grows quickly](https://ycharts.com/indicators/ethereum_chain_full_sync_data_size), so 2 TB will offer some future-proofing.
 The larger your storage, the longer you can go between needing to reclaim space by pruning
 

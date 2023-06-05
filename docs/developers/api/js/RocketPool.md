@@ -12,9 +12,9 @@ Create a new Rocket Pool instance.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `web3` | `default` | A Web3 instance |
+| Name            | Type                           | Description                                                             |
+| :-------------- | :----------------------------- | :---------------------------------------------------------------------- |
+| `web3`          | `default`                      | A Web3 instance                                                         |
 | `RocketStorage` | `string` \| `ContractArtifact` | a RocketStorage address as a string or ContractArtifact (JSON ABI file) |
 
 #### Defined in
@@ -31,7 +31,7 @@ rocketpool/rocketpool.ts:87
 
 rocketpool/rocketpool.ts:33
 
-___
+---
 
 ### auction
 
@@ -41,7 +41,7 @@ ___
 
 rocketpool/rocketpool.ts:34
 
-___
+---
 
 ### dao
 
@@ -49,21 +49,21 @@ ___
 
 #### Type declaration
 
-| Name | Type |
-| :------ | :------ |
-| `node` | `Object` |
-| `node.trusted` | `Object` |
-| `node.trusted.actions` | [`DAONodeTrustedActions`](DAONodeTrustedActions) |
-| `node.trusted.node` | [`DAONodeTrusted`](DAONodeTrusted) |
+| Name                     | Type                                                 |
+| :----------------------- | :--------------------------------------------------- |
+| `node`                   | `Object`                                             |
+| `node.trusted`           | `Object`                                             |
+| `node.trusted.actions`   | [`DAONodeTrustedActions`](DAONodeTrustedActions)     |
+| `node.trusted.node`      | [`DAONodeTrusted`](DAONodeTrusted)                   |
 | `node.trusted.proposals` | [`DAONodeTrustedProposals`](DAONodeTrustedProposals) |
-| `node.trusted.settings` | [`DAONodeTrustedSettings`](DAONodeTrustedSettings) |
-| `proposals` | [`DAOProposal`](DAOProposal) |
+| `node.trusted.settings`  | [`DAONodeTrustedSettings`](DAONodeTrustedSettings)   |
+| `proposals`              | [`DAOProposal`](DAOProposal)                         |
 
 #### Defined in
 
 rocketpool/rocketpool.ts:35
 
-___
+---
 
 ### deposit
 
@@ -73,7 +73,7 @@ ___
 
 rocketpool/rocketpool.ts:46
 
-___
+---
 
 ### minipool
 
@@ -83,7 +83,7 @@ ___
 
 rocketpool/rocketpool.ts:47
 
-___
+---
 
 ### network
 
@@ -93,7 +93,7 @@ ___
 
 rocketpool/rocketpool.ts:48
 
-___
+---
 
 ### node
 
@@ -103,7 +103,7 @@ ___
 
 rocketpool/rocketpool.ts:49
 
-___
+---
 
 ### settings
 
@@ -111,19 +111,19 @@ ___
 
 #### Type declaration
 
-| Name | Type |
-| :------ | :------ |
-| `auction` | [`AuctionSettings`](AuctionSettings) |
-| `deposit` | [`DepositSettings`](DepositSettings) |
+| Name       | Type                                   |
+| :--------- | :------------------------------------- |
+| `auction`  | [`AuctionSettings`](AuctionSettings)   |
+| `deposit`  | [`DepositSettings`](DepositSettings)   |
 | `minipool` | [`MinipoolSettings`](MinipoolSettings) |
-| `network` | [`NetworkSettings`](NetworkSettings) |
-| `node` | [`NodeSettings`](NodeSettings) |
+| `network`  | [`NetworkSettings`](NetworkSettings)   |
+| `node`     | [`NodeSettings`](NodeSettings)         |
 
 #### Defined in
 
 rocketpool/rocketpool.ts:50
 
-___
+---
 
 ### tokens
 
@@ -131,17 +131,17 @@ ___
 
 #### Type declaration
 
-| Name | Type |
-| :------ | :------ |
-| `reth` | [`RETH`](RETH) |
-| `rpl` | [`RPL`](RPL) |
+| Name        | Type                     |
+| :---------- | :----------------------- |
+| `reth`      | [`RETH`](RETH)           |
+| `rpl`       | [`RPL`](RPL)             |
 | `legacyrpl` | [`LegacyRPL`](LegacyRPL) |
 
 #### Defined in
 
 rocketpool/rocketpool.ts:57
 
-___
+---
 
 ### rewards
 
@@ -149,18 +149,18 @@ ___
 
 #### Type declaration
 
-| Name | Type |
-| :------ | :------ |
-| `pool` | [`Pool`](Pool) |
-| `claimNode` | [`Rewards`](Rewards) |
-| `claimDAO` | [`Rewards`](Rewards) |
+| Name               | Type                 |
+| :----------------- | :------------------- |
+| `pool`             | [`Pool`](Pool)       |
+| `claimNode`        | [`Rewards`](Rewards) |
+| `claimDAO`         | [`Rewards`](Rewards) |
 | `claimTrustedNode` | [`Rewards`](Rewards) |
 
 #### Defined in
 
 rocketpool/rocketpool.ts:58
 
-___
+---
 
 ### vault
 
@@ -170,13 +170,13 @@ ___
 
 rocketpool/rocketpool.ts:64
 
-___
+---
 
 ### web3
 
 • `Readonly` **web3**: `default`
 
-___
+---
 
 ### RocketStorage
 

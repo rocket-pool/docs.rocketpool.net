@@ -3,14 +3,13 @@
 In this section, you'll learn how to configure the Smartnode stack and customize all of the settings to your liking.
 You will have to configure it prior to running the stack for the first time, but you can always come back once it's running and reconfigure it again whenever you like.
 
-
 ## Prerequisites
 
 Before configuring your Smartnode, please make sure you:
+
 - Have a node machine (or virtual machine) with the Operating System installed and configured
 - Have the machine secured (via the [Securing your Node](../securing-your-node) guide)
 - Have the Smartnode installed on it
-
 
 ## Guides
 

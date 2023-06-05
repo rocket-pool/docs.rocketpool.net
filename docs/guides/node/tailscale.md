@@ -6,7 +6,7 @@ You only need to consider this section if you run a node at home and would like 
 :::
 
 If you would like to log into your home network remotely, such as while on vacation or on a business trip, the most common route is to use a **Virtual Private Network** server.
-This will allow you to connect to your node via SSH **and** monitor your Grafana dashboard from anywhere in the world, all without exposing your SSH port to the internet. 
+This will allow you to connect to your node via SSH **and** monitor your Grafana dashboard from anywhere in the world, all without exposing your SSH port to the internet.
 
 Many Rocket Pool node operators use [Tailscale](https://tailscale.com/blog/how-tailscale-works/) as their VPN server of choice for this.
 Tailscale is an open source P2P VPN tunnel and hosted endpoint discovery service.
@@ -14,7 +14,6 @@ It takes care of authentication, publication, and the NAT traversal required to 
 It is a very powerful tool.
 
 We will briefly cover a basic configuration of it, but feel free to [review their documentation](https://tailscale.com/kb/start/) for more details.
-
 
 ## Setting Tailscale Up
 
@@ -26,7 +25,7 @@ It is recommended that you enable 2FA (Two Factor Authentication) on whichever i
 
 Next, follow [their onboarding guide](https://tailscale.com/kb/1017/install/) to install Tailscale on your **client** - the machine you want to connect to your network with.
 For example, this could be a laptop or your phone.
-**Note that it is *not* your Rocket Pool node!** 
+**Note that it is _not_ your Rocket Pool node!**
 
 Once completed you should see your computer as 'connected' on the [Tailscale dashboard](https://login.tailscale.com/admin/machines).
 
@@ -83,9 +82,11 @@ You should now be able to `exit` the SSH session to your node on your client, an
 If you modified the SSH port of the **node machine** in `/etc/ssh/sshd_config` when you first configured it, use `ssh your.user@rocketnode -p <your port>` instead.
 
 For example, if you assigned SSH to port 1234, you would do:
+
 ```
 ssh your.user@rocketnode -p 1234
 ```
+
 :::
 
 You can now also visit `http://rocketnode:3100` in your web browser to access your Grafana dashboard from your **client**.
@@ -94,7 +95,7 @@ If you have UFW configured, you can now add a rule to accept any incoming SSH co
 
 ::: danger WARNING
 The following steps will modify your firewall rules.
-**You must have at least 2 SSH sessions open to your node machine before proceeding - one for modifying the configuration and testing it afterwards, and one that will stay logged in as a backup in case your changes break SSH so you can revert them!
+\*\*You must have at least 2 SSH sessions open to your node machine before proceeding - one for modifying the configuration and testing it afterwards, and one that will stay logged in as a backup in case your changes break SSH so you can revert them!
 :::
 
 **Run these commands on the node machine.**

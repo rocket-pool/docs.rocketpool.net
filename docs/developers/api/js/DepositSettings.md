@@ -12,9 +12,9 @@ Create a new Deposit Settings instance.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `web3` | `default` | A valid Web3 instance |
+| Name        | Type                     | Description                             |
+| :---------- | :----------------------- | :-------------------------------------- |
+| `web3`      | `default`                | A valid Web3 instance                   |
 | `contracts` | [`Contracts`](Contracts) | A Rocket Pool contract manager instance |
 
 #### Defined in
@@ -48,6 +48,7 @@ rocketpool/settings/deposit.ts:22
 Check to see if deposits are enabled
 
 **`example`** using Typescript
+
 ```ts
 const enabled = rp.settings.deposit.getDepositsEnabled().then((val: boolean) => { val };
 ```
@@ -62,7 +63,7 @@ a Promise<boolean\> that resolves to a boolean representing if deposits are enab
 
 rocketpool/settings/deposit.ts:35
 
-___
+---
 
 ### getAssignDepositsEnabled
 
@@ -71,6 +72,7 @@ ___
 Check to see if deposit assignments are enabled
 
 **`example`** using Typescript
+
 ```ts
 const enabled = rp.settings.deposit.getAssignDepositsEnabled().then((val: boolean) => { val };
 ```
@@ -85,7 +87,7 @@ a Promise<boolean\> that resolves to a boolean representing if deposit assignmen
 
 rocketpool/settings/deposit.ts:50
 
-___
+---
 
 ### getMinimumDeposit
 
@@ -94,6 +96,7 @@ ___
 Return the minimum deposit amount setting in wei
 
 **`example`** using Typescript
+
 ```ts
 const minimumDeposit = rp.settings.deposit.getMinimumDeposit().then((val: string) => { val };
 ```
@@ -108,7 +111,7 @@ a Promise<string\> that resolves to a string representing the minimum deposit am
 
 rocketpool/settings/deposit.ts:65
 
-___
+---
 
 ### getMaximumDepositPoolSize
 
@@ -117,6 +120,7 @@ ___
 Return the maximum deposit pool size setting in Wei
 
 **`example`** using Typescript
+
 ```ts
 const maximumDepositPoolSize = rp.settings.deposit.getMaximumDepositPoolSize().then((val: string) => { val };
 ```
@@ -131,7 +135,7 @@ a Promise<string\> that resolves to a string representing the maximum deposit po
 
 rocketpool/settings/deposit.ts:80
 
-___
+---
 
 ### getMaximumDepositAssignments
 
@@ -140,6 +144,7 @@ ___
 Return the maximum number of deposit assignments to perform at once
 
 **`example`** using Typescript
+
 ```ts
 const maxDepositAssignments = rp.settings.deposit.getMaximumDepositAssignments().then((val: string) => { val };
 ```

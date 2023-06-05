@@ -10,7 +10,6 @@ This guide is meant to be an **introduction** to some of the things you can do t
 If you are comfortable with the command-line terminal and want to go even further in protecting your node, take a look at the popular [imthenachoman/How-To-Secure-A-Linux-Server](https://github.com/imthenachoman/How-To-Secure-A-Linux-Server) guide.
 :::
 
-
 ## Assumptions in This Guide
 
 This guide assumes your node runs `Ubuntu 20.04 LTS`.
@@ -18,7 +17,6 @@ The concepts will carry over to other systems but the example commands may not.
 
 As with all of the commands in this guide, we assume that you are connecting **remotely** to your node's command terminal using `ssh`.
 If you need a refresher on how to use `ssh`, take a look at the [Intro to Secure Shell](./ssh) guide first.
-
 
 ## ESSENTIAL: Keep your Client Machine Secure
 
@@ -28,8 +26,8 @@ If you use your Smartnode locally (by physically logging into it with a keyboard
 
 Most Smartnode operators interact with their node remotely by connecting to its terminal from another computer using `ssh`:
 
-- The machine you connect *to* (in this case, your node machine) is called the **server**.
-- The machine you connect *from* (such as your laptop, desktop, or even your phone) is the **client**.
+- The machine you connect _to_ (in this case, your node machine) is called the **server**.
+- The machine you connect _from_ (such as your laptop, desktop, or even your phone) is the **client**.
 
 One of the most important things you can do to secure your Smartnode is to **keep your client machine secure**.
 If your client machine is compromised and you use it to log into your node, then most of the security settings you apply to the node can be bypassed.
@@ -46,7 +44,6 @@ Here are a few tips:
 - If possible, use a **malware and antivirus protection** program for your Operating System
 
 For maximum security, you may want to use a **dedicated machine** as your SSH client, though this may not be practical for you.
-
 
 ## ESSENTIAL: Secure your SSH Access
 
@@ -71,15 +68,15 @@ SSH key pairs work similarly to blockchain wallets; they come with a public part
 
 - You provide the **public part** to your node. This way, the node knows you're allowed to connect to it, and it knows that it's really you trying to connect.
 - You keep the **private part** to yourself on your client machine. This way, you (and only you) can connect to your node.
-    - You can (and should!) protect the private part with a **password**, so someone who steals your key can't use it.
+  - You can (and should!) protect the private part with a **password**, so someone who steals your key can't use it.
 - From a computer's perspective, the private key is **exponentially harder** to crack than a password is. This mitigates the risk of a brute-force attack against your node.
 
 ::: tip TIP
 If you'd like to learn more about SSH key pairs before creating your own, take a look at these links:
+
 - [https://canvas.cse.taylor.edu/courses/27/pages/ssh-key-tutorial](https://canvas.cse.taylor.edu/courses/27/pages/ssh-key-tutorial)
 - [https://www.ssh.com/academy/ssh/host-key](https://www.ssh.com/academy/ssh/host-key)
-:::
-
+  :::
 
 ### Creating an SSH Key Pair
 
@@ -161,9 +158,8 @@ Ubuntu will load this key for you automatically when you use `ssh` if this priva
 The second line states the location of the **public key**, which is called `id_ed25519.pub` by default.
 We'll need the public key for the next step.
 
-
 ::: tip NOTE
-Ubuntu *should* load this new key automatically.
+Ubuntu _should_ load this new key automatically.
 However, some systems (such as macOS machines) will not load it automatically - you will have to tell it to do this with the following command **on your client machine**:
 
 ```shell
@@ -198,7 +194,6 @@ Next, close and open your terminal for the changes to take effect.
 
 You can now type `loadkey` **on your client machine** to load the key.
 :::
-
 
 ### Adding the Public Key to your Node
 
@@ -237,7 +232,7 @@ This tells you that it's trying to log in with your key first to make sure it is
 Once it fails logging in, it knows that it's OK to add the new public key to the node machine.
 
 It will then prompt you for the **password of the user on your node machine**.
-(*Note that this is **not the password of the SSH key**!*)
+(_Note that this is **not the password of the SSH key**!_)
 
 Enter your user's password, and you will see the following output:
 
@@ -250,24 +245,26 @@ and check to make sure that only the key(s) you wanted were added.
 
 That means it worked!
 
-
 ::::: tab Manually Adding the Key
 Start by getting the contents of the **public key** - run this command **on your client machine**:
 
-  * On macOS and Linux:
-  ```shell
-  cat ~/.ssh/id_ed25519.pub
-  ```
+- On macOS and Linux:
 
-  * On Windows (Command Prompt):
-  ```shell
-  type %USERPROFILE%\.ssh\id_ed25519.pub
-  ```
+```shell
+cat ~/.ssh/id_ed25519.pub
+```
 
-  * On Windows (PowerShell):
-  ```shell
-  type $ENV:UserProfile\.ssh\id_ed25519.pub
-  ```
+- On Windows (Command Prompt):
+
+```shell
+type %USERPROFILE%\.ssh\id_ed25519.pub
+```
+
+- On Windows (PowerShell):
+
+```shell
+type $ENV:UserProfile\.ssh\id_ed25519.pub
+```
 
 The output will look something like this:
 
@@ -431,6 +428,7 @@ Now change the line `KbdInteractiveAuthentication no` to `KbdInteractiveAuthenti
 # some PAM modules and threads)
 KbdInteractiveAuthentication yes
 ```
+
 (Older versions of SSH call this option `ChallengeResponseAuthentication` instead of `KbdInteractiveAuthentication`.)
 
 Add the following line to the bottom of the file, which indicates to `sshd` that it needs both an SSH key and the Google Authenticator code:
@@ -474,7 +472,6 @@ Record the emergency scratch codes somewhere safe in case you need to log into t
 Without the app, you will no longer be able to SSH into the machine!
 :::
 
-
 Finally, it will ask you for some more parameters; the recommended defaults are as follows:
 
 ```
@@ -491,7 +488,6 @@ sudo systemctl restart sshd
 ```
 
 When you try to SSH into your server with your SSH keys, you should now also be asked for a 2FA verification code, but not for a password.
-
 
 ## ESSENTIAL: Enable Automatic Security Updates
 
@@ -534,7 +530,6 @@ After, make sure to load the new settings:
 sudo systemctl restart unattended-upgrades
 ```
 
-
 ## ESSENTIAL: Enable a Firewall
 
 In general, your machine should only accept network traffic on ports that your Execution (ETH1) client, Consensus (ETH2) client, and Smartnode stack use.
@@ -550,28 +545,33 @@ The following commands will set `ufw` up with a good default configuration for y
 **Run these on your node machine**.
 
 Disable connections unless they're explicitly allowed by later rules:
+
 ```shell
 sudo ufw default deny incoming comment 'Deny all incoming traffic'
 ```
 
 Allow SSH:
+
 ```shell
 sudo ufw allow "22/tcp" comment 'Allow SSH'
 ```
 
 Allow execution client (formerly referred to as ETH1):
+
 ```shell
 sudo ufw allow 30303/tcp comment 'Execution client port, standardized by Rocket Pool'
 sudo ufw allow 30303/udp comment 'Execution client port, standardized by Rocket Pool'
 ```
 
 Allow consensus client (formerly referred to as ETH2):
+
 ```shell
 sudo ufw allow 9001/tcp comment 'Consensus client port, standardized by Rocket Pool'
 sudo ufw allow 9001/udp comment 'Consensus client port, standardized by Rocket Pool'
 ```
 
 Finally, enable `ufw`:
+
 ```
 sudo ufw enable
 ```
@@ -581,7 +581,6 @@ sudo ufw enable
 Strictly speaking, that means unless you are running in Hybrid mode, you do not need the Execution and Consensus client rules.
 Adding them, however, has no downside and will make sure that if you ever switch to Hybrid mode you will not run into firewall issues.
 :::
-
 
 ## (Optional) Enable Brute-Force and DDoS Protection
 
@@ -593,6 +592,7 @@ See [this guide](https://github.com/imthenachoman/How-To-Secure-A-Linux-Server#a
 Run the following commands **on your node machine**:
 
 Install the service:
+
 ```shell
 sudo apt install -y fail2ban
 ```
@@ -620,6 +620,7 @@ You can change the `maxretry` setting, which is the number of attempts it will a
 Once you're done, save and exit with `Ctrl+O` and `Enter`, then `Ctrl+X`.
 
 Finally, restart the service:
+
 ```
 sudo systemctl restart fail2ban
 ```

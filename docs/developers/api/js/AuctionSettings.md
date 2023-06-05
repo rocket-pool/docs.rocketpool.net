@@ -12,9 +12,9 @@ Create a new AuctionSettings instance.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `web3` | `default` | A valid Web3 instance |
+| Name        | Type                     | Description                             |
+| :---------- | :----------------------- | :-------------------------------------- |
+| `web3`      | `default`                | A valid Web3 instance                   |
 | `contracts` | [`Contracts`](Contracts) | A Rocket Pool contract manager instance |
 
 #### Defined in
@@ -48,6 +48,7 @@ rocketpool/settings/auction.ts:22
 Return the lot maximum ETH value setting
 
 **`example`** using Typescript
+
 ```ts
 const lotMaximumEthValue = rp.settings.auction.getLotMaximumEthValue().then((val: number) => { val };
 ```
@@ -62,7 +63,7 @@ a Promise<number\> that resolves to a number representing the lot maximum ETH va
 
 rocketpool/settings/auction.ts:35
 
-___
+---
 
 ### getLotDuration
 
@@ -71,6 +72,7 @@ ___
 Return the lot duration setting
 
 **`example`** using Typescript
+
 ```ts
 const lotMaximumEthValue = rp.settings.auction.getLotDuration().then((val: number) => { val };
 ```
@@ -85,7 +87,7 @@ a Promise<number\> that resolves to a number representing the lot duration setti
 
 rocketpool/settings/auction.ts:50
 
-___
+---
 
 ### getStartingPriceRatio
 
@@ -94,6 +96,7 @@ ___
 Return the starting price ratio setting
 
 **`example`** using Typescript
+
 ```ts
 const startingPriceRatio = rp.settings.auction.getStartingPriceRatio().then((val: number) => { val };
 ```
@@ -108,7 +111,7 @@ a Promise<number\> that resolves to a number representing the starting price rat
 
 rocketpool/settings/auction.ts:65
 
-___
+---
 
 ### getReservePriceRatio
 
@@ -117,6 +120,7 @@ ___
 Return the reserve price ratio setting
 
 **`example`** using Typescript
+
 ```ts
 const reservePriceRatio = rp.settings.auction.getReservePriceRatio().then((val: number) => { val };
 ```

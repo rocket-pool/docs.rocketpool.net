@@ -12,9 +12,9 @@ Create a new DAONodeTrustedActions instance.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `web3` | `default` | A valid Web3 instance |
+| Name        | Type                     | Description                             |
+| :---------- | :----------------------- | :-------------------------------------- |
+| `web3`      | `default`                | A valid Web3 instance                   |
 | `contracts` | [`Contracts`](Contracts) | A Rocket Pool contract manager instance |
 
 #### Defined in
@@ -48,6 +48,7 @@ rocketpool/dao/node/trusted/actions.ts:24
 Join the DAO
 
 **`example`** using Typescript
+
 ```ts
 const nodeAddress = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const options = {
@@ -59,10 +60,10 @@ const txReceipt = rp.dao.node.trusted.actions.actionJoin(options).then((txReceip
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 
@@ -74,7 +75,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/dao/node/trusted/actions.ts:44
 
-___
+---
 
 ### actionLeave
 
@@ -83,6 +84,7 @@ ___
 Leave the DAO
 
 **`example`** using Typescript
+
 ```ts
 const nodeAddress = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const options = {
@@ -94,11 +96,11 @@ const txReceipt = rp.dao.node.trusted.actions.actionLeave(options).then((txRecei
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `refundAddress` | `string` | - |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `refundAddress`   | `string`              | -                                                   |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 
@@ -110,7 +112,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/dao/node/trusted/actions.ts:66
 
-___
+---
 
 ### actionChallengeMake
 
@@ -119,6 +121,7 @@ ___
 Challenge another DAO member
 
 **`example`** using Typescript
+
 ```ts
 const addressToChallenge = "0x421433c3f99529A704Ec2270E1A68fa66DD8bD79";
 const nodeAddress = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
@@ -131,11 +134,11 @@ const txReceipt = rp.dao.node.trusted.actions.actionChallengeMake(addressToChall
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `address` | `string` | A string representing the address of the DAO member you want challenge |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                                            |
+| :---------------- | :-------------------- | :--------------------------------------------------------------------- |
+| `address`         | `string`              | A string representing the address of the DAO member you want challenge |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions                    |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object                                |
 
 #### Returns
 
@@ -147,7 +150,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/dao/node/trusted/actions.ts:90
 
-___
+---
 
 ### actionChallengeDecide
 
@@ -156,6 +159,7 @@ ___
 Decides the success of a challenge
 
 **`example`** using Typescript
+
 ```ts
 const addressToChallenge = "0x421433c3f99529A704Ec2270E1A68fa66DD8bD79";
 const nodeAddress = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
@@ -168,11 +172,11 @@ const txReceipt = rp.dao.node.trusted.actions.actionChallengeMake(addressToChall
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `address` | `string` | A string representing the address of the DAO member you want challenge |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                                            |
+| :---------------- | :-------------------- | :--------------------------------------------------------------------- |
+| `address`         | `string`              | A string representing the address of the DAO member you want challenge |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions                    |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object                                |
 
 #### Returns
 

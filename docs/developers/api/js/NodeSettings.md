@@ -12,9 +12,9 @@ Create a new Node Settings instance.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `web3` | `default` | A valid Web3 instance |
+| Name        | Type                     | Description                             |
+| :---------- | :----------------------- | :-------------------------------------- |
+| `web3`      | `default`                | A valid Web3 instance                   |
 | `contracts` | [`Contracts`](Contracts) | A Rocket Pool contract manager instance |
 
 #### Defined in
@@ -48,6 +48,7 @@ rocketpool/settings/node.ts:22
 Return if node registrations are currently enabled
 
 **`example`** using Typescript
+
 ```ts
 const enabled = rp.settings.node.getRegistrationEnabled().then((val: boolean) => { val };
 ```
@@ -62,7 +63,7 @@ a Promise<boolean\> that resolves to a boolean representing if node registration
 
 rocketpool/settings/node.ts:35
 
-___
+---
 
 ### getDepositEnabled
 
@@ -71,6 +72,7 @@ ___
 Return if node deposits are currently enabled
 
 **`example`** using Typescript
+
 ```ts
 const enabled = rp.settings.node.getDepositEnabled().then((val: boolean) => { val };
 ```

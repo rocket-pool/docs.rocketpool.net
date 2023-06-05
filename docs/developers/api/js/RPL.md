@@ -18,9 +18,9 @@ Create a new RPL instance.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `web3` | `default` | A valid Web3 instance |
+| Name        | Type                     | Description                             |
+| :---------- | :----------------------- | :-------------------------------------- |
+| `web3`      | `default`                | A valid Web3 instance                   |
 | `contracts` | [`Contracts`](Contracts) | A Rocket Pool contract manager instance |
 
 #### Overrides
@@ -41,7 +41,7 @@ rocketpool/tokens/rpl.ts:19
 
 [ERC20](ERC20).[web3](ERC20#web3)
 
-___
+---
 
 ### contracts
 
@@ -51,7 +51,7 @@ ___
 
 [ERC20](ERC20).[contracts](ERC20#contracts)
 
-___
+---
 
 ### tokenContractName
 
@@ -89,14 +89,15 @@ Return the token balance of an account
 
 **`example`** using Typescript
 const account = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
+
 ```ts
 const balance = rp.tokens.rpl.balanceOf(account).then((val: string) => { val };
 ```
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name      | Type     | Description                                                          |
+| :-------- | :------- | :------------------------------------------------------------------- |
 | `account` | `string` | A string representing the address you wish to lookup the balance for |
 
 #### Returns
@@ -113,7 +114,7 @@ a Promise<string\> that resolves to a string representing the token balance in W
 
 rocketpool/tokens/erc20.ts:40
 
-___
+---
 
 ### allowance
 
@@ -124,14 +125,15 @@ Return the token allowance for an account
 **`example`** using Typescript
 const account = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const contractAddress = rp.api.contracts.get("rocketTokenRPL").then((val: string) => { contract.options.address };
+
 ```ts
 const balance = rp.tokens.rpl.allowance(account, contractAddress).then((val: string) => { val };
 ```
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name      | Type     | Description                                                          |
+| :-------- | :------- | :------------------------------------------------------------------- |
 | `account` | `string` | A string representing the address you wish to lookup the balance for |
 | `spender` | `string` | A string representing the spender address (usually a token contract) |
 
@@ -149,7 +151,7 @@ a Promise<string\> that resolves to a string representing the token balance in W
 
 rocketpool/tokens/erc20.ts:59
 
-___
+---
 
 ### transfer
 
@@ -158,6 +160,7 @@ ___
 Transfer tokens to an account to a recipient if approved
 
 **`example`** using Typescript
+
 ```ts
 const fromAddress = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const toAddress = "0x421433c3f99529A704Ec2270E1A68fa66DD8bD79";
@@ -171,12 +174,12 @@ const txReceipt = rp.tokens.rpl.transfer(toAddress, amountWei, options).then((tx
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `to` | `string` | A string representing the to address |
-| `amountWei` | `string` | A string representing the amount to send in Wei |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `to`              | `string`              | A string representing the to address                |
+| `amountWei`       | `string`              | A string representing the amount to send in Wei     |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 
@@ -192,7 +195,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/tokens/erc20.ts:85
 
-___
+---
 
 ### approve
 
@@ -201,6 +204,7 @@ ___
 Approve an allowance for a spender
 
 **`example`** using Typescript
+
 ```ts
 const fromAddress = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const contractAddress = rp.api.contracts.get("rocketTokenRPL").then((val: string) => { contract.options.address };
@@ -214,12 +218,12 @@ const txReceipt = rp.tokens.rpl.approve(contractAddress, amountWei, options).the
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `spender` | `string` | A string representing the spender address (usually a token contract) |
-| `amountWei` | `string` | A string representing the amount to send in Wei |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                                          |
+| :---------------- | :-------------------- | :------------------------------------------------------------------- |
+| `spender`         | `string`              | A string representing the spender address (usually a token contract) |
+| `amountWei`       | `string`              | A string representing the amount to send in Wei                      |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions                  |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object                              |
 
 #### Returns
 
@@ -235,7 +239,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/tokens/erc20.ts:111
 
-___
+---
 
 ### transferFrom
 
@@ -244,6 +248,7 @@ ___
 Transfer tokens from an account to a recipient if approved
 
 **`example`** using Typescript
+
 ```ts
 const fromAddress = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const toAddress = "0x421433c3f99529A704Ec2270E1A68fa66DD8bD79";
@@ -257,13 +262,13 @@ const txReceipt = rp.tokens.rpl.transferFrom(from, to, options).then((txReceipt:
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `from` | `string` | A string representing the from address |
-| `to` | `string` | A string representing the to address |
-| `amountWei` | `string` | A string representing the amount to send in Wei |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `from`            | `string`              | A string representing the from address              |
+| `to`              | `string`              | A string representing the to address                |
+| `amountWei`       | `string`              | A string representing the amount to send in Wei     |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 
@@ -279,7 +284,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/tokens/erc20.ts:138
 
-___
+---
 
 ### getAddress
 
@@ -288,6 +293,7 @@ ___
 Get the contract address
 
 **`example`** using Typescript
+
 ```ts
 const address = rp.tokens.rpl.getAddress().then((val: string) => { val };
 ```
@@ -302,7 +308,7 @@ a Promise<string\> that resolves to a string representing the contract address o
 
 rocketpool/tokens/rpl.ts:32
 
-___
+---
 
 ### getInflationIntervalsPassed
 
@@ -311,6 +317,7 @@ ___
 Get the inflation intervals that have passed
 
 **`example`** using Typescript
+
 ```ts
 const address = rp.tokens.rpl.getInflationIntervalsPassed().then((val: number) => { val };
 ```
@@ -325,7 +332,7 @@ a Promise<number\> that resolves to a number representing the inflation interval
 
 rocketpool/tokens/rpl.ts:47
 
-___
+---
 
 ### totalSupply
 
@@ -334,6 +341,7 @@ ___
 Get the total supply
 
 **`example`** using Typescript
+
 ```ts
 const address = rp.tokens.rpl.totalSupply().then((val: number) => { val };
 ```
@@ -348,7 +356,7 @@ a Promise<number\> that resolves to a number representing the total supply
 
 rocketpool/tokens/rpl.ts:62
 
-___
+---
 
 ### swapTokens
 
@@ -357,6 +365,7 @@ ___
 Swap current RPL fixed supply tokens for new RPL
 
 **`example`** using Typescript
+
 ```ts
 const toAddress = "0x421433c3f99529A704Ec2270E1A68fa66DD8bD79";
 const amountWei = web3.utils.toWei("20", "ether");
@@ -369,11 +378,11 @@ const txReceipt = rp.tokens.rpl.swapTokens(amountWei, options).then((txReceipt: 
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `amountWei` | `any` | A string representing the amount to swap in Wei |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `amountWei`       | `any`                 | A string representing the amount to swap in Wei     |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 
@@ -385,7 +394,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/tokens/rpl.ts:86
 
-___
+---
 
 ### inflationMintTokens
 
@@ -394,6 +403,7 @@ ___
 Inflation mint tokens
 
 **`example`** using Typescript
+
 ```ts
 const toAddress = "0x421433c3f99529A704Ec2270E1A68fa66DD8bD79";
 const options = {
@@ -405,10 +415,10 @@ const txReceipt = rp.tokens.rpl.inflationMintTokens(options).then((txReceipt: Tr
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 

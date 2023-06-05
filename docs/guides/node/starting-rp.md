@@ -5,7 +5,6 @@ You should also have hardened your operating system from outside attackers.
 If you've completed both of these steps, you're ready to create a Rocket Pool node and begin staking.
 If not, please review the previous sections and return here once you've completed those steps.
 
-
 ## Starting and Stopping the Rocket Pool Services
 
 :::::: tabs
@@ -34,7 +33,7 @@ Creating rocketpool_api  ...
 Creating rocketpool_api  ... done
 Creating rocketpool_eth2 ... done
 Creating rocketpool_watchtower ...
-Creating rocketpool_mev-boost   ... 
+Creating rocketpool_mev-boost   ...
 Creating rocketpool_mev-boost   ... done
 Creating rocketpool_node       ...
 Creating rocketpool_validator  ...
@@ -148,7 +147,6 @@ Note that stopping the services **does not disable autostart**; the processes wi
 
 ::::::
 
-
 ## Confirming the Correct Version and Network
 
 Once the containers or services are up, a good first step is to confirm that you have the correct versions of the clients and are on the network that you expect.
@@ -183,7 +181,6 @@ Simply switch it in the `rp service config` TUI, in the `Smartnode` section, to 
 :::
 
 The second set of lines will tell you which clients you're using, and which versions of them are defined in Rocket Pool's configuration.
-
 
 ## Checking the Service Status and Logs
 
@@ -245,7 +242,6 @@ eth1_1        | INFO [06-17|05:17:19.486] Imported new block receipts           
 
 You should do this for both `eth1` and `eth2` to make sure both clients are running without any errors.
 
-
 ::::: tab Hybrid Mode
 The first thing to check is whether the Docker containers are running well, or if they are constantly restarting due to an error.
 Run the following command:
@@ -280,7 +276,6 @@ To check on the logs, use the `rocketpool service logs <container>` command, whe
 
 You can ignore `eth1` and/or `eth2` based on which ones you are maintaining externally, but if you are letting Rocket Pool manage one of them, you should check the status of it now using this command.
 
-
 ::::: tab Native Mode
 The easiest way to check the status and logs in native mode is to use the logging scripts that you created when you first set up the Smartnode services.
 
@@ -298,7 +293,6 @@ Do this for your Execution (ETH1) and Consensus (ETH2) clients now to verify tha
 ::: tip TIP
 When you're done looking at the logs, you can exit and return to the command prompt using `Ctrl + C`.
 :::
-
 
 ## Waiting for Your ETH Clients to Sync
 
@@ -339,10 +333,8 @@ Sit back, relax, and wait for both of them to finish.
 If your node is not syncing at all or has no peers, it may be because your router is blocking ports 30303 and 9001. If they're closed, you'll need to setup port forwarding on your router. Also, make sure your node has a static local IP address so the port forwarding does not break due to your node getting a new address.
 :::
 
-
-
 ## Next Steps
 
-Once your clients have synced, you're ready to either [create a new wallet](./wallet-init) if this is your first node, or [recover an existing wallet](./recovering-rp) if you're restoring from a backup or migrating from another provider such as Allnodes to your own hardware. 
+Once your clients have synced, you're ready to either [create a new wallet](./wallet-init) if this is your first node, or [recover an existing wallet](./recovering-rp) if you're restoring from a backup or migrating from another provider such as Allnodes to your own hardware.
 
 Select which one you'd like to learn more about and follow the steps in the corresponding guide.

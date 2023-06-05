@@ -1,6 +1,6 @@
 # Contribution Guidelines
 
-Pull requests to this repository are welcome. If you have not worked with pull requests before, refer to [ this Github documentation page ]( https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests ).
+Pull requests to this repository are welcome. If you have not worked with pull requests before, refer to [ this Github documentation page ](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
 
 ## File structure
 

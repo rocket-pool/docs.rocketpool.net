@@ -3,13 +3,12 @@
 This section covers the details of how to provision your node for staking with Rocket Pool once you've installed and configured the Smartnode.
 It's a long one because there's a lot of information around staking to cover, so **please read through each guide before creating your first minipool!**
 
-
 ## Prerequisites
 
 Before provisioning your node for staking, please make sure you've done the following:
+
 - Set up a node machine (or virtual machine) and secured it (via the [Securing your Node](../securing-your-node) guide)
 - Have the Smartnode [installed](../installing/overview) and [configured](../config/overview) on it
-
 
 ## Guides
 

@@ -3,7 +3,6 @@
 Once your node is set up and you've joined the Oracle DAO, you should test it to ensure it's able to perform its duties properly.
 The best way to do this is to have it build the Redstone rewards Merkle tree using Rocket Pool's `treegen` utility.
 
-
 ### treegen
 
 `treegen` is a tool that can reproduce the entire rewards Merkle tree and accompanying artifacts for a previous rewards interval via your archive Execution and Consensus clients.
@@ -20,7 +19,6 @@ Usage instructions are included in the README there, but we'll cover some exampl
 
 The Docker container tag for it is `rocketpool/treegen:latest`.
 
-
 ## Building a Dry-Run Tree
 
 For a first test, run `treegen` to generate a dry-run tree that calculates the tree from the start of the rewards interval to the latest (finalized) slot.
@@ -34,7 +32,7 @@ We'll use [the script](https://github.com/rocket-pool/treegen/blob/main/treegen.
 Note that this particular configuration requires you to expose the Execution Client and Beacon Node APIs through the Docker configuration - ensure you have both options enabled in the `rocketpool service config` TUI.
 :::
 
-This will test your clients' abilities to respond to queries in a timely fashion (e.g., if you are using a third-party service, this will be helpful to assess whether or not its query rate-limit is insufficient), but **will not test their Archive Mode capabilities**. 
+This will test your clients' abilities to respond to queries in a timely fashion (e.g., if you are using a third-party service, this will be helpful to assess whether or not its query rate-limit is insufficient), but **will not test their Archive Mode capabilities**.
 It will produce output like the following:
 
 ```
@@ -73,7 +71,6 @@ It will produce output like the following:
 If this runs without error, it will generate the rewards tree artifacts and save them as JSON files in your working directory.
 You are free to explore them and ensure their contents are sane, but as they are dry-run files, they aren't canonically stored anywhere for comparison.
 
-
 ## Building a Canonical Tree from a Past Interval
 
 This next test is to replicate one of the complete trees from a past interval.
@@ -87,10 +84,10 @@ Run `treegen` using the following command:
 ./treegen.sh -e http://<your archive EC url> -b http://localhost:5052 -i 2
 ```
 
-Note that the **Execution Client URL** is different here: it *must be* an Archive EC as the snapshot block for Interval 2 was far in the past.
+Note that the **Execution Client URL** is different here: it _must be_ an Archive EC as the snapshot block for Interval 2 was far in the past.
 
 ::: warning NOTE
-Depending on your client configuration, building this tree can take *hours*.
+Depending on your client configuration, building this tree can take _hours_.
 The Smartnode will give you status indicators about its progress along the way, as you can see in the example below.
 :::
 
@@ -147,9 +144,8 @@ Your Merkle tree's root of 0x278fd75797e2a9eddc128c0199b448877e30d1196c12306bdc9
 If you receive this, then your watchtower can build the tree correctly.
 
 ::: danger NOTE
-While this proves you can build the tree, you *must* ensure your Web3.Storage API token has been entered into the Smartnode's configuration so it can upload the resulting tree to IPFS.
+While this proves you can build the tree, you _must_ ensure your Web3.Storage API token has been entered into the Smartnode's configuration so it can upload the resulting tree to IPFS.
 :::
-
 
 ### Next Steps
 

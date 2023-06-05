@@ -6,26 +6,31 @@
 
 Rocket Pool Documentation Hub - Features Guides, FAQs, API Reference and more. It is written in [Vitepress](https://vitepress.dev/guide/what-is-vitepress).
 
-We welcome all contributions! Please refer to our [ contribution guidelines ]( ./contributing.md ).
+We welcome all contributions! Please refer to our [ contribution guidelines ](./contributing.md).
 
 ## Prerequisites
+
 - Node v20.0.0
 - Pnpm 8.6.0
 
 Strongly recommend using [asdf](https://asdf-vm.com/#/) to manage your toolchain versions.
+
 ```
 asdf install nodejs 20.0.0
 ```
 
 Pnpm can be installed via:
+
 ```
 npm install -g pnpm
 ```
 
 Just (rust based task runner) can be installed via:
+
 ```
 brew/apt-get install just
 ```
+
 See the Justfile for available commands.
 
 ## Local Testing

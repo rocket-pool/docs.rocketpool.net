@@ -4,7 +4,7 @@ At a bare minimum, a standard Rocket Pool node runs the following:
 
 - The Smartnode CLI
 - The Smartnode API daemon
-- The Smartnode `node` daemon 
+- The Smartnode `node` daemon
 - The Smartnode `watchtower` daemon
 
 Optionally, the node can also run the following components:
@@ -17,10 +17,9 @@ Optionally, the node can also run the following components:
 - The Prometheus Node Exporter
 - Grafana
 
-Each of these components can be run as Docker containers in the standard setup, as `systemd` services in the "Native Mode" setup, or run as externally-managed entities that the Smartnode can connect to via their respective API routes. 
+Each of these components can be run as Docker containers in the standard setup, as `systemd` services in the "Native Mode" setup, or run as externally-managed entities that the Smartnode can connect to via their respective API routes.
 
 Conveniently, Oracle DAO nodes are the same as normal Rocket Pool nodes, but the `watchtower` daemon performs the supplemental Oracle DAO duties and there are more Prometheus metrics collected for performance monitoring purposes.
-
 
 ## Initial Node Setup
 
@@ -29,10 +28,9 @@ That process will help you determine how you'd like to configure and run your no
 
 If you would like to run minipools (validators) on your node, please follow the normal node documentation from start to finish and return here when you're done.
 
-If you do *not* intend to run minipools and instead will use it purely for Oracle DAO duties, you can skip all of the steps relating to staking RPL and minipool creation.
+If you do _not_ intend to run minipools and instead will use it purely for Oracle DAO duties, you can skip all of the steps relating to staking RPL and minipool creation.
 The other steps such as node registration, establishing a good security posture, monitoring the node's health and performance, and updating the Smartnode after an update all still apply to you and you should review them carefully before proceeding.
 Return here when you've finished.
-
 
 ## Additional Oracle DAO Configuration
 
@@ -63,11 +61,12 @@ rocketpool service config --smartnode-archiveECUrl "http://<your Archive EC URL>
 ```
 
 Where:
+
 - `--smartnode-archiveECUrl` must be the HTTP endpoint of the RPC API for your Archive Execution Client.
-**Note that if you are already using your Archive EC as your primary client in Externally-Managed mode, you can ignore this setting.**
+  **Note that if you are already using your Archive EC as your primary client in Externally-Managed mode, you can ignore this setting.**
 
 - `--smartnode-web3StorageApiToken` must be populated with the API Token for your Web3.Storage account, which you can find in your account settings.
-This will be required in order to upload your generated rewards tree artifacts to IPFS.
+  This will be required in order to upload your generated rewards tree artifacts to IPFS.
 
 Finally, restart your `watchtower` daemon (i.e., with `docker restart rocketpool_watchtower` in Docker or Hybrid mode, or `sudo systemctl restart rp_watchtower` in Native mode) for the settings to take effect.
 
@@ -93,16 +92,15 @@ smartnode:
 Replace the values in the `archiveECUrl` and `web3StorageApiToken` fields, where:
 
 - `archiveECUrl` must be the HTTP endpoint of the RPC API for your Archive Execution Client.
-**Note that if you are already using your Archive EC as your primary client in Externally-Managed mode, you can ignore this setting.**
+  **Note that if you are already using your Archive EC as your primary client in Externally-Managed mode, you can ignore this setting.**
 
 - `web3StorageApiToken` must be populated with the API Token for your Web3.Storage account, which you can find in your account settings.
-This will be required in order to upload your generated rewards tree artifacts to IPFS.
+  This will be required in order to upload your generated rewards tree artifacts to IPFS.
 
 Finally, restart your `watchtower` daemon (i.e., with `docker restart rocketpool_watchtower` in Docker or Hybrid mode, or `sudo systemctl restart rp_watchtower` in Native mode) for the settings to take effect.
 
 :::::
 ::::::
-
 
 ## Oracle DAO Smartnode Commands
 
@@ -144,7 +142,6 @@ There are 29 oracle DAO proposal(s) in total:
 - 7 proposal(s) were cancelled, defeated, or have expired
 ```
 
-
 ### members
 
 The `members` command prints detailed information about each member of the Oracle DAO, including their handle, their contact information, their node address, their RPL bond, and the last time they submitted a proposal for voting:
@@ -164,7 +161,6 @@ Unbonded minipools:   0
 ...
 ```
 
-
 ### member-settings
 
 `member-settings` shows the current values for each of the configurable parameters related to Oracle DAO membership:
@@ -180,7 +176,6 @@ Cost for Non-members to Challenge Members: 1.000000 ETH
 
 This command is described in more detail in the [Oracle DAO Proposals](./proposals) section.
 
-
 ### proposal-settings
 
 `proposal-settings` shows the current values for each of the configurable parameters related to proposals that the Oracle DAO can vote on:
@@ -195,7 +190,6 @@ Window to Act on an Executed Proposal: 168h0m0s
 
 This command is described in more detail in the [Oracle DAO Proposals](./proposals) section.
 
-
 ### minipool-settings
 
 `minipool-settings` shows the current values for each of the configurable parameters related to minipools on the Rocket Pool network:
@@ -204,7 +198,6 @@ This command is described in more detail in the [Oracle DAO Proposals](./proposa
 Scrub Period: 1h0m0s
 ```
 
-
 ### propose
 
 The `propose` command is used to submit governance proposals that the rest of the Oracle DAO can vote on.
@@ -212,8 +205,8 @@ These can involve changing a setting or modifying the Oracle DAO members (i.e., 
 
 This command is described in more detail in the [Oracle DAO Proposals](./proposals) section.
 
-
 ### proposals
+
 The `proposals` command is used to interact with existing Oracle DAO governance proposals.
 It can view them, rescind proposals that you made, vote on them, and execute them (if applicable) causing them to take effect after they have been approved by the other members:
 
@@ -233,15 +226,14 @@ COMMANDS:
 
 OPTIONS:
    --help, -h  show help
-   
+
 ```
 
 This command is described in more detail in the [Oracle DAO Proposals](./proposals) section.
 
-
 ### join / leave
-The `join` and `leave` commands are used to join the Oracle DAO once you've been invited, or leave the Oracle DAO once the other members have approved your resignation request.
 
+The `join` and `leave` commands are used to join the Oracle DAO once you've been invited, or leave the Oracle DAO once the other members have approved your resignation request.
 
 ## Joining the Oracle DAO
 
@@ -252,22 +244,21 @@ This will be locked in Rocket Pool's vault as part of the joining process.
 The exact amount of RPL required for the bond will be determined at the time of your invitation, and will be communicated to you by the other Oracle DAO members prior to onboarding you.
 
 ::: warning NOTE
-Unlike all other ETH and RPL rewards, the RPL bond is *not* sent to your node's withdrawal address upon exiting the Oracle DAO.
+Unlike all other ETH and RPL rewards, the RPL bond is _not_ sent to your node's withdrawal address upon exiting the Oracle DAO.
 It is sent back to your node wallet itself.
 Consider this as extra incentive to protect your node wallet from compromise.
 :::
-
 
 ### Accepting an Invitation
 
 Once your node is set up and you have been invited to join the Oracle DAO by the existing members, you can use the `rocketpool odao join` command to accept the invitation.
 This will involve two transactions:
+
 - One to lock the RPL required for your bond
 - One to join the Oracle DAO when the bond has been received
 
 Once you've joined, your `watchtower` daemon will automatically begin performing its required duties.
 You can verify this by looking at its logs (e.g. `rocketpool service logs watchtower` for standard Docker-based installations); the watchtower performs its loop of duties every 4 to 6 minutes, and you will notice a distinct change in its output once you've joined the Oracle DAO.
-
 
 ### Next Steps
 

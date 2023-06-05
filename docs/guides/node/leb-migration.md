@@ -3,12 +3,11 @@
 Node operators have the ability to **directly migrate** their existing 16-ETH minipools into 8-ETH minipools.
 Doing so will add 8 ETH to their [deposit credit balances](./credit) which can be used to **create additional minipools without requiring any ETH from the node operators**.
 
-In effect, this process allows a node operator to **convert one 16-ETH minipool into two 8-ETH minipools for free** (*though it will still require ETH for gas and require enough RPL collateral to handle both minipools*).
+In effect, this process allows a node operator to **convert one 16-ETH minipool into two 8-ETH minipools for free** (_though it will still require ETH for gas and require enough RPL collateral to handle both minipools_).
 
 Migrating an existing 16-ETH minipool to an 8-ETH one is formally known as **bond reduction**.
 It is a two-step process and involves validation by the Oracle DAO.
 We'll walk you through the whole process in the sections below.
-
 
 ### Bond Reduction Rules
 
@@ -37,9 +36,8 @@ Upon a successful bond reduction, the minipool's bond amount will be reduced fro
 If you reduce a 16-ETH minipool with a 20% commission, **you will not keep that 20% commission**.
 It will be reduced to the network value (**currently set to a flat 14%**).
 
-Note that as demonstrated by the [example math](./create-validator#rewards) section, an 8-ETH minipool at 14% is *still more profitable* than a 16-ETH minipool at 20% so holding onto a high commission rate is not a compelling reason to retain a 16 ETH bond.
+Note that as demonstrated by the [example math](./create-validator#rewards) section, an 8-ETH minipool at 14% is _still more profitable_ than a 16-ETH minipool at 20% so holding onto a high commission rate is not a compelling reason to retain a 16 ETH bond.
 :::
-
 
 ### Step 1: Beginning Bond Reduction
 
@@ -50,7 +48,7 @@ rocketpool minipool begin-bond-reduction
 ```
 
 This will start by providing a brief blurb on the process (though, if you have read through this guide, it should all be familiar to you already).
-Once you acknowledge that you understand the process, it will show you which minipools currently have a bond that can be reduced, along with their current bond and commission: 
+Once you acknowledge that you understand the process, it will show you which minipools currently have a bond that can be reduced, along with their current bond and commission:
 
 ```
 Please select a minipool to begin the ETH bond reduction for:
@@ -65,10 +63,11 @@ Please select a minipool to begin the ETH bond reduction for:
 Once you've selected one or more minipools to reduce, the Smartnode will check if those minipools are eligible for bond reduction.
 
 To be eligible, these conditions must be satisfied:
+
 - The minipool has been upgraded to use the [Atlas minipool delegate contract](./minipools/delegates).
 - The minipool's validator must have a Beacon Chain balance of at least 32 ETH.
 - The minipool's validator must be pending or active.
-- You have enough RPL staked to support the minimum RPL collateral level that would be required *after* the bond reduction.
+- You have enough RPL staked to support the minimum RPL collateral level that would be required _after_ the bond reduction.
 
 If not, it will print a warning error explaining what needs to be done first; for example:
 
@@ -91,7 +90,6 @@ This shows that the selected minipool requires a delegate upgrade and the node n
 When you have satisfied the preconditions, selecting a minipool in this command will simply prompt you to choose your gas price for the transaction and confirmation of the action.
 Upon accepting the confirmation, the minipool's bond reduction will begin.
 
-
 ### Monitoring the Scrub Check Timer
 
 Once you've started a bond reduction, you can view how long until it's able to be completed in your `node` daemon logs:
@@ -99,6 +97,7 @@ Once you've started a bond reduction, you can view how long until it's able to b
 :::::: tabs
 ::::: tab Docker and Hybrid Mode
 For **Docker Mode** and **Hybrid Mode** users, this can be done with the following command:
+
 ```
 rocketpool service logs node
 ```
@@ -116,7 +115,6 @@ rocketpool_node  | 2023/02/25 09:04:21 Minipool 0x7E5703fdA638CD86c316B9EbAF7692
 
 Once this timer reaches zero and no longer appears in these logs, you can complete the bond reduction.
 
-
 ### Step 2: Completing Bond Reduction
 
 When the scrub timer has successfully ended, there are two ways to complete your minipool's bond reduction:
@@ -128,8 +126,7 @@ When the scrub timer has successfully ended, there are two ways to complete your
    ```
    The command is simple; follow the prompts to complete the process once your minipool is eligible for bond reduction.
 
-During the bond reduction, Rocket Pool **distributes your minipool's existing balance** using the minipool's pre-bond-reduction bond and commission to ensure both you and the rETH stakers get your fair share of the existing balance, and the bond reduction doesn't change the rewards either party *would* have gotten on that balance.
-
+During the bond reduction, Rocket Pool **distributes your minipool's existing balance** using the minipool's pre-bond-reduction bond and commission to ensure both you and the rETH stakers get your fair share of the existing balance, and the bond reduction doesn't change the rewards either party _would_ have gotten on that balance.
 
 ### The Results of a Reduced Bond
 
@@ -174,6 +171,7 @@ Your portion:          8.000013 ETH
 ```
 
 Note how things have changed:
+
 - `Node fee` (commission) went from 15% to 14%
 - `Node deposit` (your bond) went from 16 ETH to 8 ETH
 - `RP deposit` (the amount you borrowed) went from 16 ETH to 24 ETH
@@ -189,7 +187,7 @@ To clarify how to interpret these results:
 
 - If you look at [the transaction](https://zhejiang.beaconcha.in/tx/0xf02f6b1a4ea68f356909e6f1974dc3c24d301ba115b97f3013c3c829ba2ca57c), you will also see that it sent 0.06413383 ETH from the minipool to the staking pool.
 - In the "before" example, the staking pool's share is the minipool's balance minus the node operator's portion, or `0.150713 - 0.086660 = 0.064053` which is the amount transferred to the staking pool during the bond reduction (plus a small amount from a rewards skim that occurred during the scrub check).
-- The *node operator's* share, on the other hand, doesn't get sent to the node operator's withdrawal address. It is instead bookmarked as an **available refund**, which is why the refund amount increased from 0 ETH to what was previously the "your portion" amount of the minipool's balance on the EL.
+- The _node operator's_ share, on the other hand, doesn't get sent to the node operator's withdrawal address. It is instead bookmarked as an **available refund**, which is why the refund amount increased from 0 ETH to what was previously the "your portion" amount of the minipool's balance on the EL.
   - You can claim this refund at any time using the following command:
     ```
     rocketpool minipool refund

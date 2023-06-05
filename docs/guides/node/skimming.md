@@ -12,7 +12,6 @@ In order to access your minipool's balance, you will need to upgrade to the [Atl
 The old Redstone delegate cannot be used to distribute the minipool's balance.
 :::
 
-
 ## Automatic Distribution
 
 By default, the Smartnode is configured to automatically distribute your minipools when their balance reaches **1 ETH**. This
@@ -32,7 +31,7 @@ Changing this setting will adjust the threshold at which the Smartnode will auto
 Setting the parameter to 0 will disable automatic distributions.
 
 ::: warning WARNING
-If you decide to disable automatic distribution, it is important that you still perform a manual distribution on a regular 
+If you decide to disable automatic distribution, it is important that you still perform a manual distribution on a regular
 basis. Read the [manual distribution section](#manual-distribution) that follows on how to do this.
 
 After a long period of time your skimmed rewards may exceed 8 ETH. If this situation occurs you will no longer be able
@@ -42,7 +41,6 @@ Rocket Pool features a failsafe design which allows anyone, after a long waiting
 its balance exceeds 8 ETH. To protect your capital, the Smartnode monitors this situation and will automatically exit
 your minipool if it occurs.
 :::
-
 
 ## Manual Distribution
 

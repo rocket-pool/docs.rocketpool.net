@@ -4,7 +4,7 @@ permalink: /overview/explainer-series
 
 # :tada: Explainer Series
 
-Everybody loves a good explainer series! For the best detailed understanding of how a ETH2 staking protocol works, checkout this article series that goes into great detail over four different articles! 
+Everybody loves a good explainer series! For the best detailed understanding of how a ETH2 staking protocol works, checkout this article series that goes into great detail over four different articles!
 
 ![Explainer Series](/images/headers/explainer-series.png)
 

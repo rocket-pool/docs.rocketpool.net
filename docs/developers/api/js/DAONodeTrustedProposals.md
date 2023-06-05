@@ -12,9 +12,9 @@ Create a new DAONodeTrustedProposals instance.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `web3` | `default` | A valid Web3 instance |
+| Name        | Type                     | Description                             |
+| :---------- | :----------------------- | :-------------------------------------- |
+| `web3`      | `default`                | A valid Web3 instance                   |
 | `contracts` | [`Contracts`](Contracts) | A Rocket Pool contract manager instance |
 
 #### Defined in
@@ -48,6 +48,7 @@ rocketpool/dao/node/trusted/proposals.ts:24
 Create a DAO proposal with calldata
 
 **`example`** using Typescript
+
 ```ts
 const proposerDAOMember = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const toBeKickedDAOMember = "0x6f10Fd508321D27D8F19CBCC2F2f3d5527B637eC";
@@ -74,12 +75,12 @@ const txReceipt = rp.dao.node.trusted.proposals.propose(message, payload, option
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `message` | `string` | A string representing the message |
-| `payload` | `string` | A string representing the calldata payload |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `message`         | `string`              | A string representing the message                   |
+| `payload`         | `string`              | A string representing the calldata payload          |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 
@@ -91,7 +92,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/dao/node/trusted/proposals.ts:61
 
-___
+---
 
 ### vote
 
@@ -100,6 +101,7 @@ ___
 Vote on an existing proposal
 
 **`example`** using Typescript
+
 ```ts
 const proposalID = 1;
 const vote = true;
@@ -114,12 +116,12 @@ const txReceipt = rp.dao.node.trusted.proposals.vote(proposalID, vote, options).
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `proposalID` | `number` | A number representing the proposalID |
-| `vote` | `boolean` | A boolean representing the vote |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `proposalID`      | `number`              | A number representing the proposalID                |
+| `vote`            | `boolean`             | A boolean representing the vote                     |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 
@@ -131,7 +133,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/dao/node/trusted/proposals.ts:88
 
-___
+---
 
 ### execute
 
@@ -140,6 +142,7 @@ ___
 Execute on an existing proposal
 
 **`example`** using Typescript
+
 ```ts
 const proposalID = 1;
 const daoMember = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
@@ -153,11 +156,11 @@ const txReceipt = rp.dao.node.trusted.proposals.execute(proposalID, vote, option
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `proposalID` | `number` | A number representing the proposalID |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `proposalID`      | `number`              | A number representing the proposalID                |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 
@@ -169,7 +172,7 @@ a Promise<TransactionReceipt\> that resolves to a TransactionReceipt object repr
 
 rocketpool/dao/node/trusted/proposals.ts:113
 
-___
+---
 
 ### cancel
 
@@ -178,6 +181,7 @@ ___
 Cancel an existing proposal
 
 **`example`** using Typescript
+
 ```ts
 const proposalID = 1;
 const daoMember = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
@@ -191,11 +195,11 @@ const txReceipt = rp.dao.node.trusted.proposals.cancel(proposalID, vote, options
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `proposalID` | `number` | A number representing the proposalID |
-| `options?` | `SendOptions` | An optional object of web3.eth.Contract SendOptions |
-| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object |
+| Name              | Type                  | Description                                         |
+| :---------------- | :-------------------- | :-------------------------------------------------- |
+| `proposalID`      | `number`              | A number representing the proposalID                |
+| `options?`        | `SendOptions`         | An optional object of web3.eth.Contract SendOptions |
+| `onConfirmation?` | `ConfirmationHandler` | An optional confirmation handler object             |
 
 #### Returns
 

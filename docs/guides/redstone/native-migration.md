@@ -2,18 +2,15 @@
 
 This guide will cover everything you need to know in order to prepare your node for the Redstone Update and The Merge if you are using **Native Mode**.
 
-
 ## Things to Do Before Upgrading to v1.5.0
 
 Before upgrading to v1.5.0 and higher of the Smartnode, please go through the following checklist to make sure you're prepared:
-
 
 ### Switch to a Full Execution Client
 
 The Merge requires you to run your own Execution client, so you won't be able to use remote providers like Infura or Pocket anymore.
 
 Because of this change, if you're currently using a light Execution client, you should switch to a full client while you're still on v1.4, let it sync to completion, and then upgrade to v1.5.
-
 
 ### Set Up the Engine API
 
@@ -31,17 +28,14 @@ Give that a look, and test the new configuration out by making sure it still att
 
 We'll show you how to set up your Validator client so that it uses the correct fee recipient required by the Smartnode software automatically below.
 
-
 ## Upgrading to v1.5.0
 
 Upgrading the Smartnode stack to v1.5.0 is no different than any other upgrade.
 Simply follow [the normal directions here](../node/updates#updating-the-smartnode-stack).
 
-
 ## Things You Should Do After Upgrading
 
 In Native mode, there are several things you will need to do manually after upgrading:
-
 
 ### Ensure a Successful Upgrade
 
@@ -50,8 +44,7 @@ Consider taking the following steps:
 
 - Check your log scripts for the Execution client, the Consensus client, the Validator client, and the Smartnode daemon (the `rp-node` service) to ensure they're all functioning normally without errors.
 - Confirm with a Block Explorer (such as your Grafana dashboard and [https://beaconcha.in](https://beaconcha.in)) that you are still attesting properly
-    - Remember that if you have Doppelganger protection enabled, you will miss a few attestations after the restart. This is normal!
-
+  - Remember that if you have Doppelganger protection enabled, you will miss a few attestations after the restart. This is normal!
 
 ### Set up the Fee Recipient in your Validator Client
 
@@ -62,7 +55,6 @@ As described in the [overview article](./whats-new#fee-recipients-and-your-distr
 - If you are **not** in the Smoothing Pool, this must be the address of your node's **fee distributor contract**. You can get the address by running `rocketpool node status`, under the `Fee Distributor and Smoothing Pool` section.
 
 In Native mode, you have the choice of letting the Smartnode manage this for you if you use the Smartnode daemon service, `rp-node`, or managing it yourself if you do not use the daemon.
-
 
 #### Automatic Management via the Daemon
 
@@ -76,17 +68,19 @@ Select your client below to learn how to set it up:
 
 :::::: tabs
 ::::: tab Lighthouse
-Modify your Validator Client service by adding the following line *before* the `ExecStart` line:
+Modify your Validator Client service by adding the following line _before_ the `ExecStart` line:
+
 ```
 EnvironmentFile=<data dir>/validators/rp-fee-recipient-env.txt
 ```
 
 For example:
+
 ```
 EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
 ```
 
-Next, add the following command line argument *to the end* of your `ExecStart` line:
+Next, add the following command line argument _to the end_ of your `ExecStart` line:
 
 ```
 --suggested-fee-recipient ${FEE_RECIPIENT}
@@ -95,17 +89,19 @@ Next, add the following command line argument *to the end* of your `ExecStart` l
 Your VC will now use the file managed by the Smartnode daemon, and will automatically be restarted whenever the fee recipient changes.
 :::::
 ::::: tab Nimbus
-Modify your Validator Client service by adding the following line *before* the `ExecStart` line:
+Modify your Validator Client service by adding the following line _before_ the `ExecStart` line:
+
 ```
 EnvironmentFile=<data dir>/validators/rp-fee-recipient-env.txt
 ```
 
 For example:
+
 ```
 EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
 ```
 
-Next, add the following command line argument *to the end* of your `ExecStart` line:
+Next, add the following command line argument _to the end_ of your `ExecStart` line:
 
 ```
 --suggested-fee-recipient=${FEE_RECIPIENT}
@@ -114,17 +110,19 @@ Next, add the following command line argument *to the end* of your `ExecStart` l
 Your VC will now use the file managed by the Smartnode daemon, and will automatically be restarted whenever the fee recipient changes.
 :::::
 ::::: tab Prysm
-Modify your Validator Client service by adding the following line *before* the `ExecStart` line:
+Modify your Validator Client service by adding the following line _before_ the `ExecStart` line:
+
 ```
 EnvironmentFile=<data dir>/validators/rp-fee-recipient-env.txt
 ```
 
 For example:
+
 ```
 EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
 ```
 
-Next, add the following command line argument *to the end* of your `ExecStart` line:
+Next, add the following command line argument _to the end_ of your `ExecStart` line:
 
 ```
 --suggested-fee-recipient ${FEE_RECIPIENT}
@@ -133,17 +131,19 @@ Next, add the following command line argument *to the end* of your `ExecStart` l
 Your VC will now use the file managed by the Smartnode daemon, and will automatically be restarted whenever the fee recipient changes.
 :::::
 ::::: tab Teku
-Modify your Validator Client service by adding the following line *before* the `ExecStart` line:
+Modify your Validator Client service by adding the following line _before_ the `ExecStart` line:
+
 ```
 EnvironmentFile=<data dir>/validators/rp-fee-recipient-env.txt
 ```
 
 For example:
+
 ```
 EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
 ```
 
-Next, add the following command line argument *to the end* of your `ExecStart` line:
+Next, add the following command line argument _to the end_ of your `ExecStart` line:
 
 ```
 --validators-proposer-default-fee-recipient=${FEE_RECIPIENT}
@@ -152,7 +152,6 @@ Next, add the following command line argument *to the end* of your `ExecStart` l
 Your VC will now use the file managed by the Smartnode daemon, and will automatically be restarted whenever the fee recipient changes.
 :::::
 ::::::
-
 
 #### Manual Fee Recipient Management
 
@@ -171,7 +170,7 @@ The rETH address is always safe no matter what.
 
 ![](../node/images/native-fee-rc-in.png){ style="display: block; margin: 0 auto" }
 
-If you are *not* opted into the Smoothing Pool, it will show your fee distributor address and note that you must use it as your fee recipient:
+If you are _not_ opted into the Smoothing Pool, it will show your fee distributor address and note that you must use it as your fee recipient:
 
 ![](../node/images/native-fee-rc-out.png){ style="display: block; margin: 0 auto" }
 
@@ -248,7 +247,6 @@ As a reminder, `rocketpool node status` will show you the correct fee recipient 
 :::::
 ::::::
 
-
 ### Set Up MEV-Boost
 
 [MEV-boost](https://boost.flashbots.net/) is the system Flashbots provides to give MEV rewards to Proof-of-Stake validators after The Merge.
@@ -269,7 +267,6 @@ Once we make the announcement that MEV-boost must be enabled by all node operato
 Not doing so will result in your minipool being [penalized](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
 :::
 
-
 ### Set Up a Fallback Node
 
 Because The Merge is not compatible with remote providers like Infura and Pocket, you'll lose the ability to use them as fallback Execution clients when your primary goes offline.
@@ -277,7 +274,6 @@ Because The Merge is not compatible with remote providers like Infura and Pocket
 The Smartnode still has the ability to provide a fallback Execution client (and now a fallback Consensus client as well), but you will now need to use Execution and Consensus clients that you control.
 
 For more information on setting up a fallback node, see the [Fallback node guide](../node/fallback).
-
 
 ### Initialize your Fee Distributor
 
@@ -294,7 +290,6 @@ We recommend you do so when gas prices are low to minimize the overhead cost.
 Note that it **must be initialized in order to claim your rewards.**
 :::
 
-
 ### Opt Into the Smoothing Pool
 
 If you plan on taking advantage of the [Smoothing Pool](./whats-new#smoothing-pool) right away, you should opt in before the end of the first Redstone rewards period to maximize your "eligibility" amount.
@@ -304,7 +299,6 @@ Opting in can be done via running the following command:
 ```
 rocketpool node join-smoothing-pool
 ```
-
 
 ### Claim Rewards
 

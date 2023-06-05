@@ -4,7 +4,6 @@ Rocket Pool's Smartnode stack is quite flexible; there are several different way
 It can stand up an entire full node from scratch, it can integrate with existing Execution or Consensus client deployments, and it can even run natively as a set of system services.
 In this section, we will cover the typical ways of configuring and using the Smartnode stack.
 
-
 ## The Default Docker-Based Configuration
 
 The default mode, and the most common way to run a Smartnode, is to have it create an entire full node instance on your local machine that Rocket Pool manages.
@@ -22,7 +21,7 @@ It uses the following Docker containers:
 - `rocketpool_watchtower` - This is used by Oracle Nodes to perform oracle-related duties. For regular node operators, this will simply stay idle.
 - `rocketpool_eth1` - This will be your Execution client.
 - `rocketpool_eth2` - This will be your Consensus beacon node client.
-- `rocketpool_validator` -  This will be your Validator client, which is responsible for your validator duties (such as attesting to blocks or proposing new blocks).
+- `rocketpool_validator` - This will be your Validator client, which is responsible for your validator duties (such as attesting to blocks or proposing new blocks).
 
 In most situations, this is a good option to choose when creating a new node from scratch.
 It's the fastest, most hands-off procedure.
@@ -35,7 +34,6 @@ In this case, we suggest you use the Native configuration mode listed below.
 :::
 
 If you would like to use this mode, proceed to the [Configuring a Standard Rocket Pool Node with Docker](./docker) section.
-
 
 ## The Hybrid Configuration with External Clients
 
@@ -55,7 +53,6 @@ The `rocketpool_eth1` and `rocketpool_eth2` containers will either be included o
 
 If you would like to use this mode, proceed to the [Configuring a Standard Rocket Pool Node with Docker](./docker) section.
 When prompted to choose a management mode for your Execution and/or Consensus clients, choose the **Externally Managed** option which is described in detail within that section.
-
 
 ## The Native Configuration without Docker
 

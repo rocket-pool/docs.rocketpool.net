@@ -1,73 +1,65 @@
-const replaceAll = function(str, find, replace) {
-    return str.replace(new RegExp(find.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'g'), replace)
-}
+const replaceAll = function (str, find, replace) {
+  return str.replace(new RegExp(find.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"), "g"), replace);
+};
 
-const tabBreakRE = /^\s*::::: tab (.+)$/
-const forbiddenCharsInSlotNames = /['"]/
+const tabBreakRE = /^\s*::::: tab (.+)$/;
+const forbiddenCharsInSlotNames = /['"]/;
 
 const parseTabBreakLine = (line: string) => {
-    const m = line.match(tabBreakRE)
-    if (!m) return null
-    const trimmed = m[1].trim()
-    if (forbiddenCharsInSlotNames.test(trimmed)) {
-        throw new Error(
-            `contains forbidden chars in slot names (space and quotes) (${JSON.stringify(
-                line
-            )})`
-        )
-    }
-    return replaceAll(trimmed, ' ', '-')
-}
+  const m = line.match(tabBreakRE);
+  if (!m) return null;
+  const trimmed = m[1].trim();
+  if (forbiddenCharsInSlotNames.test(trimmed)) {
+    throw new Error(`contains forbidden chars in slot names (space and quotes) (${JSON.stringify(line)})`);
+  }
+  return replaceAll(trimmed, " ", "-");
+};
 
-type TabInfo = { label: string; content: string[] }
+type TabInfo = { label: string; content: string[] };
 
-const lastLineBreakRE = /\n$/
+const lastLineBreakRE = /\n$/;
 
 export const parseTabsContent = (content: string) => {
-    const lines = content.replace(lastLineBreakRE, '').split('\n')
+  const lines = content.replace(lastLineBreakRE, "").split("\n");
 
-    const tabInfos: TabInfo[] = []
-    const tabLabels = new Set<string>()
-    let currentTab: TabInfo | null = null
-    const createTabInfo = (label: string) => {
-        if (tabLabels.has(label)) {
-            throw new Error(`a tab labelled ${JSON.stringify(label)} already exists`)
-        }
-
-        const newTab = { label, content: [] }
-        tabInfos.push(newTab)
-        tabLabels.add(label)
-        return newTab
+  const tabInfos: TabInfo[] = [];
+  const tabLabels = new Set<string>();
+  let currentTab: TabInfo | null = null;
+  const createTabInfo = (label: string) => {
+    if (tabLabels.has(label)) {
+      throw new Error(`a tab labelled ${JSON.stringify(label)} already exists`);
     }
 
-    for (const line of lines) {
-        const tabLabel = parseTabBreakLine(line)
+    const newTab = { label, content: [] };
+    tabInfos.push(newTab);
+    tabLabels.add(label);
+    return newTab;
+  };
 
-        if (currentTab === null) {
-            if (tabLabel === null) {
-                throw new Error(
-                    `tabs should start with \`::$\{tabLabel}\` (e.g. "::foo"). (received: ${JSON.stringify(
-                        line
-                    )})`
-                )
-            }
-            currentTab = createTabInfo(tabLabel)
-            continue
-        }
+  for (const line of lines) {
+    const tabLabel = parseTabBreakLine(line);
 
-        if (tabLabel === null) {
-            currentTab.content.push(line)
-        } else {
-            currentTab = createTabInfo(tabLabel)
-        }
+    if (currentTab === null) {
+      if (tabLabel === null) {
+        throw new Error(`tabs should start with \`::$\{tabLabel}\` (e.g. "::foo"). (received: ${JSON.stringify(line)})`);
+      }
+      currentTab = createTabInfo(tabLabel);
+      continue;
     }
 
-    if (tabInfos.length < 0) {
-        throw new Error('tabs should include at least one tab')
+    if (tabLabel === null) {
+      currentTab.content.push(line);
+    } else {
+      currentTab = createTabInfo(tabLabel);
     }
+  }
 
-    return tabInfos.map(info => ({
-        label: info.label,
-        content: info.content.join('\n').replace(lastLineBreakRE, '')
-    }))
-}
+  if (tabInfos.length < 0) {
+    throw new Error("tabs should include at least one tab");
+  }
+
+  return tabInfos.map((info) => ({
+    label: info.label,
+    content: info.content.join("\n").replace(lastLineBreakRE, ""),
+  }));
+};

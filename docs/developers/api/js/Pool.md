@@ -12,9 +12,9 @@ Create a new Pool instance.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `web3` | `default` | A valid Web3 instance |
+| Name        | Type                     | Description                             |
+| :---------- | :----------------------- | :-------------------------------------- |
+| `web3`      | `default`                | A valid Web3 instance                   |
 | `contracts` | [`Contracts`](Contracts) | A Rocket Pool contract manager instance |
 
 #### Defined in
@@ -48,6 +48,7 @@ rocketpool/rewards/pool.ts:22
 Get claim intervals passed
 
 **`example`** using Typescript
+
 ```ts
 const claimIntervalsPassed = rp.rewards.pool.getClaimIntervalsPassed().then((val: number) => { val };
 ```
@@ -62,7 +63,7 @@ a Promise<number\> that resolves to a number representing the claim intervals pa
 
 rocketpool/rewards/pool.ts:35
 
-___
+---
 
 ### getClaimIntervalTimeStart
 
@@ -71,6 +72,7 @@ ___
 Get the claim intervals start time
 
 **`example`** using Typescript
+
 ```ts
 const claimIntervalTimeStart = rp.rewards.pool.getClaimIntervalTimeStart().then((val: number) => { val };
 ```
@@ -85,7 +87,7 @@ a Promise<number\> that resolves to a number representing the claim intervals st
 
 rocketpool/rewards/pool.ts:50
 
-___
+---
 
 ### getRPLBalance
 
@@ -94,6 +96,7 @@ ___
 Get the rpl balance
 
 **`example`** using Typescript
+
 ```ts
 const rplBalance = rp.rewards.pool.getRPLBalance().then((val: string) => { val };
 ```
@@ -108,7 +111,7 @@ a Promise<string\> that resolves to a string representing the claim RPL balance 
 
 rocketpool/rewards/pool.ts:65
 
-___
+---
 
 ### getClaimingContractPerc
 
@@ -119,6 +122,7 @@ Get the claiming contract percentage
 **`params`** contract a string representing the contract address
 
 **`example`** using Typescript
+
 ```ts
 const contract = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const claimingContractPercentage = rp.rewards.pool.getClaimingContractPerc(contract).then((val: string) => { val };
@@ -126,8 +130,8 @@ const claimingContractPercentage = rp.rewards.pool.getClaimingContractPerc(contr
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name       | Type     |
+| :--------- | :------- |
 | `contract` | `string` |
 
 #### Returns
@@ -140,7 +144,7 @@ a Promise<string\> that resolves to a string representing the claiming contract 
 
 rocketpool/rewards/pool.ts:82
 
-___
+---
 
 ### getClaimingContractAllowance
 
@@ -151,6 +155,7 @@ Get the claiming contract allowance
 **`params`** contract a string representing the contract address
 
 **`example`** using Typescript
+
 ```ts
 const contract = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const claimingContractAllowance = rp.rewards.pool.getClaimingContractAllowance(contract).then((val: string) => { val };
@@ -158,8 +163,8 @@ const claimingContractAllowance = rp.rewards.pool.getClaimingContractAllowance(c
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name       | Type     |
+| :--------- | :------- |
 | `contract` | `string` |
 
 #### Returns
@@ -172,7 +177,7 @@ a Promise<string\> that resolves to a string representing the claiming contract 
 
 rocketpool/rewards/pool.ts:99
 
-___
+---
 
 ### getClaimingContractTotalClaimed
 
@@ -183,6 +188,7 @@ Get the claiming contract total claimed
 **`params`** contract a string representing the contract address
 
 **`example`** using Typescript
+
 ```ts
 const contract = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const claimingContractTotalClaimed = rp.rewards.pool.getClaimingContractTotalClaimed(contract).then((val: string) => { val };
@@ -190,8 +196,8 @@ const claimingContractTotalClaimed = rp.rewards.pool.getClaimingContractTotalCla
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name       | Type     |
+| :--------- | :------- |
 | `contract` | `string` |
 
 #### Returns
@@ -204,7 +210,7 @@ a Promise<string\> that resolves to a string representing the claiming contract 
 
 rocketpool/rewards/pool.ts:116
 
-___
+---
 
 ### getClaimIntervalRewardsTotal
 
@@ -213,6 +219,7 @@ ___
 Get the claim interval rewards total
 
 **`example`** using Typescript
+
 ```ts
 const claimIntervalRewardsTotal = rp.rewards.pool.getClaimIntervalRewardsTotal().then((val: string) => { val };
 ```
@@ -227,7 +234,7 @@ a Promise<string\> that resolves to a string representing the claiming interval 
 
 rocketpool/rewards/pool.ts:131
 
-___
+---
 
 ### getClaimContractRegisteredTime
 
@@ -240,6 +247,7 @@ Get the claim contract registered time
 **`params`** trustedNodeAddress a string representing a trusted node address
 
 **`example`** using Typescript
+
 ```ts
 const contractAddress = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const trustedNodeAddress = "0x421433c3f99529A704Ec2270E1A68fa66DD8bD79";
@@ -248,9 +256,9 @@ const claimContractRegisteredTime = rp.rewards.pool.getClaimContractRegisteredTi
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `contractAddress` | `string` |
+| Name                 | Type     |
+| :------------------- | :------- |
+| `contractAddress`    | `string` |
 | `trustedNodeAddress` | `string` |
 
 #### Returns
@@ -263,7 +271,7 @@ a Promise<string\> that resolves to a string representing the claim contract reg
 
 rocketpool/rewards/pool.ts:150
 
-___
+---
 
 ### getClaimingContractUserTotalCurrent
 
@@ -274,6 +282,7 @@ Get the number of claimers for the current interval per claiming contract
 **`params`** contract a string representing the contract address
 
 **`example`** using Typescript
+
 ```ts
 const contract = "0x24fBeD7Ecd625D3f0FD19a6c9113DEd436172294";
 const claimingContractTotalClaimed = rp.rewards.pool.getClaimingContractUserTotalCurrent(contract).then((val: string) => { val };
@@ -281,8 +290,8 @@ const claimingContractTotalClaimed = rp.rewards.pool.getClaimingContractUserTota
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name       | Type     |
+| :--------- | :------- |
 | `contract` | `string` |
 
 #### Returns

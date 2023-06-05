@@ -67,12 +67,7 @@ query StakerOverview {
 
 ```graphql
 query StakerHistory {
-  stakerBalanceCheckpoints(
-    orderBy: id
-    orderDirection: desc
-    first: 30
-    where: { stakerId: "0x...." }
-  ) {
+  stakerBalanceCheckpoints(orderBy: id, orderDirection: desc, first: 30, where: { stakerId: "0x...." }) {
     totalETHRewards
     id
     ethBalance
