@@ -6,7 +6,7 @@
 
 Rocket Pool Documentation Hub - Features Guides, FAQs, API Reference and more. It is written in [Vitepress](https://vitepress.dev/guide/what-is-vitepress).
 
-We welcome all contributions! Please refer to our [ contribution guidelines ](./contributing.md).
+We welcome all contributions! Please refer to our [contribution guidelines](./contributing.md).
 
 ## Prerequisites
 
@@ -42,7 +42,7 @@ If you want to test this locally, follow the next few steps:
 - Install dependencies using: `pnpm install` or `yarn install`
 - Run the dev server which will create the site and update automatically when you make changes: `yarn dev` or `pnpm run dev`
 - Go to `http://localhost:5173/` in your browser to view the site.
-- Ensure that `pnpm run build`
+- Ensure that `pnpm run build` doesn't have any errors or dead links before creating a pull request
 
 ## Project Structure
 
