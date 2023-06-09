@@ -212,7 +212,7 @@ function guides() {
                 { text: "Backing Up Your Node", link: "/guides/node/backups" },
                 { text: "Pruning the Execution Client", link: "/guides/node/pruning" },
                 { text: "Changing Execution or Consensus Clients", link: "/guides/node/change-clients" },
-                { text: "Moving from One Node to Another", link: "node/maintenance/node-migration" },
+                { text: "Moving from One Node to Another", link: "/guides/node/maintenance/node-migration" },
               ],
             },
             {
