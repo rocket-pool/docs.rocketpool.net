@@ -559,15 +559,20 @@ sudo ufw allow "22/tcp" comment 'Allow SSH'
 Allow execution client (formerly referred to as ETH1):
 
 ```shell
-sudo ufw allow 30303/tcp comment 'Execution client port, standardized by Rocket Pool'
-sudo ufw allow 30303/udp comment 'Execution client port, standardized by Rocket Pool'
+sudo ufw allow 30303 comment 'Execution client port, standardized by Rocket Pool'
 ```
 
 Allow consensus client (formerly referred to as ETH2):
 
 ```shell
-sudo ufw allow 9001/tcp comment 'Consensus client port, standardized by Rocket Pool'
-sudo ufw allow 9001/udp comment 'Consensus client port, standardized by Rocket Pool'
+sudo ufw allow 9001 comment 'Consensus client port, standardized by Rocket Pool'
+```
+
+Allow execution checkpoint and consensus checkpoint (if previously confiugred)
+
+```shell
+sudo ufw allow out 8545 comment 'Allow outbound traffic for Execution Checkpoint'
+sudo ufw allow out 5052 comment 'Allow outbound traffic for Consensus Checkpoint'
 ```
 
 Finally, enable `ufw`:
