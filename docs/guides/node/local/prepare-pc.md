@@ -85,7 +85,7 @@ We have a few helpful amendments to the guide linked above, which you may want t
 - When prompted to set up a **root password**, we recommend leaving it **blank**. This will disable the `root` account and instead install the `sudo` package, allowing your user to perform root operations by re-entering its password to elevate its permissions. This is analogous to the way Ubuntu Linux is set up, which may be more familiar to users.
 - In the **Software selection** screen towards the end, you may not want to have a desktop GUI installed.
   - Desktop GUIs are largely unnecessary for a node; they add extra overhead and most of the time will not be used since you'll be remote controlling it via the terminal anyway, so we prefer to **uncheck GNOME and Debian desktop environment** here.
-  - If you _do_ want a desktop UI on your node, we recommend you **uncheck GNOME and check XFCE** instead, as it's lighter on system resources.
+  - If you _do_ want a desktop UI on your node, we recommend you **uncheck GNOME and check XFCE** instead, as it's lighter on system resources. We also recommend running no additional software on the node, such as browsers or discord, as they diminish security and consume system resources.
   - Uncheck **web server**, but leave **SSH server** and **standard system utilities** checked.
 - If you have created a flash drive from an iso, you may need to disable the CD-ROM repository in order to run `apt`. You can find an explanation of how to do this [here](https://www.linuxtechi.com/things-to-do-after-installing-debian-11/).
 - Your system may be set up to sleep/hibernate by default. To disable these settings, you can run the following command: `sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target`
