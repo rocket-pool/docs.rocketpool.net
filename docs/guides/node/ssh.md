@@ -73,7 +73,6 @@ If you do this, be sure to create the alias on the **client machine**, **not** o
 If your terminal is still connected to the node, first run `exit` at the command prompt (or simply open a new terminal window).
 :::
 
-
 ::: warning NOTE
 This section only applies to Linux/OSX or WSL users - PowerShell is not supported.
 :::
