@@ -73,6 +73,10 @@ If you do this, be sure to create the alias on the **client machine**, **not** o
 If your terminal is still connected to the node, first run `exit` at the command prompt (or simply open a new terminal window).
 :::
 
+::: warning NOTE
+This section only applies to Linux/OSX or WSL users - PowerShell is not supported.
+:::
+
 In this example, we'll create an alias called `ethnode` which will replace the SSH command.
 Assuming, as before, that your node's username is `staker` and your node's IP address is `192.168.1.10`, create the alias with the following command:
 
