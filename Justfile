@@ -27,7 +27,7 @@ ui-outdated:
 
 # upgrade deps
 ui-upgrade:
-    npm-check-updates -u && just clean-npm-i
+    npm-check-updates -u && just ui-clean-npm-i
 
 # clear node_modules, pnpm lock file and reinstall deps
 ui-clean-npm-i:
