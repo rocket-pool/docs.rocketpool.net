@@ -120,6 +120,14 @@ If your node performs poorly and you actually end up losing ETH by the time you 
 For example: if you exit with a balance of 30 ETH, then your minipool lost 2 ETH from its initial 32 ETH deposit.
 You will receive 14 or 6 ETH (depending on your **bond size**), and 24 or 16 ETH will be returned to the staking pool.
 
+::: warning NOTE
+To reinforce this, you are also responsible for ensuring you maintain an RPL stake of **at least 10% collateral** prior to the end of each rewards period.
+This can fall in the case of RPL price action due to market sales, thus bringing down your collateral so it's important to check it!
+
+If you let it go below 10% at each rewards period, **you will not be eligible for RPL rewards** for that period.
+To learn more, please visit [*the Rewards page*](./rewards.md).
+:::
+
 If you're fairly new to using the command line or computer maintenance, this can seem like a scary challenge.
 Luckily, one of Rocket Pool's most core principles is _decentralization_ - the fact that anyone, anywhere, can run a node if they have the determination and knowledge.
 While we can't help with determination, we _can_ help with knowledge.
