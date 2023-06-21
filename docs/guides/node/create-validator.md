@@ -24,6 +24,8 @@ The minimum RPL stake is **2.4 ETH worth of RPL** (10% of 24), and the maximum i
 If choosing **16 ETH** you stake 16 of your own ETH and borrow 16 ETH from the staking pool to complete the validator.
 The minimum RPL stake is **1.6 ETH worth of RPL** (10% of 16), and the maximum is **24 ETH worth of RPL** (150% of 16).
 
+In the event that the RPL/ETH ratio causes your stake to be less than the required stake, you will **not** be able to claim RPL rewards during that staking period. However, your minipool(s) will continue to earn commission. You can rectify this by staking more RPL or simply waiting to see if the ratio becomes favorable again. 
+
 ### Rewards
 
 From a profitability perspective (looking _purely_ at ETH rewards and ignoring RPL), two 8-ETH bonded minipools with a 14% commission provide _more rewards_ to the node operator than even _16-ETH bonded minipools at 20% commission_ (which, as of Redstone, is the highest possible reward configuration).
