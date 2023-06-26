@@ -445,7 +445,7 @@ Effective delegate:   <your delegate address>
 
 ::: warning NOTE
 The transaction to migrate from `prelaunch` to `staking` is submitted automatically by your node and is subject to the gas settings in `rocketpool service config`.
-If the gas settings prevent the node from submitting the transaction, or there is insufficient Ether in the node wallet to pay for the transaction, the minipool will become `dissolved` two weeks after it entered `prelaunch`.
+If the gas settings prevent the node from submitting the transaction, or there is insufficient ETH in the node wallet to pay for the transaction, the minipool will become `dissolved` two weeks after it entered `prelaunch`.
 If this happens, retrieving the balance is a costly and lengthy process, so make sure to monitor your minipool closely until it reaches `staking` status!
 :::
 
