@@ -449,7 +449,6 @@ If the gas settings prevent the node from submitting the transaction, or there i
 If this happens, retrieving the balance is a costly and lengthy process, so make sure to monitor your minipool closely until it reaches `staking` status!
 :::
 
-
 Once the Beacon Chain accepts both of the deposits (one from you and one from the staking pool), your validator will enter the Beacon Chain queue where it will wait for its turn to become activated and start staking.
 
 At this point, you're done!
