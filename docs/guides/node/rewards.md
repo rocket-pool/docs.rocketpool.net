@@ -59,8 +59,7 @@ Therefore it is **crucial** that you maintain at least 10% collateral at all tim
 ### Smoothing Pool ETH Rewards
 
 Along with RPL rewards, the Smoothing Pool's entire ETH balance is distributed during rewards checkpoints.
-Half of it (minus the average node commission) will be sent to the rETH contract where it can be burned for ETH from pool stakers that want to exit or used to create more minipools.
-The remaining portion will be distributed amongst the eligible node operators.
+The the percentage corresponding to pool stakers's share (50% for 16 ETH minipools, and 75% for LEB8s), minus the respective node commission (15% or 20% for 16 ETH minipools, and 14% of LEB8s), will be sent to the rETH contract where it can either 1) be burned for ETH from pool stakers that want to exit, or 2) be used to create more minipools. The remaining portion will be distributed amongst the eligible node operators.
 
 Nodes that are opted into the smoothing pool for the interval, even if only part of the time, are eligible for a portion of the Smoothing Pool's total balance.
 The balance is snapshotted at the rewards checkpoint, and the Oracle DAO determines each eligible node's portion.
