@@ -28,11 +28,11 @@ The following are considered _minimum_ requirements:
 
 - Linux or macOS Operating System
 - Quad core CPU (or dual-core hyperthreaded); both `x64` and `arm64` are supported
-- 8 GB of RAM (preferably DDR4)
-- 2 TB of free **SSD Disk Space** (_note: this only applies to mainnet; the Prater testnet only requires about 200 GB_)
+- 16 GB of RAM (preferably DDR4)
+- 2 TB of free **SSD Disk Space** (_note: this only applies to mainnet; the Prater testnet only requires about 750 GB_)
   - A spinning platter hard drive _is generally not fast enough_ to handle the constant random reads and writes that blockchain activity requires; you MUST use a solid state drive.
 
-Typical configurations tend to use 16 or 32 GB of RAM for future proofing, but at the time of Rocket Pool's launch, the above is sufficient to run a node.
+32 GB of RAM is preferable as of 2023 as some clients require more RAM than others, but 16 GB can be used without issue as long as you use clients with relatively low RAM consumption.
 
 ::: warning NOTE
 At this time, only **Linux** and **macOS** platforms are supported.
