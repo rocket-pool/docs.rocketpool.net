@@ -53,7 +53,7 @@ The `rocketpool node status` command will show you your current collateralizatio
 
 If you are below 10% during the checkpoint, **you will not be eligible for any rewards for that interval.**
 **Even if you increase above 10% at a later date, you will not have any rewards to claim for that interval.**
-Therefore it is **crucial** that you maintain at least 10% collateral at all times.
+Therefore it is **crucial** that you maintain at least 10% collateral by the RPL rewards checkpoint date.
 :::
 
 ### Smoothing Pool ETH Rewards
