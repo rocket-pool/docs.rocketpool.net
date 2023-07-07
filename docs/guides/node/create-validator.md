@@ -111,7 +111,12 @@ You will then be presented with this dialog to look up your node address:
 
 ![](./images/stake-behalf-0.jpg){ style="display: block; margin: 0 auto" }
 
-Enter your node address & click "Lookup". This will check that the address is a registered node & that the node has whitelisted the connected wallet. Withdrawal addresses are whitelisted by default, however if you wish to allow other addresses you will need to whitelist them via the following command on your node.
+Enter your node address & click "Lookup".
+
+**Make sure you have the correct node address before doing this!**
+If you need to confirm your node's address, you can quickly retrieve it via the CLI using the `rocketpool node status` command.
+
+This will check that the address is a registered node & that the node has whitelisted the connected wallet. Withdrawal addresses are whitelisted by default, however if you wish to allow other addresses you will need to whitelist them via the following command on your node.
 
 ```bash
 rocketpool node add-address-to-stake-rpl-whitelist address-or-ens
@@ -134,8 +139,6 @@ Once the RPL is approved, you will see this dialog:
 ![](./images/stake-behalf-2.jpg){ style="display: block; margin: 0 auto" }
 
 Enter the amount of RPL you want to stake in the `Stake RPL` box, and enter your node's address in the `on behalf of Node Address` box.
-**Make sure you have the correct node address before doing this!**
-If you need to confirm your node's address, you can quickly retrieve it via the CLI using the `rocketpool node status` command.
 
 When you've entered that information, press the `Stake` button and approve the transaction.
 It will be sent to the Ethereum network, and once included in a block, you're all set!
@@ -154,4 +157,4 @@ Where `address-or-ens` is the address or and ENS name resolving to the address y
 
 ### Staking via the Node CLI
 
-If you cannot (or d
+If you cannot (or
