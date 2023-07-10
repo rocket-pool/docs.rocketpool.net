@@ -96,6 +96,10 @@ To unstake RPL against the node, run the following command:
 rocketpool node withdraw-rpl
 ```
 
+::: tip NOTE
+Withdrawals of RPL are subject to a 28 day waiting period since the last stake or restaking action. Be careful if you claim these rewards before closing your minipool, if you restake any amount of RPL rewards you will not be able to withdraw any amount of RPL for 28 days since the last staking action.
+:::
+
 ## A Note on the Old Delegate
 
 The **original minipool delegate** assigned to every minipool from Rocket Pool's launch until Atlas's deployment was built with two assumptions in mind:
