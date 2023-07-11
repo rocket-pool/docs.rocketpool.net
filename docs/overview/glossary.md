@@ -60,7 +60,7 @@ In the Ethereum network, nodes are devices (computers) that run Ethereum client 
 
 ## Node Commission
 
-The amount of supplemental ETH awarded to a node operator. This is effectively the “fee” that is taken from normal stakers; in Rocket Pool, that fee is given to the node operators. When Rocketpool launched, it ranged from 5 - 20% with the ideal target of 10%, with each minipool’s commission locked for life upon the creation of the minipool. New minipools activated are now at a set 15% commission rate.
+The amount of supplemental ETH awarded to a node operator. This is effectively the “fee” that is taken from normal stakers; in Rocket Pool, that fee is given to the node operators. When Rocketpool launched, it ranged from 5 - 20% with the ideal target of 10%, with each minipool’s commission locked for life upon the creation of the minipool. New minipools activated are now at a set 14% commission rate.
 
 ## Node Operator
 
