@@ -52,7 +52,7 @@ This means if you have a single minipool that you deposited 16 ETH into, you mus
 The `rocketpool node status` command will show you your current collateralization ratio.
 
 If you are below 10% during the checkpoint, **you will not be eligible for any rewards for that interval.**
-**Even if you increase above 10% at a later date, you will not have any rewards to claim for that interval.**
+** Even if you increase above 10% at a later date, you will not have any rewards to claim for that interval.**
 Therefore it is **crucial** that you maintain at least 10% collateral at the time when each RPL reward checkpoint is reached.
 :::
 
