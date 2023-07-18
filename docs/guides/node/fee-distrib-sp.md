@@ -139,7 +139,7 @@ The Smoothing Pool uses the following rules:
   - If you were opted in for the full interval, you receive your full share.
   - If you were opted in for 30% of an interval, you receive 30% of your full share.
 
-If you are interested in the complete technical details of Smoothing Pool rewards calculation, please review the [full specification here](https://github.com/rocket-pool/rocketpool-research/blob/master/Merkle%20Rewards%20System/rewards-calculation-spec#smoothing-pool-rewards).
+If you are interested in the complete technical details of Smoothing Pool rewards calculation, please review the [full specification here](https://github.com/rocket-pool/rocketpool-research/blob/master/Merkle%20Rewards%20System/rewards-calculation-spec.md#smoothing-pool-rewards).
 
 ### Joining and Leaving the Smoothing Pool
 
