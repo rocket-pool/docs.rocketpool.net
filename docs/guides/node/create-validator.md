@@ -83,8 +83,9 @@ you used to acquire it. In other words, you **don't need to send RPL to your nod
 
 #### Whitelisting an address to stake on behalf
 
-You first must whitelist an address to have permission to stake on behalf of your node. This only needs to be performed
-once per address you wish to stake from. You can do this via the following Smartnode command:
+In order to stake on behalf of your node an address must be whitelisted. Your withdrawal address is always whitelisted, 
+and you may skip this step if your RPL is held by your withdrawal address.  You only need to whitelist an address once 
+in order to stake from it.  You can do this via the following Smartnode command:
 
 ```bash
 rocketpool node add-address-to-stake-rpl-whitelist address-or-ens
