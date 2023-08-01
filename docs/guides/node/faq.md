@@ -1,9 +1,10 @@
 # FAQ (WIP)
 
-### What are the benefits of running two 16 ETH minipools with Rocket Pool compared to a 32 ETH solo validator?
+### What are the benefits of running minipools with Rocket Pool compared to a 32 ETH solo validator?
 
 By running a single solo validator, you would receive 100% rewards on your 32 ETH.
 By running two 16 ETH minipools, you would receive 100% rewards on your 32 ETH **plus** 14% of the rewards on 32 ETH provided by the Rocket Pool protocol.
+By running four 8 ETH minipools, you would receive 100% rewards on your 32 ETH **plus** 14% of the rewards on 96 ETH provided by the Rocket Pool protocol.
 You would also have the option to use Rocket Pool's [Smoothing Pool](./prepare-node#smoothing-pool) feature.
 
 ### How do I know how much my rETH is worth? Does it rebase?

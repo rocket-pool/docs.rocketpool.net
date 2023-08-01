@@ -32,8 +32,8 @@ This is _also_ available directly on the Execution layer and is provided at the 
 
 ## How Rocket Pool Works
 
-Unlike solo stakers, who are required to put 32 ETH up for deposit to create a new validator, Rocket Pool nodes only need to deposit 16 ETH per validator.
-This will be coupled with 16 ETH from the staking pool (which stakers deposited in exchange for rETH) to create a new Ethereum validator.
+Unlike solo stakers, who are required to put 32 ETH up for deposit to create a new validator, Rocket Pool nodes only need to deposit either 8 ETH or 16 ETH per validator.
+This will be coupled with 24 ETH or 16 ETH respectively from the staking pool (which stakers deposited in exchange for rETH) to create a new Ethereum validator.
 This new validator is called a **minipool**.
 
 To the Beacon chain, a minipool looks exactly the same as a normal validator.
