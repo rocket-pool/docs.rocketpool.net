@@ -48,7 +48,7 @@ The Ethereum 2.0 network and update to the Ethernet network that was launched in
 
 ## Insurance
 
-The amount of RPL token, expressed as a percentage of the value of ETH provided by the protocol, that a node operator needs to deposit when they start a minipool validator. The RPL insurance staked by a node operator will act as insurance to reimburse regular users in the event that the node operator exits staking with less than 16 ETH in their validators.
+The amount of RPL token, expressed as a percentage of the value of ETH provided by the protocol, that a node operator needs to deposit when they start a minipool validator. The RPL insurance staked by a node operator will act as insurance to reimburse regular users in the event that the node operator exits staking with less than the protocol-provided ETH in their validators (24 ETH in the case of an 8 ETH minipool, 16 ETH in the case of a 16 ETH minipool).
 
 ## Minipool (Validator)
 

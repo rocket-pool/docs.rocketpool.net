@@ -38,6 +38,7 @@ This means that for the first year of operation, with a total supply of 18,000,0
 This amount will be divided among all of the node operators on the network, weighted by their **total effective stake**.
 The effective stake is essentially how much RPL collateral they've staked against their minipools, capped at 150%.
 Thus, for a single minipool with a 16 ETH deposit, the maximum effective stake is 24 ETH worth of RPL (which varies with the ETH/RPL ratio).
+For a single minipool with an 8 ETH deposit, the maximum effective stake is 12 ETH worth of RPL.
 Staking more RPL than this will not result in higher rewards.
 
 For example: if 48,300 RPL were minted, your node had 1000 effective RPL staked, and the total effective stake of the network was 1,000,000 RPL, then your rewards for the checkpoint would be 48,300 \* 1000 / 1000000 = **48.3 RPL**.
@@ -47,8 +48,9 @@ If less than 28 days have passed between the time when you registered your node 
 After that first interval, your node will have been registered long enough on subsequent intervals that you will receive full rewards for all of them.
 
 ::: danger NOTE
-In order to claim your rewards, you must have a minimum collateralization ratio of **10%** at the time of the checkpoint.
+In order to claim your rewards, you must have a minimum collateralization ratio of **10%** of the protocol ETH at the time of the checkpoint.
 This means if you have a single minipool that you deposited 16 ETH into, you must have staked at least 1.6 ETH worth of RPL in order to claim your rewards.
+If you have a single minipool that you deposited 8 ETH into, the protocol provided 24 ETH, so you must have staked at least 2.4 ETH worth of RPL in order to claim your rewards.
 The `rocketpool node status` command will show you your current collateralization ratio.
 
 If you are below 10% during the checkpoint, **you will not be eligible for any rewards for that interval.**
