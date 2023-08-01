@@ -1,6 +1,6 @@
 # :wave: Introduction
 
-Rocket Pool is a first of its kind ETH Proof of Stake Protocol, designed to be community owned, decentralised, trustless and compatible with staking in Ethereum. It was first conceived in late 2016 and has since had over 5 successful public betas over the life span of ETH development.
+Rocket Pool is a first of its kind ETH Proof of Stake Protocol, designed to be community owned, decentralised, trustless and compatible with staking in Ethereum. It was first conceived in late 2016 and has been live since October 2021.
 
 Rocket Pool is designed to cater to two main user groups; those that wish to participate in [tokenised staking using rETH](https://medium.com/rocket-pool/rocket-pool-2-5-tokenised-staking-48601d52d924#92b0) using as little as **0.01 ETH** and those that wish to stake ETH and run a node in the network to help generate a higher ROI than staking outside of the protocol due to commissions earned.
 
