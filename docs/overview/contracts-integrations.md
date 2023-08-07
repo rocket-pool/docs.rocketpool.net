@@ -104,6 +104,15 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 &nbsp;          | Zigzag (zkSync)     | [RPL](https://trade.zigzag.exchange/?market=RPL-ETH&network=zksync) | [rETH](https://trade.zigzag.exchange/?market=rETH-ETH&network=zksync)
  -->
 
+
+## Management Committee Wallets
+| Chain        | Committee | Address                                                                                                                        |
+|--------------|-----------|--------------------------------------------------------------------------------------------------------------------------------|
+| Mainnet      | GMC       | [0x6efD08303F42EDb68F2D6464BCdCA0824e1C813a](https://app.safe.global/home?safe=eth:0x6efD08303F42EDb68F2D6464BCdCA0824e1C813a) |
+| &nbsp;       | IMC       | [0xb867EA3bBC909954d737019FEf5AB25dFDb38CB9](https://app.safe.global/home?safe=eth:0xb867EA3bBC909954d737019FEf5AB25dFDb38CB9) |
+| Arbitrum     | IMC       | [0xd7102A3744c302f167c53621453516345bC460d7](https://app.safe.global/home?safe=arb1:0xd7102A3744c302f167c53621453516345bC460d7) | 
+
+
 ## All Active Deployed Protocol Contracts
 
 | Chain    | Contract Name                         | Address                                                                                                                      |
