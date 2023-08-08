@@ -25,6 +25,10 @@ ui-npm-i:
 ui-outdated:
     pnpm outdated
 
+# check for dependency updates
+ui-check:
+    npm-check-updates
+
 # upgrade deps
 ui-upgrade:
     npm-check-updates -u && just ui-clean-npm-i
