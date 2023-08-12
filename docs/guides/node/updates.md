@@ -333,7 +333,7 @@ For help upgrading Prysm manually, please visit the `smart-nodes` channel in the
 When you're happy with your changes, save and exit as usual.
 The Smartnode will offer to restart all of the affected containers automatically.
 
-::::: tabNative Mode
+::::: tab Native Mode
 First, shut down your Execution client, Beacon Node, and/or Validator client service depending on what you'd like to update.
 For example, shutting down Geth:
 
