@@ -42,8 +42,8 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 | &nbsp;            | rETH  | [0x178E141a0E3b34152f73Ff610437A7bf9B83267A](https://goerli.etherscan.io/address/0x178E141a0E3b34152f73Ff610437A7bf9B83267A)          |
 | Optimism Goerli\* | RPL   | [0xa00E3A3511aAC35cA78530c85007AFCd31753819](https://goerli-optimism.etherscan.io/address/0xa00E3A3511aAC35cA78530c85007AFCd31753819) |
 | &nbsp;            | rETH  | [0x1010824414d822cd2167f9ad73a2a99bd2e0e4ae](https://goerli-optimism.etherscan.io/address/0x1010824414d822cd2167f9ad73a2a99bd2e0e4ae) |
-| Base              | RPL   | [0x174956bdfbceb6e53089297cce4fe2825e58d92c](https://basescan.org/address/0x174956bdfbceb6e53089297cce4fe2825e58d92c)                 |
-| &nbsp;            | rETH  | [0x190b2aa820495c0e92840e8fa699741976cd6439](https://basescan.org/address/0x190b2aa820495c0e92840e8fa699741976cd6439)                 |
+| Base              | RPL   | [0x1f73EAf55d696BFFA9b0EA16fa987B93b0f4d302](https://basescan.org/address/0x1f73EAf55d696BFFA9b0EA16fa987B93b0f4d302)                 |
+| &nbsp;            | rETH  | [0xB6fe221Fe9EeF5aBa221c348bA20A1Bf5e73624c](https://basescan.org/address/0xB6fe221Fe9EeF5aBa221c348bA20A1Bf5e73624c)                 |
 
 <small>\* Testnet</small>
 
