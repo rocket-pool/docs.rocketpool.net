@@ -14,7 +14,7 @@ The old Redstone delegate cannot be used to distribute the minipool's balance.
 
 ## Automatic Distribution
 
-By default, the Smartnode is configured to automatically distribute your minipools when their balance reaches **1 ETH**. This
+By default, the Smartnode is configured to automatically distribute any of your minipools when their individual balances reach **1 ETH**. This
 threshold can be configured in the TUI by following the steps below.
 
 Run:
@@ -46,6 +46,8 @@ your minipool if it occurs.
 
 If you have disabled the automatic distribution of skimmed rewards, you will need to routinely distribute them yourself
 with the following process.
+
+You can also manually distribute your rewards using this process at any time without waiting for the automatic process above.
 
 If your minipool has less than 8 ETH in it, you can distribute your rewards using the following command:
 
