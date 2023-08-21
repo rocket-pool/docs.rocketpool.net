@@ -1,3 +1,9 @@
+---
+next: 
+  text: Configuring the Smartnode Stack (Docker/hybrid mode)
+  link: "/guides/node/config-docker"
+---
+
 # Overview
 
 In this section, you'll learn how to configure the Smartnode stack and customize all of the settings to your liking.

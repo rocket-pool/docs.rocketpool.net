@@ -1,3 +1,9 @@
+---
+next: 
+  text: Monitoring your Node's Performance
+  link: "/guides/node/performance"
+---
+
 # Overview
 
 In this section, you'll learn about how to monitor the health of your node and your validators, track your earnings, and perform periodic maintenance such as updates.
