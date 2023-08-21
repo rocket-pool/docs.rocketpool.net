@@ -1,9 +1,3 @@
----
-next: 
-  text: Starting Rocketpool 
-  link: "/guides/node/starting-rp"
----
-
 # Overview
 
 This section covers the details of how to provision your node for staking with Rocket Pool once you've installed and configured the Smartnode.

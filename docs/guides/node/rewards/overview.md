@@ -1,9 +1,3 @@
----
-next: 
-  text: Claiming Node Operator Rewards 
-  link: "/guides/node/rewards"
----
-
 # Overview
 
 This section covers how to access the rewards your node generates while validating.
