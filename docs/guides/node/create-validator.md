@@ -275,7 +275,7 @@ The value of the arbitrage is equal to the amount of protocol ETH in the minipoo
 E.g., if making a minipool when there's a 2.5% premium: `16 ETH * .025 = 0.4 ETH`.
 In other words, you could receive 0.4 ETH back during these conditions just for creating a minipool!
 
-If you're interested in taking advantage of this opportunity, consider using the community-developed [rocketarb](https://github.com/xrchz/rocketarb/blob/main/README) tool to capture the profit of the MEV rETH arbitrage opportunity that launching your minipool creates.
+If you're interested in taking advantage of this opportunity, consider using the community-developed [rocketarb](https://github.com/xrchz/rocketarb#readme) tool to capture the profit of the MEV rETH arbitrage opportunity that launching your minipool creates.
 
 To learn more about rocketarb, feel free to inquire about it on the [RP discord server](https://discord.gg/rocketpool).
 :::
