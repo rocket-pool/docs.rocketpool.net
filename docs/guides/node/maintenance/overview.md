@@ -1,4 +1,3 @@
-
 ---
 next: 
   text: Monitoring your Node's Performance
