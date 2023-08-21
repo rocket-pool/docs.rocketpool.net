@@ -1,3 +1,9 @@
+---
+next: 
+  text: Selecting a Hosting Provider 
+  link: "/guides/node/vps/providers"
+---
+
 # Overview
 
 This section is aimed at helping you understand the process of preparing a virtual private server or virtual machine hosted on the cloud as a Rocket Pool node.

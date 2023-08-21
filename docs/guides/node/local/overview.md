@@ -1,3 +1,10 @@
+---
+next: 
+  text: Selecting Staking Hardware 
+  link: "/guides/node/local/hardware"
+---
+
+
 # Overview
 
 This section is aimed at helping you understand the process of preparing a local machine for use as a Rocket Pool node at home.

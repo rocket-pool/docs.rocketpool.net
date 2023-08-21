@@ -1,3 +1,9 @@
+---
+next: 
+  text: Staking Directly via Rocket Pool
+  link: "/guides/staking/via-rp"
+---
+
 # Staking Overview
 
 This guide will introduce you to how staking with Rocket Pool works (how your ETH is put to work and your rewards are generated) and summarize the ways in which you can stake.

@@ -1,3 +1,9 @@
+---
+next: 
+  text: Choosing your ETH Clients
+  link: "/guides/node/eth-clients"
+---
+
 # Overview
 
 In this section, you'll learn how to install the Rocket Pool Smartnode stack onto your node machine.

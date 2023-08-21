@@ -1,3 +1,9 @@
+---
+next: 
+  text: Creating a New Minipool (Validator)
+  link: "/guides/node/create-validator"
+---
+
 # Overview
 
 This section covers the processes of creating and migrating minipools (Rocket Pool validators).
