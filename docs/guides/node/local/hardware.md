@@ -316,6 +316,18 @@ _Tips for other people considering this as an option..._
 - _If you go with the NUC, I'd suggest you give yourself room to grow when selecting RAM... For example, spend a bit extra and get a single 32gb RAM card rather than 2x16 so you can expand later if you want (assuming your NUC will support 64gb in this example)_
 - _Feel free to reach out to me on Discord if you would like to discuss._
 
+### ArtDemocrat's NUC10i5FNHN Build Process Video
+
+To complement Greyizard's setup descriptions and tips, ArtDemocrat created this build process video as an additional help resource to set up a NUC10 (in this case a NUC10i5FNHN, but the build process should be similar for a NUC10i7FNH):
+
+**@nickdoherty please insert here the video file!**
+
+ArtDemocrat's Setup:
+
+- Base: [Intel NUC NUC10i5FNHN (Barebone)](https://www.jacob.de/produkte/intel-nuc-nuc10i5fnhn-bxnuc10i5fnhn-artnr-7103179.html) ($300)
+- RAM: 1x [Crucial 32GB DDR4-3200 SODIMM](https://www.amazon.de/dp/B07ZLC7VNH) ($65)
+- SSD: [Samsung 970 EVO Plus 2TB M.2 2280 NVMe SSD](https://www.amazon.de/dp/B07MLJD32L) ($107)
+
 ### Actioncj17's PN50
 
 ![](./images/PN50-actioncj17.jpg)
