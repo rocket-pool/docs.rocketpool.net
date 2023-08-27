@@ -320,7 +320,7 @@ _Tips for other people considering this as an option..._
 
 To complement Greyizard's setup descriptions and tips, ArtDemocrat created this build process video as an additional help resource to set up a NUC10 (in this case a NUC10i5FNHN, but the build process should be similar for a NUC10i7FNH):
 
-**@nickdoherty please insert here the video file!**
+![](https://cdn-rocketpool.s3.us-west-2.amazonaws.com/NUC_Staking_Setup_-_ArtDemocrat.mp4){ style="display: block; margin: 0 auto" }
 
 ArtDemocrat's Setup:
 
