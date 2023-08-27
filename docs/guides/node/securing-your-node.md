@@ -93,7 +93,7 @@ You will see the following:
 
 ```
 Generating public/private ed25519 key pair.
-Enter file in which to save the key (~/username/.ssh/id_ed25519):
+Enter file in which to save the key (/home/username/.ssh/id_ed25519):
 ```
 
 This asks you where you would like to save your private key file.
@@ -101,7 +101,7 @@ SSH is compatible with the provided default and will automatically use it for yo
 However, you have the option of changing it to something else if you wish.
 
 ::: tip NOTE
-The path `~/username/.ssh/id_ed25519` is just an example, assuming your username is `username`.
+The path `/home/username/.ssh/id_ed25519` is just an example, assuming your username is `username`.
 You likely have a different username.
 Whenever you see a path like the above in this guide, replace it with whatever path your system actually prints with your actual username.
 :::
@@ -109,7 +109,7 @@ Whenever you see a path like the above in this guide, replace it with whatever p
 If you are comfortable with the default setting, simply press `Enter`.
 
 Otherwise, type your desired location for the key.
-It must be an absolute path (e.g. `~/username/.ssh/rocketpool_key`).
+It must be an absolute path (e.g. `/home/username/.ssh/rocketpool_key`).
 Press `Enter` when you're done.
 
 After pressing `Enter`, you will see:
@@ -134,8 +134,8 @@ It will ask you to retype it for confirmation.
 After that, you will see something like the following output:
 
 ```
-Your identification has been saved in ~/username/.ssh/id_ed25519
-Your public key has been saved in ~/username/.ssh/id_ed25519.pub
+Your identification has been saved in /home/username/.ssh/id_ed25519
+Your public key has been saved in /home/username/.ssh/id_ed25519.pub
 The key fingerprint is:
 SHA256:CASbPZETiQ83lLhpUO2aoT05TxMVLwqiWtdsRtoPt4s your_email@example.com
 The key's randomart image is:
@@ -163,7 +163,7 @@ Ubuntu _should_ load this new key automatically.
 However, some systems (such as macOS machines) will not load it automatically - you will have to tell it to do this with the following command **on your client machine**:
 
 ```shell
-ssh-add ~/username/.ssh/id_ed25519
+ssh-add /home/username/.ssh/id_ed25519
 ```
 
 Note that this is the path of the **private key** that we generated in the previous step, **not the public key**.
@@ -186,7 +186,7 @@ nano ~/.bashrc
 Add this line to the end (assuming you used the default path for the private key - update as necessary):
 
 ```
-alias loadkey='ssh-add $HOME/.ssh/id_ed25519'
+alias loadkey='ssh-add /home/username/.ssh/id_ed25519'
 ```
 
 Save and exit with `Ctrl+O` and `Enter`, then `Ctrl+X`.
@@ -211,7 +211,7 @@ Please follow the instructions in the "Manually Adding the Key" tab.
 Run the following command **on your client machine**:
 
 ```shell
-ssh-copy-id -i ~/username/.ssh/id_ed25519.pub username@node.ip.address
+ssh-copy-id -i /home/username/.ssh/id_ed25519.pub username@node.ip.address
 ```
 
 For example, if my username on the node was `staker` and my node's IP address was `192.168.1.10`, I would run the following command:
@@ -223,7 +223,7 @@ ssh-copy-id -i ~/staker/.ssh/id_ed25519.pub staker@192.168.1.10
 You will see some messages like the following:
 
 ```
-/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "~/username/.ssh/id_ed25519.pub"
+/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/home/username/.ssh/id_ed25519.pub"
 /usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
 /usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
 ```
