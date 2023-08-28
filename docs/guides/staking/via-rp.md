@@ -99,13 +99,13 @@ Once you're at the site, click on the **connect wallet** button. Please read thr
 MetaMask will prompt you to select an account to connect to the website.
 Choose one, confirm a few permissions, and you’ll see your balances update in the UI. You can also see an overview of your balances by clicking the wallet icon located at the top right of the window.
 
-![](https://cdn-rocketpool.s3.us-west-2.amazonaws.com/rp_balances.mp4){ style="display: block; margin: 0 auto" }
+<video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/rp_balances.mp4" />
 
 Now, all that's left to do is deposit your ETH and receive some rETH back!
 
 Enter the amount of ETH you want to deposit in the **Stake ETH** input field on the screen, then click the **Stake** button.
 
-![](https://cdn-rocketpool.s3.us-west-2.amazonaws.com/stake.mp4){ style="display: block; margin: 0 auto" }
+<video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/stake.mp4" />
 
 MetaMask will pop up with a window asking you to confirm your transaction.
 
@@ -127,7 +127,7 @@ All you need to do is hold onto your rETH, and you'll automatically gain your st
 
 When you're ready to unstake and trade your rETH back for ETH, head back to the staking website and click on the **double arrow button** in the middle of the trade amounts dialog to switch to rETH mode:
 
-![](https://cdn-rocketpool.s3.us-west-2.amazonaws.com/unstake.mp4){ style="display: block; margin: 0 auto" }
+<video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/unstake.mp4" />
 
 As with staking, enter an amount of rETH to unstake and click the **Unstake** button.
 Once again, a confirmation dialog will appear in MetaMask.
@@ -147,4 +147,4 @@ In this scenario, you may find other ways to trade your rETH back to ETH (such a
 That's all there is to staking with Rocket Pool!
 We hope that you found the process quick and easy.
 
-Feel free to swing by [our Discord server](https://discord.gg/G46XgK264a) to let us know what you thought of it and keep tabs on the project as it evolves.
+Feel free to swing by [our Discord server](https://discord.gg/G46XgK264a) to let us know what you thought of i
