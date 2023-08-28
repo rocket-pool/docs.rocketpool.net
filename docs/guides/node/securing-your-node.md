@@ -109,7 +109,7 @@ Whenever you see a path like the above in this guide, replace it with whatever p
 If you are comfortable with the default setting, simply press `Enter`.
 
 Otherwise, type your desired location for the key.
-It must be an absolute path (e.g. `/home/username/.ssh/rocketpool_key` on Linux, or `/User/username/.ssh/rocketpool_key` on OSX).
+It must be an absolute path (e.g. `/home/username/.ssh/rocketpool_key` on Linux, or `/Users/username/.ssh/rocketpool_key` on OSX).
 Press `Enter` when you're done.
 
 After pressing `Enter`, you will see:
