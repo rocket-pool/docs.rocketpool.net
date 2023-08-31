@@ -161,7 +161,11 @@ Finally, check the version to make sure the CLI and Smartnode stack are both up 
 
 ```
 rocketpool service version
+```
 
+The output should look something like this:
+
+```
 Your Smartnode is currently using the Prater Test Network.
 
 Rocket Pool client version: 1.5.0
