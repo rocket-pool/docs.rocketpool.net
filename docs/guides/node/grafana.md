@@ -43,17 +43,14 @@ Start by running the Smartnode configuration command again:
 rocketpool service config
 ```
 
-You will see the following question at the end:
+Go to the `Monitoring / Metrics` section and check the `Enable Metrics` checkbox.
 
-```
-Would you like to enable Rocket Pool's metrics dashboard? [y/n]
-```
-
-Enter `y`, to enable the Prometheus, Node Exporter, and Grafana Docker containers for you.
-It will also modify your Consensus (ETH2) and Validator clients so they expose their own metrics to Prometheus.
-
-For those who prefer to fine-tune their port settings, the interview will ask you if you'd like to change any of the ports used for the above services.
+For those who prefer to fine-tune their port settings, you may do so here.
 Note that all of these ports are restricted to Docker's internal network with the exception of the Grafana port - that will be opened on your machine (so you can access it via a browser from other machines, such as your desktop or phone) so you may want to change that if the default port conflicts with something you already have.
+
+Save and exit, and smartnode will start the Prometheus, Node Exporter, and Grafana Docker containers for you.
+
+It will also modify your Consensus (ETH2) and Validator clients so they expose their own metrics to Prometheus.
 
 ::: warning NOTE
 If you have UFW enabled as referenced in the [Securing your Node](./securing-your-node) section, you will need to open a few ports in order for outside machines to access Grafana, and to allow local connections between the Node Exporter and Prometheus.
@@ -113,14 +110,6 @@ sudo ufw allow 3100/tcp comment 'Allow grafana from anywhere'
 
 :::
 
-After you reconfigure the Smartnode to enable / disable metrics, you'll have to run the following commands for the changes to take effect:
-
-```
-rocketpool service stop
-
-rocketpool service start
-```
-
 The Operating System and Rocket Pool update tracker is **not installed by default** for maximum flexibility, but the process is simple.
 If you would like to install it so your dashboard shows you how many updates are available for your system, you can do it with this command:
 
@@ -153,7 +142,89 @@ After that, you should be all set.
 
 ::::: tab Hybrid
 
-_Coming soon!_
+Hybrid Mode works similar to Docker mode, the only difference is that you must add flags to your clients to enable metrics yourself, as smartnode cannot do it for you.
+
+First, we will update your Execution Client.
+Open the systemd unit file you created when you installed your Execution Client and make sure it has the correct flags, based on which client you are running.
+
+^^^^^^ nestedTabs
+::::nestedTab Geth
+
+```
+--metrics --metrics.addr 0.0.0.0 --metrics.port 9105
+```
+
+::::nestedTab Nethermind
+
+```
+--Metrics.Enabled true --Metrics.ExposePort 9105
+```
+
+::::nestedTab Besu
+```
+--metrics-enabled --metrics-host=0.0.0.0 --metrics-port=9105
+```
+
+^^^^^^
+
+Next, we will update your Consensus Client.
+Open the systemd unit file you created when you installed your Execution Client and make sure it has the correct flags, based on which client you are running.
+
+^^^^^^ nestedTabs
+::::nestedTab Lighthouse
+```
+--metrics --metrics-address 0.0.0.0 --metrics-port 9100 --validator-monitor-auto
+```
+
+::::nestedTab Lodestar
+```
+--metrics --metrics.address 0.0.0.0 --metrics.port 9100
+```
+
+::::nestedTab Nimbus
+```
+--metrics --metrics-address=0.0.0.0 --metrics-port=9100
+```
+
+::::nestedTab Prysm
+```
+--monitoring-host 0.0.0.0 --monitoring-port 9100
+```
+
+If you see the flag `--disable-monitoring`, remove it.
+
+
+::::nestedTab Teku
+```
+--metrics-enabled=true --metrics-interface=0.0.0.0 --metrics-port=9100 --metrics-host-allowlist=*
+```
+
+^^^^^^
+
+If you already have these flags set, and are using different ports for your solo validator monitoring, leave them as-is and make note of which ports you're using.
+
+::: warning NOTE
+If you have UFW enabled as referenced in the [Securing your Node](./securing-your-node) section, you will need to open a few ports in order to allow local connections between the Prometheus and your Execution/Consensus Clients.
+
+First run:
+
+```shell
+docker inspect rocketpool_net | grep -Po "(?<=\"Subnet\": \")[0-9./]+"
+```
+
+This will return an ip in CIDR notation that looks like `172.18.0.0/16`.
+
+Then run the following, but replace `172.18.0.0/16` with the output of the previous command, and replace the ports as needed:
+
+```shell
+sudo ufw allow from 172.18.0.0/16 to any port 9105 comment "Allow prometheus access to Execution Client"
+sudo ufw allow from 172.18.0.0/16 to any port 9100 comment "Allow prometheus access to Consensus Client"
+```
+
+:::
+
+You are now ready to proceed to the `Docker` tab of this document to finish the process.
+There, you will follow the directions normally, however, don't forget to set your custom ports, if you have any, when you run `rocketpool service config`.
 
 ::::: tab Native
 
@@ -168,7 +239,7 @@ Now that the metrics server is ready, you can access it with any browser on your
 Refer to the tabs below for your Smartnode installation mode.
 
 :::::: tabs
-::::: tab Docker
+::::: tab Docker and Hybrid Mode
 
 Navigate to the following URL, substituting the variables with your setup as necessary:
 
@@ -209,9 +280,6 @@ You will be able to log into Grafana using the default `admin` credentials once 
 Thanks to community member **tedsteen**'s work, Grafana will automatically connect to your Prometheus instance so it has access to the metrics that it collects.
 All you need to do is grab the dashboard!
 
-::::: tab Hybrid
-
-_Coming soon!_
 
 ::::: tab Native
 
