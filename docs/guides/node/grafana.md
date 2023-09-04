@@ -142,10 +142,10 @@ After that, you should be all set.
 
 ::::: tab Hybrid
 
-Hybrid Mode works similar to Docker mode, the only difference is that you must add flags to your clients to enable metrics yourself, as smartnode cannot do it for you.
+Hybrid Mode works similar to Docker Mode; the only difference is that you must manually add the proper command-line flags for enabling metrics to your Execution and Consensus Client service definition.
 
 First, we will update your Execution Client.
-Open the systemd unit file you created when you installed your Execution Client and make sure it has the correct flags, based on which client you are running.
+Open the `systemd` unit file you created when you installed your Execution Client and make sure it has the correct flags, based on which client you are running:
 
 ^^^^^^ nestedTabs
 ::::nestedTab Geth
@@ -168,7 +168,7 @@ Open the systemd unit file you created when you installed your Execution Client 
 ^^^^^^
 
 Next, we will update your Consensus Client.
-Open the systemd unit file you created when you installed your Execution Client and make sure it has the correct flags, based on which client you are running.
+Open the `systemd` unit file you created when you installed your Consensus Client and make sure it has the correct flags, based on which client you are running:
 
 ^^^^^^ nestedTabs
 ::::nestedTab Lighthouse
@@ -201,7 +201,7 @@ If you see the flag `--disable-monitoring`, remove it.
 
 ^^^^^^
 
-If you already have these flags set, and are using different ports for your solo validator monitoring, leave them as-is and make note of which ports you're using.
+If you already have these flags set and are using different ports for your solo validator monitoring, leave them as-is and make note of which ports you're using.
 
 ::: warning NOTE
 If you have UFW enabled as referenced in the [Securing your Node](./securing-your-node) section, you will need to open a few ports in order to allow local connections between the Prometheus and your Execution/Consensus Clients.
@@ -217,20 +217,19 @@ This will return an ip in CIDR notation that looks like `172.18.0.0/16`.
 Then run the following, but replace `172.18.0.0/16` with the output of the previous command, and replace the ports as needed:
 
 ```shell
-sudo ufw allow from 172.18.0.0/16 to any port 9105 comment "Allow prometheus access to Execution Client"
-sudo ufw allow from 172.18.0.0/16 to any port 9100 comment "Allow prometheus access to Consensus Client"
+sudo ufw allow from 172.18.0.0/16 to any port 9105 comment "Allow Prometheus access to Execution Client"
+sudo ufw allow from 172.18.0.0/16 to any port 9100 comment "Allow Prometheus access to Consensus Client"
 ```
-
 :::
 
-You are now ready to proceed to the `Docker` tab of this document to finish the process.
-There, you will follow the directions normally, however, don't forget to set your custom ports, if you have any, when you run `rocketpool service config`.
+Now, scroll up and follow the directions in the `Docker` tab of this section to finish the process - keeping in mind that you must replace the ports listed there with any custom ports you use when you run `rocketpool service config`.
 
 ::::: tab Native
 
 _Coming soon!_
 
 ::::::
+
 
 ## Setting up Grafana
 
