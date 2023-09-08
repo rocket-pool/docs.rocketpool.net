@@ -209,16 +209,16 @@ If you have UFW enabled as referenced in the [Securing your Node](./securing-you
 First run:
 
 ```shell
-docker inspect rocketpool_net | grep -Po "(?<=\"Subnet\": \")[0-9./]+"
+docker inspect rocketpool_monitor-net | grep -Po "(?<=\"Subnet\": \")[0-9./]+"
 ```
 
-This will return an ip in CIDR notation that looks like `172.18.0.0/16`.
+This will return an ip in CIDR notation that looks like `172.23.0.0/16`.
 
-Then run the following, but replace `172.18.0.0/16` with the output of the previous command, and replace the ports as needed:
+Then run the following, but replace `172.23.0.0/16` with the output of the previous command, and replace the ports as needed:
 
 ```shell
-sudo ufw allow from 172.18.0.0/16 to any port 9105 comment "Allow Prometheus access to Execution Client"
-sudo ufw allow from 172.18.0.0/16 to any port 9100 comment "Allow Prometheus access to Consensus Client"
+sudo ufw allow from 172.23.0.0/16 to any port 9105 comment "Allow Prometheus access to Execution Client"
+sudo ufw allow from 172.23.0.0/16 to any port 9100 comment "Allow Prometheus access to Consensus Client"
 ```
 :::
 
