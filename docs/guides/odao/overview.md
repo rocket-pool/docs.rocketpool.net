@@ -17,7 +17,7 @@ This includes things such as:
 - Proposing and voting on modifications to the core protocol, including changing parameters and approving contract upgrades
 - Proposing and voting on the Oracle DAO roster, including inviting and removing other Oracle DAO members
 
-As a reward for fulfilling these duties, the Oracle DAO is collectively given 15% of the total RPL inflation produced at each rewards period, divided evenly among its members.
+As a reward for fulfilling these duties, the Oracle DAO is collectively given a small [percentage](https://rpips.rocketpool.net/RPIPs/RPIP-25) of the total RPL inflation produced at each rewards period, divided evenly among its members.
 
 Unlike normal Rocket Pool nodes, which can be created and run permissionlessly by anyone, membership in the Oracle DAO is **invite only** by existing members.
 If you have recently been invited to join the Oracle DAO, this section of the guide will help you understand your role, get your node set up, and ensure that it stays healthy.
