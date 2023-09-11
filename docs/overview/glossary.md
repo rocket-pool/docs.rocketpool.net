@@ -114,7 +114,6 @@ For Node Operators:
 
 - It's required to launch a minipool and thus access commission
 - The [majority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation is given as rewards to Node Operators
-- It provides its own yield as RPL rewards 
 - It provides voting power for governance
 
 For the protocol:
