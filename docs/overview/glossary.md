@@ -113,14 +113,14 @@ This is a token issued by the Rocket Pool contract, and serves several purposes.
 For Node Operators:
 
 - It's required to launch a minipool and thus access commission
-- It provides its own yield as RPL rewards (70% of inflation goes to NO RPL rewards)
+- The [majority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation is given as rewards to Node Operators
 - It provides voting power for governance
 
 For the protocol:
 
 - It serves as secondary collateral (e.g., against slashing)
-- It provides funding for the oDAO (15% of inflation)
-- It provides funding for the pDAO (15% of inflation)
+- A [minority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation provides funding for the oDAO
+- A [minority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation provides funding for the pDAO
 
 ## Stake
 
