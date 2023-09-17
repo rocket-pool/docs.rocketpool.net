@@ -11,7 +11,7 @@ We welcome all contributions! Please refer to our [contribution guidelines](./co
 ## Prerequisites
 
 - Node v20.0.0
-- Pnpm 8.7.5
+- Pnpm 8.7.6
 
 Strongly recommend using [asdf](https://asdf-vm.com/#/) to manage your toolchain versions.
 
