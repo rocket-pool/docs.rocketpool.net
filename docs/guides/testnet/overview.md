@@ -76,7 +76,7 @@ If you _are_ planning to run a node, do the following:
 
 1. Start by running the `!goerliEth` command above to acquire enough gas to register your node
 2. Register your node (see the [Preparing your Node](../node/prepare-node) page for instructions)
-3. Run the following command to get 16 Goerli ETH so you can create a validator:
+3. Run the following command to get 8 Goerli ETH so you can create a validator:
 
 ```
 !nodeOperator <your goerli address>
