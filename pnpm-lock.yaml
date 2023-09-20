@@ -20,8 +20,8 @@ devDependencies:
     specifier: latest
     version: 0.60.0
   vitepress:
-    specifier: ^1.0.0-rc.14
-    version: 1.0.0-rc.14(@algolia/client-search@4.20.0)(search-insights@2.8.2)(stylus@0.60.0)
+    specifier: ^1.0.0-rc.15
+    version: 1.0.0-rc.15(@algolia/client-search@4.20.0)(search-insights@2.8.2)(stylus@0.60.0)
   vue:
     specifier: ^3.3.4
     version: 3.3.4
@@ -484,7 +484,7 @@ packages:
       '@vue/shared': 3.3.4
       estree-walker: 2.0.2
       magic-string: 0.30.3
-      postcss: 8.4.29
+      postcss: 8.4.30
       source-map-js: 1.0.2
     dev: true
 
@@ -831,8 +831,8 @@ packages:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
     dev: true
 
-  /postcss@8.4.29:
-    resolution: {integrity: sha512-cbI+jaqIeu/VGqXEarWkRCCffhjgXc0qjBtXpqJhTBohMUjUQnbBr0xqX3vEKudc4iviTewcJo5ajcec5+wdJw==}
+  /postcss@8.4.30:
+    resolution: {integrity: sha512-7ZEao1g4kd68l97aWG/etQKPKq07us0ieSZ2TnFDk11i0ZfDW2AwKHYU8qv4MZKqN2fdBfg+7q0ES06UA73C1g==}
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
       nanoid: 3.3.6
@@ -934,15 +934,15 @@ packages:
         optional: true
     dependencies:
       esbuild: 0.18.20
-      postcss: 8.4.29
+      postcss: 8.4.30
       rollup: 3.29.2
       stylus: 0.60.0
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
 
-  /vitepress@1.0.0-rc.14(@algolia/client-search@4.20.0)(search-insights@2.8.2)(stylus@0.60.0):
-    resolution: {integrity: sha512-yChIeXOAcNvVnSVjhziH1vte0uhKb00PuZf7KdIMfx3ixTMAz73Nn+6gREvCv0SdH+anteGUKz5eljv0ygcgGQ==}
+  /vitepress@1.0.0-rc.15(@algolia/client-search@4.20.0)(search-insights@2.8.2)(stylus@0.60.0):
+    resolution: {integrity: sha512-5criiHoEibkT/du7t6wQ2xQVsuTNuirQZbMAi0M9Hp0YzJoJvEX68Ej9p2PtNC84bYb/CxAh5QkMtMutk03lHw==}
     hasBin: true
     peerDependencies:
       markdown-it-mathjax3: ^4.3.2
