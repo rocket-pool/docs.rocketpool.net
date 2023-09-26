@@ -11,7 +11,7 @@
   "repository": "https://github.com/rocket-pool/docs.rocketpool.net",
   "devDependencies": {
     "@types/markdown-it": "^13.0.1",
-    "markdown-it": "^13.0.1",
+    "markdown-it": "^13.0.2",
     "stylus": "latest",
     "vitepress": "^1.0.0-rc.20",
     "vue": "^3.3.4"
