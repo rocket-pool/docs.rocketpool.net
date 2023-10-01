@@ -23,7 +23,7 @@ Layer 2 networks tend to have lower rETH liquidity than the main Ethereum networ
 
 Therefore, we recommend you compare the total rETH you would get on a Layer 2 network with what you'd get via the other methods to determine if it makes sense for you to pursue this path.
 
-You can view the current ETH and rETH balances of the [Optimism pool](https://optimistic.etherscan.io/address/0x8f477a5d632b5691a10a571575d55dc9c3d86d7c#tokentxns) and the [Arbitrum pool](https://info.uniswap.org/#/arbitrum/pools/0xaac7de2b91293ba1791503d9127d2bdf2159db65) to determine if they have enough rETH to cover your swap.
+You can view the current ETH and rETH balances of the [Optimism pool](https://info.uniswap.org/#/optimism/pools/0xaefc1edaede6adadcdf3bb344577d45a80b19582) and the [Arbitrum pool](https://info.uniswap.org/#/arbitrum/pools/0xaac7de2b91293ba1791503d9127d2bdf2159db65) to determine if they have enough rETH to cover your swap.
 
 In the following example, we will demonstrate how to interact with Layer 2 networks and use Uniswap to swap ETH for rETH.
 
