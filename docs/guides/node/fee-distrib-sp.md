@@ -3,7 +3,7 @@
 Now that [the Merge](https://ethereum.org/en/upgrades/merge/) has passed, node operators receive **priority fees** (**tips**) from the transactions they include in any blocks that they propose to the Ethereum chain.
 These fees come from and stay on the Execution layer.
 
-Unlike most validation rewards which are locked on the Consensus layer (until withdrawals are enabled), these fees are _immediately liquid_.
+Unlike most validation rewards which are generated on the Consensus layer and automatically withdrawn periodically, these fees are _immediately liquid_.
 In general, priority fees provide almost as much ETH to you as Beacon Chain rewards do, so they are a very nice benefit of the Merge.
 
 ::: tip NOTE
