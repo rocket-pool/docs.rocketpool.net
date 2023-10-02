@@ -54,16 +54,17 @@ You will be prompted to return here at the appropriate step.
 Rocket Pool provides a faucet in its [Discord server](https://discord.gg/rocketpool).
 Join the server and head to the `#support` channel.
 
-Here, you can ask the support team for testnet ETH.
-You will need to provide the users there with your node address, and they will provide you with ETH.
+Here, you can ask for testnet ETH.
+You will need to provide your node address.
 
 ::: warning NOTE
 The testnet faucet bot is no longer directly accessible to the public due to previous abuse.
-It is only available to people in the support team with explicit access permission.
-Simply state your intentions, and someone with faucet permissions will assist you.
+It is only available to the dev team and prominent members of the community.
+To receive testnet eth, run the below commands, state your intentions in the channel.
+Be patient and someone will access the faucet on your behalf.
 :::
 
-If you aren't planning to register a node and just want some ETH to test staking to receive rETH, or if you are planning to register a node but haven't yet, type the following command in the channel:
+If you aren't planning to register a node and just want some ETH to test staking to receive rETH, type the following command in the channel:
 
 ```
 !goerliEth <your goerli address>
@@ -74,7 +75,7 @@ If your wallet doesn't have any ETH already, the bot will send your wallet 1 ETH
 
 If you _are_ planning to run a node, do the following:
 
-1. Start by running the `!goerliEth` command above to acquire enough gas to register your node
+1. Start by running the `!goerliEth` command above to acquire enough ETH to register your node
 2. Register your node (see the [Preparing your Node](../node/prepare-node) page for instructions)
 3. Run the following command to get 8 Goerli ETH so you can create a validator:
 
@@ -84,12 +85,6 @@ If you _are_ planning to run a node, do the following:
 
 In order to use `!nodeOperator`, the address you provide it _must_ be a registered Rocket Pool node.
 Therefore, you must follow these 3 steps in that order.
-
-::: warning NOTE
-To prevent abuse, there is a cooldown timer on sending messages in the faucet channel.
-Therefore, there will be a delay between when you can run the `!goerliEth` and `!nodeOperator` commands.
-If you want to bypass this, you can always ask for help - someone who has a cooldown available will likely be able to run the command for you.
-:::
 
 ## Getting Test RPL on Goerli
 
