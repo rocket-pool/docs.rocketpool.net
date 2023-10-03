@@ -216,7 +216,7 @@ If none of the entries state `Restarting...`, then the containers should be runn
 ::: warning NOTE
 If you are using Prysm as your Consensus (ETH2) client, you will likely notice the `rocketpool_validator` container is constantly restarting.
 This is okay!
-The validator container will fail until a new validator has been created using the `rocketpool node deposit` command, which we will cover in the [Creating a Minipool (ETH2 Validator)](./create-validator) section.
+The validator container will fail until a new validator has been created using the `rocketpool node deposit` command, which we will cover in the [Creating a Minipool (Validator)](./create-validator) section.
 Once this is done, the container will function correctly - until then, just ignore it.
 :::
 
@@ -266,7 +266,7 @@ If none of the entries state `Restarting...`, then the containers should be runn
 ::: warning NOTE
 If you are using **Lodestar** or **Prysm** as your Consensus (ETH2) client, you will likely notice the `rocketpool_validator` container is constantly restarting.
 This is okay!
-The validator container will fail until a new validator has been created using the `rocketpool node deposit` command, which we will cover in the [Creating a Minipool (ETH2 Validator)](./create-validator) section.
+The validator container will fail until a new validator has been created using the `rocketpool node deposit` command, which we will cover in the [Creating a Minipool (Validator)](./create-validator) section.
 Once this is done, the container will function correctly - until then, just ignore it.
 :::
 

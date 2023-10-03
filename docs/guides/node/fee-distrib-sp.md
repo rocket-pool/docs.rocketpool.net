@@ -3,7 +3,7 @@
 Now that [the Merge](https://ethereum.org/en/upgrades/merge/) has passed, node operators receive **priority fees** (**tips**) from the transactions they include in any blocks that they propose to the Ethereum chain.
 These fees come from and stay on the Execution layer.
 
-Unlike most validation rewards which are locked on the Consensus layer (until withdrawals are enabled), these fees are _immediately liquid_.
+Unlike most validation rewards which are generated on the Consensus layer and automatically withdrawn periodically, these fees are _immediately liquid_.
 In general, priority fees provide almost as much ETH to you as Beacon Chain rewards do, so they are a very nice benefit of the Merge.
 
 ::: tip NOTE
@@ -99,6 +99,25 @@ You may have a taxable event whenever this method is called.
 
 Please keep these conditions in mind when deciding whether or not to use the Smoothing Pool (discussed below).
 :::
+
+### The Penalty System
+
+To ensure that node operators don't "cheat" by manually modifying the fee recipient used in their Validator Client, Rocket Pool employs a penalty system.
+
+The Oracle DAO constantly monitors each block produced by Rocket Pool node operators.
+Any block that has a fee recipient other than one of the following addresses is considered to be **invalid**:
+
+- The rETH address
+- The Smoothing Pool address
+- The node's fee distributor contract (if opted out of the Smoothing Pool)
+
+A minipool that proposed a block with an **invalid** fee recipient will be issued **a strike**.
+On the third strike, the minipool will begin receiving **infractions** - each infraction will dock **10% of its total Beacon Chain balance, including ETH earnings** and send them to the rETH pool stakers upon withdrawing funds from the minipool.
+
+Infractions are at a **minipool** level, not a **node** level.
+
+The Smartnode software is designed to ensure honest users will never get penalized, even if it must take the Validator Client offline to do so.
+If this happens, you will stop attesting and will see error messages in your log files about why the Smartnode can't correctly set your fee recipient.
 
 ## The Smoothing Pool
 

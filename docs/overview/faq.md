@@ -168,10 +168,9 @@ This token can also be traded back to the protocol for ETH + rewards earned at a
 
 Rocket Pool was originally started in [late 2016 by David Rugendyke](https://medium.com/rocket-pool/rocket-pool-your-new-casper-friendly-ethereum-pos-pool-in-alpha-75709bd19936), a senior developer with over 18 years commercial experience and a computer science background.
 
-In May 2017, an alpha version of the product was released. A vibrant community started to form and the team began expanding.
+In May 2017, an alpha version of the product was released. A vibrant community started to form and the team began expanding. With the help of a enthusiastic community, Rocket Pool ran five public betas with over 100,000 ETH (testnet) staked and hundreds of users participating, before the official launch on Ethereum mainnet in October 2021.
 
-Today there is a great team working on Rocket Pool passionately alongside a fantastic community. Both have helped Rocket Pool run five public betas with over 100,000 ETH (testnet) staked and hundreds of users participating over the last 1–2 years.
-
+Today there is a great team working on Rocket Pool passionately alongside a fantastic community of more than three thousand node operators.
 ---
 
 ---

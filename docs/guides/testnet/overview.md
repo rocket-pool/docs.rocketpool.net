@@ -140,4 +140,4 @@ Successfully withdrew 600.000000 RPL from the faucet.
 This will provide you with 600 of the **legacy (v1) RPL** token, which is analogous to the original RPL token on mainnet.
 Rocket Pool uses a **new (v2) RPL** token which supports the inflation used to reward node operators.
 
-To learn how to swap legacy RPL for new RPL, follow the steps in the [Creating a Minipool (ETH2 Validator)](../node/create-validator) guide.
+To learn how to swap legacy RPL for new RPL, follow the steps in the [Creating a Minipool (Validator)](../node/create-validator) guide.
