@@ -155,7 +155,7 @@ _Obviously there is no need to build a monstrosity for simply staking on the Eth
 Rocket Pool's founder David Rugendyke (known on Discord as **darcius**) spent a long time perfecting his node.
 After some debate, he built a Mini-ITX that's small and portable, but still packs an enormous amount of processing power.
 His rig includes an 8-core Ryzen 7 5800x (3.8 GHz), two DDR4 slots, and two M.2 slots for NVMe SSDs.
-It is truly one of the most high-performance rigs of the Rocket Pool nodes, but with good reason: darcius runs a special type of Rocket Pool node called an Oracle Node, which relays information from the Beacon chain back to the Execution (ETH1) chain about all of the Rocket Pool validators.
+It is truly one of the most high-performance rigs of the Rocket Pool nodes, but with good reason: darcius runs a special type of Rocket Pool node called an Oracle Node, which relays information from the Beacon chain back to the Execution chain about all of the Rocket Pool validators.
 With thousands of Rocket Pool minipools active to watch, that job takes a lot of horsepower... but his shelf rig is easily up to the task.
 
 Darcius's setup:
@@ -264,7 +264,7 @@ By following these steps, you can address the compatibility challenges associate
 The NUC8i5BEK is one of Intel's own NUCs with an 8th-generation processor.
 Released in 2018, this model comes with a quad-core i5-8259U CPU (2.30 GHz), two DDR4 slots, an M.2 slot for SSDs, and USB 3.1 ports.
 It normally draws about 20 watts, but Discord user **Ken** has been able to optimize it down to 9 watts during normal validation.
-It is more than capable of handling any Execution (ETH1) and any Consensus (ETH2) client, making it an excellent choice for a lightweight, efficient node machine.
+It is more than capable of handling any Execution and any Consensus client, making it an excellent choice for a lightweight, efficient node machine.
 
 Ken's Setup:
 

@@ -38,7 +38,7 @@ The Smartnode will handle the set up of the authentication token and the Engine 
 
 ### Your Fee Recipient
 
-The **fee recipient** is the address on the Execution layer (eth1) chain that will receive all of the priority fees for blocks you propose.
+The **fee recipient** is the address on the Execution layer chain that will receive all of the priority fees for blocks you propose.
 It is a setting provided to your Validator client when it first starts.
 
 The Smartnode will handle setting it up to the correct address when you upgrade to v1.5, and will constantly check to make sure you're using the correct one so you don't get [penalized accidentally](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).

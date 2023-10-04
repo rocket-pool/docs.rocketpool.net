@@ -12,9 +12,9 @@ This is a very comprehensive guide that goes over all of the considerations invo
 - Deciding to run a node locally at home, or remotely on the cloud
 - Selecting the hardware for a local machine, or selecting a remote hosting provider
 - Preparing and securing the operating system of your node
-- Selecting your Execution (ETH1) and Consensus (ETH2) clients
+- Selecting your Execution and Consensus clients
 - Installing Rocket Pool's Smartnode stack
-- Creating a new ETH2 validator using the Rocket Pool network
+- Creating a new Beacon Chain validator using the Rocket Pool network
 - Maintaining and updating your node
 
 Both guides will show you how to practice for free on the Rocket Pool testnet so you can get a feel for everything without risking any of your real-life ETH, and how to stake your real ETH on the Ethereum mainnet once you're comfortable with the process.

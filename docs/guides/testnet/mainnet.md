@@ -18,7 +18,7 @@ Follow the [Staking Guide](../staking/overview), which has been updated with ins
 
 ::: danger NOTE
 **Nothing** from the test network can be migrated to mainnet.
-The chain data is different for both Execution (ETH1) and Consensus (ETH2), so you must remove the old chain data and resync the mainnet chains from scratch.
+The chain data is different for both Execution and Consensus, so you must remove the old chain data and resync the mainnet chains from scratch.
 Your validators on the testnet do not carry over to mainnet.
 Also, for security, compatibility, and safety purposes, **you must make a new wallet on mainnet!**
 **Do not use your testnet node wallet on mainnet!**
@@ -162,7 +162,7 @@ You can reuse them and ignore the steps involved in setting them up in the insta
 You will need to redo some of the installation steps including:
 
 - Create the `/srv/rocketpool` folder and its skeleton framework, and set the permissions properly
-- Get the latest release versions of the Execution (ETH1) and Consensus (ETH2), and Validator client binaries
+- Get the latest release versions of the Execution and Consensus, and Validator client binaries
 - Set the **`ExecStart` string** in the services (**use the mainnet configuration defined in the installation guide!)**
 - Get the latest CLI and Daemon binaries
 - Get the latest configuration files from the installer archive, put them into `/srv/rocketpool`, and adjust them to match your node's setup

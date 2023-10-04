@@ -532,7 +532,7 @@ sudo systemctl restart unattended-upgrades
 
 ## ESSENTIAL: Enable a Firewall
 
-In general, your machine should only accept network traffic on ports that your Execution (ETH1) client, Consensus (ETH2) client, and Smartnode stack use.
+In general, your machine should only accept network traffic on ports that your Execution client, Consensus client, and Smartnode stack use.
 To enforce that and prevent any unexpected or undesirable traffic, we can install a **firewall** on the node.
 
 ::: tip NOTE

@@ -15,7 +15,7 @@ If you're not interested in how staking works and just want to learn how to stak
 ## How Ethereum Staking Works
 
 Before getting into Rocket Pool, let's talk about staking on Ethereum in general.
-Since [the Merge](https://ethereum.org/en/upgrades/merge/) on September 15th, 2022, Ethereum now comprises two blockchains in parallel: the Execution layer (formerly ETH1), which contains all of Ethereum's transaction data, and the Consensus layer (also known as the [Beacon Chain](https://ethereum.org/en/eth2/beacon-chain/), formerly ETH2) which consists of a network of **validators** that collectively determine the validity of each transaction and each block broadcast to the network.
+Since [the Merge](https://ethereum.org/en/upgrades/merge/) on September 15th, 2022, Ethereum now comprises two blockchains in parallel: the Execution layer (formerly ETH1), which contains all of Ethereum's transaction data, and the Consensus layer (also known as the [Beacon Chain](https://ethereum.org/en/roadmap/beacon-chain/), formerly ETH2) which consists of a network of **validators** that collectively determine the validity of each transaction and each block broadcast to the network.
 
 **Staking** is the process of creating and maintaining one (or more) of these validators on the Beacon Chain to help the network maintain the consistency and security of the Ethereum blockchain.
 Validators do this by listening for transactions and new block proposals, and **attesting** that the proposed block contains legal, valid transactions by doing some number crunching and verification behind the scenes.
@@ -79,7 +79,7 @@ Say you stake at the very beginning when 1 ETH = 1 rETH.
 You deposit 10 ETH and receive 10 rETH back.
 
 After a few years, the balances on the Beacon Chain grow due to validator rewards.
-Say 128 ETH had been staked with Rocket Pool and the sum of all validator balances on ETH2 was 160 ETH.
+Say 128 ETH had been staked with Rocket Pool and the sum of all validator balances on the Beacon Chain was 160 ETH.
 Then 1 ETH would be worth (128/160) = 0.8 rETH; conversely, 1 rETH would be worth (160/128) = 1.25 ETH.
 
 At this point, you could trade your 10 rETH back to Rocket Pool's smart contracts and receive 12.5 ETH in return.
@@ -93,7 +93,7 @@ Trading rETH back for ETH directly with Rocket Pool is only possible when the st
 ETH in this pool comes from two sources:
 
 1. ETH that other stakers have deposited, which hasn't been used by a node operator to create a new validator yet
-2. ETH that was returned by a node operator after they exited one of their validators and received their rewards from the Beacon Chain (**note that this is not possible until after the ETH1-ETH2 Merge occurs and withdrawals are enabled**)
+2. ETH that was returned by a node operator after they exited one of their validators and received their rewards from the Beacon Chain
 
 It's possible that if node operators have put all of the staking pool to work on the Beacon chain, then the liquidity pool won't have enough balance to cover your unstaking.
 In this scenario, you may find other ways to trade your rETH back to ETH (such as a decentralized exchange like [Uniswap](https://app.uniswap.org/#/swap)) - though they will likely come with a small premium.

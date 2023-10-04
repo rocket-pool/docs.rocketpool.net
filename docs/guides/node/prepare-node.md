@@ -1,10 +1,10 @@
 # Preparing your Node for Operation
 
-If you're here, then you've successfully started the Smartnode services, created a wallet, and finished syncing both the Execution (ETH1) and Consensus (ETH2) chains on your respective clients.
-If so, then you are ready to register your node on the Rocket Pool network and create a minipool with an ETH2 validator!
+If you're here, then you've successfully started the Smartnode services, created a wallet, and finished syncing both the Execution and Consensus chains on your respective clients.
+If so, then you are ready to register your node on the Rocket Pool network and create a minipool with a validator!
 If not, please review the previous sections and return here once you've completed those steps.
 
-Before creating a new minipool and ETH2 validator, there are a few steps to take to finish preparing your node.
+Before creating a new minipool and validator, there are a few steps to take to finish preparing your node.
 These only need to be done once though; once you've done them, you can skip to the [Creating a New Minipool](./create-validator) section if you want to create multiple minipools on your node.
 
 ## Loading your Node Wallet

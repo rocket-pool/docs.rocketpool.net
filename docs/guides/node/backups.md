@@ -62,7 +62,7 @@ Anyone who gains access to these files will gain access to your node wallet, its
 
 We **strongly recommend** you do not back up these files and just use your wallet mnemonic to recover them if necessary.
 
-### Consensus Client / ETH2 Client Chain Data
+### Consensus Client Chain Data
 
 Unlike the Execution layer data, the Consensus layer data is not nearly as important to your node thanks to [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
 Consensus clients can easily use this technique to immediately resync to the head of the Beacon chain and resume validation duties.
