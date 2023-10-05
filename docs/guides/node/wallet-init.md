@@ -1,7 +1,7 @@
 # Creating a New Wallet
 
-If the Smartnode services are up and running, the next step is to set up an ETH1 wallet for your node.
-This is simply an ETH1 address that will hold your node's funds - it will use this to send ETH to your minipool when you begin staking, pay for gas during various transactions, and other various operations.
+If the Smartnode services are up and running, the next step is to set up an Ethereum wallet for your node.
+This is simply an Execution Layer address that will hold your node's funds - it will use this to send ETH to your minipool when you begin staking, pay for gas during various transactions, and other various operations.
 
 You have the option of either creating a brand new wallet from scratch, or importing / recovering an existing wallet or address.
 Please choose which option you'd like from the tabs below.
@@ -9,7 +9,7 @@ Please choose which option you'd like from the tabs below.
 :::::: tabs
 ::::: tab Creating a New Wallet
 
-The most common way to run a node is to create a new ETH1 address that is dedicated to the node.
+The most common way to run a node is to create a new Ethereum address that is dedicated to the node.
 The Smartnode CLI provides a way to do this easily:
 
 ```
@@ -19,14 +19,14 @@ rocketpool wallet init
 You will first be prompted for a password to protect your wallet's private key.
 Next, you will be presented the **unique 24-word mnemonic** for your new wallet.
 This is the **recovery phrase** for your wallet.
-If you ever lose your machine, you can use this phrase to regenerate your wallet and resurrect all of the Consensus (ETH2) validators attached to it.
+If you ever lose your machine, you can use this phrase to regenerate your wallet and resurrect all of the Consensus validators attached to it.
 
 ::: warning NOTE
 It is **essential** that you write this mnemonic down because this is the only time it will be shown to you, but keep it somewhere safe.
 Anyone with this phrase can gain control of your wallet.
 :::
 
-Once you confirm your mnemonic phrase, you will be presented with the unique ETH1 address for your node wallet.
+Once you confirm your mnemonic phrase, you will be presented with the unique Ethereum address for your node wallet.
 
 ::::: tab Recovering or Importing an Existing Wallet
 

@@ -167,7 +167,7 @@ Each router is different, so you will need to consult your router's documentatio
 
 ## Setting up Swap Space
 
-In most cases, if you choose your Execution (ETH1) and Consensus (ETH2) clients and your instance type carefully, you should not run out of RAM.
+In most cases, if you choose your Execution and Consensus clients and your instance type carefully, you should not run out of RAM.
 Then again, it never hurts to add a little more.
 What we're going to do now is add what's called **swap space**.
 Essentially, it means we're going to use the SSD as "backup RAM" in case something goes horribly, horribly wrong and your server runs out of regular RAM.

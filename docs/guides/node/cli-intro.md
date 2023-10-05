@@ -3,7 +3,7 @@
 As a node operator, the CLI is your primary tool for interacting with Rocket Pool.
 You will use it to create new minipools, check on the status of everything, claim periodic RPL rewards, exit and withdraw from your minipools when you're ready, and a host of other activities.
 
-Once you've finished syncing the Execution (ETH1) and Beacon (ETH2) chains, all of the commands will be available for you to use.
+Once you've finished syncing the Execution and Beacon chains, all of the commands will be available for you to use.
 In this section, we'll go over a brief tour of some of the more common ones and some other tricks that the CLI can do.
 
 ## Learning About the Commands
@@ -169,7 +169,7 @@ You may find that a program like `htop` offers better insight into actual resour
 ### `config`
 
 This command runs through the configuration interview again.
-You can use it if you want to change your selection of Execution (ETH1) or Consensus (ETH2) client, or change some of the parameters that you initially specified when you selected them (such as your validator's graffiti message, the max number of peers to connect to, and so on).
+You can use it if you want to change your selection of Execution or Consensus client, or change some of the parameters that you initially specified when you selected them (such as your validator's graffiti message, the max number of peers to connect to, and so on).
 
 You can call this command at any time, but the changes won't take effect until you call `rocketpool service stop` and `rocketpool service start`.
 
@@ -266,7 +266,7 @@ The node has a total of 1 active minipool(s):
 
 ### `sync`
 
-This command will show you the current sync status of your Execution (ETH1) and Consensus (ETH2) clients.
+This command will show you the current sync status of your Execution and Consensus clients.
 You'll probably use it a lot when you first set the node up, then never need it again (unless you change or reset your clients).
 
 The output of `rocketpool node sync` will look like this:
@@ -334,10 +334,10 @@ However, `stake-rpl` is one of the few commands that requires _two_ transactions
 
 ### `deposit`
 
-This command will let you deposit ETH and create a new minipool (a new ETH2 validator).
+This command will let you deposit ETH and create a new minipool (a new Ethereum validator).
 
 You will be prompted with the expected gas cost for the transaction and one final confirmation dialog.
-If you accept, your ETH deposit will be processed and you will create a new minipool (and a corresponding ETH2 validator).
+If you accept, your ETH deposit will be processed and you will create a new minipool (and a corresponding Ethereum validator).
 
 (For more information, see the next section on [Creating a Minipool](./create-validator)).
 

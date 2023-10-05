@@ -5,7 +5,7 @@ Now that you have your node up and running, you'll probably want to have a conve
 There are many tools out there that do this job.
 One of the most popular is called [Grafana](https://grafana.com/) - an easy-to-use, general-purpose dashboard system that you can access with a browser.
 
-Rocket Pool comes out-of-the-box with support for Grafana and its dependencies; it even comes with a pre-built dashboard for each of the Consensus (ETH2) clients.
+Rocket Pool comes out-of-the-box with support for Grafana and its dependencies; it even comes with a pre-built dashboard for each of the Consensus clients.
 For example, here is a snapshot of what the dashboard looks like on the Prater test network:
 
 ![](./images/grafana-1.3.jpg)
@@ -50,7 +50,7 @@ Note that all of these ports are restricted to Docker's internal network with th
 
 Save and exit, and smartnode will start the Prometheus, Node Exporter, and Grafana Docker containers for you.
 
-It will also modify your Consensus (ETH2) and Validator clients so they expose their own metrics to Prometheus.
+It will also modify your Consensus and Validator clients so they expose their own metrics to Prometheus.
 
 ::: warning NOTE
 If you have UFW enabled as referenced in the [Securing your Node](./securing-your-node) section, you will need to open a few ports in order for outside machines to access Grafana, and to allow local connections between the Node Exporter and Prometheus.

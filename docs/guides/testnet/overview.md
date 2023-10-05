@@ -3,12 +3,12 @@
 An Ethereum **test network** (`testnet` for short) is an Ethereum blockchain, functionally identical to the standard Ethereum blockchain, but it's intended to be used for testing smart contracts before they go live onto the main "real" blockchain (called `mainnet`).
 Testnets run in parallel with mainnet - there are actually several of them running right now!
 
-You can read more about some of the ETH1 testnets [here](https://support.mycrypto.com/how-to/getting-started/where-to-get-testnet-ether) if you like.
-Rocket Pool uses **Goerli** for its ETH1 testnet.
+You can read more about some of the Execution Layer testnets [here](https://support.mycrypto.com/how-to/getting-started/where-to-get-testnet-ether) if you like.
+Rocket Pool uses **Goerli** for its Execution Layer testnet.
 You can use a block explorer for it here if you'd like to take a look at it: [https://goerli.etherscan.io/](https://goerli.etherscan.io/)
 
-The same concept applies to the ETH2 chain as well.
-Rocket Pool uses **Prater** for its ETH2 testnet.
+The same concept applies to the Consensus Layer as well.
+Rocket Pool uses **Prater** for its Consensus Layer testnet.
 You can find a block explorer for it here: [https://prater.beaconcha.in/](https://prater.beaconcha.in/)
 
 Because the networks are intended for testing, **ETH on them is given out for free to help people test**.
@@ -25,7 +25,7 @@ You should only use test ETH that you received on the Goerli network from a fauc
 [The default configuration of Rocket Pool using Docker](../node/install-modes) handles all of the settings involved in using a testnet for you automatically.
 There's nothing special you need to do.
 
-If you're using [a different setup](../node/install-modes) with an external ETH1 or ETH2 client, or are running your clients [natively without Docker](../node/install-modes), then you will need to set this up manually:
+If you're using [a different setup](../node/install-modes) with an external execution or consensus client, or are running your clients [natively without Docker](../node/install-modes), then you will need to set this up manually:
 
 - For **Geth**: add `--goerli` to the launch command.
 - For **Lighthouse**: add `--network prater` to the launch command.

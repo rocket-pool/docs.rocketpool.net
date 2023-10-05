@@ -319,12 +319,12 @@ Start by opening the Settings Manager:
 rocketpool service config
 ```
 
-To change the Execution client version, go to the **Execution Client (ETH1)** category.
+To change the Execution client version, go to the **Execution Client** category.
 Modify the **Container Tag** setting:
 
 ![](./images/tui-ec-container-tag.png){ style="display: block; margin: 0 auto" }
 
-To change the Consensus client version, go to the **Consensus Client (ETH2)** category.
+To change the Consensus client version, go to the **Consensus Client** category.
 Modify the **Container Tag** setting:
 
 ![](./images/tui-cc-container-tag.png){ style="display: block; margin: 0 auto" }
