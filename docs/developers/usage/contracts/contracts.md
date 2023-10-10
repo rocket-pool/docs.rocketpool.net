@@ -146,7 +146,6 @@ contract Example {
         balances[msg.sender] += rethMinted;
     }
 
-    // After 24 hours it's possible to transfer the tokens
     withdraw() external {
         // Load contracts
         address rocketTokenRETHAddress = rocketStorage.getAddress(keccak256(abi.encodePacked("contract.address", "rocketTokenRETH")));
