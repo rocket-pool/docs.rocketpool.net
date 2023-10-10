@@ -2,8 +2,8 @@
 
 The easiest way to stake with Rocket Pool is done via its web interface to the underlying smart contracts.
 
-The advantage is that you will always get exactly as much rETH as your ETH is worth, since Rocket Pool's contracts will directly mint the rETH that you receive.
-No extra fees, no slippage, no liquidity issues, no sandwiching or front running... you just get the best possible deal for rETH.
+The advantage is that you will always get exactly as much rETH as your ETH is worth (minus a 0.05% deposit fee), since Rocket Pool's contracts will directly mint the rETH that you receive.
+No slippage, no liquidity issues, no sandwiching or front running... you just get the best possible deal for rETH.
 
 The disadvantage is that the gas fee might be quite expensive if you are staking a small amount of ETH - **we strongly recommend you check this before approving the transaction.**
 Also, there is a limit to the amount of ETH that can be in the pool at any given time, so it's possible that the pool could be full until Node Operators pull ETH from it and stake that ETH on the Beacon Chain.
