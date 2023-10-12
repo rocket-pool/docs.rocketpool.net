@@ -4,20 +4,20 @@ An Ethereum **test network** (`testnet` for short) is an Ethereum blockchain, fu
 Testnets run in parallel with mainnet - there are actually several of them running right now!
 
 You can read more about some of the Execution Layer testnets [here](https://support.mycrypto.com/how-to/getting-started/where-to-get-testnet-ether) if you like.
-Rocket Pool uses **Goerli** for its Execution Layer testnet.
-You can use a block explorer for it here if you'd like to take a look at it: [https://goerli.etherscan.io/](https://goerli.etherscan.io/)
+Rocket Pool uses **Holesky** for its Execution Layer testnet.
+You can use a block explorer for it here if you'd like to take a look at it: [https://holesky.etherscan.io/](https://holesky.etherscan.io/)
 
 The same concept applies to the Consensus Layer as well.
 Rocket Pool uses **Prater** for its Consensus Layer testnet.
-You can find a block explorer for it here: [https://prater.beaconcha.in/](https://prater.beaconcha.in/)
+You can find a block explorer for it here: [https://holesky.beaconcha.in/](https://holesky.beaconcha.in/)
 
 Because the networks are intended for testing, **ETH on them is given out for free to help people test**.
-This ETH **cannot be transferred** to mainnet; it must stay on Goerli and has no real value, so you can think of it as **Monopoly money**.
+This ETH **cannot be transferred** to mainnet; it must stay on Holesky and has no real value, so you can think of it as **Monopoly money**.
 
 ::: danger
 **DO NOT use your real ETH from mainnet at any point if you are trying out Rocket Pool's test network!**
 You will **lose your funds** forever if you do this!
-You should only use test ETH that you received on the Goerli network from a faucet (described below)!
+You should only use test ETH that you received on the Holesky network from a faucet (described below)!
 :::
 
 ## Configuring the Testnet
@@ -27,24 +27,24 @@ There's nothing special you need to do.
 
 If you're using [a different setup](../node/install-modes) with an external execution or consensus client, or are running your clients [natively without Docker](../node/install-modes), then you will need to set this up manually:
 
-- For **Geth**: add `--goerli` to the launch command.
-- For **Lighthouse**: add `--network prater` to the launch command.
-- For **Nimbus**: add `--network=prater` to the launch command.
-- For **Prysm**: add `--prater` to the launch command.
-- For **Teku**: add `--network=prater` to the launch command.
-- For **Lodestar**: prefix the launch command with `LODESTAR_NETWORK=goerli`
+- For **Geth**: add `--holesky` to the launch command.
+- For **Lighthouse**: add `--network holesky` to the launch command.
+- For **Nimbus**: add `--network=holesky` to the launch command.
+- For **Prysm**: add `--holesky` to the launch command.
+- For **Teku**: add `--network=holesky` to the launch command.
+- For **Lodestar**: prefix the launch command with `LODESTAR_NETWORK=holesky`
 
-Check the next section to learn how to get some test ETH on Goerli, which you'll need to test Rocket Pool out.
+Check the next section to learn how to get some test ETH on Holesky, which you'll need to test Rocket Pool out.
 
-## Getting Test ETH on Goerli
+## Getting Test ETH on Holesky
 
-To use the Rocket Pool test network, you'll need ETH on Goerli.
-Luckily, you can get this for free using a **faucet** - an automated service that will provide you with Goerli ETH to test with.
+To use the Rocket Pool test network, you'll need ETH on Holesky.
+Luckily, you can get this for free using a **faucet** - an automated service that will provide you with Holesky ETH to test with.
 
 ::: warning NOTE
 You will need to provide an Ethereum address in order to receive test ETH.
 
-If you are just trying to stake your ETH normally and receive rETH, please review the [Staking Guide](../staking/overview) before getting Goerli ETH.
+If you are just trying to stake your ETH normally and receive rETH, please review the [Staking Guide](../staking/overview) before getting Holesky ETH.
 You will be prompted to return here at the appropriate step.
 
 If you are planning to run a node, please go through the [Node Operator Guide](../node/responsibilities) to set up a node and create a new wallet first.
@@ -67,7 +67,7 @@ Be patient and someone will access the faucet on your behalf.
 If you aren't planning to register a node and just want some ETH to test staking to receive rETH, type the following command in the channel:
 
 ```
-!goerliEth <your goerli address>
+!holeskyEth <your holesky address>
 ```
 
 without the angle brackets.
@@ -75,18 +75,18 @@ If your wallet doesn't have any ETH already, the bot will send your wallet 1 ETH
 
 If you _are_ planning to run a node, do the following:
 
-1. Start by running the `!goerliEth` command above to acquire enough ETH to register your node
+1. Start by running the `!holeskyEth` command above to acquire enough ETH to register your node
 2. Register your node (see the [Preparing your Node](../node/prepare-node) page for instructions)
-3. Run the following command to get 8 Goerli ETH so you can create a validator:
+3. Run the following command to get 8 Holesky ETH so you can create a validator:
 
 ```
-!nodeOperator <your goerli address>
+!nodeOperator <your holesky address>
 ```
 
 In order to use `!nodeOperator`, the address you provide it _must_ be a registered Rocket Pool node.
 Therefore, you must follow these 3 steps in that order.
 
-## Getting Test RPL on Goerli
+## Getting Test RPL on Holesky
 
 If you're testing out node operation, you'll need some test RPL in addition to test ETH.
 To get this, you'll need to use the Smartnode stack's command line interface (CLI) tool.
@@ -116,7 +116,7 @@ The faucet is on a timer, so each node operator can only use the faucet once eve
   The amount of time remaining (in seconds) is approximately `this number * 13 seconds per block / 60 seconds`.
 
 ::: warning NOTE
-The RPL faucet charges a 0.5 goerli ETH fee to use it, in order to prevent people from abusing the system.
+The RPL faucet charges a 0.5 holesky ETH fee to use it, in order to prevent people from abusing the system.
 You'll need to have at least this amount in your node wallet already in order to use it!
 :::
 
