@@ -8,7 +8,7 @@ Rocket Pool uses **Holesky** for its Execution Layer testnet.
 You can use a block explorer for it here if you'd like to take a look at it: [https://holesky.etherscan.io/](https://holesky.etherscan.io/)
 
 The same concept applies to the Consensus Layer as well.
-Rocket Pool uses **Prater** for its Consensus Layer testnet.
+Rocket Pool uses **Holesky** for its Consensus Layer testnet.
 You can find a block explorer for it here: [https://holesky.beaconcha.in/](https://holesky.beaconcha.in/)
 
 Because the networks are intended for testing, **ETH on them is given out for free to help people test**.
