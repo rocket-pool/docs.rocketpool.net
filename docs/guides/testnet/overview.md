@@ -83,7 +83,7 @@ If you _are_ planning to run a node, do the following:
 !holeskyOperator <your holesky address>
 ```
 
-In order to use `!nodeOperator`, the address you provide it _must_ be a registered Rocket Pool node.
+In order to use `!holeskyOperator`, the address you provide it _must_ be a registered Rocket Pool node.
 Therefore, you must follow these 3 steps in that order.
 
 ## Getting Test RPL on Holesky
