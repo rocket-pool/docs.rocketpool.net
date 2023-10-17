@@ -80,7 +80,7 @@ If you _are_ planning to run a node, do the following:
 3. Run the following command to get 8 Holesky ETH so you can create a validator:
 
 ```
-!nodeOperator <your holesky address>
+!holeskyOperator <your holesky address>
 ```
 
 In order to use `!nodeOperator`, the address you provide it _must_ be a registered Rocket Pool node.
