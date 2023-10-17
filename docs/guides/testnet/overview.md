@@ -7,8 +7,7 @@ You can read more about some of the Execution Layer testnets [here](https://supp
 Rocket Pool uses **Holesky** for its Execution Layer testnet.
 You can use a block explorer for it here if you'd like to take a look at it: [https://holesky.etherscan.io/](https://holesky.etherscan.io/)
 
-The same concept applies to the Consensus Layer as well.
-Rocket Pool uses **Prater** for its Consensus Layer testnet.
+The same concept applies to the Consensus Layer as well, and there is also a **Holesky** Consensus Layer testnet.
 You can find a block explorer for it here: [https://holesky.beaconcha.in/](https://holesky.beaconcha.in/)
 
 Because the networks are intended for testing, **ETH on them is given out for free to help people test**.
@@ -80,7 +79,7 @@ If you _are_ planning to run a node, do the following:
 3. Run the following command to get 8 Holesky ETH so you can create a validator:
 
 ```
-!nodeOperator <your holesky address>
+!holeskyOperator <your holesky address>
 ```
 
 In order to use `!nodeOperator`, the address you provide it _must_ be a registered Rocket Pool node.
