@@ -570,6 +570,12 @@ sudo ufw allow 9001/tcp comment 'Consensus client port, standardized by Rocket P
 sudo ufw allow 9001/udp comment 'Consensus client port, standardized by Rocket Pool'
 ```
 
+If you run lighthouse client v4.5.0+, you can use quic protocol to reduce latency / increase bandwitdh, quic protocol uses lighthouse's --port + 1 to listen for quic messages by default: https://lighthouse-blog.sigmaprime.io/Quic.html
+
+```shell
+sudo ufw allow 9002/udp comment 'Execution client port, standardized by Rocket Pool'
+```
+
 Finally, enable `ufw`:
 
 ```
