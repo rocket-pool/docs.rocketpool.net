@@ -214,7 +214,7 @@ The key thing to check is the `STATUS` column.
 If none of the entries state `Restarting...`, then the containers should be running properly (see the below note for an exception about the `rocketpool_validator` container).
 
 ::: warning NOTE
-If you are using Prysm as your Consensus client, you will likely notice the `rocketpool_validator` container is constantly restarting.
+If you are using Prysm or Lodestar as your Consensus client, you will likely notice the `rocketpool_validator` container is constantly restarting.
 This is okay!
 The validator container will fail until a new validator has been created using the `rocketpool node deposit` command, which we will cover in the [Creating a Minipool (Validator)](./create-validator) section.
 Once this is done, the container will function correctly - until then, just ignore it.
