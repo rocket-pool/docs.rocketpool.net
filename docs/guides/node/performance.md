@@ -153,7 +153,7 @@ If everything is set up right, you should see something like this:
 
 ::: tip NOTE
 The above link is for the **mainnet** version of Beaconcha.in.
-If you're running on the Prater Testnet, use [this link instead](https://prater.beaconcha.in)!
+If you're running on the Holesky Testnet, use [this link instead](https://holesky.beaconcha.in)!
 :::
 
 This is a record of all of the Beacon Chain activity for your validator.

@@ -255,7 +255,7 @@ As a reminder, `rocketpool node status` will show you the correct fee recipient 
 
 You will need to make some adjustments to your Beacon Node / Consensus client to connect it to MEV-boost.
 
-MEV-boost is currently not available on Prater or Mainnet, so you do not need to set it up at this time.
+MEV-boost is currently not available on Holesky or Mainnet, so you do not need to set it up at this time.
 Of course, you will not be penalized for not using it during this transition period.
 
 Once it becomes available, we will announce a date at which it must be installed and connected to your node.

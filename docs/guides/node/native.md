@@ -374,7 +374,7 @@ rp wallet status
 If working properly it should produce the following output:
 
 ```
-Your Smartnode is currently using the Prater Test Network.
+Your Smartnode is currently using the Holesky Test Network.
 
 The node wallet is initialized.
 Node account: <address>

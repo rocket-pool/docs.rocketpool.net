@@ -102,7 +102,7 @@ Select which network you're using from the tabs below to be taken to it:
 ::::: tab Mainnet
 [https://stake.rocketpool.net/stake-behalf](https://stake.rocketpool.net/stake-behalf)
 
-::::: tab Prater Testnet
+::::: tab Holesky Testnet
 [https://testnet.rocketpool.net/stake-behalf](https://testnet.rocketpool.net/stake-behalf)
 
 ::::::
@@ -257,7 +257,7 @@ On average, it will take a few seconds to find a 6-character prefix, a few minut
 ::: tip NOTE
 The salt that gets generated is specific to the following variables:
 
-- The network you're using (either the Prater Testnet or Mainnet)
+- The network you're using (either the Holesky Testnet or Mainnet)
 - The node address
 - The bond amount
 - The salt
@@ -372,7 +372,7 @@ It will remain here until it's your turn in the Rocket Pool queue to be given 16
 
 Once this happens, your minipool will move into the `prelaunch` state for a certain period of time (currently 12 hours).
 Your 16 ETH deposit will be transferred to be Beacon Chain, and the Oracle DAO [will verify that it is all correct](https://github.com/rocket-pool/rocketpool-research/blob/master/Reports/withdrawal-creds-exploit.md).
-During this time, you can observe the validator by looking up its validator pubkey with a Beacon Chain explorer such as [https://beaconcha.in](https://beaconcha.in) (or [https://prater.beaconcha.in](https://prater.beaconcha.in) for the Prater Testnet).
+During this time, you can observe the validator by looking up its validator pubkey with a Beacon Chain explorer such as [https://beaconcha.in](https://beaconcha.in) (or [https://holesky.beaconcha.in](https://holesky.beaconcha.in) for the Holesky Testnet).
 
 You can check on the new minipool's status with the `rocketpool minipool status` command.
 For example, when it has moved into `prelaunch`, you will likely see something like this:

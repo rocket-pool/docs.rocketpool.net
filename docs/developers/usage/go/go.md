@@ -71,11 +71,11 @@ if err != nil {
 }
 ```
 
-You will need to pass in an `ethclient.Client` object which is connected to an Eth1 client on the appropriate network (Goerli for the testnet, or mainnet once it's released).
+You will need to pass in an `ethclient.Client` object which is connected to an Eth1 client on the appropriate network (Holesky for the testnet, or mainnet once it's released).
 This is created using the `ethclient.Dial()` function from `go-ethereum`, which we assume you are already familiar with.
 
 The second parameter is created using the hex string of the `RocketStorage` contract.
-You can retrieve this address from the [Smartnode configuration file for Prater](https://github.com/rocket-pool/smartnode/blob/5f1d1e7d48dda6e2b58d920b489c94db181841a2/shared/services/config/smartnode-config.go#L381) or [the configuration file for Mainnet](https://github.com/rocket-pool/smartnode/blob/5f1d1e7d48dda6e2b58d920b489c94db181841a2/shared/services/config/smartnode-config.go#L380), depending on which you want to use.
+You can retrieve this address from the [Smartnode configuration file for Holesky](https://github.com/rocket-pool/smartnode/blob/5f1d1e7d48dda6e2b58d920b489c94db181841a2/shared/services/config/smartnode-config.go#L381) or [the configuration file for Mainnet](https://github.com/rocket-pool/smartnode/blob/5f1d1e7d48dda6e2b58d920b489c94db181841a2/shared/services/config/smartnode-config.go#L380), depending on which you want to use.
 
 Once you have this manager object created, you can use it to interact with the rest of the library.
 
@@ -147,7 +147,7 @@ Start by retrieving the private key used for signing the transaction, and specif
 // You'll have to retrieve this key for your user in your system
 var privateKey *ecdsa.PrivateKey
 
-// 1 for Mainnet, but insert your chain ID of choice here (e.g. 5 for Goerli)
+// 1 for Mainnet, but insert your chain ID of choice here (e.g. 5 for Holesky)
 chainID := big.NewInt(1)
 ```
 

@@ -1,6 +1,6 @@
 # The Rocket Pool Redstone Update
 
-Rocket Pool's next major update, titled **Redstone**, has been released for beta testing on the Ropsten and Prater test networks.
+Rocket Pool's next major update, titled **Redstone**, has been released for beta testing on the Ropsten and Holesky test networks.
 This page describes the major changes that Redstone brings, including updates to both the Smartnode stack and to the Rocket Pool protocol in general.
 
 Please read through this page thoroughly to understand all of the differences between the previous version of Rocket Pool and Redstone.
@@ -15,7 +15,7 @@ For detailed information on how to prepare your node for the upgrade and what to
 
 ## Client Changes and The Merge
 
-Ropsten (and shortly, Prater) have successfully undergone **The Merge of the Execution and Consensus Layers**.
+Ropsten (and shortly, Holesky) have successfully undergone **The Merge of the Execution and Consensus Layers**.
 It no longer uses Proof-of-Work; instead, validators on Ropsten are now responsible for creating and proposing blocks on both chains.
 While this comes with some exciting financial benefits (which will be discussed later), it also comes with some important changes to the way validators operate.
 
