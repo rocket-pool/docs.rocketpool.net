@@ -272,7 +272,7 @@ You'll probably use it a lot when you first set the node up, then never need it 
 The output of `rocketpool node sync` will look like this:
 
 ```
-Your Smartnode is currently using the Prater Test Network.
+Your Smartnode is currently using the Holesky Test Network.
 
 Your eth1 client hasn't synced enough to determine if your eth1 and eth2 clients are on the same network.
 To run this safety check, try again later when eth1 has made more sync progress.
@@ -324,7 +324,7 @@ If you confirm, you will be shown the transaction hash and given a link to [Ethe
 Approving RPL for staking...
 Transaction has been submitted with hash <transaction hash>.
 You may follow its progress by visiting:
-https://goerli.etherscan.io/tx/<transaction hash>
+https://holesky.etherscan.io/tx/<transaction hash>
 
 Waiting for the transaction to be mined... **DO NOT EXIT!** This transaction is one of several that must be completed.
 ```

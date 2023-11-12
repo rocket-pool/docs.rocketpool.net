@@ -29,7 +29,7 @@ The following are considered _minimum_ requirements:
 - Linux or macOS Operating System
 - Quad core CPU (or dual-core hyperthreaded); both `x64` and `arm64` are supported
 - 16 GB of RAM (preferably DDR4)
-- 2 TB of free **SSD Disk Space** (_note: this only applies to mainnet; the Prater testnet only requires about 750 GB_)
+- 2 TB of free **SSD Disk Space** (_note: this only applies to mainnet; the Holesky testnet only requires about 750 GB_)
   - A spinning platter hard drive _is generally not fast enough_ to handle the constant random reads and writes that blockchain activity requires; you MUST use a solid state drive.
 
 32 GB of RAM is preferable as of 2023 as some clients require more RAM than others, but 16 GB can be used without issue as long as you use clients with relatively low RAM consumption.

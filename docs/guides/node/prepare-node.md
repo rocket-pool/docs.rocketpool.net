@@ -20,11 +20,11 @@ For example, with a gas price of 30 gwei, you would pay about 0.075 ETH in gas f
 See [this worksheet](https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552) to help estimate the gas fees for various network conditions.
 
 :::::: tabs
-::::: tab Running on the Prater Test Network
-If you're running on the Prater test network, please see the [Practicing with the Test Network](../testnet/overview) section to learn how to acquire test ETH.
+::::: tab Running on the Holesky Test Network
+If you're running on the Holesky test network, please see the [Practicing with the Test Network](../testnet/overview) section to learn how to acquire test ETH.
 
 For test RPL, we have added a similar faucet function directly to the CLI.
-Please see the [Getting Test RPL on Goerli](../testnet/overview#getting-test-rpl-on-goerli) guide to acquire some.
+Please see the [Getting Test RPL on Holesky](../testnet/overview#getting-test-rpl-on-holesky) guide to acquire some.
 
 ::::: tab Running on the Main Network
 We assume that you already have a separate Ethereum-compatible wallet that is holding your ETH.
@@ -105,14 +105,14 @@ To work with the Rocket Pool website, you will need to have your Ledger connecte
 You will also need to **enable "blind signing"** for the current session; you can find this within the Settings portion of the ETH app on the device.
 Bind signing will automatically be disabled after you close the session.
 
-If you are using Prater Testnet and want to use your Ledger as your withdrawal address, **you must create a new Ethereum wallet on your Ledger** first to ensure you don't connect your live address to the test network, which tends to cause confusion.
-Make sure to select the **Goerli Testnet** in the network selection dropdown when connecting your Ledger to MetaMask.
+If you are using Holesky Testnet and want to use your Ledger as your withdrawal address, **you must create a new Ethereum wallet on your Ledger** first to ensure you don't connect your live address to the test network, which tends to cause confusion.
+Make sure to select the **Holesky Testnet** in the network selection dropdown when connecting your Ledger to MetaMask.
 Note that Ledger Live will not show your balance on the test network, but other applications which support the test network (such as MetaMask and Etherscan) will be able to display it.
 :::
 
 1. Run `rocketpool node set-withdrawal-address <your cold wallet address or ENS name>`. Your new withdrawal address will be marked as "pending". Until you confirm it, **your old withdrawal address will still be used**.
 2. To confirm it, you must send a special transaction **from your new withdrawal address** to the minipool contract to verify that you own the withdrawal address.
-   1. The easiest way to do this is to navigate to the Rocket Pool withdrawal address site (for the [Prater Testnet](https://testnet.rocketpool.net/withdrawal/) or for [Mainnet](https://stake.rocketpool.net/withdrawal/)).
+   1. The easiest way to do this is to navigate to the Rocket Pool withdrawal address site (for the [Holesky Testnet](https://testnet.rocketpool.net/withdrawal/) or for [Mainnet](https://stake.rocketpool.net/withdrawal/)).
 3. If you haven't already connected Metamask or WalletConnect to the Rocket Pool website, do this now. Click the **select wallet** button in the center of the screen, and choose MetaMask or WalletConnect based on which wallet you would like to use. You will then be prompted asking you to confirm the connection. For example, using MetaMask:
 
    ![](./images/connect-metamask.png){ style="display: block; margin: 0 auto" }

@@ -29,7 +29,7 @@ In the following example, we will demonstrate how to interact with Layer 2 netwo
 
 ::: warning NOTE
 Currently this method is only available on Mainnet.
-If you want to practice on the Prater Testnet, you must [swap with Rocket Pool directly](./via-rp).
+If you want to practice on the Holesky Testnet, you must [swap with Rocket Pool directly](./via-rp).
 
 **The rest of this guide will assume you are on Mainnet.**
 :::

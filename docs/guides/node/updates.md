@@ -166,7 +166,7 @@ rocketpool service version
 The output should look something like this:
 
 ```
-Your Smartnode is currently using the Prater Test Network.
+Your Smartnode is currently using the Holesky Test Network.
 
 Rocket Pool client version: 1.5.0
 Rocket Pool service version: 1.5.0
