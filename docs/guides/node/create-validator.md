@@ -368,10 +368,10 @@ You can visit these with any block explorers if you'd like.
 ## Confirming a Successful Stake
 
 Upon creation, your minipool will be put into the `initialized` state.
-It will remain here until it's your turn in the Rocket Pool queue to be given 16 ETH from the staking pool so you can stake your new validator on the Beacon Chain.
+It will remain here until it's your turn in the Rocket Pool queue to be given 16 or 24 ETH from the staking pool so you can stake your new validator on the Beacon Chain.
 
 Once this happens, your minipool will move into the `prelaunch` state for a certain period of time (currently 12 hours).
-Your 16 ETH deposit will be transferred to be Beacon Chain, and the Oracle DAO [will verify that it is all correct](https://github.com/rocket-pool/rocketpool-research/blob/master/Reports/withdrawal-creds-exploit.md).
+Your 8 or 16 ETH deposit will be transferred to be Beacon Chain, and the Oracle DAO [will verify that it is all correct](https://github.com/rocket-pool/rocketpool-research/blob/master/Reports/withdrawal-creds-exploit.md).
 During this time, you can observe the validator by looking up its validator pubkey with a Beacon Chain explorer such as [https://beaconcha.in](https://beaconcha.in) (or [https://holesky.beaconcha.in](https://holesky.beaconcha.in) for the Holesky Testnet).
 
 You can check on the new minipool's status with the `rocketpool minipool status` command.
