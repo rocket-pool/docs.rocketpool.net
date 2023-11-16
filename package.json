@@ -13,7 +13,7 @@
     "@types/markdown-it": "^13.0.6",
     "markdown-it": "^13.0.2",
     "stylus": "latest",
-    "vitepress": "^1.0.0-rc.25",
+    "vitepress": "^1.0.0-rc.26",
     "vue": "^3.3.8"
   },
   "scripts": {
@@ -73,6 +73,6 @@
     "singleQuote": false
   },
   "dependencies": {
-    "medium-zoom": "^1.0.8"
+    "medium-zoom": "^1.1.0"
   }
 }
