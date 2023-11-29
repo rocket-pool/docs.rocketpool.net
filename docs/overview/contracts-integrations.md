@@ -171,6 +171,7 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 | &nbsp;  | rocketStorage                         | [0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46](https://etherscan.io/address/0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46)         |
 | &nbsp;  | rocketTokenRETH                       | [0xae78736Cd615f374D3085123A210448E74Fc6393](https://etherscan.io/address/0xae78736Cd615f374D3085123A210448E74Fc6393)         |
 | &nbsp;  | rocketTokenRPL                        | [0xD33526068D116cE69F19A9ee46F0bd304F21A51f](https://etherscan.io/address/0xD33526068D116cE69F19A9ee46F0bd304F21A51f)         |
+| &nbsp;  | rocketUpgradeOneDotOne                | [0xC680a22b4F03977f69b51A09f3Dbe922eb77C8FE](https://etherscan.io/address/0xc680a22b4f03977f69b51a09f3dbe922eb77c8fe)         |
 | &nbsp;  | rocketUpgradeOneDotTwo                | [0x9a0b5d3101d111EA0edD573d45ef2208CC97984a](https://etherscan.io/address/0x9a0b5d3101d111EA0edD573d45ef2208CC97984a)         |
 | &nbsp;  | rocketVault                           | [0x3bDC69C4E5e13E52A65f5583c23EFB9636b469d6](https://etherscan.io/address/0x3bDC69C4E5e13E52A65f5583c23EFB9636b469d6)         |
 | Holesky\* | addressQueueStorage                   | [0x0d8d8f8541b12a0e1194b7cc4b6d954b90ab82ec](https://holesky.etherscan.io/address/0x0d8d8f8541b12a0e1194b7cc4b6d954b90ab82ec) |
@@ -269,6 +270,7 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 | &nbsp; | rocketStorage                         | [0xd8Cd47263414aFEca62d6e2a3917d6600abDceB3](https://goerli.etherscan.io/address/0xd8Cd47263414aFEca62d6e2a3917d6600abDceB3)  |
 | &nbsp; | rocketTokenRETH                       | [0x178E141a0E3b34152f73Ff610437A7bf9B83267A](https://goerli.etherscan.io/address/0x178E141a0E3b34152f73Ff610437A7bf9B83267A)  |
 | &nbsp; | rocketTokenRPL                        | [0x5e932688E81a182e3dE211dB6544F98b8e4f89C7](https://goerli.etherscan.io/address/0x5e932688E81a182e3dE211dB6544F98b8e4f89C7)  |
+| &nbsp; | rocketUpgradeOneDotOne                | [0xC680a22b4F03977f69b51A09f3Dbe922eb77C8FE](https://goerli.etherscan.io/address/0xC680a22b4F03977f69b51A09f3Dbe922eb77C8FE)  |
 | &nbsp; | rocketUpgradeOneDotTwo                | [0xdBe62d3d56BE50eCf5D022178C5C6b2D9805E1aF](https://goerli.etherscan.io/address/0xdBe62d3d56BE50eCf5D022178C5C6b2D9805E1aF)  |
 | &nbsp; | rocketVault                           | [0xD2B9d26f5f17856658f87600409e7F59FE0bcc00](https://goerli.etherscan.io/address/0xD2B9d26f5f17856658f87600409e7F59FE0bcc00)  |
 

@@ -64,6 +64,11 @@ The Rocket Pool contracts, as defined in `RocketStorage`, are:
 - `rocketVault` - Stores ETH held by network contracts (internal, not upgradeable)
 - `rocketAuctionManager` - Handles the auctioning of RPL slashed from node operators' stake
 - `rocketDepositPool` - Accepts user-deposited ETH and handles assignment to minipools
+- `rocketSmoothingPool` - Receives priority fees and MEV
+- `rocketMinipoolBase` -  Contains the initialisation and delegate upgrade logic for minipools
+- `rocketMinipoolBondReducer` - Handles bond reduction window and trusted node cancellation
+- `rocketMinipoolFactory` - Handles creation of minipool contracts
+- `rocketMinipoolDelegate` - Minipool utility contract (internal)
 - `rocketMinipoolManager` - Creates & manages all minipools in the network
 - `rocketMinipoolQueue` - Organises minipools into a queue for ETH assignment
 - `rocketMinipoolStatus` - Handles minipool status updates from watchtower nodes
@@ -72,11 +77,13 @@ The Rocket Pool contracts, as defined in `RocketStorage`, are:
 - `rocketNetworkFees` - Calculates node commission rates based on network node demand
 - `rocketNetworkPrices` - Handles RPL price and effective stake updates from watchtower nodes
 - `rocketNetworkWithdrawal` - Handles processing of beacon chain validator withdrawals
+- `rocketNetworkPenalties` - Handles minipool penalties
 - `rocketRewardsPool` - Handles the distribution of rewards to each rewards contract
 - `rocketClaimDAO` - Handles the claiming of rewards for the pDAO
-- `rocketClaimNode` - Handles the claiming of rewards for node operators
-- `rocketClaimTrustedNode` - Handles the claiming of rewards for the oDAO
 - `rocketNodeDeposit` - Handles node deposits for minipool creation
+- `rocketMerkleDistributorMainnet` - Handles distribution of RPL and ETH rewards
+- `rocketNodeDistributorDelegate` - Contains the logic for RocketNodeDistributors
+- `rocketNodeDistributorFactory` - Handles creation of RocketNodeDistributor contracts
 - `rocketNodeManager` - Registers & manages all nodes in the network
 - `rocketNodeStaking` - Handles node staking and unstaking
 - `rocketDAOProposal` - Contains common oDAO and pDAO functionality
@@ -87,6 +94,7 @@ The Rocket Pool contracts, as defined in `RocketStorage`, are:
 - `rocketDAONodeTrustedSettingsMembers` - Handles settings relating to trusted members
 - `rocketDAONodeTrustedSettingsProposals` - Handles settings relating to proposals
 - `rocketDAONodeTrustedSettingsMinipool` - Handles settings relating to minipools
+- `rocketDAONodeTrustedSettingsRewards` - Handles settings relating to rewards
 - `rocketDAOProtocol` - Handles pDAO related proposals
 - `rocketDAOProtocolProposals` - Handles pDAO proposal functionality (internal)
 - `rocketDAOProtocolActions` - Handles pDAO action functionality (internal)
@@ -99,8 +107,14 @@ The Rocket Pool contracts, as defined in `RocketStorage`, are:
 - `rocketDAOProtocolSettingsMinipool` - Handles settings related to minipools
 - `rocketTokenRETH` - The rETH token contract (not upgradeable)
 - `rocketTokenRPL` - The RPL token contract (not upgradeable)
+- `rocketUpgradeOneDotOne` - Handled the Rocket Pool protocol Redstone upgrade.
+- `rocketUpgradeOneDotTwo` - Handled the Rocket Pool protocol Atlas upgrade
 - `addressQueueStorage` - A utility contract (internal)
 - `addressSetStorage` - A utility contract (internal)
+
+Legacy Rocket Pool contracts, that have been removed from `RocketStorage` since the initial deployment, are:
+- `rocketClaimNode` - Handled the claiming of rewards for node operators
+- `rocketClaimTrustedNode` - Handled the claiming of rewards for the oDAO
 
 Contracts marked as “internal” do not provide methods which are accessible to the general public, and so are generally not useful for extension. For information on specific contract methods, consult their interfaces in the [Rocket Pool repository](https://github.com/rocket-pool/rocketpool/tree/master/contracts/interface).
 
