@@ -62,7 +62,7 @@ Anyone who gains access to these files will gain access to your node wallet, its
 
 We **strongly recommend** you do not back up these files and just use your wallet mnemonic to recover them if necessary.
 
-### Consensus Client / ETH2 Client Chain Data
+### Consensus Client Chain Data
 
 Unlike the Execution layer data, the Consensus layer data is not nearly as important to your node thanks to [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
 Consensus clients can easily use this technique to immediately resync to the head of the Beacon chain and resume validation duties.
@@ -123,7 +123,7 @@ Please do not exit until it finishes so you can watch its progress.
 Are you sure you want to export your execution layer chain data? [y/n]
 ```
 
-As you can see, the chain data is 87 GB (for the Prater testnet; the Ethereum mainnet will be an order of magnitude larger) and the external folder has 287 GiB free so exporting can continue.
+As you can see, the chain data is 87 GB (for the Holesky testnet; the Ethereum mainnet will be an order of magnitude larger) and the external folder has 287 GiB free so exporting can continue.
 
 When you're ready, enter `y` here and press `Enter`.
 This will stop your Execution client and begin copying its chain data to your target folder.

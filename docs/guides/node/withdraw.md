@@ -32,7 +32,7 @@ Once you confirm you want to exit, your node will send a voluntary exit request 
 This is **not** a normal Execution layer transaction, so you do not need to pay gas for it.
 
 If you need the validator public key for the minipool you just exited, you can retrieve it using `rocketpool minipool status`.
-You can view your validator's exit status on a Beacon Chain explorer such as [https://beaconcha.in](https://beaconcha.in) (or [https://prater.beaconcha.in](https://prater.beaconcha.in) for the Prater Testnet).
+You can view your validator's exit status on a Beacon Chain explorer such as [https://beaconcha.in](https://beaconcha.in) (or [https://holesky.beaconcha.in](https://holesky.beaconcha.in) for the Holesky Testnet).
 It will take some time for your status to be updated, but once it is you will see it in the "exiting" state:
 
 ![](./images/exiting.png){ style="display: block; margin: 0 auto" }

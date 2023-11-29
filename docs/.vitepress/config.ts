@@ -6,7 +6,8 @@ import { nestedTabsPlugin } from "./plugins/nestedTabs/markdownPlugin";
 export default defineConfig({
   lang: "en-US",
   title: "Rocket Pool",
-  description: "Rocket Pool Documentation - Decentralised Ethereum Liquid Staking Protocol",
+  description: "Rocket Pool Documentation - Decentralised Ethereum Staking Protocol",
+  cleanUrls: true,
   head: [
     ["meta", { name: "theme-color", content: "#e57147" }],
     ["meta", { name: "apple-mobile-web-app-capable", content: "yes" }],
@@ -239,7 +240,7 @@ function guides() {
           ],
         },
         {
-          text: "Testing Rocket Pool with the Prater Test Network",
+          text: "Testing Rocket Pool with the Holesky Test Network",
           link: "/guides/testnet/overview",
           collapsed: true,
           items: [

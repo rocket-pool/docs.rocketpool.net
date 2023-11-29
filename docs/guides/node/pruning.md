@@ -5,7 +5,7 @@ This is meant for `geth` and `nethermind` users.
 Besu does _not_ need to be pruned.
 :::
 
-If you use `geth` or `nethermind` as your primary Execution (ETH1) client, you will likely notice that your node's free disk space slowly decreases over time.
+If you use `geth` or `nethermind` as your primary Execution client, you will likely notice that your node's free disk space slowly decreases over time.
 The Execution client is by far the biggest contributor to this; depending on how much RAM you allocated to its cache during `rocketpool service config`, it can grow at a rate of several gigabytes per day!
 
 To handle this, Execution clients provide a special function called **pruning** that lets them scan and clean up their database safely to reclaim some free space.
@@ -22,7 +22,7 @@ Read below to learn how it works, and what to expect.
 ::: warning NOTE
 Pruning your Execution client is only possible in Docker Mode.
 
-If you use your own Execution (ETH1) client, such as an external client in Hybrid mode or Native mode, you cannot use the Smartnode to prune the Execution client.
+If you use your own Execution client, such as an external client in Hybrid mode or Native mode, you cannot use the Smartnode to prune the Execution client.
 You will need to do it manually.
 Please refer to the documentation for your Execution client to learn how to prune it.
 :::
@@ -33,12 +33,12 @@ Select the client you're using from the tabs below.
 
 :::::: tabs
 ::::: tab Geth
-Pruning Geth means taking the primary Execution (ETH1) client offline so it can clean itself up.
-When this happens, the Smartnode (and your Consensus (ETH2) client) will need some other way to access the ETH1 chain in order to function properly.
+Pruning Geth means taking the primary Execution client offline so it can clean itself up.
+When this happens, the Smartnode (and your Consensus client) will need some other way to access the ETH1 chain in order to function properly.
 
 The easiest way to provide this is with a **fallback node**.
 If you [configured a fall back node](./fallback) using `rocketpool service config` already, then the Smartnode will automatically switch over to it when your Geth container goes down for maintenance for you.
-It will also inform your Consensus (ETH2) client to use the fallback as well.
+It will also inform your Consensus client to use the fallback as well.
 
 ::: danger WARNING
 If you don't have a fallback node configured, your node will stop validating during the pruning process.

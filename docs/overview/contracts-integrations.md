@@ -10,12 +10,14 @@ If you would like to contribute by helping integrate Rocket Pool into more servi
 
 ## Key Protocol Contracts
 
-| Chain    | Contract | Address                                                                                                                      |
-| -------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| Mainnet  | Deposit  | [0xDD3f50F8A6CafbE9b31a427582963f465E745AF8](https://etherscan.io/address/0xDD3f50F8A6CafbE9b31a427582963f465E745AF8)        |
-| &nbsp;   | Storage  | [0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46](https://etherscan.io/address/0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46)        |
-| Goerli\* | Deposit  | [0xa9A6A14A3643690D0286574976F45abBDAD8f505](https://goerli.etherscan.io/address/0xa9A6A14A3643690D0286574976F45abBDAD8f505) |
-| &nbsp;   | Storage  | [0xd8Cd47263414aFEca62d6e2a3917d6600abDceB3](https://goerli.etherscan.io/address/0xd8Cd47263414aFEca62d6e2a3917d6600abDceB3) |
+| Chain     | Contract | Address                                                                                                                      |
+|-----------| -------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Mainnet   | Deposit  | [0xDD3f50F8A6CafbE9b31a427582963f465E745AF8](https://etherscan.io/address/0xDD3f50F8A6CafbE9b31a427582963f465E745AF8)        |
+| &nbsp;    | Storage  | [0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46](https://etherscan.io/address/0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46)        |
+| Goerli\*  | Deposit  | [0xa9A6A14A3643690D0286574976F45abBDAD8f505](https://goerli.etherscan.io/address/0xa9A6A14A3643690D0286574976F45abBDAD8f505) |
+| &nbsp;    | Storage  | [0xd8Cd47263414aFEca62d6e2a3917d6600abDceB3](https://goerli.etherscan.io/address/0xd8Cd47263414aFEca62d6e2a3917d6600abDceB3) |
+| Holesky\* | Deposit  | [0x320f3aAB9405e38b955178BBe75c477dECBA0C27](https://holesky.etherscan.io/address/0x320f3aAB9405e38b955178BBe75c477dECBA0C27) |
+| &nbsp;    | Storage  | [0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1](https://holesky.etherscan.io/address/0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1) |
 
 Within the protocol, the Storage contract is used to find all the other deployed contract addresses as needed (see this [example](https://docs.rocketpool.net/developers/usage/contracts/contracts.html#interacting-with-rocket-pool)).
 See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contracts) below for a full list of addresses.
@@ -40,6 +42,8 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 | &nbsp;            | rETH  | [0xb23C20EFcE6e24Acca0Cef9B7B7aA196b84EC942](https://zkevm.polygonscan.com/address/0xb23C20EFcE6e24Acca0Cef9B7B7aA196b84EC942)        | 
 | Goerli\*          | RPL   | [0x5e932688e81a182e3de211db6544f98b8e4f89c7](https://goerli.etherscan.io/address/0x5e932688e81a182e3de211db6544f98b8e4f89c7)          |
 | &nbsp;            | rETH  | [0x178E141a0E3b34152f73Ff610437A7bf9B83267A](https://goerli.etherscan.io/address/0x178E141a0E3b34152f73Ff610437A7bf9B83267A)          |
+| Holesky\*         | RPL   | [0x1cc9cf5586522c6f483e84a19c3c2b0b6d027bf0](https://goerli.etherscan.io/address/0x5e932688e81a182e3de211db6544f98b8e4f89c7)          |
+| &nbsp;            | rETH  | [0x7322c24752f79c05ffd1e2a6fcb97020c1c264f1](https://goerli.etherscan.io/address/0x178E141a0E3b34152f73Ff610437A7bf9B83267A)          |
 | Optimism Goerli\* | RPL   | [0xa00E3A3511aAC35cA78530c85007AFCd31753819](https://goerli-optimism.etherscan.io/address/0xa00E3A3511aAC35cA78530c85007AFCd31753819) |
 | &nbsp;            | rETH  | [0x1010824414d822cd2167f9ad73a2a99bd2e0e4ae](https://goerli-optimism.etherscan.io/address/0x1010824414d822cd2167f9ad73a2a99bd2e0e4ae) |
 | Base              | RPL   | [0x1f73EAf55d696BFFA9b0EA16fa987B93b0f4d302](https://basescan.org/address/0x1f73EAf55d696BFFA9b0EA16fa987B93b0f4d302)                 |
@@ -49,14 +53,15 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 
 ## Deposit Pool Contract Version History
 
-| Chain    | RP Version      | Address                                                                                                                      |
-| -------- | --------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| Mainnet  | v1.2 (Atlas)    | [0xDD3f50F8A6CafbE9b31a427582963f465E745AF8](https://etherscan.io/address/0xDD3f50F8A6CafbE9b31a427582963f465E745AF8)        |
-| &nbsp;   | v1.1 (Redstone) | [0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4](https://etherscan.io/address/0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4)        |
-| &nbsp;   | v1.0            | [0x4D05E3d48a938db4b7a9A59A802D5b45011BDe58](https://etherscan.io/address/0x4D05E3d48a938db4b7a9A59A802D5b45011BDe58)        |
-| Goerli\* | v1.2 (Atlas)    | [0xa9A6A14A3643690D0286574976F45abBDAD8f505](https://goerli.etherscan.io/address/0xa9A6A14A3643690D0286574976F45abBDAD8f505) |
-| &nbsp;   | v1.1 (Redstone) | [0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4](https://goerli.etherscan.io/address/0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4) |
-| &nbsp;   | v1.0            | [0x923Ed282Cda8952910B71B5efcA7CDa09e39c633](https://goerli.etherscan.io/address/0x923Ed282Cda8952910B71B5efcA7CDa09e39c633) |
+| Chain     | RP Version      | Address                                                                                                                      |
+|-----------| --------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Mainnet   | v1.2 (Atlas)    | [0xDD3f50F8A6CafbE9b31a427582963f465E745AF8](https://etherscan.io/address/0xDD3f50F8A6CafbE9b31a427582963f465E745AF8)        |
+| &nbsp;    | v1.1 (Redstone) | [0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4](https://etherscan.io/address/0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4)        |
+| &nbsp;    | v1.0            | [0x4D05E3d48a938db4b7a9A59A802D5b45011BDe58](https://etherscan.io/address/0x4D05E3d48a938db4b7a9A59A802D5b45011BDe58)        |
+| Goerli\*  | v1.2 (Atlas)    | [0xa9A6A14A3643690D0286574976F45abBDAD8f505](https://goerli.etherscan.io/address/0xa9A6A14A3643690D0286574976F45abBDAD8f505) |
+| &nbsp;    | v1.1 (Redstone) | [0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4](https://goerli.etherscan.io/address/0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4) |
+| &nbsp;    | v1.0            | [0x923Ed282Cda8952910B71B5efcA7CDa09e39c633](https://goerli.etherscan.io/address/0x923Ed282Cda8952910B71B5efcA7CDa09e39c633) |
+| Holesky\* | v1.2 (Atlas)    | [0x320f3aab9405e38b955178bbe75c477decba0c27](https://goerli.etherscan.io/address/0xa9A6A14A3643690D0286574976F45abBDAD8f505) |
 
 <small>\* Testnet</small>
 
@@ -222,6 +227,6 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 
 <small>\* Testnet</small>
 
-This list was updated 5/20/2023
+This list was updated 10/12/2023
 
 The addresses can be queried on chain as shown in this [example](https://docs.rocketpool.net/developers/usage/contracts/contracts.html#interacting-with-rocket-pool).

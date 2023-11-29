@@ -180,7 +180,7 @@ If you see all of that, then you're good. Grab the `UUID="..."` output and put i
 Next, let's tune the new filesystem a little to optimize it for validator activity.
 
 By default, ext4 will reserve 5% of its space for system processes.
-Since we don't need that on the SSD because it just stores the Execution (ETH1) and Consensus (ETH2) chain data, we can disable it:
+Since we don't need that on the SSD because it just stores the Execution and Consensus chain data, we can disable it:
 
 ```
 sudo tune2fs -m 0 /dev/sda1
@@ -202,7 +202,7 @@ sudo mount /dev/sda1 /mnt/rpdata
 ```
 
 After this, the folder `/mnt/rpdata` will point to the SSD, so anything you write to that folder will live on the SSD.
-This is where we're going to store the chain data for Execution (ETH1) and Consensus (ETH2).
+This is where we're going to store the chain data for Execution and Consensus.
 
 Now, let's add it to the mounting table so it automatically mounts on startup.
 Remember the `UUID` from the `blkid` command you used earlier?
@@ -275,7 +275,7 @@ What you care about are the lines starting with `read:` and `write:` under the `
 - Your **write** should have IOPS of at least **5000** and bandwidth of at least **20 MiB/s**.
 
 Those are the specs from the Samsung T5 that we use, which work very well.
-We have also tested a slower SSD with read IOPS of 5k and write IOPS of 1k, and it has a very hard time keeping up with the ETH2 chain.
+We have also tested a slower SSD with read IOPS of 5k and write IOPS of 1k, and it has a very hard time keeping up with the consensus layer.
 If you use an SSD slower than the specs above, just be prepared that you might see a lot of missed attestations.
 If yours meets or exceeds them, then you're all set and can move on.
 

@@ -1,6 +1,6 @@
 # Starting Rocket Pool
 
-At this point, you should have the complete Rocket Pool infrastructure running, including the Smartnode stack, an Execution (ETH1) and an Consensus (ETH2) client.
+At this point, you should have the complete Rocket Pool infrastructure running, including the Smartnode stack, an Execution and an Consensus client.
 You should also have hardened your operating system from outside attackers.
 If you've completed both of these steps, you're ready to create a Rocket Pool node and begin staking.
 If not, please review the previous sections and return here once you've completed those steps.
@@ -102,7 +102,7 @@ Creating rocketpool_watchtower ... done
 
 If it does, then the Smartnode stack has been successfully initialized and is now running.
 
-Note that your external Execution (ETH1) and/or Consensus (ETH2) clients will not be listed here, as Rocket Pool does not manage them and thus cannot start them.
+Note that your external Execution and/or Consensus clients will not be listed here, as Rocket Pool does not manage them and thus cannot start them.
 You will have to ensure that you've started them separately, using whatever mechanism you originally created them with.
 
 If you ever need to stop the services (for example, during an upgrade or because you need to do maintenance), you can use `rocketpool service stop` to shut everything down.
@@ -124,7 +124,7 @@ Stopping rocketpool_watchtower ... done
 Stopping rocketpool_api        ... done
 ```
 
-Again, you will be responsible for manually ensuring that your Execution (ETH1) and Consensus (ETH2) clients are stopped appropriately as well, if you want them to be stopped.
+Again, you will be responsible for manually ensuring that your Execution and Consensus clients are stopped appropriately as well, if you want them to be stopped.
 
 ::: tip NOTE
 Once you call this, Rocket Pool will not automatically start after a system reboot.
@@ -135,7 +135,7 @@ You will have to call `rocketpool service start` to start all of the Docker cont
 In native mode, you already set up and started the Smartnode services as part of the [Configuring a Native Rocket Pool Node without Docker](./native) section.
 
 Assuming you set them up as `systemd` services, you can start them with `sudo systemctl start ...`.
-For example, if you are using Geth for Execution (ETH1) and Teku for Consensus (ETH2):
+For example, if you are using Geth for Execution and Teku for Consensus:
 
 ```
 sudo systemctl start geth teku-bn teku-vc rp-node rp-watchtower
@@ -169,7 +169,7 @@ Selected Eth 2.0 client: Lighthouse (Locally managed)
         Image: sigp/lighthouse:v3.1.0
 ```
 
-The first line will tell you if your Smartnode is configured for the Ethereum mainnet or for the Prater testnet.
+The first line will tell you if your Smartnode is configured for the Ethereum mainnet or for the Holesky testnet.
 
 ::: warning NOTE
 **For Docker / Hybrid users:**
@@ -214,9 +214,9 @@ The key thing to check is the `STATUS` column.
 If none of the entries state `Restarting...`, then the containers should be running properly (see the below note for an exception about the `rocketpool_validator` container).
 
 ::: warning NOTE
-If you are using Prysm as your Consensus (ETH2) client, you will likely notice the `rocketpool_validator` container is constantly restarting.
+If you are using Prysm or Lodestar as your Consensus client, you will likely notice the `rocketpool_validator` container is constantly restarting.
 This is okay!
-The validator container will fail until a new validator has been created using the `rocketpool node deposit` command, which we will cover in the [Creating a Minipool (ETH2 Validator)](./create-validator) section.
+The validator container will fail until a new validator has been created using the `rocketpool node deposit` command, which we will cover in the [Creating a Minipool (Validator)](./create-validator) section.
 Once this is done, the container will function correctly - until then, just ignore it.
 :::
 
@@ -264,9 +264,9 @@ The key thing to check is the `STATUS` column.
 If none of the entries state `Restarting...`, then the containers should be running properly (see the below note for an exception about the `rocketpool_validator` container).
 
 ::: warning NOTE
-If you are using **Lodestar** or **Prysm** as your Consensus (ETH2) client, you will likely notice the `rocketpool_validator` container is constantly restarting.
+If you are using **Lodestar** or **Prysm** as your Consensus client, you will likely notice the `rocketpool_validator` container is constantly restarting.
 This is okay!
-The validator container will fail until a new validator has been created using the `rocketpool node deposit` command, which we will cover in the [Creating a Minipool (ETH2 Validator)](./create-validator) section.
+The validator container will fail until a new validator has been created using the `rocketpool node deposit` command, which we will cover in the [Creating a Minipool (Validator)](./create-validator) section.
 Once this is done, the container will function correctly - until then, just ignore it.
 :::
 
@@ -286,7 +286,7 @@ For example, to check Geth's log, you would just run:
 ```
 
 You should see that it is slowly chugging along without any errors.
-Do this for your Execution (ETH1) and Consensus (ETH2) clients now to verify that they are working properly.
+Do this for your Execution and Consensus clients now to verify that they are working properly.
 
 ::::::
 
@@ -296,7 +296,7 @@ When you're done looking at the logs, you can exit and return to the command pro
 
 ## Waiting for Your ETH Clients to Sync
 
-Now that your clients have started up, you're going to want to wait until your Execution (ETH1) and Consensus (ETH2) clients have finished syncing with the network before proceeding.
+Now that your clients have started up, you're going to want to wait until your Execution and Consensus clients have finished syncing with the network before proceeding.
 
 One easy way to check on their status is with the following command:
 
@@ -304,12 +304,12 @@ One easy way to check on their status is with the following command:
 rocketpool node sync
 ```
 
-This command will show how far along your Execution (ETH1) & Consensus (ETH2) clients are in the syncing process, similar to this:
+This command will show how far along your Execution & Consensus clients are in the syncing process, similar to this:
 
 ```
 $ rocketpool node sync
 
-Your Smartnode is currently using the Prater Test Network.
+Your Smartnode is currently using the Holesky Test Network.
 
 Your eth2 client is on the correct network.
 

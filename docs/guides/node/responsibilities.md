@@ -75,7 +75,7 @@ This new validator is called a **minipool**.
 
 To the Beacon chain, a minipool looks exactly the same as a normal validator.
 It has the same responsibilities, same rules it must follow, same rewards, and so on.
-The only difference is in how the minipool was created on the ETH1 chain, and how withdrawals work when the node operator decides to voluntarily exit the minipool.
+The only difference is in how the minipool was created on the execution layer, and how withdrawals work when the node operator decides to voluntarily exit the minipool.
 All of the creation, withdrawing, and rewards delegation is handled by Rocket Pool's **smart contracts** on the Ethereum chain.
 This makes it completely decentralized.
 

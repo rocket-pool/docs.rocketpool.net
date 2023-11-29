@@ -42,7 +42,7 @@ At the time of writing, these are what the different options offer:
 | t2.xlarge  | 4    | 54                 | 16        | EBS-Only | Moderate            |
 | t2.2xlarge | 8    | 81                 | 32        | EBS-Only | Moderate            |
 
-The hardware requirements largely depend on which ETH2 client you plan to run - Nimbus, for example, requires less than 1GB of RAM by itself so it is perfectly reasonable to run it on a **t2.large** instance.
+The hardware requirements largely depend on which consensus client you plan to run - Nimbus, for example, requires less than 1GB of RAM by itself so it is perfectly reasonable to run it on a **t2.large** instance.
 For more RAM-heavy clients, you may want to go with a **t2.xlarge** instance for extra headroom.
 
 ::: tip
@@ -56,7 +56,7 @@ When you arrive at the **Add Storage** section, you'll create a new virtual hard
 This can be expanded later thanks to the power of the cloud, so getting the correct number now isn't absolutely critical.
 However, for the sake of your own peace of mind, you should change the size to one of the following figures:
 
-- Use at least **100 GiB** if you're just trying Rocket Pool out on the [Prater Test Network](../../testnet/overview).
+- Use at least **100 GiB** if you're just trying Rocket Pool out on the [Holesky Test Network](../../testnet/overview).
 - Use at least **1 TiB** (preferably **2 TiB**) if you're going to use this node on the main Ethereum network (**mainnet**).
 
 Leave the default values for the other settings and click **Next**.
@@ -77,7 +77,7 @@ Remove all of the existing rules in the table and add the following rules:
 | Custom UDP | 9001       | Anywhere                         | ETH2 P2P    |
 
 This will allow you to remotely connect to your server via SSH (the command line terminal) from your laptop or desktop.
-It will also allow the Execution (ETH1) and Consensus (ETH2) clients to connect to other nodes on the Ethereum network.
+It will also allow the Execution and Consensus clients to connect to other nodes on the Ethereum network.
 
 ::: warning NOTE
 For SSH access, this will only work if you have a **static public IP address**.
@@ -131,7 +131,7 @@ Once here, you have complete terminal access to the system.
 
 ## Setting up Swap Space
 
-In most cases, if you choose your Execution (ETH1) and Consensus (ETH2) clients and your instance type carefully, you should not run out of RAM.
+In most cases, if you choose your Execution and Consensus clients and your instance type carefully, you should not run out of RAM.
 Then again, it never hurts to add a little more.
 What we're going to do now is add what's called **swap space**.
 Essentially, it means we're going to use the SSD as "backup RAM" in case something goes horribly, horribly wrong and your server runs out of regular RAM.

@@ -2,16 +2,16 @@
 
 The easiest way to stake with Rocket Pool is done via its web interface to the underlying smart contracts.
 
-The advantage is that you will always get exactly as much rETH as your ETH is worth, since Rocket Pool's contracts will directly mint the rETH that you receive.
-No extra fees, no slippage, no liquidity issues, no sandwiching or front running... you just get the best possible deal for rETH.
+The advantage is that you will always get exactly as much rETH as your ETH is worth (minus a 0.05% deposit fee), since Rocket Pool's contracts will directly mint the rETH that you receive.
+No slippage, no liquidity issues, no sandwiching or front running... you just get the best possible deal for rETH.
 
 The disadvantage is that the gas fee might be quite expensive if you are staking a small amount of ETH - **we strongly recommend you check this before approving the transaction.**
 Also, there is a limit to the amount of ETH that can be in the pool at any given time, so it's possible that the pool could be full until Node Operators pull ETH from it and stake that ETH on the Beacon Chain.
 
-The process is slightly different for the Prater Testnet and Mainnet, so choose the network you are interested in from the tabs below.
+The process is slightly different for the Holesky Testnet and Mainnet, so choose the network you are interested in from the tabs below.
 
 :::::: tabs
-::::: tab Preparing on the Prater Testnet
+::::: tab Preparing on the Holesky Testnet
 
 ::: danger WARNING
 When practicing staking on the test network, you **do not need to provide any of your real ETH** during this process.
@@ -24,7 +24,7 @@ Start by installing [MetaMask](https://metamask.io/) if you haven't already.
 Follow the instructions on their site to install the extension, create an account, and sign in.
 
 Next, open the MetaMask panel using its icon in your browser toolbar.
-Click on the **network dropdown** in the toolbar at the top and select **Goerli Test Network**:
+Click on the **network dropdown** in the toolbar at the top and select **Holesky Test Network**:
 
 ![](./images/mm_network.png){ style="display: block; margin: 0 auto" }
 
@@ -45,9 +45,9 @@ The **Token Symbol** should automatically be populated with `rETH`, and the **De
 Accept the rest of the prompts, and then you will see the rETH token appear in your list.
 
 Now that you have a wallet address in MetaMask, you need to fill it with some test ETH.
-Head over to the [Practicing with the Test Network](../testnet/overview#getting-test-eth-on-goerli) page for a quick guide on how to use a testnet faucet to get some test ETH on Goerli.
+Head over to the [Practicing with the Test Network](../testnet/overview#getting-test-eth-on-holesky) page for a quick guide on how to use a testnet faucet to get some test ETH on Holesky.
 
-Once you have some Goerli ETH to test with, head to [https://testnet.rocketpool.net/](https://testnet.rocketpool.net/).
+Once you have some Holesky ETH to test with, head to [https://testnet.rocketpool.net/](https://testnet.rocketpool.net/).
 
 The page should look like this:
 
@@ -138,7 +138,7 @@ Trading rETH back for ETH is only possible when the **staking liquidity pool** h
 This is Rocket Pool's pool of ETH that comes from two sources:
 
 1. ETH that other stakers have deposited, which hasn't been used by a Node Operator to create a new validator yet
-1. ETH that was returned by a Node Operator after they exited one of their validators and received their rewards from the Beacon Chain (**note that this is not possible until after the ETH1-ETH2 Merge occurs and withdrawals are enabled**)
+1. ETH that was returned by a Node Operator after they exited one of their validators and received their rewards from the Beacon Chain
 
 During the period before the Merge, it's possible that the liquidity pool won't have enough balance to cover your unstaking.
 In this scenario, you may find other ways to trade your rETH back to ETH (such as a decentralized exchange like [Uniswap](https://app.uniswap.org/#/swap)) - though they will likely come with a small premium.

@@ -5,8 +5,8 @@ Now that you have your node up and running, you'll probably want to have a conve
 There are many tools out there that do this job.
 One of the most popular is called [Grafana](https://grafana.com/) - an easy-to-use, general-purpose dashboard system that you can access with a browser.
 
-Rocket Pool comes out-of-the-box with support for Grafana and its dependencies; it even comes with a pre-built dashboard for each of the Consensus (ETH2) clients.
-For example, here is a snapshot of what the dashboard looks like on the Prater test network:
+Rocket Pool comes out-of-the-box with support for Grafana and its dependencies; it even comes with a pre-built dashboard for each of the Consensus clients.
+For example, here is a snapshot of what the dashboard looks like on the Holesky test network:
 
 ![](./images/grafana-1.3.jpg)
 
@@ -50,7 +50,7 @@ Note that all of these ports are restricted to Docker's internal network with th
 
 Save and exit, and smartnode will start the Prometheus, Node Exporter, and Grafana Docker containers for you.
 
-It will also modify your Consensus (ETH2) and Validator clients so they expose their own metrics to Prometheus.
+It will also modify your Consensus and Validator clients so they expose their own metrics to Prometheus.
 
 ::: warning NOTE
 If you have UFW enabled as referenced in the [Securing your Node](./securing-your-node) section, you will need to open a few ports in order for outside machines to access Grafana, and to allow local connections between the Node Exporter and Prometheus.
@@ -209,16 +209,16 @@ If you have UFW enabled as referenced in the [Securing your Node](./securing-you
 First run:
 
 ```shell
-docker inspect rocketpool_net | grep -Po "(?<=\"Subnet\": \")[0-9./]+"
+docker inspect rocketpool_monitor-net | grep -Po "(?<=\"Subnet\": \")[0-9./]+"
 ```
 
-This will return an ip in CIDR notation that looks like `172.18.0.0/16`.
+This will return an ip in CIDR notation that looks like `172.23.0.0/16`.
 
-Then run the following, but replace `172.18.0.0/16` with the output of the previous command, and replace the ports as needed:
+Then run the following, but replace `172.23.0.0/16` with the output of the previous command, and replace the ports as needed:
 
 ```shell
-sudo ufw allow from 172.18.0.0/16 to any port 9105 comment "Allow Prometheus access to Execution Client"
-sudo ufw allow from 172.18.0.0/16 to any port 9100 comment "Allow Prometheus access to Consensus Client"
+sudo ufw allow from 172.23.0.0/16 to any port 9105 comment "Allow Prometheus access to Execution Client"
+sudo ufw allow from 172.23.0.0/16 to any port 9100 comment "Allow Prometheus access to Consensus Client"
 ```
 :::
 

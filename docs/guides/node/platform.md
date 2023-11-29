@@ -9,7 +9,7 @@ If you aren't sure yet, then read on for some information about your options.
 
 ## Full Node Requirements
 
-A **full node** is one that runs both an Execution (ETH1) Client and Consensus (ETH2) Client along with the Rocket Pool stack.
+A **full node** is one that runs both an Execution Client and Consensus Client along with the Rocket Pool stack.
 Now that the Merge has occurred, Rocket Pool nodes are required to run this configuration (though the Execution and Consensus clients can be externally managed for users already running a solo-staking setup - we'll cover this in more detail later).
 
 ::: warning NOTE
@@ -22,14 +22,14 @@ Here is a simple breakdown of what is required to run a full Rocket Pool node we
 - At least **10Mbps of bandwidth both up and down**. A full node usually takes around 8Mbps to 10Mbps up & down of network traffic, depending on your configuration and number of minipools.
 - **No data cap** imposed by your ISP. Running a full node will take a lot of data - we have seen reports of over 2 TB per month on chain data alone. This can be mitigated somewhat with a few settings tweaks to the ETH clients, but as a rule of thumb, don't run a full node if your Internet plan comes with a monthly data cap.
 - **Stable electricity**. For the same reason as needing a stable Internet connection, you also want to have reliable power. This can be mitigated with a large UPS (backup battery) to deal with short blackouts.
-- A **computer** with sufficient specs. This is pretty flexible because it _really_ depends on what Execution (ETH1) and Consensus (ETH2) client you use, and what settings you configure them with. The computer can be a local machine, or it can be a Virtual Private Server (VPS) hosted in the cloud. Read below for some more information on those two options, and how to decide which is best for you.
+- A **computer** with sufficient specs. This is pretty flexible because it _really_ depends on what Execution and Consensus client you use, and what settings you configure them with. The computer can be a local machine, or it can be a Virtual Private Server (VPS) hosted in the cloud. Read below for some more information on those two options, and how to decide which is best for you.
 
 The following are considered _minimum_ requirements:
 
 - Linux or macOS Operating System
 - Quad core CPU (or dual-core hyperthreaded); both `x64` and `arm64` are supported
 - 16 GB of RAM (preferably DDR4)
-- 2 TB of free **SSD Disk Space** (_note: this only applies to mainnet; the Prater testnet only requires about 750 GB_)
+- 2 TB of free **SSD Disk Space** (_note: this only applies to mainnet; the Holesky testnet only requires about 750 GB_)
   - A spinning platter hard drive _is generally not fast enough_ to handle the constant random reads and writes that blockchain activity requires; you MUST use a solid state drive.
 
 32 GB of RAM is preferable as of 2023 as some clients require more RAM than others, but 16 GB can be used without issue as long as you use clients with relatively low RAM consumption.
@@ -48,7 +48,7 @@ Advantages:
 - No monthly fees, other than utilities
 - Complete control over your own machine and its data (including your wallet's key)
 - Access to perform maintenance and upgrades whenever you want
-- Contributes to Execution (ETH1's) and Consensus (ETH2)'s, and Rocket Pool's decentralization (and thus, their security)
+- Contributes to Execution and Consensus's, and Rocket Pool's decentralization (and thus, their security)
 
 Disadvantages:
 
@@ -73,7 +73,7 @@ Advantages:
 
 Disadvantages:
 
-- Makes Execution (ETH1) and Consensus (ETH2), and Rocket Pool somewhat more centralized, which weakens the security of the networks
+- Makes Execution and Consensus, and Rocket Pool somewhat more centralized, which weakens the security of the networks
 - Monthly fees
 - Servers may come with data caps, or have expensive network I/O rates
 - Possible for hosts to examine your machine's contents and take your wallet's key if not secured

@@ -532,7 +532,7 @@ sudo systemctl restart unattended-upgrades
 
 ## ESSENTIAL: Enable a Firewall
 
-In general, your machine should only accept network traffic on ports that your Execution (ETH1) client, Consensus (ETH2) client, and Smartnode stack use.
+In general, your machine should only accept network traffic on ports that your Execution client, Consensus client, and Smartnode stack use.
 To enforce that and prevent any unexpected or undesirable traffic, we can install a **firewall** on the node.
 
 ::: tip NOTE
@@ -568,6 +568,12 @@ Allow consensus client (formerly referred to as ETH2):
 ```shell
 sudo ufw allow 9001/tcp comment 'Consensus client port, standardized by Rocket Pool'
 sudo ufw allow 9001/udp comment 'Consensus client port, standardized by Rocket Pool'
+```
+
+If you run lighthouse client v4.5.0+, you can use quic protocol to reduce latency / increase bandwitdh, quic protocol uses lighthouse's --port + 1 to listen for quic messages by default: https://lighthouse-blog.sigmaprime.io/Quic.html
+
+```shell
+sudo ufw allow 9002/udp comment 'Consensus client port, standardised by Rocket Pool'
 ```
 
 Finally, enable `ufw`:

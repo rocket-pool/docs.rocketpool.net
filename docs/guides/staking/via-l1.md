@@ -18,7 +18,7 @@ In the following examples, we will show how to swap ETH for rETH using both Bala
 
 ::: warning NOTE
 Currently this method is only available on Mainnet.
-If you want to practice on the Prater Testnet, you must [swap with Rocket Pool directly](./via-rp).
+If you want to practice on the Holesky Testnet, you must [swap with Rocket Pool directly](./via-rp).
 
 **The rest of this guide will assume you are on Mainnet.**
 :::

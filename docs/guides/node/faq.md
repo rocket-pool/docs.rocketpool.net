@@ -20,7 +20,7 @@ If that doesn't help, you can ask your question on the Rocket Pool **#support** 
 
 ### How can I get test ETH to experiment with creating and running a minipool? I can't post messages on the faucet channel.
 
-See [Getting test ETH on Goerli](../testnet/overview#getting-test-eth-on-goerli).
+See [Getting test ETH on Holesky](../testnet/overview#getting-test-eth-on-holesky).
 
 ### How do I recover my node if my machine breaks?
 
@@ -49,7 +49,7 @@ Your client should be synced in less than a minute.
 The reboot information is cached and only updates every few hours.
 Running `sudo apt update` will force an update.
 
-### I changed my Execution Layer (ETH1) and/or my Beacon Chain or Consensus Layer (ETH2). How do I clean out the old data?
+### I changed my Execution Layer and/or my Beacon Chain or Consensus Layer. How do I clean out the old data?
 
 If you change clients, Rocketpool does not delete the old volumes. This data could be wasting significant disk space and you may want to remove it. To do so, you need to find the volumes. If you are using the default Rocketpool settings, the docker volumes are stored at `/var/lib/docker/volumes/`. The execution layer is in `rocketpool_eth1clientdata/_data/*` and the consensus layer is in `rocketpool_eth2clientdata/_data/*`.
 

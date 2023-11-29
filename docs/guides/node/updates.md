@@ -166,7 +166,7 @@ rocketpool service version
 The output should look something like this:
 
 ```
-Your Smartnode is currently using the Prater Test Network.
+Your Smartnode is currently using the Holesky Test Network.
 
 Rocket Pool client version: 1.5.0
 Rocket Pool service version: 1.5.0
@@ -319,12 +319,12 @@ Start by opening the Settings Manager:
 rocketpool service config
 ```
 
-To change the Execution client version, go to the **Execution Client (ETH1)** category.
+To change the Execution client version, go to the **Execution Client** category.
 Modify the **Container Tag** setting:
 
 ![](./images/tui-ec-container-tag.png){ style="display: block; margin: 0 auto" }
 
-To change the Consensus client version, go to the **Consensus Client (ETH2)** category.
+To change the Consensus client version, go to the **Consensus Client** category.
 Modify the **Container Tag** setting:
 
 ![](./images/tui-cc-container-tag.png){ style="display: block; margin: 0 auto" }
