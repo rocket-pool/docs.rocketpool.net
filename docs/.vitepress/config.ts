@@ -254,6 +254,7 @@ function guides() {
           items: [
             { text: "The Rocket Pool Oracle DAO", link: "/guides/odao/overview" },
             { text: "Setting up an Oracle DAO Node", link: "/guides/odao/setup" },
+            { text: "Using web3.storage", link: "/guides/odao/w3s" },
             { text: "Testing your Oracle DAO Node", link: "/guides/odao/testing" },
             { text: "Monitoring your Oracle DAO Node", link: "/guides/odao/monitoring" },
             { text: "Oracle DAO Proposals", link: "/guides/odao/proposals" },
