@@ -329,11 +329,6 @@ Modify the **Container Tag** setting:
 
 ![](./images/tui-cc-container-tag.png){ style="display: block; margin: 0 auto" }
 
-::: warning NOTE
-This process is slightly different for **Prysm**, because the Smartnode stack needs to use the _DEBUG_ images that Prysm provides instead of the normally versioned ones.
-For help upgrading Prysm manually, please visit the `smart-nodes` channel in the Rocket Pool Discord.
-:::
-
 When you're happy with your changes, save and exit as usual.
 The Smartnode will offer to restart all of the affected containers automatically.
 
