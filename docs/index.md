@@ -1,10 +1,10 @@
 ---
 layout: home
-title: Rocket Pool Documentation
+title: Rocket Pool Guides & Documentation
 hero:
   name: Rocket Pool
   text: Guides & Documentation
-  tagline: Decentralised & Trustless ETH Staking Protocol
+  tagline: Decentralised Ethereum Staking Protocol
   image: /images/logo.png
   actions:
     - theme: alt

@@ -6,10 +6,10 @@ import { nestedTabsPlugin } from "./plugins/nestedTabs/markdownPlugin";
 export default defineConfig({
   lang: "en-US",
   title: "Rocket Pool",
-  description: "Rocket Pool Documentation - Decentralised Ethereum Staking Protocol",
+  description: "Rocket Pool Guides & Documentation - Decentralised Ethereum Staking Protocol",
   cleanUrls: true,
   head: [
-    ["meta", { name: "theme-color", content: "#e57147" }],
+    ["meta", { name: "theme-color", content: "#FF6E30" }],
     ["meta", { name: "apple-mobile-web-app-capable", content: "yes" }],
     ["meta", { name: "apple-mobile-web-app-status-bar-style", content: "black" }],
   ],

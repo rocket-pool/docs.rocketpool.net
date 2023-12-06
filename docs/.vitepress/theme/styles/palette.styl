@@ -1,8 +1,22 @@
-$accentColor = #ea894d
-$accentDarkColor = #ea894d
+$accentColor = #FF6E30
+$accentDarkColor = #FF6E30
 $textColor = #2c3e50
 $borderColor = #eaecef
 $codeBgColor = #282c34
+
+:root {
+  --vp-c-white: #F7F7F8;
+  --vp-c-black: #1E252B;
+
+  --vp-c-neutral: var(--vp-c-black);
+  --vp-c-neutral-inverse: var(--vp-c-white);
+}
+
+.dark {
+  --vp-c-neutral: var(--vp-c-white);
+  --vp-c-neutral-inverse: var(--vp-c-black);
+}
+
 
 :root {
   --vp-c-brand: $accentColor;
