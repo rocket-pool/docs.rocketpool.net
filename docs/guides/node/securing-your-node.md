@@ -1,3 +1,9 @@
+---
+next: 
+  text: 'Tailscale'
+  link: '/guides/node/tailscale'
+---
+
 # Securing your Node
 
 The goal of this guide is to walk you through steps you can take to secure your node against malicious actors.
