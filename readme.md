@@ -11,7 +11,7 @@ We welcome all contributions! Please refer to our [contribution guidelines](./co
 ## Prerequisites
 
 - Node v20.0.0
-- Pnpm 8.11.0
+- Bun
 
 Strongly recommend using [asdf](https://asdf-vm.com/#/) to manage your toolchain versions.
 
@@ -19,10 +19,10 @@ Strongly recommend using [asdf](https://asdf-vm.com/#/) to manage your toolchain
 asdf install nodejs 20.0.0
 ```
 
-Pnpm can be installed via:
+Bun can be installed via:
 
 ```
-npm install -g pnpm
+curl -fsSL https://bun.sh/install | bash 
 ```
 
 Just (rust based task runner) can be installed via:
@@ -39,10 +39,10 @@ If you want to test this locally, follow the next few steps:
 
 - Clone this repo eg: `git clone git@github.com:rocket-pool/docs.rocketpool.net.git ./rpdocs`
 - Move into the directory: `cd rpdocs`
-- Install dependencies using: `pnpm install` or `yarn install`
-- Run the dev server which will create the site and update automatically when you make changes: `yarn dev` or `pnpm run dev`
+- Install dependencies using: `bun install` or `yarn install`
+- Run the dev server which will create the site and update automatically when you make changes: `yarn dev` or `bun run dev`
 - Go to `http://localhost:5173/` in your browser to view the site.
-- Ensure that `pnpm run build` doesn't have any errors or dead links before creating a pull request
+- Ensure that `bun run build` doesn't have any errors or dead links before creating a pull request
 
 ## Project Structure
 

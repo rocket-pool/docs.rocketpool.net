@@ -1,11 +1,9 @@
-FROM node:20-alpine as builder
-RUN npm install -g pnpm@8.11.0
+FROM oven/bun:latest as builder
 WORKDIR /app
 COPY package*.json ./
-RUN pnpm i
+RUN bun install
 COPY . .
-RUN pnpm run build
-RUN pnpm prune --prod
+RUN bun run build
 
 FROM nginx:alpine
 COPY .deploy/nginx.conf /etc/nginx/nginx.conf
