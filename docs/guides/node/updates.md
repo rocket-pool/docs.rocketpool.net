@@ -112,6 +112,18 @@ If you want to clear it immediately after the update, simply run:
 `sudo apt update`
 :::
 
+::: warning NOTE
+If you do not know your CPU architecture, you can run the following command to find it:
+
+```shell
+uname -m
+```
+
+The output of this command will print your architecture.
+**Note that `x86_64` is the same as `x64` and `amd64`.**
+**Note that `aarch64` is the same as `arm64`.**
+:::
+
 The steps to upgrade depend on which mode your node uses. Select from the options below:
 
 :::::: tabs
@@ -124,18 +136,6 @@ rocketpool service stop
 ```
 
 Download the new Smartnode CLI:
-
-::: warning NOTE
-If you do not know your CPU architecture, you can run the following command to find it:
-
-```shell
-uname -m
-```
-
-The output of this command will print your architecture.
-**Note that `x86_64` is the same as `x64` and `amd64`.**
-**Note that `aarch64` is the same as `arm64`.**
-:::
 
 For `x64` systems (most normal machines):
 
