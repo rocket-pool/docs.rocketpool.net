@@ -1,7 +1,7 @@
 FROM oven/bun:latest as builder
 WORKDIR /app
-RUN bun install
 COPY . .
+RUN bun install
 RUN bun run build
 
 FROM nginx:alpine
