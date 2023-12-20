@@ -112,7 +112,7 @@ If you want to clear it immediately after the update, simply run:
 `sudo apt update`
 :::
 
-::: warning NOTE
+::: tip TIP
 If you do not know your CPU architecture, you can run the following command to find it:
 
 ```shell
