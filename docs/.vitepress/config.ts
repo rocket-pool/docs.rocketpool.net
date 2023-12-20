@@ -45,7 +45,7 @@ export default defineConfig({
     footer: {
       message: "Made by Rocket Pool with ❤️",
     },
-    logo: "/images/logo-small.png",
+    logo: { src: "/images/logo-small.png" },
     nav: [
       {
         text: "Overview",
