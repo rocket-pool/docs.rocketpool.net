@@ -42,10 +42,7 @@ export default defineConfig({
         link: "https://github.com/rocket-pool/docs.rocketpool.net",
       },
     ],
-    footer: {
-      message: "Made by Rocket Pool with ❤️",
-    },
-    logo: { src: "/images/logo-small.png" },
+    logo: { src: "/images/logo.png", alt: "Rocket Pool Logo" },
     nav: [
       {
         text: "Overview",
