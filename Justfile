@@ -3,27 +3,27 @@ set export
 
 # Serve the site for dev usage
 ui-serve:
-    pnpm run dev
+    bun run dev
 
 # Build the site for production
 ui-build:
-    pnpm run build
+    bun run build
 
 # Use prettier to format the code
 ui-format:
-    pnpm run format
+    bun run format
 
 # convert all the images to webp
 ui-webp:
-    pnpm run webp
+    bun run webp
 
 # install deps
 ui-npm-i:
-    pnpm i
+    bun i
 
 # check for outdated deps
 ui-outdated:
-    pnpm outdated
+    bun outdated
 
 # check for dependency updates
 ui-check:
@@ -33,9 +33,9 @@ ui-check:
 ui-upgrade:
     npm-check-updates -u && just ui-clean-npm-i
 
-# clear node_modules, pnpm lock file and reinstall deps
+# clear node_modules, bun lock file and reinstall deps
 ui-clean-npm-i:
-    rm -rf node_modules && rm -rf pnpm-lock.yaml && pnpm i
+    rm -rf node_modules && rm -rf bun.lockb && bun i
 
 # Login to ECR
 login:
