@@ -340,6 +340,8 @@ This process depends on which Consensus Client you use; consult the documentatio
 
 [Teku: via `validators-proposer-config`](https://docs.teku.consensys.net/how-to/configure/use-proposer-config-file)
 
+If you're using eth-docker, you can use the [`./ethd keys set-recipient`](https://eth-docker.net/Support/AddValidator#set-individual-fee-recipient) command to set individual recipients for each key you're using as described in their documentation.  
+
 ## Step 5: Waiting for the Scrub Check
 
 By this time, you should have completed steps 1 and 2 (creating the vacant minipool and changing your validator's withdrawal credentials) and optionally step 3 (importing the key into the Smartnode).
@@ -370,7 +372,7 @@ rocketpool_node  | 2023/03/06 04:51:32 Checking for minipools to promote...
 rocketpool_node  | 2023/03/06 04:51:32 Minipool 0x8F3F149e4416a94e0ee909dE32f8A11C2F3e211C has 44m0s left until it can be promoted.
 ```
 
-It will last for **3 days**, after which you have passed and can proceed to [Step 5](#step-5-promoting-the-minipool) to promote the vacant minipool into a full one.
+It will last for **3 days**, after which you have passed and can proceed to [Step 6](#step-6-promoting-the-minipool) to promote the vacant minipool into a full one.
 
 ### Working with Scrubbed Minipools
 
