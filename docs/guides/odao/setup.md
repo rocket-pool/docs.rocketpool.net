@@ -38,7 +38,7 @@ There are two additional settings you need to provision in order to satisfy your
 Please select the mode you use to configure your node below from the tabs below.
 
 :::::: tabs
-::::: tab [service config] Interactive UI
+::::: tab (service config) Interactive UI
 
 Open the `rocketpool service config` TUI and go to the `Smartnode and TX Fees` section.
 Here, you will see two options at the bottom:
@@ -51,8 +51,8 @@ The `Archive-Mode EC URL` must be the HTTP endpoint of the RPC API for your Arch
 The `Web3.Storage API Token` must be populated with the API Token for your Web3.Storage account, which you can find in your account settings.
 This will be required in order to upload your generated rewards tree artifacts to IPFS.
 
-:::::
-::::: tab [service config] Headlessly
+
+::::: tab (service config) Headlessly
 
 Run the following command to configure your node headlessly:
 
@@ -70,7 +70,7 @@ Where:
 
 Finally, restart your `watchtower` daemon (i.e., with `docker restart rocketpool_watchtower` in Docker or Hybrid mode, or `sudo systemctl restart rp_watchtower` in Native mode) for the settings to take effect.
 
-:::::
+
 ::::: tab Direct Config File
 
 Open the `user-settings.yml` file in your Smartnode directory (`~/.rocketpool` by default) in a text editor.
@@ -99,7 +99,6 @@ Replace the values in the `archiveECUrl` and `web3StorageApiToken` fields, where
 
 Finally, restart your `watchtower` daemon (i.e., with `docker restart rocketpool_watchtower` in Docker or Hybrid mode, or `sudo systemctl restart rp_watchtower` in Native mode) for the settings to take effect.
 
-:::::
 ::::::
 
 ## Oracle DAO Smartnode Commands
