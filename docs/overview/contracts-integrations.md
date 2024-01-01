@@ -53,15 +53,15 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 
 ## Deposit Pool Contract Version History
 
-| Chain     | RP Version      | Address                                                                                                                      |
-|-----------| --------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| Mainnet   | v1.2 (Atlas)    | [0xDD3f50F8A6CafbE9b31a427582963f465E745AF8](https://etherscan.io/address/0xDD3f50F8A6CafbE9b31a427582963f465E745AF8)        |
-| &nbsp;    | v1.1 (Redstone) | [0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4](https://etherscan.io/address/0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4)        |
-| &nbsp;    | v1.0            | [0x4D05E3d48a938db4b7a9A59A802D5b45011BDe58](https://etherscan.io/address/0x4D05E3d48a938db4b7a9A59A802D5b45011BDe58)        |
-| Goerli\*  | v1.2 (Atlas)    | [0xa9A6A14A3643690D0286574976F45abBDAD8f505](https://goerli.etherscan.io/address/0xa9A6A14A3643690D0286574976F45abBDAD8f505) |
-| &nbsp;    | v1.1 (Redstone) | [0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4](https://goerli.etherscan.io/address/0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4) |
-| &nbsp;    | v1.0            | [0x923Ed282Cda8952910B71B5efcA7CDa09e39c633](https://goerli.etherscan.io/address/0x923Ed282Cda8952910B71B5efcA7CDa09e39c633) |
-| Holesky\* | v1.2 (Atlas)    | [0x320f3aab9405e38b955178bbe75c477decba0c27](https://goerli.etherscan.io/address/0xa9A6A14A3643690D0286574976F45abBDAD8f505) |
+| Chain     | RP Version      | Address                                                                                                                       |
+|-----------| --------------- |-------------------------------------------------------------------------------------------------------------------------------|
+| Mainnet   | v1.2 (Atlas)    | [0xDD3f50F8A6CafbE9b31a427582963f465E745AF8](https://etherscan.io/address/0xDD3f50F8A6CafbE9b31a427582963f465E745AF8)         |
+| &nbsp;    | v1.1 (Redstone) | [0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4](https://etherscan.io/address/0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4)         |
+| &nbsp;    | v1.0            | [0x4D05E3d48a938db4b7a9A59A802D5b45011BDe58](https://etherscan.io/address/0x4D05E3d48a938db4b7a9A59A802D5b45011BDe58)         |
+| Goerli\*  | v1.2 (Atlas)    | [0xa9A6A14A3643690D0286574976F45abBDAD8f505](https://goerli.etherscan.io/address/0xa9A6A14A3643690D0286574976F45abBDAD8f505)  |
+| &nbsp;    | v1.1 (Redstone) | [0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4](https://goerli.etherscan.io/address/0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4)  |
+| &nbsp;    | v1.0            | [0x923Ed282Cda8952910B71B5efcA7CDa09e39c633](https://goerli.etherscan.io/address/0x923Ed282Cda8952910B71B5efcA7CDa09e39c633)  |
+| Holesky\* | v1.2 (Atlas)    | [0x320f3aab9405e38b955178bbe75c477decba0c27](https://holesky.etherscan.io/address/0xa9A6A14A3643690D0286574976F45abBDAD8f505) |
 
 <small>\* Testnet</small>
 
