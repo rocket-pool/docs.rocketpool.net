@@ -84,7 +84,7 @@ Rocket Pool will gracefully shut down and automatically start back up with the s
 ::::: tab macOS
 To update the OS packages, use the UI to select `Apple -> Software Update`.
 
-To udate packages themselves, the easiest way is via `homebrew` in the terminal:
+To update packages themselves, the easiest way is via `homebrew` in the terminal:
 
 ```
 brew update && brew upgrade
