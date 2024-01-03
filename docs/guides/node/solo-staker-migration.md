@@ -64,7 +64,7 @@ Once initialization is finished and they enter the `staking` stage, they become 
 
 During vacant minipool creation, you will be given the option of having the Smartnode automatically **change your validator's withdrawal credentials** from the old BLS withdrawal key to the new vacant minipool address.
 If you don't want to do this right now, you can have the Smartnode do it later with a dedicated command, or you can do it yourself with a third-party tool.
-Note that changing the validator's withdrawal credentials to the minipool address is **required** for conversion, so regardless of how you do this, it will need to be done for the process to complete succesfully.
+Note that changing the validator's withdrawal credentials to the minipool address is **required** for conversion, so regardless of how you do this, it will need to be done for the process to complete successfully.
 
 Once the withdrawal credentials have been changed, you will have the option of **importing the validator's private key** into the Validator Client managed by the Smartnode.
 If you want the Smartnode to maintain the validator so you don't have to manage your own, this is an attractive option.
@@ -459,7 +459,7 @@ Here you can see the following important information:
 
 - `Node deposit` shows how much ETH you personally bonded as part of this minipool (in this case, 8 ETH).
 - `RP deposit` shows how much ETH you borrowed from the pool stakers to create the minipool (in this case, 24 ETH).
-- `Available refund` shows how much of the minipool's balance goes directly to you (is _not_ shared with the pool stakers. This amounts to your all of your rewards on the Beacon Chain at the time you created the vacant minipool.
+- `Available refund` shows how much of the minipool's balance goes directly to you (is _not_ shared with the pool stakers. This amounts to all of your rewards on the Beacon Chain at the time you created the vacant minipool.
 - `Minipool Balance (EL)` shows the total balance of the minipool contract.
 - `Your portion (EL)` shows how much of the balance belongs to you _after_ subtracting the refund from the minipool's balance. In other words, this is your share of the rewards you've earned _after_ you created the vacant minipool.
 - `Total EL rewards` is your refund plus your post-conversion rewards.
@@ -488,7 +488,7 @@ In this example, since we converted the original 32 ETH validator bond into an 8
 This credit can be used to create new minipools and validators for free!
 
 Simply run the `rocketpool node deposit` command, and select which bond amount you would like to use.
-If there's enough ETH in your credit balance to cover the bond, it will be used automaticaly and you won't have to stake any additonal ETH (though you still have to pay for gas.
+If there's enough ETH in your credit balance to cover the bond, it will be used automatically and you won't have to stake any additional ETH (though you still have to pay for gas.
 
 ::: warning NOTE
 The ETH used for your credit balance comes from the staking pool.
