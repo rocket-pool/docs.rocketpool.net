@@ -1,3 +1,10 @@
+---
+next: 
+  text: Rescuing a Dissolved Minipool 
+  link: "/guides/node/rescue-dissolved"
+---
+
+
 # Shut Down a Minipool
 
 ## Exiting your Validator
