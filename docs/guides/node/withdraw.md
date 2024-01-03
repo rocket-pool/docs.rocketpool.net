@@ -11,10 +11,10 @@ next:
 
 When you have decided that you no longer want to run a minipool and want to access the full balance locked on the Beacon Chain, you will have to take several steps:
 
-1. Send a voluntarily exit request for the minipool's validator from the Beacon Chain.
+1. Send a voluntary exit request for the minipool's validator from the Beacon Chain.
 2. Wait for your validator to exit.
 3. Wait for your validator's balance to be withdrawn to your minipool on the Execution layer.
-4. Close the minipool to distrubute the rewards and access the funds
+4. Close the minipool to distribute the rewards and access the funds
 
 We'll cover each step below.
 

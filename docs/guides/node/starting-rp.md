@@ -1,6 +1,6 @@
 # Starting Rocket Pool
 
-At this point, you should have the complete Rocket Pool infrastructure running, including the Smartnode stack, an Execution and an Consensus client.
+At this point, you should have the complete Rocket Pool infrastructure running, including the Smartnode stack, an Execution and a Consensus client.
 You should also have hardened your operating system from outside attackers.
 If you've completed both of these steps, you're ready to create a Rocket Pool node and begin staking.
 If not, please review the previous sections and return here once you've completed those steps.
