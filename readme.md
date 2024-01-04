@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/rocket-pool/rocketpool/master/images/logo.png?raw=true" alt="Rocket Pool - Next Generation Decentralised Ethereum Proof-of-Stake (PoS) Infrastructure Service and Pool" width="250" />
+  <img src="https://raw.githubusercontent.com/rocket-pool/rocketpool/master/images/logo.png?raw=true" alt="Rocket Pool - Decentralised Ethereum Staking Protocol" />
 </p>
 
 # docs.rocketpool.net
@@ -10,14 +10,7 @@ We welcome all contributions! Please refer to our [contribution guidelines](./co
 
 ## Prerequisites
 
-- Node v20.0.0
 - Bun
-
-Strongly recommend using [asdf](https://asdf-vm.com/#/) to manage your toolchain versions.
-
-```
-asdf install nodejs 20.0.0
-```
 
 Bun can be installed via:
 
@@ -37,8 +30,8 @@ See the Justfile for available commands.
 
 If you want to test this locally, follow the next few steps:
 
-- Clone this repo eg: `git clone git@github.com:rocket-pool/docs.rocketpool.net.git ./rpdocs`
-- Move into the directory: `cd rpdocs`
+- Clone this repo eg: `git clone git@github.com:rocket-pool/docs.rocketpool.net.git`
+- Move into the directory: `cd docs.rocketpool.net`
 - Install dependencies using: `bun install` or `yarn install`
 - Run the dev server which will create the site and update automatically when you make changes: `yarn dev` or `bun run dev`
 - Go to `http://localhost:5173/` in your browser to view the site.
