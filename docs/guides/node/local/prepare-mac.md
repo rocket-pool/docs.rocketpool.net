@@ -22,15 +22,27 @@ Rocket Pool recommends you use the latest version of macOS for your hardware.
 
 You will need to install the following pre-requisites:
 
-`Docker Desktop` by [downloading the binary](https://www.docker.com/products/docker-desktop) installer from the website and dragging it to your Applications folder.
+We highly recommend using [Homebrew](https://brew.sh) as your package manager for Mac. It allows you to install packages easily using the `brew` command.
 
-`XCode Command Line Tools` can be downloaded by opening up the Terminal application (located in /Applications/Utilties) and executing the following command:
+You can install it via 
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+It should install some pre-requisites for you, such as XCode Command Line Tools. If it doesn't, you can install them manually using
 
 ```
 xcode-select --install
 ```
 
-We highly recommend using [Homebrew](https://brew.sh) as your package manager for Mac. It allows you to install packages easily using the `brew` command.
+
+Once installed, ensure everything is working correctly by using
+
+```
+brew doctor
+```
+
+Once everything is installed & working, Homebrew will allow you to install packages using the `brew` command. 
 
 For example, to install `wget` using Homebrew execute the following command in the Terminal:
 
@@ -38,9 +50,21 @@ For example, to install `wget` using Homebrew execute the following command in t
 brew install wget
 ```
 
-Please ensure your Firewall (Settings -> Security & Privacy -> Firewall) is turned on and Docker Desktop is added to the list of applications allowing incoming connections.
+Now that we have Homebrew installed, we can install our Docker client, [Orbstack](https://orbstack.dev). 
 
-![](../local/images/mac/docker-firewall.png)
+```
+brew install --cask orbstack
+```
+
+Orbstack will be installed to your Applications folder. Launch it from there and it will initialise. If you are migrating from Docker Desktop, it should detect your existing Docker installation and migrate your images and containers.
+
+You may need to adjust your Orbstack settings depending on your hardware. 
+
+If you have previously installed Docker Desktop, you will need to uninstall it first. Docker Desktop used to be the recommended Docker Client however in the last year a few new clients have been released that provide much better stability.
+
+Please ensure your Firewall (System Settings -> Network -> Firewall) is turned on and Orbstack is added to the list of applications allowing incoming connections. (Orbstack should do this for you)
+
+![](../local/images/mac/firewall.png)
 
 ### Hardware Requirements
 
@@ -50,8 +74,8 @@ However, for the sake of completeness, we have assembled the following hardware 
 
 #### Low-Power Full Node
 
-- CPU: Quad-core 1.6+ GHz
-- RAM: 8 GB DDR4 2400 MHz
+- CPU: Quad-core 1.6+ GHz Intel, Apple M Series (M1, M2, M3)
+- RAM: 16 GB DDR4 2400 MHz
 - SSD: 2 TB, 15k Read IOPS, 5k Write IOPS\*\*
 - Network: 10+ Mbps, 1.5+ TB monthly data cap
 - Execution Client: Geth (in low-cache mode), Besu
@@ -59,7 +83,7 @@ However, for the sake of completeness, we have assembled the following hardware 
 
 #### Typical Full Node
 
-- CPU: Quad-core, 2.6+ GHz
+- CPU: Quad-core, 2.6+ GHz Intel, Apple M Series (M1, M2, M3)
 - RAM: 16 GB DDR4 3200 MHz
 - SSD: 2 TB, 15k Read IOPS, 5k Write IOPS\*\*
 - Network: 25+ Mbps, 1.5+ TB monthly data cap
@@ -84,7 +108,7 @@ Before installing Rocket Pool, please review the following checklist:
 - Your user account has root / administrator privileges.
 - You have an SSD that meets the performance requirements.
 - Your SSD is mounted on your file system.
-- You have at least 1TB of space free for the initial Execution and Consensus syncing process.
+- You have at least 1.5TB of space free for the initial Execution and Consensus syncing process.
 - If your ISP caps your data, it is more than 1.5 TB per month.
 
 If you have checked and confirmed all of these items, then you are ready to install Rocket Pool and begin running a node!
