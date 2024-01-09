@@ -120,6 +120,8 @@ The RPL faucet charges a 0.5 holesky ETH fee to use it, in order to prevent peop
 You'll need to have at least this amount in your node wallet already in order to use it!
 :::
 
+
+
 When you're ready to receive RPL from the faucet, use the following command:
 
 ```
@@ -131,6 +133,15 @@ After a short wait, you'll see the following output:
 ```
 Successfully withdrew 600.000000 RPL from the faucet.
 ```
+
+::: warning NOTE
+From time to time, the faucet may be abused or run out of RPL. In this case, please head over to the `#support` channel in the discord and request it in the same nature as ETH.
+
+```
+!holeskyRpl <your holesky node address>
+```
+:::
+
 
 This will provide you with 600 of the **legacy (v1) RPL** token, which is analogous to the original RPL token on mainnet.
 Rocket Pool uses a **new (v2) RPL** token which supports the inflation used to reward node operators.
