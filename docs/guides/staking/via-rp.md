@@ -24,7 +24,28 @@ Start by installing [MetaMask](https://metamask.io/) if you haven't already.
 Follow the instructions on their site to install the extension, create an account, and sign in.
 
 Next, open the MetaMask panel using its icon in your browser toolbar.
-Click on the **network dropdown** in the toolbar at the top and select **Holesky Test Network**:
+
+You will need to add the Holesky Testnet to MetaMask.
+
+Click on the top left dropdown & click the "Add Network" button.
+
+You will see a list of networks, Holesky is not in this list so click the "Add a network manually" button.
+
+Fill in the following details:
+
+![](./images/mm_add_holesky.png){ style="display: block; margin: 0 auto" }
+
+```
+Network Name: Holesky
+New RPC Url: https://rpc.holesky.ethpandaops.io
+Chain ID: 17000
+Currency Symbol: ETH
+Block Explorer Url: https://holesky.etherscan.io
+```
+
+Then click Save. You should now see the Holesky network in the top left dropdown.
+
+Click on the **network dropdown** in the top left of the Metamask extension & select **Holesky Test Network**:
 
 ![](./images/mm_network.png){ style="display: block; margin: 0 auto" }
 
@@ -37,7 +58,7 @@ Ensure that **Custom Token** is selected in this dialog.
 In the **Token Contract Address** box, put the following value:
 
 ```
-0x178e141a0e3b34152f73ff610437a7bf9b83267a
+0x7322c24752f79c05ffd1e2a6fcb97020c1c264f1
 ```
 
 The **Token Symbol** should automatically be populated with `rETH`, and the **Decimals of Precision** should automatically be populated with `18`.
@@ -99,13 +120,17 @@ Once you're at the site, click on the **connect wallet** button. Please read thr
 MetaMask will prompt you to select an account to connect to the website.
 Choose one, confirm a few permissions, and you’ll see your balances update in the UI. You can also see an overview of your balances by clicking the wallet icon located at the top right of the window.
 
-<video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/rp_balances.mp4" />
-
 Now, all that's left to do is deposit your ETH and receive some rETH back!
 
 Enter the amount of ETH you want to deposit in the **Stake ETH** input field on the screen, then click the **Stake** button.
 
-<video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/stake.mp4" />
+::: danger NOTE
+When entering the amount you want to stake, please make sure you take note of the routing. If the deposit pool is full, you will be routed via secondary markets using [Rocket Router](https://github.com/rocket-pool/rocketpool-router).
+
+Secondary markets are subject to premiums/slippage & may result in you receiving less rETH than you expect.
+:::
+
+<video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/stake_mainnet.mp4" />
 
 MetaMask will pop up with a window asking you to confirm your transaction.
 
@@ -127,7 +152,7 @@ All you need to do is hold onto your rETH, and you'll automatically gain your st
 
 When you're ready to unstake and trade your rETH back for ETH, head back to the staking website and click on the **double arrow button** in the middle of the trade amounts dialog to switch to rETH mode:
 
-<video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/unstake.mp4" />
+<video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/unstake_mainnet.mp4" />
 
 As with staking, enter an amount of rETH to unstake and click the **Unstake** button.
 Once again, a confirmation dialog will appear in MetaMask.
@@ -147,4 +172,4 @@ In this scenario, you may find other ways to trade your rETH back to ETH (such a
 That's all there is to staking with Rocket Pool!
 We hope that you found the process quick and easy.
 
-Feel free to swing by [our Discord server](https://discord.gg/G46XgK264a) to let us know what you thought of i
+Feel free to swing by [our Discord server](https://discord.gg/G46XgK264a) to let us know what you thought of it and keep tabs on the project as it evolves.

@@ -115,22 +115,17 @@ Note that Ledger Live will not show your balance on the test network, but other 
    1. The easiest way to do this is to navigate to the Rocket Pool withdrawal address site (for the [Holesky Testnet](https://testnet.rocketpool.net/withdrawal/) or for [Mainnet](https://stake.rocketpool.net/withdrawal/)).
 3. If you haven't already connected Metamask or WalletConnect to the Rocket Pool website, do this now. Click the **select wallet** button in the center of the screen, and choose MetaMask or WalletConnect based on which wallet you would like to use. You will then be prompted asking you to confirm the connection. For example, using MetaMask:
 
-   ![](./images/connect-metamask.png){ style="display: block; margin: 0 auto" }
-
    Click **Next**, then click **Confirm** to enable the Rocket Pool website to use your wallet. 3. Select **Withdrawal Address** from the top menu (or the hamburger menu on the left side if you're on a mobile device). 4. You will see this prompt:
-
-   ![](./images/node-address.png){ style="display: block; margin: 0 auto" }
 
 4. Type your **node wallet address** here and click on the **Check Mark button** to continue.
 
    1. You will be prompted with a question asking if you want to set a new node withdrawal address or confirm a pending one. Select **Confirm**.
    2. Now, there should be a new confirmation dialog in your wallet. Again, using MetaMask as an example, click the MetaMask icon to open it and you should see something like this:
 
-   ![](./images/confirm-address.png){ style="display: block; margin: 0 auto" }
-
    Click **Confirm** to send the transaction to the network. This will take some time until it gets mined, but once it does, you will see a confirmation dialog:
 
-   ![](./images/confirmed.png){ style="display: block; margin: 0 auto" }
+
+<video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/confirm_pending_withdrawal.mp4" />
 
 5. Your new withdrawal address will now be confirmed and activated. You can view this with `rocketpool node status`.
 

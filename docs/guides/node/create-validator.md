@@ -100,17 +100,15 @@ Select which network you're using from the tabs below to be taken to it:
 
 :::::: tabs
 ::::: tab Mainnet
-[https://stake.rocketpool.net/stake-behalf](https://stake.rocketpool.net/stake-behalf)
+[https://stake.rocketpool.net/manage/stake-rpl-on-behalf-of-node](https://stake.rocketpool.net/manage/stake-rpl-on-behalf-of-node)
 
 ::::: tab Holesky Testnet
-[https://testnet.rocketpool.net/stake-behalf](https://testnet.rocketpool.net/stake-behalf)
+[https://testnet.rocketpool.net/manage/stake-rpl-on-behalf-of-node](https://testnet.rocketpool.net/manage/stake-rpl-on-behalf-of-node)
 
 ::::::
 
 Start by connecting your wallet to the website using MetaMask, WalletConnect, or any of the other methods the website supports.
-You will then be presented with this dialog to look up your node address:
-
-![](./images/stake-behalf-0.jpg){ style="display: block; margin: 0 auto" }
+You will then be presented with this dialog to look up your node address.
 
 Enter your node address & click "Lookup".
 
@@ -123,10 +121,6 @@ This will check that the address is a registered node & that the node has whitel
 rocketpool node add-address-to-stake-rpl-whitelist address-or-ens
 ```
 
-Once you have passed the checks, you will be presented with the next step.
-
-![](./images/stake-behalf-1.jpg){ style="display: block; margin: 0 auto" }
-
 This is a two-step process.
 
 First, enter the amount of RPL you want to stake and click `Approve` - this will **approve** the staking contract to access that much RPL in your wallet, but **no more than that amount**.
@@ -135,13 +129,14 @@ First, enter the amount of RPL you want to stake and click `Approve` - this will
 You can approve more than the amount you intend to stake if you trust the Rocket Pool staking contract, and don't want to perform this extra Approve transaction each time you want to stake more RPL.
 :::
 
-Once the RPL is approved, you will see this dialog:
-
-![](./images/stake-behalf-2.jpg){ style="display: block; margin: 0 auto" }
+Once the RPL is approved, you will be able to stake on behalf of a node.
 
 Enter the amount of RPL you want to stake in the `Stake RPL` box, and enter your node's address in the `on behalf of Node Address` box.
 
 When you've entered that information, press the `Stake` button and approve the transaction.
+
+<video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/stake_behalf.mp4" />
+
 It will be sent to the Ethereum network, and once included in a block, you're all set!
 
 If you run `rocketpool node status`, you should see your staked RPL appear under the `=== RPL Stake ===` section.
