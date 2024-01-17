@@ -42,18 +42,18 @@ import "RocketDepositPoolInterface.sol";
 
 contract Example {
 
-    RocketStorageInterface rocketStorage = RocketStorageInterface(0);
+    RocketStorageInterface rocketStorage = RocketStorageInterface(address(0));
 
     constructor(address _rocketStorageAddress) public {
         // It is safe to store reference to RocketStorage
         rocketStorage = RocketStorageInterface(_rocketStorageAddress);
     }
 
-    exampleMethod() public {
+    function exampleMethod() public {
         // All other contracts should be queried each time they are used
         address rocketDepositPoolAddress = rocketStorage.getAddress(keccak256(abi.encodePacked("contract.address", "rocketDepositPool")));
         RocketDepositPoolInterface rocketDepositPool = RocketDepositPoolInterface(rocketDepositPoolAddress);
-        ...
+        // ...
     }
 
 }
@@ -135,14 +135,14 @@ import "RocketTokenRETHInterface.sol";
 
 contract Example {
 
-    RocketStorageInterface rocketStorage = RocketStorageInterface(0);
+    RocketStorageInterface rocketStorage = RocketStorageInterface(address(0));
     mapping(address => uint256) balances;
 
     constructor(address _rocketStorageAddress) public {
         rocketStorage = RocketStorageInterface(_rocketStorageAddress);
     }
 
-    deposit() external payable {
+    function deposit() external payable {
         // Check deposit amount
         require(msg.value > 0, "Invalid deposit amount");
         // Load contracts
@@ -160,7 +160,7 @@ contract Example {
         balances[msg.sender] += rethMinted;
     }
 
-    withdraw() external {
+    function withdraw() external {
         // Load contracts
         address rocketTokenRETHAddress = rocketStorage.getAddress(keccak256(abi.encodePacked("contract.address", "rocketTokenRETH")));
         RocketTokenRETHInterface rocketTokenRETH = RocketTokenRETHInterface(rocketTokenRETHAddress);
