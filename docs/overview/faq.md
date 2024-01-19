@@ -84,9 +84,6 @@ _Contact us here via email or just read up on Rocket Pool._
 [**Discord**](https://discordapp.com/invite/tCRG54c)  
 _Drop by for a chat and ask some questions, we’re a friendly bunch._
 
-[**Twitter**](https://twitter.com/Rocket_Pool)  
-_Chat rooms not your thing? We post all updates here too!_
-
 [**Doc Hub**](https://docs.rocketpool.net/)  
 _You’re reading it :) But there’s a few more articles to be found…_
 
