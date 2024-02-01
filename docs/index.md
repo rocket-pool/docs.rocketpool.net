@@ -4,8 +4,10 @@ title: Rocket Pool Guides & Documentation
 hero:
   name: Rocket Pool
   text: Guides & Documentation
-  tagline: Decentralised Ethereum Staking Protocol
-  image: /images/logo.png
+  tagline: Decentralised Ethereum Liquid Staking Protocol
+  image:
+    src: /images/logo.png
+    alt: Rocket Pool Decentralised Ethereum Liquid Staking Protocol
   actions:
     - theme: alt
       text: Get Started →
@@ -25,6 +27,4 @@ features:
     details: Review our API Documentation and code examples to quickly integrate your application with our protocol.
     link: /developers/
 
-sponsors:
-  - message: Made by Rocket Pool with ❤️
 ---

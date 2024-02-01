@@ -6,12 +6,14 @@ import { nestedTabsPlugin } from "./plugins/nestedTabs/markdownPlugin";
 export default defineConfig({
   lang: "en-US",
   title: "Rocket Pool",
-  description: "Rocket Pool Guides & Documentation - Decentralised Ethereum Staking Protocol",
+  description: "Rocket Pool Guides & Documentation - Decentralised Ethereum Liquid Staking Protocol",
   cleanUrls: true,
   head: [
     ["meta", { name: "theme-color", content: "#FF6E30" }],
     ["meta", { name: "apple-mobile-web-app-capable", content: "yes" }],
     ["meta", { name: "apple-mobile-web-app-status-bar-style", content: "black" }],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/images/logo.svg' }],
+    ['link', { rel: 'icon', type: 'image/png', href: '/images/logo.png' }],
   ],
   markdown: {
     config(md) {
@@ -20,6 +22,7 @@ export default defineConfig({
     },
   },
   themeConfig: {
+    logo: { src: "/images/logo.png", alt: "Rocket Pool Guides & Documentation - Decentralised Ethereum Liquid Staking Protocol" },
     search: {
       provider: "algolia",
       options: {
@@ -42,7 +45,6 @@ export default defineConfig({
         link: "https://github.com/rocket-pool/docs.rocketpool.net",
       },
     ],
-    logo: { src: "/images/logo.png", alt: "Rocket Pool Logo" },
     nav: [
       {
         text: "Overview",
