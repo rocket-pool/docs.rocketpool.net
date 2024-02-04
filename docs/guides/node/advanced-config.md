@@ -84,4 +84,28 @@ services:
 ```
 
 This will merge the four environment variables listed here to the existing array of environment variables in the Grafana container.
+
+Alternatively, if you wanted to save eth1 client data to a non-default path on your filesystem, you would modify `override/eth1.yml` to contain volume parameters like:
+
+```yaml
+# Enter your own customizations for the eth1 container here. These changes will persist after upgrades, so you only need to do them once.
+# 
+# See https://docs.docker.com/compose/extends/#adding-and-overriding-configuration
+# for more information on overriding specific parameters of docker-compose files.
+
+version: "3.7"
+services:
+  eth1:
+    x-rp-comment: Add your customizations below this line
+volumes:
+  eth1clientdata:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "/data/eth/eth1"
+```
+
+This will merge the parameters into the `eth1clientdata` volume specification, causing `/data/eth/eth1` to be the location of the eth1 client data rather than the default (`/var/lib/docker/volumes/rocketpool_eth1clientdata` if using default Docker configuration).
+
 For more information on how `docker-compose` overrides work, please visit [https://docs.docker.com/compose/extends/#adding-and-overriding-configuration](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration).
