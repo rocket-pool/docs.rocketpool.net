@@ -113,7 +113,7 @@ The faucet is on a timer, so each node operator can only use the faucet once eve
 - The **withdraw amount** shows how much RPL you can receive from the faucet during the current cycle.
   If you already used the faucet, this line will change to let you know that you can't use it again this cycle.
 - The **reset** timer shows how long (in blocks) it is until the next cycle, at which point you can use the faucet again.
-  The amount of time remaining (in seconds) is approximately `this number * 13 seconds per block / 60 seconds`.
+  The amount of time remaining (in minutes) is approximately `this number * 13 seconds per block / 60 seconds`.
 
 ::: warning NOTE
 The RPL faucet charges a 0.5 holesky ETH fee to use it, in order to prevent people from abusing the system.
