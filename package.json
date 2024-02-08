@@ -14,7 +14,7 @@
     "markdown-it": "^14.0.0",
     "stylus": "latest",
     "vitepress": "1.0.0-rc.42",
-    "vue": "^3.4.15"
+    "vue": "^3.4.16"
   },
   "scripts": {
     "dev": "vitepress dev docs",
