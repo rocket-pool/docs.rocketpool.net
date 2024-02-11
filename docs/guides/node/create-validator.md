@@ -91,7 +91,7 @@ in order to stake from it.  You can do this via the following Smartnode command:
 rocketpool node add-address-to-stake-rpl-whitelist address-or-ens
 ```
 
-Where `address-or-ens` is the address or and ENS name that resolves to your desired address. You will be asked to
+Where `address-or-ens` is the address or ENS name that resolves to your desired address. You will be asked to
 confirm the whitelist addition and after the transaction is confirmed, you can then navigate to the relevant page below.
 
 #### Staking RPL on behalf of
