@@ -58,6 +58,16 @@ If you are below 10% during the checkpoint, **you will not be eligible for any r
 Therefore it is **crucial** that you maintain at least 10% collateral at the time when each RPL reward checkpoint is reached.
 :::
 
+The `rocketpool node status` command will show you your current collateralization ratio at any point of time. This collateralization ratio will be based on the prices at the time at which you run the command. However, if you want to know what your collateralization ratio will be at the next rewards round, follow the next steps:
+
+- Run the `when` command in the "random" channel of the Rocketpool Discord (https://discord.com/channels/405159462932971535/405503016234385409), and see how many hours are left before the next rewards period starts.
+- If the remaining hours are less than 19.2 hours (i.e. around 5760 blocks * 12 seconds, excluding missed blocks), that means that the RPL/ETH price ratio which will be used by the next rewards round was already taken by the oDAO. If the time is close to 19.2 hours, ask in discord if the final price snapshot was already taken by the oDAO.
+- To check which RPL/ETH price ratio was taken as a snapshot by the oDAO for the next rewards round, check the oDAO price submission contract in Etherscan (which you can obtain by running the `/get_address_of_contract contract:rocketNetworkPrices` command in the "random" channel of the Rocketpool Discord). Afterwards, open one or more of the transactions submitted by the oDAO members. [Place image 1 below]
+- Scroll down and in the "More Details" section, click on **"+ Click to show more"**, and then click on **"Decode Input Data"**. [Place image 2 below]
+- The RPL price (shown in wei units) displayed in the Input Data box, divided by 10^18 (to convert it to ETH units) multiplied by the number of RPL staked, should be >= 1.6 ETH (for 16 ETH minipools) and >= 2.4 ETH (for LEB8s), times the number of minipools of each type which you operate. [Place image 3 below]
+- If your collateral ratio is below the required amount as explained in the previous point, you can stake additional RPL in the time between the oDAO took the last price snapshot (see bullet point 3 above), and the time when the next rewards round begins (see bullet points 1 and 2 above), in order to bring your node back to a >=10% collateralization ratio.
+- An alternative to checking the oDAO price submissions in etherscan is to keep an eye on the "events" channel of the Rocketpool discord, and look for the **RPL Price Update** message from the Rocket Watch bot (see example below) within the last 19.2 hours before the next rewards period starts. [Place image 4 below]
+
 ### Smoothing Pool ETH Rewards
 
 Along with RPL rewards, the Smoothing Pool's entire ETH balance is distributed during rewards checkpoints.
