@@ -131,6 +131,10 @@ ls /sys/class/net
 Ethernet (hard-wire) devices usually start with `e`, such as the examples above.
 Wireless devices usually start with `w`.
 
+## Smartnode Alert Notifications
+
+[Monitoring your Smartnode Stack with Alert Notifications](./alerting.md) walks through using the Smartnode alert notification functionality to receive notifications about the health and important events of your Rocket Pool Smartnode.
+
 ## Third-Party Performance Monitoring
 
 The best monitoring uses a Swiss-cheese model: every tool has holes, but if you stack them on top of each-other there is less of a chance anything falls through and catches you by surprise.
@@ -238,6 +242,10 @@ It features detailed network and node metrics, including a timeline of your node
 ![Rocketscan screenshot](./local/images/rocketscan.dev.png)
 
 ### Scripting with Pushover (advanced)
+
+::: tip NOTE
+[Monitoring your Smartnode Stack with Alert Notifications](./alerting.md) walks through using the Smartnode alert notification functionality which includes a notification when there are updates available for your node.
+:::
 
 The [Pushover](https://pushover.net/) service allows you to send yourself push notifications.
 
