@@ -358,7 +358,7 @@ Next up is an option to enable or disable **Checkpoint Sync**:
 
 Lodestar has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
 This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-Take a look at [their documentation on checkpoint syncing](https://chainsafe.github.io/lodestar/usage/beacon-management/#checkpoint-sync) for more information if you are curious.
+Take a look at [their documentation on checkpoint syncing](https://chainsafe.github.io/lodestar/getting-started/starting-a-node/#checkpoint-sync) for more information if you are curious.
 
 You can enter the URL of any Beacon Node that provides access to its REST API here.
 
