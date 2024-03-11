@@ -54,14 +54,14 @@ If you have a single minipool that you deposited 8 ETH into, the protocol provid
 The `rocketpool node status` command will show you your current collateralization ratio.
 
 If you are below 10% during the checkpoint, **you will not be eligible for any rewards for that interval.**
-** Even if you increase above 10% at a later date, you will not have any rewards to claim for that interval.**
+**Even if you increase above 10% at a later date, you will not have any rewards to claim for that interval.**
 Therefore it is **crucial** that you maintain at least 10% collateral at the time when each RPL reward checkpoint is reached.
 :::
 
 The `rocketpool node status` command will show you your current collateralization ratio at any point of time. This collateralization ratio will be based on the prices at the time at which you run the command. However, if you want to know what your collateralization ratio will be at the next rewards round, follow the next steps:
 
 - Run the `/when` command in the "random" channel of the [Rocketpool Discord](https://discord.com/channels/405159462932971535/405503016234385409), and see how many hours are left before the next rewards period starts.
-- If the remaining hours are less than 19.2 hours (i.e. around 5760 blocks * 12 seconds, excluding missed blocks), that means that the RPL/ETH price ratio which will be used by the next rewards round was already taken by the oDAO. If the time is close to 19.2 hours, ask in discord if the final price snapshot was already taken by the oDAO.
+- The oDAO takes a price snapshot every 19.2 hours (i.e. around 5760 blocks * 12 seconds, excluding missed blocks). Therefore, checking the oDAO price submission contract in Etherscan will tell you whether a price snapshot was taken in the 19.2 previous hours before the time stated in the bullet point above. If that is the case, the price snapshot has been taken. If not, it is yet to be done and you can estimate when it will happen by looking at the last round of oDAO price submissionas, and adding 19.2 hours. 
 - To check which RPL/ETH price ratio was taken as a snapshot by the oDAO for the next rewards round, check the oDAO price submission contract in Etherscan (which you can obtain by running the `/get_address_of_contract contract:rocketNetworkPrices` command in the "random" channel of the Rocketpool Discord). Afterwards, open one or more of the transactions submitted by the oDAO members. <a href="/images/node/rewards/rewards-1.png" target="_blank"><img src="/images/node/rewards/rewards-1.png" style="display: block; margin:0 auto;" /></a>
 - Scroll down and in the "More Details" section, click on **"+ Click to show more"**, and then click on **"Decode Input Data"**. <a href="/images/node/rewards/rewards-2.png" target="_blank"><img src="/images/node/rewards/rewards-2.png" style="display: block; margin:0 auto;" /></a>
 - The RPL price (shown in wei units) displayed in the Input Data box, divided by 10^18 (to convert it to ETH units) multiplied by the number of RPL staked, should be >= 1.6 ETH (for 16 ETH minipools) and >= 2.4 ETH (for LEB8s), times the number of minipools of each type which you operate. <a href="/images/node/rewards/rewards-3.png" target="_blank"><img src="/images/node/rewards/rewards-3.png" style="display: block; margin:0 auto;" /></a>
