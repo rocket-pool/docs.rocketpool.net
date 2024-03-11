@@ -117,7 +117,7 @@ You will see a warning message at the top indicating that one (or both) of your 
 ```
 NOTE: primary clients are not ready, using fallback clients...
 	Primary EC status: unavailable (Sync progress check failed with [Post "http://eth1:8545": dial tcp: lookup eth1 on 127.0.0.11:53: no such host])
-	Primary CC status: synced and ready
+	Primary CC status: unavailable (Sync progress check failed with [Could not get node sync status: Get "http://eth2:5052/eth/v1/node/syncing": dial tcp: lookup eth2 on 127.0.0.11:53: no such host])
 
 ========== General Stats ==========
 Total Value Locked:      278978.009858 ETH
