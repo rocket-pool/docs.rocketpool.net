@@ -97,6 +97,10 @@ function guides() {
           link: "/guides/",
         },
         {
+          text: "The Houston Update",
+          link: "/guides/houston/whats-new",
+        },
+        {
           text: "The Atlas Update",
           link: "/guides/atlas/whats-new",
         },
