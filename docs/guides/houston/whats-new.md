@@ -1,16 +1,10 @@
-##### TODO:
-- guide on how to raise/vote/execute proposals etc, explainer on rpips, link the research pages
-- everything below is a near cut and paste of this 4 month old [medium post](https://medium.com/rocket-pool/rocket-pool-houston-upgrade-fa2de86118ad)
-
-
+# WIP:
 
 # The Houston Update
 
 The Houston upgrade is largely aimed at introducing a fully on-chain DAO to govern the protocol, known as the Protocol DAO or pDAO. It is a DAO like no other and it does not require snapshot voting or any other 3rd party tools to function, it is truly onchain and one of a kind, more on that below.
 
 This upgrade will also be introducing some other very exciting features that will allow new integrations and platforms to be built on the protocol. Some of these include the ability to stake ETH on behalf of node (not just from the node itself) and a new RPL withdrawal address feature that can allow the node operator to supply the ETH for staking and another party to trustlessly provide the RPL for the insurance bond.
-
-Please read through this page thoroughly to understand all of the differences between the previous version of Rocket Pool (Atlas) and Houston.
 
 ## Protocol DAO
 
@@ -20,7 +14,7 @@ Typically DAO governance in the wider crypto space is done by token weight votin
 
 This style of governance we wanted to avoid. If you want to help direct and guide the future of Rocket Pool, you need to be actively involved, not just storing tokens in a cold wallet. From the biggest Venture Capitalist funds to your ordinary guy running a single minipool, you will need to be actively participating in the protocol to help govern it.
 
-Currently the protocol DAO has control over a variety of on-chain settings that are used in the protocol. New Rocket Pool Improvement Proposals (RPIP) can be made and voted on by these Node Operators within Rocket Pool. You can see the [**current RPIP registry here**](https://rpips.rocketpool.net/) If you’re a devil for the details, the current RPIP for the on-chain protocol DAO talked about now can be found here.
+Currently the protocol DAO has control over a variety of on-chain settings that are used in the protocol. New Rocket Pool Improvement Proposals (RPIP) can be made and voted on by these Node Operators within Rocket Pool. You can see the [**current RPIP registry here**](https://rpips.rocketpool.net/). If you’re a devil for the details, the current RPIP for the on-chain protocol DAO talked about now can be found here.
 
 ### What can the pDAO do?
 

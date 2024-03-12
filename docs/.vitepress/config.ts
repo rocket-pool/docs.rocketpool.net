@@ -98,7 +98,13 @@ function guides() {
         },
         {
           text: "The Houston Update",
+          collapsed: true,
           link: "/guides/houston/whats-new",
+          items: [
+            { text: "Overview", link: "/guides/houston/whats-new" },
+            { text: "Participating in pDAO voting", link: "/guides/houston/pdao-voting" },
+            { text: "ETH and RPL withdrawal Addresses", link: "/guides/houston/seperation-eth-rpl"}
+          ],
         },
         {
           text: "The Atlas Update",
