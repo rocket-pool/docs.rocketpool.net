@@ -147,7 +147,7 @@ The state of this sample proposal is `Pending`. This indicates that the proposal
 
 ![](./images/pDAO_Proposals_-_Timeline2.png){ style="display: block; margin: 0 auto" }
 
-A proposal should be forcasted by the governance process before it ends up on chain. It consists of 4 Periods, all of which are pDAO [controllable parameters](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table):
+A proposal should be forecasted by the governance process before it ends up on chain. It consists of 4 Periods, all of which are pDAO [controllable parameters](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table):
 
 - Vote Delay Period: `proposal.challenge.period`
 - Vote Phase 1: `proposal.vote.phase1.time`
@@ -176,7 +176,7 @@ In order to decide the outcome of a proposal, the protocol must know the quorum 
 A few reasons why pDAO participants are required to lock RPL. 
 
 - `proposal.bond` incentivizes valid proposals and disincentivizes spam. 
-- `proposal.challenge.bond` incentivizes the takedown of invalid proposals.
+- `proposal.challenge.bond` incentivizes the takedown of invalid/malicious proposals.
 
 Challengers supply an index into the Merkle-sum tree that they are alleging is incorrect
 
