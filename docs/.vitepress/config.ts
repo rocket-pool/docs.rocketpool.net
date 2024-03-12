@@ -103,7 +103,8 @@ function guides() {
           items: [
             { text: "Overview", link: "/guides/houston/whats-new" },
             { text: "Participating in pDAO voting", link: "/guides/houston/pdao-voting" },
-            { text: "ETH and RPL withdrawal Addresses", link: "/guides/houston/seperation-eth-rpl"}
+            { text: "ETH and RPL withdrawal Addresses", link: "/guides/houston/seperation-eth-rpl"},
+            { text: "tab test", link: "/guides/houston/tabtest"}
           ],
         },
         {
