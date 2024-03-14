@@ -96,7 +96,7 @@ Once both voting periods have passed and the proposal is successful, the proposa
 ```
 rocketpool pdao proposals execute
 ```
-You will be prompted to select a proposal to execute. 
+You will be prompted to select a proposal to execute, the proposal will be applied to the protocol after this step! 
 
 After the proposal has passed the voting periods, the proposer MAY unlock their RPL bond, unless the proposal was defeated by a challenge or vetoed.
 
@@ -106,9 +106,16 @@ There is a window `proposal.execute.time` where a proposal can be executed. A pr
 
 ## Initializing Voting 
 
+If you are a node operator who registered before the Houston upgrade, you need to initialize voting to unlock voting power. 
+```
+rocketpool network initialize-voting
+```
+You only need to do this once. It sets up the initial snapshot information for a node. After your initialize voting, every action taken will update your node's snapshot information. 
+## TODO get the terminal output and show it here! 
+
 ## Allowing RPL Locking
 
-RPL locking is a prerequisite for participation. By default, locking RPL for any purpose, will be disabled. Node operator's will opt-in to performing governance activities by enabling the locking of RPL from their node or primary withdrawal address. You can do so using this command in the Smartnode: 
+RPL locking is a required for proposing and challenging. By default, locking RPL for any purpose, will be disabled. Node operator's will opt-in to performing governance activities by enabling the locking of RPL from their node or primary withdrawal address. You can do so using this command in the Smartnode: 
 
 ``` 
 rocketpool node allow-rpl-locking
@@ -128,6 +135,7 @@ For example, if you wanted to delegate your voting power to `0xBdbcb42DD8E39323a
 ```
 rocketpool network set-voting-delegate 0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145
 ```
+By default, every Node has their voting power delgated to themselves. So if you've delegated your voting power to another Node Operator, you can reset this by setting the voting delegate to your own node's address. 
 
 - During phase 1 of a proposal: Delegates may cast their vote on a proposal. 
 - During phase 2 of a proposal: Node operators who have delegated their vote get the opportunity to override their Delegate's vote, if they disagree.
@@ -135,6 +143,7 @@ rocketpool network set-voting-delegate 0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F14
 ## Creating a Proposal 
 
 In order to be eligible to propose, a node must meet a few requirements: 
+- Included in snapshotting (either by [initializing voting](../houston/pdao-voting#initializing-voting) or by registering post Houston)
 - Has non-zero voting power.
 - Has an RPL stake (minus any already locked RPL) greater than the proposal bond
 - Has allowed RPL locking
