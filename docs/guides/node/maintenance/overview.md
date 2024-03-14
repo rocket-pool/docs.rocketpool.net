@@ -1,5 +1,5 @@
 ---
-next: 
+next:
   text: Monitoring your Node's Performance
   link: "/guides/node/performance"
 ---
@@ -26,6 +26,8 @@ It covers a lot of fundamental tools you'll use during your tenure as an Ethereu
 
 [Setting up the Grafana Dashboard](../grafana) walks through setting up the Smartnode stack's metrics tracker and the Grafana dashboard - a one stop shop for monitoring everything about your node and validators, and a staple in each node operator's arsenal.
 We _strongly_ recommend exploring the Grafana dashboard and regularly checking in on it.
+
+[Smartnode Stack Alert Notifications](./alerting.md) walks through using the Smartnode alert notification functionality to receive notifications about the health and important events of your Rocket Pool Smartnode.
 
 [Checking for Updates](../updates) covers the crucial processes of regularly updating your node with new security patches, how to update the Smartnode after a new release, and how to manually update client versions if your clients of choice release a new version that the Smartnode's latest release doesn't include yet.
 You should familiarize yourself with this entire section, as you may need to refer to it whenever an update is released.

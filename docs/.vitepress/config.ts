@@ -12,8 +12,8 @@ export default defineConfig({
     ["meta", { name: "theme-color", content: "#FF6E30" }],
     ["meta", { name: "apple-mobile-web-app-capable", content: "yes" }],
     ["meta", { name: "apple-mobile-web-app-status-bar-style", content: "black" }],
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/images/logo.svg' }],
-    ['link', { rel: 'icon', type: 'image/png', href: '/images/logo.png' }],
+    ["link", { rel: "icon", type: "image/svg+xml", href: "/images/logo.svg" }],
+    ["link", { rel: "icon", type: "image/png", href: "/images/logo.png" }],
   ],
   markdown: {
     config(md) {
@@ -208,6 +208,7 @@ function guides() {
                 { text: "Overview", link: "/guides/node/maintenance/overview" },
                 { text: "Monitoring your Node's Performance", link: "/guides/node/performance" },
                 { text: "Setting up the Grafana Dashboard", link: "/guides/node/grafana" },
+                { text: "Smartnode Stack Alert Notifications ", link: "/guides/node/maintenance/alerting" },
                 { text: "Checking for Updates", link: "/guides/node/updates" },
                 { text: "Backing Up Your Node", link: "/guides/node/backups" },
                 { text: "Pruning the Execution Client", link: "/guides/node/pruning" },
