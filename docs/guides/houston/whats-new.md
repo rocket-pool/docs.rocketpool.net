@@ -1,3 +1,9 @@
+---
+next: 
+  text: The Protocol DAO 
+  link: "/guides/houston/pdao"
+---
+
 # DRAFT:
 
 # The Houston Update

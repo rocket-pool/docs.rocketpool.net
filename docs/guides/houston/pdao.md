@@ -1,19 +1,25 @@
 # DRAFT:
 
 
-# Protocol DAO (pDAO) 
+# The Protocol DAO (pDAO) 
 The Rocket Pool Protocol DAO (pDAO) is responsible for shaping the direction of the protocol and is run by RPL governance. Its members and their voting power are made up of node operators, big and small, all of which are directly participating in the protocol. It serves the Rocket Pool community at large, including rETH holders, Node Operators, and RPL holders. The pDAO prioritizes the safety of the Rocket Pool protocol and the health of the Ethereum Network. For an explicit definition of who and what the pDAO is, feel free to take a look at the [pDAO charter](https://rpips.rocketpool.net/RPIPs/RPIP-23).
 
-The Houston Upgrade introduces an on-chain replacement for the pDAO governance system's execution process. It uses an optimistic fraud-proof system that allows any node operator to raise proposals and vote on proposals to adjust "pDAO protocol parameters" and spend treasury funds. To see a comprehensive list of pDAO controllable parameters, click [here](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table).
+## New pDAO features in Houston
 
+### On-chain execution of pDAO responsibilities   
+The Houston Upgrade introduces an on-chain replacement for the pDAO governance system's execution process. It uses an optimistic fraud-proof system that allows any node operator to raise proposals and vote on proposals to adjust "pDAO protocol parameters" and spend treasury funds. To see a comprehensive list of pDAO controllable parameters, click [here](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table). 
+Pre-houston, the core team was responsible for executing pDAO duties at the behest of the community governance process. For example, the team carries out the monthly IMC and GMC payments as per the governance voted payment schedules. The plan was for this power to reside with the team temporarily until a new power structure is set up to take over these responsibilities. Houston removes this dependency on the team, making the protocol more decentralised and trustless.
+
+
+### Security Council
 The Houston upgrade also includes a new security council to help react quickly in the event of any potential issues with the protocol. These members can be elected by the pDAO and they have the ability propose and execute changes without delay. The pDAO has the power to elect and remove members from the security council. It's a serious role and the pDAO should develop strong entry requirements and processes for flushing stale members. The pDAO guardian will be the security council's sole member at the start of Houston. 
 
+### Recurring Treasury Spends
 RPL has a 5% inflation rate. 22% of this inflation is directed towards the pDAO as defined in [RPIP-25](https://rpips.rocketpool.net/RPIPs/RPIP-25). The pDAO can use these funds for a variety of purposes. For example, incentives such as liquidity provider (LP) bonuses, grants and bounties for 3rd party improvements and projects, and funding the development of the Rocket Pool protocol. The Houston upgrade also introduces a new feature that enables recurring treasury payments made to a specified beneficiary each rewards period. 
 
 
 ## Protocol DAO (pDAO) proposals
-
-Any node with a non-zero voting power may raise a pDAO proposal at any time. Proposals can be one of the following types:
+Any node with a non-zero voting power may raise or participate in a pDAO proposal at any time. Proposals can be one of the following types:
 
 - Changing pDAO settings
 - One-time treasury spends
@@ -22,10 +28,9 @@ Any node with a non-zero voting power may raise a pDAO proposal at any time. Pro
 
 For greater detail and rationale, refer to [proposal types](https://rpips.rocketpool.net/RPIPs/RPIP-33#proposal-types). It's important to understand that a pDAO proposal is an on-chain entity that exists to execute changes at the protocol level.  
 
-Please read through this page thoroughly to understand the pDAO's proposal and voting system. 
-
-
 ## Lifecycle of a pDAO proposal 
+
+** TODO Q: should this blurb read in first person or should it be neutral? You do xyz vs. node operator does xyz**
 
 A proposal should be forecasted by the governance process before it ends up on chain. It consists of 4 Periods, all of which are pDAO [controllable parameters](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table):
 
@@ -103,140 +108,4 @@ After the proposal has passed the voting periods, the proposer MAY unlock their 
 ::: tip NOTE
 There is a window `proposal.execute.time` where a proposal can be executed. A proposal will expire if this timer reaches it's end. 
 :::
-
-## Initializing Voting 
-
-If you are a node operator who registered before the Houston upgrade, you need to initialize voting to unlock voting power. 
-```
-rocketpool network initialize-voting
-```
-You only need to do this once. It sets up the initial snapshot information for a node. After your initialize voting, every action taken will update your node's snapshot information. 
-## TODO get the terminal output and show it here! 
-
-## Allowing RPL Locking
-
-RPL locking is a required for proposing and challenging. By default, locking RPL for any purpose, will be disabled. Node operator's will opt-in to performing governance activities by enabling the locking of RPL from their node or primary withdrawal address. You can do so using this command in the Smartnode: 
-
-``` 
-rocketpool node allow-rpl-locking
-```
-This will prompt you to allow the locking of RPL when creating or challenging governance proposals. Conversely you can use the following command to opt-out of RPL locking: 
-```
-rocketpool node deny-rpl-locking
-```
-
-## Delegating Voting Power 
-
-A Node Operator can elect to delegate their voting power to another Node Operator. This can be done using the following command: 
-```
-rocketpool network set-voting-delegate <address>
-```
-For example, if you wanted to delegate your voting power to `0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145`, you would run:
-```
-rocketpool network set-voting-delegate 0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145
-```
-By default, every Node has their voting power delgated to themselves. So if you've delegated your voting power to another Node Operator, you can reset this by setting the voting delegate to your own node's address. 
-
-- During phase 1 of a proposal: Delegates may cast their vote on a proposal. 
-- During phase 2 of a proposal: Node operators who have delegated their vote get the opportunity to override their Delegate's vote, if they disagree.
-
-## Creating a Proposal 
-
-In order to be eligible to propose, a node must meet a few requirements: 
-- Included in snapshotting (either by [initializing voting](../houston/pdao-voting#initializing-voting) or by registering post Houston)
-- Has non-zero voting power.
-- Has an RPL stake (minus any already locked RPL) greater than the proposal bond
-- Has allowed RPL locking
-
-::: tip NOTE
-Locked RPL acts the same way as regular staked RPL for the purposes of rewards, voting and collateral requirements. Locked RPL is not counted towards thresholds for withdrawing RPL.
-:::
-
-Use the command `rocketpool pdao propose` to bring up a menu of optons
-```
-COMMANDS:
-   rewards-percentages, rp      Propose updating the RPL rewards allocation percentages for node operators, the Oracle DAO, and the Protocol DAO
-   one-time-spend, ots          Propose a one-time spend of the Protocol DAO's treasury
-   recurring-spend, rs          Propose a recurring spend of the Protocol DAO's treasury
-   recurring-spend-update, rsu  Propose an update to an existing recurring spend plan
-   security-council, sc         Modify the security council
-   setting, s                   Make a Protocol DAO setting proposal
-```
-Each of these commands will prompt you with a list of inputs to create your desired proposal. For example, if you wanted to invite a node to the security council, you would run `rocketpool pdao propose security-council invite`, prompting you to enter an ID and member address. 
-```
-thomaspanf@debian:~$ rocketpool pdao propose security-council invite
-
-Please enter an ID for the member you'd like to invite: (no spaces)
-1324
-
-Please enter the member's address:
-0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145
-
-... gas estimations ... 
-
-Are you sure you want to propose inviting 1324 (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council? [y/n]
-```
-After this is executed, a pDAO proposal will be created. Listed below are steps to view the state of your proposal. 
-
-:::::: tabs
-::::: tab Viewing List of Proposals
-
-After a proposal is created, you can view it using `rocketpool pdao proposals list`. This will display proposal `ID 71` along with the following information: 
-```
-thomaspanf@debian:~$ rocketpool pdao proposals list
-
-1 Pending proposal(s):
-
-71: invite test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council - Proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D
-
-Succeeded proposal(s):
-
-Executed proposal(s):
-
-Destroyed proposal(s):
-
-Quorum not Met proposal(s):
-
-Defeated proposal(s):
-
-Expired proposal(s):
-
-```
-::: tip NOTE
-After executing `rocketpool pdao proposals list`, the state of all existing and previous proposals will be listed. For demonstration purposes, many are omitted in this example. 
-:::
-
-
-::::: tab Viewing Status of Proposal 
-
-Now that you have the proposal ID, you can view the status of your proposal using `rocketpool pdao proposals details <proposal-id>`
-```
-thomaspanf@debian:~$ rocketpool pdao proposals details 71
-
-Proposal ID:            71
-Message:                invite test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council
-Payload:                proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145)
-Payload (bytes):        f944c19f0000000000000000000000000000000000000000000000000000000000000040000000000000000000000000bdbcb42dd8e39323a395b2b72d2c8e7039f1f145000000000000000000000000000000000000000000000000000000000000000b746573742d6d656d626572000000000000000000000000000000000000000000
-Proposed by:            0x681B8BBf08708e64694005c7Dc307b381b4D1A7D
-Created at:             12 Mar 24 06:15 UTC
-State:                  Pending
-Voting start:           12 Mar 24 06:20 UTC
-Challenge window:       30m0s
-Voting power required:  90943818825
-Voting power for:       0
-Voting power against:   0
-Voting power abstained: 0
-Voting power against:   0
-Node has voted:         no
-```
-::: tip NOTE
-The state of this sample proposal is `Pending`. This indicates that the proposal can be challenged, before moving onto `Active (Phase 1)`
-
-^^^ The wording here should be changed. 'Pending' is synonomous with 'challenge period' and 'vote delay period' or 'proposal.challenge.period'
-:::
-
-::::::
-
-
-
 
