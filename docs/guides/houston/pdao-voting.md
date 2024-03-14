@@ -27,8 +27,6 @@ Please read through this page thoroughly to understand the pDAO's proposal and v
 
 ## Lifecycle of a pDAO proposal 
 
-![](./images/pDAO_Proposals_-_Timeline2.png){ style="display: block; margin: 0 auto" }
-
 A proposal should be forecasted by the governance process before it ends up on chain. It consists of 4 Periods, all of which are pDAO [controllable parameters](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table):
 
 - Vote Delay Period: `proposal.challenge.period`
@@ -36,31 +34,18 @@ A proposal should be forecasted by the governance process before it ends up on c
 - Vote Phase 2: `proposal.vote.phase2.time`
 - Execution: `proposal.execute.time	`
 
-During a proposal, Node Operators and Delegates can cast a vote with one of four options:
-```
-1. Abstain: The voter's voting power is contributed to quorum but is neither for nor against the proposal.
-2. For: The voter votes in favour of the proposal being executed.
-3. Against: The voter votes against the proposal being executed.
-4. Veto: The voter votes against the proposal as well as indicating they deem the proposal as spam or malicious.
-```
+![](./images/pDAO_Proposals_-_Timeline2.png){ style="display: block; margin: 0 auto" }
 
-This can be done with the command:
-```
-rocketpool pdao proposals vote
-```
-You'll be prompted to select a proposal to vote on, if such proposal is available. 
-
-If the veto quorum (as defined by the `proposal.veto.quorum` parameter) is met, the proposal is immediately defeated and the proposer loses their bond. This is to dissuade spam, low quality proposals, or proposals that have not gone through off-chain processes first.
 ### Vote Delay Period
 
 In order to decide the outcome of a proposal, the protocol must know the quorum required. A proposer calculates this value off-chain and submits it alongside their proposal. The value is optimistically accepted, but in the case of fraud, verifiers can perform a challenge/response process to prove the value is incorrect. Invalid proposals are then discarded.
 
-A few reasons why pDAO participants are required to lock RPL. 
+A few reasons why proposers and challengers are required to lock RPL. 
 
 - `proposal.bond` incentivizes valid proposals and disincentivizes spam. 
 - `proposal.challenge.bond` incentivizes the takedown of invalid/malicious proposals.
 
-Challengers supply an index into the Merkle-sum tree that they are alleging is incorrect
+Challengers supply an index into the Merkle-sum tree that they are alleging is incorrect.
 
 Challengers who participated in defeating the challenge are paid a proportional amount of the proposer's bond if they submit an index proven to be incorrect. All other challengers receive their bond back only. Upon conclusion of a proposal, Proposers and Challengers may claim bonds using the following command: 
 
@@ -72,7 +57,38 @@ If a proposal is not defeated after `proposal.vote.delay.time` has passed, the p
 
 ### Vote Period 1
 
+During a voting period, Node Operators and Delegates can cast a vote with one of four options:
+```
+1. Abstain: The voter's voting power is contributed to quorum but is neither for nor against the proposal.
+2. For: The voter votes in favour of the proposal being executed.
+3. Against: The voter votes against the proposal being executed.
+4. Veto: The voter votes against the proposal as well as indicating they deem the proposal as spam or malicious.
+```
+Their voting power will be included in the option of their choosing.
+
+This can be done using the command:
+```
+rocketpool pdao proposals vote
+```
+You'll be prompted to select a proposal to vote on, if such proposal is available. After selecting a proposal, you'll be able to select one of the above four options. 
+
+If the veto quorum (as defined by the `proposal.veto.quorum` parameter) is met, the proposal is immediately defeated and the proposer loses their bond. This is to dissuade spam, low quality proposals, or proposals that have not gone through off-chain processes first.
+
+The duration of period 1 is determined by the `proposal.vote.phase1.time` parameter. The proposal will transition to phase 2 reguardless of if `proposal.quorum` is reached. 
+
 ### Vote Period 2
+
+During vote period 2, delegates aren't allowed to vote. Node operators who didn't vote in period 1 will still be able to cast a vote during period 2. Node operators who disagree with their delegate's choice will have the opportunity to overturn their delegate's vote.
+
+The process of overturning a vote is pretty simple, just call `rocketpool pdao proposals vote` and follow the prompts. Your voting power will be applied to the proposal, and your delegate's voting power will be deducted. 
+
+**TODO** create a test example in devnet to show the terminal output of what it looks like to overturn a vote. 
+
+The result of a proposal is concluded when `proposal.vote.phase2.time` is over. In order for a result to be determined (and executed), `proposal.quorum` total voting power must be reached by the end of `proposal.vote.phase2.time`. If quorum is met and conclusion is reached, the proposal will be pass the voting periods and be marked as successful. 
+
+::: tip NOTE
+No further actions can be taken in the event that `proposal.quorum` is not met
+:::
 
 ### Execution 
 
@@ -84,7 +100,11 @@ You will be prompted to select a proposal to execute.
 
 After the proposal has passed the voting periods, the proposer MAY unlock their RPL bond, unless the proposal was defeated by a challenge or vetoed.
 
+::: tip NOTE
+There is a window `proposal.execute.time` where a proposal can be executed. A proposal will expire if this timer reaches it's end. 
+:::
 
+## Initializing Voting 
 
 ## Allowing RPL Locking
 
