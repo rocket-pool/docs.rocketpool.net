@@ -133,7 +133,7 @@ Wireless devices usually start with `w`.
 
 ## Smartnode Alert Notifications
 
-[Monitoring your Smartnode Stack with Alert Notifications](./alerting.md) walks through using the Smartnode alert notification functionality to receive notifications about the health and important events of your Rocket Pool Smartnode.
+[Monitoring your Smartnode Stack with Alert Notifications](./maintenance/alerting.md) walks through using the Smartnode alert notification functionality to receive notifications about the health and important events of your Rocket Pool Smartnode.
 
 ## Third-Party Performance Monitoring
 
@@ -244,7 +244,7 @@ It features detailed network and node metrics, including a timeline of your node
 ### Scripting with Pushover (advanced)
 
 ::: tip NOTE
-[Monitoring your Smartnode Stack with Alert Notifications](./alerting.md) walks through using the Smartnode alert notification functionality which includes a notification when there are updates available for your node.
+[Monitoring your Smartnode Stack with Alert Notifications](./maintenance/alerting.md) walks through using the Smartnode alert notification functionality which includes a notification when there are updates available for your node.
 :::
 
 The [Pushover](https://pushover.net/) service allows you to send yourself push notifications.
