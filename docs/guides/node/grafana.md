@@ -319,7 +319,7 @@ sudo chown prometheus:prometheus /usr/local/bin/node_exporter
 sudo chown -R prometheus:prometheus /etc/prometheus
 sudo chown -R alertmanager:alertmanager /etc/alertmanager
 sudo chown -R prometheus:prometheus /var/lib/prometheus
-sudo chown -R prometheus:prometheus /var/lib/alertmanager
+sudo chown -R alertmanager:alertmanager /var/lib/alertmanager
 sudo chmod u+sx,g+sx,o-wx /usr/local/bin/prometheus
 sudo chmod u+sx,g+sx,o-wx /usr/local/bin/alertmanager
 sudo chmod u+sx,g+sx,o-wx /usr/local/bin/node_exporter
