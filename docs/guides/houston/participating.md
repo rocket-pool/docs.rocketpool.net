@@ -20,7 +20,7 @@ If you are a node operator who registered before the Houston upgrade, you need t
 ```
 rocketpool network initialize-voting
 ```
-You only need to do this once. It configures the initial snapshot information for a node. After your initialize voting, every action taken will update your node's snapshot information. 
+You only need to do this once. It configures the initial snapshot information for a node. After you initialize voting, every action taken will update your node's snapshot information. 
 **TODO** get the terminal output and show it here! 
 
 ## Allowing RPL Locking

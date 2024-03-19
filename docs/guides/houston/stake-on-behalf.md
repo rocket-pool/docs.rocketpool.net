@@ -1,5 +1,9 @@
 # DRAFT 
-this page will probably be moved to here: http://localhost:5173/guides/node/minipools/overview before testnet goes live 
+this page will probably be moved to here: http://localhost:5173/guides/node/provisioning/overview before testnet goes live 
+
+TODO: 
+
+add a section in: http://localhost:5173/guides/staking/overview for staking on behalf of a Node 
 
 # Stake ETH on behalf of node 
 
