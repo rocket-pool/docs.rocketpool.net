@@ -398,7 +398,7 @@ This is pretty much it.
 
 :::::::
 
-## Configure firewal to allow connections for monitoring
+## Configure firewall to allow connections for monitoring
 
 ::: warning NOTE
 If you have UFW enabled as referenced in the [Securing your Node](./securing-your-node) section, you will need to open a few ports in order to allow local connections between the Prometheus and your Execution/Consensus Clients. Follow the steps below.
@@ -420,6 +420,7 @@ Then run the following, but replace `172.23.0.0/16` with the output of the previ
 ```shell
 sudo ufw allow from 172.23.0.0/16 to any port 9105 comment "Allow Prometheus access to Execution Client"
 sudo ufw allow from 172.23.0.0/16 to any port 9100 comment "Allow Prometheus access to Consensus Client"
+sudo ufw allow from 172.23.0.0/16 to any port 9103 comment "Allow Prometheus access to Exporter"
 ```
 
 ::::: tab Native
