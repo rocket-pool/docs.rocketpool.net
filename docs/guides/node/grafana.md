@@ -103,6 +103,7 @@ Open the `systemd` unit file you created when you installed your Execution Clien
 ```
 
 ::::nestedTab Besu
+
 ```
 --metrics-enabled --metrics-host=0.0.0.0 --metrics-port=9105
 ```
@@ -114,29 +115,33 @@ Open the `systemd` unit file you created when you installed your Consensus Clien
 
 ^^^^^^ nestedTabs
 ::::nestedTab Lighthouse
+
 ```
 --metrics --metrics-address 0.0.0.0 --metrics-port 9100 --validator-monitor-auto
 ```
 
 ::::nestedTab Lodestar
+
 ```
 --metrics --metrics.address 0.0.0.0 --metrics.port 9100
 ```
 
 ::::nestedTab Nimbus
+
 ```
 --metrics --metrics-address=0.0.0.0 --metrics-port=9100
 ```
 
 ::::nestedTab Prysm
+
 ```
 --monitoring-host 0.0.0.0 --monitoring-port 9100
 ```
 
 If you see the flag `--disable-monitoring`, remove it.
 
-
 ::::nestedTab Teku
+
 ```
 --metrics-enabled=true --metrics-interface=0.0.0.0 --metrics-port=9100 --metrics-host-allowlist=*
 ```
@@ -162,6 +167,7 @@ For example to download prometheus v2.45.3 LTS and node_exporter v1.7.0 for Linu
 ```shell
 wget https://github.com/prometheus/prometheus/releases/download/v2.45.3/prometheus-2.45.3.linux-amd64.tar.gz
 wget https://github.com/prometheus/node_exporter/releases/download/v1.7.0/node_exporter-1.7.0.linux-amd64.tar.gz
+wget https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-amd64.tar.gz
 ```
 
 Extract prometheus and node_exporter executables from downloaded archives.
@@ -169,82 +175,153 @@ Extract prometheus and node_exporter executables from downloaded archives.
 ```shell
 sudo tar -zxvf prometheus-2.45.3.linux-amd64.tar.gz -C /usr/local/bin --wildcards '*/prometheus' --strip-components=1
 sudo tar -zxvf node_exporter-1.7.0.linux-amd64.tar.gz -C /usr/local/bin --wildcards '*/node_exporter' --strip-components=1
+sudo tar -zxvf alertmanager-0.26.0.linux-amd64.tar.gz -C /usr/local/bin --wildcards '*/alertmanager' --strip-components=1
 ```
 
-Create directories for prometheus data.
+Create directories for prometheus & alertmanager configs.
 
 ```shell
 sudo mkdir /etc/prometheus
+sudo mkdir /etc/alertmanager
 sudo mkdir /var/lib/prometheus
+sudo mkdir /var/lib/alertmanager
 ```
 
 Create file `/etc/prometheus/prometheus.yml` with following content:
 
 ```yaml
 global:
-  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
-  scrape_timeout:      12s # Timeout must be shorter than the interval
+  scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  scrape_timeout: 12s # Timeout must be shorter than the interval
   evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
 
 scrape_configs:
-  - job_name: 'prometheus'
+  - job_name: "prometheus"
     static_configs:
-      - targets: ['localhost:9091']
+      - targets: ["localhost:9091"]
 
-  - job_name: 'node'
+  - job_name: "node"
     static_configs:
-      - targets: ['localhost:9103']
-#     - targets: ['localhost:9103', 'node_hostname:9103']
-      
-  - job_name: 'eth1'
+      - targets: ["localhost:9103"]
+  #     - targets: ['localhost:9103', 'node_hostname:9103']
+  - job_name: "eth1"
     static_configs:
-      - targets: ['localhost:9105']
+      - targets: ["localhost:9105"]
     # Uncomment the line below if you are using geth as Execution Client
     #metrics_path: /debug/metrics/prometheus
 
-  - job_name: 'eth2'
+  - job_name: "eth2"
     static_configs:
-      - targets: ['localhost:9100']
-      
-  - job_name: 'validator'
-    static_configs:
-      - targets: ['validator:9101']
+      - targets: ["localhost:9100"]
 
-  - job_name: 'rocketpool'
+  - job_name: "validator"
+    static_configs:
+      - targets: ["validator:9101"]
+
+  - job_name: "rocketpool"
     scrape_interval: 5m
     scrape_timeout: 5m
     static_configs:
-      - targets: ['node:9102']
+      - targets: ["node:9102"]
 
-  - job_name: 'watchtower'
+  - job_name: "watchtower"
     scrape_interval: 5m
     scrape_timeout: 5m
     static_configs:
-      - targets: ['watchtower:9104']
+      - targets: ["watchtower:9104"]
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ["localhost:9093"]
 ```
 
 ::: warning NOTE
 Change the port numbers for the Execution Client and Consensus Client if required.
 
-You may be running your node on a differnt host than the host running prometheus change. In that case
-install node_exporter on your rocketpool node host and update `targets` of the `node` job to include all machines you want to monitor. 
+You may be running your node on a different host than the host running prometheus change. In that case
+install node_exporter on your rocketpool node host and update `targets` of the `node` job to include all machines you want to monitor.
 Also adjust `metrics_path` if your Execution Client is geth - it exposes non-standard endpoint for metrics.
 :::
 
-Create system user for prometheus.
+Create the `/etc/alertmanager/alertmanager.yml` with the following content:
+
+```yaml
+global:
+  # ResolveTimeout is the default value used by alertmanager if the alert does
+  # not include EndsAt, after this time passes it can declare the alert as resolved if it has not been updated.
+  # This has no impact on alerts from Prometheus, as they always include EndsAt.
+  # default = 5m
+  resolve_timeout: 5m
+
+route:
+  # The labels by which incoming alerts are grouped together.
+  group_by: ["alertname"]
+  # How long to initially wait to send a notification for a group
+  # of alerts. Allows to wait for an inhibiting alert to arrive or collect
+  # more initial alerts for the same group.
+  group_wait: 30s
+  # How long to wait before sending a notification about new alerts that
+  # are added to a group of alerts for which an initial notification has
+  # already been sent. (Usually ~5m or more.)
+  group_interval: 5m
+  # How long to wait before sending a notification again if it has already been sent successfully for an alert.
+  repeat_interval: 4h
+  routes:
+    # severity=info: Don't send the follow-up resolved notification.
+    - match:
+        severity: info
+      continue: false
+      # The notification destination
+      receiver: "node_operator_no_resolved"
+    # all other alerts get sent notifications for the initial firing _and_ resolved notifications.
+    - receiver: "node_operator_default"
+      #match: We want this to match all alerts (severity=info is first though so it will stop)
+
+  # The notification destination
+  receiver: "node_operator_default"
+
+receivers:
+  - name: "node_operator_default"
+    discord_configs:
+      - webhook_url: "https://discord.com/api/webhooks/1206697259694170212/_Pk1eVVgXFLdwU1k0rfwehSvNLiAQJytVV_Ze8QYOhupHnhiB5c8awPBTfuw41lN9GJk"
+
+  - name: "node_operator_no_resolved"
+    discord_configs:
+      - webhook_url: "https://discord.com/api/webhooks/1206697259694170212/_Pk1eVVgXFLdwU1k0rfwehSvNLiAQJytVV_Ze8QYOhupHnhiB5c8awPBTfuw41lN9GJk"
+        send_resolved: false
+
+inhibit_rules:
+  # Inhibit rules mute a new alert (target) that matches an existing alert (source).
+  - source_match:
+      # if the existing alert (source) is severity=critical
+      severity: "critical"
+    target_match:
+      # and the new alert (target) is severity=warning
+      severity: "warning"
+      # and the alertname, job, and instance labels have the same value
+    equal: ["alertname", "job", "instance"]
+```
+
+Create system user for prometheus and alertmanager.
 
 ```shell
 sudo useradd -r -s /sbin/nologin prometheus
+sudo useradd -r -s /sbin/nologin alertmanager
 ```
 
-Change prometheus files ownership and permissions.
+Change prometheus/alertmanager files ownership and permissions.
 
 ```shell
 sudo chown prometheus:prometheus /usr/local/bin/prometheus
+sudo chown alertmanager:alertmanager /usr/local/bin/alertmanager
 sudo chown prometheus:prometheus /usr/local/bin/node_exporter
 sudo chown -R prometheus:prometheus /etc/prometheus
+sudo chown -R alertmanager:alertmanager /etc/alertmanager
 sudo chown -R prometheus:prometheus /var/lib/prometheus
+sudo chown -R alertmanager:alertmanager /var/lib/alertmanager
 sudo chmod u+sx,g+sx,o-wx /usr/local/bin/prometheus
+sudo chmod u+sx,g+sx,o-wx /usr/local/bin/alertmanager
 sudo chmod u+sx,g+sx,o-wx /usr/local/bin/node_exporter
 ```
 
@@ -302,6 +379,33 @@ WantedBy=multi-user.target
 If you want to change the port on which prometheus is running, modify command at `ExecStart` parameter. Default port is 9090.
 :::
 
+Create file `/lib/systemd/system/alertmanager.service` for the alertmanager service configuration.
+
+```
+[Unit]
+Description=Alertmanager instance
+Documentation=https://prometheus.io/docs/alerting/latest/alertmanager/
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=alertmanager
+Group=alertmanager
+Type=simple
+Restart=on-failure
+WorkingDirectory=/var/lib/alertmanager
+RuntimeDirectory=alertmanager
+RuntimeDirectoryMode=0750
+ExecStart=/usr/local/bin/alertmanager --config.file /etc/alertmanager/alertmanager.yml --web.listen-address=:9093
+
+[Install]
+WantedBy=multi-user.target
+```
+
+::: warning NOTE
+If you want to change the port on which alertmanager is running, modify command at `ExecStart` parameter. Default port is 9093.
+:::
+
 Let `systemd` know about new services.
 
 ```shell
@@ -328,10 +432,18 @@ sudo systemctl enable prometheus
 sudo systemctl start prometheus
 ```
 
+Enable and start alertmanager service.
+
+```shell
+sudo systemctl enable alertmanager
+sudo systemctl start alertmanager
+```
+
 Check the service status to make sure it's running.
 
 ```shell
 sudo systemctl status prometheus
+sudo systemctl status alertmanager
 ```
 
 Setup package repository for Grafana.
@@ -355,7 +467,6 @@ Verify settings in `/etc/grafana/grafana.ini`. Change the `http_port` to 3100 to
 
 Configure datasource to visualise metrics from Prometheus in Grafana. Create file `/etc/grafana/provisioning/datasources/prometheus.yml`.
 
-
 ```yaml
 apiVersion: 1
 
@@ -378,7 +489,6 @@ datasources:
 ::: warning NOTE
 Edit `url` if you have changed Prometheus listening port.
 :::
-
 
 Enable and start service for Grafana.
 
@@ -425,8 +535,8 @@ sudo ufw allow from 172.23.0.0/16 to any port 9103 comment "Allow Prometheus acc
 
 ::::: tab Native
 
-If your RocketPool node and Prometheus resides on different hosts you need to configure firewall on your node host to allow incomming trafic 
-from Prometheus host IP to the node monitoring ports. 
+If your RocketPool node and Prometheus resides on different hosts you need to configure firewall on your node host to allow incomming trafic
+from Prometheus host IP to the node monitoring ports.
 You also need to configure UFW on the Prometheus machine to allow for outgoing traffic from the Prometheus host to the RocketPool node host.
 
 Having node host IP `192.168.1.5` and Prometheus host IP `192.168.1.6` the UFW rules for the node will be:
@@ -521,10 +631,13 @@ If you lose the admin password, you can reset it using the following command on 
 
 ^^^^^^ nestedTabs
 ::::nestedTab Docker and Hybrid Mode
+
 ```shell
 docker exec -it rocketpool_grafana grafana-cli admin reset-admin-password admin
 ```
+
 ::::nestedTab Native
+
 ```shell
 sudo grafana-cli admin reset-admin-password admin
 ```
@@ -536,7 +649,6 @@ You will be able to log into Grafana using the default `admin` credentials once 
 
 Thanks to community member **tedsteen**'s work, Grafana will automatically connect to your Prometheus instance so it has access to the metrics that it collects.
 All you need to do is grab the dashboard!
-
 
 ## Importing the Rocket Pool Dashboard
 
@@ -781,6 +893,7 @@ services:
       - GF_SMTP_FROM_NAME="Rocketpool Grafana Admin"
       ## SMTP server settings end
 ```
+
 ::::: tab Native
 
 Open `/etc/grafana/grafana.ini` in a text editor. Look for `[smtp]` section and update it, replacing the values below with those for your SMTP provider.
@@ -806,15 +919,19 @@ After making these modifications, **run the following to apply the changes**:
 
 :::::: tabs
 ::::: tab Docker and Hybrid Mode
+
 ```shell
 docker stop rocketpool_grafana
 
 rocketpool service start
 ```
+
 ::::: tab Native
+
 ```shell
 sudo systemctl restart grafana-server
 ```
+
 ::::::
 
 To test the SMTP settings, go to the **Alerting** menu and click **Contact points**.
