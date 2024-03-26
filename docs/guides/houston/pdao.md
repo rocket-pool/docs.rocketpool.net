@@ -79,7 +79,7 @@ You'll be prompted to select a proposal to vote on, if such proposal is availabl
 
 If the veto quorum (as defined by the `proposal.veto.quorum` parameter) is met, the proposal is immediately defeated and the proposer loses their bond. This is to dissuade spam, low quality proposals, or proposals that have not gone through off-chain processes first.
 
-The duration of period 1 is determined by the `proposal.vote.phase1.time` parameter. The proposal will transition to phase 2 reguardless of if `proposal.quorum` is reached. 
+The duration of period 1 is determined by the `proposal.vote.phase1.time` parameter. The proposal will transition to phase 2 reguardless of if `proposal.quorum` is reached or not.
 
 ### Vote Period 2
 
