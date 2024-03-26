@@ -104,7 +104,7 @@ function guides() {
             { text: "Overview", link: "/guides/houston/whats-new" },
             { text: "The Protocol DAO", link: "/guides/houston/pdao" },
             { text: "Participating in Proposals", link: "/guides/houston/participating"},
-            { text: "Stake ETH on Behalf of Node", link: "/guides/houston/stake-on-behalf" },
+            { text: "Stake ETH on Behalf of Node", link: "/guides/houston/stake-eth-on-behalf" },
             { text: "RPL Withdrawal Address", link: "/guides/houston/rpl-withdrawal-address"},
           ],
         },
