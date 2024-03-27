@@ -11,6 +11,11 @@ RPIP-32 allows an account to [stake ETH on behalf](https://rpips.rocketpool.net/
 
 While the primary aim of this feature is to facilitate single depositor scenarios, it’s worth noting that multiple independent depositors can also leverage this capability by creating smart contracts layered on top. Rocket Pool also introduced the ability to stake RPL on behalf of back in our previous Atlas release.
 
+::: warning WARNING
+Make sure that you've properly configured the [primary withdrawal address](../node/prepare-node#setting-your-primary-withdrawal-address) of the node you intend on funding. Don't skip this step or else there won't be a way to withdraw your ETH in a trust-minimized fashion. All ETH bond/rewards will be withdrawn to the primary withdrawal address. In other words, the address that supplies ETH for a node should be used as the primary withdrawal address!
+:::
+
+
 The process is slightly different for the Holesky Testnet and Mainnet, so choose the network you are interested in from the tabs below.
 
 :::::: tabs
@@ -112,7 +117,7 @@ You're now staking with Rocket Pool.
 
 # Unstake ETH on behalf of node 
 
-When you're ready to withdraw ETH you've staked on behalf of a node, head over to the [staking site](https://devnet.rocketpool.net/manage/withdraw-eth) and select 'Withdraw ETH' in the dropdown menu. You should be greeted with a familiar menu prompting to enter the node address you want to withdraw from:  
+When you're ready to withdraw ETH you've staked on behalf of a node, head over to the [staking site](https://devnet.rocketpool.net/manage/withdraw-eth) and select 'Withdraw ETH' in the dropdown menu. After signing in as the node's [primary withdrawal address](../node/prepare-node#setting-your-primary-withdrawal-address), you should be greeted with a familiar menu. You'll be prompted to enter the node address you want to withdraw from:  
 
 ![](./images/enter_node_address.png){ style="display: block; margin: 0 auto" }
 
