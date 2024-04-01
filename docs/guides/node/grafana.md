@@ -39,7 +39,7 @@ Enabling metrics in Docker mode is the easiest of all.
 
 Start by running the Smartnode configuration command again:
 
-```
+```shell
 rocketpool service config
 ```
 
@@ -52,68 +52,10 @@ Save and exit, and smartnode will start the Prometheus, Node Exporter, and Grafa
 
 It will also modify your Consensus and Validator clients so they expose their own metrics to Prometheus.
 
-::: warning NOTE
-If you have UFW enabled as referenced in the [Securing your Node](./securing-your-node) section, you will need to open a few ports in order for outside machines to access Grafana, and to allow local connections between the Node Exporter and Prometheus.
-
-First run:
-
-```shell
-docker inspect rocketpool_monitor-net | grep -Po "(?<=\"Subnet\": \")[0-9./]+"
-```
-
-This will return an ip in CIDR notation that looks like `172.23.0.0/16`.
-
-Then run the following, but replace `172.23.0.0/16` with the output of the previous command:
-
-```shell
-sudo ufw allow from 172.23.0.0/16 to any port 9103 comment "Allow prometheus access to node-exporter"
-```
-
-You can then open the firewall to allow external devices access to your Grafana dashboard.
-
-^^^^^^ nestedTabs
-::::nestedTab Network
-Use this if you want to access Grafana from any machine inside your local network, but deny access everywhere else.
-This will be the most common use case.
-
-Please check whether your local network uses the `192.168.1.xxx` structure first.
-You may have to change the command below to match your local network's configuration if it uses a different address structure (e.g. `192.168.99.xxx`).
-
-```shell
-# This assumes your local IP structure is 192.168.1.xxx
-sudo ufw allow from 192.168.1.0/24 proto tcp to any port 3100 comment 'Allow grafana from local network'
-```
-
-::::nestedTab Subnet
-Use this if your Rocket Pool node is not connected to the same subnet as the device from which you are viewing Grafana. This may happen when your node is connected directly to your ISP's modem and the device you use to view Grafana is connected to a secondary router.
-
-Please check whether your local network uses the `192.168.1.xxx` structure first.
-You may have to change the command below to match your local network's configuration if it uses a different address structure (e.g. `192.168.99.xxx`).
-
-```shell
-# To allow any devices in the broader subnet
-# for example allowing 192.168.2.20 to access
-# grafana on 192.168.1.20
-sudo ufw allow from 192.168.1.0/16 proto tcp to any port 3100 comment 'Allow grafana from local subnets'
-```
-
-::::nestedTab Anywhere
-This will let you access Grafana from anywhere.
-If you want to access it from outside your local network, you will still need to forward the Grafana port (default 3100) in your router settings.
-
-```shell
-# Allow any IP to connect to Grafana
-sudo ufw allow 3100/tcp comment 'Allow grafana from anywhere'
-```
-
-^^^^^^
-
-:::
-
 The Operating System and Rocket Pool update tracker is **not installed by default** for maximum flexibility, but the process is simple.
 If you would like to install it so your dashboard shows you how many updates are available for your system, you can do it with this command:
 
-```
+```shell
 rocketpool service install-update-tracker
 ```
 
@@ -134,7 +76,7 @@ During this check, it will also compare your installed Rocket Pool Smartnode ver
 
 If you enabled the update tracker, then the last step is to restart the Node Exporter with the following command:
 
-```
+```shell
 docker restart rocketpool_exporter
 ```
 
@@ -161,6 +103,7 @@ Open the `systemd` unit file you created when you installed your Execution Clien
 ```
 
 ::::nestedTab Besu
+
 ```
 --metrics-enabled --metrics-host=0.0.0.0 --metrics-port=9105
 ```
@@ -172,29 +115,33 @@ Open the `systemd` unit file you created when you installed your Consensus Clien
 
 ^^^^^^ nestedTabs
 ::::nestedTab Lighthouse
+
 ```
 --metrics --metrics-address 0.0.0.0 --metrics-port 9100 --validator-monitor-auto
 ```
 
 ::::nestedTab Lodestar
+
 ```
 --metrics --metrics.address 0.0.0.0 --metrics.port 9100
 ```
 
 ::::nestedTab Nimbus
+
 ```
 --metrics --metrics-address=0.0.0.0 --metrics-port=9100
 ```
 
 ::::nestedTab Prysm
+
 ```
 --monitoring-host 0.0.0.0 --monitoring-port 9100
 ```
 
 If you see the flag `--disable-monitoring`, remove it.
 
-
 ::::nestedTab Teku
+
 ```
 --metrics-enabled=true --metrics-interface=0.0.0.0 --metrics-port=9100 --metrics-host-allowlist=*
 ```
@@ -203,8 +150,372 @@ If you see the flag `--disable-monitoring`, remove it.
 
 If you already have these flags set and are using different ports for your solo validator monitoring, leave them as-is and make note of which ports you're using.
 
+Now, scroll up and follow the directions in the `Docker` tab of this section to finish the process - keeping in mind that you must replace the ports listed there with any custom ports you use when you run `rocketpool service config`.
+
+::::: tab Native
+
+Native installation of Grafana and Prometheus is recommended for advanced users only. It requires Linux administration skills like `systemd`, file permissions, users and network management.
+
+First, make sure your Execution Client and Consensus Client have metrics enabled. Refer to 'Hybrid' tab for details.
+
+Next, check prebuilt prometheus and node_exporter packages on [the offical download page](https://prometheus.io/download/).
+Choose packages with proper architecture for your platform (amd64 or arm64).
+Most recent LTS (Long Time Support) version of Prometheus is recomended.
+
+For example to download prometheus v2.45.3 LTS and node_exporter v1.7.0 for Linux amd64 with `wget` do:
+
+```shell
+wget https://github.com/prometheus/prometheus/releases/download/v2.45.3/prometheus-2.45.3.linux-amd64.tar.gz
+wget https://github.com/prometheus/node_exporter/releases/download/v1.7.0/node_exporter-1.7.0.linux-amd64.tar.gz
+wget https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-amd64.tar.gz
+```
+
+Extract prometheus and node_exporter executables from downloaded archives.
+
+```shell
+sudo tar -zxvf prometheus-2.45.3.linux-amd64.tar.gz -C /usr/local/bin --wildcards '*/prometheus' --strip-components=1
+sudo tar -zxvf node_exporter-1.7.0.linux-amd64.tar.gz -C /usr/local/bin --wildcards '*/node_exporter' --strip-components=1
+sudo tar -zxvf alertmanager-0.26.0.linux-amd64.tar.gz -C /usr/local/bin --wildcards '*/alertmanager' --strip-components=1
+```
+
+Create directories for prometheus & alertmanager configs.
+
+```shell
+sudo mkdir /etc/prometheus
+sudo mkdir /etc/alertmanager
+sudo mkdir /var/lib/prometheus
+sudo mkdir /var/lib/alertmanager
+```
+
+Create file `/etc/prometheus/prometheus.yml` with following content:
+
+```yaml
+global:
+  scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  scrape_timeout: 12s # Timeout must be shorter than the interval
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+
+scrape_configs:
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9091"]
+
+  - job_name: "node"
+    static_configs:
+      - targets: ["localhost:9103"]
+  #     - targets: ['localhost:9103', 'node_hostname:9103']
+  - job_name: "eth1"
+    static_configs:
+      - targets: ["localhost:9105"]
+    # Uncomment the line below if you are using geth as Execution Client
+    #metrics_path: /debug/metrics/prometheus
+
+  - job_name: "eth2"
+    static_configs:
+      - targets: ["localhost:9100"]
+
+  - job_name: "validator"
+    static_configs:
+      - targets: ["validator:9101"]
+
+  - job_name: "rocketpool"
+    scrape_interval: 5m
+    scrape_timeout: 5m
+    static_configs:
+      - targets: ["node:9102"]
+
+  - job_name: "watchtower"
+    scrape_interval: 5m
+    scrape_timeout: 5m
+    static_configs:
+      - targets: ["watchtower:9104"]
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ["localhost:9093"]
+```
+
 ::: warning NOTE
-If you have UFW enabled as referenced in the [Securing your Node](./securing-your-node) section, you will need to open a few ports in order to allow local connections between the Prometheus and your Execution/Consensus Clients.
+Change the port numbers for the Execution Client and Consensus Client if required.
+
+You may be running your node on a different host than the host running prometheus change. In that case
+install node_exporter on your rocketpool node host and update `targets` of the `node` job to include all machines you want to monitor.
+Also adjust `metrics_path` if your Execution Client is geth - it exposes non-standard endpoint for metrics.
+:::
+
+Create the `/etc/alertmanager/alertmanager.yml` with the following content:
+
+```yaml
+global:
+  # ResolveTimeout is the default value used by alertmanager if the alert does
+  # not include EndsAt, after this time passes it can declare the alert as resolved if it has not been updated.
+  # This has no impact on alerts from Prometheus, as they always include EndsAt.
+  # default = 5m
+  resolve_timeout: 5m
+
+route:
+  # The labels by which incoming alerts are grouped together.
+  group_by: ["alertname"]
+  # How long to initially wait to send a notification for a group
+  # of alerts. Allows to wait for an inhibiting alert to arrive or collect
+  # more initial alerts for the same group.
+  group_wait: 30s
+  # How long to wait before sending a notification about new alerts that
+  # are added to a group of alerts for which an initial notification has
+  # already been sent. (Usually ~5m or more.)
+  group_interval: 5m
+  # How long to wait before sending a notification again if it has already been sent successfully for an alert.
+  repeat_interval: 4h
+  routes:
+    # severity=info: Don't send the follow-up resolved notification.
+    - match:
+        severity: info
+      continue: false
+      # The notification destination
+      receiver: "node_operator_no_resolved"
+    # all other alerts get sent notifications for the initial firing _and_ resolved notifications.
+    - receiver: "node_operator_default"
+      #match: We want this to match all alerts (severity=info is first though so it will stop)
+
+  # The notification destination
+  receiver: "node_operator_default"
+
+receivers:
+  - name: "node_operator_default"
+    discord_configs:
+      - webhook_url: "https://discord.com/api/webhooks/1206697259694170212/_Pk1eVVgXFLdwU1k0rfwehSvNLiAQJytVV_Ze8QYOhupHnhiB5c8awPBTfuw41lN9GJk"
+
+  - name: "node_operator_no_resolved"
+    discord_configs:
+      - webhook_url: "https://discord.com/api/webhooks/1206697259694170212/_Pk1eVVgXFLdwU1k0rfwehSvNLiAQJytVV_Ze8QYOhupHnhiB5c8awPBTfuw41lN9GJk"
+        send_resolved: false
+
+inhibit_rules:
+  # Inhibit rules mute a new alert (target) that matches an existing alert (source).
+  - source_match:
+      # if the existing alert (source) is severity=critical
+      severity: "critical"
+    target_match:
+      # and the new alert (target) is severity=warning
+      severity: "warning"
+      # and the alertname, job, and instance labels have the same value
+    equal: ["alertname", "job", "instance"]
+```
+
+Create system user for prometheus and alertmanager.
+
+```shell
+sudo useradd -r -s /sbin/nologin prometheus
+sudo useradd -r -s /sbin/nologin alertmanager
+```
+
+Change prometheus/alertmanager files ownership and permissions.
+
+```shell
+sudo chown prometheus:prometheus /usr/local/bin/prometheus
+sudo chown alertmanager:alertmanager /usr/local/bin/alertmanager
+sudo chown prometheus:prometheus /usr/local/bin/node_exporter
+sudo chown -R prometheus:prometheus /etc/prometheus
+sudo chown -R alertmanager:alertmanager /etc/alertmanager
+sudo chown -R prometheus:prometheus /var/lib/prometheus
+sudo chown -R alertmanager:alertmanager /var/lib/alertmanager
+sudo chmod u+sx,g+sx,o-wx /usr/local/bin/prometheus
+sudo chmod u+sx,g+sx,o-wx /usr/local/bin/alertmanager
+sudo chmod u+sx,g+sx,o-wx /usr/local/bin/node_exporter
+```
+
+Create file `/lib/systemd/system/node-exporter.service` for node_exporter service configuration.
+
+```
+[Unit]
+Description=Node metrics exporter for Prometheus
+Documentation=https://prometheus.io/docs/introduction/overview
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=prometheus
+Group=prometheus
+Type=simple
+Restart=on-failure
+WorkingDirectory=/var/lib/prometheus
+RuntimeDirectory=node-exporter
+RuntimeDirectoryMode=0750
+ExecStart=/usr/local/bin/node_exporter --web.listen-address=:9103
+
+[Install]
+WantedBy=multi-user.target
+```
+
+::: warning NOTE
+If you want to change the port on which node_exporter is running, modify command at `ExecStart` parameter. Default port is 9100.
+:::
+
+Create file `/lib/systemd/system/prometheus.service` for prometheus service configuration.
+
+```
+[Unit]
+Description=Prometheus instance
+Documentation=https://prometheus.io/docs/introduction/overview
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=prometheus
+Group=prometheus
+Type=simple
+Restart=on-failure
+WorkingDirectory=/var/lib/prometheus
+RuntimeDirectory=prometheus
+RuntimeDirectoryMode=0750
+ExecStart=/usr/local/bin/prometheus --config.file /etc/prometheus/prometheus.yml --web.listen-address=:9091
+
+[Install]
+WantedBy=multi-user.target
+```
+
+::: warning NOTE
+If you want to change the port on which prometheus is running, modify command at `ExecStart` parameter. Default port is 9090.
+:::
+
+Create file `/lib/systemd/system/alertmanager.service` for the alertmanager service configuration.
+
+```
+[Unit]
+Description=Alertmanager instance
+Documentation=https://prometheus.io/docs/alerting/latest/alertmanager/
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=alertmanager
+Group=alertmanager
+Type=simple
+Restart=on-failure
+WorkingDirectory=/var/lib/alertmanager
+RuntimeDirectory=alertmanager
+RuntimeDirectoryMode=0750
+ExecStart=/usr/local/bin/alertmanager --config.file /etc/alertmanager/alertmanager.yml --web.listen-address=:9093
+
+[Install]
+WantedBy=multi-user.target
+```
+
+::: warning NOTE
+If you want to change the port on which alertmanager is running, modify command at `ExecStart` parameter. Default port is 9093.
+:::
+
+Let `systemd` know about new services.
+
+```shell
+sudo systemctl daemon-reload
+```
+
+Enable and start node-exporter service.
+
+```shell
+sudo systemctl enable node-exporter
+sudo systemctl start node-exporter
+```
+
+Check the service status to make sure it's running.
+
+```shell
+sudo systemctl status node-exporter
+```
+
+Enable and start prometheus service.
+
+```shell
+sudo systemctl enable prometheus
+sudo systemctl start prometheus
+```
+
+Enable and start alertmanager service.
+
+```shell
+sudo systemctl enable alertmanager
+sudo systemctl start alertmanager
+```
+
+Check the service status to make sure it's running.
+
+```shell
+sudo systemctl status prometheus
+sudo systemctl status alertmanager
+```
+
+Setup package repository for Grafana.
+
+```shell
+sudo apt-get update
+sudo apt-get install -y apt-transport-https software-properties-common
+sudo mkdir -p /etc/apt/keyrings/
+wget -q -O - https://apt.grafana.com/gpg.key | gpg --dearmor | sudo tee /etc/apt/keyrings/grafana.gpg > /dev/null
+echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+```
+
+Install Grafana.
+
+```shell
+sudo apt-get update
+sudo apt-get install grafana
+```
+
+Verify settings in `/etc/grafana/grafana.ini`. Change the `http_port` to 3100 to be in line with the other sections provided in this document.
+
+Configure datasource to visualise metrics from Prometheus in Grafana. Create file `/etc/grafana/provisioning/datasources/prometheus.yml`.
+
+```yaml
+apiVersion: 1
+
+deleteDatasources:
+  - name: Prometheus
+    orgId: 1
+
+datasources:
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    orgId: 1
+    url: http://localhost:9091
+    basicAuth: false
+    isDefault: true
+    version: 1
+    editable: true
+```
+
+::: warning NOTE
+Edit `url` if you have changed Prometheus listening port.
+:::
+
+Enable and start service for Grafana.
+
+```shell
+sudo systemctl daemon-reload
+sudo systemctl enable grafana-server
+sudo systemctl start grafana-server
+```
+
+Check if Grafana is up and running.
+
+```shell
+sudo systemctl status grafana-server
+```
+
+This is pretty much it.
+
+:::::::
+
+## Configure firewall to allow connections for monitoring
+
+::: warning NOTE
+If you have UFW enabled as referenced in the [Securing your Node](./securing-your-node) section, you will need to open a few ports in order to allow local connections between the Prometheus and your Execution/Consensus Clients. Follow the steps below.
+:::
+
+:::::: tabs
+::::: tab Docker
 
 First run:
 
@@ -219,26 +530,75 @@ Then run the following, but replace `172.23.0.0/16` with the output of the previ
 ```shell
 sudo ufw allow from 172.23.0.0/16 to any port 9105 comment "Allow Prometheus access to Execution Client"
 sudo ufw allow from 172.23.0.0/16 to any port 9100 comment "Allow Prometheus access to Consensus Client"
+sudo ufw allow from 172.23.0.0/16 to any port 9103 comment "Allow Prometheus access to Exporter"
 ```
-:::
-
-Now, scroll up and follow the directions in the `Docker` tab of this section to finish the process - keeping in mind that you must replace the ports listed there with any custom ports you use when you run `rocketpool service config`.
 
 ::::: tab Native
 
-_Coming soon!_
+If your RocketPool node and Prometheus resides on different hosts you need to configure firewall on your node host to allow incomming trafic
+from Prometheus host IP to the node monitoring ports.
+You also need to configure UFW on the Prometheus machine to allow for outgoing traffic from the Prometheus host to the RocketPool node host.
+
+Having node host IP `192.168.1.5` and Prometheus host IP `192.168.1.6` the UFW rules for the node will be:
+
+```shell
+sudo ufw allow from 192.168.1.6 to any port 9100:9105 proto tcp comment 'Allow Prometheus host to scrape metrics of this host'
+```
+
+And for Prometheus host:
+
+```shell
+sudo ufw allow out from any to 192.168.1.5 port 9100:9105 proto tcp comment 'Allow this host to scrape node metrics'
+```
+
+Assuming your Grafana listening port is 3100, continue reading to find out how to expose Grafana in your network.
 
 ::::::
 
+You can then open the firewall to allow external devices access to your Grafana dashboard.
+
+:::::: tabs
+::::: tab Network
+Use this if you want to access Grafana from any machine inside your local network, but deny access everywhere else.
+This will be the most common use case.
+
+Please check whether your local network uses the `192.168.1.xxx` structure first.
+You may have to change the command below to match your local network's configuration if it uses a different address structure (e.g. `192.168.99.xxx`).
+
+```shell
+# This assumes your local IP structure is 192.168.1.xxx
+sudo ufw allow from 192.168.1.0/24 proto tcp to any port 3100 comment 'Allow grafana from local network'
+```
+
+::::: tab Subnet
+Use this if your Rocket Pool node is not connected to the same subnet as the device from which you are viewing Grafana. This may happen when your node is connected directly to your ISP's modem and the device you use to view Grafana is connected to a secondary router.
+
+Please check whether your local network uses the `192.168.1.xxx` structure first.
+You may have to change the command below to match your local network's configuration if it uses a different address structure (e.g. `192.168.99.xxx`).
+
+```shell
+# To allow any devices in the broader subnet
+# for example allowing 192.168.2.20 to access
+# grafana on 192.168.1.20
+sudo ufw allow from 192.168.1.0/16 proto tcp to any port 3100 comment 'Allow grafana from local subnets'
+```
+
+::::: tab Anywhere
+This will let you access Grafana from anywhere.
+If you want to access it from outside your local network, you will still need to forward the Grafana port (default 3100) in your router settings.
+
+```shell
+# Allow any IP to connect to Grafana
+sudo ufw allow 3100/tcp comment 'Allow grafana from anywhere'
+```
+
+::::::
 
 ## Setting up Grafana
 
 Now that the metrics server is ready, you can access it with any browser on your local network.
 
 Refer to the tabs below for your Smartnode installation mode.
-
-:::::: tabs
-::::: tab Docker and Hybrid Mode
 
 Navigate to the following URL, substituting the variables with your setup as necessary:
 
@@ -269,22 +629,26 @@ Pick something strong and don't forget it!
 ::: tip Tip
 If you lose the admin password, you can reset it using the following command on your node:
 
+^^^^^^ nestedTabs
+::::nestedTab Docker and Hybrid Mode
+
 ```shell
 docker exec -it rocketpool_grafana grafana-cli admin reset-admin-password admin
 ```
+
+::::nestedTab Native
+
+```shell
+sudo grafana-cli admin reset-admin-password admin
+```
+
+^^^^^^
 
 You will be able to log into Grafana using the default `admin` credentials once again, and then you will be prompted to change the password for the `admin` account.
 :::
 
 Thanks to community member **tedsteen**'s work, Grafana will automatically connect to your Prometheus instance so it has access to the metrics that it collects.
 All you need to do is grab the dashboard!
-
-
-::::: tab Native
-
-_Coming soon!_
-
-::::::
 
 ## Importing the Rocket Pool Dashboard
 
@@ -509,9 +873,10 @@ GF_<SectionName>_<KeyName>
 To send emails from Grafana, e.g. for alerts or to invite other users, SMTP settings need to be configured in the Rocket Pool Metrics Stack.
 See the [Grafana SMTP configuration](https://grafana.com/docs/grafana/latest/administration/configuration/#smtp) page for reference.
 
+:::::: tabs
+::::: tab Docker and Hybrid Mode
 Open `~/.rocketpool/override/grafana.yml` in a text editor.
 Add an `environment` section below the `x-rp-comment: Add your customizations below this line` line, replacing the values below with those for your SMTP provider.
-If using Gmail and [2-Step Verification](https://support.google.com/accounts/answer/185839) is enabled, create an [App Password](https://support.google.com/mail/answer/185833?hl=en) for this service.
 
 ```yaml
 version: "3.7"
@@ -529,13 +894,45 @@ services:
       ## SMTP server settings end
 ```
 
-After making these modifications, **run the following to apply the changes**:
+::::: tab Native
+
+Open `/etc/grafana/grafana.ini` in a text editor. Look for `[smtp]` section and update it, replacing the values below with those for your SMTP provider.
 
 ```
+[smtp]
+enabled = true
+host = mail.example.com:<port> # Gmail users should use smtp.gmail.com:587
+user = admin@example.com
+# If the password contains # or ; you have to wrap it with triple quotes. Ex """#password;"""
+password = """passw0rd"""
+from_address = admin@example.com
+from_name = "Rocketpool Grafana Admin"
+```
+
+::::::
+
+::: tip Tip
+If using Gmail and [2-Step Verification](https://support.google.com/accounts/answer/185839) is enabled, create an [App Password](https://support.google.com/mail/answer/185833?hl=en) for this service.
+:::
+
+After making these modifications, **run the following to apply the changes**:
+
+:::::: tabs
+::::: tab Docker and Hybrid Mode
+
+```shell
 docker stop rocketpool_grafana
 
 rocketpool service start
 ```
+
+::::: tab Native
+
+```shell
+sudo systemctl restart grafana-server
+```
+
+::::::
 
 To test the SMTP settings, go to the **Alerting** menu and click **Contact points**.
 
