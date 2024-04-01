@@ -68,3 +68,12 @@ Rocket Pool currently allows node operators to specify a withdrawal address for 
 With RPIP-31, you can set a withdrawal address for your ETH and [a new one for your RPL](https://rpips.rocketpool.net/RPIPs/RPIP-31) if you wish. The RPL withdrawal address if set will be able to trigger and claim RPL from inflation rewards and will have no effect on ETH consensus rewards or anything related to ETH.
 
 This creates some interesting opportunities where RPL can be trustlessly supplied by an entity to a node operator that does not wish to have exposure to RPL. That entity can then claim RPL rewards for putting up the required insurance collateral for the node.
+
+
+## Time-based Balance and RPL Price Submissions 
+
+Rocket Pool nodes need to have at least 10% collateral in RPL staked to be eligible for rewards, with their "effective stake" calculated based on the ETH:RPL ratio, which is reported by the Oracle DAO at the end of each rewards interval. Previously, this "top up window" (the time between the final RPL report and the end of the interval) had some uncertainty and fluctuated from interval to interval because it was being specified by number of blocks. This was valid pre-merge but didn't factor variability and randomness in the way blocks are added. 
+
+To address this, the intervals for price and balance reporting will now be based on seconds rather than blocks. This change ensures predictability and has parity with the way rewards intervals are calculated today. If the interval is set to `86400` seconds (number of seconds in 24 hours), prices and balances are reported at the same time every day. 
+
+The protocol now has a fixed and controllable "top up window," removing guesswork and providing users with a consistent 24-hour window for topping up after the final price update. Feel free to read more about this change in [RPIP-35](https://rpips.rocketpool.net/RPIPs/RPIP-35). 
