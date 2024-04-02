@@ -3,16 +3,32 @@ Any node with a non-zero voting power may raise or participate in a pDAO proposa
 
 - Changing pDAO settings
 - One-time treasury spends
-- Repeat treasury spends (management committes)
+- Repeat treasury spends (management committees)
 - Security council membership
 
-For greater detail and rationale, refer to [proposal types](https://rpips.rocketpool.net/RPIPs/RPIP-33#proposal-types). It's important to understand that a pDAO proposal is an on-chain entity that exists to execute changes at the protocol level.  
+For greater detail and rationale, refer to [proposal types](https://rpips.rocketpool.net/RPIPs/RPIP-33#proposal-types). It's important to understand that a pDAO proposal is an on-chain entity that exists to execute changes at the protocol level.
+
+## Governance Process
+
+A proposal should be forecasted by the governance process before it ends up on chain. 
+
+Changes to the Rocket Pool protocol and proposed, voted, and executed using a strict, yet transparent governance process. The process begins with an informal discussion of an idea within the **Discord community**. This idea then progresses to formal discussions in the [#governance](https://discordapp.com/channels/405159462932971535/774497904559783947) channel on Discord and the [DAO Forum](https://dao.rocketpool.net/), where it undergoes thorough research, modeling, and scrutiny in preparation for a [Rocket Pool Improvement Proposal (RPIP)](https://rpips.rocketpool.net/). Following this, a draft RPIP is prepared and reviewed by designated RPIP reviewers to ensure its quality and readiness for presentation to the DAO. The draft proposal is then presented to the DAO on the forum for further review, feedback, and incorporation of any necessary changes. Once the proposal has been refined based on community input, a poll is raised on the DAO forum to gauge readiness for finalizing the RPIP text. If the poll passes, indicating community approval, the RPIP is marked final and ready for a Protocol DAO vote, which is conducted via Snapshot to determine whether the proposal should be implemented.
+
+From here, the Oracle DAO will raise an on chain proposal. There is a window in which the Protocol DAO, Oracle DAO and community can review the proposal. If consensus is reached, the proposal is executed and changes are applied to the protocol. 
+
+A handy dandy visual representation of this process can be found on the [Rocket Pool website](https://rocketpool.net/governance/process).
+
+
+
+
+
+
 
 ## Prerequisite
 
-Please read about the [lifecycle of a proposal](../houston/pdao#lifecycle-of-a-pdao-proposal) before proceeding. 
+Please read the [lifecycle of a proposal](../houston/pdao#lifecycle-of-a-pdao-proposal) before proceeding. It'll explain the differences between all the voting periods and the actions that can be taken during each period. 
 
-This guide will walk you though the steps required for participating in on-chain pDAO proposals. 
+This page will walk you though the steps required for participating in on-chain pDAO proposals. 
 
 ## Initializing Voting 
 
@@ -21,13 +37,12 @@ If you are a node operator who registered before the Houston upgrade, you need t
 rocketpool network initialize-voting
 ```
 You only need to do this once. It configures the initial snapshot information for a node. After you initialize voting, every action taken will update your node's snapshot information. 
-**TODO** get the terminal output and show it here! 
 
 ## Allowing RPL Locking
 
 You may ignore this step if you are only interested in voting on a proposal. Allowing RPL locking is only required for those who wish to propose or challenge a proposal.
 
-RPL locking is a required for proposing and challenging. By default, locking RPL for any purpose, will be disabled. Node operator's will opt-in to performing governance activities by enabling the locking of RPL from their node or primary withdrawal address. You can do so using this command in the Smartnode: 
+RPL locking is required for proposing and challenging. By default, locking RPL for any purpose, will be disabled. Node operator's will opt-in to performing governance activities by enabling the locking of RPL from their node or primary withdrawal address. You can do so using this command in the Smartnode: 
 
 ``` 
 rocketpool node allow-rpl-locking
@@ -36,10 +51,12 @@ This will prompt you to allow the locking of RPL when creating or challenging go
 ```
 rocketpool node deny-rpl-locking
 ```
-
+::: tip NOTE
+Locked RPL acts the same way as regular staked RPL for the purposes of rewards, voting, and collateral requirements. Locked RPL is not counted towards thresholds for withdrawing RPL.
+:::
 ## Delegating Voting Power 
 
-A Node Operator can elect to delegate their voting power to another Node Operator. This can be done using the following command: 
+A node operator can elect to delegate their voting power to another Node Operator. This can be done using the following command: 
 ```
 rocketpool network set-voting-delegate <address>
 ```
@@ -54,6 +71,8 @@ By default, every node has their voting power delgated to itself. So if you've d
 - During phase 1 of a proposal: Delegates may cast their vote on a proposal. 
 - During phase 2 of a proposal: Node operators who have delegated their vote get the opportunity to override their Delegate's vote, if they disagree.
 
+If you are a node operator with delegated voting power, you must vote during voting phase 1 for the delegated voting power to apply. Your vote in phase 1 will be worth your **local voting power + delegated voting power**. Your vote in phase 2 is worth your **local voting power** only. 
+
 ## Creating a Proposal 
 
 In order to be eligible to propose, a node must meet a few requirements: 
@@ -62,11 +81,9 @@ In order to be eligible to propose, a node must meet a few requirements:
 - Has an RPL stake (minus any already locked RPL) greater than the proposal bond
 - Has allowed RPL locking
 
-::: tip NOTE
-Locked RPL acts the same way as regular staked RPL for the purposes of rewards, voting, and collateral requirements. Locked RPL is not counted towards thresholds for withdrawing RPL.
-:::
+Proposals exist to change parameters at the protocol level! There should be discussion and consensus through the governance process before a proposal is created on chain. 
 
-Use the command `rocketpool pdao propose` to bring up a menu of optons
+Use the command `rocketpool pdao propose` to bring up a menu of options
 ```
 COMMANDS:
    rewards-percentages, rp      Propose updating the RPL rewards allocation percentages for node operators, the Oracle DAO, and the Protocol DAO
@@ -76,19 +93,19 @@ COMMANDS:
    security-council, sc         Modify the security council
    setting, s                   Make a Protocol DAO setting proposal
 ```
-Each of these commands will prompt you with a list of inputs to create your desired proposal. For example, if you wanted to invite a node to the security council, you would run `rocketpool pdao propose security-council invite`, prompting you to enter an ID and member address. 
+Each of these commands will prompt you with a list of inputs to create your desired proposal. In this guide, we'll invite a node to the security council to serve as an example. To raise a proposal to invite a node to the security council, you would run `rocketpool pdao propose security-council invite`. Keep in mind that this step will have some slight variation depending on the type of proposal. This particular command will prompt you to enter an ID followed by a member address. 
 ```
 thomaspanf@debian:~$ rocketpool pdao propose security-council invite
 
 Please enter an ID for the member you'd like to invite: (no spaces)
-1324
+test-member
 
 Please enter the member's address:
 0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145
 
 ... gas estimations ... 
 
-Are you sure you want to propose inviting 1324 (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council? [y/n]
+Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council? [y/n]
 ```
 After this is executed, a pDAO proposal will be created! The proposal will enter the [vote delay period](../houston/pdao#vote-delay-period) upon creation.
 
@@ -127,7 +144,7 @@ After executing `rocketpool pdao proposals list`, the state of all existing and 
 
 ::::: tab Viewing Proposal Details 
 
-Now that you have the proposal ID, you can view the status of your proposal using `rocketpool pdao proposals details <proposal-id>` This is where you can view all the information in reguards to a proposal. For example, execution payload, what phase the proposal is in, and vote direction. 
+Now that you have the proposal ID, you can view the status of your proposal using `rocketpool pdao proposals details <proposal-id>` This is where you can view all the information in regards to a proposal. For example, execution payload, what phase the proposal is in, and vote direction. 
 ```
 thomaspanf@debian:~$ rocketpool pdao proposals details 71
 
@@ -164,7 +181,12 @@ During a voting period, Node Operators and Delegates can cast a vote with one of
 3. Against: The voter votes against the proposal being executed.
 4. Veto: The voter votes against the proposal as well as indicating they deem the proposal as spam or malicious.
 ```
-Their voting power will be included in the option of their choosing. Voting power is a function of "effective RPL stake." A more detailed reading can be found in the [rocketpool-research repo](https://github.com/rocket-pool/rocketpool-research/blob/master/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting).
+Their voting power will be applied to the option of their choosing. Voting power is a function of "effective RPL stake." A more detailed reading can be found in the [rocketpool-research repo](https://github.com/rocket-pool/rocketpool-research/blob/master/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting).
+
+
+::: tip NOTE
+If you are a node operator with delegated voting power, you must vote during voting phase 1 for the delegated voting power to apply. Your vote in phase 1 will be worth your local voting power + delegated voting power. Your vote in phase 2 is worth your local voting power only. Please keep in mind that a node may vote once and only once on a proposal, so choose carefully
+:::
 
 Use this command to cast a vote:
 ```
@@ -175,9 +197,9 @@ The menu should display all of the proposal your node is eligible to vote on:
 ```
 thomaspanf@debian:~$ rocketpool pdao proposals vote
 
-1: proposal 79 (message: 'one-time spend for invoice test', payload: proposalTreasuryOneTimeSpend(test,0x681B8BBf08708e64694005c7Dc307b381b4D1A7D,100000000000000000000), phase 1 end: 14 Mar 24 05:40 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
-2: proposal 80 (message: 'replace langers-not-his-eoa (0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E) on the security council with tpan (0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E)', payload: proposalSecurityReplace(0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E,tpan,0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E), phase 1 end: 14 Mar 24 05:40 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0xe2fC31d61E28BB16c0857D4682AB3616FA7A793d)
-3: proposal 81 (message: 'set proposal.vote.delay.time', payload: proposalSettingUint(rocketDAOProtocolSettingsProposals,proposal.vote.delay.time,60), phase 1 end: 14 Mar 24 05:41 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
+1: proposal 71 (message: 'invite test-member', payload: proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145), phase 1 end: 14 Mar 24 05:40 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
+2: proposal 72 (message: 'replace langers-not-his-eoa (0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E) on the security council with tpan (0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E)', payload: proposalSecurityReplace(0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E,tpan,0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E), phase 1 end: 14 Mar 24 05:40 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0xe2fC31d61E28BB16c0857D4682AB3616FA7A793d)
+3: proposal 73 (message: 'set proposal.vote.delay.time', payload: proposalSettingUint(rocketDAOProtocolSettingsProposals,proposal.vote.delay.time,60), phase 1 end: 14 Mar 24 05:41 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
 ```
 
 After selecting an option, you'll be asked how you want to cast your vote. 
@@ -188,11 +210,8 @@ How would you like to vote on the proposal?
 3: Against
 4: Veto
 ```
-::: warning NOTE
-Please keep in mind that a node may vote once and only once on a proposal, so choose carefully. If you have delegated voting power, you must vote in phase 1 for your voting power to be applied to the vote! 
-:::
 
-Selecting an option will then display your voting power, and then prompt you to send the transaction:
+Selecting an option will then display your voting power, and then prompt you to send the transaction: 
 ```
 Your current voting power: 20123617964
 
@@ -206,7 +225,16 @@ Your current voting power: 20123617964
 These prices include a maximum priority fee of 2.00 gwei.
 Please enter your max fee (including the priority fee) or leave blank for the default of 56 gwei:
 ```
-
+You've successfully voted on the proposal once the transaction is included in the block! At this point, you may use `rocketpool pdao proposal details <proposal-id>` to view the state of the proposal. A proposal needs to reach `proposal.quorum` **voting power required** and a majority **voting power for** for it to be successful. 
+```
+Voting power required:  140970562215
+Voting power for:       197980809837
+Voting power against:   0
+Voting power abstained: 0
+Voting power against:   0
+Node has voted:         In Favor
+```
+For the example above to pass, the voting power needs to exceed a quorum of `140970562215` voting power. There is `197980809837` voting power in favor and no votes against or abstained. The proposal is poised for success and ready for execution by the end of `proposal.vote.phase2.time`.
 
 ## Executing a Successful Proposal
 

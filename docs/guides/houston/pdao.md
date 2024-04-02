@@ -8,7 +8,7 @@ The Rocket Pool Protocol DAO (pDAO) is responsible for shaping the direction of 
 
 ### On-chain execution of pDAO responsibilities   
 The Houston Upgrade introduces an on-chain replacement for the pDAO governance system's execution process. It uses an optimistic fraud-proof system that allows any node operator to raise proposals and vote on proposals to adjust "pDAO protocol parameters" and spend treasury funds. To see a comprehensive list of pDAO controllable parameters, click [here](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table). 
-Pre-houston, the core team was responsible for executing pDAO duties at the behest of the community governance process. For example, the team carries out the monthly IMC and GMC payments as per the governance voted payment schedules. The plan was for this power to reside with the team temporarily until a new power structure is set up to take over these responsibilities. Houston removes this dependency on the team, making the protocol more decentralised and trustless.
+Pre-houston, the core team was responsible for executing pDAO duties at the behest of the community governance process. For example, the team carries out the monthly IMC and GMC payments as per the governance voted payment schedules. The plan was for this power to reside with the team temporarily until a new power structure is set up to take over these responsibilities. Houston removes this dependency on the team, making the protocol more decentralized and trustless.
 
 
 ### Security Council
@@ -23,7 +23,7 @@ Any node with a non-zero voting power may raise or participate in a pDAO proposa
 
 - Changing pDAO settings
 - One-time treasury spends
-- Repeat treasury spends (management committes)
+- Repeat treasury spends (management committees)
 - Security council membership
 
 For greater detail and rationale, refer to [proposal types](https://rpips.rocketpool.net/RPIPs/RPIP-33#proposal-types). It's important to understand that a pDAO proposal is an on-chain entity that exists to execute changes at the protocol level.  
@@ -32,7 +32,7 @@ For greater detail and rationale, refer to [proposal types](https://rpips.rocket
 
 ** TODO Q: should this blurb read in first person or should it be neutral? You do xyz vs. node operator does xyz**
 
-A proposal should be forecasted by the governance process before it ends up on chain. It consists of 4 Periods, all of which are pDAO [controllable parameters](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table):
+A proposal should be forecasted by the [governance process](../houston/participate#governance-process) before it ends up on chain. It consists of 4 Periods, all of which are pDAO [controllable parameters](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table):
 
 - Vote Delay Period: `proposal.challenge.period`
 - Vote Phase 1: `proposal.vote.phase1.time`
@@ -79,7 +79,7 @@ You'll be prompted to select a proposal to vote on, if such proposal is availabl
 
 If the veto quorum (as defined by the `proposal.veto.quorum` parameter) is met, the proposal is immediately defeated and the proposer loses their bond. This is to dissuade spam, low quality proposals, or proposals that have not gone through off-chain processes first.
 
-The duration of period 1 is determined by the `proposal.vote.phase1.time` parameter. The proposal will transition to phase 2 reguardless of if `proposal.quorum` is reached or not.
+The duration of period 1 is determined by the `proposal.vote.phase1.time` parameter. The proposal will transition to phase 2 regardless of if `proposal.quorum` is reached or not.
 
 ### Vote Period 2
 
@@ -106,6 +106,6 @@ You will be prompted to select a proposal to execute, the proposal will be appli
 After the proposal has passed the voting periods, the proposer MAY unlock their RPL bond, unless the proposal was defeated by a challenge or vetoed.
 
 ::: tip NOTE
-There is a window `proposal.execute.time` where a proposal can be executed. A proposal will expire if this timer reaches it's end. 
+There is a window `proposal.execute.time` where a proposal can be executed. A proposal will expire if this timer reaches its end. 
 :::
 
