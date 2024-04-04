@@ -1,4 +1,4 @@
-#DRAFT
+# DRAFT
 
 NOTE: this page will be moved to https://docs.rocketpool.net/guides/node/prepare-node#setting-your-withdrawal-address underneath the "withdrawal address" section
 

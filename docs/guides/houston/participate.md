@@ -1,3 +1,5 @@
+# DRAFT
+
 # Participating in on-chain pDAO Proposals 
 Any node with a non-zero voting power may raise or participate in a pDAO proposal at any time. Proposals can be one of the following types:
 
@@ -28,7 +30,7 @@ A handy dandy visual representation of this process can be found on the [Rocket 
 
 Please read the [lifecycle of a proposal](../houston/pdao#lifecycle-of-a-pdao-proposal) before proceeding. It'll explain the differences between all the voting periods and the actions that can be taken during each period. 
 
-This page will walk you though the steps required for participating in on-chain pDAO proposals. 
+This rest of this page will walk you though the steps required for participating in on-chain pDAO proposals. 
 
 ## Initializing Voting 
 

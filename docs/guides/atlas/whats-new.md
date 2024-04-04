@@ -1,5 +1,9 @@
 # The Atlas Update
 
+::: tip NOTE
+The Atlas Update was previously deployed on `18 April 2023, 00:00 UTC`. Please visit [here](../houston/whats-new) to read about the latest Houston Update. 
+:::
+
 This page describes the major changes that Rocket Pool's next major update, titled **Atlas**, brings to the protocol including updates to both the Smartnode stack and to the Rocket Pool protocol in general.
 
 Please read through this page thoroughly to understand all of the differences between the previous version of Rocket Pool (Redstone) and Atlas.

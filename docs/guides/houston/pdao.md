@@ -30,11 +30,9 @@ For greater detail and rationale, refer to [proposal types](https://rpips.rocket
 
 ## Lifecycle of a pDAO proposal 
 
-** TODO Q: should this blurb read in first person or should it be neutral? You do xyz vs. node operator does xyz**
+A proposal should be forecasted by the [governance process](../houston/participate#governance-process) before it ends up on-chain. It consists of 4 Periods, all of which are pDAO [controllable parameters](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table):
 
-A proposal should be forecasted by the [governance process](../houston/participate#governance-process) before it ends up on chain. It consists of 4 Periods, all of which are pDAO [controllable parameters](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table):
-
-- Vote Delay Period: `proposal.challenge.period`
+- Vote Delay Period: `proposal.vote.delay.time`
 - Vote Phase 1: `proposal.vote.phase1.time`
 - Vote Phase 2: `proposal.vote.phase2.time`
 - Execution: `proposal.execute.time	`
@@ -52,13 +50,23 @@ A few reasons why proposers and challengers are required to lock RPL.
 
 Challengers supply an index into the Merkle-sum tree that they are alleging is incorrect.
 
-Challengers who participated in defeating the challenge are paid a proportional amount of the proposer's bond if they submit an index proven to be incorrect. All other challengers receive their bond back only. Upon conclusion of a proposal, Proposers and Challengers may claim bonds using the following command: 
+Challengers who participated in defeating the challenge are paid a proportional amount of the proposer's bond if they submit an index proven to be incorrect. All other challengers receive their bond back only. Any node can participate in tracking and verifying the correctness of proposals. There is a new setting toggle within the smartnode to opt into this responsibility. To access this setting, use the command `rocketpool service config`, navigate to the **Smartnode and TX Fee Settings** menu, and check the box `Enable PDAO Proposal Checker`. When this setting is enabled, the node will check for new proposals, verify their correctness, and submit challenges to invalid proposals. The only prerequisite is that [RPL Locking](../houston/participate#allowing-rpl-locking) is enabled. 
+
+This check runs every 5 minutes in conjunction with a few other node related duties. Here is an example of what it looks like in `rocketpool service logs`:
+```
+rocketpool_node        | 2024/04/02 02:39:15 Checking for Protocol DAO proposals to challenge...
+rocketpool_node        | 2024/04/02 02:39:15 [Network Tree] Loaded file [network-tree-1263513.json.zst].
+rocketpool_node        | 2024/04/02 02:39:15 Proposal 163 does not match the local tree artifacts and must be challenged.
+rocketpool_node        | 2024/04/02 02:39:15 [Voting Info Snapshot] Loaded file [vi-1263513.json.zst].
+rocketpool_node        | 2024/04/02 02:39:15 [Network Tree] Loaded file [network-tree-1263513.json.zst].
+rocketpool_node        | 2024/04/02 02:39:15 Proposal 163, index 20 has already been challenged; waiting for proposer to respond.
 
 ```
-rocketpool pdao claim-bonds
-``` 
+We can see that Proposal 163 at index 20 is being challenged by another node.
 
-If a proposal is not defeated after `proposal.vote.delay.time` has passed, the proposal enters the voting stages.
+Because Proposal 163 is already being challenged, the likely scenario is that the proposer is about to be caught tampering with voting power by a challenger. If the proposer cannot respond to the challenge in time (determined by `proposal.challenge.period`), the challenger can call `rocketpool pdao proposals defeat` using the last challenged index to end the proposal. The challenger can [claim](../houston/participate#claiming-bonds-and-rewards) their original RPL bond as well as the proposer's RPL bond as a reward.  
+
+On the other hand, a proposal not defeated by the end of the vote delay period will enter voting stages.
 
 ### Vote Period 1
 
@@ -75,24 +83,20 @@ This can be done using the command:
 ```
 rocketpool pdao proposals vote
 ```
-You'll be prompted to select a proposal to vote on, if such proposal is available. After selecting a proposal, you'll be able to select one of the above four options. 
-
-If the veto quorum (as defined by the `proposal.veto.quorum` parameter) is met, the proposal is immediately defeated and the proposer loses their bond. This is to dissuade spam, low quality proposals, or proposals that have not gone through off-chain processes first.
+If the veto quorum (as defined by the `proposal.veto.quorum` parameter) is met, the proposal is immediately defeated and the proposer loses their bond. This is to dissuade spam, low quality proposals, or proposals that have not gone through off-chain processes first. The smartnode command `rocketpool pdao proposals finalize` is used to finalize a vetoed proposal by burning the proposer's locked RPL bond. 
 
 The duration of period 1 is determined by the `proposal.vote.phase1.time` parameter. The proposal will transition to phase 2 regardless of if `proposal.quorum` is reached or not.
 
 ### Vote Period 2
 
-During vote period 2, delegates aren't allowed to vote. Node operators who didn't vote in period 1 will still be able to cast a vote during period 2. Node operators who disagree with their delegate's choice will have the opportunity to overturn their delegate's vote.
+During vote period 2, delegates can vote, but only their vote is only worth their **local voting power**. Voters who didn't vote in period 1 will still be able to cast a vote during period 2. Node operators who disagree with their delegate's choice will have the opportunity to overturn their delegate's vote.
 
-The process of overturning a vote is pretty simple, just call `rocketpool pdao proposals vote` and follow the prompts. Your voting power will be applied to the proposal, and your delegate's voting power will be deducted. 
+The process of overturning a vote is pretty simple, just call `rocketpool pdao proposals vote` during vote period 2 and follow the prompts. The delegate's voting power will be overturned by the delegatee's voting power. 
 
-**TODO** create a test example in devnet to show the terminal output of what it looks like to overturn a vote. 
-
-The result of a proposal is concluded when `proposal.vote.phase2.time` is over. In order for a result to be determined (and executed), `proposal.quorum` total voting power must be reached by the end of `proposal.vote.phase2.time`. If quorum is met and conclusion is reached, the proposal will be pass the voting periods and be marked as successful. 
+The result of a proposal is concluded when vote period 2 is over. In order for a result to be determined (and executed), `proposal.quorum` total voting power must be reached by the end of `proposal.vote.phase2.time`. If quorum is met and consensus is reached, the proposal will be pass the voting periods and be marked as successful. 
 
 ::: tip NOTE
-No further actions can be taken in the event that `proposal.quorum` is not met
+No further actions can be taken in the event that `proposal.quorum` is not met. 
 :::
 
 ### Execution 
@@ -103,9 +107,10 @@ rocketpool pdao proposals execute
 ```
 You will be prompted to select a proposal to execute, the proposal will be applied to the protocol after this step! 
 
-After the proposal has passed the voting periods, the proposer MAY unlock their RPL bond, unless the proposal was defeated by a challenge or vetoed.
+After the proposal has passed the voting periods, the proposer may [claim](../houston/participate#claiming-bonds-and-rewards) their locked RPL bond, unless the proposal was defeated by a challenge or vetoed.
 
 ::: tip NOTE
 There is a window `proposal.execute.time` where a proposal can be executed. A proposal will expire if this timer reaches its end. 
 :::
 
+And that's it! Keep in mind that all of the variables mentioned above are pDAO controllable parameters. Click [here](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table) for a comprehensive list of every parameter the pDAO has authority to change using on-chain proposals.  
