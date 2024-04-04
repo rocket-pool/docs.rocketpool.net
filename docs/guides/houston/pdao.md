@@ -8,7 +8,7 @@ The Rocket Pool Protocol DAO (pDAO) is responsible for shaping the direction of 
 
 ### On-chain execution of pDAO responsibilities   
 The Houston Upgrade introduces an on-chain replacement for the pDAO governance system's execution process. It uses an optimistic fraud-proof system that allows any node operator to raise proposals and vote on proposals to adjust "pDAO protocol parameters" and spend treasury funds. To see a comprehensive list of pDAO controllable parameters, click [here](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table). 
-Pre-houston, the core team was responsible for executing pDAO duties at the behest of the community governance process. For example, the team carries out the monthly IMC and GMC payments as per the governance voted payment schedules. The plan was for this power to reside with the team temporarily until a new power structure is set up to take over these responsibilities. Houston removes this dependency on the team, making the protocol more decentralized and trustless.
+Pre-Houston, the core team was responsible for executing pDAO duties at the behest of the community governance process. For example, the team carries out the monthly IMC and GMC payments as per the governance voted payment schedules. The plan was for this power to reside with the team temporarily until a new power structure is set up to take over these responsibilities. Houston removes this dependency on the team, making the protocol more decentralized and trustless.
 
 
 ### Security Council

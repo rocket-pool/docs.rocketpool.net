@@ -97,7 +97,7 @@ function guides() {
           link: "/guides/",
         },
         {
-          text: "The Houston Update",
+          text: "The Houston Upgrade",
           collapsed: true,
           link: "/guides/houston/whats-new",
           items: [

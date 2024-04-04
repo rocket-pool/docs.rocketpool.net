@@ -14,7 +14,7 @@ For greater detail and rationale, refer to [proposal types](https://rpips.rocket
 
 A proposal should be forecasted by the governance process before it ends up on chain. 
 
-Changes to the Rocket Pool protocol and proposed, voted, and executed using a strict, yet transparent governance process. The process begins with an informal discussion of an idea within the **Discord community**. This idea then progresses to formal discussions in the [#governance](https://discordapp.com/channels/405159462932971535/774497904559783947) channel on Discord and the [DAO Forum](https://dao.rocketpool.net/), where it undergoes thorough research, modeling, and scrutiny in preparation for a [Rocket Pool Improvement Proposal (RPIP)](https://rpips.rocketpool.net/). Following this, a draft RPIP is prepared and reviewed by designated RPIP reviewers to ensure its quality and readiness for presentation to the DAO. The draft proposal is then presented to the DAO on the forum for further review, feedback, and incorporation of any necessary changes. Once the proposal has been refined based on community input, a poll is raised on the DAO forum to gauge readiness for finalizing the RPIP text. If the poll passes, indicating community approval, the RPIP is marked final and ready for a Protocol DAO vote, which is conducted via Snapshot to determine whether the proposal should be implemented.
+Changes to the Rocket Pool protocol and proposed, voted, and executed using a strict, yet transparent governance process. The process begins with an informal discussion of an idea within the Discord community. This idea then progresses to formal discussions in the [#governance](https://discordapp.com/channels/405159462932971535/774497904559783947) channel on Discord and the [DAO Forum](https://dao.rocketpool.net/), where it undergoes thorough research, modeling, and scrutiny in preparation for a [Rocket Pool Improvement Proposal (RPIP)](https://rpips.rocketpool.net/). Following this, a draft RPIP is prepared and reviewed by designated RPIP reviewers to ensure its quality and readiness for presentation to the DAO. The draft proposal is then presented to the DAO on the forum for further review, feedback, and incorporation of any necessary changes. Once the proposal has been refined based on community input, a poll is raised on the DAO forum to gauge readiness for finalizing the RPIP text. If the poll passes, indicating community approval, the RPIP is marked final and ready for a Protocol DAO vote, which is conducted via Snapshot to determine whether the proposal should be implemented.
 
 From here, the Oracle DAO will raise an on chain proposal. There is a window in which the Protocol DAO, Oracle DAO and community can review the proposal. If consensus is reached, the proposal is executed and changes are applied to the protocol. 
 
@@ -73,7 +73,7 @@ By default, every node has their voting power delgated to itself. So if you've d
 - During phase 1 of a proposal: Delegates may cast their vote on a proposal. 
 - During phase 2 of a proposal: Node operators who have delegated their vote get the opportunity to override their Delegate's vote, if they disagree.
 
-If you are a node operator with delegated voting power, you must vote during voting phase 1 for the delegated voting power to apply. Your vote in phase 1 will be worth your **local voting power + delegated voting power**. Your vote in phase 2 is worth your **local voting power** only. 
+If you are a node operator with delegated voting power, you must vote during voting phase 1 for the delegated voting power to count towards the proposal. Your vote in phase 1 will be worth your **local voting power + delegated voting power**. Your vote in phase 2 is worth your **local voting power** only. 
 
 ## Creating a Proposal 
 
@@ -83,7 +83,7 @@ In order to be eligible to propose, a node must meet a few requirements:
 - Has an RPL stake (minus any already locked RPL) greater than the proposal bond
 - Has allowed RPL locking
 
-Proposals exist to change parameters at the protocol level! There should be discussion and consensus through the governance process before a proposal is created on chain. 
+Proposals exist to change parameters at the protocol level! There should be discussion and consensus through the [governance](../houston/participate#governance-process) process before a proposal is created on chain. 
 
 Use the command `rocketpool pdao propose` to bring up a menu of options
 ```
@@ -167,7 +167,7 @@ Voting power against:   0
 Node has voted:         no
 ```
 ::: tip NOTE
-The state of this sample proposal is `Pending`. This indicates that the proposal can be challenged, before moving onto `Active (Phase 1)`
+The state of this sample proposal is `Pending`. This indicates that the proposal can be challenged, before moving onto `Active (Phase 1)`. No voting can take place during the `Pending` state.
 :::
 
 ::::::
@@ -187,7 +187,7 @@ Their voting power will be applied to the option of their choosing. Voting power
 
 
 ::: tip NOTE
-If you are a node operator with delegated voting power, you must vote during voting phase 1 for the delegated voting power to apply. Your vote in phase 1 will be worth your local voting power + delegated voting power. Your vote in phase 2 is worth your local voting power only. Please keep in mind that a node may vote once and only once on a proposal, so choose carefully
+If you are a node operator with delegated voting power, you must vote during voting phase 1 for the delegated voting power to count towards the proposal. Your vote in phase 1 will be worth your local voting power + delegated voting power. Your vote in phase 2 is worth your local voting power only. Please keep in mind that a node may vote once and only once on a proposal, so choose carefully
 :::
 
 Use this command to cast a vote:
