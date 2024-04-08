@@ -40,7 +40,7 @@ For any governance system to function, there needs to be proposals and voting. A
 
 **Challenging:** If a node that created a proposal has been found to have done so with incorrect data required, they can be challenged and the challenger must provide a bond for the challenge. The node that makes the challenge can be rewarded with the proposers bond made when creating the proposal if successful, however if they have made an invalid challenge, the proposer can collect their challenge bond.
 
-Voting: If a proposal passes the period where it can be challenged, it enters the voting period. Node operators can then choose to vote in one of the follow flavours:
+**Voting**: If a proposal passes the period where it can be challenged, it enters the voting period. Node operators can then choose to vote in one of the follow flavours:
 
 1. Abstain: The voter’s voting power is contributed to quorum but is neither for nor against the proposal.
 2. For: The voter votes in favour of the proposal being executed.
