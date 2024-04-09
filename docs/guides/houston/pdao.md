@@ -71,11 +71,11 @@ rocketpool pdao proposals vote
 ```
 If the veto quorum (as defined by the `proposal.veto.quorum` parameter) is met, the proposal is immediately defeated and the proposer loses their bond. This is to dissuade spam, low quality proposals, or proposals that have not gone through off-chain processes first. The smartnode command `rocketpool pdao proposals finalize` is used to finalize a vetoed proposal by burning the proposer's locked RPL bond. 
 
-The duration of period 1 is determined by the `proposal.vote.phase1.time` parameter. The proposal will transition to phase 2 regardless of if `proposal.quorum` is reached or not.
+The duration of period 1 is determined by the `proposal.vote.phase1.time` parameter. The proposal will transition to phase 2 regardless of of whether `proposal.quorum` is reached or not.
 
 ### Vote Period 2
 
-During vote period 2, delegates can vote, but only their vote is only worth their **local voting power**. Voters who didn't vote in period 1 will still be able to cast a vote during period 2. Node operators who disagree with their delegate's choice will have the opportunity to overturn their delegate's vote.
+Delegates can vote during vote period 2, but only their vote is only worth their **local voting power**. Voters who didn't vote in period 1 will still be able to cast a vote during period 2. Node operators who disagree with their delegate's choice will have the opportunity to overturn their delegate's vote.
 
 The process of overturning a vote is pretty simple, just call `rocketpool pdao proposals vote` during vote period 2 and follow the prompts. The delegate's voting power will be overturned by the delegatee's voting power. 
 
@@ -101,7 +101,7 @@ There is a window `proposal.execute.time` where a proposal can be executed. A pr
 
 And that's it! Keep in mind that all of the variables mentioned above are pDAO controllable parameters. Click [here](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table) for a comprehensive list of every parameter the pDAO has authority to change using on-chain proposals.  
 
-### Challenge Process
+## Challenge Process
 
 The complete network voting power tree is stored off-chain due to gas limits. When a user submits a new proposal, they are responsible for constructing the network voting tree at target block number. This tree is generated off-chain but verifiable via Merkle roots that are submitted on-chain. The protocol relies on **verifiers** to check the details submitted by the proposer. 
 

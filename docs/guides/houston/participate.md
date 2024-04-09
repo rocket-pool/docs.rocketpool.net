@@ -294,3 +294,74 @@ Please enter your max fee (including the priority fee) or leave blank for the de
 Using a max fee of 21.00 gwei and a priority fee of 2.00 gwei.
 Are you sure you want to claim bonds and rewards from 7 proposals? [y/n]
 ```
+
+## Creating a Recurring Treasury Spend
+
+You'll need to prepare a few inputs to create a recurring treasury spend:
+- A contract name
+- The recipient's address
+- Amount of RPL to send per period
+- The start time for the recurring payment (as a UNIX timestamp)
+- The length of each payment period in hours / minutes / seconds (e.g., 168h0m0s)
+- Number of payment periods
+
+::: tip INFO
+The recipient will need to keep note of the contract name in order to claim payments. Don't worry though, as this information is stored and can be retrieved using the command `rocketpool pdao proposals details <proposal-id>`
+:::
+
+To raise a proposal to set up a recurring treasury spend, use the following smartnode command and follow the prompts:
+
+```
+rocketpool pdao propose recurring-spend
+```
+
+Here's what it looks like all together:
+
+```
+tpan@tpan-meerkat:~$ rocketpool pdao propose recurring-spend
+
+Please enter a contract name for this recurring payment:
+test-recurring-spend
+
+Please enter a recipient address for this recurring payment:
+0x681B8BBf08708e64694005c7Dc307b381b4D1A7D
+
+Please enter an amount of RPL to send to 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D per period:
+1
+
+Your value will be multiplied by 10^18 to be used in the contracts, which results in:
+
+	[1000000000000000000]
+
+Please make sure this is what you want and does not have any floating-point errors.
+
+Is this result correct? [y/n]
+y
+
+Please enter the time that the recurring payment will start (as a UNIX timestamp):
+1717935233
+
+The provided timestamp corresponds to 2024-06-09 12:13:53 +0000 UTC - is this correct? [y/n]
+y
+
+Please enter the length of each payment period in hours / minutes / seconds (e.g., 168h0m0s):
+720h
+
+Please enter the total number of payment periods:
+24
+```
+Once you've entered all the required inputs, a proposal to create a recurring payment will be raised. When the pDAO passes and executes this proposal, the recipient is allocated `1 RPL` starting at `2024-06-09 12:13:53 +0000 UTC` every `720 hours` for a total of `24 payments`. 
+
+## Claiming a Recurring Treasury Spend (WIP)    
+
+Claiming recurring payments should be pretty simple! Navigate to our frontend tool [here](https://stake.rocketpool.net/manage/claim-recurring-payments) to do so. If you're trying this out on Holesky testnet, use [this](https://testnet.rocketpool.net/manage/stake-rpl-on-behalf-of-node) link instead. 
+
+Once you're on the site, click the **connect wallet** button. Please read through and accept the Terms of Service & Privacy Policy, this will enable different ways to connect, then click connect **metamask**. 
+
+MetaMask will prompt you to select an account to connect to the website. Make sure you sign in using the address that's set to receive recurring payments.
+
+After you've signed in, you'll need to enter the **contract name**. Doing so will display all the details 
+
+![](./images/claim_recurring1.png){ style="display: block; margin: 0 auto" }
+
+
