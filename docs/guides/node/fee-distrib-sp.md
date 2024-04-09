@@ -119,7 +119,7 @@ Infractions are at a **minipool** level, not a **node** level.
 The Smartnode software is designed to ensure honest users would never get penalized under the hypothetical penalty system, even if it must take the Validator Client offline to do so.
 If this were to happen, you would stop attesting and see error messages in your log files about why the Smartnode can't correctly set your fee recipient.
 
-Currently the penalty system does not exist and there are no plans to implement it. Therefore, a node operator is welcome to set their fee recipient to address other than the three listed above to claim all execution layer rewards for the address of their choice (including those that would normally be designated for rETH holders). Be aware, however, that the Smartnode software does not make such a setting of the fee recipient easy to accomplish.
+Currently the penalty system does not exist and there are no plans to implement it. Therefore, a node operator is welcome to set their fee recipient to an address other than the three listed above to claim all execution layer rewards for the address of their choice (including those that would normally be designated for rETH holders). Be aware, however, that the Smartnode software does not make such a setting of the fee recipient easy to accomplish.
 
 ## The Smoothing Pool
 
