@@ -1,20 +1,17 @@
 # DRAFT
+# Setting your RPL Withdrawal Address
 
-NOTE: this page will be moved to https://docs.rocketpool.net/guides/node/prepare-node#setting-your-withdrawal-address underneath the "withdrawal address" section
+It's important to understand the difference between your [primary withdrawal address](../node/prepare-node#setting-your-primary-withdrawal-address) and your RPL withdrawal address. By default, your RPL withdrawal address is unset and your Primary withdrawal address is where all of your RPL checkpoint rewards, your staked RPL, and Beacon Chain ETH will be sent to. 
 
-## Setting your RPL Withdrawal Address
-
-It's important to understand the difference between your Primary withdrawal address and your RPL withdrawal address. By default, your RPL withdrawal address is unset and your Primary withdrawal address is where all of your RPL checkpoint rewards, your staked RPL, and Beacon Chain ETH will be sent to. 
-
-You can set a seperate withdrawal address for your ETH and [a new one for your RPL](https://rpips.rocketpool.net/RPIPs/RPIP-31) if you wish. Your RPL withdrawal address if set will be able to trigger and claim RPL from inflation rewards and will have no effect on ETH consensus rewards or anything related to ETH. In this case, your Primary withdrawal address will no longer have any authority over RPL related actions. 
+You can set a [seperate withdrawal address for your RPL](https://rpips.rocketpool.net/RPIPs/RPIP-31) if you wish. Your RPL withdrawal address if set will be able to trigger and claim RPL from inflation rewards and will have no effect on ETH consensus rewards or anything related to ETH. In this case, your Primary withdrawal address will no longer have any authority over RPL related actions. 
 
 This creates some interesting opportunities where RPL can be trustlessly supplied by an entity to a node operator that does not wish to have exposure to RPL. That entity can then claim RPL rewards for putting up the required insurance collateral for the node. In other words, this allows different actors to supply each collateral type.
 
 
 ::: warning NOTE
 Upon setting up your node for the first time, your RPL withdrawal address defaults to being unset.
-However, for security reasons, **it is vitally important to set this to a different address controlled by a cold wallet.**
-A cold wallet could be a hardware wallet (such as a [Ledger](https://www.ledger.com/), [Trezor](https://trezor.io/), or [Grid+](https://gridplus.io/)), or a Smart Contract wallet (such as [Argent](https://www.argent.xyz/)).
+If you choose to set an RPL withdrawal address, **it is vitally important to set this to a different address controlled by a cold wallet.**
+A cold wallet could be a hardware wallet (such as a [Ledger](https://www.ledger.com/), [Trezor](https://trezor.io/), or [Grid+](https://gridplus.io/)), or a Smart Contract wallet (such as [Safe](https://app.safe.global/welcome)).
 
 We **strongly recommend** that you DO NOT use a hot wallet such as MetaMask as your RPL withdrawal address.
 

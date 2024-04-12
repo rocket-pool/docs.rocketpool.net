@@ -52,7 +52,7 @@ After the proposal has passed the voting periods, the proposer may unlock their 
 
 ## Stake ETH on Behalf of a node
 
-RPIP-32 allows an account to [stake ETH on behalf](https://rpips.rocketpool.net/RPIPs/RPIP-32) of a Rocket Pool node that is registered in the protocol. This supports a variety of situations where the node operator is not directly providing the ETH:
+[RPIP-32](https://rpips.rocketpool.net/RPIPs/RPIP-32) allows an account to [stake ETH on behalf](../houston/stake-eth-on-behalf) of a Rocket Pool node that is registered in the protocol. This supports a variety of situations where the node operator is not directly providing the ETH:
 
 - Enhanced security for node operators, as they can stake directly from their hardware wallet, eliminating the need to transfer funds to the node beforehand.
 - Staking as a Service providers where custody of funds are managed by a trusted custodian.
@@ -65,7 +65,7 @@ While the primary aim of this feature is to facilitate single depositor scenario
 
 Rocket Pool currently allows node operators to specify a withdrawal address for their ETH and RPL. This could be an external hardware wallet or something similarly secure.
 
-With RPIP-31, you can set a withdrawal address for your ETH and [a new one for your RPL](https://rpips.rocketpool.net/RPIPs/RPIP-31) if you wish. The RPL withdrawal address if set will be able to trigger and claim RPL from inflation rewards and will have no effect on ETH consensus rewards or anything related to ETH.
+With [RPIP-31](https://rpips.rocketpool.net/RPIPs/RPIP-31), you can set a withdrawal address for your ETH and [a new one for your RPL](../houston/rpl-withdrawal-address) if you wish. The RPL withdrawal address if set will be able to trigger and claim RPL from inflation rewards and will have no effect on ETH consensus rewards or anything related to ETH.
 
 This creates some interesting opportunities where RPL can be trustlessly supplied by an entity to a node operator that does not wish to have exposure to RPL. That entity can then claim RPL rewards for putting up the required insurance collateral for the node.
 

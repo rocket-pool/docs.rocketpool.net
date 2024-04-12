@@ -352,16 +352,17 @@ Please enter the total number of payment periods:
 ```
 Once you've entered all the required inputs, a proposal to create a recurring payment will be raised. When the pDAO passes and executes this proposal, the recipient is allocated `1 RPL` starting at `2024-06-09 12:13:53 +0000 UTC` every `720 hours` for a total of `24 payments`. 
 
-## Claiming a Recurring Treasury Spend (WIP)    
+## Claiming a Recurring Treasury Spend 
 
 Claiming recurring payments should be pretty simple! Navigate to our frontend tool [here](https://stake.rocketpool.net/manage/claim-recurring-payments) to do so. If you're trying this out on Holesky testnet, use [this](https://testnet.rocketpool.net/manage/stake-rpl-on-behalf-of-node) link instead. 
 
 Once you're on the site, click the **connect wallet** button. Please read through and accept the Terms of Service & Privacy Policy, this will enable different ways to connect, then click connect **metamask**. 
 
-MetaMask will prompt you to select an account to connect to the website. Make sure you sign in using the address that's set to receive recurring payments.
-
-After you've signed in, you'll need to enter the **contract name**. Doing so will display all the details 
+MetaMask will prompt you to select an account to connect to the website. After you've signed in, you'll need to enter the **contract name**. Doing so will display all the relevant details. Make sure you double check the recipient's address. Anybody can call the claim function, but each payment contract will have a designated recipient to disperse RPL towards. 
 
 ![](./images/claim_recurring1.png){ style="display: block; margin: 0 auto" }
 
+You can claim your payments at any time, you'll just get the total unclaimed RPL up until the most recent period. Alternatively you can wait until all periods have passed to collect all at once and save on gas.
+
+Just hit the big orange claim button when you're ready and review the transaction in metamask (or your preferred wallet). Once that's done, you're all set!
 

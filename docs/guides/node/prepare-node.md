@@ -69,7 +69,9 @@ Once this is complete, you will officially be a member of the Rocket Pool networ
 Before anything else, we highly recommended you change the **primary withdrawal address** for your node.
 This is the address that all of your RPL checkpoint rewards, your staked RPL, and your Beacon Chain ETH will be sent to when you claim your checkpoint rewards or exit your validator and withdraw from your minipool. 
 
-Optionally, you can set a withdrawal address for your ETH and [a new one for your RPL](https://rpips.rocketpool.net/RPIPs/RPIP-31). The RPL withdrawal address if set will be able to trigger and claim RPL from inflation rewards and will have no effect on ETH consensus rewards or anything related to ETH. If you haven't set an RPL withdrawal address, the Primary Withdrawal Address will receive RPL rewards as well. By default, **whoever controls the primary withdrawal address can access ALL your staked RPL, ETH, and rewards.** The address used to supply a node with ETH should be the primary withdrawl address for the node. Click [here](../houston/stake-eth-on-behalf) to read about **staking ETH on behalf of a node**.
+Optionally, you can set a withdrawal address for your ETH and [a new one for your RPL](https://rpips.rocketpool.net/RPIPs/RPIP-31). The RPL withdrawal address if set will be able to trigger and claim RPL from inflation rewards and will have no effect on ETH consensus rewards or anything related to ETH. If you haven't set an RPL withdrawal address, the Primary Withdrawal Address will receive RPL rewards as well. By default, **whoever controls the primary withdrawal address can access ALL your staked RPL, ETH, and rewards.**
+
+The address used to supply a node with ETH should be the primary withdrawal address for the node. Click [here](../houston/stake-eth-on-behalf) to read about **staking ETH on behalf of a node**.
 
 ::: warning NOTE
 Upon setting up your node for the first time, this is set to your node's wallet address.

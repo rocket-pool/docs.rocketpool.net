@@ -11,8 +11,12 @@ RPIP-32 allows an account to [stake ETH on behalf](https://rpips.rocketpool.net/
 
 While the primary aim of this feature is to facilitate single depositor scenarios, it’s worth noting that multiple independent depositors can also leverage this capability by creating smart contracts layered on top. Rocket Pool also introduced the ability to stake RPL on behalf of back in our previous Atlas release.
 
-::: warning WARNING
-Make sure that you've properly configured the [primary withdrawal address](../node/prepare-node#setting-your-primary-withdrawal-address) of the node you intend on funding. Don't skip this step or else there won't be a way to withdraw your ETH in a trust-minimized fashion. All ETH bond/rewards will be withdrawn to the primary withdrawal address. In other words, the address that supplies ETH for a node should be used as the primary withdrawal address!
+### Prerequisite
+
+Make sure that you've properly configured the [primary withdrawal address](../node/prepare-node#setting-your-primary-withdrawal-address) of the node you intend on funding. Follow the link above for a guide on how withdrawal addresses act post houston. 
+
+::: tip NOTE
+Don't skip this step! All ETH bond/rewards will be withdrawn to the primary withdrawal address. In other words, the address that supplies ETH for a node should be used as the primary withdrawal address! Please make sure that the node's primary withdrawal address is set to a wallet you have custody over. 
 :::
 
 
@@ -96,7 +100,7 @@ From here, you'll want to enter the address of the node you'd like to deposit ET
 
 ![](./images/enter_node_address.png){ style="display: block; margin: 0 auto" }
 
-Go ahead and paste your desired address into this box and click find. For the purpose of this example, we'll use `0xd3e317806456102d19db283b4c2201f0ef41a296`
+Go ahead and paste your desired address into this box and click find. In this example, we'll use `0xd3e317806456102d19db283b4c2201f0ef41a296`
 
 ![](./images/eth_on_behalf.png){ style="display: block; margin: 0 auto" }
 
