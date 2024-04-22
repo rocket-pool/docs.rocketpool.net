@@ -12,7 +12,7 @@ Pre-Houston, the core team was responsible for executing pDAO duties at the behe
 
 
 ### Security Council
-The Houston upgrade also includes a new security council to help react quickly in the event of any potential issues with the protocol. These members can be elected by the pDAO and they have the ability propose and execute changes without delay. The pDAO has the power to elect and remove members from the security council. It's a serious role and the pDAO should develop strong entry requirements and processes for flushing stale members. The pDAO guardian will be the security council's sole member at the start of Houston. 
+The Houston upgrade also includes a new security council to help react quickly in the event of any potential issues with the protocol. These members can be elected by the pDAO and have the ability to propose and execute changes without delay. The pDAO has the power to elect and remove members from the security council. It's a serious role and the pDAO should develop strong entry requirements and processes for flushing stale members. The pDAO guardian will be the security council's sole member at the start of Houston. 
 
 ### Recurring Treasury Spends
 RPL has a 5% inflation rate. 22% of this inflation is directed towards the pDAO as defined in [RPIP-25](https://rpips.rocketpool.net/RPIPs/RPIP-25). The pDAO can use these funds for a variety of purposes. For example, incentives such as liquidity provider (LP) bonuses, grants and bounties for 3rd party improvements and projects, and funding the development of the Rocket Pool protocol. The Houston upgrade also introduces a new feature that enables recurring treasury payments made to a specified beneficiary each rewards period. 
@@ -59,7 +59,7 @@ When `proposal.vote.delay.time` expires, the proposal is no longer able to be ch
 During a voting period, Node Operators and Delegates can cast a vote with one of four options:
 ```
 1. Abstain: The voter's voting power is contributed to quorum but is neither for nor against the proposal.
-2. For: The voter votes in favour of the proposal being executed.
+2. For: The voter votes in favor of the proposal being executed.
 3. Against: The voter votes against the proposal being executed.
 4. Veto: The voter votes against the proposal as well as indicating they deem the proposal as spam or malicious.
 ```
@@ -71,7 +71,7 @@ rocketpool pdao proposals vote
 ```
 If the veto quorum (as defined by the `proposal.veto.quorum` parameter) is met, the proposal is immediately defeated and the proposer loses their bond. This is to dissuade spam, low quality proposals, or proposals that have not gone through off-chain processes first. The smartnode command `rocketpool pdao proposals finalize` is used to finalize a vetoed proposal by burning the proposer's locked RPL bond. 
 
-The duration of period 1 is determined by the `proposal.vote.phase1.time` parameter. The proposal will transition to phase 2 regardless of of whether `proposal.quorum` is reached or not.
+The duration of period 1 is determined by the `proposal.vote.phase1.time` parameter. The proposal will transition to phase 2 regardless of whether `proposal.quorum` is reached or not.
 
 ### Vote Period 2
 
@@ -79,7 +79,7 @@ Delegates can vote during vote period 2, but only their vote is only worth their
 
 The process of overturning a vote is pretty simple, just call `rocketpool pdao proposals vote` during vote period 2 and follow the prompts. The delegate's voting power will be overturned by the delegatee's voting power. 
 
-The result of a proposal is concluded when vote period 2 is over. In order for a result to be determined (and executed), `proposal.quorum` total voting power must be reached by the end of `proposal.vote.phase2.time`. If quorum is met and consensus is reached, the proposal will be pass the voting periods and be marked as successful. 
+The result of a proposal is concluded when vote period 2 is over. In order for a result to be determined (and executed), `proposal.quorum` total voting power must be reached by the end of `proposal.vote.phase2.time`. If quorum is met and consensus is reached, the proposal will pass the voting periods and be marked as successful. 
 
 ::: tip NOTE
 No further actions can be taken in the event that `proposal.quorum` is not met. A proposal is considered concluded and final if quorum is not met. 
@@ -113,7 +113,7 @@ Any node can participate in tracking and verifying the correctness of proposals.
 
 When this setting is enabled, the node will check for new proposals, verify their correctness, and submit challenges to invalid proposals. The only prerequisite is that [RPL Locking](../houston/participate#allowing-rpl-locking) is enabled. 
 
-This check runs every 5 minutes in conjunction with a few other node related duties. We'll run through an example of what challenging a fradulent proposal looks like. We can use the smartnode command `rocketpool service logs node` to monitor the progress: 
+This check runs every 5 minutes in conjunction with a few other node related duties. We'll run through an example of what challenging a fraudulent proposal looks like. We can use the smartnode command `rocketpool service logs node` to monitor the progress: 
 
 ```
 rocketpool_node  | 2024/04/05 02:19:16 Checking for Protocol DAO proposal challenges to defend...
@@ -132,7 +132,7 @@ rocketpool_node  | 2024/04/05 02:19:26 You may follow its progress by visiting:
 rocketpool_node  | 2024/04/05 02:19:26 https://holesky.etherscan.io/tx/0x327e59e398bf2141a0d9273947d1da5c255606c45afaca428ab092186300eac2
 
 ```
-We can see that our node has caught a fradulent proposal and started the process of challenging it. Block `1283202` is the block in which proposal 177 was raised, which means voting power for this proposal will be calculated at block `1283202`. If you're interested in seeing what these **Voting Info Snapshots** look like, you can locate them in this directory: `~/.rocketpool/data/voting`
+We can see that our node has caught a fraudulent proposal and started the process of challenging it. Block `1283202` is the block in which proposal 177 was raised, which means voting power for this proposal will be calculated at block `1283202`. If you're interested in seeing what these **Voting Info Snapshots** look like, you can locate them in this directory: `~/.rocketpool/data/voting`
 
 Because the proposer was caught submitting incorrect voting info, our node makes a contract call `Function: createChallenge` on proposal 177 at index 5 and waits for the proposer to respond to the challenge. 
 

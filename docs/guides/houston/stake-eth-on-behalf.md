@@ -7,7 +7,7 @@ RPIP-32 allows an account to [stake ETH on behalf](https://rpips.rocketpool.net/
 - Enhanced security for node operators, as they can stake directly from their hardware wallet, eliminating the need to transfer funds to the node beforehand.
 - Staking as a Service providers where custody of funds are managed by a trusted custodian.
 - Protocol integrations where custody of funds are managed by smart contracts.
-- DAOs or organisations where custody of funds are managed by a treasury.
+- DAOs or organizations where custody of funds are managed by a treasury.
 
 While the primary aim of this feature is to facilitate single depositor scenarios, it’s worth noting that multiple independent depositors can also leverage this capability by creating smart contracts layered on top. Rocket Pool also introduced the ability to stake RPL on behalf of back in our previous Atlas release.
 
@@ -45,8 +45,6 @@ You will see a list of networks, Holesky is not in this list so click the "Add a
 
 Fill in the following details:
 
-![](./images/mm_add_holesky.png){ style="display: block; margin: 0 auto" }
-
 ```
 Network Name: Holesky
 New RPC Url: https://rpc.holesky.ethpandaops.io
@@ -65,10 +63,6 @@ Now that you have a wallet address in MetaMask, you need to fill it with some te
 Head over to the [Practicing with the Test Network](../testnet/overview#getting-test-eth-on-holesky) page for a quick guide on how to use a testnet faucet to get some test ETH on Holesky.
 
 Once you have some Holesky ETH to test with, head to [https://testnet.rocketpool.net/manage/deposit-eth-on-behalf-of-node](https://testnet.rocketpool.net/manage/deposit-eth-on-behalf-of-node).
-
-The page should look like this:
-
-![](./images/rp_test_site.png){ style="display: block; margin: 0 auto" }
 
 If you see a notice about a web3 browser being required, or the current network ID being unsupported, make sure you’ve completed the previous steps correctly before continuing.
 
@@ -113,7 +107,7 @@ The node has 0.000000 ETH in its credit balance and 8.000000 ETH staked on its b
 ```
 
 ::: warning NOTE
-If a node operator deposits your ETH into a minipool, you won't be able to permissionlessly exit their minipool, so keep this in mind! You can use the Rocket Pool staking site to withdraw ETH staked on behalf of a node if it isn't being used in a minipool. 
+If a node operator deposits your ETH into a minipool, you won't be able to exit their minipool without access to their withdrawal credentials, so keep this in mind! You can use the Rocket Pool staking site to withdraw ETH staked on behalf of a node if it isn't being used in a minipool. 
 :::
 
 That's it!

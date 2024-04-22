@@ -67,7 +67,7 @@ For example, if you wanted to delegate your voting power to `0xBdbcb42DD8E39323a
 rocketpool network set-voting-delegate 0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145
 ```
 ::: tip NOTE
-By default, every node has their voting power delgated to itself. So if you've delegated your voting power to another node operator, you can reset this by setting the voting delegate to your own node's address. 
+By default, every node has their voting power delegated to itself. So if you've delegated your voting power to another node operator, you can reset this by setting the voting delegate to your own node's address. 
 :::
 
 - During phase 1 of a proposal: Delegates may cast their vote on a proposal. 
@@ -179,7 +179,7 @@ The state of this sample proposal is `Pending`. This indicates that the proposal
 During a voting period, Node Operators and Delegates can cast a vote with one of four options:
 ```
 1. Abstain: The voter's voting power is contributed to quorum but is neither for nor against the proposal.
-2. For: The voter votes in favour of the proposal being executed.
+2. For: The voter votes in favor of the proposal being executed.
 3. Against: The voter votes against the proposal being executed.
 4. Veto: The voter votes against the proposal as well as indicating they deem the proposal as spam or malicious.
 ```
