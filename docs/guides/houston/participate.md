@@ -70,7 +70,7 @@ If you are a node operator with delegated voting power, you must vote during vot
 ## Creating a Proposal 
 
 In order to be eligible to propose, a node must meet a few requirements: 
-- Included in snapshotting (either by [initializing voting](../houston/pdao#initializing-voting) or by registering post Houston)
+- Included in snapshotting (either by [initializing voting](../houston/participate#initializing-voting) or by registering post Houston)
 - Has non-zero voting power.
 - Has an RPL stake (minus any already locked RPL) greater than the proposal bond
 - Has allowed RPL locking
