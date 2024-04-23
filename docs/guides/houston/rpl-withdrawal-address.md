@@ -72,7 +72,7 @@ Note that Ledger Live will not show your balance on the test network, but other 
 
 In this method, you will run:
 
-```
+```shell
 rocketpool node set-rpl-withdrawal-address --force <your cold wallet address>
 ```
 

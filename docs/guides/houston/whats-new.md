@@ -6,7 +6,7 @@ next:
 
 # The Houston Upgrade
 
-The Houston upgrade is largely aimed at introducing a fully on-chain DAO to govern the protocol, known as the Protocol DAO or pDAO. It is a DAO like no other and it does not require snapshot voting or any other 3rd party tools to function, it is truly onchain and one of a kind, more on that below.
+The Houston upgrade is largely aimed at introducing a fully on-chain DAO to govern the protocol, known as the Protocol DAO or pDAO. It is a DAO like no other and it does not require snapshot voting or any other 3rd party tools to function, it is truly on-chain and one of a kind, more on that below.
 
 This upgrade will also be introducing some other very exciting features that will allow new integrations and platforms to be built on the protocol. Some of these include the ability to stake ETH on behalf of node (not just from the node itself) and a new RPL withdrawal address feature that can allow the node operator to supply the ETH for staking and another party to trustlessly provide the RPL for the insurance bond.
 
@@ -32,7 +32,7 @@ The pDAO has control over many settings of the protocol, it can spend treasury f
 
 ### Proposals and Voting
 
-For any governance system to function, there needs to be proposals and voting. At the moment, snapshot voting is used for these settings and proposal changes, then some manual intervention is needed to execute the changes. With the introduction of the [Houston upgrade and RPIP-33](https://rpips.rocketpool.net/RPIPs/RPIP-33), this is moved to a new optimistic fraud-proof system that allows any node operator to raise, vote on or challenge proposals, directly on chain without the need for any 3rd party tools.
+For any governance system to function, there needs to be proposals and voting. At the moment, snapshot voting is used for these settings and proposal changes, then some manual intervention is needed to execute the changes. With the introduction of the [Houston upgrade and RPIP-33](https://rpips.rocketpool.net/RPIPs/RPIP-33), this is moved to a new optimistic fraud-proof system that allows any node operator to raise, vote on or challenge proposals, directly on-chain without the need for any 3rd party tools.
 
 **Proposing:** Any node with a non-zero voting power may raise a proposal at any time. When doing so they must lock a proposal bond in the form of RPL for the entire proposal process.
 

@@ -63,7 +63,7 @@ During a voting period, Node Operators and Delegates can cast a vote with one of
 Their voting power will be included in the option of their choosing.
 
 This can be done using the command:
-```
+```shell
 rocketpool pdao proposals vote
 ```
 If the veto quorum (as defined by the `proposal.veto.quorum` parameter) is met, the proposal is immediately defeated and the proposer loses their bond. This is to dissuade spam, low quality proposals, or proposals that have not gone through off-chain processes first. The smartnode command `rocketpool pdao proposals finalize` is used to finalize a vetoed proposal by burning the proposer's locked RPL bond. 
@@ -85,7 +85,7 @@ No further actions can be taken in the event that `proposal.quorum` is not met. 
 ### Execution 
 
 Once both voting periods have passed and the proposal is successful, the proposal can be executed and the change (defined by the payload) is applied to the Rocket Pool protocol. To execute a proposal, use the command: 
-```
+```shell
 rocketpool pdao proposals execute
 ```
 You will be prompted to select a proposal to execute, the proposal will be applied to the protocol after this step! 
