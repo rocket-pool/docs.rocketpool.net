@@ -1,4 +1,3 @@
-# DRAFT
 # Setting your RPL Withdrawal Address
 
 It's important to understand the difference between your [primary withdrawal address](../node/prepare-node#setting-your-primary-withdrawal-address) and your RPL withdrawal address. By default, your RPL withdrawal address is unset and your Primary withdrawal address is where all of your RPL checkpoint rewards, your staked RPL, and Beacon Chain ETH will be sent to. 

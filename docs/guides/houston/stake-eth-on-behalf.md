@@ -1,5 +1,3 @@
-# DRAFT
-
 # Stake ETH on behalf of node 
 
 RPIP-32 allows an account to [stake ETH on behalf](https://rpips.rocketpool.net/RPIPs/RPIP-32) of a Rocket Pool node that is registered in the protocol. This supports a variety of situations where the node operator is not directly providing the ETH:

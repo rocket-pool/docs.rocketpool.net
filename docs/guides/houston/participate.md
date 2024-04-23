@@ -1,5 +1,3 @@
-# DRAFT
-
 # Participating in on-chain pDAO Proposals 
 Any node with a non-zero voting power may raise or participate in a pDAO proposal at any time. Proposals can be one of the following types:
 

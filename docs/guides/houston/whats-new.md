@@ -4,8 +4,6 @@ next:
   link: "/guides/houston/pdao"
 ---
 
-# DRAFT:
-
 # The Houston Upgrade
 
 The Houston upgrade is largely aimed at introducing a fully on-chain DAO to govern the protocol, known as the Protocol DAO or pDAO. It is a DAO like no other and it does not require snapshot voting or any other 3rd party tools to function, it is truly onchain and one of a kind, more on that below.
