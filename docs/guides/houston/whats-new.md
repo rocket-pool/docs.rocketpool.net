@@ -75,3 +75,14 @@ Rocket Pool nodes need to have at least 10% collateral in RPL staked to be eligi
 To address this, the intervals for price and balance reporting will now be based on seconds rather than blocks. This change ensures predictability and has parity with the way rewards intervals are calculated today. If the interval is set to `86400` seconds (number of seconds in 24 hours), prices and balances are reported at the same time every day. 
 
 The protocol now has a fixed and controllable "top up window," removing guesswork and providing users with a consistent 24-hour window for topping up after the final price update. Feel free to read more about this change in [RPIP-35](https://rpips.rocketpool.net/RPIPs/RPIP-35). 
+
+## Audits
+
+In preparation for the Houston Upgrade, Rocket Pool engaged with three of the most esteemed auditing teams in the Ethereum ecosystem.
+
+- [Consensys Diligence](https://consensys.io/diligence/audits/2023/12/rocket-pool-houston/) (Late November to Mid December 2023)
+- [Sigma Prime](https://rocketpool.net/files/audits/sigma-prime-audit-houston.pdf) (Late November 2023, then a second round March 2024)
+- [Chainsafe](https://rocketpool.net/files/audits/chainsafe-audit-houston.pdf) (Mid January to April 2024)
+
+For a full history of audits plus details on the Immunefi bug bounty program, visit here:
+https://rocketpool.net/protocol/security
