@@ -10,7 +10,7 @@
   },
   "repository": "https://github.com/rocket-pool/docs.rocketpool.net",
   "devDependencies": {
-    "@types/markdown-it": "^14.0.1",
+    "@types/markdown-it": "^14.1.1",
     "markdown-it": "^14.1.0",
     "stylus": "latest",
     "vitepress": "1.1.4",
