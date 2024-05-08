@@ -10,6 +10,12 @@ The Houston upgrade is largely aimed at introducing a fully on-chain DAO to gove
 
 This upgrade will also be introducing some other very exciting features that will allow new integrations and platforms to be built on the protocol. Some of these include the ability to stake ETH on behalf of node (not just from the node itself) and a new RPL withdrawal address feature that can allow the node operator to supply the ETH for staking and another party to trustlessly provide the RPL for the insurance bond.
 
+::: warning NOTE
+Houston **has not** been deployed to **mainnet**. 
+
+Houston **has** been deployed to the **Holesky** testnet and is available for testing.
+:::
+
 ## Protocol DAO
 
 The Rocket Pool Protocol DAO (pDAO) is responsible for shaping the direction of the protocol and is run by RPL governance. Its members and their voting power are made up of node operators, big and small, all of which are directly participating in the protocol.
