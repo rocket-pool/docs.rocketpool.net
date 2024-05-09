@@ -658,7 +658,7 @@ Start by going to the **Create** menu (the plus icon on the right-side bar) and 
 
 ![](./images/grafana-import.png)
 
-When prompted for the dashboard ID in the **Import via grafana.com** box, enter `18391` or use the full URL ([(https://grafana.com/grafana/dashboards/18391](https://grafana.com/grafana/dashboards/18391)) and press the **Load** button.
+When prompted for the dashboard ID in the **Import via grafana.com** box, enter `21047` or use the full URL ([(https://grafana.com/grafana/dashboards/21047](https://grafana.com/grafana/dashboards/21047)) and press the **Load** button.
 
 You will be prompted with some information about the dashboard here, such as its name and where you'd like to store it (the default **General** folder is fine unless you use a lot of dashboards and want to organize them).
 

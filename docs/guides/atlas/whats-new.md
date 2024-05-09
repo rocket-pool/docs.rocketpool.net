@@ -85,7 +85,7 @@ Changing the threshold can be done in the `Smartnode and TX Fees` section of the
 
 ### Unified Grafana Dashboard
 
-By popular demand, we have created a new [**Grafana dashboard**](https://grafana.com/grafana/dashboards/18391-rocket-pool-dashboard-v1-2-0/) to help node operators track and assess the status, progress, and overall health of their nodes:
+By popular demand, we have created a new [**Grafana dashboard**](https://grafana.com/grafana/dashboards/21047) to help node operators track and assess the status, progress, and overall health of their nodes:
 
 ![](../node/images/grafana-1.3.jpg){ style="display: block; margin: 0 auto" }
 
@@ -100,7 +100,7 @@ It comes with the following highly requested features:
 - Room for tracking a second SSD's used space and temperature if you have one for your OS and a different one for your chain data
 - And more!
 
-You can import the new dashboard from the official Grafana service using ID `18391` by following our [Grafana guide](../node/grafana).
+You can import the new dashboard from the official Grafana service using ID `21047` by following our [Grafana guide](../node/grafana).
 
 This new dashboard was a labor of love that involved extensive help from community member **0xFornax** - thank you for all of your hard work!
 
