@@ -32,6 +32,10 @@ PuTTY is a special program that includes a terminal dedicated for SSH usage, but
 Instead of using `ssh` as you would with the other tools, PuTTY will do this for you automatically - all you need to provide are the username and password.
 For information on how to use PuTTY, take a look at [this great tutorial](https://tonyteaches.tech/putty-ssh-windows-tutorial/).
 
+::: warning NOTE
+PuTTY might display the wrong colors in the `rocketpool service config` text-based user interface (TUI). There's an easy solution for this. In the PuTTY settings, nagivate to **Connection** > **Data** > **Terminal Details** in the drop down menu. There should be a **Terminal-type string** text box. Type in `xterm-256color` then save the settings to resolve this.
+:::
+
 ::::: tab Using a Linux or macOS Machine
 
 Using SSH from a Linux or macOS machine is trivial; if you're already using one of these, then you've likely already interacted with the terminal at some point.
