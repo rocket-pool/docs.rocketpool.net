@@ -20,7 +20,7 @@ The rewards system has the following features:
 
 - Each interval is independent. The amount of RPL and ETH you earned in one interval does not affect the earnings for subsequent intervals.
 - You can **let rewards accumulate** for as long as you want. You do not need to claim rewards by a specific time; they will always be available for you to claim, and will always provide exactly the same amount of RPL and ETH **regardless of when you claim them**.
-- You can claim one interval or a time, or **multiple intervals** all at once.
+- You can claim one interval at a time, or **multiple intervals** all at once.
 - Your first claim transaction uses about 85k gas. Each subsequent claim transaction costs about 55k gas.
   - If you're claiming multiple intervals at once, each supplemental interval costs **6k gas** so it's most cost-effective to claim as many of them at once as possible.
 - You can **restake some (or all) of your RPL rewards** as part of the claiming transaction so it's all done in a single transaction (which further reduces gas costs).
