@@ -48,7 +48,7 @@ You can see a list of NUCs [here](https://www.intel.com/content/www/us/en/produc
 Other mini-PCs, such as the Asus PN50 or PN51, do not follow this convention but information about which CPU is used by them should be included in their product pages.
 :::
 
-The amount of cores on a CPU is less relevant that its **number of threads**.
+The amount of cores on a CPU is less relevant than its **number of threads**.
 We recommend a **minimum of 4 threads** for Rocket Pool node operation.
 A 2 core CPU with 4 threads will work without issue.
 It is rare to find a CPU with only 2 threads.
