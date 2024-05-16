@@ -26,7 +26,7 @@ This rest of this page will walk you though the steps required for participating
 
 ## Initializing Voting 
 
-If you are a node operator who registered before the Houston upgrade, you need to initialize voting to unlock voting power. 
+If you are a node operator who registered before the Houston upgrade, you'll need to initialize voting to unlock voting power. 
 ```shell
 rocketpool pdao initialize-voting
 ```
@@ -51,9 +51,12 @@ rocketpool node deny-rpl-locking
 ::: tip NOTE
 Locked RPL acts the same way as regular staked RPL for the purposes of rewards, voting, and collateral requirements. Locked RPL is not counted towards thresholds for withdrawing RPL.
 :::
-## Delegating Voting Power 
+## Delegating Voting Power    
 
-A node operator can elect to delegate their voting power to another Node Operator. This can be done using the following command: 
+
+A node operator can elect to delegate their voting power to another Node Operator. The only requirement is that the node has [initialized voting](../houston/participate#initializing-voting).  
+
+To delegate on-chain voting power to another node, use the following command: 
 ```shell
 rocketpool network set-voting-delegate <address>
 ```
@@ -62,7 +65,7 @@ For example, if you wanted to delegate your voting power to `0xBdbcb42DD8E39323a
 rocketpool network set-voting-delegate 0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145
 ```
 ::: tip NOTE
-By default, every node has their voting power delegated to itself. So if you've delegated your voting power to another node operator, you can reset this by setting the voting delegate to your own node's address. 
+If you've delegated your voting power to another node operator, you can reset this by setting the voting delegate to your own node's address. 
 :::
 
 - During phase 1 of a proposal: Delegates may cast their vote on a proposal. 

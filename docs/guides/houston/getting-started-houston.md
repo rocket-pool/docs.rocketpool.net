@@ -16,14 +16,14 @@ rocketpool pdao initialize-voting
 You only need to do this once. Initializing voting will ensure that your node's voting power is included in future on-chain proposals and allow you to vote on them.
 
 
-## Guides:
+## Guides
 
-[Full Houston Overview](https://docs.rocketpool.net/guides/houston/whats-new)
+[Full Houston Overview](../houston/whats-new) presents the fully on-chain Protocol DAO and introduces new features such as staking ETH on behalf of a node, setting an RPL withdrawal address, and time based balance and RPL submissions. Houston smart contract audits can be found here as well. 
 
-[The Protocol DAO](https://docs.rocketpool.net/guides/houston/pdao)
+[The Protocol DAO](../houston/pdao) discusses who and how the pDAO governs Rocket Pool. This page will fill you in on how pDAO duties such as treasury spends can be executed on-chain and the role of the all new Security Council. It'll also walk you through the lifecycle of a pDAO proposal and go over the challenge process for Node Operators who are interested in contributing to gunning down malicious proposals.
 
-[Participating in Proposals](https://docs.rocketpool.net/guides/houston/participate)
+[Participating in Proposals](../houston/participate) includes a detailed step-by-step guide on how Node Operators can participate in pDAO proposals. If you're keen on raising an on-chain proposal, voting or delgating voting power, this is the guide for you. If you just want to delegate your voting power, click [here](../houston/participate#delegating-voting-power).
 
-[Stake Eth on Behalf of a Node](https://docs.rocketpool.net/guides/houston/stake-eth-on-behalf)
+[Stake Eth on Behalf of a Node](../houston/stake-eth-on-behalf) goes over the steps for staking ETH on behalf of a node. It's a new feature introduced in Houston to facilitate single depositor scenarios. We'll walk through how to do this a testnet if you want to try it out before risking real ETH
 
-[RPL Withdrawal Address](https://docs.rocketpool.net/guides/houston/rpl-withdrawal-address)
+[RPL Withdrawal Address](../houston/rpl-withdrawal-address) shows you how to set an RPL withdrawal address for your node. This is useful if you want to enable a seperate entity to supply the RPL insurance collateral for a node.
