@@ -13,7 +13,7 @@
     "@types/markdown-it": "^14.1.1",
     "markdown-it": "^14.1.0",
     "stylus": "latest",
-    "vitepress": "1.1.4",
+    "vitepress": "1.2.0",
     "vue": "^3.4.27"
   },
   "scripts": {
