@@ -66,20 +66,30 @@ If you see a notice about a web3 browser being required, or the current network 
 
 ::::: tab Preparing on the Ethereum Mainnet
 
-Start by installing [MetaMask](https://metamask.io/) if you haven't already.
-Follow the instructions on their site to install the extension, create an account, and sign in.
+Houston has not been deployed on Mainnet yet. Stay tuned!
 
-Next, open the MetaMask panel using its icon in your browser toolbar.
-Click on the **network dropdown** in the toolbar at the top and ensure that **Ethereum Mainnet** is selected:
+[//]: # (Start by installing [MetaMask]&#40;https://metamask.io/&#41; if you haven't already.)
 
-![](./images/mm_network_main.png){ style="display: block; margin: 0 auto" }
+[//]: # (Follow the instructions on their site to install the extension, create an account, and sign in.)
 
-Now that you have a wallet address in MetaMask, you need to transfer some ETH into it.
-You will need to supply this from an existing wallet or buy ETH on an exchange.
+[//]: # ()
+[//]: # (Next, open the MetaMask panel using its icon in your browser toolbar.)
 
-Once you have some ETH to stake, head to [https://stake.rocketpool.net/manage/deposit-eth-on-behalf-of-node](https://stake.rocketpool.net/manage/deposit-eth-on-behalf-of-node).
+[//]: # (Click on the **network dropdown** in the toolbar at the top and ensure that **Ethereum Mainnet** is selected:)
 
-If you see a notice about a web3 browser being required, or the current network ID being unsupported, make sure you’ve completed the previous steps correctly before continuing.
+[//]: # ()
+[//]: # (![]&#40;./images/mm_network_main.png&#41;{ style="display: block; margin: 0 auto" })
+
+[//]: # ()
+[//]: # (Now that you have a wallet address in MetaMask, you need to transfer some ETH into it.)
+
+[//]: # (You will need to supply this from an existing wallet or buy ETH on an exchange.)
+
+[//]: # ()
+[//]: # (Once you have some ETH to stake, head to [https://stake.rocketpool.net/manage/deposit-eth-on-behalf-of-node]&#40;https://stake.rocketpool.net/manage/deposit-eth-on-behalf-of-node&#41;.)
+
+[//]: # ()
+[//]: # (If you see a notice about a web3 browser being required, or the current network ID being unsupported, make sure you’ve completed the previous steps correctly before continuing.)
 
 ::::::
 
@@ -113,7 +123,7 @@ You're now staking with Rocket Pool.
 
 # Unstake ETH on behalf of node 
 
-When you're ready to withdraw ETH you've staked on behalf of a node, head over to the [staking site](https://devnet.rocketpool.net/manage/withdraw-eth) and select 'Withdraw ETH' in the dropdown menu. After signing in as the node's [primary withdrawal address](../node/prepare-node#setting-your-primary-withdrawal-address), you should be greeted with a familiar menu. You'll be prompted to enter the node address you want to withdraw from:  
+When you're ready to withdraw ETH you've staked on behalf of a node, head over to the [staking site](https://testnet.rocketpool.net/manage/withdraw-eth) and select 'Withdraw ETH' in the dropdown menu. After signing in as the node's [primary withdrawal address](../node/prepare-node#setting-your-primary-withdrawal-address), you should be greeted with a familiar menu. You'll be prompted to enter the node address you want to withdraw from:  
 
 ![](./images/enter_node_address.png){ style="display: block; margin: 0 auto" }
 
