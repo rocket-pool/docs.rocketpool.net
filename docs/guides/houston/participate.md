@@ -26,18 +26,21 @@ This rest of this page will walk you though the steps required for participating
 
 ## Initializing Voting 
 
-If you are a node operator who registered before the Houston upgrade, you'll need to initialize voting to unlock voting power. 
+If you are a node operator who registered before the Houston upgrade, you need to initialize voting to unlock voting power. Keep in mind that having at least one minipool is a requirement for having voting power. 
 ```shell
 rocketpool pdao initialize-voting
 ```
-You only need to do this once. It configures the initial snapshot information for a node. After you initialize voting, your node will be allowed to vote on pDAO proposals and its voting power will be included in the snapshots. When the network's total voting power is calculated, nodes with initialized voting power are included. This step is crucial if you want your voting power to be included in pDAO proposals!
-
-For nodes that register post-houston, you won't need to worry about this step as voting is initialized upon registration. 
-
+You only need to do this once. It configures the initial snapshot information for a node. After you initialize voting, every action taken will update your node's snapshot information. Once your voting power is initialized, you can check how much you have using the following smartnode command:
+```
+rocketpool pdao status
+```
+:::tip NOTE
+Whenever a new propsal is created, a voting tree representing a snapshot of the network's voting power and delegate info is created in conjunction with the new proposal. This means your node's voting power won't be included in a proposal if it was raised before you initialized voting. `rocketpool pdao status` will display your node's voting power at the latest block, which may or may not be representative of your voting power on a particular proposal. 
+:::
 
 ## Allowing RPL Locking
 
-You may ignore this step if you are only interested in voting on proposals. Allowing RPL locking is only required for those who wish to propose or challenge proposals.
+You may ignore this step if you are only interested in voting on a proposal. Allowing RPL locking is only required for those who wish to propose or challenge a proposal.
 
 RPL locking is required for proposing and challenging. By default, locking RPL for any purpose, will be disabled. Node operator's will opt-in to performing governance activities by enabling the locking of RPL from their node or primary withdrawal address. You can do so using this command in the Smartnode: 
 
@@ -77,11 +80,12 @@ If you are a node operator with delegated voting power, you must vote during vot
 
 In order to be eligible to propose, a node must meet a few requirements: 
 - Included in snapshotting (either by [initializing voting](../houston/participate#initializing-voting) or by registering post Houston)
-- Has non-zero voting power.
+- Must have at least one minipool
+- Has non-zero voting power
+- Has allowed [RPL locking](../houston/participate#allowing-rpl-locking)
 - Has an RPL stake (minus any already locked RPL) greater than the proposal bond
-- Has allowed RPL locking
 
-Proposals exist to change parameters at the protocol level! There should be discussion and consensus through the [governance](../houston/participate#governance-process) process before a proposal is created on chain. 
+Proposals exist to change parameters and execute code at the protocol level! There should be discussion and consensus through the [governance](../houston/participate#governance-process) process before a proposal is created on chain. 
 
 Use the command `rocketpool pdao propose` to bring up a menu of options
 ```

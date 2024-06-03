@@ -56,6 +56,9 @@ Rocket Pool currently offers its node operators access to **multiple different r
 | [Eden Network](https://v2.docs.edennetwork.io/eden-relay/overview)                                           | Complies with OFAC Sanctions\* | All types                                  |
 | [Ultra Sound](https://relay.ultrasound.money/)                                                               | Unregulated                    | All types                                  |
 | [AESTUS](https://aestus.live/)                                                                               | Unregulated                    | All types                                  |
+| [Titan Global](https://docs.titanrelay.xyz/)                                                                 | Unregulated                    | All types                                  |
+| [Titan Regional](https://docs.titanrelay.xyz/)                                                               | Complies with OFAC Sanctions\* | All types  
+
 
 ::: warning NOTE
 \*Relays that comply with OFAC sanctions follow the blacklist of addresses that the United States Office of Foreign Assets Control (OFAC) maintains.
