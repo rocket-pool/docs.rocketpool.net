@@ -16,7 +16,7 @@ rocketpool pdao initialize-voting
 You only need to do this once. Initializing voting will ensure that your node's voting power is included in future on-chain proposals and allow you to vote on them.
 
 
-## Guides
+## Guides:
 
 [Full Houston Overview](../houston/whats-new) presents the fully on-chain Protocol DAO and introduces new features such as staking ETH on behalf of a node, setting an RPL withdrawal address, and time based balance and RPL submissions. Houston smart contract audits can be found here as well. 
 
