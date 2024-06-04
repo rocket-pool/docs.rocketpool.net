@@ -102,7 +102,7 @@ function guides() {
           link: "/guides/houston/whats-new",
           items: [
             { text: "Overview", link: "/guides/houston/whats-new" },
-            { text: "Getting Started with Houston", link:"/guides/houston/getting-started-houston"},
+            { text: "Getting Started with Houston", link:"/guides/houston/getting-started"},
             { text: "The Protocol DAO", link: "/guides/houston/pdao" },
             { text: "Participating in Proposals", link: "/guides/houston/participate"},
             { text: "Stake ETH on Behalf of Node", link: "/guides/houston/stake-eth-on-behalf" },
