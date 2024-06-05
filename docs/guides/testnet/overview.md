@@ -89,59 +89,24 @@ Therefore, you must follow these 3 steps in that order.
 ## Getting Test RPL on Holesky
 
 If you're testing out node operation, you'll need some test RPL in addition to test ETH.
-To get this, you'll need to use the Smartnode stack's command line interface (CLI) tool.
-You'll want to set up the Smartnode stack following the [Node Operator's guide](../node/responsibilities) before collecting RPL from the faucet.
 
-Once your Smartnode CLI is installed and you have a wallet assigned to your node, you can access the built-in RPL faucet.
-Use the following command to check on its status:
 
-```
-rocketpool faucet status
-```
+Rocket Pool provides a faucet in its [Discord server](https://discord.gg/rocketpool).
+Join the server and head to the `#support` channel.
 
-The output will look like this:
-
-```
-The faucet has a balance of 1999400.000000 RPL.
-You can withdraw 600.000000 RPL (requires a 0.500000 GoETH fee)!
-Allowances reset in 26585 blocks.
-```
-
-The faucet is on a timer, so each node operator can only use the faucet once every 4 or 5 days.
-
-- The **faucet balance** indicates how much RPL is still available.
-- The **withdraw amount** shows how much RPL you can receive from the faucet during the current cycle.
-  If you already used the faucet, this line will change to let you know that you can't use it again this cycle.
-- The **reset** timer shows how long (in blocks) it is until the next cycle, at which point you can use the faucet again.
-  The amount of time remaining (in minutes) is approximately `this number * 13 seconds per block / 60 seconds`.
+Here, you can ask for testnet RPL.
+You will need to provide your node address.
 
 ::: warning NOTE
-The RPL faucet charges a 0.5 holesky ETH fee to use it, in order to prevent people from abusing the system.
-You'll need to have at least this amount in your node wallet already in order to use it!
+The testnet faucet bot is no longer directly accessible to the public due to previous abuse.
+It is only available to the dev team and prominent members of the community.
+To receive testnet RPL, run the below commands, state your intentions in the channel.
+Be patient and someone will access the faucet on your behalf.
 :::
-
-
-
-When you're ready to receive RPL from the faucet, use the following command:
-
-```
-rocketpool faucet withdraw-rpl
-```
-
-After a short wait, you'll see the following output:
-
-```
-Successfully withdrew 600.000000 RPL from the faucet.
-```
-
-::: warning NOTE
-From time to time, the faucet may be abused or run out of RPL. In this case, please head over to the `#support` channel in the discord and request it in the same nature as ETH.
 
 ```
 !holeskyRpl <your holesky node address>
 ```
-:::
-
 
 This will provide you with 600 of the **legacy (v1) RPL** token, which is analogous to the original RPL token on mainnet.
 Rocket Pool uses a **new (v2) RPL** token which supports the inflation used to reward node operators.
