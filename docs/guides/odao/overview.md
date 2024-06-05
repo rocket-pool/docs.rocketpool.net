@@ -34,7 +34,6 @@ To run an Oracle DAO node, you will require the following:
 - The Smartnode daemon configured and running in `watchtower` mode (this is included with the standard Smartnode bundle for all users, but only actively performs duties for Oracle DAO nodes).
   - This can be run in a Docker container (standard setup) or as a simple `systemd` service ("Native" mode).
 - Enough ETH to pay for the gas costs of your duties (discussed later).
-- A [web3.storage](https://web3.storage/) account, used for submitting the generated rewards tree artifacts to their IPFS pinning service.
 
 ::: warning NOTE
 If you simply cannot run an on-premises archive node and _must_ rely on a third-party service, consider the following:

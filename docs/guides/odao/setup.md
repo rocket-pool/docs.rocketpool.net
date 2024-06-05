@@ -48,25 +48,19 @@ Here, you will see two options at the bottom:
 The `Archive-Mode EC URL` must be the HTTP endpoint of the RPC API for your Archive Execution Client.
 **Note that if you are already using your Archive EC as your primary client in Externally-Managed mode, you can ignore this setting.**
 
-The `Web3.Storage API Token` must be populated with the API Token for your Web3.Storage account, which you can find in your account settings.
-This will be required in order to upload your generated rewards tree artifacts to IPFS.
-
 
 ::::: tab (service config) Headlessly
 
 Run the following command to configure your node headlessly:
 
 ```
-rocketpool service config --smartnode-archiveECUrl "http://<your Archive EC URL>" --smartnode-web3StorageApiToken "<your web3.storage API token>"
+rocketpool service config --smartnode-archiveECUrl "http://<your Archive EC URL>"
 ```
 
 Where:
 
 - `--smartnode-archiveECUrl` must be the HTTP endpoint of the RPC API for your Archive Execution Client.
   **Note that if you are already using your Archive EC as your primary client in Externally-Managed mode, you can ignore this setting.**
-
-- `--smartnode-web3StorageApiToken` must be populated with the API Token for your Web3.Storage account, which you can find in your account settings.
-  This will be required in order to upload your generated rewards tree artifacts to IPFS.
 
 Finally, restart your `watchtower` daemon (i.e., with `docker restart rocketpool_watchtower` in Docker or Hybrid mode, or `sudo systemctl restart rp_watchtower` in Native mode) for the settings to take effect.
 
@@ -86,16 +80,12 @@ smartnode:
   priorityFee: "2"
   projectName: rocketpool
   rewardsTreeMode: generate
-  web3StorageApiToken: <your web3.storage API token>
 ```
 
-Replace the values in the `archiveECUrl` and `web3StorageApiToken` fields, where:
+Replace the values in the `archiveECUrl` field, where:
 
 - `archiveECUrl` must be the HTTP endpoint of the RPC API for your Archive Execution Client.
   **Note that if you are already using your Archive EC as your primary client in Externally-Managed mode, you can ignore this setting.**
-
-- `web3StorageApiToken` must be populated with the API Token for your Web3.Storage account, which you can find in your account settings.
-  This will be required in order to upload your generated rewards tree artifacts to IPFS.
 
 Finally, restart your `watchtower` daemon (i.e., with `docker restart rocketpool_watchtower` in Docker or Hybrid mode, or `sudo systemctl restart rp_watchtower` in Native mode) for the settings to take effect.
 
