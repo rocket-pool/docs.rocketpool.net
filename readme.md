@@ -41,4 +41,4 @@ If you want to test this locally, follow the next few steps:
 
 Files under `docs/.vitepress` include components, style and configs.
 
-To add new pages and have them appear in the side menu, add the links to the `sidebar` property in the `docs/.vitepress/config.js` file for them to appear.
+To add new pages and have them appear in the side menu, add the links to the `sidebar` property in the `docs/.vitepress/config.ts` file for them to appear.
