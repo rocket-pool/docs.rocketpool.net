@@ -38,6 +38,61 @@ rocketpool pdao status
 Whenever a new propsal is created, a voting tree representing a snapshot of the network's voting power and delegate info is created in conjunction with the new proposal. This means your node's voting power won't be included in a proposal if it was raised before you initialized voting. `rocketpool pdao status` will display your node's voting power at the latest block, which may or may not be representative of your voting power on a particular proposal. 
 :::
 
+## Setting your Snapshot Voting Delegate
+
+Setting your snapshot voting delegate will allow you to vote on snapshot using your node's voting power, without needing to expose your private key to a hot wallet. 
+
+There are a few things to prepare: 
+- Your node's address
+- An address you want to use for snapshot voting 
+
+You'll need to sign a message saying that our node's address can delegate to the new address. Select which network you're using from one of the tabs below.
+
+:::::: tabs
+::::: tab Holesky Testnet
+If you're trying this out on Holesky testnet, you can sign on this page: https://testnet.rocketpool.net/manage/snapshot-delegation
+
+::::: tab Mainnet
+If you're ready to configure this on mainnet, go here instead: https://stake.rocketpool.net/manage/snapshot-delegation
+
+::::::
+
+:::danger WARNING
+Do not load your node's private key onto a hot wallet. Please choose another account for the purpose of snapshot voting. You'll be able to use this account to vote using your node's voting power after the snapshot voting delegate is set. 
+:::
+
+Start by connecting the **address you want to use for snapshot voting** to the website using MetaMask, WalletConnect, or any of the other methods the website supports. You will then be presented with this dialog to look up your node address.
+
+Next, you'll enter your node address then click "Find." This will check if the address is a registered node and then bring you to the next step.
+
+:::tip TIP
+**Make sure you have the correct node address before doing this!** if you need to confirm your node's address, you can quickly retrieve it via the CLI using the `rocketpool node status` command. 
+:::
+
+Once you've signed in and confirmed your node address, you'll see your **snapshot signing address**. It should be the same as the account you're signed into the site with. Double check that this is correct before proceeding. Once you're confident that you're signed into the desired account, click the orange "Sign Message" button. You'll see a prompt in your wallet extension app to sign the message:
+```
+< snapshot signing address > may delegate to me for Rocket Pool governance
+```
+Signing won't cost any gas. After you sign, the frontend will give you a command to paste into the smartnode. Go ahead and paste it into your smartnode's CLI and follow the prompted steps. The command should look something like this:
+
+``` shell
+rocketpool pdao set-snapshot-address
+< snapshot signing address >
+< EIP712 signature >
+``` 
+
+If you see this message in your CLI, you're all set!
+```
+The node's snapshot address was successfully set to 0xcaB549EdE082592D10FE6a238e7e8914aD3a074d
+```
+
+Don't worry if you accidentally close the site or lose track of the command. You can simply repeat the steps and sign again using the same node address and **snapshot signing address**. The frontend uses `signer.Signmessage()` from the ethers library, which means your signature is deterministic given the same input. Click [here](https://docs.ethers.org/v6/api/providers/#cid_865) to learn more.
+
+Clearing your snapshot address is pretty easy, just use this command in the CLI:
+``` shell
+rocketpool pdao clear-snapshot-address
+```
+
 ## Allowing RPL Locking
 
 You may ignore this step if you are only interested in voting on a proposal. Allowing RPL locking is only required for those who wish to propose or challenge a proposal.
@@ -57,11 +112,11 @@ Locked RPL acts the same way as regular staked RPL for the purposes of rewards, 
 ## Delegating Voting Power    
 
 
-A node operator can elect to delegate their voting power to another Node Operator. The only requirement is that the node has [initialized voting](../houston/participate#initializing-voting).  
+A node operator can elect to delegate their voting power to another node operator. The only requirement is that the node has [initialized voting](../houston/participate#initializing-voting).  
 
 To delegate on-chain voting power to another node, use the following command: 
 ```shell
-rocketpool network set-voting-delegate <address>
+rocketpool network set-voting-delegate < address >
 ```
 For example, if you wanted to delegate your voting power to `0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145`, you would run:
 ```shell
@@ -71,8 +126,8 @@ rocketpool network set-voting-delegate 0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F14
 If you've delegated your voting power to another node operator, you can reset this by setting the voting delegate to your own node's address. 
 :::
 
-- During phase 1 of a proposal: Delegates may cast their vote on a proposal. 
-- During phase 2 of a proposal: Node operators who have delegated their vote get the opportunity to override their Delegate's vote, if they disagree.
+- During phase 1 of a proposal: **Voters** and **Delegates** may cast their vote on a proposal. 
+- During phase 2 of a proposal: **Node Operators** who have delegated their vote get the opportunity to overturn their Delegate's vote, if they disagree.
 
 If you are a node operator with delegated voting power, you must vote during voting phase 1 for the delegated voting power to count towards the proposal. Your vote in phase 1 will be worth your **local voting power + delegated voting power**. Your vote in phase 2 is worth your **local voting power** only. 
 
@@ -183,7 +238,7 @@ The state of this sample proposal is `Pending`. This indicates that the proposal
 
 ## Voting on a Proposal
 
-During a voting period, Node Operators and Delegates can cast a vote with one of four options:
+During a voting period, **Node Operators** and **Delegates** can cast a vote with one of four options:
 ```
 1. Abstain: The voter's voting power is contributed to quorum but is neither for nor against the proposal.
 2. For: The voter votes in favor of the proposal being executed.
@@ -194,7 +249,7 @@ Their voting power will be applied to the option of their choosing. Voting power
 
 
 ::: tip NOTE
-If you are a node operator with delegated voting power, you must vote during voting phase 1 for the delegated voting power to count towards the proposal. Your vote in phase 1 will be worth your local voting power + delegated voting power. Your vote in phase 2 is worth your local voting power only. Please keep in mind that a node may vote once and only once on a proposal, so choose carefully
+If you are a node operator with delegated voting power, you must vote during voting phase 1 for the delegated voting power to count towards the proposal. Your vote in phase 1 will be worth your local voting power + delegated voting power. Your vote in phase 2 is worth your local voting power only. Please keep in mind that a node may vote once and only once on a proposal, so choose carefully.
 :::
 
 Use this command to cast a vote:

@@ -2,8 +2,8 @@
 
 Whether you're a seasoned Node Operator, rETH holder or curious onlooker, this page will help you get started with exploring the new features included in Houston.
 
-
-## Initializing Voting Power:
+##
+### Initializing Voting Power
 
 First and foremost, the most important step if you are **Node Operator** is to [initialize voting](../houston/participate#initializing-voting) to unlock your voting power. Nodes who've initialized voting are included when the network's total voting power is calculated. 
 
@@ -15,15 +15,26 @@ rocketpool pdao initialize-voting
 ```
 You only need to do this once. Initializing voting will ensure that your node's voting power is included in future on-chain proposals and allow you to vote on them.
 
+### Setting your Snapshot Voting Delegate
 
-## Guides:
+Secondly, you'll want to set your snapshot voting delegate. This will allow you to vote on snapshot using your node's voting power, without needing to expose your private key to a hot wallet. 
+
+Setting this up involves a handful of steps, so you'll want to follow this guide: 
+[Setting your Snapshot Voting Delegate](../houston/participate#setting-your-snapshot-voting-delegate).
+
+### Delegating on-chain Voting Power
+
+If you want to delegate on-chain voting power to a community member of your choosing, click [here](../houston/participate#delegating-voting-power) to learn how.
+
+##
+# Guides
 
 [Full Houston Overview](../houston/whats-new) presents the fully on-chain Protocol DAO and introduces new features such as staking ETH on behalf of a node, setting an RPL withdrawal address, and time based balance and RPL submissions. Houston smart contract audits can be found here as well. 
 
-[The Protocol DAO](../houston/pdao) discusses who and how the pDAO governs Rocket Pool. This page will fill you in on how pDAO duties such as treasury spends can be executed on-chain and the role of the all new Security Council. It'll also walk you through the lifecycle of a pDAO proposal and go over the challenge process for Node Operators who are interested in contributing to gunning down malicious proposals.
+[The Protocol DAO](../houston/pdao) discusses who and how the pDAO governs Rocket Pool. This page will fill you in on how pDAO duties such as treasury spends can be executed on-chain, along with the role of the all new Security Council. It'll also walk you through the lifecycle of a pDAO proposal and explain some of the measures taken to prevent spam and gun down malicious proposals. 
 
-[Participating in Proposals](../houston/participate) includes a detailed step-by-step guide on how Node Operators can participate in pDAO proposals. If you're keen on raising an on-chain proposal, voting or delgating voting power, this is the guide for you. If you just want to delegate your voting power, click [here](../houston/participate#delegating-voting-power).
+[Participating in Proposals](../houston/participate) includes a detailed step-by-step guide on how Node Operators can participate in pDAO proposals. If you're keen on raising an on-chain proposal, voting or delegating voting power, this is the guide for you.
 
-[Stake Eth on Behalf of a Node](../houston/stake-eth-on-behalf) goes over the steps for staking ETH on behalf of a node. It's a new feature introduced in Houston to facilitate single depositor scenarios. We'll walk through how to do this a testnet if you want to try it out before risking real ETH
+[Stake Eth on Behalf of a Node](../houston/stake-eth-on-behalf) goes over the steps for staking ETH on behalf of a node. It's a new feature introduced in Houston to facilitate single depositor scenarios. We'll walk through how to do this on a testnet if you want to try it out before staking real ETH on mainnet.
 
 [RPL Withdrawal Address](../houston/rpl-withdrawal-address) shows you how to set an RPL withdrawal address for your node. This is useful if you want to enable a seperate entity to supply the RPL insurance collateral for a node.

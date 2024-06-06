@@ -7,7 +7,7 @@ RPIP-32 allows an account to [stake ETH on behalf](https://rpips.rocketpool.net/
 - Protocol integrations where custody of funds are managed by smart contracts.
 - DAOs or organizations where custody of funds are managed by a treasury.
 
-While the primary aim of this feature is to facilitate single depositor scenarios, it’s worth noting that multiple independent depositors can also leverage this capability by creating smart contracts layered on top. Rocket Pool also introduced the ability to stake RPL on behalf of back in our previous Atlas release.
+While the primary aim of this feature is to facilitate single depositor scenarios, it’s worth noting that multiple independent depositors can also leverage this capability by creating smart contracts layered on top. Rocket Pool also introduced the ability to [stake RPL on behalf](../node/create-validator#whitelisting-an-address-to-stake-on-behalf) of a node back in our previous Atlas release.
 
 ### Prerequisite
 
