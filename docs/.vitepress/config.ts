@@ -306,7 +306,6 @@ function developers() {
           items: [
             { text: "Smart Contracts", link: "/developers/usage/contracts/contracts" },
             { text: "Go Library", link: "/developers/usage/go/go" },
-            { text: "Javascript", link: "/developers/usage/js/js" },
           ],
         },
       ],
@@ -353,82 +352,6 @@ function developers() {
                 { text: "ETH", link: "/developers/api/go/utils-eth" },
                 { text: "Strings", link: "/developers/api/go/utils-strings" },
               ],
-            },
-          ],
-        },
-        {
-          text: "Javascript",
-          collapsed: true,
-          items: [
-            { text: "Auction", link: "/developers/api/js/Auction" },
-            { text: "Contracts", link: "/developers/api/js/Contracts" },
-            {
-              text: "DAO",
-              collapsable: true,
-              items: [
-                { text: "Class: DAONodeTrusted", link: "/developers/api/js/DAONodeTrusted" },
-                { text: "Class: DAONodeTrustedActions", link: "/developers/api/js/DAONodeTrustedActions" },
-                { text: "Class: DAONodeTrustedProposals", link: "/developers/api/js/DAONodeTrustedProposals" },
-                { text: "Class: DAONodeTrustedSettings", link: "/developers/api/js/DAONodeTrustedSettings" },
-                { text: "Class: DAOProposal", link: "/developers/api/js/DAOProposal" },
-              ],
-            },
-            {
-              text: "Class: Deposit",
-              items: ["/developers/api/js/Deposit"],
-            },
-            {
-              text: "Minipool",
-              collapsable: true,
-              items: [
-                { text: "Class: Minipool", link: "/developers/api/js/Minipool" },
-                { text: "Class: MinipoolContract", link: "/developers/api/js/MinipoolContract" },
-              ],
-            },
-            {
-              text: "Class: Network",
-              link: "/developers/api/js/Network",
-            },
-            {
-              text: "Class: Node",
-              link: "/developers/api/js/Node",
-            },
-            {
-              text: "Rewards",
-              collapsable: true,
-              items: [
-                { text: "Class: Rewards", link: "/developers/api/js/Rewards" },
-                { text: "Class: Pool", link: "/developers/api/js/Pool" },
-              ],
-            },
-            {
-              text: "Settings",
-              collapsable: true,
-              items: [
-                { text: "Class: AuctionSettings", link: "/developers/api/js/AuctionSettings" },
-                { text: "Class: DepositSettings", link: "/developers/api/js/DepositSettings" },
-                { text: "Class: MinipoolSettings", link: "/developers/api/js/MinipoolSettings" },
-                { text: "Class: NetworkSettings", link: "/developers/api/js/NetworkSettings" },
-                { text: "Class: NodeSettings", link: "/developers/api/js/NodeSettings" },
-              ],
-            },
-            {
-              text: "Tokens",
-              collapsable: true,
-              items: [
-                { text: "Class: ERC20", link: "/developers/api/js/ERC20" },
-                { text: "Class: LegacyRPL", link: "/developers/api/js/LegacyRPL" },
-                { text: "Class: RETH", link: "/developers/api/js/RETH" },
-                { text: "Class: RPL", link: "/developers/api/js/RPL" },
-              ],
-            },
-            {
-              text: "Class: Vault",
-              link: "/developers/api/js/Vault",
-            },
-            {
-              text: "Class: Rocketpool",
-              link: "/developers/api/js/RocketPool",
             },
           ],
         },
