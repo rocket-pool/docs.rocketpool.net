@@ -5,7 +5,7 @@ All you need to do is hold rETH as it inherently grows in value - how you get it
 
 rETH is available for trade on several decentralized exchanges, such as [Balancer](https://docs.balancer.fi/) and [Uniswap](https://docs.uniswap.org/protocol/introduction).
 
-The **Balancer** pool is a special kind of pool known as a [metastable pool](https://docs.balancer.fi/products/balancer-pools/metastable-pools).
+The **Balancer** pool is a special kind of pool known as a [metastable pool](https://docs.balancer.fi/concepts/pools/composable-stable.html).
 Metastable pools are ideal for tokens like rETH, because **they honor the true exchange rate reported by the Oracle DAO**.
 
 This means exchanging with this pool will have **much lower slippage** and **lower fees** than a conventional decentralized exchange, so you get a much better deal when buying or selling rETH.
