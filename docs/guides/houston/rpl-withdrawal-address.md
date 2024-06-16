@@ -54,15 +54,17 @@ Note that Ledger Live will not show your balance on the test network, but other 
 
    Click **Next**, then click **Confirm** to enable the Rocket Pool website to use your wallet. 3. Select **RPL Withdrawal Address** from the top menu (or the hamburger menu on the left side if you're on a mobile device). 4. You will see this prompt:
 
-4. Type your **node wallet address** here and click on the **Check Mark button** to continue.
+4. Type your **node wallet address** here and click on the orange **Find** button to continue.
 
-   1. You will be prompted with a question asking if you want to set a new node RPL withdrawal address or confirm a pending one. Select **Confirm**.
+![](./images/node_address.png){ style="display: block; margin: 0 auto" }
+
+   1. You will be prompted to confirm a pending RPL withdrawal address. This should be the same address you used while running this command previously: `rocketpool node set-rpl-withdrawal-address` Select **Confirm Pending** when you're ready. 
    2. Now, there should be a new confirmation dialog in your wallet. Again, using MetaMask as an example, click the MetaMask icon to open it and you should see something like this:
 
    Click **Confirm** to send the transaction to the network. This will take some time until it gets included in a block, but once it does, you will see a confirmation dialog:
 
+![](./images/rpl_withdrawal_confirmation.png){ style="display: block; margin: 0 auto" }
 
-<video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/confirm_pending_withdrawal.mp4" />
 
 5. Your new RPL withdrawal address will now be confirmed and activated. You can view this with `rocketpool node status`.
 
@@ -91,3 +93,22 @@ We **strongly** encourage you to use the test transaction mechanism before confi
 Once this is done, you will **no longer be able to change your RPL withdrawal address using the `set-rpl-withdrawal-address` command**.
 To change it, you will need to send a signed transaction from your **active** RPL withdrawal address (the one you just switched to).
 The Rocket Pool website has a function to help you do this.
+
+If you'd like to unset your RPL withdrawal address, the process is pretty simple. First thing, you'll want to navigate back to the RPL Withdrawl Address page on the Rocket Pool website.
+
+:::::: tabs
+::::: tab Holesky Testnet
+https://testnet.rocketpool.net/manage/rpl-withdrawal-address
+::::: tab Mainnet
+https://stake.rocketpool.net/manage/rpl-withdrawal-address
+::::::
+
+If you're signed in with the node's RPL withdrawal address, you should be able to click the **unset** button on the right here:
+
+![](./images/unset_rpl_withdrawal.png){ style="display: block; margin: 0 auto" }
+
+Clicking **unset** will take you to a page where you can confirm the details. If you're happy with what you see, click the orange **unset** button to send the transaction to the network. 
+
+Thats all there is to setting your RPL withdrawal address! We hope you found the process quick and easy. 
+
+Feel free to swing by [our Discord server](https://discord.gg/G46XgK264a) to let us know what you thought of it and keep tabs on the project as it evolves.

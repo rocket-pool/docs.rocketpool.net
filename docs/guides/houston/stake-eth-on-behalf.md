@@ -66,30 +66,27 @@ If you see a notice about a web3 browser being required, or the current network 
 
 ::::: tab Preparing on the Ethereum Mainnet
 
-Houston has not been deployed on Mainnet yet. Stay tuned!
+Start by installing [MetaMask](https://metamask.io/) if you haven't already.
 
-[//]: # (Start by installing [MetaMask]&#40;https://metamask.io/&#41; if you haven't already.)
+Follow the instructions on their site to install the extension, create an account, and sign in.
 
-[//]: # (Follow the instructions on their site to install the extension, create an account, and sign in.)
+Next, open the MetaMask panel using its icon in your browser toolbar.
 
-[//]: # ()
-[//]: # (Next, open the MetaMask panel using its icon in your browser toolbar.)
+Click on the **network dropdown** in the toolbar at the top and ensure that **Ethereum Mainnet** is selected:
 
-[//]: # (Click on the **network dropdown** in the toolbar at the top and ensure that **Ethereum Mainnet** is selected:)
 
-[//]: # ()
-[//]: # (![]&#40;./images/mm_network_main.png&#41;{ style="display: block; margin: 0 auto" })
+![](./images/mm_network_main.png){ style="display: block; margin: 0 auto" }
 
-[//]: # ()
-[//]: # (Now that you have a wallet address in MetaMask, you need to transfer some ETH into it.)
 
-[//]: # (You will need to supply this from an existing wallet or buy ETH on an exchange.)
+Now that you have a wallet address in MetaMask, you need to transfer some ETH into it.
 
-[//]: # ()
-[//]: # (Once you have some ETH to stake, head to [https://stake.rocketpool.net/manage/deposit-eth-on-behalf-of-node]&#40;https://stake.rocketpool.net/manage/deposit-eth-on-behalf-of-node&#41;.)
+You will need to supply this from an existing wallet or buy ETH on an exchange.
 
-[//]: # ()
-[//]: # (If you see a notice about a web3 browser being required, or the current network ID being unsupported, make sure you’ve completed the previous steps correctly before continuing.)
+
+Once you have some ETH to stake, head to [https://stake.rocketpool.net/manage/deposit-eth-on-behalf-of-node](https://stake.rocketpool.net/manage/deposit-eth-on-behalf-of-node).
+
+
+If you see a notice about a web3 browser being required, or the current network ID being unsupported, make sure you’ve completed the previous steps correctly before continuing.
 
 ::::::
 
@@ -131,6 +128,10 @@ After entering an address, clicking "Find" will take you to the next menu where 
 
 ![](./images/withdraw_eth_on_behalf.png){ style="display: block; margin: 0 auto" }
 
-You'll be able to see how much ETH is available for withdrawal in the top right. After you input your desired quantity and confirmed the node address, click 'Withdraw ETH'
+You'll be able to see how much ETH is available for withdrawal in the top right. After you input your desired quantity and confirmed the node address, click  the orange **Withdraw ETH** button to send the transaction to the network.
 
 Once the transaction is confirmed, you'll see the proper balances in your account!
+
+That's all there is to staking ETH on behalf of a node! We hope you found the process quick and easy.
+
+Feel free to swing by [our Discord server](https://discord.gg/G46XgK264a) to let us know what you thought of it and keep tabs on the project as it evolves.
