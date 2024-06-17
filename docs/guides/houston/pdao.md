@@ -34,7 +34,7 @@ A proposal should be forecasted by the [governance process](../houston/participa
 - Vote Phase 2: `proposal.vote.phase2.time`
 - Execution: `proposal.execute.time	`
 
-![](./images/pDAO_Proposals_-_Timeline2.png){ style="display: block; margin: 0 auto" }
+![](./images/proposal_diagram.png){ style="display: block; margin: 0 auto" }
 
 ### Vote Delay Period
 
