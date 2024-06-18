@@ -48,6 +48,9 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 | &nbsp;            | rETH  | [0x1010824414d822cd2167f9ad73a2a99bd2e0e4ae](https://goerli-optimism.etherscan.io/address/0x1010824414d822cd2167f9ad73a2a99bd2e0e4ae) |
 | Base              | RPL   | [0x1f73EAf55d696BFFA9b0EA16fa987B93b0f4d302](https://basescan.org/address/0x1f73EAf55d696BFFA9b0EA16fa987B93b0f4d302)                 |
 | &nbsp;            | rETH  | [0xB6fe221Fe9EeF5aBa221c348bA20A1Bf5e73624c](https://basescan.org/address/0xB6fe221Fe9EeF5aBa221c348bA20A1Bf5e73624c)                 |
+| Scroll            | rETH  | [0x53878B874283351D26d206FA512aEcE1Bef6C0dD](https://scrollscan.com/address/0x53878b874283351d26d206fa512aece1bef6c0dd)               |
+| Starknet          | rETH  | [0x0319111a5037cbec2b3e638cc34a3474e2d2608299f3e62866e9cc683208c610](https://starkscan.co/token/0x0319111a5037cbec2b3e638cc34a3474e2d2608299f3e62866e9cc683208c610)                 |
+
 
 <small>\* Testnet</small>
 
@@ -295,6 +298,6 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 
 <small>\* Testnet</small>
 
-This list was updated 5/20/2024
+This list was updated 6/18/2024
 
 The addresses can be queried on chain as shown in this [example](https://docs.rocketpool.net/developers/usage/contracts/contracts.html#interacting-with-rocket-pool).
