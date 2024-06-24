@@ -40,57 +40,60 @@ Whenever a new propsal is created, a voting tree representing a snapshot of the 
 
 ## Setting your Snapshot Signalling Address
 
-Setting your snapshot voting delegate will allow you to vote on snapshot using your node's voting power, without needing to expose your private key to a hot wallet. 
+Setting your Snapshot signalling address will allow you to participate in Snapshot votes on a browser or mobile device without having to expose node keys to a hot wallet.
 
 There are a few things to prepare: 
 - Your node's address
-- An address you want to use for snapshot voting 
+- An address you want to use for snapshot voting (signalling address)
 
-You'll need to sign a message saying that our node's address can delegate to the new address. Select which network you're using from one of the tabs below.
+You'll be signing a message saying that your node's address can delegate to the new address. This message states your intent to use your wallet address as a Snapshot signalling address.
+
+Select which network you're using from one of the tabs below.
 
 :::::: tabs
 ::::: tab Holesky Testnet
-If you're trying this out on Holesky testnet, you can sign on this page: https://testnet.rocketpool.net/manage/snapshot-delegation
+If you're trying this out on Holesky testnet, you can sign on this page: https://testnet.rocketpool.net/manage/signalling-address
 
 ::::: tab Mainnet
-If you're ready to configure this on mainnet, go here instead: https://stake.rocketpool.net/manage/snapshot-delegation
+If you're ready to configure this on mainnet, go here instead: https://stake.rocketpool.net/manage/signalling-address
 
 ::::::
 
 :::danger WARNING
-Do not load your node's private key onto a hot wallet. Please choose another account for the purpose of snapshot voting. You'll be able to use this account to vote using your node's voting power after the snapshot voting delegate is set. 
+Do not load your node's private key onto a hot wallet. Please choose another account to be your signalling address. After setting the signalling address, you can use it to vote on Snapshot with your node's voting power.
 :::
 
-Start by connecting the **address you want to use for snapshot voting** to the website using MetaMask, WalletConnect, or any of the other methods the website supports. You will then be presented with this dialog to look up your node address.
+Start by **connecting the address you want to use as a signalling address** to the website using MetaMask, WalletConnect, or any of the other methods the website supports. You will then be presented with this dialog to look up your node address.
 
-Next, you'll enter your node address then click "Find." This will check if the address is a registered node and then bring you to the next step.
+Next, you'll enter your node address then click the orange "Find" button. This will check if the address is a registered node and then bring you to the next step.
 
 :::tip TIP
 **Make sure you have the correct node address before doing this!** if you need to confirm your node's address, you can quickly retrieve it via the CLI using the `rocketpool node status` command. 
 :::
 
-Once you've signed in and confirmed your node address, you'll see your **snapshot signing address**. It should be the same as the account you're signed into the site with. Double check that this is correct before proceeding. Once you're confident that you're signed into the desired account, click the orange "Sign Message" button. You'll see a prompt in your wallet extension app to sign the message:
+Once you've signed in and confirmed your node address, you'll see your **Snapshot signalling address**. It should be the same as the account you've signed into the site with. Double check that this is correct before proceeding. Once you're confident that you're signed into the desired account, click the orange "Sign Message" button. You'll see a prompt in your wallet extension app to sign the following message:
 ```
-< snapshot signing address > may delegate to me for Rocket Pool governance
+< snapshot signalling address > may delegate to me for Rocket Pool governance
 ```
-Signing won't cost any gas. After you sign, the frontend will give you a command to paste into the smartnode. Go ahead and paste it into your smartnode's CLI and follow the prompted steps. The command should look something like this:
+Signing won't cost you any gas but setting will. After you sign, the frontend will give you a command to paste into the smartnode. Go ahead and paste it into your smartnode's CLI and follow the prompted steps. The command should look something like this:
 
 ``` shell
-rocketpool pdao set-snapshot-address
-< snapshot signing address >
+rocketpool pdao set-signalling-address
+< snapshot signalling address >
 < EIP712 signature >
 ``` 
 
 If you see this message in your CLI, you're all set!
 ```
-The node's snapshot address was successfully set to 0xcaB549EdE082592D10FE6a238e7e8914aD3a074d
+The node's snapshot address was successfully set to < snapshot signalling address >
 ```
+:::tip TIP
+Don't worry if you accidentally close the site or lose track of the command. You can simply repeat the steps and **sign again using the same node address and signalling address**. The frontend uses `signer.Signmessage()` from the ethers library, which means your signature is deterministic given the same input. Click [here](https://docs.ethers.org/v6/api/providers/#cid_865) to learn more.
+:::
 
-Don't worry if you accidentally close the site or lose track of the command. You can simply repeat the steps and sign again using the same node address and **snapshot signing address**. The frontend uses `signer.Signmessage()` from the ethers library, which means your signature is deterministic given the same input. Click [here](https://docs.ethers.org/v6/api/providers/#cid_865) to learn more.
-
-Clearing your snapshot address is pretty easy, just use this command in the CLI:
+Clearing your signalling address is pretty easy, just use this command in the CLI:
 ``` shell
-rocketpool pdao clear-snapshot-address
+rocketpool pdao clear-signalling-address
 ```
 
 ## Allowing RPL Locking
