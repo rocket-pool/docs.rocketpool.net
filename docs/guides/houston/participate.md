@@ -38,7 +38,7 @@ rocketpool pdao status
 Whenever a new propsal is created, a voting tree representing a snapshot of the network's voting power and delegate info is created in conjunction with the new proposal. This means your node's voting power won't be included in a proposal if it was raised before you initialized voting. `rocketpool pdao status` will display your node's voting power at the latest block, which may or may not be representative of your voting power on a particular proposal. 
 :::
 
-<!-- ## Setting your Snapshot Voting Delegate
+## Setting your Snapshot Signalling Address
 
 Setting your snapshot voting delegate will allow you to vote on snapshot using your node's voting power, without needing to expose your private key to a hot wallet. 
 
@@ -91,7 +91,7 @@ Don't worry if you accidentally close the site or lose track of the command. You
 Clearing your snapshot address is pretty easy, just use this command in the CLI:
 ``` shell
 rocketpool pdao clear-snapshot-address
-``` -->
+```
 
 ## Allowing RPL Locking
 

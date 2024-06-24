@@ -15,12 +15,12 @@ rocketpool pdao initialize-voting
 ```
 You only need to do this once. Initializing voting will ensure that your node's voting power is included in future on-chain proposals and allow you to vote on them.
 
-<!-- ### Setting your Snapshot Voting Delegate
+### Setting your Snapshot Signalling Address
 
-Secondly, you'll want to set your snapshot voting delegate. This will allow you to vote on snapshot using your node's voting power, without needing to expose your private key to a hot wallet. 
+Secondly, you'll want to set your snapshot signalling address. This allows node operators to participate in Snapshot votes in their browser or mobile device without having to expose their node keys to a hot wallet.
 
 Setting this up involves a handful of steps, so you'll want to follow this guide: 
-[Setting your Snapshot Voting Delegate](../houston/participate#setting-your-snapshot-voting-delegate). -->
+[Setting your Snapshot Signalling Address](../houston/participate#setting-your-snapshot-signalling-address).
 
 ### Delegating on-chain Voting Power
 
