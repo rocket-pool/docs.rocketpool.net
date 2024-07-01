@@ -353,7 +353,7 @@ Save and exit as before, with `Ctrl+O` and `Enter`, then `Ctrl+X`
 Next, restart the SSH server so it picks up the new settings:
 
 ```shell
-sudo systemctl restart sshd
+sudo systemctl restart ssh.service
 ```
 
 After this, logging into SSH via a username and password should be disabled.
