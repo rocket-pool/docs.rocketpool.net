@@ -11,7 +11,7 @@ If you're using Native mode without Docker, please visit the [Native configurati
 
 There are three ways to configure it:
 
-- Via the [Wizard UI](#configuring-via-the-wizard) - this is the easiest way. It only asks you a few basic question and uses well-tested defaults for the test. This will be what you are presented with when you run `rocketpool service config` for the first time.
+- Via the [Wizard UI](#configuring-via-the-wizard) - this is the easiest way. It only asks you a few basic questions and uses well-tested defaults for the test. This will be what you are presented with when you run `rocketpool service config` for the first time.
 - Via the [Settings Manager UI](#configuring-via-the-settings-manager) - this gives you access to all of the Smartnode's settings so you can customize everything as much as you want.
 - Headlessly via the [Command Line](#configuring-via-the-command-line) - this is an option for people who run the Smartnode in a headless (non-interactive) environment and need to configure it automatically.
 
@@ -53,7 +53,7 @@ This will come in handy as you progress through the various Wizard pages.
 
 For example, on the screen above, you could press the `left` and `right` arrow keys to move between the `Next` and `Quit` buttons.
 
-Pressing `Enter` while `Next` is selected will proceeed to the next screen.
+Pressing `Enter` while `Next` is selected will proceed to the next screen.
 Pressing `Enter` while `Quit` is selected will quit the Wizard without saving.
 :::
 
@@ -172,7 +172,7 @@ There are two conditions that will prompt you with warnings based on client sele
 
 - The selected client is **too resource-heavy** for the hardware you're currently using
 
-If either of those cases are true for your chosen client, you will be warned and asked to choose a different client.
+If either of those cases is true for your chosen client, you will be warned and asked to choose a different client.
 You have the option of continuing to use the one you selected, but you must be aware of the risks in doing so.
 :::
 
@@ -358,7 +358,7 @@ Next up is an option to enable or disable **Checkpoint Sync**:
 
 Lodestar has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
 This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-Take a look at [their documentation on checkpoint syncing](https://chainsafe.github.io/lodestar/getting-started/starting-a-node/#checkpoint-sync) for more information if you are curious.
+Take a look at [their documentation on checkpoint syncing](https://chainsafe.github.io/lodestar/run/beacon-management/starting-a-node#checkpoint-sync) for more information if you are curious.
 
 You can enter the URL of any Beacon Node that provides access to its REST API here.
 
