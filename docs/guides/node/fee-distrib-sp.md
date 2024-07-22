@@ -102,22 +102,24 @@ Please keep these conditions in mind when deciding whether or not to use the Smo
 
 ### The Penalty System
 
-To ensure that node operators don't "cheat" by manually modifying the fee recipient used in their Validator Client, Rocket Pool employs a penalty system.
+To ensure that node operators don't "cheat" by manually modifying the fee recipient used in their Validator Client, Rocket Pool has considered employing a penalty system.
 
-The Oracle DAO constantly monitors each block produced by Rocket Pool node operators.
-Any block that has a fee recipient other than one of the following addresses is considered to be **invalid**:
+In this system, the Oracle DAO would constantly monitor each block produced by Rocket Pool node operators.
+Any block that has a fee recipient other than one of the following addresses would be considered **invalid**:
 
 - The rETH address
 - The Smoothing Pool address
 - The node's fee distributor contract (if opted out of the Smoothing Pool)
 
-A minipool that proposed a block with an **invalid** fee recipient will be issued **a strike**.
-On the third strike, the minipool will begin receiving **infractions** - each infraction will dock **10% of its total Beacon Chain balance, including ETH earnings** and send them to the rETH pool stakers upon withdrawing funds from the minipool.
+A minipool that proposed a block with an **invalid** fee recipient would be issued **a strike**.
+On the third strike, the minipool would begin receiving **infractions** - each infraction would dock **10% of its total Beacon Chain balance, including ETH earnings** and send them to the rETH pool stakers upon withdrawing funds from the minipool.
 
 Infractions are at a **minipool** level, not a **node** level.
 
-The Smartnode software is designed to ensure honest users will never get penalized, even if it must take the Validator Client offline to do so.
-If this happens, you will stop attesting and will see error messages in your log files about why the Smartnode can't correctly set your fee recipient.
+The Smartnode software is designed to ensure honest users would never get penalized under the hypothetical penalty system, even if it must take the Validator Client offline to do so.
+If this were to happen, you would stop attesting and see error messages in your log files about why the Smartnode can't correctly set your fee recipient.
+
+Currently the penalty system does not exist and there are no plans to implement it. Therefore, a node operator is welcome to set their fee recipient to an address other than the three listed above to claim all execution layer rewards for the address of their choice (including those that would normally be designated for rETH holders). Be aware, however, that the Smartnode software does not make such a setting of the fee recipient easy to accomplish.
 
 ## The Smoothing Pool
 
