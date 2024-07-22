@@ -108,6 +108,7 @@ The Oracle DAO constantly monitors each block produced by Rocket Pool node opera
 
 If a node is _opted out_ of the Smoothing Pool, the following addresses are considered valid fee recipients:
 - The rETH address
+- The Smoothing Pool address
 - The node's fee distributor contract
 
 If a node is _opted in_ to the Smoothing Pool, the following address is considered a valid fee recipient:
@@ -143,7 +144,7 @@ The Smoothing Pool uses the following rules:
 
 - During a Rocket Pool rewards checkpoint when the Smoothing Pool's balance is distributed, the contract's total ETH balance is split in two.
 
-  - rETH stakers receive 1/2 (for 16 ETH bonds) or 3/4 (for 8 ETH bonds aka LEB8), minus the **average commission** of all opted-in node operators 
+  - rETH stakers receive 1/2 (for 16 ETH bonds) or 3/4 (for 8 ETH bonds aka LEB8), minus the **average commission** of all opted-in node operators
   - The remainder goes to the node operators that opted in.
 
 - Opting into the Smoothing Pool is done on a **node level**. If you opt in, all of your minipools are opted in.
