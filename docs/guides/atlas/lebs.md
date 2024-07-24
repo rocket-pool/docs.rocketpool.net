@@ -11,7 +11,7 @@ The former represented the protocol's lowest bond amount because it guaranteed t
 
 Since Rocket Pool's launch, the community has done [significant research](https://dao.rocketpool.net/t/leb8-discussion-thread/899) on the security provided by this bond and found that it was very conservative.
 For all intents and purposes, a slashing of 16 ETH was deemed unrealistic and a 16-ETH bond effectively provided the same security benefits as a bond of only 8 ETH (plus the supplemental RPL requirement).
-Thus, backed by this research, the Atlas upgrade introduces a new type of minipool to the list: the **8-ETH bond**, colloquially referred to by the Rocket Pool community as an "LEB8" (Lower ETH Bond - 8 ETH).
+Thus, backed by this research, the Atlas upgrade introduces a new type of minipool to the list: the **8-ETH bond**, colloquially referred to by the Rocket Pool community as a "LEB8" (Lower ETH Bond - 8 ETH).
 
 To create an 8-ETH minipool, the node operator only needs to provide **8 of their own ETH** (plus enough RPL to cover the collateral requirement - more on this in [RPL Collateral](#rpl-collateral)).
 It will then pull **24 ETH** from the deposit pool in order to complete the validator and get to work on the Beacon Chain.

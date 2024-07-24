@@ -37,4 +37,4 @@ If you want to delegate on-chain voting power to a community member of your choo
 
 [Stake Eth on Behalf of a Node](../houston/stake-eth-on-behalf) goes over the steps for staking ETH on behalf of a node. It's a new feature introduced in Houston to facilitate single depositor scenarios. We'll walk through how to do this on a testnet if you want to try it out before staking real ETH on mainnet.
 
-[RPL Withdrawal Address](../houston/rpl-withdrawal-address) shows you how to set an RPL withdrawal address for your node. This is useful if you want to enable a seperate entity to supply the RPL insurance collateral for a node.
+[RPL Withdrawal Address](../houston/rpl-withdrawal-address) shows you how to set an RPL withdrawal address for your node. This is useful if you want to enable a separate entity to supply the RPL insurance collateral for a node.

@@ -121,7 +121,7 @@ Lodestar supports many of the great features you've come to love from the other 
 
 ### New Network Snapshot System
 
-On a slightly more technical note, v1.9.0 introduces a brand new system for quickly capturing a snapshot the state of **everything about your node** on both the Execution and the Consensus layers.
+On a slightly more technical note, v1.9.0 introduces a brand new system for quickly capturing a snapshot of the state of **everything about your node** on both the Execution and the Consensus layers.
 Under the hood, this system leverages [MakerDAO's multicall contract](https://github.com/makerdao/multicall) and Will O'Beirne's [Ethereum Balance Checker contract](https://github.com/wbobeirne/eth-balance-checker) to batch thousands of individual Execution client queries up into a single request.
 
 This makes the `node` process much less taxing on the Execution client for node operators with a large number of validators, and should significantly reduce its CPU load which will improve attestations and overall rewards.
