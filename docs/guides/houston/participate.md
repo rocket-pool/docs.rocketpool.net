@@ -22,7 +22,7 @@ A handy dandy visual representation of this process can be found on the [Rocket 
 
 Please read the [lifecycle of a proposal](../houston/pdao#lifecycle-of-a-pdao-proposal) before proceeding. It'll explain the differences between all the voting periods and the actions that can be taken during each period. 
 
-This rest of this page will walk you through the steps required for participating in on-chain pDAO proposals. 
+The rest of this page will walk you through the steps required for participating in on-chain pDAO proposals. 
 
 ## Initializing Voting 
 
