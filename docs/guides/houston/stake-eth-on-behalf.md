@@ -128,7 +128,7 @@ After entering an address, clicking "Find" will take you to the next menu where 
 
 ![](./images/withdraw_eth_on_behalf.png){ style="display: block; margin: 0 auto" }
 
-You'll be able to see how much ETH is available for withdrawal in the top right. After you input your desired quantity and confirmed the node address, click  the orange **Withdraw ETH** button to send the transaction to the network.
+You'll be able to see how much ETH is available for withdrawal in the top right. After you input your desired quantity and confirm the node address, click  the orange **Withdraw ETH** button to send the transaction to the network.
 
 Once the transaction is confirmed, you'll see the proper balances in your account!
 

@@ -194,7 +194,7 @@ Here are Yorick's comments on why he chose this setup:
 
 - _It is at the same or lower cost as some NUCs_
 - _It has ECC RAM, which means that if memory fails - which it does now and then - I will know, because the system will tell me. I do not have to run memtest87 for 4-5 days to figure out whether my problem with instability is even memory-related. I protect my time fiercely so I can spend it bloviating on Discord instead of troubleshooting hardware_
-- _It has IPMI, which is remote management via Ethernet/browser of the entire machine, including UEFI and power-cycle. I should be allowed to go on extended vacation and still have full remote access._
+- _It has IPMI, which is remote management via Ethernet/browser of the entire machine, including UEFI and power-cycle. I should be allowed to go on an extended vacation and still have full remote access._
 - _If I want redundant storage so eventual SSD failure is a non-event, I can do that_
 - _It allows for great flexibility in build choices. I can choose however much RAM and compute I want; I can choose to run a NAS with virtualization tech like TrueNAS Scale and run the node on there alongside some other home-servery stuff._
 
@@ -203,7 +203,7 @@ Here are Yorick's comments on why he chose this setup:
 ![](./images/Drez.jpg)
 
 Sometimes, shelling out for new hardware just doesn't make sense.
-In Discord user **Drez**'s case, runnning a Rocket Pool node is one of those times.
+In Discord user **Drez**'s case, running a Rocket Pool node is one of those times.
 Drez happened to have a spare laptop lying around, and they turned it into a node with ease.
 Their machine comes with a quad core i7-4710HQ (2.5 GHz), two DDR3 slots, and a 2.5" SATA slot.
 Being a laptop, it also comes with its own battery (which offsets the need for a UPS).

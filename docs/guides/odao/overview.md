@@ -11,7 +11,7 @@ They are essentially the same as normal Rocket Pool nodes; they use the same too
 This includes things such as:
 
 - Shuttling information from the Beacon Chain to the Execution Layer, including validator status and balances
-- Ensuring minipools are creating using validator public keys that aren't already in use, and [have the proper withdrawal credentials](https://github.com/rocket-pool/rocketpool-research/blob/master/Reports/withdrawal-creds-exploit) so the protocol can safely fund them
+- Ensuring minipools are created using validator public keys that aren't already in use, and [have the proper withdrawal credentials](https://github.com/rocket-pool/rocketpool-research/blob/master/Reports/withdrawal-creds-exploit) so the protocol can safely fund them
 - Constructing the rewards Merkle tree at the end of each rewards period and uploading it to IPFS for other node operators to access
 - Monitoring proposals for compliance with Rocket Pool's [fee recipient requirements](../node/mev)
 - Proposing and voting on modifications to the core protocol, including changing parameters and approving contract upgrades
@@ -31,7 +31,7 @@ To run an Oracle DAO node, you will require the following:
   - We **strongly** recommend you use an on-premises archive node for this, as services such as [Infura](https://infura.io/pricing) or [Alchemy](https://www.alchemy.com/pricing) have shown some difficulty in keeping up with demand during critical periods such as constructing the rewards tree.
 - Access to an **Archive-Mode Beacon Node's REST API endpoint** (via HTTP). This can be a locally-run client, as is the case with most Rocket Pool nodes, or it can link to external clients that you or your organization maintain independently.
 - The standard Smartnode CLI.
-- The Smartnode daemon configured and running in `watchtower` mode (this is included with the standard Smartnode bundle for all users, but only actively performs duties for Oracle DAO nodes).
+- The Smartnode daemon is configured and running in `watchtower` mode (this is included with the standard Smartnode bundle for all users, but only actively performs duties for Oracle DAO nodes).
   - This can be run in a Docker container (standard setup) or as a simple `systemd` service ("Native" mode).
 - Enough ETH to pay for the gas costs of your duties (discussed later).
 
