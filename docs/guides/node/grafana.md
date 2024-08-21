@@ -805,7 +805,7 @@ Place your cursor in-between the quote marks and press `Ctrl+Spacebar` to get Gr
 If you don't know which device to track, run the following command:
 
 ```
-route
+sudo route
 ```
 
 The output will look something like this:
