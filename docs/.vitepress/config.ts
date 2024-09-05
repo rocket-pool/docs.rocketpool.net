@@ -355,16 +355,6 @@ function developers() {
             },
           ],
         },
-        {
-          text: "Subgraph",
-          collapsed: true,
-          items: [
-            { text: "Subgraph Data Introduction", link: "/developers/api/subgraph/subgraph-data" },
-            { text: "Entities", link: "/developers/api/subgraph/entities" },
-            { text: "Queries", link: "/developers/api/subgraph/queries" },
-            { text: "Additional Resources", link: "/developers/api/subgraph/additional-resources" },
-          ],
-        },
       ],
     },
   ];
