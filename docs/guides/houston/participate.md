@@ -31,10 +31,30 @@ If you are a node operator who registered before the Houston upgrade, you need t
 ```shell
 rocketpool pdao initialize-voting
 ```
-This command will prompt if you'd like to specify a delegate to vote on your behalf for Protocol DAO proposals:
+This command will raise the prompt below. Please read it carefully: 
+```
+Thanks for initializing your voting power!
 
-- If you respond with no, voting power will be initialized to your node and you'll be able to vote directly on Protocol DAO proposals. 
-- If you respond with yes, you'll have the opportunity to save a bit of gas by initializing voting and [setting a delegate](../houston/participate#delegating-voting-power) within the same transaction.
+You have two options:
+
+1. Vote directly (delegate vote power to yourself)
+   This will allow you to vote on proposals directly,
+   allowing you to personally shape the direction of the protocol.
+
+2. Delegate your vote
+   This will delegate your vote power to someone you trust,
+   giving them the power to vote on your behalf. You will have the option to override.
+
+You can see a list of existing public delegates at https://delegates.rocketpool.net,
+however, you can delegate to any node address.
+
+Learn more about how this all works via: https://docs.rocketpool.net/guides/houston/participate#participating-in-on-chain-pdao-proposals
+
+Please type `direct` or `delegate` to continue:
+```
+
+- If you respond with `direct`, voting power will be initialized to your node and you'll be able to vote directly on Protocol DAO proposals. 
+- If you respond with `delegate`, you'll have the opportunity to save a bit of gas by initializing voting and [setting a delegate](../houston/participate#delegating-voting-power) within the same transaction.
 
 You only need to do this once. It configures the initial snapshot information for a node. After you initialize voting, every action taken will update your node's snapshot information. Once your voting power is initialized, you can check how much you have using the following smartnode command:
 ```shell
@@ -43,6 +63,13 @@ rocketpool pdao status
 :::tip NOTE
 Whenever a new propsal is created, a voting tree representing a snapshot of the network's voting power and delegate info is created in conjunction with the new proposal. This means your node's voting power won't be included in a proposal if it was raised before you initialized voting. `rocketpool pdao status` will display your node's voting power at the latest block, which may or may not be representative of your voting power on a particular proposal. 
 :::
+
+## Auto Initialize Vote Power
+Smartnode version `1.13.8` introduces a new feature **Auto Initialize Vote Power**, which is designed to automatically initialize voting power on nodes who have not yet done so. Automatically initialized voting power is self-delegated. This feature can be configured in the Smartnode settings by running `rocketpool service config` and navigating to the **Smartnode and TX Fees** section.
+
+![](./images/auto_init_vp.png){ style="display: block; margin: 0 auto" }
+
+The **Auto-Init Vote Power Gas Threshold** is a limit (in gwei) on this automatic transaction. You can opt out of this task by setting the threshold to 0. Feel free to opt out if your node was registered after the Houston upgrade or if voting power is already enabled. 
 
 ## Setting your Snapshot Signalling Address
 
