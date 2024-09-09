@@ -53,7 +53,6 @@ Rocket Pool currently offers its node operators access to **multiple different r
 | [Flashbots](https://boost.flashbots.net/)                                                                    | Complies with OFAC Sanctions\* | All types                                  |
 | [bloXroute Max Profit](https://docs.bloxroute.com/apis/mev-solution/mev-relay-for-validators)                | Complies with OFAC Sanctions\* | All types                                  |
 | [bloXroute Regulated](https://docs.bloxroute.com/apis/mev-solution/mev-relay-for-validators)                 | Complies with OFAC Sanctions\* | All types                                  |
-| [Eden Network](https://v2.docs.edennetwork.io/eden-relay/overview)                                           | Complies with OFAC Sanctions\* | All types                                  |
 | [Ultra Sound](https://relay.ultrasound.money/)                                                               | Unregulated                    | All types                                  |
 | [AESTUS](https://aestus.live/)                                                                               | Unregulated                    | All types                                  |
 | [Titan Global](https://docs.titanrelay.xyz/)                                                                 | Unregulated                    | All types                                  |
