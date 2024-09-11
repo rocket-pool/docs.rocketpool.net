@@ -1,13 +1,4 @@
-# FROM node:20-alpine as builder
-# RUN npm install -g pnpm
-# WORKDIR /app
-# COPY package.json .
-# COPY docs ./docs
-# RUN pnpm i
-# RUN pnpm run build
-# RUN pnpm prune --prod
-
-FROM oven/bun:latest as builder
+FROM oven/bun:latest AS builder
 WORKDIR /app
 COPY ./package.json .
 COPY ./docs ./docs
