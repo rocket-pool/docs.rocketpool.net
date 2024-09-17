@@ -11,7 +11,10 @@
     devShells = forAllSystems (pkgs: {
       default = pkgs.mkShell {
         packages = with pkgs; [
+          awscli
+          stdenv
           corepack
+          docker
           bun
           just
         ];
