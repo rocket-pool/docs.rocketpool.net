@@ -67,7 +67,7 @@ Once this is complete, you will officially be a member of the Rocket Pool networ
 ## Setting your Primary Withdrawal Address
 
 Before anything else, we highly recommended you change the **primary withdrawal address** for your node.
-This is the address that all of your RPL checkpoint rewards, your staked RPL, and your Beacon Chain ETH will be sent to when you claim your checkpoint rewards or exit your validator and withdraw from your minipool. 
+This is the address that all of your RPL checkpoint rewards, your staked RPL, and your Beacon Chain ETH will be sent to when you claim your checkpoint rewards or exit your validator and withdraw from your minipool.
 
 Optionally, you can set a withdrawal address for your ETH and [a new one for your RPL](https://rpips.rocketpool.net/RPIPs/RPIP-31). The RPL withdrawal address if set will be able to trigger and claim RPL from inflation rewards and will have no effect on ETH consensus rewards or anything related to ETH. If you haven't set an RPL withdrawal address, the Primary Withdrawal Address will receive RPL rewards as well. By default, **whoever controls the primary withdrawal address can access ALL your staked RPL, ETH, and rewards.**
 
@@ -126,7 +126,6 @@ Note that Ledger Live will not show your balance on the test network, but other 
    2. Now, there should be a new confirmation dialog in your wallet. Again, using MetaMask as an example, click the MetaMask icon to open it and you should see something like this:
 
    Click **Confirm** to send the transaction to the network. This will take some time until it gets included in a block, but once it does, you will see a confirmation dialog:
-
 
 <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/confirm_pending_withdrawal.mp4" />
 

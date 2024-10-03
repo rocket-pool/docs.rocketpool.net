@@ -48,7 +48,6 @@ Here, you will see two options at the bottom:
 The `Archive-Mode EC URL` must be the HTTP endpoint of the RPC API for your Archive Execution Client.
 **Note that if you are already using your Archive EC as your primary client in Externally-Managed mode, you can ignore this setting.**
 
-
 ::::: tab (service config) Headlessly
 
 Run the following command to configure your node headlessly:
@@ -63,7 +62,6 @@ Where:
   **Note that if you are already using your Archive EC as your primary client in Externally-Managed mode, you can ignore this setting.**
 
 Finally, restart your `watchtower` daemon (i.e., with `docker restart rocketpool_watchtower` in Docker or Hybrid mode, or `sudo systemctl restart rp_watchtower` in Native mode) for the settings to take effect.
-
 
 ::::: tab Direct Config File
 

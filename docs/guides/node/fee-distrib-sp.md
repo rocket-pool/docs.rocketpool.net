@@ -107,11 +107,13 @@ To ensure that node operators don't "cheat" by manually modifying the fee recipi
 The Oracle DAO constantly monitors each block produced by Rocket Pool node operators.
 
 If a node is _opted out_ of the Smoothing Pool, the following addresses are considered valid fee recipients:
+
 - The rETH address
 - The Smoothing Pool address
 - The node's fee distributor contract
 
 If a node is _opted in_ to the Smoothing Pool, the following address is considered a valid fee recipient:
+
 - The Smoothing Pool address
 
 A fee recipient other than one of valid addresses above is considered to be **invalid**.

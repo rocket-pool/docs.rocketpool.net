@@ -15,7 +15,7 @@ We welcome all contributions! Please refer to our [contribution guidelines](./co
 Bun can be installed via:
 
 ```
-curl -fsSL https://bun.sh/install | bash 
+curl -fsSL https://bun.sh/install | bash
 ```
 
 Just (rust based task runner) can be installed via:

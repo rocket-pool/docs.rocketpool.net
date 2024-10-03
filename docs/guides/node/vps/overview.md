@@ -1,6 +1,6 @@
 ---
-next: 
-  text: Selecting a Hosting Provider 
+next:
+  text: Selecting a Hosting Provider
   link: "/guides/node/vps/providers"
 ---
 

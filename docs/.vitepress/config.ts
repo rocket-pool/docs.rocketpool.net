@@ -102,11 +102,11 @@ function guides() {
           link: "/guides/houston/whats-new",
           items: [
             { text: "Overview", link: "/guides/houston/whats-new" },
-            { text: "Getting Started with Houston", link:"/guides/houston/getting-started"},
+            { text: "Getting Started with Houston", link: "/guides/houston/getting-started" },
             { text: "The Protocol DAO", link: "/guides/houston/pdao" },
-            { text: "Participating in Proposals", link: "/guides/houston/participate"},
+            { text: "Participating in Proposals", link: "/guides/houston/participate" },
             { text: "Stake ETH on Behalf of Node", link: "/guides/houston/stake-eth-on-behalf" },
-            { text: "RPL Withdrawal Address", link: "/guides/houston/rpl-withdrawal-address"}, 
+            { text: "RPL Withdrawal Address", link: "/guides/houston/rpl-withdrawal-address" },
           ],
         },
         {
@@ -274,7 +274,7 @@ function guides() {
           items: [
             { text: "Upgrading to Smartnode v1.3.x", link: "/guides/legacy/v1.3-update" },
             { text: "Migrating the Smartnode from Previous Beta Tests", link: "/guides/legacy/upgrading" },
-            { text: "The Atlas Update", link: "/guides/atlas/whats-new"},
+            { text: "The Atlas Update", link: "/guides/atlas/whats-new" },
             { text: "Lower ETH Bond Minipools", link: "/guides/atlas/lebs" },
             {
               text: "Redstone & The Merge",

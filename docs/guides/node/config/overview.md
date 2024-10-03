@@ -1,5 +1,5 @@
 ---
-next: 
+next:
   text: Configuring the Smartnode Stack (Docker/hybrid mode)
   link: "/guides/node/config-docker"
 ---

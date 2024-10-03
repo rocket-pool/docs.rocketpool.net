@@ -26,5 +26,4 @@ features:
   - title: For Developers
     details: Review our API Documentation and code examples to quickly integrate your application with our protocol.
     link: /developers/
-
 ---

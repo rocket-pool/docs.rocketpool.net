@@ -9,16 +9,16 @@ ui-serve:
 ui-build:
     bun run build
 
-# Use prettier to format the code
+# Use prettier & biome to format the code
 ui-format:
-    bun run format
+    bun run prettier && bun run format
 
 # convert all the images to webp
 ui-webp:
     bun run webp
 
 # install deps
-ui-npm-i:
+i:
     bun i
 
 # check for outdated deps
@@ -27,11 +27,11 @@ ui-outdated:
 
 # check for dependency updates
 ui-check:
-    npm-check-updates
+    bun run taze
 
 # upgrade deps
 ui-upgrade:
-    npm-check-updates -u && just ui-clean-npm-i
+    bun run taze latest -u && just ui-clean-npm-i
 
 # clear node_modules, bun lock file and reinstall deps
 ui-clean-npm-i:

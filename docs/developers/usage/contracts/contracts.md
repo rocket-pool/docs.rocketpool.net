@@ -65,7 +65,7 @@ The Rocket Pool contracts, as defined in `RocketStorage`, are:
 - `rocketAuctionManager` - Handles the auctioning of RPL slashed from node operators' stake
 - `rocketDepositPool` - Accepts user-deposited ETH and handles assignment to minipools
 - `rocketSmoothingPool` - Receives priority fees and MEV
-- `rocketMinipoolBase` -  Contains the initialisation and delegate upgrade logic for minipools
+- `rocketMinipoolBase` - Contains the initialisation and delegate upgrade logic for minipools
 - `rocketMinipoolBondReducer` - Handles bond reduction window and trusted node cancellation
 - `rocketMinipoolFactory` - Handles creation of minipool contracts
 - `rocketMinipoolDelegate` - Minipool utility contract (internal)
@@ -113,6 +113,7 @@ The Rocket Pool contracts, as defined in `RocketStorage`, are:
 - `addressSetStorage` - A utility contract (internal)
 
 Legacy Rocket Pool contracts, that have been removed from `RocketStorage` since the initial deployment, are:
+
 - `rocketClaimNode` - Handled the claiming of rewards for node operators
 - `rocketClaimTrustedNode` - Handled the claiming of rewards for the oDAO
 

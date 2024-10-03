@@ -24,7 +24,8 @@ You will need to install the following pre-requisites:
 
 We highly recommend using [Homebrew](https://brew.sh) as your package manager for Mac. It allows you to install packages easily using the `brew` command.
 
-You can install it via 
+You can install it via
+
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
@@ -35,14 +36,13 @@ It should install some pre-requisites for you, such as XCode Command Line Tools.
 xcode-select --install
 ```
 
-
 Once installed, ensure everything is working correctly by using
 
 ```
 brew doctor
 ```
 
-Once everything is installed & working, Homebrew will allow you to install packages using the `brew` command. 
+Once everything is installed & working, Homebrew will allow you to install packages using the `brew` command.
 
 For example, to install `wget` using Homebrew execute the following command in the Terminal:
 
@@ -50,7 +50,7 @@ For example, to install `wget` using Homebrew execute the following command in t
 brew install wget
 ```
 
-Now that we have Homebrew installed, we can install our Docker client, [Orbstack](https://orbstack.dev). 
+Now that we have Homebrew installed, we can install our Docker client, [Orbstack](https://orbstack.dev).
 
 ```
 brew install --cask orbstack
@@ -58,7 +58,7 @@ brew install --cask orbstack
 
 Orbstack will be installed to your Applications folder. Launch it from there and it will initialise. If you are migrating from Docker Desktop, it should detect your existing Docker installation and migrate your images and containers.
 
-You may need to adjust your Orbstack settings depending on your hardware. 
+You may need to adjust your Orbstack settings depending on your hardware.
 
 If you have previously installed Docker Desktop, you will need to uninstall it first. Docker Desktop used to be the recommended Docker Client however in the last year a few new clients have been released that provide much better stability.
 

@@ -1,9 +1,8 @@
 ---
-next: 
-  text: Selecting Staking Hardware 
+next:
+  text: Selecting Staking Hardware
   link: "/guides/node/local/hardware"
 ---
-
 
 # Overview
 

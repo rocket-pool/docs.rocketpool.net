@@ -90,7 +90,6 @@ Therefore, you must follow these 3 steps in that order.
 
 If you're testing out node operation, you'll need some test RPL in addition to test ETH.
 
-
 Rocket Pool provides a faucet in its [Discord server](https://discord.gg/rocketpool).
 Join the server and head to the `#support` channel.
 

@@ -1,6 +1,6 @@
 ---
-next: 
-  text: Claiming Node Operator Rewards 
+next:
+  text: Claiming Node Operator Rewards
   link: "/guides/node/rewards"
 ---
 

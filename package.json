@@ -10,57 +10,21 @@
   },
   "repository": "https://github.com/rocket-pool/docs.rocketpool.net",
   "devDependencies": {
+    "@biomejs/biome": "^1.9.3",
     "@types/markdown-it": "^14.1.2",
     "markdown-it": "^14.1.0",
     "stylus": "latest",
+    "prettier": "^3.3.3",
     "vitepress": "1.3.4",
-    "vue": "^3.5.10"
+    "vue": "^3.5.10",
+    "taze": "^0.17.2"
   },
   "scripts": {
     "dev": "vitepress dev docs",
     "build": "vitepress build docs",
     "preview": "vitepress preview docs",
-    "lint": "eslint --ext .ts,vue --ignore-path .gitignore . --fix",
-    "format": "prettier -w -u . --ignore-path .gitignore"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "browser": true,
-      "es2021": true,
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-recommended",
-      "eslint:recommended",
-      "@vue/typescript/recommended",
-      "plugin:prettier/recommended"
-    ],
-    "parserOptions": {
-      "ecmaVersion": 2021
-    },
-    "rules": {
-      "no-console": "off",
-      "no-debugger": "off",
-      "@typescript-eslint/interface-name-prefix": "off",
-      "@typescript-eslint/explicit-function-return-type": "off",
-      "@typescript-eslint/explicit-module-boundary-types": "off",
-      "@typescript-eslint/no-explicit-any": "off",
-      "@typescript-eslint/no-non-null-assertion": "off",
-      "@typescript-eslint/no-unused-vars": [
-        "off",
-        {
-          "argsIgnorePattern": "^_"
-        }
-      ],
-      "prettier/prettier": [
-        "error",
-        {},
-        {
-          "usePrettierrc": true
-        }
-      ]
-    }
+    "format": "bunx @biomejs/biome format --write .",
+    "prettier": "prettier -w -u . !package.json !pnpm-lock.yaml !bun.lockb"
   },
   "prettier": {
     "semi": true,

@@ -1,5 +1,5 @@
 ---
-next: 
+next:
   text: Choosing your ETH Clients
   link: "/guides/node/eth-clients"
 ---

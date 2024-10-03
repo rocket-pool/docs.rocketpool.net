@@ -1,4 +1,4 @@
-# Stake ETH on behalf of node 
+# Stake ETH on behalf of node
 
 RPIP-32 allows an account to [stake ETH on behalf](https://rpips.rocketpool.net/RPIPs/RPIP-32) of a Rocket Pool node that is registered in the protocol. This supports a variety of situations where the node operator is not directly providing the ETH:
 
@@ -11,12 +11,11 @@ While the primary aim of this feature is to facilitate single depositor scenario
 
 ### Prerequisite
 
-Make sure that you've properly configured the [primary withdrawal address](../node/prepare-node#setting-your-primary-withdrawal-address) of the node you intend on funding. Follow the link above for a guide on how withdrawal addresses act post houston. 
+Make sure that you've properly configured the [primary withdrawal address](../node/prepare-node#setting-your-primary-withdrawal-address) of the node you intend on funding. Follow the link above for a guide on how withdrawal addresses act post houston.
 
 ::: tip NOTE
-Don't skip this step! All ETH bond/rewards will be withdrawn to the primary withdrawal address. In other words, the address that supplies ETH for a node should be used as the primary withdrawal address! Please make sure that the node's primary withdrawal address is set to a wallet you have custody over. 
+Don't skip this step! All ETH bond/rewards will be withdrawn to the primary withdrawal address. In other words, the address that supplies ETH for a node should be used as the primary withdrawal address! Please make sure that the node's primary withdrawal address is set to a wallet you have custody over.
 :::
-
 
 The process is slightly different for the Holesky Testnet and Mainnet, so choose the network you are interested in from the tabs below.
 
@@ -74,17 +73,13 @@ Next, open the MetaMask panel using its icon in your browser toolbar.
 
 Click on the **network dropdown** in the toolbar at the top and ensure that **Ethereum Mainnet** is selected:
 
-
 ![](./images/mm_network_main.png){ style="display: block; margin: 0 auto" }
-
 
 Now that you have a wallet address in MetaMask, you need to transfer some ETH into it.
 
 You will need to supply this from an existing wallet or buy ETH on an exchange.
 
-
 Once you have some ETH to stake, head to [https://stake.rocketpool.net/manage/deposit-eth-on-behalf-of-node](https://stake.rocketpool.net/manage/deposit-eth-on-behalf-of-node).
-
 
 If you see a notice about a web3 browser being required, or the current network ID being unsupported, make sure you’ve completed the previous steps correctly before continuing.
 
@@ -106,21 +101,22 @@ Go ahead and paste your desired address into this box and click find. In this ex
 In the first box, enter the amount of ETH you would like to deposit on behalf of the node. The second box indicates which address you'll be depositing ETH on behalf of. Please ensure that you've entered the correct address and deposit. Once you're satisfied, click Deposit and MetaMask will pop up with a window asking you to confirm your transaction.
 
 Once you confirm it, the transaction will begin.
-When it's been included in a block and added to the chain, your delegate will be able to use the command `rocketpool node status` in smartnode to see the new balance. This balance can also be viewed through the Rocket Pool staking site. 
+When it's been included in a block and added to the chain, your delegate will be able to use the command `rocketpool node status` in smartnode to see the new balance. This balance can also be viewed through the Rocket Pool staking site.
+
 ```
 The node has 0.000000 ETH in its credit balance and 8.000000 ETH staked on its behalf. 8.000000 can be used to make new minipools.
 ```
 
 ::: warning NOTE
-If a node operator deposits your ETH into a minipool, you won't be able to exit their minipool without access to their withdrawal credentials, so keep this in mind! You can use the Rocket Pool staking site to withdraw ETH staked on behalf of a node if it isn't being used in a minipool. 
+If a node operator deposits your ETH into a minipool, you won't be able to exit their minipool without access to their withdrawal credentials, so keep this in mind! You can use the Rocket Pool staking site to withdraw ETH staked on behalf of a node if it isn't being used in a minipool.
 :::
 
 That's it!
 You're now staking with Rocket Pool.
 
-# Unstake ETH on behalf of node 
+# Unstake ETH on behalf of node
 
-When you're ready to withdraw ETH you've staked on behalf of a node, head over to the [staking site](https://testnet.rocketpool.net/manage/withdraw-eth) and select 'Withdraw ETH' in the dropdown menu. After signing in as the node's [primary withdrawal address](../node/prepare-node#setting-your-primary-withdrawal-address), you should be greeted with a familiar menu. You'll be prompted to enter the node address you want to withdraw from:  
+When you're ready to withdraw ETH you've staked on behalf of a node, head over to the [staking site](https://testnet.rocketpool.net/manage/withdraw-eth) and select 'Withdraw ETH' in the dropdown menu. After signing in as the node's [primary withdrawal address](../node/prepare-node#setting-your-primary-withdrawal-address), you should be greeted with a familiar menu. You'll be prompted to enter the node address you want to withdraw from:
 
 ![](./images/enter_node_address.png){ style="display: block; margin: 0 auto" }
 
@@ -128,7 +124,7 @@ After entering an address, clicking "Find" will take you to the next menu where 
 
 ![](./images/withdraw_eth_on_behalf.png){ style="display: block; margin: 0 auto" }
 
-You'll be able to see how much ETH is available for withdrawal in the top right. After you input your desired quantity and confirm the node address, click  the orange **Withdraw ETH** button to send the transaction to the network.
+You'll be able to see how much ETH is available for withdrawal in the top right. After you input your desired quantity and confirm the node address, click the orange **Withdraw ETH** button to send the transaction to the network.
 
 Once the transaction is confirmed, you'll see the proper balances in your account!
 

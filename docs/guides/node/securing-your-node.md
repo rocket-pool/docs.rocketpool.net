@@ -1,7 +1,7 @@
 ---
-next: 
-  text: 'Tailscale'
-  link: '/guides/node/tailscale'
+next:
+  text: "Tailscale"
+  link: "/guides/node/tailscale"
 ---
 
 # Securing your Node

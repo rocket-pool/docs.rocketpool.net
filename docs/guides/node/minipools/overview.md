@@ -1,5 +1,5 @@
 ---
-next: 
+next:
   text: Creating a New Minipool (Validator)
   link: "/guides/node/create-validator"
 ---

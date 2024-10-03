@@ -30,7 +30,7 @@ To enable access to the Consensus client's Beacon Node, go to the **Consensus Cl
 This will open the HTTP API port (default 5052) on your node, so other machines on your local network can connect to it.
 
 ::: warning Note: Ports opened via iptables, not ufw
-When you expose RPC and API endpoints in using the Rocketpool configurator, ports are opened via `iptables` and therefore will not show up as a `ufw`  firewall rule. To see which ports are open you can use `sudo lsof -i -P -n | grep LISTEN` or similar command.
+When you expose RPC and API endpoints in using the Rocketpool configurator, ports are opened via `iptables` and therefore will not show up as a `ufw` firewall rule. To see which ports are open you can use `sudo lsof -i -P -n | grep LISTEN` or similar command.
 :::
 
 For example, if your node's local IP address were `192.168.1.45`, then by enabling this option you could use `http://192.168.1.45:5052` as the Beacon Node URL for your other services.
@@ -89,7 +89,7 @@ Alternatively, if you wanted to save eth1 client data to a non-default path on y
 
 ```yaml
 # Enter your own customizations for the eth1 container here. These changes will persist after upgrades, so you only need to do them once.
-# 
+#
 # See https://docs.docker.com/compose/extends/#adding-and-overriding-configuration
 # for more information on overriding specific parameters of docker-compose files.
 

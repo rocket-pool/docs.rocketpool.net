@@ -1,6 +1,6 @@
 ---
-next: 
-  text: Starting Rocketpool 
+next:
+  text: Starting Rocketpool
   link: "/guides/node/starting-rp"
 ---
 

@@ -1,5 +1,5 @@
 ---
-next: 
+next:
   text: Staking Directly via Rocket Pool
   link: "/guides/staking/via-rp"
 ---

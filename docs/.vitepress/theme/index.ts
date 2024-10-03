@@ -9,6 +9,6 @@ export default {
   ...Theme,
   enhanceApp({ app }) {
     app.component("PluginTabs", PluginTabs);
-    app.component('ZoomImg', ZoomImg)
+    app.component("ZoomImg", ZoomImg);
   },
 };

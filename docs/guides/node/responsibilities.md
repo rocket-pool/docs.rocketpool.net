@@ -18,14 +18,14 @@ The penalties are quite small though; as a rule of thumb, if a validator is offl
 
 Now that [the Execution and Consensus layers have merged](https://ethereum.org/en/upgrades/merge/), validators are able to earn five different types of rewards:
 
-| Type                                                                                          | Layer     | Frequency                                                                             | Amount                                        |
-| --------------------------------------------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------- | --------------------------------------------- |
-| Attestation                                                                                   | Consensus | Once per Epoch (every 6.4 minutes on average)                                         | 0.000014 ETH\*                                |
-| Block Proposal                                                                                | Consensus | [Every 2 months on average](https://proposalprobab.web.app/)\*\*                      | 0.02403 ETH\*                                 |
+| Type                                                                                             | Layer     | Frequency                                                                             | Amount                                        |
+| ------------------------------------------------------------------------------------------------ | --------- | ------------------------------------------------------------------------------------- | --------------------------------------------- |
+| Attestation                                                                                      | Consensus | Once per Epoch (every 6.4 minutes on average)                                         | 0.000014 ETH\*                                |
+| Block Proposal                                                                                   | Consensus | [Every 2 months on average](https://proposalprobab.web.app/)\*\*                      | 0.02403 ETH\*                                 |
 | [Sync Committee](https://github.com/ethereum/annotated-spec/blob/master/altair/sync-protocol.md) | Consensus | Every 2 years on average\*\*                                                          | 0.11008 ETH\*                                 |
-| Slashing Reward                                                                               | Consensus | Very rarely included in Block Proposals                                               | Up to 0.0625 ETH                              |
-| Priority Fees                                                                                 | Execution | Included in Block Proposals                                                           | Typically 0.01 to 0.1 ETH; very rarely 1+ ETH |
-| MEV Rewards                                                                                   | Execution | Also included in Block Proposals when using [MEV-boost](https://boost.flashbots.net/) | Typically 0.01 to 0.1 ETH; very rarely 1+ ETH |
+| Slashing Reward                                                                                  | Consensus | Very rarely included in Block Proposals                                               | Up to 0.0625 ETH                              |
+| Priority Fees                                                                                    | Execution | Included in Block Proposals                                                           | Typically 0.01 to 0.1 ETH; very rarely 1+ ETH |
+| MEV Rewards                                                                                      | Execution | Also included in Block Proposals when using [MEV-boost](https://boost.flashbots.net/) | Typically 0.01 to 0.1 ETH; very rarely 1+ ETH |
 
 \*_Varies based on the total number of validators in the network.
 Approximated for 435,000 active validators._
@@ -125,7 +125,7 @@ To reinforce this, you are also responsible for ensuring you maintain an RPL sta
 This can fall in the case of RPL price action due to market sales, thus bringing down your collateral so it's important to check it!
 
 If you let it go below 10% at each rewards period, **you will not be eligible for RPL rewards** for that period.
-To learn more, please visit [*the Rewards page*](./rewards.md).
+To learn more, please visit [_the Rewards page_](./rewards.md).
 :::
 
 If you're fairly new to using the command line or computer maintenance, this can seem like a scary challenge.
