@@ -31,7 +31,7 @@ ui-check:
 
 # upgrade deps
 ui-upgrade:
-    bun run taze latest -u && just ui-clean-npm-i
+    bun run taze latest -u -w && just ui-clean-npm-i
 
 # clear node_modules, bun lock file and reinstall deps
 ui-clean-npm-i:
