@@ -1,5 +1,5 @@
 ---
-layout: home
+pageType: home
 title: Rocket Pool Guides & Documentation
 hero:
   name: Rocket Pool

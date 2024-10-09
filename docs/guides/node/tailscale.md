@@ -106,7 +106,7 @@ Allow access to all incoming ssh connections over Talscale.
 sudo ufw allow in on tailscale0
 ```
 
-You may also remove access to the SSH port adding from the [enabling a firewall](securing-your-node#essential-enable-a-firewall) steps to competely lock down your node.
+You may also remove access to the SSH port adding from the [enabling a firewall](/guides/node/securing-your-node#essential-enable-a-firewall) steps to completely lock down your node.
 Note that you **will not** be able to login from the local network as tailscale will become the only way to login.
 Only run the following command if you are okay with this.
 
