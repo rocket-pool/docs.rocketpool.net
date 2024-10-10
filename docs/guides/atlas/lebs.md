@@ -90,7 +90,7 @@ The process to create a new minipool with an 8-ETH bond is identical to the proc
 
 Simply run the following command:
 
-```
+```shell
 rocketpool node deposit
 ```
 

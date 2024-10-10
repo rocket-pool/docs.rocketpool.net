@@ -48,7 +48,7 @@ We recommend you send a small amount of ETH first as a **test transaction** to v
 Once you have ETH in your wallet, you can register your node with the Rocket Pool network to access all of its features.
 To do this, run the following command:
 
-```
+```shell
 rocketpool node register
 ```
 
@@ -137,7 +137,7 @@ Note that Ledger Live will not show your balance on the test network, but other 
 
 In this method, you will run:
 
-```
+```shell
 rocketpool node set-primary-withdrawal-address --force <your cold wallet address>
 ```
 
@@ -174,7 +174,7 @@ They are intended for normal Smartnode operators.
 Setting up a voting delegate address that can vote on behalf of your node is a one-time action.
 Simply run the following command:
 
-```
+```shell
 rocketpool node set-voting-delegate <address or ENS name>
 ```
 
@@ -210,7 +210,7 @@ If you want your node wallet address to be mapped to a human-readable name like 
 
 Execute the command:
 
-```
+```shell
 rocketpool wallet set-ens-name <your-ens-name.eth>
 ```
 

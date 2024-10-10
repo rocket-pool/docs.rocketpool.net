@@ -11,6 +11,7 @@
   "repository": "https://github.com/rocket-pool/docs.rocketpool.net",
   "devDependencies": {
     "@biomejs/biome": "^1.9.3",
+    "@headlessui/react": "^2.1.9",
     "prettier": "^3.3.3",
     "rspress": "^1.32.0",
     "taze": "^0.17.2",

@@ -276,13 +276,13 @@ If you are fine with this default behavior, skip down to the next section.
 
 To do this, create a new file called `/etc/docker/daemon.json` as the root user:
 
-```
+```shell
 sudo nano /etc/docker/daemon.json
 ```
 
 This will be empty at first, which is fine. Add this as the contents:
 
-```
+```json
 {
     "data-root": "<your external mount point>/docker"
 }
@@ -294,13 +294,13 @@ Press `Ctrl+O, Enter` to save the file, and `Ctrl+X, Enter` to exit the editor.
 
 Next, make the folder:
 
-```
+```shell
 sudo mkdir -p <your external mount point>/docker
 ```
 
 Now, restart the docker daemon so it picks up on the changes:
 
-```
+```shell
 sudo systemctl restart docker
 ```
 
@@ -309,4 +309,4 @@ After that, Docker will store its data on your desired disk.
 ## Configuring the Smartnode Stack
 
 The next step in the installation process is to do an initial configuration of your node.
-Move on to the [Configuring Rocketpool](config/overview) section for a walkthrough of this process.
+Move on to the [Configuring Rocketpool](./config/overview) section for a walkthrough of this process.

@@ -24,7 +24,7 @@ The Docker container tag for it is `rocketpool/treegen:latest`.
 For a first test, run `treegen` to generate a dry-run tree that calculates the tree from the start of the rewards interval to the latest (finalized) slot.
 We'll use [the script](https://github.com/rocket-pool/treegen/blob/main/treegen.sh) included in the repository that leverages the Docker container to run it on the node machine itself for simplicity:
 
-```
+```shell
 ./treegen.sh -e http://localhost:8545 -b http://localhost:5052
 ```
 
@@ -80,7 +80,7 @@ As of this writing, **Interval 2** is an ideal choice as it is far in the past (
 
 Run `treegen` using the following command:
 
-```
+```shell
 ./treegen.sh -e http://<your archive EC url> -b http://localhost:5052 -i 2
 ```
 

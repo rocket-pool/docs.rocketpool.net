@@ -98,7 +98,7 @@ Replace this with your actual mount path wherever you see it below.
 
 Now, run the following command:
 
-```
+```shell
 rocketpool service export-eth1-data /mnt/external-drive
 ```
 
@@ -142,7 +142,7 @@ Once it's finished, it will automatically restart your Execution client containe
 
 If you ever need to restore your backed up chain data, simply run the following command.
 
-```
+```shell
 rocketpool service import-eth1-data /mnt/external-drive
 ```
 

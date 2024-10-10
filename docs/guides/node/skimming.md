@@ -19,7 +19,7 @@ threshold can be configured in the TUI by following the steps below.
 
 Run:
 
-```
+```shell
 rocketpool service config
 ```
 
@@ -51,7 +51,7 @@ You can also manually distribute your rewards using this process at any time wit
 
 If your minipool has less than 8 ETH in it, you can distribute your rewards using the following command:
 
-```
+```shell
 rocketpool minipool distribute-balance
 ```
 

@@ -15,7 +15,7 @@ Enabling this is trivial using the [Settings Manager](./config-docker#configurin
 
 To enable access to the Execution client, go to the **Execution Client (ETH1)** category and check the **Expose RPC Ports** box:
 
-![](./images/tui-ec-expose-ports.png){ style="display: block; margin: 0 auto" }
+<img src="./images/tui-ec-expose-ports.png" width="100%" height="auto"/>
 
 This will open the RPC ports (default 8545 for HTTP and 8546 for Websockets) on your node, so other machines on your local network can connect to them.
 
@@ -25,7 +25,7 @@ For example, if your node's local IP address were `192.168.1.45`, then by enabli
 
 To enable access to the Consensus client's Beacon Node, go to the **Consensus Client (ETH2)** category and check the **Expose API Port** box:
 
-![](./images/tui-cc-expose-ports.png){ style="display: block; margin: 0 auto" }
+<img src="./images/tui-cc-expose-ports.png" width="100%" height="auto"/>
 
 This will open the HTTP API port (default 5052) on your node, so other machines on your local network can connect to it.
 
@@ -45,7 +45,7 @@ In the future, this will be fixed and there will only be one checkbox like the o
 
 To enable access to MEV-Boost, go to the **MEV-Boost** category and check the **Expose API Port** box:
 
-![](./images/tui-mev-expose-ports.png){ style="display: block; margin: 0 auto" }
+<img src="./images/tui-mev-expose-ports.png" width="100%" height="auto"/>
 
 This will open the HTTP API port (default 18550) on your node, so other machines on your local network can connect to it.
 

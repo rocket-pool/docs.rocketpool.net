@@ -191,7 +191,7 @@ nano ~/.bashrc
 
 Add this line to the end (assuming you used the default path for the private key - update as necessary):
 
-```
+```shell
 alias loadkey='ssh-add $HOME/.ssh/id_ed25519'
 ```
 
@@ -584,7 +584,7 @@ sudo ufw allow 8001/udp comment 'Consensus client port, standardised by Rocket P
 
 Finally, enable `ufw`:
 
-```
+```shell
 sudo ufw enable
 ```
 
@@ -633,7 +633,7 @@ Once you're done, save and exit with `Ctrl+O` and `Enter`, then `Ctrl+X`.
 
 Finally, restart the service:
 
-```
+```shell
 sudo systemctl restart fail2ban
 ```
 

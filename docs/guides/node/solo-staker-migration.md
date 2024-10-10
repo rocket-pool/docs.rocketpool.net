@@ -27,7 +27,7 @@ Rocket Pool minipools enjoy several advantages over conventional solo staking va
 
 - They **earn commission** on the portion of ETH they borrow from the pool stakers (currently either 16 or 24 ETH).
 - Your existing 32 ETH bond could be used to create up to **three additional validators** (on top of the one you already have).
-- They are eligible for participation in the [Smoothing Pool](fee-distrib-sp#the-smoothing-pool) which pools all Execution layer rewards (e.g., from block proposals and [MEV rewards](mev)) and fairly distributes them among participants during each rewards interval.
+- They are eligible for participation in the [Smoothing Pool](./fee-distrib-sp#the-smoothing-pool) which pools all Execution layer rewards (e.g., from block proposals and [MEV rewards](./mev)) and fairly distributes them among participants during each rewards interval.
 - They earn RPL inflation rewards (which currently provide a higher APR than ETH staking rewards).
 
 That being said, there are some differences that are important to highlight:
@@ -46,7 +46,7 @@ If you would like to continue with the process, please read the next sections.
 
 In order to begin the conversion process, you will need to meet the following criteria:
 
-1. You must have [a node registered with the Rocket Pool network](prepare-node) to host the new minipool.
+1. You must have [a node registered with the Rocket Pool network](./prepare-node) to host the new minipool.
 1. The node must have enough RPL staked to support the new minipool (minimum of 1.6 ETH worth of RPL for converting to 16 ETH minipool, minimum of 2.4 ETH worth of RPL if converting to an 8 ETH minipool).
 1. The validator you want to migrate must be **active** on the Beacon chain. It cannot be pending, slashed, exiting / exited, or withdrawn.
 1. The validator must have a balance of **at least 32 ETH** on the Beacon chain.
@@ -117,12 +117,12 @@ Please choose an amount of ETH you want to use as your deposit for the new minip
 
 If you select **8 ETH**, you will convert your validator into an 8-ETH bonded minipool.
 Your original 32 ETH deposit will be converted into an 8 ETH deposit, with 24 ETH borrowed from the pool stakers.
-Once the conversion process is complete, you will have a [credit balance](credit) of 24 ETH which you can use to create more minipools.
+Once the conversion process is complete, you will have a [credit balance](./credit) of 24 ETH which you can use to create more minipools.
 Choosing this option will require your node to have a minimum of **2.4 ETH worth of RPL staked**.
 
 If you select **16 ETH**, you will convert your validator into a 16-ETH bonded minipool.
 Your original 32 ETH deposit will be converted into an 16 ETH deposit, with 16 ETH borrowed from the pool stakers.
-Once the conversion process is complete, you will have a [credit balance](credit) of 16 ETH which you can use to create more minipools.
+Once the conversion process is complete, you will have a [credit balance](./credit) of 16 ETH which you can use to create more minipools.
 Choosing this option will require your node to have a minimum of **1.6 ETH worth of RPL staked**.
 
 Once you select an option, the Smartnode will run a few checks to confirm that the validator you entered and your node both pass all of the prerequisite requirements listed above.
@@ -385,7 +385,7 @@ Dissolved vacant minipools essentially act as simplified withdrawal addresses:
 
 You can access the minipool's balance at any time with the following command:
 
-```
+```shell
 rocketpool minipool distribute-balance
 ```
 
@@ -393,7 +393,7 @@ This will send the minipool's entire balance to your node's withdrawal address.
 
 When you've exited your validator from the Beacon Chain and its full balance has been sent to the minipool, you can retrieve it and close the minipool with the following command:
 
-```
+```shell
 rocketpool minipool close
 ```
 
@@ -422,7 +422,7 @@ rocketpool_node  | 2023/03/06 05:37:13 Successfully promoted minipool 0x8F3F149e
 
 If your `node` process is disabled, you can use the second method via the following command:
 
-```
+```shell
 rocketpool minipool promote
 ```
 
@@ -433,7 +433,7 @@ From here, simply select your vacant minipool from the list of minipools eligibl
 Upon promotion, your minipool will enter the `staking` status and has officially become a regular Rocket Pool minipool.
 You can review the details with this command:
 
-```
+```shell
 rocketpool minipool status
 ```
 
@@ -466,7 +466,7 @@ Here you can see the following important information:
 
 To claim your refund, run the following command:
 
-```
+```shell
 rocketpool minipool refund
 ```
 
@@ -484,7 +484,7 @@ The node 0x9BA1401Eb7D779eC51f910B066e9C4351cD28911 has a balance of 355.785269 
 The node has 24.000000 ETH in its credit balance, which can be used to make new minipools.
 ```
 
-In this example, since we converted the original 32 ETH validator bond into an 8-ETH minipool, we have received [**24 ETH in credit**](credit).
+In this example, since we converted the original 32 ETH validator bond into an 8-ETH minipool, we have received [**24 ETH in credit**](./credit).
 This credit can be used to create new minipools and validators for free!
 
 Simply run the `rocketpool node deposit` command, and select which bond amount you would like to use.

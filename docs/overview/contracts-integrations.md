@@ -2,7 +2,7 @@
 permalink: /overview/contracts-integrations
 ---
 
-# :handshake: Contracts & Integrations
+# 🤝 Contracts & Integrations
 
 Do you love RPL and rETH? Us too! So we put together a list of integrations and services, as well as official contract deployments, to help you discover new places these assets can be used!
 

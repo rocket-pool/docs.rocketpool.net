@@ -10,7 +10,7 @@ In this section, we'll go over a brief tour of some of the more common ones and 
 
 To list all of the available commands, type:
 
-```
+```shell
 rocketpool help
 ```
 
@@ -380,7 +380,7 @@ This URL will only be used when generating Merkle trees; it will not be used for
 
 ### `join-smoothing-pool`
 
-```
+```shell
 rocketpool node join-smoothing-pool
 ```
 
@@ -390,7 +390,7 @@ Note that once you opt in, there is a **28 day cooldown** (one full rewards inte
 
 ### `leave-smoothing-pool`
 
-```
+```shell
 rocketpool node leave-smoothing-pool
 ```
 
@@ -402,7 +402,7 @@ This is to ensure you don't get penalized for front-running the exit process whe
 
 To initialize your node's distributor, simply run this new command:
 
-```
+```shell
 rocketpool node initialize-fee-distributor
 ```
 
@@ -414,7 +414,7 @@ After the Redstone update, you must call this function before you can create any
 
 When your distributor has been initialized, you can claim and distribute its entire balance using the following command:
 
-```
+```shell
 rocketpool node distribute-fees
 ```
 
@@ -427,7 +427,7 @@ This might be useful if you want to move your funds on the wallet elsewhere.
 
 The syntax for using the `send` command is like this:
 
-```
+```shell
 rocketpool node send <amount> <token> <address or ENS name>
 ```
 
@@ -439,7 +439,7 @@ The arguments are as follows:
 
 For example:
 
-```
+```shell
 rocketpool node send 1 eth <my friend's address>
 ```
 

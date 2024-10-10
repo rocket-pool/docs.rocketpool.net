@@ -98,7 +98,7 @@ In order to stake on behalf of your node an address must be whitelisted. Your wi
 and you may skip this step if your RPL is held by your withdrawal address. You only need to whitelist an address once
 in order to stake from it. You can do this via the following Smartnode command:
 
-```bash
+```shell
 rocketpool node add-address-to-stake-rpl-whitelist address-or-ens
 ```
 
@@ -128,7 +128,7 @@ If you need to confirm your node's address, you can quickly retrieve it via the 
 
 This will check that the address is a registered node & that the node has whitelisted the connected wallet. Withdrawal addresses are whitelisted by default, however if you wish to allow other addresses you will need to whitelist them via the following command on your node.
 
-```bash
+```shell
 rocketpool node add-address-to-stake-rpl-whitelist address-or-ens
 ```
 
@@ -156,7 +156,7 @@ If you run `rocketpool node status`, you should see your staked RPL appear under
 
 If you ever want to remove an address from your stake-on-behalf whitelist, you may do so with the following Smartnode command:
 
-```bash
+```shell
 rocketpool node remove-address-from-stake-rpl-whitelist address-or-ens
 ```
 
@@ -289,14 +289,14 @@ To learn more about rocketarb, feel free to inquire about it on the [RP discord 
 After everything you've done so far, you are finally ready to deposit your ETH, create a new minipool, and create a Beacon Chain validator.
 This is done with the following command:
 
-```
+```shell
 rocketpool node deposit
 ```
 
 ::: tip NOTE
 If you want to use a salt for a vanity address that you found using the process above, run the following command instead:
 
-```
+```shell
 rocketpool node deposit --salt <your salt, e.g. 0x1234abcd>
 ```
 

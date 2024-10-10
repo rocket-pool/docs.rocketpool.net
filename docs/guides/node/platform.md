@@ -58,7 +58,7 @@ Disadvantages:
 - Can be challenging if you're not experienced with computer maintenance
 - Vulnerable to theft
 
-If the advantages sound like they outweigh the disadvantages for you, then take a look at our [Local Node Operator's Guide](local/hardware.html).
+If the advantages sound like they outweigh the disadvantages for you, then take a look at our [Local Node Operator's Guide](./local/hardware.html).
 
 ## Running a VPS on the Cloud
 
@@ -78,4 +78,4 @@ Disadvantages:
 - Servers may come with data caps, or have expensive network I/O rates
 - Possible for hosts to examine your machine's contents and take your wallet's key if not secured
 
-If those advantages sound like they outweigh the disadvantages for you, then take a look at our [VPS Node Operator's Guide](vps/providers.html).
+If those advantages sound like they outweigh the disadvantages for you, then take a look at our [VPS Node Operator's Guide](./vps/providers.html).

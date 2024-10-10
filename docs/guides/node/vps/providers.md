@@ -73,7 +73,7 @@ As always, being cautious about installing any unnecessary packages is wise.
 
 Install fio:
 
-```
+```shell
 sudo apt install fio
 ```
 

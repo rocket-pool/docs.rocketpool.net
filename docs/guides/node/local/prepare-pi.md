@@ -128,7 +128,7 @@ If you've never used this SSD before and it's totally empty, then follow this st
 
 Run this command to find the location of your disk in the device table:
 
-```
+```shell
 sudo lshw -C disk
   *-disk
        description: SCSI Disk
@@ -149,25 +149,25 @@ Again, **these commands will delete whatever's already on the disk!**
 
 Create a new partition table:
 
-```
+```shell
 sudo parted -s /dev/sda mklabel gpt unit GB mkpart primary ext4 0 100%
 ```
 
 Format the new partition with the `ext4` file system:
 
-```
+```shell
 sudo mkfs -t ext4 /dev/sda1
 ```
 
 Add a label to it (you don't have to do this, but it's fun):
 
-```
+```shell
 sudo e2label /dev/sda1 "Rocket Drive"
 ```
 
 Confirm that this worked by running the command below, which should show output like what you see here:
 
-```
+```shell
 sudo blkid
 ...
 /dev/sda1: LABEL="Rocket Drive" UUID="1ade40fd-1ea4-4c6e-99ea-ebb804d86266" TYPE="ext4" PARTLABEL="primary" PARTUUID="288bf76b-792c-4e6a-a049-cb6a4d23abc0"
@@ -182,7 +182,7 @@ Next, let's tune the new filesystem a little to optimize it for validator activi
 By default, ext4 will reserve 5% of its space for system processes.
 Since we don't need that on the SSD because it just stores the Execution and Consensus chain data, we can disable it:
 
-```
+```shell
 sudo tune2fs -m 0 /dev/sda1
 ```
 
@@ -191,13 +191,13 @@ sudo tune2fs -m 0 /dev/sda1
 In order to use the drive, you have to mount it to the file system.
 Create a new mount point anywhere you like (we'll use `/mnt/rpdata` here as an example, feel free to use that):
 
-```
+```shell
 sudo mkdir /mnt/rpdata
 ```
 
 Now, mount the new SSD partition to that folder:
 
-```
+```shell
 sudo mount /dev/sda1 /mnt/rpdata
 ```
 
@@ -208,7 +208,7 @@ Now, let's add it to the mounting table so it automatically mounts on startup.
 Remember the `UUID` from the `blkid` command you used earlier?
 This is where it will come in handy.
 
-```
+```shell
 sudo nano /etc/fstab
 ```
 
@@ -237,19 +237,19 @@ If your SSD is too slow, then it won't work well for a Rocket Pool node and you'
 
 To test it, we're going to use a program called `fio`. Install it like this:
 
-```
+```shell
 sudo apt install fio
 ```
 
 Next, move to your SSD's mount point:
 
-```
+```shell
 cd /mnt/rpdata
 ```
 
 Now, run this command to test the SSD performance:
 
-```
+```shell
 sudo fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=test --filename=test --bs=4k --iodepth=64 --size=4G --readwrite=randrw --rwmixread=75
 ```
 
@@ -289,7 +289,7 @@ Check with your manufacturer's support website for the latest firmware and make 
 
 Last but not least, remove the test file you just made:
 
-```
+```shell
 sudo rm /mnt/rpdata/test
 ```
 
@@ -316,31 +316,31 @@ Just substitute whatever number you want in as we go.
 Enter this, which will create a new file called `/mnt/rpdata/swapfile` and fill it with 16 GB of zeros.
 To change the amount, just change the number in `count=16` to whatever you want. **Note that this is going to take a long time, but that's ok.**
 
-```
+```shell
 sudo dd if=/dev/zero of=/mnt/rpdata/swapfile bs=1G count=16 status=progress
 ```
 
 Next, set the permissions so only the root user can read or write to it (for security):
 
-```
+```shell
 sudo chmod 600 /mnt/rpdata/swapfile
 ```
 
 Now, mark it as a swap file:
 
-```
+```shell
 sudo mkswap /mnt/rpdata/swapfile
 ```
 
 Next, enable it:
 
-```
+```shell
 sudo swapon /mnt/rpdata/swapfile
 ```
 
 Finally, add it to the mount table so it automatically loads when your Pi reboots:
 
-```
+```shell
 sudo nano /etc/fstab
 ```
 
@@ -357,7 +357,7 @@ Press `Ctrl+O` and `Enter` to save, then `Ctrl+X` and `Enter` to exit.
 
 To verify that it's active, run these commands:
 
-```
+```shell
 sudo apt install htop
 htop
 ```
@@ -383,20 +383,20 @@ Since we're going to have a lot of spare RAM with our setup, we can make this "1
 
 To set these, run these commands:
 
-```
+```shell
 sudo sysctl vm.swappiness=6
 sudo sysctl vm.vfs_cache_pressure=10
 ```
 
 Now, put them into the `sysctl.conf` file so they are reapplied after a reboot:
 
-```
+```shell
 sudo nano /etc/sysctl.conf
 ```
 
 Add these two lines to the end:
 
-```
+```shell
 vm.swappiness=6
 vm.vfs_cache_pressure=10
 ```
@@ -457,7 +457,7 @@ We're going to get stats on all three of them as we go.
 For measuring performance, you can use LINPACK.
 We'll build it from source.
 
-```
+```shell
 cd ~
 sudo apt install gcc
 wget http://www.netlib.org/benchmark/linpackc.new -O linpack.c
@@ -470,7 +470,7 @@ rm linpack.c
 
 Now run it like this:
 
-```
+```shell
 linpack
 Enter array size (q to quit) [200]:
 ```
@@ -506,7 +506,7 @@ Let's call this the **stock KFLOPS**.
 Next, let's stress the Pi out and watch its temperature under heavy load.
 First, install this package, which will provide a tool called `vcgencmd` that can print details about the Pi:
 
-```
+```shell
 sudo apt install libraspberrypi-bin
 ```
 
@@ -515,7 +515,7 @@ Next, install a program called **stressberry**.
 This will be our benchmarking tool.
 Install it like this:
 
-```
+```shell
 sudo apt install stress python3-pip
 pip3 install stressberry
 source ~/.profile
@@ -524,7 +524,7 @@ source ~/.profile
 ::: tip NOTE
 If stressberry throws an error about not being able to read temperature information or not being able to open the `vchiq` instance, you can fix it with the following command:
 
-```
+```shell
 sudo usermod -aG video $USER
 ```
 
@@ -533,7 +533,7 @@ Then log out and back in, restart your SSH session, or restart the machine and t
 
 Next, run it like this:
 
-```
+```shell
 stressberry-run -n "Stock" -d 300 -i 60 -c 4 stock.out
 ```
 
@@ -558,7 +558,7 @@ That being said, we generally try to keep the temperatures below 65°C for the s
 
 If you want to monitor the system temperature during normal validating operations, you can do this with `vcgencmd`:
 
-```
+```shell
 vcgencmd measure_temp
 temp=34.0'C
 ```
@@ -587,13 +587,13 @@ We're going to go from the stock 1500 MHz up to 1800 MHz - a 20% speedup!
 
 Open this file:
 
-```
+```shell
 sudo nano /boot/firmware/usercfg.txt
 ```
 
 Add these two lines to the end:
 
-```
+```shell
 arm_freq=1800
 over_voltage=3
 ```
@@ -649,7 +649,7 @@ To compare it to the stock configuration, simply divide the two numbers:
 Alright! That's a 19.4% boost in performance, which is to be expected since we're running 20% faster.
 Now let's check the temperatures with the new clock speed and voltage settings:
 
-```
+```shell
 stressberry-run -n "1800_ov3" -d 300 -i 60 -c 4 1800_ov3.out
 ```
 
@@ -674,7 +674,7 @@ Most people consider this to be a great balance between performance and stabilit
 
 Our recommendation for this level is to start with these settings:
 
-```
+```shell
 arm_freq=2000
 over_voltage=5
 ```
@@ -683,7 +683,7 @@ This will boost the core voltage to 1.005v.
 Try this out with the `linpack` and `stressberry` tests.
 If it survives them, then you're all set. If it freezes or randomly restarts, then you should increase the voltage:
 
-```
+```shell
 arm_freq=2000
 over_voltage=6
 ```
@@ -731,7 +731,7 @@ Try it, and if it breaks, go back to 2000 MHz.**
 
 The configuration will look like this:
 
-```
+```shell
 arm_freq=2100
 over_voltage=6
 ```
@@ -773,7 +773,7 @@ Still, **users are cautioned in overclocking this high** - ensure you do thoroug
 
 Our configuration is:
 
-```
+```shell
 arm_freq=2250
 over_voltage=10
 ```

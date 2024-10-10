@@ -24,7 +24,7 @@ That being said, they are usually required in order to take advantage of new fun
 
 To upgrade a minipool to a new delegate contract, simply run the following command:
 
-```
+```shell
 rocketpool minipool delegate-upgrade
 ```
 

@@ -9,7 +9,7 @@ to perform the below process to retrieve your ETH and unlock your RPL to be unst
 It is highly recommended that you use the latest minipool delegate when performing this process. Older delegates contain
 a `selfdestruct` operation when they are closed which means, if the process is not completed correctly in the
 specified order, funds may be locked forever. You can check that your minipool is on the latest delegate by attempting
-to [Upgrade your Delegate](minipools/delegates#upgrading-your-delegate). If your minipool does not appear in the
+to [Upgrade your Delegate](./minipools/delegates#upgrading-your-delegate). If your minipool does not appear in the
 list of minipools that can be upgraded then you can continue on below.
 
 ## Retrieve Your Unused Deposit Balance
@@ -25,7 +25,7 @@ withdrawal credentials. The remaining amount is deposited to your minipool when 
 the deposit pool.
 
 When your minipool is dissolved, the user ETH is returned to the deposit pool and your ETH remains in the minipool ready
-to be returned to you. Use the [Manual Distribution](skimming#manual-distribution) of rewards feature to retrieve this
+to be returned to you. Use the [Manual Distribution](./skimming#manual-distribution) of rewards feature to retrieve this
 ETH that can then be used in the next step to activate your validator.
 
 ## Increase Your Beaconchain Balance to 32 ETH
@@ -36,7 +36,7 @@ bonded minipool you will need an additional 24 ETH during this step.
 
 Deposit the required amount of ETH into your node address and then issue the following command to begin the process:
 
-```
+```shell
 rocketpool minipool rescue-dissolved
 ```
 
@@ -80,7 +80,7 @@ to occur:
 ### Exiting your Validator
 
 Once your validator has been active for a minimum of 256 epochs, you may exit your minipool via the same process as
-any other minipool by following the [Exiting your Validator](withdraw#exiting-your-validator) guide.
+any other minipool by following the [Exiting your Validator](./withdraw#exiting-your-validator) guide.
 
 The full 32 ETH balance will be returned to your minipool and dissolved minipools distribute 100% of their balance to the
 node operator's withdrawal address.

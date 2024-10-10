@@ -9,14 +9,14 @@ Please select the appropriate option from the sections below.
 If you generated your node wallet using the Smartnode and are simply recovering it on a new machine, the process is quite simple.
 Make sure you've already installed the Smartnode software, and then simply run the following command once it's installed:
 
-```
+```shell
 rocketpool wallet recover
 ```
 
 ::: warning NOTE
 If, for some reason, you want to recover the wallet but _not_ any of the validator keys attached to your node's minipools, you can specify the `-k` flag to skip the rebuild process:
 
-```
+```shell
 rocketpool wallet recover -k
 ```
 
@@ -30,7 +30,7 @@ Enter it carefully - it will not be shown on-screen for safety, and it is very e
 
 When you're done, you should see output similar to this:
 
-```
+```shell
 $ rocketpool wallet recover
 
 Please enter a password to secure your wallet with:
@@ -49,7 +49,7 @@ If you don't see any errors, then your wallet and validators will be recovered.
 
 Once you're done, be sure to restart the Validator client with the following command for Docker and Hybrid mode users:
 
-```
+```shell
 docker restart rocketpool_validator
 ```
 
@@ -101,7 +101,7 @@ If you've customized your installation or data directories, substitute appropria
 Check with a file explorer or the `ls` command to make sure this folder exists.
 If not, no worries - just make the folder with the following command:
 
-```
+```shell
 mkdir ~/.rocketpool/data/custom-keys
 ```
 
@@ -126,7 +126,7 @@ Please see the documentation for running in [Reverse Hybrid Mode](./advanced-con
 
 If you would like to test the recovery process to ensure you have the correct mnemonic and passwords **without actually regenerating your node wallet's private key or importing your validator keys**, you can do so with the following command:
 
-```
+```shell
 rocketpool wallet test-recovery -a 0x1234abcd...
 ```
 
@@ -137,7 +137,7 @@ Where `0x1234abcd...` is the address you want to import, starting with the `0x` 
 If, for some reason, you want to recover the wallet but _not_ any of the validator keys for your minipools, you can specify the `-k` flag to skip the validator key recovery process.
 For example:
 
-```
+```shell
 rocketpool wallet test-recovery -a 0x1234abcd... -k
 ```
 
@@ -149,7 +149,7 @@ The Smartnode will automatically search through the most popular derivation path
 If you have a custom derivation path, use the `-d` flag to specify it.
 For example:
 
-```
+```shell
 rocketpool wallet test-recovery -d "m/44'/60'/0'/%d"
 ```
 
@@ -158,7 +158,7 @@ Use `%d` for the portion of the path that can be iterated to use different indic
 If you have a custom address index, use the `-i` flag to specify it.
 For example, if your address was the 6th one on the standard derivation path, you could use:
 
-```
+```shell
 rocketpool wallet test-recovery -i 5
 ```
 
@@ -218,7 +218,7 @@ The Smartnode will require you to confirm that you have done this before allowin
 If the test recovery succeeded, or if you skipped it, you will next import the wallet and regenerate all of its associated key files.
 The process is exactly the same as the above, but use the `recover` command instead of the `test-recovery` command:
 
-```
+```shell
 rocketpool wallet recover -a 0x1234abcd...
 ```
 

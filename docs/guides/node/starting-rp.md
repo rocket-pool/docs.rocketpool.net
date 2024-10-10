@@ -12,7 +12,7 @@ If not, please review the previous sections and return here once you've complete
 Now that you have the Smartnode installed, starting the stack is easy.
 Simply enter the following command:
 
-```
+```shell
 rocketpool service start
 ```
 
@@ -20,7 +20,7 @@ This command will create all of the necessary Docker images if they don't alread
 
 The first time you do it, the output should look like this:
 
-```
+```shell
 $ rocketpool service start
 
 Creating network "rocketpool_net" with the default driver
@@ -47,7 +47,7 @@ If it does, then the Smartnode stack has been successfully initialized and is no
 If you ever need to stop the services (for example, during an upgrade or because you need to do maintenance), you can use `rocketpool service stop` to shut everything down.
 The output should look like this:
 
-```
+```shell
 $ rocketpool service stop
 
 Are you sure you want to pause the Rocket Pool service? Any staking minipools will be penalized! [y/n]
@@ -78,7 +78,7 @@ You will have to call `rocketpool service start` to start all of the Docker cont
 Now that you have the Smartnode installed, starting the stack is easy.
 Simply enter the following command:
 
-```
+```shell
 rocketpool service start
 ```
 
@@ -86,7 +86,7 @@ This command will create all of the necessary Docker images if they don't alread
 
 The first time you do it, the output should look like this:
 
-```
+```shell
 $ rocketpool service start
 
 Creating network "rocketpool_net" with the default driver
@@ -108,7 +108,7 @@ You will have to ensure that you've started them separately, using whatever mech
 If you ever need to stop the services (for example, during an upgrade or because you need to do maintenance), you can use `rocketpool service stop` to shut everything down.
 The output should look like this:
 
-```
+```shell
 $ rocketpool service stop
 
 Are you sure you want to pause the Rocket Pool service? Any staking minipools will be penalized! [y/n]
@@ -137,7 +137,7 @@ In native mode, you already set up and started the Smartnode services as part of
 Assuming you set them up as `systemd` services, you can start them with `sudo systemctl start ...`.
 For example, if you are using Geth for Execution and Teku for Consensus:
 
-```
+```shell
 sudo systemctl start geth teku-bn teku-vc rp-node rp-watchtower
 ```
 
@@ -152,7 +152,7 @@ Note that stopping the services **does not disable autostart**; the processes wi
 Once the containers or services are up, a good first step is to confirm that you have the correct versions of the clients and are on the network that you expect.
 You can do this with the following command:
 
-```
+```shell
 rocketpool service version
 ```
 
@@ -191,7 +191,7 @@ Now that the Smartnode services have been started, it's a good idea to check tha
 The first thing to check is whether the Docker containers are running well, or if they are constantly restarting due to an error.
 Run the following command:
 
-```
+```shell
 docker ps
 ```
 
@@ -226,7 +226,7 @@ To check on the logs, use the `rocketpool service logs <container>` command, whe
 
 For example, to check the logs for your ETH1 client:
 
-```
+```shell
 $ rocketpool service logs eth1
 
 Attaching to rocketpool_eth1
@@ -246,7 +246,7 @@ You should do this for both `eth1` and `eth2` to make sure both clients are runn
 The first thing to check is whether the Docker containers are running well, or if they are constantly restarting due to an error.
 Run the following command:
 
-```
+```shell
 docker ps
 ```
 
@@ -281,7 +281,7 @@ The easiest way to check the status and logs in native mode is to use the loggin
 
 For example, to check Geth's log, you would just run:
 
-```
+```shell
 /srv/geth/log.sh
 ```
 
@@ -300,13 +300,13 @@ Now that your clients have started up, you're going to want to wait until your E
 
 One easy way to check on their status is with the following command:
 
-```
+```shell
 rocketpool node sync
 ```
 
 This command will show how far along your Execution & Consensus clients are in the syncing process, similar to this:
 
-```
+```shell
 $ rocketpool node sync
 
 Your Smartnode is currently using the Holesky Test Network.

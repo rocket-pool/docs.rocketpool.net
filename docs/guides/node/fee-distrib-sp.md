@@ -62,7 +62,7 @@ This is okay, because your Distributor will gain access to all of this existing 
 
 You can view your fee distributor's address and balance as part of:
 
-```
+```shell
 rocketpool node status
 ```
 
@@ -74,7 +74,7 @@ The output will look like this:
 
 To initialize your node's distributor, simply run this new command:
 
-```
+```shell
 rocketpool node initialize-fee-distributor
 ```
 
@@ -84,7 +84,7 @@ If you created your node before the Redstone update, you must call this function
 
 When your distributor has been initialized, you can claim and distribute its entire balance using the following command:
 
-```
+```shell
 rocketpool node distribute-fees
 ```
 
@@ -171,7 +171,7 @@ If you are interested in the complete technical details of Smoothing Pool reward
 
 To opt into the Smoothing Pool, run the following command:
 
-```
+```shell
 rocketpool node join-smoothing-pool
 ```
 
@@ -179,7 +179,7 @@ This will record you as opted-in in the Rocket Pool contracts and automatically 
 
 To leave the pool, run this command:
 
-```
+```shell
 rocketpool node leave-smoothing-pool
 ```
 
@@ -190,7 +190,7 @@ This will record you as opted-out in the Rocket Pool contracts, and once a small
 Rewards from the Smoothing Pool are bundled together with RPL at the end of each rewards interval using the Redstone rewards system.
 Claiming them is as simple as running:
 
-```
+```shell
 rocketpool node claim-rewards
 ```
 

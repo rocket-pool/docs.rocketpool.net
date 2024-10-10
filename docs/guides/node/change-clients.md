@@ -32,7 +32,7 @@ Please refer to the [Backing Up Your Node](./backups##backing-up-your-execution-
 To change your selected client, run `rocketpool service config` to enter the configuration UI.
 Navigate to the `Execution Client (ETH1)` section, and select the `Execution Client` dropdown:
 
-![](./images/tui-select-ec.png){ style="display: block; margin: 0 auto" }
+<img src="./images/tui-select-ec.png" width="100%" height="auto"/>
 
 Open the dropdown with `Enter`, use the arrow keys to navigate to your client of choice, and press `Enter` again to confirm the selection.
 
@@ -42,7 +42,7 @@ Feel free to explore through them to see how they affect things.
 When you're happy with your choice, press `Esc` to return to the main menu, then `Tab` to highlight the `Review Changes and Save` button.
 You will be presented with the review screen, which will show your client selection change:
 
-![](./images/tui-confirm-ec.png){ style="display: block; margin: 0 auto" }
+<img src="./images/tui-confirm-ec.png" width="100%" height="auto"/>
 
 Press `Enter` to accept the changes, and you're done!
 Your new Execution client will begin syncing immediately.
@@ -62,7 +62,7 @@ This is not a required step, but we **strongly recommend** you remove the chain 
 
 To do this, simply run the following command:
 
-```
+```shell
 rocketpool service resync-eth1
 ```
 
@@ -81,7 +81,7 @@ This feature lets you immediately sync a new Consensus client with the network, 
 Start by using the `rocketpool service config` UI and navigating to the `Consensus Client (ETH2)` section.
 Next, select the `Consensus Client` dropdown:
 
-![](./images/tui-select-cc.png){ style="display: block; margin: 0 auto" }
+<img src="./images/tui-select-cc.png" width="100%" height="auto"/>
 
 Open the dropdown with `Enter`, use the arrow keys to navigate to your client of choice, and press `Enter` again to confirm the selection.
 
@@ -90,14 +90,14 @@ Feel free to explore through them to see how they affect things.
 
 Next, verify that you're using a Checkpoint Sync provider:
 
-![](./images/tui-checkpoint-sync.png){ style="display: block; margin: 0 auto" }
+<img src="./images/tui-checkpoint-sync.png" width="100%" height="auto"/>
 
 If you don't have a Checkpoint Sync provider configured, [you can easily use instructions from here to do it for free](./config-docker#beacon-chain-checkpoint-syncing)!
 
 When you're happy with your choice, press `Esc` to return to the main menu, then `Tab` to highlight the `Review Changes and Save` button.
 You will be presented with the review screen, which will show your client selection change:
 
-![](./images/tui-confirm-cc.png){ style="display: block; margin: 0 auto" }
+<img src="./images/tui-confirm-cc.png" width="100%" height="auto"/>
 
 Press `Enter` to accept the changes, and you're done!
 Your new Consensus client will begin syncing immediately.

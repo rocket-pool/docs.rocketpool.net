@@ -29,7 +29,7 @@ For example, this could be a laptop or your phone.
 
 Once completed you should see your computer as 'connected' on the [Tailscale dashboard](https://login.tailscale.com/admin/machines).
 
-![](./images/tailscale-dashboard-client.png){ style="display: block; margin: 0 auto" }
+<img src="./images/tailscale-dashboard-client.png" width="100%" height="auto"/>
 
 Now, install Tailscale on your **Rocket Pool node**.
 You can find instructions for this on their website; for example, here are the [installation instructions for Ubuntu](https://tailscale.com/kb/1039/install-ubuntu-2004/).
@@ -68,7 +68,7 @@ tailscale ip -4
 You should now see your node machine added to the on the [Tailscale dashboard](https://login.tailscale.com/admin/machines).
 You may also change the name of the **node machine** through the dashboard, e.g. to `rocketnode`.
 
-![](./images/tailscale-dashboard-servers.png){ style="display: block; margin: 0 auto" }
+<img src="./images/tailscale-dashboard-servers.png" width="100%" height="auto"/>
 
 It is suggested to [disable key expiry](https://tailscale.com/kb/1028/key-expiry) for the node machine to prevent the need to periodically re-authenticate.
 
@@ -83,7 +83,7 @@ If you modified the SSH port of the **node machine** in `/etc/ssh/sshd_config` w
 
 For example, if you assigned SSH to port 1234, you would do:
 
-```
+```shell
 ssh your.user@rocketnode -p 1234
 ```
 

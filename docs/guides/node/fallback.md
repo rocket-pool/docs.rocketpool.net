@@ -45,12 +45,12 @@ If you already have a 2nd node ready and have its RPC ports exposed, feel free t
    2. Enter the `Execution Client` settings.
    3. Check the `Expose RPC Ports` box:
 
-   ![](./images/tui-ec-expose-ports.png){ style="display: block; margin: 0 auto" }
+   <img src="./images/tui-ec-expose-ports.png" width="100%" height="auto"/>
 
    4. Go back and enter the `Consensus Client` settings.
    5. Check the `Expose API Port` box (and, if you're using **Prysm**, the `Expose RPC Port` box as well):
 
-   ![](./images/tui-cc-expose-ports.png){ style="display: block; margin: 0 auto" }
+   <img src="./images/tui-cc-expose-ports.png" width="100%" height="auto"/>
 
    6. Save the settings and start the Smartnode.
 
@@ -78,7 +78,7 @@ Once you have a fallback node prepared, you can connect it to your main node.
 
 The final page should look like this:
 
-![](./images/tui-fallback-clients.png){ style="display: block; margin: 0 auto" }
+<img src="./images/tui-fallback-clients.png" width="100%" height="auto"/>
 
 ::: tip NOTE
 **Native mode** users can follow the same steps, though the TUI will look slightly different from the above screenshot.

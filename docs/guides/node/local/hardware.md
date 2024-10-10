@@ -77,7 +77,7 @@ In practice, this means that:
 
 If you already have an SSD you want to use and want to be sure it has sufficient performance for node operation.
 
-::: tip NOTE
+:::tip NOTE
 SSD selection can be a complex choice!
 
 The method SSDs use to store data on their flash chips has a noticeable impact on speed and longevity.
@@ -240,7 +240,7 @@ The I225-LM adaptor has been associated with certain compatibility challenges th
 
 To determine if your NUC employs the problematic I225-LM ethernet adaptor, you can use the following command in the terminal:
 
-```
+```shell
 sudo lshw -class network | grep 225
 ```
 

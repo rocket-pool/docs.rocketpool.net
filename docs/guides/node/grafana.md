@@ -804,7 +804,7 @@ Place your cursor in-between the quote marks and press `Ctrl+Spacebar` to get Gr
 ::: tip Tip
 If you don't know which device to track, run the following command:
 
-```
+```shell
 sudo route
 ```
 
@@ -936,12 +936,12 @@ sudo systemctl restart grafana-server
 
 To test the SMTP settings, go to the **Alerting** menu and click **Contact points**.
 
-![](./images/grafana-contact-points.png){ style="display: block; margin: 0 auto" }
+<img src="./images/grafana-contact-points.png" width="100%" height="auto"/>
 
 Click **New contact point** and select **Email** as the Contact point type.
 Enter an email address in the **Addresses** section and click **Test**.
 
-![](./images/grafana-new-contact-point.png){ style="display: block; margin: 0 auto" }
+<img src="./images/grafana-new-contact-point.png" width="100%" height="auto"/>
 
 Check to see that the test email was received.
 Click **Save contact point\*** when finished.

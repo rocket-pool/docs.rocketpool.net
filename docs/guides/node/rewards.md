@@ -105,7 +105,7 @@ You can watch it during a rewards interval checkpoint with `rocketpool service l
 
 If you'd like to rebuild past trees from previous intervals, you can do so with the following command:
 
-```
+```shell
 rocketpool network generate-rewards-tree
 ```
 
@@ -115,19 +115,19 @@ Follow the prompts, and then use `rocketpool service logs watchtower` to view it
 
 To view your pending unclaimed rewards, run the following command:
 
-```
+```shell
 rocketpool node claim-rewards
 ```
 
 As intervals go by and you accumulate rewards, the output will look like this:
 
-![](./images/claim-rewards-gb.png){ style="display: block; margin: 0 auto" }
+<img src="./images/claim-rewards-gb.png" width="100%" height="auto"/>
 
 Here you can quickly see how many rewards you've earned at each interval, and can decide which one(s) you want to claim.
 
 You can also specify an amount you want to restake during this claim:
 
-![](./images/autostake.png){ style="display: block; margin: 0 auto" }
+<img src="./images/autostake.png" width="100%" height="auto"/>
 
 This will let you compound your RPL rewards in one transaction, which saves on gas costs.
 
@@ -137,7 +137,7 @@ Simply follow the prompts, ensure your node wallet has enough ETH to pay for the
 ::: tip TIP
 To view your node's total rewards, including those you've already claimed, use the following command:
 
-```
+```shell
 rocketpool node rewards
 ```
 
@@ -186,7 +186,7 @@ You can sit on the balance and let it accumulate if you choose, or distribute it
 
 To distribute the balance, run the following command:
 
-```
+```shell
 rocketpool node distribute-fees
 ```
 

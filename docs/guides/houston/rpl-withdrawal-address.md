@@ -55,14 +55,14 @@ Note that Ledger Live will not show your balance on the test network, but other 
 
 4. Type your **node wallet address** here and click on the orange **Find** button to continue.
 
-![](./images/node_address.png){ style="display: block; margin: 0 auto" }
+<img src="./images/node_address.png" width="100%" height="auto"/>
 
 1.  You will be prompted to confirm a pending RPL withdrawal address. This should be the same address you used while running this command previously: `rocketpool node set-rpl-withdrawal-address` Select **Confirm Pending** when you're ready.
 2.  Now, there should be a new confirmation dialog in your wallet. Again, using MetaMask as an example, click the MetaMask icon to open it and you should see something like this:
 
 Click **Confirm** to send the transaction to the network. This will take some time until it gets included in a block, but once it does, you will see a confirmation dialog:
 
-![](./images/rpl_withdrawal_confirmation.png){ style="display: block; margin: 0 auto" }
+<img src="./images/rpl_withdrawal_confirmation.png" width="100%" height="auto"/>
 
 5. Your new RPL withdrawal address will now be confirmed and activated. You can view this with `rocketpool node status`.
 
@@ -103,7 +103,7 @@ https://stake.rocketpool.net/manage/rpl-withdrawal-address
 
 If you're signed in with the node's RPL withdrawal address, you should be able to click the **unset** button on the right here:
 
-![](./images/unset_rpl_withdrawal.png){ style="display: block; margin: 0 auto" }
+<img src="./images/unset_rpl_withdrawal.png" width="100%" height="auto"/>
 
 Clicking **unset** will take you to a page where you can confirm the details. If you're happy with what you see, click the orange **unset** button to send the transaction to the network.
 

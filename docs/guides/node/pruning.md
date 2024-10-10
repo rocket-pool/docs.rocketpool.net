@@ -67,7 +67,7 @@ Select the client you're using from the tabs below.
 ::::: tab Geth
 When you want to prune Geth, simply run this command:
 
-```
+```shell
 rocketpool service prune-eth1
 ```
 
@@ -113,7 +113,7 @@ You must let it run to completion!
 With that, Geth is now pruning and you're all set!
 You can follow its progress with:
 
-```
+```shell
 rocketpool service logs eth1
 ```
 
@@ -122,7 +122,7 @@ Once it's done pruning, it will restart automatically and the Smartnode will res
 ::::: tab Nethermind
 When you want to prune Nethermind, simply run this command:
 
-```
+```shell
 rocketpool service prune-eth1
 ```
 
@@ -157,7 +157,7 @@ You must let it run to completion!
 With that, Nethermind is now pruning and you're all set!
 You can follow its progress with:
 
-```
+```shell
 rocketpool service logs eth1
 ```
 

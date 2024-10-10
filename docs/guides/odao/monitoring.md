@@ -61,7 +61,7 @@ Second, import the [Oracle DAO dashboard](https://grafana.com/grafana/dashboards
 
 If you or one of the other Oracle DAO members has expressed concern with your node, the first line of defense is to look at the `watchtower` daemon logs using (for Docker and Hybrid mode) the following command:
 
-```
+```shell
 rocketpool service logs watchtower
 ```
 
@@ -70,7 +70,7 @@ This will show the `docker` logs for the watchtower container, truncating to the
 To go further back, you can use the `-t` flag to indicate the number of lines.
 For example:
 
-```
+```shell
 rocketpool service logs watchtower -t 2000
 ```
 

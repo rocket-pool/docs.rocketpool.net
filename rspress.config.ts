@@ -18,16 +18,14 @@ export default defineConfig({
     ["link", { rel: "icon", type: "image/svg+xml", href: "/images/logo.svg" }],
     ["link", { rel: "icon", type: "image/png", href: "/images/logo.png" }],
   ],
-  logo: "/images/logo.png",
   logoText: "Rocket Pool",
   mediumZoom: {
     selector: ".zoom",
   },
   themeConfig: {
-    enableContentAnimation: true,
+    enableContentAnimation: false,
     enableAppearanceAnimation: false,
     hideNavbar: "auto",
-
     socialLinks: [
       {
         icon: "discord",

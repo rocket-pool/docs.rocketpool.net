@@ -54,7 +54,7 @@ Then click Save. You should now see the Holesky network in the top left dropdown
 
 Click on the **network dropdown** in the top left of the Metamask extension & select **Holesky Test Network**:
 
-![](./images/mm_network.png){ style="display: block; margin: 0 auto" }
+<img src="./images/mm_network.png" width="100%" height="auto"/>
 
 Now that you have a wallet address in MetaMask, you need to fill it with some test ETH.
 Head over to the [Practicing with the Test Network](../testnet/overview#getting-test-eth-on-holesky) page for a quick guide on how to use a testnet faucet to get some test ETH on Holesky.
@@ -73,7 +73,7 @@ Next, open the MetaMask panel using its icon in your browser toolbar.
 
 Click on the **network dropdown** in the toolbar at the top and ensure that **Ethereum Mainnet** is selected:
 
-![](./images/mm_network_main.png){ style="display: block; margin: 0 auto" }
+<img src="./images/mm_network_main.png" width="100%" height="auto"/>
 
 Now that you have a wallet address in MetaMask, you need to transfer some ETH into it.
 
@@ -92,11 +92,11 @@ Choose one, confirm a few permissions. You'll see an overview of your balances b
 
 From here, you'll want to enter the address of the node you'd like to deposit ETH on behalf of. The page should look like this:
 
-![](./images/enter_node_address.png){ style="display: block; margin: 0 auto" }
+<img src="./images/enter_node_address.png" width="100%" height="auto"/>
 
 Go ahead and paste your desired address into this box and click find. In this example, we'll use `0xd3e317806456102d19db283b4c2201f0ef41a296`
 
-![](./images/eth_on_behalf.png){ style="display: block; margin: 0 auto" }
+<img src="./images/eth_on_behalf.png" width="100%" height="auto"/>
 
 In the first box, enter the amount of ETH you would like to deposit on behalf of the node. The second box indicates which address you'll be depositing ETH on behalf of. Please ensure that you've entered the correct address and deposit. Once you're satisfied, click Deposit and MetaMask will pop up with a window asking you to confirm your transaction.
 
@@ -118,11 +118,11 @@ You're now staking with Rocket Pool.
 
 When you're ready to withdraw ETH you've staked on behalf of a node, head over to the [staking site](https://testnet.rocketpool.net/manage/withdraw-eth) and select 'Withdraw ETH' in the dropdown menu. After signing in as the node's [primary withdrawal address](../node/prepare-node#setting-your-primary-withdrawal-address), you should be greeted with a familiar menu. You'll be prompted to enter the node address you want to withdraw from:
 
-![](./images/enter_node_address.png){ style="display: block; margin: 0 auto" }
+<img src="./images/enter_node_address.png" width="100%" height="auto"/>
 
 After entering an address, clicking "Find" will take you to the next menu where you can withdraw ETH you've staked on behalf of that node.
 
-![](./images/withdraw_eth_on_behalf.png){ style="display: block; margin: 0 auto" }
+<img src="./images/withdraw_eth_on_behalf.png" width="100%" height="auto"/>
 
 You'll be able to see how much ETH is available for withdrawal in the top right. After you input your desired quantity and confirm the node address, click the orange **Withdraw ETH** button to send the transaction to the network.
 

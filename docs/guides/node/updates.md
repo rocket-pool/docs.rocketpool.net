@@ -27,7 +27,7 @@ The exact instructions vary for each Operating System and can be found with your
 ::::: tab Ubuntu
 In a terminal, type the following:
 
-```
+```shell
 sudo apt update
 ```
 
@@ -44,7 +44,7 @@ Reading state information... Done
 
 You can install the updates with the following command:
 
-```
+```shell
 sudo apt dist-upgrade
 ```
 
@@ -61,13 +61,13 @@ Ensure that you have enough space available to do this, then press `y` and `Ente
 
 Once the progress bar is finished and you're dropped back into the terminal prompt, run the following command to clean up any old versions of packages that were just replaced:
 
-```
+```shell
 sudo apt autoremove
 ```
 
 Next, check if your system needs to be rebooted:
 
-```
+```shell
 cat /var/run/reboot-required
 ```
 
@@ -75,7 +75,7 @@ If the above command prints `No such file or directory`, then reboot is not requ
 
 However if the command prints `*** System restart required ***`, then you should restart your machine to finish applying the updates when you are able:
 
-```
+```shell
 sudo reboot
 ```
 
@@ -86,7 +86,7 @@ To update the OS packages, use the UI to select `Apple -> Software Update`.
 
 To update packages themselves, the easiest way is via `homebrew` in the terminal:
 
-```
+```shell
 brew update && brew upgrade
 ```
 
@@ -131,7 +131,7 @@ The steps to upgrade depend on which mode your node uses. Select from the option
 
 Stop the Rocket Pool services:
 
-```
+```shell
 rocketpool service stop
 ```
 
@@ -139,19 +139,19 @@ Download the new Smartnode CLI:
 
 For `x64` systems (most normal machines):
 
-```
+```shell
 wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-linux-amd64 -O ~/bin/rocketpool
 ```
 
 For `arm64` systems:
 
-```
+```shell
 wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-linux-arm64 -O ~/bin/rocketpool
 ```
 
 Now run the install command:
 
-```
+```shell
 rocketpool service install -d
 ```
 
@@ -159,19 +159,19 @@ The `-d` flag tells it to ignore system dependencies like Docker, since you alre
 
 If you'd like to see what's changed, open the Settings Manager - the Review Page will show you what's new:
 
-```
+```shell
 rocketpool service config
 ```
 
 When you're done, start Rocket Pool up again:
 
-```
+```shell
 rocketpool service start
 ```
 
 Finally, check the version to make sure the CLI and Smartnode stack are both up to date:
 
-```
+```shell
 rocketpool service version
 ```
 
@@ -199,7 +199,7 @@ You will have to do this manually (see the next section below).
 
 Stop the Rocket Pool services:
 
-```
+```shell
 sudo systemctl stop rp-node rp-watchtower
 ```
 
@@ -207,7 +207,7 @@ Download the new Smartnode CLI and back up the old CLI and daemon binaries if yo
 
 For `x64` systems (most normal machines):
 
-```
+```shell
 sudo mv /usr/local/bin/rocketpool /usr/local/bin/rocketpool_bak
 
 sudo mv /usr/local/bin/rocketpoold /usr/local/bin/rocketpoold_bak
@@ -221,7 +221,7 @@ sudo chmod +x /usr/local/bin/rocketpool /usr/local/bin/rocketpoold
 
 For `arm64` systems:
 
-```
+```shell
 sudo mv /usr/local/bin/rocketpool /usr/local/bin/rocketpool_bak
 
 sudo mv /usr/local/bin/rocketpoold /usr/local/bin/rocketpoold_bak
@@ -235,13 +235,13 @@ sudo chmod +x /usr/local/bin/rocketpool /usr/local/bin/rocketpoold
 
 If you'd like to see what's changed, open the Settings Manager - the Review Page will show you what's new:
 
-```
+```shell
 rp service config
 ```
 
 When you're done, start Rocket Pool up again:
 
-```
+```shell
 sudo systemctl start rp-node rp-watchtower
 ```
 
@@ -262,7 +262,7 @@ Both the client and service should match the new release version.
 
 Stop the Rocket Pool services:
 
-```
+```shell
 rocketpool service stop
 ```
 
@@ -282,7 +282,7 @@ wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/r
 
 Now run the install command:
 
-```
+```shell
 rocketpool service install -d
 ```
 
@@ -290,19 +290,19 @@ The `-d` flag tells it to ignore system dependencies like Docker, since you alre
 
 If you'd like to see what's changed, open the Settings Manager - the Review Page will show you what's new:
 
-```
+```shell
 rocketpool service config
 ```
 
 When you're done, start Rocket Pool up again:
 
-```
+```shell
 rocketpool service start
 ```
 
 Finally, check the version to make sure the CLI and Smartnode stack are both up to date:
 
-```
+```shell
 rocketpool service version
 
 Rocket Pool client version: 1.0.0-rc3
@@ -327,19 +327,19 @@ Updating to new client versions is easy in Docker mode.
 
 Start by opening the Settings Manager:
 
-```
+```shell
 rocketpool service config
 ```
 
 To change the Execution client version, go to the **Execution Client** category.
 Modify the **Container Tag** setting:
 
-![](./images/tui-ec-container-tag.png){ style="display: block; margin: 0 auto" }
+<img src="./images/tui-ec-container-tag.png" width="100%" height="auto"/>
 
 To change the Consensus client version, go to the **Consensus Client** category.
 Modify the **Container Tag** setting:
 
-![](./images/tui-cc-container-tag.png){ style="display: block; margin: 0 auto" }
+<img src="./images/tui-cc-container-tag.png" width="100%" height="auto"/>
 
 When you're happy with your changes, save and exit as usual.
 The Smartnode will offer to restart all of the affected containers automatically.
@@ -348,7 +348,7 @@ The Smartnode will offer to restart all of the affected containers automatically
 First, shut down your Execution client, Beacon Node, and/or Validator client service depending on what you'd like to update.
 For example, shutting down Geth:
 
-```
+```shell
 sudo systemctl stop geth
 ```
 
@@ -357,7 +357,7 @@ We recommend you **move the old binary to a backup location** instead of overwri
 
 Finally, start the client service again - for example, starting Geth:
 
-```
+```shell
 sudo systemctl start geth
 ```
 

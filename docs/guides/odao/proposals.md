@@ -184,7 +184,7 @@ This will show a comprehensive breakdown of the proposal's information including
 
 To vote on a proposal, use the following command:
 
-```
+```shell
 rocketpool odao proposals vote
 ```
 
@@ -195,7 +195,7 @@ Follow the prompts carefully to complete the vote.
 
 When a proposal has received enough votes in favor of it to reach quorum, any member of the Oracle DAO can then _execute_ the proposal (apply its changes) using the following command:
 
-```
+```shell
 rocketpool odao proposals execute
 ```
 

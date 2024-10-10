@@ -12,7 +12,7 @@ Please choose which option you'd like from the tabs below.
 The most common way to run a node is to create a new Ethereum address that is dedicated to the node.
 The Smartnode CLI provides a way to do this easily:
 
-```
+```shell
 rocketpool wallet init
 ```
 

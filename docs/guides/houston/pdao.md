@@ -37,7 +37,7 @@ A proposal should be forecasted by the [governance process](../houston/participa
 - Vote Phase 2: `proposal.vote.phase2.time`
 - Execution: `proposal.execute.time	`
 
-![](./images/proposal_diagram.png){ style="display: block; margin: 0 auto" }
+<img src="./images/proposal_diagram.png" width="100%" height="auto"/>
 
 ### Vote Delay Period
 
@@ -113,7 +113,7 @@ The complete network voting power tree is stored off-chain due to gas limits. Wh
 
 Any node can participate in tracking and verifying the correctness of proposals. To opt into this responsibility, use the command `rocketpool service config`, navigate to the **Smartnode and TX Fee Settings** menu, and check the box `Enable PDAO Proposal Checker`.
 
-![](./images/proposal_checker.png){ style="display: block; margin: 0 auto" }
+<img src="./images/proposal_checker.png" width="100%" height="auto"/>
 
 When this setting is enabled, the node will check for new proposals, verify their correctness, and submit challenges to invalid proposals. The only prerequisite is that [RPL Locking](../houston/participate#allowing-rpl-locking) is enabled.
 

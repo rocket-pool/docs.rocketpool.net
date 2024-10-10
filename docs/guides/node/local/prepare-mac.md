@@ -26,19 +26,19 @@ We highly recommend using [Homebrew](https://brew.sh) as your package manager fo
 
 You can install it via
 
-```
+```shell
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
 It should install some pre-requisites for you, such as XCode Command Line Tools. If it doesn't, you can install them manually using
 
-```
+```shell
 xcode-select --install
 ```
 
 Once installed, ensure everything is working correctly by using
 
-```
+```shell
 brew doctor
 ```
 
@@ -46,13 +46,13 @@ Once everything is installed & working, Homebrew will allow you to install packa
 
 For example, to install `wget` using Homebrew execute the following command in the Terminal:
 
-```
+```shell
 brew install wget
 ```
 
 Now that we have Homebrew installed, we can install our Docker client, [Orbstack](https://orbstack.dev).
 
-```
+```shell
 brew install --cask orbstack
 ```
 

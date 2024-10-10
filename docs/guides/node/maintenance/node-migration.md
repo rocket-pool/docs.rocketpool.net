@@ -78,7 +78,7 @@ Validator keys are stored on your disk in the form of `json` files.
 They are kept inside your node's `data` folder.
 By default, you can find them here:
 
-```
+```shell
 ~/.rocketpool/data/validators/
 ```
 
@@ -90,13 +90,13 @@ Each client will have its own copy of the keys, since each client expects them i
 
 To **find** the keys on disk, run the following command:
 
-```
+```shell
 sudo find ~/.rocketpool/data/validators -type f -name "*.json"
 ```
 
 For example, on a machine with two minipools, the output would look like this:
 
-```
+```shell
 /home/joe/.rocketpool/data/validators/teku/keys/0x831862d79685079037dbba67acfa1faf13a5863b94c1c39126e9a52155d32b7733ba65a56ba172e0fcb2b7d77e8a125b.json
 /home/joe/.rocketpool/data/validators/teku/keys/0x900189d6bf7b0635ce1d81046c0d882d52ccf05e3f4fb29e7b9db4c9fb72c6587256fd41a785f103e15a253f3d24a610.json
 /home/joe/.rocketpool/data/validators/lighthouse/validators/0x831862d79685079037dbba67acfa1faf13a5863b94c1c39126e9a52155d32b7733ba65a56ba172e0fcb2b7d77e8a125b/voting-keystore.json

@@ -43,7 +43,7 @@ Note that as demonstrated by the [example math](./create-validator#rewards) sect
 
 To begin the bond reduction process, enter the following command:
 
-```
+```shell
 rocketpool minipool begin-bond-reduction
 ```
 
@@ -98,7 +98,7 @@ Once you've started a bond reduction, you can view how long until it's able to b
 ::::: tab Docker and Hybrid Mode
 For **Docker Mode** and **Hybrid Mode** users, this can be done with the following command:
 
-```
+```shell
 rocketpool service logs node
 ```
 
@@ -121,7 +121,7 @@ When the scrub timer has successfully ended, there are two ways to complete your
 
 1. Let the `node` daemon handle it for you; it does this during the routine check it performs every five minutes (the same one that prints the time-remaining line in the log above). If it notices you have an eligible bond reduction, **it will complete the reduction automatically** - just as it does with staking pending minipools and checking your fee recipient. You will see output in the `node` log showing when it has detected, and completed, a bond reduction.
 2. Complete the bond reduction manually using the following command:
-   ```
+   ```shell
    rocketpool minipool reduce-bond
    ```
    The command is simple; follow the prompts to complete the process once your minipool is eligible for bond reduction.
@@ -189,7 +189,7 @@ To clarify how to interpret these results:
 - In the "before" example, the staking pool's share is the minipool's balance minus the node operator's portion, or `0.150713 - 0.086660 = 0.064053` which is the amount transferred to the staking pool during the bond reduction (plus a small amount from a rewards skim that occurred during the scrub check).
 - The _node operator's_ share, on the other hand, doesn't get sent to the node operator's withdrawal address. It is instead bookmarked as an **available refund**, which is why the refund amount increased from 0 ETH to what was previously the "your portion" amount of the minipool's balance on the EL.
   - You can claim this refund at any time using the following command:
-    ```
+    ```shell
     rocketpool minipool refund
     ```
 

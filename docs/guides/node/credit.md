@@ -49,7 +49,7 @@ See [the availability section below](#credit-availability) for details on credit
 
 To view your current credit balance, simply run the following command:
 
-```
+```shell
 rocketpool node status
 ```
 

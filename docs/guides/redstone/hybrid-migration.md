@@ -123,7 +123,7 @@ If you plan on taking advantage of the [Smoothing Pool](./whats-new#smoothing-po
 
 Opting in can be done via running the following command:
 
-```
+```shell
 rocketpool node join-smoothing-pool
 ```
 
@@ -134,7 +134,7 @@ The Redstone upgrade replaces the expensive, problematic old rewards system with
 Because there is no longer a time limit on claiming rewards, and because it's cheaper to claim many rewards intervals at once, the automatic rewards claiming feature of the Smartnode **has been removed**.
 You will now be able to claim rewards via the following command:
 
-```
+```shell
 rocketpool node claim-rewards
 ```
 
@@ -147,7 +147,7 @@ The Smartnode automatically backs up your settings from the previous version whe
 
 1. Stop the service:
 
-```
+```shell
 rocketpool service stop
 ```
 
@@ -155,25 +155,25 @@ rocketpool service stop
    :::::: tabs
    ::::: tab Linux x64
 
-   ```
+   ```shell
    wget https://github.com/rocket-pool/smartnode-install/releases/download/v1.4.3/rocketpool-cli-linux-amd64 -O ~/bin/rocketpool
    ```
 
    ::::: tab Linux arm64
 
-   ```
+   ```shell
    wget https://github.com/rocket-pool/smartnode-install/releases/download/v1.4.3/rocketpool-cli-linux-arm64 -O ~/bin/rocketpool
    ```
 
    ::::: tab Mac x64
 
-   ```
+   ```shell
    curl -L https://github.com/rocket-pool/smartnode-install/releases/download/v1.4.3/rocketpool-cli-darwin-amd64 > /usr/local/bin/rocketpool
    ```
 
    ::::: tab Mac arm64
 
-   ```
+   ```shell
    curl -L https://github.com/rocket-pool/smartnode-install/releases/download/v1.4.3/rocketpool-cli-darwin-arm64 > /usr/local/bin/rocketpool
    ```
 
@@ -181,25 +181,25 @@ rocketpool service stop
 
 1. Install the v1.4.3 package:
 
-```
+```shell
 rocketpool service install -d
 ```
 
 1. Replace your old configuration with the v1.4.3 backup configuration:
 
-```
+```shell
 cp ~/.rocketpool/user-settings-backup.yml ~/.rocketpool/user-settings.yml
 ```
 
 1. Verify all of your old settings are now being used:
 
-```
+```shell
 rocketpool service config
 ```
 
 1. If it looks good, start the Smartnode stack:
 
-```
+```shell
 rocketpool service start
 ```
 

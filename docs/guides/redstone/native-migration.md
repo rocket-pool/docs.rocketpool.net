@@ -296,7 +296,7 @@ If you plan on taking advantage of the [Smoothing Pool](./whats-new#smoothing-po
 
 Opting in can be done via running the following command:
 
-```
+```shell
 rocketpool node join-smoothing-pool
 ```
 
@@ -307,7 +307,7 @@ The Redstone upgrade replaces the expensive, problematic old rewards system with
 Because there is no longer a time limit on claiming rewards, and because it's cheaper to claim many rewards intervals at once, the automatic rewards claiming feature of the Smartnode **has been removed**.
 You will now be able to claim rewards via the following command:
 
-```
+```shell
 rocketpool node claim-rewards
 ```
 

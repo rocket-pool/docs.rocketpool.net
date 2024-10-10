@@ -54,14 +54,14 @@ Once your clients are installed and you can see in their logs that they are sync
 
 The first step is to create a new system account for the Rocket Pool services and disable login and shell access for it:
 
-```
+```shell
 sudo useradd -r -s /sbin/nologin rp
 ```
 
 Now, add yourself to the `rp` group.
 You'll need to do this in order to use the Rocket Pool CLI, because it and the Rocket Pool daemon both need to access the Execution layer wallet file.
 
-```
+```shell
 sudo usermod -aG rp $USER
 ```
 
@@ -70,7 +70,7 @@ The name of that user account depends on which guide you followed to set up your
 
 For example, if your VC runs as user `lighthousevalidator`, you would do the following:
 
-```
+```shell
 sudo usermod -aG rp lighthousevalidator
 ```
 
@@ -135,13 +135,13 @@ sudo chmod +x /usr/local/bin/rocketpool
 
 Now, set the owner and group of the daemon to `rp`:
 
-```
+```shell
 sudo chown rp:rp /usr/local/bin/rocketpoold
 ```
 
 Finally, **set the `suid` bit** and other permissions bits on the daemon binary:
 
-```
+```shell
 sudo chmod u+sx,g+sx,o-rwx /usr/local/bin/rocketpoold
 ```
 
@@ -206,7 +206,7 @@ This will be used if you're an Oracle DAO member, or if you ever want to generat
 
 Create the `rp-node` service:
 
-```
+```shell
 sudo nano /etc/systemd/system/rp-node.service
 ```
 
@@ -249,14 +249,14 @@ chmod +x /srv/rocketpool/node-log.sh
 
 Now you can watch the node's logs by simply running:
 
-```
+```shell
 sudo /srv/rocketpool/node-log.sh
 ```
 
 ::::: tab Watchtower
 Create a service for the watchtower:
 
-```
+```shell
 sudo nano /etc/systemd/system/rp-watchtower.service
 ```
 
@@ -299,7 +299,7 @@ chmod +x /srv/rocketpool/watchtower-log.sh
 
 Now you can watch the watchtower's logs by simply running:
 
-```
+```shell
 sudo /srv/rocketpool/watchtower-log.sh
 ```
 
@@ -313,7 +313,7 @@ The next step is to give the `rp` user the ability to restart the Validator Clie
 
 Create a new `sudoers` file using `visudo`:
 
-```
+```shell
 sudo visudo -f /etc/sudoers.d/rocketpool
 ```
 
@@ -351,7 +351,7 @@ With all of the services installed, it's time to:
 - Enable them so they'll automatically restart if they break, and automatically start on a reboot
 - Start them all
 
-```
+```shell
 sudo systemctl daemon-reload
 
 sudo systemctl enable rp-node rp-watchtower
@@ -446,7 +446,7 @@ Click on the client you use in the tabs below:
 ::::: tab Lighthouse
 Create the following directories and set their owner to `rp`:
 
-```
+```shell
 sudo mkdir -p /srv/rocketpool/data/validators/lighthouse/validators
 
 sudo mkdir -p /srv/rocketpool/data/validators/lighthouse/secrets
@@ -465,7 +465,7 @@ Now, add or change the following parameters in the Lighthouse VC's service defin
 ::::: tab Nimbus
 Create the following directories and set their owner to `rp`:
 
-```
+```shell
 sudo mkdir -p /srv/rocketpool/data/validators/nimbus/validators
 
 sudo mkdir -p /srv/rocketpool/data/validators/nimbus/secrets
@@ -484,7 +484,7 @@ Now, add or change the following parameters in Nimbus's service definition file 
 ::::: tab Prysm
 Create the following directories and set their owner to `rp`:
 
-```
+```shell
 sudo mkdir -p /srv/rocketpool/data/validators/prysm-non-hd/direct/accounts
 
 sudo chown -R rp:rp /srv/rocketpool/data/validators/prysm-non-hd
@@ -502,7 +502,7 @@ The VC will fail to start until you make a new Rocket Pool minipool (described l
 ::::: tab Teku
 Create the following directories and set their owner to `rp`:
 
-```
+```shell
 sudo mkdir -p /srv/rocketpool/data/validators/teku/keys
 
 sudo mkdir -p /srv/rocketpool/data/validators/teku/passwords
@@ -539,7 +539,7 @@ If you notice permissions problems in your VC's logs after your minipool passes 
 
 With these changes made, you can now reload and restart the VC service using the following:
 
-```
+```shell
 sudo systemctl daemon-reload
 
 sudo systemctl restart <vc-service>

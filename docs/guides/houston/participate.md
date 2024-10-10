@@ -73,7 +73,7 @@ Whenever a new propsal is created, a voting tree representing a snapshot of the 
 
 Smartnode version `1.13.8` introduces a new feature **Auto Initialize Vote Power**, which is designed to automatically initialize voting power on nodes who have not yet done so. Automatically initialized voting power is self-delegated. This feature can be configured in the Smartnode settings by running `rocketpool service config` and navigating to the **Smartnode and TX Fees** section.
 
-![](./images/auto_init_vp.png){ style="display: block; margin: 0 auto" }
+<img src="./images/auto_init_vp.png" width="100%" height="auto"/>
 
 The **Auto-Init Vote Power Gas Threshold** is a limit (in gwei) on this automatic transaction. You can opt out of this task by setting the threshold to 0. Feel free to opt out if your node was registered after the Houston upgrade or if voting power is already enabled.
 
@@ -500,7 +500,7 @@ Once you're on the site, click the **connect wallet** button. Please read throug
 
 MetaMask will prompt you to select an account to connect to the website. After you've signed in, you'll need to enter the **contract name**. Doing so will display all the relevant details. Make sure you double check the recipient's address. Anybody can call the claim function, but each payment contract will have a designated recipient to disperse RPL towards.
 
-![](./images/claim_recurring1.png){ style="display: block; margin: 0 auto" }
+<img src="./images/claim_recurring1.png" width="100%" height="auto"/>
 
 You can claim your payments at any time, you'll just get the total unclaimed RPL up until the most recent period. Alternatively you can wait until all periods have passed to collect all at once and save on gas.
 

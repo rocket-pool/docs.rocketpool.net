@@ -12,7 +12,7 @@ Otherwise, read on to learn more about your choices for Execution and Consensus 
 ::: warning NOTE
 As of March 2023, the distribution of clients on the Beacon Chain looks roughly like this:
 
-![](./images/ethereum-client-diversity.png){ style="display: block; margin: 0 auto" }
+<img src="./images/ethereum-client-diversity.png" width="100%" height="auto"/>
 
 _Data obtained from [https://clientdiversity.org](https://clientdiversity.org)_
 
