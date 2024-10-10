@@ -66,7 +66,7 @@ rocketpool pdao status
 ```
 
 :::tip NOTE
-Whenever a new propsal is created, a voting tree representing a snapshot of the network's voting power and delegate info is created in conjunction with the new proposal. This means your node's voting power won't be included in a proposal if it was raised before you initialized voting. `rocketpool pdao status` will display your node's voting power at the latest block, which may or may not be representative of your voting power on a particular proposal.
+Whenever a new proposal is created, a voting tree representing a snapshot of the network's voting power and delegate info is created in conjunction with the new proposal. This means your node's voting power won't be included in a proposal if it was raised before you initialized voting. `rocketpool pdao status` will display your node's voting power at the latest block, which may or may not be representative of your voting power on a particular proposal.
 :::
 
 ## Auto Initialize Vote Power
@@ -307,7 +307,7 @@ During a voting period, **Node Operators** and **Delegates** can cast a vote wit
 4. Veto: The voter votes against the proposal as well as indicating they deem the proposal as spam or malicious.
 ```
 
-Their voting power will be applied to the option of their choosing. Voting power is a function of "effective RPL stake." A more detailed reading can be found in the [rocketpool-research repo](https://github.com/rocket-pool/rocketpool-research/blob/master/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting).
+Their voting power will be applied to the option of their choosing. Voting power is a function of "effective RPL stake." A more detailed reading can be found in the [rocketpool-research repo](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting).
 
 ::: tip NOTE
 If you are a node operator with delegated voting power, you must vote during voting phase 1 for the delegated voting power to count towards the proposal. Your vote in phase 1 will be worth your local voting power + delegated voting power. Your vote in phase 2 is worth your local voting power only. Please keep in mind that a node may vote once and only once on a proposal, so choose carefully.
