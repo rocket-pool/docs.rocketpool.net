@@ -18,7 +18,7 @@
   --rp-c-text-4: rgba(60, 60, 60, 0.18);
 
   --rp-c-text-code: #748fb5;
-  --rp-code-font-size: 20px;
+  --rp-code-font-size: 14px;
   --rp-c-text-code-bg: rgb(153 161 179 / 0.1);
 
   --rp-c-brand: #ff6e30; /* hsl(204deg 100% 50%) */
@@ -87,40 +87,41 @@
 :root {
   --rp-home-hero-name-background: -webkit-linear-gradient(120deg, var(--rp-c-brand) 30%, #fc4b00);
   --rp-home-mask-background-image: conic-gradient(from 180deg at 50% 50%, var(--rp-c-brand) 0deg, 180deg, #fc4b00 1turn);
+  --rp-home-feature-bg: #2C353D;
 }
 
 body {
-  font-size: 20px;
-}
-
-.rspress-nav a {
-  font-size: 20px !important;
-}
-
-.rspress-nav-menu-item {
-  font-size: 18px;
-}
-
-.aside-link-text {
   font-size: 16px;
 }
 
+.rspress-nav a {
+  font-size: 16px !important;
+}
+
+.rspress-nav-menu-item {
+  font-size: 14px;
+}
+
+.aside-link-text {
+  font-size: 13px;
+}
+
 .rspress-sidebar h2 span {
-    font-size: 18px !important;
+    font-size: 14px !important;
 }
 
 .rspress-sidebar-group a span {
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .rspress-sidebar-group h2 span {
-  font-size: 18px !important;
+  font-size: 14px !important;
 }
 
 .rspress-nav-search-button p {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .rspress-doc .rspress-directive {
-    font-size: 18px !important;
+    font-size: 14px !important;
 }

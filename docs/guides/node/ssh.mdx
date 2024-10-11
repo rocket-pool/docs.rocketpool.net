@@ -14,51 +14,52 @@ The Smartnode currently doesn't have a GUI (Graphical User Interface), only a CL
 As such, interacting with it remotely requires some way to access your node's terminal from a different machine.
 In this section, we'll provide a brief introduction to the most popular way of doing this: **SSH**.
 
+<div className="p-3">
+  <Tabs>
+    <Tab label="Using a Windows Machine">
+      There are a few different ways to use SSH from a Windows machine.
 
-<Tabs>
-  <Tab label="Using a Windows Machine">
-    There are a few different ways to use SSH from a Windows machine.
+      The simplest is to use **Powershell**, which is a powerful command terminal that comes built into modern versions of
+      Windows.
+      Powershell has SSH included, so you can use it right away without installing any supplemental programs.
 
-    The simplest is to use **Powershell**, which is a powerful command terminal that comes built into modern versions of
-    Windows.
-    Powershell has SSH included, so you can use it right away without installing any supplemental programs.
+      You can find it by opening the Start menu and typing `Powershell` into the search bar; there will be several
+      options, but option you want is simply called `Windows Powershell`:
 
-    You can find it by opening the Start menu and typing `Powershell` into the search bar; there will be several
-    options, but option you want is simply called `Windows Powershell`:
+      <img src={powershell} width="100%" height="auto" />
 
-    <img src={powershell} width="100%" height="auto" />
+      This will open up a terminal with a blue background.
+      You can use `ssh` from here - see below for instructions on how to do that.
 
-    This will open up a terminal with a blue background.
-    You can use `ssh` from here - see below for instructions on how to do that.
+      Another popular tool is called [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html).
+      PuTTY is a special program that includes a terminal dedicated for SSH usage, but it also comes with a convenient GUI
+      for doing things like changing configurations, saving settings to a "profile", and keeping a list of machines you
+      can easily connect to by selecting from a list.
 
-    Another popular tool is called [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html).
-    PuTTY is a special program that includes a terminal dedicated for SSH usage, but it also comes with a convenient GUI
-    for doing things like changing configurations, saving settings to a "profile", and keeping a list of machines you
-    can easily connect to by selecting from a list.
+      Instead of using `ssh` as you would with the other tools, PuTTY will do this for you automatically - all you need to
+      provide are the username and password.
+      For information on how to use PuTTY, take a look at [this great
+      tutorial](https://tonyteaches.tech/putty-ssh-windows-tutorial/).
 
-    Instead of using `ssh` as you would with the other tools, PuTTY will do this for you automatically - all you need to
-    provide are the username and password.
-    For information on how to use PuTTY, take a look at [this great
-    tutorial](https://tonyteaches.tech/putty-ssh-windows-tutorial/).
+      <div className="rspress-directive warning">
+        **NOTE**: PuTTY might display the wrong colors in the `rocketpool service
+        config` text-based user interface (TUI).
+        There's an easy solution for this. In the PuTTY
+        settings, navigate to **Connection** > **Data** > **Terminal Details**
+        in the dropdown menu. There should be a **Terminal-type string** text box. Type in `xterm-256color`, then save
+        the settings
+        to resolve this.
+      </div>
 
-    <div className="rspress-directive warning">
-      **NOTE**: PuTTY might display the wrong colors in the `rocketpool service
-      config` text-based user interface (TUI).
-      There's an easy solution for this. In the PuTTY
-      settings, navigate to **Connection** > **Data** > **Terminal Details**
-      in the dropdown menu. There should be a **Terminal-type string** text box. Type in `xterm-256color`, then save
-      the settings
-      to resolve this.
-    </div>
-
-  </Tab>
-  <Tab label="Using a Linux or macOS Machine">
-    Using SSH from a Linux or macOS machine is trivial; if you're already using one of these, then you've likely already
-    interacted with the terminal at some point.
-    SSH is built directly into the terminal; use it by running the `ssh` command. By default, SSH will allow you to
-    connect to your node's primary user account.
-  </Tab>
-</Tabs>
+    </Tab>
+    <Tab label="Using a Linux or macOS Machine">
+      Using SSH from a Linux or macOS machine is trivial; if you're already using one of these, then you've likely already
+      interacted with the terminal at some point.
+      SSH is built directly into the terminal; use it by running the `ssh` command. By default, SSH will allow you to
+      connect to your node's primary user account.
+    </Tab>
+  </Tabs>
+</div>
 
 Here's how you would connect to your node using SSH.
 
