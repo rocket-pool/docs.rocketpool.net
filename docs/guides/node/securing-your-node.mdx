@@ -1,3 +1,5 @@
+import { Tab, Tabs } from 'rspress/theme';
+
 ---
 next:
   text: "Tailscale"
@@ -208,97 +210,98 @@ This will let you connect to it over `ssh` using the private key you just genera
 
 There are two ways to do this - if one doesn't work, try the other way:
 
-:::::: tabs
-::::: tab Using ssh-copy-id
+<div className="p-3">
+  <Tabs>
+    <Tab label="Using ssh-copy-id">
+      **Note**: if your client machine is running Windows, `ssh-copy-id` is not yet available.
+      Please follow the instructions in the "Manually Adding the Key" tab.
 
-**Note**: if your client machine is running Windows, `ssh-copy-id` is not yet available.
-Please follow the instructions in the "Manually Adding the Key" tab.
+      Run the following command **on your client machine**:
 
-Run the following command **on your client machine**:
+      ```shell
+      ssh-copy-id -i $HOME/.ssh/id_ed25519.pub username@node.ip.address
+      ```
 
-```shell
-ssh-copy-id -i $HOME/.ssh/id_ed25519.pub username@node.ip.address
-```
+      For example, if my username on the node was `staker` and my node's IP address was `192.168.1.10`, I would run the following command:
 
-For example, if my username on the node was `staker` and my node's IP address was `192.168.1.10`, I would run the following command:
+      ```shell
+      ssh-copy-id -i $HOME/.ssh/id_ed25519.pub staker@192.168.1.10
+      ```
 
-```shell
-ssh-copy-id -i $HOME/.ssh/id_ed25519.pub staker@192.168.1.10
-```
+      You will see some messages like the following:
 
-You will see some messages like the following:
+      ```
+      /usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/home/username/.ssh/id_ed25519.pub"
+      /usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+      /usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+      ```
 
-```
-/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/home/username/.ssh/id_ed25519.pub"
-/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
-/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
-```
+      This tells you that it's trying to log in with your key first to make sure it isn't already there.
+      Once it fails logging in, it knows that it's OK to add the new public key to the node machine.
 
-This tells you that it's trying to log in with your key first to make sure it isn't already there.
-Once it fails logging in, it knows that it's OK to add the new public key to the node machine.
+      It will then prompt you for the **password of the user on your node machine**.
+      (_Note that this is **not the password of the SSH key**!_)
 
-It will then prompt you for the **password of the user on your node machine**.
-(_Note that this is **not the password of the SSH key**!_)
+      Enter your user's password, and you will see the following output:
 
-Enter your user's password, and you will see the following output:
+      ```
+      Number of key(s) added: 1
 
-```
-Number of key(s) added: 1
+      Now try logging into the machine with:   "ssh 'username@node.ip.address'"
+      and check to make sure that only the key(s) you wanted were added.
+      ```
 
-Now try logging into the machine with:   "ssh 'username@node.ip.address'"
-and check to make sure that only the key(s) you wanted were added.
-```
+      That means it worked!
+    </Tab>
+    <Tab label="Manually Adding the Key">
+      Start by getting the contents of the **public key** - run this command **on your client machine**:
 
-That means it worked!
+      - On macOS and Linux:
 
-::::: tab Manually Adding the Key
-Start by getting the contents of the **public key** - run this command **on your client machine**:
+      ```shell
+      cat ~/.ssh/id_ed25519.pub
+      ```
 
-- On macOS and Linux:
+      - On Windows (Command Prompt):
 
-```shell
-cat ~/.ssh/id_ed25519.pub
-```
+      ```shell
+      type %USERPROFILE%\.ssh\id_ed25519.pub
+      ```
 
-- On Windows (Command Prompt):
+      - On Windows (PowerShell):
 
-```shell
-type %USERPROFILE%\.ssh\id_ed25519.pub
-```
+      ```shell
+      type $ENV:UserProfile\.ssh\id_ed25519.pub
+      ```
 
-- On Windows (PowerShell):
+      The output will look something like this:
 
-```shell
-type $ENV:UserProfile\.ssh\id_ed25519.pub
-```
+      ```
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGUgU3a6mNjy3N1TyWOwY+VA/nifAeABl2Ch2yIl1bGa your_email@example.com
+      ```
 
-The output will look something like this:
+      This is your **public key**.
+      Copy this output and store it somewhere convenient - you're going to need it in a minute.
 
-```
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGUgU3a6mNjy3N1TyWOwY+VA/nifAeABl2Ch2yIl1bGa your_email@example.com
-```
+      Next, use `ssh` to connect to your node like you normally would (using your node's username and password).
 
-This is your **public key**.
-Copy this output and store it somewhere convenient - you're going to need it in a minute.
+      Once you're connected to your node, run the following commands:
 
-Next, use `ssh` to connect to your node like you normally would (using your node's username and password).
+      ```shell
+      mkdir -p ~/.ssh
+      nano ~/.ssh/authorized_keys
+      ```
 
-Once you're connected to your node, run the following commands:
+      The second command will open a text editor for the file used to store all of the public keys that your node's user account trusts.
 
-```shell
-mkdir -p ~/.ssh
-nano ~/.ssh/authorized_keys
-```
+      In this file, paste the **public key** that you retrieved a few steps ago using the `cat` command (the whole line starting with `ssh-ed25519`).
 
-The second command will open a text editor for the file used to store all of the public keys that your node's user account trusts.
+      When it's in, save the file with `Ctrl+O` and `Enter`, then press `Ctrl+X` to exit.
 
-In this file, paste the **public key** that you retrieved a few steps ago using the `cat` command (the whole line starting with `ssh-ed25519`).
-
-When it's in, save the file with `Ctrl+O` and `Enter`, then press `Ctrl+X` to exit.
-
-Now, exit `ssh` by running the `exit` command so you return back to your local client machine's terminal.
-
-::::::
+      Now, exit `ssh` by running the `exit` command so you return back to your local client machine's terminal.
+    </Tab>
+  </Tabs>
+</div>
 
 You should now be able to `ssh` into the node like you normally would, but now you won't have to type the password of the user account.
 

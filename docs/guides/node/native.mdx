@@ -1,3 +1,5 @@
+import { Tab, Tabs } from 'rspress/theme';
+
 # Creating a Native Rocket Pool Node without Docker
 
 ::: tip NOTE
@@ -90,48 +92,47 @@ sudo chown $USER:$USER /srv/rocketpool
 Now, download the CLI and daemon binaries (or ignore this and build them from source if you prefer).
 Choose the platform that your system uses from the tabs below.
 
-:::::: tabs
-::::: tab Linux x64
+<div className="p-3">
+  <Tabs>
+    <Tab label="Linux x64">
+      ```shell
+      sudo wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-linux-amd64 -O /usr/local/bin/rocketpool
 
-```shell
-sudo wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-linux-amd64 -O /usr/local/bin/rocketpool
+      sudo wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-daemon-linux-amd64 -O /usr/local/bin/rocketpoold
 
-sudo wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-daemon-linux-amd64 -O /usr/local/bin/rocketpoold
+      sudo chmod +x /usr/local/bin/rocketpool
+      ```
+    </Tab>
+    <Tab label="Linux arm64">
+      ```shell
+      sudo wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-linux-arm64 -O /usr/local/bin/rocketpool
 
-sudo chmod +x /usr/local/bin/rocketpool
-```
+      sudo wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-daemon-linux-arm64 -O /usr/local/bin/rocketpoold
 
-::::: tab Linux arm64
+      sudo chmod +x /usr/local/bin/rocketpool
+      ```
+    </Tab>
+    <Tab label="macOS x64">
+      ```shell
+      sudo wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-darwin-amd64 -O /usr/local/bin/rocketpool
 
-```shell
-sudo wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-linux-arm64 -O /usr/local/bin/rocketpool
+      sudo wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-daemon-darwin-amd64 -O /usr/local/bin/rocketpoold
 
-sudo wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-daemon-linux-arm64 -O /usr/local/bin/rocketpoold
+      sudo chmod +x /usr/local/bin/rocketpool
+      ```
+    </Tab>
+    <Tab label="macOS arm64">
+      ```shell
+      sudo wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-darwin-arm64 -O /usr/local/bin/rocketpool
 
-sudo chmod +x /usr/local/bin/rocketpool
-```
+      sudo wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-daemon-darwin-arm64 -O /usr/local/bin/rocketpoold
 
-::::: tab macOS x64
+      sudo chmod +x /usr/local/bin/rocketpool
+      ```
+    </Tab>
+  </Tabs>
+</div>
 
-```shell
-sudo wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-darwin-amd64 -O /usr/local/bin/rocketpool
-
-sudo wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-daemon-darwin-amd64 -O /usr/local/bin/rocketpoold
-
-sudo chmod +x /usr/local/bin/rocketpool
-```
-
-::::: tab macOS arm64
-
-```shell
-sudo wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-darwin-arm64 -O /usr/local/bin/rocketpool
-
-sudo wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-daemon-darwin-arm64 -O /usr/local/bin/rocketpoold
-
-sudo chmod +x /usr/local/bin/rocketpool
-```
-
-::::::
 
 Now, set the owner and group of the daemon to `rp`:
 
@@ -201,109 +202,111 @@ This is the service that will automatically check for and claim RPL rewards afte
 We'll also create a `watchtower` service as well.
 This will be used if you're an Oracle DAO member, or if you ever want to generate your own rewards interval trees (discussed in the [Claiming Rewards](./rewards) section later on).
 
-:::::: tabs
-::::: tab Node
 
-Create the `rp-node` service:
+<div className="p-3">
+  <Tabs>
+    <Tab label="Node">
+      Create the `rp-node` service:
 
-```shell
-sudo nano /etc/systemd/system/rp-node.service
-```
+      ```shell
+      sudo nano /etc/systemd/system/rp-node.service
+      ```
 
-Contents:
+      Contents:
 
-```
-[Unit]
-Description=rp-node
-After=network.target
+      ```
+      [Unit]
+      Description=rp-node
+      After=network.target
 
-[Service]
-Type=simple
-User=rp
-Restart=always
-RestartSec=5
-ExecStart=/usr/local/bin/rocketpoold --settings /srv/rocketpool/user-settings.yml node
+      [Service]
+      Type=simple
+      User=rp
+      Restart=always
+      RestartSec=5
+      ExecStart=/usr/local/bin/rocketpoold --settings /srv/rocketpool/user-settings.yml node
 
-[Install]
-WantedBy=multi-user.target
-```
+      [Install]
+      WantedBy=multi-user.target
+      ```
 
-Create a log file for the service, so you can watch its output - this will replace the behavior of `rocketpool service logs node`:
+      Create a log file for the service, so you can watch its output - this will replace the behavior of `rocketpool service logs node`:
 
-```
-nano /srv/rocketpool/node-log.sh
-```
+      ```
+      nano /srv/rocketpool/node-log.sh
+      ```
 
-Contents:
+      Contents:
 
-```
-#!/bin/bash
-journalctl -u rp-node -b -f
-```
+      ```
+      #!/bin/bash
+      journalctl -u rp-node -b -f
+      ```
 
-Save it, then make it executable:
+      Save it, then make it executable:
 
-```
-chmod +x /srv/rocketpool/node-log.sh
-```
+      ```
+      chmod +x /srv/rocketpool/node-log.sh
+      ```
 
-Now you can watch the node's logs by simply running:
+      Now you can watch the node's logs by simply running:
 
-```shell
-sudo /srv/rocketpool/node-log.sh
-```
+      ```shell
+      sudo /srv/rocketpool/node-log.sh
+      ```
+    </Tab>
+    <Tab label="Watchtower">
+      Create a service for the watchtower:
 
-::::: tab Watchtower
-Create a service for the watchtower:
+      ```shell
+      sudo nano /etc/systemd/system/rp-watchtower.service
+      ```
 
-```shell
-sudo nano /etc/systemd/system/rp-watchtower.service
-```
+      Contents:
 
-Contents:
+      ```
+      [Unit]
+      Description=rp-node
+      After=network.target
 
-```
-[Unit]
-Description=rp-node
-After=network.target
+      [Service]
+      Type=simple
+      User=rp
+      Restart=always
+      RestartSec=5
+      ExecStart=/usr/local/bin/rocketpoold --settings /srv/rocketpool/user-settings.yml watchtower
 
-[Service]
-Type=simple
-User=rp
-Restart=always
-RestartSec=5
-ExecStart=/usr/local/bin/rocketpoold --settings /srv/rocketpool/user-settings.yml watchtower
+      [Install]
+      WantedBy=multi-user.target
+      ```
 
-[Install]
-WantedBy=multi-user.target
-```
+      Create a log file for the watchtower:
 
-Create a log file for the watchtower:
+      ```
+      nano /srv/rocketpool/watchtower-log.sh
+      ```
 
-```
-nano /srv/rocketpool/watchtower-log.sh
-```
+      Contents:
 
-Contents:
+      ```
+      #!/bin/bash
+      journalctl -u rp-watchtower -b -f
+      ```
 
-```
-#!/bin/bash
-journalctl -u rp-watchtower -b -f
-```
+      Save it, then make it executable:
 
-Save it, then make it executable:
+      ```
+      chmod +x /srv/rocketpool/watchtower-log.sh
+      ```
 
-```
-chmod +x /srv/rocketpool/watchtower-log.sh
-```
+      Now you can watch the watchtower's logs by simply running:
 
-Now you can watch the watchtower's logs by simply running:
-
-```shell
-sudo /srv/rocketpool/watchtower-log.sh
-```
-
-::::::
+      ```shell
+      sudo /srv/rocketpool/watchtower-log.sh
+      ```
+    </Tab>
+  </Tabs>
+</div>
 
 The services are now installed.
 
@@ -367,7 +370,7 @@ Please carefully follow the instructions in the [Setting up a Wallet](./wallet-i
 Once that's done, use the service log file scripts to verify that they successfully loaded your new wallet.
 You should also verify this using the following command:
 
-```
+```shell
 rp wallet status
 ```
 
@@ -417,20 +420,22 @@ EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
 
 Then modify your fee recipient argument as follows; select your client of choice from the tabs below:
 
-:::::: tabs
-::::: tab Lighthouse
-Change `--suggested-fee-recipient <address>` to `--suggested-fee-recipient ${FEE_RECIPIENT}`
-
-::::: tab Nimbus
-Change `--suggested-fee-recipient=<address>` to `--suggested-fee-recipient=${FEE_RECIPIENT}`
-
-::::: tab Prysm
-Change `--suggested-fee-recipient <address>` to `--suggested-fee-recipient ${FEE_RECIPIENT}`
-
-::::: tab Teku
-Change `--validators-proposer-default-fee-recipient=<address>` to `--validators-proposer-default-fee-recipient=${FEE_RECIPIENT}`
-
-::::::
+<div className="p-3">
+  <Tabs>
+    <Tab label="Lighthouse">
+      Change `--suggested-fee-recipient address` to `--suggested-fee-recipient ${FEE_RECIPIENT}`
+    </Tab>
+    <Tab label="Nimbus">
+      Change `--suggested-fee-recipient=address` to `--suggested-fee-recipient=${FEE_RECIPIENT}`
+    </Tab>
+    <Tab label="Prysm">
+      Change `--suggested-fee-recipient address` to `--suggested-fee-recipient ${FEE_RECIPIENT}`
+    </Tab>
+    <Tab label="Teku">
+      Change `--validators-proposer-default-fee-recipient=address` to `--validators-proposer-default-fee-recipient=${FEE_RECIPIENT}`
+    </Tab>
+  </Tabs>
+</div>
 
 ::: tip NOTE
 If you start your Validator Client before Rocket Pool's services, it may error out because this file does not exist yet.
@@ -442,83 +447,87 @@ Don't worry, this file will be created by Rocket Pool once you've initialized an
 Next, you must tell the VC where to store its data and load the validator keys that Rocket Pool generates.
 Click on the client you use in the tabs below:
 
-:::::: tabs
-::::: tab Lighthouse
-Create the following directories and set their owner to `rp`:
 
-```shell
-sudo mkdir -p /srv/rocketpool/data/validators/lighthouse/validators
+<div className="p-3">
+  <Tabs>
+    <Tab label="Lighthouse">
+      Create the following directories and set their owner to `rp`:
 
-sudo mkdir -p /srv/rocketpool/data/validators/lighthouse/secrets
+      ```shell
+      sudo mkdir -p /srv/rocketpool/data/validators/lighthouse/validators
 
-sudo chown -R rp:rp /srv/rocketpool/data/validators/lighthouse
+      sudo mkdir -p /srv/rocketpool/data/validators/lighthouse/secrets
 
-sudo chmod -R 775 /srv/rocketpool/data/validators/lighthouse
-```
+      sudo chown -R rp:rp /srv/rocketpool/data/validators/lighthouse
 
-Now, add or change the following parameters in the Lighthouse VC's service definition file to these new values:
+      sudo chmod -R 775 /srv/rocketpool/data/validators/lighthouse
+      ```
 
-```
---datadir /srv/rocketpool/data/validators/lighthouse
-```
+      Now, add or change the following parameters in the Lighthouse VC's service definition file to these new values:
 
-::::: tab Nimbus
-Create the following directories and set their owner to `rp`:
+      ```
+      --datadir /srv/rocketpool/data/validators/lighthouse
+      ```
+    </Tab>
+    <Tab label="Nimbus">
+      Create the following directories and set their owner to `rp`:
 
-```shell
-sudo mkdir -p /srv/rocketpool/data/validators/nimbus/validators
+      ```shell
+      sudo mkdir -p /srv/rocketpool/data/validators/nimbus/validators
 
-sudo mkdir -p /srv/rocketpool/data/validators/nimbus/secrets
+      sudo mkdir -p /srv/rocketpool/data/validators/nimbus/secrets
 
-sudo chown -R rp:rp /srv/rocketpool/data/validators/nimbus
+      sudo chown -R rp:rp /srv/rocketpool/data/validators/nimbus
 
-sudo chmod -R 775 /srv/rocketpool/data/validators/nimbus
-```
+      sudo chmod -R 775 /srv/rocketpool/data/validators/nimbus
+      ```
 
-Now, add or change the following parameters in Nimbus's service definition file to the following:
+      Now, add or change the following parameters in Nimbus's service definition file to the following:
 
-```
---validators-dir=/srv/rocketpool/data/validators/nimbus/validators --secrets-dir=/srv/rocketpool/data/validators/nimbus/secrets
-```
+      ```
+      --validators-dir=/srv/rocketpool/data/validators/nimbus/validators --secrets-dir=/srv/rocketpool/data/validators/nimbus/secrets
+      ```
+    </Tab>
+    <Tab label="Prysm">
+      Create the following directories and set their owner to `rp`:
 
-::::: tab Prysm
-Create the following directories and set their owner to `rp`:
+      ```shell
+      sudo mkdir -p /srv/rocketpool/data/validators/prysm-non-hd/direct/accounts
 
-```shell
-sudo mkdir -p /srv/rocketpool/data/validators/prysm-non-hd/direct/accounts
+      sudo chown -R rp:rp /srv/rocketpool/data/validators/prysm-non-hd
 
-sudo chown -R rp:rp /srv/rocketpool/data/validators/prysm-non-hd
+      sudo chmod -R 775 /srv/rocketpool/data/validators/prysm-non-hd
+      ```
 
-sudo chmod -R 775 /srv/rocketpool/data/validators/prysm-non-hd
-```
+      Add or change the following parameters in the Prysm VC's service definition file to these new values:
 
-Add or change the following parameters in the Prysm VC's service definition file to these new values:
+      ```
+      --wallet-dir /srv/rocketpool/data/validators/prysm-non-hd --wallet-password-file /srv/rocketpool/data/validators/prysm-non-hd/direct/accounts/secret
+      ```
 
-```
---wallet-dir /srv/rocketpool/data/validators/prysm-non-hd --wallet-password-file /srv/rocketpool/data/validators/prysm-non-hd/direct/accounts/secret
-```
+      The VC will fail to start until you make a new Rocket Pool minipool (described later in the guides) because these files won't be created until that time, but the Beacon Node will be able to sync properly.
+    </Tab>
+    <Tab label="Teku">
+      Create the following directories and set their owner to `rp`:
 
-The VC will fail to start until you make a new Rocket Pool minipool (described later in the guides) because these files won't be created until that time, but the Beacon Node will be able to sync properly.
-::::: tab Teku
-Create the following directories and set their owner to `rp`:
+      ```shell
+      sudo mkdir -p /srv/rocketpool/data/validators/teku/keys
 
-```shell
-sudo mkdir -p /srv/rocketpool/data/validators/teku/keys
+      sudo mkdir -p /srv/rocketpool/data/validators/teku/passwords
 
-sudo mkdir -p /srv/rocketpool/data/validators/teku/passwords
+      sudo chown -R rp:rp /srv/rocketpool/data/validators
 
-sudo chown -R rp:rp /srv/rocketpool/data/validators
+      sudo chmod -R 775 /srv/rocketpool/data/validators/teku
+      ```
 
-sudo chmod -R 775 /srv/rocketpool/data/validators/teku
-```
+      Now, add or change the following parameters in the Teku VC's service definition file to the following:
 
-Now, add or change the following parameters in the Teku VC's service definition file to the following:
-
-```
---data-path=/srv/rocketpool/data/validators/teku --validator-keys=/srv/rocketpool/data/validators/teku/keys:/srv/rocketpool/data/validators/teku/passwords
-```
-
-::::::
+      ```
+      --data-path=/srv/rocketpool/data/validators/teku --validator-keys=/srv/rocketpool/data/validators/teku/keys:/srv/rocketpool/data/validators/teku/passwords
+      ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Relaxing `umask`
 

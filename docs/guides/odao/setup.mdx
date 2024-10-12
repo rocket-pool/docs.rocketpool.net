@@ -1,3 +1,6 @@
+import { Tab, Tabs } from 'rspress/theme';
+import tuiOdao from './images/tui-odao.png';
+
 # Setting up an Oracle DAO Node
 
 At a bare minimum, a standard Rocket Pool node runs the following:
@@ -37,57 +40,58 @@ Return here when you've finished.
 There are two additional settings you need to provision in order to satisfy your Oracle DAO responsibilities.
 Please select the mode you use to configure your node below from the tabs below.
 
-:::::: tabs
-::::: tab (service config) Interactive UI
 
-Open the `rocketpool service config` TUI and go to the `Smartnode and TX Fees` section.
-Here, you will see two options at the bottom:
+<div className="p-3">
+  <Tabs>
+    <Tab label="(service config) Interactive UI">
+      Open the `rocketpool service config` TUI and go to the `Smartnode and TX Fees` section.
+      Here, you will see two options at the bottom:
 
-<img src="./images/tui-odao.png" width="100%" height="auto"/>
+      <img src={tuiOdao} width="100%" height="auto"/>
 
-The `Archive-Mode EC URL` must be the HTTP endpoint of the RPC API for your Archive Execution Client.
-**Note that if you are already using your Archive EC as your primary client in Externally-Managed mode, you can ignore this setting.**
+      The `Archive-Mode EC URL` must be the HTTP endpoint of the RPC API for your Archive Execution Client.
+      **Note that if you are already using your Archive EC as your primary client in Externally-Managed mode, you can ignore this setting.**
+    </Tab>
+    <Tab label="(service config) Headlessly">
 
-::::: tab (service config) Headlessly
+      Run the following command to configure your node headlessly:
 
-Run the following command to configure your node headlessly:
+      ```shell
+      rocketpool service config --smartnode-archiveECUrl "http://your Archive EC URL"
+      ```
 
-```
-rocketpool service config --smartnode-archiveECUrl "http://<your Archive EC URL>"
-```
+      Where:
 
-Where:
+      `--smartnode-archiveECUrl` must be the HTTP endpoint of the RPC API for your Archive Execution Client.
+      **Note that if you are already using your Archive EC as your primary client in Externally-Managed mode, you can ignore this setting.**
 
-- `--smartnode-archiveECUrl` must be the HTTP endpoint of the RPC API for your Archive Execution Client.
-  **Note that if you are already using your Archive EC as your primary client in Externally-Managed mode, you can ignore this setting.**
+      Finally, restart your `watchtower` daemon (i.e., with `docker restart rocketpool_watchtower` in Docker or Hybrid mode, or `sudo systemctl restart rp_watchtower` in Native mode) for the settings to take effect.
+    </Tab>
+    <Tab label="Direct Config File">
+      Open the `user-settings.yml` file in your Smartnode directory (`~/.rocketpool` by default) in a text editor.
+      Scroll down to the `smartnode` section:
 
-Finally, restart your `watchtower` daemon (i.e., with `docker restart rocketpool_watchtower` in Docker or Hybrid mode, or `sudo systemctl restart rp_watchtower` in Native mode) for the settings to take effect.
+      ```
+      smartnode:
+      archiveECUrl: http://your Archive EC URL
+      dataPath: /home/user/.rocketpool/data
+      manualMaxFee: "0"
+      minipoolStakeGasThreshold: "150"
+      network: mainnet
+      priorityFee: "2"
+      projectName: rocketpool
+      rewardsTreeMode: generate
+      ```
 
-::::: tab Direct Config File
+      Replace the values in the `archiveECUrl` field, where:
 
-Open the `user-settings.yml` file in your Smartnode directory (`~/.rocketpool` by default) in a text editor.
-Scroll down to the `smartnode` section:
+      `archiveECUrl` must be the HTTP endpoint of the RPC API for your Archive Execution Client.
+      **Note that if you are already using your Archive EC as your primary client in Externally-Managed mode, you can ignore this setting.**
 
-```
-smartnode:
-  archiveECUrl: http://<your Archive EC URL>
-  dataPath: /home/user/.rocketpool/data
-  manualMaxFee: "0"
-  minipoolStakeGasThreshold: "150"
-  network: mainnet
-  priorityFee: "2"
-  projectName: rocketpool
-  rewardsTreeMode: generate
-```
-
-Replace the values in the `archiveECUrl` field, where:
-
-- `archiveECUrl` must be the HTTP endpoint of the RPC API for your Archive Execution Client.
-  **Note that if you are already using your Archive EC as your primary client in Externally-Managed mode, you can ignore this setting.**
-
-Finally, restart your `watchtower` daemon (i.e., with `docker restart rocketpool_watchtower` in Docker or Hybrid mode, or `sudo systemctl restart rp_watchtower` in Native mode) for the settings to take effect.
-
-::::::
+      Finally, restart your `watchtower` daemon (i.e., with `docker restart rocketpool_watchtower` in Docker or Hybrid mode, or `sudo systemctl restart rp_watchtower` in Native mode) for the settings to take effect.
+    </Tab>
+  </Tabs>
+</div>
 
 ## Oracle DAO Smartnode Commands
 

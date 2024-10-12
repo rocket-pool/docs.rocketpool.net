@@ -43,12 +43,12 @@ Select the client you're using from the tabs below.
       If you [configured a fall back node](./fallback) using `rocketpool service config` already, then the Smartnode will automatically switch over to it when your Geth container goes down for maintenance for you.
       It will also inform your Consensus client to use the fallback as well.
 
-      <div className="rspress-directive warning">
-        <div className="rspress-directive-title">WARNING</div>
+      <p className="rspress-directive warning">
+        <p className="rspress-directive-title">WARNING</p>
         If you don't have a fallback node configured, your node will stop validating during the pruning process.
         It will miss all attestations and block proposals until it's finished and has resynced with the network.
         **You will leak ETH due to missed validations during this time!**
-      </div>
+      </p>
 
       With that in mind, the following two conditions are required to successfully prune Geth:
 

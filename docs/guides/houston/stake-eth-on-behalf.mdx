@@ -1,3 +1,7 @@
+import { Tab, Tabs } from 'rspress/theme';
+import mmNetwork from './images/mm_network.png';
+import mmNetworkMain from './images/mm_network_main.png';
+
 # Stake ETH on behalf of node
 
 RPIP-32 allows an account to [stake ETH on behalf](https://rpips.rocketpool.net/RPIPs/RPIP-32) of a Rocket Pool node that is registered in the protocol. This supports a variety of situations where the node operator is not directly providing the ETH:
@@ -19,71 +23,74 @@ Don't skip this step! All ETH bond/rewards will be withdrawn to the primary with
 
 The process is slightly different for the Holesky Testnet and Mainnet, so choose the network you are interested in from the tabs below.
 
-:::::: tabs
-::::: tab Preparing on the Holesky Testnet
 
-::: danger WARNING
-When practicing staking on the test network, you **do not need to provide any of your real ETH** during this process.
-You will be given **fake test ETH** to use instead.
+<div className="p-3">
+  <Tabs>
+    <Tab label="Preparing on the Holesky Testnet">
 
-**Do not attempt to move your real ETH on mainnet to the testnet or you will lose it permanently!**
-:::
+      <p className="rspress-directive danger">
+        <p className="rspress-directive-title">WARNING</p>
+        When practicing staking on the test network, you **do not need to provide any of your real ETH** during this process.
+        You will be given **fake test ETH** to use instead.
 
-Start by installing [MetaMask](https://metamask.io/) if you haven't already.
-Follow the instructions on their site to install the extension, create an account, and sign in.
+        **Do not attempt to move your real ETH on mainnet to the testnet or you will lose it permanently!**
+      </p>
 
-Next, open the MetaMask panel using its icon in your browser toolbar.
+      Start by installing [MetaMask](https://metamask.io/) if you haven't already.
+      Follow the instructions on their site to install the extension, create an account, and sign in.
 
-You will need to add the Holesky Testnet to MetaMask.
+      Next, open the MetaMask panel using its icon in your browser toolbar.
 
-Click on the top left dropdown & click the "Add Network" button.
+      You will need to add the Holesky Testnet to MetaMask.
 
-You will see a list of networks, Holesky is not in this list so click the "Add a network manually" button.
+      Click on the top left dropdown & click the "Add Network" button.
 
-Fill in the following details:
+      You will see a list of networks, Holesky is not in this list so click the "Add a network manually" button.
 
-```
-Network Name: Holesky
-New RPC Url: https://rpc.holesky.ethpandaops.io
-Chain ID: 17000
-Currency Symbol: ETH
-Block Explorer Url: https://holesky.etherscan.io
-```
+      Fill in the following details:
 
-Then click Save. You should now see the Holesky network in the top left dropdown.
+      ```
+      Network Name: Holesky
+      New RPC Url: https://rpc.holesky.ethpandaops.io
+      Chain ID: 17000
+      Currency Symbol: ETH
+      Block Explorer Url: https://holesky.etherscan.io
+      ```
 
-Click on the **network dropdown** in the top left of the Metamask extension & select **Holesky Test Network**:
+      Then click Save. You should now see the Holesky network in the top left dropdown.
 
-<img src="./images/mm_network.png" width="100%" height="auto"/>
+      Click on the **network dropdown** in the top left of the Metamask extension & select **Holesky Test Network**:
 
-Now that you have a wallet address in MetaMask, you need to fill it with some test ETH.
-Head over to the [Practicing with the Test Network](../testnet/overview#getting-test-eth-on-holesky) page for a quick guide on how to use a testnet faucet to get some test ETH on Holesky.
+      <img src={mmNetwork} width="100%" height="auto"/>
 
-Once you have some Holesky ETH to test with, head to [https://testnet.rocketpool.net/manage/deposit-eth-on-behalf-of-node](https://testnet.rocketpool.net/manage/deposit-eth-on-behalf-of-node).
+      Now that you have a wallet address in MetaMask, you need to fill it with some test ETH.
+      Head over to the [Practicing with the Test Network](../testnet/overview#getting-test-eth-on-holesky) page for a quick guide on how to use a testnet faucet to get some test ETH on Holesky.
 
-If you see a notice about a web3 browser being required, or the current network ID being unsupported, make sure you’ve completed the previous steps correctly before continuing.
+      Once you have some Holesky ETH to test with, head to [https://testnet.rocketpool.net/manage/deposit-eth-on-behalf-of-node](https://testnet.rocketpool.net/manage/deposit-eth-on-behalf-of-node).
 
-::::: tab Preparing on the Ethereum Mainnet
+      If you see a notice about a web3 browser being required, or the current network ID being unsupported, make sure you’ve completed the previous steps correctly before continuing.
+    </Tab>
+    <Tab label="Preparing on the Ethereum Mainnet">
+      Start by installing [MetaMask](https://metamask.io/) if you haven't already.
 
-Start by installing [MetaMask](https://metamask.io/) if you haven't already.
+      Follow the instructions on their site to install the extension, create an account, and sign in.
 
-Follow the instructions on their site to install the extension, create an account, and sign in.
+      Next, open the MetaMask panel using its icon in your browser toolbar.
 
-Next, open the MetaMask panel using its icon in your browser toolbar.
+      Click on the **network dropdown** in the toolbar at the top and ensure that **Ethereum Mainnet** is selected:
 
-Click on the **network dropdown** in the toolbar at the top and ensure that **Ethereum Mainnet** is selected:
+      <img src={mmNetworkMain} width="100%" height="auto"/>
 
-<img src="./images/mm_network_main.png" width="100%" height="auto"/>
+      Now that you have a wallet address in MetaMask, you need to transfer some ETH into it.
 
-Now that you have a wallet address in MetaMask, you need to transfer some ETH into it.
+      You will need to supply this from an existing wallet or buy ETH on an exchange.
 
-You will need to supply this from an existing wallet or buy ETH on an exchange.
+      Once you have some ETH to stake, head to [https://stake.rocketpool.net/manage/deposit-eth-on-behalf-of-node](https://stake.rocketpool.net/manage/deposit-eth-on-behalf-of-node).
 
-Once you have some ETH to stake, head to [https://stake.rocketpool.net/manage/deposit-eth-on-behalf-of-node](https://stake.rocketpool.net/manage/deposit-eth-on-behalf-of-node).
-
-If you see a notice about a web3 browser being required, or the current network ID being unsupported, make sure you’ve completed the previous steps correctly before continuing.
-
-::::::
+      If you see a notice about a web3 browser being required, or the current network ID being unsupported, make sure you’ve completed the previous steps correctly before continuing.
+    </Tab>
+  </Tabs>
+</div>
 
 Once you're at the site, click on the **connect wallet** button. Please read through and accept the Terms of Service & Privacy Policy, this will enable different ways to connect, then click **connect metamask**.
 

@@ -70,4 +70,4 @@ You are responsible for manually instantiating, maintaining, and upgrading the S
 While we provide some example documentation on how to do this, we suggest that this mode should only be used by **experienced system administrators**.
 :::
 
-If you would like to use this mode, proceed to the [Configuring a Native Rocket Pool Node without Docker](./native) section.
+If you would like to use this mode, proceed to the [Configuring a Native Rocket Pool Node without Docker](./native.mdx) section.

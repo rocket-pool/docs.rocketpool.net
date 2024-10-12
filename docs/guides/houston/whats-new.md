@@ -56,7 +56,7 @@ After the proposal has passed the voting periods, the proposer may unlock their 
 
 ## Stake ETH on Behalf of a node
 
-[RPIP-32](https://rpips.rocketpool.net/RPIPs/RPIP-32) allows an account to [stake ETH on behalf](../houston/stake-eth-on-behalf) of a Rocket Pool node that is registered in the protocol. This supports a variety of situations where the node operator is not directly providing the ETH:
+[RPIP-32](https://rpips.rocketpool.net/RPIPs/RPIP-32) allows an account to [stake ETH on behalf](../houston/stake-eth-on-behalf.mdx) of a Rocket Pool node that is registered in the protocol. This supports a variety of situations where the node operator is not directly providing the ETH:
 
 - Enhanced security for node operators, as they can stake directly from their hardware wallet, eliminating the need to transfer funds to the node beforehand.
 - Staking as a Service providers where custody of funds are managed by a trusted custodian.

@@ -1,3 +1,5 @@
+import { Tab, Tabs } from 'rspress/theme';
+
 # Migrating from the Test Network to Mainnet
 
 If you've already used Rocket Pool on our Holesky test network, are comfortable with its ins and out, and are ready to either stake ETH or run a node for real on the main Ethereum chain, then this guide is for you!
@@ -56,7 +58,7 @@ rocketpool service config
 
 Next, open the **Smartnode and TX Fees** category and change the **Network** drop down from `Holesky Testnet` to `Ethereum Mainnet`:
 
-![](../node/images/tui-change-network.png){ style="display: block; margin: 0 auto" }
+<img src="../node/images/tui-change-network.png" width="100%" height="auto"/>
 
 When you save and exit, you will be prompted with a notification that everything is about to be erased and a confirmation dialog:
 
@@ -80,94 +82,97 @@ All of your settings (such as client choice) will be preserved, but you will nee
 
 If for any reason you cannot leverage the Smartnode's automatic migration process, you can do it manually in a few simple steps:
 
-:::::: tabs
-::::: tab Docker Mode
+<div className="p-3">
+  <Tabs>
+    <Tab label="Docker">
+      1. **While you still have the testnet configured**, exit your validators on Holesky:
 
-1. **While you still have the testnet configured**, exit your validators on Holesky:
+      ```shell
+      rocketpool minipool exit
+      ```
 
-   ```
-   rocketpool minipool exit
-   ```
+      Select `1: All available minipools` from the list of choices and wait for it to complete.
+      This will help clean up the network by removing your validators instead of leaving them to constantly fail attestations and weaken Holesky's health (since they're no longer online).
 
-   Select `1: All available minipools` from the list of choices and wait for it to complete.
-   This will help clean up the network by removing your validators instead of leaving them to constantly fail attestations and weaken Holesky's health (since they're no longer online).
+      2. Shut down the testnet:
 
-2. Shut down the testnet:
+      ```shell
+      rocketpool service stop
+      ```
 
-   ```
-   rocketpool service stop
-   ```
+      3. Delete your testnet chain data and Docker containers:
 
-3. Delete your testnet chain data and Docker containers:
+      ```shell
+      rocketpool service terminate
+      ```
 
-   ```
-   rocketpool service terminate
-   ```
+      4. Delete your Rocket Pool configuration folder:
 
-4. Delete your Rocket Pool configuration folder:
+      ```shell
+      sudo rm -rf ~/.rocketpool
+      ```
 
-   ```
-   sudo rm -rf ~/.rocketpool
-   ```
+      5. (Optional) Delete your Rocket Pool CLI:
 
-5. (Optional) Delete your Rocket Pool CLI:
-   ```
-   rm ~/bin/rocketpool
-   ```
-   You will overwrite this with the latest version of the CLI anyway, but if you want to be thorough, you can remove the old one first.
+      ```shell
+      rm ~/bin/rocketpool
+      ```
+      You will overwrite this with the latest version of the CLI anyway, but if you want to be thorough, you can remove the old one first.
 
-At this point your testnet installation has been purged, and you can safely migrate to a new mainnet installation.
-Follow the [Creating Node with Docker](../node/docker) guide carefully to set it up.
+      At this point your testnet installation has been purged, and you can safely migrate to a new mainnet installation.
+      Follow the [Creating Node with Docker](../node/docker) guide carefully to set it up.
+    </Tab>
+    <Tab label="Native Mode">
+      1. **While you still have the testnet configured**, exit your validators on Holesky:
 
-::::: tab Native Mode
+      ```shell
+      rocketpool minipool exit
+      ```
 
-1. **While you still have the testnet configured**, exit your validators on Holesky:
+      Select `1: All available minipools` from the list of choices and wait for it to complete.
+      This will help clean up the network by removing your validators instead of leaving them to constantly fail attestations and weaken Holesky's health (since they're no longer online).
 
-   ```
-   rocketpool minipool exit
-   ```
+      2. Stop all of the Rocket Pool and Ethereum services (using, for example, `geth` and `lighthouse`; replace with the services you created during installation):
 
-   Select `1: All available minipools` from the list of choices and wait for it to complete.
-   This will help clean up the network by removing your validators instead of leaving them to constantly fail attestations and weaken Holesky's health (since they're no longer online).
+      ```shell
+      sudo systemctl stop rp-node rp-watchtower geth lh-bn lh-vc
+      ```
 
-2. Stop all of the Rocket Pool and Ethereum services (using, for example, `geth` and `lighthouse`; replace with the services you created during installation):
+      3. Delete all of the testnet chain data (for example, using `geth` and `lighthouse` on x64; replace with your own configuration):
 
-   ```
-   sudo systemctl stop rp-node rp-watchtower geth lh-bn lh-vc
-   ```
+      ```shell
+      sudo rm -rf /srv/geth/geth_data
+      sudo rm -rf /srv/lighthouse/lighthouse_data
+      ```
 
-3. Delete all of the testnet chain data (for example, using `geth` and `lighthouse` on x64; replace with your own configuration):
+      4. Delete the Rocket Pool configuration folder:
 
-   ```
-   sudo rm -rf /srv/geth/geth_data
-   sudo rm -rf /srv/lighthouse/lighthouse_data
-   ```
+      ```shell
+      sudo rm -rf /srv/rocketpool
+      ```
 
-4. Delete the Rocket Pool configuration folder:
+      5. (Optional) Remove the Rocket Pool CLI and Daemon binaries:
+      ```shell
+      sudo rm /usr/local/bin/rocketpool /usr/local/bin/rocketpoold
+      ```
+      You will overwrite these with the latest versions anyway, but if you want to be thorough, you can remove the old ones first.
 
-   ```
-   sudo rm -rf /srv/rocketpool
-   ```
+      <p className="rspress-directive warning">
+        <p className="rspress-directive-title">NOTE</p>
+        For the sake of simplicity, these instructions _do not include_ some steps such as removing the `eth1` and `eth2` users, or removing the services that you stopped earlier.
+        You can reuse them and ignore the steps involved in setting them up in the installation guide.
 
-5. (Optional) Remove the Rocket Pool CLI and Daemon binaries:
-   ```
-   sudo rm /usr/local/bin/rocketpool /usr/local/bin/rocketpoold
-   ```
-   You will overwrite these with the latest versions anyway, but if you want to be thorough, you can remove the old ones first.
+        You will need to redo some of the installation steps including:
 
-::: warning NOTE
-For the sake of simplicity, these instructions _do not include_ some steps such as removing the `eth1` and `eth2` users, or removing the services that you stopped earlier.
-You can reuse them and ignore the steps involved in setting them up in the installation guide.
+        - Create the `/srv/rocketpool` folder and its skeleton framework, and set the permissions properly
+        - Get the latest release versions of the Execution and Consensus, and Validator client binaries
+        - Set the **`ExecStart` string** in the services (**use the mainnet configuration defined in the installation
+        guide!)**
+        - Get the latest CLI and Daemon binaries
+            - Get the latest configuration files from the installer archive, put them into `/srv/rocketpool`, and adjust them to match your node's setup
+      </p>
 
-You will need to redo some of the installation steps including:
-
-- Create the `/srv/rocketpool` folder and its skeleton framework, and set the permissions properly
-- Get the latest release versions of the Execution and Consensus, and Validator client binaries
-- Set the **`ExecStart` string** in the services (**use the mainnet configuration defined in the installation guide!)**
-- Get the latest CLI and Daemon binaries
-- Get the latest configuration files from the installer archive, put them into `/srv/rocketpool`, and adjust them to match your node's setup
-  :::
-
-At this point you're ready to migrate following the [native installation guide](../node/native).
-
-::::::
+      At this point you're ready to migrate following the [native installation guide](../node/native).
+    </Tab>
+  </Tabs>
+</div>

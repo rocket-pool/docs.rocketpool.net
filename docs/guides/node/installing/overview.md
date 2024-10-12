@@ -27,4 +27,4 @@ You'll need one of each in order to run your node, and this section will help yo
 
 [Creating a Standard Rocket Pool Node with Docker](../docker) will walk you through the installation process for **Docker Mode** and **Hybrid Mode**.
 
-[Creating a Native Rocket Pool Node without Docker](../native) will walk you through the installation process for **Native Mode**.
+[Creating a Native Rocket Pool Node without Docker](../native.mdx) will walk you through the installation process for **Native Mode**.
