@@ -30,7 +30,7 @@ Below is an example of the dashboard for Nimbus:
 Operating System and Smartnode updates require the update tracker, which you can install via `rocketpool service install-update-tracker`.
 :::
 
-For information on how to prepare the metrics system and the Smartnode dashboard, please visit the [Monitoring your Node's Performance](../node/performance) and the [Setting up the Grafana Dashboard](../node/grafana) pages of the Smartnode documentation.
+For information on how to prepare the metrics system and the Smartnode dashboard, please visit the [Monitoring your Node's Performance](../node/performance) and the [Setting up the Grafana Dashboard](../node/grafana.mdx) pages of the Smartnode documentation.
 
 ## The Oracle DAO Dashboard
 

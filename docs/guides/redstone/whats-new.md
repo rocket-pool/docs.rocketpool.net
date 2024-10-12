@@ -9,7 +9,7 @@ Please read through this page thoroughly to understand all of the differences be
 For detailed information on how to prepare your node for the upgrade and what to do after the upgrade, please look at the following guides:
 
 - [Guide for Docker Mode](./docker-migration.mdx)
-- [Guide for Hybrid Mode](./hybrid-migration)
+- [Guide for Hybrid Mode](./hybrid-migration.mdx)
 - [Guide for Native Mode](./native-migration.mdx)
   :::
 
@@ -242,5 +242,5 @@ If this happens, you will stop attesting and will see error messages in your log
 For detailed information on how to prepare your node for the upgrade and what to do after the upgrade, please look at the following guides:
 
 - [Guide for Docker Mode](./docker-migration.mdx)
-- [Guide for Hybrid Mode](./hybrid-migration)
+- [Guide for Hybrid Mode](./hybrid-migration.mdx)
 - [Guide for Native Mode](./native-migration.mdx)

@@ -4,7 +4,7 @@ The Smartnode alert notification functionality allows you to receive notificatio
 
 ## Alerting System Overview
 
-The notification functionality utilizes [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) to deliver alerts. Alerting requires that you have already followed the [Setting up the Grafana Dashboard](../grafana) which walks through setting up the Smartnode stack's metrics tracker. The alerts are triggered when important metrics from your Smartnode exceed certain thresholds or when particular events occur like when your node's fee recipient is changed.
+The notification functionality utilizes [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) to deliver alerts. Alerting requires that you have already followed the [Setting up the Grafana Dashboard](../grafana.mdx) which walks through setting up the Smartnode stack's metrics tracker. The alerts are triggered when important metrics from your Smartnode exceed certain thresholds or when particular events occur like when your node's fee recipient is changed.
 
 ## Setting up Discord Notifications
 

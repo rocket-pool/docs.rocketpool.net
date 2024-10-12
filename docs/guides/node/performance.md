@@ -21,7 +21,7 @@ With respect to your machine's status, there are a few useful metrics you'll pro
 
 ::: tip NOTE
 The sections below show you some ways to monitor things, but they require you to be logged into the terminal of your machine.
-There is a better, much more convenient and much nicer-looking method that uses a [Grafana web dashboard](./grafana) but it is still under development.
+There is a better, much more convenient and much nicer-looking method that uses a [Grafana web dashboard](./grafana.mdx) but it is still under development.
 Stay tuned for the completion of that section!
 :::
 

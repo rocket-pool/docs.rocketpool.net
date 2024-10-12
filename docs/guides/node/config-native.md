@@ -121,7 +121,7 @@ The final question in the Wizard will ask you if you want to enable this:
 
 <img src="./images/tui-native-metrics.png" width="100%" height="auto"/>
 
-If you choose to enable it, you will learn more about setting it up and how to use it in the [Setting up the Grafana Dashboard](./grafana) section later in the process.
+If you choose to enable it, you will learn more about setting it up and how to use it in the [Setting up the Grafana Dashboard](./grafana.mdx) section later in the process.
 
 ::: warning NOTE
 All of the data collected by this system **stays on your machine**.

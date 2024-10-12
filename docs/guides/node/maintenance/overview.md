@@ -24,7 +24,7 @@ Before configuring your Smartnode, please make sure you:
 [Monitoring your Node's Performance](../performance) provides some tools and tutorials for keeping tabs on your node's health (from a resource perspective, such as CPU and RAM consumption) and your validators' performance on the Beacon Chain.
 It covers a lot of fundamental tools you'll use during your tenure as an Ethereum validator.
 
-[Setting up the Grafana Dashboard](../grafana) walks through setting up the Smartnode stack's metrics tracker and the Grafana dashboard - a one stop shop for monitoring everything about your node and validators, and a staple in each node operator's arsenal.
+[Setting up the Grafana Dashboard](../grafana.mdx) walks through setting up the Smartnode stack's metrics tracker and the Grafana dashboard - a one stop shop for monitoring everything about your node and validators, and a staple in each node operator's arsenal.
 We _strongly_ recommend exploring the Grafana dashboard and regularly checking in on it.
 
 [Smartnode Stack Alert Notifications](./alerting.md) walks through using the Smartnode alert notification functionality to receive notifications about the health and important events of your Rocket Pool Smartnode.

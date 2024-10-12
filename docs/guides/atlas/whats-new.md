@@ -100,7 +100,7 @@ It comes with the following highly requested features:
 - Room for tracking a second SSD's used space and temperature if you have one for your OS and a different one for your chain data
 - And more!
 
-You can import the new dashboard from the official Grafana service using ID `21863` by following our [Grafana guide](../node/grafana).
+You can import the new dashboard from the official Grafana service using ID `21863` by following our [Grafana guide](../node/grafana.mdx).
 
 This new dashboard was a labor of love that involved extensive help from community member **0xFornax** - thank you for all of your hard work!
 
