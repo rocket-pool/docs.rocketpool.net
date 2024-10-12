@@ -1,3 +1,5 @@
+import { Tab, Tabs } from 'rspress/theme';
+
 # Migrating a 16-ETH Minipool to 8-ETH
 
 Node operators have the ability to **directly migrate** their existing 16-ETH minipools into 8-ETH minipools.
@@ -36,7 +38,7 @@ Upon a successful bond reduction, the minipool's bond amount will be reduced fro
 If you reduce a 16-ETH minipool with a 20% commission, **you will not keep that 20% commission**.
 It will be reduced to the network value (**currently set to a flat 14%**).
 
-Note that as demonstrated by the [example math](./create-validator#rewards) section, an 8-ETH minipool at 14% is _still more profitable_ than a 16-ETH minipool at 20% so holding onto a high commission rate is not a compelling reason to retain a 16 ETH bond.
+Note that as demonstrated by the [example math](./create-validator.mdx#rewards) section, an 8-ETH minipool at 14% is _still more profitable_ than a 16-ETH minipool at 20% so holding onto a high commission rate is not a compelling reason to retain a 16 ETH bond.
 :::
 
 ### Step 1: Beginning Bond Reduction
@@ -94,17 +96,20 @@ Upon accepting the confirmation, the minipool's bond reduction will begin.
 
 Once you've started a bond reduction, you can view how long until it's able to be completed in your `node` daemon logs:
 
-:::::: tabs
-::::: tab Docker and Hybrid Mode
-For **Docker Mode** and **Hybrid Mode** users, this can be done with the following command:
+<div className="p-3">
+  <Tabs>
+    <Tab label="Docker and Hybrid Mode">
+      For **Docker Mode** and **Hybrid Mode** users, this can be done with the following command:
 
-```shell
-rocketpool service logs node
-```
-
-::::: tab Native Mode
-Consult the script you use to review your node daemon's system logs.
-::::::
+      ```shell
+      rocketpool service logs node
+      ```
+    </Tab>
+    <Tab label="Native Mode">
+      Consult the script you use to review your node daemon's system logs.
+    </Tab>
+  </Tabs>
+</div>
 
 You will see a new entry noting how much time is left until the scrub check for your bond reduction is complete:
 
@@ -201,8 +206,7 @@ Your Smartnode is currently using the Zhejiang Test Network.
 === Account and Balances ===
 The node 0x9BA1401Eb7D779eC51f910B066e9C4351cD28911 has a balance of 347.796908 ETH and 16799.835547 RPL.
 The node has 8.000000 ETH in its credit balance, which can be used to make new minipools.
-...
 ```
 
 The bond reduction process has **increased the node's** [deposit credit balance](./credit) by 8 ETH.
-This credit can be used to [make another 8-ETH minipool](./create-validator#depositing-eth-and-creating-a-minipool) for free (no ETH required from the node wallet, except for gas)!
+This credit can be used to [make another 8-ETH minipool](./create-validator.mdx#depositing-eth-and-creating-a-minipool) for free (no ETH required from the node wallet, except for gas)!

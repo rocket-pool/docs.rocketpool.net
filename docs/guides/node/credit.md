@@ -3,7 +3,7 @@
 The deposit credit system is a mechanism to track ETH that was previously bonded by node operators but is no longer required and make it available for use again.
 The source of this credit comes from two places:
 
-- [Migrating an existing 16-ETH bonded minipool down to an 8-ETH bonded minipool](./leb-migration) (which adds 8 ETH to the node operator's credit balance)
+- [Migrating an existing 16-ETH bonded minipool down to an 8-ETH bonded minipool](./leb-migration.mdx) (which adds 8 ETH to the node operator's credit balance)
 - [Migrating an existing solo validator](../node/solo-staker-migration) into a minipool (which adds either 16 or 24 ETH to the node operator's credit balance, depending on which type of minipool they create during migration)
 
 Every node operator begins with a credit balance of **0 ETH**.
@@ -19,7 +19,7 @@ See the [Credit Availability](#credit-availability) section below for more detai
 ## An Example
 
 Say you have a credit balance of 0 ETH, and a single minipool with a 16-ETH bond.
-You can then [migrate that minipool to an 8-ETH bond](./leb-migration).
+You can then [migrate that minipool to an 8-ETH bond](./leb-migration.mdx).
 This will result in **8 ETH** that is no longer bonded.
 That 8 ETH will be placed into your **credit balance**.
 

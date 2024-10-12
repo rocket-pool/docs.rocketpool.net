@@ -18,7 +18,7 @@ Previous versions of the Smartnode stack allowed you to have one client locally 
 For example, you could have an Execution client that the Smartnode manages and connect it to a Consensus client that you manage externaly.
 
 Starting with v1.5, this configuration is no longer supported.
-You'll have to switch to either a locally managed Execution and Consensus client (also known as [Docker Mode](./docker-migration)), or set up both an Execution and a Consensus client that you manage on your own.
+You'll have to switch to either a locally managed Execution and Consensus client (also known as [Docker Mode](./docker-migration.mdx)), or set up both an Execution and a Consensus client that you manage on your own.
 
 ::: tip TIP
 If you are interested in letting the Smartnode maintain its own Execution and Consensus client but want to keep control over your own Validator client (e.g., if you have your own solo staking validator keys attached to it), you may want to consider [Reverse Hybrid Mode](../node/advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode) which does exactly this!

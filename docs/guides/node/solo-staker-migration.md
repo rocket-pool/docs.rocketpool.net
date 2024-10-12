@@ -27,7 +27,7 @@ Rocket Pool minipools enjoy several advantages over conventional solo staking va
 
 - They **earn commission** on the portion of ETH they borrow from the pool stakers (currently either 16 or 24 ETH).
 - Your existing 32 ETH bond could be used to create up to **three additional validators** (on top of the one you already have).
-- They are eligible for participation in the [Smoothing Pool](./fee-distrib-sp#the-smoothing-pool) which pools all Execution layer rewards (e.g., from block proposals and [MEV rewards](./mev)) and fairly distributes them among participants during each rewards interval.
+- They are eligible for participation in the [Smoothing Pool](./fee-distrib-sp#the-smoothing-pool) which pools all Execution layer rewards (e.g., from block proposals and [MEV rewards](./mev.mdx)) and fairly distributes them among participants during each rewards interval.
 - They earn RPL inflation rewards (which currently provide a higher APR than ETH staking rewards).
 
 That being said, there are some differences that are important to highlight:

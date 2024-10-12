@@ -1,3 +1,5 @@
+import { Tab, Tabs } from 'rspress/theme';
+
 # Creating a New Minipool (Validator)
 
 As a reminder, a `minipool` in Rocket Pool terms refers to a unique smart contract instance on the Execution Layer that your node manages.
@@ -109,14 +111,17 @@ confirm the whitelist addition and after the transaction is confirmed, you can t
 
 Select which network you're using from the tabs below to be taken to it:
 
-:::::: tabs
-::::: tab Mainnet
-[https://stake.rocketpool.net/manage/stake-rpl-on-behalf-of-node](https://stake.rocketpool.net/manage/stake-rpl-on-behalf-of-node)
 
-::::: tab Holesky Testnet
-[https://testnet.rocketpool.net/manage/stake-rpl-on-behalf-of-node](https://testnet.rocketpool.net/manage/stake-rpl-on-behalf-of-node)
-
-::::::
+<div className="p-3">
+  <Tabs>
+    <Tab label="Mainnet">
+      [https://stake.rocketpool.net/manage/stake-rpl-on-behalf-of-node](https://stake.rocketpool.net/manage/stake-rpl-on-behalf-of-node)
+    </Tab>
+    <Tab label="Holesky Testnet">
+      [https://testnet.rocketpool.net/manage/stake-rpl-on-behalf-of-node](https://testnet.rocketpool.net/manage/stake-rpl-on-behalf-of-node)
+    </Tab>
+  </Tabs>
+</div>
 
 Start by connecting your wallet to the website using MetaMask, WalletConnect, or any of the other methods the website supports.
 You will then be presented with this dialog to look up your node address.

@@ -1,3 +1,17 @@
+import { Tab, Tabs } from 'rspress/theme';
+import ECSelection from './images/tui-ec-selection.png';
+import tuiExternalEC from './images/tui-external-ec.png';
+import tuiLocalCC from './images/tui-local-cc.png';
+import tuiLocalGraffiti from './images/tui-local-graffiti.png';
+import tuiLocalCheckpoint from './images/tui-local-checkpoint.png';
+import tuiLocalDD from './images/tui-local-dd.png';
+import tuiExternalLH from './images/tui-external-lh.png';
+import tuiExternalGraffiti from './images/tui-external-graffiti.png';
+import tuiExternalDD from './images/tui-external-dd.png';
+import tuiExternalPrysm from './images/tui-external-prysm.png';
+import tuiExternalTeku from './images/tui-external-teku.png';
+
+
 # Configuring the Smartnode Stack (Docker / Hybrid Mode)
 
 Running complete Execution layer and Consensus layer clients can be daunting; there are several options to choose from and each of them has a plethora of different settings.
@@ -97,55 +111,61 @@ You must either choose all locally-managed or all externally-managed.
 
 Choose which mode you'd like to use for managing your Execution client and follow the steps in the corresponding tab below:
 
-:::::: tabs
-::::: tab Locally Managed
 
-If you want the Smartnode to manage an Execution client for you, the next screen will ask you to pick a client:
+<div className="p-3">
+  <Tabs>
+    <Tab label="Locally Managed">
+      If you want the Smartnode to manage an Execution client for you, the next screen will ask you to pick a client:
 
-<img src="./images/tui-ec-selection.png" width="100%" height="auto"/>
+      <img src={ECSelection} width="100%" height="auto"/>
 
-Please refer to the [Choosing your ETH clients](./eth-clients#eth1-clients) section for a description of each option.
-Once you've made your choice, click on the appropriate tab below to learn how to configure it:
+      Please refer to the [Choosing your ETH clients](./eth-clients#eth1-clients) section for a description of each option.
+      Once you've made your choice, click on the appropriate tab below to learn how to configure it:
 
-If you choose **Geth**, **Besu**, or **Nethermind**, the Wizard will handle all of the configuration for you.
-You can manually adjust some of its parameters at the end of this process, but the defaults that it uses are completely appropriate for node operation.
-You can proceed to the next section.
+      If you choose **Geth**, **Besu**, or **Nethermind**, the Wizard will handle all of the configuration for you.
+      You can manually adjust some of its parameters at the end of this process, but the defaults that it uses are completely appropriate for node operation.
+      You can proceed to the next section.
 
-::: warning NOTE
-**Open up the P2P port in your router's port forwarding setup**. Configure it to forward **port 30303** on both TCP and UDP to your machine's local IP address.
-This way, other Consensus clients can discover it and communicate with it from the outside. This will help your Consensus client sync quickly and improve performance (and thus rewards).
 
-Each router has a different way of doing this, so **you'll need to check out your router's manual on how to set up port forwarding**.
-:::
+      <p className="rspress-directive warning">
+        <p className="rspress-directive-title">NOTE</p>
+        **Open up the P2P port in your router's port forwarding setup**. Configure it to forward **port 30303** on both TCP and UDP to your machine's local IP address.
+        This way, other Consensus clients can discover it and communicate with it from the outside. This will help your Consensus client sync quickly and improve performance (and thus rewards).
 
-::: warning NOTE
-Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your Execution client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
-:::
+        Each router has a different way of doing this, so **you'll need to check out your router's manual on how to set up port forwarding**.
+      </p>
 
-And with that, your Execution client is all set!
+      <p className="rspress-directive warning">
+        <p className="rspress-directive-title">NOTE</p>
+        Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
+        You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your Execution client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+      </p>
 
-::::: tab External
+      And with that, your Execution client is all set!
+    </Tab>
+    <Tab label="External">
+      For an externally managed Execution client, the next screen will prompt you for the URLs of its HTTP-based RPC (web3) API and its Websocket-based RPC API:
 
-For an externally managed Execution client, the next screen will prompt you for the URLs of its HTTP-based RPC (web3) API and its Websocket-based RPC API:
+      <img src={tuiExternalEC} width="100%" height="auto"/>
 
-<img src="./images/tui-external-ec.png" width="100%" height="auto"/>
+      The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting transactions.
+      **If you don't already have your client's API port enabled and accessible from your Smartnode machine, you will need to set it up now.**
+      Instructions on this vary from client to client; consult your client's documentation to learn how to set up the HTTP RPC endpoint.
 
-The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting transactions.
-**If you don't already have your client's API port enabled and accessible from your Smartnode machine, you will need to set it up now.**
-Instructions on this vary from client to client; consult your client's documentation to learn how to set up the HTTP RPC endpoint.
+      The Websocket URL is only relevant if you need it for your own usage; the Smartnode does not use it.
+      You can leave it blank if you do not need it.
 
-The Websocket URL is only relevant if you need it for your own usage; the Smartnode does not use it.
-You can leave it blank if you do not need it.
+      <p className="rspress-directive warning">
+        <p className="rspress-directive-title">NOTE</p>
+        Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
+        You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your fallback Execution client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+      </p>
 
-::: warning NOTE
-Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your fallback Execution client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
-:::
+      When you're happy with your fallback Execution client choices, proceed to the next step.
+    </Tab>
+  </Tabs>
+</div>
 
-When you're happy with your fallback Execution client choices, proceed to the next step.
-
-::::::
 
 ### Consensus Client Setup
 
@@ -154,380 +174,396 @@ The "mode" (local or external) will be inherited from the choice you used for yo
 
 Choose which mode you selected earlier from the tabs below:
 
-:::::: tabs
-::::: tab Locally Managed
+<div className="p-3">
+  <Tabs>
+    <Tab label="Locally Managed">
+      If you want the Smartnode to manage a Consensus client for you, the next screen will ask you to pick a client:
 
-If you want the Smartnode to manage a Consensus client for you, the next screen will ask you to pick a client:
+      <img src={tuiLocalCC} width="100%" height="auto"/>
 
-<img src="./images/tui-local-cc.png" width="100%" height="auto"/>
+      **The preferred choice** for the overall health and diversity of the network is the **Random (Recommended)** choice, which will randomly choose among one of the four supported Consensus clients for you.
 
-**The preferred choice** for the overall health and diversity of the network is the **Random (Recommended)** choice, which will randomly choose among one of the four supported Consensus clients for you.
+      If you would prefer to choose an explicit client, please refer to the [Choosing your ETH clients](./eth-clients#eth2-clients) section for a description of each option so you can make an educated decision.
 
-If you would prefer to choose an explicit client, please refer to the [Choosing your ETH clients](./eth-clients#eth2-clients) section for a description of each option so you can make an educated decision.
 
-:::warning NOTE
-There are two conditions that will prompt you with warnings based on client selection:
+      <p className="rspress-directive warning">
+        <p className="rspress-directive-title">NOTE</p>
+        There are two conditions that will prompt you with warnings based on client selection:
 
-- The selected client is currently [a supermajority client](https://clientdiversity.org/), meaning that an unhealthy majority of validators on the Beacon Chain use it which threatens the stability of the network
+        - The selected client is currently [a supermajority client](https://clientdiversity.org/), meaning that an unhealthy majority of validators on the Beacon Chain use it which threatens the stability of the network
 
-- The selected client is **too resource-heavy** for the hardware you're currently using
+        - The selected client is **too resource-heavy** for the hardware you're currently using
 
-If either of those cases is true for your chosen client, you will be warned and asked to choose a different client.
-You have the option of continuing to use the one you selected, but you must be aware of the risks in doing so.
-:::
+        If either of those cases is true for your chosen client, you will be warned and asked to choose a different client.
+        You have the option of continuing to use the one you selected, but you must be aware of the risks in doing so.
+      </p>
 
-Once you've made your choice or have been assigned a random client, click on the appropriate tab below to learn how to configure it:
+      Once you've made your choice or have been assigned a random client, click on the appropriate tab below to learn how to configure it:
 
-^^^^^^ nestedTabs
-::::nestedTab Lighthouse
+      <div className="p-3">
+        <Tabs>
+          <Tab label="Lighthouse">
+            The first option in Lighthouse's configuration will ask about your validator's **graffiti** message:
 
-The first option in Lighthouse's configuration will ask about your validator's **graffiti** message:
+            <img src={tuiLocalGraffiti} width="100%" height="auto"/>
 
-<img src="./images/tui-local-graffiti.png" width="100%" height="auto"/>
+            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
+            The message will be preserved forever, so think of it like a fun little way to leave your mark!
 
-This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            **Note the maximum length of the graffiti is 16 characters.**
 
-**Note the maximum length of the graffiti is 16 characters.**
+            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
 
-If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            Next up is an option to enable or disable **Checkpoint Sync**:
 
-Next up is an option to enable or disable **Checkpoint Sync**:
+            <img src={tuiLocalCheckpoint} width="100%" height="auto"/>
 
-<img src="./images/tui-local-checkpoint.png" width="100%" height="auto"/>
+            Lighthouse has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
+            This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
+            Take a look at [their documentation on checkpoint syncing](https://lighthouse-book.sigmaprime.io/checkpoint-sync.html) for more information if you are curious.
 
-Lighthouse has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
-This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-Take a look at [their documentation on checkpoint syncing](https://lighthouse-book.sigmaprime.io/checkpoint-sync.html) for more information if you are curious.
+            You can enter the URL of any Beacon Node that provides access to its REST API here.
 
-You can enter the URL of any Beacon Node that provides access to its REST API here.
+            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
 
-See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            The final question will ask if you want to enable Doppelgänger Protection:
 
-The final question will ask if you want to enable Doppelgänger Protection:
+            <img src={tuiLocalDD} width="100%" height="auto"/>
 
-<img src="./images/tui-local-dd.png" width="100%" height="auto"/>
+            Lighthouse supports a feature called [Doppelgänger Detection](https://lighthouse-book.sigmaprime.io/validator-doppelganger.html).
+            In a nutshell, this feature will **intentionally** miss a few attestations after Lighthouse's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
 
-Lighthouse supports a feature called [Doppelgänger Detection](https://lighthouse-book.sigmaprime.io/validator-doppelganger.html).
-In a nutshell, this feature will **intentionally** miss a few attestations after Lighthouse's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
+            After its short waiting period, Lighthouse would start validating normally.
 
-Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-After its short waiting period, Lighthouse would start validating normally.
+            _However_, if there _is_ another machine running with your validator keys attached, then Lighthouse will immediately shut down and issue an error message in its log files.
+            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
+            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
 
-_However_, if there _is_ another machine running with your validator keys attached, then Lighthouse will immediately shut down and issue an error message in its log files.
-The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
+            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
 
-Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
 
-Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            Starting on version 4.5.0 Lighthouse has an option to establish P2P connections in a more efficient way using the [QUIC protocol](https://en.wikipedia.org/wiki/QUIC). If you are willing to use this feature you'll need to define an extra port "P2P QUIC port" field on the ETH2 settings, and forward it to your node in your router's port forwarding setup. The default P2P QUIC port is 8001 (UDP). Make sure to avoid collisions with ports already in use by your node (or fallback/testnet nodes). Also make sure the same port is open if you're using a firewall on your node (check `ufw status`).
+            To check if the QUIC configuration is working you should see a 2-digit number after `libp2p_quic_peers` when running `docker run --network rocketpool_net curlimages/curl http://eth2:9100/metrics | grep libp2p_peers_multi`.
 
-Starting on version 4.5.0 Lighthouse has an option to establish P2P connections in a more efficient way using the [QUIC protocol](https://en.wikipedia.org/wiki/QUIC). If you are willing to use this feature you'll need to define an extra port "P2P QUIC port" field on the ETH2 settings, and forward it to your node in your router's port forwarding setup. The default P2P QUIC port is 8001 (UDP). Make sure to avoid collisions with ports already in use by your node (or fallback/testnet nodes). Also make sure the same port is open if you're using a firewall on your node (check `ufw status`).
-To check if the QUIC configuration is working you should see a 2-digit number after `libp2p_quic_peers` when running `docker run --network rocketpool_net curlimages/curl http://eth2:9100/metrics | grep libp2p_peers_multi`.
+          </Tab>
+          <Tab label="Nimbus">
+            The first option in Nimbus's configuration will ask about your validator's **graffiti** message:
 
-::::nestedTab Nimbus
+            <img src={tuiLocalGraffiti} width="100%" height="auto"/>
 
-The first option in Nimbus's configuration will ask about your validator's **graffiti** message:
+            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
+            The message will be preserved forever, so think of it like a fun little way to leave your mark!
 
-<img src="./images/tui-local-graffiti.png" width="100%" height="auto"/>
+            **Note the maximum length of the graffiti is 16 characters.**
 
-This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
 
-**Note the maximum length of the graffiti is 16 characters.**
+            Next up is an option to enable or disable **Checkpoint Sync**:
 
-If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            <img src={tuiLocalCheckpoint} width="100%" height="auto"/>
 
-Next up is an option to enable or disable **Checkpoint Sync**:
+            Nimbus has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
+            This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
+            Take a look at [their documentation on checkpoint syncing](https://nimbus.guide/trusted-node-sync.html) for more information if you are curious.
 
-<img src="./images/tui-local-checkpoint.png" width="100%" height="auto"/>
+            You can enter the URL of any Beacon Node that provides access to its REST API here.
 
-Nimbus has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
-This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-Take a look at [their documentation on checkpoint syncing](https://nimbus.guide/trusted-node-sync.html) for more information if you are curious.
+            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
 
-You can enter the URL of any Beacon Node that provides access to its REST API here.
+            The final question will ask if you want to enable Doppelgänger Protection:
 
-See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            <img src={tuiLocalDD} width="100%" height="auto"/>
 
-The final question will ask if you want to enable Doppelgänger Protection:
+            Nimbus supports a feature called [Doppelgänger Protection](https://nimbus.guide/faq.html#why-does-my-validator-miss-two-epochs-of-attestations-after-restarting).
+            In a nutshell, this feature will **intentionally** miss a few attestations after Nimbus restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
 
-<img src="./images/tui-local-dd.png" width="100%" height="auto"/>
+            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
+            After its short waiting period, Nimbus would start validating normally.
 
-Nimbus supports a feature called [Doppelgänger Protection](https://nimbus.guide/faq.html#why-does-my-validator-miss-two-epochs-of-attestations-after-restarting).
-In a nutshell, this feature will **intentionally** miss a few attestations after Nimbus restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            _However_, if there _is_ another machine running with your validator keys attached, then Nimbus will immediately shut down and issue an error message in its log files.
+            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
+            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
 
-Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-After its short waiting period, Nimbus would start validating normally.
+            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
+            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
 
-_However_, if there _is_ another machine running with your validator keys attached, then Nimbus will immediately shut down and issue an error message in its log files.
-The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
 
-Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+          </Tab>
+          <Tab label="Prysm">
+            The first option in Prysm's configuration will ask about your validator's **graffiti** message:
 
-Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            <img src={tuiLocalGraffiti} width="100%" height="auto"/>
 
-::::nestedTab Prysm
+            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
+            The message will be preserved forever, so think of it like a fun little way to leave your mark!
 
-The first option in Prysm's configuration will ask about your validator's **graffiti** message:
+            **Note the maximum length of the graffiti is 16 characters.**
 
-<img src="./images/tui-local-graffiti.png" width="100%" height="auto"/>
+            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
 
-This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            Next up is an option to enable or disable **Checkpoint Sync**:
 
-**Note the maximum length of the graffiti is 16 characters.**
+            <img src={tuiLocalCheckpoint} width="100%" height="auto"/>
 
-If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            Prysm has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
+            This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
+            Take a look at [their documentation on checkpoint syncing](https://docs.prylabs.network/docs/prysm-usage/checkpoint-sync) for more information if you are curious.
 
-Next up is an option to enable or disable **Checkpoint Sync**:
+            You can enter the URL of any Beacon Node that provides access to its REST API here.
 
-<img src="./images/tui-local-checkpoint.png" width="100%" height="auto"/>
+            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
 
-Prysm has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
-This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-Take a look at [their documentation on checkpoint syncing](https://docs.prylabs.network/docs/prysm-usage/checkpoint-sync) for more information if you are curious.
+            The final question will ask if you want to enable Doppelgänger Protection:
 
-You can enter the URL of any Beacon Node that provides access to its REST API here.
+            <img src={tuiLocalDD} width="100%" height="auto"/>
 
-See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            Prysm supports a feature called Doppelgänger Protection.
+            In a nutshell, this feature will **intentionally** miss a few attestations after Prysm's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
 
-The final question will ask if you want to enable Doppelgänger Protection:
+            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
+            After its short waiting period, Prysm would start validating normally.
 
-<img src="./images/tui-local-dd.png" width="100%" height="auto"/>
+            _However_, if there _is_ another machine running with your validator keys attached, then Prysm will immediately shut down and issue an error message in its log files.
+            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
+            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
 
-Prysm supports a feature called Doppelgänger Protection.
-In a nutshell, this feature will **intentionally** miss a few attestations after Prysm's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
+            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
 
-Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-After its short waiting period, Prysm would start validating normally.
+            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
 
-_However_, if there _is_ another machine running with your validator keys attached, then Prysm will immediately shut down and issue an error message in its log files.
-The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+          </Tab>
+          <Tab label="Teku">
+            The first option in Teku's configuration will ask about your validator's **graffiti** message:
 
-Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            <img src={tuiLocalGraffiti} width="100%" height="auto"/>
 
-Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
+            The message will be preserved forever, so think of it like a fun little way to leave your mark!
 
-::::nestedTab Teku
+            **Note the maximum length of the graffiti is 16 characters.**
 
-The first option in Teku's configuration will ask about your validator's **graffiti** message:
+            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
 
-<img src="./images/tui-local-graffiti.png" width="100%" height="auto"/>
+            The final question is an option to enable or disable **Checkpoint Sync**:
 
-This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            <img src={tuiLocalCheckpoint} width="100%" height="auto"/>
 
-**Note the maximum length of the graffiti is 16 characters.**
+            Teku has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
+            This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
+            Take a look at [their documentation on checkpoint syncing](https://docs.teku.consensys.net/en/latest/HowTo/Get-Started/Checkpoint-Start/) for more information if you are curious.
 
-If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            You can enter the URL of any Beacon Node that provides access to its REST API here.
 
-The final question is an option to enable or disable **Checkpoint Sync**:
+            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+          </Tab>
+          <Tab label="Lodestar">
+            The first option in Lodestar's configuration will ask about your validator's **graffiti** message:
 
-<img src="./images/tui-local-checkpoint.png" width="100%" height="auto"/>
+            <img src={tuiLocalGraffiti} width="100%" height="auto"/>
 
-Teku has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
-This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-Take a look at [their documentation on checkpoint syncing](https://docs.teku.consensys.net/en/latest/HowTo/Get-Started/Checkpoint-Start/) for more information if you are curious.
+            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
+            The message will be preserved forever, so think of it like a fun little way to leave your mark!
 
-You can enter the URL of any Beacon Node that provides access to its REST API here.
+            **Note the maximum length of the graffiti is 16 characters.**
 
-See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
 
-::::nestedTab Lodestar
+            Next up is an option to enable or disable **Checkpoint Sync**:
 
-The first option in Lodestar's configuration will ask about your validator's **graffiti** message:
+            <img src={tuiLocalCheckpoint} width="100%" height="auto"/>
 
-<img src="./images/tui-local-graffiti.png" width="100%" height="auto"/>
+            Lodestar has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
+            This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
+            Take a look at [their documentation on checkpoint syncing](https://chainsafe.github.io/lodestar/run/beacon-management/starting-a-node#checkpoint-sync) for more information if you are curious.
 
-This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            You can enter the URL of any Beacon Node that provides access to its REST API here.
 
-**Note the maximum length of the graffiti is 16 characters.**
+            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
 
-If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            The final question will ask if you want to enable Doppelgänger Protection:
 
-Next up is an option to enable or disable **Checkpoint Sync**:
+            <img src={tuiLocalDD} width="100%" height="auto"/>
 
-<img src="./images/tui-local-checkpoint.png" width="100%" height="auto"/>
+            Lodestar supports a feature called Doppelgänger Detection.
+            In a nutshell, this feature will **intentionally** miss a few attestations after Lodestar's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
 
-Lodestar has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
-This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-Take a look at [their documentation on checkpoint syncing](https://chainsafe.github.io/lodestar/run/beacon-management/starting-a-node#checkpoint-sync) for more information if you are curious.
+            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
+            After its short waiting period, Lodestar would start validating normally.
 
-You can enter the URL of any Beacon Node that provides access to its REST API here.
+            _However_, if there _is_ another machine running with your validator keys attached, then Lodestar will immediately shut down and issue an error message in its log files.
+            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
+            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
 
-See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
+            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
 
-The final question will ask if you want to enable Doppelgänger Protection:
+            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
 
-<img src="./images/tui-local-dd.png" width="100%" height="auto"/>
+          </Tab>
+        </Tabs>
+      </div>
 
-Lodestar supports a feature called Doppelgänger Detection.
-In a nutshell, this feature will **intentionally** miss a few attestations after Lodestar's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+      <p className="rspress-directive warning">
+        <p className="rspress-directive-title">NOTE</p>
+        **Open up the P2P port in your router's port forwarding setup**. Configure it to forward **port 9001** on both TCP and UDP to your machine's local IP address.
+        This way, other Consensus clients can discover it and communicate with it from the outside. This will help your Consensus client sync quickly and improve performance (and thus rewards).
 
-Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-After its short waiting period, Lodestar would start validating normally.
+        Each router has a different way of doing this, so **you'll need to check out your router's manual on how to set up port forwarding**
+      </p>
+    </Tab>
+    <Tab label="Externally Managed">
+      Because each Consensus client has slightly different behavior, the Smartnode needs to know which one you're using externally so it can adapt its own behavior accordingly.
+      Start by choosing which client you have from the list in the next screen:
 
-_However_, if there _is_ another machine running with your validator keys attached, then Lodestar will immediately shut down and issue an error message in its log files.
-The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+      <img src="./images/tui-external-cc.png" width="100%" height="auto"/>
 
-Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
 
-Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+      <p className="rspress-directive warning">
+        <p className="rspress-directive-title">NOTE</p>
+        At this time, **Nimbus** is not compatible with External mode because it cannot run as a standalone Validator Container (VC) yet.
+        When the client supports this feature, it will be added to the list here.
+      </p>
 
-^^^^^^
+      Select your client from the tabs below to learn how to finish configuring it.
 
-::: warning NOTE
-**Open up the P2P port in your router's port forwarding setup**. Configure it to forward **port 9001** on both TCP and UDP to your machine's local IP address.
-This way, other Consensus clients can discover it and communicate with it from the outside. This will help your Consensus client sync quickly and improve performance (and thus rewards).
+      <div className="p-3">
+        <Tabs>
+          <Tab label="Lighthouse">
+            Start by specifying the URL for your Lighthouse Beacon Node's API:
 
-Each router has a different way of doing this, so **you'll need to check out your router's manual on how to set up port forwarding**.
-:::
+            <img src={tuiExternalLH} width="100%" height="auto"/>
 
-::::: tab Externally Managed
+            The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
+            **If you don't already have the API port enabled and accessible from your Smartnode machine, you will need to set it up now.**
+            See [Lighthouse's documentation](https://lighthouse-book.sigmaprime.io/api-bn.html) for instructions on how to do this.
 
-Because each Consensus client has slightly different behavior, the Smartnode needs to know which one you're using externally so it can adapt its own behavior accordingly.
-Start by choosing which client you have from the list in the next screen:
+            <p className="rspress-directive warning">
+              <p className="rspress-directive-title">NOTE</p>
+              Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
+              You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+            </p>
 
-<img src="./images/tui-external-cc.png" width="100%" height="auto"/>
 
-::: warning NOTE
-At this time, **Nimbus** is not compatible with External mode because it cannot run as a standalone Validator Container (VC) yet.
-When the client supports this feature, it will be added to the list here.
-:::
+            Next, it will ask about your validator's **graffiti** message:
 
-Select your client from the tabs below to learn how to finish configuring it.
+            <img src={tuiExternalGraffiti} width="100%" height="auto"/>
 
-^^^^^^ nestedTabs
-::::nestedTab Lighthouse
+            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
+            The message will be preserved forever, so think of it like a fun little way to leave your mark!
 
-Start by specifying the URL for your Lighthouse Beacon Node's API:
+            **Note the maximum length of the graffiti is 16 characters.**
 
-<img src="./images/tui-external-lh.png" width="100%" height="auto"/>
+            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
 
-The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
-**If you don't already have the API port enabled and accessible from your Smartnode machine, you will need to set it up now.**
-See [Lighthouse's documentation](https://lighthouse-book.sigmaprime.io/api-bn.html) for instructions on how to do this.
+            The final question will ask if you want to enable Doppelgänger Protection:
 
-::: warning NOTE
-Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
-:::
+            <img src={tuiExternalDD} width="100%" height="auto"/>
 
-Next, it will ask about your validator's **graffiti** message:
+            Lighthouse supports a feature called [Doppelgänger Detection](https://lighthouse-book.sigmaprime.io/validator-doppelganger.html).
+            In a nutshell, this feature will **intentionally** miss a few attestations after Lighthouse's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
 
-<img src="./images/tui-external-graffiti.png" width="100%" height="auto"/>
+            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
+            After its short waiting period, Lighthouse would start validating normally.
 
-This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            _However_, if there _is_ another machine running with your validator keys attached, then Lighthouse will immediately shut down and issue an error message in its log files.
+            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
+            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
 
-**Note the maximum length of the graffiti is 16 characters.**
+            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
+            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
 
-If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
 
-The final question will ask if you want to enable Doppelgänger Protection:
+          </Tab>
+          <Tab label="Prysm">
+            Start by specifying the URL for your Prysm Beacon Node's API and the URL for its JSON-RPC API:
 
-<img src="./images/tui-external-dd.png" width="100%" height="auto"/>
+            <img src={tuiExternalPrysm} width="100%" height="auto"/>
 
-Lighthouse supports a feature called [Doppelgänger Detection](https://lighthouse-book.sigmaprime.io/validator-doppelganger.html).
-In a nutshell, this feature will **intentionally** miss a few attestations after Lighthouse's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
+            It will prepare its Prysm Validator Client with the JSON-RPC URL so it can communicate with your Beacon Node, as _Prysm's Validator Client currently cannot work over the HTTP API._
 
-Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-After its short waiting period, Lighthouse would start validating normally.
+            **If you don't already have the API ports enabled and accessible from your Smartnode machine, you will need to set them up now.**
+            See [Prysm's documentation](https://docs.prylabs.network/docs/prysm-usage/parameters) for instructions on how to do this.
+            **You will need the `grpc-gateway` _and_ the `rpc-host` enabled.**
 
-_However_, if there _is_ another machine running with your validator keys attached, then Lighthouse will immediately shut down and issue an error message in its log files.
-The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            <p className="rspress-directive warning">
+              <p className="rspress-directive-title">NOTE</p>
+              Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
+              You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+            </p>
 
-Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
 
-Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            Next, it will ask about your validator's **graffiti** message:
 
-::::nestedTab Prysm
+            <img src={tuiExternalGraffiti} width="100%" height="auto"/>
 
-Start by specifying the URL for your Prysm Beacon Node's API and the URL for its JSON-RPC API:
+            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
+            The message will be preserved forever, so think of it like a fun little way to leave your mark!
 
-<img src="./images/tui-external-prysm.png" width="100%" height="auto"/>
+            **Note the maximum length of the graffiti is 16 characters.**
 
-The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
-It will prepare its Prysm Validator Client with the JSON-RPC URL so it can communicate with your Beacon Node, as _Prysm's Validator Client currently cannot work over the HTTP API._
+            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
 
-**If you don't already have the API ports enabled and accessible from your Smartnode machine, you will need to set them up now.**
-See [Prysm's documentation](https://docs.prylabs.network/docs/prysm-usage/parameters) for instructions on how to do this.
-**You will need the `grpc-gateway` _and_ the `rpc-host` enabled.**
+            The final question will ask if you want to enable Doppelgänger Protection:
 
-::: warning NOTE
-Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
-:::
+            <img src={tuiExternalDD} width="100%" height="auto"/>
 
-Next, it will ask about your validator's **graffiti** message:
+            Prysm supports a feature called Doppelgänger Protection.
+            In a nutshell, this feature will **intentionally** miss a few attestations after Prysm's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
 
-<img src="./images/tui-external-graffiti.png" width="100%" height="auto"/>
+            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
+            After its short waiting period, Prysm would start validating normally.
 
-This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            _However_, if there _is_ another machine running with your validator keys attached, then Prysm will immediately shut down and issue an error message in its log files.
+            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
+            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
 
-**Note the maximum length of the graffiti is 16 characters.**
+            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
+            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
 
-If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
 
-The final question will ask if you want to enable Doppelgänger Protection:
+          </Tab>
+          <Tab label="Teku">
+            Start by specifying the URL for your Teku Beacon Node's API:
 
-<img src="./images/tui-external-dd.png" width="100%" height="auto"/>
+            <img src={tuiExternalTeku} width="100%" height="auto"/>
 
-Prysm supports a feature called Doppelgänger Protection.
-In a nutshell, this feature will **intentionally** miss a few attestations after Prysm's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
+            **If you don't already have the API port enabled and accessible from your Smartnode machine, you will need to set it up now.**
+            See [Teku's documentation](https://docs.teku.consensys.net/en/latest/Reference/CLI/CLI-Syntax/#rest-api-enabled) for instructions on how to do this.
 
-Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-After its short waiting period, Prysm would start validating normally.
 
-_However_, if there _is_ another machine running with your validator keys attached, then Prysm will immediately shut down and issue an error message in its log files.
-The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            <p className="rspress-directive warning">
+              <p className="rspress-directive-title">NOTE</p>
+              Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
+              You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+            </p>
 
-Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            Next, it will ask about your validator's **graffiti** message:
 
-Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            <img src={tuiExternalGraffiti} width="100%" height="auto"/>
 
-::::nestedTab Teku
+            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
+            The message will be preserved forever, so think of it like a fun little way to leave your mark!
 
-Start by specifying the URL for your Teku Beacon Node's API:
+            **Note the maximum length of the graffiti is 16 characters.**
 
-<img src="./images/tui-external-teku.png" width="100%" height="auto"/>
+            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+          </Tab>
 
-The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
-**If you don't already have the API port enabled and accessible from your Smartnode machine, you will need to set it up now.**
-See [Teku's documentation](https://docs.teku.consensys.net/en/latest/Reference/CLI/CLI-Syntax/#rest-api-enabled) for instructions on how to do this.
+        </Tabs>
+      </div>
+    </Tab>
+  </Tabs>
+</div>
 
-::: warning NOTE
-Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
-:::
-
-Next, it will ask about your validator's **graffiti** message:
-
-<img src="./images/tui-external-graffiti.png" width="100%" height="auto"/>
-
-This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-The message will be preserved forever, so think of it like a fun little way to leave your mark!
-
-**Note the maximum length of the graffiti is 16 characters.**
-
-If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
-
-^^^^^^
-::::::
 
 #### Beacon Chain Checkpoint Syncing
 

@@ -120,4 +120,4 @@ Since the node operator has 8 ETH in credit, creating this 8-ETH minipool is fre
 :::
 
 That's all there is to it!
-The rest of the process is the same as [the usual minipool creation instructions](../node/create-validator).
+The rest of the process is the same as [the usual minipool creation instructions](../node/create-validator.mdx).

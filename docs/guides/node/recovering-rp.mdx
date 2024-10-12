@@ -1,3 +1,5 @@
+import { Tab, Tabs } from 'rspress/theme';
+
 # Importing / Recovering an Existing Wallet
 
 If you already have a wallet you'd like to use for your node, or if you're recovering a wallet you already created with the Smartnode earlier, this guide will help you through the import / recovery process.
@@ -90,25 +92,28 @@ If you use Allnodes, you can get these files during your initial setup process b
 
 Select your installation mode and follow the steps below.
 
-:::::: tabs
-::::: tab Docker and Hybrid Mode
-First, ensure you've started the Smartnode with `rocketpool service start`.
-This will create a special folder that can be used to hold the encrypted keystore files for your validators.
 
-By default, the folder is located in `~/.rocketpool/data/custom-keys`.
-If you've customized your installation or data directories, substitute appropriately to find the `custom-keys` folder.
+<div className="p-3">
+  <Tabs>
+    <Tab label="Docker and Hybrid Mode">
+      First, ensure you've started the Smartnode with `rocketpool service start`.
+      This will create a special folder that can be used to hold the encrypted keystore files for your validators.
 
-Check with a file explorer or the `ls` command to make sure this folder exists.
-If not, no worries - just make the folder with the following command:
+      By default, the folder is located in `~/.rocketpool/data/custom-keys`.
+      If you've customized your installation or data directories, substitute appropriately to find the `custom-keys` folder.
 
-```shell
-mkdir ~/.rocketpool/data/custom-keys
-```
+      Check with a file explorer or the `ls` command to make sure this folder exists.
+      If not, no worries - just make the folder with the following command:
 
-::::: tab Native Mode
-Create a folder called `custom-keys` inside of your Smartnode's `data` folder (for example, `/srv/rocketpool/data/custom-keys`).
-
-::::::
+      ```shell
+      mkdir ~/.rocketpool/data/custom-keys
+      ```
+    </Tab>
+    <Tab label="Native Mode">
+      Create a folder called `custom-keys` inside of your Smartnode's `data` folder (for example, `/srv/rocketpool/data/custom-keys`).
+    </Tab>
+  </Tabs>
+</div>
 
 Next, place each of the validator keystore files into this folder.
 The names of the files don't matter, but they must be JSON files that conform to the [EIP-2335](https://eips.ethereum.org/EIPS/eip-2335#scrypt-test-vector) format.

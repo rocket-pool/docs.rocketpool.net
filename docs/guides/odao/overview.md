@@ -13,7 +13,7 @@ This includes things such as:
 - Shuttling information from the Beacon Chain to the Execution Layer, including validator status and balances
 - Ensuring minipools are created using validator public keys that aren't already in use, and [have the proper withdrawal credentials](https://github.com/rocket-pool/rocketpool-research/blob/master/Reports/withdrawal-creds-exploit) so the protocol can safely fund them
 - Constructing the rewards Merkle tree at the end of each rewards period and uploading it to IPFS for other node operators to access
-- Monitoring proposals for compliance with Rocket Pool's [fee recipient requirements](../node/mev)
+- Monitoring proposals for compliance with Rocket Pool's [fee recipient requirements](../node/mev.mdx)
 - Proposing and voting on modifications to the core protocol, including changing parameters and approving contract upgrades
 - Proposing and voting on the Oracle DAO roster, including inviting and removing other Oracle DAO members
 

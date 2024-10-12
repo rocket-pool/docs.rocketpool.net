@@ -5,7 +5,7 @@ If so, then you are ready to register your node on the Rocket Pool network and c
 If not, please review the previous sections and return here once you've completed those steps.
 
 Before creating a new minipool and validator, there are a few steps to take to finish preparing your node.
-These only need to be done once though; once you've done them, you can skip to the [Creating a New Minipool](./create-validator) section if you want to create multiple minipools on your node.
+These only need to be done once though; once you've done them, you can skip to the [Creating a New Minipool](./create-validator.mdx) section if you want to create multiple minipools on your node.
 
 ## Loading your Node Wallet
 

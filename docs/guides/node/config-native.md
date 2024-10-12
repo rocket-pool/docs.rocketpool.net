@@ -137,7 +137,7 @@ Starting with Smartnode v1.7.0, MEV is now _opt-out_ so a notification about con
 
 <img src="./images/tui-native-mev.png" width="100%" height="auto"/>
 
-[Please read our MEV guide to learn more about MEV, its configuration, and what to do in this section of the wizard.](./mev)
+[Please read our MEV guide to learn more about MEV, its configuration, and what to do in this section of the wizard.](./mev.mdx)
 Return here when you're finished.
 
 ### Completion

@@ -339,7 +339,7 @@ This command will let you deposit ETH and create a new minipool (a new Ethereum 
 You will be prompted with the expected gas cost for the transaction and one final confirmation dialog.
 If you accept, your ETH deposit will be processed and you will create a new minipool (and a corresponding Ethereum validator).
 
-(For more information, see the next section on [Creating a Minipool](./create-validator)).
+(For more information, see the next section on [Creating a Minipool](./create-validator.mdx)).
 
 ### `claim-rewards`
 

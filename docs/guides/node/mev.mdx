@@ -1,15 +1,22 @@
+import { Tab, Tabs } from 'rspress/theme';
+import tuiMeVBoost from './images/tui-mev-boost.png';
+import tuiMeVBoostMain from './images/tui-mev-boost-main.png';
+import mevBoostIntegrationOverview from './images/mev-boost-integration-overview.png';
+
 # MEV, MEV-Boost, and MEV Rewards
 
 In the previous section, you learned about how node operators earn priority fees.
 Priority fees are a great boost to a node operator's income, but they aren't the _only_ form of liquid reward available to you on the Execution layer.
 There is a supplemental form of rewards available, known as **MEV rewards**.
 
-::: tip NOTE
+
+:::tip NOTE
 As a quick reminder here's a breakdown of the different types of rewards and which layer they're provided on:
 
 - Consensus Layer (locked until withdrawals): attestations, block proposals, sync committees, slashing reports
 - Execution Layer (liquid): priority fees and MEV from block proposals
-  :::
+
+:::
 
 ## What is MEV
 
@@ -68,7 +75,8 @@ More information can be found in articles such as these:
 - [https://www.coindesk.com/tech/2022/08/23/as-censorship-on-ethereum-begins-could-this-open-sourced-code-help-counter-it/](https://www.coindesk.com/tech/2022/08/23/as-censorship-on-ethereum-begins-could-this-open-sourced-code-help-counter-it/)
 - [https://blog.bitmex.com/ofac-sanctions-ethereum-pos-some-technical-nuances/](https://blog.bitmex.com/ofac-sanctions-ethereum-pos-some-technical-nuances/)
 - [https://www.paradigm.xyz/2022/09/base-layer-neutrality](https://www.paradigm.xyz/2022/09/base-layer-neutrality)
-  :::
+
+:::
 
 If you're interested in exploring the relative market share and average tips per block from each of the relays, take a look at [https://www.mevboost.org/](https://www.mevboost.org/).
 This site captures many metrics about the various MEV relays so you can better understand the popularity and returns of the relays.
@@ -85,7 +93,7 @@ MEV-Boost is [open source](https://github.com/flashbots/mev-boost) and has been 
 
 Below is a good visual depiction of how the entire MEV ecosystem functions, and where MEV-Boost fits in:
 
-<img src="./images/mev-boost-integration-overview.png" width="100%" height="auto"/>
+<img src={mevBoostIntegrationOverview} width="100%" height="auto"/>
 
 _Image courtesy of Flashbots_
 
@@ -107,7 +115,7 @@ The second point here is important: Rocket Pool as a protocol will ultimately re
 
 Each of the relays listed above currently act in this role.
 
-We are taking a three-phase approach towards tranistioning to the Trusted Block Builder design:
+We are taking a three-phase approach towards transitioning to the Trusted Block Builder design:
 
 ### Phase 1: Opt-In!
 
@@ -136,98 +144,103 @@ There is currently **no scheduled date** for this phase.
 
 To learn how to configure MEV-Boost, please select which mode you are using below.
 
-:::::: tabs
-::::: tab Docker Mode
-Configuring MEV-Boost is easy with the Smartnode's configuration TUI.
-Start by running `rocketpool service config` and navigate to the `MEV-Boost` option:
 
-<img src="./images/tui-mev-boost.png" width="100%" height="auto"/>
+<div className="p-3">
+  <Tabs>
+    <Tab label="Docker Mode">
+      Configuring MEV-Boost is easy with the Smartnode's configuration TUI.
+      Start by running `rocketpool service config` and navigate to the `MEV-Boost` option:
 
-Check the box labeled `Enable MEV-Boost` to enable it.
+      <img src={tuiMeVBoost} width="100%" height="auto"/>
 
-Once enabled, The screen will look like this (_as of Smartnode v1.7.0_):
+      Check the box labeled `Enable MEV-Boost` to enable it.
 
-<img src="./images/tui-mev-boost-main.png" width="100%" height="auto"/>
+      Once enabled, The screen will look like this (_as of Smartnode v1.7.0_):
 
-Below is a description of each option and how to use them.
+      <img src={tuiMeVBoostMain} width="100%" height="auto"/>
 
-- The `MEV-Boost Mode` box lets you toggle between a MEV-Boost instance that Rocket Pool manages, and an external one that you manage on your own. This is meant for advanced users that already have MEV-Boost set up and simply want to use it instead of having Rocket Pool run a second copy. Regular Docker Mode users should just leave this set to `Locally Managed`.
+      Below is a description of each option and how to use them.
 
-- The `Selection Mode` box lets you switch between **Profile Mode** and **Relay Mode**.
+      - The `MEV-Boost Mode` box lets you toggle between a MEV-Boost instance that Rocket Pool manages, and an external one that you manage on your own. This is meant for advanced users that already have MEV-Boost set up and simply want to use it instead of having Rocket Pool run a second copy. Regular Docker Mode users should just leave this set to `Locally Managed`.
 
-  - **Profile Mode** is the default. It lets you select which relays to enable based on their "profiles". A relay's profile is made of the following choices:
-    - Whether it's **regulated** (complies with government sanctions lists such as the OFAC list and blacklists certain addresses) or **unregulated** (_does not_ censor any transactions based on any blacklists)
-    - Whether it **allows all types of MEV** or explicitly prohibits bundles that involve sandwich attacks or front-running Ethereum users
-  - You can **select multiple profiles**.
-  - Each profile you select has a set of relays that adhere to it which are listed in the description box; enabling that profile will enable all of those relays.
-  - Advanced users can change this to **Relay Mode**, which lets them explicitly select which relays they would like to use.
+      - The `Selection Mode` box lets you switch between **Profile Mode** and **Relay Mode**.
 
-- The `Port` box is not important for Docker mode users.
-- The `Expose API Port` box is not important for Docker mode users.
-- The `Container Tag` box is useful to manually upgrade the version of MEV-Boost that the Smartnode runs if Flashbots releases a new high-priority version you want to use before a Smartnode update with it is released.
-- The `Additional Flags` box is used if you want to add supplemental config flags or parameters directly to the MEV-Boost container. Normally, it will not be useful.
+      - **Profile Mode** is the default. It lets you select which relays to enable based on their "profiles". A relay's profile is made of the following choices:
+      - Whether it's **regulated** (complies with government sanctions lists such as the OFAC list and blacklists certain addresses) or **unregulated** (_does not_ censor any transactions based on any blacklists)
+      - Whether it **allows all types of MEV** or explicitly prohibits bundles that involve sandwich attacks or front-running Ethereum users
+      - You can **select multiple profiles**.
+      - Each profile you select has a set of relays that adhere to it which are listed in the description box; enabling that profile will enable all of those relays.
+      - Advanced users can change this to **Relay Mode**, which lets them explicitly select which relays they would like to use.
 
-Once you've enabled MEV-Boost and enabled the relays you'd like, simply save and exit.
-The Smartnode will restart the relevant containers for you, and automatically set it all up for you.
+      - The `Port` box is not important for Docker mode users.
+      - The `Expose API Port` box is not important for Docker mode users.
+      - The `Container Tag` box is useful to manually upgrade the version of MEV-Boost that the Smartnode runs if Flashbots releases a new high-priority version you want to use before a Smartnode update with it is released.
+      - The `Additional Flags` box is used if you want to add supplemental config flags or parameters directly to the MEV-Boost container. Normally, it will not be useful.
 
-See below for instructions on how to check that it's working as expected.
-:::::
+      Once you've enabled MEV-Boost and enabled the relays you'd like, simply save and exit.
+      The Smartnode will restart the relevant containers for you, and automatically set it all up for you.
 
-::::: tab Hybrid Mode
-Configuring MEV-Boost is easy with the Smartnode's configuration TUI.
-Start by running `rocketpool service config` and navigate to the `MEV-Boost` option:
+      See below for instructions on how to check that it's working as expected.
+    </Tab>
+    <Tab label="Hybrid Mode">
+      Configuring MEV-Boost is easy with the Smartnode's configuration TUI.
+      Start by running `rocketpool service config` and navigate to the `MEV-Boost` option:
 
-<img src="./images/tui-mev-boost.png" width="100%" height="auto"/>
+      <img src={tuiMeVBoost} width="100%" height="auto"/>
 
-Check the box labeled `Enable MEV-Boost` to enable it.
+      Check the box labeled `Enable MEV-Boost` to enable it.
 
-Once enabled, The screen will look like this (_as of Smartnode v1.7.0_):
+      Once enabled, The screen will look like this (_as of Smartnode v1.7.0_):
 
-<img src="./images/tui-mev-boost-main.png" width="100%" height="auto"/>
+      <img src={tuiMeVBoostMain} width="100%" height="auto"/>
 
-Check the box labeled `Enable MEV-Boost` to enable it.
+      Check the box labeled `Enable MEV-Boost` to enable it.
 
-Below is a description of each option and how to use them.
+      Below is a description of each option and how to use them.
 
-- The `MEV-Boost Mode` box lets you toggle between a MEV-Boost instance that Rocket Pool manages, and an external one that you manage on your own. Some users prefer to let Rocket Pool manage its own instance of MEV-Boost and connect their externally-managed Beacon Nodes to it. In this case, `Locally Managed` is the best option. If you already run your own MEV-Boost instance and simply want to let Rocket Pool's VC use it (i.e. by enabling blinded block signing), simply leave this on `Externally Managed`. **You don't need to take any further action after this.**
+      - The `MEV-Boost Mode` box lets you toggle between a MEV-Boost instance that Rocket Pool manages, and an external one that you manage on your own. Some users prefer to let Rocket Pool manage its own instance of MEV-Boost and connect their externally-managed Beacon Nodes to it. In this case, `Locally Managed` is the best option. If you already run your own MEV-Boost instance and simply want to let Rocket Pool's VC use it (i.e. by enabling blinded block signing), simply leave this on `Externally Managed`. **You don't need to take any further action after this.**
 
-::: warning NOTE
-If you run your own MEV-Boost instance, you **must** only register with the trusted relays listed above. If your Rocket Pool validator proposes a block that was sent via an untrusted relay, the Oracle DAO will **flag you for cheating** and possibly stealing MEV from the rETH stakers. This will result in [a penalty](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) on your minipool!
-:::
+      <p className="rspress-directive warning">
+        <p className="rspress-directive-title">NOTE</p>
+        If you run your own MEV-Boost instance, you **must** only register with the trusted relays listed above. If your Rocket Pool validator proposes a block that was sent via an untrusted relay, the Oracle DAO will **flag you for cheating** and possibly stealing MEV from the rETH stakers. This will result in [a penalty](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) on your minipool!
+      </p>
 
-- If you decided to use a `Locally Managed` instance of MEV-Boost, the `Selection Mode` box lets you switch between **Profile Mode** and **Relay Mode**.
+      - If you decided to use a `Locally Managed` instance of MEV-Boost, the `Selection Mode` box lets you switch between **Profile Mode** and **Relay Mode**.
 
-  - **Profile Mode** is the default. It lets you select which relays to enable based on their "profiles". A relay's profile is made of the following choices:
-    - Whether it's **regulated** (complies with government sanctions lists such as the OFAC list and blacklists certain addresses) or **unregulated** (_does not_ censor any transactions based on any blacklists)
-    - Whether it **allows all types of MEV** or explicitly prohibits bundles that involve sandwich attacks or front-running Ethereum users
-  - You can **select multiple profiles**.
-  - Each profile you select has a set of relays that adhere to it which are listed in the description box; enabling that profile will enable all of those relays.
-  - Advanced users can change this to **Relay Mode**, which lets them explicitly select which relays they would like to use.
+      - **Profile Mode** is the default. It lets you select which relays to enable based on their "profiles". A relay's profile is made of the following choices:
+      - Whether it's **regulated** (complies with government sanctions lists such as the OFAC list and blacklists certain addresses) or **unregulated** (_does not_ censor any transactions based on any blacklists)
+      - Whether it **allows all types of MEV** or explicitly prohibits bundles that involve sandwich attacks or front-running Ethereum users
+      - You can **select multiple profiles**.
+      - Each profile you select has a set of relays that adhere to it which are listed in the description box; enabling that profile will enable all of those relays.
+      - Advanced users can change this to **Relay Mode**, which lets them explicitly select which relays they would like to use.
 
-- The `Port` box determines which port MEV-Boost will listen for incoming connections from your Beacon Node on. If you need to change it because of a port conflict within your node, you can do it here.
-- The `Expose API Port` box **should be checked** so that your externally-managed BN can communicate with the MEV-Boost instance Rocket Pool will manage.
-- The `Container Tag` box is useful to manually upgrade the version of MEV-Boost that the Smartnode runs if Flashbots releases a new high-priority version you want to use before a Smartnode update with it is released.
-- The `Additional Flags` box is used if you want to add supplemental config flags or parameters directly to the MEV-Boost container. Normally, it will not be useful.
+      - The `Port` box determines which port MEV-Boost will listen for incoming connections from your Beacon Node on. If you need to change it because of a port conflict within your node, you can do it here.
+      - The `Expose API Port` box **should be checked** so that your externally-managed BN can communicate with the MEV-Boost instance Rocket Pool will manage.
+      - The `Container Tag` box is useful to manually upgrade the version of MEV-Boost that the Smartnode runs if Flashbots releases a new high-priority version you want to use before a Smartnode update with it is released.
+      - The `Additional Flags` box is used if you want to add supplemental config flags or parameters directly to the MEV-Boost container. Normally, it will not be useful.
 
-Once you've enabled MEV-Boost and enabled the relays you'd like, simply save and exit.
-If you're using a `Locally Managed` instance and have the `Expose API Port` box checked, you can then configure your Beacon Node to connect to it at `http://localhost:18550`.
-Please refer to [Flashbots' documentation](https://github.com/flashbots/mev-boost/wiki/Testing) to learn how to enable MEV-Boost on your externally-managed Beacon Node.
+      Once you've enabled MEV-Boost and enabled the relays you'd like, simply save and exit.
+      If you're using a `Locally Managed` instance and have the `Expose API Port` box checked, you can then configure your Beacon Node to connect to it at `http://localhost:18550`.
+      Please refer to [Flashbots' documentation](https://github.com/flashbots/mev-boost/wiki/Testing) to learn how to enable MEV-Boost on your externally-managed Beacon Node.
 
-::: tip NOTE
-Note that you **may need to permit this in your UFW configuration** if you have the firewall enabled.
-:::
+      <p className="rspress-directive tip">
+        <p className="rspress-directive-title">NOTE</p>
+        Note that you **may need to permit this in your UFW configuration** if you have the firewall enabled.
+      </p>
 
-See below for instructions on how to check that it's working as expected.
-:::::
+      See below for instructions on how to check that it's working as expected.
+    </Tab>
+    <Tab label="Native Mode">
+      Please refer to [Flashbots' documentation](https://github.com/flashbots/mev-boost/wiki/Testing) to learn how to enable MEV-Boost on your Beacon Node and Validator Client services.
 
-::::: tab Native Mode
-Please refer to [Flashbots' documentation](https://github.com/flashbots/mev-boost/wiki/Testing) to learn how to enable MEV-Boost on your Beacon Node and Validator Client services.
+      <p className="rspress-directive warning">
+        <p className="rspress-directive-title">NOTE</p>
+        In your MEV-Boost instance, you **must** only register with the trusted relays listed above. If your Rocket Pool validator proposes a block that was sent via an untrusted relay, the Oracle DAO will **flag you for cheating** and possibly stealing MEV from the rETH stakers. This will result in [a penalty](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) on your minipool!
+      </p>
+    </Tab>
+  </Tabs>
+</div>
 
-::: warning NOTE
-In your MEV-Boost instance, you **must** only register with the trusted relays listed above. If your Rocket Pool validator proposes a block that was sent via an untrusted relay, the Oracle DAO will **flag you for cheating** and possibly stealing MEV from the rETH stakers. This will result in [a penalty](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) on your minipool!
-:::
-:::::
-::::::
 
 ## Checking MEV-Boost's Logs
 

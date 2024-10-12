@@ -41,12 +41,12 @@ These represent 10% of the amount you're _borrowing_ from the protocol, and 150%
 New minipools can be created with either 8 ETH or 16 ETH.
 16 ETH minipools are unchanged from how they work today, and are available for users that want to minimize their exposure to the RPL token.
 
-To learn how to make new minipools using an 8 ETH bond, please visit the [minipool creation guide](../node/create-validator).
+To learn how to make new minipools using an 8 ETH bond, please visit the [minipool creation guide](../node/create-validator.mdx).
 
 Also, once Atlas has been applied, node operators can **migrate existing 16-ETH minipools directly into 8-ETH minipool without needing to exit**.
 This will give them 8 ETH back in [deposit credit](../node/credit), which can be used to create a **new 8-ETH minipool for free**!
 
-To learn more about 8-ETH bond minipools, please visit the [bond reduction guide](../node/leb-migration).
+To learn more about 8-ETH bond minipools, please visit the [bond reduction guide](../node/leb-migration.mdx).
 
 ### Solo Validator Conversion
 

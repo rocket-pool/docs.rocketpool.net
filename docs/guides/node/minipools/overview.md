@@ -17,11 +17,11 @@ Before running minipools, please make sure you:
 - Have the Smartnode [installed](../installing/overview) and [configured](../config/overview) on it
 - Have a node wallet loaded on your Smartnode
 - Synced your Execution and Consensus clients
-- Provisioned your node with [a withdrawal address](../prepare-node#setting-your-withdrawal-address), set up your [fallback clients](../fallback) (optional), opted into the [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (optional), and configured [MEV](../mev)
+- Provisioned your node with [a withdrawal address](../prepare-node#setting-your-withdrawal-address), set up your [fallback clients](../fallback) (optional), opted into the [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (optional), and configured [MEV](../mev.mdx)
 
 ## Guides
 
-[Creating a New Minipool (Validator)](../create-validator) explains the process of creating a new Rocket Pool minipool and corresponding validator on the Beacon Chain.
+[Creating a New Minipool (Validator)](../create-validator.mdx) explains the process of creating a new Rocket Pool minipool and corresponding validator on the Beacon Chain.
 Whether you're making your very first minipool or already have some and would like to make another one, this guide will walk you through it step-by-step.
 
 [The Minipool Delegate](./delegates) explains a bit about what the minipool contract is, and introduces the **delegate** contract that contains most of its functionality.
@@ -30,6 +30,6 @@ It also demonstrates how to update the delegate for your minipools after a netwo
 [Converting a Solo Validator into a Minipool](../solo-staker-migration) walks through the process of converting an existing validator outside of Rocket Pool (such as one you use for solo staking) directly into a Rocket Pool minipool without needing to exit the Beacon Chain and create a new minipool.
 If you're a solo staker that wants to take advantage of this capability, this is the guide for you!
 
-[Migrating a 16-ETH Minipool to 8-ETH](../leb-migration) shows how to reduce the bonded amount of ETH for a minipool from 16 ETH down to 8 ETH, giving you 8 ETH in credit that can be used to create a new minipool for free (though it still costs ETH for gas, of course).
+[Migrating a 16-ETH Minipool to 8-ETH](../leb-migration.mdx) shows how to reduce the bonded amount of ETH for a minipool from 16 ETH down to 8 ETH, giving you 8 ETH in credit that can be used to create a new minipool for free (though it still costs ETH for gas, of course).
 
 [The Deposit Credit System](../credit) covers the "ETH Credit" system that lets you create new minipools without having to pay for their ETH bonds after you perform one of the above migrations.
