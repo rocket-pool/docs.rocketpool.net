@@ -1,3 +1,5 @@
+import { Tab, Tabs } from 'rspress/theme';
+
 # Creating a Standard Rocket Pool Node with Docker
 
 In this section, we will walk through the process of installing the Rocket Pool Smartnode stack using the standard [Docker](https://www.docker.com/resources/what-container)-based setup.
@@ -75,140 +77,146 @@ You must perform the following instructions **on the machine you will use for yo
 If you are not using a keyboard and monitor directly connected to your node machine, you will need to access it remotely (e.g. via SSH) and run these commands on it through that remote connection.
 :::
 
-:::::: tabs
-::::: tab Linux
 
-On Linux, start by creating a new folder that will hold the CLI application:
+<div className="p-3">
+  <Tabs>
+    <Tab label="Linux">
+      On Linux, start by creating a new folder that will hold the CLI application:
 
-```shell
-mkdir -p ~/bin
-```
+      ```shell
+      mkdir -p ~/bin
+      ```
 
-Next, download the CLI.
-This depends on what architecture your system uses.
+      Next, download the CLI.
+      This depends on what architecture your system uses.
 
-::: tip TIP
-If you do not know your CPU architecture, you can run the following command to find it:
+      <div className="rspress-directive tip">
+        <div className="rspress-directive-title">TIP</div>
+        If you do not know your CPU architecture, you can run the following command to find it:
 
-```shell
-uname -m
-```
+        ```shell
+        uname -m
+        ```
 
-The output of this command will print your architecture.
-**Note that `x86_64` is the same as `x64` and `amd64`.**
-**Note that `aarch64` is the same as `arm64`.**
-:::
+        The output of this command will print your architecture.
+        **Note that `x86_64` is the same as `x64` and `amd64`.**
+        **Note that `aarch64` is the same as `arm64`.**
+      </div>
 
-For `x64` systems (most normal computers):
+      For `x64` systems (most normal computers):
 
-```shell
-wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-linux-amd64 -O ~/bin/rocketpool
-```
+      ```shell
+      wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-linux-amd64 -O ~/bin/rocketpool
+      ```
 
-For `arm64` systems:
+      For `arm64` systems:
 
-```shell
-wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-linux-arm64 -O ~/bin/rocketpool
-```
+      ```shell
+      wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-linux-arm64 -O ~/bin/rocketpool
+      ```
 
-Mark it as executable, so it has permissions to run:
+      Mark it as executable, so it has permissions to run:
 
-```shell
-chmod +x ~/bin/rocketpool
-```
+      ```shell
+      chmod +x ~/bin/rocketpool
+      ```
 
-Next, **log out and log back in** (or close SSH and reconnect), or simply restart.
-This is because the path that you saved the CLI to (`~/bin`) may not be in your system's `PATH` variable (the list of places your system searches for executables) yet.
-Logging out and back in will put it there.
+      Next, **log out and log back in** (or close SSH and reconnect), or simply restart.
+      This is because the path that you saved the CLI to (`~/bin`) may not be in your system's `PATH` variable (the list of places your system searches for executables) yet.
+      Logging out and back in will put it there.
 
-Now, test running it with the `--version` flag.
-You should see output like this:
+      Now, test running it with the `--version` flag.
+      You should see output like this:
 
-```
-rocketpool --version
-```
+      ```shell
+      rocketpool --version
+      ```
 
-```
-rocketpool version 1.5.0
-```
+      ```shell
+      rocketpool version 1.5.0
+      ```
 
-::: tip TIP
-If you see an error message like this,
+      <div className="rspress-directive tip">
+        <div className="rspress-directive-title">TIP</div>
+        If you see an error message like this,
 
-```
--bash: /home/user/rocketpool: cannot execute binary file: Exec format error
-```
+        ```shell
+        -bash: /home/user/rocketpool: cannot execute binary file: Exec format error
+        ```
 
-it means that you downloaded the wrong version above.
-Please check if your system is **x64** or **arm64** using the command in the tip above, and download the appropriate version.
-If your system is neither of those, then you will not be able to run Rocket Pool.
-:::::
+        it means that you downloaded the wrong version above.
+        Please check if your system is **x64** or **arm64** using the command in the tip above, and download the appropriate version.
+        If your system is neither of those, then you will not be able to run Rocket Pool.
+      </div>
+    </Tab>
+    <Tab label="MacOS">
+      On macOS, download the CLI for your machine with the following command.
 
-::::: tab macOS
+      <div className="rspress-directive tip">
+        <div className="rspress-directive-title">TIP</div>
+        If you do not know your CPU architecture, you can run the following command to find it:
 
-On macOS, download the CLI for your machine with the following command.
+        ```shell
+        uname -m
+        ```
 
-::: tip TIP
-If you do not know your CPU architecture, you can run the following command to find it:
+        The output of this command will print your architecture.
+        **Note that `x86_64` is the same as `x64` and `amd64`.**
+        **Note that `aarch64` is the same as `arm64`.**
+      </div>
 
-```shell
-uname -m
-```
+      For `x64` systems (most Macs):
 
-The output of this command will print your architecture.
-**Note that `x86_64` is the same as `x64` and `amd64`.**
-**Note that `aarch64` is the same as `arm64`.**
-:::
+      ```shell
+      curl -L https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-darwin-amd64 > /usr/local/bin/rocketpool
+      ```
 
-For `x64` systems (most Macs):
+      For `arm64` systems, such as the Mac mini with M1:
 
-```shell
-curl -L https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-darwin-amd64 > /usr/local/bin/rocketpool
-```
+      ```shell
+      curl -L https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-darwin-arm64 > /opt/homebrew/bin/rocketpool
+      ```
 
-For `arm64` systems, such as the Mac mini with M1:
+      For `x64` systems (most Macs):
+      Mark it as executable, so it has permissions to run:
 
-```shell
-curl -L https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-darwin-arm64 > /opt/homebrew/bin/rocketpool
-```
+      ```shell
+      chmod +x /usr/local/bin/rocketpool
+      ```
 
-For `x64` systems (most Macs):
-Mark it as executable, so it has permissions to run:
+      For `arm64` systems, such as the Mac mini with M1:
+      Mark it as executable, so it has permissions to run:
 
-```shell
-chmod +x /usr/local/bin/rocketpool
-```
+      ```shell
+      chmod +x /opt/homebrew/bin/rocketpool
+      ```
 
-For `arm64` systems, such as the Mac mini with M1:
-Mark it as executable, so it has permissions to run:
+      Now, test running it with the `--version` flag.
+      You should see output like this:
 
-```shell
-chmod +x /opt/homebrew/bin/rocketpool
-```
+      ```shell
+      rocketpool --version
+      ```
 
-Now, test running it with the `--version` flag.
-You should see output like this:
+      ```
+      rocketpool version 1.3.0
+      ```
 
-```
-rocketpool --version
-```
+      <div className="rspress-directive tip">
+        <div className="rspress-directive-title">TIP</div>
+        If you see an error message like this,
 
-```
-rocketpool version 1.3.0
-```
+        ```shell
+        /usr/local/bin/rocketpool: Exec format error
+        ```
 
-::: tip TIP
-If you see an error message like this,
-
-```
-/usr/local/bin/rocketpool: Exec format error
-```
-
-it means that you downloaded the wrong version above.
-Please check if your system is x64 or arm64 using the command in the tip above, and download the appropriate version.
-If your system is neither of those, then you will not be able to run Rocket Pool.
-
-::::::
+        it means that you downloaded the wrong version above.
+        Please check if your system is x64 or arm64 using the command in the tip above, and download the appropriate version.
+        If your system is neither of those, then you will not be able to run Rocket Pool.
+      </div>
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installing the Smartnode Stack
 
@@ -218,14 +226,14 @@ It won't actually run anything yet; that comes later.
 
 To deploy the Smartnode stack, you will need to run the following command on your node machine (either by logging in locally, or connecting remotely such as through SSH):
 
-```
+```shell
 rocketpool service install
 ```
 
 This will grab the latest version of the Smartnode stack and set it up.
 You should see output like this (_above some release notes for the latest version which will be printed at the end_):
 
-![](./images/rp-install-screen.png)
+<img src="./images/rp-install-screen.png" width="100%" height="auto"/>
 
 If there aren't any error messages, then the installation was successful.
 By default, it will be put into the `~/.rocketpool` directory inside of your user account's home folder.
@@ -255,7 +263,7 @@ sudo usermod -aG docker $USER
 
 Finally, re-run the installer with the `-d` flag to skip Docker installation:
 
-```
+```shell
 rocketpool service install -d
 ```
 
