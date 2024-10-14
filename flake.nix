@@ -17,6 +17,7 @@
           docker
           bun
           just
+          nodejs
         ];
         shellHook = ''
           echo "Welcome to the RP dev shell!"

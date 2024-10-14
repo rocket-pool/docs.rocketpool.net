@@ -8,7 +8,7 @@ Rocket Pool Documentation Hub - Features Guides, FAQs, API Reference and more. I
 
 We welcome all contributions! Please refer to our [contribution guidelines](./contributing.md).
 
-## Use the nix flake
+## Using the nix flake
 
 - Install Nix
 
@@ -16,11 +16,13 @@ We welcome all contributions! Please refer to our [contribution guidelines](./co
 curl -L https://nixos.org/nix/install | sh
 ```
 
-Just (rust based task runner) can be installed via:
+Then start the serve
 
 ```
 nix develop
 ```
+
+Your environment should be setup & the server should be started so you can make changes easily.
 
 See the Justfile for available commands.
 
