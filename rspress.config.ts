@@ -234,6 +234,20 @@ function guides() {
               ],
             },
             {
+              text: "Participating in pDAO governance",
+              link: "/guides/node/governance/overview",
+              collapsed: true,
+              items: [
+                { text: "Overview", link: "/guides/node/governance/overview" },
+                { text: "The Protocol DAO", link: "/guides/houston/pdao#the-protocol-dao-pdao" },
+                { text: "Setting your Snapshot Signalling Address", link: "/guides/houston/participate#setting-your-snapshot-signalling-address" },
+                { text: "Delegating Voting Power", link: "guides/houston/participate#delegating-voting-power" },
+                { text: "Viewing the State of a Proposal", link: "/guides/houston/participate#viewing-the-state-of-a-proposal" },
+                { text: "Voting on a Proposal", link: "/guides/houston/participate#voting-on-a-proposal" },
+              ],
+            },
+
+            {
               text: "Exiting your Minipools",
               link: "/guides/node/withdraw",
               collapsed: true,
