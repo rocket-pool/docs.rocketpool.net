@@ -2,6 +2,10 @@ set dotenv-load
 set export
 
 # Serve the site for dev usage
+serve:
+    bun run dev
+
+# Serve the site for dev usage
 ui-serve:
     bun run dev
 
@@ -58,6 +62,7 @@ login-and-deploy:
 
 # Build and deploy to ECR
 deploy:
+    just ui-build
     docker build --platform linux/amd64 -t docs.rocketpool.net:latest . -f .deploy/dockerfile
     docker tag docs.rocketpool.net:latest $DOCKER_REPO/docs.rocketpool.net:latest
     docker push $DOCKER_REPO/docs.rocketpool.net:latest

@@ -18,6 +18,14 @@
           bun
           just
         ];
+        shellHook = ''
+          echo "Welcome to the RP dev shell!"
+          export PATH=$PATH:$PWD/bin
+          echo "Installing dependencies"
+          bun i
+          echo "Starting server"
+          just serve
+        '';
       };
     });
   };

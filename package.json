@@ -21,8 +21,7 @@
   },
   "scripts": {
     "dev": "rspress docs",
-    "build": "vitepress build docs",
-    "preview": "vitepress preview docs",
+    "build": "rspress build",
     "format": "bunx @biomejs/biome format --write .",
     "prettier": "prettier -w -u . !package.json !pnpm-lock.yaml !bun.lockb"
   },
@@ -35,8 +34,5 @@
     "bracketSpacing": true,
     "bracketSameLine": true,
     "singleQuote": false
-  },
-  "dependencies": {
-    "medium-zoom": "^1.1.0"
   }
 }

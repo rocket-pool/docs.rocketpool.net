@@ -1,14 +1,11 @@
-FROM oven/bun:latest AS builder
+FROM oven/bun:latest AS ui
 WORKDIR /app
-COPY ./package.json .
-COPY ./docs ./docs
-RUN bun install
-RUN bun run build
+COPY ./doc_build ./doc_build
 
-FROM nginx:alpine
-COPY .deploy/nginx.conf /etc/nginx/nginx.conf
-RUN rm -rf /usr/share/nginx/html/*
-COPY --from=builder /app/docs/.vitepress/dist /usr/share/nginx/html
+FROM 285465855463.dkr.ecr.us-east-1.amazonaws.com/interstage:latest
+WORKDIR /server
+ENV SERVER_PORT=80
+COPY --from=ui /app/doc_build ./ui/dist
 
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["/server/start"]
