@@ -46,7 +46,7 @@ If you would like to continue with the process, please read the next sections.
 
 In order to begin the conversion process, you will need to meet the following criteria:
 
-1. You must have [a node registered with the Rocket Pool network](./prepare-node) to host the new minipool.
+1. You must have [a node registered with the Rocket Pool network](./prepare-node.mdx) to host the new minipool.
 1. The node must have enough RPL staked to support the new minipool (minimum of 1.6 ETH worth of RPL for converting to 16 ETH minipool, minimum of 2.4 ETH worth of RPL if converting to an 8 ETH minipool).
 1. The validator you want to migrate must be **active** on the Beacon chain. It cannot be pending, slashed, exiting / exited, or withdrawn.
 1. The validator must have a balance of **at least 32 ETH** on the Beacon chain.
