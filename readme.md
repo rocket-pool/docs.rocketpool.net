@@ -16,7 +16,7 @@ We welcome all contributions! Please refer to our [contribution guidelines](./co
 curl -L https://nixos.org/nix/install | sh
 ```
 
-Then start the serve
+Then start the environment
 
 ```
 nix develop
