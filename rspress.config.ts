@@ -246,7 +246,6 @@ function guides() {
                 { text: "Voting on a Proposal", link: "/guides/houston/participate#voting-on-a-proposal" },
               ],
             },
-
             {
               text: "Exiting your Minipools",
               link: "/guides/node/withdraw",
