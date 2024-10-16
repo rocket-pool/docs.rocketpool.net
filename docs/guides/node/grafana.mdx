@@ -527,20 +527,12 @@ If you have UFW enabled as referenced in the [Securing your Node](./securing-you
 <div className="p-3">
   <Tabs>
     <Tab label="Docker">
-      First run:
+      Run the following, and replace the ports as needed:
 
       ```shell
-      docker inspect rocketpool_monitor-net | grep -Po "(?<=\"Subnet\": \")[0-9./]+"
-      ```
-
-      This will return an ip in CIDR notation that looks like `172.23.0.0/16`.
-
-      Then run the following, but replace `172.23.0.0/16` with the output of the previous command, and replace the ports as needed:
-
-      ```shell
-      sudo ufw allow from 172.23.0.0/16 to any port 9105 comment "Allow Prometheus access to Execution Client"
-      sudo ufw allow from 172.23.0.0/16 to any port 9100 comment "Allow Prometheus access to Consensus Client"
-      sudo ufw allow from 172.23.0.0/16 to any port 9103 comment "Allow Prometheus access to Exporter"
+      sudo ufw allow from 172.18.0.0/16 to any port 9105 comment "Allow Prometheus access to Execution Client"
+      sudo ufw allow from 172.18.0.0/16 to any port 9100 comment "Allow Prometheus access to Consensus Client"
+      sudo ufw allow from 172.18.0.0/16 to any port 9103 comment "Allow Prometheus access to Exporter"
       ```
     </Tab>
     <Tab label="Native">
