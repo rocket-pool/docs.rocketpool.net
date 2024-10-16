@@ -13,7 +13,7 @@
     "@biomejs/biome": "^1.9.3",
     "@headlessui/react": "^2.1.10",
     "prettier": "^3.3.3",
-    "rspress": "^1.33.0",
+    "rspress": "^1.33.1",
     "rspress-plugin-vue": "^1.0.0",
     "taze": "^0.17.2",
     "ts-node": "^10.9.2",

@@ -1,9 +1,10 @@
 set dotenv-load
 set export
 
-# Serve the site for dev usage
-serve:
-    bun run dev
+alias s := ui-serve
+alias serve := ui-serve
+alias chk := ui-check
+alias u := ui-upgrade
 
 # Serve the site for dev usage
 ui-serve:
