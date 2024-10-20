@@ -66,34 +66,6 @@ Please ensure your Firewall (System Settings -> Network -> Firewall) is turned o
 
 ![](../local/images/mac/firewall.png)
 
-### Hardware Requirements
-
-The hardware requirements for a node depend largely on which Execution and Consensus clients you decide to run.
-As shown in [the hardware guide](./hardware), there is a wide range of possible configurations that work well.
-However, for the sake of completeness, we have assembled the following hardware profiles:
-
-#### Low-Power Full Node
-
-- CPU: Quad-core 1.6+ GHz Intel, Apple M Series (M1, M2, M3)
-- RAM: 16 GB DDR4 2400 MHz
-- SSD: 2 TB, 15k Read IOPS, 5k Write IOPS\*\*
-- Network: 10+ Mbps, 1.5+ TB monthly data cap
-- Execution Client: Geth (in low-cache mode), Besu
-- Consensus Client: Nimbus, Lighthouse, Prysm
-
-#### Typical Full Node
-
-- CPU: Quad-core, 2.6+ GHz Intel, Apple M Series (M1, M2, M3)
-- RAM: 16 GB DDR4 3200 MHz
-- SSD: 2 TB, 15k Read IOPS, 5k Write IOPS\*\*
-- Network: 25+ Mbps, 1.5+ TB monthly data cap
-- Execution Client: Any
-- Consensus Client: Any
-
-\*\*
-The Execution blockchain [grows quickly](https://ycharts.com/indicators/ethereum_chain_full_sync_data_size), so 2 TB will offer some future-proofing.
-The larger your storage, the longer you can go between needing to reclaim space by pruning
-
 ### Installing and Using SSH
 
 SSH should already be installed with macOS.
@@ -109,7 +81,7 @@ Before installing Rocket Pool, please review the following checklist:
 - You have an SSD that meets the performance requirements.
 - Your SSD is mounted on your file system.
 - You have at least 1.5TB of space free for the initial Execution and Consensus syncing process.
-- If your ISP caps your data, it is more than 1.5 TB per month.
+- If your ISP caps your data, it is more than 2 TB per month.
 
 If you have checked and confirmed all of these items, then you are ready to install Rocket Pool and begin running a node!
 Move on to the [Choosing your ETH Clients](../eth-clients) section.

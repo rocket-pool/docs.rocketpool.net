@@ -52,34 +52,6 @@ Some manual steps will be required during installation.
 For `arm64` systems, the Smartnode installer only natively supports Debian and Debian-based distros such as Ubuntu.
 For other distros, manual steps will be required during installation.
 
-### Hardware Requirements
-
-The hardware requirements for a node depend largely on which Execution and Consensus clients you decide to run.
-As shown in [the hardware guide](./hardware), there is a wide range of possible configurations that work well.
-However, for the sake of completeness, we have assembled the following hardware profiles:
-
-#### Low-Power Full Node
-
-- CPU: Quad-core 1.6+ GHz
-- RAM: 8 GB DDR4 2400 MHz
-- SSD: 2 TB, 15k Read IOPS, 5k Write IOPS\*
-- Network: 10+ Mbps, 1.5+ TB monthly data cap
-- Execution Client: Geth (in low-cache mode)
-- Consensus Client: Nimbus
-
-#### Typical Full Node
-
-- CPU: Quad-core, 2.6+ GHz
-- RAM: 16 GB DDR4 3200 MHz
-- SSD: 2 TB, 15k Read IOPS, 5k Write IOPS\*
-- Network: 25+ Mbps, 1.5+ TB monthly data cap
-- Execution Client: Any
-- Consensus Client: Any
-
-_\* If you are unsure if your disk meets these performance requirements, `fio` is a good way to test them.
-See [here](https://arstech.net/how-to-measure-disk-performance-iops-with-fio-in-linux/) for Linux instructions,
-and [here](https://www.nivas.hr/blog/2017/09/19/measuring-disk-io-performance-macos/) for MacOS instructions._
-
 ## Installing the Operating System
 
 If you're using macOS, it's highly likely that you already have the Operating System installed and can skip this step.
@@ -314,11 +286,11 @@ Before installing Rocket Pool, please review the following checklist:
 
 - Your system is fully built, powers on, and can boot into the operating system.
 - You will not do any other activity on the system, such as browsing the Internet, checking email, or playing games.
-- You have a Linux or macOS operating system installed.
-- Your user account has root / Administrator privileges.
+- You have a Linux operating system installed.
+- Your user account has root / administrator privileges.
 - You have an SSD that meets the performance requirements.
 - Your SSD is mounted on your file system.
-- You have at least 1.2 TB of disk space free for the initial Execution and Consensus syncing process.
+- You have at least 1.5 TB of disk space free for the initial Execution and Consensus syncing process.
 - If your ISP caps your data, it is more than 2 TB per month.
 
 If you have checked and confirmed all of these items, then you are ready to install Rocket Pool and begin running a
