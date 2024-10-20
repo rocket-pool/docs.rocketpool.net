@@ -103,7 +103,7 @@ function guides() {
               ],
             },
             {
-              text: "Preparing a Cloud (VPS) Node",
+              text: "Preparing a Server Node",
               link: "/guides/node/vps/overview",
               collapsed: true,
               items: [

@@ -18,7 +18,7 @@ Here is a simple breakdown of what is required to run a full Rocket Pool node we
 - At least **10Mbps of bandwidth both up and down**. A full node usually takes around 8Mbps to 10Mbps up & down of network traffic, depending on your configuration and number of minipools.
 - **No data cap** imposed by your ISP. Running a full node will take a lot of data - we have seen reports of over 2 TB per month on chain data alone. This can be mitigated somewhat with a few settings tweaks to the ETH clients, but as a rule of thumb, don't run a full node if your Internet plan comes with a monthly data cap.
 - **Stable electricity**. For the same reason as needing a stable Internet connection, you also want to have reliable power. This can be mitigated with a large UPS (backup battery) to deal with short blackouts.
-- A **computer** with sufficient specs. This is pretty flexible because it _really_ depends on what Execution and Consensus client you use, and what settings you configure them with. The computer can be a local machine, or it can be a Virtual Private Server (VPS) hosted in the cloud. Read below for some more information on those two options, and how to decide which is best for you.
+- A **computer** with sufficient specs. This is pretty flexible because it _really_ depends on what Execution and Consensus client you use, and what settings you configure them with. The computer can be a local machine, or it can be hosted in the cloud. Read below for some more information on those two options, and how to decide which is best for you.
 
 The computer must meet the [hardware guidelines](./local/hardware.md)
 
@@ -48,9 +48,9 @@ Disadvantages:
 
 If the advantages sound like they outweigh the disadvantages for you, then take a look at our [Local Node Operator's Guide](./local/hardware.html).
 
-## Running a VPS on the Cloud
+## Running on a Server
 
-If you don't have a reliable uncapped Internet plan, or you just don't want to deal with building and maintaining your own physical computer, you may want to look at running a virtual private server. These are virtual servers that you rent from hosting providers, such as Amazon Web Services, Microsoft Azure, OVH, or other companies. Essentially, these companies will happily create and run a server for you, for a monthly fee. If you don't mind that fee and want to run a Rocket Pool node, using a VPS can be a good strategy.
+If you don't have a reliable uncapped Internet plan, or you just don't want to deal with building and maintaining your own physical computer, you may want to look at running a private server you rent from a hosting provider. Essentially, these companies will happily create and run a server for you, for a monthly fee. If you don't mind that fee and want to run a Rocket Pool node, using a server can be a good strategy.
 
 Advantages:
 
@@ -66,4 +66,4 @@ Disadvantages:
 - Servers may come with data caps, or have expensive network I/O rates
 - Possible for hosts to examine your machine's contents and take your wallet's key if not secured
 
-If those advantages sound like they outweigh the disadvantages for you, then take a look at our [VPS Node Operator's Guide](./vps/providers.html).
+If those advantages sound like they outweigh the disadvantages for you, then take a look at our [Server Node Operator's Guide](./vps/providers.html).
