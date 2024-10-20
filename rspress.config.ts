@@ -50,10 +50,6 @@ export default defineConfig({
     // ],
     nav: [
       {
-        text: "Overview",
-        link: "/overview/",
-      },
-      {
         text: "Guides",
         link: "/guides/",
       },
@@ -63,27 +59,10 @@ export default defineConfig({
       },
     ],
     sidebar: {
-      "/overview/": overview(),
       "/guides/": guides(),
     },
   },
 });
-
-function overview() {
-  return [
-    {
-      text: "Overview",
-      collapsed: false,
-      items: [
-        { text: "Overview", link: "/overview/" },
-        { text: "Explainer Series", link: "/overview/explainer-series" },
-        { text: "Frequently Asked Questions", link: "/overview/faq" },
-        { text: "Contracts & Integrations", link: "/overview/contracts-integrations" },
-        { text: "Glossary", link: "/overview/glossary" },
-      ],
-    },
-  ];
-}
 
 function guides() {
   return [
@@ -95,28 +74,7 @@ function guides() {
           link: "/guides/",
         },
         {
-          text: "The Houston Upgrade",
-          collapsed: true,
-          link: "/guides/houston/whats-new",
-          items: [
-            { text: "Overview", link: "/guides/houston/whats-new" },
-            { text: "Getting Started with Houston", link: "/guides/houston/getting-started" },
-            { text: "The Protocol DAO", link: "/guides/houston/pdao" },
-            { text: "Participating in Proposals", link: "/guides/houston/participate" },
-            { text: "Stake ETH on Behalf of Node", link: "/guides/houston/stake-eth-on-behalf" },
-            { text: "RPL Withdrawal Address", link: "/guides/houston/rpl-withdrawal-address" },
-          ],
-        },
-        {
-          text: "The Saturn 0 Upgrade",
-          collapsed: true,
-          link: "/guides/saturn-0/whats-new",
-          items: [
-            { text: "Overview", link: "/guides/saturn-0/whats-new" },
-          ],
-        },
-        {
-          text: "Staking with Rocket Pool",
+          text: "rETH Staker Guide",
           collapsed: true,
           link: "/guides/staking/overview",
           items: [
@@ -127,7 +85,7 @@ function guides() {
           ],
         },
         {
-          text: "Running a Rocket Pool Node",
+          text: "Node Operator Guide",
           collapsed: true,
           items: [
             { text: "A Node Operator's Responsibilities", link: "/guides/node/responsibilities" },
@@ -280,11 +238,17 @@ function guides() {
           text: "Running an Oracle DAO Node",
           collapsed: true,
           items: [
-            { text: "The Rocket Pool Oracle DAO", link: "/guides/odao/overview" },
-            { text: "Setting up an Oracle DAO Node", link: "/guides/odao/setup" },
-            { text: "Testing your Oracle DAO Node", link: "/guides/odao/testing" },
-            { text: "Monitoring your Oracle DAO Node", link: "/guides/odao/monitoring" },
-            { text: "Oracle DAO Proposals", link: "/guides/odao/proposals" },
+            { text: "Contracts & Integrations", link: "/guides/contracts-integrations"}
+            { text: "Running an Oracle DAO Node",
+              collapsed: true:
+              items: [
+                { text: "The Rocket Pool Oracle DAO", link: "/guides/odao/overview" },
+                { text: "Setting up an Oracle DAO Node", link: "/guides/odao/setup" },
+                { text: "Testing your Oracle DAO Node", link: "/guides/odao/testing" },
+                { text: "Monitoring your Oracle DAO Node", link: "/guides/odao/monitoring" },
+                { text: "Oracle DAO Proposals", link: "/guides/odao/proposals" },
+              ]
+            }
           ],
         },
         {
@@ -294,6 +258,7 @@ function guides() {
             { text: "Upgrading to Smartnode v1.3.x", link: "/guides/legacy/v1.3-update" },
             { text: "Migrating the Smartnode from Previous Beta Tests", link: "/guides/legacy/upgrading" },
             { text: "The Atlas Update", link: "/guides/atlas/whats-new" },
+            { text: "The Houston Upgrade", link: "/guides/houston/whats-new"},
             { text: "Lower ETH Bond Minipools", link: "/guides/atlas/lebs" },
             {
               text: "Redstone & The Merge",
