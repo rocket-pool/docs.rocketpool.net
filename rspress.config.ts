@@ -108,6 +108,14 @@ function guides() {
           ],
         },
         {
+          text: "The Saturn 0 Upgrade",
+          collapsed: true,
+          link: "/guides/saturn-0/whats-new",
+          items: [
+            { text: "Overview", link: "/guides/saturn-0/whats-new" },
+          ],
+        },
+        {
           text: "Staking with Rocket Pool",
           collapsed: true,
           link: "/guides/staking/overview",
