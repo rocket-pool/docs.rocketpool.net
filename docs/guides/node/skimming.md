@@ -82,12 +82,6 @@ Note that for eligible minipools, you are also shown the **refund amount**.
 This is an amount owed directly to you (for example, because you had a balance in your minipool prior to [migrating from a 16-ETH bond down to an 8-ETH bond](./leb-migration.mdx) or you [converted a solo validator into a minipool](../node/solo-staker-migration) with existing rewards).
 It will not be shared with the rETH holders.
 
-::: tip NOTE
-You might be wondering why the amount going to the node operator (0.031200 ETH) appears lower than you might expect in this case.
-That's because in this example, we used an 8-ETH bonded minipool (an LEB8) instead of a 16-ETH bonded minipool!
-Read [**our guide on 8-ETH bonded minipools**](./leb-migration.mdx) if you'd like to learn more about them.
-:::
-
 Enter the number of the minipool that you want to distribute.
 You will be prompted with the gas price chart as usual, and asked to confirm your decision.
 Once you have, your minipool's balance will be distributed:

@@ -221,7 +221,6 @@ function guides() {
                 { text: "Rescuing a Dissolved Minipool", link: "/guides/node/rescue-dissolved" },
               ],
             },
-            { text: "NYI Troubleshooting your Node", link: "/guides/node/troubleshooting" },
             { text: "FAQ (WIP)", link: "/guides/node/faq" },
           ],
         },

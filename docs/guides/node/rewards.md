@@ -31,31 +31,16 @@ We've provided a brief explanation of them below.
 
 ### RPL Rewards
 
-RPL's current rewards rate is **5% inflation per year**.
-This means that for the first year of operation, with a total supply of 18,000,000 RPL, the protocol will mint **900,000 RPL**.
-70% of this (630,000 RPL) will be distributed to Rocket Pool node operators, which is roughly **48,300 RPL per checkpoint**.
-TODO - math is way off
+RPL's current rewards rate is **5% inflation per year** and rewards are paid out every 28 day period.
+As of 2024/10/21, the last period's inflation was 77,533. Since 70% is distributed to Rocket Pool node operators, that was 54,273 RPL that period.
 
 This amount will be divided among all of the node operators on the network, based on their [node weight](https://rpips.rocketpool.net/RPIPs/RPIP-30#specification).
 RPL rewards are at max APY from from no RPL staked up to 15% borrowed APY.
 Further RPL stake beyond that results in further rewards, but at a reduced marginal APY.
-===TODO===
-For example: if 48,300 RPL were minted, your node had 1000 effective RPL staked, and the total effective stake of the network was 1,000,000 RPL, then your rewards for the checkpoint would be 48,300 \* 1000 / 1000000 = **48.3 RPL**.
 
 If less than 28 days have passed between the time when you registered your node and the checkpoint, your rewards in that first rewards interval will be **pro-rated** to account for that. For example, if you registered on day 14 if the interval, you would receive 50% of normal rewards.
 
 After that first interval, your node will have been registered long enough on subsequent intervals that you will receive full rewards for all of them.
-
-::: danger NOTE
-In order to claim your rewards, you must have a minimum collateralization ratio of **10%** of the protocol ETH at the time of the checkpoint.
-This means if you have a single minipool that you deposited 16 ETH into, you must have staked at least 1.6 ETH worth of RPL in order to claim your rewards.
-If you have a single minipool that you deposited 8 ETH into, the protocol provided 24 ETH, so you must have staked at least 2.4 ETH worth of RPL in order to claim your rewards.
-The `rocketpool node status` command will show you your current collateralization ratio.
-
-If you are below 10% during the checkpoint, **you will not be eligible for any rewards for that interval.**
-**Even if you increase above 10% at a later date, you will not have any rewards to claim for that interval.**
-Therefore it is **crucial** that you maintain at least 10% collateral at the time when each RPL reward checkpoint is reached.
-:::
 
 The `rocketpool node status` command will show you your current collateralization ratio at any point of time. This collateralization ratio will be based on the prices at the time at which you run the command. However, if you want to know what your collateralization ratio will be at the next rewards round, follow the next steps:
 
