@@ -106,6 +106,19 @@ function guides() {
           ],
         },
         {
+          text: "The Houston Upgrade",
+          collapsed: true,
+          link: "/guides/houston/whats-new",
+          items: [
+            { text: "Overview", link: "/guides/houston/whats-new" },
+            { text: "Getting Started with Houston", link: "/guides/houston/getting-started" },
+            { text: "The Protocol DAO", link: "/guides/houston/pdao" },
+            { text: "Participating in Proposals", link: "/guides/houston/participate" },
+            { text: "Stake ETH on Behalf of Node", link: "/guides/houston/stake-eth-on-behalf" },
+            { text: "RPL Withdrawal Address", link: "/guides/houston/rpl-withdrawal-address" },
+          ],
+        },
+        {
           text: "Node Operator Guide",
           collapsed: true,
           items: [
@@ -258,18 +271,11 @@ function guides() {
           text: "Running an Oracle DAO Node",
           collapsed: true,
           items: [
-            { text: "Contracts & Integrations", link: "/guides/contracts-integrations"},
-            { text: "Running an Oracle DAO Node",
-              collapsed: true,
-              items: [
-                { text: "The Rocket Pool Oracle DAO", link: "/guides/odao/overview" },
-                { text: "Setting up an Oracle DAO Node", link: "/guides/odao/setup" },
-                { text: "Testing your Oracle DAO Node", link: "/guides/odao/testing" },
-                { text: "Monitoring your Oracle DAO Node", link: "/guides/odao/monitoring" },
-                { text: "Oracle DAO Proposals", link: "/guides/odao/proposals" },
-              ]
-            }
-          ],
+            { text: "The Rocket Pool Oracle DAO", link: "/guides/odao/overview" },
+            { text: "Setting up an Oracle DAO Node", link: "/guides/odao/setup" },
+            { text: "Testing your Oracle DAO Node", link: "/guides/odao/testing" },
+            { text: "Monitoring your Oracle DAO Node", link: "/guides/odao/monitoring" },
+            { text: "Oracle DAO Proposals", link: "/guides/odao/proposals" },          ],
         },
         {
           text: "Legacy Guides",
@@ -278,7 +284,6 @@ function guides() {
             { text: "Upgrading to Smartnode v1.3.x", link: "/guides/legacy/v1.3-update" },
             { text: "Migrating the Smartnode from Previous Beta Tests", link: "/guides/legacy/upgrading" },
             { text: "The Atlas Update", link: "/guides/atlas/whats-new" },
-            { text: "The Houston Upgrade", link: "/guides/houston/whats-new"},
             { text: "Lower ETH Bond Minipools", link: "/guides/atlas/lebs" },
             {
               text: "Redstone & The Merge",
