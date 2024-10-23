@@ -39,6 +39,10 @@ This is a very compelling feature for node operators that don't want to worry ab
 
 We'll cover both of these below so you understand the difference and whether or not you want to join the Smoothing Pool.
 
+::: tip NOTE
+For minipools created after 2024-10-18, the smoothing pool is STRONGLY recommended, as it is used to distribute bonus commission. If you opt out of the smoothing pool, these minipools will get 5% commission total. If you opt into the smoothing pool, these minipools will get between 10% (no RPL staked) and 14% (RPL stake is valued at 10% of borrowed ETH or more) commission.
+:::
+
 ## Your Fee Distributor
 
 Your Fee Distributor is a unique contract on the Execution Layer that's **specific to your node**.

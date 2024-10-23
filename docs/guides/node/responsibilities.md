@@ -16,29 +16,9 @@ The penalties are quite small though; as a rule of thumb, if a validator is offl
 
 ### Rewards
 
-Now that [the Execution and Consensus layers have merged](https://ethereum.org/en/upgrades/merge/), validators are able to earn five different types of rewards:
+Validators earn consensus layer rewards from Attestation, Block Proposals, Sync Committees (rare), and Slashing Rewards (vanishingly rare). They also earn execution layer rewards from Priority Fees and MEV.
 
-| Type                                                                                             | Layer     | Frequency                                                                             | Amount                                        |
-| ------------------------------------------------------------------------------------------------ | --------- | ------------------------------------------------------------------------------------- | --------------------------------------------- |
-| Attestation                                                                                      | Consensus | Once per Epoch (every 6.4 minutes on average)                                         | 0.000014 ETH\*                                |
-| Block Proposal                                                                                   | Consensus | [Every 2 months on average](https://proposalprobab.web.app/)\*\*                      | 0.02403 ETH\*                                 |
-| [Sync Committee](https://github.com/ethereum/annotated-spec/blob/master/altair/sync-protocol.md) | Consensus | Every 2 years on average\*\*                                                          | 0.11008 ETH\*                                 |
-| Slashing Reward                                                                                  | Consensus | Very rarely included in Block Proposals                                               | Up to 0.0625 ETH                              |
-| Priority Fees                                                                                    | Execution | Included in Block Proposals                                                           | Typically 0.01 to 0.1 ETH; very rarely 1+ ETH |
-| MEV Rewards                                                                                      | Execution | Also included in Block Proposals when using [MEV-boost](https://boost.flashbots.net/) | Typically 0.01 to 0.1 ETH; very rarely 1+ ETH |
-
-\*_Varies based on the total number of validators in the network.
-Approximated for 435,000 active validators._
-
-_\*\*These are subject to randomness; there can be "dry spells" multiple times longer than the average without being given one._
-
-Rewards for performing validation duties are routinely ["skimmed"](./skimming) to minipools and can be distributed by
-Node Operators as desired.
-
-Rewards provided by participating in MEV are either paid to Node Operators' fee distributor for immediate distribution or
-once per Rocket Pool rewards interval, if opted into the **Smoothing Pool**.
-
-We will describe these rewards in more detail, including how to configure and access them, later on in the guide.
+As of 10/2024, overall APR is ~3.5%, with 2.8% being consensus layer APR, and 0.7% being execution layer APR. One place to find this info is the [rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake).
 
 ### Penalties
 
@@ -69,9 +49,9 @@ As a rule of thumb, if you're offline for X hours (and you aren't in a sync comm
 
 ## How Rocket Pool Nodes Work
 
-Unlike solo stakers which are required to put 32 ETH up for deposit to create a new validator, Rocket Pool nodes only need to deposit 8 or 16 ETH per validator (the "bond").
-This will be coupled with 24 or 16 ETH (the "borrowed") from the staking pool (which "normal" stakers deposited in exchange for rETH) to create a new validator.
-This new validator is called a **minipool**.
+Unlike solo stakers, who are required to put 32 ETH up for deposit to create a new validator, Rocket Pool nodes only need to deposit 8 ETH per validator (called "bond ETH").
+This will be coupled with 24 ETH from the staking pool (called "borrowed ETH", which comes from liquid staker deposits in exchange for rETH) to create a new validator.
+This new validator belongs to a **minipool**.
 
 To the Beacon chain, a minipool looks exactly the same as a normal validator.
 It has the same responsibilities, same rules it must follow, same rewards, and so on.
@@ -82,15 +62,16 @@ This makes it completely decentralized.
 A Rocket Pool **Node** is a single computer with an Ethereum wallet that was registered with Rocket Pool's smart contracts.
 The node can then create as many minipools as it can afford, all running happily on the same machine together.
 **A single Rocket Pool node can run many, many minipools.**
-Each minipool has a negligible impact on overall system performance; some people have been able to run hundreds of them on a single node during Rocket Pool's beta tests.
+Each minipool has a negligible impact on overall system performance; some people have been able to run hundreds of them on a single node.
 
-A minipool's upfront cost is either 16 ETH, plus at least 1.6 ETH worth of the **RPL token**, or 8 ETH plus at least 2.4 ETH worth of the RPL token.
-The supplemental RPL collateral acts as supplemental insurance against particularly egregious slashing incidents, and lets you participate in Rocket Pool's DAO where you can vote on changes to the smart contracts.
+A minipool's upfront cost is 8 ETH. In addition, a node operator may stake RPL to their node to qualify for additional rewards and to gain voting power within the protocol DAO.
 
 ## Rocket Pool Node Operators
 
 **Node operators** are the heart and soul of Rocket Pool.
 They are the individuals that run Rocket Pool nodes.
+
+### Responsibilities
 They put ETH from the staking pool to work by running minipools with it, which earn staking rewards for the Rocket Pool protocol (and thus, increase rETH's value).
 Their job is straightforward, but crucially important: _run validators with the highest quality possible, and maximize staking rewards_.
 
@@ -104,30 +85,30 @@ Node operators are responsible for:
 
 It's a big responsibility, and not a simple set-it-and-forget-it kind of job; you need to care for your node for as long as it's staking.
 With great responsibility, however, comes great rewards.
+
+### Rewards
 Here are the major benefits of running a Rocket Pool node:
 
 - You earn your portion of each validator's ETH rewards, plus commission.
-  - For an 8 ETH-bonded minipool, this comes to **35.5%** of the validator's rewards (an extra **10.5%** over solo staking).
-  - For a 16 ETH-bonded minipool, this comes to **57.5%** of the validator's rewards (an extra **7.5%** over solo staking).
-- You earn interest on the RPL you stake as supplemental insurance.
+  - For 8 ETH-bonded minipools with no staked RPL, this comes to 30% more than solo staking (`(8+24*.1)/8 = 1.3`)
+  - Staking RPL provides boosted commission. With RPL stake valued at 10% of your total borrowed ETH or more, ETH rewards come to 42% more than solo staking (`(8+24*.14)/8 = 1.42`)
+  - **Note:** if you do not participate in the smoothing pool, you will instead receive 15% more than solo staking (`(8+24*.05)/8 = 1.15`) -- it is highly recommended that users with minipools made on/after 2024-10-28 opt into the smoothing pool.
+- You also earn issuance rewards on the RPL you stake.
   - At the end of a period (every 28 days), there's a snapshot of your RPL.
-  - You can earn yield on RPL **up to 150%** of the value of your total bonded ETH.
-  - To be eligible for these rewards, you must have **at least 10%** of the value of your **total borrowed ETH** to earn RPL rewards.
-- You will be able to participate in the DAO and get to vote on changes to Rocket Pool's protocol or settings.
+  - You can earn max yield on RPL **up to 15%** of the value of your total borrowed ETH.
+    - You will earn yield on RPL beyond that, at a decreasing level.
+  - You will get vote power based on the square root of your staked RPL.
 
-In light of gaining access to these benefits, as a node operator **you are responsible for your own performance**.
-If your node performs poorly and you actually end up losing ETH by the time you decide to exit your minipool, all of the lost ETH is coming out of your share.
-For example: if you exit with a balance of 30 ETH, then your minipool lost 2 ETH from its initial 32 ETH deposit.
-You will receive 14 or 6 ETH (depending on your **bond size**), and 24 or 16 ETH will be returned to the staking pool.
+### Limitations
+There are some limitations that come along with the rewards above:
+- If your node performs poorly and you actually end up losing ETH by the time you decide to exit your minipool, all of the lost ETH is coming out of your share.
+  - For example: if you exit with a balance of 30 ETH, then your minipool lost 2 ETH from its initial 32 ETH deposit. You will receive 6 ETH, and 24 ETH will be returned to the staking pool.
+- Your staked RPL will be less liquid
+  - You can only withdraw RPL stake beyond that valued at 60% of your bonded ETH.
+  - You cannot withdraw RPL if you've staked in the last 28 days
 
-::: warning NOTE
-To reinforce this, you are also responsible for ensuring you maintain an RPL stake of **at least 10% collateral** prior to the end of each rewards period.
-This can fall in the case of RPL price action due to market sales, thus bringing down your collateral so it's important to check it!
 
-If you let it go below 10% at each rewards period, **you will not be eligible for RPL rewards** for that period.
-To learn more, please visit [_the Rewards page_](./rewards.md).
-:::
-
+### You've got this
 If you're fairly new to using the command line or computer maintenance, this can seem like a scary challenge.
 Luckily, one of Rocket Pool's most core principles is _decentralization_ - the fact that anyone, anywhere, can run a node if they have the determination and knowledge.
 While we can't help with determination, we _can_ help with knowledge.

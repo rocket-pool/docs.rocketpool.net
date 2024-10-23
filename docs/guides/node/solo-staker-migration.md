@@ -25,14 +25,13 @@ Conversion into a minipool is not for everyone, but this section will help you m
 
 Rocket Pool minipools enjoy several advantages over conventional solo staking validators:
 
-- They **earn commission** on the portion of ETH they borrow from the pool stakers (currently either 16 or 24 ETH).
+- They **earn commission** on the portion of ETH they borrow from the pool stakers (24 ETH).
 - Your existing 32 ETH bond could be used to create up to **three additional validators** (on top of the one you already have).
 - They are eligible for participation in the [Smoothing Pool](./fee-distrib-sp#the-smoothing-pool) which pools all Execution layer rewards (e.g., from block proposals and [MEV rewards](./mev.mdx)) and fairly distributes them among participants during each rewards interval.
-- They earn RPL inflation rewards (which currently provide a higher APR than ETH staking rewards).
+- If you stake RPL, they will earn bonus commisoin and RPL inflation rewards (which currently provide a higher APR than ETH staking rewards).
 
 That being said, there are some differences that are important to highlight:
 
-- Staking with Rocket Pool requires you to buy and stake the **RPL token** as collateral.
 - You will have to accept **smart contract risk**, as the protocol is implemented as a series of smart contracts.
 - Similarly, conventional node operation leverages the **Smartnode stack**; you will have to accept any risks associated with installing and running that software on your node.
 - Being a node operator does involve learning some new concepts, so there is a **learning curve** associated with becoming one.
@@ -47,7 +46,6 @@ If you would like to continue with the process, please read the next sections.
 In order to begin the conversion process, you will need to meet the following criteria:
 
 1. You must have [a node registered with the Rocket Pool network](./prepare-node.mdx) to host the new minipool.
-1. The node must have enough RPL staked to support the new minipool (minimum of 1.6 ETH worth of RPL for converting to 16 ETH minipool, minimum of 2.4 ETH worth of RPL if converting to an 8 ETH minipool).
 1. The validator you want to migrate must be **active** on the Beacon chain. It cannot be pending, slashed, exiting / exited, or withdrawn.
 1. The validator must have a balance of **at least 32 ETH** on the Beacon chain.
 1. The validator must have [BLS key withdrawal credentials](https://launchpad.ethereum.org/en/withdrawals) (`0x00` credentials). Conversion **cannot** be done on validators that have already migrated to other Execution layer withdrawal credentials (`0x01` credentials).
@@ -112,18 +110,11 @@ You will see a brief summary about what to expect during the process, then be pr
 Please choose an amount of ETH you want to use as your deposit for the new minipool (this will become your share of the balance, and the remainder will become the pool stakers' share):
 
 1. 8 ETH
-2. 16 ETH
 ```
 
-If you select **8 ETH**, you will convert your validator into an 8-ETH bonded minipool.
+Once you select **8 ETH**, you will convert your validator into an 8-ETH bonded minipool.
 Your original 32 ETH deposit will be converted into an 8 ETH deposit, with 24 ETH borrowed from the pool stakers.
 Once the conversion process is complete, you will have a [credit balance](./credit) of 24 ETH which you can use to create more minipools.
-Choosing this option will require your node to have a minimum of **2.4 ETH worth of RPL staked**.
-
-If you select **16 ETH**, you will convert your validator into a 16-ETH bonded minipool.
-Your original 32 ETH deposit will be converted into an 16 ETH deposit, with 16 ETH borrowed from the pool stakers.
-Once the conversion process is complete, you will have a [credit balance](./credit) of 16 ETH which you can use to create more minipools.
-Choosing this option will require your node to have a minimum of **1.6 ETH worth of RPL staked**.
 
 Once you select an option, the Smartnode will run a few checks to confirm that the validator you entered and your node both pass all of the prerequisite requirements listed above.
 After that, it will ask you to confirm your gas price and then submit the transaction to create the new vacant minipool.

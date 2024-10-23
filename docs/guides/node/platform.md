@@ -12,27 +12,15 @@ If you aren't sure yet, then read on for some information about your options.
 A **full node** is one that runs both an Execution Client and Consensus Client along with the Rocket Pool stack.
 Now that the Merge has occurred, Rocket Pool nodes are required to run this configuration (though the Execution and Consensus clients can be externally managed for users already running a solo-staking setup - we'll cover this in more detail later).
 
-::: warning NOTE
-As of Smartnode v1.5.0, remote clients such as Infura, Pocket, or Alchemy are no longer supported because they are not compatible with validation duties after The Merge.
-:::
-
 Here is a simple breakdown of what is required to run a full Rocket Pool node well:
 
 - A **stable Internet connection**. The longer you stay online, the better your rewards. A spotty Internet connection will hurt your returns, and by extension, the rETH ratio growth.
 - At least **10Mbps of bandwidth both up and down**. A full node usually takes around 8Mbps to 10Mbps up & down of network traffic, depending on your configuration and number of minipools.
 - **No data cap** imposed by your ISP. Running a full node will take a lot of data - we have seen reports of over 2 TB per month on chain data alone. This can be mitigated somewhat with a few settings tweaks to the ETH clients, but as a rule of thumb, don't run a full node if your Internet plan comes with a monthly data cap.
 - **Stable electricity**. For the same reason as needing a stable Internet connection, you also want to have reliable power. This can be mitigated with a large UPS (backup battery) to deal with short blackouts.
-- A **computer** with sufficient specs. This is pretty flexible because it _really_ depends on what Execution and Consensus client you use, and what settings you configure them with. The computer can be a local machine, or it can be a Virtual Private Server (VPS) hosted in the cloud. Read below for some more information on those two options, and how to decide which is best for you.
+- A **computer** with sufficient specs. This is pretty flexible because it _really_ depends on what Execution and Consensus client you use, and what settings you configure them with. The computer can be a local machine, or it can be hosted in the cloud. Read below for some more information on those two options, and how to decide which is best for you.
 
-The following are considered _minimum_ requirements:
-
-- Linux or macOS Operating System
-- Quad core CPU (or dual-core hyperthreaded); both `x64` and `arm64` are supported
-- 16 GB of RAM (preferably DDR4)
-- 2 TB of free **SSD Disk Space** (_note: this only applies to mainnet; the Holesky testnet only requires about 750 GB_)
-  - A spinning platter hard drive _is generally not fast enough_ to handle the constant random reads and writes that blockchain activity requires; you MUST use a solid state drive.
-
-32 GB of RAM is preferable as of 2023 as some clients require more RAM than others, but 16 GB can be used without issue as long as you use clients with relatively low RAM consumption.
+The computer must meet the [hardware guidelines](./local/hardware.md)
 
 ::: warning NOTE
 At this time, only **Linux** and **macOS** platforms are supported.
@@ -60,9 +48,9 @@ Disadvantages:
 
 If the advantages sound like they outweigh the disadvantages for you, then take a look at our [Local Node Operator's Guide](./local/hardware.html).
 
-## Running a VPS on the Cloud
+## Running on a Server
 
-If you don't have a reliable uncapped Internet plan, or you just don't want to deal with building and maintaining your own physical computer, you may want to look at running a virtual private server. These are virtual servers that you rent from hosting providers, such as Amazon Web Services, Microsoft Azure, Netcup, Contabo, or other companies. Essentially, these companies will happily create and run a server for you, for a monthly fee. If you don't mind that fee and want to run a Rocket Pool node, using a VPS can be a good strategy.
+If you don't have a reliable uncapped Internet plan, or you just don't want to deal with building and maintaining your own physical computer, you may want to look at running a private server you rent from a hosting provider. Essentially, these companies will happily create and run a server for you, for a monthly fee. If you don't mind that fee and want to run a Rocket Pool node, using a server can be a good strategy.
 
 Advantages:
 
@@ -78,4 +66,4 @@ Disadvantages:
 - Servers may come with data caps, or have expensive network I/O rates
 - Possible for hosts to examine your machine's contents and take your wallet's key if not secured
 
-If those advantages sound like they outweigh the disadvantages for you, then take a look at our [VPS Node Operator's Guide](./vps/providers.html).
+If those advantages sound like they outweigh the disadvantages for you, then take a look at our [Server Node Operator's Guide](./vps/providers.html).

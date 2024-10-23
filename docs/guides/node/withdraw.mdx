@@ -103,7 +103,11 @@ rocketpool node withdraw-rpl
 ```
 
 ::: tip NOTE
-Withdrawals of RPL are subject to a 28 day waiting period since the last stake or restaking action. Be careful if you claim these rewards before closing your minipool, if you restake any amount of RPL rewards you will not be able to withdraw any amount of RPL for 28 days since the last staking action.
+There are two limitations on RPL withdrawals:
+
+RPL cannot be withdrawn within 28 days of staking (or restaking) RPL. Be careful if you claim these rewards before closing your minipool, if you restake any amount of RPL rewards you will not be able to withdraw any amount of RPL for 28 days since the last staking action.
+
+RPL can be withdrawn down to 60% of your total bonded ETH. On a full exit, that means all of it can be withdrawn; for partial exits, plan with this limit in mind.
 :::
 
 ## A Note on the Old Delegate
