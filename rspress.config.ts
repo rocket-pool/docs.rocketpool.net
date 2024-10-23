@@ -50,6 +50,10 @@ export default defineConfig({
     // ],
     nav: [
       {
+        text: "Overview",
+        link: "/overview/",
+      },
+      {
         text: "Guides",
         link: "/guides/",
       },
@@ -59,10 +63,27 @@ export default defineConfig({
       },
     ],
     sidebar: {
+      "/overview/": overview(),
       "/guides/": guides(),
     },
   },
 });
+
+function overview() {
+  return [
+    {
+      text: "Overview",
+      collapsed: false,
+      items: [
+        { text: "Overview", link: "/overview/" },
+        { text: "Explainer Series", link: "/overview/explainer-series" },
+        { text: "Frequently Asked Questions", link: "/overview/faq" },
+        { text: "Contracts & Integrations", link: "/overview/contracts-integrations" },
+        { text: "Glossary", link: "/overview/glossary" },
+      ],
+    },
+  ];
+}
 
 function guides() {
   return [
