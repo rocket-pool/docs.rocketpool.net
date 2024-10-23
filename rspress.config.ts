@@ -237,9 +237,9 @@ function guides() {
           text: "Running an Oracle DAO Node",
           collapsed: true,
           items: [
-            { text: "Contracts & Integrations", link: "/guides/contracts-integrations"}
+            { text: "Contracts & Integrations", link: "/guides/contracts-integrations"},
             { text: "Running an Oracle DAO Node",
-              collapsed: true:
+              collapsed: true,
               items: [
                 { text: "The Rocket Pool Oracle DAO", link: "/guides/odao/overview" },
                 { text: "Setting up an Oracle DAO Node", link: "/guides/odao/setup" },

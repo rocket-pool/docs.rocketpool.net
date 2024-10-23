@@ -53,7 +53,7 @@ Consider taking the following steps:
 One of the **critical** details to set up prior to the Merge is the **fee recipient** specified by your validator client.
 As described in the [overview article](./whats-new#fee-recipients-and-your-distributor), this can be one of two values:
 
-- If you **are opted into** the Smoothing Pool, this must be the address of the **Smoothing Pool contract**. You can get the address from [the official contracts page](../../overview/contracts-integrations#protocol-contracts).
+- If you **are opted into** the Smoothing Pool, this must be the address of the **Smoothing Pool contract**. You can get the address from [the official contracts page](../contracts-integrations).
 - If you are **not** in the Smoothing Pool, this must be the address of your node's **fee distributor contract**. You can get the address by running `rocketpool node status`, under the `Fee Distributor and Smoothing Pool` section.
 
 In Native mode, you have the choice of letting the Smartnode manage this for you if you use the Smartnode daemon service, `rp-node`, or managing it yourself if you do not use the daemon.
@@ -168,7 +168,7 @@ Please read the [penalty specification](https://github.com/rocket-pool/rocketpoo
 Failure to do so could result in your minipools being penalized!
 :::
 
-**Prior to Redstone being deployed**, you can simply use the rETH address for the network you're on (which can be found in [the official contracts page](../../overview/contracts-integrations#protocol-contracts)).
+**Prior to Redstone being deployed**, you can simply use the rETH address for the network you're on (which can be found in [the official contracts page](../contracts-integrations)).
 The rETH address is always safe no matter what.
 
 **Once Redstone has been deployed**, you can see the exact address that you should set your fee recipient to via `rocketpool node status`. For example, if you are opted into the Smoothing Pool, it will show the Smoothing Pool's address and note that you must use it as your fee recipient:
