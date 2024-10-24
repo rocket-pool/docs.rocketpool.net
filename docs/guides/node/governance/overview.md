@@ -41,3 +41,4 @@ Before configuring your Smartnode, please make sure you:
 
 [Voting on a Proposal](/guides/houston/participate#voting-on-a-proposal) shows you how cast a vote on an on-chain proposals. This guide also goes over the four options: **Abstain**, **For**, **Against**, and **Veto**.
 
+[Voting setup for non-smartnode users](/guides/houston/nonsmartnode-setup) shows non-smartnode users (such as Allnodes users) how to set up voting.

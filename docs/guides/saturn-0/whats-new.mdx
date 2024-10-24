@@ -1,0 +1,69 @@
+import {Tab, Tabs} from 'rspress/theme';
+
+# The Saturn 0 Upgrade
+
+Welcome to Saturn 0! This upgrade aims to improve RPL tokenomics in the short term to unlock protocol growth. If you're a returning or prospective node operator, this page will 
+serve as an introduction to some new and exciting changes to the Rocket Pool protocol.
+
+::: tip NOTE
+Saturn 0 has been successfully voted in by the Protocol DAO and Oracle DAO and is scheduled to go live on `28 October 2024, 00:00 UTC`.
+This upgrade consists parameter changes, [Houston Hotfix (RPIP-63)](https://snapshot.org/#/rocketpool-dao.eth/proposal/0x1d75c5247cf457d26fbf7f26622c21de912565256fc3273b92a40aa14dd1af3d)
+and [Tokenomics Rework Prelude (RPIP-62)](https://snapshot.org/#/rocketpool-dao.eth/proposal/0x7f6c978251e0ae752c619cc459331e5b3cc081aed13b133159b43fb6194b3304).
+:::
+
+
+## ETH only minipools in Saturn 0 
+
+- The RPL requirement for new minipools are a thing of the past! Minipools launched after the inception of Saturn 0 do not require RPL stake to be deployed. 
+Node operators can now create minipools with an upfront cost of 8 ETH. In addition, a node operator may stake RPL to qualify for additional rewards 
+and access voting power within the [Protocol DAO](guides/houston/pdao#the-protocol-dao-pdao). 
+
+- Nodes with an RPL stake of any size qualify for RPL issuance rewards. This unlocks RPL rewards for Node Operators under the 10% collateral cliff 
+who were previously unqualified for RPL issuance rewards. 
+
+- This means nodes with an RPL stake of 0-15% of borrowed ETH receive the maximum APY on RPL. Nodes still earn RPL yield beyond 15% collateral, at a decreasing rate.
+Feel free to take a look how RPL issuance beyond 15% borrowed ETH is defined in [RPIP-30](https://rpips.rocketpool.net/RPIPs/RPIP-30#specification).
+
+- Saturn 0 minipools have a 5% base ETH comission, which will be temporarily boosted up to 14% after [Reward Tree Spec v10](https://rpips.rocketpool.net/assets/rpip-62/rewards-calculation-spec), up until the launch of Saturn 1.
+
+## New Commission Structure (Saturn 0 part 2)
+::: tip NOTE
+Dynamic Commission will be enabled when v10 of the [Reward Tree Spec](https://rpips.rocketpool.net/assets/rpip-62/rewards-calculation-spec) is implemented. It's currently in development, so keep an eye on [#protocol](https://discord.com/channels/405159462932971535/405163979141545995) 
+announcements in our [Discord Server](https://discord.com/invite/rocketpool) for updates!
+:::
+
+We're excited to announce that newly launched Saturn 0 minipools will feature a commission structure ranging from 5% to 14%.
+
+- Nodes without any RPL stake will be entitled to a 5% base ETH commission.
+- Nodes with staked RPL recieve up to a 4% boost for staked RPL valued at >= 10% of borrowed ETH.
+- Until Saturn 1, nodes receive a 5% dynamic comission boost.
+
+For a total of up to 14% commission on borrowed ETH. 
+
+::: warning WARNING
+Your node must be opted into the [Smoothing Pool](/guides/node/fee-distrib-sp#the-smoothing-pool) to benefit from the dynamic comission boost, but don't worry. The latest Smart Node version `v1.14.0` will inform you 
+to opt into the Smoothing Pool when depositing a minipool if you aren't already opted in. *You new minipools will miss out on additional yield if your node 
+isn't in the Smoothing Pool!!* 
+:::
+
+## Node Operator Guide
+If you're interested in running a Rocket Pool node to create your own Ethereum validators, take a look at our [Node Operator's guide](/guides/node/responsibilities).
+This is a very comprehensive guide that goes over all of the considerations involved in node operation, including:
+
+- Deciding to run a node locally at home, or remotely on the cloud
+- Selecting the hardware for a local machine, or selecting a remote hosting provider
+- Preparing and securing the operating system of your node
+- Selecting your Execution and Consensus clients
+- Installing Rocket Pool's Smartnode stack
+- Creating a new Beacon Chain validator using the Rocket Pool network
+- Maintaining and updating your node
+- Participating in on-chain governance
+
+Both guides will show you how to practice for free on the Rocket Pool testnet so you can get a feel for everything without risking any of your real-life ETH, and how to stake your real ETH on the Ethereum mainnet once you're comfortable with the process.
+
+When you're ready, select a guide from the options above based on your interests.
+You are also free to explore the various pages using the sidebar to the left.
+
+
+
+

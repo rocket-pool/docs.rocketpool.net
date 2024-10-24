@@ -95,6 +95,10 @@ function guides() {
           link: "/guides/",
         },
         {
+          text: "The Saturn 0 Upgrade",
+          link: "/guides/saturn-0/whats-new",
+        },
+        {
           text: "The Houston Upgrade",
           collapsed: true,
           link: "/guides/houston/whats-new",
@@ -108,7 +112,7 @@ function guides() {
           ],
         },
         {
-          text: "Staking with Rocket Pool",
+          text: "rETH Staker Guide",
           collapsed: true,
           link: "/guides/staking/overview",
           items: [
@@ -119,7 +123,7 @@ function guides() {
           ],
         },
         {
-          text: "Running a Rocket Pool Node",
+          text: "Node Operator Guide",
           collapsed: true,
           items: [
             { text: "A Node Operator's Responsibilities", link: "/guides/node/responsibilities" },
@@ -137,7 +141,7 @@ function guides() {
               ],
             },
             {
-              text: "Preparing a Cloud (VPS) Node",
+              text: "Preparing a Server Node",
               link: "/guides/node/vps/overview",
               collapsed: true,
               items: [
@@ -255,7 +259,6 @@ function guides() {
                 { text: "Rescuing a Dissolved Minipool", link: "/guides/node/rescue-dissolved" },
               ],
             },
-            { text: "NYI Troubleshooting your Node", link: "/guides/node/troubleshooting" },
             { text: "FAQ (WIP)", link: "/guides/node/faq" },
           ],
         },
@@ -276,8 +279,7 @@ function guides() {
             { text: "Setting up an Oracle DAO Node", link: "/guides/odao/setup" },
             { text: "Testing your Oracle DAO Node", link: "/guides/odao/testing" },
             { text: "Monitoring your Oracle DAO Node", link: "/guides/odao/monitoring" },
-            { text: "Oracle DAO Proposals", link: "/guides/odao/proposals" },
-          ],
+            { text: "Oracle DAO Proposals", link: "/guides/odao/proposals" },          ],
         },
         {
           text: "Legacy Guides",

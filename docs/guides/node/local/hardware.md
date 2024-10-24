@@ -27,6 +27,8 @@ In our experience, most setups, including mini-PCs and NUCs, are capable of runn
 
 ### CPU Requirements
 
+**Guideline: any modern CPU with at least 4 threads.**
+
 Running a Rocket Pool node is not very computationally intensive.
 The biggest impact of the CPU is how fast your node can initially sync the state of the blockchain when you first create it (or if you ever change clients later).
 After the initial sync, the CPU is not used as heavily.
@@ -53,22 +55,20 @@ We recommend a **minimum of 4 threads** for Rocket Pool node operation.
 A 2 core CPU with 4 threads will work without issue.
 It is rare to find a CPU with only 2 threads.
 
-**Guideline: any modern CPU with at least 4 threads.**
-
 ### RAM Requirements
 
-Rocket Pool nodes can operate with as little as 8 GB of RAM.
+**Guideline: at least 16 GB of RAM, 32 GB preferred, DDR4 preferred**
+
+Rocket Pool nodes can operate with as little as 16 GB of RAM.
 We generally recommend having slightly more to offer some headroom and full support for RAM-heavy clients such as Teku.
 An added benefit of more RAM is that you can provide a larger cache size to Execution client, which tends to slow the rate of your disk space usage.
 
-The exact type of RAM (such as DDR3 or DDR4) is not as important; generally DDR3 is fast enough to support node operation.
-
-**Guideline: at least 16 GB of RAM.**
-
 ### SSD Requirements
 
+**Guideline: a 2+ TB SSD that has TLC or better, with a DRAM cache. NVMe preferred.**
+
 This element is more important than most people expect.
-The Execution client relies heavily on IOPS, or "operations per second".
+The Execution client relies heavily on IOPS, or "operations per second"; we recommend 15k Read IOPS, and 5k Write IOPS
 In practice, this means that:
 
 - HDD (spinning platter) drives will not work
@@ -76,6 +76,10 @@ In practice, this means that:
 - NVMe SSD drives are preferred
 
 If you already have an SSD you want to use and want to be sure it has sufficient performance for node operation.
+
+_\* If you are unsure if your disk meets these performance requirements, `fio` is a good way to test them.
+See [here](https://arstech.net/how-to-measure-disk-performance-iops-with-fio-in-linux/) for Linux instructions,
+and [here](https://www.nivas.hr/blog/2017/09/19/measuring-disk-io-performance-macos/) for MacOS instructions._
 
 :::tip NOTE
 SSD selection can be a complex choice!
@@ -95,12 +99,10 @@ We recommend a drive with a **DRAM** cache.
 We **do not recommend DRAM-less drives**.
 :::
 
-The second consideration is drive size.
-At the time of writing, the `geth` execution client database size requires about 700GB of space after it finishes its initial sync (or after you just finished pruning it).
-This will grow steadily over time, and while you can periodically prune the database, it is likely to cross 1 TB over the coming year(s).
+The final consideration is drive size.
+As of 10/2024, the `geth` execution client database size requires about 1.2TB of space after it finishes its initial sync (or after you just finished pruning it).
+This will grow steadily over time, and while pruning can regain some of that space, the freshly pruned state _does_ grow over time.
 You will have peace of mind with a larger drive.
-
-**Guideline: a 2 TB SSD that has TLC or better, with a DRAM cache. NVMe preferred.**
 
 ### Common Accessories
 
@@ -117,6 +119,7 @@ These are all convenient to have, but not required to run a Rocket Pool node.
 
 In this section, we'll showcase a few of the varied builds that Rocket Pool's community has created for themselves.
 They are examples of what people are using, not recommendations for how you should run your setup.
+Note that many are somewhat outdated and, eg, use SSDs that are now too small.
 
 ### Xer0's Server
 
