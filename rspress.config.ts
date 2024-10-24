@@ -95,15 +95,8 @@ function guides() {
           link: "/guides/",
         },
         {
-          text: "rETH Staker Guide",
-          collapsed: true,
-          link: "/guides/staking/overview",
-          items: [
-            { text: "Overview", link: "/guides/staking/overview" },
-            { text: "Staking directly via Rocket Pool ", link: "/guides/staking/via-rp" },
-            { text: "Staking via a Decentralised Exchange on the Ethereum Network (Layer 1) ", link: "/guides/staking/via-l1" },
-            { text: "Staking via a Decentralised Exchange on Layer 2 ", link: "/guides/staking/via-l2" },
-          ],
+          text: "The Saturn 0 Upgrade",
+          link: "/guides/saturn-0/whats-new",
         },
         {
           text: "The Houston Upgrade",
@@ -116,6 +109,17 @@ function guides() {
             { text: "Participating in Proposals", link: "/guides/houston/participate" },
             { text: "Stake ETH on Behalf of Node", link: "/guides/houston/stake-eth-on-behalf" },
             { text: "RPL Withdrawal Address", link: "/guides/houston/rpl-withdrawal-address" },
+          ],
+        },
+        {
+          text: "rETH Staker Guide",
+          collapsed: true,
+          link: "/guides/staking/overview",
+          items: [
+            { text: "Overview", link: "/guides/staking/overview" },
+            { text: "Staking directly via Rocket Pool ", link: "/guides/staking/via-rp" },
+            { text: "Staking via a Decentralised Exchange on the Ethereum Network (Layer 1) ", link: "/guides/staking/via-l1" },
+            { text: "Staking via a Decentralised Exchange on Layer 2 ", link: "/guides/staking/via-l2" },
           ],
         },
         {
