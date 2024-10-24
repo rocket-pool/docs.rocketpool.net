@@ -113,7 +113,7 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 ## All Active Deployed Protocol Contracts
 
 | Chain     | Contract Name                         | Address                                                                                                                       |
-| --------- | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| --------- |---------------------------------------| ----------------------------------------------------------------------------------------------------------------------------- |
 | Mainnet   | addressQueueStorage                   | [0x44E31944E1A6F3b8F805E105B130F8bdb7E2EBd8](https://etherscan.io/address/0x44E31944E1A6F3b8F805E105B130F8bdb7E2EBd8)         |
 | &nbsp;    | addressSetStorage                     | [0xD4ae2511dF21F367792bA4D67c6eb032171c6a16](https://etherscan.io/address/0xD4ae2511dF21F367792bA4D67c6eb032171c6a16)         |
 | &nbsp;    | rocketAuctionManager                  | [0x1a2F00D187C9388fDa3Bf2dc46a6b4740849EcCE](https://etherscan.io/address/0x1a2F00D187C9388fDa3Bf2dc46a6b4740849EcCE)         |
@@ -176,6 +176,7 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 | &nbsp;    | rocketDAOSecurityProposals            | [0x6004Fa90a27dB9971aDD200d1A3BB34444db9Fb7](https://etherscan.io/address/0x6004Fa90a27dB9971aDD200d1A3BB34444db9Fb7)         |
 | &nbsp;    | rocketDAOProtocolSettingsSecurity     | [0x1ec364CDD9697F56B8CB17a745B98C2b862CBE29](https://etherscan.io/address/0x1ec364CDD9697F56B8CB17a745B98C2b862CBE29)         |
 | &nbsp;    | rocketDAOProtocolProposal             | [0x2D627A50Dc1C4EDa73E42858E8460b0eCF300b25](https://etherscan.io/address/0x2D627A50Dc1C4EDa73E42858E8460b0eCF300b25)         |
+| &nbsp;    | rocketSwapRouter                      | [0x16d5a408e807db8ef7c578279beeee6b228f1c1c](https://etherscan.io/address/0x16d5a408e807db8ef7c578279beeee6b228f1c1c)         |
 | Holesky\* | addressQueueStorage                   | [0x0d8d8f8541b12a0e1194b7cc4b6d954b90ab82ec](https://holesky.etherscan.io/address/0x0d8d8f8541b12a0e1194b7cc4b6d954b90ab82ec) |
 | &nbsp;    | addressSetStorage                     | [0x32778d6bf5b93b89177d328556eeeb35c09f472b](https://holesky.etherscan.io/address/0x32778d6bf5b93b89177d328556eeeb35c09f472b) |
 | &nbsp;    | rocketAuctionManager                  | [0x84d11b65e026f7aa08f5497dd3593fb083410b71](https://holesky.etherscan.io/address/0x84d11b65e026f7aa08f5497dd3593fb083410b71) |
