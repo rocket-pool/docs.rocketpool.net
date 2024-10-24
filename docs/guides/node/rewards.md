@@ -8,7 +8,7 @@ This section will describe how these rewards work and how you can claim them.
 At regular intervals, Rocket Pool will flag a **checkpoint** on the network.
 Currently, checkpoints occur **every 28 days**.
 
-At a new checkpoint, the Oracle DAO will collectively create a **true snapshot** of the state of the node operators in the Rocket Pool network, which it will use to determine the RPL and Smoothing Pool ETH rewards for each node during that interval. Note that "bonus commission" for Saturn 0 minipools is distributed using smoothing pool rewards (Saturn 0 minipoolsa are the ones created after 2024/10/28, which have a contract commission of 5%).
+At a new checkpoint, the Oracle DAO will collectively create a **true snapshot** of the state of the node operators in the Rocket Pool network, which it will use to determine the RPL and Smoothing Pool ETH rewards for each node during that interval. Note that "bonus commission" for Saturn 0 minipools is distributed using smoothing pool rewards (Saturn 0 minipools are the ones created after 2024/10/28, which have a contract commission of 5%).
 
 This information is compiled into a [Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree) - an extremely efficient way to make all of the details available to smart contracts.
 The Merkle Tree is built into a JSON file and hosted on the [InterPlanetary File System (IPFS)](https://en.wikipedia.org/wiki/InterPlanetary_File_System) and mirrored on [a GitHub repository that we maintain](https://github.com/rocket-pool/rewards-trees/).
@@ -35,10 +35,10 @@ RPL's current rewards rate is **5% inflation per year** and rewards are paid out
 As of 2024/10/21, the last period's inflation was 77,533. Since 70% is distributed to Rocket Pool node operators, that was 54,273 RPL that period.
 
 This amount will be divided among all of the node operators on the network, based on their [node weight](https://rpips.rocketpool.net/RPIPs/RPIP-30#specification).
-RPL rewards are at max APY from from no RPL staked up to 15% borrowed APY.
-Further RPL stake beyond that results in further rewards, but at a reduced marginal APY.
+Node operators earn the maximum APY for staked RPL positions worth 0-15% of borrowed ETH.
+RPL stake beyond 15% borrowed ETH still earns further rewards, but at a reduced marginal APY.
 
-If less than 28 days have passed between the time when you registered your node and the checkpoint, your rewards in that first rewards interval will be **pro-rated** to account for that. For example, if you registered on day 14 if the interval, you would receive 50% of normal rewards.
+If less than 28 days have passed between the time when you registered your node and the checkpoint, your rewards in that first rewards interval will be **pro-rated** to account for that. For example, if you registered on day 14 of the interval, you would receive 50% of normal rewards.
 
 After that first interval, your node will have been registered long enough on subsequent intervals that you will receive full rewards for all of them.
 
