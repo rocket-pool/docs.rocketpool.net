@@ -1,3 +1,35 @@
+@font-face {
+  font-display: swap;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/docs/public/inter-v13-latin-500.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  src: url("/docs/public/poppins-v20-latin-600.woff2") format("woff2");
+}
+
+body {
+    font-family: "Inter", "system-ui", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Poppins", "system-ui", sans-serif;
+}
+
+.rspress-sidebar h2 {
+    font-family: "Inter", "system-ui", sans-serif;
+}
+
+.rspress-home-hero-text {
+    font-family: "Poppins", "system-ui", sans-serif;
+}
+
 :root {
   --rp-nav-height: 72px;
   --rp-sidebar-width: 320px;
