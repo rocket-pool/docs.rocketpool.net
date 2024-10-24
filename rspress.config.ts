@@ -18,7 +18,7 @@ export default defineConfig({
     ["link", { rel: "icon", type: "image/svg+xml", href: "/images/logo.svg" }],
     ["link", { rel: "icon", type: "image/png", href: "/images/logo.png" }],
   ],
-  logoText: "Rocket Pool Guides & Documentation",
+  logoText: "Rocket Pool",
   mediumZoom: {
     selector: ".zoom",
   },
