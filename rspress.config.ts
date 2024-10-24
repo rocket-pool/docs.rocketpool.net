@@ -13,7 +13,7 @@ export default defineConfig({
   },
   head: [
     ["meta", { name: "theme-color", content: "#FF6E30" }],
-    ["meta", { name: "apple-mobile-web-app-capable", content: "yes" }],
+    ["meta", { name: "mobile-web-app-capable", content: "yes" }],
     ["meta", { name: "apple-mobile-web-app-status-bar-style", content: "black" }],
     ["link", { rel: "icon", type: "image/svg+xml", href: "/images/logo.svg" }],
     ["link", { rel: "icon", type: "image/png", href: "/images/logo.png" }],
@@ -38,16 +38,6 @@ export default defineConfig({
         content: "https://github.com/rocket-pool/docs.rocketpool.net",
       },
     ],
-    // locales: [
-    //   {
-    //     lang: "en",
-    //     label: "English",
-    //     editLink: {
-    //       docRepoBaseUrl: "https://github.com/rocket-pool/docs.rocketpool.net/tree/main/packages/document/docs",
-    //       text: "Suggest changes to this page",
-    //     },
-    //   },
-    // ],
     nav: [
       {
         text: "Overview",
