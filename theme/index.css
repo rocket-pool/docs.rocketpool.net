@@ -60,6 +60,8 @@ h1, h2, h3, h4, h5, h6 {
   --rp-c-brand-darker: #fc4b00; /* hsl(212deg 100% 40%) */
   --rp-c-brand-tint: rgba(127, 163, 255, 0.16);
 
+  --rp-home-feature-bg: #EEEFF2;
+
   --rp-c-gray: #8e8e8e;
   --rp-c-gray-light-1: #aeaeae;
   --rp-c-gray-light-2: #c7c7c7;
@@ -79,6 +81,14 @@ h1, h2, h3, h4, h5, h6 {
   --rp-radius-large: 1.5rem;
 
   --rp-c-link: var(--rp-c-brand-dark);
+
+  .rspress-home-feature-card {
+    border: 1px solid var(--rp-c-divider);
+  }
+
+  .rspress-home-feature-card:hover {
+    border: 1px solid var(--rp-c-brand);
+  }
 }
 
 .dark {
@@ -86,6 +96,8 @@ h1, h2, h3, h4, h5, h6 {
   --rp-c-bg-soft: #1e252b;
   --rp-c-bg-mute: #343a46;
   --rp-c-bg-alt: #000;
+
+  --rp-home-feature-bg: #2C353D;
 
   --rp-c-divider: rgba(84, 84, 84, 0.65);
   --rp-c-divider-light: rgba(84, 84, 84, 0.48);
@@ -119,7 +131,6 @@ h1, h2, h3, h4, h5, h6 {
 :root {
   --rp-home-hero-name-background: -webkit-linear-gradient(120deg, var(--rp-c-brand) 30%, #fc4b00);
   --rp-home-mask-background-image: conic-gradient(from 180deg at 50% 50%, var(--rp-c-brand) 0deg, 180deg, #fc4b00 1turn);
-  --rp-home-feature-bg: #2C353D;
 }
 
 body {
