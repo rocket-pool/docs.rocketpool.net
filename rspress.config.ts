@@ -3,7 +3,7 @@ import { defineConfig } from "rspress/config";
 export default defineConfig({
   root: "docs",
   lang: "en-US",
-  title: "Rocket Pool",
+  title: "Rocket Pool Guides & Documentation",
   description: "Rocket Pool Guides & Documentation - Decentralised Ethereum Liquid Staking Protocol",
   route: {
     cleanUrls: true,
@@ -18,7 +18,7 @@ export default defineConfig({
     ["link", { rel: "icon", type: "image/svg+xml", href: "/images/logo.svg" }],
     ["link", { rel: "icon", type: "image/png", href: "/images/logo.png" }],
   ],
-  logoText: "Rocket Pool",
+  logoText: "Rocket Pool Guides & Documentation",
   mediumZoom: {
     selector: ".zoom",
   },
