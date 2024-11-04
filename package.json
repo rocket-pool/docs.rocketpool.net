@@ -11,11 +11,11 @@
   "repository": "https://github.com/rocket-pool/docs.rocketpool.net",
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@headlessui/react": "^2.1.10",
+    "@headlessui/react": "^2.2.0",
     "prettier": "^3.3.3",
-    "rspress": "^1.35.1",
+    "rspress": "^1.35.3",
     "rspress-plugin-vue": "^1.0.0",
-    "taze": "^0.17.2",
+    "taze": "^0.18.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
   },
