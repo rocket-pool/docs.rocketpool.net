@@ -108,19 +108,22 @@ A token that represents a regular user’s deposit into the staking pool. Users 
 
 ## RPL (Rocket Pool Token)
 
-This is a token issued by the Rocket Pool contract, and serves several purposes.
+**RPL — Rocket Pool Protocol Token**
+RPL is the primary protocol token that will be used in governance of the protocol and can also be staked on a Rocket Pool node.
 
-For Node Operators:
+From a Node Operator perspective:
 
-- It's required to launch a minipool and thus access commission
-- The [majority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation is given as rewards to Node Operators
-- It provides voting power for governance
+- As of Saturn 1, vote-eligible staked RPL will get a share of total protocol revenue
+- The [majority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation is given as rewards to Node Operators based on staked RPL; these rewards are planned to be phase out with Saturn 2
+- For Saturn 0 minipools (made after 10/28/2024): Staked RPL provides up to 4% additional bonus commission; bonus commission is planned to be phased out a few months after Saturn 1's launch.
+- Staked provides voting power for governance
 
-For the protocol:
+From a protocol perspective:
 
-- It serves as secondary collateral (e.g., against slashing)
-- A [minority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation provides funding for the oDAO
 - A [minority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation provides funding for the pDAO
+- A [minority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation provides funding for the oDAO
+- It can serve as secondary collateral (e.g., against slashing)
+
 
 ## Stake
 
