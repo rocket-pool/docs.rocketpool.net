@@ -147,6 +147,7 @@ body {
 
 .rspress-nav a {
   font-size: 16px !important;
+  padding-left: 6px !important;
 }
 
 .rspress-nav-menu-item {
