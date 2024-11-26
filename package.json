@@ -17,7 +17,7 @@
     "rspress-plugin-vue": "^1.0.0",
     "taze": "^0.18.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.6.3"
+    "typescript": "^5.7.2"
   },
   "scripts": {
     "dev": "rspress docs",
