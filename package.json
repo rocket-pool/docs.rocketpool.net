@@ -12,9 +12,9 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@headlessui/react": "^2.2.0",
-    "prettier": "^3.4.1",
-    "rspress": "^1.37.3",
-    "rspress-plugin-vue": "^1.0.0",
+    "prettier": "^3.4.2",
+    "rspress": "^1.37.4",
+    "rspress-plugin-vue": "^1.1.0",
     "taze": "^0.18.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
