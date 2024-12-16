@@ -7,6 +7,17 @@ The minipool handles a portion of your ETH, known as the **bond amount**, and a 
 It merges them together to form 32 ETH in total, which is then sent to the Beacon Chain deposit contract to create a new validator.
 Thus, in order to create a validator using Rocket Pool, you need to **create a minipool**.
 
+
+::: danger WARNING
+Minipool creation is governed by two queues. 
+
+The first is the Rocket Pool queue, which is managed by the Rocket Pool protocol and determines when your minipool will receive its borrowed ETH. There needs to be ETH available in the deposit pool to match your validator & create the minipool. 
+
+The second is the Beacon Chain queue, which is managed by the Ethereum Beacon Chain & determines when your validator will become active.
+
+Please be aware that the time it takes for your minipool to become active can vary greatly depending on your position in each queue & the current state of the network.
+:::
+
 ::: tip NOTE
 The Beacon Chain validator queue activation (and exit) times can vary greatly depending on the current state of the network.
 
