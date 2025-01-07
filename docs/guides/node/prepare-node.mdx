@@ -167,41 +167,89 @@ Once this is done, you will **no longer be able to change your primary withdrawa
 To change it, you will need to send a signed transaction from your **active** primary withdrawal address (the one you just switched to).
 The Rocket Pool website has a function to help you do this.
 
-## Setting your Voting Delegate Address
+## Setting your Snapshot Signalling Address
 
-Rocket Pool's governance process uses [Snapshot](https://snapshot.org/#/about) as the platform for hosting governance proposals.
-Voting on them is done in-browser, via a wallet like MetaMask or a bridge like WalletConnect.
-Node operators can vote on these proposals using the RPL they have staked (their **effective stake**).
+Setting your Snapshot signalling address will allow you to participate in Snapshot votes on a browser or mobile device
+without having to expose node keys to a hot wallet.
 
-Since your node's wallet should **never leave your node** (e.g. you should **never import your mnemonic into MetaMask or another wallet**), we have set up a system that allows you to **delegate** your node's voting power to a separate address.
-This could be another wallet (such as a MetaMask account) that you control, or you could delegate your voting power to [one of the Node Operators that have elected to be official delegates](https://delegates.rocketpool.net/).
+There are a few things to prepare:
 
-::: tip NOTE
-If you are an **Allnodes user**, you can use your node account as the voting address and can ignore the following guides.
-They are intended for normal Smartnode operators.
+- Your node's address
+- An address you want to use for snapshot voting (signalling address)
+
+You'll be signing a message saying that your node's address can delegate to the new address. This message states your
+intent to use your wallet address as a Snapshot signalling address.
+
+Select which network you're using from one of the tabs below.
+
+<div className="p-3">
+  <Tabs>
+    <Tab label="Holesky Testnet">
+      If you're trying this out on Holesky testnet, you can sign on this page:
+      https://testnet.rocketpool.net/manage/signalling-address
+    </Tab>
+    <Tab label="Mainnet">
+      If you're ready to configure this on mainnet, go here instead:
+      https://stake.rocketpool.net/manage/signalling-address
+    </Tab>
+  </Tabs>
+</div>
+
+:::danger WARNING
+Do not load your node's private key onto a hot wallet. Please choose another account to be your signalling address.
+After setting the signalling address, you can use it to vote on Snapshot with your node's voting power.
 :::
 
-Setting up a voting delegate address that can vote on behalf of your node is a one-time action.
-Simply run the following command:
+Start by **connecting the address you want to use as a signalling address** to the website using MetaMask,
+WalletConnect, or any of the other methods the website supports. You will then be presented with this dialog to look up
+your node address.
 
-```shell
-rocketpool node set-voting-delegate <address or ENS name>
+Next, you'll enter your node address then click the orange "Find" button. This will check if the address is a registered
+node and then bring you to the next step.
+
+:::tip TIP
+**Make sure you have the correct node address before doing this!** if you need to confirm your node's address, you can
+quickly retrieve it via the CLI using the `rocketpool node status` command.
+:::
+
+Once you've signed in and confirmed your node address, you'll see your **Snapshot signalling address**. It should be the
+same as the account you've signed into the site with. Double check that this is correct before proceeding. Once you're
+confident that you're signed into the desired account, click the orange "Sign Message" button. You'll see a prompt in
+your wallet extension app to sign the following message:
+
+```
+`snapshot signalling address` may delegate to me for Rocket Pool governance
 ```
 
-The address or ENS name you use depends on whether you are voting yourself or you are delegating your vote to an official delegate.
-If you are voting yourself, use the address of the wallet you want to use in-browser (e.g. your MetaMask account, your hardware wallet, your Argent wallet, etc.).
+Signing won't cost you any gas but setting will. After you sign, the frontend will give you a command to paste into the
+smartnode. Go ahead and paste it into your smartnode's CLI and follow the prompted steps. The command should look
+something like this:
 
-:::: danger WARNING
-As a reminder, **DO NOT enter your node's wallet or mnemonic into MetaMask or any other wallet!**
-The voting delegate feature is specifically designed to ensure you have no need to do this, which helps maintain the security of your node!
-::::
+```shell
+rocketpool pdao set-signalling-address
+`snapshot signalling address`
+`EIP712 signature`
+```
 
-At anytime, you can reassign your voting power by setting the voting address from your node.
+If you see this message in your CLI, you're all set!
 
-One limitation of Snapshot is that **you must have delegated before the proposal you would like to vote on is created**.
-We suggest that you set up your voting address or delegate early so that you don’t miss any proposal votes.
+```
+The node's signalling address was successfully set to `snapshot signalling address`
+```
 
-To learn more about how to participate in RocketPool governance, [please check out this medium article](https://medium.com/rocket-pool/rocket-pool-protocol-dao-governance-phase-0-4b8ec7bfe07e)
+:::tip TIP
+Don't worry if you accidentally close the site or lose track of the command. You can simply repeat the steps and **sign
+again using the same node address and signalling address**. The frontend uses `signer.Signmessage()` from the ethers
+library, which means your signature is deterministic given the same input.
+Click [here](https://docs.ethers.org/v6/api/providers/#cid_865) to learn more.
+:::
+
+Clearing your signalling address is pretty easy, just use this command in the CLI:
+
+```shell
+rocketpool pdao clear-signalling-address
+```
+
 
 ## Map an ENS Name to your Node Wallet
 
