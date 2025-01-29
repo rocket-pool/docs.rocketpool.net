@@ -11,7 +11,7 @@ If you would like to contribute by helping integrate Rocket Pool into more servi
 ## Key Protocol Contracts
 
 | Chain     | Contract | Address                                                                                                                       |
-| --------- | -------- | ----------------------------------------------------------------------------------------------------------------------------- |
+|-----------|----------|-------------------------------------------------------------------------------------------------------------------------------|
 | Mainnet   | Deposit  | [0xDD3f50F8A6CafbE9b31a427582963f465E745AF8](https://etherscan.io/address/0xDD3f50F8A6CafbE9b31a427582963f465E745AF8)         |
 | &nbsp;    | Storage  | [0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46](https://etherscan.io/address/0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46)         |
 | Holesky\* | Deposit  | [0x320f3aAB9405e38b955178BBe75c477dECBA0C27](https://holesky.etherscan.io/address/0x320f3aAB9405e38b955178BBe75c477dECBA0C27) |
@@ -24,34 +24,34 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 
 ## Token Contracts
 
-| Chain             | Asset | Address                                                                                                                                                             |
-| ----------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Mainnet           | RPL   | [0xD33526068D116cE69F19A9ee46F0bd304F21A51f](https://etherscan.io/token/0xd33526068d116ce69f19a9ee46f0bd304f21a51f)                                                 |
-| &nbsp;            | rETH  | [0xae78736Cd615f374D3085123A210448E74Fc6393](https://etherscan.io/token/0xae78736cd615f374d3085123a210448e74fc6393)                                                 |
-| Arbitrum          | RPL   | [0xb766039cc6db368759c1e56b79affe831d0cc507](https://arbiscan.io/token/0xb766039cc6db368759c1e56b79affe831d0cc507)                                                  |
-| &nbsp;            | rETH  | [0xec70dcb4a1efa46b8f2d97c310c9c4790ba5ffa8](https://arbiscan.io/token/0xec70dcb4a1efa46b8f2d97c310c9c4790ba5ffa8)                                                  |
-| Optimism          | RPL   | [0xc81d1f0eb955b0c020e5d5b264e1ff72c14d1401](https://optimistic.etherscan.io/token/0xc81d1f0eb955b0c020e5d5b264e1ff72c14d1401)                                      |
-| &nbsp;            | rETH  | [0x9bcef72be871e61ed4fbbc7630889bee758eb81d](https://optimistic.etherscan.io/token/0x9bcef72be871e61ed4fbbc7630889bee758eb81d)                                      |
-| zkSync Era        | RPL   | [0x1CF8553Da5a75C20cdC33532cb19Ef7E3bFFf5BC](https://explorer.zksync.io/address/0x1CF8553Da5a75C20cdC33532cb19Ef7E3bFFf5BC)                                         |
-| &nbsp;            | rETH  | [0x32Fd44bB869620C0EF993754c8a00Be67C464806](https://explorer.zksync.io/address/0x32Fd44bB869620C0EF993754c8a00Be67C464806)                                         |
-| Polygon           | RPL   | [0x7205705771547cf79201111b4bd8aaf29467b9ec](https://polygonscan.com/token/0x7205705771547cf79201111b4bd8aaf29467b9ec)                                              |
-| &nbsp;            | rETH  | [0x0266F4F08D82372CF0FcbCCc0Ff74309089c74d1](https://polygonscan.com/token/0x0266F4F08D82372CF0FcbCCc0Ff74309089c74d1)                                              |
-| Polygon (zkEVM)   | RPL   | [0x70d35152fBf63FB312709b11a9Bac87519de0019](https://zkevm.polygonscan.com/address/0x70d35152fBf63FB312709b11a9Bac87519de0019)                                      |
-| &nbsp;            | rETH  | [0xb23C20EFcE6e24Acca0Cef9B7B7aA196b84EC942](https://zkevm.polygonscan.com/address/0xb23C20EFcE6e24Acca0Cef9B7B7aA196b84EC942)                                      |
-| Holesky\*         | RPL   | [0x1cc9cf5586522c6f483e84a19c3c2b0b6d027bf0](https://holesky.etherscan.io/address/0x1cc9cf5586522c6f483e84a19c3c2b0b6d027bf0)                                       |
-| &nbsp;            | rETH  | [0x7322c24752f79c05ffd1e2a6fcb97020c1c264f1](https://holesky.etherscan.io/address/0x7322c24752f79c05ffd1e2a6fcb97020c1c264f1)                                       |
-| Base              | RPL   | [0x1f73EAf55d696BFFA9b0EA16fa987B93b0f4d302](https://basescan.org/address/0x1f73EAf55d696BFFA9b0EA16fa987B93b0f4d302)                                               |
-| &nbsp;            | rETH  | [0xB6fe221Fe9EeF5aBa221c348bA20A1Bf5e73624c](https://basescan.org/address/0xB6fe221Fe9EeF5aBa221c348bA20A1Bf5e73624c)                                               |
-| Scroll            | rETH  | [0x53878B874283351D26d206FA512aEcE1Bef6C0dD](https://scrollscan.com/address/0x53878b874283351d26d206fa512aece1bef6c0dd)                                             |
-| Starknet          | rETH  | [0x0319111a5037cbec2b3e638cc34a3474e2d2608299f3e62866e9cc683208c610](https://starkscan.co/token/0x0319111a5037cbec2b3e638cc34a3474e2d2608299f3e62866e9cc683208c610) |
+| Chain           | Asset | Address                                                                                                                                                             |
+|-----------------|-------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Mainnet         | RPL   | [0xD33526068D116cE69F19A9ee46F0bd304F21A51f](https://etherscan.io/token/0xd33526068d116ce69f19a9ee46f0bd304f21a51f)                                                 |
+| &nbsp;          | rETH  | [0xae78736Cd615f374D3085123A210448E74Fc6393](https://etherscan.io/token/0xae78736cd615f374d3085123a210448e74fc6393)                                                 |
+| Arbitrum        | RPL   | [0xb766039cc6db368759c1e56b79affe831d0cc507](https://arbiscan.io/token/0xb766039cc6db368759c1e56b79affe831d0cc507)                                                  |
+| &nbsp;          | rETH  | [0xec70dcb4a1efa46b8f2d97c310c9c4790ba5ffa8](https://arbiscan.io/token/0xec70dcb4a1efa46b8f2d97c310c9c4790ba5ffa8)                                                  |
+| Optimism        | RPL   | [0xc81d1f0eb955b0c020e5d5b264e1ff72c14d1401](https://optimistic.etherscan.io/token/0xc81d1f0eb955b0c020e5d5b264e1ff72c14d1401)                                      |
+| &nbsp;          | rETH  | [0x9bcef72be871e61ed4fbbc7630889bee758eb81d](https://optimistic.etherscan.io/token/0x9bcef72be871e61ed4fbbc7630889bee758eb81d)                                      |
+| zkSync Era      | RPL   | [0x1CF8553Da5a75C20cdC33532cb19Ef7E3bFFf5BC](https://explorer.zksync.io/address/0x1CF8553Da5a75C20cdC33532cb19Ef7E3bFFf5BC)                                         |
+| &nbsp;          | rETH  | [0x32Fd44bB869620C0EF993754c8a00Be67C464806](https://explorer.zksync.io/address/0x32Fd44bB869620C0EF993754c8a00Be67C464806)                                         |
+| Polygon         | RPL   | [0x7205705771547cf79201111b4bd8aaf29467b9ec](https://polygonscan.com/token/0x7205705771547cf79201111b4bd8aaf29467b9ec)                                              |
+| &nbsp;          | rETH  | [0x0266F4F08D82372CF0FcbCCc0Ff74309089c74d1](https://polygonscan.com/token/0x0266F4F08D82372CF0FcbCCc0Ff74309089c74d1)                                              |
+| Polygon (zkEVM) | RPL   | [0x70d35152fBf63FB312709b11a9Bac87519de0019](https://zkevm.polygonscan.com/address/0x70d35152fBf63FB312709b11a9Bac87519de0019)                                      |
+| &nbsp;          | rETH  | [0xb23C20EFcE6e24Acca0Cef9B7B7aA196b84EC942](https://zkevm.polygonscan.com/address/0xb23C20EFcE6e24Acca0Cef9B7B7aA196b84EC942)                                      |
+| Holesky\*       | RPL   | [0x1cc9cf5586522c6f483e84a19c3c2b0b6d027bf0](https://holesky.etherscan.io/address/0x1cc9cf5586522c6f483e84a19c3c2b0b6d027bf0)                                       |
+| &nbsp;          | rETH  | [0x7322c24752f79c05ffd1e2a6fcb97020c1c264f1](https://holesky.etherscan.io/address/0x7322c24752f79c05ffd1e2a6fcb97020c1c264f1)                                       |
+| Base            | RPL   | [0x1f73EAf55d696BFFA9b0EA16fa987B93b0f4d302](https://basescan.org/address/0x1f73EAf55d696BFFA9b0EA16fa987B93b0f4d302)                                               |
+| &nbsp;          | rETH  | [0xB6fe221Fe9EeF5aBa221c348bA20A1Bf5e73624c](https://basescan.org/address/0xB6fe221Fe9EeF5aBa221c348bA20A1Bf5e73624c)                                               |
+| Scroll          | rETH  | [0x53878B874283351D26d206FA512aEcE1Bef6C0dD](https://scrollscan.com/address/0x53878b874283351d26d206fa512aece1bef6c0dd)                                             |
+| Starknet        | rETH  | [0x0319111a5037cbec2b3e638cc34a3474e2d2608299f3e62866e9cc683208c610](https://starkscan.co/token/0x0319111a5037cbec2b3e638cc34a3474e2d2608299f3e62866e9cc683208c610) |
 
 <small>\* Testnet</small>
 
 ## Deposit Pool Contract Version History
 
 | Chain     | RP Version      | Address                                                                                                                       |
-| --------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| Mainnet   | v1.2 (Atlas)    | [0xDD3f50F8A6CafbE9b31a427582963f465E745AF8](https://e`therscan.io/address/0xDD3f50F8A6CafbE9b31a427582963f465E745AF8)         |
+|-----------|-----------------|-------------------------------------------------------------------------------------------------------------------------------|
+| Mainnet   | v1.2 (Atlas)    | [0xDD3f50F8A6CafbE9b31a427582963f465E745AF8](https://e`therscan.io/address/0xDD3f50F8A6CafbE9b31a427582963f465E745AF8)        |
 | &nbsp;    | v1.1 (Redstone) | [0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4](https://etherscan.io/address/0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4)         |
 | &nbsp;    | v1.0            | [0x4D05E3d48a938db4b7a9A59A802D5b45011BDe58](https://etherscan.io/address/0x4D05E3d48a938db4b7a9A59A802D5b45011BDe58)         |
 | Holesky\* | v1.2 (Atlas)    | [0x320f3aab9405e38b955178bbe75c477decba0c27](https://holesky.etherscan.io/address/0x320f3aab9405e38b955178bbe75c477decba0c27) |
@@ -61,7 +61,7 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 ## Integrations
 
 | Category         | Service                       | Link                                                                                                                                     | Link                                                                                                                                                                         |
-| ---------------- | ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|-------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Exchanges        | 1inch (Mainnet)               | -                                                                                                                                        | [ETH/rETH](https://app.1inch.io/#/1/unified/swap/ETH/rETH)                                                                                                                   |
 | &nbsp;           | Aura Finance (Mainnet)        | [rETH/RPL](https://app.aura.finance/#/)                                                                                                  | [wETH/rETH](https://app.aura.finance/#/)                                                                                                                                     |
 | &nbsp;           | Balancer (Mainnet)            | [rETH/RPL](https://app.balancer.fi/#/ethereum/pool/0x9f9d900462492d4c21e9523ca95a7cd86142f298000200000000000000000462)                   | [ETH/rETH](https://app.balancer.fi/#/ethereum/pool/0x1e19cf2d73a72ef1332c882f20534b6519be0276000200000000000000000112)                                                       |
@@ -105,7 +105,7 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 ## Management Committee Wallets
 
 | Chain    | Committee | Address                                                                                                                         |
-| -------- | --------- | ------------------------------------------------------------------------------------------------------------------------------- |
+|----------|-----------|---------------------------------------------------------------------------------------------------------------------------------|
 | Mainnet  | GMC       | [0x6efD08303F42EDb68F2D6464BCdCA0824e1C813a](https://app.safe.global/home?safe=eth:0x6efD08303F42EDb68F2D6464BCdCA0824e1C813a)  |
 | &nbsp;   | IMC       | [0xb867EA3bBC909954d737019FEf5AB25dFDb38CB9](https://app.safe.global/home?safe=eth:0xb867EA3bBC909954d737019FEf5AB25dFDb38CB9)  |
 | Arbitrum | IMC       | [0xd7102A3744c302f167c53621453516345bC460d7](https://app.safe.global/home?safe=arb1:0xd7102A3744c302f167c53621453516345bC460d7) |
@@ -113,7 +113,7 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 ## All Active Deployed Protocol Contracts
 
 | Chain     | Contract Name                         | Address                                                                                                                       |
-| --------- |---------------------------------------| ----------------------------------------------------------------------------------------------------------------------------- |
+|-----------|---------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
 | Mainnet   | addressQueueStorage                   | [0x44E31944E1A6F3b8F805E105B130F8bdb7E2EBd8](https://etherscan.io/address/0x44E31944E1A6F3b8F805E105B130F8bdb7E2EBd8)         |
 | &nbsp;    | addressSetStorage                     | [0xD4ae2511dF21F367792bA4D67c6eb032171c6a16](https://etherscan.io/address/0xD4ae2511dF21F367792bA4D67c6eb032171c6a16)         |
 | &nbsp;    | rocketAuctionManager                  | [0x1a2F00D187C9388fDa3Bf2dc46a6b4740849EcCE](https://etherscan.io/address/0x1a2F00D187C9388fDa3Bf2dc46a6b4740849EcCE)         |
@@ -227,7 +227,7 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 | &nbsp;    | rocketTokenRPL                        | [0x1cc9cf5586522c6f483e84a19c3c2b0b6d027bf0](https://holesky.etherscan.io/address/0x1cc9cf5586522c6f483e84a19c3c2b0b6d027bf0) |
 | &nbsp;    | rocketUpgradeOneDotThree              | [0xa38f23783358e6Ce576441525bE0Ad6Dab5B0eF4](https://holesky.etherscan.io/address/0xa38f23783358e6Ce576441525bE0Ad6Dab5B0eF4) |
 | &nbsp;    | RocketUpgradeOneDotThreeHotfix        | [0xe068629fe7bf0242387f238Ab1AD66D6C3277f6F](https://holesky.etherscan.io/address/0xe068629fe7bf0242387f238Ab1AD66D6C3277f6F) |
-| &nbsp;    | RocketUpgradeOneDotThreeDotOne        | [0xC5bc3adEB85657EB82FB692Ef814760799d9Ab0A](https://holesky.etherscan.io/address/0xC5bc3adEB85657EB82FB692Ef814760799d9Ab0A)         |
+| &nbsp;    | RocketUpgradeOneDotThreeDotOne        | [0xC5bc3adEB85657EB82FB692Ef814760799d9Ab0A](https://holesky.etherscan.io/address/0xC5bc3adEB85657EB82FB692Ef814760799d9Ab0A) |
 | &nbsp;    | rocketVault                           | [0x67cde7af920682a29fcfea1a179ef0f30f48df3e](https://holesky.etherscan.io/address/0x67cde7af920682a29fcfea1a179ef0f30f48df3e) |
 | &nbsp;    | rocketNetworkSnapshots                | [0xBE680b191F35AC8FD3147b8DE219FB2D8635b716](https://holesky.etherscan.io/address/0xBE680b191F35AC8FD3147b8DE219FB2D8635b716) |
 | &nbsp;    | rocketNetworkVoting                   | [0x325e4624D606Bd40a1Cf74831cE9724B0Ed68138](https://holesky.etherscan.io/address/0x325e4624D606Bd40a1Cf74831cE9724B0Ed68138) |
