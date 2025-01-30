@@ -99,11 +99,6 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 | &nbsp;           | Contango                      | -                                                                                                                                                                                                                               | [Contango](https://app.contango.xyz)                                                                                                                                         |
 | &nbsp;           | Flat Money                    | -                                                                                                                                                                                                                               | [Flat Money](https://flat.money)                                                                                                                                             |
 
-<!-- Staged Integrations -->
-<!--
-- RPL ZigZag listing (waiting for MM)
-&nbsp;          | Zigzag (zkSync)     | [RPL](https://trade.zigzag.exchange/?market=RPL-ETH&network=zksync) | [rETH](https://trade.zigzag.exchange/?market=rETH-ETH&network=zksync)
- -->
 
 ## Management Committee Wallets
 
@@ -244,6 +239,6 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 
 <small>\* Testnet</small>
 
-This list was updated 10/14/2024
+This list was updated 30/01/2025
 
 The addresses can be queried on chain as shown in this [example](https://docs.rocketpool.net/developers/usage/contracts/contracts.html#interacting-with-rocket-pool).
