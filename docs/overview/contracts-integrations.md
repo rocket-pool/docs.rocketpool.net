@@ -34,7 +34,7 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 | &nbsp;          | rETH  | [0x9bcef72be871e61ed4fbbc7630889bee758eb81d](https://optimistic.etherscan.io/token/0x9bcef72be871e61ed4fbbc7630889bee758eb81d)                                      |
 | zkSync Era      | RPL   | [0x1CF8553Da5a75C20cdC33532cb19Ef7E3bFFf5BC](https://explorer.zksync.io/address/0x1CF8553Da5a75C20cdC33532cb19Ef7E3bFFf5BC)                                         |
 | &nbsp;          | rETH  | [0x32Fd44bB869620C0EF993754c8a00Be67C464806](https://explorer.zksync.io/address/0x32Fd44bB869620C0EF993754c8a00Be67C464806)                                         |
-| Polygon         | RPL   | [0x7205705771547cf79201111b4bd8aaf29467b9ec](https://polygonscan.com/token/0x7205705771547cf79201111b4bd8aaf29467b9ec)                                              |
+| Polygon         | RPL   | [0x7205705771547cf79201111b4bd8aaf29467b9ec](https://polygonscan.com/token/https://mainnet.infura.io/v3/730706e87a4a41de9b7b8bd4600a72e30x7205705771547cf79201111b4bd8aaf29467b9ec)                                              |
 | &nbsp;          | rETH  | [0x0266F4F08D82372CF0FcbCCc0Ff74309089c74d1](https://polygonscan.com/token/0x0266F4F08D82372CF0FcbCCc0Ff74309089c74d1)                                              |
 | Polygon (zkEVM) | RPL   | [0x70d35152fBf63FB312709b11a9Bac87519de0019](https://zkevm.polygonscan.com/address/0x70d35152fBf63FB312709b11a9Bac87519de0019)                                      |
 | &nbsp;          | rETH  | [0xb23C20EFcE6e24Acca0Cef9B7B7aA196b84EC942](https://zkevm.polygonscan.com/address/0xb23C20EFcE6e24Acca0Cef9B7B7aA196b84EC942)                                      |
@@ -242,4 +242,4 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 
 This list was updated 30/01/2025
 
-The addresses can be queried on chain as shown in this [example](https://docs.rocketpool.net/developers/usage/contracts/contracts.html#interacting-with-rocket-pool).
+The addresses can be queried on chain as shown in this [example](/overview/contracts-usage#interacting-with-rocket-pool).
