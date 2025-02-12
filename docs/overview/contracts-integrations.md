@@ -17,7 +17,7 @@ If you would like to contribute by helping integrate Rocket Pool into more servi
 | Holesky\* | Deposit  | [0x320f3aAB9405e38b955178BBe75c477dECBA0C27](https://holesky.etherscan.io/address/0x320f3aAB9405e38b955178BBe75c477dECBA0C27) |
 | &nbsp;    | Storage  | [0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1](https://holesky.etherscan.io/address/0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1) |
 
-Within the protocol, the Storage contract is used to find all the other deployed contract addresses as needed (see this [example](./contracts-usage.md#interacting-with-rocket-pool)).
+Within the protocol, the Storage contract is used to find all the other deployed contract addresses as needed (see this [example](./contracts-usage#interacting-with-rocket-pool)).
 See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contracts) below for a full list of addresses.
 
 <small>\* Testnet</small>
