@@ -6,7 +6,7 @@ Your node address should be loaded onto a hardware wallet for this.
 :::
 
 ## Minimal setup guide
-This allows your delegate to vote for you on-chain and offchain. You'll be able to override your delegate on-chain, but not off-chain. 
+This allows your delegate to vote for you on-chain and offchain. You'll be able to override your delegate on-chain, but not off-chain.
 
 - Use etherscan to initialize vote power ("Connect to Web3" with node address) with a delegate https://etherscan.io/address/0xA9d27E1952f742d659143a544d3e535fFf3Eebe1#writeContract#F2
 - You can find delegates at https://delegates.rocketpool.net/
@@ -24,7 +24,7 @@ Use etherscan to initialize vote power ("Connect to Web3" with node address)
     - You can set a new delegate with https://etherscan.io/address/0xA9d27E1952f742d659143a544d3e535fFf3Eebe1#writeContract#F3
 
 Set snapshot signalling address:
-- Go to https://stake.rocketpool.net/manage/signalling-address and connect your node address
+- Go to https://node.rocketpool.net/manage/signalling-address and connect your node address
     - Put in your desired snapshot signalling address and sign the message to get the r, s, and v arguments you'll need
     - Note: your snapshot signalling address MUST NOT be your node address
 - In a new tab, go to https://etherscan.io/address/0xc1062617d10Ae99E09D941b60746182A87eAB38F#writeContract#F2
