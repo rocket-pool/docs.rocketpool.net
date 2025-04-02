@@ -253,7 +253,7 @@ function guides() {
           ],
         },
         {
-          text: "Testing Rocket Pool with the Holesky Test Network",
+          text: "Testing Rocket Pool with the Hoodi Test Network",
           link: "/guides/testnet/overview",
           collapsed: true,
           items: [

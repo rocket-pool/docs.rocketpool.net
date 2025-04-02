@@ -24,11 +24,11 @@ See [this worksheet](https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Running on the Holesky Test Network">
-      f you're running on the Holesky test network, please see the [Practicing with the Test Network](/guides/testnet/overview) section to learn how to acquire test ETH.
+    <Tab label="Running on the Hoodi Test Network">
+      f you're running on the Hoodi test network, please see the [Practicing with the Test Network](/guides/testnet/overview) section to learn how to acquire test ETH.
 
       For test RPL, we have added a similar faucet function directly to the CLI.
-      Please see the [Getting Test RPL on Holesky](/guides/testnet/overview#getting-test-rpl-on-holesky) guide to acquire some.
+      Please see the [Getting Test RPL on Hoodi](/guides/testnet/overview#getting-test-rpl-on-hoodi) guide to acquire some.
     </Tab>
     <Tab label="Running on the Main Network">
       We assume that you already have a separate Ethereum-compatible wallet that is holding your ETH.
@@ -119,14 +119,14 @@ Please read both options below to determine which one applies to you.
         You will also need to **enable "blind signing"** for the current session; you can find this within the Settings portion of the ETH app on the device.
         Bind signing will automatically be disabled after you close the session.
 
-        If you are using Holesky Testnet and want to use your Ledger as your primary withdrawal address, **you must create a new Ethereum wallet on your Ledger** first to ensure you don't connect your live address to the test network, which tends to cause confusion.
-        Make sure to select the **Holesky Testnet** in the network selection dropdown when connecting your Ledger to MetaMask.
+        If you are using Hoodi Testnet and want to use your Ledger as your primary withdrawal address, **you must create a new Ethereum wallet on your Ledger** first to ensure you don't connect your live address to the test network, which tends to cause confusion.
+        Make sure to select the **Hoodi Testnet** in the network selection dropdown when connecting your Ledger to MetaMask.
         Note that Ledger Live will not show your balance on the test network, but other applications which support the test network (such as MetaMask and Etherscan) will be able to display it.
       </p>
 
       1. Run `rocketpool node set-primary-withdrawal-address 'your cold wallet address or ENS name'`. Your new primary withdrawal address will be marked as "pending". Until you confirm it, **your old primary withdrawal address will still be used**.
       2. To confirm it, you must send a special transaction **from your new primary withdrawal address** to the minipool contract to verify that you own the primary withdrawal address.
-      1. The easiest way to do this is to navigate to the Rocket Pool primary withdrawal address site (for the [Holesky Testnet](https://testnet.node.rocketpool.net/manage/primary-withdrawal-address) or for [Mainnet](https://node.rocketpool.net/manage/primary-withdrawal-address)).
+      1. The easiest way to do this is to navigate to the Rocket Pool primary withdrawal address site (for the [Hoodi Testnet](https://testnet.node.rocketpool.net/manage/primary-withdrawal-address) or for [Mainnet](https://node.rocketpool.net/manage/primary-withdrawal-address)).
       3. If you haven't already connected Metamask or WalletConnect to the Rocket Pool website, do this now. Click the **select wallet** button in the center of the screen, and choose MetaMask or WalletConnect based on which wallet you would like to use. You will then be prompted asking you to confirm the connection. For example, using MetaMask:
 
       Click **Next**, then click **Confirm** to enable the Rocket Pool website to use your wallet. 3. Select **primary Withdrawal Address** from the top menu (or the hamburger menu on the left side if you're on a mobile device). 4. You will see this prompt:
@@ -184,8 +184,8 @@ Select which network you're using from one of the tabs below.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Holesky Testnet">
-      If you're trying this out on Holesky testnet, you can sign on this page:
+    <Tab label="Hoodi Testnet">
+      If you're trying this out on Hoodi testnet, you can sign on this page:
       https://testnet.node.rocketpool.net/manage/signalling-address
     </Tab>
     <Tab label="Mainnet">

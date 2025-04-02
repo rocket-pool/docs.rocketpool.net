@@ -4,20 +4,20 @@ An Ethereum **test network** (`testnet` for short) is an Ethereum blockchain, fu
 Testnets run in parallel with mainnet - there are actually several of them running right now!
 
 You can read more about some of the Execution Layer testnets [here](https://support.mycrypto.com/how-to/getting-started/where-to-get-testnet-ether) if you like.
-Rocket Pool uses **Holesky** for its Execution Layer testnet.
-You can use a block explorer for it here if you'd like to take a look at it: [https://holesky.etherscan.io/](https://holesky.etherscan.io/)
+Rocket Pool uses **Hoodi** for its Execution Layer testnet.
+You can use a block explorer for it here if you'd like to take a look at it: [https://hoodi.etherscan.io/](https://hoodi.etherscan.io/)
 
 The same concept applies to the Consensus Layer as well.
-Rocket Pool uses **Holesky** for its Consensus Layer testnet.
-You can find a block explorer for it here: [https://holesky.beaconcha.in/](https://holesky.beaconcha.in/)
+Rocket Pool uses **Hoodi** for its Consensus Layer testnet.
+You can find a block explorer for it here: [https://hoodi.beaconcha.in/](https://hoodi.beaconcha.in/)
 
 Because the networks are intended for testing, **ETH on them is given out for free to help people test**.
-This ETH **cannot be transferred** to mainnet; it must stay on Holesky and has no real value, so you can think of it as **Monopoly money**.
+This ETH **cannot be transferred** to mainnet; it must stay on Hoodi and has no real value, so you can think of it as **Monopoly money**.
 
 ::: danger
 **DO NOT use your real ETH from mainnet at any point if you are trying out Rocket Pool's test network!**
 You will **lose your funds** forever if you do this!
-You should only use test ETH that you received on the Holesky network from a faucet (described below)!
+You should only use test ETH that you received on the Hoodi network from a faucet (described below)!
 :::
 
 ## Configuring the Testnet
@@ -27,24 +27,24 @@ There's nothing special you need to do.
 
 If you're using [a different setup](../node/install-modes) with an external execution or consensus client, or are running your clients [natively without Docker](../node/install-modes), then you will need to set this up manually:
 
-- For **Geth**: add `--holesky` to the launch command.
-- For **Lighthouse**: add `--network holesky` to the launch command.
-- For **Nimbus**: add `--network=holesky` to the launch command.
-- For **Prysm**: add `--holesky` to the launch command.
-- For **Teku**: add `--network=holesky` to the launch command.
-- For **Lodestar**: prefix the launch command with `LODESTAR_NETWORK=holesky`
+- For **Geth**: add `--hoodi` to the launch command.
+- For **Lighthouse**: add `--network hoodi` to the launch command.
+- For **Nimbus**: add `--network=hoodi` to the launch command.
+- For **Prysm**: add `--hoodi` to the launch command.
+- For **Teku**: add `--network=hoodi` to the launch command.
+- For **Lodestar**: prefix the launch command with `LODESTAR_NETWORK=hoodi`
 
-Check the next section to learn how to get some test ETH on Holesky, which you'll need to test Rocket Pool out.
+Check the next section to learn how to get some test ETH on Hoodi, which you'll need to test Rocket Pool out.
 
-## Getting Test ETH on Holesky
+## Getting Test ETH on Hoodi
 
-To use the Rocket Pool test network, you'll need ETH on Holesky.
-Luckily, you can get this for free using a **faucet** - an automated service that will provide you with Holesky ETH to test with.
+To use the Rocket Pool test network, you'll need ETH on Hoodi.
+Luckily, you can get this for free using a **faucet** - an automated service that will provide you with Hoodi ETH to test with.
 
 ::: warning NOTE
 You will need to provide an Ethereum address in order to receive test ETH.
 
-If you are just trying to stake your ETH normally and receive rETH, please review the [Staking Guide](../staking/overview) before getting Holesky ETH.
+If you are just trying to stake your ETH normally and receive rETH, please review the [Staking Guide](../staking/overview) before getting Hoodi ETH.
 You will be prompted to return here at the appropriate step.
 
 If you are planning to run a node, please go through the [Node Operator Guide](../node/responsibilities) to set up a node and create a new wallet first.
@@ -67,7 +67,7 @@ Be patient and someone will access the faucet on your behalf.
 If you aren't planning to register a node and just want some ETH to test staking to receive rETH, type the following command in the channel:
 
 ```
-!holeskyEth <your holesky address>
+!hoodiEth <your hoodi address>
 ```
 
 without the angle brackets.
@@ -75,18 +75,18 @@ If your wallet doesn't have any ETH already, the bot will send your wallet 1 ETH
 
 If you _are_ planning to run a node, do the following:
 
-1. Start by running the `!holeskyEth` command above to acquire enough ETH to register your node
+1. Start by running the `!hoodiEth` command above to acquire enough ETH to register your node
 2. Register your node (see the [Preparing your Node](../node/prepare-node) page for instructions)
-3. Run the following command to get 8 Holesky ETH so you can create a validator:
+3. Run the following command to get 8 Hoodi ETH so you can create a validator:
 
 ```
-!holeskyOperator <your holesky address>
+!hoodiOperator <your hoodi address>
 ```
 
-In order to use `!holeskyOperator`, the address you provide it _must_ be a registered Rocket Pool node.
+In order to use `!hoodiOperator`, the address you provide it _must_ be a registered Rocket Pool node.
 Therefore, you must follow these 3 steps in that order.
 
-## Getting Test RPL on Holesky
+## Getting Test RPL on Hoodi
 
 If you're testing out node operation, you'll need some test RPL in addition to test ETH.
 
@@ -104,7 +104,7 @@ Be patient and someone will access the faucet on your behalf.
 :::
 
 ```
-!holeskyRpl <your holesky node address>
+!hoodiRpl <your hoodi node address>
 ```
 
 This will provide you with 600 of the **legacy (v1) RPL** token, which is analogous to the original RPL token on mainnet.

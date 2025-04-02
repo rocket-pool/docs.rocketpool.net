@@ -66,7 +66,7 @@ You can highlight the different choices with the `Up` and `Down` arrow keys (or 
 When you change choices, the **Description** box on the right will show you a brief description of each option.
 This is true for all choice-based pages in the Wizard, not just the network selection, so you will see this style of page frequently.
 
-If you want to practice running a Rocket Pool node on the Holesky test network with fake ETH and RPL you can get for free, select **Holesky Testnet**.
+If you want to practice running a Rocket Pool node on the Hoodi test network with fake ETH and RPL you can get for free, select **Hoodi Testnet**.
 
 If you're ready to create a real Rocket Pool node on Mainnet to earn real rewards, select **Mainnet**.
 

@@ -1,5 +1,5 @@
 import { Tab, Tabs } from 'rspress/theme';
-import mm_add_holesky from "./images/mm_add_holesky.png";
+import mm_add_hoodi from "./images/mm_add_hoodi.png";
 import mm_network from "./images/mm_network.png";
 import mm_network_main from "./images/mm_network_main.png";
 import mm_add_token from "./images/mm_add_token.png";
@@ -15,11 +15,11 @@ No slippage, no liquidity issues, no sandwiching or front running... you just ge
 The disadvantage is that the gas fee might be quite expensive if you are staking a small amount of ETH - **we strongly recommend you check this before approving the transaction.**
 Also, there is a limit to the amount of ETH that can be in the pool at any given time, so it's possible that the pool could be full until Node Operators pull ETH from it and stake that ETH on the Beacon Chain.
 
-The process is slightly different for the Holesky Testnet and Mainnet, so choose the network you are interested in from the tabs below.
+The process is slightly different for the Hoodi Testnet and Mainnet, so choose the network you are interested in from the tabs below.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Preparing on the Holesky Testnet">
+    <Tab label="Preparing on the Hoodi Testnet">
       <p className="rspress-directive danger">
         <p className="rspress-directive-title">WARNING</p>
         When practicing staking on the test network, you **do not need to provide any of your real ETH** during this process.
@@ -32,27 +32,27 @@ The process is slightly different for the Holesky Testnet and Mainnet, so choose
 
       Next, open the MetaMask panel using its icon in your browser toolbar.
 
-      You will need to add the Holesky Testnet to MetaMask.
+      You will need to add the Hoodi Testnet to MetaMask.
 
       Click on the top left dropdown & click the "Add Network" button.
 
-      You will see a list of networks, Holesky is not in this list so click the "Add a network manually" button.
+      You will see a list of networks, Hoodi is not in this list so click the "Add a network manually" button.
 
       Fill in the following details:
 
-      <img src={mm_add_holesky} width="100%" height="auto" />
+      <img src={mm_add_hoodi} width="100%" height="auto" />
 
       ```
-      Network Name: Holesky
-      New RPC Url: https://rpc.holesky.ethpandaops.io
-      Chain ID: 17000
+      Network Name: Hoodi
+      New RPC Url: https://rpc.hoodi.ethpandaops.io
+      Chain ID: 560048
       Currency Symbol: ETH
-      Block Explorer Url: https://holesky.etherscan.io
+      Block Explorer Url: https://hoodi.etherscan.io
       ```
 
-      Then click Save. You should now see the Holesky network in the top left dropdown.
+      Then click Save. You should now see the Hoodi network in the top left dropdown.
 
-      Click on the **network dropdown** in the top left of the Metamask extension & select **Holesky Test Network**:
+      Click on the **network dropdown** in the top left of the Metamask extension & select **Hoodi Test Network**:
 
       <img src={mm_network} width="100%" height="auto" />
 
@@ -73,9 +73,9 @@ The process is slightly different for the Holesky Testnet and Mainnet, so choose
       Accept the rest of the prompts, and then you will see the rETH token appear in your list.
 
       Now that you have a wallet address in MetaMask, you need to fill it with some test ETH.
-      Head over to the [Practicing with the Test Network](../testnet/overview#getting-test-eth-on-holesky) page for a quick guide on how to use a testnet faucet to get some test ETH on Holesky.
+      Head over to the [Practicing with the Test Network](../testnet/overview#getting-test-eth-on-hoodi) page for a quick guide on how to use a testnet faucet to get some test ETH on Hoodi.
 
-      Once you have some Holesky ETH to test with, head to [https://testnet.rocketpool.net/](https://testnet.rocketpool.net/).
+      Once you have some Hoodi ETH to test with, head to [https://testnet.rocketpool.net/](https://testnet.rocketpool.net/).
 
       The page should look like this:
 

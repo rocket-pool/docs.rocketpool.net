@@ -48,14 +48,14 @@ Please read both options below to determine which one applies to you.
         You will also need to **enable "blind signing"** for the current session; you can find this within the Settings portion of the ETH app on the device.
         Bind signing will automatically be disabled after you close the session.
 
-        If you are using Holesky Testnet and want to use your Ledger as your RPL withdrawal address, **you must create a new Ethereum wallet on your Ledger** first to ensure you don't connect your live address to the test network, which tends to cause confusion.
-        Make sure to select the **Holesky Testnet** in the network selection dropdown when connecting your Ledger to MetaMask.
+        If you are using Hoodi Testnet and want to use your Ledger as your RPL withdrawal address, **you must create a new Ethereum wallet on your Ledger** first to ensure you don't connect your live address to the test network, which tends to cause confusion.
+        Make sure to select the **Hoodi Testnet** in the network selection dropdown when connecting your Ledger to MetaMask.
         Note that Ledger Live will not show your balance on the test network, but other applications which support the test network (such as MetaMask and Etherscan) will be able to display it.
       </p>
 
       1. Run `rocketpool node set-rpl-withdrawal-address 'your cold wallet address or ENS name'`. Your new RPL withdrawal address will be marked as "pending". Until you confirm it, **your old RPL withdrawal address will still be used**.
       2. To confirm it, you must send a special transaction **from your new RPL withdrawal address** to the minipool contract to verify that you own the RPL withdrawal address.
-      1. The easiest way to do this is to navigate to the Rocket Pool RPL withdrawal address site (for the [Holesky Testnet](https://testnet.node.rocketpool.net/manage/rpl-withdrawal-address) or for [Mainnet](https://node.rocketpool.net/manage/rpl-withdrawal-address)).
+      1. The easiest way to do this is to navigate to the Rocket Pool RPL withdrawal address site (for the [Hoodi Testnet](https://testnet.node.rocketpool.net/manage/rpl-withdrawal-address) or for [Mainnet](https://node.rocketpool.net/manage/rpl-withdrawal-address)).
       3. If you haven't already connected Metamask or WalletConnect to the Rocket Pool website, do this now. Click the **select wallet** button in the center of the screen, and choose MetaMask or WalletConnect based on which wallet you would like to use. You will then be prompted asking you to confirm the connection. For example, using MetaMask:
 
       Click **Next**, then click **Confirm** to enable the Rocket Pool website to use your wallet. 3. Select **RPL Withdrawal Address** from the top menu (or the hamburger menu on the left side if you're on a mobile device). 4. You will see this prompt:
@@ -106,7 +106,7 @@ If you'd like to unset your RPL withdrawal address, the process is pretty simple
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Holesky Testnet">
+    <Tab label="Hoodi Testnet">
       https://testnet.node.rocketpool.net/manage/rpl-withdrawal-address
     </Tab>
     <Tab label="Mainnet">
