@@ -89,19 +89,6 @@ function guides() {
           link: "/guides/saturn-0/whats-new",
         },
         {
-          text: "The Houston Upgrade",
-          collapsed: true,
-          link: "/guides/houston/whats-new",
-          items: [
-            { text: "Overview", link: "/guides/houston/whats-new" },
-            { text: "Getting Started with Houston", link: "/guides/houston/getting-started" },
-            { text: "The Protocol DAO", link: "/guides/houston/pdao" },
-            { text: "Participating in Proposals", link: "/guides/houston/participate" },
-            { text: "Stake ETH on Behalf of Node", link: "/guides/houston/stake-eth-on-behalf" },
-            { text: "RPL Withdrawal Address", link: "/guides/houston/rpl-withdrawal-address" },
-          ],
-        },
-        {
           text: "rETH Staker Guide",
           collapsed: true,
           link: "/guides/staking/overview",
@@ -110,6 +97,7 @@ function guides() {
             { text: "Staking directly via Rocket Pool ", link: "/guides/staking/via-rp" },
             { text: "Staking via a Decentralised Exchange on the Ethereum Network (Layer 1) ", link: "/guides/staking/via-l1" },
             { text: "Staking via a Decentralised Exchange on Layer 2 ", link: "/guides/staking/via-l2" },
+            { text: "Staking on behalf of a node ", link: "/guides/houston/stake-eth-on-behalf" },
           ],
         },
         {
@@ -234,10 +222,15 @@ function guides() {
               items: [
                 { text: "Overview", link: "/guides/node/governance/overview" },
                 { text: "The Protocol DAO", link: "/guides/houston/pdao#the-protocol-dao-pdao" },
+                { text: "Participating in on-chain pDAO Proposals", link: "guides/houston/participate#participating-in-on-chain-pdao-proposals"},
                 { text: "Setting your Snapshot Signalling Address", link: "/guides/houston/participate#setting-your-snapshot-signalling-address" },
                 { text: "Delegating Voting Power", link: "guides/houston/participate#delegating-voting-power" },
                 { text: "Viewing the State of a Proposal", link: "/guides/houston/participate#viewing-the-state-of-a-proposal" },
                 { text: "Voting on a Proposal", link: "/guides/houston/participate#voting-on-a-proposal" },
+                { text: "Creating a Proposal", link: "guides/houston/participate#creating-a-proposal" },
+                { text: "Executing a successsful proposal", link: "guides/houston/participate#executing-a-successful-proposal" },
+                { text: "Claiming Bonds and Rewards", link: "guides/houston/participate#claiming-bonds-and-rewards" },
+                { text: "Creating and Claiming a recurring treasury spend", link: "guides/houston/participate#creating-a-recurring-treasury-spend" },
               ],
             },
             {
@@ -288,6 +281,19 @@ function guides() {
                 { text: "[Docker Mode] Guide to the Redstone Update and the Merge", link: "/guides/redstone/docker-migration" },
                 { text: "[Hybrid Mode] Guide to the Redstone Update and the Merge", link: "/guides/redstone/hybrid-migration" },
                 { text: "[Native Mode] Guide to the Redstone Update and the Merge", link: "/guides/redstone/native-migration" },
+              ],
+            },
+            {
+              text: "The Houston Upgrade",
+              collapsed: true,
+              link: "/guides/houston/whats-new",
+              items: [
+                { text: "Overview", link: "/guides/houston/whats-new" },
+                { text: "Getting Started with Houston", link: "/guides/houston/getting-started" },
+                { text: "The Protocol DAO", link: "/guides/houston/pdao" },
+                { text: "Participating in Proposals", link: "/guides/houston/participate" },
+                { text: "Stake ETH on Behalf of Node", link: "/guides/houston/stake-eth-on-behalf" },
+                { text: "RPL Withdrawal Address", link: "/guides/houston/rpl-withdrawal-address" },
               ],
             },
             { text: "Preparing a Raspberry Pi", link: "/guides/node/local/prepare-pi" },

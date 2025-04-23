@@ -20,12 +20,7 @@ Before configuring your Smartnode, please make sure you:
 - Provisioned your node with [a withdrawal address](../prepare-node#setting-your-withdrawal-address), set up your [fallback clients](../fallback) (optional), opted into the [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (optional), and configured [MEV](../mev)
 - Created at least one [minipool](../create-validator)
 
-## Guides
-
-[The Protocol DAO](/guides/houston/pdao#the-protocol-dao-pdao) discusses who and how the pDAO governs Rocket Pool. This page will fill you in on how pDAO duties such as treasury spends can be executed on-chain, along with the role of the all new Security Council. It'll also walk you through the lifecycle of a pDAO proposal and explain some of the measures taken to prevent spam and gun down malicious proposals.
-
-
-## There are three addresses involved in voting:
+## There are three addresses involved in voting
 
 - pDAO Signalling Address — will be used as your Snapshot address, if you want to vote directly or if you want to override your delegate’s Snapshot vote. This address is only used for Snapshot not on-chain voting. 
 
@@ -33,12 +28,26 @@ Before configuring your Smartnode, please make sure you:
 
 - Node Address — if you have not delegated your vote or if you wish to override your delegate’s on-chain vote you can do this from your node. 
 
+## Guides
+
+[The Protocol DAO](/guides/houston/pdao#the-protocol-dao-pdao) discusses who and how the pDAO governs Rocket Pool. This page will fill you in on how pDAO duties such as treasury spends can be executed on-chain, along with the role of the all new Security Council. It'll also walk you through the lifecycle of a pDAO proposal and explain some of the measures taken to prevent spam and gun down malicious proposals.
+
+[Voting setup for non-smartnode users](/guides/houston/nonsmartnode-setup) shows non-smartnode users (such as Allnodes users) how to set up voting.
+
+[Initializing Voting Power](/guides/houston/participate#initializing-voting) shows you how to initialize your node's voting power. This step is only required if your node was registered before the Houston Upgrade.
+
 [Setting your Snapshot Signalling Address](/guides/houston/participate#setting-your-snapshot-signalling-address) will walk you through the steps for setting a Signalling Address. It'll allow you to vote on Snapshot using your node's voting power without needing to load your node's private key onto a hot wallet. Make sure you have your Smartnode CLI handy and prepare a address (that isn't your node wallet) for this guide. 
 
 [Delegating Voting Power](/guides/houston/participate#delegating-voting-power) is a quick command you can use to delegate voting power instead of voting directly on proposals.
 
 [Viewing the State of a Proposal](/guides/houston/participate#viewing-the-state-of-a-proposal) is a guide on how you can view a list of past and ongoing on-chain proposals. You'll be able to check the state and read up on the details of any given on-chain proposal.
 
-[Voting on a Proposal](/guides/houston/participate#voting-on-a-proposal) shows you how cast a vote on an on-chain proposals. This guide also goes over the four options: **Abstain**, **For**, **Against**, and **Veto**.
+[Voting on a Proposal](/guides/houston/participate#voting-on-a-proposal) shows you how cast a vote on an on-chain proposal. This guide also goes over the four options: **Abstain**, **For**, **Against**, and **Veto**.
 
-[Voting setup for non-smartnode users](/guides/houston/nonsmartnode-setup) shows non-smartnode users (such as Allnodes users) how to set up voting.
+[Creating a Proposal](/guides/houston/participate#creating-a-proposal) walks you through the requirements and steps to raise an on-chain proposal.
+
+[Executing a successful proposal](/guides/houston/participate#executing-a-successful-proposal) will show you how to apply the effects of a successful proposal to the Rocket Pool Protocol. 
+
+[Claiming Bonds and Rewards](/guides/houston/participate#claiming-bonds-and-rewards) discusses the conditions in which bonds or rewards can be claimed by a Proposer or Challenger.
+
+[Creating and Claiming a recurring treasury spend](guides/houston/participate#creating-a-recurring-treasury-spend) is a feature which gives the pDAO full control over adding, modifying, and removing recurring payments. 
