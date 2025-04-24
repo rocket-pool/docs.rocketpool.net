@@ -26,17 +26,6 @@ Your environment should be setup & the server should be started so you can make 
 
 See the Justfile for available commands.
 
-## Local Testing
-
-If you want to test this locally, follow the next few steps:
-
-- Clone this repo eg: `git clone git@github.com:rocket-pool/docs.rocketpool.net.git`
-- Move into the directory: `cd docs.rocketpool.net`
-- Install dependencies using: `bun install`
-- Run the dev server which will create the site and update automatically when you make changes: `bun run dev`
-- Go to `http://localhost:3000/` in your browser to view the site.
-- Ensure that `bun run build` doesn't have any errors or dead links before creating a pull request
-
 ## Project Structure
 
 To add new pages and have them appear in the side menu, add the links to the `sidebar` property in the `rspress.config.ts` file for them to appear.
