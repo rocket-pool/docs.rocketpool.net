@@ -1,3 +1,5 @@
+# Voting setup for non-smartnode users
+
 Some users (eg, Allnodes users) don't use the smartnode and may need to set up voting using direct contract interaction.
 This guide contains both a minimal and a complete setup guide for such users.
 
