@@ -30,6 +30,12 @@ h1, h2, h3, h4, h5, h6 {
     font-family: "Poppins", "system-ui", sans-serif;
 }
 
+@media (min-width: 768px) {
+  .rspress-home-hero-text {
+    font-size: 3rem;
+  }
+}
+
 :root {
   --rp-nav-height: 72px;
   --rp-sidebar-width: 320px;
