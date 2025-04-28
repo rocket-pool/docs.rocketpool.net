@@ -183,3 +183,7 @@ body {
 .rspress-doc .rspress-directive {
     font-size: 14px !important;
 }
+
+.translation {
+  display: none;
+}
