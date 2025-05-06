@@ -40,7 +40,7 @@ on [Ubuntu](https://ubuntu.com/about), [Debian](https://www.debian.org/intro/why
 and [Fedora](https://docs.fedoraproject.org/en-US/project/).
 
 ::: warning NOTE
-If you plan to use Ubuntu, we strongly recommend using an **LTS** release such as 20.04.
+If you plan to use Ubuntu, we strongly recommend using an **LTS** release such as 24.04.
 These releases are actively maintained for longer periods of time, which helps with the security and stability of your
 node.
 :::
