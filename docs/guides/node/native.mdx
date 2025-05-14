@@ -171,9 +171,9 @@ sudo chown -R rp:rp /srv/rocketpool/data
 Next, download the following scripts - Rocket Pool will use them when it needs to stop or restart your Validator Client to change its fee recipient (discussed later) or load new keys after you create a new minipool:
 
 ```shell
-wget https://github.com/rocket-pool/smartnode-install/raw/release/install/scripts/restart-vc.sh -O /srv/rocketpool/restart-vc.sh
+wget https://github.com/rocket-pool/smartnode/raw/master/shared/services/rocketpool/assets/install/scripts/restart-vc.sh -O /srv/rocketpool/restart-vc.sh
 
-wget https://github.com/rocket-pool/smartnode-install/raw/release/install/scripts/stop-validator.sh -O /srv/rocketpool/stop-validator.sh
+wget https://github.com/rocket-pool/smartnode/raw/master/shared/services/rocketpool/assets/install/scripts/stop-validator.sh -O /srv/rocketpool/stop-validator.sh
 
 chmod +x /srv/rocketpool/restart-vc.sh
 
