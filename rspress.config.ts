@@ -1,6 +1,8 @@
 import {defineConfig} from "rspress/config";
+import path from "path";
 
 export default defineConfig({
+    globalStyles: path.join(__dirname, "styles/index.css"),
     root: "docs",
     lang: "en",
     title: "Rocket Pool Guides & Documentation",
