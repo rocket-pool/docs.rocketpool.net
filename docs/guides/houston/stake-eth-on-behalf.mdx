@@ -66,7 +66,7 @@ The process is slightly different for the Hoodi Testnet and Mainnet, so choose t
       Now that you have a wallet address in MetaMask, you need to fill it with some test ETH.
       Head over to the [Practicing with the Test Network](../testnet/overview#getting-test-eth-on-hoodi) page for a quick guide on how to use a testnet faucet to get some test ETH on Hoodi.
 
-      Once you have some Hoodi ETH to test with, head to [https://testnet.rocketpool.net/deposit-eth-on-behalf-of-node](https://testnet.rocketpool.net/deposit-eth-on-behalf-of-node).
+      Once you have some Hoodi ETH to test with, head to [https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node](https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node).
 
       If you see a notice about a web3 browser being required, or the current network ID being unsupported, make sure you’ve completed the previous steps correctly before continuing.
     </Tab>
@@ -123,7 +123,17 @@ You're now staking with Rocket Pool.
 
 # Unstake ETH on behalf of node
 
-When you're ready to withdraw ETH you've staked on behalf of a node, head over to the [staking site](https://testnet.rocketpool.net/withdraw-eth) and select 'Withdraw ETH' in the dropdown menu. After signing in as the node's [primary withdrawal address](../node/prepare-node#setting-your-primary-withdrawal-address), you should be greeted with a familiar menu. You'll be prompted to enter the node address you want to withdraw from:
+<div className="p-3">
+  <Tabs>
+    <Tab label="Preparing on the Hoodi Testnet">
+      When you're ready to withdraw ETH you've staked on behalf of a node, head over to [https://testnet.node.rocketpool.net/withdraw-eth](https://testnet.node.rocketpool.net/withdraw-eth). After signing in as the node's [primary withdrawal address](../node/prepare-node#setting-your-primary-withdrawal-address), you should be greeted with a familiar menu. You'll be prompted to enter the node address you want to withdraw from:
+    </Tab>
+    <Tab label="Preparing on the Ethereum Mainnet">
+      When you're ready to withdraw ETH you've staked on behalf of a node, head over to [https://node.rocketpool.net/withdraw-eth](https://node.rocketpool.net/withdraw-eth). After signing in as the node's [primary withdrawal address](../node/prepare-node#setting-your-primary-withdrawal-address), you should be greeted with a familiar menu. You'll be prompted to enter the node address you want to withdraw from:
+    </Tab>
+  </Tabs>
+</div>
+
 
 <img src="./images/enter_node_address.png" width="100%" height="auto"/>
 
