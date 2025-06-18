@@ -10,10 +10,10 @@
   },
   "repository": "https://github.com/rocket-pool/docs.rocketpool.net",
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
+    "@biomejs/biome": "^2.0.0",
     "@headlessui/react": "^2.2.4",
     "prettier": "^3.5.3",
-    "rspress": "^2.0.0-beta.14",
+    "rspress": "^2.0.0-beta.15",
     "rspress-plugin-vue": "^1.1.0",
     "taze": "^19.1.0",
     "ts-node": "^10.9.2",
