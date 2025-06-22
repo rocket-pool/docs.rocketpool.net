@@ -10,7 +10,7 @@
   },
   "repository": "https://github.com/rocket-pool/docs.rocketpool.net",
   "devDependencies": {
-    "@biomejs/biome": "^2.0.0",
+    "@biomejs/biome": "^2.0.4",
     "@headlessui/react": "^2.2.4",
     "prettier": "^3.5.3",
     "rspress": "^2.0.0-beta.16",
