@@ -1,3 +1,6 @@
+import proposal_diagram from './images/proposal_diagram.png';
+import proposal_checker from './images/proposal_checker.png';
+
 # The Protocol DAO (pDAO)
 
 The Rocket Pool Protocol DAO (pDAO) is responsible for shaping the direction of the protocol and is run by RPL governance. Its members and their voting power are made up of node operators, big and small, all of which are directly participating in the protocol. It serves the Rocket Pool community at large, including rETH holders, Node Operators, and RPL holders. The pDAO prioritizes the safety of the Rocket Pool protocol and the health of the Ethereum Network. For an explicit definition of who and what the pDAO is, feel free to take a look at the [pDAO charter](https://rpips.rocketpool.net/RPIPs/RPIP-23).
@@ -37,7 +40,7 @@ A proposal should be forecasted by the [governance process](../houston/participa
 - Vote Phase 2: `proposal.vote.phase2.time`
 - Execution: `proposal.execute.time	`
 
-<img src="./images/proposal_diagram.png" width="100%" height="auto"/>
+<img src={proposal_diagram} width="100%" height="auto"/>
 
 ### Vote Delay Period
 
@@ -113,7 +116,7 @@ The complete network voting power tree is stored off-chain due to gas limits. Wh
 
 Any node can participate in tracking and verifying the correctness of proposals. To opt into this responsibility, use the command `rocketpool service config`, navigate to the **Smartnode and TX Fee Settings** menu, and check the box `Enable PDAO Proposal Checker`.
 
-<img src="./images/proposal_checker.png" width="100%" height="auto"/>
+<img src={proposal_checker} width="100%" height="auto"/>
 
 When this setting is enabled, the node will check for new proposals, verify their correctness, and submit challenges to invalid proposals. The only prerequisite is that [RPL Locking](../houston/participate#allowing-rpl-locking) is enabled.
 
