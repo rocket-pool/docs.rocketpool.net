@@ -1,3 +1,7 @@
+import tui_ec_expose_ports from './images/tui-ec-expose-ports.png';
+import tui_cc_expose_ports from './images/tui-cc-expose-ports.png';
+import tui_fallback_clients from './images/tui-fallback-clients.png';
+
 # Specifying a Fallback Node
 
 Starting with **1.5.0** of the Smartnode stack, you can provide a "fallback" Execution client and Consensus client pair that can take over for your primary clients if they ever go offline (such as because [you use Geth and need to prune it](./pruning)).
@@ -21,7 +25,7 @@ As of v1.9.0, all our supported validator clients have added Fallback support wi
 
 | Name       | Supports Fallback | Valid Fallback Clients                                                       |
 | ---------- | ----------------- | ---------------------------------------------------------------------------- |
-| Lighthouse | Yes               | Any (doppelganger protection off)<br>Lighthouse (doppelganger protection on) |
+| Lighthouse | Yes               | Any (doppelganger protection off)<br />Lighthouse (doppelganger protection on) |
 | Nimbus     | Yes               | Any                                                                          |
 | Prysm      | Yes               | Prysm                                                                        |
 | Teku       | Yes               | Any                                                                          |
@@ -45,12 +49,12 @@ If you already have a 2nd node ready and have its RPC ports exposed, feel free t
    2. Enter the `Execution Client` settings.
    3. Check the `Expose RPC Ports` box:
 
-   <img src="./images/tui-ec-expose-ports.png" width="100%" height="auto"/>
+   <img src={tui_ec_expose_ports} width="100%" height="auto"/>
 
    4. Go back and enter the `Consensus Client` settings.
    5. Check the `Expose API Port` box (and, if you're using **Prysm**, the `Expose RPC Port` box as well):
 
-   <img src="./images/tui-cc-expose-ports.png" width="100%" height="auto"/>
+   <img src={tui_cc_expose_ports} width="100%" height="auto"/>
 
    6. Save the settings and start the Smartnode.
 
@@ -78,7 +82,7 @@ Once you have a fallback node prepared, you can connect it to your main node.
 
 The final page should look like this:
 
-<img src="./images/tui-fallback-clients.png" width="100%" height="auto"/>
+<img src={tui_fallback_clients} width="100%" height="auto"/>
 
 ::: tip NOTE
 **Native mode** users can follow the same steps, though the TUI will look slightly different from the above screenshot.
@@ -116,8 +120,8 @@ You will see a warning message at the top indicating that one (or both) of your 
 
 ```
 NOTE: primary clients are not ready, using fallback clients...
-	Primary EC status: unavailable (Sync progress check failed with [Post "http://eth1:8545": dial tcp: lookup eth1 on 127.0.0.11:53: no such host])
-	Primary CC status: unavailable (Sync progress check failed with [Could not get node sync status: Get "http://eth2:5052/eth/v1/node/syncing": dial tcp: lookup eth2 on 127.0.0.11:53: no such host])
+ Primary EC status: unavailable (Sync progress check failed with [Post "http://eth1:8545": dial tcp: lookup eth1 on 127.0.0.11:53: no such host])
+ Primary CC status: unavailable (Sync progress check failed with [Could not get node sync status: Get "http://eth2:5052/eth/v1/node/syncing": dial tcp: lookup eth2 on 127.0.0.11:53: no such host])
 
 ========== General Stats ==========
 Total Value Locked:      278978.009858 ETH
