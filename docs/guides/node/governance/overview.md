@@ -50,4 +50,4 @@ Before configuring your Smartnode, please make sure you:
 
 [Claiming Bonds and Rewards](/guides/houston/participate#claiming-bonds-and-rewards) discusses the conditions in which bonds or rewards can be claimed by a Proposer or Challenger.
 
-[Creating and Claiming a recurring treasury spend](guides/houston/participate#creating-a-recurring-treasury-spend) is a feature which gives the pDAO full control over adding, modifying, and removing recurring payments. 
+[Creating and Claiming a recurring treasury spend](/guides/houston/participate#creating-a-recurring-treasury-spend) is a feature which gives the pDAO full control over adding, modifying, and removing recurring payments. 
