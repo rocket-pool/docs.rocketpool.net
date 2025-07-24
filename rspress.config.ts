@@ -238,6 +238,7 @@ function guides() {
                 },
                 { text: "Checking for Updates", link: "/guides/node/updates" },
                 { text: "Backing Up Your Node", link: "/guides/node/backups" },
+                { text: "Expiring Pre-Merge History", link: "/guides/node/maintenance/history-expiry" },
                 { text: "Pruning the Execution Client", link: "/guides/node/pruning" },
                 { text: "Changing Execution or Consensus Clients", link: "/guides/node/change-clients" },
                 {
