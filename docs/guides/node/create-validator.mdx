@@ -233,6 +233,16 @@ This is done with the following command:
 rocketpool node deposit
 ```
 
+::: danger WARNING
+
+While the CLI does automate a lot of the next steps for you, we <strong>strongly</strong> recommend monitoring your node & transactions to ensure a successful transition from `prelaunch` to `staking`.
+
+Failed transactions (due to adjusted gas settings or insufficient ETH) could make your minipool transition to the `dissolved` state, which you want to avoid.
+
+[Learn more about how to confirm a successful stake](./create-validator#confirming-a-successful-stake)
+
+:::
+
 ::: tip NOTE
 If you want to use a salt for a vanity address that you found using the process above, run the following command instead:
 
