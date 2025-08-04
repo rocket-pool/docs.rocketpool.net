@@ -142,7 +142,7 @@ To make the math easy to understand, community member Ken Smith has put together
 
 ![](../node/images/sp-chart.png){ style="display: block; margin: 0 auto" }
 
-In short, as long as the Smoothing Pool has more minipools than you do, it's more likely that you'll come out ahead by joining it. You can view how many nodes and minipools are opted in using community member Peteris's excellent [Rocketscan website](https://rocketscan.io/smoothingpool).
+In short, as long as the Smoothing Pool has more minipools than you do, it's more likely that you'll come out ahead by joining it.
 
 ### The Rules
 

@@ -11,7 +11,6 @@ You would also have the option to use Rocket Pool's [Smoothing Pool](./prepare-n
 
 The rETH token will not rebase.
 The number of tokens on your wallet will remain constant but they appreciate in value over time.
-You can check [here](https://rocketscan.io/reth) for more information on the exchange rate history.
 
 ### I have a technical issue running my node, how do I get help?
 

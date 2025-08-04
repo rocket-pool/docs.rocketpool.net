@@ -236,11 +236,6 @@ The port to monitor depends on your node setup; users running the typical Smartn
 
 There are multiple community-lead initiatives to provide an overview of your node performance, as well as the Rocket Pool network as a whole.
 
-An in-depth network analytics explorer is [rocketscan.io](https://rocketscan.io/), made by community member `Peteris`.
-It features detailed network and node metrics, including a timeline of your node activity.
-
-![Rocketscan screenshot](./local/images/rocketscan.dev.png)
-
 ### Scripting with Pushover (advanced)
 
 ::: tip NOTE
@@ -291,7 +286,6 @@ PUSHOVER_USER=
 PUSHOVER_TOKEN=
 NODE_ADDRESS="$(rocketpool node status | grep -Po "(?<=The node )(0x[A-Za-z0-9]{40})")"
 EXPLORER_URL=https://beaconcha.in/validators/deposits?q=
-#EXPLORER_URL=https://rocketscan.io/node/
 #EXPLORER_URL=https://www.rp-metrics-dashboard.com/dashboard/MAINNET/
 NOTIFICATION_URL="$EXPLORER_URL$NODE_ADDRESS"
 
