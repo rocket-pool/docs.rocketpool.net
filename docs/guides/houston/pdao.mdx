@@ -161,7 +161,7 @@ rocketpool3_node  | 2024/04/05 02:57:01 Waiting for the transaction to be valida
 rocketpool3_node  | 2024/04/05 02:57:13 Successfully defeated proposal.
 ```
 
-Since the proposer's voting info is incorrect, the won't be able to respond to the challenge in time (determined by `proposal.challenge.period`). The proposal is considered defeated at this point. When the proposal is defeated, our node automatically makes the contract call `defeatProposal` on proposal 177 at index 5 to end the proposal.
+Since the proposer's voting info is incorrect, it won't be able to respond to the challenge in time (determined by `proposal.challenge.period`). The proposal is considered defeated at this point. When the proposal is defeated, our node automatically makes the contract call `defeatProposal` on proposal 177 at index 5 to end the proposal.
 
 ::: tip NOTE
 Challengers who participate in defeating the proposal are paid a proportional amount of the proposer's bond if they submit an index proven to be incorrect. All other challengers receive their bond back only.
