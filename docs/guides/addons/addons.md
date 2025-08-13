@@ -27,6 +27,18 @@ Create a new subdirectory in `addons/` named after your add-on (use snake_case, 
 
 In this directory, create a Go file (e.g., `my_addon.go`) that defines the add-on struct and implements the `SmartnodeAddon` interface from `github.com/rocket-pool/smartnode/shared/types/addons`.
 
+```
+type MyAddon struct {
+    cfg *MyAddonConfig `yaml:"config,omitempty"`
+}
+
+func NewMyAddon() addons.SmartnodeAddon {
+    return &MyAddon{
+        cfg: NewConfig(),
+    }
+}
+```
+
 Key methods to implement:
 - `GetName()`: Returns the display name of the add-on.
 - `GetDescription()`: Returns a brief description.
@@ -103,21 +115,30 @@ Update `addons/constructors.go` to include a constructor for your add-on.
 
 This file contains functions to instantiate all add-ons.
 
-Example:
-- Add `NewMyAddon(cfg *RocketPoolConfig, cm *ClientManager) *MyAddon`.
+Example: 
+```
+func NewMyAddon() addons.SmartnodeAddon {
+    return my_addon.NewMyAddon()
+}
+``` 
 
-Add it to the list of available add-ons on `smartnode-config.go`.
+Then add it to the list of available addons within the`NewRocketPoolConfig` in `shared/services/config/rocket-pool-config.go`.
 
-This allows the Smart Node to load and manage your add-on.
+```
+// Addons
+cfg.GraffitiWallWriter = addons.NewGraffitiWallWriter()
+cfg.RescueNode = addons.NewRescueNode()
+cfg.MyAddon = addons.MyAddon()
+```
 
 ### 4. Integrate with Docker Compose
 
 Add-ons often require modifications to the Docker compose files.
 
-- Add templates in the `shared/assets/templates/` directory for your add-on's compose section (e.g., `my_addon.tmpl`).
+- Add templates in the `shared/services/rocketpool/assets/install/templates/addons` directory for your add-on's compose section (e.g., `my_addon.tmpl`).
 - The add-on code generates the compose YAML when enabled, including services, volumes, and dependencies.
 
-The `composeAddon` function inside the `services/rocketpool/client` folder is responsible for provisioning Docker Compose containers based on the Rocket Pool configuration, setting up runtime, template and override assets for the add-on. 
+The `composeAddons` function inside the `services/rocketpool/client` folder is responsible for provisioning Docker Compose containers based on the Rocket Pool configuration, setting up runtime, template and override assets for the add-on. 
 
 For installation:
 - Update the installer script (`install.sh`) if the add-on needs files copied (e.g., default config files).
