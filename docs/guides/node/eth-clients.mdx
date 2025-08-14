@@ -37,7 +37,7 @@ The options below help to describe each client so you can make an informed decis
 
 ## Execution Clients
 
-Rocket Pool supports three different Execution clients: **Geth**, **Besu**, and **Nethermind**.
+Rocket Pool supports four different Execution clients: **Geth**, **Besu**, **Nethermind**, and **Reth**.
 
 Running an Execution client involves storing a copy of the Execution layer blockchain on your machine.
 It interacts via peer-to-peer communications with other EC nodes to record and verify new blocks and transactions.
@@ -95,6 +95,16 @@ This makes it a compelling choice for nodes because they won't have any down tim
 For more information on pruning Nethermind, view the [Pruning the Execution Client](./pruning) page.
 :::
 
+### Reth
+
+[Reth](https://reth.rs/) is an Execution layer client written in [Rust](https://www.rust-lang.org/) and uses the [Erigon staged-sync](https://erigon.substack.com/p/erigon-stage-sync-and-control-flows) architecture. 
+Reth is designed from the ground up with efficiency, performance, and modularity in mind. It's licenced under the Apache/MIT permissive license and built 
+with small, well-abstracted, well-tested, and benchmarked packages. This makes for a great open source developer experience and allows Reth's components to be used in other projects.
+
+As the newest client in the ecosystem, Reth is rapidly evolving and gaining adoption. While RAM and CPU requirements are flexible, the most important
+requirement is by far the disk. We suggest using a good [TLC disk](https://gist.github.com/yorickdowne/f3a3e79a573bf35767cd002cc977b038). 
+Reth requires **at least 8 GB of RAM** for a full node or **16 GB of RAM** for an archive node. 
+
 ### Client Comparison Table
 
 | Client     | Type | CPU Usage | Minimum RAM Usage | Sync Time |
@@ -102,6 +112,7 @@ For more information on pruning Nethermind, view the [Pruning the Execution Clie
 | Geth       | Full | Moderate  | 4 GB              | Moderate  |
 | Besu       | Full | Moderate  | 6 GB              | Slow      |
 | Nethermind | Full | Moderate  | 16 GB             | Fast      |
+| Reth       | Full | Moderate  | 8 GB              | Fast      |
 
 ## Consensus Clients
 
