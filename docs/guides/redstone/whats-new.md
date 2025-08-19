@@ -11,7 +11,8 @@ For detailed information on how to prepare your node for the upgrade and what to
 - [Guide for Docker Mode](./docker-migration.mdx)
 - [Guide for Hybrid Mode](./hybrid-migration.mdx)
 - [Guide for Native Mode](./native-migration.mdx)
-  :::
+
+:::
 
 ## Client Changes and The Merge
 

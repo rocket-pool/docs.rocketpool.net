@@ -11,7 +11,8 @@ As a quick reminder here's a breakdown of the different types of rewards and whi
 
 - Consensus Layer: attestations, block proposals, sync committees, slashing reports
 - Execution Layer: priority fees and MEV (discussed in the next section) from block proposals
-  :::
+
+:::
 
 ## Fee Recipients
 
