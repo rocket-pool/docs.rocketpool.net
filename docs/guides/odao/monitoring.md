@@ -18,7 +18,7 @@ The Smartnode provides a convenient dashboard that allows you to monitor many of
 There is one dashboard for each Consensus Client.
 Below is an example of the dashboard for Nimbus:
 
-![](../node/images/nimbus-dashboard.png){ style="display: block; margin: 0 auto" }
+![](../node/images/nimbus-dashboard.png)
 
 - Your machine's hardware health is captured in the upper-left quadrant.
 - Your Execution client is functioning properly if the Network Stats in the lower-left quadrant are being populated.
@@ -36,7 +36,7 @@ For information on how to prepare the metrics system and the Smartnode dashboard
 
 We have also constructed a simple dashboard specifically tailored towards Oracle DAO members:
 
-![](../odao/images/odao-dashboard.png){ style="display: block; margin: 0 auto" }
+![](../odao/images/odao-dashboard.png)
 
 This dashboard that tracks the following:
 
@@ -50,7 +50,7 @@ Enabling this dashboard is a two-step process.
 
 First, enable Oracle DAO metrics in the `Metrics` section of the `rocketpool service config` editor:
 
-![](../odao/images/tui-odao-metrics.png){ style="display: block; margin: 0 auto" }
+![](../odao/images/tui-odao-metrics.png)
 
 If you are running in Docker or Hybrid mode, this will restart your `node` daemon to apply the changes.
 If you are running in Native mode, please restart the `node` service manually.

@@ -87,7 +87,7 @@ Changing the threshold can be done in the `Smartnode and TX Fees` section of the
 
 By popular demand, we have created a new [**Grafana dashboard**](https://grafana.com/grafana/dashboards/21863) to help node operators track and assess the status, progress, and overall health of their nodes:
 
-![](../node/images/grafana-1.3.jpg){ style="display: block; margin: 0 auto" }
+![](../node/images/grafana-1.3.jpg)
 
 It comes with the following highly requested features:
 

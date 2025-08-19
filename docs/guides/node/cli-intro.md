@@ -352,13 +352,13 @@ rocketpool node claim-rewards
 
 As intervals go by and you accumulate rewards, the output will look like this:
 
-![](../node/images/claim-rewards-gb.png){ style="display: block; margin: 0 auto" }
+![](../node/images/claim-rewards-gb.png)
 
 Here you can quickly see how many rewards you've earned at each interval, and can decide which ones you want to claim.
 
 You can also specify an amount you want to restake during this claim:
 
-![](../node/images/autostake.png){ style="display: block; margin: 0 auto" }
+![](../node/images/autostake.png)
 
 This will let you compound your RPL rewards in one transaction, using substantially less gas than you currently needed to use with the legacy claim system.
 
@@ -371,7 +371,7 @@ You **must** be above 10% collateral at the time of a snapshot in order to recei
 ::: tip NOTE
 If you prefer to build the rewards checkpoint manually instead of downloading the one created by the Oracle DAO, you can change this setting from `Download` to `Generate` in the TUI:
 
-![](../node/images/tui-generate-tree.png){ style="display: block; margin: 0 auto" }
+![](../node/images/tui-generate-tree.png)
 
 As the tip implies, you will need access to an Execution client archive node to do this.
 If your local Execution client is not an archive node, you can specify a separate one (such as Infura or Alchemy) in the `Archive-Mode EC URL` box below it.
