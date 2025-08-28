@@ -24,13 +24,7 @@ USAGE:
    rocketpool [global options] command [command options] [arguments...]
 
 VERSION:
-   1.7.0-dev
-
-AUTHORS:
-   David Rugendyke <david@rocketpool.net>
-   Jake Pospischil <jake@rocketpool.net>
-   Joe Clapis <joe@rocketpool.net>
-   Kane Wallmann <kane@rocketpool.net>
+   1.17.2
 
 COMMANDS:
    auction, a   Manage Rocket Pool RPL auctions
@@ -38,7 +32,9 @@ COMMANDS:
    network, e   Manage Rocket Pool network parameters
    node, n      Manage the node
    odao, o      Manage the Rocket Pool oracle DAO
+   pdao, p      Manage the Rocket Pool Protocol DAO
    queue, q     Manage the Rocket Pool deposit queue
+   security, c  Manage the Rocket Pool security council
    service, s   Manage Rocket Pool service
    wallet, w    Manage the node wallet
    help, h      Shows a list of commands or help for one command
@@ -57,7 +53,7 @@ GLOBAL OPTIONS:
    --version, -v                 print the version
 
 COPYRIGHT:
-   (c) 2021 Rocket Pool Pty Ltd
+   (c) 2025 Rocket Pool Pty Ltd
 ```
 
 ## Service Commands
@@ -73,6 +69,9 @@ NAME:
 USAGE:
    rocketpool service [global options] command [command options] [arguments...]
 
+VERSION:
+   1.17.2
+
 COMMANDS:
    install, i                 Install the Rocket Pool service
    config, c                  Configure the Rocket Pool service
@@ -80,21 +79,20 @@ COMMANDS:
    start, s                   Start the Rocket Pool service
    pause, p                   Pause the Rocket Pool service
    stop, o                    Pause the Rocket Pool service (alias of 'rocketpool service pause')
+   reset-docker, rd           Cleanup Docker resources, including stopped containers, unused images and networks. Stops and restarts Smartnode.
+   prune-docker, pd           Cleanup unused Docker resources, including stopped containers, unused images, networks and volumes. Does not restart smartnode, so the running containers and the images and networks they reference will not be pruned.
    logs, l                    View the Rocket Pool service logs
    stats, a                   View the Rocket Pool service stats
    compose                    View the Rocket Pool service docker compose config
    version, v                 View the Rocket Pool service version information
    prune-eth1, n              Shuts down the main ETH1 client and prunes its database, freeing up disk space, then restarts it when it's done.
    install-update-tracker, d  Install the update tracker that provides the available system update count to the metrics dashboard
-   check-cpu-features, ccf    Checks if your CPU supports all of the features required by the "modern" version of certain client images. If not, it prints what features are missing.
    get-config-yaml            Generate YAML that shows the current configuration schema, including all of the parameters and their descriptions
-   export-eth1-data           Exports the execution client (eth1) chain data to an external folder. Use this if you want to back up your chain data before switching execution clients.
-   import-eth1-data           Imports execution client (eth1) chain data from an external folder. Use this if you want to restore the data from an execution client that you previously backed up.
    resync-eth1                Deletes the main ETH1 client's chain data and resyncs it from scratch. Only use this as a last resort!
    resync-eth2                Deletes the ETH2 client's chain data and resyncs it from scratch. Only use this as a last resort!
-   terminate, t               Deletes all of the Rocket Pool Docker containers and volumes, including your ETH1 and ETH2 chain data and your Prometheus database (if metrics are enabled). Only use this if you are cleaning up the Smartnode and want to start over!
+   terminate, t               Deletes all of the Rocket Pool Docker containers and volumes, including your ETH1 and ETH2 chain data and your Prometheus database (if metrics are enabled). Also removes your entire `.rocketpool` configuration folder, including your wallet, password, and validator keys. Only use this if you are cleaning up the Smartnode and want to start over!
 
-OPTIONS:
+GLOBAL OPTIONS:
    --compose-file value, -f value  Optional compose files to override the standard Rocket Pool docker compose YAML files; this flag may be defined multiple times
    --help, -h                      show help
 ```
@@ -136,7 +134,7 @@ This can be useful for troubleshooting or getting a more detailed status report 
 If you simply do `rocketpool service logs` without any other arguments, it will aggregate all of the logs together and show them to you at once.
 
 If you want to focus on one container's output, you can add an argument to the end to specify the container.
-Valid values are `eth1`, `eth2`, `validator`, `api`, `node`, and `watchtower`.
+Valid values are `eth1`, `eth2`, `validator`, `api`, `node`, `watchtower`, `prometheus`, `grafana`, and `node-exporter`.
 
 ### `stats`
 
@@ -163,7 +161,7 @@ It does not show the raw _resident_ memory consumption.
 Similarly, the CPU usage shows the total amount of CPU consumption averaged over all of the CPU cores that the container uses.
 Here, the CPU for ETH2 shows almost 100% because it is using Nimbus, which is single-threaded.
 
-You may find that a program like `htop` offers better insight into actual resource consumption.
+You may find that a program like `htop` or `btop` offers better insight into actual resource consumption.
 :::
 
 ### `config`
@@ -200,29 +198,41 @@ NAME:
 USAGE:
    rocketpool node [global options] command [command options] [arguments...]
 
-COMMANDS:
-   status, s                      Get the node's status
-   sync, y                        Get the sync progress of the eth1 and eth2 clients
-   register, r                    Register the node with Rocket Pool
-   rewards, e                     Get the time and your expected RPL rewards of the next checkpoint
-   set-withdrawal-address, w      Set the node's withdrawal address
-   confirm-withdrawal-address, f  Confirm the node's pending withdrawal address if it has been set back to the node's address itself
-   set-timezone, t                Set the node's timezone location
-   swap-rpl, p                    Swap old RPL for new RPL
-   stake-rpl, k                   Stake RPL against the node
-   claim-rewards, c               Claim available RPL and ETH rewards for any checkpoint you haven't claimed yet
-   withdraw-rpl, i                Withdraw RPL staked against the node
-   deposit, d                     Make a deposit and create a minipool
-   send, n                        Send ETH or tokens from the node account to an address
-   set-voting-delegate, sv        Set the address you want to use when voting on Rocket Pool governance proposals, or the address you want to delegate your voting power to.
-   clear-voting-delegate, cv      Remove the address you've set for voting on Rocket Pool governance proposals.
-   initialize-fee-distributor, z  Create the fee distributor contract for your node, so you can withdraw priority fees and MEV rewards after the merge
-   distribute-fees, b             Distribute the priority fee and MEV rewards from your fee distributor to your withdrawal address and the rETH contract (based on your node's average commission)
-   join-smoothing-pool, js        Opt your node into the Smoothing Pool
-   leave-smoothing-pool, ls       Leave the Smoothing Pool
-   sign-message, sm               Sign an arbitrary message with the node's private key
+VERSION:
+   1.17.2
 
-OPTIONS:
+COMMANDS:
+   status, s                                     Get the node's status
+   sync, y                                       Get the sync progress of the eth1 and eth2 clients
+   register, r                                   Register the node with Rocket Pool
+   rewards, e                                    Get the time and your expected RPL rewards of the next checkpoint
+   set-primary-withdrawal-address, w             Set the node's primary withdrawal address, which will receive all ETH rewards (and RPL if the RPL withdrawal address is not set)
+   confirm-primary-withdrawal-address, f         Confirm the node's pending primary withdrawal address if it has been set back to the node's address itself
+   set-rpl-withdrawal-address, srwa              Set the node's RPL withdrawal address, which will receive all RPL rewards and staked RPL withdrawals
+   confirm-rpl-withdrawal-address, crwa          Confirm the node's pending rpl withdrawal address if it has been set back to the node's address itself
+   allow-rpl-locking, arl                        Allow the node to lock RPL when creating governance proposals/challenges
+   deny-rpl-locking, drl                         Do not allow the node to lock RPL when creating governance proposals/challenges
+   set-timezone, t                               Set the node's timezone location
+   swap-rpl, p                                   Swap old RPL for new RPL
+   stake-rpl, k                                  Stake RPL against the node
+   add-address-to-stake-rpl-whitelist, asw       Adds an address to your node's RPL staking whitelist, so it can stake RPL on behalf of your node.
+   remove-address-from-stake-rpl-whitelist, rsw  Removes an address from your node's RPL staking whitelist, so it can no longer stake RPL on behalf of your node.
+   claim-rewards, c                              Claim available RPL and ETH rewards for any checkpoint you haven't claimed yet
+   withdraw-rpl, i                               Withdraw RPL staked against the node
+   withdraw-eth, h                               Withdraw ETH staked on behalf of the node
+   deposit, d                                    Make a deposit and create a minipool
+   create-vacant-minipool, cvm                   Create an empty minipool, which can be used to migrate an existing solo staking validator as part of the 0x00 to 0x01 withdrawal credentials upgrade
+   send, n                                       Send ETH or tokens from the node account to an address. ENS names supported. <token> can be 'rpl', 'eth', 'fsrpl' (for the old RPL v1 token), 'reth', or the address of an arbitrary token you want to send (including the 0x prefix).
+   set-voting-delegate, sv                       (DEPRECATED) Use `rocketpool pdao set-signalling-address` instead
+   clear-voting-delegate, cv                     (DEPRECATED) Use `rocketpool pdao clear-signalling-address` instead
+   initialize-fee-distributor, z                 Create the fee distributor contract for your node, so you can withdraw priority fees and MEV rewards after the merge
+   distribute-fees, b                            Distribute the priority fee and MEV rewards from your fee distributor to your withdrawal address and the rETH contract (based on your node's average commission)
+   join-smoothing-pool, js                       Opt your node into the Smoothing Pool
+   leave-smoothing-pool, ls                      Leave the Smoothing Pool
+   sign-message, sm                              Sign an arbitrary message with the node's private key
+   send-message                                  Send a zero-ETH transaction to the target address (or ENS) with the provided hex-encoded message as the data payload
+
+GLOBAL OPTIONS:
    --help, -h  show help
 ```
 
@@ -237,31 +247,44 @@ This is an example of what `rocketpool node status` shows once you have your nod
 
 ```
 === Account and Balances ===
-The node <node address> has a balance of 1.493392 ETH and 0.000000 RPL.
-The node is registered with Rocket Pool with a timezone location of Etc/UTC.
+The node <node address> has a balance of 2.682258 ETH and 1881.677523 RPL.
+The node has 0.000000 ETH in its credit balance and 0.000000 ETH staked on its behalf. 0.000000 can be used to make new minipools.
+The node is registered with Rocket Pool with a timezone location of America/Los_Angeles.
 
 === Penalty Status ===
 The node does not have any penalties for cheating with an invalid fee recipient.
 
-=== DAO Voting ===
-The node does not currently have a voting delegate set, and will not be able to vote on Rocket Pool governance proposals.
+=== Signalling on Snapshot ===
+The node does not currently have a snapshot signalling address set.
+To learn more about snapshot signalling, please visit https://docs.rocketpool.net/guides/houston/participate#setting-your-snapshot-signalling-address.
+Rocket Pool has no Snapshot governance proposals being voted on.
 
-=== Withdrawal Address ===
-The node's withdrawal address has not been changed, so rewards and withdrawals will be sent to the node itself.
+=== Onchain Voting ===
+The node has been initialized for onchain voting.
+The node doesn't have a delegate, which means it can vote directly on onchain proposals. You can have another node represent you by running `rocketpool p svd <address>`.
+The node is allowed to lock RPL to create governance proposals/challenges.
+The node currently has 300.000000 RPL locked.
+
+=== Primary Withdrawal Address ===
+The node's primary withdrawal address has not been changed, so ETH rewards and minipool withdrawals will be sent to the node itself.
 Consider changing this to a cold wallet address that you control using the `set-withdrawal-address` command.
+
+=== RPL Withdrawal Address ===
+The node's RPL withdrawal address has not been set. All RPL rewards will be sent to the primary withdrawal address.
 
 === Fee Distributor and Smoothing Pool ===
 The node's fee distributor <fee distributer contract address> has a balance of 0.000000 ETH.
-The node is opted into the Smoothing Pool.
+The node is currently opted into the Smoothing Pool <smoothing pool contract address>.
 
-=== RPL Stake and Minipools ===
-The node has a total stake of 600.000000 RPL and an effective stake of 600.000000 RPL, allowing it to run 5 minipool(s) in total.
-This is currently a 54.65% collateral ratio.
-The node must keep at least 109.788901 RPL staked to collateralize its minipools and claim RPL rewards.
+=== RPL Stake ===
+NOTE: The following figures take *any pending bond reductions* into account.
 
+The node has a total stake of 588.950796 RPL.
+This is currently 4.01% of its borrowed ETH and 12.04% of its bonded ETH.
+
+=== Minipools ===
 The node has a total of 1 active minipool(s):
 - 1 staking
-
 ```
 
 ### `sync`
@@ -289,48 +312,79 @@ Note that **Prysm** currently doesn't provide its completion percent - you'll ne
 
 This command is what you'll use when you want to add more RPL collateral to your node.
 Doing so will increase your collateral ratio, which will increase your RPL rewards at each checkpoint (more on this later).
-It may allow you to run more minipools or withdraw your rewards for the current checkpoint if your collateral is currently too low.
 
 Unlike the other commands so far, this one is actually _interactive_ because it will trigger a transaction - it isn't simply informational.
 
 It will first ask you how much RPL you'd like to stake, with some pre-defined options for convenience or the ability to specify a custom amount:
 
 ```
+NOTE: By staking RPL, you become a member of the Rocket Pool pDAO. Stay informed on governance proposals by joining the Rocket Pool Discord.
+
 Please choose an amount of RPL to stake:
-1: The minimum minipool stake amount (284.477473 RPL)?
-2: The maximum effective minipool stake amount (4267.162095 RPL)?
-3: Your entire RPL balance (4820.395655 RPL)?
-4: A custom amount
+1: 5% of borrowed ETH (733.993926 RPL) for one validator?
+2: 10% of borrowed ETH (1467.987852 RPL) for one validator?
+3: 15% of borrowed ETH (2201.981778 RPL) for one validator?
+4: Your entire RPL balance (20000.000000 RPL)?
+5: A custom amount
 ```
 
-Once you select an option, you will be shown some information about the suggested gas price and estimated amount to be used, along with a confirmation dialog:
+Once you select an option, you will be shown some information about the suggested gas price and estimated amount to be used, along with a confirmation dialog. If it's your first time staking RPL on the node, you'll need to give the staking contract approval to interact with your RPL: 
 
 ```
-Please enter an amount of RPL to stake:
-0.00001
+Before staking RPL, you must first give the staking contract approval to interact with your RPL.
+This only needs to be done once for your node.
++============== Suggested Gas Prices ==============+
+| Avg Wait Time |  Max Fee  |    Total Gas Cost    |
+| 15 Seconds    | 4 gwei    | 0.0001 to 0.0001 ETH |
+| 1 Minute      | 4 gwei    | 0.0001 to 0.0001 ETH |
+| 3 Minutes     | 4 gwei    | 0.0001 to 0.0001 ETH |
+| >10 Minutes   | 4 gwei    | 0.0001 to 0.0001 ETH |
++==================================================+
 
-Suggested gas price: 1.000000 Gwei
-Estimated gas used: 69484 gas
-Estimated gas cost: 0.000069 ETH
+These prices include a maximum priority fee of 2.00 gwei.
+Please enter your max fee (including the priority fee) or leave blank for the default of 4 gwei:
 
-NOTE: This operation requires multiple transactions.
-The actual gas cost may be higher than what is estimated here.
-Are you sure you want to stake 0.000010 RPL? You will not be able to unstake this RPL until you exit your validators and close your minipools, or reach over 150% collateral!. [y/n]
-```
+Using a max fee of 4.00 gwei and a priority fee of 2.00 gwei.
+Do you want to let the staking contract interact with your RPL? [y/n]
+y
 
-If you confirm, you will be shown the transaction hash and given a link to [Etherscan](https://etherscan.io) so you can follow its progress:
-
-```
 Approving RPL for staking...
 Transaction has been submitted with hash <transaction hash>.
 You may follow its progress by visiting:
 https://hoodi.etherscan.io/tx/<transaction hash>
 
-Waiting for the transaction to be mined... **DO NOT EXIT!** This transaction is one of several that must be completed.
+Waiting for the transaction to be included in a block... you may wait here for it, or press CTRL+C to exit and return to the terminal.
+
+Successfully approved staking access to RPL.
+RPL Stake Gas Info:
++============== Suggested Gas Prices ==============+
+| Avg Wait Time |  Max Fee  |    Total Gas Cost    |
+| 15 Seconds    | 4 gwei    | 0.0005 to 0.0007 ETH |
+| 1 Minute      | 4 gwei    | 0.0005 to 0.0007 ETH |
+| 3 Minutes     | 4 gwei    | 0.0005 to 0.0007 ETH |
+| >10 Minutes   | 4 gwei    | 0.0005 to 0.0007 ETH |
++==================================================+
+
+These prices include a maximum priority fee of 2.00 gwei.
+Please enter your max fee (including the priority fee) or leave blank for the default of 4 gwei:
+
+Using a max fee of 4.00 gwei and a priority fee of 2.00 gwei.
+Are you sure you want to stake 733.993925 RPL? You will not be able to unstake this RPL until you exit your validators and close your minipools, or reach 2201.981777 staked RPL (15% of bonded eth)! [y/n]
 ```
 
-Most operations only require one transaction, so the CLI will wait until it has been mined and then exit.
-However, `stake-rpl` is one of the few commands that requires _two_ transactions, so this dialog will appear twice.
+If you confirm, you will be shown the transaction hash and given a link to [Etherscan](https://etherscan.io) so you can follow its progress:
+
+```
+Staking RPL...
+Transaction has been submitted with hash <transaction hash>.
+You may follow its progress by visiting:
+https://hoodi.etherscan.io/tx/<transaction hash>
+
+Waiting for the transaction to be included in a block... you may wait here for it, or press CTRL+C to exit and return to the terminal.
+
+Successfully staked 733.993925 RPL.
+```
+Most operations only require one transaction, so the CLI will wait until it has been included in a block and then exit.  However, stake-rpl is one of the few commands that requires two transactions, so this dialog will appear twice.
 
 ### `deposit`
 
@@ -362,19 +416,13 @@ You can also specify an amount you want to restake during this claim:
 
 This will let you compound your RPL rewards in one transaction, using substantially less gas than you currently needed to use with the legacy claim system.
 
-::: danger WARNING
-If you are below 10% RPL collateral _at the time of the snapshot_, you will not be eligible for rewards for that snapshot.
-Unlike the current system, where you can simply "top off" before you claim in order to become eligible again, this will be locked in that snapshot forever and **you will never receive rewards for that period**.
-You **must** be above 10% collateral at the time of a snapshot in order to receive rewards for that period.
-:::
-
 ::: tip NOTE
 If you prefer to build the rewards checkpoint manually instead of downloading the one created by the Oracle DAO, you can change this setting from `Download` to `Generate` in the TUI:
 
 ![](../node/images/tui-generate-tree.png)
 
 As the tip implies, you will need access to an Execution client archive node to do this.
-If your local Execution client is not an archive node, you can specify a separate one (such as Infura or Alchemy) in the `Archive-Mode EC URL` box below it.
+If your local Execution client is not an archive node, you can specify a separate one (such as Infura or Alchemy) in the `Archive-Mode EC URL` further down in the same menu.
 This URL will only be used when generating Merkle trees; it will not be used for validation duties.
 :::
 
@@ -405,10 +453,6 @@ To initialize your node's distributor, simply run this new command:
 ```shell
 rocketpool node initialize-fee-distributor
 ```
-
-::: warning NOTE
-After the Redstone update, you must call this function before you can create any new minipools with `rocketpool node deposit`.
-:::
 
 ### `distribute-fees`
 
@@ -459,17 +503,28 @@ NAME:
 USAGE:
    rocketpool minipool [global options] command [command options] [arguments...]
 
+VERSION:
+   1.17.2
+
 COMMANDS:
    status, s                   Get a list of the node's minipools
    stake, t                    Stake a minipool after the scrub check, moving it from prelaunch to staking.
+   set-withdrawal-creds, swc   Convert the withdrawal credentials for a migrated solo validator from the old 0x00 value to the minipool address. Required to complete the migration process.
+   import-key, ik              Import the externally-derived key for a minipool that was previously a solo validator, so the Smartnode's VC manages it instead of your externally-managed VC.
+   promote, p                  Promote a vacant minipool after the scrub check, completing a solo validator migration.
    refund, r                   Refund ETH belonging to the node from minipools
+   begin-bond-reduction, bbr   Begins the ETH bond reduction process for a minipool, taking it from 16 ETH down to 8 ETH (begins conversion of a 16 ETH minipool to an LEB8)
+   reduce-bond, rb             Manually completes the ETH bond reduction process for a minipool from 16 ETH down to 8 ETH once it is eligible. Please run `begin-bond-reduction` first to start this process.
+   distribute-balance, d       Distribute a minipool's ETH balance between your withdrawal address and the rETH holders.
    exit, e                     Exit staking minipools from the beacon chain
+   close, c                    Withdraw any remaining balance from a minipool and close it
    delegate-upgrade, u         Upgrade a minipool's delegate contract to the latest version
    delegate-rollback, b        Roll a minipool's delegate contract back to its previous version
-   set-use-latest-delegate, l  If enabled, the minipool will ignore its current delegate contract and always use whatever the latest delegate is
+   set-use-latest-delegate, l  Use this to enable or disable the "use-latest-delegate" flag on one or more minipools. If enabled, the minipool will ignore its current delegate contract and always use whatever the latest delegate is.
    find-vanity-address, v      Search for a custom vanity minipool address
+   rescue-dissolved, rd        Manually deposit ETH into the Beacon deposit contract for a dissolved minipool, activating it on the Beacon Chain so it can be exited.
 
-OPTIONS:
+GLOBAL OPTIONS:
    --help, -h  show help
 ```
 
@@ -487,15 +542,26 @@ $ rocketpool minipool status
 
 --------------------
 
-Address:              <minipool eth1 address>
-Status updated:       2021-05-21, 14:05 +0000 UTC
-Node fee:             20.000000%
-Node deposit:         16.000000 ETH
-RP ETH assigned:      2021-05-23, 13:32 +0000 UTC
-RP deposit:           16.000000 ETH
-Validator pubkey:     <validator eth2 address>
-Validator index:      0
-Validator seen:       yes
+Address:                <minipool eth1 address>
+Penalties:             0
+Status updated:        2025-07-15, 08:31 +0000 UTC
+Node fee:              5.000000%
+Node deposit:          8.000000 ETH
+RP ETH assigned:       2025-07-14, 20:26 +0000 UTC
+RP deposit:            24.000000 ETH
+Minipool Balance (EL): 0.064202 ETH
+Your portion:          0.018458 ETH
+Available refund:      0.000000 ETH
+Total EL rewards:      0.018458 ETH
+Validator pubkey:      <validator eth2 address>
+Validator index:       <validator eth2 index>
+Validator active:      yes
+Beacon balance (CL):   32.000347 ETH
+Your portion:          8.000099 ETH
+Use latest delegate:   no
+Delegate address:      0x56903694d881282D33ed0643EAe14263880Dd47F
+Rollback delegate:     <none>
+Effective delegate:    0x56903694d881282D33ed0643EAe14263880Dd47F
 ```
 
 ### `refund`
