@@ -1,4 +1,4 @@
-import ethereum_client_diversity from './images/ethereum-client-diversity.png';
+import ethereum_client_diversity from './images/ethereum-client-diversity-aug-2025.png';
 
 # Choosing your ETH Clients
 
@@ -12,11 +12,15 @@ If you already have Execution and Consensus clients up and running on a separate
 Otherwise, read on to learn more about your choices for Execution and Consensus clients.
 
 ::: warning NOTE
-As of March 2023, the distribution of clients on the Beacon Chain looks roughly like this:
+As of August 2025, the distribution of clients on the Beacon Chain looks roughly like this:
 
 <img src={ethereum_client_diversity} width="100%" height="auto"/>
 
 _Data obtained from [https://clientdiversity.org](https://clientdiversity.org)_
+
+Obtaining data on which consensus client a validator is running is a relatively difficult problem because clients are not easily identified. The [data methodology](https://clientdiversity.org/methodology/) page 
+on [https://clientdiversity.org](https://clientdiversity.org) goes into how data from different sources are obtained. Alternatively refer to 
+[https://ethernodes.org/](https://ethernodes.org/) as an additional source of data. 
 
 The overwhelming majority of node operators are currently using Geth as an Execution Client and either Prysm or Lighthouse as a Consensus Client.
 In the interest of supporting the health of the Execution Layer (formerly ETH1) and the Beacon Chain (formerly ETH2), we currently recommend that you consider using different clients.
@@ -29,6 +33,10 @@ Here are some relevant articles about why an even client diversity is crucial to
 [https://our.status.im/the-importance-of-client-diversity/](https://our.status.im/the-importance-of-client-diversity/)
 
 [https://medium.com/prysmatic-labs/eth2-mainnet-incident-retrospective-f0338814340c](https://medium.com/prysmatic-labs/eth2-mainnet-incident-retrospective-f0338814340c)
+
+[https://dankradfeist.de/ethereum/2022/03/24/run-the-majority-client-at-your-own-peril.html](https://dankradfeist.de/ethereum/2022/03/24/run-the-majority-client-at-your-own-peril.html)
+
+[https://eth2book.info/bellatrix/part2/incentives/diversity](https://eth2book.info/bellatrix/part2/incentives/diversity/)
 :::
 
 For users that would like to get up and running quickly, the Smartnode installer provides a `Random Client` option which may be the best choice.
