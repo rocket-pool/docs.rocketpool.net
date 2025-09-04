@@ -157,7 +157,7 @@ To learn how to configure MEV-Boost, please select which mode you are using belo
 
       Check the box labeled `Enable MEV-Boost` to enable it.
 
-      Once enabled, The screen will look like this (_as of Smartnode v1.7.0_):
+      Once enabled, The screen will look like this (_as of Smartnode v1.17.2_):
 
       <img src={tuiMeVBoostMain} width="100%" height="auto"/>
 
@@ -192,7 +192,7 @@ To learn how to configure MEV-Boost, please select which mode you are using belo
 
       Check the box labeled `Enable MEV-Boost` to enable it.
 
-      Once enabled, The screen will look like this (_as of Smartnode v1.7.0_):
+      Once enabled, The screen will look like this (_as of Smartnode v1.17.2_):
 
       <img src={tuiMeVBoostMain} width="100%" height="auto"/>
 
@@ -217,7 +217,7 @@ To learn how to configure MEV-Boost, please select which mode you are using belo
       - Advanced users can change this to **Relay Mode**, which lets them explicitly select which relays they would like to use.
 
       - The `Port` box determines which port MEV-Boost will listen for incoming connections from your Beacon Node on. If you need to change it because of a port conflict within your node, you can do it here.
-      - The `Expose API Port` box **should be checked** so that your externally-managed BN can communicate with the MEV-Boost instance Rocket Pool will manage.
+      - The `Expose API Port` box **should be checked** so that your externally-managed BN can communicate with the MEV-Boost instance Rocket Pool will manage. Select `Open to Localhost` if your externally-managed BN is running on the same machine. Only select `Open to External hosts` if your externally-managed BN is running on a different machine *and* you've followed the proper steps to secure your node from unwanted traffic: [Securing Your Node](../node/securing-your-node)
       - The `Container Tag` box is useful to manually upgrade the version of MEV-Boost that the Smartnode runs if Flashbots releases a new high-priority version you want to use before a Smartnode update with it is released.
       - The `Additional Flags` box is used if you want to add supplemental config flags or parameters directly to the MEV-Boost container. Normally, it will not be useful.
 
