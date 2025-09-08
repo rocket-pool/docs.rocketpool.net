@@ -38,12 +38,13 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 | &nbsp;          | rETH  | [0x0266F4F08D82372CF0FcbCCc0Ff74309089c74d1](https://polygonscan.com/token/0x0266F4F08D82372CF0FcbCCc0Ff74309089c74d1)                                              |
 | Polygon (zkEVM) | RPL   | [0x70d35152fBf63FB312709b11a9Bac87519de0019](https://zkevm.polygonscan.com/address/0x70d35152fBf63FB312709b11a9Bac87519de0019)                                      |
 | &nbsp;          | rETH  | [0xb23C20EFcE6e24Acca0Cef9B7B7aA196b84EC942](https://zkevm.polygonscan.com/address/0xb23C20EFcE6e24Acca0Cef9B7B7aA196b84EC942)                                      |
-| Hoodi\*       | RPL   | [0x1Cc9cF5586522c6F483E84A19c3C2B0B6d027bF0](https://hoodi.etherscan.io/address/0x1Cc9cF5586522c6F483E84A19c3C2B0B6d027bF0)                                       |
+| Hoodi\*         | RPL   | [0x1Cc9cF5586522c6F483E84A19c3C2B0B6d027bF0](https://hoodi.etherscan.io/address/0x1Cc9cF5586522c6F483E84A19c3C2B0B6d027bF0)                                       |
 | &nbsp;          | rETH  | [0x7322c24752f79c05FFD1E2a6FCB97020C1C264F1](https://hoodi.etherscan.io/address/0x7322c24752f79c05FFD1E2a6FCB97020C1C264F1)                                       |
 | Base            | RPL   | [0x1f73EAf55d696BFFA9b0EA16fa987B93b0f4d302](https://basescan.org/address/0x1f73EAf55d696BFFA9b0EA16fa987B93b0f4d302)                                               |
 | &nbsp;          | rETH  | [0xB6fe221Fe9EeF5aBa221c348bA20A1Bf5e73624c](https://basescan.org/address/0xB6fe221Fe9EeF5aBa221c348bA20A1Bf5e73624c)                                               |
 | Scroll          | rETH  | [0x53878B874283351D26d206FA512aEcE1Bef6C0dD](https://scrollscan.com/address/0x53878b874283351d26d206fa512aece1bef6c0dd)                                             |
 | Starknet        | rETH  | [0x0319111a5037cbec2b3e638cc34a3474e2d2608299f3e62866e9cc683208c610](https://starkscan.co/token/0x0319111a5037cbec2b3e638cc34a3474e2d2608299f3e62866e9cc683208c610) |
+| Unichain        | rETH  | [0x94Cac393f3444cEf63a651FfC18497E7e8bd036a](https://uniscan.xyz/address/0x94Cac393f3444cEf63a651FfC18497E7e8bd036a) |
 
 <small>\* Testnet</small>
 
