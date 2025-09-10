@@ -15,7 +15,7 @@
     "prettier": "^3.6.2",
     "rspress": "^2.0.0-beta.21",
     "rspress-plugin-vue": "^1.1.0",
-    "taze": "^19.5.0",
+    "taze": "^19.6.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   },

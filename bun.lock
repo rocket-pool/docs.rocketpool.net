@@ -9,7 +9,7 @@
         "prettier": "^3.6.2",
         "rspress": "^2.0.0-beta.21",
         "rspress-plugin-vue": "^1.1.0",
-        "taze": "^19.5.0",
+        "taze": "^19.6.0",
         "ts-node": "^10.9.2",
         "typescript": "^5.9.2",
       },
@@ -1086,7 +1086,7 @@
 
     "tapable": ["tapable@2.2.2", "", {}, "sha512-Re10+NauLTMCudc7T5WLFLAwDhQ0JWdrMK+9B2M8zR5hRExKmsRDCBA7/aV/pNJFltmBFO5BAMlQFi/vq3nKOg=="],
 
-    "taze": ["taze@19.5.0", "", { "dependencies": { "@antfu/ni": "^25.0.0", "cac": "^6.7.14", "find-up-simple": "^1.0.1", "ofetch": "^1.4.1", "package-manager-detector": "^1.3.0", "pathe": "^2.0.3", "pnpm-workspace-yaml": "^1.1.1", "restore-cursor": "^5.1.0", "tinyexec": "^1.0.1", "tinyglobby": "^0.2.14", "unconfig": "^7.3.3", "yaml": "^2.8.1" }, "bin": { "taze": "bin/taze.mjs" } }, "sha512-4Rjy23i2bcFWM74rIW1KtsIul57XchYy3U7SXf6JUIveqcllI4tS3cgPwQKnq8X7as0Up9TWBDpD/sBhfB8vSg=="],
+    "taze": ["taze@19.6.0", "", { "dependencies": { "@antfu/ni": "^25.0.0", "cac": "^6.7.14", "find-up-simple": "^1.0.1", "ofetch": "^1.4.1", "package-manager-detector": "^1.3.0", "pathe": "^2.0.3", "pnpm-workspace-yaml": "^1.1.1", "restore-cursor": "^5.1.0", "tinyexec": "^1.0.1", "tinyglobby": "^0.2.14", "unconfig": "^7.3.3", "yaml": "^2.8.1" }, "bin": { "taze": "bin/taze.mjs" } }, "sha512-hQGQH4WVtV9BqsZbrGzOmOP4NdWqie948BnqtH+NPwdVt5mI+qALVRDvgzgdf+neN7bcrVVpV4ToyFkxg0U0xQ=="],
 
     "terser": ["terser@5.41.0", "", { "dependencies": { "@jridgewell/source-map": "^0.3.3", "acorn": "^8.14.0", "commander": "^2.20.0", "source-map-support": "~0.5.20" }, "bin": { "terser": "bin/terser" } }, "sha512-H406eLPXpZbAX14+B8psIuvIr8+3c+2hkuYzpMkoE0ij+NdsVATbA78vb8neA/eqrj7rywa2pIkdmWRsXW6wmw=="],
 
