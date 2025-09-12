@@ -13,7 +13,7 @@ We welcome all contributions! Please refer to our [contribution guidelines](./co
 - Install Nix
 
 ```
-curl -L https://nixos.org/nix/install | sh && mkdir -p ~/.config/nix && echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+sh <(curl -L https://install.determinate.systems/nix)
 ```
 
 Then start the environment
