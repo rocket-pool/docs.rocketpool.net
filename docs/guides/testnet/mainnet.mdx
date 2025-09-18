@@ -33,7 +33,7 @@ If you want to preserve your test network setup, you should back up your hard dr
 
 - The testnet Smartnode has a faucet for ETH and RPL. The mainnet Smartnode **does not have a faucet**. You will need to supply your own ETH and your own RPL.
 - If you are using Geth, your node's workload will be **considerabily higher**. Geth takes approximately 40x the storage space of Hoodi, and requires more CPU power and RAM to process. If you're using the Rocket Pool Grafana dashboard, be prepared to see much higher usage.
-  A full Geth node uses 1.4 TB as of 2025-09-19. [Expiring block data prior to the merge](../node/maintenance/history-expiry) can be reduce the storage usage by about 300-500 GB.
+  A full Geth node uses 1.4 TB as of 2025-09-19. [Expiring block data prior to the merge](../node/maintenance/history-expiry) can reduce the storage usage by about 300-500 GB.
 - Your Beacon Chain peers (and thus, your attestation effectiveness) will be **higher** than the testnet. Peers on mainnet are much more diverse and tend to be higher quality than on the testnet.
 - The RPL rewards checkpoint occurs every **28 days** instead of every 2 days, to help offset high gas costs.
 - The RPL price used by the Rocket Pool network (and thus, your collateral level) along with the total effective staked RPL across the network are reported **once every 24 hours** instead of once every hour.
