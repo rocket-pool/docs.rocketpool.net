@@ -7,15 +7,89 @@ import rp_test_site from "./images/rp_test_site.png";
 
 # Staking Directly via Rocket Pool
 
-The easiest way to stake with Rocket Pool is done via its web interface to the underlying smart contracts.
+## Overview
 
-The advantage is that you will always get exactly as much rETH as your ETH is worth (minus a 0.05% deposit fee), since Rocket Pool's contracts will directly mint the rETH that you receive.
-No slippage, no liquidity issues, no sandwiching or front running... you just get the best possible deal for rETH.
+Rocket Pool's staking interface now offers two distinct routes for converting between ETH and rETH:
 
-The disadvantage is that the gas fee might be quite expensive if you are staking a small amount of ETH - **we strongly recommend you check this before approving the transaction.**
-Also, there is a limit to the amount of ETH that can be in the pool at any given time, so it's possible that the pool could be full until Node Operators pull ETH from it and stake that ETH on the Beacon Chain.
+1. **Protocol Route** - Direct interaction with Rocket Pool smart contracts
+2. **CoW Swap Route** - Decentralized exchange aggregator with MEV protection (Mainnet only)
 
-The process is slightly different for the Hoodi Testnet and Mainnet, so choose the network you are interested in from the tabs below.
+The interface automatically recommends the best route based on current market conditions and liquidity availability.
+
+<video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/stake_options.mp4" />
+
+## Routing Options Explained
+
+### Protocol Route
+
+**How it works:** Direct interaction with Rocket Pool's deposit pool and smart contracts on-chain.
+
+**Advantages:**
+- Instant execution
+- Predictable exchange rate based on current rETH/ETH ratio
+- No intermediary tokens required (direct ETH ↔ rETH conversion)
+- Lower complexity
+- Always get exactly as much rETH as your ETH is worth (minus a 0.05% deposit fee)
+- No slippage, no liquidity issues, no sandwiching or front-running
+
+**Limitations:**
+- Subject to deposit pool limits when staking
+- Subject to liquidity availability when unstaking
+- Requires gas fees for transaction
+- Gas fees might be expensive for small amounts
+
+### CoW Swap Route (Mainnet Only)
+
+**How it works:** Uses CoW Protocol's batch auction system to find the best price across multiple DEXs.
+
+**Advantages:**
+- MEV (Maximum Extractable Value) protection against sandwich attacks
+- Gasless execution - you only sign the order
+- Often provides better rates through DEX aggregation
+- Always available regardless of protocol deposit pool limits
+- No gas fees for the swap itself
+
+**Limitations:**
+- Requires WETH wrapping/unwrapping steps (handled automatically)
+- Orders may take 2-5 minutes to execute
+- Orders can expire if not matched within the time limit
+- Requires one-time token approvals
+
+## Key Concepts
+
+### WETH (Wrapped ETH)
+When using CoW Swap, the interface automatically handles WETH conversions:
+- WETH is an ERC-20 token representing ETH in a standardized format
+- 1 WETH always equals 1 ETH
+- The interface wraps ETH to WETH before trading and unwraps after
+- You only pay gas for the initial wrap (one-time)
+
+### Slippage Tolerance
+For CoW Swap orders:
+- Default: 0.5%
+- Adjustable based on your preference
+- Higher slippage = more likely to execute
+- Lower slippage = better price protection
+
+### Order Expiry
+CoW Swap orders have a time limit:
+- Default: 30 minutes
+- Adjustable from 5 minutes to 24 hours
+- Orders automatically cancel if not executed
+
+### Better Rate Indicator
+The interface shows which route offers better value:
+- Green badge with "X% better" indicates the optimal route
+- Automatically pre-selects the best option
+- Updates in real-time as market conditions change
+
+### Protocol Liquidity
+When unstaking rETH:
+- Protocol route requires available ETH in the deposit pool
+- Shows "Insufficient liquidity" when pool is empty
+- Automatically routes through CoW Swap when protocol liquidity is unavailable
+
+## Getting Started
 
 <div className="p-3">
   <Tabs>
@@ -27,6 +101,7 @@ The process is slightly different for the Hoodi Testnet and Mainnet, so choose t
 
         **Do not attempt to move your real ETH on mainnet to the testnet or you will lose it permanently!**
       </p>
+
       Start by installing [MetaMask](https://metamask.io/) if you haven't already.
       Follow the instructions on their site to install the extension, create an account, and sign in.
 
@@ -38,7 +113,7 @@ The process is slightly different for the Hoodi Testnet and Mainnet, so choose t
 
       You will see a list of networks, Hoodi is not in this list so click the "Add a network manually" button.
 
-      Fill in the following details: 
+      Fill in the following details:
 
       ```
       Network Name: Hoodi
@@ -73,15 +148,9 @@ The process is slightly different for the Hoodi Testnet and Mainnet, so choose t
 
       Once you have some Hoodi ETH to test with, head to [https://testnet.rocketpool.net/](https://testnet.rocketpool.net/).
 
-      The page should look like this:
-
-      <img src={rp_test_site} width="100%" height="auto" />
-
-      If you see a notice about a web3 browser being required, or the current network ID being unsupported, make sure you’ve completed the previous steps correctly before continuing.
-
-
+      **Note:** Testnet only supports Protocol routing. CoW Swap is available on mainnet only.
     </Tab>
-    <Tab label="Preparing on the Ethereum Mainnet">
+    <Tab label="Preparing on Ethereum Mainnet">
       Start by installing [MetaMask](https://metamask.io/) if you haven't already.
       Follow the instructions on their site to install the extension, create an account, and sign in.
 
@@ -110,71 +179,454 @@ The process is slightly different for the Hoodi Testnet and Mainnet, so choose t
       You will need to supply this from an existing wallet or buy ETH on an exchange.
 
       Once you have some ETH to stake, head to [https://stake.rocketpool.net/](https://stake.rocketpool.net/).
-
-      The page should look like this:
-
-      <img src={rp_test_site} width="100%" height="auto" />
-
-      If you see a notice about a web3 browser being required, or the current network ID being unsupported, make sure you’ve completed the previous steps correctly before continuing.
     </Tab>
   </Tabs>
 </div>
 
-Once you're at the site, click on the **connect wallet** button. Please read through and accept the Terms of Service & Privacy Policy, this will enable different ways to connect, then click **connect metamask**.
+## Staking ETH for rETH
 
-MetaMask will prompt you to select an account to connect to the website.
-Choose one, confirm a few permissions, and you’ll see your balances update in the UI. You can also see an overview of your balances by clicking the wallet icon located at the top right of the window.
+Once you're at the staking site, click on the **connect wallet** button. Please read through and accept the Terms of Service & Privacy Policy, this will enable different ways to connect, then click **connect metamask**.
 
-Now, all that's left to do is deposit your ETH and receive some rETH back!
+MetaMask will prompt you to select an account to connect to the website. Choose one, confirm a few permissions, and you'll see your balances update in the UI.
 
-Enter the amount of ETH you want to deposit in the **Stake ETH** input field on the screen, then click the **Stake** button.
+### Step 1: Enter Amount
 
-::: danger NOTE
-When entering the amount you want to stake, please make sure you take note of the routing. If the deposit pool is full, you will be routed via secondary markets using [Rocket Router](https://github.com/rocket-pool/rocketpool-router).
+Enter the amount of ETH you want to stake in the **Stake ETH** input field.
 
-Secondary markets are subject to premiums/slippage & may result in you receiving less rETH than you expect.
-:::
+[Image placeholder: Input field with amount being entered]
 
-<video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/stake_mainnet.mp4" />
+### Step 2: Review Routing Options
 
-MetaMask will pop up with a window asking you to confirm your transaction.
+The interface will display two routing options (mainnet only):
 
-**Check the total gas cost of the transaction before you approve it - if it is very expensive relative to your transaction, you may want to consider acquiring rETH via another method!**
+- **Protocol Card**: Shows if deposit pool is available or full
+- **CoW Swap Card**: Shows estimated output and rate comparison
 
-Once you confirm it, the transaction will begin.
-When it's been mined and added to the chain, you'll see your balances update!
+The better option will be highlighted with a green "X% better" badge and automatically selected.
+
+[Image placeholder: Routing cards showing comparison]
+
+### Step 3: Configure Settings (CoW Swap Only)
+
+If using CoW Swap, you can optionally:
+- Adjust slippage tolerance (default 0.5%)
+- Set order expiry time (default 30 minutes)
+
+### Step 4: Execute Transaction
+
+<div className="p-3">
+  <Tabs>
+    <Tab label="Via Protocol">
+      Click **Stake via Protocol** button.
+
+      MetaMask will prompt you to:
+      1. **Approve the transaction** with gas fees shown
+      2. **Confirm the transaction**
+
+      ::: danger IMPORTANT
+      Check the total gas cost before approving - if it's very expensive relative to your stake amount, consider using CoW Swap instead!
+      :::
+
+      Once confirmed, the transaction will be mined and you'll receive your rETH immediately.
+
+      <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/protocol_stake.mp4" />
+    </Tab>
+    <Tab label="Via CoW Swap">
+      Click **Stake via CoW Swap** button.
+
+      The process involves several automated steps:
+
+      1. **WETH Wrapping** (if needed)
+      - Approve ETH to WETH conversion
+      - One-time gas fee required
+
+      2. **WETH Approval** (first time only)
+      - Approve CoW Protocol to use your WETH
+      - One-time gas fee required
+
+      3. **Sign Order**
+      - Review order details
+      - Sign with MetaMask (gasless)
+      - No gas fees
+
+      4. **Order Execution**
+      - Monitor progress in modal
+      - Typical wait: 2-5 minutes
+      - Can close modal and continue browsing
+
+      5. **Completion**
+      - rETH automatically appears in wallet
+      - View on Etherscan if needed
+
+      <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/cowswap_stake.mp4" preload="auto"/>
+    </Tab>
+  </Tabs>
+</div>
 
 ::: tip NOTE
-As described in the previous page, it's **completely normal** to receive less rETH than the amount of ETH you put in.
-rETH and ETH have a **dynamic exchange rate**: as the Rocket Pool network earns rewards, 1 rETH will become worth more than 1 ETH, which in turn means 1 ETH will buy less than 1 rETH.
+It's **completely normal** to receive less rETH than the ETH you put in. rETH and ETH have a **dynamic exchange rate**: as the Rocket Pool network earns rewards, 1 rETH becomes worth more than 1 ETH.
 :::
 
-That's it!
-You're now staking with Rocket Pool.
-All you need to do is hold onto your rETH, and you'll automatically gain your staking rewards as the value of the rETH token increases.
+## Unstaking rETH for ETH
 
-## Unstaking
+When you're ready to unstake and trade your rETH back for ETH, head back to the staking website and click on the **swap direction button** to switch to unstaking mode:
 
-When you're ready to unstake and trade your rETH back for ETH, head back to the staking website and click on the **double arrow button** in the middle of the trade amounts dialog to switch to rETH mode:
+### Step 1: Enter Amount
 
-<video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/unstake_mainnet.mp4" />
+Enter the amount of rETH you want to unstake in the **Unstake rETH** field.
 
-As with staking, enter an amount of rETH to unstake and click the **Unstake** button.
-Once again, a confirmation dialog will appear in MetaMask.
-Confirm the transaction, and once it's been mined, you will see the proper balances in your wallet.
+### Step 2: Check Routing Availability
 
-::: warning NOTE
-Trading rETH back for ETH is only possible when the **staking liquidity pool** has enough ETH in it to handle your trade.
-This is Rocket Pool's pool of ETH that comes from two sources:
+The interface will show:
+- **Protocol liquidity** available in the deposit pool
+- **Protocol card** status (available or "Insufficient liquidity")
+- **CoW Swap card** with estimated ETH output
 
-1. ETH that other stakers have deposited, which hasn't been used by a Node Operator to create a new validator yet
-1. ETH that was returned by a Node Operator after they exited one of their validators and received their rewards from the Beacon Chain
+### Step 3: Execute Unstaking
 
-During the period before the Merge, it's possible that the liquidity pool won't have enough balance to cover your unstaking.
-In this scenario, you may find other ways to trade your rETH back to ETH (such as a decentralized exchange like [Uniswap](https://app.uniswap.org/#/swap)) - though they will likely come with a small premium.
+<div className="p-3">
+  <Tabs>
+    <Tab label="Via Protocol">
+      If protocol liquidity is available:
+
+      1. Click **Unstake via Protocol**
+      2. Confirm transaction in MetaMask
+      3. Pay gas fees
+      4. Receive ETH immediately
+
+      ::: warning NOTE
+      Protocol unstaking is only possible when the deposit pool has enough ETH. If you see "Insufficient liquidity", use CoW Swap instead.
+      :::
+
+      <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/unstake_mainnet.mp4" preload="auto"/>
+    </Tab>
+    <Tab label="Via CoW Swap">
+      CoW Swap is always available for unstaking:
+
+      1. **rETH Approval** (first time only)
+      - Approve rETH for CoW Protocol
+      - One-time gas fee
+
+      2. **Sign Order**
+      - Review details
+      - Sign order (gasless)
+
+      3. **Order Execution**
+      - Monitor in modal
+      - 2-5 minute wait
+
+      4. **WETH Unwrapping** (automatic)
+      - Receives WETH from swap
+      - Automatically unwraps to ETH
+      - ETH appears in wallet
+
+      <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/cowswap_unstake.mp4" preload="auto"/>
+    </Tab>
+  </Tabs>
+</div>
+
+## Troubleshooting
+
+### Common Issues
+
+#### Order Expired (CoW Swap)
+Your order didn't execute within the time limit.
+
+**Solutions:**
+- Increase order expiry time (up to 24 hours)
+- Adjust slippage tolerance higher
+- Try again with current market prices
+- Use Protocol route if available
+
+#### Insufficient Balance
+Not enough ETH/rETH for the transaction.
+
+**Solutions:**
+- Check wallet balance
+- Account for gas fees (Protocol route)
+- Reduce stake/unstake amount
+
+#### Pool Full (Protocol Staking)
+Deposit pool has reached its limit.
+
+**Solution:**
+- Use CoW Swap route (automatically selected)
+- Wait for node operators to pull ETH from pool
+- Check back later for availability
+
+#### Insufficient Liquidity (Protocol Unstaking)
+Not enough ETH in deposit pool for unstaking.
+
+**Solution:**
+- Use CoW Swap route (automatically selected)
+- Always available regardless of pool state
+
+### Manual WETH Conversion
+
+If you have WETH that wasn't automatically unwrapped:
+
+1. Visit [swap.cow.fi](https://swap.cow.fi)
+2. Connect your wallet
+3. Swap WETH → ETH (1:1 ratio, gasless)
+
+Or use Etherscan:
+1. Go to WETH contract: `0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2`
+2. Connect wallet to "Write Contract"
+3. Use `withdraw` function
+4. Enter amount in Wei
+5. Execute transaction
+
+## Best Practices
+
+### For Optimal Rates
+- Let the interface auto-select the best route
+- Check during low network activity for better protocol availability
+- For large amounts, CoW Swap often provides better rates
+- Adjust slippage carefully to balance execution likelihood vs price
+
+### For Security
+- Verify you're on the correct website: [https://stake.rocketpool.net](https://stake.rocketpool.net)
+- Start with small test amounts
+- Review all transaction details before confirming
+- Keep some ETH for gas fees
+- Only approve trusted contracts
+
+### For Gas Optimization
+- Compare gas costs between routes
+- Batch transactions when possible
+- Use CoW Swap for small amounts to avoid high gas fees
+- Monitor gas prices at [etherscan.io/gastracker](https://etherscan.io/gastracker)
+
+## Tax Implications
+
+::: warning IMPORTANT
+This section provides general educational information only. Tax laws vary significantly by jurisdiction and individual circumstances. **Always consult with a qualified tax professional** for advice specific to your situation.
 :::
 
-That's all there is to staking with Rocket Pool!
-We hope that you found the process quick and easy.
+### Understanding rETH and Taxes
 
-Feel free to swing by [our Discord server](https://discord.gg/G46XgK264a) to let us know what you thought of it and keep tabs on the project as it evolves.
+When staking with Rocket Pool, it's crucial to understand potential tax implications:
+
+#### The Staking Transaction (ETH → rETH)
+
+**Potential Tax Events:**
+- **Token Swap**: Converting ETH to rETH may be considered a taxable event in many jurisdictions
+- **Capital Gains/Losses**: If your ETH has appreciated since acquisition, you may owe capital gains tax
+- **Cost Basis**: The value of rETH received becomes your new cost basis for future transactions
+
+**Example Scenario:**
+```
+Bought 1 ETH at $1,000
+Stake when ETH is worth $2,000
+Potential taxable gain: $1,000
+Your rETH cost basis: $2,000
+```
+
+#### Holding rETH (Earning Rewards)
+
+**How rETH Appreciates:**
+- rETH increases in value relative to ETH automatically
+- No new tokens are received - the token itself appreciates
+- This appreciation represents your staking rewards
+
+**Tax Treatment Varies:**
+- **Some jurisdictions**: Tax on appreciation only when realized (upon sale/swap)
+- **Other jurisdictions**: May tax unrealized gains annually
+- **Income vs. Capital Gains**: Classification affects tax rates
+
+#### The Unstaking Transaction (rETH → ETH)
+
+**Tax Considerations:**
+- Converting rETH back to ETH is typically a taxable event
+- Calculate gain/loss based on:
+- **Cost basis**: Value when you acquired rETH
+- **Disposal value**: Value when converting back to ETH
+- The difference is your capital gain or loss
+
+### Routing Method Tax Implications
+
+#### Protocol Route
+- Single taxable event per transaction
+- Clear timestamp and value for tax records
+- On-chain transaction provides permanent record
+
+#### CoW Swap Route
+- WETH wrapping/unwrapping typically not taxable (1:1 conversion)
+- Main swap (ETH/WETH ↔ rETH) is the taxable event
+- Order execution provides clear tax documentation
+
+### Record Keeping Best Practices
+
+**Essential Records to Maintain:**
+
+1. **For Each Stake:**
+- Date and time of transaction
+- Amount of ETH staked
+- Amount of rETH received
+- ETH price at time of staking
+- Transaction hash
+- Gas fees paid
+
+2. **While Holding:**
+- Periodic snapshots of rETH/ETH exchange rate
+- Your rETH balance over time
+- Market values on key dates (year-end, etc.)
+
+3. **For Each Unstake:**
+- Date and time of transaction
+- Amount of rETH unstaked
+- Amount of ETH received
+- ETH price at time of unstaking
+- Transaction hash
+- Gas fees paid
+
+**Tools for Tracking:**
+- Export transactions from Etherscan
+- Use portfolio tracking apps that support rETH
+- Maintain a spreadsheet with all transactions
+- Consider using crypto tax software
+
+### Tax Optimization Strategies
+
+**Timing Considerations:**
+- **Tax-Loss Harvesting**: Unstake during market downturns if you have losses to offset gains
+- **Long-term vs. Short-term**: Many jurisdictions favor long-term holdings (typically >1 year)
+- **Year-end Planning**: Consider timing of transactions around tax year boundaries
+
+**Cost Basis Methods:**
+- **FIFO (First In, First Out)**: Default in many jurisdictions
+- **LIFO (Last In, First Out)**: May be available in some regions
+- **Specific Identification**: Track specific rETH portions if allowed
+
+### Common Tax Scenarios
+
+#### Scenario 1: Regular Staking
+```
+Action: Stake 10 ETH for 9.5 rETH
+Tax Event: Disposal of ETH, acquisition of rETH
+Report: Capital gain/loss on ETH disposal
+Track: 9.5 rETH with new cost basis
+```
+
+#### Scenario 2: Partial Unstaking
+```
+Action: Unstake 5 rETH for 5.3 ETH
+Tax Event: Disposal of rETH, acquisition of ETH
+Report: Capital gain/loss on rETH disposal
+Track: Remaining rETH balance and cost basis
+```
+
+#### Scenario 3: DeFi Integration
+```
+Action: Use rETH in DeFi protocols
+Tax Event: Each protocol interaction may be taxable
+Report: Track all movements and value changes
+Track: Yields, swaps, and liquidity provisions
+```
+
+### Jurisdiction-Specific Considerations
+
+**United States:**
+- IRS treats crypto-to-crypto swaps as taxable
+- Staking rewards may be taxable when received or when sold (evolving guidance)
+- Form 8949 and Schedule D for reporting
+
+**European Union:**
+- Tax treatment varies by member state
+- Some countries tax upon realization, others annually
+- Consider local crypto tax regulations
+
+**United Kingdom:**
+- HMRC treats staking rewards as income or capital gains depending on circumstances
+- Detailed record keeping required
+- Consider "bed and breakfasting" rules
+
+**Other Jurisdictions:**
+- Research your local tax authority's crypto guidance
+- Many countries are still developing frameworks
+- Professional advice strongly recommended
+
+### Using Tax Software
+
+**Popular Crypto Tax Tools:**
+- Most support rETH tracking
+- Can import from Etherscan
+- Calculate gains/losses automatically
+- Generate tax reports for your jurisdiction
+
+**Integration Tips:**
+1. Import all wallet addresses
+2. Verify rETH/ETH transactions are correctly classified
+3. Ensure exchange rates are accurate
+4. Review calculated gains/losses
+5. Export reports for tax filing
+
+### Red Flags to Avoid
+
+**Common Mistakes:**
+- Not tracking cost basis
+- Forgetting to report staking transactions
+- Ignoring small transactions
+- Missing DeFi interactions
+- Incorrect exchange rate data
+
+**Audit Preparation:**
+- Keep all transaction records
+- Document your calculation methods
+- Save exchange rate sources
+- Maintain wallet ownership proof
+- Store records for required retention period
+
+## FAQs
+
+**Q: Which route should I choose?**
+A: The interface automatically recommends the best route with a green "better rate" badge. Generally, use the recommended option.
+
+**Q: Why does CoW Swap sometimes offer better rates?**
+A: CoW Swap aggregates liquidity from multiple DEXs and uses batch auctions to find optimal prices, often beating the fixed protocol rate.
+
+**Q: Is CoW Swap really gasless?**
+A: Order creation and signing are gasless. You only pay gas for initial WETH wrapping and token approvals (one-time setup).
+
+**Q: How long do CoW Swap orders take?**
+A: Typically 2-5 minutes, but can vary based on market conditions.
+
+**Q: What happens if my CoW Swap order expires?**
+A: Nothing is lost. Your tokens remain in your wallet. You can place a new order with adjusted parameters.
+
+**Q: Why is the Protocol route sometimes unavailable?**
+A: **For staking:** Deposit pool is full. **For unstaking:** Insufficient ETH liquidity. These are temporary states that change as users interact with the protocol.
+
+**Q: Are staking transactions taxable?**
+A: In most jurisdictions, yes. Converting ETH to rETH and back are typically taxable events. Consult a tax professional for your specific situation.
+
+**Q: How do I track my rETH cost basis?**
+A: Record the value of ETH when you stake it - this becomes your rETH cost basis. Use transaction hashes, timestamps, and prices for accurate records.
+
+**Q: Is moving between Protocol and CoW Swap routes different for taxes?**
+A: The tax treatment is typically the same - both involve exchanging ETH for rETH. The route chosen doesn't usually affect tax obligations, though record keeping may differ slightly.
+
+## Additional Resources
+
+- [Rocket Pool Documentation](https://docs.rocketpool.net)
+- [CoW Swap Documentation](https://docs.cow.fi)
+- [Rocket Pool Discord](https://discord.gg/rocketpool)
+- [Etherscan Gas Tracker](https://etherscan.io/gastracker)
+
+## Contract Addresses
+
+### Mainnet
+- **rETH Token:** `0xae78736Cd615f374D3085123A210448E74Fc6393`
+- **WETH Token:** `0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2`
+- **Rocket Storage:** `0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46`
+- **CoW Protocol VaultRelayer:** `0xC92E8bdf79f0507f65a392b0ab4667716BFE0110`
+
+### Hoodi Testnet
+- **rETH Token:** `0x7322c24752f79c05ffd1e2a6fcb97020c1c264f1`
+- Check [Rocket Pool Documentation](https://docs.rocketpool.net) for other Hoodi testnet addresses.
+
+---
+
+That's all there is to staking with Rocket Pool! We hope you find the new routing options helpful in getting the best value for your stake.
+
+Feel free to swing by [our Discord server](https://discord.gg/rocketpool) to let us know what you thought of it and keep tabs on the project as it evolves.
