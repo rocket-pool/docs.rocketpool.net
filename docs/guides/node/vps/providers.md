@@ -12,7 +12,7 @@ A virtual private server is a single instance of a virtual machine that resides 
 They are the cheapest option, and they are less-frequently employed than the ubiquitous cloud platforms so they tend to contribute more towards the Ethereum network's decentralization.
 
 However, they rarely have high-availability support; if the physical server goes down, it's likely that your VPS hosted on it will go down as well.
-Also, they have a fixed resource footprint; it's usually not possible to increase or decrease resources like CPU and RAM on demand. 
+Also, they have a fixed resource footprint; it's usually not possible to increase or decrease resources like CPU and RAM on demand.
 
 As of 10/2024, one well-priced and performant option was the RS 12000 G11 from [Netcup](https://www.netcup.eu/vserver/vps.php).
 One word of warning is that storage is shared with others, so storage IOPs are a potential bottleneck.
@@ -22,7 +22,6 @@ One word of warning is that storage is shared with others, so storage IOPs are a
 Unlike a VPS, a dedicated server is an entire physical device that is rented by you. They are a relatively affordable option, and they are less-frequently employed than the ubiquitous cloud platforms so they tend to contribute more towards the Ethereum network's decentralization.
 
 As of 10/2024 two well-priced and performant options were the Rise and Advanced bare-metal servers from [OVH](https://us.ovhcloud.com/). There are a variety of these that change over time, as well as significant sales. You'll need to check that the [hardware guidelines](../local/hardware.md) are met.
-
 
 ## Cloud Hosting
 

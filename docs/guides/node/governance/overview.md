@@ -8,7 +8,6 @@ next:
 
 This section outlines the process of setting up your node to participate in on-chain and snapshot proposals. There's a lot to unpack, so we highly recommend reading through an overview of the [Houston Upgrade](/guides/houston/whats-new). This will help you understand the latest features that enable on-chain governance and how you can participate in shaping the protocol.
 
-
 ## Prerequisites
 
 Before configuring your Smartnode, please make sure you:
@@ -22,11 +21,11 @@ Before configuring your Smartnode, please make sure you:
 
 ## There are three addresses involved in voting
 
-- pDAO Signalling Address — will be used as your Snapshot address, if you want to vote directly or if you want to override your delegate’s Snapshot vote. This address is only used for Snapshot not on-chain voting. 
+- pDAO Signalling Address — will be used as your Snapshot address, if you want to vote directly or if you want to override your delegate’s Snapshot vote. This address is only used for Snapshot not on-chain voting.
 
 - pDAO Delegate Node — if you choose to delegate your vote. You will set this to your delegate’s node address. If you choose a delegate they will vote for you on Snapshot and for on-chain proposals.
 
-- Node Address — if you have not delegated your vote or if you wish to override your delegate’s on-chain vote you can do this from your node. 
+- Node Address — if you have not delegated your vote or if you wish to override your delegate’s on-chain vote you can do this from your node.
 
 ## Guides
 
@@ -36,7 +35,7 @@ Before configuring your Smartnode, please make sure you:
 
 [Initializing Voting Power](/guides/houston/participate#initializing-voting) shows you how to initialize your node's voting power. This step is only required if your node was registered before the Houston Upgrade.
 
-[Setting your Snapshot Signalling Address](/guides/houston/participate#setting-your-snapshot-signalling-address) will walk you through the steps for setting a Signalling Address. It'll allow you to vote on Snapshot using your node's voting power without needing to load your node's private key onto a hot wallet. Make sure you have your Smartnode CLI handy and prepare a address (that isn't your node wallet) for this guide. 
+[Setting your Snapshot Signalling Address](/guides/houston/participate#setting-your-snapshot-signalling-address) will walk you through the steps for setting a Signalling Address. It'll allow you to vote on Snapshot using your node's voting power without needing to load your node's private key onto a hot wallet. Make sure you have your Smartnode CLI handy and prepare a address (that isn't your node wallet) for this guide.
 
 [Delegating Voting Power](/guides/houston/participate#delegating-voting-power) is a quick command you can use to delegate voting power instead of voting directly on proposals.
 
@@ -46,8 +45,8 @@ Before configuring your Smartnode, please make sure you:
 
 [Creating a Proposal](/guides/houston/participate#creating-a-proposal) walks you through the requirements and steps to raise an on-chain proposal.
 
-[Executing a successful proposal](/guides/houston/participate#executing-a-successful-proposal) will show you how to apply the effects of a successful proposal to the Rocket Pool Protocol. 
+[Executing a successful proposal](/guides/houston/participate#executing-a-successful-proposal) will show you how to apply the effects of a successful proposal to the Rocket Pool Protocol.
 
 [Claiming Bonds and Rewards](/guides/houston/participate#claiming-bonds-and-rewards) discusses the conditions in which bonds or rewards can be claimed by a Proposer or Challenger.
 
-[Creating and Claiming a recurring treasury spend](/guides/houston/participate#creating-a-recurring-treasury-spend) is a feature which gives the pDAO full control over adding, modifying, and removing recurring payments. 
+[Creating and Claiming a recurring treasury spend](/guides/houston/participate#creating-a-recurring-treasury-spend) is a feature which gives the pDAO full control over adding, modifying, and removing recurring payments.

@@ -328,7 +328,7 @@ Please choose an amount of RPL to stake:
 5: A custom amount
 ```
 
-Once you select an option, you will be shown some information about the suggested gas price and estimated amount to be used, along with a confirmation dialog. If it's your first time staking RPL on the node, you'll need to give the staking contract approval to interact with your RPL: 
+Once you select an option, you will be shown some information about the suggested gas price and estimated amount to be used, along with a confirmation dialog. If it's your first time staking RPL on the node, you'll need to give the staking contract approval to interact with your RPL:
 
 ```
 Before staking RPL, you must first give the staking contract approval to interact with your RPL.
@@ -384,7 +384,8 @@ Waiting for the transaction to be included in a block... you may wait here for i
 
 Successfully staked 733.993925 RPL.
 ```
-Most operations only require one transaction, so the CLI will wait until it has been included in a block and then exit.  However, stake-rpl is one of the few commands that requires two transactions, so this dialog will appear twice.
+
+Most operations only require one transaction, so the CLI will wait until it has been included in a block and then exit. However, stake-rpl is one of the few commands that requires two transactions, so this dialog will appear twice.
 
 ### `deposit`
 

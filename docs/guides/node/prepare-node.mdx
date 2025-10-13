@@ -1,6 +1,6 @@
-import {Tab, Tabs} from 'rspress/theme';
-import nodeAddress from './images/nodeaddress.png';
-import rplWithdrawalConfirmation from './images/rpl_withdrawal_confirmation.png';
+import { Tab, Tabs } from "rspress/theme";
+import nodeAddress from "./images/nodeaddress.png";
+import rplWithdrawalConfirmation from "./images/rpl_withdrawal_confirmation.png";
 
 # Preparing your Node for Operation
 
@@ -22,7 +22,6 @@ The ETH required for gas fees to set up a node with one minipool is about 0.0025
 For example, with a gas price of 30 gwei, you would pay about 0.075 ETH in gas fees.
 
 See [this worksheet](https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552) to help estimate the gas fees for various network conditions.
-
 
 <div className="p-3">
   <Tabs>
@@ -49,6 +48,7 @@ See [this worksheet](https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-
         We recommend you send a small amount of ETH first as a **test transaction** to verify that you correctly entered the node wallet's address, and then **whitelist** that address in your other wallet, if possible, to avoid mistyping it.
       </p>
     </Tab>
+
   </Tabs>
 </div>
 
@@ -162,6 +162,7 @@ Please read both options below to determine which one applies to you.
 
       We **strongly** encourage you to use the test transaction mechanism before confirming this, and if possible, use Method 1 instead.
     </Tab>
+
   </Tabs>
 </div>
 
@@ -186,14 +187,8 @@ Select which network you're using from one of the tabs below.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Hoodi Testnet">
-      If you're trying this out on Hoodi testnet, you can sign on this page:
-      https://testnet.node.rocketpool.net/signalling-address
-    </Tab>
-    <Tab label="Mainnet">
-      If you're ready to configure this on mainnet, go here instead:
-      https://node.rocketpool.net/signalling-address
-    </Tab>
+    <Tab label="Hoodi Testnet">If you're trying this out on Hoodi testnet, you can sign on this page: https://testnet.node.rocketpool.net/signalling-address</Tab>
+    <Tab label="Mainnet">If you're ready to configure this on mainnet, go here instead: https://node.rocketpool.net/signalling-address</Tab>
   </Tabs>
 </div>
 
@@ -343,9 +338,9 @@ Please read both options below to determine which one applies to you.
         We **strongly** encourage you to use the test transaction mechanism before confirming this, and if possible, use Method 1 instead.
       </p>
     </Tab>
+
   </Tabs>
 </div>
-
 
 Once this is done, you will **no longer be able to change your RPL withdrawal address using the `set-rpl-withdrawal-address` command**.
 To change it, you will need to send a signed transaction from your **active** RPL withdrawal address (the one you just switched to).
@@ -353,15 +348,10 @@ The Rocket Pool website has a function to help you do this.
 
 If you'd like to unset your RPL withdrawal address, the process is pretty simple. First thing, you'll want to navigate back to the RPL Withdrawl Address page on the Rocket Pool website.
 
-
 <div className="p-3">
   <Tabs>
-    <Tab label="Hoodi Testnet">
-      https://testnet.node.rocketpool.net/rpl-withdrawal-address
-    </Tab>
-    <Tab label="Mainnet">
-      https://node.rocketpool.net/rpl-withdrawal-address
-    </Tab>
+    <Tab label="Hoodi Testnet">https://testnet.node.rocketpool.net/rpl-withdrawal-address</Tab>
+    <Tab label="Mainnet">https://node.rocketpool.net/rpl-withdrawal-address</Tab>
   </Tabs>
 </div>
 
@@ -374,7 +364,6 @@ Clicking **unset** will take you to a page where you can confirm the details. If
 That's all there is to setting your RPL withdrawal address! We hope you found the process quick and easy.
 
 Feel free to swing by [our Discord server](https://discord.gg/G46XgK264a) to let us know what you thought of it and keep tabs on the project as it evolves.
-
 
 ## Map an ENS Name to your Node Wallet
 

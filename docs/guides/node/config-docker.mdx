@@ -1,16 +1,15 @@
-import { Tab, Tabs } from 'rspress/theme';
-import ECSelection from './images/tui-ec-selection.png';
-import tuiExternalEC from './images/tui-external-ec.png';
-import tuiLocalCC from './images/tui-local-cc.png';
-import tuiLocalGraffiti from './images/tui-local-graffiti.png';
-import tuiLocalCheckpoint from './images/tui-local-checkpoint.png';
-import tuiLocalDD from './images/tui-local-dd.png';
-import tuiExternalLH from './images/tui-external-lh.png';
-import tuiExternalGraffiti from './images/tui-external-graffiti.png';
-import tuiExternalDD from './images/tui-external-dd.png';
-import tuiExternalPrysm from './images/tui-external-prysm.png';
-import tuiExternalTeku from './images/tui-external-teku.png';
-
+import { Tab, Tabs } from "rspress/theme";
+import ECSelection from "./images/tui-ec-selection.png";
+import tuiExternalEC from "./images/tui-external-ec.png";
+import tuiLocalCC from "./images/tui-local-cc.png";
+import tuiLocalGraffiti from "./images/tui-local-graffiti.png";
+import tuiLocalCheckpoint from "./images/tui-local-checkpoint.png";
+import tuiLocalDD from "./images/tui-local-dd.png";
+import tuiExternalLH from "./images/tui-external-lh.png";
+import tuiExternalGraffiti from "./images/tui-external-graffiti.png";
+import tuiExternalDD from "./images/tui-external-dd.png";
+import tuiExternalPrysm from "./images/tui-external-prysm.png";
+import tuiExternalTeku from "./images/tui-external-teku.png";
 
 # Configuring the Smartnode Stack (Docker / Hybrid Mode)
 
@@ -48,7 +47,7 @@ You can choose to re-open the Wizard from there if you prefer it, and all of you
 
 When you run the config UI for the first time (or if you choose to run the Wizard again later), you will be presented with a screen that looks like this:
 
-<img src="./images/tui-first-time.png" width="100%" height="auto"/>
+<img src="./images/tui-first-time.png" width="100%" height="auto" />
 
 ::: tip TIP
 To use the Wizard, **press the `Arrow Keys` (up/down/left/right) to navigate between things such as buttons (choices) or text boxes**.
@@ -77,7 +76,7 @@ When you're ready to begin, press `Next`.
 
 In the next screen, you will be asked to choose which network you want to use:
 
-<img src="./images/tui-network.png" width="100%" height="auto"/>
+<img src="./images/tui-network.png" width="100%" height="auto" />
 
 You can highlight the different choices with the `Up` and `Down` arrow keys (or `Tab` and `Shift+Tab`).
 When you change choices, the **Description** box on the right will show you a brief description of each option.
@@ -91,7 +90,7 @@ If you're ready to create a real Rocket Pool node on Mainnet to earn real reward
 
 You will be presented with two options for client mode:
 
-<img src="./images/tui-client-mode.png" width="100%" height="auto"/>
+<img src="./images/tui-client-mode.png" width="100%" height="auto" />
 
 **Locally Managed** (also known as **"Docker Mode"**) is the default choice.
 Use it if you don't already have a client pair and you want the Smartnode to manage one for you.
@@ -110,7 +109,6 @@ You must either choose all locally-managed or all externally-managed.
 ### Execution Client Setup
 
 Choose which mode you'd like to use for managing your Execution client and follow the steps in the corresponding tab below:
-
 
 <div className="p-3">
   <Tabs>
@@ -163,9 +161,9 @@ Choose which mode you'd like to use for managing your Execution client and follo
 
       When you're happy with your fallback Execution client choices, proceed to the next step.
     </Tab>
+
   </Tabs>
 </div>
-
 
 ### Consensus Client Setup
 
@@ -561,9 +559,9 @@ Choose which mode you selected earlier from the tabs below:
         </Tabs>
       </div>
     </Tab>
+
   </Tabs>
 </div>
-
 
 #### Beacon Chain Checkpoint Syncing
 
@@ -605,11 +603,11 @@ In this situation, your primary node machine will still be responsible for attes
 
 Rocket Pool comes with the ability to display a detailed dashboard showing metrics about your node's hardware health, system updates, your validator performance, your rewards, information about the overall Rocket Pool network, and more:
 
-<img src="./images/nimbus-dashboard.png" width="100%" height="auto"/>
+<img src="./images/nimbus-dashboard.png" width="100%" height="auto" />
 
 The next question in the Wizard will ask you if you want to enable this:
 
-<img src="./images/tui-metrics.png" width="100%" height="auto"/>
+<img src="./images/tui-metrics.png" width="100%" height="auto" />
 
 If you choose to enable it, you will learn more about setting it up and how to use it in the [Setting up the Grafana Dashboard](./grafana) section later in the process.
 
@@ -625,7 +623,7 @@ Since the Merge of the Execution and Consensus layers in September 2022, Ethereu
 
 Starting with Smartnode v1.7.0, MEV is now _opt-out_ so its configuration is presented as part of the initial setup, as you see in the next screen:
 
-<img src="./images/tui-mev-mode.png" width="100%" height="auto"/>
+<img src="./images/tui-mev-mode.png" width="100%" height="auto" />
 
 [Please read our MEV guide to learn more about MEV, its configuration, and what to do in this section of the wizard.](./mev)
 Return here when you're finished.
@@ -635,7 +633,7 @@ Return here when you're finished.
 After this question, you've finished setting up the Smartnode!
 You will see the following dialog:
 
-<img src="./images/tui-finished.png" width="100%" height="auto"/>
+<img src="./images/tui-finished.png" width="100%" height="auto" />
 
 If you're happy with your setup and are ready to start the Smartnode, click `Save and Exit` here and go to the [Securing your Node](./securing-your-node) section next.
 
@@ -645,7 +643,7 @@ If you would like to review all of the settings and customize many additional se
 
 If you've already run `rocketpool service config`, instead of being greeted by the Wizard, you will see the **Settings Manager** screen:
 
-<img src="./images/tui-settings-manager.png" width="100%" height="auto"/>
+<img src="./images/tui-settings-manager.png" width="100%" height="auto" />
 
 There are three main features of this screen:
 
@@ -672,7 +670,7 @@ Feel free to explore them; nothing you do will be saved until you go through the
 From the home screen, select any one of the categories with the `Enter` key to view the settings for that category.
 For example, here is the screen for the **Smartnode and TX Fees** category:
 
-<img src="./images/tui-smartnode.png" width="100%" height="auto"/>
+<img src="./images/tui-smartnode.png" width="100%" height="auto" />
 
 Use the `Arrow Keys` to move up and down between the settings.
 The currently selected one will have a white square at the end of it (if it's a text box or a check box), or will be highlighted in white (if it's a drop down).
@@ -699,7 +697,7 @@ The settings manager uses the following setting types and UI elements:
 Text boxes are used to enter arbitrary strings of text or numbers.
 They look like this:
 
-<img src="./images/tui-textbox.png" width="100%" height="auto"/>
+<img src="./images/tui-textbox.png" width="100%" height="auto" />
 
 Enter your desired values into them, then **press `Enter` or use the `Arrow Keys` to navigate to a different setting in order to preserve your changes.**
 If you don't, the Settings Manager will assume you're still updating that setting and won't mark it as changed yet.
@@ -709,25 +707,25 @@ If you don't, the Settings Manager will assume you're still updating that settin
 Drop downs are used to select an option from a list of choices.
 They look like this (when they're open):
 
-<img src="./images/tui-dropdown-open.png" width="100%" height="auto"/>
+<img src="./images/tui-dropdown-open.png" width="100%" height="auto" />
 
 The **green** item is the one that is currently selected.
 Use the `Arrow Keys` to change options - as you do, the **Description Box** on the right will update to tell you more about the currently selected option.
 When you're happy with your choice, press `Enter` to choose the selected option and the drop down will close, revealing the option that is currently selected:
 
-<img src="./images/tui-dropdown-closed.png" width="100%" height="auto"/>
+<img src="./images/tui-dropdown-closed.png" width="100%" height="auto" />
 
 #### Check Boxes
 
 Check boxes are used for simple Yes/No questions.
 They look like this:
 
-<img src="./images/tui-checkbox-checked.png" width="100%" height="auto"/>
+<img src="./images/tui-checkbox-checked.png" width="100%" height="auto" />
 
 When they are checked, they will have an `X` in the middle as you see above.
 When they are _unchecked_, they will simply be blank like this:
 
-<img src="./images/tui-checkbox-unchecked.png" width="100%" height="auto"/>
+<img src="./images/tui-checkbox-unchecked.png" width="100%" height="auto" />
 
 To change the setting, simply select it and press `Enter`.
 
@@ -738,7 +736,7 @@ As a reminder, to get to it, press the `Tab` key.
 
 You will be presented with a view that looks like this:
 
-<img src="./images/tui-review.png" width="100%" height="auto"/>
+<img src="./images/tui-review.png" width="100%" height="auto" />
 
 The **Review Box** here will present all of the settings you've changed, showing the old values and the new ones.
 For example, the first line here shows that the **RPL Claim Gas Threshold** used to be `150`, and it's been changed to `40`.

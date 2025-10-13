@@ -1,24 +1,25 @@
-import {Tab, Tabs} from 'rspress/theme';
+import { Tab, Tabs } from "rspress/theme";
 
 # The Saturn 0 Upgrade
 
-Welcome to Saturn 0! This upgrade aims to improve RPL tokenomics in the short term to unlock protocol growth. If you're a returning or prospective node operator, this page will 
+Welcome to Saturn 0! This upgrade aims to improve RPL tokenomics in the short term to unlock protocol growth. If you're a returning or prospective node operator, this page will
 serve as an introduction to some new and exciting changes to the Rocket Pool protocol.
 
-## ETH only minipools in Saturn 0 
+## ETH only minipools in Saturn 0
 
 - The RPL requirement for new minipools is a thing of the past! Minipools in Saturn 0 do not require RPL stake to be deployed.
 - The RPL requirement for new minipools is a thing of the past! Minipools in Saturn 0 do not require RPL stake to be deployed.
-Node operators can now create minipools with an upfront cost of 8 ETH, which will feature a commission of 10%. In addition, a node
-operator may optionally stake RPL to qualify for additional rewards and access voting power within the [Protocol DAO](/guides/houston/pdao#the-protocol-dao-pdao).
+  Node operators can now create minipools with an upfront cost of 8 ETH, which will feature a commission of 10%. In addition, a node
+  operator may optionally stake RPL to qualify for additional rewards and access voting power within the [Protocol DAO](/guides/houston/pdao#the-protocol-dao-pdao).
 
-- Nodes with an RPL stake of any size qualify for RPL issuance rewards. This unlocks RPL rewards for Node Operators under the 10% collateral cliff 
-who were previously unqualified for RPL issuance rewards. 
+- Nodes with an RPL stake of any size qualify for RPL issuance rewards. This unlocks RPL rewards for Node Operators under the 10% collateral cliff
+  who were previously unqualified for RPL issuance rewards.
 
 - This means nodes with an RPL stake of 0-15% of borrowed ETH receive the maximum APY on RPL. Nodes still earn RPL yield beyond 15% collateral, at a decreasing rate.
-Feel free to take a look how RPL issuance beyond 15% borrowed ETH is defined in [RPIP-30](https://rpips.rocketpool.net/RPIPs/RPIP-30#specification).
+  Feel free to take a look how RPL issuance beyond 15% borrowed ETH is defined in [RPIP-30](https://rpips.rocketpool.net/RPIPs/RPIP-30#specification).
 
 ## New Commission Structure
+
 We're excited to announce that newly launched Saturn 0 minipools will feature a commission structure ranging from 10% to 14%.
 
 - Nodes without any staked RPL will earn 10% commission (5% from the minipool contract, and 5% from the dynamic commission boost).
@@ -28,11 +29,12 @@ Note that the dynamic commission boost will be reduced to 0% on the 5th reward s
 
 ::: warning WARNING
 Your node must be opted into the [Smoothing Pool](/guides/node/fee-distrib-sp#the-smoothing-pool) to benefit from the dynamic comission boost. The Smart Node will inform you
-to opt into the Smoothing Pool when depositing a minipool if you are not already opted in. *Your new minipools will miss out on additional yield if your node 
-isn't in the Smoothing Pool!!* 
+to opt into the Smoothing Pool when depositing a minipool if you are not already opted in. _Your new minipools will miss out on additional yield if your node
+isn't in the Smoothing Pool!!_
 :::
 
 ## Node Operator Guide
+
 If you're interested in running a Rocket Pool node to create your own Ethereum validators, take a look at our [Node Operator's guide](/guides/node/responsibilities).
 This is a very comprehensive guide that goes over all of the considerations involved in node operation, including:
 
@@ -49,6 +51,3 @@ Both guides will show you how to practice for free on the Rocket Pool testnet so
 
 When you're ready, select a guide from the options above based on your interests.
 You are also free to explore the various pages using the sidebar to the left.
-
-
-

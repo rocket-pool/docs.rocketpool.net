@@ -1,6 +1,6 @@
-import tui_ec_expose_ports from './images/tui-ec-expose-ports.png';
-import tui_cc_expose_ports from './images/tui-cc-expose-ports.png';
-import tui_fallback_clients from './images/tui-fallback-clients.png';
+import tui_ec_expose_ports from "./images/tui-ec-expose-ports.png";
+import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
+import tui_fallback_clients from "./images/tui-fallback-clients.png";
 
 # Specifying a Fallback Node
 
@@ -23,13 +23,13 @@ If your main node ever goes offline, **your fallback will not start validating f
 
 As of v1.9.0, all our supported validator clients have added Fallback support with only a few limitations:
 
-| Name       | Supports Fallback | Valid Fallback Clients                                                       |
-| ---------- | ----------------- | ---------------------------------------------------------------------------- |
+| Name       | Supports Fallback | Valid Fallback Clients                                                         |
+| ---------- | ----------------- | ------------------------------------------------------------------------------ |
 | Lighthouse | Yes               | Any (doppelganger protection off)<br />Lighthouse (doppelganger protection on) |
-| Nimbus     | Yes               | Any                                                                          |
-| Prysm      | Yes               | Prysm                                                                        |
-| Teku       | Yes               | Any                                                                          |
-| Lodestar   | Yes               | Any                                                                          |
+| Nimbus     | Yes               | Any                                                                            |
+| Prysm      | Yes               | Prysm                                                                          |
+| Teku       | Yes               | Any                                                                            |
+| Lodestar   | Yes               | Any                                                                            |
 
 ## Setting up a New Node (Docker Mode)
 
@@ -44,22 +44,18 @@ If you already have a 2nd node ready and have its RPC ports exposed, feel free t
 1. Follow the steps in the guide on setting up a node ([local](./local/hardware) or [remote](./vps/providers)).
 2. Once the machine is ready, [install the Smartnode stack](./docker).
 3. Run `rocketpool service config` to specify which clients you'd like to use.
-
    1. When you get to the end of the wizard and it asks if you'd like to review your settings, select **Yes**.
    2. Enter the `Execution Client` settings.
    3. Check the `Expose RPC Ports` box:
 
-   <img src={tui_ec_expose_ports} width="100%" height="auto"/>
-
+   <img src={tui_ec_expose_ports} width="100%" height="auto" />
    4. Go back and enter the `Consensus Client` settings.
    5. Check the `Expose API Port` box (and, if you're using **Prysm**, the `Expose RPC Port` box as well):
 
-   <img src={tui_cc_expose_ports} width="100%" height="auto"/>
-
+   <img src={tui_cc_expose_ports} width="100%" height="auto" />
    6. Save the settings and start the Smartnode.
 
 4. Skip to the [Securing your Node](./securing-your-node) guide to set up SSH and the proper security posture on it.
-
    1. If you have `ufw` installed, you will need to add rules to allow incoming traffic to the API ports (`8545`, `8546`, and `5052` by default; also `5053` if you're using **Prysm**).
 
 5. That's it! You can stop here.
@@ -82,7 +78,7 @@ Once you have a fallback node prepared, you can connect it to your main node.
 
 The final page should look like this:
 
-<img src={tui_fallback_clients} width="100%" height="auto"/>
+<img src={tui_fallback_clients} width="100%" height="auto" />
 
 ::: tip NOTE
 **Native mode** users can follow the same steps, though the TUI will look slightly different from the above screenshot.

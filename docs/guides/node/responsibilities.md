@@ -72,6 +72,7 @@ A minipool's upfront cost is 8 ETH. In addition, a node operator may stake RPL t
 They are the individuals that run Rocket Pool nodes.
 
 ### Responsibilities
+
 They put ETH from the staking pool to work by running minipools with it, which earn staking rewards for the Rocket Pool protocol (and thus, increase rETH's value).
 Their job is straightforward, but crucially important: _run validators with the highest quality possible, and maximize staking rewards_.
 
@@ -87,6 +88,7 @@ It's a big responsibility, and not a simple set-it-and-forget-it kind of job; yo
 With great responsibility, however, comes great rewards.
 
 ### Rewards
+
 Here are the major benefits of running a Rocket Pool node:
 
 - You earn your portion of each validator's ETH rewards, plus commission.
@@ -100,15 +102,17 @@ Here are the major benefits of running a Rocket Pool node:
   - You will get vote power based on the square root of your staked RPL.
 
 ### Limitations
+
 There are some limitations that come along with the rewards above:
+
 - If your node performs poorly and you actually end up losing ETH by the time you decide to exit your minipool, all of the lost ETH is coming out of your share.
   - For example: if you exit with a balance of 30 ETH, then your minipool lost 2 ETH from its initial 32 ETH deposit. You will receive 6 ETH, and 24 ETH will be returned to the staking pool.
 - Your staked RPL will be less liquid
   - You can only withdraw RPL stake beyond that valued at 60% of your bonded ETH.
   - You cannot withdraw RPL if you've staked in the last 28 days
 
-
 ### You've got this
+
 If you're fairly new to using the command line or computer maintenance, this can seem like a scary challenge.
 Luckily, one of Rocket Pool's most core principles is _decentralization_ - the fact that anyone, anywhere, can run a node if they have the determination and knowledge.
 While we can't help with determination, we _can_ help with knowledge.

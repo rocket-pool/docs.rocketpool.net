@@ -87,8 +87,6 @@ We have a few helpful amendments to the guide linked above, which you may want t
 
 :::
 
-
-
 ### Installing `sudo`
 
 Rocket Pool's installer requires the `sudo` program to acquire all of its dependencies.

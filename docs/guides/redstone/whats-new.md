@@ -23,17 +23,14 @@ While this comes with some exciting financial benefits (which will be discussed 
 Below is a brief summary of the changes to client behavior as part of The Merge:
 
 - Your Execution client now uses three API ports:
-
   - One for HTTP access to its API (**default 8545**)
   - One for Websocket access to its API (**default 8546**)
   - One for the new **Engine API** used by Consensus clients after The Merge (**default 8551**)
 
 - Execution clients now require a Consensus client to function, and Consensus clients now require an Execution client to function.
-
   - **Neither one can operate in isolation any longer.**
 
 - One Execution client must be linked to one, and only one, Consensus client (and vice versa).
-
   - You will not be able to link multiple Execution clients to a single Consensus client, or multiple Consensus clients to a single Execution client.
   - Because of this, **fallback execution clients are no longer available** for Rocket Pool node operators.
 
@@ -192,11 +189,9 @@ To help clarify the details, the Smoothing Pool uses the following rules:
 - The node operator's total share is determined by the average commission of every minipool in every node opted into the Smoothing Pool.
 
 - Anyone can opt in at any time. They must wait a full rewards interval (1 day on Ropsten, 28 days on Mainnet) before opting out to prevent gaming the system.
-
   - Once opted out, you must wait another full interval to opt back in.
 
 - The Smoothing Pool calculates the "share" of each minipool (portion of the pool's ETH for the interval) owned by each node opted in.
-
   - The share is a function of your minipool's performance during the interval (calculated by looking at how many attestations you sent on the Beacon Chain, and how many you missed), and your minipool's commission rate.
 
 - Your node's total share is the sum of your minipool shares.

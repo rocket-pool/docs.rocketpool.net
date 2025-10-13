@@ -1,4 +1,4 @@
-import { Tab, Tabs } from 'rspress/theme';
+import { Tab, Tabs } from "rspress/theme";
 
 # Starting Rocket Pool
 
@@ -8,7 +8,6 @@ If you've completed both of these steps, you're ready to create a Rocket Pool no
 If not, please review the previous sections and return here once you've completed those steps.
 
 ## Starting and Stopping the Rocket Pool Services
-
 
 <div className="p-3">
   <Tabs>
@@ -153,9 +152,9 @@ If not, please review the previous sections and return here once you've complete
       Note that stopping the services **does not disable autostart**; the processes will automatically start upon a reboot.
 
     </Tab>
+
   </Tabs>
 </div>
-
 
 ## Confirming the Correct Version and Network
 
@@ -182,12 +181,12 @@ Image: sigp/lighthouse:v3.1.0
 The first line will tell you if your Smartnode is configured for the Ethereum mainnet or for the Hoodi testnet.
 
 ::: warning NOTE
-  **For Docker / Hybrid users:**
-  If you are not on the network you expect to be on, go back to the Installing Rocket Pool section and review the installation instructions - you may have missed the portion that has different instructions depending on which network you want to use.
+**For Docker / Hybrid users:**
+If you are not on the network you expect to be on, go back to the Installing Rocket Pool section and review the installation instructions - you may have missed the portion that has different instructions depending on which network you want to use.
 
-  **For Native users:**
-  If you accepted the default settings when you first ran `rp service config`, then it's possible that the network reported here is incorrect.
-  Simply switch it in the `rp service config` TUI, in the `Smartnode` section, to the proper network and restart your `node` and `watchtower` services.
+**For Native users:**
+If you accepted the default settings when you first ran `rp service config`, then it's possible that the network reported here is incorrect.
+Simply switch it in the `rp service config` TUI, in the `Smartnode` section, to the proper network and restart your `node` and `watchtower` services.
 :::
 
 The second set of lines will tell you which clients you're using, and which versions of them are defined in Rocket Pool's configuration.
@@ -302,9 +301,9 @@ Now that the Smartnode services have been started, it's a good idea to check tha
       You should see that it is slowly chugging along without any errors.
       Do this for your Execution and Consensus clients now to verify that they are working properly.
     </Tab>
+
   </Tabs>
 </div>
-
 
 ::: tip TIP
 When you're done looking at the logs, you can exit and return to the command prompt using `Ctrl + C`.

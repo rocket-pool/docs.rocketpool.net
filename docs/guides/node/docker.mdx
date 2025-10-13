@@ -1,4 +1,4 @@
-import { Tab, Tabs } from 'rspress/theme';
+import { Tab, Tabs } from "rspress/theme";
 
 # Creating a Standard Rocket Pool Node with Docker
 
@@ -76,7 +76,6 @@ The instructions for downloading the CLI vary based on your Operating System.
 You must perform the following instructions **on the machine you will use for your Rocket Pool node.**
 If you are not using a keyboard and monitor directly connected to your node machine, you will need to access it remotely (e.g. via SSH) and run these commands on it through that remote connection.
 :::
-
 
 <div className="p-3">
   <Tabs>
@@ -215,6 +214,7 @@ If you are not using a keyboard and monitor directly connected to your node mach
         If your system is neither of those, then you will not be able to run Rocket Pool.
       </p>
     </Tab>
+
   </Tabs>
 </div>
 
@@ -233,7 +233,7 @@ rocketpool service install
 This will grab the latest version of the Smartnode stack and set it up.
 You should see output like this (_above some release notes for the latest version which will be printed at the end_):
 
-<img src="./images/rp-install-screen.png" width="100%" height="auto"/>
+<img src="./images/rp-install-screen.png" width="100%" height="auto" />
 
 If there aren't any error messages, then the installation was successful.
 By default, it will be put into the `~/.rocketpool` directory inside of your user account's home folder.
@@ -292,7 +292,7 @@ This will be empty at first, which is fine. Add this as the contents:
 
 ```json
 {
-    "data-root": "<your external mount point>/docker"
+  "data-root": "<your external mount point>/docker"
 }
 ```
 

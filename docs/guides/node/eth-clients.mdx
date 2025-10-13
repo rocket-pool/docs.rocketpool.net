@@ -1,4 +1,4 @@
-import ethereum_client_diversity from './images/ethereum-client-diversity-aug-2025.png';
+import ethereum_client_diversity from "./images/ethereum-client-diversity-aug-2025.png";
 
 # Choosing your ETH Clients
 
@@ -14,13 +14,13 @@ Otherwise, read on to learn more about your choices for Execution and Consensus 
 ::: warning NOTE
 As of August 2025, the distribution of clients on the Beacon Chain looks roughly like this:
 
-<img src={ethereum_client_diversity} width="100%" height="auto"/>
+<img src={ethereum_client_diversity} width="100%" height="auto" />
 
 _Data obtained from [https://clientdiversity.org](https://clientdiversity.org)_
 
-Obtaining data on which consensus client a validator is running is a relatively difficult problem because clients are not easily identified. The [data methodology](https://clientdiversity.org/methodology/) page 
-on [https://clientdiversity.org](https://clientdiversity.org) goes into how data from different sources are obtained. Feel free to check out 
-[https://ethernodes.org/](https://ethernodes.org/) as an additional source of data. 
+Obtaining data on which consensus client a validator is running is a relatively difficult problem because clients are not easily identified. The [data methodology](https://clientdiversity.org/methodology/) page
+on [https://clientdiversity.org](https://clientdiversity.org) goes into how data from different sources are obtained. Feel free to check out
+[https://ethernodes.org/](https://ethernodes.org/) as an additional source of data.
 
 The overwhelming majority of node operators are currently using Geth as an Execution Client and either Lighthouse or Prysm as a Consensus Client.
 In the interest of supporting the health of the Execution Layer (formerly ETH1) and the Beacon Chain (formerly ETH2), we currently recommend that you consider using different clients.
@@ -105,13 +105,13 @@ For more information on pruning Nethermind, view the [Pruning the Execution Clie
 
 ### Reth
 
-[Reth](https://reth.rs/) is an Execution layer client written in [Rust](https://www.rust-lang.org/) and uses the [Erigon staged-sync](https://erigon.substack.com/p/erigon-stage-sync-and-control-flows) architecture. 
-Reth is designed from the ground up with efficiency, performance, and modularity in mind. It's licenced under the Apache/MIT permissive license and built 
+[Reth](https://reth.rs/) is an Execution layer client written in [Rust](https://www.rust-lang.org/) and uses the [Erigon staged-sync](https://erigon.substack.com/p/erigon-stage-sync-and-control-flows) architecture.
+Reth is designed from the ground up with efficiency, performance, and modularity in mind. It's licenced under the Apache/MIT permissive license and built
 with small, well-abstracted, well-tested, and benchmarked packages. This makes for a great open source developer experience and allows Reth's components to be used in other projects.
 
 As the newest client in the ecosystem, Reth is rapidly evolving and gaining adoption. While RAM and CPU requirements are flexible, the most important
-requirement is by far the disk. We suggest using a good [TLC disk](https://gist.github.com/yorickdowne/f3a3e79a573bf35767cd002cc977b038). 
-Reth requires **at least 8 GB of RAM** for a full node or **16 GB of RAM** for an archive node. 
+requirement is by far the disk. We suggest using a good [TLC disk](https://gist.github.com/yorickdowne/f3a3e79a573bf35767cd002cc977b038).
+Reth requires **at least 8 GB of RAM** for a full node or **16 GB of RAM** for an archive node.
 
 ### Client Comparison Table
 

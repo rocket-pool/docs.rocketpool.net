@@ -1,4 +1,4 @@
-import { Tab, Tabs } from 'rspress/theme';
+import { Tab, Tabs } from "rspress/theme";
 
 # Setting up the Grafana Dashboard
 
@@ -514,6 +514,7 @@ It will open up a port on your node machine for Grafana, so you can access its d
 
       This is pretty much it.
     </Tab>
+
   </Tabs>
 </div>
 
@@ -522,7 +523,6 @@ It will open up a port on your node machine for Grafana, so you can access its d
 ::: warning NOTE
 If you have UFW enabled as referenced in the [Securing your Node](./securing-your-node) section, you will need to open a few ports in order to allow local connections between the Prometheus and your Execution/Consensus Clients. Follow the steps below.
 :::
-
 
 <div className="p-3">
   <Tabs>
@@ -555,9 +555,9 @@ If you have UFW enabled as referenced in the [Securing your Node](./securing-you
 
       Assuming your Grafana listening port is 3100, continue reading to find out how to expose Grafana in your network.
     </Tab>
+
   </Tabs>
 </div>
-
 
 You can then open the firewall to allow external devices access to your Grafana dashboard.
 
@@ -598,9 +598,9 @@ You can then open the firewall to allow external devices access to your Grafana 
       sudo ufw allow 3100/tcp comment 'Allow grafana from anywhere'
       ```
     </Tab>
+
   </Tabs>
 </div>
-
 
 ## Setting up Grafana
 
@@ -622,7 +622,7 @@ http://192.168.1.5:3100
 
 You will see a login screen like this:
 
-<img src="./images/grafana-login.png" width="100%" height="auto"/>
+<img src="./images/grafana-login.png" width="100%" height="auto" />
 
 The default Grafana information is:
 
@@ -650,6 +650,7 @@ If you lose the admin password, you can reset it using the following command on 
       sudo grafana-cli admin reset-admin-password admin
       ```
     </Tab>
+
   </Tabs>
 </div>
 
@@ -665,7 +666,7 @@ Now that you have Grafana attached to Prometheus, you can import the standard da
 
 Start by going to the **Create** menu (the plus icon on the right-side bar) and click on **Import**:
 
-<img src="./images/grafana-import.png" width="100%" height="auto"/>
+<img src="./images/grafana-import.png" width="100%" height="auto" />
 
 When prompted for the dashboard ID in the **Import via grafana.com** box, enter `21863` or use the full URL ([(https://grafana.com/grafana/dashboards/21863](https://grafana.com/grafana/dashboards/21863)) and press the **Load** button.
 
@@ -676,7 +677,7 @@ Select this option.
 
 Your screen should look like this:
 
-<img src="./images/grafana-import2.png" width="100%" height="auto"/>
+<img src="./images/grafana-import2.png" width="100%" height="auto" />
 
 If yours matches, click the **Import** button and you will be immediately taken to your new dashboard.
 
@@ -684,7 +685,7 @@ At first glance, you should see lots of information about your node and your val
 Each box comes with a handy tooltip on the top left corner (the `i` icon) that you can hover over to learn more about it.
 For example, here is the tooltip for the **Your Validator Share** box:
 
-<img src="./images/tooltip.png" width="100%" height="auto"/>
+<img src="./images/tooltip.png" width="100%" height="auto" />
 
 However, we aren't done setting things up yet - there is still a little more configuration to do.
 
@@ -704,7 +705,7 @@ We have to tailor the dashboard to your specific hardware so it knows how to cap
 To update your CPU temperature gauge, click the title of the **CPU Temp** box and select **Edit** from the drop down.
 Your screen will now look something like this:
 
-<img src="./images/cpu-temp.png" width="100%" height="auto"/>
+<img src="./images/cpu-temp.png" width="100%" height="auto" />
 
 This is Grafana's edit mode, where you can change what is displayed and how it looks.
 We're interested in the query box highlighted in red, to the right of the **Metrics browser** button.
@@ -723,7 +724,7 @@ To do this, follow these steps:
 1. Remove the `, sensor=""` portion so it ends with `chip=""}`. For clarity, the whole thing should now be `node_hwmon_temp_celsius{job="node", chip=""}`.
 2. Put your cursor in-between the quote marks of `chip=""` and press `Ctrl+Spacebar`. This will bring up an auto-complete box with the available options, which looks like this:
 
-<img src="./images/grafana-autocomplete.png" width="100%" height="auto"/>
+<img src="./images/grafana-autocomplete.png" width="100%" height="auto" />
 
 3. Select the option that corresponds to your system's CPU.
 4. Once that's selected, add `, sensor=""` back into the string. Place your cursor in-between the quote marks of `sensor=""` and press `Ctrl+Spacebar` to get another auto-complete menu. Select the sensor you want to monitor.
@@ -882,7 +883,6 @@ GF_<SectionName>_<KeyName>
 To send emails from Grafana, e.g. for alerts or to invite other users, SMTP settings need to be configured in the Rocket Pool Metrics Stack.
 See the [Grafana SMTP configuration](https://grafana.com/docs/grafana/latest/administration/configuration/#smtp) page for reference.
 
-
 <div className="p-3">
   <Tabs>
     <Tab label="Docker and Hybrid Mode">
@@ -919,6 +919,7 @@ See the [Grafana SMTP configuration](https://grafana.com/docs/grafana/latest/adm
       from_name = "Rocketpool Grafana Admin"
       ```
     </Tab>
+
   </Tabs>
 </div>
 
@@ -927,7 +928,6 @@ If using Gmail and [2-Step Verification](https://support.google.com/accounts/ans
 :::
 
 After making these modifications, **run the following to apply the changes**:
-
 
 <div className="p-3">
   <Tabs>
@@ -943,17 +943,18 @@ After making these modifications, **run the following to apply the changes**:
       sudo systemctl restart grafana-server
       ```
     </Tab>
+
   </Tabs>
 </div>
 
 To test the SMTP settings, go to the **Alerting** menu and click **Contact points**.
 
-<img src="./images/grafana-contact-points.png" width="100%" height="auto"/>
+<img src="./images/grafana-contact-points.png" width="100%" height="auto" />
 
 Click **New contact point** and select **Email** as the Contact point type.
 Enter an email address in the **Addresses** section and click **Test**.
 
-<img src="./images/grafana-new-contact-point.png" width="100%" height="auto"/>
+<img src="./images/grafana-new-contact-point.png" width="100%" height="auto" />
 
 Check to see that the test email was received.
 Click **Save contact point\*** when finished.

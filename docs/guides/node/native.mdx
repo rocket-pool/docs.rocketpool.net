@@ -1,4 +1,4 @@
-import { Tab, Tabs } from 'rspress/theme';
+import { Tab, Tabs } from "rspress/theme";
 
 # Creating a Native Rocket Pool Node without Docker
 
@@ -130,9 +130,9 @@ Choose the platform that your system uses from the tabs below.
       sudo chmod +x /usr/local/bin/rocketpool
       ```
     </Tab>
+
   </Tabs>
 </div>
-
 
 Now, set the owner and group of the daemon to `rp`:
 
@@ -201,7 +201,6 @@ This is the service that will automatically check for and claim RPL rewards afte
 
 We'll also create a `watchtower` service as well.
 This will be used if you're an Oracle DAO member, or if you ever want to generate your own rewards interval trees (discussed in the [Claiming Rewards](./rewards) section later on).
-
 
 <div className="p-3">
   <Tabs>
@@ -305,6 +304,7 @@ This will be used if you're an Oracle DAO member, or if you ever want to generat
       sudo /srv/rocketpool/watchtower-log.sh
       ```
     </Tab>
+
   </Tabs>
 </div>
 
@@ -422,18 +422,10 @@ Then modify your fee recipient argument as follows; select your client of choice
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Lighthouse">
-      Change `--suggested-fee-recipient address` to `--suggested-fee-recipient ${FEE_RECIPIENT}`
-    </Tab>
-    <Tab label="Nimbus">
-      Change `--suggested-fee-recipient=address` to `--suggested-fee-recipient=${FEE_RECIPIENT}`
-    </Tab>
-    <Tab label="Prysm">
-      Change `--suggested-fee-recipient address` to `--suggested-fee-recipient ${FEE_RECIPIENT}`
-    </Tab>
-    <Tab label="Teku">
-      Change `--validators-proposer-default-fee-recipient=address` to `--validators-proposer-default-fee-recipient=${FEE_RECIPIENT}`
-    </Tab>
+    <Tab label="Lighthouse">Change `--suggested-fee-recipient address` to `--suggested-fee-recipient ${FEE_RECIPIENT}`</Tab>
+    <Tab label="Nimbus">Change `--suggested-fee-recipient=address` to `--suggested-fee-recipient=${FEE_RECIPIENT}`</Tab>
+    <Tab label="Prysm">Change `--suggested-fee-recipient address` to `--suggested-fee-recipient ${FEE_RECIPIENT}`</Tab>
+    <Tab label="Teku">Change `--validators-proposer-default-fee-recipient=address` to `--validators-proposer-default-fee-recipient=${FEE_RECIPIENT}`</Tab>
   </Tabs>
 </div>
 
@@ -446,7 +438,6 @@ Don't worry, this file will be created by Rocket Pool once you've initialized an
 
 Next, you must tell the VC where to store its data and load the validator keys that Rocket Pool generates.
 Click on the client you use in the tabs below:
-
 
 <div className="p-3">
   <Tabs>
@@ -526,6 +517,7 @@ Click on the client you use in the tabs below:
       --data-path=/srv/rocketpool/data/validators/teku --validator-keys=/srv/rocketpool/data/validators/teku/keys:/srv/rocketpool/data/validators/teku/passwords
       ```
     </Tab>
+
   </Tabs>
 </div>
 

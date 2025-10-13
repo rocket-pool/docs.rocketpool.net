@@ -1,6 +1,6 @@
-import { Tab, Tabs } from 'rspress/theme';
-import nodeAddress from './images/node_address.png';
-import rplWithdrawalConfirmation from './images/rpl_withdrawal_confirmation.png';
+import { Tab, Tabs } from "rspress/theme";
+import nodeAddress from "./images/node_address.png";
+import rplWithdrawalConfirmation from "./images/rpl_withdrawal_confirmation.png";
 
 # Setting your RPL Withdrawal Address
 
@@ -93,9 +93,9 @@ Please read both options below to determine which one applies to you.
         We **strongly** encourage you to use the test transaction mechanism before confirming this, and if possible, use Method 1 instead.
       </p>
     </Tab>
+
   </Tabs>
 </div>
-
 
 Once this is done, you will **no longer be able to change your RPL withdrawal address using the `set-rpl-withdrawal-address` command**.
 To change it, you will need to send a signed transaction from your **active** RPL withdrawal address (the one you just switched to).
@@ -103,21 +103,16 @@ The Rocket Pool website has a function to help you do this.
 
 If you'd like to unset your RPL withdrawal address, the process is pretty simple. First thing, you'll want to navigate back to the RPL Withdrawl Address page on the Rocket Pool website.
 
-
 <div className="p-3">
   <Tabs>
-    <Tab label="Hoodi Testnet">
-      https://testnet.node.rocketpool.net/rpl-withdrawal-address
-    </Tab>
-    <Tab label="Mainnet">
-      https://node.rocketpool.net/rpl-withdrawal-address
-    </Tab>
+    <Tab label="Hoodi Testnet">https://testnet.node.rocketpool.net/rpl-withdrawal-address</Tab>
+    <Tab label="Mainnet">https://node.rocketpool.net/rpl-withdrawal-address</Tab>
   </Tabs>
 </div>
 
 If you're signed in with the node's RPL withdrawal address, you should be able to click the **unset** button on the right here:
 
-<img src="./images/unset_rpl_withdrawal.png" width="100%" height="auto"/>
+<img src="./images/unset_rpl_withdrawal.png" width="100%" height="auto" />
 
 Clicking **unset** will take you to a page where you can confirm the details. If you're happy with what you see, click the orange **unset** button to send the transaction to the network.
 

@@ -1,14 +1,13 @@
-import { Tab, Tabs } from 'rspress/theme';
-import tuiMeVBoost from './images/tui-mev-boost.png';
-import tuiMeVBoostMain from './images/tui-mev-boost-main.png';
-import mevBoostIntegrationOverview from './images/mev-boost-integration-overview.png';
+import { Tab, Tabs } from "rspress/theme";
+import tuiMeVBoost from "./images/tui-mev-boost.png";
+import tuiMeVBoostMain from "./images/tui-mev-boost-main.png";
+import mevBoostIntegrationOverview from "./images/mev-boost-integration-overview.png";
 
 # MEV, MEV-Boost, and MEV Rewards
 
 In the previous section, you learned about how node operators earn priority fees.
 Priority fees are a great boost to a node operator's income, but they aren't the _only_ form of liquid reward available to you on the Execution layer.
 There is a supplemental form of rewards available, known as **MEV rewards**.
-
 
 :::tip NOTE
 As a quick reminder here's a breakdown of the different types of rewards and which layer they're provided on:
@@ -95,7 +94,7 @@ MEV-Boost is [open source](https://github.com/flashbots/mev-boost) and has been 
 
 Below is a good visual depiction of how the entire MEV ecosystem functions, and where MEV-Boost fits in:
 
-<img src={mevBoostIntegrationOverview} width="100%" height="auto"/>
+<img src={mevBoostIntegrationOverview} width="100%" height="auto" />
 
 _Image courtesy of Flashbots_
 
@@ -145,7 +144,6 @@ There is currently **no scheduled date** for this phase.
 ## Configuring MEV-Boost in the Smartnode
 
 To learn how to configure MEV-Boost, please select which mode you are using below.
-
 
 <div className="p-3">
   <Tabs>
@@ -240,9 +238,9 @@ To learn how to configure MEV-Boost, please select which mode you are using belo
         In your MEV-Boost instance, you **must** only register with the trusted relays listed above. If your Rocket Pool validator proposes a block that was sent via an untrusted relay, the Oracle DAO will **flag you for cheating** and possibly stealing MEV from the rETH stakers. This will result in [a penalty](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) on your minipool!
       </p>
     </Tab>
+
   </Tabs>
 </div>
-
 
 ## Checking MEV-Boost's Logs
 

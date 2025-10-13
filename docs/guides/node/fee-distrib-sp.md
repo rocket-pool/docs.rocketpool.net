@@ -150,18 +150,15 @@ In short, as long as the Smoothing Pool has more minipools than you do, it's mor
 The Smoothing Pool uses the following rules:
 
 - During a Rocket Pool rewards checkpoint when the Smoothing Pool's balance is distributed, the contract's total ETH balance is split in two.
-
   - rETH stakers receive 1/2 (for 16 ETH bonds) or 3/4 (for 8 ETH bonds aka LEB8), minus the **average commission** of all opted-in node operators
   - The remainder goes to the node operators that opted in.
 
 - Opting into the Smoothing Pool is done on a **node level**. If you opt in, all of your minipools are opted in.
 
 - Anyone can opt in at any time. They must wait a full rewards interval (3 days on Hoodi, 28 days on Mainnet) before opting out to prevent gaming the system (e.g. leaving the SP right after being selected to propose a block).
-
   - Once opted out, they must wait another full interval to opt back in.
 
 - The Smoothing Pool calculates the "share" of each minipool (portion of the pool's ETH for the interval) owned by each node opted in.
-
   - The share is a function of your minipool's performance during the interval (calculated by looking at how many attestations you sent on the Beacon Chain, and how many you missed), and your minipool's commission rate.
 
 - Your node's total share is the sum of your minipool shares.

@@ -1,4 +1,4 @@
-import {Tab, Tabs} from 'rspress/theme';
+import { Tab, Tabs } from "rspress/theme";
 
 # Participating in on-chain pDAO Proposals
 
@@ -78,9 +78,9 @@ Please type `direct` or `delegate` to continue:
 ```
 
 - If you respond with `direct`, voting power will be initialized to your node and you'll be able to vote directly on
-Protocol DAO proposals.
+  Protocol DAO proposals.
 - If you respond with `delegate`, you'll have the opportunity to save a bit of gas by initializing voting
-and [setting a delegate](../houston/participate#delegating-voting-power) within the same transaction.
+  and [setting a delegate](../houston/participate#delegating-voting-power) within the same transaction.
 
 You only need to do this once. It configures the initial snapshot information for a node. After you initialize voting,
 every action taken will update your node's snapshot information. Once your voting power is initialized, you can check
@@ -101,10 +101,10 @@ latest block, which may or may not be representative of your voting power on a p
 
 Smartnode version `1.13.8` introduces a new feature **Auto Initialize Vote Power**, which is designed to automatically
 initialize voting power on nodes who have not yet done so. Automatically initialized voting power is self-delegated.
-This feature can be configured in the Smartnode settings by running `rocketpool service config` and navigating to the *
-*Smartnode and TX Fees** section.
+This feature can be configured in the Smartnode settings by running `rocketpool service config` and navigating to the \*
+\*Smartnode and TX Fees\*\* section.
 
-<img src="./images/auto_init_vp.png" width="100%" height="auto"/>
+<img src="./images/auto_init_vp.png" width="100%" height="auto" />
 
 The **Auto-Init Vote Power Gas Threshold** is a limit (in gwei) on this automatic transaction. You can opt out of this
 task by setting the threshold to 0. Feel free to opt out if your node was registered after the Houston upgrade or if
@@ -127,14 +127,8 @@ Select which network you're using from one of the tabs below.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Hoodi Testnet">
-      If you're trying this out on Hoodi testnet, you can sign on this page:
-      https://testnet.node.rocketpool.net/signalling-address
-    </Tab>
-    <Tab label="Mainnet">
-      If you're ready to configure this on mainnet, go here instead:
-      https://node.rocketpool.net/signalling-address
-    </Tab>
+    <Tab label="Hoodi Testnet">If you're trying this out on Hoodi testnet, you can sign on this page: https://testnet.node.rocketpool.net/signalling-address</Tab>
+    <Tab label="Mainnet">If you're ready to configure this on mainnet, go here instead: https://node.rocketpool.net/signalling-address</Tab>
   </Tabs>
 </div>
 
@@ -236,7 +230,7 @@ your own node's address.
 
 - During phase 1 of a proposal: **Voters** and **Delegates** may cast their vote on a proposal.
 - During phase 2 of a proposal: **Node Operators** who have delegated their vote get the opportunity to overturn their
-Delegate's vote, if they disagree.
+  Delegate's vote, if they disagree.
 
 If you are a node operator with delegated voting power, you must vote during voting phase 1 for the delegated voting
 power to count towards the proposal. Your vote in phase 1 will be worth your **local voting power + delegated voting
@@ -247,7 +241,7 @@ power**. Your vote in phase 2 is worth your **local voting power** only.
 In order to be eligible to propose, a node must meet a few requirements:
 
 - Included in snapshotting (either by [initializing voting](../houston/participate#initializing-voting) or by
-registering post Houston)
+  registering post Houston)
 - Must have at least one minipool
 - Has non-zero voting power
 - Has allowed [RPL locking](../houston/participate#allowing-rpl-locking)
@@ -300,7 +294,6 @@ Every proposal is assigned a `proposalID`. In this case, our proposal to invite 
 represented with `ID 71`. There are a few ways to view the state of the proposal. One method will display a list of
 every pdao proposal along with their state (pending, succeeded, executed, etc). The second method displays in-depth
 details about a specific proposal.
-
 
 <div className="p-3">
   <Tabs>
@@ -374,6 +367,7 @@ details about a specific proposal.
         moving onto `Active (Phase 1)`. No voting can take place during the `Pending` state.
       </p>
     </Tab>
+
   </Tabs>
 </div>
 
@@ -442,188 +436,188 @@ Please enter your max fee (including the priority fee) or leave blank for the de
 
 You've successfully voted on the proposal once the transaction is included in the block! At this point, you may use
 `rocketpool pdao proposal details <proposal-id>` to view the state of the proposal. A proposal needs to reach
-  `proposal.quorum` **voting power required** and a majority **voting power for** for it to be successful.
+`proposal.quorum` **voting power required** and a majority **voting power for** for it to be successful.
 
-  ```
-  Voting power required:  140970562215
-  Voting power for:       197980809837
-  Voting power against:   0
-  Voting power abstained: 0
-  Voting power against:   0
-  Node has voted:         In Favor
-  ```
+```
+Voting power required:  140970562215
+Voting power for:       197980809837
+Voting power against:   0
+Voting power abstained: 0
+Voting power against:   0
+Node has voted:         In Favor
+```
 
-  For the example above to pass, the voting power needs to exceed a quorum of `140970562215` voting power. There is
-  `197980809837` voting power in favor and no votes against or abstained. The proposal is poised for success and ready
-  for
-  execution by the end of `proposal.vote.phase2.time`.
+For the example above to pass, the voting power needs to exceed a quorum of `140970562215` voting power. There is
+`197980809837` voting power in favor and no votes against or abstained. The proposal is poised for success and ready
+for
+execution by the end of `proposal.vote.phase2.time`.
 
-  ## Executing a Successful Proposal
+## Executing a Successful Proposal
 
-  Congrats! Your proposal has passed! Now all that's left to do is to execute the proposal. Keep in mind that anybody
-  can
-  be the executor to a proposal. To execute a successful proposal, type in the command:
+Congrats! Your proposal has passed! Now all that's left to do is to execute the proposal. Keep in mind that anybody
+can
+be the executor to a proposal. To execute a successful proposal, type in the command:
 
-  ```shell
-  rocketpool pdao execute
-  ```
+```shell
+rocketpool pdao execute
+```
 
-  Selecting an option will prompt you to send a transaction. Once this transaction is included in a block, the change
-  will
-  be applied to the Rocket Pool protocol!
+Selecting an option will prompt you to send a transaction. Once this transaction is included in a block, the change
+will
+be applied to the Rocket Pool protocol!
 
-  ```
-  Please select a proposal to execute:
-  1: All available proposals
-  2: proposal 71 (invite test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council)',
-  proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145)
-  ```
+```
+Please select a proposal to execute:
+1: All available proposals
+2: proposal 71 (invite test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council)',
+proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145)
+```
 
-  ## Claiming Bonds and Rewards
+## Claiming Bonds and Rewards
 
-  Proposers or Challengers may claim their bonds upon conclusion of a proposal. Depending on the outcome of a proposal,
-  a
-  Proposer or Challenger may or may not be able to claim their `proposal.bond` and `proposal.challenge.bond`.
+Proposers or Challengers may claim their bonds upon conclusion of a proposal. Depending on the outcome of a proposal,
+a
+Proposer or Challenger may or may not be able to claim their `proposal.bond` and `proposal.challenge.bond`.
 
-  Here are some rules that dictate the conditions in which bonds can be claimed:
+Here are some rules that dictate the conditions in which bonds can be claimed:
 
-  - If a proposal is defeated, the proposer forfeits their bond which is divided proportionally amongst the challengers
+- If a proposal is defeated, the proposer forfeits their bond which is divided proportionally amongst the challengers
   who contributed to the proposal's defeat. All other challengers receive their bond back only.
-  - Contributing to the defeat of a proposal means a challenger submitted an index which was later proven to be
+- Contributing to the defeat of a proposal means a challenger submitted an index which was later proven to be
   incorrect
   by the proposers inability to reply to a challenge. It is possible that there are multiple incorrect indices but only
   those that resulted in the defeat of the proposal share the reward. All other challengers receive their bond back
   only.
-  - If a challenger challenges a node, the proposer responds, and the proposal does not get defeated. The proposer can
+- If a challenger challenges a node, the proposer responds, and the proposal does not get defeated. The proposer can
   claim the challenge bonds from the invalid challenges.
-  - If a proposal is defeated, the proposer forfeits their bond which is divided proportionally amongst the challengers
+- If a proposal is defeated, the proposer forfeits their bond which is divided proportionally amongst the challengers
   who contributed to the proposal's defeat.
 
-  Use this command to claim bonds:
+Use this command to claim bonds:
 
-  ```shell
-  rocketpool pdao claim-bonds
-  ```
+```shell
+rocketpool pdao claim-bonds
+```
 
-  This will display every proposal you're eligible to claim bonds from. You can either claim bonds from a specified
-  proposal, or you can claim bonds and rewards from all eligible proposals.
+This will display every proposal you're eligible to claim bonds from. You can either claim bonds from a specified
+proposal, or you can claim bonds and rewards from all eligible proposals.
 
-  ```
-  Please select a proposal to unlock bonds / claim rewards from:
-  1: All available proposals
-  2: Proposal 42 (proposer: true, unlockable: 21.00 RPL, rewards: 0.00 RPL)
-  3: Proposal 43 (proposer: true, unlockable: 21.00 RPL, rewards: 0.00 RPL)
-  4: Proposal 44 (proposer: true, unlockable: 21.00 RPL, rewards: 0.00 RPL)
-  5: Proposal 46 (proposer: true, unlockable: 21.00 RPL, rewards: 0.00 RPL)
-  6: Proposal 47 (proposer: true, unlockable: 21.00 RPL, rewards: 0.00 RPL)
-  7: Proposal 48 (proposer: true, unlockable: 21.00 RPL, rewards: 0.00 RPL)
-  8: Proposal 49 (proposer: true, unlockable: 21.00 RPL, rewards: 0.00 RPL)
-  ```
+```
+Please select a proposal to unlock bonds / claim rewards from:
+1: All available proposals
+2: Proposal 42 (proposer: true, unlockable: 21.00 RPL, rewards: 0.00 RPL)
+3: Proposal 43 (proposer: true, unlockable: 21.00 RPL, rewards: 0.00 RPL)
+4: Proposal 44 (proposer: true, unlockable: 21.00 RPL, rewards: 0.00 RPL)
+5: Proposal 46 (proposer: true, unlockable: 21.00 RPL, rewards: 0.00 RPL)
+6: Proposal 47 (proposer: true, unlockable: 21.00 RPL, rewards: 0.00 RPL)
+7: Proposal 48 (proposer: true, unlockable: 21.00 RPL, rewards: 0.00 RPL)
+8: Proposal 49 (proposer: true, unlockable: 21.00 RPL, rewards: 0.00 RPL)
+```
 
-  Once you've selected an option, you'll be prompted with the network's current gas costs recommendations; confirm your
-  gas price selection and follow the rest of the prompts.
+Once you've selected an option, you'll be prompted with the network's current gas costs recommendations; confirm your
+gas price selection and follow the rest of the prompts.
 
-  ```
-  +============== Suggested Gas Prices ==============+
-  | Avg Wait Time |  Max Fee  |    Total Gas Cost    |
-  | 15 Seconds    | 26 gwei   | 0.1591 to 0.2387 ETH |
-  | 1 Minute      | 21 gwei   | 0.1261 to 0.1891 ETH |
-  | 3 Minutes     | 21 gwei   | 0.1261 to 0.1891 ETH |
-  | >10 Minutes   | 21 gwei   | 0.1261 to 0.1891 ETH |
-  +==================================================+
+```
++============== Suggested Gas Prices ==============+
+| Avg Wait Time |  Max Fee  |    Total Gas Cost    |
+| 15 Seconds    | 26 gwei   | 0.1591 to 0.2387 ETH |
+| 1 Minute      | 21 gwei   | 0.1261 to 0.1891 ETH |
+| 3 Minutes     | 21 gwei   | 0.1261 to 0.1891 ETH |
+| >10 Minutes   | 21 gwei   | 0.1261 to 0.1891 ETH |
++==================================================+
 
-  These prices include a maximum priority fee of 2.00 gwei.
-  Please enter your max fee (including the priority fee) or leave blank for the default of 21 gwei:
+These prices include a maximum priority fee of 2.00 gwei.
+Please enter your max fee (including the priority fee) or leave blank for the default of 21 gwei:
 
 
-  Using a max fee of 21.00 gwei and a priority fee of 2.00 gwei.
-  Are you sure you want to claim bonds and rewards from 7 proposals? [y/n]
-  ```
+Using a max fee of 21.00 gwei and a priority fee of 2.00 gwei.
+Are you sure you want to claim bonds and rewards from 7 proposals? [y/n]
+```
 
-  Note that if you select the first option to claim all available proposals, they will each execute individually and not
-  as one transaction.
+Note that if you select the first option to claim all available proposals, they will each execute individually and not
+as one transaction.
 
-  ## Creating a Recurring Treasury Spend
+## Creating a Recurring Treasury Spend
 
-  You'll need to prepare a few inputs to create a recurring treasury spend:
+You'll need to prepare a few inputs to create a recurring treasury spend:
 
-  - A contract name
-  - The recipient's address
-  - Amount of RPL to send per period
-  - The start time for the recurring payment (as a UNIX timestamp)
-  - The length of each payment period in hours / minutes / seconds (e.g., 168h0m0s)
-  - Number of payment periods
+- A contract name
+- The recipient's address
+- Amount of RPL to send per period
+- The start time for the recurring payment (as a UNIX timestamp)
+- The length of each payment period in hours / minutes / seconds (e.g., 168h0m0s)
+- Number of payment periods
 
-  ::: tip INFO
-  The recipient will need to keep note of the contract name in order to claim payments. Don't worry though, as this
-  information is stored and can be retrieved using the command `rocketpool pdao proposals details <proposal-id>`
-  :::
+::: tip INFO
+The recipient will need to keep note of the contract name in order to claim payments. Don't worry though, as this
+information is stored and can be retrieved using the command `rocketpool pdao proposals details <proposal-id>`
+:::
 
-  To raise a proposal to set up a recurring treasury spend, use the following smartnode command and follow the prompts:
+To raise a proposal to set up a recurring treasury spend, use the following smartnode command and follow the prompts:
 
-  ```shell
-  rocketpool pdao propose recurring-spend
-  ```
+```shell
+rocketpool pdao propose recurring-spend
+```
 
-  Here's what it looks like all together:
+Here's what it looks like all together:
 
-  ```
-  Please enter a contract name for this recurring payment:
-  test-recurring-spend
+```
+Please enter a contract name for this recurring payment:
+test-recurring-spend
 
-  Please enter a recipient address for this recurring payment:
-  0x681B8BBf08708e64694005c7Dc307b381b4D1A7D
+Please enter a recipient address for this recurring payment:
+0x681B8BBf08708e64694005c7Dc307b381b4D1A7D
 
-  Please enter an amount of RPL to send to 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D per period:
-  1
+Please enter an amount of RPL to send to 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D per period:
+1
 
-  Your value will be multiplied by 10^18 to be used in the contracts, which results in:
+Your value will be multiplied by 10^18 to be used in the contracts, which results in:
 
-  [1000000000000000000]
+[1000000000000000000]
 
-  Please make sure this is what you want and does not have any floating-point errors.
+Please make sure this is what you want and does not have any floating-point errors.
 
-  Is this result correct? [y/n]
-  y
+Is this result correct? [y/n]
+y
 
-  Please enter the time that the recurring payment will start (as a UNIX timestamp):
-  1717935233
+Please enter the time that the recurring payment will start (as a UNIX timestamp):
+1717935233
 
-  The provided timestamp corresponds to 2024-06-09 12:13:53 +0000 UTC - is this correct? [y/n]
-  y
+The provided timestamp corresponds to 2024-06-09 12:13:53 +0000 UTC - is this correct? [y/n]
+y
 
-  Please enter the length of each payment period in hours / minutes / seconds (e.g., 168h0m0s):
-  720h
+Please enter the length of each payment period in hours / minutes / seconds (e.g., 168h0m0s):
+720h
 
-  Please enter the total number of payment periods:
-  24
-  ```
+Please enter the total number of payment periods:
+24
+```
 
-  Once you've entered all the required inputs, a proposal to create a recurring payment will be raised. When the pDAO
-  passes and executes this proposal, the recipient is allocated `1 RPL` starting at `2024-06-09 12:13:53 +0000 UTC`
-  every
-  `720 hours` for a total of `24 payments`.
+Once you've entered all the required inputs, a proposal to create a recurring payment will be raised. When the pDAO
+passes and executes this proposal, the recipient is allocated `1 RPL` starting at `2024-06-09 12:13:53 +0000 UTC`
+every
+`720 hours` for a total of `24 payments`.
 
-  ## Claiming a Recurring Treasury Spend
+## Claiming a Recurring Treasury Spend
 
-  Claiming recurring payments should be pretty simple! Navigate to our frontend
-  tool [here](https://node.rocketpool.net/claim-recurring-payments) to do so. If you're trying this out on
-  Hoodi
-  testnet, use [this](https://testnet.node.rocketpool.net/stake-rpl-on-behalf-of-node) link instead.
+Claiming recurring payments should be pretty simple! Navigate to our frontend
+tool [here](https://node.rocketpool.net/claim-recurring-payments) to do so. If you're trying this out on
+Hoodi
+testnet, use [this](https://testnet.node.rocketpool.net/stake-rpl-on-behalf-of-node) link instead.
 
-  Once you're on the site, click the **connect wallet** button. Please read through and accept the Terms of Service &
-  Privacy Policy, this will enable different ways to connect, then click connect **metamask**.
+Once you're on the site, click the **connect wallet** button. Please read through and accept the Terms of Service &
+Privacy Policy, this will enable different ways to connect, then click connect **metamask**.
 
-  MetaMask will prompt you to select an account to connect to the website. After you've signed in, you'll need to enter
-  the **contract name**. Doing so will display all the relevant details. Make sure you double check the recipient's
-  address. Anybody can call the claim function, but each payment contract will have a designated recipient to disperse
-  RPL
-  towards.
+MetaMask will prompt you to select an account to connect to the website. After you've signed in, you'll need to enter
+the **contract name**. Doing so will display all the relevant details. Make sure you double check the recipient's
+address. Anybody can call the claim function, but each payment contract will have a designated recipient to disperse
+RPL
+towards.
 
-  <img src="./images/claim_recurring1.png" width="100%" height="auto"/>
+<img src="./images/claim_recurring1.png" width="100%" height="auto" />
 
-  You can claim your payments at any time, you'll just get the total unclaimed RPL up until the most recent period.
-  Alternatively you can wait until all periods have passed to collect all at once and save on gas.
+You can claim your payments at any time, you'll just get the total unclaimed RPL up until the most recent period.
+Alternatively you can wait until all periods have passed to collect all at once and save on gas.
 
-  Just hit the big orange claim button when you're ready and review the transaction in metamask (or your preferred
-  wallet). Once that's done, you're all set!
+Just hit the big orange claim button when you're ready and review the transaction in metamask (or your preferred
+wallet). Once that's done, you're all set!

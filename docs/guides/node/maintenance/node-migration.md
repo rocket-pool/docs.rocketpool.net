@@ -40,7 +40,6 @@ With the above context in mind, here is a helpful checklist you can follow when 
 This is designed for maximum safety, so while you may think some of the steps are unnecessary, we **strongly** encourage you to follow them all to completion.
 
 1. **Prepare the new node** by following these guides, starting from the "Preparing a Node" section and ending once you have the Smartnode installed and are syncing an Execution and Consensus client.
-
    - :warning: **DO NOT** initialize a new wallet or recover your old wallet on the node. Allow it to sync the clients _without a wallet present_.
 
 2. **WAIT** until your clients are fully synced on the new node.
@@ -49,7 +48,6 @@ This is designed for maximum safety, so while you may think some of the steps ar
    2. In this situation we recommend exiting your validators and withdrawing your capital as soon as possible, so you can start over with a new node that you have the working mnemonic for.
 4. **Stop validating** on your old node (for example, using `rocketpool service stop` to shut down the validator client).
 5. **Delete your keys** from your old node (for example, using `rocketpool wallet purge`).
-
    1. **VERIFY** the keys have been removed by looking if your node's `data` folder (default is `~/.rocketpool/data/validators/`) - each Consensus Client will have its own folder under that data folder with its own copy of the keys.
    2. Please see the [Verifying Key Removal](#verifying-key-removal) section below for instructions on how to do this.
    3. Ensure **all of them** have been deleted.
@@ -57,13 +55,11 @@ This is designed for maximum safety, so while you may think some of the steps ar
 6. **Power off** your old node and disconnect it from the Internet, by removing the Ethernet cable or Wi-Fi module.
 
 7. **Wipe the SSD** from your old node, using one of the following methods:
-
    1. Use a bootable USB drive with a Linux installation (such as the popular [GParted](https://gparted.org/download.php)) and use it to erase the drive.
    2. **Physically remove it** from your old node, attach it to another machine using a USB converter, and use a tool such as [GParted](https://installati.one/debian/11/gparted/) to erase the drive.
    3. **Physically remove it** from your old node and hit it with a hammer to break it and ensure it will never be used again.
 
 8. **WAIT** for at least 15 minutes before proceeding. Use a block explorer like [https://beaconcha.in](https://beaconcha.in) to look at your validator's attestation record. Wait until at least one attestation has been recorded as missing _and the corresponding epoch has been finalized_.
-
    1. NOTE: if you have multiple minipools, you must ensure _all of them_ have missed at least one attestation that has been finalized.
 
 9. **Recover your node wallet** on the new machine by following the instructions in [Importing / Recovering an Existing Wallet](../recovering-rp.mdx).

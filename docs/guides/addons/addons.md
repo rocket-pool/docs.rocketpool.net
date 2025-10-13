@@ -5,6 +5,7 @@
 Rocket Pool Smart Node add-ons are extensions that provide additional features to the Smart Node stack. They can be implemented as Docker containers that integrate with the Ethereum clients or the Smart Node service. Add-ons can be enabled and configured through the Smart Node's terminal user interface (TUI) via the `rocketpool service config` command.
 
 Add-on development can be based on two existing examples:
+
 - **Graffiti Wall Writer**: Enables node operators to contribute to community drawings on the Beaconcha.in graffiti wall by dynamically setting block proposal graffiti. It uses a decentralized drawing tool to determine which pixels to "paint" with each proposal.
 - **Rescue Node**: Provides a fallback beacon node service using credentials from the Rocket Rescue Node project. This helps prevent missed attestations during node maintenance, syncing, or outages by routing requests to a shared remote beacon node.
 
@@ -40,6 +41,7 @@ func NewMyAddon() addons.SmartnodeAddon {
 ```
 
 Key methods to implement:
+
 - `GetName()`: Returns the display name of the add-on.
 - `GetDescription()`: Returns a brief description.
 - `GetConfig()`: Returns the configuration object with parameters (e.g., enabled flag, API keys, URLs).
@@ -47,6 +49,7 @@ Key methods to implement:
 - Methods for starting/stopping the add-on, generating Docker compose sections, or interacting with other services.
 
 If the add-on runs a Docker container:
+
 - Define the Docker image (e.g., a custom image or external one).
 - Specify volumes, ports, or environment variables needed.
 
@@ -61,6 +64,7 @@ Add a file in `rocketpool-cli/service/config/` named `addon-myaddon.go`.
 This file defines the TUI page for configuring the add-on using the `tview` library.
 
 Key elements:
+
 - Define a struct `AddonMyAddonPage` with fields for the layout, master config, and form items.
 - Constructor `NewAddonMyAddonPage` that initializes the page and calls `createContent()`.
 - `createContent()`: Sets up the form with checkboxes (e.g., enabled) and input fields for other parameters.
@@ -115,12 +119,13 @@ Update `addons/constructors.go` to include a constructor for your add-on.
 
 This file contains functions to instantiate all add-ons.
 
-Example: 
+Example:
+
 ```
 func NewMyAddon() addons.SmartnodeAddon {
     return my_addon.NewMyAddon()
 }
-``` 
+```
 
 Then add it to the list of available addons within the`NewRocketPoolConfig` in `shared/services/config/rocket-pool-config.go`.
 
@@ -138,9 +143,10 @@ Add-ons often require modifications to the Docker compose files.
 - Add templates in the `shared/services/rocketpool/assets/install/templates/addons` directory for your add-on's compose section (e.g., `my_addon.tmpl`).
 - The add-on code generates the compose YAML when enabled, including services, volumes, and dependencies.
 
-The `composeAddons` function inside the `services/rocketpool/client` folder is responsible for provisioning Docker Compose containers based on the Rocket Pool configuration, setting up runtime, template and override assets for the add-on. 
+The `composeAddons` function inside the `services/rocketpool/client` folder is responsible for provisioning Docker Compose containers based on the Rocket Pool configuration, setting up runtime, template and override assets for the add-on.
 
 For installation:
+
 - Update the installer script (`install.sh`) if the add-on needs files copied (e.g., default config files).
 
 ### 5. Optional Integrations

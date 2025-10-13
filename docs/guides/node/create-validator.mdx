@@ -1,4 +1,4 @@
-import { Tab, Tabs } from 'rspress/theme';
+import { Tab, Tabs } from "rspress/theme";
 
 # Creating a New Minipool (Validator)
 
@@ -6,7 +6,6 @@ As a reminder, a `minipool` in Rocket Pool terms refers to a unique smart contra
 The minipool handles a portion of your ETH, known as the **bond amount**, and a portion of ETH from the rETH staking pool, known as the **borrowed amount**.
 It merges them together to form 32 ETH in total, which is then sent to the Beacon Chain deposit contract to create a new validator.
 Thus, in order to create a validator using Rocket Pool, you need to **create a minipool**.
-
 
 ::: danger WARNING
 Minipool creation is governed by two queues.
@@ -52,15 +51,10 @@ confirm the whitelist addition and after the transaction is confirmed, you can t
 
 Select which network you're using from the tabs below to be taken to it:
 
-
 <div className="p-3">
   <Tabs>
-    <Tab label="Mainnet">
-      [https://node.rocketpool.net/stake-rpl-on-behalf-of-node](https://node.rocketpool.net/stake-rpl-on-behalf-of-node)
-    </Tab>
-    <Tab label="Hoodi Testnet">
-      [https://testnet.node.rocketpool.net/stake-rpl-on-behalf-of-node](https://testnet.node.rocketpool.net/stake-rpl-on-behalf-of-node)
-    </Tab>
+    <Tab label="Mainnet">[https://node.rocketpool.net/stake-rpl-on-behalf-of-node](https://node.rocketpool.net/stake-rpl-on-behalf-of-node)</Tab>
+    <Tab label="Hoodi Testnet">[https://testnet.node.rocketpool.net/stake-rpl-on-behalf-of-node](https://testnet.node.rocketpool.net/stake-rpl-on-behalf-of-node)</Tab>
   </Tabs>
 </div>
 
