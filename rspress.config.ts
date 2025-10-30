@@ -287,7 +287,7 @@ function guides() {
                 },
                 { text: "Creating a Proposal", link: "guides/houston/participate#creating-a-proposal" },
                 {
-                  text: "Executing a successsful proposal",
+                  text: "Executing a successful proposal",
                   link: "guides/houston/participate#executing-a-successful-proposal",
                 },
                 {
