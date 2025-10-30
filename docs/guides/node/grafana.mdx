@@ -160,9 +160,9 @@ It will open up a port on your node machine for Grafana, so you can access its d
 
       First, make sure your Execution Client and Consensus Client have metrics enabled. Refer to 'Hybrid' tab for details.
 
-      Next, check prebuilt prometheus and node_exporter packages on [the offical download page](https://prometheus.io/download/).
+      Next, check prebuilt prometheus and node_exporter packages on [the official download page](https://prometheus.io/download/).
       Choose packages with proper architecture for your platform (amd64 or arm64).
-      Most recent LTS (Long Time Support) version of Prometheus is recomended.
+      Most recent LTS (Long Time Support) version of Prometheus is recommended.
 
       For example to download prometheus v2.45.3 LTS and node_exporter v1.7.0 for Linux amd64 with `wget` do:
 
@@ -537,7 +537,7 @@ If you have UFW enabled as referenced in the [Securing your Node](./securing-you
       ```
     </Tab>
     <Tab label="Native">
-      If your RocketPool node and Prometheus resides on different hosts you need to configure firewall on your node host to allow incomming trafic
+      If your RocketPool node and Prometheus resides on different hosts you need to configure firewall on your node host to allow incoming traffic
       from Prometheus host IP to the node monitoring ports.
       You also need to configure UFW on the Prometheus machine to allow for outgoing traffic from the Prometheus host to the RocketPool node host.
 
