@@ -7,9 +7,9 @@
       "devDependencies": {
         "@biomejs/biome": "^2.3.8",
         "@headlessui/react": "^2.2.9",
-        "prettier": "^3.7.1",
+        "prettier": "^3.7.3",
         "rspress": "^2.0.0-beta.21",
-        "rspress-plugin-vue": "^2.0.1",
+        "rspress-plugin-vue": "^2.0.2",
         "taze": "^19.9.2",
         "ts-node": "^10.9.2",
         "typescript": "^5.9.3",
@@ -927,7 +927,7 @@
 
     "postcss-value-parser": ["postcss-value-parser@4.2.0", "", {}, "sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ=="],
 
-    "prettier": ["prettier@3.7.1", "", { "bin": { "prettier": "bin/prettier.cjs" } }, "sha512-RWKXE4qB3u5Z6yz7omJkjWwmTfLdcbv44jUVHC5NpfXwFGzvpQM798FGv/6WNK879tc+Cn0AAyherCl1KjbyZQ=="],
+    "prettier": ["prettier@3.7.3", "", { "bin": { "prettier": "bin/prettier.cjs" } }, "sha512-QgODejq9K3OzoBbuyobZlUhznP5SKwPqp+6Q6xw6o8gnhr4O85L2U915iM2IDcfF2NPXVaM9zlo9tdwipnYwzg=="],
 
     "property-information": ["property-information@7.1.0", "", {}, "sha512-TwEZ+X+yCJmYfL7TPUOcvBZ4QfoT5YenQiJuX//0th53DE6w0xxLEtfK3iyryQFddXuvkIk51EEgrJQ0WJkOmQ=="],
 
@@ -999,7 +999,7 @@
 
     "rspress": ["rspress@2.0.0-beta.21", "", { "dependencies": { "@rsbuild/core": "~1.4.6", "@rspress/core": "2.0.0-beta.21", "@rspress/shared": "2.0.0-beta.21", "cac": "^6.7.14", "chokidar": "^3.6.0", "picocolors": "^1.1.1" }, "bin": { "rspress": "bin/rspress.js" } }, "sha512-dgporOEoGogsxI4y/xAgnmENL8S/YIUi8c8JkJqmyNQET+eyZ9jF83WopP7YaxyDGY1j43cXiFf0bhUMVB8i8w=="],
 
-    "rspress-plugin-vue": ["rspress-plugin-vue@2.0.1", "", { "dependencies": { "micromatch": "^4.0.0", "rspack-vue-loader": "17.4.4", "vue-loader": "15.11.1" }, "peerDependencies": { "@rsbuild/core": "^1.6.9", "@rsbuild/plugin-babel": "^1.0.6", "@rsbuild/plugin-vue": "^1.2.0", "@rspress/core": "^1.46.1", "@rspress/shared": "^1.46.1", "rsbuild-plugin-unplugin-vue": "^0.1.0" } }, "sha512-PZQOe/z4Oq4N/DQmHRkW+xwq6MDp8ffHna/MoGpdAH74lt7GCyP4RAH22Ux3zgofbSqA74ohmS+2s1Ai3EvATg=="],
+    "rspress-plugin-vue": ["rspress-plugin-vue@2.0.2", "", { "dependencies": { "micromatch": "^4.0.0", "rspack-vue-loader": "17.4.4", "vue-loader": "15.11.1" }, "peerDependencies": { "@rsbuild/core": "^1.6.9", "@rsbuild/plugin-babel": "^1.0.6", "@rsbuild/plugin-vue": "^1.2.0", "@rspress/core": "^1.46.1", "@rspress/shared": "^1.46.1", "rsbuild-plugin-unplugin-vue": "^0.1.0" } }, "sha512-gb2FjVWIDuocotcjNyBb/6zXGB2dt3jzDZ0erc9dS+FxIWPw7oels5LxAjbKCriZbVB+qmB/PoaKl/wqYmM3FA=="],
 
     "safe-buffer": ["safe-buffer@5.2.1", "", {}, "sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ=="],
 
