@@ -14,7 +14,7 @@
     "@headlessui/react": "^2.2.9",
     "prettier": "^3.7.3",
     "rspress": "^2.0.0-beta.21",
-    "rspress-plugin-vue": "^2.0.2",
+    "rspress-plugin-vue": "^2.0.3",
     "taze": "^19.9.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
