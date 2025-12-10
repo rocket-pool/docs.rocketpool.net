@@ -187,6 +187,8 @@ rocketpool node leave-smoothing-pool
 
 This will record you as opted-out in the Rocket Pool contracts, and once a small delay has passed, will automatically change your Validator Client's `fee recipient` from the Smoothing Pool contract back to your node's Fee Distributor contract.
 
+If you propose a block shortly after leaving the smoothing pool, you might wonder at which point the node's fee distributor becomes a valid fee recipient (according to [The Penalty System](#the-penalty-system)). Unfortunately, this is left unspecified by Rocket Pool. However, since the penalty system is not implemented, there are no consequences if you use the wrong fee recipient due to this lack of clarity. Certainly, any blocks proposed with a fee recipient set according to the Smartnode software's "short delay" of an unspecified length would not be penalized under any potential penalty system that may be implemented in the future.
+
 ### Claiming Rewards from the Smoothing Pool
 
 Rewards from the Smoothing Pool are bundled together with RPL at the end of each rewards interval using the Redstone rewards system.
