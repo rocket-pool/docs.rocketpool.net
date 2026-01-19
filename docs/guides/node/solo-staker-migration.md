@@ -1,3 +1,7 @@
+::: danger WARNING
+Minipool deposits are currently disabled in preparation for Saturn 1.
+:::
+
 # Converting a Solo Validator into a Minipool
 
 When the Beacon Chain was first launched, validators were created with a special pair of cryptographic keys - the **validator key** and the **withdrawal key**.

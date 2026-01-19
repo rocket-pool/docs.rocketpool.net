@@ -1,3 +1,7 @@
+::: danger WARNING
+Minipool deposits are currently disabled in preparation for Saturn 1.
+:::
+
 # The Deposit Credit System
 
 The deposit credit system is a mechanism to track ETH that was previously bonded by node operators but is no longer required and make it available for use again.

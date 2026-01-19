@@ -1,3 +1,7 @@
+::: danger WARNING
+Minipool deposits are currently disabled in preparation for Saturn 1.
+:::
+
 # The Minipool Delegate
 
 Every validator you run has a **minipool** contract as its "owner" so-to-speak.

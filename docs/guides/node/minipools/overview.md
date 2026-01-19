@@ -4,6 +4,10 @@ next:
   link: "/guides/node/create-validator"
 ---
 
+::: danger WARNING
+Minipool deposits are currently disabled in preparation for Saturn 1.
+:::
+
 # Overview
 
 This section covers the processes of creating and migrating minipools (Rocket Pool validators).
