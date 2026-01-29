@@ -5,6 +5,7 @@ alias s := ui-serve
 alias serve := ui-serve
 alias chk := ui-check
 alias u := ui-upgrade
+alias t := translate-check
 
 # Serve the site for dev usage
 ui-serve:
@@ -74,3 +75,23 @@ tag-push:
 
 rmi:
     docker rmi $DOCKER_REPO/docs.rocketpool.net:latest
+
+# Check which files need translation
+translate-check:
+    bun scripts/translate.ts check
+
+# Translate all changed files
+translate:
+    bun scripts/translate.ts translate
+
+# Translate changed files for a specific locale
+translate-lang locale:
+    bun scripts/translate.ts translate {{locale}}
+
+# Force re-translate all files
+translate-all:
+    bun scripts/translate.ts translate-all
+
+# Show what would be translated (dry run)
+translate-dry:
+    bun scripts/translate.ts dry-run
