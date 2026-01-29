@@ -1,4 +1,4 @@
-import { defineConfig } from "rspress/config";
+import { defineConfig } from "@rspress/core";
 // import path from "path";
 
 export default defineConfig({
@@ -40,24 +40,10 @@ export default defineConfig({
         content: "https://github.com/rocket-pool/docs.rocketpool.net",
       },
     ],
-    locales: [
-      {
-        lang: "zh",
-        label: "简体中文",
-        editLink: {
-          docRepoBaseUrl: "https://github.com/rocket-pool/docs.rocketpool.net/tree/main/docs",
-          text: "📝 在 GitHub 上编辑此页",
-        },
-      },
-      {
-        lang: "en",
-        label: "English",
-        editLink: {
-          docRepoBaseUrl: "https://github.com/rocket-pool/docs.rocketpool.net/tree/main/docs",
-          text: "📝 Edit this page on GitHub",
-        },
-      },
-    ],
+    editLink: {
+      docRepoBaseUrl: "https://github.com/rocket-pool/docs.rocketpool.net/tree/main/docs",
+      text: "📝 Edit this page on GitHub",
+    },
     nav: [
       {
         text: "Overview",
