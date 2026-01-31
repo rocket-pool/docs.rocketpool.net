@@ -1,30 +1,30 @@
 import ethereum_client_diversity from "./images/ethereum-client-diversity-aug-2025.png";
 
-# Choosing your ETH Clients
+# Choisir vos clients ETH
 
-Rocket Pool's Smartnode installer can transform your machine into a full Ethereum node, as it requires both Execution and Consensus clients in order to operate properly.
+L'installateur Smartnode de Rocket Pool peut transformer votre machine en un nœud Ethereum complet, car il nécessite à la fois des clients d'exécution et de consensus pour fonctionner correctement.
 
-The terms ETH1/ETH2 have been deprecated.
-The chains will be referred to as the **Execution Layer (ETH1)** and the **Beacon Chain or Consensus Layer (ETH2)** in the rest of these guides.
+Les termes ETH1/ETH2 ont été dépréciés.
+Les chaînes seront désignées comme la **Couche d'Exécution (ETH1)** et la **Beacon Chain ou Couche de Consensus (ETH2)** dans le reste de ces guides.
 
-If you already have Execution and Consensus clients up and running on a separate machine (for example, if you're already solo-staking), then skip this section and move onto the [Configuring a Hybrid Rocket Pool Node with External Clients](./install-modes#the-hybrid-configuration-with-external-clients) section.
+Si vous avez déjà des clients d'exécution et de consensus opérationnels sur une machine séparée (par exemple, si vous faites déjà du staking solo), alors sautez cette section et passez à la section [Configuration d'un nœud Rocket Pool hybride avec des clients externes](./install-modes#the-hybrid-configuration-with-external-clients).
 
-Otherwise, read on to learn more about your choices for Execution and Consensus clients.
+Sinon, continuez à lire pour en savoir plus sur vos choix de clients d'exécution et de consensus.
 
 ::: warning NOTE
-As of August 2025, the distribution of clients on the Beacon Chain looks roughly like this:
+En août 2025, la distribution des clients sur la Beacon Chain ressemble approximativement à ceci :
 
 <img src={ethereum_client_diversity} width="100%" height="auto" />
 
-_Data obtained from [https://clientdiversity.org](https://clientdiversity.org)_
+_Données obtenues depuis [https://clientdiversity.org](https://clientdiversity.org)_
 
-Obtaining data on which consensus client a validator is running is a relatively difficult problem because clients are not easily identified. The [data methodology](https://clientdiversity.org/methodology/) page
-on [https://clientdiversity.org](https://clientdiversity.org) goes into how data from different sources are obtained. Feel free to check out
-[https://ethernodes.org/](https://ethernodes.org/) as an additional source of data.
+Obtenir des données sur le client de consensus qu'un validateur utilise est un problème relativement difficile car les clients ne sont pas facilement identifiables. La page [méthodologie des données](https://clientdiversity.org/methodology/)
+sur [https://clientdiversity.org](https://clientdiversity.org) explique comment les données provenant de différentes sources sont obtenues. N'hésitez pas à consulter
+[https://ethernodes.org/](https://ethernodes.org/) comme source de données supplémentaire.
 
-The overwhelming majority of node operators are currently using Geth as an Execution Client and either Lighthouse or Prysm as a Consensus Client.
-In the interest of supporting the health of the Execution Layer (formerly ETH1) and the Beacon Chain (formerly ETH2), we currently recommend that you consider using different clients.
-Here are some relevant articles about why an even client diversity is crucial to the health of the network if you would like to learn more:
+L'écrasante majorité des opérateurs de nœuds utilisent actuellement Geth comme client d'exécution et soit Lighthouse soit Prysm comme client de consensus.
+Dans l'intérêt du soutien à la santé de la couche d'exécution (anciennement ETH1) et de la Beacon Chain (anciennement ETH2), nous recommandons actuellement d'envisager d'utiliser des clients différents.
+Voici quelques articles pertinents sur l'importance d'une diversité de clients équilibrée pour la santé du réseau si vous souhaitez en savoir plus :
 
 [https://clientdiversity.org/#why](https://clientdiversity.org/#why)
 
@@ -39,150 +39,150 @@ Here are some relevant articles about why an even client diversity is crucial to
 [https://eth2book.info/bellatrix/part2/incentives/diversity](https://eth2book.info/bellatrix/part2/incentives/diversity/)
 :::
 
-For users that would like to get up and running quickly, the Smartnode installer provides a `Random Client` option which may be the best choice.
-For users that have a specific client they'd like to use in mind, we provide the ability to easily choose one during Rocket Pool's installation.
-The options below help to describe each client so you can make an informed decision if you'd like to specify which one you want.
+Pour les utilisateurs qui souhaitent être opérationnels rapidement, l'installateur Smartnode propose une option `Client aléatoire` qui peut être le meilleur choix.
+Pour les utilisateurs qui ont un client spécifique en tête, nous offrons la possibilité d'en choisir un facilement lors de l'installation de Rocket Pool.
+Les options ci-dessous aident à décrire chaque client afin que vous puissiez prendre une décision éclairée si vous souhaitez spécifier lequel vous voulez.
 
-## Execution Clients
+## Clients d'exécution
 
-Rocket Pool supports four different Execution clients: **Geth**, **Besu**, **Nethermind**, and **Reth**.
+Rocket Pool prend en charge quatre clients d'exécution différents : **Geth**, **Besu**, **Nethermind** et **Reth**.
 
-Running an Execution client involves storing a copy of the Execution layer blockchain on your machine.
-It interacts via peer-to-peer communications with other EC nodes to record and verify new blocks and transactions.
-A full Execution client is **required** to run a validator now that the Execution and Consensus layers have merged.
+Exécuter un client d'exécution implique de stocker une copie de la blockchain de la couche d'exécution sur votre machine.
+Il interagit via des communications pair-à-pair avec d'autres nœuds EC pour enregistrer et vérifier de nouveaux blocs et transactions.
+Un client d'exécution complet est **requis** pour exécuter un validateur maintenant que les couches d'exécution et de consensus ont fusionné.
 
 ### Geth
 
-[Geth](https://geth.ethereum.org/) (formally named `Go Ethereum`) is one of the three original implementations (along with C++ and Python) of the Ethereum protocol.
-It is written in Go, fully open source and licensed under the GNU LGPL v3.
+[Geth](https://geth.ethereum.org/) (officiellement nommé `Go Ethereum`) est l'une des trois implémentations originales (avec C++ et Python) du protocole Ethereum.
+Il est écrit en Go, entièrement open source et sous licence GNU LGPL v3.
 
-Geth is the oldest and most widely-used Execution Client around the world.
-It has a reputation for being very stable and reliable.
+Geth est le client d'exécution le plus ancien et le plus largement utilisé dans le monde.
+Il a la réputation d'être très stable et fiable.
 
-It is multithreaded, meaning it can take advantage of your entire CPU.
-Its RAM usage is configurable, down to a **minimum of about 4 GB for Mainnet**.
-This makes it viable for low-power systems and high-power systems alike.
+Il est multithread, ce qui signifie qu'il peut tirer parti de l'ensemble de votre CPU.
+Son utilisation de la RAM est configurable, jusqu'à un **minimum d'environ 4 Go pour le Mainnet**.
+Cela le rend viable pour les systèmes à faible puissance comme pour les systèmes haute puissance.
 
 ::: warning NOTE
-Geth requires **offline pruning** of its database periodically: its database will grow over time and gradually consume all of your free disk space unless you prune it when your disk runs low on free space.
-The frequency you need to prune will depend on your SSD's size.
+Geth nécessite un **élagage hors ligne** de sa base de données périodiquement : sa base de données grandira avec le temps et consommera progressivement tout votre espace disque libre à moins que vous ne l'élaguiez lorsque votre disque manque d'espace libre.
+La fréquence à laquelle vous devez élaguer dépendra de la taille de votre SSD.
 
-For more information on pruning Geth, view the [Pruning the Execution Client](./pruning) page.
+Pour plus d'informations sur l'élagage de Geth, consultez la page [Élagage du client d'exécution](./pruning).
 :::
 
 ### Besu
 
-Hyperledger [Besu](https://besu.hyperledger.org/en/stable/) is an open-source Ethereum client developed under the Apache 2.0 license and written in [Java](https://en.wikipedia.org/wiki/Java_%28programming_language%29).
-Besu's most exciting features is its use of [Bonsai Tries](https://consensys.net/blog/news/bonsai-tries-a-big-update-for-small-state-storage-in-hyperledger-besu/) for state storage. In addition to their better performance characteristics, Bonsai Tries give Besu two interesting advantages over the other clients:
+Hyperledger [Besu](https://besu.hyperledger.org/en/stable/) est un client Ethereum open source développé sous la licence Apache 2.0 et écrit en [Java](https://en.wikipedia.org/wiki/Java_%28programming_language%29).
+La fonctionnalité la plus intéressante de Besu est son utilisation de [Bonsai Tries](https://consensys.net/blog/news/bonsai-tries-a-big-update-for-small-state-storage-in-hyperledger-besu/) pour le stockage d'état. En plus de leurs meilleures caractéristiques de performance, les Bonsai Tries donnent à Besu deux avantages intéressants par rapport aux autres clients :
 
-1. Besu does _not_ need to be pruned at all; it is effectively maintenance-free in that respect
-2. Besu is able to revisit any past block in the blockchain, though it does this by rewinding each block so reaching blocks from long ago may take some time.
+1. Besu n'a _pas_ besoin d'être élagué du tout ; il est effectivement sans entretien à cet égard
+2. Besu est capable de revisiter n'importe quel bloc passé dans la blockchain, bien qu'il le fasse en rembobinant chaque bloc, donc atteindre des blocs d'il y a longtemps peut prendre du temps.
 
-Besu currently recommends at least **16 GB of RAM**, though it is possible to run successfully with 8 GB.
+Besu recommande actuellement au moins **16 Go de RAM**, bien qu'il soit possible de fonctionner avec succès avec 8 Go.
 
 ### Nethermind
 
-[Nethermind](https://nethermind.io/nethermind-client/) is written in [.NET Core](https://en.wikipedia.org/wiki/.NET).
-It boasts the fastest sync speed of the Execution clients and has a rich set of configuration options.
-It is designed with node operators in mind and has many features that they will find helpful.
+[Nethermind](https://nethermind.io/nethermind-client/) est écrit en [.NET Core](https://en.wikipedia.org/wiki/.NET).
+Il se vante de la vitesse de synchronisation la plus rapide des clients d'exécution et dispose d'un ensemble riche d'options de configuration.
+Il est conçu avec les opérateurs de nœuds à l'esprit et possède de nombreuses fonctionnalités qu'ils trouveront utiles.
 
-Like Geth, Nethermind requires periodic pruning of its database.
-Unlike Geth, however, Nethermind's database can [be pruned while it stays online](https://medium.com/nethermind-eth/netherminds-full-pruning-is-here-cutting-the-gordian-knot-5e3450f02de9).
-This means you do not need to turn your client off and rely on a fallback in order to prune.
-However, Nethermind's online pruning process is quite resource intensive so users running low-power nodes may see some performance degradation during the process.
+Comme Geth, Nethermind nécessite un élagage périodique de sa base de données.
+Contrairement à Geth, cependant, la base de données de Nethermind peut [être élaguée pendant qu'elle reste en ligne](https://medium.com/nethermind-eth/netherminds-full-pruning-is-here-cutting-the-gordian-knot-5e3450f02de9).
+Cela signifie que vous n'avez pas besoin d'éteindre votre client et de vous appuyer sur une solution de secours pour élaguer.
+Cependant, le processus d'élagage en ligne de Nethermind est assez gourmand en ressources, donc les utilisateurs exécutant des nœuds à faible puissance peuvent constater une certaine dégradation des performances pendant le processus.
 
-Nethermind requires **at least 16GB of RAM**, though more is preferable.
+Nethermind nécessite **au moins 16 Go de RAM**, bien que plus soit préférable.
 
 ::: tip NOTE
-Nethermind requires periodic pruning of its database periodically: its database will grow over time and gradually consume all of your free disk space unless you prune it when your disk runs low on free space.
-The frequency you need to prune will depend on your SSD's size.
+Nethermind nécessite un élagage périodique de sa base de données : sa base de données grandira avec le temps et consommera progressivement tout votre espace disque libre à moins que vous ne l'élaguiez lorsque votre disque manque d'espace libre.
+La fréquence à laquelle vous devez élaguer dépendra de la taille de votre SSD.
 
-Unlike Geth, however, Nethermind **remains online** while it is pruning.
-This makes it a compelling choice for nodes because they won't have any down time during pruning.
+Contrairement à Geth, cependant, Nethermind **reste en ligne** pendant l'élagage.
+Cela en fait un choix convaincant pour les nœuds car ils n'auront aucun temps d'arrêt pendant l'élagage.
 
-For more information on pruning Nethermind, view the [Pruning the Execution Client](./pruning) page.
+Pour plus d'informations sur l'élagage de Nethermind, consultez la page [Élagage du client d'exécution](./pruning).
 :::
 
 ### Reth
 
-[Reth](https://reth.rs/) is an Execution layer client written in [Rust](https://www.rust-lang.org/) and uses the [Erigon staged-sync](https://erigon.substack.com/p/erigon-stage-sync-and-control-flows) architecture.
-Reth is designed from the ground up with efficiency, performance, and modularity in mind. It's licenced under the Apache/MIT permissive license and built
-with small, well-abstracted, well-tested, and benchmarked packages. This makes for a great open source developer experience and allows Reth's components to be used in other projects.
+[Reth](https://reth.rs/) est un client de couche d'exécution écrit en [Rust](https://www.rust-lang.org/) et utilise l'architecture [Erigon staged-sync](https://erigon.substack.com/p/erigon-stage-sync-and-control-flows).
+Reth est conçu dès le départ avec l'efficacité, la performance et la modularité à l'esprit. Il est sous licence Apache/MIT permissive et construit
+avec des packages petits, bien abstraits, bien testés et benchmarkés. Cela fait une excellente expérience de développeur open source et permet d'utiliser les composants de Reth dans d'autres projets.
 
-As the newest client in the ecosystem, Reth is rapidly evolving and gaining adoption. While RAM and CPU requirements are flexible, the most important
-requirement is by far the disk. We suggest using a good [TLC disk](https://gist.github.com/yorickdowne/f3a3e79a573bf35767cd002cc977b038).
-Reth requires **at least 8 GB of RAM** for a full node or **16 GB of RAM** for an archive node.
+En tant que client le plus récent de l'écosystème, Reth évolue rapidement et gagne en adoption. Bien que les exigences en RAM et CPU soient flexibles, l'exigence la plus importante
+est de loin le disque. Nous suggérons d'utiliser un bon [disque TLC](https://gist.github.com/yorickdowne/f3a3e79a573bf35767cd002cc977b038).
+Reth nécessite **au moins 8 Go de RAM** pour un nœud complet ou **16 Go de RAM** pour un nœud d'archive.
 
-### Client Comparison Table
+### Tableau comparatif des clients
 
-| Client     | Type | CPU Usage | Minimum RAM Usage | Sync Time |
-| ---------- | ---- | --------- | ----------------- | --------- |
-| Geth       | Full | Moderate  | 4 GB              | Moderate  |
-| Besu       | Full | Moderate  | 6 GB              | Slow      |
-| Nethermind | Full | Moderate  | 16 GB             | Fast      |
-| Reth       | Full | Moderate  | 8 GB              | Fast      |
+| Client     | Type     | Utilisation CPU | Utilisation minimale RAM | Temps de synchro |
+| ---------- | -------- | --------------- | ------------------------ | ---------------- |
+| Geth       | Complet  | Modérée         | 4 Go                     | Modéré           |
+| Besu       | Complet  | Modérée         | 6 Go                     | Lent             |
+| Nethermind | Complet  | Modérée         | 16 Go                    | Rapide           |
+| Reth       | Complet  | Modérée         | 8 Go                     | Rapide           |
 
-## Consensus Clients
+## Clients de consensus
 
-Rocket Pool's installer is proud to support five currently available Consensus clients: **Lighthouse**, **Lodestar**, **Nimbus**, **Prysm**, and **Teku**.
+L'installateur de Rocket Pool est fier de prendre en charge cinq clients de consensus actuellement disponibles : **Lighthouse**, **Lodestar**, **Nimbus**, **Prysm** et **Teku**.
 
-Each of these is a **full client**, meaning you will contribute to the decentralization of the Consensus network regardless of which client you choose.
+Chacun d'entre eux est un **client complet**, ce qui signifie que vous contribuerez à la décentralisation du réseau de consensus quel que soit le client que vous choisissez.
 
-All five clients are quite low-risk, low-maintenance, and will generate practically identical total rewards from validation.
-They differ slightly in terms of resource requirements and features, but you cannot go wrong with any of them.
+Les cinq clients présentent un faible risque, nécessitent peu d'entretien et génèreront des récompenses totales pratiquement identiques grâce à la validation.
+Ils diffèrent légèrement en termes d'exigences en ressources et de fonctionnalités, mais vous ne pouvez pas vous tromper avec l'un d'entre eux.
 
-By default, the Rocket Pool installer will offer to select a random consensus client for you.
-This will help contribute to the overall **diversity of the network**.
-This is important from a security perspective: if one client is used by a majority of nodes and suffers from a severe bug or attack, it might cause all of those nodes to fail and thus threaten the entire Beacon Chain's stability.
+Par défaut, l'installateur de Rocket Pool proposera de sélectionner un client de consensus aléatoire pour vous.
+Cela aidera à contribuer à la **diversité globale du réseau**.
+C'est important d'un point de vue sécurité : si un client est utilisé par une majorité de nœuds et souffre d'un bug grave ou d'une attaque, cela pourrait faire échouer tous ces nœuds et ainsi menacer la stabilité de l'ensemble de la Beacon Chain.
 
 ### Lighthouse
 
-[Lighthouse](https://lighthouse.sigmaprime.io/) is an open-source Ethereum 2.0 maintained by [Sigma Prime](https://sigmaprime.io/).
-It implements the [Ethereum 2.0 specification](https://github.com/ethereum/consensus-specs) as defined by the Ethereum Foundation Research team.
+[Lighthouse](https://lighthouse.sigmaprime.io/) est un Ethereum 2.0 open source maintenu par [Sigma Prime](https://sigmaprime.io/).
+Il implémente la [spécification Ethereum 2.0](https://github.com/ethereum/consensus-specs) telle que définie par l'équipe de recherche de l'Ethereum Foundation.
 
-Lighthouse is a cutting-edge distributed systems project implementing technologies at the forefront of blockchain research; including proof-of-stake consensus, parallel transaction execution and state separation (sharding).
+Lighthouse est un projet de systèmes distribués de pointe implémentant des technologies à l'avant-garde de la recherche blockchain ; y compris le consensus proof-of-stake, l'exécution parallèle de transactions et la séparation d'état (sharding).
 
-Lighthouse has no official affiliation with the Ethereum Foundation and will continue to follow its guidance as long it is remains in the best interest of the Ethereum protocol and community surrounding it.
+Lighthouse n'a aucune affiliation officielle avec l'Ethereum Foundation et continuera à suivre ses orientations tant qu'elles resteront dans le meilleur intérêt du protocole Ethereum et de la communauté qui l'entoure.
 
-Lighthouse is implemented in [Rust](https://www.rust-lang.org/) and will maintain a focus on security and efficiency.
+Lighthouse est implémenté en [Rust](https://www.rust-lang.org/) et maintiendra un accent sur la sécurité et l'efficacité.
 
 ### Lodestar
 
-[Lodestar](https://lodestar.chainsafe.io/) is the fifth open-source Ethereum consensus client maintained by [ChainSafe Systems](https://chainsafe.io/). Our flagship product is our production-capable beacon chain and validator client for Ethereum consensus. Our software and tooling is uniquely situated as the go-to for researchers and developers for rapid prototyping and browser usage. Millions of developers around the world are familiar with Typescript, and Lodestar's high-quality codebases are excellent introductions to the Ethereum world.
+[Lodestar](https://lodestar.chainsafe.io/) est le cinquième client de consensus Ethereum open source maintenu par [ChainSafe Systems](https://chainsafe.io/). Notre produit phare est notre client beacon chain et validateur prêt pour la production pour le consensus Ethereum. Notre logiciel et nos outils sont positionnés de manière unique comme référence pour les chercheurs et développeurs pour le prototypage rapide et l'utilisation en navigateur. Des millions de développeurs à travers le monde sont familiers avec Typescript, et les bases de code de haute qualité de Lodestar sont d'excellentes introductions au monde Ethereum.
 
-Lodestar has also been a leader in light client research, standardization, and implementation of Ethereum light clients. We strive to work with other client implementers, researchers and developers to demonstrate the importance of having browsers utilize trustless data directly from the blockchain.
+Lodestar a également été un leader dans la recherche, la normalisation et l'implémentation de clients légers Ethereum. Nous nous efforçons de travailler avec d'autres implémenteurs de clients, chercheurs et développeurs pour démontrer l'importance pour les navigateurs d'utiliser des données sans confiance directement depuis la blockchain.
 
-Lodestar's niche is in its implementation language, [Typescript](https://www.typescriptlang.org/).
+La niche de Lodestar est son langage d'implémentation, [Typescript](https://www.typescriptlang.org/).
 
 ### Nimbus
 
-[Nimbus](https://nimbus.team/) is a client implementation for both Ethereum 2.0 and Ethereum 1.0 that strives to be as lightweight as possible in terms of resources used.
-This allows it to perform well on embedded systems and resource-restricted devices.
+[Nimbus](https://nimbus.team/) est une implémentation de client pour Ethereum 2.0 et Ethereum 1.0 qui s'efforce d'être aussi légère que possible en termes de ressources utilisées.
+Cela lui permet de bien performer sur des systèmes embarqués et des appareils à ressources limitées.
 
-However, resource-restricted hardware is not the only thing Nimbus is good for.
-Its low resource consumption makes it easy to run Nimbus together with other workloads on your server (this is especially valuable for stakers looking to lower the cost of their server instances).
+Cependant, le matériel à ressources limitées n'est pas la seule chose pour laquelle Nimbus est bon.
+Sa faible consommation de ressources facilite l'exécution de Nimbus avec d'autres charges de travail sur votre serveur (ceci est particulièrement précieux pour les stakers cherchant à réduire le coût de leurs instances de serveur).
 
-Nimbus is written in [Nim](https://nim-lang.org/) and maintained by the [Status.im team](https://status.im/about/).
+Nimbus est écrit en [Nim](https://nim-lang.org/) et maintenu par l'[équipe Status.im](https://status.im/about/).
 
 ### Prysm
 
-The [Prysm](https://docs.prylabs.network/docs/getting-started/#what-is-prysm) project is a full-featured implementation for the Ethereum 2.0 network written entirely in the [Go programming language](https://golang.org/).
+Le projet [Prysm](https://docs.prylabs.network/docs/getting-started/#what-is-prysm) est une implémentation complète du réseau Ethereum 2.0 écrite entièrement dans le [langage de programmation Go](https://golang.org/).
 
-Created by [Prysmatic Labs](https://prysmaticlabs.com/), Prysm implements the official [Ethereum 2.0 specification](https://github.com/ethereum/consensus-specs), which is the product of an ongoing collective research and development effort by various teams across the Ethereum ecosystem including the [Ethereum Foundation](https://ethereum.org/).
+Créé par [Prysmatic Labs](https://prysmaticlabs.com/), Prysm implémente la [spécification officielle Ethereum 2.0](https://github.com/ethereum/consensus-specs), qui est le produit d'un effort collectif continu de recherche et développement par diverses équipes à travers l'écosystème Ethereum, y compris l'[Ethereum Foundation](https://ethereum.org/).
 
 ### Teku
 
-[Teku](https://docs.teku.consensys.net/en/stable/) (formerly known as Artemis) is a [Java](https://en.wikipedia.org/wiki/Java_%28programming_language%29)-based Ethereum consensus client designed & built to meet institutional needs and security requirements.
-PegaSys is an arm of [ConsenSys](https://consensys.net/) dedicated to building enterprise-ready clients and tools for interacting with the core Ethereum platform.
+[Teku](https://docs.teku.consensys.net/en/stable/) (anciennement connu sous le nom d'Artemis) est un client de consensus Ethereum basé sur [Java](https://en.wikipedia.org/wiki/Java_%28programming_language%29) conçu et construit pour répondre aux besoins institutionnels et aux exigences de sécurité.
+PegaSys est une branche de [ConsenSys](https://consensys.net/) dédiée à la construction de clients et d'outils prêts pour l'entreprise pour interagir avec la plateforme Ethereum de base.
 
-Teku is Apache 2.0 licensed and written in Java, a language notable for its maturity & ubiquity.
+Teku est sous licence Apache 2.0 et écrit en Java, un langage notable pour sa maturité et son omniprésence.
 
-### Client Comparison Table
+### Tableau comparatif des clients
 
-| Client     | CPU Usage | Minimum RAM Usage | Sync Time                    |
-| ---------- | --------- | ----------------- | ---------------------------- |
-| Lighthouse | Moderate  | 2 GB              | Instant with checkpoint sync |
-| Lodestar   | Moderate  | 4 GB              | Instant with checkpoint sync |
-| Nimbus     | Low       | 0.75 GB           | Instant with checkpoint sync |
-| Prysm      | Moderate  | 2 GB              | Instant with checkpoint sync |
-| Teku       | Moderate  | 4 GB              | Instant with checkpoint sync |
+| Client     | Utilisation CPU | Utilisation minimale RAM | Temps de synchro                      |
+| ---------- | --------------- | ------------------------ | ------------------------------------- |
+| Lighthouse | Modérée         | 2 Go                     | Instantané avec synchro de checkpoint |
+| Lodestar   | Modérée         | 4 Go                     | Instantané avec synchro de checkpoint |
+| Nimbus     | Faible          | 0,75 Go                  | Instantané avec synchro de checkpoint |
+| Prysm      | Modérée         | 2 Go                     | Instantané avec synchro de checkpoint |
+| Teku       | Modérée         | 4 Go                     | Instantané avec synchro de checkpoint |

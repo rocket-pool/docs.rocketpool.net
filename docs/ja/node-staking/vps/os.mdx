@@ -1,36 +1,36 @@
-# Preparing the Operating System
+# オペレーティングシステムの準備
 
-As described in the previous section, there are many different VPS and cloud providers.
-Writing guides for all of them would be somewhat impractical, but in this section we'll go over a typical workflow for preparing a virtual machine hosted on [Amazon Web Services](https://aws.amazon.com/).
-Specifically, we'll cover how to select the appropriate virtual hardware configuration and how to prepare the Operating System for Rocket Pool.  
-You should be able to extrapolate how to apply these steps to any provider once you've become familiar with their ecosystem.
+前のセクションで説明したように、さまざまなVPSおよびクラウドプロバイダーがあります。
+それらすべてのガイドを作成することはやや非実用的ですが、このセクションでは[Amazon Web Services](https://aws.amazon.com/)でホストされている仮想マシンを準備するための典型的なワークフローを説明します。
+具体的には、適切な仮想ハードウェア構成を選択する方法と、Rocket Pool用のオペレーティングシステムを準備する方法について説明します。
+エコシステムに慣れたら、これらの手順を任意のプロバイダーに適用する方法を推定できるはずです。
 
-## Creating an EC2 Virtual Machine
+## EC2仮想マシンの作成
 
-The first step is to [create an AWS account](https://portal.aws.amazon.com/billing/signup) if you don't already have one.
-Follow the instructions provided in that link or log in with an existing account, and you will eventually make it to your management console dashboard:
+最初の手順は、アカウントをまだお持ちでない場合は[AWSアカウントを作成](https://portal.aws.amazon.com/billing/signup)することです。
+そのリンクで提供されている指示に従うか、既存のアカウントでログインすると、最終的に管理コンソールダッシュボードに到達します。
 
 <img src="./images/aws-console.png" width="100%" height="auto" />
 
-Next, click on the drop-down at the top right of the screen to select the geographic region you want your server to physically reside in.
-Servers cannot be moved between regions once they're created, so you want to ensure you're happy with the currently selected option before actually creating the server.
+次に、画面の右上にあるドロップダウンをクリックして、サーバーを物理的に配置したい地理的地域を選択します。
+サーバーは作成後に地域間で移動できないため、実際にサーバーを作成する前に、現在選択されているオプションに満足していることを確認する必要があります。
 
-Now, click **Services** in the toolbar.
-Go to the **Compute** section and select **EC2**.
-Your dashboard should change to a view similar to this:
+次に、ツールバーの**Services**をクリックします。
+**Compute**セクションに移動し、**EC2**を選択します。
+ダッシュボードは次のようなビューに変わるはずです。
 
 <img src="./images/ec2-dashboard.png" width="100%" height="auto" />
 
-Click the orange **Launch Instance** button and select **Launch Instance** from the list of options to create a new machine.
-You will be presented with a marketplace of Amazon Machine Images.
-Each of these represents a specific snapshot of a machine with a pre-installed Operating System and some other useful software components.
+オレンジ色の**Launch Instance**ボタンをクリックし、オプションのリストから**Launch Instance**を選択して、新しいマシンを作成します。
+Amazon Machine Imagesのマーケットプレイスが表示されます。
+これらのそれぞれは、事前にインストールされたオペレーティングシステムといくつかの有用なソフトウェアコンポーネントを備えたマシンの特定のスナップショットを表しています。
 
-For a Rocket Pool node, we recommend you use the **Ubuntu Server 24.04 LTS (HVM)** image.
+Rocket Poolノードには、**Ubuntu Server 24.04 LTS (HVM)**イメージの使用をお勧めします。
 
-Next, you will have to choose an **Instance Type**.
-This determines what virtual hardware resources your machine will have available.
+次に、**Instance Type**を選択する必要があります。
+これにより、マシンが利用できる仮想ハードウェアリソースが決まります。
 
-At the time of writing, these are what the different options offer:
+執筆時点では、さまざまなオプションが提供するものは次のとおりです。
 
 | Instance   | vCPU | CPU Credits / hour | Mem (GiB) | Storage  | Network Performance |
 | ---------- | ---- | ------------------ | --------- | -------- | ------------------- |
@@ -42,198 +42,198 @@ At the time of writing, these are what the different options offer:
 | t2.xlarge  | 4    | 54                 | 16        | EBS-Only | Moderate            |
 | t2.2xlarge | 8    | 81                 | 32        | EBS-Only | Moderate            |
 
-The hardware requirements largely depend on which consensus client you plan to run - Nimbus, for example, requires less than 1GB of RAM by itself so it is perfectly reasonable to run it on a **t2.large** instance.
-For more RAM-heavy clients, you may want to go with a **t2.xlarge** instance for extra headroom.
+ハードウェア要件は、実行する予定のConsensus Clientに大きく依存します。たとえば、Nimbusは単独で1GB未満のRAMしか必要としないため、**t2.large**インスタンスで実行することは完全に合理的です。
+よりRAMを大量に使用するクライアントの場合、余裕を持たせるために**t2.xlarge**インスタンスを選択することをお勧めします。
 
 ::: tip
-You may want to consult the [Choosing your ETH Clients](../eth-clients) section before deciding on an instance type so you can make sure that the client you want is supported by the instance type you choose.
+インスタンスタイプを決定する前に、[ETHクライアントの選択](../eth-clients)セクションを参照して、希望するクライアントが選択したインスタンスタイプでサポートされていることを確認することをお勧めします。
 :::
 
-Once you've made your choice, click the **Next** button.
-The default settings are all fine for the **Instance Details** section, so leave them alone and click **Next**.
+選択したら、**Next**ボタンをクリックします。
+**Instance Details**セクションのデフォルト設定はすべて問題ないので、そのままにして**Next**をクリックします。
 
-When you arrive at the **Add Storage** section, you'll create a new virtual hard drive for your system.
-This can be expanded later thanks to the power of the cloud, so getting the correct number now isn't absolutely critical.
-However, for the sake of your own peace of mind, you should change the size to one of the following figures:
+**Add Storage**セクションに到着したら、システム用の新しい仮想ハードドライブを作成します。
+クラウドの力のおかげで、後で拡張できるため、今正確な数値を取得することは絶対に重要ではありません。
+ただし、安心のために、サイズを次のいずれかの数値に変更する必要があります。
 
-- Use at least **100 GiB** if you're just trying Rocket Pool out on the [Hoodi Test Network](../../testnet/overview).
-- Use at least **1 TiB** (preferably **2 TiB**) if you're going to use this node on the main Ethereum network (**mainnet**).
+- [Hoodi Test Network](../../testnet/overview)でRocket Poolを試している場合は、少なくとも**100 GiB**を使用してください。
+- メインEthereumネットワーク(**mainnet**)でこのノードを使用する場合は、少なくとも**1 TiB**(できれば**2 TiB**)を使用してください。
 
-Leave the default values for the other settings and click **Next**.
+他の設定のデフォルト値をそのままにして、**Next**をクリックします。
 
-In the **Add Tags** step, you should click the **click to add a Name tag** button and give it an easy-to-remember name that you can use to identify the server later; something like **Rocket Pool Smartnode** will work if you need inspiration.
-Click **Next** when you're done.
+**Add Tags**ステップでは、**click to add a Name tag**ボタンをクリックして、後でサーバーを識別するために使用できる覚えやすい名前を付ける必要があります。インスピレーションが必要な場合は、**Rocket Pool Smartnode**のようなものが機能します。
+完了したら**Next**をクリックします。
 
-In the **Security Group** section, keep the **Create a new security group** option selected.
-Enter a name and description such as **Smartnode** and **Smartnode Group**.
-Remove all of the existing rules in the table and add the following rules:
+**Security Group**セクションでは、**Create a new security group**オプションを選択したままにしておきます。
+**Smartnode**と**Smartnode Group**などの名前と説明を入力します。
+テーブル内の既存のルールをすべて削除し、次のルールを追加します。
 
 | Type       | Port Range | Source                           | Description |
 | ---------- | ---------- | -------------------------------- | ----------- |
-| SSH        | 22         | [Your public IP address at home] | SSH Access  |
+| SSH        | 22         | [自宅のパブリックIPアドレス] | SSH Access  |
 | Custom TCP | 30303      | Anywhere                         | ETH1 P2P    |
 | Custom UDP | 30303      | Anywhere                         | ETH1 P2P    |
 | Custom TCP | 9001       | Anywhere                         | ETH2 P2P    |
 | Custom UDP | 9001       | Anywhere                         | ETH2 P2P    |
 
-This will allow you to remotely connect to your server via SSH (the command line terminal) from your laptop or desktop.
-It will also allow the Execution and Consensus clients to connect to other nodes on the Ethereum network.
+これにより、ラップトップまたはデスクトップからSSH(コマンドラインターミナル)を介してサーバーにリモート接続できるようになります。
+また、Execution ClientとConsensus ClientがEthereumネットワーク上の他のノードに接続できるようになります。
 
-::: warning NOTE
-For SSH access, this will only work if you have a **static public IP address**.
-You will likely need to request this from your ISP, as many of them use a dynamic IP system and change your public address occasionally.
-If you cannot procure a static address, you will have to go to the AWS console and update this setting with your new IP address every time it changes.
+::: warning 注意
+SSHアクセスの場合、これは**静的パブリックIPアドレス**がある場合にのみ機能します。
+多くのISPは動的IPシステムを使用し、パブリックアドレスを時々変更するため、ISPにこれを要求する必要がある可能性があります。
+静的アドレスを取得できない場合は、AWSコンソールに移動し、変更されるたびに新しいIPアドレスでこの設定を更新する必要があります。
 :::
 
-The security group table should now resemble this:
+セキュリティグループテーブルは次のようになります。
 
 <img src="./images/security-group.png" width="100%" height="auto" />
 
-Now, review all of the instance details to make sure you're happy with them, and click **Launch** when you're satisfied.
-When the **SSH key pair** prompt appears, select **Create a new key pair**.
-Give it a memorable name such as **Smartnode Key**, then click **Download Key Pair**.
-Store these files somewhere secure, such as `~/.ssh/` (or `C:\Users\[your username]\.ssh\` on Windows) where your other keys commonly reside.
+次に、すべてのインスタンスの詳細を確認して満足していることを確認し、満足したら**Launch**をクリックします。
+**SSH key pair**プロンプトが表示されたら、**Create a new key pair**を選択します。
+**Smartnode Key**などの覚えやすい名前を付け、**Download Key Pair**をクリックします。
+他のキーが通常存在する`~/.ssh/`(またはWindowsの`C:\Users\[ユーザー名]\.ssh\`)などの安全な場所にこれらのファイルを保存します。
 
 ::: danger
-This key pair contains the private key that you will use to SSH into your machine.
-If anyone gets a hold of this key, they will have complete access to your node - **including your Rocket Pool node wallet** and all of the coins within it.
-You **must** keep this file secure at all times.
+このキーペアには、マシンにSSHで接続するために使用する秘密鍵が含まれています。
+誰かがこのキーを手に入れると、**Rocket Poolノードウォレット**とその中のすべてのコインを含むノードに完全にアクセスできます。
+このファイルは常に安全に保管する**必要があります**。
 :::
 
-Next, click **Launch Instance** to create your new virtual server.
-When a notice pops up, click the **View Instances** to be taken to your list of servers.
-You'll see your Rocket Pool node there with some accompanying details about its configuration and status.
+次に、**Launch Instance**をクリックして、新しい仮想サーバーを作成します。
+通知がポップアップ表示されたら、**View Instances**をクリックしてサーバーのリストに移動します。
+そこにRocket Poolノードが、構成とステータスに関するいくつかの詳細とともに表示されます。
 
-Finally, assign an **Elastic IP Address** to your machine - you can think of this like a static IP address that is exclusive to AWS.
-Your node will always be accessible at this address, so you can always use the same SSH command to connect to it.
+最後に、マシンに**Elastic IP Address**を割り当てます。これは、AWSに固有の静的IPアドレスのようなものと考えることができます。
+ノードは常にこのアドレスでアクセスできるため、常に同じSSHコマンドを使用して接続できます。
 
-Go to **Network and Security** in the navigation panel on the left and click **Elastic IPs**.
-Now, click **Allocate Elastic IP Address**.
-The default settings are all fine, so just click through the prompts and return to the list when you're done.
+左側のナビゲーションパネルの**Network and Security**に移動し、**Elastic IPs**をクリックします。
+次に、**Allocate Elastic IP Address**をクリックします。
+デフォルト設定はすべて問題ないので、プロンプトをクリックして完了したらリストに戻ります。
 
-Next, select the new address in the list.
-Click the **Actions** button above it, then click **Associate Elastic IP Address**.
-Leave the resource type set to **Instance** and select the Rocket Pool Smartnode instance you just created from the list.
-Click **Associate** to assign the address to your virtual server.
-Now, if you look under the \*Associated Instance ID\*\* column of the address, you can verify that it has your machine assigned to it.
+次に、リストの新しいアドレスを選択します。
+その上の**Actions**ボタンをクリックし、**Associate Elastic IP Address**をクリックします。
+リソースタイプを**Instance**のままにして、作成したばかりのRocket Pool Smartnodeインスタンスをリストから選択します。
+**Associate**をクリックして、アドレスを仮想サーバーに割り当てます。
+次に、アドレスの**Associated Instance ID**列の下を見ると、マシンが割り当てられていることを確認できます。
 
-## Accessing the Machine
+## マシンへのアクセス
 
-To access the machine, open a new terminal on Linux or macOS (use Powershell on Windows) and type the following command:
+マシンにアクセスするには、LinuxまたはmacOSで新しいターミナルを開き(Windowsの場合はPowershellを使用)、次のコマンドを入力します。
 
 ```shell
-ssh [your elastic IP address]
+ssh [elastic IPアドレス]
 ```
 
-If you stored your keys in the `.ssh` folder, this will use the private key pair you generated during setup to authenticate with the machine automatically - no usernames, no passwords.
+キーを`.ssh`フォルダーに保存した場合、これはセットアップ中に生成した秘密鍵ペアを使用してマシンを自動的に認証します。ユーザー名もパスワードも必要ありません。
 
-Once here, you have complete terminal access to the system.
+ここに来たら、システムへの完全なターミナルアクセスができます。
 
-## Setting up Swap Space
+## スワップスペースのセットアップ
 
-In most cases, if you choose your Execution and Consensus clients and your instance type carefully, you should not run out of RAM.
-Then again, it never hurts to add a little more.
-What we're going to do now is add what's called **swap space**.
-Essentially, it means we're going to use the SSD as "backup RAM" in case something goes horribly, horribly wrong and your server runs out of regular RAM.
-The SSD isn't nearly as fast as the regular RAM, so if it hits the swap space it will slow things down, but it won't completely crash and break everything.
-Think of this as extra insurance that you'll (most likely) never need.
+ほとんどの場合、Execution ClientとConsensus Clientおよびインスタンスタイプを慎重に選択すれば、RAMが不足することはないはずです。
+とはいえ、少し追加しても問題はありません。
+これから行うのは、**スワップスペース**と呼ばれるものを追加することです。
+基本的に、何か恐ろしいことが起こってサーバーが通常のRAMを使い果たした場合に備えて、SSDを「バックアップRAM」として使用することを意味します。
+SSDは通常のRAMほど高速ではないため、スワップスペースに到達すると速度が低下しますが、完全にクラッシュしてすべてを壊すことはありません。
+これは、(おそらく)決して必要としない追加の保険と考えてください。
 
-### Creating a Swap File
+### スワップファイルの作成
 
-The first step is to make a new file that will act as your swap space.
-Decide how much you want to use - a reasonable start would be 8 GB, so you have 8 GB of normal RAM and 8 GB of "backup RAM" for a total of 16 GB.
-To be super safe, you can make it 24 GB so your system has 8 GB of normal RAM and 24 GB of "backup RAM" for a total of 32 GB, but this is probably overkill.
-Luckily, since your SSD has 1 or 2 TB of space, allocating 8 to 24 GB for a swapfile is negligible.
+最初のステップは、スワップスペースとして機能する新しいファイルを作成することです。
+使用する量を決定します。合理的な開始点は8 GBなので、通常のRAMが8 GB、「バックアップRAM」が8 GBで合計16 GBになります。
+超安全にするために、24 GBにすることもできます。これにより、システムは通常のRAMが8 GB、「バックアップRAM」が24 GBで合計32 GBになりますが、これはおそらく過剰です。
+幸いなことに、SSDには1〜2 TBのスペースがあるため、スワップファイルに8〜24 GBを割り当てることは無視できます。
 
-For the sake of this walkthrough, let's pick a nice middleground - say, 16 GB of swap space for a total RAM of 24 GB.
-Just substitute whatever number you want in as we go.
+このウォークスルーでは、良い中間点を選びましょう。つまり、スワップスペースが16 GBで合計RAMが24 GBです。
+進むにつれて、必要な数値を代入してください。
 
-Enter this, which will create a new file called `/swapfile` and fill it with 16 GB of zeros.
-To change the amount, just change the number in `count=16` to whatever you want. **Note that this is going to take a long time, but that's ok.**
+これを入力すると、`/swapfile`という新しいファイルが作成され、16 GBのゼロで埋められます。
+量を変更するには、`count=16`の数値を必要なものに変更するだけです。**これには長い時間がかかりますが、問題ありません。**
 
 ```shell
 sudo dd if=/dev/zero of=/swapfile bs=1G count=16 status=progress
 ```
 
-Next, set the permissions so only the root user can read or write to it (for security):
+次に、rootユーザーのみが読み書きできるように権限を設定します(セキュリティのため)。
 
 ```shell
 sudo chmod 600 /swapfile
 ```
 
-Now, mark it as a swap file:
+次に、スワップファイルとしてマークします。
 
 ```shell
 sudo mkswap /swapfile
 ```
 
-Next, enable it:
+次に、有効にします。
 
 ```shell
 sudo swapon /swapfile
 ```
 
-Finally, add it to the mount table so it automatically loads when your server reboots:
+最後に、マウントテーブルに追加して、サーバーの再起動時に自動的にロードされるようにします。
 
 ```shell
 sudo nano /etc/fstab
 ```
 
-Add a new line at the end that looks like this:
+最後に次のような新しい行を追加します。
 
 ```
 /swapfile                            none            swap    sw              0       0
 ```
 
-Press `Ctrl+O` and `Enter` to save, then `Ctrl+X` and `Enter` to exit.
+`Ctrl+O`と`Enter`を押して保存し、`Ctrl+X`と`Enter`を押して終了します。
 
-To verify that it's active, run these commands:
+アクティブであることを確認するには、次のコマンドを実行します。
 
 ```shell
 sudo apt install htop
 htop
 ```
 
-Your output should look like this at the top:
+上部の出力は次のようになります。
 ![](../local/images/pi/Swap.png)
 
-If the second number in the last row labeled `Swp` (the one after the `/`) is non-zero, then you're all set.
-For example, if it shows `0K / 16.0G` then your swap space was activated successfully.
-If it shows `0K / 0K` then it did not work and you'll have to confirm that you entered the previous steps properly.
+`Swp`とラベル付けされた最後の行の2番目の数値(`/`の後の数値)がゼロでない場合は、すべて設定されています。
+たとえば、`0K / 16.0G`と表示されている場合、スワップスペースは正常にアクティブ化されています。
+`0K / 0K`と表示されている場合は、機能しなかったため、前の手順を正しく入力したことを確認する必要があります。
 
-Press `q` or `F10` to quit out of `htop` and get back to the terminal.
+`q`または`F10`を押して`htop`を終了し、ターミナルに戻ります。
 
-### Configuring Swappiness and Cache Pressure
+### SwappinessとCache Pressureの設定
 
-By default, Linux will eagerly use a lot of swap space to take some of the pressure off of the system's RAM.
-We don't want that. We want it to use all of the RAM up to the very last second before relying on SWAP.
-The next step is to change what's called the "swappiness" of the system, which is basically how eager it is to use the swap space.
-There is a lot of debate about what value to set this to, but we've found a value of 6 works well enough.
+デフォルトでは、Linuxはスワップスペースを積極的に使用して、システムのRAMの負荷を軽減します。
+これは望ましくありません。RAMを最後の最後まで使い切ってからSWAPに頼ることを望んでいます。
+次のステップは、システムの「swappiness」を変更することです。これは基本的に、スワップスペースを使用することにどれだけ積極的かということです。
+これに設定する値については多くの議論がありますが、6の値がうまく機能することがわかりました。
 
-We also want to turn down the "cache pressure", which dictates how quickly the server will delete a cache of its filesystem.
-Since we're going to have a lot of spare RAM with our setup, we can make this "10" which will leave the cache in memory for a while, reducing disk I/O.
+また、「キャッシュ圧力」を下げる必要があります。これは、サーバーがファイルシステムのキャッシュをどれだけ早く削除するかを決定します。
+セットアップで多くの予備RAMがあるため、これを「10」にすることができます。これにより、キャッシュがしばらくメモリに保持され、ディスクI/Oが削減されます。
 
-To set these, run these commands:
+これらを設定するには、次のコマンドを実行します。
 
 ```shell
 sudo sysctl vm.swappiness=6
 sudo sysctl vm.vfs_cache_pressure=10
 ```
 
-Now, put them into the `sysctl.conf` file so they are reapplied after a reboot:
+次に、`sysctl.conf`ファイルに入れて、再起動後に再適用されるようにします。
 
 ```shell
 sudo nano /etc/sysctl.conf
 ```
 
-Add these two lines to the end:
+最後に次の2行を追加します。
 
 ```shell
 vm.swappiness=6
 vm.vfs_cache_pressure=10
 ```
 
-Then save and exit like you've done before (`Ctrl+O`, `Ctrl+X`).
+次に、以前に行ったように保存して終了します(`Ctrl+O`、`Ctrl+X`)。
 
-And with that, your server is up and running and ready to run Rocket Pool!
-Move on to the [Choosing your ETH Clients](../eth-clients) section.
+これで、サーバーが起動して実行され、Rocket Poolを実行する準備が整いました。
+[ETHクライアントの選択](../eth-clients)セクションに進んでください。

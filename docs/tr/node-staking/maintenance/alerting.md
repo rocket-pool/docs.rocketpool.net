@@ -1,37 +1,37 @@
-# Monitoring your Smartnode Stack with Alert Notifications
+# Smartnode Stack'inizi Uyarı Bildirimleri ile İzleme
 
-The Smartnode alert notification functionality allows you to receive notifications about the health and important events of your Rocket Pool Smartnode.
+Smartnode uyarı bildirimi işlevselliği, Rocket Pool Smartnode'unuzun sağlığı ve önemli olayları hakkında bildirim almanızı sağlar.
 
-## Alerting System Overview
+## Uyarı Sistemi Genel Bakış
 
-The notification functionality utilizes [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) to deliver alerts. Alerting requires that you have already followed the [Setting up the Grafana Dashboard](../grafana.mdx) which walks through setting up the Smartnode stack's metrics tracker. The alerts are triggered when important metrics from your Smartnode exceed certain thresholds or when particular events occur like when your node's fee recipient is changed.
+Bildirim işlevselliği, uyarıları iletmek için [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) kullanır. Uyarı, Smartnode stack'inin metrik takipçisini kurma sürecini anlatan [Grafana Dashboard'unu Kurma](../grafana.mdx) rehberini zaten takip etmiş olmanızı gerektirir. Uyarılar, Smartnode'unuzdaki önemli metrikler belirli eşikleri aştığında veya node'unuzun ücret alıcısı değiştirildiğinde gibi belirli olaylar gerçekleştiğinde tetiklenir.
 
-## Setting up Discord Notifications
+## Discord Bildirimlerini Kurma
 
-Currently, notifications can be sent to Discord channels. You can configure Discord notifications within the Rocket Pool Text User Interface (TUI) on the "Monitoring / Alerting" page.
+Şu anda, bildirimler Discord kanallarına gönderilebilir. Discord bildirimlerini Rocket Pool Metin Kullanıcı Arayüzü (TUI) içinde "Monitoring / Alerting" sayfasında yapılandırabilirsiniz.
 
-### Adding a Discord Webhook URL:
+### Discord Webhook URL'si Ekleme:
 
-1. Navigate to your desired Discord channel and open its settings.
-2. Under "Integrations," locate and click on "Webhooks."
-3. Click "Create Webhook."
-4. Give your webhook a name and choose a channel to send the alerts to.
-5. Copy the provided Webhook URL.
-6. Within the Rocket Pool TUI, navigate to the "Monitoring / Alerting" page.
-7. Paste the copied Webhook URL into the designated field and save the configuration.
+1. İstediğiniz Discord kanalına gidin ve ayarlarını açın.
+2. "Integrations" altında, "Webhooks"u bulun ve tıklayın.
+3. "Create Webhook"e tıklayın.
+4. Webhook'unuza bir ad verin ve uyarıların gönderileceği bir kanal seçin.
+5. Sağlanan Webhook URL'sini kopyalayın.
+6. Rocket Pool TUI içinde, "Monitoring / Alerting" sayfasına gidin.
+7. Kopyalanan Webhook URL'sini belirlenen alana yapıştırın ve yapılandırmayı kaydedin.
 
-::: tip TIP
-Is your favorite notification missing? The Rocket Pool team is actively looking for feedback from the community regarding additional notification destinations. Feel free to suggest new notification destinations at https://github.com/rocket-pool/smartnode/issues.
+::: tip İPUCU
+En sevdiğiniz bildirim eksik mi? Rocket Pool ekibi, ek bildirim hedefleri konusunda topluluktan aktif olarak geri bildirim arıyor. https://github.com/rocket-pool/smartnode/issues adresinden yeni bildirim hedefleri önerebilirsiniz.
 :::
 
-## Disabling and Enabling Alerts
+## Uyarıları Devre Dışı Bırakma ve Etkinleştirme
 
-The Rocket Pool TUI provides a user-friendly interface for managing your alerts. You can access this functionality through the "Monitoring / Alerting" page. This interface allows you to View a list of all configured alerts and Enable or disable individual alerts based on your preference.
+Rocket Pool TUI, uyarılarınızı yönetmek için kullanıcı dostu bir arayüz sağlar. Bu işlevselliğe "Monitoring / Alerting" sayfası üzerinden erişebilirsiniz. Bu arayüz, yapılandırılmış tüm uyarıların bir listesini görüntülemenize ve tercihinize göre bireysel uyarıları etkinleştirmenize veya devre dışı bırakmanıza olanak tanır.
 
-## Advanced Configuration
+## Gelişmiş Yapılandırma
 
-::: warning NOTE
-This section is for advanced users who are experienced with Prometheus and modifying YAML files.
+::: warning NOT
+Bu bölüm, Prometheus konusunda deneyimli ve YAML dosyalarını değiştirmekte deneyimli ileri düzey kullanıcılar içindir.
 :::
 
-For more advanced configuration of alerts you can add your own based on any metric that is available in the Prometheus container managed by the Smartnode Stack. Add your own yaml file containing [Prometheus Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) into the `~/.rocketpool/alerting/rules/` directory and those rules and restart the Prometheus container with `docker stop rocketpool_prometheus` followed by `docker start rocketpool_prometheus`. Then run `docker logs rocketpool_prometheus` to confirm that Prometheus loaded your configuration file successfully (you want to see a line with _msg="Completed loading of configuration file" filename=/etc/prometheus/prometheus.yml_ and not _err="error loading config from \"/etc/prometheus/prometheus.yml\"..._)
+Uyarıların daha gelişmiş yapılandırması için, Smartnode Stack tarafından yönetilen Prometheus konteynerinde mevcut olan herhangi bir metriğe dayalı kendinizinkini ekleyebilirsiniz. [Prometheus Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) içeren kendi yaml dosyanızı `~/.rocketpool/alerting/rules/` dizinine ekleyin ve bu kuralları ekledikten sonra Prometheus konteynerini `docker stop rocketpool_prometheus` ve ardından `docker start rocketpool_prometheus` ile yeniden başlatın. Ardından Prometheus'un yapılandırma dosyanızı başarıyla yüklediğini doğrulamak için `docker logs rocketpool_prometheus` komutunu çalıştırın (bir satırda _msg="Completed loading of configuration file" filename=/etc/prometheus/prometheus.yml_ görmek istersiniz ve _err="error loading config from \"/etc/prometheus/prometheus.yml\"..._ görmek istemezsiniz)

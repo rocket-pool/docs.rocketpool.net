@@ -1,84 +1,84 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Pruning the Execution Client
+# 修剪执行客户端
 
-::: tip NOTE
-This is meant for `geth` and `nethermind` users.
-Besu does _not_ need to be pruned.
+::: tip 注意
+这适用于 `geth` 和 `nethermind` 用户。
+Besu _不需要_修剪。
 :::
 
-If you use `geth` or `nethermind` as your primary Execution client, you will likely notice that your node's free disk space slowly decreases over time.
-The Execution client is by far the biggest contributor to this; depending on how much RAM you allocated to its cache during `rocketpool service config`, it can grow at a rate of several gigabytes per day!
+如果您使用 `geth` 或 `nethermind` 作为主执行客户端,您可能会注意到节点的可用磁盘空间随时间慢慢减少。
+执行客户端是造成这种情况的最大因素;根据您在 `rocketpool service config` 期间为其缓存分配的 RAM 大小,它每天可能会增长数 GB!
 
-To handle this, Execution clients provide a special function called **pruning** that lets them scan and clean up their database safely to reclaim some free space.
-Every node operator using Geth or Nethermind will have to prune it eventually.
+为了处理这个问题,执行客户端提供了一个称为**修剪**的特殊功能,让它们能够安全地扫描和清理数据库以回收一些可用空间。
+每个使用 Geth 或 Nethermind 的节点运营商最终都需要修剪它。
 
-If you have a 2 TB SSD, you can usually go for months between rounds of pruning.
-For 1 TB SSD users, you will have to prune more frequently.
+如果您有 2 TB SSD,通常可以在修剪轮次之间持续数月。
+对于 1 TB SSD 用户,您将需要更频繁地修剪。
 
-If you have [the Grafana dashboard](./grafana) enabled, a good rule of thumb is to start thinking about pruning your Execution client when your node's used disk space exceeds 80%.
+如果您启用了 [Grafana 仪表板](./grafana),一个好的经验法则是当节点的已用磁盘空间超过 80% 时开始考虑修剪执行客户端。
 
-When you decide that it's time, the Smartnode comes with the ability to prune it for you upon request.
-Read below to learn how it works, and what to expect.
+当您决定是时候修剪时,Smartnode 可以根据您的请求为您修剪。
+请阅读下文以了解它的工作原理以及预期结果。
 
-::: warning NOTE
-Pruning your Execution client is only possible in Docker Mode.
+::: warning 注意
+修剪执行客户端仅在 Docker 模式下可用。
 
-If you use your own Execution client, such as an external client in Hybrid mode or Native mode, you cannot use the Smartnode to prune the Execution client.
-You will need to do it manually.
-Please refer to the documentation for your Execution client to learn how to prune it.
+如果您使用自己的执行客户端,例如混合模式或原生模式中的外部客户端,则无法使用 Smartnode 修剪执行客户端。
+您需要手动进行。
+请参考您的执行客户端的文档以了解如何修剪它。
 :::
 
-## Prerequisites
+## 先决条件
 
-Select the client you're using from the tabs below.
+从下面的标签中选择您正在使用的客户端。
 
 <div className="p-3">
   <Tabs>
     <Tab label="Geth">
-      Pruning Geth means taking the primary Execution client offline so it can clean itself up.
-      When this happens, the Smartnode (and your Consensus client) will need some other way to access the ETH1 chain in order to function properly.
+      修剪 Geth 意味着使主执行客户端离线以便它可以清理自己。
+      当这种情况发生时,Smartnode(和您的共识客户端)将需要其他方式来访问 ETH1 链以正常运行。
 
-      The easiest way to provide this is with a **fallback node**.
-      If you [configured a fall back node](./fallback) using `rocketpool service config` already, then the Smartnode will automatically switch over to it when your Geth container goes down for maintenance for you.
-      It will also inform your Consensus client to use the fallback as well.
+      提供这一点的最简单方法是使用**后备节点**。
+      如果您已经使用 `rocketpool service config` [配置了后备节点](./fallback),那么当您的 Geth 容器停机维护时,Smartnode 将自动切换到它。
+      它还会通知您的共识客户端使用后备节点。
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">WARNING</p>
-        If you don't have a fallback node configured, your node will stop validating during the pruning process.
-        It will miss all attestations and block proposals until it's finished and has resynced with the network.
-        **You will leak ETH due to missed validations during this time!**
+        <p className="rspress-directive-title">警告</p>
+        如果您没有配置后备节点,您的节点将在修剪过程中停止验证。
+        在完成并与网络重新同步之前,它将错过所有证明和区块提案。
+        **在此期间,您将因错过验证而泄漏 ETH!**
       </p>
 
-      With that in mind, the following two conditions are required to successfully prune Geth:
+      考虑到这一点,成功修剪 Geth 需要以下两个条件:
 
-      - A working fallback node configured
-      - At least **50 GB** of free space remaining on your SSD
+      - 配置了可用的后备节点
+      - SSD 上至少剩余 **50 GB** 的可用空间
     </Tab>
     <Tab label="Nethermind">
-      Nethermind is able to stay online while it prunes, meaning you do not require a fallback node to continue attesting.
-      Note, however, that pruning is **an extremely resource-intesive task** and you may see an increase in your attestations' inclusion distance and missed attestations during it.
+      Nethermind 能够在修剪时保持在线,这意味着您不需要后备节点来继续证明。
+      但请注意,修剪是**一项极其消耗资源的任务**,在修剪期间您可能会看到证明的包含距离增加和错过的证明。
 
-      Nethermind does not require any special prerequisites; you are able to prune it at any time.
+      Nethermind 不需要任何特殊的先决条件;您可以随时修剪它。
     </Tab>
 
   </Tabs>
 </div>
 
-## Starting a Prune
+## 开始修剪
 
-Select the client you're using from the tabs below.
+从下面的标签中选择您正在使用的客户端。
 
 <div className="p-3">
   <Tabs>
     <Tab label="Geth">
-      When you want to prune Geth, simply run this command:
+      当您想要修剪 Geth 时,只需运行此命令:
 
       ```shell
       rocketpool service prune-eth1
       ```
 
-      If you do not have a fallback client pair enabled, you will receive the following warning:
+      如果您没有启用后备客户端对,您将收到以下警告:
 
       ```
       This will shut down your main execution client and prune its database, freeing up disk space.
@@ -90,7 +90,7 @@ Select the client you're using from the tabs below.
       Are you sure you want to prune your main execution client? [y/n]
       ```
 
-      If you do have one enabled, you will see the following prompt instead:
+      如果您确实启用了一个,您将看到以下提示:
 
       ```
       This will shut down your main execution client and prune its database, freeing up disk space.
@@ -100,7 +100,7 @@ Select the client you're using from the tabs below.
       Are you sure you want to prune your main execution client? [y/n]
       ```
 
-      If you accept, you'll see a few details as the Smartnode prepares things; it should end with a success message:
+      如果您接受,您将看到 Smartnode 准备过程的一些详细信息;它应该以成功消息结束:
 
       ```
       Are you sure you want to prune your main ETH1 client? [y/n]
@@ -117,23 +117,23 @@ Select the client you're using from the tabs below.
       You must let it run to completion!
       ```
 
-      With that, Geth is now pruning and you're all set!
-      You can follow its progress with:
+      这样,Geth 现在正在修剪,您已经完成了!
+      您可以使用以下命令跟踪其进度:
 
       ```shell
       rocketpool service logs eth1
       ```
 
-      Once it's done pruning, it will restart automatically and the Smartnode will resume using it again instead of your fallback.
+      修剪完成后,它将自动重启,Smartnode 将恢复使用它而不是您的后备节点。
     </Tab>
     <Tab label="Nethermind">
-      When you want to prune Nethermind, simply run this command:
+      当您想要修剪 Nethermind 时,只需运行此命令:
 
       ```shell
       rocketpool service prune-eth1
       ```
 
-      You will see the following prompt:
+      您将看到以下提示:
 
       ```
       This will shut down your main execution client and prune its database, freeing up disk space.
@@ -142,7 +142,7 @@ Select the client you're using from the tabs below.
       Are you sure you want to prune your main execution client? [y/n]
       ```
 
-      If you accept, you'll see a few messages similar to the following:
+      如果您接受,您将看到类似以下的一些消息:
 
       ```
       Your disk has 790 GiB free, which is enough to prune.
@@ -161,14 +161,14 @@ Select the client you're using from the tabs below.
       You must let it run to completion!
       ```
 
-      With that, Nethermind is now pruning and you're all set!
-      You can follow its progress with:
+      这样,Nethermind 现在正在修剪,您已经完成了!
+      您可以使用以下命令跟踪其进度:
 
       ```shell
       rocketpool service logs eth1
       ```
 
-      Once it's done pruning, it will restart automatically.
+      修剪完成后,它将自动重启。
     </Tab>
 
   </Tabs>

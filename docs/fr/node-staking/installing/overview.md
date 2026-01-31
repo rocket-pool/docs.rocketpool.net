@@ -1,30 +1,30 @@
 ---
 next:
-  text: Choosing your ETH Clients
-  link: "/en/node-staking/eth-clients"
+  text: Choisir vos clients ETH
+  link: "/fr/node-staking/eth-clients"
 ---
 
-# Overview
+# Vue d'ensemble
 
-In this section, you'll learn how to install the Rocket Pool Smartnode stack onto your node machine.
-There are several different flavors of installation; you'll learn which one is right for you and walk through the installation process for it.
+Dans cette section, vous apprendrez comment installer la pile Smartnode de Rocket Pool sur votre machine nœud.
+Il existe plusieurs variantes d'installation ; vous découvrirez celle qui vous convient et suivrez le processus d'installation correspondant.
 
-## Prerequisites
+## Prérequis
 
-Before diving into this section, please make sure you've:
+Avant de vous lancer dans cette section, assurez-vous d'avoir :
 
-- Picked a node machine (local hardware or virtual server)
-- Set up the Operating System on it
-- Configured a remote control system such as [SSH](../ssh)
-- Secured it by following the [Securing your Node](../securing-your-node) guide
+- Choisi une machine nœud (matériel local ou serveur virtuel)
+- Configuré le système d'exploitation dessus
+- Configuré un système de contrôle à distance tel que [SSH](../ssh)
+- Sécurisé votre machine en suivant le guide [Sécuriser votre nœud](../securing-your-node)
 
 ## Guides
 
-[Choosing your ETH Clients](../eth-clients) presents the various options for Ethereum clients - both on the Execution Layer (formerly ETH1) and the Consensus Layer (formerly ETH2).
-You'll need one of each in order to run your node, and this section will help you choose which ones you'd like to run.
+[Choisir vos clients ETH](../eth-clients) présente les différentes options pour les clients Ethereum - à la fois sur la couche d'exécution (anciennement ETH1) et la couche de consensus (anciennement ETH2).
+Vous aurez besoin d'un client de chaque pour faire fonctionner votre nœud, et cette section vous aidera à choisir ceux que vous souhaitez exécuter.
 
-[Selecting a Rocket Pool Mode](../install-modes) will show you the different modes the Rocket Pool Smartnode can be installed with and will help you pick the mode that's best for you.
+[Sélectionner un mode Rocket Pool](../install-modes) vous montrera les différents modes d'installation du Smartnode Rocket Pool et vous aidera à choisir le mode qui vous convient le mieux.
 
-[Creating a Standard Rocket Pool Node with Docker](../docker) will walk you through the installation process for **Docker Mode** and **Hybrid Mode**.
+[Créer un nœud Rocket Pool standard avec Docker](../docker) vous guidera à travers le processus d'installation pour le **mode Docker** et le **mode hybride**.
 
-[Creating a Native Rocket Pool Node without Docker](../native.mdx) will walk you through the installation process for **Native Mode**.
+[Créer un nœud Rocket Pool natif sans Docker](../native.mdx) vous guidera à travers le processus d'installation pour le **mode natif**.

@@ -1,19 +1,19 @@
 ---
 next:
-  text: Selecting a Hosting Provider
-  link: "/en/node-staking/vps/providers"
+  text: 호스팅 제공업체 선택
+  link: "/ko/node-staking/vps/providers"
 ---
 
-# Overview
+# 개요
 
-This section is aimed at helping you understand the process of preparing a virtual private server or virtual machine hosted on the cloud as a Rocket Pool node.
+이 섹션은 클라우드에서 호스팅되는 가상 사설 서버 또는 가상 머신을 Rocket Pool 노드로 준비하는 프로세스를 이해하는 데 도움을 주기 위한 것입니다.
 
-## Guides
+## 가이드
 
-[Selecting a Hosting Provider](./providers) shows several examples of popular hosting providers that other Rocket Pool node operators use to run nodes in the cloud.
+[호스팅 제공업체 선택](./providers)은 다른 Rocket Pool 노드 운영자가 클라우드에서 노드를 실행하는 데 사용하는 인기 있는 호스팅 제공업체의 몇 가지 예를 보여줍니다.
 
-[Preparing the Operating System](./os) walks you through the basic steps of installing and configuring the base Operating System on your machine to prepare it for life as a node.
+[운영 체제 준비](./os)는 노드로서의 수명을 준비하기 위해 머신에 기본 운영 체제를 설치하고 구성하는 기본 단계를 안내합니다.
 
-::: tip NOTE
-Note that you will need to use a remote service like SSH to use your machine; consult the [**Intro to Secure Shell (SSH)**](../ssh) guide if you need a tutorial on how to do this.
+::: tip 참고
+머신을 사용하려면 SSH와 같은 원격 서비스를 사용해야 합니다. 이를 수행하는 방법에 대한 튜토리얼이 필요한 경우 [**Secure Shell (SSH) 소개**](../ssh) 가이드를 참조하십시오.
 :::

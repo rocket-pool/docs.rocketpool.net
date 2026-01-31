@@ -1,126 +1,105 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 import powershell from "./images/powershell.png";
 
-# Intro to Secure Shell (SSH)
+# Secure Shell (SSH)'e Giriş
 
-In general, there are two ways to access your node machine: **locally**, and **remotely**.
+Genel olarak, node makinenize erişmenin iki yolu vardır: **yerel olarak** ve **uzaktan**.
 
-- **Locally** refers to sitting down at the physical node and using a monitor and keyboard connected directly to it.
-- **Remotely** refers to connecting to the node using a different computer (say, a laptop or desktop) over a network and interacting with it from there.
+- **Yerel olarak** fiziksel node'un başında oturmak ve doğrudan ona bağlı bir monitör ve klavye kullanmak anlamına gelir.
+- **Uzaktan** bir ağ üzerinden farklı bir bilgisayar (örneğin bir dizüstü veya masaüstü) kullanarak node'a bağlanmak ve oradan onunla etkileşim kurmak anlamına gelir.
 
-Most of the time, node operators prefer the flexibility of working on their node **remotely**.
+Çoğu zaman, node operatörleri **uzaktan** çalışmanın esnekliğini tercih ederler.
 
-The Smartnode currently doesn't have a GUI (Graphical User Interface), only a CLI (Command Line Interface), which means interacting with it is done entirely by typing commands into a command-line terminal.
-As such, interacting with it remotely requires some way to access your node's terminal from a different machine.
-In this section, we'll provide a brief introduction to the most popular way of doing this: **SSH**.
+Smartnode şu anda bir GUI'ye (Grafiksel Kullanıcı Arayüzü) sahip değil, yalnızca bir CLI'ye (Komut Satırı Arayüzü) sahiptir, bu da onunla etkileşim kurmanın tamamen komut satırı terminaline komutlar yazarak yapıldığı anlamına gelir.
+Bu nedenle, onunla uzaktan etkileşim kurmak, node'unuzun terminaline farklı bir makineden erişmenin bir yolunu gerektirir.
+Bu bölümde, bunu yapmanın en popüler yoluna kısa bir giriş sunacağız: **SSH**.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Using a Windows Machine">
-      There are a few different ways to use SSH from a Windows machine.
+    <Tab label="Windows Makinesi Kullanma">
+      Bir Windows makinesinden SSH kullanmanın birkaç farklı yolu vardır.
 
-      The simplest is to use **Powershell**, which is a powerful command terminal that comes built into modern versions of
-      Windows.
-      Powershell has SSH included, so you can use it right away without installing any supplemental programs.
+      En basit olanı, Windows'un modern sürümlerine dahil edilen güçlü bir komut terminali olan **Powershell**'i kullanmaktır.
+      Powershell, SSH'ı dahil eder, bu nedenle herhangi bir ek program kurmadan hemen kullanabilirsiniz.
 
-      You can find it by opening the Start menu and typing `Powershell` into the search bar; there will be several
-      options, but option you want is simply called `Windows Powershell`:
+      Başlat menüsünü açarak ve arama çubuğuna `Powershell` yazarak bulabilirsiniz; birkaç seçenek olacaktır, ancak istediğiniz seçenek basitçe `Windows Powershell` olarak adlandırılır:
 
       <img src={powershell} width="100%" height="auto" />
 
-      This will open up a terminal with a blue background.
-      You can use `ssh` from here - see below for instructions on how to do that.
+      Bu, mavi arka planlı bir terminal açacaktır.
+      Buradan `ssh` kullanabilirsiniz - bunun nasıl yapılacağına ilişkin talimatlar için aşağıya bakın.
 
-      Another popular tool is called [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html).
-      PuTTY is a special program that includes a terminal dedicated for SSH usage, but it also comes with a convenient GUI
-      for doing things like changing configurations, saving settings to a "profile", and keeping a list of machines you
-      can easily connect to by selecting from a list.
+      Bir diğer popüler araç [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) olarak adlandırılır.
+      PuTTY, SSH kullanımına adanmış bir terminal içeren özel bir programdır, ancak aynı zamanda yapılandırmaları değiştirme, ayarları bir "profile" kaydetme ve bir listeden seçerek kolayca bağlanabileceğiniz makinelerin bir listesini tutma gibi şeyler için kullanışlı bir GUI ile gelir.
 
-      Instead of using `ssh` as you would with the other tools, PuTTY will do this for you automatically - all you need to
-      provide are the username and password.
-      For information on how to use PuTTY, take a look at [this great
-      tutorial](https://tonyteaches.tech/putty-ssh-windows-tutorial/).
+      Diğer araçlarla yapacağınız gibi `ssh` kullanmak yerine, PuTTY bunu sizin için otomatik olarak yapacaktır - sağlamanız gereken tek şey kullanıcı adı ve şifredir.
+      PuTTY'nin nasıl kullanılacağına ilişkin bilgi için [bu harika öğreticiye](https://tonyteaches.tech/putty-ssh-windows-tutorial/) göz atın.
 
       <p className="rspress-directive warning">
-        **NOTE**: PuTTY might display the wrong colors in the `rocketpool service
-        config` text-based user interface (TUI).
-        There's an easy solution for this. In the PuTTY
-        settings, navigate to **Connection** > **Data** > **Terminal Details**
-        in the dropdown menu. There should be a **Terminal-type string** text box. Type in `xterm-256color`, then save
-        the settings
-        to resolve this.
+        **NOT**: PuTTY, `rocketpool service config` metin tabanlı kullanıcı arayüzünde (TUI) yanlış renkleri görüntüleyebilir.
+        Bunun için kolay bir çözüm var. PuTTY ayarlarında, açılır menüde **Connection** > **Data** > **Terminal Details**'a gidin. Bir **Terminal-type string** metin kutusu olmalıdır. `xterm-256color` yazın, ardından bunu çözmek için ayarları kaydedin.
       </p>
 
     </Tab>
-    <Tab label="Using a Linux or macOS Machine">
-      Using SSH from a Linux or macOS machine is trivial; if you're already using one of these, then you've likely already
-      interacted with the terminal at some point.
-      SSH is built directly into the terminal; use it by running the `ssh` command. By default, SSH will allow you to
-      connect to your node's primary user account.
+    <Tab label="Linux veya macOS Makinesi Kullanma">
+      Bir Linux veya macOS makinesinden SSH kullanmak önemsizdir; zaten bunlardan birini kullanıyorsanız, muhtemelen bir noktada terminalle etkileşim kurmuşsunuzdur.
+      SSH, doğrudan terminale yerleştirilmiştir; `ssh` komutunu çalıştırarak kullanın. Varsayılan olarak, SSH node'unuzun birincil kullanıcı hesabına bağlanmanıza izin verecektir.
     </Tab>
 
   </Tabs>
 </div>
 
-Here's how you would connect to your node using SSH.
+İşte SSH kullanarak node'unuza nasıl bağlanacağınız.
 
-:::warning NOTE
-Run the following command from your laptop or desktop, **not from your node itself**!
+:::warning NOT
+Aşağıdaki komutu dizüstü veya masaüstü bilgisayarınızdan çalıştırın, **node'unuzun kendisinden değil**!
 :::
 
 ```shell
 ssh username@node-ip-address
 ```
 
-Say, for example, that your node's username is `staker` and your node's IP address is `192.168.1.10`.
-You would connect to it with the following command:
+Örneğin, node'unuzun kullanıcı adı `staker` ve node'unuzun IP adresi `192.168.1.10` ise, ona aşağıdaki komutla bağlanırsınız:
 
 ```shell
 ssh staker@192.168.1.10
 ```
 
-The first time you do this, you will see a message presenting the public key that your node is using - if you are
-familiar with how to verify this key, you can do so now.
-Otherwise, if you trust that you have the correct node IP address in your `ssh` command, you can just say `yes` to
-accept it.
-You only need to do this once.
+Bunu ilk kez yaptığınızda, node'unuzun kullandığı public key'i sunan bir mesaj göreceksiniz - bu anahtarı doğrulamayı biliyorsanız, şimdi yapabilirsiniz.
+Aksi takdirde, `ssh` komutunuzda doğru node IP adresine sahip olduğunuza güveniyorsanız, kabul etmek için `yes` diyebilirsiniz.
+Bunu yalnızca bir kez yapmanız gerekir.
 
-The client will then prompt you for your user's password; once you enter that, you're in!
-You will be greeted with a welcome message, some details about your machine, and a new prompt.
+Client daha sonra kullanıcınızın şifresini isteyecektir; bunu girdikten sonra içerisiniz!
+Bir hoş geldiniz mesajı, makineniz hakkında bazı ayrıntılar ve yeni bir komut istemi ile karşılanacaksınız.
 
-At this point, everything you type in the terminal **is executed remotely on your node machine** - it's as if you
-were logged directly into the node machine and typing on it with a locally-attached keyboard!
+Bu noktada, terminale yazdığınız her şey **node makinenizde uzaktan yürütülür** - sanki doğrudan node makinesine giriş yapmış ve ona yerel olarak bağlı bir klavyeyle yazıyormuşsunuz gibi!
 
-You'll need to SSH into the terminal periodically for updates and maintenance.
-It can be inconvenient to remember how to log in to your node, so it may be helpful to shorten this command by
-creating a memorable alias - a custom "shortcut" command.
+Güncellemeler ve bakım için periyodik olarak terminale SSH yapmanız gerekecektir.
+Node'unuza nasıl giriş yapılacağını hatırlamak rahatsız edici olabilir, bu nedenle hatırlanabilir bir takma ad oluşturarak bu komutu kısaltmak yararlı olabilir - özel bir "kısayol" komutu.
 
-:::warning NOTE
-If you do this, be sure to create the alias on the **client machine**, **not** on the node!
-If your terminal is still connected to the node, first run `exit` at the command prompt (or simply open a new
-terminal window).
+:::warning NOT
+Bunu yaparsanız, takma adı **client makinesinde** oluşturduğunuzdan emin olun, node'da **değil**!
+Terminaliniz hala node'a bağlıysa, önce komut isteminde `exit` çalıştırın (veya sadece yeni bir terminal penceresi açın).
 :::
 
-:::warning NOTE
-This section only applies to Linux/OSX or WSL users - PowerShell is not supported.
+:::warning NOT
+Bu bölüm yalnızca Linux/OSX veya WSL kullanıcıları için geçerlidir - PowerShell desteklenmez.
 :::
 
-In this example, we'll create an alias called `ethnode` which will replace the SSH command.
-Assuming, as before, that your node's username is `staker` and your node's IP address is `192.168.1.10`, create the
-alias with the following command:
+Bu örnekte, SSH komutunu değiştirecek `ethnode` adında bir takma ad oluşturacağız.
+Daha önce olduğu gibi, node'unuzun kullanıcı adının `staker` ve node'unuzun IP adresinin `192.168.1.10` olduğunu varsayarsak, takma adı aşağıdaki komutla oluşturun:
 
 ```shell
 echo "alias ethnode='ssh staker@192.168.1.10'" >> ~/.bash_aliases
 ```
 
-Reload the alias list to make your current terminal window aware of the new alias:
+Mevcut terminal pencerenizi yeni takma addan haberdar etmek için takma ad listesini yeniden yükleyin:
 
 ```shell
 source ~/.bash_aliases
 ```
 
-Now, you can connect to the node using the alias you just created instead of the longer command that involves
-specifying the node's IP address:
+Artık, node'un IP adresini belirtmeyi içeren daha uzun komut yerine az önce oluşturduğunuz takma adı kullanarak node'a bağlanabilirsiniz:
 
 ```shell
 ethnode

@@ -1,32 +1,32 @@
-# How to Write Add-ons for Rocket Pool Smart Node
+# Come Scrivere Add-on per Rocket Pool Smart Node
 
-## Introduction
+## Introduzione
 
-Rocket Pool Smart Node add-ons are extensions that provide additional features to the Smart Node stack. They can be implemented as Docker containers that integrate with the Ethereum clients or the Smart Node service. Add-ons can be enabled and configured through the Smart Node's terminal user interface (TUI) via the `rocketpool service config` command.
+Gli add-on di Rocket Pool Smart Node sono estensioni che forniscono funzionalità aggiuntive allo stack Smart Node. Possono essere implementati come container Docker che si integrano con i client Ethereum o il servizio Smart Node. Gli add-on possono essere abilitati e configurati tramite l'interfaccia utente terminale (TUI) dello Smart Node tramite il comando `rocketpool service config`.
 
-Add-on development can be based on two existing examples:
+Lo sviluppo di add-on può essere basato su due esempi esistenti:
 
-- **Graffiti Wall Writer**: Enables node operators to contribute to community drawings on the Beaconcha.in graffiti wall by dynamically setting block proposal graffiti. It uses a decentralized drawing tool to determine which pixels to "paint" with each proposal.
-- **Rescue Node**: Provides a fallback beacon node service using credentials from the Rocket Rescue Node project. This helps prevent missed attestations during node maintenance, syncing, or outages by routing requests to a shared remote beacon node.
+- **Graffiti Wall Writer**: Consente ai node operator di contribuire ai disegni della community sul graffiti wall di Beaconcha.in impostando dinamicamente il graffiti delle proposte di blocco. Utilizza uno strumento di disegno decentralizzato per determinare quali pixel "dipingere" con ogni proposta.
+- **Rescue Node**: Fornisce un servizio di fallback beacon node utilizzando credenziali del progetto Rocket Rescue Node. Questo aiuta a prevenire attestazioni mancate durante la manutenzione del nodo, la sincronizzazione o interruzioni instradando le richieste a un beacon node remoto condiviso.
 
-Add-ons are part of the Smart Node source code and must be contributed via pull request to the repository. They implement a standardized interface for configuration and integration.
+Gli add-on fanno parte del codice sorgente dello Smart Node e devono essere contribuiti tramite pull request al repository. Implementano un'interfaccia standardizzata per la configurazione e l'integrazione.
 
-## Prerequisites
+## Prerequisiti
 
-- Familiarity with Go programming, as add-ons are written in Go.
-- Understanding of Docker, as add-ons can run as containers.
-- Knowledge of the Rocket Pool Smart Node architecture, including its Docker compose setup and configuration system.
-- Access to the Smart Node repository for local development and testing.
+- Familiarità con la programmazione Go, poiché gli add-on sono scritti in Go.
+- Comprensione di Docker, poiché gli add-on possono essere eseguiti come container.
+- Conoscenza dell'architettura di Rocket Pool Smart Node, inclusa la configurazione Docker compose e il sistema di configurazione.
+- Accesso al repository Smart Node per lo sviluppo e il testing locali.
 
-## Steps to Create an Add-on
+## Passaggi per Creare un Add-on
 
-To create a new add-on, you will need to add code in specific locations within the Smart Node repository. The process involves implementing the add-on logic, configuring its UI, registering it, and handling integration with the Docker stack.
+Per creare un nuovo add-on, sarà necessario aggiungere codice in posizioni specifiche all'interno del repository Smart Node. Il processo prevede l'implementazione della logica dell'add-on, la configurazione della sua UI, la registrazione e la gestione dell'integrazione con lo stack Docker.
 
-### 1. Implement the Add-on Logic
+### 1. Implementare la Logica dell'Add-on
 
-Create a new subdirectory in `addons/` named after your add-on (use snake_case, e.g., `my_addon`).
+Creare una nuova sottodirectory in `addons/` denominata in base al proprio add-on (utilizzare snake_case, ad esempio `my_addon`).
 
-In this directory, create a Go file (e.g., `my_addon.go`) that defines the add-on struct and implements the `SmartnodeAddon` interface from `github.com/rocket-pool/smartnode/shared/types/addons`.
+In questa directory, creare un file Go (ad esempio, `my_addon.go`) che definisce la struct dell'add-on e implementa l'interfaccia `SmartnodeAddon` da `github.com/rocket-pool/smartnode/shared/types/addons`.
 
 ```
 type MyAddon struct {
@@ -40,37 +40,37 @@ func NewMyAddon() addons.SmartnodeAddon {
 }
 ```
 
-Key methods to implement:
+Metodi chiave da implementare:
 
-- `GetName()`: Returns the display name of the add-on.
-- `GetDescription()`: Returns a brief description.
-- `GetConfig()`: Returns the configuration object with parameters (e.g., enabled flag, API keys, URLs).
-- `GetEnabledParameter()`: Returns the parameter controlling whether the add-on is enabled.
-- Methods for starting/stopping the add-on, generating Docker compose sections, or interacting with other services.
+- `GetName()`: Restituisce il nome visualizzato dell'add-on.
+- `GetDescription()`: Restituisce una breve descrizione.
+- `GetConfig()`: Restituisce l'oggetto di configurazione con parametri (ad esempio, flag enabled, chiavi API, URL).
+- `GetEnabledParameter()`: Restituisce il parametro che controlla se l'add-on è abilitato.
+- Metodi per avviare/arrestare l'add-on, generare sezioni Docker compose o interagire con altri servizi.
 
-If the add-on runs a Docker container:
+Se l'add-on esegue un container Docker:
 
-- Define the Docker image (e.g., a custom image or external one).
-- Specify volumes, ports, or environment variables needed.
+- Definire l'immagine Docker (ad esempio, un'immagine personalizzata o esterna).
+- Specificare volumi, porte o variabili d'ambiente necessari.
 
-For example, the Graffiti Wall Writer add-on runs a container that periodically updates the validator client's graffiti file based on a JSON configuration for the image to draw.
+Ad esempio, l'add-on Graffiti Wall Writer esegue un container che aggiorna periodicamente il file graffiti del validator client in base a una configurazione JSON per l'immagine da disegnare.
 
-The Rescue Node add-on configures the validator client to use a remote fallback beacon node via a proxy, requiring username and password parameters.
+L'add-on Rescue Node configura il validator client per utilizzare un beacon node di fallback remoto tramite un proxy, richiedendo parametri di username e password.
 
-### 2. Create the Configuration UI
+### 2. Creare l'UI di Configurazione
 
-Add a file in `rocketpool-cli/service/config/` named `addon-myaddon.go`.
+Aggiungere un file in `rocketpool-cli/service/config/` denominato `addon-myaddon.go`.
 
-This file defines the TUI page for configuring the add-on using the `tview` library.
+Questo file definisce la pagina TUI per configurare l'add-on utilizzando la libreria `tview`.
 
-Key elements:
+Elementi chiave:
 
-- Define a struct `AddonMyAddonPage` with fields for the layout, master config, and form items.
-- Constructor `NewAddonMyAddonPage` that initializes the page and calls `createContent()`.
-- `createContent()`: Sets up the form with checkboxes (e.g., enabled) and input fields for other parameters.
-- Event handlers like `handleEnableChanged()` to show/hide parameters based on the enabled state.
+- Definire una struct `AddonMyAddonPage` con campi per il layout, la configurazione master e gli elementi del form.
+- Constructor `NewAddonMyAddonPage` che inizializza la pagina e chiama `createContent()`.
+- `createContent()`: Configura il form con checkbox (ad esempio, enabled) e campi di input per altri parametri.
+- Event handler come `handleEnableChanged()` per mostrare/nascondere parametri in base allo stato enabled.
 
-Example snippet:
+Esempio di snippet:
 
 ```go
 package config
@@ -113,13 +113,13 @@ func (configPage *AddonMyAddonPage) createContent() {
 }
 ```
 
-### 3. Register the Add-on
+### 3. Registrare l'Add-on
 
-Update `addons/constructors.go` to include a constructor for your add-on.
+Aggiornare `addons/constructors.go` per includere un constructor per il proprio add-on.
 
-This file contains functions to instantiate all add-ons.
+Questo file contiene funzioni per istanziare tutti gli add-on.
 
-Example:
+Esempio:
 
 ```
 func NewMyAddon() addons.SmartnodeAddon {
@@ -127,7 +127,7 @@ func NewMyAddon() addons.SmartnodeAddon {
 }
 ```
 
-Then add it to the list of available addons within the`NewRocketPoolConfig` in `shared/services/config/rocket-pool-config.go`.
+Quindi aggiungerlo all'elenco degli addon disponibili all'interno di `NewRocketPoolConfig` in `shared/services/config/rocket-pool-config.go`.
 
 ```
 // Addons
@@ -136,43 +136,43 @@ cfg.RescueNode = addons.NewRescueNode()
 cfg.MyAddon = addons.MyAddon()
 ```
 
-### 4. Integrate with Docker Compose
+### 4. Integrare con Docker Compose
 
-Add-ons often require modifications to the Docker compose files.
+Gli add-on spesso richiedono modifiche ai file Docker compose.
 
-- Add templates in the `shared/services/rocketpool/assets/install/templates/addons` directory for your add-on's compose section (e.g., `my_addon.tmpl`).
-- The add-on code generates the compose YAML when enabled, including services, volumes, and dependencies.
+- Aggiungere template nella directory `shared/services/rocketpool/assets/install/templates/addons` per la sezione compose del proprio add-on (ad esempio, `my_addon.tmpl`).
+- Il codice dell'add-on genera il YAML compose quando abilitato, includendo servizi, volumi e dipendenze.
 
-The `composeAddons` function inside the `services/rocketpool/client` folder is responsible for provisioning Docker Compose containers based on the Rocket Pool configuration, setting up runtime, template and override assets for the add-on.
+La funzione `composeAddons` all'interno della cartella `services/rocketpool/client` è responsabile del provisioning dei container Docker Compose in base alla configurazione di Rocket Pool, configurando runtime, template e asset di override per l'add-on.
 
-For installation:
+Per l'installazione:
 
-- Update the installer script (`install.sh`) if the add-on needs files copied (e.g., default config files).
+- Aggiornare lo script di installazione (`install.sh`) se l'add-on necessita di file copiati (ad esempio, file di configurazione predefiniti).
 
-### 5. Optional Integrations
+### 5. Integrazioni Opzionali
 
-- **Node Status Command**: If the add-on has status info (e.g., credential expiration for Rescue Node), update `rocketpool-cli/node/status.go` to display it.
-- **Metrics or Logs**: Integrate with Prometheus/Grafana if applicable.
-- **External Dependencies**: If using an external repo (e.g., Rescue Node proxy), ensure it's documented.
+- **Comando Node Status**: Se l'add-on ha informazioni sullo stato (ad esempio, scadenza credenziali per Rescue Node), aggiornare `rocketpool-cli/node/status.go` per visualizzarle.
+- **Metriche o Log**: Integrare con Prometheus/Grafana se applicabile.
+- **Dipendenze Esterne**: Se si utilizza un repository esterno (ad esempio, proxy Rescue Node), assicurarsi che sia documentato.
 
-### 6. Testing and Submission
+### 6. Testing e Invio
 
-- Build and test locally: Use the Makefile to build the Smart Node, install, and enable your add-on.
-- Verify in the TUI, check Docker containers, and test functionality.
-- Submit a pull request to https://github.com/rocket-pool/smartnode with your changes.
+- Build e test locali: Utilizzare il Makefile per compilare lo Smart Node, installare e abilitare il proprio add-on.
+- Verificare nella TUI, controllare i container Docker e testare la funzionalità.
+- Inviare una pull request a https://github.com/rocket-pool/smartnode con le proprie modifiche.
 
-## Example: Graffiti Wall Writer
+## Esempio: Graffiti Wall Writer
 
-- **Purpose**: Draws community images on the Beaconcha.in graffiti wall using block proposals.
-- **Implementation**: Runs a Docker container that fetches wall state and updates the validator's graffiti file.
-- **Config**: Enabled flag and parameter for image JSON URL (default: Rocket Pool logo).
-- **Integration**: The container mounts the validator's data directory to write the graffiti file. Enabled via TUI; contributes to decentralized drawing.
+- **Scopo**: Disegna immagini della community sul graffiti wall di Beaconcha.in utilizzando le proposte di blocco.
+- **Implementazione**: Esegue un container Docker che recupera lo stato del wall e aggiorna il file graffiti del validator.
+- **Configurazione**: Flag enabled e parametro per l'URL JSON dell'immagine (predefinito: logo Rocket Pool).
+- **Integrazione**: Il container monta la directory dati del validator per scrivere il file graffiti. Abilitato tramite TUI; contribuisce al disegno decentralizzato.
 
-## Example: Rescue Node
+## Esempio: Rescue Node
 
-- **Purpose**: Fallback beacon node to avoid penalties during downtime.
-- **Implementation**: Configures the validator client to use a remote proxy with authentication.
-- **Config**: Enabled flag, username, and password from Rescue Node website.
-- **Integration**: Modifies validator config to point to the rescue proxy. Shows credential status in `rocketpool node status`.
+- **Scopo**: Beacon node di fallback per evitare penalità durante i downtime.
+- **Implementazione**: Configura il validator client per utilizzare un proxy remoto con autenticazione.
+- **Configurazione**: Flag enabled, username e password dal sito web Rescue Node.
+- **Integrazione**: Modifica la configurazione del validator per puntare al proxy di rescue. Mostra lo stato delle credenziali in `rocketpool node status`.
 
-For more details, review the source code in the repository or contribute to improve add-on development docs.
+Per ulteriori dettagli, consultare il codice sorgente nel repository o contribuire a migliorare la documentazione per lo sviluppo di add-on.

@@ -1,159 +1,159 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# [Hybrid Mode] Guide to the Redstone Update and the Merge
+# [Hibrit Mod] Redstone Güncellemesi ve Birleşme Rehberi
 
-This guide will cover everything you need to know in order to prepare your node for the Redstone Update and The Merge if you are using **Hybrid Mode**.
+Bu rehber, **Hibrit Mod** kullanıyorsanız düğümünüzü Redstone Güncellemesi ve Birleşme için hazırlamak üzere bilmeniz gereken her şeyi kapsayacaktır.
 
-## Things to Do Before Upgrading to v1.5.0
+## v1.5.0'a Yükseltmeden Önce Yapılacaklar
 
-Before upgrading to v1.5.0 and higher of the Smartnode, please go through the following checklist to make sure you're prepared:
+Smartnode'un v1.5.0 ve üzeri sürümlerine yükseltmeden önce, hazırlıklı olduğunuzdan emin olmak için lütfen aşağıdaki kontrol listesini gözden geçirin:
 
-### Switch to a Full Execution Client
+### Tam Execution Client'a Geçiş
 
-The Merge requires you to run your own Execution client, so you won't be able to use remote providers like Infura or Pocket anymore.
+Birleşme, kendi Execution client'ınızı çalıştırmanızı gerektirir, bu nedenle artık Infura veya Pocket gibi uzak sağlayıcıları kullanamayacaksınız.
 
-Because of this change, if you're currently using a light Execution client, you should switch to a full client while you're still on v1.4, let it sync to completion, and then upgrade to v1.5.
+Bu değişiklik nedeniyle, şu anda hafif bir Execution client kullanıyorsanız, v1.4'teyken tam bir client'a geçmeli, senkronizasyonunun tamamlanmasını beklemelisiniz ve ardından v1.5'e yükseltmelisiniz.
 
-### Ensure the EC and CC are Both Externally Managed
+### EC ve CC'nin Her İkisinin de Harici Yönetildiğinden Emin Olun
 
-Previous versions of the Smartnode stack allowed you to have one client locally managed, and the other externally managed.
-For example, you could have an Execution client that the Smartnode manages and connect it to a Consensus client that you manage externally.
+Smartnode stack'inin önceki sürümleri, bir client'ın yerel olarak yönetilmesine ve diğerinin harici olarak yönetilmesine izin veriyordu.
+Örneğin, Smartnode'un yönettiği bir Execution client'a sahip olabilir ve bunu harici olarak yönettiğiniz bir Consensus client'a bağlayabilirsiniz.
 
-Starting with v1.5, this configuration is no longer supported.
-You'll have to switch to either a locally managed Execution and Consensus client (also known as [Docker Mode](./docker-migration.mdx)), or set up both an Execution and a Consensus client that you manage on your own.
+v1.5'ten başlayarak, bu yapılandırma artık desteklenmemektedir.
+Ya yerel olarak yönetilen bir Execution ve Consensus client'a ([Docker Modu](./docker-migration.mdx) olarak da bilinir) geçmeniz gerekecek ya da kendi başınıza yönettiğiniz hem bir Execution hem de bir Consensus client kurmanız gerekecek.
 
-::: tip TIP
-If you are interested in letting the Smartnode maintain its own Execution and Consensus client but want to keep control over your own Validator client (e.g., if you have your own solo staking validator keys attached to it), you may want to consider [Reverse Hybrid Mode](../../node-staking/advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode) which does exactly this!
+::: tip İPUCU
+Smartnode'un kendi Execution ve Consensus client'ını sürdürmesine izin vermek ancak kendi Validator client'ınız üzerinde kontrolü elinizde tutmak istiyorsanız (örneğin, ona bağlı kendi solo staking validator anahtarlarınız varsa), tam olarak bunu yapan [Ters Hibrit Modu](../../node-staking/advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode)'nu değerlendirmek isteyebilirsiniz!
 :::
 
-### Set Up the Engine API
+### Engine API'yi Ayarlayın
 
-The Merge changes the way your Execution client talks to your Consensus client.
-Instead of using the old HTTP or Websocket based RPC system, The Merge requires a new system exposed by your Execution client called the Engine API.
+Birleşme, Execution client'ınızın Consensus client'ınızla konuşma şeklini değiştirir.
+Eski HTTP veya Websocket tabanlı RPC sistemini kullanmak yerine, Birleşme Execution client'ınız tarafından sunulan Engine API adlı yeni bir sistem gerektirir.
 
-This is a special connection that lets the Consensus client replace the old Proof-of-Work mining system with Proof-of-Stake; it's the heart of The Merge.
-It's also **authenticated** with a secret token, so only your Consensus client can connect to your Execution client - nothing else can.
+Bu, Consensus client'ın eski Proof-of-Work madencilik sistemini Proof-of-Stake ile değiştirmesine izin veren özel bir bağlantıdır; Birleşme'nin kalbidir.
+Ayrıca gizli bir token ile **kimlik doğrulamalıdır**, böylece yalnızca Consensus client'ınız Execution client'ınıza bağlanabilir - başka hiçbir şey bağlanamaz.
 
-As you manage your own Execution and Consensus clients, you'll need to set up the Engine API manually.
-How to do it depends entirely on which clients you're running.
+Kendi Execution ve Consensus client'larınızı yönettiğiniz için, Engine API'yi manuel olarak ayarlamanız gerekecektir.
+Bunu nasıl yapacağınız tamamen hangi client'ları çalıştırdığınıza bağlıdır.
 
-CoinCashew has [a great and concise guide](https://www.coincashew.com/coins/overview-eth/ethereum-merge-upgrade-checklist-for-home-stakers-and-validators) on how to set up the Engine API on your Execution and Consensus clients.
-Give that a look, and test the new configuration out by making sure it still attests properly before upgrading.
+CoinCashew, Execution ve Consensus client'larınızda Engine API'nin nasıl kurulacağına dair [harika ve özlü bir rehbere](https://www.coincashew.com/coins/overview-eth/ethereum-merge-upgrade-checklist-for-home-stakers-and-validators) sahiptir.
+Ona bir göz atın ve yükseltmeden önce yeni yapılandırmayı test edin ve hala düzgün şekilde onay verdiğinden emin olun.
 
-As always, Rocket Pool will manage its own Validator client so you don't need to worry about manually modifying it.
+Her zaman olduğu gibi, Rocket Pool kendi Validator client'ını yönetecektir, bu nedenle onu manuel olarak değiştirme konusunda endişelenmenize gerek yok.
 
-## Upgrading to v1.5.0
+## v1.5.0'a Yükseltme
 
-Upgrading the Smartnode stack to v1.5.0 is no different than any other upgrade.
-Simply follow [the normal directions here](../../node-staking/updates#updating-the-smartnode-stack).
+Smartnode stack'ini v1.5.0'a yükseltmek, diğer yükseltmelerden farklı değildir.
+Sadece [buradaki normal talimatları](../../node-staking/updates#updating-the-smartnode-stack) izleyin.
 
-## Things the Smartnode Handles Automatically
+## Smartnode'un Otomatik Olarak Hallettiği Şeyler
 
-In Hybrid mode, the Smartnode will take care of some of the changes needed to support Redstone automatically once you update to v1.5.0, but you will need to handle others manually in Hybrid Mode.
+Hibrit modda, v1.5.0'a güncelleme yaptığınızda Smartnode Redstone'u desteklemek için gereken bazı değişiklikleri otomatik olarak halledecektir, ancak Hibrit Mod'da bazılarını manuel olarak ele almanız gerekecektir.
 
-Here's a brief list of what it will do for you without any manual intervention:
+İşte sizin için herhangi bir manuel müdahale olmadan yapacağı şeylerin kısa bir listesi:
 
-### Your Fee Recipient
+### Fee Recipient'ınız
 
-The **fee recipient** is the address on the Execution layer (eth1) chain that will receive all of the priority fees for blocks you propose.
-It is a setting provided to your Validator client when it first starts.
+**Fee recipient**, önerdiğiniz bloklar için tüm öncelik ücretlerini alacak olan Execution katmanı (eth1) zincirindeki adrestir.
+Validator client'ınız ilk başladığında ona sağlanan bir ayardır.
 
-The Smartnode will handle setting it up to the correct address on the Validator client it manages when you upgrade to v1.5, and will constantly check to make sure you're using the correct one so you don't get [penalized accidentally](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
+Smartnode, v1.5'e yükseltme yaptığınızda yönettiği Validator client'ta bunu doğru adrese ayarlamayı halledecek ve yanlışlıkla [cezalandırılmamanız](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) için doğru olanı kullandığınızdan sürekli emin olacaktır.
 
-If you opted into the [Smoothing Pool](./whats-new#smoothing-pool), it will make that your fee recipient.
-If you didn't, it will make your [fee distributor contract](./whats-new#fee-recipients-and-your-distributor) the fee recipient.
+[Smoothing Pool'a](./whats-new#smoothing-pool) katılmayı seçtiyseniz, bu sizin fee recipient'ınız olacaktır.
+Katılmadıysanız, [fee distributor sözleşmeniz](./whats-new#fee-recipients-and-your-distributor) fee recipient olacaktır.
 
-## Things You Should Do After Upgrading
+## Yükseltme Sonrası Yapmanız Gerekenler
 
-While the Smartnode handles most of the changes for you, there are a few additional things you should do manually:
+Smartnode değişikliklerin çoğunu sizin için hallederken, manuel olarak yapmanız gereken birkaç ek şey var:
 
-### Ensure a Successful Upgrade
+### Başarılı Bir Yükseltme Sağlayın
 
-The first thing to do is ensure that your node is working correctly.
-Consider taking the following steps:
+Yapılacak ilk şey düğümünüzün doğru çalıştığından emin olmaktır.
+Aşağıdaki adımları atmayı düşünün:
 
-- Check the logs for errors with `rocketpool service logs validator` and `rocketpool service logs node`.
-- Confirm with a Block Explorer (such as your Grafana dashboard and [https://beaconcha.in](https://beaconcha.in)) that you are still attesting properly
-  - Remember that if you have Doppelganger protection enabled, you will miss a few attestations after the restart. This is normal!
+- `rocketpool service logs validator` ve `rocketpool service logs node` ile hataları kontrol edin.
+- Bir Block Explorer (Grafana panonuz ve [https://beaconcha.in](https://beaconcha.in) gibi) ile hala düzgün şekilde onay verdiğinizi doğrulayın
+  - Doppelganger koruması etkinse, yeniden başlatmadan sonra birkaç onayı kaçıracağınızı unutmayın. Bu normaldir!
 
-### Set Up MEV-Boost
+### MEV-Boost'u Ayarlayın
 
-[MEV-boost](https://boost.flashbots.net/) is the system Flashbots provides to give MEV rewards to Proof-of-Stake validators after The Merge.
+[MEV-boost](https://boost.flashbots.net/), Flashbots'un Birleşme sonrası Proof-of-Stake validator'lara MEV ödülleri sağlamak için sunduğu sistemdir.
 
-**Rocket Pool requires all nodes to use it to maximize their returns and thus keep the protocol competitive with other staking services.**
+**Rocket Pool, protokolü diğer staking hizmetleriyle rekabetçi tutmak için getirilerini maksimize etmek adına tüm düğümlerin bunu kullanmasını gerektirir.**
 
-You will need to make some adjustments to your Beacon Node / Consensus client to connect it to MEV-boost.
+Beacon Node / Consensus client'ınızı MEV-boost'a bağlamak için bazı ayarlamalar yapmanız gerekecektir.
 
-MEV-boost is currently not available on Hoodi or Mainnet, so you do not need to set it up at this time.
-Of course, you will not be penalized for not using it during this transition period.
+MEV-boost şu anda Hoodi veya Mainnet'te mevcut değildir, bu nedenle şu anda kurmanıza gerek yoktur.
+Tabii ki, bu geçiş dönemi boyunca kullanmadığınız için cezalandırılmayacaksınız.
 
-Once it becomes available, we will announce a date at which it must be installed and connected to your node.
-Flashbots will provide instructions you can follow at that time, and we will link to them here.
+Kullanılabilir hale geldiğinde, düğümünüze kurulması ve bağlanması gereken bir tarih duyuracağız.
+Flashbots o zaman takip edebileceğiniz talimatlar sağlayacak ve biz de onları buraya bağlayacağız.
 
-::: danger NOTE
-Once we make the announcement that MEV-boost must be enabled by all node operators, you must ensure you have it properly installed and configured with your Beacon Node!
+::: danger NOT
+Tüm düğüm operatörleri tarafından MEV-boost'un etkinleştirilmesi gerektiğini duyurduğumuzda, Beacon Node'unuza düzgün şekilde kurulmuş ve yapılandırılmış olduğundan emin olmalısınız!
 
-Not doing so will result in your minipool being [penalized](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
+Bunu yapmamanız minipool'unuzun [cezalandırılması](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) ile sonuçlanacaktır.
 :::
 
-### Set Up a Fallback Node
+### Fallback Düğümü Ayarlayın
 
-Because The Merge is not compatible with remote providers like Infura and Pocket, you'll lose the ability to use them as fallback Execution clients when your primary goes offline.
+Birleşme, Infura ve Pocket gibi uzak sağlayıcılarla uyumlu olmadığı için, birincil düğümünüz çevrimdışı olduğunda onları fallback Execution client olarak kullanma yeteneğinizi kaybedeceksiniz.
 
-The Smartnode still has the ability to provide a fallback Execution client (and now a fallback Consensus client as well), but you will now need to use Execution and Consensus clients that you control.
+Smartnode hala fallback Execution client (ve artık fallback Consensus client) sağlama yeteneğine sahiptir, ancak artık kontrol ettiğiniz Execution ve Consensus client'larını kullanmanız gerekecektir.
 
-For more information on setting up a fallback node, see the [Fallback node guide](../../node-staking/fallback).
+Fallback düğümü kurma hakkında daha fazla bilgi için [Fallback düğümü rehberine](../../node-staking/fallback) bakın.
 
-### Initialize your Fee Distributor
+### Fee Distributor'ınızı Başlatın
 
-If you aren't planning to opt into the [Smoothing Pool](./whats-new#smoothing-pool) and claim all of your priority fees and MEV rewards to your [fee distributor contract](./whats-new#fee-recipients-and-your-distributor), you will eventually have to initialize it (create the contract instance on the chain) in order to claim rewards from it to your withdrawal address.
+[Smoothing Pool'a](./whats-new#smoothing-pool) katılmayı planlamıyorsanız ve tüm öncelik ücretlerinizi ve MEV ödüllerinizi [fee distributor sözleşmenize](./whats-new#fee-recipients-and-your-distributor) talep edecekseniz, sonunda ödüllerinizi çekim adresinize talep edebilmek için onu başlatmanız (zincirde sözleşme örneğini oluşturmanız) gerekecektir.
 
-This is a fairly cheap operation and only needs to be done once.
+Bu oldukça ucuz bir işlemdir ve yalnızca bir kez yapılması gerekir.
 
-::: tip TIP
-Initializing your fee distributor can be done at **any time**.
-You can let rewards accumulate in its address long before you initialize it, and your balance will remain after initialization.
+::: tip İPUCU
+Fee distributor'ınızı başlatmak **herhangi bir zamanda** yapılabilir.
+Ödüllerin adresinde başlatmadan uzun süre önce birikmesine izin verebilirsiniz ve bakiyeniz başlatma sonrasında kalacaktır.
 
-We recommend you do so when gas prices are low to minimize the overhead cost.
+Genel gider maliyetini en aza indirmek için gas fiyatları düşükken yapmanızı öneririz.
 
-Note that it **must be initialized in order to claim your rewards.**
+**Ödüllerinizi talep edebilmek için başlatılmış olması gerektiğini** unutmayın.
 :::
 
-### Opt Into the Smoothing Pool
+### Smoothing Pool'a Katılın
 
-If you plan on taking advantage of the [Smoothing Pool](./whats-new#smoothing-pool) right away, you should opt in before the end of the first Redstone rewards period to maximize your "eligibility" amount.
+[Smoothing Pool'dan](./whats-new#smoothing-pool) hemen yararlanmayı planlıyorsanız, "uygunluk" miktarınızı maksimize etmek için ilk Redstone ödül döneminin sonundan önce katılmalısınız.
 
-Opting in can be done via running the following command:
+Katılım, aşağıdaki komutu çalıştırarak yapılabilir:
 
 ```shell
 rocketpool node join-smoothing-pool
 ```
 
-### Claim Rewards
+### Ödülleri Talep Edin
 
-The Redstone upgrade replaces the expensive, problematic old rewards system with a [brand new one](./whats-new#new-rewards-system) that's much cheaper, supports automatic restaking of RPL (both partial and full amounts), and - most importantly - **lets you claim your rewards whenever you want**.
+Redstone yükseltmesi, pahalı, sorunlu eski ödül sistemini çok daha ucuz olan, RPL'nin otomatik yeniden stake edilmesini destekleyen (hem kısmi hem de tam miktarlar) ve - en önemlisi - **ödüllerinizi istediğiniz zaman talep etmenize izin veren** [yepyeni bir sistemle](./whats-new#new-rewards-system) değiştirir.
 
-Because there is no longer a time limit on claiming rewards, and because it's cheaper to claim many rewards intervals at once, the automatic rewards claiming feature of the Smartnode **has been removed**.
-You will now be able to claim rewards via the following command:
+Artık ödülleri talep etmek için zaman sınırı olmadığından ve birçok ödül aralığını bir kerede talep etmek daha ucuz olduğundan, Smartnode'un otomatik ödül talep etme özelliği **kaldırılmıştır**.
+Artık ödülleri aşağıdaki komut aracılığıyla talep edebileceksiniz:
 
 ```shell
 rocketpool node claim-rewards
 ```
 
-This will show you all of the rewards you've accumulated across all of the rewards intervals starting with the Redstone upgrade.
+Bu, Redstone yükseltmesinden başlayarak tüm ödül aralıkları boyunca biriktirdiğiniz tüm ödülleri gösterecektir.
 
-## Reverting to v1.4.3
+## v1.4.3'e Geri Dönme
 
-If, for any reason, something isn't to your liking and you want to revert to the previous Smartnode release, you can do so easily.
-The Smartnode automatically backs up your settings from the previous version when you upgrade it, so simply get the previous version (here we're demonstrating **v1.4.3**) and replace the settings with the backup:
+Herhangi bir nedenle, bir şey beğeninize uygun değilse ve önceki Smartnode sürümüne geri dönmek isterseniz, bunu kolayca yapabilirsiniz.
+Smartnode, onu yükselttiğinizde önceki sürümdeki ayarlarınızı otomatik olarak yedekler, bu nedenle sadece önceki sürümü alın (burada **v1.4.3** gösteriyoruz) ve ayarları yedeğiyle değiştirin:
 
-1. Stop the service:
+1. Servisi durdurun:
 
 ```shell
 rocketpool service stop
 ```
 
-1. Download the v1.4.3 CLI:
+1. v1.4.3 CLI'yi indirin:
 
 <div className="p-3">
   <Tabs>
@@ -164,33 +164,33 @@ rocketpool service stop
   </Tabs>
 </div>
 
-1. Install the v1.4.3 package:
+1. v1.4.3 paketini yükleyin:
 
 ```shell
 rocketpool service install -d
 ```
 
-1. Replace your old configuration with the v1.4.3 backup configuration:
+1. Eski yapılandırmanızı v1.4.3 yedek yapılandırmasıyla değiştirin:
 
 ```shell
 cp ~/.rocketpool/user-settings-backup.yml ~/.rocketpool/user-settings.yml
 ```
 
-1. Verify all of your old settings are now being used:
+1. Tüm eski ayarlarınızın şimdi kullanıldığını doğrulayın:
 
 ```shell
 rocketpool service config
 ```
 
-1. If it looks good, start the Smartnode stack:
+1. İyi görünüyorsa, Smartnode stack'ini başlatın:
 
 ```shell
 rocketpool service start
 ```
 
-All set! You're now back on the old version and should begin attesting shortly after starting the service.
+Tamam! Artık eski sürümdesiniz ve servisi başlattıktan kısa süre sonra onay vermeye başlamalısınız.
 
-::: danger WARNING
-v1.4.3 is **deprecated** and will no longer be usable after the Redstone update is deployed.
-If you do need to revert to it, please make plans to upgrade back to v1.5.0 before the contracts are updated!
+::: danger UYARI
+v1.4.3 **kullanımdan kaldırılmıştır** ve Redstone güncellemesi dağıtıldıktan sonra artık kullanılamayacaktır.
+Ona geri dönmeniz gerekiyorsa, lütfen sözleşmeler güncellenmeden önce v1.5.0'a geri yükseltme planları yapın!
 :::

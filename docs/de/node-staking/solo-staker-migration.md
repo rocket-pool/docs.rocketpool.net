@@ -1,114 +1,114 @@
-::: danger WARNING
-Minipool deposits are currently disabled in preparation for Saturn 1.
+::: danger WARNUNG
+Minipool-Einzahlungen sind derzeit in Vorbereitung auf Saturn 1 deaktiviert.
 :::
 
-# Converting a Solo Validator into a Minipool
+# Umwandlung eines Solo-Validators in einen Minipool
 
-When the Beacon Chain was first launched, validators were created with a special pair of cryptographic keys - the **validator key** and the **withdrawal key**.
+Als die Beacon Chain zum ersten Mal gestartet wurde, wurden Validatoren mit einem speziellen Paar kryptografischer Schlüssel erstellt - dem **Validator-Schlüssel** und dem **Auszahlungsschlüssel**.
 
-The validator key is a "hot key", which means it needs to be stored on an active machine connected to the Internet; this is the key used to sign your attestations and proposals, and also serves as your "address" on the Beacon Chain (the hex string used to identify your validator).
+Der Validator-Schlüssel ist ein "Hot-Key", was bedeutet, dass er auf einer aktiven, mit dem Internet verbundenen Maschine gespeichert werden muss; dies ist der Schlüssel, der verwendet wird, um Ihre Attestierungen und Vorschläge zu signieren, und dient auch als Ihre "Adresse" auf der Beacon Chain (die Hex-Zeichenfolge, die zur Identifizierung Ihres Validators verwendet wird).
 
-The withdrawal key, on the other hand, is a "cold key" which means it does _not_ (and in fact, _should not_) be stored on an active machine connected to the Internet.
-It is intended to be locked away in cold storage so it cannot be accessed until it is needed.
-Unlike the validator key, the withdrawal key isn't responsible for validation duties at all.
-Instead, its only job is to manage the withdrawing of your validator's funds on the Beacon Chain (once withdrawals had been implemented).
+Der Auszahlungsschlüssel hingegen ist ein "Cold-Key", was bedeutet, dass er _nicht_ (und in der Tat _nicht sollte_) auf einer aktiven, mit dem Internet verbundenen Maschine gespeichert werden.
+Er ist dazu gedacht, im Cold Storage weggeschlossen zu werden, sodass er nicht zugänglich ist, bis er benötigt wird.
+Im Gegensatz zum Validator-Schlüssel ist der Auszahlungsschlüssel überhaupt nicht für Validierungsaufgaben verantwortlich.
+Stattdessen besteht seine einzige Aufgabe darin, das Abheben der Gelder Ihres Validators auf der Beacon Chain zu verwalten (sobald Abhebungen implementiert wurden).
 
-This dual-key system was the initial architecture the Beacon Chain launched with.
-At the time, neither the Merge nor withdrawals had been designed yet but this system was considered robust enough to handle whatever form the protocol took when both of them were implemented.
+Dieses Dual-Key-System war die anfängliche Architektur, mit der die Beacon Chain gestartet wurde.
+Zu dieser Zeit waren weder der Merge noch Abhebungen entworfen worden, aber dieses System wurde als robust genug angesehen, um mit jeder Form umzugehen, die das Protokoll annehmen würde, wenn beide implementiert würden.
 
-Fast forward to today, and now we have a much better understanding of how withdrawals work.
-Luckily, they have been implemented in a way that makes it possible for an existing solo staking validator on the Beacon Chain (that is using the old withdrawal key credentials) to convert **directly into a Rocket Pool minipool** without needing to exit the validator from the Beacon Chain!
+Spulen wir vor bis heute, und jetzt haben wir ein viel besseres Verständnis davon, wie Abhebungen funktionieren.
+Glücklicherweise wurden sie auf eine Weise implementiert, die es einem bestehenden Solo-Staking-Validator auf der Beacon Chain (der die alten Auszahlungsschlüssel-Credentials verwendet) ermöglicht, **direkt in einen Rocket Pool Minipool umzuwandeln**, ohne den Validator von der Beacon Chain beenden zu müssen!
 
-If you are interested in learning more about this process, then this guide is for you.
-We'll cover how withdrawals work on Ethereum at a high-level, explain how the conversion process works, and end with a detailed walkthrough of how to convert your validator into a minipool.
+Wenn Sie daran interessiert sind, mehr über diesen Prozess zu erfahren, dann ist dieser Leitfaden für Sie.
+Wir werden behandeln, wie Abhebungen auf Ethereum auf hohem Niveau funktionieren, erklären, wie der Umwandlungsprozess funktioniert, und mit einer detaillierten Anleitung enden, wie Sie Ihren Validator in einen Minipool umwandeln.
 
-## Why Would I Convert?
+## Warum sollte ich umwandeln?
 
-Before getting into the technical details, a very important question to answer is _why_ a solo staker would consider this process in the first place.
-Conversion into a minipool is not for everyone, but this section will help you make an informed choice about whether or not it's something you'd like to pursue.
+Bevor wir in die technischen Details einsteigen, ist eine sehr wichtige Frage zu beantworten, _warum_ ein Solo-Staker diesen Prozess überhaupt in Betracht ziehen würde.
+Die Umwandlung in einen Minipool ist nicht für jeden geeignet, aber dieser Abschnitt wird Ihnen helfen, eine informierte Entscheidung zu treffen, ob es etwas ist, das Sie verfolgen möchten.
 
-Rocket Pool minipools enjoy several advantages over conventional solo staking validators:
+Rocket Pool Minipools genießen mehrere Vorteile gegenüber herkömmlichen Solo-Staking-Validatoren:
 
-- They **earn commission** on the portion of ETH they borrow from the pool stakers (24 ETH).
-- Your existing 32 ETH bond could be used to create up to **three additional validators** (on top of the one you already have).
-- They are eligible for participation in the [Smoothing Pool](./fee-distrib-sp#the-smoothing-pool) which pools all Execution layer rewards (e.g., from block proposals and [MEV rewards](./mev.mdx)) and fairly distributes them among participants during each rewards interval.
-- If you stake RPL, they will earn bonus commission and RPL inflation rewards (which currently provide a higher APR than ETH staking rewards).
+- Sie **verdienen Provisionen** auf den Teil des ETH, den sie von den Pool-Stakern leihen (24 ETH).
+- Ihr bestehender 32-ETH-Bond könnte verwendet werden, um bis zu **drei zusätzliche Validatoren** zu erstellen (zusätzlich zu dem, den Sie bereits haben).
+- Sie sind berechtigt, am [Smoothing Pool](./fee-distrib-sp#the-smoothing-pool) teilzunehmen, der alle Execution-Layer-Belohnungen (z.B. aus Block-Vorschlägen und [MEV-Belohnungen](./mev.mdx)) pooled und sie während jedes Belohnungsintervalls fair unter den Teilnehmern verteilt.
+- Wenn Sie RPL staken, verdienen sie Bonusprovision und RPL-Inflationsbelohnungen (die derzeit einen höheren APR als ETH-Staking-Belohnungen bieten).
 
-That being said, there are some differences that are important to highlight:
+Davon abgesehen gibt es einige Unterschiede, die wichtig hervorzuheben sind:
 
-- You will have to accept **smart contract risk**, as the protocol is implemented as a series of smart contracts.
-- Similarly, conventional node operation leverages the **Smartnode stack**; you will have to accept any risks associated with installing and running that software on your node.
-- Being a node operator does involve learning some new concepts, so there is a **learning curve** associated with becoming one.
-- Minipools are required to split their rewards with the pool stakers, so the validator's withdrawal address will be a smart contract on the Execution layer, **not an EOA that you control**. This also applies to your **fee recipient** for Execution layer rewards, which must also be a smart contract that can fairly split your rewards.
-- Rocket Pool's **Oracle DAO** is responsible for shuttling information from the Beacon Chain to the Execution layer, and for detecting violations that the protocol cannot enforce (such as an illegal fee recipient address). Running a minipool means you will have to trust the Oracle DAO to do that job correctly.
+- Sie müssen **Smart-Contract-Risiko** akzeptieren, da das Protokoll als eine Reihe von Smart Contracts implementiert ist.
+- Ebenso nutzt der konventionelle Node-Betrieb den **Smartnode-Stack**; Sie müssen alle Risiken akzeptieren, die mit der Installation und dem Betrieb dieser Software auf Ihrem Node verbunden sind.
+- Ein Node-Betreiber zu sein, bedeutet, einige neue Konzepte zu lernen, daher gibt es eine **Lernkurve**, die mit dem Werden eines solchen verbunden ist.
+- Minipools müssen ihre Belohnungen mit den Pool-Stakern teilen, daher wird die Auszahlungsadresse des Validators ein Smart Contract auf dem Execution-Layer sein, **nicht eine EOA, die Sie kontrollieren**. Dies gilt auch für Ihren **Fee-Empfänger** für Execution-Layer-Belohnungen, der ebenfalls ein Smart Contract sein muss, der Ihre Belohnungen fair aufteilen kann.
+- Rocket Pools **Oracle DAO** ist dafür verantwortlich, Informationen von der Beacon Chain zum Execution-Layer zu transportieren und Verstöße zu erkennen, die das Protokoll nicht durchsetzen kann (wie z.B. eine illegale Fee-Empfänger-Adresse). Das Betreiben eines Minipools bedeutet, dass Sie der Oracle DAO vertrauen müssen, diese Aufgabe korrekt zu erledigen.
 
-We encourage you to carefully go through these pros and cons before deciding to convert your solo validator.
-If you would like to continue with the process, please read the next sections.
+Wir ermutigen Sie, diese Vor- und Nachteile sorgfältig durchzugehen, bevor Sie sich entscheiden, Ihren Solo-Validator umzuwandeln.
+Wenn Sie mit dem Prozess fortfahren möchten, lesen Sie bitte die nächsten Abschnitte.
 
-## Prerequisites
+## Voraussetzungen
 
-In order to begin the conversion process, you will need to meet the following criteria:
+Um den Umwandlungsprozess zu beginnen, müssen Sie die folgenden Kriterien erfüllen:
 
-1. You must have [a node registered with the Rocket Pool network](./prepare-node.mdx) to host the new minipool.
-1. The validator you want to migrate must be **active** on the Beacon chain. It cannot be pending, slashed, exiting / exited, or withdrawn.
-1. The validator must have a balance of **at least 32 ETH** on the Beacon chain.
-1. The validator must have [BLS key withdrawal credentials](https://launchpad.ethereum.org/en/withdrawals) (`0x00` credentials). Conversion **cannot** be done on validators that have already migrated to other Execution layer withdrawal credentials (`0x01` credentials).
-1. (Optional) If you intend to have the Smartnode migrate the withdrawal credentials for you automatically, you must have your **mnemonic phrase on hand**.
+1. Sie müssen [einen beim Rocket Pool Netzwerk registrierten Node](./prepare-node.mdx) haben, um den neuen Minipool zu hosten.
+1. Der Validator, den Sie migrieren möchten, muss auf der Beacon Chain **aktiv** sein. Er kann nicht ausstehend, geslasht, beendet / ausgetreten oder abgehoben sein.
+1. Der Validator muss ein Guthaben von **mindestens 32 ETH** auf der Beacon Chain haben.
+1. Der Validator muss [BLS-Key-Auszahlungs-Credentials](https://launchpad.ethereum.org/en/withdrawals) (`0x00`-Credentials) haben. Die Umwandlung **kann nicht** bei Validatoren durchgeführt werden, die bereits zu anderen Execution-Layer-Auszahlungs-Credentials (`0x01`-Credentials) migriert wurden.
+1. (Optional) Wenn Sie möchten, dass der Smartnode die Auszahlungs-Credentials automatisch für Sie migriert, müssen Sie Ihre **Mnemonik-Phrase zur Hand** haben.
 
-If none of these conditions are blockers for you, then you are eligible to begin validator conversion.
+Wenn keine dieser Bedingungen für Sie ein Hindernis darstellt, sind Sie berechtigt, mit der Validator-Umwandlung zu beginnen.
 
-## Process Overview
+## Prozessübersicht
 
-The first step is to **create a new "vacant" minipool**.
-Unlike conventional minipools, which make a new validator during their creation, vacant minipools are special minipools designed to manage _existing_ validators.
-As a consequence, vacant minipools behave slightly differently than conventional minipools during the `prelaunch` stage.
-Once initialization is finished and they enter the `staking` stage, they become conventional minipools.
+Der erste Schritt besteht darin, **einen neuen "leeren" Minipool zu erstellen**.
+Im Gegensatz zu herkömmlichen Minipools, die während ihrer Erstellung einen neuen Validator erstellen, sind leere Minipools spezielle Minipools, die für die Verwaltung _bestehender_ Validatoren konzipiert sind.
+Als Konsequenz verhalten sich leere Minipools während der `prelaunch`-Phase etwas anders als herkömmliche Minipools.
+Sobald die Initialisierung abgeschlossen ist und sie in die `staking`-Phase eintreten, werden sie zu herkömmlichen Minipools.
 
-During vacant minipool creation, you will be given the option of having the Smartnode automatically **change your validator's withdrawal credentials** from the old BLS withdrawal key to the new vacant minipool address.
-If you don't want to do this right now, you can have the Smartnode do it later with a dedicated command, or you can do it yourself with a third-party tool.
-Note that changing the validator's withdrawal credentials to the minipool address is **required** for conversion, so regardless of how you do this, it will need to be done for the process to complete successfully.
+Während der Erstellung eines leeren Minipools erhalten Sie die Option, dass der Smartnode automatisch **die Auszahlungs-Credentials Ihres Validators ändert** vom alten BLS-Auszahlungsschlüssel zur neuen leeren Minipool-Adresse.
+Wenn Sie dies jetzt nicht tun möchten, kann der Smartnode es später mit einem dedizierten Befehl tun, oder Sie können es selbst mit einem Drittanbieter-Tool tun.
+Beachten Sie, dass das Ändern der Auszahlungs-Credentials des Validators zur Minipool-Adresse für die Umwandlung **erforderlich** ist, daher muss dies unabhängig davon, wie Sie dies tun, für den erfolgreichen Abschluss des Prozesses durchgeführt werden.
 
-Once the withdrawal credentials have been changed, you will have the option of **importing the validator's private key** into the Validator Client managed by the Smartnode.
-If you want the Smartnode to maintain the validator so you don't have to manage your own, this is an attractive option.
-If you prefer to maintain your own Validator Client and keep the keys there, you are welcome to do so.
+Sobald die Auszahlungs-Credentials geändert wurden, haben Sie die Option, **den privaten Schlüssel des Validators zu importieren** in den vom Smartnode verwalteten Validator-Client.
+Wenn Sie möchten, dass der Smartnode den Validator verwaltet, damit Sie ihn nicht selbst verwalten müssen, ist dies eine attraktive Option.
+Wenn Sie es vorziehen, Ihren eigenen Validator-Client zu betreiben und die Schlüssel dort zu behalten, können Sie dies gerne tun.
 
-At this point your new minipool will enter the **scrub check** period, where the Oracle DAO will continuously analyze your validator's information on the Beacon Chain to confirm that it remains legal.
-This includes:
+An diesem Punkt wird Ihr neuer Minipool in die **Scrub-Check**-Periode eintreten, wo die Oracle DAO kontinuierlich die Informationen Ihres Validators auf der Beacon Chain analysiert, um zu bestätigen, dass sie legal bleiben.
+Dies beinhaltet:
 
-- The withdrawal credentials either haven't been migrated yet (are still the original `0x00` BLS key credentials) or have been migrated to the minipool's address. Migrating them to any other Execution layer address will cause the pool to be scrubbed.
-  - If the withdrawal credentials are still the original `0x00` BLS key credentials by the time the scrub check period ends, the pool will be scrubbed.
-- The validator is in the actively staking state for the duration of the check. If it transitions to the slashed, exited, or withdrawn states, the pool will be scrubbed.
+- Die Auszahlungs-Credentials wurden entweder noch nicht migriert (sind immer noch die ursprünglichen `0x00` BLS-Key-Credentials) oder wurden zur Adresse des Minipools migriert. Die Migration zu einer anderen Execution-Layer-Adresse führt dazu, dass der Pool gescrubt wird.
+  - Wenn die Auszahlungs-Credentials zum Zeitpunkt des Endes der Scrub-Check-Periode immer noch die ursprünglichen `0x00` BLS-Key-Credentials sind, wird der Pool gescrubt.
+- Der Validator befindet sich für die Dauer der Überprüfung im aktiv stakenden Zustand. Wenn er in die Zustände geslasht, ausgetreten oder abgehoben übergeht, wird der Pool gescrubt.
 
-::: tip NOTE
-A **scrubbed** vacant minipool means that it is not a part of the Rocket Pool network, but it will still give you (the node operator) access to all of your funds via the typical token retrieval methods in the CLI.
-Funds are **not lost** if vacant minipools are scrubbed.
-More information on scrubbed minipools, their ramifications, and how to use them is included later in this guide.
+::: tip HINWEIS
+Ein **geScrubbter** leerer Minipool bedeutet, dass er nicht Teil des Rocket Pool Netzwerks ist, aber er gibt Ihnen (dem Node-Betreiber) dennoch Zugriff auf alle Ihre Gelder über die typischen Token-Abrufmethoden in der CLI.
+Gelder gehen **nicht verloren**, wenn leere Minipools gescrubt werden.
+Weitere Informationen zu geScrubbten Minipools, ihren Auswirkungen und deren Verwendung finden Sie später in diesem Leitfaden.
 :::
 
-After the scrub check passes, you will be able to **promote** your vacant minipool.
-This will finish the conversion and change it from a vacant minipool into a regular one.
-At this point the minipool will act like every other minipool on the network, and your solo validator will officially be converted into a Rocket Pool validator!
+Nach bestandenem Scrub-Check können Sie Ihren leeren Minipool **promoten**.
+Dies beendet die Umwandlung und ändert ihn von einem leeren Minipool in einen regulären.
+An diesem Punkt verhält sich der Minipool wie jeder andere Minipool im Netzwerk, und Ihr Solo-Validator ist offiziell in einen Rocket Pool Validator umgewandelt!
 
-As part of the process, the network will snapshot your total rewards on the Beacon chain (and within your new minipool, if you get skimmed during the scrub check).
-It will recognize that all of those rewards belong to you and shouldn't be shared with the staking pool, so it will provide them all as a **refund** you can claim at any time once promotion is complete.
+Als Teil des Prozesses wird das Netzwerk Ihre Gesamtbelohnungen auf der Beacon Chain (und innerhalb Ihres neuen Minipools, falls Sie während des Scrub-Checks geskimmt werden) erfassen.
+Es wird erkennen, dass all diese Belohnungen Ihnen gehören und nicht mit dem Staking-Pool geteilt werden sollten, sodass es sie alle als **Rückerstattung** bereitstellt, die Sie jederzeit nach Abschluss der Promotion beanspruchen können.
 
-Below is a detailed walkthrough of the conversion process, including instructions for each step.
+Nachfolgend finden Sie eine detaillierte Anleitung zum Umwandlungsprozess, einschließlich Anweisungen für jeden Schritt.
 
-## Step 1: Creating a Vacant Minipool
+## Schritt 1: Erstellen eines leeren Minipools
 
-To begin the conversion process, run the following command with the Smartnode CLI:
+Um den Umwandlungsprozess zu beginnen, führen Sie den folgenden Befehl mit der Smartnode-CLI aus:
 
 ```
 rocketpool node create-vacant-minipool <validator pubkey>
 ```
 
-For example, if you wanted to convert a solo validator with pubkey `0xb82ccba6093747559361a5495c7e2c607e76ea3543d556319355ce80289bb819fd787f715f60615cdd358c0476b40661`, you would run:
+Wenn Sie beispielsweise einen Solo-Validator mit Pubkey `0xb82ccba6093747559361a5495c7e2c607e76ea3543d556319355ce80289bb819fd787f715f60615cdd358c0476b40661` umwandeln möchten, würden Sie ausführen:
 
 ```
 rocketpool node create-vacant-minipool 0xb82ccba6093747559361a5495c7e2c607e76ea3543d556319355ce80289bb819fd787f715f60615cdd358c0476b40661
 ```
 
-You will see a brief summary about what to expect during the process, then be prompted for which bond amount you'd like to use when creating this minipool:
+Sie sehen eine kurze Zusammenfassung darüber, was während des Prozesses zu erwarten ist, und werden dann aufgefordert, auszuwählen, welchen Bond-Betrag Sie bei der Erstellung dieses Minipools verwenden möchten:
 
 ```
 Please choose an amount of ETH you want to use as your deposit for the new minipool (this will become your share of the balance, and the remainder will become the pool stakers' share):
@@ -116,22 +116,22 @@ Please choose an amount of ETH you want to use as your deposit for the new minip
 1. 8 ETH
 ```
 
-Once you select **8 ETH**, you will convert your validator into an 8-ETH bonded minipool.
-Your original 32 ETH deposit will be converted into an 8 ETH deposit, with 24 ETH borrowed from the pool stakers.
-Once the conversion process is complete, you will have a [credit balance](./credit) of 24 ETH which you can use to create more minipools.
+Sobald Sie **8 ETH** auswählen, wandeln Sie Ihren Validator in einen 8-ETH-gebondeten Minipool um.
+Ihre ursprüngliche 32-ETH-Einzahlung wird in eine 8-ETH-Einzahlung umgewandelt, mit 24 ETH, die von den Pool-Stakern geliehen werden.
+Sobald der Umwandlungsprozess abgeschlossen ist, haben Sie ein [Guthaben](./credit) von 24 ETH, das Sie verwenden können, um weitere Minipools zu erstellen.
 
-Once you select an option, the Smartnode will run a few checks to confirm that the validator you entered and your node both pass all of the prerequisite requirements listed above.
-After that, it will ask you to confirm your gas price and then submit the transaction to create the new vacant minipool.
-Upon creation, you will be presented with the minipool's address:
+Sobald Sie eine Option ausgewählt haben, führt der Smartnode einige Überprüfungen durch, um zu bestätigen, dass der von Ihnen eingegebene Validator und Ihr Node alle oben aufgeführten Voraussetzungen erfüllen.
+Danach werden Sie aufgefordert, Ihren Gaspreis zu bestätigen und dann die Transaktion einzureichen, um den neuen leeren Minipool zu erstellen.
+Nach der Erstellung wird Ihnen die Adresse des Minipools angezeigt:
 
 ```
 Your minipool was made successfully!
 Your new minipool's address is: 0x8F3F149e4416a94e0ee909dE32f8A11C2F3e211C
 ```
 
-This is the address you will use when changing your validator's withdrawal credentials.
+Dies ist die Adresse, die Sie verwenden, wenn Sie die Auszahlungs-Credentials Ihres Validators ändern.
 
-At this point, the Smartnode will ask if you would like to have the Smartnode do this automatically (along with importing the validator's private key into the Validator Client managed by the Smartnode, which is discussed later):
+An diesem Punkt fragt der Smartnode, ob Sie möchten, dass der Smartnode dies automatisch tut (zusammen mit dem Import des privaten Schlüssels des Validators in den vom Smartnode verwalteten Validator-Client, was später besprochen wird):
 
 ```
 You have the option of importing your validator's private key into the Smartnode's Validator Client instead of running your own Validator Client separately. In doing so, the Smartnode will also automatically migrate your validator's withdrawal credentials from your BLS private key to the minipool you just created.
@@ -139,30 +139,30 @@ You have the option of importing your validator's private key into the Smartnode
 Would you like to import your key and automatically migrate your withdrawal credentials? [y/n]
 ```
 
-If you answer `y` to this question, the Smartnode will do Steps 2 and 3 automatically; please see the [Automatic Withdrawal Credential Change and Key Import](#automatic-withdrawal-credential-change-and-key-import) section below.
+Wenn Sie auf diese Frage mit `y` antworten, führt der Smartnode die Schritte 2 und 3 automatisch aus; siehe den Abschnitt [Automatische Änderung der Auszahlungs-Credentials und Schlüsselimport](#automatic-withdrawal-credential-change-and-key-import) unten.
 
-If you answer `n` to this question, the command will end and you will have finished Step 1.
-Please go to the [Step 2](#step-2-changing-the-validators-withdrawal-credentials) section next.
+Wenn Sie auf diese Frage mit `n` antworten, endet der Befehl und Sie haben Schritt 1 abgeschlossen.
+Bitte gehen Sie als Nächstes zum Abschnitt [Schritt 2](#step-2-changing-the-validators-withdrawal-credentials).
 
-::: tip NOTE
-If you decline this process now, you can resume it at a later time using the CLI.
-Read the [**Step 2**](#step-2-changing-the-validators-withdrawal-credentials) and [**Step 3**](#optional-step-3-import-the-validator-key) sections below to learn how to do this.
+::: tip HINWEIS
+Wenn Sie diesen Prozess jetzt ablehnen, können Sie ihn zu einem späteren Zeitpunkt mit der CLI fortsetzen.
+Lesen Sie die Abschnitte [**Schritt 2**](#step-2-changing-the-validators-withdrawal-credentials) und [**Schritt 3**](#optional-step-3-import-the-validator-key) unten, um zu erfahren, wie dies funktioniert.
 :::
 
-### Automatic Withdrawal Credential Change and Key Import
+### Automatische Änderung der Auszahlungs-Credentials und Schlüsselimport
 
-::: danger WARNING
-If you choose to have the Smartnode automatically change your withdrawal credentials and import your validator's private key, it is **essential** that you remove the validator key from your old Validator Client that you manage on your own, and **shut down the old Validator Client** to ensure it does not have the key loaded into memory still.
+::: danger WARNUNG
+Wenn Sie sich dafür entscheiden, dass der Smartnode Ihre Auszahlungs-Credentials automatisch ändert und den privaten Schlüssel Ihres Validators importiert, ist es **unerlässlich**, dass Sie den Validator-Schlüssel aus Ihrem alten, von Ihnen verwalteten Validator-Client entfernen und **den alten Validator-Client herunterfahren**, um sicherzustellen, dass er den Schlüssel nicht noch im Speicher geladen hat.
 
-You must also wait **at least 15 minutes** after doing so to ensure that it has **intentionally missed at least two attestations**.
-You can verify this by looking at a chain explorer such as [https://beaconcha.in](https://beaconcha.in).
+Sie müssen auch **mindestens 15 Minuten** danach warten, um sicherzustellen, dass er **absichtlich mindestens zwei Attestierungen verpasst hat**.
+Sie können dies überprüfen, indem Sie einen Chain-Explorer wie [https://beaconcha.in](https://beaconcha.in) betrachten.
 
-If you do not wait for at least 15 minutes, your validator **WILL BE SLASHED** when the Smartnode's Validator Client begins attesting with your validator's key!
+Wenn Sie nicht mindestens 15 Minuten warten, **WIRD IHR VALIDATOR GESLASHT**, wenn der Validator-Client des Smartnodes mit dem Schlüssel Ihres Validators attestiert!
 
-We strongly recommend you enable **doppelganger detection** in the Smartnode configuration as well, to be as safe as possible against the risk of slashing.
+Wir empfehlen dringend, auch **Doppelgänger-Erkennung** in der Smartnode-Konfiguration zu aktivieren, um so sicher wie möglich gegen das Risiko des Slashings zu sein.
 :::
 
-If you choose to automatically import the validator key and change the withdrawal credentials to the minipool address, the Smartnode will first ask for the mnemonic used to generate both your validator's BLS private key and its corresponding original withdrawal key:
+Wenn Sie sich dafür entscheiden, den Validator-Schlüssel automatisch zu importieren und die Auszahlungs-Credentials zur Minipool-Adresse zu ändern, fragt der Smartnode zunächst nach der Mnemonik, die zur Generierung sowohl des privaten BLS-Schlüssels Ihres Validators als auch des entsprechenden ursprünglichen Auszahlungsschlüssels verwendet wurde:
 
 ```
 Please enter the number of words in your mnemonic phrase (24 by default):
@@ -174,14 +174,14 @@ Enter Word Number 1 of your mnemonic:
 Enter Word Number 24 of your mnemonic:
 ```
 
-Upon entering it, the Smartnode will derive your old BLS-based withdrawal key using the mnemonic and the validator's pubkey.
-It will then submit a message to the Beacon Chain, signed by your withdrawal key, indicating that you want to change the withdrawal credentials from the old BLS withdrawal key to the new minipool address:
+Nach Eingabe leitet der Smartnode Ihren alten BLS-basierten Auszahlungsschlüssel mithilfe der Mnemonik und des Pubkeys des Validators ab.
+Er wird dann eine Nachricht an die Beacon Chain senden, signiert von Ihrem Auszahlungsschlüssel, die angibt, dass Sie die Auszahlungs-Credentials vom alten BLS-Auszahlungsschlüssel zur neuen Minipool-Adresse ändern möchten:
 
 ```
 Changing withdrawal credentials to the minipool address... done!
 ```
 
-Finally, it will import your validator's key into the Smartnode's Validator Client and ask if you'd like to restart it, so it begins validating with that key:
+Schließlich importiert er den Schlüssel Ihres Validators in den Validator-Client des Smartnodes und fragt, ob Sie ihn neu starten möchten, damit er mit diesem Schlüssel validiert:
 
 ```
 Importing validator key... done!
@@ -190,36 +190,36 @@ y
 Restarting Validator Client... done!
 ```
 
-With that, steps 2 and 3 have been completed.
-You can verify that the withdrawal credentials have been properly changed and that the key is actively validating by using a chain explorer such as [https://beaconcha.in](https://beaconcha.in)
+Damit sind die Schritte 2 und 3 abgeschlossen.
+Sie können überprüfen, dass die Auszahlungs-Credentials ordnungsgemäß geändert wurden und dass der Schlüssel aktiv validiert, indem Sie einen Chain-Explorer wie [https://beaconcha.in](https://beaconcha.in) verwenden.
 
-Go to the [Step 4](#step-4-waiting-for-the-scrub-check) section to learn about the scrub check.
+Gehen Sie zum Abschnitt [Schritt 4](#step-4-waiting-for-the-scrub-check), um mehr über den Scrub-Check zu erfahren.
 
-## Step 2: Changing the Validator's Withdrawal Credentials
+## Schritt 2: Ändern der Auszahlungs-Credentials des Validators
 
-When you've created the new vacant minipool, the next step is to change your validator's withdrawal credentials from the old `0x00` BLS-key credentials to the new `0x01` credentials that contain the new minipool address.
+Wenn Sie den neuen leeren Minipool erstellt haben, ist der nächste Schritt, die Auszahlungs-Credentials Ihres Validators von den alten `0x00` BLS-Key-Credentials zu den neuen `0x01`-Credentials zu ändern, die die neue Minipool-Adresse enthalten.
 
-There are two ways to do this:
+Es gibt zwei Möglichkeiten, dies zu tun:
 
-1. Using the Smartnode CLI, via the `rocketpool minipool set-withdrawal-creds` command.
-1. Using an external third-party tool such as [ethdo](https://github.com/wealdtech/ethdo).
+1. Verwendung der Smartnode-CLI über den Befehl `rocketpool minipool set-withdrawal-creds`.
+1. Verwendung eines externen Drittanbieter-Tools wie [ethdo](https://github.com/wealdtech/ethdo).
 
-In this guide, we'll walk through how to use method 1 (the Smartnode).
-For more information on method 2, please consult the documentation for the tool you'd like to use.
+In diesem Leitfaden werden wir durchgehen, wie man Methode 1 (den Smartnode) verwendet.
+Weitere Informationen zu Methode 2 finden Sie in der Dokumentation für das Tool, das Sie verwenden möchten.
 
-Start by running the following command:
+Beginnen Sie mit dem folgenden Befehl:
 
 ```
 rocketpool minipool set-withdrawal-creds <minipool address>
 ```
 
-For example, if the new vacant minipool address was `0x8F3F149e4416a94e0ee909dE32f8A11C2F3e211C`, you would run this:
+Wenn beispielsweise die neue leere Minipool-Adresse `0x8F3F149e4416a94e0ee909dE32f8A11C2F3e211C` war, würden Sie dies ausführen:
 
 ```
 rocketpool minipool set-withdrawal-creds 0x8F3F149e4416a94e0ee909dE32f8A11C2F3e211C
 ```
 
-The Smartnode will then ask for the mnemonic used to generate both your validator's key and its corresponding withdrawal key:
+Der Smartnode fragt dann nach der Mnemonik, die zur Generierung sowohl des Schlüssels Ihres Validators als auch des entsprechenden Auszahlungsschlüssels verwendet wurde:
 
 ```
 Please enter the number of words in your mnemonic phrase (24 by default):
@@ -231,55 +231,55 @@ Enter Word Number 1 of your mnemonic:
 Enter Word Number 24 of your mnemonic:
 ```
 
-After this, it will perform some safety checks to ensure your validator's withdrawal credentials can be changed.
-If it's successful, it will then submit a message to the Beacon Chain, signed by your withdrawal key, indicating that you want to change the withdrawal credentials from the old BLS withdrawal key to the new minipool address:
+Danach führt er einige Sicherheitsüberprüfungen durch, um sicherzustellen, dass die Auszahlungs-Credentials Ihres Validators geändert werden können.
+Wenn es erfolgreich ist, sendet er dann eine Nachricht an die Beacon Chain, signiert von Ihrem Auszahlungsschlüssel, die angibt, dass Sie die Auszahlungs-Credentials vom alten BLS-Auszahlungsschlüssel zur neuen Minipool-Adresse ändern möchten:
 
 ```
 Changing withdrawal credentials to the minipool address... done!
 ```
 
-That's it!
-You can verify that the withdrawal credentials have been properly changed by using a chain explorer such as [https://beaconcha.in](https://beaconcha.in).
+Das war's!
+Sie können überprüfen, dass die Auszahlungs-Credentials ordnungsgemäß geändert wurden, indem Sie einen Chain-Explorer wie [https://beaconcha.in](https://beaconcha.in) verwenden.
 
-## (Optional) Step 3: Import the Validator Key
+## (Optional) Schritt 3: Importieren des Validator-Schlüssels
 
-Once you convert your validator into a minipool, you may want to have the Smartnode's Validator Client run it instead of the one you currently manage on your own.
-This has a few advantages:
+Sobald Sie Ihren Validator in einen Minipool umgewandelt haben, möchten Sie möglicherweise, dass der Validator-Client des Smartnodes ihn betreibt, anstatt des von Ihnen derzeit verwalteten.
+Dies hat einige Vorteile:
 
-- It is "cleaner" from an organizational standpoint (the Smartnode manages your minipools, your externally-managed Validator Client manages your solo staking validators).
-- It allows commands like `rocketpool minipool exit` (commands that require your validator key for signing messages) to work.
+- Es ist "sauberer" aus organisatorischer Sicht (der Smartnode verwaltet Ihre Minipools, Ihr extern verwalteter Validator-Client verwaltet Ihre Solo-Staking-Validatoren).
+- Es ermöglicht Befehle wie `rocketpool minipool exit` (Befehle, die Ihren Validator-Schlüssel zum Signieren von Nachrichten benötigen) zu funktionieren.
 
-However, there are some **very important considerations** to understand before doing this:
+Es gibt jedoch einige **sehr wichtige Überlegungen**, die Sie verstehen sollten, bevor Sie dies tun:
 
-- You **must ensure** that your validator's key has been removed from your own Validator Client, and that you have waited for at least 15 minutes after removing it before importing it into the Smartnode. See the warning box below.
-- You **must ensure** that you have your validator keystore _and its password file_ backed up, because commands like `rocketpool wallet recover` and `rocketpool wallet rebuild` **cannot** regenerate them without a backup since they weren't derived from the Smartnode wallet's mnemonic.
+- Sie **müssen sicherstellen**, dass der Schlüssel Ihres Validators aus Ihrem eigenen Validator-Client entfernt wurde und dass Sie mindestens 15 Minuten nach dem Entfernen gewartet haben, bevor Sie ihn in den Smartnode importieren. Siehe das Warnfeld unten.
+- Sie **müssen sicherstellen**, dass Sie Ihren Validator-Keystore _und dessen Passwortdatei_ gesichert haben, da Befehle wie `rocketpool wallet recover` und `rocketpool wallet rebuild` sie **nicht** ohne Backup regenerieren können, da sie nicht von der Mnemonik der Smartnode-Wallet abgeleitet wurden.
 
-If you would like to import your validator key into the Smartnode, continue reading below.
+Wenn Sie Ihren Validator-Schlüssel in den Smartnode importieren möchten, lesen Sie weiter unten.
 
-::: danger WARNING
-If you choose to have the Smartnode import your validator's private key, it is **essential** that you remove the validator key from your old Validator Client that you manage on your own, and **shut down the old Validator Client** to ensure it does not have the key loaded into memory still.
+::: danger WARNUNG
+Wenn Sie sich dafür entscheiden, dass der Smartnode den privaten Schlüssel Ihres Validators importiert, ist es **unerlässlich**, dass Sie den Validator-Schlüssel aus Ihrem alten, von Ihnen verwalteten Validator-Client entfernen und **den alten Validator-Client herunterfahren**, um sicherzustellen, dass er den Schlüssel nicht noch im Speicher geladen hat.
 
-You must also wait **at least 15 minutes** after doing so to ensure that it has **intentionally missed at least two attestations**.
-You can verify this by looking at a chain explorer such as [https://beaconcha.in](https://beaconcha.in).
+Sie müssen auch **mindestens 15 Minuten** danach warten, um sicherzustellen, dass er **absichtlich mindestens zwei Attestierungen verpasst hat**.
+Sie können dies überprüfen, indem Sie einen Chain-Explorer wie [https://beaconcha.in](https://beaconcha.in) betrachten.
 
-If you do not wait for at least 15 minutes, your validator **WILL BE SLASHED** when the Smartnode's Validator Client begins attesting with your validator's key!
+Wenn Sie nicht mindestens 15 Minuten warten, **WIRD IHR VALIDATOR GESLASHT**, wenn der Validator-Client des Smartnodes mit dem Schlüssel Ihres Validators attestiert!
 
-We strongly recommend you enable **doppelganger detection** in the Smartnode configuration as well, to be as safe as possible against the risk of slashing.
+Wir empfehlen dringend, auch **Doppelgänger-Erkennung** in der Smartnode-Konfiguration zu aktivieren, um so sicher wie möglich gegen das Risiko des Slashings zu sein.
 :::
 
-Start by running the following command:
+Beginnen Sie mit dem folgenden Befehl:
 
 ```
 rocketpool minipool import-key <minipool address>
 ```
 
-For example, if the new vacant minipool address was `0x8F3F149e4416a94e0ee909dE32f8A11C2F3e211C`, you would run this:
+Wenn beispielsweise die neue leere Minipool-Adresse `0x8F3F149e4416a94e0ee909dE32f8A11C2F3e211C` war, würden Sie dies ausführen:
 
 ```
 rocketpool minipool import-key 0x8F3F149e4416a94e0ee909dE32f8A11C2F3e211C
 ```
 
-The Smartnode will then ask for the mnemonic used to generate your validator's key:
+Der Smartnode fragt dann nach der Mnemonik, die zur Generierung des Schlüssels Ihres Validators verwendet wurde:
 
 ```
 Please enter the number of words in your mnemonic phrase (24 by default):
@@ -291,8 +291,8 @@ Enter Word Number 1 of your mnemonic:
 Enter Word Number 24 of your mnemonic:
 ```
 
-After this, it will cycle through the different keys generated from that mnemonic until it finds your validator's public key.
-It will then import it, and ask if you'd like to restart the Smartnode's Validator Client so it loads your key:
+Danach durchläuft er die verschiedenen Schlüssel, die aus dieser Mnemonik generiert wurden, bis er den öffentlichen Schlüssel Ihres Validators findet.
+Er importiert ihn dann und fragt, ob Sie den Validator-Client des Smartnodes neu starten möchten, damit er Ihren Schlüssel lädt:
 
 ```
 Importing validator key... done!
@@ -301,109 +301,109 @@ y
 Restarting Validator Client... done!
 ```
 
-With that, your validator key is now imported into the Smartnode and you should see it begin attesting.
-You can confirm by following the Validator Client's logs with this command:
+Damit ist Ihr Validator-Schlüssel jetzt in den Smartnode importiert und Sie sollten sehen, dass er attestiert.
+Sie können dies bestätigen, indem Sie die Logs des Validator-Clients mit diesem Befehl verfolgen:
 
 ```
 rocketpool service logs validator
 ```
 
-You can also verify that a chain explorer such as [https://beaconcha.in](https://beaconcha.in) can see your Validator Client attesting with your validator's key.
+Sie können auch überprüfen, dass ein Chain-Explorer wie [https://beaconcha.in](https://beaconcha.in) sehen kann, dass Ihr Validator-Client mit dem Schlüssel Ihres Validators attestiert.
 
-## Step 4: Assign the Correct Fee Recipient
+## Schritt 4: Zuweisen des korrekten Fee-Empfängers
 
-Once you've started the migration process, it is **imperative** that you ensure your [fee recipient](./fee-distrib-sp#fee-recipients) is set properly (either to your node's [fee distributor](./fee-distrib-sp#your-fee-distributor) or to the [Smoothing Pool](./fee-distrib-sp#the-smoothing-pool) if you have opted into it).
-If you do not do this and leave it on the fee recipient for your solo validators, you will be penalized and a portion of your Beacon Chain stake will be deducted to compensate for the loss.
+Sobald Sie den Migrationsprozess gestartet haben, ist es **unerlässlich**, dass Sie sicherstellen, dass Ihr [Fee-Empfänger](./fee-distrib-sp#fee-recipients) richtig eingestellt ist (entweder auf den [Fee-Distributor](./fee-distrib-sp#your-fee-distributor) Ihres Nodes oder auf den [Smoothing Pool](./fee-distrib-sp#the-smoothing-pool), wenn Sie sich dafür entschieden haben).
+Wenn Sie dies nicht tun und ihn auf dem Fee-Empfänger für Ihre Solo-Validatoren belassen, werden Sie bestraft und ein Teil Ihres Beacon-Chain-Stakes wird abgezogen, um den Verlust auszugleichen.
 
-::: tip NOTE
-**This step is only required if you leave your validator key in your own externally-managed Validator Client.**
+::: tip HINWEIS
+**Dieser Schritt ist nur erforderlich, wenn Sie Ihren Validator-Schlüssel in Ihrem eigenen extern verwalteten Validator-Client belassen.**
 
-If you remove it from your own VC and import it into the VC managed by Rocket Pool, your fee recipient will be assigned to the correct address automatically by the `node` process.
+Wenn Sie ihn aus Ihrem eigenen VC entfernen und in den von Rocket Pool verwalteten VC importieren, wird Ihr Fee-Empfänger automatisch vom `node`-Prozess der korrekten Adresse zugewiesen.
 :::
 
-As you may retain other solo-staking keys in your VC that you do _not_ want to set to the fee distributor or Smoothing Pool, the only way to accomplish this is to use a VC configuration file to manually set the fee recipient for the validator being migrated.
+Da Sie möglicherweise andere Solo-Staking-Schlüssel in Ihrem VC behalten, die Sie _nicht_ auf den Fee-Distributor oder Smoothing Pool setzen möchten, besteht die einzige Möglichkeit, dies zu erreichen, darin, eine VC-Konfigurationsdatei zu verwenden, um den Fee-Empfänger für den zu migrierenden Validator manuell festzulegen.
 
-This process depends on which Consensus Client you use; consult the documentation for the specifics but here are some helpful links:
+Dieser Prozess hängt davon ab, welchen Consensus-Client Sie verwenden; konsultieren Sie die Dokumentation für die Einzelheiten, aber hier sind einige hilfreiche Links:
 
-[Lighthouse: via `validator_definitions.yml`](https://lighthouse-book.sigmaprime.io/suggested-fee-recipient.html#1-setting-the-fee-recipient-in-the-validator_definitionsyml)
+[Lighthouse: über `validator_definitions.yml`](https://lighthouse-book.sigmaprime.io/suggested-fee-recipient.html#1-setting-the-fee-recipient-in-the-validator_definitionsyml)
 
-**Lodestar** does not currently support setting validator-specific fee recipients. Please do not use Lodestar if you are keeping the key in your externally-managed VC with other solo keys that are not being migrated.
+**Lodestar** unterstützt derzeit nicht das Festlegen validatorspezifischer Fee-Empfänger. Bitte verwenden Sie Lodestar nicht, wenn Sie den Schlüssel in Ihrem extern verwalteten VC mit anderen Solo-Keys behalten, die nicht migriert werden.
 
-[Nimbus: via the keymanager API](https://nimbus.guide/keymanager-api.html)
+[Nimbus: über die Keymanager-API](https://nimbus.guide/keymanager-api.html)
 
-[Prysm: via `proposer-settings-file`](https://docs.prylabs.network/docs/execution-node/fee-recipient#configure-fee-recipient-via-jsonyaml-validator-only)
+[Prysm: über `proposer-settings-file`](https://docs.prylabs.network/docs/execution-node/fee-recipient#configure-fee-recipient-via-jsonyaml-validator-only)
 
-[Teku: via `validators-proposer-config`](https://docs.teku.consensys.net/how-to/configure/use-proposer-config-file)
+[Teku: über `validators-proposer-config`](https://docs.teku.consensys.net/how-to/configure/use-proposer-config-file)
 
-If you're using eth-docker, you can use the [`./ethd keys set-recipient`](https://eth-docker.net/Support/AddValidator#set-individual-fee-recipient) command to set individual recipients for each key you're using as described in their documentation.
+Wenn Sie eth-docker verwenden, können Sie den Befehl [`./ethd keys set-recipient`](https://eth-docker.net/Support/AddValidator#set-individual-fee-recipient) verwenden, um individuelle Empfänger für jeden von Ihnen verwendeten Schlüssel festzulegen, wie in ihrer Dokumentation beschrieben.
 
-## Step 5: Waiting for the Scrub Check
+## Schritt 5: Warten auf den Scrub-Check
 
-By this time, you should have completed steps 1 and 2 (creating the vacant minipool and changing your validator's withdrawal credentials) and optionally step 3 (importing the key into the Smartnode).
-The next step is to wait for the **scrub check** to complete.
-This is a process carried out by the Oracle DAO to verify the following:
+Zu diesem Zeitpunkt sollten Sie die Schritte 1 und 2 (Erstellen des leeren Minipools und Ändern der Auszahlungs-Credentials Ihres Validators) und optional Schritt 3 (Importieren des Schlüssels in den Smartnode) abgeschlossen haben.
+Der nächste Schritt besteht darin, auf den Abschluss des **Scrub-Checks** zu warten.
+Dies ist ein von der Oracle DAO durchgeführter Prozess, um Folgendes zu überprüfen:
 
-1. Your validator's balance on the Beacon Chain (and your minipool's balance on the Execution layer) must add up to **at least** the balance your validator had when you first created the vacant minipool, minus a small buffer of 0.01 ETH to account for any accidental missed attestations during maintenance.
+1. Das Guthaben Ihres Validators auf der Beacon Chain (und das Guthaben Ihres Minipools auf dem Execution-Layer) muss sich auf **mindestens** das Guthaben summieren, das Ihr Validator hatte, als Sie den leeren Minipool zum ersten Mal erstellt haben, minus eines kleinen Puffers von 0,01 ETH, um versehentlich verpasste Attestierungen während der Wartung zu berücksichtigen.
 
-- For example, if your validator had a Beacon Chain balance of 35 ETH when you performed step 1, the combined Beacon Chain and minipool balances must be **at least** 34.99 ETH throughout the entire duration of the scrub check.
+- Wenn Ihr Validator beispielsweise ein Beacon-Chain-Guthaben von 35 ETH hatte, als Sie Schritt 1 ausgeführt haben, müssen die kombinierten Beacon-Chain- und Minipool-Guthaben während der gesamten Dauer des Scrub-Checks **mindestens** 34,99 ETH betragen.
 
-2. Your validator must remain in the **actively staking** status for the entire scrub check - it cannot be slashed, exited, or withdrawn.
-3. Your validator's withdrawal credentials must either be the **original BLS-based withdrawal key credentials**, or the **new 0x01 credentials using the minipool's address**. Any other credentials will cause the minipool to be scrubbed.
+2. Ihr Validator muss während des gesamten Scrub-Checks im **aktiv stakenden** Status bleiben - er kann nicht geslasht, ausgetreten oder abgehoben werden.
+3. Die Auszahlungs-Credentials Ihres Validators müssen entweder die **ursprünglichen BLS-basierten Auszahlungsschlüssel-Credentials** oder die **neuen 0x01-Credentials unter Verwendung der Minipool-Adresse** sein. Alle anderen Credentials führen dazu, dass der Minipool gescrubt wird.
 
-- You are given a grace period of **approximately 2 and a half days** to perform the withdrawal credentials change (85% of the scrub period's 3-day duration).
+- Sie erhalten eine Schonfrist von **ungefähr 2,5 Tagen**, um die Änderung der Auszahlungs-Credentials durchzuführen (85% der 3-tägigen Dauer der Scrub-Periode).
 
-The scrub check is transient; you don't have to do anything during this time other than keep your validator online and performing well.
+Der Scrub-Check ist vorübergehend; Sie müssen während dieser Zeit nichts anderes tun, als Ihren Validator online zu halten und gut zu performen.
 
-To monitor how much time is left in the scrub check, you can look at the `node` logs with the following command:
+Um zu überwachen, wie viel Zeit im Scrub-Check verbleibt, können Sie die `node`-Logs mit folgendem Befehl betrachten:
 
 ```
 rocketpool service logs node
 ```
 
-The relevant lines will look like this:
+Die relevanten Zeilen sehen so aus:
 
 ```
 rocketpool_node  | 2023/03/06 04:51:32 Checking for minipools to promote...
 rocketpool_node  | 2023/03/06 04:51:32 Minipool 0x8F3F149e4416a94e0ee909dE32f8A11C2F3e211C has 44m0s left until it can be promoted.
 ```
 
-It will last for **3 days**, after which you have passed and can proceed to [Step 6](#step-6-promoting-the-minipool) to promote the vacant minipool into a full one.
+Es dauert **3 Tage**, danach haben Sie bestanden und können mit [Schritt 6](#step-6-promoting-the-minipool) fortfahren, um den leeren Minipool zu einem vollständigen zu promoten.
 
-### Working with Scrubbed Minipools
+### Arbeiten mit geScrubbten Minipools
 
-If your minipool unfortunately fails the scrub check and is dissolved, don't worry - your capital isn't lost.
-Dissolved vacant minipools essentially act as simplified withdrawal addresses:
+Wenn Ihr Minipool leider den Scrub-Check nicht besteht und aufgelöst wird, keine Sorge - Ihr Kapital ist nicht verloren.
+Aufgelöste leere Minipools fungieren im Wesentlichen als vereinfachte Auszahlungsadressen:
 
-- They are not technically part of the Rocket Pool network.
-- Any capital deposited into the minipool belongs _solely_ to the node operator. It _does not_ get split with the pool stakers.
-- You are not awarded a deposit credit for creating the minipool.
+- Sie sind technisch nicht Teil des Rocket Pool Netzwerks.
+- Jedes in den Minipool eingezahlte Kapital gehört _ausschließlich_ dem Node-Betreiber. Es wird _nicht_ mit den Pool-Stakern geteilt.
+- Sie erhalten kein Einzahlungsguthaben für die Erstellung des Minipools.
 
-You can access the minipool's balance at any time with the following command:
+Sie können jederzeit auf das Guthaben des Minipools mit folgendem Befehl zugreifen:
 
 ```shell
 rocketpool minipool distribute-balance
 ```
 
-This will send the minipool's entire balance to your node's withdrawal address.
+Dies sendet das gesamte Guthaben des Minipools an die Auszahlungsadresse Ihres Nodes.
 
-When you've exited your validator from the Beacon Chain and its full balance has been sent to the minipool, you can retrieve it and close the minipool with the following command:
+Wenn Sie Ihren Validator von der Beacon Chain beendet haben und sein vollständiges Guthaben an den Minipool gesendet wurde, können Sie es abrufen und den Minipool mit folgendem Befehl schließen:
 
 ```shell
 rocketpool minipool close
 ```
 
-Once again, this will send the minipool's full balance to your node's withdrawal address.
+Auch dies sendet das volle Guthaben des Minipools an die Auszahlungsadresse Ihres Nodes.
 
-## Step 6: Promoting the Minipool
+## Schritt 6: Promoten des Minipools
 
-When the scrub check has been passed successfully, you can promote the vacant minipool to a full minipool.
-This can be done two ways:
+Wenn der Scrub-Check erfolgreich bestanden wurde, können Sie den leeren Minipool zu einem vollständigen Minipool promoten.
+Dies kann auf zwei Arten erfolgen:
 
-1. Let the `node` process handle it automatically as soon as the scrub check ends.
-1. Do it manually using the CLI.
+1. Lassen Sie den `node`-Prozess es automatisch erledigen, sobald der Scrub-Check endet.
+1. Tun Sie es manuell mit der CLI.
 
-The first method will promote the minipool for you automatically, assuming you have the `node` process / container running and the network's gas cost is below the automated transaction threshold you specified in the Smartnode configuration process (default of 150).
-In the `node` logs, you will see output like the following:
+Die erste Methode promotet den Minipool automatisch für Sie, vorausgesetzt, Sie haben den `node`-Prozess / Container laufen und die Gaskosten des Netzwerks liegen unter der automatischen Transaktionsschwelle, die Sie im Smartnode-Konfigurationsprozess angegeben haben (Standard ist 150).
+In den `node`-Logs sehen Sie eine Ausgabe wie folgt:
 
 ```
 rocketpool_node  | 2023/03/06 05:37:00 Checking for minipools to promote...
@@ -415,25 +415,25 @@ rocketpool_node  | 2023/03/06 05:37:01 Waiting for the transaction to be validat
 rocketpool_node  | 2023/03/06 05:37:13 Successfully promoted minipool 0x8F3F149e4416a94e0ee909dE32f8A11C2F3e211C.
 ```
 
-If your `node` process is disabled, you can use the second method via the following command:
+Wenn Ihr `node`-Prozess deaktiviert ist, können Sie die zweite Methode über folgenden Befehl verwenden:
 
 ```shell
 rocketpool minipool promote
 ```
 
-From here, simply select your vacant minipool from the list of minipools eligible for promotion and submit the transaction.
+Wählen Sie von hier aus einfach Ihren leeren Minipool aus der Liste der für die Promotion in Frage kommenden Minipools aus und reichen Sie die Transaktion ein.
 
-## Claiming your Original Pre-Conversion Rewards
+## Beanspruchen Ihrer ursprünglichen Vorumwandlungs-Belohnungen
 
-Upon promotion, your minipool will enter the `staking` status and has officially become a regular Rocket Pool minipool.
-You can review the details with this command:
+Nach der Promotion wird Ihr Minipool in den `staking`-Status eintreten und ist offiziell ein regulärer Rocket Pool Minipool geworden.
+Sie können die Details mit diesem Befehl überprüfen:
 
 ```shell
 rocketpool minipool status
 ```
 
-This will show you the status of your new minipool, its balances, its refund, and so on.
-For example:
+Dies zeigt Ihnen den Status Ihres neuen Minipools, seine Guthaben, seine Rückerstattung usw.
+Zum Beispiel:
 
 ```
 Address:              0x8F3F149e4416a94e0ee909dE32f8A11C2F3e211C
@@ -450,26 +450,26 @@ Total EL rewards:      0.086779 ETH
 ...
 ```
 
-Here you can see the following important information:
+Hier sehen Sie folgende wichtige Informationen:
 
-- `Node deposit` shows how much ETH you personally bonded as part of this minipool (in this case, 8 ETH).
-- `RP deposit` shows how much ETH you borrowed from the pool stakers to create the minipool (in this case, 24 ETH).
-- `Available refund` shows how much of the minipool's balance goes directly to you (is _not_ shared with the pool stakers. This amounts to all of your rewards on the Beacon Chain at the time you created the vacant minipool.
-- `Minipool Balance (EL)` shows the total balance of the minipool contract.
-- `Your portion (EL)` shows how much of the balance belongs to you _after_ subtracting the refund from the minipool's balance. In other words, this is your share of the rewards you've earned _after_ you created the vacant minipool.
-- `Total EL rewards` is your refund plus your post-conversion rewards.
+- `Node deposit` zeigt, wie viel ETH Sie persönlich als Teil dieses Minipools gebondet haben (in diesem Fall 8 ETH).
+- `RP deposit` zeigt, wie viel ETH Sie von den Pool-Stakern geliehen haben, um den Minipool zu erstellen (in diesem Fall 24 ETH).
+- `Available refund` zeigt, wie viel des Guthabens des Minipools direkt an Sie geht (wird _nicht_ mit den Pool-Stakern geteilt). Dies entspricht allen Ihren Belohnungen auf der Beacon Chain zu dem Zeitpunkt, als Sie den leeren Minipool erstellt haben.
+- `Minipool Balance (EL)` zeigt das Gesamtguthaben des Minipool-Contracts.
+- `Your portion (EL)` zeigt, wie viel des Guthabens Ihnen gehört, _nachdem_ die Rückerstattung vom Guthaben des Minipools abgezogen wurde. Mit anderen Worten, dies ist Ihr Anteil an den Belohnungen, die Sie verdient haben, _nachdem_ Sie den leeren Minipool erstellt haben.
+- `Total EL rewards` ist Ihre Rückerstattung plus Ihre Nach-Umwandlungs-Belohnungen.
 
-To claim your refund, run the following command:
+Um Ihre Rückerstattung zu beanspruchen, führen Sie folgenden Befehl aus:
 
 ```shell
 rocketpool minipool refund
 ```
 
-Simply select your minipool from the list, approve the transaction, and your refund will be sent to your node's withdrawal address.
+Wählen Sie einfach Ihren Minipool aus der Liste aus, genehmigen Sie die Transaktion, und Ihre Rückerstattung wird an die Auszahlungsadresse Ihres Nodes gesendet.
 
-## Using your Node Credit
+## Verwendung Ihres Node-Guthabens
 
-Now that you have an active promoted minipool, you will notice your node has a credit balance when you run `rocketpool node status`:
+Jetzt, da Sie einen aktiven promoten Minipool haben, werden Sie feststellen, dass Ihr Node ein Guthaben hat, wenn Sie `rocketpool node status` ausführen:
 
 ```
 Your Smartnode is currently using the Zhejiang Test Network.
@@ -479,13 +479,13 @@ The node 0x9BA1401Eb7D779eC51f910B066e9C4351cD28911 has a balance of 355.785269 
 The node has 24.000000 ETH in its credit balance, which can be used to make new minipools.
 ```
 
-In this example, since we converted the original 32 ETH validator bond into an 8-ETH minipool, we have received [**24 ETH in credit**](./credit).
-This credit can be used to create new minipools and validators for free!
+In diesem Beispiel haben wir, da wir den ursprünglichen 32-ETH-Validator-Bond in einen 8-ETH-Minipool umgewandelt haben, [**24 ETH Guthaben**](./credit) erhalten.
+Dieses Guthaben kann verwendet werden, um neue Minipools und Validatoren kostenlos zu erstellen!
 
-Simply run the `rocketpool node deposit` command, and select which bond amount you would like to use.
-If there's enough ETH in your credit balance to cover the bond, it will be used automatically and you won't have to stake any additional ETH (though you still have to pay for gas.
+Führen Sie einfach den Befehl `rocketpool node deposit` aus und wählen Sie aus, welchen Bond-Betrag Sie verwenden möchten.
+Wenn genug ETH in Ihrem Guthaben vorhanden ist, um den Bond zu decken, wird es automatisch verwendet und Sie müssen kein zusätzliches ETH staken (obwohl Sie immer noch für Gas bezahlen müssen).
 
-::: warning NOTE
-The ETH used for your credit balance comes from the staking pool.
-If the staking pool doesn't have enough ETH to cover your credit balance, you won't be able to use it until more ETH has been deposited.
+::: warning HINWEIS
+Das für Ihr Guthaben verwendete ETH stammt aus dem Staking-Pool.
+Wenn der Staking-Pool nicht genug ETH hat, um Ihr Guthaben zu decken, können Sie es erst verwenden, wenn mehr ETH eingezahlt wurde.
 :::

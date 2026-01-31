@@ -1,87 +1,87 @@
-# Preparing a Mac
+# Préparation d'un Mac
 
-Before installing Rocket Pool, there are a few checks you should do to make sure your system is compatible and will work correctly.
+Avant d'installer Rocket Pool, il y a quelques vérifications que vous devez effectuer pour vous assurer que votre système est compatible et fonctionnera correctement.
 
 ::: danger
-We strongly encourage you to create a dedicated machine for running a Rocket Pool node.
-Running a node on a general-use machine, such as your daily work desktop, presents extra security risks that may compromise your wallet and result in the theft of your coins.
+Nous vous encourageons fortement à créer une machine dédiée pour faire fonctionner un nœud Rocket Pool.
+Faire fonctionner un nœud sur une machine à usage général, comme votre bureau de travail quotidien, présente des risques de sécurité supplémentaires qui peuvent compromettre votre portefeuille et entraîner le vol de vos pièces.
 
-**For maximum safety, please build a new machine that is dedicated exclusively to running a node.**
+**Pour une sécurité maximale, veuillez construire une nouvelle machine qui est dédiée exclusivement à l'exécution d'un nœud.**
 :::
 
-## System Requirements
+## Configuration Système Requise
 
-Below is a brief description of the software and hardware requirements that a Rocket Pool node requires.
-This guide assumes that you already have your machine physically built, and the operating system installed.
+Vous trouverez ci-dessous une brève description des exigences logicielles et matérielles qu'un nœud Rocket Pool nécessite.
+Ce guide suppose que vous avez déjà votre machine physiquement construite et le système d'exploitation installé.
 
-### Supported Operating Systems
+### Systèmes d'Exploitation Pris en Charge
 
-Rocket Pool recommends you use the latest version of macOS for your hardware.
+Rocket Pool vous recommande d'utiliser la dernière version de macOS pour votre matériel.
 
-### macOS Support
+### Support macOS
 
-You will need to install the following pre-requisites:
+Vous devrez installer les prérequis suivants :
 
-We highly recommend using [Homebrew](https://brew.sh) as your package manager for Mac. It allows you to install packages easily using the `brew` command.
+Nous recommandons vivement d'utiliser [Homebrew](https://brew.sh) comme gestionnaire de paquets pour Mac. Il vous permet d'installer facilement des paquets en utilisant la commande `brew`.
 
-You can install it via
+Vous pouvez l'installer via
 
 ```shell
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-It should install some pre-requisites for you, such as XCode Command Line Tools. If it doesn't, you can install them manually using
+Il devrait installer certains prérequis pour vous, comme XCode Command Line Tools. Si ce n'est pas le cas, vous pouvez les installer manuellement en utilisant
 
 ```shell
 xcode-select --install
 ```
 
-Once installed, ensure everything is working correctly by using
+Une fois installé, assurez-vous que tout fonctionne correctement en utilisant
 
 ```shell
 brew doctor
 ```
 
-Once everything is installed & working, Homebrew will allow you to install packages using the `brew` command.
+Une fois que tout est installé et fonctionne, Homebrew vous permettra d'installer des paquets en utilisant la commande `brew`.
 
-For example, to install `wget` using Homebrew execute the following command in the Terminal:
+Par exemple, pour installer `wget` en utilisant Homebrew, exécutez la commande suivante dans le Terminal :
 
 ```shell
 brew install wget
 ```
 
-Now that we have Homebrew installed, we can install our Docker client, [Orbstack](https://orbstack.dev).
+Maintenant que nous avons installé Homebrew, nous pouvons installer notre client Docker, [Orbstack](https://orbstack.dev).
 
 ```shell
 brew install --cask orbstack
 ```
 
-Orbstack will be installed to your Applications folder. Launch it from there and it will initialise. If you are migrating from Docker Desktop, it should detect your existing Docker installation and migrate your images and containers.
+Orbstack sera installé dans votre dossier Applications. Lancez-le à partir de là et il s'initialisera. Si vous migrez depuis Docker Desktop, il devrait détecter votre installation Docker existante et migrer vos images et conteneurs.
 
-You may need to adjust your Orbstack settings depending on your hardware.
+Vous devrez peut-être ajuster vos paramètres Orbstack en fonction de votre matériel.
 
-If you have previously installed Docker Desktop, you will need to uninstall it first. Docker Desktop used to be the recommended Docker Client however in the last year a few new clients have been released that provide much better stability.
+Si vous avez précédemment installé Docker Desktop, vous devrez d'abord le désinstaller. Docker Desktop était autrefois le client Docker recommandé, mais au cours de la dernière année, quelques nouveaux clients ont été publiés qui offrent une stabilité bien meilleure.
 
-Please ensure your Firewall (System Settings -> Network -> Firewall) is turned on and Orbstack is added to the list of applications allowing incoming connections. (Orbstack should do this for you)
+Veuillez vous assurer que votre pare-feu (Réglages Système -> Réseau -> Pare-feu) est activé et qu'Orbstack est ajouté à la liste des applications autorisant les connexions entrantes. (Orbstack devrait le faire pour vous)
 
 ![](../local/images/mac/firewall.png)
 
-### Installing and Using SSH
+### Installation et Utilisation de SSH
 
-SSH should already be installed with macOS.
+SSH devrait déjà être installé avec macOS.
 
-### Pre-installation System Checks
+### Vérifications Système de Pré-installation
 
-Before installing Rocket Pool, please review the following checklist:
+Avant d'installer Rocket Pool, veuillez passer en revue la liste de contrôle suivante :
 
-- Your system is fully built, powers on, and can boot into the operating system.
-- You will not do any other activity on the system, such as browsing the Internet, checking email, or playing games.
-- You have a macOS operating system installed.
-- Your user account has root / administrator privileges.
-- You have an SSD that meets the performance requirements.
-- Your SSD is mounted on your file system.
-- You have at least 1.5TB of space free for the initial Execution and Consensus syncing process.
-- If your ISP caps your data, it is more than 2 TB per month.
+- Votre système est entièrement construit, s'allume et peut démarrer dans le système d'exploitation.
+- Vous ne ferez aucune autre activité sur le système, comme naviguer sur Internet, consulter vos e-mails ou jouer à des jeux.
+- Vous avez un système d'exploitation macOS installé.
+- Votre compte utilisateur dispose de privilèges root / administrateur.
+- Vous avez un SSD qui répond aux exigences de performance.
+- Votre SSD est monté sur votre système de fichiers.
+- Vous avez au moins 1,5 To d'espace libre pour le processus initial de synchronisation Execution et Consensus.
+- Si votre FAI plafonne vos données, c'est plus de 2 To par mois.
 
-If you have checked and confirmed all of these items, then you are ready to install Rocket Pool and begin running a node!
-Move on to the [Choosing your ETH Clients](../eth-clients) section.
+Si vous avez vérifié et confirmé tous ces éléments, alors vous êtes prêt à installer Rocket Pool et à commencer à faire fonctionner un nœud !
+Passez à la section [Choisir vos Clients ETH](../eth-clients).

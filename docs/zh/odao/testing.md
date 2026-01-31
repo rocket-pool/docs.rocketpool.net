@@ -1,39 +1,39 @@
-# Testing your Oracle DAO Node
+# 测试你的 Oracle DAO 节点
 
-Once your node is set up and you've joined the Oracle DAO, you should test it to ensure it's able to perform its duties properly.
-The best way to do this is to have it build the Redstone rewards Merkle tree using Rocket Pool's `treegen` utility.
+一旦你的节点设置完成并加入了 Oracle DAO，你应该对其进行测试，以确保它能够正常执行其职责。
+最好的方法是使用 Rocket Pool 的 `treegen` 实用程序让它构建 Redstone 奖励 Merkle 树。
 
 ### treegen
 
-`treegen` is a tool that can reproduce the entire rewards Merkle tree and accompanying artifacts for a previous rewards interval via your archive Execution and Consensus clients.
-It can also "dry run" the current interval by pretending that it ended at the latest finalized epoch (at the time of running it) and producing a partial tree from the start of the interval up to that point.
+`treegen` 是一个工具，可以通过你的归档 Execution 和 Consensus 客户端重现以前奖励间隔的整个奖励 Merkle 树和相关文件。
+它还可以通过假设当前间隔在最新的已确定 epoch（运行时）结束来"干运行"当前间隔，并生成从间隔开始到该时间点的部分树。
 
-::: tip TIP
-For more information on the rewards tree itself and accompanying files, please visit [**the formal specification**](https://github.com/rocket-pool/rocketpool-research/blob/master/Merkle%20Rewards%20System/merkle-tree-spec).
+::: tip 提示
+有关奖励树本身和相关文件的更多信息，请访问[**正式规范**](https://github.com/rocket-pool/rocketpool-research/blob/master/Merkle%20Rewards%20System/merkle-tree-spec)。
 :::
 
-`treegen` can be used as a standalone binary (currently only built for Linux systems, x64 and arm64) or as a Docker container.
+`treegen` 可以作为独立二进制文件（目前仅为 Linux 系统构建，支持 x64 和 arm64）或 Docker 容器使用。
 
-If you would like to download the standalone binary, you can find it in the releases here: [https://github.com/rocket-pool/treegen](https://github.com/rocket-pool/treegen).
-Usage instructions are included in the README there, but we'll cover some examples below as well.
+如果你想下载独立二进制文件，可以在这里的发布版中找到：[https://github.com/rocket-pool/treegen](https://github.com/rocket-pool/treegen)。
+使用说明包含在那里的 README 中，但我们也会在下面介绍一些示例。
 
-The Docker container tag for it is `rocketpool/treegen:latest`.
+它的 Docker 容器标签是 `rocketpool/treegen:latest`。
 
-## Building a Dry-Run Tree
+## 构建干运行树
 
-For a first test, run `treegen` to generate a dry-run tree that calculates the tree from the start of the rewards interval to the latest (finalized) slot.
-We'll use [the script](https://github.com/rocket-pool/treegen/blob/main/treegen.sh) included in the repository that leverages the Docker container to run it on the node machine itself for simplicity:
+对于首次测试，运行 `treegen` 生成干运行树，该树计算从奖励间隔开始到最新（已确定）槽位的树。
+为了简单起见，我们将使用存储库中包含的[脚本](https://github.com/rocket-pool/treegen/blob/main/treegen.sh)，该脚本利用 Docker 容器在节点机器上运行它：
 
 ```shell
 ./treegen.sh -e http://localhost:8545 -b http://localhost:5052
 ```
 
-::: warning NOTE
-Note that this particular configuration requires you to expose the Execution Client and Beacon Node APIs through the Docker configuration - ensure you have both options enabled in the `rocketpool service config` TUI.
+::: warning 注意
+请注意，此特定配置要求你通过 Docker 配置公开 Execution Client 和 Beacon Node API - 确保在 `rocketpool service config` TUI 中启用这两个选项。
 :::
 
-This will test your clients' abilities to respond to queries in a timely fashion (e.g., if you are using a third-party service, this will be helpful to assess whether or not its query rate-limit is insufficient), but **will not test their Archive Mode capabilities**.
-It will produce output like the following:
+这将测试你的客户端及时响应查询的能力（例如，如果你使用第三方服务，这将有助于评估其查询速率限制是否不足），但**不会测试其归档模式功能**。
+它将产生如下输出：
 
 ```
 2022/11/06 12:11:37 Beacon node is configured for Mainnet.
@@ -68,30 +68,30 @@ It will produce output like the following:
 2022/11/06 12:50:52 Successfully generated rewards snapshot for interval 3.
 ```
 
-If this runs without error, it will generate the rewards tree artifacts and save them as JSON files in your working directory.
-You are free to explore them and ensure their contents are sane, but as they are dry-run files, they aren't canonically stored anywhere for comparison.
+如果运行没有错误，它将生成奖励树文件并将它们保存为工作目录中的 JSON 文件。
+你可以自由探索它们并确保其内容是合理的，但由于它们是干运行文件，因此不会在任何地方规范存储以供比较。
 
-## Building a Canonical Tree from a Past Interval
+## 从过去间隔构建规范树
 
-This next test is to replicate one of the complete trees from a past interval.
-This will require archival access on both the Execution Layer and the Consensus Layer, so it will serve as a good test of both capabilities.
+下一个测试是复制过去间隔的完整树之一。
+这将需要在 Execution Layer 和 Consensus Layer 上进行归档访问，因此它将作为两种能力的良好测试。
 
-As of this writing, **Interval 2** is an ideal choice as it is far in the past () and involved the Smoothing Pool (which accounts for the largest computational load when calculating the rewards for the period).
+截至本文撰写时，**间隔 2** 是一个理想的选择，因为它在过去很久（），并且涉及 Smoothing Pool（这在计算该期间的奖励时占据了最大的计算负载）。
 
-Run `treegen` using the following command:
+使用以下命令运行 `treegen`：
 
 ```shell
 ./treegen.sh -e http://<your archive EC url> -b http://localhost:5052 -i 2
 ```
 
-Note that the **Execution Client URL** is different here: it _must be_ an Archive EC as the snapshot block for Interval 2 was far in the past.
+请注意，这里的 **Execution Client URL** 不同：它_必须是_归档 EC，因为间隔 2 的快照区块在很久以前。
 
-::: warning NOTE
-Depending on your client configuration, building this tree can take _hours_.
-The Smartnode will give you status indicators about its progress along the way, as you can see in the example below.
+::: warning 注意
+根据你的客户端配置，构建此树可能需要_数小时_。
+Smartnode 会在过程中提供有关其进度的状态指示器，如下面的示例所示。
 :::
 
-The output will look like this (truncated for previty):
+输出将如下所示（为简洁起见进行了截断）：
 
 ```
 2022/11/07 23:44:34 Beacon node is configured for Mainnet.
@@ -135,18 +135,18 @@ The output will look like this (truncated for previty):
 2022/11/07 18:26:10 Successfully generated rewards snapshot for interval 2.
 ```
 
-The key thing to look for here is this message at the end:
+这里要寻找的关键信息是最后的这条消息：
 
 ```
 Your Merkle tree's root of 0x278fd75797e2a9eddc128c0199b448877e30d1196c12306bdc95fb731647c18f matches the canonical root! You will be able to use this file for claiming rewards.
 ```
 
-If you receive this, then your watchtower can build the tree correctly.
+如果你收到此消息，那么你的 watchtower 可以正确构建树。
 
-::: danger NOTE
-While this proves you can build the tree, you _must_ ensure your Web3.Storage API token has been entered into the Smartnode's configuration so it can upload the resulting tree to IPFS.
+::: danger 注意
+虽然这证明你可以构建树，但你_必须_确保你的 Web3.Storage API 令牌已输入到 Smartnode 的配置中，以便它可以将生成的树上传到 IPFS。
 :::
 
-### Next Steps
+### 下一步
 
-Next up, we'll cover how to monitor your node's performance.
+接下来，我们将介绍如何监控你的节点性能。

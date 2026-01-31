@@ -1,97 +1,77 @@
-# Preparing a PC, Mini-PC, or NUC
+# PC, Mini-PC veya NUC Hazırlama
 
-Before installing Rocket Pool, there are a few checks you should do to make sure your system is compatible and will work
-correctly.
+Rocket Pool'u kurmadan önce, sisteminizin uyumlu olduğundan ve doğru çalışacağından emin olmak için yapmanız gereken birkaç kontrol vardır.
 
 ::: danger
-We strongly encourage you to create a dedicated machine for running a Rocket Pool node.
-Running a node on a general-use machine, such as your daily work desktop or a gaming rig, presents extra security risks
-that may compromise your wallet and result in the theft of your coins.
+Rocket Pool node'u çalıştırmak için özel bir makine oluşturmanızı şiddetle tavsiye ediyoruz.
+Günlük masaüstü veya oyun bilgisayarı gibi genel kullanımlı bir makinede node çalıştırmak, cüzdanınızı tehlikeye atabilecek ve coin'lerinizin çalınmasına neden olabilecek ekstra güvenlik riskleri sunar.
 
-**For maximum safety, please build a new machine that is dedicated exclusively to running a node.**
+**Maksimum güvenlik için, lütfen yalnızca node çalıştırmaya ayrılmış yeni bir makine kurun.**
 :::
 
-## System Requirements
+## Sistem Gereksinimleri
 
-Below is a brief description of the software and hardware requirements that a Rocket Pool node requires.
-This guide assumes that you already have your machine physically built, and the operating system installed.
+Aşağıda bir Rocket Pool node'unun gerektirdiği yazılım ve donanım gereksinimlerinin kısa bir açıklaması bulunmaktadır.
+Bu kılavuz, makinenizi fiziksel olarak kurduğunuzu ve işletim sistemini kurduğunuzu varsayar.
 
-### Supported Operating Systems
+### Desteklenen İşletim Sistemleri
 
-Rocket Pool's Smartnode client currently supports **Linux** and **macOS** systems.
+Rocket Pool'un Smartnode istemcisi şu anda **Linux** ve **macOS** sistemlerini desteklemektedir.
 
-At this time, **Windows** can be used to remotely manage a remote Linux or Mac machine, but the Smartnode itself cannot
-currently run on a Windows system. However, Rocket Pool _can_ be run on a
-Linux [virtual machine](https://en.wikipedia.org/wiki/System_virtual_machine) hosted by a Windows machine.
-This setup is not recommended over simply installing Linux as the host operating system, but it does work if necessary.
-Note that it will require extra resource overhead, and comes with its own set of security risks, so we do not advise
-using this setup when staking real Ether on the main network.
+Şu anda, **Windows** uzak bir Linux veya Mac makinesini yönetmek için kullanılabilir, ancak Smartnode'un kendisi şu anda Windows sisteminde çalışamamaktadır. Ancak, Rocket Pool bir Windows makinesi tarafından barındırılan Linux [sanal makinesinde](https://en.wikipedia.org/wiki/System_virtual_machine) çalıştırılabilir.
+Bu kurulum, Linux'u ana işletim sistemi olarak kurmak yerine tercih edilmez, ancak gerekirse çalışır.
+Ekstra kaynak yükü gerektireceğini ve kendi güvenlik risklerini getireceğini unutmayın, bu nedenle ana ağda gerçek Ether stake ederken bu kurulumu kullanmanızı tavsiye etmiyoruz.
 
-Rocket Pool is natively compatible with **AMD64 (x64)** and **arm64 (aarch64)** CPU architectures.
-For other architectures, you will need to compile the smartnode clients from source.
+Rocket Pool, **AMD64 (x64)** ve **arm64 (aarch64)** CPU mimarileri ile yerel olarak uyumludur.
+Diğer mimariler için smartnode istemcilerini kaynaktan derlemeniz gerekecektir.
 
-Note that the user must have **root / Administrator** access (or **sudo** privileges) to install the Smartnode.
+Kullanıcının Smartnode'u kurmak için **root / Yönetici** erişimine (veya **sudo** ayrıcalıklarına) sahip olması gerektiğini unutmayın.
 
-#### Linux Support
+#### Linux Desteği
 
-There are many variants of the Linux OS (called distributions, or **distros** for short). While you can run Rocket Pool
-from any modern distro, Rocket Pool's installer can automatically install the entire stack
-on [Ubuntu](https://ubuntu.com/about), [Debian](https://www.debian.org/intro/why_debian), [CentOS](https://www.centos.org/about/),
-and [Fedora](https://docs.fedoraproject.org/en-US/project/).
+Linux işletim sisteminin birçok varyantı vardır (kısaca dağıtımlar veya **distro'lar** olarak adlandırılır). Rocket Pool'u herhangi bir modern dağıtımdan çalıştırabilirsiniz, ancak Rocket Pool'un yükleyicisi tüm yığını [Ubuntu](https://ubuntu.com/about), [Debian](https://www.debian.org/intro/why_debian), [CentOS](https://www.centos.org/about/) ve [Fedora](https://docs.fedoraproject.org/en-US/project/)'ya otomatik olarak kurabilir.
 
-::: warning NOTE
-If you plan to use Ubuntu, we strongly recommend using an **LTS** release such as 24.04.
-These releases are actively maintained for longer periods of time, which helps with the security and stability of your
-node.
+::: warning NOT
+Ubuntu kullanmayı planlıyorsanız, 24.04 gibi bir **LTS** sürümü kullanmanızı şiddetle tavsiye ediyoruz.
+Bu sürümler daha uzun süreler boyunca aktif olarak bakımı yapılır, bu da node'unuzun güvenliğine ve kararlılığına yardımcı olur.
 :::
 
-For installation on other distros, the Smartnode installer will not be able to automatically install some system
-dependencies (such as `docker-compose`).
-Some manual steps will be required during installation.
+Diğer dağıtımlara kurulum için, Smartnode yükleyicisi bazı sistem bağımlılıklarını (örneğin `docker-compose`) otomatik olarak kuramayacaktır.
+Kurulum sırasında bazı manuel adımlar gerekecektir.
 
-For `arm64` systems, the Smartnode installer only natively supports Debian and Debian-based distros such as Ubuntu.
-For other distros, manual steps will be required during installation.
+`arm64` sistemleri için, Smartnode yükleyicisi yalnızca Debian ve Ubuntu gibi Debian tabanlı dağıtımları yerel olarak destekler.
+Diğer dağıtımlar için kurulum sırasında manuel adımlar gerekecektir.
 
-## Installing the Operating System
+## İşletim Sistemini Kurma
 
-If you're using macOS, it's highly likely that you already have the Operating System installed and can skip this step.
+macOS kullanıyorsanız, büyük olasılıkla zaten İşletim Sistemi yüklenmiştir ve bu adımı atlayabilirsiniz.
 
-If you're installing Linux from scratch, each of the distributions listed above come with helpful and detailed tutorials
-for installing the Operating System from scratch.
-As an example though, we will walk you through the process of installing and preparing **Debian Server**.
-Debian is a good choice for node operation because it focuses on **maximum stability and reliability** - both of which
-are highly desirable for node machines that must be running 24/7.
+Linux'u sıfırdan kuruyorsanız, yukarıda listelenen dağıtımların her biri, İşletim Sistemini sıfırdan kurmak için yardımcı ve ayrıntılı eğitimlerle birlikte gelir.
+Örnek olarak, **Debian Server**'ı kurma ve hazırlama sürecinde size yol göstereceğiz.
+Debian, node işletimi için iyi bir seçimdir çünkü **maksimum istikrar ve güvenilirlik** üzerine odaklanır - bunların her ikisi de 7/24 çalışması gereken node makineleri için oldukça arzu edilir.
 
-[Here is a good step-by-step guide](https://itslinuxfoss.com/debian-11-bullseye-guide/) with screenshots that shows you
-how to install Debian on your node machine from scratch.
+[İşte, node makinenize sıfırdan Debian kurmanın nasıl yapılacağını gösteren ekran görüntüleriyle iyi bir adım adım kılavuz](https://itslinuxfoss.com/debian-11-bullseye-guide/).
 
 :::tip
-We have a few helpful amendments to the guide linked above, which you may want to follow:
+Yukarıda bağlantılı kılavuza takip etmek isteyebileceğiniz birkaç yararlı değişikliğimiz var:
 
-- When prompted to set up a **root password**, we recommend leaving it **blank**. This will disable the `root` account
-  and instead install the `sudo` package, allowing your user to perform root operations by re-entering its password to
-  elevate its permissions. This is analogous to the way Ubuntu Linux is set up, which may be more familiar to users.
-- In the **Software selection** screen towards the end, you may not want to have a desktop GUI installed.
-  - Desktop GUIs are largely unnecessary for a node; they add extra overhead and most of the time will not be used since
-    you'll be remote controlling it via the terminal anyway, so we prefer to **uncheck GNOME and Debian desktop
-    environment** here.
-  - If you _do_ want a desktop UI on your node, we recommend you **uncheck GNOME and check XFCE** instead, as it's
-    lighter on system resources. We also recommend running no additional software on the node, such as browsers or
-    Discord, as they diminish security and consume system resources.
-  - Uncheck **web server**, but leave **SSH server** and **standard system utilities** checked.
-- If you have created a flash drive from an iso, you may need to disable the CD-ROM repository in order to run `apt`.
-  You can find an explanation of how to do
-  this [here](https://www.linuxtechi.com/things-to-do-after-installing-debian-11/).
-- Your system may be set up to sleep/hibernate by default. To disable these settings, you can run the following command:
+- **Root parolası** ayarlamanız istendiğinde, **boş bırakmanızı** öneririz. Bu, `root` hesabını devre dışı bırakacak ve bunun yerine `sudo` paketini kuracaktır, böylece kullanıcınız parolasını yeniden girerek yetkilerini yükselterek root işlemleri gerçekleştirebilir. Bu, Ubuntu Linux'un kurulma şekline benzer ve kullanıcılara daha tanıdık gelebilir.
+- Sonlara doğru **Yazılım seçimi** ekranında, masaüstü GUI'nin yüklenmesini istemeyebilirsiniz.
+  - Masaüstü GUI'ler bir node için büyük ölçüde gereksizdir; ekstra yük eklerler ve çoğu zaman kullanılmazlar çünkü yine de terminal üzerinden uzaktan kontrol edeceksiniz, bu yüzden burada **GNOME ve Debian masaüstü ortamını işaretini kaldırmayı** tercih ediyoruz.
+  - Node'unuzda bir masaüstü UI istiyorsanız, **GNOME'un işaretini kaldırıp bunun yerine XFCE'yi işaretlemenizi** öneririz, çünkü sistem kaynakları üzerinde daha hafiftir. Ayrıca node üzerinde tarayıcılar veya Discord gibi ek yazılımlar çalıştırmamanızı öneririz, çünkü bunlar güvenliği azaltır ve sistem kaynaklarını tüketir.
+  - **Web sunucusunun** işaretini kaldırın, ancak **SSH sunucusu** ve **standart sistem yardımcı programları**'nın işaretli kalmasına izin verin.
+- Bir iso'dan flash sürücü oluşturduysanız, `apt` çalıştırmak için CD-ROM deposunu devre dışı bırakmanız gerekebilir.
+  Bunun nasıl yapılacağına dair bir açıklama [burada](https://www.linuxtechi.com/things-to-do-after-installing-debian-11/) bulabilirsiniz.
+- Sisteminiz varsayılan olarak uyku/hazırda bekleme moduna geçecek şekilde ayarlanmış olabilir. Bu ayarları devre dışı bırakmak için şu komutu çalıştırabilirsiniz:
   `sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target`
 
 :::
 
-### Installing `sudo`
+### `sudo` Kurulumu
 
-Rocket Pool's installer requires the `sudo` program to acquire all of its dependencies.
-If you left the **root user password blank** in the previous step, you will already have this.
-If not, please install it now by running the following commands:
+Rocket Pool'un yükleyicisi tüm bağımlılıklarını edinmek için `sudo` programını gerektirir.
+Önceki adımda **root kullanıcı parolasını boş bıraktıysanız**, zaten buna sahip olacaksınız.
+Değilse, lütfen şimdi aşağıdaki komutları çalıştırarak kurun:
 
 ```shell
 apt update
@@ -105,13 +85,13 @@ apt install sudo
 usermod -aG sudo $USER
 ```
 
-Then restart the machine.
-You should now be able to run commands via `sudo` such as `sudo apt update`.
+Ardından makineyi yeniden başlatın.
+Artık `sudo apt update` gibi komutları `sudo` aracılığıyla çalıştırabilmelisiniz.
 
-### Using SSH
+### SSH Kullanımı
 
-Once the server is installed and you're able to log in, you need to get its IP address.
-An easy way to do this is with `ifconfig` which is built into the 'net-tools' package:
+Sunucu kurulduktan ve giriş yapabildiğinizden sonra, IP adresini almanız gerekir.
+Bunu yapmanın kolay bir yolu, 'net-tools' paketine yerleşik olan `ifconfig` ile yapmaktır:
 
 ```shell
 sudo apt update
@@ -125,7 +105,7 @@ sudo apt install net-tools
 sudo ifconfig
 ```
 
-You may see several entries here, but the one you want to look for is going to look something like this:
+Burada birkaç giriş görebilirsiniz, ancak aradığınız şuna benzer bir şey olacaktır:
 
 ```
 eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
@@ -135,162 +115,150 @@ eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
       ...
 ```
 
-The flags should say `UP,BROADCAST,RUNNING,MULTICAST`.
-The `inet` value (here `192.168.1.8`) is your machine's local IP address.
+Bayraklar `UP,BROADCAST,RUNNING,MULTICAST` yazmalıdır.
+`inet` değeri (burada `192.168.1.8`) makinenizin yerel IP adresidir.
 
-Next, install SSH:
+Ardından, SSH'yi kurun:
 
 ```shell
 sudo apt install openssh-server
 ```
 
-:::tip NOTE
-If you had the **SSH server** box checked during Debian's installation, you should already have this installed so this
-command won't do anything.
+:::tip NOT
+Debian kurulumu sırasında **SSH sunucusu** kutusunu işaretlediyseniz, bunu zaten kurmuş olmalısınız, bu nedenle bu komut hiçbir şey yapmayacaktır.
 :::
 
-Once this is done, you can log into the machine's terminal remotely from your laptop or desktop using `ssh`.
+Bu tamamlandığında, `ssh` kullanarak dizüstü veya masaüstü bilgisayarınızdan makinenin terminaline uzaktan giriş yapabilirsiniz.
 
-If you aren't familiar with `ssh`, take a look at the [Intro to Secure Shell](../ssh) guide.
+`ssh`'ye aşina değilseniz, [Güvenli Kabuk'a Giriş](../ssh) kılavuzuna bir göz atın.
 
-:::warning NOTE
-At this point, you should _strongly consider_ configuring your router to make your node's IP address **static**.
-This means that your node will have the same IP address forever, so you can always SSH into it using that IP address.
-Otherwise, it's possible that your node's IP could change at some point, and the above SSH command will no longer work.
-You'll have to enter your router's configuration to find out what your node's new IP address is.
+:::warning NOT
+Bu noktada, node'unuzun IP adresini **statik** yapmak için yönlendiricinizi yapılandırmayı _şiddetle düşünmelisiniz_.
+Bu, node'unuzun sonsuza kadar aynı IP adresine sahip olacağı anlamına gelir, böylece her zaman o IP adresini kullanarak SSH yapabilirsiniz.
+Aksi takdirde, node'unuzun IP'sinin bir noktada değişmesi mümkündür ve yukarıdaki SSH komutu artık çalışmayacaktır.
+Node'unuzun yeni IP adresini öğrenmek için yönlendiricinizin yapılandırmasına girmeniz gerekecektir.
 
-Each router is different, so you will need to consult your router's documentation to learn how to assign a static IP
-address.
+Her yönlendirici farklıdır, bu nedenle statik bir IP adresi atamayı öğrenmek için yönlendiricinizin belgelerine başvurmanız gerekecektir.
 :::
 
-## Setting up Swap Space
+## Swap Alanı Ayarlama
 
-In most cases, if you choose your Execution and Consensus clients and your instance type carefully, you should not run
-out of RAM.
-Then again, it never hurts to add a little more.
-What we're going to do now is add what's called **swap space**.
-Essentially, it means we're going to use the SSD as "backup RAM" in case something goes horribly, horribly wrong and
-your server runs out of regular RAM.
-The SSD isn't nearly as fast as the regular RAM, so if it hits the swap space it will slow things down, but it won't
-completely crash and break everything.
-Think of this as extra insurance that you'll (most likely) never need.
+Çoğu durumda, Execution ve Consensus istemcilerinizi ve örnek türünüzü dikkatlice seçerseniz, RAM'iniz bitmemelidir.
+Yine de, biraz daha eklemek asla zarar vermez.
+Şimdi yapacağımız şey, **swap alanı** denen şeyi eklemektir.
+Esasen, bir şeyler kötü bir şekilde ters giderse ve sunucunuzun normal RAM'i biterse, SSD'yi "yedek RAM" olarak kullanacağız demektir.
+SSD normal RAM kadar hızlı değildir, bu nedenle swap alanına ulaşırsa işleri yavaşlatır, ancak tamamen çökmez ve her şeyi bozmaz.
+Bunu (büyük olasılıkla) asla ihtiyaç duymayacağınız ekstra sigorta olarak düşünün.
 
-### Creating a Swap File
+### Swap Dosyası Oluşturma
 
-The first step is to make a new file that will act as your swap space.
-Decide how much you want to use - a reasonable start would be 8 GB, so you have 8 GB of normal RAM and 8 GB of "backup
-RAM" for a total of 16 GB.
-To be super safe, you can make it 24 GB so your system has 8 GB of normal RAM and 24 GB of "backup RAM" for a total of
-32 GB, but this is probably overkill.
-Luckily, since your SSD has 1 or 2 TB of space, allocating 8 to 24 GB for a swapfile is negligible.
+İlk adım, swap alanınız olarak işlev görecek yeni bir dosya oluşturmaktır.
+Ne kadar kullanmak istediğinize karar verin - makul bir başlangıç 8 GB olacaktır, böylece toplam 16 GB için 8 GB normal RAM ve 8 GB "yedek RAM"e sahip olursunuz.
+Süper güvenli olmak için, sisteminizin toplam 32 GB için 8 GB normal RAM ve 24 GB "yedek RAM"e sahip olması için 24 GB yapabilirsiniz, ancak bu muhtemelen aşırıdır.
+Neyse ki, SSD'nizde 1 veya 2 TB alan olduğundan, bir swapfile için 8 ila 24 GB ayırmak önemsizdir.
 
-For the sake of this walkthrough, let's pick a nice middleground - say, 16 GB of swap space for a total RAM of 24 GB.
-Just substitute whatever number you want in as we go.
+Bu adım adım anlatım için, güzel bir orta yol seçelim - diyelim ki toplam 24 GB RAM için 16 GB swap alanı.
+İlerledikçe istediğiniz sayıyı değiştirin.
 
-Enter this, which will create a new file called `/swapfile` and fill it with 16 GB of zeros.
-To change the amount, just change the number in `count=16` to whatever you want. **Note that this is going to take a
-long time, but that's ok.**
+Bunu girin, bu `/swapfile` adlı yeni bir dosya oluşturacak ve 16 GB sıfırla dolduracaktır.
+Miktarı değiştirmek için, `count=16` içindeki sayıyı istediğinizle değiştirin. **Bunun uzun zaman alacağını unutmayın, ama sorun değil.**
 
 ```shell
 sudo dd if=/dev/zero of=/swapfile bs=1G count=16 status=progress
 ```
 
-Next, set the permissions so only the root user can read or write to it (for security):
+Ardından, izinleri yalnızca root kullanıcısının okuyabilmesi veya yazabilmesi için ayarlayın (güvenlik için):
 
 ```shell
 sudo chmod 600 /swapfile
 ```
 
-Now, mark it as a swap file:
+Şimdi, swap dosyası olarak işaretleyin:
 
 ```shell
 sudo mkswap /swapfile
 ```
 
-Next, enable it:
+Ardından, etkinleştirin:
 
 ```shell
 sudo swapon /swapfile
 ```
 
-Finally, add it to the mount table so it automatically loads when your server reboots:
+Son olarak, sunucunuz yeniden başlatıldığında otomatik olarak yüklenmesi için mount tablosuna ekleyin:
 
 ```shell
 sudo nano /etc/fstab
 ```
 
-Add a new line at the end that looks like this:
+Sona şuna benzeyen yeni bir satır ekleyin:
 
 ```
 /swapfile                            none            swap    sw              0       0
 ```
 
-Press `Ctrl+O` and `Enter` to save, then `Ctrl+X` and `Enter` to exit.
+Kaydetmek için `Ctrl+O` ve `Enter`, ardından çıkmak için `Ctrl+X` ve `Enter` tuşlarına basın.
 
-To verify that it's active, run these commands:
+Aktif olduğunu doğrulamak için bu komutları çalıştırın:
 
 ```shell
 sudo apt install htop
 htop
 ```
 
-Your output should look like this at the top:
+Çıktınız üstte şuna benzer görünmelidir:
 ![](../local/images/pi/Swap.png)
 
-If the second number in the last row labeled `Swp` (the one after the `/`) is non-zero, then you're all set.
-For example, if it shows `0K / 16.0G` then your swap space was activated successfully.
-If it shows `0K / 0K` then it did not work and you'll have to confirm that you entered the previous steps properly.
+`Swp` etiketli son satırdaki ikinci sayı (`/`'den sonraki) sıfır değilse, her şey yolundadır.
+Örneğin, `0K / 16.0G` gösteriyorsa swap alanınız başarıyla etkinleştirilmiştir.
+`0K / 0K` gösteriyorsa çalışmamıştır ve önceki adımları doğru girdiğinizi onaylamanız gerekecektir.
 
-Press `q` or `F10` to quit out of `htop` and get back to the terminal.
+`htop`'tan çıkmak ve terminale geri dönmek için `q` veya `F10` tuşuna basın.
 
-### Configuring Swappiness and Cache Pressure
+### Swappiness ve Cache Pressure Yapılandırması
 
-By default, Linux will eagerly use a lot of swap space to take some of the pressure off of the system's RAM.
-We don't want that. We want it to use all of the RAM up to the very last second before relying on SWAP.
-The next step is to change what's called the "swappiness" of the system, which is basically how eager it is to use the
-swap space.
-There is a lot of debate about what value to set this to, but we've found a value of 6 works well enough.
+Varsayılan olarak, Linux sistem RAM'inin üzerindeki baskının bir kısmını almak için çok sayıda swap alanını istekli bir şekilde kullanacaktır.
+Bunu istemiyoruz. SWAP'a güvenmeden önce RAM'in son saniyesine kadar tümünü kullanmasını istiyoruz.
+Bir sonraki adım, sistemin "swappiness"ini değiştirmektir, bu temelde swap alanını kullanma konusunda ne kadar istekli olduğudur.
+Bunu hangi değere ayarlayacağınız konusunda çok tartışma var, ancak 6 değerinin yeterince iyi çalıştığını bulduk.
 
-We also want to turn down the "cache pressure", which dictates how quickly the server will delete a cache of its
-filesystem.
-Since we're going to have a lot of spare RAM with our setup, we can make this "10" which will leave the cache in memory
-for a while, reducing disk I/O.
+Ayrıca "cache pressure"'ı düşürmek istiyoruz, bu sunucunun dosya sisteminin önbelleğini ne kadar hızlı sileceğini belirler.
+Kurulumumuzla çok fazla yedek RAM'imiz olacağından, bunu "10" yapabiliriz, bu da önbelleği bir süre bellekte bırakacak ve disk I/O'sunu azaltacaktır.
 
-To set these, run these commands:
+Bunları ayarlamak için bu komutları çalıştırın:
 
 ```shell
 sudo sysctl vm.swappiness=6
 sudo sysctl vm.vfs_cache_pressure=10
 ```
 
-Now, put them into the `sysctl.conf` file so they are reapplied after a reboot:
+Şimdi, bunları `sysctl.conf` dosyasına koyun, böylece yeniden başlatmadan sonra yeniden uygulanırlar:
 
 ```shell
 sudo nano /etc/sysctl.conf
 ```
 
-Add these two lines to the end:
+Sona bu iki satırı ekleyin:
 
 ```shell
 vm.swappiness=6
 vm.vfs_cache_pressure=10
 ```
 
-Then save and exit like you've done before (`Ctrl+O`, `Ctrl+X`).
+Ardından daha önce yaptığınız gibi kaydedin ve çıkın (`Ctrl+O`, `Ctrl+X`).
 
-### Pre-installation System Checks
+### Kurulum Öncesi Sistem Kontrolleri
 
-Before installing Rocket Pool, please review the following checklist:
+Rocket Pool'u kurmadan önce, lütfen aşağıdaki kontrol listesini gözden geçirin:
 
-- Your system is fully built, powers on, and can boot into the operating system.
-- You will not do any other activity on the system, such as browsing the Internet, checking email, or playing games.
-- You have a Linux operating system installed.
-- Your user account has root / administrator privileges.
-- You have an SSD that meets the performance requirements.
-- Your SSD is mounted on your file system.
-- You have at least 1.5 TB of disk space free for the initial Execution and Consensus syncing process.
-- If your ISP caps your data, it is more than 2 TB per month.
+- Sisteminiz tamamen kurulmuştur, açılır ve işletim sistemine başlatılabilir.
+- Sistem üzerinde İnternet'te gezinme, e-posta kontrol etme veya oyun oynama gibi başka hiçbir etkinlik yapmayacaksınız.
+- Bir Linux işletim sistemi yüklüdür.
+- Kullanıcı hesabınızın root / yönetici ayrıcalıkları vardır.
+- Performans gereksinimlerini karşılayan bir SSD'niz var.
+- SSD'niz dosya sisteminize mount edilmiştir.
+- İlk Execution ve Consensus senkronizasyon işlemi için en az 1.5 TB boş disk alanınız var.
+- ISS'nizin verilerinizi sınırlandırması durumunda, ayda 2 TB'den fazladır.
 
-If you have checked and confirmed all of these items, then you are ready to install Rocket Pool and begin running a
-node!
-Move on to the [Choosing your ETH Clients](../eth-clients) section.
+Tüm bu öğeleri kontrol edip onayladıysanız, Rocket Pool'u kurmaya ve bir node çalıştırmaya başlamaya hazırsınız!
+[ETH İstemcilerinizi Seçme](../eth-clients) bölümüne geçin.

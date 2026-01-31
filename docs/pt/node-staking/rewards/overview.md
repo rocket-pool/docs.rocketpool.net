@@ -1,26 +1,26 @@
 ---
 next:
-  text: Claiming Node Operator Rewards
-  link: "/en/node-staking/rewards"
+  text: Reivindicando Recompensas do Node Operator
+  link: "/pt/node-staking/rewards"
 ---
 
-# Overview
+# Visão Geral
 
-This section covers how to access the rewards your node generates while validating.
+Esta seção cobre como acessar as recompensas que seu node gera durante a validação.
 
-## Prerequisites
+## Pré-requisitos
 
-Before configuring your Smartnode, please make sure you:
+Antes de configurar seu Smartnode, certifique-se de:
 
-- Have set up a node machine (or virtual machine) and secured it (via the [Securing your Node](../securing-your-node) guide)
-- Have the Smartnode [installed](../installing/overview) and [configured](../config/overview) on it
-- Have a node wallet loaded on your Smartnode
-- Synced your Execution and Consensus clients
-- Provisioned your node with [a withdrawal address](../prepare-node.mdx#setting-your-withdrawal-address), set up your [fallback clients](../fallback) (optional), opted into the [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (optional), and configured [MEV](../mev.mdx)
-- Created at least one [minipool](../create-validator.mdx)
+- Ter configurado uma máquina de node (ou máquina virtual) e protegido-a (através do guia [Protegendo seu Node](../securing-your-node))
+- Ter o Smartnode [instalado](../installing/overview) e [configurado](../config/overview) nela
+- Ter uma carteira de node carregada em seu Smartnode
+- Sincronizado seus clientes Execution e Consensus
+- Provisionado seu node com [um endereço de retirada](../prepare-node.mdx#setting-your-withdrawal-address), configurado seus [clientes de fallback](../fallback) (opcional), optado pelo [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (opcional), e configurado [MEV](../mev.mdx)
+- Criado pelo menos um [minipool](../create-validator.mdx)
 
-## Guides
+## Guias
 
-[Claiming Node Operator Rewards](../rewards) explains how RPL rewards and Execution-layer rewards work, and how to access them.
+[Reivindicando Recompensas do Node Operator](../rewards) explica como as recompensas RPL e recompensas da Execution layer funcionam, e como acessá-las.
 
-[Distributing Skimmed Rewards](../skimming) covers accessing rewards from the Beacon Chain that periodically get "skimmed" by the protocol and delivered to your minipools.
+[Distribuindo Recompensas Skimmed](../skimming) cobre o acesso às recompensas da Beacon Chain que periodicamente são "skimmed" pelo protocolo e entregues aos seus minipools.

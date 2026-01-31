@@ -2,23 +2,23 @@
 permalink: /overview/contracts-integrations
 ---
 
-# 🤝 Contracts & Integrations
+# 🤝 Sözleşmeler ve Entegrasyonlar
 
-Do you love RPL and rETH? Us too! So we put together a list of integrations and services, as well as official contract deployments, to help you discover new places these assets can be used!
+RPL ve rETH'yi seviyor musunuz? Biz de! Yani bu varlıkların kullanılabileceği yeni yerler keşfetmenize yardımcı olmak için entegrasyonlar ve hizmetlerin yanı sıra resmi sözleşme dağıtımlarının bir listesini bir araya getirdik!
 
-If you would like to contribute by helping integrate Rocket Pool into more services and protocols, reach out on [Discord](https://discord.gg/MYrazaZZC4)!
+Rocket Pool'u daha fazla hizmete ve protokole entegre etmeye yardımcı olarak katkıda bulunmak istiyorsanız, [Discord](https://discord.gg/MYrazaZZC4) üzerinden ulaşın!
 
-## Key Protocol Contracts
+## Temel Protokol Sözleşmeleri
 
 | Chain   | Contract | Address                                                                                                                     |
 | ------- | -------- | --------------------------------------------------------------------------------------------------------------------------- |
-| Mainnet | Deposit  | [0xDD3f50F8A6CafbE9b31a427582963f465E745AF8](https://etherscan.io/address/0xDD3f50F8A6CafbE9b31a427582963f465E745AF8)       |
-| &nbsp;  | Storage  | [0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46](https://etherscan.io/address/0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46)       |
-| Hoodi\* | Deposit  | [0x320f3aAB9405e38b955178BBe75c477dECBA0C27](https://hoodi.etherscan.io/address/0x320f3aAB9405e38b955178BBe75c477dECBA0C27) |
-| &nbsp;  | Storage  | [0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1](https://hoodi.etherscan.io/address/0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1) |
+| Mainnet | Depozito  | [0xDD3f50F8A6CafbE9b31a427582963f465E745AF8](https://etherscan.io/address/0xDD3f50F8A6CafbE9b31a427582963f465E745AF8)       |
+| &nbsp;  | Depolama  | [0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46](https://etherscan.io/address/0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46)       |
+| Hoodi\* | Depozito  | [0x320f3aAB9405e38b955178BBe75c477dECBA0C27](https://hoodi.etherscan.io/address/0x320f3aAB9405e38b955178BBe75c477dECBA0C27) |
+| &nbsp;  | Depolama  | [0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1](https://hoodi.etherscan.io/address/0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1) |
 
-Within the protocol, the Storage contract is used to find all the other deployed contract addresses as needed (see this [example](/en/overview/contracts-usage#interacting-with-rocket-pool)).
-See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contracts) below for a full list of addresses.
+Protokol içinde, Depolama sözleşmesi gerektiğinde diğer tüm dağıtılan sözleşme adreslerini bulmak için kullanılır (bkz [örnek](/tr/overview/contracts-usage#interacting-with-rocket-pool)).
+Adresler listesinin tamamı için aşağıdaki [Tüm Aktif Dağıtılan Protokol Sözleşmeleri](#all-active-deployed-protocol-contracts) bölümüne bakın.
 
 <small>\* Testnet</small>
 

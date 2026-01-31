@@ -1,30 +1,28 @@
 import ethereum_client_diversity from "./images/ethereum-client-diversity-aug-2025.png";
 
-# Choosing your ETH Clients
+# ETH İstemcilerinizi Seçme
 
-Rocket Pool's Smartnode installer can transform your machine into a full Ethereum node, as it requires both Execution and Consensus clients in order to operate properly.
+Rocket Pool'un Smartnode yükleyicisi, makinenizi tam bir Ethereum düğümüne dönüştürebilir, çünkü düzgün çalışabilmesi için hem Execution hem de Consensus istemcilerini gerektirir.
 
-The terms ETH1/ETH2 have been deprecated.
-The chains will be referred to as the **Execution Layer (ETH1)** and the **Beacon Chain or Consensus Layer (ETH2)** in the rest of these guides.
+ETH1/ETH2 terimleri kullanımdan kaldırılmıştır.
+Bu kılavuzların geri kalanında zincirler **Execution Layer (ETH1)** ve **Beacon Chain veya Consensus Layer (ETH2)** olarak anılacaktır.
 
-If you already have Execution and Consensus clients up and running on a separate machine (for example, if you're already solo-staking), then skip this section and move onto the [Configuring a Hybrid Rocket Pool Node with External Clients](./install-modes#the-hybrid-configuration-with-external-clients) section.
+Eğer zaten ayrı bir makinede Execution ve Consensus istemcileriniz çalışıyorsa (örneğin, zaten solo staking yapıyorsanız), bu bölümü atlayın ve [Harici İstemcilerle Hibrit Rocket Pool Düğümü Yapılandırma](./install-modes#the-hybrid-configuration-with-external-clients) bölümüne geçin.
 
-Otherwise, read on to learn more about your choices for Execution and Consensus clients.
+Aksi takdirde, Execution ve Consensus istemcileri için seçenekleriniz hakkında daha fazla bilgi edinmek için okumaya devam edin.
 
-::: warning NOTE
-As of August 2025, the distribution of clients on the Beacon Chain looks roughly like this:
+::: warning NOT
+Ağustos 2025 itibariyle, Beacon Chain'deki istemci dağılımı kabaca şu şekilde görünmektedir:
 
 <img src={ethereum_client_diversity} width="100%" height="auto" />
 
-_Data obtained from [https://clientdiversity.org](https://clientdiversity.org)_
+_Veriler [https://clientdiversity.org](https://clientdiversity.org) adresinden alınmıştır_
 
-Obtaining data on which consensus client a validator is running is a relatively difficult problem because clients are not easily identified. The [data methodology](https://clientdiversity.org/methodology/) page
-on [https://clientdiversity.org](https://clientdiversity.org) goes into how data from different sources are obtained. Feel free to check out
-[https://ethernodes.org/](https://ethernodes.org/) as an additional source of data.
+Bir validatörün hangi consensus istemcisini çalıştırdığına dair veri elde etmek nispeten zor bir problemdir çünkü istemciler kolayca tanımlanamaz. [https://clientdiversity.org](https://clientdiversity.org) sitesindeki [veri metodolojisi](https://clientdiversity.org/methodology/) sayfası farklı kaynaklardan verilerin nasıl elde edildiğini açıklar. Ek bir veri kaynağı olarak [https://ethernodes.org/](https://ethernodes.org/) sitesine göz atmaktan çekinmeyin.
 
-The overwhelming majority of node operators are currently using Geth as an Execution Client and either Lighthouse or Prysm as a Consensus Client.
-In the interest of supporting the health of the Execution Layer (formerly ETH1) and the Beacon Chain (formerly ETH2), we currently recommend that you consider using different clients.
-Here are some relevant articles about why an even client diversity is crucial to the health of the network if you would like to learn more:
+Düğüm operatörlerinin ezici çoğunluğu şu anda Execution Client olarak Geth ve Consensus Client olarak Lighthouse veya Prysm kullanıyor.
+Execution Layer'ın (eski adıyla ETH1) ve Beacon Chain'in (eski adıyla ETH2) sağlığını desteklemek adına, şu anda farklı istemciler kullanmanızı öneririz.
+Daha fazla bilgi edinmek isterseniz, dengeli bir istemci çeşitliliğinin ağın sağlığı için neden kritik olduğuna dair bazı ilgili makaleler:
 
 [https://clientdiversity.org/#why](https://clientdiversity.org/#why)
 
@@ -39,150 +37,148 @@ Here are some relevant articles about why an even client diversity is crucial to
 [https://eth2book.info/bellatrix/part2/incentives/diversity](https://eth2book.info/bellatrix/part2/incentives/diversity/)
 :::
 
-For users that would like to get up and running quickly, the Smartnode installer provides a `Random Client` option which may be the best choice.
-For users that have a specific client they'd like to use in mind, we provide the ability to easily choose one during Rocket Pool's installation.
-The options below help to describe each client so you can make an informed decision if you'd like to specify which one you want.
+Hızlıca başlamak isteyen kullanıcılar için, Smartnode yükleyicisi en iyi seçim olabilecek bir `Random Client` seçeneği sunar.
+Akıllarında belirli bir istemci olan kullanıcılar için ise Rocket Pool kurulumu sırasında kolayca bir tanesini seçme imkanı sunuyoruz.
+Aşağıdaki seçenekler, hangisini istediğinizi belirtmek isterseniz bilinçli bir karar verebilmeniz için her istemciyi açıklamaya yardımcı olur.
 
-## Execution Clients
+## Execution İstemcileri
 
-Rocket Pool supports four different Execution clients: **Geth**, **Besu**, **Nethermind**, and **Reth**.
+Rocket Pool dört farklı Execution istemcisini destekler: **Geth**, **Besu**, **Nethermind** ve **Reth**.
 
-Running an Execution client involves storing a copy of the Execution layer blockchain on your machine.
-It interacts via peer-to-peer communications with other EC nodes to record and verify new blocks and transactions.
-A full Execution client is **required** to run a validator now that the Execution and Consensus layers have merged.
+Bir Execution istemcisi çalıştırmak, Execution katmanı blockchain'inin bir kopyasını makinenizde saklamayı içerir.
+Yeni blokları ve işlemleri kaydetmek ve doğrulamak için diğer EC düğümleriyle eşler arası iletişim yoluyla etkileşime girer.
+Execution ve Consensus katmanları birleştiğinden beri bir validatör çalıştırmak için tam bir Execution istemcisi **gereklidir**.
 
 ### Geth
 
-[Geth](https://geth.ethereum.org/) (formally named `Go Ethereum`) is one of the three original implementations (along with C++ and Python) of the Ethereum protocol.
-It is written in Go, fully open source and licensed under the GNU LGPL v3.
+[Geth](https://geth.ethereum.org/) (resmi adıyla `Go Ethereum`), Ethereum protokolünün üç orijinal uygulamasından biridir (C++ ve Python ile birlikte).
+Go dilinde yazılmıştır, tamamen açık kaynaklıdır ve GNU LGPL v3 lisansı altındadır.
 
-Geth is the oldest and most widely-used Execution Client around the world.
-It has a reputation for being very stable and reliable.
+Geth, dünya çapında en eski ve en yaygın kullanılan Execution Client'tır.
+Çok kararlı ve güvenilir olma konusunda bir üne sahiptir.
 
-It is multithreaded, meaning it can take advantage of your entire CPU.
-Its RAM usage is configurable, down to a **minimum of about 4 GB for Mainnet**.
-This makes it viable for low-power systems and high-power systems alike.
+Çok iş parçacıklıdır, yani CPU'nuzun tamamından yararlanabilir.
+RAM kullanımı yapılandırılabilir, **Mainnet için minimum yaklaşık 4 GB**'a kadar düşürülebilir.
+Bu, onu düşük güçlü sistemler ve yüksek güçlü sistemler için uygun hale getirir.
 
-::: warning NOTE
-Geth requires **offline pruning** of its database periodically: its database will grow over time and gradually consume all of your free disk space unless you prune it when your disk runs low on free space.
-The frequency you need to prune will depend on your SSD's size.
+::: warning NOT
+Geth, veritabanının düzenli olarak **çevrimdışı budanmasını** gerektirir: veritabanı zamanla büyüyecek ve diskinizde boş alan azaldığında budamadığınız sürece tüm boş disk alanınızı yavaş yavaş tüketecektir.
+Budama sıklığı, SSD'nizin boyutuna bağlı olacaktır.
 
-For more information on pruning Geth, view the [Pruning the Execution Client](./pruning) page.
+Geth'i budama hakkında daha fazla bilgi için [Execution İstemcisini Budama](./pruning) sayfasına bakın.
 :::
 
 ### Besu
 
-Hyperledger [Besu](https://besu.hyperledger.org/en/stable/) is an open-source Ethereum client developed under the Apache 2.0 license and written in [Java](https://en.wikipedia.org/wiki/Java_%28programming_language%29).
-Besu's most exciting features is its use of [Bonsai Tries](https://consensys.net/blog/news/bonsai-tries-a-big-update-for-small-state-storage-in-hyperledger-besu/) for state storage. In addition to their better performance characteristics, Bonsai Tries give Besu two interesting advantages over the other clients:
+Hyperledger [Besu](https://besu.hyperledger.org/en/stable/), Apache 2.0 lisansı altında geliştirilmiş ve [Java](https://en.wikipedia.org/wiki/Java_%28programming_language%29) dilinde yazılmış açık kaynaklı bir Ethereum istemcisidir.
+Besu'nun en heyecan verici özelliği, durum depolama için [Bonsai Tries](https://consensys.net/blog/news/bonsai-tries-a-big-update-for-small-state-storage-in-hyperledger-besu/) kullanmasıdır. Daha iyi performans özelliklerine ek olarak, Bonsai Tries, Besu'ya diğer istemcilere göre iki ilginç avantaj sağlar:
 
-1. Besu does _not_ need to be pruned at all; it is effectively maintenance-free in that respect
-2. Besu is able to revisit any past block in the blockchain, though it does this by rewinding each block so reaching blocks from long ago may take some time.
+1. Besu'nun hiç budanmaya ihtiyacı _yoktur_; bu açıdan etkili bir şekilde bakım gerektirmez
+2. Besu, blockchain'deki herhangi bir geçmiş bloğu yeniden ziyaret edebilir, ancak bunu her bloğu geri sararak yapar, bu nedenle uzun zaman öncesinden bloklara ulaşmak biraz zaman alabilir.
 
-Besu currently recommends at least **16 GB of RAM**, though it is possible to run successfully with 8 GB.
+Besu şu anda en az **16 GB RAM** önerir, ancak 8 GB ile başarılı bir şekilde çalıştırmak mümkündür.
 
 ### Nethermind
 
-[Nethermind](https://nethermind.io/nethermind-client/) is written in [.NET Core](https://en.wikipedia.org/wiki/.NET).
-It boasts the fastest sync speed of the Execution clients and has a rich set of configuration options.
-It is designed with node operators in mind and has many features that they will find helpful.
+[Nethermind](https://nethermind.io/nethermind-client/), [.NET Core](https://en.wikipedia.org/wiki/.NET) dilinde yazılmıştır.
+Execution istemcileri arasında en hızlı senkronizasyon hızına sahiptir ve zengin bir yapılandırma seçenekleri setine sahiptir.
+Düğüm operatörleri düşünülerek tasarlanmıştır ve onların faydalı bulacağı birçok özelliğe sahiptir.
 
-Like Geth, Nethermind requires periodic pruning of its database.
-Unlike Geth, however, Nethermind's database can [be pruned while it stays online](https://medium.com/nethermind-eth/netherminds-full-pruning-is-here-cutting-the-gordian-knot-5e3450f02de9).
-This means you do not need to turn your client off and rely on a fallback in order to prune.
-However, Nethermind's online pruning process is quite resource intensive so users running low-power nodes may see some performance degradation during the process.
+Geth gibi, Nethermind de veritabanının düzenli olarak budanmasını gerektirir.
+Ancak Geth'in aksine, Nethermind'ın veritabanı [çevrimiçi kalırken budanabilir](https://medium.com/nethermind-eth/netherminds-full-pruning-is-here-cutting-the-gordian-knot-5e3450f02de9).
+Bu, budama yapmak için istemcinizi kapatmanıza ve bir yedek istemciye güvenmenize gerek olmadığı anlamına gelir.
+Ancak, Nethermind'ın çevrimiçi budama işlemi oldukça kaynak yoğundur, bu nedenle düşük güçlü düğümleri çalıştıran kullanıcılar işlem sırasında bazı performans düşüşleri görebilir.
 
-Nethermind requires **at least 16GB of RAM**, though more is preferable.
+Nethermind **en az 16GB RAM** gerektirir, ancak daha fazlası tercih edilir.
 
-::: tip NOTE
-Nethermind requires periodic pruning of its database periodically: its database will grow over time and gradually consume all of your free disk space unless you prune it when your disk runs low on free space.
-The frequency you need to prune will depend on your SSD's size.
+::: tip NOT
+Nethermind, veritabanının düzenli olarak budanmasını gerektirir: veritabanı zamanla büyüyecek ve diskinizde boş alan azaldığında budamadığınız sürece tüm boş disk alanınızı yavaş yavaş tüketecektir.
+Budama sıklığı, SSD'nizin boyutuna bağlı olacaktır.
 
-Unlike Geth, however, Nethermind **remains online** while it is pruning.
-This makes it a compelling choice for nodes because they won't have any down time during pruning.
+Ancak Geth'in aksine, Nethermind budama sırasında **çevrimiçi kalır**.
+Bu, budama sırasında herhangi bir kesinti süresi olmayacağı için düğümler için cazip bir seçenek yapar.
 
-For more information on pruning Nethermind, view the [Pruning the Execution Client](./pruning) page.
+Nethermind'ı budama hakkında daha fazla bilgi için [Execution İstemcisini Budama](./pruning) sayfasına bakın.
 :::
 
 ### Reth
 
-[Reth](https://reth.rs/) is an Execution layer client written in [Rust](https://www.rust-lang.org/) and uses the [Erigon staged-sync](https://erigon.substack.com/p/erigon-stage-sync-and-control-flows) architecture.
-Reth is designed from the ground up with efficiency, performance, and modularity in mind. It's licenced under the Apache/MIT permissive license and built
-with small, well-abstracted, well-tested, and benchmarked packages. This makes for a great open source developer experience and allows Reth's components to be used in other projects.
+[Reth](https://reth.rs/), [Rust](https://www.rust-lang.org/) dilinde yazılmış ve [Erigon staged-sync](https://erigon.substack.com/p/erigon-stage-sync-and-control-flows) mimarisini kullanan bir Execution katmanı istemcisidir.
+Reth, verimlilik, performans ve modülerlik düşünülerek sıfırdan tasarlanmıştır. Apache/MIT izin verici lisansı altında lisanslanmıştır ve küçük, iyi soyutlanmış, iyi test edilmiş ve kıyaslanmış paketlerle inşa edilmiştir. Bu, harika bir açık kaynak geliştirici deneyimi sağlar ve Reth'in bileşenlerinin diğer projelerde kullanılmasına izin verir.
 
-As the newest client in the ecosystem, Reth is rapidly evolving and gaining adoption. While RAM and CPU requirements are flexible, the most important
-requirement is by far the disk. We suggest using a good [TLC disk](https://gist.github.com/yorickdowne/f3a3e79a573bf35767cd002cc977b038).
-Reth requires **at least 8 GB of RAM** for a full node or **16 GB of RAM** for an archive node.
+Ekosistemde en yeni istemci olan Reth, hızla gelişiyor ve benimseniyor. RAM ve CPU gereksinimleri esnektir, en önemli gereksinim açık ara disktir. İyi bir [TLC disk](https://gist.github.com/yorickdowne/f3a3e79a573bf35767cd002cc977b038) kullanmanızı öneririz.
+Reth, tam bir düğüm için **en az 8 GB RAM** veya bir arşiv düğümü için **16 GB RAM** gerektirir.
 
-### Client Comparison Table
+### İstemci Karşılaştırma Tablosu
 
-| Client     | Type | CPU Usage | Minimum RAM Usage | Sync Time |
-| ---------- | ---- | --------- | ----------------- | --------- |
-| Geth       | Full | Moderate  | 4 GB              | Moderate  |
-| Besu       | Full | Moderate  | 6 GB              | Slow      |
-| Nethermind | Full | Moderate  | 16 GB             | Fast      |
-| Reth       | Full | Moderate  | 8 GB              | Fast      |
+| İstemci    | Tip  | CPU Kullanımı | Minimum RAM Kullanımı | Senkronizasyon Süresi |
+| ---------- | ---- | ------------- | --------------------- | --------------------- |
+| Geth       | Tam  | Orta          | 4 GB                  | Orta                  |
+| Besu       | Tam  | Orta          | 6 GB                  | Yavaş                 |
+| Nethermind | Tam  | Orta          | 16 GB                 | Hızlı                 |
+| Reth       | Tam  | Orta          | 8 GB                  | Hızlı                 |
 
-## Consensus Clients
+## Consensus İstemcileri
 
-Rocket Pool's installer is proud to support five currently available Consensus clients: **Lighthouse**, **Lodestar**, **Nimbus**, **Prysm**, and **Teku**.
+Rocket Pool'un yükleyicisi, şu anda mevcut beş Consensus istemcisini desteklemekten gurur duyar: **Lighthouse**, **Lodestar**, **Nimbus**, **Prysm** ve **Teku**.
 
-Each of these is a **full client**, meaning you will contribute to the decentralization of the Consensus network regardless of which client you choose.
+Bunların her biri **tam bir istemcidir**, yani hangi istemciyi seçerseniz seçin Consensus ağının merkeziyetsizleşmesine katkıda bulunacaksınız.
 
-All five clients are quite low-risk, low-maintenance, and will generate practically identical total rewards from validation.
-They differ slightly in terms of resource requirements and features, but you cannot go wrong with any of them.
+Beş istemcinin hepsi oldukça düşük riskli, düşük bakımlıdır ve doğrulamadan pratik olarak aynı toplam ödülleri üretecektir.
+Kaynak gereksinimleri ve özellikler açısından biraz farklılık gösterirler, ancak herhangi biriyle yanlış yapamazsınız.
 
-By default, the Rocket Pool installer will offer to select a random consensus client for you.
-This will help contribute to the overall **diversity of the network**.
-This is important from a security perspective: if one client is used by a majority of nodes and suffers from a severe bug or attack, it might cause all of those nodes to fail and thus threaten the entire Beacon Chain's stability.
+Varsayılan olarak, Rocket Pool yükleyicisi sizin için rastgele bir consensus istemcisi seçmeyi teklif edecektir.
+Bu, ağın genel **çeşitliliğine** katkıda bulunmanıza yardımcı olacaktır.
+Bu, güvenlik açısından önemlidir: eğer bir istemci düğümlerin çoğunluğu tarafından kullanılıyorsa ve ciddi bir hatadan veya saldırıdan zarar görürse, tüm bu düğümlerin başarısız olmasına ve dolayısıyla tüm Beacon Chain'in istikrarını tehdit etmesine neden olabilir.
 
 ### Lighthouse
 
-[Lighthouse](https://lighthouse.sigmaprime.io/) is an open-source Ethereum 2.0 maintained by [Sigma Prime](https://sigmaprime.io/).
-It implements the [Ethereum 2.0 specification](https://github.com/ethereum/consensus-specs) as defined by the Ethereum Foundation Research team.
+[Lighthouse](https://lighthouse.sigmaprime.io/), [Sigma Prime](https://sigmaprime.io/) tarafından sürdürülen açık kaynaklı bir Ethereum 2.0 istemcisidir.
+Ethereum Foundation Araştırma ekibi tarafından tanımlanan [Ethereum 2.0 spesifikasyonunu](https://github.com/ethereum/consensus-specs) uygular.
 
-Lighthouse is a cutting-edge distributed systems project implementing technologies at the forefront of blockchain research; including proof-of-stake consensus, parallel transaction execution and state separation (sharding).
+Lighthouse, blockchain araştırmasının ön saflarında teknolojiler uygulayan son teknoloji bir dağıtık sistemler projesidir; bunlar arasında hisse kanıtı konsensüs, paralel işlem yürütme ve durum ayrımı (sharding) bulunur.
 
-Lighthouse has no official affiliation with the Ethereum Foundation and will continue to follow its guidance as long it is remains in the best interest of the Ethereum protocol and community surrounding it.
+Lighthouse'un Ethereum Foundation ile resmi bir bağlantısı yoktur ve Ethereum protokolü ve onu çevreleyen topluluk için en iyi çıkar olduğu sürece rehberliğini takip etmeye devam edecektir.
 
-Lighthouse is implemented in [Rust](https://www.rust-lang.org/) and will maintain a focus on security and efficiency.
+Lighthouse, [Rust](https://www.rust-lang.org/) dilinde uygulanmıştır ve güvenlik ve verimlilik üzerine odaklanmaya devam edecektir.
 
 ### Lodestar
 
-[Lodestar](https://lodestar.chainsafe.io/) is the fifth open-source Ethereum consensus client maintained by [ChainSafe Systems](https://chainsafe.io/). Our flagship product is our production-capable beacon chain and validator client for Ethereum consensus. Our software and tooling is uniquely situated as the go-to for researchers and developers for rapid prototyping and browser usage. Millions of developers around the world are familiar with Typescript, and Lodestar's high-quality codebases are excellent introductions to the Ethereum world.
+[Lodestar](https://lodestar.chainsafe.io/), [ChainSafe Systems](https://chainsafe.io/) tarafından sürdürülen beşinci açık kaynaklı Ethereum consensus istemcisidir. Amiral gemimiz ürünümüz, Ethereum consensus için üretime hazır beacon chain ve validatör istemcimizdir. Yazılımımız ve araçlarımız, araştırmacılar ve geliştiriciler için hızlı prototipleme ve tarayıcı kullanımı açısından benzersiz bir konumdadır. Dünya çapında milyonlarca geliştirici Typescript'e aşinadır ve Lodestar'ın yüksek kaliteli kod tabanları Ethereum dünyasına mükemmel giriş niteliğindedir.
 
-Lodestar has also been a leader in light client research, standardization, and implementation of Ethereum light clients. We strive to work with other client implementers, researchers and developers to demonstrate the importance of having browsers utilize trustless data directly from the blockchain.
+Lodestar ayrıca Ethereum light client'ların araştırılması, standardizasyonu ve uygulanmasında da lider olmuştur. Diğer istemci uygulayıcıları, araştırmacılar ve geliştiricilerle çalışarak tarayıcıların doğrudan blockchain'den güvenilir olmayan verileri kullanmasının önemini göstermeye çalışıyoruz.
 
-Lodestar's niche is in its implementation language, [Typescript](https://www.typescriptlang.org/).
+Lodestar'ın niş alanı, uygulama dili olan [Typescript](https://www.typescriptlang.org/)'tir.
 
 ### Nimbus
 
-[Nimbus](https://nimbus.team/) is a client implementation for both Ethereum 2.0 and Ethereum 1.0 that strives to be as lightweight as possible in terms of resources used.
-This allows it to perform well on embedded systems and resource-restricted devices.
+[Nimbus](https://nimbus.team/), Ethereum 2.0 ve Ethereum 1.0 için, kullanılan kaynaklar açısından mümkün olduğunca hafif olmaya çalışan bir istemci uygulamasıdır.
+Bu, gömülü sistemler ve kaynak kısıtlı cihazlarda iyi performans göstermesini sağlar.
 
-However, resource-restricted hardware is not the only thing Nimbus is good for.
-Its low resource consumption makes it easy to run Nimbus together with other workloads on your server (this is especially valuable for stakers looking to lower the cost of their server instances).
+Ancak, kaynak kısıtlı donanım Nimbus'un iyi olduğu tek şey değildir.
+Düşük kaynak tüketimi, Nimbus'u sunucunuzda diğer iş yükleriyle birlikte çalıştırmayı kolaylaştırır (bu, özellikle sunucu örneklerinin maliyetini düşürmek isteyen stake edenler için değerlidir).
 
-Nimbus is written in [Nim](https://nim-lang.org/) and maintained by the [Status.im team](https://status.im/about/).
+Nimbus, [Nim](https://nim-lang.org/) dilinde yazılmıştır ve [Status.im ekibi](https://status.im/about/) tarafından sürdürülmektedir.
 
 ### Prysm
 
-The [Prysm](https://docs.prylabs.network/docs/getting-started/#what-is-prysm) project is a full-featured implementation for the Ethereum 2.0 network written entirely in the [Go programming language](https://golang.org/).
+[Prysm](https://docs.prylabs.network/docs/getting-started/#what-is-prysm) projesi, tamamen [Go programlama dilinde](https://golang.org/) yazılmış Ethereum 2.0 ağı için tam özellikli bir uygulamadır.
 
-Created by [Prysmatic Labs](https://prysmaticlabs.com/), Prysm implements the official [Ethereum 2.0 specification](https://github.com/ethereum/consensus-specs), which is the product of an ongoing collective research and development effort by various teams across the Ethereum ecosystem including the [Ethereum Foundation](https://ethereum.org/).
+[Prysmatic Labs](https://prysmaticlabs.com/) tarafından oluşturulan Prysm, [Ethereum Foundation](https://ethereum.org/) dahil olmak üzere Ethereum ekosistemindeki çeşitli ekiplerin devam eden kolektif araştırma ve geliştirme çabasının ürünü olan resmi [Ethereum 2.0 spesifikasyonunu](https://github.com/ethereum/consensus-specs) uygular.
 
 ### Teku
 
-[Teku](https://docs.teku.consensys.net/en/stable/) (formerly known as Artemis) is a [Java](https://en.wikipedia.org/wiki/Java_%28programming_language%29)-based Ethereum consensus client designed & built to meet institutional needs and security requirements.
-PegaSys is an arm of [ConsenSys](https://consensys.net/) dedicated to building enterprise-ready clients and tools for interacting with the core Ethereum platform.
+[Teku](https://docs.teku.consensys.net/en/stable/) (eski adıyla Artemis), kurumsal ihtiyaçları ve güvenlik gereksinimlerini karşılamak üzere tasarlanmış ve inşa edilmiş [Java](https://en.wikipedia.org/wiki/Java_%28programming_language%29) tabanlı bir Ethereum consensus istemcisidir.
+PegaSys, çekirdek Ethereum platformuyla etkileşim için kurumsal düzeyde istemciler ve araçlar oluşturmaya adanmış [ConsenSys](https://consensys.net/)'in bir koludur.
 
-Teku is Apache 2.0 licensed and written in Java, a language notable for its maturity & ubiquity.
+Teku, Apache 2.0 lisanslıdır ve Java dilinde yazılmıştır, bu dil olgunluğu ve her yerde bulunması ile tanınır.
 
-### Client Comparison Table
+### İstemci Karşılaştırma Tablosu
 
-| Client     | CPU Usage | Minimum RAM Usage | Sync Time                    |
-| ---------- | --------- | ----------------- | ---------------------------- |
-| Lighthouse | Moderate  | 2 GB              | Instant with checkpoint sync |
-| Lodestar   | Moderate  | 4 GB              | Instant with checkpoint sync |
-| Nimbus     | Low       | 0.75 GB           | Instant with checkpoint sync |
-| Prysm      | Moderate  | 2 GB              | Instant with checkpoint sync |
-| Teku       | Moderate  | 4 GB              | Instant with checkpoint sync |
+| İstemci    | CPU Kullanımı | Minimum RAM Kullanımı | Senkronizasyon Süresi               |
+| ---------- | ------------- | --------------------- | ----------------------------------- |
+| Lighthouse | Orta          | 2 GB                  | Checkpoint sync ile anında          |
+| Lodestar   | Orta          | 4 GB                  | Checkpoint sync ile anında          |
+| Nimbus     | Düşük         | 0.75 GB               | Checkpoint sync ile anında          |
+| Prysm      | Orta          | 2 GB                  | Checkpoint sync ile anında          |
+| Teku       | Orta          | 4 GB                  | Checkpoint sync ile anında          |

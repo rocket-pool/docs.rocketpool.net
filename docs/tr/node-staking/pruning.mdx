@@ -1,84 +1,84 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Pruning the Execution Client
+# Execution İstemcisini Budama
 
-::: tip NOTE
-This is meant for `geth` and `nethermind` users.
-Besu does _not_ need to be pruned.
+::: tip NOT
+Bu, `geth` ve `nethermind` kullanıcıları içindir.
+Besu'nun budanması _gerekmez_.
 :::
 
-If you use `geth` or `nethermind` as your primary Execution client, you will likely notice that your node's free disk space slowly decreases over time.
-The Execution client is by far the biggest contributor to this; depending on how much RAM you allocated to its cache during `rocketpool service config`, it can grow at a rate of several gigabytes per day!
+Birincil Execution istemciniz olarak `geth` veya `nethermind` kullanıyorsanız, muhtemelen düğümünüzün boş disk alanının zamanla yavaşça azaldığını fark edeceksiniz.
+Execution istemcisi bunun açık ara en büyük katkıda bulunanıdır; `rocketpool service config` sırasında önbelleğine ne kadar RAM tahsis ettiğinize bağlı olarak, günde birkaç gigabayt hızında büyüyebilir!
 
-To handle this, Execution clients provide a special function called **pruning** that lets them scan and clean up their database safely to reclaim some free space.
-Every node operator using Geth or Nethermind will have to prune it eventually.
+Bunu ele almak için, Execution istemcileri veritabanlarını güvenli bir şekilde tarayıp temizlemelerine ve biraz boş alan geri kazanmalarına olanak tanıyan **budama** adlı özel bir işlev sağlar.
+Geth veya Nethermind kullanan her düğüm operatörü sonunda onu budamak zorunda kalacaktır.
 
-If you have a 2 TB SSD, you can usually go for months between rounds of pruning.
-For 1 TB SSD users, you will have to prune more frequently.
+2 TB'lık bir SSD'niz varsa, genellikle budama turları arasında aylarca gidebilirsiniz.
+1 TB SSD kullanıcıları için, daha sık budamanız gerekecektir.
 
-If you have [the Grafana dashboard](./grafana) enabled, a good rule of thumb is to start thinking about pruning your Execution client when your node's used disk space exceeds 80%.
+[Grafana panosunu](./grafana) etkinleştirdiyseniz, iyi bir kural düğümünüzün kullanılan disk alanı %80'i aştığında Execution istemcinizi budamayı düşünmeye başlamaktır.
 
-When you decide that it's time, the Smartnode comes with the ability to prune it for you upon request.
-Read below to learn how it works, and what to expect.
+Zamanı geldiğine karar verdiğinizde, Smartnode talep üzerine sizin için bunu budama yeteneğiyle gelir.
+Nasıl çalıştığını ve ne bekleyeceğinizi öğrenmek için aşağıyı okuyun.
 
-::: warning NOTE
-Pruning your Execution client is only possible in Docker Mode.
+::: warning NOT
+Execution istemcinizi budama yalnızca Docker Mode'da mümkündür.
 
-If you use your own Execution client, such as an external client in Hybrid mode or Native mode, you cannot use the Smartnode to prune the Execution client.
-You will need to do it manually.
-Please refer to the documentation for your Execution client to learn how to prune it.
+Hybrid modda veya Native modda harici bir istemci gibi kendi Execution istemcinizi kullanıyorsanız, Execution istemcisini budamak için Smartnode'u kullanamazsınız.
+Bunu manuel olarak yapmanız gerekecektir.
+Nasıl budayacağınızı öğrenmek için lütfen Execution istemcinizin belgelerine başvurun.
 :::
 
-## Prerequisites
+## Ön Koşullar
 
-Select the client you're using from the tabs below.
+Aşağıdaki sekmelerden kullandığınız istemciyi seçin.
 
 <div className="p-3">
   <Tabs>
     <Tab label="Geth">
-      Pruning Geth means taking the primary Execution client offline so it can clean itself up.
-      When this happens, the Smartnode (and your Consensus client) will need some other way to access the ETH1 chain in order to function properly.
+      Geth'i budamak, birincil Execution istemcisini çevrimdışı almak anlamına gelir, böylece kendini temizleyebilir.
+      Bu olduğunda, Smartnode (ve Consensus istemciniz) düzgün çalışmak için ETH1 zincirine erişmek için başka bir yola ihtiyaç duyacaktır.
 
-      The easiest way to provide this is with a **fallback node**.
-      If you [configured a fall back node](./fallback) using `rocketpool service config` already, then the Smartnode will automatically switch over to it when your Geth container goes down for maintenance for you.
-      It will also inform your Consensus client to use the fallback as well.
+      Bunu sağlamanın en kolay yolu bir **fallback node** ile olur.
+      `rocketpool service config` kullanarak halihazırda [bir fallback node yapılandırdıysanız](./fallback), Geth container'ınız bakım için düştüğünde Smartnode otomatik olarak ona geçecektir.
+      Ayrıca Consensus istemcinize de fallback'i kullanması gerektiğini bildirecektir.
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">WARNING</p>
-        If you don't have a fallback node configured, your node will stop validating during the pruning process.
-        It will miss all attestations and block proposals until it's finished and has resynced with the network.
-        **You will leak ETH due to missed validations during this time!**
+        <p className="rspress-directive-title">UYARI</p>
+        Yapılandırılmış bir fallback node'unuz yoksa, düğümünüz budama işlemi sırasında doğrulamayı durduracaktır.
+        Bitene ve ağ ile yeniden senkronize olana kadar tüm tasdikleri ve blok önerilerini kaçıracaktır.
+        **Bu süre boyunca kaçırılan doğrulamalar nedeniyle ETH kaybedeceksiniz!**
       </p>
 
-      With that in mind, the following two conditions are required to successfully prune Geth:
+      Bunu akılda tutarak, Geth'i başarıyla budamak için aşağıdaki iki koşul gereklidir:
 
-      - A working fallback node configured
-      - At least **50 GB** of free space remaining on your SSD
+      - Çalışan bir fallback node yapılandırılmalı
+      - SSD'nizde en az **50 GB** boş alan kalmalı
     </Tab>
     <Tab label="Nethermind">
-      Nethermind is able to stay online while it prunes, meaning you do not require a fallback node to continue attesting.
-      Note, however, that pruning is **an extremely resource-intesive task** and you may see an increase in your attestations' inclusion distance and missed attestations during it.
+      Nethermind budarken çevrimiçi kalabilir, bu da tasdik etmeye devam etmek için bir fallback node gerektirmediğiniz anlamına gelir.
+      Ancak, budamanın **son derece kaynak yoğun bir görev** olduğunu ve onun sırasında tasdiklerinizin dahil edilme mesafesinde bir artış ve kaçırılan tasdikler görebileceğinizi unutmayın.
 
-      Nethermind does not require any special prerequisites; you are able to prune it at any time.
+      Nethermind özel bir ön koşul gerektirmez; istediğiniz zaman budayabilirsiniz.
     </Tab>
 
   </Tabs>
 </div>
 
-## Starting a Prune
+## Budamayı Başlatma
 
-Select the client you're using from the tabs below.
+Aşağıdaki sekmelerden kullandığınız istemciyi seçin.
 
 <div className="p-3">
   <Tabs>
     <Tab label="Geth">
-      When you want to prune Geth, simply run this command:
+      Geth'i budamak istediğinizde, basitçe bu komutu çalıştırın:
 
       ```shell
       rocketpool service prune-eth1
       ```
 
-      If you do not have a fallback client pair enabled, you will receive the following warning:
+      Etkinleştirilmiş bir fallback istemci çiftiniz yoksa, şu uyarıyı alacaksınız:
 
       ```
       This will shut down your main execution client and prune its database, freeing up disk space.
@@ -90,7 +90,7 @@ Select the client you're using from the tabs below.
       Are you sure you want to prune your main execution client? [y/n]
       ```
 
-      If you do have one enabled, you will see the following prompt instead:
+      Etkinleştirilmiş bir taneniz varsa, bunun yerine şu istemi göreceksiniz:
 
       ```
       This will shut down your main execution client and prune its database, freeing up disk space.
@@ -100,7 +100,7 @@ Select the client you're using from the tabs below.
       Are you sure you want to prune your main execution client? [y/n]
       ```
 
-      If you accept, you'll see a few details as the Smartnode prepares things; it should end with a success message:
+      Kabul ederseniz, Smartnode hazırlıklarını yaparken birkaç ayrıntı göreceksiniz; bir başarı mesajıyla bitmelidir:
 
       ```
       Are you sure you want to prune your main ETH1 client? [y/n]
@@ -117,23 +117,23 @@ Select the client you're using from the tabs below.
       You must let it run to completion!
       ```
 
-      With that, Geth is now pruning and you're all set!
-      You can follow its progress with:
+      Bununla, Geth şimdi budanıyor ve hazırsınız!
+      İlerlemesini şununla takip edebilirsiniz:
 
       ```shell
       rocketpool service logs eth1
       ```
 
-      Once it's done pruning, it will restart automatically and the Smartnode will resume using it again instead of your fallback.
+      Budama tamamlandığında, otomatik olarak yeniden başlayacak ve Smartnode fallback'iniz yerine tekrar onu kullanmaya devam edecektir.
     </Tab>
     <Tab label="Nethermind">
-      When you want to prune Nethermind, simply run this command:
+      Nethermind'ı budamak istediğinizde, basitçe bu komutu çalıştırın:
 
       ```shell
       rocketpool service prune-eth1
       ```
 
-      You will see the following prompt:
+      Şu istemi göreceksiniz:
 
       ```
       This will shut down your main execution client and prune its database, freeing up disk space.
@@ -142,7 +142,7 @@ Select the client you're using from the tabs below.
       Are you sure you want to prune your main execution client? [y/n]
       ```
 
-      If you accept, you'll see a few messages similar to the following:
+      Kabul ederseniz, aşağıdakine benzer birkaç mesaj göreceksiniz:
 
       ```
       Your disk has 790 GiB free, which is enough to prune.
@@ -161,14 +161,14 @@ Select the client you're using from the tabs below.
       You must let it run to completion!
       ```
 
-      With that, Nethermind is now pruning and you're all set!
-      You can follow its progress with:
+      Bununla, Nethermind şimdi budanıyor ve hazırsınız!
+      İlerlemesini şununla takip edebilirsiniz:
 
       ```shell
       rocketpool service logs eth1
       ```
 
-      Once it's done pruning, it will restart automatically.
+      Budama tamamlandığında, otomatik olarak yeniden başlayacaktır.
     </Tab>
 
   </Tabs>

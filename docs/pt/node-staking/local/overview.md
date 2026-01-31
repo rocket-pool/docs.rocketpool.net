@@ -1,19 +1,19 @@
 ---
 next:
   text: Selecting Staking Hardware
-  link: "/en/node-staking/local/hardware"
+  link: "/pt/node-staking/local/hardware"
 ---
 
-# Overview
+# Visão Geral
 
-This section is aimed at helping you understand the process of preparing a local machine for use as a Rocket Pool node at home.
+Esta seção tem como objetivo ajudá-lo a entender o processo de preparar uma máquina local para uso como um node Rocket Pool em casa.
 
-## Guides
+## Guias
 
-[Selecting Staking Hardware](./hardware) shows a wide variety of viable hardware configurations for node operation, hopefully helping you find inspiration when picking what to get for yourself.
+[Selecionando Hardware para Staking](./hardware) mostra uma ampla variedade de configurações de hardware viáveis para operação de node, esperançosamente ajudando você a encontrar inspiração ao escolher o que adquirir para si mesmo.
 
-[Preparing a PC, Mini-PC, or NUC](./prepare-pc) walks you through the basic steps of installing and configuring the base Operating System on your machine to prepare it for life as a node.
+[Preparando um PC, Mini-PC ou NUC](./prepare-pc) orienta você pelas etapas básicas de instalação e configuração do Sistema Operacional base na sua máquina para prepará-la para a vida como um node.
 
-[Preparing a Mac](./prepare-mac) is the same, but for macOS systems.
+[Preparando um Mac](./prepare-mac) é o mesmo, mas para sistemas macOS.
 
-[Intro to Secure Shell (SSH)](../ssh) shows you how to use **SSH**, a popular remote-access tool for working with your node machine remotely and securely from a different machine (such as a laptop or desktop) so you don't have to interact with the node directly via a monitor and keyboard connected to it.
+[Introdução ao Secure Shell (SSH)](../ssh) mostra como usar **SSH**, uma ferramenta popular de acesso remoto para trabalhar com sua máquina node remotamente e de forma segura de uma máquina diferente (como um laptop ou desktop) para que você não precise interagir com o node diretamente através de um monitor e teclado conectados a ele.

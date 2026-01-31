@@ -1,59 +1,54 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-::: danger WARNING
-Minipool deposits are currently disabled in preparation for Saturn 1.
+::: danger 경고
+Saturn 1 준비를 위해 현재 minipool 예치가 비활성화되어 있습니다.
 :::
 
-# Creating a New Minipool (Validator)
+# 새로운 Minipool (Validator) 생성하기
 
-As a reminder, a `minipool` in Rocket Pool terms refers to a unique smart contract instance on the Execution Layer that your node manages.
-The minipool handles a portion of your ETH, known as the **bond amount**, and a portion of ETH from the rETH staking pool, known as the **borrowed amount**.
-It merges them together to form 32 ETH in total, which is then sent to the Beacon Chain deposit contract to create a new validator.
-Thus, in order to create a validator using Rocket Pool, you need to **create a minipool**.
+먼저 상기하자면, Rocket Pool에서 `minipool`은 노드가 관리하는 실행 레이어의 고유한 스마트 컨트랙트 인스턴스를 의미합니다.
+Minipool은 **채권 금액**으로 알려진 여러분의 ETH 일부와 **차입 금액**으로 알려진 rETH 스테이킹 풀의 ETH 일부를 처리합니다.
+이들을 합쳐 총 32 ETH를 만들고, 이는 Beacon Chain 예치 컨트랙트로 전송되어 새로운 validator를 생성합니다.
+따라서 Rocket Pool을 사용하여 validator를 생성하려면 **minipool을 생성**해야 합니다.
 
-::: danger WARNING
-Minipool creation is governed by two queues.
+::: danger 경고
+Minipool 생성은 두 개의 대기열에 의해 관리됩니다.
 
-The first is the Rocket Pool deposit queue, which is managed by the Rocket Pool protocol & determines when your minipool will receive its borrowed ETH. There needs to be ETH available in the deposit pool to match your 8 ETH with 24 ETH in the deposit pool & create the minipool.
+첫 번째는 Rocket Pool 예치 대기열로, Rocket Pool 프로토콜에 의해 관리되며 minipool이 차입 ETH를 받을 시기를 결정합니다. 예치 풀에 ETH가 있어야 여러분의 8 ETH를 예치 풀의 24 ETH와 매칭하여 minipool을 생성할 수 있습니다.
 
-The second is the Beacon Chain queue, which is managed by the Ethereum Beacon Chain & determines when your validator will become active.
+두 번째는 Beacon Chain 대기열로, Ethereum Beacon Chain에 의해 관리되며 validator가 활성화될 시기를 결정합니다.
 
-Please be aware that the time it takes for your minipool to become active can vary greatly depending on your position in each queue & the current state of the network.
+Minipool이 활성화되는 데 걸리는 시간은 각 대기열의 위치와 네트워크의 현재 상태에 따라 크게 달라질 수 있음을 유의하시기 바랍니다.
 :::
 
-::: tip NOTE
-The Beacon Chain validator queue activation (and exit) times can vary greatly depending on the current state of the network.
+::: tip 참고
+Beacon Chain validator 대기열 활성화(및 종료) 시간은 네트워크의 현재 상태에 따라 크게 달라질 수 있습니다.
 
-This is outside Rocket Pool's control and is a function of the Beacon Chain itself.
+이는 Rocket Pool의 통제 범위를 벗어나며 Beacon Chain 자체의 기능입니다.
 
-The following tool provides a good estimate of how long you can expect to wait:
+다음 도구는 대기 시간에 대한 좋은 추정치를 제공합니다:
 [https://www.validatorqueue.com/](https://www.validatorqueue.com/)
 
-Please review this tool to get an idea of how long you can expect to wait for your validator to become active.
+Validator가 활성화되기까지 얼마나 기다려야 하는지 파악하기 위해 이 도구를 검토하시기 바랍니다.
 :::
 
-### Staking RPL via the Website
+### 웹사이트를 통한 RPL 스테이킹
 
-The easiest and safest way to stake RPL for your node is to use the protocol's **Stake-on-Behalf** feature, which was
-reintroduced with the Atlas upgrade. This way, you can stake RPL for your node while the RPL is still in the wallet
-you used to acquire it. In other words, you **don't need to send RPL to your node's hot wallet** in order to stake it.
+노드를 위해 RPL을 스테이킹하는 가장 쉽고 안전한 방법은 Atlas 업그레이드와 함께 재도입된 프로토콜의 **Stake-on-Behalf** 기능을 사용하는 것입니다. 이렇게 하면 RPL을 획득하는 데 사용한 지갑에 RPL이 있는 상태에서 노드를 위해 RPL을 스테이킹할 수 있습니다. 즉, 스테이킹하기 위해 **노드의 핫 지갑으로 RPL을 보낼 필요가 없습니다**.
 
-#### Whitelisting an address to stake on behalf
+#### 대신 스테이킹할 주소 화이트리스트 등록
 
-In order to stake on behalf of your node an address must be whitelisted. Your withdrawal address is always whitelisted,
-and you may skip this step if your RPL is held by your withdrawal address. You only need to whitelist an address once
-in order to stake from it. You can do this via the following Smartnode command:
+노드를 대신하여 스테이킹하려면 주소가 화이트리스트에 등록되어 있어야 합니다. 인출 주소는 항상 화이트리스트에 등록되어 있으므로, RPL이 인출 주소에 있다면 이 단계를 건너뛸 수 있습니다. 주소를 한 번만 화이트리스트에 등록하면 해당 주소에서 스테이킹할 수 있습니다. 다음 Smartnode 명령을 통해 이를 수행할 수 있습니다:
 
 ```shell
 rocketpool node add-address-to-stake-rpl-whitelist address-or-ens
 ```
 
-Where `address-or-ens` is the address or ENS name that resolves to your desired address. You will be asked to
-confirm the whitelist addition and after the transaction is confirmed, you can then navigate to the relevant page below.
+여기서 `address-or-ens`는 원하는 주소로 해석되는 주소 또는 ENS 이름입니다. 화이트리스트 추가를 확인하라는 메시지가 표시되고 트랜잭션이 확인되면 아래의 관련 페이지로 이동할 수 있습니다.
 
-#### Staking RPL on behalf of
+#### 대신하여 RPL 스테이킹
 
-Select which network you're using from the tabs below to be taken to it:
+아래 탭에서 사용 중인 네트워크를 선택하세요:
 
 <div className="p-3">
   <Tabs>
@@ -62,70 +57,70 @@ Select which network you're using from the tabs below to be taken to it:
   </Tabs>
 </div>
 
-Start by connecting your wallet to the website using MetaMask, WalletConnect, or any of the other methods the website supports.
-You will then be presented with this dialog to look up your node address.
+MetaMask, WalletConnect 또는 웹사이트가 지원하는 다른 방법을 사용하여 지갑을 웹사이트에 연결하는 것부터 시작하세요.
+그러면 노드 주소를 조회할 수 있는 다음 대화상자가 표시됩니다.
 
-Enter your node address & click "Lookup".
+노드 주소를 입력하고 "Lookup"을 클릭하세요.
 
-**Make sure you have the correct node address before doing this!**
-If you need to confirm your node's address, you can quickly retrieve it via the CLI using the `rocketpool node status` command.
+**이 작업을 수행하기 전에 올바른 노드 주소가 있는지 확인하세요!**
+노드의 주소를 확인해야 하는 경우 `rocketpool node status` 명령을 사용하여 CLI를 통해 빠르게 검색할 수 있습니다.
 
-This will check that the address is a registered node & that the node has whitelisted the connected wallet. Withdrawal addresses are whitelisted by default, however if you wish to allow other addresses you will need to whitelist them via the following command on your node.
+이렇게 하면 주소가 등록된 노드인지, 노드가 연결된 지갑을 화이트리스트에 등록했는지 확인합니다. 인출 주소는 기본적으로 화이트리스트에 등록되어 있지만, 다른 주소를 허용하려면 노드에서 다음 명령을 통해 화이트리스트에 등록해야 합니다.
 
 ```shell
 rocketpool node add-address-to-stake-rpl-whitelist address-or-ens
 ```
 
-This is a two-step process.
+이것은 2단계 프로세스입니다.
 
-First, enter the amount of RPL you want to stake and click `Approve` - this will **approve** the staking contract to access that much RPL in your wallet, but **no more than that amount**.
+먼저, 스테이킹하려는 RPL의 양을 입력하고 `Approve`를 클릭합니다 - 이렇게 하면 스테이킹 컨트랙트가 지갑에서 그만큼의 RPL에 액세스할 수 있도록 **승인**하지만, **그 금액 이상은 승인하지 않습니다**.
 
-::: tip TIP
-You can approve more than the amount you intend to stake if you trust the Rocket Pool staking contract, and don't want to perform this extra Approve transaction each time you want to stake more RPL.
+::: tip 팁
+Rocket Pool 스테이킹 컨트랙트를 신뢰하고 RPL을 추가로 스테이킹할 때마다 이 추가 승인 트랜잭션을 수행하지 않으려면, 스테이킹하려는 금액보다 많이 승인할 수 있습니다.
 :::
 
-Once the RPL is approved, you will be able to stake on behalf of a node.
+RPL이 승인되면 노드를 대신하여 스테이킹할 수 있습니다.
 
-Enter the amount of RPL you want to stake in the `Stake RPL` box, and enter your node's address in the `on behalf of Node Address` box.
+`Stake RPL` 박스에 스테이킹하려는 RPL의 양을 입력하고, `on behalf of Node Address` 박스에 노드 주소를 입력하세요.
 
-When you've entered that information, press the `Stake` button and approve the transaction.
+해당 정보를 입력했으면 `Stake` 버튼을 누르고 트랜잭션을 승인하세요.
 
 <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/stake_behalf.mp4" />
 
-It will be sent to the Ethereum network, and once included in a block, you're all set!
+Ethereum 네트워크로 전송되고 블록에 포함되면 모든 설정이 완료됩니다!
 
-If you run `rocketpool node status`, you should see your staked RPL appear under the `=== RPL Stake ===` section.
+`rocketpool node status`를 실행하면 `=== RPL Stake ===` 섹션 아래에 스테이킹된 RPL이 표시됩니다.
 
-#### Removing an address from the stake whitelist
+#### 스테이크 화이트리스트에서 주소 제거
 
-If you ever want to remove an address from your stake-on-behalf whitelist, you may do so with the following Smartnode command:
+Stake-on-behalf 화이트리스트에서 주소를 제거하려면 다음 Smartnode 명령을 사용할 수 있습니다:
 
 ```shell
 rocketpool node remove-address-from-stake-rpl-whitelist address-or-ens
 ```
 
-Where `address-or-ens` is the address or and ENS name resolving to the address you want to remove from the whitelist.
+여기서 `address-or-ens`는 화이트리스트에서 제거하려는 주소로 해석되는 주소 또는 ENS 이름입니다.
 
-### Staking via the Node CLI
+### 노드 CLI를 통한 스테이킹
 
-If you cannot (or do not want to) use the website to stake your RPL, you can also stake it via the node's CLI directly.
+웹사이트를 사용하여 RPL을 스테이킹할 수 없거나 원하지 않는 경우, 노드의 CLI를 통해 직접 스테이킹할 수도 있습니다.
 
-First, transfer your RPL from the wallet you acquired it with to your node's address.
+먼저, 획득한 지갑에서 노드의 주소로 RPL을 전송하세요.
 
-::: danger WARNING
-**Please do this carefully and ensure you are sending the RPL to your node's address - transfers on Ethereum cannot be undone!**
-**Sending RPL to the wrong address will result in the loss of your RPL.**
+::: danger 경고
+**신중하게 수행하고 노드의 주소로 RPL을 보내고 있는지 확인하세요 - Ethereum의 전송은 취소할 수 없습니다!**
+**잘못된 주소로 RPL을 보내면 RPL이 손실됩니다.**
 
-Use the `rocketpool node status` command to verify your node's address if you aren't sure what it is.
+노드의 주소가 확실하지 않은 경우 `rocketpool node status` 명령을 사용하여 확인하세요.
 :::
 
-Run the following command:
+다음 명령을 실행하세요:
 
 ```
 rocketpool node stake-rpl
 ```
 
-Here is the output:
+출력은 다음과 같습니다:
 
 ```
 Please choose an amount of RPL to stake:
@@ -133,13 +128,13 @@ Please choose an amount of RPL to stake:
 2: A custom amount
 ```
 
-Select how much you'd like to stake, then confirm the operation.
+스테이킹하려는 금액을 선택한 다음 작업을 확인하세요.
 
-The first time you run this command, it will involve two transactions - one to **approve** the Rocket Pool staking contract to access your RPL, and one to **stake** your RPL with it.
-Subsequent runs will only require the **stake** transaction, since the token has already been approved.
+이 명령을 처음 실행하면 두 개의 트랜잭션이 포함됩니다 - 하나는 Rocket Pool 스테이킹 컨트랙트가 RPL에 액세스하도록 **승인**하는 것이고, 다른 하나는 RPL을 **스테이킹**하는 것입니다.
+이후 실행에서는 토큰이 이미 승인되었으므로 **스테이크** 트랜잭션만 필요합니다.
 
-Once both transactions finish, you can check your staked RPL amount with `rocketpool node status`.
-The following portion of the output is what you want to verify:
+두 트랜잭션이 완료되면 `rocketpool node status`로 스테이킹된 RPL 금액을 확인할 수 있습니다.
+다음 출력 부분을 확인해야 합니다:
 
 ```
 The node has a total stake of 300.000000 RPL.
@@ -147,37 +142,37 @@ This is currently 29.76% of its borrowed ETH and 89.29% of its bonded ETH.
 It can earn max apy on up to 151.209677 RPL (15% of borrowed ETH), and still earn at lower APY with more RPL.
 ```
 
-This will show you how many minipools you can make of each bond size based on your RPL collateral.
+이를 통해 RPL 담보를 기반으로 각 채권 크기의 minipool을 몇 개 만들 수 있는지 확인할 수 있습니다.
 
-## (Optional) Finding a Custom Vanity Address for your Minipool
+## (선택 사항) Minipool을 위한 맞춤 배니티 주소 찾기
 
-By default, when you create a new minipool, Rocket Pool will generate a random unique address for it.
-However, the Smartnode provides the ability to search for a custom **vanity address** for the minipool.
+기본적으로 새 minipool을 생성하면 Rocket Pool이 무작위로 고유한 주소를 생성합니다.
+그러나 Smartnode는 minipool을 위한 맞춤 **배니티 주소**를 검색하는 기능을 제공합니다.
 
-A vanity address is one where you personally pick the characters that the address starts with.
-This is a purely cosmetic exercise and will not have any practical impact on your minipool's operation.
-As Ethereum addresses are in hexadecimal, any of the following characters are legal:
+배니티 주소는 주소가 시작하는 문자를 개인적으로 선택하는 주소입니다.
+이것은 순전히 미적인 연습이며 minipool의 작동에 실질적인 영향을 미치지 않습니다.
+Ethereum 주소는 16진수이므로 다음 문자 중 하나를 사용할 수 있습니다:
 
 ```
 0 1 2 3 4 5 6 7 8 9 a b c d e f
 ```
 
-As a few examples, you could make your minipool's address start with a bunch of zeros (`0x000000...`), `0x600d` (hex for "good") or `0xa77e57ed` (hex for "attested", a fitting prefix for a minipool).
+몇 가지 예를 들면, minipool의 주소를 0으로 시작하게 만들 수 있습니다(`0x000000...`), `0x600d`(16진수로 "good") 또는 `0xa77e57ed`(16진수로 "attested", minipool에 적합한 접두사).
 
-To find such a vanity address, you will need to **search for it**.
-This searching process involves picking a number, applying it as a "salt" to the hashing algorithm, and comparing the results against what you're looking for.
-The results are effectively random (though any given salt always produces the same result), so the only way to find an address with the prefix you want is to try lots and lots of them until you find a salt that works.
+이러한 배니티 주소를 찾으려면 **검색**해야 합니다.
+이 검색 프로세스는 숫자를 선택하고 해시 알고리즘에 "솔트"로 적용한 다음 결과를 찾고 있는 것과 비교하는 것입니다.
+결과는 사실상 무작위이지만(주어진 솔트는 항상 동일한 결과를 생성함), 원하는 접두사가 있는 주소를 찾는 유일한 방법은 작동하는 솔트를 찾을 때까지 많은 솔트를 시도하는 것입니다.
 
-If you would like a custom vanity address to use for your minipool when you create it, you can use the following command to search for one:
+Minipool을 생성할 때 사용할 맞춤 배니티 주소를 원한다면 다음 명령을 사용하여 검색할 수 있습니다:
 
 ```
 rocketpool minipool find-vanity-address
 ```
 
-This will prompt you for the prefix you want to search for, and ask which type of deposit you will be doing (a 16 ETH or a 32 ETH deposit - see below for more info on these types).
-Once you enter that information, it will begin trying lots and lots of salts until it finds one that produces your desired prefix!
+이렇게 하면 검색하려는 접두사를 입력하라는 메시지가 표시되고 수행할 예치 유형(16 ETH 또는 32 ETH 예치 - 이러한 유형에 대한 자세한 내용은 아래 참조)을 묻습니다.
+해당 정보를 입력하면 원하는 접두사를 생성하는 솔트를 찾을 때까지 많은 솔트를 시도합니다!
 
-Here is a complete example of the process:
+다음은 프로세스의 전체 예입니다:
 
 ```
 $ rocketpool minipool find-vanity-address
@@ -188,61 +183,61 @@ Found on thread 3: salt 0x5cd7fb = 0xA77E57c892C9e98B0B81289e4AfdA62fb59c5DDD
 Finished in 1.91145873s
 ```
 
-In this case, we searched for `0xa77e57` as the prefix and found the salt `0x5cd7fb` which could generate it.
-In the next step, when we create a minipool, we can specify this salt as an optional argument to create the new minipool at the address associated with the salt (`0xA77E57c892C9e98B0B81289e4AfdA62fb59c5DDD` as shown above).
+이 경우 접두사로 `0xa77e57`을 검색했고 이를 생성할 수 있는 솔트 `0x5cd7fb`를 찾았습니다.
+다음 단계에서 minipool을 생성할 때 이 솔트를 선택적 인수로 지정하여 솔트와 연결된 주소(위에 표시된 대로 `0xA77E57c892C9e98B0B81289e4AfdA62fb59c5DDD`)에 새 minipool을 생성할 수 있습니다.
 
-In general, each additional character you search for will multiply the search time by about 16.
-Because of this, **we recommend you only look for prefixes of 7 or 8 characters max unless you have a very powerful machine with many CPU cores**.
-Otherwise, it might take prohibitively long to find a salt that produces the prefix you want.
+일반적으로 검색하는 각 추가 문자는 검색 시간을 약 16배 늘립니다.
+따라서 **CPU 코어가 많은 매우 강력한 머신이 없는 한 최대 7자 또는 8자의 접두사만 찾는 것이 좋습니다**.
+그렇지 않으면 원하는 접두사를 생성하는 솔트를 찾는 데 너무 오래 걸릴 수 있습니다.
 
-For example, an AMD 5600x with 6 cores (12 threads) at 4.8 GHz can search about 3.2 million salts per second.
-On average, it will take a few seconds to find a 6-character prefix, a few minutes to find a 7-character prefix, and a few hours to find an 8-character prefix.
+예를 들어, 6개 코어(12개 스레드), 4.8GHz의 AMD 5600x는 초당 약 320만 개의 솔트를 검색할 수 있습니다.
+평균적으로 6자 접두사를 찾는 데 몇 초, 7자 접두사를 찾는 데 몇 분, 8자 접두사를 찾는 데 몇 시간이 걸립니다.
 
-::: tip NOTE
-The salt that gets generated is specific to the following variables:
+::: tip 참고
+생성되는 솔트는 다음 변수에 따라 다릅니다:
 
-- The network you're using (either the Hoodi Testnet or Mainnet)
-- The node address
-- The bond amount
-- The salt
+- 사용 중인 네트워크(Hoodi Testnet 또는 Mainnet)
+- 노드 주소
+- 채권 금액
+- 솔트
 
-If you change any of those variables, the minipool address for a given salt will change as well.
+이러한 변수 중 하나를 변경하면 주어진 솔트에 대한 minipool 주소도 변경됩니다.
 :::
 
-For more advanced usage (such as searching for a different node address or changing how many CPU cores are used for searching), take a look at the help text with `rocketpool minipool find-vanity-address --help`.
+고급 사용법(다른 노드 주소 검색 또는 검색에 사용되는 CPU 코어 수 변경 등)은 `rocketpool minipool find-vanity-address --help`의 도움말 텍스트를 참조하세요.
 
-## Depositing ETH and Creating a Minipool
+## ETH 예치 및 Minipool 생성
 
-::: tip TIP
-If the market value of rETH is higher than its ETH backing (i.e., rETH is at a premium on the market), there is an opportunity to arbitrage the difference when creating a minipool.
-The value of the arbitrage is equal to the amount of protocol ETH in the minipool times the premium (minus a small amount of gas).
-E.g., if making a minipool when there's a 2.5% premium: `16 ETH * .025 = 0.4 ETH`.
-In other words, you could receive 0.4 ETH back during these conditions just for creating a minipool!
+::: tip 팁
+rETH의 시장 가치가 ETH 백킹보다 높은 경우(즉, rETH가 시장에서 프리미엄인 경우), minipool을 생성할 때 차익 거래 기회가 있습니다.
+차익 거래의 가치는 minipool의 프로토콜 ETH 양에 프리미엄을 곱한 값(소량의 가스 빼기)과 같습니다.
+예: 2.5% 프리미엄이 있을 때 minipool을 만드는 경우: `16 ETH * .025 = 0.4 ETH`.
+즉, 이러한 조건에서 minipool을 생성하기만 하면 0.4 ETH를 돌려받을 수 있습니다!
 
-If you're interested in taking advantage of this opportunity, consider using the community-developed [rocketarb](https://github.com/xrchz/rocketarb#readme) tool to capture the profit of the MEV rETH arbitrage opportunity that launching your minipool creates.
+이 기회를 활용하는 데 관심이 있다면, minipool 시작 시 발생하는 MEV rETH 차익 거래 기회의 이익을 포착하기 위해 커뮤니티에서 개발한 [rocketarb](https://github.com/xrchz/rocketarb#readme) 도구를 사용하는 것을 고려하세요.
 
-To learn more about rocketarb, feel free to inquire about it on the [RP discord server](https://discord.gg/rocketpool).
+rocketarb에 대해 자세히 알아보려면 [RP discord 서버](https://discord.gg/rocketpool)에서 문의하세요.
 :::
 
-After everything you've done so far, you are finally ready to deposit your ETH, create a new minipool, and create a Beacon Chain validator.
-This is done with the following command:
+지금까지 수행한 모든 작업 후에 마침내 ETH를 예치하고 새 minipool을 생성하며 Beacon Chain validator를 생성할 준비가 되었습니다.
+이는 다음 명령으로 수행됩니다:
 
 ```shell
 rocketpool node deposit
 ```
 
-::: danger WARNING
+::: danger 경고
 
-While the CLI does automate a lot of the next steps for you, we <strong>strongly</strong> recommend monitoring your node & transactions to ensure a successful transition from `prelaunch` to `staking`.
+CLI가 다음 단계의 많은 부분을 자동화하지만, `prelaunch`에서 `staking`으로 성공적으로 전환되도록 노드와 트랜잭션을 <strong>모니터링할 것을 강력히 권장</strong>합니다.
 
-Failed transactions (due to adjusted gas settings or insufficient ETH) could make your minipool transition to the `dissolved` state, which you want to avoid.
+실패한 트랜잭션(조정된 가스 설정 또는 ETH 부족으로 인한)은 minipool이 `dissolved` 상태로 전환될 수 있으며, 이는 피하고 싶은 상태입니다.
 
-[Learn more about how to confirm a successful stake](./create-validator#confirming-a-successful-stake)
+[성공적인 스테이크 확인 방법에 대해 자세히 알아보기](/ko/node-staking/create-validator#confirming-a-successful-stake)
 
 :::
 
-::: tip NOTE
-If you want to use a salt for a vanity address that you found using the process above, run the following command instead:
+::: tip 참고
+위 프로세스를 사용하여 찾은 배니티 주소에 대한 솔트를 사용하려면 다음 명령을 대신 실행하세요:
 
 ```shell
 rocketpool node deposit --salt <your salt, e.g. 0x1234abcd>
@@ -250,7 +245,7 @@ rocketpool node deposit --salt <your salt, e.g. 0x1234abcd>
 
 :::
 
-You will first see a note that depositing a new minipool will **automatically distribute** any balance in your node's [fee distributor](./fee-distrib-sp) contract (used to capture MEV rewards if you're not opted into the [Smoothing Pool](./fee-distrib-sp#the-smoothing-pool)):
+먼저 새 minipool을 예치하면 노드의 [수수료 분배기](./fee-distrib-sp) 컨트랙트([Smoothing Pool](./fee-distrib-sp#the-smoothing-pool)에 가입하지 않은 경우 MEV 보상을 캡처하는 데 사용됨)의 잔액이 **자동으로 분배**된다는 메모가 표시됩니다:
 
 ```
 Your eth2 client is on the correct network.
@@ -258,9 +253,9 @@ NOTE: by creating a new minipool, your node will automatically claim and distrib
 Would you like to continue? [y/n]
 ```
 
-If you already have minipools and a balance in your fee distributor, you may decide not to create another minipool if distributing this balance causes a taxable event in your jurisdiction.
+이미 minipool이 있고 수수료 분배기에 잔액이 있는 경우, 이 잔액을 분배하면 관할권에서 과세 대상 이벤트가 발생하는 경우 다른 minipool을 생성하지 않기로 결정할 수 있습니다.
 
-After that you'll be notified of your commission rate for the new minipool, and a note on whether or not your node's [credit balance](./credit) can be used to cover the cost of the minipool bond for you:
+그런 다음 새 minipool의 수수료율과 노드의 [크레딧 잔액](./credit)을 사용하여 minipool 채권 비용을 충당할 수 있는지에 대한 메모가 표시됩니다:
 
 ```
 Your minipool will use the current fixed commission rate of 5.00%.
@@ -269,7 +264,7 @@ You currently have 8.00 ETH in your credit balance.
 This deposit will use 8.000000 ETH from your credit balance and will not require any ETH from your node.
 ```
 
-You will next be prompted with the network's current gas costs recommendations; confirm your gas price selection and follow the rest of the prompts.
+다음으로 네트워크의 현재 가스 비용 권장 사항이 표시됩니다. 가스 가격 선택을 확인하고 나머지 프롬프트를 따르세요.
 
 ```
 Your consensus client is synced, you may safely create a minipool.
@@ -305,24 +300,24 @@ After that, it will move to Staking status once 1h0m0s have passed.
 You can watch its progress using `rocketpool service logs node`.
 ```
 
-Note that creating a minipool **is an expensive transaction**!
-Pay close attention to the total cost and ensure that you accept it.
+Minipool 생성은 **비용이 많이 드는 트랜잭션**입니다!
+총 비용에 주의를 기울이고 수락하는지 확인하세요.
 
-If you accept, your minipool creation will be triggered.
-Once the transaction completes, you will be given the address of your new minipool contract on the Execution Layer and its corresponding validator public key on the Beacon Chain.
-You can visit these with any block explorers if you'd like.
+수락하면 minipool 생성이 트리거됩니다.
+트랜잭션이 완료되면 실행 레이어의 새 minipool 컨트랙트 주소와 Beacon Chain의 해당 validator 공개 키가 제공됩니다.
+원하는 경우 블록 탐색기로 이를 방문할 수 있습니다.
 
-## Confirming a Successful Stake
+## 성공적인 스테이크 확인
 
-Upon creation, your minipool will be put into the `initialized` state.
-It will remain here until it's your turn in the Rocket Pool queue to be given 24 ETH from the staking pool so you can stake your new validator on the Beacon Chain.
+생성되면 minipool은 `initialized` 상태가 됩니다.
+Rocket Pool 대기열에서 차례가 되어 스테이킹 풀에서 24 ETH를 받아 Beacon Chain에 새 validator를 스테이킹할 수 있을 때까지 이 상태로 유지됩니다.
 
-Once this happens, your minipool will move into the `prelaunch` state for a certain period of time (currently 12 hours).
-Your 8 ETH deposit will be transferred to be Beacon Chain, and the Oracle DAO [will verify that it is all correct](https://github.com/rocket-pool/rocketpool-research/blob/master/Reports/withdrawal-creds-exploit.md).
-During this time, you can observe the validator by looking up its validator pubkey with a Beacon Chain explorer such as [https://beaconcha.in](https://beaconcha.in) (or [https://hoodi.beaconcha.in](https://hoodi.beaconcha.in) for the Hoodi Testnet).
+이런 일이 발생하면 minipool은 일정 기간(현재 12시간) 동안 `prelaunch` 상태로 이동합니다.
+8 ETH 예치금이 Beacon Chain으로 전송되고 Oracle DAO가 [모든 것이 올바른지 확인](https://github.com/rocket-pool/rocketpool-research/blob/master/Reports/withdrawal-creds-exploit.md)합니다.
+이 기간 동안 [https://beaconcha.in](https://beaconcha.in)(또는 Hoodi Testnet의 경우 [https://hoodi.beaconcha.in](https://hoodi.beaconcha.in))과 같은 Beacon Chain 탐색기로 validator pubkey를 조회하여 validator를 관찰할 수 있습니다.
 
-You can check on the new minipool's status with the `rocketpool minipool status` command.
-For example, when it has moved into `prelaunch`, you will likely see something like this:
+`rocketpool minipool status` 명령으로 새 minipool의 상태를 확인할 수 있습니다.
+예를 들어, `prelaunch`로 이동하면 다음과 같이 표시될 것입니다:
 
 ```
 1 Prelaunch minipool(s):
@@ -348,11 +343,11 @@ Effective delegate:    <your delegate address>
 0 finalized minipool(s):
 ```
 
-After this prelaunch period, your minipool will enter `staking` status and send the additional ETH from the staking pool to the deposit contract.
-This will be done by the `rocketpool_node` Docker container (or the `rp-node` service if you used the Native setup) - if, for some reason, you are taking abnormally long to enter `staking` status, looking at the logs for this container / service will likely tell you what's wrong.
-You can check these logs with the `rocketpool service logs node` command (or `/srv/rocketpool/node_log.sh` on Native mode setups).
+이 prelaunch 기간 후에 minipool은 `staking` 상태로 전환되고 스테이킹 풀에서 예치 컨트랙트로 추가 ETH를 전송합니다.
+이는 `rocketpool_node` Docker 컨테이너(또는 Native 설정을 사용한 경우 `rp-node` 서비스)에 의해 수행됩니다 - 어떤 이유로 `staking` 상태로 전환하는 데 비정상적으로 오래 걸리는 경우, 이 컨테이너/서비스의 로그를 보면 무엇이 잘못되었는지 알 수 있습니다.
+`rocketpool service logs node` 명령(또는 Native 모드 설정의 경우 `/srv/rocketpool/node_log.sh`)으로 이러한 로그를 확인할 수 있습니다.
 
-Running `rocketpool minipool status` will then show something like this:
+`rocketpool minipool status`를 실행하면 다음과 같이 표시됩니다:
 
 ```
 $ rocketpool minipool status
@@ -381,30 +376,30 @@ Effective delegate:   <your delegate address>
 0 finalized minipool(s):
 ```
 
-::: warning NOTE
-The transaction to migrate from `prelaunch` to `staking` is submitted automatically by your node and is subject to the gas settings in `rocketpool service config`.
-If the gas settings prevent the node from submitting the transaction, or there is insufficient ETH in the node wallet to pay for the transaction, the minipool will become `dissolved` two weeks after it entered `prelaunch`.
-If this happens, retrieving the balance is a costly and lengthy process, so make sure to monitor your minipool closely until it reaches `staking` status!
+::: warning 참고
+`prelaunch`에서 `staking`으로 마이그레이션하는 트랜잭션은 노드에 의해 자동으로 제출되며 `rocketpool service config`의 가스 설정이 적용됩니다.
+가스 설정이 노드가 트랜잭션을 제출하지 못하게 하거나 노드 지갑에 트랜잭션 비용을 지불할 ETH가 부족한 경우, minipool은 `prelaunch`로 전환된 후 2주 후에 `dissolved`가 됩니다.
+이런 일이 발생하면 잔액을 검색하는 과정이 비용이 많이 들고 시간이 오래 걸리므로 `staking` 상태에 도달할 때까지 minipool을 면밀히 모니터링하세요!
 :::
 
-Once the Beacon Chain accepts both of the deposits (one from you and one from the staking pool), your validator will enter the Beacon Chain queue where it will wait for its turn to become activated and start staking.
+Beacon Chain이 두 예치금(하나는 귀하로부터, 하나는 스테이킹 풀로부터)을 수락하면 validator는 Beacon Chain 대기열에 진입하여 활성화되어 스테이킹을 시작할 차례를 기다립니다.
 
-At this point, you're done!
-Congratulations!
-You have officially created a validator with Rocket Pool!
+이 시점에서 완료되었습니다!
+축하합니다!
+Rocket Pool로 validator를 공식적으로 생성했습니다!
 
-Have a look at the next sections in Monitoring and Maintenance to learn how to watch your validator's performance and health over time.
+시간이 지남에 따라 validator의 성능과 상태를 관찰하는 방법을 알아보려면 모니터링 및 유지 관리의 다음 섹션을 살펴보세요.
 
-## Creating Multiple Minipools
+## 여러 Minipool 생성
 
-Conveniently, your Rocket Pool node is capable of hosting as many minipools as you want.
-You **do not** need to create a new node for each minipool.
+편리하게도 Rocket Pool 노드는 원하는 만큼 많은 minipool을 호스팅할 수 있습니다.
+각 minipool에 대해 새 노드를 생성할 **필요가 없습니다**.
 
-If you would like to make a second (or third, or fourth...) minipool for your node, all you need to do is run `rocketpool node deposit` again.
-Also, you won't be able to reuse an old vanity address salt - you'll need to search for another unique one for each of your minipools.
+노드에 대한 두 번째(또는 세 번째, 네 번째...) minipool을 만들려면 `rocketpool node deposit`을 다시 실행하기만 하면 됩니다.
+또한 이전 배니티 주소 솔트를 재사용할 수 없으므로 각 minipool에 대해 다른 고유한 솔트를 검색해야 합니다.
 
-## Next Steps
+## 다음 단계
 
-Now that you have a minipool up and running, the next steps will walk you through how to monitor the health of your node, check for and apply updates, and maintain it throughout its life.
+이제 minipool이 실행 중이므로 다음 단계에서는 노드의 상태를 모니터링하고 업데이트를 확인 및 적용하며 수명 내내 유지 관리하는 방법을 안내합니다.
 
-**Please read through the `Monitoring and Maintenance` section next to learn more about these topics.**
+**다음에 이러한 주제에 대해 자세히 알아보려면 `모니터링 및 유지 관리` 섹션을 읽어보세요.**

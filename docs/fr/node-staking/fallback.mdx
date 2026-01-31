@@ -2,92 +2,92 @@ import tui_ec_expose_ports from "./images/tui-ec-expose-ports.png";
 import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_fallback_clients from "./images/tui-fallback-clients.png";
 
-# Specifying a Fallback Node
+# Spécification d'un nœud de secours
 
-Starting with **1.5.0** of the Smartnode stack, you can provide a "fallback" Execution client and Consensus client pair that can take over for your primary clients if they ever go offline (such as because [you use Geth and need to prune it](./pruning)).
-In this situation, your primary node machine will still be responsible for attesting and proposing blocks with your minipools' validator keys, but it will connect to an external machine to interact with the Execution layer and Beacon chains.
+À partir de la version **1.5.0** de la pile Smartnode, vous pouvez fournir une paire de client d'exécution et de client de consensus "de secours" qui peut prendre le relais de vos clients principaux s'ils devaient se déconnecter (par exemple parce que [vous utilisez Geth et devez le tailler](./pruning)).
+Dans cette situation, votre machine de nœud principale sera toujours responsable de l'attestation et de la proposition de blocs avec les clés de validator de vos minipools, mais elle se connectera à une machine externe pour interagir avec les chaînes de couche d'exécution et Beacon.
 
-Essentially, it allows you to _temporarily_ use another pair of clients for things like querying the chains, sending transactions, and receiving blocks to attest to.
-This pair can be externally managed (like Hybrid mode), or it can be another Rocket Pool node (another Docker mode machine that has the API ports exposed, which we'll cover below).
+Essentiellement, cela vous permet d'utiliser _temporairement_ une autre paire de clients pour des opérations comme l'interrogation des chaînes, l'envoi de transactions et la réception de blocs pour attester.
+Cette paire peut être gérée en externe (comme en mode hybride), ou il peut s'agir d'un autre nœud Rocket Pool (une autre machine en mode Docker avec les ports API exposés, ce que nous aborderons ci-dessous).
 
-Once your node's primary clients are back online, the Smartnode and your Validator client will switch back to them automatically.
+Une fois que les clients principaux de votre nœud sont de nouveau en ligne, le Smartnode et votre client validator repasseront automatiquement sur eux.
 
-::: warning NOTE
-A fallback node is **not** the same as a "backup" node.
-Fallback nodes have an Execution and Consensus client pair synced to the chain and running, but they **do not** have your node's wallet or its validator keys loaded.
+::: warning REMARQUE
+Un nœud de secours n'est **pas** la même chose qu'un nœud de "sauvegarde".
+Les nœuds de secours ont une paire de client d'exécution et de client de consensus synchronisée avec la chaîne et en cours d'exécution, mais ils **n'ont pas** le portefeuille de votre nœud ni ses clés de validator chargées.
 
-If your main node ever goes offline, **your fallback will not start validating for you.**
+Si votre nœud principal devait se déconnecter, **votre nœud de secours ne commencera pas à valider pour vous.**
 :::
 
-## Supported Clients
+## Clients pris en charge
 
-As of v1.9.0, all our supported validator clients have added Fallback support with only a few limitations:
+Depuis la version v1.9.0, tous nos clients validator pris en charge ont ajouté la prise en charge du mode secours avec seulement quelques limitations :
 
-| Name       | Supports Fallback | Valid Fallback Clients                                                         |
-| ---------- | ----------------- | ------------------------------------------------------------------------------ |
-| Lighthouse | Yes               | Any (doppelganger protection off)<br />Lighthouse (doppelganger protection on) |
-| Nimbus     | Yes               | Any                                                                            |
-| Prysm      | Yes               | Prysm                                                                          |
-| Teku       | Yes               | Any                                                                            |
-| Lodestar   | Yes               | Any                                                                            |
+| Nom        | Prend en charge le secours | Clients de secours valides                                                           |
+| ---------- | -------------------------- | ------------------------------------------------------------------------------------ |
+| Lighthouse | Oui                        | Tous (protection doppelganger désactivée)<br />Lighthouse (protection doppelganger activée) |
+| Nimbus     | Oui                        | Tous                                                                                 |
+| Prysm      | Oui                        | Prysm                                                                                |
+| Teku       | Oui                        | Tous                                                                                 |
+| Lodestar   | Oui                        | Tous                                                                                 |
 
-## Setting up a New Node (Docker Mode)
+## Configuration d'un nouveau nœud (mode Docker)
 
-You can use a 2nd machine that you own locally, a remote node hosted on a VPS, or a cloud-based node as a fallback node.
+Vous pouvez utiliser une 2ème machine que vous possédez localement, un nœud distant hébergé sur un VPS ou un nœud basé sur le cloud comme nœud de secours.
 
-This example shows you how to create a 2nd Smartnode on a different machine using Docker mode, which can serve as a fallback node.
+Cet exemple vous montre comment créer un 2ème Smartnode sur une machine différente en utilisant le mode Docker, qui peut servir de nœud de secours.
 
-::: tip TIP
-If you already have a 2nd node ready and have its RPC ports exposed, feel free to skip this section.
+::: tip CONSEIL
+Si vous avez déjà un 2ème nœud prêt avec ses ports RPC exposés, n'hésitez pas à ignorer cette section.
 :::
 
-1. Follow the steps in the guide on setting up a node ([local](./local/hardware) or [remote](./vps/providers)).
-2. Once the machine is ready, [install the Smartnode stack](./docker).
-3. Run `rocketpool service config` to specify which clients you'd like to use.
-   1. When you get to the end of the wizard and it asks if you'd like to review your settings, select **Yes**.
-   2. Enter the `Execution Client` settings.
-   3. Check the `Expose RPC Ports` box:
+1. Suivez les étapes du guide de configuration d'un nœud ([local](./local/hardware) ou [distant](./vps/providers)).
+2. Une fois la machine prête, [installez la pile Smartnode](./docker).
+3. Exécutez `rocketpool service config` pour spécifier les clients que vous souhaitez utiliser.
+   1. Lorsque vous arrivez à la fin de l'assistant et qu'il vous demande si vous souhaitez examiner vos paramètres, sélectionnez **Oui**.
+   2. Entrez dans les paramètres `Execution Client`.
+   3. Cochez la case `Expose RPC Ports` :
 
    <img src={tui_ec_expose_ports} width="100%" height="auto" />
-   4. Go back and enter the `Consensus Client` settings. 5. Check the `Expose API Port` box (and, if you're using **Prysm**, the `Expose RPC Port` box as well):
+   4. Revenez en arrière et entrez dans les paramètres `Consensus Client`. 5. Cochez la case `Expose API Port` (et, si vous utilisez **Prysm**, la case `Expose RPC Port` également) :
 
    <img src={tui_cc_expose_ports} width="100%" height="auto" />
-   6. Save the settings and start the Smartnode.
+   6. Enregistrez les paramètres et démarrez le Smartnode.
 
-4. Skip to the [Securing your Node](./securing-your-node) guide to set up SSH and the proper security posture on it.
-   1. If you have `ufw` installed, you will need to add rules to allow incoming traffic to the API ports (`8545`, `8546`, and `5052` by default; also `5053` if you're using **Prysm**).
+4. Passez au guide [Sécuriser votre nœud](./securing-your-node) pour configurer SSH et la posture de sécurité appropriée.
+   1. Si vous avez `ufw` installé, vous devrez ajouter des règles pour autoriser le trafic entrant vers les ports API (`8545`, `8546` et `5052` par défaut ; également `5053` si vous utilisez **Prysm**).
 
-5. That's it! You can stop here.
+5. C'est tout ! Vous pouvez vous arrêter ici.
 
-::: danger NOTE
-**Do not** create a wallet with `rocketpool wallet init` or recover your old wallet.
-Leave this node without a wallet and without validator keys.
+::: danger REMARQUE
+**Ne créez pas** de portefeuille avec `rocketpool wallet init` et ne récupérez pas votre ancien portefeuille.
+Laissez ce nœud sans portefeuille et sans clés de validator.
 
-Its only job is to have a synced Execution client and Consensus client.
+Sa seule fonction est d'avoir un client d'exécution et un client de consensus synchronisés.
 :::
 
-## Connecting your Main Node to the Fallback Node
+## Connexion de votre nœud principal au nœud de secours
 
-Once you have a fallback node prepared, you can connect it to your main node.
+Une fois que vous avez préparé un nœud de secours, vous pouvez le connecter à votre nœud principal.
 
-1. Enter the `rocketpool service config` TUI and enter the `Fallback Clients` settings.
-2. Check the `Use Fallback Clients` box.
-3. Enter the RPC URL for your Execution client in the `Execution Client URL` box. For example, if your fallback node's IP address is `192.168.1.45` and you have its Execution client on the default port of `8545`, you would enter `http://192.168.1.45:8545` here.
-4. Do the same for the RPC URL of your fallback Consensus client. Following the same example, if you have it on the default port of `5052`, you would enter `http://192.168.1.45:5052` here.
+1. Entrez dans l'interface TUI `rocketpool service config` et accédez aux paramètres `Fallback Clients`.
+2. Cochez la case `Use Fallback Clients`.
+3. Entrez l'URL RPC de votre client d'exécution dans la case `Execution Client URL`. Par exemple, si l'adresse IP de votre nœud de secours est `192.168.1.45` et que vous avez votre client d'exécution sur le port par défaut `8545`, vous entreriez `http://192.168.1.45:8545` ici.
+4. Faites de même pour l'URL RPC de votre client de consensus de secours. En suivant le même exemple, si vous l'avez sur le port par défaut `5052`, vous entreriez `http://192.168.1.45:5052` ici.
 
-The final page should look like this:
+La page finale devrait ressembler à ceci :
 
 <img src={tui_fallback_clients} width="100%" height="auto" />
 
-::: tip NOTE
-**Native mode** users can follow the same steps, though the TUI will look slightly different from the above screenshot.
+::: tip REMARQUE
+Les utilisateurs du **mode natif** peuvent suivre les mêmes étapes, bien que l'interface TUI soit légèrement différente de la capture d'écran ci-dessus.
 
-Note that this will only provide the **Smartnode itself** (the daemon service) with fallback support; **you will have to update your Validator client service's arguments manually to give it access to the fallback clients.**
+Notez que cela ne fournira au **Smartnode lui-même** (le service daemon) qu'une prise en charge de secours ; **vous devrez mettre à jour manuellement les arguments du service de votre client validator pour lui donner accès aux clients de secours.**
 :::
 
-Press `enter` on the final box to ensure that it's confirmed, then save the settings and apply the changes.
+Appuyez sur `entrée` sur la case finale pour vous assurer qu'elle est confirmée, puis enregistrez les paramètres et appliquez les modifications.
 
-Once they've been applied, you can confirm the availability of your fallback node using the `rocketpool node sync` command:
+Une fois qu'elles ont été appliquées, vous pouvez confirmer la disponibilité de votre nœud de secours en utilisant la commande `rocketpool node sync` :
 
 ```
 Your Smartnode is currently using the Ethereum Mainnet.
@@ -100,18 +100,18 @@ Your primary consensus client is fully synced.
 Your fallback consensus client is fully synced.
 ```
 
-If it shows that both the fallback Execution and Consensus client are synced, then you're all set!
+Si elle indique que le client d'exécution et le client de consensus de secours sont tous deux synchronisés, alors tout est en ordre !
 
-## Testing the Fallback Clients
+## Test des clients de secours
 
-If you'd like to be absolutely sure that your configuration is going to work by testing the fallback clients, simply stop the Execution and Consensus clients on your main node:
+Si vous souhaitez être absolument certain que votre configuration fonctionnera en testant les clients de secours, arrêtez simplement les clients d'exécution et de consensus sur votre nœud principal :
 
 ```shell
 docker stop rocketpool_eth1 rocketpool_eth2
 ```
 
-Then run any command that queries the chain, such as `rocketpool network stats`.
-You will see a warning message at the top indicating that one (or both) of your primary clients are offline, and that it's reverting to the fallback clients:
+Puis exécutez n'importe quelle commande qui interroge la chaîne, comme `rocketpool network stats`.
+Vous verrez un message d'avertissement en haut indiquant qu'un (ou les deux) de vos clients principaux est hors ligne et qu'il revient aux clients de secours :
 
 ```
 NOTE: primary clients are not ready, using fallback clients...
@@ -146,16 +146,16 @@ Total RPL staked:        6098920.170527 RPL
 Effective RPL staked:    5751692.043848 RPL
 ```
 
-Finally, start your primary clients again:
+Enfin, redémarrez vos clients principaux :
 
 ```shell
 docker start rocketpool_eth1 rocketpool_eth2
 ```
 
-And you're done!
-Your fallback setup is working.
+Et voilà !
+Votre configuration de secours fonctionne.
 
-## Next Steps
+## Prochaines étapes
 
-Whether or not you've opted into creating and/or running a fallback node for your setup, the next step is to learn about **priority fees**.
-Click on the next section of the guide when you're ready to proceed.
+Que vous ayez choisi ou non de créer et/ou d'exécuter un nœud de secours pour votre configuration, l'étape suivante consiste à en apprendre davantage sur les **frais de priorité**.
+Cliquez sur la section suivante du guide lorsque vous êtes prêt à continuer.

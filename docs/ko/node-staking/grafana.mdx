@@ -1,69 +1,69 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Setting up the Grafana Dashboard
+# Grafana 대시보드 설정하기
 
-Now that you have your node up and running, you'll probably want to have a convenient way to monitor everything about it at a glance to make sure it's functioning correctly (and what kind of earnings it's generating for you).
+이제 노드가 실행 중이므로, 노드가 올바르게 작동하는지(그리고 어떤 수익을 창출하고 있는지) 한눈에 모니터링할 수 있는 편리한 방법이 필요할 것입니다.
 
-There are many tools out there that do this job.
-One of the most popular is called [Grafana](https://grafana.com/) - an easy-to-use, general-purpose dashboard system that you can access with a browser.
+이 작업을 수행하는 도구가 많이 있습니다.
+가장 인기 있는 도구 중 하나는 [Grafana](https://grafana.com/)입니다. 브라우저로 액세스할 수 있는 사용하기 쉬운 범용 대시보드 시스템입니다.
 
-Rocket Pool comes out-of-the-box with support for Grafana and its dependencies; it even comes with a pre-built dashboard for each of the Consensus clients.
-For example, here is a snapshot of what the dashboard looks like on the Hoodi test network:
+Rocket Pool은 Grafana와 그 종속성을 기본적으로 지원합니다. 각 Consensus 클라이언트에 대해 미리 구축된 대시보드도 함께 제공됩니다.
+예를 들어, Hoodi 테스트 네트워크에서 대시보드가 어떻게 보이는지 스냅샷입니다:
 
 ![](./images/grafana-1.3.jpg)
 
-The standard dashboard includes the following information all in a convenient format:
+표준 대시보드에는 편리한 형식으로 다음 정보가 포함됩니다:
 
-- **Top left:** some important statistics about your machine's health and performance, and any pending system updates
-- **Top right:** the activity and performance of your validators on the Beacon Chain, along with some Execution and Consensus client stats
-- **Bottom left:** details about the entire Rocket Pool network, for reference
-- **Bottom right:** details about your staking rewards, both ETH and RPL
+- **왼쪽 상단:** 머신의 상태 및 성능에 대한 중요한 통계와 보류 중인 시스템 업데이트
+- **오른쪽 상단:** Beacon Chain의 검증자 활동 및 성능, Execution 및 Consensus 클라이언트 통계
+- **왼쪽 하단:** 참조용 전체 Rocket Pool 네트워크에 대한 세부 정보
+- **오른쪽 하단:** ETH 및 RPL 스테이킹 보상에 대한 세부 정보
 
-In this guide, we'll show you how to enable Rocket Pool's metrics system so you can use this dashboard - or even build your own!
+이 가이드에서는 Rocket Pool의 메트릭 시스템을 활성화하여 이 대시보드를 사용하거나 직접 대시보드를 만드는 방법을 보여드립니다!
 
-## Overview of the Rocket Pool Metrics Stack
+## Rocket Pool 메트릭 스택 개요
 
-If you choose to enable metrics during the Smartnode configuration process, your node will add the following processes:
+Smartnode 구성 과정에서 메트릭을 활성화하도록 선택하면 노드에 다음 프로세스가 추가됩니다:
 
-- [Prometheus](https://prometheus.io/) - a data collection, storage, and reporting system that captures all of the metrics you see above (any many more) and stores them, so they can be looked at over time
-- The Prometheus [Node Exporter](https://github.com/prometheus/node_exporter) - a service that collects information about your machine's health (such as CPU usage, RAM usage, free disk space and swap space, etc.) and reports it to Prometheus
-- Grafana, the tool that exposes Prometheus's data through a convenient website hosted on your node
-- An optional custom set of scripts that will report any available Operating System updates to Prometheus, so you know if your system needs to be patched
+- [Prometheus](https://prometheus.io/) - 위에서 본 모든 메트릭(및 더 많은 메트릭)을 수집, 저장 및 보고하는 데이터 수집, 저장 및 보고 시스템으로, 시간 경과에 따라 볼 수 있도록 저장합니다
+- Prometheus [Node Exporter](https://github.com/prometheus/node_exporter) - 머신의 상태 정보(CPU 사용량, RAM 사용량, 여유 디스크 공간 및 스왑 공간 등)를 수집하여 Prometheus에 보고하는 서비스
+- Grafana, 노드에서 호스팅되는 편리한 웹사이트를 통해 Prometheus의 데이터를 노출하는 도구
+- 사용 가능한 운영 체제 업데이트를 Prometheus에 보고하는 선택적 사용자 지정 스크립트 세트로, 시스템을 패치해야 하는지 알 수 있습니다
 
-The default configuration will create Docker containers with all of these services that live alongside the rest of the Smartnode's Docker containers.
-It will open up a port on your node machine for Grafana, so you can access its dashboard from any machine on your local network with a browser.
+기본 구성은 Smartnode의 나머지 Docker 컨테이너와 함께 이러한 모든 서비스가 포함된 Docker 컨테이너를 생성합니다.
+Grafana용 노드 머신에 포트를 열어 로컬 네트워크의 모든 머신에서 브라우저로 대시보드에 액세스할 수 있습니다.
 
-## Enabling the Metrics Server
+## 메트릭 서버 활성화
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker">
-      Enabling metrics in Docker mode is the easiest of all.
+      Docker 모드에서 메트릭을 활성화하는 것이 가장 쉽습니다.
 
-      Start by running the Smartnode configuration command again:
+      Smartnode 구성 명령을 다시 실행하여 시작합니다:
 
       ```shell
       rocketpool service config
       ```
 
-      Go to the `Monitoring / Metrics` section and check the `Enable Metrics` checkbox.
+      `Monitoring / Metrics` 섹션으로 이동하여 `Enable Metrics` 체크박스를 선택합니다.
 
-      For those who prefer to fine-tune their port settings, you may do so here.
-      Note that all of these ports are restricted to Docker's internal network with the exception of the Grafana port - that will be opened on your machine (so you can access it via a browser from other machines, such as your desktop or phone) so you may want to change that if the default port conflicts with something you already have.
+      포트 설정을 세밀하게 조정하려는 경우 여기에서 수행할 수 있습니다.
+      이러한 모든 포트는 Grafana 포트를 제외하고 Docker의 내부 네트워크로 제한됩니다. Grafana 포트는 머신에서 열리므로(데스크톱이나 휴대폰과 같은 다른 머신에서 브라우저를 통해 액세스할 수 있도록) 기본 포트가 이미 있는 것과 충돌하는 경우 변경할 수 있습니다.
 
-      Save and exit, and smartnode will start the Prometheus, Node Exporter, and Grafana Docker containers for you.
+      저장하고 종료하면 smartnode가 Prometheus, Node Exporter 및 Grafana Docker 컨테이너를 시작합니다.
 
-      It will also modify your Consensus and Validator clients so they expose their own metrics to Prometheus.
+      또한 Consensus 및 Validator 클라이언트를 수정하여 자체 메트릭을 Prometheus에 노출합니다.
 
-      The Operating System and Rocket Pool update tracker is **not installed by default** for maximum flexibility, but the process is simple.
-      If you would like to install it so your dashboard shows you how many updates are available for your system, you can do it with this command:
+      운영 체제 및 Rocket Pool 업데이트 추적기는 최대 유연성을 위해 **기본적으로 설치되지 않지만** 프로세스는 간단합니다.
+      대시보드에 시스템에 사용 가능한 업데이트 수를 표시하도록 설치하려면 다음 명령을 사용할 수 있습니다:
 
       ```shell
       rocketpool service install-update-tracker
       ```
 
-      Under the hood, this will install a service that hooks into your Operating System's package manager, periodically checks for updates, and sends that information to Prometheus.
-      This service is different for every Operating System, but it has been confirmed to work on the following:
+      내부적으로 이것은 운영 체제의 패키지 관리자에 연결하고 주기적으로 업데이트를 확인하고 해당 정보를 Prometheus에 보내는 서비스를 설치합니다.
+      이 서비스는 모든 운영 체제마다 다르지만 다음에서 작동하는 것으로 확인되었습니다:
 
       - Ubuntu 20.04+
       - Debian 9 and 10
@@ -72,27 +72,27 @@ It will open up a port on your node machine for Grafana, so you can access its d
 
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        Enabling the service automatically is incompatible with SELinux.
-        If your system has SELinux enabled by default (as is the case with CentOS and Fedora), the installation command will get you _most of the way there_ but will also give you instructions on how to finish the process manually at the end.
+        <p className="rspress-directive-title">참고</p>
+        서비스를 자동으로 활성화하는 것은 SELinux와 호환되지 않습니다.
+        시스템에 SELinux가 기본적으로 활성화된 경우(CentOS 및 Fedora의 경우) 설치 명령은 _대부분의 작업을 완료_하지만 마지막에 프로세스를 수동으로 완료하는 방법에 대한 지침도 제공합니다.
       </p>
 
 
-      During this check, it will also compare your installed Rocket Pool Smartnode version with the latest release, and inform you if there's a new release available.
+      이 검사 중에 설치된 Rocket Pool Smartnode 버전을 최신 릴리스와 비교하고 새 릴리스가 있으면 알려줍니다.
 
-      If you enabled the update tracker, then the last step is to restart the Node Exporter with the following command:
+      업데이트 추적기를 활성화한 경우 마지막 단계는 다음 명령으로 Node Exporter를 다시 시작하는 것입니다:
 
       ```shell
       docker restart rocketpool_exporter
       ```
 
-      After that, you should be all set.
+      그 후에는 모든 설정이 완료됩니다.
     </Tab>
     <Tab label="Hybrid">
-      Hybrid Mode works similar to Docker Mode; the only difference is that you must manually add the proper command-line flags for enabling metrics to your Execution and Consensus Client service definition.
+      Hybrid 모드는 Docker 모드와 유사하게 작동합니다. 유일한 차이점은 메트릭 활성화를 위한 적절한 명령줄 플래그를 Execution 및 Consensus Client 서비스 정의에 수동으로 추가해야 한다는 것입니다.
 
-      First, we will update your Execution Client.
-      Open the `systemd` unit file you created when you installed your Execution Client and make sure it has the correct flags, based on which client you are running:
+      먼저 Execution Client를 업데이트합니다.
+      Execution Client를 설치할 때 생성한 `systemd` 유닛 파일을 열고 실행 중인 클라이언트에 따라 올바른 플래그가 있는지 확인합니다:
 
       <div className="p-3">
         <Tabs>
@@ -114,8 +114,8 @@ It will open up a port on your node machine for Grafana, so you can access its d
         </Tabs>
       </div>
 
-      Next, we will update your Consensus Client.
-      Open the `systemd` unit file you created when you installed your Consensus Client and make sure it has the correct flags, based on which client you are running:
+      다음으로 Consensus Client를 업데이트합니다.
+      Consensus Client를 설치할 때 생성한 `systemd` 유닛 파일을 열고 실행 중인 클라이언트에 따라 올바른 플래그가 있는지 확인합니다:
 
       <div className="p-3">
         <Tabs>
@@ -139,7 +139,7 @@ It will open up a port on your node machine for Grafana, so you can access its d
             --monitoring-host 0.0.0.0 --monitoring-port 9100
             ```
 
-            If you see the flag `--disable-monitoring`, remove it.
+            `--disable-monitoring` 플래그가 표시되면 제거합니다.
           </Tab>
           <Tab label="Teku">
             ```
@@ -150,21 +150,21 @@ It will open up a port on your node machine for Grafana, so you can access its d
         </Tabs>
       </div>
 
-      If you already have these flags set and are using different ports for your solo validator monitoring, leave them as-is and make note of which ports you're using.
+      이미 이러한 플래그가 설정되어 있고 솔로 검증자 모니터링을 위해 다른 포트를 사용하는 경우 그대로 두고 사용 중인 포트를 기록해 둡니다.
 
-      Now, scroll up and follow the directions in the `Docker` tab of this section to finish the process - keeping in mind that you must replace the ports listed there with any custom ports you use when you run `rocketpool service config`.
+      이제 위로 스크롤하여 이 섹션의 `Docker` 탭에 있는 지침을 따라 프로세스를 완료합니다. `rocketpool service config`를 실행할 때 나열된 포트를 사용하는 사용자 지정 포트로 대체해야 한다는 점을 명심하세요.
 
     </Tab>
     <Tab label="Native">
-      Native installation of Grafana and Prometheus is recommended for advanced users only. It requires Linux administration skills like `systemd`, file permissions, users and network management.
+      Grafana와 Prometheus의 Native 설치는 고급 사용자에게만 권장됩니다. `systemd`, 파일 권한, 사용자 및 네트워크 관리와 같은 Linux 관리 기술이 필요합니다.
 
-      First, make sure your Execution Client and Consensus Client have metrics enabled. Refer to 'Hybrid' tab for details.
+      먼저 Execution Client 및 Consensus Client에서 메트릭이 활성화되어 있는지 확인합니다. 자세한 내용은 'Hybrid' 탭을 참조하세요.
 
-      Next, check prebuilt prometheus and node_exporter packages on [the official download page](https://prometheus.io/download/).
-      Choose packages with proper architecture for your platform (amd64 or arm64).
-      Most recent LTS (Long Time Support) version of Prometheus is recommended.
+      다음으로 [공식 다운로드 페이지](https://prometheus.io/download/)에서 미리 빌드된 prometheus 및 node_exporter 패키지를 확인합니다.
+      플랫폼에 적합한 아키텍처(amd64 또는 arm64)를 가진 패키지를 선택합니다.
+      가장 최신 LTS(Long Time Support) 버전의 Prometheus를 권장합니다.
 
-      For example to download prometheus v2.45.3 LTS and node_exporter v1.7.0 for Linux amd64 with `wget` do:
+      예를 들어 `wget`을 사용하여 Linux amd64용 prometheus v2.45.3 LTS 및 node_exporter v1.7.0을 다운로드하려면 다음을 수행합니다:
 
       ```shell
       wget https://github.com/prometheus/prometheus/releases/download/v2.45.3/prometheus-2.45.3.linux-amd64.tar.gz
@@ -172,7 +172,7 @@ It will open up a port on your node machine for Grafana, so you can access its d
       wget https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-amd64.tar.gz
       ```
 
-      Extract prometheus and node_exporter executables from downloaded archives.
+      다운로드한 아카이브에서 prometheus 및 node_exporter 실행 파일을 추출합니다.
 
       ```shell
       sudo tar -zxvf prometheus-2.45.3.linux-amd64.tar.gz -C /usr/local/bin --wildcards '*/prometheus' --strip-components=1
@@ -180,7 +180,7 @@ It will open up a port on your node machine for Grafana, so you can access its d
       sudo tar -zxvf alertmanager-0.26.0.linux-amd64.tar.gz -C /usr/local/bin --wildcards '*/alertmanager' --strip-components=1
       ```
 
-      Create directories for prometheus & alertmanager configs.
+      prometheus 및 alertmanager 구성을 위한 디렉토리를 만듭니다.
 
       ```shell
       sudo mkdir /etc/prometheus
@@ -189,7 +189,7 @@ It will open up a port on your node machine for Grafana, so you can access its d
       sudo mkdir /var/lib/alertmanager
       ```
 
-      Create file `/etc/prometheus/prometheus.yml` with following content:
+      다음 내용으로 `/etc/prometheus/prometheus.yml` 파일을 만듭니다:
 
       ```yaml
       global:
@@ -239,15 +239,15 @@ It will open up a port on your node machine for Grafana, so you can access its d
       ```
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        Change the port numbers for the Execution Client and Consensus Client if required.
+        <p className="rspress-directive-title">참고</p>
+        필요한 경우 Execution Client 및 Consensus Client의 포트 번호를 변경합니다.
 
-        You may be running your node on a different host than the host running prometheus change. In that case
-        install node_exporter on your rocketpool node host and update `targets` of the `node` job to include all machines you want to monitor.
-        Also adjust `metrics_path` if your Execution Client is geth - it exposes non-standard endpoint for metrics.
+        prometheus를 실행하는 호스트와 다른 호스트에서 노드를 실행하고 있을 수 있습니다. 이 경우
+        rocketpool 노드 호스트에 node_exporter를 설치하고 모니터링하려는 모든 머신을 포함하도록 `node` 작업의 `targets`을 업데이트합니다.
+        또한 Execution Client가 geth인 경우 `metrics_path`를 조정합니다. geth는 메트릭에 대한 비표준 엔드포인트를 노출합니다.
       </p>
 
-      Create the `/etc/alertmanager/alertmanager.yml` with the following content:
+      다음 내용으로 `/etc/alertmanager/alertmanager.yml`을 만듭니다:
 
       ```yaml
       global:
@@ -306,14 +306,14 @@ It will open up a port on your node machine for Grafana, so you can access its d
       equal: ["alertname", "job", "instance"]
       ```
 
-      Create system user for prometheus and alertmanager.
+      prometheus 및 alertmanager를 위한 시스템 사용자를 만듭니다.
 
       ```shell
       sudo useradd -r -s /sbin/nologin prometheus
       sudo useradd -r -s /sbin/nologin alertmanager
       ```
 
-      Change prometheus/alertmanager files ownership and permissions.
+      prometheus/alertmanager 파일 소유권 및 권한을 변경합니다.
 
       ```shell
       sudo chown prometheus:prometheus /usr/local/bin/prometheus
@@ -328,7 +328,7 @@ It will open up a port on your node machine for Grafana, so you can access its d
       sudo chmod u+sx,g+sx,o-wx /usr/local/bin/node_exporter
       ```
 
-      Create file `/lib/systemd/system/node-exporter.service` for node_exporter service configuration.
+      node_exporter 서비스 구성을 위한 `/lib/systemd/system/node-exporter.service` 파일을 만듭니다.
 
       ```
       [Unit]
@@ -353,11 +353,11 @@ It will open up a port on your node machine for Grafana, so you can access its d
 
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        If you want to change the port on which node_exporter is running, modify command at `ExecStart` parameter. Default port is 9100.
+        <p className="rspress-directive-title">참고</p>
+        node_exporter가 실행되는 포트를 변경하려면 `ExecStart` 매개변수의 명령을 수정합니다. 기본 포트는 9100입니다.
       </p>
 
-      Create file `/lib/systemd/system/prometheus.service` for prometheus service configuration.
+      prometheus 서비스 구성을 위한 `/lib/systemd/system/prometheus.service` 파일을 만듭니다.
 
       ```
       [Unit]
@@ -381,11 +381,11 @@ It will open up a port on your node machine for Grafana, so you can access its d
       ```
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        If you want to change the port on which prometheus is running, modify command at `ExecStart` parameter. Default port is 9090.
+        <p className="rspress-directive-title">참고</p>
+        prometheus가 실행되는 포트를 변경하려면 `ExecStart` 매개변수의 명령을 수정합니다. 기본 포트는 9090입니다.
       </p>
 
-      Create file `/lib/systemd/system/alertmanager.service` for the alertmanager service configuration.
+      alertmanager 서비스 구성을 위한 `/lib/systemd/system/alertmanager.service` 파일을 만듭니다.
 
       ```
       [Unit]
@@ -409,51 +409,51 @@ It will open up a port on your node machine for Grafana, so you can access its d
       ```
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        If you want to change the port on which alertmanager is running, modify command at `ExecStart` parameter. Default port is 9093.
+        <p className="rspress-directive-title">참고</p>
+        alertmanager가 실행되는 포트를 변경하려면 `ExecStart` 매개변수의 명령을 수정합니다. 기본 포트는 9093입니다.
       </p>
 
-      Let `systemd` know about new services.
+      `systemd`가 새 서비스를 인식하도록 합니다.
 
       ```shell
       sudo systemctl daemon-reload
       ```
 
-      Enable and start node-exporter service.
+      node-exporter 서비스를 활성화하고 시작합니다.
 
       ```shell
       sudo systemctl enable node-exporter
       sudo systemctl start node-exporter
       ```
 
-      Check the service status to make sure it's running.
+      서비스가 실행 중인지 확인하기 위해 서비스 상태를 확인합니다.
 
       ```shell
       sudo systemctl status node-exporter
       ```
 
-      Enable and start prometheus service.
+      prometheus 서비스를 활성화하고 시작합니다.
 
       ```shell
       sudo systemctl enable prometheus
       sudo systemctl start prometheus
       ```
 
-      Enable and start alertmanager service.
+      alertmanager 서비스를 활성화하고 시작합니다.
 
       ```shell
       sudo systemctl enable alertmanager
       sudo systemctl start alertmanager
       ```
 
-      Check the service status to make sure it's running.
+      서비스가 실행 중인지 확인하기 위해 서비스 상태를 확인합니다.
 
       ```shell
       sudo systemctl status prometheus
       sudo systemctl status alertmanager
       ```
 
-      Setup package repository for Grafana.
+      Grafana를 위한 패키지 저장소를 설정합니다.
 
       ```shell
       sudo apt-get update
@@ -463,16 +463,16 @@ It will open up a port on your node machine for Grafana, so you can access its d
       echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
       ```
 
-      Install Grafana.
+      Grafana를 설치합니다.
 
       ```shell
       sudo apt-get update
       sudo apt-get install grafana
       ```
 
-      Verify settings in `/etc/grafana/grafana.ini`. Change the `http_port` to 3100 to be in line with the other sections provided in this document.
+      `/etc/grafana/grafana.ini`에서 설정을 확인합니다. 이 문서의 다른 섹션과 일치하도록 `http_port`를 3100으로 변경합니다.
 
-      Configure datasource to visualise metrics from Prometheus in Grafana. Create file `/etc/grafana/provisioning/datasources/prometheus.yml`.
+      Grafana에서 Prometheus의 메트릭을 시각화하도록 데이터 소스를 구성합니다. `/etc/grafana/provisioning/datasources/prometheus.yml` 파일을 만듭니다.
 
       ```yaml
       apiVersion: 1
@@ -494,11 +494,11 @@ It will open up a port on your node machine for Grafana, so you can access its d
       ```
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        Edit `url` if you have changed Prometheus listening port.
+        <p className="rspress-directive-title">참고</p>
+        Prometheus 수신 포트를 변경한 경우 `url`을 편집합니다.
       </p>
 
-      Enable and start service for Grafana.
+      Grafana를 위한 서비스를 활성화하고 시작합니다.
 
       ```shell
       sudo systemctl daemon-reload
@@ -506,28 +506,28 @@ It will open up a port on your node machine for Grafana, so you can access its d
       sudo systemctl start grafana-server
       ```
 
-      Check if Grafana is up and running.
+      Grafana가 실행 중인지 확인합니다.
 
       ```shell
       sudo systemctl status grafana-server
       ```
 
-      This is pretty much it.
+      이것이 거의 전부입니다.
     </Tab>
 
   </Tabs>
 </div>
 
-## Configure firewall to allow connections for monitoring
+## 모니터링을 위한 연결을 허용하도록 방화벽 구성
 
-::: warning NOTE
-If you have UFW enabled as referenced in the [Securing your Node](./securing-your-node) section, you will need to open a few ports in order to allow local connections between the Prometheus and your Execution/Consensus Clients. Follow the steps below.
+::: warning 참고
+[노드 보안](./securing-your-node) 섹션에서 참조된 대로 UFW가 활성화된 경우 Prometheus와 Execution/Consensus Client 간의 로컬 연결을 허용하기 위해 몇 개의 포트를 열어야 합니다. 아래 단계를 따르세요.
 :::
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker">
-      Run the following, and replace the ports as needed:
+      다음을 실행하고 필요에 따라 포트를 교체합니다:
 
       ```shell
       RP_NET=$(docker inspect rocketpool_net | grep -Po "(?<=\"Subnet\": \")[0-9./]+")
@@ -537,38 +537,37 @@ If you have UFW enabled as referenced in the [Securing your Node](./securing-you
       ```
     </Tab>
     <Tab label="Native">
-      If your RocketPool node and Prometheus resides on different hosts you need to configure firewall on your node host to allow incoming traffic
-      from Prometheus host IP to the node monitoring ports.
-      You also need to configure UFW on the Prometheus machine to allow for outgoing traffic from the Prometheus host to the RocketPool node host.
+      RocketPool 노드와 Prometheus가 다른 호스트에 있는 경우 노드 호스트의 방화벽을 구성하여 Prometheus 호스트 IP에서 노드 모니터링 포트로의 들어오는 트래픽을 허용해야 합니다.
+      또한 Prometheus 머신에서 UFW를 구성하여 Prometheus 호스트에서 RocketPool 노드 호스트로의 나가는 트래픽을 허용해야 합니다.
 
-      Having node host IP `192.168.1.5` and Prometheus host IP `192.168.1.6` the UFW rules for the node will be:
+      노드 호스트 IP가 `192.168.1.5`이고 Prometheus 호스트 IP가 `192.168.1.6`인 경우 노드에 대한 UFW 규칙은 다음과 같습니다:
 
       ```shell
       sudo ufw allow from 192.168.1.6 to any port 9100:9105 proto tcp comment 'Allow Prometheus host to scrape metrics of this host'
       ```
 
-      And for Prometheus host:
+      Prometheus 호스트의 경우:
 
       ```shell
       sudo ufw allow out from any to 192.168.1.5 port 9100:9105 proto tcp comment 'Allow this host to scrape node metrics'
       ```
 
-      Assuming your Grafana listening port is 3100, continue reading to find out how to expose Grafana in your network.
+      Grafana 수신 포트가 3100이라고 가정하고 네트워크에서 Grafana를 노출하는 방법을 계속 읽어보세요.
     </Tab>
 
   </Tabs>
 </div>
 
-You can then open the firewall to allow external devices access to your Grafana dashboard.
+그런 다음 방화벽을 열어 외부 장치가 Grafana 대시보드에 액세스할 수 있도록 할 수 있습니다.
 
 <div className="p-3">
   <Tabs>
     <Tab label="Network">
-      Use this if you want to access Grafana from any machine inside your local network, but deny access everywhere else.
-      This will be the most common use case.
+      로컬 네트워크 내의 모든 머신에서 Grafana에 액세스하고 다른 곳에서의 액세스를 거부하려면 이것을 사용하세요.
+      이것이 가장 일반적인 사용 사례입니다.
 
-      Please check whether your local network uses the `192.168.1.xxx` structure first.
-      You may have to change the command below to match your local network's configuration if it uses a different address structure (e.g. `192.168.99.xxx`).
+      먼저 로컬 네트워크가 `192.168.1.xxx` 구조를 사용하는지 확인하세요.
+      로컬 네트워크가 다른 주소 구조(예: `192.168.99.xxx`)를 사용하는 경우 아래 명령을 로컬 네트워크의 구성과 일치하도록 변경해야 할 수 있습니다.
 
       ```shell
       # This assumes your local IP structure is 192.168.1.xxx
@@ -577,10 +576,10 @@ You can then open the firewall to allow external devices access to your Grafana 
 
     </Tab>
     <Tab label="Subnet">
-      Use this if your Rocket Pool node is not connected to the same subnet as the device from which you are viewing Grafana. This may happen when your node is connected directly to your ISP's modem and the device you use to view Grafana is connected to a secondary router.
+      Rocket Pool 노드가 Grafana를 보는 장치와 동일한 서브넷에 연결되어 있지 않은 경우 이것을 사용하세요. 이는 노드가 ISP의 모뎀에 직접 연결되어 있고 Grafana를 보는 데 사용하는 장치가 보조 라우터에 연결되어 있을 때 발생할 수 있습니다.
 
-      Please check whether your local network uses the `192.168.1.xxx` structure first.
-      You may have to change the command below to match your local network's configuration if it uses a different address structure (e.g. `192.168.99.xxx`).
+      먼저 로컬 네트워크가 `192.168.1.xxx` 구조를 사용하는지 확인하세요.
+      로컬 네트워크가 다른 주소 구조(예: `192.168.99.xxx`)를 사용하는 경우 아래 명령을 로컬 네트워크의 구성과 일치하도록 변경해야 할 수 있습니다.
 
       ```shell
       # To allow any devices in the broader subnet
@@ -590,8 +589,8 @@ You can then open the firewall to allow external devices access to your Grafana 
       ```
     </Tab>
     <Tab label="Anywhere">
-      This will let you access Grafana from anywhere.
-      If you want to access it from outside your local network, you will still need to forward the Grafana port (default 3100) in your router settings.
+      이것은 어디서나 Grafana에 액세스할 수 있게 합니다.
+      로컬 네트워크 외부에서 액세스하려면 여전히 라우터 설정에서 Grafana 포트(기본 3100)를 포워딩해야 합니다.
 
       ```shell
       # Allow any IP to connect to Grafana
@@ -602,40 +601,40 @@ You can then open the firewall to allow external devices access to your Grafana 
   </Tabs>
 </div>
 
-## Setting up Grafana
+## Grafana 설정
 
-Now that the metrics server is ready, you can access it with any browser on your local network.
+이제 메트릭 서버가 준비되었으므로 로컬 네트워크의 모든 브라우저로 액세스할 수 있습니다.
 
-Refer to the tabs below for your Smartnode installation mode.
+Smartnode 설치 모드에 대한 아래 탭을 참조하세요.
 
-Navigate to the following URL, substituting the variables with your setup as necessary:
+다음 URL로 이동하고 필요에 따라 설정으로 변수를 대체합니다:
 
 ```
 http://<your node IP>:<grafana port>
 ```
 
-For example, if you node's IP was `192.168.1.5` and you used the default Grafana port of `3100`, then you would go to this URL in your browser:
+예를 들어 노드의 IP가 `192.168.1.5`이고 기본 Grafana 포트인 `3100`을 사용한 경우 브라우저에서 다음 URL로 이동합니다:
 
 ```
 http://192.168.1.5:3100
 ```
 
-You will see a login screen like this:
+다음과 같은 로그인 화면이 표시됩니다:
 
 <img src="./images/grafana-login.png" width="100%" height="auto" />
 
-The default Grafana information is:
+기본 Grafana 정보는 다음과 같습니다:
 
 ```
 Username: admin
 Password: admin
 ```
 
-You will then be prompted to change the default password for the `admin` account.
-Pick something strong and don't forget it!
+그런 다음 `admin` 계정의 기본 비밀번호를 변경하라는 메시지가 표시됩니다.
+강력한 비밀번호를 선택하고 잊지 마세요!
 
-::: tip Tip
-If you lose the admin password, you can reset it using the following command on your node:
+::: tip 팁
+관리자 비밀번호를 잃어버린 경우 노드에서 다음 명령을 사용하여 재설정할 수 있습니다:
 
 <div className="p-3">
   <Tabs>
@@ -654,85 +653,85 @@ If you lose the admin password, you can reset it using the following command on 
   </Tabs>
 </div>
 
-You will be able to log into Grafana using the default `admin` credentials once again, and then you will be prompted to change the password for the `admin` account.
+기본 `admin` 자격 증명을 사용하여 다시 Grafana에 로그인할 수 있으며 `admin` 계정의 비밀번호를 변경하라는 메시지가 표시됩니다.
 :::
 
-Thanks to community member **tedsteen**'s work, Grafana will automatically connect to your Prometheus instance so it has access to the metrics that it collects.
-All you need to do is grab the dashboard!
+커뮤니티 멤버 **tedsteen**의 작업 덕분에 Grafana가 자동으로 Prometheus 인스턴스에 연결되어 수집하는 메트릭에 액세스할 수 있습니다.
+대시보드를 가져오기만 하면 됩니다!
 
-## Importing the Rocket Pool Dashboard
+## Rocket Pool 대시보드 가져오기
 
-Now that you have Grafana attached to Prometheus, you can import the standard dashboard (or build your own using the metrics that it provides, if you are familiar with that process).
+이제 Grafana가 Prometheus에 연결되었으므로 표준 대시보드를 가져올 수 있습니다(또는 해당 프로세스에 익숙한 경우 제공하는 메트릭을 사용하여 직접 대시보드를 만들 수 있습니다).
 
-Start by going to the **Create** menu (the plus icon on the right-side bar) and click on **Import**:
+**Create** 메뉴(오른쪽 사이드바의 더하기 아이콘)로 이동하여 **Import**를 클릭하여 시작합니다:
 
 <img src="./images/grafana-import.png" width="100%" height="auto" />
 
-When prompted for the dashboard ID in the **Import via grafana.com** box, enter `21863` or use the full URL ([(https://grafana.com/grafana/dashboards/21863](https://grafana.com/grafana/dashboards/21863)) and press the **Load** button.
+**Import via grafana.com** 상자에서 대시보드 ID를 입력하라는 메시지가 표시되면 `21863`을 입력하거나 전체 URL([(https://grafana.com/grafana/dashboards/21863](https://grafana.com/grafana/dashboards/21863))을 사용하고 **Load** 버튼을 누릅니다.
 
-You will be prompted with some information about the dashboard here, such as its name and where you'd like to store it (the default **General** folder is fine unless you use a lot of dashboards and want to organize them).
+여기에서 대시보드의 이름 및 저장 위치(많은 대시보드를 사용하고 정리하려는 경우가 아니면 기본 **General** 폴더가 괜찮습니다)와 같은 대시보드에 대한 일부 정보가 표시됩니다.
 
-Under the **Prometheus** drop-down at the bottom, you should only have a single option labeled **Prometheus (default)**.
-Select this option.
+하단의 **Prometheus** 드롭다운에서 **Prometheus (default)**라는 레이블이 지정된 단일 옵션만 있어야 합니다.
+이 옵션을 선택합니다.
 
-Your screen should look like this:
+화면은 다음과 같아야 합니다:
 
 <img src="./images/grafana-import2.png" width="100%" height="auto" />
 
-If yours matches, click the **Import** button and you will be immediately taken to your new dashboard.
+일치하는 경우 **Import** 버튼을 클릭하면 즉시 새 대시보드로 이동합니다.
 
-At first glance, you should see lots of information about your node and your validators.
-Each box comes with a handy tooltip on the top left corner (the `i` icon) that you can hover over to learn more about it.
-For example, here is the tooltip for the **Your Validator Share** box:
+첫눈에 노드와 검증자에 대한 많은 정보를 볼 수 있습니다.
+각 상자에는 왼쪽 상단 모서리에 유용한 툴팁(`i` 아이콘)이 있어 마우스를 올리면 자세한 내용을 알 수 있습니다.
+예를 들어 **Your Validator Share** 상자의 툴팁은 다음과 같습니다:
 
 <img src="./images/tooltip.png" width="100%" height="auto" />
 
-However, we aren't done setting things up yet - there is still a little more configuration to do.
+그러나 아직 설정이 완료되지 않았습니다. 아직 조금 더 구성할 것이 있습니다.
 
-::: warning NOTE
-Some of the boxes (notably the APR ones) have been temporarily disabled due to the way Shapella provides skimmed rewards.
+::: warning 참고
+일부 상자(특히 APR 상자)는 Shapella가 스키밍된 보상을 제공하는 방식으로 인해 일시적으로 비활성화되었습니다.
 
-They will be enabled again in a future version of the Smartnode that can track historical rewards properly.
+역사적 보상을 올바르게 추적할 수 있는 Smartnode의 향후 버전에서 다시 활성화됩니다.
 :::
 
-## Tailoring the Hardware Monitor to your System
+## 시스템에 맞게 하드웨어 모니터 조정
 
-Now that the dashboard is up, you might notice that a few boxes are empty such as **SSD Latency** and **Network Usage**.
-We have to tailor the dashboard to your specific hardware so it knows how to capture these things.
+이제 대시보드가 작동하지만 **SSD Latency** 및 **Network Usage**와 같은 일부 상자가 비어 있을 수 있습니다.
+이러한 항목을 캡처하는 방법을 알 수 있도록 대시보드를 특정 하드웨어에 맞게 조정해야 합니다.
 
 ### CPU Temp
 
-To update your CPU temperature gauge, click the title of the **CPU Temp** box and select **Edit** from the drop down.
-Your screen will now look something like this:
+CPU 온도 게이지를 업데이트하려면 **CPU Temp** 상자의 제목을 클릭하고 드롭다운에서 **Edit**를 선택합니다.
+이제 화면은 다음과 같습니다:
 
 <img src="./images/cpu-temp.png" width="100%" height="auto" />
 
-This is Grafana's edit mode, where you can change what is displayed and how it looks.
-We're interested in the query box highlighted in red, to the right of the **Metrics browser** button.
+이것은 Grafana의 편집 모드로, 표시되는 내용과 모양을 변경할 수 있습니다.
+우리는 **Metrics browser** 버튼 오른쪽의 빨간색으로 강조 표시된 쿼리 상자에 관심이 있습니다.
 
-By default, that box has this in it:
+기본적으로 해당 상자에는 다음이 있습니다:
 
 ```
 node_hwmon_temp_celsius{job="node", chip="", sensor=""}
 ```
 
-There are two fields in this text that are currently blank: `chip` and `sensor`.
-These are unique to each machine, so you'll have to fill them in based on what your machine provides.
+이 텍스트에는 현재 비어 있는 두 개의 필드가 있습니다: `chip` 및 `sensor`.
+이들은 각 머신에 고유하므로 머신이 제공하는 것에 따라 채워야 합니다.
 
-To do this, follow these steps:
+이렇게 하려면 다음 단계를 따르세요:
 
-1. Remove the `, sensor=""` portion so it ends with `chip=""}`. For clarity, the whole thing should now be `node_hwmon_temp_celsius{job="node", chip=""}`.
-2. Put your cursor in-between the quote marks of `chip=""` and press `Ctrl+Spacebar`. This will bring up an auto-complete box with the available options, which looks like this:
+1. `, sensor=""` 부분을 제거하여 `chip=""}`로 끝나도록 합니다. 명확성을 위해 전체는 이제 `node_hwmon_temp_celsius{job="node", chip=""}`가 되어야 합니다.
+2. 커서를 `chip=""`의 따옴표 사이에 놓고 `Ctrl+Spacebar`를 누릅니다. 그러면 사용 가능한 옵션이 있는 자동 완성 상자가 나타납니다. 다음과 같습니다:
 
 <img src="./images/grafana-autocomplete.png" width="100%" height="auto" />
 
-3. Select the option that corresponds to your system's CPU.
-4. Once that's selected, add `, sensor=""` back into the string. Place your cursor in-between the quote marks of `sensor=""` and press `Ctrl+Spacebar` to get another auto-complete menu. Select the sensor you want to monitor.
+3. 시스템의 CPU에 해당하는 옵션을 선택합니다.
+4. 선택한 후 `, sensor=""`를 문자열에 다시 추가합니다. 커서를 `sensor=""`의 따옴표 사이에 놓고 `Ctrl+Spacebar`를 눌러 다른 자동 완성 메뉴를 표시합니다. 모니터링할 센서를 선택합니다.
 
-::: tip Tip
-If you don't know which `chip` or `sensor` is correct, you'll have to try all of them until you find the one that looks right. To help with this, install the `lm-sensors` package (for example, `sudo apt install lm-sensors` on Debian / Ubuntu) and run the `sensors -u` command to provide what sensors your computer has. You can try to correlate a chip ID from Grafana's list with what you see here based on their names and IDs.
+::: tip 팁
+어떤 `chip` 또는 `sensor`가 올바른지 모르는 경우 올바른 것을 찾을 때까지 모두 시도해야 합니다. 이를 돕기 위해 `lm-sensors` 패키지를 설치하고(예: Debian/Ubuntu에서 `sudo apt install lm-sensors`) `sensors -u` 명령을 실행하여 컴퓨터에 있는 센서를 제공합니다. 이름과 ID를 기반으로 Grafana 목록의 칩 ID를 여기에서 보이는 것과 연관시킬 수 있습니다.
 
-For example, this is one of the outputs of our `sensors -u` command:
+예를 들어 `sensors -u` 명령의 출력 중 하나는 다음과 같습니다:
 
 ```
 k10temp-pci-00c3
@@ -742,36 +741,36 @@ Tdie:
   temp2_input: 33.500
 ```
 
-In our case, the corresponding chip in Grafana is `pci0000:00_0000:00:18_3` and the corresponding sensor is `temp1`.
+우리의 경우 Grafana의 해당 칩은 `pci0000:00_0000:00:18_3`이고 해당 센서는 `temp1`입니다.
 :::
 
-Once you're happy with your selections, click the blue **Apply** button in the top right corner of the screen to save the settings.
+선택에 만족하면 화면 오른쪽 상단의 파란색 **Apply** 버튼을 클릭하여 설정을 저장합니다.
 
-::: warning NOTE
-Not all system expose CPU temperature info - notably virtual machines or cloud-based systems.
-If yours doesn't have anything in the auto-complete field for `chip`, this is probably the case and you won't be able to monitor your CPU temperature.
+::: warning 참고
+모든 시스템이 CPU 온도 정보를 노출하는 것은 아닙니다. 특히 가상 머신이나 클라우드 기반 시스템이 그렇습니다.
+`chip`에 대한 자동 완성 필드에 아무것도 없으면 이것이 아마도 해당 경우이며 CPU 온도를 모니터링할 수 없습니다.
 :::
 
 ### SSD Latency
 
-The **SSD Latency** chart tracks how long it takes for read/write operations to take.
-This is helpful in gauging how fast your SSD is, so you know if it becomes a bottleneck if your validator suffers from poor performance.
-To update the SSD you want to track in the chart, click on the **SSD Latency** title and select **Edit**.
+**SSD Latency** 차트는 읽기/쓰기 작업이 수행되는 데 걸리는 시간을 추적합니다.
+이는 SSD가 얼마나 빠른지 측정하는 데 유용하므로 검증자가 성능 저하를 겪을 때 병목 현상이 되는지 알 수 있습니다.
+차트에서 추적할 SSD를 업데이트하려면 **SSD Latency** 제목을 클릭하고 **Edit**를 선택합니다.
 
-This chart has four query fields (four textboxes) with eight `device=""` portions in total.
-You'll need to update the first four of these portions with the device you want to track.
+이 차트에는 총 8개의 `device=""` 부분이 있는 네 개의 쿼리 필드(네 개의 텍스트 상자)가 있습니다.
+이 부분의 처음 네 개를 추적하려는 장치로 업데이트해야 합니다.
 
-Simply place your cursor in-between the quote marks and press `Ctrl+Spacebar` to get Grafana's auto-complete list, and select the correct option from there for each of the `device=""` portions.
-**You want to start from the leftmost empty setting first, or the auto-complete list may not appear.**
+커서를 따옴표 사이에 놓고 `Ctrl+Spacebar`를 눌러 Grafana의 자동 완성 목록을 표시하고 각 `device=""` 부분에 대해 올바른 옵션을 선택합니다.
+**가장 왼쪽의 빈 설정부터 시작해야 합니다. 그렇지 않으면 자동 완성 목록이 나타나지 않을 수 있습니다.**
 
-::: tip Tip
-If you don't know which device to track, run the following command:
+::: tip 팁
+추적할 장치를 모르는 경우 다음 명령을 실행합니다:
 
 ```
 lsblk
 ```
 
-This will output a tree showing your device and partition list, for example:
+그러면 장치 및 파티션 목록을 보여주는 트리가 출력됩니다. 예를 들어:
 
 ```
 NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
@@ -785,40 +784,40 @@ nvme0n1     259:0    0 238,5G  0 disk
 └─nvme0n1p4 259:4    0   527M  0 part
 ```
 
-If you didn't change Docker's default location to a different drive during your Smartnode installation, then the disk you want to track will be the one that your Operating System is installed on.
-Look in the `MOUNTPOINT` column for an entry simply labeled `/`, then follow that back up to its parent device (the one with `disk` in the `TYPE` column).
+Smartnode 설치 중에 Docker의 기본 위치를 다른 드라이브로 변경하지 않은 경우 추적하려는 디스크는 운영 체제가 설치된 디스크입니다.
+`MOUNTPOINT` 열에서 단순히 `/`로 레이블이 지정된 항목을 찾은 다음 해당 항목을 상위 장치(`TYPE` 열에 `disk`가 있는 항목)로 다시 따라갑니다.
 
-Typically this will be `sda` for SATA drives or `nvme0n1` for NVMe drives.
+일반적으로 SATA 드라이브의 경우 `sda`, NVMe 드라이브의 경우 `nvme0n1`입니다.
 
-If you _did_ change Docker's default location to a different drive, or if you're running a hybrid / native setup, you should be able to use the same technique of "following the mount point" to determine which device your chain data resides on.
+Docker의 기본 위치를 다른 드라이브로 변경_했거나_ 하이브리드/네이티브 설정을 실행하는 경우 "마운트 포인트를 따라가는" 동일한 기술을 사용하여 체인 데이터가 있는 장치를 결정할 수 있어야 합니다.
 :::
 
-Optionally, you can also track latency of a second disk on your system.
-This is aimed at people that keep their Operating System and chain data on separate drives.
-To set this up, simply follow the instructions above for the last two query fields, substituting `device=""` portion values with those of the disk you want to track.
+선택적으로 시스템의 두 번째 디스크의 지연 시간도 추적할 수 있습니다.
+이것은 운영 체제와 체인 데이터를 별도의 드라이브에 보관하는 사람들을 위한 것입니다.
+이를 설정하려면 마지막 두 쿼리 필드에 대해 위의 지침을 따르고 `device=""` 부분 값을 추적하려는 디스크의 값으로 대체합니다.
 
-Once you're happy with your selections, click the blue **Apply** button in the top right corner of the screen to save the settings.
+선택에 만족하면 화면 오른쪽 상단의 파란색 **Apply** 버튼을 클릭하여 설정을 저장합니다.
 
 ### Network Usage
 
-This chart tracks how much data you're sending and receiving over a particular network connection.
-As you might expect, the dashboard needs to know which network you want it to track.
+이 차트는 특정 네트워크 연결을 통해 보내고 받는 데이터의 양을 추적합니다.
+예상대로 대시보드는 추적할 네트워크를 알아야 합니다.
 
-To change it, click on the **Network Usage** title and select **Edit**.
+변경하려면 **Network Usage** 제목을 클릭하고 **Edit**를 선택합니다.
 
-This chart has two query fields with two `device=""` portions in total.
-You'll need to update these with the network you want to track.
+이 차트에는 총 두 개의 `device=""` 부분이 있는 두 개의 쿼리 필드가 있습니다.
+이것을 추적하려는 네트워크로 업데이트해야 합니다.
 
-Place your cursor in-between the quote marks and press `Ctrl+Spacebar` to get Grafana's auto-complete list, and select the correct option from there for each of the `device=""` portions.
+커서를 따옴표 사이에 놓고 `Ctrl+Spacebar`를 눌러 Grafana의 자동 완성 목록을 표시하고 각 `device=""` 부분에 대해 올바른 옵션을 선택합니다.
 
-::: tip Tip
-If you don't know which device to track, run the following command:
+::: tip 팁
+추적할 장치를 모르는 경우 다음 명령을 실행합니다:
 
 ```shell
 sudo route
 ```
 
-The output will look something like this:
+출력은 다음과 같습니다:
 
 ```
 Kernel IP routing table
@@ -828,66 +827,66 @@ default         192.168.1.1     0.0.0.0         UG    100    0        0 eth0
 192.168.1.1     0.0.0.0         255.255.255.255 UH    100    0        0 eth0
 ```
 
-Look at the `Destination` column for the row with the value if `default`.
-Follow that row all the way to the `Iface` column.
-The device listed there is the one you want to use - in this example, `eth0`.
+`Destination` 열에서 `default` 값이 있는 행을 찾습니다.
+해당 행을 `Iface` 열까지 따라갑니다.
+여기에 나열된 장치가 사용하려는 장치입니다. 이 예에서는 `eth0`입니다.
 :::
 
-Once you're happy with your selections, click the blue **Apply** button in the top right corner of the screen to save the settings.
+선택에 만족하면 화면 오른쪽 상단의 파란색 **Apply** 버튼을 클릭하여 설정을 저장합니다.
 
 ### Total Net I/O
 
-This tracks the total amount of data you've sent and received.
-You might find it useful to watch if, for example, your ISP limits you to a certain amount of data per month.
+이것은 보내고 받은 총 데이터 양을 추적합니다.
+예를 들어 ISP가 한 달에 특정 양의 데이터로 제한하는 경우 유용할 수 있습니다.
 
-The setup is identical to the **Network Usage** box above, so simply follow those instructions for this box too.
+설정은 위의 **Network Usage** 상자와 동일하므로 이 상자에 대해서도 해당 지침을 따르세요.
 
 ### Disk Space Used
 
-This keeps tabs on how full your Operating System disk is getting, so you know when it's time to clean up (and if your chain data lives on the same drive, time to [prune Geth or Nethermind](./pruning)).
+이것은 운영 체제 디스크가 얼마나 가득 차는지 추적하므로 정리할 때(그리고 체인 데이터가 동일한 드라이브에 있는 경우 [Geth 또는 Nethermind를 프루닝](./pruning)할 때)를 알 수 있습니다.
 
-The steps are the same as the **SSD Latency** box above, so simply follow those instructions for this box too.
-As a reminder, you want the drive that houses the partition which has `/` in the `MOUNTPOINT` column for this one because that will be your Operating System drive.
-Fill this into the first query field.
+단계는 위의 **SSD Latency** 상자와 동일하므로 이 상자에 대해서도 해당 지침을 따르세요.
+참고로 `MOUNTPOINT` 열에 `/`가 있는 파티션을 포함하는 드라이브를 원합니다. 이것이 운영 체제 드라이브이기 때문입니다.
+첫 번째 쿼리 필드에 이것을 채웁니다.
 
-Optionally, you can also track the free space of a second disk on your system.
-This is aimed at people that keep their Operating System and chain data on separate drives.
-Set this up by following the same process, but instead of looking at which partition has `/` in the `MOUNTPOINT` column, you want to look for the one that has whatever your second drive's mount point is.
-Update the second query field with the disk associated with that partition.
+선택적으로 시스템의 두 번째 디스크의 여유 공간도 추적할 수 있습니다.
+이것은 운영 체제와 체인 데이터를 별도의 드라이브에 보관하는 사람들을 위한 것입니다.
+동일한 프로세스를 따라 설정하되 `MOUNTPOINT` 열에 `/`가 있는 파티션을 보는 대신 두 번째 드라이브의 마운트 포인트가 무엇이든 있는 파티션을 찾으세요.
+해당 파티션과 연결된 디스크로 두 번째 쿼리 필드를 업데이트합니다.
 
 ### Disk Temp
 
-This tracks the current temperature of your Operating System disk. The steps are the same as the **CPU Temp** box above, so simply follow those instructions for this box too, substituting CPU chip and sensor values with those of your Operating System disk. Fill these values into the first query field.
+이것은 운영 체제 디스크의 현재 온도를 추적합니다. 단계는 위의 **CPU Temp** 상자와 동일하므로 이 상자에 대해서도 해당 지침을 따르되 CPU 칩 및 센서 값을 운영 체제 디스크의 값으로 대체합니다. 이러한 값을 첫 번째 쿼리 필드에 채웁니다.
 
-Optionally, you can also track the current temperature of a second disk on your system. Set this up by following the same process, substituting the chip and sensor values with those of your second drive. Fill these values into the second query field.
+선택적으로 시스템의 두 번째 디스크의 현재 온도도 추적할 수 있습니다. 동일한 프로세스를 따라 설정하되 칩 및 센서 값을 두 번째 드라이브의 값으로 대체합니다. 이러한 값을 두 번째 쿼리 필드에 채웁니다.
 
-## Customizing the Dashboard
+## 대시보드 사용자 지정
 
-While the standard dashboard tries to do a good job capturing everything you'd want to see at a glance, it's quite easy to customize a Grafana dashboard however you want.
-You can add new graphs, change the way graphs look, move things around, and much more!
+표준 대시보드가 한눈에 보고 싶은 모든 것을 캡처하려고 시도하지만 원하는 대로 Grafana 대시보드를 사용자 지정하는 것은 매우 쉽습니다.
+새 그래프를 추가하고, 그래프 모양을 변경하고, 항목을 이동하는 등의 작업을 할 수 있습니다!
 
-Take a look at [Grafana's Tutorials](https://grafana.com/tutorials/) page to learn how to play with it and set it up to your liking.
+[Grafana의 Tutorials](https://grafana.com/tutorials/) 페이지를 살펴보고 어떻게 사용하고 원하는 대로 설정하는지 알아보세요.
 
-## Customizing the Metrics Stack
+## 메트릭 스택 사용자 지정
 
-The tools used in the Rocket Pool Metrics Stack offer a wide array of configuration options beyond what is included in the default Rocket Pool installation. This section includes configuration examples for different use cases.
+Rocket Pool 메트릭 스택에 사용되는 도구는 기본 Rocket Pool 설치에 포함된 것 이상의 광범위한 구성 옵션을 제공합니다. 이 섹션에는 다양한 사용 사례에 대한 구성 예가 포함되어 있습니다.
 
-In general, [Grafana configuration options](https://grafana.com/docs/grafana/latest/administration/configuration/) should be passed through using environment variables in `override/grafana.yml`. Any config option can be converted to an environment variable using the following syntax:
+일반적으로 [Grafana 구성 옵션](https://grafana.com/docs/grafana/latest/administration/configuration/)은 `override/grafana.yml`의 환경 변수를 사용하여 전달해야 합니다. 모든 구성 옵션은 다음 구문을 사용하여 환경 변수로 변환할 수 있습니다:
 
 ```
 GF_<SectionName>_<KeyName>
 ```
 
-### Grafana SMTP Settings for Sending Emails
+### 이메일 전송을 위한 Grafana SMTP 설정
 
-To send emails from Grafana, e.g. for alerts or to invite other users, SMTP settings need to be configured in the Rocket Pool Metrics Stack.
-See the [Grafana SMTP configuration](https://grafana.com/docs/grafana/latest/administration/configuration/#smtp) page for reference.
+Grafana에서 이메일을 보내려면(예: 알림 또는 다른 사용자를 초대하기 위해) Rocket Pool 메트릭 스택에서 SMTP 설정을 구성해야 합니다.
+참조를 위해 [Grafana SMTP 구성](https://grafana.com/docs/grafana/latest/administration/configuration/#smtp) 페이지를 참조하세요.
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker and Hybrid Mode">
-      Open `~/.rocketpool/override/grafana.yml` in a text editor.
-      Add an `environment` section below the `x-rp-comment: Add your customizations below this line` line, replacing the values below with those for your SMTP provider.
+      텍스트 편집기에서 `~/.rocketpool/override/grafana.yml`을 엽니다.
+      `x-rp-comment: Add your customizations below this line` 줄 아래에 `environment` 섹션을 추가하고 아래 값을 SMTP 공급자의 값으로 대체합니다.
 
       ```yaml
       version: "3.7"
@@ -906,7 +905,7 @@ See the [Grafana SMTP configuration](https://grafana.com/docs/grafana/latest/adm
       ```
     </Tab>
     <Tab label="Native">
-      Open `/etc/grafana/grafana.ini` in a text editor. Look for `[smtp]` section and update it, replacing the values below with those for your SMTP provider.
+      텍스트 편집기에서 `/etc/grafana/grafana.ini`를 엽니다. `[smtp]` 섹션을 찾아 업데이트하고 아래 값을 SMTP 공급자의 값으로 대체합니다.
 
       ```
       [smtp]
@@ -923,11 +922,11 @@ See the [Grafana SMTP configuration](https://grafana.com/docs/grafana/latest/adm
   </Tabs>
 </div>
 
-::: tip Tip
-If using Gmail and [2-Step Verification](https://support.google.com/accounts/answer/185839) is enabled, create an [App Password](https://support.google.com/mail/answer/185833?hl=en) for this service.
+::: tip 팁
+Gmail을 사용하고 [2단계 인증](https://support.google.com/accounts/answer/185839)이 활성화된 경우 이 서비스에 대한 [앱 비밀번호](https://support.google.com/mail/answer/185833?hl=en)를 만듭니다.
 :::
 
-After making these modifications, **run the following to apply the changes**:
+이러한 수정을 한 후 **다음을 실행하여 변경 사항을 적용합니다**:
 
 <div className="p-3">
   <Tabs>
@@ -947,14 +946,14 @@ After making these modifications, **run the following to apply the changes**:
   </Tabs>
 </div>
 
-To test the SMTP settings, go to the **Alerting** menu and click **Contact points**.
+SMTP 설정을 테스트하려면 **Alerting** 메뉴로 이동하여 **Contact points**를 클릭합니다.
 
 <img src="./images/grafana-contact-points.png" width="100%" height="auto" />
 
-Click **New contact point** and select **Email** as the Contact point type.
-Enter an email address in the **Addresses** section and click **Test**.
+**New contact point**를 클릭하고 Contact point type으로 **Email**을 선택합니다.
+**Addresses** 섹션에 이메일 주소를 입력하고 **Test**를 클릭합니다.
 
 <img src="./images/grafana-new-contact-point.png" width="100%" height="auto" />
 
-Check to see that the test email was received.
-Click **Save contact point\*** when finished.
+테스트 이메일이 수신되었는지 확인합니다.
+완료되면 **Save contact point\***를 클릭합니다.

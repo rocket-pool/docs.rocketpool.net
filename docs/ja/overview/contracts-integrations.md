@@ -2,11 +2,11 @@
 permalink: /overview/contracts-integrations
 ---
 
-# 🤝 Contracts & Integrations
+# 🤝 Contractsとインテグレーション
 
-Do you love RPL and rETH? Us too! So we put together a list of integrations and services, as well as official contract deployments, to help you discover new places these assets can be used!
+RPLとrETHがお好きですか。私たちもです。そこで、これらのアセットを使用できる新しい場所を発見するのに役立つように、インテグレーションとサービス、および公式のコントラクトデプロイメントのリストをまとめました。
 
-If you would like to contribute by helping integrate Rocket Pool into more services and protocols, reach out on [Discord](https://discord.gg/MYrazaZZC4)!
+Rocket Poolをより多くのサービスやプロトコルに統合することで貢献したい場合は、[Discord](https://discord.gg/MYrazaZZC4)でお問い合わせください。
 
 ## Key Protocol Contracts
 
@@ -17,8 +17,8 @@ If you would like to contribute by helping integrate Rocket Pool into more servi
 | Hoodi\* | Deposit  | [0x320f3aAB9405e38b955178BBe75c477dECBA0C27](https://hoodi.etherscan.io/address/0x320f3aAB9405e38b955178BBe75c477dECBA0C27) |
 | &nbsp;  | Storage  | [0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1](https://hoodi.etherscan.io/address/0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1) |
 
-Within the protocol, the Storage contract is used to find all the other deployed contract addresses as needed (see this [example](/en/overview/contracts-usage#interacting-with-rocket-pool)).
-See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contracts) below for a full list of addresses.
+プロトコル内では、Storageコントラクトを使用して、必要に応じて他のすべてのデプロイされたコントラクトアドレスを見つけます（この[例](/ja/overview/contracts-usage#interacting-with-rocket-pool)を参照してください）。
+すべてのアドレスの完全なリストについては、以下の[すべてのアクティブなデプロイされたプロトコルコントラクト](#all-active-deployed-protocol-contracts)を参照してください。
 
 <small>\* Testnet</small>
 
@@ -52,7 +52,7 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 
 | Chain   | RP Version      | Address                                                                                                                |
 | ------- | --------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| Mainnet | v1.2 (Atlas)    | [0xDD3f50F8A6CafbE9b31a427582963f465E745AF8](https://e`therscan.io/address/0xDD3f50F8A6CafbE9b31a427582963f465E745AF8) |
+| Mainnet | v1.2 (Atlas)    | [0xDD3f50F8A6CafbE9b31a427582963f465E745AF8](https://etherscan.io/address/0xDD3f50F8A6CafbE9b31a427582963f465E745AF8) |
 | &nbsp;  | v1.1 (Redstone) | [0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4](https://etherscan.io/address/0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4)  |
 | &nbsp;  | v1.0            | [0x4D05E3d48a938db4b7a9A59A802D5b45011BDe58](https://etherscan.io/address/0x4D05E3d48a938db4b7a9A59A802D5b45011BDe58)  |
 
@@ -237,6 +237,6 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 
 <small>\* Testnet</small>
 
-This list was updated 31/03/2025
+このリストは2025年3月31日に更新されました
 
-The addresses can be queried on chain as shown in this [example](/en/overview/contracts-usage#interacting-with-rocket-pool).
+アドレスは、この[例](/ja/overview/contracts-usage#interacting-with-rocket-pool)に示されているようにオンチェーンでクエリできます。

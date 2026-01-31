@@ -1,138 +1,138 @@
-# Glossary
+# Glossar
 
-You may stumble upon some unfamiliar concepts in the Rocket Pool documentation. This section lists the common terms in the documentation for easy access, learning and plugin/theme development.
+Sie könnten in der Rocket Pool Dokumentation auf einige unbekannte Konzepte stoßen. Dieser Abschnitt listet die gängigen Begriffe in der Dokumentation für einfachen Zugriff, Lernen und Plugin-/Theme-Entwicklung auf.
 
-## APY - Annual Percent Yield (APY)
+## APY - Annual Percent Yield (Jährliche prozentuale Rendite)
 
-The amount of profit (yield) calculated over a one-year period divided by the initial investment amount expressed as a percentage.
+Der Betrag des Gewinns (Rendite), der über einen Zeitraum von einem Jahr berechnet wird, geteilt durch den anfänglichen Investitionsbetrag, ausgedrückt als Prozentsatz.
 
 ## Bonding
 
-_See insurance._
+_Siehe Insurance._
 
 ## Contract, (Smart)
 
-An Ethereum program (smart contract) that is used to perform a set of programmed functions. Rocket Pool smart contracts include the deposit pool, minipool validator formation, and issue and track various token interactions on the Ethereum chain.
+Ein Ethereum-Programm (Smart Contract), das zur Ausführung einer Reihe programmierter Funktionen verwendet wird. Rocket Pool Smart Contracts umfassen den Deposit Pool, die Minipool Validator-Bildung und geben verschiedene Token-Interaktionen auf der Ethereum Chain aus und verfolgen diese.
 
 ## Client
 
-A client is an implementation of Ethereum software that verifies all transactions in each block, keeping the network secure and the data accurate. _See also Execution and Consensus client._
+Ein Client ist eine Implementierung von Ethereum-Software, die alle Transaktionen in jedem Block verifiziert und das Netzwerk sicher und die Daten genau hält. _Siehe auch Execution und Consensus Client._
 
 ## Custodial
 
-Centralized service that manages the entire ETH staking process on behalf of the user and retains "custody" over private validator keys and withdrawal keys. _See also non-custodial._
+Zentralisierter Service, der den gesamten ETH-Staking-Prozess im Namen des Nutzers verwaltet und die "Verwahrung" über private Validator-Schlüssel und Withdrawal-Schlüssel behält. _Siehe auch Non-Custodial._
 
 ## DAO (Decentralized Autonomous Organization)
 
-An organization represented by rules encoded as a computer program that is transparent, controlled by the organization members, and not influenced by a central government.
+Eine Organisation, die durch Regeln repräsentiert wird, die als Computerprogramm kodiert sind, das transparent ist, von den Organisationsmitgliedern kontrolliert wird und nicht von einer zentralen Regierung beeinflusst wird.
 
 ## Deposit Pool
 
-The amount of ETH ready to be staked. The deposit pool is funded by regular users when they swap ETH for rETH. This ETH is the amount that is waiting to be paired with node operators in the node operator queue.
+Die Menge an ETH, die zum Staking bereit ist. Der Deposit Pool wird von regulären Nutzern finanziert, wenn sie ETH gegen rETH tauschen. Dieses ETH ist der Betrag, der darauf wartet, mit Node-Betreibern in der Node-Betreiber-Warteschlange gepaart zu werden.
 
 ## ETH
 
-The fundamental cryptocurrency coin generated and used by the Ethereum protocol.
+Die grundlegende Kryptowährung, die vom Ethereum-Protokoll generiert und verwendet wird.
 
 ## Execution Client
 
-Ethereum Software clients that run the execution layer.
+Ethereum-Software-Clients, die die Execution Layer betreiben.
 
 ## Consensus Client
 
-Ethereum Software clients that run the consensus layer.
+Ethereum-Software-Clients, die die Consensus Layer betreiben.
 
-## eth2.0 (the Beaconchain)
+## eth2.0 (die Beaconchain)
 
-The Ethereum 2.0 network and update to the Ethernet network that was launched in December 2020 and replaced the proof-of-work eth1.0 consensus mechanism in September 2022. Deprecated term - now known simply as the Beaconchain or the consensus layer.
+Das Ethereum 2.0 Netzwerk und Update des Ethereum-Netzwerks, das im Dezember 2020 gestartet wurde und den Proof-of-Work eth1.0 Konsensmechanismus im September 2022 ersetzte. Veralteter Begriff - jetzt einfach als Beaconchain oder Consensus Layer bekannt.
 
 ## Insurance
 
-The amount of RPL token, expressed as a percentage of the value of ETH provided by the protocol, that a node operator needs to deposit when they start a minipool validator. The RPL insurance staked by a node operator will act as insurance to reimburse regular users in the event that the node operator exits staking with less than the protocol-provided ETH in their validators (24 ETH in the case of an 8 ETH minipool, 16 ETH in the case of a 16 ETH minipool).
+Die Menge an RPL-Token, ausgedrückt als Prozentsatz des Wertes des vom Protokoll bereitgestellten ETH, die ein Node-Betreiber einzahlen muss, wenn er einen Minipool Validator startet. Die von einem Node-Betreiber gestakte RPL-Versicherung dient als Versicherung, um reguläre Nutzer zu entschädigen, falls der Node-Betreiber das Staking mit weniger als dem vom Protokoll bereitgestellten ETH in seinen Validatoren beendet (24 ETH im Fall eines 8 ETH Minipools, 16 ETH im Fall eines 16 ETH Minipools).
 
 ## Minipool (Validator)
 
-A validator that was funded and initialized via the Rocket Pool software. It is composed of ETH contributed from regular users via the deposit pool and ETH contributed from node operators during their registration process.
+Ein Validator, der über die Rocket Pool Software finanziert und initialisiert wurde. Er besteht aus ETH, das von regulären Nutzern über den Deposit Pool beigetragen wurde, und ETH, das von Node-Betreibern während ihres Registrierungsprozesses beigetragen wurde.
 
 ## Node
 
-In the Ethereum network, nodes are devices (computers) that run Ethereum client software.
+Im Ethereum-Netzwerk sind Nodes Geräte (Computer), die Ethereum-Client-Software ausführen.
 
 ## Node Commission
 
-The amount of supplemental ETH awarded to a node operator. This is effectively the “fee” that is taken from normal stakers; in Rocket Pool, that fee is given to the node operators. When Rocketpool launched, it ranged from 5 - 20% with the ideal target of 10%, with each minipool’s commission locked for life upon the creation of the minipool. New minipools activated are now at a set 14% commission rate.
+Der Betrag an zusätzlichem ETH, der einem Node-Betreiber zuerkannt wird. Dies ist effektiv die "Gebühr", die von normalen Stakern genommen wird; bei Rocket Pool wird diese Gebühr an die Node-Betreiber gegeben. Als Rocket Pool startete, lag sie zwischen 5 - 20% mit dem idealen Ziel von 10%, wobei die Provision jedes Minipools bei der Erstellung des Minipools lebenslang festgelegt wurde. Neue aktivierte Minipools haben jetzt eine festgelegte Provisionsrate von 14%.
 
 ## Node Operator
 
-An individual that wishes to secure the Ethereum network by operating a node (computer) that will run the Rocket Pool software, a validator client, and optionally an execution and beaconchain client as well. Node operators will earn ETH APY rewards at a greater rate than solo-stakers on the Ethereum network.
+Eine Person, die das Ethereum-Netzwerk sichern möchte, indem sie eine Node (Computer) betreibt, die die Rocket Pool Software, einen Validator Client und optional auch einen Execution und Beaconchain Client ausführt. Node-Betreiber verdienen ETH APY-Belohnungen zu einem höheren Satz als Solo-Staker im Ethereum-Netzwerk.
 
 ## Node Software
 
-A set of programs that allow node operators to interact with the Rocket Pool protocol.
+Eine Reihe von Programmen, die es Node-Betreibern ermöglichen, mit dem Rocket Pool Protokoll zu interagieren.
 
 ## Node Wallet
 
-An Ethereum wallet that is generated by Rocket Pool upon creating a new node. This wallet will be used to fund new minipools during their creation and pay for the gas fees needed to interact with Rocket Pool’s smart contracts.
+Eine Ethereum Wallet, die von Rocket Pool beim Erstellen einer neuen Node generiert wird. Diese Wallet wird verwendet, um neue Minipools während ihrer Erstellung zu finanzieren und die Gasgebühren zu bezahlen, die für die Interaktion mit den Smart Contracts von Rocket Pool benötigt werden.
 
 ## Non-Custodial
 
-A service that provides streamlining for validator set up in management but does not hold user private validator keys and withdrawal keys. Rocket Pool is a non-custodial staking service.
+Ein Service, der die Optimierung für die Validator-Einrichtung und -Verwaltung bereitstellt, aber keine privaten Validator-Schlüssel und Withdrawal-Schlüssel der Nutzer hält. Rocket Pool ist ein Non-Custodial Staking-Service.
 
 ## Oracle DAO (oDAO)
 
-A DAO composed of all the oracle node operators. _See also DAO._
+Eine DAO, die aus allen Oracle-Node-Betreibern besteht. _Siehe auch DAO._
 
 ## Oracle Node
 
-A special node run by trusted members of the Rocket Pool community that relays information from the beacon chain (such as total staking rewards and validator exit status) back to the execution layer so the Rocket Pool smart contracts can function correctly.
+Eine spezielle Node, die von vertrauenswürdigen Mitgliedern der Rocket Pool Community betrieben wird und Informationen von der Beacon Chain (wie Gesamt-Staking-Belohnungen und Validator-Exit-Status) zurück zur Execution Layer weiterleitet, damit die Rocket Pool Smart Contracts korrekt funktionieren können.
 
 ## Proof-of-Stake (PoS)
 
-The consensus mechanism used in Ethereum, where users vote on the correctness of new blocks by staking the ETH in their wallet.
+Der Konsensmechanismus, der in Ethereum verwendet wird, bei dem Nutzer über die Korrektheit neuer Blöcke abstimmen, indem sie das ETH in ihrer Wallet staken.
 
 ## Protocol DAO (pDAO)
 
-The DAO composed of all holders of RPL tokens. _See also DAO._
+Die DAO, die aus allen Inhabern von RPL-Token besteht. _Siehe auch DAO._
 
 ## Regular Node (Operator)
 
-The term given to “normal” node operators that do not have the additional responsibilities of Oracle Nodes.
+Der Begriff für "normale" Node-Betreiber, die nicht die zusätzlichen Verantwortlichkeiten von Oracle Nodes haben.
 
 ## Regular Stakers
 
-A retail (regular) user that wants to earn interest on their ETH coin without decoupling it from the underlying value of ETH. A regular staker interacts with the Rocket pool platform by swapping ETH coins for rETH tokens. Their ETH is entered into the staking pool, where it is acquired by Node Operators when they create new minipools.
+Ein Privat-(Regular-)Nutzer, der Zinsen auf seine ETH-Münze verdienen möchte, ohne sie vom zugrunde liegenden Wert von ETH zu entkoppeln. Ein Regular Staker interagiert mit der Rocket Pool Plattform, indem er ETH-Münzen gegen rETH-Token tauscht. Ihr ETH wird in den Staking Pool eingegeben, wo es von Node-Betreibern erworben wird, wenn sie neue Minipools erstellen.
 
 ## rETH (Rocket Pool Staking Deposit Token)
 
-A token that represents a regular user’s deposit into the staking pool. Users receive an equivalent value of rETH token for each ETH coin they deposit. As interest is earned by staking on the Ethereum network the value of the rETH token increases with respect to ETH. This token does not need to be locked within the network and it can be traded, sold or held as the user desires.
+Ein Token, der die Einzahlung eines regulären Nutzers in den Staking Pool repräsentiert. Nutzer erhalten einen gleichwertigen Wert an rETH-Token für jede ETH-Münze, die sie einzahlen. Wenn durch Staking im Ethereum-Netzwerk Zinsen verdient werden, steigt der Wert des rETH-Tokens in Bezug auf ETH. Dieser Token muss nicht im Netzwerk gesperrt werden und kann nach Belieben des Nutzers gehandelt, verkauft oder gehalten werden.
 
 ## RPL (Rocket Pool Token)
 
 **RPL — Rocket Pool Protocol Token**
 
-RPL is the primary protocol token that will be used in governance of the protocol and can also be staked on a Rocket Pool node.
+RPL ist der primäre Protokoll-Token, der für die Governance des Protokolls verwendet wird und auch auf einer Rocket Pool Node gestakt werden kann.
 
-From a Node Operator perspective:
+Aus Sicht eines Node-Betreibers:
 
-- As of Saturn 1, vote-eligible staked RPL will get a share of total protocol revenue
-- The [majority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation is given as rewards to Node Operators based on staked RPL; these rewards are planned to be phase out with Saturn 2
-- For Saturn 0 minipools (made after 10/28/2024): Staked RPL provides up to 4% additional bonus commission; bonus commission is planned to be phased out a few months after Saturn 1's launch.
-- Staked provides voting power for governance
+- Ab Saturn 1 erhalten wahlberechtigte gestakte RPL einen Anteil am gesamten Protokollumsatz
+- Die [Mehrheit](https://rpips.rocketpool.net/RPIPs/RPIP-25) der RPL-Inflation wird als Belohnung an Node-Betreiber basierend auf gestaktem RPL gegeben; diese Belohnungen sollen mit Saturn 2 auslaufen
+- Für Saturn 0 Minipools (erstellt nach dem 28.10.2024): Gestaktes RPL bietet bis zu 4% zusätzliche Bonusprovision; die Bonusprovision soll einige Monate nach dem Start von Saturn 1 auslaufen.
+- Gestaktes RPL bietet Stimmrecht für die Governance
 
-From a protocol perspective:
+Aus Protokollsicht:
 
-- A [minority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation provides funding for the pDAO
-- A [minority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation provides funding for the oDAO
-- It can serve as secondary collateral (e.g., against slashing)
+- Eine [Minderheit](https://rpips.rocketpool.net/RPIPs/RPIP-25) der RPL-Inflation stellt Finanzierung für die pDAO bereit
+- Eine [Minderheit](https://rpips.rocketpool.net/RPIPs/RPIP-25) der RPL-Inflation stellt Finanzierung für die oDAO bereit
+- Es kann als sekundäre Sicherheit dienen (z.B. gegen Slashing)
 
 ## Stake
 
-An amount of coin or token that is deposited as an assurance collateral to perform some work. An individual can stake ETH either as a regular user by swapping ETH for rETH or as a node operator by depositing ETH for use as part of the Beaconchain PoS consensus process. A person who stakes their ETH (e.g. a staker) is rewarded with an APY or return on their deposited ETH.
+Ein Betrag an Münze oder Token, der als Sicherheit hinterlegt wird, um eine Arbeit auszuführen. Eine Person kann ETH entweder als regulärer Nutzer durch Tausch von ETH gegen rETH oder als Node-Betreiber durch Einzahlung von ETH zur Verwendung als Teil des Beaconchain PoS-Konsensprozesses staken. Eine Person, die ihr ETH staked (z.B. ein Staker), wird mit einem APY oder einer Rendite auf ihr eingezahltes ETH belohnt.
 
 ## Staking Pool
 
-A staking pool allows multiple ETH coin holders to combine their tokens to collectively form the required amount to run an Ethereum validator. Rocket Pool forms, tracks, assigns, and insures these collective pools using a non-custodial decentralized method.
+Ein Staking Pool ermöglicht es mehreren ETH-Münzinhabern, ihre Token zu kombinieren, um gemeinsam den erforderlichen Betrag zum Betrieb eines Ethereum Validators zu bilden. Rocket Pool bildet, verfolgt, weist zu und versichert diese kollektiven Pools mit einer Non-Custodial dezentralen Methode.
 
 ## Validator
 
-_See minipool._
+_Siehe Minipool._

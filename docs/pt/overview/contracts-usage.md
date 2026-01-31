@@ -1,20 +1,20 @@
-# Smart Contracts
+# Contratos Inteligentes
 
-## Introduction
+## Introdução
 
-The Rocket Pool [Smart Contracts](https://www.ethereum.org/learn/#smart-contracts) form the foundation of the Rocket Pool protocol. They are the base layer of infrastructure which all other elements of the network are built on top of, the Smart Node software stack, and all web or application interfaces.
+Os [Contratos Inteligentes](https://www.ethereum.org/learn/#smart-contracts) do Rocket Pool formam a base do protocolo Rocket Pool. Eles são a camada de infraestrutura base sobre a qual todos os outros elementos da rede são construídos, a pilha de software Smart Node e todas as interfaces web ou aplicadas.
 
-Direct interaction with the contracts is usually not necessary, and is facilitated through the use of other software. This section provides a detailed description of the contract design, and information on how to build on top of Rocket Pool for developers wishing to extend it. All code examples are given as Solidity `v0.7.6`.
+A interação direta com os contratos geralmente não é necessária, e é facilitada através do uso de outro software. Esta seção fornece uma descrição detalhada do design dos contratos e informações sobre como construir no topo do Rocket Pool para desenvolvedores que desejam estendê-lo. Todos os exemplos de código são dados como Solidity `v0.7.6`.
 
-### Contract Design
+### Design dos Contratos
 
-The Rocket Pool network contracts are built with upgradability in mind, using a hub-and-spoke architecture. The central hub of the network is the `RocketStorage` contract, which is responsible for storing the state of the entire protocol. This is implemented through the use of maps for key-value storage, and getter and setter methods for reading and writing values for a key.
+Os contratos de rede do Rocket Pool são construídos com atualizabilidade em mente, usando uma arquitetura hub-and-spoke. O hub central da rede é o contrato `RocketStorage`, que é responsável por armazenar o estado de todo o protocolo. Isso é implementado através do uso de mapas para armazenamento de chave-valor e métodos getter e setter para leitura e escrita de valores para uma chave.
 
-The `RocketStorage` contract also stores the addresses of all other network contracts (keyed by name), and restricts data modification to those contracts only. Using this architecture, the protocol can be upgraded by deploying new versions of an existing contract, and updating its address in storage. This gives Rocket Pool the flexibility required to fix bugs or implement new features to improve the protocol.
+O contrato `RocketStorage` também armazena os endereços de todos os outros contratos de rede (com chave por nome) e restringe a modificação de dados apenas para esses contratos. Usando essa arquitetura, o protocolo pode ser atualizado implantando novas versões de um contrato existente e atualizando seu endereço no armazenamento. Isso dá ao Rocket Pool a flexibilidade necessária para corrigir bugs ou implementar novos recursos para melhorar o protocolo.
 
-### Interacting With Rocket Pool
+### Interagindo com Rocket Pool
 
-To begin interacting with the Rocket Pool network, first create an instance of the `RocketStorage` contract using its [interface](https://github.com/rocket-pool/rocketpool/blob/master/contracts/interface/RocketStorageInterface.sol):
+Para começar a interagir com a rede Rocket Pool, primeiro crie uma instância do contrato `RocketStorage` usando sua [interface](https://github.com/rocket-pool/rocketpool/blob/master/contracts/interface/RocketStorageInterface.sol):
 
 ```solidity
 import "RocketStorageInterface.sol";
@@ -30,11 +30,11 @@ contract Example {
 }
 ```
 
-The above constructor should be called with the address of the `RocketStorage` contract on the appropriate network.
+O construtor acima deve ser chamado com o endereço do contrato `RocketStorage` na rede apropriada.
 
-Because of Rocket Pool's architecture, the addresses of other contracts should not be used directly but retrieved from the blockchain before use. Network upgrades may have occurred since the previous interaction, resulting in outdated addresses. `RocketStorage` can never change address, so it is safe to store a reference to it.
+Devido à arquitetura do Rocket Pool, os endereços de outros contratos não devem ser usados diretamente, mas recuperados do blockchain antes do uso. Atualizações de rede podem ter ocorrido desde a interação anterior, resultando em endereços desatualizados. `RocketStorage` nunca pode mudar de endereço, portanto é seguro manter uma referência a ele.
 
-Other contract instances can be created using the appropriate interface taken from the [Rocket Pool repository](https://github.com/rocket-pool/rocketpool/tree/master/contracts/interface), e.g.:
+Outras instâncias de contrato podem ser criadas usando a interface apropriada do [repositório Rocket Pool](https://github.com/rocket-pool/rocketpool/tree/master/contracts/interface), por ex:
 
 ```solidity
 import "RocketStorageInterface.sol";

@@ -2,67 +2,67 @@
 permalink: /overview/contracts-integrations
 ---
 
-# 🤝 Contracts & Integrations
+# 🤝 合约与集成
 
-Do you love RPL and rETH? Us too! So we put together a list of integrations and services, as well as official contract deployments, to help you discover new places these assets can be used!
+你喜欢 RPL 和 rETH 吗？我们也是！所以我们整理了一份集成和服务列表，以及官方合约部署，帮助你发现这些资产可以使用的新地方！
 
-If you would like to contribute by helping integrate Rocket Pool into more services and protocols, reach out on [Discord](https://discord.gg/MYrazaZZC4)!
+如果你想通过帮助将 Rocket Pool 集成到更多服务和协议中做出贡献，请在 [Discord](https://discord.gg/MYrazaZZC4) 上联系我们！
 
-## Key Protocol Contracts
+## 关键协议合约
 
-| Chain   | Contract | Address                                                                                                                     |
-| ------- | -------- | --------------------------------------------------------------------------------------------------------------------------- |
-| Mainnet | Deposit  | [0xDD3f50F8A6CafbE9b31a427582963f465E745AF8](https://etherscan.io/address/0xDD3f50F8A6CafbE9b31a427582963f465E745AF8)       |
-| &nbsp;  | Storage  | [0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46](https://etherscan.io/address/0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46)       |
-| Hoodi\* | Deposit  | [0x320f3aAB9405e38b955178BBe75c477dECBA0C27](https://hoodi.etherscan.io/address/0x320f3aAB9405e38b955178BBe75c477dECBA0C27) |
-| &nbsp;  | Storage  | [0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1](https://hoodi.etherscan.io/address/0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1) |
+| 链      | 合约    | 地址                                                                                                                        |
+| ------- | ------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Mainnet | Deposit | [0xDD3f50F8A6CafbE9b31a427582963f465E745AF8](https://etherscan.io/address/0xDD3f50F8A6CafbE9b31a427582963f465E745AF8)       |
+| &nbsp;  | Storage | [0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46](https://etherscan.io/address/0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46)       |
+| Hoodi\* | Deposit | [0x320f3aAB9405e38b955178BBe75c477dECBA0C27](https://hoodi.etherscan.io/address/0x320f3aAB9405e38b955178BBe75c477dECBA0C27) |
+| &nbsp;  | Storage | [0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1](https://hoodi.etherscan.io/address/0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1) |
 
-Within the protocol, the Storage contract is used to find all the other deployed contract addresses as needed (see this [example](/en/overview/contracts-usage#interacting-with-rocket-pool)).
-See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contracts) below for a full list of addresses.
+在协议内部，Storage 合约用于根据需要查找所有其他已部署的合约地址（参见此[示例](/zh/overview/contracts-usage#interacting-with-rocket-pool)）。
+请参阅下方的[所有活跃部署的协议合约](#all-active-deployed-protocol-contracts)获取完整地址列表。
 
-<small>\* Testnet</small>
+<small>\* 测试网</small>
 
-## Token Contracts
+## 代币合约
 
-| Chain           | Asset | Address                                                                                                                                                                             |
-| --------------- | ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Mainnet         | RPL   | [0xD33526068D116cE69F19A9ee46F0bd304F21A51f](https://etherscan.io/token/0xd33526068d116ce69f19a9ee46f0bd304f21a51f)                                                                 |
-| &nbsp;          | rETH  | [0xae78736Cd615f374D3085123A210448E74Fc6393](https://etherscan.io/token/0xae78736cd615f374d3085123a210448e74fc6393)                                                                 |
-| Arbitrum        | RPL   | [0xb766039cc6db368759c1e56b79affe831d0cc507](https://arbiscan.io/token/0xb766039cc6db368759c1e56b79affe831d0cc507)                                                                  |
-| &nbsp;          | rETH  | [0xec70dcb4a1efa46b8f2d97c310c9c4790ba5ffa8](https://arbiscan.io/token/0xec70dcb4a1efa46b8f2d97c310c9c4790ba5ffa8)                                                                  |
-| Optimism        | RPL   | [0xc81d1f0eb955b0c020e5d5b264e1ff72c14d1401](https://optimistic.etherscan.io/token/0xc81d1f0eb955b0c020e5d5b264e1ff72c14d1401)                                                      |
-| &nbsp;          | rETH  | [0x9bcef72be871e61ed4fbbc7630889bee758eb81d](https://optimistic.etherscan.io/token/0x9bcef72be871e61ed4fbbc7630889bee758eb81d)                                                      |
-| zkSync Era      | RPL   | [0x1CF8553Da5a75C20cdC33532cb19Ef7E3bFFf5BC](https://explorer.zksync.io/address/0x1CF8553Da5a75C20cdC33532cb19Ef7E3bFFf5BC)                                                         |
-| &nbsp;          | rETH  | [0x32Fd44bB869620C0EF993754c8a00Be67C464806](https://explorer.zksync.io/address/0x32Fd44bB869620C0EF993754c8a00Be67C464806)                                                         |
-| Polygon         | RPL   | [0x7205705771547cf79201111b4bd8aaf29467b9ec](https://polygonscan.com/token/https://mainnet.infura.io/v3/730706e87a4a41de9b7b8bd4600a72e30x7205705771547cf79201111b4bd8aaf29467b9ec) |
-| &nbsp;          | rETH  | [0x0266F4F08D82372CF0FcbCCc0Ff74309089c74d1](https://polygonscan.com/token/0x0266F4F08D82372CF0FcbCCc0Ff74309089c74d1)                                                              |
-| Polygon (zkEVM) | RPL   | [0x70d35152fBf63FB312709b11a9Bac87519de0019](https://zkevm.polygonscan.com/address/0x70d35152fBf63FB312709b11a9Bac87519de0019)                                                      |
-| &nbsp;          | rETH  | [0xb23C20EFcE6e24Acca0Cef9B7B7aA196b84EC942](https://zkevm.polygonscan.com/address/0xb23C20EFcE6e24Acca0Cef9B7B7aA196b84EC942)                                                      |
-| Hoodi\*         | RPL   | [0x1Cc9cF5586522c6F483E84A19c3C2B0B6d027bF0](https://hoodi.etherscan.io/address/0x1Cc9cF5586522c6F483E84A19c3C2B0B6d027bF0)                                                         |
-| &nbsp;          | rETH  | [0x7322c24752f79c05FFD1E2a6FCB97020C1C264F1](https://hoodi.etherscan.io/address/0x7322c24752f79c05FFD1E2a6FCB97020C1C264F1)                                                         |
-| Base            | RPL   | [0x1f73EAf55d696BFFA9b0EA16fa987B93b0f4d302](https://basescan.org/address/0x1f73EAf55d696BFFA9b0EA16fa987B93b0f4d302)                                                               |
-| &nbsp;          | rETH  | [0xB6fe221Fe9EeF5aBa221c348bA20A1Bf5e73624c](https://basescan.org/address/0xB6fe221Fe9EeF5aBa221c348bA20A1Bf5e73624c)                                                               |
-| Scroll          | rETH  | [0x53878B874283351D26d206FA512aEcE1Bef6C0dD](https://scrollscan.com/address/0x53878b874283351d26d206fa512aece1bef6c0dd)                                                             |
-| Starknet        | rETH  | [0x0319111a5037cbec2b3e638cc34a3474e2d2608299f3e62866e9cc683208c610](https://starkscan.co/token/0x0319111a5037cbec2b3e638cc34a3474e2d2608299f3e62866e9cc683208c610)                 |
-| Unichain        | rETH  | [0x94Cac393f3444cEf63a651FfC18497E7e8bd036a](https://uniscan.xyz/address/0x94Cac393f3444cEf63a651FfC18497E7e8bd036a)                                                                |
+| 链              | 资产 | 地址                                                                                                                                                                                |
+| --------------- | ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Mainnet         | RPL  | [0xD33526068D116cE69F19A9ee46F0bd304F21A51f](https://etherscan.io/token/0xd33526068d116ce69f19a9ee46f0bd304f21a51f)                                                                 |
+| &nbsp;          | rETH | [0xae78736Cd615f374D3085123A210448E74Fc6393](https://etherscan.io/token/0xae78736cd615f374d3085123a210448e74fc6393)                                                                 |
+| Arbitrum        | RPL  | [0xb766039cc6db368759c1e56b79affe831d0cc507](https://arbiscan.io/token/0xb766039cc6db368759c1e56b79affe831d0cc507)                                                                  |
+| &nbsp;          | rETH | [0xec70dcb4a1efa46b8f2d97c310c9c4790ba5ffa8](https://arbiscan.io/token/0xec70dcb4a1efa46b8f2d97c310c9c4790ba5ffa8)                                                                  |
+| Optimism        | RPL  | [0xc81d1f0eb955b0c020e5d5b264e1ff72c14d1401](https://optimistic.etherscan.io/token/0xc81d1f0eb955b0c020e5d5b264e1ff72c14d1401)                                                      |
+| &nbsp;          | rETH | [0x9bcef72be871e61ed4fbbc7630889bee758eb81d](https://optimistic.etherscan.io/token/0x9bcef72be871e61ed4fbbc7630889bee758eb81d)                                                      |
+| zkSync Era      | RPL  | [0x1CF8553Da5a75C20cdC33532cb19Ef7E3bFFf5BC](https://explorer.zksync.io/address/0x1CF8553Da5a75C20cdC33532cb19Ef7E3bFFf5BC)                                                         |
+| &nbsp;          | rETH | [0x32Fd44bB869620C0EF993754c8a00Be67C464806](https://explorer.zksync.io/address/0x32Fd44bB869620C0EF993754c8a00Be67C464806)                                                         |
+| Polygon         | RPL  | [0x7205705771547cf79201111b4bd8aaf29467b9ec](https://polygonscan.com/token/https://mainnet.infura.io/v3/730706e87a4a41de9b7b8bd4600a72e30x7205705771547cf79201111b4bd8aaf29467b9ec) |
+| &nbsp;          | rETH | [0x0266F4F08D82372CF0FcbCCc0Ff74309089c74d1](https://polygonscan.com/token/0x0266F4F08D82372CF0FcbCCc0Ff74309089c74d1)                                                              |
+| Polygon (zkEVM) | RPL  | [0x70d35152fBf63FB312709b11a9Bac87519de0019](https://zkevm.polygonscan.com/address/0x70d35152fBf63FB312709b11a9Bac87519de0019)                                                      |
+| &nbsp;          | rETH | [0xb23C20EFcE6e24Acca0Cef9B7B7aA196b84EC942](https://zkevm.polygonscan.com/address/0xb23C20EFcE6e24Acca0Cef9B7B7aA196b84EC942)                                                      |
+| Hoodi\*         | RPL  | [0x1Cc9cF5586522c6F483E84A19c3C2B0B6d027bF0](https://hoodi.etherscan.io/address/0x1Cc9cF5586522c6F483E84A19c3C2B0B6d027bF0)                                                         |
+| &nbsp;          | rETH | [0x7322c24752f79c05FFD1E2a6FCB97020C1C264F1](https://hoodi.etherscan.io/address/0x7322c24752f79c05FFD1E2a6FCB97020C1C264F1)                                                         |
+| Base            | RPL  | [0x1f73EAf55d696BFFA9b0EA16fa987B93b0f4d302](https://basescan.org/address/0x1f73EAf55d696BFFA9b0EA16fa987B93b0f4d302)                                                               |
+| &nbsp;          | rETH | [0xB6fe221Fe9EeF5aBa221c348bA20A1Bf5e73624c](https://basescan.org/address/0xB6fe221Fe9EeF5aBa221c348bA20A1Bf5e73624c)                                                               |
+| Scroll          | rETH | [0x53878B874283351D26d206FA512aEcE1Bef6C0dD](https://scrollscan.com/address/0x53878b874283351d26d206fa512aece1bef6c0dd)                                                             |
+| Starknet        | rETH | [0x0319111a5037cbec2b3e638cc34a3474e2d2608299f3e62866e9cc683208c610](https://starkscan.co/token/0x0319111a5037cbec2b3e638cc34a3474e2d2608299f3e62866e9cc683208c610)                 |
+| Unichain        | rETH | [0x94Cac393f3444cEf63a651FfC18497E7e8bd036a](https://uniscan.xyz/address/0x94Cac393f3444cEf63a651FfC18497E7e8bd036a)                                                                |
 
-<small>\* Testnet</small>
+<small>\* 测试网</small>
 
-## Deposit Pool Contract Version History
+## 存款池合约版本历史
 
-| Chain   | RP Version      | Address                                                                                                                |
+| 链      | RP 版本         | 地址                                                                                                                   |
 | ------- | --------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | Mainnet | v1.2 (Atlas)    | [0xDD3f50F8A6CafbE9b31a427582963f465E745AF8](https://e`therscan.io/address/0xDD3f50F8A6CafbE9b31a427582963f465E745AF8) |
 | &nbsp;  | v1.1 (Redstone) | [0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4](https://etherscan.io/address/0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4)  |
 | &nbsp;  | v1.0            | [0x4D05E3d48a938db4b7a9A59A802D5b45011BDe58](https://etherscan.io/address/0x4D05E3d48a938db4b7a9A59A802D5b45011BDe58)  |
 
-<small>\* Testnet</small>
+<small>\* 测试网</small>
 
-## Integrations
+## 集成
 
-| Category         | Service                       | Link                                                                                                                                                                                                                            | Link                                                                                                                                                                         |
+| 类别             | 服务                          | 链接                                                                                                                                                                                                                            | 链接                                                                                                                                                                         |
 | ---------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Exchanges        | 1inch (Mainnet)               | -                                                                                                                                                                                                                               | [ETH/rETH](https://app.1inch.io/#/1/simple/swap/1:ETH/1:rETH)                                                                                                                |
+| 交易所           | 1inch (Mainnet)               | -                                                                                                                                                                                                                               | [ETH/rETH](https://app.1inch.io/#/1/simple/swap/1:ETH/1:rETH)                                                                                                                |
 | &nbsp;           | Balancer (Mainnet)            | [RPL Pools](https://balancer.fi/pools?skip=0&textSearch=rpl)                                                                                                                                                                    | [rETH Pools](https://balancer.fi/pools?skip=0&textSearch=reth)                                                                                                               |
 | &nbsp;           | Curve (Mainnet)               | -                                                                                                                                                                                                                               | [rETH](https://curve.fi/dex/#/ethereum/pools?search=rETH)                                                                                                                    |
 | &nbsp;           | CowSwap (Mainnet)             | [ETH/RPL](https://swap.cow.fi/#/1/swap/ETH/RPL)                                                                                                                                                                                 | [ETH/rETH](https://swap.cow.fi/#/1/swap/ETH/rETH)                                                                                                                            |
@@ -73,7 +73,7 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 | &nbsp;           | Uniswap (Arbitrum)            | [ETH/RPL](https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0xb766039cc6db368759c1e56b79affe831d0cc507&chain=arbitrum)                                                                                            | [ETH/rETH](https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0xec70dcb4a1efa46b8f2d97c310c9c4790ba5ffa8&chain=arbitrum)                                        |
 | &nbsp;           | Uniswap (Optimism)            | -                                                                                                                                                                                                                               | [ETH/rETH](https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0x9bcef72be871e61ed4fbbc7630889bee758eb81d&chain=optimism)                                        |
 | &nbsp;           | Uniswap (Polygon)             | -                                                                                                                                                                                                                               | [wETH/rETH](https://app.uniswap.org/#/swap?inputCurrency=0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619&outputCurrency=0x0266F4F08D82372CF0FcbCCc0Ff74309089c74d1&chain=polygon) |
-| Lending          | Aave                          | -                                                                                                                                                                                                                               | [Aave](https://app.aave.com)                                                                                                                                                 |
+| 借贷             | Aave                          | -                                                                                                                                                                                                                               | [Aave](https://app.aave.com)                                                                                                                                                 |
 | &nbsp;           | Compound                      | -                                                                                                                                                                                                                               | [Compound](https://app.compound.finance)                                                                                                                                     |
 | &nbsp;           | Morpho                        | -                                                                                                                                                                                                                               | [Morpho](https://app.morpho.org)                                                                                                                                             |
 | &nbsp;           | Euler Finance                 | -                                                                                                                                                                                                                               | [Euler Finance](https://app.euler.finance)                                                                                                                                   |
@@ -82,35 +82,35 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 | &nbsp;           | Silo                          | -                                                                                                                                                                                                                               | [Silo](https://app.silo.finance)                                                                                                                                             |
 | &nbsp;           | Alchemix                      | -                                                                                                                                                                                                                               | [Alchemix](https://alchemix.fi/vaults)                                                                                                                                       |
 | &nbsp;           | MYSO Finance                  | -                                                                                                                                                                                                                               | [MYSO Finance](https://app.myso.finance/)                                                                                                                                    |
-| Oracles (NAV)    | RP oDAO Rate (Mainnet)        | -                                                                                                                                                                                                                               | [rETH/ETH](https://etherscan.io/address/0xae78736cd615f374d3085123a210448e74fc6393#readContract#F6)                                                                          |
+| 预言机 (NAV)     | RP oDAO Rate (Mainnet)        | -                                                                                                                                                                                                                               | [rETH/ETH](https://etherscan.io/address/0xae78736cd615f374d3085123a210448e74fc6393#readContract#F6)                                                                          |
 | &nbsp;           | RP Rate Provider (Optimism)   | -                                                                                                                                                                                                                               | [rETH/ETH](https://github.com/rocket-pool/rocketpool-ovm-oracle)                                                                                                             |
 | &nbsp;           | RP Rate Provider (Arbitrum)   | -                                                                                                                                                                                                                               | [rETH/ETH](https://github.com/rocket-pool/rocketpool-arbitrum-oracle)                                                                                                        |
 | &nbsp;           | RP Rate Provider (Polygon)    | -                                                                                                                                                                                                                               | [rETH/ETH](https://github.com/rocket-pool/rocketpool-polygon-oracle)                                                                                                         |
 | &nbsp;           | RP Rate Provider (zksync era) | -                                                                                                                                                                                                                               | [rETH/ETH](https://github.com/rocket-pool/rocketpool-zksync-oracle)                                                                                                          |
 | &nbsp;           | Chainlink (Arbitrum)          | -                                                                                                                                                                                                                               | [rETH/ETH](https://data.chain.link/arbitrum/mainnet/crypto-eth/reth-eth-exchange-rate)                                                                                       |
-| Oracles (Market) | RP oDAO Rate (Mainnet)        | [ETH/RPL](https://etherscan.io/address/0x751826b107672360b764327631cC5764515fFC37#readContract#F3)                                                                                                                              | -                                                                                                                                                                            |
+| 预言机 (Market)  | RP oDAO Rate (Mainnet)        | [ETH/RPL](https://etherscan.io/address/0x751826b107672360b764327631cC5764515fFC37#readContract#F3)                                                                                                                              | -                                                                                                                                                                            |
 | &nbsp;           | Chainlink (Mainnet)           | -                                                                                                                                                                                                                               | [rETH/ETH](https://data.chain.link/ethereum/mainnet/crypto-eth/reth-eth)                                                                                                     |
 | &nbsp;           | Maker (Mainnet)               | -                                                                                                                                                                                                                               | [rETH/USD](https://etherscan.io/address/0xee7f0b350aa119b3d05dc733a4621a81972f7d47)                                                                                          |
-| Trackers         | DefiLlama                     | [RPL](https://defillama.com/protocol/rocket-pool)                                                                                                                                                                               | -                                                                                                                                                                            |
+| 追踪器           | DefiLlama                     | [RPL](https://defillama.com/protocol/rocket-pool)                                                                                                                                                                               | -                                                                                                                                                                            |
 | &nbsp;           | Delta                         | -                                                                                                                                                                                                                               | [rETH](https://delta.app/)                                                                                                                                                   |
 | &nbsp;           | iYield                        | [RPL](https://go.iyield.com/rp)                                                                                                                                                                                                 | [rETH](https://go.iyield.com/rp)                                                                                                                                             |
-| Vaults           | Aura Finance                  | -                                                                                                                                                                                                                               | [Aura](https://app.aura.finance/#/)                                                                                                                                          |
+| 金库             | Aura Finance                  | -                                                                                                                                                                                                                               | [Aura](https://app.aura.finance/#/)                                                                                                                                          |
 | &nbsp;           | Gamma                         | -                                                                                                                                                                                                                               | [Gamma](https://app.gamma.xyz/vault/uni/ethereum/details/reth-weth-500-pegged-price)                                                                                         |
 | &nbsp;           | Notional Finance              | -                                                                                                                                                                                                                               | [Notional Finance](https://notional.finance)                                                                                                                                 |
 | &nbsp;           | Contango                      | -                                                                                                                                                                                                                               | [Contango](https://app.contango.xyz)                                                                                                                                         |
 | &nbsp;           | Flat Money                    | -                                                                                                                                                                                                                               | [Flat Money](https://flat.money)                                                                                                                                             |
 
-## Management Committee Wallets
+## 管理委员会钱包
 
-| Chain    | Committee | Address                                                                                                                         |
-| -------- | --------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| Mainnet  | GMC       | [0x6efD08303F42EDb68F2D6464BCdCA0824e1C813a](https://app.safe.global/home?safe=eth:0x6efD08303F42EDb68F2D6464BCdCA0824e1C813a)  |
-| &nbsp;   | IMC       | [0xb867EA3bBC909954d737019FEf5AB25dFDb38CB9](https://app.safe.global/home?safe=eth:0xb867EA3bBC909954d737019FEf5AB25dFDb38CB9)  |
-| Arbitrum | IMC       | [0xd7102A3744c302f167c53621453516345bC460d7](https://app.safe.global/home?safe=arb1:0xd7102A3744c302f167c53621453516345bC460d7) |
+| 链       | 委员会 | 地址                                                                                                                            |
+| -------- | ------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| Mainnet  | GMC    | [0x6efD08303F42EDb68F2D6464BCdCA0824e1C813a](https://app.safe.global/home?safe=eth:0x6efD08303F42EDb68F2D6464BCdCA0824e1C813a)  |
+| &nbsp;   | IMC    | [0xb867EA3bBC909954d737019FEf5AB25dFDb38CB9](https://app.safe.global/home?safe=eth:0xb867EA3bBC909954d737019FEf5AB25dFDb38CB9)  |
+| Arbitrum | IMC    | [0xd7102A3744c302f167c53621453516345bC460d7](https://app.safe.global/home?safe=arb1:0xd7102A3744c302f167c53621453516345bC460d7) |
 
-## All Active Deployed Protocol Contracts
+## 所有活跃部署的协议合约
 
-| Chain   | Contract Name                         | Address                                                                                                                    |
+| 链      | 合约名称                              | 地址                                                                                                                       |
 | ------- | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
 | Mainnet | addressQueueStorage                   | [0x44E31944E1A6F3b8F805E105B130F8bdb7E2EBd8](https://etherscan.io/address/0x44E31944E1A6F3b8F805E105B130F8bdb7E2EBd8)      |
 | &nbsp;  | addressSetStorage                     | [0xD4ae2511dF21F367792bA4D67c6eb032171c6a16](https://etherscan.io/address/0xD4ae2511dF21F367792bA4D67c6eb032171c6a16)      |
@@ -235,8 +235,8 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 | &nbsp;  | rocketDAOSecurityProposals            | [0x89F478E6Cc24f052103628f36598D4C14Da3D287](http://hoodi.etherscan.io/address/0x89F478E6Cc24f052103628f36598D4C14Da3D287) |
 | &nbsp;  | rocketDAOProtocolSettingsSecurity     | [0xE535fA45e12d748393C117C6D8EEBe1a7D124d95](http://hoodi.etherscan.io/address/0xE535fA45e12d748393C117C6D8EEBe1a7D124d95) |
 
-<small>\* Testnet</small>
+<small>\* 测试网</small>
 
-This list was updated 31/03/2025
+此列表更新于 2025 年 3 月 31 日
 
-The addresses can be queried on chain as shown in this [example](/en/overview/contracts-usage#interacting-with-rocket-pool).
+地址可以在链上查询，如此[示例](/zh/overview/contracts-usage#interacting-with-rocket-pool)所示。

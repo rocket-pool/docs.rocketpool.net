@@ -1,202 +1,202 @@
-# Fee Distributors and the Smoothing Pool
+# 费用分配器和平滑池
 
-Now that [the Merge](https://ethereum.org/en/upgrades/merge/) has passed, node operators receive **priority fees** (**tips**) from the transactions they include in any blocks that they propose to the Ethereum chain.
-These fees come from and stay on the Execution layer.
+现在[合并](https://ethereum.org/en/upgrades/merge/)已经完成,节点运营者从他们向Ethereum链提议的任何区块中包含的交易中获得**优先费**(**小费**)。
+这些费用来自并停留在Execution层。
 
-Unlike most validation rewards which are generated on the Consensus layer and automatically withdrawn periodically, these fees are _immediately liquid_.
-In general, priority fees provide almost as much ETH to you as Beacon Chain rewards do, so they are a very nice benefit of the Merge.
+与大多数在Consensus层生成并定期自动提取的验证奖励不同,这些费用是_立即可用的_。
+通常,优先费为您提供的ETH几乎与Beacon Chain奖励一样多,因此它们是合并后非常好的福利。
 
-::: tip NOTE
-As a quick reminder here's a breakdown of the different types of rewards and which layer they're provided on:
+::: tip 注意
+快速提醒一下,这里是不同类型奖励及其提供层的细分:
 
-- Consensus Layer: attestations, block proposals, sync committees, slashing reports
-- Execution Layer: priority fees and MEV (discussed in the next section) from block proposals
+- Consensus层:证明、区块提议、同步委员会、惩罚报告
+- Execution层:来自区块提议的优先费和MEV(将在下一节讨论)
 
 :::
 
-## Fee Recipients
+## 费用接收者
 
-When you propose a block on the Ethereum chain, the protocol needs to know where to send the tips from each transaction included in your block.
-It can't send them to your validator's address, because that's on the Consensus layer - not the Execution layer.
-It can't send them to your minipool address, because it has to work for solo stakers too and solo stakers don't have an address on the Execution layer attached to their validators the way Rocket Pool does.
+当您在Ethereum链上提议区块时,协议需要知道将区块中包含的每笔交易的小费发送到哪里。
+它不能将它们发送到您验证者的地址,因为那是在Consensus层上 - 不是Execution层。
+它不能将它们发送到您的minipool地址,因为它必须适用于solo质押者,而solo质押者在Execution层上没有附加到他们验证者的地址,就像Rocket Pool那样。
 
-Instead, the way it works is fairly straightforward: when Rocket Pool starts up your Validator Client, it passes in an argument called the **fee recipient**.
-The fee recipient is simply an address on the Execution layer where you want the tips to go.
+相反,它的工作方式相当直接:当Rocket Pool启动您的Validator客户端时,它会传入一个称为**费用接收者**的参数。
+费用接收者只是Execution层上您想要小费发送到的地址。
 
-Rocket Pool is designed to fairly distribute these rewards between you and the rETH pool stakers, the same way it fairly distributes your Beacon chain rewards: your portion of any priority fees your minipool validators earn will go to you (plus the average commission of all of your minipools), and the remaining portion will go to the pool stakers (minus your average commission).
-The exact portion depends on the number of 8 ETH-bonded versus 16 ETH-bonded minipools you have.
+Rocket Pool旨在公平地在您和rETH池质押者之间分配这些奖励,就像它公平分配您的Beacon链奖励一样:您的minipool验证者赚取的任何优先费的一部分将归您所有(加上所有minipool的平均佣金),剩余部分将归池质押者所有(减去您的平均佣金)。
+确切的比例取决于您拥有的8 ETH保证金与16 ETH保证金minipool的数量。
 
-To that end, the Smartnode will automatically set your node's `fee recipient` to either of these special contracts:
+为此,Smartnode将自动将您节点的`费用接收者`设置为以下特殊合约之一:
 
-- Your node's own personal **Fee Distributor** (the default)
-- The **Smoothing Pool** (opt-in)
+- 您节点自己的个人**费用分配器**(默认)
+- **平滑池**(选择加入)
 
-In brief, the **Fee Distributor** is a unique contract attached to your node that collects and fairly splits your priority fees between you and the rETH stakers.
-It's like your own personal vault for priority fees.
-Anyone (including you) can distribute its balance at any time to ensure that the rewards are always available to rETH stakers.
+简而言之,**费用分配器**是附加到您节点的唯一合约,它收集并公平地在您和rETH质押者之间拆分您的优先费。
+它就像您自己的优先费个人金库。
+任何人(包括您)都可以随时分配其余额,以确保奖励始终对rETH质押者可用。
 
-The **Smoothing Pool** is a special opt-in contract that allows all participating node operators to aggregate and pool their priority fees together, and distributes them evenly among the participants during each Rocket Pool rewards interval (currently every 28 days) and the rETH pool stakers.
-This is a very compelling feature for node operators that don't want to worry about the luck factor involved in getting block proposals with high priority fees, and would rather have a nice, regular, consistent set of monthly earnings.
+**平滑池**是一个特殊的选择加入合约,它允许所有参与的节点运营者聚合和汇集他们的优先费,并在每个Rocket Pool奖励间隔(目前每28天)期间在参与者和rETH池质押者之间平均分配它们。
+对于不想担心获得高优先费区块提议所涉及的运气因素,而宁愿拥有良好、规律、一致的每月收入的节点运营者来说,这是一个非常引人注目的功能。
 
-We'll cover both of these below so you understand the difference and whether or not you want to join the Smoothing Pool.
+我们将在下面介绍这两者,以便您了解差异以及您是否想加入平滑池。
 
-::: tip NOTE
-For minipools created after 2024-10-28, the smoothing pool is STRONGLY recommended, as it is used to distribute bonus commission. If you opt out of the smoothing pool, these minipools will get 5% commission total. If you opt into the smoothing pool, these minipools will get between 10% (no RPL staked) and 14% (RPL stake is valued at 10% of borrowed ETH or more) commission.
+::: tip 注意
+对于2024-10-28之后创建的minipool,强烈建议使用平滑池,因为它用于分配奖励佣金。如果您退出平滑池,这些minipool将总共获得5%的佣金。如果您选择加入平滑池,这些minipool将获得10%(未质押RPL)到14%(RPL质押价值为借入ETH的10%或更多)的佣金。
 :::
 
-## Your Fee Distributor
+## 您的费用分配器
 
-Your Fee Distributor is a unique contract on the Execution Layer that's **specific to your node**.
-It will hold all of the priority fees you've earned over time, and it contains the logic required to fairly split and distribute them to the rETH pool stakers and your withdrawal address.
-This distribution process **can be called by anyone** (including rETH stakers), and can be done **at any time**.
-It does not have a time limit before rewards expire.
+您的费用分配器是Execution层上**特定于您节点**的唯一合约。
+它将保存您随时间累积的所有优先费,并包含公平拆分和分配给rETH池质押者和您的提款地址所需的逻辑。
+这个分配过程**可以由任何人调用**(包括rETH质押者),并且可以**随时**完成。
+它没有奖励到期之前的时间限制。
 
-The address for your node's Fee Distributor is **deterministically based on your node address**.
-That means it is known ahead of time, before the Fee Distributor is even created.
+您节点费用分配器的地址**根据您的节点地址确定性地确定**。
+这意味着它是提前知道的,甚至在费用分配器创建之前。
 
-New Rocket Pool nodes will automatically create (initialize) their node's Fee Distributor contract upon registration.
-Nodes that were created before the Redstone upgrade will need to do this process manually.
-This only needs to be run once.
+新的Rocket Pool节点将在注册时自动创建(初始化)其节点的费用分配器合约。
+在Redstone升级之前创建的节点需要手动完成此过程。
+这只需要运行一次。
 
-One interesting ramification of this is that your Distributor's address may start accruing a balance **before** you've initialized your Fee Distributor contract.
-This is okay, because your Distributor will gain access to all of this existing balance as soon as you initialize it.
+这样做的一个有趣后果是,您的分配器地址可能在您**初始化**费用分配器合约**之前**就开始累积余额。
+这没关系,因为您的分配器一旦初始化就会获得所有现有余额的访问权限。
 
-**By default, your node will use its Fee Distributor as the fee recipient for your validators.**
+**默认情况下,您的节点将使用其费用分配器作为验证者的费用接收者。**
 
-### Viewing its Address and Balance
+### 查看其地址和余额
 
-You can view your fee distributor's address and balance as part of:
+您可以查看费用分配器的地址和余额作为以下内容的一部分:
 
 ```shell
 rocketpool node status
 ```
 
-The output will look like this:
+输出将如下所示:
 
 ![](../node-staking/images/status-fee-distributor.png)
 
-### Initializing the Fee Distributor
+### 初始化费用分配器
 
-To initialize your node's distributor, simply run this new command:
+要初始化您节点的分配器,只需运行此新命令:
 
 ```shell
 rocketpool node initialize-fee-distributor
 ```
 
-::: warning NOTE
-If you created your node before the Redstone update, you must call this function once before you can create any new minipools with `rocketpool node deposit`.
+::: warning 注意
+如果您在Redstone更新之前创建了节点,则必须在使用`rocketpool node deposit`创建任何新minipool之前调用此函数一次。
 :::
 
-When your distributor has been initialized, you can claim and distribute its entire balance using the following command:
+当您的分配器已初始化时,您可以使用以下命令声明和分配其全部余额:
 
 ```shell
 rocketpool node distribute-fees
 ```
 
-This will send your share of the rewards to your **withdrawal address**.
+这将把您的奖励份额发送到您的**提款地址**。
 
-::: warning NOTE ON TAXABLE EVENTS
-Whenever you create a new minipool, Rocket Pool will automatically call `distribute-fees`.
-This is to ensure that whatever fees you had accumulated are distributed using your node's average commission, which could change when you create the new minipool.
+::: warning 关于应税事件的注意事项
+每当您创建新的minipool时,Rocket Pool将自动调用`distribute-fees`。
+这是为了确保您累积的任何费用都使用您节点的平均佣金分配,这在您创建新minipool时可能会改变。
 
-Also, note that anyone can call `distribute-fees` on your fee distributor (to prevent you from holding rETH rewards hostage).
-You may have a taxable event whenever this method is called.
+另外,请注意任何人都可以在您的费用分配器上调用`distribute-fees`(以防止您扣留rETH奖励)。
+每当调用此方法时,您可能会产生应税事件。
 
-Please keep these conditions in mind when deciding whether or not to use the Smoothing Pool (discussed below).
+在决定是否使用平滑池(下文讨论)时,请记住这些条件。
 :::
 
-### The Penalty System
+### 惩罚系统
 
-To ensure that node operators don't "cheat" by manually modifying the fee recipient used in their Validator Client, Rocket Pool employs a penalty system.
+为了确保节点运营者不会通过手动修改其Validator客户端中使用的费用接收者来"作弊",Rocket Pool采用了惩罚系统。
 
-The Oracle DAO constantly monitors each block produced by Rocket Pool node operators.
+Oracle DAO不断监控Rocket Pool节点运营者产生的每个区块。
 
-If a node is _opted out_ of the Smoothing Pool, the following addresses are considered valid fee recipients:
+如果节点_退出_平滑池,以下地址被视为有效的费用接收者:
 
-- The rETH address
-- The Smoothing Pool address
-- The node's fee distributor contract
+- rETH地址
+- 平滑池地址
+- 节点的费用分配器合约
 
-If a node is _opted in_ to the Smoothing Pool, the following address is considered a valid fee recipient:
+如果节点_加入_平滑池,以下地址被视为有效的费用接收者:
 
-- The Smoothing Pool address
+- 平滑池地址
 
-A fee recipient other than one of valid addresses above is considered to be **invalid**.
+除上述有效地址之外的费用接收者被视为**无效**。
 
-A minipool that proposed a block with an **invalid** fee recipient will be issued **a strike**.
-On the third strike, the minipool will begin receiving **infractions** - each infraction will dock **10% of its total Beacon Chain balance, including ETH earnings** and send them to the rETH pool stakers upon withdrawing funds from the minipool.
+使用**无效**费用接收者提议区块的minipool将被**发出警告**。
+在第三次警告后,minipool将开始接收**违规** - 每次违规将扣除**其总Beacon Chain余额的10%,包括ETH收益**,并在从minipool提取资金时将其发送给rETH池质押者。
 
-Infractions are at a **minipool** level, not a **node** level.
+违规是在**minipool**级别,而不是**节点**级别。
 
-The Smartnode software is designed to ensure honest users will never get penalized, even if it must take the Validator Client offline to do so.
-If this happens, you will stop attesting and will see error messages in your log files about why the Smartnode can't correctly set your fee recipient.
+Smartnode软件旨在确保诚实的用户永远不会受到惩罚,即使它必须使Validator客户端离线才能做到这一点。
+如果发生这种情况,您将停止证明,并在日志文件中看到关于Smartnode无法正确设置费用接收者的错误消息。
 
-## The Smoothing Pool
+## 平滑池
 
-The **Smoothing Pool** is a unique opt-in feature of the Rocket Pool network that is available to our node operators.
-Essentially, it becomes the fee recipient for every node operator that opts into it and collectively accumulates the priority fees from blocks proposed by those node operators into one large pool. During a Rocket Pool rewards checkpoint (the same ones used to distribute RPL rewards), the total ETH balance of the pool is distributed fairly to the pool stakers and the node operators that opted into it.
+**平滑池**是Rocket Pool网络为我们的节点运营者提供的独特选择加入功能。
+本质上,它成为每个选择加入的节点运营者的费用接收者,并将这些节点运营者提议的区块的优先费集体累积到一个大池中。在Rocket Pool奖励检查点(与用于分配RPL奖励的检查点相同)期间,池的总ETH余额在池质押者和选择加入的节点运营者之间公平分配。
 
-In essence, the Smoothing Pool is a way to effectively eliminate the randomness associated with being selected for block proposals.
-If you've ever had a streak of bad luck and gone months without a proposal, or if your block proposals only have low priority fees, you may find the Smoothing Pool quite exciting.
+从本质上讲,平滑池是一种有效消除与被选中进行区块提议相关的随机性的方法。
+如果您曾经有过运气不佳的经历,几个月没有提议,或者您的区块提议只有低优先费,您可能会觉得平滑池非常令人兴奋。
 
-To make the math easy to understand, community member Ken Smith has put together a [massive analysis](https://raw.githubusercontent.com/htimsk/SPanalysis/main/report/Analysis%20of%20the%20Smoothing%20Pool.pdf) comparing the profitability of the Smoothing Pool and the Fee Distributor, which is summarized nicely with this chart:
+为了使数学易于理解,社区成员Ken Smith整理了一份[大规模分析](https://raw.githubusercontent.com/htimsk/SPanalysis/main/report/Analysis%20of%20the%20Smoothing%20Pool.pdf),比较了平滑池和费用分配器的盈利能力,用这张图表很好地总结了:
 
 ![](../node-staking/images/sp-chart.png)
 
-In short, as long as the Smoothing Pool has more minipools than you do, it's more likely that you'll come out ahead by joining it.
+简而言之,只要平滑池拥有的minipool比您多,您加入它就更有可能获得更好的收益。
 
-### The Rules
+### 规则
 
-The Smoothing Pool uses the following rules:
+平滑池使用以下规则:
 
-- During a Rocket Pool rewards checkpoint when the Smoothing Pool's balance is distributed, the contract's total ETH balance is split in two.
-  - rETH stakers receive 1/2 (for 16 ETH bonds) or 3/4 (for 8 ETH bonds aka LEB8), minus the **average commission** of all opted-in node operators
-  - The remainder goes to the node operators that opted in.
+- 在分配平滑池余额的Rocket Pool奖励检查点期间,合约的总ETH余额被分成两部分。
+  - rETH质押者获得1/2(对于16 ETH保证金)或3/4(对于8 ETH保证金,即LEB8),减去所有选择加入节点运营者的**平均佣金**
+  - 剩余部分归选择加入的节点运营者所有。
 
-- Opting into the Smoothing Pool is done on a **node level**. If you opt in, all of your minipools are opted in.
+- 加入平滑池是在**节点级别**完成的。如果您选择加入,您的所有minipool都选择加入。
 
-- Anyone can opt in at any time. They must wait a full rewards interval (3 days on Hoodi, 28 days on Mainnet) before opting out to prevent gaming the system (e.g. leaving the SP right after being selected to propose a block).
-  - Once opted out, they must wait another full interval to opt back in.
+- 任何人都可以随时选择加入。他们必须等待完整的奖励间隔(Hoodi上为3天,主网上为28天)才能退出,以防止操纵系统(例如在被选中提议区块后立即离开SP)。
+  - 一旦退出,他们必须再等待一个完整的间隔才能重新加入。
 
-- The Smoothing Pool calculates the "share" of each minipool (portion of the pool's ETH for the interval) owned by each node opted in.
-  - The share is a function of your minipool's performance during the interval (calculated by looking at how many attestations you sent on the Beacon Chain, and how many you missed), and your minipool's commission rate.
+- 平滑池计算每个选择加入的节点拥有的每个minipool的"份额"(间隔期间池ETH的部分)。
+  - 份额是您的minipool在间隔期间表现的函数(通过查看您在Beacon Chain上发送了多少证明以及错过了多少证明来计算),以及您minipool的佣金率。
 
-- Your node's total share is the sum of your minipool shares.
+- 您节点的总份额是您的minipool份额的总和。
 
-- Your node's total share is scaled by the amount of time you were opted in.
-  - If you were opted in for the full interval, you receive your full share.
-  - If you were opted in for 30% of an interval, you receive 30% of your full share.
+- 您节点的总份额按您选择加入的时间进行缩放。
+  - 如果您在整个间隔期间都选择加入,您将获得全额份额。
+  - 如果您在间隔的30%时间选择加入,您将获得全额份额的30%。
 
-If you are interested in the complete technical details of Smoothing Pool rewards calculation, please review the [full specification here](https://github.com/rocket-pool/rocketpool-research/blob/master/Merkle%20Rewards%20System/rewards-calculation-spec.md#smoothing-pool-rewards).
+如果您对平滑池奖励计算的完整技术细节感兴趣,请查看[此处的完整规范](https://github.com/rocket-pool/rocketpool-research/blob/master/Merkle%20Rewards%20System/rewards-calculation-spec.md#smoothing-pool-rewards)。
 
-### Joining and Leaving the Smoothing Pool
+### 加入和离开平滑池
 
-To opt into the Smoothing Pool, run the following command:
+要选择加入平滑池,运行以下命令:
 
 ```shell
 rocketpool node join-smoothing-pool
 ```
 
-This will record you as opted-in in the Rocket Pool contracts and automatically change your Validator Client's `fee recipient` from your node's distributor contract to the Smoothing Pool contract.
+这将在Rocket Pool合约中记录您为选择加入,并自动将您的Validator客户端的`费用接收者`从您节点的分配器合约更改为平滑池合约。
 
-To leave the pool, run this command:
+要离开池,运行此命令:
 
 ```shell
 rocketpool node leave-smoothing-pool
 ```
 
-This will record you as opted-out in the Rocket Pool contracts, and once a small delay has passed, will automatically change your Validator Client's `fee recipient` from the Smoothing Pool contract back to your node's Fee Distributor contract.
+这将在Rocket Pool合约中记录您为退出,并且在经过短暂延迟后,将自动将您的Validator客户端的`费用接收者`从平滑池合约更改回您节点的费用分配器合约。
 
-### Claiming Rewards from the Smoothing Pool
+### 从平滑池声明奖励
 
-Rewards from the Smoothing Pool are bundled together with RPL at the end of each rewards interval using the Redstone rewards system.
-Claiming them is as simple as running:
+来自平滑池的奖励在每个奖励间隔结束时使用Redstone奖励系统与RPL捆绑在一起。
+声明它们就像运行以下命令一样简单:
 
 ```shell
 rocketpool node claim-rewards
 ```
 
-If opted into the Smoothing Pool, you will notice that the amount of ETH you receive for each interval is more than zero:
+如果选择加入平滑池,您会注意到每个间隔获得的ETH数量大于零:
 
 ```
 Welcome to the new rewards system!
@@ -218,10 +218,10 @@ Total Pending Rewards:
 Which intervals would you like to claim? Use a comma separated list (such as '1,2,3') or leave it blank to claim all intervals at once.
 ```
 
-Note that the Smoothing Pool rewards in Interval 1 here indicate that the node was opted in during that interval and received rewards accordingly.
+请注意,此处间隔1中的平滑池奖励表明该节点在该间隔期间选择加入并相应地获得了奖励。
 
-We'll cover more about claiming RPL and Smoothing Pool rewards later in the guide, in the [Claiming Rewards](./rewards) section.
+我们将在指南的后面,在[声明奖励](./rewards)部分中更多地介绍声明RPL和平滑池奖励。
 
-## Next Steps
+## 下一步
 
-Once you've decided on whether or not you want to join the Smoothing Pool, take a look at the next section on MEV and MEV rewards.
+一旦您决定是否要加入平滑池,请查看下一节关于MEV和MEV奖励的内容。

@@ -1,61 +1,59 @@
-# Distributing Skimmed Rewards
+# 分配提取的奖励
 
-The ETH rewards you receive for running a validator for Ethereum are routinely sent to your minipools in a process referred to as "skimming".
-The frequency of skims depends on the number of activate validators on the Beacon Chain. At the time of writing the number of validators is around
-500,000 which results in a skim occurring approximately every 2-3 days.
+您为Ethereum运行验证者获得的ETH奖励会通过称为"提取"的过程定期发送到您的minipool。
+提取的频率取决于Beacon Chain上激活的验证者数量。在撰写本文时,验证者数量约为
+500,000,这导致大约每2-3天进行一次提取。
 
-Skimmed rewards will accrue in each of your minipools until you "distribute" them. This process distributes the skimmed rewards between you, as the node operator, and rETH holders
-based on your commission rate and ratio of supplied and provided ETH.
+提取的奖励将在您的每个minipool中累积,直到您"分配"它们。此过程根据您的佣金率和提供的ETH与借入的ETH的比率,在您作为节点运营者和rETH持有者之间分配提取的奖励。
 
-::: warning NOTE
-In order to access your minipool's balance, you will need to upgrade to the [Atlas delegate](./minipools/delegates) first.
-The old Redstone delegate cannot be used to distribute the minipool's balance.
+::: warning 注意
+为了访问您minipool的余额,您需要首先升级到[Atlas委托](./minipools/delegates)。
+旧的Redstone委托不能用于分配minipool的余额。
 :::
 
-## Automatic Distribution
+## 自动分配
 
-By default, the Smartnode is configured to automatically distribute any of your minipools when their individual balances reach **1 ETH**. This
-threshold can be configured in the TUI by following the steps below.
+默认情况下,Smartnode配置为在任何minipool的单个余额达到**1 ETH**时自动分配它们。此
+阈值可以通过以下步骤在TUI中配置。
 
-Run:
+运行:
 
 ```shell
 rocketpool service config
 ```
 
-Navigate to the setting `Smartnode and TX Fee Settings > Auto Distribute Threshold` shown below.
+导航到下面显示的设置`Smartnode and TX Fee Settings > Auto Distribute Threshold`。
 
 ![](./images/tui-automatic-skimming.png)
 
-Changing this setting will adjust the threshold at which the Smartnode will automatically distribute your minipools.
-Setting the parameter to 0 will disable automatic distributions.
+更改此设置将调整Smartnode自动分配minipool的阈值。
+将参数设置为0将禁用自动分配。
 
-::: warning WARNING
-If you decide to disable automatic distribution, it is important that you still perform a manual distribution on a regular
-basis. Read the [manual distribution section](#manual-distribution) that follows on how to do this.
+::: warning 警告
+如果您决定禁用自动分配,重要的是您仍然定期执行手动分配。
+阅读以下[手动分配部分](#manual-distribution)了解如何执行此操作。
 
-After a long period of time your skimmed rewards may exceed 8 ETH. If this situation occurs you will no longer be able
-to distribute them and will need to exit your validator to access your accrued rewards.
+经过很长一段时间后,您提取的奖励可能超过8 ETH。如果发生这种情况,您将无法再
+分配它们,并且需要退出验证者才能访问您累积的奖励。
 
-Rocket Pool features a failsafe design which allows anyone, after a long waiting period, to distribute your minipool when
-its balance exceeds 8 ETH. To protect your capital, the Smartnode monitors this situation and will automatically exit
-your minipool if it occurs.
+Rocket Pool采用了故障安全设计,允许任何人在长时间等待后,当
+minipool余额超过8 ETH时分配您的minipool。为了保护您的资本,Smartnode会监控这种情况,并在发生时自动退出
+您的minipool。
 :::
 
-## Manual Distribution
+## 手动分配
 
-If you have disabled the automatic distribution of skimmed rewards, you will need to routinely distribute them yourself
-with the following process.
+如果您禁用了提取奖励的自动分配,您需要使用以下流程定期自己分配它们。
 
-You can also manually distribute your rewards using this process at any time without waiting for the automatic process above.
+您也可以随时使用此流程手动分配奖励,而无需等待上述自动过程。
 
-If your minipool has less than 8 ETH in it, you can distribute your rewards using the following command:
+如果您的minipool中少于8 ETH,您可以使用以下命令分配奖励:
 
 ```shell
 rocketpool minipool distribute-balance
 ```
 
-This will show you the minipools you have that are eligible for distribution, how much ETH they have, and how much ETH you (the node operator) will receive:
+这将显示您有资格分配的minipool、它们有多少ETH以及您(节点运营者)将获得多少ETH:
 
 ```
 WARNING: The following minipools are using an old delegate and cannot have their rewards safely distributed:
@@ -75,16 +73,16 @@ Please select a minipool to distribute the balance of:
 6: 0xffCAB546539b55756b1F85678f229dd707328A2F (0.070989 ETH available, 0.025201 ETH goes to you plus a refund of 0.000000 ETH)
 ```
 
-Any minipools using the original launch delegate will be mentioned at the start, letting you know that you cannot call `distribute-balance` on them until you upgrade their delegates.
-This delegate was written before skimmed withdrawals were specified and, as such, do not feature a way to distribute skimmed rewards.
+开始时会提到使用原始启动委托的任何minipool,让您知道在升级其委托之前无法对它们调用`distribute-balance`。
+此委托是在指定提取之前编写的,因此不具备分配提取奖励的方法。
 
-Note that for eligible minipools, you are also shown the **refund amount**.
-This is an amount owed directly to you (for example, because you had a balance in your minipool prior to [migrating from a 16-ETH bond down to an 8-ETH bond](./leb-migration.mdx) or you [converted a solo validator into a minipool](./solo-staker-migration) with existing rewards).
-It will not be shared with the rETH holders.
+请注意,对于符合条件的minipool,您还会看到**退款金额**。
+这是直接欠您的金额(例如,因为您在[从16-ETH保证金迁移到8-ETH保证金](./leb-migration.mdx)之前或您[将solo验证者转换为minipool](./solo-staker-migration)并带有现有奖励之前在minipool中有余额)。
+它不会与rETH持有者分享。
 
-Enter the number of the minipool that you want to distribute.
-You will be prompted with the gas price chart as usual, and asked to confirm your decision.
-Once you have, your minipool's balance will be distributed:
+输入您要分配的minipool的编号。
+您将像往常一样看到gas价格图表,并要求确认您的决定。
+一旦确认,您的minipool余额将被分配:
 
 ```
 Using a max fee of 2.00 gwei and a priority fee of 2.00 gwei.
@@ -98,4 +96,4 @@ Waiting for the transaction to be included in a block... you may wait here for i
 Successfully distributed the ETH balance of minipool 0x7E5700bcd65B1770bA68abB288D3f53814d376aC.
 ```
 
-As you can see [from the transaction](https://zhejiang.beaconcha.in/tx/b883eab903d9688b40d291c5c2030084f9bce19135837ebf96a5c1e8871cfbf9), this provided the node's withdrawal address with the node's share of the rewards (plus the refund amount) and returned the rest to the staking pool.
+正如您可以[从交易中](https://zhejiang.beaconcha.in/tx/b883eab903d9688b40d291c5c2030084f9bce19135837ebf96a5c1e8871cfbf9)看到的那样,这为节点的提款地址提供了节点的奖励份额(加上退款金额),并将其余部分返回给质押池。

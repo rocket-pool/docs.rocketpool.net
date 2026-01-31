@@ -1,44 +1,44 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Creating a Standard Rocket Pool Node with Docker
+# Docker ile Standart Rocket Pool Node Oluşturma
 
-In this section, we will walk through the process of installing the Rocket Pool Smartnode stack using the standard [Docker](https://www.docker.com/resources/what-container)-based setup.
-This will install and configure everything you need to run a complete node, including:
+Bu bölümde, standart [Docker](https://www.docker.com/resources/what-container) tabanlı kurulum kullanarak Rocket Pool Smartnode yığınını kurma sürecini adım adım anlatacağız.
+Bu kurulum, eksiksiz bir node çalıştırmak için ihtiyacınız olan her şeyi kuracak ve yapılandıracaktır:
 
-- The Rocket Pool **Smartnode** software
-- An **Execution** (formerly ETH1) client of your choice, or a connection to an existing client you already manage
-- A **Consensus** (formerly ETH2) client of your choice, or a connection to an existing client you already manage
-- A **Validator** client that will handle your Beacon Chain validation duties
-- (Optionally) a **monitoring stack** for capturing performance and health metrics
+- Rocket Pool **Smartnode** yazılımı
+- Tercih ettiğiniz bir **Execution** (eski adıyla ETH1) istemcisi veya halihazırda yönettiğiniz mevcut bir istemciye bağlantı
+- Tercih ettiğiniz bir **Consensus** (eski adıyla ETH2) istemcisi veya halihazırda yönettiğiniz mevcut bir istemciye bağlantı
+- Beacon Chain doğrulama görevlerinizi yerine getirecek bir **Validator** istemcisi
+- (İsteğe bağlı) performans ve sağlık metriklerini yakalamak için bir **izleme yığını**
 
-All you need to do is tell it what you want to run!
+Tek yapmanız gereken neyi çalıştırmak istediğinizi söylemek!
 
-::: tip NOTE
-The below instructions require you to use your system's **terminal** to enter and execute commands.
-If you are connected to the node machine via SSH, you are already doing this.
-If you are on the node machine and using a Desktop UI, you will need to open a terminal window to execute the following commands.
-Refer to your OS's instructions to learn how to do this if you are unfamiliar.
+::: tip NOT
+Aşağıdaki talimatlar, komutları girmek ve çalıştırmak için sisteminizin **terminal**ini kullanmanızı gerektirir.
+Node makinesine SSH üzerinden bağlıysanız, bunu zaten yapıyorsunuz demektir.
+Node makinesi üzerindeyseniz ve bir masaüstü arayüzü kullanıyorsanız, aşağıdaki komutları çalıştırmak için bir terminal penceresi açmanız gerekecektir.
+Bunu nasıl yapacağınızı bilmiyorsanız, işletim sisteminizin talimatlarına bakın.
 :::
 
-## Process Overview
+## Sürece Genel Bakış
 
-At a high level, here's what is involved in installing Rocket Pool:
+Üst düzey olarak, Rocket Pool'u kurmak için gerekenler şunlardır:
 
-1. Download the Rocket Pool command-line interface (CLI)
-1. Use the CLI to install the Smartnode stack
-1. Configure the Smartnode stack with an easy-to-use UI in the terminal
-1. Done!
+1. Rocket Pool komut satırı arayüzünü (CLI) indirin
+1. CLI'yı kullanarak Smartnode yığınını kurun
+3. Smartnode yığınını terminalde kullanımı kolay bir arayüz ile yapılandırın
+4. Tamamdır!
 
-## Before You Start
+## Başlamadan Önce
 
 ::: warning
-If using Ubuntu, it is recommended that before installing Rocket Pool you double check that docker was not installed alongside the operating system.
+Ubuntu kullanıyorsanız, Rocket Pool'u kurmadan önce docker'ın işletim sistemiyle birlikte kurulmadığını iki kez kontrol etmeniz önerilir.
 
-The Ubuntu installer gets docker from the snap package manager, which will conflict with the version of docker installed by Smartnode.
+Ubuntu yükleyicisi docker'ı snap paket yöneticisinden alır ve bu, Smartnode tarafından kurulan docker sürümüyle çakışacaktır.
 
-Run `snap list`, and make sure `docker` was not installed.
+`snap list` komutunu çalıştırın ve `docker`'ın kurulmadığından emin olun.
 
-For example, this is the output on a machine where docker is not installed:
+Örneğin, docker'ın kurulmadığı bir makinede çıktı şu şekildedir:
 
 ```
 Name    Version        Rev    Tracking       Publisher   Notes
@@ -47,7 +47,7 @@ lxd     5.0.2-838e1b2  24322  5.0/stable/…   canonical✓  -
 snapd   2.59.1         18933  latest/stable  canonical✓  snapd
 ```
 
-And here is the output if it was installed:
+Ve kuruluysa çıktı şu şekildedir:
 
 ```
 Name    Version        Rev    Tracking       Publisher   Notes
@@ -57,7 +57,7 @@ lxd     5.0.2-838e1b2  24322  5.0/stable/…   canonical✓  -
 snapd   2.59.1         18933  latest/stable  canonical✓  snapd
 ```
 
-If you see it in the `snap list` output, be sure to remove it with:
+Eğer `snap list` çıktısında görüyorsanız, şu komutlarla kaldırdığınızdan emin olun:
 
 ```shell
 sudo systemctl stop snap.docker.dockerd.service
@@ -65,67 +65,67 @@ sudo systemctl stop snap.docker.dockerd.service
 sudo snap remove --purge docker
 ```
 
-After which, it is recommended that you reboot the machine (`sudo systemctl reboot`)
+Bundan sonra, makineyi yeniden başlatmanız önerilir (`sudo systemctl reboot`)
 :::
 
-## Downloading the Rocket Pool CLI
+## Rocket Pool CLI'sını İndirme
 
-The instructions for downloading the CLI vary based on your Operating System.
+CLI'yı indirme talimatları, işletim sisteminize göre değişir.
 
-::: warning NOTE
-You must perform the following instructions **on the machine you will use for your Rocket Pool node.**
-If you are not using a keyboard and monitor directly connected to your node machine, you will need to access it remotely (e.g. via SSH) and run these commands on it through that remote connection.
+::: warning NOT
+Aşağıdaki talimatları **Rocket Pool node'unuz için kullanacağınız makinede** gerçekleştirmelisiniz.
+Node makinenize doğrudan bağlı bir klavye ve monitör kullanmıyorsanız, uzaktan erişmeniz (örneğin SSH ile) ve bu komutları bu uzak bağlantı üzerinden çalıştırmanız gerekecektir.
 :::
 
 <div className="p-3">
   <Tabs>
     <Tab label="Linux">
-      On Linux, start by creating a new folder that will hold the CLI application:
+      Linux'ta, CLI uygulamasını tutacak yeni bir klasör oluşturarak başlayın:
 
       ```shell
       mkdir -p ~/bin
       ```
 
-      Next, download the CLI.
-      This depends on what architecture your system uses.
+      Ardından, CLI'yı indirin.
+      Bu, sisteminizin kullandığı mimariye bağlıdır.
 
       <p className="rspress-directive tip">
-        <p className="rspress-directive-title">TIP</p>
-        If you do not know your CPU architecture, you can run the following command to find it:
+        <p className="rspress-directive-title">İPUCU</p>
+        CPU mimarinizi bilmiyorsanız, bulmak için aşağıdaki komutu çalıştırabilirsiniz:
 
         ```shell
         uname -m
         ```
 
-        The output of this command will print your architecture.
-        **Note that `x86_64` is the same as `x64` and `amd64`.**
-        **Note that `aarch64` is the same as `arm64`.**
+        Bu komutun çıktısı mimarinizi yazdıracaktır.
+        **`x86_64`'ün `x64` ve `amd64` ile aynı olduğunu unutmayın.**
+        **`aarch64`'ün `arm64` ile aynı olduğunu unutmayın.**
       </p>
 
-      For `x64` systems (most normal computers):
+      `x64` sistemler için (çoğu normal bilgisayar):
 
       ```shell
       wget https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-amd64 -O ~/bin/rocketpool
       ```
 
-      For `arm64` systems:
+      `arm64` sistemler için:
 
       ```shell
       wget https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-arm64 -O ~/bin/rocketpool
       ```
 
-      Mark it as executable, so it has permissions to run:
+      Çalışma izni olması için yürütülebilir olarak işaretleyin:
 
       ```shell
       chmod +x ~/bin/rocketpool
       ```
 
-      Next, **log out and log back in** (or close SSH and reconnect), or simply restart.
-      This is because the path that you saved the CLI to (`~/bin`) may not be in your system's `PATH` variable (the list of places your system searches for executables) yet.
-      Logging out and back in will put it there.
+      Ardından, **oturumu kapatıp tekrar açın** (veya SSH'ı kapatıp yeniden bağlanın) ya da basitçe yeniden başlatın.
+      Bunun nedeni, CLI'yı kaydettiğiniz yolun (`~/bin`) henüz sisteminizin `PATH` değişkeninde (sisteminizin çalıştırılabilir dosyaları aradığı yerler listesi) olmayabilmesidir.
+      Oturumu kapatıp açmak onu oraya ekleyecektir.
 
-      Now, test running it with the `--version` flag.
-      You should see output like this:
+      Şimdi, `--version` bayrağı ile çalıştırarak test edin.
+      Şöyle bir çıktı görmelisiniz:
 
       ```shell
       rocketpool --version
@@ -136,62 +136,62 @@ If you are not using a keyboard and monitor directly connected to your node mach
       ```
 
       <p className="rspress-directive tip">
-        <p className="rspress-directive-title">TIP</p>
-        If you see an error message like this,
+        <p className="rspress-directive-title">İPUCU</p>
+        Eğer şöyle bir hata mesajı görürseniz,
 
         ```shell
         -bash: /home/user/rocketpool: cannot execute binary file: Exec format error
         ```
 
-        it means that you downloaded the wrong version above.
-        Please check if your system is **x64** or **arm64** using the command in the tip above, and download the appropriate version.
-        If your system is neither of those, then you will not be able to run Rocket Pool.
+        bu, yukarıda yanlış sürümü indirdiğiniz anlamına gelir.
+        Lütfen yukarıdaki ipucundaki komutu kullanarak sisteminizin **x64** mi yoksa **arm64** mü olduğunu kontrol edin ve uygun sürümü indirin.
+        Sisteminiz bunların hiçbiri değilse, Rocket Pool'u çalıştıramayacaksınız.
       </p>
     </Tab>
     <Tab label="MacOS">
-      On macOS, download the CLI for your machine with the following command.
+      macOS'ta, makineniz için CLI'yı aşağıdaki komutla indirin.
 
       <p className="rspress-directive tip">
-        <p className="rspress-directive-title">TIP</p>
-        If you do not know your CPU architecture, you can run the following command to find it:
+        <p className="rspress-directive-title">İPUCU</p>
+        CPU mimarinizi bilmiyorsanız, bulmak için aşağıdaki komutu çalıştırabilirsiniz:
 
         ```shell
         uname -m
         ```
 
-        The output of this command will print your architecture.
-        **Note that `x86_64` is the same as `x64` and `amd64`.**
-        **Note that `aarch64` is the same as `arm64`.**
+        Bu komutun çıktısı mimarinizi yazdıracaktır.
+        **`x86_64`'ün `x64` ve `amd64` ile aynı olduğunu unutmayın.**
+        **`aarch64`'ün `arm64` ile aynı olduğunu unutmayın.**
       </p>
 
-      For `x64` systems (most Macs):
+      `x64` sistemler için (çoğu Mac):
 
       ```shell
       curl -L https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-darwin-amd64 > /usr/local/bin/rocketpool
       ```
 
-      For `arm64` systems, such as the Mac mini with M1:
+      `arm64` sistemler için, M1'li Mac mini gibi:
 
       ```shell
       curl -L https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-darwin-arm64 > /opt/homebrew/bin/rocketpool
       ```
 
-      For `x64` systems (most Macs):
-      Mark it as executable, so it has permissions to run:
+      `x64` sistemler için (çoğu Mac):
+      Çalışma izni olması için yürütülebilir olarak işaretleyin:
 
       ```shell
       chmod +x /usr/local/bin/rocketpool
       ```
 
-      For `arm64` systems, such as the Mac mini with M1:
-      Mark it as executable, so it has permissions to run:
+      `arm64` sistemler için, M1'li Mac mini gibi:
+      Çalışma izni olması için yürütülebilir olarak işaretleyin:
 
       ```shell
       chmod +x /opt/homebrew/bin/rocketpool
       ```
 
-      Now, test running it with the `--version` flag.
-      You should see output like this:
+      Şimdi, `--version` bayrağı ile çalıştırarak test edin.
+      Şöyle bir çıktı görmelisiniz:
 
       ```shell
       rocketpool --version
@@ -202,45 +202,45 @@ If you are not using a keyboard and monitor directly connected to your node mach
       ```
 
       <p className="rspress-directive tip">
-        <p className="rspress-directive-title">TIP</p>
-        If you see an error message like this,
+        <p className="rspress-directive-title">İPUCU</p>
+        Eğer şöyle bir hata mesajı görürseniz,
 
         ```shell
         /usr/local/bin/rocketpool: Exec format error
         ```
 
-        it means that you downloaded the wrong version above.
-        Please check if your system is x64 or arm64 using the command in the tip above, and download the appropriate version.
-        If your system is neither of those, then you will not be able to run Rocket Pool.
+        bu, yukarıda yanlış sürümü indirdiğiniz anlamına gelir.
+        Lütfen yukarıdaki ipucundaki komutu kullanarak sisteminizin x64 mi yoksa arm64 mü olduğunu kontrol edin ve uygun sürümü indirin.
+        Sisteminiz bunların hiçbiri değilse, Rocket Pool'u çalıştıramayacaksınız.
       </p>
     </Tab>
 
   </Tabs>
 </div>
 
-## Installing the Smartnode Stack
+## Smartnode Yığınını Kurma
 
-Now that you have the CLI installed, you can deploy the Smartnode stack.
-This will prepare your system with Docker, [docker-compose](https://docs.docker.com/compose/), and load the Smartnode files so they're ready to go.
-It won't actually run anything yet; that comes later.
+Artık CLI kurulu olduğuna göre, Smartnode yığınını dağıtabilirsiniz.
+Bu, sisteminizi Docker, [docker-compose](https://docs.docker.com/compose/) ile hazırlayacak ve Smartnode dosyalarını yükleyerek kullanıma hazır hale getirecektir.
+Henüz hiçbir şey çalıştırmayacaktır; bu daha sonra gelir.
 
-To deploy the Smartnode stack, you will need to run the following command on your node machine (either by logging in locally, or connecting remotely such as through SSH):
+Smartnode yığınını dağıtmak için, node makinenizde aşağıdaki komutu çalıştırmanız gerekir (yerel olarak oturum açarak veya SSH gibi uzaktan bağlanarak):
 
 ```shell
 rocketpool service install
 ```
 
-This will grab the latest version of the Smartnode stack and set it up.
-You should see output like this (_above some release notes for the latest version which will be printed at the end_):
+Bu, Smartnode yığınının en son sürümünü alacak ve kuracaktır.
+Şöyle bir çıktı görmelisiniz (_sonunda yazdırılacak en son sürüm için bazı sürüm notlarının üstünde_):
 
 <img src="./images/rp-install-screen.png" width="100%" height="auto" />
 
-If there aren't any error messages, then the installation was successful.
-By default, it will be put into the `~/.rocketpool` directory inside of your user account's home folder.
+Herhangi bir hata mesajı yoksa, kurulum başarılı olmuştur.
+Varsayılan olarak, kullanıcı hesabınızın ana klasörü içindeki `~/.rocketpool` dizinine yerleştirilecektir.
 
-::: warning NOTE
-Note that the Smartnode installer cannot install `docker` and `docker-compose` on all platforms automatically.
-If you receive an error message like this during the installation:
+::: warning NOT
+Smartnode yükleyicisinin tüm platformlarda `docker` ve `docker-compose`'u otomatik olarak kuramayacağını unutmayın.
+Kurulum sırasında şöyle bir hata mesajı alırsanız:
 
 ```
 Automatic dependency installation for the Mint operating system is not supported.
@@ -249,19 +249,19 @@ Be sure to add yourself to the docker group with 'sudo usermod -aG docker $USER'
 Log out and back in, or restart your system after you run this command.
 ```
 
-Then you simply have to install those two things manually.
+O zaman bu iki şeyi manuel olarak kurmanız yeterlidir.
 
-Docker provides common [install instructions here](https://docs.docker.com/engine/install/).
+Docker, genel [kurulum talimatlarını burada](https://docs.docker.com/engine/install/) sağlar.
 
-Docker-compose provides common [install instructions here](https://docs.docker.com/compose/install/).
+Docker-compose, genel [kurulum talimatlarını burada](https://docs.docker.com/compose/install/) sağlar.
 
-Once both are installed, make sure you give your user account permission to use Docker:
+Her ikisi de kurulduğunda, kullanıcı hesabınıza Docker'ı kullanma izni verdiğinizden emin olun:
 
 ```shell
 sudo usermod -aG docker $USER
 ```
 
-Finally, re-run the installer with the `-d` flag to skip Docker installation:
+Son olarak, Docker kurulumunu atlamak için yükleyiciyi `-d` bayrağı ile yeniden çalıştırın:
 
 ```shell
 rocketpool service install -d
@@ -269,52 +269,52 @@ rocketpool service install -d
 
 :::
 
-After this, **log out and back in or restart your SSH session** for the settings to take effect.
+Bundan sonra, ayarların etkili olması için **oturumu kapatıp tekrar açın veya SSH oturumunuzu yeniden başlatın**.
 
-Once this is finished, the Smartnode stack will be ready to run.
+Bu tamamlandığında, Smartnode yığını çalışmaya hazır olacaktır.
 
-## Configuring Docker's Storage Location
+## Docker'ın Depolama Konumunu Yapılandırma
 
-By default, Docker will store all of its container data on your operating system's drive.
-In some cases, this is not what you want.
+Varsayılan olarak, Docker tüm konteyner verilerini işletim sisteminizin sürücüsünde saklayacaktır.
+Bazı durumlarda, bu istediğiniz şey değildir.
 
-::: tip NOTE
-If you are fine with this default behavior, skip down to the next section.
+::: tip NOT
+Bu varsayılan davranıştan memnunsanız, bir sonraki bölüme atlayın.
 :::
 
-To do this, create a new file called `/etc/docker/daemon.json` as the root user:
+Bunu yapmak için, root kullanıcısı olarak `/etc/docker/daemon.json` adında yeni bir dosya oluşturun:
 
 ```shell
 sudo nano /etc/docker/daemon.json
 ```
 
-This will be empty at first, which is fine. Add this as the contents:
+Bu başta boş olacaktır, bu normaldir. İçerik olarak şunu ekleyin:
 
 ```json
 {
-  "data-root": "<your external mount point>/docker"
+  "data-root": "<harici bağlama noktanız>/docker"
 }
 ```
 
-where `<your external mount point>` is the directory that your other drive is mounted to.
+burada `<harici bağlama noktanız>` diğer sürücünüzün bağlandığı dizindir.
 
-Press `Ctrl+O, Enter` to save the file, and `Ctrl+X, Enter` to exit the editor.
+Dosyayı kaydetmek için `Ctrl+O, Enter`, editörden çıkmak için `Ctrl+X, Enter` tuşlarına basın.
 
-Next, make the folder:
+Ardından, klasörü oluşturun:
 
 ```shell
-sudo mkdir -p <your external mount point>/docker
+sudo mkdir -p <harici bağlama noktanız>/docker
 ```
 
-Now, restart the docker daemon so it picks up on the changes:
+Şimdi, değişiklikleri algılaması için docker daemon'unu yeniden başlatın:
 
 ```shell
 sudo systemctl restart docker
 ```
 
-After that, Docker will store its data on your desired disk.
+Bundan sonra, Docker verilerini istediğiniz diskte saklayacaktır.
 
-## Configuring the Smartnode Stack
+## Smartnode Yığınını Yapılandırma
 
-The next step in the installation process is to do an initial configuration of your node.
-Move on to the [Configuring Rocketpool](./config/overview) section for a walkthrough of this process.
+Kurulum sürecindeki bir sonraki adım, node'unuzun ilk yapılandırmasını yapmaktır.
+Bu sürecin adım adım anlatımı için [Rocketpool'u Yapılandırma](./config/overview) bölümüne geçin.

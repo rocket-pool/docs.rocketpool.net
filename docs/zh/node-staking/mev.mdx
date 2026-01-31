@@ -3,74 +3,74 @@ import tuiMeVBoost from "./images/tui-mev-boost.png";
 import tuiMeVBoostMain from "./images/tui-mev-boost-main.png";
 import mevBoostIntegrationOverview from "./images/mev-boost-integration-overview.png";
 
-# MEV, MEV-Boost, and MEV Rewards
+# MEV、MEV-Boost 和 MEV 奖励
 
-In the previous section, you learned about how node operators earn priority fees.
-Priority fees are a great boost to a node operator's income, but they aren't the _only_ form of liquid reward available to you on the Execution layer.
-There is a supplemental form of rewards available, known as **MEV rewards**.
+在上一节中,您了解了节点运营者如何赚取优先费用。
+优先费用是对节点运营者收入的一大提升,但它们并不是执行层上_唯一_可用的流动奖励形式。
+还有一种补充形式的奖励可用,称为 **MEV 奖励**。
 
-:::tip NOTE
-As a quick reminder here's a breakdown of the different types of rewards and which layer they're provided on:
+:::tip 注意
+作为快速提醒,这里是不同类型奖励的细分以及它们在哪一层提供:
 
-- Consensus Layer (locked until withdrawals): attestations, block proposals, sync committees, slashing reports
-- Execution Layer (liquid): priority fees and MEV from block proposals
+- 共识层(锁定直到提款):证明、区块提议、同步委员会、罚没报告
+- 执行层(流动):来自区块提议的优先费用和 MEV
 
 :::
 
-## What is MEV
+## 什么是 MEV
 
-When your validator creates a block, it usually does so with a very simple algorithm: keep track of a list of pending transactions, bundle as many as them into the block you're building as possible (prioritizing so the ones with the highest tips come first), and submit that block to the chain.
+当您的 validator 创建区块时,它通常使用一个非常简单的算法:跟踪待处理交易列表,将尽可能多的交易打包到您正在构建的区块中(优先处理小费最高的交易),然后将该区块提交到链上。
 
-However, Ethereum network users have discovered an interesting side-effect of being able to see the publicly available pool of pending transactions (known as the **mempool**).
-Having this knowledge allows them to employ clever and sophisticated algorithms to modify the ordering of those transactions, and in some cases, introduce _new_ transactions between them.
-These two techniques combined can be used to extract additional ETH from a block proposal.
+然而,Ethereum 网络用户发现了能够看到公开可用的待处理交易池(称为 **mempool**)的一个有趣副作用。
+拥有这些知识使他们能够使用聪明而复杂的算法来修改这些交易的顺序,并在某些情况下,在它们之间引入_新_交易。
+这两种技术结合可用于从区块提议中提取额外的 ETH。
 
-This extra ETH is known as **Maximal Extractable Value**, or MEV for short.
+这个额外的 ETH 被称为**最大可提取价值**,简称 MEV。
 
-In general, there are two "flavors" of MEV:
+一般来说,MEV 有两种"类型":
 
-- MEV that comes from "benign" sources, such as being the first to arbitrage between exchanges after a large buy or sell
-- MEV that comes at the cost of the Ethereum users, by front-running their transactions and profiting from the user's resulting slippage (see [Sandwich Attacks](https://trustwallet.com/blog/how-to-protect-yourself-from-sandwich-attacks) for more information on this technique)
+- 来自"良性"来源的 MEV,例如在大额买入或卖出后成为第一个在交易所之间套利的人
+- 以 Ethereum 用户为代价的 MEV,通过抢先运行他们的交易并从用户的滑点中获利(有关此技术的更多信息,请参阅[三明治攻击](https://trustwallet.com/blog/how-to-protect-yourself-from-sandwich-attacks))
 
-## Block Builders and Relays
+## 区块构建者和中继
 
-Finding MEV opportunities is not an easy thing; state-of-the-art opportunity finders, known as **searchers**, require immensely powerful computers and employ complex AI algorithms to quickly identify and extract MEV.
-Searchers then take these opportunities and provide them to **block builders** - entities that aggregate these bundles of opportunities together to form a complete Ethereum block (which can be the searchers themselves or other parties).
+寻找 MEV 机会并不容易;最先进的机会查找器(称为 **searcher**)需要极其强大的计算机,并采用复杂的 AI 算法来快速识别和提取 MEV。
+然后,searcher 获取这些机会并将它们提供给**区块构建者** - 将这些机会捆绑在一起以形成完整 Ethereum 区块的实体(可以是 searcher 本身或其他方)。
 
-The hardware and software requirements for running a profitable searcher prevent most node operators from using them (or at least using them _competitively_), and thus prevent them from finding their own MEV opportunities to capitalize on.
-Luckily, simply _finding_ MEV opportunities is only half of the equation.
+运行有利可图的 searcher 的硬件和软件要求阻止了大多数节点运营者使用它们(或至少_竞争性地_使用它们),从而阻止他们找到自己的 MEV 机会来利用。
+幸运的是,简单地_寻找_ MEV 机会只是等式的一半。
 
-Every Epoch (6.4 minutes, or 32 slots), the Beacon Chain randomly selects a validator from the entire list of active validators to propose a block that will fit in one of the slots for in that Epoch.
-This list can be seen for the next upcoming Epoch, which means everyone can see which validators are assigned to each slot a few minutes in advance.
+每个 Epoch(6.4 分钟,或 32 个时隙),Beacon Chain 从整个活跃 validator 列表中随机选择一个 validator 来提议一个区块,该区块将适合该 Epoch 中的一个时隙。
+可以看到下一个即将到来的 Epoch 的列表,这意味着每个人都可以提前几分钟看到哪些 validator 被分配到每个时隙。
 
-Some [clever entities](https://docs.flashbots.net/) have leveraged this advance knowledge to essentially construct a kind of "marketplace" of sorts.
-In this marketplace, validators can register themselves when they have upcoming block proposals and block builders can submit bids for blocks they'd like the validators to propose.
-These bids always give the priority fees from each transaction in the block to the proposer, and they _also_ offer a supplemental tip to the proposer that comes from the MEV the builder was able to extract for themselves.
+一些[聪明的实体](https://docs.flashbots.net/)利用这种提前知识本质上构建了一种"市场"。
+在这个市场中,validator 可以在即将进行区块提议时注册自己,区块构建者可以为他们希望 validator 提议的区块提交出价。
+这些出价总是将区块中每笔交易的优先费用提供给提议者,并且它们_还_向提议者提供来自构建者能够为自己提取的 MEV 的补充小费。
 
-The validators can then examine these bids, determine which one ultimately provides the most profit, and propose that block instead of building their own.
+然后,validator 可以检查这些出价,确定哪个最终提供最多利润,并提议该区块而不是构建自己的区块。
 
-This "marketplace" where block builders interact with validators is known as a **relay**.
-Different relays have different rules (such as which of the aforementioned "flavors" of MEV they permit from block builders, and whether or not they comply with certain government sanction regulations), but ultimately they all serve this same marketplace function.
+区块构建者与 validator 交互的这个"市场"被称为**中继**。
+不同的中继有不同的规则(例如它们允许来自区块构建者的上述 MEV "类型"中的哪一种,以及它们是否遵守某些政府制裁法规),但最终它们都服务于这个相同的市场功能。
 
-Rocket Pool currently offers its node operators access to **multiple different relays**:
+Rocket Pool 目前为其节点运营者提供对**多个不同中继**的访问:
 
-| Name                                                                                          | Regulation                     | MEV Types |
-| --------------------------------------------------------------------------------------------- | ------------------------------ | --------- |
-| [Flashbots](https://boost.flashbots.net/)                                                     | Complies with OFAC Sanctions\* | All types |
-| [bloXroute Max Profit](https://docs.bloxroute.com/apis/mev-solution/mev-relay-for-validators) | Complies with OFAC Sanctions\* | All types |
-| [bloXroute Regulated](https://docs.bloxroute.com/apis/mev-solution/mev-relay-for-validators)  | Complies with OFAC Sanctions\* | All types |
-| [Ultra Sound](https://relay.ultrasound.money/)                                                | Unregulated                    | All types |
-| [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/)                              | Complies with OFAC Sanctions\* | All types |
-| [AESTUS](https://aestus.live/)                                                                | Unregulated                    | All types |
-| [Titan Global](https://docs.titanrelay.xyz/)                                                  | Unregulated                    | All types |
-| [Titan Regional](https://docs.titanrelay.xyz/)                                                | Complies with OFAC Sanctions\* | All types |
-| [BTCS OFAC+](https://shop.btcs.com/ofac-relay/)                                               | Complies with OFAC Sanctions\* | All types |
+| 名称                                                                                          | 监管                     | MEV 类型 |
+| --------------------------------------------------------------------------------------------- | ------------------------ | -------- |
+| [Flashbots](https://boost.flashbots.net/)                                                     | 遵守 OFAC 制裁\*         | 所有类型 |
+| [bloXroute Max Profit](https://docs.bloxroute.com/apis/mev-solution/mev-relay-for-validators) | 遵守 OFAC 制裁\*         | 所有类型 |
+| [bloXroute Regulated](https://docs.bloxroute.com/apis/mev-solution/mev-relay-for-validators)  | 遵守 OFAC 制裁\*         | 所有类型 |
+| [Ultra Sound](https://relay.ultrasound.money/)                                                | 不受监管                 | 所有类型 |
+| [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/)                              | 遵守 OFAC 制裁\*         | 所有类型 |
+| [AESTUS](https://aestus.live/)                                                                | 不受监管                 | 所有类型 |
+| [Titan Global](https://docs.titanrelay.xyz/)                                                  | 不受监管                 | 所有类型 |
+| [Titan Regional](https://docs.titanrelay.xyz/)                                                | 遵守 OFAC 制裁\*         | 所有类型 |
+| [BTCS OFAC+](https://shop.btcs.com/ofac-relay/)                                               | 遵守 OFAC 制裁\*         | 所有类型 |
 
-::: warning NOTE
-\*Relays that comply with OFAC sanctions follow the blacklist of addresses that the United States Office of Foreign Assets Control (OFAC) maintains.
-We **strongly encourage** you to read more about the OFAC sanctions, network censorship, and make a carefully-informed decision about whether or not you believe you should comply with those sanctions and which relays you are comfortable using.
+::: warning 注意
+\*遵守 OFAC 制裁的中继遵循美国外国资产控制办公室 (OFAC) 维护的地址黑名单。
+我们**强烈建议**您阅读更多关于 OFAC 制裁、网络审查的信息,并做出深思熟虑的决定,决定您是否认为应该遵守这些制裁以及您愿意使用哪些中继。
 
-More information can be found in articles such as these:
+更多信息可以在以下文章中找到:
 
 - [https://home.treasury.gov/news/press-releases/jy0916](https://home.treasury.gov/news/press-releases/jy0916)
 - [https://www.coindesk.com/tech/2022/08/23/as-censorship-on-ethereum-begins-could-this-open-sourced-code-help-counter-it/](https://www.coindesk.com/tech/2022/08/23/as-censorship-on-ethereum-begins-could-this-open-sourced-code-help-counter-it/)
@@ -79,178 +79,178 @@ More information can be found in articles such as these:
 
 :::
 
-If you're interested in exploring the relative market share and average tips per block from each of the relays, take a look at [https://www.mevboost.org/](https://www.mevboost.org/).
-This site captures many metrics about the various MEV relays so you can better understand the popularity and returns of the relays.
+如果您有兴趣探索每个中继的相对市场份额和每个区块的平均小费,请查看 [https://www.mevboost.org/](https://www.mevboost.org/)。
+该网站捕获有关各种 MEV 中继的许多指标,以便您可以更好地了解中继的流行度和回报。
 
 ## MEV-Boost
 
-There are many relays out there, and having your node automatically register and maintain contact with each of them can be a burdensome task.
-Luckily, the engineers at Flashbots produced and maintain a program explicitly designed to handle this relay management known as [MEV-Boost](https://boost.flashbots.net/).
+外面有很多中继,让您的节点自动注册并维护与每个中继的联系可能是一项繁重的任务。
+幸运的是,Flashbots 的工程师制作并维护了一个明确设计用于处理这种中继管理的程序,称为 [MEV-Boost](https://boost.flashbots.net/)。
 
-MEV-Boost is a simple program: you tell it which relays you want to use and tell your Consensus client how to reach it, and it takes care of all of the registration, bidding, blind signing, and proposal management in conjunction with your Consensus client.
-It lets you passively participate in this builder-proposer-marketplace, and thus earn extra rewards with zero effort on your part.
+MEV-Boost 是一个简单的程序:您告诉它您想使用哪些中继,并告诉您的共识客户端如何到达它,它会处理所有注册、出价、盲签和提议管理,与您的共识客户端配合。
+它让您被动地参与这个构建者-提议者-市场,从而无需任何努力即可赚取额外奖励。
 
-MEV-Boost is [open source](https://github.com/flashbots/mev-boost) and has been [audited](https://github.com/flashbots/mev-boost/blob/main/docs/audit-20220620).
+MEV-Boost 是[开源的](https://github.com/flashbots/mev-boost),并已经过[审计](https://github.com/flashbots/mev-boost/blob/main/docs/audit-20220620)。
 
-Below is a good visual depiction of how the entire MEV ecosystem functions, and where MEV-Boost fits in:
+下面是整个 MEV 生态系统如何运作以及 MEV-Boost 在其中的位置的良好视觉描述:
 
 <img src={mevBoostIntegrationOverview} width="100%" height="auto" />
 
-_Image courtesy of Flashbots_
+_图片由 Flashbots 提供_
 
-The Rocket Pool Smartnode comes with MEV-Boost directly bundled in by default, enabling our **Docker Mode** and **Hybrid Mode** node operators to seamlessly take advantage of it.
-**Native Mode** users will need to set it up manually.
+Rocket Pool Smartnode 默认直接捆绑了 MEV-Boost,使我们的 **Docker 模式**和**混合模式**节点运营者能够无缝利用它。
+**原生模式**用户需要手动设置它。
 
-## Rocket Pool and MEV
+## Rocket Pool 和 MEV
 
-Because Rocket Pool validators are partially funded by the rETH stakers, the protocol requires that MEV rewards (as well as priority fees) be **shared with the rETH stakers** (minus the node operator's commission, of course).
-Node operators are not permitted to pocket the entire MEV reward for themselves when proposing with a Rocket Pool validator.
+由于 Rocket Pool validator 部分由 rETH staker 资助,协议要求 MEV 奖励(以及优先费用)必须**与 rETH staker 共享**(当然减去节点运营者的佣金)。
+在使用 Rocket Pool validator 进行提议时,不允许节点运营者将整个 MEV 奖励据为己有。
 
-To that end, MEV-Boost is a critical component of the Rocket Pool network for several reasons:
+为此,MEV-Boost 是 Rocket Pool 网络的关键组成部分,原因如下:
 
-- It provides easy access to the network of MEV relays
-- It ensures that the node operator isn't building their own blocks; this is important to ensure that a node operator isn't running their own searcher and stealing MEV without sharing it with the rETH stakers
-- It increases the overall returns for the rETH stakers, which keeps the protocol competitive with other, more centralized staking providers
+- 它提供对 MEV 中继网络的轻松访问
+- 它确保节点运营者不构建自己的区块;这对于确保节点运营者不运行自己的 searcher 并在不与 rETH staker 共享的情况下窃取 MEV 很重要
+- 它增加了 rETH staker 的整体回报,从而使协议与其他更集中的 staking 提供商保持竞争力
 
-The second point here is important: Rocket Pool as a protocol will ultimately rely on a [Trusted Block Builder](https://github.com/rocket-pool/rocketpool-research/blob/master/Post%20Merge/Security#option-2-trusted-block-builders) (or more accurately, a Trusted Relay) design to ensure that rETH stakers always receive their fair share of MEV rewards and priority fees.
+这里的第二点很重要:Rocket Pool 作为一个协议最终将依赖于[可信区块构建者](https://github.com/rocket-pool/rocketpool-research/blob/master/Post%20Merge/Security#option-2-trusted-block-builders)(或更准确地说,可信中继)设计,以确保 rETH staker 始终获得其 MEV 奖励和优先费用的公平份额。
 
-Each of the relays listed above currently act in this role.
+上面列出的每个中继目前都在这个角色中。
 
-We are taking a three-phase approach towards transitioning to the Trusted Block Builder design:
+我们正在采取三阶段方法过渡到可信区块构建者设计:
 
-### Phase 1: Opt-In!
+### 阶段 1:选择加入!
 
-In phase 1, MEV-Boost is provided to all node operators as an **opt-in** configuration.
-Node operators are encouraged to use it because it improves rETH's returns and thus keeps the protocol competitive, but are not required to use it.
-Node operators can elect to use **one or more** of the trusted relays listed above but cannot use a custom (untrusted) relay.
+在第 1 阶段,MEV-Boost 作为**选择加入**配置提供给所有节点运营者。
+鼓励节点运营者使用它,因为它提高了 rETH 的回报,从而保持协议的竞争力,但不要求使用它。
+节点运营者可以选择使用上面列出的一个或多个可信中继,但不能使用自定义(不受信任的)中继。
 
-This phase ended in November 2022.
+此阶段于 2022 年 11 月结束。
 
-### Phase 2: Opt-Out
+### 阶段 2:选择退出
 
-In phase 2, MEV-Boost is enabled by default for all node operators.
-Node operators can elect to use **one or more** of the trusted relays listed above but cannot use a custom (untrusted) relay.
-Node operators that choose to opt-out of MEV-boost must do so explicitly before starting the Smartnode.
+在第 2 阶段,MEV-Boost 默认为所有节点运营者启用。
+节点运营者可以选择使用上面列出的一个或多个可信中继,但不能使用自定义(不受信任的)中继。
+选择退出 MEV-boost 的节点运营者必须在启动 Smartnode 之前明确这样做。
 
-This is the **current phase**.
+这是**当前阶段**。
 
-### Phase 3: Required
+### 阶段 3:必需
 
-In phase 3, MEV-Boost is no longer optional; it will be required for all node operators.
-Node operators **must** elect to use **one or more** of the trusted relays listed above but cannot use a custom (untrusted) relay.
+在第 3 阶段,MEV-Boost 不再是可选的;所有节点运营者都必需。
+节点运营者**必须**选择使用上面列出的一个或多个可信中继,但不能使用自定义(不受信任的)中继。
 
-There is currently **no scheduled date** for this phase.
+此阶段目前**没有预定日期**。
 
-## Configuring MEV-Boost in the Smartnode
+## 在 Smartnode 中配置 MEV-Boost
 
-To learn how to configure MEV-Boost, please select which mode you are using below.
+要了解如何配置 MEV-Boost,请在下面选择您正在使用的模式。
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Docker Mode">
-      Configuring MEV-Boost is easy with the Smartnode's configuration TUI.
-      Start by running `rocketpool service config` and navigate to the `MEV-Boost` option:
+    <Tab label="Docker 模式">
+      使用 Smartnode 的配置 TUI 配置 MEV-Boost 很容易。
+      首先运行 `rocketpool service config` 并导航到 `MEV-Boost` 选项:
 
       <img src={tuiMeVBoost} width="100%" height="auto"/>
 
-      Check the box labeled `Enable MEV-Boost` to enable it.
+      选中标记为 `Enable MEV-Boost` 的复选框以启用它。
 
-      Once enabled, The screen will look like this (_as of Smartnode v1.17.2_):
+      启用后,屏幕将如下所示(_截至 Smartnode v1.17.2_):
 
       <img src={tuiMeVBoostMain} width="100%" height="auto"/>
 
-      Below is a description of each option and how to use them.
+      以下是每个选项的说明以及如何使用它们。
 
-      - The `MEV-Boost Mode` box lets you toggle between a MEV-Boost instance that Rocket Pool manages, and an external one that you manage on your own. This is meant for advanced users that already have MEV-Boost set up and simply want to use it instead of having Rocket Pool run a second copy. Regular Docker Mode users should just leave this set to `Locally Managed`.
+      - `MEV-Boost Mode` 框允许您在 Rocket Pool 管理的 MEV-Boost 实例和您自己管理的外部实例之间切换。这适用于已经设置了 MEV-Boost 并且只想使用它而不是让 Rocket Pool 运行第二个副本的高级用户。常规 Docker 模式用户应该将其保留为 `Locally Managed`。
 
-      - The `Selection Mode` box lets you switch between **Profile Mode** and **Relay Mode**.
+      - `Selection Mode` 框允许您在**配置文件模式**和**中继模式**之间切换。
 
-      - **Profile Mode** is the default. It lets you select which relays to enable based on their "profiles". A relay's profile is made of the following choices:
-      - Whether it's **regulated** (complies with government sanctions lists such as the OFAC list and blacklists certain addresses) or **unregulated** (_does not_ censor any transactions based on any blacklists)
-      - Whether it **allows all types of MEV** or explicitly prohibits bundles that involve sandwich attacks or front-running Ethereum users
-      - You can **select multiple profiles**.
-      - Each profile you select has a set of relays that adhere to it which are listed in the description box; enabling that profile will enable all of those relays.
-      - Advanced users can change this to **Relay Mode**, which lets them explicitly select which relays they would like to use.
+      - **配置文件模式**是默认的。它允许您根据中继的"配置文件"选择要启用的中继。中继的配置文件由以下选择组成:
+      - 它是**受监管的**(遵守政府制裁名单,如 OFAC 名单,并将某些地址列入黑名单)还是**不受监管的**(_不_根据任何黑名单审查任何交易)
+      - 它是**允许所有类型的 MEV** 还是明确禁止涉及三明治攻击或抢先运行 Ethereum 用户的捆绑包
+      - 您可以**选择多个配置文件**。
+      - 您选择的每个配置文件都有一组遵守它的中继,这些中继在描述框中列出;启用该配置文件将启用所有这些中继。
+      - 高级用户可以将其更改为**中继模式**,这允许他们明确选择他们想使用的中继。
 
-      - The `Port` box is not important for Docker mode users.
-      - The `Expose API Port` box is not important for Docker mode users.
-      - The `Container Tag` box is useful to manually upgrade the version of MEV-Boost that the Smartnode runs if Flashbots releases a new high-priority version you want to use before a Smartnode update with it is released.
-      - The `Additional Flags` box is used if you want to add supplemental config flags or parameters directly to the MEV-Boost container. Normally, it will not be useful.
+      - `Port` 框对 Docker 模式用户不重要。
+      - `Expose API Port` 框对 Docker 模式用户不重要。
+      - `Container Tag` 框对于手动升级 Smartnode 运行的 MEV-Boost 版本很有用,如果 Flashbots 发布了一个新的高优先级版本,您想在包含它的 Smartnode 更新发布之前使用它。
+      - `Additional Flags` 框用于如果您想直接向 MEV-Boost 容器添加补充配置标志或参数。通常,它不会有用。
 
-      Once you've enabled MEV-Boost and enabled the relays you'd like, simply save and exit.
-      The Smartnode will restart the relevant containers for you, and automatically set it all up for you.
+      启用 MEV-Boost 并启用您想要的中继后,只需保存并退出。
+      Smartnode 将为您重新启动相关容器,并自动为您设置所有内容。
 
-      See below for instructions on how to check that it's working as expected.
+      有关如何检查它是否按预期工作的说明,请参见下文。
     </Tab>
-    <Tab label="Hybrid Mode">
-      Configuring MEV-Boost is easy with the Smartnode's configuration TUI.
-      Start by running `rocketpool service config` and navigate to the `MEV-Boost` option:
+    <Tab label="混合模式">
+      使用 Smartnode 的配置 TUI 配置 MEV-Boost 很容易。
+      首先运行 `rocketpool service config` 并导航到 `MEV-Boost` 选项:
 
       <img src={tuiMeVBoost} width="100%" height="auto"/>
 
-      Check the box labeled `Enable MEV-Boost` to enable it.
+      选中标记为 `Enable MEV-Boost` 的复选框以启用它。
 
-      Once enabled, The screen will look like this (_as of Smartnode v1.17.2_):
+      启用后,屏幕将如下所示(_截至 Smartnode v1.17.2_):
 
       <img src={tuiMeVBoostMain} width="100%" height="auto"/>
 
-      Check the box labeled `Enable MEV-Boost` to enable it.
+      选中标记为 `Enable MEV-Boost` 的复选框以启用它。
 
-      Below is a description of each option and how to use them.
+      以下是每个选项的说明以及如何使用它们。
 
-      - The `MEV-Boost Mode` box lets you toggle between a MEV-Boost instance that Rocket Pool manages, and an external one that you manage on your own. Some users prefer to let Rocket Pool manage its own instance of MEV-Boost and connect their externally-managed Beacon Nodes to it. In this case, `Locally Managed` is the best option. If you already run your own MEV-Boost instance and simply want to let Rocket Pool's VC use it (i.e. by enabling blinded block signing), simply leave this on `Externally Managed`. **You don't need to take any further action after this.**
+      - `MEV-Boost Mode` 框允许您在 Rocket Pool 管理的 MEV-Boost 实例和您自己管理的外部实例之间切换。一些用户更喜欢让 Rocket Pool 管理自己的 MEV-Boost 实例,并将他们外部管理的 Beacon Node 连接到它。在这种情况下,`Locally Managed` 是最佳选择。如果您已经运行自己的 MEV-Boost 实例,只想让 Rocket Pool 的 VC 使用它(即通过启用盲签区块),只需将其保留为 `Externally Managed`。**此后您无需采取任何进一步行动。**
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        If you run your own MEV-Boost instance, you **must** only register with the trusted relays listed above. If your Rocket Pool validator proposes a block that was sent via an untrusted relay, the Oracle DAO will **flag you for cheating** and possibly stealing MEV from the rETH stakers. This will result in [a penalty](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) on your minipool!
+        <p className="rspress-directive-title">注意</p>
+        如果您运行自己的 MEV-Boost 实例,您**必须**仅使用上面列出的可信中继注册。如果您的 Rocket Pool validator 提议通过不受信任的中继发送的区块,Oracle DAO 将**标记您作弊**并可能从 rETH staker 那里窃取 MEV。这将导致对您的 minipool 的[处罚](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)!
       </p>
 
-      - If you decided to use a `Locally Managed` instance of MEV-Boost, the `Selection Mode` box lets you switch between **Profile Mode** and **Relay Mode**.
+      - 如果您决定使用 `Locally Managed` 的 MEV-Boost 实例,`Selection Mode` 框允许您在**配置文件模式**和**中继模式**之间切换。
 
-      - **Profile Mode** is the default. It lets you select which relays to enable based on their "profiles". A relay's profile is made of the following choices:
-      - Whether it's **regulated** (complies with government sanctions lists such as the OFAC list and blacklists certain addresses) or **unregulated** (_does not_ censor any transactions based on any blacklists)
-      - Whether it **allows all types of MEV** or explicitly prohibits bundles that involve sandwich attacks or front-running Ethereum users
-      - You can **select multiple profiles**.
-      - Each profile you select has a set of relays that adhere to it which are listed in the description box; enabling that profile will enable all of those relays.
-      - Advanced users can change this to **Relay Mode**, which lets them explicitly select which relays they would like to use.
+      - **配置文件模式**是默认的。它允许您根据中继的"配置文件"选择要启用的中继。中继的配置文件由以下选择组成:
+      - 它是**受监管的**(遵守政府制裁名单,如 OFAC 名单,并将某些地址列入黑名单)还是**不受监管的**(_不_根据任何黑名单审查任何交易)
+      - 它是**允许所有类型的 MEV** 还是明确禁止涉及三明治攻击或抢先运行 Ethereum 用户的捆绑包
+      - 您可以**选择多个配置文件**。
+      - 您选择的每个配置文件都有一组遵守它的中继,这些中继在描述框中列出;启用该配置文件将启用所有这些中继。
+      - 高级用户可以将其更改为**中继模式**,这允许他们明确选择他们想使用的中继。
 
-      - The `Port` box determines which port MEV-Boost will listen for incoming connections from your Beacon Node on. If you need to change it because of a port conflict within your node, you can do it here.
-      - The `Expose API Port` box **should be checked** so that your externally-managed BN can communicate with the MEV-Boost instance Rocket Pool will manage. Select `Open to Localhost` if your externally-managed BN is running on the same machine. Only select `Open to External hosts` if your externally-managed BN is running on a different machine *and* you've followed the proper steps to secure your node from unwanted traffic: [Securing Your Node](./securing-your-node)
-      - The `Container Tag` box is useful to manually upgrade the version of MEV-Boost that the Smartnode runs if Flashbots releases a new high-priority version you want to use before a Smartnode update with it is released.
-      - The `Additional Flags` box is used if you want to add supplemental config flags or parameters directly to the MEV-Boost container. Normally, it will not be useful.
+      - `Port` 框确定 MEV-Boost 将在哪个端口侦听来自 Beacon Node 的传入连接。如果由于节点内的端口冲突而需要更改它,可以在此处执行。
+      - `Expose API Port` 框**应该被选中**,以便您外部管理的 BN 可以与 Rocket Pool 将管理的 MEV-Boost 实例通信。如果您外部管理的 BN 在同一台机器上运行,则选择 `Open to Localhost`。仅当您外部管理的 BN 在不同的机器上运行*并且*您已按照适当的步骤保护节点免受不需要的流量时才选择 `Open to External hosts`:[保护您的节点](./securing-your-node)
+      - `Container Tag` 框对于手动升级 Smartnode 运行的 MEV-Boost 版本很有用,如果 Flashbots 发布了一个新的高优先级版本,您想在包含它的 Smartnode 更新发布之前使用它。
+      - `Additional Flags` 框用于如果您想直接向 MEV-Boost 容器添加补充配置标志或参数。通常,它不会有用。
 
-      Once you've enabled MEV-Boost and enabled the relays you'd like, simply save and exit.
-      If you're using a `Locally Managed` instance and have the `Expose API Port` box checked, you can then configure your Beacon Node to connect to it at `http://localhost:18550`.
-      Please refer to [Flashbots' documentation](https://github.com/flashbots/mev-boost/wiki/Testing) to learn how to enable MEV-Boost on your externally-managed Beacon Node.
+      启用 MEV-Boost 并启用您想要的中继后,只需保存并退出。
+      如果您使用的是 `Locally Managed` 实例并且选中了 `Expose API Port` 框,则可以将 Beacon Node 配置为在 `http://localhost:18550` 连接到它。
+      请参阅 [Flashbots 的文档](https://github.com/flashbots/mev-boost/wiki/Testing)以了解如何在外部管理的 Beacon Node 上启用 MEV-Boost。
 
       <p className="rspress-directive tip">
-        <p className="rspress-directive-title">NOTE</p>
-        Note that you **may need to permit this in your UFW configuration** if you have the firewall enabled.
+        <p className="rspress-directive-title">注意</p>
+        请注意,如果启用了防火墙,您**可能需要在 UFW 配置中允许此操作**。
       </p>
 
-      See below for instructions on how to check that it's working as expected.
+      有关如何检查它是否按预期工作的说明,请参见下文。
     </Tab>
-    <Tab label="Native Mode">
-      Please refer to [Flashbots' documentation](https://github.com/flashbots/mev-boost/wiki/Testing) to learn how to enable MEV-Boost on your Beacon Node and Validator Client services.
+    <Tab label="原生模式">
+      请参阅 [Flashbots 的文档](https://github.com/flashbots/mev-boost/wiki/Testing)以了解如何在 Beacon Node 和 Validator Client 服务上启用 MEV-Boost。
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        In your MEV-Boost instance, you **must** only register with the trusted relays listed above. If your Rocket Pool validator proposes a block that was sent via an untrusted relay, the Oracle DAO will **flag you for cheating** and possibly stealing MEV from the rETH stakers. This will result in [a penalty](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) on your minipool!
+        <p className="rspress-directive-title">注意</p>
+        在您的 MEV-Boost 实例中,您**必须**仅使用上面列出的可信中继注册。如果您的 Rocket Pool validator 提议通过不受信任的中继发送的区块,Oracle DAO 将**标记您作弊**并可能从 rETH staker 那里窃取 MEV。这将导致对您的 minipool 的[处罚](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)!
       </p>
     </Tab>
 
   </Tabs>
 </div>
 
-## Checking MEV-Boost's Logs
+## 检查 MEV-Boost 的日志
 
-To check on MEV-Boost's logs, run the following command (for Docker Mode users and Hybrid users with a locally-managed container):
+要检查 MEV-Boost 的日志,请运行以下命令(对于 Docker 模式用户和具有本地管理容器的混合用户):
 
 ```shell
 rocketpool service logs mev-boost
 ```
 
-The output will show you which relays you've enabled, their connection status, and begin listening for traffic from your Beacon Node:
+输出将显示您已启用的中继、它们的连接状态,并开始侦听来自 Beacon Node 的流量:
 
 ```
 mev-boost_1      | time="2022-09-28T22:02:06Z" level=info msg="mev-boost v1.3.1" module=cli
@@ -263,18 +263,18 @@ mev-boost_1      | time="2022-09-28T22:02:07Z" level=info msg="Checking relay" m
 mev-boost_1      | time="2022-09-28T22:02:07Z" level=info msg="listening on 0.0.0.0:18550" module=cli
 ```
 
-This indicates that it's running properly.
+这表明它正在正常运行。
 
-If you have validators already up and running, you will see messages like this every few minutes in the logs:
+如果您已经有 validator 启动并运行,您将每隔几分钟在日志中看到类似这样的消息:
 
 ```
 mev-boost_1      | time="2022-09-28T21:40:48Z" level=info msg="http: GET /eth/v1/builder/status 200" duration=0.147305645 method=GET module=service path=/eth/v1/builder/status status=200
 mev-boost_1      | time="2022-09-28T21:40:48Z" level=info msg="http: POST /eth/v1/builder/validators 200" duration=0.052895118 method=POST module=service path=/eth/v1/builder/validators status=200
 ```
 
-This indicates that your Beacon node was able to properly connect to it and register its validators, indicating that your node is now actively engaging with the MEV relays and is ready to receive blocks from block builders!
+这表明您的 Beacon 节点能够正确连接到它并注册其 validator,表明您的节点现在正在积极与 MEV 中继交互,并准备好接收来自区块构建者的区块!
 
-## Next Steps
+## 下一步
 
-Now that MEV-Boost has been set up, you're ready to create a new minipool and start validating on the Ethereum network!
-Read the next section to walk through this process.
+现在 MEV-Boost 已经设置好了,您已经准备好创建一个新的 minipool 并开始在 Ethereum 网络上验证!
+阅读下一节以了解此过程。

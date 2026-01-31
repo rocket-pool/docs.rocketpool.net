@@ -1,46 +1,33 @@
-# Rescuing a Dissolved Minipool
+# 挽救已解散的 Minipool
 
-In the unlikely event your minipool does not stake within the dissolve window, it will be "dissolved" by the oDAO and
-user funds provided will be returned to the deposit pool for use by another minipool. In this scenario, you will need
-to perform the below process to retrieve your ETH and unlock your RPL to be unstaked.
+在不太可能发生的情况下,如果您的 minipool 在解散窗口内未能质押,它将被 oDAO"解散",提供的用户资金将返回到存款池供另一个 minipool 使用。在这种情况下,您需要执行以下过程来取回您的 ETH 并解锁您的 RPL 以便取消质押。
 
-## Update your Minipool Delegate
+## 更新您的 Minipool 委托
 
-It is highly recommended that you use the latest minipool delegate when performing this process. Older delegates contain
-a `selfdestruct` operation when they are closed which means, if the process is not completed correctly in the
-specified order, funds may be locked forever. You can check that your minipool is on the latest delegate by attempting
-to [Upgrade your Delegate](./minipools/delegates#upgrading-your-delegate). If your minipool does not appear in the
-list of minipools that can be upgraded then you can continue on below.
+强烈建议您在执行此过程时使用最新的 minipool 委托。较旧的委托在关闭时包含 `selfdestruct` 操作,这意味着如果过程未按指定顺序正确完成,资金可能会永远锁定。您可以通过尝试[升级您的委托](./minipools/delegates#upgrading-your-delegate)来检查您的 minipool 是否使用最新的委托。如果您的 minipool 未出现在可以升级的 minipool 列表中,那么您可以继续执行以下步骤。
 
-## Retrieve Your Unused Deposit Balance
+## 取回您未使用的存款余额
 
-::: tip NOTE
-If your minipool was dissolved prior to Atlas, you may skip this step and head straight to [Increase Your Beaconchain Balance to 32 ETH](#increase-your-beaconchain-balance-to-32-eth).
-You do not need to retrieve your unused deposit balance because the entire bond amount was deposited to the beaconchain
-prior to Atlas.
+::: tip 注意
+如果您的 minipool 在 Atlas 之前被解散,您可以跳过此步骤并直接前往[将您的信标链余额增加到 32 ETH](#increase-your-beaconchain-balance-to-32-eth)。
+您不需要取回未使用的存款余额,因为在 Atlas 之前整个保证金金额已存入信标链。
 :::
 
-1 ETH from your initial bond deposit is used as an initial deposit to the beaconchain to secure your validator's
-withdrawal credentials. The remaining amount is deposited to your minipool when it is assigned ETH from
-the deposit pool.
+您初始保证金存款中的 1 ETH 用作信标链的初始存款,以确保您的验证器的提款凭证。剩余金额在您的 minipool 从存款池分配到 ETH 时存入您的 minipool。
 
-When your minipool is dissolved, the user ETH is returned to the deposit pool and your ETH remains in the minipool ready
-to be returned to you. Use the [Manual Distribution](./skimming#manual-distribution) of rewards feature to retrieve this
-ETH that can then be used in the next step to activate your validator.
+当您的 minipool 被解散时,用户 ETH 返回到存款池,您的 ETH 保留在 minipool 中准备返回给您。使用奖励的[手动分配](./skimming#manual-distribution)功能来取回此 ETH,然后可以在下一步中使用它来激活您的验证器。
 
-## Increase Your Beaconchain Balance to 32 ETH
+## 将您的信标链余额增加到 32 ETH
 
-You must top up your validator's balance to the minimum required for activation on the beaconchain. This
-amount is **32 ETH**. If you have a 16 ETH bonded minipool, you will require an additional 16 ETH and if you have an 8 ETH
-bonded minipool you will need an additional 24 ETH during this step.
+您必须将验证器的余额充值到信标链上激活所需的最低限度。此金额为 **32 ETH**。如果您有 16 ETH 保证金的 minipool,您将需要额外的 16 ETH,如果您有 8 ETH 保证金的 minipool,在此步骤中您将需要额外的 24 ETH。
 
-Deposit the required amount of ETH into your node address and then issue the following command to begin the process:
+将所需金额的 ETH 存入您的节点地址,然后发出以下命令开始该过程:
 
 ```shell
 rocketpool minipool rescue-dissolved
 ```
 
-You will be presented with a list of minipools that meet the criteria for a manual deposit:
+您将看到符合手动存款条件的 minipool 列表:
 
 ```
 Please select a minipool to rescue:
@@ -49,7 +36,7 @@ Please select a minipool to rescue:
 3: 0x7E570195026dC29f4B2DfF08B56c3b5D0FF988Ef (dissolved since 2023-02-08, 06:33 +0000 UTC)
 ```
 
-After selecting the minipool you want to rescue, you will be asked what amount you want to manually deposit:
+选择要挽救的 minipool 后,系统会询问您要手动存入多少:
 
 ```
 1. All 16.000000 ETH required to rescue it
@@ -57,30 +44,23 @@ After selecting the minipool you want to rescue, you will be asked what amount y
 3. A custom amount
 ```
 
-Option 1 will be used in most circumstances. It is the amount required to bring your beaconchain balance up to the required
-32 ETH amount. The other options are provided for advanced use cases.
+在大多数情况下将使用选项 1。这是将您的信标链余额提高到所需的 32 ETH 金额所需的数量。其他选项用于高级用例。
 
-::: tip NOTE
-Bringing your beaconchain balance up to 32 ETH means your validator will be able to actively participate in Ethereum
-validation duties. The smartnode may not have had a chance to restart your validator since the dissolution. Therefore,
-it is a good idea to manually restart your validator to ensure it has loaded your validator keys and can perform
-validation duties to avoid any penalties during the rescue process.
+::: tip 注意
+将您的信标链余额提高到 32 ETH 意味着您的验证器将能够积极参与 Ethereum 验证任务。自解散以来,smartnode 可能还没有机会重启您的验证器。因此,手动重启您的验证器以确保它已加载您的验证器密钥并可以执行验证任务以避免在挽救过程中受到任何惩罚是一个好主意。
 
-If you are running the standard Docker mode, this can be done with `docker restart rocketpool_validator`.
+如果您运行标准 Docker 模式,可以使用 `docker restart rocketpool_validator` 完成此操作。
 :::
 
-Once this step is complete, your validator will enter the entry queue and you will need to wait for the following events
-to occur:
+完成此步骤后,您的验证器将进入入口队列,您需要等待以下事件发生:
 
-1. 2048 execution layer blocks need to pass for your deposit to be accepted (~8 hours)
-2. Up to 32 epochs need to pass for validators to vote you in (0.5 - 3.5 hours)
-3. A variable amount of time in the validator queue (6.4 minutes per 4 validators in the queue)
-4. 256 epochs minimum validating before an exit is allowed (27 hours)
+1. 需要经过 2048 个执行层区块才能接受您的存款(约 8 小时)
+2. 最多需要 32 个 epoch 让验证器投票让您进入(0.5 - 3.5 小时)
+3. 在验证器队列中的可变时间(队列中每 4 个验证器 6.4 分钟)
+4. 允许退出前至少验证 256 个 epoch(27 小时)
 
-### Exiting your Validator
+### 退出您的验证器
 
-Once your validator has been active for a minimum of 256 epochs, you may exit your minipool via the same process as
-any other minipool by following the [Exiting your Validator](./withdraw#exiting-your-validator) guide.
+一旦您的验证器已活跃至少 256 个 epoch,您可以通过与任何其他 minipool 相同的过程退出您的 minipool,方法是遵循[退出您的验证器](./withdraw#exiting-your-validator)指南。
 
-The full 32 ETH balance will be returned to your minipool and dissolved minipools distribute 100% of their balance to the
-node operator's withdrawal address.
+完整的 32 ETH 余额将返回到您的 minipool,已解散的 minipool 将其 100% 余额分配给节点运营商的提款地址。

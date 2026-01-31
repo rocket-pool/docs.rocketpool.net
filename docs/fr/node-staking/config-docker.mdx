@@ -11,396 +11,396 @@ import tuiExternalDD from "./images/tui-external-dd.png";
 import tuiExternalPrysm from "./images/tui-external-prysm.png";
 import tuiExternalTeku from "./images/tui-external-teku.png";
 
-# Configuring the Smartnode Stack (Docker / Hybrid Mode)
+# Configuration de la pile Smartnode (Docker / Mode Hybride)
 
-Running complete Execution layer and Consensus layer clients can be daunting; there are several options to choose from and each of them has a plethora of different settings.
-Luckily, the Smartnode is designed to hide all of that complexity so it's quick and easy to configure, while still giving you the freedom to customize everything if you so desire.
+Exécuter des clients de couche d'exécution et de couche de consensus complets peut être intimidant ; il existe plusieurs options parmi lesquelles choisir et chacune d'entre elles possède une pléthore de paramètres différents.
+Heureusement, le Smartnode est conçu pour masquer toute cette complexité afin que la configuration soit rapide et facile, tout en vous donnant la liberté de tout personnaliser si vous le souhaitez.
 
-In this section, we'll go over the various methods for configuring the Smartnode if you're using the **Docker-based setup** or a **Hybrid setup** where you connect to externally managed Execution or Consensus clients (e.g., clients you manage outside of the Smartnode for solo staking).
+Dans cette section, nous allons passer en revue les différentes méthodes de configuration du Smartnode si vous utilisez la **configuration basée sur Docker** ou une **configuration hybride** où vous vous connectez à des clients d'exécution ou de consensus gérés en externe (par exemple, des clients que vous gérez en dehors du Smartnode pour le staking solo).
 
 ::: warning NOTE
-If you're using Native mode without Docker, please visit the [Native configuration guide](./config-native) instead.
+Si vous utilisez le mode natif sans Docker, veuillez consulter le [guide de configuration native](./config-native) à la place.
 :::
 
-There are three ways to configure it:
+Il existe trois façons de le configurer :
 
-- Via the [Wizard UI](#configuring-via-the-wizard) - this is the easiest way. It only asks you a few basic questions and uses well-tested defaults for the test. This will be what you are presented with when you run `rocketpool service config` for the first time.
-- Via the [Settings Manager UI](#configuring-via-the-settings-manager) - this gives you access to all of the Smartnode's settings so you can customize everything as much as you want.
-- Headlessly via the [Command Line](#configuring-via-the-command-line) - this is an option for people who run the Smartnode in a headless (non-interactive) environment and need to configure it automatically.
+- Via l'[interface utilisateur de l'assistant](#configuration-via-lassistant) - c'est la façon la plus simple. Il ne vous pose que quelques questions de base et utilise des paramètres par défaut bien testés pour le reste. C'est ce qui vous sera présenté lorsque vous exécuterez `rocketpool service config` pour la première fois.
+- Via l'[interface utilisateur du gestionnaire de paramètres](#configuration-via-le-gestionnaire-de-parametres) - cela vous donne accès à tous les paramètres du Smartnode afin que vous puissiez tout personnaliser autant que vous le souhaitez.
+- Sans interface via la [ligne de commande](#configuration-via-la-ligne-de-commande) - c'est une option pour les personnes qui exécutent le Smartnode dans un environnement sans interface (non interactif) et qui doivent le configurer automatiquement.
 
-Choose which mode you'd like to learn more about from the list above, or simply scroll through each option below.
+Choisissez le mode sur lequel vous souhaitez en savoir plus dans la liste ci-dessus, ou parcourez simplement chaque option ci-dessous.
 
-## Configuring via the Wizard
+## Configuration via l'assistant
 
-To start the configuration process, run the following command:
+Pour démarrer le processus de configuration, exécutez la commande suivante :
 
 ```shell
 rocketpool service config
 ```
 
-This will launch a terminal-based UI that will allow you to quickly and easily configure your node, as well as provide optional fine-grained control over every setting for advanced customization.
+Cela lancera une interface utilisateur basée sur le terminal qui vous permettra de configurer rapidement et facilement votre nœud, tout en offrant un contrôle facultatif à grain fin sur chaque paramètre pour une personnalisation avancée.
 
 ::: tip NOTE
-If you've already configured the Smartnode, you will instead be greeted with the [Settings Manager](#configuring-the-smartnode-stack-via-the-settings-manager).
-You can choose to re-open the Wizard from there if you prefer it, and all of your existing settings will be pre-selected for you.
+Si vous avez déjà configuré le Smartnode, vous serez plutôt accueilli par le [gestionnaire de paramètres](#configuration-via-le-gestionnaire-de-parametres).
+Vous pouvez choisir de rouvrir l'assistant à partir de là si vous le préférez, et tous vos paramètres existants seront présélectionnés pour vous.
 :::
 
-When you run the config UI for the first time (or if you choose to run the Wizard again later), you will be presented with a screen that looks like this:
+Lorsque vous exécutez l'interface utilisateur de configuration pour la première fois (ou si vous choisissez d'exécuter à nouveau l'assistant ultérieurement), vous serez présenté avec un écran qui ressemble à ceci :
 
 <img src="./images/tui-first-time.png" width="100%" height="auto" />
 
-::: tip TIP
-To use the Wizard, **press the `Arrow Keys` (up/down/left/right) to navigate between things such as buttons (choices) or text boxes**.
-You can also use `Tab` and `Shift+Tab` if you prefer - it will do the same thing.
+::: tip ASTUCE
+Pour utiliser l'assistant, **appuyez sur les `touches fléchées` (haut/bas/gauche/droite) pour naviguer entre les éléments tels que les boutons (choix) ou les zones de texte**.
+Vous pouvez également utiliser `Tab` et `Shift+Tab` si vous préférez - cela fera la même chose.
 
-For buttons, **the one that's currently selected will be highlighted in green**.
-The ones in black are not selected.
-In the screenshot above, `Next` is currently selected and `Quit` is not.
+Pour les boutons, **celui qui est actuellement sélectionné sera surligné en vert**.
+Ceux en noir ne sont pas sélectionnés.
+Dans la capture d'écran ci-dessus, `Next` est actuellement sélectionné et `Quit` ne l'est pas.
 
-**Press `Enter` or `Space` to select a button**, analogous to clicking on it with the mouse.
+**Appuyez sur `Entrée` ou `Espace` pour sélectionner un bouton**, analogue à cliquer dessus avec la souris.
 
-**Press `Escape` to go back to the previous dialog** if you changed your mind about something.
-This will come in handy as you progress through the various Wizard pages.
+**Appuyez sur `Échap` pour revenir à la boîte de dialogue précédente** si vous avez changé d'avis sur quelque chose.
+Cela sera utile au fur et à mesure que vous progresserez dans les différentes pages de l'assistant.
 
-**Hold `Ctrl` and press `C` at any time to exit the Wizard without saving anything**.
+**Maintenez `Ctrl` et appuyez sur `C` à tout moment pour quitter l'assistant sans rien enregistrer**.
 
-For example, on the screen above, you could press the `left` and `right` arrow keys to move between the `Next` and `Quit` buttons.
+Par exemple, sur l'écran ci-dessus, vous pourriez appuyer sur les touches fléchées `gauche` et `droite` pour vous déplacer entre les boutons `Next` et `Quit`.
 
-Pressing `Enter` while `Next` is selected will proceed to the next screen.
-Pressing `Enter` while `Quit` is selected will quit the Wizard without saving.
+Appuyer sur `Entrée` lorsque `Next` est sélectionné passera à l'écran suivant.
+Appuyer sur `Entrée` lorsque `Quit` est sélectionné quittera l'assistant sans enregistrer.
 :::
 
-When you're ready to begin, press `Next`.
+Lorsque vous êtes prêt à commencer, appuyez sur `Next`.
 
-### Choosing a Network
+### Choix d'un réseau
 
-In the next screen, you will be asked to choose which network you want to use:
+Dans l'écran suivant, il vous sera demandé de choisir le réseau que vous souhaitez utiliser :
 
 <img src="./images/tui-network.png" width="100%" height="auto" />
 
-You can highlight the different choices with the `Up` and `Down` arrow keys (or `Tab` and `Shift+Tab`).
-When you change choices, the **Description** box on the right will show you a brief description of each option.
-This is true for all choice-based pages in the Wizard, not just the network selection, so you will see this style of page frequently.
+Vous pouvez mettre en surbrillance les différents choix avec les touches fléchées `Haut` et `Bas` (ou `Tab` et `Shift+Tab`).
+Lorsque vous changez de choix, la zone **Description** à droite vous montrera une brève description de chaque option.
+Cela est vrai pour toutes les pages basées sur des choix dans l'assistant, pas seulement pour la sélection du réseau, vous verrez donc fréquemment ce style de page.
 
-If you want to practice running a Rocket Pool node on the Hoodi test network with fake ETH and RPL you can get for free, select **Hoodi Testnet**.
+Si vous souhaitez vous entraîner à exécuter un nœud Rocket Pool sur le réseau de test Hoodi avec de faux ETH et RPL que vous pouvez obtenir gratuitement, sélectionnez **Hoodi Testnet**.
 
-If you're ready to create a real Rocket Pool node on Mainnet to earn real rewards, select **Mainnet**.
+Si vous êtes prêt à créer un véritable nœud Rocket Pool sur Mainnet pour gagner de vraies récompenses, sélectionnez **Mainnet**.
 
-### Client Mode
+### Mode client
 
-You will be presented with two options for client mode:
+Deux options vous seront présentées pour le mode client :
 
 <img src="./images/tui-client-mode.png" width="100%" height="auto" />
 
-**Locally Managed** (also known as **"Docker Mode"**) is the default choice.
-Use it if you don't already have a client pair and you want the Smartnode to manage one for you.
-By choosing this, the Smartnode will create, configure and manage an Execution & Consensus Client pair as Docker containers.
-Don't worry, you'll get to choose _which_ client you want to run next.
+**Géré localement** (également connu sous le nom de **"Mode Docker"**) est le choix par défaut.
+Utilisez-le si vous n'avez pas encore de paire de clients et que vous souhaitez que le Smartnode en gère une pour vous.
+En choisissant cela, le Smartnode créera, configurera et gérera une paire de clients d'exécution et de consensus en tant que conteneurs Docker.
+Ne vous inquiétez pas, vous pourrez choisir _quel_ client vous voulez exécuter ensuite.
 
-**Externally Managed** (also known as **"Hybrid Mode"**) is a convenient choice for users that already have an Execution & Consensus client pair running elsewhere that they manage manually.
-By choosing this, the Smartnode will simply connect to your existing clients and will not run one of its own.
-For example, users can use this to plug into the clients that they currently use for solo staking; that way, they don't need to have two separate copies of the clients.
+**Géré en externe** (également connu sous le nom de **"Mode Hybride"**) est un choix pratique pour les utilisateurs qui ont déjà une paire de clients d'exécution et de consensus en cours d'exécution ailleurs qu'ils gèrent manuellement.
+En choisissant cela, le Smartnode se connectera simplement à vos clients existants et n'en exécutera pas un lui-même.
+Par exemple, les utilisateurs peuvent l'utiliser pour se connecter aux clients qu'ils utilisent actuellement pour le staking solo ; de cette façon, ils n'ont pas besoin d'avoir deux copies distinctes des clients.
 
 :::warning NOTE
-Since the Execution-Consensus Layer Merge, you _cannot_ mix and match these modes (e.g., you cannot have a local Execution client but an externally-managed Consensus client).
-You must either choose all locally-managed or all externally-managed.
+Depuis la fusion de la couche d'exécution et de la couche de consensus, vous _ne pouvez pas_ mélanger ces modes (par exemple, vous ne pouvez pas avoir un client d'exécution local mais un client de consensus géré en externe).
+Vous devez choisir soit tout géré localement, soit tout géré en externe.
 :::
 
-### Execution Client Setup
+### Configuration du client d'exécution
 
-Choose which mode you'd like to use for managing your Execution client and follow the steps in the corresponding tab below:
+Choisissez le mode que vous souhaitez utiliser pour gérer votre client d'exécution et suivez les étapes de l'onglet correspondant ci-dessous :
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Locally Managed">
-      If you want the Smartnode to manage an Execution client for you, the next screen will ask you to pick a client:
+    <Tab label="Géré localement">
+      Si vous souhaitez que le Smartnode gère un client d'exécution pour vous, l'écran suivant vous demandera de choisir un client :
 
       <img src={ECSelection} width="100%" height="auto"/>
 
-      Please refer to the [Choosing your ETH clients](/en/node-staking/eth-clients#execution-clients) section for a description of each option.
-      Once you've made your choice, click on the appropriate tab below to learn how to configure it:
+      Veuillez vous référer à la section [Choisir vos clients ETH](/fr/node-staking/eth-clients#execution-clients) pour une description de chaque option.
+      Une fois que vous avez fait votre choix, cliquez sur l'onglet approprié ci-dessous pour apprendre à le configurer :
 
-      If you choose **Geth**, **Besu**, or **Nethermind**, the Wizard will handle all of the configuration for you.
-      You can manually adjust some of its parameters at the end of this process, but the defaults that it uses are completely appropriate for node operation.
-      You can proceed to the next section.
+      Si vous choisissez **Geth**, **Besu** ou **Nethermind**, l'assistant gérera toute la configuration pour vous.
+      Vous pouvez ajuster manuellement certains de ses paramètres à la fin de ce processus, mais les valeurs par défaut qu'il utilise sont tout à fait appropriées pour l'exploitation du nœud.
+      Vous pouvez passer à la section suivante.
 
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOTE</p>
-        **Open up the P2P port in your router's port forwarding setup**. Configure it to forward **port 30303** on both TCP and UDP to your machine's local IP address.
-        This way, other Consensus clients can discover it and communicate with it from the outside. This will help your Consensus client sync quickly and improve performance (and thus rewards).
+        **Ouvrez le port P2P dans la configuration de redirection de port de votre routeur**. Configurez-le pour rediriger le **port 30303** sur TCP et UDP vers l'adresse IP locale de votre machine.
+        De cette façon, d'autres clients de consensus peuvent le découvrir et communiquer avec lui de l'extérieur. Cela aidera votre client de consensus à se synchroniser rapidement et à améliorer les performances (et donc les récompenses).
 
-        Each router has a different way of doing this, so **you'll need to check out your router's manual on how to set up port forwarding**.
+        Chaque routeur a une façon différente de faire cela, donc **vous devrez consulter le manuel de votre routeur sur la façon de configurer la redirection de port**.
       </p>
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOTE</p>
-        Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-        You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your Execution client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+        Parce que le Smartnode s'exécutera dans son propre conteneur Docker, il utilisera le réseau interne de Docker.
+        Vous ne pourrez pas utiliser des noms d'hôte comme `localhost` ou `127.0.0.1` ici ; si votre client d'exécution s'exécute sur la même machine que le Smartnode, vous devrez fournir l'adresse IP LAN de la machine à la place.
       </p>
 
-      And with that, your Execution client is all set!
+      Et voilà, votre client d'exécution est prêt !
     </Tab>
-    <Tab label="External">
-      For an externally managed Execution client, the next screen will prompt you for the URLs of its HTTP-based RPC (web3) API and its Websocket-based RPC API:
+    <Tab label="Externe">
+      Pour un client d'exécution géré en externe, l'écran suivant vous invitera à saisir les URL de son API RPC basée sur HTTP (web3) et de son API RPC basée sur Websocket :
 
       <img src={tuiExternalEC} width="100%" height="auto"/>
 
-      The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting transactions.
-      **If you don't already have your client's API port enabled and accessible from your Smartnode machine, you will need to set it up now.**
-      Instructions on this vary from client to client; consult your client's documentation to learn how to set up the HTTP RPC endpoint.
+      Le Smartnode utilisera l'URL HTTP pour communiquer avec lui et effectuer des activités blockchain, telles que l'interrogation de l'état de la chaîne et la soumission de transactions.
+      **Si vous n'avez pas déjà activé le port API de votre client et qu'il n'est pas accessible depuis votre machine Smartnode, vous devrez le configurer maintenant.**
+      Les instructions varient d'un client à l'autre ; consultez la documentation de votre client pour apprendre à configurer le point de terminaison HTTP RPC.
 
-      The Websocket URL is only relevant if you need it for your own usage; the Smartnode does not use it.
-      You can leave it blank if you do not need it.
+      L'URL Websocket n'est pertinente que si vous en avez besoin pour votre propre usage ; le Smartnode ne l'utilise pas.
+      Vous pouvez la laisser vide si vous n'en avez pas besoin.
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOTE</p>
-        Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-        You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your fallback Execution client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+        Parce que le Smartnode s'exécutera dans son propre conteneur Docker, il utilisera le réseau interne de Docker.
+        Vous ne pourrez pas utiliser des noms d'hôte comme `localhost` ou `127.0.0.1` ici ; si votre client d'exécution de secours s'exécute sur la même machine que le Smartnode, vous devrez fournir l'adresse IP LAN de la machine à la place.
       </p>
 
-      When you're happy with your fallback Execution client choices, proceed to the next step.
+      Lorsque vous êtes satisfait de vos choix de client d'exécution de secours, passez à l'étape suivante.
     </Tab>
 
   </Tabs>
 </div>
 
-### Consensus Client Setup
+### Configuration du client de consensus
 
-Now that you have an Execution client ready, the next task is to set up the Consensus client.
-The "mode" (local or external) will be inherited from the choice you used for your Execution client earlier.
+Maintenant que vous avez un client d'exécution prêt, la tâche suivante consiste à configurer le client de consensus.
+Le "mode" (local ou externe) sera hérité du choix que vous avez utilisé pour votre client d'exécution plus tôt.
 
-Choose which mode you selected earlier from the tabs below:
+Choisissez le mode que vous avez sélectionné précédemment dans les onglets ci-dessous :
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Locally Managed">
-      If you want the Smartnode to manage a Consensus client for you, the next screen will ask you to pick a client:
+    <Tab label="Géré localement">
+      Si vous souhaitez que le Smartnode gère un client de consensus pour vous, l'écran suivant vous demandera de choisir un client :
 
       <img src={tuiLocalCC} width="100%" height="auto"/>
 
-      **The preferred choice** for the overall health and diversity of the network is the **Random (Recommended)** choice, which will randomly choose among one of the four supported Consensus clients for you.
+      **Le choix préféré** pour la santé globale et la diversité du réseau est le choix **Aléatoire (recommandé)**, qui choisira au hasard parmi l'un des quatre clients de consensus pris en charge pour vous.
 
-      If you would prefer to choose an explicit client, please refer to the [Choosing your ETH clients](./eth-clients#eth2-clients) section for a description of each option so you can make an educated decision.
+      Si vous préférez choisir un client explicite, veuillez vous référer à la section [Choisir vos clients ETH](./eth-clients#eth2-clients) pour une description de chaque option afin que vous puissiez prendre une décision éclairée.
 
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOTE</p>
-        There are two conditions that will prompt you with warnings based on client selection:
+        Il existe deux conditions qui vous inviteront avec des avertissements en fonction de la sélection du client :
 
-        - The selected client is currently [a supermajority client](https://clientdiversity.org/), meaning that an unhealthy majority of validators on the Beacon Chain use it which threatens the stability of the network
+        - Le client sélectionné est actuellement [un client supermajoritaire](https://clientdiversity.org/), ce qui signifie qu'une majorité malsaine de validateurs sur la Beacon Chain l'utilisent, ce qui menace la stabilité du réseau
 
-        - The selected client is **too resource-heavy** for the hardware you're currently using
+        - Le client sélectionné est **trop gourmand en ressources** pour le matériel que vous utilisez actuellement
 
-        If either of those cases is true for your chosen client, you will be warned and asked to choose a different client.
-        You have the option of continuing to use the one you selected, but you must be aware of the risks in doing so.
+        Si l'un de ces cas est vrai pour votre client choisi, vous serez averti et invité à choisir un autre client.
+        Vous avez la possibilité de continuer à utiliser celui que vous avez sélectionné, mais vous devez être conscient des risques en le faisant.
       </p>
 
-      Once you've made your choice or have been assigned a random client, click on the appropriate tab below to learn how to configure it:
+      Une fois que vous avez fait votre choix ou qu'un client aléatoire vous a été attribué, cliquez sur l'onglet approprié ci-dessous pour apprendre à le configurer :
 
       <div className="p-3">
         <Tabs>
           <Tab label="Lighthouse">
-            The first option in Lighthouse's configuration will ask about your validator's **graffiti** message:
+            La première option dans la configuration de Lighthouse vous demandera le message **graffiti** de votre validateur :
 
             <img src={tuiLocalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            Il s'agit d'un message personnalisé facultatif que vous pouvez joindre à tous les blocs que vous proposez sur la Beacon Chain.
+            Le message sera conservé pour toujours, alors pensez-y comme une façon amusante de laisser votre marque !
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **Notez que la longueur maximale du graffiti est de 16 caractères.**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            Si vous souhaitez voir quelques exemples de ce que les validateurs utilisent pour le Graffiti aujourd'hui, [jetez un œil ici](https://beaconcha.in/blocks).
 
-            Next up is an option to enable or disable **Checkpoint Sync**:
+            Ensuite, il y a une option pour activer ou désactiver la **synchronisation par point de contrôle** :
 
             <img src={tuiLocalCheckpoint} width="100%" height="auto"/>
 
-            Lighthouse has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
-            This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-            Take a look at [their documentation on checkpoint syncing](https://lighthouse-book.sigmaprime.io/checkpoint-sync.html) for more information if you are curious.
+            Lighthouse a la capacité de se synchroniser instantanément au dernier bloc sur le réseau Beacon Chain en se connectant à un nœud Beacon existant en qui vous avez confiance.
+            Ceci est préférable à la synchronisation conventionnelle car cela ne nécessite aucun temps (alors que la synchronisation conventionnelle peut prendre des jours) et offre certains avantages de sécurité.
+            Consultez [leur documentation sur la synchronisation par point de contrôle](https://lighthouse-book.sigmaprime.io/checkpoint-sync.html) pour plus d'informations si vous êtes curieux.
 
-            You can enter the URL of any Beacon Node that provides access to its REST API here.
+            Vous pouvez entrer l'URL de n'importe quel nœud Beacon qui fournit un accès à son API REST ici.
 
-            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            Voir [la section ci-dessous sur la synchronisation par point de contrôle](#synchronisation-par-point-de-controle-beacon-chain) si vous souhaitez l'utiliser.
 
-            The final question will ask if you want to enable Doppelgänger Protection:
+            La dernière question vous demandera si vous souhaitez activer la protection Doppelgänger :
 
             <img src={tuiLocalDD} width="100%" height="auto"/>
 
-            Lighthouse supports a feature called [Doppelgänger Detection](https://lighthouse-book.sigmaprime.io/validator-doppelganger.html).
-            In a nutshell, this feature will **intentionally** miss a few attestations after Lighthouse's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            Lighthouse prend en charge une fonctionnalité appelée [détection Doppelgänger](https://lighthouse-book.sigmaprime.io/validator-doppelganger.html).
+            En un mot, cette fonctionnalité manquera **intentionnellement** quelques attestations après le redémarrage du client validateur de Lighthouse ; ce faisant, il écoutera pour voir si des attestations sont toujours envoyées au réseau en utilisant vos clés de validateur.
 
-            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-            After its short waiting period, Lighthouse would start validating normally.
+            Idéalement, il n'y aurait aucune attestation (ce qui signifie qu'aucune autre machine n'utilise vos clés de validateur).
+            Après sa courte période d'attente, Lighthouse commencerait à valider normalement.
 
-            _However_, if there _is_ another machine running with your validator keys attached, then Lighthouse will immediately shut down and issue an error message in its log files.
-            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            _Cependant_, s'il _y a_ une autre machine exécutant vos clés de validateur attachées, alors Lighthouse s'arrêtera immédiatement et émettra un message d'erreur dans ses fichiers journaux.
+            La raison en est que s'il devait commencer à attester également, vous commenceriez à **double attester**, ce qui est une **infraction punissable**.
+            Lorsqu'il est sanctionné, votre validateur sera expulsé de force de la Beacon Chain et vous serez pénalisé d'une quantité importante d'ETH.
 
-            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            La plupart du temps, la détection de doppelgänger ne se traduira que par quelques attestations manquées après le redémarrage d'un client.
+            Dans les situations où vous déplacez votre validateur vers une nouvelle machine ou où vous changez pour un nouveau client Beacon, cependant, **la détection de doppelgänger peut vous empêcher d'être sanctionné en attestant deux fois accidentellement**.
 
-            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            Considérez-la comme une assurance bon marché pour vos minipools ; vous manquerez un peu de profit insignifiant chaque fois que vous redémarrerez, mais vous pouvez être assez confiant que vous n'exécuterez pas accidentellement vos clés à deux endroits et ne serez pas sanctionné pour cela.
 
-            Starting on version 4.5.0 Lighthouse has an option to establish P2P connections in a more efficient way using the [QUIC protocol](https://en.wikipedia.org/wiki/QUIC). If you are willing to use this feature you'll need to define an extra port "P2P QUIC port" field on the ETH2 settings, and forward it to your node in your router's port forwarding setup. The default P2P QUIC port is 8001 (UDP). Make sure to avoid collisions with ports already in use by your node (or fallback/testnet nodes). Also make sure the same port is open if you're using a firewall on your node (check `ufw status`).
-            To check if the QUIC configuration is working you should see a 2-digit number after `libp2p_quic_peers` when running `docker run --network rocketpool_net curlimages/curl http://eth2:9100/metrics | grep libp2p_peers_multi`.
+            À partir de la version 4.5.0, Lighthouse a une option pour établir des connexions P2P de manière plus efficace en utilisant le [protocole QUIC](https://en.wikipedia.org/wiki/QUIC). Si vous êtes prêt à utiliser cette fonctionnalité, vous devrez définir un champ supplémentaire "port QUIC P2P" dans les paramètres ETH2, et le rediriger vers votre nœud dans la configuration de redirection de port de votre routeur. Le port QUIC P2P par défaut est 8001 (UDP). Assurez-vous d'éviter les collisions avec les ports déjà utilisés par votre nœud (ou les nœuds de secours/testnet). Assurez-vous également que le même port est ouvert si vous utilisez un pare-feu sur votre nœud (vérifiez `ufw status`).
+            Pour vérifier si la configuration QUIC fonctionne, vous devriez voir un nombre à 2 chiffres après `libp2p_quic_peers` lors de l'exécution de `docker run --network rocketpool_net curlimages/curl http://eth2:9100/metrics | grep libp2p_peers_multi`.
 
           </Tab>
           <Tab label="Nimbus">
-            The first option in Nimbus's configuration will ask about your validator's **graffiti** message:
+            La première option dans la configuration de Nimbus vous demandera le message **graffiti** de votre validateur :
 
             <img src={tuiLocalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            Il s'agit d'un message personnalisé facultatif que vous pouvez joindre à tous les blocs que vous proposez sur la Beacon Chain.
+            Le message sera conservé pour toujours, alors pensez-y comme une façon amusante de laisser votre marque !
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **Notez que la longueur maximale du graffiti est de 16 caractères.**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            Si vous souhaitez voir quelques exemples de ce que les validateurs utilisent pour le Graffiti aujourd'hui, [jetez un œil ici](https://beaconcha.in/blocks).
 
-            Next up is an option to enable or disable **Checkpoint Sync**:
+            Ensuite, il y a une option pour activer ou désactiver la **synchronisation par point de contrôle** :
 
             <img src={tuiLocalCheckpoint} width="100%" height="auto"/>
 
-            Nimbus has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
-            This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-            Take a look at [their documentation on checkpoint syncing](https://nimbus.guide/trusted-node-sync.html) for more information if you are curious.
+            Nimbus a la capacité de se synchroniser instantanément au dernier bloc sur le réseau Beacon Chain en se connectant à un nœud Beacon existant en qui vous avez confiance.
+            Ceci est préférable à la synchronisation conventionnelle car cela ne nécessite aucun temps (alors que la synchronisation conventionnelle peut prendre des jours) et offre certains avantages de sécurité.
+            Consultez [leur documentation sur la synchronisation par point de contrôle](https://nimbus.guide/trusted-node-sync.html) pour plus d'informations si vous êtes curieux.
 
-            You can enter the URL of any Beacon Node that provides access to its REST API here.
+            Vous pouvez entrer l'URL de n'importe quel nœud Beacon qui fournit un accès à son API REST ici.
 
-            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            Voir [la section ci-dessous sur la synchronisation par point de contrôle](#synchronisation-par-point-de-controle-beacon-chain) si vous souhaitez l'utiliser.
 
-            The final question will ask if you want to enable Doppelgänger Protection:
+            La dernière question vous demandera si vous souhaitez activer la protection Doppelgänger :
 
             <img src={tuiLocalDD} width="100%" height="auto"/>
 
-            Nimbus supports a feature called [Doppelgänger Protection](https://nimbus.guide/faq.html#why-does-my-validator-miss-two-epochs-of-attestations-after-restarting).
-            In a nutshell, this feature will **intentionally** miss a few attestations after Nimbus restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            Nimbus prend en charge une fonctionnalité appelée [protection Doppelgänger](https://nimbus.guide/faq.html#why-does-my-validator-miss-two-epochs-of-attestations-after-restarting).
+            En un mot, cette fonctionnalité manquera **intentionnellement** quelques attestations après le redémarrage de Nimbus ; ce faisant, il écoutera pour voir si des attestations sont toujours envoyées au réseau en utilisant vos clés de validateur.
 
-            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-            After its short waiting period, Nimbus would start validating normally.
+            Idéalement, il n'y aurait aucune attestation (ce qui signifie qu'aucune autre machine n'utilise vos clés de validateur).
+            Après sa courte période d'attente, Nimbus commencerait à valider normalement.
 
-            _However_, if there _is_ another machine running with your validator keys attached, then Nimbus will immediately shut down and issue an error message in its log files.
-            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            _Cependant_, s'il _y a_ une autre machine exécutant vos clés de validateur attachées, alors Nimbus s'arrêtera immédiatement et émettra un message d'erreur dans ses fichiers journaux.
+            La raison en est que s'il devait commencer à attester également, vous commenceriez à **double attester**, ce qui est une **infraction punissable**.
+            Lorsqu'il est sanctionné, votre validateur sera expulsé de force de la Beacon Chain et vous serez pénalisé d'une quantité importante d'ETH.
 
-            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            La plupart du temps, la détection de doppelgänger ne se traduira que par quelques attestations manquées après le redémarrage d'un client.
+            Dans les situations où vous déplacez votre validateur vers une nouvelle machine ou où vous changez pour un nouveau client Beacon, cependant, **la détection de doppelgänger peut vous empêcher d'être sanctionné en attestant deux fois accidentellement**.
 
-            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            Considérez-la comme une assurance bon marché pour vos minipools ; vous manquerez un peu de profit insignifiant chaque fois que vous redémarrerez, mais vous pouvez être assez confiant que vous n'exécuterez pas accidentellement vos clés à deux endroits et ne serez pas sanctionné pour cela.
 
           </Tab>
           <Tab label="Prysm">
-            The first option in Prysm's configuration will ask about your validator's **graffiti** message:
+            La première option dans la configuration de Prysm vous demandera le message **graffiti** de votre validateur :
 
             <img src={tuiLocalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            Il s'agit d'un message personnalisé facultatif que vous pouvez joindre à tous les blocs que vous proposez sur la Beacon Chain.
+            Le message sera conservé pour toujours, alors pensez-y comme une façon amusante de laisser votre marque !
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **Notez que la longueur maximale du graffiti est de 16 caractères.**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            Si vous souhaitez voir quelques exemples de ce que les validateurs utilisent pour le Graffiti aujourd'hui, [jetez un œil ici](https://beaconcha.in/blocks).
 
-            Next up is an option to enable or disable **Checkpoint Sync**:
+            Ensuite, il y a une option pour activer ou désactiver la **synchronisation par point de contrôle** :
 
             <img src={tuiLocalCheckpoint} width="100%" height="auto"/>
 
-            Prysm has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
-            This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-            Take a look at [their documentation on checkpoint syncing](https://docs.prylabs.network/docs/prysm-usage/checkpoint-sync) for more information if you are curious.
+            Prysm a la capacité de se synchroniser instantanément au dernier bloc sur le réseau Beacon Chain en se connectant à un nœud Beacon existant en qui vous avez confiance.
+            Ceci est préférable à la synchronisation conventionnelle car cela ne nécessite aucun temps (alors que la synchronisation conventionnelle peut prendre des jours) et offre certains avantages de sécurité.
+            Consultez [leur documentation sur la synchronisation par point de contrôle](https://docs.prylabs.network/docs/prysm-usage/checkpoint-sync) pour plus d'informations si vous êtes curieux.
 
-            You can enter the URL of any Beacon Node that provides access to its REST API here.
+            Vous pouvez entrer l'URL de n'importe quel nœud Beacon qui fournit un accès à son API REST ici.
 
-            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            Voir [la section ci-dessous sur la synchronisation par point de contrôle](#synchronisation-par-point-de-controle-beacon-chain) si vous souhaitez l'utiliser.
 
-            The final question will ask if you want to enable Doppelgänger Protection:
+            La dernière question vous demandera si vous souhaitez activer la protection Doppelgänger :
 
             <img src={tuiLocalDD} width="100%" height="auto"/>
 
-            Prysm supports a feature called Doppelgänger Protection.
-            In a nutshell, this feature will **intentionally** miss a few attestations after Prysm's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            Prysm prend en charge une fonctionnalité appelée protection Doppelgänger.
+            En un mot, cette fonctionnalité manquera **intentionnellement** quelques attestations après le redémarrage du client validateur de Prysm ; ce faisant, il écoutera pour voir si des attestations sont toujours envoyées au réseau en utilisant vos clés de validateur.
 
-            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-            After its short waiting period, Prysm would start validating normally.
+            Idéalement, il n'y aurait aucune attestation (ce qui signifie qu'aucune autre machine n'utilise vos clés de validateur).
+            Après sa courte période d'attente, Prysm commencerait à valider normalement.
 
-            _However_, if there _is_ another machine running with your validator keys attached, then Prysm will immediately shut down and issue an error message in its log files.
-            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            _Cependant_, s'il _y a_ une autre machine exécutant vos clés de validateur attachées, alors Prysm s'arrêtera immédiatement et émettra un message d'erreur dans ses fichiers journaux.
+            La raison en est que s'il devait commencer à attester également, vous commenceriez à **double attester**, ce qui est une **infraction punissable**.
+            Lorsqu'il est sanctionné, votre validateur sera expulsé de force de la Beacon Chain et vous serez pénalisé d'une quantité importante d'ETH.
 
-            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            La plupart du temps, la détection de doppelgänger ne se traduira que par quelques attestations manquées après le redémarrage d'un client.
+            Dans les situations où vous déplacez votre validateur vers une nouvelle machine ou où vous changez pour un nouveau client Beacon, cependant, **la détection de doppelgänger peut vous empêcher d'être sanctionné en attestant deux fois accidentellement**.
 
-            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            Considérez-la comme une assurance bon marché pour vos minipools ; vous manquerez un peu de profit insignifiant chaque fois que vous redémarrerez, mais vous pouvez être assez confiant que vous n'exécuterez pas accidentellement vos clés à deux endroits et ne serez pas sanctionné pour cela.
 
           </Tab>
           <Tab label="Teku">
-            The first option in Teku's configuration will ask about your validator's **graffiti** message:
+            La première option dans la configuration de Teku vous demandera le message **graffiti** de votre validateur :
 
             <img src={tuiLocalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            Il s'agit d'un message personnalisé facultatif que vous pouvez joindre à tous les blocs que vous proposez sur la Beacon Chain.
+            Le message sera conservé pour toujours, alors pensez-y comme une façon amusante de laisser votre marque !
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **Notez que la longueur maximale du graffiti est de 16 caractères.**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            Si vous souhaitez voir quelques exemples de ce que les validateurs utilisent pour le Graffiti aujourd'hui, [jetez un œil ici](https://beaconcha.in/blocks).
 
-            The final question is an option to enable or disable **Checkpoint Sync**:
+            La dernière question est une option pour activer ou désactiver la **synchronisation par point de contrôle** :
 
             <img src={tuiLocalCheckpoint} width="100%" height="auto"/>
 
-            Teku has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
-            This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-            Take a look at [their documentation on checkpoint syncing](https://docs.teku.consensys.net/en/latest/HowTo/Get-Started/Checkpoint-Start/) for more information if you are curious.
+            Teku a la capacité de se synchroniser instantanément au dernier bloc sur le réseau Beacon Chain en se connectant à un nœud Beacon existant en qui vous avez confiance.
+            Ceci est préférable à la synchronisation conventionnelle car cela ne nécessite aucun temps (alors que la synchronisation conventionnelle peut prendre des jours) et offre certains avantages de sécurité.
+            Consultez [leur documentation sur la synchronisation par point de contrôle](https://docs.teku.consensys.net/en/latest/HowTo/Get-Started/Checkpoint-Start/) pour plus d'informations si vous êtes curieux.
 
-            You can enter the URL of any Beacon Node that provides access to its REST API here.
+            Vous pouvez entrer l'URL de n'importe quel nœud Beacon qui fournit un accès à son API REST ici.
 
-            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            Voir [la section ci-dessous sur la synchronisation par point de contrôle](#synchronisation-par-point-de-controle-beacon-chain) si vous souhaitez l'utiliser.
           </Tab>
           <Tab label="Lodestar">
-            The first option in Lodestar's configuration will ask about your validator's **graffiti** message:
+            La première option dans la configuration de Lodestar vous demandera le message **graffiti** de votre validateur :
 
             <img src={tuiLocalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            Il s'agit d'un message personnalisé facultatif que vous pouvez joindre à tous les blocs que vous proposez sur la Beacon Chain.
+            Le message sera conservé pour toujours, alors pensez-y comme une façon amusante de laisser votre marque !
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **Notez que la longueur maximale du graffiti est de 16 caractères.**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            Si vous souhaitez voir quelques exemples de ce que les validateurs utilisent pour le Graffiti aujourd'hui, [jetez un œil ici](https://beaconcha.in/blocks).
 
-            Next up is an option to enable or disable **Checkpoint Sync**:
+            Ensuite, il y a une option pour activer ou désactiver la **synchronisation par point de contrôle** :
 
             <img src={tuiLocalCheckpoint} width="100%" height="auto"/>
 
-            Lodestar has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
-            This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-            Take a look at [their documentation on checkpoint syncing](https://chainsafe.github.io/lodestar/run/beacon-management/starting-a-node#checkpoint-sync) for more information if you are curious.
+            Lodestar a la capacité de se synchroniser instantanément au dernier bloc sur le réseau Beacon Chain en se connectant à un nœud Beacon existant en qui vous avez confiance.
+            Ceci est préférable à la synchronisation conventionnelle car cela ne nécessite aucun temps (alors que la synchronisation conventionnelle peut prendre des jours) et offre certains avantages de sécurité.
+            Consultez [leur documentation sur la synchronisation par point de contrôle](https://chainsafe.github.io/lodestar/run/beacon-management/starting-a-node#checkpoint-sync) pour plus d'informations si vous êtes curieux.
 
-            You can enter the URL of any Beacon Node that provides access to its REST API here.
+            Vous pouvez entrer l'URL de n'importe quel nœud Beacon qui fournit un accès à son API REST ici.
 
-            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            Voir [la section ci-dessous sur la synchronisation par point de contrôle](#synchronisation-par-point-de-controle-beacon-chain) si vous souhaitez l'utiliser.
 
-            The final question will ask if you want to enable Doppelgänger Protection:
+            La dernière question vous demandera si vous souhaitez activer la protection Doppelgänger :
 
             <img src={tuiLocalDD} width="100%" height="auto"/>
 
-            Lodestar supports a feature called Doppelgänger Detection.
-            In a nutshell, this feature will **intentionally** miss a few attestations after Lodestar's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            Lodestar prend en charge une fonctionnalité appelée détection Doppelgänger.
+            En un mot, cette fonctionnalité manquera **intentionnellement** quelques attestations après le redémarrage du client validateur de Lodestar ; ce faisant, il écoutera pour voir si des attestations sont toujours envoyées au réseau en utilisant vos clés de validateur.
 
-            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-            After its short waiting period, Lodestar would start validating normally.
+            Idéalement, il n'y aurait aucune attestation (ce qui signifie qu'aucune autre machine n'utilise vos clés de validateur).
+            Après sa courte période d'attente, Lodestar commencerait à valider normalement.
 
-            _However_, if there _is_ another machine running with your validator keys attached, then Lodestar will immediately shut down and issue an error message in its log files.
-            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            _Cependant_, s'il _y a_ une autre machine exécutant vos clés de validateur attachées, alors Lodestar s'arrêtera immédiatement et émettra un message d'erreur dans ses fichiers journaux.
+            La raison en est que s'il devait commencer à attester également, vous commenceriez à **double attester**, ce qui est une **infraction punissable**.
+            Lorsqu'il est sanctionné, votre validateur sera expulsé de force de la Beacon Chain et vous serez pénalisé d'une quantité importante d'ETH.
 
-            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            La plupart du temps, la détection de doppelgänger ne se traduira que par quelques attestations manquées après le redémarrage d'un client.
+            Dans les situations où vous déplacez votre validateur vers une nouvelle machine ou où vous changez pour un nouveau client Beacon, cependant, **la détection de doppelgänger peut vous empêcher d'être sanctionné en attestant deux fois accidentellement**.
 
-            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            Considérez-la comme une assurance bon marché pour vos minipools ; vous manquerez un peu de profit insignifiant chaque fois que vous redémarrerez, mais vous pouvez être assez confiant que vous n'exécuterez pas accidentellement vos clés à deux endroits et ne serez pas sanctionné pour cela.
 
           </Tab>
         </Tabs>
@@ -408,152 +408,152 @@ Choose which mode you selected earlier from the tabs below:
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOTE</p>
-        **Open up the P2P port in your router's port forwarding setup**. Configure it to forward **port 9001** on both TCP and UDP to your machine's local IP address.
-        This way, other Consensus clients can discover it and communicate with it from the outside. This will help your Consensus client sync quickly and improve performance (and thus rewards).
+        **Ouvrez le port P2P dans la configuration de redirection de port de votre routeur**. Configurez-le pour rediriger le **port 9001** sur TCP et UDP vers l'adresse IP locale de votre machine.
+        De cette façon, d'autres clients de consensus peuvent le découvrir et communiquer avec lui de l'extérieur. Cela aidera votre client de consensus à se synchroniser rapidement et à améliorer les performances (et donc les récompenses).
 
-        Each router has a different way of doing this, so **you'll need to check out your router's manual on how to set up port forwarding**
+        Chaque routeur a une façon différente de faire cela, donc **vous devrez consulter le manuel de votre routeur sur la façon de configurer la redirection de port**
       </p>
     </Tab>
-    <Tab label="Externally Managed">
-      Because each Consensus client has slightly different behavior, the Smartnode needs to know which one you're using externally so it can adapt its own behavior accordingly.
-      Start by choosing which client you have from the list in the next screen:
+    <Tab label="Géré en externe">
+      Étant donné que chaque client de consensus a un comportement légèrement différent, le Smartnode doit savoir lequel vous utilisez en externe afin qu'il puisse adapter son propre comportement en conséquence.
+      Commencez par choisir le client que vous avez dans la liste de l'écran suivant :
 
       <img src="./images/tui-external-cc.png" width="100%" height="auto"/>
 
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOTE</p>
-        At this time, **Nimbus** is not compatible with External mode because it cannot run as a standalone Validator Container (VC) yet.
-        When the client supports this feature, it will be added to the list here.
+        À l'heure actuelle, **Nimbus** n'est pas compatible avec le mode externe car il ne peut pas encore s'exécuter en tant que conteneur validateur (VC) autonome.
+        Lorsque le client prendra en charge cette fonctionnalité, il sera ajouté à la liste ici.
       </p>
 
-      Select your client from the tabs below to learn how to finish configuring it.
+      Sélectionnez votre client dans les onglets ci-dessous pour apprendre à terminer sa configuration.
 
       <div className="p-3">
         <Tabs>
           <Tab label="Lighthouse">
-            Start by specifying the URL for your Lighthouse Beacon Node's API:
+            Commencez par spécifier l'URL de l'API de votre nœud Beacon Lighthouse :
 
             <img src={tuiExternalLH} width="100%" height="auto"/>
 
-            The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
-            **If you don't already have the API port enabled and accessible from your Smartnode machine, you will need to set it up now.**
-            See [Lighthouse's documentation](https://lighthouse-book.sigmaprime.io/api-bn.html) for instructions on how to do this.
+            Le Smartnode utilisera l'URL HTTP pour communiquer avec lui et effectuer des activités blockchain, telles que l'interrogation de l'état de la chaîne et la soumission de messages.
+            **Si vous n'avez pas déjà activé le port API et qu'il n'est pas accessible depuis votre machine Smartnode, vous devrez le configurer maintenant.**
+            Voir [la documentation de Lighthouse](https://lighthouse-book.sigmaprime.io/api-bn.html) pour des instructions sur la façon de procéder.
 
             <p className="rspress-directive warning">
               <p className="rspress-directive-title">NOTE</p>
-              Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-              You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+              Parce que le Smartnode s'exécutera dans son propre conteneur Docker, il utilisera le réseau interne de Docker.
+              Vous ne pourrez pas utiliser des noms d'hôte comme `localhost` ou `127.0.0.1` ici ; si votre client s'exécute sur la même machine que le Smartnode, vous devrez fournir l'adresse IP LAN de la machine à la place.
             </p>
 
 
-            Next, it will ask about your validator's **graffiti** message:
+            Ensuite, il vous demandera le message **graffiti** de votre validateur :
 
             <img src={tuiExternalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            Il s'agit d'un message personnalisé facultatif que vous pouvez joindre à tous les blocs que vous proposez sur la Beacon Chain.
+            Le message sera conservé pour toujours, alors pensez-y comme une façon amusante de laisser votre marque !
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **Notez que la longueur maximale du graffiti est de 16 caractères.**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            Si vous souhaitez voir quelques exemples de ce que les validateurs utilisent pour le Graffiti aujourd'hui, [jetez un œil ici](https://beaconcha.in/blocks).
 
-            The final question will ask if you want to enable Doppelgänger Protection:
+            La dernière question vous demandera si vous souhaitez activer la protection Doppelgänger :
 
             <img src={tuiExternalDD} width="100%" height="auto"/>
 
-            Lighthouse supports a feature called [Doppelgänger Detection](https://lighthouse-book.sigmaprime.io/validator-doppelganger.html).
-            In a nutshell, this feature will **intentionally** miss a few attestations after Lighthouse's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            Lighthouse prend en charge une fonctionnalité appelée [détection Doppelgänger](https://lighthouse-book.sigmaprime.io/validator-doppelganger.html).
+            En un mot, cette fonctionnalité manquera **intentionnellement** quelques attestations après le redémarrage du client validateur de Lighthouse ; ce faisant, il écoutera pour voir si des attestations sont toujours envoyées au réseau en utilisant vos clés de validateur.
 
-            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-            After its short waiting period, Lighthouse would start validating normally.
+            Idéalement, il n'y aurait aucune attestation (ce qui signifie qu'aucune autre machine n'utilise vos clés de validateur).
+            Après sa courte période d'attente, Lighthouse commencerait à valider normalement.
 
-            _However_, if there _is_ another machine running with your validator keys attached, then Lighthouse will immediately shut down and issue an error message in its log files.
-            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            _Cependant_, s'il _y a_ une autre machine exécutant vos clés de validateur attachées, alors Lighthouse s'arrêtera immédiatement et émettra un message d'erreur dans ses fichiers journaux.
+            La raison en est que s'il devait commencer à attester également, vous commenceriez à **double attester**, ce qui est une **infraction punissable**.
+            Lorsqu'il est sanctionné, votre validateur sera expulsé de force de la Beacon Chain et vous serez pénalisé d'une quantité importante d'ETH.
 
-            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            La plupart du temps, la détection de doppelgänger ne se traduira que par quelques attestations manquées après le redémarrage d'un client.
+            Dans les situations où vous déplacez votre validateur vers une nouvelle machine ou où vous changez pour un nouveau client Beacon, cependant, **la détection de doppelgänger peut vous empêcher d'être sanctionné en attestant deux fois accidentellement**.
 
-            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            Considérez-la comme une assurance bon marché pour vos minipools ; vous manquerez un peu de profit insignifiant chaque fois que vous redémarrerez, mais vous pouvez être assez confiant que vous n'exécuterez pas accidentellement vos clés à deux endroits et ne serez pas sanctionné pour cela.
 
           </Tab>
           <Tab label="Prysm">
-            Start by specifying the URL for your Prysm Beacon Node's API and the URL for its JSON-RPC API:
+            Commencez par spécifier l'URL de l'API de votre nœud Beacon Prysm et l'URL de son API JSON-RPC :
 
             <img src={tuiExternalPrysm} width="100%" height="auto"/>
 
-            The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
-            It will prepare its Prysm Validator Client with the JSON-RPC URL so it can communicate with your Beacon Node, as _Prysm's Validator Client currently cannot work over the HTTP API._
+            Le Smartnode utilisera l'URL HTTP pour communiquer avec lui et effectuer des activités blockchain, telles que l'interrogation de l'état de la chaîne et la soumission de messages.
+            Il préparera son client validateur Prysm avec l'URL JSON-RPC afin qu'il puisse communiquer avec votre nœud Beacon, car _le client validateur de Prysm ne peut actuellement pas fonctionner via l'API HTTP._
 
-            **If you don't already have the API ports enabled and accessible from your Smartnode machine, you will need to set them up now.**
-            See [Prysm's documentation](https://docs.prylabs.network/docs/prysm-usage/parameters) for instructions on how to do this.
-            **You will need the `grpc-gateway` _and_ the `rpc-host` enabled.**
+            **Si vous n'avez pas déjà activé les ports API et qu'ils ne sont pas accessibles depuis votre machine Smartnode, vous devrez les configurer maintenant.**
+            Voir [la documentation de Prysm](https://docs.prylabs.network/docs/prysm-usage/parameters) pour des instructions sur la façon de procéder.
+            **Vous devrez activer le `grpc-gateway` _et_ le `rpc-host`.**
 
             <p className="rspress-directive warning">
               <p className="rspress-directive-title">NOTE</p>
-              Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-              You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+              Parce que le Smartnode s'exécutera dans son propre conteneur Docker, il utilisera le réseau interne de Docker.
+              Vous ne pourrez pas utiliser des noms d'hôte comme `localhost` ou `127.0.0.1` ici ; si votre client s'exécute sur la même machine que le Smartnode, vous devrez fournir l'adresse IP LAN de la machine à la place.
             </p>
 
 
-            Next, it will ask about your validator's **graffiti** message:
+            Ensuite, il vous demandera le message **graffiti** de votre validateur :
 
             <img src={tuiExternalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            Il s'agit d'un message personnalisé facultatif que vous pouvez joindre à tous les blocs que vous proposez sur la Beacon Chain.
+            Le message sera conservé pour toujours, alors pensez-y comme une façon amusante de laisser votre marque !
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **Notez que la longueur maximale du graffiti est de 16 caractères.**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            Si vous souhaitez voir quelques exemples de ce que les validateurs utilisent pour le Graffiti aujourd'hui, [jetez un œil ici](https://beaconcha.in/blocks).
 
-            The final question will ask if you want to enable Doppelgänger Protection:
+            La dernière question vous demandera si vous souhaitez activer la protection Doppelgänger :
 
             <img src={tuiExternalDD} width="100%" height="auto"/>
 
-            Prysm supports a feature called Doppelgänger Protection.
-            In a nutshell, this feature will **intentionally** miss a few attestations after Prysm's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            Prysm prend en charge une fonctionnalité appelée protection Doppelgänger.
+            En un mot, cette fonctionnalité manquera **intentionnellement** quelques attestations après le redémarrage du client validateur de Prysm ; ce faisant, il écoutera pour voir si des attestations sont toujours envoyées au réseau en utilisant vos clés de validateur.
 
-            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-            After its short waiting period, Prysm would start validating normally.
+            Idéalement, il n'y aurait aucune attestation (ce qui signifie qu'aucune autre machine n'utilise vos clés de validateur).
+            Après sa courte période d'attente, Prysm commencerait à valider normalement.
 
-            _However_, if there _is_ another machine running with your validator keys attached, then Prysm will immediately shut down and issue an error message in its log files.
-            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            _Cependant_, s'il _y a_ une autre machine exécutant vos clés de validateur attachées, alors Prysm s'arrêtera immédiatement et émettra un message d'erreur dans ses fichiers journaux.
+            La raison en est que s'il devait commencer à attester également, vous commenceriez à **double attester**, ce qui est une **infraction punissable**.
+            Lorsqu'il est sanctionné, votre validateur sera expulsé de force de la Beacon Chain et vous serez pénalisé d'une quantité importante d'ETH.
 
-            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            La plupart du temps, la détection de doppelgänger ne se traduira que par quelques attestations manquées après le redémarrage d'un client.
+            Dans les situations où vous déplacez votre validateur vers une nouvelle machine ou où vous changez pour un nouveau client Beacon, cependant, **la détection de doppelgänger peut vous empêcher d'être sanctionné en attestant deux fois accidentellement**.
 
-            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            Considérez-la comme une assurance bon marché pour vos minipools ; vous manquerez un peu de profit insignifiant chaque fois que vous redémarrerez, mais vous pouvez être assez confiant que vous n'exécuterez pas accidentellement vos clés à deux endroits et ne serez pas sanctionné pour cela.
 
           </Tab>
           <Tab label="Teku">
-            Start by specifying the URL for your Teku Beacon Node's API:
+            Commencez par spécifier l'URL de l'API de votre nœud Beacon Teku :
 
             <img src={tuiExternalTeku} width="100%" height="auto"/>
 
-            The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
-            **If you don't already have the API port enabled and accessible from your Smartnode machine, you will need to set it up now.**
-            See [Teku's documentation](https://docs.teku.consensys.net/en/latest/Reference/CLI/CLI-Syntax/#rest-api-enabled) for instructions on how to do this.
+            Le Smartnode utilisera l'URL HTTP pour communiquer avec lui et effectuer des activités blockchain, telles que l'interrogation de l'état de la chaîne et la soumission de messages.
+            **Si vous n'avez pas déjà activé le port API et qu'il n'est pas accessible depuis votre machine Smartnode, vous devrez le configurer maintenant.**
+            Voir [la documentation de Teku](https://docs.teku.consensys.net/en/latest/Reference/CLI/CLI-Syntax/#rest-api-enabled) pour des instructions sur la façon de procéder.
 
 
             <p className="rspress-directive warning">
               <p className="rspress-directive-title">NOTE</p>
-              Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-              You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+              Parce que le Smartnode s'exécutera dans son propre conteneur Docker, il utilisera le réseau interne de Docker.
+              Vous ne pourrez pas utiliser des noms d'hôte comme `localhost` ou `127.0.0.1` ici ; si votre client s'exécute sur la même machine que le Smartnode, vous devrez fournir l'adresse IP LAN de la machine à la place.
             </p>
 
-            Next, it will ask about your validator's **graffiti** message:
+            Ensuite, il vous demandera le message **graffiti** de votre validateur :
 
             <img src={tuiExternalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            Il s'agit d'un message personnalisé facultatif que vous pouvez joindre à tous les blocs que vous proposez sur la Beacon Chain.
+            Le message sera conservé pour toujours, alors pensez-y comme une façon amusante de laisser votre marque !
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **Notez que la longueur maximale du graffiti est de 16 caractères.**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            Si vous souhaitez voir quelques exemples de ce que les validateurs utilisent pour le Graffiti aujourd'hui, [jetez un œil ici](https://beaconcha.in/blocks).
           </Tab>
 
         </Tabs>
@@ -563,28 +563,28 @@ Choose which mode you selected earlier from the tabs below:
   </Tabs>
 </div>
 
-#### Beacon Chain Checkpoint Syncing
+#### Synchronisation par point de contrôle Beacon Chain
 
-**Checkpoint syncing** is a very useful technique that some Beacon Chain clients support.
-It allows your Beacon client to instantly sync the entire Beacon chain without having to start from the beginning and catch up on every block.
-This means instead of taking **days**, your Beacon client can be ready in a matter of **minutes**.
-All it needs is access to an existing Beacon client that you trust.
+La **synchronisation par point de contrôle** est une technique très utile que certains clients Beacon Chain prennent en charge.
+Elle permet à votre client Beacon de se synchroniser instantanément avec l'ensemble de la Beacon Chain sans avoir à commencer depuis le début et à rattraper chaque bloc.
+Cela signifie qu'au lieu de prendre **des jours**, votre client Beacon peut être prêt en quelques **minutes**.
+Tout ce dont il a besoin est l'accès à un client Beacon existant en qui vous avez confiance.
 
-You can use any Beacon node that provides access to its HTTP API.
-Currently, many node operators are using the checkpoint-sync-endpoints - a service that allows Rocket Pool node operators to checkpoint sync easily.
-Both the Hoodi Testnet and Mainnet are supported.
-A list of checkpoint sync urls can be found via the following link:
+Vous pouvez utiliser n'importe quel nœud Beacon qui fournit un accès à son API HTTP.
+Actuellement, de nombreux opérateurs de nœuds utilisent les points de terminaison de synchronisation par point de contrôle - un service qui permet aux opérateurs de nœuds Rocket Pool de se synchroniser facilement par point de contrôle.
+Le testnet Hoodi et le Mainnet sont tous deux pris en charge.
+Une liste d'URL de synchronisation par point de contrôle peut être trouvée via le lien suivant :
 
-- [Checkpoint Sync Urls](https://eth-clients.github.io/checkpoint-sync-endpoints/)
+- [URL de synchronisation par point de contrôle](https://eth-clients.github.io/checkpoint-sync-endpoints/)
 
-Choose a relevant checkpoint sync url and paste in the terminal during `rocketpool service config` when it prompts you for a Checkpoint Sync Provider.
+Choisissez une URL de synchronisation par point de contrôle pertinente et collez-la dans le terminal lors de `rocketpool service config` lorsqu'il vous invite à saisir un fournisseur de synchronisation par point de contrôle.
 
-After that, your Beacon node will automatically connect to the checkpoint sync node when it first starts up and instantly pull down the latest state of the chain!
+Après cela, votre nœud Beacon se connectera automatiquement au nœud de synchronisation par point de contrôle lors de son premier démarrage et récupérera instantanément le dernier état de la chaîne !
 
 ::: warning NOTE
-Checkpoint Sync will only occur if you _don't have any Beacon Chain data yet_.
-In other words, if you start syncing normally and decide to checkpoint sync later, you will have to remove your chain data first in order for checkpoint sync to work.
-This can easily be done with the following command:
+La synchronisation par point de contrôle ne se produira que si vous _n'avez pas encore de données Beacon Chain_.
+En d'autres termes, si vous commencez à vous synchroniser normalement et décidez de vous synchroniser par point de contrôle plus tard, vous devrez d'abord supprimer vos données de chaîne pour que la synchronisation par point de contrôle fonctionne.
+Cela peut facilement être fait avec la commande suivante :
 
 ```shell
 rocketpool service resync-eth2
@@ -592,164 +592,164 @@ rocketpool service resync-eth2
 
 :::
 
-### Fallback Node
+### Nœud de secours
 
-Starting with 1.5.0 of the Smartnode stack, you can provide a "fallback" Execution client and Consensus client pair that can take over for your primary clients if they ever go offline (such as because you use Geth and need to prune it).
-In this situation, your primary node machine will still be responsible for attesting and proposing blocks with your minipools' validator keys, but it will connect to an external machine to interact with the Execution layer and Beacon chains.
+À partir de la version 1.5.0 de la pile Smartnode, vous pouvez fournir un client d'exécution et un client de consensus de "secours" qui peuvent prendre le relais de vos clients principaux s'ils tombent hors ligne (par exemple parce que vous utilisez Geth et devez l'élaguer).
+Dans cette situation, votre machine de nœud principale sera toujours responsable de l'attestation et de la proposition de blocs avec les clés de validateur de vos minipools, mais elle se connectera à une machine externe pour interagir avec les chaînes de couche d'exécution et Beacon.
 
-[To learn more about fall back nodes, see this section](./fallback) and return here when you're done.
+[Pour en savoir plus sur les nœuds de secours, consultez cette section](./fallback) et revenez ici lorsque vous avez terminé.
 
-### Metrics Configuration
+### Configuration des métriques
 
-Rocket Pool comes with the ability to display a detailed dashboard showing metrics about your node's hardware health, system updates, your validator performance, your rewards, information about the overall Rocket Pool network, and more:
+Rocket Pool est livré avec la possibilité d'afficher un tableau de bord détaillé montrant des métriques sur la santé matérielle de votre nœud, les mises à jour du système, les performances de votre validateur, vos récompenses, des informations sur l'ensemble du réseau Rocket Pool, et plus encore :
 
 <img src="./images/nimbus-dashboard.png" width="100%" height="auto" />
 
-The next question in the Wizard will ask you if you want to enable this:
+La question suivante dans l'assistant vous demandera si vous souhaitez activer cela :
 
 <img src="./images/tui-metrics.png" width="100%" height="auto" />
 
-If you choose to enable it, you will learn more about setting it up and how to use it in the [Setting up the Grafana Dashboard](./grafana) section later in the process.
+Si vous choisissez de l'activer, vous en apprendrez davantage sur sa configuration et son utilisation dans la section [Configuration du tableau de bord Grafana](./grafana) plus tard dans le processus.
 
 ::: warning NOTE
-All of the data collected by this system **stays on your machine**.
-Rocket Pool does not collect any of the telemetry or send it to a separate service.
-It's purely there for you to use so you can monitor your own node!
+Toutes les données collectées par ce système **restent sur votre machine**.
+Rocket Pool ne collecte aucune télémétrie et ne l'envoie pas à un service séparé.
+C'est purement là pour que vous puissiez surveiller votre propre nœud !
 :::
 
-### MEV Configuration
+### Configuration MEV
 
-Since the Merge of the Execution and Consensus layers in September 2022, Ethereum validators now have the ability to earn priority fees and participate in Maximal Extractable Value (or MEV for short).
+Depuis la fusion des couches d'exécution et de consensus en septembre 2022, les validateurs Ethereum ont maintenant la capacité de gagner des frais prioritaires et de participer à la valeur extractible maximale (ou MEV pour faire court).
 
-Starting with Smartnode v1.7.0, MEV is now _opt-out_ so its configuration is presented as part of the initial setup, as you see in the next screen:
+À partir de Smartnode v1.7.0, le MEV est maintenant _opt-out_ donc sa configuration est présentée dans le cadre de la configuration initiale, comme vous le voyez dans l'écran suivant :
 
 <img src="./images/tui-mev-mode.png" width="100%" height="auto" />
 
-[Please read our MEV guide to learn more about MEV, its configuration, and what to do in this section of the wizard.](./mev)
-Return here when you're finished.
+[Veuillez lire notre guide MEV pour en savoir plus sur le MEV, sa configuration et ce qu'il faut faire dans cette section de l'assistant.](./mev)
+Revenez ici lorsque vous avez terminé.
 
-### Completion
+### Achèvement
 
-After this question, you've finished setting up the Smartnode!
-You will see the following dialog:
+Après cette question, vous avez terminé la configuration du Smartnode !
+Vous verrez la boîte de dialogue suivante :
 
 <img src="./images/tui-finished.png" width="100%" height="auto" />
 
-If you're happy with your setup and are ready to start the Smartnode, click `Save and Exit` here and go to the [Securing your Node](./securing-your-node) section next.
+Si vous êtes satisfait de votre configuration et êtes prêt à démarrer le Smartnode, cliquez sur `Save and Exit` ici et passez à la section [Sécurisation de votre nœud](./securing-your-node) ensuite.
 
-If you would like to review all of the settings and customize many additional settings that weren't included in the Wizard, click `Review All Settings` and go to the [next section](#configuring-via-the-settings-manager).
+Si vous souhaitez examiner tous les paramètres et personnaliser de nombreux paramètres supplémentaires qui n'ont pas été inclus dans l'assistant, cliquez sur `Review All Settings` et passez à la [section suivante](#configuration-via-le-gestionnaire-de-parametres).
 
-## Configuring via the Settings Manager
+## Configuration via le gestionnaire de paramètres
 
-If you've already run `rocketpool service config`, instead of being greeted by the Wizard, you will see the **Settings Manager** screen:
+Si vous avez déjà exécuté `rocketpool service config`, au lieu d'être accueilli par l'assistant, vous verrez l'écran du **gestionnaire de paramètres** :
 
 <img src="./images/tui-settings-manager.png" width="100%" height="auto" />
 
-There are three main features of this screen:
+Il y a trois fonctionnalités principales de cet écran :
 
-1. The **Category List**, which lets you drill down into the settings for each category of the Smartnode stack
-2. The **Review Changes and Save** button, which you can use when you're ready to see what settings you've changed and save the updated configuration
-3. The **Open the Config Wizard** button, which will bring you to the [Setup Wizard](#configuring-the-smartnode-stack-via-the-wizard) if you prefer that interface instead
+1. La **liste des catégories**, qui vous permet d'explorer les paramètres de chaque catégorie de la pile Smartnode
+2. Le bouton **Review Changes and Save**, que vous pouvez utiliser lorsque vous êtes prêt à voir quels paramètres vous avez modifiés et à enregistrer la configuration mise à jour
+3. Le bouton **Open the Config Wizard**, qui vous amènera à l'[assistant de configuration](#configuration-via-lassistant) si vous préférez cette interface à la place
 
-::: tip TIP
-To use the Settings Manager, **press the `Arrow Keys` (up/down/left/right) to navigate between options in the home page**.
+::: tip ASTUCE
+Pour utiliser le gestionnaire de paramètres, **appuyez sur les `touches fléchées` (haut/bas/gauche/droite) pour naviguer entre les options de la page d'accueil**.
 
-Press `Tab` to go **between the category list (1) and the buttons (2 and 3)** at the bottom of the screen.
-The button that's currently selected will be **highlighted in green**.
+Appuyez sur `Tab` pour passer **entre la liste des catégories (1) et les boutons (2 et 3)** en bas de l'écran.
+Le bouton actuellement sélectionné sera **surligné en vert**.
 
-**Press `Enter` or `Space` to select a button**, analogous to clicking on it with the mouse.
+**Appuyez sur `Entrée` ou `Espace` pour sélectionner un bouton**, analogue à cliquer dessus avec la souris.
 
-**Hold `Ctrl` and press `C` at any time to exit the Settings Manager without saving anything**.
+**Maintenez `Ctrl` et appuyez sur `C` à tout moment pour quitter le gestionnaire de paramètres sans rien enregistrer**.
 :::
 
-As you scroll through the categories list, each option will have a helpful description appear in the **Description Box** to the right of the screen.
-Feel free to explore them; nothing you do will be saved until you go through the Review dialog via the **Review Changes and Save** button, and you can press **Ctrl+C** at any time to exit without saving, so you won't accidentally mess something up by playing with the settings here.
+Lorsque vous faites défiler la liste des catégories, chaque option aura une description utile qui apparaîtra dans la **zone de description** à droite de l'écran.
+N'hésitez pas à les explorer ; rien de ce que vous ferez ne sera enregistré tant que vous ne passerez pas par la boîte de dialogue de révision via le bouton **Review Changes and Save**, et vous pouvez appuyer sur **Ctrl+C** à tout moment pour quitter sans enregistrer, vous ne risquez donc pas de gâcher quelque chose en jouant avec les paramètres ici.
 
-### Configuring the Settings
+### Configuration des paramètres
 
-From the home screen, select any one of the categories with the `Enter` key to view the settings for that category.
-For example, here is the screen for the **Smartnode and TX Fees** category:
+Depuis l'écran d'accueil, sélectionnez l'une des catégories avec la touche `Entrée` pour afficher les paramètres de cette catégorie.
+Par exemple, voici l'écran de la catégorie **Smartnode and TX Fees** :
 
 <img src="./images/tui-smartnode.png" width="100%" height="auto" />
 
-Use the `Arrow Keys` to move up and down between the settings.
-The currently selected one will have a white square at the end of it (if it's a text box or a check box), or will be highlighted in white (if it's a drop down).
+Utilisez les `touches fléchées` pour vous déplacer vers le haut et vers le bas entre les paramètres.
+Celui actuellement sélectionné aura un carré blanc à la fin (s'il s'agit d'une zone de texte ou d'une case à cocher), ou sera surligné en blanc (s'il s'agit d'un menu déroulant).
 
-Press `Escape` to go back to the home screen of the Settings Manager when you're done.
+Appuyez sur `Échap` pour revenir à l'écran d'accueil du gestionnaire de paramètres lorsque vous avez terminé.
 
-As you scroll through the settings, each one will show a brief description of what it does in the **Description Box** on the right.
-It will also show the **default value** there in case you want to revert it to its stock setting.
+Lorsque vous faites défiler les paramètres, chacun affichera une brève description de ce qu'il fait dans la **zone de description** à droite.
+Il affichera également la **valeur par défaut** là-bas au cas où vous voudriez la rétablir à son paramètre d'origine.
 
-In this example, the **RPL Claim Gas Threshold** setting is currently selected (highlighted with a green box on the left-hand side of the screen).
-It has been changed to `40`, but you can see that it has a default of `150` in the top-right corner (the top of the **Description Box**).
+Dans cet exemple, le paramètre **RPL Claim Gas Threshold** est actuellement sélectionné (surligné d'une boîte verte sur le côté gauche de l'écran).
+Il a été changé en `40`, mais vous pouvez voir qu'il a une valeur par défaut de `150` dans le coin supérieur droit (le haut de la **zone de description**).
 
-::: tip TIP
-As a reminder, nothing will be saved to disk until you go through the Review dialog via the **Review Changes and Save** button.
-You are encouraged to explore all of the settings to learn about them and see what your Smartnode can do!
+::: tip ASTUCE
+Pour rappel, rien ne sera enregistré sur le disque tant que vous n'aurez pas passé par la boîte de dialogue de révision via le bouton **Review Changes and Save**.
+Nous vous encourageons à explorer tous les paramètres pour en apprendre davantage à leur sujet et voir ce que votre Smartnode peut faire !
 :::
 
-### The Setting Types and How to Use Them
+### Les types de paramètres et comment les utiliser
 
-The settings manager uses the following setting types and UI elements:
+Le gestionnaire de paramètres utilise les types de paramètres et éléments d'interface utilisateur suivants :
 
-#### Text Boxes
+#### Zones de texte
 
-Text boxes are used to enter arbitrary strings of text or numbers.
-They look like this:
+Les zones de texte sont utilisées pour saisir des chaînes de texte ou des nombres arbitraires.
+Elles ressemblent à ceci :
 
 <img src="./images/tui-textbox.png" width="100%" height="auto" />
 
-Enter your desired values into them, then **press `Enter` or use the `Arrow Keys` to navigate to a different setting in order to preserve your changes.**
-If you don't, the Settings Manager will assume you're still updating that setting and won't mark it as changed yet.
+Entrez les valeurs souhaitées, puis **appuyez sur `Entrée` ou utilisez les `touches fléchées` pour naviguer vers un paramètre différent afin de conserver vos modifications.**
+Si vous ne le faites pas, le gestionnaire de paramètres supposera que vous mettez toujours à jour ce paramètre et ne le marquera pas encore comme modifié.
 
-#### Drop Downs
+#### Menus déroulants
 
-Drop downs are used to select an option from a list of choices.
-They look like this (when they're open):
+Les menus déroulants sont utilisés pour sélectionner une option dans une liste de choix.
+Ils ressemblent à ceci (lorsqu'ils sont ouverts) :
 
 <img src="./images/tui-dropdown-open.png" width="100%" height="auto" />
 
-The **green** item is the one that is currently selected.
-Use the `Arrow Keys` to change options - as you do, the **Description Box** on the right will update to tell you more about the currently selected option.
-When you're happy with your choice, press `Enter` to choose the selected option and the drop down will close, revealing the option that is currently selected:
+L'élément **vert** est celui qui est actuellement sélectionné.
+Utilisez les `touches fléchées` pour changer d'option - ce faisant, la **zone de description** à droite se mettra à jour pour vous en dire plus sur l'option actuellement sélectionnée.
+Lorsque vous êtes satisfait de votre choix, appuyez sur `Entrée` pour choisir l'option sélectionnée et le menu déroulant se fermera, révélant l'option actuellement sélectionnée :
 
 <img src="./images/tui-dropdown-closed.png" width="100%" height="auto" />
 
-#### Check Boxes
+#### Cases à cocher
 
-Check boxes are used for simple Yes/No questions.
-They look like this:
+Les cases à cocher sont utilisées pour les questions simples Oui/Non.
+Elles ressemblent à ceci :
 
 <img src="./images/tui-checkbox-checked.png" width="100%" height="auto" />
 
-When they are checked, they will have an `X` in the middle as you see above.
-When they are _unchecked_, they will simply be blank like this:
+Lorsqu'elles sont cochées, elles auront un `X` au milieu comme vous le voyez ci-dessus.
+Lorsqu'elles ne sont _pas_ cochées, elles seront simplement vides comme ceci :
 
 <img src="./images/tui-checkbox-unchecked.png" width="100%" height="auto" />
 
-To change the setting, simply select it and press `Enter`.
+Pour modifier le paramètre, sélectionnez-le simplement et appuyez sur `Entrée`.
 
-### Saving Changes
+### Enregistrement des modifications
 
-When you're happy with your changes and you'd like to review them before saving, press the **Review Changes and Save** button on the home screen.
-As a reminder, to get to it, press the `Tab` key.
+Lorsque vous êtes satisfait de vos modifications et que vous souhaitez les examiner avant de les enregistrer, appuyez sur le bouton **Review Changes and Save** sur l'écran d'accueil.
+Pour rappel, pour y accéder, appuyez sur la touche `Tab`.
 
-You will be presented with a view that looks like this:
+Vous serez présenté avec une vue qui ressemble à ceci :
 
 <img src="./images/tui-review.png" width="100%" height="auto" />
 
-The **Review Box** here will present all of the settings you've changed, showing the old values and the new ones.
-For example, the first line here shows that the **RPL Claim Gas Threshold** used to be `150`, and it's been changed to `40`.
+La **zone de révision** ici présentera tous les paramètres que vous avez modifiés, montrant les anciennes valeurs et les nouvelles.
+Par exemple, la première ligne ici montre que le **RPL Claim Gas Threshold** était `150`, et il a été changé en `40`.
 
-It will also show you which containers are affected by the settings you've modified and will offer to restart them for you after you've saved your changes.
+Elle vous montrera également quels conteneurs sont affectés par les paramètres que vous avez modifiés et vous proposera de les redémarrer pour vous après avoir enregistré vos modifications.
 
 ::: tip NOTE
-At this point, your changes **still haven't been saved yet**.
-If you want to go back and modify something, press `Escape` to return to the home screen.
+À ce stade, vos modifications **n'ont toujours pas été enregistrées**.
+Si vous voulez revenir en arrière et modifier quelque chose, appuyez sur `Échap` pour revenir à l'écran d'accueil.
 :::
 
-When you are satisfied with the changes, press `Enter` to save the new configuration to disk.
-You will then exit the Terminal UI and be presented with something like this message:
+Lorsque vous êtes satisfait des modifications, appuyez sur `Entrée` pour enregistrer la nouvelle configuration sur le disque.
+Vous quitterez alors l'interface utilisateur du terminal et serez présenté avec quelque chose comme ce message :
 
 ```
 Your changes have been saved!
@@ -761,33 +761,33 @@ The following containers must be restarted for the changes to take effect:
 Would you like to restart them automatically now? [y/n]
 ```
 
-Press `y` and `Enter` if you want to automatically apply your new configuration changes and restart the affected containers.
+Appuyez sur `y` et `Entrée` si vous souhaitez appliquer automatiquement vos nouvelles modifications de configuration et redémarrer les conteneurs affectés.
 
-Press `n` and `Enter` if you have other things you want to do before restarting them, and will do it manually later.
+Appuyez sur `n` et `Entrée` si vous avez d'autres choses à faire avant de les redémarrer, et le ferez manuellement plus tard.
 
-In either case, your configuration is done!
+Dans les deux cas, votre configuration est terminée !
 
 ::: tip NOTE
-You may see an error message like the one below:
+Vous pouvez voir un message d'erreur comme celui ci-dessous :
 
 ```
 2022/08/13 13:49:41 Error piping stdout: read |0: file already closed
 ```
 
-This is not actually an error, it's simply a cosmetic glitch.
-You can safely ignore it.
+Ce n'est pas réellement une erreur, c'est simplement un problème cosmétique.
+Vous pouvez l'ignorer en toute sécurité.
 :::
 
 ::: tip NOTE
-If you are running Mac OS, you may see an issue complaining about node_exporter.
-You will need to run these commands to fix.
+Si vous utilisez Mac OS, vous pouvez voir un problème se plaignant de node_exporter.
+Vous devrez exécuter ces commandes pour corriger.
 
 ```shell
 rocketpool service stop
 nano ~/.rocketpool/override/exporter.yml
 ```
 
-Replace the entire contents of the file with:
+Remplacez tout le contenu du fichier par :
 
 ```
 # Enter your own customizations for the node exporter container here. These changes will persist after upgrades, so you only need to do them once.
@@ -802,21 +802,21 @@ services:
     volumes:   ["/proc:/host/proc:ro","/sys:/host/sys:ro"]
 ```
 
-then finally `rocketpool service start`.
+puis enfin `rocketpool service start`.
 :::
 
-## Configuring via the Command Line
+## Configuration via la ligne de commande
 
-If you use the Smartnode in a headless environment where you can't interact with the Terminal UI, you can configure your node via the command line instead.
+Si vous utilisez le Smartnode dans un environnement sans interface où vous ne pouvez pas interagir avec l'interface utilisateur du terminal, vous pouvez configurer votre nœud via la ligne de commande à la place.
 
-The `rocketpool service config` command accepts, as arguments, every setting that can normally be configured via the Terminal UI.
-Run the following command to see a list of them (note that it's quite long):
+La commande `rocketpool service config` accepte, en tant qu'arguments, chaque paramètre qui peut normalement être configuré via l'interface utilisateur du terminal.
+Exécutez la commande suivante pour en voir une liste (notez qu'elle est assez longue) :
 
 ```shell
 rocketpool service config --help
 ```
 
-The output will look like this:
+La sortie ressemblera à ceci :
 
 ```
 NAME:
@@ -840,15 +840,15 @@ OPTIONS:
 ...
 ```
 
-Each option will have its name, its type, its default value, and (if it's a choice parameter) its options.
-Using this text, you can find the option(s) you want to set and specify them via the appropriate arguments.
+Chaque option aura son nom, son type, sa valeur par défaut et (s'il s'agit d'un paramètre de choix) ses options.
+En utilisant ce texte, vous pouvez trouver les options que vous souhaitez définir et les spécifier via les arguments appropriés.
 
 ::: tip NOTE
-This command builds on top of your existing configuration, so if you have some settings already saved and just want to modify others, you don't need to repeat them.
-It will only update settings that you include as arguments to this command.
+Cette commande s'appuie sur votre configuration existante, donc si vous avez déjà enregistré certains paramètres et que vous souhaitez simplement en modifier d'autres, vous n'avez pas besoin de les répéter.
+Elle ne mettra à jour que les paramètres que vous incluez comme arguments à cette commande.
 :::
 
-## Next Steps
+## Étapes suivantes
 
-Once you've configured your node just the way you want it, you're ready to secure your operating system to protect your node.
-Move on to the [Securing your Node](./securing-your-node) section next.
+Une fois que vous avez configuré votre nœud comme vous le souhaitez, vous êtes prêt à sécuriser votre système d'exploitation pour protéger votre nœud.
+Passez à la section [Sécurisation de votre nœud](./securing-your-node) ensuite.

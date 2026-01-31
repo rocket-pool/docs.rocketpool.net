@@ -1,3 +1,3 @@
-# Preparing the Operating System
+# İşletim Sistemini Hazırlama
 
-[TBD] This should be where we describe how to do things like setting up a 2nd hard drive if applicable, running an IOPS test with `fio`, setting up swap space... everything someone might need to do. The `fio` test is important I think, but the other stuff might be skippable.
+[YAPİLACAKLAR] Bu bölümde, gerektiğinde ikinci bir sabit disk kurulumu, `fio` ile IOPS testi çalıştırma, swap alanı ayarlama gibi işlemlerin nasıl yapılacağı açıklanmalıdır... birinin ihtiyaç duyabileceği her şey. `fio` testi önemli bence, ancak diğer şeyler atlanabilir.

@@ -1,19 +1,19 @@
 ---
 next:
-  text: Selecting Staking Hardware
-  link: "/en/node-staking/local/hardware"
+  text: Auswahl der Staking-Hardware
+  link: "/de/node-staking/local/hardware"
 ---
 
-# Overview
+# Übersicht
 
-This section is aimed at helping you understand the process of preparing a local machine for use as a Rocket Pool node at home.
+Dieser Abschnitt soll Ihnen helfen, den Prozess der Vorbereitung einer lokalen Maschine für die Verwendung als Rocket Pool-Node zu Hause zu verstehen.
 
-## Guides
+## Anleitungen
 
-[Selecting Staking Hardware](./hardware) shows a wide variety of viable hardware configurations for node operation, hopefully helping you find inspiration when picking what to get for yourself.
+[Auswahl der Staking-Hardware](./hardware) zeigt eine breite Palette von geeigneten Hardware-Konfigurationen für den Node-Betrieb und hilft Ihnen hoffentlich, Inspiration zu finden, wenn Sie sich entscheiden, was Sie für sich selbst bekommen möchten.
 
-[Preparing a PC, Mini-PC, or NUC](./prepare-pc) walks you through the basic steps of installing and configuring the base Operating System on your machine to prepare it for life as a node.
+[Vorbereitung eines PCs, Mini-PCs oder NUCs](./prepare-pc) führt Sie durch die grundlegenden Schritte der Installation und Konfiguration des Basis-Betriebssystems auf Ihrer Maschine, um sie für das Leben als Node vorzubereiten.
 
-[Preparing a Mac](./prepare-mac) is the same, but for macOS systems.
+[Vorbereitung eines Macs](./prepare-mac) ist dasselbe, aber für macOS-Systeme.
 
-[Intro to Secure Shell (SSH)](../ssh) shows you how to use **SSH**, a popular remote-access tool for working with your node machine remotely and securely from a different machine (such as a laptop or desktop) so you don't have to interact with the node directly via a monitor and keyboard connected to it.
+[Einführung in Secure Shell (SSH)](../ssh) zeigt Ihnen, wie Sie **SSH** verwenden, ein beliebtes Fernzugriffs-Tool für die Arbeit mit Ihrer Node-Maschine von einer anderen Maschine aus (z. B. einem Laptop oder Desktop), sodass Sie nicht direkt über einen an ihn angeschlossenen Monitor und eine Tastatur mit dem Node interagieren müssen.

@@ -1,26 +1,26 @@
 ---
 next:
-  text: Claiming Node Operator Rewards
-  link: "/en/node-staking/rewards"
+  text: Réclamation des Récompenses d'Opérateur de Nœud
+  link: "/fr/node-staking/rewards"
 ---
 
-# Overview
+# Vue d'Ensemble
 
-This section covers how to access the rewards your node generates while validating.
+Cette section couvre comment accéder aux récompenses que votre nœud génère pendant la validation.
 
-## Prerequisites
+## Prérequis
 
-Before configuring your Smartnode, please make sure you:
+Avant de configurer votre Smartnode, assurez-vous de :
 
-- Have set up a node machine (or virtual machine) and secured it (via the [Securing your Node](../securing-your-node) guide)
-- Have the Smartnode [installed](../installing/overview) and [configured](../config/overview) on it
-- Have a node wallet loaded on your Smartnode
-- Synced your Execution and Consensus clients
-- Provisioned your node with [a withdrawal address](../prepare-node.mdx#setting-your-withdrawal-address), set up your [fallback clients](../fallback) (optional), opted into the [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (optional), and configured [MEV](../mev.mdx)
-- Created at least one [minipool](../create-validator.mdx)
+- Avoir configuré une machine de nœud (ou machine virtuelle) et l'avoir sécurisée (via le guide [Sécurisation de votre Nœud](../securing-your-node))
+- Avoir le Smartnode [installé](../installing/overview) et [configuré](../config/overview) dessus
+- Avoir un portefeuille de nœud chargé sur votre Smartnode
+- Synchronisé vos clients d'exécution et de consensus
+- Provisionné votre nœud avec [une adresse de retrait](../prepare-node.mdx#setting-your-withdrawal-address), configuré vos [clients de secours](../fallback) (optionnel), opté pour le [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (optionnel), et configuré [MEV](../mev.mdx)
+- Créé au moins un [minipool](../create-validator.mdx)
 
 ## Guides
 
-[Claiming Node Operator Rewards](../rewards) explains how RPL rewards and Execution-layer rewards work, and how to access them.
+[Réclamation des Récompenses d'Opérateur de Nœud](../rewards) explique comment fonctionnent les récompenses RPL et les récompenses de la couche d'exécution, et comment y accéder.
 
-[Distributing Skimmed Rewards](../skimming) covers accessing rewards from the Beacon Chain that periodically get "skimmed" by the protocol and delivered to your minipools.
+[Distribution des Récompenses Écrémées](../skimming) couvre l'accès aux récompenses de la Beacon Chain qui sont périodiquement "écrémées" par le protocole et livrées à vos minipools.

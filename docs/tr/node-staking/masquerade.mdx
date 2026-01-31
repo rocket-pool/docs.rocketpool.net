@@ -1,10 +1,9 @@
-# Masquerading as Another Node Address
+# Başka Bir Node Adresi Olarak Maskeleme
 
-Starting with Smartnode version `v1.15.7`, users will be able to mock the behaviour of an arbitrary address. While masquerading as another address,
-your node will continue the node and watchtower task loop using your node address and perform duties such as attesting using your validator keys. You will not be able
-to submit transactions or sign messages as the masqueraded address. This feature is especially useful for support and debugging.
+Smartnode sürüm `v1.15.7`'den başlayarak, kullanıcılar rastgele bir adresin davranışını taklit edebilecektir. Başka bir adres olarak maskelenirken,
+node'unuz node adresinizi kullanarak node ve watchtower görev döngüsüne devam edecek ve validator anahtarlarınızı kullanarak attestation gibi görevleri yerine getirecektir. Maskelenmiş adres olarak işlem gönderemez veya mesaj imzalayamazsınız. Bu özellik özellikle destek ve hata ayıklama için kullanışlıdır.
 
-If you wish to interact with the Smartnode through the lens of another node address, please use the following command: `rocketpool wallet masquerade`
+Smartnode ile başka bir node adresi üzerinden etkileşimde bulunmak istiyorsanız, lütfen şu komutu kullanın: `rocketpool wallet masquerade`
 
 ```
 rp@user:~$ rocketpool wallet masquerade
@@ -23,7 +22,7 @@ y
 Your node is now masquerading as address 0xcaB549EdE082592D10FE6a238e7e8914aD3a074d.
 ```
 
-When you are finished with masquerade mode, simply run `rocketpool wallet end-masquerade` and follow the prompts:
+Maskeleme modunu bitirdiğinizde, basitçe `rocketpool wallet end-masquerade` komutunu çalıştırın ve yönergeleri izleyin:
 
 ```
 rp@user:~$ rocketpool wallet end-masquerade
@@ -36,7 +35,7 @@ y
 Successfully ended masquerade mode.
 ```
 
-Additionally, you can check the status of your node wallet by running `rocketpool wallet status`:
+Ek olarak, `rocketpool wallet status` komutunu çalıştırarak node cüzdanınızın durumunu kontrol edebilirsiniz:
 
 ```
 rp@node:~$ rocketpool wallet status

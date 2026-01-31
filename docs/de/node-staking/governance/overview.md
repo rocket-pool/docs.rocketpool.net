@@ -1,52 +1,52 @@
 ---
 next:
-  text: The Protocol DAO
-  link: "/en/legacy/houston/pdao#the-protocol-dao-pdao"
+  text: Die Protocol DAO
+  link: "/de/legacy/houston/pdao#the-protocol-dao-pdao"
 ---
 
-# Overview
+# Übersicht
 
-This section outlines the process of setting up your node to participate in on-chain and snapshot proposals. There's a lot to unpack, so we highly recommend reading through an overview of the [Houston Upgrade](/en/legacy/houston/whats-new). This will help you understand the latest features that enable on-chain governance and how you can participate in shaping the protocol.
+Dieser Abschnitt beschreibt den Prozess zur Einrichtung Ihres Nodes für die Teilnahme an On-Chain- und Snapshot-Vorschlägen. Es gibt viel zu verstehen, daher empfehlen wir dringend, eine Übersicht über das [Houston Upgrade](/de/legacy/houston/whats-new) zu lesen. Dies hilft Ihnen, die neuesten Funktionen zu verstehen, die On-Chain-Governance ermöglichen und wie Sie an der Gestaltung des Protokolls teilnehmen können.
 
-## Prerequisites
+## Voraussetzungen
 
-Before configuring your Smartnode, please make sure you:
+Bevor Sie Ihre Smartnode konfigurieren, stellen Sie bitte sicher, dass Sie:
 
-- Have set up a node machine (or virtual machine) and secured it (via the [Securing your Node](../securing-your-node) guide)
-- Have the Smartnode [installed](../installing/overview) and [configured](../config/overview) on it
-- Have a node wallet loaded on your Smartnode
-- Synced your Execution and Consensus clients
-- Provisioned your node with [a withdrawal address](../prepare-node#setting-your-withdrawal-address), set up your [fallback clients](../fallback) (optional), opted into the [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (optional), and configured [MEV](../mev)
-- Created at least one [minipool](../create-validator)
+- Eine Node-Maschine (oder virtuelle Maschine) eingerichtet und gesichert haben (via den [Sichern Ihres Nodes](../securing-your-node) Leitfaden)
+- Die Smartnode [installiert](../installing/overview) und [konfiguriert](../config/overview) auf ihr haben
+- Ein Node-Wallet auf Ihrer Smartnode geladen haben
+- Ihre Execution und Consensus Clients synchronisiert haben
+- Ihren Node mit [einer Abhebungsadresse](../prepare-node#setting-your-withdrawal-address) bereitgestellt, Ihre [Fallback-Clients](../fallback) eingerichtet (optional), sich für den [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) entschieden (optional) und [MEV](../mev) konfiguriert haben
+- Mindestens einen [Minipool](../create-validator) erstellt haben
 
-## There are three addresses involved in voting
+## Es sind drei Adressen am Voting beteiligt
 
-- pDAO Signalling Address — will be used as your Snapshot address, if you want to vote directly or if you want to override your delegate’s Snapshot vote. This address is only used for Snapshot not on-chain voting.
+- pDAO Signalling Address — wird als Ihre Snapshot-Adresse verwendet, wenn Sie direkt abstimmen möchten oder wenn Sie die Snapshot-Abstimmung Ihres Delegierten überschreiben möchten. Diese Adresse wird nur für Snapshot verwendet, nicht für On-Chain-Abstimmungen.
 
-- pDAO Delegate Node — if you choose to delegate your vote. You will set this to your delegate’s node address. If you choose a delegate they will vote for you on Snapshot and for on-chain proposals.
+- pDAO Delegate Node — wenn Sie Ihre Stimme delegieren möchten. Sie setzen dies auf die Node-Adresse Ihres Delegierten. Wenn Sie einen Delegierten wählen, wird dieser für Sie auf Snapshot und für On-Chain-Vorschläge abstimmen.
 
-- Node Address — if you have not delegated your vote or if you wish to override your delegate’s on-chain vote you can do this from your node.
+- Node Address — wenn Sie Ihre Stimme nicht delegiert haben oder wenn Sie die On-Chain-Abstimmung Ihres Delegierten überschreiben möchten, können Sie dies von Ihrem Node aus tun.
 
-## Guides
+## Leitfäden
 
-[The Protocol DAO](/en/legacy/houston/pdao#the-protocol-dao-pdao) discusses who and how the pDAO governs Rocket Pool. This page will fill you in on how pDAO duties such as treasury spends can be executed on-chain, along with the role of the all new Security Council. It'll also walk you through the lifecycle of a pDAO proposal and explain some of the measures taken to prevent spam and gun down malicious proposals.
+[Die Protocol DAO](/de/legacy/houston/pdao#the-protocol-dao-pdao) diskutiert, wer und wie die pDAO Rocket Pool verwaltet. Diese Seite informiert Sie darüber, wie pDAO-Aufgaben wie Treasury-Ausgaben On-Chain ausgeführt werden können, zusammen mit der Rolle des brandneuen Security Council. Sie führt Sie auch durch den Lebenszyklus eines pDAO-Vorschlags und erklärt einige der Maßnahmen, die ergriffen wurden, um Spam zu verhindern und bösartige Vorschläge niederzuschlagen.
 
-[Voting setup for non-smartnode users](/en/legacy/houston/nonsmartnode-setup) shows non-smartnode users (such as Allnodes users) how to set up voting.
+[Voting-Einrichtung für Nicht-Smartnode-Benutzer](/de/legacy/houston/nonsmartnode-setup) zeigt Nicht-Smartnode-Benutzern (wie Allnodes-Benutzern), wie sie das Voting einrichten.
 
-[Initializing Voting Power](/en/legacy/houston/participate#initializing-voting) shows you how to initialize your node's voting power. This step is only required if your node was registered before the Houston Upgrade.
+[Initialisieren der Voting Power](/de/legacy/houston/participate#initializing-voting) zeigt Ihnen, wie Sie die Voting Power Ihres Nodes initialisieren. Dieser Schritt ist nur erforderlich, wenn Ihr Node vor dem Houston Upgrade registriert wurde.
 
-[Setting your Snapshot Signalling Address](/en/legacy/houston/participate#setting-your-snapshot-signalling-address) will walk you through the steps for setting a Signalling Address. It'll allow you to vote on Snapshot using your node's voting power without needing to load your node's private key onto a hot wallet. Make sure you have your Smartnode CLI handy and prepare a address (that isn't your node wallet) for this guide.
+[Setzen Ihrer Snapshot Signalling Address](/de/legacy/houston/participate#setting-your-snapshot-signalling-address) führt Sie durch die Schritte zum Setzen einer Signalling Address. Es ermöglicht Ihnen, auf Snapshot mit der Voting Power Ihres Nodes abzustimmen, ohne den privaten Schlüssel Ihres Nodes in ein Hot Wallet laden zu müssen. Stellen Sie sicher, dass Sie Ihre Smartnode CLI zur Hand haben und bereiten Sie eine Adresse (die nicht Ihr Node-Wallet ist) für diesen Leitfaden vor.
 
-[Delegating Voting Power](/en/legacy/houston/participate#delegating-voting-power) is a quick command you can use to delegate voting power instead of voting directly on proposals.
+[Delegieren der Voting Power](/de/legacy/houston/participate#delegating-voting-power) ist ein schneller Befehl, den Sie verwenden können, um Voting Power zu delegieren, anstatt direkt über Vorschläge abzustimmen.
 
-[Viewing the State of a Proposal](/en/legacy/houston/participate#viewing-the-state-of-a-proposal) is a guide on how you can view a list of past and ongoing on-chain proposals. You'll be able to check the state and read up on the details of any given on-chain proposal.
+[Anzeigen des Status eines Vorschlags](/de/legacy/houston/participate#viewing-the-state-of-a-proposal) ist ein Leitfaden, wie Sie eine Liste vergangener und laufender On-Chain-Vorschläge anzeigen können. Sie können den Status überprüfen und die Details eines bestimmten On-Chain-Vorschlags nachlesen.
 
-[Voting on a Proposal](/en/legacy/houston/participate#voting-on-a-proposal) shows you how cast a vote on an on-chain proposal. This guide also goes over the four options: **Abstain**, **For**, **Against**, and **Veto**.
+[Abstimmen über einen Vorschlag](/de/legacy/houston/participate#voting-on-a-proposal) zeigt Ihnen, wie Sie eine Stimme für einen On-Chain-Vorschlag abgeben. Dieser Leitfaden behandelt auch die vier Optionen: **Abstain**, **For**, **Against** und **Veto**.
 
-[Creating a Proposal](/en/legacy/houston/participate#creating-a-proposal) walks you through the requirements and steps to raise an on-chain proposal.
+[Erstellen eines Vorschlags](/de/legacy/houston/participate#creating-a-proposal) führt Sie durch die Anforderungen und Schritte zur Einreichung eines On-Chain-Vorschlags.
 
-[Executing a successful proposal](/en/legacy/houston/participate#executing-a-successful-proposal) will show you how to apply the effects of a successful proposal to the Rocket Pool Protocol.
+[Ausführen eines erfolgreichen Vorschlags](/de/legacy/houston/participate#executing-a-successful-proposal) zeigt Ihnen, wie Sie die Auswirkungen eines erfolgreichen Vorschlags auf das Rocket Pool Protokoll anwenden.
 
-[Claiming Bonds and Rewards](/en/legacy/houston/participate#claiming-bonds-and-rewards) discusses the conditions in which bonds or rewards can be claimed by a Proposer or Challenger.
+[Beanspruchen von Bonds und Belohnungen](/de/legacy/houston/participate#claiming-bonds-and-rewards) diskutiert die Bedingungen, unter denen Bonds oder Belohnungen von einem Proposer oder Challenger beansprucht werden können.
 
-[Creating and Claiming a recurring treasury spend](/en/legacy/houston/participate#creating-a-recurring-treasury-spend) is a feature which gives the pDAO full control over adding, modifying, and removing recurring payments.
+[Erstellen und Beanspruchen einer wiederkehrenden Treasury-Ausgabe](/de/legacy/houston/participate#creating-a-recurring-treasury-spend) ist eine Funktion, die der pDAO volle Kontrolle über das Hinzufügen, Ändern und Entfernen wiederkehrender Zahlungen gibt.

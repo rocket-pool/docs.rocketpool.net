@@ -1,61 +1,61 @@
-# Distributing Skimmed Rewards
+# Distribuindo Recompensas Skimmed
 
-The ETH rewards you receive for running a validator for Ethereum are routinely sent to your minipools in a process referred to as "skimming".
-The frequency of skims depends on the number of activate validators on the Beacon Chain. At the time of writing the number of validators is around
-500,000 which results in a skim occurring approximately every 2-3 days.
+As recompensas ETH que você recebe por executar um validador para Ethereum são enviadas rotineiramente para seus minipools em um processo chamado de "skimming".
+A frequência dos skims depende do número de validadores ativos na Beacon Chain. No momento da redação, o número de validadores está em torno de
+500.000, o que resulta em um skim ocorrendo aproximadamente a cada 2-3 dias.
 
-Skimmed rewards will accrue in each of your minipools until you "distribute" them. This process distributes the skimmed rewards between you, as the node operator, and rETH holders
-based on your commission rate and ratio of supplied and provided ETH.
+As recompensas skimmed acumularão em cada um de seus minipools até você "distribuí-las". Este processo distribui as recompensas skimmed entre você, como node operator, e os detentores de rETH
+com base na sua taxa de comissão e proporção de ETH fornecido e provido.
 
-::: warning NOTE
-In order to access your minipool's balance, you will need to upgrade to the [Atlas delegate](./minipools/delegates) first.
-The old Redstone delegate cannot be used to distribute the minipool's balance.
+::: warning NOTA
+Para acessar o saldo do seu minipool, você precisará atualizar para o [delegate Atlas](./minipools/delegates) primeiro.
+O antigo delegate Redstone não pode ser usado para distribuir o saldo do minipool.
 :::
 
-## Automatic Distribution
+## Distribuição Automática
 
-By default, the Smartnode is configured to automatically distribute any of your minipools when their individual balances reach **1 ETH**. This
-threshold can be configured in the TUI by following the steps below.
+Por padrão, o Smartnode está configurado para distribuir automaticamente qualquer um dos seus minipools quando seus saldos individuais atingirem **1 ETH**. Este
+limite pode ser configurado na TUI seguindo os passos abaixo.
 
-Run:
+Execute:
 
 ```shell
 rocketpool service config
 ```
 
-Navigate to the setting `Smartnode and TX Fee Settings > Auto Distribute Threshold` shown below.
+Navegue até a configuração `Smartnode and TX Fee Settings > Auto Distribute Threshold` mostrada abaixo.
 
 ![](./images/tui-automatic-skimming.png)
 
-Changing this setting will adjust the threshold at which the Smartnode will automatically distribute your minipools.
-Setting the parameter to 0 will disable automatic distributions.
+Alterar esta configuração ajustará o limite no qual o Smartnode distribuirá automaticamente seus minipools.
+Definir o parâmetro como 0 desabilitará as distribuições automáticas.
 
-::: warning WARNING
-If you decide to disable automatic distribution, it is important that you still perform a manual distribution on a regular
-basis. Read the [manual distribution section](#manual-distribution) that follows on how to do this.
+::: warning AVISO
+Se você decidir desabilitar a distribuição automática, é importante que você ainda realize uma distribuição manual regularmente.
+Leia a [seção de distribuição manual](#distribuição-manual) que segue sobre como fazer isso.
 
-After a long period of time your skimmed rewards may exceed 8 ETH. If this situation occurs you will no longer be able
-to distribute them and will need to exit your validator to access your accrued rewards.
+Após um longo período de tempo, suas recompensas skimmed podem exceder 8 ETH. Se esta situação ocorrer, você não poderá mais
+distribuí-las e precisará sair do seu validador para acessar suas recompensas acumuladas.
 
-Rocket Pool features a failsafe design which allows anyone, after a long waiting period, to distribute your minipool when
-its balance exceeds 8 ETH. To protect your capital, the Smartnode monitors this situation and will automatically exit
-your minipool if it occurs.
+Rocket Pool apresenta um design à prova de falhas que permite que qualquer pessoa, após um longo período de espera, distribua seu minipool quando
+seu saldo exceder 8 ETH. Para proteger seu capital, o Smartnode monitora esta situação e sairá automaticamente do
+seu minipool se isso ocorrer.
 :::
 
-## Manual Distribution
+## Distribuição Manual
 
-If you have disabled the automatic distribution of skimmed rewards, you will need to routinely distribute them yourself
-with the following process.
+Se você desabilitou a distribuição automática de recompensas skimmed, precisará distribuí-las rotineiramente você mesmo
+com o seguinte processo.
 
-You can also manually distribute your rewards using this process at any time without waiting for the automatic process above.
+Você também pode distribuir manualmente suas recompensas usando este processo a qualquer momento sem esperar pelo processo automático acima.
 
-If your minipool has less than 8 ETH in it, you can distribute your rewards using the following command:
+Se seu minipool tiver menos de 8 ETH, você pode distribuir suas recompensas usando o seguinte comando:
 
 ```shell
 rocketpool minipool distribute-balance
 ```
 
-This will show you the minipools you have that are eligible for distribution, how much ETH they have, and how much ETH you (the node operator) will receive:
+Isso mostrará os minipools que você tem que são elegíveis para distribuição, quanto ETH eles têm, e quanto ETH você (o node operator) receberá:
 
 ```
 WARNING: The following minipools are using an old delegate and cannot have their rewards safely distributed:
@@ -75,16 +75,16 @@ Please select a minipool to distribute the balance of:
 6: 0xffCAB546539b55756b1F85678f229dd707328A2F (0.070989 ETH available, 0.025201 ETH goes to you plus a refund of 0.000000 ETH)
 ```
 
-Any minipools using the original launch delegate will be mentioned at the start, letting you know that you cannot call `distribute-balance` on them until you upgrade their delegates.
-This delegate was written before skimmed withdrawals were specified and, as such, do not feature a way to distribute skimmed rewards.
+Quaisquer minipools usando o delegate de lançamento original serão mencionados no início, informando que você não pode chamar `distribute-balance` neles até atualizar seus delegates.
+Este delegate foi escrito antes das retiradas skimmed serem especificadas e, como tal, não apresenta uma maneira de distribuir recompensas skimmed.
 
-Note that for eligible minipools, you are also shown the **refund amount**.
-This is an amount owed directly to you (for example, because you had a balance in your minipool prior to [migrating from a 16-ETH bond down to an 8-ETH bond](./leb-migration.mdx) or you [converted a solo validator into a minipool](./solo-staker-migration) with existing rewards).
-It will not be shared with the rETH holders.
+Note que para minipools elegíveis, você também vê o **valor de reembolso**.
+Este é um valor devido diretamente a você (por exemplo, porque você tinha um saldo em seu minipool antes de [migrar de um bond de 16 ETH para um bond de 8 ETH](./leb-migration.mdx) ou você [converteu um validador solo em um minipool](./solo-staker-migration) com recompensas existentes).
+Ele não será compartilhado com os detentores de rETH.
 
-Enter the number of the minipool that you want to distribute.
-You will be prompted with the gas price chart as usual, and asked to confirm your decision.
-Once you have, your minipool's balance will be distributed:
+Digite o número do minipool que você deseja distribuir.
+Você será solicitado com o gráfico de preço de gás como de costume, e será solicitado a confirmar sua decisão.
+Uma vez que você confirme, o saldo do seu minipool será distribuído:
 
 ```
 Using a max fee of 2.00 gwei and a priority fee of 2.00 gwei.
@@ -98,4 +98,4 @@ Waiting for the transaction to be included in a block... you may wait here for i
 Successfully distributed the ETH balance of minipool 0x7E5700bcd65B1770bA68abB288D3f53814d376aC.
 ```
 
-As you can see [from the transaction](https://zhejiang.beaconcha.in/tx/b883eab903d9688b40d291c5c2030084f9bce19135837ebf96a5c1e8871cfbf9), this provided the node's withdrawal address with the node's share of the rewards (plus the refund amount) and returned the rest to the staking pool.
+Como você pode ver [pela transação](https://zhejiang.beaconcha.in/tx/b883eab903d9688b40d291c5c2030084f9bce19135837ebf96a5c1e8871cfbf9), isso forneceu ao endereço de retirada do nó a parte das recompensas do nó (mais o valor de reembolso) e devolveu o resto para o staking pool.

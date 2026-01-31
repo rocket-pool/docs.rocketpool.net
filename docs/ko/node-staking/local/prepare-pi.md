@@ -1,132 +1,131 @@
-# Preparing a Raspberry Pi
+# Raspberry Pi 준비하기
 
-::: warning NOTE
-This page has been left here for archival purposes. We no longer recommend running Rocket Pool on a Raspberry Pi due to the
-increased hardware and performance requirements of running an Ethereum validator.
+::: warning 참고
+이 페이지는 보관 목적으로 남겨두었습니다. Ethereum validator를 실행하는 데 필요한 하드웨어 및 성능 요구 사항이 증가함에 따라 더 이상 Raspberry Pi에서 Rocket Pool을 실행하는 것을 권장하지 않습니다.
 :::
 
-This guide will walk you through how run a Rocket Pool node using a Raspberry Pi.
-While this is not typically recommended in most staking guides, we recognize that it is attractive because it is a much more affordable option than standing up an entire PC.
-To that end, we've worked hard to tweak and optimize a whole host of settings and have determined a configuration that seems to work well.
+이 가이드는 Raspberry Pi를 사용하여 Rocket Pool 노드를 실행하는 방법을 안내합니다.
+대부분의 staking 가이드에서는 일반적으로 권장하지 않지만, 전체 PC를 구축하는 것보다 훨씬 저렴한 옵션이라는 점에서 매력적이라는 것을 인정합니다.
+이를 위해 우리는 다양한 설정을 조정하고 최적화하기 위해 열심히 노력했으며 잘 작동하는 것으로 보이는 구성을 결정했습니다.
 
-This setup will run **a full Execution node** and **a full Consensus node** on the Pi, making your system contribute to the health of the Ethereum network while simultaneously acting as a Rocket Pool node operator.
+이 설정은 **전체 Execution 노드**와 **전체 Consensus 노드**를 Pi에서 실행하여 Rocket Pool 노드 운영자로 활동하는 동시에 시스템이 Ethereum 네트워크의 건강에 기여하도록 합니다.
 
-## Preliminary Setup
+## 사전 설정
 
-To run a Rocket Pool node on a Raspberry Pi, you'll need to first have a working Raspberry Pi.
-If you already have one up and running - great! You can skip down to the [Mounting the SSD](#mounting-the-ssd) section.
-Just make sure you have **a fan attached** before you go.
-If you're starting from scratch, then read on.
+Raspberry Pi에서 Rocket Pool 노드를 실행하려면 먼저 작동하는 Raspberry Pi가 있어야 합니다.
+이미 실행 중인 Pi가 있다면 좋습니다! [SSD 마운트하기](#mounting-the-ssd) 섹션으로 건너뛸 수 있습니다.
+진행하기 전에 **팬이 부착되어 있는지** 확인하십시오.
+처음부터 시작하는 경우 계속 읽으십시오.
 
-### What You'll Need
+### 필요한 것
 
-These are the recommended components that you'll need to buy in order to run Rocket Pool on a Pi:
+Raspberry Pi에서 Rocket Pool을 실행하기 위해 구매해야 하는 권장 구성 요소는 다음과 같습니다:
 
-- A **Raspberry Pi 4 Model B**, the **8 GB model**
-  - Note: while you _can_ use a 4 GB with this setup, we strongly recommend you go with an 8 GB for peace of mind... it's really not much more expensive.
-- A **USB-C power supply** for the Pi. You want one that provides **at least 3 amps**.
-- A **MicroSD card**. It doesn't have to be big, 16 GB is plenty and they're pretty cheap now... but it should be at least a **Class 10 (U1)**.
-- A **MicroSD to USB** adapter for your PC. This is needed so you can install the Operating System onto the card before loading it into the Pi.
-  If your PC already has an SD port, then you don't need to pick up a new one.
-- Some **heatsinks**. You're going to be running the Pi under heavy load 24/7, and it's going to get hot.
-  Heatsinks will help so it doesn't throttle itself. You ideally want a set of 3: one for the CPU, one for the RAM, and one for the USB controller.
-  [Here is a good example of a nice set](https://www.canakit.com/raspberry-pi-4-heat-sinks.html).
-- A **case**. There are two ways to go here: with a fan, and fanless.
-  - With a fan:
-    - A 40mm **fan**. Same as the above, the goal is to keep things cool while running your Rocket Pool node.
-    - A **case with a fan mount** to tie it all together.
-      You could also get a case with integrated fans [like this one](https://www.amazon.com/Raspberry-Armor-Metal-Aluminium-Heatsink/dp/B07VWM4J4L) so you don't have to buy the fans separately.
-  - Without a fan:
-    - A **fanless case** that acts as one giant heatsink, like [this one](https://www.amazon.com/Akasa-RA08-M1B-Raspberry-case-Aluminium/dp/B081VYVNTX).
-      This is a nice option since it's silent, but your Pi **will** get quite hot - especially during the initial blockchain sync process.
-      Credit to Discord user Ken for pointing us in this direction!
-  - As a general rule, we recommend going **with a fan** because we're going to be overclocking the Pi significantly.
+- **Raspberry Pi 4 Model B**, **8 GB 모델**
+  - 참고: 이 설정에서 4 GB를 _사용할 수는 있지만_, 안심할 수 있도록 8 GB를 사용하는 것을 강력히 권장합니다... 실제로 그다지 비싸지 않습니다.
+- Pi용 **USB-C 전원 공급 장치**. **최소 3암페어**를 제공하는 것이 필요합니다.
+- **MicroSD 카드**. 크기가 클 필요는 없으며 16 GB면 충분하고 이제 꽤 저렴합니다... 하지만 최소한 **Class 10 (U1)**이어야 합니다.
+- PC용 **MicroSD to USB** 어댑터. Pi에 로드하기 전에 카드에 운영 체제를 설치하는 데 필요합니다.
+  PC에 이미 SD 포트가 있다면 새로 구입할 필요가 없습니다.
+- **히트싱크**. Pi를 24시간 내내 무거운 부하로 실행할 것이므로 뜨거워질 것입니다.
+  히트싱크는 스로틀링을 방지하는 데 도움이 됩니다. 이상적으로는 3개 세트를 원합니다: CPU용 하나, RAM용 하나, USB 컨트롤러용 하나.
+  [좋은 세트의 예는 다음과 같습니다](https://www.canakit.com/raspberry-pi-4-heat-sinks.html).
+- **케이스**. 여기에는 팬이 있는 경우와 팬이 없는 경우 두 가지 방법이 있습니다.
+  - 팬이 있는 경우:
+    - 40mm **팬**. 위와 마찬가지로 목표는 Rocket Pool 노드를 실행하는 동안 시원하게 유지하는 것입니다.
+    - 모든 것을 함께 묶을 수 있는 **팬 마운트가 있는 케이스**.
+      [이것과 같이](https://www.amazon.com/Raspberry-Armor-Metal-Aluminium-Heatsink/dp/B07VWM4J4L) 통합 팬이 있는 케이스를 구입하여 팬을 별도로 구입할 필요가 없도록 할 수도 있습니다.
+  - 팬이 없는 경우:
+    - [이것과 같이](https://www.amazon.com/Akasa-RA08-M1B-Raspberry-case-Aluminium/dp/B081VYVNTX) 하나의 거대한 히트싱크 역할을 하는 **팬리스 케이스**.
+      이것은 조용하기 때문에 좋은 옵션이지만 Pi가 **매우** 뜨거워질 것입니다 - 특히 초기 블록체인 동기화 프로세스 중에.
+      Discord 사용자 Ken이 우리를 이 방향으로 안내해 준 것에 감사드립니다!
+  - 일반적으로 Pi를 크게 오버클럭할 예정이므로 **팬과 함께** 사용하는 것을 권장합니다.
 
-You can get a lot of this stuff bundled together for convenience - for example, [Canakit offers a kit](https://www.amazon.com/CanaKit-Raspberry-8GB-Starter-Kit/dp/B08956GVXN) with many components included.
-However, you might be able to get it all cheaper if you get the parts separately (and if you have the equipment, you can [3D print your own Pi case](https://www.thingiverse.com/thing:3793664).)
+편의를 위해 이러한 것들의 많은 부분을 함께 묶어서 구입할 수 있습니다 - 예를 들어, [Canakit은 많은 구성 요소가 포함된 키트를 제공합니다](https://www.amazon.com/CanaKit-Raspberry-8GB-Starter-Kit/dp/B08956GVXN).
+그러나 부품을 개별적으로 구입하면 더 저렴하게 구입할 수 있으며 (장비가 있다면 [자신만의 Pi 케이스를 3D 프린트](https://www.thingiverse.com/thing:3793664)할 수도 있습니다.)
 
-Other components you'll need:
+필요한 다른 구성 요소:
 
-- A **USB 3.0+ Solid State Drive**. The general recommendation is for a **2 TB drive**.
-  - The [Samsung T5](https://www.amazon.com/Samsung-T5-Portable-SSD-MU-PA2T0B/dp/B073H4GPLQ) is an excellent example of one that is known to work well.
-  - :warning: Using a SATA SSD with a SATA-to-USB adapter is **not recommended** because of [problems like this](https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=245931).
-    If you go this route, we've included a performance test you can use to check if it will work or not in the [Testing the SSD's Performance](#testing-the-ssd-s-performance) section.
-- An **ethernet cable** for internet access. It should be at least **Cat 5e** rated.
-  - Running a node over Wi-Fi is **not recommended**, but if you have no other option, you can do it instead of using an ethernet cable.
-- A **UPS** to act as a power source if you ever lose electricity.
-  The Pi really doesn't draw much power, so even a small UPS will last for a while, but generally the bigger, the better. Go with as big of a UPS as you can afford.
-  Also, we recommend you **attach your modem, router, and other network equipment** to it as well - not much point keeping your Pi alive if your router dies.
+- **USB 3.0+ 솔리드 스테이트 드라이브**. 일반적으로 **2 TB 드라이브**를 권장합니다.
+  - [Samsung T5](https://www.amazon.com/Samsung-T5-Portable-SSD-MU-PA2T0B/dp/B073H4GPLQ)는 잘 작동하는 것으로 알려진 훌륭한 예입니다.
+  - :warning: SATA-to-USB 어댑터가 있는 SATA SSD를 사용하는 것은 [이와 같은 문제](https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=245931) 때문에 **권장하지 않습니다**.
+    이 경로를 선택하는 경우 [SSD 성능 테스트](#testing-the-ssd-s-performance) 섹션에서 작동하는지 여부를 확인하는 데 사용할 수 있는 성능 테스트가 포함되어 있습니다.
+- 인터넷 액세스를 위한 **이더넷 케이블**. 최소한 **Cat 5e** 등급이어야 합니다.
+  - Wi-Fi를 통해 노드를 실행하는 것은 **권장하지 않지만**, 다른 옵션이 없다면 이더넷 케이블 대신 사용할 수 있습니다.
+- 전기가 끊길 경우 전원으로 작동할 **UPS**입니다.
+  Pi는 실제로 많은 전력을 소비하지 않으므로 작은 UPS도 오래 지속되지만 일반적으로 클수록 좋습니다. 감당할 수 있는 만큼 큰 UPS를 선택하십시오.
+  또한 **모뎀, 라우터 및 기타 네트워크 장비도** 연결하는 것이 좋습니다 - 라우터가 죽으면 Pi를 살리는 것은 별 의미가 없습니다.
 
-Depending on your location, sales, your choice of SSD and UPS, and how many of these things you already have, you're probably going to end up spending **around $200 to $500 USD** for a complete setup.
+위치, 판매, SSD 및 UPS 선택, 이미 가지고 있는 것의 수에 따라 전체 설정에 **약 $200 ~ $500 USD**를 지출하게 될 것입니다.
 
-### Making the Fan Run More Quietly
+### 팬을 더 조용하게 만들기
 
-When you get the fan, by default you're probably going to be instructed to connect it to the 5v GPIO pin, as shown in the picture below.
-The fan will have a connector with two holes; the black one should go to GND (pin 6), and the red one should go to +5v (pin 4).
+팬을 구입하면 기본적으로 아래 그림과 같이 5v GPIO 핀에 연결하도록 지시받을 것입니다.
+팬에는 두 개의 구멍이 있는 커넥터가 있습니다. 검은색은 GND (핀 6)에 연결하고 빨간색은 +5v (핀 4)에 연결해야 합니다.
 ![](./images/pi/Pinout.png)
 
-However, in our experience, this makes the fan run very loud and fast which isn't really necessary.
-If you want to make it more quiet while still running cool, try connecting it to the 3.3v pin (Pin 1, the blue one) instead of the 5v pin.
-This means that on your fan, the black point will go to GND (pin 6) still, but now the red point will go to +3.3v (pin 1).
+그러나 우리의 경험에 따르면 이렇게 하면 팬이 매우 시끄럽고 빠르게 작동하는데 실제로 필요하지 않습니다.
+더 조용하게 만들면서도 시원하게 유지하려면 5v 핀 대신 3.3v 핀 (핀 1, 파란색)에 연결해 보십시오.
+즉, 팬에서 검은색 포인트는 여전히 GND (핀 6)에 연결되지만 이제 빨간색 포인트는 +3.3v (핀 1)에 연결됩니다.
 
-If your fan has a connector where the two holes are side by side and you can't split them apart, you can put [some jumpers like this](https://www.amazon.com/GenBasic-Female-Solderless-Breadboard-Prototyping/dp/B077N7J6C4) in between it and the GPIO pins on the Pi.
+팬에 두 구멍이 나란히 있는 커넥터가 있고 분리할 수 없는 경우 [이와 같은 점퍼](https://www.amazon.com/GenBasic-Female-Solderless-Breadboard-Prototyping/dp/B077N7J6C4)를 Pi의 GPIO 핀과 사이에 넣을 수 있습니다.
 
-### Installing the Operating System
+### 운영 체제 설치
 
-There are a few varieties of Linux OS that support the Raspberry Pi.
-For this guide, we're going to stick to **Ubuntu 20.04**.
-Ubuntu is a tried-and-true OS that's used around the world, and 20.04 is (at the time of this writing) the latest of the Long Term Support (LTS) versions, which means it will keep getting security patches for a very long time.
-If you'd rather stick with a different flavor of Linux like Raspbian, feel free to follow the existing installation guides for that - just keep in mind that this guide is built for Ubuntu, so not all of the instructions may match your OS.
+Raspberry Pi를 지원하는 Linux OS에는 몇 가지 종류가 있습니다.
+이 가이드에서는 **Ubuntu 20.04**를 고수하겠습니다.
+Ubuntu는 전 세계적으로 사용되는 검증된 OS이며 20.04는 (이 글을 쓰는 시점에서) 장기 지원 (LTS) 버전 중 최신 버전으로, 매우 오랫동안 보안 패치를 계속 받게 됩니다.
+Raspbian과 같은 다른 Linux를 고수하고 싶다면 해당 기존 설치 가이드를 따르십시오 - 이 가이드는 Ubuntu용으로 제작되었으므로 모든 지침이 OS와 일치하지 않을 수 있습니다.
 
-The fine folks at Canonical have written up [a wonderful guide on how to install the Ubuntu Server image onto a Pi](https://ubuntu.com/tutorials/how-to-install-ubuntu-on-your-raspberry-pi#1-overview).
+Canonical의 훌륭한 사람들은 [Pi에 Ubuntu Server 이미지를 설치하는 방법에 대한 훌륭한 가이드](https://ubuntu.com/tutorials/how-to-install-ubuntu-on-your-raspberry-pi#1-overview)를 작성했습니다.
 
-Follow **steps 1 through 4** of the guide above for the Server setup.
-For the Operating System image, you want to select `Ubuntu Server 20.04.2 LTS (RPi 3/4/400) 64-bit server OS with long-term support for arm64 architectures`.
+Server 설정을 위해 위 가이드의 **1단계부터 4단계까지** 따르십시오.
+운영 체제 이미지의 경우 `Ubuntu Server 20.04.2 LTS (RPi 3/4/400) 64-bit server OS with long-term support for arm64 architectures`를 선택하십시오.
 
-If you decide that you want a desktop UI (so you can use a mouse and have windows to drag around), you'll need to follow step 5 as well.
-We suggest that you don't do this and just stick with the server image, because the desktop UI will add some additional overhead and processing work onto your Pi with relatively little benefit.
-However, if you're determined to run a desktop, then we recommend choosing the Xubuntu option.
-It's pretty lightweight on resources and very user friendly.
+데스크톱 UI를 원하는 경우 (마우스를 사용하고 창을 드래그할 수 있도록) 5단계도 따라야 합니다.
+데스크톱 UI가 상대적으로 적은 이점으로 Pi에 추가 오버헤드와 처리 작업을 추가하므로 이렇게 하지 말고 서버 이미지를 고수하는 것이 좋습니다.
+그러나 데스크톱을 실행하기로 결정했다면 Xubuntu 옵션을 선택하는 것이 좋습니다.
+리소스가 상당히 가볍고 사용자 친화적입니다.
 
-Once that's complete, you're ready to start preparing Ubuntu to run a Rocket Pool node.
-You can use the local terminal on it, or you can SSH in from your desktop / laptop as the installation guide suggests.
-The process will be the same either way, so do whatever's most convenient for you.
+완료되면 Rocket Pool 노드를 실행하기 위해 Ubuntu를 준비할 준비가 된 것입니다.
+로컬 터미널을 사용하거나 설치 가이드에서 제안하는 대로 데스크톱/노트북에서 SSH를 통해 연결할 수 있습니다.
+프로세스는 어느 쪽이든 동일하므로 가장 편리한 방법을 사용하십시오.
 
-If you aren't familiar with `ssh`, take a look at the [Intro to Secure Shell](../ssh) guide.
+`ssh`에 익숙하지 않다면 [Secure Shell 소개](../ssh) 가이드를 살펴보십시오.
 
-::: warning NOTE
-At this point, you should _strongly consider_ configuring your router to make your Pi's IP address **static**.
-This means that your Pi will have the same IP address forever, so you can always SSH into it using that IP address.
-Otherwise, it's possible that your Pi's IP could change at some point, and the above SSH command will no longer work.
-You'll have to enter your router's configuration to find out what your Pi's new IP address is.
+::: warning 참고
+이 시점에서 라우터를 구성하여 Pi의 IP 주소를 **정적**으로 만드는 것을 _강력히 고려_해야 합니다.
+이는 Pi가 영원히 동일한 IP 주소를 갖게 되므로 항상 해당 IP 주소를 사용하여 SSH로 연결할 수 있음을 의미합니다.
+그렇지 않으면 Pi의 IP가 어느 시점에서 변경될 수 있으며 위의 SSH 명령이 더 이상 작동하지 않습니다.
+라우터의 구성에 들어가 Pi의 새 IP 주소가 무엇인지 찾아야 합니다.
 
-Each router is different, so you will need to consult your router's documentation to learn how to assign a static IP address.
+각 라우터마다 다르므로 라우터 설명서를 참조하여 정적 IP 주소를 할당하는 방법을 알아야 합니다.
 :::
 
-## Mounting the SSD
+## SSD 마운트하기
 
-As you may have gathered, after following the above installation instructions, the core OS will be running off of the microSD card.
-That's not nearly large enough or fast enough to hold all of the Execution and Consensus blockchain data, which is where the SSD comes in.
-To use it, we have to set it up with a file system and mount it to the Pi.
+위의 설치 지침을 따른 후 알 수 있듯이 핵심 OS는 microSD 카드에서 실행됩니다.
+Execution 및 Consensus 블록체인 데이터를 모두 보관하기에는 충분히 크거나 빠르지 않으므로 SSD가 필요합니다.
+사용하려면 파일 시스템으로 설정하고 Pi에 마운트해야 합니다.
 
-### Connecting the SSD to the USB 3.0 Ports
+### USB 3.0 포트에 SSD 연결
 
-Start by plugging your SSD into one of the Pi's USB 3.0 ports. These are the **blue** ports, not the black ones:
+SSD를 Pi의 USB 3.0 포트 중 하나에 연결하는 것으로 시작합니다. 검은색 포트가 아닌 **파란색** 포트입니다:
 
 ![](./images/pi/USB.png)
 
-The black ones are slow USB 2.0 ports; they're only good for accessories like mice and keyboards.
-If you have your keyboard plugged into the blue ports, take it out and plug it into the black ones now.
+검은색 포트는 느린 USB 2.0 포트입니다. 마우스와 키보드와 같은 액세서리에만 적합합니다.
+키보드가 파란색 포트에 연결되어 있으면 빼서 지금 검은색 포트에 연결하십시오.
 
-### Formatting the SSD and Creating a New Partition
+### SSD 포맷 및 새 파티션 생성
 
 ::: warning
-This process is going to erase everything on your SSD.
-If you already have a partition with stuff on it, SKIP THIS STEP because you're about to delete it all!
-If you've never used this SSD before and it's totally empty, then follow this step.
+이 프로세스는 SSD의 모든 것을 지웁니다.
+이미 파티션에 내용이 있는 경우 모두 삭제하려고 하므로 이 단계를 건너뛰십시오!
+이전에 이 SSD를 사용한 적이 없고 완전히 비어 있다면 이 단계를 따르십시오.
 :::
 
-Run this command to find the location of your disk in the device table:
+이 명령을 실행하여 장치 테이블에서 디스크 위치를 찾습니다:
 
 ```shell
 sudo lshw -C disk
@@ -140,32 +139,32 @@ sudo lshw -C disk
        ...
 ```
 
-The important thing you need is the `logical name: /dev/sda` portion, or rather, the **`/dev/sda`** part of it.
-We're going to call this the **device location** of your SSD.
-For this guide, we'll just use `/dev/sda` as the device location - yours will probably be the same, but substitute it with whatever that command shows for the rest of the instructions.
+중요한 것은 `logical name: /dev/sda` 부분 또는 오히려 **`/dev/sda`** 부분입니다.
+이것을 SSD의 **장치 위치**라고 합니다.
+이 가이드에서는 `/dev/sda`를 장치 위치로 사용합니다 - 귀하의 것도 아마 같을 것이지만 나머지 지침에 대해 해당 명령이 표시하는 것으로 대체하십시오.
 
-Now that we know the device location, let's format it and make a new partition on it so we can actually use it.
-Again, **these commands will delete whatever's already on the disk!**
+이제 장치 위치를 알았으므로 포맷하고 새 파티션을 만들어 실제로 사용할 수 있도록 하겠습니다.
+다시 말하지만 **이 명령은 디스크에 이미 있는 것을 삭제합니다!**
 
-Create a new partition table:
+새 파티션 테이블 생성:
 
 ```shell
 sudo parted -s /dev/sda mklabel gpt unit GB mkpart primary ext4 0 100%
 ```
 
-Format the new partition with the `ext4` file system:
+새 파티션을 `ext4` 파일 시스템으로 포맷:
 
 ```shell
 sudo mkfs -t ext4 /dev/sda1
 ```
 
-Add a label to it (you don't have to do this, but it's fun):
+레이블 추가 (할 필요는 없지만 재미있습니다):
 
 ```shell
 sudo e2label /dev/sda1 "Rocket Drive"
 ```
 
-Confirm that this worked by running the command below, which should show output like what you see here:
+아래 명령을 실행하여 작동했는지 확인합니다. 여기에 표시된 것과 같은 출력이 표시되어야 합니다:
 
 ```shell
 sudo blkid
@@ -173,53 +172,53 @@ sudo blkid
 /dev/sda1: LABEL="Rocket Drive" UUID="1ade40fd-1ea4-4c6e-99ea-ebb804d86266" TYPE="ext4" PARTLABEL="primary" PARTUUID="288bf76b-792c-4e6a-a049-cb6a4d23abc0"
 ```
 
-If you see all of that, then you're good. Grab the `UUID="..."` output and put it somewhere temporarily, because you're going to need it in a minute.
+이 모든 것이 표시되면 준비가 된 것입니다. `UUID="..."` 출력을 가져와 잠시 어딘가에 보관하십시오. 곧 필요할 것입니다.
 
-### Optimizing the New Partition
+### 새 파티션 최적화
 
-Next, let's tune the new filesystem a little to optimize it for validator activity.
+다음으로 새 파일 시스템을 validator 활동에 최적화하기 위해 조정하겠습니다.
 
-By default, ext4 will reserve 5% of its space for system processes.
-Since we don't need that on the SSD because it just stores the Execution and Consensus chain data, we can disable it:
+기본적으로 ext4는 시스템 프로세스를 위해 공간의 5%를 예약합니다.
+SSD는 Execution 및 Consensus 체인 데이터만 저장하므로 필요하지 않으므로 비활성화할 수 있습니다:
 
 ```shell
 sudo tune2fs -m 0 /dev/sda1
 ```
 
-### Mounting and Enabling Automount
+### 마운트 및 자동 마운트 활성화
 
-In order to use the drive, you have to mount it to the file system.
-Create a new mount point anywhere you like (we'll use `/mnt/rpdata` here as an example, feel free to use that):
+드라이브를 사용하려면 파일 시스템에 마운트해야 합니다.
+원하는 곳에 새 마운트 포인트를 생성합니다 (여기에서는 `/mnt/rpdata`를 예로 사용하겠습니다):
 
 ```shell
 sudo mkdir /mnt/rpdata
 ```
 
-Now, mount the new SSD partition to that folder:
+이제 새 SSD 파티션을 해당 폴더에 마운트합니다:
 
 ```shell
 sudo mount /dev/sda1 /mnt/rpdata
 ```
 
-After this, the folder `/mnt/rpdata` will point to the SSD, so anything you write to that folder will live on the SSD.
-This is where we're going to store the chain data for Execution and Consensus.
+이 후 `/mnt/rpdata` 폴더는 SSD를 가리키므로 해당 폴더에 쓰는 모든 것이 SSD에 저장됩니다.
+여기에 Execution 및 Consensus에 대한 체인 데이터를 저장할 것입니다.
 
-Now, let's add it to the mounting table so it automatically mounts on startup.
-Remember the `UUID` from the `blkid` command you used earlier?
-This is where it will come in handy.
+이제 시작 시 자동으로 마운트되도록 마운팅 테이블에 추가하겠습니다.
+이전에 사용한 `blkid` 명령의 `UUID`를 기억하십니까?
+여기에서 유용하게 사용됩니다.
 
 ```shell
 sudo nano /etc/fstab
 ```
 
-This will open up an interactive file editor, which will look like this to start:
+다음과 같이 시작되는 대화형 파일 편집기가 열립니다:
 
 ```
 LABEL=writable  /        ext4   defaults        0 0
 LABEL=system-boot       /boot/firmware  vfat    defaults        0       1
 ```
 
-Use the arrow keys to go down to the bottom line, and add this line to the end:
+화살표 키를 사용하여 맨 아래 줄로 이동하고 끝에 이 줄을 추가합니다:
 
 ```
 LABEL=writable  /        ext4   defaults        0 0
@@ -227,33 +226,33 @@ LABEL=system-boot       /boot/firmware  vfat    defaults        0       1
 UUID=1ade40fd-1ea4-4c6e-99ea-ebb804d86266       /mnt/rpdata     ext4    defaults        0       0
 ```
 
-Replace the value in `UUID=...` with the one from your disk, then press `Ctrl+O` and `Enter` to save, then `Ctrl+X` and `Enter` to exit.
-Now the SSD will be automatically mounted when you reboot. Nice!
+`UUID=...`의 값을 디스크의 값으로 바꾼 다음 `Ctrl+O` 및 `Enter`를 눌러 저장한 다음 `Ctrl+X` 및 `Enter`를 눌러 종료합니다.
+이제 재부팅할 때 SSD가 자동으로 마운트됩니다. 좋습니다!
 
-### Testing the SSD's Performance
+### SSD 성능 테스트
 
-Before going any further, you should test your SSD's read/write speed and how many I/O requests it can handle per second (IOPS).
-If your SSD is too slow, then it won't work well for a Rocket Pool node and you're going to end up losing money over time.
+더 진행하기 전에 SSD의 읽기/쓰기 속도와 초당 처리할 수 있는 I/O 요청 수 (IOPS)를 테스트해야 합니다.
+SSD가 너무 느리면 Rocket Pool 노드에 잘 작동하지 않으며 시간이 지남에 따라 돈을 잃게 됩니다.
 
-To test it, we're going to use a program called `fio`. Install it like this:
+테스트하려면 `fio`라는 프로그램을 사용합니다. 다음과 같이 설치합니다:
 
 ```shell
 sudo apt install fio
 ```
 
-Next, move to your SSD's mount point:
+다음으로 SSD의 마운트 포인트로 이동합니다:
 
 ```shell
 cd /mnt/rpdata
 ```
 
-Now, run this command to test the SSD performance:
+이제 이 명령을 실행하여 SSD 성능을 테스트합니다:
 
 ```shell
 sudo fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=test --filename=test --bs=4k --iodepth=64 --size=4G --readwrite=randrw --rwmixread=75
 ```
 
-The output should look like this:
+출력은 다음과 같아야 합니다:
 
 ```
 test: (g=0): rw=randrw, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=libaio, iodepth=64
@@ -269,82 +268,82 @@ test: (groupid=0, jobs=1): err= 0: pid=205075: Mon Feb 15 04:06:35 2021
 ...
 ```
 
-What you care about are the lines starting with `read:` and `write:` under the `test:` line.
+관심을 가져야 할 것은 `test:` 줄 아래에서 시작하는 `read:` 및 `write:` 줄입니다.
 
-- Your **read** should have IOPS of at least **15k** and bandwidth (BW) of at least **60 MiB/s**.
-- Your **write** should have IOPS of at least **5000** and bandwidth of at least **20 MiB/s**.
+- **읽기**는 IOPS가 최소 **15k**이고 대역폭 (BW)이 최소 **60 MiB/s**여야 합니다.
+- **쓰기**는 IOPS가 최소 **5000**이고 대역폭이 최소 **20 MiB/s**여야 합니다.
 
-Those are the specs from the Samsung T5 that we use, which work very well.
-We have also tested a slower SSD with read IOPS of 5k and write IOPS of 1k, and it has a very hard time keeping up with the consensus layer.
-If you use an SSD slower than the specs above, just be prepared that you might see a lot of missed attestations.
-If yours meets or exceeds them, then you're all set and can move on.
+이는 우리가 사용하는 Samsung T5의 사양으로 매우 잘 작동합니다.
+읽기 IOPS가 5k이고 쓰기 IOPS가 1k인 더 느린 SSD도 테스트했으며 consensus layer를 따라가는 데 매우 어려움을 겪습니다.
+위의 사양보다 느린 SSD를 사용하는 경우 많은 누락된 증명을 볼 수 있다는 점을 준비하십시오.
+귀하의 것이 충족하거나 초과하면 모두 설정된 것이며 계속 진행할 수 있습니다.
 
-::: tip NOTE
-If your SSD doesn't meet the above specs but it should, you might be able to fix it with a firmware update.
-For example, this has been experienced by the Rocket Pool community with the Samsung T7.
-Two of them fresh out of the box only showed 3.5K read IOPS and 1.2K write IOPS.
-After applying all available firmware updates, the performance was back up to the numbers shown in the above example.
-Check with your manufacturer's support website for the latest firmware and make sure your drive is up to date - you may have to update the firmware multiple times until there are no more updates left.
+::: tip 참고
+SSD가 위의 사양을 충족하지 않지만 충족해야 하는 경우 펌웨어 업데이트로 해결할 수 있습니다.
+예를 들어, Rocket Pool 커뮤니티에서 Samsung T7로 이것을 경험했습니다.
+박스에서 바로 나온 두 개는 읽기 IOPS가 3.5K이고 쓰기 IOPS가 1.2K만 표시되었습니다.
+사용 가능한 모든 펌웨어 업데이트를 적용한 후 성능이 위의 예에 표시된 숫자로 다시 올라갔습니다.
+최신 펌웨어에 대해 제조업체의 지원 웹사이트를 확인하고 드라이브가 최신 상태인지 확인하십시오 - 더 이상 업데이트가 남아 있지 않을 때까지 펌웨어를 여러 번 업데이트해야 할 수도 있습니다.
 :::
 
-Last but not least, remove the test file you just made:
+마지막으로 방금 만든 테스트 파일을 제거합니다:
 
 ```shell
 sudo rm /mnt/rpdata/test
 ```
 
-## Setting up Swap Space
+## 스왑 공간 설정
 
-The Pi has 8 GB (or 4 GB if you went that route) of RAM.
-For our configuration, that will be plenty.
-Then again, it never hurts to add a little more.
-What we're going to do now is add what's called **swap space**.
-Essentially, it means we're going to use the SSD as "backup RAM" in case something goes horribly, horribly wrong and the Pi runs out of regular RAM.
-The SSD isn't nearly as fast as the regular RAM, so if it hits the swap space it will slow things down, but it won't completely crash and break everything.
-Think of this as extra insurance that you'll (most likely) never need.
+Pi에는 8 GB (또는 해당 경로를 선택한 경우 4 GB)의 RAM이 있습니다.
+우리 구성의 경우 충분할 것입니다.
+그렇긴 하지만 조금 더 추가해도 나쁠 것은 없습니다.
+지금 할 일은 **스왑 공간**이라고 하는 것을 추가하는 것입니다.
+기본적으로 무언가가 끔찍하게 잘못되어 Pi가 일반 RAM을 다 쓰는 경우 SSD를 "백업 RAM"으로 사용할 것입니다.
+SSD는 일반 RAM만큼 빠르지 않으므로 스왑 공간에 도달하면 속도가 느려지지만 완전히 충돌하고 모든 것을 손상시키지는 않습니다.
+이것을 (대부분) 필요하지 않을 추가 보험이라고 생각하십시오.
 
-### Creating a Swap File
+### 스왑 파일 생성
 
-The first step is to make a new file that will act as your swap space.
-Decide how much you want to use - a reasonable start would be 8 GB, so you have 8 GB of normal RAM and 8 GB of "backup RAM" for a total of 16 GB.
-To be super safe, you can make it 24 GB so your system has 8 GB of normal RAM and 24 GB of "backup RAM" for a total of 32 GB, but this is probably overkill.
-Luckily, since your SSD has 1 or 2 TB of space, allocating 8 to 24 GB for a swapfile is negligible.
+첫 번째 단계는 스왑 공간으로 작동할 새 파일을 만드는 것입니다.
+얼마나 사용할지 결정하십시오 - 합리적인 시작은 8 GB로 총 16 GB의 경우 8 GB의 일반 RAM과 8 GB의 "백업 RAM"이 있습니다.
+매우 안전하려면 24 GB로 만들어 시스템에 8 GB의 일반 RAM과 24 GB의 "백업 RAM"이 총 32 GB가 되도록 할 수 있지만 이것은 아마도 과도할 것입니다.
+다행히 SSD에 1 또는 2 TB의 공간이 있으므로 스왑 파일에 8 ~ 24 GB를 할당하는 것은 무시할 수 있습니다.
 
-For the sake of this walkthrough, let's pick a nice middleground - say, 16 GB of swap space for a total RAM of 24 GB.
-Just substitute whatever number you want in as we go.
+이 연습을 위해 좋은 중간 지점을 선택하겠습니다 - 총 RAM 24 GB에 대해 16 GB의 스왑 공간.
+진행하면서 원하는 숫자로 대체하십시오.
 
-Enter this, which will create a new file called `/mnt/rpdata/swapfile` and fill it with 16 GB of zeros.
-To change the amount, just change the number in `count=16` to whatever you want. **Note that this is going to take a long time, but that's ok.**
+이것을 입력하면 `/mnt/rpdata/swapfile`이라는 새 파일이 생성되고 16 GB의 0으로 채워집니다.
+양을 변경하려면 `count=16`의 숫자를 원하는 것으로 변경하십시오. **이것은 오랜 시간이 걸리지만 괜찮습니다.**
 
 ```shell
 sudo dd if=/dev/zero of=/mnt/rpdata/swapfile bs=1G count=16 status=progress
 ```
 
-Next, set the permissions so only the root user can read or write to it (for security):
+다음으로 루트 사용자만 읽거나 쓸 수 있도록 권한을 설정합니다 (보안을 위해):
 
 ```shell
 sudo chmod 600 /mnt/rpdata/swapfile
 ```
 
-Now, mark it as a swap file:
+이제 스왑 파일로 표시합니다:
 
 ```shell
 sudo mkswap /mnt/rpdata/swapfile
 ```
 
-Next, enable it:
+다음으로 활성화합니다:
 
 ```shell
 sudo swapon /mnt/rpdata/swapfile
 ```
 
-Finally, add it to the mount table so it automatically loads when your Pi reboots:
+마지막으로 Pi가 재부팅될 때 자동으로 로드되도록 마운트 테이블에 추가합니다:
 
 ```shell
 sudo nano /etc/fstab
 ```
 
-Add a new line at the end so that the file looks like this:
+끝에 새 줄을 추가하여 파일이 다음과 같이 보이도록 합니다:
 
 ```
 LABEL=writable  /        ext4   defaults        0 0
@@ -353,109 +352,109 @@ UUID=1ade40fd-1ea4-4c6e-99ea-ebb804d86266       /mnt/rpdata     ext4    defaults
 /mnt/rpdata/swapfile                            none            swap    sw              0       0
 ```
 
-Press `Ctrl+O` and `Enter` to save, then `Ctrl+X` and `Enter` to exit.
+`Ctrl+O` 및 `Enter`를 눌러 저장한 다음 `Ctrl+X` 및 `Enter`를 눌러 종료합니다.
 
-To verify that it's active, run these commands:
+활성 상태인지 확인하려면 다음 명령을 실행합니다:
 
 ```shell
 sudo apt install htop
 htop
 ```
 
-Your output should look like this at the top:
+출력은 상단에서 다음과 같아야 합니다:
 ![](./images/pi/Swap.png)
 
-If the second number in the last row labeled `Swp` (the one after the `/`) is non-zero, then you're all set.
-For example, if it shows `0K / 16.0G` then your swap space was activated successfully.
-If it shows `0K / 0K` then it did not work and you'll have to confirm that you entered the previous steps properly.
+`Swp` 레이블이 지정된 마지막 행의 두 번째 숫자 (`/` 다음)가 0이 아니면 모두 설정된 것입니다.
+예를 들어 `0K / 16.0G`가 표시되면 스왑 공간이 성공적으로 활성화된 것입니다.
+`0K / 0K`가 표시되면 작동하지 않았으며 이전 단계를 올바르게 입력했는지 확인해야 합니다.
 
-Press `q` or `F10` to quit out of `htop` and get back to the terminal.
+`q` 또는 `F10`을 눌러 `htop`에서 종료하고 터미널로 돌아갑니다.
 
-### Configuring Swappiness and Cache Pressure
+### Swappiness 및 Cache Pressure 구성
 
-By default, Linux will eagerly use a lot of swap space to take some of the pressure off of the system's RAM.
-We don't want that. We want it to use all of the RAM up to the very last second before relying on SWAP.
-The next step is to change what's called the "swappiness" of the system, which is basically how eager it is to use the swap space.
-There is a lot of debate about what value to set this to, but we've found a value of 6 works well enough.
+기본적으로 Linux는 시스템의 RAM에서 일부 압력을 제거하기 위해 많은 스왑 공간을 열심히 사용합니다.
+우리는 그것을 원하지 않습니다. 스왑에 의존하기 전에 마지막 순간까지 모든 RAM을 사용하기를 원합니다.
+다음 단계는 시스템의 "swappiness"라고 하는 것을 변경하는 것입니다. 기본적으로 스왑 공간을 사용하는 데 얼마나 열성적인지입니다.
+이것을 어떤 값으로 설정할지에 대한 많은 논쟁이 있지만 6의 값이 충분히 잘 작동한다는 것을 발견했습니다.
 
-We also want to turn down the "cache pressure", which dictates how quickly the Pi will delete a cache of its filesystem.
-Since we're going to have a lot of spare RAM with our setup, we can make this "10" which will leave the cache in memory for a while, reducing disk I/O.
+또한 Pi가 파일 시스템의 캐시를 삭제하는 속도를 지시하는 "cache pressure"를 줄이려고 합니다.
+설정으로 여유 RAM이 많을 것이므로 캐시를 메모리에 오랫동안 남겨 디스크 I/O를 줄이는 "10"으로 만들 수 있습니다.
 
-To set these, run these commands:
+이를 설정하려면 다음 명령을 실행합니다:
 
 ```shell
 sudo sysctl vm.swappiness=6
 sudo sysctl vm.vfs_cache_pressure=10
 ```
 
-Now, put them into the `sysctl.conf` file so they are reapplied after a reboot:
+이제 재부팅 후 다시 적용되도록 `sysctl.conf` 파일에 넣습니다:
 
 ```shell
 sudo nano /etc/sysctl.conf
 ```
 
-Add these two lines to the end:
+끝에 다음 두 줄을 추가합니다:
 
 ```shell
 vm.swappiness=6
 vm.vfs_cache_pressure=10
 ```
 
-Then save and exit like you've done before (`Ctrl+O`, `Ctrl+X`).
+그런 다음 이전에 했던 것처럼 저장하고 종료합니다 (`Ctrl+O`, `Ctrl+X`).
 
-## Overclocking the Pi
+## Pi 오버클럭
 
-By default, the 1.5 GHz processor that the Pi comes with is a pretty capable little device.
-For the most part, you should be able to validate with it just fine.
-However, we have noticed that on rare occasions, your validator client gets stuck working on some things and it just doesn't have enough horsepower to keep up with your validator's attestation duties.
-When that happens, you'll see something like this on the [beaconcha.in explorer](https://beaconcha.in) (described in more detail in the [Monitoring your Node's Performance](../performance) guide later on):
+기본적으로 Pi와 함께 제공되는 1.5 GHz 프로세서는 꽤 유능한 작은 장치입니다.
+대부분의 경우 잘 검증할 수 있어야 합니다.
+그러나 드물게 validator 클라이언트가 일부 작업에 갇혀 validator의 증명 의무를 따라갈 만큼 충분한 마력이 없는 것을 발견했습니다.
+그런 일이 발생하면 [beaconcha.in explorer](https://beaconcha.in)에서 다음과 같은 것을 볼 수 있습니다 (나중에 [노드 성능 모니터링](../performance) 가이드에서 더 자세히 설명됨):
 
 ![](./images/pi/Incl-Dist.png)
 
-That inclusion distance of 8 means that it took a really long time to send that attestation, and you will be slightly penalized for being late.
-Ideally, all of them should be 0.
-Though rare, these do occur when running at stock settings.
+8의 inclusion distance는 해당 증명을 보내는 데 정말 오랜 시간이 걸렸음을 의미하며 늦었다는 이유로 약간 페널티를 받게 됩니다.
+이상적으로는 모두 0이어야 합니다.
+드물지만 스톡 설정에서 실행할 때 발생합니다.
 
-There is a way to mitigate these, however: overclocking.
-Overclocking is by far the easiest way to get some extra performance out of your Pi's CPU and prevent those nasty high inclusion distances.
-Frankly, the default CPU clock of 1.5 GHz is really underpowered.
-You can speed it up quite a bit via overclocking, and depending on how far you take it, you can do it quite safely too.
+그러나 이를 완화하는 방법이 있습니다: 오버클럭.
+오버클럭은 Pi의 CPU에서 추가 성능을 얻는 가장 쉬운 방법이며 그 불쾌한 높은 inclusion distance를 방지합니다.
+솔직히 1.5 GHz의 기본 CPU 클럭은 정말 성능이 부족합니다.
+오버클럭을 통해 상당히 가속화할 수 있으며 얼마나 멀리 가느냐에 따라 매우 안전하게 할 수도 있습니다.
 
-Overclocking the Pi is very simple - it just involves changing some numbers in a text file.
-There are two numbers that matter: the first is the **core clock**, which directly determines how fast the ARM CPU runs.
-The second is **overvoltage**, which determines the voltage that gets fed into the ARM CPU.
-Higher speeds generally require higher voltage, but the Pi's CPU can handle quite a bit of extra voltage without any appreciable damage.
-It might wear out a little faster, but we're still talking on the order of years and the Pi 5 will be out by then, so no real harm done!
+Pi를 오버클럭하는 것은 매우 간단합니다 - 텍스트 파일에서 일부 숫자를 변경하는 것만 포함됩니다.
+중요한 두 가지 숫자가 있습니다: 첫 번째는 ARM CPU가 얼마나 빠르게 실행되는지 직접 결정하는 **코어 클럭**입니다.
+두 번째는 ARM CPU에 공급되는 전압을 결정하는 **overvoltage**입니다.
+더 높은 속도는 일반적으로 더 높은 전압을 필요로 하지만 Pi의 CPU는 눈에 띄는 손상 없이 상당히 많은 추가 전압을 처리할 수 있습니다.
+조금 더 빨리 마모될 수 있지만 여전히 수년 단위로 이야기하고 있으며 그때까지 Pi 5가 나올 것이므로 실제 피해는 없습니다!
 
-Rather, the real concern with overvoltage is that **higher voltages lead to higher temperatures**.
-This section will help you see how hot your Pi gets under a heavy load, so you don't push it too far.
+오히려 overvoltage의 실제 문제는 **더 높은 전압이 더 높은 온도로 이어진다**는 것입니다.
+이 섹션은 Pi가 무거운 부하에서 얼마나 뜨거워지는지 확인하는 데 도움이 되므로 너무 멀리 밀어붙이지 않습니다.
 
 ::: warning
-While overclocking at the levels we're going to do is pretty safe and reliable, you are at the mercy of what's called the "silicon lottery".
-Every CPU is slightly different in microscopic ways, and some of them can simply overclock better than others.
-If you overclock too far / too hard, then your system may become **unstable**.
-Unstable Pis suffer from all kinds of consequences, from constant restarts to completely freezing.
-**In the worst case, you could corrupt your microSD card and have to reinstall everything from scratch!**
+우리가 할 수준에서 오버클럭하는 것은 꽤 안전하고 신뢰할 수 있지만 "실리콘 복권"이라는 것의 자비에 있습니다.
+모든 CPU는 미시적 방식으로 약간 다르며 일부는 다른 것보다 더 잘 오버클럭할 수 있습니다.
+너무 멀리 / 너무 세게 오버클럭하면 시스템이 **불안정**해질 수 있습니다.
+불안정한 Pi는 지속적인 재시작에서 완전히 정지까지 모든 종류의 결과를 겪습니다.
+**최악의 경우 microSD 카드가 손상되어 처음부터 모든 것을 다시 설치해야 할 수도 있습니다!**
 
-**By following the guidance here, you have to accept the fact that you're running that risk.**
-If that's not worth it for you, then skip the rest of this section.
+**여기의 지침을 따름으로써 해당 위험을 감수한다는 사실을 받아들여야 합니다.**
+그것이 당신에게 가치가 없다면 이 섹션의 나머지 부분을 건너뛰십시오.
 :::
 
-## Benchmarking the Stock Configuration
+## 스톡 구성 벤치마킹
 
-Before overclocking, your should profile what your Pi is capable of in its stock, off-the-shelf configuration.
-There are three key things to look at:
+오버클럭하기 전에 Pi가 스톡, 기성품 구성에서 무엇을 할 수 있는지 프로파일링해야 합니다.
+살펴볼 세 가지 주요 사항이 있습니다:
 
-1. **Performance** (how fast your Pi calculates things)
-2. **Temperature** under load (how hot it gets)
-3. **Stability** (how long it runs before crashing)
+1. **성능** (Pi가 얼마나 빨리 계산하는지)
+2. 부하 상태의 **온도** (얼마나 뜨거워지는지)
+3. **안정성** (충돌하기 전에 얼마나 오래 실행되는지)
 
-We're going to get stats on all three of them as we go.
+진행하면서 세 가지 모두에 대한 통계를 얻을 것입니다.
 
-### Performance
+### 성능
 
-For measuring performance, you can use LINPACK.
-We'll build it from source.
+성능 측정을 위해 LINPACK을 사용할 수 있습니다.
+소스에서 빌드하겠습니다.
 
 ```shell
 cd ~
@@ -468,15 +467,15 @@ sudo mv linpack /usr/local/bin
 rm linpack.c
 ```
 
-Now run it like this:
+이제 다음과 같이 실행합니다:
 
 ```shell
 linpack
 Enter array size (q to quit) [200]:
 ```
 
-Just press `enter` to leave it at the default of 200, and let it run.
-When it's done, the output will look like this:
+기본값인 200에 두려면 `enter`를 누르고 실행하도록 하십시오.
+완료되면 출력이 다음과 같이 보일 것입니다:
 
 ```
 Memory required:  315K.
@@ -496,24 +495,24 @@ Average rolled and unrolled performance:
     8192  11.23  85.67%   3.74%  10.59%  1120277.186
 ```
 
-What you need to look at is the last row, in the `KFLOPS` column.
-This number (1120277.186 in the above example) represents your computing performance.
-It doesn't mean anything by itself, but it gives us a good baseline to compare the overclocked performance to.
-Let's call this the **stock KFLOPS**.
+살펴봐야 할 것은 `KFLOPS` 열의 마지막 행입니다.
+이 숫자 (위 예에서 1120277.186)는 컴퓨팅 성능을 나타냅니다.
+그 자체로는 아무 의미가 없지만 오버클럭된 성능과 비교할 좋은 기준선을 제공합니다.
+이것을 **스톡 KFLOPS**라고 하겠습니다.
 
-### Temperature
+### 온도
 
-Next, let's stress the Pi out and watch its temperature under heavy load.
-First, install this package, which will provide a tool called `vcgencmd` that can print details about the Pi:
+다음으로 Pi를 스트레스 테스트하고 무거운 부하에서 온도를 관찰하겠습니다.
+먼저 Pi에 대한 세부 정보를 인쇄할 수 있는 `vcgencmd`라는 도구를 제공하는 이 패키지를 설치합니다:
 
 ```shell
 sudo apt install libraspberrypi-bin
 ```
 
-Once this is installed, reboot the Pi (this is necessary for some new permission to get applied).
-Next, install a program called **stressberry**.
-This will be our benchmarking tool.
-Install it like this:
+설치되면 Pi를 재부팅합니다 (일부 새 권한이 적용되려면 필요합니다).
+다음으로 **stressberry**라는 프로그램을 설치합니다.
+이것이 벤치마킹 도구가 될 것입니다.
+다음과 같이 설치합니다:
 
 ```shell
 sudo apt install stress python3-pip
@@ -521,27 +520,27 @@ pip3 install stressberry
 source ~/.profile
 ```
 
-::: tip NOTE
-If stressberry throws an error about not being able to read temperature information or not being able to open the `vchiq` instance, you can fix it with the following command:
+::: tip 참고
+stressberry가 온도 정보를 읽을 수 없거나 `vchiq` 인스턴스를 열 수 없다는 오류를 던지면 다음 명령으로 해결할 수 있습니다:
 
 ```shell
 sudo usermod -aG video $USER
 ```
 
-Then log out and back in, restart your SSH session, or restart the machine and try again.
+그런 다음 로그아웃했다가 다시 로그인하거나 SSH 세션을 다시 시작하거나 컴퓨터를 다시 시작하고 다시 시도하십시오.
 :::
 
-Next, run it like this:
+다음으로 다음과 같이 실행합니다:
 
 ```shell
 stressberry-run -n "Stock" -d 300 -i 60 -c 4 stock.out
 ```
 
-This will run a new stress test named "Stock" for 300 seconds (5 minutes) with 60 seconds of cooldown before and after the test, on all 4 cores of the Pi.
-You can play with these timings if you want it to run longer or have more of a cooldown, but this works as a quick-and-dirty stress test for me.
-The results will get saved to a file named `stock.out`.
+이것은 Pi의 4개 코어 모두에서 테스트 전후에 60초의 쿨다운으로 300초 (5분) 동안 "Stock"이라는 새 스트레스 테스트를 실행합니다.
+더 오래 실행하거나 더 많은 쿨다운을 원하면 이러한 타이밍을 조정할 수 있지만 이것은 저에게 빠르고 더러운 스트레스 테스트로 작동합니다.
+결과는 `stock.out`이라는 파일에 저장됩니다.
 
-During the main phase of the test, the output will look like this:
+테스트의 주요 단계 동안 출력은 다음과 같이 보일 것입니다:
 
 ```
 Current temperature: 41.3°C - Frequency: 1500MHz
@@ -551,82 +550,82 @@ Current temperature: 40.9°C - Frequency: 1500MHz
 Current temperature: 41.8°C - Frequency: 1500MHz
 ```
 
-This basically tells you how hot the Pi will get.
-At 85­°C, the Pi will actually start to throttle itself and bring the clock speed down so it doesn't overheat.
-Luckily, because you added a heatsink and a fan, you shouldn't get anywhere close to this!
-That being said, we generally try to keep the temperatures below 65°C for the sake of the system's overall health.
+이것은 기본적으로 Pi가 얼마나 뜨거워질지 알려줍니다.
+85°C에서 Pi는 실제로 스로틀링을 시작하고 과열되지 않도록 클럭 속도를 낮춥니다.
+다행히 히트싱크와 팬을 추가했기 때문에 이에 가까이 갈 수 없어야 합니다!
+그렇긴 하지만 일반적으로 시스템의 전반적인 건강을 위해 온도를 65°C 이하로 유지하려고 합니다.
 
-If you want to monitor the system temperature during normal validating operations, you can do this with `vcgencmd`:
+정상 validating 작업 중 시스템 온도를 모니터링하려면 `vcgencmd`로 이 작업을 수행할 수 있습니다:
 
 ```shell
 vcgencmd measure_temp
 temp=34.0'C
 ```
 
-### Stability
+### 안정성
 
-Testing the stability of an overclock involves answering these three questions:
+오버클럭의 안정성을 테스트하는 것은 다음 세 가지 질문에 답하는 것을 포함합니다:
 
-- Does the Pi turn on and get to a login promp / start the SSH server?
-- Does it randomly freeze or restart during normal operations?
-- Does it randomly freeze or restart during heavy load?
+- Pi가 켜지고 로그인 프롬프트에 도달하거나 SSH 서버를 시작합니까?
+- 정상 작동 중에 무작위로 정지하거나 재시작됩니까?
+- 무거운 부하 중에 무작위로 정지하거나 재시작됩니까?
 
-For an overclock to be truly stable, the answers must be **yes, no, and no**.
-There are a few ways to test this, but the easiest at this point is to just run `stressberry` for a really long time.
-How long is entirely up to you - the longer it goes, the more sure you can be that the system is stable.
-Some people just run the 5 minute test above and call that good if it survives; others run it for a half hour; others run it for 8 hours or even more.
-How long to run it is a personal decision you'll have to make based on your own risk tolerance.
+오버클럭이 진정으로 안정적이려면 답이 **예, 아니오, 아니오**여야 합니다.
+이를 테스트하는 몇 가지 방법이 있지만 이 시점에서 가장 쉬운 방법은 정말 오랫동안 `stressberry`를 실행하는 것입니다.
+얼마나 오래는 전적으로 귀하에게 달려 있습니다 - 더 오래 갈수록 시스템이 안정적이라고 더 확신할 수 있습니다.
+일부 사람들은 위의 5분 테스트를 실행하고 살아남으면 충분하다고 합니다. 다른 사람들은 30분 동안 실행합니다. 다른 사람들은 8시간 이상 실행합니다.
+얼마나 오래 실행할지는 자신의 위험 허용 범위에 따라 내려야 할 개인적인 결정입니다.
 
-To change the runtime, just modify the `-d` parameter with the number of seconds you want the test to run.
-For example, if you decided a half-hour is the way to go, you could do `-d 1800`.
+런타임을 변경하려면 실행하려는 테스트의 초 수로 `-d` 매개변수를 수정하십시오.
+예를 들어 30분이 방법이라고 결정했다면 `-d 1800`을 수행할 수 있습니다.
 
-## Your First Overclock - 1800 MHz (Light)
+## 첫 번째 오버클럭 - 1800 MHz (Light)
 
-The first overclock we're going to do is relatively "light" and reliable, but still provides a nice boost in compute power.
-We're going to go from the stock 1500 MHz up to 1800 MHz - a 20% speedup!
+우리가 할 첫 번째 오버클럭은 비교적 "가볍고" 신뢰할 수 있지만 여전히 컴퓨팅 능력에서 좋은 향상을 제공합니다.
+스톡 1500 MHz에서 1800 MHz로 올라갈 것입니다 - 20% 속도 향상입니다!
 
-Open this file:
+이 파일을 엽니다:
 
 ```shell
 sudo nano /boot/firmware/usercfg.txt
 ```
 
-Add these two lines to the end:
+끝에 다음 두 줄을 추가합니다:
 
 ```shell
 arm_freq=1800
 over_voltage=3
 ```
 
-Then save the file and reboot.
+그런 다음 파일을 저장하고 재부팅합니다.
 
-These settings will increase the CPU clock by 20%, and it will also raise the CPU voltage from 0.88v to 0.93v (each `over_voltage` setting increases it by 0.025v).
-This setting should be attainable by any Pi 4B, so your system should restart and provide a login prompt or SSH access in just a few moments.
-If it doesn't, and your Pi stops responding or enters a boot loop, you'll have to reset it - read the next section for that.
+이러한 설정은 CPU 클럭을 20% 증가시키고 CPU 전압을 0.88v에서 0.93v로 올립니다 (각 `over_voltage` 설정은 0.025v씩 증가시킵니다).
+이 설정은 모든 Pi 4B에서 달성할 수 있어야 하므로 시스템이 재시작되고 몇 분 안에 로그인 프롬프트 또는 SSH 액세스를 제공해야 합니다.
+그렇지 않고 Pi가 응답을 중지하거나 부팅 루프에 들어가면 재설정해야 합니다 - 다음 섹션을 읽으십시오.
 
-### Resetting After an Unstable Overclock
+### 불안정한 오버클럭 후 재설정
 
-If your Pi stops responding, or keeps restarting over and over, then you need to lower the overclock.
-To do that, follow these steps:
+Pi가 응답을 중지하거나 계속 재시작되면 오버클럭을 낮춰야 합니다.
+그렇게 하려면 다음 단계를 따르십시오:
 
-1. Turn the Pi off.
-2. Pull the microSD card out.
-3. Plug the card into another Linux computer with a microSD adapter.
-   \*NOTE: This **has to be** another Linux computer. It won't work if you plug it into a Windows machine, because Windows can't read the `ext4` filesystem the SD card uses!\*\*
-4. Mount the card on the other computer.
-5. Open `<SD mount point>/boot/firmware/usercfg.txt`.
-6. Lower the `arm_freq` value, or increase the `over_voltage` value. _NOTE: **do not go any higher than over_voltage=6.** Higher values aren't supported by the Pi's warranty, and they run the risk of degrading the CPU faster than you might be comfortable with._
-7. Unmount the SD card and remove it.
-8. Plug the card back into the Pi and turn it on.
+1. Pi를 끕니다.
+2. microSD 카드를 빼냅니다.
+3. microSD 어댑터를 사용하여 카드를 다른 Linux 컴퓨터에 연결합니다.
+   \*참고: **다른 Linux 컴퓨터여야 합니다**. Windows는 SD 카드가 사용하는 `ext4` 파일 시스템을 읽을 수 없으므로 Windows 컴퓨터에 연결해도 작동하지 않습니다!\*\*
+4. 다른 컴퓨터에 카드를 마운트합니다.
+5. `<SD mount point>/boot/firmware/usercfg.txt`를 엽니다.
+6. `arm_freq` 값을 낮추거나 `over_voltage` 값을 증가시킵니다. _참고: **over_voltage=6보다 높게 가지 마십시오.** 더 높은 값은 Pi의 보증에서 지원되지 않으며 귀하가 편안하게 생각하는 것보다 빨리 CPU를 저하시킬 위험이 있습니다._
+7. SD 카드를 마운트 해제하고 제거합니다.
+8. 카드를 Pi에 다시 연결하고 켭니다.
 
-If the Pi works, then great! Continue below.
-If not, repeat the whole process with even more conservative settings.
-In the worst case you can just remove the `arm_freq` and `over_voltage` lines entirely to return it to stock settings.
+Pi가 작동하면 좋습니다! 아래로 계속 진행합니다.
+그렇지 않으면 더욱 보수적인 설정으로 전체 프로세스를 반복합니다.
+최악의 경우 `arm_freq` 및 `over_voltage` 줄을 완전히 제거하여 스톡 설정으로 되돌릴 수 있습니다.
 
-### Testing 1800 MHz
+### 1800 MHz 테스트
 
-Once you're logged in, run `linpack` again to test the new performance.
-Here's an example from our test Pi:
+로그인하면 `linpack`을 다시 실행하여 새 성능을 테스트합니다.
+다음은 테스트 Pi의 예입니다:
 
 ```
 linpack
@@ -642,18 +641,18 @@ Enter array size (q to quit) [200]:
    16384  18.80  85.72%   3.75%  10.52%  1337238.504
 ```
 
-Again, grab the `KFLOPS` column in the last row.
-To compare it to the stock configuration, simply divide the two numbers:
+다시 마지막 행의 `KFLOPS` 열을 가져옵니다.
+스톡 구성과 비교하려면 두 숫자를 나누기만 하면 됩니다:
 `1337238.504 / 1120277.186 = 1.193668`
 
-Alright! That's a 19.4% boost in performance, which is to be expected since we're running 20% faster.
-Now let's check the temperatures with the new clock speed and voltage settings:
+좋습니다! 이것은 19.4%의 성능 향상이며 20% 더 빠르게 실행되므로 예상되는 것입니다.
+이제 새 클럭 속도 및 전압 설정으로 온도를 확인하겠습니다:
 
 ```shell
 stressberry-run -n "1800_ov3" -d 300 -i 60 -c 4 1800_ov3.out
 ```
 
-You should see output like this:
+다음과 같은 출력이 표시되어야 합니다:
 
 ```
 Current temperature: 47.2°C - Frequency: 1800MHz
@@ -663,36 +662,36 @@ Current temperature: 47.7°C - Frequency: 1800MHz
 Current temperature: 47.7°C - Frequency: 1800MHz
 ```
 
-Not bad, about 6° hotter than the stock settings but still well below the threshold where we'd personally stop.
+나쁘지 않습니다. 스톡 설정보다 약 6° 더 뜨겁지만 여전히 개인적으로 중지할 임계값보다 훨씬 낮습니다.
 
-You can run a longer stability test here if you're comfortable, or you can press on to take things even higher.
+여기에서 더 긴 안정성 테스트를 실행하거나 더 높이 올리기 위해 계속 진행할 수 있습니다.
 
-## Going to 2000 MHz (Medium)
+## 2000 MHz로 가기 (Medium)
 
-The next milestone will be 2000 MHz. This represents a 33.3% boost in clock speed, which is pretty significant.
-Most people consider this to be a great balance between performance and stability, so they stop the process here.
+다음 이정표는 2000 MHz입니다. 이것은 클럭 속도에서 33.3% 증가를 나타내며 상당히 중요합니다.
+대부분의 사람들은 이것이 성능과 안정성 사이의 훌륭한 균형이라고 생각하므로 여기에서 프로세스를 중지합니다.
 
-Our recommendation for this level is to start with these settings:
+이 수준에 대한 권장 사항은 다음 설정으로 시작하는 것입니다:
 
 ```shell
 arm_freq=2000
 over_voltage=5
 ```
 
-This will boost the core voltage to 1.005v.
-Try this out with the `linpack` and `stressberry` tests.
-If it survives them, then you're all set. If it freezes or randomly restarts, then you should increase the voltage:
+이것은 코어 전압을 1.005v로 올립니다.
+`linpack` 및 `stressberry` 테스트로 시도해 보십시오.
+살아남으면 모두 설정된 것입니다. 정지하거나 무작위로 재시작되면 전압을 증가시켜야 합니다:
 
 ```shell
 arm_freq=2000
 over_voltage=6
 ```
 
-That puts the core voltage at 1.03v, which is as high as you can go before voiding the warranty.
-That usually works for most Pis.
-If it doesn't, instead of increasing the voltage further, **you should lower your clock speed and try again.**
+그것은 코어 전압을 1.03v에 놓으며 이것은 보증을 무효화하기 전에 갈 수 있는 한 높은 것입니다.
+그것은 일반적으로 대부분의 Pi에서 작동합니다.
+그렇지 않으면 전압을 더 높이는 대신 **클럭 속도를 낮추고 다시 시도해야 합니다.**
 
-For reference, here are the numbers from our 2000 run:
+참고로 2000 실행의 숫자는 다음과 같습니다:
 
 ```
 linpack
@@ -708,9 +707,9 @@ Enter array size (q to quit) [200]:
    16384  16.96  85.74%   3.73%  10.53%  1482441.146
 ```
 
-That's a 32.3% speedup which is in-line with what we'd expect. Not bad!
+이것은 예상대로 32.3% 속도 향상입니다. 나쁘지 않습니다!
 
-Here are our temperatures:
+온도는 다음과 같습니다:
 
 ```
 Current temperature: 54.0°C - Frequency: 2000MHz
@@ -720,23 +719,23 @@ Current temperature: 54.5°C - Frequency: 2000MHz
 Current temperature: 55.5°C - Frequency: 2000MHz
 ```
 
-An increase of 7 more degrees, but still under our threshold of 65°C.
+7도 더 증가했지만 여전히 65°C 임계값 아래입니다.
 
-## Going to 2100 MHz (Heavy)
+## 2100 MHz로 가기 (Heavy)
 
-The next step represents a solid **40% speedup** over the stock configuration.
+다음 단계는 스톡 구성에 비해 확실한 **40% 속도 향상**을 나타냅니다.
 
-**NOTE: Not all Pi's are capable of doing this while staying at `over_voltage=6`.
-Try it, and if it breaks, go back to 2000 MHz.**
+**참고: 모든 Pi가 `over_voltage=6`에 머무르면서 이 작업을 수행할 수 있는 것은 아닙니다.
+시도해 보고 손상되면 2000 MHz로 돌아가십시오.**
 
-The configuration will look like this:
+구성은 다음과 같이 보일 것입니다:
 
 ```shell
 arm_freq=2100
 over_voltage=6
 ```
 
-For reference, here are our results:
+참고로 결과는 다음과 같습니다:
 
 ```
 linpack
@@ -752,9 +751,9 @@ Enter array size (q to quit) [200]:
    16384  16.11  85.73%   3.73%  10.54%  1561448.736
 ```
 
-That's a 39.4% speedup!
+이것은 39.4% 속도 향상입니다!
 
-Here are our temperatures:
+온도는 다음과 같습니다:
 
 ```
 Current temperature: 59.4°C - Frequency: 2100MHz
@@ -764,21 +763,21 @@ Current temperature: 59.4°C - Frequency: 2100MHz
 Current temperature: 58.9°C - Frequency: 2100MHz
 ```
 
-Just shy of 60°C, so there's plenty of room.
+60°C에 조금 못 미치므로 충분한 공간이 있습니다.
 
-## Going to 2250 MHz (Extreme)
+## 2250 MHz로 가기 (Extreme)
 
-This is the setting we run our Pi's at, which has been stable for over a year at the time of writing.
-Still, **users are cautioned in overclocking this high** - ensure you do thorough stability tests and have plenty of thermal headroom before attempting to make this your node's production configuration!
+이것은 우리가 Pi를 실행하는 설정으로 이 글을 쓰는 시점에서 1년 이상 안정적이었습니다.
+그럼에도 불구하고 **사용자는 이렇게 높게 오버클럭하는 데 주의를 기울여야 합니다** - 이를 노드의 프로덕션 구성으로 만들기 전에 철저한 안정성 테스트를 수행하고 충분한 열 여유가 있는지 확인하십시오!
 
-Our configuration is:
+구성은 다음과 같습니다:
 
 ```shell
 arm_freq=2250
 over_voltage=10
 ```
 
-Here are our results:
+결과는 다음과 같습니다:
 
 ```
     Reps Time(s) DGEFA   DGESL  OVERHEAD    KFLOPS
@@ -790,11 +789,11 @@ Here are our results:
    16384  15.34  85.43%   4.13%  10.44%  1638067.854
 ```
 
-That's 46% faster than the stock configuration!
+이것은 스톡 구성보다 46% 빠릅니다!
 
-OV10 is as the stock firmware will let the Pi go, and 2250 MHz is the fastest we could reliably run in production.
+OV10은 스톡 펌웨어가 Pi를 갈 수 있는 한 높은 것이며 2250 MHz는 프로덕션에서 안정적으로 실행할 수 있는 가장 빠른 속도였습니다.
 
-The temperatures in the stress test get this high:
+스트레스 테스트의 온도는 이렇게 높아집니다:
 
 ```
 Current temperature: 70.6°C - Frequency: 2251MHz
@@ -804,9 +803,9 @@ Current temperature: 71.1°C - Frequency: 2251MHz
 Current temperature: 71.1°C - Frequency: 2251MHz
 ```
 
-But during actual validation, they tend to stay below 60C which is acceptable for us.
+그러나 실제 validation 중에는 60°C 이하로 유지되는 경향이 있으며 이는 우리에게 허용됩니다.
 
-## Next Steps
+## 다음 단계
 
-And with that, your Pi is up and running and ready to run Rocket Pool!
-Move on to the [Choosing your ETH Clients](../eth-clients) section.
+이제 Pi가 실행되고 Rocket Pool을 실행할 준비가 되었습니다!
+[ETH 클라이언트 선택](../eth-clients) 섹션으로 이동하십시오.

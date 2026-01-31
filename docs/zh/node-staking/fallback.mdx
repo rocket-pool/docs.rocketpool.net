@@ -2,92 +2,92 @@ import tui_ec_expose_ports from "./images/tui-ec-expose-ports.png";
 import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_fallback_clients from "./images/tui-fallback-clients.png";
 
-# Specifying a Fallback Node
+# 指定备用节点
 
-Starting with **1.5.0** of the Smartnode stack, you can provide a "fallback" Execution client and Consensus client pair that can take over for your primary clients if they ever go offline (such as because [you use Geth and need to prune it](./pruning)).
-In this situation, your primary node machine will still be responsible for attesting and proposing blocks with your minipools' validator keys, but it will connect to an external machine to interact with the Execution layer and Beacon chains.
+从Smartnode stack的**1.5.0**版本开始,您可以提供一对"备用"Execution客户端和Consensus客户端,在您的主客户端离线时接管(例如[您使用Geth并需要裁剪它](./pruning))。
+在这种情况下,您的主节点机器仍然负责使用minipool的验证者密钥进行证明和提议区块,但它将连接到外部机器与Execution层和Beacon链交互。
 
-Essentially, it allows you to _temporarily_ use another pair of clients for things like querying the chains, sending transactions, and receiving blocks to attest to.
-This pair can be externally managed (like Hybrid mode), or it can be another Rocket Pool node (another Docker mode machine that has the API ports exposed, which we'll cover below).
+本质上,它允许您_临时_使用另一对客户端来完成查询链、发送交易和接收要证明的区块等任务。
+这对客户端可以是外部管理的(如混合模式),也可以是另一个Rocket Pool节点(另一台暴露了API端口的Docker模式机器,我们将在下面介绍)。
 
-Once your node's primary clients are back online, the Smartnode and your Validator client will switch back to them automatically.
+一旦您节点的主客户端重新上线,Smartnode和您的Validator客户端将自动切换回主客户端。
 
-::: warning NOTE
-A fallback node is **not** the same as a "backup" node.
-Fallback nodes have an Execution and Consensus client pair synced to the chain and running, but they **do not** have your node's wallet or its validator keys loaded.
+::: warning 注意
+备用节点**不**等同于"备份"节点。
+备用节点有一对同步到链并运行的Execution和Consensus客户端,但它们**不**加载您节点的钱包或验证者密钥。
 
-If your main node ever goes offline, **your fallback will not start validating for you.**
+如果您的主节点离线,**您的备用节点不会为您开始验证。**
 :::
 
-## Supported Clients
+## 支持的客户端
 
-As of v1.9.0, all our supported validator clients have added Fallback support with only a few limitations:
+从v1.9.0版本开始,我们支持的所有验证者客户端都添加了备用支持,只有少数限制:
 
-| Name       | Supports Fallback | Valid Fallback Clients                                                         |
+| 名称       | 支持备用 | 有效的备用客户端                                                         |
 | ---------- | ----------------- | ------------------------------------------------------------------------------ |
-| Lighthouse | Yes               | Any (doppelganger protection off)<br />Lighthouse (doppelganger protection on) |
-| Nimbus     | Yes               | Any                                                                            |
-| Prysm      | Yes               | Prysm                                                                          |
-| Teku       | Yes               | Any                                                                            |
-| Lodestar   | Yes               | Any                                                                            |
+| Lighthouse | 是               | 任何(防护复制保护关闭)<br />Lighthouse(防护复制保护开启) |
+| Nimbus     | 是               | 任何                                                                            |
+| Prysm      | 是               | Prysm                                                                          |
+| Teku       | 是               | 任何                                                                            |
+| Lodestar   | 是               | 任何                                                                            |
 
-## Setting up a New Node (Docker Mode)
+## 设置新节点(Docker模式)
 
-You can use a 2nd machine that you own locally, a remote node hosted on a VPS, or a cloud-based node as a fallback node.
+您可以使用本地拥有的第二台机器、托管在VPS上的远程节点或基于云的节点作为备用节点。
 
-This example shows you how to create a 2nd Smartnode on a different machine using Docker mode, which can serve as a fallback node.
+此示例向您展示如何使用Docker模式在不同的机器上创建第二个Smartnode,它可以作为备用节点。
 
-::: tip TIP
-If you already have a 2nd node ready and have its RPC ports exposed, feel free to skip this section.
+::: tip 提示
+如果您已经有第二个节点并且已暴露其RPC端口,请随意跳过本节。
 :::
 
-1. Follow the steps in the guide on setting up a node ([local](./local/hardware) or [remote](./vps/providers)).
-2. Once the machine is ready, [install the Smartnode stack](./docker).
-3. Run `rocketpool service config` to specify which clients you'd like to use.
-   1. When you get to the end of the wizard and it asks if you'd like to review your settings, select **Yes**.
-   2. Enter the `Execution Client` settings.
-   3. Check the `Expose RPC Ports` box:
+1. 按照设置节点的指南中的步骤操作([本地](./local/hardware)或[远程](./vps/providers))。
+2. 一旦机器准备就绪,[安装Smartnode stack](./docker)。
+3. 运行`rocketpool service config`来指定您想使用哪些客户端。
+   1. 当您到达向导末尾并询问您是否要查看设置时,选择**是**。
+   2. 进入`Execution Client`设置。
+   3. 勾选`Expose RPC Ports`框:
 
    <img src={tui_ec_expose_ports} width="100%" height="auto" />
-   4. Go back and enter the `Consensus Client` settings. 5. Check the `Expose API Port` box (and, if you're using **Prysm**, the `Expose RPC Port` box as well):
+   4. 返回并进入`Consensus Client`设置。 5. 勾选`Expose API Port`框(如果您使用**Prysm**,还需勾选`Expose RPC Port`框):
 
    <img src={tui_cc_expose_ports} width="100%" height="auto" />
-   6. Save the settings and start the Smartnode.
+   6. 保存设置并启动Smartnode。
 
-4. Skip to the [Securing your Node](./securing-your-node) guide to set up SSH and the proper security posture on it.
-   1. If you have `ufw` installed, you will need to add rules to allow incoming traffic to the API ports (`8545`, `8546`, and `5052` by default; also `5053` if you're using **Prysm**).
+4. 跳转到[保护您的节点](./securing-your-node)指南,设置SSH和适当的安全措施。
+   1. 如果您安装了`ufw`,您需要添加规则以允许到API端口的入站流量(默认为`8545`、`8546`和`5052`;如果您使用**Prysm**,还需`5053`)。
 
-5. That's it! You can stop here.
+5. 完成!您可以在这里停止。
 
-::: danger NOTE
-**Do not** create a wallet with `rocketpool wallet init` or recover your old wallet.
-Leave this node without a wallet and without validator keys.
+::: danger 注意
+**不要**使用`rocketpool wallet init`创建钱包或恢复旧钱包。
+让此节点保持无钱包和无验证者密钥的状态。
 
-Its only job is to have a synced Execution client and Consensus client.
+它的唯一工作就是拥有同步的Execution客户端和Consensus客户端。
 :::
 
-## Connecting your Main Node to the Fallback Node
+## 将主节点连接到备用节点
 
-Once you have a fallback node prepared, you can connect it to your main node.
+一旦您准备好备用节点,就可以将其连接到主节点。
 
-1. Enter the `rocketpool service config` TUI and enter the `Fallback Clients` settings.
-2. Check the `Use Fallback Clients` box.
-3. Enter the RPC URL for your Execution client in the `Execution Client URL` box. For example, if your fallback node's IP address is `192.168.1.45` and you have its Execution client on the default port of `8545`, you would enter `http://192.168.1.45:8545` here.
-4. Do the same for the RPC URL of your fallback Consensus client. Following the same example, if you have it on the default port of `5052`, you would enter `http://192.168.1.45:5052` here.
+1. 进入`rocketpool service config` TUI并进入`Fallback Clients`设置。
+2. 勾选`Use Fallback Clients`框。
+3. 在`Execution Client URL`框中输入您Execution客户端的RPC URL。例如,如果您的备用节点IP地址是`192.168.1.45`,并且Execution客户端在默认端口`8545`上,您将在此处输入`http://192.168.1.45:8545`。
+4. 对您的备用Consensus客户端的RPC URL执行相同操作。按照相同的示例,如果它在默认端口`5052`上,您将在此处输入`http://192.168.1.45:5052`。
 
-The final page should look like this:
+最终页面应如下所示:
 
 <img src={tui_fallback_clients} width="100%" height="auto" />
 
-::: tip NOTE
-**Native mode** users can follow the same steps, though the TUI will look slightly different from the above screenshot.
+::: tip 注意
+**Native模式**用户可以按照相同的步骤操作,尽管TUI看起来会与上面的截图略有不同。
 
-Note that this will only provide the **Smartnode itself** (the daemon service) with fallback support; **you will have to update your Validator client service's arguments manually to give it access to the fallback clients.**
+请注意,这只会为**Smartnode本身**(守护进程服务)提供备用支持;**您必须手动更新Validator客户端服务的参数才能让它访问备用客户端。**
 :::
 
-Press `enter` on the final box to ensure that it's confirmed, then save the settings and apply the changes.
+在最后一个框上按`enter`以确保它已确认,然后保存设置并应用更改。
 
-Once they've been applied, you can confirm the availability of your fallback node using the `rocketpool node sync` command:
+应用更改后,您可以使用`rocketpool node sync`命令确认备用节点的可用性:
 
 ```
 Your Smartnode is currently using the Ethereum Mainnet.
@@ -100,18 +100,18 @@ Your primary consensus client is fully synced.
 Your fallback consensus client is fully synced.
 ```
 
-If it shows that both the fallback Execution and Consensus client are synced, then you're all set!
+如果显示备用Execution和Consensus客户端都已同步,那么您就一切就绪了!
 
-## Testing the Fallback Clients
+## 测试备用客户端
 
-If you'd like to be absolutely sure that your configuration is going to work by testing the fallback clients, simply stop the Execution and Consensus clients on your main node:
+如果您想通过测试备用客户端来绝对确保您的配置将正常工作,只需停止主节点上的Execution和Consensus客户端:
 
 ```shell
 docker stop rocketpool_eth1 rocketpool_eth2
 ```
 
-Then run any command that queries the chain, such as `rocketpool network stats`.
-You will see a warning message at the top indicating that one (or both) of your primary clients are offline, and that it's reverting to the fallback clients:
+然后运行任何查询链的命令,例如`rocketpool network stats`。
+您将在顶部看到一条警告消息,指示您的一个(或两个)主客户端离线,并且它正在恢复到备用客户端:
 
 ```
 NOTE: primary clients are not ready, using fallback clients...
@@ -146,16 +146,16 @@ Total RPL staked:        6098920.170527 RPL
 Effective RPL staked:    5751692.043848 RPL
 ```
 
-Finally, start your primary clients again:
+最后,再次启动您的主客户端:
 
 ```shell
 docker start rocketpool_eth1 rocketpool_eth2
 ```
 
-And you're done!
-Your fallback setup is working.
+完成!
+您的备用设置正在工作。
 
-## Next Steps
+## 下一步
 
-Whether or not you've opted into creating and/or running a fallback node for your setup, the next step is to learn about **priority fees**.
-Click on the next section of the guide when you're ready to proceed.
+无论您是否选择为您的设置创建和/或运行备用节点,下一步是了解**优先费**。
+当您准备好继续时,单击指南的下一部分。

@@ -17,300 +17,300 @@ import tui_native_settings_home from "./images/tui-native-settings-home.png";
 import tui_native_smartnode from "./images/tui-native-smartnode.png";
 import tui_textbox from "./images/tui-textbox.png";
 
-# Configuring the Smartnode Stack (Native Mode)
+# Smartnodeスタックの設定（Nativeモード）
 
-In this section, we'll go over the various methods for configuring the Smartnode if you're using the **Native setup** that doesn't use Docker at all.
+このセクションでは、Dockerを全く使用しない**Nativeセットアップ**を使用している場合のSmartnodeの設定方法について説明します。
 
-::: warning NOTE
-If you're using a Docker-based setup, please visit the [Docker configuration guide](./config-docker) instead.
+::: warning 注意
+Dockerベースのセットアップを使用している場合は、代わりに[Docker設定ガイド](./config-docker)をご覧ください。
 :::
 
-There are three ways to configure it:
+設定方法は3つあります：
 
-- Via the [Wizard UI](#configuring-via-the-wizard) - this is the easiest way. It only asks you a few basic question and uses well-tested defaults for the test. This will be what you are presented with when you run `rocketpool service config` for the first time.
-- Via the [Settings Manager UI](#configuring-via-the-settings-manager) - this gives you access to all of the Smartnode's settings so you can customize everything as much as you want.
-- Headlessly via the [Command Line](#configuring-via-the-command-line) - this is an option for people who run the Smartnode in a headless (non-interactive) environment and need to configure it automatically.
+- [ウィザードUI](#ウィザードを使用した設定) - これが最も簡単な方法です。いくつかの基本的な質問のみを行い、その他については十分にテストされたデフォルト値を使用します。初めて`rocketpool service config`を実行したときに表示されます。
+- [設定マネージャーUI](#設定マネージャーを使用した設定) - Smartnodeのすべての設定にアクセスできるため、必要に応じてすべてをカスタマイズできます。
+- [コマンドライン](#コマンドラインを使用した設定)によるヘッドレス設定 - Smartnodeをヘッドレス（非対話型）環境で実行し、自動的に設定する必要がある人向けのオプションです。
 
-Choose which mode you'd like to learn more about from the list above, or simply scroll through each option below.
+上記のリストから詳しく知りたいモードを選択するか、以下の各オプションをスクロールしてください。
 
-## Configuring via the Wizard
+## ウィザードを使用した設定
 
-To configure the Smartnode, run the configuration command:
+Smartnodeを設定するには、設定コマンドを実行します：
 
 ```shell
 rp service config
 ```
 
-This will launch a terminal-based UI that will allow you to quickly and easily configure your node, as well as provide optional fine-grained control over the settings that are relevant to Native mode.
+これにより、ターミナルベースのUIが起動し、ノードを迅速かつ簡単に設定できます。また、Nativeモードに関連する設定をオプションで細かく制御することもできます。
 
-::: tip NOTE
-If you've already configured the Smartnode, you will instead be greeted with the [Settings Manager](#configuring-the-smartnode-stack-via-the-settings-manager).
-You can choose to re-open the Wizard from there if you prefer it, and all of your existing settings will be pre-selected for you.
+::: tip 注意
+すでにSmartnodeを設定している場合は、代わりに[設定マネージャー](#設定マネージャーを使用した設定)が表示されます。
+お好みであれば、そこからウィザードを再度開くこともでき、既存の設定がすべて事前選択されています。
 :::
 
-When you run the config UI for the first time (or if you choose to run the Wizard again later), you will be presented with a screen that looks like this:
+設定UIを初めて実行したとき（または後でウィザードを再度実行することを選択した場合）、次のような画面が表示されます：
 
 <img src={tui_native_welcome} width="100%" height="auto" />
 
-::: tip TIP
-To use the Wizard, **press the `Arrow Keys` (up/down/left/right) to navigate between things such as buttons (choices) or text boxes**.
-You can also use `Tab` and `Shift+Tab` if you prefer - it will do the same thing.
+::: tip ヒント
+ウィザードを使用するには、**`矢印キー`（上/下/左/右）を押して、ボタン（選択肢）やテキストボックスなどの間を移動します**。
+お好みであれば`Tab`と`Shift+Tab`を使用することもできます - 同じ動作をします。
 
-For buttons, **the one that's currently selected will be highlighted in green**.
-The ones in black are not selected.
-In the screenshot above, `Next` is currently selected and `Quit` is not.
+ボタンの場合、**現在選択されているものが緑色でハイライトされます**。
+黒色のものは選択されていません。
+上のスクリーンショットでは、`Next`が現在選択されており、`Quit`は選択されていません。
 
-**Press `Enter` or `Space` to select a button**, analogous to clicking on it with the mouse.
+**`Enter`または`Space`を押してボタンを選択します**。これはマウスでクリックすることに相当します。
 
-**Press `Escape` to go back to the previous dialog** if you changed your mind about something.
-This will come in handy as you progress through the various Wizard pages.
+**何か考えを変えた場合は`Escape`を押して前のダイアログに戻ります**。
+これは、ウィザードのさまざまなページを進める際に便利です。
 
-**Hold `Ctrl` and press `C` at any time to exit the Wizard without saving anything**.
+**いつでも`Ctrl`を押しながら`C`を押すと、何も保存せずにウィザードを終了できます**。
 
-For example, on the screen above, you could press the `left` and `right` arrow keys to move between the `Next` and `Quit` buttons.
+たとえば、上の画面では、`左`と`右`の矢印キーを押して、`Next`と`Quit`ボタンの間を移動できます。
 
-Pressing `Enter` while `Next` is selected will proceed to the next screen.
-Pressing `Enter` while `Quit` is selected will quit the Wizard without saving.
+`Next`が選択されている状態で`Enter`を押すと、次の画面に進みます。
+`Quit`が選択されている状態で`Enter`を押すと、保存せずにウィザードを終了します。
 :::
 
-When you're ready to begin, press `Next`.
+準備ができたら、`Next`を押してください。
 
-### Choosing a Network
+### ネットワークの選択
 
-In the next screen, you will be asked to choose which network you want to use:
+次の画面で、使用するネットワークを選択するよう求められます：
 
 <img src={tui_native_network} width="100%" height="auto" />
 
-You can highlight the different choices with the `Up` and `Down` arrow keys (or `Tab` and `Shift+Tab`).
-When you change choices, the **Description** box on the right will show you a brief description of each option.
-This is true for all choice-based pages in the Wizard, not just the network selection, so you will see this style of page frequently.
+`上`と`下`の矢印キー（または`Tab`と`Shift+Tab`）で異なる選択肢をハイライトできます。
+選択肢を変更すると、右側の**Description**ボックスに各オプションの簡単な説明が表示されます。
+これは、ネットワーク選択だけでなく、ウィザードのすべての選択肢ベースのページに当てはまるため、このスタイルのページは頻繁に表示されます。
 
-If you want to practice running a Rocket Pool node on the Hoodi test network with fake ETH and RPL you can get for free, select **Hoodi Testnet**.
+無料で入手できる偽のETHとRPLを使用してHoodiテストネットワークでRocket Poolノードを実行する練習をしたい場合は、**Hoodi Testnet**を選択してください。
 
-If you're ready to create a real Rocket Pool node on Mainnet to earn real rewards, select **Mainnet**.
+実際の報酬を獲得するためにMainnetで実際のRocket Poolノードを作成する準備ができている場合は、**Mainnet**を選択してください。
 
-### Execution Client Setup
+### Execution Clientのセットアップ
 
-The next screen will prompt you for the URL of your Execution client's HTTP-based RPC API:
+次の画面では、Execution clientのHTTPベースRPC APIのURLの入力を求められます：
 
 <img src={tui_native_ec} width="100%" height="auto" />
 
-Enter `http://127.0.0.1:8545` here if you plan to run an Execution client on the same machine as the Smartnode (in the rest of this guide, we will assume this is what you plan to do).
-However, if you already have an Execution client set up elsewhere, use its URL here instead.
+Smartnodeと同じマシンでExecution clientを実行する予定の場合は、ここに`http://127.0.0.1:8545`と入力してください（このガイドの残りの部分では、これを行うと想定します）。
+ただし、すでに他の場所にExecution clientをセットアップしている場合は、代わりにそのURLをここに使用してください。
 
-Note that you can always change this by running `rp service config` again later.
+後で`rp service config`を再度実行することで、いつでもこれを変更できることに注意してください。
 
-### Consensus Client Setup
+### Consensus Clientのセットアップ
 
-Next, you'll be asked which Consensus client you are using (or plan to use).
-Because each Consensus client has slightly different behavior, the Smartnode needs to know which one you're using so it can adapt its own behavior accordingly.
-Choose your client from the list in the following screen:
+次に、使用している（または使用する予定の）Consensus clientを尋ねられます。
+各Consensus clientは動作が若干異なるため、Smartnodeはどれを使用しているかを知る必要があり、それに応じて独自の動作を適応させることができます。
+次の画面のリストからクライアントを選択してください：
 
 <img src={tui_native_cc} width="100%" height="auto" />
 
-Next, you will see a screen prompting you for your client's API URL:
+次に、クライアントのAPI URLの入力を求める画面が表示されます：
 
 <img src={tui_native_cc_url} width="100%" height="auto" />
 
-Enter `http://127.0.0.1:5052` here if you plan to run the Beacon Node of your Consensus client on the same machine as the Smartnode (in the rest of this guide, we will assume this is what you plan to do).
-However, if you already have a Beacon Node set up elsewhere, use its URL here instead.
+Smartnodeと同じマシンでConsensus clientのBeacon Nodeを実行する予定の場合は、ここに`http://127.0.0.1:5052`と入力してください（このガイドの残りの部分では、これを行うと想定します）。
+ただし、すでに他の場所にBeacon Nodeをセットアップしている場合は、代わりにそのURLをここに使用してください。
 
-### Other Settings
+### その他の設定
 
-The next screen will have a few other miscellaneous settings:
+次の画面には、その他のいくつかの設定があります：
 
 <img src={tui_native_other} width="100%" height="auto" />
 
-Leave these as the default options unless you have decided to use a directory other than `/srv/rocketpool` for your Smartnode installation.
+Smartnodeインストールに`/srv/rocketpool`以外のディレクトリを使用することを決定していない限り、これらをデフォルトオプションのままにしてください。
 
-### Fallback Clients
+### フォールバッククライアント
 
-Starting with 1.5.0 of the Smartnode stack, you can provide a "fallback" Execution client and Consensus client pair that can take over for your primary clients if they ever go offline (such as because you use Geth and need to prune it).
-In this situation, your primary node machine will still be responsible for attesting and proposing blocks with your minipools' validator keys, but it will connect to an external machine to interact with the Execution layer and Beacon chains.
+Smartnodeスタックの1.5.0以降、プライマリクライアントがオフラインになった場合（Gethを使用していてプルーニングする必要がある場合など）に引き継ぐことができる「フォールバック」Execution clientとConsensus clientのペアを提供できます。
+この状況では、プライマリノードマシンは引き続きminipoolのvalidatorキーを使用してアテステーションとブロック提案を行いますが、Execution layerとBeacon chainとのやり取りには外部マシンに接続します。
 
-[To learn more about fall back nodes, see this section](./fallback) and return here when you're done.
+[フォールバックノードの詳細については、このセクションを参照し](./fallback)、完了したらここに戻ってください。
 
-### Metrics
+### メトリクス
 
-Rocket Pool has the ability to integrate with Prometheus and Grafana to produce convenient web-based dashboards that let you observe your node's health at a glance:
+Rocket PoolはPrometheusとGrafanaと統合して、ノードの健全性を一目で確認できる便利なWebベースのダッシュボードを生成する機能があります：
 
 <img src={nimbus_dashboard} width="100%" height="auto" />
 
-The final question in the Wizard will ask you if you want to enable this:
+ウィザードの最後の質問で、これを有効にするかどうかを尋ねられます：
 
 <img src={tui_native_metrics} width="100%" height="auto" />
 
-If you choose to enable it, you will learn more about setting it up and how to use it in the [Setting up the Grafana Dashboard](./grafana.mdx) section later in the process.
+有効にすることを選択した場合、プロセスの後半の[Grafanaダッシュボードのセットアップ](./grafana.mdx)セクションで、セットアップ方法と使用方法について詳しく学習します。
 
-::: warning NOTE
-All of the data collected by this system **stays on your machine**.
-Rocket Pool does not collect any of the telemetry or send it to a separate service.
-It's purely there for you to use so you can monitor your own node!
+::: warning 注意
+このシステムによって収集されるすべてのデータは**マシン上に留まります**。
+Rocket Poolはテレメトリを収集したり、別のサービスに送信したりしません。
+これは純粋に、独自のノードを監視できるようにするためのものです！
 :::
 
-### MEV Configuration
+### MEV設定
 
-Since the Merge of the Execution and Consensus layers in September 2022, Ethereum validators now have the ability to earn priority fees and participate in Maximal Extractable Value (or MEV for short).
+2022年9月のExecution layerとConsensus layerのMerge以降、Ethereumのvalidatorは優先手数料を獲得し、MEV（Maximal Extractable Value）に参加できるようになりました。
 
-Starting with Smartnode v1.7.0, MEV is now _opt-out_ so a notification about configuring it is presented as part of the initial setup, as you see in the next screen:
+Smartnode v1.7.0以降、MEVは現在_オプトアウト_になっているため、初期セットアップの一環として、次の画面に示すように設定に関する通知が表示されます：
 
 <img src={tui_native_mev} width="100%" height="auto" />
 
-[Please read our MEV guide to learn more about MEV, its configuration, and what to do in this section of the wizard.](./mev.mdx)
-Return here when you're finished.
+[MEV、その設定、およびウィザードのこのセクションで何をすべきかについて詳しく知るには、MEVガイドをお読みください。](./mev.mdx)
+完了したらここに戻ってください。
 
-### Completion
+### 完了
 
-After this question, you've finished setting up the Smartnode configuration.
-You will see the following dialog:
+この質問の後、Smartnode設定のセットアップが完了しました。
+次のダイアログが表示されます：
 
 <img src={tui_native_finished} width="100%" height="auto" />
 
-If you're happy with your setup and are ready to start the Smartnode, click `Save and Exit` here.
+セットアップに満足し、Smartnodeを起動する準備ができている場合は、ここで`Save and Exit`をクリックしてください。
 
-If you haven't finished installing Rocket Pool yet, return to the Native setup guide now.
-Otherwise, the next step is to restart your daemon services with:
+まだRocket Poolのインストールが完了していない場合は、今すぐNativeセットアップガイドに戻ってください。
+それ以外の場合、次のステップはdaemonサービスを再起動することです：
 
 ```shell
 sudo systemctl restart rp-node rp-watchtower
 ```
 
-If you would like to review all of the settings and customize many additional settings that weren't included in the Wizard, click `Review All Settings` and go to the [next section](#configuring-via-the-settings-manager).
+すべての設定を確認し、ウィザードに含まれていない多くの追加設定をカスタマイズしたい場合は、`Review All Settings`をクリックして[次のセクション](#設定マネージャーを使用した設定)に進んでください。
 
-## Configuring via the Settings Manager
+## 設定マネージャーを使用した設定
 
-If you've already run `rp service config`, instead of being greeted by the Wizard, you will see the **Settings Manager** screen:
+すでに`rp service config`を実行している場合、ウィザードではなく**設定マネージャー**画面が表示されます：
 
 <img src={tui_native_settings_home} width="100%" height="auto" />
 
-There are three main features of this screen:
+この画面には3つの主要な機能があります：
 
-1. The **Category List**, which lets you drill down into the settings for each category of the Smartnode stack that is relevant to Native mode
-2. The **Review Changes and Save** button, which you can use when you're ready to see what settings you've changed and save the updated configuration
-3. The **Open the Config Wizard** button, which will bring you to the [Setup Wizard](#configuring-the-smartnode-stack-via-the-wizard) if you prefer that interface instead
+1. **カテゴリリスト**：Nativeモードに関連するSmartnodeスタックの各カテゴリの設定を詳しく見ることができます
+2. **変更を確認して保存**ボタン：変更した設定を確認し、更新された設定を保存する準備ができたときに使用できます
+3. **設定ウィザードを開く**ボタン：お好みであれば[セットアップウィザード](#ウィザードを使用した設定)に移動できます
 
-::: tip TIP
-To use the Settings Manager, **press the `Arrow Keys` (up/down/left/right) to navigate between options in the home page**.
+::: tip ヒント
+設定マネージャーを使用するには、**`矢印キー`（上/下/左/右）を押して、ホームページのオプション間を移動します**。
 
-Press `Tab` to go **between the category list (1) and the buttons (2 and 3)** at the bottom of the screen.
-The button that's currently selected will be **highlighted in green**.
+`Tab`を押して、画面下部の**カテゴリリスト（1）とボタン（2および3）の間を移動**します。
+現在選択されているボタンは**緑色でハイライト**されます。
 
-**Press `Enter` or `Space` to select a button**, analogous to clicking on it with the mouse.
+**`Enter`または`Space`を押してボタンを選択します**。これはマウスでクリックすることに相当します。
 
-**Hold `Ctrl` and press `C` at any time to exit the Settings Manager without saving anything**.
+**いつでも`Ctrl`を押しながら`C`を押すと、何も保存せずに設定マネージャーを終了できます**。
 :::
 
-As you scroll through the categories list, each option will have a helpful description appear in the **Description Box** to the right of the screen.
-Feel free to explore them; nothing you do will be saved until you go through the Review dialog via the **Review Changes and Save** button, and you can press **Ctrl+C** at any time to exit without saving, so you won't accidentally mess something up by playing with the settings here.
+カテゴリリストをスクロールすると、各オプションの役立つ説明が画面右側の**Description Box**に表示されます。
+自由に探索してください。**変更を確認して保存**ボタンから確認ダイアログを経由するまで何も保存されないため、ここで設定をいじっても誤って何かを壊すことはありません。いつでも**Ctrl+C**を押して保存せずに終了できます。
 
-### Configuring the Settings
+### 設定の構成
 
-From the home screen, select any one of the categories with the `Enter` key to view the settings for that category.
-For example, here is the screen for the **Smartnode and TX Fees** category:
+ホーム画面から、`Enter`キーでいずれかのカテゴリを選択して、そのカテゴリの設定を表示します。
+たとえば、これは**Smartnode and TX Fees**カテゴリの画面です：
 
 <img src={tui_native_smartnode} width="100%" height="auto" />
 
-Use the `Arrow Keys` to move up and down between the settings.
-The currently selected one will have a white square at the end of it (if it's a text box or a check box), or will be highlighted in white (if it's a drop down).
+`矢印キー`を使用して設定間を上下に移動します。
+現在選択されているものは、その終わりに白い四角が表示されます（テキストボックスまたはチェックボックスの場合）、または白色でハイライトされます（ドロップダウンの場合）。
 
-Press `Escape` to go back to the home screen of the Settings Manager when you're done.
+完了したら`Escape`を押して、設定マネージャーのホーム画面に戻ります。
 
-As you scroll through the settings, each one will show a brief description of what it does in the **Description Box** on the right.
-It will also show the **default value** there in case you want to revert it to its stock setting.
+設定をスクロールすると、それぞれが右側の**Description Box**に何をするかの簡単な説明を表示します。
+また、ストック設定に戻したい場合に備えて、そこに**デフォルト値**も表示されます。
 
-In this example, the **RPL Claim Gas Threshold** setting is currently selected (highlighted with a green box on the left-hand side of the screen).
-It has been changed to `40`, but you can see that it has a default of `150` in the top-right corner (the top of the **Description Box**).
+この例では、**RPL Claim Gas Threshold**設定が現在選択されています（画面の左側に緑色のボックスでハイライトされています）。
+`40`に変更されていますが、右上隅（**Description Box**の上部）でデフォルトが`150`であることがわかります。
 
-::: tip TIP
-As a reminder, nothing will be saved to disk until you go through the Review dialog via the **Review Changes and Save** button.
-You are encouraged to explore all of the settings to learn about them.
+::: tip ヒント
+念のため、**変更を確認して保存**ボタンから確認ダイアログを経由するまで、ディスクに何も保存されません。
+すべての設定を探索して学習することをお勧めします。
 :::
 
-### The Setting Types and How to Use Them
+### 設定タイプとその使用方法
 
-The settings manager uses the following setting types and UI elements:
+設定マネージャーは次の設定タイプとUI要素を使用します：
 
-#### Text Boxes
+#### テキストボックス
 
-Text boxes are used to enter arbitrary strings of text or numbers.
-They look like this:
+テキストボックスは、任意のテキストまたは数値の文字列を入力するために使用されます。
+次のように見えます：
 
 <img src={tui_textbox} width="100%" height="auto" />
 
-Enter your desired values into them, then **press `Enter` or use the `Arrow Keys` to navigate to a different setting in order to preserve your changes.**
-If you don't, the Settings Manager will assume you're still updating that setting and won't mark it as changed yet.
+希望する値を入力し、**`Enter`を押すか、`矢印キー`を使用して別の設定に移動して変更を保持します。**
+そうしないと、設定マネージャーはまだその設定を更新していると想定し、変更済みとしてマークしません。
 
-#### Drop Downs
+#### ドロップダウン
 
-Drop downs are used to select an option from a list of choices.
-They look like this (when they're open):
+ドロップダウンは、選択肢のリストからオプションを選択するために使用されます。
+次のように見えます（開いているとき）：
 
 <img src={tui_dropdown_open} width="100%" height="auto" />
 
-The **green** item is the one that is currently selected.
-Use the `Arrow Keys` to change options - as you do, the **Description Box** on the right will update to tell you more about the currently selected option.
-When you're happy with your choice, press `Enter` to choose the selected option and the drop down will close, revealing the option that is currently selected:
+**緑色**のアイテムが現在選択されているものです。
+`矢印キー`を使用してオプションを変更します - そうすると、右側の**Description Box**が更新されて、現在選択されているオプションについて詳しく説明されます。
+選択に満足したら、`Enter`を押して選択したオプションを選択すると、ドロップダウンが閉じて、現在選択されているオプションが表示されます：
 
 <img src={tui_dropdown_closed} width="100%" height="auto" />
 
-#### Check Boxes
+#### チェックボックス
 
-Check boxes are used for simple Yes/No questions.
-They look like this:
+チェックボックスは、単純なYes/No質問に使用されます。
+次のように見えます：
 
 <img src={tui_checkbox_checked} width="100%" height="auto" />
 
-When they are checked, they will have an `X` in the middle as you see above.
-When they are _unchecked_, they will simply be blank like this:
+チェックされている場合、上に示すように中央に`X`があります。
+_チェックされていない_場合は、次のように単に空白になります：
 
 <img src={tui_checkbox_unchecked} width="100%" height="auto" />
 
-To change the setting, simply select it and press `Enter`.
+設定を変更するには、単にそれを選択して`Enter`を押します。
 
-### Saving Changes
+### 変更の保存
 
-When you're happy with your changes and you'd like to review them before saving, press the **Review Changes and Save** button on the home screen.
-As a reminder, to get to it, press the `Tab` key.
+変更に満足し、保存する前に確認したい場合は、ホーム画面の**変更を確認して保存**ボタンを押してください。
+念のため、それにアクセスするには`Tab`キーを押します。
 
-You will be presented with a view that looks like this:
+次のようなビューが表示されます：
 
 <img src={tui_native_review} width="100%" height="auto" />
 
-The **Review Box** here will present all of the settings you've changed, showing the old values and the new ones.
-For example, the first line here shows that the **RPL Claim Gas Threshold** used to be `150`, and it's been changed to `40`.
+ここの**Review Box**には、変更したすべての設定が表示され、古い値と新しい値が示されます。
+たとえば、ここの最初の行は、**RPL Claim Gas Threshold**が`150`だったものが`40`に変更されたことを示しています。
 
-::: tip NOTE
-At this point, your changes **still haven't been saved yet**.
-If you want to go back and modify something, press `Escape` to return to the home screen.
+::: tip 注意
+この時点で、変更は**まだ保存されていません**。
+何か変更したい場合は、`Escape`を押してホーム画面に戻ります。
 :::
 
-When you are satisfied with the changes, press `Enter` to save the new configuration to disk.
-You will then exit the Terminal UI and be presented with this message:
+変更に満足したら、`Enter`を押して新しい設定をディスクに保存します。
+その後、ターミナルUIを終了し、次のメッセージが表示されます：
 
 ```
 Your changes have been saved!
 Please restart your daemon service for them to take effect.
 ```
 
-If you haven't finished installing Rocket Pool yet, return to the Native setup guide now.
-Otherwise, now you can restart your daemon services with:
+まだRocket Poolのインストールが完了していない場合は、今すぐNativeセットアップガイドに戻ってください。
+それ以外の場合、次のコマンドでdaemonサービスを再起動できます：
 
 ```shell
 sudo systemctl restart rp-node rp-watchtower
 ```
 
-## Configuring via the Command Line
+## コマンドラインを使用した設定
 
-If you use the Smartnode in a headless environment where you can't interact with the Terminal UI, you can configure your node via the command line instead.
+ターミナルUIと対話できないヘッドレス環境でSmartnodeを使用する場合、代わりにコマンドラインを使用してノードを設定できます。
 
-The `rocketpool service config` command accepts, as arguments, every setting that can normally be configured via the Terminal UI.
-Run the following command to see a list of them (note that it's quite long):
+`rocketpool service config`コマンドは、引数として、通常ターミナルUIを介して設定できるすべての設定を受け入れます。
+次のコマンドを実行して、それらのリストを表示します（かなり長いことに注意してください）：
 
 ```
 rocketpool service config --help
 ```
 
-The output will look like this:
+出力は次のようになります：
 
 ```
 NAME:
@@ -334,16 +334,16 @@ OPTIONS:
 ...
 ```
 
-Each option will have its name, its type, its default value, and (if it's a choice parameter) its options.
-Using this text, you can find the option(s) you want to set and specify them via the appropriate arguments.
+各オプションには、名前、タイプ、デフォルト値、および（選択肢パラメータの場合）オプションがあります。
+このテキストを使用して、設定したいオプションを見つけ、適切な引数を介して指定できます。
 
-::: tip NOTE
-This command builds on top of your existing configuration, so if you have some settings already saved and just want to modify others, you don't need to repeat them.
-It will only update settings that you include as arguments to this command.
+::: tip 注意
+このコマンドは既存の設定の上に構築されるため、すでにいくつかの設定が保存されていて他の設定だけを変更したい場合、それらを繰り返す必要はありません。
+このコマンドの引数として含める設定のみが更新されます。
 :::
 
-If you haven't finished installing Rocket Pool yet, return to the Native setup guide now.
-Otherwise, the next step is to restart your daemon services with:
+まだRocket Poolのインストールが完了していない場合は、今すぐNativeセットアップガイドに戻ってください。
+それ以外の場合、次のステップはdaemonサービスを再起動することです：
 
 ```shell
 sudo systemctl restart rp-node rp-watchtower

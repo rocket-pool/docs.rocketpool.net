@@ -1,97 +1,77 @@
-# Preparing a PC, Mini-PC, or NUC
+# PC、Mini-PC、またはNUCの準備
 
-Before installing Rocket Pool, there are a few checks you should do to make sure your system is compatible and will work
-correctly.
+Rocket Poolをインストールする前に、システムが互換性があり、正しく動作することを確認するためにいくつかのチェックを行う必要があります。
 
 ::: danger
-We strongly encourage you to create a dedicated machine for running a Rocket Pool node.
-Running a node on a general-use machine, such as your daily work desktop or a gaming rig, presents extra security risks
-that may compromise your wallet and result in the theft of your coins.
+Rocket Pool nodeを実行するための専用マシンを作成することを強くお勧めします。
+日常的な作業用デスクトップやゲーミングリグなどの汎用マシンでnodeを実行すると、ウォレットを危険にさらし、コインの盗難につながる可能性のある追加のセキュリティリスクが生じます。
 
-**For maximum safety, please build a new machine that is dedicated exclusively to running a node.**
+**最大限の安全性のために、nodeの実行専用の新しいマシンを構築してください。**
 :::
 
-## System Requirements
+## システム要件
 
-Below is a brief description of the software and hardware requirements that a Rocket Pool node requires.
-This guide assumes that you already have your machine physically built, and the operating system installed.
+以下は、Rocket Pool nodeが必要とするソフトウェアおよびハードウェア要件の簡単な説明です。
+このガイドでは、マシンが物理的に構築され、オペレーティングシステムがインストールされていることを前提としています。
 
-### Supported Operating Systems
+### サポートされているオペレーティングシステム
 
-Rocket Pool's Smartnode client currently supports **Linux** and **macOS** systems.
+Rocket PoolのSmartnodeクライアントは現在、**Linux**および**macOS**システムをサポートしています。
 
-At this time, **Windows** can be used to remotely manage a remote Linux or Mac machine, but the Smartnode itself cannot
-currently run on a Windows system. However, Rocket Pool _can_ be run on a
-Linux [virtual machine](https://en.wikipedia.org/wiki/System_virtual_machine) hosted by a Windows machine.
-This setup is not recommended over simply installing Linux as the host operating system, but it does work if necessary.
-Note that it will require extra resource overhead, and comes with its own set of security risks, so we do not advise
-using this setup when staking real Ether on the main network.
+現時点では、**Windows**はリモートのLinuxまたはMacマシンをリモート管理するために使用できますが、Smartnode自体は現在Windowsシステムでは実行できません。ただし、Rocket Poolは、Windowsマシンがホストする Linux [仮想マシン](https://en.wikipedia.org/wiki/System_virtual_machine)で実行_できます_。
+このセットアップは、ホストオペレーティングシステムとしてLinuxをインストールするよりも推奨されませんが、必要に応じて動作します。
+追加のリソースオーバーヘッドが必要であり、独自のセキュリティリスクが伴うため、メインネットワークで実際のEtherをstakingする際にこのセットアップを使用することはお勧めしません。
 
-Rocket Pool is natively compatible with **AMD64 (x64)** and **arm64 (aarch64)** CPU architectures.
-For other architectures, you will need to compile the smartnode clients from source.
+Rocket Poolは、**AMD64 (x64)**および**arm64 (aarch64)** CPUアーキテクチャにネイティブ対応しています。
+他のアーキテクチャの場合、smartnodeクライアントをソースからコンパイルする必要があります。
 
-Note that the user must have **root / Administrator** access (or **sudo** privileges) to install the Smartnode.
+Smartnodeをインストールするには、ユーザーが**root/Administrator**アクセス(または**sudo**権限)を持っている必要があることに注意してください。
 
-#### Linux Support
+#### Linuxサポート
 
-There are many variants of the Linux OS (called distributions, or **distros** for short). While you can run Rocket Pool
-from any modern distro, Rocket Pool's installer can automatically install the entire stack
-on [Ubuntu](https://ubuntu.com/about), [Debian](https://www.debian.org/intro/why_debian), [CentOS](https://www.centos.org/about/),
-and [Fedora](https://docs.fedoraproject.org/en-US/project/).
+Linux OSには多くのバリアント(ディストリビューション、または略して**distros**と呼ばれます)があります。最新のdistroからRocket Poolを実行できますが、Rocket Poolのインストーラーは、[Ubuntu](https://ubuntu.com/about)、[Debian](https://www.debian.org/intro/why_debian)、[CentOS](https://www.centos.org/about/)、[Fedora](https://docs.fedoraproject.org/en-US/project/)にスタック全体を自動的にインストールできます。
 
 ::: warning NOTE
-If you plan to use Ubuntu, we strongly recommend using an **LTS** release such as 24.04.
-These releases are actively maintained for longer periods of time, which helps with the security and stability of your
-node.
+Ubuntuを使用する予定がある場合は、24.04などの**LTS**リリースを使用することを強くお勧めします。
+これらのリリースはより長期間積極的にメンテナンスされており、nodeのセキュリティと安定性に役立ちます。
 :::
 
-For installation on other distros, the Smartnode installer will not be able to automatically install some system
-dependencies (such as `docker-compose`).
-Some manual steps will be required during installation.
+他のdistroへのインストールの場合、Smartnodeインストーラーは一部のシステム依存関係(`docker-compose`など)を自動的にインストールできません。
+インストール中にいくつかの手動手順が必要になります。
 
-For `arm64` systems, the Smartnode installer only natively supports Debian and Debian-based distros such as Ubuntu.
-For other distros, manual steps will be required during installation.
+`arm64`システムの場合、SmartnodeインストーラーはDebianおよびUbuntuなどのDebianベースのdistroのみをネイティブサポートします。
+他のdistroの場合、インストール中に手動手順が必要になります。
 
-## Installing the Operating System
+## オペレーティングシステムのインストール
 
-If you're using macOS, it's highly likely that you already have the Operating System installed and can skip this step.
+macOSを使用している場合は、オペレーティングシステムがすでにインストールされている可能性が高く、この手順をスキップできます。
 
-If you're installing Linux from scratch, each of the distributions listed above come with helpful and detailed tutorials
-for installing the Operating System from scratch.
-As an example though, we will walk you through the process of installing and preparing **Debian Server**.
-Debian is a good choice for node operation because it focuses on **maximum stability and reliability** - both of which
-are highly desirable for node machines that must be running 24/7.
+Linuxを最初からインストールする場合、上記のディストリビューションのそれぞれには、オペレーティングシステムを最初からインストールするための役立つ詳細なチュートリアルが付属しています。
+ただし、例として、**Debian Server**のインストールと準備のプロセスを説明します。
+Debianは、**最大の安定性と信頼性**に焦点を当てているため、node運用に適した選択肢です。どちらも24/7稼働する必要があるnodeマシンにとって非常に望ましいものです。
 
-[Here is a good step-by-step guide](https://itslinuxfoss.com/debian-11-bullseye-guide/) with screenshots that shows you
-how to install Debian on your node machine from scratch.
+[こちらは、スクリーンショット付きの優れたステップバイステップガイドです](https://itslinuxfoss.com/debian-11-bullseye-guide/)。nodeマシンにDebianを最初からインストールする方法を示しています。
 
 :::tip
-We have a few helpful amendments to the guide linked above, which you may want to follow:
+上記のガイドへのいくつかの役立つ修正があります。
 
-- When prompted to set up a **root password**, we recommend leaving it **blank**. This will disable the `root` account
-  and instead install the `sudo` package, allowing your user to perform root operations by re-entering its password to
-  elevate its permissions. This is analogous to the way Ubuntu Linux is set up, which may be more familiar to users.
-- In the **Software selection** screen towards the end, you may not want to have a desktop GUI installed.
-  - Desktop GUIs are largely unnecessary for a node; they add extra overhead and most of the time will not be used since
-    you'll be remote controlling it via the terminal anyway, so we prefer to **uncheck GNOME and Debian desktop
-    environment** here.
-  - If you _do_ want a desktop UI on your node, we recommend you **uncheck GNOME and check XFCE** instead, as it's
-    lighter on system resources. We also recommend running no additional software on the node, such as browsers or
-    Discord, as they diminish security and consume system resources.
-  - Uncheck **web server**, but leave **SSH server** and **standard system utilities** checked.
-- If you have created a flash drive from an iso, you may need to disable the CD-ROM repository in order to run `apt`.
-  You can find an explanation of how to do
-  this [here](https://www.linuxtechi.com/things-to-do-after-installing-debian-11/).
-- Your system may be set up to sleep/hibernate by default. To disable these settings, you can run the following command:
+- **rootパスワード**の設定を求められたら、**空白のまま**にすることをお勧めします。これにより、`root`アカウントが無効になり、代わりに`sudo`パッケージがインストールされ、ユーザーはパスワードを再入力して権限を昇格させることでroot操作を実行できます。これは、Ubuntu Linuxのセットアップ方法に類似しており、ユーザーにとってより馴染みがあるかもしれません。
+- 最後の方の**ソフトウェアの選択**画面では、デスクトップGUIをインストールしたくない場合があります。
+  - デスクトップGUIは、nodeにはほとんど不要です。追加のオーバーヘッドが追加され、ほとんどの場合、ターミナル経由でリモートコントロールするため使用されないため、ここで**GNOMEとDebianデスクトップ環境のチェックを外す**ことをお勧めします。
+  - nodeでデスクトップUIが必要な場合は、システムリソースが軽量であるため、**GNOMEのチェックを外してXFCEをチェックする**ことをお勧めします。また、nodeではブラウザやDiscordなどの追加のソフトウェアを実行しないことをお勧めします。これらはセキュリティを低下させ、システムリソースを消費します。
+  - **webサーバー**のチェックを外しますが、**SSHサーバー**と**標準システムユーティリティ**はチェックしたままにします。
+- isoからフラッシュドライブを作成した場合、`apt`を実行するためにCD-ROMリポジトリを無効にする必要がある場合があります。
+  これを行う方法の説明は[こちら](https://www.linuxtechi.com/things-to-do-after-installing-debian-11/)にあります。
+- システムはデフォルトでスリープ/ハイバネートするように設定されている可能性があります。これらの設定を無効にするには、次のコマンドを実行できます。
   `sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target`
 
 :::
 
-### Installing `sudo`
+### `sudo`のインストール
 
-Rocket Pool's installer requires the `sudo` program to acquire all of its dependencies.
-If you left the **root user password blank** in the previous step, you will already have this.
-If not, please install it now by running the following commands:
+Rocket Poolのインストーラーは、すべての依存関係を取得するために`sudo`プログラムを必要とします。
+前の手順で**rootユーザーパスワードを空白のまま**にした場合は、既にこれがインストールされています。
+そうでない場合は、次のコマンドを実行して今すぐインストールしてください。
 
 ```shell
 apt update
@@ -105,13 +85,13 @@ apt install sudo
 usermod -aG sudo $USER
 ```
 
-Then restart the machine.
-You should now be able to run commands via `sudo` such as `sudo apt update`.
+次に、マシンを再起動します。
+これで、`sudo apt update`などの`sudo`経由でコマンドを実行できるようになります。
 
-### Using SSH
+### SSHの使用
 
-Once the server is installed and you're able to log in, you need to get its IP address.
-An easy way to do this is with `ifconfig` which is built into the 'net-tools' package:
+サーバーがインストールされてログインできるようになったら、そのIPアドレスを取得する必要があります。
+簡単な方法は、'net-tools'パッケージに組み込まれている`ifconfig`を使用することです。
 
 ```shell
 sudo apt update
@@ -125,7 +105,7 @@ sudo apt install net-tools
 sudo ifconfig
 ```
 
-You may see several entries here, but the one you want to look for is going to look something like this:
+ここにはいくつかのエントリが表示される場合がありますが、探しているものは次のようになります。
 
 ```
 eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
@@ -135,162 +115,150 @@ eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
       ...
 ```
 
-The flags should say `UP,BROADCAST,RUNNING,MULTICAST`.
-The `inet` value (here `192.168.1.8`) is your machine's local IP address.
+flagsには`UP,BROADCAST,RUNNING,MULTICAST`と表示されるはずです。
+`inet`値(ここでは`192.168.1.8`)がマシンのローカルIPアドレスです。
 
-Next, install SSH:
+次に、SSHをインストールします。
 
 ```shell
 sudo apt install openssh-server
 ```
 
 :::tip NOTE
-If you had the **SSH server** box checked during Debian's installation, you should already have this installed so this
-command won't do anything.
+Debianのインストール中に**SSHサーバー**ボックスにチェックを入れた場合は、既にこれがインストールされているため、このコマンドは何もしません。
 :::
 
-Once this is done, you can log into the machine's terminal remotely from your laptop or desktop using `ssh`.
+これが完了したら、`ssh`を使用してラップトップまたはデスクトップからマシンのターミナルにリモートログインできます。
 
-If you aren't familiar with `ssh`, take a look at the [Intro to Secure Shell](../ssh) guide.
+`ssh`に慣れていない場合は、[Secure Shell入門](../ssh)ガイドをご覧ください。
 
 :::warning NOTE
-At this point, you should _strongly consider_ configuring your router to make your node's IP address **static**.
-This means that your node will have the same IP address forever, so you can always SSH into it using that IP address.
-Otherwise, it's possible that your node's IP could change at some point, and the above SSH command will no longer work.
-You'll have to enter your router's configuration to find out what your node's new IP address is.
+この時点で、nodeのIPアドレスを**静的**にするようにルーターを構成することを_強く検討する_必要があります。
+これは、nodeが永遠に同じIPアドレスを持つことを意味し、そのIPアドレスを使用していつでもSSHでログインできます。
+そうしないと、nodeのIPが時点で変更される可能性があり、上記のSSHコマンドが機能しなくなります。
+nodeの新しいIPアドレスが何であるかを確認するには、ルーターの構成に入る必要があります。
 
-Each router is different, so you will need to consult your router's documentation to learn how to assign a static IP
-address.
+各ルーターは異なるため、静的IPアドレスを割り当てる方法については、ルーターのドキュメントを参照する必要があります。
 :::
 
-## Setting up Swap Space
+## スワップスペースの設定
 
-In most cases, if you choose your Execution and Consensus clients and your instance type carefully, you should not run
-out of RAM.
-Then again, it never hurts to add a little more.
-What we're going to do now is add what's called **swap space**.
-Essentially, it means we're going to use the SSD as "backup RAM" in case something goes horribly, horribly wrong and
-your server runs out of regular RAM.
-The SSD isn't nearly as fast as the regular RAM, so if it hits the swap space it will slow things down, but it won't
-completely crash and break everything.
-Think of this as extra insurance that you'll (most likely) never need.
+ほとんどの場合、ExecutionクライアントとConsensusクライアントとインスタンスタイプを慎重に選択すれば、RAMが不足することはないはずです。
+とはいえ、もう少し追加しても損はありません。
+これから行うことは、**スワップスペース**と呼ばれるものを追加することです。
+基本的には、何かひどく悪いことが起こってサーバーが通常のRAMを使い果たした場合に備えて、SSDを「バックアップRAM」として使用することを意味します。
+SSDは通常のRAMほど高速ではないため、スワップスペースにヒットすると速度が低下しますが、完全にクラッシュしてすべてが壊れることはありません。
+これは、(おそらく)決して必要としない追加の保険と考えてください。
 
-### Creating a Swap File
+### スワップファイルの作成
 
-The first step is to make a new file that will act as your swap space.
-Decide how much you want to use - a reasonable start would be 8 GB, so you have 8 GB of normal RAM and 8 GB of "backup
-RAM" for a total of 16 GB.
-To be super safe, you can make it 24 GB so your system has 8 GB of normal RAM and 24 GB of "backup RAM" for a total of
-32 GB, but this is probably overkill.
-Luckily, since your SSD has 1 or 2 TB of space, allocating 8 to 24 GB for a swapfile is negligible.
+最初のステップは、スワップスペースとして機能する新しいファイルを作成することです。
+どれだけ使用するかを決定します。妥当な開始点は8GBです。つまり、8GBの通常のRAMと8GBの「バックアップRAM」で合計16GBです。
+超安全にするために、24GBにすることもできます。つまり、システムには8GBの通常のRAMと24GBの「バックアップRAM」で合計32GBになりますが、これはおそらくやりすぎです。
+幸いなことに、SSDには1または2TBのスペースがあるため、スワップファイルに8〜24GBを割り当てることは微々たるものです。
 
-For the sake of this walkthrough, let's pick a nice middleground - say, 16 GB of swap space for a total RAM of 24 GB.
-Just substitute whatever number you want in as we go.
+このウォークスルーの目的で、素敵な中間点を選びましょう。たとえば、合計RAM 24GBのスワップスペース16GBです。
+進むにつれて、任意の数値に置き換えてください。
 
-Enter this, which will create a new file called `/swapfile` and fill it with 16 GB of zeros.
-To change the amount, just change the number in `count=16` to whatever you want. **Note that this is going to take a
-long time, but that's ok.**
+これを入力すると、`/swapfile`という新しいファイルが作成され、16GBのゼロで満たされます。
+量を変更するには、`count=16`の数値を任意の値に変更するだけです。**これには長時間かかりますが、問題ありません。**
 
 ```shell
 sudo dd if=/dev/zero of=/swapfile bs=1G count=16 status=progress
 ```
 
-Next, set the permissions so only the root user can read or write to it (for security):
+次に、rootユーザーのみが読み書きできるように権限を設定します(セキュリティのため)。
 
 ```shell
 sudo chmod 600 /swapfile
 ```
 
-Now, mark it as a swap file:
+次に、それをスワップファイルとしてマークします。
 
 ```shell
 sudo mkswap /swapfile
 ```
 
-Next, enable it:
+次に、それを有効にします。
 
 ```shell
 sudo swapon /swapfile
 ```
 
-Finally, add it to the mount table so it automatically loads when your server reboots:
+最後に、サーバーの再起動時に自動的にロードされるように、マウントテーブルに追加します。
 
 ```shell
 sudo nano /etc/fstab
 ```
 
-Add a new line at the end that looks like this:
+次のような新しい行を最後に追加します。
 
 ```
 /swapfile                            none            swap    sw              0       0
 ```
 
-Press `Ctrl+O` and `Enter` to save, then `Ctrl+X` and `Enter` to exit.
+`Ctrl+O`と`Enter`を押して保存し、次に`Ctrl+X`と`Enter`を押して終了します。
 
-To verify that it's active, run these commands:
+アクティブであることを確認するには、次のコマンドを実行します。
 
 ```shell
 sudo apt install htop
 htop
 ```
 
-Your output should look like this at the top:
+出力の上部は次のようになります。
 ![](../local/images/pi/Swap.png)
 
-If the second number in the last row labeled `Swp` (the one after the `/`) is non-zero, then you're all set.
-For example, if it shows `0K / 16.0G` then your swap space was activated successfully.
-If it shows `0K / 0K` then it did not work and you'll have to confirm that you entered the previous steps properly.
+`Swp`とラベル付けされた最後の行の2番目の数値(`/`の後の数値)がゼロ以外の場合、準備が整っています。
+例えば、`0K / 16.0G`と表示されている場合、スワップスペースが正常にアクティブ化されました。
+`0K / 0K`と表示されている場合は機能しておらず、前の手順を正しく入力したことを確認する必要があります。
 
-Press `q` or `F10` to quit out of `htop` and get back to the terminal.
+`q`または`F10`を押して`htop`を終了し、ターミナルに戻ります。
 
-### Configuring Swappiness and Cache Pressure
+### SwappinessとCache Pressureの構成
 
-By default, Linux will eagerly use a lot of swap space to take some of the pressure off of the system's RAM.
-We don't want that. We want it to use all of the RAM up to the very last second before relying on SWAP.
-The next step is to change what's called the "swappiness" of the system, which is basically how eager it is to use the
-swap space.
-There is a lot of debate about what value to set this to, but we've found a value of 6 works well enough.
+デフォルトでは、LinuxはシステムのRAMの圧力を軽減するために多くのスワップスペースを積極的に使用します。
+私たちはそれを望んでいません。スワップに頼る前に、すべてのRAMを最後の瞬間まで使用したいのです。
+次のステップは、システムの「swappiness」を変更することです。これは基本的に、スワップスペースをどれだけ積極的に使用するかです。
+これに設定する値については多くの議論がありますが、6の値がうまく機能することがわかりました。
 
-We also want to turn down the "cache pressure", which dictates how quickly the server will delete a cache of its
-filesystem.
-Since we're going to have a lot of spare RAM with our setup, we can make this "10" which will leave the cache in memory
-for a while, reducing disk I/O.
+また、「キャッシュ圧力」を下げたいと思います。これは、サーバーがファイルシステムのキャッシュをどれだけ早く削除するかを決定します。
+セットアップでは多くのスペアRAMがあるため、これを「10」にすることができ、キャッシュをしばらくメモリに残し、ディスクI/Oを削減します。
 
-To set these, run these commands:
+これらを設定するには、次のコマンドを実行します。
 
 ```shell
 sudo sysctl vm.swappiness=6
 sudo sysctl vm.vfs_cache_pressure=10
 ```
 
-Now, put them into the `sysctl.conf` file so they are reapplied after a reboot:
+次に、再起動後に再適用されるように、それらを`sysctl.conf`ファイルに入れます。
 
 ```shell
 sudo nano /etc/sysctl.conf
 ```
 
-Add these two lines to the end:
+最後にこれらの2行を追加します。
 
 ```shell
 vm.swappiness=6
 vm.vfs_cache_pressure=10
 ```
 
-Then save and exit like you've done before (`Ctrl+O`, `Ctrl+X`).
+次に、以前と同じように保存して終了します(`Ctrl+O`、`Ctrl+X`)。
 
-### Pre-installation System Checks
+### インストール前のシステムチェック
 
-Before installing Rocket Pool, please review the following checklist:
+Rocket Poolをインストールする前に、次のチェックリストを確認してください。
 
-- Your system is fully built, powers on, and can boot into the operating system.
-- You will not do any other activity on the system, such as browsing the Internet, checking email, or playing games.
-- You have a Linux operating system installed.
-- Your user account has root / administrator privileges.
-- You have an SSD that meets the performance requirements.
-- Your SSD is mounted on your file system.
-- You have at least 1.5 TB of disk space free for the initial Execution and Consensus syncing process.
-- If your ISP caps your data, it is more than 2 TB per month.
+- システムが完全に構築され、電源が入り、オペレーティングシステムに起動できる。
+- インターネットの閲覧、メールのチェック、ゲームのプレイなど、システムで他の活動を行わない。
+- Linuxオペレーティングシステムがインストールされている。
+- ユーザーアカウントにroot/管理者権限がある。
+- パフォーマンス要件を満たすSSDがある。
+- SSDがファイルシステムにマウントされている。
+- 初期のExecutionとConsensusの同期プロセスのために少なくとも1.5TBのディスク空き容量がある。
+- ISPがデータ量に上限を設けている場合、月間2TB以上である。
 
-If you have checked and confirmed all of these items, then you are ready to install Rocket Pool and begin running a
-node!
-Move on to the [Choosing your ETH Clients](../eth-clients) section.
+これらの項目をすべて確認して確認した場合、Rocket Poolをインストールしてnodeの実行を開始する準備が整いました。
+[ETHクライアントの選択](../eth-clients)セクションに進んでください。

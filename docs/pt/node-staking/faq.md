@@ -1,57 +1,57 @@
 # FAQ (WIP)
 
-### What are the benefits of running minipools with Rocket Pool compared to a 32 ETH solo validator?
+### Quais são os benefícios de executar minipools com Rocket Pool comparado a um validador solo de 32 ETH?
 
-By running a single solo validator, you would receive 100% rewards on your 32 ETH.
-By running two 16 ETH minipools, you would receive 100% rewards on your 32 ETH **plus** 14% of the rewards on 32 ETH provided by the Rocket Pool protocol.
-By running four 8 ETH minipools, you would receive 100% rewards on your 32 ETH **plus** 14% of the rewards on 96 ETH provided by the Rocket Pool protocol.
-You would also have the option to use Rocket Pool's [Smoothing Pool](./prepare-node.mdx#smoothing-pool) feature.
+Ao executar um único validador solo, você receberia 100% das recompensas nos seus 32 ETH.
+Ao executar dois minipools de 16 ETH, você receberia 100% das recompensas nos seus 32 ETH **mais** 14% das recompensas em 32 ETH fornecidos pelo protocolo Rocket Pool.
+Ao executar quatro minipools de 8 ETH, você receberia 100% das recompensas nos seus 32 ETH **mais** 14% das recompensas em 96 ETH fornecidos pelo protocolo Rocket Pool.
+Você também teria a opção de usar o recurso [Smoothing Pool](./prepare-node.mdx#smoothing-pool) do Rocket Pool.
 
-### How do I know how much my rETH is worth? Does it rebase?
+### Como eu sei quanto meu rETH vale? Ele faz rebase?
 
-The rETH token will not rebase.
-The number of tokens on your wallet will remain constant but they appreciate in value over time.
+O token rETH não fará rebase.
+O número de tokens na sua carteira permanecerá constante, mas eles se valorizam ao longo do tempo.
 
-### I have a technical issue running my node, how do I get help?
+### Tenho um problema técnico executando meu node, como obtenho ajuda?
 
-You can start by checking the [Rocket Pool Support](https://rocketpool.support) page.
-If that doesn't help, you can ask your question on the Rocket Pool **#support** channel in [the Discord server](https://discord.gg/rocketpool).
+Você pode começar verificando a página [Rocket Pool Support](https://rocketpool.support).
+Se isso não ajudar, você pode fazer sua pergunta no canal **#support** do Rocket Pool no [servidor Discord](https://discord.gg/rocketpool).
 
-### How can I get test ETH to experiment with creating and running a minipool? I can't post messages on the faucet channel.
+### Como posso obter ETH de teste para experimentar criar e executar um minipool? Não consigo postar mensagens no canal de faucet.
 
-See [Getting test ETH on Hoodi](../testnet/overview#getting-test-eth-on-hoodi).
+Veja [Obtendo ETH de teste no Hoodi](../testnet/overview#getting-test-eth-on-hoodi).
 
-### How do I recover my node if my machine breaks?
+### Como recupero meu node se minha máquina quebrar?
 
-Short answer: your mnemonic is all that you need to fully recover your node.
-Always make sure to keep it safe.
+Resposta curta: seu mnemônico é tudo que você precisa para recuperar totalmente seu node.
+Sempre certifique-se de mantê-lo seguro.
 
-To recover your node on a new machine, start by making sure **your previous machine is not going to be online again** with the keys available, as two nodes running with the same keys **will get you slashed**.
-Follow the [steps](./install-modes) to install the Smartnode on a new machine.
-Then, recover your node wallet and validator keys by running the command `rocketpool wallet recover` and insert your 24-word mnemonic.
+Para recuperar seu node em uma nova máquina, comece certificando-se de que **sua máquina anterior não ficará online novamente** com as chaves disponíveis, pois dois nodes executando com as mesmas chaves **farão você ser slashed**.
+Siga os [passos](./install-modes) para instalar o Smartnode em uma nova máquina.
+Depois, recupere sua carteira de node e chaves de validador executando o comando `rocketpool wallet recover` e insira seu mnemônico de 24 palavras.
 
-### Why aren't my clients syncing? I have a low amount of peers.
+### Por que meus clientes não estão sincronizando? Tenho um número baixo de peers.
 
-Clients need to have a healthy number of peers to be able to properly sync.
-You can start by running the test [here](https://www.yougetsignal.com/tools/open-ports/), checking if ports 30303 and 9001 are opened.
-If they're closed, you'll need to setup port forwarding on your router.
-Also, make sure your node has a static local IP address so the port forwarding does not break due to your node getting a new address.
+Os clientes precisam ter um número saudável de peers para serem capazes de sincronizar adequadamente.
+Você pode começar executando o teste [aqui](https://www.yougetsignal.com/tools/open-ports/), verificando se as portas 30303 e 9001 estão abertas.
+Se estiverem fechadas, você precisará configurar o encaminhamento de porta no seu roteador.
+Além disso, certifique-se de que seu node tem um endereço IP local estático para que o encaminhamento de porta não quebre devido ao seu node receber um novo endereço.
 
-### My consensus client is taking too long to sync. What should I do?
+### Meu cliente de consenso está demorando muito para sincronizar. O que devo fazer?
 
-Consensus clients can take a long time to sync if you didn't start the sync process using [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
-Even if you're running it for a long time, it's usually faster to configure the checkpoint sync URL, clear the current sync data with `rocketpool service resync-eth2` and start over.
-Your client should be synced in less than a minute.
+Os clientes de consenso podem levar muito tempo para sincronizar se você não iniciou o processo de sincronização usando [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
+Mesmo se você estiver executando por muito tempo, geralmente é mais rápido configurar a URL de checkpoint sync, limpar os dados de sincronização atuais com `rocketpool service resync-eth2` e começar de novo.
+Seu cliente deve estar sincronizado em menos de um minuto.
 
-### I've already rebooted. Why does Grafana say I still need to reboot?
+### Já reiniciei. Por que o Grafana diz que ainda preciso reiniciar?
 
-The reboot information is cached and only updates every few hours.
-Running `sudo apt update` will force an update.
+As informações de reinicialização são armazenadas em cache e só atualizam a cada poucas horas.
+Executar `sudo apt update` forçará uma atualização.
 
-### I changed my Execution Layer and/or my Beacon Chain or Consensus Layer. How do I clean out the old data?
+### Mudei minha Execution Layer e/ou minha Beacon Chain ou Consensus Layer. Como limpo os dados antigos?
 
-If you change clients, Rocketpool does not delete the old volumes. This data could be wasting significant disk space and you may want to remove it. To do so, you need to find the volumes. If you are using the default Rocketpool settings, the docker volumes are stored at `/var/lib/docker/volumes/`. The execution layer is in `rocketpool_eth1clientdata/_data/*` and the consensus layer is in `rocketpool_eth2clientdata/_data/*`.
+Se você mudar de clientes, o Rocketpool não exclui os volumes antigos. Esses dados podem estar desperdiçando espaço significativo em disco e você pode querer removê-los. Para fazer isso, você precisa encontrar os volumes. Se você está usando as configurações padrão do Rocketpool, os volumes docker são armazenados em `/var/lib/docker/volumes/`. A execution layer está em `rocketpool_eth1clientdata/_data/*` e a consensus layer está em `rocketpool_eth2clientdata/_data/*`.
 
-To access these directories, you may need to sudo as root using `sudo -i`. Then you can delete a directory by calling `rm -rf <directory>`. For example, if you wanted to delete all the geth data, you would call `rm -rf /var/lib/docker/volumes/rocketpool_eth1clientdata/_data/geth/`.
+Para acessar esses diretórios, você pode precisar fazer sudo como root usando `sudo -i`. Depois você pode deletar um diretório chamando `rm -rf <diretório>`. Por exemplo, se você quisesse deletar todos os dados do geth, você chamaria `rm -rf /var/lib/docker/volumes/rocketpool_eth1clientdata/_data/geth/`.
 
-To exit as root, type `exit`.
+Para sair como root, digite `exit`.

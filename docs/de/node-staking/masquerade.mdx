@@ -1,10 +1,10 @@
-# Masquerading as Another Node Address
+# Maskierung als eine andere Node-Adresse
 
-Starting with Smartnode version `v1.15.7`, users will be able to mock the behaviour of an arbitrary address. While masquerading as another address,
-your node will continue the node and watchtower task loop using your node address and perform duties such as attesting using your validator keys. You will not be able
-to submit transactions or sign messages as the masqueraded address. This feature is especially useful for support and debugging.
+Ab Smartnode-Version `v1.15.7` können Benutzer das Verhalten einer beliebigen Adresse simulieren. Während Sie sich als eine andere Adresse maskieren,
+wird Ihr Node die Node- und Watchtower-Task-Schleife mit Ihrer Node-Adresse fortsetzen und Aufgaben wie das Attestieren mit Ihren Validator-Schlüsseln ausführen. Sie können
+Transaktionen nicht senden oder Nachrichten als die maskierte Adresse signieren. Diese Funktion ist besonders nützlich für Support und Debugging.
 
-If you wish to interact with the Smartnode through the lens of another node address, please use the following command: `rocketpool wallet masquerade`
+Wenn Sie mit dem Smartnode aus der Perspektive einer anderen Node-Adresse interagieren möchten, verwenden Sie bitte folgenden Befehl: `rocketpool wallet masquerade`
 
 ```
 rp@user:~$ rocketpool wallet masquerade
@@ -23,7 +23,7 @@ y
 Your node is now masquerading as address 0xcaB549EdE082592D10FE6a238e7e8914aD3a074d.
 ```
 
-When you are finished with masquerade mode, simply run `rocketpool wallet end-masquerade` and follow the prompts:
+Wenn Sie mit dem Masquerade-Modus fertig sind, führen Sie einfach `rocketpool wallet end-masquerade` aus und folgen Sie den Anweisungen:
 
 ```
 rp@user:~$ rocketpool wallet end-masquerade
@@ -36,7 +36,7 @@ y
 Successfully ended masquerade mode.
 ```
 
-Additionally, you can check the status of your node wallet by running `rocketpool wallet status`:
+Zusätzlich können Sie den Status Ihrer Node-Wallet überprüfen, indem Sie `rocketpool wallet status` ausführen:
 
 ```
 rp@node:~$ rocketpool wallet status

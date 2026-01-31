@@ -1,126 +1,123 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 import powershell from "./images/powershell.png";
 
-# Intro to Secure Shell (SSH)
+# Secure Shell (SSH) 介绍
 
-In general, there are two ways to access your node machine: **locally**, and **remotely**.
+通常，有两种方式访问你的节点机器：**本地**和**远程**。
 
-- **Locally** refers to sitting down at the physical node and using a monitor and keyboard connected directly to it.
-- **Remotely** refers to connecting to the node using a different computer (say, a laptop or desktop) over a network and interacting with it from there.
+- **本地**是指坐在物理节点前，使用直接连接到它的显示器和键盘。
+- **远程**是指使用另一台计算机（例如笔记本电脑或台式机）通过网络连接到节点并从那里与之交互。
 
-Most of the time, node operators prefer the flexibility of working on their node **remotely**.
+大多数时候，节点运营者更喜欢**远程**工作节点的灵活性。
 
-The Smartnode currently doesn't have a GUI (Graphical User Interface), only a CLI (Command Line Interface), which means interacting with it is done entirely by typing commands into a command-line terminal.
-As such, interacting with it remotely requires some way to access your node's terminal from a different machine.
-In this section, we'll provide a brief introduction to the most popular way of doing this: **SSH**.
+Smartnode 目前没有 GUI（图形用户界面），只有 CLI（命令行界面），这意味着与它的交互完全通过在命令行终端中键入命令来完成。
+因此，远程与之交互需要某种方式从不同的机器访问节点的终端。
+在本节中，我们将简要介绍最流行的方法：**SSH**。
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Using a Windows Machine">
-      There are a few different ways to use SSH from a Windows machine.
+    <Tab label="使用 Windows 机器">
+      从 Windows 机器使用 SSH 有几种不同的方法。
 
-      The simplest is to use **Powershell**, which is a powerful command terminal that comes built into modern versions of
-      Windows.
-      Powershell has SSH included, so you can use it right away without installing any supplemental programs.
+      最简单的是使用 **Powershell**，这是一个功能强大的命令终端，内置于现代版本的
+      Windows 中。
+      Powershell 包含 SSH，因此你可以立即使用它，无需安装任何补充程序。
 
-      You can find it by opening the Start menu and typing `Powershell` into the search bar; there will be several
-      options, but option you want is simply called `Windows Powershell`:
+      你可以通过打开开始菜单并在搜索栏中键入 `Powershell` 来找到它；会有几个
+      选项，但你想要的选项简单地称为 `Windows Powershell`：
 
       <img src={powershell} width="100%" height="auto" />
 
-      This will open up a terminal with a blue background.
-      You can use `ssh` from here - see below for instructions on how to do that.
+      这将打开一个蓝色背景的终端。
+      你可以从这里使用 `ssh` - 请参阅下面的说明了解如何执行此操作。
 
-      Another popular tool is called [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html).
-      PuTTY is a special program that includes a terminal dedicated for SSH usage, but it also comes with a convenient GUI
-      for doing things like changing configurations, saving settings to a "profile", and keeping a list of machines you
-      can easily connect to by selecting from a list.
+      另一个流行的工具叫做 [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)。
+      PuTTY 是一个专用于 SSH 使用的特殊程序，包含一个专用终端，但它还附带一个方便的 GUI
+      用于执行诸如更改配置、将设置保存到"配置文件"以及保留可以通过从列表中选择轻松连接的机器列表之类的操作。
 
-      Instead of using `ssh` as you would with the other tools, PuTTY will do this for you automatically - all you need to
-      provide are the username and password.
-      For information on how to use PuTTY, take a look at [this great
-      tutorial](https://tonyteaches.tech/putty-ssh-windows-tutorial/).
+      你不需要像其他工具那样使用 `ssh`，PuTTY 会自动为你执行此操作 - 你只需要
+      提供用户名和密码。
+      有关如何使用 PuTTY 的信息，请查看[这个很棒的
+      教程](https://tonyteaches.tech/putty-ssh-windows-tutorial/)。
 
       <p className="rspress-directive warning">
-        **NOTE**: PuTTY might display the wrong colors in the `rocketpool service
-        config` text-based user interface (TUI).
-        There's an easy solution for this. In the PuTTY
-        settings, navigate to **Connection** > **Data** > **Terminal Details**
-        in the dropdown menu. There should be a **Terminal-type string** text box. Type in `xterm-256color`, then save
-        the settings
-        to resolve this.
+        **注意**：PuTTY 可能在 `rocketpool service
+        config` 基于文本的用户界面 (TUI) 中显示错误的颜色。
+        有一个简单的解决方案。在 PuTTY
+        设置中，导航到下拉菜单中的 **Connection** > **Data** > **Terminal Details**。
+        应该有一个 **Terminal-type string** 文本框。输入 `xterm-256color`，然后保存
+        设置即可解决此问题。
       </p>
 
     </Tab>
-    <Tab label="Using a Linux or macOS Machine">
-      Using SSH from a Linux or macOS machine is trivial; if you're already using one of these, then you've likely already
-      interacted with the terminal at some point.
-      SSH is built directly into the terminal; use it by running the `ssh` command. By default, SSH will allow you to
-      connect to your node's primary user account.
+    <Tab label="使用 Linux 或 macOS 机器">
+      从 Linux 或 macOS 机器使用 SSH 非常简单；如果你已经在使用其中之一，那么你可能已经
+      在某个时候与终端进行过交互。
+      SSH 直接内置在终端中；通过运行 `ssh` 命令使用它。默认情况下，SSH 将允许你
+      连接到节点的主要用户帐户。
     </Tab>
 
   </Tabs>
 </div>
 
-Here's how you would connect to your node using SSH.
+以下是使用 SSH 连接到节点的方法。
 
-:::warning NOTE
-Run the following command from your laptop or desktop, **not from your node itself**!
+:::warning 注意
+从你的笔记本电脑或台式机运行以下命令，**而不是从节点本身运行**！
 :::
 
 ```shell
 ssh username@node-ip-address
 ```
 
-Say, for example, that your node's username is `staker` and your node's IP address is `192.168.1.10`.
-You would connect to it with the following command:
+例如，假设节点的用户名是 `staker`，节点的 IP 地址是 `192.168.1.10`。
+你将使用以下命令连接到它：
 
 ```shell
 ssh staker@192.168.1.10
 ```
 
-The first time you do this, you will see a message presenting the public key that your node is using - if you are
-familiar with how to verify this key, you can do so now.
-Otherwise, if you trust that you have the correct node IP address in your `ssh` command, you can just say `yes` to
-accept it.
-You only need to do this once.
+第一次执行此操作时，你将看到一条消息，显示节点正在使用的公钥 - 如果你熟悉如何验证此密钥，现在可以执行此操作。
+否则，如果你相信 `ssh` 命令中有正确的节点 IP 地址，你可以只说 `yes` 来
+接受它。
+你只需要执行一次此操作。
 
-The client will then prompt you for your user's password; once you enter that, you're in!
-You will be greeted with a welcome message, some details about your machine, and a new prompt.
+客户端然后会提示你输入用户的密码；输入后，你就进去了！
+你将收到欢迎消息、有关机器的一些详细信息和一个新提示。
 
-At this point, everything you type in the terminal **is executed remotely on your node machine** - it's as if you
-were logged directly into the node machine and typing on it with a locally-attached keyboard!
+此时，你在终端中键入的所有内容**都在节点机器上远程执行** - 就好像你
+直接登录到节点机器并使用本地连接的键盘在其上键入！
 
-You'll need to SSH into the terminal periodically for updates and maintenance.
-It can be inconvenient to remember how to log in to your node, so it may be helpful to shorten this command by
-creating a memorable alias - a custom "shortcut" command.
+你需要定期通过 SSH 连接到终端进行更新和维护。
+记住如何登录到节点可能很不方便，因此通过
+创建一个令人难忘的别名 - 一个自定义"快捷方式"命令可能会有所帮助。
 
-:::warning NOTE
-If you do this, be sure to create the alias on the **client machine**, **not** on the node!
-If your terminal is still connected to the node, first run `exit` at the command prompt (or simply open a new
-terminal window).
+:::warning 注意
+如果你这样做，请务必在**客户端机器**上创建别名，**而不是**在节点上！
+如果你的终端仍然连接到节点，请先在命令提示符下运行 `exit`（或只是打开一个新的
+终端窗口）。
 :::
 
-:::warning NOTE
-This section only applies to Linux/OSX or WSL users - PowerShell is not supported.
+:::warning 注意
+本节仅适用于 Linux/OSX 或 WSL 用户 - 不支持 PowerShell。
 :::
 
-In this example, we'll create an alias called `ethnode` which will replace the SSH command.
-Assuming, as before, that your node's username is `staker` and your node's IP address is `192.168.1.10`, create the
-alias with the following command:
+在此示例中，我们将创建一个名为 `ethnode` 的别名，它将替换 SSH 命令。
+假设，如前所述，节点的用户名是 `staker`，节点的 IP 地址是 `192.168.1.10`，使用以下命令创建
+别名：
 
 ```shell
 echo "alias ethnode='ssh staker@192.168.1.10'" >> ~/.bash_aliases
 ```
 
-Reload the alias list to make your current terminal window aware of the new alias:
+重新加载别名列表以使当前终端窗口知道新别名：
 
 ```shell
 source ~/.bash_aliases
 ```
 
-Now, you can connect to the node using the alias you just created instead of the longer command that involves
-specifying the node's IP address:
+现在，你可以使用刚刚创建的别名连接到节点，而不是涉及
+指定节点 IP 地址的较长命令：
 
 ```shell
 ethnode

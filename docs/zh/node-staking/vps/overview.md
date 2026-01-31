@@ -1,19 +1,19 @@
 ---
 next:
-  text: Selecting a Hosting Provider
-  link: "/en/node-staking/vps/providers"
+  text: 选择托管服务商
+  link: "/zh/node-staking/vps/providers"
 ---
 
-# Overview
+# 概述
 
-This section is aimed at helping you understand the process of preparing a virtual private server or virtual machine hosted on the cloud as a Rocket Pool node.
+本节旨在帮助您了解准备云托管的虚拟专用服务器或虚拟机作为 Rocket Pool 节点的过程。
 
-## Guides
+## 指南
 
-[Selecting a Hosting Provider](./providers) shows several examples of popular hosting providers that other Rocket Pool node operators use to run nodes in the cloud.
+[选择托管服务商](./providers)展示了其他 Rocket Pool 节点运营商用于在云中运行节点的几个流行托管服务商的示例。
 
-[Preparing the Operating System](./os) walks you through the basic steps of installing and configuring the base Operating System on your machine to prepare it for life as a node.
+[准备操作系统](./os)引导您完成在机器上安装和配置基本操作系统的基本步骤，以准备其作为节点的生命。
 
-::: tip NOTE
-Note that you will need to use a remote service like SSH to use your machine; consult the [**Intro to Secure Shell (SSH)**](../ssh) guide if you need a tutorial on how to do this.
+::: tip 注意
+请注意，您需要使用像 SSH 这样的远程服务来使用您的机器；如果您需要有关如何执行此操作的教程，请查阅[**安全外壳 (SSH) 简介**](../ssh)指南。
 :::

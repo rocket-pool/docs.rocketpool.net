@@ -1,132 +1,131 @@
-# Preparing a Raspberry Pi
+# Préparation d'un Raspberry Pi
 
 ::: warning NOTE
-This page has been left here for archival purposes. We no longer recommend running Rocket Pool on a Raspberry Pi due to the
-increased hardware and performance requirements of running an Ethereum validator.
+Cette page a été laissée ici à des fins d'archivage. Nous ne recommandons plus l'exécution de Rocket Pool sur un Raspberry Pi en raison des exigences matérielles et de performance accrues pour l'exécution d'un validateur Ethereum.
 :::
 
-This guide will walk you through how run a Rocket Pool node using a Raspberry Pi.
-While this is not typically recommended in most staking guides, we recognize that it is attractive because it is a much more affordable option than standing up an entire PC.
-To that end, we've worked hard to tweak and optimize a whole host of settings and have determined a configuration that seems to work well.
+Ce guide vous guidera sur la façon d'exécuter un nœud Rocket Pool en utilisant un Raspberry Pi.
+Bien que cela ne soit généralement pas recommandé dans la plupart des guides de staking, nous reconnaissons que c'est attrayant car c'est une option beaucoup plus abordable que de monter un PC entier.
+À cette fin, nous avons travaillé dur pour ajuster et optimiser toute une série de paramètres et avons déterminé une configuration qui semble bien fonctionner.
 
-This setup will run **a full Execution node** and **a full Consensus node** on the Pi, making your system contribute to the health of the Ethereum network while simultaneously acting as a Rocket Pool node operator.
+Cette configuration exécutera **un nœud Execution complet** et **un nœud Consensus complet** sur le Pi, faisant en sorte que votre système contribue à la santé du réseau Ethereum tout en agissant simultanément en tant qu'opérateur de nœud Rocket Pool.
 
-## Preliminary Setup
+## Configuration Préliminaire
 
-To run a Rocket Pool node on a Raspberry Pi, you'll need to first have a working Raspberry Pi.
-If you already have one up and running - great! You can skip down to the [Mounting the SSD](#mounting-the-ssd) section.
-Just make sure you have **a fan attached** before you go.
-If you're starting from scratch, then read on.
+Pour exécuter un nœud Rocket Pool sur un Raspberry Pi, vous devrez d'abord avoir un Raspberry Pi fonctionnel.
+Si vous en avez déjà un en cours d'exécution - génial ! Vous pouvez passer à la section [Montage du SSD](#montage-du-ssd).
+Assurez-vous simplement d'avoir **un ventilateur attaché** avant de continuer.
+Si vous partez de zéro, alors lisez la suite.
 
-### What You'll Need
+### Ce Dont Vous Aurez Besoin
 
-These are the recommended components that you'll need to buy in order to run Rocket Pool on a Pi:
+Voici les composants recommandés que vous devrez acheter pour exécuter Rocket Pool sur un Pi :
 
-- A **Raspberry Pi 4 Model B**, the **8 GB model**
-  - Note: while you _can_ use a 4 GB with this setup, we strongly recommend you go with an 8 GB for peace of mind... it's really not much more expensive.
-- A **USB-C power supply** for the Pi. You want one that provides **at least 3 amps**.
-- A **MicroSD card**. It doesn't have to be big, 16 GB is plenty and they're pretty cheap now... but it should be at least a **Class 10 (U1)**.
-- A **MicroSD to USB** adapter for your PC. This is needed so you can install the Operating System onto the card before loading it into the Pi.
-  If your PC already has an SD port, then you don't need to pick up a new one.
-- Some **heatsinks**. You're going to be running the Pi under heavy load 24/7, and it's going to get hot.
-  Heatsinks will help so it doesn't throttle itself. You ideally want a set of 3: one for the CPU, one for the RAM, and one for the USB controller.
-  [Here is a good example of a nice set](https://www.canakit.com/raspberry-pi-4-heat-sinks.html).
-- A **case**. There are two ways to go here: with a fan, and fanless.
-  - With a fan:
-    - A 40mm **fan**. Same as the above, the goal is to keep things cool while running your Rocket Pool node.
-    - A **case with a fan mount** to tie it all together.
-      You could also get a case with integrated fans [like this one](https://www.amazon.com/Raspberry-Armor-Metal-Aluminium-Heatsink/dp/B07VWM4J4L) so you don't have to buy the fans separately.
-  - Without a fan:
-    - A **fanless case** that acts as one giant heatsink, like [this one](https://www.amazon.com/Akasa-RA08-M1B-Raspberry-case-Aluminium/dp/B081VYVNTX).
-      This is a nice option since it's silent, but your Pi **will** get quite hot - especially during the initial blockchain sync process.
-      Credit to Discord user Ken for pointing us in this direction!
-  - As a general rule, we recommend going **with a fan** because we're going to be overclocking the Pi significantly.
+- Un **Raspberry Pi 4 Model B**, le **modèle 8 Go**
+  - Remarque : bien que vous _puissiez_ utiliser un 4 Go avec cette configuration, nous vous recommandons fortement d'opter pour un 8 Go pour la tranquillité d'esprit... ce n'est vraiment pas beaucoup plus cher.
+- Une **alimentation USB-C** pour le Pi. Vous en voulez une qui fournit **au moins 3 ampères**.
+- Une **carte MicroSD**. Elle n'a pas besoin d'être grande, 16 Go suffisent largement et elles sont assez bon marché maintenant... mais elle devrait être au moins de **Classe 10 (U1)**.
+- Un **adaptateur MicroSD vers USB** pour votre PC. Ceci est nécessaire pour que vous puissiez installer le système d'exploitation sur la carte avant de la charger dans le Pi.
+  Si votre PC a déjà un port SD, alors vous n'avez pas besoin d'en acheter un nouveau.
+- Des **dissipateurs thermiques**. Vous allez faire fonctionner le Pi sous une charge lourde 24h/24 et 7j/7, et il va chauffer.
+  Les dissipateurs thermiques aideront pour qu'il ne s'étrangle pas. Vous voulez idéalement un ensemble de 3 : un pour le CPU, un pour la RAM et un pour le contrôleur USB.
+  [Voici un bon exemple d'un bel ensemble](https://www.canakit.com/raspberry-pi-4-heat-sinks.html).
+- Un **boîtier**. Il y a deux façons de procéder ici : avec un ventilateur, et sans ventilateur.
+  - Avec un ventilateur :
+    - Un **ventilateur** de 40 mm. Même chose que ci-dessus, l'objectif est de garder les choses au frais pendant l'exécution de votre nœud Rocket Pool.
+    - Un **boîtier avec un support de ventilateur** pour tout rassembler.
+      Vous pourriez également obtenir un boîtier avec des ventilateurs intégrés [comme celui-ci](https://www.amazon.com/Raspberry-Armor-Metal-Aluminium-Heatsink/dp/B07VWM4J4L) pour ne pas avoir à acheter les ventilateurs séparément.
+  - Sans ventilateur :
+    - Un **boîtier sans ventilateur** qui agit comme un dissipateur thermique géant, comme [celui-ci](https://www.amazon.com/Akasa-RA08-M1B-Raspberry-case-Aluminium/dp/B081VYVNTX).
+      C'est une belle option car c'est silencieux, mais votre Pi **va** devenir assez chaud - surtout pendant le processus initial de synchronisation de la blockchain.
+      Crédit à l'utilisateur Discord Ken pour nous avoir orientés dans cette direction !
+  - En règle générale, nous recommandons d'aller **avec un ventilateur** car nous allons overclocker le Pi de manière significative.
 
-You can get a lot of this stuff bundled together for convenience - for example, [Canakit offers a kit](https://www.amazon.com/CanaKit-Raspberry-8GB-Starter-Kit/dp/B08956GVXN) with many components included.
-However, you might be able to get it all cheaper if you get the parts separately (and if you have the equipment, you can [3D print your own Pi case](https://www.thingiverse.com/thing:3793664).)
+Vous pouvez obtenir beaucoup de ces éléments regroupés ensemble pour plus de commodité - par exemple, [Canakit propose un kit](https://www.amazon.com/CanaKit-Raspberry-8GB-Starter-Kit/dp/B08956GVXN) avec de nombreux composants inclus.
+Cependant, vous pourriez être en mesure de tout obtenir moins cher si vous obtenez les pièces séparément (et si vous avez l'équipement, vous pouvez [imprimer en 3D votre propre boîtier Pi](https://www.thingiverse.com/thing:3793664).)
 
-Other components you'll need:
+Autres composants dont vous aurez besoin :
 
-- A **USB 3.0+ Solid State Drive**. The general recommendation is for a **2 TB drive**.
-  - The [Samsung T5](https://www.amazon.com/Samsung-T5-Portable-SSD-MU-PA2T0B/dp/B073H4GPLQ) is an excellent example of one that is known to work well.
-  - :warning: Using a SATA SSD with a SATA-to-USB adapter is **not recommended** because of [problems like this](https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=245931).
-    If you go this route, we've included a performance test you can use to check if it will work or not in the [Testing the SSD's Performance](#testing-the-ssd-s-performance) section.
-- An **ethernet cable** for internet access. It should be at least **Cat 5e** rated.
-  - Running a node over Wi-Fi is **not recommended**, but if you have no other option, you can do it instead of using an ethernet cable.
-- A **UPS** to act as a power source if you ever lose electricity.
-  The Pi really doesn't draw much power, so even a small UPS will last for a while, but generally the bigger, the better. Go with as big of a UPS as you can afford.
-  Also, we recommend you **attach your modem, router, and other network equipment** to it as well - not much point keeping your Pi alive if your router dies.
+- Un **disque SSD USB 3.0+**. La recommandation générale est pour un **disque de 2 To**.
+  - Le [Samsung T5](https://www.amazon.com/Samsung-T5-Portable-SSD-MU-PA2T0B/dp/B073H4GPLQ) est un excellent exemple de disque connu pour bien fonctionner.
+  - :warning: L'utilisation d'un SSD SATA avec un adaptateur SATA vers USB n'est **pas recommandée** en raison de [problèmes comme celui-ci](https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=245931).
+    Si vous empruntez cette voie, nous avons inclus un test de performance que vous pouvez utiliser pour vérifier s'il fonctionnera ou non dans la section [Test de la Performance du SSD](#testing-the-ssd-s-performance).
+- Un **câble ethernet** pour l'accès Internet. Il doit être au moins de catégorie **Cat 5e**.
+  - Exécuter un nœud via Wi-Fi n'est **pas recommandé**, mais si vous n'avez pas d'autre option, vous pouvez le faire au lieu d'utiliser un câble ethernet.
+- Un **UPS** pour servir de source d'alimentation si vous perdez de l'électricité.
+  Le Pi ne consomme vraiment pas beaucoup d'énergie, donc même un petit UPS durera un certain temps, mais généralement plus c'est gros, mieux c'est. Optez pour un UPS aussi grand que vous pouvez vous le permettre.
+  De plus, nous vous recommandons d'**y attacher également votre modem, routeur et autre équipement réseau** - cela ne sert pas à grand-chose de garder votre Pi en vie si votre routeur meurt.
 
-Depending on your location, sales, your choice of SSD and UPS, and how many of these things you already have, you're probably going to end up spending **around $200 to $500 USD** for a complete setup.
+Selon votre emplacement, les ventes, votre choix de SSD et d'UPS, et combien de ces choses vous avez déjà, vous allez probablement finir par dépenser **environ 200 $ à 500 $ USD** pour une configuration complète.
 
-### Making the Fan Run More Quietly
+### Faire Fonctionner le Ventilateur Plus Silencieusement
 
-When you get the fan, by default you're probably going to be instructed to connect it to the 5v GPIO pin, as shown in the picture below.
-The fan will have a connector with two holes; the black one should go to GND (pin 6), and the red one should go to +5v (pin 4).
+Lorsque vous obtenez le ventilateur, par défaut, vous serez probablement invité à le connecter à la broche GPIO 5v, comme indiqué dans l'image ci-dessous.
+Le ventilateur aura un connecteur avec deux trous ; le noir devrait aller au GND (broche 6), et le rouge devrait aller au +5v (broche 4).
 ![](./images/pi/Pinout.png)
 
-However, in our experience, this makes the fan run very loud and fast which isn't really necessary.
-If you want to make it more quiet while still running cool, try connecting it to the 3.3v pin (Pin 1, the blue one) instead of the 5v pin.
-This means that on your fan, the black point will go to GND (pin 6) still, but now the red point will go to +3.3v (pin 1).
+Cependant, d'après notre expérience, cela fait fonctionner le ventilateur très bruyamment et rapidement, ce qui n'est pas vraiment nécessaire.
+Si vous voulez le rendre plus silencieux tout en restant frais, essayez de le connecter à la broche 3,3v (Broche 1, la bleue) au lieu de la broche 5v.
+Cela signifie que sur votre ventilateur, le point noir ira toujours au GND (broche 6), mais maintenant le point rouge ira au +3,3v (broche 1).
 
-If your fan has a connector where the two holes are side by side and you can't split them apart, you can put [some jumpers like this](https://www.amazon.com/GenBasic-Female-Solderless-Breadboard-Prototyping/dp/B077N7J6C4) in between it and the GPIO pins on the Pi.
+Si votre ventilateur a un connecteur où les deux trous sont côte à côte et que vous ne pouvez pas les séparer, vous pouvez mettre [des cavaliers comme ceci](https://www.amazon.com/GenBasic-Female-Solderless-Breadboard-Prototyping/dp/B077N7J6C4) entre lui et les broches GPIO sur le Pi.
 
-### Installing the Operating System
+### Installation du Système d'Exploitation
 
-There are a few varieties of Linux OS that support the Raspberry Pi.
-For this guide, we're going to stick to **Ubuntu 20.04**.
-Ubuntu is a tried-and-true OS that's used around the world, and 20.04 is (at the time of this writing) the latest of the Long Term Support (LTS) versions, which means it will keep getting security patches for a very long time.
-If you'd rather stick with a different flavor of Linux like Raspbian, feel free to follow the existing installation guides for that - just keep in mind that this guide is built for Ubuntu, so not all of the instructions may match your OS.
+Il existe quelques variétés de système d'exploitation Linux qui prennent en charge le Raspberry Pi.
+Pour ce guide, nous allons nous en tenir à **Ubuntu 20.04**.
+Ubuntu est un système d'exploitation éprouvé qui est utilisé dans le monde entier, et 20.04 est (au moment de la rédaction) la dernière des versions de support à long terme (LTS), ce qui signifie qu'il continuera à recevoir des correctifs de sécurité pendant très longtemps.
+Si vous préférez vous en tenir à une saveur différente de Linux comme Raspbian, n'hésitez pas à suivre les guides d'installation existants pour cela - gardez simplement à l'esprit que ce guide est conçu pour Ubuntu, donc toutes les instructions peuvent ne pas correspondre à votre système d'exploitation.
 
-The fine folks at Canonical have written up [a wonderful guide on how to install the Ubuntu Server image onto a Pi](https://ubuntu.com/tutorials/how-to-install-ubuntu-on-your-raspberry-pi#1-overview).
+Les braves gens de Canonical ont rédigé [un merveilleux guide sur la façon d'installer l'image Ubuntu Server sur un Pi](https://ubuntu.com/tutorials/how-to-install-ubuntu-on-your-raspberry-pi#1-overview).
 
-Follow **steps 1 through 4** of the guide above for the Server setup.
-For the Operating System image, you want to select `Ubuntu Server 20.04.2 LTS (RPi 3/4/400) 64-bit server OS with long-term support for arm64 architectures`.
+Suivez **les étapes 1 à 4** du guide ci-dessus pour la configuration du serveur.
+Pour l'image du système d'exploitation, vous voulez sélectionner `Ubuntu Server 20.04.2 LTS (RPi 3/4/400) 64-bit server OS with long-term support for arm64 architectures`.
 
-If you decide that you want a desktop UI (so you can use a mouse and have windows to drag around), you'll need to follow step 5 as well.
-We suggest that you don't do this and just stick with the server image, because the desktop UI will add some additional overhead and processing work onto your Pi with relatively little benefit.
-However, if you're determined to run a desktop, then we recommend choosing the Xubuntu option.
-It's pretty lightweight on resources and very user friendly.
+Si vous décidez que vous voulez une interface de bureau (pour pouvoir utiliser une souris et avoir des fenêtres à faire glisser), vous devrez suivre l'étape 5 également.
+Nous vous suggérons de ne pas le faire et de vous en tenir simplement à l'image du serveur, car l'interface de bureau ajoutera une certaine surcharge supplémentaire et un travail de traitement sur votre Pi avec relativement peu d'avantages.
+Cependant, si vous êtes déterminé à exécuter un bureau, nous recommandons de choisir l'option Xubuntu.
+C'est assez léger en ressources et très convivial.
 
-Once that's complete, you're ready to start preparing Ubuntu to run a Rocket Pool node.
-You can use the local terminal on it, or you can SSH in from your desktop / laptop as the installation guide suggests.
-The process will be the same either way, so do whatever's most convenient for you.
+Une fois cela terminé, vous êtes prêt à commencer à préparer Ubuntu pour exécuter un nœud Rocket Pool.
+Vous pouvez utiliser le terminal local dessus, ou vous pouvez vous connecter en SSH depuis votre bureau / ordinateur portable comme le suggère le guide d'installation.
+Le processus sera le même de toute façon, alors faites ce qui est le plus pratique pour vous.
 
-If you aren't familiar with `ssh`, take a look at the [Intro to Secure Shell](../ssh) guide.
+Si vous n'êtes pas familier avec `ssh`, jetez un œil au guide [Introduction à Secure Shell](../ssh).
 
 ::: warning NOTE
-At this point, you should _strongly consider_ configuring your router to make your Pi's IP address **static**.
-This means that your Pi will have the same IP address forever, so you can always SSH into it using that IP address.
-Otherwise, it's possible that your Pi's IP could change at some point, and the above SSH command will no longer work.
-You'll have to enter your router's configuration to find out what your Pi's new IP address is.
+À ce stade, vous devriez _fortement envisager_ de configurer votre routeur pour rendre l'adresse IP de votre Pi **statique**.
+Cela signifie que votre Pi aura la même adresse IP pour toujours, vous pourrez donc toujours vous connecter en SSH en utilisant cette adresse IP.
+Sinon, il est possible que l'IP de votre Pi puisse changer à un moment donné, et la commande SSH ci-dessus ne fonctionnera plus.
+Vous devrez entrer dans la configuration de votre routeur pour découvrir quelle est la nouvelle adresse IP de votre Pi.
 
-Each router is different, so you will need to consult your router's documentation to learn how to assign a static IP address.
+Chaque routeur est différent, vous devrez donc consulter la documentation de votre routeur pour apprendre comment attribuer une adresse IP statique.
 :::
 
-## Mounting the SSD
+## Montage du SSD
 
-As you may have gathered, after following the above installation instructions, the core OS will be running off of the microSD card.
-That's not nearly large enough or fast enough to hold all of the Execution and Consensus blockchain data, which is where the SSD comes in.
-To use it, we have to set it up with a file system and mount it to the Pi.
+Comme vous l'avez peut-être deviné, après avoir suivi les instructions d'installation ci-dessus, le système d'exploitation principal fonctionnera sur la carte microSD.
+Ce n'est pas assez grand ou assez rapide pour contenir toutes les données de la blockchain Execution et Consensus, c'est là que le SSD entre en jeu.
+Pour l'utiliser, nous devons le configurer avec un système de fichiers et le monter sur le Pi.
 
-### Connecting the SSD to the USB 3.0 Ports
+### Connexion du SSD aux Ports USB 3.0
 
-Start by plugging your SSD into one of the Pi's USB 3.0 ports. These are the **blue** ports, not the black ones:
+Commencez par brancher votre SSD dans l'un des ports USB 3.0 du Pi. Ce sont les ports **bleus**, pas les noirs :
 
 ![](./images/pi/USB.png)
 
-The black ones are slow USB 2.0 ports; they're only good for accessories like mice and keyboards.
-If you have your keyboard plugged into the blue ports, take it out and plug it into the black ones now.
+Les noirs sont des ports USB 2.0 lents ; ils ne sont bons que pour des accessoires comme des souris et des claviers.
+Si vous avez votre clavier branché dans les ports bleus, retirez-le et branchez-le dans les noirs maintenant.
 
-### Formatting the SSD and Creating a New Partition
+### Formatage du SSD et Création d'une Nouvelle Partition
 
 ::: warning
-This process is going to erase everything on your SSD.
-If you already have a partition with stuff on it, SKIP THIS STEP because you're about to delete it all!
-If you've never used this SSD before and it's totally empty, then follow this step.
+Ce processus va effacer tout ce qui se trouve sur votre SSD.
+Si vous avez déjà une partition avec des choses dessus, SAUTEZ CETTE ÉTAPE car vous êtes sur le point de tout supprimer !
+Si vous n'avez jamais utilisé ce SSD auparavant et qu'il est totalement vide, alors suivez cette étape.
 :::
 
-Run this command to find the location of your disk in the device table:
+Exécutez cette commande pour trouver l'emplacement de votre disque dans la table des appareils :
 
 ```shell
 sudo lshw -C disk
@@ -140,32 +139,32 @@ sudo lshw -C disk
        ...
 ```
 
-The important thing you need is the `logical name: /dev/sda` portion, or rather, the **`/dev/sda`** part of it.
-We're going to call this the **device location** of your SSD.
-For this guide, we'll just use `/dev/sda` as the device location - yours will probably be the same, but substitute it with whatever that command shows for the rest of the instructions.
+La chose importante dont vous avez besoin est la partie `logical name: /dev/sda`, ou plutôt, la partie **`/dev/sda`**.
+Nous allons appeler cela l'**emplacement de l'appareil** de votre SSD.
+Pour ce guide, nous utiliserons simplement `/dev/sda` comme emplacement de l'appareil - le vôtre sera probablement le même, mais substituez-le par ce que cette commande montre pour le reste des instructions.
 
-Now that we know the device location, let's format it and make a new partition on it so we can actually use it.
-Again, **these commands will delete whatever's already on the disk!**
+Maintenant que nous connaissons l'emplacement de l'appareil, formatons-le et créons une nouvelle partition dessus pour pouvoir l'utiliser réellement.
+Encore une fois, **ces commandes supprimeront tout ce qui est déjà sur le disque !**
 
-Create a new partition table:
+Créez une nouvelle table de partition :
 
 ```shell
 sudo parted -s /dev/sda mklabel gpt unit GB mkpart primary ext4 0 100%
 ```
 
-Format the new partition with the `ext4` file system:
+Formatez la nouvelle partition avec le système de fichiers `ext4` :
 
 ```shell
 sudo mkfs -t ext4 /dev/sda1
 ```
 
-Add a label to it (you don't have to do this, but it's fun):
+Ajoutez-lui une étiquette (vous n'êtes pas obligé de le faire, mais c'est amusant) :
 
 ```shell
 sudo e2label /dev/sda1 "Rocket Drive"
 ```
 
-Confirm that this worked by running the command below, which should show output like what you see here:
+Confirmez que cela a fonctionné en exécutant la commande ci-dessous, qui devrait afficher une sortie comme ce que vous voyez ici :
 
 ```shell
 sudo blkid
@@ -173,53 +172,53 @@ sudo blkid
 /dev/sda1: LABEL="Rocket Drive" UUID="1ade40fd-1ea4-4c6e-99ea-ebb804d86266" TYPE="ext4" PARTLABEL="primary" PARTUUID="288bf76b-792c-4e6a-a049-cb6a4d23abc0"
 ```
 
-If you see all of that, then you're good. Grab the `UUID="..."` output and put it somewhere temporarily, because you're going to need it in a minute.
+Si vous voyez tout cela, alors vous êtes prêt. Prenez la sortie `UUID="..."` et mettez-la quelque part temporairement, car vous en aurez besoin dans une minute.
 
-### Optimizing the New Partition
+### Optimisation de la Nouvelle Partition
 
-Next, let's tune the new filesystem a little to optimize it for validator activity.
+Ensuite, optimisons un peu le nouveau système de fichiers pour l'activité des validateurs.
 
-By default, ext4 will reserve 5% of its space for system processes.
-Since we don't need that on the SSD because it just stores the Execution and Consensus chain data, we can disable it:
+Par défaut, ext4 réservera 5% de son espace pour les processus système.
+Puisque nous n'en avons pas besoin sur le SSD car il stocke juste les données de la chaîne Execution et Consensus, nous pouvons le désactiver :
 
 ```shell
 sudo tune2fs -m 0 /dev/sda1
 ```
 
-### Mounting and Enabling Automount
+### Montage et Activation du Montage Automatique
 
-In order to use the drive, you have to mount it to the file system.
-Create a new mount point anywhere you like (we'll use `/mnt/rpdata` here as an example, feel free to use that):
+Pour utiliser le disque, vous devez le monter sur le système de fichiers.
+Créez un nouveau point de montage où vous le souhaitez (nous utiliserons `/mnt/rpdata` ici comme exemple, n'hésitez pas à utiliser cela) :
 
 ```shell
 sudo mkdir /mnt/rpdata
 ```
 
-Now, mount the new SSD partition to that folder:
+Maintenant, montez la nouvelle partition SSD sur ce dossier :
 
 ```shell
 sudo mount /dev/sda1 /mnt/rpdata
 ```
 
-After this, the folder `/mnt/rpdata` will point to the SSD, so anything you write to that folder will live on the SSD.
-This is where we're going to store the chain data for Execution and Consensus.
+Après cela, le dossier `/mnt/rpdata` pointera vers le SSD, donc tout ce que vous écrivez dans ce dossier sera sur le SSD.
+C'est là que nous allons stocker les données de la chaîne pour Execution et Consensus.
 
-Now, let's add it to the mounting table so it automatically mounts on startup.
-Remember the `UUID` from the `blkid` command you used earlier?
-This is where it will come in handy.
+Maintenant, ajoutons-le à la table de montage pour qu'il se monte automatiquement au démarrage.
+Vous vous souvenez du `UUID` de la commande `blkid` que vous avez utilisée plus tôt ?
+C'est là que cela sera utile.
 
 ```shell
 sudo nano /etc/fstab
 ```
 
-This will open up an interactive file editor, which will look like this to start:
+Cela ouvrira un éditeur de fichier interactif, qui ressemblera à ceci au début :
 
 ```
 LABEL=writable  /        ext4   defaults        0 0
 LABEL=system-boot       /boot/firmware  vfat    defaults        0       1
 ```
 
-Use the arrow keys to go down to the bottom line, and add this line to the end:
+Utilisez les touches fléchées pour descendre jusqu'à la ligne du bas, et ajoutez cette ligne à la fin :
 
 ```
 LABEL=writable  /        ext4   defaults        0 0
@@ -227,33 +226,33 @@ LABEL=system-boot       /boot/firmware  vfat    defaults        0       1
 UUID=1ade40fd-1ea4-4c6e-99ea-ebb804d86266       /mnt/rpdata     ext4    defaults        0       0
 ```
 
-Replace the value in `UUID=...` with the one from your disk, then press `Ctrl+O` and `Enter` to save, then `Ctrl+X` and `Enter` to exit.
-Now the SSD will be automatically mounted when you reboot. Nice!
+Remplacez la valeur dans `UUID=...` par celle de votre disque, puis appuyez sur `Ctrl+O` et `Entrée` pour enregistrer, puis `Ctrl+X` et `Entrée` pour quitter.
+Maintenant, le SSD sera automatiquement monté lorsque vous redémarrerez. Super !
 
-### Testing the SSD's Performance
+### Test de la Performance du SSD
 
-Before going any further, you should test your SSD's read/write speed and how many I/O requests it can handle per second (IOPS).
-If your SSD is too slow, then it won't work well for a Rocket Pool node and you're going to end up losing money over time.
+Avant d'aller plus loin, vous devriez tester la vitesse de lecture/écriture de votre SSD et combien de requêtes d'E/S il peut gérer par seconde (IOPS).
+Si votre SSD est trop lent, il ne fonctionnera pas bien pour un nœud Rocket Pool et vous finirez par perdre de l'argent au fil du temps.
 
-To test it, we're going to use a program called `fio`. Install it like this:
+Pour le tester, nous allons utiliser un programme appelé `fio`. Installez-le comme ceci :
 
 ```shell
 sudo apt install fio
 ```
 
-Next, move to your SSD's mount point:
+Ensuite, déplacez-vous vers le point de montage de votre SSD :
 
 ```shell
 cd /mnt/rpdata
 ```
 
-Now, run this command to test the SSD performance:
+Maintenant, exécutez cette commande pour tester la performance du SSD :
 
 ```shell
 sudo fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=test --filename=test --bs=4k --iodepth=64 --size=4G --readwrite=randrw --rwmixread=75
 ```
 
-The output should look like this:
+La sortie devrait ressembler à ceci :
 
 ```
 test: (g=0): rw=randrw, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=libaio, iodepth=64
@@ -269,82 +268,82 @@ test: (groupid=0, jobs=1): err= 0: pid=205075: Mon Feb 15 04:06:35 2021
 ...
 ```
 
-What you care about are the lines starting with `read:` and `write:` under the `test:` line.
+Ce qui vous intéresse, ce sont les lignes commençant par `read:` et `write:` sous la ligne `test:`.
 
-- Your **read** should have IOPS of at least **15k** and bandwidth (BW) of at least **60 MiB/s**.
-- Your **write** should have IOPS of at least **5000** and bandwidth of at least **20 MiB/s**.
+- Votre **lecture** devrait avoir des IOPS d'au moins **15k** et une bande passante (BW) d'au moins **60 MiB/s**.
+- Votre **écriture** devrait avoir des IOPS d'au moins **5000** et une bande passante d'au moins **20 MiB/s**.
 
-Those are the specs from the Samsung T5 that we use, which work very well.
-We have also tested a slower SSD with read IOPS of 5k and write IOPS of 1k, and it has a very hard time keeping up with the consensus layer.
-If you use an SSD slower than the specs above, just be prepared that you might see a lot of missed attestations.
-If yours meets or exceeds them, then you're all set and can move on.
+Ce sont les spécifications du Samsung T5 que nous utilisons, qui fonctionne très bien.
+Nous avons également testé un SSD plus lent avec des IOPS de lecture de 5k et des IOPS d'écriture de 1k, et il a beaucoup de mal à suivre la couche consensus.
+Si vous utilisez un SSD plus lent que les spécifications ci-dessus, soyez simplement prêt à voir beaucoup d'attestations manquées.
+Si le vôtre les atteint ou les dépasse, alors vous êtes prêt et pouvez continuer.
 
 ::: tip NOTE
-If your SSD doesn't meet the above specs but it should, you might be able to fix it with a firmware update.
-For example, this has been experienced by the Rocket Pool community with the Samsung T7.
-Two of them fresh out of the box only showed 3.5K read IOPS and 1.2K write IOPS.
-After applying all available firmware updates, the performance was back up to the numbers shown in the above example.
-Check with your manufacturer's support website for the latest firmware and make sure your drive is up to date - you may have to update the firmware multiple times until there are no more updates left.
+Si votre SSD ne répond pas aux spécifications ci-dessus mais qu'il le devrait, vous pourriez être en mesure de le réparer avec une mise à jour du firmware.
+Par exemple, cela a été vécu par la communauté Rocket Pool avec le Samsung T7.
+Deux d'entre eux fraîchement sortis de la boîte n'ont montré que 3,5K d'IOPS en lecture et 1,2K d'IOPS en écriture.
+Après avoir appliqué toutes les mises à jour du firmware disponibles, les performances sont revenues aux chiffres montrés dans l'exemple ci-dessus.
+Vérifiez auprès du site de support de votre fabricant pour le dernier firmware et assurez-vous que votre disque est à jour - vous devrez peut-être mettre à jour le firmware plusieurs fois jusqu'à ce qu'il n'y ait plus de mises à jour restantes.
 :::
 
-Last but not least, remove the test file you just made:
+Enfin, supprimez le fichier de test que vous venez de créer :
 
 ```shell
 sudo rm /mnt/rpdata/test
 ```
 
-## Setting up Swap Space
+## Configuration de l'Espace d'Échange
 
-The Pi has 8 GB (or 4 GB if you went that route) of RAM.
-For our configuration, that will be plenty.
-Then again, it never hurts to add a little more.
-What we're going to do now is add what's called **swap space**.
-Essentially, it means we're going to use the SSD as "backup RAM" in case something goes horribly, horribly wrong and the Pi runs out of regular RAM.
-The SSD isn't nearly as fast as the regular RAM, so if it hits the swap space it will slow things down, but it won't completely crash and break everything.
-Think of this as extra insurance that you'll (most likely) never need.
+Le Pi a 8 Go (ou 4 Go si vous avez opté pour cette voie) de RAM.
+Pour notre configuration, cela sera suffisant.
+D'un autre côté, cela ne fait jamais de mal d'en ajouter un peu plus.
+Ce que nous allons faire maintenant, c'est ajouter ce qu'on appelle **l'espace d'échange**.
+Essentiellement, cela signifie que nous allons utiliser le SSD comme "RAM de secours" au cas où quelque chose se passerait horriblement mal et que le Pi manquerait de RAM normale.
+Le SSD n'est pas aussi rapide que la RAM normale, donc s'il atteint l'espace d'échange, cela ralentira les choses, mais il ne plantera pas complètement et ne cassera pas tout.
+Considérez cela comme une assurance supplémentaire dont vous n'aurez (très probablement) jamais besoin.
 
-### Creating a Swap File
+### Création d'un Fichier d'Échange
 
-The first step is to make a new file that will act as your swap space.
-Decide how much you want to use - a reasonable start would be 8 GB, so you have 8 GB of normal RAM and 8 GB of "backup RAM" for a total of 16 GB.
-To be super safe, you can make it 24 GB so your system has 8 GB of normal RAM and 24 GB of "backup RAM" for a total of 32 GB, but this is probably overkill.
-Luckily, since your SSD has 1 or 2 TB of space, allocating 8 to 24 GB for a swapfile is negligible.
+La première étape consiste à créer un nouveau fichier qui servira d'espace d'échange.
+Décidez de la quantité que vous voulez utiliser - un bon départ serait 8 Go, vous avez donc 8 Go de RAM normale et 8 Go de "RAM de secours" pour un total de 16 Go.
+Pour être super sûr, vous pouvez le rendre de 24 Go afin que votre système ait 8 Go de RAM normale et 24 Go de "RAM de secours" pour un total de 32 Go, mais c'est probablement excessif.
+Heureusement, puisque votre SSD a 1 ou 2 To d'espace, allouer 8 à 24 Go pour un fichier d'échange est négligeable.
 
-For the sake of this walkthrough, let's pick a nice middleground - say, 16 GB of swap space for a total RAM of 24 GB.
-Just substitute whatever number you want in as we go.
+Pour les besoins de cette procédure, choisissons un juste milieu - disons, 16 Go d'espace d'échange pour une RAM totale de 24 Go.
+Remplacez simplement le nombre que vous voulez au fur et à mesure.
 
-Enter this, which will create a new file called `/mnt/rpdata/swapfile` and fill it with 16 GB of zeros.
-To change the amount, just change the number in `count=16` to whatever you want. **Note that this is going to take a long time, but that's ok.**
+Entrez ceci, qui créera un nouveau fichier appelé `/mnt/rpdata/swapfile` et le remplira avec 16 Go de zéros.
+Pour changer la quantité, changez simplement le nombre dans `count=16` par ce que vous voulez. **Notez que cela va prendre beaucoup de temps, mais c'est normal.**
 
 ```shell
 sudo dd if=/dev/zero of=/mnt/rpdata/swapfile bs=1G count=16 status=progress
 ```
 
-Next, set the permissions so only the root user can read or write to it (for security):
+Ensuite, définissez les permissions pour que seul l'utilisateur root puisse lire ou écrire dedans (pour la sécurité) :
 
 ```shell
 sudo chmod 600 /mnt/rpdata/swapfile
 ```
 
-Now, mark it as a swap file:
+Maintenant, marquez-le comme un fichier d'échange :
 
 ```shell
 sudo mkswap /mnt/rpdata/swapfile
 ```
 
-Next, enable it:
+Ensuite, activez-le :
 
 ```shell
 sudo swapon /mnt/rpdata/swapfile
 ```
 
-Finally, add it to the mount table so it automatically loads when your Pi reboots:
+Enfin, ajoutez-le à la table de montage pour qu'il se charge automatiquement lorsque votre Pi redémarre :
 
 ```shell
 sudo nano /etc/fstab
 ```
 
-Add a new line at the end so that the file looks like this:
+Ajoutez une nouvelle ligne à la fin pour que le fichier ressemble à ceci :
 
 ```
 LABEL=writable  /        ext4   defaults        0 0
@@ -353,109 +352,109 @@ UUID=1ade40fd-1ea4-4c6e-99ea-ebb804d86266       /mnt/rpdata     ext4    defaults
 /mnt/rpdata/swapfile                            none            swap    sw              0       0
 ```
 
-Press `Ctrl+O` and `Enter` to save, then `Ctrl+X` and `Enter` to exit.
+Appuyez sur `Ctrl+O` et `Entrée` pour enregistrer, puis `Ctrl+X` et `Entrée` pour quitter.
 
-To verify that it's active, run these commands:
+Pour vérifier qu'il est actif, exécutez ces commandes :
 
 ```shell
 sudo apt install htop
 htop
 ```
 
-Your output should look like this at the top:
+Votre sortie devrait ressembler à ceci en haut :
 ![](./images/pi/Swap.png)
 
-If the second number in the last row labeled `Swp` (the one after the `/`) is non-zero, then you're all set.
-For example, if it shows `0K / 16.0G` then your swap space was activated successfully.
-If it shows `0K / 0K` then it did not work and you'll have to confirm that you entered the previous steps properly.
+Si le deuxième nombre dans la dernière ligne étiquetée `Swp` (celui après le `/`) est non nul, alors tout est en ordre.
+Par exemple, s'il affiche `0K / 16.0G` alors votre espace d'échange a été activé avec succès.
+S'il affiche `0K / 0K` alors cela n'a pas fonctionné et vous devrez confirmer que vous avez entré les étapes précédentes correctement.
 
-Press `q` or `F10` to quit out of `htop` and get back to the terminal.
+Appuyez sur `q` ou `F10` pour quitter `htop` et revenir au terminal.
 
-### Configuring Swappiness and Cache Pressure
+### Configuration de la Swappiness et de la Pression du Cache
 
-By default, Linux will eagerly use a lot of swap space to take some of the pressure off of the system's RAM.
-We don't want that. We want it to use all of the RAM up to the very last second before relying on SWAP.
-The next step is to change what's called the "swappiness" of the system, which is basically how eager it is to use the swap space.
-There is a lot of debate about what value to set this to, but we've found a value of 6 works well enough.
+Par défaut, Linux utilisera volontiers beaucoup d'espace d'échange pour soulager un peu la pression de la RAM du système.
+Nous ne voulons pas cela. Nous voulons qu'il utilise toute la RAM jusqu'à la toute dernière seconde avant de s'appuyer sur l'ÉCHANGE.
+L'étape suivante consiste à modifier ce qu'on appelle la "swappiness" du système, qui est essentiellement à quel point il est désireux d'utiliser l'espace d'échange.
+Il y a beaucoup de débat sur la valeur à définir pour cela, mais nous avons trouvé qu'une valeur de 6 fonctionne assez bien.
 
-We also want to turn down the "cache pressure", which dictates how quickly the Pi will delete a cache of its filesystem.
-Since we're going to have a lot of spare RAM with our setup, we can make this "10" which will leave the cache in memory for a while, reducing disk I/O.
+Nous voulons également réduire la "pression du cache", qui dicte à quelle vitesse le Pi supprimera un cache de son système de fichiers.
+Puisque nous allons avoir beaucoup de RAM de rechange avec notre configuration, nous pouvons faire cela "10" ce qui laissera le cache en mémoire pendant un certain temps, réduisant les E/S disque.
 
-To set these, run these commands:
+Pour définir ces paramètres, exécutez ces commandes :
 
 ```shell
 sudo sysctl vm.swappiness=6
 sudo sysctl vm.vfs_cache_pressure=10
 ```
 
-Now, put them into the `sysctl.conf` file so they are reapplied after a reboot:
+Maintenant, mettez-les dans le fichier `sysctl.conf` afin qu'ils soient réappliqués après un redémarrage :
 
 ```shell
 sudo nano /etc/sysctl.conf
 ```
 
-Add these two lines to the end:
+Ajoutez ces deux lignes à la fin :
 
 ```shell
 vm.swappiness=6
 vm.vfs_cache_pressure=10
 ```
 
-Then save and exit like you've done before (`Ctrl+O`, `Ctrl+X`).
+Ensuite, enregistrez et quittez comme vous l'avez fait auparavant (`Ctrl+O`, `Ctrl+X`).
 
-## Overclocking the Pi
+## Overclocking du Pi
 
-By default, the 1.5 GHz processor that the Pi comes with is a pretty capable little device.
-For the most part, you should be able to validate with it just fine.
-However, we have noticed that on rare occasions, your validator client gets stuck working on some things and it just doesn't have enough horsepower to keep up with your validator's attestation duties.
-When that happens, you'll see something like this on the [beaconcha.in explorer](https://beaconcha.in) (described in more detail in the [Monitoring your Node's Performance](../performance) guide later on):
+Par défaut, le processeur de 1,5 GHz avec lequel le Pi est livré est un petit appareil assez capable.
+Pour la plupart, vous devriez pouvoir valider avec lui sans problème.
+Cependant, nous avons remarqué qu'en de rares occasions, votre client validateur reste coincé à travailler sur certaines choses et il n'a tout simplement pas assez de puissance pour suivre vos fonctions d'attestation de validateur.
+Lorsque cela se produit, vous verrez quelque chose comme ceci sur [l'explorateur beaconcha.in](https://beaconcha.in) (décrit plus en détail dans le guide [Surveillance des Performances de Votre Nœud](../performance) plus tard) :
 
 ![](./images/pi/Incl-Dist.png)
 
-That inclusion distance of 8 means that it took a really long time to send that attestation, and you will be slightly penalized for being late.
-Ideally, all of them should be 0.
-Though rare, these do occur when running at stock settings.
+Cette distance d'inclusion de 8 signifie qu'il a fallu beaucoup de temps pour envoyer cette attestation, et vous serez légèrement pénalisé pour être en retard.
+Idéalement, ils devraient tous être 0.
+Bien que rares, ceux-ci se produisent lors de l'exécution avec les paramètres d'origine.
 
-There is a way to mitigate these, however: overclocking.
-Overclocking is by far the easiest way to get some extra performance out of your Pi's CPU and prevent those nasty high inclusion distances.
-Frankly, the default CPU clock of 1.5 GHz is really underpowered.
-You can speed it up quite a bit via overclocking, and depending on how far you take it, you can do it quite safely too.
+Il existe cependant un moyen d'atténuer cela : l'overclocking.
+L'overclocking est de loin le moyen le plus simple d'obtenir des performances supplémentaires de votre CPU Pi et d'éviter ces distances d'inclusion élevées désagréables.
+Franchement, l'horloge CPU par défaut de 1,5 GHz est vraiment sous-alimentée.
+Vous pouvez l'accélérer pas mal via l'overclocking, et selon jusqu'où vous allez, vous pouvez le faire assez en toute sécurité aussi.
 
-Overclocking the Pi is very simple - it just involves changing some numbers in a text file.
-There are two numbers that matter: the first is the **core clock**, which directly determines how fast the ARM CPU runs.
-The second is **overvoltage**, which determines the voltage that gets fed into the ARM CPU.
-Higher speeds generally require higher voltage, but the Pi's CPU can handle quite a bit of extra voltage without any appreciable damage.
-It might wear out a little faster, but we're still talking on the order of years and the Pi 5 will be out by then, so no real harm done!
+L'overclocking du Pi est très simple - il suffit de changer quelques chiffres dans un fichier texte.
+Il y a deux chiffres qui comptent : le premier est l'**horloge du cœur**, qui détermine directement la vitesse à laquelle le CPU ARM fonctionne.
+Le second est la **surtension**, qui détermine la tension qui est alimentée dans le CPU ARM.
+Des vitesses plus élevées nécessitent généralement une tension plus élevée, mais le CPU du Pi peut gérer pas mal de tension supplémentaire sans aucun dommage appréciable.
+Il pourrait s'user un peu plus vite, mais nous parlons encore de l'ordre de plusieurs années et le Pi 5 sortira d'ici là, donc pas de réel dommage !
 
-Rather, the real concern with overvoltage is that **higher voltages lead to higher temperatures**.
-This section will help you see how hot your Pi gets under a heavy load, so you don't push it too far.
+Au contraire, la véritable préoccupation avec la surtension est que **des tensions plus élevées entraînent des températures plus élevées**.
+Cette section vous aidera à voir à quel point votre Pi chauffe sous une charge lourde, pour que vous ne le poussiez pas trop loin.
 
 ::: warning
-While overclocking at the levels we're going to do is pretty safe and reliable, you are at the mercy of what's called the "silicon lottery".
-Every CPU is slightly different in microscopic ways, and some of them can simply overclock better than others.
-If you overclock too far / too hard, then your system may become **unstable**.
-Unstable Pis suffer from all kinds of consequences, from constant restarts to completely freezing.
-**In the worst case, you could corrupt your microSD card and have to reinstall everything from scratch!**
+Bien que l'overclocking aux niveaux que nous allons faire soit assez sûr et fiable, vous êtes à la merci de ce qu'on appelle la "loterie du silicium".
+Chaque CPU est légèrement différent de manière microscopique, et certains d'entre eux peuvent simplement être overclockés mieux que d'autres.
+Si vous overclocke trop loin / trop fort, votre système peut devenir **instable**.
+Les Pi instables souffrent de toutes sortes de conséquences, des redémarrages constants au gel complet.
+**Dans le pire des cas, vous pourriez corrompre votre carte microSD et devoir tout réinstaller à partir de zéro !**
 
-**By following the guidance here, you have to accept the fact that you're running that risk.**
-If that's not worth it for you, then skip the rest of this section.
+**En suivant les conseils ici, vous devez accepter le fait que vous courez ce risque.**
+Si ce n'est pas la peine pour vous, alors sautez le reste de cette section.
 :::
 
-## Benchmarking the Stock Configuration
+## Benchmarking de la Configuration d'Origine
 
-Before overclocking, your should profile what your Pi is capable of in its stock, off-the-shelf configuration.
-There are three key things to look at:
+Avant d'overclocker, vous devez profiler ce dont votre Pi est capable dans sa configuration d'origine, prête à l'emploi.
+Il y a trois choses clés à examiner :
 
-1. **Performance** (how fast your Pi calculates things)
-2. **Temperature** under load (how hot it gets)
-3. **Stability** (how long it runs before crashing)
+1. **Performance** (à quelle vitesse votre Pi calcule les choses)
+2. **Température** sous charge (à quel point il chauffe)
+3. **Stabilité** (combien de temps il fonctionne avant de planter)
 
-We're going to get stats on all three of them as we go.
+Nous allons obtenir des statistiques sur les trois au fur et à mesure.
 
 ### Performance
 
-For measuring performance, you can use LINPACK.
-We'll build it from source.
+Pour mesurer les performances, vous pouvez utiliser LINPACK.
+Nous allons le construire à partir des sources.
 
 ```shell
 cd ~
@@ -468,15 +467,15 @@ sudo mv linpack /usr/local/bin
 rm linpack.c
 ```
 
-Now run it like this:
+Maintenant exécutez-le comme ceci :
 
 ```shell
 linpack
 Enter array size (q to quit) [200]:
 ```
 
-Just press `enter` to leave it at the default of 200, and let it run.
-When it's done, the output will look like this:
+Appuyez simplement sur `entrée` pour le laisser à la valeur par défaut de 200, et laissez-le fonctionner.
+Quand c'est fait, la sortie ressemblera à ceci :
 
 ```
 Memory required:  315K.
@@ -496,24 +495,24 @@ Average rolled and unrolled performance:
     8192  11.23  85.67%   3.74%  10.59%  1120277.186
 ```
 
-What you need to look at is the last row, in the `KFLOPS` column.
-This number (1120277.186 in the above example) represents your computing performance.
-It doesn't mean anything by itself, but it gives us a good baseline to compare the overclocked performance to.
-Let's call this the **stock KFLOPS**.
+Ce dont vous avez besoin de regarder est la dernière ligne, dans la colonne `KFLOPS`.
+Ce nombre (1120277.186 dans l'exemple ci-dessus) représente vos performances de calcul.
+Il ne signifie rien en soi, mais il nous donne une bonne base de référence pour comparer les performances overclockées.
+Appelons cela les **KFLOPS d'origine**.
 
-### Temperature
+### Température
 
-Next, let's stress the Pi out and watch its temperature under heavy load.
-First, install this package, which will provide a tool called `vcgencmd` that can print details about the Pi:
+Ensuite, stressons le Pi et regardons sa température sous une charge lourde.
+Tout d'abord, installez ce package, qui fournira un outil appelé `vcgencmd` qui peut imprimer des détails sur le Pi :
 
 ```shell
 sudo apt install libraspberrypi-bin
 ```
 
-Once this is installed, reboot the Pi (this is necessary for some new permission to get applied).
-Next, install a program called **stressberry**.
-This will be our benchmarking tool.
-Install it like this:
+Une fois cela installé, redémarrez le Pi (cela est nécessaire pour que certaines nouvelles permissions soient appliquées).
+Ensuite, installez un programme appelé **stressberry**.
+Ce sera notre outil de benchmarking.
+Installez-le comme ceci :
 
 ```shell
 sudo apt install stress python3-pip
@@ -522,26 +521,26 @@ source ~/.profile
 ```
 
 ::: tip NOTE
-If stressberry throws an error about not being able to read temperature information or not being able to open the `vchiq` instance, you can fix it with the following command:
+Si stressberry génère une erreur concernant l'impossibilité de lire les informations de température ou l'impossibilité d'ouvrir l'instance `vchiq`, vous pouvez le corriger avec la commande suivante :
 
 ```shell
 sudo usermod -aG video $USER
 ```
 
-Then log out and back in, restart your SSH session, or restart the machine and try again.
+Ensuite, déconnectez-vous et reconnectez-vous, redémarrez votre session SSH ou redémarrez la machine et réessayez.
 :::
 
-Next, run it like this:
+Ensuite, exécutez-le comme ceci :
 
 ```shell
 stressberry-run -n "Stock" -d 300 -i 60 -c 4 stock.out
 ```
 
-This will run a new stress test named "Stock" for 300 seconds (5 minutes) with 60 seconds of cooldown before and after the test, on all 4 cores of the Pi.
-You can play with these timings if you want it to run longer or have more of a cooldown, but this works as a quick-and-dirty stress test for me.
-The results will get saved to a file named `stock.out`.
+Cela exécutera un nouveau test de stress nommé "Stock" pendant 300 secondes (5 minutes) avec 60 secondes de refroidissement avant et après le test, sur les 4 cœurs du Pi.
+Vous pouvez jouer avec ces horaires si vous voulez qu'il fonctionne plus longtemps ou ait plus de refroidissement, mais cela fonctionne comme un test de stress rapide et sale pour moi.
+Les résultats seront enregistrés dans un fichier nommé `stock.out`.
 
-During the main phase of the test, the output will look like this:
+Pendant la phase principale du test, la sortie ressemblera à ceci :
 
 ```
 Current temperature: 41.3°C - Frequency: 1500MHz
@@ -551,82 +550,82 @@ Current temperature: 40.9°C - Frequency: 1500MHz
 Current temperature: 41.8°C - Frequency: 1500MHz
 ```
 
-This basically tells you how hot the Pi will get.
-At 85­°C, the Pi will actually start to throttle itself and bring the clock speed down so it doesn't overheat.
-Luckily, because you added a heatsink and a fan, you shouldn't get anywhere close to this!
-That being said, we generally try to keep the temperatures below 65°C for the sake of the system's overall health.
+Cela vous indique essentiellement à quel point le Pi va chauffer.
+À 85°C, le Pi commencera en fait à s'étouffer et à baisser la vitesse d'horloge pour qu'il ne surchauffe pas.
+Heureusement, parce que vous avez ajouté un dissipateur thermique et un ventilateur, vous ne devriez pas vous rapprocher de ça !
+Cela dit, nous essayons généralement de maintenir les températures en dessous de 65°C pour le bien de la santé globale du système.
 
-If you want to monitor the system temperature during normal validating operations, you can do this with `vcgencmd`:
+Si vous voulez surveiller la température du système pendant les opérations de validation normales, vous pouvez le faire avec `vcgencmd` :
 
 ```shell
 vcgencmd measure_temp
 temp=34.0'C
 ```
 
-### Stability
+### Stabilité
 
-Testing the stability of an overclock involves answering these three questions:
+Tester la stabilité d'un overclock implique de répondre à ces trois questions :
 
-- Does the Pi turn on and get to a login promp / start the SSH server?
-- Does it randomly freeze or restart during normal operations?
-- Does it randomly freeze or restart during heavy load?
+- Est-ce que le Pi s'allume et arrive à une invite de connexion / démarre le serveur SSH ?
+- Se fige-t-il ou redémarre-t-il de manière aléatoire pendant les opérations normales ?
+- Se fige-t-il ou redémarre-t-il de manière aléatoire sous une charge lourde ?
 
-For an overclock to be truly stable, the answers must be **yes, no, and no**.
-There are a few ways to test this, but the easiest at this point is to just run `stressberry` for a really long time.
-How long is entirely up to you - the longer it goes, the more sure you can be that the system is stable.
-Some people just run the 5 minute test above and call that good if it survives; others run it for a half hour; others run it for 8 hours or even more.
-How long to run it is a personal decision you'll have to make based on your own risk tolerance.
+Pour qu'un overclock soit vraiment stable, les réponses doivent être **oui, non et non**.
+Il y a plusieurs façons de tester cela, mais la plus facile à ce stade est simplement d'exécuter `stressberry` pendant très longtemps.
+Combien de temps est entièrement à vous de décider - plus il dure longtemps, plus vous pouvez être sûr que le système est stable.
+Certaines personnes exécutent simplement le test de 5 minutes ci-dessus et l'appellent bon s'il survit ; d'autres l'exécutent pendant une demi-heure ; d'autres l'exécutent pendant 8 heures ou même plus.
+Combien de temps l'exécuter est une décision personnelle que vous devrez prendre en fonction de votre propre tolérance au risque.
 
-To change the runtime, just modify the `-d` parameter with the number of seconds you want the test to run.
-For example, if you decided a half-hour is the way to go, you could do `-d 1800`.
+Pour changer la durée d'exécution, modifiez simplement le paramètre `-d` avec le nombre de secondes que vous voulez que le test dure.
+Par exemple, si vous décidiez qu'une demi-heure est la solution, vous pourriez faire `-d 1800`.
 
-## Your First Overclock - 1800 MHz (Light)
+## Votre Premier Overclock - 1800 MHz (Léger)
 
-The first overclock we're going to do is relatively "light" and reliable, but still provides a nice boost in compute power.
-We're going to go from the stock 1500 MHz up to 1800 MHz - a 20% speedup!
+Le premier overclock que nous allons faire est relativement "léger" et fiable, mais offre toujours un bon boost en puissance de calcul.
+Nous allons passer de 1500 MHz d'origine à 1800 MHz - une accélération de 20% !
 
-Open this file:
+Ouvrez ce fichier :
 
 ```shell
 sudo nano /boot/firmware/usercfg.txt
 ```
 
-Add these two lines to the end:
+Ajoutez ces deux lignes à la fin :
 
 ```shell
 arm_freq=1800
 over_voltage=3
 ```
 
-Then save the file and reboot.
+Ensuite, enregistrez le fichier et redémarrez.
 
-These settings will increase the CPU clock by 20%, and it will also raise the CPU voltage from 0.88v to 0.93v (each `over_voltage` setting increases it by 0.025v).
-This setting should be attainable by any Pi 4B, so your system should restart and provide a login prompt or SSH access in just a few moments.
-If it doesn't, and your Pi stops responding or enters a boot loop, you'll have to reset it - read the next section for that.
+Ces paramètres augmenteront l'horloge du CPU de 20%, et cela augmentera également la tension du CPU de 0,88v à 0,93v (chaque paramètre `over_voltage` l'augmente de 0,025v).
+Ce paramètre devrait être atteignable par n'importe quel Pi 4B, donc votre système devrait redémarrer et fournir une invite de connexion ou un accès SSH en quelques instants.
+Si ce n'est pas le cas, et que votre Pi cesse de répondre ou entre dans une boucle de démarrage, vous devrez le réinitialiser - lisez la section suivante pour cela.
 
-### Resetting After an Unstable Overclock
+### Réinitialisation Après un Overclock Instable
 
-If your Pi stops responding, or keeps restarting over and over, then you need to lower the overclock.
-To do that, follow these steps:
+Si votre Pi cesse de répondre, ou continue de redémarrer encore et encore, alors vous devez baisser l'overclock.
+Pour ce faire, suivez ces étapes :
 
-1. Turn the Pi off.
-2. Pull the microSD card out.
-3. Plug the card into another Linux computer with a microSD adapter.
-   \*NOTE: This **has to be** another Linux computer. It won't work if you plug it into a Windows machine, because Windows can't read the `ext4` filesystem the SD card uses!\*\*
-4. Mount the card on the other computer.
-5. Open `<SD mount point>/boot/firmware/usercfg.txt`.
-6. Lower the `arm_freq` value, or increase the `over_voltage` value. _NOTE: **do not go any higher than over_voltage=6.** Higher values aren't supported by the Pi's warranty, and they run the risk of degrading the CPU faster than you might be comfortable with._
-7. Unmount the SD card and remove it.
-8. Plug the card back into the Pi and turn it on.
+1. Éteignez le Pi.
+2. Retirez la carte microSD.
+3. Branchez la carte dans un autre ordinateur Linux avec un adaptateur microSD.
+   \*NOTE : Cela **doit être** un autre ordinateur Linux. Cela ne fonctionnera pas si vous le branchez dans une machine Windows, car Windows ne peut pas lire le système de fichiers `ext4` que la carte SD utilise !\*\*
+4. Montez la carte sur l'autre ordinateur.
+5. Ouvrez `<point de montage SD>/boot/firmware/usercfg.txt`.
+6. Baissez la valeur `arm_freq`, ou augmentez la valeur `over_voltage`. _NOTE : **ne dépassez pas over_voltage=6.** Des valeurs plus élevées ne sont pas supportées par la garantie du Pi, et elles risquent de dégrader le CPU plus rapidement que vous ne seriez à l'aise._
+7. Démontez la carte SD et retirez-la.
+8. Rebranchez la carte dans le Pi et allumez-le.
 
-If the Pi works, then great! Continue below.
-If not, repeat the whole process with even more conservative settings.
-In the worst case you can just remove the `arm_freq` and `over_voltage` lines entirely to return it to stock settings.
+Si le Pi fonctionne, alors génial ! Continuez ci-dessous.
+Sinon, répétez tout le processus avec des paramètres encore plus conservateurs.
+Dans le pire des cas, vous pouvez simplement supprimer les lignes `arm_freq` et `over_voltage` entièrement pour le ramener aux paramètres d'origine.
 
-### Testing 1800 MHz
+### Test de 1800 MHz
 
-Once you're logged in, run `linpack` again to test the new performance.
-Here's an example from our test Pi:
+Une fois que vous êtes connecté, exécutez à nouveau `linpack` pour tester les nouvelles performances.
+Voici un exemple de notre Pi de test :
 
 ```
 linpack
@@ -642,18 +641,18 @@ Enter array size (q to quit) [200]:
    16384  18.80  85.72%   3.75%  10.52%  1337238.504
 ```
 
-Again, grab the `KFLOPS` column in the last row.
-To compare it to the stock configuration, simply divide the two numbers:
+Encore une fois, prenez la colonne `KFLOPS` dans la dernière ligne.
+Pour le comparer à la configuration d'origine, divisez simplement les deux nombres :
 `1337238.504 / 1120277.186 = 1.193668`
 
-Alright! That's a 19.4% boost in performance, which is to be expected since we're running 20% faster.
-Now let's check the temperatures with the new clock speed and voltage settings:
+Très bien ! C'est une augmentation de performance de 19,4%, ce qui est attendu puisque nous fonctionnons 20% plus vite.
+Maintenant, vérifions les températures avec les nouveaux paramètres de vitesse d'horloge et de tension :
 
 ```shell
 stressberry-run -n "1800_ov3" -d 300 -i 60 -c 4 1800_ov3.out
 ```
 
-You should see output like this:
+Vous devriez voir une sortie comme ceci :
 
 ```
 Current temperature: 47.2°C - Frequency: 1800MHz
@@ -663,36 +662,36 @@ Current temperature: 47.7°C - Frequency: 1800MHz
 Current temperature: 47.7°C - Frequency: 1800MHz
 ```
 
-Not bad, about 6° hotter than the stock settings but still well below the threshold where we'd personally stop.
+Pas mal, environ 6° plus chaud que les paramètres d'origine mais toujours bien en dessous du seuil où nous nous arrêterions personnellement.
 
-You can run a longer stability test here if you're comfortable, or you can press on to take things even higher.
+Vous pouvez exécuter un test de stabilité plus long ici si vous êtes à l'aise, ou vous pouvez continuer pour pousser les choses encore plus haut.
 
-## Going to 2000 MHz (Medium)
+## Aller à 2000 MHz (Moyen)
 
-The next milestone will be 2000 MHz. This represents a 33.3% boost in clock speed, which is pretty significant.
-Most people consider this to be a great balance between performance and stability, so they stop the process here.
+Le prochain jalon sera 2000 MHz. Cela représente une augmentation de vitesse d'horloge de 33,3%, ce qui est assez important.
+La plupart des gens considèrent cela comme un excellent équilibre entre performance et stabilité, donc ils s'arrêtent ici.
 
-Our recommendation for this level is to start with these settings:
+Notre recommandation pour ce niveau est de commencer avec ces paramètres :
 
 ```shell
 arm_freq=2000
 over_voltage=5
 ```
 
-This will boost the core voltage to 1.005v.
-Try this out with the `linpack` and `stressberry` tests.
-If it survives them, then you're all set. If it freezes or randomly restarts, then you should increase the voltage:
+Cela augmentera la tension du cœur à 1,005v.
+Essayez cela avec les tests `linpack` et `stressberry`.
+S'il les survit, alors vous êtes prêt. S'il se fige ou redémarre de manière aléatoire, alors vous devriez augmenter la tension :
 
 ```shell
 arm_freq=2000
 over_voltage=6
 ```
 
-That puts the core voltage at 1.03v, which is as high as you can go before voiding the warranty.
-That usually works for most Pis.
-If it doesn't, instead of increasing the voltage further, **you should lower your clock speed and try again.**
+Cela met la tension du cœur à 1,03v, ce qui est aussi haut que vous pouvez aller avant d'annuler la garantie.
+Cela fonctionne généralement pour la plupart des Pi.
+Si ce n'est pas le cas, au lieu d'augmenter la tension davantage, **vous devriez baisser votre vitesse d'horloge et réessayer.**
 
-For reference, here are the numbers from our 2000 run:
+Pour référence, voici les chiffres de notre course à 2000 :
 
 ```
 linpack
@@ -708,9 +707,9 @@ Enter array size (q to quit) [200]:
    16384  16.96  85.74%   3.73%  10.53%  1482441.146
 ```
 
-That's a 32.3% speedup which is in-line with what we'd expect. Not bad!
+C'est une accélération de 32,3% ce qui est conforme à ce que nous attendions. Pas mal !
 
-Here are our temperatures:
+Voici nos températures :
 
 ```
 Current temperature: 54.0°C - Frequency: 2000MHz
@@ -720,23 +719,23 @@ Current temperature: 54.5°C - Frequency: 2000MHz
 Current temperature: 55.5°C - Frequency: 2000MHz
 ```
 
-An increase of 7 more degrees, but still under our threshold of 65°C.
+Une augmentation de 7 degrés supplémentaires, mais toujours sous notre seuil de 65°C.
 
-## Going to 2100 MHz (Heavy)
+## Aller à 2100 MHz (Lourd)
 
-The next step represents a solid **40% speedup** over the stock configuration.
+L'étape suivante représente une solide **accélération de 40%** par rapport à la configuration d'origine.
 
-**NOTE: Not all Pi's are capable of doing this while staying at `over_voltage=6`.
-Try it, and if it breaks, go back to 2000 MHz.**
+**NOTE : Tous les Pi ne sont pas capables de faire cela tout en restant à `over_voltage=6`.
+Essayez-le, et s'il casse, revenez à 2000 MHz.**
 
-The configuration will look like this:
+La configuration ressemblera à ceci :
 
 ```shell
 arm_freq=2100
 over_voltage=6
 ```
 
-For reference, here are our results:
+Pour référence, voici nos résultats :
 
 ```
 linpack
@@ -752,9 +751,9 @@ Enter array size (q to quit) [200]:
    16384  16.11  85.73%   3.73%  10.54%  1561448.736
 ```
 
-That's a 39.4% speedup!
+C'est une accélération de 39,4% !
 
-Here are our temperatures:
+Voici nos températures :
 
 ```
 Current temperature: 59.4°C - Frequency: 2100MHz
@@ -764,21 +763,21 @@ Current temperature: 59.4°C - Frequency: 2100MHz
 Current temperature: 58.9°C - Frequency: 2100MHz
 ```
 
-Just shy of 60°C, so there's plenty of room.
+Juste en dessous de 60°C, donc il y a beaucoup de marge.
 
-## Going to 2250 MHz (Extreme)
+## Aller à 2250 MHz (Extrême)
 
-This is the setting we run our Pi's at, which has been stable for over a year at the time of writing.
-Still, **users are cautioned in overclocking this high** - ensure you do thorough stability tests and have plenty of thermal headroom before attempting to make this your node's production configuration!
+C'est le réglage que nous utilisons pour nos Pi, qui a été stable pendant plus d'un an au moment de la rédaction.
+Néanmoins, **les utilisateurs sont avertis de l'overclocking aussi élevé** - assurez-vous de faire des tests de stabilité approfondis et d'avoir beaucoup de marge thermique avant de tenter de faire de cela la configuration de production de votre nœud !
 
-Our configuration is:
+Notre configuration est :
 
 ```shell
 arm_freq=2250
 over_voltage=10
 ```
 
-Here are our results:
+Voici nos résultats :
 
 ```
     Reps Time(s) DGEFA   DGESL  OVERHEAD    KFLOPS
@@ -790,11 +789,11 @@ Here are our results:
    16384  15.34  85.43%   4.13%  10.44%  1638067.854
 ```
 
-That's 46% faster than the stock configuration!
+C'est 46% plus rapide que la configuration d'origine !
 
-OV10 is as the stock firmware will let the Pi go, and 2250 MHz is the fastest we could reliably run in production.
+OV10 est aussi loin que le firmware d'origine laissera le Pi aller, et 2250 MHz est le plus rapide que nous pouvions exécuter de manière fiable en production.
 
-The temperatures in the stress test get this high:
+Les températures dans le test de stress montent aussi haut :
 
 ```
 Current temperature: 70.6°C - Frequency: 2251MHz
@@ -804,9 +803,9 @@ Current temperature: 71.1°C - Frequency: 2251MHz
 Current temperature: 71.1°C - Frequency: 2251MHz
 ```
 
-But during actual validation, they tend to stay below 60C which is acceptable for us.
+Mais pendant la validation réelle, elles ont tendance à rester en dessous de 60C ce qui est acceptable pour nous.
 
-## Next Steps
+## Prochaines Étapes
 
-And with that, your Pi is up and running and ready to run Rocket Pool!
-Move on to the [Choosing your ETH Clients](../eth-clients) section.
+Et avec cela, votre Pi est opérationnel et prêt à exécuter Rocket Pool !
+Passez à la section [Choisir vos Clients ETH](../eth-clients).

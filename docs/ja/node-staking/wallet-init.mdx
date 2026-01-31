@@ -1,67 +1,67 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Creating a New Wallet
+# 新しいウォレットの作成
 
-If the Smartnode services are up and running, the next step is to set up an Ethereum wallet for your node.
-This is simply an Execution Layer address that will hold your node's funds - it will use this to send ETH to your minipool when you begin staking, pay for gas during various transactions, and other various operations.
+Smartnodeサービスが起動して実行されている場合、次のステップはノード用のEthereumウォレットをセットアップすることです。
+これは単にノードの資金を保持するExecution Layerアドレスであり、ステーキングを開始するときにminipoolにETHを送信したり、さまざまなトランザクション中にガス代を支払ったり、その他さまざまな操作に使用されます。
 
-You have the option of either creating a brand new wallet from scratch, or importing / recovering an existing wallet or address.
-Please choose which option you'd like from the tabs below.
+ゼロから新しいウォレットを作成するか、既存のウォレットまたはアドレスをインポート/復元するかのオプションがあります。
+以下のタブから希望するオプションを選択してください。
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Creating a New Wallet">
-      The most common way to run a node is to create a new Ethereum address that is dedicated to the node.
-      The Smartnode CLI provides a way to do this easily:
+    <Tab label="新しいウォレットの作成">
+      ノードを実行する最も一般的な方法は、ノード専用の新しいEthereumアドレスを作成することです。
+      Smartnode CLIはこれを簡単に行う方法を提供しています。
 
       ```shell
       rocketpool wallet init
       ```
 
-      You will first be prompted for a password to protect your wallet's private key.
-      Next, you will be presented the **unique 24-word mnemonic** for your new wallet.
-      This is the **recovery phrase** for your wallet.
-      If you ever lose your machine, you can use this phrase to regenerate your wallet and resurrect all of the Consensus validators attached to it.
+      最初に、ウォレットの秘密鍵を保護するためのパスワードを求められます。
+      次に、新しいウォレットの**ユニークな24単語のニーモニック**が表示されます。
+      これはウォレットの**リカバリーフレーズ**です。
+      マシンを紛失した場合、このフレーズを使用してウォレットを再生成し、それに接続されているすべてのConsensusバリデータを復活させることができます。
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        It is **essential** that you write this mnemonic down because this is the only time it will be shown to you, but keep it somewhere safe.
-        Anyone with this phrase can gain control of your wallet.
+        <p className="rspress-directive-title">注意</p>
+        このニーモニックを書き留めることは**必須**です。これは一度しか表示されませんが、安全な場所に保管してください。
+        このフレーズを持っている人は誰でもあなたのウォレットを制御できます。
       </p>
 
-      Once you confirm your mnemonic phrase, you will be presented with the unique Ethereum address for your node wallet.
+      ニーモニックフレーズを確認すると、ノードウォレットのユニークなEthereumアドレスが表示されます。
     </Tab>
-    <Tab label="Recovering or Importing an Existing Wallet">
-      If you already have a node wallet that you created in a previous installation of the Smartnode, or if you want to import an address that you created elsewhere (such as with **Allnodes**), please follow the instructions in the [Importing an Existing Wallet for your Node](./recovering-rp) guide.
+    <Tab label="既存のウォレットの復元またはインポート">
+      Smartnodeの以前のインストールで作成したノードウォレットが既にある場合、または他の場所（**Allnodes**など）で作成したアドレスをインポートしたい場合は、[ノード用の既存ウォレットのインポート](./recovering-rp)ガイドの手順に従ってください。
 
-      Return here when you're finished.
+      完了したらここに戻ってください。
     </Tab>
 
   </Tabs>
 </div>
 
-::: warning NOTE
-As of the current build, Rocket Pool needs to have access to your wallet's private key in order to perform its automatic duties.
-**This means that the private key will exist in a file on your machine.**
-If an attacker manages to gain access to your machine, they could gain access to your node wallet and steal all of the tokens that it contains!
-Please ensure that you have followed the security guide in the [Securing your Node](./securing-your-node) section before you continue, and are comfortable with your security posture.
+::: warning 注意
+現在のビルドでは、Rocket Poolは自動的なタスクを実行するためにウォレットの秘密鍵にアクセスする必要があります。
+**これは、秘密鍵がマシン上のファイルに存在することを意味します。**
+攻撃者があなたのマシンへのアクセスを得ると、ノードウォレットにアクセスし、それに含まれるすべてのトークンを盗む可能性があります。
+続行する前に、[ノードのセキュリティ保護](./securing-your-node)セクションのセキュリティガイドに従っていること、およびセキュリティ態勢に満足していることを確認してください。
 :::
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Docker & Hybrid Modes">
-      Your wallet's private key will be stored in a file located at `~/.rocketpool/data/wallet`.
+    <Tab label="Docker & Hybrid モード">
+      ウォレットの秘密鍵は`~/.rocketpool/data/wallet`にあるファイルに保存されます。
 
-      The password used to encrypt your wallet's key will be stored in `~/.rocketpool/data/password`.
-      This is the file that must be protected at all times.
+      ウォレットの鍵を暗号化するために使用されるパスワードは`~/.rocketpool/data/password`に保存されます。
+      これは常に保護する必要があるファイルです。
     </Tab>
-    <Tab label="Native Mode">
-      The wallet and password files will be stored in the `data` directory under the Rocket Pool directory that you set up earlier (e.g. `/srv/rocketpool`).
+    <Tab label="Native モード">
+      ウォレットとパスワードファイルは、以前に設定したRocket Poolディレクトリ（例：`/srv/rocketpool`）の下の`data`ディレクトリに保存されます。
 
-      Your wallet's private key will be stored in a file located at `/srv/rocketpool/data/wallet`.
+      ウォレットの秘密鍵は`/srv/rocketpool/data/wallet`にあるファイルに保存されます。
 
-      The password used to encrypt your wallet's key will be stored in `/srv/rocketpool/data/password`.
-      This is the file that must be protected at all times.
+      ウォレットの鍵を暗号化するために使用されるパスワードは`/srv/rocketpool/data/password`に保存されます。
+      これは常に保護する必要があるファイルです。
     </Tab>
 
   </Tabs>

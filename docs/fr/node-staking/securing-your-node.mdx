@@ -1,146 +1,146 @@
 ---
 next:
   text: "Tailscale"
-  link: "/en/node-staking/tailscale"
+  link: "/fr/node-staking/tailscale"
 ---
 
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Securing your Node
+# Sécuriser votre nœud
 
-The goal of this guide is to walk you through steps you can take to secure your node against malicious actors.
-Whether you're running a local server at home or a VPS server / virtual machine on the cloud, the tips here will help you harden your node against outside attack and help protect it during its lifespan.
+L'objectif de ce guide est de vous accompagner dans les étapes que vous pouvez suivre pour sécuriser votre nœud contre les acteurs malveillants.
+Que vous exécutiez un serveur local chez vous ou un serveur VPS / machine virtuelle dans le cloud, les conseils présentés ici vous aideront à renforcer votre nœud contre les attaques extérieures et à le protéger tout au long de sa durée de vie.
 
-This section will describe both **essential** actions, which you **must** take, and **nice-to-have** actions, which are helpful but not required.
+Cette section décrit à la fois les actions **essentielles**, que vous **devez** entreprendre, et les actions **souhaitables**, qui sont utiles mais non obligatoires.
 
-::: tip NOTE
-This guide is meant to be an **introduction** to some of the things you can do to harden your node machine.
-If you are comfortable with the command-line terminal and want to go even further in protecting your node, take a look at the popular [imthenachoman/How-To-Secure-A-Linux-Server](https://github.com/imthenachoman/How-To-Secure-A-Linux-Server) guide.
+::: tip REMARQUE
+Ce guide se veut une **introduction** à certaines des choses que vous pouvez faire pour renforcer votre machine de nœud.
+Si vous êtes à l'aise avec le terminal en ligne de commande et souhaitez aller encore plus loin dans la protection de votre nœud, consultez le guide populaire [imthenachoman/How-To-Secure-A-Linux-Server](https://github.com/imthenachoman/How-To-Secure-A-Linux-Server).
 :::
 
-## Assumptions in This Guide
+## Hypothèses de ce guide
 
-This guide assumes your node runs `Ubuntu 20.04 LTS`.
-The concepts will carry over to other systems but the example commands may not.
+Ce guide suppose que votre nœud fonctionne sous `Ubuntu 20.04 LTS`.
+Les concepts s'appliqueront à d'autres systèmes mais les exemples de commandes peuvent différer.
 
-As with all of the commands in this guide, we assume that you are connecting **remotely** to your node's command terminal using `ssh`.
-If you need a refresher on how to use `ssh`, take a look at the [Intro to Secure Shell](./ssh) guide first.
+Comme pour toutes les commandes de ce guide, nous supposons que vous vous connectez **à distance** au terminal de commande de votre nœud en utilisant `ssh`.
+Si vous avez besoin d'un rappel sur l'utilisation de `ssh`, consultez d'abord le guide [Introduction à Secure Shell](./ssh).
 
-## ESSENTIAL: Keep your Client Machine Secure
+## ESSENTIEL : Sécurisez votre machine cliente
 
-::: warning NOTE
-If you use your Smartnode locally (by physically logging into it with a keyboard and monitor directly attached to it), then **this section is not relevant to you - you can skip it**.
+::: warning REMARQUE
+Si vous utilisez votre Smartnode localement (en vous connectant physiquement avec un clavier et un moniteur directement attachés), alors **cette section ne vous concerne pas - vous pouvez la passer**.
 :::
 
-Most Smartnode operators interact with their node remotely by connecting to its terminal from another computer using `ssh`:
+La plupart des opérateurs Smartnode interagissent avec leur nœud à distance en se connectant à son terminal depuis un autre ordinateur en utilisant `ssh` :
 
-- The machine you connect _to_ (in this case, your node machine) is called the **server**.
-- The machine you connect _from_ (such as your laptop, desktop, or even your phone) is the **client**.
+- La machine à laquelle vous vous connectez (dans ce cas, votre machine de nœud) est appelée le **serveur**.
+- La machine depuis laquelle vous vous connectez (comme votre ordinateur portable, ordinateur de bureau, ou même votre téléphone) est le **client**.
 
-One of the most important things you can do to secure your Smartnode is to **keep your client machine secure**.
-If your client machine is compromised and you use it to log into your node, then most of the security settings you apply to the node can be bypassed.
+L'une des choses les plus importantes que vous puissiez faire pour sécuriser votre Smartnode est de **maintenir votre machine cliente sécurisée**.
+Si votre machine cliente est compromise et que vous l'utilisez pour vous connecter à votre nœud, la plupart des paramètres de sécurité que vous appliquez au nœud peuvent être contournés.
 
-For example: if you use a laptop as an SSH client, and it has a [keylogger](https://en.wikipedia.org/wiki/Keystroke_logging) installed, then any secret things you type on the node (such as your password or recovery mnemonic) when connected via SSH will be stolen.
+Par exemple : si vous utilisez un ordinateur portable comme client SSH, et qu'il a un [enregistreur de frappe](https://en.wikipedia.org/wiki/Keystroke_logging) installé, alors toutes les choses secrètes que vous tapez sur le nœud (comme votre mot de passe ou votre mnémonique de récupération) lorsque vous êtes connecté via SSH seront volées.
 
-There is no definitive guide to keeping your client machine secure, but being aware that it is a factor in your security is a good first step.
-Make sure that your client machine is as secure as it can be.
+Il n'existe pas de guide définitif pour sécuriser votre machine cliente, mais être conscient que c'est un facteur dans votre sécurité est une bonne première étape.
+Assurez-vous que votre machine cliente est aussi sécurisée que possible.
 
-Here are a few tips:
+Voici quelques conseils :
 
-- Don't use your client machine for **risky activities** (such as visiting untrustworthy websites or installing unnecessary programs)
-- Keep your client machine updated with the **latest security patches**
-- If possible, use a **malware and antivirus protection** program for your Operating System
+- N'utilisez pas votre machine cliente pour des **activités à risque** (comme visiter des sites web peu fiables ou installer des programmes inutiles)
+- Maintenez votre machine cliente à jour avec les **derniers correctifs de sécurité**
+- Si possible, utilisez un **programme de protection anti-malware et antivirus** pour votre système d'exploitation
 
-For maximum security, you may want to use a **dedicated machine** as your SSH client, though this may not be practical for you.
+Pour une sécurité maximale, vous pourriez vouloir utiliser une **machine dédiée** comme client SSH, bien que cela ne soit peut-être pas pratique pour vous.
 
-## ESSENTIAL: Secure your SSH Access
+## ESSENTIEL : Sécurisez votre accès SSH
 
-::: warning NOTE
-If you use your Smartnode locally (by physically logging into it with a keyboard and monitor directly attached to it), then **this section is not relevant to you - you can skip it**.
+::: warning REMARQUE
+Si vous utilisez votre Smartnode localement (en vous connectant physiquement avec un clavier et un moniteur directement attachés), alors **cette section ne vous concerne pas - vous pouvez la passer**.
 :::
 
-Whether you run your Smartnode at home or you use a VPS in a remote datacenter, it is likely that either you access it through SSH, or that SSH is enabled **even if you do not use it**.
+Que vous exécutiez votre Smartnode chez vous ou que vous utilisiez un VPS dans un centre de données distant, il est probable que vous y accédiez via SSH, ou que SSH soit activé **même si vous ne l'utilisez pas**.
 
-SSH connections are based on secure cryptography, but as with any secure system, the real security comes from using it correctly.
-There are two main things to do for your SSH settings:
+Les connexions SSH sont basées sur une cryptographie sécurisée, mais comme pour tout système sécurisé, la vraie sécurité vient d'une utilisation correcte.
+Il y a deux choses principales à faire pour vos paramètres SSH :
 
-1. Use an SSH key to log in remotely instead of a username and password
-2. Disable password-based authentication entirely, so SSH keys are the only remote login option
+1. Utiliser une clé SSH pour se connecter à distance au lieu d'un nom d'utilisateur et d'un mot de passe
+2. Désactiver complètement l'authentification par mot de passe, de sorte que les clés SSH soient la seule option de connexion à distance
 
-As you are probably familiar with now, the default way to log into your node via SSH is with a username and password.
-The downside of this is that your password is typically something rather "short" and susceptible to [brute-force attacks](https://en.wikipedia.org/wiki/Brute-force_attack).
+Comme vous en avez probablement l'habitude maintenant, la façon par défaut de se connecter à votre nœud via SSH est avec un nom d'utilisateur et un mot de passe.
+L'inconvénient de ceci est que votre mot de passe est généralement quelque chose de plutôt "court" et susceptible aux [attaques par force brute](https://en.wikipedia.org/wiki/Brute-force_attack).
 
-Luckily, there is an alternative way to log in via SSH: an **SSH key pair**.
+Heureusement, il existe une autre façon de se connecter via SSH : une **paire de clés SSH**.
 
-SSH key pairs work similarly to blockchain wallets; they come with a public part (such as your wallet address) and a private part (the private key for your wallet address):
+Les paires de clés SSH fonctionnent de manière similaire aux portefeuilles blockchain ; elles comportent une partie publique (comme votre adresse de portefeuille) et une partie privée (la clé privée pour votre adresse de portefeuille) :
 
-- You provide the **public part** to your node. This way, the node knows you're allowed to connect to it, and it knows that it's really you trying to connect.
-- You keep the **private part** to yourself on your client machine. This way, you (and only you) can connect to your node.
-  - You can (and should!) protect the private part with a **password**, so someone who steals your key can't use it.
-- From a computer's perspective, the private key is **exponentially harder** to crack than a password is. This mitigates the risk of a brute-force attack against your node.
+- Vous fournissez la **partie publique** à votre nœud. De cette façon, le nœud sait que vous êtes autorisé à vous y connecter, et il sait que c'est vraiment vous qui essayez de vous connecter.
+- Vous conservez la **partie privée** pour vous-même sur votre machine cliente. De cette façon, vous (et seulement vous) pouvez vous connecter à votre nœud.
+  - Vous pouvez (et devriez !) protéger la partie privée avec un **mot de passe**, de sorte que quelqu'un qui vole votre clé ne puisse pas l'utiliser.
+- Du point de vue d'un ordinateur, la clé privée est **exponentiellement plus difficile** à craquer qu'un mot de passe. Cela atténue le risque d'une attaque par force brute contre votre nœud.
 
-::: tip TIP
-If you'd like to learn more about SSH key pairs before creating your own, take a look at these links:
+::: tip ASTUCE
+Si vous souhaitez en savoir plus sur les paires de clés SSH avant de créer la vôtre, consultez ces liens :
 
 - [https://canvas.cse.taylor.edu/courses/27/pages/ssh-key-tutorial](https://canvas.cse.taylor.edu/courses/27/pages/ssh-key-tutorial)
 - [https://www.ssh.com/academy/ssh/host-key](https://www.ssh.com/academy/ssh/host-key)
 
 :::
 
-### Creating an SSH Key Pair
+### Création d'une paire de clés SSH
 
-Let's start by creating a new SSH key pair **on your client machine**.
-There are many varieties of key out there, but we're going to use a key type called [ed25519](https://en.wikipedia.org/wiki/EdDSA#Ed25519) which provides excellent security.
+Commençons par créer une nouvelle paire de clés SSH **sur votre machine cliente**.
+Il existe de nombreuses variétés de clés, mais nous allons utiliser un type de clé appelé [ed25519](https://en.wikipedia.org/wiki/EdDSA#Ed25519) qui offre une excellente sécurité.
 
-Run the following command **on your client machine** (i.e., you should **not** run this while already SSH'd into your node machine - if you are, **exit out of SSH first**):
+Exécutez la commande suivante **sur votre machine cliente** (c'est-à-dire que vous ne devez **pas** exécuter ceci pendant que vous êtes déjà connecté en SSH à votre machine de nœud - si c'est le cas, **quittez SSH d'abord**) :
 
 ```shell
 ssh-keygen -t ed25519 -C "your_email@example.com"
 ```
 
-You will see the following:
+Vous verrez ce qui suit :
 
 ```
 Generating public/private ed25519 key pair.
 Enter file in which to save the key (/home/username/.ssh/id_ed25519):
 ```
 
-This asks you where you would like to save your private key file.
-SSH is compatible with the provided default and will automatically use it for you if you select it.
-However, you have the option of changing it to something else if you wish.
+Ceci vous demande où vous souhaitez enregistrer votre fichier de clé privée.
+SSH est compatible avec la valeur par défaut fournie et l'utilisera automatiquement pour vous si vous la sélectionnez.
+Cependant, vous avez la possibilité de la changer pour autre chose si vous le souhaitez.
 
-::: tip NOTE
-The path `/home/username/.ssh/id_ed25519` is just an example, assuming your username is `username`.
-You likely have a different username.
-Whenever you see a path like the above in this guide, replace it with whatever path your system actually prints with your actual username.
+::: tip REMARQUE
+Le chemin `/home/username/.ssh/id_ed25519` n'est qu'un exemple, en supposant que votre nom d'utilisateur soit `username`.
+Vous avez probablement un nom d'utilisateur différent.
+Chaque fois que vous voyez un chemin comme celui ci-dessus dans ce guide, remplacez-le par le chemin que votre système imprime réellement avec votre nom d'utilisateur réel.
 :::
 
-If you are comfortable with the default setting, simply press `Enter`.
+Si vous êtes à l'aise avec le paramètre par défaut, appuyez simplement sur `Entrée`.
 
-Otherwise, type your desired location for the key.
-It must be an absolute path (e.g. `/home/username/.ssh/rocketpool_key` on Linux, or `/Users/username/.ssh/rocketpool_key` on OSX).
-Press `Enter` when you're done.
+Sinon, tapez l'emplacement souhaité pour la clé.
+Ce doit être un chemin absolu (par ex. `/home/username/.ssh/rocketpool_key` sur Linux, ou `/Users/username/.ssh/rocketpool_key` sur OSX).
+Appuyez sur `Entrée` lorsque vous avez terminé.
 
-After pressing `Enter`, you will see:
+Après avoir appuyé sur `Entrée`, vous verrez :
 
 ```
 Enter passphrase (empty for no passphrase):
 ```
 
-**This will become the password for the private key itself**.
-Whenever you use the key to connect to your node, you will need to enter this password first.
+**Ceci deviendra le mot de passe pour la clé privée elle-même**.
+Chaque fois que vous utilisez la clé pour vous connecter à votre nœud, vous devrez d'abord entrer ce mot de passe.
 
-::: danger WARNING
-**You should not leave this blank** - otherwise, anyone with the SSH key file will be able to use it!
-Pick a good password that you (and only you) will know.
+::: danger AVERTISSEMENT
+**Vous ne devez pas laisser ceci vide** - sinon, quiconque possède le fichier de clé SSH pourra l'utiliser !
+Choisissez un bon mot de passe que vous (et seulement vous) connaîtrez.
 
-Also, **don't forget your password** - there is no way to recover this password if you lose it.
+De plus, **n'oubliez pas votre mot de passe** - il n'y a aucun moyen de récupérer ce mot de passe si vous le perdez.
 :::
 
-Once you finish typing the password, press `Enter`.
-It will ask you to retype it for confirmation.
+Une fois que vous avez fini de taper le mot de passe, appuyez sur `Entrée`.
+Il vous demandera de le retaper pour confirmation.
 
-After that, you will see something like the following output:
+Après cela, vous verrez quelque chose comme la sortie suivante :
 
 ```
 Your identification has been saved in /home/username/.ssh/id_ed25519
@@ -161,75 +161,75 @@ The key's randomart image is:
 +----[SHA256]-----+
 ```
 
-The first line states the location of the **private key**, which is called `id_ed25519` by default (notice that it does not have a file extension).
-Ubuntu will load this key for you automatically when you use `ssh` if this private key file is in the default location.
+La première ligne indique l'emplacement de la **clé privée**, qui s'appelle `id_ed25519` par défaut (notez qu'elle n'a pas d'extension de fichier).
+Ubuntu chargera cette clé pour vous automatiquement lorsque vous utilisez `ssh` si ce fichier de clé privée se trouve à l'emplacement par défaut.
 
-The second line states the location of the **public key**, which is called `id_ed25519.pub` by default.
-We'll need the public key for the next step.
+La deuxième ligne indique l'emplacement de la **clé publique**, qui s'appelle `id_ed25519.pub` par défaut.
+Nous aurons besoin de la clé publique pour l'étape suivante.
 
-::: tip NOTE
-Ubuntu _should_ load this new key automatically.
-However, some systems (such as macOS machines) will not load it automatically - you will have to tell it to do this with the following command **on your client machine**:
+::: tip REMARQUE
+Ubuntu _devrait_ charger cette nouvelle clé automatiquement.
+Cependant, certains systèmes (comme les machines macOS) ne la chargeront pas automatiquement - vous devrez lui dire de le faire avec la commande suivante **sur votre machine cliente** :
 
 ```shell
 ssh-add $HOME/.ssh/id_ed25519
 ```
 
-Note that this is the path of the **private key** that we generated in the previous step, **not the public key**.
-Replace the path with whatever your system printed in that previous step.
+Notez que c'est le chemin de la **clé privée** que nous avons générée à l'étape précédente, **pas la clé publique**.
+Remplacez le chemin par celui que votre système a imprimé à cette étape précédente.
 
-If you get an error saying that the `ssh-agent` is not running, start it by running the following command **on your client machine**:
+Si vous obtenez une erreur disant que le `ssh-agent` n'est pas en cours d'exécution, démarrez-le en exécutant la commande suivante **sur votre machine cliente** :
 
 ```shell
 eval $(ssh-agent)
 ```
 
-If you don't want to type these two commands every time you open the terminal, you can create a shortcut for adding your key by adding an `alias` to your `~/.bashrc` file.
+Si vous ne voulez pas taper ces deux commandes à chaque fois que vous ouvrez le terminal, vous pouvez créer un raccourci pour ajouter votre clé en ajoutant un `alias` à votre fichier `~/.bashrc`.
 
-Open the file using the text editor:
+Ouvrez le fichier avec l'éditeur de texte :
 
 ```shell
 nano ~/.bashrc
 ```
 
-Add this line to the end (assuming you used the default path for the private key - update as necessary):
+Ajoutez cette ligne à la fin (en supposant que vous ayez utilisé le chemin par défaut pour la clé privée - mettez à jour si nécessaire) :
 
 ```shell
 alias loadkey='ssh-add $HOME/.ssh/id_ed25519'
 ```
 
-Save and exit with `Ctrl+O` and `Enter`, then `Ctrl+X`.
-Next, close and open your terminal for the changes to take effect.
+Enregistrez et quittez avec `Ctrl+O` et `Entrée`, puis `Ctrl+X`.
+Ensuite, fermez et ouvrez votre terminal pour que les modifications prennent effet.
 
-You can now type `loadkey` **on your client machine** to load the key.
+Vous pouvez maintenant taper `loadkey` **sur votre machine cliente** pour charger la clé.
 :::
 
-### Adding the Public Key to your Node
+### Ajout de la clé publique à votre nœud
 
-Once you have your SSH key pair, you can now add the **public key** to your node.
-This will let you connect to it over `ssh` using the private key you just generated, instead of your username and password.
+Une fois que vous avez votre paire de clés SSH, vous pouvez maintenant ajouter la **clé publique** à votre nœud.
+Cela vous permettra de vous y connecter via `ssh` en utilisant la clé privée que vous venez de générer, au lieu de votre nom d'utilisateur et mot de passe.
 
-There are two ways to do this - if one doesn't work, try the other way:
+Il y a deux façons de le faire - si l'une ne fonctionne pas, essayez l'autre :
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Using ssh-copy-id">
-      **Note**: if your client machine is running Windows, `ssh-copy-id` is not yet available.
-      Please follow the instructions in the "Manually Adding the Key" tab.
+    <Tab label="Utilisation de ssh-copy-id">
+      **Remarque** : si votre machine cliente fonctionne sous Windows, `ssh-copy-id` n'est pas encore disponible.
+      Veuillez suivre les instructions de l'onglet "Ajout manuel de la clé".
 
-      Run the following command **on your client machine**:
+      Exécutez la commande suivante **sur votre machine cliente** :
 
       ```shell
       ssh-copy-id -i $HOME/.ssh/id_ed25519.pub username@node.ip.address
       ```
 
-      For example, if my username on the node was `staker` and my node's IP address was `192.168.1.10`, I would run the following command:
+      Par exemple, si mon nom d'utilisateur sur le nœud était `staker` et que l'adresse IP de mon nœud était `192.168.1.10`, j'exécuterais la commande suivante :
 
       ```shell
       ssh-copy-id -i $HOME/.ssh/id_ed25519.pub staker@192.168.1.10
       ```
 
-      You will see some messages like the following:
+      Vous verrez des messages comme les suivants :
 
       ```
       /usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/home/username/.ssh/id_ed25519.pub"
@@ -237,13 +237,13 @@ There are two ways to do this - if one doesn't work, try the other way:
       /usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
       ```
 
-      This tells you that it's trying to log in with your key first to make sure it isn't already there.
-      Once it fails logging in, it knows that it's OK to add the new public key to the node machine.
+      Cela vous indique qu'il essaie de se connecter avec votre clé d'abord pour s'assurer qu'elle n'est pas déjà là.
+      Une fois qu'il échoue à se connecter, il sait qu'il est correct d'ajouter la nouvelle clé publique à la machine du nœud.
 
-      It will then prompt you for the **password of the user on your node machine**.
-      (_Note that this is **not the password of the SSH key**!_)
+      Il vous demandera alors le **mot de passe de l'utilisateur sur votre machine de nœud**.
+      (_Notez que ce n'est **pas le mot de passe de la clé SSH** !_)
 
-      Enter your user's password, and you will see the following output:
+      Entrez le mot de passe de votre utilisateur, et vous verrez la sortie suivante :
 
       ```
       Number of key(s) added: 1
@@ -252,187 +252,187 @@ There are two ways to do this - if one doesn't work, try the other way:
       and check to make sure that only the key(s) you wanted were added.
       ```
 
-      That means it worked!
+      Cela signifie que ça a fonctionné !
     </Tab>
-    <Tab label="Manually Adding the Key">
-      Start by getting the contents of the **public key** - run this command **on your client machine**:
+    <Tab label="Ajout manuel de la clé">
+      Commencez par obtenir le contenu de la **clé publique** - exécutez cette commande **sur votre machine cliente** :
 
-      - On macOS and Linux:
+      - Sur macOS et Linux :
 
       ```shell
       cat ~/.ssh/id_ed25519.pub
       ```
 
-      - On Windows (Command Prompt):
+      - Sur Windows (Invite de commandes) :
 
       ```shell
       type %USERPROFILE%\.ssh\id_ed25519.pub
       ```
 
-      - On Windows (PowerShell):
+      - Sur Windows (PowerShell) :
 
       ```shell
       type $ENV:UserProfile\.ssh\id_ed25519.pub
       ```
 
-      The output will look something like this:
+      La sortie ressemblera à ceci :
 
       ```
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGUgU3a6mNjy3N1TyWOwY+VA/nifAeABl2Ch2yIl1bGa your_email@example.com
       ```
 
-      This is your **public key**.
-      Copy this output and store it somewhere convenient - you're going to need it in a minute.
+      C'est votre **clé publique**.
+      Copiez cette sortie et stockez-la quelque part de pratique - vous en aurez besoin dans une minute.
 
-      Next, use `ssh` to connect to your node like you normally would (using your node's username and password).
+      Ensuite, utilisez `ssh` pour vous connecter à votre nœud comme vous le feriez normalement (en utilisant le nom d'utilisateur et le mot de passe de votre nœud).
 
-      Once you're connected to your node, run the following commands:
+      Une fois connecté à votre nœud, exécutez les commandes suivantes :
 
       ```shell
       mkdir -p ~/.ssh
       nano ~/.ssh/authorized_keys
       ```
 
-      The second command will open a text editor for the file used to store all of the public keys that your node's user account trusts.
+      La deuxième commande ouvrira un éditeur de texte pour le fichier utilisé pour stocker toutes les clés publiques que votre compte utilisateur du nœud fait confiance.
 
-      In this file, paste the **public key** that you retrieved a few steps ago using the `cat` command (the whole line starting with `ssh-ed25519`).
+      Dans ce fichier, collez la **clé publique** que vous avez récupérée il y a quelques étapes en utilisant la commande `cat` (toute la ligne commençant par `ssh-ed25519`).
 
-      When it's in, save the file with `Ctrl+O` and `Enter`, then press `Ctrl+X` to exit.
+      Lorsqu'elle est dedans, enregistrez le fichier avec `Ctrl+O` et `Entrée`, puis appuyez sur `Ctrl+X` pour quitter.
 
-      Now, exit `ssh` by running the `exit` command so you return back to your local client machine's terminal.
+      Maintenant, quittez `ssh` en exécutant la commande `exit` pour revenir au terminal de votre machine cliente locale.
     </Tab>
 
   </Tabs>
 </div>
 
-You should now be able to `ssh` into the node like you normally would, but now you won't have to type the password of the user account.
+Vous devriez maintenant pouvoir vous connecter au nœud via `ssh` comme vous le feriez normalement, mais maintenant vous n'aurez pas à taper le mot de passe du compte utilisateur.
 
-Instead, you will have to type **the password of your SSH private key**.
-Depending on your system settings, you may only have to do this once per restart, or you may have to do it every time you use the key to connect to your node.
+Au lieu de cela, vous devrez taper **le mot de passe de votre clé privée SSH**.
+En fonction des paramètres de votre système, vous devrez peut-être le faire une seule fois par redémarrage, ou vous devrez peut-être le faire à chaque fois que vous utilisez la clé pour vous connecter à votre nœud.
 
-### Disable Login-via-Password
+### Désactiver la connexion par mot de passe
 
-Even though you have an SSH key pair set up, your node will still allow other machines to try to log in using the username and password method.
-This defeats the entire purpose of using SSH keys in the first place, so the next step is to disable those.
+Même si vous avez configuré une paire de clés SSH, votre nœud permettra toujours à d'autres machines d'essayer de se connecter en utilisant la méthode de nom d'utilisateur et mot de passe.
+Cela annule tout l'intérêt d'utiliser des clés SSH en premier lieu, donc l'étape suivante consiste à désactiver celles-ci.
 
-::: danger NOTE
-You are about to modify the SSH server's configuration.
-All of your **existing** SSH sessions will be preserved.
-However, if you make a mistake, then it's possible that you will not be able to create **new** SSH sessions anymore and effectively lock yourself out of the machine.
+::: danger REMARQUE
+Vous êtes sur le point de modifier la configuration du serveur SSH.
+Toutes vos sessions SSH **existantes** seront préservées.
+Cependant, si vous faites une erreur, il est possible que vous ne puissiez plus créer de **nouvelles** sessions SSH et que vous vous retrouviez effectivement bloqué de la machine.
 
-To prevent this, we strongly recommend that you create **2 SSH sessions** for the next steps - one for editing things and testing, and one as a backup so you can revert any breaking changes.
+Pour éviter cela, nous recommandons fortement de créer **2 sessions SSH** pour les prochaines étapes - une pour éditer et tester, et une de secours afin que vous puissiez annuler toute modification qui casse.
 :::
 
-Start by logging into your machine using `ssh` as usual:
+Commencez par vous connecter à votre machine en utilisant `ssh` comme d'habitude :
 
 ```shell
 ssh user@your.node.ip.address
 ```
 
-As a reminder, **you should do this twice on two separate terminals so you have a backup session just in case**.
-You can ignore the backup session for now - we'll tell you when you need it.
-Run the following commands **only in the first session**.
+Pour rappel, **vous devriez faire ceci deux fois sur deux terminaux séparés afin d'avoir une session de secours au cas où**.
+Vous pouvez ignorer la session de secours pour l'instant - nous vous dirons quand vous en aurez besoin.
+Exécutez les commandes suivantes **uniquement dans la première session**.
 
-Open the configuration file for the SSH server:
+Ouvrez le fichier de configuration pour le serveur SSH :
 
 ```shell
 sudo nano /etc/ssh/sshd_config
 ```
 
-As with all commands that start with `sudo`, this will prompt you for your **user account's password**.
-This is a large file, so you'll have to navigate through it using the arrow keys on your keyboard or `Page Up` / `Page Down`.
+Comme pour toutes les commandes qui commencent par `sudo`, cela vous demandera le **mot de passe de votre compte utilisateur**.
+C'est un fichier volumineux, vous devrez donc naviguer dedans en utilisant les touches fléchées de votre clavier ou `Page Up` / `Page Down`.
 
-Make the following changes:
+Effectuez les modifications suivantes :
 
-1. Uncomment `#AuthorizedKeysFile` if it is commented (by removing the `#` in front of it)
-2. Change `KbdInteractiveAuthentication yes` to `KbdInteractiveAuthentication no` and uncomment (by removing the `#` in front of it) - **note that older versions of SSH call this option `ChallengeResponseAuthentication` instead of `KbdInteractiveAuthentication`**
-3. Change `PasswordAuthentication yes` to `PasswordAuthentication no` and uncomment (by removing the `#` in front of it)
-4. Change `PermitRootLogin yes` to `PermitRootLogin prohibit-password` unless it's already set to that and has a `#` in front of it
+1. Décommentez `#AuthorizedKeysFile` s'il est commenté (en supprimant le `#` devant)
+2. Changez `KbdInteractiveAuthentication yes` en `KbdInteractiveAuthentication no` et décommentez (en supprimant le `#` devant) - **notez que les versions plus anciennes de SSH appellent cette option `ChallengeResponseAuthentication` au lieu de `KbdInteractiveAuthentication`**
+3. Changez `PasswordAuthentication yes` en `PasswordAuthentication no` et décommentez (en supprimant le `#` devant)
+4. Changez `PermitRootLogin yes` en `PermitRootLogin prohibit-password` sauf s'il est déjà défini sur cela et a un `#` devant
 
-Once you're done, save with `Ctrl+O` and `Enter`, then exit with `Ctrl+X`.
+Une fois que vous avez terminé, enregistrez avec `Ctrl+O` et `Entrée`, puis quittez avec `Ctrl+X`.
 
-Finally, run `sudo sshd -T | grep -i passwordauthentication` and make sure that it prints `passwordauthentication no`.  
-If it does not, you may need to run `sudo nano /etc/ssh/sshd_config.d/50-cloud-init.conf` and set `PasswordAuthentication yes` to `PasswordAuthentication no` in that file as well.
-Save and exit as before, with `Ctrl+O` and `Enter`, then `Ctrl+X`
+Enfin, exécutez `sudo sshd -T | grep -i passwordauthentication` et assurez-vous qu'il affiche `passwordauthentication no`.
+S'il ne le fait pas, vous devrez peut-être exécuter `sudo nano /etc/ssh/sshd_config.d/50-cloud-init.conf` et définir `PasswordAuthentication yes` sur `PasswordAuthentication no` dans ce fichier également.
+Enregistrez et quittez comme avant, avec `Ctrl+O` et `Entrée`, puis `Ctrl+X`
 
-Next, restart the SSH server so it picks up the new settings:
+Ensuite, redémarrez le serveur SSH afin qu'il récupère les nouveaux paramètres :
 
 ```shell
 sudo systemctl restart ssh.service
 ```
 
-After this, logging into SSH via a username and password should be disabled.
+Après cela, la connexion à SSH via un nom d'utilisateur et un mot de passe devrait être désactivée.
 
-::: warning NOTE
-At this point, you should exit the SSH session and try to SSH back in.
-If you are able to do so successfully, then your SSH configuration is still valid!
+::: warning REMARQUE
+À ce stade, vous devriez quitter la session SSH et essayer de vous reconnecter en SSH.
+Si vous êtes capable de le faire avec succès, alors votre configuration SSH est toujours valide !
 
-If you are **not** able to get back in, then something has gone wrong with your configuration.
-Use the backup SSH session you created at the start of this section to modify the `/etc/ssh/sshd_config` file.
+Si vous n'êtes **pas** capable de vous reconnecter, alors quelque chose s'est mal passé avec votre configuration.
+Utilisez la session SSH de secours que vous avez créée au début de cette section pour modifier le fichier `/etc/ssh/sshd_config`.
 
-Try to find the mistake or undo your changes, then restart the SSH server using `sudo systemctl restart sshd`.
+Essayez de trouver l'erreur ou d'annuler vos modifications, puis redémarrez le serveur SSH en utilisant `sudo systemctl restart sshd`.
 
-Once it's been restarted, try connecting with SSH again on your "other" terminal.
-Keep doing this until you have it working again and are able to successfully connect.
+Une fois qu'il a été redémarré, essayez de vous connecter avec SSH à nouveau sur votre "autre" terminal.
+Continuez à faire cela jusqu'à ce que vous l'ayez à nouveau fonctionnel et que vous puissiez vous connecter avec succès.
 :::
 
-### (Optional) Enable Two-Factor Authentication
+### (Optionnel) Activer l'authentification à deux facteurs
 
-Two-factor authentication involves requiring a second security measure in addition to your password or SSH key, usually on a separate device from your primary one.
+L'authentification à deux facteurs implique de requérir une deuxième mesure de sécurité en plus de votre mot de passe ou clé SSH, généralement sur un appareil séparé de votre appareil principal.
 
-For example, you may be familiar with logging into a website such as a crypto exchange using both a password and a Google Authenticator code (or an SMS code).
-This two-step process is an example of two-factor authentication.
+Par exemple, vous connaissez peut-être la connexion à un site web tel qu'une plateforme d'échange de crypto en utilisant à la fois un mot de passe et un code Google Authenticator (ou un code SMS).
+Ce processus en deux étapes est un exemple d'authentification à deux facteurs.
 
-SSH can also be configured to require a Google Authenticator code, which means that an attacker that somehow compromised your SSH key and its passphrase would **still need the device with the authenticator app on it** (presumably your phone).
-This adds an extra layer of security to your system.
+SSH peut également être configuré pour requérir un code Google Authenticator, ce qui signifie qu'un attaquant qui aurait d'une manière ou d'une autre compromis votre clé SSH et sa phrase de passe aurait **encore besoin de l'appareil avec l'application d'authentification dessus** (présumablement votre téléphone).
+Cela ajoute une couche de sécurité supplémentaire à votre système.
 
-::: danger WARNING
-We **strongly recommend** that you open a second terminal with an SSH connection to your node, just in case you misconfigure something.
-This way, you will have a backup that is still connected in case you lock yourself out, so you can easily undo your mistakes.
+::: danger AVERTISSEMENT
+Nous **recommandons fortement** d'ouvrir un deuxième terminal avec une connexion SSH à votre nœud, au cas où vous configureriez mal quelque chose.
+De cette façon, vous aurez une sauvegarde qui est toujours connectée au cas où vous vous bloquez, afin que vous puissiez facilement annuler vos erreurs.
 
-If you **do** manage to lock yourself out, you will need to physically access your node via its local monitor and keyboard to log in and repair the misconfiguration.
+Si vous **parvenez** à vous bloquer, vous devrez accéder physiquement à votre nœud via son moniteur et clavier locaux pour vous connecter et réparer la mauvaise configuration.
 :::
 
-Start by installing [Google Authenticator](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en_US&gl=US) (or a compatible equivalent) on your phone if you don't already have it.
-For Android users, consider [andOTP](https://play.google.com/store/apps/details?id=org.shadowice.flocke.andotp&hl=en_US&gl=US) which is an open-source alternative that supports password locking and convenient backups.
+Commencez par installer [Google Authenticator](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en_US&gl=US) (ou un équivalent compatible) sur votre téléphone si vous ne l'avez pas déjà.
+Pour les utilisateurs Android, considérez [andOTP](https://play.google.com/store/apps/details?id=org.shadowice.flocke.andotp&hl=en_US&gl=US) qui est une alternative open-source qui prend en charge le verrouillage par mot de passe et les sauvegardes pratiques.
 
-Next, install the Google Authenticator module on your node with this command:
+Ensuite, installez le module Google Authenticator sur votre nœud avec cette commande :
 
 ```shell
 sudo apt install -y libpam-google-authenticator
 ```
 
-Now tell the `PAM` (pluggable authentication modules) to use this module.
-First, open the config file:
+Maintenant, indiquez à `PAM` (pluggable authentication modules) d'utiliser ce module.
+D'abord, ouvrez le fichier de configuration :
 
 ```shell
 sudo nano /etc/pam.d/sshd
 ```
 
-Find `@include common-auth` (it should be at the top) and comment it out by adding a `#` in front of it, so it looks like this:
+Trouvez `@include common-auth` (il devrait être en haut) et commentez-le en ajoutant un `#` devant, de sorte qu'il ressemble à ceci :
 
 ```
 # Standard Un*x authentication.
 #@include common-auth
 ```
 
-Next, add these lines to the top of the file:
+Ensuite, ajoutez ces lignes en haut du fichier :
 
 ```shell
 # Enable Google Authenticator
 auth required pam_google_authenticator.so
 ```
 
-Then save and exit the file with `Ctrl+O`, `Enter`, and `Ctrl+X`.
+Ensuite, enregistrez et quittez le fichier avec `Ctrl+O`, `Entrée`, et `Ctrl+X`.
 
-Now that `PAM` knows to use Google Authenticator, the next step is to tell `sshd` to use `PAM`.
-Open the `sshd` config file:
+Maintenant que `PAM` sait utiliser Google Authenticator, l'étape suivante consiste à dire à `sshd` d'utiliser `PAM`.
+Ouvrez le fichier de configuration de `sshd` :
 
 ```shell
 sudo nano /etc/ssh/sshd_config
 ```
 
-Now change the line `KbdInteractiveAuthentication no` to `KbdInteractiveAuthentication yes` so it looks like this:
+Maintenant changez la ligne `KbdInteractiveAuthentication no` en `KbdInteractiveAuthentication yes` de sorte qu'elle ressemble à ceci :
 
 ```
 # Change to yes to enable challenge-response passwords (beware issues with
@@ -440,32 +440,32 @@ Now change the line `KbdInteractiveAuthentication no` to `KbdInteractiveAuthenti
 KbdInteractiveAuthentication yes
 ```
 
-(Older versions of SSH call this option `ChallengeResponseAuthentication` instead of `KbdInteractiveAuthentication`.)
+(Les versions plus anciennes de SSH appellent cette option `ChallengeResponseAuthentication` au lieu de `KbdInteractiveAuthentication`.)
 
-Add the following line to the bottom of the file, which indicates to `sshd` that it needs both an SSH key and the Google Authenticator code:
+Ajoutez la ligne suivante en bas du fichier, qui indique à `sshd` qu'il nécessite à la fois une clé SSH et le code Google Authenticator :
 
 ```shell
 AuthenticationMethods publickey,keyboard-interactive:pam
 ```
 
-Then save and exit the file with `Ctrl+O`, `Enter`, and `Ctrl+X`.
+Ensuite, enregistrez et quittez le fichier avec `Ctrl+O`, `Entrée`, et `Ctrl+X`.
 
-Now that `sshd` is set up, we need to create our 2FA codes.
-In your terminal, run:
+Maintenant que `sshd` est configuré, nous devons créer nos codes 2FA.
+Dans votre terminal, exécutez :
 
 ```shell
 google-authenticator
 ```
 
-First, it will ask you about time-based tokens.
-Say `y` to this question:
+D'abord, il vous demandera à propos des jetons basés sur le temps.
+Répondez `y` à cette question :
 
 ```
 Do you want authentication tokens to be time-based: y
 ```
 
-You will now see a big QR code on your screen; scan it with your Google Authenticator app to add it.
-You will also see your secret and a few backup codes looking like this:
+Vous verrez maintenant un grand code QR sur votre écran ; scannez-le avec votre application Google Authenticator pour l'ajouter.
+Vous verrez également votre secret et quelques codes de secours ressemblant à ceci :
 
 ```
 Your new secret key is: IRG2TALMR5U2LK5VQ5AQIG3HA4
@@ -478,12 +478,12 @@ Your emergency scratch codes are:
   82649596
 ```
 
-::: warning NOTE
-Record the emergency scratch codes somewhere safe in case you need to log into the machine but don't have your 2FA app handy.
-Without the app, you will no longer be able to SSH into the machine!
+::: warning REMARQUE
+Enregistrez les codes de secours quelque part en sécurité au cas où vous auriez besoin de vous connecter à la machine mais que vous n'ayez pas votre application 2FA à portée de main.
+Sans l'application, vous ne pourrez plus vous connecter en SSH à la machine !
 :::
 
-Finally, it will ask you for some more parameters; the recommended defaults are as follows:
+Enfin, il vous demandera quelques paramètres supplémentaires ; les valeurs par défaut recommandées sont les suivantes :
 
 ```
 Do you want me to update your "/<username>/.google_authenticator" file: y
@@ -492,33 +492,33 @@ By default... < long story about time skew > ... Do you want to do so: n
 Do you want to enable rate-limiting: y
 ```
 
-Once you're done, restart `sshd` so it grabs the new settings:
+Une fois que vous avez terminé, redémarrez `sshd` afin qu'il récupère les nouveaux paramètres :
 
 ```shell
 sudo systemctl restart sshd
 ```
 
-When you try to SSH into your server with your SSH keys, you should now also be asked for a 2FA verification code, but not for a password.
+Lorsque vous essayez de vous connecter en SSH à votre serveur avec vos clés SSH, vous devriez maintenant également être invité à entrer un code de vérification 2FA, mais pas de mot de passe.
 
-## ESSENTIAL: Enable Automatic Security Updates
+## ESSENTIEL : Activer les mises à jour de sécurité automatiques
 
-Operating System vendors routinely publish updates and security fixes, so it is important that you keep your system up to date with the latest patches.
-The easiest way to do this is to enable automatic updates.
+Les fournisseurs de systèmes d'exploitation publient régulièrement des mises à jour et des correctifs de sécurité, il est donc important que vous mainteniez votre système à jour avec les derniers correctifs.
+Le moyen le plus simple de le faire est d'activer les mises à jour automatiques.
 
-Run the following commands **on your node machine**:
+Exécutez les commandes suivantes **sur votre machine de nœud** :
 
 ```shell
 sudo apt update
 sudo apt install -y unattended-upgrades update-notifier-common
 ```
 
-You can change the auto-update settings by editing `/etc/apt/apt.conf.d/20auto-upgrades`:
+Vous pouvez modifier les paramètres de mise à jour automatique en éditant `/etc/apt/apt.conf.d/20auto-upgrades` :
 
 ```shell
 sudo nano /etc/apt/apt.conf.d/20auto-upgrades
 ```
 
-This is an example of reasonable auto-update settings:
+Voici un exemple de paramètres de mise à jour automatique raisonnables :
 
 ```shell
 APT::Periodic::Update-Package-Lists "1";
@@ -533,94 +533,94 @@ Unattended-Upgrade::Automatic-Reboot "true";
 Unattended-Upgrade::Automatic-Reboot-Time "02:00";
 ```
 
-When you are done adding your changes, save with `Ctrl+O` and `Enter`, then exit with `Ctrl+X`.
+Lorsque vous avez terminé d'ajouter vos modifications, enregistrez avec `Ctrl+O` et `Entrée`, puis quittez avec `Ctrl+X`.
 
-After, make sure to load the new settings:
+Ensuite, assurez-vous de charger les nouveaux paramètres :
 
 ```shell
 sudo systemctl restart unattended-upgrades
 ```
 
-## ESSENTIAL: Enable a Firewall
+## ESSENTIEL : Activer un pare-feu
 
-In general, your machine should only accept network traffic on ports that your Execution client, Consensus client, and Smartnode stack use.
-To enforce that and prevent any unexpected or undesirable traffic, we can install a **firewall** on the node.
+En général, votre machine ne devrait accepter que le trafic réseau sur les ports que votre client Execution, client Consensus et pile Smartnode utilisent.
+Pour appliquer cela et empêcher tout trafic inattendu ou indésirable, nous pouvons installer un **pare-feu** sur le nœud.
 
-::: tip NOTE
-If you selected a different execution/consensus client port during the Rocketpool setup, you need to edit the ports below to reflect your settings.
+::: tip REMARQUE
+Si vous avez sélectionné un port de client execution/consensus différent lors de la configuration de Rocketpool, vous devez modifier les ports ci-dessous pour refléter vos paramètres.
 :::
 
-Ubuntu comes with `ufw` installed by default (the **u**ncomplicated **f**ire **w**all), which is a convenient utility for managing your node's firewall settings.
+Ubuntu est livré avec `ufw` installé par défaut (le **u**ncomplicated **f**ire **w**all), qui est un utilitaire pratique pour gérer les paramètres de pare-feu de votre nœud.
 
-The following commands will set `ufw` up with a good default configuration for your Smartnode.
-**Run these on your node machine**.
+Les commandes suivantes configureront `ufw` avec une bonne configuration par défaut pour votre Smartnode.
+**Exécutez-les sur votre machine de nœud**.
 
-Disable connections unless they're explicitly allowed by later rules:
+Refusez les connexions sauf si elles sont explicitement autorisées par des règles ultérieures :
 
 ```shell
 sudo ufw default deny incoming comment 'Deny all incoming traffic'
 ```
 
-Allow SSH:
+Autorisez SSH :
 
 ```shell
 sudo ufw allow "22/tcp" comment 'Allow SSH'
 ```
 
-Allow execution client (formerly referred to as ETH1):
+Autorisez le client execution (anciennement appelé ETH1) :
 
 ```shell
 sudo ufw allow 30303/tcp comment 'Execution client port, standardized by Rocket Pool'
 sudo ufw allow 30303/udp comment 'Execution client port, standardized by Rocket Pool'
 ```
 
-Allow consensus client (formerly referred to as ETH2):
+Autorisez le client consensus (anciennement appelé ETH2) :
 
 ```shell
 sudo ufw allow 9001/tcp comment 'Consensus client port, standardized by Rocket Pool'
 sudo ufw allow 9001/udp comment 'Consensus client port, standardized by Rocket Pool'
 ```
 
-If you run lighthouse client v4.5.0+, you can use quic protocol to reduce latency / increase bandwidth, quic protocol uses lighthouse's --port + 1 to listen for quic messages by default: https://lighthouse-blog.sigmaprime.io/Quic,%20Networking.html
+Si vous exécutez le client lighthouse v4.5.0+, vous pouvez utiliser le protocole quic pour réduire la latence / augmenter la bande passante, le protocole quic utilise le --port de lighthouse + 1 pour écouter les messages quic par défaut : https://lighthouse-blog.sigmaprime.io/Quic,%20Networking.html
 
 ```shell
 sudo ufw allow 8001/udp comment 'Consensus client port, standardised by Rocket Pool'
 ```
 
-Finally, enable `ufw`:
+Enfin, activez `ufw` :
 
 ```shell
 sudo ufw enable
 ```
 
-::: tip NOTE
-`iptables` experts might note that Docker bypasses `ufw` settings.
-Strictly speaking, that means unless you are running in Hybrid mode, you do not need the Execution and Consensus client rules.
-Adding them, however, has no downside and will make sure that if you ever switch to Hybrid mode you will not run into firewall issues.
+::: tip REMARQUE
+Les experts `iptables` pourraient noter que Docker contourne les paramètres `ufw`.
+Strictement parlant, cela signifie que sauf si vous fonctionnez en mode Hybrid, vous n'avez pas besoin des règles du client Execution et Consensus.
+Les ajouter, cependant, n'a aucun inconvénient et s'assurera que si vous basculez un jour en mode Hybrid, vous ne rencontrerez pas de problèmes de pare-feu.
 :::
 
-## (Optional) Enable Brute-Force and DDoS Protection
+## (Optionnel) Activer la protection contre les attaques par force brute et DDoS
 
-To protect your server from DDoS attacks and brute-force connection attempts, you can install `fail2ban`.
-This program will monitor incoming connections and block IP addresses that try to log in with faulty credentials repeatedly.
+Pour protéger votre serveur des attaques DDoS et des tentatives de connexion par force brute, vous pouvez installer `fail2ban`.
+Ce programme surveillera les connexions entrantes et bloquera les adresses IP qui tentent de se connecter avec des informations d'identification erronées à répétition.
 
-See [this guide](https://github.com/imthenachoman/How-To-Secure-A-Linux-Server#application-intrusion-detection-and-prevention-with-fail2ban) for more information on intrusion prevention.
+Consultez [ce guide](https://github.com/imthenachoman/How-To-Secure-A-Linux-Server#application-intrusion-detection-and-prevention-with-fail2ban) pour plus d'informations sur la prévention des intrusions.
 
-Run the following commands **on your node machine**:
+Exécutez les commandes suivantes **sur votre machine de nœud** :
 
-Install the service:
+Installez le service :
 
 ```shell
 sudo apt install -y fail2ban
 ```
 
-Next, open `/etc/fail2ban/jail.d/ssh.local`:
+Ensuite, ouvrez `/etc/fail2ban/jail.d/ssh.local` :
 
 ```shell
 sudo nano /etc/fail2ban/jail.d/ssh.local
 ```
 
-Add the following contents to it:
+Ajoutez le contenu suivant :
 
 ```
 [sshd]
@@ -632,15 +632,15 @@ logpath = %(sshd_log)s
 maxretry = 5
 ```
 
-You can change the `maxretry` setting, which is the number of attempts it will allow before locking the offending address out.
+Vous pouvez modifier le paramètre `maxretry`, qui est le nombre de tentatives qu'il autorisera avant de bloquer l'adresse incriminée.
 
-Once you're done, save and exit with `Ctrl+O` and `Enter`, then `Ctrl+X`.
+Une fois que vous avez terminé, enregistrez et quittez avec `Ctrl+O` et `Entrée`, puis `Ctrl+X`.
 
-Finally, restart the service:
+Enfin, redémarrez le service :
 
 ```shell
 sudo systemctl restart fail2ban
 ```
 
-And with that, you've just greatly improved the security posture of your node.
-Congratulations!
+Et avec cela, vous venez de grandement améliorer la posture de sécurité de votre nœud.
+Félicitations !

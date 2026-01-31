@@ -1,82 +1,82 @@
-# Monitoring your Oracle DAO Node
+# Monitoreo de tu Nodo Oracle DAO
 
-Once your node is up and running, it's important that you regularly monitor its health to ensure that it's correctly performing its automated duties.
-Doing so involves the following:
+Una vez que tu nodo esté en funcionamiento, es importante que monitorees regularmente su estado para asegurarte de que esté realizando correctamente sus tareas automatizadas.
+Hacer esto implica lo siguiente:
 
-- Monitoring the health of your physical (or virtual) system at the OS level
-- Monitoring the health of your Execution and/or Consensus clients (if you run local clients)
-- Ensuring your node is regularly submitting the required transactions to the chain for status updates
-- Ensuring you have a sufficient ETH balance in your node wallet to execute those transactions
-- Routinely applying updates to the Smartnode, your clients (if applicable), and your Operating System
-- Monitoring the health of the other Oracle DAO members, and communicating with them if you believe their node(s) are not functioning properlyS
+- Monitorear el estado de tu sistema físico (o virtual) a nivel del sistema operativo
+- Monitorear el estado de tus clientes de Ejecución y/o Consenso (si ejecutas clientes locales)
+- Asegurarte de que tu nodo envíe regularmente las transacciones requeridas a la cadena para actualizaciones de estado
+- Asegurarte de tener un saldo suficiente de ETH en tu wallet del nodo para ejecutar esas transacciones
+- Aplicar rutinariamente actualizaciones al Smartnode, tus clientes (si corresponde) y tu Sistema Operativo
+- Monitorear el estado de los otros miembros del Oracle DAO, y comunicarte con ellos si crees que su(s) nodo(s) no están funcionando correctamente
 
-In this section, we'll describe a few examples of how to do these via the Smartnode's built-in [Grafana](https://grafana.com/) support.
+En esta sección, describiremos algunos ejemplos de cómo hacer esto a través del soporte integrado de [Grafana](https://grafana.com/) del Smartnode.
 
-## The Standard Rocket Pool Dashboard
+## El Dashboard Estándar de Rocket Pool
 
-The Smartnode provides a convenient dashboard that allows you to monitor many of the metrics listed above.
-There is one dashboard for each Consensus Client.
-Below is an example of the dashboard for Nimbus:
+El Smartnode proporciona un dashboard conveniente que te permite monitorear muchas de las métricas listadas anteriormente.
+Hay un dashboard para cada Cliente de Consenso.
+A continuación se muestra un ejemplo del dashboard para Nimbus:
 
 ![](../node-staking/images/nimbus-dashboard.png)
 
-- Your machine's hardware health is captured in the upper-left quadrant.
-- Your Execution client is functioning properly if the Network Stats in the lower-left quadrant are being populated.
-- Your Consensus client is functioning properly if the peer count in the upper-right quadrant is updating with a non-zero number; the exact number depends on your choice of client and your network configuration.
-- Your node's ETH balance is displayed in the table at the bottom right.
-- Any Operating System updates or Smartnode updates are presented in the `Available Updates` box in the top-middle panel.
+- El estado del hardware de tu máquina se captura en el cuadrante superior izquierdo.
+- Tu cliente de Ejecución está funcionando correctamente si las Estadísticas de Red en el cuadrante inferior izquierdo se están poblando.
+- Tu cliente de Consenso está funcionando correctamente si el conteo de pares en el cuadrante superior derecho se actualiza con un número distinto de cero; el número exacto depende de tu elección de cliente y tu configuración de red.
+- El saldo de ETH de tu nodo se muestra en la tabla en la parte inferior derecha.
+- Cualquier actualización del Sistema Operativo o del Smartnode se presenta en el cuadro `Available Updates` en el panel superior central.
 
-::: tip NOTE
-Operating System and Smartnode updates require the update tracker, which you can install via `rocketpool service install-update-tracker`.
+::: tip NOTA
+Las actualizaciones del Sistema Operativo y del Smartnode requieren el rastreador de actualizaciones, que puedes instalar mediante `rocketpool service install-update-tracker`.
 :::
 
-For information on how to prepare the metrics system and the Smartnode dashboard, please visit the [Monitoring your Node's Performance](../node-staking/performance) and the [Setting up the Grafana Dashboard](../node-staking/grafana.mdx) pages of the Smartnode documentation.
+Para obtener información sobre cómo preparar el sistema de métricas y el dashboard del Smartnode, visita las páginas [Monitoreo del Rendimiento de tu Nodo](../node-staking/performance) y [Configuración del Dashboard de Grafana](../node-staking/grafana.mdx) de la documentación del Smartnode.
 
-## The Oracle DAO Dashboard
+## El Dashboard del Oracle DAO
 
-We have also constructed a simple dashboard specifically tailored towards Oracle DAO members:
+También hemos construido un dashboard simple específicamente diseñado para miembros del Oracle DAO:
 
 ![](../odao/images/odao-dashboard.png)
 
-This dashboard that tracks the following:
+Este dashboard rastrea lo siguiente:
 
-- The status of the Oracle DAO proposals that need to be voted on or executed (more details on these in the next section)
-- The history of submissions for price and balance updates\*
-- The ETH balances of each Oracle DAO node
+- El estado de las propuestas del Oracle DAO que necesitan ser votadas o ejecutadas (más detalles sobre estas en la siguiente sección)
+- El historial de envíos para actualizaciones de precios y balances\*
+- Los saldos de ETH de cada nodo del Oracle DAO
 
-\*_Note that price and balance submission currently requires a quorum of 51% of nodes to agree on each one, at which point the submission is canonized. Submissions from other members will revert as they are no longer required, so if your node does not submit for a given interval, it doesn't mean that it's offline. You should be concerned if you miss more than 5 consecutive intervals in a row, and should check your `watchtower` daemon logs to verify there aren't any issues._
+\*_Ten en cuenta que el envío de precios y balances actualmente requiere un quórum del 51% de los nodos para acordar cada uno, momento en el cual el envío se canoniza. Los envíos de otros miembros se revertirán ya que ya no son necesarios, por lo que si tu nodo no envía para un intervalo dado, no significa que esté fuera de línea. Deberías preocuparte si pierdes más de 5 intervalos consecutivos seguidos, y deberías revisar los registros del daemon `watchtower` para verificar que no haya ningún problema._
 
-Enabling this dashboard is a two-step process.
+Habilitar este dashboard es un proceso de dos pasos.
 
-First, enable Oracle DAO metrics in the `Metrics` section of the `rocketpool service config` editor:
+Primero, habilita las métricas del Oracle DAO en la sección `Metrics` del editor `rocketpool service config`:
 
 ![](../odao/images/tui-odao-metrics.png)
 
-If you are running in Docker or Hybrid mode, this will restart your `node` daemon to apply the changes.
-If you are running in Native mode, please restart the `node` service manually.
+Si estás ejecutando en modo Docker o Hybrid, esto reiniciará tu daemon `node` para aplicar los cambios.
+Si estás ejecutando en modo Native, por favor reinicia el servicio `node` manualmente.
 
-Second, import the [Oracle DAO dashboard](https://grafana.com/grafana/dashboards/15003-odao-member-dashboard/) from Grafana Labs (ID `15003`) into your node's local Grafana server.
+Segundo, importa el [dashboard del Oracle DAO](https://grafana.com/grafana/dashboards/15003-odao-member-dashboard/) desde Grafana Labs (ID `15003`) a tu servidor local de Grafana del nodo.
 
-## Checking the Logs
+## Revisión de los Registros
 
-If you or one of the other Oracle DAO members has expressed concern with your node, the first line of defense is to look at the `watchtower` daemon logs using (for Docker and Hybrid mode) the following command:
+Si tú o uno de los otros miembros del Oracle DAO ha expresado preocupación con tu nodo, la primera línea de defensa es revisar los registros del daemon `watchtower` usando (para modo Docker e Hybrid) el siguiente comando:
 
 ```shell
 rocketpool service logs watchtower
 ```
 
-This will show the `docker` logs for the watchtower container, truncating to the last hundred lines or so.
+Esto mostrará los registros de `docker` para el contenedor de watchtower, truncando a las últimas cien líneas aproximadamente.
 
-To go further back, you can use the `-t` flag to indicate the number of lines.
-For example:
+Para ir más atrás, puedes usar la bandera `-t` para indicar el número de líneas.
+Por ejemplo:
 
 ```shell
 rocketpool service logs watchtower -t 2000
 ```
 
-will show the last 2000 lines.
-As this will get cluttered very fast, you may want to pipe this into a utility like `less` so it is scrollable.
+mostrará las últimas 2000 líneas.
+Como esto se desordenará muy rápido, es posible que desees canalizar esto a una utilidad como `less` para que sea desplazable.
 
-## Next Steps
+## Próximos Pasos
 
-In the next section, we'll cover the duties that you must perform manually as an Oracle DAO member.
+En la siguiente sección, cubriremos las tareas que debes realizar manualmente como miembro del Oracle DAO.

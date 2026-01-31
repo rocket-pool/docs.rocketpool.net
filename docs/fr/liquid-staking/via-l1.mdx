@@ -1,182 +1,182 @@
-# Staking via a Decentralized Exchange on the Ethereum Network (Layer 1)
+# Staking via un Exchange Décentralisé sur le Réseau Ethereum (Layer 1)
 
-As a reminder, you do not have to swap ETH for rETH directly via Rocket Pool in order to enjoy the benefits of decentralized staking.
-All you need to do is hold rETH as it inherently grows in value - how you get it doesn't matter!
+Pour rappel, vous n'avez pas besoin d'échanger de l'ETH contre du rETH directement via Rocket Pool pour profiter des avantages du staking décentralisé.
+Tout ce que vous devez faire est de détenir du rETH car il croît intrinsèquement en valeur - la façon dont vous l'obtenez n'a pas d'importance !
 
-rETH is available for trade on several decentralized exchanges, such as [Balancer](https://docs.balancer.fi/) and [Uniswap](https://docs.uniswap.org/protocol/introduction).
+rETH est disponible à l'échange sur plusieurs exchanges décentralisés, tels que [Balancer](https://docs.balancer.fi/) et [Uniswap](https://docs.uniswap.org/protocol/introduction).
 
-The **Balancer** pool is a special kind of pool known as a [metastable pool](https://docs.balancer.fi/concepts/pools/composable-stable.html).
-Metastable pools are ideal for tokens like rETH, because **they honor the true exchange rate reported by the Oracle DAO**.
+Le pool **Balancer** est un type spécial de pool connu sous le nom de [metastable pool](https://docs.balancer.fi/concepts/pools/composable-stable.html).
+Les metastable pools sont idéaux pour des tokens comme rETH, car **ils honorent le véritable taux de change rapporté par l'Oracle DAO**.
 
-This means exchanging with this pool will have **much lower slippage** and **lower fees** than a conventional decentralized exchange, so you get a much better deal when buying or selling rETH.
-Other decentralized exchanges don't have this property, so you may find that their exchange rate is slightly lower.
+Cela signifie que l'échange avec ce pool aura **un slippage beaucoup plus faible** et **des frais plus bas** qu'un exchange décentralisé conventionnel, vous obtenez donc une bien meilleure affaire lors de l'achat ou de la vente de rETH.
+D'autres exchanges décentralisés n'ont pas cette propriété, vous pourriez donc constater que leur taux de change est légèrement inférieur.
 
-Regardless of which pool you use, they all **tend to have lower gas fees** than staking via the official Rocket Pool website.
-This makes them a great choice for users that want to stake a small amount of ETH, though it's always a good idea to compare the rate you would receive on an exchange with the exchange rate according to Rocket Pool.
+Quel que soit le pool que vous utilisez, ils ont tous **tendance à avoir des frais de gas plus bas** que le staking via le site Web officiel de Rocket Pool.
+Cela en fait un excellent choix pour les utilisateurs qui veulent staker une petite quantité d'ETH, bien qu'il soit toujours judicieux de comparer le taux que vous recevriez sur un exchange avec le taux de change selon Rocket Pool.
 
-In the following examples, we will show how to swap ETH for rETH using both Balancer and Uniswap.
+Dans les exemples suivants, nous montrerons comment échanger de l'ETH contre du rETH en utilisant à la fois Balancer et Uniswap.
 
 ::: warning NOTE
-Currently this method is only available on Mainnet.
-If you want to practice on the Hoodi Testnet, you must [swap with Rocket Pool directly](./via-rp).
+Actuellement, cette méthode n'est disponible que sur le Mainnet.
+Si vous voulez pratiquer sur le testnet Hoodi, vous devez [échanger avec Rocket Pool directement](./via-rp).
 
-**The rest of this guide will assume you are on Mainnet.**
+**Le reste de ce guide supposera que vous êtes sur le Mainnet.**
 :::
 
-This process can be completed with any web3-compatible wallet.
-For demonstration purposes, we're going to use [MetaMask](https://metamask.io/) as it is one of the more popular wallet choices.
+Ce processus peut être complété avec n'importe quel wallet compatible web3.
+À des fins de démonstration, nous allons utiliser [MetaMask](https://metamask.io/) car c'est l'un des choix de wallet les plus populaires.
 
-**You should be able to follow along using similar steps with a different wallet if you choose - just find the comparable function in your wallet for each step.**
+**Vous devriez pouvoir suivre en utilisant des étapes similaires avec un wallet différent si vous le choisissez - trouvez simplement la fonction comparable dans votre wallet pour chaque étape.**
 
-## Setting up MetaMask
+## Configuration de MetaMask
 
-Start by installing [MetaMask](https://metamask.io/) if you haven't already.
-Follow the instructions on their site to install the extension, create an account, and sign in.
+Commencez par installer [MetaMask](https://metamask.io/) si vous ne l'avez pas déjà fait.
+Suivez les instructions sur leur site pour installer l'extension, créer un compte et vous connecter.
 
-Next, open the MetaMask panel using its icon in your browser toolbar.
-Click on the **network dropdown** in the toolbar at the top and ensure that **Ethereum Mainnet** is selected:
+Ensuite, ouvrez le panneau MetaMask en utilisant son icône dans la barre d'outils de votre navigateur.
+Cliquez sur le **menu déroulant réseau** dans la barre d'outils en haut et assurez-vous que **Ethereum Mainnet** est sélectionné :
 
 <img src="./images/mm_network_main.png" width="100%" height="auto" />
 
-Finally, add the rETH token to MetaMask so you can see your balance and access it for trading.
-Click the **Assets** tab, then click **Add Token**:
+Enfin, ajoutez le token rETH à MetaMask afin de pouvoir voir votre solde et y accéder pour les échanges.
+Cliquez sur l'onglet **Assets**, puis cliquez sur **Add Token** :
 
 <img src="./images/mm_add_token.png" width="100%" height="auto" />
 
-Ensure that **Custom Token** is selected in this dialog.
-In the **Token Contract Address** box, put the following value:
+Assurez-vous que **Custom Token** est sélectionné dans cette boîte de dialogue.
+Dans la case **Token Contract Address**, mettez la valeur suivante :
 
 ```
 0xae78736Cd615f374D3085123A210448E74Fc6393
 ```
 
-The **Token Symbol** should automatically be populated with `rETH`, and the **Decimals of Precision** should automatically be populated with `18`.
+Le **Token Symbol** devrait automatiquement être rempli avec `rETH`, et les **Decimals of Precision** devraient automatiquement être remplis avec `18`.
 
-Accept the rest of the prompts, and then you will see the rETH token appear in your list.
+Acceptez le reste des invites, et vous verrez alors le token rETH apparaître dans votre liste.
 
-Now that you have a wallet address in MetaMask, you need to transfer some ETH into it.
-**You will need to supply this from an existing wallet or buy ETH on an exchange.**
+Maintenant que vous avez une adresse de wallet dans MetaMask, vous devez y transférer de l'ETH.
+**Vous devrez fournir cela à partir d'un wallet existant ou acheter de l'ETH sur un exchange.**
 
-## Swapping for rETH via Balancer
+## Échanger de l'ETH contre du rETH via Balancer
 
-Now that your wallet is set up and funded, head to this URL which will open Balancer and automatically show swapping ETH for rETH:
+Maintenant que votre wallet est configuré et financé, rendez-vous à cette URL qui ouvrira Balancer et affichera automatiquement l'échange d'ETH contre du rETH :
 
 [https://app.balancer.fi/#/trade/ether/0xae78736Cd615f374D3085123A210448E74Fc6393](https://app.balancer.fi/#/trade/ether/0xae78736Cd615f374D3085123A210448E74Fc6393)
 
-The page will look like this initially:
+La page ressemblera initialement à ceci :
 
 <img src="./images/balancer.png" width="100%" height="auto" style={{ margin: "0 auto" }} />
 
-Click on the `Connect wallet` button in the top-right corner.
-You will be prompted with a screen that asks you which wallet provider you want to use.
-For this example, select **MetaMask**.
+Cliquez sur le bouton `Connect wallet` dans le coin supérieur droit.
+Vous serez invité avec un écran qui vous demande quel fournisseur de wallet vous voulez utiliser.
+Pour cet exemple, sélectionnez **MetaMask**.
 
 ::: tip NOTE
-If you're not using MetaMask, one of the other providers such as WalletConnect will likely be compatible with your wallet.
+Si vous n'utilisez pas MetaMask, l'un des autres fournisseurs comme WalletConnect sera probablement compatible avec votre wallet.
 :::
 
-Upon clicking that button, MetaMask will pop up with a prompt asking you to select which accounts you want to use.
-Assuming you only have one, your account should already be selected.
-Click **Next**.
+En cliquant sur ce bouton, MetaMask apparaîtra avec une invite vous demandant de sélectionner les comptes que vous voulez utiliser.
+En supposant que vous n'en ayez qu'un, votre compte devrait déjà être sélectionné.
+Cliquez sur **Next**.
 
-It will then ask if you would like to give Balancer access to view the addresses of your accounts:
+Il vous demandera ensuite si vous souhaitez donner à Balancer l'accès pour voir les adresses de vos comptes :
 
 <img src="./images/bal_connect.png" width="100%" height="auto" style={{ margin: "0 auto" }} />
 
-Click **Connect** and after a brief pause window, your wallet will be connected to Balancer.
-You should now see its ETH balance in the top left side of the screen.
+Cliquez sur **Connect** et après une brève pause, votre wallet sera connecté à Balancer.
+Vous devriez maintenant voir son solde ETH en haut à gauche de l'écran.
 
-Now, enter the amount of ETH you want to swap and Balancer's UI will show you the amount of rETH you will receive in return:
+Maintenant, entrez le montant d'ETH que vous voulez échanger et l'interface de Balancer vous montrera le montant de rETH que vous recevrez en retour :
 
 <img src="./images/bal_swap.png" width="100%" height="auto" style={{ margin: "0 auto" }} />
 
 ::: warning NOTE
-Notice that the amount of rETH you receive will be **less than** the amount of ETH you put in.
-This is normal, because **rETH is worth more than ETH** and continuously appreciates over time.
-You can see this in the exchange rate highlighted at the right of the screenshot.
+Remarquez que le montant de rETH que vous recevez sera **inférieur** au montant d'ETH que vous mettez.
+C'est normal, car **rETH vaut plus que l'ETH** et s'apprécie continuellement au fil du temps.
+Vous pouvez voir cela dans le taux de change mis en évidence à droite de la capture d'écran.
 :::
 
-Click **Preview** to see the details of the trade, including the minimum amount you could receive due to slippage.
-If you're satisfied, click **Confirm trade**.
-This will send the request to MetaMask, where you can review the total transaction cost before confirming it:
+Cliquez sur **Preview** pour voir les détails de l'échange, y compris le montant minimum que vous pourriez recevoir en raison du slippage.
+Si vous êtes satisfait, cliquez sur **Confirm trade**.
+Cela enverra la demande à MetaMask, où vous pourrez examiner le coût total de la transaction avant de la confirmer :
 
 <img src="./images/mm_gas.png" width="100%" height="auto" />
 
 ::: warning NOTE
-Pay **close attention** to the estimated gas fee here, highlighted in red.
-If it's a significant amount of your overall transaction (here it's over 17%), then it will take a **very long time** before you break even on staking rewards.
+Faites **très attention** aux frais de gas estimés ici, mis en évidence en rouge.
+S'il s'agit d'un montant important de votre transaction globale (ici c'est plus de 17%), il faudra alors **très longtemps** avant d'atteindre le seuil de rentabilité sur les récompenses de staking.
 
-If this is the case, you should either wait for the network's average gas price to drop, or [consider using a Layer 2 solution instead](./via-l2).
+Si c'est le cas, vous devriez soit attendre que le prix moyen du gas du réseau baisse, soit [envisager d'utiliser une solution Layer 2 à la place](./via-l2).
 :::
 
-If you are happy with the gas fees relative to the total amount of rETH you'll be receiving, click **Confirm** to submit the transaction.
-After a short period, you should see a notification from MetaMask that it completed successfully, and you will now see the rETH token in your wallet.
+Si vous êtes satisfait des frais de gas par rapport au montant total de rETH que vous recevrez, cliquez sur **Confirm** pour soumettre la transaction.
+Après une courte période, vous devriez voir une notification de MetaMask indiquant qu'elle s'est terminée avec succès, et vous verrez maintenant le token rETH dans votre wallet.
 
-That's it! You're now staking with Rocket Pool. All you need to do is hold onto your rETH, and you'll automatically gain your staking rewards as the value of the rETH token increases.
+C'est tout ! Vous stakez maintenant avec Rocket Pool. Tout ce que vous avez à faire est de conserver votre rETH, et vous gagnerez automatiquement vos récompenses de staking à mesure que la valeur du token rETH augmente.
 
-## Swapping for rETH via Uniswap
+## Échanger de l'ETH contre du rETH via Uniswap
 
-While we recommend you stake through Balancer because it has lower fees and a more accurate ETH-rETH rate, you can also swap for rETH via Uniswap if the need arises.
-Head to this URL which will open Uniswap and automatically show swapping ETH for rETH:
+Bien que nous vous recommandions de staker via Balancer car il a des frais plus bas et un taux ETH-rETH plus précis, vous pouvez également échanger de l'ETH contre du rETH via Uniswap si le besoin se fait sentir.
+Rendez-vous à cette URL qui ouvrira Uniswap et affichera automatiquement l'échange d'ETH contre du rETH :
 
 [https://app.uniswap.org/#/swap?inputCurrency=eth&outputCurrency=0xae78736cd615f374d3085123a210448e74fc6393](https://app.uniswap.org/#/swap?inputCurrency=eth&outputCurrency=0xae78736cd615f374d3085123a210448e74fc6393)
 
 ::: warning NOTE
-You may initially be prompted with a warning that looks like this:
+Vous pourriez initialement être invité avec un avertissement qui ressemble à ceci :
 
 <img src="./images/unknown_token.jpg" width="100%" height="auto" />
 
-This is just a temporary warning until Uniswap adds rETH to its canonical token list.
-As long as the token address is `0xae78736cd615f374d3085123a210448e74fc6393`, you can add it safely.
+C'est juste un avertissement temporaire jusqu'à ce qu'Uniswap ajoute rETH à sa liste de tokens canoniques.
+Tant que l'adresse du token est `0xae78736cd615f374d3085123a210448e74fc6393`, vous pouvez l'ajouter en toute sécurité.
 :::
 
-The page will look like this initially:
+La page ressemblera initialement à ceci :
 
 <img src="./images/uni_connect.png" width="100%" height="auto" />
 
-Click on one of the `Connect Wallet` buttons such as the highlighted one in the top-right corner.
-You will be prompted with a screen that asks you which wallet provider you want to use.
-For this example, select **MetaMask**.
+Cliquez sur l'un des boutons `Connect Wallet` comme celui mis en évidence dans le coin supérieur droit.
+Vous serez invité avec un écran qui vous demande quel fournisseur de wallet vous voulez utiliser.
+Pour cet exemple, sélectionnez **MetaMask**.
 
 ::: tip NOTE
-If you're not using MetaMask, one of the other providers such as WalletConnect will likely be compatible with your wallet.
+Si vous n'utilisez pas MetaMask, l'un des autres fournisseurs comme WalletConnect sera probablement compatible avec votre wallet.
 :::
 
-Upon clicking that button, MetaMask will pop up with a prompt asking you to select which accounts you want to use.
-Assuming you only have one, your account should already be selected.
-Click **Next**.
+En cliquant sur ce bouton, MetaMask apparaîtra avec une invite vous demandant de sélectionner les comptes que vous voulez utiliser.
+En supposant que vous n'en ayez qu'un, votre compte devrait déjà être sélectionné.
+Cliquez sur **Next**.
 
-It will then ask if you would like to give Uniswap access to view the addresses of your accounts:
+Il vous demandera ensuite si vous souhaitez donner à Uniswap l'accès pour voir les adresses de vos comptes :
 
 <img src="./images/mm_connect.png" width="100%" height="auto" />
 
-Click **Connect** and after a brief pause window, your wallet will be connected to Uniswap.
-You should now see its ETH balance in the top right corner of the screen.
+Cliquez sur **Connect** et après une brève pause, votre wallet sera connecté à Uniswap.
+Vous devriez maintenant voir son solde ETH dans le coin supérieur droit de l'écran.
 
-Now, enter the amount of ETH you want to swap and Uniswap's UI will show you the amount of rETH you will receive in return:
+Maintenant, entrez le montant d'ETH que vous voulez échanger et l'interface d'Uniswap vous montrera le montant de rETH que vous recevrez en retour :
 
 <img src="./images/uni_swap.png" width="100%" height="auto" />
 
 ::: warning NOTE
-Notice that the amount of rETH you receive will be **less than** the amount of ETH you put in.
-This is normal, because **rETH is worth more than ETH** and continuously appreciates over time.
-You can see this in the exchange rate highlighted at the bottom of the screenshot.
+Remarquez que le montant de rETH que vous recevez sera **inférieur** au montant d'ETH que vous mettez.
+C'est normal, car **rETH vaut plus que l'ETH** et s'apprécie continuellement au fil du temps.
+Vous pouvez voir cela dans le taux de change mis en évidence en bas de la capture d'écran.
 :::
 
-Click **Swap** to see the details of the trade, including the minimum amount you could receive due to slippage.
-If you're satisfied, click **Confirm Swap**.
-This will send the request to MetaMask, where you can review the total transaction cost before confirming it:
+Cliquez sur **Swap** pour voir les détails de l'échange, y compris le montant minimum que vous pourriez recevoir en raison du slippage.
+Si vous êtes satisfait, cliquez sur **Confirm Swap**.
+Cela enverra la demande à MetaMask, où vous pourrez examiner le coût total de la transaction avant de la confirmer :
 
 <img src="./images/mm_gas.png" width="100%" height="auto" />
 
 ::: warning NOTE
-Pay **close attention** to the estimated gas fee here, highlighted in red.
-If it's a significant amount of your overall transaction (here it's over 17%), then it will take a **very long time** before you break even on staking rewards.
+Faites **très attention** aux frais de gas estimés ici, mis en évidence en rouge.
+S'il s'agit d'un montant important de votre transaction globale (ici c'est plus de 17%), il faudra alors **très longtemps** avant d'atteindre le seuil de rentabilité sur les récompenses de staking.
 
-If this is the case, you should either wait for the network's average gas price to drop, or [consider using a Layer 2 solution instead](./via-l2).
+Si c'est le cas, vous devriez soit attendre que le prix moyen du gas du réseau baisse, soit [envisager d'utiliser une solution Layer 2 à la place](./via-l2).
 :::
 
-If you are happy with the gas fees relative to the total amount of rETH you'll be receiving, click **Confirm** to submit the transaction.
-After a short period, you should see a notification from MetaMask that it completed successfully, and you will now see the rETH token in your wallet.
+Si vous êtes satisfait des frais de gas par rapport au montant total de rETH que vous recevrez, cliquez sur **Confirm** pour soumettre la transaction.
+Après une courte période, vous devriez voir une notification de MetaMask indiquant qu'elle s'est terminée avec succès, et vous verrez maintenant le token rETH dans votre wallet.
 
-That's it! You're now staking with Rocket Pool. All you need to do is hold onto your rETH, and you'll automatically gain your staking rewards as the value of the rETH token increases.
+C'est tout ! Vous stakez maintenant avec Rocket Pool. Tout ce que vous avez à faire est de conserver votre rETH, et vous gagnerez automatiquement vos récompenses de staking à mesure que la valeur du token rETH augmente.

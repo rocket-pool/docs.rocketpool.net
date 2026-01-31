@@ -1,39 +1,39 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Expiring Pre-Merge History
+# Expiration de l'historique pré-Merge
 
-All Execution clients now support partial history expiry in accordance to [EIP-4444](https://eips.ethereum.org/EIPS/eip-4444). Users can substantially
-reduce the storage requirements for their node by removing pre-merge block history starting in Smartnode version `v1.17.0`. Feel free to check out
-this blog post to learn more about partial history expiry: https://blog.ethereum.org/2025/07/08/partial-history-exp
+Tous les clients d'exécution prennent désormais en charge l'expiration partielle de l'historique conformément à [EIP-4444](https://eips.ethereum.org/EIPS/eip-4444). Les utilisateurs peuvent considérablement
+réduire les besoins de stockage de leur nœud en supprimant l'historique des blocs pré-merge à partir de la version `v1.17.0` du Smartnode. N'hésitez pas à consulter
+cet article de blog pour en savoir plus sur l'expiration partielle de l'historique : https://blog.ethereum.org/2025/07/08/partial-history-exp
 
-::: tip NOTE
+::: tip REMARQUE
 
-    Please keep in mind that the steps to remove pre-merge history depend on your node's selected Execution client:
-    - Nethermind users will need a full resync to remove pre-merge history.
-    - Geth users can use the `rocketpool service prune-eth1` command or conduct a full resync.
-    - Besu and Reth users can perform an online prune while their node continues to attest.
+    Veuillez garder à l'esprit que les étapes pour supprimer l'historique pré-merge dépendent du client d'exécution sélectionné par votre nœud :
+    - Les utilisateurs de Nethermind devront effectuer une resynchronisation complète pour supprimer l'historique pré-merge.
+    - Les utilisateurs de Geth peuvent utiliser la commande `rocketpool service prune-eth1` ou effectuer une resynchronisation complète.
+    - Les utilisateurs de Besu et Reth peuvent effectuer un élagage en ligne pendant que leur nœud continue d'attester.
 
 :::
 
-The following steps to remove pre-merge history are for Docker mode nodes only. If you are using an external client in Hybrid
-mode or Native mode, please refer to the documentation provided by your Execution client.
+Les étapes suivantes pour supprimer l'historique pré-merge sont uniquement pour les nœuds en mode Docker. Si vous utilisez un client externe en
+mode hybride ou en mode natif, veuillez vous référer à la documentation fournie par votre client d'exécution.
 
-Start by opening the Settings Manager:
+Commencez par ouvrir le gestionnaire de paramètres :
 
 ```shell
 rocketpool service config
 ```
 
-To change the Execution Client pruning mode, go to the `Execution Client (ETH1)` menu and select the `History Expiry` setting in the dropdown menu for `Pruning Mode`
+Pour changer le mode d'élagage du client d'exécution, allez dans le menu `Execution Client (ETH1)` et sélectionnez le paramètre `History Expiry` dans le menu déroulant pour `Pruning Mode`
 
 ![](../images/tui-history-expiry.png)
 
-After you've made the selection, press `escape` to return to the main menu, then press `tab` to highlight the `Review Changes and Save` button. Press
-the `enter` key to continue. You'll be presented with a menu to preview the changes to your Execution client settings.
+Après avoir effectué la sélection, appuyez sur `escape` pour revenir au menu principal, puis appuyez sur `tab` pour mettre en surbrillance le bouton `Review Changes and Save`. Appuyez sur
+la touche `entrée` pour continuer. Vous verrez un menu pour prévisualiser les modifications de vos paramètres de client d'exécution.
 
 ![](../images/tui-review-history-expiry.png)
 
-Press the `enter` key on `Save Settings` to save and exit the Settings Manager, then enter `y` to restart your `rocketpool_eth1` container.
+Appuyez sur la touche `enter` sur `Save Settings` pour enregistrer et quitter le gestionnaire de paramètres, puis entrez `y` pour redémarrer votre conteneur `rocketpool_eth1`.
 
 ```shell
 Your changes have been saved!
@@ -42,28 +42,28 @@ The following containers must be restarted for the changes to take effect:
 Would you like to restart them automatically now? [y/n]
 ```
 
-From this point on, the steps differ depending on which Execution client you're using:
+À partir de ce point, les étapes diffèrent selon le client d'exécution que vous utilisez :
 
 <div className="p-3">
   <Tabs>
 
         <Tab label="Nethermind">
-        Nethermind nodes require a full resync to remove pre-merge history. You must resync your Execution client after saving
-        the `History Expiry` setting and restarting your `eth1` container.
+        Les nœuds Nethermind nécessitent une resynchronisation complète pour supprimer l'historique pré-merge. Vous devez resynchroniser votre client d'exécution après avoir enregistré
+        le paramètre `History Expiry` et redémarré votre conteneur `eth1`.
 
-        ::: warning WARNING
-        If you don't have a fallback node configured, your node will stop validating during a resync. A fallback node will
-        allow your primary node to continue attesting and proposing blocks during a prune or resync. Click [here](/en/node-staking/fallback)
-        to learn how to configure a fallback node.
+        ::: warning AVERTISSEMENT
+        Si vous n'avez pas de nœud de secours configuré, votre nœud arrêtera de valider pendant une resynchronisation. Un nœud de secours
+        permettra à votre nœud principal de continuer à attester et à proposer des blocs pendant un élagage ou une resynchronisation. Cliquez [ici](/fr/node-staking/fallback)
+        pour apprendre comment configurer un nœud de secours.
         :::
 
-        Use the following command to resync your Execution client:
+        Utilisez la commande suivante pour resynchroniser votre client d'exécution :
         ```shell
         rocketpool service resync-eth1
         ```
 
-        You're all set! The node will no longer store pre-merge data, substantially improving the feasibility of fitting a node on a 2 TB drive.
-        We recommend monitoring the progress using the following command.
+        C'est tout ! Le nœud ne stockera plus de données pré-merge, améliorant considérablement la faisabilité de faire tenir un nœud sur un disque de 2 To.
+        Nous recommandons de surveiller la progression en utilisant la commande suivante.
         ```shell
         rocketpool service logs eth1
         ```
@@ -72,28 +72,28 @@ From this point on, the steps differ depending on which Execution client you're 
 
     <Tab label="Geth">
 
-        Geth nodes require an offline prune to remove pre-merge history. You must prune your Execution client after saving
-        the `History Expiry` setting and restarting your `eth1` container. Alternatively you may choose to conduct a full resync to remove pre-merge history.
+        Les nœuds Geth nécessitent un élagage hors ligne pour supprimer l'historique pré-merge. Vous devez élaguer votre client d'exécution après avoir enregistré
+        le paramètre `History Expiry` et redémarré votre conteneur `eth1`. Alternativement, vous pouvez choisir d'effectuer une resynchronisation complète pour supprimer l'historique pré-merge.
 
-        ::: tip NOTE
-        We recommend pruning over conducting a full resync. If you wish to start over with a fresh Geth database or have an issue
-        with pruning, you can resync the Execution client using `rocketpool service resync-eth1`. Both choices should result in expired pre-merge history.
+        ::: tip REMARQUE
+        Nous recommandons l'élagage plutôt qu'une resynchronisation complète. Si vous souhaitez recommencer avec une base de données Geth fraîche ou avez un problème
+        avec l'élagage, vous pouvez resynchroniser le client d'exécution en utilisant `rocketpool service resync-eth1`. Les deux choix devraient aboutir à l'expiration de l'historique pré-merge.
         :::
 
-        ::: warning WARNING
-        If you don't have a fallback node configured, your node will stop validating during a prune or resync. A fallback node will
-        allow your primary node to continue attesting and proposing blocks during a prune or resync. Click [here](/en/node-staking/fallback)
-        to learn how to configure a fallback node.
+        ::: warning AVERTISSEMENT
+        Si vous n'avez pas de nœud de secours configuré, votre nœud arrêtera de valider pendant un élagage ou une resynchronisation. Un nœud de secours
+        permettra à votre nœud principal de continuer à attester et à proposer des blocs pendant un élagage ou une resynchronisation. Cliquez [ici](/fr/node-staking/fallback)
+        pour apprendre comment configurer un nœud de secours.
         :::
 
-        Please run the following command to prune your Execution client:
+        Veuillez exécuter la commande suivante pour élaguer votre client d'exécution :
         ```shell
         rocketpool service prune-eth1
         ```
-        You can click [here](/en/node-staking/pruning#starting-a-prune) to learn more about pruning.
+        Vous pouvez cliquer [ici](/fr/node-staking/pruning#starting-a-prune) pour en savoir plus sur l'élagage.
 
-        You're all set! The node will no longer store pre-merge data, substantially improving the feasibility of fitting a node on a 2 TB drive.
-        We recommend monitoring the progress using the following command.
+        C'est tout ! Le nœud ne stockera plus de données pré-merge, améliorant considérablement la faisabilité de faire tenir un nœud sur un disque de 2 To.
+        Nous recommandons de surveiller la progression en utilisant la commande suivante.
         ```shell
         rocketpool service logs eth1
         ```
@@ -102,9 +102,9 @@ From this point on, the steps differ depending on which Execution client you're 
 
     <Tab label="Besu">
 
-        You're all set! Besu nodes will perform an online prune while continuing to attest and propose blocks.
-        The node will no longer store pre-merge data, substantially improving the feasibility of fitting a node on a 2 TB drive.
-        We recommend monitoring the progress using the following command.
+        C'est tout ! Les nœuds Besu effectueront un élagage en ligne tout en continuant à attester et à proposer des blocs.
+        Le nœud ne stockera plus de données pré-merge, améliorant considérablement la faisabilité de faire tenir un nœud sur un disque de 2 To.
+        Nous recommandons de surveiller la progression en utilisant la commande suivante.
         ```shell
         rocketpool service logs eth1
         ```
@@ -113,9 +113,9 @@ From this point on, the steps differ depending on which Execution client you're 
 
     <Tab label="Reth">
 
-        You're all set! Reth nodes will perform an online prune while continuing to attest and propose blocks.
-        The node will no longer store pre-merge data, substantially improving the feasibility of fitting a node on a 2 TB drive.
-        We recommend monitoring the progress using the following command.
+        C'est tout ! Les nœuds Reth effectueront un élagage en ligne tout en continuant à attester et à proposer des blocs.
+        Le nœud ne stockera plus de données pré-merge, améliorant considérablement la faisabilité de faire tenir un nœud sur un disque de 2 To.
+        Nous recommandons de surveiller la progression en utilisant la commande suivante.
         ```shell
         rocketpool service logs eth1
          ```

@@ -1,125 +1,125 @@
-# Selecting Staking Hardware
+# Selecionando Hardware para Staking
 
-There are no official specifications for running a Rocket Pool node.
-This page offers some guidelines and examples that you can use to select staking hardware.
+Não existem especificações oficiais para executar um node Rocket Pool.
+Esta página oferece algumas diretrizes e exemplos que você pode usar para selecionar hardware para staking.
 
-The minimum hardware requirements of your node will depend on the Consensus and Execution clients that you choose.
-If, for example, you intend to run your node on a low powered device, you may be limited to using `Geth` as your Execution client and `Nimbus` as your Consensus client.
-If you're using a more powerful NUC with 32+ GB of RAM, all client combinations are open to you.
+Os requisitos mínimos de hardware do seu node dependerão dos clientes de Consensus e Execution que você escolher.
+Se, por exemplo, você pretende executar seu node em um dispositivo de baixa potência, você pode estar limitado a usar `Geth` como seu cliente de Execution e `Nimbus` como seu cliente de Consensus.
+Se você está usando um NUC mais poderoso com 32+ GB de RAM, todas as combinações de clientes estão abertas para você.
 
-The guidelines below assume you want a **comfortable** level of hardware, meaning you have excess capacity.
-If you keep these guidelines in mind, your node will have plenty of resources to run any of the Rocket Pool supported client combinations.
-This will allow you to choose a `random` client pair, which is very important for client diversity on the Ethereum network.
+As diretrizes abaixo assumem que você quer um nível **confortável** de hardware, o que significa que você tem capacidade excedente.
+Se você manter essas diretrizes em mente, seu node terá recursos abundantes para executar qualquer uma das combinações de clientes suportadas pelo Rocket Pool.
+Isso permitirá que você escolha um par de clientes `random`, o que é muito importante para a diversidade de clientes na rede Ethereum.
 
-::: tip NOTE
-Ethereum staking is very forgiving.
-If your house is flooded and your staking device is fried, there is no big penalty for taking a week to get back up and running (unless you happen to be in a sync committee, which is a very rare event).
-Component failure might happen at some point, but don't stress about it.
-Downtime does not get you slashed unless you are offline during a major outage of the entire Ethereum network.
+::: tip NOTA
+Staking em Ethereum é muito tolerante.
+Se sua casa inundar e seu dispositivo de staking queimar, não há grande penalidade por levar uma semana para voltar a funcionar (a menos que você esteja em um comitê de sincronização, o que é um evento muito raro).
+Falha de componentes pode acontecer em algum momento, mas não se estresse com isso.
+Tempo de inatividade não faz você ser slashed a menos que você esteja offline durante uma grande interrupção de toda a rede Ethereum.
 :::
 
-## Hardware Requirements
+## Requisitos de Hardware
 
-Ethereum validators are not very computationally expensive, which is to say that once your Execution and Consensus clients are running, any additional validator will use **a very small amount of additional resources**.
-This grows up to 64 validators, at which point the resources required for adding a 65th validator and beyond are negligible.
+Validadores Ethereum não são muito caros computacionalmente, o que quer dizer que uma vez que seus clientes de Execution e Consensus estão rodando, qualquer validador adicional usará **uma quantidade muito pequena de recursos adicionais**.
+Isso aumenta até 64 validadores, ponto em que os recursos necessários para adicionar um 65º validador e além são negligenciáveis.
 
-In our experience, most setups, including mini-PCs and NUCs, are capable of running an effectively unlimited number of validators.
+Na nossa experiência, a maioria das configurações, incluindo mini-PCs e NUCs, são capazes de executar um número efetivamente ilimitado de validadores.
 
-### CPU Requirements
+### Requisitos de CPU
 
-**Guideline: any modern CPU with at least 4 threads.**
+**Diretriz: qualquer CPU moderna com pelo menos 4 threads.**
 
-Running a Rocket Pool node is not very computationally intensive.
-The biggest impact of the CPU is how fast your node can initially sync the state of the blockchain when you first create it (or if you ever change clients later).
-After the initial sync, the CPU is not used as heavily.
+Executar um node Rocket Pool não é muito intensivo computacionalmente.
+O maior impacto da CPU é quão rápido seu node pode sincronizar inicialmente o estado da blockchain quando você o cria pela primeira vez (ou se você mudar de clientes mais tarde).
+Após a sincronização inicial, a CPU não é usada tão intensamente.
 
-CPU naming can be deceptive; an Intel Core i5 from 2010 is usually **less powerful** than a core i3 from 2022.
-Many community members use Intel NUC devices because of their small form factor, but an old i5 NUC may be a worse choice than a new i3.
-For this reason, we recommend using a "modern" CPU that is, at most, a few years old.
-More specifically, **for x64-based CPUs**, we recommend a CPU that supports the [BMI2](<https://en.wikipedia.org/wiki/X86_Bit_manipulation_instruction_set#BMI2_(Bit_Manipulation_Instruction_Set_2)>) extension - check the manufacturer's specs for your CPU to see if it is supported.
-Not all modern CPUs support this; for example, Celeron CPUs tend not to include it.
+A nomenclatura de CPU pode ser enganosa; um Intel Core i5 de 2010 é geralmente **menos poderoso** que um core i3 de 2022.
+Muitos membros da comunidade usam dispositivos Intel NUC por causa de seu fator de forma pequeno, mas um NUC i5 antigo pode ser uma escolha pior que um i3 novo.
+Por essa razão, recomendamos usar uma CPU "moderna" que tenha, no máximo, alguns anos.
+Mais especificamente, **para CPUs baseadas em x64**, recomendamos uma CPU que suporte a extensão [BMI2](<https://en.wikipedia.org/wiki/X86_Bit_manipulation_instruction_set#BMI2_(Bit_Manipulation_Instruction_Set_2)>) - verifique as especificações do fabricante para sua CPU para ver se é suportada.
+Nem todas as CPUs modernas suportam isso; por exemplo, CPUs Celeron tendem a não incluí-la.
 
-ARM-based CPUs (such as the Mac M1 or M2, or the Rock 5B) do not apply to the BMI2 extension above.
+CPUs baseadas em ARM (como o Mac M1 ou M2, ou o Rock 5B) não se aplicam à extensão BMI2 acima.
 
-::: tip NOTE
-If you are interested in using a NUC, you can tell how modern the NUC is by its model number.
-They are formatted as `NUC` + `generation number` + `model` + `CPU type` + `suffix`.
-For example, a `NUC11PAHi50Z` unit is a 11th generation i5 unit.
-You can see a list of NUCs [here](https://www.intel.com/content/www/us/en/products/details/nuc/kits/products.html) on the Intel website.
+::: tip NOTA
+Se você está interessado em usar um NUC, você pode dizer quão moderno o NUC é pelo seu número de modelo.
+Eles são formatados como `NUC` + `número de geração` + `modelo` + `tipo de CPU` + `sufixo`.
+Por exemplo, uma unidade `NUC11PAHi50Z` é uma unidade i5 de 11ª geração.
+Você pode ver uma lista de NUCs [aqui](https://www.intel.com/content/www/us/en/products/details/nuc/kits/products.html) no site da Intel.
 
-Other mini-PCs, such as the Asus PN50 or PN51, do not follow this convention but information about which CPU is used by them should be included in their product pages.
+Outros mini-PCs, como o Asus PN50 ou PN51, não seguem essa convenção, mas informações sobre qual CPU é usada por eles devem estar incluídas nas páginas de seus produtos.
 :::
 
-The amount of cores on a CPU is less relevant than its **number of threads**.
-We recommend a **minimum of 4 threads** for Rocket Pool node operation.
-A 2 core CPU with 4 threads will work without issue.
-It is rare to find a CPU with only 2 threads.
+A quantidade de núcleos em uma CPU é menos relevante que seu **número de threads**.
+Recomendamos um **mínimo de 4 threads** para operação de node Rocket Pool.
+Uma CPU de 2 núcleos com 4 threads funcionará sem problemas.
+É raro encontrar uma CPU com apenas 2 threads.
 
-### RAM Requirements
+### Requisitos de RAM
 
-**Guideline: at least 16 GB of RAM, 32 GB preferred, DDR4 preferred**
+**Diretriz: pelo menos 16 GB de RAM, 32 GB preferível, DDR4 preferível**
 
-Rocket Pool nodes can operate with as little as 16 GB of RAM.
-We generally recommend having slightly more to offer some headroom and full support for RAM-heavy clients such as Teku.
-An added benefit of more RAM is that you can provide a larger cache size to Execution client, which tends to slow the rate of your disk space usage.
+Nodes Rocket Pool podem operar com apenas 16 GB de RAM.
+Geralmente recomendamos ter um pouco mais para oferecer alguma margem e suporte completo para clientes pesados em RAM como Teku.
+Um benefício adicional de mais RAM é que você pode fornecer um tamanho de cache maior para o cliente de Execution, o que tende a desacelerar a taxa de uso do seu espaço em disco.
 
-### SSD Requirements
+### Requisitos de SSD
 
-**Guideline: a 2+ TB SSD that has TLC or better, with a DRAM cache. NVMe preferred.**
+**Diretriz: um SSD de 2+ TB que tenha TLC ou melhor, com cache DRAM. NVMe preferível.**
 
-This element is more important than most people expect.
-The Execution client relies heavily on IOPS, or "operations per second"; we recommend 15k Read IOPS, and 5k Write IOPS
-In practice, this means that:
+Este elemento é mais importante do que a maioria das pessoas espera.
+O cliente de Execution depende muito de IOPS, ou "operações por segundo"; recomendamos 15k Read IOPS e 5k Write IOPS
+Na prática, isso significa que:
 
-- HDD (spinning platter) drives will not work
-- SATA or external USB 3.0+ SSDs _can_ work
-- NVMe SSD drives are preferred
+- Discos HDD (prato giratório) não funcionarão
+- SSDs SATA ou USB 3.0+ externos _podem_ funcionar
+- Discos SSD NVMe são preferidos
 
-If you already have an SSD you want to use and want to be sure it has sufficient performance for node operation.
+Se você já tem um SSD que quer usar e quer ter certeza de que ele tem desempenho suficiente para operação de node.
 
-_\* If you are unsure if your disk meets these performance requirements, `fio` is a good way to test them.
-See [here](https://arstech.net/how-to-measure-disk-performance-iops-with-fio-in-linux/) for Linux instructions,
-and [here](https://www.nivas.hr/blog/2017/09/19/measuring-disk-io-performance-macos/) for MacOS instructions._
+_\* Se você não tem certeza se seu disco atende a esses requisitos de desempenho, `fio` é uma boa maneira de testá-los.
+Veja [aqui](https://arstech.net/how-to-measure-disk-performance-iops-with-fio-in-linux/) para instruções Linux,
+e [aqui](https://www.nivas.hr/blog/2017/09/19/measuring-disk-io-performance-macos/) para instruções MacOS._
 
-:::tip NOTE
-SSD selection can be a complex choice!
+:::tip NOTA
+A seleção de SSD pode ser uma escolha complexa!
 
-The method SSDs use to store data on their flash chips has a noticeable impact on speed and longevity.
-When shopping for an SSD you might notice labels like `QLC`, `TLC` or `SLC`.
-These stand for the amount of data contained within a single cell of the flash chip: `Q` for "quad" means 4, `T` for "triple" means 3, `M` for "multi" means 2, and `S` for "single" means 1.
+O método que os SSDs usam para armazenar dados em seus chips flash tem um impacto perceptível na velocidade e longevidade.
+Ao comprar um SSD, você pode notar rótulos como `QLC`, `TLC` ou `SLC`.
+Estes representam a quantidade de dados contidos em uma única célula do chip flash: `Q` para "quad" significa 4, `T` para "triple" significa 3, `M` para "multi" significa 2, e `S` para "single" significa 1.
 
-We recommend **TLC, MLC, or SLC** drives.
-We **do not recommend QLC drives** due to their slower performance and lower total reliability.
+Recomendamos discos **TLC, MLC ou SLC**.
+**Não recomendamos discos QLC** devido ao seu desempenho mais lento e menor confiabilidade total.
 
-SSDs come with or without DRAM, which is a hardware element that makes accessing data on the SSD more efficient.
-Those with DRAM are faster but those without DRAM are cheaper.
-However, DRAM is quite important for providing smooth node operation.
+SSDs vêm com ou sem DRAM, que é um elemento de hardware que torna o acesso a dados no SSD mais eficiente.
+Aqueles com DRAM são mais rápidos, mas aqueles sem DRAM são mais baratos.
+No entanto, DRAM é bastante importante para fornecer operação suave do node.
 
-We recommend a drive with a **DRAM** cache.
-We **do not recommend DRAM-less drives**.
+Recomendamos um disco com cache **DRAM**.
+**Não recomendamos discos sem DRAM**.
 :::
 
-The final consideration is drive size.
-As of 10/2024, the `geth` execution client database size requires about 1.2TB of space after it finishes its initial sync (or after you just finished pruning it).
-This will grow steadily over time, and while pruning can regain some of that space, the freshly pruned state _does_ grow over time.
-You will have peace of mind with a larger drive.
+A consideração final é o tamanho do disco.
+A partir de 10/2024, o tamanho do banco de dados do cliente de execution `geth` requer cerca de 1.2TB de espaço após concluir sua sincronização inicial (ou após você ter acabado de fazer o prune dele).
+Isso crescerá constantemente ao longo do tempo, e embora o pruning possa recuperar parte desse espaço, o estado recém-limpo _cresce_ ao longo do tempo.
+Você terá paz de espírito com um disco maior.
 
-### Common Accessories
+### Acessórios Comuns
 
-Many node operators improve their setups beyond the minimum requirements.
-Some common additions include:
+Muitos operadores de node melhoram suas configurações além dos requisitos mínimos.
+Algumas adições comuns incluem:
 
-- SSD heatsinks to extend the drive lifespan
-- Uninterruptable power supplies (UPS) in case of power outages
-- A fallback node to have a backup in case something fails
+- Dissipadores de calor para SSD para estender a vida útil do disco
+- Fontes de alimentação ininterruptas (UPS) em caso de quedas de energia
+- Um node de backup para ter um backup caso algo falhe
 
-These are all convenient to have, but not required to run a Rocket Pool node.
+Todos estes são convenientes de ter, mas não são necessários para executar um node Rocket Pool.
 
-## Example Setups
+## Exemplos de Configurações
 
-In this section, we'll showcase a few of the varied builds that Rocket Pool's community has created for themselves.
-They are examples of what people are using, not recommendations for how you should run your setup.
-Note that many are somewhat outdated and, eg, use SSDs that are now too small.
+Nesta seção, mostraremos alguns dos vários builds que a comunidade do Rocket Pool criou para si mesma.
+Eles são exemplos do que as pessoas estão usando, não recomendações de como você deve executar sua configuração.
+Note que muitos estão um pouco desatualizados e, por exemplo, usam SSDs que agora são muito pequenos.
 
 ### Xer0's Server
 

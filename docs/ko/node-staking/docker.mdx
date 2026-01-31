@@ -1,44 +1,44 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Creating a Standard Rocket Pool Node with Docker
+# Docker를 사용한 표준 Rocket Pool 노드 만들기
 
-In this section, we will walk through the process of installing the Rocket Pool Smartnode stack using the standard [Docker](https://www.docker.com/resources/what-container)-based setup.
-This will install and configure everything you need to run a complete node, including:
+이 섹션에서는 표준 [Docker](https://www.docker.com/resources/what-container) 기반 설정을 사용하여 Rocket Pool Smartnode 스택을 설치하는 프로세스를 안내합니다.
+다음을 포함하여 전체 노드를 실행하는 데 필요한 모든 것을 설치하고 구성합니다:
 
-- The Rocket Pool **Smartnode** software
-- An **Execution** (formerly ETH1) client of your choice, or a connection to an existing client you already manage
-- A **Consensus** (formerly ETH2) client of your choice, or a connection to an existing client you already manage
-- A **Validator** client that will handle your Beacon Chain validation duties
-- (Optionally) a **monitoring stack** for capturing performance and health metrics
+- Rocket Pool **Smartnode** 소프트웨어
+- 선택한 **Execution** (이전 ETH1) 클라이언트 또는 이미 관리하고 있는 기존 클라이언트에 대한 연결
+- 선택한 **Consensus** (이전 ETH2) 클라이언트 또는 이미 관리하고 있는 기존 클라이언트에 대한 연결
+- Beacon Chain validation 의무를 처리하는 **Validator** 클라이언트
+- (선택 사항) 성능 및 상태 메트릭을 캡처하기 위한 **monitoring stack**
 
-All you need to do is tell it what you want to run!
+실행하려는 항목을 알려주기만 하면 됩니다!
 
 ::: tip NOTE
-The below instructions require you to use your system's **terminal** to enter and execute commands.
-If you are connected to the node machine via SSH, you are already doing this.
-If you are on the node machine and using a Desktop UI, you will need to open a terminal window to execute the following commands.
-Refer to your OS's instructions to learn how to do this if you are unfamiliar.
+아래 지침을 따르려면 시스템의 **terminal**을 사용하여 명령을 입력하고 실행해야 합니다.
+SSH를 통해 노드 머신에 연결된 경우 이미 이 작업을 수행하고 있는 것입니다.
+노드 머신에서 Desktop UI를 사용하는 경우 다음 명령을 실행하려면 터미널 창을 열어야 합니다.
+익숙하지 않은 경우 OS의 지침을 참조하여 이를 수행하는 방법을 알아보십시오.
 :::
 
-## Process Overview
+## 프로세스 개요
 
-At a high level, here's what is involved in installing Rocket Pool:
+높은 수준에서 Rocket Pool 설치와 관련된 내용은 다음과 같습니다:
 
-1. Download the Rocket Pool command-line interface (CLI)
-1. Use the CLI to install the Smartnode stack
-1. Configure the Smartnode stack with an easy-to-use UI in the terminal
-1. Done!
+1. Rocket Pool command-line interface (CLI) 다운로드
+1. CLI를 사용하여 Smartnode 스택 설치
+1. 터미널에서 사용하기 쉬운 UI로 Smartnode 스택 구성
+1. 완료!
 
-## Before You Start
+## 시작하기 전에
 
 ::: warning
-If using Ubuntu, it is recommended that before installing Rocket Pool you double check that docker was not installed alongside the operating system.
+Ubuntu를 사용하는 경우 Rocket Pool을 설치하기 전에 운영 체제와 함께 docker가 설치되지 않았는지 다시 확인하는 것이 좋습니다.
 
-The Ubuntu installer gets docker from the snap package manager, which will conflict with the version of docker installed by Smartnode.
+Ubuntu 설치 프로그램은 snap 패키지 관리자에서 docker를 가져오는데, 이는 Smartnode가 설치하는 docker 버전과 충돌합니다.
 
-Run `snap list`, and make sure `docker` was not installed.
+`snap list`를 실행하고 `docker`가 설치되지 않았는지 확인하십시오.
 
-For example, this is the output on a machine where docker is not installed:
+예를 들어 docker가 설치되지 않은 머신의 출력은 다음과 같습니다:
 
 ```
 Name    Version        Rev    Tracking       Publisher   Notes
@@ -47,7 +47,7 @@ lxd     5.0.2-838e1b2  24322  5.0/stable/…   canonical✓  -
 snapd   2.59.1         18933  latest/stable  canonical✓  snapd
 ```
 
-And here is the output if it was installed:
+다음은 설치된 경우의 출력입니다:
 
 ```
 Name    Version        Rev    Tracking       Publisher   Notes
@@ -57,7 +57,7 @@ lxd     5.0.2-838e1b2  24322  5.0/stable/…   canonical✓  -
 snapd   2.59.1         18933  latest/stable  canonical✓  snapd
 ```
 
-If you see it in the `snap list` output, be sure to remove it with:
+`snap list` 출력에 표시되면 다음을 사용하여 제거하십시오:
 
 ```shell
 sudo systemctl stop snap.docker.dockerd.service
@@ -65,67 +65,67 @@ sudo systemctl stop snap.docker.dockerd.service
 sudo snap remove --purge docker
 ```
 
-After which, it is recommended that you reboot the machine (`sudo systemctl reboot`)
+그 후 머신을 재부팅하는 것이 좋습니다 (`sudo systemctl reboot`)
 :::
 
-## Downloading the Rocket Pool CLI
+## Rocket Pool CLI 다운로드
 
-The instructions for downloading the CLI vary based on your Operating System.
+CLI 다운로드 지침은 운영 체제에 따라 다릅니다.
 
 ::: warning NOTE
-You must perform the following instructions **on the machine you will use for your Rocket Pool node.**
-If you are not using a keyboard and monitor directly connected to your node machine, you will need to access it remotely (e.g. via SSH) and run these commands on it through that remote connection.
+**Rocket Pool 노드에 사용할 머신에서** 다음 지침을 수행해야 합니다.
+노드 머신에 직접 연결된 키보드와 모니터를 사용하지 않는 경우 원격으로 (예: SSH를 통해) 액세스하고 해당 원격 연결을 통해 이러한 명령을 실행해야 합니다.
 :::
 
 <div className="p-3">
   <Tabs>
     <Tab label="Linux">
-      On Linux, start by creating a new folder that will hold the CLI application:
+      Linux에서는 CLI 애플리케이션을 보유할 새 폴더를 만드는 것부터 시작하십시오:
 
       ```shell
       mkdir -p ~/bin
       ```
 
-      Next, download the CLI.
-      This depends on what architecture your system uses.
+      다음으로 CLI를 다운로드하십시오.
+      이는 시스템이 사용하는 아키텍처에 따라 다릅니다.
 
       <p className="rspress-directive tip">
         <p className="rspress-directive-title">TIP</p>
-        If you do not know your CPU architecture, you can run the following command to find it:
+        CPU 아키텍처를 모르는 경우 다음 명령을 실행하여 찾을 수 있습니다:
 
         ```shell
         uname -m
         ```
 
-        The output of this command will print your architecture.
-        **Note that `x86_64` is the same as `x64` and `amd64`.**
-        **Note that `aarch64` is the same as `arm64`.**
+        이 명령의 출력은 아키텍처를 인쇄합니다.
+        **`x86_64`는 `x64` 및 `amd64`와 동일합니다.**
+        **`aarch64`는 `arm64`와 동일합니다.**
       </p>
 
-      For `x64` systems (most normal computers):
+      `x64` 시스템의 경우 (대부분의 일반 컴퓨터):
 
       ```shell
       wget https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-amd64 -O ~/bin/rocketpool
       ```
 
-      For `arm64` systems:
+      `arm64` 시스템의 경우:
 
       ```shell
       wget https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-arm64 -O ~/bin/rocketpool
       ```
 
-      Mark it as executable, so it has permissions to run:
+      실행 권한을 부여하기 위해 실행 가능하도록 표시하십시오:
 
       ```shell
       chmod +x ~/bin/rocketpool
       ```
 
-      Next, **log out and log back in** (or close SSH and reconnect), or simply restart.
-      This is because the path that you saved the CLI to (`~/bin`) may not be in your system's `PATH` variable (the list of places your system searches for executables) yet.
-      Logging out and back in will put it there.
+      다음으로 **로그아웃했다가 다시 로그인** (또는 SSH를 닫고 다시 연결)하거나 간단히 재시작하십시오.
+      CLI를 저장한 경로 (`~/bin`)가 아직 시스템의 `PATH` 변수 (시스템이 실행 파일을 검색하는 위치 목록)에 없을 수 있기 때문입니다.
+      로그아웃했다가 다시 로그인하면 거기에 추가됩니다.
 
-      Now, test running it with the `--version` flag.
-      You should see output like this:
+      이제 `--version` 플래그를 사용하여 실행을 테스트하십시오.
+      다음과 같은 출력이 표시되어야 합니다:
 
       ```shell
       rocketpool --version
@@ -137,61 +137,61 @@ If you are not using a keyboard and monitor directly connected to your node mach
 
       <p className="rspress-directive tip">
         <p className="rspress-directive-title">TIP</p>
-        If you see an error message like this,
+        다음과 같은 오류 메시지가 표시되면
 
         ```shell
         -bash: /home/user/rocketpool: cannot execute binary file: Exec format error
         ```
 
-        it means that you downloaded the wrong version above.
-        Please check if your system is **x64** or **arm64** using the command in the tip above, and download the appropriate version.
-        If your system is neither of those, then you will not be able to run Rocket Pool.
+        위에서 잘못된 버전을 다운로드했음을 의미합니다.
+        위의 팁에 있는 명령을 사용하여 시스템이 **x64**인지 **arm64**인지 확인하고 적절한 버전을 다운로드하십시오.
+        시스템이 둘 다 아닌 경우 Rocket Pool을 실행할 수 없습니다.
       </p>
     </Tab>
     <Tab label="MacOS">
-      On macOS, download the CLI for your machine with the following command.
+      macOS에서는 다음 명령을 사용하여 머신용 CLI를 다운로드하십시오.
 
       <p className="rspress-directive tip">
         <p className="rspress-directive-title">TIP</p>
-        If you do not know your CPU architecture, you can run the following command to find it:
+        CPU 아키텍처를 모르는 경우 다음 명령을 실행하여 찾을 수 있습니다:
 
         ```shell
         uname -m
         ```
 
-        The output of this command will print your architecture.
-        **Note that `x86_64` is the same as `x64` and `amd64`.**
-        **Note that `aarch64` is the same as `arm64`.**
+        이 명령의 출력은 아키텍처를 인쇄합니다.
+        **`x86_64`는 `x64` 및 `amd64`와 동일합니다.**
+        **`aarch64`는 `arm64`와 동일합니다.**
       </p>
 
-      For `x64` systems (most Macs):
+      `x64` 시스템의 경우 (대부분의 Mac):
 
       ```shell
       curl -L https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-darwin-amd64 > /usr/local/bin/rocketpool
       ```
 
-      For `arm64` systems, such as the Mac mini with M1:
+      M1이 탑재된 Mac mini와 같은 `arm64` 시스템의 경우:
 
       ```shell
       curl -L https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-darwin-arm64 > /opt/homebrew/bin/rocketpool
       ```
 
-      For `x64` systems (most Macs):
-      Mark it as executable, so it has permissions to run:
+      `x64` 시스템의 경우 (대부분의 Mac):
+      실행 권한을 부여하기 위해 실행 가능하도록 표시하십시오:
 
       ```shell
       chmod +x /usr/local/bin/rocketpool
       ```
 
-      For `arm64` systems, such as the Mac mini with M1:
-      Mark it as executable, so it has permissions to run:
+      M1이 탑재된 Mac mini와 같은 `arm64` 시스템의 경우:
+      실행 권한을 부여하기 위해 실행 가능하도록 표시하십시오:
 
       ```shell
       chmod +x /opt/homebrew/bin/rocketpool
       ```
 
-      Now, test running it with the `--version` flag.
-      You should see output like this:
+      이제 `--version` 플래그를 사용하여 실행을 테스트하십시오.
+      다음과 같은 출력이 표시되어야 합니다:
 
       ```shell
       rocketpool --version
@@ -203,44 +203,44 @@ If you are not using a keyboard and monitor directly connected to your node mach
 
       <p className="rspress-directive tip">
         <p className="rspress-directive-title">TIP</p>
-        If you see an error message like this,
+        다음과 같은 오류 메시지가 표시되면
 
         ```shell
         /usr/local/bin/rocketpool: Exec format error
         ```
 
-        it means that you downloaded the wrong version above.
-        Please check if your system is x64 or arm64 using the command in the tip above, and download the appropriate version.
-        If your system is neither of those, then you will not be able to run Rocket Pool.
+        위에서 잘못된 버전을 다운로드했음을 의미합니다.
+        위의 팁에 있는 명령을 사용하여 시스템이 x64인지 arm64인지 확인하고 적절한 버전을 다운로드하십시오.
+        시스템이 둘 다 아닌 경우 Rocket Pool을 실행할 수 없습니다.
       </p>
     </Tab>
 
   </Tabs>
 </div>
 
-## Installing the Smartnode Stack
+## Smartnode 스택 설치
 
-Now that you have the CLI installed, you can deploy the Smartnode stack.
-This will prepare your system with Docker, [docker-compose](https://docs.docker.com/compose/), and load the Smartnode files so they're ready to go.
-It won't actually run anything yet; that comes later.
+이제 CLI가 설치되었으므로 Smartnode 스택을 배포할 수 있습니다.
+이렇게 하면 Docker, [docker-compose](https://docs.docker.com/compose/)로 시스템을 준비하고 Smartnode 파일을 로드하여 준비가 됩니다.
+실제로는 아직 아무것도 실행하지 않습니다. 나중에 실행됩니다.
 
-To deploy the Smartnode stack, you will need to run the following command on your node machine (either by logging in locally, or connecting remotely such as through SSH):
+Smartnode 스택을 배포하려면 노드 머신에서 다음 명령을 실행해야 합니다 (로컬로 로그인하거나 SSH를 통해 원격으로 연결):
 
 ```shell
 rocketpool service install
 ```
 
-This will grab the latest version of the Smartnode stack and set it up.
-You should see output like this (_above some release notes for the latest version which will be printed at the end_):
+최신 버전의 Smartnode 스택을 가져와서 설정합니다.
+다음과 같은 출력이 표시되어야 합니다 (_끝에 인쇄될 최신 버전의 릴리스 노트 위에_):
 
 <img src="./images/rp-install-screen.png" width="100%" height="auto" />
 
-If there aren't any error messages, then the installation was successful.
-By default, it will be put into the `~/.rocketpool` directory inside of your user account's home folder.
+오류 메시지가 없으면 설치가 성공한 것입니다.
+기본적으로 사용자 계정의 홈 폴더 내부 `~/.rocketpool` 디렉토리에 배치됩니다.
 
 ::: warning NOTE
-Note that the Smartnode installer cannot install `docker` and `docker-compose` on all platforms automatically.
-If you receive an error message like this during the installation:
+Smartnode 설치 프로그램은 모든 플랫폼에서 `docker` 및 `docker-compose`를 자동으로 설치할 수 없습니다.
+설치 중 다음과 같은 오류 메시지가 표시되면:
 
 ```
 Automatic dependency installation for the Mint operating system is not supported.
@@ -249,19 +249,19 @@ Be sure to add yourself to the docker group with 'sudo usermod -aG docker $USER'
 Log out and back in, or restart your system after you run this command.
 ```
 
-Then you simply have to install those two things manually.
+그러면 두 가지를 수동으로 설치하기만 하면 됩니다.
 
-Docker provides common [install instructions here](https://docs.docker.com/engine/install/).
+Docker는 일반적인 [설치 지침을 여기에서 제공합니다](https://docs.docker.com/engine/install/).
 
-Docker-compose provides common [install instructions here](https://docs.docker.com/compose/install/).
+Docker-compose는 일반적인 [설치 지침을 여기에서 제공합니다](https://docs.docker.com/compose/install/).
 
-Once both are installed, make sure you give your user account permission to use Docker:
+둘 다 설치되면 사용자 계정에 Docker 사용 권한을 부여하십시오:
 
 ```shell
 sudo usermod -aG docker $USER
 ```
 
-Finally, re-run the installer with the `-d` flag to skip Docker installation:
+마지막으로 `-d` 플래그를 사용하여 Docker 설치를 건너뛰고 설치 프로그램을 다시 실행하십시오:
 
 ```shell
 rocketpool service install -d
@@ -269,26 +269,26 @@ rocketpool service install -d
 
 :::
 
-After this, **log out and back in or restart your SSH session** for the settings to take effect.
+이 후 설정이 적용되도록 **로그아웃했다가 다시 로그인하거나 SSH 세션을 다시 시작**하십시오.
 
-Once this is finished, the Smartnode stack will be ready to run.
+이 작업이 완료되면 Smartnode 스택이 실행할 준비가 됩니다.
 
-## Configuring Docker's Storage Location
+## Docker의 저장소 위치 구성
 
-By default, Docker will store all of its container data on your operating system's drive.
-In some cases, this is not what you want.
+기본적으로 Docker는 모든 컨테이너 데이터를 운영 체제의 드라이브에 저장합니다.
+경우에 따라 이것이 원하는 것이 아닐 수 있습니다.
 
 ::: tip NOTE
-If you are fine with this default behavior, skip down to the next section.
+이 기본 동작이 괜찮으면 다음 섹션으로 건너뛰십시오.
 :::
 
-To do this, create a new file called `/etc/docker/daemon.json` as the root user:
+이렇게 하려면 root 사용자로 `/etc/docker/daemon.json`이라는 새 파일을 만드십시오:
 
 ```shell
 sudo nano /etc/docker/daemon.json
 ```
 
-This will be empty at first, which is fine. Add this as the contents:
+처음에는 비어 있을 것이며 괜찮습니다. 다음을 내용으로 추가하십시오:
 
 ```json
 {
@@ -296,25 +296,25 @@ This will be empty at first, which is fine. Add this as the contents:
 }
 ```
 
-where `<your external mount point>` is the directory that your other drive is mounted to.
+여기서 `<your external mount point>`는 다른 드라이브가 마운트된 디렉토리입니다.
 
-Press `Ctrl+O, Enter` to save the file, and `Ctrl+X, Enter` to exit the editor.
+`Ctrl+O, Enter`를 눌러 파일을 저장하고 `Ctrl+X, Enter`를 눌러 편집기를 종료하십시오.
 
-Next, make the folder:
+다음으로 폴더를 만드십시오:
 
 ```shell
 sudo mkdir -p <your external mount point>/docker
 ```
 
-Now, restart the docker daemon so it picks up on the changes:
+이제 docker 데몬을 다시 시작하여 변경 사항을 적용하십시오:
 
 ```shell
 sudo systemctl restart docker
 ```
 
-After that, Docker will store its data on your desired disk.
+그 후 Docker는 원하는 디스크에 데이터를 저장합니다.
 
-## Configuring the Smartnode Stack
+## Smartnode 스택 구성
 
-The next step in the installation process is to do an initial configuration of your node.
-Move on to the [Configuring Rocketpool](./config/overview) section for a walkthrough of this process.
+설치 프로세스의 다음 단계는 노드의 초기 구성을 수행하는 것입니다.
+이 프로세스의 안내는 [Rocketpool 구성](./config/overview) 섹션으로 이동하십시오.

@@ -1,38 +1,38 @@
-::: danger WARNING
-Minipool deposits are currently disabled in preparation for Saturn 1.
+::: danger 警告
+Saturn 1の準備のため、現在minipoolの入金は無効になっています。
 :::
 
-# The Minipool Delegate
+# Minipool Delegate
 
-Every validator you run has a **minipool** contract as its "owner" so-to-speak.
-The minipool is a unique contract specifically assigned to that validator; it acts as its **withdrawal address**.
-All reward and staking balance withdrawals from the Beacon Chain will be sent to the minipool contract.
+実行する各validatorには、その「所有者」として**minipool**コントラクトがあります。
+minipoolは、そのvalidatorに特別に割り当てられた一意のコントラクトで、その**出金アドレス**として機能します。
+Beacon Chainからのすべての報酬とステーキング残高の出金は、minipoolコントラクトに送信されます。
 
-Each minipool is unique to ensure that you (the node operator) have ultimate control over it.
-Nobody else controls it, nobody else can change it; it's entirely at your command.
+各minipoolは、ノードオペレーターであるあなたが最終的な制御権を持つことを保証するために一意です。
+他の誰もそれを制御せず、他の誰もそれを変更できません。完全にあなたの指示に従います。
 
-That being said, in order to minimize gas costs during node deposits, the minipool _itself_ contains very little actual functionality.
-Almost everything it can do is deferred to a **delegate** contract.
+とはいえ、ノードデポジット時のガスコストを最小限に抑えるため、minipool自体には実際の機能がほとんど含まれていません。
+できることのほぼすべてが**delegate**コントラクトに委任されています。
 
-The minipool delegate contract is a special contract that contains the bulk of the logic required by minipools - things like fairly distributing the balance between you and the pool stakers, for example.
-Unlike minipools, where each minipool is a unique contract, the delegate is a single contract that many minipools can "forward" requests to.
+minipool delegateコントラクトは、minipoolに必要なロジックの大部分を含む特別なコントラクトです。たとえば、あなたとプールステーカーの間で残高を公平に分配することなどです。
+各minipoolが一意のコントラクトであるのとは異なり、delegateは多くのminipoolが「転送」できる単一のコントラクトです。
 
-Occasionally, the Rocket Pool development team will publish a new minipool delegate that adds new functionality.
-For example, in the Atlas update, we introduced a new delegate that had support for distributing skimmed rewards without needing to close the minipool.
+時折、Rocket Pool開発チームは新機能を追加した新しいminipool delegateを公開します。
+たとえば、Atlasアップデートでは、minipoolを閉じることなくスキミングされた報酬を分配するサポートを持つ新しいdelegateを導入しました。
 
-Minipool can have their delegates upgraded to take advantage of this new functionality.
-Delegate upgrades are **opt-in**, so you can decide if and when you want to use them.
-That being said, they are usually required in order to take advantage of new functionality that network upgrades introduce.
+Minipoolは、この新機能を利用するためにdelegateをアップグレードできます。
+Delegateのアップグレードは**オプトイン**なので、使用するかどうか、いつ使用するかを決定できます。
+とはいえ、ネットワークアップグレードが導入する新機能を利用するためには、通常これらが必要になります。
 
-### Upgrading your Delegate
+### Delegateのアップグレード
 
-To upgrade a minipool to a new delegate contract, simply run the following command:
+minipoolを新しいdelegateコントラクトにアップグレードするには、次のコマンドを実行するだけです。
 
 ```shell
 rocketpool minipool delegate-upgrade
 ```
 
-This will present you with a list of your minipools that are not currently using the latest delegate and are eligible for upgrading:
+これにより、現在最新のdelegateを使用しておらず、アップグレード可能なminipoolのリストが表示されます。
 
 ```
 Please select a minipool to upgrade:
@@ -45,8 +45,8 @@ Please select a minipool to upgrade:
 7: 0x7E5700c82E38434C6c72890bb82f5B5305f4328a (using delegate 0x6aCEA7f89574Dd8BC6ffDfDca1965A3d756d5B20)
 ```
 
-Select the one(s) you would like to upgrade from the list by entering the corresponding number on the left of the minipool address.
-Once selected, you will be prompted to confirm your gas price settings, and after that a transaction to upgrade the minipool will be sent:
+minipoolアドレスの左側にある対応する番号を入力して、リストからアップグレードしたいものを選択します。
+選択後、ガス価格設定の確認を求められ、その後minipoolをアップグレードするトランザクションが送信されます。
 
 ```
 Using a max fee of 26.00 gwei and a priority fee of 2.00 gwei.
@@ -60,8 +60,8 @@ Waiting for the transaction to be included in a block... you may wait here for i
 Successfully upgraded minipool 0x7e5702a2cE66B5B35E59B9Ac00eEAAa547881e40.
 ```
 
-You can verify that it's using the latest delegate with `rocketpool minipool status`.
-Any minipools that are _not_ using the latest delegate will have a yellow notification under their status letting you know that they can be upgraded:
+`rocketpool minipool status`で最新のdelegateを使用していることを確認できます。
+最新のdelegateを使用していないminipoolには、アップグレード可能であることを知らせる黄色の通知がステータスの下に表示されます。
 
 ```
 Address:              0x7E5703fdA638CD86c316B9EbAF76927fF695ADC5

@@ -1,36 +1,36 @@
-::: danger WARNING
-Minipool deposits are currently disabled in preparation for Saturn 1.
+::: danger 警告
+目前为准备 Saturn 1 升级，minipool 存款功能已暂时禁用。
 :::
 
-# The Deposit Credit System
+# 存款信用系统
 
-The deposit credit system is a mechanism to track ETH that was previously bonded by node operators but is no longer required and make it available for use again.
-The source of this credit comes from two places:
+存款信用系统是一种机制，用于追踪节点运营者之前质押但不再需要的 ETH，并使其可供再次使用。
+这些信用来自两个来源：
 
-- [Migrating an existing 16-ETH bonded minipool down to an 8-ETH bonded minipool](./leb-migration.mdx) (which adds 8 ETH to the node operator's credit balance)
-- [Migrating an existing solo validator](./solo-staker-migration) into a minipool (which adds either 16 or 24 ETH to the node operator's credit balance, depending on which type of minipool they create during migration)
+- [将现有的 16-ETH 质押 minipool 迁移至 8-ETH 质押 minipool](./leb-migration.mdx)（这将为节点运营者的信用余额增加 8 ETH）
+- [将现有的独立验证者迁移](./solo-staker-migration)到 minipool（根据迁移时创建的 minipool 类型，这将为节点运营者的信用余额增加 16 或 24 ETH）
 
-Every node operator begins with a credit balance of **0 ETH**.
-Either of these two actions will increase that balance accordingly.
+每个节点运营者的初始信用余额为 **0 ETH**。
+执行这两种操作中的任何一种都会相应增加余额。
 
-This ETH is _not_ made liquid and returned to the node operator; instead, it can be used to **create additional minipools** without requiring any ETH from the node operator.
+这些 ETH 不会被流动化并返还给节点运营者；相反，它可以用于**创建额外的 minipool**，而无需节点运营者提供任何 ETH。
 
-The credit system is **transparent** to the node operator; it will automatically be used (with notifications in the Smartnode CLI explaining that it will be used) during either `rocketpool node deposit` or `rocketpool node create-vacant-minipool` operations if possible.
-If it _cannot_ be used, the Smartnode will alert the user that it cannot be used and will require a normal ETH bond during either operation.
+信用系统对节点运营者是**透明的**；在执行 `rocketpool node deposit` 或 `rocketpool node create-vacant-minipool` 操作时，如果可能的话，系统会自动使用信用（Smartnode CLI 会通知将使用信用）。
+如果无法使用，Smartnode 会提醒用户无法使用信用，并且在执行任一操作时需要正常的 ETH 质押。
 
-See the [Credit Availability](#credit-availability) section below for more details.
+更多详情请参阅下面的[信用可用性](#credit-availability)部分。
 
-## An Example
+## 示例
 
-Say you have a credit balance of 0 ETH, and a single minipool with a 16-ETH bond.
-You can then [migrate that minipool to an 8-ETH bond](./leb-migration.mdx).
-This will result in **8 ETH** that is no longer bonded.
-That 8 ETH will be placed into your **credit balance**.
+假设您的信用余额为 0 ETH，并且有一个 16-ETH 质押的 minipool。
+然后您可以[将该 minipool 迁移至 8-ETH 质押](./leb-migration.mdx)。
+这将产生 **8 ETH** 不再被质押。
+这 8 ETH 将被放入您的**信用余额**中。
 
-Now, say you want to create a _second_ 8-ETH minipool.
-You run `rocketpool node deposit` as usual, and select 8-ETH as the bond amount.
-This normally requires you to provide 8 of your own ETH for the minipool.
-However, because you have a credit balance of 8 ETH, Rocket Pool will **automatically use that instead**:
+现在，假设您想要创建第二个 8-ETH 的 minipool。
+您照常运行 `rocketpool node deposit`，并选择 8-ETH 作为质押金额。
+这通常需要您为 minipool 提供 8 ETH。
+但是，由于您有 8 ETH 的信用余额，Rocket Pool 将**自动使用该余额**：
 
 ```
 Please choose an amount of ETH to deposit:
@@ -45,19 +45,19 @@ This deposit will use 8.000000 ETH from your credit balance and will not require
 Your consensus client is synced, you may safely create a minipool.
 ```
 
-The second set of lines here is the relevant one: they tell you that you have enough ETH in your credit balance to cover this deposit _and that it is available for use_, so it will use the balance automatically and won't require any supplemental ETH from your node wallet.
+第二组提示是相关的：它们告诉您在信用余额中有足够的 ETH 来支付此次存款_并且可以使用_，因此系统会自动使用余额，不需要从您的节点钱包中提供任何额外的 ETH。
 
-See [the availability section below](#credit-availability) for details on credit balance availability.
+有关信用余额可用性的详细信息，请参阅[下面的可用性部分](#credit-availability)。
 
-## Viewing your Current Credit Balance
+## 查看您当前的信用余额
 
-To view your current credit balance, simply run the following command:
+要查看您当前的信用余额，只需运行以下命令：
 
 ```shell
 rocketpool node status
 ```
 
-This produces a comprehensive list of details about your node, including its credit balance right at the top:
+这会生成关于您节点的详细信息列表，包括顶部显示的信用余额：
 
 ```
 Your Smartnode is currently using the Zhejiang Test Network.
@@ -68,13 +68,13 @@ The node has 8.000000 ETH in its credit balance, which can be used to make new m
 ...
 ```
 
-## Credit Availability
+## 信用可用性
 
-In some situations, your node might have a credit balance available but cannot currently use it to deploy additional minipools.
+在某些情况下，您的节点可能有可用的信用余额，但目前无法使用它来部署额外的 minipool。
 
-The ETH for your credit balance is taken from the **deposit pool**.
-Thus, if you want to use 8 ETH in credit to create a new 8-ETH minipool, it will end up taking **all 32 ETH for that minipool** from the deposit pool and require none from you.
-Because of this, if the deposit pool does not have enough ETH in it to cover the pre-deposit value (currently set to 1 ETH), **the balance will not be available**.
+您的信用余额的 ETH 来自**存款池**。
+因此，如果您想使用 8 ETH 信用来创建一个新的 8-ETH minipool，最终将从存款池中取出该 minipool 的**全部 32 ETH**，而不需要您提供任何 ETH。
+因此，如果存款池中没有足够的 ETH 来覆盖预存款值（目前设置为 1 ETH），**余额将不可用**。
 
-In this situation, the Smartnode will alert you during a `rocketpool node deposit` operation that it **cannot** use your credit balance, and must instead use ETH from your node wallet to complete the bond.
-Doing so will **not** consume your credit balance; it will be left as-is and available for use later once the deposit pool has enough balance to cover it.
+在这种情况下，Smartnode 会在 `rocketpool node deposit` 操作期间提醒您**无法**使用您的信用余额，必须使用节点钱包中的 ETH 来完成质押。
+这样做**不会**消耗您的信用余额；它将保持原样，并在存款池有足够余额后可供使用。

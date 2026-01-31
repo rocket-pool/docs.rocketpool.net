@@ -1,44 +1,44 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Creating a Standard Rocket Pool Node with Docker
+# Dockerを使用した標準的なRocket Poolノードの作成
 
-In this section, we will walk through the process of installing the Rocket Pool Smartnode stack using the standard [Docker](https://www.docker.com/resources/what-container)-based setup.
-This will install and configure everything you need to run a complete node, including:
+このセクションでは、標準的な[Docker](https://www.docker.com/resources/what-container)ベースのセットアップを使用してRocket Pool Smartnodeスタックをインストールするプロセスを説明します。
+これにより、完全なノードを実行するために必要なすべてのものがインストールおよび設定されます。以下が含まれます：
 
-- The Rocket Pool **Smartnode** software
-- An **Execution** (formerly ETH1) client of your choice, or a connection to an existing client you already manage
-- A **Consensus** (formerly ETH2) client of your choice, or a connection to an existing client you already manage
-- A **Validator** client that will handle your Beacon Chain validation duties
-- (Optionally) a **monitoring stack** for capturing performance and health metrics
+- Rocket Pool **Smartnode**ソフトウェア
+- お好みの**Execution**（旧ETH1）クライアント、または既に管理している既存のクライアントへの接続
+- お好みの**Consensus**（旧ETH2）クライアント、または既に管理している既存のクライアントへの接続
+- Beacon Chainバリデーション業務を処理する**Validator**クライアント
+- （オプション）パフォーマンスとヘルスメトリクスを取得するための**監視スタック**
 
-All you need to do is tell it what you want to run!
+実行したいものを指定するだけです！
 
-::: tip NOTE
-The below instructions require you to use your system's **terminal** to enter and execute commands.
-If you are connected to the node machine via SSH, you are already doing this.
-If you are on the node machine and using a Desktop UI, you will need to open a terminal window to execute the following commands.
-Refer to your OS's instructions to learn how to do this if you are unfamiliar.
+::: tip 注意
+以下の手順では、システムの**ターミナル**を使用してコマンドを入力および実行する必要があります。
+SSHでノードマシンに接続している場合は、既にこれを行っています。
+ノードマシン上でデスクトップUIを使用している場合は、以下のコマンドを実行するためにターミナルウィンドウを開く必要があります。
+不慣れな場合は、OSの説明を参照してこれを行う方法を学んでください。
 :::
 
-## Process Overview
+## プロセス概要
 
-At a high level, here's what is involved in installing Rocket Pool:
+高レベルで見ると、Rocket Poolのインストールには以下が含まれます：
 
-1. Download the Rocket Pool command-line interface (CLI)
-1. Use the CLI to install the Smartnode stack
-1. Configure the Smartnode stack with an easy-to-use UI in the terminal
-1. Done!
+1. Rocket Poolコマンドラインインターフェース（CLI）をダウンロードする
+1. CLIを使用してSmartnodeスタックをインストールする
+1. ターミナルで使いやすいUIを使用してSmartnodeスタックを設定する
+1. 完了！
 
-## Before You Start
+## 開始する前に
 
 ::: warning
-If using Ubuntu, it is recommended that before installing Rocket Pool you double check that docker was not installed alongside the operating system.
+Ubuntuを使用している場合は、Rocket Poolをインストールする前に、dockerがオペレーティングシステムと一緒にインストールされていないことを再確認することをお勧めします。
 
-The Ubuntu installer gets docker from the snap package manager, which will conflict with the version of docker installed by Smartnode.
+Ubuntuインストーラーはsnapパッケージマネージャーからdockerを取得しますが、これはSmartnodeによってインストールされるdockerのバージョンと競合します。
 
-Run `snap list`, and make sure `docker` was not installed.
+`snap list`を実行して、`docker`がインストールされていないことを確認してください。
 
-For example, this is the output on a machine where docker is not installed:
+例えば、これはdockerがインストールされていないマシンでの出力です：
 
 ```
 Name    Version        Rev    Tracking       Publisher   Notes
@@ -47,7 +47,7 @@ lxd     5.0.2-838e1b2  24322  5.0/stable/…   canonical✓  -
 snapd   2.59.1         18933  latest/stable  canonical✓  snapd
 ```
 
-And here is the output if it was installed:
+そして、これがインストールされていた場合の出力です：
 
 ```
 Name    Version        Rev    Tracking       Publisher   Notes
@@ -57,7 +57,7 @@ lxd     5.0.2-838e1b2  24322  5.0/stable/…   canonical✓  -
 snapd   2.59.1         18933  latest/stable  canonical✓  snapd
 ```
 
-If you see it in the `snap list` output, be sure to remove it with:
+`snap list`の出力に表示される場合は、必ず以下のコマンドで削除してください：
 
 ```shell
 sudo systemctl stop snap.docker.dockerd.service
@@ -65,67 +65,67 @@ sudo systemctl stop snap.docker.dockerd.service
 sudo snap remove --purge docker
 ```
 
-After which, it is recommended that you reboot the machine (`sudo systemctl reboot`)
+その後、マシンを再起動することをお勧めします（`sudo systemctl reboot`）
 :::
 
-## Downloading the Rocket Pool CLI
+## Rocket Pool CLIのダウンロード
 
-The instructions for downloading the CLI vary based on your Operating System.
+CLIをダウンロードする手順は、オペレーティングシステムによって異なります。
 
-::: warning NOTE
-You must perform the following instructions **on the machine you will use for your Rocket Pool node.**
-If you are not using a keyboard and monitor directly connected to your node machine, you will need to access it remotely (e.g. via SSH) and run these commands on it through that remote connection.
+::: warning 注意
+以下の手順は、**Rocket Poolノードに使用するマシン上で**実行する必要があります。
+ノードマシンに直接接続されたキーボードとモニターを使用していない場合は、リモートでアクセスし（例：SSH経由）、そのリモート接続を通じてこれらのコマンドを実行する必要があります。
 :::
 
 <div className="p-3">
   <Tabs>
     <Tab label="Linux">
-      On Linux, start by creating a new folder that will hold the CLI application:
+      Linuxでは、まずCLIアプリケーションを保存する新しいフォルダを作成します：
 
       ```shell
       mkdir -p ~/bin
       ```
 
-      Next, download the CLI.
-      This depends on what architecture your system uses.
+      次に、CLIをダウンロードします。
+      これは、システムが使用するアーキテクチャによって異なります。
 
       <p className="rspress-directive tip">
-        <p className="rspress-directive-title">TIP</p>
-        If you do not know your CPU architecture, you can run the following command to find it:
+        <p className="rspress-directive-title">ヒント</p>
+        CPUアーキテクチャがわからない場合は、以下のコマンドを実行して確認できます：
 
         ```shell
         uname -m
         ```
 
-        The output of this command will print your architecture.
-        **Note that `x86_64` is the same as `x64` and `amd64`.**
-        **Note that `aarch64` is the same as `arm64`.**
+        このコマンドの出力はアーキテクチャを表示します。
+        **`x86_64`は`x64`および`amd64`と同じであることに注意してください。**
+        **`aarch64`は`arm64`と同じであることに注意してください。**
       </p>
 
-      For `x64` systems (most normal computers):
+      `x64`システムの場合（ほとんどの通常のコンピューター）：
 
       ```shell
       wget https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-amd64 -O ~/bin/rocketpool
       ```
 
-      For `arm64` systems:
+      `arm64`システムの場合：
 
       ```shell
       wget https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-arm64 -O ~/bin/rocketpool
       ```
 
-      Mark it as executable, so it has permissions to run:
+      実行可能としてマークして、実行権限を付与します：
 
       ```shell
       chmod +x ~/bin/rocketpool
       ```
 
-      Next, **log out and log back in** (or close SSH and reconnect), or simply restart.
-      This is because the path that you saved the CLI to (`~/bin`) may not be in your system's `PATH` variable (the list of places your system searches for executables) yet.
-      Logging out and back in will put it there.
+      次に、**ログアウトして再度ログイン**（またはSSHを閉じて再接続）するか、単に再起動してください。
+      これは、CLIを保存したパス（`~/bin`）がまだシステムの`PATH`変数（システムが実行可能ファイルを検索する場所のリスト）に含まれていない可能性があるためです。
+      ログアウトして再度ログインすると、そこに配置されます。
 
-      Now, test running it with the `--version` flag.
-      You should see output like this:
+      次に、`--version`フラグを使用して実行をテストします。
+      次のような出力が表示されるはずです：
 
       ```shell
       rocketpool --version
@@ -136,62 +136,62 @@ If you are not using a keyboard and monitor directly connected to your node mach
       ```
 
       <p className="rspress-directive tip">
-        <p className="rspress-directive-title">TIP</p>
-        If you see an error message like this,
+        <p className="rspress-directive-title">ヒント</p>
+        次のようなエラーメッセージが表示される場合、
 
         ```shell
         -bash: /home/user/rocketpool: cannot execute binary file: Exec format error
         ```
 
-        it means that you downloaded the wrong version above.
-        Please check if your system is **x64** or **arm64** using the command in the tip above, and download the appropriate version.
-        If your system is neither of those, then you will not be able to run Rocket Pool.
+        上記で間違ったバージョンをダウンロードしたことを意味します。
+        上記のヒントのコマンドを使用して、システムが**x64**か**arm64**かを確認し、適切なバージョンをダウンロードしてください。
+        システムがそのどちらでもない場合、Rocket Poolを実行できません。
       </p>
     </Tab>
     <Tab label="MacOS">
-      On macOS, download the CLI for your machine with the following command.
+      macOSでは、以下のコマンドでマシン用のCLIをダウンロードします。
 
       <p className="rspress-directive tip">
-        <p className="rspress-directive-title">TIP</p>
-        If you do not know your CPU architecture, you can run the following command to find it:
+        <p className="rspress-directive-title">ヒント</p>
+        CPUアーキテクチャがわからない場合は、以下のコマンドを実行して確認できます：
 
         ```shell
         uname -m
         ```
 
-        The output of this command will print your architecture.
-        **Note that `x86_64` is the same as `x64` and `amd64`.**
-        **Note that `aarch64` is the same as `arm64`.**
+        このコマンドの出力はアーキテクチャを表示します。
+        **`x86_64`は`x64`および`amd64`と同じであることに注意してください。**
+        **`aarch64`は`arm64`と同じであることに注意してください。**
       </p>
 
-      For `x64` systems (most Macs):
+      `x64`システムの場合（ほとんどのMac）：
 
       ```shell
       curl -L https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-darwin-amd64 > /usr/local/bin/rocketpool
       ```
 
-      For `arm64` systems, such as the Mac mini with M1:
+      `arm64`システムの場合、例えばM1を搭載したMac mini：
 
       ```shell
       curl -L https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-darwin-arm64 > /opt/homebrew/bin/rocketpool
       ```
 
-      For `x64` systems (most Macs):
-      Mark it as executable, so it has permissions to run:
+      `x64`システムの場合（ほとんどのMac）：
+      実行可能としてマークして、実行権限を付与します：
 
       ```shell
       chmod +x /usr/local/bin/rocketpool
       ```
 
-      For `arm64` systems, such as the Mac mini with M1:
-      Mark it as executable, so it has permissions to run:
+      `arm64`システムの場合、例えばM1を搭載したMac mini：
+      実行可能としてマークして、実行権限を付与します：
 
       ```shell
       chmod +x /opt/homebrew/bin/rocketpool
       ```
 
-      Now, test running it with the `--version` flag.
-      You should see output like this:
+      次に、`--version`フラグを使用して実行をテストします。
+      次のような出力が表示されるはずです：
 
       ```shell
       rocketpool --version
@@ -202,45 +202,45 @@ If you are not using a keyboard and monitor directly connected to your node mach
       ```
 
       <p className="rspress-directive tip">
-        <p className="rspress-directive-title">TIP</p>
-        If you see an error message like this,
+        <p className="rspress-directive-title">ヒント</p>
+        次のようなエラーメッセージが表示される場合、
 
         ```shell
         /usr/local/bin/rocketpool: Exec format error
         ```
 
-        it means that you downloaded the wrong version above.
-        Please check if your system is x64 or arm64 using the command in the tip above, and download the appropriate version.
-        If your system is neither of those, then you will not be able to run Rocket Pool.
+        上記で間違ったバージョンをダウンロードしたことを意味します。
+        上記のヒントのコマンドを使用して、システムがx64かarm64かを確認し、適切なバージョンをダウンロードしてください。
+        システムがそのどちらでもない場合、Rocket Poolを実行できません。
       </p>
     </Tab>
 
   </Tabs>
 </div>
 
-## Installing the Smartnode Stack
+## Smartnodeスタックのインストール
 
-Now that you have the CLI installed, you can deploy the Smartnode stack.
-This will prepare your system with Docker, [docker-compose](https://docs.docker.com/compose/), and load the Smartnode files so they're ready to go.
-It won't actually run anything yet; that comes later.
+CLIがインストールされたので、Smartnodeスタックをデプロイできます。
+これにより、システムにDocker、[docker-compose](https://docs.docker.com/compose/)が準備され、Smartnodeファイルが読み込まれて準備が整います。
+まだ実際には何も実行されません。それは後で行います。
 
-To deploy the Smartnode stack, you will need to run the following command on your node machine (either by logging in locally, or connecting remotely such as through SSH):
+Smartnodeスタックをデプロイするには、ノードマシンで以下のコマンドを実行する必要があります（ローカルでログインするか、SSHなどを通じてリモート接続する）：
 
 ```shell
 rocketpool service install
 ```
 
-This will grab the latest version of the Smartnode stack and set it up.
-You should see output like this (_above some release notes for the latest version which will be printed at the end_):
+これにより、Smartnodeスタックの最新バージョンが取得され、セットアップされます。
+次のような出力が表示されるはずです（_最後に印刷される最新バージョンのリリースノートの上_）：
 
 <img src="./images/rp-install-screen.png" width="100%" height="auto" />
 
-If there aren't any error messages, then the installation was successful.
-By default, it will be put into the `~/.rocketpool` directory inside of your user account's home folder.
+エラーメッセージがない場合、インストールは成功しています。
+デフォルトでは、ユーザーアカウントのホームフォルダ内の`~/.rocketpool`ディレクトリに配置されます。
 
-::: warning NOTE
-Note that the Smartnode installer cannot install `docker` and `docker-compose` on all platforms automatically.
-If you receive an error message like this during the installation:
+::: warning 注意
+Smartnodeインストーラーは、すべてのプラットフォームで`docker`と`docker-compose`を自動的にインストールできるわけではありません。
+インストール中に次のようなエラーメッセージが表示される場合：
 
 ```
 Automatic dependency installation for the Mint operating system is not supported.
@@ -249,19 +249,19 @@ Be sure to add yourself to the docker group with 'sudo usermod -aG docker $USER'
 Log out and back in, or restart your system after you run this command.
 ```
 
-Then you simply have to install those two things manually.
+その場合、これら2つを手動でインストールする必要があります。
 
-Docker provides common [install instructions here](https://docs.docker.com/engine/install/).
+Dockerは一般的な[インストール手順をここで](https://docs.docker.com/engine/install/)提供しています。
 
-Docker-compose provides common [install instructions here](https://docs.docker.com/compose/install/).
+Docker-composeは一般的な[インストール手順をここで](https://docs.docker.com/compose/install/)提供しています。
 
-Once both are installed, make sure you give your user account permission to use Docker:
+両方がインストールされたら、必ずユーザーアカウントにDockerを使用する権限を付与してください：
 
 ```shell
 sudo usermod -aG docker $USER
 ```
 
-Finally, re-run the installer with the `-d` flag to skip Docker installation:
+最後に、`-d`フラグを指定してインストーラーを再実行し、Dockerインストールをスキップします：
 
 ```shell
 rocketpool service install -d
@@ -269,26 +269,26 @@ rocketpool service install -d
 
 :::
 
-After this, **log out and back in or restart your SSH session** for the settings to take effect.
+この後、**ログアウトして再度ログイン、またはSSHセッションを再起動**して設定を有効にしてください。
 
-Once this is finished, the Smartnode stack will be ready to run.
+これが完了すると、Smartnodeスタックは実行する準備が整います。
 
-## Configuring Docker's Storage Location
+## Dockerのストレージ場所の設定
 
-By default, Docker will store all of its container data on your operating system's drive.
-In some cases, this is not what you want.
+デフォルトでは、Dockerはすべてのコンテナデータをオペレーティングシステムのドライブに保存します。
+場合によっては、これは望ましくない動作です。
 
-::: tip NOTE
-If you are fine with this default behavior, skip down to the next section.
+::: tip 注意
+このデフォルトの動作で問題ない場合は、次のセクションに進んでください。
 :::
 
-To do this, create a new file called `/etc/docker/daemon.json` as the root user:
+これを行うには、rootユーザーとして`/etc/docker/daemon.json`という新しいファイルを作成します：
 
 ```shell
 sudo nano /etc/docker/daemon.json
 ```
 
-This will be empty at first, which is fine. Add this as the contents:
+これは最初は空ですが、問題ありません。内容として以下を追加します：
 
 ```json
 {
@@ -296,25 +296,25 @@ This will be empty at first, which is fine. Add this as the contents:
 }
 ```
 
-where `<your external mount point>` is the directory that your other drive is mounted to.
+ここで、`<your external mount point>`は他のドライブがマウントされているディレクトリです。
 
-Press `Ctrl+O, Enter` to save the file, and `Ctrl+X, Enter` to exit the editor.
+`Ctrl+O、Enter`を押してファイルを保存し、`Ctrl+X、Enter`を押してエディタを終了します。
 
-Next, make the folder:
+次に、フォルダを作成します：
 
 ```shell
 sudo mkdir -p <your external mount point>/docker
 ```
 
-Now, restart the docker daemon so it picks up on the changes:
+次に、dockerデーモンを再起動して変更を適用します：
 
 ```shell
 sudo systemctl restart docker
 ```
 
-After that, Docker will store its data on your desired disk.
+その後、Dockerは希望するディスクにデータを保存します。
 
-## Configuring the Smartnode Stack
+## Smartnodeスタックの設定
 
-The next step in the installation process is to do an initial configuration of your node.
-Move on to the [Configuring Rocketpool](./config/overview) section for a walkthrough of this process.
+インストールプロセスの次のステップは、ノードの初期設定を行うことです。
+このプロセスのウォークスルーについては、[Rocketpoolの設定](./config/overview)セクションに進んでください。

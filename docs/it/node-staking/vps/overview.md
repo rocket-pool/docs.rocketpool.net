@@ -1,19 +1,19 @@
 ---
 next:
-  text: Selecting a Hosting Provider
-  link: "/en/node-staking/vps/providers"
+  text: Selezione di un provider di hosting
+  link: "/it/node-staking/vps/providers"
 ---
 
-# Overview
+# Panoramica
 
-This section is aimed at helping you understand the process of preparing a virtual private server or virtual machine hosted on the cloud as a Rocket Pool node.
+Questa sezione è rivolta ad aiutarti a comprendere il processo di preparazione di un server privato virtuale o macchina virtuale ospitata sul cloud come nodo Rocket Pool.
 
-## Guides
+## Guide
 
-[Selecting a Hosting Provider](./providers) shows several examples of popular hosting providers that other Rocket Pool node operators use to run nodes in the cloud.
+[Selezione di un provider di hosting](./providers) mostra diversi esempi di provider di hosting popolari che altri operatori di nodi Rocket Pool utilizzano per eseguire nodi sul cloud.
 
-[Preparing the Operating System](./os) walks you through the basic steps of installing and configuring the base Operating System on your machine to prepare it for life as a node.
+[Preparazione del sistema operativo](./os) ti accompagna attraverso i passaggi di base dell'installazione e configurazione del sistema operativo di base sulla tua macchina per prepararla alla vita come nodo.
 
-::: tip NOTE
-Note that you will need to use a remote service like SSH to use your machine; consult the [**Intro to Secure Shell (SSH)**](../ssh) guide if you need a tutorial on how to do this.
+::: tip NOTA
+Nota che dovrai utilizzare un servizio remoto come SSH per utilizzare la tua macchina; consulta la guida [**Introduzione a Secure Shell (SSH)**](../ssh) se hai bisogno di un tutorial su come farlo.
 :::

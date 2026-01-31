@@ -1,134 +1,134 @@
 # Selecting Staking Hardware
 
-There are no official specifications for running a Rocket Pool node.
-This page offers some guidelines and examples that you can use to select staking hardware.
+Rocket Pool 노드를 실행하기 위한 공식 사양은 없습니다.
+이 페이지는 staking 하드웨어를 선택하는 데 사용할 수 있는 몇 가지 가이드라인과 예시를 제공합니다.
 
-The minimum hardware requirements of your node will depend on the Consensus and Execution clients that you choose.
-If, for example, you intend to run your node on a low powered device, you may be limited to using `Geth` as your Execution client and `Nimbus` as your Consensus client.
-If you're using a more powerful NUC with 32+ GB of RAM, all client combinations are open to you.
+노드의 최소 하드웨어 요구사항은 선택하는 Consensus 및 Execution 클라이언트에 따라 달라집니다.
+예를 들어 저전력 장치에서 노드를 실행하려는 경우 Execution 클라이언트로 `Geth`를, Consensus 클라이언트로 `Nimbus`를 사용하는 것으로 제한될 수 있습니다.
+32GB 이상의 RAM을 갖춘 더 강력한 NUC를 사용하는 경우 모든 클라이언트 조합을 선택할 수 있습니다.
 
-The guidelines below assume you want a **comfortable** level of hardware, meaning you have excess capacity.
-If you keep these guidelines in mind, your node will have plenty of resources to run any of the Rocket Pool supported client combinations.
-This will allow you to choose a `random` client pair, which is very important for client diversity on the Ethereum network.
+아래 가이드라인은 **여유 있는** 하드웨어 수준을 원한다고 가정합니다. 즉, 여유 용량이 있다는 의미입니다.
+이러한 가이드라인을 염두에 두면 노드는 Rocket Pool이 지원하는 모든 클라이언트 조합을 실행할 수 있는 충분한 리소스를 갖게 됩니다.
+이를 통해 `random` 클라이언트 쌍을 선택할 수 있으며, 이는 Ethereum 네트워크의 클라이언트 다양성에 매우 중요합니다.
 
 ::: tip NOTE
-Ethereum staking is very forgiving.
-If your house is flooded and your staking device is fried, there is no big penalty for taking a week to get back up and running (unless you happen to be in a sync committee, which is a very rare event).
-Component failure might happen at some point, but don't stress about it.
-Downtime does not get you slashed unless you are offline during a major outage of the entire Ethereum network.
+Ethereum staking은 매우 관대합니다.
+집이 침수되어 staking 장치가 고장 나더라도 다시 실행하는 데 일주일이 걸린다고 해도 큰 페널티는 없습니다(동기화 위원회에 속해 있지 않는 한, 이는 매우 드문 이벤트입니다).
+구성 요소 고장은 어느 시점에 발생할 수 있지만 스트레스 받지 마십시오.
+다운타임은 전체 Ethereum 네트워크의 주요 중단 중에 오프라인 상태가 아니면 슬래싱되지 않습니다.
 :::
 
 ## Hardware Requirements
 
-Ethereum validators are not very computationally expensive, which is to say that once your Execution and Consensus clients are running, any additional validator will use **a very small amount of additional resources**.
-This grows up to 64 validators, at which point the resources required for adding a 65th validator and beyond are negligible.
+Ethereum validator는 계산 집약적이지 않습니다. 즉, Execution 및 Consensus 클라이언트가 실행되면 추가 validator는 **매우 적은 양의 추가 리소스**를 사용합니다.
+이는 64개의 validator까지 증가하며, 그 시점에서 65번째 validator 이상을 추가하는 데 필요한 리소스는 무시할 수 있습니다.
 
-In our experience, most setups, including mini-PCs and NUCs, are capable of running an effectively unlimited number of validators.
+우리의 경험상 미니 PC 및 NUC를 포함한 대부분의 설정은 사실상 무제한의 validator를 실행할 수 있습니다.
 
 ### CPU Requirements
 
-**Guideline: any modern CPU with at least 4 threads.**
+**가이드라인: 최소 4개의 스레드를 가진 최신 CPU.**
 
-Running a Rocket Pool node is not very computationally intensive.
-The biggest impact of the CPU is how fast your node can initially sync the state of the blockchain when you first create it (or if you ever change clients later).
-After the initial sync, the CPU is not used as heavily.
+Rocket Pool 노드 실행은 계산 집약적이지 않습니다.
+CPU의 가장 큰 영향은 노드를 처음 생성할 때(또는 나중에 클라이언트를 변경하는 경우) 블록체인 상태를 초기 동기화하는 속도입니다.
+초기 동기화 후에는 CPU가 많이 사용되지 않습니다.
 
-CPU naming can be deceptive; an Intel Core i5 from 2010 is usually **less powerful** than a core i3 from 2022.
-Many community members use Intel NUC devices because of their small form factor, but an old i5 NUC may be a worse choice than a new i3.
-For this reason, we recommend using a "modern" CPU that is, at most, a few years old.
-More specifically, **for x64-based CPUs**, we recommend a CPU that supports the [BMI2](<https://en.wikipedia.org/wiki/X86_Bit_manipulation_instruction_set#BMI2_(Bit_Manipulation_Instruction_Set_2)>) extension - check the manufacturer's specs for your CPU to see if it is supported.
-Not all modern CPUs support this; for example, Celeron CPUs tend not to include it.
+CPU 명명은 오해의 소지가 있을 수 있습니다. 2010년의 Intel Core i5는 일반적으로 2022년의 core i3보다 **성능이 낮습니다**.
+많은 커뮤니티 구성원들은 작은 폼 팩터 때문에 Intel NUC 장치를 사용하지만, 오래된 i5 NUC는 새 i3보다 나쁜 선택일 수 있습니다.
+이러한 이유로 기껏해야 몇 년 된 "최신" CPU를 사용하는 것이 좋습니다.
+더 구체적으로 **x64 기반 CPU의 경우** [BMI2](<https://en.wikipedia.org/wiki/X86_Bit_manipulation_instruction_set#BMI2_(Bit_Manipulation_Instruction_Set_2)>) 확장을 지원하는 CPU를 권장합니다. CPU 제조업체 사양을 확인하여 지원되는지 확인하십시오.
+모든 최신 CPU가 이를 지원하는 것은 아닙니다. 예를 들어 Celeron CPU는 포함하지 않는 경향이 있습니다.
 
-ARM-based CPUs (such as the Mac M1 or M2, or the Rock 5B) do not apply to the BMI2 extension above.
+ARM 기반 CPU(Mac M1 또는 M2, Rock 5B 등)는 위의 BMI2 확장에 적용되지 않습니다.
 
 ::: tip NOTE
-If you are interested in using a NUC, you can tell how modern the NUC is by its model number.
-They are formatted as `NUC` + `generation number` + `model` + `CPU type` + `suffix`.
-For example, a `NUC11PAHi50Z` unit is a 11th generation i5 unit.
-You can see a list of NUCs [here](https://www.intel.com/content/www/us/en/products/details/nuc/kits/products.html) on the Intel website.
+NUC를 사용하는 데 관심이 있는 경우 모델 번호로 NUC가 얼마나 최신인지 알 수 있습니다.
+`NUC` + `세대 번호` + `모델` + `CPU 유형` + `접미사` 형식입니다.
+예를 들어 `NUC11PAHi50Z` 장치는 11세대 i5 장치입니다.
+Intel 웹사이트에서 NUC 목록을 [여기](https://www.intel.com/content/www/us/en/products/details/nuc/kits/products.html)에서 볼 수 있습니다.
 
-Other mini-PCs, such as the Asus PN50 or PN51, do not follow this convention but information about which CPU is used by them should be included in their product pages.
+Asus PN50 또는 PN51과 같은 다른 미니 PC는 이 규칙을 따르지 않지만 사용하는 CPU에 대한 정보는 제품 페이지에 포함되어야 합니다.
 :::
 
-The amount of cores on a CPU is less relevant than its **number of threads**.
-We recommend a **minimum of 4 threads** for Rocket Pool node operation.
-A 2 core CPU with 4 threads will work without issue.
-It is rare to find a CPU with only 2 threads.
+CPU의 코어 수는 **스레드 수**보다 덜 관련이 있습니다.
+Rocket Pool 노드 운영을 위해 **최소 4개의 스레드**를 권장합니다.
+4개의 스레드를 가진 2코어 CPU는 문제없이 작동합니다.
+2개의 스레드만 있는 CPU를 찾는 것은 드뭅니다.
 
 ### RAM Requirements
 
-**Guideline: at least 16 GB of RAM, 32 GB preferred, DDR4 preferred**
+**가이드라인: 최소 16GB RAM, 32GB 권장, DDR4 권장**
 
-Rocket Pool nodes can operate with as little as 16 GB of RAM.
-We generally recommend having slightly more to offer some headroom and full support for RAM-heavy clients such as Teku.
-An added benefit of more RAM is that you can provide a larger cache size to Execution client, which tends to slow the rate of your disk space usage.
+Rocket Pool 노드는 16GB RAM만으로도 작동할 수 있습니다.
+일반적으로 약간 더 많은 여유 공간을 제공하고 Teku와 같은 RAM 집약적인 클라이언트를 완전히 지원하기 위해 약간 더 많은 것을 권장합니다.
+더 많은 RAM의 추가 이점은 Execution 클라이언트에 더 큰 캐시 크기를 제공할 수 있다는 것입니다. 이는 디스크 공간 사용 속도를 늦추는 경향이 있습니다.
 
 ### SSD Requirements
 
-**Guideline: a 2+ TB SSD that has TLC or better, with a DRAM cache. NVMe preferred.**
+**가이드라인: TLC 이상의 2TB 이상 SSD, DRAM 캐시 포함. NVMe 권장.**
 
-This element is more important than most people expect.
-The Execution client relies heavily on IOPS, or "operations per second"; we recommend 15k Read IOPS, and 5k Write IOPS
-In practice, this means that:
+이 요소는 대부분의 사람들이 예상하는 것보다 더 중요합니다.
+Execution 클라이언트는 IOPS 또는 "초당 작업 수"에 크게 의존합니다. 15k Read IOPS 및 5k Write IOPS를 권장합니다.
+실제로 이것은 다음을 의미합니다:
 
-- HDD (spinning platter) drives will not work
-- SATA or external USB 3.0+ SSDs _can_ work
-- NVMe SSD drives are preferred
+- HDD(회전 플래터) 드라이브는 작동하지 않습니다
+- SATA 또는 외장 USB 3.0+ SSD는 _작동할 수 있습니다_
+- NVMe SSD 드라이브가 권장됩니다
 
-If you already have an SSD you want to use and want to be sure it has sufficient performance for node operation.
+이미 사용하려는 SSD가 있고 노드 운영에 충분한 성능이 있는지 확인하고 싶은 경우.
 
-_\* If you are unsure if your disk meets these performance requirements, `fio` is a good way to test them.
-See [here](https://arstech.net/how-to-measure-disk-performance-iops-with-fio-in-linux/) for Linux instructions,
-and [here](https://www.nivas.hr/blog/2017/09/19/measuring-disk-io-performance-macos/) for MacOS instructions._
+_\* 디스크가 이러한 성능 요구 사항을 충족하는지 확실하지 않은 경우 `fio`가 테스트하는 좋은 방법입니다.
+Linux 지침은 [여기](https://arstech.net/how-to-measure-disk-performance-iops-with-fio-in-linux/)를,
+MacOS 지침은 [여기](https://www.nivas.hr/blog/2017/09/19/measuring-disk-io-performance-macos/)를 참조하십시오._
 
 :::tip NOTE
-SSD selection can be a complex choice!
+SSD 선택은 복잡한 선택이 될 수 있습니다!
 
-The method SSDs use to store data on their flash chips has a noticeable impact on speed and longevity.
-When shopping for an SSD you might notice labels like `QLC`, `TLC` or `SLC`.
-These stand for the amount of data contained within a single cell of the flash chip: `Q` for "quad" means 4, `T` for "triple" means 3, `M` for "multi" means 2, and `S` for "single" means 1.
+SSD가 플래시 칩에 데이터를 저장하는 데 사용하는 방법은 속도와 수명에 눈에 띄는 영향을 미칩니다.
+SSD를 쇼핑할 때 `QLC`, `TLC` 또는 `SLC`와 같은 레이블을 볼 수 있습니다.
+이는 플래시 칩의 단일 셀에 포함된 데이터의 양을 나타냅니다: "쿼드"의 경우 `Q`는 4를, "트리플"의 경우 `T`는 3을, "멀티"의 경우 `M`은 2를, "싱글"의 경우 `S`는 1을 의미합니다.
 
-We recommend **TLC, MLC, or SLC** drives.
-We **do not recommend QLC drives** due to their slower performance and lower total reliability.
+**TLC, MLC 또는 SLC** 드라이브를 권장합니다.
+성능이 느리고 전체 안정성이 낮기 때문에 **QLC 드라이브는 권장하지 않습니다**.
 
-SSDs come with or without DRAM, which is a hardware element that makes accessing data on the SSD more efficient.
-Those with DRAM are faster but those without DRAM are cheaper.
-However, DRAM is quite important for providing smooth node operation.
+SSD는 DRAM이 있거나 없이 제공되며, 이는 SSD의 데이터에 더 효율적으로 액세스할 수 있게 하는 하드웨어 요소입니다.
+DRAM이 있는 것은 더 빠르지만 DRAM이 없는 것은 더 저렴합니다.
+그러나 DRAM은 원활한 노드 운영을 제공하는 데 매우 중요합니다.
 
-We recommend a drive with a **DRAM** cache.
-We **do not recommend DRAM-less drives**.
+**DRAM** 캐시가 있는 드라이브를 권장합니다.
+**DRAM이 없는 드라이브는 권장하지 않습니다**.
 :::
 
-The final consideration is drive size.
-As of 10/2024, the `geth` execution client database size requires about 1.2TB of space after it finishes its initial sync (or after you just finished pruning it).
-This will grow steadily over time, and while pruning can regain some of that space, the freshly pruned state _does_ grow over time.
-You will have peace of mind with a larger drive.
+최종 고려 사항은 드라이브 크기입니다.
+2024년 10월 현재 `geth` execution 클라이언트 데이터베이스 크기는 초기 동기화를 완료한 후(또는 방금 정리를 완료한 후) 약 1.2TB의 공간이 필요합니다.
+이것은 시간이 지남에 따라 꾸준히 증가하며, 정리를 통해 일부 공간을 되찾을 수 있지만 새로 정리된 상태는 시간이 지남에 따라 _증가합니다_.
+더 큰 드라이브로 마음의 평화를 얻을 수 있습니다.
 
 ### Common Accessories
 
-Many node operators improve their setups beyond the minimum requirements.
-Some common additions include:
+많은 노드 운영자들은 최소 요구 사항을 넘어서 설정을 개선합니다.
+일부 일반적인 추가 사항은 다음과 같습니다:
 
-- SSD heatsinks to extend the drive lifespan
-- Uninterruptable power supplies (UPS) in case of power outages
-- A fallback node to have a backup in case something fails
+- 드라이브 수명을 연장하기 위한 SSD 히트싱크
+- 정전 시를 대비한 무정전 전원 공급 장치(UPS)
+- 무언가 고장 날 경우를 대비한 백업 노드
 
-These are all convenient to have, but not required to run a Rocket Pool node.
+이러한 모든 것은 편리하지만 Rocket Pool 노드를 실행하는 데 필요하지는 않습니다.
 
 ## Example Setups
 
-In this section, we'll showcase a few of the varied builds that Rocket Pool's community has created for themselves.
-They are examples of what people are using, not recommendations for how you should run your setup.
-Note that many are somewhat outdated and, eg, use SSDs that are now too small.
+이 섹션에서는 Rocket Pool 커뮤니티가 직접 만든 다양한 빌드 중 몇 가지를 보여드리겠습니다.
+이는 사람들이 사용하고 있는 예시이며 설정을 실행하는 방법에 대한 권장 사항이 아닙니다.
+많은 것이 다소 구식이며 예를 들어 현재 너무 작은 SSD를 사용합니다.
 
 ### Xer0's Server
 
 ![](./images/Xer0.jpg)
 
-Discord user **Xer0** is among the many stakers that opted to go with a conventional PC form factor for their staking machine.
-They wanted to build a rig that would last for years and years to come with minimal maintenance and upgrading required, while still offering complete customization of every component.
-To that end, Xer0 devised and built a full ATX server - much like a traditional desktop PC, but targeted exclusively at staking on Ethereum.
-Their setup includes a six-core Xeon Bronze 3204 (1.9 GHz), 8 DDR4 slots, and an M.2 slot... though since this is essentially a home server build, the exact components are completely up to the end user.
+Discord 사용자 **Xer0**는 staking 기기로 기존 PC 폼 팩터를 선택한 많은 staker 중 한 명입니다.
+그들은 최소한의 유지 관리와 업그레이드가 필요하면서도 모든 구성 요소의 완전한 사용자 지정을 제공하면서 수년 동안 지속될 장비를 구축하고 싶었습니다.
+이를 위해 Xer0는 전통적인 데스크톱 PC와 매우 유사하지만 Ethereum에서의 staking을 전적으로 목표로 하는 전체 ATX 서버를 고안하고 구축했습니다.
+그들의 설정에는 6코어 Xeon Bronze 3204(1.9GHz), 8개의 DDR4 슬롯 및 M.2 슬롯이 포함됩니다... 하지만 이것은 본질적으로 홈 서버 빌드이므로 정확한 구성 요소는 최종 사용자에게 달려 있습니다.
 
 Xer0's setup:
 
@@ -155,11 +155,11 @@ _Obviously there is no need to build a monstrosity for simply staking on the Eth
 
 ![](./images/Darcius.jpg)
 
-Rocket Pool's founder David Rugendyke (known on Discord as **darcius**) spent a long time perfecting his node.
-After some debate, he built a Mini-ITX that's small and portable, but still packs an enormous amount of processing power.
-His rig includes an 8-core Ryzen 7 5800x (3.8 GHz), two DDR4 slots, and two M.2 slots for NVMe SSDs.
-It is truly one of the most high-performance rigs of the Rocket Pool nodes, but with good reason: darcius runs a special type of Rocket Pool node called an Oracle Node, which relays information from the Beacon chain back to the Execution chain about all of the Rocket Pool validators.
-With thousands of Rocket Pool minipools active to watch, that job takes a lot of horsepower... but his shelf rig is easily up to the task.
+Rocket Pool의 설립자 David Rugendyke(Discord에서 **darcius**로 알려짐)는 노드를 완벽하게 만드는 데 오랜 시간을 보냈습니다.
+약간의 논의 끝에 그는 작고 휴대 가능하지만 엄청난 양의 처리 능력을 제공하는 Mini-ITX를 구축했습니다.
+그의 장비에는 8코어 Ryzen 7 5800x(3.8GHz), 2개의 DDR4 슬롯 및 NVMe SSD용 2개의 M.2 슬롯이 포함됩니다.
+이것은 정말로 Rocket Pool 노드 중 가장 고성능 장비 중 하나이지만 정당한 이유가 있습니다: darcius는 모든 Rocket Pool validator에 대해 Beacon 체인에서 Execution 체인으로 정보를 중계하는 Oracle Node라는 특별한 유형의 Rocket Pool 노드를 실행합니다.
+수천 개의 Rocket Pool minipool이 활성화되어 있어 지켜봐야 할 작업에는 많은 성능이 필요합니다... 하지만 그의 선반 장비는 작업을 쉽게 수행할 수 있습니다.
 
 Darcius's setup:
 
@@ -175,12 +175,12 @@ Darcius's setup:
 
 ![](./images/Yorick-stock.jpg)
 
-Veteran hardware enthusiast **YorickDowne** has a lot of experience building and maintaining servers.
-Using that knowledge, he has settled on a flexible microATX setup.
-His machine is considerably smaller than a typical PC, but still manages to fit in server-grade technology that maximizes resilience and uptime - key metrics when running a Rocket Pool node.
-He has recommendations for both Intel and AMD setups, which you can find [on his website](https://eth-docker.net/docs/Usage/Hardware).
-The Intel version uses a quad core i3-9100F (3.6 GHz) or a Xeon CPU, and the AMD version suggests any Ryzen CPU that supports ECC memory.
-For both configurations, he suggests 16 GB of ECC RAM, and a 1 TB NVMe SSD.
+베테랑 하드웨어 애호가 **YorickDowne**는 서버 구축 및 유지 관리에 대한 많은 경험을 가지고 있습니다.
+그 지식을 사용하여 그는 유연한 microATX 설정에 정착했습니다.
+그의 기기는 일반적인 PC보다 훨씬 작지만 Rocket Pool 노드를 실행할 때 핵심 지표인 복원력과 가동 시간을 최대화하는 서버급 기술을 장착하고 있습니다.
+그는 Intel 및 AMD 설정 모두에 대한 권장 사항을 가지고 있으며 [그의 웹사이트](https://eth-docker.net/docs/Usage/Hardware)에서 찾을 수 있습니다.
+Intel 버전은 쿼드 코어 i3-9100F(3.6GHz) 또는 Xeon CPU를 사용하고 AMD 버전은 ECC 메모리를 지원하는 모든 Ryzen CPU를 제안합니다.
+두 구성 모두에 대해 그는 16GB ECC RAM과 1TB NVMe SSD를 제안합니다.
 
 Yorick's Setup:
 
@@ -205,12 +205,12 @@ Here are Yorick's comments on why he chose this setup:
 
 ![](./images/Drez.jpg)
 
-Sometimes, shelling out for new hardware just doesn't make sense.
-In Discord user **Drez**'s case, running a Rocket Pool node is one of those times.
-Drez happened to have a spare laptop lying around, and they turned it into a node with ease.
-Their machine comes with a quad core i7-4710HQ (2.5 GHz), two DDR3 slots, and a 2.5" SATA slot.
-Being a laptop, it also comes with its own battery (which offsets the need for a UPS).
-They added some additional upgrades over time, giving the laptop even more power for extra peace of mind.
+때로는 새 하드웨어에 돈을 쓰는 것이 의미가 없습니다.
+Discord 사용자 **Drez**의 경우 Rocket Pool 노드를 실행하는 것이 그러한 경우 중 하나입니다.
+Drez는 우연히 여분의 노트북이 있었고 쉽게 노드로 바꿨습니다.
+그들의 기기에는 쿼드 코어 i7-4710HQ(2.5GHz), 2개의 DDR3 슬롯 및 2.5" SATA 슬롯이 포함됩니다.
+노트북이기 때문에 자체 배터리도 함께 제공됩니다(UPS의 필요성을 상쇄합니다).
+그들은 시간이 지남에 따라 추가 업그레이드를 추가하여 노트북에 추가 성능을 제공하여 마음의 평화를 얻었습니다.
 
 Drez's setup:
 
@@ -227,47 +227,47 @@ In case of overheating i bought a laptop cooling pad and spare CPU cooler just i
 
 ## NUCs (Next Unit of Computing) and Mini-PCs
 
-Running a Rocket Pool node doesn't necessarily require a complete build-it-yourself desktop.
-In fact, one of the most popular setups among stakers is the illustrious NUC.
-A NUC (Next Unit of Computing) is essentially a small, self-contained computer that is designed around very low power usage and maximum efficiency.
-NUCs are great for most stakers that only run a few validators because of their low maintenance, low monthly running costs, and ease of setup.
-Unlike PCs, NUCs come preassembled in a case; all you need to do is add some RAM, add an SSD, and you're up and running!
-Below are a few examples of NUC setups that some Rocket Pool veterans use and recommend.
+Rocket Pool 노드를 실행하는 데 반드시 완전한 DIY 데스크톱이 필요한 것은 아닙니다.
+사실, staker들 사이에서 가장 인기 있는 설정 중 하나는 뛰어난 NUC입니다.
+NUC(Next Unit of Computing)는 본질적으로 매우 낮은 전력 사용과 최대 효율성을 중심으로 설계된 작고 독립적인 컴퓨터입니다.
+NUC는 유지 관리가 적고 월간 실행 비용이 낮으며 설정이 쉽기 때문에 몇 개의 validator만 실행하는 대부분의 staker에게 훌륭합니다.
+PC와 달리 NUC는 케이스에 사전 조립되어 제공됩니다. RAM을 추가하고 SSD를 추가하기만 하면 실행할 수 있습니다!
+다음은 일부 Rocket Pool 베테랑들이 사용하고 권장하는 NUC 설정의 몇 가지 예입니다.
 
 ::: tip NOTE
 **Ethernet Adaptor Compatibility**
 
-If you're planning to buy an Intel® NUC 11th or 12th Generation you can encounter connectivity issues with the ethernet adaptor, specifically if the adaptor is identified as **I225-LM** (Check intel especifications before buying).
-If you already have one, there are steps you can take to address this concern.
-The I225-LM adaptor has been associated with certain compatibility challenges that may lead to **system freezes** and unexpected kernel behavior, particularly when using Linux kernels.
+Intel® NUC 11세대 또는 12세대를 구매할 계획이라면 이더넷 어댑터와 연결 문제가 발생할 수 있습니다. 특히 어댑터가 **I225-LM**으로 식별되는 경우입니다(구매하기 전에 Intel 사양을 확인하십시오).
+이미 가지고 있다면 이 문제를 해결하기 위해 취할 수 있는 조치가 있습니다.
+I225-LM 어댑터는 특히 Linux 커널을 사용할 때 **시스템 정지** 및 예기치 않은 커널 동작으로 이어질 수 있는 특정 호환성 문제와 관련이 있습니다.
 
-To determine if your NUC employs the problematic I225-LM ethernet adaptor, you can use the following command in the terminal:
+NUC가 문제가 있는 I225-LM 이더넷 어댑터를 사용하는지 확인하려면 터미널에서 다음 명령을 사용할 수 있습니다:
 
 ```shell
 sudo lshw -class network | grep 225
 ```
 
-If the output confirms the presence of the I225-LM adaptor, you might experience the mentioned issues. However, there are _remedies_ you can apply to mitigate these problems:
+출력이 I225-LM 어댑터의 존재를 확인하면 언급된 문제가 발생할 수 있습니다. 그러나 이러한 문제를 완화하기 위해 적용할 수 있는 _해결책_이 있습니다:
 
-**USB-C to Ethernet Adaptor**: A viable solution involves acquiring a USB-C to Ethernet adaptor and connecting your internet cable through this external adaptor. While this approach requires additional hardware and configuration, it has proven effective in resolving the compatibility conflicts. This allows you to utilize the latest available Linux kernels without encountering the freezing or kernel-related anomalies associated with the I225-LM adaptor.**This is the recommended solution (for now) if you already have one NUC with the I225-LM** _Keep in mind that opting for an adaptor may introduce a trade-off in terms of potential latency or reduced internet velocity. To mitigate this impact, it's advisable to select an adaptor with at least 1GB/s portability, thereby helping maintain optimal data transfer rates._
+**USB-C to Ethernet Adaptor**: 실행 가능한 솔루션은 USB-C to Ethernet 어댑터를 구입하고 이 외부 어댑터를 통해 인터넷 케이블을 연결하는 것입니다. 이 접근 방식에는 추가 하드웨어 및 구성이 필요하지만 호환성 충돌을 해결하는 데 효과적인 것으로 입증되었습니다. 이를 통해 I225-LM 어댑터와 관련된 정지 또는 커널 관련 이상 현상이 발생하지 않고 사용 가능한 최신 Linux 커널을 활용할 수 있습니다.**이것은 I225-LM이 있는 NUC가 이미 있는 경우 권장되는 솔루션입니다(현재로서는)** _어댑터를 선택하면 잠재적인 대기 시간 또는 인터넷 속도 감소 측면에서 트레이드오프가 발생할 수 있다는 점을 명심하십시오. 이 영향을 완화하려면 최소 1GB/s 이식성이 있는 어댑터를 선택하여 최적의 데이터 전송 속도를 유지하는 것이 좋습니다._
 
-**Driver and Software Updates**: Consider updating your drivers, firmware, and BIOS by referring to the official Intel® support page for your NUC model [here](https://www.intel.com/content/www/us/en/search.html?ws=text#sort=relevancy&f:@tabfilter=[Downloads). This might include using the latest available support driver from Intel's website or applying BIOS updates that address compatibility concerns.
+**Driver and Software Updates**: NUC 모델의 공식 Intel® 지원 페이지를 참조하여 드라이버, 펌웨어 및 BIOS를 업데이트하는 것을 고려하십시오[여기](https://www.intel.com/content/www/us/en/search.html?ws=text#sort=relevancy&f:@tabfilter=[Downloads). 여기에는 Intel 웹사이트의 최신 사용 가능한 지원 드라이버를 사용하거나 호환성 문제를 해결하는 BIOS 업데이트를 적용하는 것이 포함될 수 있습니다.
 
-**Intel's Patch (Windows)**: Intel has released a patch to address a similar issue on Windows systems. While the patch itself **may not directly apply to Linux environments**, it highlights the recognition of the problem by Intel and their efforts to provide solutions. You can find more details about the patch in this [link](https://www.intel.com/content/www/us/en/download/705968/patch-for-a-modern-standby-lan-issue-on-intel-nuc-11th-12th-generation-products.html?wapkw=nuc11tnhi3).
+**Intel's Patch (Windows)**: Intel은 Windows 시스템에서 유사한 문제를 해결하기 위해 패치를 발표했습니다. 패치 자체가 **Linux 환경에 직접 적용되지 않을 수 있지만** Intel이 문제를 인식하고 솔루션을 제공하려는 노력을 강조합니다. 이 [링크](https://www.intel.com/content/www/us/en/download/705968/patch-for-a-modern-standby-lan-issue-on-intel-nuc-11th-12th-generation-products.html?wapkw=nuc11tnhi3)에서 패치에 대한 자세한 내용을 찾을 수 있습니다.
 
-Keep in mind that technology evolves, and solutions might change over time. Always stay updated with the latest resources provided by Intel for your specific NUC model on their official Downloads [page](https://www.intel.com/content/www/us/en/search.html?ws=text#sort=relevancy&f:@tabfilter=[Downloads]).
+기술은 진화하며 솔루션은 시간이 지남에 따라 변경될 수 있습니다. 항상 공식 다운로드 [페이지](https://www.intel.com/content/www/us/en/search.html?ws=text#sort=relevancy&f:@tabfilter=[Downloads])에서 특정 NUC 모델에 대해 Intel이 제공하는 최신 리소스로 업데이트하십시오.
 
-By following these steps, you can address the compatibility challenges associated with the I225-LM ethernet adaptor on Intel® NUC 11th and 12th Generation Products, ensuring a smoother and more reliable experience with your server deployment. _While a subset of NUC users with this adaptor have reported experiencing no issues, it's important to note that the **majority of users**, particularly after a kernel upgrade, have encountered problems. Notably, the 5.15.+ kernels have proven to be the most stable option for those using the I225-LM adaptor. If the idea of using a USB-C adaptor isn't appealing and you're willing to take the risk of potential random freezes, it's advisable to **remain on a kernel version that has demonstrated greater stability**._
+이러한 단계를 따르면 Intel® NUC 11세대 및 12세대 제품의 I225-LM 이더넷 어댑터와 관련된 호환성 문제를 해결하여 서버 배포로 더 원활하고 안정적인 경험을 보장할 수 있습니다. _이 어댑터를 사용하는 NUC 사용자의 일부는 문제가 없다고 보고했지만 커널 업그레이드 후 특히 **대다수 사용자**가 문제를 겪었다는 점에 유의하는 것이 중요합니다. 특히 5.15.+ 커널은 I225-LM 어댑터를 사용하는 사람들에게 가장 안정적인 옵션으로 입증되었습니다. USB-C 어댑터를 사용하는 아이디어가 매력적이지 않고 잠재적인 무작위 정지의 위험을 감수할 의향이 있다면 **더 큰 안정성을 보여준 커널 버전에 남아 있는 것이 좋습니다**._
 :::
 
 ### Ken's NUC8i5BEK
 
 ![](./images/Ken.jpg)
 
-The NUC8i5BEK is one of Intel's own NUCs with an 8th-generation processor.
-Released in 2018, this model comes with a quad-core i5-8259U CPU (2.30 GHz), two DDR4 slots, an M.2 slot for SSDs, and USB 3.1 ports.
-It normally draws about 20 watts, but Discord user **Ken** has been able to optimize it down to 9 watts during normal validation.
-It is more than capable of handling any Execution and any Consensus client, making it an excellent choice for a lightweight, efficient node machine.
+NUC8i5BEK는 8세대 프로세서를 탑재한 Intel 자체 NUC 중 하나입니다.
+2018년에 출시된 이 모델에는 쿼드 코어 i5-8259U CPU(2.30GHz), 2개의 DDR4 슬롯, SSD용 M.2 슬롯 및 USB 3.1 포트가 포함됩니다.
+일반적으로 약 20와트를 소비하지만 Discord 사용자 **Ken**은 일반 검증 중에 9와트로 최적화할 수 있었습니다.
+모든 Execution 및 모든 Consensus 클라이언트를 처리할 수 있으므로 가볍고 효율적인 노드 기기에 탁월한 선택입니다.
 
 Ken's Setup:
 
@@ -281,20 +281,20 @@ Here are Ken's comments on why he chose this setup:
 
 - _Small size and footprint, the power supply is a brick on the power cord (like a laptop), single-board computer, x86 architecture, low purchase price point, low power consumption (~10W), 3-year warranty, and an active manufacture product line (Intel)._
 - _8th generations are plenty fast and at a lower price point than the latest generation chips._
-- _I upgraded to a fan-less (passively cooled) case, so the NUC is absolutely silent (0 dB) as I’m leaving it my home office (a stock NUC is near silent already)._
+- _I upgraded to a fan-less (passively cooled) case, so the NUC is absolutely silent (0 dB) as I'm leaving it my home office (a stock NUC is near silent already)._
 - _Plus no mechanical wear on the fan bearings._
-- _Resale or re-purpose value if I decide to retire this hardware platform as my RP node - NUC’s make a great workstation computer._
+- _Resale or re-purpose value if I decide to retire this hardware platform as my RP node - NUC's make a great workstation computer._
 
 ### GreyWizard's NUC10i7FNH
 
 ![](./images/GreyWizard.jpg)
 
-The NUC10i7FNH is another one of Intel's own NUCs.
-This one sports a 10th-generation processor, and was released in 2019.
-It comes with a six core i7-10710U CPU (1.10 GHz, boosts to 4.7 GHz), two DDR4 slots, an M.2 slot and a 2.5" slot for SSDs, and USB 3.1 ports.
-It draws about 20 watts of power.
-It is an incredibly powerful machine, given its power consumption and size.
-Discord user **GreyWizard** uses this NUC for his node - the extra power gives him peace of mind knowing that no matter what the future of the Ethereum 2.0 chain holds, his machine will be able to handle it.
+NUC10i7FNH는 Intel 자체 NUC 중 또 다른 하나입니다.
+이것은 10세대 프로세서를 자랑하며 2019년에 출시되었습니다.
+6코어 i7-10710U CPU(1.10GHz, 4.7GHz까지 부스트), 2개의 DDR4 슬롯, SSD용 M.2 슬롯 및 2.5" 슬롯, USB 3.1 포트가 포함됩니다.
+약 20와트의 전력을 소비합니다.
+전력 소비와 크기를 고려하면 믿을 수 없을 정도로 강력한 기계입니다.
+Discord 사용자 **GreyWizard**는 자신의 노드에 이 NUC를 사용합니다. 추가 성능은 Ethereum 2.0 체인의 미래가 무엇을 갖고 있든 그의 기계가 그것을 처리할 수 있다는 것을 알고 마음의 평화를 제공합니다.
 
 GreyWizard's Setup:
 
@@ -321,7 +321,7 @@ _Tips for other people considering this as an option..._
 
 ### ArtDemocrat's NUC10i5FNHN Build Process Video
 
-To complement Greywizard's setup descriptions and tips, ArtDemocrat created this build process video as an additional help resource to set up a NUC10 (in this case a NUC10i5FNHN, but the build process should be similar for a NUC10i7FNH):
+Greywizard의 설정 설명과 팁을 보완하기 위해 ArtDemocrat는 NUC10(이 경우 NUC10i5FNHN이지만 빌드 프로세스는 NUC10i7FNH와 유사해야 함)을 설정하기 위한 추가 도움 리소스로 이 빌드 프로세스 비디오를 만들었습니다:
 
 <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/NUC_Staking_Setup_-_ArtDemocrat.mp4" />
 
@@ -335,11 +335,11 @@ ArtDemocrat's Setup:
 
 ![](./images/PN50-actioncj17.jpg)
 
-The ASUS PN50 is a mini-PC, which shares a lot in common with Intel's NUC family.
-It has a very small form factor but has all the components and features of a full PC.
-It comes with your choice of AMD CPU so you can balance between performance and cost (up to an 8-core Ryzen R7-4700U at 2.0 GHz), two DDR4 slots, an M.2 slot and a 2.5" slot for SSDs, and USB 3.1 ports.
-It also comes with a 90 watt power supply, though in practice it doesn't require that much power while acting as a Rocket Pool node.
-Discord user **actioncj17** has tried several different setups, but prefers the PN50 over everything... though they happily admit that it's overkill for running a Rocket Pool node.
+ASUS PN50은 Intel의 NUC 제품군과 많은 공통점을 공유하는 미니 PC입니다.
+매우 작은 폼 팩터를 가지고 있지만 전체 PC의 모든 구성 요소와 기능을 가지고 있습니다.
+성능과 비용 사이의 균형을 맞출 수 있도록 선택한 AMD CPU(최대 2.0GHz에서 8코어 Ryzen R7-4700U)와 함께 제공되며 2개의 DDR4 슬롯, SSD용 M.2 슬롯 및 2.5" 슬롯, USB 3.1 포트가 포함됩니다.
+또한 90와트 전원 공급 장치와 함께 제공되지만 실제로 Rocket Pool 노드 역할을 하는 동안 그만큼의 전력이 필요하지 않습니다.
+Discord 사용자 **actioncj17**은 여러 다른 설정을 시도했지만 모든 것보다 PN50을 선호합니다... 그러나 그들은 Rocket Pool 노드를 실행하는 데 과도하다는 것을 기꺼이 인정합니다.
 
 Actioncj17's Setup:
 
@@ -352,11 +352,11 @@ Here are actioncj17's comments on why they chose this setup:
 
 _My answer to why I chose the Asus PN50 is quite simple.
 I wanted to see how badass AMD's Ryzen 7 4700U was.
-Let’s just say I’m not disappointed.
+Let's just say I'm not disappointed.
 I actually started with the Intel NUC10FNK.
 I put 32gb of ram and 1tb 970 evo plus nvme m.2 in the nuc and it blazes.
 I have no complaints with the nuc and it works fine but I get more out of my PN50.
-I’d say both setups are overkill for staking on Rocketpool but a little future proofing doesn’t hurt.
+I'd say both setups are overkill for staking on Rocketpool but a little future proofing doesn't hurt.
 They both have small footprints and the nuc is actually much quieter since it is fanless.
 All in all the PN50 is a better bang for your buck if you can get your hands on one._
 
@@ -364,11 +364,11 @@ All in all the PN50 is a better bang for your buck if you can get your hands on 
 
 ![](./images/moralcompass-minipc.jpg)
 
-Discord user **moralcompass** went a similar route to actioncj17 by selecting a mini-PC, but their preference is for an Intel CPU.
-They use a mini PC that sports a quad core i5 8250U (1.6 GHz, boost up to 3.4 GHz), one DDR4 slot, an M.2 slot and a 2.5" slot for SSDs, and USB 3.0 ports.
-Moralcompass claims that it only pulls about 10 watts from the wall, which demonstrates that mini PCs like this are very efficient.
-The interesting thing about this choice is that it is completely passively cooled - no fans to be found!
-While there are many variations of fanless mini PCs, moralcompass found one that worked for them and has stuck with it.
+Discord 사용자 **moralcompass**는 actioncj17과 비슷한 경로로 미니 PC를 선택했지만 Intel CPU를 선호합니다.
+그들은 쿼드 코어 i5 8250U(1.6GHz, 최대 3.4GHz로 부스트), 1개의 DDR4 슬롯, SSD용 M.2 슬롯 및 2.5" 슬롯, USB 3.0 포트를 자랑하는 미니 PC를 사용합니다.
+Moralcompass는 벽에서 약 10와트만 끌어 당긴다고 주장하며, 이는 이와 같은 미니 PC가 매우 효율적이라는 것을 보여줍니다.
+이 선택의 흥미로운 점은 완전히 수동 냉각된다는 것입니다. 팬이 없습니다!
+팬리스 미니 PC에는 많은 변형이 있지만 moralcompass는 자신에게 맞는 것을 찾아 고수하고 있습니다.
 
 Moralcompass's Setup:
 

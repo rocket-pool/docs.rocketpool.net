@@ -1,36 +1,36 @@
-# Preparing the Operating System
+# 准备操作系统
 
-As described in the previous section, there are many different VPS and cloud providers.
-Writing guides for all of them would be somewhat impractical, but in this section we'll go over a typical workflow for preparing a virtual machine hosted on [Amazon Web Services](https://aws.amazon.com/).
-Specifically, we'll cover how to select the appropriate virtual hardware configuration and how to prepare the Operating System for Rocket Pool.  
-You should be able to extrapolate how to apply these steps to any provider once you've become familiar with their ecosystem.
+如前一节所述,有许多不同的 VPS 和云提供商。
+为所有这些提供商编写指南有些不切实际,但在本节中,我们将介绍为托管在 [Amazon Web Services](https://aws.amazon.com/) 上的虚拟机准备的典型工作流程。
+具体来说,我们将介绍如何选择适当的虚拟硬件配置以及如何为 Rocket Pool 准备操作系统。
+一旦您熟悉了他们的生态系统,您应该能够推断如何将这些步骤应用于任何提供商。
 
-## Creating an EC2 Virtual Machine
+## 创建 EC2 虚拟机
 
-The first step is to [create an AWS account](https://portal.aws.amazon.com/billing/signup) if you don't already have one.
-Follow the instructions provided in that link or log in with an existing account, and you will eventually make it to your management console dashboard:
+第一步是[创建 AWS 账户](https://portal.aws.amazon.com/billing/signup)(如果您还没有账户的话)。
+按照该链接中提供的说明或使用现有账户登录,您最终将进入管理控制台仪表板:
 
 <img src="./images/aws-console.png" width="100%" height="auto" />
 
-Next, click on the drop-down at the top right of the screen to select the geographic region you want your server to physically reside in.
-Servers cannot be moved between regions once they're created, so you want to ensure you're happy with the currently selected option before actually creating the server.
+接下来,单击屏幕右上角的下拉菜单以选择您希望服务器实际驻留的地理区域。
+服务器创建后无法在区域之间移动,因此您需要确保在实际创建服务器之前对当前选定的选项感到满意。
 
-Now, click **Services** in the toolbar.
-Go to the **Compute** section and select **EC2**.
-Your dashboard should change to a view similar to this:
+现在,单击工具栏中的 **Services**。
+转到 **Compute** 部分并选择 **EC2**。
+您的仪表板应该更改为类似于此的视图:
 
 <img src="./images/ec2-dashboard.png" width="100%" height="auto" />
 
-Click the orange **Launch Instance** button and select **Launch Instance** from the list of options to create a new machine.
-You will be presented with a marketplace of Amazon Machine Images.
-Each of these represents a specific snapshot of a machine with a pre-installed Operating System and some other useful software components.
+单击橙色的 **Launch Instance** 按钮,然后从选项列表中选择 **Launch Instance** 以创建新机器。
+您将看到 Amazon Machine Images 的市场。
+每个镜像都代表一个具有预安装操作系统和一些其他有用软件组件的机器的特定快照。
 
-For a Rocket Pool node, we recommend you use the **Ubuntu Server 24.04 LTS (HVM)** image.
+对于 Rocket Pool 节点,我们建议您使用 **Ubuntu Server 24.04 LTS (HVM)** 镜像。
 
-Next, you will have to choose an **Instance Type**.
-This determines what virtual hardware resources your machine will have available.
+接下来,您必须选择一个 **Instance Type**。
+这决定了您的机器将拥有哪些虚拟硬件资源。
 
-At the time of writing, these are what the different options offer:
+在撰写本文时,以下是不同选项提供的内容:
 
 | Instance   | vCPU | CPU Credits / hour | Mem (GiB) | Storage  | Network Performance |
 | ---------- | ---- | ------------------ | --------- | -------- | ------------------- |
@@ -42,31 +42,31 @@ At the time of writing, these are what the different options offer:
 | t2.xlarge  | 4    | 54                 | 16        | EBS-Only | Moderate            |
 | t2.2xlarge | 8    | 81                 | 32        | EBS-Only | Moderate            |
 
-The hardware requirements largely depend on which consensus client you plan to run - Nimbus, for example, requires less than 1GB of RAM by itself so it is perfectly reasonable to run it on a **t2.large** instance.
-For more RAM-heavy clients, you may want to go with a **t2.xlarge** instance for extra headroom.
+硬件要求在很大程度上取决于您计划运行哪个共识客户端 - 例如,Nimbus 本身需要不到 1GB 的 RAM,因此在 **t2.large** 实例上运行它是完全合理的。
+对于更占用 RAM 的客户端,您可能需要选择 **t2.xlarge** 实例以获得额外的空间。
 
 ::: tip
-You may want to consult the [Choosing your ETH Clients](../eth-clients) section before deciding on an instance type so you can make sure that the client you want is supported by the instance type you choose.
+在决定实例类型之前,您可能需要查阅[选择您的 ETH 客户端](../eth-clients)部分,以便确保您选择的实例类型支持您想要的客户端。
 :::
 
-Once you've made your choice, click the **Next** button.
-The default settings are all fine for the **Instance Details** section, so leave them alone and click **Next**.
+做出选择后,单击 **Next** 按钮。
+**Instance Details** 部分的默认设置都很好,因此保持不变并单击 **Next**。
 
-When you arrive at the **Add Storage** section, you'll create a new virtual hard drive for your system.
-This can be expanded later thanks to the power of the cloud, so getting the correct number now isn't absolutely critical.
-However, for the sake of your own peace of mind, you should change the size to one of the following figures:
+当您到达 **Add Storage** 部分时,您将为系统创建一个新的虚拟硬盘。
+由于云的强大功能,这可以稍后扩展,因此现在获得正确的数字并不是绝对关键的。
+但是,为了您自己的安心,您应该将大小更改为以下数字之一:
 
-- Use at least **100 GiB** if you're just trying Rocket Pool out on the [Hoodi Test Network](../../testnet/overview).
-- Use at least **1 TiB** (preferably **2 TiB**) if you're going to use this node on the main Ethereum network (**mainnet**).
+- 如果您只是在[Hoodi 测试网络](../../testnet/overview)上试用 Rocket Pool,请使用至少 **100 GiB**。
+- 如果您要在以太坊主网络(**mainnet**)上使用此节点,请使用至少 **1 TiB**(最好是 **2 TiB**)。
 
-Leave the default values for the other settings and click **Next**.
+保留其他设置的默认值并单击 **Next**。
 
-In the **Add Tags** step, you should click the **click to add a Name tag** button and give it an easy-to-remember name that you can use to identify the server later; something like **Rocket Pool Smartnode** will work if you need inspiration.
-Click **Next** when you're done.
+在 **Add Tags** 步骤中,您应该单击 **click to add a Name tag** 按钮并为其提供一个易于记住的名称,以便以后用于识别服务器;如果您需要灵感,可以使用 **Rocket Pool Smartnode** 之类的名称。
+完成后单击 **Next**。
 
-In the **Security Group** section, keep the **Create a new security group** option selected.
-Enter a name and description such as **Smartnode** and **Smartnode Group**.
-Remove all of the existing rules in the table and add the following rules:
+在 **Security Group** 部分,保持选中 **Create a new security group** 选项。
+输入名称和描述,例如 **Smartnode** 和 **Smartnode Group**。
+删除表中的所有现有规则并添加以下规则:
 
 | Type       | Port Range | Source                           | Description |
 | ---------- | ---------- | -------------------------------- | ----------- |
@@ -76,164 +76,164 @@ Remove all of the existing rules in the table and add the following rules:
 | Custom TCP | 9001       | Anywhere                         | ETH2 P2P    |
 | Custom UDP | 9001       | Anywhere                         | ETH2 P2P    |
 
-This will allow you to remotely connect to your server via SSH (the command line terminal) from your laptop or desktop.
-It will also allow the Execution and Consensus clients to connect to other nodes on the Ethereum network.
+这将允许您通过 SSH(命令行终端)从笔记本电脑或台式机远程连接到服务器。
+它还将允许执行客户端和共识客户端连接到以太坊网络上的其他节点。
 
-::: warning NOTE
-For SSH access, this will only work if you have a **static public IP address**.
-You will likely need to request this from your ISP, as many of them use a dynamic IP system and change your public address occasionally.
-If you cannot procure a static address, you will have to go to the AWS console and update this setting with your new IP address every time it changes.
+::: warning 注意
+对于 SSH 访问,这仅在您拥有**静态公共 IP 地址**时才有效。
+您可能需要向 ISP 请求此功能,因为他们中的许多人使用动态 IP 系统并偶尔更改您的公共地址。
+如果您无法获得静态地址,则每次地址更改时,您都必须转到 AWS 控制台并使用新的 IP 地址更新此设置。
 :::
 
-The security group table should now resemble this:
+安全组表现在应该类似于:
 
 <img src="./images/security-group.png" width="100%" height="auto" />
 
-Now, review all of the instance details to make sure you're happy with them, and click **Launch** when you're satisfied.
-When the **SSH key pair** prompt appears, select **Create a new key pair**.
-Give it a memorable name such as **Smartnode Key**, then click **Download Key Pair**.
-Store these files somewhere secure, such as `~/.ssh/` (or `C:\Users\[your username]\.ssh\` on Windows) where your other keys commonly reside.
+现在,检查所有实例详细信息以确保您对它们感到满意,然后在满意时单击 **Launch**。
+当出现 **SSH key pair** 提示时,选择 **Create a new key pair**。
+给它一个易于记忆的名称,例如 **Smartnode Key**,然后单击 **Download Key Pair**。
+将这些文件存储在安全的地方,例如 `~/.ssh/`(或 Windows 上的 `C:\Users\[your username]\.ssh\`),您的其他密钥通常驻留的地方。
 
 ::: danger
-This key pair contains the private key that you will use to SSH into your machine.
-If anyone gets a hold of this key, they will have complete access to your node - **including your Rocket Pool node wallet** and all of the coins within it.
-You **must** keep this file secure at all times.
+此密钥对包含您将用于 SSH 到您的机器的私钥。
+如果有人获得此密钥,他们将可以完全访问您的节点 - **包括您的 Rocket Pool 节点钱包**及其中的所有代币。
+您**必须**始终保持此文件的安全。
 :::
 
-Next, click **Launch Instance** to create your new virtual server.
-When a notice pops up, click the **View Instances** to be taken to your list of servers.
-You'll see your Rocket Pool node there with some accompanying details about its configuration and status.
+接下来,单击 **Launch Instance** 以创建您的新虚拟服务器。
+当出现通知时,单击 **View Instances** 以转到您的服务器列表。
+您将在那里看到您的 Rocket Pool 节点以及有关其配置和状态的一些详细信息。
 
-Finally, assign an **Elastic IP Address** to your machine - you can think of this like a static IP address that is exclusive to AWS.
-Your node will always be accessible at this address, so you can always use the same SSH command to connect to it.
+最后,为您的机器分配一个 **Elastic IP Address** - 您可以将其视为 AWS 独有的静态 IP 地址。
+您的节点将始终可在此地址访问,因此您始终可以使用相同的 SSH 命令连接到它。
 
-Go to **Network and Security** in the navigation panel on the left and click **Elastic IPs**.
-Now, click **Allocate Elastic IP Address**.
-The default settings are all fine, so just click through the prompts and return to the list when you're done.
+转到左侧导航面板中的 **Network and Security** 并单击 **Elastic IPs**。
+现在,单击 **Allocate Elastic IP Address**。
+默认设置都很好,因此只需单击提示并在完成后返回列表即可。
 
-Next, select the new address in the list.
-Click the **Actions** button above it, then click **Associate Elastic IP Address**.
-Leave the resource type set to **Instance** and select the Rocket Pool Smartnode instance you just created from the list.
-Click **Associate** to assign the address to your virtual server.
-Now, if you look under the \*Associated Instance ID\*\* column of the address, you can verify that it has your machine assigned to it.
+接下来,在列表中选择新地址。
+单击其上方的 **Actions** 按钮,然后单击 **Associate Elastic IP Address**。
+将资源类型保持设置为 **Instance**,然后从列表中选择您刚刚创建的 Rocket Pool Smartnode 实例。
+单击 **Associate** 将地址分配给您的虚拟服务器。
+现在,如果您查看地址的 **Associated Instance ID** 列,您可以验证它已分配给您的机器。
 
-## Accessing the Machine
+## 访问机器
 
-To access the machine, open a new terminal on Linux or macOS (use Powershell on Windows) and type the following command:
+要访问机器,请在 Linux 或 macOS 上打开一个新终端(在 Windows 上使用 Powershell)并键入以下命令:
 
 ```shell
 ssh [your elastic IP address]
 ```
 
-If you stored your keys in the `.ssh` folder, this will use the private key pair you generated during setup to authenticate with the machine automatically - no usernames, no passwords.
+如果您将密钥存储在 `.ssh` 文件夹中,这将使用您在设置期间生成的私钥对自动向机器进行身份验证 - 无需用户名,无需密码。
 
-Once here, you have complete terminal access to the system.
+到达这里后,您就可以完全通过终端访问系统了。
 
-## Setting up Swap Space
+## 设置交换空间
 
-In most cases, if you choose your Execution and Consensus clients and your instance type carefully, you should not run out of RAM.
-Then again, it never hurts to add a little more.
-What we're going to do now is add what's called **swap space**.
-Essentially, it means we're going to use the SSD as "backup RAM" in case something goes horribly, horribly wrong and your server runs out of regular RAM.
-The SSD isn't nearly as fast as the regular RAM, so if it hits the swap space it will slow things down, but it won't completely crash and break everything.
-Think of this as extra insurance that you'll (most likely) never need.
+在大多数情况下,如果您仔细选择执行客户端和共识客户端以及实例类型,您应该不会耗尽 RAM。
+话虽如此,增加一点也无妨。
+我们现在要做的是添加所谓的**交换空间**。
+本质上,这意味着我们将使用 SSD 作为"备用 RAM",以防万一发生可怕的事情并且您的服务器耗尽了常规 RAM。
+SSD 的速度不如常规 RAM,因此如果它达到交换空间,它会减慢速度,但它不会完全崩溃并破坏一切。
+将此视为您(很可能)永远不需要的额外保险。
 
-### Creating a Swap File
+### 创建交换文件
 
-The first step is to make a new file that will act as your swap space.
-Decide how much you want to use - a reasonable start would be 8 GB, so you have 8 GB of normal RAM and 8 GB of "backup RAM" for a total of 16 GB.
-To be super safe, you can make it 24 GB so your system has 8 GB of normal RAM and 24 GB of "backup RAM" for a total of 32 GB, but this is probably overkill.
-Luckily, since your SSD has 1 or 2 TB of space, allocating 8 to 24 GB for a swapfile is negligible.
+第一步是创建一个将充当交换空间的新文件。
+决定您要使用多少 - 一个合理的开始是 8 GB,因此您有 8 GB 的正常 RAM 和 8 GB 的"备用 RAM",总共 16 GB。
+为了超级安全,您可以将其设置为 24 GB,这样您的系统就有 8 GB 的正常 RAM 和 24 GB 的"备用 RAM",总共 32 GB,但这可能有点过度了。
+幸运的是,由于您的 SSD 有 1 或 2 TB 的空间,为交换文件分配 8 到 24 GB 是微不足道的。
 
-For the sake of this walkthrough, let's pick a nice middleground - say, 16 GB of swap space for a total RAM of 24 GB.
-Just substitute whatever number you want in as we go.
+为了本演练的目的,让我们选择一个不错的中间值 - 比如说,16 GB 的交换空间,总 RAM 为 24 GB。
+在我们继续时,只需替换您想要的任何数字即可。
 
-Enter this, which will create a new file called `/swapfile` and fill it with 16 GB of zeros.
-To change the amount, just change the number in `count=16` to whatever you want. **Note that this is going to take a long time, but that's ok.**
+输入此命令,这将创建一个名为 `/swapfile` 的新文件并用 16 GB 的零填充它。
+要更改数量,只需将 `count=16` 中的数字更改为您想要的任何值。**请注意,这需要很长时间,但没关系。**
 
 ```shell
 sudo dd if=/dev/zero of=/swapfile bs=1G count=16 status=progress
 ```
 
-Next, set the permissions so only the root user can read or write to it (for security):
+接下来,设置权限,以便只有 root 用户可以读取或写入它(出于安全考虑):
 
 ```shell
 sudo chmod 600 /swapfile
 ```
 
-Now, mark it as a swap file:
+现在,将其标记为交换文件:
 
 ```shell
 sudo mkswap /swapfile
 ```
 
-Next, enable it:
+接下来,启用它:
 
 ```shell
 sudo swapon /swapfile
 ```
 
-Finally, add it to the mount table so it automatically loads when your server reboots:
+最后,将其添加到挂载表中,以便在服务器重启时自动加载:
 
 ```shell
 sudo nano /etc/fstab
 ```
 
-Add a new line at the end that looks like this:
+在末尾添加一个如下所示的新行:
 
 ```
 /swapfile                            none            swap    sw              0       0
 ```
 
-Press `Ctrl+O` and `Enter` to save, then `Ctrl+X` and `Enter` to exit.
+按 `Ctrl+O` 和 `Enter` 保存,然后按 `Ctrl+X` 和 `Enter` 退出。
 
-To verify that it's active, run these commands:
+要验证它是否处于活动状态,请运行以下命令:
 
 ```shell
 sudo apt install htop
 htop
 ```
 
-Your output should look like this at the top:
+您的输出顶部应该看起来像这样:
 ![](../local/images/pi/Swap.png)
 
-If the second number in the last row labeled `Swp` (the one after the `/`) is non-zero, then you're all set.
-For example, if it shows `0K / 16.0G` then your swap space was activated successfully.
-If it shows `0K / 0K` then it did not work and you'll have to confirm that you entered the previous steps properly.
+如果标有 `Swp` 的最后一行中的第二个数字(`/` 后面的数字)为非零,那么您就已经设置好了。
+例如,如果显示 `0K / 16.0G`,则您的交换空间已成功激活。
+如果显示 `0K / 0K`,则它不起作用,您必须确认您正确输入了前面的步骤。
 
-Press `q` or `F10` to quit out of `htop` and get back to the terminal.
+按 `q` 或 `F10` 退出 `htop` 并返回终端。
 
-### Configuring Swappiness and Cache Pressure
+### 配置交换度和缓存压力
 
-By default, Linux will eagerly use a lot of swap space to take some of the pressure off of the system's RAM.
-We don't want that. We want it to use all of the RAM up to the very last second before relying on SWAP.
-The next step is to change what's called the "swappiness" of the system, which is basically how eager it is to use the swap space.
-There is a lot of debate about what value to set this to, but we've found a value of 6 works well enough.
+默认情况下,Linux 会急切地使用大量交换空间来减轻系统 RAM 的压力。
+我们不希望这样。我们希望它使用所有 RAM,直到最后一秒才依赖交换空间。
+下一步是更改系统的"交换度",即它使用交换空间的急切程度。
+关于将此值设置为什么值有很多争论,但我们发现值 6 效果很好。
 
-We also want to turn down the "cache pressure", which dictates how quickly the server will delete a cache of its filesystem.
-Since we're going to have a lot of spare RAM with our setup, we can make this "10" which will leave the cache in memory for a while, reducing disk I/O.
+我们还想降低"缓存压力",它决定服务器删除其文件系统缓存的速度。
+由于我们的设置将有大量备用 RAM,我们可以将此设置为"10",这将在内存中保留缓存一段时间,从而减少磁盘 I/O。
 
-To set these, run these commands:
+要设置这些,请运行以下命令:
 
 ```shell
 sudo sysctl vm.swappiness=6
 sudo sysctl vm.vfs_cache_pressure=10
 ```
 
-Now, put them into the `sysctl.conf` file so they are reapplied after a reboot:
+现在,将它们放入 `sysctl.conf` 文件中,以便在重启后重新应用:
 
 ```shell
 sudo nano /etc/sysctl.conf
 ```
 
-Add these two lines to the end:
+在末尾添加以下两行:
 
 ```shell
 vm.swappiness=6
 vm.vfs_cache_pressure=10
 ```
 
-Then save and exit like you've done before (`Ctrl+O`, `Ctrl+X`).
+然后像之前一样保存并退出(`Ctrl+O`,`Ctrl+X`)。
 
-And with that, your server is up and running and ready to run Rocket Pool!
-Move on to the [Choosing your ETH Clients](../eth-clients) section.
+至此,您的服务器已启动并运行,准备好运行 Rocket Pool!
+继续阅读[选择您的 ETH 客户端](../eth-clients)部分。

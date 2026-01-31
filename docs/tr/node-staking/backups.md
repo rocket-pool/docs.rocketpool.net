@@ -1,109 +1,109 @@
-# Backing Up Your Node
+# Node'unuzu Yedekleme
 
-::: tip NOTE
-This is currently written for **Docker Mode** installations.
-Some locations may vary for Hybrid or Native users.
+::: tip NOT
+Bu şu anda **Docker Mode** kurulumları için yazılmıştır.
+Hybrid veya Native kullanıcılar için bazı konumlar farklılık gösterebilir.
 :::
 
-In general, if you created your node wallet and minipools via the Smartnode, the only thing you truly need on hand to recover your node from a complete failure is the **mnemonic for your node wallet**
-Everything else can be recovered from that quite easily.
+Genel olarak, node cüzdanınızı ve minipool'larınızı Smartnode üzerinden oluşturduysanız, node'unuzu tam bir arızadan kurtarmak için gerçekten ihtiyacınız olan tek şey **node cüzdanınızın anımsatıcısıdır**.
+Diğer her şey bundan oldukça kolay bir şekilde kurtarılabilir.
 
-If you have minipools that have externally-generated validator keys (e.g. you migrated from **Allnodes** to your own self-hosted node), you will need the private keystore files for your validators as well since they cannot be recovered from the node wallet.
+Harici olarak oluşturulmuş validator anahtarlarına sahip minipool'larınız varsa (örneğin **Allnodes**'tan kendi barındırdığınız node'a geçiş yaptıysanız), validator'larınız için özel keystore dosyalarına da ihtiyacınız olacaktır çünkü bunlar node cüzdanından kurtarılamaz.
 
-That being said, once the Merge takes place, you will no longer be able to use a light Execution client (e.g. Pocket or Infura) as a fallback if you ever need to resync the Execution layer chain.
-Furthermore, you will be required to have an active and healthy Execution client to attest correctly.
-Having a fast, reliable way to recover from an Execution client failure (such as a corrupt database, SSD malfunction, or compromised / stolen hardware) will be critical, as it can take hours or even days to sync from scratch.
+Bununla birlikte, Merge gerçekleştiğinde, Execution layer zincirini yeniden senkronize etmeniz gerektiğinde artık yedek olarak hafif bir Execution client'ı (örneğin Pocket veya Infura) kullanamazsınız.
+Ayrıca, doğru şekilde tasdik etmek için aktif ve sağlıklı bir Execution client'ınızın olması gerekecektir.
+Bir Execution client arızasından (bozuk veritabanı, SSD arızası veya ele geçirilmiş / çalınmış donanım gibi) kurtulmak için hızlı ve güvenilir bir yola sahip olmak kritik önem taşıyacaktır, çünkü sıfırdan senkronize etmek saatler hatta günler alabilir.
 
-In this guide, we'll show you how to back up some of these things to help improve your node's resilience and minimize unnecessary downtime.
+Bu rehberde, node'unuzun dayanıklılığını artırmaya ve gereksiz kesinti süresini en aza indirmeye yardımcı olmak için bunlardan bazılarını nasıl yedekleyeceğinizi göstereceğiz.
 
-::: warning NOTE
-This guide assumes you have installed the Smartnode to the default directory (`~/.rocketpool`).
-If you specified a different installation directory, substitute it accordingly in the instructions below.
+::: warning NOT
+Bu rehber, Smartnode'u varsayılan dizine (`~/.rocketpool`) kurduğunuzu varsayar.
+Farklı bir kurulum dizini belirttiyseniz, aşağıdaki talimatlarda bunu uygun şekilde değiştirin.
 :::
 
-## Items That Can Be Backed Up
+## Yedeklenebilecek Öğeler
 
-### Smartnode Configuration
+### Smartnode Yapılandırması
 
-The Smartnode's configuration is stored in `~/.rocketpool/user-settings.yml`.
-You can save this and replace it to restore all of your Smartnode settings (i.e., the things you specified in `rocketpool service config`).
+Smartnode yapılandırması `~/.rocketpool/user-settings.yml` içinde saklanır.
+Bunu kaydedebilir ve tüm Smartnode ayarlarınızı (yani `rocketpool service config` içinde belirttiğiniz şeyleri) geri yüklemek için değiştirebilirsiniz.
 
-### Execution Client / ETH1 Client Chain Data
+### Execution Client / ETH1 Client Zincir Verisi
 
-The Execution client's chain data is likely the most important thing to back up.
-As mentioned, it can take several days to re-sync your EC chain data.
-After The Merge, this means hours to days of downtime and lost profits!
+Execution client'ın zincir verisi muhtemelen yedeklenecek en önemli şeydir.
+Belirtildiği gibi, EC zincir verinizi yeniden senkronize etmek birkaç gün alabilir.
+Merge'den sonra, bu saatler ile günler arası kesinti süresi ve kayıp kar anlamına gelir!
 
-The chain data is stored within the `rocketpool_eth1clientdata` Docker volume, which by default is located at `/var/lib/docker/volumes/rocketpool_eth1clientdata`.
-Note this folder is typically not accessible by unprivileged user accounts; you will need to elevate to the `root` user to see it.
+Zincir verisi, varsayılan olarak `/var/lib/docker/volumes/rocketpool_eth1clientdata` konumunda bulunan `rocketpool_eth1clientdata` Docker volume'ü içinde saklanır.
+Bu klasörün genellikle ayrıcalıksız kullanıcı hesapları tarafından erişilebilir olmadığını unutmayın; görmek için `root` kullanıcısına yükseltmeniz gerekecektir.
 
-::: tip NOTE
-If you changed Docker's storage location during the initial Smartnode installation (such as people that run Docker on a second SSD), you will find the volume in `/<your external mount point>/docker/volumes/rocketpool_eth1clientdata`
+::: tip NOT
+İlk Smartnode kurulumu sırasında Docker'ın depolama konumunu değiştirdiyseniz (Docker'ı ikinci bir SSD'de çalıştıran kişiler gibi), volume'ü `/<harici bağlama noktanız>/docker/volumes/rocketpool_eth1clientdata` konumunda bulacaksınız.
 
-If you don't recall which installation path you use, you can check `/etc/docker/daemon.json` for its location.
-If the file doesn't exist, you use the default location.
+Hangi kurulum yolunu kullandığınızı hatırlamıyorsanız, konumu için `/etc/docker/daemon.json` kontrol edebilirsiniz.
+Dosya mevcut değilse, varsayılan konumu kullanıyorsunuz demektir.
 :::
 
-For detailed instructions on how to efficiently back up your Execution chain data, please see the [Backing up your Execution Chain Data](#backing-up-your-execution-chain-data) section below.
+Execution zincir verinizi verimli bir şekilde nasıl yedekleyeceğinize ilişkin ayrıntılı talimatlar için lütfen aşağıdaki [Execution Zincir Verinizi Yedekleme](#execution-zincir-verinizi-yedekleme) bölümüne bakın.
 
-### Monitoring & Metrics Data
+### İzleme ve Metrik Verileri
 
-This data is stored within the `rocketpool_grafana-storage` Docker volume, which by default is located at `/var/lib/docker/volumes/rocketpool_grafana-storage` (or `/<your external mount point>/docker/volumes/rocketpool_prometheus-data` if you customized your Docker storage location).
+Bu veri, varsayılan olarak `/var/lib/docker/volumes/rocketpool_grafana-storage` konumunda bulunan `rocketpool_grafana-storage` Docker volume'ü içinde saklanır (veya Docker depolama konumunuzu özelleştirdiyseniz `/<harici bağlama noktanız>/docker/volumes/rocketpool_prometheus-data`).
 
-## Items That Should **Not** Be Backed Up
+## Yedeklenmemesi **Gereken** Öğeler
 
-### Private Keys and Passwords
+### Özel Anahtarlar ve Parolalar
 
-Your node wallet's private key and the password file used to encrypt it are stored in `~/.rocketpool/data/wallet` and `~/.rocketpool/data/password` respectively.
-These files don't generally need to be backed up, as they can be recovered from your mnemonic using `rocketpool wallet recover`.
+Node cüzdanınızın özel anahtarı ve onu şifrelemek için kullanılan parola dosyası sırasıyla `~/.rocketpool/data/wallet` ve `~/.rocketpool/data/password` içinde saklanır.
+Bu dosyaların genellikle yedeklenmesi gerekmez, çünkü `rocketpool wallet recover` kullanılarak anımsatıcınızdan kurtarılabilirler.
 
-If, for some reason, you _do_ decide to back up these files, you will need to be **extremely careful** about how you store them.
-Anyone who gains access to these files will gain access to your node wallet, its validators, and any funds you have stored on it for things like gas.
+Herhangi bir nedenle, bu dosyaları yedeklemeye _karar verirseniz_, bunları nasıl sakladığınız konusunda **son derece dikkatli** olmanız gerekecektir.
+Bu dosyalara erişim sağlayan herkes, node cüzdanınıza, validator'larınıza ve gas gibi şeyler için üzerinde sakladığınız tüm fonlara erişim sağlayacaktır.
 
-We **strongly recommend** you do not back up these files and just use your wallet mnemonic to recover them if necessary.
+Bu dosyaları yedeklemememenizi ve gerekirse sadece cüzdan anımsatıcınızı kullanarak kurtarmanızı **şiddetle tavsiye ederiz**.
 
-### Consensus Client Chain Data
+### Consensus Client Zincir Verisi
 
-Unlike the Execution layer data, the Consensus layer data is not nearly as important to your node thanks to [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
-Consensus clients can easily use this technique to immediately resync to the head of the Beacon chain and resume validation duties.
+Execution layer verisinin aksine, Consensus layer verisi [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing) sayesinde node'unuz için neredeyse o kadar önemli değildir.
+Consensus client'lar, Beacon zincirinin başına hemen yeniden senkronize olmak ve doğrulama görevlerini sürdürmek için bu tekniği kolayca kullanabilir.
 
-## Backing up your Execution Chain Data
+## Execution Zincir Verinizi Yedekleme
 
-The Smartnode comes with the ability to back up your Execution chain data via the `rocketpool service export-eth1-data` command.
-Under the hood, this utilizes `rsync`, a powerful backup/copy tool within Linux.
+Smartnode, `rocketpool service export-eth1-data` komutu aracılığıyla Execution zincir verinizi yedekleme yeteneği ile birlikte gelir.
+Perde arkasında, bu Linux içindeki güçlü bir yedekleme/kopyalama aracı olan `rsync` kullanır.
 
-`rsync` compares the files in the source directory (your Docker volume) and the target directory (your backup location).
-If a source file doesn't exist in the target directory, it will be copied entirely.
-However, if it _does_ exist, `rsync` will only copy the _changes_ between the two files.
+`rsync`, kaynak dizindeki (Docker volume'ünüz) ve hedef dizindeki (yedekleme konumunuz) dosyaları karşılaştırır.
+Bir kaynak dosya hedef dizinde yoksa, tamamen kopyalanacaktır.
+Ancak, _varsa_, `rsync` yalnızca iki dosya arasındaki _değişiklikleri_ kopyalayacaktır.
 
-This means the first backup will take a good amount of time as it must copy all of the data initially.
-Subsequent backups will only copy the changes between your previous backup and now, making the process much faster.
+Bu, ilk yedeklemenin başlangıçta tüm verileri kopyalaması gerektiği için iyi miktarda zaman alacağı anlamına gelir.
+Sonraki yedeklemeler yalnızca önceki yedeklemeniz ile şimdi arasındaki değişiklikleri kopyalayacak ve süreci çok daha hızlı hale getirecektir.
 
-As part of a backup strategy, you may want to plan to run `export-eth1-data` on a regular basis.
-To ensure the integrity of the chain data, running this command will **safely shut down the Execution client before backing up its data**.
-If you elect to schedule it every week, your Execution client will only be down for a few minutes while it updates the backup.
-This is certainly better than the days it would take to resync the data from scratch.
+Bir yedekleme stratejisinin parçası olarak, `export-eth1-data` komutunu düzenli olarak çalıştırmayı planlayabilirsiniz.
+Zincir verisinin bütünlüğünü sağlamak için, bu komutu çalıştırmak **verisini yedeklemeden önce Execution client'ı güvenli bir şekilde kapatacaktır**.
+Her hafta zamanlamayı seçerseniz, Execution client'ınız yedeklemeyi güncellerken yalnızca birkaç dakikalığına kapalı olacaktır.
+Bu kesinlikle verileri sıfırdan yeniden senkronize etmek için gereken günlerden daha iyidir.
 
-To trigger a backup, start by **mounting the storage medium you want to export the data to**.
-For example, this could be an external hard drive.
+Bir yedeklemeyi tetiklemek için, **veriyi dışa aktarmak istediğiniz depolama ortamını bağlayarak** başlayın.
+Örneğin, bu harici bir sabit disk olabilir.
 
-::: tip HINT
-If you don't know how to mount external devices on Linux, it's easy!
-Plug the device into your node, and follow [a guide like this](https://www.addictivetips.com/ubuntu-linux-tips/mount-external-hard-drives-in-linux/) to learn how to mount it.
+::: tip İPUCU
+Linux'ta harici cihazları nasıl bağlayacağınızı bilmiyorsanız, kolaydır!
+Cihazı node'unuza takın ve nasıl bağlayacağınızı öğrenmek için [bunun gibi bir rehberi](https://www.addictivetips.com/ubuntu-linux-tips/mount-external-hard-drives-in-linux/) takip edin.
 :::
 
-Once you have it mounted, note its mount path.
-For this example, let's assume that we want to store the chain data in a folder called `/mnt/external-drive` which the external device is mounted to.
-Replace this with your actual mount path wherever you see it below.
+Bağladıktan sonra, bağlama yolunu not edin.
+Bu örnek için, zincir verisini harici cihazın bağlandığı `/mnt/external-drive` adlı bir klasörde saklamak istediğimizi varsayalım.
+Bunu aşağıda gördüğünüz her yerde gerçek bağlama yolunuzla değiştirin.
 
-Now, run the following command:
+Şimdi, aşağıdaki komutu çalıştırın:
 
 ```shell
 rocketpool service export-eth1-data /mnt/external-drive
 ```
 
-This will check that your target folder is reachable and has enough free space to store the chain data.
-The output will look like this:
+Bu, hedef klasörünüzün erişilebilir olduğunu ve zincir verisini depolamak için yeterli boş alana sahip olduğunu kontrol edecektir.
+Çıktı şöyle görünecektir:
 
 ```
 This will export your execution client's chain data to an external directory, such as a portable hard drive.
@@ -123,31 +123,31 @@ Please do not exit until it finishes so you can watch its progress.
 Are you sure you want to export your execution layer chain data? [y/n]
 ```
 
-As you can see, the chain data will be under 100 GB (for the Hoodi testnet; the Ethereum mainnet will be an order of magnitude larger) and the external folder has 287 GiB free so exporting can continue.
+Gördüğünüz gibi, zincir verisi 100 GB'ın altında olacaktır (Hoodi testnet için; Ethereum mainnet'i bir büyüklük sırası daha büyük olacaktır) ve harici klasörde 287 GiB boş alan vardır, bu nedenle dışa aktarma devam edebilir.
 
-When you're ready, enter `y` here and press `Enter`.
-This will stop your Execution client and begin copying its chain data to your target folder.
-You will see the progress of each individual file go past the screen as it runs.
+Hazır olduğunuzda, burada `y` girin ve `Enter` tuşuna basın.
+Bu, Execution client'ınızı durduracak ve zincir verisini hedef klasörünüze kopyalamaya başlayacaktır.
+Çalışırken her bir dosyanın ilerlemesinin ekrandan geçtiğini göreceksiniz.
 
-::: warning NOTE
-It's important that you _do not_ exit the terminal while this is running.
-If you do, the copy will continue to run in the background but you won't be able to follow its progress!
+::: warning NOT
+Bu çalışırken terminali _kapatmamanız_ önemlidir.
+Bunu yaparsanız, kopyalama arka planda çalışmaya devam edecektir ancak ilerlemesini takip edemeyeceksiniz!
 :::
 
-Once it's finished, it will automatically restart your Execution client container.
+Bittiğinde, Execution client container'ınızı otomatik olarak yeniden başlatacaktır.
 
-**Note that your existing chain data is not deleted from your node after the export is complete!**
+**Dışa aktarma tamamlandıktan sonra mevcut zincir verinizin node'unuzdan silinmediğini unutmayın!**
 
-### Restoring Your Execution Chain Data
+### Execution Zincir Verinizi Geri Yükleme
 
-If you ever need to restore your backed up chain data, simply run the following command.
+Yedeklenen zincir verinizi geri yüklemeniz gerekirse, sadece aşağıdaki komutu çalıştırın.
 
 ```shell
 rocketpool service import-eth1-data /mnt/external-drive
 ```
 
-::: danger WARNING
-This will automatically delete any existing Execution client data in your `rocketpool_eth1clientdata` volume!
+::: danger UYARI
+Bu, `rocketpool_eth1clientdata` volume'ünüzdeki mevcut Execution client verisini otomatik olarak silecektir!
 :::
 
-Once it's done, your Execution client will be ready to go.
+Bittiğinde, Execution client'ınız hazır olacaktır.

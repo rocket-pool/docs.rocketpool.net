@@ -2,13 +2,13 @@
 permalink: /overview/contracts-integrations
 ---
 
-# 🤝 Contracts & Integrations
+# 🤝 컨트랙트 및 통합
 
-Do you love RPL and rETH? Us too! So we put together a list of integrations and services, as well as official contract deployments, to help you discover new places these assets can be used!
+RPL과 rETH를 좋아하시나요? 저희도 그렇습니다! 그래서 이러한 자산을 사용할 수 있는 새로운 장소를 발견할 수 있도록 통합 서비스 목록과 공식 컨트랙트 배포를 정리했습니다!
 
-If you would like to contribute by helping integrate Rocket Pool into more services and protocols, reach out on [Discord](https://discord.gg/MYrazaZZC4)!
+Rocket Pool을 더 많은 서비스와 프로토콜에 통합하는 것을 도와 기여하고 싶으시다면, [Discord](https://discord.gg/MYrazaZZC4)에서 연락해주세요!
 
-## Key Protocol Contracts
+## 주요 프로토콜 컨트랙트
 
 | Chain   | Contract | Address                                                                                                                     |
 | ------- | -------- | --------------------------------------------------------------------------------------------------------------------------- |
@@ -17,8 +17,8 @@ If you would like to contribute by helping integrate Rocket Pool into more servi
 | Hoodi\* | Deposit  | [0x320f3aAB9405e38b955178BBe75c477dECBA0C27](https://hoodi.etherscan.io/address/0x320f3aAB9405e38b955178BBe75c477dECBA0C27) |
 | &nbsp;  | Storage  | [0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1](https://hoodi.etherscan.io/address/0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1) |
 
-Within the protocol, the Storage contract is used to find all the other deployed contract addresses as needed (see this [example](/en/overview/contracts-usage#interacting-with-rocket-pool)).
-See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contracts) below for a full list of addresses.
+프로토콜 내에서 Storage 컨트랙트는 필요에 따라 다른 모든 배포된 컨트랙트 주소를 찾는 데 사용됩니다 (이 [예제](/ko/overview/contracts-usage#interacting-with-rocket-pool) 참조).
+전체 주소 목록은 아래 [모든 활성 배포 프로토콜 컨트랙트](#all-active-deployed-protocol-contracts)를 참조하세요.
 
 <small>\* Testnet</small>
 
@@ -100,7 +100,7 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 | &nbsp;           | Contango                      | -                                                                                                                                                                                                                               | [Contango](https://app.contango.xyz)                                                                                                                                         |
 | &nbsp;           | Flat Money                    | -                                                                                                                                                                                                                               | [Flat Money](https://flat.money)                                                                                                                                             |
 
-## Management Committee Wallets
+## 관리 위원회 지갑
 
 | Chain    | Committee | Address                                                                                                                         |
 | -------- | --------- | ------------------------------------------------------------------------------------------------------------------------------- |
@@ -108,7 +108,7 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 | &nbsp;   | IMC       | [0xb867EA3bBC909954d737019FEf5AB25dFDb38CB9](https://app.safe.global/home?safe=eth:0xb867EA3bBC909954d737019FEf5AB25dFDb38CB9)  |
 | Arbitrum | IMC       | [0xd7102A3744c302f167c53621453516345bC460d7](https://app.safe.global/home?safe=arb1:0xd7102A3744c302f167c53621453516345bC460d7) |
 
-## All Active Deployed Protocol Contracts
+## 모든 활성 배포 프로토콜 컨트랙트
 
 | Chain   | Contract Name                         | Address                                                                                                                    |
 | ------- | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
@@ -237,6 +237,6 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 
 <small>\* Testnet</small>
 
-This list was updated 31/03/2025
+이 목록은 31/03/2025에 업데이트되었습니다
 
-The addresses can be queried on chain as shown in this [example](/en/overview/contracts-usage#interacting-with-rocket-pool).
+주소는 이 [예제](/ko/overview/contracts-usage#interacting-with-rocket-pool)에 표시된 대로 온체인에서 조회할 수 있습니다.

@@ -1,38 +1,38 @@
-::: danger WARNING
-Minipool deposits are currently disabled in preparation for Saturn 1.
+::: danger UYARI
+Minipool yatırmaları şu anda Saturn 1 hazırlığı nedeniyle devre dışı bırakılmıştır.
 :::
 
-# The Minipool Delegate
+# Minipool Delegate
 
-Every validator you run has a **minipool** contract as its "owner" so-to-speak.
-The minipool is a unique contract specifically assigned to that validator; it acts as its **withdrawal address**.
-All reward and staking balance withdrawals from the Beacon Chain will be sent to the minipool contract.
+Çalıştırdığınız her validator'ın "sahibi" olarak bir **minipool** kontratı vardır.
+Minipool, o validator'a özel olarak atanmış benzersiz bir kontrattır; onun **çekim adresi** olarak görev yapar.
+Beacon Chain'den gelen tüm ödül ve staking bakiyesi çekimleri minipool kontratına gönderilecektir.
 
-Each minipool is unique to ensure that you (the node operator) have ultimate control over it.
-Nobody else controls it, nobody else can change it; it's entirely at your command.
+Her minipool, sizin (düğüm operatörü) üzerinde nihai kontrole sahip olmanızı sağlamak için benzersizdir.
+Başka hiç kimse onu kontrol edemez, başka hiç kimse onu değiştiremez; tamamen sizin komutunuzdadır.
 
-That being said, in order to minimize gas costs during node deposits, the minipool _itself_ contains very little actual functionality.
-Almost everything it can do is deferred to a **delegate** contract.
+Bununla birlikte, düğüm yatırmaları sırasında gas maliyetlerini en aza indirmek için minipool'un _kendisi_ çok az gerçek işlevsellik içerir.
+Yapabileceği hemen hemen her şey bir **delegate** kontratına ertelenir.
 
-The minipool delegate contract is a special contract that contains the bulk of the logic required by minipools - things like fairly distributing the balance between you and the pool stakers, for example.
-Unlike minipools, where each minipool is a unique contract, the delegate is a single contract that many minipools can "forward" requests to.
+Minipool delegate kontratı, minipool'lar tarafından gereken mantığın büyük kısmını içeren özel bir kontrattır - örneğin bakiyeyi sizinle pool staker'ları arasında adil bir şekilde dağıtmak gibi şeyler.
+Her minipool'un benzersiz bir kontrat olduğu minipool'ların aksine, delegate birçok minipool'un istekleri "iletebileceği" tek bir kontrattır.
 
-Occasionally, the Rocket Pool development team will publish a new minipool delegate that adds new functionality.
-For example, in the Atlas update, we introduced a new delegate that had support for distributing skimmed rewards without needing to close the minipool.
+Bazen Rocket Pool geliştirme ekibi yeni işlevsellik ekleyen yeni bir minipool delegate yayınlayacaktır.
+Örneğin, Atlas güncellemesinde minipool'u kapatmaya gerek kalmadan skimmed ödülleri dağıtma desteğine sahip yeni bir delegate tanıttık.
 
-Minipool can have their delegates upgraded to take advantage of this new functionality.
-Delegate upgrades are **opt-in**, so you can decide if and when you want to use them.
-That being said, they are usually required in order to take advantage of new functionality that network upgrades introduce.
+Minipool'lar bu yeni işlevsellikten yararlanmak için delegate'lerini yükseltebilir.
+Delegate yükseltmeleri **isteğe bağlıdır**, bu nedenle onları kullanıp kullanmayacağınıza ve ne zaman kullanacağınıza karar verebilirsiniz.
+Bununla birlikte, genellikle ağ yükseltmelerinin sunduğu yeni işlevselliklerden yararlanmak için gereklidirler.
 
-### Upgrading your Delegate
+### Delegate'inizi Yükseltme
 
-To upgrade a minipool to a new delegate contract, simply run the following command:
+Bir minipool'u yeni bir delegate kontratına yükseltmek için basitçe şu komutu çalıştırın:
 
 ```shell
 rocketpool minipool delegate-upgrade
 ```
 
-This will present you with a list of your minipools that are not currently using the latest delegate and are eligible for upgrading:
+Bu size şu anda en son delegate'i kullanmayan ve yükseltme için uygun olan minipool'larınızın bir listesini sunacaktır:
 
 ```
 Please select a minipool to upgrade:
@@ -45,8 +45,8 @@ Please select a minipool to upgrade:
 7: 0x7E5700c82E38434C6c72890bb82f5B5305f4328a (using delegate 0x6aCEA7f89574Dd8BC6ffDfDca1965A3d756d5B20)
 ```
 
-Select the one(s) you would like to upgrade from the list by entering the corresponding number on the left of the minipool address.
-Once selected, you will be prompted to confirm your gas price settings, and after that a transaction to upgrade the minipool will be sent:
+Minipool adresinin solundaki ilgili numarayı girerek listeden yükseltmek istediğinizi seçin.
+Seçildikten sonra gas fiyatı ayarlarınızı onaylamanız istenecek ve ardından minipool'u yükseltmek için bir işlem gönderilecektir:
 
 ```
 Using a max fee of 26.00 gwei and a priority fee of 2.00 gwei.
@@ -60,8 +60,8 @@ Waiting for the transaction to be included in a block... you may wait here for i
 Successfully upgraded minipool 0x7e5702a2cE66B5B35E59B9Ac00eEAAa547881e40.
 ```
 
-You can verify that it's using the latest delegate with `rocketpool minipool status`.
-Any minipools that are _not_ using the latest delegate will have a yellow notification under their status letting you know that they can be upgraded:
+`rocketpool minipool status` ile en son delegate'i kullanıp kullanmadığını doğrulayabilirsiniz.
+En son delegate'i _kullanmayan_ herhangi bir minipool, durumlarının altında yükseltilebileceklerini bildiren sarı bir bildirime sahip olacaktır:
 
 ```
 Address:              0x7E5703fdA638CD86c316B9EbAF76927fF695ADC5

@@ -1,97 +1,77 @@
-# Preparing a PC, Mini-PC, or NUC
+# 准备 PC、迷你电脑或 NUC
 
-Before installing Rocket Pool, there are a few checks you should do to make sure your system is compatible and will work
-correctly.
+在安装 Rocket Pool 之前，您应该进行一些检查，以确保您的系统兼容并能正常工作。
 
 ::: danger
-We strongly encourage you to create a dedicated machine for running a Rocket Pool node.
-Running a node on a general-use machine, such as your daily work desktop or a gaming rig, presents extra security risks
-that may compromise your wallet and result in the theft of your coins.
+我们强烈建议您创建一个专用于运行 Rocket Pool 节点的专用机器。
+在通用机器上运行节点，例如您的日常工作台式机或游戏设备，会带来额外的安全风险，可能会危及您的钱包并导致您的币被盗。
 
-**For maximum safety, please build a new machine that is dedicated exclusively to running a node.**
+**为了最大限度地提高安全性，请构建一台专门用于运行节点的新机器。**
 :::
 
-## System Requirements
+## 系统要求
 
-Below is a brief description of the software and hardware requirements that a Rocket Pool node requires.
-This guide assumes that you already have your machine physically built, and the operating system installed.
+以下是 Rocket Pool 节点所需的软件和硬件要求的简要说明。
+本指南假设您已经物理构建了您的机器，并安装了操作系统。
 
-### Supported Operating Systems
+### 支持的操作系统
 
-Rocket Pool's Smartnode client currently supports **Linux** and **macOS** systems.
+Rocket Pool 的 Smartnode 客户端目前支持 **Linux** 和 **macOS** 系统。
 
-At this time, **Windows** can be used to remotely manage a remote Linux or Mac machine, but the Smartnode itself cannot
-currently run on a Windows system. However, Rocket Pool _can_ be run on a
-Linux [virtual machine](https://en.wikipedia.org/wiki/System_virtual_machine) hosted by a Windows machine.
-This setup is not recommended over simply installing Linux as the host operating system, but it does work if necessary.
-Note that it will require extra resource overhead, and comes with its own set of security risks, so we do not advise
-using this setup when staking real Ether on the main network.
+目前，**Windows** 可用于远程管理远程 Linux 或 Mac 机器，但 Smartnode 本身目前无法在 Windows 系统上运行。但是，Rocket Pool _可以_在 Windows 机器托管的 Linux [虚拟机](https://en.wikipedia.org/wiki/System_virtual_machine)上运行。
+不建议使用此设置而不是简单地将 Linux 安装为主机操作系统，但如果必要，它确实可以工作。
+请注意，它将需要额外的资源开销，并带有自己的一套安全风险，因此我们不建议在主网上质押真实以太币时使用此设置。
 
-Rocket Pool is natively compatible with **AMD64 (x64)** and **arm64 (aarch64)** CPU architectures.
-For other architectures, you will need to compile the smartnode clients from source.
+Rocket Pool 原生兼容 **AMD64 (x64)** 和 **arm64 (aarch64)** CPU 架构。
+对于其他架构，您需要从源代码编译 smartnode 客户端。
 
-Note that the user must have **root / Administrator** access (or **sudo** privileges) to install the Smartnode.
+请注意，用户必须具有 **root / 管理员**访问权限（或 **sudo** 权限）才能安装 Smartnode。
 
-#### Linux Support
+#### Linux 支持
 
-There are many variants of the Linux OS (called distributions, or **distros** for short). While you can run Rocket Pool
-from any modern distro, Rocket Pool's installer can automatically install the entire stack
-on [Ubuntu](https://ubuntu.com/about), [Debian](https://www.debian.org/intro/why_debian), [CentOS](https://www.centos.org/about/),
-and [Fedora](https://docs.fedoraproject.org/en-US/project/).
+Linux 操作系统有许多变体（称为发行版或简称 **distro**）。虽然您可以从任何现代发行版运行 Rocket Pool，但 Rocket Pool 的安装程序可以在 [Ubuntu](https://ubuntu.com/about)、[Debian](https://www.debian.org/intro/why_debian)、[CentOS](https://www.centos.org/about/) 和 [Fedora](https://docs.fedoraproject.org/en-US/project/) 上自动安装整个堆栈。
 
-::: warning NOTE
-If you plan to use Ubuntu, we strongly recommend using an **LTS** release such as 24.04.
-These releases are actively maintained for longer periods of time, which helps with the security and stability of your
-node.
+::: warning 注意
+如果您计划使用 Ubuntu，我们强烈建议使用 **LTS** 版本，例如 24.04。
+这些版本会被积极维护更长的时间，这有助于节点的安全性和稳定性。
 :::
 
-For installation on other distros, the Smartnode installer will not be able to automatically install some system
-dependencies (such as `docker-compose`).
-Some manual steps will be required during installation.
+对于在其他发行版上的安装，Smartnode 安装程序将无法自动安装某些系统依赖项（例如 `docker-compose`）。
+安装过程中将需要一些手动步骤。
 
-For `arm64` systems, the Smartnode installer only natively supports Debian and Debian-based distros such as Ubuntu.
-For other distros, manual steps will be required during installation.
+对于 `arm64` 系统，Smartnode 安装程序仅原生支持 Debian 和基于 Debian 的发行版，例如 Ubuntu。
+对于其他发行版，安装过程中将需要手动步骤。
 
-## Installing the Operating System
+## 安装操作系统
 
-If you're using macOS, it's highly likely that you already have the Operating System installed and can skip this step.
+如果您使用的是 macOS，很可能您已经安装了操作系统，可以跳过此步骤。
 
-If you're installing Linux from scratch, each of the distributions listed above come with helpful and detailed tutorials
-for installing the Operating System from scratch.
-As an example though, we will walk you through the process of installing and preparing **Debian Server**.
-Debian is a good choice for node operation because it focuses on **maximum stability and reliability** - both of which
-are highly desirable for node machines that must be running 24/7.
+如果您从头开始安装 Linux，上面列出的每个发行版都附带有用且详细的教程，用于从头开始安装操作系统。
+但作为示例，我们将引导您完成安装和准备 **Debian Server** 的过程。
+Debian 是节点操作的一个很好的选择，因为它专注于**最大的稳定性和可靠性** - 这两者对于必须 24/7 运行的节点机器都非常理想。
 
-[Here is a good step-by-step guide](https://itslinuxfoss.com/debian-11-bullseye-guide/) with screenshots that shows you
-how to install Debian on your node machine from scratch.
+[这是一个很好的分步指南](https://itslinuxfoss.com/debian-11-bullseye-guide/)，带有屏幕截图，向您展示如何从头开始在节点机器上安装 Debian。
 
 :::tip
-We have a few helpful amendments to the guide linked above, which you may want to follow:
+我们对上面链接的指南有一些有用的修正，您可能希望遵循：
 
-- When prompted to set up a **root password**, we recommend leaving it **blank**. This will disable the `root` account
-  and instead install the `sudo` package, allowing your user to perform root operations by re-entering its password to
-  elevate its permissions. This is analogous to the way Ubuntu Linux is set up, which may be more familiar to users.
-- In the **Software selection** screen towards the end, you may not want to have a desktop GUI installed.
-  - Desktop GUIs are largely unnecessary for a node; they add extra overhead and most of the time will not be used since
-    you'll be remote controlling it via the terminal anyway, so we prefer to **uncheck GNOME and Debian desktop
-    environment** here.
-  - If you _do_ want a desktop UI on your node, we recommend you **uncheck GNOME and check XFCE** instead, as it's
-    lighter on system resources. We also recommend running no additional software on the node, such as browsers or
-    Discord, as they diminish security and consume system resources.
-  - Uncheck **web server**, but leave **SSH server** and **standard system utilities** checked.
-- If you have created a flash drive from an iso, you may need to disable the CD-ROM repository in order to run `apt`.
-  You can find an explanation of how to do
-  this [here](https://www.linuxtechi.com/things-to-do-after-installing-debian-11/).
-- Your system may be set up to sleep/hibernate by default. To disable these settings, you can run the following command:
+- 当提示设置 **root 密码**时，我们建议将其留空**空白**。这将禁用 `root` 账户，而是安装 `sudo` 包，允许您的用户通过重新输入其密码来执行 root 操作以提升其权限。这类似于 Ubuntu Linux 的设置方式，对于用户来说可能更熟悉。
+- 在最后的 **软件选择**屏幕中，您可能不希望安装桌面 GUI。
+  - 桌面 GUI 对于节点来说基本上是不必要的；它们增加了额外的开销，并且大多数时候不会被使用，因为您无论如何都将通过终端远程控制它，因此我们更喜欢在这里**取消选中 GNOME 和 Debian 桌面环境**。
+  - 如果您_确实_想要在节点上使用桌面 UI，我们建议您**取消选中 GNOME 并选中 XFCE**，因为它对系统资源的消耗较少。我们还建议不要在节点上运行任何其他软件，例如浏览器或 Discord，因为它们会降低安全性并消耗系统资源。
+  - 取消选中 **web 服务器**，但保留 **SSH 服务器**和**标准系统实用程序**选中。
+- 如果您从 iso 创建了闪存驱动器，您可能需要禁用 CD-ROM 存储库才能运行 `apt`。
+  您可以在[此处](https://www.linuxtechi.com/things-to-do-after-installing-debian-11/)找到有关如何执行此操作的说明。
+- 您的系统可能默认设置为睡眠/休眠。要禁用这些设置，您可以运行以下命令：
   `sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target`
 
 :::
 
-### Installing `sudo`
+### 安装 `sudo`
 
-Rocket Pool's installer requires the `sudo` program to acquire all of its dependencies.
-If you left the **root user password blank** in the previous step, you will already have this.
-If not, please install it now by running the following commands:
+Rocket Pool 的安装程序需要 `sudo` 程序来获取其所有依赖项。
+如果您在上一步中将 **root 用户密码留空**，您将已经拥有此功能。
+如果没有，请立即通过运行以下命令安装它：
 
 ```shell
 apt update
@@ -105,13 +85,13 @@ apt install sudo
 usermod -aG sudo $USER
 ```
 
-Then restart the machine.
-You should now be able to run commands via `sudo` such as `sudo apt update`.
+然后重启机器。
+您现在应该能够通过 `sudo` 运行命令，例如 `sudo apt update`。
 
-### Using SSH
+### 使用 SSH
 
-Once the server is installed and you're able to log in, you need to get its IP address.
-An easy way to do this is with `ifconfig` which is built into the 'net-tools' package:
+安装服务器后，您可以登录，您需要获取其 IP 地址。
+一个简单的方法是使用 `ifconfig`，它内置在 'net-tools' 包中：
 
 ```shell
 sudo apt update
@@ -125,7 +105,7 @@ sudo apt install net-tools
 sudo ifconfig
 ```
 
-You may see several entries here, but the one you want to look for is going to look something like this:
+您可能会在这里看到几个条目，但您要查找的条目看起来像这样：
 
 ```
 eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
@@ -135,162 +115,150 @@ eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
       ...
 ```
 
-The flags should say `UP,BROADCAST,RUNNING,MULTICAST`.
-The `inet` value (here `192.168.1.8`) is your machine's local IP address.
+标志应该显示 `UP,BROADCAST,RUNNING,MULTICAST`。
+`inet` 值（此处为 `192.168.1.8`）是您的机器的本地 IP 地址。
 
-Next, install SSH:
+接下来，安装 SSH：
 
 ```shell
 sudo apt install openssh-server
 ```
 
-:::tip NOTE
-If you had the **SSH server** box checked during Debian's installation, you should already have this installed so this
-command won't do anything.
+:::tip 注意
+如果您在 Debian 安装期间选中了 **SSH 服务器**框，您应该已经安装了此功能，因此此命令不会执行任何操作。
 :::
 
-Once this is done, you can log into the machine's terminal remotely from your laptop or desktop using `ssh`.
+完成此操作后，您可以使用 `ssh` 从笔记本电脑或台式机远程登录到机器的终端。
 
-If you aren't familiar with `ssh`, take a look at the [Intro to Secure Shell](../ssh) guide.
+如果您不熟悉 `ssh`，请查看[安全外壳简介](../ssh)指南。
 
-:::warning NOTE
-At this point, you should _strongly consider_ configuring your router to make your node's IP address **static**.
-This means that your node will have the same IP address forever, so you can always SSH into it using that IP address.
-Otherwise, it's possible that your node's IP could change at some point, and the above SSH command will no longer work.
-You'll have to enter your router's configuration to find out what your node's new IP address is.
+:::warning 注意
+此时，您应该_强烈考虑_配置路由器以使节点的 IP 地址**静态**。
+这意味着您的节点将永远拥有相同的 IP 地址，因此您始终可以使用该 IP 地址通过 SSH 登录。
+否则，您的节点的 IP 可能会在某个时候更改，并且上面的 SSH 命令将不再有效。
+您必须进入路由器的配置以找出节点的新 IP 地址是什么。
 
-Each router is different, so you will need to consult your router's documentation to learn how to assign a static IP
-address.
+每个路由器都不同，因此您需要查阅路由器的文档以了解如何分配静态 IP 地址。
 :::
 
-## Setting up Swap Space
+## 设置交换空间
 
-In most cases, if you choose your Execution and Consensus clients and your instance type carefully, you should not run
-out of RAM.
-Then again, it never hurts to add a little more.
-What we're going to do now is add what's called **swap space**.
-Essentially, it means we're going to use the SSD as "backup RAM" in case something goes horribly, horribly wrong and
-your server runs out of regular RAM.
-The SSD isn't nearly as fast as the regular RAM, so if it hits the swap space it will slow things down, but it won't
-completely crash and break everything.
-Think of this as extra insurance that you'll (most likely) never need.
+在大多数情况下，如果您仔细选择执行客户端和共识客户端以及实例类型，则不应耗尽 RAM。
+话虽如此，增加一点额外的内存也无妨。
+我们现在要做的是添加所谓的**交换空间**。
+从本质上讲，这意味着我们将使用 SSD 作为"备用 RAM"，以防发生可怕的事情并且您的服务器耗尽了常规 RAM。
+SSD 的速度不如常规 RAM 快，因此如果它达到交换空间，它会减慢速度，但它不会完全崩溃并破坏所有内容。
+将此视为您（很可能）永远不需要的额外保险。
 
-### Creating a Swap File
+### 创建交换文件
 
-The first step is to make a new file that will act as your swap space.
-Decide how much you want to use - a reasonable start would be 8 GB, so you have 8 GB of normal RAM and 8 GB of "backup
-RAM" for a total of 16 GB.
-To be super safe, you can make it 24 GB so your system has 8 GB of normal RAM and 24 GB of "backup RAM" for a total of
-32 GB, but this is probably overkill.
-Luckily, since your SSD has 1 or 2 TB of space, allocating 8 to 24 GB for a swapfile is negligible.
+第一步是创建一个新文件，该文件将充当您的交换空间。
+决定您想要使用多少 - 一个合理的起点是 8 GB，因此您有 8 GB 的普通 RAM 和 8 GB 的"备用 RAM"，总共 16 GB。
+为了超级安全，您可以将其设置为 24 GB，这样您的系统就有 8 GB 的普通 RAM 和 24 GB 的"备用 RAM"，总共 32 GB，但这可能是过度的。
+幸运的是，由于您的 SSD 有 1 或 2 TB 的空间，因此为交换文件分配 8 到 24 GB 可以忽略不计。
 
-For the sake of this walkthrough, let's pick a nice middleground - say, 16 GB of swap space for a total RAM of 24 GB.
-Just substitute whatever number you want in as we go.
+为了本演练的目的，让我们选择一个不错的中间地带 - 比如说，16 GB 的交换空间，总 RAM 为 24 GB。
+在我们进行时，只需替换您想要的任何数字。
 
-Enter this, which will create a new file called `/swapfile` and fill it with 16 GB of zeros.
-To change the amount, just change the number in `count=16` to whatever you want. **Note that this is going to take a
-long time, but that's ok.**
+输入此命令，它将创建一个名为 `/swapfile` 的新文件，并用 16 GB 的零填充它。
+要更改数量，只需将 `count=16` 中的数字更改为您想要的任何数字。**请注意，这将花费很长时间，但这没关系。**
 
 ```shell
 sudo dd if=/dev/zero of=/swapfile bs=1G count=16 status=progress
 ```
 
-Next, set the permissions so only the root user can read or write to it (for security):
+接下来，设置权限，以便只有 root 用户可以读取或写入它（出于安全考虑）：
 
 ```shell
 sudo chmod 600 /swapfile
 ```
 
-Now, mark it as a swap file:
+现在，将其标记为交换文件：
 
 ```shell
 sudo mkswap /swapfile
 ```
 
-Next, enable it:
+接下来，启用它：
 
 ```shell
 sudo swapon /swapfile
 ```
 
-Finally, add it to the mount table so it automatically loads when your server reboots:
+最后，将其添加到挂载表中，以便在服务器重新启动时自动加载：
 
 ```shell
 sudo nano /etc/fstab
 ```
 
-Add a new line at the end that looks like this:
+在末尾添加一个新行，如下所示：
 
 ```
 /swapfile                            none            swap    sw              0       0
 ```
 
-Press `Ctrl+O` and `Enter` to save, then `Ctrl+X` and `Enter` to exit.
+按 `Ctrl+O` 和 `Enter` 保存，然后按 `Ctrl+X` 和 `Enter` 退出。
 
-To verify that it's active, run these commands:
+要验证它是否处于活动状态，请运行以下命令：
 
 ```shell
 sudo apt install htop
 htop
 ```
 
-Your output should look like this at the top:
+您的输出应该在顶部看起来像这样：
 ![](../local/images/pi/Swap.png)
 
-If the second number in the last row labeled `Swp` (the one after the `/`) is non-zero, then you're all set.
-For example, if it shows `0K / 16.0G` then your swap space was activated successfully.
-If it shows `0K / 0K` then it did not work and you'll have to confirm that you entered the previous steps properly.
+如果标记为 `Swp` 的最后一行中的第二个数字（`/` 后面的数字）不为零，则您已准备就绪。
+例如，如果显示 `0K / 16.0G`，则您的交换空间已成功激活。
+如果显示 `0K / 0K`，则它不起作用，您必须确认您正确输入了前面的步骤。
 
-Press `q` or `F10` to quit out of `htop` and get back to the terminal.
+按 `q` 或 `F10` 退出 `htop` 并返回终端。
 
-### Configuring Swappiness and Cache Pressure
+### 配置交换性和缓存压力
 
-By default, Linux will eagerly use a lot of swap space to take some of the pressure off of the system's RAM.
-We don't want that. We want it to use all of the RAM up to the very last second before relying on SWAP.
-The next step is to change what's called the "swappiness" of the system, which is basically how eager it is to use the
-swap space.
-There is a lot of debate about what value to set this to, but we've found a value of 6 works well enough.
+默认情况下，Linux 会急切地使用大量交换空间来减轻系统 RAM 的一些压力。
+我们不想那样。我们希望它在依赖 SWAP 之前使用所有 RAM 直到最后一秒。
+下一步是更改系统的所谓"交换性"，这基本上是它使用交换空间的渴望程度。
+关于将此值设置为多少存在很多争论，但我们发现值为 6 效果很好。
 
-We also want to turn down the "cache pressure", which dictates how quickly the server will delete a cache of its
-filesystem.
-Since we're going to have a lot of spare RAM with our setup, we can make this "10" which will leave the cache in memory
-for a while, reducing disk I/O.
+我们还想降低"缓存压力"，它决定了服务器删除其文件系统缓存的速度。
+由于我们的设置将有大量备用 RAM，我们可以将其设置为"10"，这将在内存中保留缓存一段时间，从而减少磁盘 I/O。
 
-To set these, run these commands:
+要设置这些，请运行以下命令：
 
 ```shell
 sudo sysctl vm.swappiness=6
 sudo sysctl vm.vfs_cache_pressure=10
 ```
 
-Now, put them into the `sysctl.conf` file so they are reapplied after a reboot:
+现在，将它们放入 `sysctl.conf` 文件中，以便在重新启动后重新应用它们：
 
 ```shell
 sudo nano /etc/sysctl.conf
 ```
 
-Add these two lines to the end:
+在末尾添加这两行：
 
 ```shell
 vm.swappiness=6
 vm.vfs_cache_pressure=10
 ```
 
-Then save and exit like you've done before (`Ctrl+O`, `Ctrl+X`).
+然后像以前一样保存并退出（`Ctrl+O`，`Ctrl+X`）。
 
-### Pre-installation System Checks
+### 安装前系统检查
 
-Before installing Rocket Pool, please review the following checklist:
+在安装 Rocket Pool 之前，请查看以下清单：
 
-- Your system is fully built, powers on, and can boot into the operating system.
-- You will not do any other activity on the system, such as browsing the Internet, checking email, or playing games.
-- You have a Linux operating system installed.
-- Your user account has root / administrator privileges.
-- You have an SSD that meets the performance requirements.
-- Your SSD is mounted on your file system.
-- You have at least 1.5 TB of disk space free for the initial Execution and Consensus syncing process.
-- If your ISP caps your data, it is more than 2 TB per month.
+- 您的系统已完全构建，可以开机，并可以启动到操作系统。
+- 您不会在系统上进行任何其他活动，例如浏览互联网、检查电子邮件或玩游戏。
+- 您已安装 Linux 操作系统。
+- 您的用户帐户具有 root / 管理员权限。
+- 您有一个满足性能要求的 SSD。
+- 您的 SSD 已挂载在文件系统上。
+- 您至少有 1.5 TB 的可用磁盘空间用于初始执行和共识同步过程。
+- 如果您的 ISP 限制了您的数据，则每月超过 2 TB。
 
-If you have checked and confirmed all of these items, then you are ready to install Rocket Pool and begin running a
-node!
-Move on to the [Choosing your ETH Clients](../eth-clients) section.
+如果您已检查并确认所有这些项目，那么您已准备好安装 Rocket Pool 并开始运行节点！
+继续到[选择您的 ETH 客户端](../eth-clients)部分。

@@ -4,108 +4,108 @@ import tui_select_cc from "./images/tui-select-cc.png";
 import tui_checkpoint_sync from "./images/tui-checkpoint-sync.png";
 import tui_confirm_cc from "./images/tui-confirm-cc.png";
 
-# Changing Execution or Consensus Clients
+# Executionクライアントまたはコンセンサスクライアントの変更
 
-Under normal circumstances, you will likely just select an Execution and Consensus client when you first create your Rocket Pool node and will let them happily run for the life of your Node.
-However, there are a few situations where you may want to change your client selection.
-Here are a few examples:
+通常の状況では、Rocket Poolノードを最初に作成する際にExecutionクライアントとコンセンサスクライアントを選択し、ノードの稼働期間中はそのまま使い続けることになるでしょう。
+しかし、クライアントの選択を変更したい状況がいくつかあります。
+以下にいくつかの例を示します。
 
-- Your client gains a [supermajority](https://clientdiversity.org/) share on the Execution or Beacon chains, and you want to change for the overall health of the network
-- A bug causes your client to stop functioning correctly, and you need to get back online quickly to resume validation duties
-- You want to try a new feature that a different client offers
-- A different client is better suited to your node's hardware (e.g. some clients are better on ARM systems than others)
+- 使用中のクライアントがExecutionチェーンまたはBeaconチェーンで[スーパーマジョリティ](https://clientdiversity.org/)シェアを獲得し、ネットワーク全体の健全性のために変更したい場合
+- バグによってクライアントが正常に機能しなくなり、検証業務を再開するために早急にオンラインに戻る必要がある場合
+- 別のクライアントが提供する新機能を試したい場合
+- 別のクライアントがノードのハードウェアにより適している場合(例: 一部のクライアントは他のクライアントよりもARMシステムで優れています)
 
-Luckily, the Smartnode stack makes changing clients extremely easy.
-All it takes is a few changes in the Configuration TUI, and some optional extra commands to back up your existing client data before changing clients.
+幸いなことに、Smartnodeスタックではクライアントの変更が非常に簡単です。
+必要なのは、Configuration TUIでいくつかの変更を行うことと、クライアントを変更する前に既存のクライアントデータをバックアップするためのオプションのコマンドだけです。
 
-## Changing Execution Clients
+## Executionクライアントの変更
 
-Prior to changing your Execution client, it's worth noting the following points:
+Executionクライアントを変更する前に、以下の点に注意してください。
 
-- Chain data **is not shared** between clients. Your new client will need to resync the Mainnet chain data, which can take some time (though each client supports snap sync, which the Smartnode uses to speed up resyncing).
-- By default, the Smartnode will leave your old client's chain data on your drive in case you want to revert back to your old Execution client and pick up where you left off. You may want to **export it to a different location** and delete it to free up space prior to changing clients, since Execution clients can use hundreds of gigabytes. We have steps below on how to do this.
-- While your new client is resyncing, most of the Smartnode CLI functions will be offline since they rely on the Execution client. **You should have a fallback Execution client available before doing this to mitigate the downtime on your Smartnode.**
+- チェーンデータはクライアント間で**共有されません**。新しいクライアントはMainnetチェーンデータを再同期する必要があり、これには時間がかかる場合があります(ただし、各クライアントはスナップ同期をサポートしており、Smartnodeはこれを使用して再同期を高速化します)。
+- デフォルトでは、Smartnodeは古いクライアントのチェーンデータをドライブに残すため、古いExecutionクライアントに戻して中断したところから再開できます。Executionクライアントは数百ギガバイトを使用する可能性があるため、クライアントを変更する前に**別の場所にエクスポート**してスペースを解放することをお勧めします。これを行う手順は以下に記載しています。
+- 新しいクライアントが再同期している間、Smartnode CLIの機能のほとんどはExecutionクライアントに依存しているため、オフラインになります。**これを行う前に、Smartnodeのダウンタイムを軽減するためにフォールバックExecutionクライアントを用意しておく必要があります。**
 
-### (Optional) Export your Execution Client's Database
+### (オプション) Executionクライアントのデータベースをエクスポートする
 
-The first step in the process is an optional one: if you like, you can export your existing chain data for your current Execution client.
-This will let you free up valuable disk space on your node for your new Execution client, and you can keep the old chain data around in case you want to revert back to the old client and pick up where you left off.
+プロセスの最初のステップはオプションです。必要に応じて、現在のExecutionクライアントの既存のチェーンデータをエクスポートできます。
+これにより、新しいExecutionクライアント用のノードの貴重なディスクスペースを解放でき、古いクライアントに戻して中断したところから再開したい場合に備えて、古いチェーンデータを保持できます。
 
-Please refer to the [Backing Up Your Node](./backups##backing-up-your-execution-chain-data) guide for details.
+詳細については、[ノードのバックアップ](./backups##backing-up-your-execution-chain-data)ガイドを参照してください。
 
-### Change your Selected Execution Client
+### 選択したExecutionクライアントを変更する
 
-To change your selected client, run `rocketpool service config` to enter the configuration UI.
-Navigate to the `Execution Client (ETH1)` section, and select the `Execution Client` dropdown:
+選択したクライアントを変更するには、`rocketpool service config`を実行して設定UIに入ります。
+`Execution Client (ETH1)`セクションに移動し、`Execution Client`ドロップダウンを選択します。
 
 <img src={tui_select_ec} width="100%" height="auto" />
 
-Open the dropdown with `Enter`, use the arrow keys to navigate to your client of choice, and press `Enter` again to confirm the selection.
+`Enter`でドロップダウンを開き、矢印キーを使用して選択したいクライアントに移動し、もう一度`Enter`を押して選択を確定します。
 
-Note that each client has its own unique options, so you may see some additional settings appear in this screen after you select a different client.
-Feel free to explore through them to see how they affect things.
+各クライアントには独自の設定があるため、別のクライアントを選択すると、この画面に追加の設定が表示される場合があります。
+それらを自由に探索して、どのように影響するかを確認してください。
 
-When you're happy with your choice, press `Esc` to return to the main menu, then `Tab` to highlight the `Review Changes and Save` button.
-You will be presented with the review screen, which will show your client selection change:
+選択に満足したら、`Esc`を押してメインメニューに戻り、`Tab`を押して`Review Changes and Save`ボタンをハイライトします。
+レビュー画面が表示され、クライアント選択の変更が表示されます。
 
 <img src={tui_confirm_ec} width="100%" height="auto" />
 
-Press `Enter` to accept the changes, and you're done!
-Your new Execution client will begin syncing immediately.
-As usual, you can follow it with `rocketpool service logs eth1`.
-**We recommend you do this to verify there are no errors, and that it works properly.**
+`Enter`を押して変更を承認すれば完了です。
+新しいExecutionクライアントはすぐに同期を開始します。
+通常通り、`rocketpool service logs eth1`で確認できます。
+**エラーがなく、正しく動作することを確認するために、これを行うことをお勧めします。**
 
-::: danger NOTE
-Now that the Execution and Consensus layers have merged, taking down your Execution client will _also_ take down your Consensus client until your Execution client has finished resyncing.
-This means your node will **stop attesting and proposing blocks, and it will leak ETH instead of earning it!**
+::: danger 注意
+Executionレイヤーとコンセンサスレイヤーがマージされたため、Executionクライアントを停止すると、Executionクライアントが再同期を完了するまでコンセンサスクライアント_も_停止します。
+これは、ノードが**アテステーションとブロック提案を停止し、ETHを獲得する代わりにリークする**ことを意味します。
 
-To avoid this and continue validating while your Execution client resyncs, **please set up a [fallback node](./fallback)**.
+これを回避し、Executionクライアントの再同期中も検証を続けるには、**[フォールバックノード](./fallback)を設定してください**。
 :::
 
-### (Recommended) Remove your Old Chain Data
+### (推奨) 古いチェーンデータを削除する
 
-This is not a required step, but we **strongly recommend** you remove the chain data from your old client now that you've switched to a new one so you can free up disk space for it.
+これは必須のステップではありませんが、新しいクライアントに切り替えた後、古いクライアントのチェーンデータを削除してディスクスペースを解放することを**強くお勧めします**。
 
-To do this, simply run the following command:
+これを行うには、次のコマンドを実行するだけです。
 
 ```shell
 rocketpool service resync-eth1
 ```
 
-This will delete all of your Execution client data and start it over.
+これにより、すべてのExecutionクライアントデータが削除され、最初からやり直されます。
 
-::: tip TIP
-Since you just selected a new Execution client, it won't be affected by this - essentially, all it will do is delete your old chain data.
-You should do this as soon as possible after switching clients to prevent unnecessary loss of progress on your new client.
+::: tip ヒント
+新しいExecutionクライアントを選択したばかりなので、これによる影響はありません。基本的に、古いチェーンデータを削除するだけです。
+新しいクライアントの不必要な進行の損失を防ぐために、クライアントを切り替えた後できるだけ早くこれを行う必要があります。
 :::
 
-## Changing Consensus Clients
+## コンセンサスクライアントの変更
 
-Changing Consensus clients is even easier than Execution clients, thanks to [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
-This feature lets you immediately sync a new Consensus client with the network, so there's no need to preserve your old chain data.
+[チェックポイント同期](./config-docker#beacon-chain-checkpoint-syncing)のおかげで、コンセンサスクライアントの変更はExecutionクライアントよりもさらに簡単です。
+この機能により、新しいコンセンサスクライアントをネットワークと即座に同期できるため、古いチェーンデータを保持する必要はありません。
 
-Start by using the `rocketpool service config` UI and navigating to the `Consensus Client (ETH2)` section.
-Next, select the `Consensus Client` dropdown:
+まず、`rocketpool service config` UIを使用して`Consensus Client (ETH2)`セクションに移動します。
+次に、`Consensus Client`ドロップダウンを選択します。
 
 <img src={tui_select_cc} width="100%" height="auto" />
 
-Open the dropdown with `Enter`, use the arrow keys to navigate to your client of choice, and press `Enter` again to confirm the selection.
+`Enter`でドロップダウンを開き、矢印キーを使用して選択したいクライアントに移動し、もう一度`Enter`を押して選択を確定します。
 
-Note that each client has its own unique options, so you may see some additional settings appear in this screen after you select a different client.
-Feel free to explore through them to see how they affect things.
+各クライアントには独自の設定があるため、別のクライアントを選択すると、この画面に追加の設定が表示される場合があります。
+それらを自由に探索して、どのように影響するかを確認してください。
 
-Next, verify that you're using a Checkpoint Sync provider:
+次に、チェックポイント同期プロバイダーを使用していることを確認します。
 
 <img src={tui_checkpoint_sync} width="100%" height="auto" />
 
-If you don't have a Checkpoint Sync provider configured, [you can easily use instructions from here to do it for free](./config-docker#beacon-chain-checkpoint-syncing)!
+チェックポイント同期プロバイダーが設定されていない場合、[こちらの手順を使用して無料で簡単に設定できます](./config-docker#beacon-chain-checkpoint-syncing)。
 
-When you're happy with your choice, press `Esc` to return to the main menu, then `Tab` to highlight the `Review Changes and Save` button.
-You will be presented with the review screen, which will show your client selection change:
+選択に満足したら、`Esc`を押してメインメニューに戻り、`Tab`を押して`Review Changes and Save`ボタンをハイライトします。
+レビュー画面が表示され、クライアント選択の変更が表示されます。
 
 <img src={tui_confirm_cc} width="100%" height="auto" />
 
-Press `Enter` to accept the changes, and you're done!
-Your new Consensus client will begin syncing immediately.
-As usual, you can follow it with `rocketpool service logs eth2`.
-**We recommend you do this to verify there are no errors, and that it works properly.**
+`Enter`を押して変更を承認すれば完了です。
+新しいコンセンサスクライアントはすぐに同期を開始します。
+通常通り、`rocketpool service logs eth2`で確認できます。
+**エラーがなく、正しく動作することを確認するために、これを行うことをお勧めします。**

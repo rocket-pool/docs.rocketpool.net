@@ -11,549 +11,549 @@ import tuiExternalDD from "./images/tui-external-dd.png";
 import tuiExternalPrysm from "./images/tui-external-prysm.png";
 import tuiExternalTeku from "./images/tui-external-teku.png";
 
-# Configuring the Smartnode Stack (Docker / Hybrid Mode)
+# Smartnode Stack'ini Yapılandırma (Docker / Hybrid Modu)
 
-Running complete Execution layer and Consensus layer clients can be daunting; there are several options to choose from and each of them has a plethora of different settings.
-Luckily, the Smartnode is designed to hide all of that complexity so it's quick and easy to configure, while still giving you the freedom to customize everything if you so desire.
+Tam Execution katmanı ve Consensus katmanı istemcilerini çalıştırmak göz korkutucu olabilir; aralarından seçim yapabileceğiniz birçok seçenek vardır ve her birinin çok sayıda farklı ayarı bulunur.
+Neyse ki, Smartnode tüm bu karmaşıklığı gizlemek için tasarlanmıştır, böylece hızlı ve kolay bir şekilde yapılandırılabilir, aynı zamanda isterseniz her şeyi özelleştirme özgürlüğü sunar.
 
-In this section, we'll go over the various methods for configuring the Smartnode if you're using the **Docker-based setup** or a **Hybrid setup** where you connect to externally managed Execution or Consensus clients (e.g., clients you manage outside of the Smartnode for solo staking).
+Bu bölümde, **Docker tabanlı kurulum** veya harici olarak yönetilen Execution veya Consensus istemcilerine bağlandığınız bir **Hybrid kurulum** kullanıyorsanız (örneğin, solo staking için Smartnode dışında yönettiğiniz istemciler), Smartnode'u yapılandırmanın çeşitli yöntemlerini ele alacağız.
 
-::: warning NOTE
-If you're using Native mode without Docker, please visit the [Native configuration guide](./config-native) instead.
+::: warning NOT
+Docker olmadan Native mod kullanıyorsanız, lütfen bunun yerine [Native yapılandırma kılavuzunu](./config-native) ziyaret edin.
 :::
 
-There are three ways to configure it:
+Onu yapılandırmanın üç yolu vardır:
 
-- Via the [Wizard UI](#configuring-via-the-wizard) - this is the easiest way. It only asks you a few basic questions and uses well-tested defaults for the test. This will be what you are presented with when you run `rocketpool service config` for the first time.
-- Via the [Settings Manager UI](#configuring-via-the-settings-manager) - this gives you access to all of the Smartnode's settings so you can customize everything as much as you want.
-- Headlessly via the [Command Line](#configuring-via-the-command-line) - this is an option for people who run the Smartnode in a headless (non-interactive) environment and need to configure it automatically.
+- [Wizard UI](#configuring-via-the-wizard) aracılığıyla - bu en kolay yoldur. Sadece birkaç temel soru sorar ve test için iyi test edilmiş varsayılanları kullanır. İlk kez `rocketpool service config` komutunu çalıştırdığınızda size sunulan bu olacaktır.
+- [Settings Manager UI](#configuring-via-the-settings-manager) aracılığıyla - bu size Smartnode'un tüm ayarlarına erişim sağlar, böylece istediğiniz kadar her şeyi özelleştirebilirsiniz.
+- [Komut Satırı](#configuring-via-the-command-line) aracılığıyla başsız olarak - bu, Smartnode'u başsız (etkileşimli olmayan) bir ortamda çalıştıran ve otomatik olarak yapılandırması gereken kişiler için bir seçenektir.
 
-Choose which mode you'd like to learn more about from the list above, or simply scroll through each option below.
+Yukarıdaki listeden hangisini öğrenmek istediğinizi seçin veya aşağıdaki her seçeneği kaydırın.
 
-## Configuring via the Wizard
+## Wizard Aracılığıyla Yapılandırma
 
-To start the configuration process, run the following command:
+Yapılandırma işlemini başlatmak için aşağıdaki komutu çalıştırın:
 
 ```shell
 rocketpool service config
 ```
 
-This will launch a terminal-based UI that will allow you to quickly and easily configure your node, as well as provide optional fine-grained control over every setting for advanced customization.
+Bu, düğümünüzü hızlı ve kolay bir şekilde yapılandırmanıza olanak tanıyan ve gelişmiş özelleştirme için her ayar üzerinde isteğe bağlı ince ayarlı kontrol sağlayan terminal tabanlı bir kullanıcı arayüzü başlatacaktır.
 
-::: tip NOTE
-If you've already configured the Smartnode, you will instead be greeted with the [Settings Manager](#configuring-the-smartnode-stack-via-the-settings-manager).
-You can choose to re-open the Wizard from there if you prefer it, and all of your existing settings will be pre-selected for you.
+::: tip NOT
+Smartnode'u zaten yapılandırdıysanız, bunun yerine [Settings Manager](#configuring-the-smartnode-stack-via-the-settings-manager) ile karşılanacaksınız.
+Tercih ederseniz oradan Wizard'ı yeniden açmayı seçebilirsiniz ve mevcut tüm ayarlarınız sizin için önceden seçilecektir.
 :::
 
-When you run the config UI for the first time (or if you choose to run the Wizard again later), you will be presented with a screen that looks like this:
+Yapılandırma kullanıcı arayüzünü ilk kez çalıştırdığınızda (veya daha sonra Wizard'ı tekrar çalıştırmayı seçerseniz), şöyle görünen bir ekranla karşılaşacaksınız:
 
 <img src="./images/tui-first-time.png" width="100%" height="auto" />
 
-::: tip TIP
-To use the Wizard, **press the `Arrow Keys` (up/down/left/right) to navigate between things such as buttons (choices) or text boxes**.
-You can also use `Tab` and `Shift+Tab` if you prefer - it will do the same thing.
+::: tip İPUCU
+Wizard'ı kullanmak için, **düğmeler (seçenekler) veya metin kutuları gibi şeyler arasında gezinmek için `Ok Tuşlarına` (yukarı/aşağı/sol/sağ) basın**.
+İsterseniz `Tab` ve `Shift+Tab` tuşlarını da kullanabilirsiniz - aynı şeyi yapacaktır.
 
-For buttons, **the one that's currently selected will be highlighted in green**.
-The ones in black are not selected.
-In the screenshot above, `Next` is currently selected and `Quit` is not.
+Düğmeler için, **şu anda seçili olan yeşil renkte vurgulanacaktır**.
+Siyah olanlar seçili değildir.
+Yukarıdaki ekran görüntüsünde, `Next` şu anda seçilidir ve `Quit` seçili değildir.
 
-**Press `Enter` or `Space` to select a button**, analogous to clicking on it with the mouse.
+**Bir düğmeyi seçmek için `Enter` veya `Space` tuşuna basın**, bu fareyle üzerine tıklamaya benzer.
 
-**Press `Escape` to go back to the previous dialog** if you changed your mind about something.
-This will come in handy as you progress through the various Wizard pages.
+**Bir şey hakkında fikrinizi değiştirdiyseniz önceki diyaloğa geri dönmek için `Escape` tuşuna basın**.
+Çeşitli Wizard sayfalarında ilerlerken bu kullanışlı olacaktır.
 
-**Hold `Ctrl` and press `C` at any time to exit the Wizard without saving anything**.
+**Hiçbir şeyi kaydetmeden Wizard'dan çıkmak için istediğiniz zaman `Ctrl` tuşunu basılı tutun ve `C`'ye basın**.
 
-For example, on the screen above, you could press the `left` and `right` arrow keys to move between the `Next` and `Quit` buttons.
+Örneğin, yukarıdaki ekranda, `Next` ve `Quit` düğmeleri arasında geçiş yapmak için `sol` ve `sağ` ok tuşlarına basabilirsiniz.
 
-Pressing `Enter` while `Next` is selected will proceed to the next screen.
-Pressing `Enter` while `Quit` is selected will quit the Wizard without saving.
+`Next` seçiliyken `Enter` tuşuna basmak bir sonraki ekrana geçecektir.
+`Quit` seçiliyken `Enter` tuşuna basmak kaydetmeden Wizard'dan çıkacaktır.
 :::
 
-When you're ready to begin, press `Next`.
+Başlamaya hazır olduğunuzda, `Next` tuşuna basın.
 
-### Choosing a Network
+### Bir Ağ Seçme
 
-In the next screen, you will be asked to choose which network you want to use:
+Bir sonraki ekranda, hangi ağı kullanmak istediğinizi seçmeniz istenecektir:
 
 <img src="./images/tui-network.png" width="100%" height="auto" />
 
-You can highlight the different choices with the `Up` and `Down` arrow keys (or `Tab` and `Shift+Tab`).
-When you change choices, the **Description** box on the right will show you a brief description of each option.
-This is true for all choice-based pages in the Wizard, not just the network selection, so you will see this style of page frequently.
+Farklı seçenekleri `Yukarı` ve `Aşağı` ok tuşlarıyla (veya `Tab` ve `Shift+Tab`) vurgulayabilirsiniz.
+Seçenekleri değiştirdiğinizde, sağdaki **Description** kutusu size her seçenek hakkında kısa bir açıklama gösterecektir.
+Bu, sadece ağ seçimi için değil, Wizard'daki tüm seçim tabanlı sayfalar için geçerlidir, bu nedenle bu tarz sayfaları sıklıkla göreceksiniz.
 
-If you want to practice running a Rocket Pool node on the Hoodi test network with fake ETH and RPL you can get for free, select **Hoodi Testnet**.
+Hoodi test ağında ücretsiz olarak alabileceğiniz sahte ETH ve RPL ile bir Rocket Pool düğümü çalıştırmayı denemek istiyorsanız, **Hoodi Testnet**'i seçin.
 
-If you're ready to create a real Rocket Pool node on Mainnet to earn real rewards, select **Mainnet**.
+Gerçek ödüller kazanmak için Mainnet'te gerçek bir Rocket Pool düğümü oluşturmaya hazırsanız, **Mainnet**'i seçin.
 
-### Client Mode
+### İstemci Modu
 
-You will be presented with two options for client mode:
+İstemci modu için iki seçenekle karşılaşacaksınız:
 
 <img src="./images/tui-client-mode.png" width="100%" height="auto" />
 
-**Locally Managed** (also known as **"Docker Mode"**) is the default choice.
-Use it if you don't already have a client pair and you want the Smartnode to manage one for you.
-By choosing this, the Smartnode will create, configure and manage an Execution & Consensus Client pair as Docker containers.
-Don't worry, you'll get to choose _which_ client you want to run next.
+**Locally Managed** (**"Docker Modu"** olarak da bilinir) varsayılan seçimdir.
+Henüz bir istemci çiftiniz yoksa ve Smartnode'un sizin için birini yönetmesini istiyorsanız bunu kullanın.
+Bunu seçerek, Smartnode bir Execution & Consensus İstemci çiftini Docker konteynerleri olarak oluşturacak, yapılandıracak ve yönetecektir.
+Merak etmeyin, bir sonraki adımda _hangi_ istemciyi çalıştırmak istediğinizi seçeceksiniz.
 
-**Externally Managed** (also known as **"Hybrid Mode"**) is a convenient choice for users that already have an Execution & Consensus client pair running elsewhere that they manage manually.
-By choosing this, the Smartnode will simply connect to your existing clients and will not run one of its own.
-For example, users can use this to plug into the clients that they currently use for solo staking; that way, they don't need to have two separate copies of the clients.
+**Externally Managed** (**"Hybrid Modu"** olarak da bilinir), başka bir yerde manuel olarak yönettikleri bir Execution & Consensus istemci çiftine zaten sahip olan kullanıcılar için uygun bir seçenektir.
+Bunu seçerek, Smartnode mevcut istemcilerinize bağlanacak ve kendisi bir tane çalıştırmayacaktır.
+Örneğin, kullanıcılar bunu şu anda solo staking için kullandıkları istemcilere bağlanmak için kullanabilirler; bu şekilde, istemcilerin iki ayrı kopyasına sahip olmaları gerekmez.
 
-:::warning NOTE
-Since the Execution-Consensus Layer Merge, you _cannot_ mix and match these modes (e.g., you cannot have a local Execution client but an externally-managed Consensus client).
-You must either choose all locally-managed or all externally-managed.
+:::warning NOT
+Execution-Consensus Katmanı Birleşmesinden bu yana, bu modları karıştıramazsınız (örneğin, yerel bir Execution istemciniz ancak harici olarak yönetilen bir Consensus istemciniz olamaz).
+Ya tamamen yerel olarak yönetilen ya da tamamen harici olarak yönetilen seçmeniz gerekir.
 :::
 
-### Execution Client Setup
+### Execution İstemci Kurulumu
 
-Choose which mode you'd like to use for managing your Execution client and follow the steps in the corresponding tab below:
+Execution istemcinizi yönetmek için hangi modu kullanmak istediğinizi seçin ve aşağıdaki ilgili sekmedeki adımları izleyin:
 
 <div className="p-3">
   <Tabs>
     <Tab label="Locally Managed">
-      If you want the Smartnode to manage an Execution client for you, the next screen will ask you to pick a client:
+      Smartnode'un sizin için bir Execution istemcisi yönetmesini istiyorsanız, bir sonraki ekran size bir istemci seçmenizi isteyecektir:
 
       <img src={ECSelection} width="100%" height="auto"/>
 
-      Please refer to the [Choosing your ETH clients](/en/node-staking/eth-clients#execution-clients) section for a description of each option.
-      Once you've made your choice, click on the appropriate tab below to learn how to configure it:
+      Lütfen her seçeneğin açıklaması için [ETH istemcilerinizi seçme](/tr/node-staking/eth-clients#execution-clients) bölümüne bakın.
+      Seçiminizi yaptıktan sonra, nasıl yapılandırılacağını öğrenmek için aşağıdaki uygun sekmeye tıklayın:
 
-      If you choose **Geth**, **Besu**, or **Nethermind**, the Wizard will handle all of the configuration for you.
-      You can manually adjust some of its parameters at the end of this process, but the defaults that it uses are completely appropriate for node operation.
-      You can proceed to the next section.
+      **Geth**, **Besu** veya **Nethermind** seçerseniz, Wizard tüm yapılandırmayı sizin için halledecektir.
+      Bu işlemin sonunda bazı parametrelerini manuel olarak ayarlayabilirsiniz, ancak kullandığı varsayılanlar düğüm işlemi için tamamen uygundur.
+      Bir sonraki bölüme geçebilirsiniz.
 
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        **Open up the P2P port in your router's port forwarding setup**. Configure it to forward **port 30303** on both TCP and UDP to your machine's local IP address.
-        This way, other Consensus clients can discover it and communicate with it from the outside. This will help your Consensus client sync quickly and improve performance (and thus rewards).
+        <p className="rspress-directive-title">NOT</p>
+        **Yönlendiricinizin port forwarding kurulumunda P2P portunu açın**. Hem TCP hem de UDP üzerinde **port 30303**'ü makinenizin yerel IP adresine yönlendirecek şekilde yapılandırın.
+        Bu şekilde, diğer Consensus istemcileri onu keşfedebilir ve dışarıdan onunla iletişim kurabilir. Bu, Consensus istemcinizin hızlı senkronize olmasına yardımcı olacak ve performansı (ve dolayısıyla ödülleri) artıracaktır.
 
-        Each router has a different way of doing this, so **you'll need to check out your router's manual on how to set up port forwarding**.
+        Her yönlendiricinin bunu yapmanın farklı bir yolu vardır, bu nedenle **port forwarding'in nasıl kurulacağı konusunda yönlendiricinizin kılavuzuna bakmanız gerekir**.
       </p>
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-        You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your Execution client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+        <p className="rspress-directive-title">NOT</p>
+        Smartnode kendi Docker konteynerinde çalışacağı için, Docker'ın dahili ağını kullanacaktır.
+        Burada `localhost` veya `127.0.0.1` gibi ana bilgisayar adlarını kullanamazsınız; Execution istemciniz Smartnode ile aynı makinede çalışıyorsa, bunun yerine makinenizin yerel ağ IP adresini sağlamanız gerekir.
       </p>
 
-      And with that, your Execution client is all set!
+      Ve bununla, Execution istemciniz tamamen hazır!
     </Tab>
     <Tab label="External">
-      For an externally managed Execution client, the next screen will prompt you for the URLs of its HTTP-based RPC (web3) API and its Websocket-based RPC API:
+      Harici olarak yönetilen bir Execution istemcisi için, bir sonraki ekran size HTTP tabanlı RPC (web3) API'sinin ve Websocket tabanlı RPC API'sinin URL'lerini isteyecektir:
 
       <img src={tuiExternalEC} width="100%" height="auto"/>
 
-      The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting transactions.
-      **If you don't already have your client's API port enabled and accessible from your Smartnode machine, you will need to set it up now.**
-      Instructions on this vary from client to client; consult your client's documentation to learn how to set up the HTTP RPC endpoint.
+      Smartnode, onunla iletişim kurmak ve zincirin durumunu sorgulamak ve işlemleri göndermek gibi blokzinciri faaliyetlerini gerçekleştirmek için HTTP URL'sini kullanacaktır.
+      **İstemcinizin API portunu henüz etkinleştirmediyseniz ve Smartnode makinenizden erişilebilir değilse, şimdi kurmanız gerekir.**
+      Bununla ilgili talimatlar istemciden istemciye değişir; HTTP RPC uç noktasının nasıl kurulacağını öğrenmek için istemcinizin belgelerine başvurun.
 
-      The Websocket URL is only relevant if you need it for your own usage; the Smartnode does not use it.
-      You can leave it blank if you do not need it.
+      Websocket URL'si yalnızca kendi kullanımınız için ihtiyacınız varsa geçerlidir; Smartnode bunu kullanmaz.
+      İhtiyacınız yoksa boş bırakabilirsiniz.
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-        You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your fallback Execution client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+        <p className="rspress-directive-title">NOT</p>
+        Smartnode kendi Docker konteynerinde çalışacağı için, Docker'ın dahili ağını kullanacaktır.
+        Burada `localhost` veya `127.0.0.1` gibi ana bilgisayar adlarını kullanamazsınız; yedek Execution istemciniz Smartnode ile aynı makinede çalışıyorsa, bunun yerine makinenizin yerel ağ IP adresini sağlamanız gerekir.
       </p>
 
-      When you're happy with your fallback Execution client choices, proceed to the next step.
+      Yedek Execution istemci seçimlerinizden memnun olduğunuzda, bir sonraki adıma geçin.
     </Tab>
 
   </Tabs>
 </div>
 
-### Consensus Client Setup
+### Consensus İstemci Kurulumu
 
-Now that you have an Execution client ready, the next task is to set up the Consensus client.
-The "mode" (local or external) will be inherited from the choice you used for your Execution client earlier.
+Artık bir Execution istemciniz hazır olduğuna göre, bir sonraki görev Consensus istemcisini kurmaktır.
+"Mod" (yerel veya harici), daha önce Execution istemciniz için kullandığınız seçimden devralınacaktır.
 
-Choose which mode you selected earlier from the tabs below:
+Daha önce hangi modu seçtiğinizi aşağıdaki sekmelerden seçin:
 
 <div className="p-3">
   <Tabs>
     <Tab label="Locally Managed">
-      If you want the Smartnode to manage a Consensus client for you, the next screen will ask you to pick a client:
+      Smartnode'un sizin için bir Consensus istemcisi yönetmesini istiyorsanız, bir sonraki ekran size bir istemci seçmenizi isteyecektir:
 
       <img src={tuiLocalCC} width="100%" height="auto"/>
 
-      **The preferred choice** for the overall health and diversity of the network is the **Random (Recommended)** choice, which will randomly choose among one of the four supported Consensus clients for you.
+      Ağın genel sağlığı ve çeşitliliği için **tercih edilen seçim**, sizin için desteklenen dört Consensus istemcisinden birini rastgele seçecek olan **Random (Recommended)** seçimidir.
 
-      If you would prefer to choose an explicit client, please refer to the [Choosing your ETH clients](./eth-clients#eth2-clients) section for a description of each option so you can make an educated decision.
+      Açık bir istemci seçmeyi tercih ederseniz, bilinçli bir karar verebilmeniz için lütfen her seçeneğin açıklaması için [ETH istemcilerinizi seçme](./eth-clients#eth2-clients) bölümüne bakın.
 
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        There are two conditions that will prompt you with warnings based on client selection:
+        <p className="rspress-directive-title">NOT</p>
+        İstemci seçimine bağlı olarak sizi uyarılarla karşılayacak iki koşul vardır:
 
-        - The selected client is currently [a supermajority client](https://clientdiversity.org/), meaning that an unhealthy majority of validators on the Beacon Chain use it which threatens the stability of the network
+        - Seçilen istemci şu anda [bir süper çoğunluk istemcisidir](https://clientdiversity.org/), yani Beacon Chain'deki doğrulayıcıların sağlıksız bir çoğunluğu onu kullanıyor ve bu, ağın istikrarını tehdit ediyor
 
-        - The selected client is **too resource-heavy** for the hardware you're currently using
+        - Seçilen istemci, şu anda kullandığınız donanım için **çok kaynak yoğundur**
 
-        If either of those cases is true for your chosen client, you will be warned and asked to choose a different client.
-        You have the option of continuing to use the one you selected, but you must be aware of the risks in doing so.
+        Seçtiğiniz istemci için bu durumlardan biri geçerliyse, uyarılacak ve farklı bir istemci seçmeniz istenecektir.
+        Seçtiğiniz istemciyi kullanmaya devam etme seçeneğiniz vardır, ancak bunu yaparken risklerinin farkında olmalısınız.
       </p>
 
-      Once you've made your choice or have been assigned a random client, click on the appropriate tab below to learn how to configure it:
+      Seçiminizi yaptıktan veya size rastgele bir istemci atandıktan sonra, nasıl yapılandırılacağını öğrenmek için aşağıdaki uygun sekmeye tıklayın:
 
       <div className="p-3">
         <Tabs>
           <Tab label="Lighthouse">
-            The first option in Lighthouse's configuration will ask about your validator's **graffiti** message:
+            Lighthouse'un yapılandırmasındaki ilk seçenek, doğrulayıcınızın **graffiti** mesajı hakkında soru soracaktır:
 
             <img src={tuiLocalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            Bu, Beacon Chain'de önerdiğiniz herhangi bir bloğa ekleyebileceğiniz isteğe bağlı bir özel mesajdır.
+            Mesaj sonsuza kadar korunacaktır, bu yüzden izinizi bırakmanın eğlenceli küçük bir yolu gibi düşünün!
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **Graffiti'nin maksimum uzunluğunun 16 karakter olduğunu unutmayın.**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            Doğrulayıcıların bugün Graffiti için ne kullandığına dair bazı örnekleri görmek isterseniz, [buraya bakın](https://beaconcha.in/blocks).
 
-            Next up is an option to enable or disable **Checkpoint Sync**:
+            Sırada **Checkpoint Sync**'i etkinleştirmek veya devre dışı bırakmak için bir seçenek vardır:
 
             <img src={tuiLocalCheckpoint} width="100%" height="auto"/>
 
-            Lighthouse has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
-            This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-            Take a look at [their documentation on checkpoint syncing](https://lighthouse-book.sigmaprime.io/checkpoint-sync.html) for more information if you are curious.
+            Lighthouse, güvendiğiniz mevcut bir Beacon Node'a bağlanarak Beacon Chain ağındaki en son bloğa anında senkronize olma yeteneğine sahiptir.
+            Bu, geleneksel senkronizasyona tercih edilir çünkü herhangi bir zaman gerektirmez (oysa geleneksel senkronizasyon günler alabilir) ve bazı güvenlik avantajları sağlar.
+            Merak ediyorsanız daha fazla bilgi için [checkpoint syncing hakkındaki belgelerine](https://lighthouse-book.sigmaprime.io/checkpoint-sync.html) göz atın.
 
-            You can enter the URL of any Beacon Node that provides access to its REST API here.
+            Burada REST API'sine erişim sağlayan herhangi bir Beacon Node'un URL'sini girebilirsiniz.
 
-            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            Kullanmak isterseniz [Checkpoint Syncing hakkındaki aşağıdaki bölüme](#beacon-chain-checkpoint-syncing) bakın.
 
-            The final question will ask if you want to enable Doppelgänger Protection:
+            Son soru Doppelgänger Koruması'nı etkinleştirmek isteyip istemediğinizi soracaktır:
 
             <img src={tuiLocalDD} width="100%" height="auto"/>
 
-            Lighthouse supports a feature called [Doppelgänger Detection](https://lighthouse-book.sigmaprime.io/validator-doppelganger.html).
-            In a nutshell, this feature will **intentionally** miss a few attestations after Lighthouse's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            Lighthouse, [Doppelgänger Detection](https://lighthouse-book.sigmaprime.io/validator-doppelganger.html) adlı bir özelliği destekler.
+            Özetle, bu özellik Lighthouse'un Validator Client'ı yeniden başladıktan sonra **kasıtlı olarak** birkaç onayı kaçıracaktır; bunu yaparken, doğrulayıcı anahtarlarınızı kullanarak ağa hala onayların gönderilip gönderilmediğini dinleyecektir.
 
-            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-            After its short waiting period, Lighthouse would start validating normally.
+            İdeal olarak, herhangi bir onay olmamalıdır (bu, başka bir makinenin doğrulayıcı anahtarlarınızla çalışmadığı anlamına gelir).
+            Kısa bekleme süresinden sonra, Lighthouse normal şekilde doğrulamaya başlayacaktır.
 
-            _However_, if there _is_ another machine running with your validator keys attached, then Lighthouse will immediately shut down and issue an error message in its log files.
-            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            _Ancak_, doğrulayıcı anahtarlarınızla çalışan başka bir makine _varsa_, Lighthouse hemen kapanacak ve günlük dosyalarına bir hata mesajı verecektir.
+            Bunun nedeni, eğer onaylama yapmaya başlarsa, **çift onaylama** yapmaya başlayacağınız ve bu **slashable bir suçtur**.
+            Slashlandığınızda, doğrulayıcınız Beacon chain'den zorla çıkarılacak ve önemli miktarda ETH cezalandırılacaksınız.
 
-            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            Çoğu zaman, doppelgänger tespiti bir istemci yeniden başlatmasından sonra sadece birkaç kaçırılmış onaydan başka bir şeyle sonuçlanmayacaktır.
+            Ancak, doğrulayıcınızı yeni bir makineye taşıdığınız veya yeni bir Beacon istemcisine geçtiğiniz durumlarda, **doppelgänger tespiti yanlışlıkla çift onaylama yaparak slashlanmanızı önleyebilir**.
 
-            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            Bunu minipoollarınız için ucuz bir sigorta olarak düşünün; her yeniden başlattığınızda önemsiz bir miktar kâr kaçıracaksınız, ancak anahtarlarınızı iki yerde kazara çalıştırmayacağınız ve bunun için slashlanmayacağınız konusunda oldukça emin olabilirsiniz.
 
-            Starting on version 4.5.0 Lighthouse has an option to establish P2P connections in a more efficient way using the [QUIC protocol](https://en.wikipedia.org/wiki/QUIC). If you are willing to use this feature you'll need to define an extra port "P2P QUIC port" field on the ETH2 settings, and forward it to your node in your router's port forwarding setup. The default P2P QUIC port is 8001 (UDP). Make sure to avoid collisions with ports already in use by your node (or fallback/testnet nodes). Also make sure the same port is open if you're using a firewall on your node (check `ufw status`).
-            To check if the QUIC configuration is working you should see a 2-digit number after `libp2p_quic_peers` when running `docker run --network rocketpool_net curlimages/curl http://eth2:9100/metrics | grep libp2p_peers_multi`.
+            Lighthouse, 4.5.0 sürümünden itibaren [QUIC protokolünü](https://en.wikipedia.org/wiki/QUIC) kullanarak P2P bağlantılarını daha verimli bir şekilde kurma seçeneğine sahiptir. Bu özelliği kullanmak istiyorsanız, ETH2 ayarlarında ekstra bir "P2P QUIC port" alanı tanımlamanız ve yönlendiricinizin port forwarding kurulumunda bunu düğümünüze yönlendirmeniz gerekir. Varsayılan P2P QUIC portu 8001'dir (UDP). Düğümünüz tarafından zaten kullanılan portlarla (veya yedek/test ağı düğümleriyle) çakışmalardan kaçındığınızdan emin olun. Ayrıca düğümünüzde bir güvenlik duvarı kullanıyorsanız aynı portun açık olduğundan emin olun (`ufw status` kontrol edin).
+            QUIC yapılandırmasının çalışıp çalışmadığını kontrol etmek için `docker run --network rocketpool_net curlimages/curl http://eth2:9100/metrics | grep libp2p_peers_multi` komutunu çalıştırdığınızda `libp2p_quic_peers`'dan sonra 2 haneli bir sayı görmelisiniz.
 
           </Tab>
           <Tab label="Nimbus">
-            The first option in Nimbus's configuration will ask about your validator's **graffiti** message:
+            Nimbus'un yapılandırmasındaki ilk seçenek, doğrulayıcınızın **graffiti** mesajı hakkında soru soracaktır:
 
             <img src={tuiLocalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            Bu, Beacon Chain'de önerdiğiniz herhangi bir bloğa ekleyebileceğiniz isteğe bağlı bir özel mesajdır.
+            Mesaj sonsuza kadar korunacaktır, bu yüzden izinizi bırakmanın eğlenceli küçük bir yolu gibi düşünün!
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **Graffiti'nin maksimum uzunluğunun 16 karakter olduğunu unutmayın.**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            Doğrulayıcıların bugün Graffiti için ne kullandığına dair bazı örnekleri görmek isterseniz, [buraya bakın](https://beaconcha.in/blocks).
 
-            Next up is an option to enable or disable **Checkpoint Sync**:
+            Sırada **Checkpoint Sync**'i etkinleştirmek veya devre dışı bırakmak için bir seçenek vardır:
 
             <img src={tuiLocalCheckpoint} width="100%" height="auto"/>
 
-            Nimbus has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
-            This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-            Take a look at [their documentation on checkpoint syncing](https://nimbus.guide/trusted-node-sync.html) for more information if you are curious.
+            Nimbus, güvendiğiniz mevcut bir Beacon Node'a bağlanarak Beacon Chain ağındaki en son bloğa anında senkronize olma yeteneğine sahiptir.
+            Bu, geleneksel senkronizasyona tercih edilir çünkü herhangi bir zaman gerektirmez (oysa geleneksel senkronizasyon günler alabilir) ve bazı güvenlik avantajları sağlar.
+            Merak ediyorsanız daha fazla bilgi için [checkpoint syncing hakkındaki belgelerine](https://nimbus.guide/trusted-node-sync.html) göz atın.
 
-            You can enter the URL of any Beacon Node that provides access to its REST API here.
+            Burada REST API'sine erişim sağlayan herhangi bir Beacon Node'un URL'sini girebilirsiniz.
 
-            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            Kullanmak isterseniz [Checkpoint Syncing hakkındaki aşağıdaki bölüme](#beacon-chain-checkpoint-syncing) bakın.
 
-            The final question will ask if you want to enable Doppelgänger Protection:
+            Son soru Doppelgänger Koruması'nı etkinleştirmek isteyip istemediğinizi soracaktır:
 
             <img src={tuiLocalDD} width="100%" height="auto"/>
 
-            Nimbus supports a feature called [Doppelgänger Protection](https://nimbus.guide/faq.html#why-does-my-validator-miss-two-epochs-of-attestations-after-restarting).
-            In a nutshell, this feature will **intentionally** miss a few attestations after Nimbus restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            Nimbus, [Doppelgänger Protection](https://nimbus.guide/faq.html#why-does-my-validator-miss-two-epochs-of-attestations-after-restarting) adlı bir özelliği destekler.
+            Özetle, bu özellik Nimbus yeniden başladıktan sonra **kasıtlı olarak** birkaç onayı kaçıracaktır; bunu yaparken, doğrulayıcı anahtarlarınızı kullanarak ağa hala onayların gönderilip gönderilmediğini dinleyecektir.
 
-            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-            After its short waiting period, Nimbus would start validating normally.
+            İdeal olarak, herhangi bir onay olmamalıdır (bu, başka bir makinenin doğrulayıcı anahtarlarınızla çalışmadığı anlamına gelir).
+            Kısa bekleme süresinden sonra, Nimbus normal şekilde doğrulamaya başlayacaktır.
 
-            _However_, if there _is_ another machine running with your validator keys attached, then Nimbus will immediately shut down and issue an error message in its log files.
-            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            _Ancak_, doğrulayıcı anahtarlarınızla çalışan başka bir makine _varsa_, Nimbus hemen kapanacak ve günlük dosyalarına bir hata mesajı verecektir.
+            Bunun nedeni, eğer onaylama yapmaya başlarsa, **çift onaylama** yapmaya başlayacağınız ve bu **slashable bir suçtur**.
+            Slashlandığınızda, doğrulayıcınız Beacon chain'den zorla çıkarılacak ve önemli miktarda ETH cezalandırılacaksınız.
 
-            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            Çoğu zaman, doppelgänger tespiti bir istemci yeniden başlatmasından sonra sadece birkaç kaçırılmış onaydan başka bir şeyle sonuçlanmayacaktır.
+            Ancak, doğrulayıcınızı yeni bir makineye taşıdığınız veya yeni bir Beacon istemcisine geçtiğiniz durumlarda, **doppelgänger tespiti yanlışlıkla çift onaylama yaparak slashlanmanızı önleyebilir**.
 
-            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            Bunu minipoollarınız için ucuz bir sigorta olarak düşünün; her yeniden başlattığınızda önemsiz bir miktar kâr kaçıracaksınız, ancak anahtarlarınızı iki yerde kazara çalıştırmayacağınız ve bunun için slashlanmayacağınız konusunda oldukça emin olabilirsiniz.
 
           </Tab>
           <Tab label="Prysm">
-            The first option in Prysm's configuration will ask about your validator's **graffiti** message:
+            Prysm'in yapılandırmasındaki ilk seçenek, doğrulayıcınızın **graffiti** mesajı hakkında soru soracaktır:
 
             <img src={tuiLocalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            Bu, Beacon Chain'de önerdiğiniz herhangi bir bloğa ekleyebileceğiniz isteğe bağlı bir özel mesajdır.
+            Mesaj sonsuza kadar korunacaktır, bu yüzden izinizi bırakmanın eğlenceli küçük bir yolu gibi düşünün!
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **Graffiti'nin maksimum uzunluğunun 16 karakter olduğunu unutmayın.**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            Doğrulayıcıların bugün Graffiti için ne kullandığına dair bazı örnekleri görmek isterseniz, [buraya bakın](https://beaconcha.in/blocks).
 
-            Next up is an option to enable or disable **Checkpoint Sync**:
+            Sırada **Checkpoint Sync**'i etkinleştirmek veya devre dışı bırakmak için bir seçenek vardır:
 
             <img src={tuiLocalCheckpoint} width="100%" height="auto"/>
 
-            Prysm has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
-            This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-            Take a look at [their documentation on checkpoint syncing](https://docs.prylabs.network/docs/prysm-usage/checkpoint-sync) for more information if you are curious.
+            Prysm, güvendiğiniz mevcut bir Beacon Node'a bağlanarak Beacon Chain ağındaki en son bloğa anında senkronize olma yeteneğine sahiptir.
+            Bu, geleneksel senkronizasyona tercih edilir çünkü herhangi bir zaman gerektirmez (oysa geleneksel senkronizasyon günler alabilir) ve bazı güvenlik avantajları sağlar.
+            Merak ediyorsanız daha fazla bilgi için [checkpoint syncing hakkındaki belgelerine](https://docs.prylabs.network/docs/prysm-usage/checkpoint-sync) göz atın.
 
-            You can enter the URL of any Beacon Node that provides access to its REST API here.
+            Burada REST API'sine erişim sağlayan herhangi bir Beacon Node'un URL'sini girebilirsiniz.
 
-            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            Kullanmak isterseniz [Checkpoint Syncing hakkındaki aşağıdaki bölüme](#beacon-chain-checkpoint-syncing) bakın.
 
-            The final question will ask if you want to enable Doppelgänger Protection:
+            Son soru Doppelgänger Koruması'nı etkinleştirmek isteyip istemediğinizi soracaktır:
 
             <img src={tuiLocalDD} width="100%" height="auto"/>
 
-            Prysm supports a feature called Doppelgänger Protection.
-            In a nutshell, this feature will **intentionally** miss a few attestations after Prysm's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            Prysm, Doppelgänger Protection adlı bir özelliği destekler.
+            Özetle, bu özellik Prysm'in Validator Client'ı yeniden başladıktan sonra **kasıtlı olarak** birkaç onayı kaçıracaktır; bunu yaparken, doğrulayıcı anahtarlarınızı kullanarak ağa hala onayların gönderilip gönderilmediğini dinleyecektir.
 
-            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-            After its short waiting period, Prysm would start validating normally.
+            İdeal olarak, herhangi bir onay olmamalıdır (bu, başka bir makinenin doğrulayıcı anahtarlarınızla çalışmadığı anlamına gelir).
+            Kısa bekleme süresinden sonra, Prysm normal şekilde doğrulamaya başlayacaktır.
 
-            _However_, if there _is_ another machine running with your validator keys attached, then Prysm will immediately shut down and issue an error message in its log files.
-            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            _Ancak_, doğrulayıcı anahtarlarınızla çalışan başka bir makine _varsa_, Prysm hemen kapanacak ve günlük dosyalarına bir hata mesajı verecektir.
+            Bunun nedeni, eğer onaylama yapmaya başlarsa, **çift onaylama** yapmaya başlayacağınız ve bu **slashable bir suçtur**.
+            Slashlandığınızda, doğrulayıcınız Beacon chain'den zorla çıkarılacak ve önemli miktarda ETH cezalandırılacaksınız.
 
-            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            Çoğu zaman, doppelgänger tespiti bir istemci yeniden başlatmasından sonra sadece birkaç kaçırılmış onaydan başka bir şeyle sonuçlanmayacaktır.
+            Ancak, doğrulayıcınızı yeni bir makineye taşıdığınız veya yeni bir Beacon istemcisine geçtiğiniz durumlarda, **doppelgänger tespiti yanlışlıkla çift onaylama yaparak slashlanmanızı önleyebilir**.
 
-            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            Bunu minipoollarınız için ucuz bir sigorta olarak düşünün; her yeniden başlattığınızda önemsiz bir miktar kâr kaçıracaksınız, ancak anahtarlarınızı iki yerde kazara çalıştırmayacağınız ve bunun için slashlanmayacağınız konusunda oldukça emin olabilirsiniz.
 
           </Tab>
           <Tab label="Teku">
-            The first option in Teku's configuration will ask about your validator's **graffiti** message:
+            Teku'nun yapılandırmasındaki ilk seçenek, doğrulayıcınızın **graffiti** mesajı hakkında soru soracaktır:
 
             <img src={tuiLocalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            Bu, Beacon Chain'de önerdiğiniz herhangi bir bloğa ekleyebileceğiniz isteğe bağlı bir özel mesajdır.
+            Mesaj sonsuza kadar korunacaktır, bu yüzden izinizi bırakmanın eğlenceli küçük bir yolu gibi düşünün!
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **Graffiti'nin maksimum uzunluğunun 16 karakter olduğunu unutmayın.**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            Doğrulayıcıların bugün Graffiti için ne kullandığına dair bazı örnekleri görmek isterseniz, [buraya bakın](https://beaconcha.in/blocks).
 
-            The final question is an option to enable or disable **Checkpoint Sync**:
+            Son soru, **Checkpoint Sync**'i etkinleştirmek veya devre dışı bırakmak için bir seçenektir:
 
             <img src={tuiLocalCheckpoint} width="100%" height="auto"/>
 
-            Teku has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
-            This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-            Take a look at [their documentation on checkpoint syncing](https://docs.teku.consensys.net/en/latest/HowTo/Get-Started/Checkpoint-Start/) for more information if you are curious.
+            Teku, güvendiğiniz mevcut bir Beacon Node'a bağlanarak Beacon Chain ağındaki en son bloğa anında senkronize olma yeteneğine sahiptir.
+            Bu, geleneksel senkronizasyona tercih edilir çünkü herhangi bir zaman gerektirmez (oysa geleneksel senkronizasyon günler alabilir) ve bazı güvenlik avantajları sağlar.
+            Merak ediyorsanız daha fazla bilgi için [checkpoint syncing hakkındaki belgelerine](https://docs.teku.consensys.net/en/latest/HowTo/Get-Started/Checkpoint-Start/) göz atın.
 
-            You can enter the URL of any Beacon Node that provides access to its REST API here.
+            Burada REST API'sine erişim sağlayan herhangi bir Beacon Node'un URL'sini girebilirsiniz.
 
-            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            Kullanmak isterseniz [Checkpoint Syncing hakkındaki aşağıdaki bölüme](#beacon-chain-checkpoint-syncing) bakın.
           </Tab>
           <Tab label="Lodestar">
-            The first option in Lodestar's configuration will ask about your validator's **graffiti** message:
+            Lodestar'ın yapılandırmasındaki ilk seçenek, doğrulayıcınızın **graffiti** mesajı hakkında soru soracaktır:
 
             <img src={tuiLocalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            Bu, Beacon Chain'de önerdiğiniz herhangi bir bloğa ekleyebileceğiniz isteğe bağlı bir özel mesajdır.
+            Mesaj sonsuza kadar korunacaktır, bu yüzden izinizi bırakmanın eğlenceli küçük bir yolu gibi düşünün!
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **Graffiti'nin maksimum uzunluğunun 16 karakter olduğunu unutmayın.**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            Doğrulayıcıların bugün Graffiti için ne kullandığına dair bazı örnekleri görmek isterseniz, [buraya bakın](https://beaconcha.in/blocks).
 
-            Next up is an option to enable or disable **Checkpoint Sync**:
+            Sırada **Checkpoint Sync**'i etkinleştirmek veya devre dışı bırakmak için bir seçenek vardır:
 
             <img src={tuiLocalCheckpoint} width="100%" height="auto"/>
 
-            Lodestar has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
-            This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-            Take a look at [their documentation on checkpoint syncing](https://chainsafe.github.io/lodestar/run/beacon-management/starting-a-node#checkpoint-sync) for more information if you are curious.
+            Lodestar, güvendiğiniz mevcut bir Beacon Node'a bağlanarak Beacon Chain ağındaki en son bloğa anında senkronize olma yeteneğine sahiptir.
+            Bu, geleneksel senkronizasyona tercih edilir çünkü herhangi bir zaman gerektirmez (oysa geleneksel senkronizasyon günler alabilir) ve bazı güvenlik avantajları sağlar.
+            Merak ediyorsanız daha fazla bilgi için [checkpoint syncing hakkındaki belgelerine](https://chainsafe.github.io/lodestar/run/beacon-management/starting-a-node#checkpoint-sync) göz atın.
 
-            You can enter the URL of any Beacon Node that provides access to its REST API here.
+            Burada REST API'sine erişim sağlayan herhangi bir Beacon Node'un URL'sini girebilirsiniz.
 
-            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            Kullanmak isterseniz [Checkpoint Syncing hakkındaki aşağıdaki bölüme](#beacon-chain-checkpoint-syncing) bakın.
 
-            The final question will ask if you want to enable Doppelgänger Protection:
+            Son soru Doppelgänger Koruması'nı etkinleştirmek isteyip istemediğinizi soracaktır:
 
             <img src={tuiLocalDD} width="100%" height="auto"/>
 
-            Lodestar supports a feature called Doppelgänger Detection.
-            In a nutshell, this feature will **intentionally** miss a few attestations after Lodestar's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            Lodestar, Doppelgänger Detection adlı bir özelliği destekler.
+            Özetle, bu özellik Lodestar'ın Validator Client'ı yeniden başladıktan sonra **kasıtlı olarak** birkaç onayı kaçıracaktır; bunu yaparken, doğrulayıcı anahtarlarınızı kullanarak ağa hala onayların gönderilip gönderilmediğini dinleyecektir.
 
-            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-            After its short waiting period, Lodestar would start validating normally.
+            İdeal olarak, herhangi bir onay olmamalıdır (bu, başka bir makinenin doğrulayıcı anahtarlarınızla çalışmadığı anlamına gelir).
+            Kısa bekleme süresinden sonra, Lodestar normal şekilde doğrulamaya başlayacaktır.
 
-            _However_, if there _is_ another machine running with your validator keys attached, then Lodestar will immediately shut down and issue an error message in its log files.
-            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            _Ancak_, doğrulayıcı anahtarlarınızla çalışan başka bir makine _varsa_, Lodestar hemen kapanacak ve günlük dosyalarına bir hata mesajı verecektir.
+            Bunun nedeni, eğer onaylama yapmaya başlarsa, **çift onaylama** yapmaya başlayacağınız ve bu **slashable bir suçtur**.
+            Slashlandığınızda, doğrulayıcınız Beacon chain'den zorla çıkarılacak ve önemli miktarda ETH cezalandırılacaksınız.
 
-            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            Çoğu zaman, doppelgänger tespiti bir istemci yeniden başlatmasından sonra sadece birkaç kaçırılmış onaydan başka bir şeyle sonuçlanmayacaktır.
+            Ancak, doğrulayıcınızı yeni bir makineye taşıdığınız veya yeni bir Beacon istemcisine geçtiğiniz durumlarda, **doppelgänger tespiti yanlışlıkla çift onaylama yaparak slashlanmanızı önleyebilir**.
 
-            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            Bunu minipoollarınız için ucuz bir sigorta olarak düşünün; her yeniden başlattığınızda önemsiz bir miktar kâr kaçıracaksınız, ancak anahtarlarınızı iki yerde kazara çalıştırmayacağınız ve bunun için slashlanmayacağınız konusunda oldukça emin olabilirsiniz.
 
           </Tab>
         </Tabs>
       </div>
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        **Open up the P2P port in your router's port forwarding setup**. Configure it to forward **port 9001** on both TCP and UDP to your machine's local IP address.
-        This way, other Consensus clients can discover it and communicate with it from the outside. This will help your Consensus client sync quickly and improve performance (and thus rewards).
+        <p className="rspress-directive-title">NOT</p>
+        **Yönlendiricinizin port forwarding kurulumunda P2P portunu açın**. Hem TCP hem de UDP üzerinde **port 9001**'i makinenizin yerel IP adresine yönlendirecek şekilde yapılandırın.
+        Bu şekilde, diğer Consensus istemcileri onu keşfedebilir ve dışarıdan onunla iletişim kurabilir. Bu, Consensus istemcinizin hızlı senkronize olmasına yardımcı olacak ve performansı (ve dolayısıyla ödülleri) artıracaktır.
 
-        Each router has a different way of doing this, so **you'll need to check out your router's manual on how to set up port forwarding**
+        Her yönlendiricinin bunu yapmanın farklı bir yolu vardır, bu nedenle **port forwarding'in nasıl kurulacağı konusunda yönlendiricinizin kılavuzuna bakmanız gerekir**
       </p>
     </Tab>
     <Tab label="Externally Managed">
-      Because each Consensus client has slightly different behavior, the Smartnode needs to know which one you're using externally so it can adapt its own behavior accordingly.
-      Start by choosing which client you have from the list in the next screen:
+      Her Consensus istemcisinin biraz farklı davranışı olduğu için, Smartnode'un hangisini harici olarak kullandığınızı bilmesi gerekir, böylece kendi davranışını buna göre uyarlayabilir.
+      Bir sonraki ekrandaki listeden hangi istemciye sahip olduğunuzu seçerek başlayın:
 
       <img src="./images/tui-external-cc.png" width="100%" height="auto"/>
 
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        At this time, **Nimbus** is not compatible with External mode because it cannot run as a standalone Validator Container (VC) yet.
-        When the client supports this feature, it will be added to the list here.
+        <p className="rspress-directive-title">NOT</p>
+        Şu anda, **Nimbus** External mod ile uyumlu değildir çünkü henüz bağımsız bir Validator Container (VC) olarak çalışamaz.
+        İstemci bu özelliği desteklediğinde, buradaki listeye eklenecektir.
       </p>
 
-      Select your client from the tabs below to learn how to finish configuring it.
+      İstemcinizi nasıl yapılandırmayı bitireceğinizi öğrenmek için aşağıdaki sekmelerden seçin.
 
       <div className="p-3">
         <Tabs>
           <Tab label="Lighthouse">
-            Start by specifying the URL for your Lighthouse Beacon Node's API:
+            Lighthouse Beacon Node'unuzun API'sinin URL'sini belirterek başlayın:
 
             <img src={tuiExternalLH} width="100%" height="auto"/>
 
-            The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
-            **If you don't already have the API port enabled and accessible from your Smartnode machine, you will need to set it up now.**
-            See [Lighthouse's documentation](https://lighthouse-book.sigmaprime.io/api-bn.html) for instructions on how to do this.
+            Smartnode, onunla iletişim kurmak ve zincirin durumunu sorgulamak ve mesajları göndermek gibi blokzinciri faaliyetlerini gerçekleştirmek için HTTP URL'sini kullanacaktır.
+            **API portunu henüz etkinleştirmediyseniz ve Smartnode makinenizden erişilebilir değilse, şimdi kurmanız gerekir.**
+            Bunu nasıl yapacağınıza dair talimatlar için [Lighthouse'un belgelerine](https://lighthouse-book.sigmaprime.io/api-bn.html) bakın.
 
             <p className="rspress-directive warning">
-              <p className="rspress-directive-title">NOTE</p>
-              Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-              You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+              <p className="rspress-directive-title">NOT</p>
+              Smartnode kendi Docker konteynerinde çalışacağı için, Docker'ın dahili ağını kullanacaktır.
+              Burada `localhost` veya `127.0.0.1` gibi ana bilgisayar adlarını kullanamazsınız; istemciniz Smartnode ile aynı makinede çalışıyorsa, bunun yerine makinenizin yerel ağ IP adresini sağlamanız gerekir.
             </p>
 
 
-            Next, it will ask about your validator's **graffiti** message:
+            Ardından, doğrulayıcınızın **graffiti** mesajı hakkında sorulacaktır:
 
             <img src={tuiExternalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            Bu, Beacon Chain'de önerdiğiniz herhangi bir bloğa ekleyebileceğiniz isteğe bağlı bir özel mesajdır.
+            Mesaj sonsuza kadar korunacaktır, bu yüzden izinizi bırakmanın eğlenceli küçük bir yolu gibi düşünün!
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **Graffiti'nin maksimum uzunluğunun 16 karakter olduğunu unutmayın.**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            Doğrulayıcıların bugün Graffiti için ne kullandığına dair bazı örnekleri görmek isterseniz, [buraya bakın](https://beaconcha.in/blocks).
 
-            The final question will ask if you want to enable Doppelgänger Protection:
+            Son soru Doppelgänger Koruması'nı etkinleştirmek isteyip istemediğinizi soracaktır:
 
             <img src={tuiExternalDD} width="100%" height="auto"/>
 
-            Lighthouse supports a feature called [Doppelgänger Detection](https://lighthouse-book.sigmaprime.io/validator-doppelganger.html).
-            In a nutshell, this feature will **intentionally** miss a few attestations after Lighthouse's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            Lighthouse, [Doppelgänger Detection](https://lighthouse-book.sigmaprime.io/validator-doppelganger.html) adlı bir özelliği destekler.
+            Özetle, bu özellik Lighthouse'un Validator Client'ı yeniden başladıktan sonra **kasıtlı olarak** birkaç onayı kaçıracaktır; bunu yaparken, doğrulayıcı anahtarlarınızı kullanarak ağa hala onayların gönderilip gönderilmediğini dinleyecektir.
 
-            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-            After its short waiting period, Lighthouse would start validating normally.
+            İdeal olarak, herhangi bir onay olmamalıdır (bu, başka bir makinenin doğrulayıcı anahtarlarınızla çalışmadığı anlamına gelir).
+            Kısa bekleme süresinden sonra, Lighthouse normal şekilde doğrulamaya başlayacaktır.
 
-            _However_, if there _is_ another machine running with your validator keys attached, then Lighthouse will immediately shut down and issue an error message in its log files.
-            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            _Ancak_, doğrulayıcı anahtarlarınızla çalışan başka bir makine _varsa_, Lighthouse hemen kapanacak ve günlük dosyalarına bir hata mesajı verecektir.
+            Bunun nedeni, eğer onaylama yapmaya başlarsa, **çift onaylama** yapmaya başlayacağınız ve bu **slashable bir suçtur**.
+            Slashlandığınızda, doğrulayıcınız Beacon chain'den zorla çıkarılacak ve önemli miktarda ETH cezalandırılacaksınız.
 
-            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            Çoğu zaman, doppelgänger tespiti bir istemci yeniden başlatmasından sonra sadece birkaç kaçırılmış onaydan başka bir şeyle sonuçlanmayacaktır.
+            Ancak, doğrulayıcınızı yeni bir makineye taşıdığınız veya yeni bir Beacon istemcisine geçtiğiniz durumlarda, **doppelgänger tespiti yanlışlıkla çift onaylama yaparak slashlanmanızı önleyebilir**.
 
-            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            Bunu minipoollarınız için ucuz bir sigorta olarak düşünün; her yeniden başlattığınızda önemsiz bir miktar kâr kaçıracaksınız, ancak anahtarlarınızı iki yerde kazara çalıştırmayacağınız ve bunun için slashlanmayacağınız konusunda oldukça emin olabilirsiniz.
 
           </Tab>
           <Tab label="Prysm">
-            Start by specifying the URL for your Prysm Beacon Node's API and the URL for its JSON-RPC API:
+            Prysm Beacon Node'unuzun API'sinin URL'sini ve JSON-RPC API'sinin URL'sini belirterek başlayın:
 
             <img src={tuiExternalPrysm} width="100%" height="auto"/>
 
-            The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
-            It will prepare its Prysm Validator Client with the JSON-RPC URL so it can communicate with your Beacon Node, as _Prysm's Validator Client currently cannot work over the HTTP API._
+            Smartnode, onunla iletişim kurmak ve zincirin durumunu sorgulamak ve mesajları göndermek gibi blokzinciri faaliyetlerini gerçekleştirmek için HTTP URL'sini kullanacaktır.
+            Prysm Validator Client'ını, Beacon Node'unuzla iletişim kurabilmesi için JSON-RPC URL'si ile hazırlayacaktır, çünkü _Prysm'in Validator Client'ı şu anda HTTP API üzerinden çalışamaz._
 
-            **If you don't already have the API ports enabled and accessible from your Smartnode machine, you will need to set them up now.**
-            See [Prysm's documentation](https://docs.prylabs.network/docs/prysm-usage/parameters) for instructions on how to do this.
-            **You will need the `grpc-gateway` _and_ the `rpc-host` enabled.**
+            **API portlarını henüz etkinleştirmediyseniz ve Smartnode makinenizden erişilebilir değilse, şimdi kurmanız gerekir.**
+            Bunu nasıl yapacağınıza dair talimatlar için [Prysm'in belgelerine](https://docs.prylabs.network/docs/prysm-usage/parameters) bakın.
+            **`grpc-gateway` _ve_ `rpc-host`'un etkinleştirilmiş olması gerekir.**
 
             <p className="rspress-directive warning">
-              <p className="rspress-directive-title">NOTE</p>
-              Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-              You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+              <p className="rspress-directive-title">NOT</p>
+              Smartnode kendi Docker konteynerinde çalışacağı için, Docker'ın dahili ağını kullanacaktır.
+              Burada `localhost` veya `127.0.0.1` gibi ana bilgisayar adlarını kullanamazsınız; istemciniz Smartnode ile aynı makinede çalışıyorsa, bunun yerine makinenizin yerel ağ IP adresini sağlamanız gerekir.
             </p>
 
 
-            Next, it will ask about your validator's **graffiti** message:
+            Ardından, doğrulayıcınızın **graffiti** mesajı hakkında sorulacaktır:
 
             <img src={tuiExternalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            Bu, Beacon Chain'de önerdiğiniz herhangi bir bloğa ekleyebileceğiniz isteğe bağlı bir özel mesajdır.
+            Mesaj sonsuza kadar korunacaktır, bu yüzden izinizi bırakmanın eğlenceli küçük bir yolu gibi düşünün!
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **Graffiti'nin maksimum uzunluğunun 16 karakter olduğunu unutmayın.**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            Doğrulayıcıların bugün Graffiti için ne kullandığına dair bazı örnekleri görmek isterseniz, [buraya bakın](https://beaconcha.in/blocks).
 
-            The final question will ask if you want to enable Doppelgänger Protection:
+            Son soru Doppelgänger Koruması'nı etkinleştirmek isteyip istemediğinizi soracaktır:
 
             <img src={tuiExternalDD} width="100%" height="auto"/>
 
-            Prysm supports a feature called Doppelgänger Protection.
-            In a nutshell, this feature will **intentionally** miss a few attestations after Prysm's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            Prysm, Doppelgänger Protection adlı bir özelliği destekler.
+            Özetle, bu özellik Prysm'in Validator Client'ı yeniden başladıktan sonra **kasıtlı olarak** birkaç onayı kaçıracaktır; bunu yaparken, doğrulayıcı anahtarlarınızı kullanarak ağa hala onayların gönderilip gönderilmediğini dinleyecektir.
 
-            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-            After its short waiting period, Prysm would start validating normally.
+            İdeal olarak, herhangi bir onay olmamalıdır (bu, başka bir makinenin doğrulayıcı anahtarlarınızla çalışmadığı anlamına gelir).
+            Kısa bekleme süresinden sonra, Prysm normal şekilde doğrulamaya başlayacaktır.
 
-            _However_, if there _is_ another machine running with your validator keys attached, then Prysm will immediately shut down and issue an error message in its log files.
-            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            _Ancak_, doğrulayıcı anahtarlarınızla çalışan başka bir makine _varsa_, Prysm hemen kapanacak ve günlük dosyalarına bir hata mesajı verecektir.
+            Bunun nedeni, eğer onaylama yapmaya başlarsa, **çift onaylama** yapmaya başlayacağınız ve bu **slashable bir suçtur**.
+            Slashlandığınızda, doğrulayıcınız Beacon chain'den zorla çıkarılacak ve önemli miktarda ETH cezalandırılacaksınız.
 
-            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            Çoğu zaman, doppelgänger tespiti bir istemci yeniden başlatmasından sonra sadece birkaç kaçırılmış onaydan başka bir şeyle sonuçlanmayacaktır.
+            Ancak, doğrulayıcınızı yeni bir makineye taşıdığınız veya yeni bir Beacon istemcisine geçtiğiniz durumlarda, **doppelgänger tespiti yanlışlıkla çift onaylama yaparak slashlanmanızı önleyebilir**.
 
-            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            Bunu minipoollarınız için ucuz bir sigorta olarak düşünün; her yeniden başlattığınızda önemsiz bir miktar kâr kaçıracaksınız, ancak anahtarlarınızı iki yerde kazara çalıştırmayacağınız ve bunun için slashlanmayacağınız konusunda oldukça emin olabilirsiniz.
 
           </Tab>
           <Tab label="Teku">
-            Start by specifying the URL for your Teku Beacon Node's API:
+            Teku Beacon Node'unuzun API'sinin URL'sini belirterek başlayın:
 
             <img src={tuiExternalTeku} width="100%" height="auto"/>
 
-            The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
-            **If you don't already have the API port enabled and accessible from your Smartnode machine, you will need to set it up now.**
-            See [Teku's documentation](https://docs.teku.consensys.net/en/latest/Reference/CLI/CLI-Syntax/#rest-api-enabled) for instructions on how to do this.
+            Smartnode, onunla iletişim kurmak ve zincirin durumunu sorgulamak ve mesajları göndermek gibi blokzinciri faaliyetlerini gerçekleştirmek için HTTP URL'sini kullanacaktır.
+            **API portunu henüz etkinleştirmediyseniz ve Smartnode makinenizden erişilebilir değilse, şimdi kurmanız gerekir.**
+            Bunu nasıl yapacağınıza dair talimatlar için [Teku'nun belgelerine](https://docs.teku.consensys.net/en/latest/Reference/CLI/CLI-Syntax/#rest-api-enabled) bakın.
 
 
             <p className="rspress-directive warning">
-              <p className="rspress-directive-title">NOTE</p>
-              Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-              You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+              <p className="rspress-directive-title">NOT</p>
+              Smartnode kendi Docker konteynerinde çalışacağı için, Docker'ın dahili ağını kullanacaktır.
+              Burada `localhost` veya `127.0.0.1` gibi ana bilgisayar adlarını kullanamazsınız; istemciniz Smartnode ile aynı makinede çalışıyorsa, bunun yerine makinenizin yerel ağ IP adresini sağlamanız gerekir.
             </p>
 
-            Next, it will ask about your validator's **graffiti** message:
+            Ardından, doğrulayıcınızın **graffiti** mesajı hakkında sorulacaktır:
 
             <img src={tuiExternalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            Bu, Beacon Chain'de önerdiğiniz herhangi bir bloğa ekleyebileceğiniz isteğe bağlı bir özel mesajdır.
+            Mesaj sonsuza kadar korunacaktır, bu yüzden izinizi bırakmanın eğlenceli küçük bir yolu gibi düşünün!
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **Graffiti'nin maksimum uzunluğunun 16 karakter olduğunu unutmayın.**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            Doğrulayıcıların bugün Graffiti için ne kullandığına dair bazı örnekleri görmek isterseniz, [buraya bakın](https://beaconcha.in/blocks).
           </Tab>
 
         </Tabs>
@@ -565,26 +565,26 @@ Choose which mode you selected earlier from the tabs below:
 
 #### Beacon Chain Checkpoint Syncing
 
-**Checkpoint syncing** is a very useful technique that some Beacon Chain clients support.
-It allows your Beacon client to instantly sync the entire Beacon chain without having to start from the beginning and catch up on every block.
-This means instead of taking **days**, your Beacon client can be ready in a matter of **minutes**.
-All it needs is access to an existing Beacon client that you trust.
+**Checkpoint syncing**, bazı Beacon Chain istemcilerinin desteklediği çok yararlı bir tekniktir.
+Beacon istemcinizin baştan başlamak ve her bloğu yakalamak zorunda kalmadan tüm Beacon chain'i anında senkronize etmesine olanak tanır.
+Bu, **günler** yerine, Beacon istemcinizin **dakikalar** içinde hazır olabileceği anlamına gelir.
+Tek ihtiyacı, güvendiğiniz mevcut bir Beacon istemcisine erişimdir.
 
-You can use any Beacon node that provides access to its HTTP API.
-Currently, many node operators are using the checkpoint-sync-endpoints - a service that allows Rocket Pool node operators to checkpoint sync easily.
-Both the Hoodi Testnet and Mainnet are supported.
-A list of checkpoint sync urls can be found via the following link:
+HTTP API'sine erişim sağlayan herhangi bir Beacon node'unu kullanabilirsiniz.
+Şu anda, birçok düğüm operatörü checkpoint-sync-endpoints'i kullanıyor - Rocket Pool düğüm operatörlerinin checkpoint sync'i kolayca yapmalarına olanak tanıyan bir hizmet.
+Hem Hoodi Testnet hem de Mainnet desteklenmektedir.
+Checkpoint sync url'lerinin bir listesi aşağıdaki bağlantı aracılığıyla bulunabilir:
 
 - [Checkpoint Sync Urls](https://eth-clients.github.io/checkpoint-sync-endpoints/)
 
-Choose a relevant checkpoint sync url and paste in the terminal during `rocketpool service config` when it prompts you for a Checkpoint Sync Provider.
+İlgili bir checkpoint sync url'si seçin ve `rocketpool service config` sırasında size bir Checkpoint Sync Provider sorduğunda terminale yapıştırın.
 
-After that, your Beacon node will automatically connect to the checkpoint sync node when it first starts up and instantly pull down the latest state of the chain!
+Bundan sonra, Beacon node'unuz ilk başladığında otomatik olarak checkpoint sync node'una bağlanacak ve zincirin en son durumunu anında çekecektir!
 
-::: warning NOTE
-Checkpoint Sync will only occur if you _don't have any Beacon Chain data yet_.
-In other words, if you start syncing normally and decide to checkpoint sync later, you will have to remove your chain data first in order for checkpoint sync to work.
-This can easily be done with the following command:
+::: warning NOT
+Checkpoint Sync yalnızca _henüz herhangi bir Beacon Chain veriniz yoksa_ gerçekleşecektir.
+Başka bir deyişle, normal şekilde senkronize olmaya başlarsanız ve daha sonra checkpoint sync yapmaya karar verirseniz, checkpoint sync'in çalışması için önce zincir verilerinizi kaldırmanız gerekecektir.
+Bu, aşağıdaki komutla kolayca yapılabilir:
 
 ```shell
 rocketpool service resync-eth2
@@ -592,164 +592,164 @@ rocketpool service resync-eth2
 
 :::
 
-### Fallback Node
+### Yedek Düğüm
 
-Starting with 1.5.0 of the Smartnode stack, you can provide a "fallback" Execution client and Consensus client pair that can take over for your primary clients if they ever go offline (such as because you use Geth and need to prune it).
-In this situation, your primary node machine will still be responsible for attesting and proposing blocks with your minipools' validator keys, but it will connect to an external machine to interact with the Execution layer and Beacon chains.
+Smartnode stack'inin 1.5.0 sürümünden itibaren, birincil istemcileriniz herhangi bir zamanda çevrimdışı olursa (örneğin Geth kullanıyorsanız ve budamanız gerekiyorsa) onların yerine geçebilecek bir "yedek" Execution istemcisi ve Consensus istemcisi çifti sağlayabilirsiniz.
+Bu durumda, birincil düğüm makineniz hala minipoollarınızın doğrulayıcı anahtarlarıyla onaylama ve blok önerme sorumluluğunda olacaktır, ancak Execution katmanı ve Beacon chain'leriyle etkileşim kurmak için harici bir makineye bağlanacaktır.
 
-[To learn more about fall back nodes, see this section](./fallback) and return here when you're done.
+[Yedek düğümler hakkında daha fazla bilgi edinmek için bu bölüme bakın](./fallback) ve bittiğinizde buraya geri dönün.
 
-### Metrics Configuration
+### Metrik Yapılandırması
 
-Rocket Pool comes with the ability to display a detailed dashboard showing metrics about your node's hardware health, system updates, your validator performance, your rewards, information about the overall Rocket Pool network, and more:
+Rocket Pool, düğümünüzün donanım sağlığı, sistem güncellemeleri, doğrulayıcı performansınız, ödülleriniz, genel Rocket Pool ağı hakkında bilgiler ve daha fazlası hakkında metrikleri gösteren ayrıntılı bir pano görüntüleme yeteneğiyle birlikte gelir:
 
 <img src="./images/nimbus-dashboard.png" width="100%" height="auto" />
 
-The next question in the Wizard will ask you if you want to enable this:
+Wizard'daki bir sonraki soru bunu etkinleştirmek isteyip istemediğinizi soracaktır:
 
 <img src="./images/tui-metrics.png" width="100%" height="auto" />
 
-If you choose to enable it, you will learn more about setting it up and how to use it in the [Setting up the Grafana Dashboard](./grafana) section later in the process.
+Etkinleştirmeyi seçerseniz, kurulumu ve nasıl kullanılacağını daha sonra [Grafana Dashboard'unu Kurma](./grafana) bölümünde daha fazla öğreneceksiniz.
 
-::: warning NOTE
-All of the data collected by this system **stays on your machine**.
-Rocket Pool does not collect any of the telemetry or send it to a separate service.
-It's purely there for you to use so you can monitor your own node!
+::: warning NOT
+Bu sistem tarafından toplanan tüm veriler **makinenizde kalır**.
+Rocket Pool telemetriyi toplamaz veya ayrı bir hizmete göndermez.
+Sadece kendi düğümünüzü izleyebilmeniz için oradadır!
 :::
 
-### MEV Configuration
+### MEV Yapılandırması
 
-Since the Merge of the Execution and Consensus layers in September 2022, Ethereum validators now have the ability to earn priority fees and participate in Maximal Extractable Value (or MEV for short).
+Eylül 2022'deki Execution ve Consensus katmanlarının Birleşmesinden bu yana, Ethereum doğrulayıcıları artık öncelik ücretleri kazanma ve Maksimum Çıkarılabilir Değer'e (kısaca MEV) katılma yeteneğine sahiptir.
 
-Starting with Smartnode v1.7.0, MEV is now _opt-out_ so its configuration is presented as part of the initial setup, as you see in the next screen:
+Smartnode v1.7.0'dan itibaren, MEV artık _opt-out_ olduğundan, yapılandırması bir sonraki ekranda gördüğünüz gibi ilk kurulumun bir parçası olarak sunulmaktadır:
 
 <img src="./images/tui-mev-mode.png" width="100%" height="auto" />
 
-[Please read our MEV guide to learn more about MEV, its configuration, and what to do in this section of the wizard.](./mev)
-Return here when you're finished.
+[MEV, yapılandırması ve wizard'ın bu bölümünde ne yapılacağı hakkında daha fazla bilgi edinmek için lütfen MEV kılavuzumuzu okuyun.](./mev)
+Bitirdiğinizde buraya geri dönün.
 
-### Completion
+### Tamamlama
 
-After this question, you've finished setting up the Smartnode!
-You will see the following dialog:
+Bu sorudan sonra, Smartnode'u kurmayı bitirdiniz!
+Aşağıdaki diyaloğu göreceksiniz:
 
 <img src="./images/tui-finished.png" width="100%" height="auto" />
 
-If you're happy with your setup and are ready to start the Smartnode, click `Save and Exit` here and go to the [Securing your Node](./securing-your-node) section next.
+Kurulumunuzdan memnunsanız ve Smartnode'u başlatmaya hazırsanız, burada `Save and Exit` tuşuna tıklayın ve bir sonraki [Düğümünüzü Güvenceye Alma](./securing-your-node) bölümüne gidin.
 
-If you would like to review all of the settings and customize many additional settings that weren't included in the Wizard, click `Review All Settings` and go to the [next section](#configuring-via-the-settings-manager).
+Tüm ayarları gözden geçirmek ve Wizard'a dahil olmayan birçok ek ayarı özelleştirmek isterseniz, `Review All Settings`'e tıklayın ve [bir sonraki bölüme](#configuring-via-the-settings-manager) gidin.
 
-## Configuring via the Settings Manager
+## Settings Manager Aracılığıyla Yapılandırma
 
-If you've already run `rocketpool service config`, instead of being greeted by the Wizard, you will see the **Settings Manager** screen:
+Zaten `rocketpool service config` komutunu çalıştırdıysanız, Wizard ile karşılanmak yerine **Settings Manager** ekranını göreceksiniz:
 
 <img src="./images/tui-settings-manager.png" width="100%" height="auto" />
 
-There are three main features of this screen:
+Bu ekranın üç ana özelliği vardır:
 
-1. The **Category List**, which lets you drill down into the settings for each category of the Smartnode stack
-2. The **Review Changes and Save** button, which you can use when you're ready to see what settings you've changed and save the updated configuration
-3. The **Open the Config Wizard** button, which will bring you to the [Setup Wizard](#configuring-the-smartnode-stack-via-the-wizard) if you prefer that interface instead
+1. **Kategori Listesi**, Smartnode stack'inin her kategorisi için ayarları detaylandırmanıza olanak tanır
+2. **Değişiklikleri Gözden Geçir ve Kaydet** düğmesi, hangi ayarları değiştirdiğinizi görmek ve güncellenmiş yapılandırmayı kaydetmek istediğinizde kullanabilirsiniz
+3. **Yapılandırma Sihirbazını Aç** düğmesi, bunun yerine bu arayüzü tercih ediyorsanız sizi [Kurulum Sihirbazı](#configuring-the-smartnode-stack-via-the-wizard)'na götürecektir
 
-::: tip TIP
-To use the Settings Manager, **press the `Arrow Keys` (up/down/left/right) to navigate between options in the home page**.
+::: tip İPUCU
+Settings Manager'ı kullanmak için, **ana sayfadaki seçenekler arasında gezinmek için `Ok Tuşlarına` (yukarı/aşağı/sol/sağ) basın**.
 
-Press `Tab` to go **between the category list (1) and the buttons (2 and 3)** at the bottom of the screen.
-The button that's currently selected will be **highlighted in green**.
+Ekranın alt kısmındaki **kategori listesi (1) ve düğmeler (2 ve 3) arasında geçiş yapmak için `Tab` tuşuna basın**.
+Şu anda seçili olan düğme **yeşil renkte vurgulanacaktır**.
 
-**Press `Enter` or `Space` to select a button**, analogous to clicking on it with the mouse.
+**Bir düğmeyi seçmek için `Enter` veya `Space` tuşuna basın**, bu fareyle üzerine tıklamaya benzer.
 
-**Hold `Ctrl` and press `C` at any time to exit the Settings Manager without saving anything**.
+**Hiçbir şeyi kaydetmeden Settings Manager'dan çıkmak için istediğiniz zaman `Ctrl` tuşunu basılı tutun ve `C`'ye basın**.
 :::
 
-As you scroll through the categories list, each option will have a helpful description appear in the **Description Box** to the right of the screen.
-Feel free to explore them; nothing you do will be saved until you go through the Review dialog via the **Review Changes and Save** button, and you can press **Ctrl+C** at any time to exit without saving, so you won't accidentally mess something up by playing with the settings here.
+Kategori listesinde gezinirken, her seçenek ekranın sağ tarafındaki **Açıklama Kutusu**'nda yararlı bir açıklama görünecektir.
+Onları keşfetmekten çekinmeyin; **Değişiklikleri Gözden Geçir ve Kaydet** düğmesi aracılığıyla Gözden Geçir diyaloğundan geçene kadar hiçbir şey kaydedilmeyecektir ve **Ctrl+C** tuşlarına basarak istediğiniz zaman kaydetmeden çıkabilirsiniz, bu nedenle burada ayarlarla oynayarak yanlışlıkla bir şeyi mahvetmezsiniz.
 
-### Configuring the Settings
+### Ayarları Yapılandırma
 
-From the home screen, select any one of the categories with the `Enter` key to view the settings for that category.
-For example, here is the screen for the **Smartnode and TX Fees** category:
+Ana ekrandan, bu kategorinin ayarlarını görüntülemek için kategorilerden herhangi birini `Enter` tuşuyla seçin.
+Örneğin, **Smartnode and TX Fees** kategorisinin ekranı şöyledir:
 
 <img src="./images/tui-smartnode.png" width="100%" height="auto" />
 
-Use the `Arrow Keys` to move up and down between the settings.
-The currently selected one will have a white square at the end of it (if it's a text box or a check box), or will be highlighted in white (if it's a drop down).
+Ayarlar arasında yukarı ve aşağı hareket etmek için `Ok Tuşlarını` kullanın.
+Şu anda seçili olan, sonunda beyaz bir kareye sahip olacaktır (bir metin kutusu veya onay kutusuysa) veya beyaz renkte vurgulanacaktır (bir açılır menü ise).
 
-Press `Escape` to go back to the home screen of the Settings Manager when you're done.
+İşiniz bittiğinde Settings Manager'ın ana ekranına geri dönmek için `Escape` tuşuna basın.
 
-As you scroll through the settings, each one will show a brief description of what it does in the **Description Box** on the right.
-It will also show the **default value** there in case you want to revert it to its stock setting.
+Ayarlar arasında gezinirken, her biri sağdaki **Açıklama Kutusu**'nda ne yaptığına dair kısa bir açıklama gösterecektir.
+Ayrıca, stok ayarına geri döndürmek isterseniz orada **varsayılan değeri** de gösterecektir.
 
-In this example, the **RPL Claim Gas Threshold** setting is currently selected (highlighted with a green box on the left-hand side of the screen).
-It has been changed to `40`, but you can see that it has a default of `150` in the top-right corner (the top of the **Description Box**).
+Bu örnekte, **RPL Claim Gas Threshold** ayarı şu anda seçilidir (ekranın sol tarafında yeşil bir kutuyla vurgulanmıştır).
+`40` olarak değiştirilmiştir, ancak sağ üst köşede (Açıklama Kutusu'nun üstünde) varsayılan değerinin `150` olduğunu görebilirsiniz.
 
-::: tip TIP
-As a reminder, nothing will be saved to disk until you go through the Review dialog via the **Review Changes and Save** button.
-You are encouraged to explore all of the settings to learn about them and see what your Smartnode can do!
+::: tip İPUCU
+Hatırlatma olarak, **Değişiklikleri Gözden Geçir ve Kaydet** düğmesi aracılığıyla Gözden Geçir diyaloğundan geçene kadar hiçbir şey diske kaydedilmeyecektir.
+Onlar hakkında bilgi edinmek ve Smartnode'unuzun neler yapabileceğini görmek için tüm ayarları keşfetmeniz teşvik edilir!
 :::
 
-### The Setting Types and How to Use Them
+### Ayar Türleri ve Nasıl Kullanılır
 
-The settings manager uses the following setting types and UI elements:
+Ayarlar yöneticisi aşağıdaki ayar türlerini ve kullanıcı arayüzü öğelerini kullanır:
 
-#### Text Boxes
+#### Metin Kutuları
 
-Text boxes are used to enter arbitrary strings of text or numbers.
-They look like this:
+Metin kutuları, keyfi metin veya sayı dizilerini girmek için kullanılır.
+Şöyle görünürler:
 
 <img src="./images/tui-textbox.png" width="100%" height="auto" />
 
-Enter your desired values into them, then **press `Enter` or use the `Arrow Keys` to navigate to a different setting in order to preserve your changes.**
-If you don't, the Settings Manager will assume you're still updating that setting and won't mark it as changed yet.
+İstediğiniz değerleri girin, ardından **değişikliklerinizi korumak için `Enter` tuşuna basın veya farklı bir ayara gitmek için `Ok Tuşlarını` kullanın.**
+Bunu yapmazsanız, Settings Manager hala bu ayarı güncellediğinizi varsayacak ve henüz değiştirilmiş olarak işaretlemeyecektir.
 
-#### Drop Downs
+#### Açılır Menüler
 
-Drop downs are used to select an option from a list of choices.
-They look like this (when they're open):
+Açılır menüler, bir seçenek listesinden bir seçenek seçmek için kullanılır.
+Şöyle görünürler (açık olduklarında):
 
 <img src="./images/tui-dropdown-open.png" width="100%" height="auto" />
 
-The **green** item is the one that is currently selected.
-Use the `Arrow Keys` to change options - as you do, the **Description Box** on the right will update to tell you more about the currently selected option.
-When you're happy with your choice, press `Enter` to choose the selected option and the drop down will close, revealing the option that is currently selected:
+**Yeşil** öğe şu anda seçili olandır.
+Seçenekleri değiştirmek için `Ok Tuşlarını` kullanın - bunu yaparken, sağdaki **Açıklama Kutusu** şu anda seçili olan seçenek hakkında size daha fazla bilgi vermek için güncellenecektir.
+Seçiminizden memnun olduğunuzda, seçili seçeneği seçmek için `Enter` tuşuna basın ve açılır menü kapanacak, şu anda seçili olan seçeneği ortaya çıkaracaktır:
 
 <img src="./images/tui-dropdown-closed.png" width="100%" height="auto" />
 
-#### Check Boxes
+#### Onay Kutuları
 
-Check boxes are used for simple Yes/No questions.
-They look like this:
+Onay kutuları basit Evet/Hayır soruları için kullanılır.
+Şöyle görünürler:
 
 <img src="./images/tui-checkbox-checked.png" width="100%" height="auto" />
 
-When they are checked, they will have an `X` in the middle as you see above.
-When they are _unchecked_, they will simply be blank like this:
+İşaretlendiklerinde, yukarıda gördüğünüz gibi ortada bir `X` olacaktır.
+_İşaretlenmediğinde_, şu şekilde boş olacaklardır:
 
 <img src="./images/tui-checkbox-unchecked.png" width="100%" height="auto" />
 
-To change the setting, simply select it and press `Enter`.
+Ayarı değiştirmek için, sadece seçin ve `Enter` tuşuna basın.
 
-### Saving Changes
+### Değişiklikleri Kaydetme
 
-When you're happy with your changes and you'd like to review them before saving, press the **Review Changes and Save** button on the home screen.
-As a reminder, to get to it, press the `Tab` key.
+Değişikliklerinizden memnun olduğunuzda ve kaydetmeden önce gözden geçirmek istediğinizde, ana ekrandaki **Değişiklikleri Gözden Geçir ve Kaydet** düğmesine basın.
+Hatırlatma olarak, ona ulaşmak için `Tab` tuşuna basın.
 
-You will be presented with a view that looks like this:
+Şöyle görünen bir görünümle karşılaşacaksınız:
 
 <img src="./images/tui-review.png" width="100%" height="auto" />
 
-The **Review Box** here will present all of the settings you've changed, showing the old values and the new ones.
-For example, the first line here shows that the **RPL Claim Gas Threshold** used to be `150`, and it's been changed to `40`.
+Buradaki **Gözden Geçirme Kutusu**, değiştirdiğiniz tüm ayarları gösterecek, eski değerleri ve yenilerini gösterecektir.
+Örneğin, buradaki ilk satır, **RPL Claim Gas Threshold**'un eskiden `150` olduğunu ve `40` olarak değiştirildiğini gösterir.
 
-It will also show you which containers are affected by the settings you've modified and will offer to restart them for you after you've saved your changes.
+Ayrıca, değiştirdiğiniz ayarlardan hangi konteynerlerin etkilendiğini gösterecek ve değişikliklerinizi kaydettikten sonra onları sizin için yeniden başlatmayı teklif edecektir.
 
-::: tip NOTE
-At this point, your changes **still haven't been saved yet**.
-If you want to go back and modify something, press `Escape` to return to the home screen.
+::: tip NOT
+Bu noktada, değişiklikleriniz **hala kaydedilmedi**.
+Geri dönüp bir şeyi değiştirmek isterseniz, ana ekrana dönmek için `Escape` tuşuna basın.
 :::
 
-When you are satisfied with the changes, press `Enter` to save the new configuration to disk.
-You will then exit the Terminal UI and be presented with something like this message:
+Değişikliklerden memnun olduğunuzda, yeni yapılandırmayı diske kaydetmek için `Enter` tuşuna basın.
+Ardından Terminal kullanıcı arayüzünden çıkacak ve şöyle bir mesajla karşılaşacaksınız:
 
 ```
 Your changes have been saved!
@@ -761,33 +761,33 @@ The following containers must be restarted for the changes to take effect:
 Would you like to restart them automatically now? [y/n]
 ```
 
-Press `y` and `Enter` if you want to automatically apply your new configuration changes and restart the affected containers.
+Yeni yapılandırma değişikliklerinizi otomatik olarak uygulamak ve etkilenen konteynerleri yeniden başlatmak istiyorsanız `y` ve `Enter` tuşlarına basın.
 
-Press `n` and `Enter` if you have other things you want to do before restarting them, and will do it manually later.
+Yeniden başlatmadan önce yapmak istediğiniz başka şeyler varsa ve bunu daha sonra manuel olarak yapacaksanız `n` ve `Enter` tuşlarına basın.
 
-In either case, your configuration is done!
+Her iki durumda da, yapılandırmanız tamamlandı!
 
-::: tip NOTE
-You may see an error message like the one below:
+::: tip NOT
+Aşağıdaki gibi bir hata mesajı görebilirsiniz:
 
 ```
 2022/08/13 13:49:41 Error piping stdout: read |0: file already closed
 ```
 
-This is not actually an error, it's simply a cosmetic glitch.
-You can safely ignore it.
+Bu aslında bir hata değil, sadece kozmetik bir hatadır.
+Güvenle göz ardı edebilirsiniz.
 :::
 
-::: tip NOTE
-If you are running Mac OS, you may see an issue complaining about node_exporter.
-You will need to run these commands to fix.
+::: tip NOT
+Mac OS kullanıyorsanız, node_exporter hakkında şikayet eden bir sorunla karşılaşabilirsiniz.
+Düzeltmek için bu komutları çalıştırmanız gerekir.
 
 ```shell
 rocketpool service stop
 nano ~/.rocketpool/override/exporter.yml
 ```
 
-Replace the entire contents of the file with:
+Dosyanın tüm içeriğini şununla değiştirin:
 
 ```
 # Enter your own customizations for the node exporter container here. These changes will persist after upgrades, so you only need to do them once.
@@ -802,21 +802,21 @@ services:
     volumes:   ["/proc:/host/proc:ro","/sys:/host/sys:ro"]
 ```
 
-then finally `rocketpool service start`.
+ardından son olarak `rocketpool service start`.
 :::
 
-## Configuring via the Command Line
+## Komut Satırı Aracılığıyla Yapılandırma
 
-If you use the Smartnode in a headless environment where you can't interact with the Terminal UI, you can configure your node via the command line instead.
+Smartnode'u başsız bir ortamda kullanıyorsanız ve Terminal kullanıcı arayüzü ile etkileşim kuramıyorsanız, düğümünüzü bunun yerine komut satırı aracılığıyla yapılandırabilirsiniz.
 
-The `rocketpool service config` command accepts, as arguments, every setting that can normally be configured via the Terminal UI.
-Run the following command to see a list of them (note that it's quite long):
+`rocketpool service config` komutu, argüman olarak, Terminal kullanıcı arayüzü aracılığıyla normalde yapılandırılabilen her ayarı kabul eder.
+Bunların bir listesini görmek için aşağıdaki komutu çalıştırın (oldukça uzun olduğunu unutmayın):
 
 ```shell
 rocketpool service config --help
 ```
 
-The output will look like this:
+Çıktı şöyle görünecektir:
 
 ```
 NAME:
@@ -840,15 +840,15 @@ OPTIONS:
 ...
 ```
 
-Each option will have its name, its type, its default value, and (if it's a choice parameter) its options.
-Using this text, you can find the option(s) you want to set and specify them via the appropriate arguments.
+Her seçeneğin adı, türü, varsayılan değeri ve (bir seçim parametresiyse) seçenekleri olacaktır.
+Bu metni kullanarak, ayarlamak istediğiniz seçeneği(leri) bulabilir ve uygun argümanlar aracılığıyla belirtebilirsiniz.
 
-::: tip NOTE
-This command builds on top of your existing configuration, so if you have some settings already saved and just want to modify others, you don't need to repeat them.
-It will only update settings that you include as arguments to this command.
+::: tip NOT
+Bu komut, mevcut yapılandırmanızın üzerine inşa edilir, bu nedenle zaten kayıtlı bazı ayarlarınız varsa ve sadece diğerlerini değiştirmek istiyorsanız, onları tekrarlamanız gerekmez.
+Yalnızca bu komuta argüman olarak dahil ettiğiniz ayarları güncelleyecektir.
 :::
 
-## Next Steps
+## Sonraki Adımlar
 
-Once you've configured your node just the way you want it, you're ready to secure your operating system to protect your node.
-Move on to the [Securing your Node](./securing-your-node) section next.
+Düğümünüzü istediğiniz gibi yapılandırdıktan sonra, düğümünüzü korumak için işletim sisteminizi güvenceye almaya hazırsınız.
+Bir sonraki [Düğümünüzü Güvenceye Alma](./securing-your-node) bölümüne geçin.

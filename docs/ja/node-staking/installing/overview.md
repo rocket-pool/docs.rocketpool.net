@@ -1,30 +1,30 @@
 ---
 next:
-  text: Choosing your ETH Clients
-  link: "/en/node-staking/eth-clients"
+  text: ETHクライアントの選択
+  link: "/ja/node-staking/eth-clients"
 ---
 
-# Overview
+# 概要
 
-In this section, you'll learn how to install the Rocket Pool Smartnode stack onto your node machine.
-There are several different flavors of installation; you'll learn which one is right for you and walk through the installation process for it.
+このセクションでは、ノードマシンにRocket Pool Smartnodeスタックをインストールする方法を学びます。
+インストールにはいくつかの異なる種類があります。自分に適したものを学び、そのインストールプロセスを順を追って説明します。
 
-## Prerequisites
+## 前提条件
 
-Before diving into this section, please make sure you've:
+このセクションに入る前に、次のことを確認してください。
 
-- Picked a node machine (local hardware or virtual server)
-- Set up the Operating System on it
-- Configured a remote control system such as [SSH](../ssh)
-- Secured it by following the [Securing your Node](../securing-your-node) guide
+- ノードマシン(ローカルハードウェアまたは仮想サーバー)を選択した
+- OSをセットアップした
+- [SSH](../ssh)などのリモートコントロールシステムを設定した
+- [Securing your Node](../securing-your-node)ガイドに従ってセキュリティを確保した
 
-## Guides
+## ガイド
 
-[Choosing your ETH Clients](../eth-clients) presents the various options for Ethereum clients - both on the Execution Layer (formerly ETH1) and the Consensus Layer (formerly ETH2).
-You'll need one of each in order to run your node, and this section will help you choose which ones you'd like to run.
+[ETHクライアントの選択](../eth-clients)では、Execution Layer(旧ETH1)とConsensus Layer(旧ETH2)の両方のEthereumクライアントのさまざまなオプションを紹介します。
+ノードを実行するには、それぞれ1つずつ必要です。このセクションでは、実行したいクライアントを選択するのに役立ちます。
 
-[Selecting a Rocket Pool Mode](../install-modes) will show you the different modes the Rocket Pool Smartnode can be installed with and will help you pick the mode that's best for you.
+[Rocket Poolモードの選択](../install-modes)では、Rocket Pool Smartnodeをインストールできるさまざまなモードを示し、最適なモードを選択するのに役立ちます。
 
-[Creating a Standard Rocket Pool Node with Docker](../docker) will walk you through the installation process for **Docker Mode** and **Hybrid Mode**.
+[Dockerを使用した標準的なRocket Poolノードの作成](../docker)では、**Dockerモード**と**Hybridモード**のインストールプロセスを順を追って説明します。
 
-[Creating a Native Rocket Pool Node without Docker](../native.mdx) will walk you through the installation process for **Native Mode**.
+[Dockerを使用しないNative Rocket Poolノードの作成](../native.mdx)では、**Nativeモード**のインストールプロセスを順を追って説明します。

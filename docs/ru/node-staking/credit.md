@@ -1,36 +1,36 @@
-::: danger WARNING
-Minipool deposits are currently disabled in preparation for Saturn 1.
+::: danger ПРЕДУПРЕЖДЕНИЕ
+Депозиты minipool в настоящее время отключены в рамках подготовки к Saturn 1.
 :::
 
-# The Deposit Credit System
+# Система кредита депозита
 
-The deposit credit system is a mechanism to track ETH that was previously bonded by node operators but is no longer required and make it available for use again.
-The source of this credit comes from two places:
+Система кредита депозита представляет собой механизм отслеживания ETH, которые ранее были заблокированы операторами узлов, но больше не требуются, и делает их доступными для повторного использования.
+Источник этого кредита поступает из двух мест:
 
-- [Migrating an existing 16-ETH bonded minipool down to an 8-ETH bonded minipool](./leb-migration.mdx) (which adds 8 ETH to the node operator's credit balance)
-- [Migrating an existing solo validator](./solo-staker-migration) into a minipool (which adds either 16 or 24 ETH to the node operator's credit balance, depending on which type of minipool they create during migration)
+- [Миграция существующего minipool с залогом в 16 ETH до minipool с залогом в 8 ETH](./leb-migration.mdx) (что добавляет 8 ETH к балансу кредита оператора узла)
+- [Миграция существующего соло-валидатора](./solo-staker-migration) в minipool (что добавляет либо 16, либо 24 ETH к балансу кредита оператора узла, в зависимости от типа minipool, который создается во время миграции)
 
-Every node operator begins with a credit balance of **0 ETH**.
-Either of these two actions will increase that balance accordingly.
+Каждый оператор узла начинает с баланса кредита **0 ETH**.
+Любое из этих двух действий соответствующим образом увеличит этот баланс.
 
-This ETH is _not_ made liquid and returned to the node operator; instead, it can be used to **create additional minipools** without requiring any ETH from the node operator.
+Эти ETH _не_ становятся ликвидными и не возвращаются оператору узла; вместо этого они могут быть использованы для **создания дополнительных minipool** без необходимости предоставления каких-либо ETH от оператора узла.
 
-The credit system is **transparent** to the node operator; it will automatically be used (with notifications in the Smartnode CLI explaining that it will be used) during either `rocketpool node deposit` or `rocketpool node create-vacant-minipool` operations if possible.
-If it _cannot_ be used, the Smartnode will alert the user that it cannot be used and will require a normal ETH bond during either operation.
+Система кредита **прозрачна** для оператора узла; она будет автоматически использоваться (с уведомлениями в CLI Smartnode, объясняющими, что она будет использоваться) во время операций `rocketpool node deposit` или `rocketpool node create-vacant-minipool`, если это возможно.
+Если она _не может_ быть использована, Smartnode предупредит пользователя, что она не может быть использована, и потребует обычного залога ETH во время любой из операций.
 
-See the [Credit Availability](#credit-availability) section below for more details.
+См. раздел [Доступность кредита](#доступность-кредита) ниже для получения дополнительной информации.
 
-## An Example
+## Пример
 
-Say you have a credit balance of 0 ETH, and a single minipool with a 16-ETH bond.
-You can then [migrate that minipool to an 8-ETH bond](./leb-migration.mdx).
-This will result in **8 ETH** that is no longer bonded.
-That 8 ETH will be placed into your **credit balance**.
+Допустим, у вас баланс кредита составляет 0 ETH, и один minipool с залогом в 16 ETH.
+Затем вы можете [перевести этот minipool на залог в 8 ETH](./leb-migration.mdx).
+В результате получится **8 ETH**, которые больше не заблокированы.
+Эти 8 ETH будут помещены в ваш **баланс кредита**.
 
-Now, say you want to create a _second_ 8-ETH minipool.
-You run `rocketpool node deposit` as usual, and select 8-ETH as the bond amount.
-This normally requires you to provide 8 of your own ETH for the minipool.
-However, because you have a credit balance of 8 ETH, Rocket Pool will **automatically use that instead**:
+Теперь, предположим, вы хотите создать _второй_ minipool с залогом в 8 ETH.
+Вы запускаете `rocketpool node deposit` как обычно и выбираете 8 ETH в качестве суммы залога.
+Обычно это требует от вас предоставления 8 ваших собственных ETH для minipool.
+Однако, поскольку у вас есть баланс кредита в 8 ETH, Rocket Pool **автоматически использует его вместо этого**:
 
 ```
 Please choose an amount of ETH to deposit:
@@ -45,19 +45,19 @@ This deposit will use 8.000000 ETH from your credit balance and will not require
 Your consensus client is synced, you may safely create a minipool.
 ```
 
-The second set of lines here is the relevant one: they tell you that you have enough ETH in your credit balance to cover this deposit _and that it is available for use_, so it will use the balance automatically and won't require any supplemental ETH from your node wallet.
+Второй набор строк здесь является релевантным: они сообщают вам, что у вас достаточно ETH в балансе кредита, чтобы покрыть этот депозит _и что он доступен для использования_, поэтому он автоматически использует баланс и не потребует дополнительных ETH от вашего кошелька узла.
 
-See [the availability section below](#credit-availability) for details on credit balance availability.
+См. [раздел о доступности ниже](#доступность-кредита) для получения подробной информации о доступности баланса кредита.
 
-## Viewing your Current Credit Balance
+## Просмотр текущего баланса кредита
 
-To view your current credit balance, simply run the following command:
+Чтобы просмотреть текущий баланс кредита, просто выполните следующую команду:
 
 ```shell
 rocketpool node status
 ```
 
-This produces a comprehensive list of details about your node, including its credit balance right at the top:
+Это выдаст исчерпывающий список деталей о вашем узле, включая его баланс кредита прямо наверху:
 
 ```
 Your Smartnode is currently using the Zhejiang Test Network.
@@ -68,13 +68,13 @@ The node has 8.000000 ETH in its credit balance, which can be used to make new m
 ...
 ```
 
-## Credit Availability
+## Доступность кредита
 
-In some situations, your node might have a credit balance available but cannot currently use it to deploy additional minipools.
+В некоторых ситуациях ваш узел может иметь доступный баланс кредита, но в настоящее время не может использовать его для развертывания дополнительных minipool.
 
-The ETH for your credit balance is taken from the **deposit pool**.
-Thus, if you want to use 8 ETH in credit to create a new 8-ETH minipool, it will end up taking **all 32 ETH for that minipool** from the deposit pool and require none from you.
-Because of this, if the deposit pool does not have enough ETH in it to cover the pre-deposit value (currently set to 1 ETH), **the balance will not be available**.
+ETH для вашего баланса кредита берутся из **пула депозитов**.
+Таким образом, если вы хотите использовать 8 ETH в кредите для создания нового minipool с залогом в 8 ETH, в конечном итоге будут взяты **все 32 ETH для этого minipool** из пула депозитов, и ничего не потребуется от вас.
+Из-за этого, если в пуле депозитов недостаточно ETH для покрытия значения пред-депозита (в настоящее время установлено на 1 ETH), **баланс не будет доступен**.
 
-In this situation, the Smartnode will alert you during a `rocketpool node deposit` operation that it **cannot** use your credit balance, and must instead use ETH from your node wallet to complete the bond.
-Doing so will **not** consume your credit balance; it will be left as-is and available for use later once the deposit pool has enough balance to cover it.
+В этой ситуации Smartnode предупредит вас во время операции `rocketpool node deposit`, что он **не может** использовать ваш баланс кредита и вместо этого должен использовать ETH из вашего кошелька узла для завершения залога.
+Это **не** израсходует ваш баланс кредита; он останется как есть и будет доступен для использования позже, как только в пуле депозитов будет достаточно баланса для его покрытия.

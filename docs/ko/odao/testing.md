@@ -1,39 +1,39 @@
-# Testing your Oracle DAO Node
+# Oracle DAO 노드 테스트
 
-Once your node is set up and you've joined the Oracle DAO, you should test it to ensure it's able to perform its duties properly.
-The best way to do this is to have it build the Redstone rewards Merkle tree using Rocket Pool's `treegen` utility.
+노드가 설정되고 Oracle DAO에 가입한 후, 임무를 제대로 수행할 수 있는지 테스트해야 합니다.
+이를 수행하는 가장 좋은 방법은 Rocket Pool의 `treegen` 유틸리티를 사용하여 Redstone 보상 Merkle 트리를 빌드하는 것입니다.
 
 ### treegen
 
-`treegen` is a tool that can reproduce the entire rewards Merkle tree and accompanying artifacts for a previous rewards interval via your archive Execution and Consensus clients.
-It can also "dry run" the current interval by pretending that it ended at the latest finalized epoch (at the time of running it) and producing a partial tree from the start of the interval up to that point.
+`treegen`은 archive Execution 및 Consensus 클라이언트를 통해 이전 보상 간격에 대한 전체 보상 Merkle 트리 및 관련 아티팩트를 재현할 수 있는 도구입니다.
+또한 실행 시점의 최신 확정된 에포크에서 끝난 것처럼 가정하고 간격 시작부터 해당 시점까지의 부분 트리를 생성하여 현재 간격을 "드라이 런"할 수도 있습니다.
 
-::: tip TIP
-For more information on the rewards tree itself and accompanying files, please visit [**the formal specification**](https://github.com/rocket-pool/rocketpool-research/blob/master/Merkle%20Rewards%20System/merkle-tree-spec).
+::: tip 팁
+보상 트리 자체 및 관련 파일에 대한 자세한 내용은 [**공식 사양**](https://github.com/rocket-pool/rocketpool-research/blob/master/Merkle%20Rewards%20System/merkle-tree-spec)을 참조하십시오.
 :::
 
-`treegen` can be used as a standalone binary (currently only built for Linux systems, x64 and arm64) or as a Docker container.
+`treegen`은 독립 실행형 바이너리(현재 Linux 시스템, x64 및 arm64 전용으로만 빌드됨) 또는 Docker 컨테이너로 사용할 수 있습니다.
 
-If you would like to download the standalone binary, you can find it in the releases here: [https://github.com/rocket-pool/treegen](https://github.com/rocket-pool/treegen).
-Usage instructions are included in the README there, but we'll cover some examples below as well.
+독립 실행형 바이너리를 다운로드하려면 여기의 릴리스에서 찾을 수 있습니다: [https://github.com/rocket-pool/treegen](https://github.com/rocket-pool/treegen).
+사용 지침은 거기의 README에 포함되어 있지만 아래에서도 몇 가지 예를 다룹니다.
 
-The Docker container tag for it is `rocketpool/treegen:latest`.
+Docker 컨테이너 태그는 `rocketpool/treegen:latest`입니다.
 
-## Building a Dry-Run Tree
+## 드라이 런 트리 빌드
 
-For a first test, run `treegen` to generate a dry-run tree that calculates the tree from the start of the rewards interval to the latest (finalized) slot.
-We'll use [the script](https://github.com/rocket-pool/treegen/blob/main/treegen.sh) included in the repository that leverages the Docker container to run it on the node machine itself for simplicity:
+첫 번째 테스트로, 보상 간격 시작부터 최신(확정된) 슬롯까지 트리를 계산하는 드라이 런 트리를 생성하도록 `treegen`을 실행합니다.
+간단함을 위해 노드 머신 자체에서 Docker 컨테이너를 활용하는 리포지토리에 포함된 [스크립트](https://github.com/rocket-pool/treegen/blob/main/treegen.sh)를 사용합니다:
 
 ```shell
 ./treegen.sh -e http://localhost:8545 -b http://localhost:5052
 ```
 
-::: warning NOTE
-Note that this particular configuration requires you to expose the Execution Client and Beacon Node APIs through the Docker configuration - ensure you have both options enabled in the `rocketpool service config` TUI.
+::: warning 참고
+이 특정 구성은 Docker 구성을 통해 Execution Client 및 Beacon Node API를 노출해야 합니다. `rocketpool service config` TUI에서 두 옵션이 모두 활성화되어 있는지 확인하십시오.
 :::
 
-This will test your clients' abilities to respond to queries in a timely fashion (e.g., if you are using a third-party service, this will be helpful to assess whether or not its query rate-limit is insufficient), but **will not test their Archive Mode capabilities**.
-It will produce output like the following:
+이렇게 하면 클라이언트가 적시에 쿼리에 응답하는 능력을 테스트합니다(예: 타사 서비스를 사용하는 경우, 쿼리 속도 제한이 불충분한지 평가하는 데 도움이 됩니다). 그러나 **Archive Mode 기능은 테스트하지 않습니다**.
+다음과 같은 출력을 생성합니다:
 
 ```
 2022/11/06 12:11:37 Beacon node is configured for Mainnet.
@@ -68,30 +68,30 @@ It will produce output like the following:
 2022/11/06 12:50:52 Successfully generated rewards snapshot for interval 3.
 ```
 
-If this runs without error, it will generate the rewards tree artifacts and save them as JSON files in your working directory.
-You are free to explore them and ensure their contents are sane, but as they are dry-run files, they aren't canonically stored anywhere for comparison.
+오류 없이 실행되면 보상 트리 아티팩트를 생성하고 작업 디렉토리에 JSON 파일로 저장합니다.
+내용을 자유롭게 탐색하고 건전한지 확인할 수 있지만 드라이 런 파일이므로 비교를 위해 정식으로 저장된 곳은 없습니다.
 
-## Building a Canonical Tree from a Past Interval
+## 과거 간격에서 정식 트리 빌드
 
-This next test is to replicate one of the complete trees from a past interval.
-This will require archival access on both the Execution Layer and the Consensus Layer, so it will serve as a good test of both capabilities.
+다음 테스트는 과거 간격의 완전한 트리 중 하나를 복제하는 것입니다.
+이를 위해서는 Execution Layer 및 Consensus Layer 모두에 대한 아카이브 액세스가 필요하므로 두 기능 모두에 대한 좋은 테스트가 됩니다.
 
-As of this writing, **Interval 2** is an ideal choice as it is far in the past () and involved the Smoothing Pool (which accounts for the largest computational load when calculating the rewards for the period).
+현재 시점에서 **간격 2**는 과거에 멀리 있고 Smoothing Pool(기간 동안 보상을 계산할 때 가장 큰 계산 부하를 차지함)이 포함되어 있으므로 이상적인 선택입니다.
 
-Run `treegen` using the following command:
+다음 명령을 사용하여 `treegen`을 실행합니다:
 
 ```shell
 ./treegen.sh -e http://<your archive EC url> -b http://localhost:5052 -i 2
 ```
 
-Note that the **Execution Client URL** is different here: it _must be_ an Archive EC as the snapshot block for Interval 2 was far in the past.
+여기서 **Execution Client URL**이 다릅니다. 간격 2의 스냅샷 블록이 과거에 멀리 있었으므로 Archive EC여야 _합니다_.
 
-::: warning NOTE
-Depending on your client configuration, building this tree can take _hours_.
-The Smartnode will give you status indicators about its progress along the way, as you can see in the example below.
+::: warning 참고
+클라이언트 구성에 따라 이 트리를 빌드하는 데 _몇 시간_이 걸릴 수 있습니다.
+Smartnode는 아래 예에서 볼 수 있듯이 진행 상황에 대한 상태 표시기를 제공합니다.
 :::
 
-The output will look like this (truncated for previty):
+출력은 다음과 같습니다(간결성을 위해 잘림):
 
 ```
 2022/11/07 23:44:34 Beacon node is configured for Mainnet.
@@ -135,18 +135,18 @@ The output will look like this (truncated for previty):
 2022/11/07 18:26:10 Successfully generated rewards snapshot for interval 2.
 ```
 
-The key thing to look for here is this message at the end:
+여기서 찾아야 할 핵심 사항은 마지막에 있는 이 메시지입니다:
 
 ```
 Your Merkle tree's root of 0x278fd75797e2a9eddc128c0199b448877e30d1196c12306bdc95fb731647c18f matches the canonical root! You will be able to use this file for claiming rewards.
 ```
 
-If you receive this, then your watchtower can build the tree correctly.
+이를 받으면 watchtower가 트리를 올바르게 빌드할 수 있습니다.
 
-::: danger NOTE
-While this proves you can build the tree, you _must_ ensure your Web3.Storage API token has been entered into the Smartnode's configuration so it can upload the resulting tree to IPFS.
+::: danger 참고
+이것이 트리를 빌드할 수 있음을 증명하지만, 결과 트리를 IPFS에 업로드할 수 있도록 Web3.Storage API 토큰이 Smartnode의 구성에 입력되었는지 _확인해야_ 합니다.
 :::
 
-### Next Steps
+### 다음 단계
 
-Next up, we'll cover how to monitor your node's performance.
+다음으로, 노드의 성능을 모니터링하는 방법을 다룹니다.

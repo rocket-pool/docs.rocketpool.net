@@ -1,129 +1,129 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# [Docker Mode] Guide to the Redstone Update and the Merge
+# [Dockerモード] RedstoneアップデートとMergeのガイド
 
-This guide will cover everything you need to know in order to prepare your node for the Redstone Update and The Merge if you are using **Docker Mode**.
+このガイドでは、**Dockerモード**を使用している場合に、RedstoneアップデートとMergeに向けてノードを準備するために知っておくべきすべてのことを説明します。
 
-## Things to Do Before Upgrading to v1.5.0
+## v1.5.0へのアップグレード前にすべきこと
 
-Before upgrading to v1.5.0 and higher of the Smartnode, please go through the following checklist to make sure you're prepared:
+Smartnodeのv1.5.0以降にアップグレードする前に、次のチェックリストを確認して準備ができていることを確認してください。
 
-### Switch to a Full Execution Client
+### 完全なExecution Clientへの切り替え
 
-The Merge requires you to run your own Execution client, so you won't be able to use remote providers like Infura or Pocket anymore.
-v1.5.0 won't have them anymore, and won't let you start the stack until you select a full Execution client.
+Mergeでは独自のExecution Clientを実行する必要があるため、InfuraやPocketなどのリモートプロバイダーを使用できなくなります。
+v1.5.0ではこれらがなくなり、完全なExecution Clientを選択するまでスタックを開始できません。
 
-Because of this change, you should switch to a full client while you're still on v1.4, let it sync to completion, and then upgrade to v1.5.
+この変更により、v1.4のままで完全なクライアントに切り替え、同期が完了するまで待ってから、v1.5にアップグレードする必要があります。
 
-Docker Mode makes switching clients very easy.
-[This guide](../../node-staking/change-clients#changing-execution-clients) provides a walkthrough of the process.
+DockerモードではクライアントをとてもVery easyに切り替えることができます。
+[このガイド](../../node-staking/change-clients#changing-execution-clients)でプロセスの手順を説明しています。
 
-## Upgrading to v1.5.0
+## v1.5.0へのアップグレード
 
-Upgrading the Smartnode stack to v1.5.0 is no different than any other upgrade.
-Simply follow [the normal directions here](../../node-staking/updates#updating-the-smartnode-stack).
+Smartnodeスタックをv1.5.0にアップグレードすることは、他のアップグレードと変わりません。
+単に[ここの通常の手順](../../node-staking/updates#updating-the-smartnode-stack)に従ってください。
 
-## Things the Smartnode Handles Automatically
+## Smartnodeが自動的に処理すること
 
-In Docker mode, the Smartnode will take care of most of the changes needed to support Redstone and The Merge automatically once you update to v1.5.0.
-Here's a brief list of what it will do for you without any manual intervention:
+Dockerモードでは、v1.5.0にアップデートすると、RedstoneとMergeをサポートするために必要な変更のほとんどをSmartnodeが自動的に処理します。
+手動で介入することなくSmartnodeが実行することの簡単なリストを以下に示します。
 
-### The Engine API
+### Engine API
 
-The Merge changes the way your Execution client talks to your Consensus client.
-Instead of using the old HTTP or Websocket based RPC system, The Merge requires a new system exposed by your Execution client called the Engine API.
+Mergeでは、Execution ClientとConsensus Clientの通信方法が変わります。
+古いHTTPまたはWebsocketベースのRPCシステムを使用する代わりに、MergeではExecution Clientが公開するEngine APIと呼ばれる新しいシステムが必要です。
 
-This is a special connection that lets the Consensus client replace the old Proof-of-Work mining system with Proof-of-Stake; it's the heart of The Merge.
-It's also **authenticated** with a secret token, so only your Consensus client can connect to your Execution client - nothing else can.
+これは、Consensus Clientが古いProof-of-WorkマイニングシステムをProof-of-Stakeに置き換えることを可能にする特別な接続です。これがMergeの中核です。
+また、シークレットトークンで**認証**されているため、Consensus ClientのみがExecution Clientに接続でき、他は何も接続できません。
 
-The Smartnode will handle the set up of the authentication token and the Engine API on both your Execution and Consensus clients automatically.
+Smartnodeは、Execution ClientとConsensus Clientの両方で認証トークンとEngine APIのセットアップを自動的に処理します。
 
-### Your Fee Recipient
+### Fee Recipient
 
-The **fee recipient** is the address on the Execution layer chain that will receive all of the priority fees for blocks you propose.
-It is a setting provided to your Validator client when it first starts.
+**fee recipient**は、提案するブロックのすべてのpriority feesを受け取るExecution Layerチェーン上のアドレスです。
+これは、Validator Clientが最初に起動するときに提供される設定です。
 
-The Smartnode will handle setting it up to the correct address when you upgrade to v1.5, and will constantly check to make sure you're using the correct one so you don't get [penalized accidentally](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
+Smartnodeは、v1.5にアップグレードしたときに正しいアドレスに設定することを処理し、[誤ってペナルティを受ける](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)ことがないように、正しいアドレスを使用していることを常に確認します。
 
-If you opted into the [Smoothing Pool](./whats-new#smoothing-pool), it will make that your fee recipient.
-If you didn't, it will make your [fee distributor contract](./whats-new#fee-recipients-and-your-distributor) the fee recipient.
+[Smoothing Pool](./whats-new#smoothing-pool)にオプトインした場合、それがfee recipientになります。
+オプトインしなかった場合、[fee distributorコントラクト](./whats-new#fee-recipients-and-your-distributor)がfee recipientになります。
 
 ### MEV-Boost
 
-[MEV-boost](https://boost.flashbots.net/) is the system Flashbots provides to give MEV rewards to Proof-of-Stake validators after The Merge.
-Rocket Pool has MEV-Boost built into the Smartnode and automatically configures your node to use it, so your proposals get the maximum amount of rewards.
+[MEV-boost](https://boost.flashbots.net/)は、Merge後にProof-of-StakeバリデータにMEV報酬を提供するためにFlashbotsが提供するシステムです。
+Rocket PoolにはMEV-BoostがSmartnodeに組み込まれており、ノードが自動的にそれを使用するように設定されるため、提案で最大の報酬が得られます。
 
-## Things You Should Do After Upgrading
+## アップグレード後に実施すべきこと
 
-While the Smartnode handles most of the changes for you, there are a few additional things you should do manually:
+Smartnodeがほとんどの変更を処理しますが、手動で実施すべきいくつかの追加事項があります。
 
-### Ensure a Successful Upgrade
+### アップグレードが成功したことを確認
 
-The first thing to do is ensure that your node is working correctly.
-Consider taking the following steps:
+最初に実施することは、ノードが正しく動作していることを確認することです。
+次の手順を検討してください。
 
-- Check the logs for errors with `rocketpool service logs eth1`, `rocketpool service logs eth2`, `rocketpool service logs validator`, and `rocketpool service logs node`.
-- Confirm with a Block Explorer (such as your Grafana dashboard and [https://beaconcha.in](https://beaconcha.in)) that you are still attesting properly
-  - Remember that if you have Doppelganger protection enabled, you will miss a few attestations after the restart. This is normal!
+- `rocketpool service logs eth1`、`rocketpool service logs eth2`、`rocketpool service logs validator`、`rocketpool service logs node`でログにエラーがないか確認します。
+- ブロックエクスプローラー（Grafanaダッシュボードや[https://beaconcha.in](https://beaconcha.in)など）で、まだ適切にアテステーションしていることを確認します。
+  - Doppelganger保護を有効にしている場合、再起動後にいくつかのアテステーションを見逃すことを覚えておいてください。これは正常です！
 
-### Set Up a Fallback Node
+### フォールバックノードのセットアップ
 
-Because The Merge is not compatible with remote providers like Infura and Pocket, you'll lose the ability to use them as fallback Execution clients when your primary goes offline.
+Mergeは、InfuraやPocketなどのリモートプロバイダーと互換性がないため、プライマリがオフラインになったときにフォールバックExecution Clientとしてそれらを使用する機能を失います。
 
-The Smartnode still has the ability to provide a fallback Execution client (and now a fallback Consensus client as well), but you will now need to use Execution and Consensus clients that you control.
+Smartnodeには依然としてフォールバックExecution Client（および現在はフォールバックConsensus Clientも）を提供する機能がありますが、自分で制御するExecution ClientとConsensus Clientを使用する必要があります。
 
-For more information on setting up a fallback node, see the [Fallback node guide](../../node-staking/fallback).
+フォールバックノードのセットアップの詳細については、[フォールバックノードガイド](../../node-staking/fallback)をご覧ください。
 
-### Initialize your Fee Distributor
+### Fee Distributorの初期化
 
-If you aren't planning to opt into the [Smoothing Pool](./whats-new#smoothing-pool) and claim all of your priority fees and MEV rewards to your [fee distributor contract](./whats-new#fee-recipients-and-your-distributor), you will eventually have to initialize it (create the contract instance on the chain) in order to claim rewards from it to your withdrawal address.
+[Smoothing Pool](./whats-new#smoothing-pool)にオプトインせず、すべてのpriority feesとMEV報酬を[fee distributorコントラクト](./whats-new#fee-recipients-and-your-distributor)に請求する場合、最終的にそれを初期化（チェーン上にコントラクトインスタンスを作成）して、withdrawal addressに報酬を請求できるようにする必要があります。
 
-This is a fairly cheap operation and only needs to be done once.
+これは比較的安価な操作で、一度だけ実行する必要があります。
 
-::: tip TIP
-Initializing your fee distributor can be done at **any time**.
-You can let rewards accumulate in its address long before you initialize it, and your balance will remain after initialization.
+::: tip ヒント
+fee distributorの初期化は**いつでも**実行できます。
+初期化するずっと前からそのアドレスに報酬を蓄積させることができ、初期化後も残高は残ります。
 
-We recommend you do so when gas prices are low to minimize the overhead cost.
+オーバーヘッドコストを最小限に抑えるために、ガス価格が低いときに実施することをお勧めします。
 
-Note that it **must be initialized in order to claim your rewards.**
+報酬を請求するには**初期化する必要があります。**
 :::
 
-### Opt Into the Smoothing Pool
+### Smoothing Poolへのオプトイン
 
-If you plan on taking advantage of the [Smoothing Pool](./whats-new#smoothing-pool) right away, you should opt in before the end of the first Redstone rewards period to maximize your "eligibility" amount.
+すぐに[Smoothing Pool](./whats-new#smoothing-pool)を利用する予定がある場合は、最初のRedstone報酬期間が終了する前にオプトインして、「適格性」量を最大化する必要があります。
 
-Opting in can be done via running the following command:
+オプトインは次のコマンドを実行することで実施できます。
 
 ```
 rocketpool node join-smoothing-pool
 ```
 
-### Claim Rewards
+### 報酬の請求
 
-The Redstone upgrade replaces the expensive, problematic old rewards system with a [brand new one](./whats-new#new-rewards-system) that's much cheaper, supports automatic restaking of RPL (both partial and full amounts), and - most importantly - **lets you claim your rewards whenever you want**.
+Redstoneアップグレードは、高額で問題のある古い報酬システムを、はるかに安価で、RPLの自動再ステーク（部分的および全額の両方）をサポートし、そして最も重要なことに**いつでも報酬を請求できる**[全く新しいシステム](./whats-new#new-rewards-system)に置き換えます。
 
-Because there is no longer a time limit on claiming rewards, and because it's cheaper to claim many rewards intervals at once, the automatic rewards claiming feature of the Smartnode **has been removed**.
-You will now be able to claim rewards via the following command:
+報酬の請求に時間制限がなくなり、多くの報酬インターバルを一度に請求する方がコスト効率が良いため、Smartnodeの自動報酬請求機能は**削除されました**。
+次のコマンドで報酬を請求できるようになります。
 
 ```
 rocketpool node claim-rewards
 ```
 
-This will show you all of the rewards you've accumulated across all of the rewards intervals starting with the Redstone upgrade.
+これにより、Redstoneアップグレード以降のすべての報酬インターバルにわたって蓄積したすべての報酬が表示されます。
 
-## Reverting to v1.4.3
+## v1.4.3への復元
 
-If, for any reason, something isn't to your liking and you want to revert to the previous Smartnode release, you can do so easily.
-The Smartnode automatically backs up your settings from the previous version when you upgrade it, so simply get the previous version (here we're demonstrating **v1.4.3**) and replace the settings with the backup:
+何らかの理由で気に入らないことがあり、以前のSmartnodeリリースに復元したい場合、簡単に実施できます。
+Smartnodeはアップグレード時に以前のバージョンの設定を自動的にバックアップするため、単に以前のバージョン（ここでは**v1.4.3**を示します）を取得して、設定をバックアップに置き換えるだけです。
 
-1. Stop the service:
+1. サービスを停止します。
 
 ```shell
 rocketpool service stop
 ```
 
-1. Download the v1.4.3 CLI:
+1. v1.4.3 CLIをダウンロードします。
 
 <div className="p-3">
   <Tabs>
@@ -134,33 +134,33 @@ rocketpool service stop
   </Tabs>
 </div>
 
-1. Install the v1.4.3 package:
+1. v1.4.3パッケージをインストールします。
 
 ```shell
 rocketpool service install -d
 ```
 
-1. Replace your old configuration with the v1.4.3 backup configuration:
+1. 古い設定をv1.4.3バックアップ設定に置き換えます。
 
 ```shell
 cp ~/.rocketpool/user-settings-backup.yml ~/.rocketpool/user-settings.yml
 ```
 
-1. Verify all of your old settings are now being used:
+1. すべての古い設定が現在使用されていることを確認します。
 
 ```shell
 rocketpool service config
 ```
 
-1. If it looks good, start the Smartnode stack:
+1. 問題がなければ、Smartnodeスタックを起動します。
 
 ```shell
 rocketpool service start
 ```
 
-All set! You're now back on the old version and should begin attesting shortly after starting the service.
+準備完了！古いバージョンに戻り、サービスを開始した直後にアテステーションを開始するはずです。
 
-::: danger WARNING
-v1.4.3 is **deprecated** and will no longer be usable after the Redstone update is deployed.
-If you do need to revert to it, please make plans to upgrade back to v1.5.0 before the contracts are updated!
+::: danger 警告
+v1.4.3は**非推奨**であり、Redstoneアップデートがデプロイされた後は使用できなくなります。
+復元する必要がある場合は、コントラクトが更新される前にv1.5.0にアップグレードし直す計画を立ててください！
 :::

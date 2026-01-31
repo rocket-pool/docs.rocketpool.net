@@ -1,55 +1,55 @@
-# The Rocket Pool Oracle DAO
+# Oracle DAO Rocket Pool
 
-::: warning NOTE
-This documentation only applies to members of Rocket Pool's Oracle DAO.
-If you have not been explicitly invited to the Oracle DAO and just intend to run a regular Rocket Pool node, this section of the guide does not apply to you.
-You can safely ignore it, but are welcome to read it if you are interested.
+::: warning ПРИМЕЧАНИЕ
+Эта документация применима только к членам Oracle DAO Rocket Pool.
+Если вы не были явно приглашены в Oracle DAO и просто намерены запустить обычный узел Rocket Pool, этот раздел руководства вам не подходит.
+Вы можете спокойно его проигнорировать, но приветствуется чтение, если вам интересно.
 :::
 
-The **Oracle DAO** is the group of special Rocket Pool nodes that are responsible for the administrative duties required by the protocol that cannot be achieved by Smart Contracts due to technical limitations.
-They are essentially the same as normal Rocket Pool nodes; they use the same tools, can be configured with the same methods, and can even run regular minipools, but they come with supplemental tasks that they perform.
-This includes things such as:
+**Oracle DAO** — это группа специальных узлов Rocket Pool, которые отвечают за административные обязанности, требуемые протоколом, которые не могут быть выполнены смарт-контрактами из-за технических ограничений.
+По сути, они такие же, как обычные узлы Rocket Pool; они используют те же инструменты, могут быть настроены теми же методами и могут даже запускать обычные minipools, но они выполняют дополнительные задачи.
+Это включает в себя такие вещи, как:
 
-- Shuttling information from the Beacon Chain to the Execution Layer, including validator status and balances
-- Ensuring minipools are created using validator public keys that aren't already in use, and [have the proper withdrawal credentials](https://github.com/rocket-pool/rocketpool-research/blob/master/Reports/withdrawal-creds-exploit) so the protocol can safely fund them
-- Constructing the rewards Merkle tree at the end of each rewards period and uploading it to IPFS for other node operators to access
-- Monitoring proposals for compliance with Rocket Pool's [fee recipient requirements](../node-staking/mev.mdx)
-- Proposing and voting on modifications to the core protocol, including changing parameters and approving contract upgrades
-- Proposing and voting on the Oracle DAO roster, including inviting and removing other Oracle DAO members
+- Передача информации из Beacon Chain в Execution Layer, включая статус валидаторов и балансы
+- Обеспечение создания minipools с использованием публичных ключей валидаторов, которые еще не используются, и [имеют правильные учетные данные для вывода средств](https://github.com/rocket-pool/rocketpool-research/blob/master/Reports/withdrawal-creds-exploit), чтобы протокол мог безопасно их финансировать
+- Построение дерева Merkle вознаграждений в конце каждого периода вознаграждений и его загрузка в IPFS для доступа других операторов узлов
+- Мониторинг предложений на соответствие [требованиям к получателю комиссий](../node-staking/mev.mdx) Rocket Pool
+- Предложение и голосование за изменения основного протокола, включая изменение параметров и одобрение обновлений контрактов
+- Предложение и голосование за состав Oracle DAO, включая приглашение и удаление других членов Oracle DAO
 
-As a reward for fulfilling these duties, the Oracle DAO is collectively given a [small percentage](https://rpips.rocketpool.net/RPIPs/RPIP-25) of the total RPL inflation produced at each rewards period, divided evenly among its members.
+В качестве вознаграждения за выполнение этих обязанностей Oracle DAO коллективно получает [небольшой процент](https://rpips.rocketpool.net/RPIPs/RPIP-25) от общей инфляции RPL, производимой в каждый период вознаграждений, поровну разделенный между его членами.
 
-Unlike normal Rocket Pool nodes, which can be created and run permissionlessly by anyone, membership in the Oracle DAO is **invite only** by existing members.
-If you have recently been invited to join the Oracle DAO, this section of the guide will help you understand your role, get your node set up, and ensure that it stays healthy.
+В отличие от обычных узлов Rocket Pool, которые могут быть созданы и запущены без разрешения кем угодно, членство в Oracle DAO является **только по приглашению** существующими членами.
+Если вы недавно были приглашены присоединиться к Oracle DAO, этот раздел руководства поможет вам понять вашу роль, настроить ваш узел и обеспечить его работоспособность.
 
-## Requirements
+## Требования
 
-To run an Oracle DAO node, you will require the following:
+Для запуска узла Oracle DAO вам потребуется следующее:
 
-- Access to an **Execution Client's RPC endpoint**. This can be a locally-run client, as is the case with most Rocket Pool nodes, or it can link to external clients that you or your organization maintain independently.
-- Access to an **Archive-Mode Execution Client**, which can either act as your primary client or a supplementary (fallback) client. It will only be used in rare circumstances where duties require your node to recall an Execution Layer state that has been pruned from your Execution Client. Nevertheless, it is **critical** that you have access to an Archive Node during these periods to ensure your duties are able to be fulfilled successfully.
-  - We **strongly** recommend you use an on-premises archive node for this, as services such as [Infura](https://infura.io/pricing) or [Alchemy](https://www.alchemy.com/pricing) have shown some difficulty in keeping up with demand during critical periods such as constructing the rewards tree.
-- Access to an **Archive-Mode Beacon Node's REST API endpoint** (via HTTP). This can be a locally-run client, as is the case with most Rocket Pool nodes, or it can link to external clients that you or your organization maintain independently.
-- The standard Smartnode CLI.
-- The Smartnode daemon is configured and running in `watchtower` mode (this is included with the standard Smartnode bundle for all users, but only actively performs duties for Oracle DAO nodes).
-  - This can be run in a Docker container (standard setup) or as a simple `systemd` service ("Native" mode).
-- Enough ETH to pay for the gas costs of your duties (discussed later).
+- Доступ к **конечной точке RPC Execution Client**. Это может быть локально запущенный клиент, как в случае с большинством узлов Rocket Pool, или он может ссылаться на внешние клиенты, которые вы или ваша организация поддерживаете независимо.
+- Доступ к **Execution Client в режиме архива**, который может действовать как ваш основной клиент или дополнительный (резервный) клиент. Он будет использоваться только в редких случаях, когда обязанности требуют от вашего узла восстановить состояние Execution Layer, которое было удалено из вашего Execution Client. Тем не менее, **критически важно**, чтобы у вас был доступ к архивному узлу в эти периоды, чтобы ваши обязанности могли быть успешно выполнены.
+  - Мы **настоятельно** рекомендуем вам использовать локальный архивный узел для этого, поскольку такие сервисы, как [Infura](https://infura.io/pricing) или [Alchemy](https://www.alchemy.com/pricing), показали некоторые трудности в удовлетворении спроса в критические периоды, такие как построение дерева вознаграждений.
+- Доступ к **конечной точке REST API Beacon Node в режиме архива** (через HTTP). Это может быть локально запущенный клиент, как в случае с большинством узлов Rocket Pool, или он может ссылаться на внешние клиенты, которые вы или ваша организация поддерживаете независимо.
+- Стандартный CLI Smartnode.
+- Демон Smartnode настроен и работает в режиме `watchtower` (это включено в стандартный пакет Smartnode для всех пользователей, но активно выполняет обязанности только для узлов Oracle DAO).
+  - Это может быть запущено в контейнере Docker (стандартная установка) или как простой сервис `systemd` (режим "Native").
+- Достаточно ETH для оплаты газовых расходов на выполнение ваших обязанностей (обсуждается позже).
 
-::: warning NOTE
-If you simply cannot run an on-premises archive node and _must_ rely on a third-party service, consider the following:
+::: warning ПРИМЕЧАНИЕ
+Если вы просто не можете запустить локальный архивный узел и _должны_ полагаться на стороннюю службу, учтите следующее:
 
-If you plan to use **Infura** for your Archive Mode fallback, you must have at least the **Team** plan.
-The free tier and the Developer tier are not sufficient.
+Если вы планируете использовать **Infura** для резервного архивного режима, у вас должен быть как минимум план **Team**.
+Бесплатного уровня и уровня Developer недостаточно.
 
-If you plan to use **Alchemy**, you must have at least the **Growth** plan.
-The free tier is not sufficient.
+Если вы планируете использовать **Alchemy**, у вас должен быть как минимум план **Growth**.
+Бесплатного уровня недостаточно.
 :::
 
-## Activities
+## Деятельность
 
-Oracle DAO duties are split into two parts.
+Обязанности Oracle DAO разделены на две части.
 
-1. **Automated duties**: these are duties related to routine Rocket Pool operation, such as shuttling information from the Consensus Layer to the Execution Layer, calculating various aspects of the protocol off-chain, and submitting them as updates to the Smart Contracts. Each of these is performed automatically by the `watchtower` daemon process and do not require manual intervention so long as your Execution and Consensus Clients, and your `watchtower` daemon, are all operating normally.
-2. **Manual duties**: these are duties that require your own decision making and out-of-band communication with the rest of the Oracle DAO to perform. They include things such as voting on contract upgrades, changing parameters, and inviting or kicking members to/from the Oracle DAO. These can all be done via the standard Smartnode CLI.
+1. **Автоматизированные обязанности**: это обязанности, связанные с рутинной работой Rocket Pool, такие как передача информации из Consensus Layer в Execution Layer, вычисление различных аспектов протокола вне сети и отправка их в качестве обновлений в смарт-контракты. Каждая из них выполняется автоматически процессом демона `watchtower` и не требует ручного вмешательства, пока ваши Execution и Consensus Clients, а также ваш демон `watchtower` работают нормально.
+2. **Ручные обязанности**: это обязанности, которые требуют вашего собственного принятия решений и внеканальной коммуникации с остальными членами Oracle DAO для выполнения. Они включают в себя такие вещи, как голосование за обновления контрактов, изменение параметров и приглашение или исключение членов в/из Oracle DAO. Все это можно сделать через стандартный CLI Smartnode.
 
-Read the next section to learn how to set up your Oracle DAO node.
+Прочитайте следующий раздел, чтобы узнать, как настроить ваш узел Oracle DAO.

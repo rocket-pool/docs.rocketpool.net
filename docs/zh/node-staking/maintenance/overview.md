@@ -1,41 +1,41 @@
 ---
 next:
-  text: Monitoring your Node's Performance
-  link: "/en/node-staking/performance"
+  text: 监控您的节点性能
+  link: "/zh/node-staking/performance"
 ---
 
-# Overview
+# 概述
 
-In this section, you'll learn about how to monitor the health of your node and your validators, track your earnings, and perform periodic maintenance such as updates.
+在本节中,您将学习如何监控节点和验证者的健康状况、跟踪您的收益以及执行定期维护(例如更新)。
 
-## Prerequisites
+## 先决条件
 
-Before configuring your Smartnode, please make sure you:
+在配置 Smartnode 之前,请确保您:
 
-- Have set up a node machine (or virtual machine) and secured it (via the [Securing your Node](../securing-your-node) guide)
-- Have the Smartnode [installed](../installing/overview) and [configured](../config/overview) on it
-- Have a node wallet loaded on your Smartnode
-- Synced your Execution and Consensus clients
-- Provisioned your node with [a withdrawal address](../prepare-node.mdx#setting-your-withdrawal-address), set up your [fallback clients](../fallback) (optional), opted into the [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (optional), and configured [MEV](../mev.mdx)
-- Created at least one [minipool](../create-validator.mdx)
+- 已设置节点机器(或虚拟机)并保护其安全(通过[保护您的节点](../securing-your-node)指南)
+- 在其上[安装](../installing/overview)并[配置](../config/overview)了 Smartnode
+- 在 Smartnode 上加载了节点钱包
+- 同步了执行客户端和共识客户端
+- 为节点提供了[提款地址](../prepare-node.mdx#setting-your-withdrawal-address),设置了[后备客户端](../fallback)(可选),选择加入[平滑池](../fee-distrib-sp#the-smoothing-pool)(可选),并配置了 [MEV](../mev.mdx)
+- 创建了至少一个 [minipool](../create-validator.mdx)
 
-## Guides
+## 指南
 
-[Monitoring your Node's Performance](../performance) provides some tools and tutorials for keeping tabs on your node's health (from a resource perspective, such as CPU and RAM consumption) and your validators' performance on the Beacon Chain.
-It covers a lot of fundamental tools you'll use during your tenure as an Ethereum validator.
+[监控您的节点性能](../performance)提供了一些工具和教程,用于监控节点的健康状况(从资源角度,例如 CPU 和 RAM 消耗)以及验证者在信标链上的性能。
+它涵盖了许多您在担任以太坊验证者期间将使用的基本工具。
 
-[Setting up the Grafana Dashboard](../grafana.mdx) walks through setting up the Smartnode stack's metrics tracker and the Grafana dashboard - a one stop shop for monitoring everything about your node and validators, and a staple in each node operator's arsenal.
-We _strongly_ recommend exploring the Grafana dashboard and regularly checking in on it.
+[设置 Grafana 仪表板](../grafana.mdx)介绍了如何设置 Smartnode 堆栈的指标跟踪器和 Grafana 仪表板 - 这是一个一站式商店,用于监控节点和验证者的所有内容,是每个节点运营商武器库中的主要工具。
+我们_强烈_建议探索 Grafana 仪表板并定期检查它。
 
-[Smartnode Stack Alert Notifications](./alerting.md) walks through using the Smartnode alert notification functionality to receive notifications about the health and important events of your Rocket Pool Smartnode.
+[Smartnode 堆栈警报通知](./alerting.md)介绍了如何使用 Smartnode 警报通知功能接收有关 Rocket Pool Smartnode 的健康状况和重要事件的通知。
 
-[Checking for Updates](../updates) covers the crucial processes of regularly updating your node with new security patches, how to update the Smartnode after a new release, and how to manually update client versions if your clients of choice release a new version that the Smartnode's latest release doesn't include yet.
-You should familiarize yourself with this entire section, as you may need to refer to it whenever an update is released.
+[检查更新](../updates)涵盖了定期使用新安全补丁更新节点的关键过程、如何在新版本发布后更新 Smartnode,以及如果您选择的客户端发布了 Smartnode 最新版本尚未包含的新版本,如何手动更新客户端版本。
+您应该熟悉整个部分,因为在发布更新时可能需要参考它。
 
-[Backing Up Your Node](../backups) is an optional guide that describes how to back up your node's configuration and its chain data in case of a hardware failure.
+[备份您的节点](../backups)是一个可选指南,描述了如何备份节点的配置及其链数据以防硬件故障。
 
-[Pruning the Execution Client](../pruning) is **important** for anyone running an Execution client that gradually consumes all of your SSD's disk space and requires periodic pruning (such as Geth or Nethermind) to reclaim some of that space.
-If you are running one of those clients, you should definitely familiarize yourself with the pruning process.
+[修剪执行客户端](../pruning)对于运行逐渐消耗所有 SSD 磁盘空间并需要定期修剪(例如 Geth 或 Nethermind)以回收一些空间的执行客户端的任何人来说都是**重要的**。
+如果您运行其中一个客户端,您绝对应该熟悉修剪过程。
 
-[Changing Execution or Consensus Clients](../change-clients) is a useful guide; it goes through the process of changing your client choice(s) and what can be expected during the process.
-This is another good guide to familiarize yourself with, just in case you ever have to switch clients for any reason down the line.
+[更改执行或共识客户端](../change-clients)是一个有用的指南;它介绍了更改客户端选择的过程以及在此过程中可以预期的内容。
+这是另一个值得熟悉的好指南,以防您将来出于任何原因需要切换客户端。

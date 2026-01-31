@@ -1,20 +1,20 @@
-# Intro to the Command Line Interface
+# Introdução à Interface de Linha de Comando
 
-As a node operator, the CLI is your primary tool for interacting with Rocket Pool.
-You will use it to create new minipools, check on the status of everything, claim periodic RPL rewards, exit and withdraw from your minipools when you're ready, and a host of other activities.
+Como operador de nó, a CLI é sua ferramenta principal para interagir com o Rocket Pool.
+Você a usará para criar novos minipools, verificar o status de tudo, reivindicar recompensas periódicas de RPL, sair e retirar de seus minipools quando estiver pronto, e uma série de outras atividades.
 
-Once you've finished syncing the Execution and Beacon chains, all of the commands will be available for you to use.
-In this section, we'll go over a brief tour of some of the more common ones and some other tricks that the CLI can do.
+Depois de terminar de sincronizar as cadeias Execution e Beacon, todos os comandos estarão disponíveis para você usar.
+Nesta seção, faremos um breve tour de alguns dos mais comuns e alguns outros truques que a CLI pode fazer.
 
-## Learning About the Commands
+## Aprendendo Sobre os Comandos
 
-To list all of the available commands, type:
+Para listar todos os comandos disponíveis, digite:
 
 ```shell
 rocketpool help
 ```
 
-The output will look like this:
+A saída será assim:
 
 ```
 NAME:
@@ -56,11 +56,11 @@ COPYRIGHT:
    (c) 2025 Rocket Pool Pty Ltd
 ```
 
-## Service Commands
+## Comandos de Serviço
 
-The service group involves managing the various services the smart node manages for you.
+O grupo de serviço envolve gerenciar os vários serviços que o smart node gerencia para você.
 
-Here is what the `rocketpool service help` output will show:
+Aqui está o que a saída de `rocketpool service help` mostrará:
 
 ```
 NAME:
@@ -99,8 +99,8 @@ GLOBAL OPTIONS:
 
 ### `status`
 
-This command shows you the current running status of each of the Docker containers managed by Rocket Pool.
-For example, the default Docker install's output looks like this:
+Este comando mostra o status de execução atual de cada um dos contêineres Docker gerenciados pelo Rocket Pool.
+Por exemplo, a saída da instalação padrão do Docker se parece com isto:
 
 ```
         Name                       Command              State                                                       Ports
@@ -113,36 +113,36 @@ rocketpool_validator    sh /setup/start-validator.sh    Up
 rocketpool_watchtower   /go/bin/rocketpool watchtower   Up
 ```
 
-You can use it to quickly check if any of the Docker containers are having trouble, or to make sure that a `start` or `stop` command worked correctly.
+Você pode usá-lo para verificar rapidamente se algum dos contêineres Docker está com problemas, ou para garantir que um comando `start` ou `stop` funcionou corretamente.
 
-### `start` and `stop`
+### `start` e `stop`
 
-These two commands you are already familiar with.
-They simply start all of the Rocket Pool containers, or stop them.
+Estes dois comandos você já conhece.
+Eles simplesmente iniciam todos os contêineres do Rocket Pool, ou os param.
 
 ::: tip
-The `pause` command does the same thing as `stop`.
-It's just left over as a legacy command from earlier versions of Rocket Pool.
+O comando `pause` faz a mesma coisa que `stop`.
+É apenas um comando legado de versões anteriores do Rocket Pool.
 :::
 
 ### `logs`
 
-This command is another one you should have already seen.
-You can use it to look at the output logs of each Docker container.
-This can be useful for troubleshooting or getting a more detailed status report from them.
+Este é outro comando que você já deve ter visto.
+Você pode usá-lo para ver os logs de saída de cada contêiner Docker.
+Isso pode ser útil para solucionar problemas ou obter um relatório de status mais detalhado deles.
 
-If you simply do `rocketpool service logs` without any other arguments, it will aggregate all of the logs together and show them to you at once.
+Se você simplesmente fizer `rocketpool service logs` sem outros argumentos, ele agregará todos os logs juntos e os mostrará de uma vez.
 
-If you want to focus on one container's output, you can add an argument to the end to specify the container.
-Valid values are `eth1`, `eth2`, `validator`, `api`, `node`, `watchtower`, `prometheus`, `grafana`, and `node-exporter`.
+Se você quiser focar na saída de um contêiner, pode adicionar um argumento no final para especificar o contêiner.
+Valores válidos são `eth1`, `eth2`, `validator`, `api`, `node`, `watchtower`, `prometheus`, `grafana` e `node-exporter`.
 
 ### `stats`
 
-This command shows you some resource stats from each of the containers, which you can use to profile each one's hardware and network consumption.
+Este comando mostra algumas estatísticas de recursos de cada um dos contêineres, que você pode usar para perfilar o consumo de hardware e rede de cada um.
 
-You might find it useful for monitoring the containers if your system starts running slow or has RAM problems.
+Você pode achá-lo útil para monitorar os contêineres se seu sistema começar a ficar lento ou tiver problemas de RAM.
 
-Here is some example output:
+Aqui está um exemplo de saída:
 
 ```
 CONTAINER ID   NAME                    CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
@@ -154,42 +154,42 @@ a3c22f54eff0   rocketpool_node         0.00%     12.13MiB / 62.78GiB   0.02%    
 88bea525fa89   rocketpool_watchtower   0.00%     12.05MiB / 62.78GiB   0.02%     304kB / 503kB     0B / 0B           16
 ```
 
-::: tip NOTE
-The RAM statistic here shows **total allocated memory**, which includes _virtual_ memory.
-It does not show the raw _resident_ memory consumption.
+::: tip NOTA
+A estatística de RAM aqui mostra **memória total alocada**, que inclui memória _virtual_.
+Não mostra o consumo de memória _residente_ bruto.
 
-Similarly, the CPU usage shows the total amount of CPU consumption averaged over all of the CPU cores that the container uses.
-Here, the CPU for ETH2 shows almost 100% because it is using Nimbus, which is single-threaded.
+Da mesma forma, o uso de CPU mostra a quantidade total de consumo de CPU em média em todos os núcleos de CPU que o contêiner usa.
+Aqui, a CPU para ETH2 mostra quase 100% porque está usando Nimbus, que é single-threaded.
 
-You may find that a program like `htop` or `btop` offers better insight into actual resource consumption.
+Você pode descobrir que um programa como `htop` ou `btop` oferece melhor visão do consumo real de recursos.
 :::
 
 ### `config`
 
-This command runs through the configuration interview again.
-You can use it if you want to change your selection of Execution or Consensus client, or change some of the parameters that you initially specified when you selected them (such as your validator's graffiti message, the max number of peers to connect to, and so on).
+Este comando executa a entrevista de configuração novamente.
+Você pode usá-lo se quiser alterar sua seleção de cliente Execution ou Consensus, ou alterar alguns dos parâmetros que você especificou inicialmente quando os selecionou (como a mensagem de graffiti do seu validador, o número máximo de peers para se conectar e assim por diante).
 
-You can call this command at any time, but the changes won't take effect until you call `rocketpool service stop` and `rocketpool service start`.
+Você pode chamar este comando a qualquer momento, mas as alterações não terão efeito até que você chame `rocketpool service stop` e `rocketpool service start`.
 
 ### `terminate`
 
-This command will shut down the Docker containers, then delete them, delete the Rocket Pool virtual network, and delete the ETH1 and ETH2 chain data volumes.
-It essentially removes all of the Rocket Pool items from your Docker setup.
-Use it when you want to clean up that portion of the Rocket Pool installation.
+Este comando desligará os contêineres Docker, depois os excluirá, excluirá a rede virtual do Rocket Pool e excluirá os volumes de dados da cadeia ETH1 e ETH2.
+Essencialmente remove todos os itens do Rocket Pool da sua configuração Docker.
+Use-o quando quiser limpar essa parte da instalação do Rocket Pool.
 
 ::: warning
-This will irreversibly remove your chain data, which means you'll need to sync ETH1 and ETH2 again.
+Isso removerá irreversivelmente seus dados de cadeia, o que significa que você precisará sincronizar ETH1 e ETH2 novamente.
 
-This will **not** remove your wallet and password files, your configured settings, or your validator keys.
-To remove those, you will need to delete the `~/.rocketpool/data` folder in Docker or Hybrid Mode, or the corresponding directory in Native Mode.
+Isso **não** removerá seus arquivos de carteira e senha, suas configurações definidas ou suas chaves de validador.
+Para removê-los, você precisará excluir a pasta `~/.rocketpool/data` no modo Docker ou Híbrido, ou o diretório correspondente no modo Nativo.
 :::
 
-## Node Commands
+## Comandos do Nó
 
-The `node` group involves operations on your Rocket Pool node.
-We'll cover these more in-depth in the next section where we create a minipool, but it may be helpful to see them all at a glance.
+O grupo `node` envolve operações em seu nó Rocket Pool.
+Cobriremos isso com mais profundidade na próxima seção onde criamos um minipool, mas pode ser útil vê-los todos de relance.
 
-Here is what the `rocketpool node help` output will show:
+Aqui está o que a saída de `rocketpool node help` mostrará:
 
 ```
 NAME:
@@ -236,14 +236,14 @@ GLOBAL OPTIONS:
    --help, -h  show help
 ```
 
-Below is a summary of some of the commands you'll tend to need during typical node operation.
+Abaixo está um resumo de alguns dos comandos que você tenderá a precisar durante a operação típica do nó.
 
 ### `status`
 
-This command will give you a high-level view of your entire node at a glance.
-It includes how much ETH and RPL you have staked, how many minipools you have and their statuses, your RPL collateral ratio, and more.
+Este comando lhe dará uma visão de alto nível de todo o seu nó de relance.
+Ele inclui quanto ETH e RPL você tem em staking, quantos minipools você tem e seus status, sua taxa de colateral RPL e muito mais.
 
-This is an example of what `rocketpool node status` shows once you have your node registered and some minipools set up:
+Este é um exemplo do que `rocketpool node status` mostra depois que você tem seu nó registrado e alguns minipools configurados:
 
 ```
 === Account and Balances ===
@@ -256,7 +256,7 @@ The node does not have any penalties for cheating with an invalid fee recipient.
 
 === Signalling on Snapshot ===
 The node does not currently have a snapshot signalling address set.
-To learn more about snapshot signalling, please visit /en/legacy/houston/participate#setting-your-snapshot-signalling-address.
+To learn more about snapshot signalling, please visit /pt/legacy/houston/participate#setting-your-snapshot-signalling-address.
 Rocket Pool has no Snapshot governance proposals being voted on.
 
 === Onchain Voting ===
@@ -289,10 +289,10 @@ The node has a total of 1 active minipool(s):
 
 ### `sync`
 
-This command will show you the current sync status of your Execution and Consensus clients.
-You'll probably use it a lot when you first set the node up, then never need it again (unless you change or reset your clients).
+Este comando mostrará o status de sincronização atual de seus clientes Execution e Consensus.
+Você provavelmente o usará muito quando configurar o nó pela primeira vez, e então nunca precisará dele novamente (a menos que você altere ou redefina seus clientes).
 
-The output of `rocketpool node sync` will look like this:
+A saída de `rocketpool node sync` será assim:
 
 ```
 Your Smartnode is currently using the Hoodi Test Network.
@@ -306,16 +306,16 @@ Your primary consensus client is still syncing (99.94%).
 You do not have a fallback consensus client enabled.
 ```
 
-Note that **Prysm** currently doesn't provide its completion percent - you'll need to look in the `eth2` logs if you use it.
+Observe que **Prysm** atualmente não fornece sua porcentagem de conclusão - você precisará olhar nos logs `eth2` se usá-lo.
 
 ### `stake-rpl`
 
-This command is what you'll use when you want to add more RPL collateral to your node.
-Doing so will increase your collateral ratio, which will increase your RPL rewards at each checkpoint (more on this later).
+Este é o comando que você usará quando quiser adicionar mais colateral RPL ao seu nó.
+Fazer isso aumentará sua taxa de colateral, o que aumentará suas recompensas RPL em cada checkpoint (mais sobre isso depois).
 
-Unlike the other commands so far, this one is actually _interactive_ because it will trigger a transaction - it isn't simply informational.
+Ao contrário dos outros comandos até agora, este é realmente _interativo_ porque ele acionará uma transação - não é simplesmente informativo.
 
-It will first ask you how much RPL you'd like to stake, with some pre-defined options for convenience or the ability to specify a custom amount:
+Ele primeiro perguntará quanto RPL você gostaria de fazer stake, com algumas opções pré-definidas para conveniência ou a capacidade de especificar uma quantidade personalizada:
 
 ```
 NOTE: By staking RPL, you become a member of the Rocket Pool pDAO. Stay informed on governance proposals by joining the Rocket Pool Discord.
@@ -328,7 +328,7 @@ Please choose an amount of RPL to stake:
 5: A custom amount
 ```
 
-Once you select an option, you will be shown some information about the suggested gas price and estimated amount to be used, along with a confirmation dialog. If it's your first time staking RPL on the node, you'll need to give the staking contract approval to interact with your RPL:
+Depois de selecionar uma opção, você verá algumas informações sobre o preço de gas sugerido e a quantidade estimada a ser usada, junto com um diálogo de confirmação. Se for a primeira vez que você faz stake de RPL no nó, precisará dar aprovação ao contrato de staking para interagir com seu RPL:
 
 ```
 Before staking RPL, you must first give the staking contract approval to interact with your RPL.
@@ -372,7 +372,7 @@ Using a max fee of 4.00 gwei and a priority fee of 2.00 gwei.
 Are you sure you want to stake 733.993925 RPL? You will not be able to unstake this RPL until you exit your validators and close your minipools, or reach 2201.981777 staked RPL (15% of bonded eth)! [y/n]
 ```
 
-If you confirm, you will be shown the transaction hash and given a link to [Etherscan](https://etherscan.io) so you can follow its progress:
+Se você confirmar, verá o hash da transação e receberá um link para o [Etherscan](https://etherscan.io) para que possa acompanhar seu progresso:
 
 ```
 Staking RPL...
@@ -385,46 +385,46 @@ Waiting for the transaction to be included in a block... you may wait here for i
 Successfully staked 733.993925 RPL.
 ```
 
-Most operations only require one transaction, so the CLI will wait until it has been included in a block and then exit. However, stake-rpl is one of the few commands that requires two transactions, so this dialog will appear twice.
+A maioria das operações requer apenas uma transação, então a CLI esperará até que ela seja incluída em um bloco e então sairá. No entanto, stake-rpl é um dos poucos comandos que requer duas transações, então esse diálogo aparecerá duas vezes.
 
 ### `deposit`
 
-This command will let you deposit ETH and create a new minipool (a new Ethereum validator).
+Este comando permitirá que você deposite ETH e crie um novo minipool (um novo validador Ethereum).
 
-You will be prompted with the expected gas cost for the transaction and one final confirmation dialog.
-If you accept, your ETH deposit will be processed and you will create a new minipool (and a corresponding Ethereum validator).
+Você será solicitado com o custo de gas esperado para a transação e um diálogo de confirmação final.
+Se você aceitar, seu depósito ETH será processado e você criará um novo minipool (e um validador Ethereum correspondente).
 
-(For more information, see the next section on [Creating a Minipool](./create-validator.mdx)).
+(Para mais informações, consulte a próxima seção sobre [Criando um Minipool](./create-validator.mdx)).
 
 ### `claim-rewards`
 
-When your node detects a new rewards checkpoint, it will automatically download the rewards tree file with the information for that interval (if you're using the default of Download Mode - see below for information on generating your own trees instead of downloading them).
-You can then review your rewards using the following command:
+Quando seu nó detecta um novo checkpoint de recompensas, ele baixará automaticamente o arquivo da árvore de recompensas com as informações desse intervalo (se você estiver usando o padrão do modo Download - veja abaixo para informações sobre como gerar suas próprias árvores em vez de baixá-las).
+Você pode então revisar suas recompensas usando o seguinte comando:
 
 ```
 rocketpool node claim-rewards
 ```
 
-As intervals go by and you accumulate rewards, the output will look like this:
+Conforme os intervalos passam e você acumula recompensas, a saída será assim:
 
 ![](../node-staking/images/claim-rewards-gb.png)
 
-Here you can quickly see how many rewards you've earned at each interval, and can decide which ones you want to claim.
+Aqui você pode ver rapidamente quantas recompensas você ganhou em cada intervalo e pode decidir quais deseja reivindicar.
 
-You can also specify an amount you want to restake during this claim:
+Você também pode especificar uma quantidade que deseja restakear durante esta reivindicação:
 
 ![](../node-staking/images/autostake.png)
 
-This will let you compound your RPL rewards in one transaction, using substantially less gas than you currently needed to use with the legacy claim system.
+Isso permitirá que você componha suas recompensas RPL em uma transação, usando substancialmente menos gas do que você precisava usar atualmente com o sistema de reivindicação legado.
 
-::: tip NOTE
-If you prefer to build the rewards checkpoint manually instead of downloading the one created by the Oracle DAO, you can change this setting from `Download` to `Generate` in the TUI:
+::: tip NOTA
+Se você preferir construir o checkpoint de recompensas manualmente em vez de baixar o criado pelo Oracle DAO, você pode alterar essa configuração de `Download` para `Generate` na TUI:
 
 ![](../node-staking/images/tui-generate-tree.png)
 
-As the tip implies, you will need access to an Execution client archive node to do this.
-If your local Execution client is not an archive node, you can specify a separate one (such as Infura or Alchemy) in the `Archive-Mode EC URL` further down in the same menu.
-This URL will only be used when generating Merkle trees; it will not be used for validation duties.
+Como a dica implica, você precisará de acesso a um nó de arquivo do cliente Execution para fazer isso.
+Se seu cliente Execution local não for um nó de arquivo, você pode especificar um separado (como Infura ou Alchemy) na `Archive-Mode EC URL` mais abaixo no mesmo menu.
+Esta URL só será usada ao gerar árvores Merkle; não será usada para deveres de validação.
 :::
 
 ### `join-smoothing-pool`
@@ -433,9 +433,9 @@ This URL will only be used when generating Merkle trees; it will not be used for
 rocketpool node join-smoothing-pool
 ```
 
-This will record you as opted-in in the Rocket Pool contracts and automatically change your Validator Client's `fee recipient` from your node's distributor contract to the Smoothing Pool contract.
+Isso registrará você como opt-in nos contratos do Rocket Pool e automaticamente mudará o `fee recipient` do seu Validator Client do contrato distribuidor do seu nó para o contrato do Smoothing Pool.
 
-Note that once you opt in, there is a **28 day cooldown** (one full rewards interval length) until you can opt out.
+Observe que depois de optar por participar, há um **período de espera de 28 dias** (um comprimento de intervalo de recompensas completo) até que você possa optar por sair.
 
 ### `leave-smoothing-pool`
 
@@ -443,13 +443,13 @@ Note that once you opt in, there is a **28 day cooldown** (one full rewards inte
 rocketpool node leave-smoothing-pool
 ```
 
-This will opt you out of the Smoothing Pool if you're currently opted in, and have waited at least 28 days after opting in.
-Once **the next epoch after the current epoch** is finalized, it will automatically change your node's `fee recipient` from the Smoothing Pool back to your node's distributor contract.
-This is to ensure you don't get penalized for front-running the exit process when you see that you have a proposal coming up.
+Isso fará com que você saia do Smoothing Pool se você estiver atualmente participando e tiver esperado pelo menos 28 dias após optar por participar.
+Assim que **a próxima época após a época atual** for finalizada, ele automaticamente mudará o `fee recipient` do seu nó do Smoothing Pool de volta para o contrato distribuidor do seu nó.
+Isso é para garantir que você não seja penalizado por fazer front-running do processo de saída quando vir que tem uma proposta chegando.
 
 ### `initialize-fee-distributor`
 
-To initialize your node's distributor, simply run this new command:
+Para inicializar o distribuidor do seu nó, simplesmente execute este novo comando:
 
 ```shell
 rocketpool node initialize-fee-distributor
@@ -457,45 +457,45 @@ rocketpool node initialize-fee-distributor
 
 ### `distribute-fees`
 
-When your distributor has been initialized, you can claim and distribute its entire balance using the following command:
+Quando seu distribuidor foi inicializado, você pode reivindicar e distribuir todo o seu saldo usando o seguinte comando:
 
 ```shell
 rocketpool node distribute-fees
 ```
 
-This will send your share of the rewards to your **withdrawal address**.
+Isso enviará sua parte das recompensas para seu **endereço de retirada**.
 
 ### `send`
 
-This command lets you send ETH, RPL, or other Rocket Pool-related tokens from the node wallet to a different address.
-This might be useful if you want to move your funds on the wallet elsewhere.
+Este comando permite que você envie ETH, RPL ou outros tokens relacionados ao Rocket Pool da carteira do nó para um endereço diferente.
+Isso pode ser útil se você quiser mover seus fundos na carteira para outro lugar.
 
-The syntax for using the `send` command is like this:
+A sintaxe para usar o comando `send` é assim:
 
 ```shell
 rocketpool node send <amount> <token> <address or ENS name>
 ```
 
-The arguments are as follows:
+Os argumentos são os seguintes:
 
-- `<amount>` is the amount of the token to send.
-- `<token>` is the token to send - this can be `eth`, `rpl`, `fsrpl` (the old legacy RPL token), or `reth`.
-- `<address or ENS name>` is the Ethereum address (or ENS name) to send the tokens to.
+- `<amount>` é a quantidade do token a enviar.
+- `<token>` é o token a enviar - pode ser `eth`, `rpl`, `fsrpl` (o token RPL legado antigo) ou `reth`.
+- `<address or ENS name>` é o endereço Ethereum (ou nome ENS) para o qual enviar os tokens.
 
-For example:
+Por exemplo:
 
 ```shell
 rocketpool node send 1 eth <my friend's address>
 ```
 
-would send 1 ETH to my friend.
+enviaria 1 ETH para meu amigo.
 
-## Minipool Commands
+## Comandos do Minipool
 
-The `minipool` group involves commands that affect your minipools.
-As with the `node` group, we'll cover these more in-depth in the next section but it may be helpful to see them all now.
+O grupo `minipool` envolve comandos que afetam seus minipools.
+Assim como o grupo `node`, cobriremos isso com mais profundidade na próxima seção, mas pode ser útil vê-los todos agora.
 
-Here is what the `rocketpool minipool help` output will show:
+Aqui está o que a saída de `rocketpool minipool help` mostrará:
 
 ```
 NAME:
@@ -529,12 +529,12 @@ GLOBAL OPTIONS:
    --help, -h  show help
 ```
 
-Below is a summary of the commands that you'll typically use.
+Abaixo está um resumo dos comandos que você normalmente usará.
 
 ### `status`
 
-This command simply provides a summary of each of your minipools.
-This includes its current status, the eth1 address of the minipool, the commission on it (called the `node fee`), the public key of the corresponding ETH2 validator, and some other things:
+Este comando simplesmente fornece um resumo de cada um de seus minipools.
+Isso inclui seu status atual, o endereço eth1 do minipool, a comissão sobre ele (chamada de `node fee`), a chave pública do validador ETH2 correspondente e algumas outras coisas:
 
 ```
 $ rocketpool minipool status
@@ -567,56 +567,56 @@ Effective delegate:    0x56903694d881282D33ed0643EAe14263880Dd47F
 
 ### `refund`
 
-This command lets you pull 16 ETH back from a minipool if you deposited 32 ETH to create one, once Rocket Pool was able to contribute 16 ETH from the rETH staking pool.
+Este comando permite que você puxe 16 ETH de volta de um minipool se você depositou 32 ETH para criar um, uma vez que o Rocket Pool pôde contribuir com 16 ETH do pool de staking rETH.
 
 ### `exit`
 
-This command submits a voluntary exit for your validator on the Beacon Chain.
-Use this when you want to close a validator and withdraw its final ETH balance.
-Note that **this cannot be undone** - once you trigger an exit, the validator will shut down permanently.
+Este comando envia uma saída voluntária para seu validador na Beacon Chain.
+Use isso quando quiser fechar um validador e retirar seu saldo final de ETH.
+Observe que **isso não pode ser desfeito** - uma vez que você aciona uma saída, o validador será desligado permanentemente.
 
-## Useful Flags
+## Sinalizadores Úteis
 
-There are some useful global flags that you can add to some of the above commands, which you may want to take advantage of.
+Existem alguns sinalizadores globais úteis que você pode adicionar a alguns dos comandos acima, dos quais você pode querer tirar proveito.
 
-### Setting a Custom Max Fee or Priority Fee (Gas Price)
+### Definindo uma Taxa Máxima Personalizada ou Taxa de Prioridade (Preço do Gas)
 
-Starting with [the London ETH1 hardfork](https://coinquora.com/ethereum-london-hard-fork-all-you-need-to-know/) in July of 2021, Ethereum transactions no longer use a single gas price for their transactions.
-Instead, modern Ethereum transactions use two values:
+Começando com [o hardfork ETH1 de Londres](https://coinquora.com/ethereum-london-hard-fork-all-you-need-to-know/) em julho de 2021, as transações Ethereum não usam mais um único preço de gas para suas transações.
+Em vez disso, as transações Ethereum modernas usam dois valores:
 
-- The **max fee**, which describes the absolute maximum gas price you're willing to accept on a transaction
-- The **max priority fee**, which describes the maximum amount you're willing to "tip" the miner for including your transaction in a block
+- A **taxa máxima**, que descreve o preço máximo absoluto de gas que você está disposto a aceitar em uma transação
+- A **taxa de prioridade máxima**, que descreve a quantidade máxima que você está disposto a dar de "gorjeta" ao minerador por incluir sua transação em um bloco
 
-::: tip TIP
-The way these two values work can be a bit convoluted, so here are some simple examples.
+::: tip DICA
+A maneira como esses dois valores funcionam pode ser um pouco confusa, então aqui estão alguns exemplos simples.
 
-Let's say the current network fee, called the **base fee**, is at 50 gwei.
-You submit a transaction with an **80 gwei** max fee, and a priority fee of **2 gwei**.
+Digamos que a taxa de rede atual, chamada de **taxa base**, está em 50 gwei.
+Você envia uma transação com uma taxa máxima de **80 gwei** e uma taxa de prioridade de **2 gwei**.
 
-Because the network's base fee is lower than your max fee, this transaction could get picked up in the current block.
-It would cost you **50 gwei** for the base fee and **2 gwei** for the priority fee; even though you set your max fee to 80, **it would only cost you 52 gwei total**.
+Como a taxa base da rede é menor que sua taxa máxima, esta transação poderia ser incluída no bloco atual.
+Custaria **50 gwei** para a taxa base e **2 gwei** para a taxa de prioridade; mesmo que você tenha definido sua taxa máxima para 80, **custaria apenas 52 gwei no total**.
 
-As another example, say you have that same transaction, but now the network's base fee is **100 gwei**.
-Since 100 gwei is larger than your 80 gwei max fee, your transaction **will not** be included in this block.
-Instead, it will simply sit in the transaction pool until the base fee is low enough to include it.
+Como outro exemplo, digamos que você tenha essa mesma transação, mas agora a taxa base da rede é **100 gwei**.
+Como 100 gwei é maior que sua taxa máxima de 80 gwei, sua transação **não** será incluída neste bloco.
+Em vez disso, ela simplesmente ficará no pool de transações até que a taxa base seja baixa o suficiente para incluí-la.
 
-Now, let's say the current base fee is **50 gwei** again, and your transaction has a max fee of **80** gwei and a priority fee of **4 gwei**.
-It would execute with a total cost of **54 gwei**.
-The 4 gwei priority fee would ensure that it was included in front of all of the transactions with a lower priority fee.
+Agora, digamos que a taxa base atual seja **50 gwei** novamente, e sua transação tenha uma taxa máxima de **80** gwei e uma taxa de prioridade de **4 gwei**.
+Ela seria executada com um custo total de **54 gwei**.
+A taxa de prioridade de 4 gwei garantiria que ela fosse incluída na frente de todas as transações com uma taxa de prioridade menor.
 
-If you **really** want the transaction to go through at all costs, you can set the priority fee to be the same as the max fee.
-This emulates the legacy gas behavior, so your transaction will use all of the gas you give it - regardless of whether or not the network's base fee is lower than your max fee or not.
+Se você **realmente** quer que a transação passe a qualquer custo, você pode definir a taxa de prioridade para ser a mesma que a taxa máxima.
+Isso emula o comportamento legado de gas, então sua transação usará todo o gas que você der a ela - independentemente de a taxa base da rede ser menor que sua taxa máxima ou não.
 :::
 
-By default, Rocket Pool will use an oracle to look at the current transaction pool and suggest a reasonable max fee for any transactions you trigger.
-It uses [EtherChain](https://etherchain.org/tools/gasnow) for its primary suggestion oracle, and [Etherscan](https://etherscan.io/gastracker) as a backup.
+Por padrão, o Rocket Pool usará um oráculo para ver o pool de transações atual e sugerir uma taxa máxima razoável para quaisquer transações que você acionar.
+Ele usa [EtherChain](https://etherchain.org/tools/gasnow) para seu oráculo de sugestão primário e [Etherscan](https://etherscan.io/gastracker) como backup.
 
-If you prefer, you can set a custom max fee (in gwei) you'd be willing to pay with the `-f` flag.
-You can also set a custom priority fee with the `-i` flag.
+Se você preferir, pode definir uma taxa máxima personalizada (em gwei) que estaria disposto a pagar com o sinalizador `-f`.
+Você também pode definir uma taxa de prioridade personalizada com o sinalizador `-i`.
 
-To do this, add them after `rocketpool` and before the other command information.
+Para fazer isso, adicione-os após `rocketpool` e antes das outras informações do comando.
 
-For example, calling `node set-timezone` with this flag would provide the following output:
+Por exemplo, chamar `node set-timezone` com este sinalizador forneceria a seguinte saída:
 
 ```
 $ rocketpool -f 10 node set-timezone
@@ -635,46 +635,46 @@ Total cost: 0.0005 to 0.0007 ETH
 Are you sure you want to set your timezone? [y/n]
 ```
 
-This shows that regardless of what max fee the network recommends, it will use your custom max fee of 10 gwei (and priority fee if you specify it) instead when submitting this transaction.
+Isso mostra que, independentemente da taxa máxima que a rede recomende, ela usará sua taxa máxima personalizada de 10 gwei (e taxa de prioridade se você especificá-la) ao enviar esta transação.
 
-::: warning NOTE
-If you set a manual max fee, we strongly encourage you to use a third-party gas price oracle such as [EtherChain](https://etherchain.org/tools/gasnow) to determine if that fee is high enough for the current network conditions before submitting the transaction.
+::: warning NOTA
+Se você definir uma taxa máxima manual, recomendamos fortemente que use um oráculo de preço de gas de terceiros, como [EtherChain](https://etherchain.org/tools/gasnow), para determinar se essa taxa é alta o suficiente para as condições atuais da rede antes de enviar a transação.
 :::
 
-### Canceling / Overwriting a Stuck Transaction
+### Cancelando / Sobrescrevendo uma Transação Travada
 
-Sometimes, you might run into a scenario where you sent a transaction to the network but you used a gas price that is far too low for the network conditions, and it will take a prohibitively long time to execute.
-Since all of your subsequent transactions will wait until that one goes through, that transaction essentially blocks all of the operations on your Rocket Pool node.
-To deal with this situation, we've added a global flag that lets you "cancel" such a transaction by replacing it with something else.
+Às vezes, você pode encontrar um cenário em que enviou uma transação para a rede, mas usou um preço de gas muito baixo para as condições da rede, e levará um tempo proibitivamente longo para executar.
+Como todas as suas transações subsequentes esperarão até que essa seja processada, essa transação essencialmente bloqueia todas as operações em seu nó Rocket Pool.
+Para lidar com essa situação, adicionamos um sinalizador global que permite "cancelar" tal transação substituindo-a por outra coisa.
 
-Every Ethereum wallet, including your node wallet, sends transactions sequentially.
-Each transaction you send has a number called a `nonce` that identifies where it lives in that sequence.
-The very first transaction you send will have a `nonce` of 0, the next one you send will have a `nonce` of 1, and so on.
+Toda carteira Ethereum, incluindo sua carteira de nó, envia transações sequencialmente.
+Cada transação que você envia tem um número chamado `nonce` que identifica onde ela está nessa sequência.
+A primeira transação que você enviar terá um `nonce` de 0, a próxima que você enviar terá um `nonce` de 1 e assim por diante.
 
-This overwriting technique involves sending a _new_ transaction that uses the same `nonce` as your existing _stuck_ transaction, but will ideally include a higher gas price than the stuck one.
-This means that the new one will be mined first.
-As soon as it's mined into a block, the old one will be discarded from the network as though it was never sent in the first place.
+Esta técnica de sobrescrita envolve enviar uma transação _nova_ que use o mesmo `nonce` que sua transação _travada_ existente, mas idealmente incluirá um preço de gas maior que a travada.
+Isso significa que a nova será minerada primeiro.
+Assim que for minerada em um bloco, a antiga será descartada da rede como se nunca tivesse sido enviada.
 
-To use this flag, you first need to find the `nonce` of your stuck transaction:
+Para usar este sinalizador, você primeiro precisa encontrar o `nonce` de sua transação travada:
 
-1. Go to an ETH1 block explorer like [https://etherscan.io](https://etherscan.io).
-1. Navigate to the address of your wallet, and look at the list of transactions.
-1. Go through them, starting with the most recent, until you find the furthest one down the list that has the `Pending` state.
-1. Mark the `nonce` of that transaction. That's what you'll need.
+1. Vá para um explorador de blocos ETH1 como [https://etherscan.io](https://etherscan.io).
+1. Navegue até o endereço de sua carteira e veja a lista de transações.
+1. Percorra-as, começando pela mais recente, até encontrar a mais distante na lista que tenha o estado `Pending`.
+1. Marque o `nonce` dessa transação. É isso que você precisará.
 
-Once you have it, simply call any transaction with the CLI using the `--nonce <value> -i 2.2` flags after `rocketpool` and before the rest of the command.
+Depois de tê-lo, simplesmente chame qualquer transação com a CLI usando os sinalizadores `--nonce <value> -i 2.2` após `rocketpool` e antes do resto do comando.
 
-::: warning NOTE
-You **must** include the `-i` (priority fee) flag in order to overwrite a previous transaction.
-This number must be at least 10% higher than whatever priority fee your old transaction used.
-The Smartnode uses a priority fee of 2 gwei by default, so a value of `2.2` is usually sufficient for an override.
+::: warning NOTA
+Você **deve** incluir o sinalizador `-i` (taxa de prioridade) para sobrescrever uma transação anterior.
+Este número deve ser pelo menos 10% maior que a taxa de prioridade que sua transação antiga usou.
+O Smartnode usa uma taxa de prioridade de 2 gwei por padrão, então um valor de `2.2` geralmente é suficiente para uma substituição.
 
-If your old transaction used a custom fee (say, 10 gwei), you will need to set it at least 10% higher in the overriding transaction (so in this example, 11 gwei).
+Se sua transação antiga usou uma taxa personalizada (digamos, 10 gwei), você precisará defini-la pelo menos 10% maior na transação de substituição (então, neste exemplo, 11 gwei).
 :::
 
-As an example, say I submitted a transaction with a `nonce` of 10 and a max fee of 20 gwei, but the current network fee is 100 gwei so my transaction is stuck.
-To fix it, I will submit a transaction where I send a small amount of ETH from myself back to myself with a higher max fee (say, 150 gwei) and a higher priority fee.
-I'll burn a little gas doing it, but it will unstick the broken transaction:
+Como exemplo, digamos que enviei uma transação com um `nonce` de 10 e uma taxa máxima de 20 gwei, mas a taxa de rede atual é de 100 gwei, então minha transação está travada.
+Para corrigi-la, enviarei uma transação onde envio uma pequena quantidade de ETH de mim mesmo de volta para mim mesmo com uma taxa máxima maior (digamos, 150 gwei) e uma taxa de prioridade maior.
+Vou queimar um pouco de gas fazendo isso, mas vai destravar a transação quebrada:
 
 ```
 $ rocketpool --nonce 10 -f 150 -i 2.2 node send 0.0001 eth <node wallet address>
@@ -684,9 +684,9 @@ Total cost: 0.0032 to 0.0032 ETH
 Are you sure you want to send 0.000100 eth to <node wallet address>? This action cannot be undone! [y/n]
 ```
 
-The Smartnode stack will automatically check to make sure that the `nonce` you have provided is valid (it refers to a pending transaction) before sending it and wasting your gas accidentally.
-If not, it will return an error message.
-Otherwise, it will go through and provide you with the transaction details so you can monitor it to confirm that it did, in fact, overwrite your old stuck transaction.
+A pilha Smartnode verificará automaticamente para garantir que o `nonce` que você forneceu seja válido (ele se refere a uma transação pendente) antes de enviá-lo e desperdiçar seu gas acidentalmente.
+Caso contrário, retornará uma mensagem de erro.
+Caso contrário, ele passará e fornecerá os detalhes da transação para que você possa monitorá-la e confirmar que ela, de fato, sobrescreveu sua antiga transação travada.
 
-That's it for the common CLI commands.
-In the next section, we'll walk through how to create a minipool and start validating on the Beacon Chain.
+Isso é tudo para os comandos CLI comuns.
+Na próxima seção, mostraremos como criar um minipool e começar a validar na Beacon Chain.

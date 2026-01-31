@@ -1,69 +1,69 @@
-# Node Requirements and Choosing a Platform
+# 노드 요구 사항 및 플랫폼 선택
 
-Alright!
-So you've decided to try your hand at running a Rocket Pool node.
-The first step of the process is to decide what kind of platform you want to run your node on.
-If you already have one in mind, great!
-You can skip to the next section.
-If you aren't sure yet, then read on for some information about your options.
+좋습니다!
+Rocket Pool 노드를 실행해 보기로 결정하셨군요.
+프로세스의 첫 번째 단계는 노드를 실행하려는 플랫폼의 종류를 결정하는 것입니다.
+이미 염두에 두고 있다면 좋습니다!
+다음 섹션으로 건너뛸 수 있습니다.
+아직 확실하지 않다면, 옵션에 대한 정보를 읽어보세요.
 
-## Full Node Requirements
+## 전체 노드 요구 사항
 
-A **full node** is one that runs both an Execution Client and Consensus Client along with the Rocket Pool stack.
-Now that the Merge has occurred, Rocket Pool nodes are required to run this configuration (though the Execution and Consensus clients can be externally managed for users already running a solo-staking setup - we'll cover this in more detail later).
+**전체 노드**는 Rocket Pool 스택과 함께 실행 클라이언트와 합의 클라이언트를 모두 실행하는 노드입니다.
+Merge가 발생한 이후 Rocket Pool 노드는 이 구성을 실행해야 합니다(단, 실행 및 합의 클라이언트는 이미 단독 스테이킹 설정을 실행 중인 사용자를 위해 외부에서 관리될 수 있습니다 - 이에 대해서는 나중에 더 자세히 다루겠습니다).
 
-Here is a simple breakdown of what is required to run a full Rocket Pool node well:
+다음은 전체 Rocket Pool 노드를 잘 실행하는 데 필요한 사항에 대한 간단한 분석입니다:
 
-- A **stable Internet connection**. The longer you stay online, the better your rewards. A spotty Internet connection will hurt your returns, and by extension, the rETH ratio growth.
-- At least **10Mbps of bandwidth both up and down**. A full node usually takes around 8Mbps to 10Mbps up & down of network traffic, depending on your configuration and number of minipools.
-- **No data cap** imposed by your ISP. Running a full node will take a lot of data - we have seen reports of over 2 TB per month on chain data alone. This can be mitigated somewhat with a few settings tweaks to the ETH clients, but as a rule of thumb, don't run a full node if your Internet plan comes with a monthly data cap.
-- **Stable electricity**. For the same reason as needing a stable Internet connection, you also want to have reliable power. This can be mitigated with a large UPS (backup battery) to deal with short blackouts.
-- A **computer** with sufficient specs. This is pretty flexible because it _really_ depends on what Execution and Consensus client you use, and what settings you configure them with. The computer can be a local machine, or it can be hosted in the cloud. Read below for some more information on those two options, and how to decide which is best for you.
+- **안정적인 인터넷 연결**. 온라인 상태를 오래 유지할수록 보상이 더 좋습니다. 불안정한 인터넷 연결은 수익을 해치고, 확장하여 rETH 비율 성장을 해칩니다.
+- 최소 **업로드 및 다운로드 모두 10Mbps의 대역폭**. 전체 노드는 일반적으로 구성 및 minipool 수에 따라 약 8Mbps에서 10Mbps의 네트워크 트래픽을 사용합니다.
+- ISP가 부과하는 **데이터 제한 없음**. 전체 노드를 실행하면 많은 데이터가 소요됩니다 - 체인 데이터만으로도 월 2TB 이상이라는 보고를 받았습니다. 이것은 ETH 클라이언트에 대한 몇 가지 설정 조정으로 어느 정도 완화할 수 있지만, 경험 법칙으로 인터넷 플랜에 월별 데이터 제한이 있는 경우 전체 노드를 실행하지 마세요.
+- **안정적인 전기**. 안정적인 인터넷 연결이 필요한 것과 같은 이유로 신뢰할 수 있는 전력도 필요합니다. 이것은 짧은 정전을 처리하기 위해 대형 UPS(백업 배터리)로 완화할 수 있습니다.
+- 충분한 사양의 **컴퓨터**. 이것은 사용하는 실행 및 합의 클라이언트와 구성하는 설정에 _실제로_ 따라 달라지므로 상당히 유연합니다. 컴퓨터는 로컬 머신일 수도 있고 클라우드에서 호스팅될 수도 있습니다. 이 두 옵션에 대한 자세한 정보와 어느 것이 가장 적합한지 결정하는 방법은 아래를 읽어보세요.
 
-The computer must meet the [hardware guidelines](./local/hardware.md)
+컴퓨터는 [하드웨어 가이드라인](./local/hardware.md)을 충족해야 합니다
 
-::: warning NOTE
-At this time, only **Linux** and **macOS** platforms are supported.
-**Windows is not currently supported** for Smartnode operation.
+::: warning 참고
+현재 **Linux** 및 **macOS** 플랫폼만 지원됩니다.
+**Windows는 현재 Smartnode 운영을 지원하지 않습니다**.
 :::
 
-## Running a Local Node
+## 로컬 노드 실행
 
-If you have reliable electricity and uncapped Internet access, and are willing to build (or buy pre-made) and maintain a computer, then running a local node might be a great choice for you. With this option, you will set up a dedicated computer as a Rocket Pool node and run it locally in your own home.
+신뢰할 수 있는 전기와 무제한 인터넷 액세스가 있고 컴퓨터를 구축(또는 미리 제작된 것을 구매)하고 유지 관리할 의향이 있다면, 로컬 노드를 실행하는 것이 좋은 선택일 수 있습니다. 이 옵션을 사용하면 전용 컴퓨터를 Rocket Pool 노드로 설정하고 자신의 집에서 로컬로 실행합니다.
 
-Advantages:
+장점:
 
-- No monthly fees, other than utilities
-- Complete control over your own machine and its data (including your wallet's key)
-- Access to perform maintenance and upgrades whenever you want
-- Contributes to Execution and Consensus's, and Rocket Pool's decentralization (and thus, their security)
+- 유틸리티 외에 월별 수수료 없음
+- 자신의 머신과 데이터에 대한 완전한 제어(지갑의 키 포함)
+- 원할 때마다 유지 관리 및 업그레이드를 수행할 수 있는 액세스
+- 실행, 합의 및 Rocket Pool의 탈중앙화(따라서 보안)에 기여
 
-Disadvantages:
+단점:
 
-- Requires stable, uncapped Internet and electricity
-  - **Running a node uses at least 1.5 TB of data per month. If you have a data cap below this amount, you may run into problems while running a local node!**
-- You're solely responsible for network & computer security
-- Can be challenging if you're not experienced with computer maintenance
-- Vulnerable to theft
+- 안정적이고 무제한 인터넷과 전기가 필요함
+  - **노드를 실행하면 월 최소 1.5TB의 데이터를 사용합니다. 이 양보다 낮은 데이터 제한이 있는 경우 로컬 노드를 실행하는 동안 문제가 발생할 수 있습니다!**
+- 네트워크 및 컴퓨터 보안에 대한 전적인 책임
+- 컴퓨터 유지 관리 경험이 없는 경우 어려울 수 있음
+- 도난에 취약
 
-If the advantages sound like they outweigh the disadvantages for you, then take a look at our [Local Node Operator's Guide](./local/hardware.html).
+장점이 단점보다 크다고 생각되면 [로컬 노드 운영자 가이드](./local/hardware.html)를 살펴보세요.
 
-## Running on a Server
+## 서버에서 실행
 
-If you don't have a reliable uncapped Internet plan, or you just don't want to deal with building and maintaining your own physical computer, you may want to look at running a private server you rent from a hosting provider. Essentially, these companies will happily create and run a server for you, for a monthly fee. If you don't mind that fee and want to run a Rocket Pool node, using a server can be a good strategy.
+신뢰할 수 있는 무제한 인터넷 플랜이 없거나 자신의 물리적 컴퓨터를 구축하고 유지 관리하는 것을 원하지 않는다면, 호스팅 제공자로부터 임대하는 개인 서버에서 실행하는 것을 고려할 수 있습니다. 기본적으로 이러한 회사는 월별 수수료를 받고 기꺼이 서버를 생성하고 실행해 줍니다. 해당 수수료가 괜찮고 Rocket Pool 노드를 실행하려는 경우, 서버를 사용하는 것이 좋은 전략이 될 수 있습니다.
 
-Advantages:
+장점:
 
-- No maintenance, support is usually available to fix issues
-- Doesn't affect your Internet plan or data cap
-- Usually run in a professional data center, very little down time
-- May be more cost effective than buying / building your own computer
+- 유지 관리 없음, 일반적으로 문제를 해결하기 위한 지원 제공
+- 인터넷 플랜이나 데이터 제한에 영향을 미치지 않음
+- 일반적으로 전문 데이터 센터에서 실행되며 다운타임이 거의 없음
+- 자신의 컴퓨터를 구매/구축하는 것보다 비용 효율적일 수 있음
 
-Disadvantages:
+단점:
 
-- Makes Execution and Consensus, and Rocket Pool somewhat more centralized, which weakens the security of the networks
-- Monthly fees
-- Servers may come with data caps, or have expensive network I/O rates
-- Possible for hosts to examine your machine's contents and take your wallet's key if not secured
+- 실행, 합의 및 Rocket Pool을 다소 더 중앙 집중화하여 네트워크의 보안을 약화시킴
+- 월별 수수료
+- 서버에 데이터 제한이 있거나 네트워크 I/O 요금이 비쌀 수 있음
+- 보호되지 않은 경우 호스트가 머신의 내용을 검사하고 지갑의 키를 가져갈 수 있음
 
-If those advantages sound like they outweigh the disadvantages for you, then take a look at our [Server Node Operator's Guide](./vps/providers.html).
+이러한 장점이 단점보다 크다고 생각되면 [서버 노드 운영자 가이드](./vps/providers.html)를 살펴보세요.

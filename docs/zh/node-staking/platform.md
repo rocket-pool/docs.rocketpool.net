@@ -1,69 +1,69 @@
-# Node Requirements and Choosing a Platform
+# 节点要求和选择平台
 
-Alright!
-So you've decided to try your hand at running a Rocket Pool node.
-The first step of the process is to decide what kind of platform you want to run your node on.
-If you already have one in mind, great!
-You can skip to the next section.
-If you aren't sure yet, then read on for some information about your options.
+好的!
+您已经决定尝试运行 Rocket Pool 节点。
+流程的第一步是决定您想在什么样的平台上运行节点。
+如果您已经有了想法,太好了!
+您可以跳到下一节。
+如果您还不确定,那么请继续阅读有关您选项的一些信息。
 
-## Full Node Requirements
+## 完整节点要求
 
-A **full node** is one that runs both an Execution Client and Consensus Client along with the Rocket Pool stack.
-Now that the Merge has occurred, Rocket Pool nodes are required to run this configuration (though the Execution and Consensus clients can be externally managed for users already running a solo-staking setup - we'll cover this in more detail later).
+**完整节点**是同时运行执行客户端和共识客户端以及 Rocket Pool 堆栈的节点。
+现在合并已经发生,Rocket Pool 节点需要运行此配置(尽管执行客户端和共识客户端可以由已经运行单独 staking 设置的用户外部管理——我们稍后会更详细地介绍这一点)。
 
-Here is a simple breakdown of what is required to run a full Rocket Pool node well:
+以下是良好运行完整 Rocket Pool 节点所需的简单分类:
 
-- A **stable Internet connection**. The longer you stay online, the better your rewards. A spotty Internet connection will hurt your returns, and by extension, the rETH ratio growth.
-- At least **10Mbps of bandwidth both up and down**. A full node usually takes around 8Mbps to 10Mbps up & down of network traffic, depending on your configuration and number of minipools.
-- **No data cap** imposed by your ISP. Running a full node will take a lot of data - we have seen reports of over 2 TB per month on chain data alone. This can be mitigated somewhat with a few settings tweaks to the ETH clients, but as a rule of thumb, don't run a full node if your Internet plan comes with a monthly data cap.
-- **Stable electricity**. For the same reason as needing a stable Internet connection, you also want to have reliable power. This can be mitigated with a large UPS (backup battery) to deal with short blackouts.
-- A **computer** with sufficient specs. This is pretty flexible because it _really_ depends on what Execution and Consensus client you use, and what settings you configure them with. The computer can be a local machine, or it can be hosted in the cloud. Read below for some more information on those two options, and how to decide which is best for you.
+- **稳定的互联网连接**。您在线时间越长,您的奖励就越好。不稳定的互联网连接会损害您的回报,进而影响 rETH 比率增长。
+- 至少**上下行带宽 10Mbps**。完整节点通常需要大约 8Mbps 到 10Mbps 的上下行网络流量,具体取决于您的配置和 minipools 的数量。
+- ISP **没有流量限制**。运行完整节点将占用大量数据——我们看到仅链数据每月就超过 2 TB 的报告。这可以通过对 ETH 客户端进行一些设置调整来在一定程度上缓解,但根据经验法则,如果您的互联网计划有每月流量限制,请不要运行完整节点。
+- **稳定的电力**。出于与需要稳定互联网连接相同的原因,您还需要可靠的电力。这可以通过大型 UPS(备用电池)来缓解,以应对短暂停电。
+- 具有足够规格的**计算机**。这非常灵活,因为它_确实_取决于您使用的执行客户端和共识客户端,以及您配置它们的设置。计算机可以是本地机器,也可以托管在云中。请阅读下面有关这两个选项的更多信息,以及如何决定哪个最适合您。
 
-The computer must meet the [hardware guidelines](./local/hardware.md)
+计算机必须满足[硬件指南](./local/hardware.md)
 
-::: warning NOTE
-At this time, only **Linux** and **macOS** platforms are supported.
-**Windows is not currently supported** for Smartnode operation.
+::: warning 注意
+目前,仅支持 **Linux** 和 **macOS** 平台。
+**Windows 目前不支持** Smartnode 操作。
 :::
 
-## Running a Local Node
+## 运行本地节点
 
-If you have reliable electricity and uncapped Internet access, and are willing to build (or buy pre-made) and maintain a computer, then running a local node might be a great choice for you. With this option, you will set up a dedicated computer as a Rocket Pool node and run it locally in your own home.
+如果您有可靠的电力和无限制的互联网访问,并且愿意构建(或购买预制的)并维护计算机,那么运行本地节点可能是您的最佳选择。使用此选项,您将设置一台专用计算机作为 Rocket Pool 节点,并在您自己的家中本地运行它。
 
-Advantages:
+优势:
 
-- No monthly fees, other than utilities
-- Complete control over your own machine and its data (including your wallet's key)
-- Access to perform maintenance and upgrades whenever you want
-- Contributes to Execution and Consensus's, and Rocket Pool's decentralization (and thus, their security)
+- 除了公用事业外,没有月费
+- 完全控制您自己的机器及其数据(包括您钱包的密钥)
+- 随时访问以执行维护和升级
+- 有助于执行客户端和共识客户端以及 Rocket Pool 的去中心化(从而提高它们的安全性)
 
-Disadvantages:
+劣势:
 
-- Requires stable, uncapped Internet and electricity
-  - **Running a node uses at least 1.5 TB of data per month. If you have a data cap below this amount, you may run into problems while running a local node!**
-- You're solely responsible for network & computer security
-- Can be challenging if you're not experienced with computer maintenance
-- Vulnerable to theft
+- 需要稳定、无限制的互联网和电力
+  - **运行节点每月至少使用 1.5 TB 的数据。如果您的流量限制低于此数量,在运行本地节点时可能会遇到问题!**
+- 您对网络和计算机安全负全部责任
+- 如果您不熟悉计算机维护,可能会具有挑战性
+- 容易被盗
 
-If the advantages sound like they outweigh the disadvantages for you, then take a look at our [Local Node Operator's Guide](./local/hardware.html).
+如果优势听起来超过了劣势,那么请查看我们的[本地 Node Operator 指南](./local/hardware.html)。
 
-## Running on a Server
+## 在服务器上运行
 
-If you don't have a reliable uncapped Internet plan, or you just don't want to deal with building and maintaining your own physical computer, you may want to look at running a private server you rent from a hosting provider. Essentially, these companies will happily create and run a server for you, for a monthly fee. If you don't mind that fee and want to run a Rocket Pool node, using a server can be a good strategy.
+如果您没有可靠的无限制互联网计划,或者您只是不想处理构建和维护自己的物理计算机,您可能想考虑运行从托管提供商租用的私有服务器。本质上,这些公司会很乐意为您创建和运行服务器,收取月费。如果您不介意这笔费用并且想运行 Rocket Pool 节点,使用服务器可能是一个好策略。
 
-Advantages:
+优势:
 
-- No maintenance, support is usually available to fix issues
-- Doesn't affect your Internet plan or data cap
-- Usually run in a professional data center, very little down time
-- May be more cost effective than buying / building your own computer
+- 无需维护,通常可以获得支持来解决问题
+- 不影响您的互联网计划或流量限制
+- 通常在专业数据中心运行,停机时间很少
+- 可能比购买/构建自己的计算机更具成本效益
 
-Disadvantages:
+劣势:
 
-- Makes Execution and Consensus, and Rocket Pool somewhat more centralized, which weakens the security of the networks
-- Monthly fees
-- Servers may come with data caps, or have expensive network I/O rates
-- Possible for hosts to examine your machine's contents and take your wallet's key if not secured
+- 使执行客户端和共识客户端以及 Rocket Pool 更加中心化,这削弱了网络的安全性
+- 月费
+- 服务器可能带有流量限制,或具有昂贵的网络 I/O 费率
+- 主机可能会检查您机器的内容并在未加密的情况下获取您钱包的密钥
 
-If those advantages sound like they outweigh the disadvantages for you, then take a look at our [Server Node Operator's Guide](./vps/providers.html).
+如果这些优势听起来超过了劣势,那么请查看我们的[服务器 Node Operator 指南](./vps/providers.html)。

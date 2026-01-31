@@ -4,108 +4,108 @@ import tui_select_cc from "./images/tui-select-cc.png";
 import tui_checkpoint_sync from "./images/tui-checkpoint-sync.png";
 import tui_confirm_cc from "./images/tui-confirm-cc.png";
 
-# Changing Execution or Consensus Clients
+# Wechsel von Execution- oder Consensus-Clients
 
-Under normal circumstances, you will likely just select an Execution and Consensus client when you first create your Rocket Pool node and will let them happily run for the life of your Node.
-However, there are a few situations where you may want to change your client selection.
-Here are a few examples:
+Unter normalen Umständen werden Sie wahrscheinlich nur einen Execution- und Consensus-Client auswählen, wenn Sie Ihren Rocket Pool Node zum ersten Mal erstellen, und sie für die Lebensdauer Ihres Nodes glücklich laufen lassen.
+Es gibt jedoch einige Situationen, in denen Sie Ihre Client-Auswahl ändern möchten.
+Hier sind ein paar Beispiele:
 
-- Your client gains a [supermajority](https://clientdiversity.org/) share on the Execution or Beacon chains, and you want to change for the overall health of the network
-- A bug causes your client to stop functioning correctly, and you need to get back online quickly to resume validation duties
-- You want to try a new feature that a different client offers
-- A different client is better suited to your node's hardware (e.g. some clients are better on ARM systems than others)
+- Ihr Client erreicht einen [Supermajority](https://clientdiversity.org/)-Anteil auf den Execution- oder Beacon-Chains, und Sie möchten für die allgemeine Gesundheit des Netzwerks wechseln
+- Ein Fehler führt dazu, dass Ihr Client nicht mehr korrekt funktioniert, und Sie müssen schnell wieder online gehen, um Validierungsaufgaben fortzusetzen
+- Sie möchten eine neue Funktion ausprobieren, die ein anderer Client bietet
+- Ein anderer Client ist besser für die Hardware Ihres Nodes geeignet (z.B. einige Clients sind besser auf ARM-Systemen als andere)
 
-Luckily, the Smartnode stack makes changing clients extremely easy.
-All it takes is a few changes in the Configuration TUI, and some optional extra commands to back up your existing client data before changing clients.
+Glücklicherweise macht der Smartnode-Stack das Wechseln von Clients extrem einfach.
+Alles, was es braucht, sind ein paar Änderungen in der Konfigurations-TUI und einige optional zusätzliche Befehle, um Ihre vorhandenen Client-Daten zu sichern, bevor Sie Clients wechseln.
 
-## Changing Execution Clients
+## Wechsel von Execution-Clients
 
-Prior to changing your Execution client, it's worth noting the following points:
+Bevor Sie Ihren Execution-Client wechseln, ist es erwähnenswert, die folgenden Punkte zu beachten:
 
-- Chain data **is not shared** between clients. Your new client will need to resync the Mainnet chain data, which can take some time (though each client supports snap sync, which the Smartnode uses to speed up resyncing).
-- By default, the Smartnode will leave your old client's chain data on your drive in case you want to revert back to your old Execution client and pick up where you left off. You may want to **export it to a different location** and delete it to free up space prior to changing clients, since Execution clients can use hundreds of gigabytes. We have steps below on how to do this.
-- While your new client is resyncing, most of the Smartnode CLI functions will be offline since they rely on the Execution client. **You should have a fallback Execution client available before doing this to mitigate the downtime on your Smartnode.**
+- Chain-Daten **werden nicht** zwischen Clients geteilt. Ihr neuer Client muss die Mainnet-Chain-Daten neu synchronisieren, was einige Zeit dauern kann (obwohl jeder Client Snap Sync unterstützt, was die Smartnode verwendet, um das erneute Synchronisieren zu beschleunigen).
+- Standardmäßig lässt die Smartnode die Chain-Daten Ihres alten Clients auf Ihrer Festplatte, falls Sie zu Ihrem alten Execution-Client zurückkehren und dort weitermachen möchten, wo Sie aufgehört haben. Sie möchten sie möglicherweise **an einen anderen Ort exportieren** und löschen, um Speicherplatz freizugeben, bevor Sie Clients wechseln, da Execution-Clients Hunderte von Gigabyte verwenden können. Wir haben unten Schritte dazu, wie dies zu tun ist.
+- Während Ihr neuer Client neu synchronisiert, sind die meisten Smartnode-CLI-Funktionen offline, da sie auf den Execution-Client angewiesen sind. **Sie sollten einen Fallback-Execution-Client verfügbar haben, bevor Sie dies tun, um die Ausfallzeit Ihrer Smartnode zu mindern.**
 
-### (Optional) Export your Execution Client's Database
+### (Optional) Export der Datenbank Ihres Execution-Clients
 
-The first step in the process is an optional one: if you like, you can export your existing chain data for your current Execution client.
-This will let you free up valuable disk space on your node for your new Execution client, and you can keep the old chain data around in case you want to revert back to the old client and pick up where you left off.
+Der erste Schritt im Prozess ist optional: Wenn Sie möchten, können Sie Ihre vorhandenen Chain-Daten für Ihren aktuellen Execution-Client exportieren.
+Dies ermöglicht es Ihnen, wertvollen Festplattenspeicher auf Ihrem Node für Ihren neuen Execution-Client freizugeben, und Sie können die alten Chain-Daten behalten, falls Sie zum alten Client zurückkehren und dort weitermachen möchten, wo Sie aufgehört haben.
 
-Please refer to the [Backing Up Your Node](./backups##backing-up-your-execution-chain-data) guide for details.
+Bitte beziehen Sie sich auf den [Sicherung Ihres Nodes](./backups##sicherung-ihrer-execution-chain-daten) Leitfaden für Details.
 
-### Change your Selected Execution Client
+### Ändern Sie Ihren ausgewählten Execution-Client
 
-To change your selected client, run `rocketpool service config` to enter the configuration UI.
-Navigate to the `Execution Client (ETH1)` section, and select the `Execution Client` dropdown:
+Um Ihren ausgewählten Client zu ändern, führen Sie `rocketpool service config` aus, um die Konfigurations-UI zu öffnen.
+Navigieren Sie zum Abschnitt `Execution Client (ETH1)` und wählen Sie das `Execution Client` Dropdown:
 
 <img src={tui_select_ec} width="100%" height="auto" />
 
-Open the dropdown with `Enter`, use the arrow keys to navigate to your client of choice, and press `Enter` again to confirm the selection.
+Öffnen Sie das Dropdown mit `Enter`, verwenden Sie die Pfeiltasten, um zu Ihrem gewünschten Client zu navigieren, und drücken Sie erneut `Enter`, um die Auswahl zu bestätigen.
 
-Note that each client has its own unique options, so you may see some additional settings appear in this screen after you select a different client.
-Feel free to explore through them to see how they affect things.
+Beachten Sie, dass jeder Client seine eigenen einzigartigen Optionen hat, sodass Sie möglicherweise einige zusätzliche Einstellungen in diesem Bildschirm sehen, nachdem Sie einen anderen Client ausgewählt haben.
+Erkunden Sie sie gerne, um zu sehen, wie sie sich auswirken.
 
-When you're happy with your choice, press `Esc` to return to the main menu, then `Tab` to highlight the `Review Changes and Save` button.
-You will be presented with the review screen, which will show your client selection change:
+Wenn Sie mit Ihrer Wahl zufrieden sind, drücken Sie `Esc`, um zum Hauptmenü zurückzukehren, dann `Tab`, um die Schaltfläche `Review Changes and Save` hervorzuheben.
+Sie werden mit dem Überprüfungsbildschirm präsentiert, der Ihre Client-Auswahländerung zeigt:
 
 <img src={tui_confirm_ec} width="100%" height="auto" />
 
-Press `Enter` to accept the changes, and you're done!
-Your new Execution client will begin syncing immediately.
-As usual, you can follow it with `rocketpool service logs eth1`.
-**We recommend you do this to verify there are no errors, and that it works properly.**
+Drücken Sie `Enter`, um die Änderungen zu akzeptieren, und Sie sind fertig!
+Ihr neuer Execution-Client beginnt sofort mit der Synchronisierung.
+Wie üblich können Sie ihn mit `rocketpool service logs eth1` verfolgen.
+**Wir empfehlen Ihnen, dies zu tun, um zu überprüfen, dass es keine Fehler gibt und dass er ordnungsgemäß funktioniert.**
 
-::: danger NOTE
-Now that the Execution and Consensus layers have merged, taking down your Execution client will _also_ take down your Consensus client until your Execution client has finished resyncing.
-This means your node will **stop attesting and proposing blocks, and it will leak ETH instead of earning it!**
+::: danger HINWEIS
+Jetzt, da die Execution- und Consensus-Layer zusammengeführt wurden, wird das Herunterfahren Ihres Execution-Clients _auch_ Ihren Consensus-Client herunterfahren, bis Ihr Execution-Client die erneute Synchronisierung abgeschlossen hat.
+Dies bedeutet, dass Ihr Node **aufhört zu attestieren und Blöcke vorzuschlagen, und er wird ETH verlieren, anstatt es zu verdienen!**
 
-To avoid this and continue validating while your Execution client resyncs, **please set up a [fallback node](./fallback)**.
+Um dies zu vermeiden und während der erneuten Synchronisierung Ihres Execution-Clients weiter zu validieren, **richten Sie bitte einen [Fallback-Node](./fallback) ein**.
 :::
 
-### (Recommended) Remove your Old Chain Data
+### (Empfohlen) Entfernen Sie Ihre alten Chain-Daten
 
-This is not a required step, but we **strongly recommend** you remove the chain data from your old client now that you've switched to a new one so you can free up disk space for it.
+Dies ist kein erforderlicher Schritt, aber wir **empfehlen dringend**, dass Sie die Chain-Daten von Ihrem alten Client entfernen, jetzt, da Sie zu einem neuen gewechselt haben, damit Sie Festplattenspeicher dafür freigeben können.
 
-To do this, simply run the following command:
+Um dies zu tun, führen Sie einfach den folgenden Befehl aus:
 
 ```shell
 rocketpool service resync-eth1
 ```
 
-This will delete all of your Execution client data and start it over.
+Dies löscht alle Ihre Execution-Client-Daten und startet sie neu.
 
-::: tip TIP
-Since you just selected a new Execution client, it won't be affected by this - essentially, all it will do is delete your old chain data.
-You should do this as soon as possible after switching clients to prevent unnecessary loss of progress on your new client.
+::: tip TIPP
+Da Sie gerade einen neuen Execution-Client ausgewählt haben, wird er davon nicht betroffen sein - im Wesentlichen wird dies nur Ihre alten Chain-Daten löschen.
+Sie sollten dies so bald wie möglich nach dem Wechseln von Clients tun, um unnötigen Fortschrittsverlust bei Ihrem neuen Client zu verhindern.
 :::
 
-## Changing Consensus Clients
+## Wechsel von Consensus-Clients
 
-Changing Consensus clients is even easier than Execution clients, thanks to [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
-This feature lets you immediately sync a new Consensus client with the network, so there's no need to preserve your old chain data.
+Das Wechseln von Consensus-Clients ist sogar einfacher als bei Execution-Clients, dank [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
+Diese Funktion ermöglicht es Ihnen, einen neuen Consensus-Client sofort mit dem Netzwerk zu synchronisieren, sodass es nicht notwendig ist, Ihre alten Chain-Daten zu bewahren.
 
-Start by using the `rocketpool service config` UI and navigating to the `Consensus Client (ETH2)` section.
-Next, select the `Consensus Client` dropdown:
+Beginnen Sie mit der Verwendung der `rocketpool service config` UI und navigieren Sie zum Abschnitt `Consensus Client (ETH2)`.
+Als nächstes wählen Sie das `Consensus Client` Dropdown:
 
 <img src={tui_select_cc} width="100%" height="auto" />
 
-Open the dropdown with `Enter`, use the arrow keys to navigate to your client of choice, and press `Enter` again to confirm the selection.
+Öffnen Sie das Dropdown mit `Enter`, verwenden Sie die Pfeiltasten, um zu Ihrem gewünschten Client zu navigieren, und drücken Sie erneut `Enter`, um die Auswahl zu bestätigen.
 
-Note that each client has its own unique options, so you may see some additional settings appear in this screen after you select a different client.
-Feel free to explore through them to see how they affect things.
+Beachten Sie, dass jeder Client seine eigenen einzigartigen Optionen hat, sodass Sie möglicherweise einige zusätzliche Einstellungen in diesem Bildschirm sehen, nachdem Sie einen anderen Client ausgewählt haben.
+Erkunden Sie sie gerne, um zu sehen, wie sie sich auswirken.
 
-Next, verify that you're using a Checkpoint Sync provider:
+Als nächstes überprüfen Sie, dass Sie einen Checkpoint-Sync-Anbieter verwenden:
 
 <img src={tui_checkpoint_sync} width="100%" height="auto" />
 
-If you don't have a Checkpoint Sync provider configured, [you can easily use instructions from here to do it for free](./config-docker#beacon-chain-checkpoint-syncing)!
+Wenn Sie keinen Checkpoint-Sync-Anbieter konfiguriert haben, [können Sie dies ganz einfach mit Anweisungen von hier kostenlos tun](./config-docker#beacon-chain-checkpoint-syncing)!
 
-When you're happy with your choice, press `Esc` to return to the main menu, then `Tab` to highlight the `Review Changes and Save` button.
-You will be presented with the review screen, which will show your client selection change:
+Wenn Sie mit Ihrer Wahl zufrieden sind, drücken Sie `Esc`, um zum Hauptmenü zurückzukehren, dann `Tab`, um die Schaltfläche `Review Changes and Save` hervorzuheben.
+Sie werden mit dem Überprüfungsbildschirm präsentiert, der Ihre Client-Auswahländerung zeigt:
 
 <img src={tui_confirm_cc} width="100%" height="auto" />
 
-Press `Enter` to accept the changes, and you're done!
-Your new Consensus client will begin syncing immediately.
-As usual, you can follow it with `rocketpool service logs eth2`.
-**We recommend you do this to verify there are no errors, and that it works properly.**
+Drücken Sie `Enter`, um die Änderungen zu akzeptieren, und Sie sind fertig!
+Ihr neuer Consensus-Client beginnt sofort mit der Synchronisierung.
+Wie üblich können Sie ihn mit `rocketpool service logs eth2` verfolgen.
+**Wir empfehlen Ihnen, dies zu tun, um zu überprüfen, dass es keine Fehler gibt und dass er ordnungsgemäß funktioniert.**

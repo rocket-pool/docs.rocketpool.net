@@ -1,60 +1,60 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-::: danger WARNING
-Minipool deposits are currently disabled in preparation for Saturn 1.
+::: danger AVVISO
+I depositi dei minipool sono attualmente disabilitati in preparazione per Saturn 1.
 :::
 
-# Migrating a 16-ETH Minipool to 8-ETH
+# Migrazione di un Minipool da 16 ETH a 8 ETH
 
-Node operators have the ability to **directly migrate** their existing 16-ETH minipools into 8-ETH minipools.
-Doing so will add 8 ETH to their [deposit credit balances](./credit) which can be used to **create additional minipools without requiring any ETH from the node operators**.
+Gli operatori dei nodi hanno la possibilità di **migrare direttamente** i loro minipool da 16 ETH esistenti in minipool da 8 ETH.
+Così facendo, verranno aggiunti 8 ETH ai loro [saldi di credito dei depositi](./credit) che potranno essere utilizzati per **creare minipool aggiuntivi senza richiedere ETH agli operatori dei nodi**.
 
-In effect, this process allows a node operator to **convert one 16-ETH minipool into two 8-ETH minipools for free** (_though it will still require ETH for gas and require enough RPL collateral to handle both minipools_).
+In pratica, questo processo consente a un operatore di nodo di **convertire gratuitamente un minipool da 16 ETH in due minipool da 8 ETH** (_sebbene richiederà comunque ETH per il gas e un collaterale RPL sufficiente per gestire entrambi i minipool_).
 
-Migrating an existing 16-ETH minipool to an 8-ETH one is formally known as **bond reduction**.
-It is a two-step process and involves validation by the Oracle DAO.
-We'll walk you through the whole process in the sections below.
+La migrazione di un minipool esistente da 16 ETH a uno da 8 ETH è formalmente nota come **riduzione del bond**.
+Si tratta di un processo in due fasi e comporta la validazione da parte dell'Oracle DAO.
+Ti guideremo attraverso l'intero processo nelle sezioni seguenti.
 
-### Bond Reduction Rules
+### Regole per la Riduzione del Bond
 
-A bond reduction involves the following steps:
+Una riduzione del bond prevede i seguenti passaggi:
 
-1. Starting the bond reduction, done by the node operator.
-2. A waiting period (the "bond reduction scrub check"), allowing the Oracle DAO time to verify the bond reduction is legal and cancel any bond reductions that violate the rules.
-3. Completing the bond reduction, done by the node operator.
+1. Avvio della riduzione del bond, effettuato dall'operatore del nodo.
+2. Un periodo di attesa (il "controllo scrub della riduzione del bond"), che consente all'Oracle DAO il tempo di verificare che la riduzione del bond sia legale e di annullare eventuali riduzioni del bond che violano le regole.
+3. Completamento della riduzione del bond, effettuato dall'operatore del nodo.
 
-To perform a successful bond reduction without being scrubbed, the minipool must follow these rules:
+Per eseguire una riduzione del bond con successo senza essere annullata, il minipool deve seguire queste regole:
 
-1. The minipool must be upgraded to the [Atlas delegate](./minipools/delegates); the old Redstone delegate cannot be used.
-1. The minipool's validator on the Beacon Chain must be **pending or actively staking**. It cannot be slashed, exiting / exited, or withdrawable / withdrawn.
-1. The minipool's validator balance on the Beacon Chain must be **at least 31.99 ETH** (32 ETH with a small buffer for poorly-timed complications resulting in missed attestations after a rewards skim).
+1. Il minipool deve essere aggiornato al [delegato Atlas](./minipools/delegates); il vecchio delegato Redstone non può essere utilizzato.
+1. Il validatore del minipool sulla Beacon Chain deve essere **in attesa o in staking attivo**. Non può essere slashed, in uscita / uscito o prelevabile / prelevato.
+1. Il saldo del validatore del minipool sulla Beacon Chain deve essere **almeno 31,99 ETH** (32 ETH con un piccolo margine per complicazioni temporali che potrebbero causare attestazioni mancate dopo uno skim delle ricompense).
 
-The minipool must obey these conditions for the **entire duration** of the scrub check, during which time the Oracle DAO will be watching it to ensure compliance with the conditions above.
+Il minipool deve rispettare queste condizioni per **l'intera durata** del controllo scrub, durante il quale l'Oracle DAO lo monitorerà per garantire il rispetto delle condizioni sopra indicate.
 
-If, at any time during the scrub check, a minipool is found to be in violation of these conditions, the bond reduction will be **scrubbed**.
-The minipool itself will not be affected; it will still happily live on as a 16 ETH minipool, validating and acting as though the whole bond-reduction process never happened.
-However, **it will no longer be eligible for bond reductions**.
-Once a minipool's bond reduction is scrubbed, it can never be attempted again.
+Se, in qualsiasi momento durante il controllo scrub, viene riscontrato che un minipool viola queste condizioni, la riduzione del bond verrà **annullata**.
+Il minipool stesso non sarà interessato; continuerà a esistere come un minipool da 16 ETH, validando e agendo come se l'intero processo di riduzione del bond non fosse mai avvenuto.
+Tuttavia, **non sarà più idoneo per le riduzioni del bond**.
+Una volta che la riduzione del bond di un minipool viene annullata, non può mai più essere tentata.
 
-::: warning NOTE
-Upon a successful bond reduction, the minipool's bond amount will be reduced from 16 ETH to 8 ETH and **the minipool's commission will be reset to whatever the current network value is**.
+::: warning NOTA
+Una volta completata con successo la riduzione del bond, l'importo del bond del minipool verrà ridotto da 16 ETH a 8 ETH e **la commissione del minipool verrà reimpostata al valore corrente della rete**.
 
-If you reduce a 16-ETH minipool with a 20% commission, **you will not keep that 20% commission**.
-It will be reduced to the network value (**currently set to a flat 14%**).
+Se riduci un minipool da 16 ETH con una commissione del 20%, **non manterrai quella commissione del 20%**.
+Verrà ridotta al valore della rete (**attualmente impostato a un fisso 14%**).
 
-Note that as demonstrated by the [example math](./create-validator.mdx#rewards) section, an 8-ETH minipool at 14% is _still more profitable_ than a 16-ETH minipool at 20% so holding onto a high commission rate is not a compelling reason to retain a 16 ETH bond.
+Si noti che, come dimostrato nella sezione [matematica di esempio](./create-validator.mdx#rewards), un minipool da 8 ETH al 14% è _ancora più redditizio_ di un minipool da 16 ETH al 20%, quindi mantenere un tasso di commissione elevato non è una ragione convincente per mantenere un bond da 16 ETH.
 :::
 
-### Step 1: Beginning Bond Reduction
+### Passaggio 1: Avvio della Riduzione del Bond
 
-To begin the bond reduction process, enter the following command:
+Per avviare il processo di riduzione del bond, inserisci il seguente comando:
 
 ```shell
 rocketpool minipool begin-bond-reduction
 ```
 
-This will start by providing a brief blurb on the process (though, if you have read through this guide, it should all be familiar to you already).
-Once you acknowledge that you understand the process, it will show you which minipools currently have a bond that can be reduced, along with their current bond and commission:
+Questo inizierà fornendo una breve spiegazione del processo (sebbene, se hai letto questa guida, dovrebbe esserti già tutto familiare).
+Una volta riconosciuto di aver compreso il processo, ti mostrerà quali minipool hanno attualmente un bond che può essere ridotto, insieme al loro bond e commissione attuali:
 
 ```
 Please select a minipool to begin the ETH bond reduction for:
@@ -66,16 +66,16 @@ Please select a minipool to begin the ETH bond reduction for:
 
 ```
 
-Once you've selected one or more minipools to reduce, the Smartnode will check if those minipools are eligible for bond reduction.
+Una volta selezionato uno o più minipool da ridurre, lo Smartnode verificherà se quei minipool sono idonei per la riduzione del bond.
 
-To be eligible, these conditions must be satisfied:
+Per essere idoneo, devono essere soddisfatte queste condizioni:
 
-- The minipool has been upgraded to use the [Atlas minipool delegate contract](./minipools/delegates).
-- The minipool's validator must have a Beacon Chain balance of at least 32 ETH.
-- The minipool's validator must be pending or active.
-- You have enough RPL staked to support the minimum RPL collateral level that would be required _after_ the bond reduction.
+- Il minipool è stato aggiornato per utilizzare il [contratto delegato del minipool Atlas](./minipools/delegates).
+- Il validatore del minipool deve avere un saldo della Beacon Chain di almeno 32 ETH.
+- Il validatore del minipool deve essere in attesa o attivo.
+- Hai abbastanza RPL in stake per supportare il livello minimo di collaterale RPL che sarebbe richiesto _dopo_ la riduzione del bond.
 
-If not, it will print a warning error explaining what needs to be done first; for example:
+In caso contrario, stamperà un avviso di errore che spiega cosa deve essere fatto prima; per esempio:
 
 ```
 Please select a minipool to begin the ETH bond reduction for:
@@ -91,58 +91,58 @@ The minipool version is too low. It must be upgraded first using `rocketpool min
 You do not have enough RPL staked to support this bond reduction; it would bring you below the minimum RPL staking requirement. You will have to stake more RPL first.
 ```
 
-This shows that the selected minipool requires a delegate upgrade and the node needs more RPL staked in order to reduce that minipool's bond.
+Questo mostra che il minipool selezionato richiede un aggiornamento del delegato e il nodo necessita di più RPL in stake per ridurre il bond di quel minipool.
 
-When you have satisfied the preconditions, selecting a minipool in this command will simply prompt you to choose your gas price for the transaction and confirmation of the action.
-Upon accepting the confirmation, the minipool's bond reduction will begin.
+Quando hai soddisfatto i prerequisiti, selezionare un minipool in questo comando ti chiederà semplicemente di scegliere il prezzo del gas per la transazione e la conferma dell'azione.
+Dopo aver accettato la conferma, inizierà la riduzione del bond del minipool.
 
-### Monitoring the Scrub Check Timer
+### Monitoraggio del Timer del Controllo Scrub
 
-Once you've started a bond reduction, you can view how long until it's able to be completed in your `node` daemon logs:
+Una volta avviata una riduzione del bond, puoi visualizzare quanto tempo manca prima che possa essere completata nei log del daemon del tuo `node`:
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker and Hybrid Mode">
-      For **Docker Mode** and **Hybrid Mode** users, this can be done with the following command:
+      Per gli utenti in **Docker Mode** e **Hybrid Mode**, questo può essere fatto con il seguente comando:
 
       ```shell
       rocketpool service logs node
       ```
     </Tab>
     <Tab label="Native Mode">
-      Consult the script you use to review your node daemon's system logs.
+      Consulta lo script che utilizzi per rivedere i log di sistema del daemon del tuo nodo.
     </Tab>
 
   </Tabs>
 </div>
 
-You will see a new entry noting how much time is left until the scrub check for your bond reduction is complete:
+Vedrai una nuova voce che indica quanto tempo rimane fino al completamento del controllo scrub per la riduzione del tuo bond:
 
 ```
 rocketpool_node  | 2023/02/25 09:04:21 Checking for minipool bonds to reduce...
 rocketpool_node  | 2023/02/25 09:04:21 Minipool 0x7E5703fdA638CD86c316B9EbAF76927fF695ADC5 has 12m0s left until it can have its bond reduced.
 ```
 
-Once this timer reaches zero and no longer appears in these logs, you can complete the bond reduction.
+Una volta che questo timer raggiunge lo zero e non appare più in questi log, puoi completare la riduzione del bond.
 
-### Step 2: Completing Bond Reduction
+### Passaggio 2: Completamento della Riduzione del Bond
 
-When the scrub timer has successfully ended, there are two ways to complete your minipool's bond reduction:
+Quando il timer dello scrub è terminato con successo, ci sono due modi per completare la riduzione del bond del tuo minipool:
 
-1. Let the `node` daemon handle it for you; it does this during the routine check it performs every five minutes (the same one that prints the time-remaining line in the log above). If it notices you have an eligible bond reduction, **it will complete the reduction automatically** - just as it does with staking pending minipools and checking your fee recipient. You will see output in the `node` log showing when it has detected, and completed, a bond reduction.
-2. Complete the bond reduction manually using the following command:
+1. Lascia che il daemon del `node` lo gestisca per te; lo fa durante il controllo di routine che esegue ogni cinque minuti (lo stesso che stampa la riga del tempo rimanente nel log sopra). Se rileva una riduzione del bond idonea, **completerà automaticamente la riduzione** - proprio come fa con lo staking dei minipool in attesa e il controllo del tuo destinatario delle commissioni. Vedrai l'output nel log del `node` che mostra quando ha rilevato e completato una riduzione del bond.
+2. Completa manualmente la riduzione del bond utilizzando il seguente comando:
    ```shell
    rocketpool minipool reduce-bond
    ```
-   The command is simple; follow the prompts to complete the process once your minipool is eligible for bond reduction.
+   Il comando è semplice; segui le istruzioni per completare il processo una volta che il tuo minipool è idoneo per la riduzione del bond.
 
-During the bond reduction, Rocket Pool **distributes your minipool's existing balance** using the minipool's pre-bond-reduction bond and commission to ensure both you and the rETH stakers get your fair share of the existing balance, and the bond reduction doesn't change the rewards either party _would_ have gotten on that balance.
+Durante la riduzione del bond, Rocket Pool **distribuisce il saldo esistente del tuo minipool** utilizzando il bond e la commissione pre-riduzione del bond del minipool per garantire che sia tu che gli staker di rETH riceviate la vostra giusta quota del saldo esistente, e che la riduzione del bond non modifichi le ricompense che entrambe le parti _avrebbero_ ottenuto su quel saldo.
 
-### The Results of a Reduced Bond
+### I Risultati di un Bond Ridotto
 
-You can verify the successful bond reduction using `rocketpool minipool status`.
+Puoi verificare la riduzione del bond riuscita usando `rocketpool minipool status`.
 
-**Before** the bond reduction, for the example minipool we've been following, that command would produce the following output:
+**Prima** della riduzione del bond, per il minipool di esempio che abbiamo seguito, quel comando produrrebbe il seguente output:
 
 ```
 Address:              0x7E5703fdA638CD86c316B9EbAF76927fF695ADC5
@@ -161,7 +161,7 @@ Your portion:          16.000087 ETH
 ...
 ```
 
-**After** the bond reduction, the command would return this output:
+**Dopo** la riduzione del bond, il comando restituirebbe questo output:
 
 ```
 Address:              0x7E5703fdA638CD86c316B9EbAF76927fF695ADC5
@@ -180,30 +180,30 @@ Your portion:          8.000013 ETH
 ...
 ```
 
-Note how things have changed:
+Nota come le cose sono cambiate:
 
-- `Node fee` (commission) went from 15% to 14%
-- `Node deposit` (your bond) went from 16 ETH to 8 ETH
-- `RP deposit` (the amount you borrowed) went from 16 ETH to 24 ETH
-- `Minipool Balance (EL)` went from 0.150713 ETH to 0.086769 ETH
-- `Your portion (EL)` went from 0.086660 ETH to 0 ETH
-- `Available refund` went from 0 ETH to 0.086769 ETH
-- `Your portion (CL)` went from 16.000087 ETH to 8.000013 ETH
+- `Node fee` (commissione) è passata dal 15% al 14%
+- `Node deposit` (il tuo bond) è passato da 16 ETH a 8 ETH
+- `RP deposit` (l'importo preso in prestito) è passato da 16 ETH a 24 ETH
+- `Minipool Balance (EL)` è passato da 0.150713 ETH a 0.086769 ETH
+- `Your portion (EL)` è passato da 0.086660 ETH a 0 ETH
+- `Available refund` è passato da 0 ETH a 0.086769 ETH
+- `Your portion (CL)` è passato da 16.000087 ETH a 8.000013 ETH
 
-The changes to `Node fee`, `Node deposit`, `RP deposit`, and `Your portion (CL)` indicate that the bond was successfully reduced.
+I cambiamenti in `Node fee`, `Node deposit`, `RP deposit` e `Your portion (CL)` indicano che il bond è stato ridotto con successo.
 
-The changes to `Minipool Balance (EL)`, `Your portion (EL)`, and `Available refund` indicate the results of the **minipool balance distribution** that occurred as part of the bond reduction process.
-To clarify how to interpret these results:
+I cambiamenti in `Minipool Balance (EL)`, `Your portion (EL)` e `Available refund` indicano i risultati della **distribuzione del saldo del minipool** avvenuta come parte del processo di riduzione del bond.
+Per chiarire come interpretare questi risultati:
 
-- If you look at [the transaction](https://zhejiang.beaconcha.in/tx/0xf02f6b1a4ea68f356909e6f1974dc3c24d301ba115b97f3013c3c829ba2ca57c), you will also see that it sent 0.06413383 ETH from the minipool to the staking pool.
-- In the "before" example, the staking pool's share is the minipool's balance minus the node operator's portion, or `0.150713 - 0.086660 = 0.064053` which is the amount transferred to the staking pool during the bond reduction (plus a small amount from a rewards skim that occurred during the scrub check).
-- The _node operator's_ share, on the other hand, doesn't get sent to the node operator's withdrawal address. It is instead bookmarked as an **available refund**, which is why the refund amount increased from 0 ETH to what was previously the "your portion" amount of the minipool's balance on the EL.
-  - You can claim this refund at any time using the following command:
+- Se guardi [la transazione](https://zhejiang.beaconcha.in/tx/0xf02f6b1a4ea68f356909e6f1974dc3c24d301ba115b97f3013c3c829ba2ca57c), vedrai anche che ha inviato 0.06413383 ETH dal minipool allo staking pool.
+- Nell'esempio "prima", la quota dello staking pool è il saldo del minipool meno la porzione dell'operatore del nodo, ovvero `0.150713 - 0.086660 = 0.064053` che è l'importo trasferito allo staking pool durante la riduzione del bond (più un piccolo importo da uno skim delle ricompense avvenuto durante il controllo scrub).
+- La quota dell'_operatore del nodo_, d'altra parte, non viene inviata all'indirizzo di prelievo dell'operatore del nodo. Viene invece segnalata come un **rimborso disponibile**, motivo per cui l'importo del rimborso è aumentato da 0 ETH a quello che era precedentemente l'importo "your portion" del saldo del minipool sull'EL.
+  - Puoi richiedere questo rimborso in qualsiasi momento utilizzando il seguente comando:
     ```shell
     rocketpool minipool refund
     ```
 
-There is one more important result of the bond reduction, which can be observed using `rocketpool node status`:
+C'è un altro importante risultato della riduzione del bond, che può essere osservato usando `rocketpool node status`:
 
 ```
 Your Smartnode is currently using the Zhejiang Test Network.
@@ -213,5 +213,5 @@ The node 0x9BA1401Eb7D779eC51f910B066e9C4351cD28911 has a balance of 347.796908 
 The node has 8.000000 ETH in its credit balance, which can be used to make new minipools.
 ```
 
-The bond reduction process has **increased the node's** [deposit credit balance](./credit) by 8 ETH.
-This credit can be used to [make another 8-ETH minipool](./create-validator.mdx#depositing-eth-and-creating-a-minipool) for free (no ETH required from the node wallet, except for gas)!
+Il processo di riduzione del bond ha **aumentato il** [saldo di credito dei depositi](./credit) **del nodo** di 8 ETH.
+Questo credito può essere utilizzato per [creare un altro minipool da 8 ETH](./create-validator.mdx#depositing-eth-and-creating-a-minipool) gratuitamente (nessun ETH richiesto dal portafoglio del nodo, tranne che per il gas)!

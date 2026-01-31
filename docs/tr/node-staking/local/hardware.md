@@ -1,385 +1,385 @@
-# Selecting Staking Hardware
+# Staking Donanımı Seçimi
 
-There are no official specifications for running a Rocket Pool node.
-This page offers some guidelines and examples that you can use to select staking hardware.
+Rocket Pool node'u çalıştırmak için resmi bir donanım belirtimi bulunmamaktadır.
+Bu sayfa, staking donanımı seçmek için kullanabileceğiniz bazı yönergeler ve örnekler sunmaktadır.
 
-The minimum hardware requirements of your node will depend on the Consensus and Execution clients that you choose.
-If, for example, you intend to run your node on a low powered device, you may be limited to using `Geth` as your Execution client and `Nimbus` as your Consensus client.
-If you're using a more powerful NUC with 32+ GB of RAM, all client combinations are open to you.
+Node'unuzun minimum donanım gereksinimleri, seçeceğiniz Consensus ve Execution istemcilerine bağlı olacaktır.
+Örneğin, node'unuzu düşük güçlü bir cihazda çalıştırmayı düşünüyorsanız, Execution istemcisi olarak `Geth` ve Consensus istemcisi olarak `Nimbus` kullanmakla sınırlı olabilirsiniz.
+32+ GB RAM'e sahip daha güçlü bir NUC kullanıyorsanız, tüm istemci kombinasyonları size açıktır.
 
-The guidelines below assume you want a **comfortable** level of hardware, meaning you have excess capacity.
-If you keep these guidelines in mind, your node will have plenty of resources to run any of the Rocket Pool supported client combinations.
-This will allow you to choose a `random` client pair, which is very important for client diversity on the Ethereum network.
+Aşağıdaki yönergeler, **rahat** bir donanım seviyesi istediğinizi varsayar, yani fazla kapasiteniz olacaktır.
+Bu yönergeleri aklınızda tutarsanız, node'unuz Rocket Pool tarafından desteklenen tüm istemci kombinasyonlarını çalıştırmak için yeterli kaynaklara sahip olacaktır.
+Bu, Ethereum ağındaki istemci çeşitliliği için çok önemli olan `random` bir istemci çifti seçmenize olanak tanır.
 
-::: tip NOTE
-Ethereum staking is very forgiving.
-If your house is flooded and your staking device is fried, there is no big penalty for taking a week to get back up and running (unless you happen to be in a sync committee, which is a very rare event).
-Component failure might happen at some point, but don't stress about it.
-Downtime does not get you slashed unless you are offline during a major outage of the entire Ethereum network.
+::: tip NOT
+Ethereum staking çok bağışlayıcıdır.
+Eviniz su bastıysa ve staking cihazınız bozulduysa, tekrar çalışır hale gelmek için bir hafta harcamanın büyük bir cezası yoktur (tabii ki çok nadir bir olay olan bir sync komitesinde olmadığınız sürece).
+Bileşen arızası bir noktada meydana gelebilir, ancak bunun için stres yapmayın.
+Kesinti, Ethereum ağının tamamında büyük bir kesinti sırasında çevrimdışı olmadığınız sürece sizi slash etmez.
 :::
 
-## Hardware Requirements
+## Donanım Gereksinimleri
 
-Ethereum validators are not very computationally expensive, which is to say that once your Execution and Consensus clients are running, any additional validator will use **a very small amount of additional resources**.
-This grows up to 64 validators, at which point the resources required for adding a 65th validator and beyond are negligible.
+Ethereum validator'ları hesaplama açısından çok pahalı değildir, yani Execution ve Consensus istemcileriniz çalıştığında, herhangi bir ek validator **çok küçük miktarda ek kaynak** kullanacaktır.
+Bu, 64 validator'a kadar büyür ve bu noktada 65. validator ve sonrası için gereken kaynaklar ihmal edilebilir düzeydedir.
 
-In our experience, most setups, including mini-PCs and NUCs, are capable of running an effectively unlimited number of validators.
+Deneyimlerimize göre, mini-PC'ler ve NUC'lar dahil olmak üzere çoğu kurulum, etkili bir şekilde sınırsız sayıda validator çalıştırabilir.
 
-### CPU Requirements
+### CPU Gereksinimleri
 
-**Guideline: any modern CPU with at least 4 threads.**
+**Yönerge: en az 4 thread'e sahip herhangi bir modern CPU.**
 
-Running a Rocket Pool node is not very computationally intensive.
-The biggest impact of the CPU is how fast your node can initially sync the state of the blockchain when you first create it (or if you ever change clients later).
-After the initial sync, the CPU is not used as heavily.
+Rocket Pool node'u çalıştırmak hesaplama açısından çok yoğun değildir.
+CPU'nun en büyük etkisi, ilk oluşturduğunuzda (veya daha sonra istemcileri değiştirirseniz) node'unuzun blockchain durumunu ne kadar hızlı senkronize edebildiğidir.
+İlk senkronizasyondan sonra, CPU o kadar yoğun kullanılmaz.
 
-CPU naming can be deceptive; an Intel Core i5 from 2010 is usually **less powerful** than a core i3 from 2022.
-Many community members use Intel NUC devices because of their small form factor, but an old i5 NUC may be a worse choice than a new i3.
-For this reason, we recommend using a "modern" CPU that is, at most, a few years old.
-More specifically, **for x64-based CPUs**, we recommend a CPU that supports the [BMI2](<https://en.wikipedia.org/wiki/X86_Bit_manipulation_instruction_set#BMI2_(Bit_Manipulation_Instruction_Set_2)>) extension - check the manufacturer's specs for your CPU to see if it is supported.
-Not all modern CPUs support this; for example, Celeron CPUs tend not to include it.
+CPU isimlendirmesi yanıltıcı olabilir; 2010'dan bir Intel Core i5, genellikle 2022'den bir core i3'ten **daha az güçlüdür**.
+Birçok topluluk üyesi, küçük form faktörleri nedeniyle Intel NUC cihazlarını kullanır, ancak eski bir i5 NUC, yeni bir i3'ten daha kötü bir seçim olabilir.
+Bu nedenle, en fazla birkaç yaşında olan "modern" bir CPU kullanmanızı öneririz.
+Daha spesifik olarak, **x64 tabanlı CPU'lar için**, [BMI2](<https://en.wikipedia.org/wiki/X86_Bit_manipulation_instruction_set#BMI2_(Bit_Manipulation_Instruction_Set_2)>) uzantısını destekleyen bir CPU öneriyoruz - desteklenip desteklenmediğini görmek için CPU'nuzun üretici özelliklerini kontrol edin.
+Tüm modern CPU'lar bunu desteklemez; örneğin, Celeron CPU'lar bunu içermeme eğilimindedir.
 
-ARM-based CPUs (such as the Mac M1 or M2, or the Rock 5B) do not apply to the BMI2 extension above.
+ARM tabanlı CPU'lar (Mac M1 veya M2 ya da Rock 5B gibi) yukarıdaki BMI2 uzantısı için geçerli değildir.
 
-::: tip NOTE
-If you are interested in using a NUC, you can tell how modern the NUC is by its model number.
-They are formatted as `NUC` + `generation number` + `model` + `CPU type` + `suffix`.
-For example, a `NUC11PAHi50Z` unit is a 11th generation i5 unit.
-You can see a list of NUCs [here](https://www.intel.com/content/www/us/en/products/details/nuc/kits/products.html) on the Intel website.
+::: tip NOT
+Bir NUC kullanmak istiyorsanız, NUC'un model numarasından ne kadar modern olduğunu anlayabilirsiniz.
+Bunlar `NUC` + `nesil numarası` + `model` + `CPU türü` + `sonek` olarak biçimlendirilir.
+Örneğin, bir `NUC11PAHi50Z` birimi 11. nesil bir i5 birimidir.
+Intel web sitesinde [burada](https://www.intel.com/content/www/us/en/products/details/nuc/kits/products.html) NUC'ların bir listesini görebilirsiniz.
 
-Other mini-PCs, such as the Asus PN50 or PN51, do not follow this convention but information about which CPU is used by them should be included in their product pages.
+Asus PN50 veya PN51 gibi diğer mini-PC'ler bu konvansiyonu takip etmez, ancak hangi CPU'yu kullandıklarına ilişkin bilgiler ürün sayfalarında yer almalıdır.
 :::
 
-The amount of cores on a CPU is less relevant than its **number of threads**.
-We recommend a **minimum of 4 threads** for Rocket Pool node operation.
-A 2 core CPU with 4 threads will work without issue.
-It is rare to find a CPU with only 2 threads.
+Bir CPU'daki çekirdek sayısı, **thread sayısından** daha az alakalıdır.
+Rocket Pool node işletimi için **minimum 4 thread** öneriyoruz.
+4 thread'li 2 çekirdekli bir CPU sorunsuz çalışacaktır.
+Sadece 2 thread'e sahip bir CPU bulmak nadirdir.
 
-### RAM Requirements
+### RAM Gereksinimleri
 
-**Guideline: at least 16 GB of RAM, 32 GB preferred, DDR4 preferred**
+**Yönerge: en az 16 GB RAM, 32 GB tercih edilir, DDR4 tercih edilir**
 
-Rocket Pool nodes can operate with as little as 16 GB of RAM.
-We generally recommend having slightly more to offer some headroom and full support for RAM-heavy clients such as Teku.
-An added benefit of more RAM is that you can provide a larger cache size to Execution client, which tends to slow the rate of your disk space usage.
+Rocket Pool node'ları 16 GB RAM kadar az ile çalışabilir.
+Genel olarak biraz daha fazlasına sahip olmanızı öneriyoruz, bu da biraz boşluk sağlar ve Teku gibi RAM yoğun istemciler için tam destek sunar.
+Daha fazla RAM'in ek bir yararı, Execution istemcisine daha büyük bir önbellek boyutu sağlayabilmenizdir, bu da disk alanı kullanım hızınızı yavaşlatma eğilimindedir.
 
-### SSD Requirements
+### SSD Gereksinimleri
 
-**Guideline: a 2+ TB SSD that has TLC or better, with a DRAM cache. NVMe preferred.**
+**Yönerge: TLC veya daha iyisine sahip, DRAM önbelleği olan 2+ TB SSD. NVMe tercih edilir.**
 
-This element is more important than most people expect.
-The Execution client relies heavily on IOPS, or "operations per second"; we recommend 15k Read IOPS, and 5k Write IOPS
-In practice, this means that:
+Bu öğe çoğu insanın beklediğinden daha önemlidir.
+Execution istemcisi IOPS'ye veya "saniyedeki işlem sayısına" büyük ölçüde dayanır; 15k Okuma IOPS ve 5k Yazma IOPS öneriyoruz
+Pratikte bu şu anlama gelir:
 
-- HDD (spinning platter) drives will not work
-- SATA or external USB 3.0+ SSDs _can_ work
-- NVMe SSD drives are preferred
+- HDD (döner plaka) sürücüler çalışmayacaktır
+- SATA veya harici USB 3.0+ SSD'ler _çalışabilir_
+- NVMe SSD sürücüler tercih edilir
 
-If you already have an SSD you want to use and want to be sure it has sufficient performance for node operation.
+Kullanmak istediğiniz bir SSD'niz varsa ve node işletimi için yeterli performansa sahip olduğundan emin olmak istiyorsanız.
 
-_\* If you are unsure if your disk meets these performance requirements, `fio` is a good way to test them.
-See [here](https://arstech.net/how-to-measure-disk-performance-iops-with-fio-in-linux/) for Linux instructions,
-and [here](https://www.nivas.hr/blog/2017/09/19/measuring-disk-io-performance-macos/) for MacOS instructions._
+_\* Diskinizin bu performans gereksinimlerini karşılayıp karşılamadığından emin değilseniz, `fio` bunları test etmenin iyi bir yoludur.
+Linux talimatları için [buraya](https://arstech.net/how-to-measure-disk-performance-iops-with-fio-in-linux/),
+ve MacOS talimatları için [buraya](https://www.nivas.hr/blog/2017/09/19/measuring-disk-io-performance-macos/) bakın._
 
-:::tip NOTE
-SSD selection can be a complex choice!
+:::tip NOT
+SSD seçimi karmaşık bir seçim olabilir!
 
-The method SSDs use to store data on their flash chips has a noticeable impact on speed and longevity.
-When shopping for an SSD you might notice labels like `QLC`, `TLC` or `SLC`.
-These stand for the amount of data contained within a single cell of the flash chip: `Q` for "quad" means 4, `T` for "triple" means 3, `M` for "multi" means 2, and `S` for "single" means 1.
+SSD'lerin flash çiplerinde veri depolama yöntemi, hız ve uzun ömür üzerinde belirgin bir etkiye sahiptir.
+Bir SSD satın alırken `QLC`, `TLC` veya `SLC` gibi etiketler görebilirsiniz.
+Bunlar, flash çipinin tek bir hücresinde bulunan veri miktarını temsil eder: `Q` "quad" için 4, `T` "triple" için 3, `M` "multi" için 2 ve `S` "single" için 1 anlamına gelir.
 
-We recommend **TLC, MLC, or SLC** drives.
-We **do not recommend QLC drives** due to their slower performance and lower total reliability.
+**TLC, MLC veya SLC** sürücüleri öneriyoruz.
+Daha yavaş performansları ve daha düşük toplam güvenilirlikleri nedeniyle **QLC sürücüleri önermiyoruz**.
 
-SSDs come with or without DRAM, which is a hardware element that makes accessing data on the SSD more efficient.
-Those with DRAM are faster but those without DRAM are cheaper.
-However, DRAM is quite important for providing smooth node operation.
+SSD'ler DRAM ile veya DRAM olmadan gelir, bu da SSD'deki verilere erişimi daha verimli hale getiren bir donanım öğesidir.
+DRAM'li olanlar daha hızlıdır, ancak DRAM'siz olanlar daha ucuzdur.
+Ancak, DRAM sorunsuz node işletimi sağlamak için oldukça önemlidir.
 
-We recommend a drive with a **DRAM** cache.
-We **do not recommend DRAM-less drives**.
+**DRAM** önbelleği olan bir sürücü öneriyoruz.
+**DRAM'siz sürücüleri önermiyoruz**.
 :::
 
-The final consideration is drive size.
-As of 10/2024, the `geth` execution client database size requires about 1.2TB of space after it finishes its initial sync (or after you just finished pruning it).
-This will grow steadily over time, and while pruning can regain some of that space, the freshly pruned state _does_ grow over time.
-You will have peace of mind with a larger drive.
+Son değerlendirme sürücü boyutudur.
+10/2024 itibarıyla, `geth` execution istemci veritabanı boyutu, ilk senkronizasyonunu tamamladıktan sonra (veya budamayı yeni bitirdikten sonra) yaklaşık 1.2TB alan gerektirir.
+Bu zamanla istikrarlı bir şekilde büyüyecektir ve budama bu alanın bir kısmını geri kazandırabilse de, yeni budanmış durum _zamanla_ büyür.
+Daha büyük bir sürücü ile gönül rahatlığına sahip olacaksınız.
 
-### Common Accessories
+### Yaygın Aksesuarlar
 
-Many node operators improve their setups beyond the minimum requirements.
-Some common additions include:
+Birçok node operatörü, minimum gereksinimlerin ötesinde kurulumlarını geliştirir.
+Bazı yaygın eklemeler şunlardır:
 
-- SSD heatsinks to extend the drive lifespan
-- Uninterruptable power supplies (UPS) in case of power outages
-- A fallback node to have a backup in case something fails
+- SSD ömrünü uzatmak için SSD soğutucuları
+- Elektrik kesintileri durumunda kesintisiz güç kaynakları (UPS)
+- Bir şey başarısız olması durumunda yedek olarak bir geri dönüş node'u
 
-These are all convenient to have, but not required to run a Rocket Pool node.
+Bunların hepsi sahip olmak için uygundur, ancak Rocket Pool node'u çalıştırmak için gerekli değildir.
 
-## Example Setups
+## Örnek Kurulumlar
 
-In this section, we'll showcase a few of the varied builds that Rocket Pool's community has created for themselves.
-They are examples of what people are using, not recommendations for how you should run your setup.
-Note that many are somewhat outdated and, eg, use SSDs that are now too small.
+Bu bölümde, Rocket Pool topluluğunun kendileri için oluşturduğu çeşitli yapıların birkaçını sergileyeceğiz.
+Bunlar, insanların kullandığı örneklerdir, kurulumunuzu nasıl çalıştırmanız gerektiğine dair öneriler değil.
+Birçoğunun biraz eski olduğunu ve örneğin artık çok küçük olan SSD'ler kullandığını unutmayın.
 
-### Xer0's Server
+### Xer0'nun Sunucusu
 
 ![](./images/Xer0.jpg)
 
-Discord user **Xer0** is among the many stakers that opted to go with a conventional PC form factor for their staking machine.
-They wanted to build a rig that would last for years and years to come with minimal maintenance and upgrading required, while still offering complete customization of every component.
-To that end, Xer0 devised and built a full ATX server - much like a traditional desktop PC, but targeted exclusively at staking on Ethereum.
-Their setup includes a six-core Xeon Bronze 3204 (1.9 GHz), 8 DDR4 slots, and an M.2 slot... though since this is essentially a home server build, the exact components are completely up to the end user.
+Discord kullanıcısı **Xer0**, staking makineleri için geleneksel PC form faktörünü seçen birçok staker arasındadır.
+Minimal bakım ve yükseltme gerektiren, önümüzdeki yıllarca dayanacak bir rig oluşturmak istediler, aynı zamanda her bileşenin tam özelleştirmesini sunuyorlardı.
+Bu amaçla, Xer0 tam bir ATX sunucusu tasarladı ve inşa etti - geleneksel bir masaüstü PC gibi, ancak yalnızca Ethereum üzerinde staking'e yönelik.
+Kurulumları altı çekirdekli bir Xeon Bronze 3204 (1.9 GHz), 8 DDR4 yuvası ve bir M.2 yuvası içerir... ancak bu esasen bir ev sunucusu yapısı olduğundan, tam bileşenler tamamen son kullanıcıya kalmıştır.
 
-Xer0's setup:
+Xer0'nun kurulumu:
 
-- Motherboard: [Supermicro X11SPI-TF](https://www.newegg.com/supermicro-mbd-x11spi-tf-o-intel-xeon-scalable-processors-single-socket-p-supported-cpu-tdp-suppor/p/1B4-005W-00153) ($440)
+- Anakart: [Supermicro X11SPI-TF](https://www.newegg.com/supermicro-mbd-x11spi-tf-o-intel-xeon-scalable-processors-single-socket-p-supported-cpu-tdp-suppor/p/1B4-005W-00153) ($440)
 - CPU: [Xeon Bronze 3204](https://www.amazon.com/Intel-BX806954216-Bronze-1-9GHz-FC-LGA14B/dp/B07RTBMWVJ) ($248)
 - RAM: [NEMIX 2x32GB DDR4 ECC 2933MHz](https://www.amazon.com/2x32GB-DDR4-2933-PC4-23400-Registered-Memory/dp/B07V1YG2VV) ($359)
 - SSD: [Sabrent 2TB Rocket M.2 2280 SSD](https://www.newegg.com/sabrent-rocket-2tb/p/14R-00X6-00007) ($250)
-- Case: [SilverStone HTPC ATX GD07B](https://www.amazon.com/dp/B007X8TQW0) ($172)
+- Kasa: [SilverStone HTPC ATX GD07B](https://www.amazon.com/dp/B007X8TQW0) ($172)
 - PSU: [EVGA SuperNova 650 G3, 80+ Gold](https://www.newegg.com/evga-supernova-g3-series-220-g3-0650-y1-650w/p/N82E16817438094) ($111)
-- Cooler: [Noctua NH-D9 DX-3647 4U](https://www.amazon.com/Noctua-NH-D9-DX-3647-4U-Premium/dp/B07DPQJH5J) ($100)
-- **Total: $1680**
+- Soğutucu: [Noctua NH-D9 DX-3647 4U](https://www.amazon.com/Noctua-NH-D9-DX-3647-4U-Premium/dp/B07DPQJH5J) ($100)
+- **Toplam: $1680**
 
-Here are Xer0's comments on why they chose this setup:
+İşte Xer0'nun bu kurulumu neden seçtiğine dair yorumları:
 
-_Obviously there is no need to build a monstrosity for simply staking on the Ethereum network, but I do have a few reasons why I built something like this._
+_Açıkçası, sadece Ethereum ağında staking yapmak için bir canavar oluşturmaya gerek yok, ancak böyle bir şey inşa etmemin birkaç nedeni var._
 
-1. _Now I believe that 1 or more validators in the future will be worth much more than what we are seeing right now, so I wanted to buy something that will be able to support the network for at least the next 10-20 years without a hiccup._
-1. _By creating a machine that has at this many cores I've also given myself a lot more headroom to the point of I could run an L2 aggregator on top of this without any problems (regarding hardware) and anything else that I'd want to run on a server._ :)
-1. _I like building computers, and so I built it…_
-1. _With a server build, It gives me a lot more flexibility with hardware and features that most computers don't have natively._
-1. _A bit of future proof (just in-case)_ :wink:
+1. _Şimdi gelecekte 1 veya daha fazla validator'ın şu anda gördüğümüzden çok daha değerli olacağına inanıyorum, bu yüzden en az önümüzdeki 10-20 yıl boyunca hiçbir aksaklık olmadan ağı destekleyebilecek bir şey satın almak istedim._
+1. _Bu kadar çekirdeğe sahip bir makine oluşturarak kendime çok daha fazla boşluk verdim, bu noktada bunun üzerine bir L2 toplayıcı çalıştırabilirim (donanımla ilgili) ve bir sunucuda çalıştırmak istediğim başka her şeyi çalıştırabilirim._ :)
+1. _Bilgisayar oluşturmayı severim ve bu yüzden onu oluşturdum..._
+1. _Bir sunucu yapısı ile, çoğu bilgisayarın yerel olarak sahip olmadığı donanım ve özelliklerle çok daha fazla esneklik sağlar._
+1. _Biraz gelecek korumalı (her ihtimale karşı)_ :wink:
 
-### Darcius's Shelf Rig
+### Darcius'un Raf Rig'i
 
 ![](./images/Darcius.jpg)
 
-Rocket Pool's founder David Rugendyke (known on Discord as **darcius**) spent a long time perfecting his node.
-After some debate, he built a Mini-ITX that's small and portable, but still packs an enormous amount of processing power.
-His rig includes an 8-core Ryzen 7 5800x (3.8 GHz), two DDR4 slots, and two M.2 slots for NVMe SSDs.
-It is truly one of the most high-performance rigs of the Rocket Pool nodes, but with good reason: darcius runs a special type of Rocket Pool node called an Oracle Node, which relays information from the Beacon chain back to the Execution chain about all of the Rocket Pool validators.
-With thousands of Rocket Pool minipools active to watch, that job takes a lot of horsepower... but his shelf rig is easily up to the task.
+Rocket Pool'un kurucusu David Rugendyke (Discord'da **darcius** olarak bilinir) node'unu mükemmelleştirmek için uzun zaman harcadı.
+Biraz tartışmanın ardından, küçük ve taşınabilir, ancak yine de muazzam miktarda işlem gücü içeren bir Mini-ITX oluşturdu.
+Rig'i 8 çekirdekli bir Ryzen 7 5800x (3.8 GHz), iki DDR4 yuvası ve NVMe SSD'ler için iki M.2 yuvası içerir.
+Rocket Pool node'larının en yüksek performanslı rig'lerinden biri, ancak iyi bir nedenle: darcius, Beacon zincirinden tüm Rocket Pool validator'ları hakkında Execution zincirine bilgi aktaran Oracle Node adı verilen özel bir Rocket Pool node'u türü çalıştırır.
+İzlenecek binlerce Rocket Pool minipool aktif olduğunda, bu iş çok fazla güç gerektirir... ancak raf rig'i bu görev için kolayca yeterlidir.
 
-Darcius's setup:
+Darcius'un kurulumu:
 
-- Motherboard: [MSI MPG B550I Mini-ITX AMD](https://www.newegg.com/msi-mpg-b550i-gaming-edge-wifi/p/N82E16813144323) ($200)
+- Anakart: [MSI MPG B550I Mini-ITX AMD](https://www.newegg.com/msi-mpg-b550i-gaming-edge-wifi/p/N82E16813144323) ($200)
 - CPU: [AMD Ryzen 7 5800x](https://www.newegg.com/amd-ryzen-7-5800x/p/N82E16819113665) ($490)
 - RAM: [Corsair Vengeance RGB Pro 2x16GB DDR4 3600MHz](https://www.newegg.com/p/0RN-00P8-000A5) ($390)
 - SSD: [Samsung 970 EVO Plus 2TB M.2 2280 NVMe SSD](https://www.newegg.com/samsung-970-evo-plus-2tb/p/N82E16820147744) ($315)
-- Case: [SilverStone SST-SG13B Mini-ITX](https://www.amazon.com/SilverStone-Technology-Mini-ITX-Computer-SST-SG13WB-USA/dp/B07MNC3JCB) ($52)
+- Kasa: [SilverStone SST-SG13B Mini-ITX](https://www.amazon.com/SilverStone-Technology-Mini-ITX-Computer-SST-SG13WB-USA/dp/B07MNC3JCB) ($52)
 - PSU: [SilverStone Strider Platinum 550W](https://www.newegg.com/silverstone-strider-platinum-series-ps-st55f-pt-550w/p/N82E16817256154) ($140)
-- **Total: $1587**
+- **Toplam: $1587**
 
-### Yorick's microATX Build
+### Yorick'in microATX Yapısı
 
 ![](./images/Yorick-stock.jpg)
 
-Veteran hardware enthusiast **YorickDowne** has a lot of experience building and maintaining servers.
-Using that knowledge, he has settled on a flexible microATX setup.
-His machine is considerably smaller than a typical PC, but still manages to fit in server-grade technology that maximizes resilience and uptime - key metrics when running a Rocket Pool node.
-He has recommendations for both Intel and AMD setups, which you can find [on his website](https://eth-docker.net/docs/Usage/Hardware).
-The Intel version uses a quad core i3-9100F (3.6 GHz) or a Xeon CPU, and the AMD version suggests any Ryzen CPU that supports ECC memory.
-For both configurations, he suggests 16 GB of ECC RAM, and a 1 TB NVMe SSD.
+Deneyimli donanım meraklısı **YorickDowne**, sunucu oluşturma ve bakım konusunda çok fazla deneyime sahiptir.
+Bu bilgiyi kullanarak, esnek bir microATX kurulumuna karar verdi.
+Makinesi tipik bir PC'den çok daha küçüktür, ancak yine de Rocket Pool node'u çalıştırırken önemli ölçütler olan dayanıklılığı ve çalışma süresini maksimize eden sunucu sınıfı teknolojiye sığmayı başarır.
+Intel ve AMD kurulumları için önerileri var, bunları [web sitesinde](https://eth-docker.net/docs/Usage/Hardware) bulabilirsiniz.
+Intel versiyonu dört çekirdekli bir i3-9100F (3.6 GHz) veya bir Xeon CPU kullanır ve AMD versiyonu ECC belleği destekleyen herhangi bir Ryzen CPU önerir.
+Her iki konfigürasyon için de 16 GB ECC RAM ve 1 TB NVMe SSD önerir.
 
-Yorick's Setup:
+Yorick'in Kurulumu:
 
-- Motherboard: [SuperMicro X11SCL-F-O](https://www.newegg.com/supermicro-mbd-x11scl-f-o-8th-generation-intel-core-i3-pentium-celeron-processor-intel-xeon-pro/p/N82E16813183671) ($200)
+- Anakart: [SuperMicro X11SCL-F-O](https://www.newegg.com/supermicro-mbd-x11scl-f-o-8th-generation-intel-core-i3-pentium-celeron-processor-intel-xeon-pro/p/N82E16813183671) ($200)
 - CPU: [Intel i3-9100F](https://www.newegg.com/intel-core-i3-9th-gen-core-i3-9100f/p/N82E16819118072) ($150)
 - RAM: [Samsung 1x16GB DDR4 ECC UDIMM 2400MHz](https://www.newegg.com/samsung-16gb-288-pin-ddr4-sdram/p/1WK-002G-00080) ($100)
 - SSD: [Samsung 970 EVO Plus 1TB M.2 2280 NVMe SSD](https://www.newegg.com/samsung-970-evo-plus-1tb/p/N82E16820147743?Item=N82E16820147743) ($165)
-- Case: [SilverStone Micro ATX HTPC Case ML04B-USA](https://www.amazon.com/Silverstone-Technology-Aluminum-Center-ML04B-USA/dp/B07PD8CL7P/) ($110)
-- PSU: Any (example: [Seasonic PRIME Fanless PX-500 Platinum 500W](https://www.newegg.com/seasonic-prime-fanless-px-500-500w/p/N82E16817151234)) ($161)
-- Case fans: Any
-- **Total: About $886**
+- Kasa: [SilverStone Micro ATX HTPC Case ML04B-USA](https://www.amazon.com/Silverstone-Technology-Aluminum-Center-ML04B-USA/dp/B07PD8CL7P/) ($110)
+- PSU: Herhangi biri (örnek: [Seasonic PRIME Fanless PX-500 Platinum 500W](https://www.newegg.com/seasonic-prime-fanless-px-500-500w/p/N82E16817151234)) ($161)
+- Kasa fanları: Herhangi biri
+- **Toplam: Yaklaşık $886**
 
-Here are Yorick's comments on why he chose this setup:
+İşte Yorick'in bu kurulumu neden seçtiğine dair yorumları:
 
-- _It is at the same or lower cost as some NUCs_
-- _It has ECC RAM, which means that if memory fails - which it does now and then - I will know, because the system will tell me. I do not have to run memtest87 for 4-5 days to figure out whether my problem with instability is even memory-related. I protect my time fiercely so I can spend it bloviating on Discord instead of troubleshooting hardware_
-- _It has IPMI, which is remote management via Ethernet/browser of the entire machine, including UEFI and power-cycle. I should be allowed to go on an extended vacation and still have full remote access._
-- _If I want redundant storage so eventual SSD failure is a non-event, I can do that_
-- _It allows for great flexibility in build choices. I can choose however much RAM and compute I want; I can choose to run a NAS with virtualization tech like TrueNAS Scale and run the node on there alongside some other home-servery stuff._
+- _Bazı NUC'larla aynı veya daha düşük maliyettedir_
+- _ECC RAM'e sahiptir, bu da bellek başarısız olursa - ki zaman zaman olur - bileceğim anlamına gelir, çünkü sistem bana söyleyecektir. Sorunumun bellekle ilgili olup olmadığını anlamak için 4-5 gün boyunca memtest87 çalıştırmak zorunda değilim. Zamanımı şiddetle koruyorum, böylece donanım sorunlarını gidermek yerine Discord'da konuşarak geçirebilirim_
+- _IPMI'ye sahiptir, bu da Ethernet/tarayıcı aracılığıyla UEFI ve güç döngüsü dahil olmak üzere tüm makinenin uzaktan yönetimidir. Uzun bir tatile gitmeme izin verilmeli ve hala tam uzaktan erişime sahip olmalıyım._
+- _Yedekli depolama istiyorsam, böylece olası SSD arızası bir olay değildir, bunu yapabilirim_
+- _Yapı seçimlerinde büyük esneklik sağlar. Ne kadar RAM ve hesaplama istediğimi seçebilirim; TrueNAS Scale gibi sanallaştırma teknolojisi ile bir NAS çalıştırabilir ve node'u orada diğer ev sunucusu şeyleriyle birlikte çalıştırabilirim._
 
-### Drez's Laptop
+### Drez'in Dizüstü Bilgisayarı
 
 ![](./images/Drez.jpg)
 
-Sometimes, shelling out for new hardware just doesn't make sense.
-In Discord user **Drez**'s case, running a Rocket Pool node is one of those times.
-Drez happened to have a spare laptop lying around, and they turned it into a node with ease.
-Their machine comes with a quad core i7-4710HQ (2.5 GHz), two DDR3 slots, and a 2.5" SATA slot.
-Being a laptop, it also comes with its own battery (which offsets the need for a UPS).
-They added some additional upgrades over time, giving the laptop even more power for extra peace of mind.
+Bazen, yeni donanım için para harcamak mantıklı değildir.
+Discord kullanıcısı **Drez**'in durumunda, Rocket Pool node'u çalıştırmak bu zamanlardan biridir.
+Drez'in etrafta yedek bir dizüstü bilgisayarı vardı ve onu kolaylıkla bir node'a dönüştürdüler.
+Makineleri dört çekirdekli bir i7-4710HQ (2.5 GHz), iki DDR3 yuvası ve bir 2.5" SATA yuvası ile birlikte gelir.
+Bir dizüstü bilgisayar olduğu için, kendi piliyle birlikte gelir (bu da UPS ihtiyacını ortadan kaldırır).
+Zamanla bazı ek yükseltmeler eklediler, dizüstü bilgisayara ekstra gönül rahatlığı için daha fazla güç verdiler.
 
-Drez's setup:
+Drez'in kurulumu:
 
-- Laptop: [MSI GE70 2PE Apache Pro](https://www.msi.com/Laptop/GE70-2PE-Apache-Pro/Specification) ($1800)
-- RAM: 2x8GB DDR3 1333Mhz (Included)
+- Dizüstü bilgisayar: [MSI GE70 2PE Apache Pro](https://www.msi.com/Laptop/GE70-2PE-Apache-Pro/Specification) ($1800)
+- RAM: 2x8GB DDR3 1333Mhz (Dahil)
 - SSD: [Samsung 860 EVO 1TB 2.5" SATA](https://www.amazon.com/Samsung-Inch-Internal-MZ-76E1T0B-AM/dp/B078DPCY3T) ($110)
-- **Total: $1910**
+- **Toplam: $1910**
 
-Here are Drez's comments on why they chose this setup:
+İşte Drez'in bu kurulumu neden seçtiklerine dair yorumları:
 
-_Main reason i am gonna stake on this laptop is because i already had spare one and dont need to spend extra money on a new server.
-I like its mobility, compactness, built-in screen for easy monitoring.
-In case of overheating i bought a laptop cooling pad and spare CPU cooler just in case, i also recommend to change thermal compound paste especially if you're gonna run on an older machine_
+_Bu dizüstü bilgisayarda staking yapacağımın ana nedeni, zaten yedek bir taneye sahip olmam ve yeni bir sunucu için ekstra para harcamak zorunda olmamam.
+Mobilitesini, kompaktlığını, kolay izleme için yerleşik ekranını seviyorum.
+Aşırı ısınma durumunda bir dizüstü bilgisayar soğutma pedi ve her ihtimale karşı yedek bir CPU soğutucusu satın aldım, ayrıca özellikle eski bir makinede çalıştıracaksanız termal macun pastasını değiştirmenizi öneririm_
 
-## NUCs (Next Unit of Computing) and Mini-PCs
+## NUC'lar (Next Unit of Computing) ve Mini-PC'ler
 
-Running a Rocket Pool node doesn't necessarily require a complete build-it-yourself desktop.
-In fact, one of the most popular setups among stakers is the illustrious NUC.
-A NUC (Next Unit of Computing) is essentially a small, self-contained computer that is designed around very low power usage and maximum efficiency.
-NUCs are great for most stakers that only run a few validators because of their low maintenance, low monthly running costs, and ease of setup.
-Unlike PCs, NUCs come preassembled in a case; all you need to do is add some RAM, add an SSD, and you're up and running!
-Below are a few examples of NUC setups that some Rocket Pool veterans use and recommend.
+Rocket Pool node'u çalıştırmak mutlaka kendi kendinize yapın masaüstü gerektirmez.
+Aslında, staker'lar arasında en popüler kurulumlardan biri ünlü NUC'tur.
+Bir NUC (Next Unit of Computing) esasen çok düşük güç kullanımı ve maksimum verimlilik etrafında tasarlanmış küçük, bağımsız bir bilgisayardır.
+NUC'lar, düşük bakımları, düşük aylık çalışma maliyetleri ve kolay kurulumları nedeniyle yalnızca birkaç validator çalıştıran çoğu staker için harikadır.
+PC'lerin aksine, NUC'lar bir kasada önceden monte edilmiş olarak gelir; tek yapmanız gereken biraz RAM eklemek, bir SSD eklemek ve çalışır hale gelirsiniz!
+Aşağıda, bazı Rocket Pool deneyimli kullanıcılarının kullandığı ve önerdiği birkaç NUC kurulum örneği bulunmaktadır.
 
-::: tip NOTE
-**Ethernet Adaptor Compatibility**
+::: tip NOT
+**Ethernet Adaptör Uyumluluğu**
 
-If you're planning to buy an Intel® NUC 11th or 12th Generation you can encounter connectivity issues with the ethernet adaptor, specifically if the adaptor is identified as **I225-LM** (Check intel especifications before buying).
-If you already have one, there are steps you can take to address this concern.
-The I225-LM adaptor has been associated with certain compatibility challenges that may lead to **system freezes** and unexpected kernel behavior, particularly when using Linux kernels.
+Intel® NUC 11. veya 12. Nesil satın almayı planlıyorsanız, ethernet adaptörü ile bağlantı sorunlarıyla karşılaşabilirsiniz, özellikle adaptör **I225-LM** olarak tanımlanıyorsa (Satın almadan önce Intel özelliklerini kontrol edin).
+Zaten bir tane varsa, bu endişeyi gidermek için atabileceğiniz adımlar vardır.
+I225-LM adaptörü, özellikle Linux çekirdeklerini kullanırken **sistem donmalarına** ve beklenmeyen çekirdek davranışına yol açabilecek belirli uyumluluk zorluklarıyla ilişkilendirilmiştir.
 
-To determine if your NUC employs the problematic I225-LM ethernet adaptor, you can use the following command in the terminal:
+NUC'unuzun sorunlu I225-LM ethernet adaptörünü kullanıp kullanmadığını belirlemek için terminalde şu komutu kullanabilirsiniz:
 
 ```shell
 sudo lshw -class network | grep 225
 ```
 
-If the output confirms the presence of the I225-LM adaptor, you might experience the mentioned issues. However, there are _remedies_ you can apply to mitigate these problems:
+Çıktı I225-LM adaptörünün varlığını doğrularsa, bahsedilen sorunları yaşayabilirsiniz. Ancak, bu sorunları azaltmak için uygulayabileceğiniz _çözümler_ vardır:
 
-**USB-C to Ethernet Adaptor**: A viable solution involves acquiring a USB-C to Ethernet adaptor and connecting your internet cable through this external adaptor. While this approach requires additional hardware and configuration, it has proven effective in resolving the compatibility conflicts. This allows you to utilize the latest available Linux kernels without encountering the freezing or kernel-related anomalies associated with the I225-LM adaptor.**This is the recommended solution (for now) if you already have one NUC with the I225-LM** _Keep in mind that opting for an adaptor may introduce a trade-off in terms of potential latency or reduced internet velocity. To mitigate this impact, it's advisable to select an adaptor with at least 1GB/s portability, thereby helping maintain optimal data transfer rates._
+**USB-C'den Ethernet Adaptörü**: Uygulanabilir bir çözüm, bir USB-C'den Ethernet adaptörü edinmeyi ve internet kablonuzu bu harici adaptör aracılığıyla bağlamayı içerir. Bu yaklaşım ek donanım ve yapılandırma gerektirse de, uyumluluk çatışmalarını çözmede etkili olduğu kanıtlanmıştır. Bu, I225-LM adaptörüyle ilişkili donma veya çekirdekle ilgili anomalilerle karşılaşmadan en son kullanılabilir Linux çekirdeklerini kullanmanıza olanak tanır.**Zaten I225-LM'ye sahip bir NUC'unuz varsa bu önerilen çözümdür (şimdilik)** _Bir adaptör seçmenin, potansiyel gecikme veya azaltılmış internet hızı açısından bir değiş tokuş getirebileceğini unutmayın. Bu etkiyi azaltmak için, en az 1GB/s taşınabilirliğe sahip bir adaptör seçmeniz tavsiye edilir, böylece optimal veri aktarım hızlarını korumaya yardımcı olur._
 
-**Driver and Software Updates**: Consider updating your drivers, firmware, and BIOS by referring to the official Intel® support page for your NUC model [here](https://www.intel.com/content/www/us/en/search.html?ws=text#sort=relevancy&f:@tabfilter=[Downloads). This might include using the latest available support driver from Intel's website or applying BIOS updates that address compatibility concerns.
+**Sürücü ve Yazılım Güncellemeleri**: NUC modeliniz için resmi Intel® destek sayfasına [buradan](https://www.intel.com/content/www/us/en/search.html?ws=text#sort=relevancy&f:@tabfilter=[Downloads) başvurarak sürücülerinizi, donanım yazılımınızı ve BIOS'unuzu güncellemeyi düşünün. Bu, Intel web sitesinden en son kullanılabilir destek sürücüsünü kullanmayı veya uyumluluk endişelerini ele alan BIOS güncellemelerini uygulamayı içerebilir.
 
-**Intel's Patch (Windows)**: Intel has released a patch to address a similar issue on Windows systems. While the patch itself **may not directly apply to Linux environments**, it highlights the recognition of the problem by Intel and their efforts to provide solutions. You can find more details about the patch in this [link](https://www.intel.com/content/www/us/en/download/705968/patch-for-a-modern-standby-lan-issue-on-intel-nuc-11th-12th-generation-products.html?wapkw=nuc11tnhi3).
+**Intel'in Yaması (Windows)**: Intel, Windows sistemlerinde benzer bir sorunu ele almak için bir yama yayınladı. Yamanın kendisi **doğrudan Linux ortamlarına uygulanmayabilir**, Intel tarafından sorunun tanınmasını ve çözümler sağlama çabalarını vurgular. Yama hakkında daha fazla ayrıntıyı bu [bağlantıda](https://www.intel.com/content/www/us/en/download/705968/patch-for-a-modern-standby-lan-issue-on-intel-nuc-11th-12th-generation-products.html?wapkw=nuc11tnhi3) bulabilirsiniz.
 
-Keep in mind that technology evolves, and solutions might change over time. Always stay updated with the latest resources provided by Intel for your specific NUC model on their official Downloads [page](https://www.intel.com/content/www/us/en/search.html?ws=text#sort=relevancy&f:@tabfilter=[Downloads]).
+Teknolojinin geliştiğini ve çözümlerin zamanla değişebileceğini unutmayın. Resmi İndirmeler [sayfalarında](https://www.intel.com/content/www/us/en/search.html?ws=text#sort=relevancy&f:@tabfilter=[Downloads) belirli NUC modeliniz için Intel tarafından sağlanan en son kaynaklarla her zaman güncel kalın.
 
-By following these steps, you can address the compatibility challenges associated with the I225-LM ethernet adaptor on Intel® NUC 11th and 12th Generation Products, ensuring a smoother and more reliable experience with your server deployment. _While a subset of NUC users with this adaptor have reported experiencing no issues, it's important to note that the **majority of users**, particularly after a kernel upgrade, have encountered problems. Notably, the 5.15.+ kernels have proven to be the most stable option for those using the I225-LM adaptor. If the idea of using a USB-C adaptor isn't appealing and you're willing to take the risk of potential random freezes, it's advisable to **remain on a kernel version that has demonstrated greater stability**._
+Bu adımları izleyerek, Intel® NUC 11. ve 12. Nesil Ürünlerinde I225-LM ethernet adaptörüyle ilişkili uyumluluk zorluklarını ele alabilir, sunucu dağıtımınızla daha sorunsuz ve daha güvenilir bir deneyim sağlayabilirsiniz. _Bu adaptöre sahip NUC kullanıcılarının bir alt kümesi herhangi bir sorun yaşamadığını bildirmemiş olsa da, özellikle bir çekirdek yükseltmesinden sonra **kullanıcıların çoğunluğunun** sorunlarla karşılaştığını belirtmek önemlidir. Özellikle, 5.15.+ çekirdekleri I225-LM adaptörünü kullananlar için en kararlı seçenek olduğu kanıtlanmıştır. USB-C adaptörü kullanma fikri çekici değilse ve potansiyel rastgele donma riskini almaya istekliyseniz, **daha fazla kararlılık göstermiş bir çekirdek sürümünde kalmanız** tavsiye edilir._
 :::
 
-### Ken's NUC8i5BEK
+### Ken'in NUC8i5BEK'i
 
 ![](./images/Ken.jpg)
 
-The NUC8i5BEK is one of Intel's own NUCs with an 8th-generation processor.
-Released in 2018, this model comes with a quad-core i5-8259U CPU (2.30 GHz), two DDR4 slots, an M.2 slot for SSDs, and USB 3.1 ports.
-It normally draws about 20 watts, but Discord user **Ken** has been able to optimize it down to 9 watts during normal validation.
-It is more than capable of handling any Execution and any Consensus client, making it an excellent choice for a lightweight, efficient node machine.
+NUC8i5BEK, Intel'in 8. nesil işlemcili kendi NUC'larından biridir.
+2018'de piyasaya sürülen bu model dört çekirdekli bir i5-8259U CPU (2.30 GHz), iki DDR4 yuvası, SSD'ler için bir M.2 yuvası ve USB 3.1 portları ile birlikte gelir.
+Normalde yaklaşık 20 watt çeker, ancak Discord kullanıcısı **Ken** normal doğrulama sırasında onu 9 watt'a optimize edebildi.
+Herhangi bir Execution ve herhangi bir Consensus istemcisini işlemeye fazlasıyla yeteneklidir, bu da onu hafif, verimli bir node makinesi için mükemmel bir seçim haline getirir.
 
-Ken's Setup:
+Ken'in Kurulumu:
 
-- Base: [Intel NUC8i5BEK](https://www.amazon.com/Intel-NUC-Mainstream-Kit-NUC8i5BEK/dp/B07GX67SBM) ($349)
+- Temel: [Intel NUC8i5BEK](https://www.amazon.com/Intel-NUC-Mainstream-Kit-NUC8i5BEK/dp/B07GX67SBM) ($349)
 - RAM: [Dell Memory Upgrade - 1x16GB DDR4 SODIMM 3200MHz](https://www.dell.com/en-us/shop/dell-memory-upgrade-16gb-1rx8-ddr4-sodimm-3200mhz/apd/ab371022/memory) ($112)
 - SSD: [ADATA XPG S7 Series 2TB M.2 2280 NVMe SSD](https://www.amazon.com/XPG-S7-Gen3x4-Solid-State/dp/B08BDZQJP5) ($230)
-- Fanless Case (optional): [AKASA Turing Fanless case](https://www.amazon.com/Akasa-Compact-fanless-Generation-NUC45-M1B/dp/B07RTBF1SY) ($134)
-- **Total: $691 to $825**
+- Fansız Kasa (isteğe bağlı): [AKASA Turing Fanless case](https://www.amazon.com/Akasa-Compact-fanless-Generation-NUC45-M1B/dp/B07RTBF1SY) ($134)
+- **Toplam: $691 ila $825**
 
-Here are Ken's comments on why he chose this setup:
+İşte Ken'in bu kurulumu neden seçtiğine dair yorumları:
 
-- _Small size and footprint, the power supply is a brick on the power cord (like a laptop), single-board computer, x86 architecture, low purchase price point, low power consumption (~10W), 3-year warranty, and an active manufacture product line (Intel)._
-- _8th generations are plenty fast and at a lower price point than the latest generation chips._
-- _I upgraded to a fan-less (passively cooled) case, so the NUC is absolutely silent (0 dB) as I’m leaving it my home office (a stock NUC is near silent already)._
-- _Plus no mechanical wear on the fan bearings._
-- _Resale or re-purpose value if I decide to retire this hardware platform as my RP node - NUC’s make a great workstation computer._
+- _Küçük boyut ve ayak izi, güç kaynağı güç kablosunda bir tuğla (dizüstü bilgisayar gibi), tek kartlı bilgisayar, x86 mimarisi, düşük satın alma fiyatı noktası, düşük güç tüketimi (~10W), 3 yıllık garanti ve aktif bir üretim ürün hattı (Intel)._
+- _8. nesiller fazlasıyla hızlı ve en son nesil yongalardan daha düşük bir fiyat noktasındadır._
+- _Fansız (pasif soğutmalı) bir kasaya yükselttim, böylece NUC kesinlikle sessizdir (0 dB) çünkü onu ev ofisimde bırakıyorum (stok bir NUC zaten neredeyse sessizdir)._
+- _Ayrıca fan yataklarında mekanik aşınma yoktur._
+- _RP node'um olarak bu donanım platformunu emekliye ayırmaya karar verirsem yeniden satış veya yeniden kullanım değeri - NUC'lar harika bir iş istasyonu bilgisayarı yapar._
 
-### GreyWizard's NUC10i7FNH
+### GreyWizard'ın NUC10i7FNH'si
 
 ![](./images/GreyWizard.jpg)
 
-The NUC10i7FNH is another one of Intel's own NUCs.
-This one sports a 10th-generation processor, and was released in 2019.
-It comes with a six core i7-10710U CPU (1.10 GHz, boosts to 4.7 GHz), two DDR4 slots, an M.2 slot and a 2.5" slot for SSDs, and USB 3.1 ports.
-It draws about 20 watts of power.
-It is an incredibly powerful machine, given its power consumption and size.
-Discord user **GreyWizard** uses this NUC for his node - the extra power gives him peace of mind knowing that no matter what the future of the Ethereum 2.0 chain holds, his machine will be able to handle it.
+NUC10i7FNH, Intel'in kendi NUC'larından bir diğeridir.
+Bu, 10. nesil bir işlemciye sahiptir ve 2019'da piyasaya sürülmüştür.
+Altı çekirdekli bir i7-10710U CPU (1.10 GHz, 4.7 GHz'e yükselir), iki DDR4 yuvası, SSD'ler için bir M.2 yuvası ve bir 2.5" yuvası ve USB 3.1 portları ile birlikte gelir.
+Yaklaşık 20 watt güç çeker.
+Güç tüketimi ve boyutuna göre inanılmaz derecede güçlü bir makinedir.
+Discord kullanıcısı **GreyWizard** bu NUC'u node'u için kullanır - ekstra güç, Ethereum 2.0 zincirinin geleceği ne olursa olsun, makinesinin bununla başa çıkabileceğini bilerek gönül rahatlığı sağlar.
 
-GreyWizard's Setup:
+GreyWizard'ın Kurulumu:
 
-- Base: [Intel BXNUC10I7FNH1](https://www.newegg.com/intel-bxnuc10i7fnh1/p/N82E16856102227) ($445)
-- RAM: 2x [Samsung M471A4G43MB1 32GB DDR4 SODIMM 2666 MHz](https://www.newegg.com/samsung-32gb-260-pin-ddr4-so-dimm/p/0RM-002H-00156) ($154 ea.)
+- Temel: [Intel BXNUC10I7FNH1](https://www.newegg.com/intel-bxnuc10i7fnh1/p/N82E16856102227) ($445)
+- RAM: 2x [Samsung M471A4G43MB1 32GB DDR4 SODIMM 2666 MHz](https://www.newegg.com/samsung-32gb-260-pin-ddr4-so-dimm/p/0RM-002H-00156) ($154'er)
 - SSD: [Samsung 970 EVO Plus 2TB M.2 2280 NVMe SSD](https://www.newegg.com/samsung-970-evo-plus-2tb/p/N82E16820147744) ($315)
-- **Total: $1068**
+- **Toplam: $1068**
 
-Here are GreyWizard's comments on why he chose this setup:
+İşte GreyWizard'ın bu kurulumu neden seçtiğine dair yorumları:
 
-_I went with the i7 NUC mostly because it felt like the best combination of outstanding performance relative to overall size and overhead.
-I also looked at other options like building a Micro ATX-sized machine.
-After pricing one with the specs I was looking for, this Intel NUC ended up being about the same price, and the form factor is really tough to beat.
-I like having the extra headroom for performance/peace of mind, and I acknowledge that this is almost certainly way overkill.
-I consider staking as a serious investment and I don't want to worry if my hardware will be sufficient._
+_i7 NUC ile gittim çünkü genel boyut ve genel gidere göre olağanüstü performansın en iyi kombinasyonu gibi hissettim.
+Ayrıca Micro ATX boyutunda bir makine oluşturmak gibi diğer seçeneklere de baktım.
+Aradığım özelliklere sahip birini fiyatlandırdıktan sonra, bu Intel NUC yaklaşık aynı fiyatta çıktı ve form faktörü gerçekten yenilmesi zor.
+Performans/gönül rahatlığı için ekstra boşluğa sahip olmayı seviyorum ve bunun neredeyse kesinlikle aşırı olduğunu kabul ediyorum.
+Staking'i ciddi bir yatırım olarak görüyorum ve donanımımın yeterli olup olmayacağını merak etmek istemiyorum._
 
-_Tips for other people considering this as an option..._
+_Bunu bir seçenek olarak düşünen diğer insanlar için ipuçları..._
 
-- _The NUC does run pretty warm, similar temps to a laptop. If you worry about CPU temp and you want something powerful, then you should look at small desktop setups like Micro ATX._
-- _You will want to make sure there is plenty of room around your NUC for airflow. Plan to clean the area regularly to prevent dust buildup._
-- _Make sure to check compatibility for your RAM cards. The different NUCs support varying degrees of total RAM, RAM speeds, etc._
-- _If you go with the NUC, I'd suggest you give yourself room to grow when selecting RAM... For example, spend a bit extra and get a single 32gb RAM card rather than 2x16 so you can expand later if you want (assuming your NUC will support 64gb in this example)_
-- _Feel free to reach out to me on Discord if you would like to discuss._
+- _NUC oldukça sıcak çalışır, bir dizüstü bilgisayara benzer sıcaklıklar. CPU sıcaklığı konusunda endişeleniyorsanız ve güçlü bir şey istiyorsanız, Micro ATX gibi küçük masaüstü kurulumlarına bakmalısınız._
+- _NUC'unuzun etrafında hava akışı için bol yer olduğundan emin olmak isteyeceksiniz. Toz birikmesini önlemek için alanı düzenli olarak temizlemeyi planlayın._
+- _RAM kartlarınız için uyumluluğu kontrol ettiğinizden emin olun. Farklı NUC'lar toplam RAM, RAM hızları vb. değişen derecelerde destekler._
+- _NUC ile gidiyorsanız, RAM seçerken kendinize büyüme alanı vermenizi öneririm... Örneğin, biraz ekstra harcayın ve istediğinizde (bu örnekte NUC'unuzun 64gb destekleyeceğini varsayarak) daha sonra genişletebilmeniz için 2x16 yerine tek bir 32gb RAM kartı alın_
+- _Tartışmak isterseniz Discord'da benimle iletişime geçmekten çekinmeyin._
 
-### ArtDemocrat's NUC10i5FNHN Build Process Video
+### ArtDemocrat'ın NUC10i5FNHN Yapım Süreci Videosu
 
-To complement Greywizard's setup descriptions and tips, ArtDemocrat created this build process video as an additional help resource to set up a NUC10 (in this case a NUC10i5FNHN, but the build process should be similar for a NUC10i7FNH):
+Greywizard'ın kurulum açıklamalarını ve ipuçlarını tamamlamak için, ArtDemocrat bir NUC10 kurmak için ek bir yardım kaynağı olarak bu yapım süreci videosunu oluşturdu (bu durumda bir NUC10i5FNHN, ancak yapım süreci bir NUC10i7FNH için benzer olmalıdır):
 
 <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/NUC_Staking_Setup_-_ArtDemocrat.mp4" />
 
-ArtDemocrat's Setup:
+ArtDemocrat'ın Kurulumu:
 
-- Base: [Intel NUC NUC10i5FNHN (Barebone)](https://www.jacob.de/produkte/intel-nuc-nuc10i5fnhn-bxnuc10i5fnhn-artnr-7103179.html) ($300)
+- Temel: [Intel NUC NUC10i5FNHN (Barebone)](https://www.jacob.de/produkte/intel-nuc-nuc10i5fnhn-bxnuc10i5fnhn-artnr-7103179.html) ($300)
 - RAM: 1x [Crucial 32GB DDR4-3200 SODIMM](https://www.amazon.de/dp/B07ZLC7VNH) ($65)
 - SSD: [Samsung 970 EVO Plus 2TB M.2 2280 NVMe SSD](https://www.amazon.de/dp/B07MLJD32L) ($107)
 
-### Actioncj17's PN50
+### Actioncj17'nin PN50'si
 
 ![](./images/PN50-actioncj17.jpg)
 
-The ASUS PN50 is a mini-PC, which shares a lot in common with Intel's NUC family.
-It has a very small form factor but has all the components and features of a full PC.
-It comes with your choice of AMD CPU so you can balance between performance and cost (up to an 8-core Ryzen R7-4700U at 2.0 GHz), two DDR4 slots, an M.2 slot and a 2.5" slot for SSDs, and USB 3.1 ports.
-It also comes with a 90 watt power supply, though in practice it doesn't require that much power while acting as a Rocket Pool node.
-Discord user **actioncj17** has tried several different setups, but prefers the PN50 over everything... though they happily admit that it's overkill for running a Rocket Pool node.
+ASUS PN50, Intel'in NUC ailesiyle çok ortak noktası olan bir mini-PC'dir.
+Çok küçük bir form faktörüne sahiptir, ancak tam bir PC'nin tüm bileşenlerine ve özelliklerine sahiptir.
+AMD CPU seçiminizle birlikte gelir, böylece performans ve maliyet arasında denge kurabilirsiniz (8 çekirdekli bir Ryzen R7-4700U 2.0 GHz'e kadar), iki DDR4 yuvası, SSD'ler için bir M.2 yuvası ve bir 2.5" yuvası ve USB 3.1 portları.
+Ayrıca 90 watt'lık bir güç kaynağıyla birlikte gelir, ancak pratikte Rocket Pool node'u olarak hareket ederken bu kadar güç gerektirmez.
+Discord kullanıcısı **actioncj17** birkaç farklı kurulum denedi, ancak PN50'yi her şeyin üzerinde tercih eder... ancak Rocket Pool node'u çalıştırmak için aşırı olduğunu mutlu bir şekilde kabul ederler.
 
-Actioncj17's Setup:
+Actioncj17'nin Kurulumu:
 
-- Base: [ASUS PN50 4700u](https://www.newegg.com/asus-pn50-bbr066md/p/N82E16856110206) ($583)
+- Temel: [ASUS PN50 4700u](https://www.newegg.com/asus-pn50-bbr066md/p/N82E16856110206) ($583)
 - RAM: [HyperX Impact 2x16GB DDR4 SODIMM 3200MHz](https://www.newegg.com/hyperx-32gb-260-pin-ddr4-so-dimm/p/N82E16820104836) ($220)
 - SSD: [Samsung 970 EVO Plus 2TB M.2 2280 NVMe SSD](https://www.newegg.com/samsung-970-evo-plus-2tb/p/N82E16820147744) ($315)
-- **Total: $1118**
+- **Toplam: $1118**
 
-Here are actioncj17's comments on why they chose this setup:
+İşte actioncj17'nin bu kurulumu neden seçtiklerine dair yorumları:
 
-_My answer to why I chose the Asus PN50 is quite simple.
-I wanted to see how badass AMD's Ryzen 7 4700U was.
-Let’s just say I’m not disappointed.
-I actually started with the Intel NUC10FNK.
-I put 32gb of ram and 1tb 970 evo plus nvme m.2 in the nuc and it blazes.
-I have no complaints with the nuc and it works fine but I get more out of my PN50.
-I’d say both setups are overkill for staking on Rocketpool but a little future proofing doesn’t hurt.
-They both have small footprints and the nuc is actually much quieter since it is fanless.
-All in all the PN50 is a better bang for your buck if you can get your hands on one._
+_Asus PN50'yi neden seçtiğime dair cevabım oldukça basit.
+AMD'nin Ryzen 7 4700U'sunun ne kadar harika olduğunu görmek istedim.
+Diyelim ki hayal kırıklığına uğramadım.
+Aslında Intel NUC10FNK ile başladım.
+NUC'a 32gb ram ve 1tb 970 evo plus nvme m.2 koydum ve hızla çalışıyor.
+NUC ile ilgili herhangi bir şikayetim yok ve iyi çalışıyor ama PN50'mden daha fazlasını alıyorum.
+Rocketpool'da staking yapmak için her iki kurulumun da aşırı olduğunu söyleyebilirim, ancak biraz gelecek korumalı olmak zarar vermez.
+Her ikisi de küçük ayak izlerine sahip ve nuc aslında fansız olduğu için çok daha sessiz.
+Sonuç olarak PN50, elinize geçirebilirseniz paranızın karşılığını daha iyi verir._
 
-### Moralcompass's Mini-PC
+### Moralcompass'ın Mini-PC'si
 
 ![](./images/moralcompass-minipc.jpg)
 
-Discord user **moralcompass** went a similar route to actioncj17 by selecting a mini-PC, but their preference is for an Intel CPU.
-They use a mini PC that sports a quad core i5 8250U (1.6 GHz, boost up to 3.4 GHz), one DDR4 slot, an M.2 slot and a 2.5" slot for SSDs, and USB 3.0 ports.
-Moralcompass claims that it only pulls about 10 watts from the wall, which demonstrates that mini PCs like this are very efficient.
-The interesting thing about this choice is that it is completely passively cooled - no fans to be found!
-While there are many variations of fanless mini PCs, moralcompass found one that worked for them and has stuck with it.
+Discord kullanıcısı **moralcompass**, actioncj17'ye benzer bir rotaya gitti ve bir mini-PC seçti, ancak tercihi Intel CPU içindi.
+Dört çekirdekli bir i5 8250U (1.6 GHz, 3.4 GHz'e kadar yükselir), bir DDR4 yuvası, SSD'ler için bir M.2 yuvası ve bir 2.5" yuvası ve USB 3.0 portları olan bir mini PC kullanırlar.
+Moralcompass, duvardan sadece yaklaşık 10 watt çektiğini iddia eder, bu da bunun gibi mini PC'lerin çok verimli olduğunu gösterir.
+Bu seçimle ilgili ilginç olan şey, tamamen pasif soğutmalı olmasıdır - fan bulunamaz!
+Fansız mini PC'lerin birçok varyasyonu olsa da, moralcompass kendileri için işe yarayan birini buldu ve ona bağlı kaldı.
 
-Moralcompass's Setup:
+Moralcompass'ın Kurulumu:
 
-- Base: [Partaker Fanless Mini PC - i5 8250U](https://www.aliexpress.com/item/1005001867740130.html?spm=a2g0s.9042311.0.0.66e94c4d0ORiVh) ($387)
+- Temel: [Partaker Fanless Mini PC - i5 8250U](https://www.aliexpress.com/item/1005001867740130.html?spm=a2g0s.9042311.0.0.66e94c4d0ORiVh) ($387)
 - RAM: [Crucial 1x32GB DDR4 SODIMM 2666MHz](https://www.newegg.com/crucial-32gb-260-pin-ddr4-so-dimm/p/N82E16820156239) ($153)
 - SSD: [Silicon Power 1TB M.2 2280 NVMe SSD](https://www.amazon.com/Silicon-Power-Gen3x4-000MB-SU001TBP34A80M28AB/dp/B07L6GF81L) ($115)
-- **Total: $655**
+- **Toplam: $655**
 
-Here are moralcompass's comments on why they chose this setup:
+İşte moralcompass'ın bu kurulumu neden seçtiğine dair yorumları:
 
-- _No moving parts, no noise._
-- _Dual intel NIC (in case I decide to repurpose this as my router one day)_
-- _NVME + SATA slots (prefer NVME for speed and options with higher TBW endurance. SATA gives option of HDD or SSD. I avoided M.SATA interfaces because these SSDs seem to be turning legacy)_
-- _USB and serial ports available for graceful shutdown signal from UPS_
+- _Hareketli parça yok, gürültü yok._
+- _Çift intel NIC (bir gün bunu yönlendiricim olarak yeniden kullanmaya karar verirsem diye)_
+- _NVME + SATA yuvaları (hız ve daha yüksek TBW dayanıklılığına sahip seçenekler için NVME'yi tercih ederim. SATA, HDD veya SSD seçeneği sunar. M.SATA arayüzlerinden kaçındım çünkü bu SSD'ler eski hale geliyor gibi görünüyor)_
+- _UPS'den zarif kapatma sinyali için USB ve seri portlar mevcuttur_

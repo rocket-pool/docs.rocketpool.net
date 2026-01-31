@@ -1,36 +1,36 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Importing / Recovering an Existing Wallet
+# Mevcut Bir Cüzdanı İçe Aktarma / Kurtarma
 
-If you already have a wallet you'd like to use for your node, or if you're recovering a wallet you already created with the Smartnode earlier, this guide will help you through the import / recovery process.
+Düğümünüz için kullanmak istediğiniz bir cüzdanınız varsa veya daha önce Smartnode ile oluşturduğunuz bir cüzdanı kurtarıyorsanız, bu kılavuz size içe aktarma / kurtarma sürecinde yardımcı olacaktır.
 
-Please select the appropriate option from the sections below.
+Lütfen aşağıdaki bölümlerden uygun seçeneği seçin.
 
-## Recovering a Smartnode Wallet
+## Smartnode Cüzdanını Kurtarma
 
-If you generated your node wallet using the Smartnode and are simply recovering it on a new machine, the process is quite simple.
-Make sure you've already installed the Smartnode software, and then simply run the following command once it's installed:
+Smartnode kullanarak düğüm cüzdanınızı oluşturduysanız ve sadece yeni bir makinede kurtarıyorsanız, süreç oldukça basittir.
+Smartnode yazılımını halihazırda kurduğunuzdan emin olun ve ardından kurulduktan sonra basitçe şu komutu çalıştırın:
 
 ```shell
 rocketpool wallet recover
 ```
 
-::: warning NOTE
-If, for some reason, you want to recover the wallet but _not_ any of the validator keys attached to your node's minipools, you can specify the `-k` flag to skip the rebuild process:
+::: warning NOT
+Herhangi bir nedenle cüzdanı kurtarmak istiyorsanız ancak düğümünüzün minipool'larına bağlı doğrulayıcı anahtarlarından _herhangi birini kurtarmak istemiyorsanız_, yeniden oluşturma sürecini atlamak için `-k` bayrağını belirtebilirsiniz:
 
 ```shell
 rocketpool wallet recover -k
 ```
 
-If you do not specify this flag, the Smartnode will attempt to recover the validator keys for your minipools; however, note that this will not work until your Execution client has finished syncing.
-Please watch its log file to see when it's done; once it is, you can run this step.
+Bu bayrağı belirtmezseniz, Smartnode minipool'larınız için doğrulayıcı anahtarlarını kurtarmaya çalışacaktır; ancak bunun Execution istemciniz senkronizasyonu bitirene kadar çalışmayacağını unutmayın.
+Ne zaman bittiğini görmek için log dosyasını izleyin; bittiğinde bu adımı çalıştırabilirsiniz.
 :::
 
-This will first ask you for a password you want to use to encrypt your wallet.
-After that, it will ask for your **24 word mnemonic recovery phrase**.
-Enter it carefully - it will not be shown on-screen for safety, and it is very easy to make a mistake while typing it so take your time.
+Bu önce cüzdanınızı şifrelemek için kullanmak istediğiniz bir şifre isteyecektir.
+Bundan sonra, **24 kelimelik anımsatıcı kurtarma ifadenizi** isteyecektir.
+Dikkatli girin - güvenlik için ekranda gösterilmeyecektir ve yazarken hata yapmak çok kolaydır, bu yüzden acele etmeyin.
 
-When you're done, you should see output similar to this:
+Bitirdiğinizde, buna benzer bir çıktı görmelisiniz:
 
 ```shell
 $ rocketpool wallet recover
@@ -47,100 +47,100 @@ Node account: <your wallet address>
 No validator keys were found.
 ```
 
-If you don't see any errors, then your wallet and validators will be recovered.
+Herhangi bir hata görmüyorsanız, cüzdanınız ve doğrulayıcılarınız kurtarılacaktır.
 
-Once you're done, be sure to restart the Validator client with the following command for Docker and Hybrid mode users:
+Bitirdiğinizde, Docker ve Hybrid mode kullanıcıları için Validator istemcisini aşağıdaki komutla yeniden başlattığınızdan emin olun:
 
 ```shell
 docker restart rocketpool_validator
 ```
 
-**Native mode** users will simply have to restart their Validator container process.
+**Native mode** kullanıcıları sadece Validator container süreçlerini yeniden başlatmak zorunda kalacaklardır.
 
-This will ensure that the VC picks up all of the newly restored validator keys.
+Bu, VC'nin yeni geri yüklenen doğrulayıcı anahtarlarının tümünü almasını sağlayacaktır.
 
-## Importing an Existing Address as a Node Wallet
+## Mevcut Bir Adresi Düğüm Cüzdanı Olarak İçe Aktarma
 
-If you have an address you'd like to use for a node, but _didn't_ create it with the Smartnode (e.g., you created it with MetaMask or a hardware wallet), then this is the section to follow.
+Bir düğüm için kullanmak istediğiniz bir adresiniz varsa, ancak bunu Smartnode ile oluştur_madıysanız_ (örneğin, MetaMask veya bir donanım cüzdanı ile oluşturduysanız), takip edilecek bölüm budur.
 
-::: danger WARNING
-By doing this, your address will become a **hot wallet**.
-The private key will be stored on your node machine.
+::: danger UYARI
+Bunu yaparak, adresiniz bir **hot wallet** haline gelecektir.
+Özel anahtar düğüm makinenizde saklanacaktır.
 
-If you're importing an address that is a cold wallet, such as a hardware wallet, be advised that **the protection provided by the hardware wallet will no longer exist!**
+Donanım cüzdanı gibi soğuk bir cüzdan olan bir adresi içe aktarıyorsanız, **donanım cüzdanının sağladığı korumanın artık mevcut olmayacağını** unutmayın!
 
-If you use this wallet for _any other cryptocurrency activity at all_, **you must migrate all of its funds to a separate address (e.g. a different hardware wallet) before importing it into your node! Only leave enough ETH on this address for your node's gas costs (typically 0.5 ETH is sufficient).**
+Bu cüzdanı _herhangi bir başka kripto para birimi faaliyeti için kullanıyorsanız_, **düğümünüze aktarmadan önce tüm fonlarını ayrı bir adrese (örneğin farklı bir donanım cüzdanı) aktarmalısınız! Bu adreste yalnızca düğümünüzün gaz maliyetleri için yeterli ETH bırakın (genellikle 0.5 ETH yeterlidir).**
 
-Please ensure that you have secured your machine as much as possible by following the steps in the [Securing your Node](./securing-your-node) guide before importing your address as a node wallet.
+Lütfen adresinizi düğüm cüzdanı olarak içe aktarmadan önce [Securing your Node](./securing-your-node) kılavuzundaki adımları izleyerek makinenizi mümkün olduğunca güvence altına aldığınızdan emin olun.
 :::
 
-This capability is only available with Smartnode **v1.4.3 or higher**.
-If you have a lower version, you'll need to upgrade first.
+Bu yetenek yalnızca Smartnode **v1.4.3 veya üzeri** ile kullanılabilir.
+Daha düşük bir sürümünüz varsa, önce yükseltmeniz gerekecektir.
 
-This is a multi-step process, so follow the below sections carefully.
+Bu çok adımlı bir süreçtir, bu nedenle aşağıdaki bölümleri dikkatle izleyin.
 
-### Step 1: Add Externally-Generated Validator Keys
+### Adım 1: Harici Olarak Oluşturulmuş Doğrulayıcı Anahtarlarını Ekleme
 
-**If you don't have any existing minipools attached to the address you're importing, you can skip this step.**
+**İçe aktardığınız adrese bağlı mevcut minipool'larınız yoksa, bu adımı atlayabilirsiniz.**
 
-If your address has already been registered as a Rocket Pool node wallet (such as via a service like **Allnodes**) and already has active minipools, and you'd like to import them into the Smartnode stack along with your address, you will need to provide the private keystore files for each of their corresponding validators.
-These files will be encrypted with a password of your own choosing, so you will need that password for each file as well.
+Adresiniz halihazırda bir Rocket Pool düğüm cüzdanı olarak kaydedildiyse (örneğin **Allnodes** gibi bir hizmet aracılığıyla) ve halihazırda aktif minipool'ları varsa ve bunları adresinizle birlikte Smartnode yığınına aktarmak istiyorsanız, bunların her biri için karşılık gelen doğrulayıcıların özel keystore dosyalarını sağlamanız gerekecektir.
+Bu dosyalar kendi seçtiğiniz bir şifre ile şifrelenecektir, bu nedenle her dosya için o şifreye de ihtiyacınız olacaktır.
 
-You need to get these files from the service that is currently running your node in order to import it.
-Some service providers may be able to retrieve these files upon request.
-If you use Allnodes, you can get these files during your initial setup process but **will not be able to retrieve them in the future unless you saved them during minipool creation.**
+İçe aktarmak için şu anda düğümünüzü çalıştıran hizmetten bu dosyaları almanız gerekir.
+Bazı hizmet sağlayıcılar talep üzerine bu dosyaları alabilir.
+Allnodes kullanıyorsanız, bu dosyaları ilk kurulum süreciniz sırasında alabilirsiniz ancak **minipool oluşturma sırasında kaydetmediyseniz gelecekte bunları geri alamayacaksınız.**
 
-Select your installation mode and follow the steps below.
+Kurulum modunuzu seçin ve aşağıdaki adımları izleyin.
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker and Hybrid Mode">
-      First, ensure you've started the Smartnode with `rocketpool service start`.
-      This will create a special folder that can be used to hold the encrypted keystore files for your validators.
+      Önce, Smartnode'u `rocketpool service start` ile başlattığınızdan emin olun.
+      Bu, doğrulayıcılarınız için şifrelenmiş keystore dosyalarını tutmak için kullanılabilecek özel bir klasör oluşturacaktır.
 
-      By default, the folder is located in `~/.rocketpool/data/custom-keys`.
-      If you've customized your installation or data directories, substitute appropriately to find the `custom-keys` folder.
+      Varsayılan olarak, klasör `~/.rocketpool/data/custom-keys` konumundadır.
+      Kurulumunuzu veya veri dizinlerinizi özelleştirdiyseniz, `custom-keys` klasörünü bulmak için uygun şekilde değiştirin.
 
-      Check with a file explorer or the `ls` command to make sure this folder exists.
-      If not, no worries - just make the folder with the following command:
+      Bu klasörün mevcut olduğundan emin olmak için bir dosya gezgini veya `ls` komutu ile kontrol edin.
+      Değilse, sorun değil - sadece aşağıdaki komutla klasörü oluşturun:
 
       ```shell
       mkdir ~/.rocketpool/data/custom-keys
       ```
     </Tab>
     <Tab label="Native Mode">
-      Create a folder called `custom-keys` inside of your Smartnode's `data` folder (for example, `/srv/rocketpool/data/custom-keys`).
+      Smartnode'unuzun `data` klasörünün içinde `custom-keys` adlı bir klasör oluşturun (örneğin, `/srv/rocketpool/data/custom-keys`).
     </Tab>
 
   </Tabs>
 </div>
 
-Next, place each of the validator keystore files into this folder.
-The names of the files don't matter, but they must be JSON files that conform to the [EIP-2335](https://eips.ethereum.org/EIPS/eip-2335#scrypt-test-vector) format.
+Ardından, doğrulayıcı keystore dosyalarının her birini bu klasöre yerleştirin.
+Dosyaların adları önemli değildir, ancak [EIP-2335](https://eips.ethereum.org/EIPS/eip-2335#scrypt-test-vector) formatına uygun JSON dosyaları olmalıdır.
 
-The Smartnode will look in this directory for any keystore files you have placed here in the next steps.
+Smartnode, sonraki adımlarda buraya yerleştirdiğiniz herhangi bir keystore dosyası için bu dizinde arama yapacaktır.
 
-::: warning NOTE
-The import process will _only_ look for validator keys that are attached to minipools registered to the address you're importing.
-You **cannot** use this process to import other validator keys, such as for solo staking validators, into the Validator client managed by the Smartnode stack.
+::: warning NOT
+İçe aktarma işlemi _yalnızca_ içe aktardığınız adrese kayıtlı minipool'lara bağlı doğrulayıcı anahtarlarını arayacaktır.
+Solo staking doğrulayıcıları gibi diğer doğrulayıcı anahtarlarını Smartnode yığını tarafından yönetilen Validator istemcisine aktarmak için bu işlemi **kullanamazsınız**.
 
-Please see the documentation for running in [Reverse Hybrid Mode](./advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode) if you are interested in doing this.
+Bunu yapmakla ilgileniyorsanız lütfen [Reverse Hybrid Mode](./advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode)'da çalıştırma belgelerine bakın.
 :::
 
-### Step 2 (Optional): Test Importing the Address
+### Adım 2 (İsteğe Bağlı): Adresin İçe Aktarma Testini Yapma
 
-If you would like to test the recovery process to ensure you have the correct mnemonic and passwords **without actually regenerating your node wallet's private key or importing your validator keys**, you can do so with the following command:
+**Düğüm cüzdanınızın özel anahtarını gerçekten yeniden oluşturmadan veya doğrulayıcı anahtarlarınızı içe aktarmadan** doğru anımsatıcı ve şifrelere sahip olduğunuzdan emin olmak için kurtarma sürecini test etmek isterseniz, bunu aşağıdaki komutla yapabilirsiniz:
 
 ```shell
 rocketpool wallet test-recovery -a 0x1234abcd...
 ```
 
-Where `0x1234abcd...` is the address you want to import, starting with the `0x` prefix.
-**You will need your mnemonic phrase to import the private key for your address.**
+Burada `0x1234abcd...`, `0x` önekiyle başlayan içe aktarmak istediğiniz adrestir.
+**Adresiniz için özel anahtarı içe aktarmak için anımsatıcı ifadenize ihtiyacınız olacak.**
 
-::: tip TIP
-If, for some reason, you want to recover the wallet but _not_ any of the validator keys for your minipools, you can specify the `-k` flag to skip the validator key recovery process.
-For example:
+::: tip İPUCU
+Herhangi bir nedenle cüzdanı kurtarmak istiyorsanız ancak minipool'larınız için doğrulayıcı anahtarlarından _herhangi birini kurtarmak istemiyorsanız_, doğrulayıcı anahtarı kurtarma sürecini atlamak için `-k` bayrağını belirtebilirsiniz.
+Örneğin:
 
 ```shell
 rocketpool wallet test-recovery -a 0x1234abcd... -k
@@ -148,26 +148,26 @@ rocketpool wallet test-recovery -a 0x1234abcd... -k
 
 :::
 
-The Smartnode will automatically search through the most popular derivation paths (e.g. the ones used by Ledger Live, MyEtherWallet, Trezor, and the Smartnode stack) and address indicies to find the settings that correspond to the address you provided.
+Smartnode, sağladığınız adrese karşılık gelen ayarları bulmak için en popüler türetme yollarını (örneğin Ledger Live, MyEtherWallet, Trezor ve Smartnode yığını tarafından kullanılanlar) ve adres indekslerini otomatik olarak arayacaktır.
 
-::: tip TIP
-If you have a custom derivation path, use the `-d` flag to specify it.
-For example:
+::: tip İPUCU
+Özel bir türetme yolunuz varsa, belirtmek için `-d` bayrağını kullanın.
+Örneğin:
 
 ```shell
 rocketpool wallet test-recovery -d "m/44'/60'/0'/%d"
 ```
 
-Use `%d` for the portion of the path that can be iterated to use different indicies.
+Farklı indeksleri kullanmak için yinelenebilecek yolun bölümü için `%d` kullanın.
 
-If you have a custom address index, use the `-i` flag to specify it.
-For example, if your address was the 6th one on the standard derivation path, you could use:
+Özel bir adres indeksiniz varsa, belirtmek için `-i` bayrağını kullanın.
+Örneğin, adresiniz standart türetme yolundaki 6. adres idiyse, şunu kullanabilirsiniz:
 
 ```shell
 rocketpool wallet test-recovery -i 5
 ```
 
-You can use both the `-d` and `-i` flags at the same time if you require.
+Gerekirse hem `-d` hem de `-i` bayraklarını aynı anda kullanabilirsiniz.
 :::
 
 First, you'll be prompted for your address's mnemonic phrase:
@@ -208,16 +208,16 @@ Validator keys:
 
 The above indicates a successful test recovery.
 
-### Step 3: Import the Address
+### Adım 3: Adresi İçe Aktarma
 
-::: danger WARNING
-If your address is a Rocket Pool node that is _not_ managed by your own self-hosted Smartnode (e.g. hosted by an external service like **Allnodes**), **IT IS CRITICAL** that you coordinate with the service running your node **before you begin this import process** and inform them that you would like to migrate to your own self-hosted system.
+::: danger UYARI
+Adresiniz kendi barındırdığınız Smartnode tarafından yönetil_meyen_ bir Rocket Pool düğümü ise (örneğin **Allnodes** gibi bir harici hizmet tarafından barındırılıyorsa), **bu içe aktarma sürecine başlamadan önce** düğümünüzü çalıştıran hizmetle koordine etmeniz ve kendi barındırdığınız sisteme geçmek istediğinizi bildirmeniz **KRİTİK ÖNEM TAŞIR**.
 
-You **MUST CONFIRM** that they have shut down validation for your node and **will NEVER resume it**, and manually confirm that your validators are no longer attesting using a Blockchain explorer such as [https://beaconcha.in](https://beaconcha.in).
-You must confirm that each validator has missed **AT LEAST 2 ATTESTATIONS** to ensure you can safely migrate.
-Otherwise, you will both attest at the same time and **YOUR MINIPOOLS WILL BE SLASHED!**
+Düğümünüz için doğrulamayı kapattıklarını ve **ASLA tekrar başlatmayacaklarını** **ONAYLAMANIZ GEREKİR** ve [https://beaconcha.in](https://beaconcha.in) gibi bir Blockchain gezgini kullanarak doğrulayıcılarınızın artık tasdik etmediğini manuel olarak onaylamanız gerekir.
+Güvenli bir şekilde geçiş yapabileceğinizden emin olmak için her doğrulayıcının **EN AZ 2 TASDİKİ** kaçırdığını onaylamanız gerekir.
+Aksi takdirde, her ikiniz de aynı anda tasdik edeceksiniz ve **MİNİPOOL'LARİNİZ CEZALANDIRILACAK!**
 
-The Smartnode will require you to confirm that you have done this before allowing you to proceed with the import process.
+Smartnode, içe aktarma işlemine devam etmenize izin vermeden önce bunu yaptığınızı onaylamanızı gerektirecektir.
 :::
 
 If the test recovery succeeded, or if you skipped it, you will next import the wallet and regenerate all of its associated key files.
@@ -254,23 +254,23 @@ Your address's private key will now be stored in the `data/wallet` file (e.g. `~
 
 The private keys for each of your validators will be stored in the `data/validators` folders for each of the Consensus clients that the Smartnode supports.
 
-::: danger NOTE
-By importing an address in this fashion, the validator keys were **not** derived from your node wallet, and thus they **cannot** be recovered later by simply running `rocketpool wallet recover` as with a normal node wallet.
+::: danger NOT
+Bu şekilde bir adres içe aktararak, doğrulayıcı anahtarları düğüm cüzdanınızdan türetil_memiştir_ ve bu nedenle normal bir düğüm cüzdanında olduğu gibi sadece `rocketpool wallet recover` komutunu çalıştırarak daha sonra kurtarıla**mazlar**.
 
-If you ever need to recover or import this wallet again, you will need to follow this same process which means **you will need to have these validator private keystores and their passwords backed up somewhere safe.**
+Bu cüzdanı tekrar kurtarmanız veya içe aktarmanız gerekirse, aynı süreci izlemeniz gerekecektir, bu da **bu doğrulayıcı özel keystore'larını ve şifrelerini güvenli bir yerde yedeklemeniz gerektiği** anlamına gelir.
 
-If you ever lose them, **you will no longer be able to recover these validator keys!**
+Onları kaybederseniz, **artık bu doğrulayıcı anahtarlarını kurtaramayacaksınız!**
 :::
 
-### Step 4: Cleanup
+### Adım 4: Temizlik
 
-At this point, you can now delete all of the private keystore files in the `data/custom-keys` directory.
-The Smartnode will have imported them already and assigned randomized passwords to them, so those keystore files are no longer necessary.
+Bu noktada, artık `data/custom-keys` dizinindeki tüm özel keystore dosyalarını silebilirsiniz.
+Smartnode bunları halihazırda içe aktarmış ve onlara rastgele şifreler atamış olacaktır, bu nedenle bu keystore dosyaları artık gerekli değildir.
 
-Finally, ensure that there is **not** a file named `custom-key-passwords` in your `data` directory (e.g. `~/.rocketpool/data/custom-key-passwords`).
-The Smartnode will build this temporary file only during the recover process, and will remove it automatically regardless of whether or not the recovery process succeeded; if for any reason it failed to remove it, it will alert you in the console output.
-However, it never hurts to be too careful.
+Son olarak, `data` dizininizde (örneğin `~/.rocketpool/data/custom-key-passwords`) `custom-key-passwords` adlı bir dosya **olmadığından** emin olun.
+Smartnode bu geçici dosyayı yalnızca kurtarma işlemi sırasında oluşturacak ve kurtarma işleminin başarılı olup olmadığına bakılmaksızın otomatik olarak kaldıracaktır; herhangi bir nedenle kaldıramadıysa, konsol çıktısında sizi uyaracaktır.
+Ancak, çok dikkatli olmak asla zarar vermez.
 
-## Next Steps
+## Sonraki Adımlar
 
-Once you've imported or recovered your node wallet, follow the next steps in the [Intro to the Command Line Interface](./cli-intro) guide.
+Düğüm cüzdanınızı içe aktardıktan veya kurtardıktan sonra, [Intro to the Command Line Interface](./cli-intro) kılavuzundaki sonraki adımları izleyin.

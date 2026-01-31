@@ -1,146 +1,146 @@
 ---
 next:
   text: "Tailscale"
-  link: "/en/node-staking/tailscale"
+  link: "/tr/node-staking/tailscale"
 ---
 
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Securing your Node
+# Node'unuzu Güvence Altına Alma
 
-The goal of this guide is to walk you through steps you can take to secure your node against malicious actors.
-Whether you're running a local server at home or a VPS server / virtual machine on the cloud, the tips here will help you harden your node against outside attack and help protect it during its lifespan.
+Bu kılavuzun amacı, node'unuzu kötü niyetli aktörlere karşı korumak için atabileceğiniz adımları size göstermektir.
+İster evde yerel bir sunucu, ister bulutta bir VPS sunucusu / sanal makine çalıştırıyor olun, buradaki ipuçları node'unuzu dış saldırılara karşı sağlamlaştırmanıza ve ömrü boyunca korumanıza yardımcı olacaktır.
 
-This section will describe both **essential** actions, which you **must** take, and **nice-to-have** actions, which are helpful but not required.
+Bu bölüm, **yapmanız gereken** **temel** eylemleri ve yararlı ancak zorunlu olmayan **isteğe bağlı** eylemleri açıklayacaktır.
 
-::: tip NOTE
-This guide is meant to be an **introduction** to some of the things you can do to harden your node machine.
-If you are comfortable with the command-line terminal and want to go even further in protecting your node, take a look at the popular [imthenachoman/How-To-Secure-A-Linux-Server](https://github.com/imthenachoman/How-To-Secure-A-Linux-Server) guide.
+::: tip NOT
+Bu kılavuz, node makinenizi sağlamlaştırmak için yapabileceğiniz bazı şeylere **giriş** niteliğindedir.
+Komut satırı terminali konusunda rahatsanız ve node'unuzu korumada daha ileri gitmek istiyorsanız, popüler [imthenachoman/How-To-Secure-A-Linux-Server](https://github.com/imthenachoman/How-To-Secure-A-Linux-Server) kılavuzuna göz atın.
 :::
 
-## Assumptions in This Guide
+## Bu Kılavuzdaki Varsayımlar
 
-This guide assumes your node runs `Ubuntu 20.04 LTS`.
-The concepts will carry over to other systems but the example commands may not.
+Bu kılavuz, node'unuzun `Ubuntu 20.04 LTS` çalıştırdığını varsayar.
+Kavramlar diğer sistemlere de taşınacaktır ancak örnek komutlar taşınmayabilir.
 
-As with all of the commands in this guide, we assume that you are connecting **remotely** to your node's command terminal using `ssh`.
-If you need a refresher on how to use `ssh`, take a look at the [Intro to Secure Shell](./ssh) guide first.
+Bu kılavuzdaki tüm komutlarda olduğu gibi, `ssh` kullanarak node'unuzun komut terminaline **uzaktan** bağlandığınızı varsayıyoruz.
+`ssh` kullanımı konusunda tazelemeye ihtiyacınız varsa, önce [Secure Shell'e Giriş](./ssh) kılavuzuna göz atın.
 
-## ESSENTIAL: Keep your Client Machine Secure
+## TEMEL: İstemci Makinenizi Güvende Tutun
 
-::: warning NOTE
-If you use your Smartnode locally (by physically logging into it with a keyboard and monitor directly attached to it), then **this section is not relevant to you - you can skip it**.
+::: warning NOT
+Smartnode'unuzu yerel olarak kullanıyorsanız (doğrudan bağlı bir klavye ve monitör ile fiziksel olarak giriş yaparak), **bu bölüm sizinle ilgili değildir - atlayabilirsiniz**.
 :::
 
-Most Smartnode operators interact with their node remotely by connecting to its terminal from another computer using `ssh`:
+Çoğu Smartnode operatörü, `ssh` kullanarak başka bir bilgisayardan terminaline bağlanarak node'larıyla uzaktan etkileşime girer:
 
-- The machine you connect _to_ (in this case, your node machine) is called the **server**.
-- The machine you connect _from_ (such as your laptop, desktop, or even your phone) is the **client**.
+- Bağlandığınız makine (bu durumda, node makineniz) **sunucu** olarak adlandırılır.
+- Bağlandığınız makine (dizüstü bilgisayarınız, masaüstünüz veya hatta telefonunuz gibi) **istemci** olarak adlandırılır.
 
-One of the most important things you can do to secure your Smartnode is to **keep your client machine secure**.
-If your client machine is compromised and you use it to log into your node, then most of the security settings you apply to the node can be bypassed.
+Smartnode'unuzu güvence altına almak için yapabileceğiniz en önemli şeylerden biri **istemci makinenizi güvende tutmaktır**.
+İstemci makineniz tehlikeye girerse ve node'unuza giriş yapmak için kullanırsanız, node'a uyguladığınız güvenlik ayarlarının çoğu atlanabilir.
 
-For example: if you use a laptop as an SSH client, and it has a [keylogger](https://en.wikipedia.org/wiki/Keystroke_logging) installed, then any secret things you type on the node (such as your password or recovery mnemonic) when connected via SSH will be stolen.
+Örneğin: SSH istemcisi olarak bir dizüstü bilgisayar kullanıyorsanız ve üzerinde bir [keylogger](https://en.wikipedia.org/wiki/Keystroke_logging) yüklüyse, SSH üzerinden bağlandığınızda node'da yazdığınız gizli şeyler (şifreniz veya kurtarma anımsatıcınız gibi) çalınır.
 
-There is no definitive guide to keeping your client machine secure, but being aware that it is a factor in your security is a good first step.
-Make sure that your client machine is as secure as it can be.
+İstemci makinenizi güvende tutmak için kesin bir kılavuz yoktur, ancak bunun güvenliğinizde bir faktör olduğunun farkında olmak iyi bir ilk adımdır.
+İstemci makinenizin olabildiğince güvenli olduğundan emin olun.
 
-Here are a few tips:
+İşte birkaç ipucu:
 
-- Don't use your client machine for **risky activities** (such as visiting untrustworthy websites or installing unnecessary programs)
-- Keep your client machine updated with the **latest security patches**
-- If possible, use a **malware and antivirus protection** program for your Operating System
+- İstemci makinenizi **riskli faaliyetler** için kullanmayın (güvenilmeyen web sitelerini ziyaret etmek veya gereksiz programlar yüklemek gibi)
+- İstemci makinenizi **en son güvenlik yamaları** ile güncel tutun
+- Mümkünse, İşletim Sisteminiz için bir **kötü amaçlı yazılım ve antivirüs koruma** programı kullanın
 
-For maximum security, you may want to use a **dedicated machine** as your SSH client, though this may not be practical for you.
+Maksimum güvenlik için, SSH istemciniz olarak **özel bir makine** kullanmak isteyebilirsiniz, ancak bu sizin için pratik olmayabilir.
 
-## ESSENTIAL: Secure your SSH Access
+## TEMEL: SSH Erişiminizi Güvence Altına Alın
 
-::: warning NOTE
-If you use your Smartnode locally (by physically logging into it with a keyboard and monitor directly attached to it), then **this section is not relevant to you - you can skip it**.
+::: warning NOT
+Smartnode'unuzu yerel olarak kullanıyorsanız (doğrudan bağlı bir klavye ve monitör ile fiziksel olarak giriş yaparak), **bu bölüm sizinle ilgili değildir - atlayabilirsiniz**.
 :::
 
-Whether you run your Smartnode at home or you use a VPS in a remote datacenter, it is likely that either you access it through SSH, or that SSH is enabled **even if you do not use it**.
+Smartnode'unuzu evde çalıştırıyor olsanız da uzak bir veri merkezinde VPS kullanıyor olsanız da, muhtemelen SSH üzerinden erişiyorsunuz veya SSH'yi **kullanmasanız bile** etkinleştirilmiştir.
 
-SSH connections are based on secure cryptography, but as with any secure system, the real security comes from using it correctly.
-There are two main things to do for your SSH settings:
+SSH bağlantıları güvenli kriptografiye dayanır, ancak herhangi bir güvenli sistemde olduğu gibi, gerçek güvenlik onu doğru kullanmaktan gelir.
+SSH ayarlarınız için yapmanız gereken iki ana şey vardır:
 
-1. Use an SSH key to log in remotely instead of a username and password
-2. Disable password-based authentication entirely, so SSH keys are the only remote login option
+1. Uzaktan giriş için kullanıcı adı ve şifre yerine bir SSH anahtarı kullanın
+2. Şifre tabanlı kimlik doğrulamayı tamamen devre dışı bırakın, böylece SSH anahtarları tek uzaktan giriş seçeneği olur
 
-As you are probably familiar with now, the default way to log into your node via SSH is with a username and password.
-The downside of this is that your password is typically something rather "short" and susceptible to [brute-force attacks](https://en.wikipedia.org/wiki/Brute-force_attack).
+Muhtemelen şimdi aşina olduğunuz gibi, SSH üzerinden node'unuza giriş yapmanın varsayılan yolu bir kullanıcı adı ve şifredir.
+Bunun dezavantajı, şifrenizin genellikle oldukça "kısa" bir şey olması ve [kaba kuvvet saldırılarına](https://en.wikipedia.org/wiki/Brute-force_attack) karşı hassas olmasıdır.
 
-Luckily, there is an alternative way to log in via SSH: an **SSH key pair**.
+Neyse ki, SSH üzerinden giriş yapmanın alternatif bir yolu vardır: bir **SSH anahtar çifti**.
 
-SSH key pairs work similarly to blockchain wallets; they come with a public part (such as your wallet address) and a private part (the private key for your wallet address):
+SSH anahtar çiftleri blockchain cüzdanlarına benzer şekilde çalışır; genel bir kısım (cüzdan adresiniz gibi) ve özel bir kısımla gelirler (cüzdan adresinizin özel anahtarı gibi):
 
-- You provide the **public part** to your node. This way, the node knows you're allowed to connect to it, and it knows that it's really you trying to connect.
-- You keep the **private part** to yourself on your client machine. This way, you (and only you) can connect to your node.
-  - You can (and should!) protect the private part with a **password**, so someone who steals your key can't use it.
-- From a computer's perspective, the private key is **exponentially harder** to crack than a password is. This mitigates the risk of a brute-force attack against your node.
+- **Genel kısmı** node'unuza sağlarsınız. Bu şekilde, node bağlanmanıza izin verildiğini bilir ve gerçekten sizin bağlanmaya çalıştığınızı bilir.
+- **Özel kısmı** istemci makinenizde kendinize saklarsınız. Bu şekilde, siz (ve yalnızca siz) node'unuza bağlanabilirsiniz.
+  - Özel kısmı bir **şifre** ile koruyabilir (ve korumalısınız!), böylece anahtarınızı çalan biri onu kullanamaz.
+- Bilgisayar perspektifinden bakıldığında, özel anahtar bir şifreden **katlanarak daha zordur** kırılması. Bu, node'unuza karşı kaba kuvvet saldırısı riskini azaltır.
 
-::: tip TIP
-If you'd like to learn more about SSH key pairs before creating your own, take a look at these links:
+::: tip İPUCU
+Kendinizinkini oluşturmadan önce SSH anahtar çiftleri hakkında daha fazla bilgi edinmek isterseniz, bu bağlantılara göz atın:
 
 - [https://canvas.cse.taylor.edu/courses/27/pages/ssh-key-tutorial](https://canvas.cse.taylor.edu/courses/27/pages/ssh-key-tutorial)
 - [https://www.ssh.com/academy/ssh/host-key](https://www.ssh.com/academy/ssh/host-key)
 
 :::
 
-### Creating an SSH Key Pair
+### SSH Anahtar Çifti Oluşturma
 
-Let's start by creating a new SSH key pair **on your client machine**.
-There are many varieties of key out there, but we're going to use a key type called [ed25519](https://en.wikipedia.org/wiki/EdDSA#Ed25519) which provides excellent security.
+**İstemci makinenizde** yeni bir SSH anahtar çifti oluşturarak başlayalım.
+Dışarıda birçok anahtar çeşidi var, ancak mükemmel güvenlik sağlayan [ed25519](https://en.wikipedia.org/wiki/EdDSA#Ed25519) adlı bir anahtar türü kullanacağız.
 
-Run the following command **on your client machine** (i.e., you should **not** run this while already SSH'd into your node machine - if you are, **exit out of SSH first**):
+**İstemci makinenizde** aşağıdaki komutu çalıştırın (yani node makinenize SSH yaparken bunu çalıştırmamalısınız - yapıyorsanız, **önce SSH'den çıkın**):
 
 ```shell
 ssh-keygen -t ed25519 -C "your_email@example.com"
 ```
 
-You will see the following:
+Aşağıdakileri göreceksiniz:
 
 ```
 Generating public/private ed25519 key pair.
 Enter file in which to save the key (/home/username/.ssh/id_ed25519):
 ```
 
-This asks you where you would like to save your private key file.
-SSH is compatible with the provided default and will automatically use it for you if you select it.
-However, you have the option of changing it to something else if you wish.
+Bu, özel anahtar dosyanızı nereye kaydetmek istediğinizi sorar.
+SSH, sağlanan varsayılanla uyumludur ve bunu seçerseniz sizin için otomatik olarak kullanır.
+Ancak, isterseniz başka bir şeye değiştirme seçeneğiniz vardır.
 
-::: tip NOTE
-The path `/home/username/.ssh/id_ed25519` is just an example, assuming your username is `username`.
-You likely have a different username.
-Whenever you see a path like the above in this guide, replace it with whatever path your system actually prints with your actual username.
+::: tip NOT
+`/home/username/.ssh/id_ed25519` yolu sadece bir örnektir, kullanıcı adınızın `username` olduğunu varsayar.
+Muhtemelen farklı bir kullanıcı adınız var.
+Bu kılavuzda yukarıdaki gibi bir yol gördüğünüzde, sisteminizin gerçek kullanıcı adınızla gerçekten yazdırdığı yolla değiştirin.
 :::
 
-If you are comfortable with the default setting, simply press `Enter`.
+Varsayılan ayardan memnunsanız, basitçe `Enter`'a basın.
 
-Otherwise, type your desired location for the key.
-It must be an absolute path (e.g. `/home/username/.ssh/rocketpool_key` on Linux, or `/Users/username/.ssh/rocketpool_key` on OSX).
-Press `Enter` when you're done.
+Aksi takdirde, anahtar için istediğiniz konumu yazın.
+Mutlak bir yol olmalıdır (örneğin Linux'ta `/home/username/.ssh/rocketpool_key` veya OSX'te `/Users/username/.ssh/rocketpool_key`).
+İşiniz bittiğinde `Enter`'a basın.
 
-After pressing `Enter`, you will see:
+`Enter`'a bastıktan sonra şunu göreceksiniz:
 
 ```
 Enter passphrase (empty for no passphrase):
 ```
 
-**This will become the password for the private key itself**.
-Whenever you use the key to connect to your node, you will need to enter this password first.
+**Bu, özel anahtarın kendisi için şifre olacaktır**.
+Node'unuza bağlanmak için anahtarı her kullandığınızda, önce bu şifreyi girmeniz gerekir.
 
-::: danger WARNING
-**You should not leave this blank** - otherwise, anyone with the SSH key file will be able to use it!
-Pick a good password that you (and only you) will know.
+::: danger UYARI
+**Bunu boş bırakmamalısınız** - aksi takdirde, SSH anahtar dosyasına sahip olan herkes onu kullanabilir!
+Sadece sizin (ve yalnızca sizin) bileceği iyi bir şifre seçin.
 
-Also, **don't forget your password** - there is no way to recover this password if you lose it.
+Ayrıca, **şifrenizi unutmayın** - kaybederseniz bu şifreyi kurtarmanın bir yolu yoktur.
 :::
 
-Once you finish typing the password, press `Enter`.
-It will ask you to retype it for confirmation.
+Şifreyi yazmayı bitirdikten sonra `Enter`'a basın.
+Onay için yeniden yazmanızı isteyecektir.
 
-After that, you will see something like the following output:
+Bundan sonra, aşağıdaki gibi bir çıktı göreceksiniz:
 
 ```
 Your identification has been saved in /home/username/.ssh/id_ed25519
@@ -161,75 +161,75 @@ The key's randomart image is:
 +----[SHA256]-----+
 ```
 
-The first line states the location of the **private key**, which is called `id_ed25519` by default (notice that it does not have a file extension).
-Ubuntu will load this key for you automatically when you use `ssh` if this private key file is in the default location.
+İlk satır **özel anahtarın** konumunu belirtir, varsayılan olarak `id_ed25519` olarak adlandırılır (dosya uzantısı olmadığına dikkat edin).
+Bu özel anahtar dosyası varsayılan konumdaysa Ubuntu, `ssh` kullandığınızda bu anahtarı sizin için otomatik olarak yükler.
 
-The second line states the location of the **public key**, which is called `id_ed25519.pub` by default.
-We'll need the public key for the next step.
+İkinci satır **genel anahtarın** konumunu belirtir, varsayılan olarak `id_ed25519.pub` olarak adlandırılır.
+Bir sonraki adım için genel anahtara ihtiyacımız olacak.
 
-::: tip NOTE
-Ubuntu _should_ load this new key automatically.
-However, some systems (such as macOS machines) will not load it automatically - you will have to tell it to do this with the following command **on your client machine**:
+::: tip NOT
+Ubuntu bu yeni anahtarı otomatik olarak yüklemelidir.
+Ancak, bazı sistemler (macOS makineleri gibi) otomatik olarak yüklemeyecektir - bunu aşağıdaki komutla yapmalarını söylemeniz gerekir **istemci makinenizde**:
 
 ```shell
 ssh-add $HOME/.ssh/id_ed25519
 ```
 
-Note that this is the path of the **private key** that we generated in the previous step, **not the public key**.
-Replace the path with whatever your system printed in that previous step.
+Bunun önceki adımda oluşturduğumuz **özel anahtarın** yolu olduğunu, **genel anahtarın** değil, unutmayın.
+Yolu, önceki adımda sisteminizin yazdırdığı yolla değiştirin.
 
-If you get an error saying that the `ssh-agent` is not running, start it by running the following command **on your client machine**:
+`ssh-agent`'ın çalışmadığını söyleyen bir hata alırsanız, **istemci makinenizde** aşağıdaki komutu çalıştırarak başlatın:
 
 ```shell
 eval $(ssh-agent)
 ```
 
-If you don't want to type these two commands every time you open the terminal, you can create a shortcut for adding your key by adding an `alias` to your `~/.bashrc` file.
+Terminali her açtığınızda bu iki komutu yazmak istemiyorsanız, `~/.bashrc` dosyanıza bir `alias` ekleyerek anahtarınızı eklemek için bir kısayol oluşturabilirsiniz.
 
-Open the file using the text editor:
+Metin düzenleyiciyi kullanarak dosyayı açın:
 
 ```shell
 nano ~/.bashrc
 ```
 
-Add this line to the end (assuming you used the default path for the private key - update as necessary):
+Sonuna bu satırı ekleyin (özel anahtar için varsayılan yolu kullandığınızı varsayarak - gerektiğinde güncelleyin):
 
 ```shell
 alias loadkey='ssh-add $HOME/.ssh/id_ed25519'
 ```
 
-Save and exit with `Ctrl+O` and `Enter`, then `Ctrl+X`.
-Next, close and open your terminal for the changes to take effect.
+`Ctrl+O` ve `Enter`, ardından `Ctrl+X` ile kaydedin ve çıkın.
+Ardından, değişikliklerin etkili olması için terminalinizi kapatın ve açın.
 
-You can now type `loadkey` **on your client machine** to load the key.
+Artık anahtarı yüklemek için **istemci makinenizde** `loadkey` yazabilirsiniz.
 :::
 
-### Adding the Public Key to your Node
+### Genel Anahtarı Node'unuza Ekleme
 
-Once you have your SSH key pair, you can now add the **public key** to your node.
-This will let you connect to it over `ssh` using the private key you just generated, instead of your username and password.
+SSH anahtar çiftinizi aldıktan sonra, artık **genel anahtarı** node'unuza ekleyebilirsiniz.
+Bu, az önce oluşturduğunuz özel anahtarı kullanarak kullanıcı adınız ve şifreniz yerine `ssh` üzerinden bağlanmanıza izin verecektir.
 
-There are two ways to do this - if one doesn't work, try the other way:
+Bunu yapmanın iki yolu vardır - biri işe yaramazsa, diğer yolu deneyin:
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Using ssh-copy-id">
-      **Note**: if your client machine is running Windows, `ssh-copy-id` is not yet available.
-      Please follow the instructions in the "Manually Adding the Key" tab.
+    <Tab label="ssh-copy-id Kullanarak">
+      **Not**: istemci makineniz Windows çalıştırıyorsa, `ssh-copy-id` henüz mevcut değildir.
+      Lütfen "Anahtarı Manuel Olarak Ekleme" sekmesindeki talimatları izleyin.
 
-      Run the following command **on your client machine**:
+      **İstemci makinenizde** aşağıdaki komutu çalıştırın:
 
       ```shell
       ssh-copy-id -i $HOME/.ssh/id_ed25519.pub username@node.ip.address
       ```
 
-      For example, if my username on the node was `staker` and my node's IP address was `192.168.1.10`, I would run the following command:
+      Örneğin, node'daki kullanıcı adım `staker` ve node'umun IP adresi `192.168.1.10` ise, aşağıdaki komutu çalıştırırım:
 
       ```shell
       ssh-copy-id -i $HOME/.ssh/id_ed25519.pub staker@192.168.1.10
       ```
 
-      You will see some messages like the following:
+      Aşağıdaki gibi bazı mesajlar göreceksiniz:
 
       ```
       /usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/home/username/.ssh/id_ed25519.pub"
@@ -237,13 +237,13 @@ There are two ways to do this - if one doesn't work, try the other way:
       /usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
       ```
 
-      This tells you that it's trying to log in with your key first to make sure it isn't already there.
-      Once it fails logging in, it knows that it's OK to add the new public key to the node machine.
+      Bu, önce zaten orada olmadığından emin olmak için anahtarınızla giriş yapmaya çalıştığını söyler.
+      Giriş başarısız olduğunda, yeni genel anahtarı node makinesine eklemenin uygun olduğunu bilir.
 
-      It will then prompt you for the **password of the user on your node machine**.
-      (_Note that this is **not the password of the SSH key**!_)
+      Ardından sizi **node makinesindeki kullanıcının şifresi** için isteyecektir.
+      (_Bunun **SSH anahtarının şifresi olmadığını** unutmayın!_)
 
-      Enter your user's password, and you will see the following output:
+      Kullanıcınızın şifresini girin ve aşağıdaki çıktıyı göreceksiniz:
 
       ```
       Number of key(s) added: 1
@@ -252,187 +252,187 @@ There are two ways to do this - if one doesn't work, try the other way:
       and check to make sure that only the key(s) you wanted were added.
       ```
 
-      That means it worked!
+      Bu işe yaradı anlamına gelir!
     </Tab>
-    <Tab label="Manually Adding the Key">
-      Start by getting the contents of the **public key** - run this command **on your client machine**:
+    <Tab label="Anahtarı Manuel Olarak Ekleme">
+      **Genel anahtarın** içeriğini alarak başlayın - bu komutu **istemci makinenizde** çalıştırın:
 
-      - On macOS and Linux:
+      - macOS ve Linux'ta:
 
       ```shell
       cat ~/.ssh/id_ed25519.pub
       ```
 
-      - On Windows (Command Prompt):
+      - Windows'ta (Komut İstemi):
 
       ```shell
       type %USERPROFILE%\.ssh\id_ed25519.pub
       ```
 
-      - On Windows (PowerShell):
+      - Windows'ta (PowerShell):
 
       ```shell
       type $ENV:UserProfile\.ssh\id_ed25519.pub
       ```
 
-      The output will look something like this:
+      Çıktı şöyle görünecektir:
 
       ```
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGUgU3a6mNjy3N1TyWOwY+VA/nifAeABl2Ch2yIl1bGa your_email@example.com
       ```
 
-      This is your **public key**.
-      Copy this output and store it somewhere convenient - you're going to need it in a minute.
+      Bu sizin **genel anahtarınızdır**.
+      Bu çıktıyı kopyalayın ve uygun bir yerde saklayın - bir dakika sonra buna ihtiyacınız olacak.
 
-      Next, use `ssh` to connect to your node like you normally would (using your node's username and password).
+      Ardından, normalde yaptığınız gibi `ssh` kullanarak node'unuza bağlanın (node'unuzun kullanıcı adını ve şifresini kullanarak).
 
-      Once you're connected to your node, run the following commands:
+      Node'unuza bağlandıktan sonra, aşağıdaki komutları çalıştırın:
 
       ```shell
       mkdir -p ~/.ssh
       nano ~/.ssh/authorized_keys
       ```
 
-      The second command will open a text editor for the file used to store all of the public keys that your node's user account trusts.
+      İkinci komut, node'unuzun kullanıcı hesabının güvendiği tüm genel anahtarları saklamak için kullanılan dosya için bir metin düzenleyici açacaktır.
 
-      In this file, paste the **public key** that you retrieved a few steps ago using the `cat` command (the whole line starting with `ssh-ed25519`).
+      Bu dosyada, birkaç adım önce `cat` komutunu kullanarak aldığınız **genel anahtarı** yapıştırın (`ssh-ed25519` ile başlayan tüm satır).
 
-      When it's in, save the file with `Ctrl+O` and `Enter`, then press `Ctrl+X` to exit.
+      İçeride olduğunda, `Ctrl+O` ve `Enter` ile dosyayı kaydedin, ardından çıkmak için `Ctrl+X`'e basın.
 
-      Now, exit `ssh` by running the `exit` command so you return back to your local client machine's terminal.
+      Şimdi, yerel istemci makinenizin terminaline geri dönmek için `exit` komutunu çalıştırarak `ssh`'den çıkın.
     </Tab>
 
   </Tabs>
 </div>
 
-You should now be able to `ssh` into the node like you normally would, but now you won't have to type the password of the user account.
+Artık normalde yaptığınız gibi node'a `ssh` yapabilmelisiniz, ancak şimdi kullanıcı hesabının şifresini yazmanız gerekmeyecek.
 
-Instead, you will have to type **the password of your SSH private key**.
-Depending on your system settings, you may only have to do this once per restart, or you may have to do it every time you use the key to connect to your node.
+Bunun yerine, **SSH özel anahtarınızın şifresini** yazmanız gerekecek.
+Sistem ayarlarınıza bağlı olarak, bunu yeniden başlatma başına yalnızca bir kez yapmanız gerekebilir veya node'unuza bağlanmak için anahtarı her kullandığınızda yapmanız gerekebilir.
 
-### Disable Login-via-Password
+### Şifre ile Girişi Devre Dışı Bırakma
 
-Even though you have an SSH key pair set up, your node will still allow other machines to try to log in using the username and password method.
-This defeats the entire purpose of using SSH keys in the first place, so the next step is to disable those.
+Bir SSH anahtar çifti kurmuş olsanız bile, node'unuz hala diğer makinelerin kullanıcı adı ve şifre yöntemini kullanarak giriş yapmaya çalışmasına izin verecektir.
+Bu, başlangıçta SSH anahtarlarını kullanmanın tüm amacını bozar, bu nedenle bir sonraki adım bunları devre dışı bırakmaktır.
 
-::: danger NOTE
-You are about to modify the SSH server's configuration.
-All of your **existing** SSH sessions will be preserved.
-However, if you make a mistake, then it's possible that you will not be able to create **new** SSH sessions anymore and effectively lock yourself out of the machine.
+::: danger NOT
+SSH sunucusunun yapılandırmasını değiştirmek üzeresiniz.
+Tüm **mevcut** SSH oturumlarınız korunacaktır.
+Ancak, bir hata yaparsanız, artık **yeni** SSH oturumları oluşturamayabilir ve kendinizi makineden etkili bir şekilde kilitleyebilirsiniz.
 
-To prevent this, we strongly recommend that you create **2 SSH sessions** for the next steps - one for editing things and testing, and one as a backup so you can revert any breaking changes.
+Bunu önlemek için, sonraki adımlar için **2 SSH oturumu** oluşturmanızı şiddetle öneririz - biri düzenleme ve test için, biri de herhangi bir bozucu değişikliği geri alabilmeniz için yedek olarak.
 :::
 
-Start by logging into your machine using `ssh` as usual:
+Makinenize her zamanki gibi `ssh` kullanarak giriş yaparak başlayın:
 
 ```shell
 ssh user@your.node.ip.address
 ```
 
-As a reminder, **you should do this twice on two separate terminals so you have a backup session just in case**.
-You can ignore the backup session for now - we'll tell you when you need it.
-Run the following commands **only in the first session**.
+Bir hatırlatma olarak, **bunu iki ayrı terminalde iki kez yapmalısınız, böylece her ihtimale karşı yedek bir oturumunuz olur**.
+Şimdilik yedek oturumu görmezden gelebilirsiniz - ne zaman ihtiyacınız olacağını size söyleyeceğiz.
+Aşağıdaki komutları **yalnızca ilk oturumda** çalıştırın.
 
-Open the configuration file for the SSH server:
+SSH sunucusu için yapılandırma dosyasını açın:
 
 ```shell
 sudo nano /etc/ssh/sshd_config
 ```
 
-As with all commands that start with `sudo`, this will prompt you for your **user account's password**.
-This is a large file, so you'll have to navigate through it using the arrow keys on your keyboard or `Page Up` / `Page Down`.
+`sudo` ile başlayan tüm komutlarda olduğu gibi, bu sizi **kullanıcı hesabınızın şifresi** için isteyecektir.
+Bu büyük bir dosyadır, bu nedenle klavyenizdeki ok tuşlarını veya `Page Up` / `Page Down` kullanarak içinde gezinmeniz gerekecektir.
 
-Make the following changes:
+Aşağıdaki değişiklikleri yapın:
 
-1. Uncomment `#AuthorizedKeysFile` if it is commented (by removing the `#` in front of it)
-2. Change `KbdInteractiveAuthentication yes` to `KbdInteractiveAuthentication no` and uncomment (by removing the `#` in front of it) - **note that older versions of SSH call this option `ChallengeResponseAuthentication` instead of `KbdInteractiveAuthentication`**
-3. Change `PasswordAuthentication yes` to `PasswordAuthentication no` and uncomment (by removing the `#` in front of it)
-4. Change `PermitRootLogin yes` to `PermitRootLogin prohibit-password` unless it's already set to that and has a `#` in front of it
+1. `#AuthorizedKeysFile` yorum satırıysa (önünde `#` varsa) yorum satırını kaldırın
+2. `KbdInteractiveAuthentication yes`'i `KbdInteractiveAuthentication no`'ya değiştirin ve yorum satırını kaldırın (önündeki `#`'yi kaldırarak) - **SSH'nin eski sürümlerinin bu seçeneği `KbdInteractiveAuthentication` yerine `ChallengeResponseAuthentication` olarak adlandırdığını unutmayın**
+3. `PasswordAuthentication yes`'i `PasswordAuthentication no`'ya değiştirin ve yorum satırını kaldırın (önündeki `#`'yi kaldırarak)
+4. `PermitRootLogin yes`'i `PermitRootLogin prohibit-password`'e değiştirin, zaten buna ayarlanmışsa ve önünde `#` yoksa değiştirmeyin
 
-Once you're done, save with `Ctrl+O` and `Enter`, then exit with `Ctrl+X`.
+İşiniz bittiğinde, `Ctrl+O` ve `Enter` ile kaydedin, ardından `Ctrl+X` ile çıkın.
 
-Finally, run `sudo sshd -T | grep -i passwordauthentication` and make sure that it prints `passwordauthentication no`.  
-If it does not, you may need to run `sudo nano /etc/ssh/sshd_config.d/50-cloud-init.conf` and set `PasswordAuthentication yes` to `PasswordAuthentication no` in that file as well.
-Save and exit as before, with `Ctrl+O` and `Enter`, then `Ctrl+X`
+Son olarak, `sudo sshd -T | grep -i passwordauthentication` komutunu çalıştırın ve `passwordauthentication no` yazdırdığından emin olun.
+Yazdırmazsa, `sudo nano /etc/ssh/sshd_config.d/50-cloud-init.conf` komutunu çalıştırmanız ve bu dosyada da `PasswordAuthentication yes`'i `PasswordAuthentication no`'ya ayarlamanız gerekebilir.
+Daha önce olduğu gibi kaydedin ve çıkın, `Ctrl+O` ve `Enter`, ardından `Ctrl+X`.
 
-Next, restart the SSH server so it picks up the new settings:
+Ardından, yeni ayarları alması için SSH sunucusunu yeniden başlatın:
 
 ```shell
 sudo systemctl restart ssh.service
 ```
 
-After this, logging into SSH via a username and password should be disabled.
+Bundan sonra, kullanıcı adı ve şifre ile SSH'ye giriş yapma devre dışı bırakılmalıdır.
 
-::: warning NOTE
-At this point, you should exit the SSH session and try to SSH back in.
-If you are able to do so successfully, then your SSH configuration is still valid!
+::: warning NOT
+Bu noktada, SSH oturumundan çıkmalı ve tekrar SSH yapmalısınız.
+Bunu başarılı bir şekilde yapabilirseniz, SSH yapılandırmanız hala geçerlidir!
 
-If you are **not** able to get back in, then something has gone wrong with your configuration.
-Use the backup SSH session you created at the start of this section to modify the `/etc/ssh/sshd_config` file.
+Geri giremezseniz, yapılandırmanızla ilgili bir şeyler yanlış gitmiştir.
+Bu bölümün başında oluşturduğunuz yedek SSH oturumunu kullanarak `/etc/ssh/sshd_config` dosyasını değiştirin.
 
-Try to find the mistake or undo your changes, then restart the SSH server using `sudo systemctl restart sshd`.
+Hatayı bulmaya çalışın veya değişikliklerinizi geri alın, ardından `sudo systemctl restart sshd` kullanarak SSH sunucusunu yeniden başlatın.
 
-Once it's been restarted, try connecting with SSH again on your "other" terminal.
-Keep doing this until you have it working again and are able to successfully connect.
+Yeniden başlatıldıktan sonra, "diğer" terminalinizde SSH ile tekrar bağlanmayı deneyin.
+Bunu tekrar çalışana ve başarılı bir şekilde bağlanabilene kadar yapmaya devam edin.
 :::
 
-### (Optional) Enable Two-Factor Authentication
+### (İsteğe Bağlı) İki Faktörlü Kimlik Doğrulamayı Etkinleştirme
 
-Two-factor authentication involves requiring a second security measure in addition to your password or SSH key, usually on a separate device from your primary one.
+İki faktörlü kimlik doğrulama, şifreniz veya SSH anahtarınıza ek olarak, genellikle birincil cihazınızdan ayrı bir cihazda ikinci bir güvenlik önlemi gerektirmeyi içerir.
 
-For example, you may be familiar with logging into a website such as a crypto exchange using both a password and a Google Authenticator code (or an SMS code).
-This two-step process is an example of two-factor authentication.
+Örneğin, hem şifre hem de Google Authenticator kodu (veya SMS kodu) kullanarak bir kripto borsası gibi bir web sitesinde oturum açmaya aşina olabilirsiniz.
+Bu iki adımlı süreç, iki faktörlü kimlik doğrulamanın bir örneğidir.
 
-SSH can also be configured to require a Google Authenticator code, which means that an attacker that somehow compromised your SSH key and its passphrase would **still need the device with the authenticator app on it** (presumably your phone).
-This adds an extra layer of security to your system.
+SSH de bir Google Authenticator kodu gerektirecek şekilde yapılandırılabilir, bu da SSH anahtarınızı ve parolasını bir şekilde tehlikeye atan bir saldırganın **hala kimlik doğrulama uygulamasının bulunduğu cihaza ihtiyaç duyacağı** anlamına gelir (muhtemelen telefonunuz).
+Bu, sisteminize ekstra bir güvenlik katmanı ekler.
 
-::: danger WARNING
-We **strongly recommend** that you open a second terminal with an SSH connection to your node, just in case you misconfigure something.
-This way, you will have a backup that is still connected in case you lock yourself out, so you can easily undo your mistakes.
+::: danger UYARI
+Bir şeyi yanlış yapılandırmanız durumunda node'unuza ikinci bir terminal ile SSH bağlantısı açmanızı **şiddetle öneririz**.
+Bu şekilde, kendinizi kilitlerseniz, hatalarınızı kolayca geri alabilmeniz için hala bağlı olan bir yedeğiniz olur.
 
-If you **do** manage to lock yourself out, you will need to physically access your node via its local monitor and keyboard to log in and repair the misconfiguration.
+Kendinizi kilitlerseniz, yerel monitör ve klavye aracılığıyla node'unuza fiziksel olarak erişmeniz, giriş yapmanız ve yanlış yapılandırmayı onarmanız gerekecektir.
 :::
 
-Start by installing [Google Authenticator](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en_US&gl=US) (or a compatible equivalent) on your phone if you don't already have it.
-For Android users, consider [andOTP](https://play.google.com/store/apps/details?id=org.shadowice.flocke.andotp&hl=en_US&gl=US) which is an open-source alternative that supports password locking and convenient backups.
+Telefonunuzda henüz yoksa [Google Authenticator](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en_US&gl=US) (veya uyumlu bir eşdeğer) yükleyerek başlayın.
+Android kullanıcıları için, şifre kilitleme ve kullanışlı yedeklemeleri destekleyen açık kaynaklı bir alternatif olan [andOTP](https://play.google.com/store/apps/details?id=org.shadowice.flocke.andotp&hl=en_US&gl=US)'yi düşünün.
 
-Next, install the Google Authenticator module on your node with this command:
+Ardından, node'unuza bu komutla Google Authenticator modülünü yükleyin:
 
 ```shell
 sudo apt install -y libpam-google-authenticator
 ```
 
-Now tell the `PAM` (pluggable authentication modules) to use this module.
-First, open the config file:
+Şimdi `PAM`'a (pluggable authentication modules) bu modülü kullanmasını söyleyin.
+Önce yapılandırma dosyasını açın:
 
 ```shell
 sudo nano /etc/pam.d/sshd
 ```
 
-Find `@include common-auth` (it should be at the top) and comment it out by adding a `#` in front of it, so it looks like this:
+`@include common-auth` bulun (en üstte olmalıdır) ve önüne bir `#` ekleyerek yorum satırı yapın, böylece şöyle görünsün:
 
 ```
 # Standard Un*x authentication.
 #@include common-auth
 ```
 
-Next, add these lines to the top of the file:
+Ardından, dosyanın en üstüne bu satırları ekleyin:
 
 ```shell
 # Enable Google Authenticator
 auth required pam_google_authenticator.so
 ```
 
-Then save and exit the file with `Ctrl+O`, `Enter`, and `Ctrl+X`.
+Ardından dosyayı `Ctrl+O`, `Enter` ve `Ctrl+X` ile kaydedin ve çıkın.
 
-Now that `PAM` knows to use Google Authenticator, the next step is to tell `sshd` to use `PAM`.
-Open the `sshd` config file:
+Artık `PAM` Google Authenticator kullanmayı bildiğine göre, bir sonraki adım `sshd`'ye `PAM` kullanmasını söylemektir.
+`sshd` yapılandırma dosyasını açın:
 
 ```shell
 sudo nano /etc/ssh/sshd_config
 ```
 
-Now change the line `KbdInteractiveAuthentication no` to `KbdInteractiveAuthentication yes` so it looks like this:
+Şimdi `KbdInteractiveAuthentication no` satırını `KbdInteractiveAuthentication yes` olarak değiştirin, böylece şöyle görünsün:
 
 ```
 # Change to yes to enable challenge-response passwords (beware issues with
@@ -440,32 +440,32 @@ Now change the line `KbdInteractiveAuthentication no` to `KbdInteractiveAuthenti
 KbdInteractiveAuthentication yes
 ```
 
-(Older versions of SSH call this option `ChallengeResponseAuthentication` instead of `KbdInteractiveAuthentication`.)
+(SSH'nin eski sürümleri bu seçeneği `KbdInteractiveAuthentication` yerine `ChallengeResponseAuthentication` olarak adlandırır.)
 
-Add the following line to the bottom of the file, which indicates to `sshd` that it needs both an SSH key and the Google Authenticator code:
+Dosyanın en altına aşağıdaki satırı ekleyin, bu `sshd`'ye hem SSH anahtarına hem de Google Authenticator koduna ihtiyaç duyduğunu gösterir:
 
 ```shell
 AuthenticationMethods publickey,keyboard-interactive:pam
 ```
 
-Then save and exit the file with `Ctrl+O`, `Enter`, and `Ctrl+X`.
+Ardından dosyayı `Ctrl+O`, `Enter` ve `Ctrl+X` ile kaydedin ve çıkın.
 
-Now that `sshd` is set up, we need to create our 2FA codes.
-In your terminal, run:
+Artık `sshd` kurulduğuna göre, 2FA kodlarımızı oluşturmamız gerekiyor.
+Terminalinizde şunu çalıştırın:
 
 ```shell
 google-authenticator
 ```
 
-First, it will ask you about time-based tokens.
-Say `y` to this question:
+İlk olarak, zaman tabanlı jetonlar hakkında sizi soracaktır.
+Bu soruya `y` deyin:
 
 ```
 Do you want authentication tokens to be time-based: y
 ```
 
-You will now see a big QR code on your screen; scan it with your Google Authenticator app to add it.
-You will also see your secret and a few backup codes looking like this:
+Artık ekranınızda büyük bir QR kodu göreceksiniz; eklemek için Google Authenticator uygulamanızla tarayın.
+Ayrıca, şuna benzer gizli anahtarınızı ve birkaç yedek kodu göreceksiniz:
 
 ```
 Your new secret key is: IRG2TALMR5U2LK5VQ5AQIG3HA4
@@ -478,12 +478,12 @@ Your emergency scratch codes are:
   82649596
 ```
 
-::: warning NOTE
-Record the emergency scratch codes somewhere safe in case you need to log into the machine but don't have your 2FA app handy.
-Without the app, you will no longer be able to SSH into the machine!
+::: warning NOT
+2FA uygulamanızın elverişli olmadığı durumlarda makineye giriş yapmanız gerektiğinde acil durum karalama kodlarını güvenli bir yere kaydedin.
+Uygulama olmadan, artık makineye SSH yapamazsınız!
 :::
 
-Finally, it will ask you for some more parameters; the recommended defaults are as follows:
+Son olarak, size birkaç parametre daha soracaktır; önerilen varsayılanlar aşağıdaki gibidir:
 
 ```
 Do you want me to update your "/<username>/.google_authenticator" file: y
@@ -492,33 +492,33 @@ By default... < long story about time skew > ... Do you want to do so: n
 Do you want to enable rate-limiting: y
 ```
 
-Once you're done, restart `sshd` so it grabs the new settings:
+İşiniz bittiğinde, yeni ayarları alması için `sshd`'yi yeniden başlatın:
 
 ```shell
 sudo systemctl restart sshd
 ```
 
-When you try to SSH into your server with your SSH keys, you should now also be asked for a 2FA verification code, but not for a password.
+SSH anahtarlarınızla sunucunuza SSH yapmaya çalıştığınızda, artık bir 2FA doğrulama kodu için de sorulmalısınız, ancak şifre için sorulmamalıdır.
 
-## ESSENTIAL: Enable Automatic Security Updates
+## TEMEL: Otomatik Güvenlik Güncellemelerini Etkinleştirme
 
-Operating System vendors routinely publish updates and security fixes, so it is important that you keep your system up to date with the latest patches.
-The easiest way to do this is to enable automatic updates.
+İşletim Sistemi satıcıları düzenli olarak güncellemeler ve güvenlik düzeltmeleri yayınlar, bu nedenle sisteminizi en son yamalarla güncel tutmanız önemlidir.
+Bunu yapmanın en kolay yolu otomatik güncellemeleri etkinleştirmektir.
 
-Run the following commands **on your node machine**:
+**Node makinenizde** aşağıdaki komutları çalıştırın:
 
 ```shell
 sudo apt update
 sudo apt install -y unattended-upgrades update-notifier-common
 ```
 
-You can change the auto-update settings by editing `/etc/apt/apt.conf.d/20auto-upgrades`:
+`/etc/apt/apt.conf.d/20auto-upgrades` dosyasını düzenleyerek otomatik güncelleme ayarlarını değiştirebilirsiniz:
 
 ```shell
 sudo nano /etc/apt/apt.conf.d/20auto-upgrades
 ```
 
-This is an example of reasonable auto-update settings:
+Bu, makul otomatik güncelleme ayarlarının bir örneğidir:
 
 ```shell
 APT::Periodic::Update-Package-Lists "1";
@@ -533,94 +533,94 @@ Unattended-Upgrade::Automatic-Reboot "true";
 Unattended-Upgrade::Automatic-Reboot-Time "02:00";
 ```
 
-When you are done adding your changes, save with `Ctrl+O` and `Enter`, then exit with `Ctrl+X`.
+Değişikliklerinizi eklemeyi bitirdiğinizde, `Ctrl+O` ve `Enter` ile kaydedin, ardından `Ctrl+X` ile çıkın.
 
-After, make sure to load the new settings:
+Sonrasında, yeni ayarları yüklediğinizden emin olun:
 
 ```shell
 sudo systemctl restart unattended-upgrades
 ```
 
-## ESSENTIAL: Enable a Firewall
+## TEMEL: Güvenlik Duvarı Etkinleştirme
 
-In general, your machine should only accept network traffic on ports that your Execution client, Consensus client, and Smartnode stack use.
-To enforce that and prevent any unexpected or undesirable traffic, we can install a **firewall** on the node.
+Genel olarak, makineniz yalnızca Execution istemcinizin, Consensus istemcinizin ve Smartnode yığınınızın kullandığı bağlantı noktalarında ağ trafiğini kabul etmelidir.
+Bunu uygulamak ve beklenmedik veya istenmeyen trafiği önlemek için node'a bir **güvenlik duvarı** kurabiliriz.
 
-::: tip NOTE
-If you selected a different execution/consensus client port during the Rocketpool setup, you need to edit the ports below to reflect your settings.
+::: tip NOT
+Rocketpool kurulumu sırasında farklı bir execution/consensus istemci portu seçtiyseniz, ayarlarınızı yansıtacak şekilde aşağıdaki portları düzenlemeniz gerekir.
 :::
 
-Ubuntu comes with `ufw` installed by default (the **u**ncomplicated **f**ire **w**all), which is a convenient utility for managing your node's firewall settings.
+Ubuntu varsayılan olarak `ufw` (**u**ncomplicated **f**ire **w**all) ile birlikte gelir; bu, node'unuzun güvenlik duvarı ayarlarını yönetmek için kullanışlı bir yardımcı programdır.
 
-The following commands will set `ufw` up with a good default configuration for your Smartnode.
-**Run these on your node machine**.
+Aşağıdaki komutlar `ufw`'yi Smartnode'unuz için iyi bir varsayılan yapılandırmayla kuracaktır.
+**Bunları node makinenizde çalıştırın**.
 
-Disable connections unless they're explicitly allowed by later rules:
+Sonraki kurallarca açıkça izin verilmedikçe bağlantıları devre dışı bırakın:
 
 ```shell
 sudo ufw default deny incoming comment 'Deny all incoming traffic'
 ```
 
-Allow SSH:
+SSH'ye izin verin:
 
 ```shell
 sudo ufw allow "22/tcp" comment 'Allow SSH'
 ```
 
-Allow execution client (formerly referred to as ETH1):
+Execution istemcisine izin verin (eski adıyla ETH1):
 
 ```shell
 sudo ufw allow 30303/tcp comment 'Execution client port, standardized by Rocket Pool'
 sudo ufw allow 30303/udp comment 'Execution client port, standardized by Rocket Pool'
 ```
 
-Allow consensus client (formerly referred to as ETH2):
+Consensus istemcisine izin verin (eski adıyla ETH2):
 
 ```shell
 sudo ufw allow 9001/tcp comment 'Consensus client port, standardized by Rocket Pool'
 sudo ufw allow 9001/udp comment 'Consensus client port, standardized by Rocket Pool'
 ```
 
-If you run lighthouse client v4.5.0+, you can use quic protocol to reduce latency / increase bandwidth, quic protocol uses lighthouse's --port + 1 to listen for quic messages by default: https://lighthouse-blog.sigmaprime.io/Quic,%20Networking.html
+Lighthouse istemci v4.5.0+ çalıştırıyorsanız, gecikmeyi azaltmak / bant genişliğini artırmak için quic protokolünü kullanabilirsiniz, quic protokolü varsayılan olarak lighthouse'un --port + 1'ini quic mesajlarını dinlemek için kullanır: https://lighthouse-blog.sigmaprime.io/Quic,%20Networking.html
 
 ```shell
 sudo ufw allow 8001/udp comment 'Consensus client port, standardised by Rocket Pool'
 ```
 
-Finally, enable `ufw`:
+Son olarak, `ufw`'yi etkinleştirin:
 
 ```shell
 sudo ufw enable
 ```
 
-::: tip NOTE
-`iptables` experts might note that Docker bypasses `ufw` settings.
-Strictly speaking, that means unless you are running in Hybrid mode, you do not need the Execution and Consensus client rules.
-Adding them, however, has no downside and will make sure that if you ever switch to Hybrid mode you will not run into firewall issues.
+::: tip NOT
+`iptables` uzmanları Docker'ın `ufw` ayarlarını atladığını fark edebilir.
+Kesinlikle konuşursak, bu Hybrid modda çalışmıyorsanız Execution ve Consensus istemci kurallarına ihtiyacınız olmadığı anlamına gelir.
+Ancak bunları eklemek hiçbir dezavantajı yoktur ve Hybrid moda geçerseniz güvenlik duvarı sorunlarıyla karşılaşmamanızı sağlar.
 :::
 
-## (Optional) Enable Brute-Force and DDoS Protection
+## (İsteğe Bağlı) Kaba Kuvvet ve DDoS Korumasını Etkinleştirme
 
-To protect your server from DDoS attacks and brute-force connection attempts, you can install `fail2ban`.
-This program will monitor incoming connections and block IP addresses that try to log in with faulty credentials repeatedly.
+Sunucunuzu DDoS saldırılarından ve kaba kuvvet bağlantı girişimlerinden korumak için `fail2ban` kurabilirsiniz.
+Bu program gelen bağlantıları izler ve tekrar tekrar hatalı kimlik bilgileriyle giriş yapmaya çalışan IP adreslerini engeller.
 
-See [this guide](https://github.com/imthenachoman/How-To-Secure-A-Linux-Server#application-intrusion-detection-and-prevention-with-fail2ban) for more information on intrusion prevention.
+Saldırı önleme hakkında daha fazla bilgi için [bu kılavuza](https://github.com/imthenachoman/How-To-Secure-A-Linux-Server#application-intrusion-detection-and-prevention-with-fail2ban) bakın.
 
-Run the following commands **on your node machine**:
+**Node makinenizde** aşağıdaki komutları çalıştırın:
 
-Install the service:
+Hizmeti kurun:
 
 ```shell
 sudo apt install -y fail2ban
 ```
 
-Next, open `/etc/fail2ban/jail.d/ssh.local`:
+Ardından, `/etc/fail2ban/jail.d/ssh.local` dosyasını açın:
 
 ```shell
 sudo nano /etc/fail2ban/jail.d/ssh.local
 ```
 
-Add the following contents to it:
+Aşağıdaki içeriği ekleyin:
 
 ```
 [sshd]
@@ -632,15 +632,15 @@ logpath = %(sshd_log)s
 maxretry = 5
 ```
 
-You can change the `maxretry` setting, which is the number of attempts it will allow before locking the offending address out.
+`maxretry` ayarını değiştirebilirsiniz, bu ayar saldırgan adresi kilitlemeden önce izin vereceği deneme sayısıdır.
 
-Once you're done, save and exit with `Ctrl+O` and `Enter`, then `Ctrl+X`.
+İşiniz bittiğinde, `Ctrl+O` ve `Enter` ile kaydedin ve çıkın, ardından `Ctrl+X`.
 
-Finally, restart the service:
+Son olarak, hizmeti yeniden başlatın:
 
 ```shell
 sudo systemctl restart fail2ban
 ```
 
-And with that, you've just greatly improved the security posture of your node.
-Congratulations!
+Ve bununla, node'unuzun güvenlik duruşunu büyük ölçüde iyileştirdiniz.
+Tebrikler!

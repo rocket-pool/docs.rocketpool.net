@@ -2,13 +2,13 @@
 permalink: /overview/contracts-integrations
 ---
 
-# 🤝 Contracts & Integrations
+# 🤝 Contratos e Integrações
 
-Do you love RPL and rETH? Us too! So we put together a list of integrations and services, as well as official contract deployments, to help you discover new places these assets can be used!
+Você ama RPL e rETH? Nós também! Então montamos uma lista de integrações e serviços, bem como implantações de contratos oficiais, para ajudá-lo a descobrir novos lugares onde esses ativos podem ser usados!
 
-If you would like to contribute by helping integrate Rocket Pool into more services and protocols, reach out on [Discord](https://discord.gg/MYrazaZZC4)!
+Se você gostaria de contribuir ajudando a integrar o Rocket Pool em mais serviços e protocolos, entre em contato no [Discord](https://discord.gg/MYrazaZZC4)!
 
-## Key Protocol Contracts
+## Principais Contratos de Protocolo
 
 | Chain   | Contract | Address                                                                                                                     |
 | ------- | -------- | --------------------------------------------------------------------------------------------------------------------------- |
@@ -17,12 +17,12 @@ If you would like to contribute by helping integrate Rocket Pool into more servi
 | Hoodi\* | Deposit  | [0x320f3aAB9405e38b955178BBe75c477dECBA0C27](https://hoodi.etherscan.io/address/0x320f3aAB9405e38b955178BBe75c477dECBA0C27) |
 | &nbsp;  | Storage  | [0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1](https://hoodi.etherscan.io/address/0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1) |
 
-Within the protocol, the Storage contract is used to find all the other deployed contract addresses as needed (see this [example](/en/overview/contracts-usage#interacting-with-rocket-pool)).
-See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contracts) below for a full list of addresses.
+Dentro do protocolo, o contrato de Storage é usado para encontrar todos os outros endereços de contratos implantados conforme necessário (veja este [exemplo](/pt/overview/contracts-usage#interacting-with-rocket-pool)).
+Veja [Todos os Contratos de Protocolo Ativos Implantados](#all-active-deployed-protocol-contracts) abaixo para uma lista completa de endereços.
 
 <small>\* Testnet</small>
 
-## Token Contracts
+## Contratos de Token
 
 | Chain           | Asset | Address                                                                                                                                                                             |
 | --------------- | ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -48,7 +48,7 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 
 <small>\* Testnet</small>
 
-## Deposit Pool Contract Version History
+## Histórico de Versão do Contrato de Pool de Depósito
 
 | Chain   | RP Version      | Address                                                                                                                |
 | ------- | --------------- | ---------------------------------------------------------------------------------------------------------------------- |
@@ -58,7 +58,7 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 
 <small>\* Testnet</small>
 
-## Integrations
+## Integrações
 
 | Category         | Service                       | Link                                                                                                                                                                                                                            | Link                                                                                                                                                                         |
 | ---------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -100,7 +100,7 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 | &nbsp;           | Contango                      | -                                                                                                                                                                                                                               | [Contango](https://app.contango.xyz)                                                                                                                                         |
 | &nbsp;           | Flat Money                    | -                                                                                                                                                                                                                               | [Flat Money](https://flat.money)                                                                                                                                             |
 
-## Management Committee Wallets
+## Carteiras do Comitê de Gestão
 
 | Chain    | Committee | Address                                                                                                                         |
 | -------- | --------- | ------------------------------------------------------------------------------------------------------------------------------- |
@@ -108,7 +108,7 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 | &nbsp;   | IMC       | [0xb867EA3bBC909954d737019FEf5AB25dFDb38CB9](https://app.safe.global/home?safe=eth:0xb867EA3bBC909954d737019FEf5AB25dFDb38CB9)  |
 | Arbitrum | IMC       | [0xd7102A3744c302f167c53621453516345bC460d7](https://app.safe.global/home?safe=arb1:0xd7102A3744c302f167c53621453516345bC460d7) |
 
-## All Active Deployed Protocol Contracts
+## Todos os Contratos de Protocolo Ativos Implantados
 
 | Chain   | Contract Name                         | Address                                                                                                                    |
 | ------- | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
@@ -237,6 +237,6 @@ See [All Active Deployed Protocol Contracts](#all-active-deployed-protocol-contr
 
 <small>\* Testnet</small>
 
-This list was updated 31/03/2025
+Esta lista foi atualizada em 31/03/2025
 
-The addresses can be queried on chain as shown in this [example](/en/overview/contracts-usage#interacting-with-rocket-pool).
+Os endereços podem ser consultados na cadeia conforme mostrado neste [exemplo](/pt/overview/contracts-usage#interacting-with-rocket-pool).

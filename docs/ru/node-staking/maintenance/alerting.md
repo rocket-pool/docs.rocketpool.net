@@ -1,37 +1,37 @@
-# Monitoring your Smartnode Stack with Alert Notifications
+# Мониторинг вашего стека Smartnode с помощью уведомлений о предупреждениях
 
-The Smartnode alert notification functionality allows you to receive notifications about the health and important events of your Rocket Pool Smartnode.
+Функциональность уведомлений о предупреждениях Smartnode позволяет вам получать уведомления о состоянии и важных событиях вашего Rocket Pool Smartnode.
 
-## Alerting System Overview
+## Обзор системы предупреждений
 
-The notification functionality utilizes [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) to deliver alerts. Alerting requires that you have already followed the [Setting up the Grafana Dashboard](../grafana.mdx) which walks through setting up the Smartnode stack's metrics tracker. The alerts are triggered when important metrics from your Smartnode exceed certain thresholds or when particular events occur like when your node's fee recipient is changed.
+Функциональность уведомлений использует [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) для доставки предупреждений. Предупреждения требуют, чтобы вы уже следовали [Настройке панели Grafana](../grafana.mdx), которая описывает настройку системы отслеживания метрик стека Smartnode. Предупреждения срабатывают, когда важные метрики вашего Smartnode превышают определённые пороговые значения или когда происходят определённые события, например, когда изменяется получатель комиссии вашей ноды.
 
-## Setting up Discord Notifications
+## Настройка уведомлений Discord
 
-Currently, notifications can be sent to Discord channels. You can configure Discord notifications within the Rocket Pool Text User Interface (TUI) on the "Monitoring / Alerting" page.
+В настоящее время уведомления могут быть отправлены в каналы Discord. Вы можете настроить уведомления Discord в текстовом пользовательском интерфейсе Rocket Pool (TUI) на странице "Monitoring / Alerting".
 
-### Adding a Discord Webhook URL:
+### Добавление URL вебхука Discord:
 
-1. Navigate to your desired Discord channel and open its settings.
-2. Under "Integrations," locate and click on "Webhooks."
-3. Click "Create Webhook."
-4. Give your webhook a name and choose a channel to send the alerts to.
-5. Copy the provided Webhook URL.
-6. Within the Rocket Pool TUI, navigate to the "Monitoring / Alerting" page.
-7. Paste the copied Webhook URL into the designated field and save the configuration.
+1. Перейдите к желаемому каналу Discord и откройте его настройки.
+2. В разделе "Integrations" найдите и нажмите на "Webhooks".
+3. Нажмите "Create Webhook".
+4. Дайте вашему вебхуку имя и выберите канал для отправки предупреждений.
+5. Скопируйте предоставленный Webhook URL.
+6. В TUI Rocket Pool перейдите на страницу "Monitoring / Alerting".
+7. Вставьте скопированный Webhook URL в указанное поле и сохраните конфигурацию.
 
-::: tip TIP
-Is your favorite notification missing? The Rocket Pool team is actively looking for feedback from the community regarding additional notification destinations. Feel free to suggest new notification destinations at https://github.com/rocket-pool/smartnode/issues.
+::: tip СОВЕТ
+Не хватает вашего любимого уведомления? Команда Rocket Pool активно ищет обратную связь от сообщества относительно дополнительных мест назначения уведомлений. Не стесняйтесь предлагать новые места назначения уведомлений на https://github.com/rocket-pool/smartnode/issues.
 :::
 
-## Disabling and Enabling Alerts
+## Отключение и включение предупреждений
 
-The Rocket Pool TUI provides a user-friendly interface for managing your alerts. You can access this functionality through the "Monitoring / Alerting" page. This interface allows you to View a list of all configured alerts and Enable or disable individual alerts based on your preference.
+TUI Rocket Pool предоставляет удобный интерфейс для управления вашими предупреждениями. Вы можете получить доступ к этой функциональности через страницу "Monitoring / Alerting". Этот интерфейс позволяет вам просматривать список всех настроенных предупреждений и включать или отключать отдельные предупреждения в соответствии с вашими предпочтениями.
 
-## Advanced Configuration
+## Расширенная конфигурация
 
-::: warning NOTE
-This section is for advanced users who are experienced with Prometheus and modifying YAML files.
+::: warning ПРИМЕЧАНИЕ
+Этот раздел предназначен для опытных пользователей, имеющих опыт работы с Prometheus и изменением файлов YAML.
 :::
 
-For more advanced configuration of alerts you can add your own based on any metric that is available in the Prometheus container managed by the Smartnode Stack. Add your own yaml file containing [Prometheus Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) into the `~/.rocketpool/alerting/rules/` directory and those rules and restart the Prometheus container with `docker stop rocketpool_prometheus` followed by `docker start rocketpool_prometheus`. Then run `docker logs rocketpool_prometheus` to confirm that Prometheus loaded your configuration file successfully (you want to see a line with _msg="Completed loading of configuration file" filename=/etc/prometheus/prometheus.yml_ and not _err="error loading config from \"/etc/prometheus/prometheus.yml\"..._)
+Для более расширенной конфигурации предупреждений вы можете добавить свои собственные на основе любой метрики, доступной в контейнере Prometheus, управляемом стеком Smartnode. Добавьте ваш собственный yaml файл, содержащий [правила предупреждений Prometheus](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/), в каталог `~/.rocketpool/alerting/rules/` и эти правила, и перезапустите контейнер Prometheus с помощью `docker stop rocketpool_prometheus`, а затем `docker start rocketpool_prometheus`. Затем выполните `docker logs rocketpool_prometheus`, чтобы подтвердить, что Prometheus успешно загрузил ваш файл конфигурации (вы хотите увидеть строку с _msg="Completed loading of configuration file" filename=/etc/prometheus/prometheus.yml_, а не _err="error loading config from \"/etc/prometheus/prometheus.yml\"..._)

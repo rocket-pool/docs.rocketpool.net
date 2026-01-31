@@ -1,3 +1,3 @@
-# Preparing the Operating System
+# Préparation du Système d'Exploitation
 
-[TBD] This should be where we describe how to do things like setting up a 2nd hard drive if applicable, running an IOPS test with `fio`, setting up swap space... everything someone might need to do. The `fio` test is important I think, but the other stuff might be skippable.
+[À DÉTERMINER] Ceci devrait être l'endroit où nous décrivons comment faire des choses comme configurer un deuxième disque dur si applicable, exécuter un test IOPS avec `fio`, configurer l'espace swap... tout ce dont quelqu'un pourrait avoir besoin. Le test `fio` est important je pense, mais les autres choses pourraient être optionnelles.

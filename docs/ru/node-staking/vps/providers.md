@@ -1,46 +1,46 @@
-# Selecting a Hosting Provider
+# Выбор хостинг-провайдера
 
-If you've arrived at this section, then you would like to run a Rocket Pool node but can't set one up locally at your home; you require a **virtual private server (VPS)** hosted on the cloud.
-There are several different services available that can provide such a machine, and they come in two different flavors: VPS providers and public cloud providers.
+Если вы попали в этот раздел, значит вы хотите запустить ноду Rocket Pool, но не можете установить её локально у себя дома; вам требуется **виртуальный частный сервер (VPS)**, размещенный в облаке.
+Существует несколько различных сервисов, которые могут предоставить такую машину, и они бывают двух типов: VPS-провайдеры и провайдеры публичных облаков.
 
-Choosing the correct one can be difficult, and understanding the differences between them is key.
-In this guide, we'll shine some light onto the distinction and list a few of the services that other Rocket Pool users have leveraged in the past to help you navigate through your options.
+Выбор правильного варианта может быть сложным, и понимание различий между ними является ключевым.
+В этом руководстве мы прольем свет на это различие и перечислим несколько сервисов, которые другие пользователи Rocket Pool использовали в прошлом, чтобы помочь вам сориентироваться в ваших вариантах.
 
-## Traditional VPS Hosting
+## Традиционный VPS-хостинг
 
-A virtual private server is a single instance of a virtual machine that resides on a larger physical machine.
-They are the cheapest option, and they are less-frequently employed than the ubiquitous cloud platforms so they tend to contribute more towards the Ethereum network's decentralization.
+Виртуальный частный сервер - это единственный экземпляр виртуальной машины, который находится на большей физической машине.
+Это самый дешевый вариант, и они используются реже, чем повсеместные облачные платформы, поэтому они, как правило, больше способствуют децентрализации сети Ethereum.
 
-However, they rarely have high-availability support; if the physical server goes down, it's likely that your VPS hosted on it will go down as well.
-Also, they have a fixed resource footprint; it's usually not possible to increase or decrease resources like CPU and RAM on demand.
+Однако они редко имеют поддержку высокой доступности; если физический сервер выходит из строя, скорее всего, ваш VPS, размещенный на нем, также выйдет из строя.
+Кроме того, у них фиксированный объем ресурсов; обычно невозможно увеличить или уменьшить такие ресурсы, как CPU и RAM, по требованию.
 
-As of 10/2024, one well-priced and performant option was the RS 12000 G11 from [Netcup](https://www.netcup.eu/vserver/vps.php).
-One word of warning is that storage is shared with others, so storage IOPs are a potential bottleneck.
+По состоянию на 10/2024 одним из хорошо оцененных и производительных вариантов был RS 12000 G11 от [Netcup](https://www.netcup.eu/vserver/vps.php).
+Одно предупреждение заключается в том, что хранилище является общим с другими, поэтому IOPS хранилища являются потенциальным узким местом.
 
-## Dedicated Server Hosting
+## Хостинг выделенных серверов
 
-Unlike a VPS, a dedicated server is an entire physical device that is rented by you. They are a relatively affordable option, and they are less-frequently employed than the ubiquitous cloud platforms so they tend to contribute more towards the Ethereum network's decentralization.
+В отличие от VPS, выделенный сервер - это целое физическое устройство, которое арендуете вы. Это относительно доступный вариант, и они используются реже, чем повсеместные облачные платформы, поэтому они, как правило, больше способствуют децентрализации сети Ethereum.
 
-As of 10/2024 two well-priced and performant options were the Rise and Advanced bare-metal servers from [OVH](https://us.ovhcloud.com/). There are a variety of these that change over time, as well as significant sales. You'll need to check that the [hardware guidelines](../local/hardware.md) are met.
+По состоянию на 10/2024 двумя хорошо оцененными и производительными вариантами были выделенные bare-metal серверы Rise и Advanced от [OVH](https://us.ovhcloud.com/). Существует множество таких вариантов, которые меняются со временем, а также значительные скидки. Вам нужно будет проверить, что соблюдаются [рекомендации по оборудованию](../local/hardware.md).
 
-## Cloud Hosting
+## Облачный хостинг
 
-Cloud hosting refers to virtual machines that are split across on a distributed network of multiple servers, rather than being hosted on a single physical machine.
-If one of the hosting machines fails, the others can seamlessly take over for it so availability and reliability tend to be extremely high on these platforms.
-They also tend to offer flexible resource options; it's relatively simple to add more CPU, RAM, or disk space on demand.
+Облачный хостинг относится к виртуальным машинам, которые распределены по распределенной сети из нескольких серверов, а не размещены на одной физической машине.
+Если одна из хостинговых машин выходит из строя, другие могут беспрепятственно взять на себя её функции, поэтому доступность и надежность на этих платформах, как правило, чрезвычайно высоки.
+Они также, как правило, предлагают гибкие варианты ресурсов; относительно просто добавить больше CPU, RAM или дискового пространства по требованию.
 
-Due to these extra benefits, cloud-based servers tend to be more expensive than VPS solutions.
-They're also very popular platforms, so using them generally reduces the overall decentralization of the Ethereum network.
+Благодаря этим дополнительным преимуществам облачные серверы, как правило, дороже, чем VPS-решения.
+Они также являются очень популярными платформами, поэтому их использование обычно снижает общую децентрализацию сети Ethereum.
 
-The 3 primary cloud providers are [Amazon Web Services (AWS)](https://aws.amazon.com/), [Microsoft Azure](https://azure.microsoft.com/en-us/), and [Google Cloud Platform (GCP)](https://cloud.google.com/).
-We do not recommend using cloud hosting due to price and centralization concerns.
+Тремя основными облачными провайдерами являются [Amazon Web Services (AWS)](https://aws.amazon.com/), [Microsoft Azure](https://azure.microsoft.com/en-us/) и [Google Cloud Platform (GCP)](https://cloud.google.com/).
+Мы не рекомендуем использовать облачный хостинг из-за соображений цены и централизации.
 
-## Key Considerations
+## Ключевые соображения
 
-### Price
+### Цена
 
-Cloud hosting solutions are usually a safer choice if cost is not a priority.
-The section below has a more detailed breakdown of cost estimates but here is a general comparison between a VPS option and a cloud option:
+Решения облачного хостинга обычно являются более безопасным выбором, если стоимость не является приоритетом.
+В разделе ниже представлена более подробная разбивка оценок стоимости, но вот общее сравнение между вариантом VPS и облачным вариантом:
 
-- OVH Dedicated Server: $90-160/mo
-- Netcup VPS: $90/mo
+- Выделенный сервер OVH: $90-160/мес
+- VPS Netcup: $90/мес

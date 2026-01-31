@@ -1,41 +1,41 @@
 ---
 next:
-  text: Monitoring your Node's Performance
-  link: "/en/node-staking/performance"
+  text: ノードのパフォーマンスの監視
+  link: "/ja/node-staking/performance"
 ---
 
-# Overview
+# 概要
 
-In this section, you'll learn about how to monitor the health of your node and your validators, track your earnings, and perform periodic maintenance such as updates.
+このセクションでは、ノードとvalidatorの健全性を監視し、収益を追跡し、更新などの定期的なメンテナンスを実行する方法について学習します。
 
-## Prerequisites
+## 前提条件
 
-Before configuring your Smartnode, please make sure you:
+Smartnodeを設定する前に、次のことを確認してください。
 
-- Have set up a node machine (or virtual machine) and secured it (via the [Securing your Node](../securing-your-node) guide)
-- Have the Smartnode [installed](../installing/overview) and [configured](../config/overview) on it
-- Have a node wallet loaded on your Smartnode
-- Synced your Execution and Consensus clients
-- Provisioned your node with [a withdrawal address](../prepare-node.mdx#setting-your-withdrawal-address), set up your [fallback clients](../fallback) (optional), opted into the [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (optional), and configured [MEV](../mev.mdx)
-- Created at least one [minipool](../create-validator.mdx)
+- ノードマシン(または仮想マシン)をセットアップし、保護している([ノードの保護](../securing-your-node)ガイドを参照)
+- Smartnodeが[インストール](../installing/overview)され、[設定](../config/overview)されている
+- Smartnodeにノードウォレットがロードされている
+- Execution ClientとConsensus Clientが同期されている
+- ノードに[出金アドレス](../prepare-node.mdx#setting-your-withdrawal-address)が準備され、[フォールバッククライアント](../fallback)がセットアップされ(オプション)、[Smoothing Pool](../fee-distrib-sp#the-smoothing-pool)にオプトインし(オプション)、[MEV](../mev.mdx)が設定されている
+- 少なくとも1つの[minipool](../create-validator.mdx)を作成している
 
-## Guides
+## ガイド
 
-[Monitoring your Node's Performance](../performance) provides some tools and tutorials for keeping tabs on your node's health (from a resource perspective, such as CPU and RAM consumption) and your validators' performance on the Beacon Chain.
-It covers a lot of fundamental tools you'll use during your tenure as an Ethereum validator.
+[ノードのパフォーマンスの監視](../performance)では、ノードの健全性(CPUやRAM消費などのリソースの観点から)とBeacon Chain上のvalidatorのパフォーマンスを監視するためのツールとチュートリアルをいくつか提供しています。
+Ethereum validatorとしての在任中に使用する多くの基本的なツールをカバーしています。
 
-[Setting up the Grafana Dashboard](../grafana.mdx) walks through setting up the Smartnode stack's metrics tracker and the Grafana dashboard - a one stop shop for monitoring everything about your node and validators, and a staple in each node operator's arsenal.
-We _strongly_ recommend exploring the Grafana dashboard and regularly checking in on it.
+[Grafanaダッシュボードのセットアップ](../grafana.mdx)では、SmartnodeスタックのメトリクストラッカーとGrafanaダッシュボードのセットアップについて説明します。これは、ノードとvalidatorに関するすべてを監視するためのワンストップショップであり、各Node Operatorの武器庫の定番です。
+Grafanaダッシュボードを探索し、定期的にチェックすることを_強く_お勧めします。
 
-[Smartnode Stack Alert Notifications](./alerting.md) walks through using the Smartnode alert notification functionality to receive notifications about the health and important events of your Rocket Pool Smartnode.
+[Smartnodeスタックアラート通知](./alerting.md)では、Smartnodeアラート通知機能を使用して、Rocket Pool Smartnodeの健全性と重要なイベントに関する通知を受信する方法について説明します。
 
-[Checking for Updates](../updates) covers the crucial processes of regularly updating your node with new security patches, how to update the Smartnode after a new release, and how to manually update client versions if your clients of choice release a new version that the Smartnode's latest release doesn't include yet.
-You should familiarize yourself with this entire section, as you may need to refer to it whenever an update is released.
+[更新の確認](../updates)では、新しいセキュリティパッチでノードを定期的に更新する重要なプロセス、新しいリリース後にSmartnodeを更新する方法、および選択したクライアントが新しいバージョンをリリースした場合にSmartnodeの最新リリースにまだ含まれていない場合にクライアントバージョンを手動で更新する方法について説明します。
+更新がリリースされるたびに参照する必要がある場合があるため、このセクション全体をよく理解しておく必要があります。
 
-[Backing Up Your Node](../backups) is an optional guide that describes how to back up your node's configuration and its chain data in case of a hardware failure.
+[ノードのバックアップ](../backups)は、ハードウェア障害が発生した場合に備えて、ノードの設定とチェーンデータをバックアップする方法を説明するオプションのガイドです。
 
-[Pruning the Execution Client](../pruning) is **important** for anyone running an Execution client that gradually consumes all of your SSD's disk space and requires periodic pruning (such as Geth or Nethermind) to reclaim some of that space.
-If you are running one of those clients, you should definitely familiarize yourself with the pruning process.
+[Execution Clientのプルーニング](../pruning)は、SSDのディスクスペースを徐々に消費し、定期的なプルーニング(GethやNethermindなど)を必要とするExecution Clientを実行している人にとって**重要**です。
+これらのクライアントのいずれかを実行している場合は、プルーニングプロセスをよく理解しておく必要があります。
 
-[Changing Execution or Consensus Clients](../change-clients) is a useful guide; it goes through the process of changing your client choice(s) and what can be expected during the process.
-This is another good guide to familiarize yourself with, just in case you ever have to switch clients for any reason down the line.
+[ExecutionまたはConsensus Clientの変更](../change-clients)は便利なガイドです。クライアントの選択を変更するプロセスと、プロセス中に期待できることについて説明します。
+これは、将来何らかの理由でクライアントを切り替える必要がある場合に備えて、よく理解しておくとよいガイドです。

@@ -1,19 +1,19 @@
 ---
 next:
-  text: Selecting Staking Hardware
-  link: "/en/node-staking/local/hardware"
+  text: Выбор оборудования для стейкинга
+  link: "/ru/node-staking/local/hardware"
 ---
 
-# Overview
+# Обзор
 
-This section is aimed at helping you understand the process of preparing a local machine for use as a Rocket Pool node at home.
+Этот раздел поможет вам понять процесс подготовки локальной машины для использования в качестве узла Rocket Pool дома.
 
-## Guides
+## Руководства
 
-[Selecting Staking Hardware](./hardware) shows a wide variety of viable hardware configurations for node operation, hopefully helping you find inspiration when picking what to get for yourself.
+[Выбор оборудования для стейкинга](./hardware) показывает широкий спектр подходящих аппаратных конфигураций для работы узла, что, надеемся, поможет вам найти вдохновение при выборе оборудования для себя.
 
-[Preparing a PC, Mini-PC, or NUC](./prepare-pc) walks you through the basic steps of installing and configuring the base Operating System on your machine to prepare it for life as a node.
+[Подготовка PC, Mini-PC или NUC](./prepare-pc) проведет вас через основные шаги установки и настройки базовой операционной системы на вашей машине, чтобы подготовить ее к работе в качестве узла.
 
-[Preparing a Mac](./prepare-mac) is the same, but for macOS systems.
+[Подготовка Mac](./prepare-mac) - то же самое, но для систем macOS.
 
-[Intro to Secure Shell (SSH)](../ssh) shows you how to use **SSH**, a popular remote-access tool for working with your node machine remotely and securely from a different machine (such as a laptop or desktop) so you don't have to interact with the node directly via a monitor and keyboard connected to it.
+[Введение в Secure Shell (SSH)](../ssh) покажет вам, как использовать **SSH**, популярный инструмент удаленного доступа для безопасной работы с вашей узловой машиной удаленно с другого компьютера (например, ноутбука или настольного компьютера), чтобы вам не нужно было взаимодействовать с узлом напрямую через монитор и клавиатуру, подключенные к нему.

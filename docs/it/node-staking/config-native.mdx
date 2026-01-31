@@ -17,300 +17,300 @@ import tui_native_settings_home from "./images/tui-native-settings-home.png";
 import tui_native_smartnode from "./images/tui-native-smartnode.png";
 import tui_textbox from "./images/tui-textbox.png";
 
-# Configuring the Smartnode Stack (Native Mode)
+# Configurazione dello Smart Node Stack (Modalità Nativa)
 
-In this section, we'll go over the various methods for configuring the Smartnode if you're using the **Native setup** that doesn't use Docker at all.
+In questa sezione, esamineremo i vari metodi per configurare lo Smart Node se stai utilizzando la **configurazione nativa** che non utilizza affatto Docker.
 
-::: warning NOTE
-If you're using a Docker-based setup, please visit the [Docker configuration guide](./config-docker) instead.
+::: warning NOTA
+Se stai utilizzando una configurazione basata su Docker, visita invece la [guida alla configurazione Docker](./config-docker).
 :::
 
-There are three ways to configure it:
+Ci sono tre modi per configurarlo:
 
-- Via the [Wizard UI](#configuring-via-the-wizard) - this is the easiest way. It only asks you a few basic question and uses well-tested defaults for the test. This will be what you are presented with when you run `rocketpool service config` for the first time.
-- Via the [Settings Manager UI](#configuring-via-the-settings-manager) - this gives you access to all of the Smartnode's settings so you can customize everything as much as you want.
-- Headlessly via the [Command Line](#configuring-via-the-command-line) - this is an option for people who run the Smartnode in a headless (non-interactive) environment and need to configure it automatically.
+- Tramite l'[interfaccia del wizard](#configurazione-tramite-il-wizard) - questo è il modo più semplice. Ti pone solo alcune domande di base e utilizza impostazioni predefinite ben testate per il resto. Questo è ciò che ti verrà presentato quando esegui `rocketpool service config` per la prima volta.
+- Tramite l'[interfaccia del gestore delle impostazioni](#configurazione-tramite-il-gestore-delle-impostazioni) - questo ti dà accesso a tutte le impostazioni dello Smart Node in modo da poter personalizzare tutto quanto desideri.
+- In modo headless tramite la [riga di comando](#configurazione-tramite-la-riga-di-comando) - questa è un'opzione per le persone che eseguono lo Smart Node in un ambiente headless (non interattivo) e hanno bisogno di configurarlo automaticamente.
 
-Choose which mode you'd like to learn more about from the list above, or simply scroll through each option below.
+Scegli quale modalità desideri approfondire dall'elenco qui sopra, oppure scorri semplicemente ciascuna opzione qui sotto.
 
-## Configuring via the Wizard
+## Configurazione tramite il Wizard
 
-To configure the Smartnode, run the configuration command:
+Per configurare lo Smart Node, esegui il comando di configurazione:
 
 ```shell
 rp service config
 ```
 
-This will launch a terminal-based UI that will allow you to quickly and easily configure your node, as well as provide optional fine-grained control over the settings that are relevant to Native mode.
+Questo avvierà un'interfaccia utente basata su terminale che ti permetterà di configurare rapidamente e facilmente il tuo nodo, oltre a fornire un controllo opzionale granulare sulle impostazioni rilevanti per la modalità nativa.
 
-::: tip NOTE
-If you've already configured the Smartnode, you will instead be greeted with the [Settings Manager](#configuring-the-smartnode-stack-via-the-settings-manager).
-You can choose to re-open the Wizard from there if you prefer it, and all of your existing settings will be pre-selected for you.
+::: tip NOTA
+Se hai già configurato lo Smart Node, verrai invece accolto dal [gestore delle impostazioni](#configurazione-tramite-il-gestore-delle-impostazioni).
+Puoi scegliere di riaprire il wizard da lì se lo preferisci, e tutte le tue impostazioni esistenti saranno preselezionate per te.
 :::
 
-When you run the config UI for the first time (or if you choose to run the Wizard again later), you will be presented with a screen that looks like this:
+Quando esegui l'interfaccia di configurazione per la prima volta (o se scegli di eseguire nuovamente il wizard in seguito), ti verrà presentata una schermata simile a questa:
 
 <img src={tui_native_welcome} width="100%" height="auto" />
 
-::: tip TIP
-To use the Wizard, **press the `Arrow Keys` (up/down/left/right) to navigate between things such as buttons (choices) or text boxes**.
-You can also use `Tab` and `Shift+Tab` if you prefer - it will do the same thing.
+::: tip SUGGERIMENTO
+Per utilizzare il wizard, **premi i `tasti freccia` (su/giù/sinistra/destra) per navigare tra elementi come pulsanti (scelte) o caselle di testo**.
+Puoi anche usare `Tab` e `Shift+Tab` se preferisci - farà la stessa cosa.
 
-For buttons, **the one that's currently selected will be highlighted in green**.
-The ones in black are not selected.
-In the screenshot above, `Next` is currently selected and `Quit` is not.
+Per i pulsanti, **quello attualmente selezionato sarà evidenziato in verde**.
+Quelli in nero non sono selezionati.
+Nello screenshot sopra, `Next` è attualmente selezionato e `Quit` non lo è.
 
-**Press `Enter` or `Space` to select a button**, analogous to clicking on it with the mouse.
+**Premi `Invio` o `Spazio` per selezionare un pulsante**, analogo al clic del mouse.
 
-**Press `Escape` to go back to the previous dialog** if you changed your mind about something.
-This will come in handy as you progress through the various Wizard pages.
+**Premi `Escape` per tornare alla finestra precedente** se hai cambiato idea su qualcosa.
+Questo tornerà utile man mano che procedi attraverso le varie pagine del wizard.
 
-**Hold `Ctrl` and press `C` at any time to exit the Wizard without saving anything**.
+**Tieni premuto `Ctrl` e premi `C` in qualsiasi momento per uscire dal wizard senza salvare nulla**.
 
-For example, on the screen above, you could press the `left` and `right` arrow keys to move between the `Next` and `Quit` buttons.
+Ad esempio, nella schermata sopra, potresti premere i tasti freccia `sinistra` e `destra` per spostarti tra i pulsanti `Next` e `Quit`.
 
-Pressing `Enter` while `Next` is selected will proceed to the next screen.
-Pressing `Enter` while `Quit` is selected will quit the Wizard without saving.
+Premere `Invio` mentre `Next` è selezionato procederà alla schermata successiva.
+Premere `Invio` mentre `Quit` è selezionato uscirà dal wizard senza salvare.
 :::
 
-When you're ready to begin, press `Next`.
+Quando sei pronto per iniziare, premi `Next`.
 
-### Choosing a Network
+### Scelta di una rete
 
-In the next screen, you will be asked to choose which network you want to use:
+Nella schermata successiva, ti verrà chiesto di scegliere quale rete vuoi utilizzare:
 
 <img src={tui_native_network} width="100%" height="auto" />
 
-You can highlight the different choices with the `Up` and `Down` arrow keys (or `Tab` and `Shift+Tab`).
-When you change choices, the **Description** box on the right will show you a brief description of each option.
-This is true for all choice-based pages in the Wizard, not just the network selection, so you will see this style of page frequently.
+Puoi evidenziare le diverse scelte con i tasti freccia `Su` e `Giù` (o `Tab` e `Shift+Tab`).
+Quando cambi scelta, la casella **Descrizione** a destra ti mostrerà una breve descrizione di ciascuna opzione.
+Questo è vero per tutte le pagine basate su scelte nel wizard, non solo per la selezione della rete, quindi vedrai questo stile di pagina frequentemente.
 
-If you want to practice running a Rocket Pool node on the Hoodi test network with fake ETH and RPL you can get for free, select **Hoodi Testnet**.
+Se vuoi esercitarti nell'esecuzione di un nodo Rocket Pool sulla rete di test Hoodi con ETH e RPL falsi che puoi ottenere gratuitamente, seleziona **Hoodi Testnet**.
 
-If you're ready to create a real Rocket Pool node on Mainnet to earn real rewards, select **Mainnet**.
+Se sei pronto per creare un vero nodo Rocket Pool sulla Mainnet per guadagnare ricompense reali, seleziona **Mainnet**.
 
-### Execution Client Setup
+### Configurazione del client di esecuzione
 
-The next screen will prompt you for the URL of your Execution client's HTTP-based RPC API:
+La schermata successiva ti chiederà l'URL dell'API RPC basata su HTTP del tuo client di esecuzione:
 
 <img src={tui_native_ec} width="100%" height="auto" />
 
-Enter `http://127.0.0.1:8545` here if you plan to run an Execution client on the same machine as the Smartnode (in the rest of this guide, we will assume this is what you plan to do).
-However, if you already have an Execution client set up elsewhere, use its URL here instead.
+Inserisci qui `http://127.0.0.1:8545` se prevedi di eseguire un client di esecuzione sulla stessa macchina dello Smart Node (nel resto di questa guida, assumeremo che questo è ciò che prevedi di fare).
+Tuttavia, se hai già un client di esecuzione configurato altrove, usa invece il suo URL qui.
 
-Note that you can always change this by running `rp service config` again later.
+Nota che puoi sempre cambiarlo eseguendo di nuovo `rp service config` in seguito.
 
-### Consensus Client Setup
+### Configurazione del client di consenso
 
-Next, you'll be asked which Consensus client you are using (or plan to use).
-Because each Consensus client has slightly different behavior, the Smartnode needs to know which one you're using so it can adapt its own behavior accordingly.
-Choose your client from the list in the following screen:
+Successivamente, ti verrà chiesto quale client di consenso stai utilizzando (o prevedi di utilizzare).
+Poiché ogni client di consenso ha un comportamento leggermente diverso, lo Smart Node deve sapere quale stai utilizzando in modo da poter adattare di conseguenza il proprio comportamento.
+Scegli il tuo client dall'elenco nella seguente schermata:
 
 <img src={tui_native_cc} width="100%" height="auto" />
 
-Next, you will see a screen prompting you for your client's API URL:
+Successivamente, vedrai una schermata che ti chiede l'URL dell'API del tuo client:
 
 <img src={tui_native_cc_url} width="100%" height="auto" />
 
-Enter `http://127.0.0.1:5052` here if you plan to run the Beacon Node of your Consensus client on the same machine as the Smartnode (in the rest of this guide, we will assume this is what you plan to do).
-However, if you already have a Beacon Node set up elsewhere, use its URL here instead.
+Inserisci qui `http://127.0.0.1:5052` se prevedi di eseguire il Beacon Node del tuo client di consenso sulla stessa macchina dello Smart Node (nel resto di questa guida, assumeremo che questo è ciò che prevedi di fare).
+Tuttavia, se hai già un Beacon Node configurato altrove, usa invece il suo URL qui.
 
-### Other Settings
+### Altre impostazioni
 
-The next screen will have a few other miscellaneous settings:
+La schermata successiva avrà alcune altre impostazioni varie:
 
 <img src={tui_native_other} width="100%" height="auto" />
 
-Leave these as the default options unless you have decided to use a directory other than `/srv/rocketpool` for your Smartnode installation.
+Lascia queste come opzioni predefinite a meno che tu non abbia deciso di utilizzare una directory diversa da `/srv/rocketpool` per la tua installazione dello Smart Node.
 
-### Fallback Clients
+### Client di fallback
 
-Starting with 1.5.0 of the Smartnode stack, you can provide a "fallback" Execution client and Consensus client pair that can take over for your primary clients if they ever go offline (such as because you use Geth and need to prune it).
-In this situation, your primary node machine will still be responsible for attesting and proposing blocks with your minipools' validator keys, but it will connect to an external machine to interact with the Execution layer and Beacon chains.
+A partire dalla versione 1.5.0 dello stack Smart Node, puoi fornire una coppia di client di esecuzione e client di consenso di "fallback" che possono sostituire i tuoi client primari se dovessero mai andare offline (ad esempio perché usi Geth e devi eseguire il pruning).
+In questa situazione, la tua macchina nodo primaria sarà ancora responsabile dell'attestazione e della proposta di blocchi con le chiavi validator dei tuoi minipool, ma si connetterà a una macchina esterna per interagire con il livello di esecuzione e le blockchain Beacon.
 
-[To learn more about fall back nodes, see this section](./fallback) and return here when you're done.
+[Per saperne di più sui nodi di fallback, consulta questa sezione](./fallback) e torna qui quando hai finito.
 
-### Metrics
+### Metriche
 
-Rocket Pool has the ability to integrate with Prometheus and Grafana to produce convenient web-based dashboards that let you observe your node's health at a glance:
+Rocket Pool ha la capacità di integrarsi con Prometheus e Grafana per produrre comodi dashboard basati sul web che ti permettono di osservare a colpo d'occhio la salute del tuo nodo:
 
 <img src={nimbus_dashboard} width="100%" height="auto" />
 
-The final question in the Wizard will ask you if you want to enable this:
+L'ultima domanda nel wizard ti chiederà se vuoi abilitare questo:
 
 <img src={tui_native_metrics} width="100%" height="auto" />
 
-If you choose to enable it, you will learn more about setting it up and how to use it in the [Setting up the Grafana Dashboard](./grafana.mdx) section later in the process.
+Se scegli di abilitarlo, imparerai di più su come configurarlo e come usarlo nella sezione [Configurazione del dashboard Grafana](./grafana.mdx) più avanti nel processo.
 
-::: warning NOTE
-All of the data collected by this system **stays on your machine**.
-Rocket Pool does not collect any of the telemetry or send it to a separate service.
-It's purely there for you to use so you can monitor your own node!
+::: warning NOTA
+Tutti i dati raccolti da questo sistema **rimangono sulla tua macchina**.
+Rocket Pool non raccoglie nessuna telemetria né la invia a un servizio separato.
+È lì puramente per permetterti di monitorare il tuo nodo!
 :::
 
-### MEV Configuration
+### Configurazione MEV
 
-Since the Merge of the Execution and Consensus layers in September 2022, Ethereum validators now have the ability to earn priority fees and participate in Maximal Extractable Value (or MEV for short).
+Dalla fusione dei livelli di esecuzione e consenso nel settembre 2022, i validatori Ethereum ora hanno la capacità di guadagnare commissioni di priorità e partecipare al Maximal Extractable Value (o MEV in breve).
 
-Starting with Smartnode v1.7.0, MEV is now _opt-out_ so a notification about configuring it is presented as part of the initial setup, as you see in the next screen:
+A partire da Smart Node v1.7.0, MEV è ora _opt-out_ quindi una notifica sulla sua configurazione viene presentata come parte della configurazione iniziale, come vedi nella schermata successiva:
 
 <img src={tui_native_mev} width="100%" height="auto" />
 
-[Please read our MEV guide to learn more about MEV, its configuration, and what to do in this section of the wizard.](./mev.mdx)
-Return here when you're finished.
+[Leggi la nostra guida MEV per saperne di più su MEV, la sua configurazione e cosa fare in questa sezione del wizard.](./mev.mdx)
+Torna qui quando hai finito.
 
-### Completion
+### Completamento
 
-After this question, you've finished setting up the Smartnode configuration.
-You will see the following dialog:
+Dopo questa domanda, hai finito di configurare lo Smart Node.
+Vedrai la seguente finestra:
 
 <img src={tui_native_finished} width="100%" height="auto" />
 
-If you're happy with your setup and are ready to start the Smartnode, click `Save and Exit` here.
+Se sei soddisfatto della tua configurazione e sei pronto ad avviare lo Smart Node, fai clic su `Save and Exit` qui.
 
-If you haven't finished installing Rocket Pool yet, return to the Native setup guide now.
-Otherwise, the next step is to restart your daemon services with:
+Se non hai ancora finito di installare Rocket Pool, torna ora alla guida di configurazione nativa.
+Altrimenti, il passo successivo è riavviare i tuoi servizi daemon con:
 
 ```shell
 sudo systemctl restart rp-node rp-watchtower
 ```
 
-If you would like to review all of the settings and customize many additional settings that weren't included in the Wizard, click `Review All Settings` and go to the [next section](#configuring-via-the-settings-manager).
+Se desideri rivedere tutte le impostazioni e personalizzare molte impostazioni aggiuntive che non erano incluse nel wizard, fai clic su `Review All Settings` e vai alla [sezione successiva](#configurazione-tramite-il-gestore-delle-impostazioni).
 
-## Configuring via the Settings Manager
+## Configurazione tramite il gestore delle impostazioni
 
-If you've already run `rp service config`, instead of being greeted by the Wizard, you will see the **Settings Manager** screen:
+Se hai già eseguito `rp service config`, invece di essere accolto dal wizard, vedrai la schermata del **gestore delle impostazioni**:
 
 <img src={tui_native_settings_home} width="100%" height="auto" />
 
-There are three main features of this screen:
+Ci sono tre caratteristiche principali di questa schermata:
 
-1. The **Category List**, which lets you drill down into the settings for each category of the Smartnode stack that is relevant to Native mode
-2. The **Review Changes and Save** button, which you can use when you're ready to see what settings you've changed and save the updated configuration
-3. The **Open the Config Wizard** button, which will bring you to the [Setup Wizard](#configuring-the-smartnode-stack-via-the-wizard) if you prefer that interface instead
+1. L'**elenco delle categorie**, che ti permette di approfondire le impostazioni per ciascuna categoria dello stack Smart Node rilevante per la modalità nativa
+2. Il pulsante **Review Changes and Save**, che puoi utilizzare quando sei pronto per vedere quali impostazioni hai modificato e salvare la configurazione aggiornata
+3. Il pulsante **Open the Config Wizard**, che ti porterà al [wizard di configurazione](#configurazione-tramite-il-wizard) se preferisci quell'interfaccia
 
-::: tip TIP
-To use the Settings Manager, **press the `Arrow Keys` (up/down/left/right) to navigate between options in the home page**.
+::: tip SUGGERIMENTO
+Per utilizzare il gestore delle impostazioni, **premi i `tasti freccia` (su/giù/sinistra/destra) per navigare tra le opzioni nella home page**.
 
-Press `Tab` to go **between the category list (1) and the buttons (2 and 3)** at the bottom of the screen.
-The button that's currently selected will be **highlighted in green**.
+Premi `Tab` per spostarti **tra l'elenco delle categorie (1) e i pulsanti (2 e 3)** nella parte inferiore dello schermo.
+Il pulsante attualmente selezionato sarà **evidenziato in verde**.
 
-**Press `Enter` or `Space` to select a button**, analogous to clicking on it with the mouse.
+**Premi `Invio` o `Spazio` per selezionare un pulsante**, analogo al clic del mouse.
 
-**Hold `Ctrl` and press `C` at any time to exit the Settings Manager without saving anything**.
+**Tieni premuto `Ctrl` e premi `C` in qualsiasi momento per uscire dal gestore delle impostazioni senza salvare nulla**.
 :::
 
-As you scroll through the categories list, each option will have a helpful description appear in the **Description Box** to the right of the screen.
-Feel free to explore them; nothing you do will be saved until you go through the Review dialog via the **Review Changes and Save** button, and you can press **Ctrl+C** at any time to exit without saving, so you won't accidentally mess something up by playing with the settings here.
+Mentre scorri l'elenco delle categorie, ogni opzione avrà una descrizione utile che appare nella **casella di descrizione** a destra dello schermo.
+Sentiti libero di esplorarle; nulla di ciò che fai verrà salvato fino a quando non passi attraverso la finestra di revisione tramite il pulsante **Review Changes and Save**, e puoi premere **Ctrl+C** in qualsiasi momento per uscire senza salvare, quindi non rovinerai accidentalmente qualcosa giocando con le impostazioni qui.
 
-### Configuring the Settings
+### Configurazione delle impostazioni
 
-From the home screen, select any one of the categories with the `Enter` key to view the settings for that category.
-For example, here is the screen for the **Smartnode and TX Fees** category:
+Dalla schermata iniziale, seleziona una qualsiasi delle categorie con il tasto `Invio` per visualizzare le impostazioni per quella categoria.
+Ad esempio, ecco la schermata per la categoria **Smartnode and TX Fees**:
 
 <img src={tui_native_smartnode} width="100%" height="auto" />
 
-Use the `Arrow Keys` to move up and down between the settings.
-The currently selected one will have a white square at the end of it (if it's a text box or a check box), or will be highlighted in white (if it's a drop down).
+Usa i `tasti freccia` per spostarti su e giù tra le impostazioni.
+Quella attualmente selezionata avrà un quadrato bianco alla fine (se è una casella di testo o una casella di controllo), o sarà evidenziata in bianco (se è un menu a discesa).
 
-Press `Escape` to go back to the home screen of the Settings Manager when you're done.
+Premi `Escape` per tornare alla schermata iniziale del gestore delle impostazioni quando hai finito.
 
-As you scroll through the settings, each one will show a brief description of what it does in the **Description Box** on the right.
-It will also show the **default value** there in case you want to revert it to its stock setting.
+Mentre scorri le impostazioni, ognuna mostrerà una breve descrizione di cosa fa nella **casella di descrizione** a destra.
+Mostrerà anche il **valore predefinito** lì nel caso tu voglia ripristinarlo alla sua impostazione standard.
 
-In this example, the **RPL Claim Gas Threshold** setting is currently selected (highlighted with a green box on the left-hand side of the screen).
-It has been changed to `40`, but you can see that it has a default of `150` in the top-right corner (the top of the **Description Box**).
+In questo esempio, l'impostazione **RPL Claim Gas Threshold** è attualmente selezionata (evidenziata con una casella verde sul lato sinistro dello schermo).
+È stata modificata a `40`, ma puoi vedere che ha un valore predefinito di `150` nell'angolo in alto a destra (nella parte superiore della **casella di descrizione**).
 
-::: tip TIP
-As a reminder, nothing will be saved to disk until you go through the Review dialog via the **Review Changes and Save** button.
-You are encouraged to explore all of the settings to learn about them.
+::: tip SUGGERIMENTO
+Come promemoria, nulla verrà salvato su disco fino a quando non passi attraverso la finestra di revisione tramite il pulsante **Review Changes and Save**.
+Sei incoraggiato a esplorare tutte le impostazioni per conoscerle.
 :::
 
-### The Setting Types and How to Use Them
+### I tipi di impostazioni e come usarli
 
-The settings manager uses the following setting types and UI elements:
+Il gestore delle impostazioni utilizza i seguenti tipi di impostazioni ed elementi dell'interfaccia utente:
 
-#### Text Boxes
+#### Caselle di testo
 
-Text boxes are used to enter arbitrary strings of text or numbers.
-They look like this:
+Le caselle di testo vengono utilizzate per inserire stringhe arbitrarie di testo o numeri.
+Hanno questo aspetto:
 
 <img src={tui_textbox} width="100%" height="auto" />
 
-Enter your desired values into them, then **press `Enter` or use the `Arrow Keys` to navigate to a different setting in order to preserve your changes.**
-If you don't, the Settings Manager will assume you're still updating that setting and won't mark it as changed yet.
+Inserisci i valori desiderati, quindi **premi `Invio` o usa i `tasti freccia` per navigare verso un'impostazione diversa per preservare le tue modifiche.**
+Se non lo fai, il gestore delle impostazioni assumerà che stai ancora aggiornando quell'impostazione e non la contrassegnerà ancora come modificata.
 
-#### Drop Downs
+#### Menu a discesa
 
-Drop downs are used to select an option from a list of choices.
-They look like this (when they're open):
+I menu a discesa vengono utilizzati per selezionare un'opzione da un elenco di scelte.
+Hanno questo aspetto (quando sono aperti):
 
 <img src={tui_dropdown_open} width="100%" height="auto" />
 
-The **green** item is the one that is currently selected.
-Use the `Arrow Keys` to change options - as you do, the **Description Box** on the right will update to tell you more about the currently selected option.
-When you're happy with your choice, press `Enter` to choose the selected option and the drop down will close, revealing the option that is currently selected:
+L'elemento **verde** è quello attualmente selezionato.
+Usa i `tasti freccia` per cambiare opzioni - mentre lo fai, la **casella di descrizione** a destra si aggiornerà per dirti di più sull'opzione attualmente selezionata.
+Quando sei soddisfatto della tua scelta, premi `Invio` per scegliere l'opzione selezionata e il menu a discesa si chiuderà, rivelando l'opzione attualmente selezionata:
 
 <img src={tui_dropdown_closed} width="100%" height="auto" />
 
-#### Check Boxes
+#### Caselle di controllo
 
-Check boxes are used for simple Yes/No questions.
-They look like this:
+Le caselle di controllo vengono utilizzate per semplici domande Sì/No.
+Hanno questo aspetto:
 
 <img src={tui_checkbox_checked} width="100%" height="auto" />
 
-When they are checked, they will have an `X` in the middle as you see above.
-When they are _unchecked_, they will simply be blank like this:
+Quando sono selezionate, avranno una `X` al centro come vedi sopra.
+Quando sono _deselezionate_, saranno semplicemente vuote così:
 
 <img src={tui_checkbox_unchecked} width="100%" height="auto" />
 
-To change the setting, simply select it and press `Enter`.
+Per modificare l'impostazione, selezionala semplicemente e premi `Invio`.
 
-### Saving Changes
+### Salvataggio delle modifiche
 
-When you're happy with your changes and you'd like to review them before saving, press the **Review Changes and Save** button on the home screen.
-As a reminder, to get to it, press the `Tab` key.
+Quando sei soddisfatto delle tue modifiche e desideri rivederle prima di salvare, premi il pulsante **Review Changes and Save** nella schermata iniziale.
+Come promemoria, per raggiungerlo, premi il tasto `Tab`.
 
-You will be presented with a view that looks like this:
+Ti verrà presentata una vista simile a questa:
 
 <img src={tui_native_review} width="100%" height="auto" />
 
-The **Review Box** here will present all of the settings you've changed, showing the old values and the new ones.
-For example, the first line here shows that the **RPL Claim Gas Threshold** used to be `150`, and it's been changed to `40`.
+La **casella di revisione** qui presenterà tutte le impostazioni che hai modificato, mostrando i vecchi valori e quelli nuovi.
+Ad esempio, la prima riga qui mostra che il **RPL Claim Gas Threshold** era `150`, ed è stato modificato a `40`.
 
-::: tip NOTE
-At this point, your changes **still haven't been saved yet**.
-If you want to go back and modify something, press `Escape` to return to the home screen.
+::: tip NOTA
+A questo punto, le tue modifiche **non sono ancora state salvate**.
+Se vuoi tornare indietro e modificare qualcosa, premi `Escape` per tornare alla schermata iniziale.
 :::
 
-When you are satisfied with the changes, press `Enter` to save the new configuration to disk.
-You will then exit the Terminal UI and be presented with this message:
+Quando sei soddisfatto delle modifiche, premi `Invio` per salvare la nuova configurazione su disco.
+Uscirai quindi dall'interfaccia del terminale e ti verrà presentato questo messaggio:
 
 ```
 Your changes have been saved!
 Please restart your daemon service for them to take effect.
 ```
 
-If you haven't finished installing Rocket Pool yet, return to the Native setup guide now.
-Otherwise, now you can restart your daemon services with:
+Se non hai ancora finito di installare Rocket Pool, torna ora alla guida di configurazione nativa.
+Altrimenti, ora puoi riavviare i tuoi servizi daemon con:
 
 ```shell
 sudo systemctl restart rp-node rp-watchtower
 ```
 
-## Configuring via the Command Line
+## Configurazione tramite la riga di comando
 
-If you use the Smartnode in a headless environment where you can't interact with the Terminal UI, you can configure your node via the command line instead.
+Se utilizzi lo Smart Node in un ambiente headless in cui non puoi interagire con l'interfaccia del terminale, puoi configurare il tuo nodo tramite la riga di comando invece.
 
-The `rocketpool service config` command accepts, as arguments, every setting that can normally be configured via the Terminal UI.
-Run the following command to see a list of them (note that it's quite long):
+Il comando `rocketpool service config` accetta, come argomenti, ogni impostazione che può normalmente essere configurata tramite l'interfaccia del terminale.
+Esegui il seguente comando per vederne un elenco (nota che è piuttosto lungo):
 
 ```
 rocketpool service config --help
 ```
 
-The output will look like this:
+L'output sarà simile a questo:
 
 ```
 NAME:
@@ -334,16 +334,16 @@ OPTIONS:
 ...
 ```
 
-Each option will have its name, its type, its default value, and (if it's a choice parameter) its options.
-Using this text, you can find the option(s) you want to set and specify them via the appropriate arguments.
+Ogni opzione avrà il suo nome, il suo tipo, il suo valore predefinito e (se è un parametro di scelta) le sue opzioni.
+Utilizzando questo testo, puoi trovare l'opzione o le opzioni che desideri impostare e specificarle tramite gli argomenti appropriati.
 
-::: tip NOTE
-This command builds on top of your existing configuration, so if you have some settings already saved and just want to modify others, you don't need to repeat them.
-It will only update settings that you include as arguments to this command.
+::: tip NOTA
+Questo comando si basa sulla tua configurazione esistente, quindi se hai già alcune impostazioni salvate e vuoi solo modificarne altre, non è necessario ripeterle.
+Aggiornerà solo le impostazioni che includi come argomenti di questo comando.
 :::
 
-If you haven't finished installing Rocket Pool yet, return to the Native setup guide now.
-Otherwise, the next step is to restart your daemon services with:
+Se non hai ancora finito di installare Rocket Pool, torna ora alla guida di configurazione nativa.
+Altrimenti, il passo successivo è riavviare i tuoi servizi daemon con:
 
 ```shell
 sudo systemctl restart rp-node rp-watchtower

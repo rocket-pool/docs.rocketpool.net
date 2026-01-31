@@ -1,59 +1,59 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-::: danger WARNING
-Minipool deposits are currently disabled in preparation for Saturn 1.
+::: danger ПРЕДУПРЕЖДЕНИЕ
+Депозиты minipool в настоящее время отключены в рамках подготовки к Saturn 1.
 :::
 
-# Creating a New Minipool (Validator)
+# Создание нового Minipool (Validator)
 
-As a reminder, a `minipool` in Rocket Pool terms refers to a unique smart contract instance on the Execution Layer that your node manages.
-The minipool handles a portion of your ETH, known as the **bond amount**, and a portion of ETH from the rETH staking pool, known as the **borrowed amount**.
-It merges them together to form 32 ETH in total, which is then sent to the Beacon Chain deposit contract to create a new validator.
-Thus, in order to create a validator using Rocket Pool, you need to **create a minipool**.
+Напоминаем, что `minipool` в терминах Rocket Pool означает уникальный экземпляр смарт-контракта на уровне Execution Layer, которым управляет ваша нода.
+Minipool обрабатывает часть ваших ETH, известную как **сумма залога**, и часть ETH из пула стейкинга rETH, известную как **заемная сумма**.
+Он объединяет их вместе, чтобы сформировать 32 ETH в общей сложности, которые затем отправляются в контракт депозита Beacon Chain для создания нового validator.
+Таким образом, чтобы создать validator с помощью Rocket Pool, вам необходимо **создать minipool**.
 
-::: danger WARNING
-Minipool creation is governed by two queues.
+::: danger ПРЕДУПРЕЖДЕНИЕ
+Создание minipool регулируется двумя очередями.
 
-The first is the Rocket Pool deposit queue, which is managed by the Rocket Pool protocol & determines when your minipool will receive its borrowed ETH. There needs to be ETH available in the deposit pool to match your 8 ETH with 24 ETH in the deposit pool & create the minipool.
+Первая - это очередь депозитов Rocket Pool, которая управляется протоколом Rocket Pool и определяет, когда ваш minipool получит заемные ETH. В пуле депозитов должны быть доступны ETH, чтобы сопоставить ваши 8 ETH с 24 ETH в пуле депозитов и создать minipool.
 
-The second is the Beacon Chain queue, which is managed by the Ethereum Beacon Chain & determines when your validator will become active.
+Вторая - это очередь Beacon Chain, которая управляется Ethereum Beacon Chain и определяет, когда ваш validator станет активным.
 
-Please be aware that the time it takes for your minipool to become active can vary greatly depending on your position in each queue & the current state of the network.
+Обратите внимание, что время активации вашего minipool может сильно варьироваться в зависимости от вашей позиции в каждой очереди и текущего состояния сети.
 :::
 
-::: tip NOTE
-The Beacon Chain validator queue activation (and exit) times can vary greatly depending on the current state of the network.
+::: tip ПРИМЕЧАНИЕ
+Время активации очереди validator Beacon Chain (и выхода) может сильно варьироваться в зависимости от текущего состояния сети.
 
-This is outside Rocket Pool's control and is a function of the Beacon Chain itself.
+Это находится вне контроля Rocket Pool и является функцией самого Beacon Chain.
 
-The following tool provides a good estimate of how long you can expect to wait:
+Следующий инструмент предоставляет хорошую оценку того, как долго вам придется ждать:
 [https://www.validatorqueue.com/](https://www.validatorqueue.com/)
 
-Please review this tool to get an idea of how long you can expect to wait for your validator to become active.
+Пожалуйста, ознакомьтесь с этим инструментом, чтобы получить представление о том, как долго вам придется ждать активации вашего validator.
 :::
 
-### Staking RPL via the Website
+### Стейкинг RPL через сайт
 
-The easiest and safest way to stake RPL for your node is to use the protocol's **Stake-on-Behalf** feature, which was
-reintroduced with the Atlas upgrade. This way, you can stake RPL for your node while the RPL is still in the wallet
-you used to acquire it. In other words, you **don't need to send RPL to your node's hot wallet** in order to stake it.
+Самый простой и безопасный способ застейкать RPL для вашей ноды - использовать функцию **Stake-on-Behalf** протокола, которая была
+повторно введена с обновлением Atlas. Таким образом, вы можете застейкать RPL для вашей ноды, пока RPL все еще находится в кошельке,
+который вы использовали для его приобретения. Другими словами, вам **не нужно отправлять RPL в горячий кошелек вашей ноды**, чтобы застейкать его.
 
-#### Whitelisting an address to stake on behalf
+#### Добавление адреса в белый список для стейкинга от имени
 
-In order to stake on behalf of your node an address must be whitelisted. Your withdrawal address is always whitelisted,
-and you may skip this step if your RPL is held by your withdrawal address. You only need to whitelist an address once
-in order to stake from it. You can do this via the following Smartnode command:
+Чтобы застейкать от имени вашей ноды, адрес должен быть в белом списке. Ваш адрес для вывода средств всегда находится в белом списке,
+и вы можете пропустить этот шаг, если ваш RPL хранится по адресу для вывода средств. Вам нужно добавить адрес в белый список только один раз,
+чтобы стейкать с него. Вы можете сделать это с помощью следующей команды Smartnode:
 
 ```shell
 rocketpool node add-address-to-stake-rpl-whitelist address-or-ens
 ```
 
-Where `address-or-ens` is the address or ENS name that resolves to your desired address. You will be asked to
-confirm the whitelist addition and after the transaction is confirmed, you can then navigate to the relevant page below.
+Где `address-or-ens` - это адрес или имя ENS, которое разрешается в желаемый адрес. Вам будет предложено
+подтвердить добавление в белый список, и после подтверждения транзакции вы можете перейти на соответствующую страницу ниже.
 
-#### Staking RPL on behalf of
+#### Стейкинг RPL от имени
 
-Select which network you're using from the tabs below to be taken to it:
+Выберите, какую сеть вы используете, на вкладках ниже, чтобы перейти к ней:
 
 <div className="p-3">
   <Tabs>
@@ -62,70 +62,70 @@ Select which network you're using from the tabs below to be taken to it:
   </Tabs>
 </div>
 
-Start by connecting your wallet to the website using MetaMask, WalletConnect, or any of the other methods the website supports.
-You will then be presented with this dialog to look up your node address.
+Начните с подключения вашего кошелька к сайту с помощью MetaMask, WalletConnect или любого из других методов, которые поддерживает сайт.
+Затем вам будет представлен этот диалог для поиска адреса вашей ноды.
 
-Enter your node address & click "Lookup".
+Введите адрес вашей ноды и нажмите "Lookup".
 
-**Make sure you have the correct node address before doing this!**
-If you need to confirm your node's address, you can quickly retrieve it via the CLI using the `rocketpool node status` command.
+**Убедитесь, что у вас правильный адрес ноды, прежде чем делать это!**
+Если вам нужно подтвердить адрес вашей ноды, вы можете быстро получить его через CLI с помощью команды `rocketpool node status`.
 
-This will check that the address is a registered node & that the node has whitelisted the connected wallet. Withdrawal addresses are whitelisted by default, however if you wish to allow other addresses you will need to whitelist them via the following command on your node.
+Это проверит, что адрес является зарегистрированной нодой и что нода добавила подключенный кошелек в белый список. Адреса для вывода средств находятся в белом списке по умолчанию, однако если вы хотите разрешить другие адреса, вам нужно будет добавить их в белый список с помощью следующей команды на вашей ноде.
 
 ```shell
 rocketpool node add-address-to-stake-rpl-whitelist address-or-ens
 ```
 
-This is a two-step process.
+Это двухэтапный процесс.
 
-First, enter the amount of RPL you want to stake and click `Approve` - this will **approve** the staking contract to access that much RPL in your wallet, but **no more than that amount**.
+Сначала введите количество RPL, которое вы хотите застейкать, и нажмите `Approve` - это **одобрит** контракту стейкинга доступ к такому количеству RPL в вашем кошельке, но **не более этой суммы**.
 
-::: tip TIP
-You can approve more than the amount you intend to stake if you trust the Rocket Pool staking contract, and don't want to perform this extra Approve transaction each time you want to stake more RPL.
+::: tip СОВЕТ
+Вы можете одобрить больше, чем сумма, которую вы собираетесь застейкать, если вы доверяете контракту стейкинга Rocket Pool и не хотите выполнять эту дополнительную транзакцию Approve каждый раз, когда захотите застейкать больше RPL.
 :::
 
-Once the RPL is approved, you will be able to stake on behalf of a node.
+После того, как RPL одобрен, вы сможете застейкать от имени ноды.
 
-Enter the amount of RPL you want to stake in the `Stake RPL` box, and enter your node's address in the `on behalf of Node Address` box.
+Введите количество RPL, которое вы хотите застейкать, в поле `Stake RPL`, и введите адрес вашей ноды в поле `on behalf of Node Address`.
 
-When you've entered that information, press the `Stake` button and approve the transaction.
+Когда вы введете эту информацию, нажмите кнопку `Stake` и одобрите транзакцию.
 
 <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/stake_behalf.mp4" />
 
-It will be sent to the Ethereum network, and once included in a block, you're all set!
+Она будет отправлена в сеть Ethereum, и как только она будет включена в блок, все готово!
 
-If you run `rocketpool node status`, you should see your staked RPL appear under the `=== RPL Stake ===` section.
+Если вы запустите `rocketpool node status`, вы должны увидеть ваш застейканный RPL в разделе `=== RPL Stake ===`.
 
-#### Removing an address from the stake whitelist
+#### Удаление адреса из белого списка стейкинга
 
-If you ever want to remove an address from your stake-on-behalf whitelist, you may do so with the following Smartnode command:
+Если вы когда-либо захотите удалить адрес из вашего белого списка stake-on-behalf, вы можете сделать это с помощью следующей команды Smartnode:
 
 ```shell
 rocketpool node remove-address-from-stake-rpl-whitelist address-or-ens
 ```
 
-Where `address-or-ens` is the address or and ENS name resolving to the address you want to remove from the whitelist.
+Где `address-or-ens` - это адрес или имя ENS, разрешающееся в адрес, который вы хотите удалить из белого списка.
 
-### Staking via the Node CLI
+### Стейкинг через CLI ноды
 
-If you cannot (or do not want to) use the website to stake your RPL, you can also stake it via the node's CLI directly.
+Если вы не можете (или не хотите) использовать сайт для стейкинга вашего RPL, вы также можете застейкать его через CLI ноды напрямую.
 
-First, transfer your RPL from the wallet you acquired it with to your node's address.
+Сначала переведите ваш RPL с кошелька, с которого вы его приобрели, на адрес вашей ноды.
 
-::: danger WARNING
-**Please do this carefully and ensure you are sending the RPL to your node's address - transfers on Ethereum cannot be undone!**
-**Sending RPL to the wrong address will result in the loss of your RPL.**
+::: danger ПРЕДУПРЕЖДЕНИЕ
+**Пожалуйста, делайте это осторожно и убедитесь, что вы отправляете RPL на адрес вашей ноды - переводы в Ethereum невозможно отменить!**
+**Отправка RPL на неправильный адрес приведет к потере вашего RPL.**
 
-Use the `rocketpool node status` command to verify your node's address if you aren't sure what it is.
+Используйте команду `rocketpool node status`, чтобы проверить адрес вашей ноды, если вы не уверены, какой он.
 :::
 
-Run the following command:
+Выполните следующую команду:
 
 ```
 rocketpool node stake-rpl
 ```
 
-Here is the output:
+Вот вывод:
 
 ```
 Please choose an amount of RPL to stake:
@@ -133,13 +133,13 @@ Please choose an amount of RPL to stake:
 2: A custom amount
 ```
 
-Select how much you'd like to stake, then confirm the operation.
+Выберите, сколько вы хотите застейкать, затем подтвердите операцию.
 
-The first time you run this command, it will involve two transactions - one to **approve** the Rocket Pool staking contract to access your RPL, and one to **stake** your RPL with it.
-Subsequent runs will only require the **stake** transaction, since the token has already been approved.
+Первый раз, когда вы запустите эту команду, это будет включать две транзакции - одну для **одобрения** контракта стейкинга Rocket Pool для доступа к вашему RPL, и одну для **стейкинга** вашего RPL с ним.
+Последующие запуски потребуют только транзакцию **stake**, так как токен уже был одобрен.
 
-Once both transactions finish, you can check your staked RPL amount with `rocketpool node status`.
-The following portion of the output is what you want to verify:
+После завершения обеих транзакций вы можете проверить сумму застейканного RPL с помощью `rocketpool node status`.
+Следующая часть вывода - это то, что вы хотите проверить:
 
 ```
 The node has a total stake of 300.000000 RPL.
@@ -147,37 +147,37 @@ This is currently 29.76% of its borrowed ETH and 89.29% of its bonded ETH.
 It can earn max apy on up to 151.209677 RPL (15% of borrowed ETH), and still earn at lower APY with more RPL.
 ```
 
-This will show you how many minipools you can make of each bond size based on your RPL collateral.
+Это покажет вам, сколько minipool вы можете создать для каждого размера залога на основе вашего обеспечения RPL.
 
-## (Optional) Finding a Custom Vanity Address for your Minipool
+## (Необязательно) Поиск пользовательского адреса для вашего Minipool
 
-By default, when you create a new minipool, Rocket Pool will generate a random unique address for it.
-However, the Smartnode provides the ability to search for a custom **vanity address** for the minipool.
+По умолчанию, когда вы создаете новый minipool, Rocket Pool сгенерирует случайный уникальный адрес для него.
+Однако Smartnode предоставляет возможность поиска пользовательского **vanity-адреса** для minipool.
 
-A vanity address is one where you personally pick the characters that the address starts with.
-This is a purely cosmetic exercise and will not have any practical impact on your minipool's operation.
-As Ethereum addresses are in hexadecimal, any of the following characters are legal:
+Vanity-адрес - это адрес, где вы лично выбираете символы, с которых начинается адрес.
+Это чисто косметическое упражнение и не окажет никакого практического влияния на работу вашего minipool.
+Поскольку адреса Ethereum находятся в шестнадцатеричной системе, допустимы следующие символы:
 
 ```
 0 1 2 3 4 5 6 7 8 9 a b c d e f
 ```
 
-As a few examples, you could make your minipool's address start with a bunch of zeros (`0x000000...`), `0x600d` (hex for "good") or `0xa77e57ed` (hex for "attested", a fitting prefix for a minipool).
+В качестве нескольких примеров вы можете сделать так, чтобы адрес вашего minipool начинался с кучи нулей (`0x000000...`), `0x600d` (шестнадцатеричное значение для "good") или `0xa77e57ed` (шестнадцатеричное значение для "attested", подходящий префикс для minipool).
 
-To find such a vanity address, you will need to **search for it**.
-This searching process involves picking a number, applying it as a "salt" to the hashing algorithm, and comparing the results against what you're looking for.
-The results are effectively random (though any given salt always produces the same result), so the only way to find an address with the prefix you want is to try lots and lots of them until you find a salt that works.
+Чтобы найти такой vanity-адрес, вам нужно будет **поискать его**.
+Этот процесс поиска включает выбор числа, применение его в качестве "соли" к алгоритму хеширования и сравнение результатов с тем, что вы ищете.
+Результаты фактически случайны (хотя любая данная соль всегда производит один и тот же результат), поэтому единственный способ найти адрес с желаемым префиксом - попробовать множество и множество солей, пока вы не найдете соль, которая работает.
 
-If you would like a custom vanity address to use for your minipool when you create it, you can use the following command to search for one:
+Если вы хотите получить пользовательский vanity-адрес для использования в вашем minipool при его создании, вы можете использовать следующую команду для поиска:
 
 ```
 rocketpool minipool find-vanity-address
 ```
 
-This will prompt you for the prefix you want to search for, and ask which type of deposit you will be doing (a 16 ETH or a 32 ETH deposit - see below for more info on these types).
-Once you enter that information, it will begin trying lots and lots of salts until it finds one that produces your desired prefix!
+Это попросит вас указать префикс, который вы хотите найти, и спросит, какой тип депозита вы будете делать (депозит 16 ETH или 32 ETH - см. ниже для получения дополнительной информации об этих типах).
+После того, как вы введете эту информацию, он начнет пробовать множество и множество солей, пока не найдет ту, которая производит желаемый префикс!
 
-Here is a complete example of the process:
+Вот полный пример процесса:
 
 ```
 $ rocketpool minipool find-vanity-address
@@ -188,61 +188,61 @@ Found on thread 3: salt 0x5cd7fb = 0xA77E57c892C9e98B0B81289e4AfdA62fb59c5DDD
 Finished in 1.91145873s
 ```
 
-In this case, we searched for `0xa77e57` as the prefix and found the salt `0x5cd7fb` which could generate it.
-In the next step, when we create a minipool, we can specify this salt as an optional argument to create the new minipool at the address associated with the salt (`0xA77E57c892C9e98B0B81289e4AfdA62fb59c5DDD` as shown above).
+В этом случае мы искали `0xa77e57` в качестве префикса и нашли соль `0x5cd7fb`, которая могла его сгенерировать.
+На следующем шаге, когда мы создаем minipool, мы можем указать эту соль в качестве необязательного аргумента, чтобы создать новый minipool по адресу, связанному с солью (`0xA77E57c892C9e98B0B81289e4AfdA62fb59c5DDD`, как показано выше).
 
-In general, each additional character you search for will multiply the search time by about 16.
-Because of this, **we recommend you only look for prefixes of 7 or 8 characters max unless you have a very powerful machine with many CPU cores**.
-Otherwise, it might take prohibitively long to find a salt that produces the prefix you want.
+Как правило, каждый дополнительный символ, который вы ищете, умножит время поиска примерно на 16.
+Из-за этого **мы рекомендуем искать префиксы только из 7 или 8 символов максимум, если у вас нет очень мощной машины с множеством ядер CPU**.
+В противном случае поиск соли, которая производит желаемый префикс, может занять слишком много времени.
 
-For example, an AMD 5600x with 6 cores (12 threads) at 4.8 GHz can search about 3.2 million salts per second.
-On average, it will take a few seconds to find a 6-character prefix, a few minutes to find a 7-character prefix, and a few hours to find an 8-character prefix.
+Например, AMD 5600x с 6 ядрами (12 потоками) на частоте 4.8 ГГц может искать около 3.2 миллиона солей в секунду.
+В среднем потребуется несколько секунд, чтобы найти префикс из 6 символов, несколько минут для префикса из 7 символов и несколько часов для префикса из 8 символов.
 
-::: tip NOTE
-The salt that gets generated is specific to the following variables:
+::: tip ПРИМЕЧАНИЕ
+Соль, которая генерируется, специфична для следующих переменных:
 
-- The network you're using (either the Hoodi Testnet or Mainnet)
-- The node address
-- The bond amount
-- The salt
+- Сеть, которую вы используете (либо Hoodi Testnet, либо Mainnet)
+- Адрес ноды
+- Сумма залога
+- Соль
 
-If you change any of those variables, the minipool address for a given salt will change as well.
+Если вы измените любую из этих переменных, адрес minipool для данной соли также изменится.
 :::
 
-For more advanced usage (such as searching for a different node address or changing how many CPU cores are used for searching), take a look at the help text with `rocketpool minipool find-vanity-address --help`.
+Для более продвинутого использования (например, поиск другого адреса ноды или изменение количества ядер CPU, используемых для поиска), посмотрите справочный текст с помощью `rocketpool minipool find-vanity-address --help`.
 
-## Depositing ETH and Creating a Minipool
+## Внесение депозита ETH и создание Minipool
 
-::: tip TIP
-If the market value of rETH is higher than its ETH backing (i.e., rETH is at a premium on the market), there is an opportunity to arbitrage the difference when creating a minipool.
-The value of the arbitrage is equal to the amount of protocol ETH in the minipool times the premium (minus a small amount of gas).
-E.g., if making a minipool when there's a 2.5% premium: `16 ETH * .025 = 0.4 ETH`.
-In other words, you could receive 0.4 ETH back during these conditions just for creating a minipool!
+::: tip СОВЕТ
+Если рыночная стоимость rETH выше, чем его обеспечение ETH (т.е. rETH торгуется с премией на рынке), существует возможность арбитража разницы при создании minipool.
+Стоимость арбитража равна количеству ETH протокола в minipool, умноженному на премию (минус небольшое количество газа).
+Например, если создавать minipool при премии 2.5%: `16 ETH * .025 = 0.4 ETH`.
+Другими словами, вы можете получить обратно 0.4 ETH в этих условиях просто за создание minipool!
 
-If you're interested in taking advantage of this opportunity, consider using the community-developed [rocketarb](https://github.com/xrchz/rocketarb#readme) tool to capture the profit of the MEV rETH arbitrage opportunity that launching your minipool creates.
+Если вы заинтересованы в использовании этой возможности, рассмотрите возможность использования разработанного сообществом инструмента [rocketarb](https://github.com/xrchz/rocketarb#readme) для получения прибыли от возможности MEV rETH арбитража, которую создает запуск вашего minipool.
 
-To learn more about rocketarb, feel free to inquire about it on the [RP discord server](https://discord.gg/rocketpool).
+Чтобы узнать больше о rocketarb, не стесняйтесь спрашивать об этом на [сервере Discord RP](https://discord.gg/rocketpool).
 :::
 
-After everything you've done so far, you are finally ready to deposit your ETH, create a new minipool, and create a Beacon Chain validator.
-This is done with the following command:
+После всего, что вы сделали до сих пор, вы наконец готовы внести свой ETH, создать новый minipool и создать validator Beacon Chain.
+Это делается с помощью следующей команды:
 
 ```shell
 rocketpool node deposit
 ```
 
-::: danger WARNING
+::: danger ПРЕДУПРЕЖДЕНИЕ
 
-While the CLI does automate a lot of the next steps for you, we <strong>strongly</strong> recommend monitoring your node & transactions to ensure a successful transition from `prelaunch` to `staking`.
+Хотя CLI автоматизирует многие из следующих шагов для вас, мы <strong>настоятельно</strong> рекомендуем отслеживать вашу ноду и транзакции, чтобы обеспечить успешный переход из состояния `prelaunch` в `staking`.
 
-Failed transactions (due to adjusted gas settings or insufficient ETH) could make your minipool transition to the `dissolved` state, which you want to avoid.
+Неудачные транзакции (из-за скорректированных настроек газа или недостаточного количества ETH) могут привести к переходу вашего minipool в состояние `dissolved`, чего вы хотите избежать.
 
-[Learn more about how to confirm a successful stake](./create-validator#confirming-a-successful-stake)
+[Узнайте больше о том, как подтвердить успешный стейкинг](./create-validator#confirming-a-successful-stake)
 
 :::
 
-::: tip NOTE
-If you want to use a salt for a vanity address that you found using the process above, run the following command instead:
+::: tip ПРИМЕЧАНИЕ
+Если вы хотите использовать соль для vanity-адреса, который вы нашли, используя процесс выше, вместо этого выполните следующую команду:
 
 ```shell
 rocketpool node deposit --salt <your salt, e.g. 0x1234abcd>
@@ -250,7 +250,7 @@ rocketpool node deposit --salt <your salt, e.g. 0x1234abcd>
 
 :::
 
-You will first see a note that depositing a new minipool will **automatically distribute** any balance in your node's [fee distributor](./fee-distrib-sp) contract (used to capture MEV rewards if you're not opted into the [Smoothing Pool](./fee-distrib-sp#the-smoothing-pool)):
+Сначала вы увидите примечание о том, что внесение депозита нового minipool **автоматически распределит** любой баланс в контракте [распределителя комиссий](./fee-distrib-sp) вашей ноды (используется для получения вознаграждений MEV, если вы не участвуете в [Smoothing Pool](./fee-distrib-sp#the-smoothing-pool)):
 
 ```
 Your eth2 client is on the correct network.
@@ -258,9 +258,9 @@ NOTE: by creating a new minipool, your node will automatically claim and distrib
 Would you like to continue? [y/n]
 ```
 
-If you already have minipools and a balance in your fee distributor, you may decide not to create another minipool if distributing this balance causes a taxable event in your jurisdiction.
+Если у вас уже есть minipool и баланс в вашем распределителе комиссий, вы можете решить не создавать еще один minipool, если распределение этого баланса вызывает налогооблагаемое событие в вашей юрисдикции.
 
-After that you'll be notified of your commission rate for the new minipool, and a note on whether or not your node's [credit balance](./credit) can be used to cover the cost of the minipool bond for you:
+После этого вы будете уведомлены о вашей ставке комиссии для нового minipool и примечании о том, может ли [кредитный баланс](./credit) вашей ноды быть использован для покрытия стоимости залога minipool для вас:
 
 ```
 Your minipool will use the current fixed commission rate of 5.00%.
@@ -269,7 +269,7 @@ You currently have 8.00 ETH in your credit balance.
 This deposit will use 8.000000 ETH from your credit balance and will not require any ETH from your node.
 ```
 
-You will next be prompted with the network's current gas costs recommendations; confirm your gas price selection and follow the rest of the prompts.
+Далее вам будут предложены текущие рекомендации по стоимости газа в сети; подтвердите выбор цены на газ и следуйте остальным подсказкам.
 
 ```
 Your consensus client is synced, you may safely create a minipool.
@@ -305,24 +305,24 @@ After that, it will move to Staking status once 1h0m0s have passed.
 You can watch its progress using `rocketpool service logs node`.
 ```
 
-Note that creating a minipool **is an expensive transaction**!
-Pay close attention to the total cost and ensure that you accept it.
+Обратите внимание, что создание minipool **является дорогой транзакцией**!
+Обратите пристальное внимание на общую стоимость и убедитесь, что вы ее принимаете.
 
-If you accept, your minipool creation will be triggered.
-Once the transaction completes, you will be given the address of your new minipool contract on the Execution Layer and its corresponding validator public key on the Beacon Chain.
-You can visit these with any block explorers if you'd like.
+Если вы примете, создание вашего minipool будет запущено.
+После завершения транзакции вам будет предоставлен адрес вашего нового контракта minipool на уровне Execution Layer и соответствующий публичный ключ validator на Beacon Chain.
+Вы можете посетить их с помощью любых обозревателей блоков, если хотите.
 
-## Confirming a Successful Stake
+## Подтверждение успешного стейкинга
 
-Upon creation, your minipool will be put into the `initialized` state.
-It will remain here until it's your turn in the Rocket Pool queue to be given 24 ETH from the staking pool so you can stake your new validator on the Beacon Chain.
+После создания ваш minipool будет переведен в состояние `initialized`.
+Он останется здесь, пока не настанет ваша очередь в очереди Rocket Pool получить 24 ETH из пула стейкинга, чтобы вы могли застейкать свой новый validator на Beacon Chain.
 
-Once this happens, your minipool will move into the `prelaunch` state for a certain period of time (currently 12 hours).
-Your 8 ETH deposit will be transferred to be Beacon Chain, and the Oracle DAO [will verify that it is all correct](https://github.com/rocket-pool/rocketpool-research/blob/master/Reports/withdrawal-creds-exploit.md).
-During this time, you can observe the validator by looking up its validator pubkey with a Beacon Chain explorer such as [https://beaconcha.in](https://beaconcha.in) (or [https://hoodi.beaconcha.in](https://hoodi.beaconcha.in) for the Hoodi Testnet).
+Когда это произойдет, ваш minipool перейдет в состояние `prelaunch` на определенный период времени (в настоящее время 12 часов).
+Ваш депозит 8 ETH будет переведен в Beacon Chain, и Oracle DAO [проверит, что все правильно](https://github.com/rocket-pool/rocketpool-research/blob/master/Reports/withdrawal-creds-exploit.md).
+В это время вы можете наблюдать за validator, ища его публичный ключ validator с помощью обозревателя Beacon Chain, такого как [https://beaconcha.in](https://beaconcha.in) (или [https://hoodi.beaconcha.in](https://hoodi.beaconcha.in) для Hoodi Testnet).
 
-You can check on the new minipool's status with the `rocketpool minipool status` command.
-For example, when it has moved into `prelaunch`, you will likely see something like this:
+Вы можете проверить статус нового minipool с помощью команды `rocketpool minipool status`.
+Например, когда он перешел в `prelaunch`, вы, вероятно, увидите что-то вроде этого:
 
 ```
 1 Prelaunch minipool(s):
@@ -348,11 +348,11 @@ Effective delegate:    <your delegate address>
 0 finalized minipool(s):
 ```
 
-After this prelaunch period, your minipool will enter `staking` status and send the additional ETH from the staking pool to the deposit contract.
-This will be done by the `rocketpool_node` Docker container (or the `rp-node` service if you used the Native setup) - if, for some reason, you are taking abnormally long to enter `staking` status, looking at the logs for this container / service will likely tell you what's wrong.
-You can check these logs with the `rocketpool service logs node` command (or `/srv/rocketpool/node_log.sh` on Native mode setups).
+После этого периода prelaunch ваш minipool войдет в статус `staking` и отправит дополнительный ETH из пула стейкинга в контракт депозита.
+Это будет сделано контейнером Docker `rocketpool_node` (или службой `rp-node`, если вы использовали настройку Native) - если по какой-либо причине вы слишком долго переходите в статус `staking`, просмотр журналов для этого контейнера / службы, вероятно, скажет вам, что не так.
+Вы можете проверить эти журналы с помощью команды `rocketpool service logs node` (или `/srv/rocketpool/node_log.sh` в настройках режима Native).
 
-Running `rocketpool minipool status` will then show something like this:
+Выполнение `rocketpool minipool status` затем покажет что-то вроде этого:
 
 ```
 $ rocketpool minipool status
@@ -381,30 +381,30 @@ Effective delegate:   <your delegate address>
 0 finalized minipool(s):
 ```
 
-::: warning NOTE
-The transaction to migrate from `prelaunch` to `staking` is submitted automatically by your node and is subject to the gas settings in `rocketpool service config`.
-If the gas settings prevent the node from submitting the transaction, or there is insufficient ETH in the node wallet to pay for the transaction, the minipool will become `dissolved` two weeks after it entered `prelaunch`.
-If this happens, retrieving the balance is a costly and lengthy process, so make sure to monitor your minipool closely until it reaches `staking` status!
+::: warning ПРИМЕЧАНИЕ
+Транзакция для перехода из `prelaunch` в `staking` отправляется автоматически вашей нодой и подчиняется настройкам газа в `rocketpool service config`.
+Если настройки газа не позволяют ноде отправить транзакцию или в кошельке ноды недостаточно ETH для оплаты транзакции, minipool станет `dissolved` через две недели после того, как он вошел в `prelaunch`.
+Если это произойдет, восстановление баланса будет дорогостоящим и длительным процессом, поэтому обязательно внимательно следите за вашим minipool, пока он не достигнет статуса `staking`!
 :::
 
-Once the Beacon Chain accepts both of the deposits (one from you and one from the staking pool), your validator will enter the Beacon Chain queue where it will wait for its turn to become activated and start staking.
+Как только Beacon Chain примет оба депозита (один от вас и один из пула стейкинга), ваш validator войдет в очередь Beacon Chain, где он будет ждать своей очереди на активацию и начало стейкинга.
 
-At this point, you're done!
-Congratulations!
-You have officially created a validator with Rocket Pool!
+На этом этапе вы закончили!
+Поздравляем!
+Вы официально создали validator с Rocket Pool!
 
-Have a look at the next sections in Monitoring and Maintenance to learn how to watch your validator's performance and health over time.
+Взгляните на следующие разделы в разделе "Мониторинг и обслуживание", чтобы узнать, как отслеживать производительность и работоспособность вашего validator с течением времени.
 
-## Creating Multiple Minipools
+## Создание нескольких Minipool
 
-Conveniently, your Rocket Pool node is capable of hosting as many minipools as you want.
-You **do not** need to create a new node for each minipool.
+Удобно, что ваша нода Rocket Pool способна размещать столько minipool, сколько вы хотите.
+Вам **не нужно** создавать новую ноду для каждого minipool.
 
-If you would like to make a second (or third, or fourth...) minipool for your node, all you need to do is run `rocketpool node deposit` again.
-Also, you won't be able to reuse an old vanity address salt - you'll need to search for another unique one for each of your minipools.
+Если вы хотите создать второй (или третий, или четвертый...) minipool для вашей ноды, все, что вам нужно сделать, это снова запустить `rocketpool node deposit`.
+Кроме того, вы не сможете повторно использовать старую соль vanity-адреса - вам нужно будет найти другую уникальную для каждого из ваших minipool.
 
-## Next Steps
+## Следующие шаги
 
-Now that you have a minipool up and running, the next steps will walk you through how to monitor the health of your node, check for and apply updates, and maintain it throughout its life.
+Теперь, когда у вас есть minipool в работе, следующие шаги покажут вам, как отслеживать работоспособность вашей ноды, проверять наличие обновлений и применять их, а также обслуживать ее на протяжении всего срока службы.
 
-**Please read through the `Monitoring and Maintenance` section next to learn more about these topics.**
+**Пожалуйста, прочитайте раздел `Мониторинг и обслуживание` далее, чтобы узнать больше об этих темах.**

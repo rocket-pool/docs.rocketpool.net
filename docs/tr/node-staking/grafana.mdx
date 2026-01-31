@@ -1,98 +1,98 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Setting up the Grafana Dashboard
+# Grafana Kontrol Panelini Kurma
 
-Now that you have your node up and running, you'll probably want to have a convenient way to monitor everything about it at a glance to make sure it's functioning correctly (and what kind of earnings it's generating for you).
+Artık node'unuz çalışır durumda olduğuna göre, muhtemelen doğru çalıştığından (ve sizin için ne tür kazançlar ürettiğinden) emin olmak için her şeyi bir bakışta izlemek için kullanışlı bir yönteme sahip olmak isteyeceksiniz.
 
-There are many tools out there that do this job.
-One of the most popular is called [Grafana](https://grafana.com/) - an easy-to-use, general-purpose dashboard system that you can access with a browser.
+Bunu yapan birçok araç bulunmaktadır.
+En popülerlerinden biri [Grafana](https://grafana.com/) - bir tarayıcı ile erişebileceğiniz, kullanımı kolay, genel amaçlı bir kontrol paneli sistemi.
 
-Rocket Pool comes out-of-the-box with support for Grafana and its dependencies; it even comes with a pre-built dashboard for each of the Consensus clients.
-For example, here is a snapshot of what the dashboard looks like on the Hoodi test network:
+Rocket Pool, Grafana ve bağımlılıkları için hazır destek ile birlikte gelir; hatta her Consensus client için önceden oluşturulmuş bir kontrol paneli ile birlikte gelir.
+Örneğin, işte Hoodi test ağında kontrol panelinin nasıl göründüğünün bir görüntüsü:
 
 ![](./images/grafana-1.3.jpg)
 
-The standard dashboard includes the following information all in a convenient format:
+Standart kontrol paneli, aşağıdaki bilgileri kullanışlı bir formatta içerir:
 
-- **Top left:** some important statistics about your machine's health and performance, and any pending system updates
-- **Top right:** the activity and performance of your validators on the Beacon Chain, along with some Execution and Consensus client stats
-- **Bottom left:** details about the entire Rocket Pool network, for reference
-- **Bottom right:** details about your staking rewards, both ETH and RPL
+- **Sol üst:** makinenizin sağlığı ve performansı hakkında bazı önemli istatistikler ve bekleyen sistem güncellemeleri
+- **Sağ üst:** Beacon Chain'deki validator'larınızın etkinliği ve performansı, bazı Execution ve Consensus client istatistikleri ile birlikte
+- **Sol alt:** referans için tüm Rocket Pool ağı hakkında detaylar
+- **Sağ alt:** hem ETH hem de RPL staking ödülleriniz hakkında detaylar
 
-In this guide, we'll show you how to enable Rocket Pool's metrics system so you can use this dashboard - or even build your own!
+Bu kılavuzda, bu kontrol panelini kullanabilmeniz için Rocket Pool'un metrik sistemini nasıl etkinleştireceğinizi göstereceğiz - hatta kendinizinkini bile oluşturabilirsiniz!
 
-## Overview of the Rocket Pool Metrics Stack
+## Rocket Pool Metrik Yığınına Genel Bakış
 
-If you choose to enable metrics during the Smartnode configuration process, your node will add the following processes:
+Smartnode yapılandırma sürecinde metrikleri etkinleştirmeyi seçerseniz, node'unuz aşağıdaki işlemleri ekleyecektir:
 
-- [Prometheus](https://prometheus.io/) - a data collection, storage, and reporting system that captures all of the metrics you see above (any many more) and stores them, so they can be looked at over time
-- The Prometheus [Node Exporter](https://github.com/prometheus/node_exporter) - a service that collects information about your machine's health (such as CPU usage, RAM usage, free disk space and swap space, etc.) and reports it to Prometheus
-- Grafana, the tool that exposes Prometheus's data through a convenient website hosted on your node
-- An optional custom set of scripts that will report any available Operating System updates to Prometheus, so you know if your system needs to be patched
+- [Prometheus](https://prometheus.io/) - yukarıda gördüğünüz tüm metrikleri (ve çok daha fazlasını) yakalayan ve saklayan, böylece zaman içinde incelenebilmeleri için bir veri toplama, depolama ve raporlama sistemi
+- Prometheus [Node Exporter](https://github.com/prometheus/node_exporter) - makinenizin sağlığı hakkında bilgi toplayan (CPU kullanımı, RAM kullanımı, boş disk alanı ve swap alanı vb.) ve bunu Prometheus'a raporlayan bir servis
+- Grafana, Prometheus'un verilerini node'unuzda barındırılan kullanışlı bir web sitesi aracılığıyla sunan araç
+- Mevcut İşletim Sistemi güncellemelerini Prometheus'a raporlayacak isteğe bağlı özel bir script seti, böylece sisteminizin yamalanması gerekip gerekmediğini bilirsiniz
 
-The default configuration will create Docker containers with all of these services that live alongside the rest of the Smartnode's Docker containers.
-It will open up a port on your node machine for Grafana, so you can access its dashboard from any machine on your local network with a browser.
+Varsayılan yapılandırma, Smartnode'un Docker container'larının geri kalanıyla birlikte yaşayan tüm bu servislere sahip Docker container'ları oluşturacaktır.
+Grafana için node makinenizde bir port açacaktır, böylece yerel ağınızdaki herhangi bir makineden bir tarayıcı ile kontrol paneline erişebilirsiniz.
 
-## Enabling the Metrics Server
+## Metrik Sunucusunu Etkinleştirme
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker">
-      Enabling metrics in Docker mode is the easiest of all.
+      Docker modunda metrikleri etkinleştirmek en kolayıdır.
 
-      Start by running the Smartnode configuration command again:
+      Smartnode yapılandırma komutunu tekrar çalıştırarak başlayın:
 
       ```shell
       rocketpool service config
       ```
 
-      Go to the `Monitoring / Metrics` section and check the `Enable Metrics` checkbox.
+      `Monitoring / Metrics` bölümüne gidin ve `Enable Metrics` onay kutusunu işaretleyin.
 
-      For those who prefer to fine-tune their port settings, you may do so here.
-      Note that all of these ports are restricted to Docker's internal network with the exception of the Grafana port - that will be opened on your machine (so you can access it via a browser from other machines, such as your desktop or phone) so you may want to change that if the default port conflicts with something you already have.
+      Port ayarlarında ince ayar yapmayı tercih edenler için bunu burada yapabilirsiniz.
+      Bu portların hepsinin, Grafana portu hariç Docker'ın dahili ağıyla sınırlı olduğunu unutmayın - bu port makinenizde açılacaktır (böylece masaüstünüz veya telefonunuz gibi diğer makinelerden bir tarayıcı ile erişebilirsiniz), bu nedenle varsayılan port zaten sahip olduğunuz bir şeyle çakışıyorsa bunu değiştirmek isteyebilirsiniz.
 
-      Save and exit, and smartnode will start the Prometheus, Node Exporter, and Grafana Docker containers for you.
+      Kaydedin ve çıkın, smartnode sizin için Prometheus, Node Exporter ve Grafana Docker container'larını başlatacaktır.
 
-      It will also modify your Consensus and Validator clients so they expose their own metrics to Prometheus.
+      Ayrıca kendi metriklerini Prometheus'a sunmaları için Consensus ve Validator client'larınızı değiştirecektir.
 
-      The Operating System and Rocket Pool update tracker is **not installed by default** for maximum flexibility, but the process is simple.
-      If you would like to install it so your dashboard shows you how many updates are available for your system, you can do it with this command:
+      İşletim Sistemi ve Rocket Pool güncelleme takipçisi **varsayılan olarak yüklenmez**, maksimum esneklik için, ancak işlem basittir.
+      Kontrol panelinizin sisteminiz için kaç güncellemenin mevcut olduğunu göstermesi için yüklemek istiyorsanız, bunu şu komutla yapabilirsiniz:
 
       ```shell
       rocketpool service install-update-tracker
       ```
 
-      Under the hood, this will install a service that hooks into your Operating System's package manager, periodically checks for updates, and sends that information to Prometheus.
-      This service is different for every Operating System, but it has been confirmed to work on the following:
+      Perde arkasında, bu, İşletim Sisteminizin paket yöneticisine bağlanan, periyodik olarak güncellemeleri kontrol eden ve bu bilgiyi Prometheus'a gönderen bir servis yükleyecektir.
+      Bu servis her İşletim Sistemi için farklıdır, ancak aşağıdakilerde çalıştığı onaylanmıştır:
 
       - Ubuntu 20.04+
-      - Debian 9 and 10
-      - CentOS 7 and 8
+      - Debian 9 ve 10
+      - CentOS 7 ve 8
       - Fedora 34
 
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        Enabling the service automatically is incompatible with SELinux.
-        If your system has SELinux enabled by default (as is the case with CentOS and Fedora), the installation command will get you _most of the way there_ but will also give you instructions on how to finish the process manually at the end.
+        <p className="rspress-directive-title">NOT</p>
+        Servisi otomatik olarak etkinleştirmek SELinux ile uyumsuzdur.
+        Sisteminizde SELinux varsayılan olarak etkinse (CentOS ve Fedora'da olduğu gibi), yükleme komutu sizi _işin büyük kısmını tamamlayacak_ ancak sonunda süreci manuel olarak nasıl tamamlayacağınız konusunda size talimatlar da verecektir.
       </p>
 
 
-      During this check, it will also compare your installed Rocket Pool Smartnode version with the latest release, and inform you if there's a new release available.
+      Bu kontrol sırasında, ayrıca yüklü Rocket Pool Smartnode sürümünüzü en son sürümle karşılaştıracak ve yeni bir sürüm mevcutsa sizi bilgilendirecektir.
 
-      If you enabled the update tracker, then the last step is to restart the Node Exporter with the following command:
+      Güncelleme takipçisini etkinleştirdiyseniz, son adım Node Exporter'ı aşağıdaki komutla yeniden başlatmaktır:
 
       ```shell
       docker restart rocketpool_exporter
       ```
 
-      After that, you should be all set.
+      Bundan sonra, hazır olmalısınız.
     </Tab>
     <Tab label="Hybrid">
-      Hybrid Mode works similar to Docker Mode; the only difference is that you must manually add the proper command-line flags for enabling metrics to your Execution and Consensus Client service definition.
+      Hybrid Modu, Docker Moduna benzer şekilde çalışır; tek fark, Execution ve Consensus Client servis tanımınıza metrikleri etkinleştirmek için uygun komut satırı bayraklarını manuel olarak eklemeniz gerektiğidir.
 
-      First, we will update your Execution Client.
-      Open the `systemd` unit file you created when you installed your Execution Client and make sure it has the correct flags, based on which client you are running:
+      İlk olarak, Execution Client'ınızı güncelleyeceğiz.
+      Execution Client'ınızı yüklediğinizde oluşturduğunuz `systemd` birim dosyasını açın ve hangi client'ı çalıştırdığınıza bağlı olarak doğru bayraklara sahip olduğundan emin olun:
 
       <div className="p-3">
         <Tabs>
@@ -114,8 +114,8 @@ It will open up a port on your node machine for Grafana, so you can access its d
         </Tabs>
       </div>
 
-      Next, we will update your Consensus Client.
-      Open the `systemd` unit file you created when you installed your Consensus Client and make sure it has the correct flags, based on which client you are running:
+      Ardından, Consensus Client'ınızı güncelleyeceğiz.
+      Consensus Client'ınızı yüklediğinizde oluşturduğunuz `systemd` birim dosyasını açın ve hangi client'ı çalıştırdığınıza bağlı olarak doğru bayraklara sahip olduğundan emin olun:
 
       <div className="p-3">
         <Tabs>
@@ -139,7 +139,7 @@ It will open up a port on your node machine for Grafana, so you can access its d
             --monitoring-host 0.0.0.0 --monitoring-port 9100
             ```
 
-            If you see the flag `--disable-monitoring`, remove it.
+            `--disable-monitoring` bayrağını görürseniz, kaldırın.
           </Tab>
           <Tab label="Teku">
             ```
@@ -150,21 +150,21 @@ It will open up a port on your node machine for Grafana, so you can access its d
         </Tabs>
       </div>
 
-      If you already have these flags set and are using different ports for your solo validator monitoring, leave them as-is and make note of which ports you're using.
+      Bu bayraklara zaten sahipseniz ve solo validator izleme için farklı portlar kullanıyorsanız, bunları olduğu gibi bırakın ve hangi portları kullandığınızı not edin.
 
-      Now, scroll up and follow the directions in the `Docker` tab of this section to finish the process - keeping in mind that you must replace the ports listed there with any custom ports you use when you run `rocketpool service config`.
+      Şimdi, yukarı kaydırın ve süreci tamamlamak için bu bölümün `Docker` sekmesindeki talimatları izleyin - `rocketpool service config` komutunu çalıştırdığınızda orada listelenen portları kullandığınız özel portlarla değiştirmeniz gerektiğini unutmayın.
 
     </Tab>
     <Tab label="Native">
-      Native installation of Grafana and Prometheus is recommended for advanced users only. It requires Linux administration skills like `systemd`, file permissions, users and network management.
+      Grafana ve Prometheus'un native kurulumu yalnızca ileri düzey kullanıcılar için önerilir. `systemd`, dosya izinleri, kullanıcılar ve ağ yönetimi gibi Linux yönetim becerileri gerektirir.
 
-      First, make sure your Execution Client and Consensus Client have metrics enabled. Refer to 'Hybrid' tab for details.
+      İlk olarak, Execution Client ve Consensus Client'ınızın metriklerinin etkinleştirildiğinden emin olun. Detaylar için 'Hybrid' sekmesine bakın.
 
-      Next, check prebuilt prometheus and node_exporter packages on [the official download page](https://prometheus.io/download/).
-      Choose packages with proper architecture for your platform (amd64 or arm64).
-      Most recent LTS (Long Time Support) version of Prometheus is recommended.
+      Ardından, [resmi indirme sayfasında](https://prometheus.io/download/) önceden oluşturulmuş prometheus ve node_exporter paketlerini kontrol edin.
+      Platformunuz için uygun mimariye sahip paketleri seçin (amd64 veya arm64).
+      Prometheus'un en son LTS (Uzun Süreli Destek) sürümü önerilir.
 
-      For example to download prometheus v2.45.3 LTS and node_exporter v1.7.0 for Linux amd64 with `wget` do:
+      Örneğin, Linux amd64 için prometheus v2.45.3 LTS ve node_exporter v1.7.0'ı `wget` ile indirmek için:
 
       ```shell
       wget https://github.com/prometheus/prometheus/releases/download/v2.45.3/prometheus-2.45.3.linux-amd64.tar.gz
@@ -172,7 +172,7 @@ It will open up a port on your node machine for Grafana, so you can access its d
       wget https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-amd64.tar.gz
       ```
 
-      Extract prometheus and node_exporter executables from downloaded archives.
+      İndirilen arşivlerden prometheus ve node_exporter yürütülebilir dosyalarını çıkarın.
 
       ```shell
       sudo tar -zxvf prometheus-2.45.3.linux-amd64.tar.gz -C /usr/local/bin --wildcards '*/prometheus' --strip-components=1
@@ -180,7 +180,7 @@ It will open up a port on your node machine for Grafana, so you can access its d
       sudo tar -zxvf alertmanager-0.26.0.linux-amd64.tar.gz -C /usr/local/bin --wildcards '*/alertmanager' --strip-components=1
       ```
 
-      Create directories for prometheus & alertmanager configs.
+      Prometheus ve alertmanager yapılandırmaları için dizinler oluşturun.
 
       ```shell
       sudo mkdir /etc/prometheus
@@ -189,7 +189,7 @@ It will open up a port on your node machine for Grafana, so you can access its d
       sudo mkdir /var/lib/alertmanager
       ```
 
-      Create file `/etc/prometheus/prometheus.yml` with following content:
+      Aşağıdaki içerikle `/etc/prometheus/prometheus.yml` dosyasını oluşturun:
 
       ```yaml
       global:
@@ -239,15 +239,15 @@ It will open up a port on your node machine for Grafana, so you can access its d
       ```
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        Change the port numbers for the Execution Client and Consensus Client if required.
+        <p className="rspress-directive-title">NOT</p>
+        Gerekirse Execution Client ve Consensus Client için port numaralarını değiştirin.
 
-        You may be running your node on a different host than the host running prometheus change. In that case
-        install node_exporter on your rocketpool node host and update `targets` of the `node` job to include all machines you want to monitor.
-        Also adjust `metrics_path` if your Execution Client is geth - it exposes non-standard endpoint for metrics.
+        Node'unuzu prometheus'u çalıştıran host'tan farklı bir host'ta çalıştırıyor olabilirsiniz. Bu durumda
+        rocketpool node host'unuzda node_exporter'ı yükleyin ve izlemek istediğiniz tüm makineleri içerecek şekilde `node` job'ının `targets` değerini güncelleyin.
+        Ayrıca Execution Client'ınız geth ise `metrics_path` değerini ayarlayın - standart olmayan bir metrik endpoint'i sunar.
       </p>
 
-      Create the `/etc/alertmanager/alertmanager.yml` with the following content:
+      Aşağıdaki içerikle `/etc/alertmanager/alertmanager.yml` dosyasını oluşturun:
 
       ```yaml
       global:
@@ -306,14 +306,14 @@ It will open up a port on your node machine for Grafana, so you can access its d
       equal: ["alertname", "job", "instance"]
       ```
 
-      Create system user for prometheus and alertmanager.
+      Prometheus ve alertmanager için sistem kullanıcısı oluşturun.
 
       ```shell
       sudo useradd -r -s /sbin/nologin prometheus
       sudo useradd -r -s /sbin/nologin alertmanager
       ```
 
-      Change prometheus/alertmanager files ownership and permissions.
+      Prometheus/alertmanager dosya sahipliğini ve izinlerini değiştirin.
 
       ```shell
       sudo chown prometheus:prometheus /usr/local/bin/prometheus
@@ -328,7 +328,7 @@ It will open up a port on your node machine for Grafana, so you can access its d
       sudo chmod u+sx,g+sx,o-wx /usr/local/bin/node_exporter
       ```
 
-      Create file `/lib/systemd/system/node-exporter.service` for node_exporter service configuration.
+      Node_exporter servis yapılandırması için `/lib/systemd/system/node-exporter.service` dosyasını oluşturun.
 
       ```
       [Unit]
@@ -353,11 +353,11 @@ It will open up a port on your node machine for Grafana, so you can access its d
 
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        If you want to change the port on which node_exporter is running, modify command at `ExecStart` parameter. Default port is 9100.
+        <p className="rspress-directive-title">NOT</p>
+        Node_exporter'ın çalıştığı portu değiştirmek istiyorsanız, `ExecStart` parametresindeki komutu değiştirin. Varsayılan port 9100'dür.
       </p>
 
-      Create file `/lib/systemd/system/prometheus.service` for prometheus service configuration.
+      Prometheus servis yapılandırması için `/lib/systemd/system/prometheus.service` dosyasını oluşturun.
 
       ```
       [Unit]
@@ -381,11 +381,11 @@ It will open up a port on your node machine for Grafana, so you can access its d
       ```
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        If you want to change the port on which prometheus is running, modify command at `ExecStart` parameter. Default port is 9090.
+        <p className="rspress-directive-title">NOT</p>
+        Prometheus'un çalıştığı portu değiştirmek istiyorsanız, `ExecStart` parametresindeki komutu değiştirin. Varsayılan port 9090'dır.
       </p>
 
-      Create file `/lib/systemd/system/alertmanager.service` for the alertmanager service configuration.
+      Alertmanager servis yapılandırması için `/lib/systemd/system/alertmanager.service` dosyasını oluşturun.
 
       ```
       [Unit]
@@ -409,51 +409,51 @@ It will open up a port on your node machine for Grafana, so you can access its d
       ```
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        If you want to change the port on which alertmanager is running, modify command at `ExecStart` parameter. Default port is 9093.
+        <p className="rspress-directive-title">NOT</p>
+        Alertmanager'ın çalıştığı portu değiştirmek istiyorsanız, `ExecStart` parametresindeki komutu değiştirin. Varsayılan port 9093'tür.
       </p>
 
-      Let `systemd` know about new services.
+      `systemd`'ye yeni servislerden haberdar olmasını sağlayın.
 
       ```shell
       sudo systemctl daemon-reload
       ```
 
-      Enable and start node-exporter service.
+      Node-exporter servisini etkinleştirin ve başlatın.
 
       ```shell
       sudo systemctl enable node-exporter
       sudo systemctl start node-exporter
       ```
 
-      Check the service status to make sure it's running.
+      Servisin çalıştığından emin olmak için servis durumunu kontrol edin.
 
       ```shell
       sudo systemctl status node-exporter
       ```
 
-      Enable and start prometheus service.
+      Prometheus servisini etkinleştirin ve başlatın.
 
       ```shell
       sudo systemctl enable prometheus
       sudo systemctl start prometheus
       ```
 
-      Enable and start alertmanager service.
+      Alertmanager servisini etkinleştirin ve başlatın.
 
       ```shell
       sudo systemctl enable alertmanager
       sudo systemctl start alertmanager
       ```
 
-      Check the service status to make sure it's running.
+      Servislerin çalıştığından emin olmak için servis durumunu kontrol edin.
 
       ```shell
       sudo systemctl status prometheus
       sudo systemctl status alertmanager
       ```
 
-      Setup package repository for Grafana.
+      Grafana için paket deposunu kurun.
 
       ```shell
       sudo apt-get update
@@ -463,16 +463,16 @@ It will open up a port on your node machine for Grafana, so you can access its d
       echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
       ```
 
-      Install Grafana.
+      Grafana'yı yükleyin.
 
       ```shell
       sudo apt-get update
       sudo apt-get install grafana
       ```
 
-      Verify settings in `/etc/grafana/grafana.ini`. Change the `http_port` to 3100 to be in line with the other sections provided in this document.
+      `/etc/grafana/grafana.ini` içindeki ayarları doğrulayın. Bu belgede sağlanan diğer bölümlerle uyumlu olmak için `http_port`'u 3100 olarak değiştirin.
 
-      Configure datasource to visualise metrics from Prometheus in Grafana. Create file `/etc/grafana/provisioning/datasources/prometheus.yml`.
+      Prometheus'tan metrikleri Grafana'da görselleştirmek için veri kaynağını yapılandırın. `/etc/grafana/provisioning/datasources/prometheus.yml` dosyasını oluşturun.
 
       ```yaml
       apiVersion: 1
@@ -494,11 +494,11 @@ It will open up a port on your node machine for Grafana, so you can access its d
       ```
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        Edit `url` if you have changed Prometheus listening port.
+        <p className="rspress-directive-title">NOT</p>
+        Prometheus dinleme portunu değiştirdiyseniz `url`'yi düzenleyin.
       </p>
 
-      Enable and start service for Grafana.
+      Grafana için servisi etkinleştirin ve başlatın.
 
       ```shell
       sudo systemctl daemon-reload
@@ -506,28 +506,28 @@ It will open up a port on your node machine for Grafana, so you can access its d
       sudo systemctl start grafana-server
       ```
 
-      Check if Grafana is up and running.
+      Grafana'nın çalışır durumda olup olmadığını kontrol edin.
 
       ```shell
       sudo systemctl status grafana-server
       ```
 
-      This is pretty much it.
+      Bu kadar.
     </Tab>
 
   </Tabs>
 </div>
 
-## Configure firewall to allow connections for monitoring
+## İzleme için bağlantılara izin vermek üzere güvenlik duvarını yapılandırın
 
-::: warning NOTE
-If you have UFW enabled as referenced in the [Securing your Node](./securing-your-node) section, you will need to open a few ports in order to allow local connections between the Prometheus and your Execution/Consensus Clients. Follow the steps below.
+::: warning NOT
+[Node'unuzu Güvence Altına Alma](./securing-your-node) bölümünde belirtildiği gibi UFW etkinleştirilmişse, Prometheus ile Execution/Consensus Client'larınız arasında yerel bağlantılara izin vermek için birkaç portu açmanız gerekecektir. Aşağıdaki adımları izleyin.
 :::
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker">
-      Run the following, and replace the ports as needed:
+      Aşağıdakini çalıştırın ve gerektiğinde portları değiştirin:
 
       ```shell
       RP_NET=$(docker inspect rocketpool_net | grep -Po "(?<=\"Subnet\": \")[0-9./]+")
@@ -537,38 +537,37 @@ If you have UFW enabled as referenced in the [Securing your Node](./securing-you
       ```
     </Tab>
     <Tab label="Native">
-      If your RocketPool node and Prometheus resides on different hosts you need to configure firewall on your node host to allow incoming traffic
-      from Prometheus host IP to the node monitoring ports.
-      You also need to configure UFW on the Prometheus machine to allow for outgoing traffic from the Prometheus host to the RocketPool node host.
+      RocketPool node'unuz ve Prometheus farklı host'larda bulunuyorsa, node host'unuzda güvenlik duvarını Prometheus host IP'sinden node izleme portlarına gelen trafiğe izin verecek şekilde yapılandırmanız gerekir.
+      Ayrıca Prometheus makinesinde UFW'yi Prometheus host'undan RocketPool node host'una giden trafik için yapılandırmanız gerekir.
 
-      Having node host IP `192.168.1.5` and Prometheus host IP `192.168.1.6` the UFW rules for the node will be:
+      Node host IP'si `192.168.1.5` ve Prometheus host IP'si `192.168.1.6` olan durumda, node için UFW kuralları şöyle olacaktır:
 
       ```shell
       sudo ufw allow from 192.168.1.6 to any port 9100:9105 proto tcp comment 'Allow Prometheus host to scrape metrics of this host'
       ```
 
-      And for Prometheus host:
+      Prometheus host'u için:
 
       ```shell
       sudo ufw allow out from any to 192.168.1.5 port 9100:9105 proto tcp comment 'Allow this host to scrape node metrics'
       ```
 
-      Assuming your Grafana listening port is 3100, continue reading to find out how to expose Grafana in your network.
+      Grafana dinleme portunuzun 3100 olduğunu varsayarak, Grafana'yı ağınızda nasıl açığa çıkaracağınızı öğrenmek için okumaya devam edin.
     </Tab>
 
   </Tabs>
 </div>
 
-You can then open the firewall to allow external devices access to your Grafana dashboard.
+Ardından güvenlik duvarını dış cihazların Grafana kontrol panelinize erişmesine izin verecek şekilde açabilirsiniz.
 
 <div className="p-3">
   <Tabs>
     <Tab label="Network">
-      Use this if you want to access Grafana from any machine inside your local network, but deny access everywhere else.
-      This will be the most common use case.
+      Grafana'ya yerel ağınızdaki herhangi bir makineden erişmek istiyorsanız ancak başka her yerden erişimi reddetmek istiyorsanız bunu kullanın.
+      Bu en yaygın kullanım durumu olacaktır.
 
-      Please check whether your local network uses the `192.168.1.xxx` structure first.
-      You may have to change the command below to match your local network's configuration if it uses a different address structure (e.g. `192.168.99.xxx`).
+      Lütfen önce yerel ağınızın `192.168.1.xxx` yapısını kullanıp kullanmadığını kontrol edin.
+      Farklı bir adres yapısı kullanıyorsa (örn. `192.168.99.xxx`), yerel ağınızın yapılandırmasına uyacak şekilde aşağıdaki komutu değiştirmeniz gerekebilir.
 
       ```shell
       # This assumes your local IP structure is 192.168.1.xxx
@@ -577,10 +576,10 @@ You can then open the firewall to allow external devices access to your Grafana 
 
     </Tab>
     <Tab label="Subnet">
-      Use this if your Rocket Pool node is not connected to the same subnet as the device from which you are viewing Grafana. This may happen when your node is connected directly to your ISP's modem and the device you use to view Grafana is connected to a secondary router.
+      Rocket Pool node'unuz, Grafana'yı görüntülediğiniz cihazla aynı alt ağa bağlı değilse bunu kullanın. Bu durum, node'unuz doğrudan ISP'nizin modemine bağlıyken ve Grafana'yı görüntülemek için kullandığınız cihaz ikincil bir yönlendiriciye bağlıysa gerçekleşebilir.
 
-      Please check whether your local network uses the `192.168.1.xxx` structure first.
-      You may have to change the command below to match your local network's configuration if it uses a different address structure (e.g. `192.168.99.xxx`).
+      Lütfen önce yerel ağınızın `192.168.1.xxx` yapısını kullanıp kullanmadığını kontrol edin.
+      Farklı bir adres yapısı kullanıyorsa (örn. `192.168.99.xxx`), yerel ağınızın yapılandırmasına uyacak şekilde aşağıdaki komutu değiştirmeniz gerekebilir.
 
       ```shell
       # To allow any devices in the broader subnet
@@ -590,8 +589,8 @@ You can then open the firewall to allow external devices access to your Grafana 
       ```
     </Tab>
     <Tab label="Anywhere">
-      This will let you access Grafana from anywhere.
-      If you want to access it from outside your local network, you will still need to forward the Grafana port (default 3100) in your router settings.
+      Bu, Grafana'ya her yerden erişmenize izin verecektir.
+      Yerel ağınızın dışından erişmek istiyorsanız, yönlendirici ayarlarınızda Grafana portunu (varsayılan 3100) yönlendirmeniz gerekecektir.
 
       ```shell
       # Allow any IP to connect to Grafana
@@ -602,40 +601,40 @@ You can then open the firewall to allow external devices access to your Grafana 
   </Tabs>
 </div>
 
-## Setting up Grafana
+## Grafana'yı Kurma
 
-Now that the metrics server is ready, you can access it with any browser on your local network.
+Artık metrik sunucusu hazır olduğuna göre, yerel ağınızdaki herhangi bir tarayıcı ile erişebilirsiniz.
 
-Refer to the tabs below for your Smartnode installation mode.
+Smartnode kurulum modunuz için aşağıdaki sekmelere bakın.
 
-Navigate to the following URL, substituting the variables with your setup as necessary:
+Gerektiğinde değişkenleri kurulumunuzla değiştirerek aşağıdaki URL'ye gidin:
 
 ```
-http://<your node IP>:<grafana port>
+http://<node IP'niz>:<grafana portu>
 ```
 
-For example, if you node's IP was `192.168.1.5` and you used the default Grafana port of `3100`, then you would go to this URL in your browser:
+Örneğin, node'unuzun IP'si `192.168.1.5` ise ve varsayılan Grafana portu olan `3100`'ü kullandıysanız, tarayıcınızda şu URL'ye gidersiniz:
 
 ```
 http://192.168.1.5:3100
 ```
 
-You will see a login screen like this:
+Bunun gibi bir giriş ekranı göreceksiniz:
 
 <img src="./images/grafana-login.png" width="100%" height="auto" />
 
-The default Grafana information is:
+Varsayılan Grafana bilgileri:
 
 ```
 Username: admin
 Password: admin
 ```
 
-You will then be prompted to change the default password for the `admin` account.
-Pick something strong and don't forget it!
+Ardından `admin` hesabı için varsayılan parolayı değiştirmeniz istenecektir.
+Güçlü bir şey seçin ve unutmayın!
 
-::: tip Tip
-If you lose the admin password, you can reset it using the following command on your node:
+::: tip İpucu
+Admin parolasını kaybederseniz, node'unuzda aşağıdaki komutu kullanarak sıfırlayabilirsiniz:
 
 <div className="p-3">
   <Tabs>
@@ -654,85 +653,85 @@ If you lose the admin password, you can reset it using the following command on 
   </Tabs>
 </div>
 
-You will be able to log into Grafana using the default `admin` credentials once again, and then you will be prompted to change the password for the `admin` account.
+Varsayılan `admin` kimlik bilgilerini kullanarak Grafana'ya tekrar giriş yapabilecek ve ardından `admin` hesabı için parolayı değiştirmeniz istenecektir.
 :::
 
-Thanks to community member **tedsteen**'s work, Grafana will automatically connect to your Prometheus instance so it has access to the metrics that it collects.
-All you need to do is grab the dashboard!
+Topluluk üyesi **tedsteen**'in çalışması sayesinde, Grafana otomatik olarak Prometheus örneğinize bağlanacak, böylece topladığı metriklere erişimi olacaktır.
+Tek yapmanız gereken kontrol panelini almak!
 
-## Importing the Rocket Pool Dashboard
+## Rocket Pool Kontrol Panelini İçe Aktarma
 
-Now that you have Grafana attached to Prometheus, you can import the standard dashboard (or build your own using the metrics that it provides, if you are familiar with that process).
+Artık Grafana'yı Prometheus'a bağladığınıza göre, standart kontrol panelini içe aktarabilirsiniz (veya bu süreçle aşina iseniz, sağladığı metrikleri kullanarak kendinizinkini oluşturabilirsiniz).
 
-Start by going to the **Create** menu (the plus icon on the right-side bar) and click on **Import**:
+**Oluştur** menüsüne (sağ taraftaki artı simgesi) giderek ve **İçe Aktar**'a tıklayarak başlayın:
 
 <img src="./images/grafana-import.png" width="100%" height="auto" />
 
-When prompted for the dashboard ID in the **Import via grafana.com** box, enter `21863` or use the full URL ([(https://grafana.com/grafana/dashboards/21863](https://grafana.com/grafana/dashboards/21863)) and press the **Load** button.
+**Import via grafana.com** kutusunda kontrol paneli ID'si istendiğinde, `21863` girin veya tam URL'yi kullanın ([(https://grafana.com/grafana/dashboards/21863](https://grafana.com/grafana/dashboards/21863)) ve **Yükle** düğmesine basın.
 
-You will be prompted with some information about the dashboard here, such as its name and where you'd like to store it (the default **General** folder is fine unless you use a lot of dashboards and want to organize them).
+Burada kontrol paneli hakkında adı ve nerede saklamak istediğiniz gibi bazı bilgiler gösterilecektir (çok sayıda kontrol paneli kullanmıyorsanız ve bunları organize etmek istemiyorsanız varsayılan **Genel** klasörü iyidir).
 
-Under the **Prometheus** drop-down at the bottom, you should only have a single option labeled **Prometheus (default)**.
-Select this option.
+Alttaki **Prometheus** açılır menüsü altında, **Prometheus (varsayılan)** etiketli tek bir seçeneğiniz olmalıdır.
+Bu seçeneği seçin.
 
-Your screen should look like this:
+Ekranınız şöyle görünmelidir:
 
 <img src="./images/grafana-import2.png" width="100%" height="auto" />
 
-If yours matches, click the **Import** button and you will be immediately taken to your new dashboard.
+Sizinki eşleşiyorsa, **İçe Aktar** düğmesine tıklayın ve hemen yeni kontrol panelinize götürüleceksiniz.
 
-At first glance, you should see lots of information about your node and your validators.
-Each box comes with a handy tooltip on the top left corner (the `i` icon) that you can hover over to learn more about it.
-For example, here is the tooltip for the **Your Validator Share** box:
+İlk bakışta, node'unuz ve validator'larınız hakkında birçok bilgi görmelisiniz.
+Her kutu, hakkında daha fazla bilgi edinmek için üzerine gelinebilen sol üst köşede kullanışlı bir araç ipucu (ü simgesi) ile birlikte gelir.
+Örneğin, işte **Validator Payınız** kutusu için araç ipucu:
 
 <img src="./images/tooltip.png" width="100%" height="auto" />
 
-However, we aren't done setting things up yet - there is still a little more configuration to do.
+Ancak, işleri kurmayı henüz bitirmedik - hala yapılacak biraz daha yapılandırma var.
 
-::: warning NOTE
-Some of the boxes (notably the APR ones) have been temporarily disabled due to the way Shapella provides skimmed rewards.
+::: warning NOT
+Bazı kutular (özellikle APR olanlar), Shapella'nın skimmed ödülleri sağlama şekli nedeniyle geçici olarak devre dışı bırakılmıştır.
 
-They will be enabled again in a future version of the Smartnode that can track historical rewards properly.
+Geçmiş ödülleri düzgün bir şekilde takip edebilen Smartnode'un gelecekteki bir sürümünde tekrar etkinleştirileceklerdir.
 :::
 
-## Tailoring the Hardware Monitor to your System
+## Donanım İzleyicisini Sisteminize Uyarlama
 
-Now that the dashboard is up, you might notice that a few boxes are empty such as **SSD Latency** and **Network Usage**.
-We have to tailor the dashboard to your specific hardware so it knows how to capture these things.
+Artık kontrol paneli hazır olduğuna göre, **SSD Gecikme Süresi** ve **Ağ Kullanımı** gibi birkaç kutunun boş olduğunu fark edebilirsiniz.
+Bu şeyleri nasıl yakalayacağını bilmesi için kontrol panelini özel donanımınıza uyarlamalıyız.
 
-### CPU Temp
+### CPU Sıcaklığı
 
-To update your CPU temperature gauge, click the title of the **CPU Temp** box and select **Edit** from the drop down.
-Your screen will now look something like this:
+CPU sıcaklık göstergenizi güncellemek için, **CPU Sıcaklığı** kutusunun başlığına tıklayın ve açılır menüden **Düzenle**'yi seçin.
+Ekranınız şimdi şuna benzer bir şey görünecektir:
 
 <img src="./images/cpu-temp.png" width="100%" height="auto" />
 
-This is Grafana's edit mode, where you can change what is displayed and how it looks.
-We're interested in the query box highlighted in red, to the right of the **Metrics browser** button.
+Bu Grafana'nın düzenleme modu, neyin görüntüleneceğini ve nasıl göründüğünü değiştirebileceğiniz yerdir.
+**Metrics browser** düğmesinin sağındaki, kırmızıyla vurgulanan sorgu kutusunu arıyoruz.
 
-By default, that box has this in it:
+Varsayılan olarak, o kutuda şu vardır:
 
 ```
 node_hwmon_temp_celsius{job="node", chip="", sensor=""}
 ```
 
-There are two fields in this text that are currently blank: `chip` and `sensor`.
-These are unique to each machine, so you'll have to fill them in based on what your machine provides.
+Bu metinde şu anda boş olan iki alan vardır: `chip` ve `sensor`.
+Bunlar her makineye özgüdür, bu nedenle bunları makinenizin sağladığına göre doldurmanız gerekecektir.
 
-To do this, follow these steps:
+Bunu yapmak için şu adımları izleyin:
 
-1. Remove the `, sensor=""` portion so it ends with `chip=""}`. For clarity, the whole thing should now be `node_hwmon_temp_celsius{job="node", chip=""}`.
-2. Put your cursor in-between the quote marks of `chip=""` and press `Ctrl+Spacebar`. This will bring up an auto-complete box with the available options, which looks like this:
+1. `, sensor=""` kısmını kaldırın, böylece `chip=""}` ile bitsin. Açıklık için, tüm şey şimdi `node_hwmon_temp_celsius{job="node", chip=""}` olmalıdır.
+2. İmlecinizi `chip=""` tırnak işaretlerinin arasına yerleştirin ve `Ctrl+Boşluk` tuşuna basın. Bu, şunun gibi görünen mevcut seçenekleri içeren bir otomatik tamamlama kutusu getirecektir:
 
 <img src="./images/grafana-autocomplete.png" width="100%" height="auto" />
 
-3. Select the option that corresponds to your system's CPU.
-4. Once that's selected, add `, sensor=""` back into the string. Place your cursor in-between the quote marks of `sensor=""` and press `Ctrl+Spacebar` to get another auto-complete menu. Select the sensor you want to monitor.
+3. Sisteminizin CPU'suna karşılık gelen seçeneği seçin.
+4. Bu seçildikten sonra, `, sensor=""` kısmını dizeye geri ekleyin. İmlecinizi `sensor=""` tırnak işaretlerinin arasına yerleştirin ve başka bir otomatik tamamlama menüsü almak için `Ctrl+Boşluk` tuşuna basın. İzlemek istediğiniz sensörü seçin.
 
-::: tip Tip
-If you don't know which `chip` or `sensor` is correct, you'll have to try all of them until you find the one that looks right. To help with this, install the `lm-sensors` package (for example, `sudo apt install lm-sensors` on Debian / Ubuntu) and run the `sensors -u` command to provide what sensors your computer has. You can try to correlate a chip ID from Grafana's list with what you see here based on their names and IDs.
+::: tip İpucu
+Hangi `chip` veya `sensor`'ün doğru olduğunu bilmiyorsanız, doğru olanı bulana kadar hepsini denemeniz gerekecektir. Buna yardımcı olmak için `lm-sensors` paketini yükleyin (örneğin, Debian / Ubuntu'da `sudo apt install lm-sensors`) ve bilgisayarınızın hangi sensörlere sahip olduğunu sağlamak için `sensors -u` komutunu çalıştırın. Grafana'nın listesinden bir chip ID'sini burada gördüklerinizle adlarına ve ID'lerine göre ilişkilendirmeye çalışabilirsiniz.
 
-For example, this is one of the outputs of our `sensors -u` command:
+Örneğin, bu `sensors -u` komutumuzun çıktılarından biridir:
 
 ```
 k10temp-pci-00c3
@@ -742,36 +741,36 @@ Tdie:
   temp2_input: 33.500
 ```
 
-In our case, the corresponding chip in Grafana is `pci0000:00_0000:00:18_3` and the corresponding sensor is `temp1`.
+Bizim durumumuzda, Grafana'daki karşılık gelen chip `pci0000:00_0000:00:18_3` ve karşılık gelen sensör `temp1`'dir.
 :::
 
-Once you're happy with your selections, click the blue **Apply** button in the top right corner of the screen to save the settings.
+Seçimlerinizden memnun olduğunuzda, ayarları kaydetmek için ekranın sağ üst köşesindeki mavi **Uygula** düğmesine tıklayın.
 
-::: warning NOTE
-Not all system expose CPU temperature info - notably virtual machines or cloud-based systems.
-If yours doesn't have anything in the auto-complete field for `chip`, this is probably the case and you won't be able to monitor your CPU temperature.
+::: warning NOT
+Tüm sistemler CPU sıcaklık bilgisini açığa çıkarmaz - özellikle sanal makineler veya bulut tabanlı sistemler.
+Sizinki `chip` için otomatik tamamlama alanında herhangi bir şey yoksa, muhtemelen durum budur ve CPU sıcaklığınızı izleyemeyeceksiniz.
 :::
 
-### SSD Latency
+### SSD Gecikme Süresi
 
-The **SSD Latency** chart tracks how long it takes for read/write operations to take.
-This is helpful in gauging how fast your SSD is, so you know if it becomes a bottleneck if your validator suffers from poor performance.
-To update the SSD you want to track in the chart, click on the **SSD Latency** title and select **Edit**.
+**SSD Gecikme Süresi** grafiği, okuma/yazma işlemlerinin ne kadar sürdüğünü takip eder.
+Bu, SSD'nizin ne kadar hızlı olduğunu ölçmede yardımcı olur, böylece validator'ınız zayıf performanstan muzdaripse bir darboğaz haline gelip gelmediğini bilirsiniz.
+Grafikte izlemek istediğiniz SSD'yi güncellemek için, **SSD Gecikme Süresi** başlığına tıklayın ve **Düzenle**'yi seçin.
 
-This chart has four query fields (four textboxes) with eight `device=""` portions in total.
-You'll need to update the first four of these portions with the device you want to track.
+Bu grafik toplam sekiz `device=""` kısmı olan dört sorgu alanına (dört metin kutusu) sahiptir.
+Bu kısımların ilk dördünü izlemek istediğiniz cihazla güncellemeniz gerekecektir.
 
-Simply place your cursor in-between the quote marks and press `Ctrl+Spacebar` to get Grafana's auto-complete list, and select the correct option from there for each of the `device=""` portions.
-**You want to start from the leftmost empty setting first, or the auto-complete list may not appear.**
+Sadece imlecinizi tırnak işaretlerinin arasına yerleştirin ve Grafana'nın otomatik tamamlama listesini almak için `Ctrl+Boşluk` tuşuna basın ve `device=""` kısımlarının her biri için oradan doğru seçeneği seçin.
+**En soldaki boş ayardan başlamak istiyorsunuz, aksi takdirde otomatik tamamlama listesi görünmeyebilir.**
 
-::: tip Tip
-If you don't know which device to track, run the following command:
+::: tip İpucu
+Hangi cihazı izleyeceğinizi bilmiyorsanız, aşağıdaki komutu çalıştırın:
 
 ```
 lsblk
 ```
 
-This will output a tree showing your device and partition list, for example:
+Bu, cihaz ve bölüm listenizi gösteren bir ağaç çıktısı verecektir, örneğin:
 
 ```
 NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
@@ -785,40 +784,40 @@ nvme0n1     259:0    0 238,5G  0 disk
 └─nvme0n1p4 259:4    0   527M  0 part
 ```
 
-If you didn't change Docker's default location to a different drive during your Smartnode installation, then the disk you want to track will be the one that your Operating System is installed on.
-Look in the `MOUNTPOINT` column for an entry simply labeled `/`, then follow that back up to its parent device (the one with `disk` in the `TYPE` column).
+Smartnode kurulumunuz sırasında Docker'ın varsayılan konumunu farklı bir sürücüye değiştirmediyseniz, izlemek istediğiniz disk, İşletim Sisteminizin yüklü olduğu disk olacaktır.
+`MOUNTPOINT` sütununda sadece `/` etiketli bir giriş arayın, ardından bunu üst cihazına kadar takip edin (`TYPE` sütununda `disk` olan).
 
-Typically this will be `sda` for SATA drives or `nvme0n1` for NVMe drives.
+Tipik olarak bu, SATA sürücüler için `sda` veya NVMe sürücüler için `nvme0n1` olacaktır.
 
-If you _did_ change Docker's default location to a different drive, or if you're running a hybrid / native setup, you should be able to use the same technique of "following the mount point" to determine which device your chain data resides on.
+Docker'ın varsayılan konumunu farklı bir sürücüye değiştirdiyseniz veya hibrit / native bir kurulum çalıştırıyorsanız, zincir verilerinizin hangi cihazda bulunduğunu belirlemek için aynı "bağlantı noktasını takip etme" tekniğini kullanabilmelisiniz.
 :::
 
-Optionally, you can also track latency of a second disk on your system.
-This is aimed at people that keep their Operating System and chain data on separate drives.
-To set this up, simply follow the instructions above for the last two query fields, substituting `device=""` portion values with those of the disk you want to track.
+İsteğe bağlı olarak, sisteminizdeki ikinci bir diskin gecikmesini de izleyebilirsiniz.
+Bu, İşletim Sisteminizi ve zincir verilerini ayrı sürücülerde tutan kişiler için tasarlanmıştır.
+Bunu kurmak için, son iki sorgu alanı için yukarıdaki talimatları takip edin, `device=""` kısım değerlerini izlemek istediğiniz diskin değerleriyle değiştirin.
 
-Once you're happy with your selections, click the blue **Apply** button in the top right corner of the screen to save the settings.
+Seçimlerinizden memnun olduğunuzda, ayarları kaydetmek için ekranın sağ üst köşesindeki mavi **Uygula** düğmesine tıklayın.
 
-### Network Usage
+### Ağ Kullanımı
 
-This chart tracks how much data you're sending and receiving over a particular network connection.
-As you might expect, the dashboard needs to know which network you want it to track.
+Bu grafik, belirli bir ağ bağlantısı üzerinden ne kadar veri gönderip aldığınızı takip eder.
+Tahmin edebileceğiniz gibi, kontrol panelinin hangi ağı izlemesi gerektiğini bilmesi gerekir.
 
-To change it, click on the **Network Usage** title and select **Edit**.
+Bunu değiştirmek için, **Ağ Kullanımı** başlığına tıklayın ve **Düzenle**'yi seçin.
 
-This chart has two query fields with two `device=""` portions in total.
-You'll need to update these with the network you want to track.
+Bu grafik toplam iki `device=""` kısmı olan iki sorgu alanına sahiptir.
+Bunları izlemek istediğiniz ağla güncellemeniz gerekecektir.
 
-Place your cursor in-between the quote marks and press `Ctrl+Spacebar` to get Grafana's auto-complete list, and select the correct option from there for each of the `device=""` portions.
+İmlecinizi tırnak işaretlerinin arasına yerleştirin ve Grafana'nın otomatik tamamlama listesini almak için `Ctrl+Boşluk` tuşuna basın ve `device=""` kısımlarının her biri için oradan doğru seçeneği seçin.
 
-::: tip Tip
-If you don't know which device to track, run the following command:
+::: tip İpucu
+Hangi cihazı izleyeceğinizi bilmiyorsanız, aşağıdaki komutu çalıştırın:
 
 ```shell
 sudo route
 ```
 
-The output will look something like this:
+Çıktı şuna benzer bir şey görünecektir:
 
 ```
 Kernel IP routing table
@@ -828,66 +827,66 @@ default         192.168.1.1     0.0.0.0         UG    100    0        0 eth0
 192.168.1.1     0.0.0.0         255.255.255.255 UH    100    0        0 eth0
 ```
 
-Look at the `Destination` column for the row with the value if `default`.
-Follow that row all the way to the `Iface` column.
-The device listed there is the one you want to use - in this example, `eth0`.
+`Destination` sütununda `default` değerine sahip satıra bakın.
+O satırı `Iface` sütununa kadar takip edin.
+Orada listelenen cihaz, kullanmak istediğiniz cihazdır - bu örnekte, `eth0`.
 :::
 
-Once you're happy with your selections, click the blue **Apply** button in the top right corner of the screen to save the settings.
+Seçimlerinizden memnun olduğunuzda, ayarları kaydetmek için ekranın sağ üst köşesindeki mavi **Uygula** düğmesine tıklayın.
 
-### Total Net I/O
+### Toplam Net I/O
 
-This tracks the total amount of data you've sent and received.
-You might find it useful to watch if, for example, your ISP limits you to a certain amount of data per month.
+Bu, gönderdiğiniz ve aldığınız toplam veri miktarını takip eder.
+Örneğin, ISP'niz ayda belirli bir veri miktarıyla sınırlıyorsa bunu izlemeyi faydalı bulabilirsiniz.
 
-The setup is identical to the **Network Usage** box above, so simply follow those instructions for this box too.
+Kurulum yukarıdaki **Ağ Kullanımı** kutusuyla aynıdır, bu nedenle bu kutu için de bu talimatları takip edin.
 
-### Disk Space Used
+### Kullanılan Disk Alanı
 
-This keeps tabs on how full your Operating System disk is getting, so you know when it's time to clean up (and if your chain data lives on the same drive, time to [prune Geth or Nethermind](./pruning)).
+Bu, İşletim Sistemi diskinizin ne kadar dolduğunu takip eder, böylece ne zaman temizlemeniz gerektiğini (ve zincir verileriniz aynı sürücüde yaşıyorsa, [Geth veya Nethermind'i budama](./pruning) zamanının geldiğini) bilirsiniz.
 
-The steps are the same as the **SSD Latency** box above, so simply follow those instructions for this box too.
-As a reminder, you want the drive that houses the partition which has `/` in the `MOUNTPOINT` column for this one because that will be your Operating System drive.
-Fill this into the first query field.
+Adımlar yukarıdaki **SSD Gecikme Süresi** kutusuyla aynıdır, bu nedenle bu kutu için de bu talimatları takip edin.
+Hatırlatma olarak, bu için `MOUNTPOINT` sütununda `/` olan bölümü barındıran sürücüyü istiyorsunuz çünkü bu İşletim Sistemi sürücünüz olacaktır.
+Bunu ilk sorgu alanına doldurun.
 
-Optionally, you can also track the free space of a second disk on your system.
-This is aimed at people that keep their Operating System and chain data on separate drives.
-Set this up by following the same process, but instead of looking at which partition has `/` in the `MOUNTPOINT` column, you want to look for the one that has whatever your second drive's mount point is.
-Update the second query field with the disk associated with that partition.
+İsteğe bağlı olarak, sisteminizdeki ikinci bir diskin boş alanını da izleyebilirsiniz.
+Bu, İşletim Sisteminizi ve zincir verilerini ayrı sürücülerde tutan kişiler için tasarlanmıştır.
+Aynı süreci izleyerek bunu kurun, ancak `MOUNTPOINT` sütununda `/` olan bölüme bakmak yerine, ikinci sürücünüzün bağlantı noktası her neyse ona sahip olana bakmak istiyorsunuz.
+İkinci sorgu alanını bu bölümle ilişkili diskle güncelleyin.
 
-### Disk Temp
+### Disk Sıcaklığı
 
-This tracks the current temperature of your Operating System disk. The steps are the same as the **CPU Temp** box above, so simply follow those instructions for this box too, substituting CPU chip and sensor values with those of your Operating System disk. Fill these values into the first query field.
+Bu, İşletim Sistemi diskinizin mevcut sıcaklığını takip eder. Adımlar yukarıdaki **CPU Sıcaklığı** kutusuyla aynıdır, bu nedenle bu kutu için de bu talimatları takip edin, CPU chip ve sensör değerlerini İşletim Sistemi diskinizinkilerle değiştirin. Bu değerleri ilk sorgu alanına doldurun.
 
-Optionally, you can also track the current temperature of a second disk on your system. Set this up by following the same process, substituting the chip and sensor values with those of your second drive. Fill these values into the second query field.
+İsteğe bağlı olarak, sisteminizdeki ikinci bir diskin mevcut sıcaklığını da izleyebilirsiniz. Aynı süreci izleyerek bunu kurun, chip ve sensör değerlerini ikinci sürücünüzünkilerle değiştirin. Bu değerleri ikinci sorgu alanına doldurun.
 
-## Customizing the Dashboard
+## Kontrol Panelini Özelleştirme
 
-While the standard dashboard tries to do a good job capturing everything you'd want to see at a glance, it's quite easy to customize a Grafana dashboard however you want.
-You can add new graphs, change the way graphs look, move things around, and much more!
+Standart kontrol paneli bir bakışta görmek isteyeceğiniz her şeyi yakalamada iyi bir iş çıkarmaya çalışsa da, bir Grafana kontrol panelini istediğiniz gibi özelleştirmek oldukça kolaydır.
+Yeni grafikler ekleyebilir, grafiklerin görünümünü değiştirebilir, şeyleri hareket ettirebilir ve çok daha fazlasını yapabilirsiniz!
 
-Take a look at [Grafana's Tutorials](https://grafana.com/tutorials/) page to learn how to play with it and set it up to your liking.
+Nasıl oynayacağınızı ve beğeninize göre nasıl kuracağınızı öğrenmek için [Grafana'nın Öğreticiler](https://grafana.com/tutorials/) sayfasına göz atın.
 
-## Customizing the Metrics Stack
+## Metrik Yığınını Özelleştirme
 
-The tools used in the Rocket Pool Metrics Stack offer a wide array of configuration options beyond what is included in the default Rocket Pool installation. This section includes configuration examples for different use cases.
+Rocket Pool Metrik Yığınında kullanılan araçlar, varsayılan Rocket Pool kurulumunda yer alanların ötesinde geniş bir yapılandırma seçeneği yelpazesi sunar. Bu bölüm, farklı kullanım durumları için yapılandırma örnekleri içerir.
 
-In general, [Grafana configuration options](https://grafana.com/docs/grafana/latest/administration/configuration/) should be passed through using environment variables in `override/grafana.yml`. Any config option can be converted to an environment variable using the following syntax:
+Genel olarak, [Grafana yapılandırma seçenekleri](https://grafana.com/docs/grafana/latest/administration/configuration/) `override/grafana.yml` içinde ortam değişkenleri kullanılarak geçirilmelidir. Herhangi bir yapılandırma seçeneği aşağıdaki sözdizimi kullanılarak bir ortam değişkenine dönüştürülebilir:
 
 ```
 GF_<SectionName>_<KeyName>
 ```
 
-### Grafana SMTP Settings for Sending Emails
+### E-posta Göndermek için Grafana SMTP Ayarları
 
-To send emails from Grafana, e.g. for alerts or to invite other users, SMTP settings need to be configured in the Rocket Pool Metrics Stack.
-See the [Grafana SMTP configuration](https://grafana.com/docs/grafana/latest/administration/configuration/#smtp) page for reference.
+Grafana'dan e-posta göndermek için, örn. uyarılar için veya diğer kullanıcıları davet etmek için, SMTP ayarlarının Rocket Pool Metrik Yığınında yapılandırılması gerekir.
+Referans için [Grafana SMTP yapılandırması](https://grafana.com/docs/grafana/latest/administration/configuration/#smtp) sayfasına bakın.
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker and Hybrid Mode">
-      Open `~/.rocketpool/override/grafana.yml` in a text editor.
-      Add an `environment` section below the `x-rp-comment: Add your customizations below this line` line, replacing the values below with those for your SMTP provider.
+      Bir metin düzenleyicide `~/.rocketpool/override/grafana.yml` dosyasını açın.
+      `x-rp-comment: Add your customizations below this line` satırının altına bir `environment` bölümü ekleyin, aşağıdaki değerleri SMTP sağlayıcınızınkilerle değiştirin.
 
       ```yaml
       version: "3.7"
@@ -906,7 +905,7 @@ See the [Grafana SMTP configuration](https://grafana.com/docs/grafana/latest/adm
       ```
     </Tab>
     <Tab label="Native">
-      Open `/etc/grafana/grafana.ini` in a text editor. Look for `[smtp]` section and update it, replacing the values below with those for your SMTP provider.
+      Bir metin düzenleyicide `/etc/grafana/grafana.ini` dosyasını açın. `[smtp]` bölümünü arayın ve güncelleyin, aşağıdaki değerleri SMTP sağlayıcınızınkilerle değiştirin.
 
       ```
       [smtp]
@@ -923,11 +922,11 @@ See the [Grafana SMTP configuration](https://grafana.com/docs/grafana/latest/adm
   </Tabs>
 </div>
 
-::: tip Tip
-If using Gmail and [2-Step Verification](https://support.google.com/accounts/answer/185839) is enabled, create an [App Password](https://support.google.com/mail/answer/185833?hl=en) for this service.
+::: tip İpucu
+Gmail kullanıyorsanız ve [2 Adımlı Doğrulama](https://support.google.com/accounts/answer/185839) etkinse, bu servis için bir [Uygulama Şifresi](https://support.google.com/mail/answer/185833?hl=en) oluşturun.
 :::
 
-After making these modifications, **run the following to apply the changes**:
+Bu değişiklikleri yaptıktan sonra, **değişiklikleri uygulamak için aşağıdakini çalıştırın**:
 
 <div className="p-3">
   <Tabs>
@@ -947,14 +946,14 @@ After making these modifications, **run the following to apply the changes**:
   </Tabs>
 </div>
 
-To test the SMTP settings, go to the **Alerting** menu and click **Contact points**.
+SMTP ayarlarını test etmek için, **Uyarı** menüsüne gidin ve **İletişim noktaları**'na tıklayın.
 
 <img src="./images/grafana-contact-points.png" width="100%" height="auto" />
 
-Click **New contact point** and select **Email** as the Contact point type.
-Enter an email address in the **Addresses** section and click **Test**.
+**Yeni iletişim noktası**'na tıklayın ve İletişim noktası türü olarak **E-posta**'yı seçin.
+**Adresler** bölümüne bir e-posta adresi girin ve **Test**'e tıklayın.
 
 <img src="./images/grafana-new-contact-point.png" width="100%" height="auto" />
 
-Check to see that the test email was received.
-Click **Save contact point\*** when finished.
+Test e-postasının alındığını kontrol edin.
+Bitirdiğinizde **İletişim noktasını kaydet\*** düğmesine tıklayın.

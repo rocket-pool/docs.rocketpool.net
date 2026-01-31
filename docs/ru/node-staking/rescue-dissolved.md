@@ -1,46 +1,33 @@
-# Rescuing a Dissolved Minipool
+# Спасение расформированного минипула
 
-In the unlikely event your minipool does not stake within the dissolve window, it will be "dissolved" by the oDAO and
-user funds provided will be returned to the deposit pool for use by another minipool. In this scenario, you will need
-to perform the below process to retrieve your ETH and unlock your RPL to be unstaked.
+В маловероятном случае, если ваш минипул не поставит на стейк средства в течение окна расформирования, он будет «расформирован» oDAO, и предоставленные средства пользователей будут возвращены в пул депозитов для использования другим минипулом. В этом сценарии вам нужно будет выполнить приведенный ниже процесс, чтобы вернуть свой ETH и разблокировать свой RPL для снятия со стейкинга.
 
-## Update your Minipool Delegate
+## Обновите делегат вашего минипула
 
-It is highly recommended that you use the latest minipool delegate when performing this process. Older delegates contain
-a `selfdestruct` operation when they are closed which means, if the process is not completed correctly in the
-specified order, funds may be locked forever. You can check that your minipool is on the latest delegate by attempting
-to [Upgrade your Delegate](./minipools/delegates#upgrading-your-delegate). If your minipool does not appear in the
-list of minipools that can be upgraded then you can continue on below.
+Настоятельно рекомендуется использовать последний делегат минипула при выполнении этого процесса. Старые делегаты содержат операцию `selfdestruct` при их закрытии, что означает, что если процесс не будет выполнен правильно в указанном порядке, средства могут быть заблокированы навсегда. Вы можете проверить, что ваш минипул использует последний делегат, попытавшись [обновить свой делегат](./minipools/delegates#upgrading-your-delegate). Если ваш минипул не появляется в списке минипулов, которые можно обновить, вы можете продолжить ниже.
 
-## Retrieve Your Unused Deposit Balance
+## Получите неиспользованный баланс депозита
 
-::: tip NOTE
-If your minipool was dissolved prior to Atlas, you may skip this step and head straight to [Increase Your Beaconchain Balance to 32 ETH](#increase-your-beaconchain-balance-to-32-eth).
-You do not need to retrieve your unused deposit balance because the entire bond amount was deposited to the beaconchain
-prior to Atlas.
+::: tip ПРИМЕЧАНИЕ
+Если ваш минипул был расформирован до Atlas, вы можете пропустить этот шаг и перейти непосредственно к [Увеличьте ваш баланс в Beaconchain до 32 ETH](#increase-your-beaconchain-balance-to-32-eth).
+Вам не нужно получать неиспользованный баланс депозита, потому что вся сумма залога была депонирована в beaconchain до Atlas.
 :::
 
-1 ETH from your initial bond deposit is used as an initial deposit to the beaconchain to secure your validator's
-withdrawal credentials. The remaining amount is deposited to your minipool when it is assigned ETH from
-the deposit pool.
+1 ETH из вашего первоначального депозита залога используется в качестве первоначального депозита в beaconchain для обеспечения учетных данных для вывода средств вашего валидатора. Оставшаяся сумма депонируется в ваш минипул, когда ему назначается ETH из пула депозитов.
 
-When your minipool is dissolved, the user ETH is returned to the deposit pool and your ETH remains in the minipool ready
-to be returned to you. Use the [Manual Distribution](./skimming#manual-distribution) of rewards feature to retrieve this
-ETH that can then be used in the next step to activate your validator.
+Когда ваш минипул расформирован, ETH пользователя возвращается в пул депозитов, а ваш ETH остается в минипуле готовым к возврату вам. Используйте функцию [ручного распределения](./skimming#manual-distribution) вознаграждений для получения этого ETH, который затем можно использовать на следующем шаге для активации вашего валидатора.
 
-## Increase Your Beaconchain Balance to 32 ETH
+## Увеличьте ваш баланс в Beaconchain до 32 ETH
 
-You must top up your validator's balance to the minimum required for activation on the beaconchain. This
-amount is **32 ETH**. If you have a 16 ETH bonded minipool, you will require an additional 16 ETH and if you have an 8 ETH
-bonded minipool you will need an additional 24 ETH during this step.
+Вы должны пополнить баланс вашего валидатора до минимума, необходимого для активации в beaconchain. Эта сумма составляет **32 ETH**. Если у вас минипул с залогом 16 ETH, вам потребуется дополнительно 16 ETH, а если у вас минипул с залогом 8 ETH, вам понадобится дополнительно 24 ETH на этом шаге.
 
-Deposit the required amount of ETH into your node address and then issue the following command to begin the process:
+Внесите необходимое количество ETH на адрес вашего узла, а затем выполните следующую команду, чтобы начать процесс:
 
 ```shell
 rocketpool minipool rescue-dissolved
 ```
 
-You will be presented with a list of minipools that meet the criteria for a manual deposit:
+Вам будет представлен список минипулов, которые соответствуют критериям для ручного депозита:
 
 ```
 Please select a minipool to rescue:
@@ -49,7 +36,7 @@ Please select a minipool to rescue:
 3: 0x7E570195026dC29f4B2DfF08B56c3b5D0FF988Ef (dissolved since 2023-02-08, 06:33 +0000 UTC)
 ```
 
-After selecting the minipool you want to rescue, you will be asked what amount you want to manually deposit:
+После выбора минипула, который вы хотите спасти, вас спросят, какую сумму вы хотите внести вручную:
 
 ```
 1. All 16.000000 ETH required to rescue it
@@ -57,30 +44,23 @@ After selecting the minipool you want to rescue, you will be asked what amount y
 3. A custom amount
 ```
 
-Option 1 will be used in most circumstances. It is the amount required to bring your beaconchain balance up to the required
-32 ETH amount. The other options are provided for advanced use cases.
+Вариант 1 будет использоваться в большинстве случаев. Это сумма, необходимая для доведения вашего баланса в beaconchain до требуемых 32 ETH. Другие варианты предоставлены для продвинутых случаев использования.
 
-::: tip NOTE
-Bringing your beaconchain balance up to 32 ETH means your validator will be able to actively participate in Ethereum
-validation duties. The smartnode may not have had a chance to restart your validator since the dissolution. Therefore,
-it is a good idea to manually restart your validator to ensure it has loaded your validator keys and can perform
-validation duties to avoid any penalties during the rescue process.
+::: tip ПРИМЕЧАНИЕ
+Доведение вашего баланса в beaconchain до 32 ETH означает, что ваш валидатор сможет активно участвовать в обязанностях валидации Ethereum. Smartnode, возможно, не успел перезапустить ваш валидатор с момента расформирования. Поэтому рекомендуется вручную перезапустить ваш валидатор, чтобы убедиться, что он загрузил ваши ключи валидатора и может выполнять обязанности валидации, чтобы избежать штрафов во время процесса спасения.
 
-If you are running the standard Docker mode, this can be done with `docker restart rocketpool_validator`.
+Если вы используете стандартный режим Docker, это можно сделать с помощью `docker restart rocketpool_validator`.
 :::
 
-Once this step is complete, your validator will enter the entry queue and you will need to wait for the following events
-to occur:
+После завершения этого шага ваш валидатор войдет в очередь входа, и вам нужно будет подождать, пока произойдут следующие события:
 
-1. 2048 execution layer blocks need to pass for your deposit to be accepted (~8 hours)
-2. Up to 32 epochs need to pass for validators to vote you in (0.5 - 3.5 hours)
-3. A variable amount of time in the validator queue (6.4 minutes per 4 validators in the queue)
-4. 256 epochs minimum validating before an exit is allowed (27 hours)
+1. Должно пройти 2048 блоков уровня исполнения, чтобы ваш депозит был принят (~8 часов)
+2. Должно пройти до 32 эпох, чтобы валидаторы проголосовали за вас (0,5 - 3,5 часа)
+3. Переменное время в очереди валидаторов (6,4 минуты на 4 валидатора в очереди)
+4. Минимум 256 эпох валидации, прежде чем будет разрешен выход (27 часов)
 
-### Exiting your Validator
+### Выход вашего валидатора
 
-Once your validator has been active for a minimum of 256 epochs, you may exit your minipool via the same process as
-any other minipool by following the [Exiting your Validator](./withdraw#exiting-your-validator) guide.
+После того, как ваш валидатор был активен в течение минимум 256 эпох, вы можете выйти из вашего минипула через тот же процесс, что и любой другой минипул, следуя руководству [Exiting your Validator](./withdraw#exiting-your-validator).
 
-The full 32 ETH balance will be returned to your minipool and dissolved minipools distribute 100% of their balance to the
-node operator's withdrawal address.
+Полный баланс 32 ETH будет возвращен в ваш минипул, и расформированные минипулы распределяют 100% своего баланса на адрес вывода средств оператора узла.

@@ -1,38 +1,38 @@
-::: danger WARNING
-Minipool deposits are currently disabled in preparation for Saturn 1.
+::: danger ADVERTENCIA
+Los depósitos de minipool están actualmente deshabilitados en preparación para Saturn 1.
 :::
 
-# The Minipool Delegate
+# El Minipool Delegate
 
-Every validator you run has a **minipool** contract as its "owner" so-to-speak.
-The minipool is a unique contract specifically assigned to that validator; it acts as its **withdrawal address**.
-All reward and staking balance withdrawals from the Beacon Chain will be sent to the minipool contract.
+Cada validator que ejecutas tiene un contrato de **minipool** como su "propietario" por así decirlo.
+El minipool es un contrato único asignado específicamente a ese validator; actúa como su **dirección de retiro**.
+Todos los retiros de recompensas y saldo de staking de la Beacon Chain serán enviados al contrato del minipool.
 
-Each minipool is unique to ensure that you (the node operator) have ultimate control over it.
-Nobody else controls it, nobody else can change it; it's entirely at your command.
+Cada minipool es único para asegurar que tú (el Node Operator) tengas el control absoluto sobre él.
+Nadie más lo controla, nadie más puede cambiarlo; está completamente bajo tu mando.
 
-That being said, in order to minimize gas costs during node deposits, the minipool _itself_ contains very little actual functionality.
-Almost everything it can do is deferred to a **delegate** contract.
+Dicho esto, para minimizar los costos de gas durante los depósitos del nodo, el minipool _mismo_ contiene muy poca funcionalidad real.
+Casi todo lo que puede hacer es diferido a un contrato **delegate**.
 
-The minipool delegate contract is a special contract that contains the bulk of the logic required by minipools - things like fairly distributing the balance between you and the pool stakers, for example.
-Unlike minipools, where each minipool is a unique contract, the delegate is a single contract that many minipools can "forward" requests to.
+El contrato delegate del minipool es un contrato especial que contiene la mayor parte de la lógica requerida por los minipools - cosas como distribuir equitativamente el saldo entre tú y los pool stakers, por ejemplo.
+A diferencia de los minipools, donde cada minipool es un contrato único, el delegate es un solo contrato al que muchos minipools pueden "reenviar" solicitudes.
 
-Occasionally, the Rocket Pool development team will publish a new minipool delegate that adds new functionality.
-For example, in the Atlas update, we introduced a new delegate that had support for distributing skimmed rewards without needing to close the minipool.
+Ocasionalmente, el equipo de desarrollo de Rocket Pool publicará un nuevo minipool delegate que agrega nueva funcionalidad.
+Por ejemplo, en la actualización Atlas, introdujimos un nuevo delegate que tenía soporte para distribuir recompensas skimmed sin necesidad de cerrar el minipool.
 
-Minipool can have their delegates upgraded to take advantage of this new functionality.
-Delegate upgrades are **opt-in**, so you can decide if and when you want to use them.
-That being said, they are usually required in order to take advantage of new functionality that network upgrades introduce.
+Los minipool pueden tener sus delegates actualizados para aprovechar esta nueva funcionalidad.
+Las actualizaciones de delegate son **opt-in**, así que puedes decidir si y cuándo quieres usarlas.
+Dicho esto, usualmente se requieren para aprovechar la nueva funcionalidad que introducen las actualizaciones de red.
 
-### Upgrading your Delegate
+### Actualizando tu Delegate
 
-To upgrade a minipool to a new delegate contract, simply run the following command:
+Para actualizar un minipool a un nuevo contrato delegate, simplemente ejecuta el siguiente comando:
 
 ```shell
 rocketpool minipool delegate-upgrade
 ```
 
-This will present you with a list of your minipools that are not currently using the latest delegate and are eligible for upgrading:
+Esto te presentará una lista de tus minipools que actualmente no están usando el delegate más reciente y son elegibles para actualización:
 
 ```
 Please select a minipool to upgrade:
@@ -45,8 +45,8 @@ Please select a minipool to upgrade:
 7: 0x7E5700c82E38434C6c72890bb82f5B5305f4328a (using delegate 0x6aCEA7f89574Dd8BC6ffDfDca1965A3d756d5B20)
 ```
 
-Select the one(s) you would like to upgrade from the list by entering the corresponding number on the left of the minipool address.
-Once selected, you will be prompted to confirm your gas price settings, and after that a transaction to upgrade the minipool will be sent:
+Selecciona el o los que deseas actualizar de la lista ingresando el número correspondiente en el lado izquierdo de la dirección del minipool.
+Una vez seleccionado, se te pedirá confirmar tu configuración de precio de gas, y después de eso se enviará una transacción para actualizar el minipool:
 
 ```
 Using a max fee of 26.00 gwei and a priority fee of 2.00 gwei.
@@ -60,8 +60,8 @@ Waiting for the transaction to be included in a block... you may wait here for i
 Successfully upgraded minipool 0x7e5702a2cE66B5B35E59B9Ac00eEAAa547881e40.
 ```
 
-You can verify that it's using the latest delegate with `rocketpool minipool status`.
-Any minipools that are _not_ using the latest delegate will have a yellow notification under their status letting you know that they can be upgraded:
+Puedes verificar que esté usando el último delegate con `rocketpool minipool status`.
+Cualquier minipool que _no_ esté usando el último delegate tendrá una notificación amarilla bajo su estado informándote que puede ser actualizado:
 
 ```
 Address:              0x7E5703fdA638CD86c316B9EbAF76927fF695ADC5

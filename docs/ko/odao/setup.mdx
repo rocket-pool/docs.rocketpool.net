@@ -1,74 +1,74 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 import tuiOdao from "./images/tui-odao.png";
 
-# Setting up an Oracle DAO Node
+# Oracle DAO 노드 설정
 
-At a bare minimum, a standard Rocket Pool node runs the following:
+최소한으로, 표준 Rocket Pool 노드는 다음을 실행합니다:
 
-- The Smartnode CLI
-- The Smartnode API daemon
-- The Smartnode `node` daemon
-- The Smartnode `watchtower` daemon
+- Smartnode CLI
+- Smartnode API 데몬
+- Smartnode `node` 데몬
+- Smartnode `watchtower` 데몬
 
-Optionally, the node can also run the following components:
+선택적으로, 노드는 다음 구성 요소도 실행할 수 있습니다:
 
-- An Execution Client
-- A Beacon Node
-- A Validator Client
+- Execution Client
+- Beacon Node
+- Validator Client
 - MEV-Boost
 - Prometheus
-- The Prometheus Node Exporter
+- Prometheus Node Exporter
 - Grafana
 
-Each of these components can be run as Docker containers in the standard setup, as `systemd` services in the "Native Mode" setup, or run as externally-managed entities that the Smartnode can connect to via their respective API routes.
+이러한 각 구성 요소는 표준 설정에서 Docker 컨테이너로, "Native Mode" 설정에서 `systemd` 서비스로 실행되거나, Smartnode가 각각의 API 경로를 통해 연결할 수 있는 외부 관리 엔티티로 실행될 수 있습니다.
 
-Conveniently, Oracle DAO nodes are the same as normal Rocket Pool nodes, but the `watchtower` daemon performs the supplemental Oracle DAO duties and there are more Prometheus metrics collected for performance monitoring purposes.
+편리하게도, Oracle DAO 노드는 일반 Rocket Pool 노드와 동일하지만 `watchtower` 데몬이 추가 Oracle DAO 임무를 수행하며 성능 모니터링 목적으로 더 많은 Prometheus 메트릭이 수집됩니다.
 
-## Initial Node Setup
+## 초기 노드 설정
 
-The best way to start is by following [the standard setup instructions](../node-staking/platform) for a normal Rocket Pool node.
-That process will help you determine how you'd like to configure and run your node.
+시작하는 가장 좋은 방법은 일반 Rocket Pool 노드를 위한 [표준 설정 지침](../node-staking/platform)을 따르는 것입니다.
+이 프로세스는 노드를 구성하고 실행하는 방법을 결정하는 데 도움이 됩니다.
 
-If you would like to run minipools (validators) on your node, please follow the normal node documentation from start to finish and return here when you're done.
+노드에서 minipool(검증자)을 실행하고 싶다면, 처음부터 끝까지 일반 노드 문서를 따르고 완료되면 여기로 돌아오십시오.
 
-If you do _not_ intend to run minipools and instead will use it purely for Oracle DAO duties, you can skip all of the steps relating to staking RPL and minipool creation.
-The other steps such as node registration, establishing a good security posture, monitoring the node's health and performance, and updating the Smartnode after an update all still apply to you and you should review them carefully before proceeding.
-Return here when you've finished.
+minipool을 실행할 의도가 _없고_ 순수하게 Oracle DAO 임무만을 위해 사용할 경우, RPL 스테이킹 및 minipool 생성과 관련된 모든 단계를 건너뛸 수 있습니다.
+노드 등록, 좋은 보안 태세 확립, 노드의 상태 및 성능 모니터링, 업데이트 후 Smartnode 업데이트 등의 다른 단계는 여전히 적용되므로 진행하기 전에 신중하게 검토해야 합니다.
+완료되면 여기로 돌아오십시오.
 
-## Additional Oracle DAO Configuration
+## 추가 Oracle DAO 구성
 
-There are two additional settings you need to provision in order to satisfy your Oracle DAO responsibilities.
-Please select the mode you use to configure your node below from the tabs below.
+Oracle DAO 책임을 충족하기 위해 제공해야 하는 두 가지 추가 설정이 있습니다.
+아래 탭에서 노드를 구성하는 데 사용하는 모드를 선택하십시오.
 
 <div className="p-3">
   <Tabs>
     <Tab label="(service config) Interactive UI">
-      Open the `rocketpool service config` TUI and go to the `Smartnode and TX Fees` section.
-      Here, you will see two options at the bottom:
+      `rocketpool service config` TUI를 열고 `Smartnode and TX Fees` 섹션으로 이동합니다.
+      여기에서 하단에 두 가지 옵션이 표시됩니다:
 
       <img src={tuiOdao} width="100%" height="auto"/>
 
-      The `Archive-Mode EC URL` must be the HTTP endpoint of the RPC API for your Archive Execution Client.
-      **Note that if you are already using your Archive EC as your primary client in Externally-Managed mode, you can ignore this setting.**
+      `Archive-Mode EC URL`은 Archive Execution Client의 RPC API HTTP 엔드포인트여야 합니다.
+      **Externally-Managed 모드에서 이미 Archive EC를 기본 클라이언트로 사용하고 있는 경우 이 설정을 무시할 수 있습니다.**
     </Tab>
     <Tab label="(service config) Headlessly">
 
-      Run the following command to configure your node headlessly:
+      다음 명령을 실행하여 헤드리스 방식으로 노드를 구성합니다:
 
       ```shell
       rocketpool service config --smartnode-archiveECUrl "http://your Archive EC URL"
       ```
 
-      Where:
+      여기서:
 
-      `--smartnode-archiveECUrl` must be the HTTP endpoint of the RPC API for your Archive Execution Client.
-      **Note that if you are already using your Archive EC as your primary client in Externally-Managed mode, you can ignore this setting.**
+      `--smartnode-archiveECUrl`은 Archive Execution Client의 RPC API HTTP 엔드포인트여야 합니다.
+      **Externally-Managed 모드에서 이미 Archive EC를 기본 클라이언트로 사용하고 있는 경우 이 설정을 무시할 수 있습니다.**
 
-      Finally, restart your `watchtower` daemon (i.e., with `docker restart rocketpool_watchtower` in Docker or Hybrid mode, or `sudo systemctl restart rp_watchtower` in Native mode) for the settings to take effect.
+      마지막으로, 설정을 적용하려면 `watchtower` 데몬을 재시작합니다(Docker 또는 Hybrid 모드에서는 `docker restart rocketpool_watchtower`, Native 모드에서는 `sudo systemctl restart rp_watchtower`).
     </Tab>
     <Tab label="Direct Config File">
-      Open the `user-settings.yml` file in your Smartnode directory (`~/.rocketpool` by default) in a text editor.
-      Scroll down to the `smartnode` section:
+      Smartnode 디렉토리(기본값 `~/.rocketpool`)의 `user-settings.yml` 파일을 텍스트 편집기로 엽니다.
+      `smartnode` 섹션으로 스크롤합니다:
 
       ```
       smartnode:
@@ -82,20 +82,20 @@ Please select the mode you use to configure your node below from the tabs below.
       rewardsTreeMode: generate
       ```
 
-      Replace the values in the `archiveECUrl` field, where:
+      `archiveECUrl` 필드의 값을 교체합니다:
 
-      `archiveECUrl` must be the HTTP endpoint of the RPC API for your Archive Execution Client.
-      **Note that if you are already using your Archive EC as your primary client in Externally-Managed mode, you can ignore this setting.**
+      `archiveECUrl`은 Archive Execution Client의 RPC API HTTP 엔드포인트여야 합니다.
+      **Externally-Managed 모드에서 이미 Archive EC를 기본 클라이언트로 사용하고 있는 경우 이 설정을 무시할 수 있습니다.**
 
-      Finally, restart your `watchtower` daemon (i.e., with `docker restart rocketpool_watchtower` in Docker or Hybrid mode, or `sudo systemctl restart rp_watchtower` in Native mode) for the settings to take effect.
+      마지막으로, 설정을 적용하려면 `watchtower` 데몬을 재시작합니다(Docker 또는 Hybrid 모드에서는 `docker restart rocketpool_watchtower`, Native 모드에서는 `sudo systemctl restart rp_watchtower`).
     </Tab>
 
   </Tabs>
 </div>
 
-## Oracle DAO Smartnode Commands
+## Oracle DAO Smartnode 명령
 
-The Smartnode CLI's `odao` command group is used to interact with the Oracle DAO contracts and duties on-chain:
+Smartnode CLI의 `odao` 명령 그룹은 Oracle DAO 계약 및 온체인 임무와 상호 작용하는 데 사용됩니다:
 
 ```
 NAME:
@@ -121,7 +121,7 @@ OPTIONS:
 
 ### status
 
-The `status` command simply summarizes a few details about the Oracle DAO such as member count and proposal count:
+`status` 명령은 멤버 수 및 제안 수와 같은 Oracle DAO에 대한 몇 가지 세부 정보를 요약합니다:
 
 ```
 The node is a member of the oracle DAO - it can create unbonded minipools, vote on DAO proposals and perform watchtower duties.
@@ -135,7 +135,7 @@ There are 29 oracle DAO proposal(s) in total:
 
 ### members
 
-The `members` command prints detailed information about each member of the Oracle DAO, including their handle, their contact information, their node address, their RPL bond, and the last time they submitted a proposal for voting:
+`members` 명령은 핸들, 연락처 정보, 노드 주소, RPL 본드, 마지막으로 투표를 위한 제안을 제출한 시간을 포함하여 Oracle DAO의 각 멤버에 대한 자세한 정보를 출력합니다:
 
 ```
 The oracle DAO has 8 members:
@@ -154,7 +154,7 @@ Unbonded minipools:   0
 
 ### member-settings
 
-`member-settings` shows the current values for each of the configurable parameters related to Oracle DAO membership:
+`member-settings`는 Oracle DAO 멤버십과 관련된 각 구성 가능한 매개변수의 현재 값을 보여줍니다:
 
 ```
 ODAO Voting Quorum Threshold: 51.000000%
@@ -165,11 +165,11 @@ Challenge Meeting Window: 900 Blocks
 Cost for Non-members to Challenge Members: 1.000000 ETH
 ```
 
-This command is described in more detail in the [Oracle DAO Proposals](./proposals) section.
+이 명령은 [Oracle DAO Proposals](./proposals) 섹션에서 더 자세히 설명됩니다.
 
 ### proposal-settings
 
-`proposal-settings` shows the current values for each of the configurable parameters related to proposals that the Oracle DAO can vote on:
+`proposal-settings`는 Oracle DAO가 투표할 수 있는 제안과 관련된 각 구성 가능한 매개변수의 현재 값을 보여줍니다:
 
 ```
 Cooldown Between Proposals: 1h0m0s
@@ -179,11 +179,11 @@ Window to Execute an Accepted Proposal: 168h0m0s
 Window to Act on an Executed Proposal: 168h0m0s
 ```
 
-This command is described in more detail in the [Oracle DAO Proposals](./proposals) section.
+이 명령은 [Oracle DAO Proposals](./proposals) 섹션에서 더 자세히 설명됩니다.
 
 ### minipool-settings
 
-`minipool-settings` shows the current values for each of the configurable parameters related to minipools on the Rocket Pool network:
+`minipool-settings`는 Rocket Pool 네트워크의 minipool과 관련된 각 구성 가능한 매개변수의 현재 값을 보여줍니다:
 
 ```
 Scrub Period: 1h0m0s
@@ -191,15 +191,15 @@ Scrub Period: 1h0m0s
 
 ### propose
 
-The `propose` command is used to submit governance proposals that the rest of the Oracle DAO can vote on.
-These can involve changing a setting or modifying the Oracle DAO members (i.e., inviting or kicking other members).
+`propose` 명령은 나머지 Oracle DAO가 투표할 수 있는 거버넌스 제안을 제출하는 데 사용됩니다.
+여기에는 설정 변경 또는 Oracle DAO 멤버 수정(즉, 다른 멤버 초대 또는 제명)이 포함될 수 있습니다.
 
-This command is described in more detail in the [Oracle DAO Proposals](./proposals) section.
+이 명령은 [Oracle DAO Proposals](./proposals) 섹션에서 더 자세히 설명됩니다.
 
 ### proposals
 
-The `proposals` command is used to interact with existing Oracle DAO governance proposals.
-It can view them, rescind proposals that you made, vote on them, and execute them (if applicable) causing them to take effect after they have been approved by the other members:
+`proposals` 명령은 기존 Oracle DAO 거버넌스 제안과 상호 작용하는 데 사용됩니다.
+제안을 보고, 귀하가 만든 제안을 철회하고, 투표하고, (해당되는 경우) 다른 멤버의 승인 후 효력을 발생시키기 위해 실행할 수 있습니다:
 
 ```
 NAME:
@@ -220,37 +220,37 @@ OPTIONS:
 
 ```
 
-This command is described in more detail in the [Oracle DAO Proposals](./proposals) section.
+이 명령은 [Oracle DAO Proposals](./proposals) 섹션에서 더 자세히 설명됩니다.
 
 ### join / leave
 
-The `join` and `leave` commands are used to join the Oracle DAO once you've been invited, or leave the Oracle DAO once the other members have approved your resignation request.
+`join` 및 `leave` 명령은 초대를 받은 후 Oracle DAO에 가입하거나, 다른 멤버가 사임 요청을 승인한 후 Oracle DAO를 떠나는 데 사용됩니다.
 
-## Joining the Oracle DAO
+## Oracle DAO 가입
 
-### The RPL Bond
+### RPL 본드
 
-In order to join the Oracle DAO, your node wallet will need enough RPL in it to cover the required membership bond.
-This will be locked in Rocket Pool's vault as part of the joining process.
-The exact amount of RPL required for the bond will be determined at the time of your invitation, and will be communicated to you by the other Oracle DAO members prior to onboarding you.
+Oracle DAO에 가입하려면 노드 지갑에 필요한 멤버십 본드를 충당할 수 있는 충분한 RPL이 있어야 합니다.
+가입 프로세스의 일부로 Rocket Pool의 볼트에 잠깁니다.
+본드에 필요한 정확한 RPL 금액은 초대 시점에 결정되며, 온보딩 전에 다른 Oracle DAO 멤버가 귀하에게 전달할 것입니다.
 
-::: warning NOTE
-Unlike all other ETH and RPL rewards, the RPL bond is _not_ sent to your node's withdrawal address upon exiting the Oracle DAO.
-It is sent back to your node wallet itself.
-Consider this as extra incentive to protect your node wallet from compromise.
+::: warning 참고
+다른 모든 ETH 및 RPL 보상과 달리, RPL 본드는 Oracle DAO를 떠날 때 노드의 출금 주소로 전송되지 _않습니다_.
+노드 지갑 자체로 다시 전송됩니다.
+이를 노드 지갑을 손상으로부터 보호하기 위한 추가 인센티브로 고려하십시오.
 :::
 
-### Accepting an Invitation
+### 초대 수락
 
-Once your node is set up and you have been invited to join the Oracle DAO by the existing members, you can use the `rocketpool odao join` command to accept the invitation.
-This will involve two transactions:
+노드가 설정되고 기존 멤버에 의해 Oracle DAO에 초대된 후, `rocketpool odao join` 명령을 사용하여 초대를 수락할 수 있습니다.
+여기에는 두 가지 트랜잭션이 포함됩니다:
 
-- One to lock the RPL required for your bond
-- One to join the Oracle DAO when the bond has been received
+- 본드에 필요한 RPL을 잠그는 트랜잭션
+- 본드가 수신된 후 Oracle DAO에 가입하는 트랜잭션
 
-Once you've joined, your `watchtower` daemon will automatically begin performing its required duties.
-You can verify this by looking at its logs (e.g. `rocketpool service logs watchtower` for standard Docker-based installations); the watchtower performs its loop of duties every 4 to 6 minutes, and you will notice a distinct change in its output once you've joined the Oracle DAO.
+가입하면, `watchtower` 데몬이 자동으로 필요한 임무를 수행하기 시작합니다.
+이를 로그를 확인하여 검증할 수 있습니다(예: 표준 Docker 기반 설치의 경우 `rocketpool service logs watchtower`). watchtower는 4~6분마다 임무 루프를 수행하며, Oracle DAO에 가입한 후 출력이 확연히 달라진 것을 알 수 있습니다.
 
-### Next Steps
+### 다음 단계
 
-Now that you've joined the Oracle DAO, take a look at the next section to learn how to test your node in this role.
+Oracle DAO에 가입했으므로, 다음 섹션을 확인하여 이 역할에서 노드를 테스트하는 방법을 알아보십시오.

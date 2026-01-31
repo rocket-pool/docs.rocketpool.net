@@ -1,20 +1,20 @@
-# Intro to the Command Line Interface
+# 명령줄 인터페이스 소개
 
-As a node operator, the CLI is your primary tool for interacting with Rocket Pool.
-You will use it to create new minipools, check on the status of everything, claim periodic RPL rewards, exit and withdraw from your minipools when you're ready, and a host of other activities.
+node operator로서 CLI는 Rocket Pool과 상호 작용하기 위한 주요 도구입니다.
+이를 사용하여 새 minipool을 생성하고, 모든 것의 상태를 확인하고, 주기적인 RPL 보상을 청구하고, 준비가 되면 minipool에서 나가고 인출하며, 기타 여러 활동을 수행합니다.
 
-Once you've finished syncing the Execution and Beacon chains, all of the commands will be available for you to use.
-In this section, we'll go over a brief tour of some of the more common ones and some other tricks that the CLI can do.
+Execution 및 Beacon 체인 동기화를 완료하면 모든 명령을 사용할 수 있습니다.
+이 섹션에서는 보다 일반적인 명령 중 일부와 CLI가 수행할 수 있는 다른 트릭에 대한 간략한 둘러보기를 진행합니다.
 
-## Learning About the Commands
+## 명령에 대해 알아보기
 
-To list all of the available commands, type:
+사용 가능한 모든 명령을 나열하려면 다음을 입력하십시오:
 
 ```shell
 rocketpool help
 ```
 
-The output will look like this:
+출력은 다음과 같습니다:
 
 ```
 NAME:
@@ -56,11 +56,11 @@ COPYRIGHT:
    (c) 2025 Rocket Pool Pty Ltd
 ```
 
-## Service Commands
+## Service 명령
 
-The service group involves managing the various services the smart node manages for you.
+service 그룹은 smart node가 관리하는 다양한 서비스를 관리하는 것과 관련이 있습니다.
 
-Here is what the `rocketpool service help` output will show:
+`rocketpool service help` 출력은 다음과 같습니다:
 
 ```
 NAME:
@@ -99,8 +99,8 @@ GLOBAL OPTIONS:
 
 ### `status`
 
-This command shows you the current running status of each of the Docker containers managed by Rocket Pool.
-For example, the default Docker install's output looks like this:
+이 명령은 Rocket Pool이 관리하는 각 Docker 컨테이너의 현재 실행 상태를 보여줍니다.
+예를 들어 기본 Docker 설치의 출력은 다음과 같습니다:
 
 ```
         Name                       Command              State                                                       Ports
@@ -113,36 +113,36 @@ rocketpool_validator    sh /setup/start-validator.sh    Up
 rocketpool_watchtower   /go/bin/rocketpool watchtower   Up
 ```
 
-You can use it to quickly check if any of the Docker containers are having trouble, or to make sure that a `start` or `stop` command worked correctly.
+이를 사용하여 Docker 컨테이너 중 하나에 문제가 있는지 빠르게 확인하거나 `start` 또는 `stop` 명령이 올바르게 작동했는지 확인할 수 있습니다.
 
-### `start` and `stop`
+### `start` 및 `stop`
 
-These two commands you are already familiar with.
-They simply start all of the Rocket Pool containers, or stop them.
+이 두 명령은 이미 익숙할 것입니다.
+단순히 모든 Rocket Pool 컨테이너를 시작하거나 중지합니다.
 
 ::: tip
-The `pause` command does the same thing as `stop`.
-It's just left over as a legacy command from earlier versions of Rocket Pool.
+`pause` 명령은 `stop`과 동일한 작업을 수행합니다.
+이전 버전의 Rocket Pool에서 남겨진 레거시 명령일 뿐입니다.
 :::
 
 ### `logs`
 
-This command is another one you should have already seen.
-You can use it to look at the output logs of each Docker container.
-This can be useful for troubleshooting or getting a more detailed status report from them.
+이 명령은 이미 본 적이 있어야 합니다.
+각 Docker 컨테이너의 출력 로그를 보는 데 사용할 수 있습니다.
+이는 문제 해결이나 더 자세한 상태 보고서를 얻는 데 유용할 수 있습니다.
 
-If you simply do `rocketpool service logs` without any other arguments, it will aggregate all of the logs together and show them to you at once.
+다른 인수 없이 `rocketpool service logs`를 수행하면 모든 로그를 함께 집계하여 한 번에 표시합니다.
 
-If you want to focus on one container's output, you can add an argument to the end to specify the container.
-Valid values are `eth1`, `eth2`, `validator`, `api`, `node`, `watchtower`, `prometheus`, `grafana`, and `node-exporter`.
+한 컨테이너의 출력에 집중하려면 컨테이너를 지정하기 위해 끝에 인수를 추가할 수 있습니다.
+유효한 값은 `eth1`, `eth2`, `validator`, `api`, `node`, `watchtower`, `prometheus`, `grafana`, `node-exporter`입니다.
 
 ### `stats`
 
-This command shows you some resource stats from each of the containers, which you can use to profile each one's hardware and network consumption.
+이 명령은 각 컨테이너의 일부 리소스 통계를 보여주며, 각각의 하드웨어 및 네트워크 소비를 프로파일링하는 데 사용할 수 있습니다.
 
-You might find it useful for monitoring the containers if your system starts running slow or has RAM problems.
+시스템이 느리게 실행되거나 RAM 문제가 있는 경우 컨테이너를 모니터링하는 데 유용할 수 있습니다.
 
-Here is some example output:
+다음은 예시 출력입니다:
 
 ```
 CONTAINER ID   NAME                    CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
@@ -154,42 +154,42 @@ a3c22f54eff0   rocketpool_node         0.00%     12.13MiB / 62.78GiB   0.02%    
 88bea525fa89   rocketpool_watchtower   0.00%     12.05MiB / 62.78GiB   0.02%     304kB / 503kB     0B / 0B           16
 ```
 
-::: tip NOTE
-The RAM statistic here shows **total allocated memory**, which includes _virtual_ memory.
-It does not show the raw _resident_ memory consumption.
+::: tip 참고
+여기의 RAM 통계는 _가상_ 메모리를 포함하는 **총 할당된 메모리**를 보여줍니다.
+원시 _상주_ 메모리 소비를 표시하지 않습니다.
 
-Similarly, the CPU usage shows the total amount of CPU consumption averaged over all of the CPU cores that the container uses.
-Here, the CPU for ETH2 shows almost 100% because it is using Nimbus, which is single-threaded.
+마찬가지로 CPU 사용량은 컨테이너가 사용하는 모든 CPU 코어에 대해 평균화된 총 CPU 소비량을 보여줍니다.
+여기서 ETH2의 CPU는 Nimbus를 사용하기 때문에 거의 100%를 표시하며, Nimbus는 단일 스레드입니다.
 
-You may find that a program like `htop` or `btop` offers better insight into actual resource consumption.
+`htop` 또는 `btop`와 같은 프로그램이 실제 리소스 소비에 대한 더 나은 통찰력을 제공한다는 것을 알 수 있습니다.
 :::
 
 ### `config`
 
-This command runs through the configuration interview again.
-You can use it if you want to change your selection of Execution or Consensus client, or change some of the parameters that you initially specified when you selected them (such as your validator's graffiti message, the max number of peers to connect to, and so on).
+이 명령은 구성 인터뷰를 다시 실행합니다.
+Execution 또는 Consensus 클라이언트 선택을 변경하거나 선택할 때 처음에 지정한 일부 매개변수(validator의 graffiti 메시지, 연결할 최대 피어 수 등)를 변경하려는 경우 사용할 수 있습니다.
 
-You can call this command at any time, but the changes won't take effect until you call `rocketpool service stop` and `rocketpool service start`.
+이 명령은 언제든지 호출할 수 있지만 `rocketpool service stop` 및 `rocketpool service start`를 호출할 때까지 변경 사항이 적용되지 않습니다.
 
 ### `terminate`
 
-This command will shut down the Docker containers, then delete them, delete the Rocket Pool virtual network, and delete the ETH1 and ETH2 chain data volumes.
-It essentially removes all of the Rocket Pool items from your Docker setup.
-Use it when you want to clean up that portion of the Rocket Pool installation.
+이 명령은 Docker 컨테이너를 종료한 다음 삭제하고, Rocket Pool 가상 네트워크를 삭제하고, ETH1 및 ETH2 체인 데이터 볼륨을 삭제합니다.
+기본적으로 Docker 설정에서 모든 Rocket Pool 항목을 제거합니다.
+Rocket Pool 설치의 해당 부분을 정리하려는 경우 사용하십시오.
 
 ::: warning
-This will irreversibly remove your chain data, which means you'll need to sync ETH1 and ETH2 again.
+이렇게 하면 체인 데이터가 되돌릴 수 없게 제거되므로 ETH1 및 ETH2를 다시 동기화해야 합니다.
 
-This will **not** remove your wallet and password files, your configured settings, or your validator keys.
-To remove those, you will need to delete the `~/.rocketpool/data` folder in Docker or Hybrid Mode, or the corresponding directory in Native Mode.
+이것은 지갑 및 비밀번호 파일, 구성된 설정 또는 validator 키를 제거하지 **않습니다**.
+이를 제거하려면 Docker 또는 하이브리드 모드에서 `~/.rocketpool/data` 폴더를 삭제하거나 Native 모드에서 해당 디렉토리를 삭제해야 합니다.
 :::
 
-## Node Commands
+## Node 명령
 
-The `node` group involves operations on your Rocket Pool node.
-We'll cover these more in-depth in the next section where we create a minipool, but it may be helpful to see them all at a glance.
+`node` 그룹은 Rocket Pool 노드의 작업과 관련이 있습니다.
+minipool을 생성하는 다음 섹션에서 이에 대해 더 자세히 다루겠지만 한눈에 모두 보는 것이 도움이 될 수 있습니다.
 
-Here is what the `rocketpool node help` output will show:
+`rocketpool node help` 출력은 다음과 같습니다:
 
 ```
 NAME:
@@ -236,14 +236,14 @@ GLOBAL OPTIONS:
    --help, -h  show help
 ```
 
-Below is a summary of some of the commands you'll tend to need during typical node operation.
+다음은 일반적인 노드 작업 중에 필요한 일부 명령의 요약입니다.
 
 ### `status`
 
-This command will give you a high-level view of your entire node at a glance.
-It includes how much ETH and RPL you have staked, how many minipools you have and their statuses, your RPL collateral ratio, and more.
+이 명령은 전체 노드의 상위 수준 보기를 한눈에 제공합니다.
+staking한 ETH 및 RPL의 양, minipool의 수와 상태, RPL 담보 비율 등이 포함됩니다.
 
-This is an example of what `rocketpool node status` shows once you have your node registered and some minipools set up:
+노드를 등록하고 일부 minipool을 설정한 후 `rocketpool node status`가 표시하는 내용의 예입니다:
 
 ```
 === Account and Balances ===
@@ -256,7 +256,7 @@ The node does not have any penalties for cheating with an invalid fee recipient.
 
 === Signalling on Snapshot ===
 The node does not currently have a snapshot signalling address set.
-To learn more about snapshot signalling, please visit /en/legacy/houston/participate#setting-your-snapshot-signalling-address.
+To learn more about snapshot signalling, please visit /ko/legacy/houston/participate#setting-your-snapshot-signalling-address.
 Rocket Pool has no Snapshot governance proposals being voted on.
 
 === Onchain Voting ===
@@ -289,10 +289,10 @@ The node has a total of 1 active minipool(s):
 
 ### `sync`
 
-This command will show you the current sync status of your Execution and Consensus clients.
-You'll probably use it a lot when you first set the node up, then never need it again (unless you change or reset your clients).
+이 명령은 Execution 및 Consensus 클라이언트의 현재 동기화 상태를 보여줍니다.
+노드를 처음 설정할 때 많이 사용하다가 다시는 필요하지 않을 것입니다(클라이언트를 변경하거나 재설정하지 않는 한).
 
-The output of `rocketpool node sync` will look like this:
+`rocketpool node sync`의 출력은 다음과 같습니다:
 
 ```
 Your Smartnode is currently using the Hoodi Test Network.
@@ -306,16 +306,16 @@ Your primary consensus client is still syncing (99.94%).
 You do not have a fallback consensus client enabled.
 ```
 
-Note that **Prysm** currently doesn't provide its completion percent - you'll need to look in the `eth2` logs if you use it.
+**Prysm**은 현재 완료 퍼센트를 제공하지 않으므로 사용하는 경우 `eth2` 로그를 확인해야 합니다.
 
 ### `stake-rpl`
 
-This command is what you'll use when you want to add more RPL collateral to your node.
-Doing so will increase your collateral ratio, which will increase your RPL rewards at each checkpoint (more on this later).
+이 명령은 노드에 더 많은 RPL 담보를 추가하려는 경우 사용하는 것입니다.
+이렇게 하면 담보 비율이 증가하여 각 체크포인트에서 RPL 보상이 증가합니다(나중에 자세히 설명).
 
-Unlike the other commands so far, this one is actually _interactive_ because it will trigger a transaction - it isn't simply informational.
+지금까지의 다른 명령과 달리 이것은 트랜잭션을 트리거하기 때문에 실제로 _대화형_입니다. 단순히 정보를 제공하는 것이 아닙니다.
 
-It will first ask you how much RPL you'd like to stake, with some pre-defined options for convenience or the ability to specify a custom amount:
+먼저 stake할 RPL의 양을 묻습니다. 편의를 위해 미리 정의된 옵션이나 사용자 지정 양을 지정할 수 있는 기능이 있습니다:
 
 ```
 NOTE: By staking RPL, you become a member of the Rocket Pool pDAO. Stay informed on governance proposals by joining the Rocket Pool Discord.
@@ -328,7 +328,7 @@ Please choose an amount of RPL to stake:
 5: A custom amount
 ```
 
-Once you select an option, you will be shown some information about the suggested gas price and estimated amount to be used, along with a confirmation dialog. If it's your first time staking RPL on the node, you'll need to give the staking contract approval to interact with your RPL:
+옵션을 선택하면 제안된 가스 가격 및 사용될 예상 금액에 대한 정보와 확인 대화 상자가 표시됩니다. 노드에서 처음 RPL을 staking하는 경우 staking 계약에 RPL과 상호 작용할 수 있는 승인을 부여해야 합니다:
 
 ```
 Before staking RPL, you must first give the staking contract approval to interact with your RPL.
@@ -372,7 +372,7 @@ Using a max fee of 4.00 gwei and a priority fee of 2.00 gwei.
 Are you sure you want to stake 733.993925 RPL? You will not be able to unstake this RPL until you exit your validators and close your minipools, or reach 2201.981777 staked RPL (15% of bonded eth)! [y/n]
 ```
 
-If you confirm, you will be shown the transaction hash and given a link to [Etherscan](https://etherscan.io) so you can follow its progress:
+확인하면 트랜잭션 해시가 표시되고 진행 상황을 추적할 수 있도록 [Etherscan](https://etherscan.io)에 대한 링크가 제공됩니다:
 
 ```
 Staking RPL...
@@ -385,46 +385,46 @@ Waiting for the transaction to be included in a block... you may wait here for i
 Successfully staked 733.993925 RPL.
 ```
 
-Most operations only require one transaction, so the CLI will wait until it has been included in a block and then exit. However, stake-rpl is one of the few commands that requires two transactions, so this dialog will appear twice.
+대부분의 작업에는 하나의 트랜잭션만 필요하므로 CLI는 블록에 포함될 때까지 기다린 다음 종료됩니다. 그러나 stake-rpl은 두 개의 트랜잭션이 필요한 몇 안 되는 명령 중 하나이므로 이 대화 상자가 두 번 나타납니다.
 
 ### `deposit`
 
-This command will let you deposit ETH and create a new minipool (a new Ethereum validator).
+이 명령을 사용하면 ETH를 입금하고 새 minipool(새 Ethereum validator)을 생성할 수 있습니다.
 
-You will be prompted with the expected gas cost for the transaction and one final confirmation dialog.
-If you accept, your ETH deposit will be processed and you will create a new minipool (and a corresponding Ethereum validator).
+트랜잭션에 대한 예상 가스 비용과 최종 확인 대화 상자가 표시됩니다.
+수락하면 ETH 입금이 처리되고 새 minipool(및 해당 Ethereum validator)이 생성됩니다.
 
-(For more information, see the next section on [Creating a Minipool](./create-validator.mdx)).
+(자세한 내용은 [Minipool 생성](./create-validator.mdx)의 다음 섹션을 참조하십시오).
 
 ### `claim-rewards`
 
-When your node detects a new rewards checkpoint, it will automatically download the rewards tree file with the information for that interval (if you're using the default of Download Mode - see below for information on generating your own trees instead of downloading them).
-You can then review your rewards using the following command:
+노드가 새 보상 체크포인트를 감지하면 해당 간격에 대한 정보가 포함된 보상 트리 파일을 자동으로 다운로드합니다(다운로드 모드의 기본값을 사용하는 경우 - 다운로드하는 대신 자체 트리를 생성하는 방법에 대한 정보는 아래를 참조하십시오).
+다음 명령을 사용하여 보상을 검토할 수 있습니다:
 
 ```
 rocketpool node claim-rewards
 ```
 
-As intervals go by and you accumulate rewards, the output will look like this:
+간격이 지나고 보상이 누적되면 출력은 다음과 같습니다:
 
 ![](../node-staking/images/claim-rewards-gb.png)
 
-Here you can quickly see how many rewards you've earned at each interval, and can decide which ones you want to claim.
+여기에서 각 간격에서 얼마나 많은 보상을 받았는지 빠르게 확인하고 청구할 보상을 결정할 수 있습니다.
 
-You can also specify an amount you want to restake during this claim:
+또한 이 청구 중에 다시 stake할 금액을 지정할 수 있습니다:
 
 ![](../node-staking/images/autostake.png)
 
-This will let you compound your RPL rewards in one transaction, using substantially less gas than you currently needed to use with the legacy claim system.
+이를 통해 RPL 보상을 하나의 트랜잭션으로 복리화할 수 있으며, 레거시 청구 시스템에서 현재 사용해야 했던 것보다 훨씬 적은 가스를 사용합니다.
 
-::: tip NOTE
-If you prefer to build the rewards checkpoint manually instead of downloading the one created by the Oracle DAO, you can change this setting from `Download` to `Generate` in the TUI:
+::: tip 참고
+Oracle DAO가 생성한 것을 다운로드하는 대신 수동으로 보상 체크포인트를 빌드하려는 경우 TUI에서 이 설정을 `Download`에서 `Generate`로 변경할 수 있습니다:
 
 ![](../node-staking/images/tui-generate-tree.png)
 
-As the tip implies, you will need access to an Execution client archive node to do this.
-If your local Execution client is not an archive node, you can specify a separate one (such as Infura or Alchemy) in the `Archive-Mode EC URL` further down in the same menu.
-This URL will only be used when generating Merkle trees; it will not be used for validation duties.
+팁이 암시하듯이 이를 수행하려면 Execution 클라이언트 archive node에 대한 액세스가 필요합니다.
+로컬 Execution 클라이언트가 archive node가 아닌 경우 동일한 메뉴에서 아래쪽의 `Archive-Mode EC URL`에 별도의 것(예: Infura 또는 Alchemy)을 지정할 수 있습니다.
+이 URL은 Merkle 트리를 생성할 때만 사용되며 검증 의무에는 사용되지 않습니다.
 :::
 
 ### `join-smoothing-pool`
@@ -433,9 +433,9 @@ This URL will only be used when generating Merkle trees; it will not be used for
 rocketpool node join-smoothing-pool
 ```
 
-This will record you as opted-in in the Rocket Pool contracts and automatically change your Validator Client's `fee recipient` from your node's distributor contract to the Smoothing Pool contract.
+이렇게 하면 Rocket Pool 계약에 opt-in으로 기록되고 Validator Client의 `fee recipient`가 노드의 distributor 계약에서 Smoothing Pool 계약으로 자동으로 변경됩니다.
 
-Note that once you opt in, there is a **28 day cooldown** (one full rewards interval length) until you can opt out.
+opt in하면 opt out할 수 있을 때까지 **28일 쿨다운**(전체 보상 간격 길이 1개)이 있습니다.
 
 ### `leave-smoothing-pool`
 
@@ -443,13 +443,13 @@ Note that once you opt in, there is a **28 day cooldown** (one full rewards inte
 rocketpool node leave-smoothing-pool
 ```
 
-This will opt you out of the Smoothing Pool if you're currently opted in, and have waited at least 28 days after opting in.
-Once **the next epoch after the current epoch** is finalized, it will automatically change your node's `fee recipient` from the Smoothing Pool back to your node's distributor contract.
-This is to ensure you don't get penalized for front-running the exit process when you see that you have a proposal coming up.
+현재 opt in되어 있고 opt in 후 최소 28일을 기다린 경우 Smoothing Pool에서 opt out합니다.
+**현재 epoch 다음 epoch**가 확정되면 노드의 `fee recipient`가 Smoothing Pool에서 노드의 distributor 계약으로 자동으로 변경됩니다.
+이는 제안이 곧 있다는 것을 알게 되었을 때 종료 프로세스를 선점하는 것에 대한 페널티를 받지 않도록 하기 위한 것입니다.
 
 ### `initialize-fee-distributor`
 
-To initialize your node's distributor, simply run this new command:
+노드의 distributor를 초기화하려면 이 새 명령을 실행하십시오:
 
 ```shell
 rocketpool node initialize-fee-distributor
@@ -457,45 +457,45 @@ rocketpool node initialize-fee-distributor
 
 ### `distribute-fees`
 
-When your distributor has been initialized, you can claim and distribute its entire balance using the following command:
+distributor가 초기화되면 다음 명령을 사용하여 전체 잔액을 청구하고 분배할 수 있습니다:
 
 ```shell
 rocketpool node distribute-fees
 ```
 
-This will send your share of the rewards to your **withdrawal address**.
+이렇게 하면 보상의 귀하의 몫이 **출금 주소**로 전송됩니다.
 
 ### `send`
 
-This command lets you send ETH, RPL, or other Rocket Pool-related tokens from the node wallet to a different address.
-This might be useful if you want to move your funds on the wallet elsewhere.
+이 명령을 사용하면 노드 지갑에서 다른 주소로 ETH, RPL 또는 기타 Rocket Pool 관련 토큰을 보낼 수 있습니다.
+지갑의 자금을 다른 곳으로 이동하려는 경우 유용할 수 있습니다.
 
-The syntax for using the `send` command is like this:
+`send` 명령을 사용하는 구문은 다음과 같습니다:
 
 ```shell
 rocketpool node send <amount> <token> <address or ENS name>
 ```
 
-The arguments are as follows:
+인수는 다음과 같습니다:
 
-- `<amount>` is the amount of the token to send.
-- `<token>` is the token to send - this can be `eth`, `rpl`, `fsrpl` (the old legacy RPL token), or `reth`.
-- `<address or ENS name>` is the Ethereum address (or ENS name) to send the tokens to.
+- `<amount>`는 보낼 토큰의 양입니다.
+- `<token>`는 보낼 토큰입니다. `eth`, `rpl`, `fsrpl`(이전 레거시 RPL 토큰) 또는 `reth`일 수 있습니다.
+- `<address or ENS name>`은 토큰을 보낼 Ethereum 주소(또는 ENS 이름)입니다.
 
-For example:
+예를 들면:
 
 ```shell
 rocketpool node send 1 eth <my friend's address>
 ```
 
-would send 1 ETH to my friend.
+내 친구에게 1 ETH를 보낼 것입니다.
 
-## Minipool Commands
+## Minipool 명령
 
-The `minipool` group involves commands that affect your minipools.
-As with the `node` group, we'll cover these more in-depth in the next section but it may be helpful to see them all now.
+`minipool` 그룹은 minipool에 영향을 미치는 명령과 관련이 있습니다.
+`node` 그룹과 마찬가지로 다음 섹션에서 이에 대해 더 자세히 다루겠지만 지금 모두 보는 것이 도움이 될 수 있습니다.
 
-Here is what the `rocketpool minipool help` output will show:
+`rocketpool minipool help` 출력은 다음과 같습니다:
 
 ```
 NAME:
@@ -529,12 +529,12 @@ GLOBAL OPTIONS:
    --help, -h  show help
 ```
 
-Below is a summary of the commands that you'll typically use.
+다음은 일반적으로 사용하는 명령의 요약입니다.
 
 ### `status`
 
-This command simply provides a summary of each of your minipools.
-This includes its current status, the eth1 address of the minipool, the commission on it (called the `node fee`), the public key of the corresponding ETH2 validator, and some other things:
+이 명령은 단순히 각 minipool의 요약을 제공합니다.
+여기에는 현재 상태, minipool의 eth1 주소, 수수료(`node fee`라고 함), 해당 ETH2 validator의 공개 키 및 기타 몇 가지가 포함됩니다:
 
 ```
 $ rocketpool minipool status
@@ -567,56 +567,56 @@ Effective delegate:    0x56903694d881282D33ed0643EAe14263880Dd47F
 
 ### `refund`
 
-This command lets you pull 16 ETH back from a minipool if you deposited 32 ETH to create one, once Rocket Pool was able to contribute 16 ETH from the rETH staking pool.
+이 명령을 사용하면 하나를 생성하기 위해 32 ETH를 입금한 경우 Rocket Pool이 rETH staking 풀에서 16 ETH를 기여할 수 있게 되면 minipool에서 16 ETH를 다시 가져올 수 있습니다.
 
 ### `exit`
 
-This command submits a voluntary exit for your validator on the Beacon Chain.
-Use this when you want to close a validator and withdraw its final ETH balance.
-Note that **this cannot be undone** - once you trigger an exit, the validator will shut down permanently.
+이 명령은 Beacon Chain에서 validator에 대한 자발적 종료를 제출합니다.
+validator를 닫고 최종 ETH 잔액을 인출하려는 경우 사용하십시오.
+**이것은 실행 취소할 수 없습니다** - 종료를 트리거하면 validator가 영구적으로 종료됩니다.
 
-## Useful Flags
+## 유용한 플래그
 
-There are some useful global flags that you can add to some of the above commands, which you may want to take advantage of.
+위의 일부 명령에 추가할 수 있는 유용한 전역 플래그가 있습니다.
 
-### Setting a Custom Max Fee or Priority Fee (Gas Price)
+### 사용자 지정 최대 수수료 또는 우선 순위 수수료(가스 가격) 설정
 
-Starting with [the London ETH1 hardfork](https://coinquora.com/ethereum-london-hard-fork-all-you-need-to-know/) in July of 2021, Ethereum transactions no longer use a single gas price for their transactions.
-Instead, modern Ethereum transactions use two values:
+2021년 7월 [London ETH1 하드포크](https://coinquora.com/ethereum-london-hard-fork-all-you-need-to-know/)를 시작으로 Ethereum 트랜잭션은 더 이상 트랜잭션에 단일 가스 가격을 사용하지 않습니다.
+대신 최신 Ethereum 트랜잭션은 두 가지 값을 사용합니다:
 
-- The **max fee**, which describes the absolute maximum gas price you're willing to accept on a transaction
-- The **max priority fee**, which describes the maximum amount you're willing to "tip" the miner for including your transaction in a block
+- 트랜잭션에서 수락할 의향이 있는 절대 최대 가스 가격을 설명하는 **최대 수수료**
+- 블록에 트랜잭션을 포함하기 위해 채굴자에게 "팁"을 줄 의향이 있는 최대 금액을 설명하는 **최대 우선 순위 수수료**
 
-::: tip TIP
-The way these two values work can be a bit convoluted, so here are some simple examples.
+::: tip 팁
+이 두 값이 작동하는 방식은 약간 복잡할 수 있으므로 다음은 몇 가지 간단한 예입니다.
 
-Let's say the current network fee, called the **base fee**, is at 50 gwei.
-You submit a transaction with an **80 gwei** max fee, and a priority fee of **2 gwei**.
+현재 네트워크 수수료(**기본 수수료**라고 함)가 50 gwei라고 가정해 보겠습니다.
+**80 gwei** 최대 수수료와 **2 gwei**의 우선 순위 수수료로 트랜잭션을 제출합니다.
 
-Because the network's base fee is lower than your max fee, this transaction could get picked up in the current block.
-It would cost you **50 gwei** for the base fee and **2 gwei** for the priority fee; even though you set your max fee to 80, **it would only cost you 52 gwei total**.
+네트워크의 기본 수수료가 최대 수수료보다 낮기 때문에 이 트랜잭션은 현재 블록에서 선택될 수 있습니다.
+기본 수수료로 **50 gwei**와 우선 순위 수수료로 **2 gwei**가 소요됩니다. 최대 수수료를 80으로 설정했지만 **총 52 gwei만 소요됩니다**.
 
-As another example, say you have that same transaction, but now the network's base fee is **100 gwei**.
-Since 100 gwei is larger than your 80 gwei max fee, your transaction **will not** be included in this block.
-Instead, it will simply sit in the transaction pool until the base fee is low enough to include it.
+또 다른 예로, 동일한 트랜잭션이 있지만 이제 네트워크의 기본 수수료가 **100 gwei**라고 가정해 보겠습니다.
+100 gwei가 80 gwei 최대 수수료보다 크기 때문에 트랜잭션이 이 블록에 **포함되지 않습니다**.
+대신 기본 수수료가 충분히 낮아질 때까지 트랜잭션 풀에 앉아 있을 것입니다.
 
-Now, let's say the current base fee is **50 gwei** again, and your transaction has a max fee of **80** gwei and a priority fee of **4 gwei**.
-It would execute with a total cost of **54 gwei**.
-The 4 gwei priority fee would ensure that it was included in front of all of the transactions with a lower priority fee.
+이제 현재 기본 수수료가 다시 **50 gwei**이고 트랜잭션의 최대 수수료가 **80** gwei이고 우선 순위 수수료가 **4 gwei**라고 가정해 보겠습니다.
+**54 gwei**의 총 비용으로 실행됩니다.
+4 gwei 우선 순위 수수료는 우선 순위 수수료가 낮은 모든 트랜잭션보다 앞서 포함되도록 합니다.
 
-If you **really** want the transaction to go through at all costs, you can set the priority fee to be the same as the max fee.
-This emulates the legacy gas behavior, so your transaction will use all of the gas you give it - regardless of whether or not the network's base fee is lower than your max fee or not.
+무슨 수를 써서라도 트랜잭션이 진행되기를 **정말로** 원한다면 우선 순위 수수료를 최대 수수료와 동일하게 설정할 수 있습니다.
+이것은 레거시 가스 동작을 에뮬레이트하므로 네트워크의 기본 수수료가 최대 수수료보다 낮든 아니든 관계없이 트랜잭션이 제공한 모든 가스를 사용합니다.
 :::
 
-By default, Rocket Pool will use an oracle to look at the current transaction pool and suggest a reasonable max fee for any transactions you trigger.
-It uses [EtherChain](https://etherchain.org/tools/gasnow) for its primary suggestion oracle, and [Etherscan](https://etherscan.io/gastracker) as a backup.
+기본적으로 Rocket Pool은 oracle을 사용하여 현재 트랜잭션 풀을 보고 트리거하는 모든 트랜잭션에 대해 합리적인 최대 수수료를 제안합니다.
+기본 제안 oracle로 [EtherChain](https://etherchain.org/tools/gasnow)을 사용하고 백업으로 [Etherscan](https://etherscan.io/gastracker)을 사용합니다.
 
-If you prefer, you can set a custom max fee (in gwei) you'd be willing to pay with the `-f` flag.
-You can also set a custom priority fee with the `-i` flag.
+원하는 경우 `-f` 플래그를 사용하여 기꺼이 지불할 사용자 지정 최대 수수료(gwei 단위)를 설정할 수 있습니다.
+`-i` 플래그를 사용하여 사용자 지정 우선 순위 수수료를 설정할 수도 있습니다.
 
-To do this, add them after `rocketpool` and before the other command information.
+이렇게 하려면 `rocketpool` 뒤와 다른 명령 정보 앞에 추가하십시오.
 
-For example, calling `node set-timezone` with this flag would provide the following output:
+예를 들어 이 플래그로 `node set-timezone`을 호출하면 다음 출력이 제공됩니다:
 
 ```
 $ rocketpool -f 10 node set-timezone
@@ -635,46 +635,46 @@ Total cost: 0.0005 to 0.0007 ETH
 Are you sure you want to set your timezone? [y/n]
 ```
 
-This shows that regardless of what max fee the network recommends, it will use your custom max fee of 10 gwei (and priority fee if you specify it) instead when submitting this transaction.
+이것은 네트워크가 권장하는 최대 수수료와 관계없이 이 트랜잭션을 제출할 때 사용자 지정 최대 수수료 10 gwei(지정한 경우 우선 순위 수수료)를 대신 사용한다는 것을 보여줍니다.
 
-::: warning NOTE
-If you set a manual max fee, we strongly encourage you to use a third-party gas price oracle such as [EtherChain](https://etherchain.org/tools/gasnow) to determine if that fee is high enough for the current network conditions before submitting the transaction.
+::: warning 참고
+수동 최대 수수료를 설정하는 경우 트랜잭션을 제출하기 전에 [EtherChain](https://etherchain.org/tools/gasnow)과 같은 타사 가스 가격 oracle을 사용하여 해당 수수료가 현재 네트워크 조건에 충분히 높은지 확인하는 것이 좋습니다.
 :::
 
-### Canceling / Overwriting a Stuck Transaction
+### 멈춘 트랜잭션 취소/덮어쓰기
 
-Sometimes, you might run into a scenario where you sent a transaction to the network but you used a gas price that is far too low for the network conditions, and it will take a prohibitively long time to execute.
-Since all of your subsequent transactions will wait until that one goes through, that transaction essentially blocks all of the operations on your Rocket Pool node.
-To deal with this situation, we've added a global flag that lets you "cancel" such a transaction by replacing it with something else.
+때때로 네트워크에 트랜잭션을 보냈지만 네트워크 조건에 비해 너무 낮은 가스 가격을 사용하여 실행하는 데 엄청나게 오랜 시간이 걸리는 시나리오에 빠질 수 있습니다.
+모든 후속 트랜잭션이 해당 트랜잭션이 진행될 때까지 기다리기 때문에 해당 트랜잭션은 기본적으로 Rocket Pool 노드의 모든 작업을 차단합니다.
+이 상황을 처리하기 위해 다른 것으로 대체하여 이러한 트랜잭션을 "취소"할 수 있는 전역 플래그를 추가했습니다.
 
-Every Ethereum wallet, including your node wallet, sends transactions sequentially.
-Each transaction you send has a number called a `nonce` that identifies where it lives in that sequence.
-The very first transaction you send will have a `nonce` of 0, the next one you send will have a `nonce` of 1, and so on.
+노드 지갑을 포함한 모든 Ethereum 지갑은 트랜잭션을 순차적으로 보냅니다.
+보내는 각 트랜잭션에는 해당 시퀀스에서 어디에 있는지 식별하는 `nonce`라는 번호가 있습니다.
+보내는 첫 번째 트랜잭션의 `nonce`는 0이고 보내는 다음 트랜잭션의 `nonce`는 1 등입니다.
 
-This overwriting technique involves sending a _new_ transaction that uses the same `nonce` as your existing _stuck_ transaction, but will ideally include a higher gas price than the stuck one.
-This means that the new one will be mined first.
-As soon as it's mined into a block, the old one will be discarded from the network as though it was never sent in the first place.
+이 덮어쓰기 기술은 기존 _멈춘_ 트랜잭션과 동일한 `nonce`를 사용하지만 멈춘 것보다 더 높은 가스 가격을 포함하는 _새_ 트랜잭션을 보내는 것입니다.
+즉, 새 것이 먼저 채굴됩니다.
+블록에 채굴되는 즉시 이전 것은 처음부터 보내지 않은 것처럼 네트워크에서 폐기됩니다.
 
-To use this flag, you first need to find the `nonce` of your stuck transaction:
+이 플래그를 사용하려면 먼저 멈춘 트랜잭션의 `nonce`를 찾아야 합니다:
 
-1. Go to an ETH1 block explorer like [https://etherscan.io](https://etherscan.io).
-1. Navigate to the address of your wallet, and look at the list of transactions.
-1. Go through them, starting with the most recent, until you find the furthest one down the list that has the `Pending` state.
-1. Mark the `nonce` of that transaction. That's what you'll need.
+1. [https://etherscan.io](https://etherscan.io)와 같은 ETH1 블록 탐색기로 이동합니다.
+1. 지갑의 주소로 이동하여 트랜잭션 목록을 확인합니다.
+1. 가장 최근 것부터 시작하여 `Pending` 상태인 목록에서 가장 멀리 있는 것을 찾을 때까지 진행합니다.
+1. 해당 트랜잭션의 `nonce`를 표시합니다. 그것이 필요한 것입니다.
 
-Once you have it, simply call any transaction with the CLI using the `--nonce <value> -i 2.2` flags after `rocketpool` and before the rest of the command.
+일단 얻으면 `rocketpool` 뒤와 나머지 명령 앞에 `--nonce <value> -i 2.2` 플래그를 사용하여 CLI로 모든 트랜잭션을 호출하십시오.
 
-::: warning NOTE
-You **must** include the `-i` (priority fee) flag in order to overwrite a previous transaction.
-This number must be at least 10% higher than whatever priority fee your old transaction used.
-The Smartnode uses a priority fee of 2 gwei by default, so a value of `2.2` is usually sufficient for an override.
+::: warning 참고
+이전 트랜잭션을 덮어쓰려면 `-i`(우선 순위 수수료) 플래그를 **포함해야 합니다**.
+이 숫자는 이전 트랜잭션이 사용한 우선 순위 수수료보다 최소 10% 높아야 합니다.
+Smartnode는 기본적으로 2 gwei의 우선 순위 수수료를 사용하므로 일반적으로 재정의하려면 `2.2` 값이면 충분합니다.
 
-If your old transaction used a custom fee (say, 10 gwei), you will need to set it at least 10% higher in the overriding transaction (so in this example, 11 gwei).
+이전 트랜잭션이 사용자 지정 수수료(예: 10 gwei)를 사용한 경우 재정의 트랜잭션에서 최소 10% 높게 설정해야 합니다(이 예에서는 11 gwei).
 :::
 
-As an example, say I submitted a transaction with a `nonce` of 10 and a max fee of 20 gwei, but the current network fee is 100 gwei so my transaction is stuck.
-To fix it, I will submit a transaction where I send a small amount of ETH from myself back to myself with a higher max fee (say, 150 gwei) and a higher priority fee.
-I'll burn a little gas doing it, but it will unstick the broken transaction:
+예를 들어 `nonce`가 10이고 최대 수수료가 20 gwei인 트랜잭션을 제출했지만 현재 네트워크 수수료가 100 gwei이므로 트랜잭션이 멈췄다고 가정해 보겠습니다.
+이를 해결하기 위해 더 높은 최대 수수료(예: 150 gwei)와 더 높은 우선 순위 수수료로 자신에게서 소량의 ETH를 다시 보내는 트랜잭션을 제출할 것입니다.
+약간의 가스를 소모하지만 손상된 트랜잭션이 풀립니다:
 
 ```
 $ rocketpool --nonce 10 -f 150 -i 2.2 node send 0.0001 eth <node wallet address>
@@ -684,9 +684,9 @@ Total cost: 0.0032 to 0.0032 ETH
 Are you sure you want to send 0.000100 eth to <node wallet address>? This action cannot be undone! [y/n]
 ```
 
-The Smartnode stack will automatically check to make sure that the `nonce` you have provided is valid (it refers to a pending transaction) before sending it and wasting your gas accidentally.
-If not, it will return an error message.
-Otherwise, it will go through and provide you with the transaction details so you can monitor it to confirm that it did, in fact, overwrite your old stuck transaction.
+Smartnode 스택은 제공한 `nonce`가 유효한지(보류 중인 트랜잭션을 참조) 자동으로 확인한 후 보내고 실수로 가스를 낭비합니다.
+그렇지 않으면 오류 메시지를 반환합니다.
+그렇지 않으면 진행되고 트랜잭션 세부 정보를 제공하므로 실제로 이전 멈춘 트랜잭션을 덮어썼는지 모니터링하여 확인할 수 있습니다.
 
-That's it for the common CLI commands.
-In the next section, we'll walk through how to create a minipool and start validating on the Beacon Chain.
+일반적인 CLI 명령은 이것으로 끝입니다.
+다음 섹션에서는 minipool을 생성하고 Beacon Chain에서 검증을 시작하는 방법을 안내합니다.

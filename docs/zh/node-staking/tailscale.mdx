@@ -1,90 +1,90 @@
 import tailscale_dashboard_client from "./images/tailscale-dashboard-client.png";
 import tailscale_dashboard_servers from "./images/tailscale-dashboard-servers.png";
 
-# Configuring a Tailscale VPN Server
+# 配置 Tailscale VPN 服务器
 
-::: tip NOTE
-This is **optional.**
-You only need to consider this section if you run a node at home and would like to connect to it from outside of your home network.
+::: tip 注意
+这是**可选的**。
+如果你在家运行节点并希望从家庭网络外部连接到它，你才需要考虑本节。
 :::
 
-If you would like to log into your home network remotely, such as while on vacation or on a business trip, the most common route is to use a **Virtual Private Network** server.
-This will allow you to connect to your node via SSH **and** monitor your Grafana dashboard from anywhere in the world, all without exposing your SSH port to the internet.
+如果你想远程登录到你的家庭网络，例如在度假或出差时，最常见的途径是使用**虚拟专用网络**服务器。
+这将允许你通过 SSH 连接到节点**并**从世界任何地方监视你的 Grafana 仪表板，所有这些都无需将 SSH 端口暴露给互联网。
 
-Many Rocket Pool node operators use [Tailscale](https://tailscale.com/blog/how-tailscale-works/) as their VPN server of choice for this.
-Tailscale is an open source P2P VPN tunnel and hosted endpoint discovery service.
-It takes care of authentication, publication, and the NAT traversal required to establish an end-to-end encrypted path between your machine and your node without sending any sensitive traffic to a centralized server.
-It is a very powerful tool.
+许多 Rocket Pool 节点运营者使用 [Tailscale](https://tailscale.com/blog/how-tailscale-works/) 作为他们选择的 VPN 服务器。
+Tailscale 是一个开源的 P2P VPN 隧道和托管端点发现服务。
+它负责身份验证、发布以及在你的机器和节点之间建立端到端加密路径所需的 NAT 穿越，而无需将任何敏感流量发送到集中式服务器。
+它是一个非常强大的工具。
 
-We will briefly cover a basic configuration of it, but feel free to [review their documentation](https://tailscale.com/kb/start/) for more details.
+我们将简要介绍它的基本配置，但请随时[查看他们的文档](https://tailscale.com/kb/start/)以获取更多详细信息。
 
-## Setting Tailscale Up
+## 设置 Tailscale
 
-First, create a free [Tailscale account](https://tailscale.com/).
-Tailscale requires the use of an SSO identity provider such as Google, GitHub, Okta, Microsoft, etc.
-For details, visit [their SSO Page](https://tailscale.com/kb/1013/sso-providers/).
+首先，创建一个免费的 [Tailscale 帐户](https://tailscale.com/)。
+Tailscale 需要使用 SSO 身份提供商，例如 Google、GitHub、Okta、Microsoft 等。
+有关详细信息，请访问[他们的 SSO 页面](https://tailscale.com/kb/1013/sso-providers/)。
 
-It is recommended that you enable 2FA (Two Factor Authentication) on whichever identity provider you choose for added security.
+建议你在选择的任何身份提供商上启用 2FA（双因素身份验证）以增加安全性。
 
-Next, follow [their onboarding guide](https://tailscale.com/kb/1017/install/) to install Tailscale on your **client** - the machine you want to connect to your network with.
-For example, this could be a laptop or your phone.
-**Note that it is _not_ your Rocket Pool node!**
+接下来，按照[他们的入门指南](https://tailscale.com/kb/1017/install/)在你的**客户端**上安装 Tailscale - 你想要连接到网络的机器。
+例如，这可能是笔记本电脑或手机。
+**请注意，这_不是_你的 Rocket Pool 节点！**
 
-Once completed you should see your computer as 'connected' on the [Tailscale dashboard](https://login.tailscale.com/admin/machines).
+完成后，你应该在 [Tailscale 仪表板](https://login.tailscale.com/admin/machines)上看到你的计算机"已连接"。
 
 <img src={tailscale_dashboard_client} width="100%" height="auto" />
 
-Now, install Tailscale on your **Rocket Pool node**.
-You can find instructions for this on their website; for example, here are the [installation instructions for Ubuntu](https://tailscale.com/kb/1039/install-ubuntu-2004/).
+现在，在你的 **Rocket Pool 节点**上安装 Tailscale。
+你可以在他们的网站上找到相关说明；例如，这里是 [Ubuntu 的安装说明](https://tailscale.com/kb/1039/install-ubuntu-2004/)。
 
-::: warning NOTE
-If you have UFW configured, you will also want to follow the [UFW Configuration Instructions](https://tailscale.com/kb/1077/secure-server-ubuntu-18-04/)).
+::: warning 注意
+如果你配置了 UFW，你还需要遵循 [UFW 配置说明](https://tailscale.com/kb/1077/secure-server-ubuntu-18-04/)。
 :::
 
-First, add Tailscale’s package signing key and repository **on your Rocket Pool node**:
+首先，**在你的 Rocket Pool 节点上**添加 Tailscale 的包签名密钥和存储库：
 
 ```shell
 curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/focal.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
 curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/focal.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
 ```
 
-Now, install Tailscale **on your Rocket Pool node**:
+现在，**在你的 Rocket Pool 节点上**安装 Tailscale：
 
 ```shell
 sudo apt-get update
 sudo apt-get install tailscale
 ```
 
-Finally, authenticate and connect your machine to your Tailscale network **on your Rocket Pool node**:
+最后，**在你的 Rocket Pool 节点上**验证并将你的机器连接到 Tailscale 网络：
 
 ```shell
 sudo tailscale up
 ```
 
-You’re connected!
-You can find your Tailscale IPv4 address by running:
+你已连接！
+你可以通过运行以下命令找到你的 Tailscale IPv4 地址：
 
 ```shell
 tailscale ip -4
 ```
 
-You should now see your node machine added to the on the [Tailscale dashboard](https://login.tailscale.com/admin/machines).
-You may also change the name of the **node machine** through the dashboard, e.g. to `rocketnode`.
+你现在应该在 [Tailscale 仪表板](https://login.tailscale.com/admin/machines)上看到添加了你的节点机器。
+你还可以通过仪表板更改**节点机器**的名称，例如更改为 `rocketnode`。
 
 <img src={tailscale_dashboard_servers} width="100%" height="auto" />
 
-It is suggested to [disable key expiry](https://tailscale.com/kb/1028/key-expiry) for the node machine to prevent the need to periodically re-authenticate.
+建议为节点机器[禁用密钥过期](https://tailscale.com/kb/1028/key-expiry)以防止需要定期重新验证。
 
-::: tip Note
-If you would like to access your node using a memorable hostname such as rocketnode, you can do so by enabling MagicDNS in the Tailscale settings.
+::: tip 注意
+如果你想使用诸如 rocketnode 之类的易记主机名访问节点，可以通过在 Tailscale 设置中启用 MagicDNS 来实现。
 :::
 
-You should now be able to `exit` the SSH session to your node on your client, and SSH into your node again through Tailscale using `ssh your.user@rocketnode`.
+你现在应该能够在客户端上 `exit` 到节点的 SSH 会话，并使用 `ssh your.user@rocketnode` 再次通过 Tailscale 通过 SSH 连接到节点。
 
-::: warning NOTE
-If you modified the SSH port of the **node machine** in `/etc/ssh/sshd_config` when you first configured it, use `ssh your.user@rocketnode -p <your port>` instead.
+::: warning 注意
+如果你在首次配置**节点机器**时修改了 `/etc/ssh/sshd_config` 中的 SSH 端口，请改用 `ssh your.user@rocketnode -p <your port>`。
 
-For example, if you assigned SSH to port 1234, you would do:
+例如，如果你将 SSH 分配给端口 1234，你将执行：
 
 ```shell
 ssh your.user@rocketnode -p 1234
@@ -92,49 +92,49 @@ ssh your.user@rocketnode -p 1234
 
 :::
 
-You can now also visit `http://rocketnode:3100` in your web browser to access your Grafana dashboard from your **client**.
+你现在还可以在 Web 浏览器中访问 `http://rocketnode:3100` 以从**客户端**访问你的 Grafana 仪表板。
 
-If you have UFW configured, you can now add a rule to accept any incoming SSH connections over Tailscale.
+如果你配置了 UFW，你现在可以添加一条规则来接受通过 Tailscale 的任何传入 SSH 连接。
 
-::: danger WARNING
-The following steps will modify your firewall rules.
-\*\*You must have at least 2 SSH sessions open to your node machine before proceeding - one for modifying the configuration and testing it afterwards, and one that will stay logged in as a backup in case your changes break SSH so you can revert them!
+::: danger 警告
+以下步骤将修改你的防火墙规则。
+\*\*在继续之前，你必须至少有 2 个到节点机器的 SSH 会话 - 一个用于修改配置和之后测试，另一个将保持登录状态作为备份，以防你的更改破坏 SSH，以便你可以恢复它们！
 :::
 
-**Run these commands on the node machine.**
+**在节点机器上运行这些命令。**
 
-Allow access to all incoming ssh connections over Talscale.
+允许访问通过 Talscale 的所有传入 ssh 连接。
 
 ```shell
 sudo ufw allow in on tailscale0
 ```
 
-You may also remove access to the SSH port adding from the [enabling a firewall](/en/node-staking/securing-your-node#essential-enable-a-firewall) steps to completely lock down your node.
-Note that you **will not** be able to login from the local network as tailscale will become the only way to login.
-Only run the following command if you are okay with this.
+你还可以删除从[启用防火墙](/zh/node-staking/securing-your-node#essential-enable-a-firewall)步骤添加的 SSH 端口访问权限，以完全锁定你的节点。
+请注意，你**将无法**从本地网络登录，因为 tailscale 将成为唯一的登录方式。
+仅在你对此感到满意时运行以下命令。
 
 ```shell
 sudo ufw delete "22/tcp"
 ```
 
-Once you’ve set up firewall rules to restrict all non-Tailscale connections, restart UFW and SSH:
+设置防火墙规则以限制所有非 Tailscale 连接后，重新启动 UFW 和 SSH：
 
 ```shell
 sudo ufw reload
 sudo service ssh restart
 ```
 
-Now, confirm that everything is working as expected.
-`exit` from one of your current SSH sessions (**but remember to keep the second one open as a backup**).
+现在，确认一切按预期工作。
+从你当前的 SSH 会话之一 `exit`（**但记得保持第二个会话打开作为备份**）。
 
-Next, connect to the **node machine** via SSH using the Tailscale IP address:
+接下来，使用 Tailscale IP 地址通过 SSH 连接到**节点机器**：
 
 ```shell
 ssh your.user@rocketnode
 ```
 
-If it works, you did everything right and can now safely log into your home network while abroad!
+如果成功，你做对了一切，现在可以在国外时安全地登录到你的家庭网络！
 
-::: tip TIP
-If you've previously port forwarded your node's SSH port in your router, you can now remove it.
+::: tip 提示
+如果你之前在路由器中对节点的 SSH 端口进行了端口转发，现在可以将其删除。
 :::

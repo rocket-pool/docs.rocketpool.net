@@ -1,90 +1,90 @@
 import tailscale_dashboard_client from "./images/tailscale-dashboard-client.png";
 import tailscale_dashboard_servers from "./images/tailscale-dashboard-servers.png";
 
-# Configuring a Tailscale VPN Server
+# Configurazione di un Server VPN Tailscale
 
-::: tip NOTE
-This is **optional.**
-You only need to consider this section if you run a node at home and would like to connect to it from outside of your home network.
+::: tip NOTA
+Questo è **opzionale.**
+Devi considerare questa sezione solo se esegui un nodo a casa e vorresti connetterti ad esso da fuori della tua rete domestica.
 :::
 
-If you would like to log into your home network remotely, such as while on vacation or on a business trip, the most common route is to use a **Virtual Private Network** server.
-This will allow you to connect to your node via SSH **and** monitor your Grafana dashboard from anywhere in the world, all without exposing your SSH port to the internet.
+Se vorresti accedere alla tua rete domestica da remoto, ad esempio mentre sei in vacanza o in viaggio di lavoro, il percorso più comune è utilizzare un server **Virtual Private Network**.
+Questo ti permetterà di connetterti al tuo nodo tramite SSH **e** monitorare il tuo dashboard Grafana da qualsiasi parte del mondo, tutto senza esporre la tua porta SSH a internet.
 
-Many Rocket Pool node operators use [Tailscale](https://tailscale.com/blog/how-tailscale-works/) as their VPN server of choice for this.
-Tailscale is an open source P2P VPN tunnel and hosted endpoint discovery service.
-It takes care of authentication, publication, and the NAT traversal required to establish an end-to-end encrypted path between your machine and your node without sending any sensitive traffic to a centralized server.
-It is a very powerful tool.
+Molti operatori di nodi Rocket Pool usano [Tailscale](https://tailscale.com/blog/how-tailscale-works/) come server VPN di scelta per questo.
+Tailscale è un tunnel VPN P2P open source e un servizio di scoperta endpoint ospitato.
+Si occupa dell'autenticazione, pubblicazione e attraversamento NAT necessario per stabilire un percorso crittografato end-to-end tra la tua macchina e il tuo nodo senza inviare traffico sensibile a un server centralizzato.
+È uno strumento molto potente.
 
-We will briefly cover a basic configuration of it, but feel free to [review their documentation](https://tailscale.com/kb/start/) for more details.
+Copriremo brevemente una configurazione di base, ma sentiti libero di [rivedere la loro documentazione](https://tailscale.com/kb/start/) per maggiori dettagli.
 
-## Setting Tailscale Up
+## Configurazione di Tailscale
 
-First, create a free [Tailscale account](https://tailscale.com/).
-Tailscale requires the use of an SSO identity provider such as Google, GitHub, Okta, Microsoft, etc.
-For details, visit [their SSO Page](https://tailscale.com/kb/1013/sso-providers/).
+Innanzitutto, crea un [account Tailscale](https://tailscale.com/) gratuito.
+Tailscale richiede l'uso di un provider di identità SSO come Google, GitHub, Okta, Microsoft, ecc.
+Per i dettagli, visita [la loro pagina SSO](https://tailscale.com/kb/1013/sso-providers/).
 
-It is recommended that you enable 2FA (Two Factor Authentication) on whichever identity provider you choose for added security.
+Si consiglia di abilitare la 2FA (Autenticazione a Due Fattori) su qualsiasi provider di identità tu scelga per una maggiore sicurezza.
 
-Next, follow [their onboarding guide](https://tailscale.com/kb/1017/install/) to install Tailscale on your **client** - the machine you want to connect to your network with.
-For example, this could be a laptop or your phone.
-**Note that it is _not_ your Rocket Pool node!**
+Successivamente, segui [la loro guida di onboarding](https://tailscale.com/kb/1017/install/) per installare Tailscale sul tuo **client** - la macchina con cui vuoi connetterti alla tua rete.
+Ad esempio, questo potrebbe essere un laptop o il tuo telefono.
+**Nota che _non_ è il tuo nodo Rocket Pool!**
 
-Once completed you should see your computer as 'connected' on the [Tailscale dashboard](https://login.tailscale.com/admin/machines).
+Una volta completato, dovresti vedere il tuo computer come 'connesso' sul [dashboard Tailscale](https://login.tailscale.com/admin/machines).
 
 <img src={tailscale_dashboard_client} width="100%" height="auto" />
 
-Now, install Tailscale on your **Rocket Pool node**.
-You can find instructions for this on their website; for example, here are the [installation instructions for Ubuntu](https://tailscale.com/kb/1039/install-ubuntu-2004/).
+Ora, installa Tailscale sul tuo **nodo Rocket Pool**.
+Puoi trovare le istruzioni per questo sul loro sito web; ad esempio, ecco le [istruzioni di installazione per Ubuntu](https://tailscale.com/kb/1039/install-ubuntu-2004/).
 
-::: warning NOTE
-If you have UFW configured, you will also want to follow the [UFW Configuration Instructions](https://tailscale.com/kb/1077/secure-server-ubuntu-18-04/)).
+::: warning NOTA
+Se hai configurato UFW, vorrai anche seguire le [Istruzioni di Configurazione UFW](https://tailscale.com/kb/1077/secure-server-ubuntu-18-04/)).
 :::
 
-First, add Tailscale’s package signing key and repository **on your Rocket Pool node**:
+Innanzitutto, aggiungi la chiave di firma del pacchetto Tailscale e il repository **sul tuo nodo Rocket Pool**:
 
 ```shell
 curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/focal.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
 curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/focal.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
 ```
 
-Now, install Tailscale **on your Rocket Pool node**:
+Ora, installa Tailscale **sul tuo nodo Rocket Pool**:
 
 ```shell
 sudo apt-get update
 sudo apt-get install tailscale
 ```
 
-Finally, authenticate and connect your machine to your Tailscale network **on your Rocket Pool node**:
+Infine, autentica e connetti la tua macchina alla tua rete Tailscale **sul tuo nodo Rocket Pool**:
 
 ```shell
 sudo tailscale up
 ```
 
-You’re connected!
-You can find your Tailscale IPv4 address by running:
+Sei connesso!
+Puoi trovare il tuo indirizzo IPv4 Tailscale eseguendo:
 
 ```shell
 tailscale ip -4
 ```
 
-You should now see your node machine added to the on the [Tailscale dashboard](https://login.tailscale.com/admin/machines).
-You may also change the name of the **node machine** through the dashboard, e.g. to `rocketnode`.
+Ora dovresti vedere la tua macchina nodo aggiunta al [dashboard Tailscale](https://login.tailscale.com/admin/machines).
+Puoi anche cambiare il nome della **macchina nodo** tramite il dashboard, ad es. in `rocketnode`.
 
 <img src={tailscale_dashboard_servers} width="100%" height="auto" />
 
-It is suggested to [disable key expiry](https://tailscale.com/kb/1028/key-expiry) for the node machine to prevent the need to periodically re-authenticate.
+Si suggerisce di [disabilitare la scadenza della chiave](https://tailscale.com/kb/1028/key-expiry) per la macchina nodo per evitare la necessità di ri-autenticarsi periodicamente.
 
-::: tip Note
-If you would like to access your node using a memorable hostname such as rocketnode, you can do so by enabling MagicDNS in the Tailscale settings.
+::: tip Nota
+Se vorresti accedere al tuo nodo usando un hostname memorabile come rocketnode, puoi farlo abilitando MagicDNS nelle impostazioni di Tailscale.
 :::
 
-You should now be able to `exit` the SSH session to your node on your client, and SSH into your node again through Tailscale using `ssh your.user@rocketnode`.
+Ora dovresti essere in grado di uscire dalla sessione SSH al tuo nodo sul tuo client con `exit`, e connetterti nuovamente al tuo nodo tramite SSH attraverso Tailscale usando `ssh your.user@rocketnode`.
 
-::: warning NOTE
-If you modified the SSH port of the **node machine** in `/etc/ssh/sshd_config` when you first configured it, use `ssh your.user@rocketnode -p <your port>` instead.
+::: warning NOTA
+Se hai modificato la porta SSH della **macchina nodo** in `/etc/ssh/sshd_config` quando l'hai configurata per la prima volta, usa invece `ssh your.user@rocketnode -p <tua porta>`.
 
-For example, if you assigned SSH to port 1234, you would do:
+Ad esempio, se hai assegnato SSH alla porta 1234, faresti:
 
 ```shell
 ssh your.user@rocketnode -p 1234
@@ -92,49 +92,49 @@ ssh your.user@rocketnode -p 1234
 
 :::
 
-You can now also visit `http://rocketnode:3100` in your web browser to access your Grafana dashboard from your **client**.
+Ora puoi anche visitare `http://rocketnode:3100` nel tuo browser web per accedere al tuo dashboard Grafana dal tuo **client**.
 
-If you have UFW configured, you can now add a rule to accept any incoming SSH connections over Tailscale.
+Se hai configurato UFW, ora puoi aggiungere una regola per accettare qualsiasi connessione SSH in entrata su Tailscale.
 
-::: danger WARNING
-The following steps will modify your firewall rules.
-\*\*You must have at least 2 SSH sessions open to your node machine before proceeding - one for modifying the configuration and testing it afterwards, and one that will stay logged in as a backup in case your changes break SSH so you can revert them!
+::: danger AVVISO
+I seguenti passaggi modificheranno le tue regole del firewall.
+\*\*Devi avere almeno 2 sessioni SSH aperte alla tua macchina nodo prima di procedere - una per modificare la configurazione e testarla dopo, e una che rimarrà connessa come backup nel caso in cui le tue modifiche rompano SSH così puoi ripristinarle!
 :::
 
-**Run these commands on the node machine.**
+**Esegui questi comandi sulla macchina nodo.**
 
-Allow access to all incoming ssh connections over Talscale.
+Consenti l'accesso a tutte le connessioni ssh in entrata su Tailscale.
 
 ```shell
 sudo ufw allow in on tailscale0
 ```
 
-You may also remove access to the SSH port adding from the [enabling a firewall](/en/node-staking/securing-your-node#essential-enable-a-firewall) steps to completely lock down your node.
-Note that you **will not** be able to login from the local network as tailscale will become the only way to login.
-Only run the following command if you are okay with this.
+Puoi anche rimuovere l'accesso alla porta SSH aggiunta dai passaggi di [abilitazione di un firewall](/it/node-staking/securing-your-node#essential-enable-a-firewall) per bloccare completamente il tuo nodo.
+Nota che **non** sarai in grado di accedere dalla rete locale poiché tailscale diventerà l'unico modo per accedere.
+Esegui il seguente comando solo se sei d'accordo con questo.
 
 ```shell
 sudo ufw delete "22/tcp"
 ```
 
-Once you’ve set up firewall rules to restrict all non-Tailscale connections, restart UFW and SSH:
+Una volta impostate le regole del firewall per limitare tutte le connessioni non-Tailscale, riavvia UFW e SSH:
 
 ```shell
 sudo ufw reload
 sudo service ssh restart
 ```
 
-Now, confirm that everything is working as expected.
-`exit` from one of your current SSH sessions (**but remember to keep the second one open as a backup**).
+Ora, conferma che tutto funzioni come previsto.
+Esci da una delle tue sessioni SSH correnti con `exit` (**ma ricorda di mantenere aperta la seconda come backup**).
 
-Next, connect to the **node machine** via SSH using the Tailscale IP address:
+Successivamente, connettiti alla **macchina nodo** tramite SSH usando l'indirizzo IP Tailscale:
 
 ```shell
 ssh your.user@rocketnode
 ```
 
-If it works, you did everything right and can now safely log into your home network while abroad!
+Se funziona, hai fatto tutto correttamente e ora puoi accedere in modo sicuro alla tua rete domestica quando sei all'estero!
 
-::: tip TIP
-If you've previously port forwarded your node's SSH port in your router, you can now remove it.
+::: tip SUGGERIMENTO
+Se in precedenza hai inoltrato la porta SSH del tuo nodo nel tuo router, ora puoi rimuoverla.
 :::

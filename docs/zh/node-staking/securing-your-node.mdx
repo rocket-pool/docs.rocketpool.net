@@ -1,146 +1,146 @@
 ---
 next:
   text: "Tailscale"
-  link: "/en/node-staking/tailscale"
+  link: "/zh/node-staking/tailscale"
 ---
 
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Securing your Node
+# 保护你的节点安全
 
-The goal of this guide is to walk you through steps you can take to secure your node against malicious actors.
-Whether you're running a local server at home or a VPS server / virtual machine on the cloud, the tips here will help you harden your node against outside attack and help protect it during its lifespan.
+本指南旨在引导你采取措施来保护你的节点免受恶意攻击者的侵害。
+无论你是在家中运行本地服务器还是在云端运行 VPS 服务器/虚拟机，这里的技巧都将帮助你加固节点以防外部攻击，并在其生命周期内提供保护。
 
-This section will describe both **essential** actions, which you **must** take, and **nice-to-have** actions, which are helpful but not required.
+本节将介绍**必要**操作（你**必须**采取）和**可选**操作（有帮助但不是必需的）。
 
-::: tip NOTE
-This guide is meant to be an **introduction** to some of the things you can do to harden your node machine.
-If you are comfortable with the command-line terminal and want to go even further in protecting your node, take a look at the popular [imthenachoman/How-To-Secure-A-Linux-Server](https://github.com/imthenachoman/How-To-Secure-A-Linux-Server) guide.
+::: tip 注意
+本指南旨在作为一些加固节点机器方法的**入门介绍**。
+如果你熟悉命令行终端并希望进一步保护你的节点，请查看流行的 [imthenachoman/How-To-Secure-A-Linux-Server](https://github.com/imthenachoman/How-To-Secure-A-Linux-Server) 指南。
 :::
 
-## Assumptions in This Guide
+## 本指南的假设
 
-This guide assumes your node runs `Ubuntu 20.04 LTS`.
-The concepts will carry over to other systems but the example commands may not.
+本指南假设你的节点运行 `Ubuntu 20.04 LTS`。
+这些概念适用于其他系统，但示例命令可能不适用。
 
-As with all of the commands in this guide, we assume that you are connecting **remotely** to your node's command terminal using `ssh`.
-If you need a refresher on how to use `ssh`, take a look at the [Intro to Secure Shell](./ssh) guide first.
+与本指南中的所有命令一样，我们假设你使用 `ssh` **远程**连接到节点的命令终端。
+如果你需要复习如何使用 `ssh`，请先查看 [Secure Shell 介绍](./ssh) 指南。
 
-## ESSENTIAL: Keep your Client Machine Secure
+## 必要：保持客户端机器的安全
 
-::: warning NOTE
-If you use your Smartnode locally (by physically logging into it with a keyboard and monitor directly attached to it), then **this section is not relevant to you - you can skip it**.
+::: warning 注意
+如果你在本地使用 Smartnode（通过直接连接键盘和显示器物理登录），那么**本节与你无关 - 你可以跳过它**。
 :::
 
-Most Smartnode operators interact with their node remotely by connecting to its terminal from another computer using `ssh`:
+大多数 Smartnode 运营者通过使用 `ssh` 从另一台计算机连接到其终端来远程与节点交互：
 
-- The machine you connect _to_ (in this case, your node machine) is called the **server**.
-- The machine you connect _from_ (such as your laptop, desktop, or even your phone) is the **client**.
+- 你连接**到**的机器（在本例中为你的节点机器）称为**服务器**。
+- 你连接**自**的机器（例如你的笔记本电脑、台式机，甚至手机）是**客户端**。
 
-One of the most important things you can do to secure your Smartnode is to **keep your client machine secure**.
-If your client machine is compromised and you use it to log into your node, then most of the security settings you apply to the node can be bypassed.
+保护 Smartnode 最重要的事情之一就是**保持客户端机器的安全**。
+如果你的客户端机器遭到入侵，并且你使用它登录到节点，那么你应用于节点的大多数安全设置都可以被绕过。
 
-For example: if you use a laptop as an SSH client, and it has a [keylogger](https://en.wikipedia.org/wiki/Keystroke_logging) installed, then any secret things you type on the node (such as your password or recovery mnemonic) when connected via SSH will be stolen.
+例如：如果你使用笔记本电脑作为 SSH 客户端，并且它安装了[键盘记录器](https://en.wikipedia.org/wiki/Keystroke_logging)，那么你通过 SSH 连接时在节点上键入的任何机密内容（例如密码或恢复助记词）都会被窃取。
 
-There is no definitive guide to keeping your client machine secure, but being aware that it is a factor in your security is a good first step.
-Make sure that your client machine is as secure as it can be.
+没有确定性的指南来保持客户端机器的安全，但意识到它是你安全性的一个因素是良好的第一步。
+确保你的客户端机器尽可能安全。
 
-Here are a few tips:
+以下是一些技巧：
 
-- Don't use your client machine for **risky activities** (such as visiting untrustworthy websites or installing unnecessary programs)
-- Keep your client machine updated with the **latest security patches**
-- If possible, use a **malware and antivirus protection** program for your Operating System
+- 不要在客户端机器上进行**高风险活动**（例如访问不可信的网站或安装不必要的程序）
+- 保持客户端机器更新至**最新安全补丁**
+- 如果可能，为你的操作系统使用**恶意软件和反病毒保护**程序
 
-For maximum security, you may want to use a **dedicated machine** as your SSH client, though this may not be practical for you.
+为了获得最大的安全性，你可能希望使用**专用机器**作为 SSH 客户端，尽管这对你来说可能不实用。
 
-## ESSENTIAL: Secure your SSH Access
+## 必要：保护你的 SSH 访问
 
-::: warning NOTE
-If you use your Smartnode locally (by physically logging into it with a keyboard and monitor directly attached to it), then **this section is not relevant to you - you can skip it**.
+::: warning 注意
+如果你在本地使用 Smartnode（通过直接连接键盘和显示器物理登录），那么**本节与你无关 - 你可以跳过它**。
 :::
 
-Whether you run your Smartnode at home or you use a VPS in a remote datacenter, it is likely that either you access it through SSH, or that SSH is enabled **even if you do not use it**.
+无论你是在家运行 Smartnode 还是在远程数据中心使用 VPS，你很可能通过 SSH 访问它，或者即使你不使用它，SSH 也**已启用**。
 
-SSH connections are based on secure cryptography, but as with any secure system, the real security comes from using it correctly.
-There are two main things to do for your SSH settings:
+SSH 连接基于安全加密，但与任何安全系统一样，真正的安全性来自正确使用它。
+你需要为 SSH 设置做两件主要的事情：
 
-1. Use an SSH key to log in remotely instead of a username and password
-2. Disable password-based authentication entirely, so SSH keys are the only remote login option
+1. 使用 SSH 密钥而不是用户名和密码进行远程登录
+2. 完全禁用基于密码的身份验证，使 SSH 密钥成为唯一的远程登录选项
 
-As you are probably familiar with now, the default way to log into your node via SSH is with a username and password.
-The downside of this is that your password is typically something rather "short" and susceptible to [brute-force attacks](https://en.wikipedia.org/wiki/Brute-force_attack).
+正如你现在可能熟悉的那样，通过 SSH 登录到节点的默认方式是使用用户名和密码。
+这样做的缺点是你的密码通常是相当"短"的东西，容易受到[暴力攻击](https://en.wikipedia.org/wiki/Brute-force_attack)。
 
-Luckily, there is an alternative way to log in via SSH: an **SSH key pair**.
+幸运的是，有另一种通过 SSH 登录的方式：**SSH 密钥对**。
 
-SSH key pairs work similarly to blockchain wallets; they come with a public part (such as your wallet address) and a private part (the private key for your wallet address):
+SSH 密钥对的工作方式类似于区块链钱包；它们有公钥部分（如你的钱包地址）和私钥部分（钱包地址的私钥）：
 
-- You provide the **public part** to your node. This way, the node knows you're allowed to connect to it, and it knows that it's really you trying to connect.
-- You keep the **private part** to yourself on your client machine. This way, you (and only you) can connect to your node.
-  - You can (and should!) protect the private part with a **password**, so someone who steals your key can't use it.
-- From a computer's perspective, the private key is **exponentially harder** to crack than a password is. This mitigates the risk of a brute-force attack against your node.
+- 你向节点提供**公钥部分**。这样，节点知道你被允许连接到它，并且知道真的是你在尝试连接。
+- 你在客户端机器上保留**私钥部分**。这样，只有你（而且只有你）可以连接到你的节点。
+  - 你可以（也应该！）用**密码**保护私钥部分，这样窃取你密钥的人就无法使用它。
+- 从计算机的角度来看，私钥比密码**难破解得多**。这减轻了针对节点的暴力攻击的风险。
 
-::: tip TIP
-If you'd like to learn more about SSH key pairs before creating your own, take a look at these links:
+::: tip 提示
+如果你想在创建自己的 SSH 密钥对之前了解更多信息，请查看以下链接：
 
 - [https://canvas.cse.taylor.edu/courses/27/pages/ssh-key-tutorial](https://canvas.cse.taylor.edu/courses/27/pages/ssh-key-tutorial)
 - [https://www.ssh.com/academy/ssh/host-key](https://www.ssh.com/academy/ssh/host-key)
 
 :::
 
-### Creating an SSH Key Pair
+### 创建 SSH 密钥对
 
-Let's start by creating a new SSH key pair **on your client machine**.
-There are many varieties of key out there, but we're going to use a key type called [ed25519](https://en.wikipedia.org/wiki/EdDSA#Ed25519) which provides excellent security.
+让我们从在**客户端机器**上创建新的 SSH 密钥对开始。
+有许多类型的密钥，但我们将使用一种名为 [ed25519](https://en.wikipedia.org/wiki/EdDSA#Ed25519) 的密钥类型，它提供出色的安全性。
 
-Run the following command **on your client machine** (i.e., you should **not** run this while already SSH'd into your node machine - if you are, **exit out of SSH first**):
+在**客户端机器**上运行以下命令（即，你**不应**在已经通过 SSH 连接到节点机器时运行此命令 - 如果是，请**先退出 SSH**）：
 
 ```shell
 ssh-keygen -t ed25519 -C "your_email@example.com"
 ```
 
-You will see the following:
+你将看到以下内容：
 
 ```
 Generating public/private ed25519 key pair.
 Enter file in which to save the key (/home/username/.ssh/id_ed25519):
 ```
 
-This asks you where you would like to save your private key file.
-SSH is compatible with the provided default and will automatically use it for you if you select it.
-However, you have the option of changing it to something else if you wish.
+这会询问你希望将私钥文件保存在何处。
+SSH 与提供的默认值兼容，如果你选择它，将自动为你使用它。
+但是，如果你愿意，可以选择将其更改为其他内容。
 
-::: tip NOTE
-The path `/home/username/.ssh/id_ed25519` is just an example, assuming your username is `username`.
-You likely have a different username.
-Whenever you see a path like the above in this guide, replace it with whatever path your system actually prints with your actual username.
+::: tip 注意
+路径 `/home/username/.ssh/id_ed25519` 只是一个示例，假设你的用户名是 `username`。
+你可能有不同的用户名。
+每当你在本指南中看到类似上述路径时，请将其替换为系统实际打印的带有实际用户名的路径。
 :::
 
-If you are comfortable with the default setting, simply press `Enter`.
+如果你对默认设置感到满意，只需按 `Enter`。
 
-Otherwise, type your desired location for the key.
-It must be an absolute path (e.g. `/home/username/.ssh/rocketpool_key` on Linux, or `/Users/username/.ssh/rocketpool_key` on OSX).
-Press `Enter` when you're done.
+否则，输入密钥的所需位置。
+它必须是绝对路径（例如在 Linux 上是 `/home/username/.ssh/rocketpool_key`，或在 OSX 上是 `/Users/username/.ssh/rocketpool_key`）。
+完成后按 `Enter`。
 
-After pressing `Enter`, you will see:
+按 `Enter` 后，你将看到：
 
 ```
 Enter passphrase (empty for no passphrase):
 ```
 
-**This will become the password for the private key itself**.
-Whenever you use the key to connect to your node, you will need to enter this password first.
+**这将成为私钥本身的密码**。
+每当你使用密钥连接到节点时，都需要首先输入此密码。
 
-::: danger WARNING
-**You should not leave this blank** - otherwise, anyone with the SSH key file will be able to use it!
-Pick a good password that you (and only you) will know.
+::: danger 警告
+**你不应该将此留空** - 否则，任何拥有 SSH 密钥文件的人都能够使用它！
+选择一个只有你（而且只有你）知道的好密码。
 
-Also, **don't forget your password** - there is no way to recover this password if you lose it.
+另外，**不要忘记你的密码** - 如果丢失此密码，则无法恢复。
 :::
 
-Once you finish typing the password, press `Enter`.
-It will ask you to retype it for confirmation.
+输入密码后，按 `Enter`。
+它会要求你重新输入以进行确认。
 
-After that, you will see something like the following output:
+之后，你将看到类似以下的输出：
 
 ```
 Your identification has been saved in /home/username/.ssh/id_ed25519
@@ -161,75 +161,75 @@ The key's randomart image is:
 +----[SHA256]-----+
 ```
 
-The first line states the location of the **private key**, which is called `id_ed25519` by default (notice that it does not have a file extension).
-Ubuntu will load this key for you automatically when you use `ssh` if this private key file is in the default location.
+第一行说明了**私钥**的位置，默认名为 `id_ed25519`（注意它没有文件扩展名）。
+如果此私钥文件位于默认位置，Ubuntu 将在你使用 `ssh` 时自动为你加载此密钥。
 
-The second line states the location of the **public key**, which is called `id_ed25519.pub` by default.
-We'll need the public key for the next step.
+第二行说明了**公钥**的位置，默认名为 `id_ed25519.pub`。
+我们将在下一步需要公钥。
 
-::: tip NOTE
-Ubuntu _should_ load this new key automatically.
-However, some systems (such as macOS machines) will not load it automatically - you will have to tell it to do this with the following command **on your client machine**:
+::: tip 注意
+Ubuntu _应该_自动加载这个新密钥。
+但是，某些系统（例如 macOS 机器）不会自动加载它 - 你必须使用以下命令在**客户端机器**上告诉它执行此操作：
 
 ```shell
 ssh-add $HOME/.ssh/id_ed25519
 ```
 
-Note that this is the path of the **private key** that we generated in the previous step, **not the public key**.
-Replace the path with whatever your system printed in that previous step.
+请注意，这是我们在上一步生成的**私钥**的路径，**不是公钥**。
+将路径替换为系统在上一步中打印的路径。
 
-If you get an error saying that the `ssh-agent` is not running, start it by running the following command **on your client machine**:
+如果你收到 `ssh-agent` 未运行的错误，请在**客户端机器**上运行以下命令来启动它：
 
 ```shell
 eval $(ssh-agent)
 ```
 
-If you don't want to type these two commands every time you open the terminal, you can create a shortcut for adding your key by adding an `alias` to your `~/.bashrc` file.
+如果你不想每次打开终端时都输入这两个命令，可以通过向 `~/.bashrc` 文件添加 `alias` 来创建添加密钥的快捷方式。
 
-Open the file using the text editor:
+使用文本编辑器打开文件：
 
 ```shell
 nano ~/.bashrc
 ```
 
-Add this line to the end (assuming you used the default path for the private key - update as necessary):
+在末尾添加此行（假设你使用了私钥的默认路径 - 根据需要更新）：
 
 ```shell
 alias loadkey='ssh-add $HOME/.ssh/id_ed25519'
 ```
 
-Save and exit with `Ctrl+O` and `Enter`, then `Ctrl+X`.
-Next, close and open your terminal for the changes to take effect.
+使用 `Ctrl+O` 和 `Enter`，然后 `Ctrl+X` 保存并退出。
+接下来，关闭并打开终端以使更改生效。
 
-You can now type `loadkey` **on your client machine** to load the key.
+现在你可以在**客户端机器**上输入 `loadkey` 来加载密钥。
 :::
 
-### Adding the Public Key to your Node
+### 将公钥添加到节点
 
-Once you have your SSH key pair, you can now add the **public key** to your node.
-This will let you connect to it over `ssh` using the private key you just generated, instead of your username and password.
+一旦有了 SSH 密钥对，你现在可以将**公钥**添加到节点。
+这将让你使用刚刚生成的私钥通过 `ssh` 连接到它，而不是使用用户名和密码。
 
-There are two ways to do this - if one doesn't work, try the other way:
+有两种方法可以做到这一点 - 如果一种不起作用，请尝试另一种方法：
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Using ssh-copy-id">
-      **Note**: if your client machine is running Windows, `ssh-copy-id` is not yet available.
-      Please follow the instructions in the "Manually Adding the Key" tab.
+    <Tab label="使用 ssh-copy-id">
+      **注意**：如果你的客户端机器运行的是 Windows，`ssh-copy-id` 尚不可用。
+      请按照"手动添加密钥"选项卡中的说明进行操作。
 
-      Run the following command **on your client machine**:
+      在**客户端机器**上运行以下命令：
 
       ```shell
       ssh-copy-id -i $HOME/.ssh/id_ed25519.pub username@node.ip.address
       ```
 
-      For example, if my username on the node was `staker` and my node's IP address was `192.168.1.10`, I would run the following command:
+      例如，如果我在节点上的用户名是 `staker`，节点的 IP 地址是 `192.168.1.10`，我将运行以下命令：
 
       ```shell
       ssh-copy-id -i $HOME/.ssh/id_ed25519.pub staker@192.168.1.10
       ```
 
-      You will see some messages like the following:
+      你将看到一些类似以下的消息：
 
       ```
       /usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/home/username/.ssh/id_ed25519.pub"
@@ -237,13 +237,13 @@ There are two ways to do this - if one doesn't work, try the other way:
       /usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
       ```
 
-      This tells you that it's trying to log in with your key first to make sure it isn't already there.
-      Once it fails logging in, it knows that it's OK to add the new public key to the node machine.
+      这告诉你它首先尝试使用你的密钥登录以确保它还不存在。
+      一旦登录失败，它就知道可以将新公钥添加到节点机器。
 
-      It will then prompt you for the **password of the user on your node machine**.
-      (_Note that this is **not the password of the SSH key**!_)
+      然后它会提示你输入**节点机器上用户的密码**。
+      （_注意，这**不是 SSH 密钥的密码**！_）
 
-      Enter your user's password, and you will see the following output:
+      输入用户密码，你将看到以下输出：
 
       ```
       Number of key(s) added: 1
@@ -252,187 +252,187 @@ There are two ways to do this - if one doesn't work, try the other way:
       and check to make sure that only the key(s) you wanted were added.
       ```
 
-      That means it worked!
+      这意味着它成功了！
     </Tab>
-    <Tab label="Manually Adding the Key">
-      Start by getting the contents of the **public key** - run this command **on your client machine**:
+    <Tab label="手动添加密钥">
+      首先获取**公钥**的内容 - 在**客户端机器**上运行此命令：
 
-      - On macOS and Linux:
+      - 在 macOS 和 Linux 上：
 
       ```shell
       cat ~/.ssh/id_ed25519.pub
       ```
 
-      - On Windows (Command Prompt):
+      - 在 Windows 上（命令提示符）：
 
       ```shell
       type %USERPROFILE%\.ssh\id_ed25519.pub
       ```
 
-      - On Windows (PowerShell):
+      - 在 Windows 上（PowerShell）：
 
       ```shell
       type $ENV:UserProfile\.ssh\id_ed25519.pub
       ```
 
-      The output will look something like this:
+      输出将如下所示：
 
       ```
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGUgU3a6mNjy3N1TyWOwY+VA/nifAeABl2Ch2yIl1bGa your_email@example.com
       ```
 
-      This is your **public key**.
-      Copy this output and store it somewhere convenient - you're going to need it in a minute.
+      这是你的**公钥**。
+      复制此输出并将其存储在方便的地方 - 你一会儿会需要它。
 
-      Next, use `ssh` to connect to your node like you normally would (using your node's username and password).
+      接下来，像平常一样使用 `ssh` 连接到节点（使用节点的用户名和密码）。
 
-      Once you're connected to your node, run the following commands:
+      连接到节点后，运行以下命令：
 
       ```shell
       mkdir -p ~/.ssh
       nano ~/.ssh/authorized_keys
       ```
 
-      The second command will open a text editor for the file used to store all of the public keys that your node's user account trusts.
+      第二个命令将打开一个文本编辑器，用于存储节点用户帐户信任的所有公钥的文件。
 
-      In this file, paste the **public key** that you retrieved a few steps ago using the `cat` command (the whole line starting with `ssh-ed25519`).
+      在此文件中，粘贴几步前使用 `cat` 命令检索的**公钥**（从 `ssh-ed25519` 开始的整行）。
 
-      When it's in, save the file with `Ctrl+O` and `Enter`, then press `Ctrl+X` to exit.
+      完成后，使用 `Ctrl+O` 和 `Enter` 保存文件，然后按 `Ctrl+X` 退出。
 
-      Now, exit `ssh` by running the `exit` command so you return back to your local client machine's terminal.
+      现在，通过运行 `exit` 命令退出 `ssh`，这样你就可以返回本地客户端机器的终端。
     </Tab>
 
   </Tabs>
 </div>
 
-You should now be able to `ssh` into the node like you normally would, but now you won't have to type the password of the user account.
+你现在应该能够像平常一样通过 `ssh` 连接到节点，但现在你不必输入用户帐户的密码。
 
-Instead, you will have to type **the password of your SSH private key**.
-Depending on your system settings, you may only have to do this once per restart, or you may have to do it every time you use the key to connect to your node.
+相反，你必须输入 **SSH 私钥的密码**。
+根据你的系统设置，你可能每次重启时只需执行一次此操作，或者每次使用密钥连接到节点时都必须执行此操作。
 
-### Disable Login-via-Password
+### 禁用通过密码登录
 
-Even though you have an SSH key pair set up, your node will still allow other machines to try to log in using the username and password method.
-This defeats the entire purpose of using SSH keys in the first place, so the next step is to disable those.
+即使你已设置 SSH 密钥对，你的节点仍将允许其他机器尝试使用用户名和密码方法登录。
+这违背了使用 SSH 密钥的全部目的，因此下一步是禁用这些。
 
-::: danger NOTE
-You are about to modify the SSH server's configuration.
-All of your **existing** SSH sessions will be preserved.
-However, if you make a mistake, then it's possible that you will not be able to create **new** SSH sessions anymore and effectively lock yourself out of the machine.
+::: danger 注意
+你即将修改 SSH 服务器的配置。
+你所有的**现有** SSH 会话都将被保留。
+但是，如果你犯了错误，那么你可能无法再创建**新的** SSH 会话，并有效地将自己锁定在机器之外。
 
-To prevent this, we strongly recommend that you create **2 SSH sessions** for the next steps - one for editing things and testing, and one as a backup so you can revert any breaking changes.
+为了防止这种情况，我们强烈建议你为接下来的步骤创建 **2 个 SSH 会话** - 一个用于编辑和测试，另一个作为备份，以便你可以恢复任何破坏性更改。
 :::
 
-Start by logging into your machine using `ssh` as usual:
+首先像往常一样使用 `ssh` 登录到你的机器：
 
 ```shell
 ssh user@your.node.ip.address
 ```
 
-As a reminder, **you should do this twice on two separate terminals so you have a backup session just in case**.
-You can ignore the backup session for now - we'll tell you when you need it.
-Run the following commands **only in the first session**.
+提醒一下，**你应该在两个单独的终端上执行此操作两次，以便你拥有备份会话以防万一**。
+你现在可以忽略备份会话 - 我们会告诉你何时需要它。
+仅在第一个会话中运行以下命令。
 
-Open the configuration file for the SSH server:
+打开 SSH 服务器的配置文件：
 
 ```shell
 sudo nano /etc/ssh/sshd_config
 ```
 
-As with all commands that start with `sudo`, this will prompt you for your **user account's password**.
-This is a large file, so you'll have to navigate through it using the arrow keys on your keyboard or `Page Up` / `Page Down`.
+与所有以 `sudo` 开头的命令一样，这将提示你输入**用户帐户的密码**。
+这是一个大文件，因此你必须使用键盘上的箭头键或 `Page Up` / `Page Down` 进行导航。
 
-Make the following changes:
+进行以下更改：
 
-1. Uncomment `#AuthorizedKeysFile` if it is commented (by removing the `#` in front of it)
-2. Change `KbdInteractiveAuthentication yes` to `KbdInteractiveAuthentication no` and uncomment (by removing the `#` in front of it) - **note that older versions of SSH call this option `ChallengeResponseAuthentication` instead of `KbdInteractiveAuthentication`**
-3. Change `PasswordAuthentication yes` to `PasswordAuthentication no` and uncomment (by removing the `#` in front of it)
-4. Change `PermitRootLogin yes` to `PermitRootLogin prohibit-password` unless it's already set to that and has a `#` in front of it
+1. 如果 `#AuthorizedKeysFile` 被注释掉，则取消注释（通过删除前面的 `#`）
+2. 将 `KbdInteractiveAuthentication yes` 更改为 `KbdInteractiveAuthentication no` 并取消注释（通过删除前面的 `#`） - **注意，较旧版本的 SSH 将此选项称为 `ChallengeResponseAuthentication` 而不是 `KbdInteractiveAuthentication`**
+3. 将 `PasswordAuthentication yes` 更改为 `PasswordAuthentication no` 并取消注释（通过删除前面的 `#`）
+4. 将 `PermitRootLogin yes` 更改为 `PermitRootLogin prohibit-password`，除非它已经设置为该值并且前面有 `#`
 
-Once you're done, save with `Ctrl+O` and `Enter`, then exit with `Ctrl+X`.
+完成后，使用 `Ctrl+O` 和 `Enter` 保存，然后使用 `Ctrl+X` 退出。
 
-Finally, run `sudo sshd -T | grep -i passwordauthentication` and make sure that it prints `passwordauthentication no`.  
-If it does not, you may need to run `sudo nano /etc/ssh/sshd_config.d/50-cloud-init.conf` and set `PasswordAuthentication yes` to `PasswordAuthentication no` in that file as well.
-Save and exit as before, with `Ctrl+O` and `Enter`, then `Ctrl+X`
+最后，运行 `sudo sshd -T | grep -i passwordauthentication` 并确保它打印 `passwordauthentication no`。
+如果没有，你可能还需要运行 `sudo nano /etc/ssh/sshd_config.d/50-cloud-init.conf` 并将该文件中的 `PasswordAuthentication yes` 设置为 `PasswordAuthentication no`。
+像以前一样使用 `Ctrl+O` 和 `Enter`，然后 `Ctrl+X` 保存并退出
 
-Next, restart the SSH server so it picks up the new settings:
+接下来，重新启动 SSH 服务器以使其采用新设置：
 
 ```shell
 sudo systemctl restart ssh.service
 ```
 
-After this, logging into SSH via a username and password should be disabled.
+在此之后，通过用户名和密码登录 SSH 应该被禁用。
 
-::: warning NOTE
-At this point, you should exit the SSH session and try to SSH back in.
-If you are able to do so successfully, then your SSH configuration is still valid!
+::: warning 注意
+此时，你应该退出 SSH 会话并尝试重新通过 SSH 登录。
+如果你能够成功执行此操作，那么你的 SSH 配置仍然有效！
 
-If you are **not** able to get back in, then something has gone wrong with your configuration.
-Use the backup SSH session you created at the start of this section to modify the `/etc/ssh/sshd_config` file.
+如果你**无法**重新登录，那么你的配置出了问题。
+使用你在本节开始时创建的备份 SSH 会话来修改 `/etc/ssh/sshd_config` 文件。
 
-Try to find the mistake or undo your changes, then restart the SSH server using `sudo systemctl restart sshd`.
+尝试找到错误或撤消更改，然后使用 `sudo systemctl restart sshd` 重新启动 SSH 服务器。
 
-Once it's been restarted, try connecting with SSH again on your "other" terminal.
-Keep doing this until you have it working again and are able to successfully connect.
+重新启动后，在"另一个"终端上再次尝试使用 SSH 连接。
+继续这样做，直到它再次正常工作并且你能够成功连接。
 :::
 
-### (Optional) Enable Two-Factor Authentication
+### （可选）启用双因素身份验证
 
-Two-factor authentication involves requiring a second security measure in addition to your password or SSH key, usually on a separate device from your primary one.
+双因素身份验证涉及除密码或 SSH 密钥外还需要第二个安全措施，通常是在与主设备分开的设备上。
 
-For example, you may be familiar with logging into a website such as a crypto exchange using both a password and a Google Authenticator code (or an SMS code).
-This two-step process is an example of two-factor authentication.
+例如，你可能熟悉使用密码和 Google Authenticator 代码（或短信代码）登录到网站（例如加密货币交易所）。
+这个两步过程是双因素身份验证的一个例子。
 
-SSH can also be configured to require a Google Authenticator code, which means that an attacker that somehow compromised your SSH key and its passphrase would **still need the device with the authenticator app on it** (presumably your phone).
-This adds an extra layer of security to your system.
+SSH 也可以配置为需要 Google Authenticator 代码，这意味着以某种方式破坏了你的 SSH 密钥及其密码的攻击者**仍然需要带有身份验证器应用程序的设备**（大概是你的手机）。
+这为你的系统增加了一层额外的安全性。
 
-::: danger WARNING
-We **strongly recommend** that you open a second terminal with an SSH connection to your node, just in case you misconfigure something.
-This way, you will have a backup that is still connected in case you lock yourself out, so you can easily undo your mistakes.
+::: danger 警告
+我们**强烈建议**你在第二个终端中打开与节点的 SSH 连接，以防你配置错误。
+这样，如果你将自己锁定在外面，你将拥有一个仍然连接的备份，以便你可以轻松撤消错误。
 
-If you **do** manage to lock yourself out, you will need to physically access your node via its local monitor and keyboard to log in and repair the misconfiguration.
+如果你**确实**设法将自己锁定在外面，你将需要通过其本地显示器和键盘物理访问节点以登录并修复配置错误。
 :::
 
-Start by installing [Google Authenticator](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en_US&gl=US) (or a compatible equivalent) on your phone if you don't already have it.
-For Android users, consider [andOTP](https://play.google.com/store/apps/details?id=org.shadowice.flocke.andotp&hl=en_US&gl=US) which is an open-source alternative that supports password locking and convenient backups.
+首先在手机上安装 [Google Authenticator](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en_US&gl=US)（或兼容的替代品），如果你还没有的话。
+对于 Android 用户，考虑 [andOTP](https://play.google.com/store/apps/details?id=org.shadowice.flocke.andotp&hl=en_US&gl=US)，这是一个支持密码锁定和方便备份的开源替代品。
 
-Next, install the Google Authenticator module on your node with this command:
+接下来，使用以下命令在节点上安装 Google Authenticator 模块：
 
 ```shell
 sudo apt install -y libpam-google-authenticator
 ```
 
-Now tell the `PAM` (pluggable authentication modules) to use this module.
-First, open the config file:
+现在告诉 `PAM`（可插拔身份验证模块）使用此模块。
+首先，打开配置文件：
 
 ```shell
 sudo nano /etc/pam.d/sshd
 ```
 
-Find `@include common-auth` (it should be at the top) and comment it out by adding a `#` in front of it, so it looks like this:
+找到 `@include common-auth`（它应该在顶部）并通过在其前面添加 `#` 来注释掉它，使其如下所示：
 
 ```
 # Standard Un*x authentication.
 #@include common-auth
 ```
 
-Next, add these lines to the top of the file:
+接下来，将这些行添加到文件顶部：
 
 ```shell
 # Enable Google Authenticator
 auth required pam_google_authenticator.so
 ```
 
-Then save and exit the file with `Ctrl+O`, `Enter`, and `Ctrl+X`.
+然后使用 `Ctrl+O`、`Enter` 和 `Ctrl+X` 保存并退出文件。
 
-Now that `PAM` knows to use Google Authenticator, the next step is to tell `sshd` to use `PAM`.
-Open the `sshd` config file:
+现在 `PAM` 知道使用 Google Authenticator，下一步是告诉 `sshd` 使用 `PAM`。
+打开 `sshd` 配置文件：
 
 ```shell
 sudo nano /etc/ssh/sshd_config
 ```
 
-Now change the line `KbdInteractiveAuthentication no` to `KbdInteractiveAuthentication yes` so it looks like this:
+现在将行 `KbdInteractiveAuthentication no` 更改为 `KbdInteractiveAuthentication yes`，使其如下所示：
 
 ```
 # Change to yes to enable challenge-response passwords (beware issues with
@@ -440,32 +440,32 @@ Now change the line `KbdInteractiveAuthentication no` to `KbdInteractiveAuthenti
 KbdInteractiveAuthentication yes
 ```
 
-(Older versions of SSH call this option `ChallengeResponseAuthentication` instead of `KbdInteractiveAuthentication`.)
+（较旧版本的 SSH 将此选项称为 `ChallengeResponseAuthentication` 而不是 `KbdInteractiveAuthentication`。）
 
-Add the following line to the bottom of the file, which indicates to `sshd` that it needs both an SSH key and the Google Authenticator code:
+将以下行添加到文件底部，这向 `sshd` 指示它同时需要 SSH 密钥和 Google Authenticator 代码：
 
 ```shell
 AuthenticationMethods publickey,keyboard-interactive:pam
 ```
 
-Then save and exit the file with `Ctrl+O`, `Enter`, and `Ctrl+X`.
+然后使用 `Ctrl+O`、`Enter` 和 `Ctrl+X` 保存并退出文件。
 
-Now that `sshd` is set up, we need to create our 2FA codes.
-In your terminal, run:
+现在 `sshd` 已设置好，我们需要创建我们的 2FA 代码。
+在你的终端中运行：
 
 ```shell
 google-authenticator
 ```
 
-First, it will ask you about time-based tokens.
-Say `y` to this question:
+首先，它会询问你关于基于时间的令牌。
+对此问题回答 `y`：
 
 ```
 Do you want authentication tokens to be time-based: y
 ```
 
-You will now see a big QR code on your screen; scan it with your Google Authenticator app to add it.
-You will also see your secret and a few backup codes looking like this:
+你现在将在屏幕上看到一个大二维码；使用 Google Authenticator 应用程序扫描它以添加它。
+你还会看到你的秘密和一些备份代码，如下所示：
 
 ```
 Your new secret key is: IRG2TALMR5U2LK5VQ5AQIG3HA4
@@ -478,12 +478,12 @@ Your emergency scratch codes are:
   82649596
 ```
 
-::: warning NOTE
-Record the emergency scratch codes somewhere safe in case you need to log into the machine but don't have your 2FA app handy.
-Without the app, you will no longer be able to SSH into the machine!
+::: warning 注意
+将紧急临时代码记录在安全的地方，以防你需要登录到机器但没有 2FA 应用程序。
+没有应用程序，你将无法再通过 SSH 连接到机器！
 :::
 
-Finally, it will ask you for some more parameters; the recommended defaults are as follows:
+最后，它会询问你一些更多的参数；推荐的默认值如下：
 
 ```
 Do you want me to update your "/<username>/.google_authenticator" file: y
@@ -492,33 +492,33 @@ By default... < long story about time skew > ... Do you want to do so: n
 Do you want to enable rate-limiting: y
 ```
 
-Once you're done, restart `sshd` so it grabs the new settings:
+完成后，重新启动 `sshd` 以使其获取新设置：
 
 ```shell
 sudo systemctl restart sshd
 ```
 
-When you try to SSH into your server with your SSH keys, you should now also be asked for a 2FA verification code, but not for a password.
+当你尝试使用 SSH 密钥通过 SSH 连接到服务器时，现在还应该要求你输入 2FA 验证码，但不需要密码。
 
-## ESSENTIAL: Enable Automatic Security Updates
+## 必要：启用自动安全更新
 
-Operating System vendors routinely publish updates and security fixes, so it is important that you keep your system up to date with the latest patches.
-The easiest way to do this is to enable automatic updates.
+操作系统供应商定期发布更新和安全修复，因此使用最新补丁保持系统最新非常重要。
+最简单的方法是启用自动更新。
 
-Run the following commands **on your node machine**:
+在**节点机器**上运行以下命令：
 
 ```shell
 sudo apt update
 sudo apt install -y unattended-upgrades update-notifier-common
 ```
 
-You can change the auto-update settings by editing `/etc/apt/apt.conf.d/20auto-upgrades`:
+你可以通过编辑 `/etc/apt/apt.conf.d/20auto-upgrades` 来更改自动更新设置：
 
 ```shell
 sudo nano /etc/apt/apt.conf.d/20auto-upgrades
 ```
 
-This is an example of reasonable auto-update settings:
+这是一个合理的自动更新设置示例：
 
 ```shell
 APT::Periodic::Update-Package-Lists "1";
@@ -533,94 +533,94 @@ Unattended-Upgrade::Automatic-Reboot "true";
 Unattended-Upgrade::Automatic-Reboot-Time "02:00";
 ```
 
-When you are done adding your changes, save with `Ctrl+O` and `Enter`, then exit with `Ctrl+X`.
+完成添加更改后，使用 `Ctrl+O` 和 `Enter` 保存，然后使用 `Ctrl+X` 退出。
 
-After, make sure to load the new settings:
+之后，确保加载新设置：
 
 ```shell
 sudo systemctl restart unattended-upgrades
 ```
 
-## ESSENTIAL: Enable a Firewall
+## 必要：启用防火墙
 
-In general, your machine should only accept network traffic on ports that your Execution client, Consensus client, and Smartnode stack use.
-To enforce that and prevent any unexpected or undesirable traffic, we can install a **firewall** on the node.
+通常，你的机器应该只接受执行客户端、共识客户端和 Smartnode 堆栈使用的端口上的网络流量。
+为了强制执行这一点并防止任何意外或不需要的流量，我们可以在节点上安装**防火墙**。
 
-::: tip NOTE
-If you selected a different execution/consensus client port during the Rocketpool setup, you need to edit the ports below to reflect your settings.
+::: tip 注意
+如果你在 Rocketpool 设置期间选择了不同的执行/共识客户端端口，则需要编辑下面的端口以反映你的设置。
 :::
 
-Ubuntu comes with `ufw` installed by default (the **u**ncomplicated **f**ire **w**all), which is a convenient utility for managing your node's firewall settings.
+Ubuntu 默认安装了 `ufw`（**u**ncomplicated **f**ire **w**all），这是一个用于管理节点防火墙设置的便捷实用程序。
 
-The following commands will set `ufw` up with a good default configuration for your Smartnode.
-**Run these on your node machine**.
+以下命令将为你的 Smartnode 设置 `ufw` 的良好默认配置。
+**在节点机器上运行这些命令**。
 
-Disable connections unless they're explicitly allowed by later rules:
+禁用连接，除非它们被后续规则明确允许：
 
 ```shell
 sudo ufw default deny incoming comment 'Deny all incoming traffic'
 ```
 
-Allow SSH:
+允许 SSH：
 
 ```shell
 sudo ufw allow "22/tcp" comment 'Allow SSH'
 ```
 
-Allow execution client (formerly referred to as ETH1):
+允许执行客户端（以前称为 ETH1）：
 
 ```shell
 sudo ufw allow 30303/tcp comment 'Execution client port, standardized by Rocket Pool'
 sudo ufw allow 30303/udp comment 'Execution client port, standardized by Rocket Pool'
 ```
 
-Allow consensus client (formerly referred to as ETH2):
+允许共识客户端（以前称为 ETH2）：
 
 ```shell
 sudo ufw allow 9001/tcp comment 'Consensus client port, standardized by Rocket Pool'
 sudo ufw allow 9001/udp comment 'Consensus client port, standardized by Rocket Pool'
 ```
 
-If you run lighthouse client v4.5.0+, you can use quic protocol to reduce latency / increase bandwidth, quic protocol uses lighthouse's --port + 1 to listen for quic messages by default: https://lighthouse-blog.sigmaprime.io/Quic,%20Networking.html
+如果你运行 lighthouse 客户端 v4.5.0+，你可以使用 quic 协议来减少延迟/增加带宽，quic 协议默认使用 lighthouse 的 --port + 1 来监听 quic 消息：https://lighthouse-blog.sigmaprime.io/Quic,%20Networking.html
 
 ```shell
 sudo ufw allow 8001/udp comment 'Consensus client port, standardised by Rocket Pool'
 ```
 
-Finally, enable `ufw`:
+最后，启用 `ufw`：
 
 ```shell
 sudo ufw enable
 ```
 
-::: tip NOTE
-`iptables` experts might note that Docker bypasses `ufw` settings.
-Strictly speaking, that means unless you are running in Hybrid mode, you do not need the Execution and Consensus client rules.
-Adding them, however, has no downside and will make sure that if you ever switch to Hybrid mode you will not run into firewall issues.
+::: tip 注意
+`iptables` 专家可能会注意到 Docker 绕过 `ufw` 设置。
+严格来说，这意味着除非你在混合模式下运行，否则不需要执行客户端和共识客户端规则。
+但是，添加它们没有任何缺点，并且将确保如果你切换到混合模式，你不会遇到防火墙问题。
 :::
 
-## (Optional) Enable Brute-Force and DDoS Protection
+## （可选）启用暴力破解和 DDoS 保护
 
-To protect your server from DDoS attacks and brute-force connection attempts, you can install `fail2ban`.
-This program will monitor incoming connections and block IP addresses that try to log in with faulty credentials repeatedly.
+为了保护你的服务器免受 DDoS 攻击和暴力连接尝试，你可以安装 `fail2ban`。
+此程序将监视传入连接并阻止反复尝试使用错误凭据登录的 IP 地址。
 
-See [this guide](https://github.com/imthenachoman/How-To-Secure-A-Linux-Server#application-intrusion-detection-and-prevention-with-fail2ban) for more information on intrusion prevention.
+有关入侵防护的更多信息，请参阅[本指南](https://github.com/imthenachoman/How-To-Secure-A-Linux-Server#application-intrusion-detection-and-prevention-with-fail2ban)。
 
-Run the following commands **on your node machine**:
+在**节点机器**上运行以下命令：
 
-Install the service:
+安装服务：
 
 ```shell
 sudo apt install -y fail2ban
 ```
 
-Next, open `/etc/fail2ban/jail.d/ssh.local`:
+接下来，打开 `/etc/fail2ban/jail.d/ssh.local`：
 
 ```shell
 sudo nano /etc/fail2ban/jail.d/ssh.local
 ```
 
-Add the following contents to it:
+向其中添加以下内容：
 
 ```
 [sshd]
@@ -632,15 +632,15 @@ logpath = %(sshd_log)s
 maxretry = 5
 ```
 
-You can change the `maxretry` setting, which is the number of attempts it will allow before locking the offending address out.
+你可以更改 `maxretry` 设置，这是在锁定违规地址之前允许的尝试次数。
 
-Once you're done, save and exit with `Ctrl+O` and `Enter`, then `Ctrl+X`.
+完成后，使用 `Ctrl+O` 和 `Enter` 保存并退出，然后使用 `Ctrl+X`。
 
-Finally, restart the service:
+最后，重新启动服务：
 
 ```shell
 sudo systemctl restart fail2ban
 ```
 
-And with that, you've just greatly improved the security posture of your node.
-Congratulations!
+至此，你刚刚大大改善了节点的安全态势。
+恭喜！

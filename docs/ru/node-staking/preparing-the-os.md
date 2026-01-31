@@ -1,3 +1,3 @@
-# Preparing the Operating System
+# Подготовка операционной системы
 
-[TBD] This should be where we describe how to do things like setting up a 2nd hard drive if applicable, running an IOPS test with `fio`, setting up swap space... everything someone might need to do. The `fio` test is important I think, but the other stuff might be skippable.
+[TBD] Здесь должно быть описание того, как делать такие вещи, как настройка второго жесткого диска, если применимо, запуск теста IOPS с `fio`, настройка пространства подкачки... все, что может понадобиться кому-то. Тест `fio` важен, я думаю, но другие вещи могут быть пропущены.

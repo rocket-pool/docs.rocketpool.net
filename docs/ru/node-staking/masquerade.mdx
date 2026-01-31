@@ -1,10 +1,8 @@
-# Masquerading as Another Node Address
+# Маскировка под другой адрес Node
 
-Starting with Smartnode version `v1.15.7`, users will be able to mock the behaviour of an arbitrary address. While masquerading as another address,
-your node will continue the node and watchtower task loop using your node address and perform duties such as attesting using your validator keys. You will not be able
-to submit transactions or sign messages as the masqueraded address. This feature is especially useful for support and debugging.
+Начиная с версии Smartnode `v1.15.7`, пользователи могут имитировать поведение произвольного адреса. Во время маскировки под другой адрес ваш node продолжит цикл задач node и watchtower, используя адрес вашего node, и будет выполнять такие обязанности, как аттестация, используя ключи вашего validator. Вы не сможете отправлять транзакции или подписывать сообщения от имени маскируемого адреса. Эта функция особенно полезна для поддержки и отладки.
 
-If you wish to interact with the Smartnode through the lens of another node address, please use the following command: `rocketpool wallet masquerade`
+Если вы хотите взаимодействовать со Smartnode через призму другого адреса node, используйте следующую команду: `rocketpool wallet masquerade`
 
 ```
 rp@user:~$ rocketpool wallet masquerade
@@ -23,7 +21,7 @@ y
 Your node is now masquerading as address 0xcaB549EdE082592D10FE6a238e7e8914aD3a074d.
 ```
 
-When you are finished with masquerade mode, simply run `rocketpool wallet end-masquerade` and follow the prompts:
+Когда вы закончите с режимом маскировки, просто запустите `rocketpool wallet end-masquerade` и следуйте подсказкам:
 
 ```
 rp@user:~$ rocketpool wallet end-masquerade
@@ -36,7 +34,7 @@ y
 Successfully ended masquerade mode.
 ```
 
-Additionally, you can check the status of your node wallet by running `rocketpool wallet status`:
+Кроме того, вы можете проверить статус кошелька вашего node, выполнив `rocketpool wallet status`:
 
 ```
 rp@node:~$ rocketpool wallet status

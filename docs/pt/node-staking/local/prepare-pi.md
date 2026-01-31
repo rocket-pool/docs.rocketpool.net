@@ -1,63 +1,63 @@
-# Preparing a Raspberry Pi
+# Preparando um Raspberry Pi
 
-::: warning NOTE
-This page has been left here for archival purposes. We no longer recommend running Rocket Pool on a Raspberry Pi due to the
-increased hardware and performance requirements of running an Ethereum validator.
+::: warning NOTA
+Esta página foi deixada aqui para fins de arquivo. Não recomendamos mais executar o Rocket Pool em um Raspberry Pi devido aos
+requisitos aumentados de hardware e desempenho de executar um validador Ethereum.
 :::
 
-This guide will walk you through how run a Rocket Pool node using a Raspberry Pi.
-While this is not typically recommended in most staking guides, we recognize that it is attractive because it is a much more affordable option than standing up an entire PC.
-To that end, we've worked hard to tweak and optimize a whole host of settings and have determined a configuration that seems to work well.
+Este guia irá orientá-lo sobre como executar um nó Rocket Pool usando um Raspberry Pi.
+Embora isso não seja tipicamente recomendado na maioria dos guias de staking, reconhecemos que é atraente porque é uma opção muito mais acessível do que montar um PC completo.
+Para esse fim, trabalhamos duro para ajustar e otimizar uma série de configurações e determinamos uma configuração que parece funcionar bem.
 
-This setup will run **a full Execution node** and **a full Consensus node** on the Pi, making your system contribute to the health of the Ethereum network while simultaneously acting as a Rocket Pool node operator.
+Esta configuração executará **um nó Execution completo** e **um nó Consensus completo** no Pi, fazendo seu sistema contribuir para a saúde da rede Ethereum enquanto simultaneamente atua como um operador de nó Rocket Pool.
 
-## Preliminary Setup
+## Configuração Preliminar
 
-To run a Rocket Pool node on a Raspberry Pi, you'll need to first have a working Raspberry Pi.
-If you already have one up and running - great! You can skip down to the [Mounting the SSD](#mounting-the-ssd) section.
-Just make sure you have **a fan attached** before you go.
-If you're starting from scratch, then read on.
+Para executar um nó Rocket Pool em um Raspberry Pi, você precisará primeiro ter um Raspberry Pi funcionando.
+Se você já tem um instalado e funcionando - ótimo! Você pode pular para a seção [Montando o SSD](#montando-o-ssd).
+Apenas certifique-se de ter **um ventilador conectado** antes de prosseguir.
+Se você está começando do zero, continue lendo.
 
-### What You'll Need
+### O Que Você Precisará
 
-These are the recommended components that you'll need to buy in order to run Rocket Pool on a Pi:
+Estes são os componentes recomendados que você precisará comprar para executar o Rocket Pool em um Pi:
 
-- A **Raspberry Pi 4 Model B**, the **8 GB model**
-  - Note: while you _can_ use a 4 GB with this setup, we strongly recommend you go with an 8 GB for peace of mind... it's really not much more expensive.
-- A **USB-C power supply** for the Pi. You want one that provides **at least 3 amps**.
-- A **MicroSD card**. It doesn't have to be big, 16 GB is plenty and they're pretty cheap now... but it should be at least a **Class 10 (U1)**.
-- A **MicroSD to USB** adapter for your PC. This is needed so you can install the Operating System onto the card before loading it into the Pi.
-  If your PC already has an SD port, then you don't need to pick up a new one.
-- Some **heatsinks**. You're going to be running the Pi under heavy load 24/7, and it's going to get hot.
-  Heatsinks will help so it doesn't throttle itself. You ideally want a set of 3: one for the CPU, one for the RAM, and one for the USB controller.
-  [Here is a good example of a nice set](https://www.canakit.com/raspberry-pi-4-heat-sinks.html).
-- A **case**. There are two ways to go here: with a fan, and fanless.
-  - With a fan:
-    - A 40mm **fan**. Same as the above, the goal is to keep things cool while running your Rocket Pool node.
-    - A **case with a fan mount** to tie it all together.
-      You could also get a case with integrated fans [like this one](https://www.amazon.com/Raspberry-Armor-Metal-Aluminium-Heatsink/dp/B07VWM4J4L) so you don't have to buy the fans separately.
-  - Without a fan:
-    - A **fanless case** that acts as one giant heatsink, like [this one](https://www.amazon.com/Akasa-RA08-M1B-Raspberry-case-Aluminium/dp/B081VYVNTX).
-      This is a nice option since it's silent, but your Pi **will** get quite hot - especially during the initial blockchain sync process.
-      Credit to Discord user Ken for pointing us in this direction!
-  - As a general rule, we recommend going **with a fan** because we're going to be overclocking the Pi significantly.
+- Um **Raspberry Pi 4 Model B**, o **modelo de 8 GB**
+  - Nota: embora você _possa_ usar um de 4 GB com esta configuração, recomendamos fortemente que você escolha um de 8 GB para maior tranquilidade... não é muito mais caro.
+- Uma **fonte de alimentação USB-C** para o Pi. Você precisa de uma que forneça **pelo menos 3 amperes**.
+- Um **cartão MicroSD**. Ele não precisa ser grande, 16 GB é suficiente e agora são bastante baratos... mas deve ser pelo menos **Class 10 (U1)**.
+- Um **adaptador de MicroSD para USB** para seu PC. Isso é necessário para que você possa instalar o Sistema Operacional no cartão antes de carregá-lo no Pi.
+  Se seu PC já tem uma porta SD, então você não precisa comprar um novo.
+- Alguns **dissipadores de calor**. Você vai executar o Pi sob carga pesada 24/7, e ele vai esquentar.
+  Os dissipadores de calor ajudarão para que ele não se auto-regule. Idealmente você quer um conjunto de 3: um para a CPU, um para a RAM e um para o controlador USB.
+  [Aqui está um bom exemplo de um conjunto legal](https://www.canakit.com/raspberry-pi-4-heat-sinks.html).
+- Um **case**. Existem duas opções aqui: com ventilador e sem ventilador.
+  - Com ventilador:
+    - Um **ventilador** de 40mm. Assim como acima, o objetivo é manter as coisas frias enquanto executa seu nó Rocket Pool.
+    - Um **case com suporte para ventilador** para amarrar tudo junto.
+      Você também pode obter um case com ventiladores integrados [como este](https://www.amazon.com/Raspberry-Armor-Metal-Aluminium-Heatsink/dp/B07VWM4J4L) para não ter que comprar os ventiladores separadamente.
+  - Sem ventilador:
+    - Um **case sem ventilador** que atua como um dissipador de calor gigante, como [este](https://www.amazon.com/Akasa-RA08-M1B-Raspberry-case-Aluminium/dp/B081VYVNTX).
+      Esta é uma opção agradável já que é silenciosa, mas seu Pi **vai** ficar bastante quente - especialmente durante o processo inicial de sincronização da blockchain.
+      Crédito ao usuário do Discord Ken por nos apontar nesta direção!
+  - Como regra geral, recomendamos ir **com um ventilador** porque vamos fazer overclock no Pi significativamente.
 
-You can get a lot of this stuff bundled together for convenience - for example, [Canakit offers a kit](https://www.amazon.com/CanaKit-Raspberry-8GB-Starter-Kit/dp/B08956GVXN) with many components included.
-However, you might be able to get it all cheaper if you get the parts separately (and if you have the equipment, you can [3D print your own Pi case](https://www.thingiverse.com/thing:3793664).)
+Você pode obter muitos desses itens agrupados para conveniência - por exemplo, [a Canakit oferece um kit](https://www.amazon.com/CanaKit-Raspberry-8GB-Starter-Kit/dp/B08956GVXN) com muitos componentes incluídos.
+No entanto, você pode conseguir tudo mais barato se comprar as peças separadamente (e se você tiver o equipamento, pode [imprimir em 3D seu próprio case para Pi](https://www.thingiverse.com/thing:3793664).)
 
-Other components you'll need:
+Outros componentes que você precisará:
 
-- A **USB 3.0+ Solid State Drive**. The general recommendation is for a **2 TB drive**.
-  - The [Samsung T5](https://www.amazon.com/Samsung-T5-Portable-SSD-MU-PA2T0B/dp/B073H4GPLQ) is an excellent example of one that is known to work well.
-  - :warning: Using a SATA SSD with a SATA-to-USB adapter is **not recommended** because of [problems like this](https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=245931).
-    If you go this route, we've included a performance test you can use to check if it will work or not in the [Testing the SSD's Performance](#testing-the-ssd-s-performance) section.
-- An **ethernet cable** for internet access. It should be at least **Cat 5e** rated.
-  - Running a node over Wi-Fi is **not recommended**, but if you have no other option, you can do it instead of using an ethernet cable.
-- A **UPS** to act as a power source if you ever lose electricity.
-  The Pi really doesn't draw much power, so even a small UPS will last for a while, but generally the bigger, the better. Go with as big of a UPS as you can afford.
-  Also, we recommend you **attach your modem, router, and other network equipment** to it as well - not much point keeping your Pi alive if your router dies.
+- Um **SSD USB 3.0+**. A recomendação geral é para um **drive de 2 TB**.
+  - O [Samsung T5](https://www.amazon.com/Samsung-T5-Portable-SSD-MU-PA2T0B/dp/B073H4GPLQ) é um excelente exemplo de um que é conhecido por funcionar bem.
+  - :warning: Usar um SSD SATA com um adaptador SATA para USB **não é recomendado** por causa de [problemas como este](https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=245931).
+    Se você for por esse caminho, incluímos um teste de desempenho que você pode usar para verificar se vai funcionar ou não na seção [Testando o Desempenho do SSD](#testando-o-desempenho-do-ssd).
+- Um **cabo ethernet** para acesso à internet. Deve ser pelo menos **Cat 5e**.
+  - Executar um nó via Wi-Fi **não é recomendado**, mas se você não tiver outra opção, pode fazê-lo em vez de usar um cabo ethernet.
+- Um **UPS** para atuar como fonte de energia se você perder eletricidade.
+  O Pi realmente não consome muita energia, então mesmo um UPS pequeno durará um bom tempo, mas geralmente quanto maior, melhor. Vá com o maior UPS que você puder pagar.
+  Além disso, recomendamos que você **conecte seu modem, roteador e outros equipamentos de rede** nele também - não adianta muito manter seu Pi vivo se seu roteador morrer.
 
-Depending on your location, sales, your choice of SSD and UPS, and how many of these things you already have, you're probably going to end up spending **around $200 to $500 USD** for a complete setup.
+Dependendo da sua localização, vendas, sua escolha de SSD e UPS, e quantos desses itens você já possui, você provavelmente acabará gastando **cerca de $200 a $500 USD** para uma configuração completa.
 
 ### Making the Fan Run More Quietly
 

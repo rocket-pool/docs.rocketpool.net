@@ -1,84 +1,84 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Pruning the Execution Client
+# Podar el Cliente de Ejecución
 
-::: tip NOTE
-This is meant for `geth` and `nethermind` users.
-Besu does _not_ need to be pruned.
+::: tip NOTA
+Esto está destinado a usuarios de `geth` y `nethermind`.
+Besu _no_ necesita ser podado.
 :::
 
-If you use `geth` or `nethermind` as your primary Execution client, you will likely notice that your node's free disk space slowly decreases over time.
-The Execution client is by far the biggest contributor to this; depending on how much RAM you allocated to its cache during `rocketpool service config`, it can grow at a rate of several gigabytes per day!
+Si usas `geth` o `nethermind` como tu cliente de Ejecución principal, probablemente notarás que el espacio libre en disco de tu nodo disminuye lentamente con el tiempo.
+El cliente de Ejecución es, con mucho, el mayor contribuyente a esto; ¡dependiendo de cuánta RAM asignaste a su caché durante `rocketpool service config`, puede crecer a una tasa de varios gigabytes por día!
 
-To handle this, Execution clients provide a special function called **pruning** that lets them scan and clean up their database safely to reclaim some free space.
-Every node operator using Geth or Nethermind will have to prune it eventually.
+Para manejar esto, los clientes de Ejecución proporcionan una función especial llamada **podado** que les permite escanear y limpiar su base de datos de forma segura para recuperar algo de espacio libre.
+Todo operador de nodo que use Geth o Nethermind tendrá que podarlo eventualmente.
 
-If you have a 2 TB SSD, you can usually go for months between rounds of pruning.
-For 1 TB SSD users, you will have to prune more frequently.
+Si tienes un SSD de 2 TB, generalmente puedes pasar meses entre rondas de podado.
+Para usuarios de SSD de 1 TB, tendrás que podar con más frecuencia.
 
-If you have [the Grafana dashboard](./grafana) enabled, a good rule of thumb is to start thinking about pruning your Execution client when your node's used disk space exceeds 80%.
+Si tienes [el panel de Grafana](./grafana) habilitado, una buena regla general es comenzar a pensar en podar tu cliente de Ejecución cuando el espacio en disco usado de tu nodo supere el 80%.
 
-When you decide that it's time, the Smartnode comes with the ability to prune it for you upon request.
-Read below to learn how it works, and what to expect.
+Cuando decidas que es hora, el Smartnode viene con la capacidad de podarlo por ti bajo petición.
+Lee a continuación para aprender cómo funciona y qué esperar.
 
-::: warning NOTE
-Pruning your Execution client is only possible in Docker Mode.
+::: warning NOTA
+Podar tu cliente de Ejecución solo es posible en Docker Mode.
 
-If you use your own Execution client, such as an external client in Hybrid mode or Native mode, you cannot use the Smartnode to prune the Execution client.
-You will need to do it manually.
-Please refer to the documentation for your Execution client to learn how to prune it.
+Si usas tu propio cliente de Ejecución, como un cliente externo en modo Hybrid o modo Native, no puedes usar el Smartnode para podar el cliente de Ejecución.
+Tendrás que hacerlo manualmente.
+Consulta la documentación de tu cliente de Ejecución para aprender cómo podarlo.
 :::
 
-## Prerequisites
+## Prerrequisitos
 
-Select the client you're using from the tabs below.
+Selecciona el cliente que estás usando en las pestañas a continuación.
 
 <div className="p-3">
   <Tabs>
     <Tab label="Geth">
-      Pruning Geth means taking the primary Execution client offline so it can clean itself up.
-      When this happens, the Smartnode (and your Consensus client) will need some other way to access the ETH1 chain in order to function properly.
+      Podar Geth significa poner el cliente de Ejecución principal fuera de línea para que pueda limpiarse.
+      Cuando esto sucede, el Smartnode (y tu cliente de Consenso) necesitarán alguna otra forma de acceder a la cadena ETH1 para funcionar correctamente.
 
-      The easiest way to provide this is with a **fallback node**.
-      If you [configured a fall back node](./fallback) using `rocketpool service config` already, then the Smartnode will automatically switch over to it when your Geth container goes down for maintenance for you.
-      It will also inform your Consensus client to use the fallback as well.
+      La forma más fácil de proporcionar esto es con un **nodo de respaldo**.
+      Si ya [configuraste un nodo de respaldo](./fallback) usando `rocketpool service config`, entonces el Smartnode cambiará automáticamente a él cuando tu contenedor Geth se caiga para mantenimiento.
+      También informará a tu cliente de Consenso que use el respaldo también.
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">WARNING</p>
-        If you don't have a fallback node configured, your node will stop validating during the pruning process.
-        It will miss all attestations and block proposals until it's finished and has resynced with the network.
-        **You will leak ETH due to missed validations during this time!**
+        <p className="rspress-directive-title">ADVERTENCIA</p>
+        Si no tienes un nodo de respaldo configurado, tu nodo dejará de validar durante el proceso de podado.
+        Perderá todas las attestations y propuestas de bloques hasta que haya terminado y se haya resincronizado con la red.
+        **¡Perderás ETH debido a validaciones perdidas durante este tiempo!**
       </p>
 
-      With that in mind, the following two conditions are required to successfully prune Geth:
+      Con eso en mente, las siguientes dos condiciones son requeridas para podar Geth con éxito:
 
-      - A working fallback node configured
-      - At least **50 GB** of free space remaining on your SSD
+      - Un nodo de respaldo funcional configurado
+      - Al menos **50 GB** de espacio libre restante en tu SSD
     </Tab>
     <Tab label="Nethermind">
-      Nethermind is able to stay online while it prunes, meaning you do not require a fallback node to continue attesting.
-      Note, however, that pruning is **an extremely resource-intesive task** and you may see an increase in your attestations' inclusion distance and missed attestations during it.
+      Nethermind puede permanecer en línea mientras se poda, lo que significa que no requieres un nodo de respaldo para continuar atestando.
+      Ten en cuenta, sin embargo, que el podado es **una tarea extremadamente intensiva en recursos** y puedes ver un aumento en la distancia de inclusión de tus attestations y attestations perdidas durante el proceso.
 
-      Nethermind does not require any special prerequisites; you are able to prune it at any time.
+      Nethermind no requiere prerrequisitos especiales; puedes podarlo en cualquier momento.
     </Tab>
 
   </Tabs>
 </div>
 
-## Starting a Prune
+## Iniciar un Podado
 
-Select the client you're using from the tabs below.
+Selecciona el cliente que estás usando en las pestañas a continuación.
 
 <div className="p-3">
   <Tabs>
     <Tab label="Geth">
-      When you want to prune Geth, simply run this command:
+      Cuando quieras podar Geth, simplemente ejecuta este comando:
 
       ```shell
       rocketpool service prune-eth1
       ```
 
-      If you do not have a fallback client pair enabled, you will receive the following warning:
+      Si no tienes un par de clientes de respaldo habilitado, recibirás la siguiente advertencia:
 
       ```
       This will shut down your main execution client and prune its database, freeing up disk space.
@@ -90,7 +90,7 @@ Select the client you're using from the tabs below.
       Are you sure you want to prune your main execution client? [y/n]
       ```
 
-      If you do have one enabled, you will see the following prompt instead:
+      Si tienes uno habilitado, verás el siguiente mensaje en su lugar:
 
       ```
       This will shut down your main execution client and prune its database, freeing up disk space.
@@ -100,7 +100,7 @@ Select the client you're using from the tabs below.
       Are you sure you want to prune your main execution client? [y/n]
       ```
 
-      If you accept, you'll see a few details as the Smartnode prepares things; it should end with a success message:
+      Si aceptas, verás algunos detalles mientras el Smartnode prepara las cosas; debería terminar con un mensaje de éxito:
 
       ```
       Are you sure you want to prune your main ETH1 client? [y/n]
@@ -117,23 +117,23 @@ Select the client you're using from the tabs below.
       You must let it run to completion!
       ```
 
-      With that, Geth is now pruning and you're all set!
-      You can follow its progress with:
+      Con eso, ¡Geth ahora está podando y estás listo!
+      Puedes seguir su progreso con:
 
       ```shell
       rocketpool service logs eth1
       ```
 
-      Once it's done pruning, it will restart automatically and the Smartnode will resume using it again instead of your fallback.
+      Una vez que haya terminado de podar, se reiniciará automáticamente y el Smartnode reanudará su uso en lugar de tu respaldo.
     </Tab>
     <Tab label="Nethermind">
-      When you want to prune Nethermind, simply run this command:
+      Cuando quieras podar Nethermind, simplemente ejecuta este comando:
 
       ```shell
       rocketpool service prune-eth1
       ```
 
-      You will see the following prompt:
+      Verás el siguiente mensaje:
 
       ```
       This will shut down your main execution client and prune its database, freeing up disk space.
@@ -142,7 +142,7 @@ Select the client you're using from the tabs below.
       Are you sure you want to prune your main execution client? [y/n]
       ```
 
-      If you accept, you'll see a few messages similar to the following:
+      Si aceptas, verás algunos mensajes similares a los siguientes:
 
       ```
       Your disk has 790 GiB free, which is enough to prune.
@@ -161,14 +161,14 @@ Select the client you're using from the tabs below.
       You must let it run to completion!
       ```
 
-      With that, Nethermind is now pruning and you're all set!
-      You can follow its progress with:
+      Con eso, ¡Nethermind ahora está podando y estás listo!
+      Puedes seguir su progreso con:
 
       ```shell
       rocketpool service logs eth1
       ```
 
-      Once it's done pruning, it will restart automatically.
+      Una vez que haya terminado de podar, se reiniciará automáticamente.
     </Tab>
 
   </Tabs>

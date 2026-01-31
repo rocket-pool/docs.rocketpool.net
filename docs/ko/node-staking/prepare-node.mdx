@@ -2,225 +2,214 @@ import { Tab, Tabs } from "@rspress/core/theme";
 import nodeAddress from "./images/nodeaddress.png";
 import rplWithdrawalConfirmation from "./images/rpl_withdrawal_confirmation.png";
 
-# Preparing your Node for Operation
+# 노드 운영 준비하기
 
-If you're here, then you've successfully started the Smartnode services, created a wallet, and finished syncing both the Execution and Consensus chains on your respective clients.
-If so, then you are ready to register your node on the Rocket Pool network and create a minipool with a validator!
-If not, please review the previous sections and return here once you've completed those steps.
+여기에 있다면 Smartnode 서비스를 성공적으로 시작하고 지갑을 생성했으며 각 클라이언트에서 Execution 및 Consensus 체인 동기화를 완료한 것입니다.
+그렇다면 Rocket Pool 네트워크에 노드를 등록하고 validator와 함께 minipool을 생성할 준비가 된 것입니다!
+그렇지 않다면 이전 섹션을 검토하고 해당 단계를 완료한 후 여기로 돌아오십시오.
 
-Before creating a new minipool and validator, there are a few steps to take to finish preparing your node.
-These only need to be done once though; once you've done them, you can skip to the [Creating a New Minipool](./create-validator.mdx) section if you want to create multiple minipools on your node.
+새 minipool 및 validator를 생성하기 전에 노드 준비를 완료하기 위해 몇 가지 단계를 거쳐야 합니다.
+한 번만 수행하면 됩니다. 완료하면 노드에서 여러 minipool을 생성하려는 경우 [새 Minipool 생성](./create-validator.mdx) 섹션으로 건너뛸 수 있습니다.
 
-## Loading your Node Wallet
+## 노드 지갑 로드하기
 
-Registering your node and standing up a validator both involve submitting transactions to the Ethereum network from your node wallet.
-This means **you'll need to have some ETH on it** to pay for the gas costs of those transactions.
-You'll also need to stake some of the **RPL token** prior to creating a minipool as collateral; you can do this directly on the node, or (preferably) you can use the Rocket Pool website's **Stake on Behalf** function to stake for your node with RPL in your cold wallet.
-We'll discuss the Stake on Behalf feature later in this guide when it's time to stake your RPL.
+노드를 등록하고 validator를 설정하는 것은 노드 지갑에서 Ethereum 네트워크에 트랜잭션을 제출하는 것을 포함합니다.
+이는 해당 트랜잭션의 가스 비용을 지불하기 위해 **ETH가 있어야 함**을 의미합니다.
+또한 minipool을 생성하기 전에 담보로 일부 **RPL 토큰**을 스테이킹해야 합니다. 노드에서 직접 수행하거나 (선호하는 방법으로) Rocket Pool 웹사이트의 **Stake on Behalf** 기능을 사용하여 콜드 지갑의 RPL로 노드에 스테이킹할 수 있습니다.
+RPL을 스테이킹할 때가 되면 이 가이드 후반부에서 Stake on Behalf 기능에 대해 설명하겠습니다.
 
-The ETH required for gas fees to set up a node with one minipool is about 0.0025 ETH times the current gas price in gwei.
-For example, with a gas price of 30 gwei, you would pay about 0.075 ETH in gas fees.
+하나의 minipool로 노드를 설정하는 데 필요한 가스 수수료용 ETH는 현재 가스 가격(gwei)에 약 0.0025 ETH를 곱한 값입니다.
+예를 들어 가스 가격이 30 gwei인 경우 가스 수수료로 약 0.075 ETH를 지불하게 됩니다.
 
-See [this worksheet](https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552) to help estimate the gas fees for various network conditions.
+다양한 네트워크 조건에 대한 가스 수수료를 추정하는 데 도움이 되는 [이 워크시트](https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552)를 참조하십시오.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Running on the Hoodi Test Network">
-      f you're running on the Hoodi test network, please see the [Practicing with the Test Network](/en/testnet/overview) section to learn how to acquire test ETH.
+    <Tab label="Hoodi 테스트 네트워크에서 실행">
+      Hoodi 테스트 네트워크에서 실행 중인 경우 테스트 ETH를 획득하는 방법을 알아보려면 [테스트 네트워크에서 연습하기](/ko/testnet/overview) 섹션을 참조하십시오.
 
-      For test RPL, we have added a similar faucet function directly to the CLI.
-      Please see the [Getting Test RPL on Hoodi](/en/testnet/overview#getting-test-rpl-on-hoodi) guide to acquire some.
+      테스트 RPL의 경우 CLI에 유사한 faucet 기능을 직접 추가했습니다.
+      일부를 획득하려면 [Hoodi에서 테스트 RPL 받기](/ko/testnet/overview#getting-test-rpl-on-hoodi) 가이드를 참조하십시오.
     </Tab>
-    <Tab label="Running on the Main Network">
-      We assume that you already have a separate Ethereum-compatible wallet that is holding your ETH.
-      If you need RPL, you can purchase it on a centralized exchange such as [Kraken](https://www.kraken.com/prices/rocket-pool?quote=usd) or a decentralized exchange such as [Balancer](https://app.balancer.fi/#/trade/ether/0xD33526068D116cE69F19A9ee46F0bd304F21A51f).
+    <Tab label="메인 네트워크에서 실행">
+      ETH를 보유하고 있는 별도의 Ethereum 호환 지갑이 이미 있다고 가정합니다.
+      RPL이 필요한 경우 [Kraken](https://www.kraken.com/prices/rocket-pool?quote=usd)과 같은 중앙화된 거래소 또는 [Balancer](https://app.balancer.fi/#/trade/ether/0xD33526068D116cE69F19A9ee46F0bd304F21A51f)와 같은 탈중앙화된 거래소에서 구매할 수 있습니다.
 
-      Start by transferring some ETH from your existing wallet to the node wallet.
-      If running on Mainnet, **leave your RPL on the wallet you used to purchase it.**
+      기존 지갑에서 노드 지갑으로 ETH를 전송하는 것으로 시작하십시오.
+      Mainnet에서 실행 중인 경우 **RPL은 구매하는 데 사용한 지갑에 남겨두십시오.**
 
-      As a reminder, you can use `rocketpool wallet status` to get the address of the node wallet if you need it.
-      If you are not sure how to send cryptocurrency from your existing wallet, please consult your wallet's documentation.
+      필요한 경우 `rocketpool wallet status`를 사용하여 노드 지갑의 주소를 얻을 수 있습니다.
+      기존 지갑에서 암호화폐를 보내는 방법을 모르는 경우 지갑 설명서를 참조하십시오.
 
       <p className="rspress-directive danger">
-        <p className="rspress-directive-title">WARNING</p>
-        Sending cryptocurrency across wallets is a non-reversible operation!
-        If you enter the wrong recipient address, **there is no way to retrieve your tokens**.
-        We recommend you send a small amount of ETH first as a **test transaction** to verify that you correctly entered the node wallet's address, and then **whitelist** that address in your other wallet, if possible, to avoid mistyping it.
+        <p className="rspress-directive-title">경고</p>
+        지갑 간 암호화폐 전송은 되돌릴 수 없는 작업입니다!
+        잘못된 수신자 주소를 입력하면 **토큰을 복구할 방법이 없습니다**.
+        먼저 소량의 ETH를 **테스트 트랜잭션**으로 보내 노드 지갑의 주소를 올바르게 입력했는지 확인한 다음 가능하면 다른 지갑에서 해당 주소를 **화이트리스트**에 추가하여 잘못 입력하지 않도록 하는 것이 좋습니다.
       </p>
     </Tab>
 
   </Tabs>
 </div>
 
-## Registering your Node with the Network
+## 네트워크에 노드 등록하기
 
-Once you have ETH in your wallet, you can register your node with the Rocket Pool network to access all of its features.
-To do this, run the following command:
+지갑에 ETH가 있으면 Rocket Pool 네트워크에 노드를 등록하여 모든 기능에 액세스할 수 있습니다.
+이렇게 하려면 다음 명령을 실행하십시오:
 
 ```shell
 rocketpool node register
 ```
 
-This will prompt you for the timezone you want to register with.
-By default, this will detect the timezone from your system clock, but you can change it if you prefer.
-Any of the `Country/City` format timezones [listed on this page](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) should be acceptable.
+등록하려는 시간대를 입력하라는 메시지가 표시됩니다.
+기본적으로 시스템 시계에서 시간대를 감지하지만 원하는 경우 변경할 수 있습니다.
+[이 페이지에 나열된](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) `Country/City` 형식의 시간대는 모두 허용됩니다.
 
-::: tip NOTE
-The timezone is just used for the global map of node operators displayed on the main site.
-You don't need to set it to your actual timezone if you have security concerns.
-If you prefer to remain anonymous, use a generic option such as `Etc/UTC`.
+::: tip 참고
+시간대는 메인 사이트에 표시되는 노드 운영자의 글로벌 맵에만 사용됩니다.
+보안 문제가 있는 경우 실제 시간대로 설정할 필요가 없습니다.
+익명을 유지하고 싶다면 `Etc/UTC`와 같은 일반 옵션을 사용하십시오.
 :::
 
-Once this is complete, you will officially be a member of the Rocket Pool network!
+완료되면 공식적으로 Rocket Pool 네트워크의 구성원이 됩니다!
 
-## Setting your Primary Withdrawal Address
+## Primary Withdrawal Address 설정하기
 
-Before anything else, we highly recommended you change the **primary withdrawal address** for your node.
-This is the address that all of your RPL checkpoint rewards, your staked RPL, and your Beacon Chain ETH will be sent to when you claim your checkpoint rewards or exit your validator and withdraw from your minipool.
+무엇보다도 먼저 노드의 **primary withdrawal address**를 변경하는 것을 강력히 권장합니다.
+이것은 체크포인트 보상을 청구하거나 validator를 종료하고 minipool에서 출금할 때 모든 RPL 체크포인트 보상, 스테이킹된 RPL 및 Beacon Chain ETH가 전송될 주소입니다.
 
-Optionally, you can set a withdrawal address for your ETH and [a new one for your RPL](https://rpips.rocketpool.net/RPIPs/RPIP-31). The RPL withdrawal address if set will be able to trigger and claim RPL from inflation rewards and will have no effect on ETH consensus rewards or anything related to ETH. If you haven't set an RPL withdrawal address, the Primary Withdrawal Address will receive RPL rewards as well. By default, **whoever controls the primary withdrawal address can access ALL your staked RPL, ETH, and rewards.**
+선택적으로 ETH에 대한 출금 주소를 설정하고 [RPL에 대한 새 주소](https://rpips.rocketpool.net/RPIPs/RPIP-31)를 설정할 수 있습니다. 설정된 경우 RPL 출금 주소는 인플레이션 보상에서 RPL을 트리거하고 청구할 수 있으며 ETH 합의 보상 또는 ETH와 관련된 모든 것에는 영향을 미치지 않습니다. RPL 출금 주소를 설정하지 않은 경우 Primary Withdrawal Address가 RPL 보상도 받습니다. 기본적으로 **primary withdrawal address를 제어하는 사람은 스테이킹된 모든 RPL, ETH 및 보상에 액세스할 수 있습니다.**
 
-The address used to supply a node with ETH should be the primary withdrawal address for the node. Click [here](../legacy/houston/stake-eth-on-behalf.mdx) to read about **staking ETH on behalf of a node**.
+노드에 ETH를 공급하는 데 사용되는 주소가 노드의 primary withdrawal address여야 합니다. **노드를 대신하여 ETH 스테이킹**에 대해 읽으려면 [여기](../legacy/houston/stake-eth-on-behalf.mdx)를 클릭하십시오.
 
-::: warning NOTE
-Upon setting up your node for the first time, this is set to your node's wallet address.
-However, for security reasons, **it is vitally important to set this to a different address controlled by a cold wallet.**
-A cold wallet could be a hardware wallet (such as a [Ledger](https://www.ledger.com/), [Trezor](https://trezor.io/), or [Grid+](https://gridplus.io/)), or a Smart Contract wallet (such as [Argent](https://www.argent.xyz/)).
+::: warning 참고
+처음 노드를 설정할 때 이것은 노드의 지갑 주소로 설정됩니다.
+그러나 보안상의 이유로 **콜드 지갑이 제어하는 다른 주소로 설정하는 것이 매우 중요합니다.**
+콜드 지갑은 하드웨어 지갑 ([Ledger](https://www.ledger.com/), [Trezor](https://trezor.io/) 또는 [Grid+](https://gridplus.io/)와 같은) 또는 Smart Contract 지갑 ([Argent](https://www.argent.xyz/)와 같은)일 수 있습니다.
 
-We **strongly recommend** that you DO NOT use a hot wallet such as MetaMask as your primary withdrawal address.
+MetaMask와 같은 핫 지갑을 primary withdrawal address로 사용하지 **않는** 것을 **강력히 권장합니다**.
 
-This way, if your node wallet is compromised, the attacker doesn't get access to your staked ETH and RPL by forcing you to exit because all of those funds will be sent to your separate cold wallet (which they hopefully do not have).
+이렇게 하면 노드 지갑이 손상되더라도 공격자가 강제로 종료하여 스테이킹된 ETH 및 RPL에 액세스할 수 없습니다. 해당 자금은 모두 별도의 콜드 지갑 (바라건대 가지고 있지 않은)으로 전송되기 때문입니다.
 
-Primary withdrawal addresses are set at a node operator level.
-If you create multiple minipools, they will all refer to the same primary withdrawal address so you only need to perform this setup once.
+Primary withdrawal address는 노드 운영자 수준에서 설정됩니다.
+여러 minipool을 생성하는 경우 모두 동일한 primary withdrawal address를 참조하므로 이 설정을 한 번만 수행하면 됩니다.
 
-[See here](https://ethereum.org/en/security/#wallet-security) for some basics on wallet security from the Ethereum Foundation.
+Ethereum Foundation의 지갑 보안에 대한 기본 사항은 [여기](https://ethereum.org/en/security/#wallet-security)를 참조하십시오.
 :::
 
-There are two different ways to do this.
-Please read both options below to determine which one applies to you.
+이를 수행하는 두 가지 다른 방법이 있습니다.
+어떤 것이 적용되는지 확인하려면 아래의 두 옵션을 모두 읽으십시오.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Method 1">
-      **Use this method if your new primary withdrawal address can be used to sign transactions via MetaMask or WalletConnect.**
+    <Tab label="방법 1">
+      **새 primary withdrawal address가 MetaMask 또는 WalletConnect를 통해 트랜잭션에 서명하는 데 사용될 수 있는 경우 이 방법을 사용하십시오.**
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        This method will require you to **submit a transaction** from your new primary withdrawal address, so **you must have a small amount of ETH in that address already.**
+        <p className="rspress-directive-title">참고</p>
+        이 방법은 새 primary withdrawal address에서 **트랜잭션을 제출**해야 하므로 **해당 주소에 이미 소량의 ETH가 있어야 합니다.**
       </p>
 
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        For users of **Ledger** hardware wallets, note that Ledger Live does not yet support MetaMask or WalletConnect natively.
-        You will need to use MetaMask and connect it to your Ledger instead.
-        Follow [the official Ledger instructions](https://www.ledger.com/academy/security/the-safest-way-to-use-metamask) to do this.
+        <p className="rspress-directive-title">참고</p>
+        **Ledger** 하드웨어 지갑 사용자의 경우 Ledger Live는 아직 MetaMask 또는 WalletConnect를 기본적으로 지원하지 않습니다.
+        대신 MetaMask를 사용하고 Ledger에 연결해야 합니다.
+        이렇게 하려면 [공식 Ledger 지침](https://www.ledger.com/academy/security/the-safest-way-to-use-metamask)을 따르십시오.
 
-        To work with the Rocket Pool website, you will need to have your Ledger connected, unlocked, and the ETH app open.
-        You will also need to **enable "blind signing"** for the current session; you can find this within the Settings portion of the ETH app on the device.
-        Bind signing will automatically be disabled after you close the session.
+        Rocket Pool 웹사이트와 작업하려면 Ledger를 연결하고 잠금 해제한 상태에서 ETH 앱을 열어야 합니다.
+        또한 현재 세션에 대해 **"blind signing"을 활성화**해야 합니다. 장치의 ETH 앱 내 설정 부분에서 찾을 수 있습니다.
+        Bind signing은 세션을 닫으면 자동으로 비활성화됩니다.
 
-        If you are using Hoodi Testnet and want to use your Ledger as your primary withdrawal address, **you must create a new Ethereum wallet on your Ledger** first to ensure you don't connect your live address to the test network, which tends to cause confusion.
-        Make sure to select the **Hoodi Testnet** in the network selection dropdown when connecting your Ledger to MetaMask.
-        Note that Ledger Live will not show your balance on the test network, but other applications which support the test network (such as MetaMask and Etherscan) will be able to display it.
+        Hoodi Testnet을 사용하고 Ledger를 primary withdrawal address로 사용하려는 경우 테스트 네트워크에 라이브 주소를 연결하여 혼란을 일으키지 않도록 먼저 **Ledger에서 새 Ethereum 지갑을 생성**해야 합니다.
+        Ledger를 MetaMask에 연결할 때 네트워크 선택 드롭다운에서 **Hoodi Testnet**을 선택해야 합니다.
+        Ledger Live는 테스트 네트워크의 잔액을 표시하지 않지만 테스트 네트워크를 지원하는 다른 애플리케이션 (MetaMask 및 Etherscan과 같은)은 표시할 수 있습니다.
       </p>
 
-      1. Run `rocketpool node set-primary-withdrawal-address 'your cold wallet address or ENS name'`. Your new primary withdrawal address will be marked as "pending". Until you confirm it, **your old primary withdrawal address will still be used**.
-      2. To confirm it, you must send a special transaction **from your new primary withdrawal address** to the minipool contract to verify that you own the primary withdrawal address.
-      1. The easiest way to do this is to navigate to the Rocket Pool primary withdrawal address site (for the [Hoodi Testnet](https://testnet.node.rocketpool.net/primary-withdrawal-address) or for [Mainnet](https://node.rocketpool.net/primary-withdrawal-address)).
-      3. If you haven't already connected Metamask or WalletConnect to the Rocket Pool website, do this now. Click the **select wallet** button in the center of the screen, and choose MetaMask or WalletConnect based on which wallet you would like to use. You will then be prompted asking you to confirm the connection. For example, using MetaMask:
+      1. `rocketpool node set-primary-withdrawal-address 'your cold wallet address or ENS name'`을 실행하십시오. 새 primary withdrawal address는 "pending"으로 표시됩니다. 확인할 때까지 **이전 primary withdrawal address가 계속 사용됩니다**.
+      2. 확인하려면 **새 primary withdrawal address**에서 minipool 계약으로 특수 트랜잭션을 보내 primary withdrawal address를 소유하고 있음을 확인해야 합니다.
+      1. 이를 수행하는 가장 쉬운 방법은 Rocket Pool primary withdrawal address 사이트 ([Hoodi Testnet](https://testnet.node.rocketpool.net/primary-withdrawal-address) 또는 [Mainnet](https://node.rocketpool.net/primary-withdrawal-address))로 이동하는 것입니다.
+      3. Rocket Pool 웹사이트에 Metamask 또는 WalletConnect를 아직 연결하지 않은 경우 지금 수행하십시오. 화면 중앙의 **select wallet** 버튼을 클릭하고 사용하려는 지갑에 따라 MetaMask 또는 WalletConnect를 선택합니다. 그러면 연결을 확인하라는 메시지가 표시됩니다. 예를 들어 MetaMask를 사용하는 경우:
 
-      Click **Next**, then click **Confirm** to enable the Rocket Pool website to use your wallet. 3. Select **primary Withdrawal Address** from the top menu (or the hamburger menu on the left side if you're on a mobile device). 4. You will see this prompt:
+      **Next**를 클릭한 다음 **Confirm**을 클릭하여 Rocket Pool 웹사이트가 지갑을 사용할 수 있도록 합니다. 3. 상단 메뉴 (또는 모바일 장치를 사용하는 경우 왼쪽의 햄버거 메뉴)에서 **primary Withdrawal Address**를 선택합니다. 4. 다음 프롬프트가 표시됩니다:
 
-      4. Type your **node wallet address** here and click on the **Check Mark button** to continue.
+      4. 여기에 **노드 지갑 주소**를 입력하고 **Check Mark button**을 클릭하여 계속하십시오.
 
-      1. You will be prompted with a question asking if you want to set a new node primary withdrawal address or confirm a pending one. Select **Confirm**.
-      2. Now, there should be a new confirmation dialog in your wallet. Again, using MetaMask as an example, click the MetaMask icon to open it and you should see something like this:
+      1. 새 노드 primary withdrawal address를 설정할지 또는 보류 중인 주소를 확인할지 묻는 메시지가 표시됩니다. **Confirm**을 선택하십시오.
+      2. 이제 지갑에 새 확인 대화 상자가 있어야 합니다. 다시 말하지만 MetaMask를 예로 사용하면 MetaMask 아이콘을 클릭하여 열면 다음과 같은 것이 표시되어야 합니다:
 
-      Click **Confirm** to send the transaction to the network. This will take some time until it gets included in a block, but once it does, you will see a confirmation dialog:
+      **Confirm**을 클릭하여 트랜잭션을 네트워크에 보냅니다. 블록에 포함될 때까지 시간이 걸리지만 완료되면 확인 대화 상자가 표시됩니다:
 
       <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/confirm_pending_withdrawal.mp4" />
 
-      5. Your new primary withdrawal address will now be confirmed and activated. You can view this with `rocketpool node status`.
+      5. 이제 새 primary withdrawal address가 확인되고 활성화됩니다. `rocketpool node status`로 확인할 수 있습니다.
     </Tab>
-    <Tab label="Method 2">
-      **Use this method only if your primary withdrawal address _cannot_ be used to sign transactions via MetaMask or WalletConnect.**
+    <Tab label="방법 2">
+      **primary withdrawal address가 MetaMask 또는 WalletConnect를 통해 트랜잭션에 서명하는 데 사용될 수 없는 경우에만 이 방법을 사용하십시오.**
 
-      In this method, you will run:
+      이 방법에서는 다음을 실행합니다:
 
       ```shell
       rocketpool node set-primary-withdrawal-address --force 'your cold wallet address'
       ```
 
-      You will be offered the chance to send a test transaction before confirming this, to ensure that you have the right address.
-      If you confirm this command when it prompts you, your new primary withdrawal address will be set immediately.
+      올바른 주소가 있는지 확인하기 위해 이를 확인하기 전에 테스트 트랜잭션을 보낼 기회가 제공됩니다.
+      프롬프트가 표시될 때 이 명령을 확인하면 새 primary withdrawal address가 즉시 설정됩니다.
 
       ::: danger
-      By doing this, you bypass the safety measure associated with Method 1, which requires you to prove that you own the new address.
-      If you make a typo here, there is no way to undo it and **your minipool's rewards will be lost forever**.
+      이렇게 하면 새 주소를 소유하고 있음을 증명해야 하는 방법 1과 관련된 안전 조치를 우회하게 됩니다.
+      여기에서 오타를 범하면 실행 취소할 방법이 없으며 **minipool의 보상이 영원히 손실됩니다**.
 
-      We **strongly** encourage you to use the test transaction mechanism before confirming this, and if possible, use Method 1 instead.
+      이를 확인하기 전에 테스트 트랜잭션 메커니즘을 사용하고 가능하면 방법 1을 대신 사용하는 것을 **강력히** 권장합니다.
     </Tab>
 
   </Tabs>
 </div>
 
-Once this is done, you will **no longer be able to change your primary withdrawal address using the `set-primary-withdrawal-address` command**.
-To change it, you will need to send a signed transaction from your **active** primary withdrawal address (the one you just switched to).
-The Rocket Pool website has a function to help you do this.
+완료되면 **더 이상 `set-primary-withdrawal-address` 명령을 사용하여 primary withdrawal address를 변경할 수 없습니다**.
+변경하려면 **활성** primary withdrawal address (방금 전환한 주소)에서 서명된 트랜잭션을 보내야 합니다.
+Rocket Pool 웹사이트에는 이를 수행하는 데 도움이 되는 기능이 있습니다.
 
-## Setting your Snapshot Signalling Address
+## Snapshot Signalling Address 설정하기
 
-Setting your Snapshot signalling address will allow you to participate in Snapshot votes on a browser or mobile device
-without having to expose node keys to a hot wallet.
+Snapshot signalling address를 설정하면 노드 키를 핫 지갑에 노출하지 않고도 브라우저 또는 모바일 장치에서 Snapshot 투표에 참여할 수 있습니다.
 
-There are a few things to prepare:
+준비할 몇 가지 사항이 있습니다:
 
-- Your node's address
-- An address you want to use for snapshot voting (signalling address)
+- 노드의 주소
+- snapshot 투표에 사용할 주소 (signalling address)
 
-You'll be signing a message saying that your node's address can delegate to the new address. This message states your
-intent to use your wallet address as a Snapshot signalling address.
+노드의 주소가 새 주소에 위임할 수 있다는 메시지에 서명합니다. 이 메시지는 지갑 주소를 Snapshot signalling address로 사용하려는 의도를 나타냅니다.
 
-Select which network you're using from one of the tabs below.
+사용 중인 네트워크를 아래 탭 중 하나에서 선택하십시오.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Hoodi Testnet">If you're trying this out on Hoodi testnet, you can sign on this page: https://testnet.node.rocketpool.net/signalling-address</Tab>
-    <Tab label="Mainnet">If you're ready to configure this on mainnet, go here instead: https://node.rocketpool.net/signalling-address</Tab>
+    <Tab label="Hoodi Testnet">Hoodi testnet에서 시도하는 경우 이 페이지에서 서명할 수 있습니다: https://testnet.node.rocketpool.net/signalling-address</Tab>
+    <Tab label="Mainnet">mainnet에서 구성할 준비가 되었다면 대신 여기로 이동하십시오: https://node.rocketpool.net/signalling-address</Tab>
   </Tabs>
 </div>
 
-:::danger WARNING
-Do not load your node's private key onto a hot wallet. Please choose another account to be your signalling address.
-After setting the signalling address, you can use it to vote on Snapshot with your node's voting power.
+:::danger 경고
+노드의 개인 키를 핫 지갑에 로드하지 마십시오. signalling address가 될 다른 계정을 선택하십시오.
+signalling address를 설정한 후 Snapshot에서 노드의 투표권으로 투표하는 데 사용할 수 있습니다.
 :::
 
-Start by **connecting the address you want to use as a signalling address** to the website using MetaMask,
-WalletConnect, or any of the other methods the website supports. You will then be presented with this dialog to look up
-your node address.
+MetaMask, WalletConnect 또는 웹사이트가 지원하는 다른 방법을 사용하여 **signalling address로 사용할 주소를 연결**하여 시작하십시오. 그러면 노드 주소를 조회하는 이 대화 상자가 표시됩니다.
 
-Next, you'll enter your node address then click the orange "Find" button. This will check if the address is a registered
-node and then bring you to the next step.
+다음으로 노드 주소를 입력한 다음 주황색 "Find" 버튼을 클릭합니다. 그러면 주소가 등록된 노드인지 확인한 다음 다음 단계로 이동합니다.
 
-:::tip TIP
-**Make sure you have the correct node address before doing this!** if you need to confirm your node's address, you can
-quickly retrieve it via the CLI using the `rocketpool node status` command.
+:::tip 팁
+**이 작업을 수행하기 전에 올바른 노드 주소가 있는지 확인하십시오!** 노드의 주소를 확인해야 하는 경우 `rocketpool node status` 명령을 사용하여 CLI를 통해 빠르게 검색할 수 있습니다.
 :::
 
-Once you've signed in and confirmed your node address, you'll see your **Snapshot signalling address**. It should be the
-same as the account you've signed into the site with. Double check that this is correct before proceeding. Once you're
-confident that you're signed into the desired account, click the orange "Sign Message" button. You'll see a prompt in
-your wallet extension app to sign the following message:
+로그인하고 노드 주소를 확인하면 **Snapshot signalling address**가 표시됩니다. 사이트에 로그인한 계정과 동일해야 합니다. 계속하기 전에 올바른지 다시 확인하십시오. 원하는 계정에 로그인했다고 확신하면 주황색 "Sign Message" 버튼을 클릭하십시오. 지갑 확장 앱에서 다음 메시지에 서명하라는 프롬프트가 표시됩니다:
 
 ```
 `snapshot signalling address` may delegate to me for Rocket Pool governance
 ```
 
-Signing won't cost you any gas but setting will. After you sign, the frontend will give you a command to paste into the
-smartnode. Go ahead and paste it into your smartnode's CLI and follow the prompted steps. The command should look
-something like this:
+서명하는 데 가스가 들지 않지만 설정하는 데 가스가 듭니다. 서명한 후 프론트엔드는 smartnode에 붙여넣을 명령을 제공합니다. smartnode의 CLI에 붙여넣고 프롬프트 단계를 따르십시오. 명령은 다음과 같아야 합니다:
 
 ```shell
 rocketpool pdao set-signalling-address
@@ -228,125 +217,123 @@ rocketpool pdao set-signalling-address
 `EIP712 signature`
 ```
 
-If you see this message in your CLI, you're all set!
+CLI에서 이 메시지가 표시되면 모두 설정된 것입니다!
 
 ```
 The node's signalling address was successfully set to `snapshot signalling address`
 ```
 
-:::tip TIP
-Don't worry if you accidentally close the site or lose track of the command. You can simply repeat the steps and **sign
-again using the same node address and signalling address**. The frontend uses `signer.Signmessage()` from the ethers
-library, which means your signature is deterministic given the same input.
-Click [here](https://docs.ethers.org/v6/api/providers/#cid_865) to learn more.
+:::tip 팁
+실수로 사이트를 닫거나 명령을 잃어버려도 걱정하지 마십시오. 단순히 단계를 반복하고 **동일한 노드 주소와 signalling address를 사용하여 다시 서명**하면 됩니다. 프론트엔드는 ethers 라이브러리의 `signer.Signmessage()`를 사용하므로 동일한 입력이 주어지면 서명이 결정적입니다.
+자세히 알아보려면 [여기](https://docs.ethers.org/v6/api/providers/#cid_865)를 클릭하십시오.
 :::
 
-Clearing your signalling address is pretty easy, just use this command in the CLI:
+signalling address를 지우는 것은 매우 쉽습니다. CLI에서 이 명령을 사용하십시오:
 
 ```shell
 rocketpool pdao clear-signalling-address
 ```
 
-## Setting your RPL Withdrawal Address
+## RPL Withdrawal Address 설정하기
 
-It's important to understand the difference between your [primary withdrawal address](./prepare-node#setting-your-primary-withdrawal-address) and your RPL withdrawal address. By default, your RPL withdrawal address is unset and your Primary withdrawal address is where all of your RPL checkpoint rewards, your staked RPL, and Beacon Chain ETH will be sent to.
+[primary withdrawal address](./prepare-node#setting-your-primary-withdrawal-address)와 RPL withdrawal address의 차이를 이해하는 것이 중요합니다. 기본적으로 RPL withdrawal address는 설정되지 않으며 Primary withdrawal address는 모든 RPL 체크포인트 보상, 스테이킹된 RPL 및 Beacon Chain ETH가 전송되는 곳입니다.
 
-You can set a [separate withdrawal address for your RPL](https://rpips.rocketpool.net/RPIPs/RPIP-31) if you wish. Your RPL withdrawal address if set will be able to trigger and claim RPL from inflation rewards and will have no effect on ETH consensus rewards or anything related to ETH. In this case, your Primary withdrawal address will no longer have any authority over RPL related actions.
+원하는 경우 [RPL에 대한 별도의 출금 주소](https://rpips.rocketpool.net/RPIPs/RPIP-31)를 설정할 수 있습니다. 설정된 경우 RPL withdrawal address는 인플레이션 보상에서 RPL을 트리거하고 청구할 수 있으며 ETH 합의 보상 또는 ETH와 관련된 모든 것에는 영향을 미치지 않습니다. 이 경우 Primary withdrawal address는 더 이상 RPL 관련 작업에 대한 권한이 없습니다.
 
-This creates some interesting opportunities where RPL can be supplied by an entity to a node operator that does not wish to have exposure to RPL. That entity can then claim RPL rewards for putting up the required insurance collateral for the node. In other words, this allows different actors to supply each collateral type.
+이것은 RPL에 노출되기를 원하지 않는 노드 운영자에게 RPL을 공급할 수 있는 흥미로운 기회를 만듭니다. 해당 엔티티는 노드에 필요한 보험 담보를 제공한 것에 대한 RPL 보상을 청구할 수 있습니다. 즉, 다른 행위자가 각 담보 유형을 공급할 수 있습니다.
 
-::: warning NOTE
-Upon setting up your node for the first time, your RPL withdrawal address defaults to being unset.
-If you choose to set an RPL withdrawal address, **it is vitally important to set this to a different address controlled by a cold wallet.**
-A cold wallet could be a hardware wallet (such as a [Ledger](https://www.ledger.com/), [Trezor](https://trezor.io/), or [Grid+](https://gridplus.io/)), or a Smart Contract wallet (such as [Safe](https://app.safe.global/welcome)).
+::: warning 참고
+처음 노드를 설정할 때 RPL withdrawal address는 기본적으로 설정되지 않습니다.
+RPL withdrawal address를 설정하기로 선택한 경우 **콜드 지갑이 제어하는 다른 주소로 설정하는 것이 매우 중요합니다.**
+콜드 지갑은 하드웨어 지갑 ([Ledger](https://www.ledger.com/), [Trezor](https://trezor.io/) 또는 [Grid+](https://gridplus.io/)와 같은) 또는 Smart Contract 지갑 ([Safe](https://app.safe.global/welcome)와 같은)일 수 있습니다.
 
-We **strongly recommend** that you DO NOT use a hot wallet such as MetaMask as your RPL withdrawal address.
+MetaMask와 같은 핫 지갑을 RPL withdrawal address로 사용하지 **않는** 것을 **강력히 권장합니다**.
 
-This way, if your node wallet is compromised, the attacker doesn't get access to your staked RPL by forcing you to exit because all of those funds will be sent to your separate cold wallet (which they hopefully do not have).
+이렇게 하면 노드 지갑이 손상되더라도 공격자가 강제로 종료하여 스테이킹된 RPL에 액세스할 수 없습니다. 해당 자금은 모두 별도의 콜드 지갑 (바라건대 가지고 있지 않은)으로 전송되기 때문입니다.
 
-RPL withdrawal addresses are set at a node operator level.
-If you create multiple minipools, they will all refer to the same RPL withdrawal address so you only need to perform this setup once.
+RPL withdrawal address는 노드 운영자 수준에서 설정됩니다.
+여러 minipool을 생성하는 경우 모두 동일한 RPL withdrawal address를 참조하므로 이 설정을 한 번만 수행하면 됩니다.
 
-[See here](https://ethereum.org/en/security/#wallet-security) for some basics on wallet security from the Ethereum Foundation.
+Ethereum Foundation의 지갑 보안에 대한 기본 사항은 [여기](https://ethereum.org/en/security/#wallet-security)를 참조하십시오.
 :::
 
-There are two different ways to do this.
-Please read both options below to determine which one applies to you.
+이를 수행하는 두 가지 다른 방법이 있습니다.
+어떤 것이 적용되는지 확인하려면 아래의 두 옵션을 모두 읽으십시오.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Method 1">
-      *Use this method if your new RPL withdrawal address can be used to sign transactions via MetaMask or WalletConnect.**
+    <Tab label="방법 1">
+      *새 RPL withdrawal address가 MetaMask 또는 WalletConnect를 통해 트랜잭션에 서명하는 데 사용될 수 있는 경우 이 방법을 사용하십시오.**
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        This method will require you to **submit a transaction** from your new RPL withdrawal address, so **you must have a small amount of ETH in that address already.**
+        <p className="rspress-directive-title">참고</p>
+        이 방법은 새 RPL withdrawal address에서 **트랜잭션을 제출**해야 하므로 **해당 주소에 이미 소량의 ETH가 있어야 합니다.**
       </p>
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        For users of **Ledger** hardware wallets, note that Ledger Live does not yet support MetaMask or WalletConnect natively.
-        You will need to use MetaMask and connect it to your Ledger instead.
-        Follow [the official Ledger instructions](https://www.ledger.com/academy/security/the-safest-way-to-use-metamask) to do this.
+        <p className="rspress-directive-title">참고</p>
+        **Ledger** 하드웨어 지갑 사용자의 경우 Ledger Live는 아직 MetaMask 또는 WalletConnect를 기본적으로 지원하지 않습니다.
+        대신 MetaMask를 사용하고 Ledger에 연결해야 합니다.
+        이렇게 하려면 [공식 Ledger 지침](https://www.ledger.com/academy/security/the-safest-way-to-use-metamask)을 따르십시오.
 
-        To work with the Rocket Pool website, you will need to have your Ledger connected, unlocked, and the ETH app open.
-        You will also need to **enable "blind signing"** for the current session; you can find this within the Settings portion of the ETH app on the device.
-        Bind signing will automatically be disabled after you close the session.
+        Rocket Pool 웹사이트와 작업하려면 Ledger를 연결하고 잠금 해제한 상태에서 ETH 앱을 열어야 합니다.
+        또한 현재 세션에 대해 **"blind signing"을 활성화**해야 합니다. 장치의 ETH 앱 내 설정 부분에서 찾을 수 있습니다.
+        Bind signing은 세션을 닫으면 자동으로 비활성화됩니다.
 
-        If you are using Hoodi Testnet and want to use your Ledger as your RPL withdrawal address, **you must create a new Ethereum wallet on your Ledger** first to ensure you don't connect your live address to the test network, which tends to cause confusion.
-        Make sure to select the **Hoodi Testnet** in the network selection dropdown when connecting your Ledger to MetaMask.
-        Note that Ledger Live will not show your balance on the test network, but other applications which support the test network (such as MetaMask and Etherscan) will be able to display it.
+        Hoodi Testnet을 사용하고 Ledger를 RPL withdrawal address로 사용하려는 경우 테스트 네트워크에 라이브 주소를 연결하여 혼란을 일으키지 않도록 먼저 **Ledger에서 새 Ethereum 지갑을 생성**해야 합니다.
+        Ledger를 MetaMask에 연결할 때 네트워크 선택 드롭다운에서 **Hoodi Testnet**을 선택해야 합니다.
+        Ledger Live는 테스트 네트워크의 잔액을 표시하지 않지만 테스트 네트워크를 지원하는 다른 애플리케이션 (MetaMask 및 Etherscan과 같은)은 표시할 수 있습니다.
       </p>
 
-      1. Run `rocketpool node set-rpl-withdrawal-address 'your cold wallet address or ENS name'`. Your new RPL withdrawal address will be marked as "pending". Until you confirm it, **your old RPL withdrawal address will still be used**.
-      2. To confirm it, you must send a special transaction **from your new RPL withdrawal address** to the minipool contract to verify that you own the RPL withdrawal address.
-      1. The easiest way to do this is to navigate to the Rocket Pool RPL withdrawal address site (for the [Hoodi Testnet](https://testnet.node.rocketpool.net/rpl-withdrawal-address) or for [Mainnet](https://node.rocketpool.net/rpl-withdrawal-address)).
-      3. If you haven't already connected Metamask or WalletConnect to the Rocket Pool website, do this now. Click the **select wallet** button in the center of the screen, and choose MetaMask or WalletConnect based on which wallet you would like to use. You will then be prompted asking you to confirm the connection. For example, using MetaMask:
+      1. `rocketpool node set-rpl-withdrawal-address 'your cold wallet address or ENS name'`을 실행하십시오. 새 RPL withdrawal address는 "pending"으로 표시됩니다. 확인할 때까지 **이전 RPL withdrawal address가 계속 사용됩니다**.
+      2. 확인하려면 **새 RPL withdrawal address**에서 minipool 계약으로 특수 트랜잭션을 보내 RPL withdrawal address를 소유하고 있음을 확인해야 합니다.
+      1. 이를 수행하는 가장 쉬운 방법은 Rocket Pool RPL withdrawal address 사이트 ([Hoodi Testnet](https://testnet.node.rocketpool.net/rpl-withdrawal-address) 또는 [Mainnet](https://node.rocketpool.net/rpl-withdrawal-address))로 이동하는 것입니다.
+      3. Rocket Pool 웹사이트에 Metamask 또는 WalletConnect를 아직 연결하지 않은 경우 지금 수행하십시오. 화면 중앙의 **select wallet** 버튼을 클릭하고 사용하려는 지갑에 따라 MetaMask 또는 WalletConnect를 선택합니다. 그러면 연결을 확인하라는 메시지가 표시됩니다. 예를 들어 MetaMask를 사용하는 경우:
 
-      Click **Next**, then click **Confirm** to enable the Rocket Pool website to use your wallet. 3. Select **RPL Withdrawal Address** from the top menu (or the hamburger menu on the left side if you're on a mobile device). 4. You will see this prompt:
+      **Next**를 클릭한 다음 **Confirm**을 클릭하여 Rocket Pool 웹사이트가 지갑을 사용할 수 있도록 합니다. 3. 상단 메뉴 (또는 모바일 장치를 사용하는 경우 왼쪽의 햄버거 메뉴)에서 **RPL Withdrawal Address**를 선택합니다. 4. 다음 프롬프트가 표시됩니다:
 
-      4. Type your **node wallet address** here and click on the orange **Find** button to continue.
+      4. 여기에 **노드 지갑 주소**를 입력하고 주황색 **Find** 버튼을 클릭하여 계속하십시오.
 
       <img src={nodeAddress} width="100%" height="auto"/>
 
-      1.  You will be prompted to confirm a pending RPL withdrawal address. This should be the same address you used while running this command previously: `rocketpool node set-rpl-withdrawal-address` Select **Confirm Pending** when you're ready.
-      2.  Now, there should be a new confirmation dialog in your wallet. Again, using MetaMask as an example, click the MetaMask icon to open it and you should see something like this:
+      1.  보류 중인 RPL withdrawal address를 확인하라는 메시지가 표시됩니다. 이전에 이 명령을 실행하는 동안 사용한 주소와 동일해야 합니다: `rocketpool node set-rpl-withdrawal-address` 준비가 되면 **Confirm Pending**을 선택하십시오.
+      2.  이제 지갑에 새 확인 대화 상자가 있어야 합니다. 다시 말하지만 MetaMask를 예로 사용하면 MetaMask 아이콘을 클릭하여 열면 다음과 같은 것이 표시되어야 합니다:
 
-      Click **Confirm** to send the transaction to the network. This will take some time until it gets included in a block, but once it does, you will see a confirmation dialog:
+      **Confirm**을 클릭하여 트랜잭션을 네트워크에 보냅니다. 블록에 포함될 때까지 시간이 걸리지만 완료되면 확인 대화 상자가 표시됩니다:
 
       <img src={rplWithdrawalConfirmation} width="100%" height="auto"/>
 
-      5. Your new RPL withdrawal address will now be confirmed and activated. You can view this with `rocketpool node status`.
+      5. 이제 새 RPL withdrawal address가 확인되고 활성화됩니다. `rocketpool node status`로 확인할 수 있습니다.
     </Tab>
-    <Tab label="Method 2">
-      **Use this method only if your RPL withdrawal address _cannot_ be used to sign transactions via MetaMask or WalletConnect.**
+    <Tab label="방법 2">
+      **RPL withdrawal address가 MetaMask 또는 WalletConnect를 통해 트랜잭션에 서명하는 데 사용될 수 없는 경우에만 이 방법을 사용하십시오.**
 
-      In this method, you will run:
+      이 방법에서는 다음을 실행합니다:
 
       ```shell
       rocketpool node set-rpl-withdrawal-address --force `your cold wallet address`
       ```
 
-      You will be offered the chance to send a test transaction before confirming this, to ensure that you have the right address.
-      If you confirm this command when it prompts you, your new RPL withdrawal address will be set immediately.
+      올바른 주소가 있는지 확인하기 위해 이를 확인하기 전에 테스트 트랜잭션을 보낼 기회가 제공됩니다.
+      프롬프트가 표시될 때 이 명령을 확인하면 새 RPL withdrawal address가 즉시 설정됩니다.
 
 
       <p className="rspress-directive danger">
-        By doing this, you bypass the safety measure associated with Method 1, which requires you to prove that you own the new address.
-        If you make a typo here, there is no way to undo it and **your minipool's rewards will be lost forever**.
+        이렇게 하면 새 주소를 소유하고 있음을 증명해야 하는 방법 1과 관련된 안전 조치를 우회하게 됩니다.
+        여기에서 오타를 범하면 실행 취소할 방법이 없으며 **minipool의 보상이 영원히 손실됩니다**.
 
-        We **strongly** encourage you to use the test transaction mechanism before confirming this, and if possible, use Method 1 instead.
+        이를 확인하기 전에 테스트 트랜잭션 메커니즘을 사용하고 가능하면 방법 1을 대신 사용하는 것을 **강력히** 권장합니다.
       </p>
     </Tab>
 
   </Tabs>
 </div>
 
-Once this is done, you will **no longer be able to change your RPL withdrawal address using the `set-rpl-withdrawal-address` command**.
-To change it, you will need to send a signed transaction from your **active** RPL withdrawal address (the one you just switched to).
-The Rocket Pool website has a function to help you do this.
+완료되면 **더 이상 `set-rpl-withdrawal-address` 명령을 사용하여 RPL withdrawal address를 변경할 수 없습니다**.
+변경하려면 **활성** RPL withdrawal address (방금 전환한 주소)에서 서명된 트랜잭션을 보내야 합니다.
+Rocket Pool 웹사이트에는 이를 수행하는 데 도움이 되는 기능이 있습니다.
 
-If you'd like to unset your RPL withdrawal address, the process is pretty simple. First thing, you'll want to navigate back to the RPL Withdrawl Address page on the Rocket Pool website.
+RPL withdrawal address를 설정 해제하려는 경우 프로세스는 매우 간단합니다. 먼저 Rocket Pool 웹사이트의 RPL Withdrawl Address 페이지로 다시 이동하십시오.
 
 <div className="p-3">
   <Tabs>
@@ -355,49 +342,49 @@ If you'd like to unset your RPL withdrawal address, the process is pretty simple
   </Tabs>
 </div>
 
-If you're signed in with the node's RPL withdrawal address, you should be able to click the **unset** button on the right here:
+노드의 RPL withdrawal address로 로그인한 경우 여기 오른쪽에 있는 **unset** 버튼을 클릭할 수 있어야 합니다:
 
 <img src="./images/unset_rpl_withdrawal.png" width="100%" height="auto" />
 
-Clicking **unset** will take you to a page where you can confirm the details. If you're happy with what you see, click the orange **unset** button to send the transaction to the network.
+**unset**을 클릭하면 세부 정보를 확인할 수 있는 페이지로 이동합니다. 표시된 내용이 만족스러우면 주황색 **unset** 버튼을 클릭하여 트랜잭션을 네트워크에 보냅니다.
 
-That's all there is to setting your RPL withdrawal address! We hope you found the process quick and easy.
+RPL withdrawal address 설정은 이것으로 끝입니다! 프로세스가 빠르고 쉽기를 바랍니다.
 
-Feel free to swing by [our Discord server](https://discord.gg/G46XgK264a) to let us know what you thought of it and keep tabs on the project as it evolves.
+프로젝트가 발전함에 따라 [Discord 서버](https://discord.gg/G46XgK264a)에 들러 의견을 알려주시기 바랍니다.
 
-## Map an ENS Name to your Node Wallet
+## ENS 이름을 노드 지갑에 매핑
 
-If you want your node wallet address to be mapped to a human-readable name like `alice.eth`, follow these steps:
+노드 지갑 주소를 `alice.eth`와 같은 사람이 읽을 수 있는 이름에 매핑하려면 다음 단계를 따르십시오:
 
-1. Purchase an ENS name at [the official ENS website](https://app.ens.domains).
+1. [공식 ENS 웹사이트](https://app.ens.domains)에서 ENS 이름을 구매하십시오.
 
-2. Still at the ENS website, setup the **forward resolution** for the name, defining which address will be used when someone references your `.eth` name.
+2. 여전히 ENS 웹사이트에서 이름에 대한 **forward resolution**을 설정하여 누군가가 `.eth` 이름을 참조할 때 사용할 주소를 정의하십시오.
 
-- Select "My account"
-- Click on the ENS name you want to edit
-- Click on "Add/edit record"
-- Insert your desired ETH address, click "Confirm" and submit the transaction.
+- "My account" 선택
+- 편집하려는 ENS 이름을 클릭
+- "Add/edit record" 클릭
+- 원하는 ETH 주소를 삽입하고 "Confirm"을 클릭한 다음 트랜잭션을 제출하십시오.
 
-3. After the previous transaction is confirmed, you can use the Smartnode CLI to setup the **reverse resolution**. This will allow applications to map back from your node wallet address to your `.eth` name.
+3. 이전 트랜잭션이 확인된 후 Smartnode CLI를 사용하여 **reverse resolution**을 설정할 수 있습니다. 이를 통해 애플리케이션이 노드 지갑 주소에서 `.eth` 이름으로 다시 매핑할 수 있습니다.
 
-Execute the command:
+명령을 실행하십시오:
 
 ```shell
 rocketpool wallet set-ens-name <your-ens-name.eth>
 ```
 
-This action also requires sending a transaction. You'll need to confirm the desired parameters and submit the transaction.
+이 작업도 트랜잭션을 보내야 합니다. 원하는 매개변수를 확인하고 트랜잭션을 제출해야 합니다.
 
-::: warning NOTE
-**Make sure you completed step 2 to setup the forward resolution before running the CLI command to setup the reverse resolution**. This is a safety measure to stop wallets from trying to impersonate an ENS name they don't control.
+::: warning 참고
+**CLI 명령을 실행하여 reverse resolution을 설정하기 전에 2단계를 완료하여 forward resolution을 설정했는지 확인하십시오**. 이것은 지갑이 제어하지 않는 ENS 이름을 사칭하려는 시도를 방지하기 위한 안전 조치입니다.
 :::
 
-4. After the transaction was successfully included in a block, run `rocketpool node status` to see that your your wallet is now associated to your ENS name.
+4. 트랜잭션이 블록에 성공적으로 포함된 후 `rocketpool node status`를 실행하여 지갑이 이제 ENS 이름과 연결되어 있는지 확인하십시오.
 
-## Next Steps
+## 다음 단계
 
-The next steps to prepare your node will teach you about setting up a fallback node, how priority fees work, your Fee Distributor and the Smoothing Pool, and MEV.
-Each topic will require you to make a choice about how you want to run your node.
-Please move on to the next sections in the guide when you're ready.
+노드를 준비하는 다음 단계에서는 fallback 노드 설정, 우선순위 수수료 작동 방식, Fee Distributor 및 Smoothing Pool, MEV에 대해 설명합니다.
+각 주제에서는 노드를 실행하는 방법에 대한 선택을 해야 합니다.
+준비가 되면 가이드의 다음 섹션으로 이동하십시오.
 
-Once you're done with those topics, you'll be guided through the process of making a minipool and earning staking rewards.
+해당 주제를 완료하면 minipool을 만들고 staking 보상을 받는 프로세스를 안내받게 됩니다.

@@ -1,36 +1,36 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Importing / Recovering an Existing Wallet
+# 기존 Wallet 가져오기 / 복구하기
 
-If you already have a wallet you'd like to use for your node, or if you're recovering a wallet you already created with the Smartnode earlier, this guide will help you through the import / recovery process.
+노드에 사용하려는 wallet이 이미 있거나 이전에 Smartnode로 생성한 wallet을 복구하는 경우, 이 가이드는 가져오기/복구 프로세스를 안내합니다.
 
-Please select the appropriate option from the sections below.
+아래 섹션에서 적절한 옵션을 선택하십시오.
 
-## Recovering a Smartnode Wallet
+## Smartnode Wallet 복구하기
 
-If you generated your node wallet using the Smartnode and are simply recovering it on a new machine, the process is quite simple.
-Make sure you've already installed the Smartnode software, and then simply run the following command once it's installed:
+Smartnode를 사용하여 node wallet을 생성했고 새 머신에서 복구하는 경우 프로세스는 매우 간단합니다.
+Smartnode 소프트웨어를 이미 설치했는지 확인한 다음 설치 후 다음 명령을 실행하기만 하면 됩니다:
 
 ```shell
 rocketpool wallet recover
 ```
 
-::: warning NOTE
-If, for some reason, you want to recover the wallet but _not_ any of the validator keys attached to your node's minipools, you can specify the `-k` flag to skip the rebuild process:
+::: warning 참고
+어떤 이유로든 wallet을 복구하고 싶지만 노드의 minipool에 연결된 validator 키는 복구하고 싶지 _않은_ 경우 `-k` 플래그를 지정하여 재구축 프로세스를 건너뛸 수 있습니다:
 
 ```shell
 rocketpool wallet recover -k
 ```
 
-If you do not specify this flag, the Smartnode will attempt to recover the validator keys for your minipools; however, note that this will not work until your Execution client has finished syncing.
-Please watch its log file to see when it's done; once it is, you can run this step.
+이 플래그를 지정하지 않으면 Smartnode는 minipool의 validator 키를 복구하려고 시도합니다; 그러나 이는 Execution client가 동기화를 완료할 때까지 작동하지 않습니다.
+완료 시기를 확인하려면 로그 파일을 확인하십시오; 완료되면 이 단계를 실행할 수 있습니다.
 :::
 
-This will first ask you for a password you want to use to encrypt your wallet.
-After that, it will ask for your **24 word mnemonic recovery phrase**.
-Enter it carefully - it will not be shown on-screen for safety, and it is very easy to make a mistake while typing it so take your time.
+먼저 wallet을 암호화하는 데 사용할 비밀번호를 묻습니다.
+그런 다음 **24단어 니모닉 복구 구문**을 요청합니다.
+신중하게 입력하십시오 - 안전을 위해 화면에 표시되지 않으며 입력하는 동안 실수하기 매우 쉽습니다. 천천히 진행하십시오.
 
-When you're done, you should see output similar to this:
+완료되면 다음과 유사한 출력이 표시됩니다:
 
 ```shell
 $ rocketpool wallet recover
@@ -47,100 +47,100 @@ Node account: <your wallet address>
 No validator keys were found.
 ```
 
-If you don't see any errors, then your wallet and validators will be recovered.
+오류가 표시되지 않으면 wallet과 validator가 복구됩니다.
 
-Once you're done, be sure to restart the Validator client with the following command for Docker and Hybrid mode users:
+완료되면 Docker 및 Hybrid mode 사용자의 경우 다음 명령으로 Validator client를 다시 시작해야 합니다:
 
 ```shell
 docker restart rocketpool_validator
 ```
 
-**Native mode** users will simply have to restart their Validator container process.
+**Native mode** 사용자는 Validator 컨테이너 프로세스를 다시 시작하기만 하면 됩니다.
 
-This will ensure that the VC picks up all of the newly restored validator keys.
+이렇게 하면 VC가 새로 복원된 모든 validator 키를 선택합니다.
 
-## Importing an Existing Address as a Node Wallet
+## 기존 주소를 Node Wallet으로 가져오기
 
-If you have an address you'd like to use for a node, but _didn't_ create it with the Smartnode (e.g., you created it with MetaMask or a hardware wallet), then this is the section to follow.
+노드에 사용하려는 주소가 있지만 Smartnode로 생성하지 _않은_ 경우(예: MetaMask 또는 하드웨어 wallet으로 생성), 이 섹션을 따르십시오.
 
-::: danger WARNING
-By doing this, your address will become a **hot wallet**.
-The private key will be stored on your node machine.
+::: danger 경고
+이렇게 하면 주소가 **핫 wallet**이 됩니다.
+개인 키가 노드 머신에 저장됩니다.
 
-If you're importing an address that is a cold wallet, such as a hardware wallet, be advised that **the protection provided by the hardware wallet will no longer exist!**
+하드웨어 wallet과 같은 콜드 wallet인 주소를 가져오는 경우 **하드웨어 wallet이 제공하는 보호가 더 이상 존재하지 않습니다!**
 
-If you use this wallet for _any other cryptocurrency activity at all_, **you must migrate all of its funds to a separate address (e.g. a different hardware wallet) before importing it into your node! Only leave enough ETH on this address for your node's gas costs (typically 0.5 ETH is sufficient).**
+이 wallet을 _다른 암호화폐 활동에_ 사용하는 경우 **주소를 노드로 가져오기 전에 모든 자금을 별도의 주소(예: 다른 하드웨어 wallet)로 마이그레이션해야 합니다! 노드의 가스 비용에 충분한 ETH만 이 주소에 남겨두십시오(일반적으로 0.5 ETH면 충분합니다).**
 
-Please ensure that you have secured your machine as much as possible by following the steps in the [Securing your Node](./securing-your-node) guide before importing your address as a node wallet.
+주소를 node wallet으로 가져오기 전에 [노드 보안](./securing-your-node) 가이드의 단계를 따라 머신을 최대한 보호했는지 확인하십시오.
 :::
 
-This capability is only available with Smartnode **v1.4.3 or higher**.
-If you have a lower version, you'll need to upgrade first.
+이 기능은 Smartnode **v1.4.3 이상**에서만 사용할 수 있습니다.
+더 낮은 버전이 있는 경우 먼저 업그레이드해야 합니다.
 
-This is a multi-step process, so follow the below sections carefully.
+이것은 다단계 프로세스이므로 아래 섹션을 주의 깊게 따르십시오.
 
-### Step 1: Add Externally-Generated Validator Keys
+### 1단계: 외부 생성 Validator 키 추가하기
 
-**If you don't have any existing minipools attached to the address you're importing, you can skip this step.**
+**가져오는 주소에 연결된 기존 minipool이 없는 경우 이 단계를 건너뛸 수 있습니다.**
 
-If your address has already been registered as a Rocket Pool node wallet (such as via a service like **Allnodes**) and already has active minipools, and you'd like to import them into the Smartnode stack along with your address, you will need to provide the private keystore files for each of their corresponding validators.
-These files will be encrypted with a password of your own choosing, so you will need that password for each file as well.
+주소가 이미 Rocket Pool node wallet으로 등록되어 있고(**Allnodes**와 같은 서비스를 통해) 이미 활성 minipool이 있으며, 주소와 함께 Smartnode 스택으로 가져오려는 경우 각 해당 validator에 대한 개인 keystore 파일을 제공해야 합니다.
+이러한 파일은 선택한 비밀번호로 암호화되므로 각 파일에 대한 비밀번호도 필요합니다.
 
-You need to get these files from the service that is currently running your node in order to import it.
-Some service providers may be able to retrieve these files upon request.
-If you use Allnodes, you can get these files during your initial setup process but **will not be able to retrieve them in the future unless you saved them during minipool creation.**
+이를 가져오려면 현재 노드를 실행 중인 서비스에서 이러한 파일을 가져와야 합니다.
+일부 서비스 제공자는 요청 시 이러한 파일을 검색할 수 있습니다.
+Allnodes를 사용하는 경우 초기 설정 프로세스 중에 이러한 파일을 가져올 수 있지만 **minipool 생성 중에 저장하지 않은 경우 나중에 검색할 수 없습니다.**
 
-Select your installation mode and follow the steps below.
+설치 모드를 선택하고 아래 단계를 따르십시오.
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker and Hybrid Mode">
-      First, ensure you've started the Smartnode with `rocketpool service start`.
-      This will create a special folder that can be used to hold the encrypted keystore files for your validators.
+      먼저 `rocketpool service start`로 Smartnode를 시작했는지 확인합니다.
+      이렇게 하면 validator의 암호화된 keystore 파일을 보관하는 데 사용할 수 있는 특수 폴더가 생성됩니다.
 
-      By default, the folder is located in `~/.rocketpool/data/custom-keys`.
-      If you've customized your installation or data directories, substitute appropriately to find the `custom-keys` folder.
+      기본적으로 폴더는 `~/.rocketpool/data/custom-keys`에 있습니다.
+      설치 또는 데이터 디렉토리를 사용자 정의한 경우 `custom-keys` 폴더를 찾기 위해 적절히 대체하십시오.
 
-      Check with a file explorer or the `ls` command to make sure this folder exists.
-      If not, no worries - just make the folder with the following command:
+      파일 탐색기 또는 `ls` 명령으로 이 폴더가 존재하는지 확인합니다.
+      없으면 걱정하지 마십시오 - 다음 명령으로 폴더를 만들기만 하면 됩니다:
 
       ```shell
       mkdir ~/.rocketpool/data/custom-keys
       ```
     </Tab>
     <Tab label="Native Mode">
-      Create a folder called `custom-keys` inside of your Smartnode's `data` folder (for example, `/srv/rocketpool/data/custom-keys`).
+      Smartnode의 `data` 폴더 안에 `custom-keys`라는 폴더를 생성합니다(예: `/srv/rocketpool/data/custom-keys`).
     </Tab>
 
   </Tabs>
 </div>
 
-Next, place each of the validator keystore files into this folder.
-The names of the files don't matter, but they must be JSON files that conform to the [EIP-2335](https://eips.ethereum.org/EIPS/eip-2335#scrypt-test-vector) format.
+다음으로 각 validator keystore 파일을 이 폴더에 배치합니다.
+파일 이름은 중요하지 않지만 [EIP-2335](https://eips.ethereum.org/EIPS/eip-2335#scrypt-test-vector) 형식을 준수하는 JSON 파일이어야 합니다.
 
-The Smartnode will look in this directory for any keystore files you have placed here in the next steps.
+Smartnode는 다음 단계에서 여기에 배치한 keystore 파일을 이 디렉토리에서 찾습니다.
 
-::: warning NOTE
-The import process will _only_ look for validator keys that are attached to minipools registered to the address you're importing.
-You **cannot** use this process to import other validator keys, such as for solo staking validators, into the Validator client managed by the Smartnode stack.
+::: warning 참고
+가져오기 프로세스는 가져오는 주소에 등록된 minipool에 연결된 validator 키_만_ 찾습니다.
+이 프로세스를 사용하여 솔로 staking validator와 같은 다른 validator 키를 Smartnode 스택에서 관리하는 Validator client로 가져올 **수 없습니다**.
 
-Please see the documentation for running in [Reverse Hybrid Mode](./advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode) if you are interested in doing this.
+이에 관심이 있는 경우 [역방향 Hybrid Mode](./advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode)에서 실행하는 방법에 대한 문서를 참조하십시오.
 :::
 
-### Step 2 (Optional): Test Importing the Address
+### 2단계 (선택 사항): 주소 가져오기 테스트하기
 
-If you would like to test the recovery process to ensure you have the correct mnemonic and passwords **without actually regenerating your node wallet's private key or importing your validator keys**, you can do so with the following command:
+올바른 니모닉과 비밀번호를 가지고 있는지 확인하기 위해 **실제로 node wallet의 개인 키를 재생성하거나 validator 키를 가져오지 않고** 복구 프로세스를 테스트하려면 다음 명령을 사용하면 됩니다:
 
 ```shell
 rocketpool wallet test-recovery -a 0x1234abcd...
 ```
 
-Where `0x1234abcd...` is the address you want to import, starting with the `0x` prefix.
-**You will need your mnemonic phrase to import the private key for your address.**
+여기서 `0x1234abcd...`는 `0x` 접두사로 시작하여 가져오려는 주소입니다.
+**주소의 개인 키를 가져오려면 니모닉 구문이 필요합니다.**
 
-::: tip TIP
-If, for some reason, you want to recover the wallet but _not_ any of the validator keys for your minipools, you can specify the `-k` flag to skip the validator key recovery process.
-For example:
+::: tip 팁
+어떤 이유로든 wallet을 복구하고 싶지만 minipool의 validator 키는 복구하고 싶지 _않은_ 경우 `-k` 플래그를 지정하여 validator 키 복구 프로세스를 건너뛸 수 있습니다.
+예를 들어:
 
 ```shell
 rocketpool wallet test-recovery -a 0x1234abcd... -k
@@ -148,29 +148,29 @@ rocketpool wallet test-recovery -a 0x1234abcd... -k
 
 :::
 
-The Smartnode will automatically search through the most popular derivation paths (e.g. the ones used by Ledger Live, MyEtherWallet, Trezor, and the Smartnode stack) and address indicies to find the settings that correspond to the address you provided.
+Smartnode는 가장 인기 있는 파생 경로(예: Ledger Live, MyEtherWallet, Trezor 및 Smartnode 스택에서 사용하는 경로) 및 주소 인덱스를 자동으로 검색하여 제공한 주소에 해당하는 설정을 찾습니다.
 
-::: tip TIP
-If you have a custom derivation path, use the `-d` flag to specify it.
-For example:
+::: tip 팁
+커스텀 파생 경로가 있는 경우 `-d` 플래그를 사용하여 지정합니다.
+예를 들어:
 
 ```shell
 rocketpool wallet test-recovery -d "m/44'/60'/0'/%d"
 ```
 
-Use `%d` for the portion of the path that can be iterated to use different indicies.
+다른 인덱스를 사용하도록 반복할 수 있는 경로 부분에는 `%d`를 사용합니다.
 
-If you have a custom address index, use the `-i` flag to specify it.
-For example, if your address was the 6th one on the standard derivation path, you could use:
+커스텀 주소 인덱스가 있는 경우 `-i` 플래그를 사용하여 지정합니다.
+예를 들어 주소가 표준 파생 경로의 6번째인 경우 다음을 사용할 수 있습니다:
 
 ```shell
 rocketpool wallet test-recovery -i 5
 ```
 
-You can use both the `-d` and `-i` flags at the same time if you require.
+필요한 경우 `-d` 및 `-i` 플래그를 동시에 사용할 수 있습니다.
 :::
 
-First, you'll be prompted for your address's mnemonic phrase:
+먼저 주소의 니모닉 구문을 묻는 메시지가 표시됩니다:
 
 ```
 Please enter the number of words in your mnemonic phrase (24 by default):
@@ -179,9 +179,9 @@ Please enter the number of words in your mnemonic phrase (24 by default):
 Enter Word Number 1 of your mnemonic:
 ```
 
-Enter it carefully, and the Smartnode will begin searching through all of the standard options to find it (unless you explicitly specified them using the `-d` and/or `-i` flags).
+신중하게 입력하면 Smartnode가 모든 표준 옵션을 검색하여 찾기 시작합니다(`-d` 및/또는 `-i` 플래그를 사용하여 명시적으로 지정하지 않은 경우).
 
-Next, if you have private keystore files to import from Step 1, you will be prompted for the passwords to each of those keystore files:
+다음으로 1단계에서 가져올 개인 keystore 파일이 있는 경우 각 keystore 파일의 비밀번호를 묻는 메시지가 표시됩니다:
 
 ```
 It looks like you have some custom keystores for your minipool's validators.
@@ -190,10 +190,10 @@ You will be prompted for the passwords each one was encrypted with, so they can 
 Please enter the password that the keystore for <validator pubkey> was encrypted with:
 ```
 
-They will be organized by the **pubkey** list, **not the filenames**.
-Ensure you know which file corresponds to which validator pubkey so you enter the correct passwords.
+**파일 이름이 아닌** **pubkey** 목록별로 구성됩니다.
+올바른 비밀번호를 입력할 수 있도록 어떤 파일이 어떤 validator pubkey에 해당하는지 확인하십시오.
 
-Once you've done this, the test recovery process will proceed and report back on whether it succeeded or failed:
+이 작업을 완료하면 테스트 복구 프로세스가 진행되고 성공 또는 실패 여부를 보고합니다:
 
 ```
 Searching for the derivation path and index for wallet 0x1234abcd...
@@ -206,28 +206,28 @@ Validator keys:
 <validator pubkey>
 ```
 
-The above indicates a successful test recovery.
+위는 성공적인 테스트 복구를 나타냅니다.
 
-### Step 3: Import the Address
+### 3단계: 주소 가져오기
 
-::: danger WARNING
-If your address is a Rocket Pool node that is _not_ managed by your own self-hosted Smartnode (e.g. hosted by an external service like **Allnodes**), **IT IS CRITICAL** that you coordinate with the service running your node **before you begin this import process** and inform them that you would like to migrate to your own self-hosted system.
+::: danger 경고
+주소가 자체 호스팅 Smartnode에서 관리하지 _않는_ Rocket Pool 노드인 경우(예: **Allnodes**와 같은 외부 서비스에서 호스팅), **이 가져오기 프로세스를 시작하기 전에** 노드를 실행하는 서비스와 조정하고 자체 호스팅 시스템으로 마이그레이션하려고 한다고 알리는 것이 **중요합니다**.
 
-You **MUST CONFIRM** that they have shut down validation for your node and **will NEVER resume it**, and manually confirm that your validators are no longer attesting using a Blockchain explorer such as [https://beaconcha.in](https://beaconcha.in).
-You must confirm that each validator has missed **AT LEAST 2 ATTESTATIONS** to ensure you can safely migrate.
-Otherwise, you will both attest at the same time and **YOUR MINIPOOLS WILL BE SLASHED!**
+노드에 대한 검증을 종료했으며 **절대 재개하지 않을 것**이라고 **확인**하고 [https://beaconcha.in](https://beaconcha.in)과 같은 블록체인 탐색기를 사용하여 validator가 더 이상 attestation하지 않음을 수동으로 확인해야 합니다.
+안전하게 마이그레이션할 수 있도록 각 validator가 **최소 2개의 ATTESTATION을 놓쳤는지** 확인해야 합니다.
+그렇지 않으면 둘 다 동시에 attestation하고 **MINIPOOL이 SLASHED됩니다!**
 
-The Smartnode will require you to confirm that you have done this before allowing you to proceed with the import process.
+Smartnode는 가져오기 프로세스를 진행하기 전에 이를 수행했는지 확인하도록 요구합니다.
 :::
 
-If the test recovery succeeded, or if you skipped it, you will next import the wallet and regenerate all of its associated key files.
-The process is exactly the same as the above, but use the `recover` command instead of the `test-recovery` command:
+테스트 복구가 성공했거나 건너뛴 경우, 다음으로 wallet을 가져오고 관련된 모든 키 파일을 재생성합니다.
+프로세스는 위와 정확히 동일하지만 `test-recovery` 명령 대신 `recover` 명령을 사용합니다:
 
 ```shell
 rocketpool wallet recover -a 0x1234abcd...
 ```
 
-When you run this command, you will first be prompted for a password to encrypt your imported node wallet with.
+이 명령을 실행하면 먼저 가져온 node wallet을 암호화할 비밀번호를 묻는 메시지가 표시됩니다.
 
 ```
 Please enter a password to secure your wallet with:
@@ -235,9 +235,9 @@ Please enter a password to secure your wallet with:
 Please confirm your password:
 ```
 
-After that, the mnemonic and custom validator keystore password prompts will proceed as they did before.
+그런 다음 이전과 같이 니모닉 및 커스텀 validator keystore 비밀번호 프롬프트가 진행됩니다.
 
-Once you've entered all of this information, the Smartnode will recover your address and (if not disabled) the custom validator keys for your minipools:
+이 모든 정보를 입력하면 Smartnode가 주소와(비활성화되지 않은 경우) minipool의 커스텀 validator 키를 복구합니다:
 
 ```
 Searching for the derivation path and index for wallet 0x1234abcd...
@@ -250,27 +250,27 @@ Validator keys:
 <validator pubkey>
 ```
 
-Your address's private key will now be stored in the `data/wallet` file (e.g. `~/.rocketpool/data/wallet`), and the password for it will be stored in the `data/password` file (e.g. `~/.rocketpool/data/password`).
+주소의 개인 키는 이제 `data/wallet` 파일(예: `~/.rocketpool/data/wallet`)에 저장되고 비밀번호는 `data/password` 파일(예: `~/.rocketpool/data/password`)에 저장됩니다.
 
-The private keys for each of your validators will be stored in the `data/validators` folders for each of the Consensus clients that the Smartnode supports.
+각 validator의 개인 키는 Smartnode가 지원하는 각 Consensus client의 `data/validators` 폴더에 저장됩니다.
 
-::: danger NOTE
-By importing an address in this fashion, the validator keys were **not** derived from your node wallet, and thus they **cannot** be recovered later by simply running `rocketpool wallet recover` as with a normal node wallet.
+::: danger 참고
+이런 식으로 주소를 가져오면 validator 키가 node wallet에서 파생되지 **않았으므로** 일반 node wallet처럼 `rocketpool wallet recover`를 실행하는 것만으로는 나중에 복구할 **수 없습니다**.
 
-If you ever need to recover or import this wallet again, you will need to follow this same process which means **you will need to have these validator private keystores and their passwords backed up somewhere safe.**
+이 wallet을 다시 복구하거나 가져와야 하는 경우 동일한 프로세스를 따라야 합니다. 즉 **이러한 validator 개인 keystore와 비밀번호를 안전한 곳에 백업해야 합니다.**
 
-If you ever lose them, **you will no longer be able to recover these validator keys!**
+잃어버리면 **더 이상 이러한 validator 키를 복구할 수 없습니다!**
 :::
 
-### Step 4: Cleanup
+### 4단계: 정리하기
 
-At this point, you can now delete all of the private keystore files in the `data/custom-keys` directory.
-The Smartnode will have imported them already and assigned randomized passwords to them, so those keystore files are no longer necessary.
+이제 `data/custom-keys` 디렉토리의 모든 개인 keystore 파일을 삭제할 수 있습니다.
+Smartnode가 이미 가져와서 무작위 비밀번호를 할당했으므로 해당 keystore 파일은 더 이상 필요하지 않습니다.
 
-Finally, ensure that there is **not** a file named `custom-key-passwords` in your `data` directory (e.g. `~/.rocketpool/data/custom-key-passwords`).
-The Smartnode will build this temporary file only during the recover process, and will remove it automatically regardless of whether or not the recovery process succeeded; if for any reason it failed to remove it, it will alert you in the console output.
-However, it never hurts to be too careful.
+마지막으로 `data` 디렉토리(예: `~/.rocketpool/data/custom-key-passwords`)에 `custom-key-passwords`라는 파일이 **없는지** 확인합니다.
+Smartnode는 복구 프로세스 중에만 이 임시 파일을 빌드하고 복구 프로세스의 성공 여부에 관계없이 자동으로 제거합니다; 어떤 이유로든 제거하지 못한 경우 콘솔 출력에 알림을 보냅니다.
+그러나 너무 조심하는 것이 해가 되지 않습니다.
 
-## Next Steps
+## 다음 단계
 
-Once you've imported or recovered your node wallet, follow the next steps in the [Intro to the Command Line Interface](./cli-intro) guide.
+node wallet을 가져오거나 복구한 후 [명령줄 인터페이스 소개](./cli-intro) 가이드의 다음 단계를 따르십시오.

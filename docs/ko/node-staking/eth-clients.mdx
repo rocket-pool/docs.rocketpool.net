@@ -1,30 +1,30 @@
 import ethereum_client_diversity from "./images/ethereum-client-diversity-aug-2025.png";
 
-# Choosing your ETH Clients
+# ETH 클라이언트 선택
 
-Rocket Pool's Smartnode installer can transform your machine into a full Ethereum node, as it requires both Execution and Consensus clients in order to operate properly.
+Rocket Pool의 Smartnode 설치 프로그램은 머신을 전체 Ethereum 노드로 변환할 수 있습니다. 올바르게 작동하려면 Execution 및 Consensus 클라이언트가 모두 필요합니다.
 
-The terms ETH1/ETH2 have been deprecated.
-The chains will be referred to as the **Execution Layer (ETH1)** and the **Beacon Chain or Consensus Layer (ETH2)** in the rest of these guides.
+ETH1/ETH2 용어는 더 이상 사용되지 않습니다.
+이 가이드의 나머지 부분에서는 체인을 **Execution Layer (ETH1)** 및 **Beacon Chain 또는 Consensus Layer (ETH2)**라고 합니다.
 
-If you already have Execution and Consensus clients up and running on a separate machine (for example, if you're already solo-staking), then skip this section and move onto the [Configuring a Hybrid Rocket Pool Node with External Clients](./install-modes#the-hybrid-configuration-with-external-clients) section.
+별도의 머신에서 이미 Execution 및 Consensus 클라이언트를 실행 중인 경우 (예: 이미 solo-staking을 하고 있는 경우) 이 섹션을 건너뛰고 [외부 클라이언트를 사용한 하이브리드 Rocket Pool 노드 구성](./install-modes#the-hybrid-configuration-with-external-clients) 섹션으로 이동하십시오.
 
-Otherwise, read on to learn more about your choices for Execution and Consensus clients.
+그렇지 않으면 계속 읽고 Execution 및 Consensus 클라이언트 선택에 대해 자세히 알아보십시오.
 
 ::: warning NOTE
-As of August 2025, the distribution of clients on the Beacon Chain looks roughly like this:
+2025년 8월 기준으로 Beacon Chain의 클라이언트 분포는 대략 다음과 같습니다:
 
 <img src={ethereum_client_diversity} width="100%" height="auto" />
 
-_Data obtained from [https://clientdiversity.org](https://clientdiversity.org)_
+_데이터 출처: [https://clientdiversity.org](https://clientdiversity.org)_
 
-Obtaining data on which consensus client a validator is running is a relatively difficult problem because clients are not easily identified. The [data methodology](https://clientdiversity.org/methodology/) page
-on [https://clientdiversity.org](https://clientdiversity.org) goes into how data from different sources are obtained. Feel free to check out
-[https://ethernodes.org/](https://ethernodes.org/) as an additional source of data.
+validator가 실행 중인 consensus 클라이언트에 대한 데이터를 얻는 것은 클라이언트를 쉽게 식별할 수 없기 때문에 비교적 어려운 문제입니다. [https://clientdiversity.org](https://clientdiversity.org)의 [데이터 방법론](https://clientdiversity.org/methodology/) 페이지에서
+다양한 소스에서 데이터를 얻는 방법을 설명합니다. 추가 데이터 소스로
+[https://ethernodes.org/](https://ethernodes.org/)를 확인하십시오.
 
-The overwhelming majority of node operators are currently using Geth as an Execution Client and either Lighthouse or Prysm as a Consensus Client.
-In the interest of supporting the health of the Execution Layer (formerly ETH1) and the Beacon Chain (formerly ETH2), we currently recommend that you consider using different clients.
-Here are some relevant articles about why an even client diversity is crucial to the health of the network if you would like to learn more:
+현재 대다수의 node operator가 Execution Client로 Geth를, Consensus Client로 Lighthouse 또는 Prysm을 사용하고 있습니다.
+Execution Layer (이전 ETH1) 및 Beacon Chain (이전 ETH2)의 건전성을 지원하기 위해 현재 다른 클라이언트 사용을 고려할 것을 권장합니다.
+균등한 클라이언트 다양성이 네트워크 건전성에 중요한 이유에 대해 자세히 알아보려면 다음 관련 기사를 참조하십시오:
 
 [https://clientdiversity.org/#why](https://clientdiversity.org/#why)
 
@@ -39,150 +39,149 @@ Here are some relevant articles about why an even client diversity is crucial to
 [https://eth2book.info/bellatrix/part2/incentives/diversity](https://eth2book.info/bellatrix/part2/incentives/diversity/)
 :::
 
-For users that would like to get up and running quickly, the Smartnode installer provides a `Random Client` option which may be the best choice.
-For users that have a specific client they'd like to use in mind, we provide the ability to easily choose one during Rocket Pool's installation.
-The options below help to describe each client so you can make an informed decision if you'd like to specify which one you want.
+빠르게 시작하고 실행하려는 사용자의 경우 Smartnode 설치 프로그램은 가장 좋은 선택일 수 있는 `Random Client` 옵션을 제공합니다.
+사용하려는 특정 클라이언트가 있는 사용자의 경우 Rocket Pool 설치 중에 쉽게 선택할 수 있는 기능을 제공합니다.
+아래 옵션은 각 클라이언트를 설명하여 원하는 클라이언트를 지정하려는 경우 정보에 입각한 결정을 내릴 수 있도록 도와줍니다.
 
-## Execution Clients
+## Execution 클라이언트
 
-Rocket Pool supports four different Execution clients: **Geth**, **Besu**, **Nethermind**, and **Reth**.
+Rocket Pool은 네 가지 Execution 클라이언트를 지원합니다: **Geth**, **Besu**, **Nethermind** 및 **Reth**.
 
-Running an Execution client involves storing a copy of the Execution layer blockchain on your machine.
-It interacts via peer-to-peer communications with other EC nodes to record and verify new blocks and transactions.
-A full Execution client is **required** to run a validator now that the Execution and Consensus layers have merged.
+Execution 클라이언트를 실행하려면 머신에 Execution layer 블록체인의 사본을 저장해야 합니다.
+peer-to-peer 통신을 통해 다른 EC 노드와 상호 작용하여 새 블록과 트랜잭션을 기록하고 확인합니다.
+Execution 및 Consensus 레이어가 병합된 이후 validator를 실행하려면 전체 Execution 클라이언트가 **필수**입니다.
 
 ### Geth
 
-[Geth](https://geth.ethereum.org/) (formally named `Go Ethereum`) is one of the three original implementations (along with C++ and Python) of the Ethereum protocol.
-It is written in Go, fully open source and licensed under the GNU LGPL v3.
+[Geth](https://geth.ethereum.org/) (공식 명칭 `Go Ethereum`)는 Ethereum 프로토콜의 세 가지 원래 구현 중 하나입니다 (C++ 및 Python과 함께).
+Go로 작성되었으며 완전히 오픈 소스이고 GNU LGPL v3 라이선스가 있습니다.
 
-Geth is the oldest and most widely-used Execution Client around the world.
-It has a reputation for being very stable and reliable.
+Geth는 전 세계에서 가장 오래되고 가장 널리 사용되는 Execution Client입니다.
+매우 안정적이고 신뢰할 수 있다는 평판을 받고 있습니다.
 
-It is multithreaded, meaning it can take advantage of your entire CPU.
-Its RAM usage is configurable, down to a **minimum of about 4 GB for Mainnet**.
-This makes it viable for low-power systems and high-power systems alike.
+멀티스레드이므로 전체 CPU를 활용할 수 있습니다.
+RAM 사용량은 구성 가능하며 **Mainnet의 경우 최소 약 4 GB**까지 낮출 수 있습니다.
+이를 통해 저전력 시스템과 고성능 시스템 모두에서 사용할 수 있습니다.
 
 ::: warning NOTE
-Geth requires **offline pruning** of its database periodically: its database will grow over time and gradually consume all of your free disk space unless you prune it when your disk runs low on free space.
-The frequency you need to prune will depend on your SSD's size.
+Geth는 데이터베이스의 **오프라인 pruning**을 주기적으로 수행해야 합니다: 디스크 여유 공간이 부족할 때 pruning하지 않으면 데이터베이스가 시간이 지남에 따라 증가하고 점차 모든 여유 디스크 공간을 소비합니다.
+pruning 해야 하는 빈도는 SSD의 크기에 따라 달라집니다.
 
-For more information on pruning Geth, view the [Pruning the Execution Client](./pruning) page.
+Geth pruning에 대한 자세한 내용은 [Execution 클라이언트 Pruning](./pruning) 페이지를 참조하십시오.
 :::
 
 ### Besu
 
-Hyperledger [Besu](https://besu.hyperledger.org/en/stable/) is an open-source Ethereum client developed under the Apache 2.0 license and written in [Java](https://en.wikipedia.org/wiki/Java_%28programming_language%29).
-Besu's most exciting features is its use of [Bonsai Tries](https://consensys.net/blog/news/bonsai-tries-a-big-update-for-small-state-storage-in-hyperledger-besu/) for state storage. In addition to their better performance characteristics, Bonsai Tries give Besu two interesting advantages over the other clients:
+Hyperledger [Besu](https://besu.hyperledger.org/en/stable/)는 Apache 2.0 라이선스로 개발되고 [Java](https://en.wikipedia.org/wiki/Java_%28programming_language%29)로 작성된 오픈 소스 Ethereum 클라이언트입니다.
+Besu의 가장 흥미로운 기능은 상태 저장을 위해 [Bonsai Tries](https://consensys.net/blog/news/bonsai-tries-a-big-update-for-small-state-storage-in-hyperledger-besu/)를 사용한다는 것입니다. 성능 특성이 더 좋을 뿐만 아니라 Bonsai Tries는 Besu에 다른 클라이언트에 비해 두 가지 흥미로운 이점을 제공합니다:
 
-1. Besu does _not_ need to be pruned at all; it is effectively maintenance-free in that respect
-2. Besu is able to revisit any past block in the blockchain, though it does this by rewinding each block so reaching blocks from long ago may take some time.
+1. Besu는 pruning이 _전혀_ 필요하지 않습니다. 그 점에서 사실상 유지 보수가 필요 없습니다
+2. Besu는 블록체인의 과거 블록을 다시 방문할 수 있지만 각 블록을 되감아서 수행하므로 오래된 블록에 도달하는 데 시간이 걸릴 수 있습니다.
 
-Besu currently recommends at least **16 GB of RAM**, though it is possible to run successfully with 8 GB.
+Besu는 현재 **최소 16 GB의 RAM**을 권장하지만 8 GB로 성공적으로 실행할 수 있습니다.
 
 ### Nethermind
 
-[Nethermind](https://nethermind.io/nethermind-client/) is written in [.NET Core](https://en.wikipedia.org/wiki/.NET).
-It boasts the fastest sync speed of the Execution clients and has a rich set of configuration options.
-It is designed with node operators in mind and has many features that they will find helpful.
+[Nethermind](https://nethermind.io/nethermind-client/)는 [.NET Core](https://en.wikipedia.org/wiki/.NET)로 작성되었습니다.
+Execution 클라이언트 중 가장 빠른 동기화 속도를 자랑하며 풍부한 구성 옵션 세트를 제공합니다.
+node operator를 염두에 두고 설계되었으며 도움이 될 많은 기능이 있습니다.
 
-Like Geth, Nethermind requires periodic pruning of its database.
-Unlike Geth, however, Nethermind's database can [be pruned while it stays online](https://medium.com/nethermind-eth/netherminds-full-pruning-is-here-cutting-the-gordian-knot-5e3450f02de9).
-This means you do not need to turn your client off and rely on a fallback in order to prune.
-However, Nethermind's online pruning process is quite resource intensive so users running low-power nodes may see some performance degradation during the process.
+Geth와 마찬가지로 Nethermind는 데이터베이스의 주기적인 pruning이 필요합니다.
+그러나 Geth와 달리 Nethermind의 데이터베이스는 [온라인 상태를 유지하면서 pruning할 수 있습니다](https://medium.com/nethermind-eth/netherminds-full-pruning-is-here-cutting-the-gordian-knot-5e3450f02de9).
+즉, pruning을 위해 클라이언트를 끄고 fallback에 의존할 필요가 없습니다.
+그러나 Nethermind의 온라인 pruning 프로세스는 리소스 집약적이므로 저전력 노드를 실행하는 사용자는 프로세스 중에 성능 저하를 경험할 수 있습니다.
 
-Nethermind requires **at least 16GB of RAM**, though more is preferable.
+Nethermind는 **최소 16GB의 RAM**이 필요하지만 더 많으면 더 좋습니다.
 
 ::: tip NOTE
-Nethermind requires periodic pruning of its database periodically: its database will grow over time and gradually consume all of your free disk space unless you prune it when your disk runs low on free space.
-The frequency you need to prune will depend on your SSD's size.
+Nethermind는 데이터베이스의 주기적인 pruning이 필요합니다: 디스크 여유 공간이 부족할 때 pruning하지 않으면 데이터베이스가 시간이 지남에 따라 증가하고 점차 모든 여유 디스크 공간을 소비합니다.
+pruning 해야 하는 빈도는 SSD의 크기에 따라 달라집니다.
 
-Unlike Geth, however, Nethermind **remains online** while it is pruning.
-This makes it a compelling choice for nodes because they won't have any down time during pruning.
+그러나 Geth와 달리 Nethermind는 pruning 중에도 **온라인 상태를 유지**합니다.
+이는 pruning 중 다운타임이 없으므로 노드에 매력적인 선택입니다.
 
-For more information on pruning Nethermind, view the [Pruning the Execution Client](./pruning) page.
+Nethermind pruning에 대한 자세한 내용은 [Execution 클라이언트 Pruning](./pruning) 페이지를 참조하십시오.
 :::
 
 ### Reth
 
-[Reth](https://reth.rs/) is an Execution layer client written in [Rust](https://www.rust-lang.org/) and uses the [Erigon staged-sync](https://erigon.substack.com/p/erigon-stage-sync-and-control-flows) architecture.
-Reth is designed from the ground up with efficiency, performance, and modularity in mind. It's licenced under the Apache/MIT permissive license and built
-with small, well-abstracted, well-tested, and benchmarked packages. This makes for a great open source developer experience and allows Reth's components to be used in other projects.
+[Reth](https://reth.rs/)는 [Rust](https://www.rust-lang.org/)로 작성된 Execution layer 클라이언트이며 [Erigon staged-sync](https://erigon.substack.com/p/erigon-stage-sync-and-control-flows) 아키텍처를 사용합니다.
+Reth는 효율성, 성능 및 모듈성을 염두에 두고 처음부터 설계되었습니다. Apache/MIT permissive 라이선스가 있으며 작고 잘 추상화되고 잘 테스트되고 벤치마크된 패키지로 빌드되었습니다. 이는 훌륭한 오픈 소스 개발자 경험을 제공하며 Reth의 구성 요소를 다른 프로젝트에서 사용할 수 있습니다.
 
-As the newest client in the ecosystem, Reth is rapidly evolving and gaining adoption. While RAM and CPU requirements are flexible, the most important
-requirement is by far the disk. We suggest using a good [TLC disk](https://gist.github.com/yorickdowne/f3a3e79a573bf35767cd002cc977b038).
-Reth requires **at least 8 GB of RAM** for a full node or **16 GB of RAM** for an archive node.
+생태계에서 가장 새로운 클라이언트로서 Reth는 빠르게 진화하고 채택되고 있습니다. RAM 및 CPU 요구 사항은 유연하지만 가장 중요한
+요구 사항은 단연 디스크입니다. 좋은 [TLC 디스크](https://gist.github.com/yorickdowne/f3a3e79a573bf35767cd002cc977b038) 사용을 권장합니다.
+Reth는 full node의 경우 **최소 8 GB의 RAM** 또는 archive node의 경우 **16 GB의 RAM**이 필요합니다.
 
-### Client Comparison Table
+### 클라이언트 비교 표
 
-| Client     | Type | CPU Usage | Minimum RAM Usage | Sync Time |
+| 클라이언트     | 유형 | CPU 사용량 | 최소 RAM 사용량 | 동기화 시간 |
 | ---------- | ---- | --------- | ----------------- | --------- |
-| Geth       | Full | Moderate  | 4 GB              | Moderate  |
-| Besu       | Full | Moderate  | 6 GB              | Slow      |
-| Nethermind | Full | Moderate  | 16 GB             | Fast      |
-| Reth       | Full | Moderate  | 8 GB              | Fast      |
+| Geth       | Full | 보통  | 4 GB              | 보통  |
+| Besu       | Full | 보통  | 6 GB              | 느림      |
+| Nethermind | Full | 보통  | 16 GB             | 빠름      |
+| Reth       | Full | 보통  | 8 GB              | 빠름      |
 
-## Consensus Clients
+## Consensus 클라이언트
 
-Rocket Pool's installer is proud to support five currently available Consensus clients: **Lighthouse**, **Lodestar**, **Nimbus**, **Prysm**, and **Teku**.
+Rocket Pool의 설치 프로그램은 현재 사용 가능한 다섯 가지 Consensus 클라이언트를 자랑스럽게 지원합니다: **Lighthouse**, **Lodestar**, **Nimbus**, **Prysm** 및 **Teku**.
 
-Each of these is a **full client**, meaning you will contribute to the decentralization of the Consensus network regardless of which client you choose.
+이들 각각은 **full 클라이언트**입니다. 즉, 어떤 클라이언트를 선택하든 Consensus 네트워크의 탈중앙화에 기여하게 됩니다.
 
-All five clients are quite low-risk, low-maintenance, and will generate practically identical total rewards from validation.
-They differ slightly in terms of resource requirements and features, but you cannot go wrong with any of them.
+다섯 가지 클라이언트 모두 위험이 매우 낮고 유지 관리가 적으며 validation에서 거의 동일한 총 보상을 생성합니다.
+리소스 요구 사항과 기능이 약간 다르지만 어느 것을 선택해도 잘못될 수 없습니다.
 
-By default, the Rocket Pool installer will offer to select a random consensus client for you.
-This will help contribute to the overall **diversity of the network**.
-This is important from a security perspective: if one client is used by a majority of nodes and suffers from a severe bug or attack, it might cause all of those nodes to fail and thus threaten the entire Beacon Chain's stability.
+기본적으로 Rocket Pool 설치 프로그램은 임의의 consensus 클라이언트를 선택하도록 제안합니다.
+이는 **네트워크의 전체 다양성**에 기여하는 데 도움이 됩니다.
+이는 보안 관점에서 중요합니다: 한 클라이언트가 대다수의 노드에서 사용되고 심각한 버그나 공격을 받으면 해당 노드가 모두 실패하여 전체 Beacon Chain의 안정성을 위협할 수 있습니다.
 
 ### Lighthouse
 
-[Lighthouse](https://lighthouse.sigmaprime.io/) is an open-source Ethereum 2.0 maintained by [Sigma Prime](https://sigmaprime.io/).
-It implements the [Ethereum 2.0 specification](https://github.com/ethereum/consensus-specs) as defined by the Ethereum Foundation Research team.
+[Lighthouse](https://lighthouse.sigmaprime.io/)는 [Sigma Prime](https://sigmaprime.io/)이 유지 관리하는 오픈 소스 Ethereum 2.0입니다.
+Ethereum Foundation Research 팀이 정의한 [Ethereum 2.0 사양](https://github.com/ethereum/consensus-specs)을 구현합니다.
 
-Lighthouse is a cutting-edge distributed systems project implementing technologies at the forefront of blockchain research; including proof-of-stake consensus, parallel transaction execution and state separation (sharding).
+Lighthouse는 proof-of-stake consensus, 병렬 트랜잭션 실행 및 상태 분리 (sharding)를 포함하여 블록체인 연구의 최전선에 있는 기술을 구현하는 최첨단 분산 시스템 프로젝트입니다.
 
-Lighthouse has no official affiliation with the Ethereum Foundation and will continue to follow its guidance as long it is remains in the best interest of the Ethereum protocol and community surrounding it.
+Lighthouse는 Ethereum Foundation과 공식적인 제휴가 없으며 Ethereum 프로토콜과 이를 둘러싼 커뮤니티의 최선의 이익을 위해 계속해서 지침을 따를 것입니다.
 
-Lighthouse is implemented in [Rust](https://www.rust-lang.org/) and will maintain a focus on security and efficiency.
+Lighthouse는 [Rust](https://www.rust-lang.org/)로 구현되었으며 보안 및 효율성에 중점을 둡니다.
 
 ### Lodestar
 
-[Lodestar](https://lodestar.chainsafe.io/) is the fifth open-source Ethereum consensus client maintained by [ChainSafe Systems](https://chainsafe.io/). Our flagship product is our production-capable beacon chain and validator client for Ethereum consensus. Our software and tooling is uniquely situated as the go-to for researchers and developers for rapid prototyping and browser usage. Millions of developers around the world are familiar with Typescript, and Lodestar's high-quality codebases are excellent introductions to the Ethereum world.
+[Lodestar](https://lodestar.chainsafe.io/)는 [ChainSafe Systems](https://chainsafe.io/)가 유지 관리하는 다섯 번째 오픈 소스 Ethereum consensus 클라이언트입니다. 우리의 대표 제품은 Ethereum consensus를 위한 프로덕션 가능한 beacon chain 및 validator 클라이언트입니다. 우리의 소프트웨어와 도구는 연구자와 개발자가 신속한 프로토타입 제작 및 브라우저 사용을 위한 선택으로 독특하게 자리 잡고 있습니다. 전 세계 수백만 명의 개발자가 Typescript에 익숙하며 Lodestar의 고품질 코드베이스는 Ethereum 세계로의 훌륭한 소개입니다.
 
-Lodestar has also been a leader in light client research, standardization, and implementation of Ethereum light clients. We strive to work with other client implementers, researchers and developers to demonstrate the importance of having browsers utilize trustless data directly from the blockchain.
+Lodestar는 또한 light 클라이언트 연구, 표준화 및 Ethereum light 클라이언트 구현의 리더였습니다. 우리는 다른 클라이언트 구현자, 연구자 및 개발자와 협력하여 브라우저가 블록체인에서 직접 신뢰할 수 없는 데이터를 활용하는 것의 중요성을 입증하기 위해 노력합니다.
 
-Lodestar's niche is in its implementation language, [Typescript](https://www.typescriptlang.org/).
+Lodestar의 틈새 시장은 구현 언어인 [Typescript](https://www.typescriptlang.org/)입니다.
 
 ### Nimbus
 
-[Nimbus](https://nimbus.team/) is a client implementation for both Ethereum 2.0 and Ethereum 1.0 that strives to be as lightweight as possible in terms of resources used.
-This allows it to perform well on embedded systems and resource-restricted devices.
+[Nimbus](https://nimbus.team/)는 사용되는 리소스 측면에서 가능한 한 가볍게 되도록 노력하는 Ethereum 2.0 및 Ethereum 1.0 모두를 위한 클라이언트 구현입니다.
+이를 통해 임베디드 시스템 및 리소스 제한 장치에서도 잘 작동할 수 있습니다.
 
-However, resource-restricted hardware is not the only thing Nimbus is good for.
-Its low resource consumption makes it easy to run Nimbus together with other workloads on your server (this is especially valuable for stakers looking to lower the cost of their server instances).
+그러나 리소스 제한 하드웨어만이 Nimbus가 좋은 유일한 것은 아닙니다.
+낮은 리소스 소비로 인해 서버의 다른 워크로드와 함께 Nimbus를 쉽게 실행할 수 있습니다 (이는 서버 인스턴스 비용을 낮추려는 staker에게 특히 유용합니다).
 
-Nimbus is written in [Nim](https://nim-lang.org/) and maintained by the [Status.im team](https://status.im/about/).
+Nimbus는 [Nim](https://nim-lang.org/)으로 작성되었으며 [Status.im 팀](https://status.im/about/)이 유지 관리합니다.
 
 ### Prysm
 
-The [Prysm](https://docs.prylabs.network/docs/getting-started/#what-is-prysm) project is a full-featured implementation for the Ethereum 2.0 network written entirely in the [Go programming language](https://golang.org/).
+[Prysm](https://docs.prylabs.network/docs/getting-started/#what-is-prysm) 프로젝트는 [Go 프로그래밍 언어](https://golang.org/)로 전적으로 작성된 Ethereum 2.0 네트워크를 위한 완전한 기능의 구현입니다.
 
-Created by [Prysmatic Labs](https://prysmaticlabs.com/), Prysm implements the official [Ethereum 2.0 specification](https://github.com/ethereum/consensus-specs), which is the product of an ongoing collective research and development effort by various teams across the Ethereum ecosystem including the [Ethereum Foundation](https://ethereum.org/).
+[Prysmatic Labs](https://prysmaticlabs.com/)가 만든 Prysm은 [Ethereum Foundation](https://ethereum.org/)을 포함하여 Ethereum 생태계 전반의 다양한 팀의 지속적인 집단 연구 및 개발 노력의 산물인 공식 [Ethereum 2.0 사양](https://github.com/ethereum/consensus-specs)을 구현합니다.
 
 ### Teku
 
-[Teku](https://docs.teku.consensys.net/en/stable/) (formerly known as Artemis) is a [Java](https://en.wikipedia.org/wiki/Java_%28programming_language%29)-based Ethereum consensus client designed & built to meet institutional needs and security requirements.
-PegaSys is an arm of [ConsenSys](https://consensys.net/) dedicated to building enterprise-ready clients and tools for interacting with the core Ethereum platform.
+[Teku](https://docs.teku.consensys.net/en/stable/) (이전 Artemis)는 기관의 요구와 보안 요구 사항을 충족하도록 설계 및 구축된 [Java](https://en.wikipedia.org/wiki/Java_%28programming_language%29) 기반 Ethereum consensus 클라이언트입니다.
+PegaSys는 핵심 Ethereum 플랫폼과 상호 작용하기 위한 엔터프라이즈급 클라이언트 및 도구 구축에 전념하는 [ConsenSys](https://consensys.net/)의 한 부문입니다.
 
-Teku is Apache 2.0 licensed and written in Java, a language notable for its maturity & ubiquity.
+Teku는 Apache 2.0 라이선스가 있으며 Java로 작성되었습니다. Java는 성숙도와 편재성으로 유명한 언어입니다.
 
-### Client Comparison Table
+### 클라이언트 비교 표
 
-| Client     | CPU Usage | Minimum RAM Usage | Sync Time                    |
+| 클라이언트     | CPU 사용량 | 최소 RAM 사용량 | 동기화 시간                    |
 | ---------- | --------- | ----------------- | ---------------------------- |
-| Lighthouse | Moderate  | 2 GB              | Instant with checkpoint sync |
-| Lodestar   | Moderate  | 4 GB              | Instant with checkpoint sync |
-| Nimbus     | Low       | 0.75 GB           | Instant with checkpoint sync |
-| Prysm      | Moderate  | 2 GB              | Instant with checkpoint sync |
-| Teku       | Moderate  | 4 GB              | Instant with checkpoint sync |
+| Lighthouse | 보통  | 2 GB              | checkpoint sync로 즉시 |
+| Lodestar   | 보통  | 4 GB              | checkpoint sync로 즉시 |
+| Nimbus     | 낮음       | 0.75 GB           | checkpoint sync로 즉시 |
+| Prysm      | 보통  | 2 GB              | checkpoint sync로 즉시 |
+| Teku       | 보통  | 4 GB              | checkpoint sync로 즉시 |

@@ -1,39 +1,35 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Expiring Pre-Merge History
+# マージ前履歴の期限切れ
 
-All Execution clients now support partial history expiry in accordance to [EIP-4444](https://eips.ethereum.org/EIPS/eip-4444). Users can substantially
-reduce the storage requirements for their node by removing pre-merge block history starting in Smartnode version `v1.17.0`. Feel free to check out
-this blog post to learn more about partial history expiry: https://blog.ethereum.org/2025/07/08/partial-history-exp
+すべてのExecutionクライアントは、[EIP-4444](https://eips.ethereum.org/EIPS/eip-4444)に従って部分的な履歴期限切れをサポートしています。ユーザーは、Smartnodeバージョン`v1.17.0`以降でマージ前のブロック履歴を削除することにより、ノードのストレージ要件を大幅に削減できます。部分的な履歴期限切れの詳細については、このブログ投稿をご覧ください: https://blog.ethereum.org/2025/07/08/partial-history-exp
 
-::: tip NOTE
+::: tip 注意
 
-    Please keep in mind that the steps to remove pre-merge history depend on your node's selected Execution client:
-    - Nethermind users will need a full resync to remove pre-merge history.
-    - Geth users can use the `rocketpool service prune-eth1` command or conduct a full resync.
-    - Besu and Reth users can perform an online prune while their node continues to attest.
+    マージ前履歴を削除する手順は、ノードで選択されているExecutionクライアントによって異なることに注意してください:
+    - Nethermindユーザーは、マージ前履歴を削除するために完全な再同期が必要です。
+    - Gethユーザーは、`rocketpool service prune-eth1`コマンドを使用するか、完全な再同期を実行できます。
+    - BesuおよびRethユーザーは、ノードがアテステーションを続けながらオンラインプルーニングを実行できます。
 
 :::
 
-The following steps to remove pre-merge history are for Docker mode nodes only. If you are using an external client in Hybrid
-mode or Native mode, please refer to the documentation provided by your Execution client.
+以下のマージ前履歴を削除する手順は、Dockerモードのノードのみを対象としています。HybridモードまたはNativeモードで外部クライアントを使用している場合は、Executionクライアントが提供するドキュメントを参照してください。
 
-Start by opening the Settings Manager:
+まず、Settings Managerを開きます。
 
 ```shell
 rocketpool service config
 ```
 
-To change the Execution Client pruning mode, go to the `Execution Client (ETH1)` menu and select the `History Expiry` setting in the dropdown menu for `Pruning Mode`
+Execution Clientのプルーニングモードを変更するには、`Execution Client (ETH1)`メニューに移動し、`Pruning Mode`のドロップダウンメニューで`History Expiry`設定を選択します。
 
 ![](../images/tui-history-expiry.png)
 
-After you've made the selection, press `escape` to return to the main menu, then press `tab` to highlight the `Review Changes and Save` button. Press
-the `enter` key to continue. You'll be presented with a menu to preview the changes to your Execution client settings.
+選択を行った後、`escape`を押してメインメニューに戻り、次に`tab`を押して`Review Changes and Save`ボタンをハイライトします。`enter`キーを押して続行します。Executionクライアント設定の変更をプレビューするメニューが表示されます。
 
 ![](../images/tui-review-history-expiry.png)
 
-Press the `enter` key on `Save Settings` to save and exit the Settings Manager, then enter `y` to restart your `rocketpool_eth1` container.
+`Save Settings`で`enter`キーを押して保存し、Settings Managerを終了します。次に、`y`を入力して`rocketpool_eth1`コンテナを再起動します。
 
 ```shell
 Your changes have been saved!
@@ -42,28 +38,25 @@ The following containers must be restarted for the changes to take effect:
 Would you like to restart them automatically now? [y/n]
 ```
 
-From this point on, the steps differ depending on which Execution client you're using:
+この時点から、使用しているExecutionクライアントによって手順が異なります。
 
 <div className="p-3">
   <Tabs>
 
         <Tab label="Nethermind">
-        Nethermind nodes require a full resync to remove pre-merge history. You must resync your Execution client after saving
-        the `History Expiry` setting and restarting your `eth1` container.
+        Nethermindノードは、マージ前履歴を削除するために完全な再同期が必要です。`History Expiry`設定を保存し、`eth1`コンテナを再起動した後、Executionクライアントを再同期する必要があります。
 
-        ::: warning WARNING
-        If you don't have a fallback node configured, your node will stop validating during a resync. A fallback node will
-        allow your primary node to continue attesting and proposing blocks during a prune or resync. Click [here](/en/node-staking/fallback)
-        to learn how to configure a fallback node.
+        ::: warning 警告
+        フォールバックノードが設定されていない場合、再同期中にノードは検証を停止します。フォールバックノードがあれば、プライマリノードはプルーニングまたは再同期中もアテステーションとブロック提案を続けることができます。フォールバックノードの設定方法については、[こちら](/ja/node-staking/fallback)をクリックしてください。
         :::
 
-        Use the following command to resync your Execution client:
+        以下のコマンドを使用してExecutionクライアントを再同期します。
         ```shell
         rocketpool service resync-eth1
         ```
 
-        You're all set! The node will no longer store pre-merge data, substantially improving the feasibility of fitting a node on a 2 TB drive.
-        We recommend monitoring the progress using the following command.
+        これで完了です! ノードはマージ前のデータを保存しなくなり、2 TBドライブにノードを収めることの実現可能性が大幅に向上します。
+        以下のコマンドを使用して進行状況を監視することをお勧めします。
         ```shell
         rocketpool service logs eth1
         ```
@@ -72,28 +65,24 @@ From this point on, the steps differ depending on which Execution client you're 
 
     <Tab label="Geth">
 
-        Geth nodes require an offline prune to remove pre-merge history. You must prune your Execution client after saving
-        the `History Expiry` setting and restarting your `eth1` container. Alternatively you may choose to conduct a full resync to remove pre-merge history.
+        Gethノードは、マージ前履歴を削除するためにオフラインプルーニングが必要です。`History Expiry`設定を保存し、`eth1`コンテナを再起動した後、Executionクライアントをプルーニングする必要があります。または、マージ前履歴を削除するために完全な再同期を実行することもできます。
 
-        ::: tip NOTE
-        We recommend pruning over conducting a full resync. If you wish to start over with a fresh Geth database or have an issue
-        with pruning, you can resync the Execution client using `rocketpool service resync-eth1`. Both choices should result in expired pre-merge history.
+        ::: tip 注意
+        完全な再同期を実行するよりも、プルーニングを推奨します。新しいGethデータベースで最初からやり直したい場合、またはプルーニングに問題がある場合は、`rocketpool service resync-eth1`を使用してExecutionクライアントを再同期できます。どちらの選択肢も、マージ前履歴が期限切れになるはずです。
         :::
 
-        ::: warning WARNING
-        If you don't have a fallback node configured, your node will stop validating during a prune or resync. A fallback node will
-        allow your primary node to continue attesting and proposing blocks during a prune or resync. Click [here](/en/node-staking/fallback)
-        to learn how to configure a fallback node.
+        ::: warning 警告
+        フォールバックノードが設定されていない場合、プルーニングまたは再同期中にノードは検証を停止します。フォールバックノードがあれば、プライマリノードはプルーニングまたは再同期中もアテステーションとブロック提案を続けることができます。フォールバックノードの設定方法については、[こちら](/ja/node-staking/fallback)をクリックしてください。
         :::
 
-        Please run the following command to prune your Execution client:
+        以下のコマンドを実行してExecutionクライアントをプルーニングしてください。
         ```shell
         rocketpool service prune-eth1
         ```
-        You can click [here](/en/node-staking/pruning#starting-a-prune) to learn more about pruning.
+        プルーニングの詳細については、[こちら](/ja/node-staking/pruning#starting-a-prune)をクリックしてください。
 
-        You're all set! The node will no longer store pre-merge data, substantially improving the feasibility of fitting a node on a 2 TB drive.
-        We recommend monitoring the progress using the following command.
+        これで完了です! ノードはマージ前のデータを保存しなくなり、2 TBドライブにノードを収めることの実現可能性が大幅に向上します。
+        以下のコマンドを使用して進行状況を監視することをお勧めします。
         ```shell
         rocketpool service logs eth1
         ```
@@ -102,9 +91,9 @@ From this point on, the steps differ depending on which Execution client you're 
 
     <Tab label="Besu">
 
-        You're all set! Besu nodes will perform an online prune while continuing to attest and propose blocks.
-        The node will no longer store pre-merge data, substantially improving the feasibility of fitting a node on a 2 TB drive.
-        We recommend monitoring the progress using the following command.
+        これで完了です! Besuノードは、アテステーションとブロック提案を続けながらオンラインプルーニングを実行します。
+        ノードはマージ前のデータを保存しなくなり、2 TBドライブにノードを収めることの実現可能性が大幅に向上します。
+        以下のコマンドを使用して進行状況を監視することをお勧めします。
         ```shell
         rocketpool service logs eth1
         ```
@@ -113,9 +102,9 @@ From this point on, the steps differ depending on which Execution client you're 
 
     <Tab label="Reth">
 
-        You're all set! Reth nodes will perform an online prune while continuing to attest and propose blocks.
-        The node will no longer store pre-merge data, substantially improving the feasibility of fitting a node on a 2 TB drive.
-        We recommend monitoring the progress using the following command.
+        これで完了です! Rethノードは、アテステーションとブロック提案を続けながらオンラインプルーニングを実行します。
+        ノードはマージ前のデータを保存しなくなり、2 TBドライブにノードを収めることの実現可能性が大幅に向上します。
+        以下のコマンドを使用して進行状況を監視することをお勧めします。
         ```shell
         rocketpool service logs eth1
          ```

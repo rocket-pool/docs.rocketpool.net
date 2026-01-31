@@ -1,34 +1,34 @@
-# Monitoring your Node's Performance
+# Monitorando o Desempenho do seu Node
 
-Now that your node is up and running and you have one or more minipools attached, you'll need to keep an eye on everything to make sure it's running smoothly.
+Agora que seu node está em funcionamento e você tem um ou mais minipools conectados, você precisará ficar de olho em tudo para garantir que está funcionando corretamente.
 
-You can track your machine either:
+Você pode rastrear sua máquina tanto:
 
-1. Directly by tapping into your machine metrics
-2. Indirectly through the use of third party tools
+1. Diretamente acessando as métricas da sua máquina
+2. Indiretamente através do uso de ferramentas de terceiros
 
-It is recommended to use a combination of both depending on your needs.
+É recomendado usar uma combinação de ambos, dependendo das suas necessidades.
 
-## Directly Tracking your Machine's Status
+## Rastreando Diretamente o Status da sua Máquina
 
-With respect to your machine's status, there are a few useful metrics you'll probably want to keep an eye on:
+Com relação ao status da sua máquina, existem algumas métricas úteis que você provavelmente vai querer acompanhar:
 
-- CPU Usage
-- Free RAM remaining
-- Swap space usage (if you enabled it)
-- Remaining free disk space
-- Network I/O (if your ISP imposes a data cap)
+- Uso de CPU
+- RAM livre restante
+- Uso de espaço de swap (se você o habilitou)
+- Espaço livre em disco restante
+- I/O de rede (se seu provedor de internet impõe um limite de dados)
 
-::: tip NOTE
-The sections below show you some ways to monitor things, but they require you to be logged into the terminal of your machine.
-There is a better, much more convenient and much nicer-looking method that uses a [Grafana web dashboard](./grafana.mdx) but it is still under development.
-Stay tuned for the completion of that section!
+::: tip NOTA
+As seções abaixo mostram algumas maneiras de monitorar as coisas, mas elas exigem que você esteja logado no terminal da sua máquina.
+Existe um método melhor, muito mais conveniente e muito mais atraente visualmente que usa um [painel web Grafana](./grafana.mdx), mas ainda está em desenvolvimento.
+Fique atento para a conclusão dessa seção!
 :::
 
-### CPU, RAM, and Swap
+### CPU, RAM e Swap
 
-The first three can be easily viewed with the `htop` program.
-This will give you a nice live view into your system resources, as shown by this screenshot from a Raspberry Pi:
+Os três primeiros podem ser facilmente visualizados com o programa `htop`.
+Isso lhe dará uma visualização ao vivo dos recursos do seu sistema, como mostrado nesta captura de tela de um Raspberry Pi:
 
 ```
 htop
@@ -36,29 +36,29 @@ htop
 
 ![Htop screenshot on raspberry pi](./local/images/pi/Htop.png)
 
-On the top display with the bars, the numbered bars each refer to a CPU core's current usage.
+Na exibição superior com as barras, as barras numeradas se referem ao uso atual de cada núcleo da CPU.
 
-`Mem` shows you how much RAM you're currently using (in this screenshot, 1.75 GB) and how much you have total (3.70 GB).
+`Mem` mostra quanto RAM você está usando atualmente (nesta captura de tela, 1.75 GB) e quanto você tem no total (3.70 GB).
 
-`Swp` shows you how much swap space you're using (85.8 MB) and how much you have total (12.0 GB).
+`Swp` mostra quanto espaço de swap você está usando (85.8 MB) e quanto você tem no total (12.0 GB).
 
-On the bottom table, each row represents a process.
-Your Execution and Consensus clients will likely be on top (in this case, Geth and Nimbus) which you can see in the rightmost column labeled `Command`.
+Na tabela inferior, cada linha representa um processo.
+Seus clientes de Execution e Consensus provavelmente estarão no topo (neste caso, Geth e Nimbus), que você pode ver na coluna da direita rotulada como `Command`.
 
-The `RES` column shows you how much RAM each process is taking - in this screenshot, Geth is taking 748 MB and Nimbus is taking 383 MB.
+A coluna `RES` mostra quanto RAM cada processo está usando - nesta captura de tela, Geth está usando 748 MB e Nimbus está usando 383 MB.
 
-The `CPU%` column shows you how much CPU power each process is consuming.
-100% represents a single core, so if it's over 100%, that means it's using a lot from multiple cores (like Geth is here, with 213%).
+A coluna `CPU%` mostra quanto poder de CPU cada processo está consumindo.
+100% representa um único núcleo, então se estiver acima de 100%, significa que está usando muito de múltiplos núcleos (como Geth está aqui, com 213%).
 
-### Remaining Free Disk Space
+### Espaço Livre em Disco Restante
 
-Keeping an eye on how much disk space you have free is easy to do with the following command:
+Ficar de olho em quanto espaço em disco você tem livre é fácil de fazer com o seguinte comando:
 
 ```
 df -h
 ```
 
-This will provide output similar to the following example:
+Isso fornecerá uma saída semelhante ao exemplo a seguir:
 
 ```
 Filesystem        Size  Used Avail Use% Mounted on
@@ -69,30 +69,30 @@ Filesystem        Size  Used Avail Use% Mounted on
 ...
 ```
 
-For conventional setups where you have one drive that stores both your Operating System and your Execution and Consensus chain data, you just need to look at the entry that has `/` in the `Mounted on` column.
-This represents your main disk.
-If that ever looks like it's running out of space (say, 80% used or so), then you need to start thinking about doing some cleanup.
-For example, if you're running Geth, you may want to look at [how to prune it](./pruning) to clear up some space.
+Para configurações convencionais onde você tem uma unidade que armazena tanto seu Sistema Operacional quanto seus dados da cadeia de Execution e Consensus, você só precisa olhar para a entrada que tem `/` na coluna `Mounted on`.
+Isso representa seu disco principal.
+Se isso parecer estar ficando sem espaço (digamos, 80% usado ou mais), então você precisa começar a pensar em fazer alguma limpeza.
+Por exemplo, se você estiver executando Geth, você pode querer ver [como fazer o prune dele](./pruning) para liberar algum espaço.
 
-For setups that store the Execution and Consensus chain data on a separate drive, you'll want to look at the row that has your chain data folder in the `Mounted on` column as well.
-In this example we mounted an external SSD to `/mnt/rpdata`, so we'll have to keep an eye on it to make sure it doesn't grow too large either.
+Para configurações que armazenam os dados da cadeia de Execution e Consensus em uma unidade separada, você também vai querer olhar para a linha que tem sua pasta de dados da cadeia na coluna `Mounted on`.
+Neste exemplo, montamos um SSD externo em `/mnt/rpdata`, então teremos que ficar de olho nele para garantir que não cresça muito também.
 
-### Network I/O and Data Usage
+### I/O de Rede e Uso de Dados
 
-If you want to track how much network I/O your system uses over time, you can install a nice utility called `vnstat`.
-Here's an example of installing it on a Ubuntu / Debian system:
+Se você quiser rastrear quanto I/O de rede seu sistema usa ao longo do tempo, você pode instalar um utilitário legal chamado `vnstat`.
+Aqui está um exemplo de como instalá-lo em um sistema Ubuntu / Debian:
 
 ```shell
 sudo apt install vnstat
 ```
 
-To run it, do this (assuming `eth0` is the name of the network interface you use for your Internet connection):
+Para executá-lo, faça isso (assumindo que `eth0` é o nome da interface de rede que você usa para sua conexão à Internet):
 
 ```
 vnstat -i eth0
 ```
 
-This won't work right away because it needs time to collect data about your system, but as the days and weeks pass, it will end up looking like this:
+Isso não funcionará imediatamente porque precisa de tempo para coletar dados sobre seu sistema, mas conforme os dias e semanas passam, ele vai acabar parecendo assim:
 
 ```
 $ vnstat -i eth0
@@ -119,144 +119,144 @@ Database updated: 2021-06-28 22:00:00
      estimated     19.92 GiB |   33.30 GiB |   53.22 GiB |
 ```
 
-This will let you keep tabs on your total network usage, which might be helpful if your ISP imposes a data cap.
+Isso permitirá que você acompanhe seu uso total de rede, o que pode ser útil se seu provedor de internet impõe um limite de dados.
 
-Note that most modern systems more commonly use other network interfaces like eno0 and enp0s31f6 and not eth0.
-If you need to check your network interface, run the following command:
+Note que a maioria dos sistemas modernos usa mais comumente outras interfaces de rede como eno0 e enp0s31f6 e não eth0.
+Se você precisar verificar sua interface de rede, execute o seguinte comando:
 
 ```shell
 ls /sys/class/net
 ```
 
-Ethernet (hard-wire) devices usually start with `e`, such as the examples above.
-Wireless devices usually start with `w`.
+Dispositivos Ethernet (cabo) geralmente começam com `e`, como os exemplos acima.
+Dispositivos sem fio geralmente começam com `w`.
 
-## Smartnode Alert Notifications
+## Notificações de Alerta do Smartnode
 
-[Monitoring your Smartnode Stack with Alert Notifications](./maintenance/alerting.md) walks through using the Smartnode alert notification functionality to receive notifications about the health and important events of your Rocket Pool Smartnode.
+[Monitorando sua Stack Smartnode com Notificações de Alerta](./maintenance/alerting.md) explica como usar a funcionalidade de notificação de alerta do Smartnode para receber notificações sobre a saúde e eventos importantes do seu Rocket Pool Smartnode.
 
-## Third-Party Performance Monitoring
+## Monitoramento de Desempenho de Terceiros
 
-The best monitoring uses a Swiss-cheese model: every tool has holes, but if you stack them on top of each-other there is less of a chance anything falls through and catches you by surprise.
+O melhor monitoramento usa um modelo de queijo suíço: toda ferramenta tem buracos, mas se você as empilha umas sobre as outras, há menos chance de algo passar despercebido e te pegar de surpresa.
 
-Please note that these third-party tools are used by the Rocket Pool community, but are not officially endorsed or supported by the Rocket Pool team.
-If you have a tool suggestion, or are a tool owner, you are very welcome to add a pull request with details on your tool.
+Por favor, note que essas ferramentas de terceiros são usadas pela comunidade Rocket Pool, mas não são oficialmente endossadas ou suportadas pela equipe Rocket Pool.
+Se você tem uma sugestão de ferramenta, ou é um proprietário de ferramenta, você é muito bem-vindo para adicionar um pull request com detalhes sobre sua ferramenta.
 
-### Beaconcha.in Website: Using the Beacon Chain as a Metric Source
+### Site Beaconcha.in: Usando a Beacon Chain como Fonte de Métricas
 
-The [Beaconcha.in](https://beaconcha.in) block explorer website and app provide a way to track your validator's performance by looking at it's on-chain activity.
-They also have the option to receive [email notifications](https://beaconcha.in/user/notifications) for significant events like downtime.
-Navigate to their site, and enter the public key for your validator in the search box on the top of the screen.
+O site explorador de blocos [Beaconcha.in](https://beaconcha.in) e o app fornecem uma maneira de rastrear o desempenho do seu validador observando sua atividade on-chain.
+Eles também têm a opção de receber [notificações por email](https://beaconcha.in/user/notifications) para eventos significativos como tempo de inatividade.
+Navegue até o site deles e insira a chave pública do seu validador na caixa de pesquisa no topo da tela.
 
 ::: tip
-If you forgot your validator's public key, you can easily retrieve it with the command `rocketpool minipool status`.
+Se você esqueceu a chave pública do seu validador, você pode facilmente recuperá-la com o comando `rocketpool minipool status`.
 :::
 
-If everything is set up right, you should see something like this:
+Se tudo estiver configurado corretamente, você deverá ver algo assim:
 ![](./local/images/pi/Beaconchain.png)
 
-::: tip NOTE
-The above link is for the **mainnet** version of Beaconcha.in.
-If you're running on the Hoodi Testnet, use [this link instead](https://hoodi.beaconcha.in)!
+::: tip NOTA
+O link acima é para a versão **mainnet** do Beaconcha.in.
+Se você está rodando no Hoodi Testnet, use [este link](https://hoodi.beaconcha.in)!
 :::
 
-This is a record of all of the Beacon Chain activity for your validator.
-You can use it to check your validator's balance on the Beacon Chain to watch it grow over time and calculate your APY.
+Este é um registro de toda a atividade da Beacon Chain para seu validador.
+Você pode usá-lo para verificar o saldo do seu validador na Beacon Chain para vê-lo crescer ao longo do tempo e calcular seu APY.
 
-You can also use it to quickly gauge if your validator is alive and running correctly.
-If it is, all of the attestations should say `Attested` for their **Status**, and ideally all of the **Opt. Incl. Dist.** should be 0 (though an occasional 1 or 2 is fine).
+Você também pode usá-lo para avaliar rapidamente se seu validador está vivo e funcionando corretamente.
+Se estiver, todas as atestações devem dizer `Attested` para seu **Status**, e idealmente todos os **Opt. Incl. Dist.** devem ser 0 (embora um 1 ou 2 ocasional esteja ok).
 
-If there are lots of blocks that say `Missed` on them, then your validator is not working properly.
-You should check the logs of the `eth1`, `eth2`, and `validator` services with `rocketpool service logs ...` if you're using Docker or Hybrid mode (or the corresponding log scripts if you're using Native mode) to look for problems.
+Se houver muitos blocos que dizem `Missed` neles, então seu validador não está funcionando corretamente.
+Você deve verificar os logs dos serviços `eth1`, `eth2` e `validator` com `rocketpool service logs ...` se você estiver usando o modo Docker ou Hybrid (ou os scripts de log correspondentes se você estiver usando o modo Native) para procurar problemas.
 
-**You should pin this tab or create a bookmark with it so you can quickly jump to it and check the status of your validator.**
+**Você deve fixar esta aba ou criar um marcador com ela para que possa rapidamente acessá-la e verificar o status do seu validador.**
 
-#### Using Beaconcha.in to Monitor Multiple Minipools
+#### Usando Beaconcha.in para Monitorar Múltiplos Minipools
 
-Beaconcha.in has a [dashboard view](https://beaconcha.in/dashboard) that allows you to monitor multiple validators or minipools at once.
-Simply add your validator indices one at a time. If you have a lot of minipools, you can run:
+Beaconcha.in tem uma [visualização de painel](https://beaconcha.in/dashboard) que permite que você monitore múltiplos validadores ou minipools de uma vez.
+Simplesmente adicione seus índices de validador um de cada vez. Se você tem muitos minipools, você pode executar:
 
 ```shell
 rocketpool minipool status | grep Validator.index | awk -F " " '{print $3}' | paste -s -d, -
 ```
 
-to get a comma-separated list, and place it in the URL bar like so: `https://beaconcha.in/dashboard?validators=123456,123457`
+para obter uma lista separada por vírgulas, e colocá-la na barra de URL assim: `https://beaconcha.in/dashboard?validators=123456,123457`
 
-### Beaconcha.in App: Validator Overview and Push Notifications
+### App Beaconcha.in: Visão Geral do Validador e Notificações Push
 
-The Beaconcha.in website is a great way to view metrics and set up email alerts.
-Their mobile app has a more "at-a-glance" nature.
-It also features a push notification service that includes some useful alerts like:
+O site Beaconcha.in é uma ótima maneira de visualizar métricas e configurar alertas por email.
+O app móvel deles tem uma natureza mais "de relance".
+Ele também apresenta um serviço de notificação push que inclui alguns alertas úteis como:
 
-1. Notifications of issues like missed attestations
-2. Notifications of Rocket Pool reward rounds
-3. Over/under-collateralisation of the RPL on your node
+1. Notificações de problemas como atestações perdidas
+2. Notificações de rodadas de recompensa do Rocket Pool
+3. Sobre/sub-colateralização do RPL no seu node
 
-Note that the app has a free version, and paid options with convenience features like homescreen widgets.
+Note que o app tem uma versão gratuita e opções pagas com recursos de conveniência como widgets na tela inicial.
 
-### Renaming your Validators on Beaconcha.in
+### Renomeando seus Validadores no Beaconcha.in
 
-The Beaconcha.in website has a feature that allows users to rename their validators, making them easier to identify/search.
+O site Beaconcha.in tem um recurso que permite aos usuários renomear seus validadores, tornando-os mais fáceis de identificar/pesquisar.
 
-To be able to use this feature you need to sign a message using your node wallet's private key, in order to prove you're the person who controls that validator.
+Para poder usar este recurso você precisa assinar uma mensagem usando a chave privada da carteira do seu node, para provar que você é a pessoa que controla aquele validador.
 
-The Smartnode v1.5.1 includes the ability to sign messages with your node wallets's private key by using the command `rocketpool node sign-message`, then providing the message that you want to sign.
-It must contain the term 'beaconcha.in' to be used to rename your validators.
+O Smartnode v1.5.1 inclui a capacidade de assinar mensagens com a chave privada da carteira do seu node usando o comando `rocketpool node sign-message`, depois fornecendo a mensagem que você deseja assinar.
+Ela deve conter o termo 'beaconcha.in' para ser usada para renomear seus validadores.
 
 ![](../node-staking/images/sign-message.png)
 
-Open your validator page on Beaconcha.in and click on the `Edit validator name` button.
+Abra sua página de validador no Beaconcha.in e clique no botão `Edit validator name`.
 
 ![](../node-staking/images/edit-validator-name.png)
 
-Copy the result from the sign-message command and paste it in the "Signature" field.
-Fill your desired nickname and click the `Save changes`button.
+Copie o resultado do comando sign-message e cole no campo "Signature".
+Preencha seu apelido desejado e clique no botão `Save changes`.
 
 ![](../node-staking/images/paste-signed-message.png)
 
-### Uptimerobot: Port-scanning for Uptime
+### Uptimerobot: Escaneamento de Porta para Tempo de Atividade
 
-The [Uptimerobot](https://uptimerobot.com/) service is a simple service that scans an IP address for an open port.
-If your machine becomes unavailable on the port you specified, Uptimerobot can send you a notification that there is an issue.
-The service was a wide variety of notification options including email, push notification, SMS, phone call, and webhooks.
+O serviço [Uptimerobot](https://uptimerobot.com/) é um serviço simples que escaneia um endereço IP para uma porta aberta.
+Se sua máquina ficar indisponível na porta que você especificou, o Uptimerobot pode enviar uma notificação de que há um problema.
+O serviço tem uma ampla variedade de opções de notificação incluindo email, notificação push, SMS, chamada telefônica e webhooks.
 
-The setup screen looks something like this:
+A tela de configuração se parece com isso:
 
 ![](./local/images/uptimerobot.png)
 
-The IP to monitor is the external IP of your node, which you can find by logging into your node by `ssh` or physically, and opening [icanhazip.com](https://icanhazip.com/) in a browser or running the following command in your terminal:
+O IP a monitorar é o IP externo do seu node, que você pode encontrar fazendo login no seu node via `ssh` ou fisicamente, e abrindo [icanhazip.com](https://icanhazip.com/) em um navegador ou executando o seguinte comando no seu terminal:
 
 ```shell
 curl icanhazip.com
 ```
 
-The port to monitor depends on your node setup; users running the typical Smartnode installation will likely have forwarded ports 30303 and 9001 for the Execution and Consensus clients respectively, so these are good choices for uptime monitoring.
+A porta a monitorar depende da configuração do seu node; usuários executando a instalação típica do Smartnode provavelmente encaminharam as portas 30303 e 9001 para os clientes de Execution e Consensus respectivamente, então essas são boas escolhas para monitoramento de tempo de atividade.
 
-### Rocketpool Metrics Dashboards
+### Painéis de Métricas do Rocketpool
 
-There are multiple community-lead initiatives to provide an overview of your node performance, as well as the Rocket Pool network as a whole.
+Existem múltiplas iniciativas lideradas pela comunidade para fornecer uma visão geral do desempenho do seu node, bem como da rede Rocket Pool como um todo.
 
-### Scripting with Pushover (advanced)
+### Scripting com Pushover (avançado)
 
-::: tip NOTE
-[Monitoring your Smartnode Stack with Alert Notifications](./maintenance/alerting.md) walks through using the Smartnode alert notification functionality which includes a notification when there are updates available for your node.
+::: tip NOTA
+[Monitorando sua Stack Smartnode com Notificações de Alerta](./maintenance/alerting.md) explica como usar a funcionalidade de notificação de alerta do Smartnode que inclui uma notificação quando há atualizações disponíveis para seu node.
 :::
 
-The [Pushover](https://pushover.net/) service allows you to send yourself push notifications.
+O serviço [Pushover](https://pushover.net/) permite que você envie notificações push para si mesmo.
 
-::: warning NOTE
-This is an advanced activity to undertake.
-It can be helpful if you are familiar with shell scripting, but is not recommended if you are not comfortable in a shell environment.
+::: warning NOTA
+Esta é uma atividade avançada para realizar.
+Pode ser útil se você está familiarizado com shell scripting, mas não é recomendado se você não se sente confortável em um ambiente de shell.
 :::
 
-To get started with Pushover:
+Para começar com Pushover:
 
-1. Create an account at [pushover.net](https://pushover.net/)
-1. [Create an API token](https://pushover.net/apps/build)
-1. Install the Pushover mobile app and/or browser extension
-1. Call the Pushover API for any action you care about
+1. Crie uma conta em [pushover.net](https://pushover.net/)
+1. [Crie um token de API](https://pushover.net/apps/build)
+1. Instale o app móvel Pushover e/ou extensão do navegador
+1. Chame a API Pushover para qualquer ação que você se importe
 
-Calling the Pushover API to send you a push notification is done through a `curl` call structured as such:
+Chamar a API Pushover para enviar uma notificação push é feito através de uma chamada `curl` estruturada assim:
 
 ```shell
 PUSHOVER_USER=
@@ -266,18 +266,18 @@ MESSAGE_CONTENT=
 curl -f -X POST -d "token=$PUSHOVER_TOKEN&user=$PUSHOVER_USER&title=$MESSAGE_TITLE&message=$MESSAGE_CONTENT&url=&priority=0" https://api.pushover.net/1/messages.json
 ```
 
-#### Example: Push Notification on Updates Available
+#### Exemplo: Notificação Push quando Atualizações Estão Disponíveis
 
-If you set up automatic updates using the `unattended-upgrades` and `update-nofifier` packages, you may want to receive a push notification when there are updates available for your node.
-A potential way to do this is to create a script in `~/update-notifier.sh` and to trigger it daily at 9:00 using `crontab`.
+Se você configurar atualizações automáticas usando os pacotes `unattended-upgrades` e `update-nofifier`, você pode querer receber uma notificação push quando há atualizações disponíveis para seu node.
+Uma maneira potencial de fazer isso é criar um script em `~/update-notifier.sh` e acioná-lo diariamente às 9:00 usando `crontab`.
 
-To do this, first create the script by running:
+Para fazer isso, primeiro crie o script executando:
 
 ```shell
 nano ~/update-notifier.sh
 ```
 
-Then paste the following script:
+Depois cole o seguinte script:
 
 ```shell
 #!/bin/bash
@@ -307,19 +307,19 @@ curl -f -X POST -d "token=$PUSHOVER_TOKEN&user=$PUSHOVER_USER&title=$MESSAGE_TIT
 
 ```
 
-Next, run the following command to mark the script as executable:
+Em seguida, execute o seguinte comando para marcar o script como executável:
 
 ```shell
 chmod u+x ~/update-notifier.sh
 ```
 
-Now run the following command to open your crontab:
+Agora execute o seguinte comando para abrir seu crontab:
 
 ```shell
 crontab -e
 ```
 
-Then use the arrow keys to scroll down, and add the line `* 9 * * * ~/update-notifier.sh` so the file looks like this:
+Depois use as teclas de seta para rolar para baixo, e adicione a linha `* 9 * * * ~/update-notifier.sh` para que o arquivo fique assim:
 
 ```shell
 # Edit this file to introduce tasks to be run by cron.
@@ -351,27 +351,27 @@ Then use the arrow keys to scroll down, and add the line `* 9 * * * ~/update-not
 0 9 * * * ~/update-notifier.sh
 ```
 
-The press `control+x` to exit and press `Y` when asked whether you want to save your changes.
+Depois pressione `control+x` para sair e pressione `Y` quando perguntado se você quer salvar suas alterações.
 
-You should now receive a notification at 09:00 local time if you have updates.
-You can manually run the script by typing this in your terminal:
+Você deve agora receber uma notificação às 09:00 hora local se você tiver atualizações.
+Você pode executar manualmente o script digitando isso no seu terminal:
 
 ```shell
 ~/update-notifier.sh
 ```
 
-#### Example: Get Notified when your APC UPS Daemon Activates
+#### Exemplo: Seja Notificado quando seu APC UPS Daemon Ativar
 
-Some home stakers are using an Uninterruptible power supply with the `apcupsd` utility to make sure their node shuts down gracefully if their power goes out.
+Alguns home stakers estão usando uma fonte de alimentação ininterrupta com o utilitário `apcupsd` para garantir que seu node desligue graciosamente se a energia acabar.
 
-The `apcupsd` utility uses the `apccontrol` script to manage its logic, thus it is possible to monitor the activity of this daemon by editing the `/etc/apcupsd/apccontrol` file.
-To do this, run:
+O utilitário `apcupsd` usa o script `apccontrol` para gerenciar sua lógica, portanto é possível monitorar a atividade desse daemon editando o arquivo `/etc/apcupsd/apccontrol`.
+Para fazer isso, execute:
 
 ```shell
 sudo nano /etc/apcupsd/apccontrol
 ```
 
-Then at the top of the line add the following code so the file looks like this:
+Depois no topo da linha adicione o seguinte código para que o arquivo fique assim:
 
 ```shell
 PUSHOVER_USER=
@@ -386,4 +386,4 @@ curl -f -X POST -d "token=$PUSHOVER_TOKEN&user=$PUSHOVER_USER&title=$MESSAGE_TIT
 # platforms/apccontrol.  Generated from apccontrol.in by configure.
 ```
 
-This will send you a push notification whenever your UPS daemon takes action, includion periodic "self test" functionality.
+Isso enviará uma notificação push sempre que seu daemon UPS tomar uma ação, incluindo funcionalidade periódica de "auto teste".

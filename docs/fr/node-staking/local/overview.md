@@ -1,19 +1,19 @@
 ---
 next:
   text: Selecting Staking Hardware
-  link: "/en/node-staking/local/hardware"
+  link: "/fr/node-staking/local/hardware"
 ---
 
-# Overview
+# Vue d'ensemble
 
-This section is aimed at helping you understand the process of preparing a local machine for use as a Rocket Pool node at home.
+Cette section vise à vous aider à comprendre le processus de préparation d'une machine locale pour une utilisation comme nœud Rocket Pool à domicile.
 
 ## Guides
 
-[Selecting Staking Hardware](./hardware) shows a wide variety of viable hardware configurations for node operation, hopefully helping you find inspiration when picking what to get for yourself.
+[Sélectionner le matériel de staking](./hardware) présente une grande variété de configurations matérielles viables pour l'exploitation de nœuds, en espérant vous aider à trouver l'inspiration lors du choix de ce que vous devez obtenir pour vous-même.
 
-[Preparing a PC, Mini-PC, or NUC](./prepare-pc) walks you through the basic steps of installing and configuring the base Operating System on your machine to prepare it for life as a node.
+[Préparer un PC, Mini-PC ou NUC](./prepare-pc) vous guide à travers les étapes de base de l'installation et de la configuration du système d'exploitation de base sur votre machine pour la préparer à sa vie de nœud.
 
-[Preparing a Mac](./prepare-mac) is the same, but for macOS systems.
+[Préparer un Mac](./prepare-mac) est la même chose, mais pour les systèmes macOS.
 
-[Intro to Secure Shell (SSH)](../ssh) shows you how to use **SSH**, a popular remote-access tool for working with your node machine remotely and securely from a different machine (such as a laptop or desktop) so you don't have to interact with the node directly via a monitor and keyboard connected to it.
+[Introduction à Secure Shell (SSH)](../ssh) vous montre comment utiliser **SSH**, un outil d'accès à distance populaire pour travailler avec votre machine de nœud à distance et en toute sécurité depuis une machine différente (comme un ordinateur portable ou de bureau) afin que vous n'ayez pas à interagir directement avec le nœud via un moniteur et un clavier qui y sont connectés.

@@ -1,34 +1,34 @@
-# Monitoring your Node's Performance
+# ノードのパフォーマンスの監視
 
-Now that your node is up and running and you have one or more minipools attached, you'll need to keep an eye on everything to make sure it's running smoothly.
+ノードが稼働し、1つ以上のminipoolが接続されたら、すべてがスムーズに実行されていることを確認するために監視する必要があります。
 
-You can track your machine either:
+マシンを追跡する方法は次の2つです:
 
-1. Directly by tapping into your machine metrics
-2. Indirectly through the use of third party tools
+1. マシンのメトリクスに直接アクセスして追跡する
+2. サードパーティツールを使用して間接的に追跡する
 
-It is recommended to use a combination of both depending on your needs.
+ニーズに応じて両方を組み合わせて使用することをお勧めします。
 
-## Directly Tracking your Machine's Status
+## マシンのステータスを直接追跡する
 
-With respect to your machine's status, there are a few useful metrics you'll probably want to keep an eye on:
+マシンのステータスに関して、監視したいと思われる便利なメトリクスがいくつかあります:
 
-- CPU Usage
-- Free RAM remaining
-- Swap space usage (if you enabled it)
-- Remaining free disk space
-- Network I/O (if your ISP imposes a data cap)
+- CPU使用率
+- 残りの空きRAM
+- スワップスペース使用量(有効にしている場合)
+- 残りの空きディスク容量
+- ネットワークI/O(ISPがデータキャップを課している場合)
 
-::: tip NOTE
-The sections below show you some ways to monitor things, but they require you to be logged into the terminal of your machine.
-There is a better, much more convenient and much nicer-looking method that uses a [Grafana web dashboard](./grafana.mdx) but it is still under development.
-Stay tuned for the completion of that section!
+::: tip 注意
+以下のセクションでは、いくつかの監視方法を示していますが、マシンのターミナルにログインする必要があります。
+[Grafana webダッシュボード](./grafana.mdx)を使用する、より良く、はるかに便利で、はるかに見栄えの良い方法がありますが、まだ開発中です。
+そのセクションの完成をお楽しみに!
 :::
 
-### CPU, RAM, and Swap
+### CPU、RAM、およびスワップ
 
-The first three can be easily viewed with the `htop` program.
-This will give you a nice live view into your system resources, as shown by this screenshot from a Raspberry Pi:
+最初の3つは、`htop`プログラムで簡単に表示できます。
+これにより、システムリソースへのナイスなライブビューが提供されます。Raspberry Piからのこのスクリーンショットに示されています:
 
 ```
 htop
@@ -36,29 +36,29 @@ htop
 
 ![Htop screenshot on raspberry pi](./local/images/pi/Htop.png)
 
-On the top display with the bars, the numbered bars each refer to a CPU core's current usage.
+バーのある上部ディスプレイでは、番号付きのバーはそれぞれCPUコアの現在の使用状況を示します。
 
-`Mem` shows you how much RAM you're currently using (in this screenshot, 1.75 GB) and how much you have total (3.70 GB).
+`Mem`は、現在使用しているRAMの量(このスクリーンショットでは1.75 GB)と、合計で持っている量(3.70 GB)を示します。
 
-`Swp` shows you how much swap space you're using (85.8 MB) and how much you have total (12.0 GB).
+`Swp`は、使用しているスワップスペースの量(85.8 MB)と、合計で持っている量(12.0 GB)を示します。
 
-On the bottom table, each row represents a process.
-Your Execution and Consensus clients will likely be on top (in this case, Geth and Nimbus) which you can see in the rightmost column labeled `Command`.
+下部のテーブルでは、各行がプロセスを表します。
+ExecutionクライアントとConsensusクライアントは、おそらく上部にあります(この場合、GethとNimbus)。これは、`Command`というラベルの付いた右端の列で確認できます。
 
-The `RES` column shows you how much RAM each process is taking - in this screenshot, Geth is taking 748 MB and Nimbus is taking 383 MB.
+`RES`列は、各プロセスが使用しているRAMの量を示します。このスクリーンショットでは、Gethが748 MBを、Nimbusが383 MBを使用しています。
 
-The `CPU%` column shows you how much CPU power each process is consuming.
-100% represents a single core, so if it's over 100%, that means it's using a lot from multiple cores (like Geth is here, with 213%).
+`CPU%`列は、各プロセスが消費しているCPUパワーの量を示します。
+100%は単一のコアを表すため、100%を超える場合は、複数のコアから多くを使用していることを意味します(ここではGethのように213%)。
 
-### Remaining Free Disk Space
+### 残りの空きディスク容量
 
-Keeping an eye on how much disk space you have free is easy to do with the following command:
+使用可能な空きディスク容量を監視することは、次のコマンドで簡単に行えます:
 
 ```
 df -h
 ```
 
-This will provide output similar to the following example:
+これにより、次の例のような出力が提供されます:
 
 ```
 Filesystem        Size  Used Avail Use% Mounted on
@@ -69,30 +69,30 @@ Filesystem        Size  Used Avail Use% Mounted on
 ...
 ```
 
-For conventional setups where you have one drive that stores both your Operating System and your Execution and Consensus chain data, you just need to look at the entry that has `/` in the `Mounted on` column.
-This represents your main disk.
-If that ever looks like it's running out of space (say, 80% used or so), then you need to start thinking about doing some cleanup.
-For example, if you're running Geth, you may want to look at [how to prune it](./pruning) to clear up some space.
+オペレーティングシステムとExecutionおよびConsensusチェーンデータの両方を保存する1つのドライブがある従来のセットアップの場合、`Mounted on`列に`/`があるエントリを確認するだけです。
+これはメインディスクを表します。
+もしスペースが不足しているように見える場合(たとえば、80%使用されているなど)、クリーンアップを開始する必要があります。
+例えば、Gethを実行している場合は、スペースをクリアするために[剪定方法](./pruning)を確認することをお勧めします。
 
-For setups that store the Execution and Consensus chain data on a separate drive, you'll want to look at the row that has your chain data folder in the `Mounted on` column as well.
-In this example we mounted an external SSD to `/mnt/rpdata`, so we'll have to keep an eye on it to make sure it doesn't grow too large either.
+ExecutionおよびConsensusチェーンデータを別のドライブに保存するセットアップの場合は、`Mounted on`列にチェーンデータフォルダーがある行も確認する必要があります。
+この例では、外部SSDを`/mnt/rpdata`にマウントしたので、それが大きくなりすぎないように監視する必要があります。
 
-### Network I/O and Data Usage
+### ネットワークI/Oとデータ使用量
 
-If you want to track how much network I/O your system uses over time, you can install a nice utility called `vnstat`.
-Here's an example of installing it on a Ubuntu / Debian system:
+システムが時間の経過とともに使用するネットワークI/Oを追跡したい場合は、`vnstat`と呼ばれる便利なユーティリティをインストールできます。
+Ubuntu / Debianシステムにインストールする例を次に示します:
 
 ```shell
 sudo apt install vnstat
 ```
 
-To run it, do this (assuming `eth0` is the name of the network interface you use for your Internet connection):
+実行するには、次のようにします(インターネット接続に使用するネットワークインターフェースの名前が`eth0`であると仮定します):
 
 ```
 vnstat -i eth0
 ```
 
-This won't work right away because it needs time to collect data about your system, but as the days and weeks pass, it will end up looking like this:
+これはすぐには機能しません。システムに関するデータを収集するのに時間がかかるためですが、日数と週数が経過すると、次のようになります:
 
 ```
 $ vnstat -i eth0
@@ -119,144 +119,144 @@ Database updated: 2021-06-28 22:00:00
      estimated     19.92 GiB |   33.30 GiB |   53.22 GiB |
 ```
 
-This will let you keep tabs on your total network usage, which might be helpful if your ISP imposes a data cap.
+これにより、合計ネットワーク使用量を追跡できます。ISPがデータキャップを課している場合に役立つ可能性があります。
 
-Note that most modern systems more commonly use other network interfaces like eno0 and enp0s31f6 and not eth0.
-If you need to check your network interface, run the following command:
+ほとんどの最新システムは、eth0ではなく、eno0やenp0s31f6のような他のネットワークインターフェースをより一般的に使用することに注意してください。
+ネットワークインターフェースを確認する必要がある場合は、次のコマンドを実行します:
 
 ```shell
 ls /sys/class/net
 ```
 
-Ethernet (hard-wire) devices usually start with `e`, such as the examples above.
-Wireless devices usually start with `w`.
+イーサネット(有線)デバイスは通常、上記の例のように`e`で始まります。
+ワイヤレスデバイスは通常`w`で始まります。
 
-## Smartnode Alert Notifications
+## Smartnodeアラート通知
 
-[Monitoring your Smartnode Stack with Alert Notifications](./maintenance/alerting.md) walks through using the Smartnode alert notification functionality to receive notifications about the health and important events of your Rocket Pool Smartnode.
+[アラート通知でSmartnodeスタックを監視する](./maintenance/alerting.md)では、Smartnodeアラート通知機能を使用して、Rocket Pool Smartnodeの健全性と重要なイベントに関する通知を受け取る方法について説明します。
 
-## Third-Party Performance Monitoring
+## サードパーティパフォーマンス監視
 
-The best monitoring uses a Swiss-cheese model: every tool has holes, but if you stack them on top of each-other there is less of a chance anything falls through and catches you by surprise.
+最適な監視では、スイスチーズモデルを使用します。すべてのツールには穴がありますが、それらを互いに重ねると、何かが落ちて驚かされる可能性が低くなります。
 
-Please note that these third-party tools are used by the Rocket Pool community, but are not officially endorsed or supported by the Rocket Pool team.
-If you have a tool suggestion, or are a tool owner, you are very welcome to add a pull request with details on your tool.
+これらのサードパーティツールはRocket Poolコミュニティで使用されていますが、Rocket Poolチームによって正式に承認またはサポートされているわけではないことに注意してください。
+ツールの提案がある場合、またはツールの所有者の場合は、ツールの詳細を含むプルリクエストを追加することを歓迎します。
 
-### Beaconcha.in Website: Using the Beacon Chain as a Metric Source
+### Beaconcha.in Website: Beacon Chainをメトリクスソースとして使用する
 
-The [Beaconcha.in](https://beaconcha.in) block explorer website and app provide a way to track your validator's performance by looking at it's on-chain activity.
-They also have the option to receive [email notifications](https://beaconcha.in/user/notifications) for significant events like downtime.
-Navigate to their site, and enter the public key for your validator in the search box on the top of the screen.
+[Beaconcha.in](https://beaconcha.in)ブロックエクスプローラーのウェブサイトとアプリは、オンチェーンアクティビティを確認することで、validatorのパフォーマンスを追跡する方法を提供します。
+また、ダウンタイムなどの重要なイベントに対して[メール通知](https://beaconcha.in/user/notifications)を受け取るオプションもあります。
+サイトに移動し、画面上部の検索ボックスにvalidatorの公開鍵を入力します。
 
 ::: tip
-If you forgot your validator's public key, you can easily retrieve it with the command `rocketpool minipool status`.
+validatorの公開鍵を忘れた場合は、`rocketpool minipool status`コマンドで簡単に取得できます。
 :::
 
-If everything is set up right, you should see something like this:
+すべてが正しくセットアップされている場合、次のようなものが表示されます:
 ![](./local/images/pi/Beaconchain.png)
 
-::: tip NOTE
-The above link is for the **mainnet** version of Beaconcha.in.
-If you're running on the Hoodi Testnet, use [this link instead](https://hoodi.beaconcha.in)!
+::: tip 注意
+上記のリンクは、Beaconcha.inの**mainnet**バージョン用です。
+Hoodi Testnetで実行している場合は、[代わりにこのリンクを使用してください](https://hoodi.beaconcha.in)!
 :::
 
-This is a record of all of the Beacon Chain activity for your validator.
-You can use it to check your validator's balance on the Beacon Chain to watch it grow over time and calculate your APY.
+これは、validatorのすべてのBeacon Chainアクティビティの記録です。
+Beacon Chain上のvalidatorの残高を確認して、時間の経過とともに成長するのを見守り、APYを計算できます。
 
-You can also use it to quickly gauge if your validator is alive and running correctly.
-If it is, all of the attestations should say `Attested` for their **Status**, and ideally all of the **Opt. Incl. Dist.** should be 0 (though an occasional 1 or 2 is fine).
+また、validatorが稼働して正しく実行されているかどうかを迅速に判断するためにも使用できます。
+そうである場合、すべてのアテステーションは**Status**に`Attested`と表示され、理想的にはすべての**Opt. Incl. Dist.**が0である必要があります(ただし、時々1または2は問題ありません)。
 
-If there are lots of blocks that say `Missed` on them, then your validator is not working properly.
-You should check the logs of the `eth1`, `eth2`, and `validator` services with `rocketpool service logs ...` if you're using Docker or Hybrid mode (or the corresponding log scripts if you're using Native mode) to look for problems.
+`Missed`と表示されているブロックが多数ある場合、validatorは正しく機能していません。
+DockerまたはHybridモードを使用している場合は、`rocketpool service logs ...`で`eth1`、`eth2`、および`validator`サービスのログを確認する必要があります(Native modeを使用している場合は、対応するログスクリプト)。
 
-**You should pin this tab or create a bookmark with it so you can quickly jump to it and check the status of your validator.**
+**このタブをピン留めするか、ブックマークを作成して、validatorのステータスをすばやく確認できるようにする必要があります。**
 
-#### Using Beaconcha.in to Monitor Multiple Minipools
+#### Beaconcha.inを使用して複数のMinipoolを監視する
 
-Beaconcha.in has a [dashboard view](https://beaconcha.in/dashboard) that allows you to monitor multiple validators or minipools at once.
-Simply add your validator indices one at a time. If you have a lot of minipools, you can run:
+Beaconcha.inには、複数のvalidatorまたはminipoolを一度に監視できる[ダッシュボードビュー](https://beaconcha.in/dashboard)があります。
+validatorインデックスを1つずつ追加するだけです。多数のminipoolがある場合は、次を実行できます:
 
 ```shell
 rocketpool minipool status | grep Validator.index | awk -F " " '{print $3}' | paste -s -d, -
 ```
 
-to get a comma-separated list, and place it in the URL bar like so: `https://beaconcha.in/dashboard?validators=123456,123457`
+カンマ区切りのリストを取得し、次のようにURLバーに配置します: `https://beaconcha.in/dashboard?validators=123456,123457`
 
-### Beaconcha.in App: Validator Overview and Push Notifications
+### Beaconcha.in App: Validator概要とプッシュ通知
 
-The Beaconcha.in website is a great way to view metrics and set up email alerts.
-Their mobile app has a more "at-a-glance" nature.
-It also features a push notification service that includes some useful alerts like:
+Beaconcha.inウェブサイトは、メトリクスを表示し、メールアラートを設定する優れた方法です。
+モバイルアプリは、より「一目でわかる」性質を持っています。
+また、次のような便利なアラートを含むプッシュ通知サービスも備えています:
 
-1. Notifications of issues like missed attestations
-2. Notifications of Rocket Pool reward rounds
-3. Over/under-collateralisation of the RPL on your node
+1. アテステーションの欠落などの問題の通知
+2. Rocket Pool報酬ラウンドの通知
+3. ノード上のRPLの過剰/過小担保の通知
 
-Note that the app has a free version, and paid options with convenience features like homescreen widgets.
+アプリには無料版があり、ホームスクリーンウィジェットなどの便利な機能を備えた有料オプションもあることに注意してください。
 
-### Renaming your Validators on Beaconcha.in
+### Beaconcha.inでValidatorの名前を変更する
 
-The Beaconcha.in website has a feature that allows users to rename their validators, making them easier to identify/search.
+Beaconcha.inウェブサイトには、ユーザーがvalidatorの名前を変更して、識別/検索を容易にする機能があります。
 
-To be able to use this feature you need to sign a message using your node wallet's private key, in order to prove you're the person who controls that validator.
+この機能を使用するには、そのvalidatorを制御している人物であることを証明するために、ノードウォレットの秘密鍵を使用してメッセージに署名する必要があります。
 
-The Smartnode v1.5.1 includes the ability to sign messages with your node wallets's private key by using the command `rocketpool node sign-message`, then providing the message that you want to sign.
-It must contain the term 'beaconcha.in' to be used to rename your validators.
+Smartnode v1.5.1には、`rocketpool node sign-message`コマンドを使用してノードウォレットの秘密鍵でメッセージに署名する機能が含まれています。次に、署名したいメッセージを提供します。
+validatorの名前を変更するために使用するには、「beaconcha.in」という用語を含める必要があります。
 
 ![](../node-staking/images/sign-message.png)
 
-Open your validator page on Beaconcha.in and click on the `Edit validator name` button.
+Beaconcha.inでvalidatorページを開き、`Edit validator name`ボタンをクリックします。
 
 ![](../node-staking/images/edit-validator-name.png)
 
-Copy the result from the sign-message command and paste it in the "Signature" field.
-Fill your desired nickname and click the `Save changes`button.
+sign-messageコマンドの結果をコピーして、"Signature"フィールドに貼り付けます。
+希望のニックネームを入力し、`Save changes`ボタンをクリックします。
 
 ![](../node-staking/images/paste-signed-message.png)
 
-### Uptimerobot: Port-scanning for Uptime
+### Uptimerobot: アップタイムのためのポートスキャン
 
-The [Uptimerobot](https://uptimerobot.com/) service is a simple service that scans an IP address for an open port.
-If your machine becomes unavailable on the port you specified, Uptimerobot can send you a notification that there is an issue.
-The service was a wide variety of notification options including email, push notification, SMS, phone call, and webhooks.
+[Uptimerobot](https://uptimerobot.com/)サービスは、IPアドレスをスキャンしてオープンポートを探すシンプルなサービスです。
+指定したポートでマシンが利用できなくなった場合、Uptimerobotは問題があることを通知できます。
+このサービスには、メール、プッシュ通知、SMS、電話、webhookなど、さまざまな通知オプションがあります。
 
-The setup screen looks something like this:
+セットアップ画面は次のようになります:
 
 ![](./local/images/uptimerobot.png)
 
-The IP to monitor is the external IP of your node, which you can find by logging into your node by `ssh` or physically, and opening [icanhazip.com](https://icanhazip.com/) in a browser or running the following command in your terminal:
+監視するIPは、ノードの外部IPです。これは、`ssh`で、または物理的にノードにログインし、ブラウザで[icanhazip.com](https://icanhazip.com/)を開くか、ターミナルで次のコマンドを実行することで見つけることができます:
 
 ```shell
 curl icanhazip.com
 ```
 
-The port to monitor depends on your node setup; users running the typical Smartnode installation will likely have forwarded ports 30303 and 9001 for the Execution and Consensus clients respectively, so these are good choices for uptime monitoring.
+監視するポートは、ノードのセットアップによって異なります。一般的なSmartnodeインストールを実行しているユーザーは、ExecutionクライアントとConsensusクライアント用にそれぞれポート30303と9001を転送している可能性があるため、これらはアップタイム監視に適した選択肢です。
 
 ### Rocketpool Metrics Dashboards
 
-There are multiple community-lead initiatives to provide an overview of your node performance, as well as the Rocket Pool network as a whole.
+ノードのパフォーマンスの概要とRocket Poolネットワーク全体を提供する、コミュニティ主導の複数のイニシアチブがあります。
 
-### Scripting with Pushover (advanced)
+### Pushoverを使用したスクリプト(上級)
 
-::: tip NOTE
-[Monitoring your Smartnode Stack with Alert Notifications](./maintenance/alerting.md) walks through using the Smartnode alert notification functionality which includes a notification when there are updates available for your node.
+::: tip 注意
+[アラート通知でSmartnodeスタックを監視する](./maintenance/alerting.md)では、ノードのアップデートが利用可能な場合の通知を含む、Smartnodeアラート通知機能の使用方法について説明します。
 :::
 
-The [Pushover](https://pushover.net/) service allows you to send yourself push notifications.
+[Pushover](https://pushover.net/)サービスを使用すると、自分自身にプッシュ通知を送信できます。
 
-::: warning NOTE
-This is an advanced activity to undertake.
-It can be helpful if you are familiar with shell scripting, but is not recommended if you are not comfortable in a shell environment.
+::: warning 注意
+これは取り組むべき高度なアクティビティです。
+シェルスクリプトに精通している場合は役立ちますが、シェル環境に慣れていない場合は推奨されません。
 :::
 
-To get started with Pushover:
+Pushoverを開始するには:
 
-1. Create an account at [pushover.net](https://pushover.net/)
-1. [Create an API token](https://pushover.net/apps/build)
-1. Install the Pushover mobile app and/or browser extension
-1. Call the Pushover API for any action you care about
+1. [pushover.net](https://pushover.net/)でアカウントを作成します
+1. [APIトークンを作成します](https://pushover.net/apps/build)
+1. Pushoverモバイルアプリおよび/またはブラウザ拡張機能をインストールします
+1. 気になるアクションに対してPushover APIを呼び出します
 
-Calling the Pushover API to send you a push notification is done through a `curl` call structured as such:
+プッシュ通知を送信するためにPushover APIを呼び出すには、次のように構造化された`curl`呼び出しを使用します:
 
 ```shell
 PUSHOVER_USER=
@@ -266,18 +266,18 @@ MESSAGE_CONTENT=
 curl -f -X POST -d "token=$PUSHOVER_TOKEN&user=$PUSHOVER_USER&title=$MESSAGE_TITLE&message=$MESSAGE_CONTENT&url=&priority=0" https://api.pushover.net/1/messages.json
 ```
 
-#### Example: Push Notification on Updates Available
+#### 例: アップデートが利用可能な場合のプッシュ通知
 
-If you set up automatic updates using the `unattended-upgrades` and `update-nofifier` packages, you may want to receive a push notification when there are updates available for your node.
-A potential way to do this is to create a script in `~/update-notifier.sh` and to trigger it daily at 9:00 using `crontab`.
+`unattended-upgrades`と`update-nofifier`パッケージを使用して自動更新を設定した場合、ノードのアップデートが利用可能な場合にプッシュ通知を受け取りたい場合があります。
+これを行う潜在的な方法の1つは、`~/update-notifier.sh`にスクリプトを作成し、`crontab`を使用して毎日9:00にトリガーすることです。
 
-To do this, first create the script by running:
+これを行うには、まず次を実行してスクリプトを作成します:
 
 ```shell
 nano ~/update-notifier.sh
 ```
 
-Then paste the following script:
+次に、次のスクリプトを貼り付けます:
 
 ```shell
 #!/bin/bash
@@ -307,19 +307,19 @@ curl -f -X POST -d "token=$PUSHOVER_TOKEN&user=$PUSHOVER_USER&title=$MESSAGE_TIT
 
 ```
 
-Next, run the following command to mark the script as executable:
+次に、次のコマンドを実行して、スクリプトを実行可能としてマークします:
 
 ```shell
 chmod u+x ~/update-notifier.sh
 ```
 
-Now run the following command to open your crontab:
+次に、次のコマンドを実行してcrontabを開きます:
 
 ```shell
 crontab -e
 ```
 
-Then use the arrow keys to scroll down, and add the line `* 9 * * * ~/update-notifier.sh` so the file looks like this:
+次に、矢印キーを使用してスクロールダウンし、ファイルが次のようになるように`* 9 * * * ~/update-notifier.sh`という行を追加します:
 
 ```shell
 # Edit this file to introduce tasks to be run by cron.
@@ -351,27 +351,27 @@ Then use the arrow keys to scroll down, and add the line `* 9 * * * ~/update-not
 0 9 * * * ~/update-notifier.sh
 ```
 
-The press `control+x` to exit and press `Y` when asked whether you want to save your changes.
+次に、`control+x`を押して終了し、変更を保存するかどうか尋ねられたら`Y`を押します。
 
-You should now receive a notification at 09:00 local time if you have updates.
-You can manually run the script by typing this in your terminal:
+アップデートがある場合、現地時間の09:00に通知を受け取るようになります。
+ターミナルで次のように入力することで、スクリプトを手動で実行できます:
 
 ```shell
 ~/update-notifier.sh
 ```
 
-#### Example: Get Notified when your APC UPS Daemon Activates
+#### 例: APC UPS Daemonがアクティブ化されたときに通知を受け取る
 
-Some home stakers are using an Uninterruptible power supply with the `apcupsd` utility to make sure their node shuts down gracefully if their power goes out.
+一部のホームステーカーは、電源が切れた場合にノードが適切にシャットダウンするように、`apcupsd`ユーティリティを備えた無停電電源装置を使用しています。
 
-The `apcupsd` utility uses the `apccontrol` script to manage its logic, thus it is possible to monitor the activity of this daemon by editing the `/etc/apcupsd/apccontrol` file.
-To do this, run:
+`apcupsd`ユーティリティは、`apccontrol`スクリプトを使用してロジックを管理するため、`/etc/apcupsd/apccontrol`ファイルを編集することで、このデーモンのアクティビティを監視できます。
+これを行うには、次を実行します:
 
 ```shell
 sudo nano /etc/apcupsd/apccontrol
 ```
 
-Then at the top of the line add the following code so the file looks like this:
+次に、ファイルが次のようになるように、行の上部に次のコードを追加します:
 
 ```shell
 PUSHOVER_USER=
@@ -386,4 +386,4 @@ curl -f -X POST -d "token=$PUSHOVER_TOKEN&user=$PUSHOVER_USER&title=$MESSAGE_TIT
 # platforms/apccontrol.  Generated from apccontrol.in by configure.
 ```
 
-This will send you a push notification whenever your UPS daemon takes action, includion periodic "self test" functionality.
+これにより、定期的な「セルフテスト」機能を含む、UPSデーモンがアクションを起こすたびにプッシュ通知が送信されます。

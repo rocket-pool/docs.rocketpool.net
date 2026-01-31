@@ -1,57 +1,57 @@
-# FAQ (WIP)
+# Часто задаваемые вопросы (WIP)
 
-### What are the benefits of running minipools with Rocket Pool compared to a 32 ETH solo validator?
+### Каковы преимущества запуска minipools с Rocket Pool по сравнению с solo валидатором на 32 ETH?
 
-By running a single solo validator, you would receive 100% rewards on your 32 ETH.
-By running two 16 ETH minipools, you would receive 100% rewards on your 32 ETH **plus** 14% of the rewards on 32 ETH provided by the Rocket Pool protocol.
-By running four 8 ETH minipools, you would receive 100% rewards on your 32 ETH **plus** 14% of the rewards on 96 ETH provided by the Rocket Pool protocol.
-You would also have the option to use Rocket Pool's [Smoothing Pool](./prepare-node.mdx#smoothing-pool) feature.
+Запуская один solo валидатор, вы получите 100% наград на ваши 32 ETH.
+Запуская два minipool по 16 ETH, вы получите 100% наград на ваши 32 ETH **плюс** 14% наград на 32 ETH, предоставленных протоколом Rocket Pool.
+Запуская четыре minipool по 8 ETH, вы получите 100% наград на ваши 32 ETH **плюс** 14% наград на 96 ETH, предоставленных протоколом Rocket Pool.
+У вас также будет возможность использовать функцию [Smoothing Pool](./prepare-node.mdx#smoothing-pool) от Rocket Pool.
 
-### How do I know how much my rETH is worth? Does it rebase?
+### Как узнать, сколько стоит мой rETH? Происходит ли ребейз?
 
-The rETH token will not rebase.
-The number of tokens on your wallet will remain constant but they appreciate in value over time.
+Токен rETH не будет ребейзиться.
+Количество токенов в вашем кошельке останется постоянным, но они растут в цене со временем.
 
-### I have a technical issue running my node, how do I get help?
+### У меня техническая проблема с запуском моего узла, как получить помощь?
 
-You can start by checking the [Rocket Pool Support](https://rocketpool.support) page.
-If that doesn't help, you can ask your question on the Rocket Pool **#support** channel in [the Discord server](https://discord.gg/rocketpool).
+Вы можете начать с проверки страницы [Rocket Pool Support](https://rocketpool.support).
+Если это не поможет, вы можете задать свой вопрос в канале **#support** Rocket Pool в [Discord сервере](https://discord.gg/rocketpool).
 
-### How can I get test ETH to experiment with creating and running a minipool? I can't post messages on the faucet channel.
+### Как я могу получить тестовый ETH для экспериментов с созданием и запуском minipool? Я не могу публиковать сообщения в канале faucet.
 
-See [Getting test ETH on Hoodi](../testnet/overview#getting-test-eth-on-hoodi).
+См. [Получение тестового ETH на Hoodi](../testnet/overview#getting-test-eth-on-hoodi).
 
-### How do I recover my node if my machine breaks?
+### Как восстановить мой узел, если моя машина сломается?
 
-Short answer: your mnemonic is all that you need to fully recover your node.
-Always make sure to keep it safe.
+Короткий ответ: ваша мнемоническая фраза — это все, что вам нужно для полного восстановления вашего узла.
+Всегда следите за тем, чтобы она была в безопасности.
 
-To recover your node on a new machine, start by making sure **your previous machine is not going to be online again** with the keys available, as two nodes running with the same keys **will get you slashed**.
-Follow the [steps](./install-modes) to install the Smartnode on a new machine.
-Then, recover your node wallet and validator keys by running the command `rocketpool wallet recover` and insert your 24-word mnemonic.
+Чтобы восстановить ваш узел на новой машине, начните с того, что убедитесь, что **ваша предыдущая машина больше не будет в сети** с доступными ключами, так как два узла, работающие с одними и теми же ключами, **приведут к слешингу**.
+Следуйте [шагам](./install-modes) для установки Smartnode на новую машину.
+Затем восстановите кошелек вашего узла и ключи валидатора, выполнив команду `rocketpool wallet recover` и введя вашу 24-словную мнемоническую фразу.
 
-### Why aren't my clients syncing? I have a low amount of peers.
+### Почему мои клиенты не синхронизируются? У меня мало пиров.
 
-Clients need to have a healthy number of peers to be able to properly sync.
-You can start by running the test [here](https://www.yougetsignal.com/tools/open-ports/), checking if ports 30303 and 9001 are opened.
-If they're closed, you'll need to setup port forwarding on your router.
-Also, make sure your node has a static local IP address so the port forwarding does not break due to your node getting a new address.
+Клиентам нужно здоровое количество пиров, чтобы правильно синхронизироваться.
+Вы можете начать с запуска теста [здесь](https://www.yougetsignal.com/tools/open-ports/), проверив, открыты ли порты 30303 и 9001.
+Если они закрыты, вам нужно настроить перенаправление портов на вашем роутере.
+Также убедитесь, что ваш узел имеет статический локальный IP-адрес, чтобы перенаправление портов не нарушалось из-за того, что ваш узел получает новый адрес.
 
-### My consensus client is taking too long to sync. What should I do?
+### Мой consensus клиент слишком долго синхронизируется. Что мне делать?
 
-Consensus clients can take a long time to sync if you didn't start the sync process using [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
-Even if you're running it for a long time, it's usually faster to configure the checkpoint sync URL, clear the current sync data with `rocketpool service resync-eth2` and start over.
-Your client should be synced in less than a minute.
+Consensus клиенты могут долго синхронизироваться, если вы не начали процесс синхронизации с использованием [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
+Даже если вы запускаете его долгое время, обычно быстрее настроить URL checkpoint sync, очистить текущие данные синхронизации с помощью `rocketpool service resync-eth2` и начать заново.
+Ваш клиент должен синхронизироваться менее чем за минуту.
 
-### I've already rebooted. Why does Grafana say I still need to reboot?
+### Я уже перезагрузился. Почему Grafana говорит, что мне все еще нужно перезагрузиться?
 
-The reboot information is cached and only updates every few hours.
-Running `sudo apt update` will force an update.
+Информация о перезагрузке кэшируется и обновляется только каждые несколько часов.
+Выполнение `sudo apt update` принудительно обновит ее.
 
-### I changed my Execution Layer and/or my Beacon Chain or Consensus Layer. How do I clean out the old data?
+### Я изменил свой Execution Layer и/или мой Beacon Chain или Consensus Layer. Как очистить старые данные?
 
-If you change clients, Rocketpool does not delete the old volumes. This data could be wasting significant disk space and you may want to remove it. To do so, you need to find the volumes. If you are using the default Rocketpool settings, the docker volumes are stored at `/var/lib/docker/volumes/`. The execution layer is in `rocketpool_eth1clientdata/_data/*` and the consensus layer is in `rocketpool_eth2clientdata/_data/*`.
+Если вы меняете клиенты, Rocketpool не удаляет старые тома. Эти данные могут занимать значительное дисковое пространство, и вы можете захотеть удалить их. Для этого вам нужно найти тома. Если вы используете настройки Rocketpool по умолчанию, тома docker хранятся в `/var/lib/docker/volumes/`. Execution layer находится в `rocketpool_eth1clientdata/_data/*`, а consensus layer — в `rocketpool_eth2clientdata/_data/*`.
 
-To access these directories, you may need to sudo as root using `sudo -i`. Then you can delete a directory by calling `rm -rf <directory>`. For example, if you wanted to delete all the geth data, you would call `rm -rf /var/lib/docker/volumes/rocketpool_eth1clientdata/_data/geth/`.
+Для доступа к этим каталогам вам может потребоваться выполнить sudo как root с помощью `sudo -i`. Затем вы можете удалить каталог, вызвав `rm -rf <directory>`. Например, если вы хотите удалить все данные geth, вы должны вызвать `rm -rf /var/lib/docker/volumes/rocketpool_eth1clientdata/_data/geth/`.
 
-To exit as root, type `exit`.
+Чтобы выйти из root, введите `exit`.

@@ -1,18 +1,18 @@
-# Smart Contracts
+# Contrats Intelligents
 
 ## Introduction
 
-The Rocket Pool [Smart Contracts](https://www.ethereum.org/learn/#smart-contracts) form the foundation of the Rocket Pool protocol. They are the base layer of infrastructure which all other elements of the network are built on top of, the Smart Node software stack, and all web or application interfaces.
+Les [Contrats Intelligents](https://www.ethereum.org/learn/#smart-contracts) de Rocket Pool forment la base du protocole Rocket Pool. Ils sont la couche de base de l'infrastructure sur laquelle tous les autres éléments du réseau sont construits, la pile logicielle Smart Node et toutes les interfaces web ou d'application.
 
-Direct interaction with the contracts is usually not necessary, and is facilitated through the use of other software. This section provides a detailed description of the contract design, and information on how to build on top of Rocket Pool for developers wishing to extend it. All code examples are given as Solidity `v0.7.6`.
+L'interaction directe avec les contrats n'est généralement pas nécessaire et est facilitée par l'utilisation d'autres logiciels. Cette section fournit une description détaillée de la conception des contrats et des informations sur la façon de construire au-dessus de Rocket Pool pour les développeurs qui souhaitent l'étendre. Tous les exemples de code sont donnés en Solidity `v0.7.6`.
 
-### Contract Design
+### Conception des Contrats
 
-The Rocket Pool network contracts are built with upgradability in mind, using a hub-and-spoke architecture. The central hub of the network is the `RocketStorage` contract, which is responsible for storing the state of the entire protocol. This is implemented through the use of maps for key-value storage, and getter and setter methods for reading and writing values for a key.
+Les contrats du réseau Rocket Pool sont construits en gardant à l'esprit la capacité de mise à niveau, en utilisant une architecture hub-and-spoke. Le hub central du réseau est le contrat `RocketStorage`, qui est responsable du stockage de l'état de l'ensemble du protocole. Ceci est implémenté par l'utilisation de cartes pour le stockage clé-valeur et de méthodes getter et setter pour lire et écrire des valeurs pour une clé.
 
-The `RocketStorage` contract also stores the addresses of all other network contracts (keyed by name), and restricts data modification to those contracts only. Using this architecture, the protocol can be upgraded by deploying new versions of an existing contract, and updating its address in storage. This gives Rocket Pool the flexibility required to fix bugs or implement new features to improve the protocol.
+Le contrat `RocketStorage` stocke également les adresses de tous les autres contrats du réseau (indexés par nom) et limite la modification des données à ces contrats uniquement. En utilisant cette architecture, le protocole peut être mis à niveau en déployant de nouvelles versions d'un contrat existant et en mettant à jour son adresse en stockage. Cela donne à Rocket Pool la flexibilité requise pour corriger les bugs ou implémenter de nouvelles fonctionnalités pour améliorer le protocole.
 
-### Interacting With Rocket Pool
+### Interaction avec Rocket Pool
 
 To begin interacting with the Rocket Pool network, first create an instance of the `RocketStorage` contract using its [interface](https://github.com/rocket-pool/rocketpool/blob/master/contracts/interface/RocketStorageInterface.sol):
 

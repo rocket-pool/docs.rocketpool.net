@@ -1,69 +1,69 @@
-# Node Requirements and Choosing a Platform
+# Node-Anforderungen und Auswahl einer Plattform
 
-Alright!
-So you've decided to try your hand at running a Rocket Pool node.
-The first step of the process is to decide what kind of platform you want to run your node on.
-If you already have one in mind, great!
-You can skip to the next section.
-If you aren't sure yet, then read on for some information about your options.
+In Ordnung!
+Sie haben sich also entschieden, einen Rocket Pool Node zu betreiben.
+Der erste Schritt des Prozesses besteht darin, zu entscheiden, auf welcher Art von Plattform Sie Ihren Node betreiben möchten.
+Wenn Sie bereits eine im Kopf haben, großartig!
+Sie können zum nächsten Abschnitt springen.
+Wenn Sie sich noch nicht sicher sind, dann lesen Sie weiter für einige Informationen über Ihre Optionen.
 
-## Full Node Requirements
+## Full Node Anforderungen
 
-A **full node** is one that runs both an Execution Client and Consensus Client along with the Rocket Pool stack.
-Now that the Merge has occurred, Rocket Pool nodes are required to run this configuration (though the Execution and Consensus clients can be externally managed for users already running a solo-staking setup - we'll cover this in more detail later).
+Ein **Full Node** ist einer, der sowohl einen Execution Client als auch einen Consensus Client zusammen mit dem Rocket Pool Stack ausführt.
+Jetzt, da der Merge stattgefunden hat, müssen Rocket Pool Nodes diese Konfiguration ausführen (obwohl die Execution- und Consensus-Clients extern verwaltet werden können für Benutzer, die bereits ein Solo-Staking-Setup betreiben - wir werden dies später ausführlicher behandeln).
 
-Here is a simple breakdown of what is required to run a full Rocket Pool node well:
+Hier ist eine einfache Aufschlüsselung dessen, was erforderlich ist, um einen Full Rocket Pool Node gut zu betreiben:
 
-- A **stable Internet connection**. The longer you stay online, the better your rewards. A spotty Internet connection will hurt your returns, and by extension, the rETH ratio growth.
-- At least **10Mbps of bandwidth both up and down**. A full node usually takes around 8Mbps to 10Mbps up & down of network traffic, depending on your configuration and number of minipools.
-- **No data cap** imposed by your ISP. Running a full node will take a lot of data - we have seen reports of over 2 TB per month on chain data alone. This can be mitigated somewhat with a few settings tweaks to the ETH clients, but as a rule of thumb, don't run a full node if your Internet plan comes with a monthly data cap.
-- **Stable electricity**. For the same reason as needing a stable Internet connection, you also want to have reliable power. This can be mitigated with a large UPS (backup battery) to deal with short blackouts.
-- A **computer** with sufficient specs. This is pretty flexible because it _really_ depends on what Execution and Consensus client you use, and what settings you configure them with. The computer can be a local machine, or it can be hosted in the cloud. Read below for some more information on those two options, and how to decide which is best for you.
+- Eine **stabile Internetverbindung**. Je länger Sie online bleiben, desto besser Ihre Belohnungen. Eine lückenhafte Internetverbindung wird Ihre Erträge beeinträchtigen und damit das Wachstum des rETH-Verhältnisses.
+- Mindestens **10 Mbps Bandbreite sowohl für Upload als auch Download**. Ein Full Node benötigt normalerweise etwa 8 Mbps bis 10 Mbps Upload & Download an Netzwerkverkehr, abhängig von Ihrer Konfiguration und Anzahl der Minipools.
+- **Keine Datenobergrenze**, die von Ihrem ISP auferlegt wird. Der Betrieb eines Full Nodes benötigt viele Daten - wir haben Berichte von über 2 TB pro Monat allein an Chain-Daten gesehen. Dies kann etwas mit einigen Einstellungsanpassungen an den ETH-Clients gemildert werden, aber als Faustregel gilt: Betreiben Sie keinen Full Node, wenn Ihr Internetplan mit einer monatlichen Datenobergrenze kommt.
+- **Stabile Stromversorgung**. Aus demselben Grund wie die Notwendigkeit einer stabilen Internetverbindung möchten Sie auch zuverlässige Energie haben. Dies kann mit einer großen USV (Backup-Batterie) gemildert werden, um mit kurzen Stromausfällen umzugehen.
+- Ein **Computer** mit ausreichenden Spezifikationen. Dies ist ziemlich flexibel, da es _wirklich_ davon abhängt, welchen Execution- und Consensus-Client Sie verwenden und mit welchen Einstellungen Sie sie konfigurieren. Der Computer kann eine lokale Maschine sein, oder er kann in der Cloud gehostet werden. Lesen Sie unten für weitere Informationen zu diesen beiden Optionen und wie Sie entscheiden, welche für Sie am besten ist.
 
-The computer must meet the [hardware guidelines](./local/hardware.md)
+Der Computer muss die [Hardware-Richtlinien](./local/hardware.md) erfüllen
 
-::: warning NOTE
-At this time, only **Linux** and **macOS** platforms are supported.
-**Windows is not currently supported** for Smartnode operation.
+::: warning HINWEIS
+Zu diesem Zeitpunkt werden nur **Linux**- und **macOS**-Plattformen unterstützt.
+**Windows wird derzeit nicht unterstützt** für den Smartnode-Betrieb.
 :::
 
-## Running a Local Node
+## Betrieb eines lokalen Nodes
 
-If you have reliable electricity and uncapped Internet access, and are willing to build (or buy pre-made) and maintain a computer, then running a local node might be a great choice for you. With this option, you will set up a dedicated computer as a Rocket Pool node and run it locally in your own home.
+Wenn Sie zuverlässigen Strom und unbegrenzten Internetzugang haben und bereit sind, einen Computer zu bauen (oder vorgefertigt zu kaufen) und zu warten, dann könnte der Betrieb eines lokalen Nodes eine großartige Wahl für Sie sein. Mit dieser Option richten Sie einen dedizierten Computer als Rocket Pool Node ein und betreiben ihn lokal in Ihrem eigenen Zuhause.
 
-Advantages:
+Vorteile:
 
-- No monthly fees, other than utilities
-- Complete control over your own machine and its data (including your wallet's key)
-- Access to perform maintenance and upgrades whenever you want
-- Contributes to Execution and Consensus's, and Rocket Pool's decentralization (and thus, their security)
+- Keine monatlichen Gebühren, außer Nebenkosten
+- Vollständige Kontrolle über Ihre eigene Maschine und ihre Daten (einschließlich des Schlüssels Ihrer Wallet)
+- Zugang zur Durchführung von Wartung und Upgrades, wann immer Sie möchten
+- Trägt zur Dezentralisierung von Execution und Consensus und Rocket Pool bei (und damit zu ihrer Sicherheit)
 
-Disadvantages:
+Nachteile:
 
-- Requires stable, uncapped Internet and electricity
-  - **Running a node uses at least 1.5 TB of data per month. If you have a data cap below this amount, you may run into problems while running a local node!**
-- You're solely responsible for network & computer security
-- Can be challenging if you're not experienced with computer maintenance
-- Vulnerable to theft
+- Erfordert stabiles, unbegrenztes Internet und Strom
+  - **Der Betrieb eines Nodes verwendet mindestens 1,5 TB Daten pro Monat. Wenn Sie eine Datenobergrenze unter diesem Betrag haben, können Sie beim Betrieb eines lokalen Nodes auf Probleme stoßen!**
+- Sie sind allein verantwortlich für Netzwerk- und Computersicherheit
+- Kann herausfordernd sein, wenn Sie nicht erfahren in der Computerwartung sind
+- Anfällig für Diebstahl
 
-If the advantages sound like they outweigh the disadvantages for you, then take a look at our [Local Node Operator's Guide](./local/hardware.html).
+Wenn die Vorteile für Sie die Nachteile überwiegen, dann werfen Sie einen Blick auf unseren [Leitfaden für lokale Node-Betreiber](./local/hardware.html).
 
-## Running on a Server
+## Betrieb auf einem Server
 
-If you don't have a reliable uncapped Internet plan, or you just don't want to deal with building and maintaining your own physical computer, you may want to look at running a private server you rent from a hosting provider. Essentially, these companies will happily create and run a server for you, for a monthly fee. If you don't mind that fee and want to run a Rocket Pool node, using a server can be a good strategy.
+Wenn Sie keinen zuverlässigen unbegrenzten Internetplan haben oder einfach nicht mit dem Bau und der Wartung Ihres eigenen physischen Computers umgehen möchten, möchten Sie vielleicht einen privaten Server in Betracht ziehen, den Sie von einem Hosting-Anbieter mieten. Im Wesentlichen werden diese Unternehmen gerne einen Server für Sie erstellen und betreiben, gegen eine monatliche Gebühr. Wenn Ihnen diese Gebühr nichts ausmacht und Sie einen Rocket Pool Node betreiben möchten, kann die Verwendung eines Servers eine gute Strategie sein.
 
-Advantages:
+Vorteile:
 
-- No maintenance, support is usually available to fix issues
-- Doesn't affect your Internet plan or data cap
-- Usually run in a professional data center, very little down time
-- May be more cost effective than buying / building your own computer
+- Keine Wartung, Support ist normalerweise verfügbar, um Probleme zu beheben
+- Beeinflusst nicht Ihren Internetplan oder Ihre Datenobergrenze
+- Wird normalerweise in einem professionellen Rechenzentrum betrieben, sehr wenig Ausfallzeit
+- Kann kostengünstiger sein als der Kauf / Bau Ihres eigenen Computers
 
-Disadvantages:
+Nachteile:
 
-- Makes Execution and Consensus, and Rocket Pool somewhat more centralized, which weakens the security of the networks
-- Monthly fees
-- Servers may come with data caps, or have expensive network I/O rates
-- Possible for hosts to examine your machine's contents and take your wallet's key if not secured
+- Macht Execution und Consensus und Rocket Pool etwas zentralisierter, was die Sicherheit der Netzwerke schwächt
+- Monatliche Gebühren
+- Server können mit Datenobergrenzen kommen oder teure Netzwerk-I/O-Raten haben
+- Möglich für Hosts, den Inhalt Ihrer Maschine zu untersuchen und den Schlüssel Ihrer Wallet zu nehmen, wenn nicht gesichert
 
-If those advantages sound like they outweigh the disadvantages for you, then take a look at our [Server Node Operator's Guide](./vps/providers.html).
+Wenn diese Vorteile für Sie die Nachteile überwiegen, dann werfen Sie einen Blick auf unseren [Server-Node-Betreiber-Leitfaden](./vps/providers.html).

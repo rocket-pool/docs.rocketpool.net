@@ -1,20 +1,20 @@
 # Smart Contracts
 
-## Introduction
+## Einführung
 
-The Rocket Pool [Smart Contracts](https://www.ethereum.org/learn/#smart-contracts) form the foundation of the Rocket Pool protocol. They are the base layer of infrastructure which all other elements of the network are built on top of, the Smart Node software stack, and all web or application interfaces.
+Die Rocket Pool [Smart Contracts](https://www.ethereum.org/learn/#smart-contracts) bilden die Grundlage des Rocket Pool Protokolls. Sie sind die Basisinfrastruktur, auf der alle anderen Elemente des Netzwerks aufgebaut sind, der Smart Node Software-Stack und alle Web- oder Anwendungsschnittstellen.
 
-Direct interaction with the contracts is usually not necessary, and is facilitated through the use of other software. This section provides a detailed description of the contract design, and information on how to build on top of Rocket Pool for developers wishing to extend it. All code examples are given as Solidity `v0.7.6`.
+Eine direkte Interaktion mit den Contracts ist normalerweise nicht erforderlich und wird durch die Verwendung anderer Software erleichtert. Dieser Abschnitt bietet eine detaillierte Beschreibung des Contract-Designs und Informationen zum Aufbau auf Rocket Pool für Entwickler, die es erweitern möchten. Alle Code-Beispiele sind in Solidity `v0.7.6` angegeben.
 
-### Contract Design
+### Contract-Design
 
-The Rocket Pool network contracts are built with upgradability in mind, using a hub-and-spoke architecture. The central hub of the network is the `RocketStorage` contract, which is responsible for storing the state of the entire protocol. This is implemented through the use of maps for key-value storage, and getter and setter methods for reading and writing values for a key.
+Die Rocket Pool Netzwerk-Contracts sind mit Blick auf Upgradierbarkeit gebaut und verwenden eine Hub-and-Spoke-Architektur. Der zentrale Hub des Netzwerks ist der `RocketStorage` Contract, der für die Speicherung des Zustands des gesamten Protokolls verantwortlich ist. Dies wird durch die Verwendung von Maps für Key-Value-Speicherung und Getter- und Setter-Methoden zum Lesen und Schreiben von Werten für einen Schlüssel implementiert.
 
-The `RocketStorage` contract also stores the addresses of all other network contracts (keyed by name), and restricts data modification to those contracts only. Using this architecture, the protocol can be upgraded by deploying new versions of an existing contract, and updating its address in storage. This gives Rocket Pool the flexibility required to fix bugs or implement new features to improve the protocol.
+Der `RocketStorage` Contract speichert auch die Adressen aller anderen Netzwerk-Contracts (nach Namen verschlüsselt) und beschränkt die Datenänderung nur auf diese Contracts. Mit dieser Architektur kann das Protokoll aktualisiert werden, indem neue Versionen eines bestehenden Contracts bereitgestellt und seine Adresse im Speicher aktualisiert werden. Dies gibt Rocket Pool die erforderliche Flexibilität, um Fehler zu beheben oder neue Funktionen zur Verbesserung des Protokolls zu implementieren.
 
-### Interacting With Rocket Pool
+### Interaktion mit Rocket Pool
 
-To begin interacting with the Rocket Pool network, first create an instance of the `RocketStorage` contract using its [interface](https://github.com/rocket-pool/rocketpool/blob/master/contracts/interface/RocketStorageInterface.sol):
+Um mit dem Rocket Pool Netzwerk zu interagieren, erstellen Sie zunächst eine Instanz des `RocketStorage` Contracts mit seinem [Interface](https://github.com/rocket-pool/rocketpool/blob/master/contracts/interface/RocketStorageInterface.sol):
 
 ```solidity
 import "RocketStorageInterface.sol";
@@ -30,11 +30,11 @@ contract Example {
 }
 ```
 
-The above constructor should be called with the address of the `RocketStorage` contract on the appropriate network.
+Der obige Konstruktor sollte mit der Adresse des `RocketStorage` Contracts im entsprechenden Netzwerk aufgerufen werden.
 
-Because of Rocket Pool's architecture, the addresses of other contracts should not be used directly but retrieved from the blockchain before use. Network upgrades may have occurred since the previous interaction, resulting in outdated addresses. `RocketStorage` can never change address, so it is safe to store a reference to it.
+Aufgrund der Architektur von Rocket Pool sollten die Adressen anderer Contracts nicht direkt verwendet, sondern vor der Verwendung aus der Blockchain abgerufen werden. Netzwerk-Upgrades können seit der vorherigen Interaktion stattgefunden haben, was zu veralteten Adressen führt. `RocketStorage` kann niemals die Adresse ändern, daher ist es sicher, eine Referenz darauf zu speichern.
 
-Other contract instances can be created using the appropriate interface taken from the [Rocket Pool repository](https://github.com/rocket-pool/rocketpool/tree/master/contracts/interface), e.g.:
+Andere Contract-Instanzen können mit dem entsprechenden Interface aus dem [Rocket Pool Repository](https://github.com/rocket-pool/rocketpool/tree/master/contracts/interface) erstellt werden, z.B.:
 
 ```solidity
 import "RocketStorageInterface.sol";
@@ -59,7 +59,7 @@ contract Example {
 }
 ```
 
-The Rocket Pool contracts, as defined in `RocketStorage`, are:
+Die Rocket Pool Contracts, wie in `RocketStorage` definiert, sind:
 
 - `rocketVault` - Stores ETH held by network contracts (internal, not upgradeable)
 - `rocketAuctionManager` - Handles the auctioning of RPL slashed from node operators' stake
@@ -112,22 +112,22 @@ The Rocket Pool contracts, as defined in `RocketStorage`, are:
 - `addressQueueStorage` - A utility contract (internal)
 - `addressSetStorage` - A utility contract (internal)
 
-Legacy Rocket Pool contracts, that have been removed from `RocketStorage` since the initial deployment, are:
+Legacy Rocket Pool Contracts, die seit der ersten Bereitstellung aus `RocketStorage` entfernt wurden, sind:
 
-- `rocketClaimNode` - Handled the claiming of rewards for node operators
-- `rocketClaimTrustedNode` - Handled the claiming of rewards for the oDAO
+- `rocketClaimNode` - Verarbeitete die Beanspruchung von Belohnungen für Node-Betreiber
+- `rocketClaimTrustedNode` - Verarbeitete die Beanspruchung von Belohnungen für die oDAO
 
-Contracts marked as “internal” do not provide methods which are accessible to the general public, and so are generally not useful for extension. For information on specific contract methods, consult their interfaces in the [Rocket Pool repository](https://github.com/rocket-pool/rocketpool/tree/master/contracts/interface).
+Contracts, die als "internal" gekennzeichnet sind, stellen keine Methoden bereit, die der allgemeinen Öffentlichkeit zugänglich sind, und sind daher im Allgemeinen nicht für Erweiterungen nützlich. Für Informationen zu spezifischen Contract-Methoden konsultieren Sie deren Interfaces im [Rocket Pool Repository](https://github.com/rocket-pool/rocketpool/tree/master/contracts/interface).
 
 ## Deposits
 
-The main reason for extending the Rocket Pool network is to implement custom deposit logic which funnels user deposits into the deposit pool. For example, a fund manager may wish to stake their users’ ETH in Rocket Pool via their own smart contracts, and abstract the use of Rocket Pool itself away from their users.
+Der Hauptgrund für die Erweiterung des Rocket Pool Netzwerks besteht darin, benutzerdefinierte Einzahlungslogik zu implementieren, die Nutzereinzahlungen in den Deposit Pool leitet. Beispielsweise möchte ein Fondsmanager möglicherweise das ETH seiner Nutzer über eigene Smart Contracts in Rocket Pool staken und die Verwendung von Rocket Pool selbst von seinen Nutzern abstrahieren.
 
-Note: the `RocketDepositPool` contract address should not be hard-coded in your contracts, but retrieved from `RocketStorage` dynamically. See [Interacting With Rocket Pool](#interacting-with-rocket-pool) for more details.
+Hinweis: Die `RocketDepositPool` Contract-Adresse sollte nicht in Ihren Contracts fest codiert werden, sondern dynamisch aus `RocketStorage` abgerufen werden. Siehe [Interaktion mit Rocket Pool](#interacting-with-rocket-pool) für weitere Details.
 
-### Implementation
+### Implementierung
 
-The following describes a basic example contract which forwards deposited ETH into Rocket Pool and minted rETH back to the caller:
+Das Folgende beschreibt einen grundlegenden Beispiel-Contract, der eingezahltes ETH an Rocket Pool weiterleitet und geprägtes rETH an den Aufrufer zurückgibt:
 
 ```solidity
 import "RocketStorageInterface.sol";

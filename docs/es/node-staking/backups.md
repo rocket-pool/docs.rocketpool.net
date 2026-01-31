@@ -1,109 +1,109 @@
-# Backing Up Your Node
+# Respaldo de tu Nodo
 
-::: tip NOTE
-This is currently written for **Docker Mode** installations.
-Some locations may vary for Hybrid or Native users.
+::: tip NOTA
+Esto está escrito actualmente para instalaciones en **Modo Docker**.
+Algunas ubicaciones pueden variar para usuarios de Hybrid o Native.
 :::
 
-In general, if you created your node wallet and minipools via the Smartnode, the only thing you truly need on hand to recover your node from a complete failure is the **mnemonic for your node wallet**
-Everything else can be recovered from that quite easily.
+En general, si creaste tu wallet de nodo y minipools a través del Smartnode, lo único que realmente necesitas tener a mano para recuperar tu nodo de una falla completa es el **mnemónico de tu wallet de nodo**.
+Todo lo demás puede recuperarse de eso con bastante facilidad.
 
-If you have minipools that have externally-generated validator keys (e.g. you migrated from **Allnodes** to your own self-hosted node), you will need the private keystore files for your validators as well since they cannot be recovered from the node wallet.
+Si tienes minipools con claves de validador generadas externamente (por ejemplo, migraste de **Allnodes** a tu propio nodo auto-hospedado), necesitarás los archivos de keystore privados para tus validadores también, ya que no pueden recuperarse del wallet de nodo.
 
-That being said, once the Merge takes place, you will no longer be able to use a light Execution client (e.g. Pocket or Infura) as a fallback if you ever need to resync the Execution layer chain.
-Furthermore, you will be required to have an active and healthy Execution client to attest correctly.
-Having a fast, reliable way to recover from an Execution client failure (such as a corrupt database, SSD malfunction, or compromised / stolen hardware) will be critical, as it can take hours or even days to sync from scratch.
+Dicho esto, una vez que ocurra el Merge, ya no podrás usar un cliente de Execution ligero (por ejemplo, Pocket o Infura) como respaldo si alguna vez necesitas resincronizar la cadena de la capa de Execution.
+Además, se te requerirá tener un cliente de Execution activo y saludable para atestar correctamente.
+Tener una forma rápida y confiable de recuperarse de una falla del cliente de Execution (como una base de datos corrupta, mal funcionamiento del SSD, o hardware comprometido/robado) será crítico, ya que puede tomar horas o incluso días sincronizar desde cero.
 
-In this guide, we'll show you how to back up some of these things to help improve your node's resilience and minimize unnecessary downtime.
+En esta guía, te mostraremos cómo respaldar algunas de estas cosas para ayudar a mejorar la resiliencia de tu nodo y minimizar el tiempo de inactividad innecesario.
 
-::: warning NOTE
-This guide assumes you have installed the Smartnode to the default directory (`~/.rocketpool`).
-If you specified a different installation directory, substitute it accordingly in the instructions below.
+::: warning NOTA
+Esta guía asume que has instalado el Smartnode en el directorio predeterminado (`~/.rocketpool`).
+Si especificaste un directorio de instalación diferente, sustitúyelo según corresponda en las instrucciones a continuación.
 :::
 
-## Items That Can Be Backed Up
+## Elementos que Pueden Respaldarse
 
-### Smartnode Configuration
+### Configuración del Smartnode
 
-The Smartnode's configuration is stored in `~/.rocketpool/user-settings.yml`.
-You can save this and replace it to restore all of your Smartnode settings (i.e., the things you specified in `rocketpool service config`).
+La configuración del Smartnode se almacena en `~/.rocketpool/user-settings.yml`.
+Puedes guardar esto y reemplazarlo para restaurar todos tus ajustes del Smartnode (es decir, las cosas que especificaste en `rocketpool service config`).
 
-### Execution Client / ETH1 Client Chain Data
+### Datos de Cadena del Cliente de Execution / Cliente ETH1
 
-The Execution client's chain data is likely the most important thing to back up.
-As mentioned, it can take several days to re-sync your EC chain data.
-After The Merge, this means hours to days of downtime and lost profits!
+Los datos de cadena del cliente de Execution son probablemente lo más importante para respaldar.
+Como se mencionó, puede tomar varios días re-sincronizar los datos de cadena de tu EC.
+Después del Merge, esto significa horas a días de tiempo de inactividad y ganancias perdidas.
 
-The chain data is stored within the `rocketpool_eth1clientdata` Docker volume, which by default is located at `/var/lib/docker/volumes/rocketpool_eth1clientdata`.
-Note this folder is typically not accessible by unprivileged user accounts; you will need to elevate to the `root` user to see it.
+Los datos de cadena se almacenan dentro del volumen de Docker `rocketpool_eth1clientdata`, que por defecto se encuentra en `/var/lib/docker/volumes/rocketpool_eth1clientdata`.
+Nota que esta carpeta típicamente no es accesible por cuentas de usuario sin privilegios; necesitarás elevar al usuario `root` para verla.
 
-::: tip NOTE
-If you changed Docker's storage location during the initial Smartnode installation (such as people that run Docker on a second SSD), you will find the volume in `/<your external mount point>/docker/volumes/rocketpool_eth1clientdata`
+::: tip NOTA
+Si cambiaste la ubicación de almacenamiento de Docker durante la instalación inicial del Smartnode (como personas que ejecutan Docker en un segundo SSD), encontrarás el volumen en `/<tu punto de montaje externo>/docker/volumes/rocketpool_eth1clientdata`
 
-If you don't recall which installation path you use, you can check `/etc/docker/daemon.json` for its location.
-If the file doesn't exist, you use the default location.
+Si no recuerdas qué ruta de instalación usas, puedes verificar `/etc/docker/daemon.json` para su ubicación.
+Si el archivo no existe, usas la ubicación predeterminada.
 :::
 
-For detailed instructions on how to efficiently back up your Execution chain data, please see the [Backing up your Execution Chain Data](#backing-up-your-execution-chain-data) section below.
+Para instrucciones detalladas sobre cómo respaldar eficientemente tus datos de cadena de Execution, consulta la sección [Respaldo de tus Datos de Cadena de Execution](#respaldo-de-tus-datos-de-cadena-de-execution) más abajo.
 
-### Monitoring & Metrics Data
+### Datos de Monitoreo y Métricas
 
-This data is stored within the `rocketpool_grafana-storage` Docker volume, which by default is located at `/var/lib/docker/volumes/rocketpool_grafana-storage` (or `/<your external mount point>/docker/volumes/rocketpool_prometheus-data` if you customized your Docker storage location).
+Estos datos se almacenan dentro del volumen de Docker `rocketpool_grafana-storage`, que por defecto se encuentra en `/var/lib/docker/volumes/rocketpool_grafana-storage` (o `/<tu punto de montaje externo>/docker/volumes/rocketpool_prometheus-data` si personalizaste tu ubicación de almacenamiento de Docker).
 
-## Items That Should **Not** Be Backed Up
+## Elementos que **No** Deben Respaldarse
 
-### Private Keys and Passwords
+### Claves Privadas y Contraseñas
 
-Your node wallet's private key and the password file used to encrypt it are stored in `~/.rocketpool/data/wallet` and `~/.rocketpool/data/password` respectively.
-These files don't generally need to be backed up, as they can be recovered from your mnemonic using `rocketpool wallet recover`.
+La clave privada de tu wallet de nodo y el archivo de contraseña usado para cifrarla se almacenan en `~/.rocketpool/data/wallet` y `~/.rocketpool/data/password` respectivamente.
+Estos archivos generalmente no necesitan respaldarse, ya que pueden recuperarse de tu mnemónico usando `rocketpool wallet recover`.
 
-If, for some reason, you _do_ decide to back up these files, you will need to be **extremely careful** about how you store them.
-Anyone who gains access to these files will gain access to your node wallet, its validators, and any funds you have stored on it for things like gas.
+Si, por alguna razón, _decides_ respaldar estos archivos, necesitarás ser **extremadamente cuidadoso** sobre cómo los almacenas.
+Cualquiera que obtenga acceso a estos archivos obtendrá acceso a tu wallet de nodo, sus validadores, y cualquier fondo que tengas almacenado en él para cosas como gas.
 
-We **strongly recommend** you do not back up these files and just use your wallet mnemonic to recover them if necessary.
+**Recomendamos fuertemente** que no respaldes estos archivos y simplemente uses tu mnemónico de wallet para recuperarlos si es necesario.
 
-### Consensus Client Chain Data
+### Datos de Cadena del Cliente de Consensus
 
-Unlike the Execution layer data, the Consensus layer data is not nearly as important to your node thanks to [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
-Consensus clients can easily use this technique to immediately resync to the head of the Beacon chain and resume validation duties.
+A diferencia de los datos de la capa de Execution, los datos de la capa de Consensus no son tan importantes para tu nodo gracias al [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
+Los clientes de Consensus pueden usar fácilmente esta técnica para resincronizar inmediatamente a la cabeza de la cadena Beacon y reanudar las tareas de validación.
 
-## Backing up your Execution Chain Data
+## Respaldo de tus Datos de Cadena de Execution
 
-The Smartnode comes with the ability to back up your Execution chain data via the `rocketpool service export-eth1-data` command.
-Under the hood, this utilizes `rsync`, a powerful backup/copy tool within Linux.
+El Smartnode viene con la capacidad de respaldar tus datos de cadena de Execution a través del comando `rocketpool service export-eth1-data`.
+Bajo el capó, esto utiliza `rsync`, una poderosa herramienta de respaldo/copia dentro de Linux.
 
-`rsync` compares the files in the source directory (your Docker volume) and the target directory (your backup location).
-If a source file doesn't exist in the target directory, it will be copied entirely.
-However, if it _does_ exist, `rsync` will only copy the _changes_ between the two files.
+`rsync` compara los archivos en el directorio de origen (tu volumen de Docker) y el directorio de destino (tu ubicación de respaldo).
+Si un archivo de origen no existe en el directorio de destino, se copiará completamente.
+Sin embargo, si _existe_, `rsync` solo copiará los _cambios_ entre los dos archivos.
 
-This means the first backup will take a good amount of time as it must copy all of the data initially.
-Subsequent backups will only copy the changes between your previous backup and now, making the process much faster.
+Esto significa que el primer respaldo tomará una buena cantidad de tiempo ya que debe copiar todos los datos inicialmente.
+Los respaldos subsecuentes solo copiarán los cambios entre tu respaldo anterior y ahora, haciendo el proceso mucho más rápido.
 
-As part of a backup strategy, you may want to plan to run `export-eth1-data` on a regular basis.
-To ensure the integrity of the chain data, running this command will **safely shut down the Execution client before backing up its data**.
-If you elect to schedule it every week, your Execution client will only be down for a few minutes while it updates the backup.
-This is certainly better than the days it would take to resync the data from scratch.
+Como parte de una estrategia de respaldo, es posible que desees planear ejecutar `export-eth1-data` regularmente.
+Para asegurar la integridad de los datos de cadena, ejecutar este comando **apagará de forma segura el cliente de Execution antes de respaldar sus datos**.
+Si eliges programarlo cada semana, tu cliente de Execution solo estará inactivo por unos minutos mientras actualiza el respaldo.
+Esto es ciertamente mejor que los días que tomaría resincronizar los datos desde cero.
 
-To trigger a backup, start by **mounting the storage medium you want to export the data to**.
-For example, this could be an external hard drive.
+Para activar un respaldo, comienza **montando el medio de almacenamiento al que deseas exportar los datos**.
+Por ejemplo, esto podría ser un disco duro externo.
 
-::: tip HINT
-If you don't know how to mount external devices on Linux, it's easy!
-Plug the device into your node, and follow [a guide like this](https://www.addictivetips.com/ubuntu-linux-tips/mount-external-hard-drives-in-linux/) to learn how to mount it.
+::: tip CONSEJO
+Si no sabes cómo montar dispositivos externos en Linux, es fácil.
+Conecta el dispositivo a tu nodo, y sigue [una guía como esta](https://www.addictivetips.com/ubuntu-linux-tips/mount-external-hard-drives-in-linux/) para aprender cómo montarlo.
 :::
 
-Once you have it mounted, note its mount path.
-For this example, let's assume that we want to store the chain data in a folder called `/mnt/external-drive` which the external device is mounted to.
-Replace this with your actual mount path wherever you see it below.
+Una vez que lo tengas montado, anota su ruta de montaje.
+Para este ejemplo, asumamos que queremos almacenar los datos de cadena en una carpeta llamada `/mnt/external-drive` a la cual el dispositivo externo está montado.
+Reemplaza esto con tu ruta de montaje real donde la veas a continuación.
 
-Now, run the following command:
+Ahora, ejecuta el siguiente comando:
 
 ```shell
 rocketpool service export-eth1-data /mnt/external-drive
 ```
 
-This will check that your target folder is reachable and has enough free space to store the chain data.
-The output will look like this:
+Esto verificará que tu carpeta de destino sea alcanzable y tenga suficiente espacio libre para almacenar los datos de cadena.
+La salida se verá así:
 
 ```
 This will export your execution client's chain data to an external directory, such as a portable hard drive.
@@ -123,31 +123,31 @@ Please do not exit until it finishes so you can watch its progress.
 Are you sure you want to export your execution layer chain data? [y/n]
 ```
 
-As you can see, the chain data will be under 100 GB (for the Hoodi testnet; the Ethereum mainnet will be an order of magnitude larger) and the external folder has 287 GiB free so exporting can continue.
+Como puedes ver, los datos de cadena estarán por debajo de 100 GB (para la testnet Hoodi; la mainnet de Ethereum será un orden de magnitud mayor) y la carpeta externa tiene 287 GiB libres, así que la exportación puede continuar.
 
-When you're ready, enter `y` here and press `Enter`.
-This will stop your Execution client and begin copying its chain data to your target folder.
-You will see the progress of each individual file go past the screen as it runs.
+Cuando estés listo, ingresa `y` aquí y presiona `Enter`.
+Esto detendrá tu cliente de Execution y comenzará a copiar sus datos de cadena a tu carpeta de destino.
+Verás el progreso de cada archivo individual pasar por la pantalla mientras se ejecuta.
 
-::: warning NOTE
-It's important that you _do not_ exit the terminal while this is running.
-If you do, the copy will continue to run in the background but you won't be able to follow its progress!
+::: warning NOTA
+Es importante que _no_ salgas de la terminal mientras esto se ejecuta.
+Si lo haces, la copia continuará ejecutándose en segundo plano pero no podrás seguir su progreso.
 :::
 
-Once it's finished, it will automatically restart your Execution client container.
+Una vez que termine, reiniciará automáticamente tu contenedor del cliente de Execution.
 
-**Note that your existing chain data is not deleted from your node after the export is complete!**
+**Nota que tus datos de cadena existentes no se eliminan de tu nodo después de que se complete la exportación.**
 
-### Restoring Your Execution Chain Data
+### Restauración de tus Datos de Cadena de Execution
 
-If you ever need to restore your backed up chain data, simply run the following command.
+Si alguna vez necesitas restaurar tus datos de cadena respaldados, simplemente ejecuta el siguiente comando.
 
 ```shell
 rocketpool service import-eth1-data /mnt/external-drive
 ```
 
-::: danger WARNING
-This will automatically delete any existing Execution client data in your `rocketpool_eth1clientdata` volume!
+::: danger ADVERTENCIA
+Esto eliminará automáticamente cualquier dato de cliente de Execution existente en tu volumen `rocketpool_eth1clientdata`.
 :::
 
-Once it's done, your Execution client will be ready to go.
+Una vez que termine, tu cliente de Execution estará listo para funcionar.

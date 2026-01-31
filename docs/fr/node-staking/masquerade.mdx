@@ -1,10 +1,10 @@
-# Masquerading as Another Node Address
+# Se faire passer pour une autre adresse de nœud
 
-Starting with Smartnode version `v1.15.7`, users will be able to mock the behaviour of an arbitrary address. While masquerading as another address,
-your node will continue the node and watchtower task loop using your node address and perform duties such as attesting using your validator keys. You will not be able
-to submit transactions or sign messages as the masqueraded address. This feature is especially useful for support and debugging.
+Depuis la version `v1.15.7` du Smartnode, les utilisateurs pourront simuler le comportement d'une adresse arbitraire. Tout en se faisant passer pour une autre adresse,
+votre nœud continuera la boucle de tâches du nœud et de la tour de guet en utilisant votre adresse de nœud et effectuera des tâches telles que l'attestation en utilisant vos clés de validateur. Vous ne pourrez pas
+soumettre de transactions ou signer des messages en tant qu'adresse masquée. Cette fonctionnalité est particulièrement utile pour le support et le débogage.
 
-If you wish to interact with the Smartnode through the lens of another node address, please use the following command: `rocketpool wallet masquerade`
+Si vous souhaitez interagir avec le Smartnode à travers le prisme d'une autre adresse de nœud, veuillez utiliser la commande suivante : `rocketpool wallet masquerade`
 
 ```
 rp@user:~$ rocketpool wallet masquerade
@@ -23,7 +23,7 @@ y
 Your node is now masquerading as address 0xcaB549EdE082592D10FE6a238e7e8914aD3a074d.
 ```
 
-When you are finished with masquerade mode, simply run `rocketpool wallet end-masquerade` and follow the prompts:
+Lorsque vous avez terminé avec le mode mascarade, exécutez simplement `rocketpool wallet end-masquerade` et suivez les instructions :
 
 ```
 rp@user:~$ rocketpool wallet end-masquerade
@@ -36,7 +36,7 @@ y
 Successfully ended masquerade mode.
 ```
 
-Additionally, you can check the status of your node wallet by running `rocketpool wallet status`:
+De plus, vous pouvez vérifier le statut de votre portefeuille de nœud en exécutant `rocketpool wallet status` :
 
 ```
 rp@node:~$ rocketpool wallet status

@@ -1,36 +1,36 @@
-# Preparing the Operating System
+# İşletim Sistemini Hazırlama
 
-As described in the previous section, there are many different VPS and cloud providers.
-Writing guides for all of them would be somewhat impractical, but in this section we'll go over a typical workflow for preparing a virtual machine hosted on [Amazon Web Services](https://aws.amazon.com/).
-Specifically, we'll cover how to select the appropriate virtual hardware configuration and how to prepare the Operating System for Rocket Pool.  
-You should be able to extrapolate how to apply these steps to any provider once you've become familiar with their ecosystem.
+Önceki bölümde açıklandığı gibi, birçok farklı VPS ve bulut sağlayıcısı bulunmaktadır.
+Hepsi için kılavuzlar yazmak biraz pratik dışı olurdu, ancak bu bölümde [Amazon Web Services](https://aws.amazon.com/)'de barındırılan bir sanal makineyi hazırlamak için tipik bir iş akışını ele alacağız.
+Özellikle, uygun sanal donanım yapılandırmasının nasıl seçileceğini ve İşletim Sisteminin Rocket Pool için nasıl hazırlanacağını ele alacağız.
+Ekosistemlerine aşina olduğunuzda, bu adımları herhangi bir sağlayıcıya nasıl uygulayacağınızı çıkarabilmelisiniz.
 
-## Creating an EC2 Virtual Machine
+## EC2 Sanal Makine Oluşturma
 
-The first step is to [create an AWS account](https://portal.aws.amazon.com/billing/signup) if you don't already have one.
-Follow the instructions provided in that link or log in with an existing account, and you will eventually make it to your management console dashboard:
+İlk adım, zaten bir hesabınız yoksa [AWS hesabı oluşturmaktır](https://portal.aws.amazon.com/billing/signup).
+Bu bağlantıda verilen talimatları izleyin veya mevcut bir hesapla giriş yapın ve sonunda yönetim konsolu panonuza ulaşacaksınız:
 
 <img src="./images/aws-console.png" width="100%" height="auto" />
 
-Next, click on the drop-down at the top right of the screen to select the geographic region you want your server to physically reside in.
-Servers cannot be moved between regions once they're created, so you want to ensure you're happy with the currently selected option before actually creating the server.
+Ardından, sunucunuzun fiziksel olarak bulunmasını istediğiniz coğrafi bölgeyi seçmek için ekranın sağ üst köşesindeki açılır menüye tıklayın.
+Sunucular oluşturulduktan sonra bölgeler arasında taşınamaz, bu nedenle sunucuyu gerçekten oluşturmadan önce seçili seçenekten memnun olduğunuzdan emin olmak istersiniz.
 
-Now, click **Services** in the toolbar.
-Go to the **Compute** section and select **EC2**.
-Your dashboard should change to a view similar to this:
+Şimdi, araç çubuğunda **Services**'e tıklayın.
+**Compute** bölümüne gidin ve **EC2**'yi seçin.
+Panonuz buna benzer bir görünüme değişmelidir:
 
 <img src="./images/ec2-dashboard.png" width="100%" height="auto" />
 
-Click the orange **Launch Instance** button and select **Launch Instance** from the list of options to create a new machine.
-You will be presented with a marketplace of Amazon Machine Images.
-Each of these represents a specific snapshot of a machine with a pre-installed Operating System and some other useful software components.
+Turuncu **Launch Instance** düğmesine tıklayın ve yeni bir makine oluşturmak için seçenekler listesinden **Launch Instance**'ı seçin.
+Size Amazon Makine İmajlarının bir pazarı sunulacaktır.
+Bunların her biri, önceden yüklenmiş bir İşletim Sistemi ve bazı diğer yararlı yazılım bileşenlerine sahip bir makinenin belirli bir anlık görüntüsünü temsil eder.
 
-For a Rocket Pool node, we recommend you use the **Ubuntu Server 24.04 LTS (HVM)** image.
+Rocket Pool node'u için **Ubuntu Server 24.04 LTS (HVM)** imajını kullanmanızı öneririz.
 
-Next, you will have to choose an **Instance Type**.
-This determines what virtual hardware resources your machine will have available.
+Ardından, bir **Instance Type** seçmeniz gerekecektir.
+Bu, makinenizin hangi sanal donanım kaynaklarına sahip olacağını belirler.
 
-At the time of writing, these are what the different options offer:
+Bu yazının yazıldığı tarih itibarıyla, farklı seçeneklerin sunduğu şeyler şunlardır:
 
 | Instance   | vCPU | CPU Credits / hour | Mem (GiB) | Storage  | Network Performance |
 | ---------- | ---- | ------------------ | --------- | -------- | ------------------- |
@@ -42,198 +42,198 @@ At the time of writing, these are what the different options offer:
 | t2.xlarge  | 4    | 54                 | 16        | EBS-Only | Moderate            |
 | t2.2xlarge | 8    | 81                 | 32        | EBS-Only | Moderate            |
 
-The hardware requirements largely depend on which consensus client you plan to run - Nimbus, for example, requires less than 1GB of RAM by itself so it is perfectly reasonable to run it on a **t2.large** instance.
-For more RAM-heavy clients, you may want to go with a **t2.xlarge** instance for extra headroom.
+Donanım gereksinimleri büyük ölçüde hangi consensus client'ı çalıştırmayı planladığınıza bağlıdır - örneğin Nimbus, kendi başına 1GB'tan az RAM gerektirir, bu nedenle onu bir **t2.large** instance'ında çalıştırmak tamamen makuldür.
+Daha fazla RAM gerektiren client'lar için, ekstra boşluk için bir **t2.xlarge** instance'ı ile gitmek isteyebilirsiniz.
 
 ::: tip
-You may want to consult the [Choosing your ETH Clients](../eth-clients) section before deciding on an instance type so you can make sure that the client you want is supported by the instance type you choose.
+İstediğiniz client'ın seçtiğiniz instance type tarafından desteklendiğinden emin olabilmek için bir instance type belirlemeden önce [ETH Client'larınızı Seçme](../eth-clients) bölümüne danışmak isteyebilirsiniz.
 :::
 
-Once you've made your choice, click the **Next** button.
-The default settings are all fine for the **Instance Details** section, so leave them alone and click **Next**.
+Seçiminizi yaptıktan sonra, **Next** düğmesine tıklayın.
+**Instance Details** bölümü için varsayılan ayarların hepsi uygundur, bu nedenle onları olduğu gibi bırakın ve **Next**'e tıklayın.
 
-When you arrive at the **Add Storage** section, you'll create a new virtual hard drive for your system.
-This can be expanded later thanks to the power of the cloud, so getting the correct number now isn't absolutely critical.
-However, for the sake of your own peace of mind, you should change the size to one of the following figures:
+**Add Storage** bölümüne geldiğinizde, sisteminiz için yeni bir sanal sabit disk oluşturacaksınız.
+Bu, bulutun gücü sayesinde daha sonra genişletilebilir, bu nedenle şimdi doğru sayıyı almak kesinlikle kritik değildir.
+Ancak, kendi huzurunuz için, boyutu aşağıdaki rakamlardan birine değiştirmelisiniz:
 
-- Use at least **100 GiB** if you're just trying Rocket Pool out on the [Hoodi Test Network](../../testnet/overview).
-- Use at least **1 TiB** (preferably **2 TiB**) if you're going to use this node on the main Ethereum network (**mainnet**).
+- [Hoodi Test Ağı](../../testnet/overview)'nda Rocket Pool'u deniyorsanız en az **100 GiB** kullanın.
+- Bu node'u ana Ethereum ağında (**mainnet**) kullanacaksanız en az **1 TiB** (tercihen **2 TiB**) kullanın.
 
-Leave the default values for the other settings and click **Next**.
+Diğer ayarlar için varsayılan değerleri bırakın ve **Next**'e tıklayın.
 
-In the **Add Tags** step, you should click the **click to add a Name tag** button and give it an easy-to-remember name that you can use to identify the server later; something like **Rocket Pool Smartnode** will work if you need inspiration.
-Click **Next** when you're done.
+**Add Tags** adımında, **click to add a Name tag** düğmesine tıklamalı ve daha sonra sunucuyu tanımlamak için kullanabileceğiniz hatırlaması kolay bir isim vermelisiniz; ilhama ihtiyacınız varsa **Rocket Pool Smartnode** gibi bir şey işe yarayacaktır.
+İşiniz bittiğinde **Next**'e tıklayın.
 
-In the **Security Group** section, keep the **Create a new security group** option selected.
-Enter a name and description such as **Smartnode** and **Smartnode Group**.
-Remove all of the existing rules in the table and add the following rules:
+**Security Group** bölümünde, **Create a new security group** seçeneğini seçili tutun.
+**Smartnode** ve **Smartnode Group** gibi bir ad ve açıklama girin.
+Tablodaki mevcut tüm kuralları kaldırın ve aşağıdaki kuralları ekleyin:
 
-| Type       | Port Range | Source                           | Description |
-| ---------- | ---------- | -------------------------------- | ----------- |
-| SSH        | 22         | [Your public IP address at home] | SSH Access  |
-| Custom TCP | 30303      | Anywhere                         | ETH1 P2P    |
-| Custom UDP | 30303      | Anywhere                         | ETH1 P2P    |
-| Custom TCP | 9001       | Anywhere                         | ETH2 P2P    |
-| Custom UDP | 9001       | Anywhere                         | ETH2 P2P    |
+| Type       | Port Range | Source                                | Description |
+| ---------- | ---------- | ------------------------------------- | ----------- |
+| SSH        | 22         | [Evdeki genel IP adresiniz]           | SSH Access  |
+| Custom TCP | 30303      | Anywhere                              | ETH1 P2P    |
+| Custom UDP | 30303      | Anywhere                              | ETH1 P2P    |
+| Custom TCP | 9001       | Anywhere                              | ETH2 P2P    |
+| Custom UDP | 9001       | Anywhere                              | ETH2 P2P    |
 
-This will allow you to remotely connect to your server via SSH (the command line terminal) from your laptop or desktop.
-It will also allow the Execution and Consensus clients to connect to other nodes on the Ethereum network.
+Bu, dizüstü veya masaüstü bilgisayarınızdan sunucunuza SSH (komut satırı terminali) üzerinden uzaktan bağlanmanıza olanak tanır.
+Ayrıca Execution ve Consensus client'larının Ethereum ağındaki diğer node'lara bağlanmasına izin verir.
 
-::: warning NOTE
-For SSH access, this will only work if you have a **static public IP address**.
-You will likely need to request this from your ISP, as many of them use a dynamic IP system and change your public address occasionally.
-If you cannot procure a static address, you will have to go to the AWS console and update this setting with your new IP address every time it changes.
+::: warning NOT
+SSH erişimi için, bu yalnızca **statik bir genel IP adresiniz** varsa işe yarar.
+Muhtemelen bunu İSS'nizden talep etmeniz gerekecektir, çünkü birçoğu dinamik bir IP sistemi kullanır ve genel adresinizi ara sıra değiştirir.
+Statik bir adres temin edemiyorsanız, AWS konsoluna gitmeniz ve her değiştiğinde bu ayarı yeni IP adresinizle güncellemeniz gerekecektir.
 :::
 
-The security group table should now resemble this:
+Güvenlik grubu tablosu şimdi buna benzemelidir:
 
 <img src="./images/security-group.png" width="100%" height="auto" />
 
-Now, review all of the instance details to make sure you're happy with them, and click **Launch** when you're satisfied.
-When the **SSH key pair** prompt appears, select **Create a new key pair**.
-Give it a memorable name such as **Smartnode Key**, then click **Download Key Pair**.
-Store these files somewhere secure, such as `~/.ssh/` (or `C:\Users\[your username]\.ssh\` on Windows) where your other keys commonly reside.
+Şimdi, tüm instance ayrıntılarını gözden geçirin ve bunlardan memnun olduğunuzdan emin olun ve memnun olduğunuzda **Launch**'a tıklayın.
+**SSH key pair** istemi göründüğünde, **Create a new key pair**'i seçin.
+**Smartnode Key** gibi akılda kalıcı bir ad verin, ardından **Download Key Pair**'e tıklayın.
+Bu dosyaları `~/.ssh/` (veya Windows'ta `C:\Users\[kullanıcı adınız]\.ssh\`) gibi diğer anahtarlarınızın yaygın olarak bulunduğu güvenli bir yerde saklayın.
 
 ::: danger
-This key pair contains the private key that you will use to SSH into your machine.
-If anyone gets a hold of this key, they will have complete access to your node - **including your Rocket Pool node wallet** and all of the coins within it.
-You **must** keep this file secure at all times.
+Bu anahtar çifti, makinenize SSH yapmak için kullanacağınız özel anahtarı içerir.
+Bu anahtarı ele geçiren herkes, node'unuza tam erişime sahip olacaktır - **Rocket Pool node cüzdanınız** ve içindeki tüm coinler dahil.
+Bu dosyayı her zaman güvende tutmanız **gerekir**.
 :::
 
-Next, click **Launch Instance** to create your new virtual server.
-When a notice pops up, click the **View Instances** to be taken to your list of servers.
-You'll see your Rocket Pool node there with some accompanying details about its configuration and status.
+Ardından, yeni sanal sunucunuzu oluşturmak için **Launch Instance**'a tıklayın.
+Bir bildirim açıldığında, sunucular listenize götürülmek için **View Instances**'a tıklayın.
+Rocket Pool node'unuzu orada yapılandırması ve durumu hakkında bazı eşlik eden ayrıntılarla birlikte göreceksiniz.
 
-Finally, assign an **Elastic IP Address** to your machine - you can think of this like a static IP address that is exclusive to AWS.
-Your node will always be accessible at this address, so you can always use the same SSH command to connect to it.
+Son olarak, makinenize bir **Elastic IP Address** atayın - bunu AWS'ye özel statik bir IP adresi gibi düşünebilirsiniz.
+Node'unuz her zaman bu adreste erişilebilir olacaktır, bu nedenle ona bağlanmak için her zaman aynı SSH komutunu kullanabilirsiniz.
 
-Go to **Network and Security** in the navigation panel on the left and click **Elastic IPs**.
-Now, click **Allocate Elastic IP Address**.
-The default settings are all fine, so just click through the prompts and return to the list when you're done.
+Sol taraftaki gezinme panelinde **Network and Security**'ye gidin ve **Elastic IPs**'e tıklayın.
+Şimdi, **Allocate Elastic IP Address**'e tıklayın.
+Varsayılan ayarların hepsi uygundur, bu nedenle istemleri tıklayın ve bittiğinde listeye dönün.
 
-Next, select the new address in the list.
-Click the **Actions** button above it, then click **Associate Elastic IP Address**.
-Leave the resource type set to **Instance** and select the Rocket Pool Smartnode instance you just created from the list.
-Click **Associate** to assign the address to your virtual server.
-Now, if you look under the \*Associated Instance ID\*\* column of the address, you can verify that it has your machine assigned to it.
+Ardından, listeden yeni adresi seçin.
+Üzerindeki **Actions** düğmesine tıklayın, ardından **Associate Elastic IP Address**'e tıklayın.
+Kaynak türünü **Instance** olarak ayarlı bırakın ve listeden az önce oluşturduğunuz Rocket Pool Smartnode instance'ını seçin.
+Adresi sanal sunucunuza atamak için **Associate**'e tıklayın.
+Şimdi, adresin \*Associated Instance ID\*\* sütununa bakarsanız, makinenizin ona atanmış olduğunu doğrulayabilirsiniz.
 
-## Accessing the Machine
+## Makineye Erişim
 
-To access the machine, open a new terminal on Linux or macOS (use Powershell on Windows) and type the following command:
+Makineye erişmek için, Linux veya macOS'ta yeni bir terminal açın (Windows'ta Powershell kullanın) ve aşağıdaki komutu yazın:
 
 ```shell
 ssh [your elastic IP address]
 ```
 
-If you stored your keys in the `.ssh` folder, this will use the private key pair you generated during setup to authenticate with the machine automatically - no usernames, no passwords.
+Anahtarlarınızı `.ssh` klasöründe sakladıysanız, bu, kurulum sırasında oluşturduğunuz özel anahtar çiftini kullanarak makineyle otomatik olarak kimlik doğrulama yapacaktır - kullanıcı adı yok, şifre yok.
 
-Once here, you have complete terminal access to the system.
+Buraya geldiğinizde, sisteme tam terminal erişiminiz vardır.
 
-## Setting up Swap Space
+## Swap Alanı Kurulumu
 
-In most cases, if you choose your Execution and Consensus clients and your instance type carefully, you should not run out of RAM.
-Then again, it never hurts to add a little more.
-What we're going to do now is add what's called **swap space**.
-Essentially, it means we're going to use the SSD as "backup RAM" in case something goes horribly, horribly wrong and your server runs out of regular RAM.
-The SSD isn't nearly as fast as the regular RAM, so if it hits the swap space it will slow things down, but it won't completely crash and break everything.
-Think of this as extra insurance that you'll (most likely) never need.
+Çoğu durumda, Execution ve Consensus client'larınızı ve instance type'ınızı dikkatlice seçerseniz, RAM'den tükenmemelisiniz.
+Yine de, biraz daha eklemek asla zarar vermez.
+Şimdi yapacağımız şey **swap alanı** denen şeyi eklemektir.
+Esasen, bir şey korkunç derecede yanlış giderse ve sunucunuz normal RAM'den tükenirse SSD'yi "yedek RAM" olarak kullanacağız demektir.
+SSD, normal RAM kadar hızlı değildir, bu nedenle swap alanına ulaşırsa işleri yavaşlatacaktır, ancak tamamen çökmez ve her şeyi bozmaz.
+Bunu (büyük olasılıkla) asla ihtiyacınız olmayacak ekstra sigorta olarak düşünün.
 
-### Creating a Swap File
+### Swap Dosyası Oluşturma
 
-The first step is to make a new file that will act as your swap space.
-Decide how much you want to use - a reasonable start would be 8 GB, so you have 8 GB of normal RAM and 8 GB of "backup RAM" for a total of 16 GB.
-To be super safe, you can make it 24 GB so your system has 8 GB of normal RAM and 24 GB of "backup RAM" for a total of 32 GB, but this is probably overkill.
-Luckily, since your SSD has 1 or 2 TB of space, allocating 8 to 24 GB for a swapfile is negligible.
+İlk adım, swap alanınız olarak hareket edecek yeni bir dosya yapmaktır.
+Ne kadar kullanmak istediğinize karar verin - makul bir başlangıç 8 GB olurdu, böylece toplamda 16 GB için 8 GB normal RAM ve 8 GB "yedek RAM"iniz olur.
+Süper güvenli olmak için, 24 GB yapabilirsiniz, böylece sisteminizde toplamda 32 GB için 8 GB normal RAM ve 24 GB "yedek RAM" olur, ancak bu muhtemelen aşırıya kaçmaktır.
+Neyse ki, SSD'nizde 1 veya 2 TB alan olduğu için, bir swap dosyası için 8 ila 24 GB ayırmak önemsizdir.
 
-For the sake of this walkthrough, let's pick a nice middleground - say, 16 GB of swap space for a total RAM of 24 GB.
-Just substitute whatever number you want in as we go.
+Bu anlatımın hatırına, güzel bir orta yol seçelim - diyelim ki toplam 24 GB RAM için 16 GB swap alanı.
+İlerlerken istediğiniz sayıyı değiştirin.
 
-Enter this, which will create a new file called `/swapfile` and fill it with 16 GB of zeros.
-To change the amount, just change the number in `count=16` to whatever you want. **Note that this is going to take a long time, but that's ok.**
+Bunu girin, bu `/swapfile` adında yeni bir dosya oluşturacak ve 16 GB sıfırla dolduracaktır.
+Miktarı değiştirmek için, `count=16`'daki sayıyı istediğiniz şeye değiştirin. **Bunun uzun süreceğini unutmayın, ancak bu normaldir.**
 
 ```shell
 sudo dd if=/dev/zero of=/swapfile bs=1G count=16 status=progress
 ```
 
-Next, set the permissions so only the root user can read or write to it (for security):
+Ardından, yalnızca root kullanıcısının okuyabilmesi veya yazabilmesi için izinleri ayarlayın (güvenlik için):
 
 ```shell
 sudo chmod 600 /swapfile
 ```
 
-Now, mark it as a swap file:
+Şimdi, onu bir swap dosyası olarak işaretleyin:
 
 ```shell
 sudo mkswap /swapfile
 ```
 
-Next, enable it:
+Ardından, etkinleştirin:
 
 ```shell
 sudo swapon /swapfile
 ```
 
-Finally, add it to the mount table so it automatically loads when your server reboots:
+Son olarak, sunucunuz yeniden başlatıldığında otomatik olarak yüklenmesi için mount tablosuna ekleyin:
 
 ```shell
 sudo nano /etc/fstab
 ```
 
-Add a new line at the end that looks like this:
+Sonuna şöyle görünen yeni bir satır ekleyin:
 
 ```
 /swapfile                            none            swap    sw              0       0
 ```
 
-Press `Ctrl+O` and `Enter` to save, then `Ctrl+X` and `Enter` to exit.
+Kaydetmek için `Ctrl+O` ve `Enter`'a, ardından çıkmak için `Ctrl+X` ve `Enter`'a basın.
 
-To verify that it's active, run these commands:
+Aktif olduğunu doğrulamak için şu komutları çalıştırın:
 
 ```shell
 sudo apt install htop
 htop
 ```
 
-Your output should look like this at the top:
+Çıktınız üstte şuna benzer görünmelidir:
 ![](../local/images/pi/Swap.png)
 
-If the second number in the last row labeled `Swp` (the one after the `/`) is non-zero, then you're all set.
-For example, if it shows `0K / 16.0G` then your swap space was activated successfully.
-If it shows `0K / 0K` then it did not work and you'll have to confirm that you entered the previous steps properly.
+`Swp` etiketli son satırdaki ikinci sayı (`/`'den sonraki) sıfır değilse, o zaman hazırsınız.
+Örneğin, `0K / 16.0G` gösteriyorsa, swap alanınız başarıyla etkinleştirilmiştir.
+`0K / 0K` gösteriyorsa, işe yaramadı ve önceki adımları doğru girdiğinizi onaylamanız gerekecektir.
 
-Press `q` or `F10` to quit out of `htop` and get back to the terminal.
+`htop`'tan çıkmak ve terminale geri dönmek için `q` veya `F10`'a basın.
 
-### Configuring Swappiness and Cache Pressure
+### Swappiness ve Cache Pressure Yapılandırma
 
-By default, Linux will eagerly use a lot of swap space to take some of the pressure off of the system's RAM.
-We don't want that. We want it to use all of the RAM up to the very last second before relying on SWAP.
-The next step is to change what's called the "swappiness" of the system, which is basically how eager it is to use the swap space.
-There is a lot of debate about what value to set this to, but we've found a value of 6 works well enough.
+Varsayılan olarak, Linux, sistemin RAM'inden biraz baskıyı almak için hevesle çok fazla swap alanı kullanacaktır.
+Bunu istemiyoruz. Son saniyeye kadar tüm RAM'i kullanmasını ve SWAP'a güvenmeden önce istiyoruz.
+Bir sonraki adım, sistemin "swappiness"ini değiştirmektir, bu temelde swap alanını ne kadar hevesle kullandığıdır.
+Bunun için hangi değerin ayarlanacağı hakkında çok fazla tartışma var, ancak 6 değerinin yeterince iyi çalıştığını bulduk.
 
-We also want to turn down the "cache pressure", which dictates how quickly the server will delete a cache of its filesystem.
-Since we're going to have a lot of spare RAM with our setup, we can make this "10" which will leave the cache in memory for a while, reducing disk I/O.
+Ayrıca "cache pressure"ı düşürmek istiyoruz, bu da sunucunun dosya sisteminin bir önbelleğini ne kadar hızlı sileceğini belirler.
+Kurulumumuzla çok fazla yedek RAM'imiz olacağından, bunu "10" yapabiliriz, bu da önbelleği bir süre bellekte bırakarak disk G/Ç'sini azaltır.
 
-To set these, run these commands:
+Bunları ayarlamak için şu komutları çalıştırın:
 
 ```shell
 sudo sysctl vm.swappiness=6
 sudo sysctl vm.vfs_cache_pressure=10
 ```
 
-Now, put them into the `sysctl.conf` file so they are reapplied after a reboot:
+Şimdi, yeniden başlatmadan sonra yeniden uygulanmaları için bunları `sysctl.conf` dosyasına koyun:
 
 ```shell
 sudo nano /etc/sysctl.conf
 ```
 
-Add these two lines to the end:
+Sonuna bu iki satırı ekleyin:
 
 ```shell
 vm.swappiness=6
 vm.vfs_cache_pressure=10
 ```
 
-Then save and exit like you've done before (`Ctrl+O`, `Ctrl+X`).
+Ardından daha önce yaptığınız gibi kaydedin ve çıkın (`Ctrl+O`, `Ctrl+X`).
 
-And with that, your server is up and running and ready to run Rocket Pool!
-Move on to the [Choosing your ETH Clients](../eth-clients) section.
+Ve bununla, sunucunuz çalışıyor ve Rocket Pool'u çalıştırmaya hazır!
+[ETH Client'larınızı Seçme](../eth-clients) bölümüne geçin.

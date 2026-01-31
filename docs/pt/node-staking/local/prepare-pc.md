@@ -1,97 +1,77 @@
-# Preparing a PC, Mini-PC, or NUC
+# Preparando um PC, Mini-PC ou NUC
 
-Before installing Rocket Pool, there are a few checks you should do to make sure your system is compatible and will work
-correctly.
+Antes de instalar o Rocket Pool, há algumas verificações que você deve fazer para garantir que seu sistema é compatível e funcionará corretamente.
 
 ::: danger
-We strongly encourage you to create a dedicated machine for running a Rocket Pool node.
-Running a node on a general-use machine, such as your daily work desktop or a gaming rig, presents extra security risks
-that may compromise your wallet and result in the theft of your coins.
+Recomendamos fortemente que você crie uma máquina dedicada para executar um node Rocket Pool.
+Executar um node em uma máquina de uso geral, como seu desktop de trabalho diário ou um PC para jogos, apresenta riscos de segurança extras que podem comprometer sua carteira e resultar no roubo de suas moedas.
 
-**For maximum safety, please build a new machine that is dedicated exclusively to running a node.**
+**Para máxima segurança, por favor construa uma nova máquina que seja dedicada exclusivamente à execução de um node.**
 :::
 
-## System Requirements
+## Requisitos do Sistema
 
-Below is a brief description of the software and hardware requirements that a Rocket Pool node requires.
-This guide assumes that you already have your machine physically built, and the operating system installed.
+Abaixo está uma breve descrição dos requisitos de software e hardware que um node Rocket Pool requer.
+Este guia assume que você já tem sua máquina fisicamente construída e o sistema operacional instalado.
 
-### Supported Operating Systems
+### Sistemas Operacionais Suportados
 
-Rocket Pool's Smartnode client currently supports **Linux** and **macOS** systems.
+O cliente Smartnode do Rocket Pool atualmente suporta sistemas **Linux** e **macOS**.
 
-At this time, **Windows** can be used to remotely manage a remote Linux or Mac machine, but the Smartnode itself cannot
-currently run on a Windows system. However, Rocket Pool _can_ be run on a
-Linux [virtual machine](https://en.wikipedia.org/wiki/System_virtual_machine) hosted by a Windows machine.
-This setup is not recommended over simply installing Linux as the host operating system, but it does work if necessary.
-Note that it will require extra resource overhead, and comes with its own set of security risks, so we do not advise
-using this setup when staking real Ether on the main network.
+Neste momento, **Windows** pode ser usado para gerenciar remotamente uma máquina Linux ou Mac remota, mas o Smartnode em si não pode atualmente ser executado em um sistema Windows. No entanto, o Rocket Pool _pode_ ser executado em uma [máquina virtual](https://en.wikipedia.org/wiki/System_virtual_machine) Linux hospedada por uma máquina Windows.
+Esta configuração não é recomendada em relação a simplesmente instalar Linux como o sistema operacional host, mas funciona se necessário.
+Note que isso exigirá sobrecarga extra de recursos e vem com seu próprio conjunto de riscos de segurança, então não aconselhamos usar esta configuração ao fazer staking de Ether real na rede principal.
 
-Rocket Pool is natively compatible with **AMD64 (x64)** and **arm64 (aarch64)** CPU architectures.
-For other architectures, you will need to compile the smartnode clients from source.
+O Rocket Pool é nativamente compatível com arquiteturas de CPU **AMD64 (x64)** e **arm64 (aarch64)**.
+Para outras arquiteturas, você precisará compilar os clientes smartnode a partir do código-fonte.
 
-Note that the user must have **root / Administrator** access (or **sudo** privileges) to install the Smartnode.
+Note que o usuário deve ter acesso **root / Administrador** (ou privilégios **sudo**) para instalar o Smartnode.
 
-#### Linux Support
+#### Suporte Linux
 
-There are many variants of the Linux OS (called distributions, or **distros** for short). While you can run Rocket Pool
-from any modern distro, Rocket Pool's installer can automatically install the entire stack
-on [Ubuntu](https://ubuntu.com/about), [Debian](https://www.debian.org/intro/why_debian), [CentOS](https://www.centos.org/about/),
-and [Fedora](https://docs.fedoraproject.org/en-US/project/).
+Existem muitas variantes do SO Linux (chamadas distribuições, ou **distros** para abreviar). Embora você possa executar o Rocket Pool de qualquer distro moderna, o instalador do Rocket Pool pode instalar automaticamente toda a stack no [Ubuntu](https://ubuntu.com/about), [Debian](https://www.debian.org/intro/why_debian), [CentOS](https://www.centos.org/about/), e [Fedora](https://docs.fedoraproject.org/en-US/project/).
 
-::: warning NOTE
-If you plan to use Ubuntu, we strongly recommend using an **LTS** release such as 24.04.
-These releases are actively maintained for longer periods of time, which helps with the security and stability of your
-node.
+::: warning NOTA
+Se você planeja usar Ubuntu, recomendamos fortemente usar uma versão **LTS** como 24.04.
+Essas versões são mantidas ativamente por períodos mais longos, o que ajuda com a segurança e estabilidade do seu node.
 :::
 
-For installation on other distros, the Smartnode installer will not be able to automatically install some system
-dependencies (such as `docker-compose`).
-Some manual steps will be required during installation.
+Para instalação em outras distros, o instalador Smartnode não será capaz de instalar automaticamente algumas dependências do sistema (como `docker-compose`).
+Alguns passos manuais serão necessários durante a instalação.
 
-For `arm64` systems, the Smartnode installer only natively supports Debian and Debian-based distros such as Ubuntu.
-For other distros, manual steps will be required during installation.
+Para sistemas `arm64`, o instalador Smartnode suporta nativamente apenas Debian e distros baseadas em Debian como Ubuntu.
+Para outras distros, passos manuais serão necessários durante a instalação.
 
-## Installing the Operating System
+## Instalando o Sistema Operacional
 
-If you're using macOS, it's highly likely that you already have the Operating System installed and can skip this step.
+Se você está usando macOS, é altamente provável que você já tenha o Sistema Operacional instalado e possa pular esta etapa.
 
-If you're installing Linux from scratch, each of the distributions listed above come with helpful and detailed tutorials
-for installing the Operating System from scratch.
-As an example though, we will walk you through the process of installing and preparing **Debian Server**.
-Debian is a good choice for node operation because it focuses on **maximum stability and reliability** - both of which
-are highly desirable for node machines that must be running 24/7.
+Se você está instalando Linux do zero, cada uma das distribuições listadas acima vem com tutoriais úteis e detalhados para instalar o Sistema Operacional do zero.
+Como exemplo, vamos orientá-lo pelo processo de instalação e preparação do **Debian Server**.
+Debian é uma boa escolha para operação de node porque foca em **máxima estabilidade e confiabilidade** - ambas altamente desejáveis para máquinas node que devem estar rodando 24/7.
 
-[Here is a good step-by-step guide](https://itslinuxfoss.com/debian-11-bullseye-guide/) with screenshots that shows you
-how to install Debian on your node machine from scratch.
+[Aqui está um bom guia passo a passo](https://itslinuxfoss.com/debian-11-bullseye-guide/) com capturas de tela que mostra como instalar Debian na sua máquina node do zero.
 
 :::tip
-We have a few helpful amendments to the guide linked above, which you may want to follow:
+Temos algumas emendas úteis ao guia linkado acima, que você pode querer seguir:
 
-- When prompted to set up a **root password**, we recommend leaving it **blank**. This will disable the `root` account
-  and instead install the `sudo` package, allowing your user to perform root operations by re-entering its password to
-  elevate its permissions. This is analogous to the way Ubuntu Linux is set up, which may be more familiar to users.
-- In the **Software selection** screen towards the end, you may not want to have a desktop GUI installed.
-  - Desktop GUIs are largely unnecessary for a node; they add extra overhead and most of the time will not be used since
-    you'll be remote controlling it via the terminal anyway, so we prefer to **uncheck GNOME and Debian desktop
-    environment** here.
-  - If you _do_ want a desktop UI on your node, we recommend you **uncheck GNOME and check XFCE** instead, as it's
-    lighter on system resources. We also recommend running no additional software on the node, such as browsers or
-    Discord, as they diminish security and consume system resources.
-  - Uncheck **web server**, but leave **SSH server** and **standard system utilities** checked.
-- If you have created a flash drive from an iso, you may need to disable the CD-ROM repository in order to run `apt`.
-  You can find an explanation of how to do
-  this [here](https://www.linuxtechi.com/things-to-do-after-installing-debian-11/).
-- Your system may be set up to sleep/hibernate by default. To disable these settings, you can run the following command:
+- Quando solicitado a configurar uma **senha root**, recomendamos deixá-la **em branco**. Isso desabilitará a conta `root` e em vez disso instalará o pacote `sudo`, permitindo que seu usuário execute operações root digitando novamente sua senha para elevar suas permissões. Isso é análogo à forma como o Ubuntu Linux é configurado, o que pode ser mais familiar aos usuários.
+- Na tela de **Seleção de software** no final, você pode não querer ter uma GUI desktop instalada.
+  - GUIs desktop são em grande parte desnecessárias para um node; elas adicionam sobrecarga extra e na maioria das vezes não serão usadas, já que você estará controlando-o remotamente via terminal de qualquer forma, então preferimos **desmarcar GNOME e ambiente desktop Debian** aqui.
+  - Se você _quer_ uma UI desktop no seu node, recomendamos que você **desmarque GNOME e marque XFCE**, pois é mais leve em recursos do sistema. Também recomendamos não executar software adicional no node, como navegadores ou Discord, pois eles diminuem a segurança e consomem recursos do sistema.
+  - Desmarque **web server**, mas deixe **SSH server** e **standard system utilities** marcados.
+- Se você criou um flash drive a partir de um iso, você pode precisar desabilitar o repositório CD-ROM para executar `apt`.
+  Você pode encontrar uma explicação de como fazer isso [aqui](https://www.linuxtechi.com/things-to-do-after-installing-debian-11/).
+- Seu sistema pode ser configurado para dormir/hibernar por padrão. Para desabilitar essas configurações, você pode executar o seguinte comando:
   `sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target`
 
 :::
 
-### Installing `sudo`
+### Instalando `sudo`
 
-Rocket Pool's installer requires the `sudo` program to acquire all of its dependencies.
-If you left the **root user password blank** in the previous step, you will already have this.
-If not, please install it now by running the following commands:
+O instalador do Rocket Pool requer o programa `sudo` para adquirir todas as suas dependências.
+Se você deixou a **senha do usuário root em branco** na etapa anterior, você já terá isso.
+Se não, por favor instale-o agora executando os seguintes comandos:
 
 ```shell
 apt update
@@ -105,13 +85,13 @@ apt install sudo
 usermod -aG sudo $USER
 ```
 
-Then restart the machine.
-You should now be able to run commands via `sudo` such as `sudo apt update`.
+Depois reinicie a máquina.
+Você deve agora ser capaz de executar comandos via `sudo` como `sudo apt update`.
 
-### Using SSH
+### Usando SSH
 
-Once the server is installed and you're able to log in, you need to get its IP address.
-An easy way to do this is with `ifconfig` which is built into the 'net-tools' package:
+Uma vez que o servidor esteja instalado e você seja capaz de fazer login, você precisa obter seu endereço IP.
+Uma maneira fácil de fazer isso é com `ifconfig` que está incluído no pacote 'net-tools':
 
 ```shell
 sudo apt update
@@ -125,7 +105,7 @@ sudo apt install net-tools
 sudo ifconfig
 ```
 
-You may see several entries here, but the one you want to look for is going to look something like this:
+Você pode ver várias entradas aqui, mas a que você quer procurar vai se parecer com isso:
 
 ```
 eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
@@ -135,162 +115,150 @@ eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
       ...
 ```
 
-The flags should say `UP,BROADCAST,RUNNING,MULTICAST`.
-The `inet` value (here `192.168.1.8`) is your machine's local IP address.
+As flags devem dizer `UP,BROADCAST,RUNNING,MULTICAST`.
+O valor `inet` (aqui `192.168.1.8`) é o endereço IP local da sua máquina.
 
-Next, install SSH:
+Em seguida, instale SSH:
 
 ```shell
 sudo apt install openssh-server
 ```
 
-:::tip NOTE
-If you had the **SSH server** box checked during Debian's installation, you should already have this installed so this
-command won't do anything.
+:::tip NOTA
+Se você tinha a caixa **SSH server** marcada durante a instalação do Debian, você já deve ter isso instalado então este comando não fará nada.
 :::
 
-Once this is done, you can log into the machine's terminal remotely from your laptop or desktop using `ssh`.
+Depois disso, você pode fazer login no terminal da máquina remotamente do seu laptop ou desktop usando `ssh`.
 
-If you aren't familiar with `ssh`, take a look at the [Intro to Secure Shell](../ssh) guide.
+Se você não está familiarizado com `ssh`, dê uma olhada no guia [Introdução ao Secure Shell](../ssh).
 
-:::warning NOTE
-At this point, you should _strongly consider_ configuring your router to make your node's IP address **static**.
-This means that your node will have the same IP address forever, so you can always SSH into it using that IP address.
-Otherwise, it's possible that your node's IP could change at some point, and the above SSH command will no longer work.
-You'll have to enter your router's configuration to find out what your node's new IP address is.
+:::warning NOTA
+Neste ponto, você deve _considerar fortemente_ configurar seu roteador para tornar o endereço IP do seu node **estático**.
+Isso significa que seu node terá o mesmo endereço IP para sempre, então você pode sempre fazer SSH nele usando aquele endereço IP.
+Caso contrário, é possível que o IP do seu node mude em algum momento, e o comando SSH acima não funcionará mais.
+Você terá que entrar na configuração do seu roteador para descobrir qual é o novo endereço IP do seu node.
 
-Each router is different, so you will need to consult your router's documentation to learn how to assign a static IP
-address.
+Cada roteador é diferente, então você precisará consultar a documentação do seu roteador para aprender como atribuir um endereço IP estático.
 :::
 
-## Setting up Swap Space
+## Configurando Espaço de Swap
 
-In most cases, if you choose your Execution and Consensus clients and your instance type carefully, you should not run
-out of RAM.
-Then again, it never hurts to add a little more.
-What we're going to do now is add what's called **swap space**.
-Essentially, it means we're going to use the SSD as "backup RAM" in case something goes horribly, horribly wrong and
-your server runs out of regular RAM.
-The SSD isn't nearly as fast as the regular RAM, so if it hits the swap space it will slow things down, but it won't
-completely crash and break everything.
-Think of this as extra insurance that you'll (most likely) never need.
+Na maioria dos casos, se você escolher seus clientes de Execution e Consensus e seu tipo de instância cuidadosamente, você não deve ficar sem RAM.
+Por outro lado, nunca faz mal adicionar um pouco mais.
+O que vamos fazer agora é adicionar o que é chamado de **espaço de swap**.
+Essencialmente, significa que vamos usar o SSD como "RAM de backup" caso algo dê terrivelmente errado e seu servidor fique sem RAM regular.
+O SSD não é nem de perto tão rápido quanto a RAM regular, então se ele usar o espaço de swap vai deixar as coisas mais lentas, mas não vai travar completamente e quebrar tudo.
+Pense nisso como seguro extra que você (provavelmente) nunca precisará.
 
-### Creating a Swap File
+### Criando um Arquivo de Swap
 
-The first step is to make a new file that will act as your swap space.
-Decide how much you want to use - a reasonable start would be 8 GB, so you have 8 GB of normal RAM and 8 GB of "backup
-RAM" for a total of 16 GB.
-To be super safe, you can make it 24 GB so your system has 8 GB of normal RAM and 24 GB of "backup RAM" for a total of
-32 GB, but this is probably overkill.
-Luckily, since your SSD has 1 or 2 TB of space, allocating 8 to 24 GB for a swapfile is negligible.
+O primeiro passo é fazer um novo arquivo que atuará como seu espaço de swap.
+Decida quanto você quer usar - um começo razoável seria 8 GB, então você tem 8 GB de RAM normal e 8 GB de "RAM de backup" para um total de 16 GB.
+Para ser super seguro, você pode fazer 24 GB para que seu sistema tenha 8 GB de RAM normal e 24 GB de "RAM de backup" para um total de 32 GB, mas isso é provavelmente exagero.
+Felizmente, como seu SSD tem 1 ou 2 TB de espaço, alocar 8 a 24 GB para um swapfile é negligenciável.
 
-For the sake of this walkthrough, let's pick a nice middleground - say, 16 GB of swap space for a total RAM of 24 GB.
-Just substitute whatever number you want in as we go.
+Para fins deste passo a passo, vamos escolher um meio termo - digamos, 16 GB de espaço de swap para um total de RAM de 24 GB.
+Apenas substitua pelo número que você quiser conforme prosseguimos.
 
-Enter this, which will create a new file called `/swapfile` and fill it with 16 GB of zeros.
-To change the amount, just change the number in `count=16` to whatever you want. **Note that this is going to take a
-long time, but that's ok.**
+Digite isso, o que criará um novo arquivo chamado `/swapfile` e o preencherá com 16 GB de zeros.
+Para mudar a quantidade, apenas mude o número em `count=16` para o que você quiser. **Note que isso vai levar muito tempo, mas está ok.**
 
 ```shell
 sudo dd if=/dev/zero of=/swapfile bs=1G count=16 status=progress
 ```
 
-Next, set the permissions so only the root user can read or write to it (for security):
+Em seguida, defina as permissões para que apenas o usuário root possa ler ou escrever nele (por segurança):
 
 ```shell
 sudo chmod 600 /swapfile
 ```
 
-Now, mark it as a swap file:
+Agora, marque-o como um arquivo de swap:
 
 ```shell
 sudo mkswap /swapfile
 ```
 
-Next, enable it:
+Em seguida, habilite-o:
 
 ```shell
 sudo swapon /swapfile
 ```
 
-Finally, add it to the mount table so it automatically loads when your server reboots:
+Finalmente, adicione-o à tabela de montagem para que ele carregue automaticamente quando seu servidor reiniciar:
 
 ```shell
 sudo nano /etc/fstab
 ```
 
-Add a new line at the end that looks like this:
+Adicione uma nova linha no final que se pareça com isso:
 
 ```
 /swapfile                            none            swap    sw              0       0
 ```
 
-Press `Ctrl+O` and `Enter` to save, then `Ctrl+X` and `Enter` to exit.
+Pressione `Ctrl+O` e `Enter` para salvar, depois `Ctrl+X` e `Enter` para sair.
 
-To verify that it's active, run these commands:
+Para verificar que está ativo, execute estes comandos:
 
 ```shell
 sudo apt install htop
 htop
 ```
 
-Your output should look like this at the top:
+Sua saída deve se parecer com isso no topo:
 ![](../local/images/pi/Swap.png)
 
-If the second number in the last row labeled `Swp` (the one after the `/`) is non-zero, then you're all set.
-For example, if it shows `0K / 16.0G` then your swap space was activated successfully.
-If it shows `0K / 0K` then it did not work and you'll have to confirm that you entered the previous steps properly.
+Se o segundo número na última linha rotulada como `Swp` (o que vem depois do `/`) for diferente de zero, então você está pronto.
+Por exemplo, se mostrar `0K / 16.0G` então seu espaço de swap foi ativado com sucesso.
+Se mostrar `0K / 0K` então não funcionou e você terá que confirmar que inseriu os passos anteriores corretamente.
 
-Press `q` or `F10` to quit out of `htop` and get back to the terminal.
+Pressione `q` ou `F10` para sair do `htop` e voltar ao terminal.
 
-### Configuring Swappiness and Cache Pressure
+### Configurando Swappiness e Cache Pressure
 
-By default, Linux will eagerly use a lot of swap space to take some of the pressure off of the system's RAM.
-We don't want that. We want it to use all of the RAM up to the very last second before relying on SWAP.
-The next step is to change what's called the "swappiness" of the system, which is basically how eager it is to use the
-swap space.
-There is a lot of debate about what value to set this to, but we've found a value of 6 works well enough.
+Por padrão, Linux usará ansiosamente muito espaço de swap para tirar um pouco da pressão da RAM do sistema.
+Não queremos isso. Queremos que ele use toda a RAM até o último segundo antes de depender do SWAP.
+O próximo passo é mudar o que é chamado de "swappiness" do sistema, que é basicamente quão ansioso ele está para usar o espaço de swap.
+Há muito debate sobre qual valor definir para isso, mas descobrimos que um valor de 6 funciona bem o suficiente.
 
-We also want to turn down the "cache pressure", which dictates how quickly the server will delete a cache of its
-filesystem.
-Since we're going to have a lot of spare RAM with our setup, we can make this "10" which will leave the cache in memory
-for a while, reducing disk I/O.
+Também queremos reduzir a "cache pressure", que dita quão rapidamente o servidor deletará um cache de seu sistema de arquivos.
+Já que vamos ter muita RAM sobrando com nossa configuração, podemos fazer isso "10" o que deixará o cache na memória por um tempo, reduzindo I/O de disco.
 
-To set these, run these commands:
+Para definir estes, execute estes comandos:
 
 ```shell
 sudo sysctl vm.swappiness=6
 sudo sysctl vm.vfs_cache_pressure=10
 ```
 
-Now, put them into the `sysctl.conf` file so they are reapplied after a reboot:
+Agora, coloque-os no arquivo `sysctl.conf` para que sejam reaplicados após uma reinicialização:
 
 ```shell
 sudo nano /etc/sysctl.conf
 ```
 
-Add these two lines to the end:
+Adicione estas duas linhas no final:
 
 ```shell
 vm.swappiness=6
 vm.vfs_cache_pressure=10
 ```
 
-Then save and exit like you've done before (`Ctrl+O`, `Ctrl+X`).
+Depois salve e saia como você fez antes (`Ctrl+O`, `Ctrl+X`).
 
-### Pre-installation System Checks
+### Verificações do Sistema Pré-instalação
 
-Before installing Rocket Pool, please review the following checklist:
+Antes de instalar o Rocket Pool, por favor revise a seguinte lista de verificação:
 
-- Your system is fully built, powers on, and can boot into the operating system.
-- You will not do any other activity on the system, such as browsing the Internet, checking email, or playing games.
-- You have a Linux operating system installed.
-- Your user account has root / administrator privileges.
-- You have an SSD that meets the performance requirements.
-- Your SSD is mounted on your file system.
-- You have at least 1.5 TB of disk space free for the initial Execution and Consensus syncing process.
-- If your ISP caps your data, it is more than 2 TB per month.
+- Seu sistema está totalmente construído, liga e pode inicializar no sistema operacional.
+- Você não fará nenhuma outra atividade no sistema, como navegar na Internet, verificar email ou jogar jogos.
+- Você tem um sistema operacional Linux instalado.
+- Sua conta de usuário tem privilégios root / administrador.
+- Você tem um SSD que atende aos requisitos de desempenho.
+- Seu SSD está montado no seu sistema de arquivos.
+- Você tem pelo menos 1.5 TB de espaço em disco livre para o processo inicial de sincronização de Execution e Consensus.
+- Se seu provedor de internet limita seus dados, é mais de 2 TB por mês.
 
-If you have checked and confirmed all of these items, then you are ready to install Rocket Pool and begin running a
-node!
-Move on to the [Choosing your ETH Clients](../eth-clients) section.
+Se você verificou e confirmou todos estes itens, então você está pronto para instalar o Rocket Pool e começar a executar um node!
+Prossiga para a seção [Escolhendo seus Clientes ETH](../eth-clients).

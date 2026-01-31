@@ -1,87 +1,87 @@
-# Preparing a Mac
+# Macの準備
 
-Before installing Rocket Pool, there are a few checks you should do to make sure your system is compatible and will work correctly.
+Rocket Poolをインストールする前に、システムが互換性があり正しく動作することを確認するためのチェックをいくつか行う必要があります。
 
 ::: danger
-We strongly encourage you to create a dedicated machine for running a Rocket Pool node.
-Running a node on a general-use machine, such as your daily work desktop, presents extra security risks that may compromise your wallet and result in the theft of your coins.
+Rocket Poolノードを実行するための専用マシンを作成することを強くお勧めします。
+日常的な業務用デスクトップなどの汎用マシンでノードを実行すると、ウォレットが危険にさらされ、コインが盗まれる可能性がある追加のセキュリティリスクが発生します。
 
-**For maximum safety, please build a new machine that is dedicated exclusively to running a node.**
+**最大限の安全性を確保するために、ノードの実行専用の新しいマシンを構築してください。**
 :::
 
-## System Requirements
+## システム要件
 
-Below is a brief description of the software and hardware requirements that a Rocket Pool node requires.
-This guide assumes that you already have your machine physically built, and the operating system installed.
+以下は、Rocket Poolノードが必要とするソフトウェアおよびハードウェア要件の簡単な説明です。
+このガイドは、マシンが物理的に構築されており、オペレーティングシステムがインストールされていることを前提としています。
 
-### Supported Operating Systems
+### サポートされているオペレーティングシステム
 
-Rocket Pool recommends you use the latest version of macOS for your hardware.
+Rocket Poolでは、ハードウェアに対応した最新バージョンのmacOSの使用を推奨しています。
 
-### macOS Support
+### macOSサポート
 
-You will need to install the following pre-requisites:
+以下の前提条件をインストールする必要があります。
 
-We highly recommend using [Homebrew](https://brew.sh) as your package manager for Mac. It allows you to install packages easily using the `brew` command.
+Macのパッケージマネージャーとして[Homebrew](https://brew.sh)を使用することを強くお勧めします。これにより、`brew`コマンドを使用して簡単にパッケージをインストールできます。
 
-You can install it via
+次のコマンドでインストールできます。
 
 ```shell
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-It should install some pre-requisites for you, such as XCode Command Line Tools. If it doesn't, you can install them manually using
+XCode Command Line Toolsなどの前提条件がインストールされるはずです。インストールされない場合は、次のコマンドで手動でインストールできます。
 
 ```shell
 xcode-select --install
 ```
 
-Once installed, ensure everything is working correctly by using
+インストールが完了したら、次のコマンドですべてが正しく動作していることを確認してください。
 
 ```shell
 brew doctor
 ```
 
-Once everything is installed & working, Homebrew will allow you to install packages using the `brew` command.
+すべてがインストールされ動作していれば、Homebrewで`brew`コマンドを使用してパッケージをインストールできるようになります。
 
-For example, to install `wget` using Homebrew execute the following command in the Terminal:
+たとえば、Homebrewを使用して`wget`をインストールするには、ターミナルで次のコマンドを実行します。
 
 ```shell
 brew install wget
 ```
 
-Now that we have Homebrew installed, we can install our Docker client, [Orbstack](https://orbstack.dev).
+Homebrewがインストールされたので、Dockerクライアントの[Orbstack](https://orbstack.dev)をインストールできます。
 
 ```shell
 brew install --cask orbstack
 ```
 
-Orbstack will be installed to your Applications folder. Launch it from there and it will initialise. If you are migrating from Docker Desktop, it should detect your existing Docker installation and migrate your images and containers.
+OrbstackはApplicationsフォルダにインストールされます。そこから起動すると初期化されます。Docker Desktopから移行する場合は、既存のDockerインストールを検出し、イメージとコンテナを移行します。
 
-You may need to adjust your Orbstack settings depending on your hardware.
+ハードウェアに応じて、Orbstackの設定を調整する必要がある場合があります。
 
-If you have previously installed Docker Desktop, you will need to uninstall it first. Docker Desktop used to be the recommended Docker Client however in the last year a few new clients have been released that provide much better stability.
+以前にDocker Desktopをインストールしたことがある場合は、まずアンインストールする必要があります。Docker Desktopは以前は推奨されるDockerクライアントでしたが、過去1年間でより優れた安定性を提供するいくつかの新しいクライアントがリリースされました。
 
-Please ensure your Firewall (System Settings -> Network -> Firewall) is turned on and Orbstack is added to the list of applications allowing incoming connections. (Orbstack should do this for you)
+ファイアウォール（システム設定 -> ネットワーク -> ファイアウォール）がオンになっており、Orbstackが着信接続を許可するアプリケーションのリストに追加されていることを確認してください。（Orbstackが自動的に行うはずです）
 
 ![](../local/images/mac/firewall.png)
 
-### Installing and Using SSH
+### SSHのインストールと使用
 
-SSH should already be installed with macOS.
+SSHはmacOSにすでにインストールされているはずです。
 
-### Pre-installation System Checks
+### インストール前のシステムチェック
 
-Before installing Rocket Pool, please review the following checklist:
+Rocket Poolをインストールする前に、以下のチェックリストを確認してください。
 
-- Your system is fully built, powers on, and can boot into the operating system.
-- You will not do any other activity on the system, such as browsing the Internet, checking email, or playing games.
-- You have a macOS operating system installed.
-- Your user account has root / administrator privileges.
-- You have an SSD that meets the performance requirements.
-- Your SSD is mounted on your file system.
-- You have at least 1.5TB of space free for the initial Execution and Consensus syncing process.
-- If your ISP caps your data, it is more than 2 TB per month.
+- システムが完全に構築され、電源が入り、オペレーティングシステムにブートできる。
+- インターネットの閲覧、メールのチェック、ゲームのプレイなど、システムで他の活動を行わない。
+- macOSオペレーティングシステムがインストールされている。
+- ユーザーアカウントにroot / 管理者権限がある。
+- パフォーマンス要件を満たすSSDがある。
+- SSDがファイルシステムにマウントされている。
+- 初期のExecutionとConsensus同期プロセスのために少なくとも1.5TBの空き容量がある。
+- ISPがデータに上限を設けている場合、月間2TB以上である。
 
-If you have checked and confirmed all of these items, then you are ready to install Rocket Pool and begin running a node!
-Move on to the [Choosing your ETH Clients](../eth-clients) section.
+これらすべての項目を確認して確認した場合、Rocket Poolをインストールしてノードの実行を開始する準備が整いました。
+[ETHクライアントの選択](../eth-clients)セクションに進んでください。

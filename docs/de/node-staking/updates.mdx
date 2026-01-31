@@ -2,42 +2,42 @@ import { Tab, Tabs } from "@rspress/core/theme";
 import tuiEcContainerTag from "./images/tui-ec-container-tag.png";
 import tuiCcContainerTag from "./images/tui-cc-container-tag.png";
 
-# Checking for Updates
+# Auf Updates prüfen
 
-One of the responsibilities of a node operator is making sure your system is up to date with the latest security patches.
-Automatic updates are convenient but can interfere with your node operation, so it may be preferable to run them manually.
-In either case, **you must make sure that your machine is regularly patched!**
+Eine der Verantwortlichkeiten eines Node Operators ist sicherzustellen, dass Ihr System mit den neuesten Sicherheitspatches auf dem neuesten Stand ist.
+Automatische Updates sind praktisch, können aber den Betrieb Ihres Nodes beeinträchtigen, daher kann es vorzuziehen sein, sie manuell auszuführen.
+In jedem Fall **müssen Sie sicherstellen, dass Ihre Maschine regelmäßig gepatcht wird!**
 
-::: tip NOTE
-Most of the time, updating will not require your system to be down for more than a few minutes.
-You might be concerned that such downtime will negatively affect your Beacon Chain balance.
-Rest assured, the penalty for being offline for such a short period of time is **completely negligible**.
+::: tip HINWEIS
+In den meisten Fällen erfordert ein Update keine Ausfallzeit von mehr als einigen Minuten.
+Sie könnten besorgt sein, dass eine solche Ausfallzeit Ihr Beacon Chain Guthaben negativ beeinflusst.
+Seien Sie versichert, die Strafe für eine so kurze Offline-Zeit ist **völlig vernachlässigbar**.
 
-Each attestation you miss will penalize you for slightly less than the amount you'd earn from a successful attestation.
-As a rule of thumb, if you're offline for an hour, you will earn it all back after being online for an hour again.
+Jede verpasste Attestierung bestraft Sie mit etwas weniger als dem Betrag, den Sie für eine erfolgreiche Attestierung verdienen würden.
+Als Faustregel gilt: Wenn Sie eine Stunde offline sind, verdienen Sie alles wieder zurück, nachdem Sie eine Stunde lang wieder online sind.
 
-Also note that there is **absolutely no chance** that you will be _slashed_ by going offline for a short time.
-Slashing only occurs if you attack the network, and going offline for maintenance does not count as attacking the network.
+Beachten Sie auch, dass es **absolut keine Chance** gibt, dass Sie durch kurzes Offline-Gehen _geslasht_ werden.
+Slashing tritt nur auf, wenn Sie das Netzwerk angreifen, und Offline-Gehen für Wartungsarbeiten zählt nicht als Angriff auf das Netzwerk.
 
-**Please keep your systems up to date - don't worry about the downtime penalties!**
+**Bitte halten Sie Ihre Systeme auf dem neuesten Stand - machen Sie sich keine Sorgen über die Ausfallzeitstrafen!**
 :::
 
-## Updating your Operating System
+## Aktualisierung Ihres Betriebssystems
 
-You should frequently check your Operating System's package manager or update service to ensure that quickly apply any new important security patches.
-The exact instructions vary for each Operating System and can be found with your system's documentation, but here are a few examples.
+Sie sollten häufig den Paketmanager oder Update-Dienst Ihres Betriebssystems überprüfen, um sicherzustellen, dass Sie neue wichtige Sicherheitspatches schnell anwenden.
+Die genauen Anweisungen variieren für jedes Betriebssystem und können in der Dokumentation Ihres Systems gefunden werden, aber hier sind einige Beispiele.
 
 <div className="p-3">
   <Tabs>
     <Tab label="Ubuntu">
-      In a terminal, type the following:
+      Geben Sie in einem Terminal Folgendes ein:
 
       ```shell
       sudo apt update
       ```
 
-      This will access the package servers and check to see if any of your installed packages have new versions available.
-      If updates are available, the output will look like this:
+      Dies greift auf die Paketserver zu und überprüft, ob für eines Ihrer installierten Pakete neue Versionen verfügbar sind.
+      Wenn Updates verfügbar sind, sieht die Ausgabe so aus:
 
       ```
       Fetched 3974 kB in 2s (1641 kB/s)
@@ -47,13 +47,13 @@ The exact instructions vary for each Operating System and can be found with your
       12 packages can be upgraded. Run 'apt list --upgradable' to see them.
       ```
 
-      You can install the updates with the following command:
+      Sie können die Updates mit folgendem Befehl installieren:
 
       ```shell
       sudo apt dist-upgrade
       ```
 
-      This will show you the list of packages that are about to be updated, and if the total installation size is large enough, it will show you the size and prompt you to confirm that you accept:
+      Dies zeigt Ihnen die Liste der Pakete, die aktualisiert werden sollen, und wenn die Gesamtinstallationsgröße groß genug ist, zeigt es Ihnen die Größe an und fordert Sie auf zu bestätigen, dass Sie akzeptieren:
 
       ```
       12 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
@@ -62,34 +62,34 @@ The exact instructions vary for each Operating System and can be found with your
       Do you want to continue? [Y/n]
       ```
 
-      Ensure that you have enough space available to do this, then press `y` and `Enter` to begin the update process.
+      Stellen Sie sicher, dass Sie genügend Speicherplatz zur Verfügung haben, drücken Sie dann `y` und `Enter`, um den Update-Prozess zu starten.
 
-      Once the progress bar is finished and you're dropped back into the terminal prompt, run the following command to clean up any old versions of packages that were just replaced:
+      Sobald der Fortschrittsbalken fertig ist und Sie zurück zur Terminal-Eingabeaufforderung gelangen, führen Sie folgenden Befehl aus, um alte Versionen von Paketen aufzuräumen, die gerade ersetzt wurden:
 
       ```shell
       sudo apt autoremove
       ```
 
-      Next, check if your system needs to be rebooted:
+      Prüfen Sie als Nächstes, ob Ihr System neu gestartet werden muss:
 
       ```shell
       cat /var/run/reboot-required
       ```
 
-      If the above command prints `No such file or directory`, then reboot is not required and you can skip the step below.
+      Wenn der obige Befehl `No such file or directory` ausgibt, ist kein Neustart erforderlich und Sie können den folgenden Schritt überspringen.
 
-      However if the command prints `*** System restart required ***`, then you should restart your machine to finish applying the updates when you are able:
+      Wenn der Befehl jedoch `*** System restart required ***` ausgibt, sollten Sie Ihre Maschine neu starten, um die Updates abzuschließen, sobald es Ihnen möglich ist:
 
       ```shell
       sudo reboot
       ```
 
-      Rocket Pool will gracefully shut down and automatically start back up with the system once it reboots.
+      Rocket Pool wird ordnungsgemäß heruntergefahren und automatisch mit dem System wieder hochfahren, sobald es neu gestartet wird.
     </Tab>
     <Tab label="MacOS">
-      To update the OS packages, use the UI to select `Apple -> Software Update`.
+      Um die OS-Pakete zu aktualisieren, verwenden Sie die Benutzeroberfläche, um `Apple -> Software-Update` auszuwählen.
 
-      To update packages themselves, the easiest way is via `homebrew` in the terminal:
+      Um Pakete selbst zu aktualisieren, ist der einfachste Weg über `homebrew` im Terminal:
 
       ```shell
       brew update && brew upgrade
@@ -99,90 +99,90 @@ The exact instructions vary for each Operating System and can be found with your
   </Tabs>
 </div>
 
-## Updating the Smartnode Stack
+## Aktualisierung des Smartnode Stacks
 
-Occasionally, Rocket Pool will release a new version of the Smartnode stack.
-Updates can contain new versions of the CLI or the Rocket Pool Docker containers, as well as new versions of the Execution and Consensus clients.
+Gelegentlich wird Rocket Pool eine neue Version des Smartnode Stacks veröffentlichen.
+Updates können neue Versionen der CLI oder der Rocket Pool Docker-Container sowie neue Versionen der Execution und Consensus Clients enthalten.
 
-The most consistent way to find out about new releases is to subscribe to the Rocket Pool Discord server; they will always be posted in the Releases channel and you will receive a notification.
+Der zuverlässigste Weg, um über neue Releases informiert zu werden, ist das Abonnement des Rocket Pool Discord-Servers; sie werden immer im Releases-Kanal gepostet und Sie erhalten eine Benachrichtigung.
 
-::: warning NOTE
-Note that running `apt update` will not update the node software.
-This must be done manually using the steps below.
+::: warning HINWEIS
+Beachten Sie, dass das Ausführen von `apt update` die Node-Software nicht aktualisiert.
+Dies muss manuell mit den folgenden Schritten erfolgen.
 :::
 
-::: tip TIP
-When you have completed the Smartnode upgrade, the Grafana dashboard will still indicate there is still an update available.
-It will automatically clear within a day when the system next auto-checks for updates.
+::: tip TIPP
+Wenn Sie das Smartnode-Upgrade abgeschlossen haben, wird das Grafana-Dashboard weiterhin anzeigen, dass ein Update verfügbar ist.
+Es wird automatisch innerhalb eines Tages gelöscht, wenn das System das nächste Mal automatisch nach Updates sucht.
 
-If you want to clear it immediately after the update, simply run:
+Wenn Sie es sofort nach dem Update löschen möchten, führen Sie einfach aus:
 `sudo apt update`
 :::
 
-::: tip TIP
-If you do not know your CPU architecture, you can run the following command to find it:
+::: tip TIPP
+Wenn Sie Ihre CPU-Architektur nicht kennen, können Sie den folgenden Befehl ausführen, um sie herauszufinden:
 
 ```shell
 uname -m
 ```
 
-The output of this command will print your architecture.
-**Note that `x86_64` is the same as `x64` and `amd64`.**
-**Note that `aarch64` is the same as `arm64`.**
+Die Ausgabe dieses Befehls gibt Ihre Architektur aus.
+**Beachten Sie, dass `x86_64` dasselbe ist wie `x64` und `amd64`.**
+**Beachten Sie, dass `aarch64` dasselbe ist wie `arm64`.**
 :::
 
-The steps to upgrade depend on which mode your node uses. Select from the options below:
+Die Schritte zum Upgrade hängen davon ab, welchen Modus Ihr Node verwendet. Wählen Sie aus den folgenden Optionen:
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Linux (Docker or Hybrid Mode)">
-      Stop the Rocket Pool services:
+    <Tab label="Linux (Docker oder Hybrid-Modus)">
+      Stoppen Sie die Rocket Pool Dienste:
 
       ```shell
       rocketpool service stop
       ```
 
-      Download the new Smartnode CLI:
+      Laden Sie die neue Smartnode CLI herunter:
 
-      For `x64` systems (most normal machines):
+      Für `x64`-Systeme (die meisten normalen Maschinen):
 
       ```shell
       wget https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-amd64 -O ~/bin/rocketpool
       ```
 
-      For `arm64` systems:
+      Für `arm64`-Systeme:
 
       ```shell
       wget https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-arm64 -O ~/bin/rocketpool
       ```
 
-      Now run the install command:
+      Führen Sie nun den Installationsbefehl aus:
 
       ```shell
       rocketpool service install -d
       ```
 
-      The `-d` flag tells it to ignore system dependencies like Docker, since you already have them.
+      Das `-d`-Flag weist ihn an, Systemabhängigkeiten wie Docker zu ignorieren, da Sie diese bereits haben.
 
-      If you'd like to see what's changed, open the Settings Manager - the Review Page will show you what's new:
+      Wenn Sie sehen möchten, was sich geändert hat, öffnen Sie den Settings Manager - die Review-Seite zeigt Ihnen, was neu ist:
 
       ```shell
       rocketpool service config
       ```
 
-      When you're done, start Rocket Pool up again:
+      Wenn Sie fertig sind, starten Sie Rocket Pool wieder:
 
       ```shell
       rocketpool service start
       ```
 
-      Finally, check the version to make sure the CLI and Smartnode stack are both up to date:
+      Überprüfen Sie schließlich die Version, um sicherzustellen, dass sowohl CLI als auch Smartnode Stack auf dem neuesten Stand sind:
 
       ```shell
       rocketpool service version
       ```
 
-      The output should look something like this:
+      Die Ausgabe sollte ungefähr so aussehen:
 
       ```
       Your Smartnode is currently using the Hoodi Test Network.
@@ -195,24 +195,24 @@ The steps to upgrade depend on which mode your node uses. Select from the option
       Image: rocketpool/lighthouse:mevboost-5ee3bc5
       ```
 
-      Both the client and service should match the new release version.
+      Sowohl Client als auch Service sollten mit der neuen Release-Version übereinstimmen.
     </Tab>
-    <Tab label="Linux (Native Mode)">
+    <Tab label="Linux (Native-Modus)">
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        This will only update the Smartnode stack itself - it **will not** update your Execution or Consensus clients.
-        You will have to do this manually (see the next section below).
+        <p className="rspress-directive-title">HINWEIS</p>
+        Dies aktualisiert nur den Smartnode Stack selbst - es aktualisiert **nicht** Ihre Execution oder Consensus Clients.
+        Sie müssen dies manuell tun (siehe den nächsten Abschnitt unten).
       </p>
 
-      Stop the Rocket Pool services:
+      Stoppen Sie die Rocket Pool Dienste:
 
       ```shell
       sudo systemctl stop rp-node rp-watchtower
       ```
 
-      Download the new Smartnode CLI and back up the old CLI and daemon binaries if you need to bring them back:
+      Laden Sie die neue Smartnode CLI herunter und sichern Sie die alten CLI- und Daemon-Binaries, falls Sie sie zurückbringen müssen:
 
-      For `x64` systems (most normal machines):
+      Für `x64`-Systeme (die meisten normalen Maschinen):
 
       ```shell
       sudo mv /usr/local/bin/rocketpool /usr/local/bin/rocketpool_bak
@@ -226,7 +226,7 @@ The steps to upgrade depend on which mode your node uses. Select from the option
       sudo chmod +x /usr/local/bin/rocketpool /usr/local/bin/rocketpoold
       ```
 
-      For `arm64` systems:
+      Für `arm64`-Systeme:
 
       ```shell
       sudo mv /usr/local/bin/rocketpool /usr/local/bin/rocketpool_bak
@@ -240,19 +240,19 @@ The steps to upgrade depend on which mode your node uses. Select from the option
       sudo chmod +x /usr/local/bin/rocketpool /usr/local/bin/rocketpoold
       ```
 
-      If you'd like to see what's changed, open the Settings Manager - the Review Page will show you what's new:
+      Wenn Sie sehen möchten, was sich geändert hat, öffnen Sie den Settings Manager - die Review-Seite zeigt Ihnen, was neu ist:
 
       ```shell
       rp service config
       ```
 
-      When you're done, start Rocket Pool up again:
+      Wenn Sie fertig sind, starten Sie Rocket Pool wieder:
 
       ```shell
       sudo systemctl start rp-node rp-watchtower
       ```
 
-      Finally, check the version to make sure the CLI and Smartnode stack are both up to date:
+      Überprüfen Sie schließlich die Version, um sicherzustellen, dass sowohl CLI als auch Smartnode Stack auf dem neuesten Stand sind:
 
       ```
       rocketpool service version
@@ -263,50 +263,50 @@ The steps to upgrade depend on which mode your node uses. Select from the option
       Selected Eth 2.0 client: Nimbus (statusim/nimbus:v1.4.0)
       ```
 
-      Both the client and service should match the new release version.
+      Sowohl Client als auch Service sollten mit der neuen Release-Version übereinstimmen.
     </Tab>
-    <Tab label="macOS (Docker or Hybrid Mode)">
-      Stop the Rocket Pool services:
+    <Tab label="macOS (Docker oder Hybrid-Modus)">
+      Stoppen Sie die Rocket Pool Dienste:
 
       ```shell
       rocketpool service stop
       ```
 
-      Download the new Smartnode CLI:
+      Laden Sie die neue Smartnode CLI herunter:
 
-      For `x64` systems (most Macs):
+      Für `x64`-Systeme (die meisten Macs):
 
       ```shell
       wget https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-darwin-amd64 -O /usr/local/bin/rocketpool
       ```
 
-      For `arm64` systems, such as the Mac mini with M1:
+      Für `arm64`-Systeme, wie den Mac mini mit M1:
 
       ```shell
       wget https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-darwin-arm64 -O /opt/homebrew/bin/rocketpool
       ```
 
-      Now run the install command:
+      Führen Sie nun den Installationsbefehl aus:
 
       ```shell
       rocketpool service install -d
       ```
 
-      The `-d` flag tells it to ignore system dependencies like Docker, since you already have them.
+      Das `-d`-Flag weist ihn an, Systemabhängigkeiten wie Docker zu ignorieren, da Sie diese bereits haben.
 
-      If you'd like to see what's changed, open the Settings Manager - the Review Page will show you what's new:
+      Wenn Sie sehen möchten, was sich geändert hat, öffnen Sie den Settings Manager - die Review-Seite zeigt Ihnen, was neu ist:
 
       ```shell
       rocketpool service config
       ```
 
-      When you're done, start Rocket Pool up again:
+      Wenn Sie fertig sind, starten Sie Rocket Pool wieder:
 
       ```shell
       rocketpool service start
       ```
 
-      Finally, check the version to make sure the CLI and Smartnode stack are both up to date:
+      Überprüfen Sie schließlich die Version, um sicherzustellen, dass sowohl CLI als auch Smartnode Stack auf dem neuesten Stand sind:
 
       ```shell
       rocketpool service version
@@ -317,61 +317,61 @@ The steps to upgrade depend on which mode your node uses. Select from the option
       Selected Eth 2.0 client: Nimbus (statusim/nimbus:v1.4.0)
       ```
 
-      Both the client and service should match the new release version.
+      Sowohl Client als auch Service sollten mit der neuen Release-Version übereinstimmen.
 
     </Tab>
 
   </Tabs>
 </div>
 
-## Manually Updating the Execution or Consensus Client
+## Manuelles Aktualisieren des Execution oder Consensus Clients
 
-Each new release of the Smartnode stack will come with updated references to the latest compatible versions to the Execution and Consensus Docker containers.
-In some cases, however, you might want to upgrade one of those clients _before_ waiting for a new Smartnode stack release.
-This section will show you how to do just that.
+Jede neue Version des Smartnode Stacks enthält aktualisierte Referenzen auf die neuesten kompatiblen Versionen der Execution und Consensus Docker-Container.
+In einigen Fällen möchten Sie jedoch möglicherweise einen dieser Clients aktualisieren, _bevor_ Sie auf eine neue Smartnode Stack-Version warten.
+Dieser Abschnitt zeigt Ihnen, wie Sie genau das tun.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Docker Mode">
-      Updating to new client versions is easy in Docker mode.
+    <Tab label="Docker-Modus">
+      Das Aktualisieren auf neue Client-Versionen ist im Docker-Modus einfach.
 
-      Start by opening the Settings Manager:
+      Öffnen Sie zunächst den Settings Manager:
 
       ```shell
       rocketpool service config
       ```
 
-      To change the Execution client version, go to the **Execution Client** category.
-      Modify the **Container Tag** setting:
+      Um die Execution Client-Version zu ändern, gehen Sie zur Kategorie **Execution Client**.
+      Ändern Sie die Einstellung **Container Tag**:
 
       <img src={tuiEcContainerTag} width="100%" height="auto"/>
 
-      To change the Consensus client version, go to the **Consensus Client** category.
-      Modify the **Beacon Node Container Tag** setting:
+      Um die Consensus Client-Version zu ändern, gehen Sie zur Kategorie **Consensus Client**.
+      Ändern Sie die Einstellung **Beacon Node Container Tag**:
 
       <img src={tuiCcContainerTag} width="100%" height="auto"/>
 
-      When you're happy with your changes, save and exit as usual.
-      The Smartnode will offer to restart all of the affected containers automatically.
+      Wenn Sie mit Ihren Änderungen zufrieden sind, speichern und beenden Sie wie gewohnt.
+      Der Smartnode wird anbieten, alle betroffenen Container automatisch neu zu starten.
     </Tab>
-    <Tab label="Native Mode">
-      First, shut down your Execution client, Beacon Node, and/or Validator client service depending on what you'd like to update.
-      For example, shutting down Geth:
+    <Tab label="Native-Modus">
+      Fahren Sie zunächst Ihren Execution Client, Beacon Node und/oder Validator Client Service herunter, je nachdem, was Sie aktualisieren möchten.
+      Zum Beispiel, Herunterfahren von Geth:
 
       ```shell
       sudo systemctl stop geth
       ```
 
-      Next, download the latest binary release from the vendor of your client (or build it from source) and replace the old binary with the new one.
-      We recommend you **move the old binary to a backup location** instead of overwriting it, just in case the new client has problems.
+      Als Nächstes laden Sie die neueste Binärversion vom Anbieter Ihres Clients herunter (oder bauen Sie sie aus dem Quellcode) und ersetzen Sie die alte Binärdatei durch die neue.
+      Wir empfehlen, dass Sie **die alte Binärdatei an einen Backup-Speicherort verschieben**, anstatt sie zu überschreiben, nur für den Fall, dass der neue Client Probleme hat.
 
-      Finally, start the client service again - for example, starting Geth:
+      Starten Sie schließlich den Client-Dienst wieder - zum Beispiel, Starten von Geth:
 
       ```shell
       sudo systemctl start geth
       ```
 
-      You should follow the log scripts closely after the upgrade to ensure that the new client works as expected.
+      Sie sollten die Log-Skripte nach dem Upgrade genau verfolgen, um sicherzustellen, dass der neue Client wie erwartet funktioniert.
     </Tab>
 
   </Tabs>

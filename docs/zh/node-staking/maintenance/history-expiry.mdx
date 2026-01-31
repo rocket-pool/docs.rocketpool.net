@@ -1,39 +1,35 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Expiring Pre-Merge History
+# 过期合并前历史记录
 
-All Execution clients now support partial history expiry in accordance to [EIP-4444](https://eips.ethereum.org/EIPS/eip-4444). Users can substantially
-reduce the storage requirements for their node by removing pre-merge block history starting in Smartnode version `v1.17.0`. Feel free to check out
-this blog post to learn more about partial history expiry: https://blog.ethereum.org/2025/07/08/partial-history-exp
+根据 [EIP-4444](https://eips.ethereum.org/EIPS/eip-4444)，所有执行客户端现在都支持部分历史记录过期。从 Smartnode 版本 `v1.17.0` 开始，用户可以通过删除合并前的区块历史记录来大幅减少节点的存储要求。欢迎查看此博客文章以了解有关部分历史记录过期的更多信息：https://blog.ethereum.org/2025/07/08/partial-history-exp
 
-::: tip NOTE
+::: tip 注意
 
-    Please keep in mind that the steps to remove pre-merge history depend on your node's selected Execution client:
-    - Nethermind users will need a full resync to remove pre-merge history.
-    - Geth users can use the `rocketpool service prune-eth1` command or conduct a full resync.
-    - Besu and Reth users can perform an online prune while their node continues to attest.
+    请记住，删除合并前历史记录的步骤取决于您节点选择的执行客户端：
+    - Nethermind 用户需要完全重新同步才能删除合并前历史记录。
+    - Geth 用户可以使用 `rocketpool service prune-eth1` 命令或进行完全重新同步。
+    - Besu 和 Reth 用户可以在节点继续验证的同时执行在线修剪。
 
 :::
 
-The following steps to remove pre-merge history are for Docker mode nodes only. If you are using an external client in Hybrid
-mode or Native mode, please refer to the documentation provided by your Execution client.
+以下删除合并前历史记录的步骤仅适用于 Docker 模式节点。如果您在混合模式或原生模式下使用外部客户端，请参阅执行客户端提供的文档。
 
-Start by opening the Settings Manager:
+首先打开设置管理器：
 
 ```shell
 rocketpool service config
 ```
 
-To change the Execution Client pruning mode, go to the `Execution Client (ETH1)` menu and select the `History Expiry` setting in the dropdown menu for `Pruning Mode`
+要更改执行客户端修剪模式，请转到 `Execution Client (ETH1)` 菜单，并在 `Pruning Mode` 下拉菜单中选择 `History Expiry` 设置
 
 ![](../images/tui-history-expiry.png)
 
-After you've made the selection, press `escape` to return to the main menu, then press `tab` to highlight the `Review Changes and Save` button. Press
-the `enter` key to continue. You'll be presented with a menu to preview the changes to your Execution client settings.
+完成选择后，按 `escape` 返回主菜单，然后按 `tab` 突出显示 `Review Changes and Save` 按钮。按 `enter` 键继续。您将看到一个菜单，用于预览对执行客户端设置的更改。
 
 ![](../images/tui-review-history-expiry.png)
 
-Press the `enter` key on `Save Settings` to save and exit the Settings Manager, then enter `y` to restart your `rocketpool_eth1` container.
+在 `Save Settings` 上按 `enter` 键以保存并退出设置管理器，然后输入 `y` 以重新启动您的 `rocketpool_eth1` 容器。
 
 ```shell
 Your changes have been saved!
@@ -42,28 +38,24 @@ The following containers must be restarted for the changes to take effect:
 Would you like to restart them automatically now? [y/n]
 ```
 
-From this point on, the steps differ depending on which Execution client you're using:
+从这一点开始，步骤会根据您使用的执行客户端而有所不同：
 
 <div className="p-3">
   <Tabs>
 
         <Tab label="Nethermind">
-        Nethermind nodes require a full resync to remove pre-merge history. You must resync your Execution client after saving
-        the `History Expiry` setting and restarting your `eth1` container.
+        Nethermind 节点需要完全重新同步才能删除合并前历史记录。保存 `History Expiry` 设置并重新启动 `eth1` 容器后，您必须重新同步执行客户端。
 
-        ::: warning WARNING
-        If you don't have a fallback node configured, your node will stop validating during a resync. A fallback node will
-        allow your primary node to continue attesting and proposing blocks during a prune or resync. Click [here](/en/node-staking/fallback)
-        to learn how to configure a fallback node.
+        ::: warning 警告
+        如果您没有配置备用节点，您的节点将在重新同步期间停止验证。备用节点将允许您的主节点在修剪或重新同步期间继续验证和提议区块。点击[此处](/zh/node-staking/fallback)了解如何配置备用节点。
         :::
 
-        Use the following command to resync your Execution client:
+        使用以下命令重新同步您的执行客户端：
         ```shell
         rocketpool service resync-eth1
         ```
 
-        You're all set! The node will no longer store pre-merge data, substantially improving the feasibility of fitting a node on a 2 TB drive.
-        We recommend monitoring the progress using the following command.
+        一切就绪！节点将不再存储合并前数据，大大提高了将节点安装在 2 TB 驱动器上的可行性。我们建议使用以下命令监控进度。
         ```shell
         rocketpool service logs eth1
         ```
@@ -72,28 +64,23 @@ From this point on, the steps differ depending on which Execution client you're 
 
     <Tab label="Geth">
 
-        Geth nodes require an offline prune to remove pre-merge history. You must prune your Execution client after saving
-        the `History Expiry` setting and restarting your `eth1` container. Alternatively you may choose to conduct a full resync to remove pre-merge history.
+        Geth 节点需要离线修剪才能删除合并前历史记录。保存 `History Expiry` 设置并重新启动 `eth1` 容器后，您必须修剪执行客户端。或者，您可以选择进行完全重新同步以删除合并前历史记录。
 
-        ::: tip NOTE
-        We recommend pruning over conducting a full resync. If you wish to start over with a fresh Geth database or have an issue
-        with pruning, you can resync the Execution client using `rocketpool service resync-eth1`. Both choices should result in expired pre-merge history.
+        ::: tip 注意
+        我们建议修剪而不是进行完全重新同步。如果您希望从全新的 Geth 数据库开始或在修剪时遇到问题，可以使用 `rocketpool service resync-eth1` 重新同步执行客户端。两种选择都应该会导致合并前历史记录过期。
         :::
 
-        ::: warning WARNING
-        If you don't have a fallback node configured, your node will stop validating during a prune or resync. A fallback node will
-        allow your primary node to continue attesting and proposing blocks during a prune or resync. Click [here](/en/node-staking/fallback)
-        to learn how to configure a fallback node.
+        ::: warning 警告
+        如果您没有配置备用节点，您的节点将在修剪或重新同步期间停止验证。备用节点将允许您的主节点在修剪或重新同步期间继续验证和提议区块。点击[此处](/zh/node-staking/fallback)了解如何配置备用节点。
         :::
 
-        Please run the following command to prune your Execution client:
+        请运行以下命令来修剪您的执行客户端：
         ```shell
         rocketpool service prune-eth1
         ```
-        You can click [here](/en/node-staking/pruning#starting-a-prune) to learn more about pruning.
+        您可以点击[此处](/zh/node-staking/pruning#starting-a-prune)了解有关修剪的更多信息。
 
-        You're all set! The node will no longer store pre-merge data, substantially improving the feasibility of fitting a node on a 2 TB drive.
-        We recommend monitoring the progress using the following command.
+        一切就绪！节点将不再存储合并前数据，大大提高了将节点安装在 2 TB 驱动器上的可行性。我们建议使用以下命令监控进度。
         ```shell
         rocketpool service logs eth1
         ```
@@ -102,9 +89,7 @@ From this point on, the steps differ depending on which Execution client you're 
 
     <Tab label="Besu">
 
-        You're all set! Besu nodes will perform an online prune while continuing to attest and propose blocks.
-        The node will no longer store pre-merge data, substantially improving the feasibility of fitting a node on a 2 TB drive.
-        We recommend monitoring the progress using the following command.
+        一切就绪！Besu 节点将在继续验证和提议区块的同时执行在线修剪。节点将不再存储合并前数据，大大提高了将节点安装在 2 TB 驱动器上的可行性。我们建议使用以下命令监控进度。
         ```shell
         rocketpool service logs eth1
         ```
@@ -113,9 +98,7 @@ From this point on, the steps differ depending on which Execution client you're 
 
     <Tab label="Reth">
 
-        You're all set! Reth nodes will perform an online prune while continuing to attest and propose blocks.
-        The node will no longer store pre-merge data, substantially improving the feasibility of fitting a node on a 2 TB drive.
-        We recommend monitoring the progress using the following command.
+        一切就绪！Reth 节点将在继续验证和提议区块的同时执行在线修剪。节点将不再存储合并前数据，大大提高了将节点安装在 2 TB 驱动器上的可行性。我们建议使用以下命令监控进度。
         ```shell
         rocketpool service logs eth1
          ```

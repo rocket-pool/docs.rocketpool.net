@@ -1,46 +1,46 @@
-# Selecting a Hosting Provider
+# Selezione di un provider di hosting
 
-If you've arrived at this section, then you would like to run a Rocket Pool node but can't set one up locally at your home; you require a **virtual private server (VPS)** hosted on the cloud.
-There are several different services available that can provide such a machine, and they come in two different flavors: VPS providers and public cloud providers.
+Se sei arrivato a questa sezione, allora vorresti eseguire un nodo Rocket Pool ma non puoi configurarne uno localmente a casa tua; hai bisogno di un **server privato virtuale (VPS)** ospitato sul cloud.
+Ci sono diversi servizi disponibili che possono fornire una tale macchina, e sono disponibili in due gusti diversi: provider VPS e provider di cloud pubblico.
 
-Choosing the correct one can be difficult, and understanding the differences between them is key.
-In this guide, we'll shine some light onto the distinction and list a few of the services that other Rocket Pool users have leveraged in the past to help you navigate through your options.
+Scegliere quello corretto può essere difficile e comprendere le differenze tra loro è fondamentale.
+In questa guida, faremo luce sulla distinzione e elencheremo alcuni dei servizi che altri utenti Rocket Pool hanno utilizzato in passato per aiutarti a navigare tra le tue opzioni.
 
-## Traditional VPS Hosting
+## Hosting VPS tradizionale
 
-A virtual private server is a single instance of a virtual machine that resides on a larger physical machine.
-They are the cheapest option, and they are less-frequently employed than the ubiquitous cloud platforms so they tend to contribute more towards the Ethereum network's decentralization.
+Un server privato virtuale è una singola istanza di una macchina virtuale che risiede su una macchina fisica più grande.
+Sono l'opzione più economica e sono meno frequentemente impiegati rispetto alle onnipresenti piattaforme cloud, quindi tendono a contribuire maggiormente alla decentralizzazione della rete Ethereum.
 
-However, they rarely have high-availability support; if the physical server goes down, it's likely that your VPS hosted on it will go down as well.
-Also, they have a fixed resource footprint; it's usually not possible to increase or decrease resources like CPU and RAM on demand.
+Tuttavia, raramente hanno supporto ad alta disponibilità; se il server fisico si guasta, è probabile che anche il tuo VPS ospitato su di esso si guasti.
+Inoltre, hanno un'impronta di risorse fissa; di solito non è possibile aumentare o diminuire risorse come CPU e RAM su richiesta.
 
-As of 10/2024, one well-priced and performant option was the RS 12000 G11 from [Netcup](https://www.netcup.eu/vserver/vps.php).
-One word of warning is that storage is shared with others, so storage IOPs are a potential bottleneck.
+A partire da 10/2024, un'opzione performante e dal buon prezzo era il RS 12000 G11 di [Netcup](https://www.netcup.eu/vserver/vps.php).
+Una parola di avvertimento è che lo storage è condiviso con altri, quindi gli IOPS dello storage sono un potenziale collo di bottiglia.
 
-## Dedicated Server Hosting
+## Hosting di server dedicati
 
-Unlike a VPS, a dedicated server is an entire physical device that is rented by you. They are a relatively affordable option, and they are less-frequently employed than the ubiquitous cloud platforms so they tend to contribute more towards the Ethereum network's decentralization.
+A differenza di un VPS, un server dedicato è un intero dispositivo fisico che viene affittato da te. Sono un'opzione relativamente accessibile e sono meno frequentemente impiegati rispetto alle onnipresenti piattaforme cloud, quindi tendono a contribuire maggiormente alla decentralizzazione della rete Ethereum.
 
-As of 10/2024 two well-priced and performant options were the Rise and Advanced bare-metal servers from [OVH](https://us.ovhcloud.com/). There are a variety of these that change over time, as well as significant sales. You'll need to check that the [hardware guidelines](../local/hardware.md) are met.
+A partire da 10/2024 due opzioni performanti e dal buon prezzo erano i server bare-metal Rise e Advanced di [OVH](https://us.ovhcloud.com/). Ce ne sono una varietà che cambiano nel tempo, così come vendite significative. Dovrai verificare che le [linee guida hardware](../local/hardware.md) siano soddisfatte.
 
-## Cloud Hosting
+## Hosting cloud
 
-Cloud hosting refers to virtual machines that are split across on a distributed network of multiple servers, rather than being hosted on a single physical machine.
-If one of the hosting machines fails, the others can seamlessly take over for it so availability and reliability tend to be extremely high on these platforms.
-They also tend to offer flexible resource options; it's relatively simple to add more CPU, RAM, or disk space on demand.
+L'hosting cloud si riferisce a macchine virtuali che sono distribuite su una rete distribuita di più server, anziché essere ospitate su una singola macchina fisica.
+Se una delle macchine di hosting si guasta, le altre possono prendere il controllo senza problemi, quindi la disponibilità e l'affidabilità tendono ad essere estremamente elevate su queste piattaforme.
+Tendono anche ad offrire opzioni di risorse flessibili; è relativamente semplice aggiungere più CPU, RAM o spazio su disco su richiesta.
 
-Due to these extra benefits, cloud-based servers tend to be more expensive than VPS solutions.
-They're also very popular platforms, so using them generally reduces the overall decentralization of the Ethereum network.
+A causa di questi vantaggi extra, i server basati su cloud tendono ad essere più costosi delle soluzioni VPS.
+Sono anche piattaforme molto popolari, quindi utilizzarle generalmente riduce la decentralizzazione complessiva della rete Ethereum.
 
-The 3 primary cloud providers are [Amazon Web Services (AWS)](https://aws.amazon.com/), [Microsoft Azure](https://azure.microsoft.com/en-us/), and [Google Cloud Platform (GCP)](https://cloud.google.com/).
-We do not recommend using cloud hosting due to price and centralization concerns.
+I 3 principali provider cloud sono [Amazon Web Services (AWS)](https://aws.amazon.com/), [Microsoft Azure](https://azure.microsoft.com/en-us/) e [Google Cloud Platform (GCP)](https://cloud.google.com/).
+Non consigliamo di utilizzare l'hosting cloud a causa di problemi di prezzo e centralizzazione.
 
-## Key Considerations
+## Considerazioni chiave
 
-### Price
+### Prezzo
 
-Cloud hosting solutions are usually a safer choice if cost is not a priority.
-The section below has a more detailed breakdown of cost estimates but here is a general comparison between a VPS option and a cloud option:
+Le soluzioni di hosting cloud sono solitamente una scelta più sicura se il costo non è una priorità.
+La sezione seguente ha una ripartizione più dettagliata delle stime dei costi ma ecco un confronto generale tra un'opzione VPS e un'opzione cloud:
 
-- OVH Dedicated Server: $90-160/mo
-- Netcup VPS: $90/mo
+- Server dedicato OVH: $90-160/mese
+- VPS Netcup: $90/mese

@@ -1,119 +1,119 @@
-# A Node Operator's Responsibilities
+# Les Responsabilités d'un Node Operator
 
-## How Ethereum Staking Works
+## Comment Fonctionne le Staking Ethereum
 
-As a reminder, staking in Proof of Stake is done via **validators**.
-A validator is essentially a single Beacon Chain address to which 32 ETH was deposited on the Execution layer.
-Validators are responsible for maintaining the consistency and security of the Beacon Chain.
-They do this by listening for transactions and new block proposals and **attesting** that the proposed block contains legal, valid transactions by doing some number crunching and verification behind the scenes.
-Occasionally, they get to propose new blocks themselves.
+Pour rappel, le staking en Proof of Stake se fait via des **validators**.
+Un validator est essentiellement une seule adresse Beacon Chain sur laquelle 32 ETH ont été déposés sur la couche Execution.
+Les validators sont responsables du maintien de la cohérence et de la sécurité de la Beacon Chain.
+Ils le font en écoutant les transactions et les nouvelles propositions de blocs et en **attestant** que le bloc proposé contient des transactions légales et valides en effectuant des calculs et des vérifications en coulisses.
+Occasionnellement, ils ont l'opportunité de proposer de nouveaux blocs eux-mêmes.
 
-Validators are assigned attestations and block proposals **on a randomized schedule**.
-This is very different from the old Proof of Work system, where everyone was constantly trying to race each other and come up with the next block before everyone else.
-This means that unlike Proof of Work where miners weren't guaranteed to earn a block reward unless they found the next block, Proof of Stake validators _are_ guaranteed to have slow, steady income as long as they perform their duties.
-If a validator is offline and misses an attestation or a block proposal, it will be **slightly penalized**.
-The penalties are quite small though; as a rule of thumb, if a validator is offline for X hours, it will make all of its lost ETH back after the same X hours of being back online.
+Les validators se voient attribuer des attestations et des propositions de blocs **selon un calendrier aléatoire**.
+C'est très différent de l'ancien système Proof of Work, où tout le monde essayait constamment de faire la course et de proposer le prochain bloc avant tout le monde.
+Cela signifie que contrairement au Proof of Work où les mineurs n'étaient pas garantis de gagner une récompense de bloc à moins qu'ils ne trouvent le prochain bloc, les validators Proof of Stake _sont_ garantis d'avoir un revenu lent et régulier tant qu'ils accomplissent leurs devoirs.
+Si un validator est hors ligne et manque une attestation ou une proposition de bloc, il sera **légèrement pénalisé**.
+Les pénalités sont assez faibles cependant ; en règle générale, si un validator est hors ligne pendant X heures, il récupérera tout l'ETH perdu après les mêmes X heures d'être de nouveau en ligne.
 
-### Rewards
+### Récompenses
 
-Validators earn consensus layer rewards from Attestation, Block Proposals, Sync Committees (rare), and Slashing Rewards (vanishingly rare). They also earn execution layer rewards from Priority Fees and MEV.
+Les validators gagnent des récompenses de la couche consensus grâce aux Attestations, Propositions de Blocs, Sync Committees (rares) et Slashing Rewards (extrêmement rares). Ils gagnent également des récompenses de la couche execution grâce aux Priority Fees et au MEV.
 
-As of 10/2024, overall APR is ~3.5%, with 2.8% being consensus layer APR, and 0.7% being execution layer APR. One place to find this info is the [rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake).
+Depuis octobre 2024, l'APR global est d'environ 3,5%, avec 2,8% d'APR sur la couche consensus et 0,7% d'APR sur la couche execution. Un endroit pour trouver ces informations est l'[explorateur rated](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake).
 
-### Penalties
+### Pénalités
 
-Validators are penalized for small amounts of ETH if they are offline and fail to perform their assigned duties.
-This is called **leaking**.
-If a validator violates one of the core rules of the Beacon chain and appears to be attacking the network, it may get **slashed**.
-Slashing is a forceful exit of your validator without your permission, accompanied by a relatively large fine that removes some of your validator's ETH balance.
+Les validators sont pénalisés de petites quantités d'ETH s'ils sont hors ligne et ne parviennent pas à accomplir leurs devoirs assignés.
+C'est ce qu'on appelle le **leaking**.
+Si un validator viole l'une des règles fondamentales de la Beacon chain et semble attaquer le réseau, il peut être **slashé**.
+Le slashing est une sortie forcée de votre validator sans votre permission, accompagnée d'une amende relativement importante qui retire une partie du solde ETH de votre validator.
 
-Realistically, the only condition that can cause a slashing is if you run your validator's keys on two nodes at the same time (such as a failover / redundancy setup, where your backup node accidentally turns on while your main node is still running).
-Don't let this happen, and **you won't get slashed**.
-Slashing _cannot occur_ from being offline for maintenance.
+Concrètement, la seule condition qui peut causer un slashing est si vous exécutez les clés de votre validator sur deux nœuds en même temps (comme une configuration de basculement / redondance, où votre nœud de sauvegarde s'allume accidentellement pendant que votre nœud principal fonctionne encore).
+Ne laissez pas cela se produire, et **vous ne serez pas slashé**.
+Le slashing _ne peut pas survenir_ en étant hors ligne pour maintenance.
 
-Below is a table that shows the penalties that can happen to a validator:
+Ci-dessous se trouve un tableau qui montre les pénalités qui peuvent arriver à un validator :
 
-| Type                  | Layer     | Amount                                                                            |
-| --------------------- | --------- | --------------------------------------------------------------------------------- |
-| Missed Attestation    | Consensus | -0.000011 ETH\* per attestation (-9/10 the value of a normal attestation reward)  |
-| Missed Proposal       | Consensus | 0                                                                                 |
-| Missed Sync Committee | Consensus | -0.00047 ETH\* per epoch (-0.1 ETH total if offline for the whole sync committee) |
-| Slashing              | Consensus | At least 1/32 of your balance, up to your entire balance in extreme circumstances |
+| Type                  | Couche    | Montant                                                                                           |
+| --------------------- | --------- | ------------------------------------------------------------------------------------------------- |
+| Missed Attestation    | Consensus | -0,000011 ETH\* par attestation (-9/10 de la valeur d'une récompense d'attestation normale)      |
+| Missed Proposal       | Consensus | 0                                                                                                 |
+| Missed Sync Committee | Consensus | -0,00047 ETH\* par epoch (-0,1 ETH au total si hors ligne pour tout le sync committee)           |
+| Slashing              | Consensus | Au moins 1/32 de votre solde, jusqu'à votre solde entier dans des circonstances extrêmes         |
 
-\*_Varies based on the total number of validators in the network.
-Approximated for 435,000 active validators._
+\*_Varie en fonction du nombre total de validators dans le réseau.
+Approximé pour 435 000 validators actifs._
 
 ::: tip TIP
-As a rule of thumb, if you're offline for X hours (and you aren't in a sync committee), then you'll make all of your leaked ETH back after X hours once you're back online and attesting.
+En règle générale, si vous êtes hors ligne pendant X heures (et que vous n'êtes pas dans un sync committee), alors vous récupérerez tout votre ETH perdu après X heures une fois que vous serez de nouveau en ligne et attesterez.
 :::
 
-## How Rocket Pool Nodes Work
+## Comment Fonctionnent les Nodes Rocket Pool
 
-Unlike solo stakers, who are required to put 32 ETH up for deposit to create a new validator, Rocket Pool nodes only need to deposit 8 ETH per validator (called "bond ETH").
-This will be coupled with 24 ETH from the staking pool (called "borrowed ETH", which comes from liquid staker deposits in exchange for rETH) to create a new validator.
-This new validator belongs to a **minipool**.
+Contrairement aux solo stakers, qui doivent déposer 32 ETH pour créer un nouveau validator, les nodes Rocket Pool n'ont besoin de déposer que 8 ETH par validator (appelés "bond ETH").
+Ceci sera couplé avec 24 ETH du staking pool (appelés "borrowed ETH", qui proviennent des dépôts de liquid stakers en échange de rETH) pour créer un nouveau validator.
+Ce nouveau validator appartient à un **minipool**.
 
-To the Beacon chain, a minipool looks exactly the same as a normal validator.
-It has the same responsibilities, same rules it must follow, same rewards, and so on.
-The only difference is in how the minipool was created on the execution layer, and how withdrawals work when the node operator decides to voluntarily exit the minipool.
-All of the creation, withdrawing, and rewards delegation is handled by Rocket Pool's **smart contracts** on the Ethereum chain.
-This makes it completely decentralized.
+Pour la Beacon chain, un minipool ressemble exactement à un validator normal.
+Il a les mêmes responsabilités, les mêmes règles à suivre, les mêmes récompenses, etc.
+La seule différence réside dans la façon dont le minipool a été créé sur la couche execution, et comment fonctionnent les retraits lorsque le node operator décide de sortir volontairement le minipool.
+Toute la création, le retrait et la délégation des récompenses sont gérés par les **smart contracts** de Rocket Pool sur la blockchain Ethereum.
+Cela le rend complètement décentralisé.
 
-A Rocket Pool **Node** is a single computer with an Ethereum wallet that was registered with Rocket Pool's smart contracts.
-The node can then create as many minipools as it can afford, all running happily on the same machine together.
-**A single Rocket Pool node can run many, many minipools.**
-Each minipool has a negligible impact on overall system performance; some people have been able to run hundreds of them on a single node.
+Un **Node** Rocket Pool est un seul ordinateur avec un portefeuille Ethereum qui a été enregistré auprès des smart contracts de Rocket Pool.
+Le node peut ensuite créer autant de minipools qu'il peut se permettre, tous fonctionnant ensemble sur la même machine.
+**Un seul node Rocket Pool peut exécuter de nombreux minipools.**
+Chaque minipool a un impact négligeable sur les performances globales du système ; certaines personnes ont pu en exécuter des centaines sur un seul node.
 
-A minipool's upfront cost is 8 ETH. In addition, a node operator may stake RPL to their node to qualify for additional rewards and to gain voting power within the protocol DAO.
+Le coût initial d'un minipool est de 8 ETH. De plus, un node operator peut staker des RPL sur son node pour se qualifier pour des récompenses supplémentaires et gagner un pouvoir de vote au sein du protocole DAO.
 
-## Rocket Pool Node Operators
+## Node Operators Rocket Pool
 
-**Node operators** are the heart and soul of Rocket Pool.
-They are the individuals that run Rocket Pool nodes.
+Les **node operators** sont le cœur et l'âme de Rocket Pool.
+Ce sont les individus qui gèrent les nodes Rocket Pool.
 
-### Responsibilities
+### Responsabilités
 
-They put ETH from the staking pool to work by running minipools with it, which earn staking rewards for the Rocket Pool protocol (and thus, increase rETH's value).
-Their job is straightforward, but crucially important: _run validators with the highest quality possible, and maximize staking rewards_.
+Ils mettent l'ETH du staking pool au travail en exécutant des minipools avec, ce qui génère des récompenses de staking pour le protocole Rocket Pool (et donc, augmente la valeur de rETH).
+Leur travail est simple, mais d'une importance cruciale : _exécuter des validators avec la plus haute qualité possible et maximiser les récompenses de staking_.
 
-Node operators are responsible for:
+Les node operators sont responsables de :
 
-- Setting up a computer (either physical or virtual)
-- Configuring it correctly, including their home network if applicable
-- Installing Rocket Pool on it and setting up minipools to perform validation
-- Securing it, both from outside and inside threats
-- Maintaining it for the life of their validators
+- Configurer un ordinateur (physique ou virtuel)
+- Le configurer correctement, y compris leur réseau domestique si applicable
+- Installer Rocket Pool dessus et configurer des minipools pour effectuer la validation
+- Le sécuriser, contre les menaces extérieures et intérieures
+- Le maintenir pendant toute la durée de vie de leurs validators
 
-It's a big responsibility, and not a simple set-it-and-forget-it kind of job; you need to care for your node for as long as it's staking.
-With great responsibility, however, comes great rewards.
+C'est une grande responsabilité, et ce n'est pas un simple travail du type "configure-le-et-oublie-le" ; vous devez prendre soin de votre node aussi longtemps qu'il stake.
+Avec une grande responsabilité, cependant, viennent de grandes récompenses.
 
-### Rewards
+### Récompenses
 
-Here are the major benefits of running a Rocket Pool node:
+Voici les principaux avantages de gérer un node Rocket Pool :
 
-- You earn your portion of each validator's ETH rewards, plus commission.
-  - For 8 ETH-bonded minipools with no staked RPL, this comes to 30% more than solo staking (`(8+24*.1)/8 = 1.3`)
-  - Staking RPL provides boosted commission. With RPL stake valued at 10% of your total borrowed ETH or more, ETH rewards come to 42% more than solo staking (`(8+24*.14)/8 = 1.42`)
-  - **Note:** if you do not participate in the smoothing pool, you will instead receive 15% more than solo staking (`(8+24*.05)/8 = 1.15`) -- it is highly recommended that users with minipools made on/after 2024-10-28 opt into the smoothing pool.
-- You also earn issuance rewards on the RPL you stake.
-  - At the end of a period (every 28 days), there's a snapshot of your RPL.
-  - You can earn max yield on RPL **up to 15%** of the value of your total borrowed ETH.
-    - You will earn yield on RPL beyond that, at a decreasing level.
-  - You will get vote power based on the square root of your staked RPL.
+- Vous gagnez votre portion des récompenses ETH de chaque validator, plus une commission.
+  - Pour les minipools avec 8 ETH de bond et sans RPL staké, cela revient à 30% de plus que le solo staking (`(8+24*.1)/8 = 1.3`)
+  - Staker des RPL fournit une commission boostée. Avec un stake de RPL valorisé à 10% ou plus de votre total d'ETH emprunté, les récompenses ETH s'élèvent à 42% de plus que le solo staking (`(8+24*.14)/8 = 1.42`)
+  - **Note :** si vous ne participez pas au smoothing pool, vous recevrez plutôt 15% de plus que le solo staking (`(8+24*.05)/8 = 1.15`) -- il est fortement recommandé que les utilisateurs avec des minipools créés le ou après le 28/10/2024 optent pour le smoothing pool.
+- Vous gagnez également des récompenses d'émission sur les RPL que vous stakez.
+  - À la fin d'une période (tous les 28 jours), il y a un instantané de vos RPL.
+  - Vous pouvez gagner un rendement maximal sur les RPL **jusqu'à 15%** de la valeur de votre total d'ETH emprunté.
+    - Vous gagnerez un rendement sur les RPL au-delà de cela, à un niveau décroissant.
+  - Vous obtiendrez un pouvoir de vote basé sur la racine carrée de vos RPL stakés.
 
 ### Limitations
 
-There are some limitations that come along with the rewards above:
+Il existe certaines limitations qui accompagnent les récompenses ci-dessus :
 
-- If your node performs poorly and you actually end up losing ETH by the time you decide to exit your minipool, all of the lost ETH is coming out of your share.
-  - For example: if you exit with a balance of 30 ETH, then your minipool lost 2 ETH from its initial 32 ETH deposit. You will receive 6 ETH, and 24 ETH will be returned to the staking pool.
-- Your staked RPL will be less liquid
-  - You can only withdraw RPL stake beyond that valued at 60% of your bonded ETH.
-  - You cannot withdraw RPL if you've staked in the last 28 days
+- Si votre node performe mal et que vous finissez par perdre de l'ETH au moment où vous décidez de sortir votre minipool, tout l'ETH perdu proviendra de votre part.
+  - Par exemple : si vous sortez avec un solde de 30 ETH, alors votre minipool a perdu 2 ETH de son dépôt initial de 32 ETH. Vous recevrez 6 ETH, et 24 ETH seront retournés au staking pool.
+- Vos RPL stakés seront moins liquides
+  - Vous ne pouvez retirer du stake RPL qu'au-delà de ce qui est valorisé à 60% de votre ETH bondé.
+  - Vous ne pouvez pas retirer de RPL si vous avez staké au cours des 28 derniers jours
 
-### You've got this
+### Vous pouvez le faire
 
-If you're fairly new to using the command line or computer maintenance, this can seem like a scary challenge.
-Luckily, one of Rocket Pool's most core principles is _decentralization_ - the fact that anyone, anywhere, can run a node if they have the determination and knowledge.
-While we can't help with determination, we _can_ help with knowledge.
-This section is packed with guides, walkthroughs, and information that will help you understand how to run a great Rocket Pool node.
+Si vous êtes assez nouveau dans l'utilisation de la ligne de commande ou la maintenance informatique, cela peut sembler être un défi effrayant.
+Heureusement, l'un des principes les plus fondamentaux de Rocket Pool est la _décentralisation_ - le fait que n'importe qui, n'importe où, peut gérer un node s'il a la détermination et les connaissances.
+Bien que nous ne puissions pas aider avec la détermination, nous _pouvons_ aider avec les connaissances.
+Cette section regorge de guides, de tutoriels et d'informations qui vous aideront à comprendre comment gérer un excellent node Rocket Pool.

@@ -11,549 +11,549 @@ import tuiExternalDD from "./images/tui-external-dd.png";
 import tuiExternalPrysm from "./images/tui-external-prysm.png";
 import tuiExternalTeku from "./images/tui-external-teku.png";
 
-# Configuring the Smartnode Stack (Docker / Hybrid Mode)
+# 配置 Smartnode 堆栈(Docker / 混合模式)
 
-Running complete Execution layer and Consensus layer clients can be daunting; there are several options to choose from and each of them has a plethora of different settings.
-Luckily, the Smartnode is designed to hide all of that complexity so it's quick and easy to configure, while still giving you the freedom to customize everything if you so desire.
+运行完整的执行层和共识层客户端可能令人生畏;有多个选项可供选择,每个选项都有大量不同的设置。
+幸运的是,Smartnode 的设计旨在隐藏所有这些复杂性,使配置快速简单,同时如果您愿意,仍然可以自由地自定义一切。
 
-In this section, we'll go over the various methods for configuring the Smartnode if you're using the **Docker-based setup** or a **Hybrid setup** where you connect to externally managed Execution or Consensus clients (e.g., clients you manage outside of the Smartnode for solo staking).
+在本节中,我们将介绍配置 Smartnode 的各种方法,如果您使用的是**基于 Docker 的设置**或**混合设置**,其中您连接到外部管理的执行或共识客户端(例如,您在 Smartnode 之外为单独质押管理的客户端)。
 
-::: warning NOTE
-If you're using Native mode without Docker, please visit the [Native configuration guide](./config-native) instead.
+::: warning 注意
+如果您使用的是不带 Docker 的原生模式,请访问[原生配置指南](./config-native)。
 :::
 
-There are three ways to configure it:
+有三种配置方式:
 
-- Via the [Wizard UI](#configuring-via-the-wizard) - this is the easiest way. It only asks you a few basic questions and uses well-tested defaults for the test. This will be what you are presented with when you run `rocketpool service config` for the first time.
-- Via the [Settings Manager UI](#configuring-via-the-settings-manager) - this gives you access to all of the Smartnode's settings so you can customize everything as much as you want.
-- Headlessly via the [Command Line](#configuring-via-the-command-line) - this is an option for people who run the Smartnode in a headless (non-interactive) environment and need to configure it automatically.
+- 通过[向导界面](#通过向导配置) - 这是最简单的方式。它只会问您几个基本问题,并使用经过充分测试的默认值。当您第一次运行 `rocketpool service config` 时,将会看到此界面。
+- 通过[设置管理器界面](#通过设置管理器配置) - 这使您可以访问 Smartnode 的所有设置,因此您可以根据需要自定义一切。
+- 通过[命令行](#通过命令行配置)无头配置 - 这是为在无头(非交互式)环境中运行 Smartnode 并需要自动配置的用户提供的选项。
 
-Choose which mode you'd like to learn more about from the list above, or simply scroll through each option below.
+从上面的列表中选择您想了解更多的模式,或者简单地向下滚动浏览下面的每个选项。
 
-## Configuring via the Wizard
+## 通过向导配置
 
-To start the configuration process, run the following command:
+要启动配置过程,请运行以下命令:
 
 ```shell
 rocketpool service config
 ```
 
-This will launch a terminal-based UI that will allow you to quickly and easily configure your node, as well as provide optional fine-grained control over every setting for advanced customization.
+这将启动一个基于终端的界面,让您快速轻松地配置节点,并为高级自定义提供可选的细粒度控制。
 
-::: tip NOTE
-If you've already configured the Smartnode, you will instead be greeted with the [Settings Manager](#configuring-the-smartnode-stack-via-the-settings-manager).
-You can choose to re-open the Wizard from there if you prefer it, and all of your existing settings will be pre-selected for you.
+::: tip 注意
+如果您已经配置过 Smartnode,您将看到[设置管理器](#通过设置管理器配置)。
+如果您更喜欢向导,可以选择从那里重新打开向导,所有现有设置都将为您预先选择。
 :::
 
-When you run the config UI for the first time (or if you choose to run the Wizard again later), you will be presented with a screen that looks like this:
+当您第一次运行配置界面时(或者如果您选择稍后再次运行向导),您将看到如下所示的屏幕:
 
 <img src="./images/tui-first-time.png" width="100%" height="auto" />
 
-::: tip TIP
-To use the Wizard, **press the `Arrow Keys` (up/down/left/right) to navigate between things such as buttons (choices) or text boxes**.
-You can also use `Tab` and `Shift+Tab` if you prefer - it will do the same thing.
+::: tip 提示
+要使用向导,**按`箭头键`(上/下/左/右)在按钮(选项)或文本框等内容之间导航**。
+如果您愿意,也可以使用 `Tab` 和 `Shift+Tab` - 效果相同。
 
-For buttons, **the one that's currently selected will be highlighted in green**.
-The ones in black are not selected.
-In the screenshot above, `Next` is currently selected and `Quit` is not.
+对于按钮,**当前选中的按钮将以绿色突出显示**。
+黑色的按钮未被选中。
+在上面的截图中,`Next` 当前被选中,而 `Quit` 未被选中。
 
-**Press `Enter` or `Space` to select a button**, analogous to clicking on it with the mouse.
+**按 `Enter` 或 `Space` 选择按钮**,类似于用鼠标点击它。
 
-**Press `Escape` to go back to the previous dialog** if you changed your mind about something.
-This will come in handy as you progress through the various Wizard pages.
+**按 `Escape` 返回上一个对话框**,如果您改变主意了。
+当您浏览各个向导页面时,这会很方便。
 
-**Hold `Ctrl` and press `C` at any time to exit the Wizard without saving anything**.
+**随时按住 `Ctrl` 并按 `C` 退出向导而不保存任何内容**。
 
-For example, on the screen above, you could press the `left` and `right` arrow keys to move between the `Next` and `Quit` buttons.
+例如,在上面的屏幕上,您可以按 `左` 和 `右` 箭头键在 `Next` 和 `Quit` 按钮之间移动。
 
-Pressing `Enter` while `Next` is selected will proceed to the next screen.
-Pressing `Enter` while `Quit` is selected will quit the Wizard without saving.
+当 `Next` 被选中时按 `Enter` 将继续到下一个屏幕。
+当 `Quit` 被选中时按 `Enter` 将退出向导而不保存。
 :::
 
-When you're ready to begin, press `Next`.
+当您准备好开始时,按 `Next`。
 
-### Choosing a Network
+### 选择网络
 
-In the next screen, you will be asked to choose which network you want to use:
+在下一个屏幕中,您将被要求选择要使用的网络:
 
 <img src="./images/tui-network.png" width="100%" height="auto" />
 
-You can highlight the different choices with the `Up` and `Down` arrow keys (or `Tab` and `Shift+Tab`).
-When you change choices, the **Description** box on the right will show you a brief description of each option.
-This is true for all choice-based pages in the Wizard, not just the network selection, so you will see this style of page frequently.
+您可以使用 `上` 和 `下` 箭头键(或 `Tab` 和 `Shift+Tab`)突出显示不同的选项。
+当您更改选项时,右侧的**描述**框将显示每个选项的简要描述。
+这对于向导中所有基于选择的页面都是如此,而不仅仅是网络选择,因此您会经常看到这种样式的页面。
 
-If you want to practice running a Rocket Pool node on the Hoodi test network with fake ETH and RPL you can get for free, select **Hoodi Testnet**.
+如果您想练习在 Hoodi 测试网络上运行 Rocket Pool 节点,使用可以免费获得的假 ETH 和 RPL,请选择 **Hoodi Testnet**。
 
-If you're ready to create a real Rocket Pool node on Mainnet to earn real rewards, select **Mainnet**.
+如果您准备在主网上创建真正的 Rocket Pool 节点以赚取真实奖励,请选择 **Mainnet**。
 
-### Client Mode
+### 客户端模式
 
-You will be presented with two options for client mode:
+您将看到两个客户端模式选项:
 
 <img src="./images/tui-client-mode.png" width="100%" height="auto" />
 
-**Locally Managed** (also known as **"Docker Mode"**) is the default choice.
-Use it if you don't already have a client pair and you want the Smartnode to manage one for you.
-By choosing this, the Smartnode will create, configure and manage an Execution & Consensus Client pair as Docker containers.
-Don't worry, you'll get to choose _which_ client you want to run next.
+**本地管理**(也称为 **"Docker 模式"**)是默认选项。
+如果您还没有客户端对,并且希望 Smartnode 为您管理一个,请使用此选项。
+通过选择此选项,Smartnode 将创建、配置和管理执行和共识客户端对作为 Docker 容器。
+不用担心,您将在下一步选择_要运行哪个_客户端。
 
-**Externally Managed** (also known as **"Hybrid Mode"**) is a convenient choice for users that already have an Execution & Consensus client pair running elsewhere that they manage manually.
-By choosing this, the Smartnode will simply connect to your existing clients and will not run one of its own.
-For example, users can use this to plug into the clients that they currently use for solo staking; that way, they don't need to have two separate copies of the clients.
+**外部管理**(也称为 **"混合模式"**)是已经在其他地方运行并手动管理执行和共识客户端对的用户的便捷选择。
+通过选择此选项,Smartnode 将简单地连接到您现有的客户端,而不会运行自己的客户端。
+例如,用户可以使用此选项连接到他们目前用于单独质押的客户端;这样,他们就不需要有两个独立的客户端副本。
 
-:::warning NOTE
-Since the Execution-Consensus Layer Merge, you _cannot_ mix and match these modes (e.g., you cannot have a local Execution client but an externally-managed Consensus client).
-You must either choose all locally-managed or all externally-managed.
+:::warning 注意
+自从执行层-共识层合并以来,您_不能_混合和匹配这些模式(例如,您不能有本地执行客户端但外部管理的共识客户端)。
+您必须选择全部本地管理或全部外部管理。
 :::
 
-### Execution Client Setup
+### 执行客户端设置
 
-Choose which mode you'd like to use for managing your Execution client and follow the steps in the corresponding tab below:
+选择您要用于管理执行客户端的模式,并按照下面相应选项卡中的步骤操作:
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Locally Managed">
-      If you want the Smartnode to manage an Execution client for you, the next screen will ask you to pick a client:
+    <Tab label="本地管理">
+      如果您希望 Smartnode 为您管理执行客户端,下一个屏幕将要求您选择一个客户端:
 
       <img src={ECSelection} width="100%" height="auto"/>
 
-      Please refer to the [Choosing your ETH clients](/en/node-staking/eth-clients#execution-clients) section for a description of each option.
-      Once you've made your choice, click on the appropriate tab below to learn how to configure it:
+      请参阅[选择您的 ETH 客户端](/zh/node-staking/eth-clients#execution-clients)部分以获取每个选项的描述。
+      一旦您做出选择,请单击下面的相应选项卡以了解如何配置它:
 
-      If you choose **Geth**, **Besu**, or **Nethermind**, the Wizard will handle all of the configuration for you.
-      You can manually adjust some of its parameters at the end of this process, but the defaults that it uses are completely appropriate for node operation.
-      You can proceed to the next section.
+      如果您选择 **Geth**、**Besu** 或 **Nethermind**,向导将为您处理所有配置。
+      您可以在此过程结束时手动调整其某些参数,但它使用的默认值完全适合节点操作。
+      您可以继续下一节。
 
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        **Open up the P2P port in your router's port forwarding setup**. Configure it to forward **port 30303** on both TCP and UDP to your machine's local IP address.
-        This way, other Consensus clients can discover it and communicate with it from the outside. This will help your Consensus client sync quickly and improve performance (and thus rewards).
+        <p className="rspress-directive-title">注意</p>
+        **在路由器的端口转发设置中打开 P2P 端口**。将其配置为将 TCP 和 UDP 的**端口 30303** 转发到您机器的本地 IP 地址。
+        这样,其他共识客户端可以从外部发现它并与之通信。这将帮助您的共识客户端快速同步并提高性能(从而提高奖励)。
 
-        Each router has a different way of doing this, so **you'll need to check out your router's manual on how to set up port forwarding**.
+        每个路由器的操作方式不同,因此**您需要查看路由器的手册以了解如何设置端口转发**。
       </p>
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-        You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your Execution client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+        <p className="rspress-directive-title">注意</p>
+        因为 Smartnode 将在自己的 Docker 容器中运行,它将使用 Docker 的内部网络。
+        您将无法在此处使用 `localhost` 或 `127.0.0.1` 等主机名;如果您的执行客户端在与 Smartnode 相同的机器上运行,您需要提供机器的局域网 IP 地址。
       </p>
 
-      And with that, your Execution client is all set!
+      就这样,您的执行客户端已经设置好了!
     </Tab>
-    <Tab label="External">
-      For an externally managed Execution client, the next screen will prompt you for the URLs of its HTTP-based RPC (web3) API and its Websocket-based RPC API:
+    <Tab label="外部管理">
+      对于外部管理的执行客户端,下一个屏幕将提示您输入其基于 HTTP 的 RPC (web3) API 和基于 Websocket 的 RPC API 的 URL:
 
       <img src={tuiExternalEC} width="100%" height="auto"/>
 
-      The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting transactions.
-      **If you don't already have your client's API port enabled and accessible from your Smartnode machine, you will need to set it up now.**
-      Instructions on this vary from client to client; consult your client's documentation to learn how to set up the HTTP RPC endpoint.
+      Smartnode 将使用 HTTP URL 与其通信并执行区块链活动,例如查询链状态和提交交易。
+      **如果您还没有启用客户端的 API 端口并使其可从 Smartnode 机器访问,您需要现在设置它。**
+      有关此操作的说明因客户端而异;请查阅客户端的文档以了解如何设置 HTTP RPC 端点。
 
-      The Websocket URL is only relevant if you need it for your own usage; the Smartnode does not use it.
-      You can leave it blank if you do not need it.
+      Websocket URL 仅在您需要自己使用时才相关;Smartnode 不使用它。
+      如果您不需要它,可以将其留空。
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-        You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your fallback Execution client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+        <p className="rspress-directive-title">注意</p>
+        因为 Smartnode 将在自己的 Docker 容器中运行,它将使用 Docker 的内部网络。
+        您将无法在此处使用 `localhost` 或 `127.0.0.1` 等主机名;如果您的回退执行客户端在与 Smartnode 相同的机器上运行,您需要提供机器的局域网 IP 地址。
       </p>
 
-      When you're happy with your fallback Execution client choices, proceed to the next step.
+      当您对回退执行客户端选择感到满意时,继续下一步。
     </Tab>
 
   </Tabs>
 </div>
 
-### Consensus Client Setup
+### 共识客户端设置
 
-Now that you have an Execution client ready, the next task is to set up the Consensus client.
-The "mode" (local or external) will be inherited from the choice you used for your Execution client earlier.
+现在您已经准备好了执行客户端,下一个任务是设置共识客户端。
+"模式"(本地或外部)将继承您之前为执行客户端使用的选择。
 
-Choose which mode you selected earlier from the tabs below:
+从下面的选项卡中选择您之前选择的模式:
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Locally Managed">
-      If you want the Smartnode to manage a Consensus client for you, the next screen will ask you to pick a client:
+    <Tab label="本地管理">
+      如果您希望 Smartnode 为您管理共识客户端,下一个屏幕将要求您选择一个客户端:
 
       <img src={tuiLocalCC} width="100%" height="auto"/>
 
-      **The preferred choice** for the overall health and diversity of the network is the **Random (Recommended)** choice, which will randomly choose among one of the four supported Consensus clients for you.
+      对于网络整体健康和多样性的**首选选择**是 **Random (Recommended)** 选择,它将为您从四个支持的共识客户端中随机选择一个。
 
-      If you would prefer to choose an explicit client, please refer to the [Choosing your ETH clients](./eth-clients#eth2-clients) section for a description of each option so you can make an educated decision.
+      如果您更喜欢选择明确的客户端,请参阅[选择您的 ETH 客户端](./eth-clients#eth2-clients)部分以获取每个选项的描述,以便您可以做出明智的决定。
 
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        There are two conditions that will prompt you with warnings based on client selection:
+        <p className="rspress-directive-title">注意</p>
+        根据客户端选择,有两种情况会提示您警告:
 
-        - The selected client is currently [a supermajority client](https://clientdiversity.org/), meaning that an unhealthy majority of validators on the Beacon Chain use it which threatens the stability of the network
+        - 所选客户端当前是[超多数客户端](https://clientdiversity.org/),这意味着信标链上不健康的大多数验证者使用它,这威胁到网络的稳定性
 
-        - The selected client is **too resource-heavy** for the hardware you're currently using
+        - 所选客户端对于您当前使用的硬件来说**资源过重**
 
-        If either of those cases is true for your chosen client, you will be warned and asked to choose a different client.
-        You have the option of continuing to use the one you selected, but you must be aware of the risks in doing so.
+        如果您选择的客户端符合这两种情况中的任何一种,您将收到警告并被要求选择不同的客户端。
+        您可以选择继续使用您选择的客户端,但您必须了解这样做的风险。
       </p>
 
-      Once you've made your choice or have been assigned a random client, click on the appropriate tab below to learn how to configure it:
+      一旦您做出选择或被分配了随机客户端,请单击下面的相应选项卡以了解如何配置它:
 
       <div className="p-3">
         <Tabs>
           <Tab label="Lighthouse">
-            The first option in Lighthouse's configuration will ask about your validator's **graffiti** message:
+            Lighthouse 配置中的第一个选项将询问您的验证者的 **graffiti** 消息:
 
             <img src={tuiLocalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            这是一条可选的自定义消息,您可以将其附加到您在信标链上提议的任何区块。
+            该消息将永久保存,因此将其视为留下您印记的有趣小方式!
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **请注意,graffiti 的最大长度为 16 个字符。**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            如果您想查看今天验证者使用的 Graffiti 示例,[请看这里](https://beaconcha.in/blocks)。
 
-            Next up is an option to enable or disable **Checkpoint Sync**:
+            接下来是启用或禁用 **Checkpoint Sync** 的选项:
 
             <img src={tuiLocalCheckpoint} width="100%" height="auto"/>
 
-            Lighthouse has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
-            This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-            Take a look at [their documentation on checkpoint syncing](https://lighthouse-book.sigmaprime.io/checkpoint-sync.html) for more information if you are curious.
+            Lighthouse 能够通过连接到您信任的现有信标节点来即时同步到信标链网络上的最新区块。
+            这优于传统同步,因为它不需要任何时间(而传统同步可能需要数天),并且具有一些安全优势。
+            如果您感兴趣,请查看[他们关于检查点同步的文档](https://lighthouse-book.sigmaprime.io/checkpoint-sync.html)以获取更多信息。
 
-            You can enter the URL of any Beacon Node that provides access to its REST API here.
+            您可以在此处输入提供对其 REST API 访问的任何信标节点的 URL。
 
-            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            如果您想使用它,请参阅[下面关于检查点同步的部分](#信标链检查点同步)。
 
-            The final question will ask if you want to enable Doppelgänger Protection:
+            最后一个问题将询问您是否要启用 Doppelgänger 保护:
 
             <img src={tuiLocalDD} width="100%" height="auto"/>
 
-            Lighthouse supports a feature called [Doppelgänger Detection](https://lighthouse-book.sigmaprime.io/validator-doppelganger.html).
-            In a nutshell, this feature will **intentionally** miss a few attestations after Lighthouse's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            Lighthouse 支持一个称为 [Doppelgänger Detection](https://lighthouse-book.sigmaprime.io/validator-doppelganger.html) 的功能。
+            简而言之,该功能将在 Lighthouse 的验证者客户端重启后**故意**错过一些证明;在此期间,它将监听是否仍有使用您的验证者密钥向网络发送证明。
 
-            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-            After its short waiting period, Lighthouse would start validating normally.
+            理想情况下,不会有任何证明(这意味着没有其他机器使用您的验证者密钥运行)。
+            在短暂的等待期后,Lighthouse 将正常开始验证。
 
-            _However_, if there _is_ another machine running with your validator keys attached, then Lighthouse will immediately shut down and issue an error message in its log files.
-            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            _但是_,如果_确实有_另一台机器使用您的验证者密钥运行,那么 Lighthouse 将立即关闭并在其日志文件中发出错误消息。
+            这样做的原因是,如果它也开始证明,那么您将开始**双重证明**,这是一种**可罚没的违规行为**。
+            当被罚没时,您的验证者将被强制退出信标链,您将被处罚大量 ETH。
 
-            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            大多数时候,doppelgänger 检测只会导致客户端重启后错过一些证明。
+            但是,在您将验证者迁移到新机器或更改为新信标客户端的情况下,**doppelgänger 检测可以防止您因意外双重证明而被罚没**。
 
-            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            将其视为您的 minipool 的廉价保险;每次重启时您都会错过微不足道的利润,但您可以相当确信您不会意外地在两个地方运行您的密钥并因此被罚没。
 
-            Starting on version 4.5.0 Lighthouse has an option to establish P2P connections in a more efficient way using the [QUIC protocol](https://en.wikipedia.org/wiki/QUIC). If you are willing to use this feature you'll need to define an extra port "P2P QUIC port" field on the ETH2 settings, and forward it to your node in your router's port forwarding setup. The default P2P QUIC port is 8001 (UDP). Make sure to avoid collisions with ports already in use by your node (or fallback/testnet nodes). Also make sure the same port is open if you're using a firewall on your node (check `ufw status`).
-            To check if the QUIC configuration is working you should see a 2-digit number after `libp2p_quic_peers` when running `docker run --network rocketpool_net curlimages/curl http://eth2:9100/metrics | grep libp2p_peers_multi`.
+            从 4.5.0 版本开始,Lighthouse 可以选择使用 [QUIC 协议](https://en.wikipedia.org/wiki/QUIC)以更有效的方式建立 P2P 连接。如果您愿意使用此功能,您需要在 ETH2 设置中定义一个额外的端口"P2P QUIC 端口"字段,并在路由器的端口转发设置中将其转发到您的节点。默认的 P2P QUIC 端口是 8001 (UDP)。确保避免与节点已经使用的端口(或回退/测试网节点)发生冲突。如果您在节点上使用防火墙,还要确保打开相同的端口(检查 `ufw status`)。
+            要检查 QUIC 配置是否工作,您应该在运行 `docker run --network rocketpool_net curlimages/curl http://eth2:9100/metrics | grep libp2p_peers_multi` 时在 `libp2p_quic_peers` 后面看到一个两位数的数字。
 
           </Tab>
           <Tab label="Nimbus">
-            The first option in Nimbus's configuration will ask about your validator's **graffiti** message:
+            Nimbus 配置中的第一个选项将询问您的验证者的 **graffiti** 消息:
 
             <img src={tuiLocalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            这是一条可选的自定义消息,您可以将其附加到您在信标链上提议的任何区块。
+            该消息将永久保存,因此将其视为留下您印记的有趣小方式!
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **请注意,graffiti 的最大长度为 16 个字符。**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            如果您想查看今天验证者使用的 Graffiti 示例,[请看这里](https://beaconcha.in/blocks)。
 
-            Next up is an option to enable or disable **Checkpoint Sync**:
+            接下来是启用或禁用 **Checkpoint Sync** 的选项:
 
             <img src={tuiLocalCheckpoint} width="100%" height="auto"/>
 
-            Nimbus has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
-            This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-            Take a look at [their documentation on checkpoint syncing](https://nimbus.guide/trusted-node-sync.html) for more information if you are curious.
+            Nimbus 能够通过连接到您信任的现有信标节点来即时同步到信标链网络上的最新区块。
+            这优于传统同步,因为它不需要任何时间(而传统同步可能需要数天),并且具有一些安全优势。
+            如果您感兴趣,请查看[他们关于检查点同步的文档](https://nimbus.guide/trusted-node-sync.html)以获取更多信息。
 
-            You can enter the URL of any Beacon Node that provides access to its REST API here.
+            您可以在此处输入提供对其 REST API 访问的任何信标节点的 URL。
 
-            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            如果您想使用它,请参阅[下面关于检查点同步的部分](#信标链检查点同步)。
 
-            The final question will ask if you want to enable Doppelgänger Protection:
+            最后一个问题将询问您是否要启用 Doppelgänger 保护:
 
             <img src={tuiLocalDD} width="100%" height="auto"/>
 
-            Nimbus supports a feature called [Doppelgänger Protection](https://nimbus.guide/faq.html#why-does-my-validator-miss-two-epochs-of-attestations-after-restarting).
-            In a nutshell, this feature will **intentionally** miss a few attestations after Nimbus restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            Nimbus 支持一个称为 [Doppelgänger Protection](https://nimbus.guide/faq.html#why-does-my-validator-miss-two-epochs-of-attestations-after-restarting) 的功能。
+            简而言之,该功能将在 Nimbus 重启后**故意**错过一些证明;在此期间,它将监听是否仍有使用您的验证者密钥向网络发送证明。
 
-            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-            After its short waiting period, Nimbus would start validating normally.
+            理想情况下,不会有任何证明(这意味着没有其他机器使用您的验证者密钥运行)。
+            在短暂的等待期后,Nimbus 将正常开始验证。
 
-            _However_, if there _is_ another machine running with your validator keys attached, then Nimbus will immediately shut down and issue an error message in its log files.
-            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            _但是_,如果_确实有_另一台机器使用您的验证者密钥运行,那么 Nimbus 将立即关闭并在其日志文件中发出错误消息。
+            这样做的原因是,如果它也开始证明,那么您将开始**双重证明**,这是一种**可罚没的违规行为**。
+            当被罚没时,您的验证者将被强制退出信标链,您将被处罚大量 ETH。
 
-            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            大多数时候,doppelgänger 检测只会导致客户端重启后错过一些证明。
+            但是,在您将验证者迁移到新机器或更改为新信标客户端的情况下,**doppelgänger 检测可以防止您因意外双重证明而被罚没**。
 
-            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            将其视为您的 minipool 的廉价保险;每次重启时您都会错过微不足道的利润,但您可以相当确信您不会意外地在两个地方运行您的密钥并因此被罚没。
 
           </Tab>
           <Tab label="Prysm">
-            The first option in Prysm's configuration will ask about your validator's **graffiti** message:
+            Prysm 配置中的第一个选项将询问您的验证者的 **graffiti** 消息:
 
             <img src={tuiLocalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            这是一条可选的自定义消息,您可以将其附加到您在信标链上提议的任何区块。
+            该消息将永久保存,因此将其视为留下您印记的有趣小方式!
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **请注意,graffiti 的最大长度为 16 个字符。**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            如果您想查看今天验证者使用的 Graffiti 示例,[请看这里](https://beaconcha.in/blocks)。
 
-            Next up is an option to enable or disable **Checkpoint Sync**:
+            接下来是启用或禁用 **Checkpoint Sync** 的选项:
 
             <img src={tuiLocalCheckpoint} width="100%" height="auto"/>
 
-            Prysm has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
-            This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-            Take a look at [their documentation on checkpoint syncing](https://docs.prylabs.network/docs/prysm-usage/checkpoint-sync) for more information if you are curious.
+            Prysm 能够通过连接到您信任的现有信标节点来即时同步到信标链网络上的最新区块。
+            这优于传统同步,因为它不需要任何时间(而传统同步可能需要数天),并且具有一些安全优势。
+            如果您感兴趣,请查看[他们关于检查点同步的文档](https://docs.prylabs.network/docs/prysm-usage/checkpoint-sync)以获取更多信息。
 
-            You can enter the URL of any Beacon Node that provides access to its REST API here.
+            您可以在此处输入提供对其 REST API 访问的任何信标节点的 URL。
 
-            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            如果您想使用它,请参阅[下面关于检查点同步的部分](#信标链检查点同步)。
 
-            The final question will ask if you want to enable Doppelgänger Protection:
+            最后一个问题将询问您是否要启用 Doppelgänger 保护:
 
             <img src={tuiLocalDD} width="100%" height="auto"/>
 
-            Prysm supports a feature called Doppelgänger Protection.
-            In a nutshell, this feature will **intentionally** miss a few attestations after Prysm's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            Prysm 支持一个称为 Doppelgänger Protection 的功能。
+            简而言之,该功能将在 Prysm 的验证者客户端重启后**故意**错过一些证明;在此期间,它将监听是否仍有使用您的验证者密钥向网络发送证明。
 
-            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-            After its short waiting period, Prysm would start validating normally.
+            理想情况下,不会有任何证明(这意味着没有其他机器使用您的验证者密钥运行)。
+            在短暂的等待期后,Prysm 将正常开始验证。
 
-            _However_, if there _is_ another machine running with your validator keys attached, then Prysm will immediately shut down and issue an error message in its log files.
-            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            _但是_,如果_确实有_另一台机器使用您的验证者密钥运行,那么 Prysm 将立即关闭并在其日志文件中发出错误消息。
+            这样做的原因是,如果它也开始证明,那么您将开始**双重证明**,这是一种**可罚没的违规行为**。
+            当被罚没时,您的验证者将被强制退出信标链,您将被处罚大量 ETH。
 
-            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            大多数时候,doppelgänger 检测只会导致客户端重启后错过一些证明。
+            但是,在您将验证者迁移到新机器或更改为新信标客户端的情况下,**doppelgänger 检测可以防止您因意外双重证明而被罚没**。
 
-            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            将其视为您的 minipool 的廉价保险;每次重启时您都会错过微不足道的利润,但您可以相当确信您不会意外地在两个地方运行您的密钥并因此被罚没。
 
           </Tab>
           <Tab label="Teku">
-            The first option in Teku's configuration will ask about your validator's **graffiti** message:
+            Teku 配置中的第一个选项将询问您的验证者的 **graffiti** 消息:
 
             <img src={tuiLocalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            这是一条可选的自定义消息,您可以将其附加到您在信标链上提议的任何区块。
+            该消息将永久保存,因此将其视为留下您印记的有趣小方式!
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **请注意,graffiti 的最大长度为 16 个字符。**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            如果您想查看今天验证者使用的 Graffiti 示例,[请看这里](https://beaconcha.in/blocks)。
 
-            The final question is an option to enable or disable **Checkpoint Sync**:
+            最后一个问题是启用或禁用 **Checkpoint Sync** 的选项:
 
             <img src={tuiLocalCheckpoint} width="100%" height="auto"/>
 
-            Teku has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
-            This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-            Take a look at [their documentation on checkpoint syncing](https://docs.teku.consensys.net/en/latest/HowTo/Get-Started/Checkpoint-Start/) for more information if you are curious.
+            Teku 能够通过连接到您信任的现有信标节点来即时同步到信标链网络上的最新区块。
+            这优于传统同步,因为它不需要任何时间(而传统同步可能需要数天),并且具有一些安全优势。
+            如果您感兴趣,请查看[他们关于检查点同步的文档](https://docs.teku.consensys.net/en/latest/HowTo/Get-Started/Checkpoint-Start/)以获取更多信息。
 
-            You can enter the URL of any Beacon Node that provides access to its REST API here.
+            您可以在此处输入提供对其 REST API 访问的任何信标节点的 URL。
 
-            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            如果您想使用它,请参阅[下面关于检查点同步的部分](#信标链检查点同步)。
           </Tab>
           <Tab label="Lodestar">
-            The first option in Lodestar's configuration will ask about your validator's **graffiti** message:
+            Lodestar 配置中的第一个选项将询问您的验证者的 **graffiti** 消息:
 
             <img src={tuiLocalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            这是一条可选的自定义消息,您可以将其附加到您在信标链上提议的任何区块。
+            该消息将永久保存,因此将其视为留下您印记的有趣小方式!
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **请注意,graffiti 的最大长度为 16 个字符。**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            如果您想查看今天验证者使用的 Graffiti 示例,[请看这里](https://beaconcha.in/blocks)。
 
-            Next up is an option to enable or disable **Checkpoint Sync**:
+            接下来是启用或禁用 **Checkpoint Sync** 的选项:
 
             <img src={tuiLocalCheckpoint} width="100%" height="auto"/>
 
-            Lodestar has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
-            This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-            Take a look at [their documentation on checkpoint syncing](https://chainsafe.github.io/lodestar/run/beacon-management/starting-a-node#checkpoint-sync) for more information if you are curious.
+            Lodestar 能够通过连接到您信任的现有信标节点来即时同步到信标链网络上的最新区块。
+            这优于传统同步,因为它不需要任何时间(而传统同步可能需要数天),并且具有一些安全优势。
+            如果您感兴趣,请查看[他们关于检查点同步的文档](https://chainsafe.github.io/lodestar/run/beacon-management/starting-a-node#checkpoint-sync)以获取更多信息。
 
-            You can enter the URL of any Beacon Node that provides access to its REST API here.
+            您可以在此处输入提供对其 REST API 访问的任何信标节点的 URL。
 
-            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            如果您想使用它,请参阅[下面关于检查点同步的部分](#信标链检查点同步)。
 
-            The final question will ask if you want to enable Doppelgänger Protection:
+            最后一个问题将询问您是否要启用 Doppelgänger 保护:
 
             <img src={tuiLocalDD} width="100%" height="auto"/>
 
-            Lodestar supports a feature called Doppelgänger Detection.
-            In a nutshell, this feature will **intentionally** miss a few attestations after Lodestar's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            Lodestar 支持一个称为 Doppelgänger Detection 的功能。
+            简而言之,该功能将在 Lodestar 的验证者客户端重启后**故意**错过一些证明;在此期间,它将监听是否仍有使用您的验证者密钥向网络发送证明。
 
-            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-            After its short waiting period, Lodestar would start validating normally.
+            理想情况下,不会有任何证明(这意味着没有其他机器使用您的验证者密钥运行)。
+            在短暂的等待期后,Lodestar 将正常开始验证。
 
-            _However_, if there _is_ another machine running with your validator keys attached, then Lodestar will immediately shut down and issue an error message in its log files.
-            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            _但是_,如果_确实有_另一台机器使用您的验证者密钥运行,那么 Lodestar 将立即关闭并在其日志文件中发出错误消息。
+            这样做的原因是,如果它也开始证明,那么您将开始**双重证明**,这是一种**可罚没的违规行为**。
+            当被罚没时,您的验证者将被强制退出信标链,您将被处罚大量 ETH。
 
-            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            大多数时候,doppelgänger 检测只会导致客户端重启后错过一些证明。
+            但是,在您将验证者迁移到新机器或更改为新信标客户端的情况下,**doppelgänger 检测可以防止您因意外双重证明而被罚没**。
 
-            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            将其视为您的 minipool 的廉价保险;每次重启时您都会错过微不足道的利润,但您可以相当确信您不会意外地在两个地方运行您的密钥并因此被罚没。
 
           </Tab>
         </Tabs>
       </div>
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        **Open up the P2P port in your router's port forwarding setup**. Configure it to forward **port 9001** on both TCP and UDP to your machine's local IP address.
-        This way, other Consensus clients can discover it and communicate with it from the outside. This will help your Consensus client sync quickly and improve performance (and thus rewards).
+        <p className="rspress-directive-title">注意</p>
+        **在路由器的端口转发设置中打开 P2P 端口**。将其配置为将 TCP 和 UDP 的**端口 9001** 转发到您机器的本地 IP 地址。
+        这样,其他共识客户端可以从外部发现它并与之通信。这将帮助您的共识客户端快速同步并提高性能(从而提高奖励)。
 
-        Each router has a different way of doing this, so **you'll need to check out your router's manual on how to set up port forwarding**
+        每个路由器的操作方式不同,因此**您需要查看路由器的手册以了解如何设置端口转发**
       </p>
     </Tab>
-    <Tab label="Externally Managed">
-      Because each Consensus client has slightly different behavior, the Smartnode needs to know which one you're using externally so it can adapt its own behavior accordingly.
-      Start by choosing which client you have from the list in the next screen:
+    <Tab label="外部管理">
+      因为每个共识客户端的行为略有不同,Smartnode 需要知道您在外部使用的是哪一个,以便它可以相应地调整自己的行为。
+      首先从下一个屏幕的列表中选择您拥有的客户端:
 
       <img src="./images/tui-external-cc.png" width="100%" height="auto"/>
 
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        At this time, **Nimbus** is not compatible with External mode because it cannot run as a standalone Validator Container (VC) yet.
-        When the client supports this feature, it will be added to the list here.
+        <p className="rspress-directive-title">注意</p>
+        目前,**Nimbus** 与外部模式不兼容,因为它还不能作为独立的验证者容器 (VC) 运行。
+        当客户端支持此功能时,它将被添加到此处的列表中。
       </p>
 
-      Select your client from the tabs below to learn how to finish configuring it.
+      从下面的选项卡中选择您的客户端以了解如何完成配置。
 
       <div className="p-3">
         <Tabs>
           <Tab label="Lighthouse">
-            Start by specifying the URL for your Lighthouse Beacon Node's API:
+            首先指定您的 Lighthouse 信标节点 API 的 URL:
 
             <img src={tuiExternalLH} width="100%" height="auto"/>
 
-            The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
-            **If you don't already have the API port enabled and accessible from your Smartnode machine, you will need to set it up now.**
-            See [Lighthouse's documentation](https://lighthouse-book.sigmaprime.io/api-bn.html) for instructions on how to do this.
+            Smartnode 将使用 HTTP URL 与其通信并执行区块链活动,例如查询链状态和提交消息。
+            **如果您还没有启用 API 端口并使其可从 Smartnode 机器访问,您需要现在设置它。**
+            有关如何执行此操作的说明,请参阅 [Lighthouse 的文档](https://lighthouse-book.sigmaprime.io/api-bn.html)。
 
             <p className="rspress-directive warning">
-              <p className="rspress-directive-title">NOTE</p>
-              Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-              You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+              <p className="rspress-directive-title">注意</p>
+              因为 Smartnode 将在自己的 Docker 容器中运行,它将使用 Docker 的内部网络。
+              您将无法在此处使用 `localhost` 或 `127.0.0.1` 等主机名;如果您的客户端在与 Smartnode 相同的机器上运行,您需要提供机器的局域网 IP 地址。
             </p>
 
 
-            Next, it will ask about your validator's **graffiti** message:
+            接下来,它将询问您的验证者的 **graffiti** 消息:
 
             <img src={tuiExternalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            这是一条可选的自定义消息,您可以将其附加到您在信标链上提议的任何区块。
+            该消息将永久保存,因此将其视为留下您印记的有趣小方式!
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **请注意,graffiti 的最大长度为 16 个字符。**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            如果您想查看今天验证者使用的 Graffiti 示例,[请看这里](https://beaconcha.in/blocks)。
 
-            The final question will ask if you want to enable Doppelgänger Protection:
+            最后一个问题将询问您是否要启用 Doppelgänger 保护:
 
             <img src={tuiExternalDD} width="100%" height="auto"/>
 
-            Lighthouse supports a feature called [Doppelgänger Detection](https://lighthouse-book.sigmaprime.io/validator-doppelganger.html).
-            In a nutshell, this feature will **intentionally** miss a few attestations after Lighthouse's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            Lighthouse 支持一个称为 [Doppelgänger Detection](https://lighthouse-book.sigmaprime.io/validator-doppelganger.html) 的功能。
+            简而言之,该功能将在 Lighthouse 的验证者客户端重启后**故意**错过一些证明;在此期间,它将监听是否仍有使用您的验证者密钥向网络发送证明。
 
-            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-            After its short waiting period, Lighthouse would start validating normally.
+            理想情况下,不会有任何证明(这意味着没有其他机器使用您的验证者密钥运行)。
+            在短暂的等待期后,Lighthouse 将正常开始验证。
 
-            _However_, if there _is_ another machine running with your validator keys attached, then Lighthouse will immediately shut down and issue an error message in its log files.
-            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            _但是_,如果_确实有_另一台机器使用您的验证者密钥运行,那么 Lighthouse 将立即关闭并在其日志文件中发出错误消息。
+            这样做的原因是,如果它也开始证明,那么您将开始**双重证明**,这是一种**可罚没的违规行为**。
+            当被罚没时,您的验证者将被强制退出信标链,您将被处罚大量 ETH。
 
-            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            大多数时候,doppelgänger 检测只会导致客户端重启后错过一些证明。
+            但是,在您将验证者迁移到新机器或更改为新信标客户端的情况下,**doppelgänger 检测可以防止您因意外双重证明而被罚没**。
 
-            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            将其视为您的 minipool 的廉价保险;每次重启时您都会错过微不足道的利润,但您可以相当确信您不会意外地在两个地方运行您的密钥并因此被罚没。
 
           </Tab>
           <Tab label="Prysm">
-            Start by specifying the URL for your Prysm Beacon Node's API and the URL for its JSON-RPC API:
+            首先指定您的 Prysm 信标节点 API 的 URL 以及其 JSON-RPC API 的 URL:
 
             <img src={tuiExternalPrysm} width="100%" height="auto"/>
 
-            The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
-            It will prepare its Prysm Validator Client with the JSON-RPC URL so it can communicate with your Beacon Node, as _Prysm's Validator Client currently cannot work over the HTTP API._
+            Smartnode 将使用 HTTP URL 与其通信并执行区块链活动,例如查询链状态和提交消息。
+            它将使用 JSON-RPC URL 准备其 Prysm 验证者客户端,以便它可以与您的信标节点通信,因为 _Prysm 的验证者客户端目前无法通过 HTTP API 工作。_
 
-            **If you don't already have the API ports enabled and accessible from your Smartnode machine, you will need to set them up now.**
-            See [Prysm's documentation](https://docs.prylabs.network/docs/prysm-usage/parameters) for instructions on how to do this.
-            **You will need the `grpc-gateway` _and_ the `rpc-host` enabled.**
+            **如果您还没有启用 API 端口并使其可从 Smartnode 机器访问,您需要现在设置它们。**
+            有关如何执行此操作的说明,请参阅 [Prysm 的文档](https://docs.prylabs.network/docs/prysm-usage/parameters)。
+            **您需要启用 `grpc-gateway` _和_ `rpc-host`。**
 
             <p className="rspress-directive warning">
-              <p className="rspress-directive-title">NOTE</p>
-              Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-              You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+              <p className="rspress-directive-title">注意</p>
+              因为 Smartnode 将在自己的 Docker 容器中运行,它将使用 Docker 的内部网络。
+              您将无法在此处使用 `localhost` 或 `127.0.0.1` 等主机名;如果您的客户端在与 Smartnode 相同的机器上运行,您需要提供机器的局域网 IP 地址。
             </p>
 
 
-            Next, it will ask about your validator's **graffiti** message:
+            接下来,它将询问您的验证者的 **graffiti** 消息:
 
             <img src={tuiExternalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            这是一条可选的自定义消息,您可以将其附加到您在信标链上提议的任何区块。
+            该消息将永久保存,因此将其视为留下您印记的有趣小方式!
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **请注意,graffiti 的最大长度为 16 个字符。**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            如果您想查看今天验证者使用的 Graffiti 示例,[请看这里](https://beaconcha.in/blocks)。
 
-            The final question will ask if you want to enable Doppelgänger Protection:
+            最后一个问题将询问您是否要启用 Doppelgänger 保护:
 
             <img src={tuiExternalDD} width="100%" height="auto"/>
 
-            Prysm supports a feature called Doppelgänger Protection.
-            In a nutshell, this feature will **intentionally** miss a few attestations after Prysm's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            Prysm 支持一个称为 Doppelgänger Protection 的功能。
+            简而言之,该功能将在 Prysm 的验证者客户端重启后**故意**错过一些证明;在此期间,它将监听是否仍有使用您的验证者密钥向网络发送证明。
 
-            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-            After its short waiting period, Prysm would start validating normally.
+            理想情况下,不会有任何证明(这意味着没有其他机器使用您的验证者密钥运行)。
+            在短暂的等待期后,Prysm 将正常开始验证。
 
-            _However_, if there _is_ another machine running with your validator keys attached, then Prysm will immediately shut down and issue an error message in its log files.
-            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            _但是_,如果_确实有_另一台机器使用您的验证者密钥运行,那么 Prysm 将立即关闭并在其日志文件中发出错误消息。
+            这样做的原因是,如果它也开始证明,那么您将开始**双重证明**,这是一种**可罚没的违规行为**。
+            当被罚没时,您的验证者将被强制退出信标链,您将被处罚大量 ETH。
 
-            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            大多数时候,doppelgänger 检测只会导致客户端重启后错过一些证明。
+            但是,在您将验证者迁移到新机器或更改为新信标客户端的情况下,**doppelgänger 检测可以防止您因意外双重证明而被罚没**。
 
-            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            将其视为您的 minipool 的廉价保险;每次重启时您都会错过微不足道的利润,但您可以相当确信您不会意外地在两个地方运行您的密钥并因此被罚没。
 
           </Tab>
           <Tab label="Teku">
-            Start by specifying the URL for your Teku Beacon Node's API:
+            首先指定您的 Teku 信标节点 API 的 URL:
 
             <img src={tuiExternalTeku} width="100%" height="auto"/>
 
-            The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
-            **If you don't already have the API port enabled and accessible from your Smartnode machine, you will need to set it up now.**
-            See [Teku's documentation](https://docs.teku.consensys.net/en/latest/Reference/CLI/CLI-Syntax/#rest-api-enabled) for instructions on how to do this.
+            Smartnode 将使用 HTTP URL 与其通信并执行区块链活动,例如查询链状态和提交消息。
+            **如果您还没有启用 API 端口并使其可从 Smartnode 机器访问,您需要现在设置它。**
+            有关如何执行此操作的说明,请参阅 [Teku 的文档](https://docs.teku.consensys.net/en/latest/Reference/CLI/CLI-Syntax/#rest-api-enabled)。
 
 
             <p className="rspress-directive warning">
-              <p className="rspress-directive-title">NOTE</p>
-              Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-              You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+              <p className="rspress-directive-title">注意</p>
+              因为 Smartnode 将在自己的 Docker 容器中运行,它将使用 Docker 的内部网络。
+              您将无法在此处使用 `localhost` 或 `127.0.0.1` 等主机名;如果您的客户端在与 Smartnode 相同的机器上运行,您需要提供机器的局域网 IP 地址。
             </p>
 
-            Next, it will ask about your validator's **graffiti** message:
+            接下来,它将询问您的验证者的 **graffiti** 消息:
 
             <img src={tuiExternalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            这是一条可选的自定义消息,您可以将其附加到您在信标链上提议的任何区块。
+            该消息将永久保存,因此将其视为留下您印记的有趣小方式!
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **请注意,graffiti 的最大长度为 16 个字符。**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            如果您想查看今天验证者使用的 Graffiti 示例,[请看这里](https://beaconcha.in/blocks)。
           </Tab>
 
         </Tabs>
@@ -563,28 +563,28 @@ Choose which mode you selected earlier from the tabs below:
   </Tabs>
 </div>
 
-#### Beacon Chain Checkpoint Syncing
+#### 信标链检查点同步
 
-**Checkpoint syncing** is a very useful technique that some Beacon Chain clients support.
-It allows your Beacon client to instantly sync the entire Beacon chain without having to start from the beginning and catch up on every block.
-This means instead of taking **days**, your Beacon client can be ready in a matter of **minutes**.
-All it needs is access to an existing Beacon client that you trust.
+**检查点同步**是某些信标链客户端支持的非常有用的技术。
+它允许您的信标客户端即时同步整个信标链,而无需从头开始并赶上每个区块。
+这意味着您的信标客户端可以在几**分钟**内准备就绪,而不是需要**数天**。
+它所需要的只是访问您信任的现有信标客户端。
 
-You can use any Beacon node that provides access to its HTTP API.
-Currently, many node operators are using the checkpoint-sync-endpoints - a service that allows Rocket Pool node operators to checkpoint sync easily.
-Both the Hoodi Testnet and Mainnet are supported.
-A list of checkpoint sync urls can be found via the following link:
+您可以使用任何提供对其 HTTP API 访问的信标节点。
+目前,许多节点运营者正在使用 checkpoint-sync-endpoints - 一项允许 Rocket Pool 节点运营者轻松进行检查点同步的服务。
+支持 Hoodi 测试网和主网。
+可以通过以下链接找到检查点同步 URL 列表:
 
-- [Checkpoint Sync Urls](https://eth-clients.github.io/checkpoint-sync-endpoints/)
+- [检查点同步 URL](https://eth-clients.github.io/checkpoint-sync-endpoints/)
 
-Choose a relevant checkpoint sync url and paste in the terminal during `rocketpool service config` when it prompts you for a Checkpoint Sync Provider.
+选择相关的检查点同步 URL,并在 `rocketpool service config` 期间提示您输入检查点同步提供商时粘贴到终端中。
 
-After that, your Beacon node will automatically connect to the checkpoint sync node when it first starts up and instantly pull down the latest state of the chain!
+之后,您的信标节点将在首次启动时自动连接到检查点同步节点并立即拉取链的最新状态!
 
-::: warning NOTE
-Checkpoint Sync will only occur if you _don't have any Beacon Chain data yet_.
-In other words, if you start syncing normally and decide to checkpoint sync later, you will have to remove your chain data first in order for checkpoint sync to work.
-This can easily be done with the following command:
+::: warning 注意
+检查点同步仅在您_还没有任何信标链数据_时才会发生。
+换句话说,如果您开始正常同步并决定稍后进行检查点同步,您将必须首先删除链数据才能使检查点同步工作。
+这可以通过以下命令轻松完成:
 
 ```shell
 rocketpool service resync-eth2
@@ -592,164 +592,164 @@ rocketpool service resync-eth2
 
 :::
 
-### Fallback Node
+### 回退节点
 
-Starting with 1.5.0 of the Smartnode stack, you can provide a "fallback" Execution client and Consensus client pair that can take over for your primary clients if they ever go offline (such as because you use Geth and need to prune it).
-In this situation, your primary node machine will still be responsible for attesting and proposing blocks with your minipools' validator keys, but it will connect to an external machine to interact with the Execution layer and Beacon chains.
+从 Smartnode 堆栈 1.5.0 开始,您可以提供"回退"执行客户端和共识客户端对,如果您的主客户端离线(例如因为您使用 Geth 并需要修剪它),它们可以接管。
+在这种情况下,您的主节点机器仍将负责使用 minipool 的验证者密钥进行证明和提议区块,但它将连接到外部机器以与执行层和信标链交互。
 
-[To learn more about fall back nodes, see this section](./fallback) and return here when you're done.
+[要了解有关回退节点的更多信息,请参阅本节](./fallback),完成后返回此处。
 
-### Metrics Configuration
+### 指标配置
 
-Rocket Pool comes with the ability to display a detailed dashboard showing metrics about your node's hardware health, system updates, your validator performance, your rewards, information about the overall Rocket Pool network, and more:
+Rocket Pool 能够显示详细的仪表板,显示有关节点硬件健康状况、系统更新、验证者性能、奖励、整体 Rocket Pool 网络信息等的指标:
 
 <img src="./images/nimbus-dashboard.png" width="100%" height="auto" />
 
-The next question in the Wizard will ask you if you want to enable this:
+向导中的下一个问题将询问您是否要启用它:
 
 <img src="./images/tui-metrics.png" width="100%" height="auto" />
 
-If you choose to enable it, you will learn more about setting it up and how to use it in the [Setting up the Grafana Dashboard](./grafana) section later in the process.
+如果您选择启用它,您将在稍后的过程中在[设置 Grafana 仪表板](./grafana)部分了解有关设置和使用它的更多信息。
 
-::: warning NOTE
-All of the data collected by this system **stays on your machine**.
-Rocket Pool does not collect any of the telemetry or send it to a separate service.
-It's purely there for you to use so you can monitor your own node!
+::: warning 注意
+此系统收集的所有数据**都保留在您的机器上**。
+Rocket Pool 不收集任何遥测数据或将其发送到单独的服务。
+它纯粹是为您提供的,以便您可以监控自己的节点!
 :::
 
-### MEV Configuration
+### MEV 配置
 
-Since the Merge of the Execution and Consensus layers in September 2022, Ethereum validators now have the ability to earn priority fees and participate in Maximal Extractable Value (or MEV for short).
+自 2022 年 9 月执行层和共识层合并以来,Ethereum 验证者现在能够赚取优先费并参与最大可提取价值(简称 MEV)。
 
-Starting with Smartnode v1.7.0, MEV is now _opt-out_ so its configuration is presented as part of the initial setup, as you see in the next screen:
+从 Smartnode v1.7.0 开始,MEV 现在是_选择退出_,因此其配置作为初始设置的一部分呈现,如您在下一个屏幕中看到的:
 
 <img src="./images/tui-mev-mode.png" width="100%" height="auto" />
 
-[Please read our MEV guide to learn more about MEV, its configuration, and what to do in this section of the wizard.](./mev)
-Return here when you're finished.
+[请阅读我们的 MEV 指南以了解有关 MEV、其配置以及在向导的本节中要做什么的更多信息。](./mev)
+完成后返回此处。
 
-### Completion
+### 完成
 
-After this question, you've finished setting up the Smartnode!
-You will see the following dialog:
+在回答这个问题之后,您已经完成了 Smartnode 的设置!
+您将看到以下对话框:
 
 <img src="./images/tui-finished.png" width="100%" height="auto" />
 
-If you're happy with your setup and are ready to start the Smartnode, click `Save and Exit` here and go to the [Securing your Node](./securing-your-node) section next.
+如果您对设置感到满意并准备启动 Smartnode,请单击 `Save and Exit`,然后转到[保护您的节点](./securing-your-node)部分。
 
-If you would like to review all of the settings and customize many additional settings that weren't included in the Wizard, click `Review All Settings` and go to the [next section](#configuring-via-the-settings-manager).
+如果您想查看所有设置并自定义向导中未包含的许多其他设置,请单击 `Review All Settings` 并转到[下一节](#通过设置管理器配置)。
 
-## Configuring via the Settings Manager
+## 通过设置管理器配置
 
-If you've already run `rocketpool service config`, instead of being greeted by the Wizard, you will see the **Settings Manager** screen:
+如果您已经运行过 `rocketpool service config`,您将看到**设置管理器**屏幕,而不是向导:
 
 <img src="./images/tui-settings-manager.png" width="100%" height="auto" />
 
-There are three main features of this screen:
+此屏幕有三个主要功能:
 
-1. The **Category List**, which lets you drill down into the settings for each category of the Smartnode stack
-2. The **Review Changes and Save** button, which you can use when you're ready to see what settings you've changed and save the updated configuration
-3. The **Open the Config Wizard** button, which will bring you to the [Setup Wizard](#configuring-the-smartnode-stack-via-the-wizard) if you prefer that interface instead
+1. **类别列表**,让您深入了解 Smartnode 堆栈每个类别的设置
+2. **审查更改并保存**按钮,当您准备好查看已更改的设置并保存更新的配置时可以使用
+3. **打开配置向导**按钮,如果您更喜欢该界面,它将带您进入[设置向导](#通过向导配置)
 
-::: tip TIP
-To use the Settings Manager, **press the `Arrow Keys` (up/down/left/right) to navigate between options in the home page**.
+::: tip 提示
+要使用设置管理器,**按`箭头键`(上/下/左/右)在主页中的选项之间导航**。
 
-Press `Tab` to go **between the category list (1) and the buttons (2 and 3)** at the bottom of the screen.
-The button that's currently selected will be **highlighted in green**.
+按 `Tab` 在屏幕底部的**类别列表 (1) 和按钮 (2 和 3) 之间**切换。
+当前选中的按钮将**以绿色突出显示**。
 
-**Press `Enter` or `Space` to select a button**, analogous to clicking on it with the mouse.
+**按 `Enter` 或 `Space` 选择按钮**,类似于用鼠标点击它。
 
-**Hold `Ctrl` and press `C` at any time to exit the Settings Manager without saving anything**.
+**随时按住 `Ctrl` 并按 `C` 退出设置管理器而不保存任何内容**。
 :::
 
-As you scroll through the categories list, each option will have a helpful description appear in the **Description Box** to the right of the screen.
-Feel free to explore them; nothing you do will be saved until you go through the Review dialog via the **Review Changes and Save** button, and you can press **Ctrl+C** at any time to exit without saving, so you won't accidentally mess something up by playing with the settings here.
+当您滚动浏览类别列表时,每个选项都会在屏幕右侧的**描述框**中显示有用的描述。
+随意探索;在您通过**审查更改并保存**按钮进入审查对话框之前,不会保存任何内容,并且您可以随时按 **Ctrl+C** 退出而不保存,因此您不会意外弄乱设置。
 
-### Configuring the Settings
+### 配置设置
 
-From the home screen, select any one of the categories with the `Enter` key to view the settings for that category.
-For example, here is the screen for the **Smartnode and TX Fees** category:
+从主屏幕,使用 `Enter` 键选择任何一个类别以查看该类别的设置。
+例如,这是 **Smartnode and TX Fees** 类别的屏幕:
 
 <img src="./images/tui-smartnode.png" width="100%" height="auto" />
 
-Use the `Arrow Keys` to move up and down between the settings.
-The currently selected one will have a white square at the end of it (if it's a text box or a check box), or will be highlighted in white (if it's a drop down).
+使用 `箭头键` 在设置之间上下移动。
+当前选中的设置末尾将有一个白色方块(如果是文本框或复选框),或将以白色突出显示(如果是下拉菜单)。
 
-Press `Escape` to go back to the home screen of the Settings Manager when you're done.
+完成后按 `Escape` 返回设置管理器的主屏幕。
 
-As you scroll through the settings, each one will show a brief description of what it does in the **Description Box** on the right.
-It will also show the **default value** there in case you want to revert it to its stock setting.
+当您滚动浏览设置时,每个设置都会在右侧的**描述框**中显示其功能的简要描述。
+它还会在那里显示**默认值**,以防您想将其恢复为默认设置。
 
-In this example, the **RPL Claim Gas Threshold** setting is currently selected (highlighted with a green box on the left-hand side of the screen).
-It has been changed to `40`, but you can see that it has a default of `150` in the top-right corner (the top of the **Description Box**).
+在此示例中,**RPL Claim Gas Threshold** 设置当前被选中(在屏幕左侧用绿色框突出显示)。
+它已更改为 `40`,但您可以在右上角(**描述框**顶部)看到它的默认值为 `150`。
 
-::: tip TIP
-As a reminder, nothing will be saved to disk until you go through the Review dialog via the **Review Changes and Save** button.
-You are encouraged to explore all of the settings to learn about them and see what your Smartnode can do!
+::: tip 提示
+提醒一下,在您通过**审查更改并保存**按钮进入审查对话框之前,不会将任何内容保存到磁盘。
+我们鼓励您探索所有设置以了解它们并查看您的 Smartnode 可以做什么!
 :::
 
-### The Setting Types and How to Use Them
+### 设置类型及其使用方法
 
-The settings manager uses the following setting types and UI elements:
+设置管理器使用以下设置类型和 UI 元素:
 
-#### Text Boxes
+#### 文本框
 
-Text boxes are used to enter arbitrary strings of text or numbers.
-They look like this:
+文本框用于输入任意文本字符串或数字。
+它们看起来像这样:
 
 <img src="./images/tui-textbox.png" width="100%" height="auto" />
 
-Enter your desired values into them, then **press `Enter` or use the `Arrow Keys` to navigate to a different setting in order to preserve your changes.**
-If you don't, the Settings Manager will assume you're still updating that setting and won't mark it as changed yet.
+在其中输入所需的值,然后**按 `Enter` 或使用 `箭头键` 导航到不同的设置以保留您的更改。**
+如果不这样做,设置管理器将假定您仍在更新该设置,并且不会将其标记为已更改。
 
-#### Drop Downs
+#### 下拉菜单
 
-Drop downs are used to select an option from a list of choices.
-They look like this (when they're open):
+下拉菜单用于从选项列表中选择一个选项。
+它们看起来像这样(打开时):
 
 <img src="./images/tui-dropdown-open.png" width="100%" height="auto" />
 
-The **green** item is the one that is currently selected.
-Use the `Arrow Keys` to change options - as you do, the **Description Box** on the right will update to tell you more about the currently selected option.
-When you're happy with your choice, press `Enter` to choose the selected option and the drop down will close, revealing the option that is currently selected:
+**绿色**项目是当前选中的项目。
+使用 `箭头键` 更改选项 - 当您这样做时,右侧的**描述框**将更新以告诉您有关当前选定选项的更多信息。
+当您对选择感到满意时,按 `Enter` 选择所选选项,下拉菜单将关闭,显示当前选中的选项:
 
 <img src="./images/tui-dropdown-closed.png" width="100%" height="auto" />
 
-#### Check Boxes
+#### 复选框
 
-Check boxes are used for simple Yes/No questions.
-They look like this:
+复选框用于简单的是/否问题。
+它们看起来像这样:
 
 <img src="./images/tui-checkbox-checked.png" width="100%" height="auto" />
 
-When they are checked, they will have an `X` in the middle as you see above.
-When they are _unchecked_, they will simply be blank like this:
+当它们被选中时,中间会有一个 `X`,如上所示。
+当它们_未选中_时,它们将简单地是空白的,如下所示:
 
 <img src="./images/tui-checkbox-unchecked.png" width="100%" height="auto" />
 
-To change the setting, simply select it and press `Enter`.
+要更改设置,只需选择它并按 `Enter`。
 
-### Saving Changes
+### 保存更改
 
-When you're happy with your changes and you'd like to review them before saving, press the **Review Changes and Save** button on the home screen.
-As a reminder, to get to it, press the `Tab` key.
+当您对更改感到满意并想在保存之前查看它们时,请按主屏幕上的**审查更改并保存**按钮。
+提醒一下,要到达它,请按 `Tab` 键。
 
-You will be presented with a view that looks like this:
+您将看到如下所示的视图:
 
 <img src="./images/tui-review.png" width="100%" height="auto" />
 
-The **Review Box** here will present all of the settings you've changed, showing the old values and the new ones.
-For example, the first line here shows that the **RPL Claim Gas Threshold** used to be `150`, and it's been changed to `40`.
+这里的**审查框**将显示您已更改的所有设置,显示旧值和新值。
+例如,这里的第一行显示 **RPL Claim Gas Threshold** 过去是 `150`,已更改为 `40`。
 
-It will also show you which containers are affected by the settings you've modified and will offer to restart them for you after you've saved your changes.
+它还会显示哪些容器受您修改的设置影响,并会在您保存更改后为您重启它们。
 
-::: tip NOTE
-At this point, your changes **still haven't been saved yet**.
-If you want to go back and modify something, press `Escape` to return to the home screen.
+::: tip 注意
+此时,您的更改**仍未保存**。
+如果您想返回并修改某些内容,请按 `Escape` 返回主屏幕。
 :::
 
-When you are satisfied with the changes, press `Enter` to save the new configuration to disk.
-You will then exit the Terminal UI and be presented with something like this message:
+当您对更改感到满意时,按 `Enter` 将新配置保存到磁盘。
+然后,您将退出终端界面并看到如下消息:
 
 ```
 Your changes have been saved!
@@ -761,33 +761,33 @@ The following containers must be restarted for the changes to take effect:
 Would you like to restart them automatically now? [y/n]
 ```
 
-Press `y` and `Enter` if you want to automatically apply your new configuration changes and restart the affected containers.
+如果您想自动应用新配置更改并重启受影响的容器,请按 `y` 和 `Enter`。
 
-Press `n` and `Enter` if you have other things you want to do before restarting them, and will do it manually later.
+如果您还有其他事情要做,稍后再手动重启它们,请按 `n` 和 `Enter`。
 
-In either case, your configuration is done!
+无论哪种情况,您的配置都已完成!
 
-::: tip NOTE
-You may see an error message like the one below:
+::: tip 注意
+您可能会看到如下错误消息:
 
 ```
 2022/08/13 13:49:41 Error piping stdout: read |0: file already closed
 ```
 
-This is not actually an error, it's simply a cosmetic glitch.
-You can safely ignore it.
+这实际上不是错误,只是一个外观上的小问题。
+您可以安全地忽略它。
 :::
 
-::: tip NOTE
-If you are running Mac OS, you may see an issue complaining about node_exporter.
-You will need to run these commands to fix.
+::: tip 注意
+如果您运行的是 Mac OS,您可能会看到关于 node_exporter 的问题。
+您需要运行这些命令来修复。
 
 ```shell
 rocketpool service stop
 nano ~/.rocketpool/override/exporter.yml
 ```
 
-Replace the entire contents of the file with:
+将文件的全部内容替换为:
 
 ```
 # Enter your own customizations for the node exporter container here. These changes will persist after upgrades, so you only need to do them once.
@@ -802,21 +802,21 @@ services:
     volumes:   ["/proc:/host/proc:ro","/sys:/host/sys:ro"]
 ```
 
-then finally `rocketpool service start`.
+最后运行 `rocketpool service start`。
 :::
 
-## Configuring via the Command Line
+## 通过命令行配置
 
-If you use the Smartnode in a headless environment where you can't interact with the Terminal UI, you can configure your node via the command line instead.
+如果您在无法与终端界面交互的无头环境中使用 Smartnode,则可以通过命令行配置节点。
 
-The `rocketpool service config` command accepts, as arguments, every setting that can normally be configured via the Terminal UI.
-Run the following command to see a list of them (note that it's quite long):
+`rocketpool service config` 命令接受作为参数的每个通常可以通过终端界面配置的设置。
+运行以下命令以查看它们的列表(请注意,它非常长):
 
 ```shell
 rocketpool service config --help
 ```
 
-The output will look like this:
+输出将如下所示:
 
 ```
 NAME:
@@ -840,15 +840,15 @@ OPTIONS:
 ...
 ```
 
-Each option will have its name, its type, its default value, and (if it's a choice parameter) its options.
-Using this text, you can find the option(s) you want to set and specify them via the appropriate arguments.
+每个选项都将有其名称、类型、默认值以及(如果是选择参数)其选项。
+使用此文本,您可以找到要设置的选项并通过适当的参数指定它们。
 
-::: tip NOTE
-This command builds on top of your existing configuration, so if you have some settings already saved and just want to modify others, you don't need to repeat them.
-It will only update settings that you include as arguments to this command.
+::: tip 注意
+此命令基于您现有的配置构建,因此如果您已经保存了一些设置并且只想修改其他设置,则不需要重复它们。
+它只会更新您作为此命令参数包含的设置。
 :::
 
-## Next Steps
+## 下一步
 
-Once you've configured your node just the way you want it, you're ready to secure your operating system to protect your node.
-Move on to the [Securing your Node](./securing-your-node) section next.
+一旦您按照自己的方式配置了节点,就可以保护操作系统以保护节点了。
+接下来转到[保护您的节点](./securing-your-node)部分。

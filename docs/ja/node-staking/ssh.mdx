@@ -1,126 +1,105 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 import powershell from "./images/powershell.png";
 
-# Intro to Secure Shell (SSH)
+# Secure Shell (SSH) 入門
 
-In general, there are two ways to access your node machine: **locally**, and **remotely**.
+一般的に、ノードマシンにアクセスする方法には、**ローカル**と**リモート**の2つがあります。
 
-- **Locally** refers to sitting down at the physical node and using a monitor and keyboard connected directly to it.
-- **Remotely** refers to connecting to the node using a different computer (say, a laptop or desktop) over a network and interacting with it from there.
+- **ローカル**とは、物理的なノードの前に座り、直接接続されたモニターとキーボードを使用することを指します。
+- **リモート**とは、別のコンピューター（例えばノートパソコンやデスクトップ）を使用してネットワーク経由でノードに接続し、そこから操作することを指します。
 
-Most of the time, node operators prefer the flexibility of working on their node **remotely**.
+ほとんどの場合、ノードオペレーターは**リモート**でノードを操作する柔軟性を好みます。
 
-The Smartnode currently doesn't have a GUI (Graphical User Interface), only a CLI (Command Line Interface), which means interacting with it is done entirely by typing commands into a command-line terminal.
-As such, interacting with it remotely requires some way to access your node's terminal from a different machine.
-In this section, we'll provide a brief introduction to the most popular way of doing this: **SSH**.
+Smartnodeには現在GUI（グラフィカルユーザーインターフェース）がなく、CLI（コマンドラインインターフェース）のみであるため、操作は完全にコマンドラインターミナルにコマンドを入力することによって行われます。
+そのため、リモートで操作するには、別のマシンからノードのターミナルにアクセスする方法が必要です。
+このセクションでは、最も一般的な方法である**SSH**について簡単に紹介します。
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Using a Windows Machine">
-      There are a few different ways to use SSH from a Windows machine.
+    <Tab label="Windowsマシンを使用する場合">
+      Windowsマシンから SSH を使用するにはいくつかの方法があります。
 
-      The simplest is to use **Powershell**, which is a powerful command terminal that comes built into modern versions of
-      Windows.
-      Powershell has SSH included, so you can use it right away without installing any supplemental programs.
+      最も簡単な方法は、最新バージョンの Windows に組み込まれている強力なコマンドターミナルである **Powershell** を使用することです。
+      Powershell には SSH が含まれているため、追加のプログラムをインストールすることなくすぐに使用できます。
 
-      You can find it by opening the Start menu and typing `Powershell` into the search bar; there will be several
-      options, but option you want is simply called `Windows Powershell`:
+      スタートメニューを開いて検索バーに `Powershell` と入力すると見つかります。いくつかのオプションが表示されますが、必要なのは単に `Windows Powershell` と呼ばれるオプションです。
 
       <img src={powershell} width="100%" height="auto" />
 
-      This will open up a terminal with a blue background.
-      You can use `ssh` from here - see below for instructions on how to do that.
+      これにより、青い背景のターミナルが開きます。
+      ここから `ssh` を使用できます - 使用方法については以下を参照してください。
 
-      Another popular tool is called [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html).
-      PuTTY is a special program that includes a terminal dedicated for SSH usage, but it also comes with a convenient GUI
-      for doing things like changing configurations, saving settings to a "profile", and keeping a list of machines you
-      can easily connect to by selecting from a list.
+      もう1つの人気のあるツールは [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) と呼ばれるものです。
+      PuTTY は SSH 専用のターミナルを含む特別なプログラムですが、設定の変更、設定を「プロファイル」に保存、リストから選択して簡単に接続できるマシンのリストを保持するための便利な GUI も付属しています。
 
-      Instead of using `ssh` as you would with the other tools, PuTTY will do this for you automatically - all you need to
-      provide are the username and password.
-      For information on how to use PuTTY, take a look at [this great
-      tutorial](https://tonyteaches.tech/putty-ssh-windows-tutorial/).
+      他のツールのように `ssh` を使用する代わりに、PuTTY はこれを自動的に行います - 必要なのはユーザー名とパスワードを提供するだけです。
+      PuTTY の使用方法については、[この優れたチュートリアル](https://tonyteaches.tech/putty-ssh-windows-tutorial/)をご覧ください。
 
       <p className="rspress-directive warning">
-        **NOTE**: PuTTY might display the wrong colors in the `rocketpool service
-        config` text-based user interface (TUI).
-        There's an easy solution for this. In the PuTTY
-        settings, navigate to **Connection** > **Data** > **Terminal Details**
-        in the dropdown menu. There should be a **Terminal-type string** text box. Type in `xterm-256color`, then save
-        the settings
-        to resolve this.
+        **注意**: PuTTY は `rocketpool service config` テキストベースのユーザーインターフェース（TUI）で誤った色を表示する可能性があります。
+        これには簡単な解決策があります。PuTTY の設定で、ドロップダウンメニューの **Connection** > **Data** > **Terminal Details** に移動してください。**Terminal-type string** テキストボックスがあるはずです。`xterm-256color` と入力し、設定を保存するとこの問題が解決されます。
       </p>
 
     </Tab>
-    <Tab label="Using a Linux or macOS Machine">
-      Using SSH from a Linux or macOS machine is trivial; if you're already using one of these, then you've likely already
-      interacted with the terminal at some point.
-      SSH is built directly into the terminal; use it by running the `ssh` command. By default, SSH will allow you to
-      connect to your node's primary user account.
+    <Tab label="LinuxまたはmacOSマシンを使用する場合">
+      Linux または macOS マシンから SSH を使用するのは簡単です。これらのいずれかを既に使用している場合、おそらくターミナルと対話したことがあるでしょう。
+      SSH はターミナルに直接組み込まれています。`ssh` コマンドを実行して使用します。デフォルトでは、SSH を使用してノードのプライマリユーザーアカウントに接続できます。
     </Tab>
 
   </Tabs>
 </div>
 
-Here's how you would connect to your node using SSH.
+以下は、SSH を使用してノードに接続する方法です。
 
-:::warning NOTE
-Run the following command from your laptop or desktop, **not from your node itself**!
+:::warning 注意
+次のコマンドは、ノード自体からではなく、**ラップトップまたはデスクトップから実行してください**！
 :::
 
 ```shell
 ssh username@node-ip-address
 ```
 
-Say, for example, that your node's username is `staker` and your node's IP address is `192.168.1.10`.
-You would connect to it with the following command:
+たとえば、ノードのユーザー名が `staker` で、ノードの IP アドレスが `192.168.1.10` の場合、次のコマンドで接続します。
 
 ```shell
 ssh staker@192.168.1.10
 ```
 
-The first time you do this, you will see a message presenting the public key that your node is using - if you are
-familiar with how to verify this key, you can do so now.
-Otherwise, if you trust that you have the correct node IP address in your `ssh` command, you can just say `yes` to
-accept it.
-You only need to do this once.
+初めてこれを行うと、ノードが使用している公開鍵を提示するメッセージが表示されます - この鍵を検証する方法に精通している場合は、今すぐ検証できます。
+それ以外の場合、`ssh` コマンドに正しいノード IP アドレスがあると信頼できる場合は、`yes` と答えて受け入れることができます。
+これは一度だけ行う必要があります。
 
-The client will then prompt you for your user's password; once you enter that, you're in!
-You will be greeted with a welcome message, some details about your machine, and a new prompt.
+クライアントはユーザーのパスワードを要求します。それを入力すると、接続完了です！
+ウェルカムメッセージ、マシンに関する詳細、および新しいプロンプトが表示されます。
 
-At this point, everything you type in the terminal **is executed remotely on your node machine** - it's as if you
-were logged directly into the node machine and typing on it with a locally-attached keyboard!
+この時点で、ターミナルに入力したものはすべて**ノードマシン上でリモート実行されます** - まるでノードマシンに直接ログインして、ローカルに接続されたキーボードで入力しているかのようです！
 
-You'll need to SSH into the terminal periodically for updates and maintenance.
-It can be inconvenient to remember how to log in to your node, so it may be helpful to shorten this command by
-creating a memorable alias - a custom "shortcut" command.
+更新やメンテナンスのために定期的にターミナルに SSH 接続する必要があります。
+ノードへのログイン方法を覚えておくのは不便な場合があるため、記憶に残るエイリアス - カスタムの「ショートカット」コマンドを作成すると便利です。
 
-:::warning NOTE
-If you do this, be sure to create the alias on the **client machine**, **not** on the node!
-If your terminal is still connected to the node, first run `exit` at the command prompt (or simply open a new
-terminal window).
+:::warning 注意
+これを行う場合は、ノードではなく**クライアントマシン**にエイリアスを作成してください！
+ターミナルがまだノードに接続されている場合は、まずコマンドプロンプトで `exit` を実行するか、単に新しいターミナルウィンドウを開いてください。
 :::
 
-:::warning NOTE
-This section only applies to Linux/OSX or WSL users - PowerShell is not supported.
+:::warning 注意
+このセクションは Linux/OSX または WSL ユーザーのみに適用されます - PowerShell はサポートされていません。
 :::
 
-In this example, we'll create an alias called `ethnode` which will replace the SSH command.
-Assuming, as before, that your node's username is `staker` and your node's IP address is `192.168.1.10`, create the
-alias with the following command:
+この例では、SSH コマンドを置き換える `ethnode` という名前のエイリアスを作成します。
+前述のように、ノードのユーザー名が `staker` で、ノードの IP アドレスが `192.168.1.10` であると仮定すると、次のコマンドでエイリアスを作成します。
 
 ```shell
 echo "alias ethnode='ssh staker@192.168.1.10'" >> ~/.bash_aliases
 ```
 
-Reload the alias list to make your current terminal window aware of the new alias:
+エイリアスリストをリロードして、現在のターミナルウィンドウが新しいエイリアスを認識するようにします。
 
 ```shell
 source ~/.bash_aliases
 ```
 
-Now, you can connect to the node using the alias you just created instead of the longer command that involves
-specifying the node's IP address:
+これで、ノードの IP アドレスを指定する長いコマンドの代わりに、作成したエイリアスを使用してノードに接続できます。
 
 ```shell
 ethnode

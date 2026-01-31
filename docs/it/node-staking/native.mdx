@@ -1,87 +1,87 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Creating a Native Rocket Pool Node without Docker
+# Creazione di un Nodo Rocket Pool Nativo senza Docker
 
-::: tip NOTE
-This guide is designed for **Smartnode v1.6.5 and higher**.
+::: tip NOTA
+Questa guida è progettata per **Smartnode v1.6.5 e superiori**.
 
-If you are using a previous version, you must upgrade to v1.6.5 or higher before configuring Native mode.
+Se stai utilizzando una versione precedente, devi aggiornare alla v1.6.5 o superiore prima di configurare la modalità Nativa.
 :::
 
-In this section, we will walk through the process of installing the Rocket Pool Smartnode stack natively onto your system, without the use of Docker containers.
+In questa sezione, illustreremo il processo di installazione dello stack Smartnode di Rocket Pool nativamente sul tuo sistema, senza l'uso di container Docker.
 
-The general plan is as follows:
+Il piano generale è il seguente:
 
-1. Create a standard solo-staking setup with `systemd` services for the Execution Client, the Consensus Client / Beacon Node, and the Validator Client
-2. Create system services for the Rocket Pool components (the **node** and **watchtower** processes)
-3. Configure Rocket Pool to communicate with your client services
-4. Update your Validator Client service definition to use Rocket Pool's fee recipient and validator keys
+1. Creare una configurazione standard di solo-staking con servizi `systemd` per l'Execution Client, il Consensus Client / Beacon Node e il Validator Client
+2. Creare servizi di sistema per i componenti di Rocket Pool (i processi **node** e **watchtower**)
+3. Configurare Rocket Pool per comunicare con i tuoi servizi client
+4. Aggiornare la definizione del servizio Validator Client per utilizzare il fee recipient e le chiavi di validazione di Rocket Pool
 
-This is a fairly involved setup so it will take some time to complete.
+Questa è una configurazione piuttosto complessa, quindi richiederà del tempo per essere completata.
 
-The diversity of Operating Systems and distros available make it impractical to make guides available for all of them.
-The instructions in this guide are tailored to a Debian-based system (including Ubuntu).
-For other distros or operating systems, you may follow the high-level steps described in the guide but will have to substitute certain commands for the ones that your system uses as appropriate.
+La diversità dei Sistemi Operativi e delle distro disponibili rende impraticabile fornire guide per tutti.
+Le istruzioni in questa guida sono adattate a un sistema basato su Debian (incluso Ubuntu).
+Per altre distro o sistemi operativi, puoi seguire i passaggi di alto livello descritti nella guida ma dovrai sostituire alcuni comandi con quelli utilizzati dal tuo sistema, se necessario.
 
 ::: danger
-This guide is intended for users that are experienced with Linux system administration and usage.
-This includes using the terminal, creating system accounts, managing permissions, and installing services.
-We assume you are familiar with these activities - as you will be managing the bulk of the infrastructure yourself, we only provide limited support for Native installations.
-**If you are not familiar with these activities, we do not recommend that you use Native Mode.**
+Questa guida è destinata a utenti esperti nell'amministrazione e nell'uso di sistemi Linux.
+Ciò include l'uso del terminale, la creazione di account di sistema, la gestione dei permessi e l'installazione di servizi.
+Assumiamo che tu sia familiare con queste attività - poiché gestirai la maggior parte dell'infrastruttura da solo, forniamo solo supporto limitato per le installazioni Native.
+**Se non sei familiare con queste attività, non ti consigliamo di utilizzare la Modalità Nativa.**
 :::
 
-## Step 1: Set up the Execution and Consensus Clients
+## Passo 1: Configurare l'Execution e il Consensus Client
 
-Native Mode effectively extends a standard solo-staking setup, and simply allows the Smartnode software to attach to the clients that it already runs (with a few small modifications).
+La Modalità Nativa estende efficacemente una configurazione standard di solo-staking, e consente semplicemente al software Smartnode di collegarsi ai client che già esegue (con alcune piccole modifiche).
 
-To that end, we recommend you start by following some of the conventional solo staking guides provided by the community:
+A tal fine, ti consigliamo di iniziare seguendo alcune delle guide convenzionali di solo staking fornite dalla community:
 
-- Somer Esat's set of guides per-client: [https://github.com/SomerEsat/ethereum-staking-guides](https://github.com/SomerEsat/ethereum-staking-guides)
-- CoinCashew guides: [https://www.coincashew.com/coins/overview-eth/guide-or-how-to-setup-a-validator-on-eth2-mainnet](https://www.coincashew.com/coins/overview-eth/guide-or-how-to-setup-a-validator-on-eth2-mainnet)
+- Set di guide per client di Somer Esat: [https://github.com/SomerEsat/ethereum-staking-guides](https://github.com/SomerEsat/ethereum-staking-guides)
+- Guide CoinCashew: [https://www.coincashew.com/coins/overview-eth/guide-or-how-to-setup-a-validator-on-eth2-mainnet](https://www.coincashew.com/coins/overview-eth/guide-or-how-to-setup-a-validator-on-eth2-mainnet)
 
-Note that **you won't actually create a validator as defined in those guides** - Rocket Pool will do that for you.
-**You can ignore the portions involving the Staking Deposit CLI tool.**
+Nota che **non creerai effettivamente un validatore come definito in quelle guide** - Rocket Pool lo farà per te.
+**Puoi ignorare le porzioni che coinvolgono lo strumento Staking Deposit CLI.**
 
-You simply need to follow the guides to the point where you have an Execution Client service, a Consensus Client / Beacon Node service, and a Validator Client service all installed and syncing the chain.
-**Skip the steps that involve funding a validator and recording its mnemonic.**
+Devi semplicemente seguire le guide fino al punto in cui hai un servizio Execution Client, un servizio Consensus Client / Beacon Node e un servizio Validator Client tutti installati e sincronizzati con la chain.
+**Salta i passaggi che comportano il finanziamento di un validatore e la registrazione del suo mnemonico.**
 
-Also, there is a special case for the **fee recipient** - when you get to the portion of the guide where you specify the fee recipient in your Validator Client configuration, **leave it blank for now**.
-We will describe how to set it up for Rocket Pool validators below.
+Inoltre, c'è un caso speciale per il **fee recipient** - quando arrivi alla porzione della guida in cui specifichi il fee recipient nella configurazione del tuo Validator Client, **lascialo vuoto per ora**.
+Descriveremo come configurarlo per i validatori Rocket Pool di seguito.
 
-Once your clients are installed and you can see in their logs that they are syncing the chains properly, you can follow the next steps to set up the Rocket Pool Smartnode and connect it to your clients.
+Una volta che i tuoi client sono installati e puoi vedere nei loro log che stanno sincronizzando correttamente le chain, puoi seguire i passaggi successivi per configurare lo Smartnode di Rocket Pool e collegarlo ai tuoi client.
 
-## Step 2: Install Rocket Pool
+## Passo 2: Installare Rocket Pool
 
-### Creating the Service Account
+### Creazione dell'Account di Servizio
 
-The first step is to create a new system account for the Rocket Pool services and disable login and shell access for it:
+Il primo passo è creare un nuovo account di sistema per i servizi Rocket Pool e disabilitare l'accesso login e shell per esso:
 
 ```shell
 sudo useradd -r -s /sbin/nologin rp
 ```
 
-Now, add yourself to the `rp` group.
-You'll need to do this in order to use the Rocket Pool CLI, because it and the Rocket Pool daemon both need to access the Execution layer wallet file.
+Ora, aggiungiti al gruppo `rp`.
+Dovrai farlo per poter utilizzare la CLI di Rocket Pool, perché sia essa che il daemon di Rocket Pool devono accedere al file del wallet dell'Execution layer.
 
 ```shell
 sudo usermod -aG rp $USER
 ```
 
-Finally, add the user account for your **Validator Client** to the `rp` group as well.
-The name of that user account depends on which guide you followed to set up your VC service.
+Infine, aggiungi l'account utente per il tuo **Validator Client** al gruppo `rp`.
+Il nome di quell'account utente dipende da quale guida hai seguito per configurare il tuo servizio VC.
 
-For example, if your VC runs as user `lighthousevalidator`, you would do the following:
+Ad esempio, se il tuo VC viene eseguito come utente `lighthousevalidator`, faresti quanto segue:
 
 ```shell
 sudo usermod -aG rp lighthousevalidator
 ```
 
-After this, logout and back in for the changes to take effect.
+Dopo questo, disconnettiti e riconnettiti affinché le modifiche abbiano effetto.
 
-### Setting up the Binaries
+### Configurazione dei Binari
 
-Start by making a folder for Rocket Pool and a data subfolder.
-You can put this wherever you want; for this guide, I'll put it into `/srv`:
+Inizia creando una cartella per Rocket Pool e una sottocartella data.
+Puoi metterla dove vuoi; per questa guida, la metterò in `/srv`:
 
 ```shell
 sudo mkdir -p /srv/rocketpool
@@ -89,8 +89,8 @@ sudo mkdir -p /srv/rocketpool
 sudo chown $USER:$USER /srv/rocketpool
 ```
 
-Now, download the CLI and daemon binaries (or ignore this and build them from source if you prefer).
-Choose the platform that your system uses from the tabs below.
+Ora, scarica i binari CLI e daemon (o ignora questo e costruiscili dal sorgente se preferisci).
+Scegli la piattaforma utilizzata dal tuo sistema dalle schede seguenti.
 
 <div className="p-3">
   <Tabs>
@@ -134,29 +134,29 @@ Choose the platform that your system uses from the tabs below.
   </Tabs>
 </div>
 
-Now, set the owner and group of the daemon to `rp`:
+Ora, imposta il proprietario e il gruppo del daemon su `rp`:
 
 ```shell
 sudo chown rp:rp /usr/local/bin/rocketpoold
 ```
 
-Finally, **set the `suid` bit** and other permissions bits on the daemon binary:
+Infine, **imposta il bit `suid`** e altri bit di permesso sul binario daemon:
 
 ```shell
 sudo chmod u+sx,g+sx,o-rwx /usr/local/bin/rocketpoold
 ```
 
-This will ensure that the daemon always runs as the `rp` user, so it always has the proper permissions set.
+Questo assicurerà che il daemon venga sempre eseguito come utente `rp`, in modo che abbia sempre i permessi appropriati impostati.
 
-::: danger NOTE
-The Smartnode will most likely fail with permissions errors if you don't do this.
-Please be sure to run this command!
+::: danger NOTA
+Lo Smartnode molto probabilmente fallirà con errori di permessi se non esegui questo comando.
+Assicurati di eseguire questo comando!
 :::
 
-### Setting up the Installation Folder
+### Configurazione della Cartella di Installazione
 
-With the CLI and Daemon installed, you'll need to next set up the folder structure and accompanying files that the Smartnode expects to exist.
-Start by creating the following folders:
+Con la CLI e il Daemon installati, dovrai configurare la struttura delle cartelle e i file associati che lo Smartnode si aspetta esistano.
+Inizia creando le seguenti cartelle:
 
 ```
 mkdir -p /srv/rocketpool/data/validators && sudo chmod 775 /srv/rocketpool/data/validators
@@ -168,7 +168,7 @@ mkdir /srv/rocketpool/data/custom-keys
 sudo chown -R rp:rp /srv/rocketpool/data
 ```
 
-Next, download the following scripts - Rocket Pool will use them when it needs to stop or restart your Validator Client to change its fee recipient (discussed later) or load new keys after you create a new minipool:
+Successivamente, scarica i seguenti script - Rocket Pool li utilizzerà quando deve fermare o riavviare il tuo Validator Client per modificare il suo fee recipient (discusso più avanti) o caricare nuove chiavi dopo aver creato un nuovo minipool:
 
 ```shell
 wget https://github.com/rocket-pool/smartnode/raw/master/shared/services/rocketpool/assets/install/scripts/restart-vc.sh -O /srv/rocketpool/restart-vc.sh
@@ -180,38 +180,38 @@ chmod +x /srv/rocketpool/restart-vc.sh
 chmod +x /srv/rocketpool/stop-validator.sh
 ```
 
-Now open `~/.profile` with your editor of choice and add this line to the end:
+Ora apri `~/.profile` con l'editor di tua scelta e aggiungi questa riga alla fine:
 
 ```shell
 alias rp="rocketpool -d /usr/local/bin/rocketpoold -c /srv/rocketpool"
 ```
 
-Save it, then reload your profile:
+Salvalo, quindi ricarica il tuo profilo:
 
 ```shell
 source ~/.profile
 ```
 
-This will let you interact with Rocket Pool's CLI with the `rp` command, which is a nice shortcut.
+Questo ti permetterà di interagire con la CLI di Rocket Pool con il comando `rp`, che è una bella scorciatoia.
 
-### Creating the Services
+### Creazione dei Servizi
 
-Next up, we'll create a `systemd` service for the Rocket Pool node daemon.
-This is the service that will automatically check for and claim RPL rewards after each checkpoint, and stake minipools once you've created them via `node deposit`.
+Successivamente, creeremo un servizio `systemd` per il daemon del nodo Rocket Pool.
+Questo è il servizio che controllerà automaticamente e rivendicherà le ricompense RPL dopo ogni checkpoint, e metterà in stake i minipool una volta creati tramite `node deposit`.
 
-We'll also create a `watchtower` service as well.
-This will be used if you're an Oracle DAO member, or if you ever want to generate your own rewards interval trees (discussed in the [Claiming Rewards](./rewards) section later on).
+Creeremo anche un servizio `watchtower`.
+Questo verrà utilizzato se sei un membro dell'Oracle DAO, o se vuoi mai generare i tuoi alberi degli intervalli di ricompensa (discusso nella sezione [Rivendicare le Ricompense](./rewards) più avanti).
 
 <div className="p-3">
   <Tabs>
     <Tab label="Node">
-      Create the `rp-node` service:
+      Crea il servizio `rp-node`:
 
       ```shell
       sudo nano /etc/systemd/system/rp-node.service
       ```
 
-      Contents:
+      Contenuto:
 
       ```
       [Unit]
@@ -229,39 +229,39 @@ This will be used if you're an Oracle DAO member, or if you ever want to generat
       WantedBy=multi-user.target
       ```
 
-      Create a log file for the service, so you can watch its output - this will replace the behavior of `rocketpool service logs node`:
+      Crea un file di log per il servizio, in modo da poter osservare il suo output - questo sostituirà il comportamento di `rocketpool service logs node`:
 
       ```
       nano /srv/rocketpool/node-log.sh
       ```
 
-      Contents:
+      Contenuto:
 
       ```
       #!/bin/bash
       journalctl -u rp-node -b -f
       ```
 
-      Save it, then make it executable:
+      Salvalo, quindi rendilo eseguibile:
 
       ```
       chmod +x /srv/rocketpool/node-log.sh
       ```
 
-      Now you can watch the node's logs by simply running:
+      Ora puoi osservare i log del nodo semplicemente eseguendo:
 
       ```shell
       sudo /srv/rocketpool/node-log.sh
       ```
     </Tab>
     <Tab label="Watchtower">
-      Create a service for the watchtower:
+      Crea un servizio per la watchtower:
 
       ```shell
       sudo nano /etc/systemd/system/rp-watchtower.service
       ```
 
-      Contents:
+      Contenuto:
 
       ```
       [Unit]
@@ -279,26 +279,26 @@ This will be used if you're an Oracle DAO member, or if you ever want to generat
       WantedBy=multi-user.target
       ```
 
-      Create a log file for the watchtower:
+      Crea un file di log per la watchtower:
 
       ```
       nano /srv/rocketpool/watchtower-log.sh
       ```
 
-      Contents:
+      Contenuto:
 
       ```
       #!/bin/bash
       journalctl -u rp-watchtower -b -f
       ```
 
-      Save it, then make it executable:
+      Salvalo, quindi rendilo eseguibile:
 
       ```
       chmod +x /srv/rocketpool/watchtower-log.sh
       ```
 
-      Now you can watch the watchtower's logs by simply running:
+      Ora puoi osservare i log della watchtower semplicemente eseguendo:
 
       ```shell
       sudo /srv/rocketpool/watchtower-log.sh
@@ -308,51 +308,51 @@ This will be used if you're an Oracle DAO member, or if you ever want to generat
   </Tabs>
 </div>
 
-The services are now installed.
+I servizi sono ora installati.
 
-### Setting up Passwordless Script Access
+### Configurazione dell'Accesso allo Script senza Password
 
-The next step is to give the `rp` user the ability to restart the Validator Client when new validator keys are created, and stop the Validator Client if an emergency condition is detected.
+Il passo successivo è dare all'utente `rp` la possibilità di riavviare il Validator Client quando vengono create nuove chiavi di validazione e fermare il Validator Client se viene rilevata una condizione di emergenza.
 
-Create a new `sudoers` file using `visudo`:
+Crea un nuovo file `sudoers` usando `visudo`:
 
 ```shell
 sudo visudo -f /etc/sudoers.d/rocketpool
 ```
 
-Add the following lines to it:
+Aggiungi le seguenti righe:
 
 ```
-Cmnd_Alias RP_RESTART = /usr/bin/systemctl restart <validator service name>
-Cmnd_Alias RP_STOP = /usr/bin/systemctl stop <validator service name>
+Cmnd_Alias RP_RESTART = /usr/bin/systemctl restart <nome servizio validatore>
+Cmnd_Alias RP_STOP = /usr/bin/systemctl stop <nome servizio validatore>
 rp    ALL=(ALL) NOPASSWD: RP_RESTART, RP_STOP
 ```
 
-Where `<validator service name>` is the name of your VC service (e.g. `lighthousevalidator`)
+Dove `<nome servizio validatore>` è il nome del tuo servizio VC (ad es. `lighthousevalidator`)
 
-Now, modify `/srv/rocketpool/restart-vc.sh`:
+Ora, modifica `/srv/rocketpool/restart-vc.sh`:
 
-- Uncomment the line at the end and change it to `sudo systemctl restart <validator service name>`
+- Decommenta la riga alla fine e cambiala in `sudo systemctl restart <nome servizio validatore>`
 
-Also modify `/srv/rocketpool/stop-validator.sh`:
+Modifica anche `/srv/rocketpool/stop-validator.sh`:
 
-- Uncomment the line at the end and change it to `sudo systemctl stop <validator service name>`
+- Decommenta la riga alla fine e cambiala in `sudo systemctl stop <nome servizio validatore>`
 
-All set!
-The `node` process can now restart or stop your VC as required automatically.
+Tutto pronto!
+Il processo `node` può ora riavviare o fermare il tuo VC automaticamente come richiesto.
 
-## Step 3: Configure the Smartnode
+## Passo 3: Configurare lo Smartnode
 
-Now that your services are all created, it's time to configure the Smartnode stack.
+Ora che tutti i tuoi servizi sono stati creati, è tempo di configurare lo stack Smartnode.
 
-Please visit the [Configuring the Smartnode Stack (Native Mode)](./config-native) guide, and return here when you are finished.
+Visita la guida [Configurazione dello Stack Smartnode (Modalità Nativa)](./config-native) e torna qui quando hai finito.
 
-### Enabling and Running the Services
+### Abilitazione e Avvio dei Servizi
 
-With all of the services installed, it's time to:
+Con tutti i servizi installati, è tempo di:
 
-- Enable them so they'll automatically restart if they break, and automatically start on a reboot
-- Start them all
+- Abilitarli in modo che si riavviino automaticamente se si interrompono e si avviino automaticamente al riavvio
+- Avviarli tutti
 
 ```shell
 sudo systemctl daemon-reload
@@ -362,19 +362,19 @@ sudo systemctl enable rp-node rp-watchtower
 sudo systemctl start rp-node rp-watchtower
 ```
 
-### Setting Up a Wallet
+### Configurazione di un Wallet
 
-Next, create a new node wallet or recover an existing wallet.
-Please carefully follow the instructions in the [Setting up a Wallet](./wallet-init) portion of the guide, then return here when you're done.
+Successivamente, crea un nuovo wallet del nodo o recupera un wallet esistente.
+Segui attentamente le istruzioni nella sezione [Configurazione di un Wallet](./wallet-init) della guida, quindi torna qui quando hai finito.
 
-Once that's done, use the service log file scripts to verify that they successfully loaded your new wallet.
-You should also verify this using the following command:
+Una volta fatto, usa gli script dei file di log del servizio per verificare che abbiano caricato correttamente il tuo nuovo wallet.
+Dovresti anche verificarlo usando il seguente comando:
 
 ```shell
 rp wallet status
 ```
 
-If working properly it should produce the following output:
+Se funziona correttamente, dovrebbe produrre il seguente output:
 
 ```
 Your Smartnode is currently using the Hoodi Test Network.
@@ -383,66 +383,66 @@ The node wallet is initialized.
 Node account: <address>
 ```
 
-## Step 4: Update the VC Service Definition
+## Passo 4: Aggiornare la Definizione del Servizio VC
 
-Unlike a solo staking setup, Rocket Pool generates and manages its validator keys automatically.
-There are a few adjustments you'll need to make to the VC service definition file you just created in order for it to work with Rocket Pool correctly, including:
+A differenza di una configurazione di solo staking, Rocket Pool genera e gestisce automaticamente le sue chiavi di validazione.
+Ci sono alcune modifiche che dovrai apportare al file di definizione del servizio VC che hai appena creato affinché funzioni correttamente con Rocket Pool, tra cui:
 
-- The **Fee Recipient**
-- The VC's data or wallet directory
-- The VC's keys and secrets directories
+- Il **Fee Recipient**
+- La directory dei dati o del wallet del VC
+- Le directory delle chiavi e dei segreti del VC
 
-We'll cover these step-by-step for each client.
+Copriremo questi passaggi passo dopo passo per ogni client.
 
-### Setting Up the Fee Recipient File
+### Configurazione del File del Fee Recipient
 
-::: danger NOTE
-It is **crucial** that you follow these steps - failing to do so and using the wrong fee recipient will result in [penalties](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) being applied to your validators and deductions taken from your Beacon Chain balance!
+::: danger NOTA
+È **cruciale** che tu segua questi passaggi - non farlo e usare il fee recipient sbagliato comporterà l'applicazione di [penalità](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) ai tuoi validatori e deduzioni dal tuo saldo Beacon Chain!
 :::
 
-The **fee recipient** is the argument you provide to your Validator Client that specifies the address on the Execution layer that you want your priority fees and MEV rewards to be sent to.
-Rocket Pool has two different addresses for the fee recipient:
+Il **fee recipient** è l'argomento che fornisci al tuo Validator Client che specifica l'indirizzo sull'Execution layer a cui desideri che vengano inviate le tue commissioni prioritarie e le ricompense MEV.
+Rocket Pool ha due indirizzi diversi per il fee recipient:
 
-- If you are opted into the Smoothing Pool, it must be the **Smoothing Pool's address**
-- If you are opted out of the Smoothing Pool, it must be **your node's Fee Distributor address**
+- Se sei iscritto allo Smoothing Pool, deve essere l'**indirizzo dello Smoothing Pool**
+- Se non sei iscritto allo Smoothing Pool, deve essere **l'indirizzo del Fee Distributor del tuo nodo**
 
-_To learn more about the Smoothing Pool and your Fee Distributor, please see the [Fee Distributors and the Smoothing Pool](./fee-distrib-sp) section of the guide._
+_Per saperne di più sullo Smoothing Pool e il tuo Fee Distributor, consulta la sezione [Fee Distributors e lo Smoothing Pool](./fee-distrib-sp) della guida._
 
-Rocket Pool's `node` service will set this for you automatically by detecting which one it needs to be and setting it in a configuration file and restarting your Validator Client service to pick up the change.
-Your Validator Client service can use that configuration file automatically so you don't need to hard-code the fee recipient.
+Il servizio `node` di Rocket Pool lo imposterà automaticamente per te rilevando quale deve essere e impostandolo in un file di configurazione e riavviando il servizio Validator Client per acquisire la modifica.
+Il tuo servizio Validator Client può utilizzare quel file di configurazione automaticamente, quindi non è necessario codificare il fee recipient.
 
-Open the `systemd` service definition file that you just created for your Validator Client.
-Before the `ExecStart` line, add this line:
+Apri il file di definizione del servizio `systemd` che hai appena creato per il tuo Validator Client.
+Prima della riga `ExecStart`, aggiungi questa riga:
 
 ```
 EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
 ```
 
-Then modify your fee recipient argument as follows; select your client of choice from the tabs below:
+Quindi modifica il tuo argomento fee recipient come segue; seleziona il client di tua scelta dalle schede seguenti:
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Lighthouse">Change `--suggested-fee-recipient address` to `--suggested-fee-recipient ${FEE_RECIPIENT}`</Tab>
-    <Tab label="Nimbus">Change `--suggested-fee-recipient=address` to `--suggested-fee-recipient=${FEE_RECIPIENT}`</Tab>
-    <Tab label="Prysm">Change `--suggested-fee-recipient address` to `--suggested-fee-recipient ${FEE_RECIPIENT}`</Tab>
-    <Tab label="Teku">Change `--validators-proposer-default-fee-recipient=address` to `--validators-proposer-default-fee-recipient=${FEE_RECIPIENT}`</Tab>
+    <Tab label="Lighthouse">Cambia `--suggested-fee-recipient address` in `--suggested-fee-recipient ${FEE_RECIPIENT}`</Tab>
+    <Tab label="Nimbus">Cambia `--suggested-fee-recipient=address` in `--suggested-fee-recipient=${FEE_RECIPIENT}`</Tab>
+    <Tab label="Prysm">Cambia `--suggested-fee-recipient address` in `--suggested-fee-recipient ${FEE_RECIPIENT}`</Tab>
+    <Tab label="Teku">Cambia `--validators-proposer-default-fee-recipient=address` in `--validators-proposer-default-fee-recipient=${FEE_RECIPIENT}`</Tab>
   </Tabs>
 </div>
 
-::: tip NOTE
-If you start your Validator Client before Rocket Pool's services, it may error out because this file does not exist yet.
-Don't worry, this file will be created by Rocket Pool once you've initialized and started its services.
+::: tip NOTA
+Se avvii il tuo Validator Client prima dei servizi di Rocket Pool, potrebbe generare un errore perché questo file non esiste ancora.
+Non preoccuparti, questo file verrà creato da Rocket Pool una volta che avrai inizializzato e avviato i suoi servizi.
 :::
 
-### Setting the Data and Keys Directories
+### Impostazione delle Directory dei Dati e delle Chiavi
 
-Next, you must tell the VC where to store its data and load the validator keys that Rocket Pool generates.
-Click on the client you use in the tabs below:
+Successivamente, devi dire al VC dove archiviare i suoi dati e caricare le chiavi di validazione generate da Rocket Pool.
+Fai clic sul client che usi nelle schede seguenti:
 
 <div className="p-3">
   <Tabs>
     <Tab label="Lighthouse">
-      Create the following directories and set their owner to `rp`:
+      Crea le seguenti directory e imposta il loro proprietario su `rp`:
 
       ```shell
       sudo mkdir -p /srv/rocketpool/data/validators/lighthouse/validators
@@ -454,14 +454,14 @@ Click on the client you use in the tabs below:
       sudo chmod -R 775 /srv/rocketpool/data/validators/lighthouse
       ```
 
-      Now, add or change the following parameters in the Lighthouse VC's service definition file to these new values:
+      Ora, aggiungi o modifica i seguenti parametri nel file di definizione del servizio Lighthouse VC con questi nuovi valori:
 
       ```
       --datadir /srv/rocketpool/data/validators/lighthouse
       ```
     </Tab>
     <Tab label="Nimbus">
-      Create the following directories and set their owner to `rp`:
+      Crea le seguenti directory e imposta il loro proprietario su `rp`:
 
       ```shell
       sudo mkdir -p /srv/rocketpool/data/validators/nimbus/validators
@@ -473,14 +473,14 @@ Click on the client you use in the tabs below:
       sudo chmod -R 775 /srv/rocketpool/data/validators/nimbus
       ```
 
-      Now, add or change the following parameters in Nimbus's service definition file to the following:
+      Ora, aggiungi o modifica i seguenti parametri nel file di definizione del servizio Nimbus con i seguenti:
 
       ```
       --validators-dir=/srv/rocketpool/data/validators/nimbus/validators --secrets-dir=/srv/rocketpool/data/validators/nimbus/secrets
       ```
     </Tab>
     <Tab label="Prysm">
-      Create the following directories and set their owner to `rp`:
+      Crea le seguenti directory e imposta il loro proprietario su `rp`:
 
       ```shell
       sudo mkdir -p /srv/rocketpool/data/validators/prysm-non-hd/direct/accounts
@@ -490,16 +490,16 @@ Click on the client you use in the tabs below:
       sudo chmod -R 775 /srv/rocketpool/data/validators/prysm-non-hd
       ```
 
-      Add or change the following parameters in the Prysm VC's service definition file to these new values:
+      Aggiungi o modifica i seguenti parametri nel file di definizione del servizio Prysm VC con questi nuovi valori:
 
       ```
       --wallet-dir /srv/rocketpool/data/validators/prysm-non-hd --wallet-password-file /srv/rocketpool/data/validators/prysm-non-hd/direct/accounts/secret
       ```
 
-      The VC will fail to start until you make a new Rocket Pool minipool (described later in the guides) because these files won't be created until that time, but the Beacon Node will be able to sync properly.
+      Il VC non si avvierà finché non creerai un nuovo minipool Rocket Pool (descritto più avanti nelle guide) perché questi file non verranno creati fino a quel momento, ma il Beacon Node sarà in grado di sincronizzarsi correttamente.
     </Tab>
     <Tab label="Teku">
-      Create the following directories and set their owner to `rp`:
+      Crea le seguenti directory e imposta il loro proprietario su `rp`:
 
       ```shell
       sudo mkdir -p /srv/rocketpool/data/validators/teku/keys
@@ -511,7 +511,7 @@ Click on the client you use in the tabs below:
       sudo chmod -R 775 /srv/rocketpool/data/validators/teku
       ```
 
-      Now, add or change the following parameters in the Teku VC's service definition file to the following:
+      Ora, aggiungi o modifica i seguenti parametri nel file di definizione del servizio Teku VC con i seguenti:
 
       ```
       --data-path=/srv/rocketpool/data/validators/teku --validator-keys=/srv/rocketpool/data/validators/teku/keys:/srv/rocketpool/data/validators/teku/passwords
@@ -521,24 +521,24 @@ Click on the client you use in the tabs below:
   </Tabs>
 </div>
 
-### Relaxing `umask`
+### Rilassamento di `umask`
 
-By default, your system will typically come with a `umask` configuration that will strip the `+w` bit from the group permissions whenever the `node` daemon creates a new folder.
-This is problematic for several consensus clients, because they will actually write things such as lock files or other metadata into the directories that the Smartnode creates when it generates new validator keys during a minipool deposit.
+Per impostazione predefinita, il tuo sistema verrà tipicamente fornito con una configurazione `umask` che rimuoverà il bit `+w` dai permessi di gruppo ogni volta che il daemon `node` crea una nuova cartella.
+Questo è problematico per diversi consensus client, perché scriveranno effettivamente cose come file di blocco o altri metadati nelle directory che lo Smartnode crea quando genera nuove chiavi di validazione durante un deposito minipool.
 
-To combat this and ensure your VC works correctly, please **relax your `umask` settings**.
-For example, instead of `0022`, you should consider setting it to `0002` for the `rp` user.
+Per combattere questo e assicurarti che il tuo VC funzioni correttamente, **rilassa le tue impostazioni `umask`**.
+Ad esempio, invece di `0022`, dovresti considerare di impostarlo su `0002` per l'utente `rp`.
 
-Every system is different, so please consult [a guide](https://www.howtogeek.com/812961/umask-linux/) that covers your Operating System to learn how to do this.
+Ogni sistema è diverso, quindi consulta [una guida](https://www.howtogeek.com/812961/umask-linux/) che copra il tuo Sistema Operativo per imparare come farlo.
 
-::: warning WARNING
-This step is _crucial_ to ensure the automatic staking and validating duties are handled properly.
-If you notice permissions problems in your VC's logs after your minipool passes the 12-hour scrub check and enters `staking` status, you will likely need to run `sudo chmod 775` on the folder containing your validator keys so your VC service can write to that folder.
+::: warning AVVISO
+Questo passaggio è _cruciale_ per garantire che le operazioni automatiche di staking e validazione siano gestite correttamente.
+Se noti problemi di permessi nei log del tuo VC dopo che il tuo minipool supera il controllo di scrub di 12 ore ed entra nello stato `staking`, dovrai probabilmente eseguire `sudo chmod 775` sulla cartella contenente le tue chiavi di validazione in modo che il tuo servizio VC possa scrivere in quella cartella.
 :::
 
-### Reloading the VC Service
+### Ricaricamento del Servizio VC
 
-With these changes made, you can now reload and restart the VC service using the following:
+Con queste modifiche apportate, puoi ora ricaricare e riavviare il servizio VC utilizzando quanto segue:
 
 ```shell
 sudo systemctl daemon-reload
@@ -546,19 +546,19 @@ sudo systemctl daemon-reload
 sudo systemctl restart <vc-service>
 ```
 
-**If not using Prysm**, please watch the VC's logs carefully to ensure that it successfully started properly and the following are defined correctly:
+**Se non usi Prysm**, osserva attentamente i log del VC per assicurarti che si sia avviato correttamente e che siano definiti correttamente i seguenti elementi:
 
-- The fee recipient
-- The data path
-- The wallet / keys / secrets path
+- Il fee recipient
+- Il percorso dei dati
+- Il percorso wallet / chiavi / segreti
 
-You can verify this with, for example, `ps aux | grep fee` to filter the running processes to look at the fee recipient that your VC has used.
-**It should be the same one defined in `/srv/rocketpool/data/validators/rp-fee-recipient-env.txt`.**
+Puoi verificarlo con, ad esempio, `ps aux | grep fee` per filtrare i processi in esecuzione e guardare il fee recipient utilizzato dal tuo VC.
+**Dovrebbe essere lo stesso definito in `/srv/rocketpool/data/validators/rp-fee-recipient-env.txt`.**
 
-If they are all using the correct values, then congratulations!
-You've successfully set up your Rocket Pool node and can follow the next sections of the guide to learn how to use it.
+Se stanno tutti utilizzando i valori corretti, allora congratulazioni!
+Hai configurato con successo il tuo nodo Rocket Pool e puoi seguire le sezioni successive della guida per imparare come usarlo.
 
-## Next Steps
+## Prossimi Passi
 
-Now that your clients are installed, we recommend you take a look at the security suggestions in the [Securing your Node](./securing-your-node) section next.
-As you're running a Native setup, you have likely done some of these things already; nevertheless, it doesn't hurt to at least explore it and see how well the recommended security posture fits with your system.
+Ora che i tuoi client sono installati, ti consigliamo di dare un'occhiata ai suggerimenti di sicurezza nella sezione [Proteggere il tuo Nodo](./securing-your-node) successivamente.
+Poiché stai eseguendo una configurazione Nativa, probabilmente hai già fatto alcune di queste cose; tuttavia, non fa male almeno esplorarla e vedere quanto bene la postura di sicurezza raccomandata si adatti al tuo sistema.

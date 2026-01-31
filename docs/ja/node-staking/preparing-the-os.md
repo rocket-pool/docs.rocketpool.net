@@ -1,3 +1,3 @@
-# Preparing the Operating System
+# オペレーティングシステムの準備
 
-[TBD] This should be where we describe how to do things like setting up a 2nd hard drive if applicable, running an IOPS test with `fio`, setting up swap space... everything someone might need to do. The `fio` test is important I think, but the other stuff might be skippable.
+[TBD] このセクションでは、必要に応じて2番目のハードドライブをセットアップする方法、`fio`でIOPSテストを実行する方法、スワップスペースをセットアップする方法など、必要な手順を説明します。`fio`テストは重要だと思いますが、その他の項目はスキップ可能かもしれません。

@@ -1,34 +1,34 @@
-# Monitoring your Node's Performance
+# Düğümünüzün Performansını İzleme
 
-Now that your node is up and running and you have one or more minipools attached, you'll need to keep an eye on everything to make sure it's running smoothly.
+Artık düğümünüz çalışıyor ve bir veya daha fazla minipool eklenmiş durumda, her şeyin sorunsuz çalıştığından emin olmak için her şeyi göz önünde bulundurmanız gerekecek.
 
-You can track your machine either:
+Makinenizi şu şekilde izleyebilirsiniz:
 
-1. Directly by tapping into your machine metrics
-2. Indirectly through the use of third party tools
+1. Makine metriklerinize doğrudan erişerek
+2. Üçüncü taraf araçları kullanarak dolaylı olarak
 
-It is recommended to use a combination of both depending on your needs.
+İhtiyaçlarınıza bağlı olarak her ikisinin bir kombinasyonunu kullanmanız önerilir.
 
-## Directly Tracking your Machine's Status
+## Makinenizin Durumunu Doğrudan İzleme
 
-With respect to your machine's status, there are a few useful metrics you'll probably want to keep an eye on:
+Makinenizin durumu ile ilgili olarak, göz önünde bulundurmak isteyeceğiniz birkaç yararlı metrik vardır:
 
-- CPU Usage
-- Free RAM remaining
-- Swap space usage (if you enabled it)
-- Remaining free disk space
-- Network I/O (if your ISP imposes a data cap)
+- CPU Kullanımı
+- Kalan boş RAM
+- Swap alanı kullanımı (etkinleştirdiyseniz)
+- Kalan boş disk alanı
+- Ağ I/O (ISP'niz bir veri sınırı uyguluyorsa)
 
-::: tip NOTE
-The sections below show you some ways to monitor things, but they require you to be logged into the terminal of your machine.
-There is a better, much more convenient and much nicer-looking method that uses a [Grafana web dashboard](./grafana.mdx) but it is still under development.
-Stay tuned for the completion of that section!
+::: tip NOT
+Aşağıdaki bölümler size bazı şeyleri izlemenin yollarını gösterir, ancak makinenizin terminaline giriş yapmanız gerekir.
+[Grafana web gösterge paneli](./grafana.mdx) kullanan daha iyi, çok daha kullanışlı ve çok daha güzel görünen bir yöntem var ancak hala geliştirilme aşamasında.
+O bölümün tamamlanması için bizi takipte kalın!
 :::
 
-### CPU, RAM, and Swap
+### CPU, RAM ve Swap
 
-The first three can be easily viewed with the `htop` program.
-This will give you a nice live view into your system resources, as shown by this screenshot from a Raspberry Pi:
+İlk üç, `htop` programıyla kolayca görüntülenebilir.
+Bu, size bir Raspberry Pi'den bu ekran görüntüsüyle gösterildiği gibi sistem kaynaklarınıza güzel bir canlı görünüm verecektir:
 
 ```
 htop
@@ -36,29 +36,29 @@ htop
 
 ![Htop screenshot on raspberry pi](./local/images/pi/Htop.png)
 
-On the top display with the bars, the numbered bars each refer to a CPU core's current usage.
+Çubukların olduğu üst ekranda, numaralandırılmış çubukların her biri bir CPU çekirdeğinin mevcut kullanımına atıfta bulunur.
 
-`Mem` shows you how much RAM you're currently using (in this screenshot, 1.75 GB) and how much you have total (3.70 GB).
+`Mem` size şu anda ne kadar RAM kullandığınızı (bu ekran görüntüsünde 1.75 GB) ve toplamda ne kadarınız olduğunu (3.70 GB) gösterir.
 
-`Swp` shows you how much swap space you're using (85.8 MB) and how much you have total (12.0 GB).
+`Swp` size ne kadar swap alanı kullandığınızı (85.8 MB) ve toplamda ne kadarınız olduğunu (12.0 GB) gösterir.
 
-On the bottom table, each row represents a process.
-Your Execution and Consensus clients will likely be on top (in this case, Geth and Nimbus) which you can see in the rightmost column labeled `Command`.
+Alt tabloda, her satır bir süreci temsil eder.
+Execution ve Consensus istemcileriniz muhtemelen en üstte olacaktır (bu durumda Geth ve Nimbus) ki bunları `Command` etiketli en sağdaki sütunda görebilirsiniz.
 
-The `RES` column shows you how much RAM each process is taking - in this screenshot, Geth is taking 748 MB and Nimbus is taking 383 MB.
+`RES` sütunu her sürecin ne kadar RAM aldığını gösterir - bu ekran görüntüsünde Geth 748 MB ve Nimbus 383 MB alıyor.
 
-The `CPU%` column shows you how much CPU power each process is consuming.
-100% represents a single core, so if it's over 100%, that means it's using a lot from multiple cores (like Geth is here, with 213%).
+`CPU%` sütunu her sürecin ne kadar CPU gücü tükettiğini gösterir.
+%100 tek bir çekirdeği temsil eder, bu nedenle %100'ün üzerindeyse, birden fazla çekirdekten çok şey kullandığı anlamına gelir (Geth'in burada %213 ile yaptığı gibi).
 
-### Remaining Free Disk Space
+### Kalan Boş Disk Alanı
 
-Keeping an eye on how much disk space you have free is easy to do with the following command:
+Ne kadar boş disk alanınız olduğunu göz önünde bulundurmak aşağıdaki komutla yapmak kolaydır:
 
 ```
 df -h
 ```
 
-This will provide output similar to the following example:
+Bu, aşağıdaki örneğe benzer bir çıktı sağlayacaktır:
 
 ```
 Filesystem        Size  Used Avail Use% Mounted on
@@ -69,30 +69,30 @@ Filesystem        Size  Used Avail Use% Mounted on
 ...
 ```
 
-For conventional setups where you have one drive that stores both your Operating System and your Execution and Consensus chain data, you just need to look at the entry that has `/` in the `Mounted on` column.
-This represents your main disk.
-If that ever looks like it's running out of space (say, 80% used or so), then you need to start thinking about doing some cleanup.
-For example, if you're running Geth, you may want to look at [how to prune it](./pruning) to clear up some space.
+Hem İşletim Sisteminizi hem de Execution ve Consensus zincir verilerinizi depolayan bir sürücüye sahip olduğunuz geleneksel kurulumlar için, `Mounted on` sütununda `/` olan girişe bakmanız yeterlidir.
+Bu, ana diskinizi temsil eder.
+Eğer alan tükeniyormuş gibi görünüyorsa (örneğin, %80 kullanılıyorsa), biraz temizlik yapmayı düşünmeye başlamanız gerekir.
+Örneğin, Geth çalıştırıyorsanız, biraz alan açmak için [nasıl budanacağına](./pruning) bakmak isteyebilirsiniz.
 
-For setups that store the Execution and Consensus chain data on a separate drive, you'll want to look at the row that has your chain data folder in the `Mounted on` column as well.
-In this example we mounted an external SSD to `/mnt/rpdata`, so we'll have to keep an eye on it to make sure it doesn't grow too large either.
+Execution ve Consensus zincir verilerini ayrı bir sürücüde depolayan kurulumlar için, `Mounted on` sütununda zincir veri klasörünüzün olduğu satıra da bakmak isteyeceksiniz.
+Bu örnekte bir harici SSD'yi `/mnt/rpdata`'ya bağladık, bu yüzden çok büyümediğinden emin olmak için ona da göz kulak olmamız gerekecek.
 
-### Network I/O and Data Usage
+### Ağ I/O ve Veri Kullanımı
 
-If you want to track how much network I/O your system uses over time, you can install a nice utility called `vnstat`.
-Here's an example of installing it on a Ubuntu / Debian system:
+Sisteminizin zamanla ne kadar ağ I/O kullandığını izlemek istiyorsanız, `vnstat` adlı güzel bir yardımcı program yükleyebilirsiniz.
+İşte Ubuntu / Debian sistemine kurma örneği:
 
 ```shell
 sudo apt install vnstat
 ```
 
-To run it, do this (assuming `eth0` is the name of the network interface you use for your Internet connection):
+Çalıştırmak için şunu yapın (`eth0`'ın İnternet bağlantınız için kullandığınız ağ arayüzünün adı olduğunu varsayarak):
 
 ```
 vnstat -i eth0
 ```
 
-This won't work right away because it needs time to collect data about your system, but as the days and weeks pass, it will end up looking like this:
+Bu hemen çalışmayacak çünkü sisteminiz hakkında veri toplaması için zamana ihtiyacı var, ancak günler ve haftalar geçtikçe, şu şekilde görünecektir:
 
 ```
 $ vnstat -i eth0
@@ -119,144 +119,144 @@ Database updated: 2021-06-28 22:00:00
      estimated     19.92 GiB |   33.30 GiB |   53.22 GiB |
 ```
 
-This will let you keep tabs on your total network usage, which might be helpful if your ISP imposes a data cap.
+Bu, ISP'niz bir veri sınırı uyguluyorsa yararlı olabilecek toplam ağ kullanımınızı takip etmenizi sağlayacaktır.
 
-Note that most modern systems more commonly use other network interfaces like eno0 and enp0s31f6 and not eth0.
-If you need to check your network interface, run the following command:
+Çoğu modern sistemin eth0 yerine eno0 ve enp0s31f6 gibi diğer ağ arayüzlerini daha yaygın olarak kullandığını unutmayın.
+Ağ arayüzünüzü kontrol etmeniz gerekiyorsa, aşağıdaki komutu çalıştırın:
 
 ```shell
 ls /sys/class/net
 ```
 
-Ethernet (hard-wire) devices usually start with `e`, such as the examples above.
-Wireless devices usually start with `w`.
+Ethernet (kablolu) cihazlar genellikle yukarıdaki örnekler gibi `e` ile başlar.
+Kablosuz cihazlar genellikle `w` ile başlar.
 
-## Smartnode Alert Notifications
+## Smartnode Uyarı Bildirimleri
 
-[Monitoring your Smartnode Stack with Alert Notifications](./maintenance/alerting.md) walks through using the Smartnode alert notification functionality to receive notifications about the health and important events of your Rocket Pool Smartnode.
+[Smartnode Stack'inizi Uyarı Bildirimleriyle İzleme](./maintenance/alerting.md), Rocket Pool Smartnode'unuzun sağlığı ve önemli olayları hakkında bildirimler almak için Smartnode uyarı bildirimi işlevselliğini kullanmayı açıklar.
 
-## Third-Party Performance Monitoring
+## Üçüncü Taraf Performans İzleme
 
-The best monitoring uses a Swiss-cheese model: every tool has holes, but if you stack them on top of each-other there is less of a chance anything falls through and catches you by surprise.
+En iyi izleme bir İsviçre peyniri modeli kullanır: her aracın delikleri vardır, ancak onları üst üste yığarsanız bir şeyin düşme ve sizi şaşırtma şansı daha azdır.
 
-Please note that these third-party tools are used by the Rocket Pool community, but are not officially endorsed or supported by the Rocket Pool team.
-If you have a tool suggestion, or are a tool owner, you are very welcome to add a pull request with details on your tool.
+Bu üçüncü taraf araçlarının Rocket Pool topluluğu tarafından kullanıldığını, ancak Rocket Pool ekibi tarafından resmi olarak onaylanmadığını veya desteklenmediğini lütfen unutmayın.
+Bir araç öneriniz varsa veya bir araç sahibiyseniz, aracınızla ilgili ayrıntılarla bir pull request eklemekten çekinmeyin.
 
-### Beaconcha.in Website: Using the Beacon Chain as a Metric Source
+### Beaconcha.in Web Sitesi: Metrik Kaynağı Olarak Beacon Chain'i Kullanma
 
-The [Beaconcha.in](https://beaconcha.in) block explorer website and app provide a way to track your validator's performance by looking at it's on-chain activity.
-They also have the option to receive [email notifications](https://beaconcha.in/user/notifications) for significant events like downtime.
-Navigate to their site, and enter the public key for your validator in the search box on the top of the screen.
+[Beaconcha.in](https://beaconcha.in) blok gezgini web sitesi ve uygulaması, zincir üstü faaliyetine bakarak validatörünüzün performansını izlemenin bir yolunu sunar.
+Ayrıca, kesinti gibi önemli olaylar için [e-posta bildirimleri](https://beaconcha.in/user/notifications) alma seçeneğine de sahiptirler.
+Sitelerine gidin ve ekranın üst kısmındaki arama kutusuna validatörünüzün genel anahtarını girin.
 
 ::: tip
-If you forgot your validator's public key, you can easily retrieve it with the command `rocketpool minipool status`.
+Validatörünüzün genel anahtarını unuttuysanız, `rocketpool minipool status` komutuyla kolayca alabilirsiniz.
 :::
 
-If everything is set up right, you should see something like this:
+Her şey doğru ayarlanmışsa, şuna benzer bir şey görmelisiniz:
 ![](./local/images/pi/Beaconchain.png)
 
-::: tip NOTE
-The above link is for the **mainnet** version of Beaconcha.in.
-If you're running on the Hoodi Testnet, use [this link instead](https://hoodi.beaconcha.in)!
+::: tip NOT
+Yukarıdaki bağlantı, Beaconcha.in'in **mainnet** sürümü içindir.
+Hoodi Testnet'te çalıştırıyorsanız, [bu bağlantıyı kullanın](https://hoodi.beaconcha.in)!
 :::
 
-This is a record of all of the Beacon Chain activity for your validator.
-You can use it to check your validator's balance on the Beacon Chain to watch it grow over time and calculate your APY.
+Bu, validatörünüzün tüm Beacon Chain faaliyetinin bir kaydıdır.
+Validatörünüzün Beacon Chain'deki bakiyesini kontrol etmek, zamanla büyümesini izlemek ve APY'nizi hesaplamak için kullanabilirsiniz.
 
-You can also use it to quickly gauge if your validator is alive and running correctly.
-If it is, all of the attestations should say `Attested` for their **Status**, and ideally all of the **Opt. Incl. Dist.** should be 0 (though an occasional 1 or 2 is fine).
+Ayrıca, validatörünüzün canlı olup olmadığını ve doğru çalışıp çalışmadığını hızlıca ölçmek için de kullanabilirsiniz.
+Öyleyse, tüm doğrulamaların **Status** için `Attested` demesi gerekir ve ideal olarak tüm **Opt. Incl. Dist.**'ler 0 olmalıdır (ara sıra 1 veya 2 iyidir).
 
-If there are lots of blocks that say `Missed` on them, then your validator is not working properly.
-You should check the logs of the `eth1`, `eth2`, and `validator` services with `rocketpool service logs ...` if you're using Docker or Hybrid mode (or the corresponding log scripts if you're using Native mode) to look for problems.
+Üzerlerinde `Missed` yazan çok sayıda blok varsa, validatörünüz düzgün çalışmıyor demektir.
+Docker veya Hibrit mod kullanıyorsanız `rocketpool service logs ...` ile `eth1`, `eth2` ve `validator` servislerinin loglarını kontrol etmelisiniz (veya Native mod kullanıyorsanız karşılık gelen log scriptlerini) sorunları aramak için.
 
-**You should pin this tab or create a bookmark with it so you can quickly jump to it and check the status of your validator.**
+**Bu sekmeyi sabitlemelisiniz veya onunla bir yer imi oluşturmalısınız, böylece hızlıca ona atlayabilir ve validatörünüzün durumunu kontrol edebilirsiniz.**
 
-#### Using Beaconcha.in to Monitor Multiple Minipools
+#### Birden Fazla Minipool'u İzlemek için Beaconcha.in Kullanma
 
-Beaconcha.in has a [dashboard view](https://beaconcha.in/dashboard) that allows you to monitor multiple validators or minipools at once.
-Simply add your validator indices one at a time. If you have a lot of minipools, you can run:
+Beaconcha.in'in bir kerede birden fazla validatörü veya minipool'u izlemenize olanak tanıyan bir [gösterge paneli görünümü](https://beaconcha.in/dashboard) vardır.
+Validatör indekslerinizi tek tek eklemeniz yeterlidir. Çok fazla minipool'unuz varsa, şunu çalıştırabilirsiniz:
 
 ```shell
 rocketpool minipool status | grep Validator.index | awk -F " " '{print $3}' | paste -s -d, -
 ```
 
-to get a comma-separated list, and place it in the URL bar like so: `https://beaconcha.in/dashboard?validators=123456,123457`
+virgülle ayrılmış bir liste almak ve URL çubuğuna şu şekilde yerleştirin: `https://beaconcha.in/dashboard?validators=123456,123457`
 
-### Beaconcha.in App: Validator Overview and Push Notifications
+### Beaconcha.in Uygulaması: Validatör Genel Bakışı ve Push Bildirimleri
 
-The Beaconcha.in website is a great way to view metrics and set up email alerts.
-Their mobile app has a more "at-a-glance" nature.
-It also features a push notification service that includes some useful alerts like:
+Beaconcha.in web sitesi, metrikleri görüntülemek ve e-posta uyarıları ayarlamak için harika bir yoldur.
+Mobil uygulamaları daha çok "bir bakışta" niteliğindedir.
+Ayrıca şunlar gibi bazı yararlı uyarıları içeren bir push bildirimi hizmeti sunar:
 
-1. Notifications of issues like missed attestations
-2. Notifications of Rocket Pool reward rounds
-3. Over/under-collateralisation of the RPL on your node
+1. Kaçırılan doğrulama gibi sorunların bildirimleri
+2. Rocket Pool ödül turlarının bildirimleri
+3. Düğümünüzdeki RPL'nin fazla/eksik teminatlandırılması
 
-Note that the app has a free version, and paid options with convenience features like homescreen widgets.
+Uygulamanın ücretsiz bir sürümü ve ana ekran widget'ları gibi kolaylık özellikleri olan ücretli seçenekler olduğunu unutmayın.
 
-### Renaming your Validators on Beaconcha.in
+### Beaconcha.in'de Validatörlerinizi Yeniden Adlandırma
 
-The Beaconcha.in website has a feature that allows users to rename their validators, making them easier to identify/search.
+Beaconcha.in web sitesinin, kullanıcıların validatörlerini yeniden adlandırmasına, daha kolay tanımlama/arama yapmasına olanak tanıyan bir özelliği vardır.
 
-To be able to use this feature you need to sign a message using your node wallet's private key, in order to prove you're the person who controls that validator.
+Bu özelliği kullanabilmek için, o validatörü kontrol eden kişi olduğunuzu kanıtlamak amacıyla düğüm cüzdanınızın özel anahtarını kullanarak bir mesaj imzalamanız gerekir.
 
-The Smartnode v1.5.1 includes the ability to sign messages with your node wallets's private key by using the command `rocketpool node sign-message`, then providing the message that you want to sign.
-It must contain the term 'beaconcha.in' to be used to rename your validators.
+Smartnode v1.5.1, `rocketpool node sign-message` komutunu kullanarak düğüm cüzdanınızın özel anahtarıyla mesaj imzalama yeteneğini içerir, ardından imzalamak istediğiniz mesajı sağlayın.
+Validatörlerinizi yeniden adlandırmak için kullanılması için 'beaconcha.in' terimini içermelidir.
 
 ![](../node-staking/images/sign-message.png)
 
-Open your validator page on Beaconcha.in and click on the `Edit validator name` button.
+Beaconcha.in'deki validatör sayfanızı açın ve `Edit validator name` düğmesine tıklayın.
 
 ![](../node-staking/images/edit-validator-name.png)
 
-Copy the result from the sign-message command and paste it in the "Signature" field.
-Fill your desired nickname and click the `Save changes`button.
+sign-message komutundan çıkan sonucu kopyalayın ve "Signature" alanına yapıştırın.
+İstediğiniz takma adı doldurun ve `Save changes` düğmesine tıklayın.
 
 ![](../node-staking/images/paste-signed-message.png)
 
-### Uptimerobot: Port-scanning for Uptime
+### Uptimerobot: Çalışma Süresi için Port Tarama
 
-The [Uptimerobot](https://uptimerobot.com/) service is a simple service that scans an IP address for an open port.
-If your machine becomes unavailable on the port you specified, Uptimerobot can send you a notification that there is an issue.
-The service was a wide variety of notification options including email, push notification, SMS, phone call, and webhooks.
+[Uptimerobot](https://uptimerobot.com/) hizmeti, açık bir port için bir IP adresini tarayan basit bir hizmettir.
+Makineniz belirttiğiniz portta kullanılamaz hale gelirse, Uptimerobot size bir sorun olduğuna dair bir bildirim gönderebilir.
+Hizmet, e-posta, push bildirimi, SMS, telefon araması ve webhook'lar dahil olmak üzere çok çeşitli bildirim seçeneklerine sahiptir.
 
-The setup screen looks something like this:
+Kurulum ekranı şuna benzer görünür:
 
 ![](./local/images/uptimerobot.png)
 
-The IP to monitor is the external IP of your node, which you can find by logging into your node by `ssh` or physically, and opening [icanhazip.com](https://icanhazip.com/) in a browser or running the following command in your terminal:
+İzlenecek IP, düğümünüzün harici IP'sidir; bunu `ssh` ile düğümünüze giriş yaparak veya fiziksel olarak ve bir tarayıcıda [icanhazip.com](https://icanhazip.com/) açarak veya terminalinizde aşağıdaki komutu çalıştırarak bulabilirsiniz:
 
 ```shell
 curl icanhazip.com
 ```
 
-The port to monitor depends on your node setup; users running the typical Smartnode installation will likely have forwarded ports 30303 and 9001 for the Execution and Consensus clients respectively, so these are good choices for uptime monitoring.
+İzlenecek port, düğüm kurulumunuza bağlıdır; tipik Smartnode kurulumunu çalıştıran kullanıcılar muhtemelen Execution ve Consensus istemcileri için sırasıyla 30303 ve 9001 portlarını yönlendirmiştir, bu nedenle bunlar çalışma süresi izleme için iyi seçimlerdir.
 
 ### Rocketpool Metrics Dashboards
 
-There are multiple community-lead initiatives to provide an overview of your node performance, as well as the Rocket Pool network as a whole.
+Düğüm performansınıza ve bir bütün olarak Rocket Pool ağına genel bir bakış sağlamak için birden fazla topluluk liderliğindeki girişim vardır.
 
-### Scripting with Pushover (advanced)
+### Pushover ile Scriptleme (gelişmiş)
 
-::: tip NOTE
-[Monitoring your Smartnode Stack with Alert Notifications](./maintenance/alerting.md) walks through using the Smartnode alert notification functionality which includes a notification when there are updates available for your node.
+::: tip NOT
+[Smartnode Stack'inizi Uyarı Bildirimleriyle İzleme](./maintenance/alerting.md), düğümünüz için güncellemeler mevcut olduğunda bir bildirim içeren Smartnode uyarı bildirimi işlevselliğini kullanmayı açıklar.
 :::
 
-The [Pushover](https://pushover.net/) service allows you to send yourself push notifications.
+[Pushover](https://pushover.net/) hizmeti, kendinize push bildirimleri göndermenize olanak tanır.
 
-::: warning NOTE
-This is an advanced activity to undertake.
-It can be helpful if you are familiar with shell scripting, but is not recommended if you are not comfortable in a shell environment.
+::: warning NOT
+Bu, üstlenilmesi gereken gelişmiş bir faaliyettir.
+Shell scriptleme konusunda bilginiz varsa yararlı olabilir, ancak shell ortamında rahat değilseniz önerilmez.
 :::
 
-To get started with Pushover:
+Pushover'a başlamak için:
 
-1. Create an account at [pushover.net](https://pushover.net/)
-1. [Create an API token](https://pushover.net/apps/build)
-1. Install the Pushover mobile app and/or browser extension
-1. Call the Pushover API for any action you care about
+1. [pushover.net](https://pushover.net/)'te bir hesap oluşturun
+1. [Bir API token oluşturun](https://pushover.net/apps/build)
+1. Pushover mobil uygulamasını ve/veya tarayıcı uzantısını yükleyin
+1. Önemsediğiniz herhangi bir eylem için Pushover API'sini çağırın
 
-Calling the Pushover API to send you a push notification is done through a `curl` call structured as such:
+Size bir push bildirimi göndermek için Pushover API'sini çağırmak, şu şekilde yapılandırılmış bir `curl` çağrısıyla yapılır:
 
 ```shell
 PUSHOVER_USER=
@@ -266,18 +266,18 @@ MESSAGE_CONTENT=
 curl -f -X POST -d "token=$PUSHOVER_TOKEN&user=$PUSHOVER_USER&title=$MESSAGE_TITLE&message=$MESSAGE_CONTENT&url=&priority=0" https://api.pushover.net/1/messages.json
 ```
 
-#### Example: Push Notification on Updates Available
+#### Örnek: Güncellemeler Mevcut Olduğunda Push Bildirimi
 
-If you set up automatic updates using the `unattended-upgrades` and `update-nofifier` packages, you may want to receive a push notification when there are updates available for your node.
-A potential way to do this is to create a script in `~/update-notifier.sh` and to trigger it daily at 9:00 using `crontab`.
+`unattended-upgrades` ve `update-nofifier` paketlerini kullanarak otomatik güncellemeler ayarladıysanız, düğümünüz için güncellemeler mevcut olduğunda bir push bildirimi almak isteyebilirsiniz.
+Bunu yapmanın olası bir yolu, `~/update-notifier.sh` içinde bir script oluşturmak ve `crontab` kullanarak her gün saat 9:00'da tetiklemektir.
 
-To do this, first create the script by running:
+Bunu yapmak için, önce şunu çalıştırarak script'i oluşturun:
 
 ```shell
 nano ~/update-notifier.sh
 ```
 
-Then paste the following script:
+Ardından aşağıdaki script'i yapıştırın:
 
 ```shell
 #!/bin/bash
@@ -307,19 +307,19 @@ curl -f -X POST -d "token=$PUSHOVER_TOKEN&user=$PUSHOVER_USER&title=$MESSAGE_TIT
 
 ```
 
-Next, run the following command to mark the script as executable:
+Ardından, script'i yürütülebilir olarak işaretlemek için aşağıdaki komutu çalıştırın:
 
 ```shell
 chmod u+x ~/update-notifier.sh
 ```
 
-Now run the following command to open your crontab:
+Şimdi crontab'ınızı açmak için aşağıdaki komutu çalıştırın:
 
 ```shell
 crontab -e
 ```
 
-Then use the arrow keys to scroll down, and add the line `* 9 * * * ~/update-notifier.sh` so the file looks like this:
+Ardından ok tuşlarını kullanarak aşağı kaydırın ve dosyanın şu şekilde görünmesi için `* 9 * * * ~/update-notifier.sh` satırını ekleyin:
 
 ```shell
 # Edit this file to introduce tasks to be run by cron.
@@ -351,27 +351,27 @@ Then use the arrow keys to scroll down, and add the line `* 9 * * * ~/update-not
 0 9 * * * ~/update-notifier.sh
 ```
 
-The press `control+x` to exit and press `Y` when asked whether you want to save your changes.
+Ardından çıkmak için `control+x` tuşlarına basın ve değişikliklerinizi kaydetmek isteyip istemediğiniz sorulduğunda `Y` tuşuna basın.
 
-You should now receive a notification at 09:00 local time if you have updates.
-You can manually run the script by typing this in your terminal:
+Güncellemeleriniz varsa artık yerel saat 09:00'da bir bildirim almalısınız.
+Terminalinize şunu yazarak script'i manuel olarak çalıştırabilirsiniz:
 
 ```shell
 ~/update-notifier.sh
 ```
 
-#### Example: Get Notified when your APC UPS Daemon Activates
+#### Örnek: APC UPS Daemon'unuz Etkinleştiğinde Bildirim Alın
 
-Some home stakers are using an Uninterruptible power supply with the `apcupsd` utility to make sure their node shuts down gracefully if their power goes out.
+Bazı ev stake edenleri, güç kesintisi olursa düğümlerinin zarif bir şekilde kapanmasını sağlamak için `apcupsd` yardımcı programıyla Kesintisiz güç kaynağı kullanıyorlar.
 
-The `apcupsd` utility uses the `apccontrol` script to manage its logic, thus it is possible to monitor the activity of this daemon by editing the `/etc/apcupsd/apccontrol` file.
-To do this, run:
+`apcupsd` yardımcı programı, mantığını yönetmek için `apccontrol` script'ini kullanır, bu nedenle `/etc/apcupsd/apccontrol` dosyasını düzenleyerek bu daemon'un faaliyetini izlemek mümkündür.
+Bunu yapmak için şunu çalıştırın:
 
 ```shell
 sudo nano /etc/apcupsd/apccontrol
 ```
 
-Then at the top of the line add the following code so the file looks like this:
+Ardından satırın üstüne aşağıdaki kodu ekleyin, böylece dosya şu şekilde görünsün:
 
 ```shell
 PUSHOVER_USER=
@@ -386,4 +386,4 @@ curl -f -X POST -d "token=$PUSHOVER_TOKEN&user=$PUSHOVER_USER&title=$MESSAGE_TIT
 # platforms/apccontrol.  Generated from apccontrol.in by configure.
 ```
 
-This will send you a push notification whenever your UPS daemon takes action, includion periodic "self test" functionality.
+Bu, UPS daemon'unuz her işlem yaptığında, periyodik "kendi kendine test" işlevselliği dahil olmak üzere size bir push bildirimi gönderecektir.

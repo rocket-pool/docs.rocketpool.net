@@ -1,31 +1,31 @@
 ---
 next:
   text: Rescuing a Dissolved Minipool
-  link: "/en/node-staking/rescue-dissolved"
+  link: "/ja/node-staking/rescue-dissolved"
 ---
 
-# Shut Down a Minipool
+# Minipoolのシャットダウン
 
-## Exiting your Validator
+## バリデータの終了
 
-When you have decided that you no longer want to run a minipool and want to access the full balance locked on the Beacon Chain, you will have to take several steps:
+minipoolを実行したくなくなり、Beacon Chainにロックされている全残高にアクセスしたい場合は、いくつかのステップを実行する必要があります。
 
-1. Send a voluntary exit request for the minipool's validator from the Beacon Chain.
-2. Wait for your validator to exit.
-3. Wait for your validator's balance to be withdrawn to your minipool on the Execution layer.
-4. Close the minipool to distribute the rewards and access the funds
+1. Beacon ChainからminipoolのバリデータのボランタリーExit要求を送信します。
+2. バリデータが終了するのを待ちます。
+3. バリデータの残高がExecution Layer上のminipoolに引き出されるのを待ちます。
+4. minipoolを閉じて報酬を分配し、資金にアクセスします。
 
-We'll cover each step below.
+以下で各ステップについて説明します。
 
-### Sending the Exit Request
+### Exit要求の送信
 
-If you want to exit the validator attached to a minipool, run the following command:
+minipoolに接続されているバリデータを終了したい場合は、次のコマンドを実行します。
 
 ```shell
 rocketpool minipool exit
 ```
 
-You will be presented with a list of minipools that can be exited:
+終了できるminipoolのリストが表示されます。
 
 ```
 Please select a minipool to exit:
@@ -34,49 +34,49 @@ Please select a minipool to exit:
 3: 0xd8E804cFA64ADb386F52DB20717810130c90f674 (staking since 2023-02-08, 06:33 +0000 UTC)
 ```
 
-Once you confirm you want to exit, your node will send a voluntary exit request to the Beacon Chain.
-This is **not** a normal Execution layer transaction, so you do not need to pay gas for it.
+終了を確認すると、ノードはBeacon Chainにボランタリーexit要求を送信します。
+これは通常のExecution Layerトランザクション**ではない**ため、ガス代を支払う必要はありません。
 
-If you need the validator public key for the minipool you just exited, you can retrieve it using `rocketpool minipool status`.
-You can view your validator's exit status on a Beacon Chain explorer such as [https://beaconcha.in](https://beaconcha.in) (or [https://hoodi.beaconcha.in](https://hoodi.beaconcha.in) for the Hoodi Testnet).
-It will take some time for your status to be updated, but once it is you will see it in the "exiting" state:
+終了したばかりのminipoolのバリデータ公開鍵が必要な場合は、`rocketpool minipool status`を使用して取得できます。
+[https://beaconcha.in](https://beaconcha.in)（またはHoodi Testnetの場合は[https://hoodi.beaconcha.in](https://hoodi.beaconcha.in)）などのBeacon Chainエクスプローラーでバリデータの終了ステータスを確認できます。
+ステータスが更新されるまでに時間がかかりますが、更新されると「exiting」状態で表示されます。
 
 <img src="./images/exiting.png" width="100%" height="auto" />
 
-Here you can see the Status is `Exiting`, the epoch it will exit on is highlighted (5224), and the "Exited" icon will be pulsing green to indicate the operation is in progress.
-It may take some time for your validator to exit, _especially_ if there are a large number of validators exiting the Beacon Chain at the same time; the protocol is designed to only allow a small number of validators to exit per epoch so you may have to wait your turn.
+ここでは、Statusが`Exiting`で、終了するエポック（5224）が強調表示され、「Exited」アイコンが緑色に点滅して操作が進行中であることを示しています。
+バリデータが終了するまでに時間がかかることがあります。_特に_多数のバリデータが同時にBeacon Chainを終了している場合は注意してください。プロトコルはエポックごとに少数のバリデータのみが終了することを許可するように設計されているため、順番を待つ必要がある場合があります。
 
-Once your exit epoch has passed, your validator will officially exit the chain and will no longer attest or propose blocks.
-You can confirm this in your Validator Client logs, or on the explorer:
+終了エポックが経過すると、バリデータは正式にチェーンを終了し、アテステーションやブロック提案を行わなくなります。
+Validator Clientログまたはエクスプローラーで確認できます。
 
 <img src="./images/exited.png" width="100%" height="auto" />
 
-The status has changed to `Exited` and there is some text underneath that indicates your **withdrawable epoch** (which should be 256 epochs after you exit, or about 27 hours).
-Beaconcha.in also conveniently provides the local timestamps for when your validator will exit and when it will be withdrawable.
+ステータスが`Exited`に変更され、その下に**withdrawable epoch**を示すテキストがあります（終了後256エポック、または約27時間後である必要があります）。
+Beaconcha.inは、バリデータが終了する時刻と引き出し可能になる時刻のローカルタイムスタンプも便利に提供しています。
 
-Once it has entered the **withdrawable** state, your validator will be enqueued by the Beacon Chain for rewards distribution.
-This queue depends on how many validators are currently withdrawing.
-Once it's your turn, the Beacon Chain will _automatically_ send your balance to your minipool's address on the Execution layer.
-At this point, you can access it using the Smartnode CLI to do a distribution.
+**withdrawable**状態に入ると、バリデータはBeacon Chainによって報酬分配のためにエンキューされます。
+このキューは、現在引き出し中のバリデータの数によって異なります。
+順番が来ると、Beacon Chainは_自動的に_残高をExecution Layer上のminipoolのアドレスに送信します。
+この時点で、Smartnode CLIを使用して分配を実行してアクセスできます。
 
-### Distributing Full Rewards
+### 全報酬の分配
 
-::: tip NOTE
-This process requires your validator to be exited from the Beacon Chain and your validator's balance to have been transferred to the minipool contract.
-If you need a refresher on how to do that process, please see the [**Exiting your Validator**](#exiting-your-validator) section above - return here once you're done.
+::: tip 注意
+このプロセスでは、バリデータがBeacon Chainから終了し、バリデータの残高がminipoolコントラクトに転送されている必要があります。
+そのプロセスの復習が必要な場合は、上記の[**バリデータの終了**](#exiting-your-validator)セクションを参照してください。完了したらここに戻ってください。
 :::
 
-If you have exited your validator from the Beacon Chain and your balance has been deposited into the minipool contract, you can safely withdraw the entire thing in one command.
-Unlike [manual distribution](./skimming#manual-distribution), this process will actually **finalize** your minipool which closes it and renders it inactive.
-Once your balance has been withdrawn from the Beacon Chain and you go through the following process to access the funds, the minipool's duty is over.
+Beacon Chainからバリデータを終了し、残高がminipoolコントラクトに入金されている場合は、1つのコマンドで全体を安全に引き出すことができます。
+[手動分配](./skimming#manual-distribution)とは異なり、このプロセスは実際にminipoolを**ファイナライズ**し、閉じて非アクティブにします。
+Beacon Chainから残高が引き出され、次のプロセスを経て資金にアクセスすると、minipoolの役割は終わります。
 
-To retrieve the funds and close the minipool, run the following command:
+資金を取得してminipoolを閉じるには、次のコマンドを実行します。
 
 ```shell
 rocketpool minipool close
 ```
 
-This will present you with a list of minipools that are eligible for closure:
+これにより、閉鎖の対象となるminipoolのリストが表示されます。
 
 ```
 Please select a minipool to close:
@@ -84,52 +84,52 @@ Please select a minipool to close:
 2: 0xd8E804cFA64ADb386F52DB20717810130c90f674 (32.007209 ETH available, 8.002559 ETH is yours plus a refund of 0.000000 ETH)
 ```
 
-Here you can see the total balance for each eligible minipool, how much of that balance will be distributed to you, and how much of that balance is reserved for you as a refund (which bypasses distribution).
+ここでは、対象となる各minipoolの総残高、その残高のうちあなたに分配される金額、および払い戻しとして予約されている残高の金額（これは分配をバイパスします）を確認できます。
 
-Select which minipool you'd like to distribute and close from the list, confirm the action, and wait for your transaction to be validated.
-Once it does, your share of the minipool balance (and your refund) will be sent to your withdrawal address, and the minipool will enter the `finalized` state.
+リストから分配して閉じたいminipoolを選択し、アクションを確認して、トランザクションが検証されるのを待ちます。
+完了すると、minipoolの残高のあなたの分（および払い戻し）が引き出しアドレスに送信され、minipoolは`finalized`状態になります。
 
-You can verify it by looking at the transaction on a block explorer; for example, see [the transaction for closing the above minipool (Goerli Testnet)](https://goerli.etherscan.io/tx/0xe81415b3b66f9b42d43ac17a0983e792725726c9fdd35ac855745bd12a053509).
+ブロックエクスプローラーでトランザクションを確認することで検証できます。たとえば、[上記のminipoolを閉じるトランザクション（Goerli Testnet）](https://goerli.etherscan.io/tx/0xe81415b3b66f9b42d43ac17a0983e792725726c9fdd35ac855745bd12a053509)を参照してください。
 
-### Unstaking RPL
+### RPLのアンステーキング
 
-At this point, your effective RPL will be updated to remove this minipool from the calculation.
-You can now unstake any RPL you have that would put you over the 60% bonded ETH threshold.
+この時点で、有効なRPLが更新され、このminipoolが計算から削除されます。
+これで、ボンドされたETHの60%しきい値を超える可能性のあるRPLをアンステーキングできます。
 
-To unstake RPL against the node, run the following command:
+ノードに対してRPLをアンステーキングするには、次のコマンドを実行します。
 
 ```shell
 rocketpool node withdraw-rpl
 ```
 
-::: tip NOTE
-There are two limitations on RPL withdrawals:
+::: tip 注意
+RPL引き出しには2つの制限があります。
 
-RPL cannot be withdrawn within 28 days of staking (or restaking) RPL. Be careful if you claim these rewards before closing your minipool, if you restake any amount of RPL rewards you will not be able to withdraw any amount of RPL for 28 days since the last staking action.
+RPLはステーキング（または再ステーキング）してから28日以内に引き出すことはできません。minipoolを閉じる前にこれらの報酬を請求する場合は注意してください。RPL報酬の任意の量を再ステーキングすると、最後のステーキングアクションから28日間RPLを引き出すことができません。
 
-RPL can be withdrawn down to 60% of your total bonded ETH. On a full exit, that means all of it can be withdrawn; for partial exits, plan with this limit in mind.
+RPLは、総ボンドETHの60%まで引き出すことができます。完全な終了の場合、すべてを引き出すことができます。部分的な終了の場合は、この制限を念頭に置いて計画してください。
 :::
 
-## A Note on the Old Delegate
+## 古いDelegateに関する注意
 
-The **original minipool delegate** assigned to every minipool from Rocket Pool's launch until Atlas's deployment was built with two assumptions in mind:
+Rocket Poolの立ち上げからAtlasのデプロイまですべてのminipoolに割り当てられた**オリジナルのminipool delegate**は、2つの前提を念頭に置いて構築されました。
 
-1. The only time your minipool will ever have a balance is after the validator has exited the Beacon Chain.
-2. The Oracle DAO will change your minipool's state from "staking" to "withdrawable" once the balance has been transferred from the Beacon Chain to the minipool contract.
+1. minipoolに残高がある唯一の時間は、バリデータがBeacon Chainを終了した後です。
+2. Oracle DAOは、残高がBeacon Chainからminipoolコントラクトに転送されると、minipoolの状態を「staking」から「withdrawable」に変更します。
 
-The first point is clearly no longer relevant now that Ethereum is being upgraded to support skimming.
-The second point is _also_ no longer true, because the Oracle DAO is **no longer** going to flag "withdrawable" minipools.
-This was an intentional design decision to reduce the power that the Oracle DAO yields over Rocket Pool node operators and allow them to access rewards without any supplemental requirement on trusted parties.
+最初のポイントは、Ethereumがスキミングをサポートするためにアップグレードされているため、明らかにもはや関連していません。
+2番目のポイントも_もはや真実ではありません_。なぜなら、Oracle DAOは「withdrawable」minipoolをフラグ**しなくなった**からです。
+これは、Oracle DAOがRocket Poolノードオペレーターに対して持つ権限を減らし、信頼された当事者に対する追加要件なしに報酬にアクセスできるようにするための意図的な設計上の決定でした。
 
-Because of these deficiencies, the Smartnode CLI **no longer supports** withdrawals or fund distribution on the original minipool delegate.
-If you'd like to access your rewards, you **must** upgrade to the Atlas delegate which supports the new withdrawal conditions listed above.
+これらの欠陥のため、Smartnode CLIは、オリジナルのminipool delegateでの引き出しまたは資金分配を**もはやサポートしていません**。
+報酬にアクセスしたい場合は、上記の新しい引き出し条件をサポートするAtlas delegateに**アップグレードする必要があります**。
 
-::: danger DANGER
-If you are an advanced user and bypass the CLI to invoke the distribution functionality on the contract directly via a third-party tool, be advised of the following things:
+::: danger 危険
+上級ユーザーで、CLIをバイパスしてサードパーティツールを介してコントラクトで直接分配機能を呼び出す場合は、次の点に注意してください。
 
-1. The delegate's distribution function will revert if the minipool's balance is **below 16 ETH**. Balances below 16 ETH **cannot be accessed.**
-2. If the minipool has **between 16 and 32 ETH** in its balance, distribution by the original delegate will assume your validator has been **slashed**. It will return 16 ETH to the staking pool and give you whatever is left over. It will _only_ function properly if the minipool balance is above 32 ETH.
-3. The minipool will never enter the `finalized` state because the Oracle DAO will never mark it as `withdrawable`, so even though you may be able to access your ETH, **your RPL will be locked** until you upgrade to the Atlas delegate.
+1. delegateの分配関数は、minipoolの残高が**16 ETH未満**の場合にリバートします。16 ETH未満の残高は**アクセスできません。**
+2. minipoolの残高が**16 ETHから32 ETHの間**の場合、オリジナルのdelegateによる分配はバリデータが**スラッシュされた**と想定します。16 ETHをステーキングプールに返し、残りをあなたに与えます。minipoolの残高が32 ETHを超える場合にのみ、_適切に機能します_。
+3. Oracle DAOはそれを`withdrawable`としてマークしないため、minipoolは`finalized`状態に入ることはありません。したがって、ETHにアクセスできる場合でも、**RPLはロックされます**。Atlas delegateにアップグレードするまでロックされます。
 
-Because of these points, we **strongly recommend** you just upgrade to the Atlas delegate in the first place and avoid them entirely.
+これらの理由から、最初からAtlas delegateにアップグレードして、これらを完全に回避することを**強くお勧めします**。
 :::

@@ -1,84 +1,84 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Pruning the Execution Client
+# Élagage du client d'exécution
 
 ::: tip NOTE
-This is meant for `geth` and `nethermind` users.
-Besu does _not_ need to be pruned.
+Ceci est destiné aux utilisateurs de `geth` et `nethermind`.
+Besu n'a _pas_ besoin d'être élagué.
 :::
 
-If you use `geth` or `nethermind` as your primary Execution client, you will likely notice that your node's free disk space slowly decreases over time.
-The Execution client is by far the biggest contributor to this; depending on how much RAM you allocated to its cache during `rocketpool service config`, it can grow at a rate of several gigabytes per day!
+Si vous utilisez `geth` ou `nethermind` comme client d'exécution principal, vous remarquerez probablement que l'espace disque libre de votre nœud diminue lentement au fil du temps.
+Le client d'exécution est de loin le plus grand contributeur à cela ; selon la quantité de RAM que vous avez allouée à son cache lors de `rocketpool service config`, il peut croître à un rythme de plusieurs gigaoctets par jour !
 
-To handle this, Execution clients provide a special function called **pruning** that lets them scan and clean up their database safely to reclaim some free space.
-Every node operator using Geth or Nethermind will have to prune it eventually.
+Pour gérer cela, les clients d'exécution fournissent une fonction spéciale appelée **élagage** qui leur permet d'analyser et de nettoyer leur base de données en toute sécurité pour récupérer de l'espace libre.
+Chaque opérateur de nœud utilisant Geth ou Nethermind devra l'élaguer éventuellement.
 
-If you have a 2 TB SSD, you can usually go for months between rounds of pruning.
-For 1 TB SSD users, you will have to prune more frequently.
+Si vous avez un SSD de 2 To, vous pouvez généralement passer des mois entre les cycles d'élagage.
+Pour les utilisateurs de SSD de 1 To, vous devrez élaguer plus fréquemment.
 
-If you have [the Grafana dashboard](./grafana) enabled, a good rule of thumb is to start thinking about pruning your Execution client when your node's used disk space exceeds 80%.
+Si vous avez [le tableau de bord Grafana](./grafana) activé, une bonne règle générale est de commencer à penser à élaguer votre client d'exécution lorsque l'espace disque utilisé de votre nœud dépasse 80 %.
 
-When you decide that it's time, the Smartnode comes with the ability to prune it for you upon request.
-Read below to learn how it works, and what to expect.
+Lorsque vous décidez qu'il est temps, le Smartnode est livré avec la capacité de l'élaguer pour vous sur demande.
+Lisez ci-dessous pour savoir comment cela fonctionne et à quoi vous attendre.
 
 ::: warning NOTE
-Pruning your Execution client is only possible in Docker Mode.
+L'élagage de votre client d'exécution n'est possible qu'en Docker Mode.
 
-If you use your own Execution client, such as an external client in Hybrid mode or Native mode, you cannot use the Smartnode to prune the Execution client.
-You will need to do it manually.
-Please refer to the documentation for your Execution client to learn how to prune it.
+Si vous utilisez votre propre client d'exécution, comme un client externe en mode Hybrid ou en mode Native, vous ne pouvez pas utiliser le Smartnode pour élaguer le client d'exécution.
+Vous devrez le faire manuellement.
+Veuillez vous référer à la documentation de votre client d'exécution pour apprendre comment l'élaguer.
 :::
 
-## Prerequisites
+## Prérequis
 
-Select the client you're using from the tabs below.
+Sélectionnez le client que vous utilisez dans les onglets ci-dessous.
 
 <div className="p-3">
   <Tabs>
     <Tab label="Geth">
-      Pruning Geth means taking the primary Execution client offline so it can clean itself up.
-      When this happens, the Smartnode (and your Consensus client) will need some other way to access the ETH1 chain in order to function properly.
+      L'élagage de Geth signifie mettre le client d'exécution principal hors ligne afin qu'il puisse se nettoyer.
+      Lorsque cela se produit, le Smartnode (et votre client de consensus) aura besoin d'une autre façon d'accéder à la chaîne ETH1 pour fonctionner correctement.
 
-      The easiest way to provide this is with a **fallback node**.
-      If you [configured a fall back node](./fallback) using `rocketpool service config` already, then the Smartnode will automatically switch over to it when your Geth container goes down for maintenance for you.
-      It will also inform your Consensus client to use the fallback as well.
+      Le moyen le plus simple de fournir cela est avec un **nœud de secours**.
+      Si vous [avez configuré un nœud de secours](./fallback) en utilisant `rocketpool service config` déjà, alors le Smartnode basculera automatiquement vers celui-ci lorsque votre conteneur Geth sera arrêté pour maintenance.
+      Il informera également votre client de consensus d'utiliser le secours également.
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">WARNING</p>
-        If you don't have a fallback node configured, your node will stop validating during the pruning process.
-        It will miss all attestations and block proposals until it's finished and has resynced with the network.
-        **You will leak ETH due to missed validations during this time!**
+        Si vous n'avez pas de nœud de secours configuré, votre nœud cessera de valider pendant le processus d'élagage.
+        Il manquera toutes les attestations et propositions de blocs jusqu'à ce qu'il soit terminé et qu'il se soit resynchronisé avec le réseau.
+        **Vous perdrez de l'ETH en raison de validations manquées pendant ce temps !**
       </p>
 
-      With that in mind, the following two conditions are required to successfully prune Geth:
+      En gardant cela à l'esprit, les deux conditions suivantes sont requises pour élaguer Geth avec succès :
 
-      - A working fallback node configured
-      - At least **50 GB** of free space remaining on your SSD
+      - Un nœud de secours fonctionnel configuré
+      - Au moins **50 Go** d'espace libre restant sur votre SSD
     </Tab>
     <Tab label="Nethermind">
-      Nethermind is able to stay online while it prunes, meaning you do not require a fallback node to continue attesting.
-      Note, however, that pruning is **an extremely resource-intesive task** and you may see an increase in your attestations' inclusion distance and missed attestations during it.
+      Nethermind est capable de rester en ligne pendant qu'il élague, ce qui signifie que vous n'avez pas besoin d'un nœud de secours pour continuer à attester.
+      Notez, cependant, que l'élagage est **une tâche extrêmement intensive en ressources** et vous pouvez voir une augmentation de la distance d'inclusion de vos attestations et des attestations manquées pendant celle-ci.
 
-      Nethermind does not require any special prerequisites; you are able to prune it at any time.
+      Nethermind ne nécessite aucun prérequis spécial ; vous pouvez l'élaguer à tout moment.
     </Tab>
 
   </Tabs>
 </div>
 
-## Starting a Prune
+## Démarrer un élagage
 
-Select the client you're using from the tabs below.
+Sélectionnez le client que vous utilisez dans les onglets ci-dessous.
 
 <div className="p-3">
   <Tabs>
     <Tab label="Geth">
-      When you want to prune Geth, simply run this command:
+      Lorsque vous souhaitez élaguer Geth, exécutez simplement cette commande :
 
       ```shell
       rocketpool service prune-eth1
       ```
 
-      If you do not have a fallback client pair enabled, you will receive the following warning:
+      Si vous n'avez pas de paire de clients de secours activée, vous recevrez l'avertissement suivant :
 
       ```
       This will shut down your main execution client and prune its database, freeing up disk space.
@@ -90,7 +90,7 @@ Select the client you're using from the tabs below.
       Are you sure you want to prune your main execution client? [y/n]
       ```
 
-      If you do have one enabled, you will see the following prompt instead:
+      Si vous en avez un activé, vous verrez l'invite suivante à la place :
 
       ```
       This will shut down your main execution client and prune its database, freeing up disk space.
@@ -100,7 +100,7 @@ Select the client you're using from the tabs below.
       Are you sure you want to prune your main execution client? [y/n]
       ```
 
-      If you accept, you'll see a few details as the Smartnode prepares things; it should end with a success message:
+      Si vous acceptez, vous verrez quelques détails pendant que le Smartnode prépare les choses ; cela devrait se terminer par un message de succès :
 
       ```
       Are you sure you want to prune your main ETH1 client? [y/n]
@@ -117,23 +117,23 @@ Select the client you're using from the tabs below.
       You must let it run to completion!
       ```
 
-      With that, Geth is now pruning and you're all set!
-      You can follow its progress with:
+      Avec cela, Geth élague maintenant et vous êtes tous prêts !
+      Vous pouvez suivre sa progression avec :
 
       ```shell
       rocketpool service logs eth1
       ```
 
-      Once it's done pruning, it will restart automatically and the Smartnode will resume using it again instead of your fallback.
+      Une fois l'élagage terminé, il redémarrera automatiquement et le Smartnode recommencera à l'utiliser au lieu de votre secours.
     </Tab>
     <Tab label="Nethermind">
-      When you want to prune Nethermind, simply run this command:
+      Lorsque vous souhaitez élaguer Nethermind, exécutez simplement cette commande :
 
       ```shell
       rocketpool service prune-eth1
       ```
 
-      You will see the following prompt:
+      Vous verrez l'invite suivante :
 
       ```
       This will shut down your main execution client and prune its database, freeing up disk space.
@@ -142,7 +142,7 @@ Select the client you're using from the tabs below.
       Are you sure you want to prune your main execution client? [y/n]
       ```
 
-      If you accept, you'll see a few messages similar to the following:
+      Si vous acceptez, vous verrez quelques messages similaires à ce qui suit :
 
       ```
       Your disk has 790 GiB free, which is enough to prune.
@@ -161,14 +161,14 @@ Select the client you're using from the tabs below.
       You must let it run to completion!
       ```
 
-      With that, Nethermind is now pruning and you're all set!
-      You can follow its progress with:
+      Avec cela, Nethermind élague maintenant et vous êtes tous prêts !
+      Vous pouvez suivre sa progression avec :
 
       ```shell
       rocketpool service logs eth1
       ```
 
-      Once it's done pruning, it will restart automatically.
+      Une fois l'élagage terminé, il redémarrera automatiquement.
     </Tab>
 
   </Tabs>

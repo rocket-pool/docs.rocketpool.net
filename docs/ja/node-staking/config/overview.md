@@ -1,26 +1,26 @@
 ---
 next:
-  text: Configuring the Smartnode Stack (Docker/hybrid mode)
-  link: "/en/node-staking/config-docker"
+  text: Smartnodeスタックの設定 (Docker/ハイブリッドモード)
+  link: "/ja/node-staking/config-docker"
 ---
 
-# Overview
+# 概要
 
-In this section, you'll learn how to configure the Smartnode stack and customize all of the settings to your liking.
-You will have to configure it prior to running the stack for the first time, but you can always come back once it's running and reconfigure it again whenever you like.
+このセクションでは、Smartnodeスタックを設定し、すべての設定を好みに合わせてカスタマイズする方法を学びます。
+スタックを初めて実行する前に設定する必要がありますが、実行後はいつでも戻ってきて再設定できます。
 
-## Prerequisites
+## 前提条件
 
-Before configuring your Smartnode, please make sure you:
+Smartnodeを設定する前に、以下を確認してください。
 
-- Have a node machine (or virtual machine) with the Operating System installed and configured
-- Have the machine secured (via the [Securing your Node](../securing-your-node) guide)
-- Have the Smartnode installed on it
+- オペレーティングシステムがインストールおよび設定されたノードマシン(または仮想マシン)がある
+- マシンがセキュリティ保護されている([ノードのセキュリティ保護](../securing-your-node)ガイドを参照)
+- Smartnodeがインストールされている
 
-## Guides
+## ガイド
 
-[Configuring the Smartnode Stack (Docker / Hybrid Mode)](../config-docker) is the guide to use if you want to run with Docker Mode or Hybrid Mode.
+[Smartnodeスタックの設定 (Docker / ハイブリッドモード)](../config-docker)は、Dockerモードまたはハイブリッドモードで実行する場合に使用するガイドです。
 
-[Configuring the Smartnode Stack (Native Mode)](../config-native) is the guide to use if you want to run with Native Mode.
+[Smartnodeスタックの設定 (ネイティブモード)](../config-native)は、ネイティブモードで実行する場合に使用するガイドです。
 
-[Advanced Smartnode Configuration for Docker Mode](../advanced-config) is a supplement to the Docker guide that shows some extra capabilities and features you might be interested in (such as "Reverse Hybrid" Mode or customizing the Docker container flags).
+[Dockerモード用のSmartnodeの高度な設定](../advanced-config)は、Dockerガイドの補足であり、興味を持つかもしれない追加機能や特徴(「リバースハイブリッド」モードやDockerコンテナフラグのカスタマイズなど)を示しています。

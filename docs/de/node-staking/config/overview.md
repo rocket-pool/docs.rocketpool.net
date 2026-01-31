@@ -1,26 +1,26 @@
 ---
 next:
-  text: Configuring the Smartnode Stack (Docker/hybrid mode)
-  link: "/en/node-staking/config-docker"
+  text: Konfiguration des Smartnode-Stacks (Docker/Hybrid-Modus)
+  link: "/de/node-staking/config-docker"
 ---
 
-# Overview
+# Übersicht
 
-In this section, you'll learn how to configure the Smartnode stack and customize all of the settings to your liking.
-You will have to configure it prior to running the stack for the first time, but you can always come back once it's running and reconfigure it again whenever you like.
+In diesem Abschnitt erfahren Sie, wie Sie den Smartnode-Stack konfigurieren und alle Einstellungen nach Ihren Wünschen anpassen können.
+Sie müssen ihn vor dem ersten Betrieb des Stacks konfigurieren, können aber jederzeit zurückkehren und ihn neu konfigurieren, sobald er läuft.
 
-## Prerequisites
+## Voraussetzungen
 
-Before configuring your Smartnode, please make sure you:
+Bevor Sie Ihren Smartnode konfigurieren, stellen Sie bitte sicher, dass Sie:
 
-- Have a node machine (or virtual machine) with the Operating System installed and configured
-- Have the machine secured (via the [Securing your Node](../securing-your-node) guide)
-- Have the Smartnode installed on it
+- Eine Node-Maschine (oder virtuelle Maschine) mit installiertem und konfiguriertem Betriebssystem haben
+- Die Maschine gesichert haben (über die Anleitung [Sichern Ihrer Node](../securing-your-node))
+- Den Smartnode darauf installiert haben
 
-## Guides
+## Anleitungen
 
-[Configuring the Smartnode Stack (Docker / Hybrid Mode)](../config-docker) is the guide to use if you want to run with Docker Mode or Hybrid Mode.
+[Konfiguration des Smartnode-Stacks (Docker / Hybrid-Modus)](../config-docker) ist die Anleitung, die Sie verwenden sollten, wenn Sie den Docker-Modus oder Hybrid-Modus nutzen möchten.
 
-[Configuring the Smartnode Stack (Native Mode)](../config-native) is the guide to use if you want to run with Native Mode.
+[Konfiguration des Smartnode-Stacks (Native-Modus)](../config-native) ist die Anleitung, die Sie verwenden sollten, wenn Sie den Native-Modus nutzen möchten.
 
-[Advanced Smartnode Configuration for Docker Mode](../advanced-config) is a supplement to the Docker guide that shows some extra capabilities and features you might be interested in (such as "Reverse Hybrid" Mode or customizing the Docker container flags).
+[Erweiterte Smartnode-Konfiguration für Docker-Modus](../advanced-config) ist eine Ergänzung zur Docker-Anleitung, die einige zusätzliche Funktionen und Features zeigt, die Sie interessieren könnten (wie z.B. den "Reverse Hybrid"-Modus oder das Anpassen der Docker-Container-Flags).

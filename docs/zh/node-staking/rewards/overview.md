@@ -1,26 +1,26 @@
 ---
 next:
-  text: Claiming Node Operator Rewards
-  link: "/en/node-staking/rewards"
+  text: 领取节点运营商奖励
+  link: "/zh/node-staking/rewards"
 ---
 
-# Overview
+# 概述
 
-This section covers how to access the rewards your node generates while validating.
+本节介绍如何访问您的节点在验证时产生的奖励。
 
-## Prerequisites
+## 先决条件
 
-Before configuring your Smartnode, please make sure you:
+在配置 Smartnode 之前,请确保您:
 
-- Have set up a node machine (or virtual machine) and secured it (via the [Securing your Node](../securing-your-node) guide)
-- Have the Smartnode [installed](../installing/overview) and [configured](../config/overview) on it
-- Have a node wallet loaded on your Smartnode
-- Synced your Execution and Consensus clients
-- Provisioned your node with [a withdrawal address](../prepare-node.mdx#setting-your-withdrawal-address), set up your [fallback clients](../fallback) (optional), opted into the [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (optional), and configured [MEV](../mev.mdx)
-- Created at least one [minipool](../create-validator.mdx)
+- 已设置节点机器(或虚拟机)并对其进行了保护(通过[保护您的节点](../securing-your-node)指南)
+- 在其上[安装](../installing/overview)并[配置](../config/overview)了 Smartnode
+- 在 Smartnode 上加载了节点钱包
+- 同步了您的执行和共识客户端
+- 为您的节点配置了[提款地址](../prepare-node.mdx#setting-your-withdrawal-address),设置了[后备客户端](../fallback)(可选),选择加入[Smoothing Pool](../fee-distrib-sp#the-smoothing-pool)(可选),并配置了 [MEV](../mev.mdx)
+- 创建了至少一个 [minipool](../create-validator.mdx)
 
-## Guides
+## 指南
 
-[Claiming Node Operator Rewards](../rewards) explains how RPL rewards and Execution-layer rewards work, and how to access them.
+[领取节点运营商奖励](../rewards)解释了 RPL 奖励和执行层奖励的工作原理,以及如何访问它们。
 
-[Distributing Skimmed Rewards](../skimming) covers accessing rewards from the Beacon Chain that periodically get "skimmed" by the protocol and delivered to your minipools.
+[分配撇取的奖励](../skimming)涵盖访问信标链中定期被协议"撇取"并交付到您的 minipool 的奖励。

@@ -1,69 +1,69 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Setting up the Grafana Dashboard
+# Grafanaダッシュボードの設定
 
-Now that you have your node up and running, you'll probably want to have a convenient way to monitor everything about it at a glance to make sure it's functioning correctly (and what kind of earnings it's generating for you).
+ノードが稼働したら、すべてが正常に機能しているか(そしてどのような収益を生み出しているか)を一目で監視できる便利な方法が欲しくなるでしょう。
 
-There are many tools out there that do this job.
-One of the most popular is called [Grafana](https://grafana.com/) - an easy-to-use, general-purpose dashboard system that you can access with a browser.
+これを実現するツールは数多く存在します。
+最も人気のあるツールの1つが[Grafana](https://grafana.com/)です。ブラウザでアクセスできる使いやすい汎用ダッシュボードシステムです。
 
-Rocket Pool comes out-of-the-box with support for Grafana and its dependencies; it even comes with a pre-built dashboard for each of the Consensus clients.
-For example, here is a snapshot of what the dashboard looks like on the Hoodi test network:
+Rocket PoolはGrafanaとその依存関係をすぐに使えるようにサポートしており、各Consensusクライアント用に事前構築されたダッシュボードも付属しています。
+例えば、Hoodiテストネットワークのダッシュボードのスナップショットは次のようになります。
 
 ![](./images/grafana-1.3.jpg)
 
-The standard dashboard includes the following information all in a convenient format:
+標準ダッシュボードには、次の情報が便利な形式で含まれています。
 
-- **Top left:** some important statistics about your machine's health and performance, and any pending system updates
-- **Top right:** the activity and performance of your validators on the Beacon Chain, along with some Execution and Consensus client stats
-- **Bottom left:** details about the entire Rocket Pool network, for reference
-- **Bottom right:** details about your staking rewards, both ETH and RPL
+- **左上:** マシンの健全性とパフォーマンスに関する重要な統計情報、および保留中のシステムアップデート
+- **右上:** Beacon Chain上のvalidatorのアクティビティとパフォーマンス、ExecutionおよびConsensusクライアントの統計情報
+- **左下:** 参考のためのRocket Poolネットワーク全体の詳細
+- **右下:** ETHとRPLの両方のstaking報酬の詳細
 
-In this guide, we'll show you how to enable Rocket Pool's metrics system so you can use this dashboard - or even build your own!
+このガイドでは、Rocket Poolのメトリクスシステムを有効にして、このダッシュボードを使用する方法(または独自のダッシュボードを構築する方法)を説明します。
 
-## Overview of the Rocket Pool Metrics Stack
+## Rocket Pool Metricsスタックの概要
 
-If you choose to enable metrics during the Smartnode configuration process, your node will add the following processes:
+Smartnode設定プロセス中にメトリクスを有効にすることを選択すると、ノードに次のプロセスが追加されます。
 
-- [Prometheus](https://prometheus.io/) - a data collection, storage, and reporting system that captures all of the metrics you see above (any many more) and stores them, so they can be looked at over time
-- The Prometheus [Node Exporter](https://github.com/prometheus/node_exporter) - a service that collects information about your machine's health (such as CPU usage, RAM usage, free disk space and swap space, etc.) and reports it to Prometheus
-- Grafana, the tool that exposes Prometheus's data through a convenient website hosted on your node
-- An optional custom set of scripts that will report any available Operating System updates to Prometheus, so you know if your system needs to be patched
+- [Prometheus](https://prometheus.io/) - 上記のすべてのメトリクス(およびさらに多くのメトリクス)を収集、保存、レポートするデータ収集・保存・レポートシステムで、時間経過とともに確認できるように保存します
+- Prometheus [Node Exporter](https://github.com/prometheus/node_exporter) - マシンの健全性に関する情報(CPU使用率、RAM使用率、空きディスク容量とスワップ領域など)を収集し、Prometheusに報告するサービス
+- Grafana、ノードでホストされている便利なウェブサイトを通じてPrometheusのデータを公開するツール
+- 利用可能なOSアップデートをPrometheusに報告するオプションのカスタムスクリプトセット。システムにパッチが必要かどうかを確認できます
 
-The default configuration will create Docker containers with all of these services that live alongside the rest of the Smartnode's Docker containers.
-It will open up a port on your node machine for Grafana, so you can access its dashboard from any machine on your local network with a browser.
+デフォルト設定では、Smartnodeの他のDockerコンテナと並んで存在するこれらすべてのサービスを含むDockerコンテナが作成されます。
+Grafana用にノードマシンでポートが開かれるため、ローカルネットワーク上のブラウザを使用して任意のマシンからダッシュボードにアクセスできます。
 
-## Enabling the Metrics Server
+## Metricsサーバーの有効化
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker">
-      Enabling metrics in Docker mode is the easiest of all.
+      Dockerモードでメトリクスを有効にするのが最も簡単です。
 
-      Start by running the Smartnode configuration command again:
+      まず、Smartnode設定コマンドを再度実行します。
 
       ```shell
       rocketpool service config
       ```
 
-      Go to the `Monitoring / Metrics` section and check the `Enable Metrics` checkbox.
+      `Monitoring / Metrics`セクションに移動し、`Enable Metrics`チェックボックスをオンにします。
 
-      For those who prefer to fine-tune their port settings, you may do so here.
-      Note that all of these ports are restricted to Docker's internal network with the exception of the Grafana port - that will be opened on your machine (so you can access it via a browser from other machines, such as your desktop or phone) so you may want to change that if the default port conflicts with something you already have.
+      ポート設定を細かく調整したい場合は、ここで行うことができます。
+      これらのポートはすべて、Grafanaポートを除いてDockerの内部ネットワークに制限されていることに注意してください。Grafanaポートはマシンで開かれます(デスクトップや携帯電話などの他のマシンからブラウザ経由でアクセスできるようにするため)。デフォルトのポートが既存のものと競合する場合は変更することをお勧めします。
 
-      Save and exit, and smartnode will start the Prometheus, Node Exporter, and Grafana Docker containers for you.
+      保存して終了すると、smartnodeがPrometheus、Node Exporter、GrafanaのDockerコンテナを起動します。
 
-      It will also modify your Consensus and Validator clients so they expose their own metrics to Prometheus.
+      ConsensusクライアントとValidatorクライアントも変更され、独自のメトリクスをPrometheusに公開するようになります。
 
-      The Operating System and Rocket Pool update tracker is **not installed by default** for maximum flexibility, but the process is simple.
-      If you would like to install it so your dashboard shows you how many updates are available for your system, you can do it with this command:
+      OSとRocket Poolアップデートトラッカーは、最大限の柔軟性のために**デフォルトではインストールされません**が、プロセスは簡単です。
+      ダッシュボードにシステムで利用可能なアップデート数を表示したい場合は、次のコマンドでインストールできます。
 
       ```shell
       rocketpool service install-update-tracker
       ```
 
-      Under the hood, this will install a service that hooks into your Operating System's package manager, periodically checks for updates, and sends that information to Prometheus.
-      This service is different for every Operating System, but it has been confirmed to work on the following:
+      内部的には、これによりOSのパッケージマネージャーにフックするサービスがインストールされ、定期的にアップデートをチェックし、その情報をPrometheusに送信します。
+      このサービスはOSごとに異なりますが、次のOSで動作することが確認されています。
 
       - Ubuntu 20.04+
       - Debian 9 and 10
@@ -72,27 +72,27 @@ It will open up a port on your node machine for Grafana, so you can access its d
 
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        Enabling the service automatically is incompatible with SELinux.
-        If your system has SELinux enabled by default (as is the case with CentOS and Fedora), the installation command will get you _most of the way there_ but will also give you instructions on how to finish the process manually at the end.
+        <p className="rspress-directive-title">注意</p>
+        サービスの自動有効化はSELinuxと互換性がありません。
+        システムでSELinuxがデフォルトで有効になっている場合(CentOSやFedoraの場合)、インストールコマンドは_ほとんどの作業を完了_しますが、最後に手動でプロセスを完了する方法の指示も提供されます。
       </p>
 
 
-      During this check, it will also compare your installed Rocket Pool Smartnode version with the latest release, and inform you if there's a new release available.
+      このチェック中に、インストールされているRocket Pool Smartnodeバージョンと最新リリースも比較し、新しいリリースが利用可能な場合は通知します。
 
-      If you enabled the update tracker, then the last step is to restart the Node Exporter with the following command:
+      アップデートトラッカーを有効にした場合、最後のステップは次のコマンドでNode Exporterを再起動することです。
 
       ```shell
       docker restart rocketpool_exporter
       ```
 
-      After that, you should be all set.
+      その後、すべての設定が完了します。
     </Tab>
     <Tab label="Hybrid">
-      Hybrid Mode works similar to Docker Mode; the only difference is that you must manually add the proper command-line flags for enabling metrics to your Execution and Consensus Client service definition.
+      HybridモードはDockerモードと同様に機能します。唯一の違いは、ExecutionおよびConsensusクライアントサービス定義に、メトリクスを有効にするための適切なコマンドラインフラグを手動で追加する必要があることです。
 
-      First, we will update your Execution Client.
-      Open the `systemd` unit file you created when you installed your Execution Client and make sure it has the correct flags, based on which client you are running:
+      まず、Executionクライアントを更新します。
+      Executionクライアントのインストール時に作成した`systemd`ユニットファイルを開き、実行しているクライアントに基づいて正しいフラグがあることを確認します。
 
       <div className="p-3">
         <Tabs>
@@ -114,8 +114,8 @@ It will open up a port on your node machine for Grafana, so you can access its d
         </Tabs>
       </div>
 
-      Next, we will update your Consensus Client.
-      Open the `systemd` unit file you created when you installed your Consensus Client and make sure it has the correct flags, based on which client you are running:
+      次に、Consensusクライアントを更新します。
+      Consensusクライアントのインストール時に作成した`systemd`ユニットファイルを開き、実行しているクライアントに基づいて正しいフラグがあることを確認します。
 
       <div className="p-3">
         <Tabs>
@@ -139,7 +139,7 @@ It will open up a port on your node machine for Grafana, so you can access its d
             --monitoring-host 0.0.0.0 --monitoring-port 9100
             ```
 
-            If you see the flag `--disable-monitoring`, remove it.
+            `--disable-monitoring`フラグがある場合は削除してください。
           </Tab>
           <Tab label="Teku">
             ```
@@ -150,21 +150,21 @@ It will open up a port on your node machine for Grafana, so you can access its d
         </Tabs>
       </div>
 
-      If you already have these flags set and are using different ports for your solo validator monitoring, leave them as-is and make note of which ports you're using.
+      これらのフラグが既に設定されていて、ソロvalidator監視用に異なるポートを使用している場合は、そのままにして、使用しているポートをメモしてください。
 
-      Now, scroll up and follow the directions in the `Docker` tab of this section to finish the process - keeping in mind that you must replace the ports listed there with any custom ports you use when you run `rocketpool service config`.
+      次に、上にスクロールしてこのセクションの`Docker`タブの指示に従ってプロセスを完了します。`rocketpool service config`を実行する際に、使用しているカスタムポートで記載されているポートを置き換える必要があることに注意してください。
 
     </Tab>
     <Tab label="Native">
-      Native installation of Grafana and Prometheus is recommended for advanced users only. It requires Linux administration skills like `systemd`, file permissions, users and network management.
+      GrafanaとPrometheusのNativeインストールは、上級ユーザーのみにお勧めします。`systemd`、ファイル権限、ユーザー、ネットワーク管理などのLinux管理スキルが必要です。
 
-      First, make sure your Execution Client and Consensus Client have metrics enabled. Refer to 'Hybrid' tab for details.
+      まず、ExecutionクライアントとConsensusクライアントでメトリクスが有効になっていることを確認します。詳細については、「Hybrid」タブを参照してください。
 
-      Next, check prebuilt prometheus and node_exporter packages on [the official download page](https://prometheus.io/download/).
-      Choose packages with proper architecture for your platform (amd64 or arm64).
-      Most recent LTS (Long Time Support) version of Prometheus is recommended.
+      次に、[公式ダウンロードページ](https://prometheus.io/download/)でprometheusとnode_exporterの事前ビルドパッケージを確認します。
+      プラットフォームに適したアーキテクチャ(amd64またはarm64)のパッケージを選択してください。
+      最新のLTS(Long Time Support)バージョンのPrometheusをお勧めします。
 
-      For example to download prometheus v2.45.3 LTS and node_exporter v1.7.0 for Linux amd64 with `wget` do:
+      例えば、`wget`を使用してLinux amd64用のprometheus v2.45.3 LTSとnode_exporter v1.7.0をダウンロードするには、次のようにします。
 
       ```shell
       wget https://github.com/prometheus/prometheus/releases/download/v2.45.3/prometheus-2.45.3.linux-amd64.tar.gz
@@ -172,7 +172,7 @@ It will open up a port on your node machine for Grafana, so you can access its d
       wget https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-amd64.tar.gz
       ```
 
-      Extract prometheus and node_exporter executables from downloaded archives.
+      ダウンロードしたアーカイブからprometheusとnode_exporterの実行ファイルを抽出します。
 
       ```shell
       sudo tar -zxvf prometheus-2.45.3.linux-amd64.tar.gz -C /usr/local/bin --wildcards '*/prometheus' --strip-components=1
@@ -180,7 +180,7 @@ It will open up a port on your node machine for Grafana, so you can access its d
       sudo tar -zxvf alertmanager-0.26.0.linux-amd64.tar.gz -C /usr/local/bin --wildcards '*/alertmanager' --strip-components=1
       ```
 
-      Create directories for prometheus & alertmanager configs.
+      prometheusとalertmanagerの設定用ディレクトリを作成します。
 
       ```shell
       sudo mkdir /etc/prometheus
@@ -189,7 +189,7 @@ It will open up a port on your node machine for Grafana, so you can access its d
       sudo mkdir /var/lib/alertmanager
       ```
 
-      Create file `/etc/prometheus/prometheus.yml` with following content:
+      次の内容で`/etc/prometheus/prometheus.yml`ファイルを作成します。
 
       ```yaml
       global:
@@ -239,15 +239,15 @@ It will open up a port on your node machine for Grafana, so you can access its d
       ```
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        Change the port numbers for the Execution Client and Consensus Client if required.
+        <p className="rspress-directive-title">注意</p>
+        必要に応じて、ExecutionクライアントとConsensusクライアントのポート番号を変更してください。
 
-        You may be running your node on a different host than the host running prometheus change. In that case
-        install node_exporter on your rocketpool node host and update `targets` of the `node` job to include all machines you want to monitor.
-        Also adjust `metrics_path` if your Execution Client is geth - it exposes non-standard endpoint for metrics.
+        prometheus変更を実行しているホストとは異なるホストでノードを実行している場合があります。その場合は、
+        rocketpoolノードホストにnode_exporterをインストールし、監視するすべてのマシンを含めるように`node`ジョブの`targets`を更新してください。
+        Executionクライアントがgethの場合は、`metrics_path`も調整してください。gethはメトリクス用に非標準のエンドポイントを公開します。
       </p>
 
-      Create the `/etc/alertmanager/alertmanager.yml` with the following content:
+      次の内容で`/etc/alertmanager/alertmanager.yml`を作成します。
 
       ```yaml
       global:
@@ -306,14 +306,14 @@ It will open up a port on your node machine for Grafana, so you can access its d
       equal: ["alertname", "job", "instance"]
       ```
 
-      Create system user for prometheus and alertmanager.
+      prometheusとalertmanager用のシステムユーザーを作成します。
 
       ```shell
       sudo useradd -r -s /sbin/nologin prometheus
       sudo useradd -r -s /sbin/nologin alertmanager
       ```
 
-      Change prometheus/alertmanager files ownership and permissions.
+      prometheusとalertmanagerファイルの所有権と権限を変更します。
 
       ```shell
       sudo chown prometheus:prometheus /usr/local/bin/prometheus
@@ -328,7 +328,7 @@ It will open up a port on your node machine for Grafana, so you can access its d
       sudo chmod u+sx,g+sx,o-wx /usr/local/bin/node_exporter
       ```
 
-      Create file `/lib/systemd/system/node-exporter.service` for node_exporter service configuration.
+      node_exporterサービス設定用に`/lib/systemd/system/node-exporter.service`ファイルを作成します。
 
       ```
       [Unit]
@@ -353,11 +353,11 @@ It will open up a port on your node machine for Grafana, so you can access its d
 
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        If you want to change the port on which node_exporter is running, modify command at `ExecStart` parameter. Default port is 9100.
+        <p className="rspress-directive-title">注意</p>
+        node_exporterが実行されているポートを変更したい場合は、`ExecStart`パラメータのコマンドを変更してください。デフォルトポートは9100です。
       </p>
 
-      Create file `/lib/systemd/system/prometheus.service` for prometheus service configuration.
+      prometheusサービス設定用に`/lib/systemd/system/prometheus.service`ファイルを作成します。
 
       ```
       [Unit]
@@ -381,11 +381,11 @@ It will open up a port on your node machine for Grafana, so you can access its d
       ```
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        If you want to change the port on which prometheus is running, modify command at `ExecStart` parameter. Default port is 9090.
+        <p className="rspress-directive-title">注意</p>
+        prometheusが実行されているポートを変更したい場合は、`ExecStart`パラメータのコマンドを変更してください。デフォルトポートは9090です。
       </p>
 
-      Create file `/lib/systemd/system/alertmanager.service` for the alertmanager service configuration.
+      alertmanagerサービス設定用に`/lib/systemd/system/alertmanager.service`ファイルを作成します。
 
       ```
       [Unit]
@@ -409,51 +409,51 @@ It will open up a port on your node machine for Grafana, so you can access its d
       ```
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        If you want to change the port on which alertmanager is running, modify command at `ExecStart` parameter. Default port is 9093.
+        <p className="rspress-directive-title">注意</p>
+        alertmanagerが実行されているポートを変更したい場合は、`ExecStart`パラメータのコマンドを変更してください。デフォルトポートは9093です。
       </p>
 
-      Let `systemd` know about new services.
+      新しいサービスについて`systemd`に通知します。
 
       ```shell
       sudo systemctl daemon-reload
       ```
 
-      Enable and start node-exporter service.
+      node-exporterサービスを有効にして起動します。
 
       ```shell
       sudo systemctl enable node-exporter
       sudo systemctl start node-exporter
       ```
 
-      Check the service status to make sure it's running.
+      サービスのステータスを確認して、実行中であることを確認します。
 
       ```shell
       sudo systemctl status node-exporter
       ```
 
-      Enable and start prometheus service.
+      prometheusサービスを有効にして起動します。
 
       ```shell
       sudo systemctl enable prometheus
       sudo systemctl start prometheus
       ```
 
-      Enable and start alertmanager service.
+      alertmanagerサービスを有効にして起動します。
 
       ```shell
       sudo systemctl enable alertmanager
       sudo systemctl start alertmanager
       ```
 
-      Check the service status to make sure it's running.
+      サービスのステータスを確認して、実行中であることを確認します。
 
       ```shell
       sudo systemctl status prometheus
       sudo systemctl status alertmanager
       ```
 
-      Setup package repository for Grafana.
+      Grafana用のパッケージリポジトリをセットアップします。
 
       ```shell
       sudo apt-get update
@@ -463,16 +463,16 @@ It will open up a port on your node machine for Grafana, so you can access its d
       echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
       ```
 
-      Install Grafana.
+      Grafanaをインストールします。
 
       ```shell
       sudo apt-get update
       sudo apt-get install grafana
       ```
 
-      Verify settings in `/etc/grafana/grafana.ini`. Change the `http_port` to 3100 to be in line with the other sections provided in this document.
+      `/etc/grafana/grafana.ini`の設定を確認します。このドキュメントの他のセクションに合わせて、`http_port`を3100に変更します。
 
-      Configure datasource to visualise metrics from Prometheus in Grafana. Create file `/etc/grafana/provisioning/datasources/prometheus.yml`.
+      GrafanaでPrometheusからメトリクスを視覚化するためのデータソースを設定します。`/etc/grafana/provisioning/datasources/prometheus.yml`ファイルを作成します。
 
       ```yaml
       apiVersion: 1
@@ -494,11 +494,11 @@ It will open up a port on your node machine for Grafana, so you can access its d
       ```
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        Edit `url` if you have changed Prometheus listening port.
+        <p className="rspress-directive-title">注意</p>
+        Prometheusのリスニングポートを変更した場合は、`url`を編集してください。
       </p>
 
-      Enable and start service for Grafana.
+      Grafana用のサービスを有効にして起動します。
 
       ```shell
       sudo systemctl daemon-reload
@@ -506,28 +506,28 @@ It will open up a port on your node machine for Grafana, so you can access its d
       sudo systemctl start grafana-server
       ```
 
-      Check if Grafana is up and running.
+      Grafanaが起動して実行中であることを確認します。
 
       ```shell
       sudo systemctl status grafana-server
       ```
 
-      This is pretty much it.
+      これで完了です。
     </Tab>
 
   </Tabs>
 </div>
 
-## Configure firewall to allow connections for monitoring
+## 監視用の接続を許可するようにファイアウォールを設定する
 
-::: warning NOTE
-If you have UFW enabled as referenced in the [Securing your Node](./securing-your-node) section, you will need to open a few ports in order to allow local connections between the Prometheus and your Execution/Consensus Clients. Follow the steps below.
+::: warning 注意
+[Securing your Node](./securing-your-node)セクションで参照されているようにUFWを有効にしている場合、PrometheusとExecution/Consensusクライアント間のローカル接続を許可するために、いくつかのポートを開く必要があります。以下の手順に従ってください。
 :::
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker">
-      Run the following, and replace the ports as needed:
+      次のコマンドを実行し、必要に応じてポートを置き換えます。
 
       ```shell
       RP_NET=$(docker inspect rocketpool_net | grep -Po "(?<=\"Subnet\": \")[0-9./]+")
@@ -537,38 +537,37 @@ If you have UFW enabled as referenced in the [Securing your Node](./securing-you
       ```
     </Tab>
     <Tab label="Native">
-      If your RocketPool node and Prometheus resides on different hosts you need to configure firewall on your node host to allow incoming traffic
-      from Prometheus host IP to the node monitoring ports.
-      You also need to configure UFW on the Prometheus machine to allow for outgoing traffic from the Prometheus host to the RocketPool node host.
+      RocketPoolノードとPrometheusが異なるホストにある場合、PrometheusホストIPからノード監視ポートへの着信トラフィックを許可するように、ノードホストでファイアウォールを設定する必要があります。
+      また、PrometheusホストからRocketPoolノードホストへの発信トラフィックを許可するように、PrometheusマシンでUFWを設定する必要があります。
 
-      Having node host IP `192.168.1.5` and Prometheus host IP `192.168.1.6` the UFW rules for the node will be:
+      ノードホストIPが`192.168.1.5`でPrometheusホストIPが`192.168.1.6`の場合、ノードのUFWルールは次のようになります。
 
       ```shell
       sudo ufw allow from 192.168.1.6 to any port 9100:9105 proto tcp comment 'Allow Prometheus host to scrape metrics of this host'
       ```
 
-      And for Prometheus host:
+      Prometheusホストの場合:
 
       ```shell
       sudo ufw allow out from any to 192.168.1.5 port 9100:9105 proto tcp comment 'Allow this host to scrape node metrics'
       ```
 
-      Assuming your Grafana listening port is 3100, continue reading to find out how to expose Grafana in your network.
+      Grafanaリスニングポートが3100であると仮定して、読み進めてネットワークでGrafanaを公開する方法を確認してください。
     </Tab>
 
   </Tabs>
 </div>
 
-You can then open the firewall to allow external devices access to your Grafana dashboard.
+その後、ファイアウォールを開いて、外部デバイスがGrafanaダッシュボードにアクセスできるようにすることができます。
 
 <div className="p-3">
   <Tabs>
     <Tab label="Network">
-      Use this if you want to access Grafana from any machine inside your local network, but deny access everywhere else.
-      This will be the most common use case.
+      ローカルネットワーク内の任意のマシンからGrafanaにアクセスできるようにし、他のすべての場所からのアクセスを拒否する場合は、これを使用します。
+      これが最も一般的な使用例です。
 
-      Please check whether your local network uses the `192.168.1.xxx` structure first.
-      You may have to change the command below to match your local network's configuration if it uses a different address structure (e.g. `192.168.99.xxx`).
+      まず、ローカルネットワークが`192.168.1.xxx`構造を使用しているかどうかを確認してください。
+      異なるアドレス構造(例: `192.168.99.xxx`)を使用している場合は、ローカルネットワークの構成に合わせて以下のコマンドを変更する必要がある場合があります。
 
       ```shell
       # This assumes your local IP structure is 192.168.1.xxx
@@ -577,10 +576,10 @@ You can then open the firewall to allow external devices access to your Grafana 
 
     </Tab>
     <Tab label="Subnet">
-      Use this if your Rocket Pool node is not connected to the same subnet as the device from which you are viewing Grafana. This may happen when your node is connected directly to your ISP's modem and the device you use to view Grafana is connected to a secondary router.
+      Rocket Poolノードが、Grafanaを表示するデバイスと同じサブネットに接続されていない場合は、これを使用します。これは、ノードがISPのモデムに直接接続されており、Grafanaを表示するために使用するデバイスがセカンダリルーターに接続されている場合に発生する可能性があります。
 
-      Please check whether your local network uses the `192.168.1.xxx` structure first.
-      You may have to change the command below to match your local network's configuration if it uses a different address structure (e.g. `192.168.99.xxx`).
+      まず、ローカルネットワークが`192.168.1.xxx`構造を使用しているかどうかを確認してください。
+      異なるアドレス構造(例: `192.168.99.xxx`)を使用している場合は、ローカルネットワークの構成に合わせて以下のコマンドを変更する必要がある場合があります。
 
       ```shell
       # To allow any devices in the broader subnet
@@ -590,8 +589,8 @@ You can then open the firewall to allow external devices access to your Grafana 
       ```
     </Tab>
     <Tab label="Anywhere">
-      This will let you access Grafana from anywhere.
-      If you want to access it from outside your local network, you will still need to forward the Grafana port (default 3100) in your router settings.
+      これにより、どこからでもGrafanaにアクセスできるようになります。
+      ローカルネットワークの外部からアクセスする場合は、ルーター設定でGrafanaポート(デフォルト3100)を転送する必要があります。
 
       ```shell
       # Allow any IP to connect to Grafana
@@ -602,40 +601,40 @@ You can then open the firewall to allow external devices access to your Grafana 
   </Tabs>
 </div>
 
-## Setting up Grafana
+## Grafanaのセットアップ
 
-Now that the metrics server is ready, you can access it with any browser on your local network.
+これでメトリクスサーバーの準備が整いました。ローカルネットワーク上の任意のブラウザでアクセスできます。
 
-Refer to the tabs below for your Smartnode installation mode.
+Smartnodeインストールモードについては、以下のタブを参照してください。
 
-Navigate to the following URL, substituting the variables with your setup as necessary:
+次のURLに移動し、必要に応じて変数をセットアップに置き換えます。
 
 ```
 http://<your node IP>:<grafana port>
 ```
 
-For example, if you node's IP was `192.168.1.5` and you used the default Grafana port of `3100`, then you would go to this URL in your browser:
+例えば、ノードのIPが`192.168.1.5`で、デフォルトのGrafanaポート`3100`を使用した場合、ブラウザで次のURLにアクセスします。
 
 ```
 http://192.168.1.5:3100
 ```
 
-You will see a login screen like this:
+次のようなログイン画面が表示されます。
 
 <img src="./images/grafana-login.png" width="100%" height="auto" />
 
-The default Grafana information is:
+デフォルトのGrafana情報は次のとおりです。
 
 ```
 Username: admin
 Password: admin
 ```
 
-You will then be prompted to change the default password for the `admin` account.
-Pick something strong and don't forget it!
+その後、`admin`アカウントのデフォルトパスワードを変更するように求められます。
+強力なパスワードを選択し、忘れないようにしてください。
 
-::: tip Tip
-If you lose the admin password, you can reset it using the following command on your node:
+::: tip ヒント
+adminパスワードを紛失した場合は、ノードで次のコマンドを使用してリセットできます。
 
 <div className="p-3">
   <Tabs>
@@ -654,85 +653,85 @@ If you lose the admin password, you can reset it using the following command on 
   </Tabs>
 </div>
 
-You will be able to log into Grafana using the default `admin` credentials once again, and then you will be prompted to change the password for the `admin` account.
+デフォルトの`admin`認証情報を使用してGrafanaに再度ログインでき、その後`admin`アカウントのパスワードを変更するように求められます。
 :::
 
-Thanks to community member **tedsteen**'s work, Grafana will automatically connect to your Prometheus instance so it has access to the metrics that it collects.
-All you need to do is grab the dashboard!
+コミュニティメンバーの**tedsteen**の功績により、GrafanaはPrometheusインスタンスに自動的に接続されるため、収集したメトリクスにアクセスできます。
+あとはダッシュボードを取得するだけです。
 
-## Importing the Rocket Pool Dashboard
+## Rocket Poolダッシュボードのインポート
 
-Now that you have Grafana attached to Prometheus, you can import the standard dashboard (or build your own using the metrics that it provides, if you are familiar with that process).
+GrafanaをPrometheusに接続したので、標準ダッシュボードをインポートできます(または、そのプロセスに精通している場合は、提供されるメトリクスを使用して独自のダッシュボードを構築できます)。
 
-Start by going to the **Create** menu (the plus icon on the right-side bar) and click on **Import**:
+まず、**Create**メニュー(右側のバーのプラスアイコン)に移動し、**Import**をクリックします。
 
 <img src="./images/grafana-import.png" width="100%" height="auto" />
 
-When prompted for the dashboard ID in the **Import via grafana.com** box, enter `21863` or use the full URL ([(https://grafana.com/grafana/dashboards/21863](https://grafana.com/grafana/dashboards/21863)) and press the **Load** button.
+**Import via grafana.com**ボックスでダッシュボードIDの入力を求められたら、`21863`を入力するか、完全なURL([(https://grafana.com/grafana/dashboards/21863](https://grafana.com/grafana/dashboards/21863))を使用して、**Load**ボタンを押します。
 
-You will be prompted with some information about the dashboard here, such as its name and where you'd like to store it (the default **General** folder is fine unless you use a lot of dashboards and want to organize them).
+ダッシュボードに関する情報(名前や保存場所など)が表示されます(デフォルトの**General**フォルダで問題ありません。多くのダッシュボードを使用していて整理したい場合を除きます)。
 
-Under the **Prometheus** drop-down at the bottom, you should only have a single option labeled **Prometheus (default)**.
-Select this option.
+下部の**Prometheus**ドロップダウンには、**Prometheus (default)**というラベルの付いた単一のオプションのみが表示されるはずです。
+このオプションを選択します。
 
-Your screen should look like this:
+画面は次のようになります。
 
 <img src="./images/grafana-import2.png" width="100%" height="auto" />
 
-If yours matches, click the **Import** button and you will be immediately taken to your new dashboard.
+一致する場合は、**Import**ボタンをクリックすると、新しいダッシュボードにすぐに移動します。
 
-At first glance, you should see lots of information about your node and your validators.
-Each box comes with a handy tooltip on the top left corner (the `i` icon) that you can hover over to learn more about it.
-For example, here is the tooltip for the **Your Validator Share** box:
+一見すると、ノードとvalidatorに関する多くの情報が表示されます。
+各ボックスには、左上隅に便利なツールチップ(`i`アイコン)が付いており、マウスを合わせると詳細を確認できます。
+例えば、**Your Validator Share**ボックスのツールチップは次のとおりです。
 
 <img src="./images/tooltip.png" width="100%" height="auto" />
 
-However, we aren't done setting things up yet - there is still a little more configuration to do.
+ただし、設定はまだ完了していません。まだもう少し設定が必要です。
 
-::: warning NOTE
-Some of the boxes (notably the APR ones) have been temporarily disabled due to the way Shapella provides skimmed rewards.
+::: warning 注意
+一部のボックス(特にAPRのボックス)は、Shapellaがスキムされた報酬を提供する方法により、一時的に無効になっています。
 
-They will be enabled again in a future version of the Smartnode that can track historical rewards properly.
+過去の報酬を適切に追跡できるSmartnodeの将来のバージョンで再び有効になります。
 :::
 
-## Tailoring the Hardware Monitor to your System
+## システムに合わせてハードウェアモニターを調整する
 
-Now that the dashboard is up, you might notice that a few boxes are empty such as **SSD Latency** and **Network Usage**.
-We have to tailor the dashboard to your specific hardware so it knows how to capture these things.
+ダッシュボードが起動したので、**SSD Latency**や**Network Usage**などのいくつかのボックスが空であることに気付くかもしれません。
+これらをキャプチャする方法を認識できるように、特定のハードウェアに合わせてダッシュボードを調整する必要があります。
 
 ### CPU Temp
 
-To update your CPU temperature gauge, click the title of the **CPU Temp** box and select **Edit** from the drop down.
-Your screen will now look something like this:
+CPU温度ゲージを更新するには、**CPU Temp**ボックスのタイトルをクリックし、ドロップダウンから**Edit**を選択します。
+画面は次のようになります。
 
 <img src="./images/cpu-temp.png" width="100%" height="auto" />
 
-This is Grafana's edit mode, where you can change what is displayed and how it looks.
-We're interested in the query box highlighted in red, to the right of the **Metrics browser** button.
+これはGrafanaの編集モードです。表示される内容と見た目を変更できます。
+**Metrics browser**ボタンの右側にある、赤で強調表示されたクエリボックスに注目しています。
 
-By default, that box has this in it:
+デフォルトでは、そのボックスには次のようなものがあります。
 
 ```
 node_hwmon_temp_celsius{job="node", chip="", sensor=""}
 ```
 
-There are two fields in this text that are currently blank: `chip` and `sensor`.
-These are unique to each machine, so you'll have to fill them in based on what your machine provides.
+このテキストには現在空白の2つのフィールドがあります: `chip`と`sensor`。
+これらは各マシンに固有であるため、マシンが提供するものに基づいて入力する必要があります。
 
-To do this, follow these steps:
+これを行うには、次の手順に従います。
 
-1. Remove the `, sensor=""` portion so it ends with `chip=""}`. For clarity, the whole thing should now be `node_hwmon_temp_celsius{job="node", chip=""}`.
-2. Put your cursor in-between the quote marks of `chip=""` and press `Ctrl+Spacebar`. This will bring up an auto-complete box with the available options, which looks like this:
+1. `, sensor=""`の部分を削除して、`chip=""}`で終わるようにします。明確にするために、全体は`node_hwmon_temp_celsius{job="node", chip=""}`になります。
+2. `chip=""`の引用符の間にカーソルを置き、`Ctrl+Spacebar`を押します。これにより、利用可能なオプションが表示された自動補完ボックスが表示されます。次のようになります。
 
 <img src="./images/grafana-autocomplete.png" width="100%" height="auto" />
 
-3. Select the option that corresponds to your system's CPU.
-4. Once that's selected, add `, sensor=""` back into the string. Place your cursor in-between the quote marks of `sensor=""` and press `Ctrl+Spacebar` to get another auto-complete menu. Select the sensor you want to monitor.
+3. システムのCPUに対応するオプションを選択します。
+4. それが選択されたら、`, sensor=""`を文字列に戻します。`sensor=""`の引用符の間にカーソルを置き、`Ctrl+Spacebar`を押して別の自動補完メニューを表示します。監視するセンサーを選択します。
 
-::: tip Tip
-If you don't know which `chip` or `sensor` is correct, you'll have to try all of them until you find the one that looks right. To help with this, install the `lm-sensors` package (for example, `sudo apt install lm-sensors` on Debian / Ubuntu) and run the `sensors -u` command to provide what sensors your computer has. You can try to correlate a chip ID from Grafana's list with what you see here based on their names and IDs.
+::: tip ヒント
+どの`chip`または`sensor`が正しいかわからない場合は、正しく見えるものが見つかるまですべてを試す必要があります。これを支援するには、`lm-sensors`パッケージをインストールし(例: Debian/Ubuntuでは`sudo apt install lm-sensors`)、`sensors -u`コマンドを実行して、コンピュータが持っているセンサーを提供します。名前とIDに基づいて、GrafanaのリストからチップIDをここで表示されるものと関連付けることができます。
 
-For example, this is one of the outputs of our `sensors -u` command:
+例えば、これは`sensors -u`コマンドの出力の1つです。
 
 ```
 k10temp-pci-00c3
@@ -742,36 +741,36 @@ Tdie:
   temp2_input: 33.500
 ```
 
-In our case, the corresponding chip in Grafana is `pci0000:00_0000:00:18_3` and the corresponding sensor is `temp1`.
+この場合、Grafanaの対応するチップは`pci0000:00_0000:00:18_3`で、対応するセンサーは`temp1`です。
 :::
 
-Once you're happy with your selections, click the blue **Apply** button in the top right corner of the screen to save the settings.
+選択に満足したら、画面の右上隅にある青い**Apply**ボタンをクリックして設定を保存します。
 
-::: warning NOTE
-Not all system expose CPU temperature info - notably virtual machines or cloud-based systems.
-If yours doesn't have anything in the auto-complete field for `chip`, this is probably the case and you won't be able to monitor your CPU temperature.
+::: warning 注意
+すべてのシステムがCPU温度情報を公開するわけではありません。特に仮想マシンやクラウドベースのシステムです。
+`chip`の自動補完フィールドに何もない場合は、おそらくこれが原因であり、CPU温度を監視できません。
 :::
 
 ### SSD Latency
 
-The **SSD Latency** chart tracks how long it takes for read/write operations to take.
-This is helpful in gauging how fast your SSD is, so you know if it becomes a bottleneck if your validator suffers from poor performance.
-To update the SSD you want to track in the chart, click on the **SSD Latency** title and select **Edit**.
+**SSD Latency**チャートは、読み取り/書き込み操作にかかる時間を追跡します。
+これは、validatorのパフォーマンスが低下した場合に、SSDがボトルネックになっているかどうかを判断するのに役立ちます。
+チャートで追跡するSSDを更新するには、**SSD Latency**タイトルをクリックして**Edit**を選択します。
 
-This chart has four query fields (four textboxes) with eight `device=""` portions in total.
-You'll need to update the first four of these portions with the device you want to track.
+このチャートには、合計8つの`device=""`部分を持つ4つのクエリフィールド(4つのテキストボックス)があります。
+追跡するデバイスで、これらの部分の最初の4つを更新する必要があります。
 
-Simply place your cursor in-between the quote marks and press `Ctrl+Spacebar` to get Grafana's auto-complete list, and select the correct option from there for each of the `device=""` portions.
-**You want to start from the leftmost empty setting first, or the auto-complete list may not appear.**
+引用符の間にカーソルを置き、`Ctrl+Spacebar`を押してGrafanaの自動補完リストを表示し、各`device=""`部分の正しいオプションを選択します。
+**一番左の空の設定から始める必要があります。そうしないと、自動補完リストが表示されない場合があります。**
 
-::: tip Tip
-If you don't know which device to track, run the following command:
+::: tip ヒント
+追跡するデバイスがわからない場合は、次のコマンドを実行します。
 
 ```
 lsblk
 ```
 
-This will output a tree showing your device and partition list, for example:
+これにより、デバイスとパーティションリストを示すツリーが出力されます。例えば:
 
 ```
 NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
@@ -785,40 +784,40 @@ nvme0n1     259:0    0 238,5G  0 disk
 └─nvme0n1p4 259:4    0   527M  0 part
 ```
 
-If you didn't change Docker's default location to a different drive during your Smartnode installation, then the disk you want to track will be the one that your Operating System is installed on.
-Look in the `MOUNTPOINT` column for an entry simply labeled `/`, then follow that back up to its parent device (the one with `disk` in the `TYPE` column).
+Smartnodeインストール中にDockerのデフォルトの場所を別のドライブに変更しなかった場合、追跡するディスクはOSがインストールされているディスクになります。
+`MOUNTPOINT`列で単に`/`とラベル付けされたエントリを探し、それを親デバイス(`TYPE`列に`disk`があるもの)まで遡ります。
 
-Typically this will be `sda` for SATA drives or `nvme0n1` for NVMe drives.
+通常、SATAドライブの場合は`sda`、NVMeドライブの場合は`nvme0n1`になります。
 
-If you _did_ change Docker's default location to a different drive, or if you're running a hybrid / native setup, you should be able to use the same technique of "following the mount point" to determine which device your chain data resides on.
+Dockerのデフォルトの場所を別のドライブに変更した場合、またはhybrid/nativeセットアップを実行している場合は、「マウントポイントを辿る」という同じ手法を使用して、チェーンデータが存在するデバイスを決定できるはずです。
 :::
 
-Optionally, you can also track latency of a second disk on your system.
-This is aimed at people that keep their Operating System and chain data on separate drives.
-To set this up, simply follow the instructions above for the last two query fields, substituting `device=""` portion values with those of the disk you want to track.
+オプションで、システム上の2番目のディスクのレイテンシを追跡することもできます。
+これは、OSとチェーンデータを別々のドライブに保存している人を対象としています。
+これを設定するには、上記の指示に従って最後の2つのクエリフィールドを設定し、`device=""`部分の値を追跡するディスクの値に置き換えます。
 
-Once you're happy with your selections, click the blue **Apply** button in the top right corner of the screen to save the settings.
+選択に満足したら、画面の右上隅にある青い**Apply**ボタンをクリックして設定を保存します。
 
 ### Network Usage
 
-This chart tracks how much data you're sending and receiving over a particular network connection.
-As you might expect, the dashboard needs to know which network you want it to track.
+このチャートは、特定のネットワーク接続を介して送受信しているデータ量を追跡します。
+ご想像のとおり、ダッシュボードは追跡するネットワークを知る必要があります。
 
-To change it, click on the **Network Usage** title and select **Edit**.
+変更するには、**Network Usage**タイトルをクリックして**Edit**を選択します。
 
-This chart has two query fields with two `device=""` portions in total.
-You'll need to update these with the network you want to track.
+このチャートには、合計2つの`device=""`部分を持つ2つのクエリフィールドがあります。
+追跡するネットワークでこれらを更新する必要があります。
 
-Place your cursor in-between the quote marks and press `Ctrl+Spacebar` to get Grafana's auto-complete list, and select the correct option from there for each of the `device=""` portions.
+引用符の間にカーソルを置き、`Ctrl+Spacebar`を押してGrafanaの自動補完リストを表示し、各`device=""`部分の正しいオプションを選択します。
 
-::: tip Tip
-If you don't know which device to track, run the following command:
+::: tip ヒント
+追跡するデバイスがわからない場合は、次のコマンドを実行します。
 
 ```shell
 sudo route
 ```
 
-The output will look something like this:
+出力は次のようになります。
 
 ```
 Kernel IP routing table
@@ -828,66 +827,66 @@ default         192.168.1.1     0.0.0.0         UG    100    0        0 eth0
 192.168.1.1     0.0.0.0         255.255.255.255 UH    100    0        0 eth0
 ```
 
-Look at the `Destination` column for the row with the value if `default`.
-Follow that row all the way to the `Iface` column.
-The device listed there is the one you want to use - in this example, `eth0`.
+`Destination`列で値が`default`の行を探します。
+その行を`Iface`列まで辿ります。
+そこにリストされているデバイスが使用するものです。この例では`eth0`です。
 :::
 
-Once you're happy with your selections, click the blue **Apply** button in the top right corner of the screen to save the settings.
+選択に満足したら、画面の右上隅にある青い**Apply**ボタンをクリックして設定を保存します。
 
 ### Total Net I/O
 
-This tracks the total amount of data you've sent and received.
-You might find it useful to watch if, for example, your ISP limits you to a certain amount of data per month.
+これは、送受信したデータの総量を追跡します。
+例えば、ISPが月ごとに特定の量のデータに制限している場合に便利です。
 
-The setup is identical to the **Network Usage** box above, so simply follow those instructions for this box too.
+設定は上記の**Network Usage**ボックスと同じであるため、このボックスについても同じ指示に従ってください。
 
 ### Disk Space Used
 
-This keeps tabs on how full your Operating System disk is getting, so you know when it's time to clean up (and if your chain data lives on the same drive, time to [prune Geth or Nethermind](./pruning)).
+これは、OSディスクがどれだけいっぱいになっているかを追跡するため、クリーンアップする時期(そしてチェーンデータが同じドライブにある場合は、[GethまたはNethermindをプルーニングする](./pruning)時期)がわかります。
 
-The steps are the same as the **SSD Latency** box above, so simply follow those instructions for this box too.
-As a reminder, you want the drive that houses the partition which has `/` in the `MOUNTPOINT` column for this one because that will be your Operating System drive.
-Fill this into the first query field.
+手順は上記の**SSD Latency**ボックスと同じであるため、このボックスについても同じ指示に従ってください。
+念のため、これについてはOSドライブになるため、`MOUNTPOINT`列に`/`があるパーティションを収容するドライブが必要です。
+これを最初のクエリフィールドに入力します。
 
-Optionally, you can also track the free space of a second disk on your system.
-This is aimed at people that keep their Operating System and chain data on separate drives.
-Set this up by following the same process, but instead of looking at which partition has `/` in the `MOUNTPOINT` column, you want to look for the one that has whatever your second drive's mount point is.
-Update the second query field with the disk associated with that partition.
+オプションで、システム上の2番目のディスクの空き容量を追跡することもできます。
+これは、OSとチェーンデータを別々のドライブに保存している人を対象としています。
+同じプロセスに従ってこれを設定しますが、`MOUNTPOINT`列に`/`があるパーティションを見る代わりに、2番目のドライブのマウントポイントがあるパーティションを探します。
+そのパーティションに関連付けられたディスクで2番目のクエリフィールドを更新します。
 
 ### Disk Temp
 
-This tracks the current temperature of your Operating System disk. The steps are the same as the **CPU Temp** box above, so simply follow those instructions for this box too, substituting CPU chip and sensor values with those of your Operating System disk. Fill these values into the first query field.
+これは、OSディスクの現在の温度を追跡します。手順は上記の**CPU Temp**ボックスと同じであるため、このボックスについても同じ指示に従い、CPUチップとセンサーの値をOSディスクの値に置き換えます。これらの値を最初のクエリフィールドに入力します。
 
-Optionally, you can also track the current temperature of a second disk on your system. Set this up by following the same process, substituting the chip and sensor values with those of your second drive. Fill these values into the second query field.
+オプションで、システム上の2番目のディスクの現在の温度を追跡することもできます。同じプロセスに従ってこれを設定し、チップとセンサーの値を2番目のドライブの値に置き換えます。これらの値を2番目のクエリフィールドに入力します。
 
-## Customizing the Dashboard
+## ダッシュボードのカスタマイズ
 
-While the standard dashboard tries to do a good job capturing everything you'd want to see at a glance, it's quite easy to customize a Grafana dashboard however you want.
-You can add new graphs, change the way graphs look, move things around, and much more!
+標準ダッシュボードは、一目で見たいすべてのものをキャプチャするのに適していますが、Grafanaダッシュボードは好きなようにカスタマイズするのは非常に簡単です。
+新しいグラフを追加したり、グラフの見た目を変更したり、物を移動したりすることができます。
 
-Take a look at [Grafana's Tutorials](https://grafana.com/tutorials/) page to learn how to play with it and set it up to your liking.
+[Grafanaのチュートリアル](https://grafana.com/tutorials/)ページを見て、操作方法や好みに合わせて設定する方法を学んでください。
 
-## Customizing the Metrics Stack
+## Metricsスタックのカスタマイズ
 
-The tools used in the Rocket Pool Metrics Stack offer a wide array of configuration options beyond what is included in the default Rocket Pool installation. This section includes configuration examples for different use cases.
+Rocket Pool Metricsスタックで使用されるツールは、デフォルトのRocket Poolインストールに含まれているもの以外にも、さまざまな設定オプションを提供します。このセクションには、さまざまなユースケースの設定例が含まれています。
 
-In general, [Grafana configuration options](https://grafana.com/docs/grafana/latest/administration/configuration/) should be passed through using environment variables in `override/grafana.yml`. Any config option can be converted to an environment variable using the following syntax:
+一般的に、[Grafana設定オプション](https://grafana.com/docs/grafana/latest/administration/configuration/)は、`override/grafana.yml`で環境変数を使用して渡す必要があります。すべての設定オプションは、次の構文を使用して環境変数に変換できます。
 
 ```
 GF_<SectionName>_<KeyName>
 ```
 
-### Grafana SMTP Settings for Sending Emails
+### メール送信用のGrafana SMTP設定
 
-To send emails from Grafana, e.g. for alerts or to invite other users, SMTP settings need to be configured in the Rocket Pool Metrics Stack.
-See the [Grafana SMTP configuration](https://grafana.com/docs/grafana/latest/administration/configuration/#smtp) page for reference.
+Grafanaからメールを送信するには、例えばアラートや他のユーザーを招待するために、Rocket Pool MetricsスタックでSMTP設定を構成する必要があります。
+参考として[Grafana SMTP構成](https://grafana.com/docs/grafana/latest/administration/configuration/#smtp)ページを参照してください。
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker and Hybrid Mode">
-      Open `~/.rocketpool/override/grafana.yml` in a text editor.
-      Add an `environment` section below the `x-rp-comment: Add your customizations below this line` line, replacing the values below with those for your SMTP provider.
+      テキストエディタで`~/.rocketpool/override/grafana.yml`を開きます。
+      `x-rp-comment: Add your customizations below this line`行の下に`environment`セクションを追加し、以下の値をSMTPプロバイダーの値に置き換えます。
 
       ```yaml
       version: "3.7"
@@ -906,7 +905,7 @@ See the [Grafana SMTP configuration](https://grafana.com/docs/grafana/latest/adm
       ```
     </Tab>
     <Tab label="Native">
-      Open `/etc/grafana/grafana.ini` in a text editor. Look for `[smtp]` section and update it, replacing the values below with those for your SMTP provider.
+      テキストエディタで`/etc/grafana/grafana.ini`を開きます。`[smtp]`セクションを探して更新し、以下の値をSMTPプロバイダーの値に置き換えます。
 
       ```
       [smtp]
@@ -923,11 +922,11 @@ See the [Grafana SMTP configuration](https://grafana.com/docs/grafana/latest/adm
   </Tabs>
 </div>
 
-::: tip Tip
-If using Gmail and [2-Step Verification](https://support.google.com/accounts/answer/185839) is enabled, create an [App Password](https://support.google.com/mail/answer/185833?hl=en) for this service.
+::: tip ヒント
+Gmailを使用していて[2段階認証プロセス](https://support.google.com/accounts/answer/185839)が有効になっている場合は、このサービス用の[アプリパスワード](https://support.google.com/mail/answer/185833?hl=en)を作成してください。
 :::
 
-After making these modifications, **run the following to apply the changes**:
+これらの変更を行った後、**次のコマンドを実行して変更を適用します**。
 
 <div className="p-3">
   <Tabs>
@@ -947,14 +946,14 @@ After making these modifications, **run the following to apply the changes**:
   </Tabs>
 </div>
 
-To test the SMTP settings, go to the **Alerting** menu and click **Contact points**.
+SMTP設定をテストするには、**Alerting**メニューに移動して**Contact points**をクリックします。
 
 <img src="./images/grafana-contact-points.png" width="100%" height="auto" />
 
-Click **New contact point** and select **Email** as the Contact point type.
-Enter an email address in the **Addresses** section and click **Test**.
+**New contact point**をクリックし、Contact point typeとして**Email**を選択します。
+**Addresses**セクションにメールアドレスを入力し、**Test**をクリックします。
 
 <img src="./images/grafana-new-contact-point.png" width="100%" height="auto" />
 
-Check to see that the test email was received.
-Click **Save contact point\*** when finished.
+テストメールが受信されたことを確認します。
+完了したら**Save contact point\***をクリックします。

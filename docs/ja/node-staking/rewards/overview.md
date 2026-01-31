@@ -1,26 +1,26 @@
 ---
 next:
   text: Claiming Node Operator Rewards
-  link: "/en/node-staking/rewards"
+  link: "/ja/node-staking/rewards"
 ---
 
-# Overview
+# 概要
 
-This section covers how to access the rewards your node generates while validating.
+このセクションでは、検証中にノードが生成する報酬にアクセスする方法について説明します。
 
-## Prerequisites
+## 前提条件
 
-Before configuring your Smartnode, please make sure you:
+Smartnodeを設定する前に、以下を確認してください。
 
-- Have set up a node machine (or virtual machine) and secured it (via the [Securing your Node](../securing-your-node) guide)
-- Have the Smartnode [installed](../installing/overview) and [configured](../config/overview) on it
-- Have a node wallet loaded on your Smartnode
-- Synced your Execution and Consensus clients
-- Provisioned your node with [a withdrawal address](../prepare-node.mdx#setting-your-withdrawal-address), set up your [fallback clients](../fallback) (optional), opted into the [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (optional), and configured [MEV](../mev.mdx)
-- Created at least one [minipool](../create-validator.mdx)
+- ノードマシン（または仮想マシン）をセットアップして保護している（[ノードのセキュリティ確保](../securing-your-node)ガイドを参照）
+- Smartnodeが[インストール](../installing/overview)され、[設定](../config/overview)されている
+- Smartnodeにノードウォレットがロードされている
+- ExecutionクライアントとConsensusクライアントが同期されている
+- [withdrawal address](../prepare-node.mdx#setting-your-withdrawal-address)でノードをプロビジョニングし、[fallbackクライアント](../fallback)を設定し（オプション）、[Smoothing Pool](../fee-distrib-sp#the-smoothing-pool)にオプトイン（オプション）し、[MEV](../mev.mdx)を設定している
+- 少なくとも1つの[minipool](../create-validator.mdx)を作成している
 
-## Guides
+## ガイド
 
-[Claiming Node Operator Rewards](../rewards) explains how RPL rewards and Execution-layer rewards work, and how to access them.
+[Node Operator報酬の請求](../rewards)では、RPL報酬とExecution layer報酬の仕組みと、それらにアクセスする方法について説明します。
 
-[Distributing Skimmed Rewards](../skimming) covers accessing rewards from the Beacon Chain that periodically get "skimmed" by the protocol and delivered to your minipools.
+[Skimされた報酬の分配](../skimming)では、プロトコルによって定期的に「skimmed」され、minipoolに配信されるBeacon Chainからの報酬へのアクセスについて説明します。

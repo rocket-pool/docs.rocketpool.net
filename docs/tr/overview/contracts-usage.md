@@ -1,20 +1,20 @@
-# Smart Contracts
+# Akıllı Sözleşmeler
 
-## Introduction
+## Giriş
 
-The Rocket Pool [Smart Contracts](https://www.ethereum.org/learn/#smart-contracts) form the foundation of the Rocket Pool protocol. They are the base layer of infrastructure which all other elements of the network are built on top of, the Smart Node software stack, and all web or application interfaces.
+Rocket Pool [Akıllı Sözleşmeleri](https://www.ethereum.org/learn/#smart-contracts) Rocket Pool protokolünün temelini oluşturur. Ağın diğer tüm öğeleri, Smart Node yazılım yığını ve tüm web veya uygulama arayüzlerinin üzerine kurulu temel altyapı katmanıdır.
 
-Direct interaction with the contracts is usually not necessary, and is facilitated through the use of other software. This section provides a detailed description of the contract design, and information on how to build on top of Rocket Pool for developers wishing to extend it. All code examples are given as Solidity `v0.7.6`.
+Sözleşmelerle doğrudan etkileşim genellikle gerekli değildir ve diğer yazılımların kullanımı aracılığıyla kolaylaştırılır. Bu bölüm, sözleşme tasarımının ayrıntılı bir açıklamasını ve onu genişletmek isteyen geliştiriciler için Rocket Pool'un üzerine inşa etme hakkında bilgileri sağlar. Tüm kod örnekleri Solidity `v0.7.6` olarak verilmiştir.
 
-### Contract Design
+### Sözleşme Tasarımı
 
-The Rocket Pool network contracts are built with upgradability in mind, using a hub-and-spoke architecture. The central hub of the network is the `RocketStorage` contract, which is responsible for storing the state of the entire protocol. This is implemented through the use of maps for key-value storage, and getter and setter methods for reading and writing values for a key.
+Rocket Pool ağ sözleşmeleri, hub-and-spoke mimarisi kullanarak yükseltme başında tasarlanmıştır. Ağın merkez hub'ı, tüm protokolün durumunu saklamaktan sorumlu olan `RocketStorage` sözleşmesidir. Bu, anahtar-değer depolaması için haritalar ve bir anahtarın değerlerini okumak ve yazmak için getter ve setter yöntemleri kullanılarak uygulanır.
 
-The `RocketStorage` contract also stores the addresses of all other network contracts (keyed by name), and restricts data modification to those contracts only. Using this architecture, the protocol can be upgraded by deploying new versions of an existing contract, and updating its address in storage. This gives Rocket Pool the flexibility required to fix bugs or implement new features to improve the protocol.
+`RocketStorage` sözleşmesi ayrıca diğer tüm ağ sözleşmelerinin adreslerini (isim ölçütü olarak) depolar ve veri değişikliğini yalnızca bu sözleşmelerle sınırlar. Bu mimarinin kullanılması, mevcut bir sözleşmenin yeni sürümlerini dağıtarak ve depolamadaki adresini güncelleyerek protokolün yükseltilmesini sağlar. Bu, Rocket Pool'a hata düzeltmek veya protokolü iyileştirmek için yeni özellikler uygulamak için gerekli esneklik verir.
 
-### Interacting With Rocket Pool
+### Rocket Pool ile Etkileşim
 
-To begin interacting with the Rocket Pool network, first create an instance of the `RocketStorage` contract using its [interface](https://github.com/rocket-pool/rocketpool/blob/master/contracts/interface/RocketStorageInterface.sol):
+Rocket Pool ağıyla etkileşim kurmaya başlamak için, önce `RocketStorage` sözleşmesinin [arayüzünü](https://github.com/rocket-pool/rocketpool/blob/master/contracts/interface/RocketStorageInterface.sol) kullanarak bir örnek oluşturun:
 
 ```solidity
 import "RocketStorageInterface.sol";

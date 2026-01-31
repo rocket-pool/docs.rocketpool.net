@@ -1,26 +1,26 @@
 ---
 next:
-  text: Configuring the Smartnode Stack (Docker/hybrid mode)
-  link: "/en/node-staking/config-docker"
+  text: Настройка стека Smartnode (режим Docker/hybrid)
+  link: "/ru/node-staking/config-docker"
 ---
 
-# Overview
+# Обзор
 
-In this section, you'll learn how to configure the Smartnode stack and customize all of the settings to your liking.
-You will have to configure it prior to running the stack for the first time, but you can always come back once it's running and reconfigure it again whenever you like.
+В этом разделе вы узнаете, как настроить стек Smartnode и настроить все параметры по своему вкусу.
+Вам придется настроить его перед первым запуском стека, но вы всегда можете вернуться после его запуска и перенастроить его снова в любое время.
 
-## Prerequisites
+## Предварительные требования
 
-Before configuring your Smartnode, please make sure you:
+Перед настройкой вашего Smartnode убедитесь, что вы:
 
-- Have a node machine (or virtual machine) with the Operating System installed and configured
-- Have the machine secured (via the [Securing your Node](../securing-your-node) guide)
-- Have the Smartnode installed on it
+- Имеете машину ноды (или виртуальную машину) с установленной и настроенной операционной системой
+- Защитили машину (с помощью руководства [Защита вашей ноды](../securing-your-node))
+- Установили на нее Smartnode
 
-## Guides
+## Руководства
 
-[Configuring the Smartnode Stack (Docker / Hybrid Mode)](../config-docker) is the guide to use if you want to run with Docker Mode or Hybrid Mode.
+[Настройка стека Smartnode (режим Docker / Hybrid)](../config-docker) — это руководство, которое следует использовать, если вы хотите работать в режиме Docker или Hybrid.
 
-[Configuring the Smartnode Stack (Native Mode)](../config-native) is the guide to use if you want to run with Native Mode.
+[Настройка стека Smartnode (режим Native)](../config-native) — это руководство, которое следует использовать, если вы хотите работать в режиме Native.
 
-[Advanced Smartnode Configuration for Docker Mode](../advanced-config) is a supplement to the Docker guide that shows some extra capabilities and features you might be interested in (such as "Reverse Hybrid" Mode or customizing the Docker container flags).
+[Расширенная настройка Smartnode для режима Docker](../advanced-config) — это дополнение к руководству Docker, которое показывает некоторые дополнительные возможности и функции, которые могут вас заинтересовать (например, режим "Reverse Hybrid" или настройка флагов контейнера Docker).

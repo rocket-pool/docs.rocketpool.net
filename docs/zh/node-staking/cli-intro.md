@@ -1,20 +1,20 @@
-# Intro to the Command Line Interface
+# 命令行界面简介
 
-As a node operator, the CLI is your primary tool for interacting with Rocket Pool.
-You will use it to create new minipools, check on the status of everything, claim periodic RPL rewards, exit and withdraw from your minipools when you're ready, and a host of other activities.
+作为节点运营者,CLI 是您与 Rocket Pool 交互的主要工具。
+您将使用它来创建新的 minipool、检查所有内容的状态、领取定期的 RPL 奖励、在准备好时退出和提取您的 minipool,以及进行许多其他活动。
 
-Once you've finished syncing the Execution and Beacon chains, all of the commands will be available for you to use.
-In this section, we'll go over a brief tour of some of the more common ones and some other tricks that the CLI can do.
+一旦您完成执行层和信标链的同步,所有命令将可供您使用。
+在本节中,我们将简要介绍一些更常见的命令以及 CLI 可以执行的其他一些技巧。
 
-## Learning About the Commands
+## 了解命令
 
-To list all of the available commands, type:
+要列出所有可用命令,请输入:
 
 ```shell
 rocketpool help
 ```
 
-The output will look like this:
+输出将如下所示:
 
 ```
 NAME:
@@ -56,11 +56,11 @@ COPYRIGHT:
    (c) 2025 Rocket Pool Pty Ltd
 ```
 
-## Service Commands
+## Service 命令
 
-The service group involves managing the various services the smart node manages for you.
+service 组涉及管理 smart node 为您管理的各种服务。
 
-Here is what the `rocketpool service help` output will show:
+这是 `rocketpool service help` 输出将显示的内容:
 
 ```
 NAME:
@@ -99,8 +99,8 @@ GLOBAL OPTIONS:
 
 ### `status`
 
-This command shows you the current running status of each of the Docker containers managed by Rocket Pool.
-For example, the default Docker install's output looks like this:
+此命令显示 Rocket Pool 管理的每个 Docker 容器的当前运行状态。
+例如,默认 Docker 安装的输出如下所示:
 
 ```
         Name                       Command              State                                                       Ports
@@ -113,36 +113,36 @@ rocketpool_validator    sh /setup/start-validator.sh    Up
 rocketpool_watchtower   /go/bin/rocketpool watchtower   Up
 ```
 
-You can use it to quickly check if any of the Docker containers are having trouble, or to make sure that a `start` or `stop` command worked correctly.
+您可以使用它快速检查任何 Docker 容器是否有问题,或确保 `start` 或 `stop` 命令正确工作。
 
-### `start` and `stop`
+### `start` 和 `stop`
 
-These two commands you are already familiar with.
-They simply start all of the Rocket Pool containers, or stop them.
+这两个命令您已经很熟悉了。
+它们只是启动或停止所有 Rocket Pool 容器。
 
 ::: tip
-The `pause` command does the same thing as `stop`.
-It's just left over as a legacy command from earlier versions of Rocket Pool.
+`pause` 命令与 `stop` 命令的作用相同。
+它只是作为早期版本 Rocket Pool 的遗留命令保留下来的。
 :::
 
 ### `logs`
 
-This command is another one you should have already seen.
-You can use it to look at the output logs of each Docker container.
-This can be useful for troubleshooting or getting a more detailed status report from them.
+这是您应该已经看到的另一个命令。
+您可以使用它查看每个 Docker 容器的输出日志。
+这对于故障排除或从中获取更详细的状态报告很有用。
 
-If you simply do `rocketpool service logs` without any other arguments, it will aggregate all of the logs together and show them to you at once.
+如果您只是执行 `rocketpool service logs` 而不带任何其他参数,它将聚合所有日志并一次性向您显示。
 
-If you want to focus on one container's output, you can add an argument to the end to specify the container.
-Valid values are `eth1`, `eth2`, `validator`, `api`, `node`, `watchtower`, `prometheus`, `grafana`, and `node-exporter`.
+如果您想专注于一个容器的输出,可以在末尾添加一个参数来指定容器。
+有效值为 `eth1`、`eth2`、`validator`、`api`、`node`、`watchtower`、`prometheus`、`grafana` 和 `node-exporter`。
 
 ### `stats`
 
-This command shows you some resource stats from each of the containers, which you can use to profile each one's hardware and network consumption.
+此命令显示每个容器的一些资源统计信息,您可以使用这些信息来分析每个容器的硬件和网络消耗。
 
-You might find it useful for monitoring the containers if your system starts running slow or has RAM problems.
+如果您的系统开始运行缓慢或出现 RAM 问题,您可能会发现它对监控容器很有用。
 
-Here is some example output:
+以下是一些示例输出:
 
 ```
 CONTAINER ID   NAME                    CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
@@ -154,42 +154,42 @@ a3c22f54eff0   rocketpool_node         0.00%     12.13MiB / 62.78GiB   0.02%    
 88bea525fa89   rocketpool_watchtower   0.00%     12.05MiB / 62.78GiB   0.02%     304kB / 503kB     0B / 0B           16
 ```
 
-::: tip NOTE
-The RAM statistic here shows **total allocated memory**, which includes _virtual_ memory.
-It does not show the raw _resident_ memory consumption.
+::: tip 注意
+此处的 RAM 统计信息显示**总分配内存**,包括_虚拟_内存。
+它不显示原始_常驻_内存消耗。
 
-Similarly, the CPU usage shows the total amount of CPU consumption averaged over all of the CPU cores that the container uses.
-Here, the CPU for ETH2 shows almost 100% because it is using Nimbus, which is single-threaded.
+类似地,CPU 使用率显示容器使用的所有 CPU 核心的平均总 CPU 消耗量。
+这里,ETH2 的 CPU 显示接近 100%,因为它使用的是 Nimbus,它是单线程的。
 
-You may find that a program like `htop` or `btop` offers better insight into actual resource consumption.
+您可能会发现像 `htop` 或 `btop` 这样的程序可以更好地了解实际资源消耗。
 :::
 
 ### `config`
 
-This command runs through the configuration interview again.
-You can use it if you want to change your selection of Execution or Consensus client, or change some of the parameters that you initially specified when you selected them (such as your validator's graffiti message, the max number of peers to connect to, and so on).
+此命令再次运行配置面试。
+如果您想更改执行层或共识层客户端的选择,或更改您在选择它们时最初指定的一些参数(例如验证者的涂鸦消息、要连接的最大对等节点数等),可以使用它。
 
-You can call this command at any time, but the changes won't take effect until you call `rocketpool service stop` and `rocketpool service start`.
+您可以随时调用此命令,但更改要等到您调用 `rocketpool service stop` 和 `rocketpool service start` 后才会生效。
 
 ### `terminate`
 
-This command will shut down the Docker containers, then delete them, delete the Rocket Pool virtual network, and delete the ETH1 and ETH2 chain data volumes.
-It essentially removes all of the Rocket Pool items from your Docker setup.
-Use it when you want to clean up that portion of the Rocket Pool installation.
+此命令将关闭 Docker 容器,然后删除它们,删除 Rocket Pool 虚拟网络,并删除 ETH1 和 ETH2 链数据卷。
+它基本上从您的 Docker 设置中删除所有 Rocket Pool 项目。
+当您想清理 Rocket Pool 安装的这一部分时使用它。
 
 ::: warning
-This will irreversibly remove your chain data, which means you'll need to sync ETH1 and ETH2 again.
+这将不可逆转地删除您的链数据,这意味着您需要再次同步 ETH1 和 ETH2。
 
-This will **not** remove your wallet and password files, your configured settings, or your validator keys.
-To remove those, you will need to delete the `~/.rocketpool/data` folder in Docker or Hybrid Mode, or the corresponding directory in Native Mode.
+这**不会**删除您的钱包和密码文件、配置设置或验证者密钥。
+要删除这些内容,您需要在 Docker 或混合模式下删除 `~/.rocketpool/data` 文件夹,或在原生模式下删除相应的目录。
 :::
 
-## Node Commands
+## Node 命令
 
-The `node` group involves operations on your Rocket Pool node.
-We'll cover these more in-depth in the next section where we create a minipool, but it may be helpful to see them all at a glance.
+`node` 组涉及对您的 Rocket Pool 节点的操作。
+我们将在下一节创建 minipool 时更深入地介绍这些内容,但一目了然地查看所有内容可能会有所帮助。
 
-Here is what the `rocketpool node help` output will show:
+这是 `rocketpool node help` 输出将显示的内容:
 
 ```
 NAME:
@@ -236,14 +236,14 @@ GLOBAL OPTIONS:
    --help, -h  show help
 ```
 
-Below is a summary of some of the commands you'll tend to need during typical node operation.
+以下是您在典型节点操作期间往往需要的一些命令的摘要。
 
 ### `status`
 
-This command will give you a high-level view of your entire node at a glance.
-It includes how much ETH and RPL you have staked, how many minipools you have and their statuses, your RPL collateral ratio, and more.
+此命令将为您提供整个节点的高级概览。
+它包括您质押了多少 ETH 和 RPL、您有多少 minipool 及其状态、您的 RPL 抵押率等等。
 
-This is an example of what `rocketpool node status` shows once you have your node registered and some minipools set up:
+这是一旦您注册了节点并设置了一些 minipool 后 `rocketpool node status` 显示的示例:
 
 ```
 === Account and Balances ===
@@ -256,7 +256,7 @@ The node does not have any penalties for cheating with an invalid fee recipient.
 
 === Signalling on Snapshot ===
 The node does not currently have a snapshot signalling address set.
-To learn more about snapshot signalling, please visit /en/legacy/houston/participate#setting-your-snapshot-signalling-address.
+To learn more about snapshot signalling, please visit /zh/legacy/houston/participate#setting-your-snapshot-signalling-address.
 Rocket Pool has no Snapshot governance proposals being voted on.
 
 === Onchain Voting ===
@@ -289,10 +289,10 @@ The node has a total of 1 active minipool(s):
 
 ### `sync`
 
-This command will show you the current sync status of your Execution and Consensus clients.
-You'll probably use it a lot when you first set the node up, then never need it again (unless you change or reset your clients).
+此命令将显示执行层和共识层客户端的当前同步状态。
+您可能会在首次设置节点时经常使用它,然后就再也不需要它了(除非您更改或重置客户端)。
 
-The output of `rocketpool node sync` will look like this:
+`rocketpool node sync` 的输出将如下所示:
 
 ```
 Your Smartnode is currently using the Hoodi Test Network.
@@ -306,16 +306,16 @@ Your primary consensus client is still syncing (99.94%).
 You do not have a fallback consensus client enabled.
 ```
 
-Note that **Prysm** currently doesn't provide its completion percent - you'll need to look in the `eth2` logs if you use it.
+请注意,**Prysm** 目前不提供其完成百分比 - 如果您使用它,您需要查看 `eth2` 日志。
 
 ### `stake-rpl`
 
-This command is what you'll use when you want to add more RPL collateral to your node.
-Doing so will increase your collateral ratio, which will increase your RPL rewards at each checkpoint (more on this later).
+当您想向节点添加更多 RPL 抵押品时,将使用此命令。
+这样做将增加您的抵押率,从而在每个检查点增加您的 RPL 奖励(稍后会详细介绍)。
 
-Unlike the other commands so far, this one is actually _interactive_ because it will trigger a transaction - it isn't simply informational.
+与到目前为止的其他命令不同,这个命令实际上是_交互式的_,因为它将触发交易 - 它不仅仅是信息性的。
 
-It will first ask you how much RPL you'd like to stake, with some pre-defined options for convenience or the ability to specify a custom amount:
+它首先会询问您想质押多少 RPL,提供一些预定义选项以方便使用,或者能够指定自定义金额:
 
 ```
 NOTE: By staking RPL, you become a member of the Rocket Pool pDAO. Stay informed on governance proposals by joining the Rocket Pool Discord.
@@ -328,7 +328,7 @@ Please choose an amount of RPL to stake:
 5: A custom amount
 ```
 
-Once you select an option, you will be shown some information about the suggested gas price and estimated amount to be used, along with a confirmation dialog. If it's your first time staking RPL on the node, you'll need to give the staking contract approval to interact with your RPL:
+选择一个选项后,您将看到有关建议的 gas 价格和要使用的估计金额的一些信息,以及确认对话框。如果这是您首次在节点上质押 RPL,您需要授予质押合约与您的 RPL 交互的权限:
 
 ```
 Before staking RPL, you must first give the staking contract approval to interact with your RPL.
@@ -372,7 +372,7 @@ Using a max fee of 4.00 gwei and a priority fee of 2.00 gwei.
 Are you sure you want to stake 733.993925 RPL? You will not be able to unstake this RPL until you exit your validators and close your minipools, or reach 2201.981777 staked RPL (15% of bonded eth)! [y/n]
 ```
 
-If you confirm, you will be shown the transaction hash and given a link to [Etherscan](https://etherscan.io) so you can follow its progress:
+如果您确认,您将看到交易哈希并获得 [Etherscan](https://etherscan.io) 的链接,以便您可以跟踪其进度:
 
 ```
 Staking RPL...
@@ -385,46 +385,46 @@ Waiting for the transaction to be included in a block... you may wait here for i
 Successfully staked 733.993925 RPL.
 ```
 
-Most operations only require one transaction, so the CLI will wait until it has been included in a block and then exit. However, stake-rpl is one of the few commands that requires two transactions, so this dialog will appear twice.
+大多数操作只需要一个交易,因此 CLI 将等到它被包含在区块中然后退出。但是,stake-rpl 是需要两个交易的少数命令之一,因此此对话框将出现两次。
 
 ### `deposit`
 
-This command will let you deposit ETH and create a new minipool (a new Ethereum validator).
+此命令将允许您存入 ETH 并创建新的 minipool(新的以太坊验证者)。
 
-You will be prompted with the expected gas cost for the transaction and one final confirmation dialog.
-If you accept, your ETH deposit will be processed and you will create a new minipool (and a corresponding Ethereum validator).
+系统将提示您交易的预期 gas 成本和最后一个确认对话框。
+如果您接受,您的 ETH 存款将被处理,您将创建一个新的 minipool(和相应的以太坊验证者)。
 
-(For more information, see the next section on [Creating a Minipool](./create-validator.mdx)).
+(有关更多信息,请参阅下一节关于[创建 Minipool](./create-validator.mdx))。
 
 ### `claim-rewards`
 
-When your node detects a new rewards checkpoint, it will automatically download the rewards tree file with the information for that interval (if you're using the default of Download Mode - see below for information on generating your own trees instead of downloading them).
-You can then review your rewards using the following command:
+当您的节点检测到新的奖励检查点时,它将自动下载该间隔信息的奖励树文件(如果您使用默认的下载模式 - 有关生成自己的树而不是下载它们的信息,请参见下文)。
+然后,您可以使用以下命令查看您的奖励:
 
 ```
 rocketpool node claim-rewards
 ```
 
-As intervals go by and you accumulate rewards, the output will look like this:
+随着间隔的过去和奖励的累积,输出将如下所示:
 
 ![](../node-staking/images/claim-rewards-gb.png)
 
-Here you can quickly see how many rewards you've earned at each interval, and can decide which ones you want to claim.
+在这里,您可以快速查看您在每个间隔赚取了多少奖励,并可以决定要领取哪些奖励。
 
-You can also specify an amount you want to restake during this claim:
+您还可以指定要在此领取期间重新质押的金额:
 
 ![](../node-staking/images/autostake.png)
 
-This will let you compound your RPL rewards in one transaction, using substantially less gas than you currently needed to use with the legacy claim system.
+这将让您在一次交易中复利您的 RPL 奖励,使用的 gas 大大少于您目前使用旧版领取系统所需的 gas。
 
-::: tip NOTE
-If you prefer to build the rewards checkpoint manually instead of downloading the one created by the Oracle DAO, you can change this setting from `Download` to `Generate` in the TUI:
+::: tip 注意
+如果您更喜欢手动构建奖励检查点而不是下载 Oracle DAO 创建的检查点,您可以在 TUI 中将此设置从 `Download` 更改为 `Generate`:
 
 ![](../node-staking/images/tui-generate-tree.png)
 
-As the tip implies, you will need access to an Execution client archive node to do this.
-If your local Execution client is not an archive node, you can specify a separate one (such as Infura or Alchemy) in the `Archive-Mode EC URL` further down in the same menu.
-This URL will only be used when generating Merkle trees; it will not be used for validation duties.
+如提示所示,您需要访问执行层客户端存档节点才能执行此操作。
+如果您的本地执行层客户端不是存档节点,您可以在同一菜单中进一步向下的 `Archive-Mode EC URL` 中指定一个单独的节点(例如 Infura 或 Alchemy)。
+此 URL 仅在生成 Merkle 树时使用;它不会用于验证职责。
 :::
 
 ### `join-smoothing-pool`
@@ -433,9 +433,9 @@ This URL will only be used when generating Merkle trees; it will not be used for
 rocketpool node join-smoothing-pool
 ```
 
-This will record you as opted-in in the Rocket Pool contracts and automatically change your Validator Client's `fee recipient` from your node's distributor contract to the Smoothing Pool contract.
+这将在 Rocket Pool 合约中将您记录为选择加入,并自动将您的验证者客户端的 `fee recipient` 从您节点的分发合约更改为 Smoothing Pool 合约。
 
-Note that once you opt in, there is a **28 day cooldown** (one full rewards interval length) until you can opt out.
+请注意,一旦您选择加入,在您可以选择退出之前有 **28 天的冷却期**(一个完整的奖励间隔长度)。
 
 ### `leave-smoothing-pool`
 
@@ -443,13 +443,13 @@ Note that once you opt in, there is a **28 day cooldown** (one full rewards inte
 rocketpool node leave-smoothing-pool
 ```
 
-This will opt you out of the Smoothing Pool if you're currently opted in, and have waited at least 28 days after opting in.
-Once **the next epoch after the current epoch** is finalized, it will automatically change your node's `fee recipient` from the Smoothing Pool back to your node's distributor contract.
-This is to ensure you don't get penalized for front-running the exit process when you see that you have a proposal coming up.
+如果您当前已选择加入,并且在选择加入后已等待至少 28 天,这将使您退出 Smoothing Pool。
+一旦**当前 epoch 之后的下一个 epoch** 被最终确定,它将自动将您节点的 `fee recipient` 从 Smoothing Pool 更改回您节点的分发合约。
+这是为了确保当您看到即将有提案时,您不会因为抢先退出流程而受到惩罚。
 
 ### `initialize-fee-distributor`
 
-To initialize your node's distributor, simply run this new command:
+要初始化您节点的分发器,只需运行此新命令:
 
 ```shell
 rocketpool node initialize-fee-distributor
@@ -457,45 +457,45 @@ rocketpool node initialize-fee-distributor
 
 ### `distribute-fees`
 
-When your distributor has been initialized, you can claim and distribute its entire balance using the following command:
+当您的分发器已初始化后,您可以使用以下命令领取并分配其全部余额:
 
 ```shell
 rocketpool node distribute-fees
 ```
 
-This will send your share of the rewards to your **withdrawal address**.
+这将把您的奖励份额发送到您的**提款地址**。
 
 ### `send`
 
-This command lets you send ETH, RPL, or other Rocket Pool-related tokens from the node wallet to a different address.
-This might be useful if you want to move your funds on the wallet elsewhere.
+此命令允许您从节点钱包向不同地址发送 ETH、RPL 或其他 Rocket Pool 相关代币。
+如果您想将钱包上的资金转移到其他地方,这可能很有用。
 
-The syntax for using the `send` command is like this:
+使用 `send` 命令的语法如下:
 
 ```shell
 rocketpool node send <amount> <token> <address or ENS name>
 ```
 
-The arguments are as follows:
+参数如下:
 
-- `<amount>` is the amount of the token to send.
-- `<token>` is the token to send - this can be `eth`, `rpl`, `fsrpl` (the old legacy RPL token), or `reth`.
-- `<address or ENS name>` is the Ethereum address (or ENS name) to send the tokens to.
+- `<amount>` 是要发送的代币数量。
+- `<token>` 是要发送的代币 - 可以是 `eth`、`rpl`、`fsrpl`(旧版 RPL 代币)或 `reth`。
+- `<address or ENS name>` 是要将代币发送到的以太坊地址(或 ENS 名称)。
 
-For example:
+例如:
 
 ```shell
 rocketpool node send 1 eth <my friend's address>
 ```
 
-would send 1 ETH to my friend.
+将向我的朋友发送 1 ETH。
 
-## Minipool Commands
+## Minipool 命令
 
-The `minipool` group involves commands that affect your minipools.
-As with the `node` group, we'll cover these more in-depth in the next section but it may be helpful to see them all now.
+`minipool` 组涉及影响您的 minipool 的命令。
+与 `node` 组一样,我们将在下一节中更深入地介绍这些内容,但现在查看所有内容可能会有所帮助。
 
-Here is what the `rocketpool minipool help` output will show:
+这是 `rocketpool minipool help` 输出将显示的内容:
 
 ```
 NAME:
@@ -529,12 +529,12 @@ GLOBAL OPTIONS:
    --help, -h  show help
 ```
 
-Below is a summary of the commands that you'll typically use.
+以下是您通常会使用的命令摘要。
 
 ### `status`
 
-This command simply provides a summary of each of your minipools.
-This includes its current status, the eth1 address of the minipool, the commission on it (called the `node fee`), the public key of the corresponding ETH2 validator, and some other things:
+此命令只是提供每个 minipool 的摘要。
+这包括其当前状态、minipool 的 eth1 地址、其上的佣金(称为 `node fee`)、相应 ETH2 验证者的公钥以及其他一些内容:
 
 ```
 $ rocketpool minipool status
@@ -567,56 +567,56 @@ Effective delegate:    0x56903694d881282D33ed0643EAe14263880Dd47F
 
 ### `refund`
 
-This command lets you pull 16 ETH back from a minipool if you deposited 32 ETH to create one, once Rocket Pool was able to contribute 16 ETH from the rETH staking pool.
+如果您存入 32 ETH 创建了一个 minipool,一旦 Rocket Pool 能够从 rETH 质押池贡献 16 ETH,此命令可让您从 minipool 中提取 16 ETH。
 
 ### `exit`
 
-This command submits a voluntary exit for your validator on the Beacon Chain.
-Use this when you want to close a validator and withdraw its final ETH balance.
-Note that **this cannot be undone** - once you trigger an exit, the validator will shut down permanently.
+此命令为信标链上的验证者提交自愿退出。
+当您想关闭验证者并提取其最终 ETH 余额时使用此命令。
+请注意,**这无法撤消** - 一旦触发退出,验证者将永久关闭。
 
-## Useful Flags
+## 有用的标志
 
-There are some useful global flags that you can add to some of the above commands, which you may want to take advantage of.
+有一些有用的全局标志,您可以将其添加到上述某些命令中,您可能想利用这些标志。
 
-### Setting a Custom Max Fee or Priority Fee (Gas Price)
+### 设置自定义最大费用或优先费用(Gas 价格)
 
-Starting with [the London ETH1 hardfork](https://coinquora.com/ethereum-london-hard-fork-all-you-need-to-know/) in July of 2021, Ethereum transactions no longer use a single gas price for their transactions.
-Instead, modern Ethereum transactions use two values:
+从 2021 年 7 月的 [London ETH1 硬分叉](https://coinquora.com/ethereum-london-hard-fork-all-you-need-to-know/)开始,以太坊交易不再为其交易使用单一 gas 价格。
+相反,现代以太坊交易使用两个值:
 
-- The **max fee**, which describes the absolute maximum gas price you're willing to accept on a transaction
-- The **max priority fee**, which describes the maximum amount you're willing to "tip" the miner for including your transaction in a block
+- **max fee**,它描述了您愿意接受的交易的绝对最大 gas 价格
+- **max priority fee**,它描述了您愿意"小费"矿工以将您的交易包含在区块中的最大金额
 
-::: tip TIP
-The way these two values work can be a bit convoluted, so here are some simple examples.
+::: tip 提示
+这两个值的工作方式可能有点复杂,因此这里有一些简单的示例。
 
-Let's say the current network fee, called the **base fee**, is at 50 gwei.
-You submit a transaction with an **80 gwei** max fee, and a priority fee of **2 gwei**.
+假设当前网络费用(称为 **base fee**)为 50 gwei。
+您提交了一笔交易,**max fee** 为 **80 gwei**,优先费用为 **2 gwei**。
 
-Because the network's base fee is lower than your max fee, this transaction could get picked up in the current block.
-It would cost you **50 gwei** for the base fee and **2 gwei** for the priority fee; even though you set your max fee to 80, **it would only cost you 52 gwei total**.
+因为网络的 base fee 低于您的 max fee,所以此交易可以在当前区块中被拾取。
+它将花费您 **50 gwei** 的 base fee 和 **2 gwei** 的优先费用;即使您将 max fee 设置为 80,**它也只会花费您总共 52 gwei**。
 
-As another example, say you have that same transaction, but now the network's base fee is **100 gwei**.
-Since 100 gwei is larger than your 80 gwei max fee, your transaction **will not** be included in this block.
-Instead, it will simply sit in the transaction pool until the base fee is low enough to include it.
+作为另一个示例,假设您有相同的交易,但现在网络的 base fee 为 **100 gwei**。
+由于 100 gwei 大于您的 80 gwei max fee,因此您的交易**不会**包含在此区块中。
+相反,它将简单地停留在交易池中,直到 base fee 足够低以将其包含在内。
 
-Now, let's say the current base fee is **50 gwei** again, and your transaction has a max fee of **80** gwei and a priority fee of **4 gwei**.
-It would execute with a total cost of **54 gwei**.
-The 4 gwei priority fee would ensure that it was included in front of all of the transactions with a lower priority fee.
+现在,假设当前 base fee 再次为 **50 gwei**,而您的交易的 max fee 为 **80** gwei,优先费用为 **4 gwei**。
+它将以 **54 gwei** 的总成本执行。
+4 gwei 优先费用将确保它包含在所有具有较低优先费用的交易之前。
 
-If you **really** want the transaction to go through at all costs, you can set the priority fee to be the same as the max fee.
-This emulates the legacy gas behavior, so your transaction will use all of the gas you give it - regardless of whether or not the network's base fee is lower than your max fee or not.
+如果您**真的**希望交易无论如何都通过,您可以将优先费用设置为与 max fee 相同。
+这模拟了传统的 gas 行为,因此您的交易将使用您给它的所有 gas - 无论网络的 base fee 是否低于您的 max fee。
 :::
 
-By default, Rocket Pool will use an oracle to look at the current transaction pool and suggest a reasonable max fee for any transactions you trigger.
-It uses [EtherChain](https://etherchain.org/tools/gasnow) for its primary suggestion oracle, and [Etherscan](https://etherscan.io/gastracker) as a backup.
+默认情况下,Rocket Pool 将使用预言机查看当前交易池,并为您触发的任何交易建议合理的 max fee。
+它使用 [EtherChain](https://etherchain.org/tools/gasnow) 作为其主要建议预言机,使用 [Etherscan](https://etherscan.io/gastracker) 作为备份。
 
-If you prefer, you can set a custom max fee (in gwei) you'd be willing to pay with the `-f` flag.
-You can also set a custom priority fee with the `-i` flag.
+如果您愿意,可以使用 `-f` 标志设置您愿意支付的自定义 max fee(以 gwei 为单位)。
+您还可以使用 `-i` 标志设置自定义优先费用。
 
-To do this, add them after `rocketpool` and before the other command information.
+要执行此操作,请在 `rocketpool` 之后和其他命令信息之前添加它们。
 
-For example, calling `node set-timezone` with this flag would provide the following output:
+例如,使用此标志调用 `node set-timezone` 将提供以下输出:
 
 ```
 $ rocketpool -f 10 node set-timezone
@@ -635,46 +635,46 @@ Total cost: 0.0005 to 0.0007 ETH
 Are you sure you want to set your timezone? [y/n]
 ```
 
-This shows that regardless of what max fee the network recommends, it will use your custom max fee of 10 gwei (and priority fee if you specify it) instead when submitting this transaction.
+这表明,无论网络建议什么 max fee,它都将在提交此交易时使用您的自定义 max fee 10 gwei(以及您指定的优先费用)。
 
-::: warning NOTE
-If you set a manual max fee, we strongly encourage you to use a third-party gas price oracle such as [EtherChain](https://etherchain.org/tools/gasnow) to determine if that fee is high enough for the current network conditions before submitting the transaction.
+::: warning 注意
+如果您设置了手动 max fee,我们强烈建议您在提交交易之前使用第三方 gas 价格预言机(例如 [EtherChain](https://etherchain.org/tools/gasnow))来确定该费用对于当前网络条件是否足够高。
 :::
 
-### Canceling / Overwriting a Stuck Transaction
+### 取消/覆盖卡住的交易
 
-Sometimes, you might run into a scenario where you sent a transaction to the network but you used a gas price that is far too low for the network conditions, and it will take a prohibitively long time to execute.
-Since all of your subsequent transactions will wait until that one goes through, that transaction essentially blocks all of the operations on your Rocket Pool node.
-To deal with this situation, we've added a global flag that lets you "cancel" such a transaction by replacing it with something else.
+有时,您可能会遇到这样的情况:您向网络发送了一笔交易,但您使用的 gas 价格对于网络条件来说太低了,执行它需要很长时间。
+由于您的所有后续交易都将等到该交易通过,因此该交易基本上阻止了 Rocket Pool 节点上的所有操作。
+为了处理这种情况,我们添加了一个全局标志,让您通过用其他内容替换它来"取消"此类交易。
 
-Every Ethereum wallet, including your node wallet, sends transactions sequentially.
-Each transaction you send has a number called a `nonce` that identifies where it lives in that sequence.
-The very first transaction you send will have a `nonce` of 0, the next one you send will have a `nonce` of 1, and so on.
+每个以太坊钱包(包括您的节点钱包)都按顺序发送交易。
+您发送的每笔交易都有一个称为 `nonce` 的数字,用于标识它在该序列中的位置。
+您发送的第一笔交易的 `nonce` 为 0,您发送的下一笔交易的 `nonce` 为 1,依此类推。
 
-This overwriting technique involves sending a _new_ transaction that uses the same `nonce` as your existing _stuck_ transaction, but will ideally include a higher gas price than the stuck one.
-This means that the new one will be mined first.
-As soon as it's mined into a block, the old one will be discarded from the network as though it was never sent in the first place.
+这种覆盖技术涉及发送一个_新_交易,该交易使用与您现有的_卡住_交易相同的 `nonce`,但理想情况下将包含比卡住的交易更高的 gas 价格。
+这意味着新交易将首先被挖掘。
+一旦它被挖掘到区块中,旧交易将从网络中丢弃,就像它从未发送过一样。
 
-To use this flag, you first need to find the `nonce` of your stuck transaction:
+要使用此标志,您首先需要找到卡住交易的 `nonce`:
 
-1. Go to an ETH1 block explorer like [https://etherscan.io](https://etherscan.io).
-1. Navigate to the address of your wallet, and look at the list of transactions.
-1. Go through them, starting with the most recent, until you find the furthest one down the list that has the `Pending` state.
-1. Mark the `nonce` of that transaction. That's what you'll need.
+1. 转到 ETH1 区块浏览器,例如 [https://etherscan.io](https://etherscan.io)。
+1. 导航到您钱包的地址,并查看交易列表。
+1. 从最近的交易开始浏览它们,直到找到列表中最远的具有 `Pending` 状态的交易。
+1. 标记该交易的 `nonce`。这就是您需要的。
 
-Once you have it, simply call any transaction with the CLI using the `--nonce <value> -i 2.2` flags after `rocketpool` and before the rest of the command.
+一旦您拥有它,只需使用 CLI 调用任何交易,在 `rocketpool` 之后和命令的其余部分之前使用 `--nonce <value> -i 2.2` 标志。
 
-::: warning NOTE
-You **must** include the `-i` (priority fee) flag in order to overwrite a previous transaction.
-This number must be at least 10% higher than whatever priority fee your old transaction used.
-The Smartnode uses a priority fee of 2 gwei by default, so a value of `2.2` is usually sufficient for an override.
+::: warning 注意
+您**必须**包含 `-i`(优先费用)标志才能覆盖先前的交易。
+此数字必须至少比旧交易使用的优先费用高 10%。
+Smartnode 默认使用 2 gwei 的优先费用,因此值 `2.2` 通常足以进行覆盖。
 
-If your old transaction used a custom fee (say, 10 gwei), you will need to set it at least 10% higher in the overriding transaction (so in this example, 11 gwei).
+如果您的旧交易使用了自定义费用(例如 10 gwei),您需要在覆盖交易中将其设置为至少高 10%(因此在此示例中为 11 gwei)。
 :::
 
-As an example, say I submitted a transaction with a `nonce` of 10 and a max fee of 20 gwei, but the current network fee is 100 gwei so my transaction is stuck.
-To fix it, I will submit a transaction where I send a small amount of ETH from myself back to myself with a higher max fee (say, 150 gwei) and a higher priority fee.
-I'll burn a little gas doing it, but it will unstick the broken transaction:
+例如,假设我提交了一笔 `nonce` 为 10、max fee 为 20 gwei 的交易,但当前网络费用为 100 gwei,所以我的交易卡住了。
+要修复它,我将提交一笔交易,其中我从自己向自己发送少量 ETH,使用更高的 max fee(例如 150 gwei)和更高的优先费用。
+我会因此消耗一点 gas,但它会解除卡住的交易:
 
 ```
 $ rocketpool --nonce 10 -f 150 -i 2.2 node send 0.0001 eth <node wallet address>
@@ -684,9 +684,9 @@ Total cost: 0.0032 to 0.0032 ETH
 Are you sure you want to send 0.000100 eth to <node wallet address>? This action cannot be undone! [y/n]
 ```
 
-The Smartnode stack will automatically check to make sure that the `nonce` you have provided is valid (it refers to a pending transaction) before sending it and wasting your gas accidentally.
-If not, it will return an error message.
-Otherwise, it will go through and provide you with the transaction details so you can monitor it to confirm that it did, in fact, overwrite your old stuck transaction.
+Smartnode 堆栈将自动检查以确保您提供的 `nonce` 有效(它指的是待处理的交易),然后再发送它并意外浪费您的 gas。
+如果不是,它将返回错误消息。
+否则,它将继续并为您提供交易详细信息,以便您可以监控它以确认它确实覆盖了您的旧卡住交易。
 
-That's it for the common CLI commands.
-In the next section, we'll walk through how to create a minipool and start validating on the Beacon Chain.
+这就是常见 CLI 命令的全部内容。
+在下一节中,我们将介绍如何创建 minipool 并开始在信标链上进行验证。

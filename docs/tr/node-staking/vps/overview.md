@@ -1,19 +1,19 @@
 ---
 next:
-  text: Selecting a Hosting Provider
-  link: "/en/node-staking/vps/providers"
+  text: Barındırma Sağlayıcısı Seçimi
+  link: "/tr/node-staking/vps/providers"
 ---
 
-# Overview
+# Genel Bakış
 
-This section is aimed at helping you understand the process of preparing a virtual private server or virtual machine hosted on the cloud as a Rocket Pool node.
+Bu bölüm, bulutta barındırılan bir sanal özel sunucu veya sanal makineyi Rocket Pool node'u olarak hazırlama sürecini anlamanıza yardımcı olmayı amaçlamaktadır.
 
-## Guides
+## Kılavuzlar
 
-[Selecting a Hosting Provider](./providers) shows several examples of popular hosting providers that other Rocket Pool node operators use to run nodes in the cloud.
+[Barındırma Sağlayıcısı Seçimi](./providers), diğer Rocket Pool node operatörlerinin bulutta node çalıştırmak için kullandığı popüler barındırma sağlayıcılarından bazı örnekler gösterir.
 
-[Preparing the Operating System](./os) walks you through the basic steps of installing and configuring the base Operating System on your machine to prepare it for life as a node.
+[İşletim Sistemini Hazırlama](./os), makinenizi node olarak yaşam için hazırlamak amacıyla temel İşletim Sistemini kurma ve yapılandırma temel adımlarını anlatır.
 
-::: tip NOTE
-Note that you will need to use a remote service like SSH to use your machine; consult the [**Intro to Secure Shell (SSH)**](../ssh) guide if you need a tutorial on how to do this.
+::: tip NOT
+Makinenizi kullanmak için SSH gibi bir uzak hizmeti kullanmanız gerektiğini unutmayın; bunu nasıl yapacağınıza dair bir öğreticiye ihtiyacınız varsa [**Secure Shell (SSH) Giriş**](../ssh) kılavuzuna başvurun.
 :::

@@ -2,92 +2,92 @@ import tui_ec_expose_ports from "./images/tui-ec-expose-ports.png";
 import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_fallback_clients from "./images/tui-fallback-clients.png";
 
-# Specifying a Fallback Node
+# フォールバックノードの指定
 
-Starting with **1.5.0** of the Smartnode stack, you can provide a "fallback" Execution client and Consensus client pair that can take over for your primary clients if they ever go offline (such as because [you use Geth and need to prune it](./pruning)).
-In this situation, your primary node machine will still be responsible for attesting and proposing blocks with your minipools' validator keys, but it will connect to an external machine to interact with the Execution layer and Beacon chains.
+Smartnodeスタックの**1.5.0**以降、プライマリクライアントがオフラインになった場合（[Gethを使用していてプルーニングが必要な場合](./pruning)など）に、代わりに引き継ぐことができる「フォールバック」ExecutionクライアントとConsensusクライアントのペアを提供できます。
+この状況では、プライマリノードマシンは依然としてminipoolのvalidatorキーを使用したアテステーションとブロック提案を担当しますが、ExecutionレイヤーとBeaconチェーンとのやり取りには外部マシンに接続します。
 
-Essentially, it allows you to _temporarily_ use another pair of clients for things like querying the chains, sending transactions, and receiving blocks to attest to.
-This pair can be externally managed (like Hybrid mode), or it can be another Rocket Pool node (another Docker mode machine that has the API ports exposed, which we'll cover below).
+基本的に、チェーンのクエリ、トランザクションの送信、アテストするブロックの受信などのために、別のクライアントペアを_一時的に_使用できるようにします。
+このペアは外部で管理することも（Hybridモードのように）、別のRocket Poolノード（APIポートを公開しているDocker modeマシン。以下で説明します）にすることもできます。
 
-Once your node's primary clients are back online, the Smartnode and your Validator client will switch back to them automatically.
+ノードのプライマリクライアントが再びオンラインになると、SmartnodeとValidator clientは自動的にそれらに切り替わります。
 
-::: warning NOTE
-A fallback node is **not** the same as a "backup" node.
-Fallback nodes have an Execution and Consensus client pair synced to the chain and running, but they **do not** have your node's wallet or its validator keys loaded.
+::: warning 注記
+フォールバックノードは「バックアップ」ノードとは**異なります**。
+フォールバックノードにはチェーンに同期されて実行中のExecutionクライアントとConsensusクライアントのペアがありますが、ノードのウォレットやvalidatorキーはロードされて**いません**。
 
-If your main node ever goes offline, **your fallback will not start validating for you.**
+メインノードがオフラインになっても、**フォールバックが代わりに検証を開始することはありません**。
 :::
 
-## Supported Clients
+## サポートされているクライアント
 
-As of v1.9.0, all our supported validator clients have added Fallback support with only a few limitations:
+v1.9.0以降、サポートされているすべてのvalidatorクライアントにフォールバックサポートが追加されており、いくつかの制限があるのみです。
 
-| Name       | Supports Fallback | Valid Fallback Clients                                                         |
+| 名前       | フォールバックサポート | 有効なフォールバッククライアント                                                         |
 | ---------- | ----------------- | ------------------------------------------------------------------------------ |
-| Lighthouse | Yes               | Any (doppelganger protection off)<br />Lighthouse (doppelganger protection on) |
-| Nimbus     | Yes               | Any                                                                            |
-| Prysm      | Yes               | Prysm                                                                          |
-| Teku       | Yes               | Any                                                                            |
-| Lodestar   | Yes               | Any                                                                            |
+| Lighthouse | はい               | 任意（doppelganger protection無効時）<br />Lighthouse（doppelganger protection有効時） |
+| Nimbus     | はい               | 任意                                                                            |
+| Prysm      | はい               | Prysm                                                                          |
+| Teku       | はい               | 任意                                                                            |
+| Lodestar   | はい               | 任意                                                                            |
 
-## Setting up a New Node (Docker Mode)
+## 新しいノードのセットアップ（Docker Mode）
 
-You can use a 2nd machine that you own locally, a remote node hosted on a VPS, or a cloud-based node as a fallback node.
+フォールバックノードとして、ローカルで所有する2台目のマシン、VPSでホストされているリモートノード、またはクラウドベースのノードを使用できます。
 
-This example shows you how to create a 2nd Smartnode on a different machine using Docker mode, which can serve as a fallback node.
+この例では、Docker modeを使用して別のマシンに2台目のSmartnodeを作成する方法を示します。これはフォールバックノードとして機能します。
 
-::: tip TIP
-If you already have a 2nd node ready and have its RPC ports exposed, feel free to skip this section.
+::: tip ヒント
+すでに2台目のノードの準備ができていて、RPCポートを公開している場合は、このセクションをスキップしてください。
 :::
 
-1. Follow the steps in the guide on setting up a node ([local](./local/hardware) or [remote](./vps/providers)).
-2. Once the machine is ready, [install the Smartnode stack](./docker).
-3. Run `rocketpool service config` to specify which clients you'd like to use.
-   1. When you get to the end of the wizard and it asks if you'd like to review your settings, select **Yes**.
-   2. Enter the `Execution Client` settings.
-   3. Check the `Expose RPC Ports` box:
+1. ノードのセットアップガイド（[ローカル](./local/hardware)または[リモート](./vps/providers)）の手順に従ってください。
+2. マシンの準備ができたら、[Smartnodeスタックをインストール](./docker)します。
+3. `rocketpool service config`を実行して、使用したいクライアントを指定します。
+   1. ウィザードの最後で設定を確認するかどうか尋ねられたら、**Yes**を選択します。
+   2. `Execution Client`設定に入ります。
+   3. `Expose RPC Ports`ボックスをチェックします。
 
    <img src={tui_ec_expose_ports} width="100%" height="auto" />
-   4. Go back and enter the `Consensus Client` settings. 5. Check the `Expose API Port` box (and, if you're using **Prysm**, the `Expose RPC Port` box as well):
+   4. 戻って`Consensus Client`設定に入ります。 5. `Expose API Port`ボックスをチェックします（**Prysm**を使用している場合は、`Expose RPC Port`ボックスもチェックします）。
 
    <img src={tui_cc_expose_ports} width="100%" height="auto" />
-   6. Save the settings and start the Smartnode.
+   6. 設定を保存してSmartnodeを起動します。
 
-4. Skip to the [Securing your Node](./securing-your-node) guide to set up SSH and the proper security posture on it.
-   1. If you have `ufw` installed, you will need to add rules to allow incoming traffic to the API ports (`8545`, `8546`, and `5052` by default; also `5053` if you're using **Prysm**).
+4. [ノードの保護](./securing-your-node)ガイドにスキップして、SSHと適切なセキュリティ体制を設定します。
+   1. `ufw`がインストールされている場合、APIポート（デフォルトでは`8545`、`8546`、`5052`。**Prysm**を使用している場合は`5053`も）への着信トラフィックを許可するルールを追加する必要があります。
 
-5. That's it! You can stop here.
+5. 以上です。ここで停止できます。
 
-::: danger NOTE
-**Do not** create a wallet with `rocketpool wallet init` or recover your old wallet.
-Leave this node without a wallet and without validator keys.
+::: danger 注記
+`rocketpool wallet init`でウォレットを作成したり、古いウォレットを復元**しないでください**。
+このノードにはウォレットもvalidatorキーもない状態のままにしてください。
 
-Its only job is to have a synced Execution client and Consensus client.
+その唯一の仕事は、同期されたExecutionクライアントとConsensusクライアントを持つことです。
 :::
 
-## Connecting your Main Node to the Fallback Node
+## メインノードをフォールバックノードに接続する
 
-Once you have a fallback node prepared, you can connect it to your main node.
+フォールバックノードの準備ができたら、メインノードに接続できます。
 
-1. Enter the `rocketpool service config` TUI and enter the `Fallback Clients` settings.
-2. Check the `Use Fallback Clients` box.
-3. Enter the RPC URL for your Execution client in the `Execution Client URL` box. For example, if your fallback node's IP address is `192.168.1.45` and you have its Execution client on the default port of `8545`, you would enter `http://192.168.1.45:8545` here.
-4. Do the same for the RPC URL of your fallback Consensus client. Following the same example, if you have it on the default port of `5052`, you would enter `http://192.168.1.45:5052` here.
+1. `rocketpool service config` TUIに入り、`Fallback Clients`設定に入ります。
+2. `Use Fallback Clients`ボックスをチェックします。
+3. `Execution Client URL`ボックスにExecutionクライアントのRPC URLを入力します。例えば、フォールバックノードのIPアドレスが`192.168.1.45`で、Executionクライアントがデフォルトポート`8545`にある場合、ここに`http://192.168.1.45:8545`と入力します。
+4. フォールバックConsensusクライアントのRPC URLについても同様に行います。同じ例に従って、デフォルトポート`5052`にある場合、ここに`http://192.168.1.45:5052`と入力します。
 
-The final page should look like this:
+最終ページは次のようになります。
 
 <img src={tui_fallback_clients} width="100%" height="auto" />
 
-::: tip NOTE
-**Native mode** users can follow the same steps, though the TUI will look slightly different from the above screenshot.
+::: tip 注記
+**Nativeモード**ユーザーも同じ手順に従うことができますが、TUIは上のスクリーンショットとは少し異なって見えます。
 
-Note that this will only provide the **Smartnode itself** (the daemon service) with fallback support; **you will have to update your Validator client service's arguments manually to give it access to the fallback clients.**
+これは**Smartnode自体**（デーモンサービス）にのみフォールバックサポートを提供することに注意してください。**Validator clientサービスにフォールバッククライアントへのアクセスを提供するには、引数を手動で更新する必要があります**。
 :::
 
-Press `enter` on the final box to ensure that it's confirmed, then save the settings and apply the changes.
+最後のボックスで`enter`を押して確認し、設定を保存して変更を適用します。
 
-Once they've been applied, you can confirm the availability of your fallback node using the `rocketpool node sync` command:
+適用されたら、`rocketpool node sync`コマンドを使用してフォールバックノードの可用性を確認できます。
 
 ```
 Your Smartnode is currently using the Ethereum Mainnet.
@@ -100,18 +100,18 @@ Your primary consensus client is fully synced.
 Your fallback consensus client is fully synced.
 ```
 
-If it shows that both the fallback Execution and Consensus client are synced, then you're all set!
+フォールバックのExecutionクライアントとConsensusクライアントの両方が同期されていることが表示されれば、準備完了です。
 
-## Testing the Fallback Clients
+## フォールバッククライアントのテスト
 
-If you'd like to be absolutely sure that your configuration is going to work by testing the fallback clients, simply stop the Execution and Consensus clients on your main node:
+フォールバッククライアントをテストして設定が正しく機能することを絶対に確認したい場合は、メインノードのExecutionクライアントとConsensusクライアントを停止してください。
 
 ```shell
 docker stop rocketpool_eth1 rocketpool_eth2
 ```
 
-Then run any command that queries the chain, such as `rocketpool network stats`.
-You will see a warning message at the top indicating that one (or both) of your primary clients are offline, and that it's reverting to the fallback clients:
+次に、`rocketpool network stats`などのチェーンをクエリするコマンドを実行します。
+プライマリクライアントの一方（または両方）がオフラインであり、フォールバッククライアントに切り替えていることを示す警告メッセージが上部に表示されます。
 
 ```
 NOTE: primary clients are not ready, using fallback clients...
@@ -146,16 +146,16 @@ Total RPL staked:        6098920.170527 RPL
 Effective RPL staked:    5751692.043848 RPL
 ```
 
-Finally, start your primary clients again:
+最後に、プライマリクライアントを再起動します。
 
 ```shell
 docker start rocketpool_eth1 rocketpool_eth2
 ```
 
-And you're done!
-Your fallback setup is working.
+完了です。
+フォールバックセットアップが機能しています。
 
-## Next Steps
+## 次のステップ
 
-Whether or not you've opted into creating and/or running a fallback node for your setup, the next step is to learn about **priority fees**.
-Click on the next section of the guide when you're ready to proceed.
+フォールバックノードをセットアップで作成・実行することを選択したかどうかに関わらず、次のステップは**priority fees**について学ぶことです。
+準備ができたら、ガイドの次のセクションをクリックしてください。

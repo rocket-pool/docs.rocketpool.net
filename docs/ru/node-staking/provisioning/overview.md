@@ -1,34 +1,34 @@
 ---
 next:
   text: Starting Rocketpool
-  link: "/en/node-staking/starting-rp"
+  link: "/ru/node-staking/starting-rp"
 ---
 
-# Overview
+# Обзор
 
-This section covers the details of how to provision your node for staking with Rocket Pool once you've installed and configured the Smartnode.
-It's a long one because there's a lot of information around staking to cover, so **please read through each guide before creating your first minipool!**
+Этот раздел охватывает детали того, как подготовить ваш узел для стейкинга с Rocket Pool после того, как вы установили и настроили Smartnode.
+Он длинный, потому что есть много информации о стейкинге, которую нужно охватить, поэтому **пожалуйста, прочитайте каждое руководство перед созданием вашего первого минипула!**
 
-## Prerequisites
+## Предварительные требования
 
-Before provisioning your node for staking, please make sure you've done the following:
+Перед подготовкой вашего узла для стейкинга убедитесь, что вы сделали следующее:
 
-- Set up a node machine (or virtual machine) and secured it (via the [Securing your Node](../securing-your-node) guide)
-- Have the Smartnode [installed](../installing/overview) and [configured](../config/overview) on it
+- Настроили машину узла (или виртуальную машину) и защитили ее (с помощью руководства [Securing your Node](../securing-your-node))
+- Установили [installed](../installing/overview) и [настроили](../config/overview) Smartnode на ней
 
-## Guides
+## Руководства
 
-[Starting Rocket Pool](../starting-rp) will show you how to start the Smartnode services for each mode and how to check on the sync progress of your Execution and Consensus clients.
+[Starting Rocket Pool](../starting-rp) покажет вам, как запустить службы Smartnode для каждого режима и как проверить прогресс синхронизации ваших клиентов исполнения и консенсуса.
 
-[Creating a New Wallet](../wallet-init) walks through the process of creating a brand new wallet with the Smartnode if this is your first time setting up a node.
+[Creating a New Wallet](../wallet-init) проведет вас через процесс создания совершенно нового кошелька с помощью Smartnode, если это ваша первая настройка узла.
 
-[Importing / Recovering an Existing Wallet](../recovering-rp.mdx) is an alternative to creating a new wallet.
-Use this guide if you already have a node wallet that you want to recover onto your node (or if you're migrating from a service like Allnodes to your own hardware).
+[Importing / Recovering an Existing Wallet](../recovering-rp.mdx) — это альтернатива созданию нового кошелька.
+Используйте это руководство, если у вас уже есть кошелек узла, который вы хотите восстановить на своем узле (или если вы переходите с сервиса, такого как Allnodes, на собственное оборудование).
 
-[Preparing your Node for Operation](../prepare-node.mdx) covers some important first steps you'll want to take once you have a wallet loaded onto your node, well before you fund it with any ETH or RPL (other than a small amount of ETH for gas costs, of course).
+[Preparing your Node for Operation](../prepare-node.mdx) охватывает некоторые важные первые шаги, которые вы захотите предпринять после того, как загрузите кошелек на свой узел, задолго до того, как вы пополните его любым количеством ETH или RPL (кроме небольшого количества ETH для расходов на газ, конечно).
 
-[Specifying a Fallback Node](../fallback) walks you through the optional process of pointing your node at a second (externally-managed) pair of Execution and Consensus clients that can act as a backup for your primary clients if they ever go down, so your node can keep validating while you perform maintenance on them.
+[Specifying a Fallback Node](../fallback) проводит вас через необязательный процесс указания вашего узла на вторую (внешне управляемую) пару клиентов исполнения и консенсуса, которые могут выступать в качестве резервной копии для ваших основных клиентов, если они когда-либо выйдут из строя, чтобы ваш узел мог продолжать валидацию во время их обслуживания.
 
-[Fee Distributors and the Smoothing Pool](../fee-distrib-sp) discuss the way Execution layer rewards are provided to your node every time one of your validators proposes a block, how to collect those rewards, and describes Rocket Pool's **Smoothing Pool** - a popular feature that combines Execution layer rewards from everyone and evenly distributes them during Rocket Pool's regular rewards intervals.
+[Fee Distributors and the Smoothing Pool](../fee-distrib-sp) обсуждает способ предоставления вознаграждений на уровне исполнения вашему узлу каждый раз, когда один из ваших валидаторов предлагает блок, как собрать эти вознаграждения и описывает **Smoothing Pool** Rocket Pool — популярную функцию, которая объединяет вознаграждения на уровне исполнения от всех и равномерно распределяет их во время регулярных интервалов вознаграждений Rocket Pool.
 
-[MEV, MEV-Boost, and MEV Rewards](../mev.mdx) explains **Maximum-Extractable Value** (MEV), its role in the staking ecosystem, and how you can configure it to your liking using the Smartnode.
+[MEV, MEV-Boost, and MEV Rewards](../mev.mdx) объясняет **максимально извлекаемую стоимость** (Maximum-Extractable Value, MEV), её роль в экосистеме стейкинга и как вы можете настроить её по своему вкусу с помощью Smartnode.

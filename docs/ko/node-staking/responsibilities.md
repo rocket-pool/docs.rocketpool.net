@@ -1,119 +1,119 @@
-# A Node Operator's Responsibilities
+# 노드 운영자의 책임
 
-## How Ethereum Staking Works
+## Ethereum 스테이킹의 작동 방식
 
-As a reminder, staking in Proof of Stake is done via **validators**.
-A validator is essentially a single Beacon Chain address to which 32 ETH was deposited on the Execution layer.
-Validators are responsible for maintaining the consistency and security of the Beacon Chain.
-They do this by listening for transactions and new block proposals and **attesting** that the proposed block contains legal, valid transactions by doing some number crunching and verification behind the scenes.
-Occasionally, they get to propose new blocks themselves.
+상기시켜 드리자면, 지분 증명에서의 스테이킹은 **validator**를 통해 수행됩니다.
+Validator는 기본적으로 실행 레이어에서 32 ETH가 예치된 단일 Beacon Chain 주소입니다.
+Validator는 Beacon Chain의 일관성과 보안을 유지할 책임이 있습니다.
+그들은 거래와 새로운 블록 제안을 듣고, 제안된 블록이 합법적이고 유효한 거래를 포함하고 있음을 **증명**하여 이를 수행합니다. 이는 뒤에서 일부 계산과 검증을 수행함으로써 이루어집니다.
+때때로 그들은 직접 새로운 블록을 제안하기도 합니다.
 
-Validators are assigned attestations and block proposals **on a randomized schedule**.
-This is very different from the old Proof of Work system, where everyone was constantly trying to race each other and come up with the next block before everyone else.
-This means that unlike Proof of Work where miners weren't guaranteed to earn a block reward unless they found the next block, Proof of Stake validators _are_ guaranteed to have slow, steady income as long as they perform their duties.
-If a validator is offline and misses an attestation or a block proposal, it will be **slightly penalized**.
-The penalties are quite small though; as a rule of thumb, if a validator is offline for X hours, it will make all of its lost ETH back after the same X hours of being back online.
+Validator는 **무작위 일정**에 따라 증명 및 블록 제안이 할당됩니다.
+이것은 모두가 지속적으로 경쟁하며 다른 모든 사람보다 먼저 다음 블록을 생성하려고 시도하는 기존의 작업 증명 시스템과 매우 다릅니다.
+이는 작업 증명에서 채굴자가 다음 블록을 찾지 못하면 블록 보상을 받을 수 없는 것과 달리, 지분 증명 validator는 의무를 수행하는 한 느리고 꾸준한 수입을 보장받는다는 것을 의미합니다.
+Validator가 오프라인 상태이고 증명 또는 블록 제안을 놓치면 **약간의 페널티를 받습니다**.
+페널티는 상당히 작습니다; 경험 법칙으로, validator가 X시간 동안 오프라인 상태인 경우, 다시 온라인 상태가 되어 동일한 X시간 동안 증명하면 손실된 모든 ETH를 회복할 것입니다.
 
-### Rewards
+### 보상
 
-Validators earn consensus layer rewards from Attestation, Block Proposals, Sync Committees (rare), and Slashing Rewards (vanishingly rare). They also earn execution layer rewards from Priority Fees and MEV.
+Validator는 증명, 블록 제안, 동기화 위원회(드물게), 슬래싱 보상(극히 드물게)으로부터 합의 레이어 보상을 얻습니다. 또한 우선순위 수수료 및 MEV로부터 실행 레이어 보상을 얻습니다.
 
-As of 10/2024, overall APR is ~3.5%, with 2.8% being consensus layer APR, and 0.7% being execution layer APR. One place to find this info is the [rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake).
+2024년 10월 기준으로, 전체 APR은 약 3.5%이며, 합의 레이어 APR이 2.8%, 실행 레이어 APR이 0.7%입니다. 이 정보를 찾을 수 있는 한 곳은 [rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake)입니다.
 
-### Penalties
+### 페널티
 
-Validators are penalized for small amounts of ETH if they are offline and fail to perform their assigned duties.
-This is called **leaking**.
-If a validator violates one of the core rules of the Beacon chain and appears to be attacking the network, it may get **slashed**.
-Slashing is a forceful exit of your validator without your permission, accompanied by a relatively large fine that removes some of your validator's ETH balance.
+Validator는 오프라인 상태이고 할당된 의무를 수행하지 못하면 소량의 ETH에 대한 페널티를 받습니다.
+이것을 **leaking**이라고 합니다.
+Validator가 Beacon chain의 핵심 규칙 중 하나를 위반하고 네트워크를 공격하는 것처럼 보이면 **슬래시**될 수 있습니다.
+슬래싱은 귀하의 허가 없이 validator를 강제로 종료하는 것이며, validator의 ETH 잔액 중 일부를 제거하는 상대적으로 큰 벌금을 동반합니다.
 
-Realistically, the only condition that can cause a slashing is if you run your validator's keys on two nodes at the same time (such as a failover / redundancy setup, where your backup node accidentally turns on while your main node is still running).
-Don't let this happen, and **you won't get slashed**.
-Slashing _cannot occur_ from being offline for maintenance.
+현실적으로 슬래싱을 유발할 수 있는 유일한 조건은 두 노드에서 동시에 validator의 키를 실행하는 경우입니다(예: 백업 노드가 주 노드가 여전히 실행 중인 동안 실수로 켜지는 장애 조치/이중화 설정).
+이런 일이 발생하지 않도록 하면 **슬래시되지 않습니다**.
+유지 관리를 위해 오프라인 상태인 것으로 인해 슬래싱이 _발생할 수 없습니다_.
 
-Below is a table that shows the penalties that can happen to a validator:
+다음은 validator에게 발생할 수 있는 페널티를 보여주는 표입니다:
 
-| Type                  | Layer     | Amount                                                                            |
+| 유형                  | 레이어     | 양                                                                            |
 | --------------------- | --------- | --------------------------------------------------------------------------------- |
-| Missed Attestation    | Consensus | -0.000011 ETH\* per attestation (-9/10 the value of a normal attestation reward)  |
-| Missed Proposal       | Consensus | 0                                                                                 |
-| Missed Sync Committee | Consensus | -0.00047 ETH\* per epoch (-0.1 ETH total if offline for the whole sync committee) |
-| Slashing              | Consensus | At least 1/32 of your balance, up to your entire balance in extreme circumstances |
+| 놓친 증명    | 합의 | -0.000011 ETH\* 증명당 (일반 증명 보상 값의 -9/10)  |
+| 놓친 제안       | 합의 | 0                                                                                 |
+| 놓친 동기화 위원회 | 합의 | -0.00047 ETH\* 에폭당 (전체 동기화 위원회 동안 오프라인인 경우 총 -0.1 ETH) |
+| 슬래싱              | 합의 | 최소 잔액의 1/32, 극단적인 상황에서는 전체 잔액까지 |
 
-\*_Varies based on the total number of validators in the network.
-Approximated for 435,000 active validators._
+\*_네트워크의 총 validator 수에 따라 다릅니다.
+435,000개의 활성 validator에 대해 근사치입니다._
 
-::: tip TIP
-As a rule of thumb, if you're offline for X hours (and you aren't in a sync committee), then you'll make all of your leaked ETH back after X hours once you're back online and attesting.
+::: tip 팁
+경험 법칙으로, X시간 동안 오프라인 상태이고(동기화 위원회에 있지 않은 경우) 다시 온라인 상태가 되어 증명하면 X시간 후에 누출된 모든 ETH를 회복할 것입니다.
 :::
 
-## How Rocket Pool Nodes Work
+## Rocket Pool 노드의 작동 방식
 
-Unlike solo stakers, who are required to put 32 ETH up for deposit to create a new validator, Rocket Pool nodes only need to deposit 8 ETH per validator (called "bond ETH").
-This will be coupled with 24 ETH from the staking pool (called "borrowed ETH", which comes from liquid staker deposits in exchange for rETH) to create a new validator.
-This new validator belongs to a **minipool**.
+새로운 validator를 생성하기 위해 32 ETH를 예치해야 하는 단독 스테이커와 달리, Rocket Pool 노드는 validator당 8 ETH만 예치하면 됩니다("bond ETH"라고 함).
+이것은 staking pool의 24 ETH("borrowed ETH"라고 하며, rETH와 교환하여 liquid staker 예치금에서 나온 것)와 결합되어 새로운 validator를 생성합니다.
+이 새로운 validator는 **minipool**에 속합니다.
 
-To the Beacon chain, a minipool looks exactly the same as a normal validator.
-It has the same responsibilities, same rules it must follow, same rewards, and so on.
-The only difference is in how the minipool was created on the execution layer, and how withdrawals work when the node operator decides to voluntarily exit the minipool.
-All of the creation, withdrawing, and rewards delegation is handled by Rocket Pool's **smart contracts** on the Ethereum chain.
-This makes it completely decentralized.
+Beacon chain에게 minipool은 일반 validator와 정확히 동일하게 보입니다.
+동일한 책임, 따라야 할 동일한 규칙, 동일한 보상 등을 가지고 있습니다.
+유일한 차이점은 minipool이 실행 레이어에서 생성된 방식과 노드 운영자가 자발적으로 minipool을 종료하기로 결정할 때 출금이 작동하는 방식입니다.
+모든 생성, 출금 및 보상 위임은 Ethereum 체인의 Rocket Pool **스마트 컨트랙트**에 의해 처리됩니다.
+이것은 완전히 탈중앙화되어 있습니다.
 
-A Rocket Pool **Node** is a single computer with an Ethereum wallet that was registered with Rocket Pool's smart contracts.
-The node can then create as many minipools as it can afford, all running happily on the same machine together.
-**A single Rocket Pool node can run many, many minipools.**
-Each minipool has a negligible impact on overall system performance; some people have been able to run hundreds of them on a single node.
+Rocket Pool **노드**는 Rocket Pool의 스마트 컨트랙트에 등록된 Ethereum 지갑이 있는 단일 컴퓨터입니다.
+노드는 감당할 수 있는 만큼 많은 minipool을 생성할 수 있으며, 모두 동일한 머신에서 행복하게 함께 실행됩니다.
+**단일 Rocket Pool 노드는 많은 minipool을 실행할 수 있습니다.**
+각 minipool은 전체 시스템 성능에 무시할 수 있는 영향을 미칩니다; 일부 사람들은 단일 노드에서 수백 개를 실행할 수 있었습니다.
 
-A minipool's upfront cost is 8 ETH. In addition, a node operator may stake RPL to their node to qualify for additional rewards and to gain voting power within the protocol DAO.
+minipool의 선불 비용은 8 ETH입니다. 또한, 노드 운영자는 추가 보상을 받고 프로토콜 DAO 내에서 투표권을 얻기 위해 노드에 RPL을 스테이킹할 수 있습니다.
 
-## Rocket Pool Node Operators
+## Rocket Pool 노드 운영자
 
-**Node operators** are the heart and soul of Rocket Pool.
-They are the individuals that run Rocket Pool nodes.
+**노드 운영자**는 Rocket Pool의 핵심이자 영혼입니다.
+그들은 Rocket Pool 노드를 실행하는 개인입니다.
 
-### Responsibilities
+### 책임
 
-They put ETH from the staking pool to work by running minipools with it, which earn staking rewards for the Rocket Pool protocol (and thus, increase rETH's value).
-Their job is straightforward, but crucially important: _run validators with the highest quality possible, and maximize staking rewards_.
+그들은 staking pool의 ETH를 사용하여 minipool을 실행함으로써 작동시키며, 이는 Rocket Pool 프로토콜에 대한 스테이킹 보상을 얻습니다(따라서 rETH의 가치를 증가시킵니다).
+그들의 일은 간단하지만 매우 중요합니다: _최고 품질로 validator를 실행하고 스테이킹 보상을 극대화합니다_.
 
-Node operators are responsible for:
+노드 운영자는 다음에 대한 책임이 있습니다:
 
-- Setting up a computer (either physical or virtual)
-- Configuring it correctly, including their home network if applicable
-- Installing Rocket Pool on it and setting up minipools to perform validation
-- Securing it, both from outside and inside threats
-- Maintaining it for the life of their validators
+- 컴퓨터(물리적 또는 가상) 설정
+- 해당하는 경우 홈 네트워크를 포함하여 올바르게 구성
+- Rocket Pool을 설치하고 검증을 수행하기 위한 minipool 설정
+- 외부 및 내부 위협으로부터 보호
+- validator의 수명 동안 유지 관리
 
-It's a big responsibility, and not a simple set-it-and-forget-it kind of job; you need to care for your node for as long as it's staking.
-With great responsibility, however, comes great rewards.
+큰 책임이며, 간단한 설정 후 잊어버리는 종류의 일이 아닙니다; 스테이킹하는 동안 노드를 돌보아야 합니다.
+그러나 큰 책임에는 큰 보상이 따릅니다.
 
-### Rewards
+### 보상
 
-Here are the major benefits of running a Rocket Pool node:
+Rocket Pool 노드를 실행하는 주요 이점은 다음과 같습니다:
 
-- You earn your portion of each validator's ETH rewards, plus commission.
-  - For 8 ETH-bonded minipools with no staked RPL, this comes to 30% more than solo staking (`(8+24*.1)/8 = 1.3`)
-  - Staking RPL provides boosted commission. With RPL stake valued at 10% of your total borrowed ETH or more, ETH rewards come to 42% more than solo staking (`(8+24*.14)/8 = 1.42`)
-  - **Note:** if you do not participate in the smoothing pool, you will instead receive 15% more than solo staking (`(8+24*.05)/8 = 1.15`) -- it is highly recommended that users with minipools made on/after 2024-10-28 opt into the smoothing pool.
-- You also earn issuance rewards on the RPL you stake.
-  - At the end of a period (every 28 days), there's a snapshot of your RPL.
-  - You can earn max yield on RPL **up to 15%** of the value of your total borrowed ETH.
-    - You will earn yield on RPL beyond that, at a decreasing level.
-  - You will get vote power based on the square root of your staked RPL.
+- 각 validator의 ETH 보상 중 귀하의 몫과 수수료를 얻습니다.
+  - 스테이킹된 RPL이 없는 8 ETH 본드 minipool의 경우, 단독 스테이킹보다 30% 더 많이 얻습니다 (`(8+24*.1)/8 = 1.3`)
+  - RPL 스테이킹은 향상된 수수료를 제공합니다. 총 borrowed ETH의 10% 이상의 가치로 평가된 RPL 스테이크를 보유한 경우, ETH 보상은 단독 스테이킹보다 42% 더 많이 얻습니다 (`(8+24*.14)/8 = 1.42`)
+  - **참고:** smoothing pool에 참여하지 않으면 대신 단독 스테이킹보다 15% 더 많이 얻습니다 (`(8+24*.05)/8 = 1.15`) -- 2024-10-28 이후에 만들어진 minipool을 보유한 사용자는 smoothing pool에 옵트인하는 것이 좋습니다.
+- 스테이킹한 RPL에 대한 발행 보상도 얻습니다.
+  - 기간(28일마다) 종료 시 RPL의 스냅샷이 있습니다.
+  - 총 borrowed ETH 가치의 **최대 15%**까지 RPL에 대한 최대 수익률을 얻을 수 있습니다.
+    - 그 이상의 RPL에 대해서도 수익률을 얻지만 감소하는 수준입니다.
+  - 스테이킹된 RPL의 제곱근을 기반으로 투표권을 얻습니다.
 
-### Limitations
+### 제한 사항
 
-There are some limitations that come along with the rewards above:
+위의 보상과 함께 제공되는 몇 가지 제한 사항이 있습니다:
 
-- If your node performs poorly and you actually end up losing ETH by the time you decide to exit your minipool, all of the lost ETH is coming out of your share.
-  - For example: if you exit with a balance of 30 ETH, then your minipool lost 2 ETH from its initial 32 ETH deposit. You will receive 6 ETH, and 24 ETH will be returned to the staking pool.
-- Your staked RPL will be less liquid
-  - You can only withdraw RPL stake beyond that valued at 60% of your bonded ETH.
-  - You cannot withdraw RPL if you've staked in the last 28 days
+- 노드가 제대로 수행되지 않고 minipool을 종료하기로 결정할 때 실제로 ETH를 잃는 경우, 손실된 모든 ETH는 귀하의 몫에서 나옵니다.
+  - 예를 들어: 30 ETH의 잔액으로 종료하면 minipool이 초기 32 ETH 예치금에서 2 ETH를 잃은 것입니다. 귀하는 6 ETH를 받게 되고 24 ETH는 staking pool로 반환됩니다.
+- 스테이킹된 RPL은 유동성이 떨어집니다
+  - 본드된 ETH의 60%의 가치를 초과하는 RPL 스테이크만 출금할 수 있습니다.
+  - 지난 28일 동안 스테이킹한 경우 RPL을 출금할 수 없습니다
 
-### You've got this
+### 할 수 있습니다
 
-If you're fairly new to using the command line or computer maintenance, this can seem like a scary challenge.
-Luckily, one of Rocket Pool's most core principles is _decentralization_ - the fact that anyone, anywhere, can run a node if they have the determination and knowledge.
-While we can't help with determination, we _can_ help with knowledge.
-This section is packed with guides, walkthroughs, and information that will help you understand how to run a great Rocket Pool node.
+명령줄이나 컴퓨터 유지 관리를 사용하는 것이 상당히 새롭다면 이것이 무섭게 느껴질 수 있습니다.
+다행히도 Rocket Pool의 가장 핵심적인 원칙 중 하나는 _탈중앙화_입니다 - 누구나 어디서나 결단력과 지식이 있으면 노드를 실행할 수 있다는 사실입니다.
+결단력은 도와드릴 수 없지만 지식은 _도와드릴 수 있습니다_.
+이 섹션은 훌륭한 Rocket Pool 노드를 실행하는 방법을 이해하는 데 도움이 되는 가이드, 연습 및 정보로 가득 차 있습니다.

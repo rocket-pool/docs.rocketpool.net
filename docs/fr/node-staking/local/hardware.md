@@ -1,385 +1,385 @@
-# Selecting Staking Hardware
+# Sélection du Matériel de Staking
 
-There are no official specifications for running a Rocket Pool node.
-This page offers some guidelines and examples that you can use to select staking hardware.
+Il n'existe pas de spécifications officielles pour faire fonctionner un nœud Rocket Pool.
+Cette page offre quelques recommandations et exemples que vous pouvez utiliser pour sélectionner du matériel de staking.
 
-The minimum hardware requirements of your node will depend on the Consensus and Execution clients that you choose.
-If, for example, you intend to run your node on a low powered device, you may be limited to using `Geth` as your Execution client and `Nimbus` as your Consensus client.
-If you're using a more powerful NUC with 32+ GB of RAM, all client combinations are open to you.
+Les exigences matérielles minimales de votre nœud dépendront des clients Consensus et Execution que vous choisirez.
+Si, par exemple, vous avez l'intention de faire fonctionner votre nœud sur un appareil peu puissant, vous pourriez être limité à utiliser `Geth` comme client Execution et `Nimbus` comme client Consensus.
+Si vous utilisez un NUC plus puissant avec 32+ Go de RAM, toutes les combinaisons de clients vous sont ouvertes.
 
-The guidelines below assume you want a **comfortable** level of hardware, meaning you have excess capacity.
-If you keep these guidelines in mind, your node will have plenty of resources to run any of the Rocket Pool supported client combinations.
-This will allow you to choose a `random` client pair, which is very important for client diversity on the Ethereum network.
-
-::: tip NOTE
-Ethereum staking is very forgiving.
-If your house is flooded and your staking device is fried, there is no big penalty for taking a week to get back up and running (unless you happen to be in a sync committee, which is a very rare event).
-Component failure might happen at some point, but don't stress about it.
-Downtime does not get you slashed unless you are offline during a major outage of the entire Ethereum network.
-:::
-
-## Hardware Requirements
-
-Ethereum validators are not very computationally expensive, which is to say that once your Execution and Consensus clients are running, any additional validator will use **a very small amount of additional resources**.
-This grows up to 64 validators, at which point the resources required for adding a 65th validator and beyond are negligible.
-
-In our experience, most setups, including mini-PCs and NUCs, are capable of running an effectively unlimited number of validators.
-
-### CPU Requirements
-
-**Guideline: any modern CPU with at least 4 threads.**
-
-Running a Rocket Pool node is not very computationally intensive.
-The biggest impact of the CPU is how fast your node can initially sync the state of the blockchain when you first create it (or if you ever change clients later).
-After the initial sync, the CPU is not used as heavily.
-
-CPU naming can be deceptive; an Intel Core i5 from 2010 is usually **less powerful** than a core i3 from 2022.
-Many community members use Intel NUC devices because of their small form factor, but an old i5 NUC may be a worse choice than a new i3.
-For this reason, we recommend using a "modern" CPU that is, at most, a few years old.
-More specifically, **for x64-based CPUs**, we recommend a CPU that supports the [BMI2](<https://en.wikipedia.org/wiki/X86_Bit_manipulation_instruction_set#BMI2_(Bit_Manipulation_Instruction_Set_2)>) extension - check the manufacturer's specs for your CPU to see if it is supported.
-Not all modern CPUs support this; for example, Celeron CPUs tend not to include it.
-
-ARM-based CPUs (such as the Mac M1 or M2, or the Rock 5B) do not apply to the BMI2 extension above.
+Les recommandations ci-dessous supposent que vous souhaitez un niveau de matériel **confortable**, ce qui signifie que vous disposez d'une capacité excédentaire.
+Si vous gardez ces recommandations à l'esprit, votre nœud aura amplement de ressources pour exécuter n'importe quelle combinaison de clients supportée par Rocket Pool.
+Cela vous permettra de choisir une paire de clients `aléatoire`, ce qui est très important pour la diversité des clients sur le réseau Ethereum.
 
 ::: tip NOTE
-If you are interested in using a NUC, you can tell how modern the NUC is by its model number.
-They are formatted as `NUC` + `generation number` + `model` + `CPU type` + `suffix`.
-For example, a `NUC11PAHi50Z` unit is a 11th generation i5 unit.
-You can see a list of NUCs [here](https://www.intel.com/content/www/us/en/products/details/nuc/kits/products.html) on the Intel website.
-
-Other mini-PCs, such as the Asus PN50 or PN51, do not follow this convention but information about which CPU is used by them should be included in their product pages.
+Le staking Ethereum est très tolérant.
+Si votre maison est inondée et que votre appareil de staking est grillé, il n'y a pas de grosse pénalité à prendre une semaine pour revenir en ligne (sauf si vous vous trouvez dans un comité de synchronisation, ce qui est un événement très rare).
+Une défaillance de composant peut se produire à un moment donné, mais ne vous en inquiétez pas.
+Les temps d'arrêt ne vous font pas slasher à moins que vous ne soyez hors ligne pendant une panne majeure de l'ensemble du réseau Ethereum.
 :::
 
-The amount of cores on a CPU is less relevant than its **number of threads**.
-We recommend a **minimum of 4 threads** for Rocket Pool node operation.
-A 2 core CPU with 4 threads will work without issue.
-It is rare to find a CPU with only 2 threads.
+## Exigences Matérielles
 
-### RAM Requirements
+Les validateurs Ethereum ne sont pas très coûteux en calcul, ce qui signifie qu'une fois vos clients Execution et Consensus en cours d'exécution, tout validateur supplémentaire utilisera **une très petite quantité de ressources supplémentaires**.
+Cela augmente jusqu'à 64 validateurs, après quoi les ressources nécessaires pour ajouter un 65e validateur et au-delà sont négligeables.
 
-**Guideline: at least 16 GB of RAM, 32 GB preferred, DDR4 preferred**
+D'après notre expérience, la plupart des configurations, y compris les mini-PC et les NUC, sont capables d'exécuter un nombre effectivement illimité de validateurs.
 
-Rocket Pool nodes can operate with as little as 16 GB of RAM.
-We generally recommend having slightly more to offer some headroom and full support for RAM-heavy clients such as Teku.
-An added benefit of more RAM is that you can provide a larger cache size to Execution client, which tends to slow the rate of your disk space usage.
+### Exigences CPU
 
-### SSD Requirements
+**Recommandation : tout CPU moderne avec au moins 4 threads.**
 
-**Guideline: a 2+ TB SSD that has TLC or better, with a DRAM cache. NVMe preferred.**
+Faire fonctionner un nœud Rocket Pool n'est pas très intensif en calcul.
+Le plus grand impact du CPU est la vitesse à laquelle votre nœud peut initialement synchroniser l'état de la blockchain lorsque vous le créez pour la première fois (ou si vous changez de clients plus tard).
+Après la synchronisation initiale, le CPU n'est pas aussi sollicité.
 
-This element is more important than most people expect.
-The Execution client relies heavily on IOPS, or "operations per second"; we recommend 15k Read IOPS, and 5k Write IOPS
-In practice, this means that:
+La dénomination des CPU peut être trompeuse ; un Intel Core i5 de 2010 est généralement **moins puissant** qu'un Core i3 de 2022.
+De nombreux membres de la communauté utilisent des appareils Intel NUC en raison de leur petit facteur de forme, mais un ancien NUC i5 peut être un moins bon choix qu'un nouveau i3.
+Pour cette raison, nous recommandons d'utiliser un CPU "moderne" qui a, au maximum, quelques années.
+Plus précisément, **pour les CPU basés sur x64**, nous recommandons un CPU qui prend en charge l'extension [BMI2](<https://en.wikipedia.org/wiki/X86_Bit_manipulation_instruction_set#BMI2_(Bit_Manipulation_Instruction_Set_2)>) - vérifiez les spécifications du fabricant de votre CPU pour voir s'il est pris en charge.
+Tous les CPU modernes ne prennent pas en charge cette extension ; par exemple, les CPU Celeron ont tendance à ne pas l'inclure.
 
-- HDD (spinning platter) drives will not work
-- SATA or external USB 3.0+ SSDs _can_ work
-- NVMe SSD drives are preferred
+Les CPU basés sur ARM (comme le Mac M1 ou M2, ou le Rock 5B) ne sont pas concernés par l'extension BMI2 ci-dessus.
 
-If you already have an SSD you want to use and want to be sure it has sufficient performance for node operation.
+::: tip NOTE
+Si vous êtes intéressé par l'utilisation d'un NUC, vous pouvez déterminer l'ancienneté du NUC par son numéro de modèle.
+Ils sont formatés comme `NUC` + `numéro de génération` + `modèle` + `type de CPU` + `suffixe`.
+Par exemple, une unité `NUC11PAHi50Z` est une unité i5 de 11e génération.
+Vous pouvez voir une liste de NUC [ici](https://www.intel.com/content/www/us/en/products/details/nuc/kits/products.html) sur le site Web d'Intel.
 
-_\* If you are unsure if your disk meets these performance requirements, `fio` is a good way to test them.
-See [here](https://arstech.net/how-to-measure-disk-performance-iops-with-fio-in-linux/) for Linux instructions,
-and [here](https://www.nivas.hr/blog/2017/09/19/measuring-disk-io-performance-macos/) for MacOS instructions._
+D'autres mini-PC, comme l'Asus PN50 ou PN51, ne suivent pas cette convention, mais les informations sur le CPU qu'ils utilisent devraient être incluses dans leurs pages produits.
+:::
+
+Le nombre de cœurs d'un CPU est moins pertinent que son **nombre de threads**.
+Nous recommandons un **minimum de 4 threads** pour le fonctionnement d'un nœud Rocket Pool.
+Un CPU à 2 cœurs avec 4 threads fonctionnera sans problème.
+Il est rare de trouver un CPU avec seulement 2 threads.
+
+### Exigences RAM
+
+**Recommandation : au moins 16 Go de RAM, 32 Go préférable, DDR4 préférable**
+
+Les nœuds Rocket Pool peuvent fonctionner avec aussi peu que 16 Go de RAM.
+Nous recommandons généralement d'avoir un peu plus pour offrir une marge de manœuvre et un support complet pour les clients gourmands en RAM comme Teku.
+Un avantage supplémentaire d'avoir plus de RAM est que vous pouvez fournir une taille de cache plus importante au client Execution, ce qui tend à ralentir le taux d'utilisation de votre espace disque.
+
+### Exigences SSD
+
+**Recommandation : un SSD de 2+ To avec TLC ou mieux, avec un cache DRAM. NVMe préférable.**
+
+Cet élément est plus important que la plupart des gens ne le pensent.
+Le client Execution dépend fortement des IOPS, ou "opérations par seconde" ; nous recommandons 15k IOPS en lecture et 5k IOPS en écriture.
+En pratique, cela signifie que :
+
+- Les disques HDD (à plateau rotatif) ne fonctionneront pas
+- Les SSD SATA ou USB 3.0+ externes _peuvent_ fonctionner
+- Les disques SSD NVMe sont préférables
+
+Si vous avez déjà un SSD que vous souhaitez utiliser et que vous voulez vous assurer qu'il a des performances suffisantes pour le fonctionnement du nœud.
+
+_\* Si vous n'êtes pas sûr que votre disque réponde à ces exigences de performance, `fio` est un bon moyen de les tester.
+Voir [ici](https://arstech.net/how-to-measure-disk-performance-iops-with-fio-in-linux/) pour les instructions Linux,
+et [ici](https://www.nivas.hr/blog/2017/09/19/measuring-disk-io-performance-macos/) pour les instructions MacOS._
 
 :::tip NOTE
-SSD selection can be a complex choice!
+La sélection d'un SSD peut être un choix complexe !
 
-The method SSDs use to store data on their flash chips has a noticeable impact on speed and longevity.
-When shopping for an SSD you might notice labels like `QLC`, `TLC` or `SLC`.
-These stand for the amount of data contained within a single cell of the flash chip: `Q` for "quad" means 4, `T` for "triple" means 3, `M` for "multi" means 2, and `S` for "single" means 1.
+La méthode utilisée par les SSD pour stocker des données sur leurs puces flash a un impact notable sur la vitesse et la longévité.
+Lors de l'achat d'un SSD, vous pourriez remarquer des étiquettes comme `QLC`, `TLC` ou `SLC`.
+Celles-ci représentent la quantité de données contenues dans une seule cellule de la puce flash : `Q` pour "quad" signifie 4, `T` pour "triple" signifie 3, `M` pour "multi" signifie 2, et `S` pour "single" signifie 1.
 
-We recommend **TLC, MLC, or SLC** drives.
-We **do not recommend QLC drives** due to their slower performance and lower total reliability.
+Nous recommandons des disques **TLC, MLC ou SLC**.
+Nous **ne recommandons pas les disques QLC** en raison de leurs performances plus lentes et de leur fiabilité totale inférieure.
 
-SSDs come with or without DRAM, which is a hardware element that makes accessing data on the SSD more efficient.
-Those with DRAM are faster but those without DRAM are cheaper.
-However, DRAM is quite important for providing smooth node operation.
+Les SSD sont disponibles avec ou sans DRAM, qui est un élément matériel qui rend l'accès aux données sur le SSD plus efficace.
+Ceux avec DRAM sont plus rapides, mais ceux sans DRAM sont moins chers.
+Cependant, la DRAM est très importante pour fournir un fonctionnement fluide du nœud.
 
-We recommend a drive with a **DRAM** cache.
-We **do not recommend DRAM-less drives**.
+Nous recommandons un disque avec un cache **DRAM**.
+Nous **ne recommandons pas les disques sans DRAM**.
 :::
 
-The final consideration is drive size.
-As of 10/2024, the `geth` execution client database size requires about 1.2TB of space after it finishes its initial sync (or after you just finished pruning it).
-This will grow steadily over time, and while pruning can regain some of that space, the freshly pruned state _does_ grow over time.
-You will have peace of mind with a larger drive.
+La dernière considération est la taille du disque.
+En octobre 2024, la taille de la base de données du client d'exécution `geth` nécessite environ 1,2 To d'espace après avoir terminé sa synchronisation initiale (ou après avoir terminé l'élagage).
+Cela augmentera régulièrement au fil du temps, et bien que l'élagage puisse récupérer une partie de cet espace, l'état fraîchement élagué _augmente_ au fil du temps.
+Vous aurez la tranquillité d'esprit avec un disque plus grand.
 
-### Common Accessories
+### Accessoires Communs
 
-Many node operators improve their setups beyond the minimum requirements.
-Some common additions include:
+De nombreux opérateurs de nœuds améliorent leurs configurations au-delà des exigences minimales.
+Certains ajouts courants incluent :
 
-- SSD heatsinks to extend the drive lifespan
-- Uninterruptable power supplies (UPS) in case of power outages
-- A fallback node to have a backup in case something fails
+- Des dissipateurs thermiques SSD pour prolonger la durée de vie du disque
+- Des alimentations sans interruption (UPS) en cas de pannes de courant
+- Un nœud de secours pour avoir une sauvegarde en cas de défaillance
 
-These are all convenient to have, but not required to run a Rocket Pool node.
+Tous ces éléments sont pratiques à avoir, mais ne sont pas nécessaires pour faire fonctionner un nœud Rocket Pool.
 
-## Example Setups
+## Exemples de Configurations
 
-In this section, we'll showcase a few of the varied builds that Rocket Pool's community has created for themselves.
-They are examples of what people are using, not recommendations for how you should run your setup.
-Note that many are somewhat outdated and, eg, use SSDs that are now too small.
+Dans cette section, nous présenterons quelques-unes des diverses configurations que la communauté de Rocket Pool a créées pour elle-même.
+Ce sont des exemples de ce que les gens utilisent, pas des recommandations sur la façon dont vous devriez gérer votre configuration.
+Notez que beaucoup sont quelque peu obsolètes et, par exemple, utilisent des SSD qui sont maintenant trop petits.
 
-### Xer0's Server
+### Le Serveur de Xer0
 
 ![](./images/Xer0.jpg)
 
-Discord user **Xer0** is among the many stakers that opted to go with a conventional PC form factor for their staking machine.
-They wanted to build a rig that would last for years and years to come with minimal maintenance and upgrading required, while still offering complete customization of every component.
-To that end, Xer0 devised and built a full ATX server - much like a traditional desktop PC, but targeted exclusively at staking on Ethereum.
-Their setup includes a six-core Xeon Bronze 3204 (1.9 GHz), 8 DDR4 slots, and an M.2 slot... though since this is essentially a home server build, the exact components are completely up to the end user.
+L'utilisateur Discord **Xer0** fait partie des nombreux stakers qui ont opté pour un facteur de forme PC conventionnel pour leur machine de staking.
+Ils voulaient construire une plateforme qui durerait des années et des années avec un minimum d'entretien et de mises à niveau nécessaires, tout en offrant une personnalisation complète de chaque composant.
+À cette fin, Xer0 a conçu et construit un serveur ATX complet - un peu comme un PC de bureau traditionnel, mais ciblé exclusivement sur le staking sur Ethereum.
+Leur configuration comprend un Xeon Bronze 3204 à six cœurs (1,9 GHz), 8 emplacements DDR4 et un emplacement M.2... bien que puisqu'il s'agit essentiellement d'une construction de serveur domestique, les composants exacts dépendent entièrement de l'utilisateur final.
 
-Xer0's setup:
+Configuration de Xer0 :
 
-- Motherboard: [Supermicro X11SPI-TF](https://www.newegg.com/supermicro-mbd-x11spi-tf-o-intel-xeon-scalable-processors-single-socket-p-supported-cpu-tdp-suppor/p/1B4-005W-00153) ($440)
-- CPU: [Xeon Bronze 3204](https://www.amazon.com/Intel-BX806954216-Bronze-1-9GHz-FC-LGA14B/dp/B07RTBMWVJ) ($248)
-- RAM: [NEMIX 2x32GB DDR4 ECC 2933MHz](https://www.amazon.com/2x32GB-DDR4-2933-PC4-23400-Registered-Memory/dp/B07V1YG2VV) ($359)
-- SSD: [Sabrent 2TB Rocket M.2 2280 SSD](https://www.newegg.com/sabrent-rocket-2tb/p/14R-00X6-00007) ($250)
-- Case: [SilverStone HTPC ATX GD07B](https://www.amazon.com/dp/B007X8TQW0) ($172)
-- PSU: [EVGA SuperNova 650 G3, 80+ Gold](https://www.newegg.com/evga-supernova-g3-series-220-g3-0650-y1-650w/p/N82E16817438094) ($111)
-- Cooler: [Noctua NH-D9 DX-3647 4U](https://www.amazon.com/Noctua-NH-D9-DX-3647-4U-Premium/dp/B07DPQJH5J) ($100)
-- **Total: $1680**
+- Carte mère : [Supermicro X11SPI-TF](https://www.newegg.com/supermicro-mbd-x11spi-tf-o-intel-xeon-scalable-processors-single-socket-p-supported-cpu-tdp-suppor/p/1B4-005W-00153) (440 $)
+- CPU : [Xeon Bronze 3204](https://www.amazon.com/Intel-BX806954216-Bronze-1-9GHz-FC-LGA14B/dp/B07RTBMWVJ) (248 $)
+- RAM : [NEMIX 2x32 Go DDR4 ECC 2933 MHz](https://www.amazon.com/2x32GB-DDR4-2933-PC4-23400-Registered-Memory/dp/B07V1YG2VV) (359 $)
+- SSD : [Sabrent 2 To Rocket M.2 2280 SSD](https://www.newegg.com/sabrent-rocket-2tb/p/14R-00X6-00007) (250 $)
+- Boîtier : [SilverStone HTPC ATX GD07B](https://www.amazon.com/dp/B007X8TQW0) (172 $)
+- PSU : [EVGA SuperNova 650 G3, 80+ Gold](https://www.newegg.com/evga-supernova-g3-series-220-g3-0650-y1-650w/p/N82E16817438094) (111 $)
+- Refroidisseur : [Noctua NH-D9 DX-3647 4U](https://www.amazon.com/Noctua-NH-D9-DX-3647-4U-Premium/dp/B07DPQJH5J) (100 $)
+- **Total : 1 680 $**
 
-Here are Xer0's comments on why they chose this setup:
+Voici les commentaires de Xer0 sur les raisons pour lesquelles ils ont choisi cette configuration :
 
-_Obviously there is no need to build a monstrosity for simply staking on the Ethereum network, but I do have a few reasons why I built something like this._
+_Évidemment, il n'est pas nécessaire de construire une monstruosité pour simplement staker sur le réseau Ethereum, mais j'ai quelques raisons pour lesquelles j'ai construit quelque chose comme ça._
 
-1. _Now I believe that 1 or more validators in the future will be worth much more than what we are seeing right now, so I wanted to buy something that will be able to support the network for at least the next 10-20 years without a hiccup._
-1. _By creating a machine that has at this many cores I've also given myself a lot more headroom to the point of I could run an L2 aggregator on top of this without any problems (regarding hardware) and anything else that I'd want to run on a server._ :)
-1. _I like building computers, and so I built it…_
-1. _With a server build, It gives me a lot more flexibility with hardware and features that most computers don't have natively._
-1. _A bit of future proof (just in-case)_ :wink:
+1. _Maintenant, je crois qu'à l'avenir, 1 validateur ou plus vaudra beaucoup plus que ce que nous voyons actuellement, donc je voulais acheter quelque chose qui pourra supporter le réseau pendant au moins les 10 à 20 prochaines années sans problème._
+1. _En créant une machine avec autant de cœurs, je me suis également donné beaucoup plus de marge de manœuvre au point que je pourrais faire fonctionner un agrégateur L2 en plus de cela sans aucun problème (concernant le matériel) et tout ce que je voudrais faire fonctionner sur un serveur._ :)
+1. _J'aime construire des ordinateurs, alors je l'ai construit..._
+1. _Avec une construction de serveur, cela me donne beaucoup plus de flexibilité avec le matériel et les fonctionnalités que la plupart des ordinateurs n'ont pas nativement._
+1. _Un peu d'évolutivité future (au cas où)_ :wink:
 
-### Darcius's Shelf Rig
+### La Configuration en Étagère de Darcius
 
 ![](./images/Darcius.jpg)
 
-Rocket Pool's founder David Rugendyke (known on Discord as **darcius**) spent a long time perfecting his node.
-After some debate, he built a Mini-ITX that's small and portable, but still packs an enormous amount of processing power.
-His rig includes an 8-core Ryzen 7 5800x (3.8 GHz), two DDR4 slots, and two M.2 slots for NVMe SSDs.
-It is truly one of the most high-performance rigs of the Rocket Pool nodes, but with good reason: darcius runs a special type of Rocket Pool node called an Oracle Node, which relays information from the Beacon chain back to the Execution chain about all of the Rocket Pool validators.
-With thousands of Rocket Pool minipools active to watch, that job takes a lot of horsepower... but his shelf rig is easily up to the task.
+Le fondateur de Rocket Pool, David Rugendyke (connu sur Discord sous le nom de **darcius**), a passé beaucoup de temps à perfectionner son nœud.
+Après quelques débats, il a construit un Mini-ITX qui est petit et portable, mais qui reste très puissant en termes de traitement.
+Sa plateforme comprend un Ryzen 7 5800x à 8 cœurs (3,8 GHz), deux emplacements DDR4 et deux emplacements M.2 pour les SSD NVMe.
+C'est vraiment l'une des plateformes les plus performantes des nœuds Rocket Pool, mais pour une bonne raison : darcius fait fonctionner un type spécial de nœud Rocket Pool appelé Oracle Node, qui relaie des informations de la chaîne Beacon vers la chaîne Execution sur tous les validateurs Rocket Pool.
+Avec des milliers de minipools Rocket Pool actifs à surveiller, ce travail nécessite beaucoup de puissance... mais sa plateforme en étagère est facilement à la hauteur de la tâche.
 
-Darcius's setup:
+Configuration de Darcius :
 
-- Motherboard: [MSI MPG B550I Mini-ITX AMD](https://www.newegg.com/msi-mpg-b550i-gaming-edge-wifi/p/N82E16813144323) ($200)
-- CPU: [AMD Ryzen 7 5800x](https://www.newegg.com/amd-ryzen-7-5800x/p/N82E16819113665) ($490)
-- RAM: [Corsair Vengeance RGB Pro 2x16GB DDR4 3600MHz](https://www.newegg.com/p/0RN-00P8-000A5) ($390)
-- SSD: [Samsung 970 EVO Plus 2TB M.2 2280 NVMe SSD](https://www.newegg.com/samsung-970-evo-plus-2tb/p/N82E16820147744) ($315)
-- Case: [SilverStone SST-SG13B Mini-ITX](https://www.amazon.com/SilverStone-Technology-Mini-ITX-Computer-SST-SG13WB-USA/dp/B07MNC3JCB) ($52)
-- PSU: [SilverStone Strider Platinum 550W](https://www.newegg.com/silverstone-strider-platinum-series-ps-st55f-pt-550w/p/N82E16817256154) ($140)
-- **Total: $1587**
+- Carte mère : [MSI MPG B550I Mini-ITX AMD](https://www.newegg.com/msi-mpg-b550i-gaming-edge-wifi/p/N82E16813144323) (200 $)
+- CPU : [AMD Ryzen 7 5800x](https://www.newegg.com/amd-ryzen-7-5800x/p/N82E16819113665) (490 $)
+- RAM : [Corsair Vengeance RGB Pro 2x16 Go DDR4 3600 MHz](https://www.newegg.com/p/0RN-00P8-000A5) (390 $)
+- SSD : [Samsung 970 EVO Plus 2 To M.2 2280 NVMe SSD](https://www.newegg.com/samsung-970-evo-plus-2tb/p/N82E16820147744) (315 $)
+- Boîtier : [SilverStone SST-SG13B Mini-ITX](https://www.amazon.com/SilverStone-Technology-Mini-ITX-Computer-SST-SG13WB-USA/dp/B07MNC3JCB) (52 $)
+- PSU : [SilverStone Strider Platinum 550W](https://www.newegg.com/silverstone-strider-platinum-series-ps-st55f-pt-550w/p/N82E16817256154) (140 $)
+- **Total : 1 587 $**
 
-### Yorick's microATX Build
+### La Construction microATX de Yorick
 
 ![](./images/Yorick-stock.jpg)
 
-Veteran hardware enthusiast **YorickDowne** has a lot of experience building and maintaining servers.
-Using that knowledge, he has settled on a flexible microATX setup.
-His machine is considerably smaller than a typical PC, but still manages to fit in server-grade technology that maximizes resilience and uptime - key metrics when running a Rocket Pool node.
-He has recommendations for both Intel and AMD setups, which you can find [on his website](https://eth-docker.net/docs/Usage/Hardware).
-The Intel version uses a quad core i3-9100F (3.6 GHz) or a Xeon CPU, and the AMD version suggests any Ryzen CPU that supports ECC memory.
-For both configurations, he suggests 16 GB of ECC RAM, and a 1 TB NVMe SSD.
+L'enthousiaste matériel vétéran **YorickDowne** a beaucoup d'expérience dans la construction et la maintenance de serveurs.
+En utilisant ces connaissances, il a opté pour une configuration microATX flexible.
+Sa machine est considérablement plus petite qu'un PC typique, mais parvient toujours à intégrer une technologie de qualité serveur qui maximise la résilience et la disponibilité - des indicateurs clés lors de l'exécution d'un nœud Rocket Pool.
+Il a des recommandations à la fois pour les configurations Intel et AMD, que vous pouvez trouver [sur son site Web](https://eth-docker.net/docs/Usage/Hardware).
+La version Intel utilise un i3-9100F quad-core (3,6 GHz) ou un CPU Xeon, et la version AMD suggère n'importe quel CPU Ryzen qui prend en charge la mémoire ECC.
+Pour les deux configurations, il suggère 16 Go de RAM ECC et un SSD NVMe de 1 To.
 
-Yorick's Setup:
+Configuration de Yorick :
 
-- Motherboard: [SuperMicro X11SCL-F-O](https://www.newegg.com/supermicro-mbd-x11scl-f-o-8th-generation-intel-core-i3-pentium-celeron-processor-intel-xeon-pro/p/N82E16813183671) ($200)
-- CPU: [Intel i3-9100F](https://www.newegg.com/intel-core-i3-9th-gen-core-i3-9100f/p/N82E16819118072) ($150)
-- RAM: [Samsung 1x16GB DDR4 ECC UDIMM 2400MHz](https://www.newegg.com/samsung-16gb-288-pin-ddr4-sdram/p/1WK-002G-00080) ($100)
-- SSD: [Samsung 970 EVO Plus 1TB M.2 2280 NVMe SSD](https://www.newegg.com/samsung-970-evo-plus-1tb/p/N82E16820147743?Item=N82E16820147743) ($165)
-- Case: [SilverStone Micro ATX HTPC Case ML04B-USA](https://www.amazon.com/Silverstone-Technology-Aluminum-Center-ML04B-USA/dp/B07PD8CL7P/) ($110)
-- PSU: Any (example: [Seasonic PRIME Fanless PX-500 Platinum 500W](https://www.newegg.com/seasonic-prime-fanless-px-500-500w/p/N82E16817151234)) ($161)
-- Case fans: Any
-- **Total: About $886**
+- Carte mère : [SuperMicro X11SCL-F-O](https://www.newegg.com/supermicro-mbd-x11scl-f-o-8th-generation-intel-core-i3-pentium-celeron-processor-intel-xeon-pro/p/N82E16813183671) (200 $)
+- CPU : [Intel i3-9100F](https://www.newegg.com/intel-core-i3-9th-gen-core-i3-9100f/p/N82E16819118072) (150 $)
+- RAM : [Samsung 1x16 Go DDR4 ECC UDIMM 2400 MHz](https://www.newegg.com/samsung-16gb-288-pin-ddr4-sdram/p/1WK-002G-00080) (100 $)
+- SSD : [Samsung 970 EVO Plus 1 To M.2 2280 NVMe SSD](https://www.newegg.com/samsung-970-evo-plus-1tb/p/N82E16820147743?Item=N82E16820147743) (165 $)
+- Boîtier : [SilverStone Micro ATX HTPC Case ML04B-USA](https://www.amazon.com/Silverstone-Technology-Aluminum-Center-ML04B-USA/dp/B07PD8CL7P/) (110 $)
+- PSU : N'importe lequel (exemple : [Seasonic PRIME Fanless PX-500 Platinum 500W](https://www.newegg.com/seasonic-prime-fanless-px-500-500w/p/N82E16817151234)) (161 $)
+- Ventilateurs de boîtier : N'importe lesquels
+- **Total : Environ 886 $**
 
-Here are Yorick's comments on why he chose this setup:
+Voici les commentaires de Yorick sur les raisons pour lesquelles il a choisi cette configuration :
 
-- _It is at the same or lower cost as some NUCs_
-- _It has ECC RAM, which means that if memory fails - which it does now and then - I will know, because the system will tell me. I do not have to run memtest87 for 4-5 days to figure out whether my problem with instability is even memory-related. I protect my time fiercely so I can spend it bloviating on Discord instead of troubleshooting hardware_
-- _It has IPMI, which is remote management via Ethernet/browser of the entire machine, including UEFI and power-cycle. I should be allowed to go on an extended vacation and still have full remote access._
-- _If I want redundant storage so eventual SSD failure is a non-event, I can do that_
-- _It allows for great flexibility in build choices. I can choose however much RAM and compute I want; I can choose to run a NAS with virtualization tech like TrueNAS Scale and run the node on there alongside some other home-servery stuff._
+- _C'est au même prix ou moins cher que certains NUC_
+- _Il a de la RAM ECC, ce qui signifie que si la mémoire échoue - ce qui arrive de temps en temps - je le saurai, car le système me le dira. Je n'ai pas à exécuter memtest87 pendant 4 à 5 jours pour déterminer si mon problème d'instabilité est même lié à la mémoire. Je protège mon temps farouchement pour pouvoir le passer à discourir sur Discord au lieu de dépanner le matériel_
+- _Il a IPMI, qui est une gestion à distance via Ethernet/navigateur de toute la machine, y compris l'UEFI et le cycle d'alimentation. Je devrais être autorisé à partir en vacances prolongées et avoir toujours un accès à distance complet._
+- _Si je veux un stockage redondant pour que la défaillance éventuelle du SSD soit un non-événement, je peux le faire_
+- _Il permet une grande flexibilité dans les choix de construction. Je peux choisir la quantité de RAM et de puissance de calcul que je veux ; je peux choisir d'exécuter un NAS avec une technologie de virtualisation comme TrueNAS Scale et d'exécuter le nœud dessus aux côtés d'autres choses de type serveur domestique._
 
-### Drez's Laptop
+### L'Ordinateur Portable de Drez
 
 ![](./images/Drez.jpg)
 
-Sometimes, shelling out for new hardware just doesn't make sense.
-In Discord user **Drez**'s case, running a Rocket Pool node is one of those times.
-Drez happened to have a spare laptop lying around, and they turned it into a node with ease.
-Their machine comes with a quad core i7-4710HQ (2.5 GHz), two DDR3 slots, and a 2.5" SATA slot.
-Being a laptop, it also comes with its own battery (which offsets the need for a UPS).
-They added some additional upgrades over time, giving the laptop even more power for extra peace of mind.
+Parfois, dépenser de l'argent pour du nouveau matériel n'a tout simplement pas de sens.
+Dans le cas de l'utilisateur Discord **Drez**, faire fonctionner un nœud Rocket Pool est l'un de ces moments.
+Drez avait un ordinateur portable de rechange qui traînait, et ils l'ont transformé en nœud avec facilité.
+Leur machine est livrée avec un i7-4710HQ quad-core (2,5 GHz), deux emplacements DDR3 et un emplacement SATA 2,5".
+Étant un ordinateur portable, il est également livré avec sa propre batterie (ce qui compense le besoin d'un UPS).
+Ils ont ajouté quelques mises à niveau supplémentaires au fil du temps, donnant à l'ordinateur portable encore plus de puissance pour une tranquillité d'esprit supplémentaire.
 
-Drez's setup:
+Configuration de Drez :
 
-- Laptop: [MSI GE70 2PE Apache Pro](https://www.msi.com/Laptop/GE70-2PE-Apache-Pro/Specification) ($1800)
-- RAM: 2x8GB DDR3 1333Mhz (Included)
-- SSD: [Samsung 860 EVO 1TB 2.5" SATA](https://www.amazon.com/Samsung-Inch-Internal-MZ-76E1T0B-AM/dp/B078DPCY3T) ($110)
-- **Total: $1910**
+- Ordinateur portable : [MSI GE70 2PE Apache Pro](https://www.msi.com/Laptop/GE70-2PE-Apache-Pro/Specification) (1 800 $)
+- RAM : 2x8 Go DDR3 1333 MHz (Inclus)
+- SSD : [Samsung 860 EVO 1 To 2,5" SATA](https://www.amazon.com/Samsung-Inch-Internal-MZ-76E1T0B-AM/dp/B078DPCY3T) (110 $)
+- **Total : 1 910 $**
 
-Here are Drez's comments on why they chose this setup:
+Voici les commentaires de Drez sur les raisons pour lesquelles ils ont choisi cette configuration :
 
-_Main reason i am gonna stake on this laptop is because i already had spare one and dont need to spend extra money on a new server.
-I like its mobility, compactness, built-in screen for easy monitoring.
-In case of overheating i bought a laptop cooling pad and spare CPU cooler just in case, i also recommend to change thermal compound paste especially if you're gonna run on an older machine_
+_La principale raison pour laquelle je vais staker sur cet ordinateur portable est que j'en avais déjà un de rechange et que je n'ai pas besoin de dépenser de l'argent supplémentaire pour un nouveau serveur.
+J'aime sa mobilité, sa compacité, son écran intégré pour une surveillance facile.
+En cas de surchauffe, j'ai acheté un pad de refroidissement pour ordinateur portable et un refroidisseur de CPU de rechange au cas où, je recommande également de changer la pâte thermique, surtout si vous allez l'exécuter sur une machine plus ancienne_
 
-## NUCs (Next Unit of Computing) and Mini-PCs
+## NUC (Next Unit of Computing) et Mini-PC
 
-Running a Rocket Pool node doesn't necessarily require a complete build-it-yourself desktop.
-In fact, one of the most popular setups among stakers is the illustrious NUC.
-A NUC (Next Unit of Computing) is essentially a small, self-contained computer that is designed around very low power usage and maximum efficiency.
-NUCs are great for most stakers that only run a few validators because of their low maintenance, low monthly running costs, and ease of setup.
-Unlike PCs, NUCs come preassembled in a case; all you need to do is add some RAM, add an SSD, and you're up and running!
-Below are a few examples of NUC setups that some Rocket Pool veterans use and recommend.
+Faire fonctionner un nœud Rocket Pool ne nécessite pas nécessairement un ordinateur de bureau complet à construire soi-même.
+En fait, l'une des configurations les plus populaires parmi les stakers est l'illustre NUC.
+Un NUC (Next Unit of Computing) est essentiellement un petit ordinateur autonome conçu pour une consommation d'énergie très faible et une efficacité maximale.
+Les NUC sont excellents pour la plupart des stakers qui n'exécutent que quelques validateurs en raison de leur faible maintenance, de leurs faibles coûts de fonctionnement mensuels et de leur facilité de configuration.
+Contrairement aux PC, les NUC sont livrés pré-assemblés dans un boîtier ; tout ce que vous avez à faire est d'ajouter de la RAM, d'ajouter un SSD, et vous êtes prêt à fonctionner !
+Vous trouverez ci-dessous quelques exemples de configurations NUC que certains vétérans de Rocket Pool utilisent et recommandent.
 
 ::: tip NOTE
-**Ethernet Adaptor Compatibility**
+**Compatibilité de l'Adaptateur Ethernet**
 
-If you're planning to buy an Intel® NUC 11th or 12th Generation you can encounter connectivity issues with the ethernet adaptor, specifically if the adaptor is identified as **I225-LM** (Check intel especifications before buying).
-If you already have one, there are steps you can take to address this concern.
-The I225-LM adaptor has been associated with certain compatibility challenges that may lead to **system freezes** and unexpected kernel behavior, particularly when using Linux kernels.
+Si vous prévoyez d'acheter un Intel® NUC de 11e ou 12e génération, vous pouvez rencontrer des problèmes de connectivité avec l'adaptateur ethernet, en particulier si l'adaptateur est identifié comme **I225-LM** (Vérifiez les spécifications Intel avant d'acheter).
+Si vous en avez déjà un, vous pouvez prendre des mesures pour résoudre ce problème.
+L'adaptateur I225-LM a été associé à certains défis de compatibilité qui peuvent entraîner des **blocages du système** et un comportement de noyau inattendu, en particulier lors de l'utilisation de noyaux Linux.
 
-To determine if your NUC employs the problematic I225-LM ethernet adaptor, you can use the following command in the terminal:
+Pour déterminer si votre NUC utilise l'adaptateur ethernet I225-LM problématique, vous pouvez utiliser la commande suivante dans le terminal :
 
 ```shell
 sudo lshw -class network | grep 225
 ```
 
-If the output confirms the presence of the I225-LM adaptor, you might experience the mentioned issues. However, there are _remedies_ you can apply to mitigate these problems:
+Si la sortie confirme la présence de l'adaptateur I225-LM, vous pourriez rencontrer les problèmes mentionnés. Cependant, il existe des _remèdes_ que vous pouvez appliquer pour atténuer ces problèmes :
 
-**USB-C to Ethernet Adaptor**: A viable solution involves acquiring a USB-C to Ethernet adaptor and connecting your internet cable through this external adaptor. While this approach requires additional hardware and configuration, it has proven effective in resolving the compatibility conflicts. This allows you to utilize the latest available Linux kernels without encountering the freezing or kernel-related anomalies associated with the I225-LM adaptor.**This is the recommended solution (for now) if you already have one NUC with the I225-LM** _Keep in mind that opting for an adaptor may introduce a trade-off in terms of potential latency or reduced internet velocity. To mitigate this impact, it's advisable to select an adaptor with at least 1GB/s portability, thereby helping maintain optimal data transfer rates._
+**Adaptateur USB-C vers Ethernet** : Une solution viable consiste à acquérir un adaptateur USB-C vers Ethernet et à connecter votre câble Internet via cet adaptateur externe. Bien que cette approche nécessite du matériel et une configuration supplémentaires, elle s'est avérée efficace pour résoudre les conflits de compatibilité. Cela vous permet d'utiliser les derniers noyaux Linux disponibles sans rencontrer les anomalies de blocage ou liées au noyau associées à l'adaptateur I225-LM.**C'est la solution recommandée (pour l'instant) si vous avez déjà un NUC avec l'I225-LM** _Gardez à l'esprit que le choix d'un adaptateur peut introduire un compromis en termes de latence potentielle ou de vélocité Internet réduite. Pour atténuer cet impact, il est conseillé de sélectionner un adaptateur avec au moins 1 Go/s de portabilité, aidant ainsi à maintenir des taux de transfert de données optimaux._
 
-**Driver and Software Updates**: Consider updating your drivers, firmware, and BIOS by referring to the official Intel® support page for your NUC model [here](https://www.intel.com/content/www/us/en/search.html?ws=text#sort=relevancy&f:@tabfilter=[Downloads). This might include using the latest available support driver from Intel's website or applying BIOS updates that address compatibility concerns.
+**Mises à jour de pilotes et de logiciels** : Envisagez de mettre à jour vos pilotes, firmware et BIOS en vous référant à la page de support officielle Intel® pour votre modèle de NUC [ici](https://www.intel.com/content/www/us/en/search.html?ws=text#sort=relevancy&f:@tabfilter=[Downloads). Cela peut inclure l'utilisation du dernier pilote de support disponible sur le site Web d'Intel ou l'application de mises à jour du BIOS qui traitent les problèmes de compatibilité.
 
-**Intel's Patch (Windows)**: Intel has released a patch to address a similar issue on Windows systems. While the patch itself **may not directly apply to Linux environments**, it highlights the recognition of the problem by Intel and their efforts to provide solutions. You can find more details about the patch in this [link](https://www.intel.com/content/www/us/en/download/705968/patch-for-a-modern-standby-lan-issue-on-intel-nuc-11th-12th-generation-products.html?wapkw=nuc11tnhi3).
+**Correctif d'Intel (Windows)** : Intel a publié un correctif pour résoudre un problème similaire sur les systèmes Windows. Bien que le correctif lui-même **ne s'applique pas directement aux environnements Linux**, il met en évidence la reconnaissance du problème par Intel et leurs efforts pour fournir des solutions. Vous pouvez trouver plus de détails sur le correctif dans ce [lien](https://www.intel.com/content/www/us/en/download/705968/patch-for-a-modern-standby-lan-issue-on-intel-nuc-11th-12th-generation-products.html?wapkw=nuc11tnhi3).
 
-Keep in mind that technology evolves, and solutions might change over time. Always stay updated with the latest resources provided by Intel for your specific NUC model on their official Downloads [page](https://www.intel.com/content/www/us/en/search.html?ws=text#sort=relevancy&f:@tabfilter=[Downloads]).
+Gardez à l'esprit que la technologie évolue et que les solutions peuvent changer avec le temps. Restez toujours à jour avec les dernières ressources fournies par Intel pour votre modèle de NUC spécifique sur leur page officielle de Téléchargements [page](https://www.intel.com/content/www/us/en/search.html?ws=text#sort=relevancy&f:@tabfilter=[Downloads]).
 
-By following these steps, you can address the compatibility challenges associated with the I225-LM ethernet adaptor on Intel® NUC 11th and 12th Generation Products, ensuring a smoother and more reliable experience with your server deployment. _While a subset of NUC users with this adaptor have reported experiencing no issues, it's important to note that the **majority of users**, particularly after a kernel upgrade, have encountered problems. Notably, the 5.15.+ kernels have proven to be the most stable option for those using the I225-LM adaptor. If the idea of using a USB-C adaptor isn't appealing and you're willing to take the risk of potential random freezes, it's advisable to **remain on a kernel version that has demonstrated greater stability**._
+En suivant ces étapes, vous pouvez résoudre les défis de compatibilité associés à l'adaptateur ethernet I225-LM sur les produits Intel® NUC de 11e et 12e génération, garantissant une expérience plus fluide et plus fiable avec votre déploiement de serveur. _Bien qu'un sous-ensemble d'utilisateurs de NUC avec cet adaptateur ait signalé n'avoir rencontré aucun problème, il est important de noter que la **majorité des utilisateurs**, en particulier après une mise à niveau du noyau, ont rencontré des problèmes. Notamment, les noyaux 5.15.+ se sont avérés être l'option la plus stable pour ceux qui utilisent l'adaptateur I225-LM. Si l'idée d'utiliser un adaptateur USB-C n'est pas attrayante et que vous êtes prêt à prendre le risque de blocages aléatoires potentiels, il est conseillé de **rester sur une version de noyau qui a démontré une plus grande stabilité**._
 :::
 
-### Ken's NUC8i5BEK
+### NUC8i5BEK de Ken
 
 ![](./images/Ken.jpg)
 
-The NUC8i5BEK is one of Intel's own NUCs with an 8th-generation processor.
-Released in 2018, this model comes with a quad-core i5-8259U CPU (2.30 GHz), two DDR4 slots, an M.2 slot for SSDs, and USB 3.1 ports.
-It normally draws about 20 watts, but Discord user **Ken** has been able to optimize it down to 9 watts during normal validation.
-It is more than capable of handling any Execution and any Consensus client, making it an excellent choice for a lightweight, efficient node machine.
+Le NUC8i5BEK est l'un des propres NUC d'Intel avec un processeur de 8e génération.
+Sorti en 2018, ce modèle est livré avec un CPU i5-8259U quad-core (2,30 GHz), deux emplacements DDR4, un emplacement M.2 pour les SSD et des ports USB 3.1.
+Il consomme normalement environ 20 watts, mais l'utilisateur Discord **Ken** a pu l'optimiser jusqu'à 9 watts pendant la validation normale.
+Il est plus que capable de gérer n'importe quel client Execution et n'importe quel client Consensus, ce qui en fait un excellent choix pour une machine de nœud légère et efficace.
 
-Ken's Setup:
+Configuration de Ken :
 
-- Base: [Intel NUC8i5BEK](https://www.amazon.com/Intel-NUC-Mainstream-Kit-NUC8i5BEK/dp/B07GX67SBM) ($349)
-- RAM: [Dell Memory Upgrade - 1x16GB DDR4 SODIMM 3200MHz](https://www.dell.com/en-us/shop/dell-memory-upgrade-16gb-1rx8-ddr4-sodimm-3200mhz/apd/ab371022/memory) ($112)
-- SSD: [ADATA XPG S7 Series 2TB M.2 2280 NVMe SSD](https://www.amazon.com/XPG-S7-Gen3x4-Solid-State/dp/B08BDZQJP5) ($230)
-- Fanless Case (optional): [AKASA Turing Fanless case](https://www.amazon.com/Akasa-Compact-fanless-Generation-NUC45-M1B/dp/B07RTBF1SY) ($134)
-- **Total: $691 to $825**
+- Base : [Intel NUC8i5BEK](https://www.amazon.com/Intel-NUC-Mainstream-Kit-NUC8i5BEK/dp/B07GX67SBM) (349 $)
+- RAM : [Dell Memory Upgrade - 1x16 Go DDR4 SODIMM 3200 MHz](https://www.dell.com/en-us/shop/dell-memory-upgrade-16gb-1rx8-ddr4-sodimm-3200mhz/apd/ab371022/memory) (112 $)
+- SSD : [ADATA XPG S7 Series 2 To M.2 2280 NVMe SSD](https://www.amazon.com/XPG-S7-Gen3x4-Solid-State/dp/B08BDZQJP5) (230 $)
+- Boîtier sans ventilateur (facultatif) : [AKASA Turing Fanless case](https://www.amazon.com/Akasa-Compact-fanless-Generation-NUC45-M1B/dp/B07RTBF1SY) (134 $)
+- **Total : 691 $ à 825 $**
 
-Here are Ken's comments on why he chose this setup:
+Voici les commentaires de Ken sur les raisons pour lesquelles il a choisi cette configuration :
 
-- _Small size and footprint, the power supply is a brick on the power cord (like a laptop), single-board computer, x86 architecture, low purchase price point, low power consumption (~10W), 3-year warranty, and an active manufacture product line (Intel)._
-- _8th generations are plenty fast and at a lower price point than the latest generation chips._
-- _I upgraded to a fan-less (passively cooled) case, so the NUC is absolutely silent (0 dB) as I’m leaving it my home office (a stock NUC is near silent already)._
-- _Plus no mechanical wear on the fan bearings._
-- _Resale or re-purpose value if I decide to retire this hardware platform as my RP node - NUC’s make a great workstation computer._
+- _Petite taille et empreinte, l'alimentation est un bloc sur le cordon d'alimentation (comme un ordinateur portable), ordinateur monocarte, architecture x86, point de prix d'achat bas, faible consommation d'énergie (~10W), garantie de 3 ans et une gamme de produits de fabrication active (Intel)._
+- _Les 8e générations sont très rapides et à un prix inférieur aux puces de dernière génération._
+- _J'ai amélioré vers un boîtier sans ventilateur (refroidi passivement), donc le NUC est absolument silencieux (0 dB) car je le laisse dans mon bureau à domicile (un NUC de base est déjà presque silencieux)._
+- _De plus, aucune usure mécanique sur les roulements du ventilateur._
+- _Valeur de revente ou de réaffectation si je décide de retirer cette plateforme matérielle en tant que nœud RP - les NUC font un excellent ordinateur de travail._
 
-### GreyWizard's NUC10i7FNH
+### NUC10i7FNH de GreyWizard
 
 ![](./images/GreyWizard.jpg)
 
-The NUC10i7FNH is another one of Intel's own NUCs.
-This one sports a 10th-generation processor, and was released in 2019.
-It comes with a six core i7-10710U CPU (1.10 GHz, boosts to 4.7 GHz), two DDR4 slots, an M.2 slot and a 2.5" slot for SSDs, and USB 3.1 ports.
-It draws about 20 watts of power.
-It is an incredibly powerful machine, given its power consumption and size.
-Discord user **GreyWizard** uses this NUC for his node - the extra power gives him peace of mind knowing that no matter what the future of the Ethereum 2.0 chain holds, his machine will be able to handle it.
+Le NUC10i7FNH est un autre des propres NUC d'Intel.
+Celui-ci arbore un processeur de 10e génération et a été lancé en 2019.
+Il est livré avec un CPU i7-10710U à six cœurs (1,10 GHz, booste jusqu'à 4,7 GHz), deux emplacements DDR4, un emplacement M.2 et un emplacement 2,5" pour les SSD, et des ports USB 3.1.
+Il consomme environ 20 watts de puissance.
+C'est une machine incroyablement puissante, compte tenu de sa consommation d'énergie et de sa taille.
+L'utilisateur Discord **GreyWizard** utilise ce NUC pour son nœud - la puissance supplémentaire lui donne la tranquillité d'esprit en sachant que, peu importe ce que l'avenir de la chaîne Ethereum 2.0 réserve, sa machine sera en mesure de le gérer.
 
-GreyWizard's Setup:
+Configuration de GreyWizard :
 
-- Base: [Intel BXNUC10I7FNH1](https://www.newegg.com/intel-bxnuc10i7fnh1/p/N82E16856102227) ($445)
-- RAM: 2x [Samsung M471A4G43MB1 32GB DDR4 SODIMM 2666 MHz](https://www.newegg.com/samsung-32gb-260-pin-ddr4-so-dimm/p/0RM-002H-00156) ($154 ea.)
-- SSD: [Samsung 970 EVO Plus 2TB M.2 2280 NVMe SSD](https://www.newegg.com/samsung-970-evo-plus-2tb/p/N82E16820147744) ($315)
-- **Total: $1068**
+- Base : [Intel BXNUC10I7FNH1](https://www.newegg.com/intel-bxnuc10i7fnh1/p/N82E16856102227) (445 $)
+- RAM : 2x [Samsung M471A4G43MB1 32 Go DDR4 SODIMM 2666 MHz](https://www.newegg.com/samsung-32gb-260-pin-ddr4-so-dimm/p/0RM-002H-00156) (154 $ chacun)
+- SSD : [Samsung 970 EVO Plus 2 To M.2 2280 NVMe SSD](https://www.newegg.com/samsung-970-evo-plus-2tb/p/N82E16820147744) (315 $)
+- **Total : 1 068 $**
 
-Here are GreyWizard's comments on why he chose this setup:
+Voici les commentaires de GreyWizard sur les raisons pour lesquelles il a choisi cette configuration :
 
-_I went with the i7 NUC mostly because it felt like the best combination of outstanding performance relative to overall size and overhead.
-I also looked at other options like building a Micro ATX-sized machine.
-After pricing one with the specs I was looking for, this Intel NUC ended up being about the same price, and the form factor is really tough to beat.
-I like having the extra headroom for performance/peace of mind, and I acknowledge that this is almost certainly way overkill.
-I consider staking as a serious investment and I don't want to worry if my hardware will be sufficient._
+_Je suis allé avec le NUC i7 principalement parce qu'il semblait être la meilleure combinaison de performances exceptionnelles par rapport à la taille globale et à la surcharge.
+J'ai également examiné d'autres options comme la construction d'une machine de taille Micro ATX.
+Après avoir fixé le prix d'une avec les spécifications que je recherchais, ce NUC Intel a fini par avoir à peu près le même prix, et le facteur de forme est vraiment difficile à battre.
+J'aime avoir la marge de manœuvre supplémentaire pour les performances/tranquillité d'esprit, et je reconnais que c'est presque certainement exagéré.
+Je considère le staking comme un investissement sérieux et je ne veux pas m'inquiéter si mon matériel sera suffisant._
 
-_Tips for other people considering this as an option..._
+_Conseils pour d'autres personnes envisageant cela comme une option..._
 
-- _The NUC does run pretty warm, similar temps to a laptop. If you worry about CPU temp and you want something powerful, then you should look at small desktop setups like Micro ATX._
-- _You will want to make sure there is plenty of room around your NUC for airflow. Plan to clean the area regularly to prevent dust buildup._
-- _Make sure to check compatibility for your RAM cards. The different NUCs support varying degrees of total RAM, RAM speeds, etc._
-- _If you go with the NUC, I'd suggest you give yourself room to grow when selecting RAM... For example, spend a bit extra and get a single 32gb RAM card rather than 2x16 so you can expand later if you want (assuming your NUC will support 64gb in this example)_
-- _Feel free to reach out to me on Discord if you would like to discuss._
+- _Le NUC fonctionne assez chaud, des températures similaires à celles d'un ordinateur portable. Si vous vous inquiétez de la température du CPU et que vous voulez quelque chose de puissant, vous devriez regarder les configurations de bureau petites comme Micro ATX._
+- _Vous voudrez vous assurer qu'il y a beaucoup d'espace autour de votre NUC pour la circulation de l'air. Prévoyez de nettoyer la zone régulièrement pour éviter l'accumulation de poussière._
+- _Assurez-vous de vérifier la compatibilité de vos cartes RAM. Les différents NUC prennent en charge différents degrés de RAM totale, de vitesses de RAM, etc._
+- _Si vous optez pour le NUC, je suggère de vous donner de la place pour grandir lors de la sélection de la RAM... Par exemple, dépensez un peu plus et obtenez une seule carte RAM de 32 Go plutôt que 2x16 afin de pouvoir vous développer plus tard si vous le souhaitez (en supposant que votre NUC prendra en charge 64 Go dans cet exemple)_
+- _N'hésitez pas à me contacter sur Discord si vous souhaitez en discuter._
 
-### ArtDemocrat's NUC10i5FNHN Build Process Video
+### Vidéo du Processus de Construction NUC10i5FNHN d'ArtDemocrat
 
-To complement Greywizard's setup descriptions and tips, ArtDemocrat created this build process video as an additional help resource to set up a NUC10 (in this case a NUC10i5FNHN, but the build process should be similar for a NUC10i7FNH):
+Pour compléter les descriptions de configuration et les conseils de Greywizard, ArtDemocrat a créé cette vidéo du processus de construction comme ressource d'aide supplémentaire pour configurer un NUC10 (dans ce cas un NUC10i5FNHN, mais le processus de construction devrait être similaire pour un NUC10i7FNH) :
 
 <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/NUC_Staking_Setup_-_ArtDemocrat.mp4" />
 
-ArtDemocrat's Setup:
+Configuration d'ArtDemocrat :
 
-- Base: [Intel NUC NUC10i5FNHN (Barebone)](https://www.jacob.de/produkte/intel-nuc-nuc10i5fnhn-bxnuc10i5fnhn-artnr-7103179.html) ($300)
-- RAM: 1x [Crucial 32GB DDR4-3200 SODIMM](https://www.amazon.de/dp/B07ZLC7VNH) ($65)
-- SSD: [Samsung 970 EVO Plus 2TB M.2 2280 NVMe SSD](https://www.amazon.de/dp/B07MLJD32L) ($107)
+- Base : [Intel NUC NUC10i5FNHN (Barebone)](https://www.jacob.de/produkte/intel-nuc-nuc10i5fnhn-bxnuc10i5fnhn-artnr-7103179.html) (300 $)
+- RAM : 1x [Crucial 32 Go DDR4-3200 SODIMM](https://www.amazon.de/dp/B07ZLC7VNH) (65 $)
+- SSD : [Samsung 970 EVO Plus 2 To M.2 2280 NVMe SSD](https://www.amazon.de/dp/B07MLJD32L) (107 $)
 
-### Actioncj17's PN50
+### PN50 d'Actioncj17
 
 ![](./images/PN50-actioncj17.jpg)
 
-The ASUS PN50 is a mini-PC, which shares a lot in common with Intel's NUC family.
-It has a very small form factor but has all the components and features of a full PC.
-It comes with your choice of AMD CPU so you can balance between performance and cost (up to an 8-core Ryzen R7-4700U at 2.0 GHz), two DDR4 slots, an M.2 slot and a 2.5" slot for SSDs, and USB 3.1 ports.
-It also comes with a 90 watt power supply, though in practice it doesn't require that much power while acting as a Rocket Pool node.
-Discord user **actioncj17** has tried several different setups, but prefers the PN50 over everything... though they happily admit that it's overkill for running a Rocket Pool node.
+L'ASUS PN50 est un mini-PC, qui partage beaucoup en commun avec la famille NUC d'Intel.
+Il a un facteur de forme très petit mais possède tous les composants et fonctionnalités d'un PC complet.
+Il est livré avec votre choix de CPU AMD afin que vous puissiez équilibrer entre performance et coût (jusqu'à un Ryzen R7-4700U à 8 cœurs à 2,0 GHz), deux emplacements DDR4, un emplacement M.2 et un emplacement 2,5" pour les SSD, et des ports USB 3.1.
+Il est également livré avec une alimentation de 90 watts, bien qu'en pratique il n'ait pas besoin de tant de puissance lorsqu'il agit en tant que nœud Rocket Pool.
+L'utilisateur Discord **actioncj17** a essayé plusieurs configurations différentes, mais préfère le PN50 à tout... bien qu'ils admettent volontiers que c'est exagéré pour exécuter un nœud Rocket Pool.
 
-Actioncj17's Setup:
+Configuration d'Actioncj17 :
 
-- Base: [ASUS PN50 4700u](https://www.newegg.com/asus-pn50-bbr066md/p/N82E16856110206) ($583)
-- RAM: [HyperX Impact 2x16GB DDR4 SODIMM 3200MHz](https://www.newegg.com/hyperx-32gb-260-pin-ddr4-so-dimm/p/N82E16820104836) ($220)
-- SSD: [Samsung 970 EVO Plus 2TB M.2 2280 NVMe SSD](https://www.newegg.com/samsung-970-evo-plus-2tb/p/N82E16820147744) ($315)
-- **Total: $1118**
+- Base : [ASUS PN50 4700u](https://www.newegg.com/asus-pn50-bbr066md/p/N82E16856110206) (583 $)
+- RAM : [HyperX Impact 2x16 Go DDR4 SODIMM 3200 MHz](https://www.newegg.com/hyperx-32gb-260-pin-ddr4-so-dimm/p/N82E16820104836) (220 $)
+- SSD : [Samsung 970 EVO Plus 2 To M.2 2280 NVMe SSD](https://www.newegg.com/samsung-970-evo-plus-2tb/p/N82E16820147744) (315 $)
+- **Total : 1 118 $**
 
-Here are actioncj17's comments on why they chose this setup:
+Voici les commentaires d'actioncj17 sur les raisons pour lesquelles ils ont choisi cette configuration :
 
-_My answer to why I chose the Asus PN50 is quite simple.
-I wanted to see how badass AMD's Ryzen 7 4700U was.
-Let’s just say I’m not disappointed.
-I actually started with the Intel NUC10FNK.
-I put 32gb of ram and 1tb 970 evo plus nvme m.2 in the nuc and it blazes.
-I have no complaints with the nuc and it works fine but I get more out of my PN50.
-I’d say both setups are overkill for staking on Rocketpool but a little future proofing doesn’t hurt.
-They both have small footprints and the nuc is actually much quieter since it is fanless.
-All in all the PN50 is a better bang for your buck if you can get your hands on one._
+_Ma réponse à pourquoi j'ai choisi l'Asus PN50 est assez simple.
+Je voulais voir à quel point le Ryzen 7 4700U d'AMD était impressionnant.
+Disons simplement que je ne suis pas déçu.
+J'ai en fait commencé avec l'Intel NUC10FNK.
+J'ai mis 32 Go de RAM et 1 To de 970 evo plus nvme m.2 dans le NUC et il fonctionne à merveille.
+Je n'ai aucune plainte avec le NUC et il fonctionne bien, mais j'obtiens plus de mon PN50.
+Je dirais que les deux configurations sont exagérées pour le staking sur Rocketpool, mais un peu d'évolutivité ne fait pas de mal.
+Ils ont tous les deux de petites empreintes et le NUC est en fait beaucoup plus silencieux car il est sans ventilateur.
+Dans l'ensemble, le PN50 est un meilleur rapport qualité-prix si vous pouvez en obtenir un._
 
-### Moralcompass's Mini-PC
+### Mini-PC de Moralcompass
 
 ![](./images/moralcompass-minipc.jpg)
 
-Discord user **moralcompass** went a similar route to actioncj17 by selecting a mini-PC, but their preference is for an Intel CPU.
-They use a mini PC that sports a quad core i5 8250U (1.6 GHz, boost up to 3.4 GHz), one DDR4 slot, an M.2 slot and a 2.5" slot for SSDs, and USB 3.0 ports.
-Moralcompass claims that it only pulls about 10 watts from the wall, which demonstrates that mini PCs like this are very efficient.
-The interesting thing about this choice is that it is completely passively cooled - no fans to be found!
-While there are many variations of fanless mini PCs, moralcompass found one that worked for them and has stuck with it.
+L'utilisateur Discord **moralcompass** a emprunté une voie similaire à actioncj17 en sélectionnant un mini-PC, mais sa préférence va à un CPU Intel.
+Ils utilisent un mini-PC qui arbore un i5 8250U quad-core (1,6 GHz, boost jusqu'à 3,4 GHz), un emplacement DDR4, un emplacement M.2 et un emplacement 2,5" pour les SSD, et des ports USB 3.0.
+Moralcompass affirme qu'il ne tire qu'environ 10 watts du mur, ce qui démontre que les mini-PC comme celui-ci sont très efficaces.
+La chose intéressante à propos de ce choix est qu'il est complètement refroidi passivement - pas de ventilateurs à trouver !
+Bien qu'il existe de nombreuses variantes de mini-PC sans ventilateur, moralcompass en a trouvé un qui lui convenait et s'y est tenu.
 
-Moralcompass's Setup:
+Configuration de Moralcompass :
 
-- Base: [Partaker Fanless Mini PC - i5 8250U](https://www.aliexpress.com/item/1005001867740130.html?spm=a2g0s.9042311.0.0.66e94c4d0ORiVh) ($387)
-- RAM: [Crucial 1x32GB DDR4 SODIMM 2666MHz](https://www.newegg.com/crucial-32gb-260-pin-ddr4-so-dimm/p/N82E16820156239) ($153)
-- SSD: [Silicon Power 1TB M.2 2280 NVMe SSD](https://www.amazon.com/Silicon-Power-Gen3x4-000MB-SU001TBP34A80M28AB/dp/B07L6GF81L) ($115)
-- **Total: $655**
+- Base : [Partaker Fanless Mini PC - i5 8250U](https://www.aliexpress.com/item/1005001867740130.html?spm=a2g0s.9042311.0.0.66e94c4d0ORiVh) (387 $)
+- RAM : [Crucial 1x32 Go DDR4 SODIMM 2666 MHz](https://www.newegg.com/crucial-32gb-260-pin-ddr4-so-dimm/p/N82E16820156239) (153 $)
+- SSD : [Silicon Power 1 To M.2 2280 NVMe SSD](https://www.amazon.com/Silicon-Power-Gen3x4-000MB-SU001TBP34A80M28AB/dp/B07L6GF81L) (115 $)
+- **Total : 655 $**
 
-Here are moralcompass's comments on why they chose this setup:
+Voici les commentaires de moralcompass sur les raisons pour lesquelles ils ont choisi cette configuration :
 
-- _No moving parts, no noise._
-- _Dual intel NIC (in case I decide to repurpose this as my router one day)_
-- _NVME + SATA slots (prefer NVME for speed and options with higher TBW endurance. SATA gives option of HDD or SSD. I avoided M.SATA interfaces because these SSDs seem to be turning legacy)_
-- _USB and serial ports available for graceful shutdown signal from UPS_
+- _Pas de pièces mobiles, pas de bruit._
+- _Double NIC Intel (au cas où je décide de réaffecter cela comme mon routeur un jour)_
+- _Emplacements NVME + SATA (je préfère NVME pour la vitesse et les options avec une endurance TBW plus élevée. SATA donne l'option de HDD ou SSD. J'ai évité les interfaces M.SATA car ces SSD semblent devenir obsolètes)_
+- _Ports USB et série disponibles pour le signal d'arrêt gracieux de l'UPS_

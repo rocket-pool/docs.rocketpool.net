@@ -1,26 +1,26 @@
 ---
 next:
-  text: Claiming Node Operator Rewards
-  link: "/en/node-staking/rewards"
+  text: Получение вознаграждений оператора узла
+  link: "/ru/node-staking/rewards"
 ---
 
-# Overview
+# Обзор
 
-This section covers how to access the rewards your node generates while validating.
+Этот раздел охватывает способы получения вознаграждений, которые генерирует ваш узел в процессе валидации.
 
-## Prerequisites
+## Предварительные требования
 
-Before configuring your Smartnode, please make sure you:
+Перед настройкой вашего Smartnode убедитесь, что вы:
 
-- Have set up a node machine (or virtual machine) and secured it (via the [Securing your Node](../securing-your-node) guide)
-- Have the Smartnode [installed](../installing/overview) and [configured](../config/overview) on it
-- Have a node wallet loaded on your Smartnode
-- Synced your Execution and Consensus clients
-- Provisioned your node with [a withdrawal address](../prepare-node.mdx#setting-your-withdrawal-address), set up your [fallback clients](../fallback) (optional), opted into the [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (optional), and configured [MEV](../mev.mdx)
-- Created at least one [minipool](../create-validator.mdx)
+- Настроили машину для узла (или виртуальную машину) и защитили её (следуя руководству [Защита вашего узла](../securing-your-node))
+- [Установили](../installing/overview) и [настроили](../config/overview) Smartnode на ней
+- Загрузили кошелёк узла на ваш Smartnode
+- Синхронизировали ваши клиенты Execution и Consensus
+- Подготовили ваш узел с [адресом для вывода средств](../prepare-node.mdx#setting-your-withdrawal-address), настроили ваши [резервные клиенты](../fallback) (опционально), присоединились к [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (опционально) и настроили [MEV](../mev.mdx)
+- Создали хотя бы один [minipool](../create-validator.mdx)
 
-## Guides
+## Руководства
 
-[Claiming Node Operator Rewards](../rewards) explains how RPL rewards and Execution-layer rewards work, and how to access them.
+[Получение вознаграждений оператора узла](../rewards) объясняет, как работают вознаграждения RPL и вознаграждения уровня Execution, и как получить к ним доступ.
 
-[Distributing Skimmed Rewards](../skimming) covers accessing rewards from the Beacon Chain that periodically get "skimmed" by the protocol and delivered to your minipools.
+[Распределение снятых вознаграждений](../skimming) охватывает доступ к вознаграждениям из Beacon Chain, которые периодически "снимаются" протоколом и доставляются в ваши minipools.

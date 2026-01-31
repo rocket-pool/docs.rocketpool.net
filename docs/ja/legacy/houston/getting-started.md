@@ -1,44 +1,44 @@
-# Houston Quick-Start
+# Houston クイックスタート
 
-Whether you're a seasoned Node Operator, rETH holder or curious onlooker, this page will help you get started with exploring the new features included in Houston.
+経験豊富なNode Operator、rETH保有者、または興味のある傍観者であるかどうかにかかわらず、このページはHoustonに含まれる新機能の探索を開始するのに役立ちます。
 
 ##
 
-### Initializing Voting Power
+### 投票権の初期化
 
-First and foremost, the most important step if you are **Node Operator** is to [initialize voting](../houston/participate#initializing-voting) to unlock your voting power. Nodes who've initialized voting are included when the network's total voting power is calculated.
+まず第一に、**Node Operator**である場合の最も重要なステップは、投票権のロックを解除するために[投票を初期化する](../houston/participate#initializing-voting)ことです。投票を初期化したノードは、ネットワークの総投票権が計算されるときに含まれます。
 
-At the genesis of Houston, pDAO voting is disabled until a sufficient number of nodes have initialized voting. This is to prevent rogue proposals from passing while total voting power and quorum is low. After enough nodes have initialized voting, a switch will be flipped and pDAO will have the helm.
+Houstonの開始時点では、十分な数のノードが投票を初期化するまでpDAO投票は無効になっています。これは、総投票権と定足数が低い間に不正な提案が通過するのを防ぐためです。十分な数のノードが投票を初期化した後、スイッチが切り替わり、pDAOが舵を取ります。
 
-To initialize voting power, use this command in the smartnode:
+投票権を初期化するには、smartnodeで次のコマンドを使用します。
 
 ```shell
 rocketpool pdao initialize-voting
 ```
 
-You only need to do this once. Initializing voting will ensure that your node's voting power is included in future on-chain proposals and allow you to vote on them.
+これは一度だけ行う必要があります。投票を初期化すると、ノードの投票権が将来のオンチェーン提案に含まれるようになり、それらに投票できるようになります。
 
-### Setting your Snapshot Signalling Address
+### Snapshotシグナリングアドレスの設定
 
-Secondly, you'll want to set your snapshot signalling address. This allows node operators to participate in Snapshot votes in their browser or mobile device without having to expose their node keys to a hot wallet.
+次に、Snapshotシグナリングアドレスを設定する必要があります。これにより、Node Operatorはノードキーをホットウォレットに公開することなく、ブラウザーやモバイルデバイスでSnapshot投票に参加できます。
 
-Setting this up involves a handful of steps, so you'll want to follow this guide:
-[Setting your Snapshot Signalling Address](../houston/participate#setting-your-snapshot-signalling-address).
+これを設定するにはいくつかのステップが必要なので、次のガイドに従ってください。
+[Snapshotシグナリングアドレスの設定](../houston/participate#setting-your-snapshot-signalling-address)
 
-### Delegating on-chain Voting Power
+### オンチェーン投票権の委任
 
-If you want to delegate on-chain voting power to a community member of your choosing, click [here](../houston/participate#delegating-voting-power) to learn how.
+選択したコミュニティメンバーにオンチェーン投票権を委任したい場合は、[こちら](../houston/participate#delegating-voting-power)をクリックして方法を学んでください。
 
 ##
 
-# Guides
+# ガイド
 
-[Full Houston Overview](../houston/whats-new) presents the fully on-chain Protocol DAO and introduces new features such as staking ETH on behalf of a node, setting an RPL withdrawal address, and time based balance and RPL submissions. Houston smart contract audits can be found here as well.
+[完全なHouston概要](../houston/whats-new)は、完全にオンチェーンのProtocol DAOを紹介し、ノードに代わってETHをstakingする、RPL引き出しアドレスの設定、時間ベースの残高とRPL提出などの新機能を紹介します。Houstonスマートコントラクト監査もこちらで見つけることができます。
 
-[The Protocol DAO](../houston/pdao) discusses who and how the pDAO governs Rocket Pool. This page will fill you in on how pDAO duties such as treasury spends can be executed on-chain, along with the role of the all new Security Council. It'll also walk you through the lifecycle of a pDAO proposal and explain some of the measures taken to prevent spam and gun down malicious proposals.
+[Protocol DAO](../houston/pdao)は、誰がどのようにRocket Poolを統治するかについて説明します。このページでは、財務支出などのpDAO任務がオンチェーンで実行される方法と、まったく新しいSecurity Councilの役割について説明します。また、pDAO提案のライフサイクルを説明し、スパムを防ぎ、悪意のある提案を阻止するために講じられたいくつかの対策について説明します。
 
-[Participating in Proposals](../houston/participate) includes a detailed step-by-step guide on how Node Operators can participate in pDAO proposals. If you're keen on raising an on-chain proposal, voting or delegating voting power, this is the guide for you.
+[提案への参加](../houston/participate)には、Node OperatorがpDAO提案に参加する方法に関する詳細なステップバイステップガイドが含まれています。オンチェーン提案の提出、投票、または投票権の委任に熱心な場合、これはあなたのためのガイドです。
 
-[Stake Eth on Behalf of a Node](../houston/stake-eth-on-behalf.mdx) goes over the steps for staking ETH on behalf of a node. It's a new feature introduced in Houston to facilitate single depositor scenarios. We'll walk through how to do this on a testnet if you want to try it out before staking real ETH on mainnet.
+[ノードに代わってETHをStakeする](../houston/stake-eth-on-behalf.mdx)は、ノードに代わってETHをstakingする手順を説明します。これはHoustonで導入された新機能で、単一のデポジターシナリオを促進します。メインネットで実際のETHをstakingする前に試してみたい場合は、testnetでこれを行う方法を説明します。
 
-[RPL Withdrawal Address](../houston/rpl-withdrawal-address) shows you how to set an RPL withdrawal address for your node. This is useful if you want to enable a separate entity to supply the RPL insurance collateral for a node.
+[RPL引き出しアドレス](../houston/rpl-withdrawal-address)は、ノードのRPL引き出しアドレスを設定する方法を示します。これは、別のエンティティがノードのRPL保険担保を提供できるようにする場合に便利です。

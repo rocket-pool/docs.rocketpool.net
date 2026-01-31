@@ -1,60 +1,60 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-::: danger WARNING
-Minipool deposits are currently disabled in preparation for Saturn 1.
+::: danger UYARI
+Minipool yatırımları şu anda Saturn 1 hazırlığı nedeniyle devre dışı bırakılmıştır.
 :::
 
-# Migrating a 16-ETH Minipool to 8-ETH
+# 16-ETH Minipool'u 8-ETH'ye Taşıma
 
-Node operators have the ability to **directly migrate** their existing 16-ETH minipools into 8-ETH minipools.
-Doing so will add 8 ETH to their [deposit credit balances](./credit) which can be used to **create additional minipools without requiring any ETH from the node operators**.
+Node operatörleri, mevcut 16-ETH minipool'larını 8-ETH minipool'lara **doğrudan taşıma** yapabilir.
+Bunu yapmak, [yatırım kredisi bakiyelerine](./credit) 8 ETH ekleyecektir ve bu kredi **node operatörlerinden ETH gerektirmeden ek minipool'lar oluşturmak için kullanılabilir**.
 
-In effect, this process allows a node operator to **convert one 16-ETH minipool into two 8-ETH minipools for free** (_though it will still require ETH for gas and require enough RPL collateral to handle both minipools_).
+Aslında bu süreç, bir node operatörünün **bir 16-ETH minipool'u ücretsiz olarak iki 8-ETH minipool'a dönüştürmesine** olanak tanır (_ancak yine de gas için ETH gerektirecek ve her iki minipool'u da karşılayacak yeterli RPL teminatı gerektirecektir_).
 
-Migrating an existing 16-ETH minipool to an 8-ETH one is formally known as **bond reduction**.
-It is a two-step process and involves validation by the Oracle DAO.
-We'll walk you through the whole process in the sections below.
+Mevcut bir 16-ETH minipool'u 8-ETH'ye taşımak resmi olarak **bond azaltma** olarak bilinir.
+Bu iki aşamalı bir süreçtir ve Oracle DAO tarafından doğrulama içerir.
+Aşağıdaki bölümlerde tüm süreç boyunca size rehberlik edeceğiz.
 
-### Bond Reduction Rules
+### Bond Azaltma Kuralları
 
-A bond reduction involves the following steps:
+Bond azaltma aşağıdaki adımları içerir:
 
-1. Starting the bond reduction, done by the node operator.
-2. A waiting period (the "bond reduction scrub check"), allowing the Oracle DAO time to verify the bond reduction is legal and cancel any bond reductions that violate the rules.
-3. Completing the bond reduction, done by the node operator.
+1. Bond azaltmayı başlatma, node operatörü tarafından yapılır.
+2. Bir bekleme süresi ("bond azaltma temizlik kontrolü"), Oracle DAO'nun bond azaltmanın yasal olduğunu doğrulama ve kurallara aykırı bond azaltmaları iptal etme süresine izin verir.
+3. Bond azaltmayı tamamlama, node operatörü tarafından yapılır.
 
-To perform a successful bond reduction without being scrubbed, the minipool must follow these rules:
+Temizlenmeden başarılı bir bond azaltma gerçekleştirmek için minipool şu kurallara uymalıdır:
 
-1. The minipool must be upgraded to the [Atlas delegate](./minipools/delegates); the old Redstone delegate cannot be used.
-1. The minipool's validator on the Beacon Chain must be **pending or actively staking**. It cannot be slashed, exiting / exited, or withdrawable / withdrawn.
-1. The minipool's validator balance on the Beacon Chain must be **at least 31.99 ETH** (32 ETH with a small buffer for poorly-timed complications resulting in missed attestations after a rewards skim).
+1. Minipool, [Atlas delegate](./minipools/delegates)'e yükseltilmiş olmalıdır; eski Redstone delegate kullanılamaz.
+1. Minipool'un Beacon Chain'deki validator'ü **beklemede veya aktif olarak staking yapıyor olmalıdır**. Slashed, çıkış yapıyor / çıkmış veya çekilebilir / çekilmiş durumda olamaz.
+1. Minipool'un Beacon Chain'deki validator bakiyesi **en az 31.99 ETH** olmalıdır (rewards skim sonrasında kötü zamanlanmış komplikasyonlar nedeniyle kaçırılan attestation'lar için küçük bir tampon ile 32 ETH).
 
-The minipool must obey these conditions for the **entire duration** of the scrub check, during which time the Oracle DAO will be watching it to ensure compliance with the conditions above.
+Minipool, Oracle DAO'nun yukarıdaki koşullara uyumluluğunu sağlamak için izlediği temizlik kontrolünün **tüm süresi boyunca** bu koşullara uymalıdır.
 
-If, at any time during the scrub check, a minipool is found to be in violation of these conditions, the bond reduction will be **scrubbed**.
-The minipool itself will not be affected; it will still happily live on as a 16 ETH minipool, validating and acting as though the whole bond-reduction process never happened.
-However, **it will no longer be eligible for bond reductions**.
-Once a minipool's bond reduction is scrubbed, it can never be attempted again.
+Eğer temizlik kontrolü sırasında herhangi bir zamanda bir minipool'un bu koşulları ihlal ettiği tespit edilirse, bond azaltma **temizlenecektir**.
+Minipool'un kendisi etkilenmeyecektir; 16 ETH minipool olarak mutlu bir şekilde yaşamaya devam edecek, doğrulama yapacak ve tüm bond azaltma süreci hiç yaşanmamış gibi davranacaktır.
+Ancak, **artık bond azaltmaya uygun olmayacaktır**.
+Bir minipool'un bond azaltması temizlendiğinde, bir daha asla denenemez.
 
-::: warning NOTE
-Upon a successful bond reduction, the minipool's bond amount will be reduced from 16 ETH to 8 ETH and **the minipool's commission will be reset to whatever the current network value is**.
+::: warning NOT
+Başarılı bir bond azaltma sonrasında, minipool'un bond miktarı 16 ETH'den 8 ETH'ye düşürülecek ve **minipool'un komisyonu mevcut ağ değerine sıfırlanacaktır**.
 
-If you reduce a 16-ETH minipool with a 20% commission, **you will not keep that 20% commission**.
-It will be reduced to the network value (**currently set to a flat 14%**).
+%20 komisyonlu bir 16-ETH minipool'u azaltırsanız, **bu %20 komisyonu korumayacaksınız**.
+Ağ değerine düşürülecektir (**şu anda sabit %14 olarak ayarlanmıştır**).
 
-Note that as demonstrated by the [example math](./create-validator.mdx#rewards) section, an 8-ETH minipool at 14% is _still more profitable_ than a 16-ETH minipool at 20% so holding onto a high commission rate is not a compelling reason to retain a 16 ETH bond.
+[Örnek matematik](./create-validator.mdx#rewards) bölümünde gösterildiği gibi, %14'lük bir 8-ETH minipool'un %20'lik bir 16-ETH minipool'dan _hala daha karlı olduğunu_ unutmayın, bu nedenle yüksek bir komisyon oranını tutmak 16 ETH bond'u korumak için ikna edici bir neden değildir.
 :::
 
-### Step 1: Beginning Bond Reduction
+### Adım 1: Bond Azaltmaya Başlama
 
-To begin the bond reduction process, enter the following command:
+Bond azaltma sürecini başlatmak için aşağıdaki komutu girin:
 
 ```shell
 rocketpool minipool begin-bond-reduction
 ```
 
-This will start by providing a brief blurb on the process (though, if you have read through this guide, it should all be familiar to you already).
-Once you acknowledge that you understand the process, it will show you which minipools currently have a bond that can be reduced, along with their current bond and commission:
+Bu, süreç hakkında kısa bir açıklama sunarak başlayacaktır (ancak bu kılavuzu okuduysanız, size zaten tanıdık gelecektir).
+Süreci anladığınızı onayladığınızda, şu anda bond'u azaltılabilecek minipool'ları, mevcut bond'ları ve komisyonları ile birlikte gösterecektir:
 
 ```
 Please select a minipool to begin the ETH bond reduction for:
@@ -66,16 +66,16 @@ Please select a minipool to begin the ETH bond reduction for:
 
 ```
 
-Once you've selected one or more minipools to reduce, the Smartnode will check if those minipools are eligible for bond reduction.
+Azaltmak için bir veya daha fazla minipool seçtiğinizde, Smartnode bu minipool'ların bond azaltma için uygun olup olmadığını kontrol edecektir.
 
-To be eligible, these conditions must be satisfied:
+Uygun olmak için bu koşullar karşılanmalıdır:
 
-- The minipool has been upgraded to use the [Atlas minipool delegate contract](./minipools/delegates).
-- The minipool's validator must have a Beacon Chain balance of at least 32 ETH.
-- The minipool's validator must be pending or active.
-- You have enough RPL staked to support the minimum RPL collateral level that would be required _after_ the bond reduction.
+- Minipool, [Atlas minipool delegate contract](./minipools/delegates)'i kullanacak şekilde yükseltilmiş olmalıdır.
+- Minipool'un validator'ü en az 32 ETH Beacon Chain bakiyesine sahip olmalıdır.
+- Minipool'un validator'ü beklemede veya aktif olmalıdır.
+- Bond azaltmadan _sonra_ gereken minimum RPL teminat seviyesini destekleyecek yeterli RPL stake edilmiş olmalıdır.
 
-If not, it will print a warning error explaining what needs to be done first; for example:
+Değilse, önce nelerin yapılması gerektiğini açıklayan bir uyarı hatası yazdıracaktır; örneğin:
 
 ```
 Please select a minipool to begin the ETH bond reduction for:
@@ -91,58 +91,58 @@ The minipool version is too low. It must be upgraded first using `rocketpool min
 You do not have enough RPL staked to support this bond reduction; it would bring you below the minimum RPL staking requirement. You will have to stake more RPL first.
 ```
 
-This shows that the selected minipool requires a delegate upgrade and the node needs more RPL staked in order to reduce that minipool's bond.
+Bu, seçilen minipool'un bir delegate yükseltmesi gerektirdiğini ve node'un bu minipool'un bond'unu azaltmak için daha fazla RPL stake edilmesi gerektiğini gösterir.
 
-When you have satisfied the preconditions, selecting a minipool in this command will simply prompt you to choose your gas price for the transaction and confirmation of the action.
-Upon accepting the confirmation, the minipool's bond reduction will begin.
+Önkoşulları karşıladığınızda, bu komutta bir minipool seçmek size işlem için gas fiyatınızı seçmenizi ve eylemi onaylamanızı isteyecektir.
+Onayı kabul ettiğinizde, minipool'un bond azaltması başlayacaktır.
 
-### Monitoring the Scrub Check Timer
+### Temizlik Kontrolü Zamanlayıcısını İzleme
 
-Once you've started a bond reduction, you can view how long until it's able to be completed in your `node` daemon logs:
+Bir bond azaltma başlattıktan sonra, `node` daemon loglarınızda tamamlanabilmesi için ne kadar süre kaldığını görebilirsiniz:
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker and Hybrid Mode">
-      For **Docker Mode** and **Hybrid Mode** users, this can be done with the following command:
+      **Docker Mode** ve **Hybrid Mode** kullanıcıları için bu, aşağıdaki komutla yapılabilir:
 
       ```shell
       rocketpool service logs node
       ```
     </Tab>
     <Tab label="Native Mode">
-      Consult the script you use to review your node daemon's system logs.
+      Node daemon'unuzun sistem loglarını incelemek için kullandığınız scripte başvurun.
     </Tab>
 
   </Tabs>
 </div>
 
-You will see a new entry noting how much time is left until the scrub check for your bond reduction is complete:
+Bond azaltmanızın temizlik kontrolü tamamlanana kadar ne kadar süre kaldığını belirten yeni bir girdi göreceksiniz:
 
 ```
 rocketpool_node  | 2023/02/25 09:04:21 Checking for minipool bonds to reduce...
 rocketpool_node  | 2023/02/25 09:04:21 Minipool 0x7E5703fdA638CD86c316B9EbAF76927fF695ADC5 has 12m0s left until it can have its bond reduced.
 ```
 
-Once this timer reaches zero and no longer appears in these logs, you can complete the bond reduction.
+Bu zamanlayıcı sıfıra ulaştığında ve artık bu loglarda görünmediğinde, bond azaltmayı tamamlayabilirsiniz.
 
-### Step 2: Completing Bond Reduction
+### Adım 2: Bond Azaltmayı Tamamlama
 
-When the scrub timer has successfully ended, there are two ways to complete your minipool's bond reduction:
+Temizlik zamanlayıcısı başarıyla sona erdiğinde, minipool'unuzun bond azaltmasını tamamlamanın iki yolu vardır:
 
-1. Let the `node` daemon handle it for you; it does this during the routine check it performs every five minutes (the same one that prints the time-remaining line in the log above). If it notices you have an eligible bond reduction, **it will complete the reduction automatically** - just as it does with staking pending minipools and checking your fee recipient. You will see output in the `node` log showing when it has detected, and completed, a bond reduction.
-2. Complete the bond reduction manually using the following command:
+1. `node` daemon'un bunu sizin için halletmesine izin verin; bunu her beş dakikada bir gerçekleştirdiği rutin kontrol sırasında yapar (yukarıdaki logda kalan süreyi yazdıran kontrol ile aynı). Uygun bir bond azaltmanız olduğunu fark ederse, **azaltmayı otomatik olarak tamamlayacaktır** - tıpkı bekleyen minipool'ları stake etme ve fee recipient'ınızı kontrol etme gibi. `node` logunda bir bond azaltmayı ne zaman tespit edip tamamladığını gösteren çıktıyı göreceksiniz.
+2. Bond azaltmayı aşağıdaki komutu kullanarak manuel olarak tamamlayın:
    ```shell
    rocketpool minipool reduce-bond
    ```
-   The command is simple; follow the prompts to complete the process once your minipool is eligible for bond reduction.
+   Komut basittir; minipool'unuz bond azaltma için uygun olduğunda süreci tamamlamak için yönergeleri izleyin.
 
-During the bond reduction, Rocket Pool **distributes your minipool's existing balance** using the minipool's pre-bond-reduction bond and commission to ensure both you and the rETH stakers get your fair share of the existing balance, and the bond reduction doesn't change the rewards either party _would_ have gotten on that balance.
+Bond azaltma sırasında, Rocket Pool **minipool'unuzun mevcut bakiyesini dağıtır**, minipool'un bond azaltma öncesi bond'u ve komisyonunu kullanarak hem sizin hem de rETH staker'larının mevcut bakiyeden adil payınızı almanızı sağlar ve bond azaltma, herhangi bir tarafın bu bakiye üzerinde _alacağı_ ödülleri değiştirmez.
 
-### The Results of a Reduced Bond
+### Azaltılmış Bond'un Sonuçları
 
-You can verify the successful bond reduction using `rocketpool minipool status`.
+`rocketpool minipool status` kullanarak başarılı bond azaltmasını doğrulayabilirsiniz.
 
-**Before** the bond reduction, for the example minipool we've been following, that command would produce the following output:
+Bond azaltmadan **önce**, takip ettiğimiz örnek minipool için bu komut aşağıdaki çıktıyı üretecektir:
 
 ```
 Address:              0x7E5703fdA638CD86c316B9EbAF76927fF695ADC5
@@ -161,7 +161,7 @@ Your portion:          16.000087 ETH
 ...
 ```
 
-**After** the bond reduction, the command would return this output:
+Bond azaltmadan **sonra**, komut şu çıktıyı döndürecektir:
 
 ```
 Address:              0x7E5703fdA638CD86c316B9EbAF76927fF695ADC5
@@ -180,30 +180,30 @@ Your portion:          8.000013 ETH
 ...
 ```
 
-Note how things have changed:
+Değişikliklerin nasıl olduğuna dikkat edin:
 
-- `Node fee` (commission) went from 15% to 14%
-- `Node deposit` (your bond) went from 16 ETH to 8 ETH
-- `RP deposit` (the amount you borrowed) went from 16 ETH to 24 ETH
-- `Minipool Balance (EL)` went from 0.150713 ETH to 0.086769 ETH
-- `Your portion (EL)` went from 0.086660 ETH to 0 ETH
-- `Available refund` went from 0 ETH to 0.086769 ETH
-- `Your portion (CL)` went from 16.000087 ETH to 8.000013 ETH
+- `Node fee` (komisyon) %15'ten %14'e düştü
+- `Node deposit` (bond'unuz) 16 ETH'den 8 ETH'ye düştü
+- `RP deposit` (ödünç aldığınız miktar) 16 ETH'den 24 ETH'ye yükseldi
+- `Minipool Balance (EL)` 0.150713 ETH'den 0.086769 ETH'ye düştü
+- `Your portion (EL)` 0.086660 ETH'den 0 ETH'ye düştü
+- `Available refund` 0 ETH'den 0.086769 ETH'ye yükseldi
+- `Your portion (CL)` 16.000087 ETH'den 8.000013 ETH'ye düştü
 
-The changes to `Node fee`, `Node deposit`, `RP deposit`, and `Your portion (CL)` indicate that the bond was successfully reduced.
+`Node fee`, `Node deposit`, `RP deposit` ve `Your portion (CL)` değişiklikleri bond'un başarıyla azaltıldığını gösterir.
 
-The changes to `Minipool Balance (EL)`, `Your portion (EL)`, and `Available refund` indicate the results of the **minipool balance distribution** that occurred as part of the bond reduction process.
-To clarify how to interpret these results:
+`Minipool Balance (EL)`, `Your portion (EL)` ve `Available refund` değişiklikleri, bond azaltma sürecinin bir parçası olarak gerçekleşen **minipool bakiye dağıtımının** sonuçlarını gösterir.
+Bu sonuçların nasıl yorumlanacağını netleştirmek için:
 
-- If you look at [the transaction](https://zhejiang.beaconcha.in/tx/0xf02f6b1a4ea68f356909e6f1974dc3c24d301ba115b97f3013c3c829ba2ca57c), you will also see that it sent 0.06413383 ETH from the minipool to the staking pool.
-- In the "before" example, the staking pool's share is the minipool's balance minus the node operator's portion, or `0.150713 - 0.086660 = 0.064053` which is the amount transferred to the staking pool during the bond reduction (plus a small amount from a rewards skim that occurred during the scrub check).
-- The _node operator's_ share, on the other hand, doesn't get sent to the node operator's withdrawal address. It is instead bookmarked as an **available refund**, which is why the refund amount increased from 0 ETH to what was previously the "your portion" amount of the minipool's balance on the EL.
-  - You can claim this refund at any time using the following command:
+- [İşleme](https://zhejiang.beaconcha.in/tx/0xf02f6b1a4ea68f356909e6f1974dc3c24d301ba115b97f3013c3c829ba2ca57c) bakarsanız, minipool'dan staking pool'a 0.06413383 ETH gönderdiğini de göreceksiniz.
+- "Önce" örneğinde, staking pool'un payı minipool'un bakiyesi eksi node operatörünün payıdır, yani `0.150713 - 0.086660 = 0.064053` bu bond azaltma sırasında staking pool'a aktarılan miktardır (artı temizlik kontrolü sırasında gerçekleşen bir rewards skim'den gelen küçük bir miktar).
+- Öte yandan _node operatörünün_ payı, node operatörünün çekim adresine gönderilmez. Bunun yerine **mevcut geri ödeme** olarak işaretlenir, bu yüzden geri ödeme miktarı 0 ETH'den minipool'un EL'deki bakiyesinin önceki "sizin payınız" miktarına yükseldi.
+  - Bu geri ödemeyi istediğiniz zaman aşağıdaki komutu kullanarak talep edebilirsiniz:
     ```shell
     rocketpool minipool refund
     ```
 
-There is one more important result of the bond reduction, which can be observed using `rocketpool node status`:
+Bond azaltmanın bir diğer önemli sonucu daha vardır ve bu `rocketpool node status` kullanılarak gözlemlenebilir:
 
 ```
 Your Smartnode is currently using the Zhejiang Test Network.
@@ -213,5 +213,5 @@ The node 0x9BA1401Eb7D779eC51f910B066e9C4351cD28911 has a balance of 347.796908 
 The node has 8.000000 ETH in its credit balance, which can be used to make new minipools.
 ```
 
-The bond reduction process has **increased the node's** [deposit credit balance](./credit) by 8 ETH.
-This credit can be used to [make another 8-ETH minipool](./create-validator.mdx#depositing-eth-and-creating-a-minipool) for free (no ETH required from the node wallet, except for gas)!
+Bond azaltma süreci **node'un** [yatırım kredisi bakiyesini](./credit) 8 ETH artırmıştır.
+Bu kredi, ücretsiz olarak [başka bir 8-ETH minipool yapmak](./create-validator.mdx#depositing-eth-and-creating-a-minipool) için kullanılabilir (node cüzdanından ETH gerekmez, sadece gas için)!

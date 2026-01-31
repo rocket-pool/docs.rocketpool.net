@@ -1,37 +1,37 @@
-# Monitoring your Smartnode Stack with Alert Notifications
+# アラート通知によるSmartnodeスタックの監視
 
-The Smartnode alert notification functionality allows you to receive notifications about the health and important events of your Rocket Pool Smartnode.
+Smartnodeアラート通知機能により、Rocket Pool Smartnodeの健全性と重要なイベントに関する通知を受け取ることができます。
 
-## Alerting System Overview
+## アラートシステムの概要
 
-The notification functionality utilizes [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) to deliver alerts. Alerting requires that you have already followed the [Setting up the Grafana Dashboard](../grafana.mdx) which walks through setting up the Smartnode stack's metrics tracker. The alerts are triggered when important metrics from your Smartnode exceed certain thresholds or when particular events occur like when your node's fee recipient is changed.
+通知機能は[Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/)を利用してアラートを配信します。アラート機能を使用するには、Smartnodeスタックのメトリックトラッカーの設定方法を説明している[Grafanaダッシュボードの設定](../grafana.mdx)に既に従っている必要があります。アラートは、Smartnodeの重要なメトリックが特定のしきい値を超えた場合、またはノードの手数料受取人が変更されたときなどの特定のイベントが発生した場合にトリガーされます。
 
-## Setting up Discord Notifications
+## Discord通知の設定
 
-Currently, notifications can be sent to Discord channels. You can configure Discord notifications within the Rocket Pool Text User Interface (TUI) on the "Monitoring / Alerting" page.
+現在、通知はDiscordチャンネルに送信できます。Discord通知は、Rocket Poolテキストユーザーインターフェース(TUI)の「Monitoring / Alerting」ページ内で設定できます。
 
-### Adding a Discord Webhook URL:
+### Discord Webhook URLの追加:
 
-1. Navigate to your desired Discord channel and open its settings.
-2. Under "Integrations," locate and click on "Webhooks."
-3. Click "Create Webhook."
-4. Give your webhook a name and choose a channel to send the alerts to.
-5. Copy the provided Webhook URL.
-6. Within the Rocket Pool TUI, navigate to the "Monitoring / Alerting" page.
-7. Paste the copied Webhook URL into the designated field and save the configuration.
+1. 目的のDiscordチャンネルに移動し、その設定を開きます。
+2. 「統合」の下で、「Webhook」を見つけてクリックします。
+3. 「Webhookを作成」をクリックします。
+4. webhookに名前を付け、アラートを送信するチャンネルを選択します。
+5. 提供されたWebhook URLをコピーします。
+6. Rocket Pool TUI内で、「Monitoring / Alerting」ページに移動します。
+7. コピーしたWebhook URLを指定されたフィールドに貼り付けて、設定を保存します。
 
-::: tip TIP
-Is your favorite notification missing? The Rocket Pool team is actively looking for feedback from the community regarding additional notification destinations. Feel free to suggest new notification destinations at https://github.com/rocket-pool/smartnode/issues.
+::: tip ヒント
+お気に入りの通知方法が見つかりませんか? Rocket Poolチームは、追加の通知先に関するコミュニティからのフィードバックを積極的に求めています。https://github.com/rocket-pool/smartnode/issuesで新しい通知先を提案してください。
 :::
 
-## Disabling and Enabling Alerts
+## アラートの無効化と有効化
 
-The Rocket Pool TUI provides a user-friendly interface for managing your alerts. You can access this functionality through the "Monitoring / Alerting" page. This interface allows you to View a list of all configured alerts and Enable or disable individual alerts based on your preference.
+Rocket Pool TUIは、アラートを管理するためのユーザーフレンドリーなインターフェースを提供します。この機能には、「Monitoring / Alerting」ページからアクセスできます。このインターフェースでは、設定されたすべてのアラートのリストを表示し、好みに応じて個々のアラートを有効または無効にすることができます。
 
-## Advanced Configuration
+## 高度な設定
 
-::: warning NOTE
-This section is for advanced users who are experienced with Prometheus and modifying YAML files.
+::: warning 注意
+このセクションは、Prometheusの経験があり、YAMLファイルの変更に慣れている上級ユーザー向けです。
 :::
 
-For more advanced configuration of alerts you can add your own based on any metric that is available in the Prometheus container managed by the Smartnode Stack. Add your own yaml file containing [Prometheus Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) into the `~/.rocketpool/alerting/rules/` directory and those rules and restart the Prometheus container with `docker stop rocketpool_prometheus` followed by `docker start rocketpool_prometheus`. Then run `docker logs rocketpool_prometheus` to confirm that Prometheus loaded your configuration file successfully (you want to see a line with _msg="Completed loading of configuration file" filename=/etc/prometheus/prometheus.yml_ and not _err="error loading config from \"/etc/prometheus/prometheus.yml\"..._)
+アラートのより高度な設定を行う場合、Smartnodeスタックによって管理されるPrometheusコンテナで利用可能な任意のメトリックに基づいて独自のアラートを追加できます。[Prometheus Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/)を含む独自のyamlファイルを`~/.rocketpool/alerting/rules/`ディレクトリに追加し、`docker stop rocketpool_prometheus`に続いて`docker start rocketpool_prometheus`でPrometheusコンテナを再起動します。次に、`docker logs rocketpool_prometheus`を実行して、Prometheusが設定ファイルを正常にロードしたことを確認します(_msg="Completed loading of configuration file" filename=/etc/prometheus/prometheus.yml_という行が表示され、_err="error loading config from \"/etc/prometheus/prometheus.yml\"..._が表示されないことを確認します)。

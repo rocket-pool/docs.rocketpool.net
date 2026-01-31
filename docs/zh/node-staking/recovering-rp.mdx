@@ -1,36 +1,36 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Importing / Recovering an Existing Wallet
+# 导入/恢复现有钱包
 
-If you already have a wallet you'd like to use for your node, or if you're recovering a wallet you already created with the Smartnode earlier, this guide will help you through the import / recovery process.
+如果您已经有一个想要用于节点的钱包,或者您正在恢复之前使用 Smartnode 创建的钱包,本指南将帮助您完成导入/恢复过程。
 
-Please select the appropriate option from the sections below.
+请从以下部分中选择适当的选项。
 
-## Recovering a Smartnode Wallet
+## 恢复 Smartnode 钱包
 
-If you generated your node wallet using the Smartnode and are simply recovering it on a new machine, the process is quite simple.
-Make sure you've already installed the Smartnode software, and then simply run the following command once it's installed:
+如果您使用 Smartnode 生成了节点钱包,并且只是在新机器上恢复它,过程非常简单。
+确保您已经安装了 Smartnode 软件,然后在安装完成后只需运行以下命令:
 
 ```shell
 rocketpool wallet recover
 ```
 
-::: warning NOTE
-If, for some reason, you want to recover the wallet but _not_ any of the validator keys attached to your node's minipools, you can specify the `-k` flag to skip the rebuild process:
+::: warning 注意
+如果出于某种原因,您想要恢复钱包但_不想_恢复附加到节点 minipool 的任何验证器密钥,您可以指定 `-k` 标志以跳过重建过程:
 
 ```shell
 rocketpool wallet recover -k
 ```
 
-If you do not specify this flag, the Smartnode will attempt to recover the validator keys for your minipools; however, note that this will not work until your Execution client has finished syncing.
-Please watch its log file to see when it's done; once it is, you can run this step.
+如果您不指定此标志,Smartnode 将尝试恢复您的 minipool 的验证器密钥;但是请注意,在执行客户端完成同步之前这将无法工作。
+请查看其日志文件以查看何时完成;完成后,您可以运行此步骤。
 :::
 
-This will first ask you for a password you want to use to encrypt your wallet.
-After that, it will ask for your **24 word mnemonic recovery phrase**.
-Enter it carefully - it will not be shown on-screen for safety, and it is very easy to make a mistake while typing it so take your time.
+这将首先要求您输入一个密码来加密您的钱包。
+之后,它将要求您输入**24 个词的助记词恢复短语**。
+仔细输入——为了安全起见,它不会显示在屏幕上,在输入时很容易出错,所以请慢慢来。
 
-When you're done, you should see output similar to this:
+完成后,您应该看到类似以下的输出:
 
 ```shell
 $ rocketpool wallet recover
@@ -47,37 +47,37 @@ Node account: <your wallet address>
 No validator keys were found.
 ```
 
-If you don't see any errors, then your wallet and validators will be recovered.
+如果您没有看到任何错误,那么您的钱包和验证器将被恢复。
 
-Once you're done, be sure to restart the Validator client with the following command for Docker and Hybrid mode users:
+完成后,请确保使用以下命令重启验证器客户端(适用于 Docker 和混合模式用户):
 
 ```shell
 docker restart rocketpool_validator
 ```
 
-**Native mode** users will simply have to restart their Validator container process.
+**原生模式**用户只需重启他们的验证器容器进程。
 
-This will ensure that the VC picks up all of the newly restored validator keys.
+这将确保 VC 获取所有新恢复的验证器密钥。
 
-## Importing an Existing Address as a Node Wallet
+## 将现有地址导入为节点钱包
 
-If you have an address you'd like to use for a node, but _didn't_ create it with the Smartnode (e.g., you created it with MetaMask or a hardware wallet), then this is the section to follow.
+如果您有一个想要用于节点的地址,但_没有_使用 Smartnode 创建它(例如,您使用 MetaMask 或硬件钱包创建它),那么这是要遵循的部分。
 
-::: danger WARNING
-By doing this, your address will become a **hot wallet**.
-The private key will be stored on your node machine.
+::: danger 警告
+这样做后,您的地址将成为**热钱包**。
+私钥将存储在您的节点机器上。
 
-If you're importing an address that is a cold wallet, such as a hardware wallet, be advised that **the protection provided by the hardware wallet will no longer exist!**
+如果您导入的地址是冷钱包,例如硬件钱包,请注意**硬件钱包提供的保护将不再存在!**
 
-If you use this wallet for _any other cryptocurrency activity at all_, **you must migrate all of its funds to a separate address (e.g. a different hardware wallet) before importing it into your node! Only leave enough ETH on this address for your node's gas costs (typically 0.5 ETH is sufficient).**
+如果您将此钱包用于_任何其他加密货币活动_,**您必须在将其导入到您的节点之前将其所有资金迁移到单独的地址(例如不同的硬件钱包)!只在此地址上留下足够的 ETH 用于节点的 gas 成本(通常 0.5 ETH 就足够了)。**
 
-Please ensure that you have secured your machine as much as possible by following the steps in the [Securing your Node](./securing-your-node) guide before importing your address as a node wallet.
+在将您的地址导入为节点钱包之前,请确保通过遵循[保护您的节点](./securing-your-node)指南中的步骤尽可能地保护您的机器。
 :::
 
-This capability is only available with Smartnode **v1.4.3 or higher**.
-If you have a lower version, you'll need to upgrade first.
+此功能仅在 Smartnode **v1.4.3 或更高版本**中可用。
+如果您的版本较低,您需要先升级。
 
-This is a multi-step process, so follow the below sections carefully.
+这是一个多步骤过程,因此请仔细遵循以下各节。
 
 ### Step 1: Add Externally-Generated Validator Keys
 

@@ -1,10 +1,10 @@
-# Masquerading as Another Node Address
+# Disfarçar-se como Outro Endereço de Nó
 
-Starting with Smartnode version `v1.15.7`, users will be able to mock the behaviour of an arbitrary address. While masquerading as another address,
-your node will continue the node and watchtower task loop using your node address and perform duties such as attesting using your validator keys. You will not be able
-to submit transactions or sign messages as the masqueraded address. This feature is especially useful for support and debugging.
+A partir da versão `v1.15.7` do Smartnode, os usuários poderão simular o comportamento de um endereço arbitrário. Enquanto disfarçado como outro endereço,
+seu nó continuará o loop de tarefas do nó e da watchtower usando seu endereço de nó e realizará deveres como atestar usando suas chaves de validador. Você não será capaz
+de enviar transações ou assinar mensagens como o endereço disfarçado. Este recurso é especialmente útil para suporte e depuração.
 
-If you wish to interact with the Smartnode through the lens of another node address, please use the following command: `rocketpool wallet masquerade`
+Se você deseja interagir com o Smartnode através da perspectiva de outro endereço de nó, use o seguinte comando: `rocketpool wallet masquerade`
 
 ```
 rp@user:~$ rocketpool wallet masquerade
@@ -23,7 +23,7 @@ y
 Your node is now masquerading as address 0xcaB549EdE082592D10FE6a238e7e8914aD3a074d.
 ```
 
-When you are finished with masquerade mode, simply run `rocketpool wallet end-masquerade` and follow the prompts:
+Quando terminar o modo disfarce, simplesmente execute `rocketpool wallet end-masquerade` e siga as instruções:
 
 ```
 rp@user:~$ rocketpool wallet end-masquerade
@@ -36,7 +36,7 @@ y
 Successfully ended masquerade mode.
 ```
 
-Additionally, you can check the status of your node wallet by running `rocketpool wallet status`:
+Além disso, você pode verificar o status da sua carteira do nó executando `rocketpool wallet status`:
 
 ```
 rp@node:~$ rocketpool wallet status

@@ -1,34 +1,34 @@
 ---
 next:
   text: Starting Rocketpool
-  link: "/en/node-staking/starting-rp"
+  link: "/tr/node-staking/starting-rp"
 ---
 
-# Overview
+# Genel Bakış
 
-This section covers the details of how to provision your node for staking with Rocket Pool once you've installed and configured the Smartnode.
-It's a long one because there's a lot of information around staking to cover, so **please read through each guide before creating your first minipool!**
+Bu bölüm, Smartnode'u kurduktan ve yapılandırdıktan sonra düğümünüzü Rocket Pool ile staking için nasıl hazırlayacağınızın ayrıntılarını kapsar.
+Staking ile ilgili kapsanacak çok fazla bilgi olduğu için uzun bir bölümdür, bu nedenle **lütfen ilk minipool'unuzu oluşturmadan önce her kılavuzu okuyun!**
 
-## Prerequisites
+## Ön Koşullar
 
-Before provisioning your node for staking, please make sure you've done the following:
+Düğümünüzü staking için hazırlamadan önce, lütfen aşağıdakileri yaptığınızdan emin olun:
 
-- Set up a node machine (or virtual machine) and secured it (via the [Securing your Node](../securing-your-node) guide)
-- Have the Smartnode [installed](../installing/overview) and [configured](../config/overview) on it
+- Bir düğüm makinesi (veya sanal makine) kurun ve güvenliğini sağlayın ([Securing your Node](/tr/node-staking/securing-your-node) kılavuzu aracılığıyla)
+- Smartnode'u üzerine [kurduğunuzdan](../installing/overview) ve [yapılandırdığınızdan](../config/overview) emin olun
 
-## Guides
+## Kılavuzlar
 
-[Starting Rocket Pool](../starting-rp) will show you how to start the Smartnode services for each mode and how to check on the sync progress of your Execution and Consensus clients.
+[Starting Rocket Pool](../starting-rp) size her mod için Smartnode hizmetlerini nasıl başlatacağınızı ve Execution ve Consensus istemcilerinizin senkronizasyon ilerlemesini nasıl kontrol edeceğinizi gösterecektir.
 
-[Creating a New Wallet](../wallet-init) walks through the process of creating a brand new wallet with the Smartnode if this is your first time setting up a node.
+[Creating a New Wallet](../wallet-init) eğer ilk kez bir düğüm kuruyorsanız Smartnode ile yepyeni bir cüzdan oluşturma sürecini anlatır.
 
-[Importing / Recovering an Existing Wallet](../recovering-rp.mdx) is an alternative to creating a new wallet.
-Use this guide if you already have a node wallet that you want to recover onto your node (or if you're migrating from a service like Allnodes to your own hardware).
+[Importing / Recovering an Existing Wallet](../recovering-rp.mdx) yeni bir cüzdan oluşturmaya alternatiftir.
+Halihazırda düğümünüze kurtarmak istediğiniz bir düğüm cüzdanınız varsa (veya Allnodes gibi bir hizmetten kendi donanımınıza geçiş yapıyorsanız) bu kılavuzu kullanın.
 
-[Preparing your Node for Operation](../prepare-node.mdx) covers some important first steps you'll want to take once you have a wallet loaded onto your node, well before you fund it with any ETH or RPL (other than a small amount of ETH for gas costs, of course).
+[Preparing your Node for Operation](../prepare-node.mdx) düğümünüze bir cüzdan yüklediğinizde, herhangi bir ETH veya RPL ile fonlamadan (tabii ki gaz maliyetleri için küçük miktarda ETH hariç) çok önce atmak isteyeceğiniz bazı önemli ilk adımları kapsar.
 
-[Specifying a Fallback Node](../fallback) walks you through the optional process of pointing your node at a second (externally-managed) pair of Execution and Consensus clients that can act as a backup for your primary clients if they ever go down, so your node can keep validating while you perform maintenance on them.
+[Specifying a Fallback Node](../fallback) düğümünüzü, birincil istemcileriniz herhangi bir zamanda çökerse yedek olarak hareket edebilecek ikinci bir (harici olarak yönetilen) Execution ve Consensus istemci çiftine yönlendirme isteğe bağlı sürecini anlatır, böylece onlar üzerinde bakım yaparken düğümünüz doğrulamaya devam edebilir.
 
-[Fee Distributors and the Smoothing Pool](../fee-distrib-sp) discuss the way Execution layer rewards are provided to your node every time one of your validators proposes a block, how to collect those rewards, and describes Rocket Pool's **Smoothing Pool** - a popular feature that combines Execution layer rewards from everyone and evenly distributes them during Rocket Pool's regular rewards intervals.
+[Fee Distributors and the Smoothing Pool](../fee-distrib-sp) doğrulayıcılarınızdan biri bir blok önerdiği her seferde Execution katmanı ödüllerinin düğümünüze nasıl sağlandığını, bu ödülleri nasıl toplayacağınızı tartışır ve Rocket Pool'un **Smoothing Pool**'unu açıklar - herkesten Execution katmanı ödüllerini birleştiren ve Rocket Pool'un düzenli ödül aralıklarında eşit olarak dağıtan popüler bir özellik.
 
-[MEV, MEV-Boost, and MEV Rewards](../mev.mdx) explains **Maximum-Extractable Value** (MEV), its role in the staking ecosystem, and how you can configure it to your liking using the Smartnode.
+[MEV, MEV-Boost, and MEV Rewards](../mev.mdx) **Maximum-Extractable Value** (MEV), staking ekosistemindeki rolünü ve Smartnode kullanarak bunu istediğiniz gibi nasıl yapılandırabileceğinizi açıklar.

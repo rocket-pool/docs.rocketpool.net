@@ -1,10 +1,10 @@
-# Masquerading as Another Node Address
+# 伪装为另一个节点地址
 
-Starting with Smartnode version `v1.15.7`, users will be able to mock the behaviour of an arbitrary address. While masquerading as another address,
-your node will continue the node and watchtower task loop using your node address and perform duties such as attesting using your validator keys. You will not be able
-to submit transactions or sign messages as the masqueraded address. This feature is especially useful for support and debugging.
+从 Smartnode 版本 `v1.15.7` 开始,用户将能够模拟任意地址的行为。在伪装为另一个地址时,
+您的节点将继续使用您的节点地址执行节点和监视塔任务循环,并使用您的 validator 密钥执行诸如证明等职责。您将无法
+以伪装的地址提交交易或签署消息。此功能对于支持和调试特别有用。
 
-If you wish to interact with the Smartnode through the lens of another node address, please use the following command: `rocketpool wallet masquerade`
+如果您希望通过另一个节点地址的视角与 Smartnode 交互,请使用以下命令:`rocketpool wallet masquerade`
 
 ```
 rp@user:~$ rocketpool wallet masquerade
@@ -23,7 +23,7 @@ y
 Your node is now masquerading as address 0xcaB549EdE082592D10FE6a238e7e8914aD3a074d.
 ```
 
-When you are finished with masquerade mode, simply run `rocketpool wallet end-masquerade` and follow the prompts:
+当您完成伪装模式后,只需运行 `rocketpool wallet end-masquerade` 并按照提示操作:
 
 ```
 rp@user:~$ rocketpool wallet end-masquerade
@@ -36,7 +36,7 @@ y
 Successfully ended masquerade mode.
 ```
 
-Additionally, you can check the status of your node wallet by running `rocketpool wallet status`:
+此外,您可以通过运行 `rocketpool wallet status` 检查节点钱包的状态:
 
 ```
 rp@node:~$ rocketpool wallet status

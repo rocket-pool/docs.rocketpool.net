@@ -1,30 +1,30 @@
 ---
 next:
-  text: Choosing your ETH Clients
-  link: "/en/node-staking/eth-clients"
+  text: 选择您的 ETH 客户端
+  link: "/zh/node-staking/eth-clients"
 ---
 
-# Overview
+# 概述
 
-In this section, you'll learn how to install the Rocket Pool Smartnode stack onto your node machine.
-There are several different flavors of installation; you'll learn which one is right for you and walk through the installation process for it.
+在本节中,您将学习如何将 Rocket Pool Smartnode 堆栈安装到节点机器上。
+有几种不同的安装方式;您将了解哪种方式适合您,并完成安装过程。
 
-## Prerequisites
+## 前提条件
 
-Before diving into this section, please make sure you've:
+在深入了解本节之前,请确保您已:
 
-- Picked a node machine (local hardware or virtual server)
-- Set up the Operating System on it
-- Configured a remote control system such as [SSH](../ssh)
-- Secured it by following the [Securing your Node](../securing-your-node) guide
+- 选择了节点机器(本地硬件或虚拟服务器)
+- 在其上设置了操作系统
+- 配置了远程控制系统,如 [SSH](../ssh)
+- 按照[保护您的节点](../securing-your-node)指南进行了安全加固
 
-## Guides
+## 指南
 
-[Choosing your ETH Clients](../eth-clients) presents the various options for Ethereum clients - both on the Execution Layer (formerly ETH1) and the Consensus Layer (formerly ETH2).
-You'll need one of each in order to run your node, and this section will help you choose which ones you'd like to run.
+[选择您的 ETH 客户端](../eth-clients)介绍了 Ethereum 客户端的各种选项 - 执行层(以前的 ETH1)和共识层(以前的 ETH2)。
+您需要各运行一个才能运行节点,本节将帮助您选择要运行的客户端。
 
-[Selecting a Rocket Pool Mode](../install-modes) will show you the different modes the Rocket Pool Smartnode can be installed with and will help you pick the mode that's best for you.
+[选择 Rocket Pool 模式](../install-modes)将向您展示可以使用的不同 Rocket Pool Smartnode 安装模式,并帮助您选择最适合您的模式。
 
-[Creating a Standard Rocket Pool Node with Docker](../docker) will walk you through the installation process for **Docker Mode** and **Hybrid Mode**.
+[使用 Docker 创建标准 Rocket Pool 节点](../docker)将引导您完成 **Docker 模式**和**混合模式**的安装过程。
 
-[Creating a Native Rocket Pool Node without Docker](../native.mdx) will walk you through the installation process for **Native Mode**.
+[在不使用 Docker 的情况下创建原生 Rocket Pool 节点](../native.mdx)将引导您完成**原生模式**的安装过程。

@@ -1,36 +1,36 @@
-# Preparing the Operating System
+# Vorbereitung des Betriebssystems
 
-As described in the previous section, there are many different VPS and cloud providers.
-Writing guides for all of them would be somewhat impractical, but in this section we'll go over a typical workflow for preparing a virtual machine hosted on [Amazon Web Services](https://aws.amazon.com/).
-Specifically, we'll cover how to select the appropriate virtual hardware configuration and how to prepare the Operating System for Rocket Pool.  
-You should be able to extrapolate how to apply these steps to any provider once you've become familiar with their ecosystem.
+Wie im vorherigen Abschnitt beschrieben, gibt es viele verschiedene VPS- und Cloud-Anbieter.
+Anleitungen für alle zu schreiben wäre etwas unpraktisch, aber in diesem Abschnitt werden wir einen typischen Workflow zur Vorbereitung einer virtuellen Maschine durchgehen, die auf [Amazon Web Services](https://aws.amazon.com/) gehostet wird.
+Insbesondere werden wir behandeln, wie Sie die geeignete virtuelle Hardwarekonfiguration auswählen und wie Sie das Betriebssystem für Rocket Pool vorbereiten.
+Sie sollten in der Lage sein, diese Schritte auf jeden Anbieter zu übertragen, sobald Sie mit dessen Ökosystem vertraut sind.
 
-## Creating an EC2 Virtual Machine
+## Erstellen einer EC2 Virtual Machine
 
-The first step is to [create an AWS account](https://portal.aws.amazon.com/billing/signup) if you don't already have one.
-Follow the instructions provided in that link or log in with an existing account, and you will eventually make it to your management console dashboard:
+Der erste Schritt besteht darin, [ein AWS-Konto zu erstellen](https://portal.aws.amazon.com/billing/signup), falls Sie noch keines haben.
+Folgen Sie den Anweisungen unter diesem Link oder melden Sie sich mit einem bestehenden Konto an, und Sie werden schließlich zu Ihrem Management-Console-Dashboard gelangen:
 
 <img src="./images/aws-console.png" width="100%" height="auto" />
 
-Next, click on the drop-down at the top right of the screen to select the geographic region you want your server to physically reside in.
-Servers cannot be moved between regions once they're created, so you want to ensure you're happy with the currently selected option before actually creating the server.
+Klicken Sie als Nächstes auf das Dropdown-Menü oben rechts auf dem Bildschirm, um die geografische Region auszuwählen, in der sich Ihr Server physisch befinden soll.
+Server können nach ihrer Erstellung nicht zwischen Regionen verschoben werden, daher sollten Sie sicherstellen, dass Sie mit der aktuell ausgewählten Option zufrieden sind, bevor Sie den Server tatsächlich erstellen.
 
-Now, click **Services** in the toolbar.
-Go to the **Compute** section and select **EC2**.
-Your dashboard should change to a view similar to this:
+Klicken Sie nun auf **Services** in der Symbolleiste.
+Gehen Sie zum Abschnitt **Compute** und wählen Sie **EC2**.
+Ihr Dashboard sollte sich zu einer Ansicht ähnlich dieser ändern:
 
 <img src="./images/ec2-dashboard.png" width="100%" height="auto" />
 
-Click the orange **Launch Instance** button and select **Launch Instance** from the list of options to create a new machine.
-You will be presented with a marketplace of Amazon Machine Images.
-Each of these represents a specific snapshot of a machine with a pre-installed Operating System and some other useful software components.
+Klicken Sie auf die orangefarbene Schaltfläche **Launch Instance** und wählen Sie **Launch Instance** aus der Liste der Optionen, um eine neue Maschine zu erstellen.
+Sie werden mit einem Marktplatz von Amazon Machine Images konfrontiert.
+Jedes davon repräsentiert einen spezifischen Snapshot einer Maschine mit einem vorinstallierten Betriebssystem und einigen anderen nützlichen Softwarekomponenten.
 
-For a Rocket Pool node, we recommend you use the **Ubuntu Server 24.04 LTS (HVM)** image.
+Für einen Rocket Pool Node empfehlen wir die Verwendung des **Ubuntu Server 24.04 LTS (HVM)** Image.
 
-Next, you will have to choose an **Instance Type**.
-This determines what virtual hardware resources your machine will have available.
+Als Nächstes müssen Sie einen **Instance Type** auswählen.
+Dieser bestimmt, welche virtuellen Hardwareressourcen Ihrer Maschine zur Verfügung stehen.
 
-At the time of writing, these are what the different options offer:
+Zum Zeitpunkt der Erstellung dieses Dokuments bieten die verschiedenen Optionen Folgendes:
 
 | Instance   | vCPU | CPU Credits / hour | Mem (GiB) | Storage  | Network Performance |
 | ---------- | ---- | ------------------ | --------- | -------- | ------------------- |
@@ -42,198 +42,198 @@ At the time of writing, these are what the different options offer:
 | t2.xlarge  | 4    | 54                 | 16        | EBS-Only | Moderate            |
 | t2.2xlarge | 8    | 81                 | 32        | EBS-Only | Moderate            |
 
-The hardware requirements largely depend on which consensus client you plan to run - Nimbus, for example, requires less than 1GB of RAM by itself so it is perfectly reasonable to run it on a **t2.large** instance.
-For more RAM-heavy clients, you may want to go with a **t2.xlarge** instance for extra headroom.
+Die Hardwareanforderungen hängen weitgehend davon ab, welchen Consensus Client Sie ausführen möchten - Nimbus benötigt beispielsweise weniger als 1 GB RAM für sich selbst, sodass es durchaus vernünftig ist, ihn auf einer **t2.large** Instanz auszuführen.
+Für RAM-intensivere Clients möchten Sie möglicherweise eine **t2.xlarge** Instanz für zusätzlichen Spielraum wählen.
 
 ::: tip
-You may want to consult the [Choosing your ETH Clients](../eth-clients) section before deciding on an instance type so you can make sure that the client you want is supported by the instance type you choose.
+Sie sollten möglicherweise den Abschnitt [Auswahl Ihrer ETH Clients](../eth-clients) konsultieren, bevor Sie sich für einen Instance Type entscheiden, damit Sie sicherstellen können, dass der gewünschte Client vom ausgewählten Instance Type unterstützt wird.
 :::
 
-Once you've made your choice, click the **Next** button.
-The default settings are all fine for the **Instance Details** section, so leave them alone and click **Next**.
+Sobald Sie Ihre Wahl getroffen haben, klicken Sie auf die Schaltfläche **Next**.
+Die Standardeinstellungen sind alle in Ordnung für den Bereich **Instance Details**, lassen Sie sie also in Ruhe und klicken Sie auf **Next**.
 
-When you arrive at the **Add Storage** section, you'll create a new virtual hard drive for your system.
-This can be expanded later thanks to the power of the cloud, so getting the correct number now isn't absolutely critical.
-However, for the sake of your own peace of mind, you should change the size to one of the following figures:
+Wenn Sie beim Bereich **Add Storage** ankommen, erstellen Sie eine neue virtuelle Festplatte für Ihr System.
+Diese kann später dank der Macht der Cloud erweitert werden, sodass es nicht absolut kritisch ist, jetzt die richtige Zahl zu bekommen.
+Jedoch sollten Sie die Größe der Beruhigung wegen auf eine der folgenden Zahlen ändern:
 
-- Use at least **100 GiB** if you're just trying Rocket Pool out on the [Hoodi Test Network](../../testnet/overview).
-- Use at least **1 TiB** (preferably **2 TiB**) if you're going to use this node on the main Ethereum network (**mainnet**).
+- Verwenden Sie mindestens **100 GiB**, wenn Sie Rocket Pool nur im [Hoodi Test Network](../../testnet/overview) ausprobieren.
+- Verwenden Sie mindestens **1 TiB** (vorzugsweise **2 TiB**), wenn Sie diesen Node im Haupt-Ethereum-Netzwerk (**mainnet**) verwenden werden.
 
-Leave the default values for the other settings and click **Next**.
+Belassen Sie die Standardwerte für die anderen Einstellungen und klicken Sie auf **Next**.
 
-In the **Add Tags** step, you should click the **click to add a Name tag** button and give it an easy-to-remember name that you can use to identify the server later; something like **Rocket Pool Smartnode** will work if you need inspiration.
-Click **Next** when you're done.
+Im Schritt **Add Tags** sollten Sie auf die Schaltfläche **click to add a Name tag** klicken und ihm einen leicht zu merkenden Namen geben, den Sie später zur Identifizierung des Servers verwenden können; etwas wie **Rocket Pool Smartnode** funktioniert, wenn Sie Inspiration benötigen.
+Klicken Sie auf **Next**, wenn Sie fertig sind.
 
-In the **Security Group** section, keep the **Create a new security group** option selected.
-Enter a name and description such as **Smartnode** and **Smartnode Group**.
-Remove all of the existing rules in the table and add the following rules:
+Im Bereich **Security Group** lassen Sie die Option **Create a new security group** ausgewählt.
+Geben Sie einen Namen und eine Beschreibung wie **Smartnode** und **Smartnode Group** ein.
+Entfernen Sie alle vorhandenen Regeln in der Tabelle und fügen Sie die folgenden Regeln hinzu:
 
 | Type       | Port Range | Source                           | Description |
 | ---------- | ---------- | -------------------------------- | ----------- |
-| SSH        | 22         | [Your public IP address at home] | SSH Access  |
+| SSH        | 22         | [Ihre öffentliche IP-Adresse zu Hause] | SSH Access  |
 | Custom TCP | 30303      | Anywhere                         | ETH1 P2P    |
 | Custom UDP | 30303      | Anywhere                         | ETH1 P2P    |
 | Custom TCP | 9001       | Anywhere                         | ETH2 P2P    |
 | Custom UDP | 9001       | Anywhere                         | ETH2 P2P    |
 
-This will allow you to remotely connect to your server via SSH (the command line terminal) from your laptop or desktop.
-It will also allow the Execution and Consensus clients to connect to other nodes on the Ethereum network.
+Dies ermöglicht es Ihnen, sich per SSH (das Kommandozeilen-Terminal) von Ihrem Laptop oder Desktop aus mit Ihrem Server zu verbinden.
+Es ermöglicht auch den Execution und Consensus Clients, sich mit anderen Nodes im Ethereum-Netzwerk zu verbinden.
 
-::: warning NOTE
-For SSH access, this will only work if you have a **static public IP address**.
-You will likely need to request this from your ISP, as many of them use a dynamic IP system and change your public address occasionally.
-If you cannot procure a static address, you will have to go to the AWS console and update this setting with your new IP address every time it changes.
+::: warning HINWEIS
+Für SSH-Zugriff funktioniert dies nur, wenn Sie eine **statische öffentliche IP-Adresse** haben.
+Sie müssen dies wahrscheinlich von Ihrem ISP anfordern, da viele von ihnen ein dynamisches IP-System verwenden und Ihre öffentliche Adresse gelegentlich ändern.
+Wenn Sie keine statische Adresse beschaffen können, müssen Sie zur AWS-Konsole gehen und diese Einstellung mit Ihrer neuen IP-Adresse aktualisieren, jedes Mal wenn sie sich ändert.
 :::
 
-The security group table should now resemble this:
+Die Security Group Tabelle sollte jetzt so aussehen:
 
 <img src="./images/security-group.png" width="100%" height="auto" />
 
-Now, review all of the instance details to make sure you're happy with them, and click **Launch** when you're satisfied.
-When the **SSH key pair** prompt appears, select **Create a new key pair**.
-Give it a memorable name such as **Smartnode Key**, then click **Download Key Pair**.
-Store these files somewhere secure, such as `~/.ssh/` (or `C:\Users\[your username]\.ssh\` on Windows) where your other keys commonly reside.
+Überprüfen Sie nun alle Instanzdetails, um sicherzustellen, dass Sie damit zufrieden sind, und klicken Sie auf **Launch**, wenn Sie zufrieden sind.
+Wenn die **SSH key pair** Eingabeaufforderung erscheint, wählen Sie **Create a new key pair**.
+Geben Sie ihm einen einprägsamen Namen wie **Smartnode Key**, und klicken Sie dann auf **Download Key Pair**.
+Speichern Sie diese Dateien an einem sicheren Ort, wie z.B. `~/.ssh/` (oder `C:\Users\[Ihr Benutzername]\.ssh\` unter Windows), wo Ihre anderen Schlüssel üblicherweise gespeichert sind.
 
 ::: danger
-This key pair contains the private key that you will use to SSH into your machine.
-If anyone gets a hold of this key, they will have complete access to your node - **including your Rocket Pool node wallet** and all of the coins within it.
-You **must** keep this file secure at all times.
+Dieses Schlüsselpaar enthält den privaten Schlüssel, den Sie für SSH auf Ihre Maschine verwenden werden.
+Wenn jemand in den Besitz dieses Schlüssels gelangt, hat er vollständigen Zugriff auf Ihren Node - **einschließlich Ihrer Rocket Pool Node Wallet** und aller darin enthaltenen Coins.
+Sie **müssen** diese Datei jederzeit sicher aufbewahren.
 :::
 
-Next, click **Launch Instance** to create your new virtual server.
-When a notice pops up, click the **View Instances** to be taken to your list of servers.
-You'll see your Rocket Pool node there with some accompanying details about its configuration and status.
+Als Nächstes klicken Sie auf **Launch Instance**, um Ihren neuen virtuellen Server zu erstellen.
+Wenn eine Benachrichtigung erscheint, klicken Sie auf **View Instances**, um zu Ihrer Liste von Servern zu gelangen.
+Sie sehen dort Ihren Rocket Pool Node mit einigen begleitenden Details zu seiner Konfiguration und seinem Status.
 
-Finally, assign an **Elastic IP Address** to your machine - you can think of this like a static IP address that is exclusive to AWS.
-Your node will always be accessible at this address, so you can always use the same SSH command to connect to it.
+Schließlich weisen Sie Ihrer Maschine eine **Elastic IP Address** zu - Sie können sich das wie eine statische IP-Adresse vorstellen, die exklusiv für AWS ist.
+Ihr Node wird immer unter dieser Adresse erreichbar sein, sodass Sie immer denselben SSH-Befehl verwenden können, um sich damit zu verbinden.
 
-Go to **Network and Security** in the navigation panel on the left and click **Elastic IPs**.
-Now, click **Allocate Elastic IP Address**.
-The default settings are all fine, so just click through the prompts and return to the list when you're done.
+Gehen Sie zu **Network and Security** im Navigationsbereich links und klicken Sie auf **Elastic IPs**.
+Klicken Sie nun auf **Allocate Elastic IP Address**.
+Die Standardeinstellungen sind alle in Ordnung, klicken Sie also einfach durch die Eingabeaufforderungen und kehren Sie zur Liste zurück, wenn Sie fertig sind.
 
-Next, select the new address in the list.
-Click the **Actions** button above it, then click **Associate Elastic IP Address**.
-Leave the resource type set to **Instance** and select the Rocket Pool Smartnode instance you just created from the list.
-Click **Associate** to assign the address to your virtual server.
-Now, if you look under the \*Associated Instance ID\*\* column of the address, you can verify that it has your machine assigned to it.
+Als Nächstes wählen Sie die neue Adresse in der Liste aus.
+Klicken Sie auf die Schaltfläche **Actions** darüber und dann auf **Associate Elastic IP Address**.
+Belassen Sie den Ressourcentyp auf **Instance** und wählen Sie die Rocket Pool Smartnode Instanz aus, die Sie gerade erstellt haben, aus der Liste.
+Klicken Sie auf **Associate**, um die Adresse Ihrem virtuellen Server zuzuweisen.
+Wenn Sie nun unter der Spalte **Associated Instance ID** der Adresse nachsehen, können Sie überprüfen, ob Ihre Maschine ihr zugewiesen ist.
 
-## Accessing the Machine
+## Zugriff auf die Maschine
 
-To access the machine, open a new terminal on Linux or macOS (use Powershell on Windows) and type the following command:
+Um auf die Maschine zuzugreifen, öffnen Sie ein neues Terminal unter Linux oder macOS (verwenden Sie Powershell unter Windows) und geben Sie den folgenden Befehl ein:
 
 ```shell
-ssh [your elastic IP address]
+ssh [Ihre Elastic IP-Adresse]
 ```
 
-If you stored your keys in the `.ssh` folder, this will use the private key pair you generated during setup to authenticate with the machine automatically - no usernames, no passwords.
+Wenn Sie Ihre Schlüssel im `.ssh` Ordner gespeichert haben, wird dies das private Schlüsselpaar verwenden, das Sie während der Einrichtung generiert haben, um sich automatisch bei der Maschine zu authentifizieren - keine Benutzernamen, keine Passwörter.
 
-Once here, you have complete terminal access to the system.
+Sobald Sie hier sind, haben Sie vollständigen Terminalzugriff auf das System.
 
-## Setting up Swap Space
+## Einrichtung von Swap Space
 
-In most cases, if you choose your Execution and Consensus clients and your instance type carefully, you should not run out of RAM.
-Then again, it never hurts to add a little more.
-What we're going to do now is add what's called **swap space**.
-Essentially, it means we're going to use the SSD as "backup RAM" in case something goes horribly, horribly wrong and your server runs out of regular RAM.
-The SSD isn't nearly as fast as the regular RAM, so if it hits the swap space it will slow things down, but it won't completely crash and break everything.
-Think of this as extra insurance that you'll (most likely) never need.
+In den meisten Fällen sollten Sie nicht ohne RAM auskommen, wenn Sie Ihre Execution und Consensus Clients und Ihren Instance Type sorgfältig auswählen.
+Andererseits schadet es nie, ein wenig mehr hinzuzufügen.
+Was wir jetzt tun werden, ist das Hinzufügen von sogenanntem **Swap Space**.
+Im Wesentlichen bedeutet dies, dass wir die SSD als "Backup-RAM" verwenden werden, falls etwas schrecklich, schrecklich schief geht und Ihr Server keinen regulären RAM mehr hat.
+Die SSD ist nicht annähernd so schnell wie der reguläre RAM, sodass es die Dinge verlangsamen wird, wenn sie den Swap Space erreicht, aber es wird nicht vollständig abstürzen und alles kaputt machen.
+Betrachten Sie dies als zusätzliche Versicherung, die Sie (höchstwahrscheinlich) niemals benötigen werden.
 
-### Creating a Swap File
+### Erstellen einer Swap-Datei
 
-The first step is to make a new file that will act as your swap space.
-Decide how much you want to use - a reasonable start would be 8 GB, so you have 8 GB of normal RAM and 8 GB of "backup RAM" for a total of 16 GB.
-To be super safe, you can make it 24 GB so your system has 8 GB of normal RAM and 24 GB of "backup RAM" for a total of 32 GB, but this is probably overkill.
-Luckily, since your SSD has 1 or 2 TB of space, allocating 8 to 24 GB for a swapfile is negligible.
+Der erste Schritt besteht darin, eine neue Datei zu erstellen, die als Ihr Swap Space fungiert.
+Entscheiden Sie, wie viel Sie verwenden möchten - ein vernünftiger Anfang wären 8 GB, sodass Sie 8 GB normalen RAM und 8 GB "Backup-RAM" für insgesamt 16 GB haben.
+Um ganz sicher zu gehen, können Sie 24 GB einrichten, sodass Ihr System 8 GB normalen RAM und 24 GB "Backup-RAM" für insgesamt 32 GB hat, aber das ist wahrscheinlich übertrieben.
+Glücklicherweise ist es angesichts dessen, dass Ihre SSD 1 oder 2 TB Speicherplatz hat, vernachlässigbar, 8 bis 24 GB für eine Swap-Datei zuzuweisen.
 
-For the sake of this walkthrough, let's pick a nice middleground - say, 16 GB of swap space for a total RAM of 24 GB.
-Just substitute whatever number you want in as we go.
+Wählen wir für diese Anleitung einen schönen Mittelweg - sagen wir 16 GB Swap Space für insgesamt 24 GB RAM.
+Ersetzen Sie einfach die gewünschte Zahl, während wir fortfahren.
 
-Enter this, which will create a new file called `/swapfile` and fill it with 16 GB of zeros.
-To change the amount, just change the number in `count=16` to whatever you want. **Note that this is going to take a long time, but that's ok.**
+Geben Sie Folgendes ein, wodurch eine neue Datei namens `/swapfile` erstellt und mit 16 GB Nullen gefüllt wird.
+Um die Menge zu ändern, ändern Sie einfach die Zahl in `count=16` auf das, was Sie möchten. **Beachten Sie, dass dies sehr lange dauern wird, aber das ist in Ordnung.**
 
 ```shell
 sudo dd if=/dev/zero of=/swapfile bs=1G count=16 status=progress
 ```
 
-Next, set the permissions so only the root user can read or write to it (for security):
+Legen Sie als Nächstes die Berechtigungen fest, sodass nur der Root-Benutzer sie lesen oder schreiben kann (aus Sicherheitsgründen):
 
 ```shell
 sudo chmod 600 /swapfile
 ```
 
-Now, mark it as a swap file:
+Markieren Sie sie nun als Swap-Datei:
 
 ```shell
 sudo mkswap /swapfile
 ```
 
-Next, enable it:
+Aktivieren Sie sie nun:
 
 ```shell
 sudo swapon /swapfile
 ```
 
-Finally, add it to the mount table so it automatically loads when your server reboots:
+Fügen Sie sie schließlich zur Mount-Tabelle hinzu, damit sie beim Neustart Ihres Servers automatisch geladen wird:
 
 ```shell
 sudo nano /etc/fstab
 ```
 
-Add a new line at the end that looks like this:
+Fügen Sie am Ende eine neue Zeile hinzu, die so aussieht:
 
 ```
 /swapfile                            none            swap    sw              0       0
 ```
 
-Press `Ctrl+O` and `Enter` to save, then `Ctrl+X` and `Enter` to exit.
+Drücken Sie `Ctrl+O` und `Enter` zum Speichern, dann `Ctrl+X` und `Enter` zum Beenden.
 
-To verify that it's active, run these commands:
+Um zu überprüfen, ob sie aktiv ist, führen Sie diese Befehle aus:
 
 ```shell
 sudo apt install htop
 htop
 ```
 
-Your output should look like this at the top:
+Ihre Ausgabe sollte oben so aussehen:
 ![](../local/images/pi/Swap.png)
 
-If the second number in the last row labeled `Swp` (the one after the `/`) is non-zero, then you're all set.
-For example, if it shows `0K / 16.0G` then your swap space was activated successfully.
-If it shows `0K / 0K` then it did not work and you'll have to confirm that you entered the previous steps properly.
+Wenn die zweite Zahl in der letzten Zeile mit der Bezeichnung `Swp` (die nach dem `/`) nicht Null ist, dann sind Sie fertig.
+Wenn es beispielsweise `0K / 16.0G` anzeigt, wurde Ihr Swap Space erfolgreich aktiviert.
+Wenn es `0K / 0K` anzeigt, hat es nicht funktioniert und Sie müssen bestätigen, dass Sie die vorherigen Schritte korrekt eingegeben haben.
 
-Press `q` or `F10` to quit out of `htop` and get back to the terminal.
+Drücken Sie `q` oder `F10`, um `htop` zu beenden und zum Terminal zurückzukehren.
 
-### Configuring Swappiness and Cache Pressure
+### Konfiguration von Swappiness und Cache Pressure
 
-By default, Linux will eagerly use a lot of swap space to take some of the pressure off of the system's RAM.
-We don't want that. We want it to use all of the RAM up to the very last second before relying on SWAP.
-The next step is to change what's called the "swappiness" of the system, which is basically how eager it is to use the swap space.
-There is a lot of debate about what value to set this to, but we've found a value of 6 works well enough.
+Standardmäßig wird Linux eifrig viel Swap Space verwenden, um etwas Druck vom RAM des Systems zu nehmen.
+Das wollen wir nicht. Wir möchten, dass es den gesamten RAM bis zur letzten Sekunde verwendet, bevor es sich auf SWAP verlässt.
+Der nächste Schritt besteht darin, die sogenannte "Swappiness" des Systems zu ändern, die im Grunde angibt, wie eifrig es ist, den Swap Space zu verwenden.
+Es gibt viele Debatten darüber, auf welchen Wert dies gesetzt werden soll, aber wir haben festgestellt, dass ein Wert von 6 gut genug funktioniert.
 
-We also want to turn down the "cache pressure", which dictates how quickly the server will delete a cache of its filesystem.
-Since we're going to have a lot of spare RAM with our setup, we can make this "10" which will leave the cache in memory for a while, reducing disk I/O.
+Wir möchten auch den "Cache Pressure" heruntersetzen, der bestimmt, wie schnell der Server einen Cache seines Dateisystems löscht.
+Da wir mit unserem Setup viel freien RAM haben werden, können wir dies auf "10" setzen, wodurch der Cache für eine Weile im Speicher belassen wird und Disk-I/O reduziert wird.
 
-To set these, run these commands:
+Um diese zu setzen, führen Sie diese Befehle aus:
 
 ```shell
 sudo sysctl vm.swappiness=6
 sudo sysctl vm.vfs_cache_pressure=10
 ```
 
-Now, put them into the `sysctl.conf` file so they are reapplied after a reboot:
+Fügen Sie sie nun in die Datei `sysctl.conf` ein, damit sie nach einem Neustart erneut angewendet werden:
 
 ```shell
 sudo nano /etc/sysctl.conf
 ```
 
-Add these two lines to the end:
+Fügen Sie diese beiden Zeilen am Ende hinzu:
 
 ```shell
 vm.swappiness=6
 vm.vfs_cache_pressure=10
 ```
 
-Then save and exit like you've done before (`Ctrl+O`, `Ctrl+X`).
+Dann speichern und beenden Sie wie zuvor (`Ctrl+O`, `Ctrl+X`).
 
-And with that, your server is up and running and ready to run Rocket Pool!
-Move on to the [Choosing your ETH Clients](../eth-clients) section.
+Und damit ist Ihr Server betriebsbereit und bereit, Rocket Pool auszuführen!
+Fahren Sie mit dem Abschnitt [Auswahl Ihrer ETH Clients](../eth-clients) fort.

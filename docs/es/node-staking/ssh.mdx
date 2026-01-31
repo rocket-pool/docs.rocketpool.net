@@ -1,126 +1,124 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 import powershell from "./images/powershell.png";
 
-# Intro to Secure Shell (SSH)
+# Introducción a Secure Shell (SSH)
 
-In general, there are two ways to access your node machine: **locally**, and **remotely**.
+En general, hay dos formas de acceder a tu máquina de nodo: **localmente** y **remotamente**.
 
-- **Locally** refers to sitting down at the physical node and using a monitor and keyboard connected directly to it.
-- **Remotely** refers to connecting to the node using a different computer (say, a laptop or desktop) over a network and interacting with it from there.
+- **Localmente** se refiere a sentarte en el nodo físico y usar un monitor y teclado conectados directamente a él.
+- **Remotamente** se refiere a conectarse al nodo usando una computadora diferente (digamos, una laptop o escritorio) a través de una red e interactuar con él desde allí.
 
-Most of the time, node operators prefer the flexibility of working on their node **remotely**.
+La mayoría de las veces, los Node Operators prefieren la flexibilidad de trabajar en su nodo **remotamente**.
 
-The Smartnode currently doesn't have a GUI (Graphical User Interface), only a CLI (Command Line Interface), which means interacting with it is done entirely by typing commands into a command-line terminal.
-As such, interacting with it remotely requires some way to access your node's terminal from a different machine.
-In this section, we'll provide a brief introduction to the most popular way of doing this: **SSH**.
+El Smartnode actualmente no tiene una GUI (Interfaz Gráfica de Usuario), solo una CLI (Interfaz de Línea de Comandos), lo que significa que interactuar con él se hace completamente escribiendo comandos en un terminal de línea de comandos.
+Como tal, interactuar con él remotamente requiere alguna forma de acceder al terminal de tu nodo desde una máquina diferente.
+En esta sección, proporcionaremos una breve introducción a la forma más popular de hacer esto: **SSH**.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Using a Windows Machine">
-      There are a few different ways to use SSH from a Windows machine.
+    <Tab label="Usando una Máquina Windows">
+      Hay algunas formas diferentes de usar SSH desde una máquina Windows.
 
-      The simplest is to use **Powershell**, which is a powerful command terminal that comes built into modern versions of
+      La más simple es usar **Powershell**, que es un potente terminal de comandos que viene integrado en versiones modernas de
       Windows.
-      Powershell has SSH included, so you can use it right away without installing any supplemental programs.
+      Powershell tiene SSH incluido, por lo que puedes usarlo de inmediato sin instalar ningún programa suplementario.
 
-      You can find it by opening the Start menu and typing `Powershell` into the search bar; there will be several
-      options, but option you want is simply called `Windows Powershell`:
+      Puedes encontrarlo abriendo el menú Inicio y escribiendo `Powershell` en la barra de búsqueda; habrá varias
+      opciones, pero la opción que deseas se llama simplemente `Windows Powershell`:
 
       <img src={powershell} width="100%" height="auto" />
 
-      This will open up a terminal with a blue background.
-      You can use `ssh` from here - see below for instructions on how to do that.
+      Esto abrirá un terminal con un fondo azul.
+      Puedes usar `ssh` desde aquí - consulta a continuación las instrucciones sobre cómo hacer eso.
 
-      Another popular tool is called [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html).
-      PuTTY is a special program that includes a terminal dedicated for SSH usage, but it also comes with a convenient GUI
-      for doing things like changing configurations, saving settings to a "profile", and keeping a list of machines you
-      can easily connect to by selecting from a list.
+      Otra herramienta popular se llama [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html).
+      PuTTY es un programa especial que incluye un terminal dedicado para el uso de SSH, pero también viene con una GUI conveniente
+      para hacer cosas como cambiar configuraciones, guardar configuraciones en un "perfil" y mantener una lista de máquinas a las
+      que puedes conectarte fácilmente seleccionando de una lista.
 
-      Instead of using `ssh` as you would with the other tools, PuTTY will do this for you automatically - all you need to
-      provide are the username and password.
-      For information on how to use PuTTY, take a look at [this great
+      En lugar de usar `ssh` como lo harías con las otras herramientas, PuTTY hará esto por ti automáticamente - todo lo que necesitas
+      proporcionar es el nombre de usuario y la contraseña.
+      Para obtener información sobre cómo usar PuTTY, echa un vistazo a [este excelente
       tutorial](https://tonyteaches.tech/putty-ssh-windows-tutorial/).
 
       <p className="rspress-directive warning">
-        **NOTE**: PuTTY might display the wrong colors in the `rocketpool service
-        config` text-based user interface (TUI).
-        There's an easy solution for this. In the PuTTY
-        settings, navigate to **Connection** > **Data** > **Terminal Details**
-        in the dropdown menu. There should be a **Terminal-type string** text box. Type in `xterm-256color`, then save
-        the settings
-        to resolve this.
+        **NOTA**: PuTTY puede mostrar los colores incorrectos en la interfaz de usuario basada en texto (TUI) de `rocketpool service
+        config`.
+        Hay una solución fácil para esto. En la configuración de PuTTY, navega a **Connection** > **Data** > **Terminal Details**
+        en el menú desplegable. Debería haber un cuadro de texto **Terminal-type string**. Escribe `xterm-256color`, luego guarda
+        la configuración
+        para resolver esto.
       </p>
 
     </Tab>
-    <Tab label="Using a Linux or macOS Machine">
-      Using SSH from a Linux or macOS machine is trivial; if you're already using one of these, then you've likely already
-      interacted with the terminal at some point.
-      SSH is built directly into the terminal; use it by running the `ssh` command. By default, SSH will allow you to
-      connect to your node's primary user account.
+    <Tab label="Usando una Máquina Linux o macOS">
+      Usar SSH desde una máquina Linux o macOS es trivial; si ya estás usando una de estas, probablemente ya hayas
+      interactuado con el terminal en algún momento.
+      SSH está integrado directamente en el terminal; úsalo ejecutando el comando `ssh`. Por defecto, SSH te permitirá
+      conectarte a la cuenta de usuario principal de tu nodo.
     </Tab>
 
   </Tabs>
 </div>
 
-Here's how you would connect to your node using SSH.
+Así es como te conectarías a tu nodo usando SSH.
 
-:::warning NOTE
-Run the following command from your laptop or desktop, **not from your node itself**!
+:::warning NOTA
+¡Ejecuta el siguiente comando desde tu laptop o escritorio, **no desde tu nodo mismo**!
 :::
 
 ```shell
 ssh username@node-ip-address
 ```
 
-Say, for example, that your node's username is `staker` and your node's IP address is `192.168.1.10`.
-You would connect to it with the following command:
+Por ejemplo, si el nombre de usuario de tu nodo es `staker` y la dirección IP de tu nodo es `192.168.1.10`,
+te conectarías con el siguiente comando:
 
 ```shell
 ssh staker@192.168.1.10
 ```
 
-The first time you do this, you will see a message presenting the public key that your node is using - if you are
-familiar with how to verify this key, you can do so now.
-Otherwise, if you trust that you have the correct node IP address in your `ssh` command, you can just say `yes` to
-accept it.
-You only need to do this once.
+La primera vez que hagas esto, verás un mensaje presentando la clave pública que tu nodo está usando - si estás
+familiarizado con cómo verificar esta clave, puedes hacerlo ahora.
+De lo contrario, si confías en que tienes la dirección IP del nodo correcta en tu comando `ssh`, simplemente puedes decir `yes` para
+aceptarla.
+Solo necesitas hacer esto una vez.
 
-The client will then prompt you for your user's password; once you enter that, you're in!
-You will be greeted with a welcome message, some details about your machine, and a new prompt.
+El cliente entonces te pedirá la contraseña de tu usuario; una vez que la ingreses, ¡estás dentro!
+Serás recibido con un mensaje de bienvenida, algunos detalles sobre tu máquina y un nuevo prompt.
 
-At this point, everything you type in the terminal **is executed remotely on your node machine** - it's as if you
-were logged directly into the node machine and typing on it with a locally-attached keyboard!
+En este punto, todo lo que escribas en el terminal **se ejecuta remotamente en tu máquina de nodo** - ¡es como si
+estuvieras conectado directamente a la máquina de nodo y escribiendo en ella con un teclado conectado localmente!
 
-You'll need to SSH into the terminal periodically for updates and maintenance.
-It can be inconvenient to remember how to log in to your node, so it may be helpful to shorten this command by
-creating a memorable alias - a custom "shortcut" command.
+Necesitarás conectarte por SSH al terminal periódicamente para actualizaciones y mantenimiento.
+Puede ser inconveniente recordar cómo iniciar sesión en tu nodo, por lo que puede ser útil acortar este comando creando un alias memorable - un "atajo" de comando personalizado.
 
-:::warning NOTE
-If you do this, be sure to create the alias on the **client machine**, **not** on the node!
-If your terminal is still connected to the node, first run `exit` at the command prompt (or simply open a new
-terminal window).
+:::warning NOTA
+Si haces esto, asegúrate de crear el alias en la **máquina cliente**, **no** en el nodo.
+Si tu terminal todavía está conectado al nodo, primero ejecuta `exit` en el prompt de comando (o simplemente abre una nueva
+ventana de terminal).
 :::
 
-:::warning NOTE
-This section only applies to Linux/OSX or WSL users - PowerShell is not supported.
+:::warning NOTA
+Esta sección solo se aplica a usuarios de Linux/OSX o WSL - PowerShell no es compatible.
 :::
 
-In this example, we'll create an alias called `ethnode` which will replace the SSH command.
-Assuming, as before, that your node's username is `staker` and your node's IP address is `192.168.1.10`, create the
-alias with the following command:
+En este ejemplo, crearemos un alias llamado `ethnode` que reemplazará el comando SSH.
+Asumiendo, como antes, que el nombre de usuario de tu nodo es `staker` y la dirección IP de tu nodo es `192.168.1.10`, crea el
+alias con el siguiente comando:
 
 ```shell
 echo "alias ethnode='ssh staker@192.168.1.10'" >> ~/.bash_aliases
 ```
 
-Reload the alias list to make your current terminal window aware of the new alias:
+Recarga la lista de alias para hacer que tu ventana de terminal actual sea consciente del nuevo alias:
 
 ```shell
 source ~/.bash_aliases
 ```
 
-Now, you can connect to the node using the alias you just created instead of the longer command that involves
-specifying the node's IP address:
+Ahora, puedes conectarte al nodo usando el alias que acabas de crear en lugar del comando más largo que implica
+especificar la dirección IP del nodo:
 
 ```shell
 ethnode

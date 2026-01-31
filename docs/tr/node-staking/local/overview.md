@@ -1,19 +1,19 @@
 ---
 next:
-  text: Selecting Staking Hardware
-  link: "/en/node-staking/local/hardware"
+  text: Staking Donanımı Seçimi
+  link: "/tr/node-staking/local/hardware"
 ---
 
-# Overview
+# Genel Bakış
 
-This section is aimed at helping you understand the process of preparing a local machine for use as a Rocket Pool node at home.
+Bu bölüm, evde Rocket Pool node'u olarak kullanılmak üzere yerel bir makinenin hazırlanması sürecini anlamanıza yardımcı olmayı amaçlamaktadır.
 
-## Guides
+## Kılavuzlar
 
-[Selecting Staking Hardware](./hardware) shows a wide variety of viable hardware configurations for node operation, hopefully helping you find inspiration when picking what to get for yourself.
+[Staking Donanımı Seçimi](./hardware) node operasyonu için çok çeşitli uygun donanım yapılandırmalarını göstererek kendiniz için ne alacağınızı seçerken size ilham vermenize yardımcı olur.
 
-[Preparing a PC, Mini-PC, or NUC](./prepare-pc) walks you through the basic steps of installing and configuring the base Operating System on your machine to prepare it for life as a node.
+[PC, Mini-PC veya NUC Hazırlama](./prepare-pc) makinenizi node olarak kullanmaya hazırlamak için temel işletim sistemini kurma ve yapılandırma adımlarında size rehberlik eder.
 
-[Preparing a Mac](./prepare-mac) is the same, but for macOS systems.
+[Mac Hazırlama](./prepare-mac) aynı işlemleri macOS sistemleri için gösterir.
 
-[Intro to Secure Shell (SSH)](../ssh) shows you how to use **SSH**, a popular remote-access tool for working with your node machine remotely and securely from a different machine (such as a laptop or desktop) so you don't have to interact with the node directly via a monitor and keyboard connected to it.
+[Secure Shell (SSH)'ye Giriş](../ssh) node makinenizi farklı bir makineden (dizüstü bilgisayar veya masaüstü gibi) uzaktan ve güvenli bir şekilde yönetmek için kullanabileceğiniz popüler bir uzaktan erişim aracı olan **SSH**'yi nasıl kullanacağınızı gösterir, böylece node'a doğrudan monitör ve klavye ile etkileşimde bulunmanıza gerek kalmaz.

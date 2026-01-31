@@ -1,138 +1,138 @@
-# Glossary
+# 术语表
 
-You may stumble upon some unfamiliar concepts in the Rocket Pool documentation. This section lists the common terms in the documentation for easy access, learning and plugin/theme development.
+在 Rocket Pool 文档中，你可能会遇到一些不熟悉的概念。本节列出了文档中的常用术语，便于访问、学习和插件/主题开发。
 
-## APY - Annual Percent Yield (APY)
+## APY - 年化收益率 (APY)
 
-The amount of profit (yield) calculated over a one-year period divided by the initial investment amount expressed as a percentage.
+一年内计算的利润（收益）除以初始投资金额，以百分比表示。
 
-## Bonding
+## Bonding（保证金）
 
-_See insurance._
+_参见保险。_
 
-## Contract, (Smart)
+## Contract（智能合约）
 
-An Ethereum program (smart contract) that is used to perform a set of programmed functions. Rocket Pool smart contracts include the deposit pool, minipool validator formation, and issue and track various token interactions on the Ethereum chain.
+用于执行一组编程功能的以太坊程序（智能合约）。Rocket Pool 智能合约包括存款池、minipool 验证器形成，以及在以太坊链上发行和跟踪各种代币交互。
 
-## Client
+## Client（客户端）
 
-A client is an implementation of Ethereum software that verifies all transactions in each block, keeping the network secure and the data accurate. _See also Execution and Consensus client._
+客户端是以太坊软件的实现，用于验证每个区块中的所有交易，保持网络安全和数据准确。_另见执行客户端和共识客户端。_
 
-## Custodial
+## Custodial（托管）
 
-Centralized service that manages the entire ETH staking process on behalf of the user and retains "custody" over private validator keys and withdrawal keys. _See also non-custodial._
+代表用户管理整个 ETH 质押过程并保留验证器私钥和提款密钥"托管权"的中心化服务。_另见非托管。_
 
-## DAO (Decentralized Autonomous Organization)
+## DAO（去中心化自治组织）
 
-An organization represented by rules encoded as a computer program that is transparent, controlled by the organization members, and not influenced by a central government.
+一种由编码为计算机程序的规则所代表的组织，透明、由组织成员控制，不受中央政府影响。
 
-## Deposit Pool
+## Deposit Pool（存款池）
 
-The amount of ETH ready to be staked. The deposit pool is funded by regular users when they swap ETH for rETH. This ETH is the amount that is waiting to be paired with node operators in the node operator queue.
+准备被质押的 ETH 数量。存款池由普通用户在将 ETH 兑换为 rETH 时提供资金。这些 ETH 是等待与节点运营商队列中的节点运营商配对的金额。
 
 ## ETH
 
-The fundamental cryptocurrency coin generated and used by the Ethereum protocol.
+以太坊协议生成和使用的基础加密货币。
 
-## Execution Client
+## Execution Client（执行客户端）
 
-Ethereum Software clients that run the execution layer.
+运行执行层的以太坊软件客户端。
 
-## Consensus Client
+## Consensus Client（共识客户端）
 
-Ethereum Software clients that run the consensus layer.
+运行共识层的以太坊软件客户端。
 
-## eth2.0 (the Beaconchain)
+## eth2.0（信标链）
 
-The Ethereum 2.0 network and update to the Ethernet network that was launched in December 2020 and replaced the proof-of-work eth1.0 consensus mechanism in September 2022. Deprecated term - now known simply as the Beaconchain or the consensus layer.
+以太坊 2.0 网络和以太坊网络的更新，于 2020 年 12 月启动，并于 2022 年 9 月取代了工作量证明 eth1.0 共识机制。已弃用的术语 - 现在简称为信标链或共识层。
 
-## Insurance
+## Insurance（保险）
 
-The amount of RPL token, expressed as a percentage of the value of ETH provided by the protocol, that a node operator needs to deposit when they start a minipool validator. The RPL insurance staked by a node operator will act as insurance to reimburse regular users in the event that the node operator exits staking with less than the protocol-provided ETH in their validators (24 ETH in the case of an 8 ETH minipool, 16 ETH in the case of a 16 ETH minipool).
+节点运营商在启动 minipool 验证器时需要存入的 RPL 代币数量，以协议提供的 ETH 价值的百分比表示。节点运营商质押的 RPL 保险将作为保险，在节点运营商退出质押时验证器中的 ETH 少于协议提供的 ETH（8 ETH minipool 为 24 ETH，16 ETH minipool 为 16 ETH）的情况下补偿普通用户。
 
-## Minipool (Validator)
+## Minipool（验证器）
 
-A validator that was funded and initialized via the Rocket Pool software. It is composed of ETH contributed from regular users via the deposit pool and ETH contributed from node operators during their registration process.
+通过 Rocket Pool 软件资助和初始化的验证器。它由普通用户通过存款池贡献的 ETH 和节点运营商在注册过程中贡献的 ETH 组成。
 
-## Node
+## Node（节点）
 
-In the Ethereum network, nodes are devices (computers) that run Ethereum client software.
+在以太坊网络中，节点是运行以太坊客户端软件的设备（计算机）。
 
-## Node Commission
+## Node Commission（节点佣金）
 
-The amount of supplemental ETH awarded to a node operator. This is effectively the “fee” that is taken from normal stakers; in Rocket Pool, that fee is given to the node operators. When Rocketpool launched, it ranged from 5 - 20% with the ideal target of 10%, with each minipool’s commission locked for life upon the creation of the minipool. New minipools activated are now at a set 14% commission rate.
+授予节点运营商的补充 ETH 数量。这实际上是从普通质押者那里收取的"费用"；在 Rocket Pool 中，该费用给予节点运营商。当 Rocketpool 启动时，佣金范围为 5-20%，理想目标为 10%，每个 minipool 的佣金在创建时终身锁定。现在激活的新 minipool 设定为 14% 的佣金率。
 
-## Node Operator
+## Node Operator（节点运营商）
 
-An individual that wishes to secure the Ethereum network by operating a node (computer) that will run the Rocket Pool software, a validator client, and optionally an execution and beaconchain client as well. Node operators will earn ETH APY rewards at a greater rate than solo-stakers on the Ethereum network.
+希望通过运行将运行 Rocket Pool 软件、验证器客户端以及可选的执行客户端和信标链客户端的节点（计算机）来保护以太坊网络安全的个人。节点运营商将获得比以太坊网络上独立质押者更高的 ETH APY 奖励率。
 
-## Node Software
+## Node Software（节点软件）
 
-A set of programs that allow node operators to interact with the Rocket Pool protocol.
+允许节点运营商与 Rocket Pool 协议交互的一组程序。
 
-## Node Wallet
+## Node Wallet（节点钱包）
 
-An Ethereum wallet that is generated by Rocket Pool upon creating a new node. This wallet will be used to fund new minipools during their creation and pay for the gas fees needed to interact with Rocket Pool’s smart contracts.
+Rocket Pool 在创建新节点时生成的以太坊钱包。此钱包将用于在创建新 minipool 时提供资金，并支付与 Rocket Pool 智能合约交互所需的 gas 费用。
 
-## Non-Custodial
+## Non-Custodial（非托管）
 
-A service that provides streamlining for validator set up in management but does not hold user private validator keys and withdrawal keys. Rocket Pool is a non-custodial staking service.
+提供验证器设置和管理简化但不持有用户验证器私钥和提款密钥的服务。Rocket Pool 是一种非托管质押服务。
 
 ## Oracle DAO (oDAO)
 
-A DAO composed of all the oracle node operators. _See also DAO._
+由所有预言机节点运营商组成的 DAO。_另见 DAO。_
 
-## Oracle Node
+## Oracle Node（预言机节点）
 
-A special node run by trusted members of the Rocket Pool community that relays information from the beacon chain (such as total staking rewards and validator exit status) back to the execution layer so the Rocket Pool smart contracts can function correctly.
+由 Rocket Pool 社区受信任成员运行的特殊节点，将信标链的信息（如总质押奖励和验证器退出状态）传递回执行层，以便 Rocket Pool 智能合约能够正确运行。
 
-## Proof-of-Stake (PoS)
+## Proof-of-Stake (PoS)（权益证明）
 
-The consensus mechanism used in Ethereum, where users vote on the correctness of new blocks by staking the ETH in their wallet.
+以太坊使用的共识机制，用户通过质押钱包中的 ETH 来投票决定新区块的正确性。
 
 ## Protocol DAO (pDAO)
 
-The DAO composed of all holders of RPL tokens. _See also DAO._
+由所有 RPL 代币持有者组成的 DAO。_另见 DAO。_
 
-## Regular Node (Operator)
+## Regular Node (Operator)（普通节点运营商）
 
-The term given to “normal” node operators that do not have the additional responsibilities of Oracle Nodes.
+指没有预言机节点额外职责的"普通"节点运营商。
 
-## Regular Stakers
+## Regular Stakers（普通质押者）
 
-A retail (regular) user that wants to earn interest on their ETH coin without decoupling it from the underlying value of ETH. A regular staker interacts with the Rocket pool platform by swapping ETH coins for rETH tokens. Their ETH is entered into the staking pool, where it is acquired by Node Operators when they create new minipools.
+希望在不脱离 ETH 基础价值的情况下通过 ETH 赚取利息的零售（普通）用户。普通质押者通过将 ETH 兑换为 rETH 代币与 Rocket Pool 平台交互。他们的 ETH 进入质押池，在节点运营商创建新 minipool 时被获取。
 
 ## rETH (Rocket Pool Staking Deposit Token)
 
-A token that represents a regular user’s deposit into the staking pool. Users receive an equivalent value of rETH token for each ETH coin they deposit. As interest is earned by staking on the Ethereum network the value of the rETH token increases with respect to ETH. This token does not need to be locked within the network and it can be traded, sold or held as the user desires.
+代表普通用户存入质押池的代币。用户存入的每个 ETH 都会收到等值的 rETH 代币。随着在以太坊网络上质押赚取利息，rETH 代币相对于 ETH 的价值会增加。此代币无需锁定在网络中，可以根据用户意愿进行交易、出售或持有。
 
 ## RPL (Rocket Pool Token)
 
-**RPL — Rocket Pool Protocol Token**
+**RPL — Rocket Pool 协议代币**
 
-RPL is the primary protocol token that will be used in governance of the protocol and can also be staked on a Rocket Pool node.
+RPL 是将用于协议治理的主要协议代币，也可以在 Rocket Pool 节点上质押。
 
-From a Node Operator perspective:
+从节点运营商的角度来看：
 
-- As of Saturn 1, vote-eligible staked RPL will get a share of total protocol revenue
-- The [majority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation is given as rewards to Node Operators based on staked RPL; these rewards are planned to be phase out with Saturn 2
-- For Saturn 0 minipools (made after 10/28/2024): Staked RPL provides up to 4% additional bonus commission; bonus commission is planned to be phased out a few months after Saturn 1's launch.
-- Staked provides voting power for governance
+- 从 Saturn 1 开始，符合投票条件的质押 RPL 将获得总协议收入的份额
+- RPL 通胀的[大部分](https://rpips.rocketpool.net/RPIPs/RPIP-25)作为奖励根据质押的 RPL 分配给节点运营商；这些奖励计划在 Saturn 2 中逐步取消
+- 对于 Saturn 0 minipool（2024 年 10 月 28 日之后创建）：质押的 RPL 可提供高达 4% 的额外奖励佣金；奖励佣金计划在 Saturn 1 启动几个月后逐步取消
+- 质押提供治理投票权
 
-From a protocol perspective:
+从协议角度来看：
 
-- A [minority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation provides funding for the pDAO
-- A [minority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation provides funding for the oDAO
-- It can serve as secondary collateral (e.g., against slashing)
+- RPL 通胀的[少部分](https://rpips.rocketpool.net/RPIPs/RPIP-25)为 pDAO 提供资金
+- RPL 通胀的[少部分](https://rpips.rocketpool.net/RPIPs/RPIP-25)为 oDAO 提供资金
+- 它可以作为二级抵押品（例如，针对罚没）
 
-## Stake
+## Stake（质押）
 
-An amount of coin or token that is deposited as an assurance collateral to perform some work. An individual can stake ETH either as a regular user by swapping ETH for rETH or as a node operator by depositing ETH for use as part of the Beaconchain PoS consensus process. A person who stakes their ETH (e.g. a staker) is rewarded with an APY or return on their deposited ETH.
+作为执行某些工作的保证抵押品而存入的代币或代币数量。个人可以作为普通用户通过将 ETH 兑换为 rETH 来质押 ETH，或作为节点运营商通过存入 ETH 用于信标链 PoS 共识过程来质押。质押 ETH 的人（即质押者）将获得 APY 或其存入 ETH 的回报。
 
-## Staking Pool
+## Staking Pool（质押池）
 
-A staking pool allows multiple ETH coin holders to combine their tokens to collectively form the required amount to run an Ethereum validator. Rocket Pool forms, tracks, assigns, and insures these collective pools using a non-custodial decentralized method.
+质押池允许多个 ETH 持有者将其代币组合在一起，共同形成运行以太坊验证器所需的金额。Rocket Pool 使用非托管去中心化方法形成、跟踪、分配和保险这些集体池。
 
-## Validator
+## Validator（验证器）
 
-_See minipool._
+_参见 minipool。_

@@ -1,34 +1,34 @@
 ---
 next:
   text: Starting Rocketpool
-  link: "/en/node-staking/starting-rp"
+  link: "/ja/node-staking/starting-rp"
 ---
 
-# Overview
+# 概要
 
-This section covers the details of how to provision your node for staking with Rocket Pool once you've installed and configured the Smartnode.
-It's a long one because there's a lot of information around staking to cover, so **please read through each guide before creating your first minipool!**
+このセクションでは、Smartnodeをインストールして設定した後、Rocket Poolでステーキングするためにノードをプロビジョニングする方法の詳細について説明します。
+ステーキングに関する多くの情報があるため長い内容となっていますが、**最初のminipoolを作成する前に各ガイドをよくお読みください！**
 
-## Prerequisites
+## 前提条件
 
-Before provisioning your node for staking, please make sure you've done the following:
+ステーキング用にノードをプロビジョニングする前に、以下を完了していることを確認してください。
 
-- Set up a node machine (or virtual machine) and secured it (via the [Securing your Node](../securing-your-node) guide)
-- Have the Smartnode [installed](../installing/overview) and [configured](../config/overview) on it
+- ノードマシン（または仮想マシン）をセットアップして保護している（[ノードのセキュリティ確保](../securing-your-node)ガイドを参照）
+- Smartnodeが[インストール](../installing/overview)され、[設定](../config/overview)されている
 
-## Guides
+## ガイド
 
-[Starting Rocket Pool](../starting-rp) will show you how to start the Smartnode services for each mode and how to check on the sync progress of your Execution and Consensus clients.
+[Rocket Poolの起動](../starting-rp)では、各モードでSmartnodeサービスを起動する方法と、ExecutionクライアントとConsensusクライアントの同期進行状況を確認する方法を説明します。
 
-[Creating a New Wallet](../wallet-init) walks through the process of creating a brand new wallet with the Smartnode if this is your first time setting up a node.
+[新しいウォレットの作成](../wallet-init)では、初めてノードをセットアップする場合にSmartnodeで新しいウォレットを作成するプロセスを説明します。
 
-[Importing / Recovering an Existing Wallet](../recovering-rp.mdx) is an alternative to creating a new wallet.
-Use this guide if you already have a node wallet that you want to recover onto your node (or if you're migrating from a service like Allnodes to your own hardware).
+[既存のウォレットのインポート/復元](../recovering-rp.mdx)は、新しいウォレットを作成する代わりの方法です。
+既に復元したいノードウォレットがある場合（またはAllnodesのようなサービスから自分のハードウェアに移行する場合）は、このガイドを使用してください。
 
-[Preparing your Node for Operation](../prepare-node.mdx) covers some important first steps you'll want to take once you have a wallet loaded onto your node, well before you fund it with any ETH or RPL (other than a small amount of ETH for gas costs, of course).
+[ノードの運用準備](../prepare-node.mdx)では、ウォレットをノードにロードした後、ETHやRPLで資金を供給する前（もちろんガス代のための少額のETHを除く）に実行したい重要な最初のステップについて説明します。
 
-[Specifying a Fallback Node](../fallback) walks you through the optional process of pointing your node at a second (externally-managed) pair of Execution and Consensus clients that can act as a backup for your primary clients if they ever go down, so your node can keep validating while you perform maintenance on them.
+[フォールバックノードの指定](../fallback)では、プライマリクライアントがダウンした場合にバックアップとして機能できるように、外部管理されたExecutionクライアントとConsensusクライアントのペアをノードに指定するオプションのプロセスを説明します。これにより、メンテナンス中もノードは検証を続けることができます。
 
-[Fee Distributors and the Smoothing Pool](../fee-distrib-sp) discuss the way Execution layer rewards are provided to your node every time one of your validators proposes a block, how to collect those rewards, and describes Rocket Pool's **Smoothing Pool** - a popular feature that combines Execution layer rewards from everyone and evenly distributes them during Rocket Pool's regular rewards intervals.
+[Fee DistributorsとSmoothing Pool](../fee-distrib-sp)では、validatorがブロックを提案するたびにノードにExecution layerの報酬が提供される方法、それらの報酬を収集する方法、そしてRocket Poolの**Smoothing Pool**について説明します。これは、全員からのExecution layer報酬を組み合わせて、Rocket Poolの定期的な報酬インターバル中に均等に分配する人気の機能です。
 
-[MEV, MEV-Boost, and MEV Rewards](../mev.mdx) explains **Maximum-Extractable Value** (MEV), its role in the staking ecosystem, and how you can configure it to your liking using the Smartnode.
+[MEV、MEV-Boost、MEV報酬](../mev.mdx)では、**Maximum-Extractable Value**（MEV）、ステーキングエコシステムにおけるその役割、そしてSmartnodeを使用してお好みに応じて設定する方法について説明します。

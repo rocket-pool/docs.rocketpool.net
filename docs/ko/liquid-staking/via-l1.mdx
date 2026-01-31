@@ -1,182 +1,182 @@
-# Staking via a Decentralized Exchange on the Ethereum Network (Layer 1)
+# Ethereum 네트워크(Layer 1)의 탈중앙화 거래소를 통한 스테이킹
 
-As a reminder, you do not have to swap ETH for rETH directly via Rocket Pool in order to enjoy the benefits of decentralized staking.
-All you need to do is hold rETH as it inherently grows in value - how you get it doesn't matter!
+상기시켜 드리자면, 탈중앙화 스테이킹의 이점을 누리기 위해 Rocket Pool을 통해 직접 ETH를 rETH로 교환할 필요는 없습니다.
+rETH가 본질적으로 가치가 증가하므로 보유하기만 하면 됩니다 - 어떻게 얻었는지는 중요하지 않습니다!
 
-rETH is available for trade on several decentralized exchanges, such as [Balancer](https://docs.balancer.fi/) and [Uniswap](https://docs.uniswap.org/protocol/introduction).
+rETH는 [Balancer](https://docs.balancer.fi/) 및 [Uniswap](https://docs.uniswap.org/protocol/introduction)과 같은 여러 탈중앙화 거래소에서 거래할 수 있습니다.
 
-The **Balancer** pool is a special kind of pool known as a [metastable pool](https://docs.balancer.fi/concepts/pools/composable-stable.html).
-Metastable pools are ideal for tokens like rETH, because **they honor the true exchange rate reported by the Oracle DAO**.
+**Balancer** 풀은 [metastable pool](https://docs.balancer.fi/concepts/pools/composable-stable.html)로 알려진 특별한 종류의 풀입니다.
+Metastable pool은 rETH와 같은 토큰에 이상적입니다. 왜냐하면 **Oracle DAO가 보고한 실제 환율을 존중하기** 때문입니다.
 
-This means exchanging with this pool will have **much lower slippage** and **lower fees** than a conventional decentralized exchange, so you get a much better deal when buying or selling rETH.
-Other decentralized exchanges don't have this property, so you may find that their exchange rate is slightly lower.
+이것은 이 풀과 교환하면 기존 탈중앙화 거래소보다 **훨씬 낮은 슬리피지**와 **낮은 수수료**를 가지므로, rETH를 사고 팔 때 훨씬 더 나은 거래를 얻을 수 있다는 것을 의미합니다.
+다른 탈중앙화 거래소에는 이러한 속성이 없으므로 환율이 약간 낮을 수 있습니다.
 
-Regardless of which pool you use, they all **tend to have lower gas fees** than staking via the official Rocket Pool website.
-This makes them a great choice for users that want to stake a small amount of ETH, though it's always a good idea to compare the rate you would receive on an exchange with the exchange rate according to Rocket Pool.
+사용하는 풀에 관계없이, 모두 공식 Rocket Pool 웹사이트를 통한 스테이킹보다 **가스 수수료가 낮은** 경향이 있습니다.
+이것은 소량의 ETH를 스테이킹하려는 사용자에게 좋은 선택이지만, 거래소에서 받을 환율을 Rocket Pool에 따른 환율과 비교하는 것이 항상 좋은 생각입니다.
 
-In the following examples, we will show how to swap ETH for rETH using both Balancer and Uniswap.
+다음 예시에서는 Balancer와 Uniswap을 모두 사용하여 ETH를 rETH로 교환하는 방법을 보여드리겠습니다.
 
-::: warning NOTE
-Currently this method is only available on Mainnet.
-If you want to practice on the Hoodi Testnet, you must [swap with Rocket Pool directly](./via-rp).
+::: warning 참고
+현재 이 방법은 Mainnet에서만 사용할 수 있습니다.
+Hoodi Testnet에서 연습하려면 [Rocket Pool과 직접 교환](./via-rp)해야 합니다.
 
-**The rest of this guide will assume you are on Mainnet.**
+**이 가이드의 나머지 부분은 Mainnet에 있다고 가정합니다.**
 :::
 
-This process can be completed with any web3-compatible wallet.
-For demonstration purposes, we're going to use [MetaMask](https://metamask.io/) as it is one of the more popular wallet choices.
+이 프로세스는 web3 호환 지갑으로 완료할 수 있습니다.
+데모 목적으로 더 인기 있는 지갑 선택 중 하나인 [MetaMask](https://metamask.io/)를 사용하겠습니다.
 
-**You should be able to follow along using similar steps with a different wallet if you choose - just find the comparable function in your wallet for each step.**
+**다른 지갑을 선택하는 경우 유사한 단계를 따를 수 있어야 합니다 - 각 단계마다 지갑에서 비슷한 기능을 찾기만 하면 됩니다.**
 
-## Setting up MetaMask
+## MetaMask 설정
 
-Start by installing [MetaMask](https://metamask.io/) if you haven't already.
-Follow the instructions on their site to install the extension, create an account, and sign in.
+아직 설치하지 않았다면 [MetaMask](https://metamask.io/)를 설치하는 것으로 시작하세요.
+사이트의 지침에 따라 확장 프로그램을 설치하고 계정을 만들고 로그인하세요.
 
-Next, open the MetaMask panel using its icon in your browser toolbar.
-Click on the **network dropdown** in the toolbar at the top and ensure that **Ethereum Mainnet** is selected:
+다음으로, 브라우저 도구 모음의 아이콘을 사용하여 MetaMask 패널을 엽니다.
+상단 도구 모음의 **네트워크 드롭다운**을 클릭하고 **Ethereum Mainnet**이 선택되어 있는지 확인하세요:
 
 <img src="./images/mm_network_main.png" width="100%" height="auto" />
 
-Finally, add the rETH token to MetaMask so you can see your balance and access it for trading.
-Click the **Assets** tab, then click **Add Token**:
+마지막으로, MetaMask에 rETH 토큰을 추가하여 잔액을 보고 거래를 위해 액세스할 수 있도록 합니다.
+**Assets** 탭을 클릭한 다음 **Add Token**을 클릭하세요:
 
 <img src="./images/mm_add_token.png" width="100%" height="auto" />
 
-Ensure that **Custom Token** is selected in this dialog.
-In the **Token Contract Address** box, put the following value:
+이 대화 상자에서 **Custom Token**이 선택되어 있는지 확인하세요.
+**Token Contract Address** 상자에 다음 값을 입력하세요:
 
 ```
 0xae78736Cd615f374D3085123A210448E74Fc6393
 ```
 
-The **Token Symbol** should automatically be populated with `rETH`, and the **Decimals of Precision** should automatically be populated with `18`.
+**Token Symbol**은 자동으로 `rETH`로 채워지고 **Decimals of Precision**은 자동으로 `18`로 채워집니다.
 
-Accept the rest of the prompts, and then you will see the rETH token appear in your list.
+나머지 프롬프트를 수락하면 목록에 rETH 토큰이 표시됩니다.
 
-Now that you have a wallet address in MetaMask, you need to transfer some ETH into it.
-**You will need to supply this from an existing wallet or buy ETH on an exchange.**
+이제 MetaMask에 지갑 주소가 있으므로 약간의 ETH를 전송해야 합니다.
+**기존 지갑에서 이것을 제공하거나 거래소에서 ETH를 구매해야 합니다.**
 
-## Swapping for rETH via Balancer
+## Balancer를 통해 rETH로 교환
 
-Now that your wallet is set up and funded, head to this URL which will open Balancer and automatically show swapping ETH for rETH:
+이제 지갑이 설정되고 자금이 입금되었으므로 다음 URL로 이동하면 Balancer가 열리고 자동으로 ETH를 rETH로 교환하는 것이 표시됩니다:
 
 [https://app.balancer.fi/#/trade/ether/0xae78736Cd615f374D3085123A210448E74Fc6393](https://app.balancer.fi/#/trade/ether/0xae78736Cd615f374D3085123A210448E74Fc6393)
 
-The page will look like this initially:
+페이지는 처음에 다음과 같이 표시됩니다:
 
 <img src="./images/balancer.png" width="100%" height="auto" style={{ margin: "0 auto" }} />
 
-Click on the `Connect wallet` button in the top-right corner.
-You will be prompted with a screen that asks you which wallet provider you want to use.
-For this example, select **MetaMask**.
+오른쪽 상단 모서리의 `Connect wallet` 버튼을 클릭하세요.
+사용하려는 지갑 제공자를 묻는 화면이 표시됩니다.
+이 예에서는 **MetaMask**를 선택하세요.
 
-::: tip NOTE
-If you're not using MetaMask, one of the other providers such as WalletConnect will likely be compatible with your wallet.
+::: tip 참고
+MetaMask를 사용하지 않는 경우, WalletConnect와 같은 다른 제공자 중 하나가 지갑과 호환될 가능성이 높습니다.
 :::
 
-Upon clicking that button, MetaMask will pop up with a prompt asking you to select which accounts you want to use.
-Assuming you only have one, your account should already be selected.
-Click **Next**.
+해당 버튼을 클릭하면 MetaMask가 사용하려는 계정을 선택하도록 요청하는 프롬프트와 함께 팝업됩니다.
+하나만 있다고 가정하면 계정이 이미 선택되어 있어야 합니다.
+**Next**를 클릭하세요.
 
-It will then ask if you would like to give Balancer access to view the addresses of your accounts:
+그런 다음 Balancer가 계정 주소를 볼 수 있도록 액세스 권한을 부여할지 묻습니다:
 
 <img src="./images/bal_connect.png" width="100%" height="auto" style={{ margin: "0 auto" }} />
 
-Click **Connect** and after a brief pause window, your wallet will be connected to Balancer.
-You should now see its ETH balance in the top left side of the screen.
+**Connect**를 클릭하고 잠시 후 지갑이 Balancer에 연결됩니다.
+이제 화면 왼쪽 상단에 ETH 잔액이 표시됩니다.
 
-Now, enter the amount of ETH you want to swap and Balancer's UI will show you the amount of rETH you will receive in return:
+이제 교환하려는 ETH 양을 입력하면 Balancer의 UI가 받게 될 rETH 양을 보여줍니다:
 
 <img src="./images/bal_swap.png" width="100%" height="auto" style={{ margin: "0 auto" }} />
 
-::: warning NOTE
-Notice that the amount of rETH you receive will be **less than** the amount of ETH you put in.
-This is normal, because **rETH is worth more than ETH** and continuously appreciates over time.
-You can see this in the exchange rate highlighted at the right of the screenshot.
+::: warning 참고
+받게 될 rETH 양이 입금한 ETH 양보다 **적다**는 것을 알 수 있습니다.
+이것은 정상입니다. 왜냐하면 **rETH는 ETH보다 가치가 높고** 시간이 지남에 따라 지속적으로 평가되기 때문입니다.
+스크린샷 오른쪽에 강조 표시된 환율에서 이를 확인할 수 있습니다.
 :::
 
-Click **Preview** to see the details of the trade, including the minimum amount you could receive due to slippage.
-If you're satisfied, click **Confirm trade**.
-This will send the request to MetaMask, where you can review the total transaction cost before confirming it:
+**Preview**를 클릭하여 슬리피지로 인해 받을 수 있는 최소 금액을 포함한 거래 세부 정보를 확인하세요.
+만족하면 **Confirm trade**를 클릭하세요.
+이렇게 하면 요청이 MetaMask로 전송되며, 여기서 확인하기 전에 총 거래 비용을 검토할 수 있습니다:
 
 <img src="./images/mm_gas.png" width="100%" height="auto" />
 
-::: warning NOTE
-Pay **close attention** to the estimated gas fee here, highlighted in red.
-If it's a significant amount of your overall transaction (here it's over 17%), then it will take a **very long time** before you break even on staking rewards.
+::: warning 참고
+여기에서 빨간색으로 강조 표시된 예상 가스 수수료에 **세심한 주의**를 기울이세요.
+전체 거래의 상당 부분(여기서는 17% 이상)인 경우, 스테이킹 보상으로 손익 분기점에 도달하는 데 **매우 오랜 시간**이 걸릴 것입니다.
 
-If this is the case, you should either wait for the network's average gas price to drop, or [consider using a Layer 2 solution instead](./via-l2).
+이 경우 네트워크의 평균 가스 가격이 떨어질 때까지 기다리거나 [대신 Layer 2 솔루션을 사용하는 것을 고려](./via-l2)해야 합니다.
 :::
 
-If you are happy with the gas fees relative to the total amount of rETH you'll be receiving, click **Confirm** to submit the transaction.
-After a short period, you should see a notification from MetaMask that it completed successfully, and you will now see the rETH token in your wallet.
+받게 될 rETH의 총량에 비해 가스 수수료가 만족스럽다면 **Confirm**을 클릭하여 거래를 제출하세요.
+잠시 후 MetaMask에서 성공적으로 완료되었다는 알림이 표시되며 이제 지갑에 rETH 토큰이 표시됩니다.
 
-That's it! You're now staking with Rocket Pool. All you need to do is hold onto your rETH, and you'll automatically gain your staking rewards as the value of the rETH token increases.
+그게 다입니다! 이제 Rocket Pool과 스테이킹하고 있습니다. rETH를 보유하기만 하면 rETH 토큰의 가치가 증가함에 따라 자동으로 스테이킹 보상을 받게 됩니다.
 
-## Swapping for rETH via Uniswap
+## Uniswap을 통해 rETH로 교환
 
-While we recommend you stake through Balancer because it has lower fees and a more accurate ETH-rETH rate, you can also swap for rETH via Uniswap if the need arises.
-Head to this URL which will open Uniswap and automatically show swapping ETH for rETH:
+Balancer를 통해 스테이킹하는 것을 권장하지만 수수료가 낮고 더 정확한 ETH-rETH 환율을 제공하지만, 필요한 경우 Uniswap을 통해 rETH로 교환할 수도 있습니다.
+다음 URL로 이동하면 Uniswap이 열리고 자동으로 ETH를 rETH로 교환하는 것이 표시됩니다:
 
 [https://app.uniswap.org/#/swap?inputCurrency=eth&outputCurrency=0xae78736cd615f374d3085123a210448e74fc6393](https://app.uniswap.org/#/swap?inputCurrency=eth&outputCurrency=0xae78736cd615f374d3085123a210448e74fc6393)
 
-::: warning NOTE
-You may initially be prompted with a warning that looks like this:
+::: warning 참고
+처음에 다음과 같은 경고 메시지가 표시될 수 있습니다:
 
 <img src="./images/unknown_token.jpg" width="100%" height="auto" />
 
-This is just a temporary warning until Uniswap adds rETH to its canonical token list.
-As long as the token address is `0xae78736cd615f374d3085123a210448e74fc6393`, you can add it safely.
+이것은 Uniswap이 rETH를 정식 토큰 목록에 추가할 때까지의 임시 경고입니다.
+토큰 주소가 `0xae78736cd615f374d3085123a210448e74fc6393`인 한 안전하게 추가할 수 있습니다.
 :::
 
-The page will look like this initially:
+페이지는 처음에 다음과 같이 표시됩니다:
 
 <img src="./images/uni_connect.png" width="100%" height="auto" />
 
-Click on one of the `Connect Wallet` buttons such as the highlighted one in the top-right corner.
-You will be prompted with a screen that asks you which wallet provider you want to use.
-For this example, select **MetaMask**.
+오른쪽 상단 모서리에 강조 표시된 것과 같은 `Connect Wallet` 버튼 중 하나를 클릭하세요.
+사용하려는 지갑 제공자를 묻는 화면이 표시됩니다.
+이 예에서는 **MetaMask**를 선택하세요.
 
-::: tip NOTE
-If you're not using MetaMask, one of the other providers such as WalletConnect will likely be compatible with your wallet.
+::: tip 참고
+MetaMask를 사용하지 않는 경우, WalletConnect와 같은 다른 제공자 중 하나가 지갑과 호환될 가능성이 높습니다.
 :::
 
-Upon clicking that button, MetaMask will pop up with a prompt asking you to select which accounts you want to use.
-Assuming you only have one, your account should already be selected.
-Click **Next**.
+해당 버튼을 클릭하면 MetaMask가 사용하려는 계정을 선택하도록 요청하는 프롬프트와 함께 팝업됩니다.
+하나만 있다고 가정하면 계정이 이미 선택되어 있어야 합니다.
+**Next**를 클릭하세요.
 
-It will then ask if you would like to give Uniswap access to view the addresses of your accounts:
+그런 다음 Uniswap이 계정 주소를 볼 수 있도록 액세스 권한을 부여할지 묻습니다:
 
 <img src="./images/mm_connect.png" width="100%" height="auto" />
 
-Click **Connect** and after a brief pause window, your wallet will be connected to Uniswap.
-You should now see its ETH balance in the top right corner of the screen.
+**Connect**를 클릭하고 잠시 후 지갑이 Uniswap에 연결됩니다.
+이제 화면 오른쪽 상단 모서리에 ETH 잔액이 표시됩니다.
 
-Now, enter the amount of ETH you want to swap and Uniswap's UI will show you the amount of rETH you will receive in return:
+이제 교환하려는 ETH 양을 입력하면 Uniswap의 UI가 받게 될 rETH 양을 보여줍니다:
 
 <img src="./images/uni_swap.png" width="100%" height="auto" />
 
-::: warning NOTE
-Notice that the amount of rETH you receive will be **less than** the amount of ETH you put in.
-This is normal, because **rETH is worth more than ETH** and continuously appreciates over time.
-You can see this in the exchange rate highlighted at the bottom of the screenshot.
+::: warning 참고
+받게 될 rETH 양이 입금한 ETH 양보다 **적다**는 것을 알 수 있습니다.
+이것은 정상입니다. 왜냐하면 **rETH는 ETH보다 가치가 높고** 시간이 지남에 따라 지속적으로 평가되기 때문입니다.
+스크린샷 하단에 강조 표시된 환율에서 이를 확인할 수 있습니다.
 :::
 
-Click **Swap** to see the details of the trade, including the minimum amount you could receive due to slippage.
-If you're satisfied, click **Confirm Swap**.
-This will send the request to MetaMask, where you can review the total transaction cost before confirming it:
+**Swap**을 클릭하여 슬리피지로 인해 받을 수 있는 최소 금액을 포함한 거래 세부 정보를 확인하세요.
+만족하면 **Confirm Swap**을 클릭하세요.
+이렇게 하면 요청이 MetaMask로 전송되며, 여기서 확인하기 전에 총 거래 비용을 검토할 수 있습니다:
 
 <img src="./images/mm_gas.png" width="100%" height="auto" />
 
-::: warning NOTE
-Pay **close attention** to the estimated gas fee here, highlighted in red.
-If it's a significant amount of your overall transaction (here it's over 17%), then it will take a **very long time** before you break even on staking rewards.
+::: warning 참고
+여기에서 빨간색으로 강조 표시된 예상 가스 수수료에 **세심한 주의**를 기울이세요.
+전체 거래의 상당 부분(여기서는 17% 이상)인 경우, 스테이킹 보상으로 손익 분기점에 도달하는 데 **매우 오랜 시간**이 걸릴 것입니다.
 
-If this is the case, you should either wait for the network's average gas price to drop, or [consider using a Layer 2 solution instead](./via-l2).
+이 경우 네트워크의 평균 가스 가격이 떨어질 때까지 기다리거나 [대신 Layer 2 솔루션을 사용하는 것을 고려](./via-l2)해야 합니다.
 :::
 
-If you are happy with the gas fees relative to the total amount of rETH you'll be receiving, click **Confirm** to submit the transaction.
-After a short period, you should see a notification from MetaMask that it completed successfully, and you will now see the rETH token in your wallet.
+받게 될 rETH의 총량에 비해 가스 수수료가 만족스럽다면 **Confirm**을 클릭하여 거래를 제출하세요.
+잠시 후 MetaMask에서 성공적으로 완료되었다는 알림이 표시되며 이제 지갑에 rETH 토큰이 표시됩니다.
 
-That's it! You're now staking with Rocket Pool. All you need to do is hold onto your rETH, and you'll automatically gain your staking rewards as the value of the rETH token increases.
+그게 다입니다! 이제 Rocket Pool과 스테이킹하고 있습니다. rETH를 보유하기만 하면 rETH 토큰의 가치가 증가함에 따라 자동으로 스테이킹 보상을 받게 됩니다.

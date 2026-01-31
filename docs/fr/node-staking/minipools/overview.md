@@ -1,39 +1,39 @@
 ---
 next:
-  text: Creating a New Minipool (Validator)
-  link: "/en/node-staking/create-validator"
+  text: Créer un nouveau minipool (validateur)
+  link: "/fr/node-staking/create-validator"
 ---
 
-::: danger WARNING
-Minipool deposits are currently disabled in preparation for Saturn 1.
+::: danger AVERTISSEMENT
+Les dépôts de minipool sont actuellement désactivés en préparation de Saturn 1.
 :::
 
-# Overview
+# Vue d'ensemble
 
-This section covers the processes of creating and migrating minipools (Rocket Pool validators).
-This is where you'll learn how to start validating the Ethereum network and earn rewards for it.
+Cette section couvre les processus de création et de migration des minipools (validateurs Rocket Pool).
+C'est ici que vous apprendrez comment commencer à valider le réseau Ethereum et gagner des récompenses.
 
-## Prerequisites
+## Prérequis
 
-Before running minipools, please make sure you:
+Avant d'exécuter des minipools, assurez-vous de :
 
-- Have set up a node machine (or virtual machine) and secured it (via the [Securing your Node](../securing-your-node) guide)
-- Have the Smartnode [installed](../installing/overview) and [configured](../config/overview) on it
-- Have a node wallet loaded on your Smartnode
-- Synced your Execution and Consensus clients
-- Provisioned your node with [a withdrawal address](../prepare-node.mdx#setting-your-withdrawal-address), set up your [fallback clients](../fallback) (optional), opted into the [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (optional), and configured [MEV](../mev.mdx)
+- Avoir configuré une machine nœud (ou machine virtuelle) et l'avoir sécurisée (via le guide [Sécuriser votre nœud](../securing-your-node))
+- Avoir [installé](../installing/overview) et [configuré](../config/overview) le Smartnode dessus
+- Avoir un portefeuille de nœud chargé sur votre Smartnode
+- Avoir synchronisé vos clients d'exécution et de consensus
+- Avoir provisionné votre nœud avec [une adresse de retrait](../prepare-node.mdx#setting-your-withdrawal-address), configuré vos [clients de secours](../fallback) (optionnel), opté pour le [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (optionnel), et configuré [MEV](../mev.mdx)
 
 ## Guides
 
-[Creating a New Minipool (Validator)](../create-validator.mdx) explains the process of creating a new Rocket Pool minipool and corresponding validator on the Beacon Chain.
-Whether you're making your very first minipool or already have some and would like to make another one, this guide will walk you through it step-by-step.
+[Créer un nouveau minipool (validateur)](../create-validator.mdx) explique le processus de création d'un nouveau minipool Rocket Pool et du validateur correspondant sur la Beacon Chain.
+Que vous créiez votre tout premier minipool ou que vous en ayez déjà et souhaitiez en créer un autre, ce guide vous guidera étape par étape.
 
-[The Minipool Delegate](./delegates) explains a bit about what the minipool contract is, and introduces the **delegate** contract that contains most of its functionality.
-It also demonstrates how to update the delegate for your minipools after a network upgrade to take advantage of new features.
+[Le délégué de minipool](./delegates) explique ce qu'est le contrat de minipool et introduit le contrat **délégué** qui contient la majeure partie de ses fonctionnalités.
+Il montre également comment mettre à jour le délégué pour vos minipools après une mise à niveau du réseau pour profiter de nouvelles fonctionnalités.
 
-[Converting a Solo Validator into a Minipool](../solo-staker-migration) walks through the process of converting an existing validator outside of Rocket Pool (such as one you use for solo staking) directly into a Rocket Pool minipool without needing to exit the Beacon Chain and create a new minipool.
-If you're a solo staker that wants to take advantage of this capability, this is the guide for you!
+[Convertir un validateur solo en minipool](../solo-staker-migration) décrit le processus de conversion d'un validateur existant en dehors de Rocket Pool (comme celui utilisé pour le staking solo) directement en minipool Rocket Pool sans avoir besoin de quitter la Beacon Chain et créer un nouveau minipool.
+Si vous êtes un staker solo qui souhaite profiter de cette capacité, c'est le guide qu'il vous faut !
 
-[Migrating a 16-ETH Minipool to 8-ETH](../leb-migration.mdx) shows how to reduce the bonded amount of ETH for a minipool from 16 ETH down to 8 ETH, giving you 8 ETH in credit that can be used to create a new minipool for free (though it still costs ETH for gas, of course).
+[Migrer un minipool de 16 ETH à 8 ETH](../leb-migration.mdx) montre comment réduire le montant d'ETH cautionné pour un minipool de 16 ETH à 8 ETH, vous donnant 8 ETH de crédit qui peuvent être utilisés pour créer un nouveau minipool gratuitement (bien qu'il en coûte toujours de l'ETH pour le gas, bien sûr).
 
-[The Deposit Credit System](../credit) covers the "ETH Credit" system that lets you create new minipools without having to pay for their ETH bonds after you perform one of the above migrations.
+[Le système de crédit de dépôt](../credit) couvre le système de "crédit ETH" qui vous permet de créer de nouveaux minipools sans avoir à payer pour leurs cautions ETH après avoir effectué l'une des migrations ci-dessus.

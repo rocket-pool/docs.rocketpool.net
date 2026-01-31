@@ -1,57 +1,57 @@
-# FAQ (WIP)
+# SSS (Devam Ediyor)
 
-### What are the benefits of running minipools with Rocket Pool compared to a 32 ETH solo validator?
+### Rocket Pool ile minipool çalıştırmanın 32 ETH solo validatöre kıyasla faydaları nelerdir?
 
-By running a single solo validator, you would receive 100% rewards on your 32 ETH.
-By running two 16 ETH minipools, you would receive 100% rewards on your 32 ETH **plus** 14% of the rewards on 32 ETH provided by the Rocket Pool protocol.
-By running four 8 ETH minipools, you would receive 100% rewards on your 32 ETH **plus** 14% of the rewards on 96 ETH provided by the Rocket Pool protocol.
-You would also have the option to use Rocket Pool's [Smoothing Pool](./prepare-node.mdx#smoothing-pool) feature.
+Tek bir solo validatör çalıştırarak, 32 ETH'niz üzerinde %100 ödül alırsınız.
+İki adet 16 ETH minipool çalıştırarak, 32 ETH'niz üzerinde %100 ödül **artı** Rocket Pool protokolü tarafından sağlanan 32 ETH üzerindeki ödüllerin %14'ünü alırsınız.
+Dört adet 8 ETH minipool çalıştırarak, 32 ETH'niz üzerinde %100 ödül **artı** Rocket Pool protokolü tarafından sağlanan 96 ETH üzerindeki ödüllerin %14'ünü alırsınız.
+Ayrıca Rocket Pool'un [Smoothing Pool](./prepare-node.mdx#smoothing-pool) özelliğini kullanma seçeneğiniz de olacaktır.
 
-### How do I know how much my rETH is worth? Does it rebase?
+### rETH'imin ne kadar değerli olduğunu nasıl anlarım? Rebase yapıyor mu?
 
-The rETH token will not rebase.
-The number of tokens on your wallet will remain constant but they appreciate in value over time.
+rETH token'ı rebase yapmayacaktır.
+Cüzdanınızdaki token sayısı sabit kalacak ancak zamanla değer kazanacaktır.
 
-### I have a technical issue running my node, how do I get help?
+### Düğümümü çalıştırırken teknik bir sorunum var, nasıl yardım alabilirim?
 
-You can start by checking the [Rocket Pool Support](https://rocketpool.support) page.
-If that doesn't help, you can ask your question on the Rocket Pool **#support** channel in [the Discord server](https://discord.gg/rocketpool).
+[Rocket Pool Support](https://rocketpool.support) sayfasını kontrol ederek başlayabilirsiniz.
+Bu yardımcı olmazsa, sorunuzu [Discord sunucusundaki](https://discord.gg/rocketpool) Rocket Pool **#support** kanalında sorabilirsiniz.
 
-### How can I get test ETH to experiment with creating and running a minipool? I can't post messages on the faucet channel.
+### Bir minipool oluşturma ve çalıştırma konusunda denemeler yapmak için test ETH'sini nasıl alabilirim? Faucet kanalına mesaj gönderemiyorum.
 
-See [Getting test ETH on Hoodi](../testnet/overview#getting-test-eth-on-hoodi).
+[Hoodi'de test ETH alma](../testnet/overview#getting-test-eth-on-hoodi) bölümüne bakın.
 
-### How do I recover my node if my machine breaks?
+### Makinem bozulursa düğümümü nasıl kurtarırım?
 
-Short answer: your mnemonic is all that you need to fully recover your node.
-Always make sure to keep it safe.
+Kısa cevap: düğümünüzü tamamen kurtarmak için ihtiyacınız olan tek şey mnemonic'inizdir.
+Her zaman güvende tuttuğunuzdan emin olun.
 
-To recover your node on a new machine, start by making sure **your previous machine is not going to be online again** with the keys available, as two nodes running with the same keys **will get you slashed**.
-Follow the [steps](./install-modes) to install the Smartnode on a new machine.
-Then, recover your node wallet and validator keys by running the command `rocketpool wallet recover` and insert your 24-word mnemonic.
+Düğümünüzü yeni bir makinede kurtarmak için, **önceki makinenizin anahtarlarla tekrar çevrimiçi olmayacağından** emin olarak başlayın, çünkü aynı anahtarlarla çalışan iki düğüm **sizi slashing'e uğratacaktır**.
+Yeni bir makineye Smartnode'u yüklemek için [adımları](./install-modes) izleyin.
+Ardından, `rocketpool wallet recover` komutunu çalıştırarak ve 24 kelimelik mnemonic'inizi girerek düğüm cüzdanınızı ve validatör anahtarlarınızı kurtarın.
 
-### Why aren't my clients syncing? I have a low amount of peers.
+### İstemcilerim neden senkronize olmuyor? Düşük sayıda eş var.
 
-Clients need to have a healthy number of peers to be able to properly sync.
-You can start by running the test [here](https://www.yougetsignal.com/tools/open-ports/), checking if ports 30303 and 9001 are opened.
-If they're closed, you'll need to setup port forwarding on your router.
-Also, make sure your node has a static local IP address so the port forwarding does not break due to your node getting a new address.
+İstemcilerin düzgün senkronize olabilmesi için sağlıklı sayıda eşe sahip olması gerekir.
+[Buradaki](https://www.yougetsignal.com/tools/open-ports/) testi çalıştırarak, 30303 ve 9001 portlarının açık olup olmadığını kontrol ederek başlayabilirsiniz.
+Kapalıysa, yönlendiricinizde port yönlendirmesi kurmanız gerekecektir.
+Ayrıca, düğümünüzün statik bir yerel IP adresine sahip olduğundan emin olun, böylece düğümünüz yeni bir adres aldığında port yönlendirmesi bozulmaz.
 
-### My consensus client is taking too long to sync. What should I do?
+### Consensus istemcimin senkronizasyonu çok uzun sürüyor. Ne yapmalıyım?
 
-Consensus clients can take a long time to sync if you didn't start the sync process using [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
-Even if you're running it for a long time, it's usually faster to configure the checkpoint sync URL, clear the current sync data with `rocketpool service resync-eth2` and start over.
-Your client should be synced in less than a minute.
+[Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing) kullanarak senkronizasyon sürecini başlatmadıysanız, Consensus istemcileri senkronize olmak için uzun zaman alabilir.
+Uzun süredir çalıştırıyor olsanız bile, genellikle checkpoint sync URL'sini yapılandırmak, mevcut senkronizasyon verilerini `rocketpool service resync-eth2` ile temizlemek ve baştan başlamak daha hızlıdır.
+İstemciniz bir dakikadan kısa sürede senkronize olmalıdır.
 
-### I've already rebooted. Why does Grafana say I still need to reboot?
+### Zaten yeniden başlattım. Grafana neden hala yeniden başlatmam gerektiğini söylüyor?
 
-The reboot information is cached and only updates every few hours.
-Running `sudo apt update` will force an update.
+Yeniden başlatma bilgisi önbelleğe alınır ve yalnızca birkaç saatte bir güncellenir.
+`sudo apt update` çalıştırmak bir güncellemeyi zorlayacaktır.
 
-### I changed my Execution Layer and/or my Beacon Chain or Consensus Layer. How do I clean out the old data?
+### Execution Layer'ımı ve/veya Beacon Chain veya Consensus Layer'ımı değiştirdim. Eski verileri nasıl temizlerim?
 
-If you change clients, Rocketpool does not delete the old volumes. This data could be wasting significant disk space and you may want to remove it. To do so, you need to find the volumes. If you are using the default Rocketpool settings, the docker volumes are stored at `/var/lib/docker/volumes/`. The execution layer is in `rocketpool_eth1clientdata/_data/*` and the consensus layer is in `rocketpool_eth2clientdata/_data/*`.
+İstemcileri değiştirirseniz, Rocketpool eski hacimleri silmez. Bu veriler önemli disk alanı israf edebilir ve kaldırmak isteyebilirsiniz. Bunu yapmak için hacimleri bulmanız gerekir. Varsayılan Rocketpool ayarlarını kullanıyorsanız, docker hacimleri `/var/lib/docker/volumes/` dizininde saklanır. execution layer `rocketpool_eth1clientdata/_data/*` içindedir ve consensus layer `rocketpool_eth2clientdata/_data/*` içindedir.
 
-To access these directories, you may need to sudo as root using `sudo -i`. Then you can delete a directory by calling `rm -rf <directory>`. For example, if you wanted to delete all the geth data, you would call `rm -rf /var/lib/docker/volumes/rocketpool_eth1clientdata/_data/geth/`.
+Bu dizinlere erişmek için `sudo -i` kullanarak root olarak sudo yapmanız gerekebilir. Ardından `rm -rf <directory>` çağırarak bir dizini silebilirsiniz. Örneğin, tüm geth verilerini silmek isterseniz, `rm -rf /var/lib/docker/volumes/rocketpool_eth1clientdata/_data/geth/` çağırırsınız.
 
-To exit as root, type `exit`.
+Root'tan çıkmak için `exit` yazın.

@@ -1,96 +1,96 @@
-# Moving from One Node to Another
+# ノード間の移行
 
-Sometimes, your node machine is no longer able to do its job and you need to move to another one.
-This could happen if you're upgrading your node for example, or if you're moving from a cloud-based node to one locally hosted on dedicated hardware, or even if your node itself suffers a catastrophic hardware failure and you need to run your validators on a backup machine.
-Regardless of the case, this guide will help you understand how to safely migrate your wallet and validator keys from one node to another without getting slashed.
+ノードマシンがその役割を果たせなくなり、別のマシンに移行する必要がある場合があります。
+これは、ノードをアップグレードする場合、クラウドベースのノードから専用ハードウェアでローカルにホストされているノードに移行する場合、またはノード自体が壊滅的なハードウェア障害を起こし、バックアップマシンでvalidatorを実行する必要がある場合などに発生する可能性があります。
+いずれの場合でも、このガイドはwalletとvalidatorキーを1つのノードから別のノードに安全に移行し、スラッシングされないようにする方法を理解するのに役立ちます。
 
-## Slashing and The Slashing Database
+## スラッシングとスラッシングデータベース
 
-The primary reason that we encourage you to exercise so much caution when moving your wallet from one machine to another, or recovering your wallet on another machine, is because of the risk of **slashing**.
-Slashing occurs when one or more of your validator keys does something that violates the rules of the Beacon Chain and appears as though you're attempting to attack the network.
-In response, the chain will forcibly exit your validator and enact a severe penalty - the size of the penalty depends on how many validators are also slashed within a two-week period of your own, but currently the minimum is **1 ETH** and there is no maximum.
+あるマシンから別のマシンにwalletを移行する際、または別のマシンでwalletを復元する際に十分な注意を払うことを推奨する主な理由は、**スラッシング**のリスクがあるためです。
+スラッシングは、1つ以上のvalidatorキーがBeacon Chainのルールに違反し、ネットワークを攻撃しようとしているように見える行為を行った場合に発生します。
+これに対し、チェーンはvalidatorを強制的に退出させ、厳しいペナルティを課します。ペナルティの大きさは、自分の前後2週間以内にスラッシングされた他のvalidatorの数によって異なりますが、現在の最小値は**1 ETH**で、上限はありません。
 
-Though there are several conditions that can be interpreted as "attacking the network", realistically the only one that happens accidentally is the **double attestation** (or **double proposal**).
-This occurs when your validator submits two attestations (or two block proposals) for the same slot that have different votes (e.g., it votes on two different candidate blocks for a particular slot instead of picking one).
+「ネットワークを攻撃している」と解釈される条件はいくつかありますが、現実的に誤って発生するのは**二重アテステーション**(または**二重提案**)のみです。
+これは、validatorが同じスロットに対して異なる投票を持つ2つのアテステーション(または2つのブロック提案)を送信した場合に発生します(例えば、特定のスロットに対して1つを選ぶのではなく、2つの異なる候補ブロックに投票する場合)。
 
-To combat this, your Validator Client hosts what's called a **Slashing Database**.
-The Slashing Database is simply a record of your validator's votes (i.e., the slot of each vote and the hash of the block that vote was for), so it knows not to vote on something that it's already voted on.
+これに対処するため、Validator Clientは**スラッシングデータベース**と呼ばれるものをホストしています。
+スラッシングデータベースは、validatorの投票の記録(つまり、各投票のスロットとその投票が対象とするブロックのハッシュ)であり、既に投票したものに再び投票しないようにするためのものです。
 
-### Avoiding Being Slashed
+### スラッシングを回避する
 
-Every Validator Client maintains a Slashing Database to ensure your node never double attests or double proposes.
-The problem, then, comes from situations where you begin validating **without** a slashing database and thus have no record of what your validators have previously voted on.
-This can happen in several situations:
+すべてのValidator Clientは、ノードが二重アテステーションまたは二重提案を行わないようにするためにスラッシングデータベースを維持しています。
+問題は、スラッシングデータベース**なし**で検証を開始し、validatorが以前に何に投票したかの記録がない状況から生じます。
+これは、以下のようないくつかの状況で発生する可能性があります。
 
-1. You just changed Consensus Clients, and the new client doesn't carry the Slashing Database over from the old one (which the Smartnode does not do during a client change).
-2. You have your wallet loaded on one machine and are actively attesting with it, and then load your wallet onto a second machine _while the first machine is still actively attesting_.
-3. You stop validating on one machine and load your wallet into a second machine, but you haven't waited long enough for the current epoch to be finalized so your second machine attests for slots that your validators have already attested to.
+1. Consensus Clientを変更したばかりで、新しいクライアントが古いクライアントからスラッシングデータベースを引き継いでいない(Smartnodeはクライアント変更時にこれを行いません)。
+2. 1台のマシンにwalletをロードして積極的にアテステーションを行っており、その後、最初のマシンがまだ積極的にアテステーションを行っている間に2台目のマシンにwalletをロードする。
+3. 1台のマシンで検証を停止し、2台目のマシンにwalletをロードしたが、現在のエポックがファイナライズされるまで十分に待機していないため、2台目のマシンがvalidatorが既にアテステーションを行ったスロットに対してアテステーションを行う。
 
-The standard way to avoid being slashed is to **wait for at least 15 minutes after your last successful attestation** before starting your Validator Client and attesting again, and **ensure that your validator keys are only present on one single machine**.
+スラッシングを回避する標準的な方法は、**最後の成功したアテステーションから少なくとも15分待ってから**Validator Clientを起動して再びアテステーションを行うことと、**validatorキーが1台のマシンにのみ存在することを確認する**ことです。
 
-More specifically, the plan is to wait until your validator has intentionally missed an attestation, **and that miss has been finalized**.
-Once finality is attained, your validator cannot vote for the finalized epoch any longer and it is safe to start attesting with it once more.
+より具体的には、validatorが意図的にアテステーションをミスし、**そのミスがファイナライズされるまで待つ**というプランです。
+ファイナリティが達成されると、validatorはファイナライズされたエポックに対して投票することができなくなり、再びアテステーションを開始しても安全です。
 
-The 15-minute wait comes from a rule of thumb that when operating normally (e.g. with normal consensus), the Beacon Chain takes about 7 minutes to finalize an epoch.
-Waiting for 15 minutes ensures that you've missed at least one epoch, and waited long enough for that epoch to be finalized, with a small buffer just for safety.
+15分待機するというのは、正常に動作している場合(つまり、正常なコンセンサスの場合)、Beacon Chainがエポックをファイナライズするのに約7分かかるという経験則から来ています。
+15分待つことで、少なくとも1つのエポックをミスし、そのエポックがファイナライズされるまで十分に待ったことが保証され、安全のための小さなバッファが加えられます。
 
-## Node Migration Checklist
+## ノード移行チェックリスト
 
-With the above context in mind, here is a helpful checklist you can follow when migrating your node to ensure you won't be slashed.
-This is designed for maximum safety, so while you may think some of the steps are unnecessary, we **strongly** encourage you to follow them all to completion.
+上記の背景を踏まえて、ノードを移行する際にスラッシングされないようにするために従うことができる便利なチェックリストを以下に示します。
+これは最大限の安全性を考慮して設計されているため、一部のステップは不要だと思われるかもしれませんが、すべてのステップを完了するよう**強く推奨**します。
 
-1. **Prepare the new node** by following these guides, starting from the "Preparing a Node" section and ending once you have the Smartnode installed and are syncing an Execution and Consensus client.
-   - :warning: **DO NOT** initialize a new wallet or recover your old wallet on the node. Allow it to sync the clients _without a wallet present_.
+1. **新しいノードを準備する**。「ノードの準備」セクションから始めて、Smartnodeがインストールされ、ExecutionクライアントとConsensusクライアントが同期されるまでこれらのガイドに従ってください。
+   - :warning: **実行しないでください**: 新しいwalletを初期化したり、古いwalletを復元したりしないでください。walletが存在しない状態でクライアントを同期させてください。
 
-2. **WAIT** until your clients are fully synced on the new node.
-3. Confirm that you have recorded your mnemonic correctly by running `rocketpool wallet test-recovery` on your new machine. This will _simulate_ key recovery to confirm your node wallet and all of your minipools' validator keys can be recovered correctly, but will not _actually_ recover them and save them to disk so there is no risk of slashing.
-   1. If the Smartnode fails to recover your node wallet using the mnemonic you provided, then your mnemonic may be invalid. **STOP** going through this process; removing the keys from your old node means they could be **lost forever**.
-   2. In this situation we recommend exiting your validators and withdrawing your capital as soon as possible, so you can start over with a new node that you have the working mnemonic for.
-4. **Stop validating** on your old node (for example, using `rocketpool service stop` to shut down the validator client).
-5. **Delete your keys** from your old node (for example, using `rocketpool wallet purge`).
-   1. **VERIFY** the keys have been removed by looking if your node's `data` folder (default is `~/.rocketpool/data/validators/`) - each Consensus Client will have its own folder under that data folder with its own copy of the keys.
-   2. Please see the [Verifying Key Removal](#verifying-key-removal) section below for instructions on how to do this.
-   3. Ensure **all of them** have been deleted.
+2. 新しいノードでクライアントが完全に同期されるまで**待ちます**。
+3. 新しいマシンで`rocketpool wallet test-recovery`を実行して、ニーモニックが正しく記録されていることを確認します。これはキーの復元を_シミュレート_して、ノードwalletとすべてのminipoolのvalidatorキーが正しく復元できることを確認しますが、実際に復元してディスクに保存することはないため、スラッシングのリスクはありません。
+   1. Smartnodeが提供されたニーモニックを使用してノードwalletを復元できない場合、ニーモニックが無効である可能性があります。このプロセスを続けることを**停止**してください。古いノードからキーを削除すると、**永久に失われる**可能性があります。
+   2. この状況では、できるだけ早くvalidatorを退出させて資金を引き出し、作動するニーモニックを持つ新しいノードで最初からやり直すことをお勧めします。
+4. 古いノードで**検証を停止**します(例えば、`rocketpool service stop`を使用してvalidator clientをシャットダウンします)。
+5. 古いノードから**キーを削除**します(例えば、`rocketpool wallet purge`を使用します)。
+   1. ノードの`data`フォルダ(デフォルトは`~/.rocketpool/data/validators/`)を確認して、キーが削除されたことを**確認**してください。各Consensus Clientは、そのdataフォルダの下に独自のフォルダを持ち、独自のキーのコピーを持っています。
+   2. これを行う方法については、以下の[キー削除の確認](#キー削除の確認)セクションを参照してください。
+   3. **すべて**のキーが削除されていることを確認してください。
 
-6. **Power off** your old node and disconnect it from the Internet, by removing the Ethernet cable or Wi-Fi module.
+6. 古いノードを**電源オフ**し、イーサネットケーブルまたはWi-Fiモジュールを取り外してインターネットから切断します。
 
-7. **Wipe the SSD** from your old node, using one of the following methods:
-   1. Use a bootable USB drive with a Linux installation (such as the popular [GParted](https://gparted.org/download.php)) and use it to erase the drive.
-   2. **Physically remove it** from your old node, attach it to another machine using a USB converter, and use a tool such as [GParted](https://installati.one/debian/11/gparted/) to erase the drive.
-   3. **Physically remove it** from your old node and hit it with a hammer to break it and ensure it will never be used again.
+7. 古いノードから**SSDをワイプ**します。以下のいずれかの方法を使用してください。
+   1. Linux インストール(人気のある[GParted](https://gparted.org/download.php)など)を含む起動可能なUSBドライブを使用し、それを使用してドライブを消去します。
+   2. 古いノードから**物理的に取り外し**、USBコンバーターを使用して別のマシンに接続し、[GParted](https://installati.one/debian/11/gparted/)などのツールを使用してドライブを消去します。
+   3. 古いノードから**物理的に取り外し**、ハンマーで叩いて壊し、二度と使用できないようにします。
 
-8. **WAIT** for at least 15 minutes before proceeding. Use a block explorer like [https://beaconcha.in](https://beaconcha.in) to look at your validator's attestation record. Wait until at least one attestation has been recorded as missing _and the corresponding epoch has been finalized_.
-   1. NOTE: if you have multiple minipools, you must ensure _all of them_ have missed at least one attestation that has been finalized.
+8. 続行する前に少なくとも15分**待ちます**。[https://beaconcha.in](https://beaconcha.in)などのブロックエクスプローラーを使用して、validatorのアテステーション記録を確認します。少なくとも1つのアテステーションがミスとして記録され、_対応するエポックがファイナライズされるまで_待ちます。
+   1. 注意: 複数のminipoolがある場合は、_すべて_が少なくとも1つのアテステーションをミスし、それがファイナライズされていることを確認する必要があります。
 
-9. **Recover your node wallet** on the new machine by following the instructions in [Importing / Recovering an Existing Wallet](../recovering-rp.mdx).
+9. [既存のWalletのインポート/復元](../recovering-rp.mdx)の指示に従って、新しいマシンで**ノードwalletを復元**します。
 
-10. **Restart your Validator Client** to ensure that your validator keys are loaded (e.g., with `docker restart rocketpool_validator`).
+10. validatorキーがロードされていることを確認するために**Validator Clientを再起動**します(例えば、`docker restart rocketpool_validator`を使用します)。
 
-Your validator keys will now be loaded on your new node, and you can begin attesting safely with it.
+これで、新しいノードにvalidatorキーがロードされ、安全にアテステーションを開始できます。
 
-## Verifying Key Removal
+## キー削除の確認
 
-Validator keys are stored on your disk in the form of `json` files.
-They are kept inside your node's `data` folder.
-By default, you can find them here:
+Validatorキーは、`json`ファイルの形式でディスクに保存されます。
+これらはノードの`data`フォルダ内に保持されます。
+デフォルトでは、以下の場所で見つけることができます。
 
 ```shell
 ~/.rocketpool/data/validators/
 ```
 
-::: warning NOTE
-If you changed your `data` directory using the `service config` TUI (e.g., you are using an Aegis key and set that as your `data` folder, the above path should be changed to `<your data folder>/validators`.)
+::: warning 注意
+`service config` TUIを使用して`data`ディレクトリを変更した場合(例えば、Aegisキーを使用していて、それを`data`フォルダとして設定した場合)、上記のパスを`<あなたのdataフォルダ>/validators`に変更する必要があります。
 :::
 
-Each client will have its own copy of the keys, since each client expects them in a different format or configuration.
+各クライアントは、異なる形式または構成でキーを期待するため、独自のキーのコピーを持ちます。
 
-To **find** the keys on disk, run the following command:
+ディスク上でキーを**見つける**には、以下のコマンドを実行します。
 
 ```shell
 sudo find ~/.rocketpool/data/validators -type f -name "*.json"
 ```
 
-For example, on a machine with two minipools, the output would look like this:
+例えば、2つのminipoolを持つマシンでは、出力は以下のようになります。
 
 ```shell
 /home/joe/.rocketpool/data/validators/teku/keys/0x831862d79685079037dbba67acfa1faf13a5863b94c1c39126e9a52155d32b7733ba65a56ba172e0fcb2b7d77e8a125b.json
@@ -105,6 +105,6 @@ For example, on a machine with two minipools, the output would look like this:
 /home/joe/.rocketpool/data/validators/lodestar/validators/0x900189d6bf7b0635ce1d81046c0d882d52ccf05e3f4fb29e7b9db4c9fb72c6587256fd41a785f103e15a253f3d24a610/voting-keystore.json
 ```
 
-This shows an example where the keys have **not** been deleted yet and are still on the filesystem.
+これは、キーがまだ削除されて**いない**、ファイルシステムに残っている例を示しています。
 
-If your keys **have** been deleted, you should not see _any_ of the hex strings (the large strings starting with `0x`) in any of the folders for any of the clients within the output of that command.
+キーが削除されて**いる**場合、そのコマンドの出力に16進数文字列(`0x`で始まる大きな文字列)がいずれのクライアントのフォルダにも_表示されない_はずです。

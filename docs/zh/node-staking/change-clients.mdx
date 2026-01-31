@@ -4,108 +4,108 @@ import tui_select_cc from "./images/tui-select-cc.png";
 import tui_checkpoint_sync from "./images/tui-checkpoint-sync.png";
 import tui_confirm_cc from "./images/tui-confirm-cc.png";
 
-# Changing Execution or Consensus Clients
+# 更改 Execution 或 Consensus 客户端
 
-Under normal circumstances, you will likely just select an Execution and Consensus client when you first create your Rocket Pool node and will let them happily run for the life of your Node.
-However, there are a few situations where you may want to change your client selection.
-Here are a few examples:
+在正常情况下，您可能只会在首次创建 Rocket Pool 节点时选择一个 Execution 和 Consensus 客户端，并让它们在节点的整个生命周期中愉快地运行。
+但是，在某些情况下，您可能希望更改客户端选择。
+以下是几个示例：
 
-- Your client gains a [supermajority](https://clientdiversity.org/) share on the Execution or Beacon chains, and you want to change for the overall health of the network
-- A bug causes your client to stop functioning correctly, and you need to get back online quickly to resume validation duties
-- You want to try a new feature that a different client offers
-- A different client is better suited to your node's hardware (e.g. some clients are better on ARM systems than others)
+- 您的客户端在 Execution 或 Beacon 链上获得了[超级多数](https://clientdiversity.org/)份额，而您希望为网络的整体健康而更改
+- 一个错误导致您的客户端停止正常运行，而您需要快速恢复在线以恢复验证职责
+- 您想尝试不同客户端提供的新功能
+- 不同的客户端更适合您节点的硬件（例如，某些客户端在 ARM 系统上比其他客户端更好）
 
-Luckily, the Smartnode stack makes changing clients extremely easy.
-All it takes is a few changes in the Configuration TUI, and some optional extra commands to back up your existing client data before changing clients.
+幸运的是，Smartnode 栈使更改客户端变得极其容易。
+只需在配置 TUI 中进行一些更改，以及一些可选的额外命令来在更改客户端之前备份现有的客户端数据。
 
-## Changing Execution Clients
+## 更改 Execution 客户端
 
-Prior to changing your Execution client, it's worth noting the following points:
+在更改您的 Execution 客户端之前，值得注意以下几点：
 
-- Chain data **is not shared** between clients. Your new client will need to resync the Mainnet chain data, which can take some time (though each client supports snap sync, which the Smartnode uses to speed up resyncing).
-- By default, the Smartnode will leave your old client's chain data on your drive in case you want to revert back to your old Execution client and pick up where you left off. You may want to **export it to a different location** and delete it to free up space prior to changing clients, since Execution clients can use hundreds of gigabytes. We have steps below on how to do this.
-- While your new client is resyncing, most of the Smartnode CLI functions will be offline since they rely on the Execution client. **You should have a fallback Execution client available before doing this to mitigate the downtime on your Smartnode.**
+- 链数据**不会在客户端之间共享**。您的新客户端需要重新同步主网链数据，这可能需要一些时间（尽管每个客户端都支持快照同步，Smartnode 使用它来加速重新同步）。
+- 默认情况下，Smartnode 会将旧客户端的链数据保留在您的驱动器上，以防您想恢复到旧的 Execution 客户端并从中断处继续。您可能希望**将其导出到其他位置**并在更改客户端之前删除它以释放空间，因为 Execution 客户端可以使用数百 GB。我们在下面有关于如何执行此操作的步骤。
+- 当您的新客户端正在重新同步时，大多数 Smartnode CLI 功能将脱机，因为它们依赖于 Execution 客户端。**在执行此操作之前，您应该有一个后备 Execution 客户端可用，以减轻 Smartnode 上的停机时间。**
 
-### (Optional) Export your Execution Client's Database
+### （可选）导出您的 Execution 客户端数据库
 
-The first step in the process is an optional one: if you like, you can export your existing chain data for your current Execution client.
-This will let you free up valuable disk space on your node for your new Execution client, and you can keep the old chain data around in case you want to revert back to the old client and pick up where you left off.
+该过程的第一步是可选的：如果您愿意，可以导出当前 Execution 客户端的现有链数据。
+这将让您为新的 Execution 客户端释放节点上的宝贵磁盘空间，并且您可以保留旧链数据，以防您想恢复到旧客户端并从中断处继续。
 
-Please refer to the [Backing Up Your Node](./backups##backing-up-your-execution-chain-data) guide for details.
+请参阅[备份您的节点](./backups##备份您的-execution-链数据)指南了解详细信息。
 
-### Change your Selected Execution Client
+### 更改您选择的 Execution 客户端
 
-To change your selected client, run `rocketpool service config` to enter the configuration UI.
-Navigate to the `Execution Client (ETH1)` section, and select the `Execution Client` dropdown:
+要更改您选择的客户端，运行 `rocketpool service config` 进入配置 UI。
+导航到 `Execution Client (ETH1)` 部分，然后选择 `Execution Client` 下拉菜单：
 
 <img src={tui_select_ec} width="100%" height="auto" />
 
-Open the dropdown with `Enter`, use the arrow keys to navigate to your client of choice, and press `Enter` again to confirm the selection.
+使用 `Enter` 打开下拉菜单，使用箭头键导航到您选择的客户端，然后再次按 `Enter` 确认选择。
 
-Note that each client has its own unique options, so you may see some additional settings appear in this screen after you select a different client.
-Feel free to explore through them to see how they affect things.
+请注意，每个客户端都有自己独特的选项，因此在选择不同的客户端后，您可能会在此屏幕中看到一些其他设置。
+随意探索它们以查看它们如何影响事物。
 
-When you're happy with your choice, press `Esc` to return to the main menu, then `Tab` to highlight the `Review Changes and Save` button.
-You will be presented with the review screen, which will show your client selection change:
+当您对您的选择感到满意时，按 `Esc` 返回主菜单，然后按 `Tab` 突出显示 `Review Changes and Save` 按钮。
+您将看到审查屏幕，该屏幕将显示您的客户端选择更改：
 
 <img src={tui_confirm_ec} width="100%" height="auto" />
 
-Press `Enter` to accept the changes, and you're done!
-Your new Execution client will begin syncing immediately.
-As usual, you can follow it with `rocketpool service logs eth1`.
-**We recommend you do this to verify there are no errors, and that it works properly.**
+按 `Enter` 接受更改，就完成了！
+您的新 Execution 客户端将立即开始同步。
+像往常一样，您可以使用 `rocketpool service logs eth1` 跟踪它。
+**我们建议您这样做以验证没有错误，并且它正常工作。**
 
-::: danger NOTE
-Now that the Execution and Consensus layers have merged, taking down your Execution client will _also_ take down your Consensus client until your Execution client has finished resyncing.
-This means your node will **stop attesting and proposing blocks, and it will leak ETH instead of earning it!**
+::: danger 注意
+现在 Execution 和 Consensus 层已经合并，关闭您的 Execution 客户端也将关闭您的 Consensus 客户端，直到您的 Execution 客户端完成重新同步。
+这意味着您的节点将**停止证明和提议区块，它将泄漏 ETH 而不是赚取它！**
 
-To avoid this and continue validating while your Execution client resyncs, **please set up a [fallback node](./fallback)**.
+为了避免这种情况并在您的 Execution 客户端重新同步时继续验证，**请设置[后备节点](./fallback)**。
 :::
 
-### (Recommended) Remove your Old Chain Data
+### （推荐）删除您的旧链数据
 
-This is not a required step, but we **strongly recommend** you remove the chain data from your old client now that you've switched to a new one so you can free up disk space for it.
+这不是必需的步骤，但我们**强烈建议**您现在从旧客户端中删除链数据，因为您已经切换到新客户端，以便为其释放磁盘空间。
 
-To do this, simply run the following command:
+要执行此操作，只需运行以下命令：
 
 ```shell
 rocketpool service resync-eth1
 ```
 
-This will delete all of your Execution client data and start it over.
+这将删除您的所有 Execution 客户端数据并重新开始。
 
-::: tip TIP
-Since you just selected a new Execution client, it won't be affected by this - essentially, all it will do is delete your old chain data.
-You should do this as soon as possible after switching clients to prevent unnecessary loss of progress on your new client.
+::: tip 提示
+由于您刚刚选择了一个新的 Execution 客户端，因此不会受到影响 - 基本上，它只会删除您的旧链数据。
+您应该在切换客户端后尽快执行此操作，以防止新客户端上不必要的进度损失。
 :::
 
-## Changing Consensus Clients
+## 更改 Consensus 客户端
 
-Changing Consensus clients is even easier than Execution clients, thanks to [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
-This feature lets you immediately sync a new Consensus client with the network, so there's no need to preserve your old chain data.
+由于[检查点同步](./config-docker#beacon-chain-checkpoint-syncing)，更改 Consensus 客户端甚至比 Execution 客户端更容易。
+此功能使您可以立即将新的 Consensus 客户端与网络同步，因此无需保留旧链数据。
 
-Start by using the `rocketpool service config` UI and navigating to the `Consensus Client (ETH2)` section.
-Next, select the `Consensus Client` dropdown:
+首先使用 `rocketpool service config` UI 并导航到 `Consensus Client (ETH2)` 部分。
+接下来，选择 `Consensus Client` 下拉菜单：
 
 <img src={tui_select_cc} width="100%" height="auto" />
 
-Open the dropdown with `Enter`, use the arrow keys to navigate to your client of choice, and press `Enter` again to confirm the selection.
+使用 `Enter` 打开下拉菜单，使用箭头键导航到您选择的客户端，然后再次按 `Enter` 确认选择。
 
-Note that each client has its own unique options, so you may see some additional settings appear in this screen after you select a different client.
-Feel free to explore through them to see how they affect things.
+请注意，每个客户端都有自己独特的选项，因此在选择不同的客户端后，您可能会在此屏幕中看到一些其他设置。
+随意探索它们以查看它们如何影响事物。
 
-Next, verify that you're using a Checkpoint Sync provider:
+接下来，验证您正在使用检查点同步提供商：
 
 <img src={tui_checkpoint_sync} width="100%" height="auto" />
 
-If you don't have a Checkpoint Sync provider configured, [you can easily use instructions from here to do it for free](./config-docker#beacon-chain-checkpoint-syncing)!
+如果您没有配置检查点同步提供商，[您可以轻松使用此处的说明免费执行此操作](./config-docker#beacon-chain-checkpoint-syncing)！
 
-When you're happy with your choice, press `Esc` to return to the main menu, then `Tab` to highlight the `Review Changes and Save` button.
-You will be presented with the review screen, which will show your client selection change:
+当您对您的选择感到满意时，按 `Esc` 返回主菜单，然后按 `Tab` 突出显示 `Review Changes and Save` 按钮。
+您将看到审查屏幕，该屏幕将显示您的客户端选择更改：
 
 <img src={tui_confirm_cc} width="100%" height="auto" />
 
-Press `Enter` to accept the changes, and you're done!
-Your new Consensus client will begin syncing immediately.
-As usual, you can follow it with `rocketpool service logs eth2`.
-**We recommend you do this to verify there are no errors, and that it works properly.**
+按 `Enter` 接受更改，就完成了！
+您的新 Consensus 客户端将立即开始同步。
+像往常一样，您可以使用 `rocketpool service logs eth2` 跟踪它。
+**我们建议您这样做以验证没有错误，并且它正常工作。**

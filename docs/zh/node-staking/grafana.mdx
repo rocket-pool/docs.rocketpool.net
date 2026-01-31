@@ -1,98 +1,98 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Setting up the Grafana Dashboard
+# 设置 Grafana 仪表板
 
-Now that you have your node up and running, you'll probably want to have a convenient way to monitor everything about it at a glance to make sure it's functioning correctly (and what kind of earnings it's generating for you).
+现在您的节点已经启动并运行,您可能希望有一种便捷的方式一目了然地监控有关它的所有信息,以确保其正常运行(以及它为您产生了什么样的收益)。
 
-There are many tools out there that do this job.
-One of the most popular is called [Grafana](https://grafana.com/) - an easy-to-use, general-purpose dashboard system that you can access with a browser.
+有许多工具可以完成这项工作。
+其中最受欢迎的工具之一叫做 [Grafana](https://grafana.com/) - 一个易于使用的通用仪表板系统,您可以使用浏览器访问它。
 
-Rocket Pool comes out-of-the-box with support for Grafana and its dependencies; it even comes with a pre-built dashboard for each of the Consensus clients.
-For example, here is a snapshot of what the dashboard looks like on the Hoodi test network:
+Rocket Pool 开箱即支持 Grafana 及其依赖项;它甚至为每个共识客户端提供了预构建的仪表板。
+例如,这是仪表板在 Hoodi 测试网络上的样子:
 
 ![](./images/grafana-1.3.jpg)
 
-The standard dashboard includes the following information all in a convenient format:
+标准仪表板以方便的格式包含以下信息:
 
-- **Top left:** some important statistics about your machine's health and performance, and any pending system updates
-- **Top right:** the activity and performance of your validators on the Beacon Chain, along with some Execution and Consensus client stats
-- **Bottom left:** details about the entire Rocket Pool network, for reference
-- **Bottom right:** details about your staking rewards, both ETH and RPL
+- **左上角:** 有关您机器健康状况和性能的一些重要统计信息,以及任何待处理的系统更新
+- **右上角:** 您的验证者在信标链上的活动和性能,以及一些执行客户端和共识客户端的统计信息
+- **左下角:** 有关整个 Rocket Pool 网络的详细信息,供参考
+- **右下角:** 有关您的 staking 奖励的详细信息,包括 ETH 和 RPL
 
-In this guide, we'll show you how to enable Rocket Pool's metrics system so you can use this dashboard - or even build your own!
+在本指南中,我们将向您展示如何启用 Rocket Pool 的指标系统,以便您可以使用此仪表板 - 甚至构建您自己的仪表板!
 
-## Overview of the Rocket Pool Metrics Stack
+## Rocket Pool 指标堆栈概述
 
-If you choose to enable metrics during the Smartnode configuration process, your node will add the following processes:
+如果您在 Smartnode 配置过程中选择启用指标,您的节点将添加以下进程:
 
-- [Prometheus](https://prometheus.io/) - a data collection, storage, and reporting system that captures all of the metrics you see above (any many more) and stores them, so they can be looked at over time
-- The Prometheus [Node Exporter](https://github.com/prometheus/node_exporter) - a service that collects information about your machine's health (such as CPU usage, RAM usage, free disk space and swap space, etc.) and reports it to Prometheus
-- Grafana, the tool that exposes Prometheus's data through a convenient website hosted on your node
-- An optional custom set of scripts that will report any available Operating System updates to Prometheus, so you know if your system needs to be patched
+- [Prometheus](https://prometheus.io/) - 一个数据收集、存储和报告系统,可捕获您在上面看到的所有指标(以及更多指标)并存储它们,以便可以随时间查看它们
+- Prometheus [Node Exporter](https://github.com/prometheus/node_exporter) - 一种收集有关您机器健康状况的信息(例如 CPU 使用率、RAM 使用率、可用磁盘空间和交换空间等)并将其报告给 Prometheus 的服务
+- Grafana,通过在您的节点上托管的便捷网站公开 Prometheus 数据的工具
+- 一组可选的自定义脚本,将向 Prometheus 报告任何可用的操作系统更新,以便您知道系统是否需要修补
 
-The default configuration will create Docker containers with all of these services that live alongside the rest of the Smartnode's Docker containers.
-It will open up a port on your node machine for Grafana, so you can access its dashboard from any machine on your local network with a browser.
+默认配置将创建包含所有这些服务的 Docker 容器,这些容器与 Smartnode 的其余 Docker 容器一起运行。
+它将在您的节点机器上打开一个端口用于 Grafana,以便您可以使用浏览器从本地网络上的任何机器访问其仪表板。
 
-## Enabling the Metrics Server
+## 启用指标服务器
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker">
-      Enabling metrics in Docker mode is the easiest of all.
+      在 Docker 模式下启用指标是最简单的。
 
-      Start by running the Smartnode configuration command again:
+      首先再次运行 Smartnode 配置命令:
 
       ```shell
       rocketpool service config
       ```
 
-      Go to the `Monitoring / Metrics` section and check the `Enable Metrics` checkbox.
+      转到 `Monitoring / Metrics` 部分并选中 `Enable Metrics` 复选框。
 
-      For those who prefer to fine-tune their port settings, you may do so here.
-      Note that all of these ports are restricted to Docker's internal network with the exception of the Grafana port - that will be opened on your machine (so you can access it via a browser from other machines, such as your desktop or phone) so you may want to change that if the default port conflicts with something you already have.
+      对于那些喜欢微调端口设置的人,您可以在这里进行。
+      请注意,所有这些端口都限制在 Docker 的内部网络中,Grafana 端口除外 - 该端口将在您的机器上打开(以便您可以从其他机器(如台式机或手机)通过浏览器访问它),因此如果默认端口与您已有的内容冲突,您可能需要更改它。
 
-      Save and exit, and smartnode will start the Prometheus, Node Exporter, and Grafana Docker containers for you.
+      保存并退出,smartnode 将为您启动 Prometheus、Node Exporter 和 Grafana Docker 容器。
 
-      It will also modify your Consensus and Validator clients so they expose their own metrics to Prometheus.
+      它还将修改您的共识客户端和验证者客户端,以便它们向 Prometheus 公开自己的指标。
 
-      The Operating System and Rocket Pool update tracker is **not installed by default** for maximum flexibility, but the process is simple.
-      If you would like to install it so your dashboard shows you how many updates are available for your system, you can do it with this command:
+      为了最大的灵活性,**默认不安装**操作系统和 Rocket Pool 更新跟踪器,但过程很简单。
+      如果您想安装它,以便仪表板显示系统可用的更新数量,可以使用以下命令:
 
       ```shell
       rocketpool service install-update-tracker
       ```
 
-      Under the hood, this will install a service that hooks into your Operating System's package manager, periodically checks for updates, and sends that information to Prometheus.
-      This service is different for every Operating System, but it has been confirmed to work on the following:
+      在底层,这将安装一个挂钩到操作系统软件包管理器的服务,定期检查更新,并将该信息发送到 Prometheus。
+      这项服务对于每个操作系统都不同,但已确认可在以下系统上运行:
 
       - Ubuntu 20.04+
-      - Debian 9 and 10
-      - CentOS 7 and 8
+      - Debian 9 和 10
+      - CentOS 7 和 8
       - Fedora 34
 
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        Enabling the service automatically is incompatible with SELinux.
-        If your system has SELinux enabled by default (as is the case with CentOS and Fedora), the installation command will get you _most of the way there_ but will also give you instructions on how to finish the process manually at the end.
+        <p className="rspress-directive-title">注意</p>
+        自动启用该服务与 SELinux 不兼容。
+        如果您的系统默认启用了 SELinux(CentOS 和 Fedora 就是这种情况),安装命令将使您_完成大部分工作_,但最后也会给您有关如何手动完成该过程的说明。
       </p>
 
 
-      During this check, it will also compare your installed Rocket Pool Smartnode version with the latest release, and inform you if there's a new release available.
+      在此检查期间,它还会将您安装的 Rocket Pool Smartnode 版本与最新版本进行比较,如果有新版本可用,它会通知您。
 
-      If you enabled the update tracker, then the last step is to restart the Node Exporter with the following command:
+      如果您启用了更新跟踪器,则最后一步是使用以下命令重新启动 Node Exporter:
 
       ```shell
       docker restart rocketpool_exporter
       ```
 
-      After that, you should be all set.
+      之后,您应该已经全部设置好了。
     </Tab>
     <Tab label="Hybrid">
-      Hybrid Mode works similar to Docker Mode; the only difference is that you must manually add the proper command-line flags for enabling metrics to your Execution and Consensus Client service definition.
+      混合模式的工作方式与 Docker 模式类似;唯一的区别是您必须手动将启用指标的正确命令行标志添加到执行客户端和共识客户端服务定义中。
 
-      First, we will update your Execution Client.
-      Open the `systemd` unit file you created when you installed your Execution Client and make sure it has the correct flags, based on which client you are running:
+      首先,我们将更新您的执行客户端。
+      打开您在安装执行客户端时创建的 `systemd` 单元文件,并确保它具有正确的标志,具体取决于您正在运行的客户端:
 
       <div className="p-3">
         <Tabs>
@@ -114,8 +114,8 @@ It will open up a port on your node machine for Grafana, so you can access its d
         </Tabs>
       </div>
 
-      Next, we will update your Consensus Client.
-      Open the `systemd` unit file you created when you installed your Consensus Client and make sure it has the correct flags, based on which client you are running:
+      接下来,我们将更新您的共识客户端。
+      打开您在安装共识客户端时创建的 `systemd` 单元文件,并确保它具有正确的标志,具体取决于您正在运行的客户端:
 
       <div className="p-3">
         <Tabs>
@@ -139,7 +139,7 @@ It will open up a port on your node machine for Grafana, so you can access its d
             --monitoring-host 0.0.0.0 --monitoring-port 9100
             ```
 
-            If you see the flag `--disable-monitoring`, remove it.
+            如果您看到标志 `--disable-monitoring`,请将其删除。
           </Tab>
           <Tab label="Teku">
             ```
@@ -150,21 +150,21 @@ It will open up a port on your node machine for Grafana, so you can access its d
         </Tabs>
       </div>
 
-      If you already have these flags set and are using different ports for your solo validator monitoring, leave them as-is and make note of which ports you're using.
+      如果您已经设置了这些标志并且正在使用不同的端口进行独立验证者监控,请保持原样并记下您正在使用的端口。
 
-      Now, scroll up and follow the directions in the `Docker` tab of this section to finish the process - keeping in mind that you must replace the ports listed there with any custom ports you use when you run `rocketpool service config`.
+      现在,向上滚动并按照本节的 `Docker` 选项卡中的说明完成该过程 - 请记住,当您运行 `rocketpool service config` 时,您必须将那里列出的端口替换为您使用的任何自定义端口。
 
     </Tab>
     <Tab label="Native">
-      Native installation of Grafana and Prometheus is recommended for advanced users only. It requires Linux administration skills like `systemd`, file permissions, users and network management.
+      仅建议高级用户本地安装 Grafana 和 Prometheus。它需要 Linux 管理技能,如 `systemd`、文件权限、用户和网络管理。
 
-      First, make sure your Execution Client and Consensus Client have metrics enabled. Refer to 'Hybrid' tab for details.
+      首先,确保您的执行客户端和共识客户端已启用指标。有关详细信息,请参阅"Hybrid"选项卡。
 
-      Next, check prebuilt prometheus and node_exporter packages on [the official download page](https://prometheus.io/download/).
-      Choose packages with proper architecture for your platform (amd64 or arm64).
-      Most recent LTS (Long Time Support) version of Prometheus is recommended.
+      接下来,在[官方下载页面](https://prometheus.io/download/)上查看预构建的 prometheus 和 node_exporter 软件包。
+      为您的平台选择具有适当架构的软件包(amd64 或 arm64)。
+      建议使用最新的 LTS(长期支持)版本的 Prometheus。
 
-      For example to download prometheus v2.45.3 LTS and node_exporter v1.7.0 for Linux amd64 with `wget` do:
+      例如,使用 `wget` 为 Linux amd64 下载 prometheus v2.45.3 LTS 和 node_exporter v1.7.0:
 
       ```shell
       wget https://github.com/prometheus/prometheus/releases/download/v2.45.3/prometheus-2.45.3.linux-amd64.tar.gz
@@ -172,7 +172,7 @@ It will open up a port on your node machine for Grafana, so you can access its d
       wget https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-amd64.tar.gz
       ```
 
-      Extract prometheus and node_exporter executables from downloaded archives.
+      从下载的存档中提取 prometheus 和 node_exporter 可执行文件。
 
       ```shell
       sudo tar -zxvf prometheus-2.45.3.linux-amd64.tar.gz -C /usr/local/bin --wildcards '*/prometheus' --strip-components=1
@@ -180,7 +180,7 @@ It will open up a port on your node machine for Grafana, so you can access its d
       sudo tar -zxvf alertmanager-0.26.0.linux-amd64.tar.gz -C /usr/local/bin --wildcards '*/alertmanager' --strip-components=1
       ```
 
-      Create directories for prometheus & alertmanager configs.
+      为 prometheus 和 alertmanager 配置创建目录。
 
       ```shell
       sudo mkdir /etc/prometheus
@@ -189,7 +189,7 @@ It will open up a port on your node machine for Grafana, so you can access its d
       sudo mkdir /var/lib/alertmanager
       ```
 
-      Create file `/etc/prometheus/prometheus.yml` with following content:
+      创建文件 `/etc/prometheus/prometheus.yml`,内容如下:
 
       ```yaml
       global:
@@ -239,15 +239,15 @@ It will open up a port on your node machine for Grafana, so you can access its d
       ```
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        Change the port numbers for the Execution Client and Consensus Client if required.
+        <p className="rspress-directive-title">注意</p>
+        如果需要,请更改执行客户端和共识客户端的端口号。
 
-        You may be running your node on a different host than the host running prometheus change. In that case
-        install node_exporter on your rocketpool node host and update `targets` of the `node` job to include all machines you want to monitor.
-        Also adjust `metrics_path` if your Execution Client is geth - it exposes non-standard endpoint for metrics.
+        您可能在与运行 prometheus 更改的主机不同的主机上运行您的节点。在这种情况下
+        在您的 rocketpool 节点主机上安装 node_exporter 并更新 `node` 作业的 `targets` 以包含您想要监控的所有机器。
+        如果您的执行客户端是 geth,还要调整 `metrics_path` - 它公开非标准的指标端点。
       </p>
 
-      Create the `/etc/alertmanager/alertmanager.yml` with the following content:
+      创建 `/etc/alertmanager/alertmanager.yml`,内容如下:
 
       ```yaml
       global:
@@ -306,14 +306,14 @@ It will open up a port on your node machine for Grafana, so you can access its d
       equal: ["alertname", "job", "instance"]
       ```
 
-      Create system user for prometheus and alertmanager.
+      为 prometheus 和 alertmanager 创建系统用户。
 
       ```shell
       sudo useradd -r -s /sbin/nologin prometheus
       sudo useradd -r -s /sbin/nologin alertmanager
       ```
 
-      Change prometheus/alertmanager files ownership and permissions.
+      更改 prometheus/alertmanager 文件所有权和权限。
 
       ```shell
       sudo chown prometheus:prometheus /usr/local/bin/prometheus
@@ -328,7 +328,7 @@ It will open up a port on your node machine for Grafana, so you can access its d
       sudo chmod u+sx,g+sx,o-wx /usr/local/bin/node_exporter
       ```
 
-      Create file `/lib/systemd/system/node-exporter.service` for node_exporter service configuration.
+      为 node_exporter 服务配置创建文件 `/lib/systemd/system/node-exporter.service`。
 
       ```
       [Unit]
@@ -353,11 +353,11 @@ It will open up a port on your node machine for Grafana, so you can access its d
 
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        If you want to change the port on which node_exporter is running, modify command at `ExecStart` parameter. Default port is 9100.
+        <p className="rspress-directive-title">注意</p>
+        如果您想更改 node_exporter 运行的端口,请修改 `ExecStart` 参数中的命令。默认端口是 9100。
       </p>
 
-      Create file `/lib/systemd/system/prometheus.service` for prometheus service configuration.
+      为 prometheus 服务配置创建文件 `/lib/systemd/system/prometheus.service`。
 
       ```
       [Unit]
@@ -381,11 +381,11 @@ It will open up a port on your node machine for Grafana, so you can access its d
       ```
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        If you want to change the port on which prometheus is running, modify command at `ExecStart` parameter. Default port is 9090.
+        <p className="rspress-directive-title">注意</p>
+        如果您想更改 prometheus 运行的端口,请修改 `ExecStart` 参数中的命令。默认端口是 9090。
       </p>
 
-      Create file `/lib/systemd/system/alertmanager.service` for the alertmanager service configuration.
+      为 alertmanager 服务配置创建文件 `/lib/systemd/system/alertmanager.service`。
 
       ```
       [Unit]
@@ -409,51 +409,51 @@ It will open up a port on your node machine for Grafana, so you can access its d
       ```
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        If you want to change the port on which alertmanager is running, modify command at `ExecStart` parameter. Default port is 9093.
+        <p className="rspress-directive-title">注意</p>
+        如果您想更改 alertmanager 运行的端口,请修改 `ExecStart` 参数中的命令。默认端口是 9093。
       </p>
 
-      Let `systemd` know about new services.
+      让 `systemd` 知道新服务。
 
       ```shell
       sudo systemctl daemon-reload
       ```
 
-      Enable and start node-exporter service.
+      启用并启动 node-exporter 服务。
 
       ```shell
       sudo systemctl enable node-exporter
       sudo systemctl start node-exporter
       ```
 
-      Check the service status to make sure it's running.
+      检查服务状态以确保其正在运行。
 
       ```shell
       sudo systemctl status node-exporter
       ```
 
-      Enable and start prometheus service.
+      启用并启动 prometheus 服务。
 
       ```shell
       sudo systemctl enable prometheus
       sudo systemctl start prometheus
       ```
 
-      Enable and start alertmanager service.
+      启用并启动 alertmanager 服务。
 
       ```shell
       sudo systemctl enable alertmanager
       sudo systemctl start alertmanager
       ```
 
-      Check the service status to make sure it's running.
+      检查服务状态以确保其正在运行。
 
       ```shell
       sudo systemctl status prometheus
       sudo systemctl status alertmanager
       ```
 
-      Setup package repository for Grafana.
+      为 Grafana 设置软件包存储库。
 
       ```shell
       sudo apt-get update
@@ -463,16 +463,16 @@ It will open up a port on your node machine for Grafana, so you can access its d
       echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
       ```
 
-      Install Grafana.
+      安装 Grafana。
 
       ```shell
       sudo apt-get update
       sudo apt-get install grafana
       ```
 
-      Verify settings in `/etc/grafana/grafana.ini`. Change the `http_port` to 3100 to be in line with the other sections provided in this document.
+      验证 `/etc/grafana/grafana.ini` 中的设置。将 `http_port` 更改为 3100,以与本文档中提供的其他部分保持一致。
 
-      Configure datasource to visualise metrics from Prometheus in Grafana. Create file `/etc/grafana/provisioning/datasources/prometheus.yml`.
+      配置数据源以在 Grafana 中可视化来自 Prometheus 的指标。创建文件 `/etc/grafana/provisioning/datasources/prometheus.yml`。
 
       ```yaml
       apiVersion: 1
@@ -494,11 +494,11 @@ It will open up a port on your node machine for Grafana, so you can access its d
       ```
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        Edit `url` if you have changed Prometheus listening port.
+        <p className="rspress-directive-title">注意</p>
+        如果您已更改 Prometheus 监听端口,请编辑 `url`。
       </p>
 
-      Enable and start service for Grafana.
+      启用并启动 Grafana 服务。
 
       ```shell
       sudo systemctl daemon-reload
@@ -506,28 +506,28 @@ It will open up a port on your node machine for Grafana, so you can access its d
       sudo systemctl start grafana-server
       ```
 
-      Check if Grafana is up and running.
+      检查 Grafana 是否正在运行。
 
       ```shell
       sudo systemctl status grafana-server
       ```
 
-      This is pretty much it.
+      差不多就是这样了。
     </Tab>
 
   </Tabs>
 </div>
 
-## Configure firewall to allow connections for monitoring
+## 配置防火墙以允许监控连接
 
-::: warning NOTE
-If you have UFW enabled as referenced in the [Securing your Node](./securing-your-node) section, you will need to open a few ports in order to allow local connections between the Prometheus and your Execution/Consensus Clients. Follow the steps below.
+::: warning 注意
+如果您按照[保护您的节点](./securing-your-node)部分中的参考启用了 UFW,则需要打开几个端口以允许 Prometheus 与您的执行客户端/共识客户端之间的本地连接。请按照以下步骤操作。
 :::
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker">
-      Run the following, and replace the ports as needed:
+      运行以下命令,并根据需要替换端口:
 
       ```shell
       RP_NET=$(docker inspect rocketpool_net | grep -Po "(?<=\"Subnet\": \")[0-9./]+")
@@ -537,38 +537,37 @@ If you have UFW enabled as referenced in the [Securing your Node](./securing-you
       ```
     </Tab>
     <Tab label="Native">
-      If your RocketPool node and Prometheus resides on different hosts you need to configure firewall on your node host to allow incoming traffic
-      from Prometheus host IP to the node monitoring ports.
-      You also need to configure UFW on the Prometheus machine to allow for outgoing traffic from the Prometheus host to the RocketPool node host.
+      如果您的 RocketPool 节点和 Prometheus 位于不同的主机上,您需要在节点主机上配置防火墙,以允许从 Prometheus 主机 IP 到节点监控端口的传入流量。
+      您还需要在 Prometheus 机器上配置 UFW,以允许从 Prometheus 主机到 RocketPool 节点主机的出站流量。
 
-      Having node host IP `192.168.1.5` and Prometheus host IP `192.168.1.6` the UFW rules for the node will be:
+      节点主机 IP 为 `192.168.1.5`,Prometheus 主机 IP 为 `192.168.1.6`,节点的 UFW 规则为:
 
       ```shell
       sudo ufw allow from 192.168.1.6 to any port 9100:9105 proto tcp comment 'Allow Prometheus host to scrape metrics of this host'
       ```
 
-      And for Prometheus host:
+      Prometheus 主机的规则为:
 
       ```shell
       sudo ufw allow out from any to 192.168.1.5 port 9100:9105 proto tcp comment 'Allow this host to scrape node metrics'
       ```
 
-      Assuming your Grafana listening port is 3100, continue reading to find out how to expose Grafana in your network.
+      假设您的 Grafana 监听端口是 3100,请继续阅读以了解如何在网络中公开 Grafana。
     </Tab>
 
   </Tabs>
 </div>
 
-You can then open the firewall to allow external devices access to your Grafana dashboard.
+然后,您可以打开防火墙以允许外部设备访问您的 Grafana 仪表板。
 
 <div className="p-3">
   <Tabs>
     <Tab label="Network">
-      Use this if you want to access Grafana from any machine inside your local network, but deny access everywhere else.
-      This will be the most common use case.
+      如果您想从本地网络内的任何机器访问 Grafana,但拒绝其他任何地方的访问,请使用此选项。
+      这将是最常见的用例。
 
-      Please check whether your local network uses the `192.168.1.xxx` structure first.
-      You may have to change the command below to match your local network's configuration if it uses a different address structure (e.g. `192.168.99.xxx`).
+      请先检查您的本地网络是否使用 `192.168.1.xxx` 结构。
+      如果您的本地网络使用不同的地址结构(例如 `192.168.99.xxx`),您可能需要更改以下命令以匹配您的本地网络配置。
 
       ```shell
       # This assumes your local IP structure is 192.168.1.xxx
@@ -577,10 +576,10 @@ You can then open the firewall to allow external devices access to your Grafana 
 
     </Tab>
     <Tab label="Subnet">
-      Use this if your Rocket Pool node is not connected to the same subnet as the device from which you are viewing Grafana. This may happen when your node is connected directly to your ISP's modem and the device you use to view Grafana is connected to a secondary router.
+      如果您的 Rocket Pool 节点未连接到与您查看 Grafana 的设备相同的子网,请使用此选项。当您的节点直接连接到 ISP 的调制解调器,而您用来查看 Grafana 的设备连接到辅助路由器时,可能会发生这种情况。
 
-      Please check whether your local network uses the `192.168.1.xxx` structure first.
-      You may have to change the command below to match your local network's configuration if it uses a different address structure (e.g. `192.168.99.xxx`).
+      请先检查您的本地网络是否使用 `192.168.1.xxx` 结构。
+      如果您的本地网络使用不同的地址结构(例如 `192.168.99.xxx`),您可能需要更改以下命令以匹配您的本地网络配置。
 
       ```shell
       # To allow any devices in the broader subnet
@@ -590,8 +589,8 @@ You can then open the firewall to allow external devices access to your Grafana 
       ```
     </Tab>
     <Tab label="Anywhere">
-      This will let you access Grafana from anywhere.
-      If you want to access it from outside your local network, you will still need to forward the Grafana port (default 3100) in your router settings.
+      这将允许您从任何地方访问 Grafana。
+      如果您想从本地网络外部访问它,您仍然需要在路由器设置中转发 Grafana 端口(默认 3100)。
 
       ```shell
       # Allow any IP to connect to Grafana
@@ -602,40 +601,40 @@ You can then open the firewall to allow external devices access to your Grafana 
   </Tabs>
 </div>
 
-## Setting up Grafana
+## 设置 Grafana
 
-Now that the metrics server is ready, you can access it with any browser on your local network.
+现在指标服务器已准备就绪,您可以使用本地网络上的任何浏览器访问它。
 
-Refer to the tabs below for your Smartnode installation mode.
+有关 Smartnode 安装模式,请参阅下面的选项卡。
 
-Navigate to the following URL, substituting the variables with your setup as necessary:
+导航到以下 URL,根据您的设置替换变量:
 
 ```
 http://<your node IP>:<grafana port>
 ```
 
-For example, if you node's IP was `192.168.1.5` and you used the default Grafana port of `3100`, then you would go to this URL in your browser:
+例如,如果您的节点 IP 是 `192.168.1.5`,并且您使用默认的 Grafana 端口 `3100`,那么您将在浏览器中访问此 URL:
 
 ```
 http://192.168.1.5:3100
 ```
 
-You will see a login screen like this:
+您将看到如下登录屏幕:
 
 <img src="./images/grafana-login.png" width="100%" height="auto" />
 
-The default Grafana information is:
+默认 Grafana 信息是:
 
 ```
 Username: admin
 Password: admin
 ```
 
-You will then be prompted to change the default password for the `admin` account.
-Pick something strong and don't forget it!
+然后,系统会提示您更改 `admin` 账户的默认密码。
+选择一个强密码,不要忘记它!
 
-::: tip Tip
-If you lose the admin password, you can reset it using the following command on your node:
+::: tip 提示
+如果您丢失了管理员密码,可以使用节点上的以下命令重置它:
 
 <div className="p-3">
   <Tabs>
@@ -654,85 +653,85 @@ If you lose the admin password, you can reset it using the following command on 
   </Tabs>
 </div>
 
-You will be able to log into Grafana using the default `admin` credentials once again, and then you will be prompted to change the password for the `admin` account.
+您将能够再次使用默认的 `admin` 凭据登录 Grafana,然后系统将提示您更改 `admin` 账户的密码。
 :::
 
-Thanks to community member **tedsteen**'s work, Grafana will automatically connect to your Prometheus instance so it has access to the metrics that it collects.
-All you need to do is grab the dashboard!
+多亏了社区成员 **tedsteen** 的工作,Grafana 将自动连接到您的 Prometheus 实例,以便它可以访问它收集的指标。
+您所需要做的就是获取仪表板!
 
-## Importing the Rocket Pool Dashboard
+## 导入 Rocket Pool 仪表板
 
-Now that you have Grafana attached to Prometheus, you can import the standard dashboard (or build your own using the metrics that it provides, if you are familiar with that process).
+现在您已将 Grafana 连接到 Prometheus,您可以导入标准仪表板(或者如果您熟悉该过程,可以使用它提供的指标构建自己的仪表板)。
 
-Start by going to the **Create** menu (the plus icon on the right-side bar) and click on **Import**:
+首先转到 **Create** 菜单(右侧栏上的加号图标)并点击 **Import**:
 
 <img src="./images/grafana-import.png" width="100%" height="auto" />
 
-When prompted for the dashboard ID in the **Import via grafana.com** box, enter `21863` or use the full URL ([(https://grafana.com/grafana/dashboards/21863](https://grafana.com/grafana/dashboards/21863)) and press the **Load** button.
+当提示在 **Import via grafana.com** 框中输入仪表板 ID 时,输入 `21863` 或使用完整 URL ([(https://grafana.com/grafana/dashboards/21863](https://grafana.com/grafana/dashboards/21863)),然后按 **Load** 按钮。
 
-You will be prompted with some information about the dashboard here, such as its name and where you'd like to store it (the default **General** folder is fine unless you use a lot of dashboards and want to organize them).
+您将在此处看到一些有关仪表板的信息,例如其名称以及您希望将其存储在哪里(默认的 **General** 文件夹就可以了,除非您使用大量仪表板并希望对其进行组织)。
 
-Under the **Prometheus** drop-down at the bottom, you should only have a single option labeled **Prometheus (default)**.
-Select this option.
+在底部的 **Prometheus** 下拉菜单下,您应该只有一个标记为 **Prometheus (default)** 的选项。
+选择此选项。
 
-Your screen should look like this:
+您的屏幕应如下所示:
 
 <img src="./images/grafana-import2.png" width="100%" height="auto" />
 
-If yours matches, click the **Import** button and you will be immediately taken to your new dashboard.
+如果您的匹配,请单击 **Import** 按钮,您将立即进入新仪表板。
 
-At first glance, you should see lots of information about your node and your validators.
-Each box comes with a handy tooltip on the top left corner (the `i` icon) that you can hover over to learn more about it.
-For example, here is the tooltip for the **Your Validator Share** box:
+乍一看,您应该会看到有关您的节点和验证者的大量信息。
+每个框的左上角都有一个方便的工具提示(`i` 图标),您可以将鼠标悬停在上面以了解更多信息。
+例如,这是 **Your Validator Share** 框的工具提示:
 
 <img src="./images/tooltip.png" width="100%" height="auto" />
 
-However, we aren't done setting things up yet - there is still a little more configuration to do.
+但是,我们还没有完成设置 - 还有一些配置要做。
 
-::: warning NOTE
-Some of the boxes (notably the APR ones) have been temporarily disabled due to the way Shapella provides skimmed rewards.
+::: warning 注意
+由于 Shapella 提供 skimmed 奖励的方式,一些框(特别是 APR 框)已被暂时禁用。
 
-They will be enabled again in a future version of the Smartnode that can track historical rewards properly.
+它们将在可以正确跟踪历史奖励的 Smartnode 未来版本中再次启用。
 :::
 
-## Tailoring the Hardware Monitor to your System
+## 根据您的系统定制硬件监视器
 
-Now that the dashboard is up, you might notice that a few boxes are empty such as **SSD Latency** and **Network Usage**.
-We have to tailor the dashboard to your specific hardware so it knows how to capture these things.
+现在仪表板已启动,您可能会注意到一些框是空的,例如 **SSD Latency** 和 **Network Usage**。
+我们必须根据您的特定硬件定制仪表板,以便它知道如何捕获这些内容。
 
-### CPU Temp
+### CPU 温度
 
-To update your CPU temperature gauge, click the title of the **CPU Temp** box and select **Edit** from the drop down.
-Your screen will now look something like this:
+要更新您的 CPU 温度计,请单击 **CPU Temp** 框的标题,然后从下拉菜单中选择 **Edit**。
+您的屏幕现在看起来像这样:
 
 <img src="./images/cpu-temp.png" width="100%" height="auto" />
 
-This is Grafana's edit mode, where you can change what is displayed and how it looks.
-We're interested in the query box highlighted in red, to the right of the **Metrics browser** button.
+这是 Grafana 的编辑模式,您可以在其中更改显示的内容及其外观。
+我们对用红色突出显示的查询框感兴趣,它位于 **Metrics browser** 按钮的右侧。
 
-By default, that box has this in it:
+默认情况下,该框中包含以下内容:
 
 ```
 node_hwmon_temp_celsius{job="node", chip="", sensor=""}
 ```
 
-There are two fields in this text that are currently blank: `chip` and `sensor`.
-These are unique to each machine, so you'll have to fill them in based on what your machine provides.
+此文本中有两个字段当前为空:`chip` 和 `sensor`。
+这些对每台机器都是唯一的,因此您必须根据机器提供的内容填写它们。
 
-To do this, follow these steps:
+为此,请按照以下步骤操作:
 
-1. Remove the `, sensor=""` portion so it ends with `chip=""}`. For clarity, the whole thing should now be `node_hwmon_temp_celsius{job="node", chip=""}`.
-2. Put your cursor in-between the quote marks of `chip=""` and press `Ctrl+Spacebar`. This will bring up an auto-complete box with the available options, which looks like this:
+1. 删除 `, sensor=""` 部分,使其以 `chip=""}` 结尾。为了清楚起见,整个内容现在应该是 `node_hwmon_temp_celsius{job="node", chip=""}`。
+2. 将光标放在 `chip=""` 的引号之间,然后按 `Ctrl+Spacebar`。这将弹出一个自动完成框,其中包含可用选项,如下所示:
 
 <img src="./images/grafana-autocomplete.png" width="100%" height="auto" />
 
-3. Select the option that corresponds to your system's CPU.
-4. Once that's selected, add `, sensor=""` back into the string. Place your cursor in-between the quote marks of `sensor=""` and press `Ctrl+Spacebar` to get another auto-complete menu. Select the sensor you want to monitor.
+3. 选择与您系统的 CPU 对应的选项。
+4. 选择后,将 `, sensor=""` 添加回字符串。将光标放在 `sensor=""` 的引号之间,然后按 `Ctrl+Spacebar` 以获得另一个自动完成菜单。选择您要监控的传感器。
 
-::: tip Tip
-If you don't know which `chip` or `sensor` is correct, you'll have to try all of them until you find the one that looks right. To help with this, install the `lm-sensors` package (for example, `sudo apt install lm-sensors` on Debian / Ubuntu) and run the `sensors -u` command to provide what sensors your computer has. You can try to correlate a chip ID from Grafana's list with what you see here based on their names and IDs.
+::: tip 提示
+如果您不知道哪个 `chip` 或 `sensor` 是正确的,您将不得不尝试所有它们,直到找到看起来正确的那个。为了帮助解决这个问题,请安装 `lm-sensors` 软件包(例如,在 Debian / Ubuntu 上使用 `sudo apt install lm-sensors`)并运行 `sensors -u` 命令,以提供您的计算机拥有的传感器。您可以尝试根据名称和 ID 将 Grafana 列表中的芯片 ID 与您在此处看到的内容相关联。
 
-For example, this is one of the outputs of our `sensors -u` command:
+例如,这是我们的 `sensors -u` 命令的输出之一:
 
 ```
 k10temp-pci-00c3
@@ -742,36 +741,36 @@ Tdie:
   temp2_input: 33.500
 ```
 
-In our case, the corresponding chip in Grafana is `pci0000:00_0000:00:18_3` and the corresponding sensor is `temp1`.
+在我们的例子中,Grafana 中的相应芯片是 `pci0000:00_0000:00:18_3`,相应的传感器是 `temp1`。
 :::
 
-Once you're happy with your selections, click the blue **Apply** button in the top right corner of the screen to save the settings.
+对您的选择感到满意后,单击屏幕右上角的蓝色 **Apply** 按钮以保存设置。
 
-::: warning NOTE
-Not all system expose CPU temperature info - notably virtual machines or cloud-based systems.
-If yours doesn't have anything in the auto-complete field for `chip`, this is probably the case and you won't be able to monitor your CPU temperature.
+::: warning 注意
+并非所有系统都公开 CPU 温度信息 - 特别是虚拟机或基于云的系统。
+如果您的 `chip` 自动完成字段中没有任何内容,可能就是这种情况,您将无法监控 CPU 温度。
 :::
 
-### SSD Latency
+### SSD 延迟
 
-The **SSD Latency** chart tracks how long it takes for read/write operations to take.
-This is helpful in gauging how fast your SSD is, so you know if it becomes a bottleneck if your validator suffers from poor performance.
-To update the SSD you want to track in the chart, click on the **SSD Latency** title and select **Edit**.
+**SSD Latency** 图表跟踪读/写操作所需的时间。
+这有助于评估 SSD 的速度,因此如果验证者性能不佳,您就知道它是否成为瓶颈。
+要更新要在图表中跟踪的 SSD,请单击 **SSD Latency** 标题并选择 **Edit**。
 
-This chart has four query fields (four textboxes) with eight `device=""` portions in total.
-You'll need to update the first four of these portions with the device you want to track.
+此图表有四个查询字段(四个文本框),总共有八个 `device=""` 部分。
+您需要使用要跟踪的设备更新前四个部分。
 
-Simply place your cursor in-between the quote marks and press `Ctrl+Spacebar` to get Grafana's auto-complete list, and select the correct option from there for each of the `device=""` portions.
-**You want to start from the leftmost empty setting first, or the auto-complete list may not appear.**
+只需将光标放在引号之间,然后按 `Ctrl+Spacebar` 即可获得 Grafana 的自动完成列表,并从那里为每个 `device=""` 部分选择正确的选项。
+**您希望从最左边的空设置开始,否则自动完成列表可能不会出现。**
 
-::: tip Tip
-If you don't know which device to track, run the following command:
+::: tip 提示
+如果您不知道要跟踪哪个设备,请运行以下命令:
 
 ```
 lsblk
 ```
 
-This will output a tree showing your device and partition list, for example:
+这将输出一个显示设备和分区列表的树,例如:
 
 ```
 NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
@@ -785,40 +784,40 @@ nvme0n1     259:0    0 238,5G  0 disk
 └─nvme0n1p4 259:4    0   527M  0 part
 ```
 
-If you didn't change Docker's default location to a different drive during your Smartnode installation, then the disk you want to track will be the one that your Operating System is installed on.
-Look in the `MOUNTPOINT` column for an entry simply labeled `/`, then follow that back up to its parent device (the one with `disk` in the `TYPE` column).
+如果您在 Smartnode 安装期间没有将 Docker 的默认位置更改为其他驱动器,那么您要跟踪的磁盘将是安装操作系统的磁盘。
+在 `MOUNTPOINT` 列中查找标记为 `/` 的条目,然后按照该条目返回到其父设备(`TYPE` 列中带有 `disk` 的设备)。
 
-Typically this will be `sda` for SATA drives or `nvme0n1` for NVMe drives.
+通常,SATA 驱动器为 `sda`,NVMe 驱动器为 `nvme0n1`。
 
-If you _did_ change Docker's default location to a different drive, or if you're running a hybrid / native setup, you should be able to use the same technique of "following the mount point" to determine which device your chain data resides on.
+如果您_确实_将 Docker 的默认位置更改为其他驱动器,或者如果您正在运行混合/本地设置,您应该能够使用相同的"跟随挂载点"技术来确定链数据所在的设备。
 :::
 
-Optionally, you can also track latency of a second disk on your system.
-This is aimed at people that keep their Operating System and chain data on separate drives.
-To set this up, simply follow the instructions above for the last two query fields, substituting `device=""` portion values with those of the disk you want to track.
+或者,您还可以在系统上跟踪第二个磁盘的延迟。
+这是针对将操作系统和链数据保存在单独驱动器上的人们。
+要进行设置,只需按照上述说明对最后两个查询字段进行操作,将 `device=""` 部分值替换为您要跟踪的磁盘的值。
 
-Once you're happy with your selections, click the blue **Apply** button in the top right corner of the screen to save the settings.
+对您的选择感到满意后,单击屏幕右上角的蓝色 **Apply** 按钮以保存设置。
 
-### Network Usage
+### 网络使用情况
 
-This chart tracks how much data you're sending and receiving over a particular network connection.
-As you might expect, the dashboard needs to know which network you want it to track.
+此图表跟踪您通过特定网络连接发送和接收的数据量。
+正如您所料,仪表板需要知道您希望它跟踪哪个网络。
 
-To change it, click on the **Network Usage** title and select **Edit**.
+要更改它,请单击 **Network Usage** 标题并选择 **Edit**。
 
-This chart has two query fields with two `device=""` portions in total.
-You'll need to update these with the network you want to track.
+此图表有两个查询字段,总共有两个 `device=""` 部分。
+您需要使用要跟踪的网络更新这些内容。
 
-Place your cursor in-between the quote marks and press `Ctrl+Spacebar` to get Grafana's auto-complete list, and select the correct option from there for each of the `device=""` portions.
+将光标放在引号之间,然后按 `Ctrl+Spacebar` 即可获得 Grafana 的自动完成列表,并从那里为每个 `device=""` 部分选择正确的选项。
 
-::: tip Tip
-If you don't know which device to track, run the following command:
+::: tip 提示
+如果您不知道要跟踪哪个设备,请运行以下命令:
 
 ```shell
 sudo route
 ```
 
-The output will look something like this:
+输出将如下所示:
 
 ```
 Kernel IP routing table
@@ -828,66 +827,66 @@ default         192.168.1.1     0.0.0.0         UG    100    0        0 eth0
 192.168.1.1     0.0.0.0         255.255.255.255 UH    100    0        0 eth0
 ```
 
-Look at the `Destination` column for the row with the value if `default`.
-Follow that row all the way to the `Iface` column.
-The device listed there is the one you want to use - in this example, `eth0`.
+查看 `Destination` 列中值为 `default` 的行。
+沿着该行一直到 `Iface` 列。
+那里列出的设备是您要使用的设备 - 在本例中为 `eth0`。
 :::
 
-Once you're happy with your selections, click the blue **Apply** button in the top right corner of the screen to save the settings.
+对您的选择感到满意后,单击屏幕右上角的蓝色 **Apply** 按钮以保存设置。
 
-### Total Net I/O
+### 总网络 I/O
 
-This tracks the total amount of data you've sent and received.
-You might find it useful to watch if, for example, your ISP limits you to a certain amount of data per month.
+这会跟踪您发送和接收的数据总量。
+如果您的 ISP 限制您每月使用一定数量的数据,您可能会发现它很有用。
 
-The setup is identical to the **Network Usage** box above, so simply follow those instructions for this box too.
+设置与上面的 **Network Usage** 框相同,因此只需按照这些说明操作即可。
 
-### Disk Space Used
+### 使用的磁盘空间
 
-This keeps tabs on how full your Operating System disk is getting, so you know when it's time to clean up (and if your chain data lives on the same drive, time to [prune Geth or Nethermind](./pruning)).
+这会监控您的操作系统磁盘有多满,以便您知道何时该清理了(如果您的链数据位于同一驱动器上,则该[修剪 Geth 或 Nethermind](./pruning) 了)。
 
-The steps are the same as the **SSD Latency** box above, so simply follow those instructions for this box too.
-As a reminder, you want the drive that houses the partition which has `/` in the `MOUNTPOINT` column for this one because that will be your Operating System drive.
-Fill this into the first query field.
+步骤与上面的 **SSD Latency** 框相同,因此只需按照这些说明操作即可。
+提醒一下,您需要的驱动器是包含 `MOUNTPOINT` 列中带有 `/` 的分区的驱动器,因为那将是您的操作系统驱动器。
+将其填写到第一个查询字段中。
 
-Optionally, you can also track the free space of a second disk on your system.
-This is aimed at people that keep their Operating System and chain data on separate drives.
-Set this up by following the same process, but instead of looking at which partition has `/` in the `MOUNTPOINT` column, you want to look for the one that has whatever your second drive's mount point is.
-Update the second query field with the disk associated with that partition.
+或者,您还可以跟踪系统上第二个磁盘的可用空间。
+这是针对将操作系统和链数据保存在单独驱动器上的人们。
+通过遵循相同的过程进行设置,但不是查看 `MOUNTPOINT` 列中哪个分区具有 `/`,而是要查找具有第二个驱动器挂载点的分区。
+使用与该分区关联的磁盘更新第二个查询字段。
 
-### Disk Temp
+### 磁盘温度
 
-This tracks the current temperature of your Operating System disk. The steps are the same as the **CPU Temp** box above, so simply follow those instructions for this box too, substituting CPU chip and sensor values with those of your Operating System disk. Fill these values into the first query field.
+这会跟踪操作系统磁盘的当前温度。步骤与上面的 **CPU Temp** 框相同,因此只需按照这些说明操作即可,将 CPU 芯片和传感器值替换为操作系统磁盘的值。将这些值填写到第一个查询字段中。
 
-Optionally, you can also track the current temperature of a second disk on your system. Set this up by following the same process, substituting the chip and sensor values with those of your second drive. Fill these values into the second query field.
+或者,您还可以跟踪系统上第二个磁盘的当前温度。通过遵循相同的过程进行设置,将芯片和传感器值替换为第二个驱动器的值。将这些值填写到第二个查询字段中。
 
-## Customizing the Dashboard
+## 自定义仪表板
 
-While the standard dashboard tries to do a good job capturing everything you'd want to see at a glance, it's quite easy to customize a Grafana dashboard however you want.
-You can add new graphs, change the way graphs look, move things around, and much more!
+虽然标准仪表板尝试很好地捕获您希望一目了然看到的所有内容,但自定义 Grafana 仪表板非常容易。
+您可以添加新图表,更改图表的外观,移动内容等等!
 
-Take a look at [Grafana's Tutorials](https://grafana.com/tutorials/) page to learn how to play with it and set it up to your liking.
+查看 [Grafana 的教程](https://grafana.com/tutorials/)页面,了解如何使用它并根据您的喜好进行设置。
 
-## Customizing the Metrics Stack
+## 自定义指标堆栈
 
-The tools used in the Rocket Pool Metrics Stack offer a wide array of configuration options beyond what is included in the default Rocket Pool installation. This section includes configuration examples for different use cases.
+Rocket Pool 指标堆栈中使用的工具提供了超出默认 Rocket Pool 安装中包含的内容的大量配置选项。本节包含不同用例的配置示例。
 
-In general, [Grafana configuration options](https://grafana.com/docs/grafana/latest/administration/configuration/) should be passed through using environment variables in `override/grafana.yml`. Any config option can be converted to an environment variable using the following syntax:
+一般来说,[Grafana 配置选项](https://grafana.com/docs/grafana/latest/administration/configuration/)应该使用 `override/grafana.yml` 中的环境变量传递。可以使用以下语法将任何配置选项转换为环境变量:
 
 ```
 GF_<SectionName>_<KeyName>
 ```
 
-### Grafana SMTP Settings for Sending Emails
+### 用于发送电子邮件的 Grafana SMTP 设置
 
-To send emails from Grafana, e.g. for alerts or to invite other users, SMTP settings need to be configured in the Rocket Pool Metrics Stack.
-See the [Grafana SMTP configuration](https://grafana.com/docs/grafana/latest/administration/configuration/#smtp) page for reference.
+要从 Grafana 发送电子邮件,例如用于警报或邀请其他用户,需要在 Rocket Pool 指标堆栈中配置 SMTP 设置。
+请参阅 [Grafana SMTP 配置](https://grafana.com/docs/grafana/latest/administration/configuration/#smtp)页面以供参考。
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker and Hybrid Mode">
-      Open `~/.rocketpool/override/grafana.yml` in a text editor.
-      Add an `environment` section below the `x-rp-comment: Add your customizations below this line` line, replacing the values below with those for your SMTP provider.
+      在文本编辑器中打开 `~/.rocketpool/override/grafana.yml`。
+      在 `x-rp-comment: Add your customizations below this line` 行下方添加一个 `environment` 部分,将下面的值替换为 SMTP 提供商的值。
 
       ```yaml
       version: "3.7"
@@ -906,7 +905,7 @@ See the [Grafana SMTP configuration](https://grafana.com/docs/grafana/latest/adm
       ```
     </Tab>
     <Tab label="Native">
-      Open `/etc/grafana/grafana.ini` in a text editor. Look for `[smtp]` section and update it, replacing the values below with those for your SMTP provider.
+      在文本编辑器中打开 `/etc/grafana/grafana.ini`。查找 `[smtp]` 部分并对其进行更新,将下面的值替换为 SMTP 提供商的值。
 
       ```
       [smtp]
@@ -923,11 +922,11 @@ See the [Grafana SMTP configuration](https://grafana.com/docs/grafana/latest/adm
   </Tabs>
 </div>
 
-::: tip Tip
-If using Gmail and [2-Step Verification](https://support.google.com/accounts/answer/185839) is enabled, create an [App Password](https://support.google.com/mail/answer/185833?hl=en) for this service.
+::: tip 提示
+如果使用 Gmail 并启用了[两步验证](https://support.google.com/accounts/answer/185839),请为此服务创建一个[应用密码](https://support.google.com/mail/answer/185833?hl=en)。
 :::
 
-After making these modifications, **run the following to apply the changes**:
+进行这些修改后,**运行以下命令以应用更改**:
 
 <div className="p-3">
   <Tabs>
@@ -947,14 +946,14 @@ After making these modifications, **run the following to apply the changes**:
   </Tabs>
 </div>
 
-To test the SMTP settings, go to the **Alerting** menu and click **Contact points**.
+要测试 SMTP 设置,请转到 **Alerting** 菜单并单击 **Contact points**。
 
 <img src="./images/grafana-contact-points.png" width="100%" height="auto" />
 
-Click **New contact point** and select **Email** as the Contact point type.
-Enter an email address in the **Addresses** section and click **Test**.
+单击 **New contact point** 并选择 **Email** 作为联系点类型。
+在 **Addresses** 部分输入电子邮件地址,然后单击 **Test**。
 
 <img src="./images/grafana-new-contact-point.png" width="100%" height="auto" />
 
-Check to see that the test email was received.
-Click **Save contact point\*** when finished.
+检查是否收到了测试电子邮件。
+完成后单击 **Save contact point\***。

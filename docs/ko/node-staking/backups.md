@@ -1,109 +1,109 @@
-# Backing Up Your Node
+# 노드 백업하기
 
-::: tip NOTE
-This is currently written for **Docker Mode** installations.
-Some locations may vary for Hybrid or Native users.
+::: tip 참고
+이 문서는 현재 **Docker 모드** 설치를 기준으로 작성되었습니다.
+Hybrid 또는 Native 사용자의 경우 일부 위치가 다를 수 있습니다.
 :::
 
-In general, if you created your node wallet and minipools via the Smartnode, the only thing you truly need on hand to recover your node from a complete failure is the **mnemonic for your node wallet**
-Everything else can be recovered from that quite easily.
+일반적으로 Smartnode를 통해 노드 지갑과 minipool을 생성한 경우, 완전한 장애로부터 노드를 복구하기 위해 실제로 필요한 것은 **노드 지갑의 니모닉**뿐입니다.
+나머지는 모두 니모닉으로부터 쉽게 복구할 수 있습니다.
 
-If you have minipools that have externally-generated validator keys (e.g. you migrated from **Allnodes** to your own self-hosted node), you will need the private keystore files for your validators as well since they cannot be recovered from the node wallet.
+외부에서 생성된 validator 키가 있는 minipool이 있는 경우(예: **Allnodes**에서 자체 호스팅 노드로 마이그레이션한 경우), validator의 개인 keystore 파일도 필요합니다. 이러한 키는 노드 지갑에서 복구할 수 없기 때문입니다.
 
-That being said, once the Merge takes place, you will no longer be able to use a light Execution client (e.g. Pocket or Infura) as a fallback if you ever need to resync the Execution layer chain.
-Furthermore, you will be required to have an active and healthy Execution client to attest correctly.
-Having a fast, reliable way to recover from an Execution client failure (such as a corrupt database, SSD malfunction, or compromised / stolen hardware) will be critical, as it can take hours or even days to sync from scratch.
+그러나 Merge가 발생한 후에는 Execution 레이어 체인을 재동기화해야 할 경우 라이트 Execution 클라이언트(예: Pocket 또는 Infura)를 대체 수단으로 사용할 수 없게 됩니다.
+또한 올바르게 증명하려면 활성화되고 정상적인 Execution 클라이언트가 필요합니다.
+Execution 클라이언트 장애(손상된 데이터베이스, SSD 오작동 또는 손상/도난당한 하드웨어 등)로부터 빠르고 안정적으로 복구하는 방법을 갖추는 것은 매우 중요합니다. 처음부터 동기화하는 데 몇 시간 또는 며칠이 걸릴 수 있기 때문입니다.
 
-In this guide, we'll show you how to back up some of these things to help improve your node's resilience and minimize unnecessary downtime.
+이 가이드에서는 노드의 복원력을 개선하고 불필요한 다운타임을 최소화하기 위해 이러한 항목들을 백업하는 방법을 보여드리겠습니다.
 
-::: warning NOTE
-This guide assumes you have installed the Smartnode to the default directory (`~/.rocketpool`).
-If you specified a different installation directory, substitute it accordingly in the instructions below.
+::: warning 참고
+이 가이드는 Smartnode를 기본 디렉토리(`~/.rocketpool`)에 설치했다고 가정합니다.
+다른 설치 디렉토리를 지정한 경우, 아래 지침에서 해당 디렉토리로 적절히 대체하십시오.
 :::
 
-## Items That Can Be Backed Up
+## 백업 가능한 항목
 
-### Smartnode Configuration
+### Smartnode 설정
 
-The Smartnode's configuration is stored in `~/.rocketpool/user-settings.yml`.
-You can save this and replace it to restore all of your Smartnode settings (i.e., the things you specified in `rocketpool service config`).
+Smartnode의 설정은 `~/.rocketpool/user-settings.yml`에 저장됩니다.
+이 파일을 저장하고 교체하여 모든 Smartnode 설정(즉, `rocketpool service config`에서 지정한 항목들)을 복원할 수 있습니다.
 
-### Execution Client / ETH1 Client Chain Data
+### Execution 클라이언트 / ETH1 클라이언트 체인 데이터
 
-The Execution client's chain data is likely the most important thing to back up.
-As mentioned, it can take several days to re-sync your EC chain data.
-After The Merge, this means hours to days of downtime and lost profits!
+Execution 클라이언트의 체인 데이터는 백업해야 할 가장 중요한 항목입니다.
+언급했듯이 EC 체인 데이터를 재동기화하는 데 며칠이 걸릴 수 있습니다.
+Merge 이후에는 이것이 몇 시간에서 며칠간의 다운타임과 수익 손실을 의미합니다!
 
-The chain data is stored within the `rocketpool_eth1clientdata` Docker volume, which by default is located at `/var/lib/docker/volumes/rocketpool_eth1clientdata`.
-Note this folder is typically not accessible by unprivileged user accounts; you will need to elevate to the `root` user to see it.
+체인 데이터는 `rocketpool_eth1clientdata` Docker 볼륨 내에 저장되며, 기본적으로 `/var/lib/docker/volumes/rocketpool_eth1clientdata`에 위치합니다.
+이 폴더는 일반적으로 권한 없는 사용자 계정에서 액세스할 수 없으므로 `root` 사용자로 전환해야 합니다.
 
-::: tip NOTE
-If you changed Docker's storage location during the initial Smartnode installation (such as people that run Docker on a second SSD), you will find the volume in `/<your external mount point>/docker/volumes/rocketpool_eth1clientdata`
+::: tip 참고
+초기 Smartnode 설치 중에 Docker 저장 위치를 변경한 경우(두 번째 SSD에 Docker를 실행하는 사용자 등), `/<외부 마운트 지점>/docker/volumes/rocketpool_eth1clientdata`에서 볼륨을 찾을 수 있습니다.
 
-If you don't recall which installation path you use, you can check `/etc/docker/daemon.json` for its location.
-If the file doesn't exist, you use the default location.
+어떤 설치 경로를 사용하는지 기억나지 않는다면 `/etc/docker/daemon.json`에서 위치를 확인할 수 있습니다.
+파일이 존재하지 않으면 기본 위치를 사용하는 것입니다.
 :::
 
-For detailed instructions on how to efficiently back up your Execution chain data, please see the [Backing up your Execution Chain Data](#backing-up-your-execution-chain-data) section below.
+Execution 체인 데이터를 효율적으로 백업하는 방법에 대한 자세한 지침은 아래 [Execution 체인 데이터 백업하기](#execution-체인-데이터-백업하기) 섹션을 참조하십시오.
 
-### Monitoring & Metrics Data
+### 모니터링 및 메트릭 데이터
 
-This data is stored within the `rocketpool_grafana-storage` Docker volume, which by default is located at `/var/lib/docker/volumes/rocketpool_grafana-storage` (or `/<your external mount point>/docker/volumes/rocketpool_prometheus-data` if you customized your Docker storage location).
+이 데이터는 `rocketpool_grafana-storage` Docker 볼륨 내에 저장되며, 기본적으로 `/var/lib/docker/volumes/rocketpool_grafana-storage`에 위치합니다(Docker 저장 위치를 사용자 지정한 경우 `/<외부 마운트 지점>/docker/volumes/rocketpool_prometheus-data`).
 
-## Items That Should **Not** Be Backed Up
+## 백업**하지 말아야** 할 항목
 
-### Private Keys and Passwords
+### 개인 키 및 비밀번호
 
-Your node wallet's private key and the password file used to encrypt it are stored in `~/.rocketpool/data/wallet` and `~/.rocketpool/data/password` respectively.
-These files don't generally need to be backed up, as they can be recovered from your mnemonic using `rocketpool wallet recover`.
+노드 지갑의 개인 키와 이를 암호화하는 데 사용되는 비밀번호 파일은 각각 `~/.rocketpool/data/wallet`와 `~/.rocketpool/data/password`에 저장됩니다.
+이러한 파일은 `rocketpool wallet recover`를 사용하여 니모닉에서 복구할 수 있으므로 일반적으로 백업할 필요가 없습니다.
 
-If, for some reason, you _do_ decide to back up these files, you will need to be **extremely careful** about how you store them.
-Anyone who gains access to these files will gain access to your node wallet, its validators, and any funds you have stored on it for things like gas.
+어떤 이유로든 이러한 파일을 백업하기로 결정한 경우, 저장 방법에 대해 **매우 주의해야** 합니다.
+이러한 파일에 액세스하는 사람은 누구나 노드 지갑, validator 및 가스 등에 저장된 모든 자금에 액세스할 수 있습니다.
 
-We **strongly recommend** you do not back up these files and just use your wallet mnemonic to recover them if necessary.
+이러한 파일을 백업하지 말고 필요한 경우 지갑 니모닉을 사용하여 복구할 것을 **강력히 권장합니다**.
 
-### Consensus Client Chain Data
+### Consensus 클라이언트 체인 데이터
 
-Unlike the Execution layer data, the Consensus layer data is not nearly as important to your node thanks to [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
-Consensus clients can easily use this technique to immediately resync to the head of the Beacon chain and resume validation duties.
+Execution 레이어 데이터와 달리 Consensus 레이어 데이터는 [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing) 덕분에 노드에 그다지 중요하지 않습니다.
+Consensus 클라이언트는 이 기술을 사용하여 Beacon 체인의 헤드로 즉시 재동기화하고 검증 작업을 재개할 수 있습니다.
 
-## Backing up your Execution Chain Data
+## Execution 체인 데이터 백업하기
 
-The Smartnode comes with the ability to back up your Execution chain data via the `rocketpool service export-eth1-data` command.
-Under the hood, this utilizes `rsync`, a powerful backup/copy tool within Linux.
+Smartnode는 `rocketpool service export-eth1-data` 명령을 통해 Execution 체인 데이터를 백업할 수 있는 기능을 제공합니다.
+내부적으로 이것은 Linux의 강력한 백업/복사 도구인 `rsync`를 활용합니다.
 
-`rsync` compares the files in the source directory (your Docker volume) and the target directory (your backup location).
-If a source file doesn't exist in the target directory, it will be copied entirely.
-However, if it _does_ exist, `rsync` will only copy the _changes_ between the two files.
+`rsync`는 소스 디렉토리(Docker 볼륨)와 대상 디렉토리(백업 위치)의 파일을 비교합니다.
+소스 파일이 대상 디렉토리에 없으면 전체가 복사됩니다.
+그러나 파일이 _존재하는_ 경우 `rsync`는 두 파일 간의 _변경 사항_만 복사합니다.
 
-This means the first backup will take a good amount of time as it must copy all of the data initially.
-Subsequent backups will only copy the changes between your previous backup and now, making the process much faster.
+이는 첫 번째 백업이 모든 데이터를 처음에 복사해야 하므로 상당한 시간이 걸린다는 것을 의미합니다.
+후속 백업은 이전 백업과 현재 사이의 변경 사항만 복사하므로 프로세스가 훨씬 빠릅니다.
 
-As part of a backup strategy, you may want to plan to run `export-eth1-data` on a regular basis.
-To ensure the integrity of the chain data, running this command will **safely shut down the Execution client before backing up its data**.
-If you elect to schedule it every week, your Execution client will only be down for a few minutes while it updates the backup.
-This is certainly better than the days it would take to resync the data from scratch.
+백업 전략의 일환으로 정기적으로 `export-eth1-data`를 실행하도록 계획할 수 있습니다.
+체인 데이터의 무결성을 보장하기 위해 이 명령을 실행하면 **데이터를 백업하기 전에 Execution 클라이언트를 안전하게 종료합니다**.
+매주 예약하기로 선택한 경우 Execution 클라이언트는 백업을 업데이트하는 동안 몇 분만 다운됩니다.
+이것은 처음부터 데이터를 재동기화하는 데 걸리는 며칠보다 확실히 낫습니다.
 
-To trigger a backup, start by **mounting the storage medium you want to export the data to**.
-For example, this could be an external hard drive.
+백업을 트리거하려면 먼저 **데이터를 내보낼 저장 매체를 마운트**하십시오.
+예를 들어, 외장 하드 드라이브일 수 있습니다.
 
-::: tip HINT
-If you don't know how to mount external devices on Linux, it's easy!
-Plug the device into your node, and follow [a guide like this](https://www.addictivetips.com/ubuntu-linux-tips/mount-external-hard-drives-in-linux/) to learn how to mount it.
+::: tip 힌트
+Linux에서 외부 장치를 마운트하는 방법을 모르는 경우 쉽습니다!
+장치를 노드에 연결하고 [이와 같은 가이드](https://www.addictivetips.com/ubuntu-linux-tips/mount-external-hard-drives-in-linux/)를 따라 마운트하는 방법을 배우십시오.
 :::
 
-Once you have it mounted, note its mount path.
-For this example, let's assume that we want to store the chain data in a folder called `/mnt/external-drive` which the external device is mounted to.
-Replace this with your actual mount path wherever you see it below.
+마운트한 후 마운트 경로를 기록하십시오.
+이 예제에서는 외부 장치가 마운트된 `/mnt/external-drive`라는 폴더에 체인 데이터를 저장한다고 가정하겠습니다.
+아래에서 이 경로가 나타나는 모든 곳에서 실제 마운트 경로로 교체하십시오.
 
-Now, run the following command:
+이제 다음 명령을 실행하십시오.
 
 ```shell
 rocketpool service export-eth1-data /mnt/external-drive
 ```
 
-This will check that your target folder is reachable and has enough free space to store the chain data.
-The output will look like this:
+이것은 대상 폴더에 도달할 수 있고 체인 데이터를 저장할 충분한 여유 공간이 있는지 확인합니다.
+출력은 다음과 같습니다.
 
 ```
 This will export your execution client's chain data to an external directory, such as a portable hard drive.
@@ -123,31 +123,31 @@ Please do not exit until it finishes so you can watch its progress.
 Are you sure you want to export your execution layer chain data? [y/n]
 ```
 
-As you can see, the chain data will be under 100 GB (for the Hoodi testnet; the Ethereum mainnet will be an order of magnitude larger) and the external folder has 287 GiB free so exporting can continue.
+보시다시피 체인 데이터는 100 GB 미만(Hoodi 테스트넷의 경우; Ethereum 메인넷은 한 자릿수 더 클 것입니다)이고 외부 폴더는 287 GiB의 여유 공간이 있으므로 내보내기를 계속할 수 있습니다.
 
-When you're ready, enter `y` here and press `Enter`.
-This will stop your Execution client and begin copying its chain data to your target folder.
-You will see the progress of each individual file go past the screen as it runs.
+준비가 되면 여기에 `y`를 입력하고 `Enter`를 누르십시오.
+이것은 Execution 클라이언트를 중지하고 체인 데이터를 대상 폴더로 복사하기 시작합니다.
+실행되는 동안 각 개별 파일의 진행 상황이 화면에 표시됩니다.
 
-::: warning NOTE
-It's important that you _do not_ exit the terminal while this is running.
-If you do, the copy will continue to run in the background but you won't be able to follow its progress!
+::: warning 참고
+실행 중에 터미널을 종료_하지 마십시오_.
+종료하면 복사가 백그라운드에서 계속 실행되지만 진행 상황을 따라갈 수 없습니다!
 :::
 
-Once it's finished, it will automatically restart your Execution client container.
+완료되면 Execution 클라이언트 컨테이너가 자동으로 재시작됩니다.
 
-**Note that your existing chain data is not deleted from your node after the export is complete!**
+**내보내기가 완료된 후 노드에서 기존 체인 데이터가 삭제되지 않습니다!**
 
-### Restoring Your Execution Chain Data
+### Execution 체인 데이터 복원하기
 
-If you ever need to restore your backed up chain data, simply run the following command.
+백업한 체인 데이터를 복원해야 하는 경우 다음 명령을 실행하기만 하면 됩니다.
 
 ```shell
 rocketpool service import-eth1-data /mnt/external-drive
 ```
 
-::: danger WARNING
-This will automatically delete any existing Execution client data in your `rocketpool_eth1clientdata` volume!
+::: danger 경고
+이것은 `rocketpool_eth1clientdata` 볼륨의 기존 Execution 클라이언트 데이터를 자동으로 삭제합니다!
 :::
 
-Once it's done, your Execution client will be ready to go.
+완료되면 Execution 클라이언트를 사용할 준비가 됩니다.

@@ -1,36 +1,36 @@
-::: danger WARNING
-Minipool deposits are currently disabled in preparation for Saturn 1.
+::: danger UYARI
+Saturn 1'e hazırlık kapsamında minipool mevduatları şu anda devre dışı bırakılmıştır.
 :::
 
-# The Deposit Credit System
+# Depozito Kredi Sistemi
 
-The deposit credit system is a mechanism to track ETH that was previously bonded by node operators but is no longer required and make it available for use again.
-The source of this credit comes from two places:
+Depozito kredi sistemi, node operatörleri tarafından daha önce bağlanmış ancak artık gerekli olmayan ETH'yi takip eden ve tekrar kullanılabilir hale getiren bir mekanizmadır.
+Bu kredinin kaynağı iki yerden gelir:
 
-- [Migrating an existing 16-ETH bonded minipool down to an 8-ETH bonded minipool](./leb-migration.mdx) (which adds 8 ETH to the node operator's credit balance)
-- [Migrating an existing solo validator](./solo-staker-migration) into a minipool (which adds either 16 or 24 ETH to the node operator's credit balance, depending on which type of minipool they create during migration)
+- [Mevcut 16-ETH bağlı bir minipool'u 8-ETH bağlı bir minipool'a geçirmek](./leb-migration.mdx) (bu, node operatörünün kredi bakiyesine 8 ETH ekler)
+- [Mevcut bir solo validator'ı](./solo-staker-migration) bir minipool'a geçirmek (bu, geçiş sırasında oluşturdukları minipool türüne bağlı olarak node operatörünün kredi bakiyesine 16 veya 24 ETH ekler)
 
-Every node operator begins with a credit balance of **0 ETH**.
-Either of these two actions will increase that balance accordingly.
+Her node operatörü **0 ETH** kredi bakiyesi ile başlar.
+Bu iki işlemden herhangi biri bu bakiyeyi buna göre artıracaktır.
 
-This ETH is _not_ made liquid and returned to the node operator; instead, it can be used to **create additional minipools** without requiring any ETH from the node operator.
+Bu ETH likit hale _getirilmez_ ve node operatörüne iade edilmez; bunun yerine, node operatöründen herhangi bir ETH gerektirmeden **ek minipool'lar oluşturmak** için kullanılabilir.
 
-The credit system is **transparent** to the node operator; it will automatically be used (with notifications in the Smartnode CLI explaining that it will be used) during either `rocketpool node deposit` or `rocketpool node create-vacant-minipool` operations if possible.
-If it _cannot_ be used, the Smartnode will alert the user that it cannot be used and will require a normal ETH bond during either operation.
+Kredi sistemi node operatörü için **şeffaftır**; mümkünse `rocketpool node deposit` veya `rocketpool node create-vacant-minipool` işlemleri sırasında otomatik olarak kullanılacaktır (Smartnode CLI'da kullanılacağını açıklayan bildirimlerle).
+Eğer kullanıla_mazsa_, Smartnode kullanıcıya kullanılamayacağını bildirecek ve her iki işlem için de normal bir ETH bağı gerektirecektir.
 
-See the [Credit Availability](#credit-availability) section below for more details.
+Daha fazla ayrıntı için aşağıdaki [Kredi Kullanılabilirliği](#kredi-kullanilabilirligi) bölümüne bakın.
 
-## An Example
+## Bir Örnek
 
-Say you have a credit balance of 0 ETH, and a single minipool with a 16-ETH bond.
-You can then [migrate that minipool to an 8-ETH bond](./leb-migration.mdx).
-This will result in **8 ETH** that is no longer bonded.
-That 8 ETH will be placed into your **credit balance**.
+Diyelim ki 0 ETH kredi bakiyeniz var ve 16-ETH bağlı tek bir minipool'unuz var.
+Daha sonra [bu minipool'u 8-ETH bağına geçirebilirsiniz](./leb-migration.mdx).
+Bu, artık bağlı olmayan **8 ETH** ile sonuçlanacaktır.
+Bu 8 ETH, **kredi bakiyenize** yerleştirilecektir.
 
-Now, say you want to create a _second_ 8-ETH minipool.
-You run `rocketpool node deposit` as usual, and select 8-ETH as the bond amount.
-This normally requires you to provide 8 of your own ETH for the minipool.
-However, because you have a credit balance of 8 ETH, Rocket Pool will **automatically use that instead**:
+Şimdi, _ikinci_ bir 8-ETH minipool oluşturmak istediğinizi varsayalım.
+Her zamanki gibi `rocketpool node deposit` komutunu çalıştırırsınız ve bağ miktarı olarak 8-ETH'yi seçersiniz.
+Bu normalde minipool için kendi 8 ETH'nizi sağlamanızı gerektirir.
+Ancak, 8 ETH kredi bakiyeniz olduğu için Rocket Pool **bunun yerine otomatik olarak onu kullanacaktır**:
 
 ```
 Please choose an amount of ETH to deposit:
@@ -45,19 +45,19 @@ This deposit will use 8.000000 ETH from your credit balance and will not require
 Your consensus client is synced, you may safely create a minipool.
 ```
 
-The second set of lines here is the relevant one: they tell you that you have enough ETH in your credit balance to cover this deposit _and that it is available for use_, so it will use the balance automatically and won't require any supplemental ETH from your node wallet.
+Buradaki ikinci satır seti ilgili olandır: bu depoziti karşılamak için kredi bakiyenizde yeterli ETH'ye sahip olduğunuzu _ve kullanılabilir olduğunu_ söyler, bu nedenle bakiyeyi otomatik olarak kullanacak ve node cüzdanınızdan herhangi bir ek ETH gerektirmeyecektir.
 
-See [the availability section below](#credit-availability) for details on credit balance availability.
+Kredi bakiyesi kullanılabilirliği hakkında ayrıntılar için [aşağıdaki kullanılabilirlik bölümüne](#kredi-kullanilabilirligi) bakın.
 
-## Viewing your Current Credit Balance
+## Mevcut Kredi Bakiyenizi Görüntüleme
 
-To view your current credit balance, simply run the following command:
+Mevcut kredi bakiyenizi görüntülemek için şu komutu çalıştırmanız yeterlidir:
 
 ```shell
 rocketpool node status
 ```
 
-This produces a comprehensive list of details about your node, including its credit balance right at the top:
+Bu, node'unuz hakkında, en üstte kredi bakiyesi de dahil olmak üzere kapsamlı bir ayrıntı listesi üretir:
 
 ```
 Your Smartnode is currently using the Zhejiang Test Network.
@@ -68,13 +68,13 @@ The node has 8.000000 ETH in its credit balance, which can be used to make new m
 ...
 ```
 
-## Credit Availability
+## Kredi Kullanılabilirliği
 
-In some situations, your node might have a credit balance available but cannot currently use it to deploy additional minipools.
+Bazı durumlarda, node'unuzda kullanılabilir bir kredi bakiyesi olabilir ancak şu anda ek minipool'lar dağıtmak için kullanamayabilir.
 
-The ETH for your credit balance is taken from the **deposit pool**.
-Thus, if you want to use 8 ETH in credit to create a new 8-ETH minipool, it will end up taking **all 32 ETH for that minipool** from the deposit pool and require none from you.
-Because of this, if the deposit pool does not have enough ETH in it to cover the pre-deposit value (currently set to 1 ETH), **the balance will not be available**.
+Kredi bakiyeniz için ETH, **deposit pool**'dan alınır.
+Bu nedenle, yeni bir 8-ETH minipool oluşturmak için kredide 8 ETH kullanmak istiyorsanız, bu minipool için **tüm 32 ETH**'yi deposit pool'dan alacak ve sizden hiçbiri gerekmeyecektir.
+Bu nedenle, deposit pool'da ön depozito değerini karşılamak için yeterli ETH yoksa (şu anda 1 ETH olarak ayarlanmıştır), **bakiye kullanılabilir olmayacaktır**.
 
-In this situation, the Smartnode will alert you during a `rocketpool node deposit` operation that it **cannot** use your credit balance, and must instead use ETH from your node wallet to complete the bond.
-Doing so will **not** consume your credit balance; it will be left as-is and available for use later once the deposit pool has enough balance to cover it.
+Bu durumda, Smartnode bir `rocketpool node deposit` işlemi sırasında kredi bakiyenizi **kullanamayacağını** ve bunun yerine bağı tamamlamak için node cüzdanınızdan ETH kullanması gerektiğini size bildirecektir.
+Bunu yapmak kredi bakiyenizi **tüketmeyecektir**; olduğu gibi bırakılacak ve deposit pool'da onu karşılayacak yeterli bakiye olduğunda daha sonra kullanılabilir olacaktır.

@@ -1,96 +1,96 @@
-# Moving from One Node to Another
+# Migración de un nodo a otro
 
-Sometimes, your node machine is no longer able to do its job and you need to move to another one.
-This could happen if you're upgrading your node for example, or if you're moving from a cloud-based node to one locally hosted on dedicated hardware, or even if your node itself suffers a catastrophic hardware failure and you need to run your validators on a backup machine.
-Regardless of the case, this guide will help you understand how to safely migrate your wallet and validator keys from one node to another without getting slashed.
+A veces, tu máquina de nodo ya no puede hacer su trabajo y necesitas migrar a otra.
+Esto podría suceder si estás actualizando tu nodo por ejemplo, o si te estás mudando de un nodo basado en la nube a uno alojado localmente en hardware dedicado, o incluso si tu nodo mismo sufre una falla catastrófica de hardware y necesitas ejecutar tus validadores en una máquina de respaldo.
+Independientemente del caso, esta guía te ayudará a entender cómo migrar de forma segura tu billetera y claves de validador de un nodo a otro sin ser penalizado.
 
-## Slashing and The Slashing Database
+## Penalización y la base de datos de penalización
 
-The primary reason that we encourage you to exercise so much caution when moving your wallet from one machine to another, or recovering your wallet on another machine, is because of the risk of **slashing**.
-Slashing occurs when one or more of your validator keys does something that violates the rules of the Beacon Chain and appears as though you're attempting to attack the network.
-In response, the chain will forcibly exit your validator and enact a severe penalty - the size of the penalty depends on how many validators are also slashed within a two-week period of your own, but currently the minimum is **1 ETH** and there is no maximum.
+La razón principal por la que te alentamos a ejercer tanta precaución al mover tu billetera de una máquina a otra, o recuperar tu billetera en otra máquina, es por el riesgo de **penalización** (slashing).
+La penalización ocurre cuando una o más de tus claves de validador hace algo que viola las reglas de la Beacon Chain y parece como si estuvieras intentando atacar la red.
+En respuesta, la cadena saldrá forzosamente de tu validador y aplicará una penalización severa: el tamaño de la penalización depende de cuántos validadores también son penalizados dentro de un período de dos semanas de tu propia penalización, pero actualmente el mínimo es **1 ETH** y no hay máximo.
 
-Though there are several conditions that can be interpreted as "attacking the network", realistically the only one that happens accidentally is the **double attestation** (or **double proposal**).
-This occurs when your validator submits two attestations (or two block proposals) for the same slot that have different votes (e.g., it votes on two different candidate blocks for a particular slot instead of picking one).
+Aunque hay varias condiciones que pueden interpretarse como "atacar la red", en realidad la única que sucede accidentalmente es la **atestación doble** (o **propuesta doble**).
+Esto ocurre cuando tu validador envía dos atestaciones (o dos propuestas de bloque) para el mismo slot que tienen votos diferentes (por ejemplo, vota por dos bloques candidatos diferentes para un slot en particular en lugar de elegir uno).
 
-To combat this, your Validator Client hosts what's called a **Slashing Database**.
-The Slashing Database is simply a record of your validator's votes (i.e., the slot of each vote and the hash of the block that vote was for), so it knows not to vote on something that it's already voted on.
+Para combatir esto, tu cliente de validador aloja lo que se llama una **base de datos de penalización** (Slashing Database).
+La base de datos de penalización es simplemente un registro de los votos de tu validador (es decir, el slot de cada voto y el hash del bloque para el que fue ese voto), para que sepa no votar por algo por lo que ya votó.
 
-### Avoiding Being Slashed
+### Evitar ser penalizado
 
-Every Validator Client maintains a Slashing Database to ensure your node never double attests or double proposes.
-The problem, then, comes from situations where you begin validating **without** a slashing database and thus have no record of what your validators have previously voted on.
-This can happen in several situations:
+Cada cliente de validador mantiene una base de datos de penalización para asegurar que tu nodo nunca atestigüe doblemente o proponga doblemente.
+El problema, entonces, proviene de situaciones en las que comienzas a validar **sin** una base de datos de penalización y, por lo tanto, no tienes registro de lo que tus validadores han votado previamente.
+Esto puede suceder en varias situaciones:
 
-1. You just changed Consensus Clients, and the new client doesn't carry the Slashing Database over from the old one (which the Smartnode does not do during a client change).
-2. You have your wallet loaded on one machine and are actively attesting with it, and then load your wallet onto a second machine _while the first machine is still actively attesting_.
-3. You stop validating on one machine and load your wallet into a second machine, but you haven't waited long enough for the current epoch to be finalized so your second machine attests for slots that your validators have already attested to.
+1. Acabas de cambiar de clientes de Consenso, y el nuevo cliente no transfiere la base de datos de penalización del antiguo (lo cual el Smartnode no hace durante un cambio de cliente).
+2. Tienes tu billetera cargada en una máquina y estás atestiguando activamente con ella, y luego cargas tu billetera en una segunda máquina _mientras la primera máquina todavía está atestiguando activamente_.
+3. Dejas de validar en una máquina y cargas tu billetera en una segunda máquina, pero no has esperado lo suficiente para que la época actual se finalice, por lo que tu segunda máquina atestigua para slots para los que tus validadores ya han atestiguado.
 
-The standard way to avoid being slashed is to **wait for at least 15 minutes after your last successful attestation** before starting your Validator Client and attesting again, and **ensure that your validator keys are only present on one single machine**.
+La forma estándar de evitar ser penalizado es **esperar al menos 15 minutos después de tu última atestación exitosa** antes de iniciar tu cliente de validador y atestiguar de nuevo, y **asegurarte de que tus claves de validador solo estén presentes en una única máquina**.
 
-More specifically, the plan is to wait until your validator has intentionally missed an attestation, **and that miss has been finalized**.
-Once finality is attained, your validator cannot vote for the finalized epoch any longer and it is safe to start attesting with it once more.
+Más específicamente, el plan es esperar hasta que tu validador haya perdido intencionalmente una atestación, **y que esa falta haya sido finalizada**.
+Una vez que se logra la finalidad, tu validador ya no puede votar por la época finalizada y es seguro comenzar a atestiguar con él una vez más.
 
-The 15-minute wait comes from a rule of thumb that when operating normally (e.g. with normal consensus), the Beacon Chain takes about 7 minutes to finalize an epoch.
-Waiting for 15 minutes ensures that you've missed at least one epoch, and waited long enough for that epoch to be finalized, with a small buffer just for safety.
+La espera de 15 minutos proviene de una regla empírica de que cuando opera normalmente (por ejemplo, con consenso normal), la Beacon Chain tarda aproximadamente 7 minutos en finalizar una época.
+Esperar 15 minutos asegura que hayas perdido al menos una época y esperado lo suficiente para que esa época se finalice, con un pequeño margen solo por seguridad.
 
-## Node Migration Checklist
+## Lista de verificación de migración de nodo
 
-With the above context in mind, here is a helpful checklist you can follow when migrating your node to ensure you won't be slashed.
-This is designed for maximum safety, so while you may think some of the steps are unnecessary, we **strongly** encourage you to follow them all to completion.
+Con el contexto anterior en mente, aquí hay una lista de verificación útil que puedes seguir al migrar tu nodo para asegurar que no serás penalizado.
+Esto está diseñado para máxima seguridad, por lo que aunque puedas pensar que algunos de los pasos son innecesarios, te **recomendamos enfáticamente** que los sigas todos hasta completarlos.
 
-1. **Prepare the new node** by following these guides, starting from the "Preparing a Node" section and ending once you have the Smartnode installed and are syncing an Execution and Consensus client.
-   - :warning: **DO NOT** initialize a new wallet or recover your old wallet on the node. Allow it to sync the clients _without a wallet present_.
+1. **Prepara el nuevo nodo** siguiendo estas guías, comenzando desde la sección "Preparar un nodo" y terminando una vez que tengas el Smartnode instalado y estés sincronizando un cliente de Ejecución y Consenso.
+   - :warning: **NO** inicialices una nueva billetera o recuperes tu billetera antigua en el nodo. Permite que sincronice los clientes _sin una billetera presente_.
 
-2. **WAIT** until your clients are fully synced on the new node.
-3. Confirm that you have recorded your mnemonic correctly by running `rocketpool wallet test-recovery` on your new machine. This will _simulate_ key recovery to confirm your node wallet and all of your minipools' validator keys can be recovered correctly, but will not _actually_ recover them and save them to disk so there is no risk of slashing.
-   1. If the Smartnode fails to recover your node wallet using the mnemonic you provided, then your mnemonic may be invalid. **STOP** going through this process; removing the keys from your old node means they could be **lost forever**.
-   2. In this situation we recommend exiting your validators and withdrawing your capital as soon as possible, so you can start over with a new node that you have the working mnemonic for.
-4. **Stop validating** on your old node (for example, using `rocketpool service stop` to shut down the validator client).
-5. **Delete your keys** from your old node (for example, using `rocketpool wallet purge`).
-   1. **VERIFY** the keys have been removed by looking if your node's `data` folder (default is `~/.rocketpool/data/validators/`) - each Consensus Client will have its own folder under that data folder with its own copy of the keys.
-   2. Please see the [Verifying Key Removal](#verifying-key-removal) section below for instructions on how to do this.
-   3. Ensure **all of them** have been deleted.
+2. **ESPERA** hasta que tus clientes estén completamente sincronizados en el nuevo nodo.
+3. Confirma que has registrado tu mnemónico correctamente ejecutando `rocketpool wallet test-recovery` en tu nueva máquina. Esto _simulará_ la recuperación de claves para confirmar que tu billetera de nodo y todas las claves de validador de tus minipools se pueden recuperar correctamente, pero no las _recuperará realmente_ y las guardará en disco, por lo que no hay riesgo de penalización.
+   1. Si el Smartnode no puede recuperar tu billetera de nodo usando el mnemónico que proporcionaste, entonces tu mnemónico puede ser inválido. **DETÉN** este proceso; eliminar las claves de tu nodo antiguo significa que podrían **perderse para siempre**.
+   2. En esta situación, recomendamos salir de tus validadores y retirar tu capital lo antes posible, para que puedas comenzar de nuevo con un nuevo nodo del que tengas el mnemónico funcional.
+4. **Deja de validar** en tu nodo antiguo (por ejemplo, usando `rocketpool service stop` para apagar el cliente de validador).
+5. **Elimina tus claves** de tu nodo antiguo (por ejemplo, usando `rocketpool wallet purge`).
+   1. **VERIFICA** que las claves se hayan eliminado mirando si la carpeta `data` de tu nodo (la predeterminada es `~/.rocketpool/data/validators/`) - cada cliente de Consenso tendrá su propia carpeta bajo esa carpeta de datos con su propia copia de las claves.
+   2. Por favor, consulta la sección [Verificación de la eliminación de claves](#verificación-de-la-eliminación-de-claves) a continuación para obtener instrucciones sobre cómo hacer esto.
+   3. Asegúrate de que **todas** hayan sido eliminadas.
 
-6. **Power off** your old node and disconnect it from the Internet, by removing the Ethernet cable or Wi-Fi module.
+6. **Apaga** tu nodo antiguo y desconéctalo de Internet, retirando el cable Ethernet o el módulo Wi-Fi.
 
-7. **Wipe the SSD** from your old node, using one of the following methods:
-   1. Use a bootable USB drive with a Linux installation (such as the popular [GParted](https://gparted.org/download.php)) and use it to erase the drive.
-   2. **Physically remove it** from your old node, attach it to another machine using a USB converter, and use a tool such as [GParted](https://installati.one/debian/11/gparted/) to erase the drive.
-   3. **Physically remove it** from your old node and hit it with a hammer to break it and ensure it will never be used again.
+7. **Borra el SSD** de tu nodo antiguo, usando uno de los siguientes métodos:
+   1. Usa una unidad USB de arranque con una instalación de Linux (como el popular [GParted](https://gparted.org/download.php)) y úsala para borrar la unidad.
+   2. **Retíralo físicamente** de tu nodo antiguo, conéctalo a otra máquina usando un convertidor USB y usa una herramienta como [GParted](https://installati.one/debian/11/gparted/) para borrar la unidad.
+   3. **Retíralo físicamente** de tu nodo antiguo y golpéalo con un martillo para romperlo y asegurar que nunca se use de nuevo.
 
-8. **WAIT** for at least 15 minutes before proceeding. Use a block explorer like [https://beaconcha.in](https://beaconcha.in) to look at your validator's attestation record. Wait until at least one attestation has been recorded as missing _and the corresponding epoch has been finalized_.
-   1. NOTE: if you have multiple minipools, you must ensure _all of them_ have missed at least one attestation that has been finalized.
+8. **ESPERA** al menos 15 minutos antes de continuar. Usa un explorador de bloques como [https://beaconcha.in](https://beaconcha.in) para ver el registro de atestación de tu validador. Espera hasta que al menos una atestación se haya registrado como faltante _y la época correspondiente haya sido finalizada_.
+   1. NOTA: si tienes múltiples minipools, debes asegurar que _todos ellos_ hayan perdido al menos una atestación que haya sido finalizada.
 
-9. **Recover your node wallet** on the new machine by following the instructions in [Importing / Recovering an Existing Wallet](../recovering-rp.mdx).
+9. **Recupera tu billetera de nodo** en la nueva máquina siguiendo las instrucciones en [Importar / Recuperar una billetera existente](../recovering-rp.mdx).
 
-10. **Restart your Validator Client** to ensure that your validator keys are loaded (e.g., with `docker restart rocketpool_validator`).
+10. **Reinicia tu cliente de validador** para asegurar que tus claves de validador estén cargadas (por ejemplo, con `docker restart rocketpool_validator`).
 
-Your validator keys will now be loaded on your new node, and you can begin attesting safely with it.
+Tus claves de validador ahora estarán cargadas en tu nuevo nodo, y puedes comenzar a atestiguar de forma segura con él.
 
-## Verifying Key Removal
+## Verificación de la eliminación de claves
 
-Validator keys are stored on your disk in the form of `json` files.
-They are kept inside your node's `data` folder.
-By default, you can find them here:
+Las claves de validador se almacenan en tu disco en forma de archivos `json`.
+Se mantienen dentro de la carpeta `data` de tu nodo.
+De forma predeterminada, puedes encontrarlas aquí:
 
 ```shell
 ~/.rocketpool/data/validators/
 ```
 
-::: warning NOTE
-If you changed your `data` directory using the `service config` TUI (e.g., you are using an Aegis key and set that as your `data` folder, the above path should be changed to `<your data folder>/validators`.)
+::: warning NOTA
+Si cambiaste tu directorio `data` usando la TUI `service config` (por ejemplo, estás usando una clave Aegis y la configuraste como tu carpeta `data`, la ruta anterior debe cambiarse a `<tu carpeta data>/validators`.)
 :::
 
-Each client will have its own copy of the keys, since each client expects them in a different format or configuration.
+Cada cliente tendrá su propia copia de las claves, ya que cada cliente las espera en un formato o configuración diferente.
 
-To **find** the keys on disk, run the following command:
+Para **encontrar** las claves en disco, ejecuta el siguiente comando:
 
 ```shell
 sudo find ~/.rocketpool/data/validators -type f -name "*.json"
 ```
 
-For example, on a machine with two minipools, the output would look like this:
+Por ejemplo, en una máquina con dos minipools, la salida se vería así:
 
 ```shell
 /home/joe/.rocketpool/data/validators/teku/keys/0x831862d79685079037dbba67acfa1faf13a5863b94c1c39126e9a52155d32b7733ba65a56ba172e0fcb2b7d77e8a125b.json
@@ -105,6 +105,6 @@ For example, on a machine with two minipools, the output would look like this:
 /home/joe/.rocketpool/data/validators/lodestar/validators/0x900189d6bf7b0635ce1d81046c0d882d52ccf05e3f4fb29e7b9db4c9fb72c6587256fd41a785f103e15a253f3d24a610/voting-keystore.json
 ```
 
-This shows an example where the keys have **not** been deleted yet and are still on the filesystem.
+Esto muestra un ejemplo donde las claves **no** se han eliminado todavía y todavía están en el sistema de archivos.
 
-If your keys **have** been deleted, you should not see _any_ of the hex strings (the large strings starting with `0x`) in any of the folders for any of the clients within the output of that command.
+Si tus claves **han sido eliminadas**, no deberías ver _ninguna_ de las cadenas hexadecimales (las cadenas largas que comienzan con `0x`) en ninguna de las carpetas para ninguno de los clientes dentro de la salida de ese comando.

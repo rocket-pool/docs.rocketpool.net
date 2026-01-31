@@ -1,44 +1,44 @@
-# Houston Quick-Start
+# Краткое руководство по Houston
 
-Whether you're a seasoned Node Operator, rETH holder or curious onlooker, this page will help you get started with exploring the new features included in Houston.
+Независимо от того, являетесь ли вы опытным оператором узла, держателем rETH или любопытным наблюдателем, эта страница поможет вам начать изучение новых функций, включённых в Houston.
 
 ##
 
-### Initializing Voting Power
+### Инициализация права голоса
 
-First and foremost, the most important step if you are **Node Operator** is to [initialize voting](../houston/participate#initializing-voting) to unlock your voting power. Nodes who've initialized voting are included when the network's total voting power is calculated.
+Прежде всего, самый важный шаг, если вы **оператор узла**, - это [инициализировать голосование](../houston/participate#initializing-voting), чтобы разблокировать ваше право голоса. Узлы, которые инициализировали голосование, включаются при расчёте общего права голоса сети.
 
-At the genesis of Houston, pDAO voting is disabled until a sufficient number of nodes have initialized voting. This is to prevent rogue proposals from passing while total voting power and quorum is low. After enough nodes have initialized voting, a switch will be flipped and pDAO will have the helm.
+В начале Houston голосование pDAO отключено до тех пор, пока достаточное количество узлов не инициализирует голосование. Это сделано для предотвращения принятия мошеннических предложений, пока общее право голоса и кворум низки. После того как достаточное количество узлов инициализирует голосование, переключатель будет активирован, и pDAO возьмёт управление в свои руки.
 
-To initialize voting power, use this command in the smartnode:
+Чтобы инициализировать право голоса, используйте эту команду в smartnode:
 
 ```shell
 rocketpool pdao initialize-voting
 ```
 
-You only need to do this once. Initializing voting will ensure that your node's voting power is included in future on-chain proposals and allow you to vote on them.
+Вам нужно сделать это только один раз. Инициализация голосования обеспечит включение права голоса вашего узла в будущие онлайн-предложения и позволит вам голосовать по ним.
 
-### Setting your Snapshot Signalling Address
+### Установка вашего адреса для голосования в Snapshot
 
-Secondly, you'll want to set your snapshot signalling address. This allows node operators to participate in Snapshot votes in their browser or mobile device without having to expose their node keys to a hot wallet.
+Во-вторых, вам нужно установить адрес для голосования в Snapshot. Это позволяет операторам узлов участвовать в голосованиях Snapshot в браузере или на мобильном устройстве без необходимости предоставлять ключи узла горячему кошельку.
 
-Setting this up involves a handful of steps, so you'll want to follow this guide:
-[Setting your Snapshot Signalling Address](../houston/participate#setting-your-snapshot-signalling-address).
+Настройка этого включает несколько шагов, поэтому вам нужно следовать этому руководству:
+[Установка вашего адреса для голосования в Snapshot](../houston/participate#setting-your-snapshot-signalling-address).
 
-### Delegating on-chain Voting Power
+### Делегирование права голоса в онлайн-голосовании
 
-If you want to delegate on-chain voting power to a community member of your choosing, click [here](../houston/participate#delegating-voting-power) to learn how.
+Если вы хотите делегировать право голоса в онлайн-голосовании участнику сообщества по вашему выбору, нажмите [здесь](../houston/participate#delegating-voting-power), чтобы узнать, как это сделать.
 
 ##
 
-# Guides
+# Руководства
 
-[Full Houston Overview](../houston/whats-new) presents the fully on-chain Protocol DAO and introduces new features such as staking ETH on behalf of a node, setting an RPL withdrawal address, and time based balance and RPL submissions. Houston smart contract audits can be found here as well.
+[Полный обзор Houston](../houston/whats-new) представляет полностью онлайн-протокол DAO и вводит новые функции, такие как стейкинг ETH от имени узла, установка адреса для вывода RPL и подача балансов и RPL на основе времени. Здесь также можно найти аудиты смарт-контрактов Houston.
 
-[The Protocol DAO](../houston/pdao) discusses who and how the pDAO governs Rocket Pool. This page will fill you in on how pDAO duties such as treasury spends can be executed on-chain, along with the role of the all new Security Council. It'll also walk you through the lifecycle of a pDAO proposal and explain some of the measures taken to prevent spam and gun down malicious proposals.
+[Protocol DAO](../houston/pdao) обсуждает, кто и как pDAO управляет Rocket Pool. Эта страница расскажет вам о том, как обязанности pDAO, такие как расходы из казны, могут быть выполнены в онлайн-режиме, а также о роли совершенно нового Совета безопасности. Она также проведёт вас через жизненный цикл предложения pDAO и объяснит некоторые меры, принятые для предотвращения спама и пресечения вредоносных предложений.
 
-[Participating in Proposals](../houston/participate) includes a detailed step-by-step guide on how Node Operators can participate in pDAO proposals. If you're keen on raising an on-chain proposal, voting or delegating voting power, this is the guide for you.
+[Участие в предложениях](../houston/participate) включает подробное пошаговое руководство о том, как операторы узлов могут участвовать в предложениях pDAO. Если вы заинтересованы в внесении онлайн-предложения, голосовании или делегировании права голоса, это руководство для вас.
 
-[Stake Eth on Behalf of a Node](../houston/stake-eth-on-behalf.mdx) goes over the steps for staking ETH on behalf of a node. It's a new feature introduced in Houston to facilitate single depositor scenarios. We'll walk through how to do this on a testnet if you want to try it out before staking real ETH on mainnet.
+[Стейкинг ETH от имени узла](../houston/stake-eth-on-behalf.mdx) описывает шаги для стейкинга ETH от имени узла. Это новая функция, введённая в Houston для облегчения сценариев с одним вкладчиком. Мы пройдём через то, как это сделать в тестовой сети, если вы хотите попробовать это, прежде чем ставить реальный ETH в основной сети.
 
-[RPL Withdrawal Address](../houston/rpl-withdrawal-address) shows you how to set an RPL withdrawal address for your node. This is useful if you want to enable a separate entity to supply the RPL insurance collateral for a node.
+[Адрес для вывода RPL](../houston/rpl-withdrawal-address) показывает вам, как установить адрес для вывода RPL для вашего узла. Это полезно, если вы хотите разрешить отдельной организации предоставлять страховое обеспечение RPL для узла.

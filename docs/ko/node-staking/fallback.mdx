@@ -2,92 +2,92 @@ import tui_ec_expose_ports from "./images/tui-ec-expose-ports.png";
 import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_fallback_clients from "./images/tui-fallback-clients.png";
 
-# Specifying a Fallback Node
+# 백업 노드 지정하기
 
-Starting with **1.5.0** of the Smartnode stack, you can provide a "fallback" Execution client and Consensus client pair that can take over for your primary clients if they ever go offline (such as because [you use Geth and need to prune it](./pruning)).
-In this situation, your primary node machine will still be responsible for attesting and proposing blocks with your minipools' validator keys, but it will connect to an external machine to interact with the Execution layer and Beacon chains.
+Smartnode 스택의 **1.5.0** 버전부터 기본 클라이언트가 오프라인 상태가 될 경우([Geth를 사용하고 프루닝이 필요한 경우](./pruning)처럼) 이를 대체할 수 있는 "백업" Execution 클라이언트 및 Consensus 클라이언트 쌍을 제공할 수 있습니다.
+이 상황에서 기본 노드 머신은 여전히 미니풀의 검증자 키로 증명하고 블록을 제안하는 역할을 담당하지만, Execution 레이어 및 Beacon 체인과 상호작용하기 위해 외부 머신에 연결합니다.
 
-Essentially, it allows you to _temporarily_ use another pair of clients for things like querying the chains, sending transactions, and receiving blocks to attest to.
-This pair can be externally managed (like Hybrid mode), or it can be another Rocket Pool node (another Docker mode machine that has the API ports exposed, which we'll cover below).
+본질적으로 체인 조회, 트랜잭션 전송, 증명할 블록 수신과 같은 작업에 다른 클라이언트 쌍을 _임시로_ 사용할 수 있습니다.
+이 쌍은 외부에서 관리될 수 있으며(Hybrid 모드처럼), 또는 다른 Rocket Pool 노드가 될 수도 있습니다(아래에서 다룰 API 포트가 노출된 Docker 모드 머신).
 
-Once your node's primary clients are back online, the Smartnode and your Validator client will switch back to them automatically.
+노드의 기본 클라이언트가 다시 온라인 상태가 되면 Smartnode와 Validator 클라이언트가 자동으로 다시 전환됩니다.
 
-::: warning NOTE
-A fallback node is **not** the same as a "backup" node.
-Fallback nodes have an Execution and Consensus client pair synced to the chain and running, but they **do not** have your node's wallet or its validator keys loaded.
+::: warning 참고
+백업 노드는 "백업" 노드와 **동일하지 않습니다**.
+백업 노드는 체인에 동기화되고 실행 중인 Execution 및 Consensus 클라이언트 쌍을 가지고 있지만, 노드의 지갑이나 검증자 키는 **로드되어 있지 않습니다**.
 
-If your main node ever goes offline, **your fallback will not start validating for you.**
+메인 노드가 오프라인 상태가 되면 **백업 노드가 대신 검증을 시작하지 않습니다.**
 :::
 
-## Supported Clients
+## 지원되는 클라이언트
 
-As of v1.9.0, all our supported validator clients have added Fallback support with only a few limitations:
+v1.9.0부터 지원하는 모든 검증자 클라이언트에 백업 지원이 추가되었으며 몇 가지 제한 사항만 있습니다:
 
-| Name       | Supports Fallback | Valid Fallback Clients                                                         |
-| ---------- | ----------------- | ------------------------------------------------------------------------------ |
-| Lighthouse | Yes               | Any (doppelganger protection off)<br />Lighthouse (doppelganger protection on) |
-| Nimbus     | Yes               | Any                                                                            |
-| Prysm      | Yes               | Prysm                                                                          |
-| Teku       | Yes               | Any                                                                            |
-| Lodestar   | Yes               | Any                                                                            |
+| 이름       | 백업 지원 | 유효한 백업 클라이언트                                                     |
+| ---------- | --------- | -------------------------------------------------------------------------- |
+| Lighthouse | 예        | 모두 (doppelganger 보호 꺼짐)<br />Lighthouse (doppelganger 보호 켜짐)     |
+| Nimbus     | 예        | 모두                                                                       |
+| Prysm      | 예        | Prysm                                                                      |
+| Teku       | 예        | 모두                                                                       |
+| Lodestar   | 예        | 모두                                                                       |
 
-## Setting up a New Node (Docker Mode)
+## 새 노드 설정하기 (Docker 모드)
 
-You can use a 2nd machine that you own locally, a remote node hosted on a VPS, or a cloud-based node as a fallback node.
+로컬에서 소유한 두 번째 머신, VPS에 호스팅된 원격 노드 또는 클라우드 기반 노드를 백업 노드로 사용할 수 있습니다.
 
-This example shows you how to create a 2nd Smartnode on a different machine using Docker mode, which can serve as a fallback node.
+이 예제는 Docker 모드를 사용하여 다른 머신에 두 번째 Smartnode를 생성하는 방법을 보여주며, 이를 백업 노드로 사용할 수 있습니다.
 
-::: tip TIP
-If you already have a 2nd node ready and have its RPC ports exposed, feel free to skip this section.
+::: tip 팁
+이미 두 번째 노드가 준비되어 있고 RPC 포트가 노출되어 있다면 이 섹션을 건너뛰셔도 됩니다.
 :::
 
-1. Follow the steps in the guide on setting up a node ([local](./local/hardware) or [remote](./vps/providers)).
-2. Once the machine is ready, [install the Smartnode stack](./docker).
-3. Run `rocketpool service config` to specify which clients you'd like to use.
-   1. When you get to the end of the wizard and it asks if you'd like to review your settings, select **Yes**.
-   2. Enter the `Execution Client` settings.
-   3. Check the `Expose RPC Ports` box:
+1. 노드 설정 가이드([로컬](./local/hardware) 또는 [원격](./vps/providers))의 단계를 따르세요.
+2. 머신이 준비되면 [Smartnode 스택을 설치](./docker)합니다.
+3. `rocketpool service config`를 실행하여 사용할 클라이언트를 지정합니다.
+   1. 마법사의 끝에 도달하여 설정을 검토할지 묻는 질문이 나오면 **Yes**를 선택합니다.
+   2. `Execution Client` 설정으로 들어갑니다.
+   3. `Expose RPC Ports` 박스를 체크합니다:
 
    <img src={tui_ec_expose_ports} width="100%" height="auto" />
-   4. Go back and enter the `Consensus Client` settings. 5. Check the `Expose API Port` box (and, if you're using **Prysm**, the `Expose RPC Port` box as well):
+   4. 뒤로 가서 `Consensus Client` 설정으로 들어갑니다. 5. `Expose API Port` 박스를 체크합니다 (**Prysm**을 사용하는 경우 `Expose RPC Port` 박스도 체크합니다):
 
    <img src={tui_cc_expose_ports} width="100%" height="auto" />
-   6. Save the settings and start the Smartnode.
+   6. 설정을 저장하고 Smartnode를 시작합니다.
 
-4. Skip to the [Securing your Node](./securing-your-node) guide to set up SSH and the proper security posture on it.
-   1. If you have `ufw` installed, you will need to add rules to allow incoming traffic to the API ports (`8545`, `8546`, and `5052` by default; also `5053` if you're using **Prysm**).
+4. [노드 보안](./securing-your-node) 가이드로 이동하여 SSH와 적절한 보안 자세를 설정합니다.
+   1. `ufw`가 설치되어 있는 경우 API 포트로의 수신 트래픽을 허용하는 규칙을 추가해야 합니다(기본값은 `8545`, `8546`, `5052`이며, **Prysm**을 사용하는 경우 `5053`도 필요).
 
-5. That's it! You can stop here.
+5. 완료되었습니다! 여기서 멈추셔도 됩니다.
 
-::: danger NOTE
-**Do not** create a wallet with `rocketpool wallet init` or recover your old wallet.
-Leave this node without a wallet and without validator keys.
+::: danger 참고
+`rocketpool wallet init`으로 지갑을 생성하거나 이전 지갑을 복구하지 **마세요**.
+이 노드는 지갑과 검증자 키 없이 그대로 두세요.
 
-Its only job is to have a synced Execution client and Consensus client.
+이 노드의 유일한 역할은 동기화된 Execution 클라이언트와 Consensus 클라이언트를 갖는 것입니다.
 :::
 
-## Connecting your Main Node to the Fallback Node
+## 메인 노드를 백업 노드에 연결하기
 
-Once you have a fallback node prepared, you can connect it to your main node.
+백업 노드가 준비되면 메인 노드에 연결할 수 있습니다.
 
-1. Enter the `rocketpool service config` TUI and enter the `Fallback Clients` settings.
-2. Check the `Use Fallback Clients` box.
-3. Enter the RPC URL for your Execution client in the `Execution Client URL` box. For example, if your fallback node's IP address is `192.168.1.45` and you have its Execution client on the default port of `8545`, you would enter `http://192.168.1.45:8545` here.
-4. Do the same for the RPC URL of your fallback Consensus client. Following the same example, if you have it on the default port of `5052`, you would enter `http://192.168.1.45:5052` here.
+1. `rocketpool service config` TUI에 들어가서 `Fallback Clients` 설정으로 들어갑니다.
+2. `Use Fallback Clients` 박스를 체크합니다.
+3. `Execution Client URL` 박스에 Execution 클라이언트의 RPC URL을 입력합니다. 예를 들어 백업 노드의 IP 주소가 `192.168.1.45`이고 Execution 클라이언트가 기본 포트 `8545`에 있다면 여기에 `http://192.168.1.45:8545`를 입력합니다.
+4. 백업 Consensus 클라이언트의 RPC URL도 동일하게 입력합니다. 같은 예를 따라 기본 포트 `5052`에 있다면 여기에 `http://192.168.1.45:5052`를 입력합니다.
 
-The final page should look like this:
+최종 페이지는 다음과 같이 보여야 합니다:
 
 <img src={tui_fallback_clients} width="100%" height="auto" />
 
-::: tip NOTE
-**Native mode** users can follow the same steps, though the TUI will look slightly different from the above screenshot.
+::: tip 참고
+**Native 모드** 사용자는 동일한 단계를 따를 수 있지만 TUI가 위의 스크린샷과 약간 다르게 보일 것입니다.
 
-Note that this will only provide the **Smartnode itself** (the daemon service) with fallback support; **you will have to update your Validator client service's arguments manually to give it access to the fallback clients.**
+이것은 **Smartnode 자체**(데몬 서비스)에만 백업 지원을 제공한다는 점에 유의하세요. **백업 클라이언트에 대한 액세스를 제공하려면 Validator 클라이언트 서비스의 인수를 수동으로 업데이트해야 합니다.**
 :::
 
-Press `enter` on the final box to ensure that it's confirmed, then save the settings and apply the changes.
+마지막 박스에서 `enter`를 눌러 확인한 다음 설정을 저장하고 변경 사항을 적용합니다.
 
-Once they've been applied, you can confirm the availability of your fallback node using the `rocketpool node sync` command:
+적용된 후 `rocketpool node sync` 명령을 사용하여 백업 노드의 가용성을 확인할 수 있습니다:
 
 ```
 Your Smartnode is currently using the Ethereum Mainnet.
@@ -100,18 +100,18 @@ Your primary consensus client is fully synced.
 Your fallback consensus client is fully synced.
 ```
 
-If it shows that both the fallback Execution and Consensus client are synced, then you're all set!
+백업 Execution 및 Consensus 클라이언트가 모두 동기화되었다고 표시되면 모든 준비가 완료되었습니다!
 
-## Testing the Fallback Clients
+## 백업 클라이언트 테스트하기
 
-If you'd like to be absolutely sure that your configuration is going to work by testing the fallback clients, simply stop the Execution and Consensus clients on your main node:
+백업 클라이언트를 테스트하여 구성이 제대로 작동하는지 확실히 확인하고 싶다면 메인 노드의 Execution 및 Consensus 클라이언트를 중지하기만 하면 됩니다:
 
 ```shell
 docker stop rocketpool_eth1 rocketpool_eth2
 ```
 
-Then run any command that queries the chain, such as `rocketpool network stats`.
-You will see a warning message at the top indicating that one (or both) of your primary clients are offline, and that it's reverting to the fallback clients:
+그런 다음 `rocketpool network stats`와 같이 체인을 조회하는 명령을 실행합니다.
+기본 클라이언트 중 하나(또는 둘 다)가 오프라인 상태이며 백업 클라이언트로 되돌아가고 있다는 경고 메시지가 상단에 표시됩니다:
 
 ```
 NOTE: primary clients are not ready, using fallback clients...
@@ -146,16 +146,16 @@ Total RPL staked:        6098920.170527 RPL
 Effective RPL staked:    5751692.043848 RPL
 ```
 
-Finally, start your primary clients again:
+마지막으로 기본 클라이언트를 다시 시작합니다:
 
 ```shell
 docker start rocketpool_eth1 rocketpool_eth2
 ```
 
-And you're done!
-Your fallback setup is working.
+완료되었습니다!
+백업 설정이 작동합니다.
 
-## Next Steps
+## 다음 단계
 
-Whether or not you've opted into creating and/or running a fallback node for your setup, the next step is to learn about **priority fees**.
-Click on the next section of the guide when you're ready to proceed.
+백업 노드 생성 및/또는 실행을 선택했는지 여부와 관계없이 다음 단계는 **우선 수수료**에 대해 배우는 것입니다.
+준비가 되면 가이드의 다음 섹션을 클릭하세요.

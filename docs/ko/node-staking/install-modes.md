@@ -1,73 +1,73 @@
-# Selecting a Rocket Pool Mode
+# Rocket Pool 모드 선택
 
-Rocket Pool's Smartnode stack is quite flexible; there are several different ways to run it.
-It can stand up an entire full node from scratch, it can integrate with existing Execution or Consensus client deployments, and it can even run natively as a set of system services.
-In this section, we will cover the typical ways of configuring and using the Smartnode stack.
+Rocket Pool의 Smartnode 스택은 매우 유연합니다. 실행 방법이 여러 가지 있습니다.
+처음부터 전체 full node를 설정할 수 있고, 기존 Execution 또는 Consensus 클라이언트 배포와 통합할 수 있으며, 시스템 서비스 세트로 natively 실행할 수도 있습니다.
+이 섹션에서는 Smartnode 스택을 구성하고 사용하는 일반적인 방법들을 다룹니다.
 
-## The Default Docker-Based Configuration
+## 기본 Docker 기반 구성
 
-The default mode, and the most common way to run a Smartnode, is to have it create an entire full node instance on your local machine that Rocket Pool manages.
+기본 모드이자 Smartnode를 실행하는 가장 일반적인 방법은 Rocket Pool이 관리하는 전체 full node 인스턴스를 로컬 머신에 생성하는 것입니다.
 
-To accomplish this, the Smartnode uses [Docker containers](https://www.docker.com/resources/what-container).
-In essence, a Docker container is a small sandbox that comes pre-configured with a program, all of its dependencies, and all of the configuration needed to run correctly.
-When it's no longer needed, it can simply be thrown away.
-It's a nice little self-contained bundle that lets things work without making a mess of your actual filesystem or other programs.
+이를 위해 Smartnode는 [Docker 컨테이너](https://www.docker.com/resources/what-container)를 사용합니다.
+Docker 컨테이너는 기본적으로 프로그램, 모든 종속성 및 올바르게 실행하는 데 필요한 모든 구성이 미리 설정된 작은 샌드박스입니다.
+더 이상 필요하지 않으면 간단히 삭제할 수 있습니다.
+실제 파일 시스템이나 다른 프로그램을 지저분하게 만들지 않고 작동하는 멋진 독립적인 번들입니다.
 
-This mode is what the Smartnode Installer will deploy for you.
-It uses the following Docker containers:
+이 모드는 Smartnode Installer가 배포하는 방식입니다.
+다음 Docker 컨테이너를 사용합니다:
 
-- `rocketpool_api` - This holds the actual functionality that the Smartnode provides when you interact with it via Rocket Pool's command-line interface (CLI).
-- `rocketpool_node` - This is a background process that will periodically check for and claim RPL rewards after a reward checkpoint (if you have auto-claim enabled, more on this later), and is responsible for actually staking new validators when you create a minipool.
-- `rocketpool_watchtower` - This is used by Oracle Nodes to perform oracle-related duties. For regular node operators, this will simply stay idle.
-- `rocketpool_eth1` - This will be your Execution client.
-- `rocketpool_eth2` - This will be your Consensus beacon node client.
-- `rocketpool_validator` - This will be your Validator client, which is responsible for your validator duties (such as attesting to blocks or proposing new blocks).
+- `rocketpool_api` - Rocket Pool의 command-line interface (CLI)를 통해 상호 작용할 때 Smartnode가 제공하는 실제 기능을 보유합니다.
+- `rocketpool_node` - reward checkpoint 이후 RPL 보상을 주기적으로 확인하고 청구하는 백그라운드 프로세스입니다 (auto-claim을 활성화한 경우, 나중에 자세히 설명). minipool을 생성할 때 새 validator를 실제로 staking하는 역할을 합니다.
+- `rocketpool_watchtower` - Oracle Node가 oracle 관련 작업을 수행하는 데 사용됩니다. 일반 node operator의 경우 유휴 상태로 유지됩니다.
+- `rocketpool_eth1` - Execution 클라이언트입니다.
+- `rocketpool_eth2` - Consensus beacon node 클라이언트입니다.
+- `rocketpool_validator` - validator 의무를 담당하는 Validator 클라이언트입니다 (블록 증명 또는 새 블록 제안 등).
 
-In most situations, this is a good option to choose when creating a new node from scratch.
-It's the fastest, most hands-off procedure.
-It will also handle updates to the Execution and Consensus clients with every new Smartnode release, so you don't have to worry about them (though you can manually upgrade them at any time if you desire).
+대부분의 상황에서 처음부터 새 노드를 만들 때 선택하기 좋은 옵션입니다.
+가장 빠르고 손이 덜 가는 절차입니다.
+또한 Smartnode의 모든 새 릴리스마다 Execution 및 Consensus 클라이언트 업데이트를 처리하므로 걱정할 필요가 없습니다 (원하는 경우 언제든지 수동으로 업그레이드할 수 있습니다).
 
 ::: warning NOTE
-Currently, some of the Docker containers need to run as the `root` user to function correctly.
-While Docker containers are generally quite good at preventing a user from escaping into your main Operating System, you may not be comfortable with this requirement for security reasons.
-In this case, we suggest you use the Native configuration mode listed below.
+현재 일부 Docker 컨테이너는 올바르게 작동하려면 `root` 사용자로 실행해야 합니다.
+Docker 컨테이너는 일반적으로 사용자가 메인 운영 체제로 탈출하는 것을 방지하는 데 매우 뛰어나지만, 보안상의 이유로 이 요구 사항이 불편할 수 있습니다.
+이 경우 아래 나열된 Native 구성 모드를 사용하는 것이 좋습니다.
 :::
 
-If you would like to use this mode, proceed to the [Configuring a Standard Rocket Pool Node with Docker](./docker) section.
+이 모드를 사용하려면 [Docker를 사용한 표준 Rocket Pool 노드 구성](./docker) 섹션으로 진행하십시오.
 
-## The Hybrid Configuration with External Clients
+## 외부 클라이언트를 사용한 하이브리드 구성
 
-The hybrid configuration is well-suited for users that are interested in running a Rocket Pool node, but already have their own Execution and/or Consensus clients running for other purposes (for example, because they're already solo-staking).
+하이브리드 구성은 Rocket Pool 노드를 실행하는 데 관심이 있지만 이미 다른 목적으로 자체 Execution 및/또는 Consensus 클라이언트를 실행하고 있는 사용자에게 적합합니다 (예: 이미 solo-staking을 하고 있는 경우).
 
-In this mode, Rocket Pool will deploy Docker containers for its own processes and for a Validator client it manages, but will ignore the Execution client and Beacon Node containers for whichever external clients you already run and maintain.
-**As Rocket Pool will be creating and maintaining new validator keys for each of your node's minipools, it is important that it runs its own Validator client.**
+이 모드에서 Rocket Pool은 자체 프로세스와 관리하는 Validator 클라이언트용 Docker 컨테이너를 배포하지만, 이미 실행하고 유지 관리하는 외부 클라이언트의 Execution 클라이언트 및 Beacon Node 컨테이너는 무시합니다.
+**Rocket Pool이 노드의 각 minipool에 대한 새 validator 키를 생성하고 유지 관리하므로 자체 Validator 클라이언트를 실행하는 것이 중요합니다.**
 
-When using this configuration, the Smartnode will use the following Docker containers (which were described above):
+이 구성을 사용할 때 Smartnode는 다음 Docker 컨테이너를 사용합니다(위에서 설명한 것):
 
 - `rocketpool_api`
 - `rocketpool_node`
 - `rocketpool_watchtower`
 - `rocketpool_validator`
 
-The `rocketpool_eth1` and `rocketpool_eth2` containers will either be included or excluded, depending on which clients you already have running externally.
+`rocketpool_eth1` 및 `rocketpool_eth2` 컨테이너는 이미 외부에서 실행 중인 클라이언트에 따라 포함되거나 제외됩니다.
 
-If you would like to use this mode, proceed to the [Configuring a Standard Rocket Pool Node with Docker](./docker) section.
-When prompted to choose a management mode for your Execution and/or Consensus clients, choose the **Externally Managed** option which is described in detail within that section.
+이 모드를 사용하려면 [Docker를 사용한 표준 Rocket Pool 노드 구성](./docker) 섹션으로 진행하십시오.
+Execution 및/또는 Consensus 클라이언트의 관리 모드를 선택하라는 메시지가 표시되면 해당 섹션에서 자세히 설명하는 **Externally Managed** 옵션을 선택하십시오.
 
-## The Native Configuration without Docker
+## Docker 없이 Native 구성
 
-This configuration bypasses Docker entirely.
-Instead of running the Smartnode stack via Docker, each process will be installed as a local system service (e.g. via `systemd`).
-This includes the `node`, `watchtower`, `eth1`, `eth2`, and `validator` processes.
+이 구성은 Docker를 완전히 우회합니다.
+Docker를 통해 Smartnode 스택을 실행하는 대신 각 프로세스가 로컬 시스템 서비스로 설치됩니다 (예: `systemd`를 통해).
+여기에는 `node`, `watchtower`, `eth1`, `eth2` 및 `validator` 프로세스가 포함됩니다.
 
-This configuration offers the most flexibility because it allows you to fine-tune Rocket Pool's parameters (such as its security posture, where the Execution and Consensus clients live, where the chain data lives, where your keys live, and so on).
-It is also the most difficult to set up and maintain.
+이 구성은 Rocket Pool의 매개변수 (보안 상태, Execution 및 Consensus 클라이언트 위치, 체인 데이터 위치, 키 위치 등)를 미세 조정할 수 있으므로 가장 유연합니다.
+그러나 설정 및 유지 관리가 가장 어렵습니다.
 
-In this mode, the Smartnode Installer is no longer relevant.
-You are responsible for manually instantiating, maintaining, and upgrading the Smartnode infrastructure, the ETH clients, and the validator clients.
+이 모드에서는 Smartnode Installer가 더 이상 관련이 없습니다.
+Smartnode 인프라, ETH 클라이언트 및 validator 클라이언트를 수동으로 인스턴스화, 유지 관리 및 업그레이드해야 합니다.
 
 ::: danger WARNING
-While we provide some example documentation on how to do this, we suggest that this mode should only be used by **experienced system administrators**.
+이를 수행하는 방법에 대한 예제 문서를 제공하지만 이 모드는 **숙련된 시스템 관리자**만 사용해야 합니다.
 :::
 
-If you would like to use this mode, proceed to the [Configuring a Native Rocket Pool Node without Docker](./native.mdx) section.
+이 모드를 사용하려면 [Docker 없이 Native Rocket Pool 노드 구성](./native.mdx) 섹션으로 진행하십시오.

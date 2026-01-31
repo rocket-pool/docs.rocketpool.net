@@ -1,87 +1,87 @@
-# Preparing a Mac
+# Mac Hazırlama
 
-Before installing Rocket Pool, there are a few checks you should do to make sure your system is compatible and will work correctly.
+Rocket Pool'u kurmadan önce, sisteminizin uyumlu olduğundan ve doğru çalışacağından emin olmak için yapmanız gereken birkaç kontrol vardır.
 
 ::: danger
-We strongly encourage you to create a dedicated machine for running a Rocket Pool node.
-Running a node on a general-use machine, such as your daily work desktop, presents extra security risks that may compromise your wallet and result in the theft of your coins.
+Rocket Pool node'u çalıştırmak için özel bir makine oluşturmanızı şiddetle tavsiye ediyoruz.
+Günlük masaüstü gibi genel kullanımlı bir makinede node çalıştırmak, cüzdanınızı tehlikeye atabilecek ve coin'lerinizin çalınmasına neden olabilecek ekstra güvenlik riskleri sunar.
 
-**For maximum safety, please build a new machine that is dedicated exclusively to running a node.**
+**Maksimum güvenlik için, lütfen yalnızca node çalıştırmaya ayrılmış yeni bir makine kurun.**
 :::
 
-## System Requirements
+## Sistem Gereksinimleri
 
-Below is a brief description of the software and hardware requirements that a Rocket Pool node requires.
-This guide assumes that you already have your machine physically built, and the operating system installed.
+Aşağıda bir Rocket Pool node'unun gerektirdiği yazılım ve donanım gereksinimlerinin kısa bir açıklaması bulunmaktadır.
+Bu kılavuz, makinenizi fiziksel olarak kurduğunuzu ve işletim sistemini kurduğunuzu varsayar.
 
-### Supported Operating Systems
+### Desteklenen İşletim Sistemleri
 
-Rocket Pool recommends you use the latest version of macOS for your hardware.
+Rocket Pool, donanımınız için en son macOS sürümünü kullanmanızı önerir.
 
-### macOS Support
+### macOS Desteği
 
-You will need to install the following pre-requisites:
+Aşağıdaki ön koşulları kurmanız gerekecektir:
 
-We highly recommend using [Homebrew](https://brew.sh) as your package manager for Mac. It allows you to install packages easily using the `brew` command.
+Mac için paket yöneticisi olarak [Homebrew](https://brew.sh) kullanmanızı şiddetle tavsiye ediyoruz. `brew` komutunu kullanarak paketleri kolayca kurmanıza olanak tanır.
 
-You can install it via
+Şu şekilde kurabilirsiniz:
 
 ```shell
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-It should install some pre-requisites for you, such as XCode Command Line Tools. If it doesn't, you can install them manually using
+Sizin için XCode Komut Satırı Araçları gibi bazı ön koşulları kurmalıdır. Kurmazsa, bunları manuel olarak şu şekilde kurabilirsiniz:
 
 ```shell
 xcode-select --install
 ```
 
-Once installed, ensure everything is working correctly by using
+Kurulduktan sonra, her şeyin doğru çalıştığından emin olmak için şunu kullanın:
 
 ```shell
 brew doctor
 ```
 
-Once everything is installed & working, Homebrew will allow you to install packages using the `brew` command.
+Her şey kurulup çalıştığında, Homebrew `brew` komutunu kullanarak paketleri kurmanıza izin verecektir.
 
-For example, to install `wget` using Homebrew execute the following command in the Terminal:
+Örneğin, Homebrew kullanarak `wget` kurmak için Terminal'de aşağıdaki komutu çalıştırın:
 
 ```shell
 brew install wget
 ```
 
-Now that we have Homebrew installed, we can install our Docker client, [Orbstack](https://orbstack.dev).
+Artık Homebrew kurulu olduğuna göre, Docker istemcimiz olan [Orbstack](https://orbstack.dev)'i kurabiliriz.
 
 ```shell
 brew install --cask orbstack
 ```
 
-Orbstack will be installed to your Applications folder. Launch it from there and it will initialise. If you are migrating from Docker Desktop, it should detect your existing Docker installation and migrate your images and containers.
+Orbstack, Uygulamalar klasörünüze kurulacaktır. Oradan başlatın ve başlatılacaktır. Docker Desktop'tan taşıyorsanız, mevcut Docker kurulumunuzu algılamalı ve image'lerinizi ve container'larınızı taşımalıdır.
 
-You may need to adjust your Orbstack settings depending on your hardware.
+Donanımınıza bağlı olarak Orbstack ayarlarınızı düzenlemeniz gerekebilir.
 
-If you have previously installed Docker Desktop, you will need to uninstall it first. Docker Desktop used to be the recommended Docker Client however in the last year a few new clients have been released that provide much better stability.
+Daha önce Docker Desktop kurduysanız, önce onu kaldırmanız gerekecektir. Docker Desktop eskiden önerilen Docker İstemcisiydi, ancak geçen yıl çok daha iyi kararlılık sağlayan birkaç yeni istemci yayınlandı.
 
-Please ensure your Firewall (System Settings -> Network -> Firewall) is turned on and Orbstack is added to the list of applications allowing incoming connections. (Orbstack should do this for you)
+Lütfen Güvenlik Duvarınızın (Sistem Ayarları -> Ağ -> Güvenlik Duvarı) açık olduğundan ve Orbstack'in gelen bağlantılara izin veren uygulamalar listesine eklendiğinden emin olun. (Orbstack bunu sizin için yapmalıdır)
 
 ![](../local/images/mac/firewall.png)
 
-### Installing and Using SSH
+### SSH Kurulumu ve Kullanımı
 
-SSH should already be installed with macOS.
+SSH zaten macOS ile kurulu olmalıdır.
 
-### Pre-installation System Checks
+### Kurulum Öncesi Sistem Kontrolleri
 
-Before installing Rocket Pool, please review the following checklist:
+Rocket Pool'u kurmadan önce, lütfen aşağıdaki kontrol listesini gözden geçirin:
 
-- Your system is fully built, powers on, and can boot into the operating system.
-- You will not do any other activity on the system, such as browsing the Internet, checking email, or playing games.
-- You have a macOS operating system installed.
-- Your user account has root / administrator privileges.
-- You have an SSD that meets the performance requirements.
-- Your SSD is mounted on your file system.
-- You have at least 1.5TB of space free for the initial Execution and Consensus syncing process.
-- If your ISP caps your data, it is more than 2 TB per month.
+- Sisteminiz tamamen kurulmuştur, açılır ve işletim sistemine başlatılabilir.
+- Sistem üzerinde İnternet'te gezinme, e-posta kontrol etme veya oyun oynama gibi başka hiçbir etkinlik yapmayacaksınız.
+- Bir macOS işletim sistemi yüklüdür.
+- Kullanıcı hesabınızın root / yönetici ayrıcalıkları vardır.
+- Performans gereksinimlerini karşılayan bir SSD'niz var.
+- SSD'niz dosya sisteminize mount edilmiştir.
+- İlk Execution ve Consensus senkronizasyon işlemi için en az 1.5TB boş alanınız var.
+- ISS'nizin verilerinizi sınırlandırması durumunda, ayda 2 TB'den fazladır.
 
-If you have checked and confirmed all of these items, then you are ready to install Rocket Pool and begin running a node!
-Move on to the [Choosing your ETH Clients](../eth-clients) section.
+Tüm bu öğeleri kontrol edip onayladıysanız, Rocket Pool'u kurmaya ve bir node çalıştırmaya başlamaya hazırsınız!
+[ETH İstemcilerinizi Seçme](../eth-clients) bölümüne geçin.

@@ -1,41 +1,41 @@
 ---
 next:
-  text: Monitoring your Node's Performance
-  link: "/en/node-staking/performance"
+  text: Мониторинг производительности вашей ноды
+  link: "/ru/node-staking/performance"
 ---
 
-# Overview
+# Обзор
 
-In this section, you'll learn about how to monitor the health of your node and your validators, track your earnings, and perform periodic maintenance such as updates.
+В этом разделе вы узнаете, как отслеживать состояние вашей ноды и ваших валидаторов, контролировать ваши доходы и выполнять периодическое обслуживание, такое как обновления.
 
-## Prerequisites
+## Предварительные требования
 
-Before configuring your Smartnode, please make sure you:
+Перед настройкой вашего Smartnode, пожалуйста, убедитесь, что вы:
 
-- Have set up a node machine (or virtual machine) and secured it (via the [Securing your Node](../securing-your-node) guide)
-- Have the Smartnode [installed](../installing/overview) and [configured](../config/overview) on it
-- Have a node wallet loaded on your Smartnode
-- Synced your Execution and Consensus clients
-- Provisioned your node with [a withdrawal address](../prepare-node.mdx#setting-your-withdrawal-address), set up your [fallback clients](../fallback) (optional), opted into the [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (optional), and configured [MEV](../mev.mdx)
-- Created at least one [minipool](../create-validator.mdx)
+- Настроили машину для ноды (или виртуальную машину) и защитили её (следуя руководству [Защита вашей ноды](../securing-your-node))
+- [Установили](../installing/overview) и [настроили](../config/overview) Smartnode на ней
+- Загрузили кошелёк ноды на ваш Smartnode
+- Синхронизировали ваши Execution и Consensus клиенты
+- Подготовили вашу ноду с [адресом для вывода средств](../prepare-node.mdx#setting-your-withdrawal-address), настроили ваши [резервные клиенты](../fallback) (опционально), присоединились к [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (опционально) и настроили [MEV](../mev.mdx)
+- Создали как минимум один [minipool](../create-validator.mdx)
 
-## Guides
+## Руководства
 
-[Monitoring your Node's Performance](../performance) provides some tools and tutorials for keeping tabs on your node's health (from a resource perspective, such as CPU and RAM consumption) and your validators' performance on the Beacon Chain.
-It covers a lot of fundamental tools you'll use during your tenure as an Ethereum validator.
+[Мониторинг производительности вашей ноды](../performance) предоставляет инструменты и руководства для отслеживания состояния вашей ноды (с точки зрения ресурсов, таких как потребление CPU и RAM) и производительности ваших валидаторов в Beacon Chain.
+Это руководство охватывает множество фундаментальных инструментов, которые вы будете использовать во время своей работы в качестве валидатора Ethereum.
 
-[Setting up the Grafana Dashboard](../grafana.mdx) walks through setting up the Smartnode stack's metrics tracker and the Grafana dashboard - a one stop shop for monitoring everything about your node and validators, and a staple in each node operator's arsenal.
-We _strongly_ recommend exploring the Grafana dashboard and regularly checking in on it.
+[Настройка панели Grafana](../grafana.mdx) описывает настройку системы отслеживания метрик стека Smartnode и панели Grafana — единого центра для мониторинга всего, что касается вашей ноды и валидаторов, и основного инструмента в арсенале каждого оператора ноды.
+Мы _настоятельно_ рекомендуем изучить панель Grafana и регулярно проверять её.
 
-[Smartnode Stack Alert Notifications](./alerting.md) walks through using the Smartnode alert notification functionality to receive notifications about the health and important events of your Rocket Pool Smartnode.
+[Уведомления о предупреждениях стека Smartnode](./alerting.md) описывает использование функциональности уведомлений о предупреждениях Smartnode для получения уведомлений о состоянии и важных событиях вашего Rocket Pool Smartnode.
 
-[Checking for Updates](../updates) covers the crucial processes of regularly updating your node with new security patches, how to update the Smartnode after a new release, and how to manually update client versions if your clients of choice release a new version that the Smartnode's latest release doesn't include yet.
-You should familiarize yourself with this entire section, as you may need to refer to it whenever an update is released.
+[Проверка обновлений](../updates) охватывает критически важные процессы регулярного обновления вашей ноды с новыми исправлениями безопасности, как обновлять Smartnode после нового релиза, и как вручную обновлять версии клиентов, если ваши выбранные клиенты выпускают новую версию, которую последний релиз Smartnode ещё не включает.
+Вам следует ознакомиться со всем этим разделом, так как вам может потребоваться обратиться к нему при выходе любого обновления.
 
-[Backing Up Your Node](../backups) is an optional guide that describes how to back up your node's configuration and its chain data in case of a hardware failure.
+[Резервное копирование вашей ноды](../backups) — это опциональное руководство, которое описывает, как создать резервную копию конфигурации вашей ноды и её данных блокчейна на случай аппаратного сбоя.
 
-[Pruning the Execution Client](../pruning) is **important** for anyone running an Execution client that gradually consumes all of your SSD's disk space and requires periodic pruning (such as Geth or Nethermind) to reclaim some of that space.
-If you are running one of those clients, you should definitely familiarize yourself with the pruning process.
+[Очистка Execution клиента](../pruning) **важна** для всех, кто использует Execution клиент, который постепенно занимает всё место на вашем SSD и требует периодической очистки (например, Geth или Nethermind) для освобождения части этого пространства.
+Если вы используете один из этих клиентов, вам определённо следует ознакомиться с процессом очистки.
 
-[Changing Execution or Consensus Clients](../change-clients) is a useful guide; it goes through the process of changing your client choice(s) and what can be expected during the process.
-This is another good guide to familiarize yourself with, just in case you ever have to switch clients for any reason down the line.
+[Изменение Execution или Consensus клиентов](../change-clients) — полезное руководство; оно описывает процесс изменения выбора вашего клиента (клиентов) и что можно ожидать в процессе.
+Это ещё одно хорошее руководство для ознакомления, на случай, если вам когда-либо потребуется переключить клиенты по какой-либо причине.

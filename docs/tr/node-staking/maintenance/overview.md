@@ -1,41 +1,41 @@
 ---
 next:
-  text: Monitoring your Node's Performance
-  link: "/en/node-staking/performance"
+  text: Node'unuzun Performansını İzleme
+  link: "/tr/node-staking/performance"
 ---
 
-# Overview
+# Genel Bakış
 
-In this section, you'll learn about how to monitor the health of your node and your validators, track your earnings, and perform periodic maintenance such as updates.
+Bu bölümde, node'unuzun ve validator'larınızın sağlığını nasıl izleyeceğinizi, kazançlarınızı nasıl takip edeceğinizi ve güncellemeler gibi periyodik bakım işlemlerini nasıl gerçekleştireceğinizi öğreneceksiniz.
 
-## Prerequisites
+## Ön Koşullar
 
-Before configuring your Smartnode, please make sure you:
+Smartnode'unuzu yapılandırmadan önce, lütfen şunları yaptığınızdan emin olun:
 
-- Have set up a node machine (or virtual machine) and secured it (via the [Securing your Node](../securing-your-node) guide)
-- Have the Smartnode [installed](../installing/overview) and [configured](../config/overview) on it
-- Have a node wallet loaded on your Smartnode
-- Synced your Execution and Consensus clients
-- Provisioned your node with [a withdrawal address](../prepare-node.mdx#setting-your-withdrawal-address), set up your [fallback clients](../fallback) (optional), opted into the [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (optional), and configured [MEV](../mev.mdx)
-- Created at least one [minipool](../create-validator.mdx)
+- Bir node makinesi (veya sanal makine) kurduğunuzu ve güvenliğini sağladığınızı ([Node'unuzu Güvence Altına Alma](../securing-your-node) rehberi ile)
+- Smartnode'u üzerine [yüklediğinizi](../installing/overview) ve [yapılandırdığınızı](../config/overview)
+- Smartnode'unuzda bir node cüzdanı yüklediğinizi
+- Execution ve Consensus istemcilerinizi senkronize ettiğinizi
+- Node'unuzu [bir çekim adresi](../prepare-node.mdx#setting-your-withdrawal-address) ile tedarik ettiğinizi, [yedek istemcilerinizi](../fallback) kurduğunuzu (isteğe bağlı), [Smoothing Pool'a](../fee-distrib-sp#the-smoothing-pool) katıldığınızı (isteğe bağlı) ve [MEV'yi](../mev.mdx) yapılandırdığınızı
+- En az bir [minipool](../create-validator.mdx) oluşturduğunuzu
 
-## Guides
+## Rehberler
 
-[Monitoring your Node's Performance](../performance) provides some tools and tutorials for keeping tabs on your node's health (from a resource perspective, such as CPU and RAM consumption) and your validators' performance on the Beacon Chain.
-It covers a lot of fundamental tools you'll use during your tenure as an Ethereum validator.
+[Node'unuzun Performansını İzleme](../performance), node'unuzun sağlığını (CPU ve RAM tüketimi gibi kaynak perspektifinden) ve validator'larınızın Beacon Chain üzerindeki performansını takip etmek için bazı araçlar ve eğitimler sağlar.
+Ethereum validator'u olarak görev süreniz boyunca kullanacağınız pek çok temel aracı kapsar.
 
-[Setting up the Grafana Dashboard](../grafana.mdx) walks through setting up the Smartnode stack's metrics tracker and the Grafana dashboard - a one stop shop for monitoring everything about your node and validators, and a staple in each node operator's arsenal.
-We _strongly_ recommend exploring the Grafana dashboard and regularly checking in on it.
+[Grafana Dashboard'unu Kurma](../grafana.mdx), Smartnode stack'inin metrik takipçisini ve Grafana dashboard'unu kurma sürecini anlatır - node'unuz ve validator'larınız hakkında her şeyi izlemek için tek durak noktası ve her node operatörünün cephaneliğindeki temel araç.
+Grafana dashboard'unu keşfetmenizi ve düzenli olarak kontrol etmenizi _şiddetle_ tavsiye ederiz.
 
-[Smartnode Stack Alert Notifications](./alerting.md) walks through using the Smartnode alert notification functionality to receive notifications about the health and important events of your Rocket Pool Smartnode.
+[Smartnode Stack Uyarı Bildirimleri](./alerting.md), Rocket Pool Smartnode'unuzun sağlığı ve önemli olayları hakkında bildirim almak için Smartnode uyarı bildirimi işlevselliğini kullanmayı anlatır.
 
-[Checking for Updates](../updates) covers the crucial processes of regularly updating your node with new security patches, how to update the Smartnode after a new release, and how to manually update client versions if your clients of choice release a new version that the Smartnode's latest release doesn't include yet.
-You should familiarize yourself with this entire section, as you may need to refer to it whenever an update is released.
+[Güncellemeleri Kontrol Etme](../updates), yeni güvenlik yamalarıyla node'unuzu düzenli olarak güncellemenin kritik süreçlerini, yeni bir sürümden sonra Smartnode'u nasıl güncelleyeceğinizi ve seçtiğiniz istemciler Smartnode'un en son sürümünün henüz içermediği yeni bir sürüm yayınlarsa istemci sürümlerini manuel olarak nasıl güncelleyeceğinizi kapsar.
+Bir güncelleme yayınlandığında ona başvurmanız gerekebileceğinden, bu bölümün tamamını tanımanız gerekir.
 
-[Backing Up Your Node](../backups) is an optional guide that describes how to back up your node's configuration and its chain data in case of a hardware failure.
+[Node'unuzu Yedekleme](../backups), donanım arızası durumunda node'unuzun yapılandırmasını ve zincir verilerini nasıl yedekleyeceğinizi açıklayan isteğe bağlı bir rehberdir.
 
-[Pruning the Execution Client](../pruning) is **important** for anyone running an Execution client that gradually consumes all of your SSD's disk space and requires periodic pruning (such as Geth or Nethermind) to reclaim some of that space.
-If you are running one of those clients, you should definitely familiarize yourself with the pruning process.
+[Execution İstemcisini Budama](../pruning), SSD'nizin disk alanını kademeli olarak tüketen ve bu alanın bir kısmını geri kazanmak için periyodik budama gerektiren (Geth veya Nethermind gibi) bir Execution istemcisi çalıştıran herkes için **önemlidir**.
+Bu istemcilerden birini çalıştırıyorsanız, budama sürecini kesinlikle tanımanız gerekir.
 
-[Changing Execution or Consensus Clients](../change-clients) is a useful guide; it goes through the process of changing your client choice(s) and what can be expected during the process.
-This is another good guide to familiarize yourself with, just in case you ever have to switch clients for any reason down the line.
+[Execution veya Consensus İstemcilerini Değiştirme](../change-clients) yararlı bir rehberdir; istemci seçiminizi değiştirme sürecini ve süreç boyunca neler beklenebileceğini anlatır.
+Gelecekte herhangi bir nedenle istemci değiştirmeniz gerekirse diye, bu da tanımanız gereken iyi bir rehberdir.

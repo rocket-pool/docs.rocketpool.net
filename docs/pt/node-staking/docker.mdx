@@ -1,44 +1,44 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Creating a Standard Rocket Pool Node with Docker
+# Criando um Node Padrão Rocket Pool com Docker
 
-In this section, we will walk through the process of installing the Rocket Pool Smartnode stack using the standard [Docker](https://www.docker.com/resources/what-container)-based setup.
-This will install and configure everything you need to run a complete node, including:
+Nesta seção, vamos percorrer o processo de instalação da stack Smartnode do Rocket Pool usando a configuração padrão baseada em [Docker](https://www.docker.com/resources/what-container).
+Isso instalará e configurará tudo o que você precisa para executar um node completo, incluindo:
 
-- The Rocket Pool **Smartnode** software
-- An **Execution** (formerly ETH1) client of your choice, or a connection to an existing client you already manage
-- A **Consensus** (formerly ETH2) client of your choice, or a connection to an existing client you already manage
-- A **Validator** client that will handle your Beacon Chain validation duties
-- (Optionally) a **monitoring stack** for capturing performance and health metrics
+- O software **Smartnode** do Rocket Pool
+- Um cliente **Execution** (anteriormente ETH1) de sua escolha, ou uma conexão a um cliente existente que você já gerencia
+- Um cliente **Consensus** (anteriormente ETH2) de sua escolha, ou uma conexão a um cliente existente que você já gerencia
+- Um cliente **Validator** que cuidará de suas tarefas de validação da Beacon Chain
+- (Opcionalmente) uma **stack de monitoramento** para capturar métricas de desempenho e saúde
 
-All you need to do is tell it what you want to run!
+Tudo o que você precisa fazer é dizer o que deseja executar!
 
-::: tip NOTE
-The below instructions require you to use your system's **terminal** to enter and execute commands.
-If you are connected to the node machine via SSH, you are already doing this.
-If you are on the node machine and using a Desktop UI, you will need to open a terminal window to execute the following commands.
-Refer to your OS's instructions to learn how to do this if you are unfamiliar.
+::: tip NOTA
+As instruções abaixo exigem que você use o **terminal** do seu sistema para inserir e executar comandos.
+Se você estiver conectado à máquina do node via SSH, você já está fazendo isso.
+Se você estiver na máquina do node e usando uma interface de usuário Desktop, precisará abrir uma janela de terminal para executar os seguintes comandos.
+Consulte as instruções do seu sistema operacional para aprender como fazer isso se não estiver familiarizado.
 :::
 
-## Process Overview
+## Visão Geral do Processo
 
-At a high level, here's what is involved in installing Rocket Pool:
+Em alto nível, aqui está o que está envolvido na instalação do Rocket Pool:
 
-1. Download the Rocket Pool command-line interface (CLI)
-1. Use the CLI to install the Smartnode stack
-1. Configure the Smartnode stack with an easy-to-use UI in the terminal
-1. Done!
+1. Baixar a interface de linha de comando (CLI) do Rocket Pool
+1. Usar a CLI para instalar a stack Smartnode
+1. Configurar a stack Smartnode com uma interface de usuário fácil de usar no terminal
+1. Pronto!
 
-## Before You Start
+## Antes de Começar
 
 ::: warning
-If using Ubuntu, it is recommended that before installing Rocket Pool you double check that docker was not installed alongside the operating system.
+Se estiver usando Ubuntu, é recomendado que antes de instalar o Rocket Pool você verifique se o docker não foi instalado junto com o sistema operacional.
 
-The Ubuntu installer gets docker from the snap package manager, which will conflict with the version of docker installed by Smartnode.
+O instalador do Ubuntu obtém o docker do gerenciador de pacotes snap, que entrará em conflito com a versão do docker instalada pelo Smartnode.
 
-Run `snap list`, and make sure `docker` was not installed.
+Execute `snap list` e certifique-se de que o `docker` não foi instalado.
 
-For example, this is the output on a machine where docker is not installed:
+Por exemplo, esta é a saída em uma máquina onde o docker não está instalado:
 
 ```
 Name    Version        Rev    Tracking       Publisher   Notes
@@ -47,7 +47,7 @@ lxd     5.0.2-838e1b2  24322  5.0/stable/…   canonical✓  -
 snapd   2.59.1         18933  latest/stable  canonical✓  snapd
 ```
 
-And here is the output if it was installed:
+E aqui está a saída se foi instalado:
 
 ```
 Name    Version        Rev    Tracking       Publisher   Notes
@@ -57,7 +57,7 @@ lxd     5.0.2-838e1b2  24322  5.0/stable/…   canonical✓  -
 snapd   2.59.1         18933  latest/stable  canonical✓  snapd
 ```
 
-If you see it in the `snap list` output, be sure to remove it with:
+Se você vê-lo na saída do `snap list`, certifique-se de removê-lo com:
 
 ```shell
 sudo systemctl stop snap.docker.dockerd.service
@@ -65,67 +65,67 @@ sudo systemctl stop snap.docker.dockerd.service
 sudo snap remove --purge docker
 ```
 
-After which, it is recommended that you reboot the machine (`sudo systemctl reboot`)
+Depois disso, é recomendado que você reinicie a máquina (`sudo systemctl reboot`)
 :::
 
-## Downloading the Rocket Pool CLI
+## Baixando a CLI do Rocket Pool
 
-The instructions for downloading the CLI vary based on your Operating System.
+As instruções para baixar a CLI variam de acordo com seu sistema operacional.
 
-::: warning NOTE
-You must perform the following instructions **on the machine you will use for your Rocket Pool node.**
-If you are not using a keyboard and monitor directly connected to your node machine, you will need to access it remotely (e.g. via SSH) and run these commands on it through that remote connection.
+::: warning NOTA
+Você deve executar as seguintes instruções **na máquina que você usará para seu node Rocket Pool.**
+Se você não estiver usando um teclado e monitor conectados diretamente à sua máquina de node, precisará acessá-la remotamente (por exemplo, via SSH) e executar esses comandos nela através dessa conexão remota.
 :::
 
 <div className="p-3">
   <Tabs>
     <Tab label="Linux">
-      On Linux, start by creating a new folder that will hold the CLI application:
+      No Linux, comece criando uma nova pasta que conterá a aplicação CLI:
 
       ```shell
       mkdir -p ~/bin
       ```
 
-      Next, download the CLI.
-      This depends on what architecture your system uses.
+      Em seguida, baixe a CLI.
+      Isso depende de qual arquitetura seu sistema usa.
 
       <p className="rspress-directive tip">
-        <p className="rspress-directive-title">TIP</p>
-        If you do not know your CPU architecture, you can run the following command to find it:
+        <p className="rspress-directive-title">DICA</p>
+        Se você não sabe a arquitetura da sua CPU, pode executar o seguinte comando para descobrir:
 
         ```shell
         uname -m
         ```
 
-        The output of this command will print your architecture.
-        **Note that `x86_64` is the same as `x64` and `amd64`.**
-        **Note that `aarch64` is the same as `arm64`.**
+        A saída deste comando imprimirá sua arquitetura.
+        **Note que `x86_64` é o mesmo que `x64` e `amd64`.**
+        **Note que `aarch64` é o mesmo que `arm64`.**
       </p>
 
-      For `x64` systems (most normal computers):
+      Para sistemas `x64` (a maioria dos computadores normais):
 
       ```shell
       wget https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-amd64 -O ~/bin/rocketpool
       ```
 
-      For `arm64` systems:
+      Para sistemas `arm64`:
 
       ```shell
       wget https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-arm64 -O ~/bin/rocketpool
       ```
 
-      Mark it as executable, so it has permissions to run:
+      Marque como executável, para que tenha permissões para executar:
 
       ```shell
       chmod +x ~/bin/rocketpool
       ```
 
-      Next, **log out and log back in** (or close SSH and reconnect), or simply restart.
-      This is because the path that you saved the CLI to (`~/bin`) may not be in your system's `PATH` variable (the list of places your system searches for executables) yet.
-      Logging out and back in will put it there.
+      Em seguida, **faça logout e login novamente** (ou feche o SSH e reconecte), ou simplesmente reinicie.
+      Isso ocorre porque o caminho em que você salvou a CLI (`~/bin`) pode ainda não estar na variável `PATH` do seu sistema (a lista de lugares onde o sistema procura executáveis).
+      Fazer logout e login novamente irá colocá-lo lá.
 
-      Now, test running it with the `--version` flag.
-      You should see output like this:
+      Agora, teste executando-o com a flag `--version`.
+      Você deve ver uma saída como esta:
 
       ```shell
       rocketpool --version
@@ -136,62 +136,62 @@ If you are not using a keyboard and monitor directly connected to your node mach
       ```
 
       <p className="rspress-directive tip">
-        <p className="rspress-directive-title">TIP</p>
-        If you see an error message like this,
+        <p className="rspress-directive-title">DICA</p>
+        Se você ver uma mensagem de erro como esta,
 
         ```shell
         -bash: /home/user/rocketpool: cannot execute binary file: Exec format error
         ```
 
-        it means that you downloaded the wrong version above.
-        Please check if your system is **x64** or **arm64** using the command in the tip above, and download the appropriate version.
-        If your system is neither of those, then you will not be able to run Rocket Pool.
+        significa que você baixou a versão errada acima.
+        Por favor, verifique se seu sistema é **x64** ou **arm64** usando o comando na dica acima, e baixe a versão apropriada.
+        Se seu sistema não for nenhum desses, então você não poderá executar o Rocket Pool.
       </p>
     </Tab>
     <Tab label="MacOS">
-      On macOS, download the CLI for your machine with the following command.
+      No macOS, baixe a CLI para sua máquina com o seguinte comando.
 
       <p className="rspress-directive tip">
-        <p className="rspress-directive-title">TIP</p>
-        If you do not know your CPU architecture, you can run the following command to find it:
+        <p className="rspress-directive-title">DICA</p>
+        Se você não sabe a arquitetura da sua CPU, pode executar o seguinte comando para descobrir:
 
         ```shell
         uname -m
         ```
 
-        The output of this command will print your architecture.
-        **Note that `x86_64` is the same as `x64` and `amd64`.**
-        **Note that `aarch64` is the same as `arm64`.**
+        A saída deste comando imprimirá sua arquitetura.
+        **Note que `x86_64` é o mesmo que `x64` e `amd64`.**
+        **Note que `aarch64` é o mesmo que `arm64`.**
       </p>
 
-      For `x64` systems (most Macs):
+      Para sistemas `x64` (a maioria dos Macs):
 
       ```shell
       curl -L https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-darwin-amd64 > /usr/local/bin/rocketpool
       ```
 
-      For `arm64` systems, such as the Mac mini with M1:
+      Para sistemas `arm64`, como o Mac mini com M1:
 
       ```shell
       curl -L https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-darwin-arm64 > /opt/homebrew/bin/rocketpool
       ```
 
-      For `x64` systems (most Macs):
-      Mark it as executable, so it has permissions to run:
+      Para sistemas `x64` (a maioria dos Macs):
+      Marque como executável, para que tenha permissões para executar:
 
       ```shell
       chmod +x /usr/local/bin/rocketpool
       ```
 
-      For `arm64` systems, such as the Mac mini with M1:
-      Mark it as executable, so it has permissions to run:
+      Para sistemas `arm64`, como o Mac mini com M1:
+      Marque como executável, para que tenha permissões para executar:
 
       ```shell
       chmod +x /opt/homebrew/bin/rocketpool
       ```
 
-      Now, test running it with the `--version` flag.
-      You should see output like this:
+      Agora, teste executando-o com a flag `--version`.
+      Você deve ver uma saída como esta:
 
       ```shell
       rocketpool --version
@@ -202,45 +202,45 @@ If you are not using a keyboard and monitor directly connected to your node mach
       ```
 
       <p className="rspress-directive tip">
-        <p className="rspress-directive-title">TIP</p>
-        If you see an error message like this,
+        <p className="rspress-directive-title">DICA</p>
+        Se você ver uma mensagem de erro como esta,
 
         ```shell
         /usr/local/bin/rocketpool: Exec format error
         ```
 
-        it means that you downloaded the wrong version above.
-        Please check if your system is x64 or arm64 using the command in the tip above, and download the appropriate version.
-        If your system is neither of those, then you will not be able to run Rocket Pool.
+        significa que você baixou a versão errada acima.
+        Por favor, verifique se seu sistema é x64 ou arm64 usando o comando na dica acima, e baixe a versão apropriada.
+        Se seu sistema não for nenhum desses, então você não poderá executar o Rocket Pool.
       </p>
     </Tab>
 
   </Tabs>
 </div>
 
-## Installing the Smartnode Stack
+## Instalando a Stack Smartnode
 
-Now that you have the CLI installed, you can deploy the Smartnode stack.
-This will prepare your system with Docker, [docker-compose](https://docs.docker.com/compose/), and load the Smartnode files so they're ready to go.
-It won't actually run anything yet; that comes later.
+Agora que você tem a CLI instalada, pode implantar a stack Smartnode.
+Isso preparará seu sistema com Docker, [docker-compose](https://docs.docker.com/compose/), e carregará os arquivos do Smartnode para que estejam prontos para uso.
+Ainda não executará nada; isso vem depois.
 
-To deploy the Smartnode stack, you will need to run the following command on your node machine (either by logging in locally, or connecting remotely such as through SSH):
+Para implantar a stack Smartnode, você precisará executar o seguinte comando na sua máquina de node (fazendo login localmente ou conectando remotamente, como através de SSH):
 
 ```shell
 rocketpool service install
 ```
 
-This will grab the latest version of the Smartnode stack and set it up.
-You should see output like this (_above some release notes for the latest version which will be printed at the end_):
+Isso obterá a versão mais recente da stack Smartnode e a configurará.
+Você deve ver uma saída como esta (_acima de algumas notas de versão para a versão mais recente que serão impressas no final_):
 
 <img src="./images/rp-install-screen.png" width="100%" height="auto" />
 
-If there aren't any error messages, then the installation was successful.
-By default, it will be put into the `~/.rocketpool` directory inside of your user account's home folder.
+Se não houver mensagens de erro, então a instalação foi bem-sucedida.
+Por padrão, será colocada no diretório `~/.rocketpool` dentro da pasta home da sua conta de usuário.
 
-::: warning NOTE
-Note that the Smartnode installer cannot install `docker` and `docker-compose` on all platforms automatically.
-If you receive an error message like this during the installation:
+::: warning NOTA
+Note que o instalador do Smartnode não pode instalar `docker` e `docker-compose` em todas as plataformas automaticamente.
+Se você receber uma mensagem de erro como esta durante a instalação:
 
 ```
 Automatic dependency installation for the Mint operating system is not supported.
@@ -249,19 +249,19 @@ Be sure to add yourself to the docker group with 'sudo usermod -aG docker $USER'
 Log out and back in, or restart your system after you run this command.
 ```
 
-Then you simply have to install those two things manually.
+Então você simplesmente tem que instalar essas duas coisas manualmente.
 
-Docker provides common [install instructions here](https://docs.docker.com/engine/install/).
+O Docker fornece [instruções de instalação comuns aqui](https://docs.docker.com/engine/install/).
 
-Docker-compose provides common [install instructions here](https://docs.docker.com/compose/install/).
+O Docker-compose fornece [instruções de instalação comuns aqui](https://docs.docker.com/compose/install/).
 
-Once both are installed, make sure you give your user account permission to use Docker:
+Depois que ambos estiverem instalados, certifique-se de dar permissão à sua conta de usuário para usar o Docker:
 
 ```shell
 sudo usermod -aG docker $USER
 ```
 
-Finally, re-run the installer with the `-d` flag to skip Docker installation:
+Finalmente, execute novamente o instalador com a flag `-d` para pular a instalação do Docker:
 
 ```shell
 rocketpool service install -d
@@ -269,52 +269,52 @@ rocketpool service install -d
 
 :::
 
-After this, **log out and back in or restart your SSH session** for the settings to take effect.
+Depois disso, **faça logout e login novamente ou reinicie sua sessão SSH** para que as configurações tenham efeito.
 
-Once this is finished, the Smartnode stack will be ready to run.
+Quando isso for concluído, a stack Smartnode estará pronta para executar.
 
-## Configuring Docker's Storage Location
+## Configurando a Localização de Armazenamento do Docker
 
-By default, Docker will store all of its container data on your operating system's drive.
-In some cases, this is not what you want.
+Por padrão, o Docker armazenará todos os dados de seus containers na unidade do seu sistema operacional.
+Em alguns casos, isso não é o que você deseja.
 
-::: tip NOTE
-If you are fine with this default behavior, skip down to the next section.
+::: tip NOTA
+Se você está satisfeito com este comportamento padrão, pule para a próxima seção.
 :::
 
-To do this, create a new file called `/etc/docker/daemon.json` as the root user:
+Para fazer isso, crie um novo arquivo chamado `/etc/docker/daemon.json` como usuário root:
 
 ```shell
 sudo nano /etc/docker/daemon.json
 ```
 
-This will be empty at first, which is fine. Add this as the contents:
+Este estará vazio no início, o que está bem. Adicione isso como conteúdo:
 
 ```json
 {
-  "data-root": "<your external mount point>/docker"
+  "data-root": "<seu ponto de montagem externo>/docker"
 }
 ```
 
-where `<your external mount point>` is the directory that your other drive is mounted to.
+onde `<seu ponto de montagem externo>` é o diretório em que sua outra unidade está montada.
 
-Press `Ctrl+O, Enter` to save the file, and `Ctrl+X, Enter` to exit the editor.
+Pressione `Ctrl+O, Enter` para salvar o arquivo, e `Ctrl+X, Enter` para sair do editor.
 
-Next, make the folder:
+Em seguida, crie a pasta:
 
 ```shell
-sudo mkdir -p <your external mount point>/docker
+sudo mkdir -p <seu ponto de montagem externo>/docker
 ```
 
-Now, restart the docker daemon so it picks up on the changes:
+Agora, reinicie o daemon do docker para que ele capte as alterações:
 
 ```shell
 sudo systemctl restart docker
 ```
 
-After that, Docker will store its data on your desired disk.
+Depois disso, o Docker armazenará seus dados no disco desejado.
 
-## Configuring the Smartnode Stack
+## Configurando a Stack Smartnode
 
-The next step in the installation process is to do an initial configuration of your node.
-Move on to the [Configuring Rocketpool](./config/overview) section for a walkthrough of this process.
+O próximo passo no processo de instalação é fazer uma configuração inicial do seu node.
+Siga para a seção [Configurando o Rocketpool](./config/overview) para um passo a passo deste processo.

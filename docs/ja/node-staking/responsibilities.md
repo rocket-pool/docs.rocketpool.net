@@ -1,119 +1,119 @@
-# A Node Operator's Responsibilities
+# Node Operatorの責任
 
-## How Ethereum Staking Works
+## Ethereumステーキングの仕組み
 
-As a reminder, staking in Proof of Stake is done via **validators**.
-A validator is essentially a single Beacon Chain address to which 32 ETH was deposited on the Execution layer.
-Validators are responsible for maintaining the consistency and security of the Beacon Chain.
-They do this by listening for transactions and new block proposals and **attesting** that the proposed block contains legal, valid transactions by doing some number crunching and verification behind the scenes.
-Occasionally, they get to propose new blocks themselves.
+念のため、Proof of Stakeでのステーキングは**validator**を介して行われます。
+validatorは本質的に、Execution layerで32 ETHが預けられた単一のBeacon Chainアドレスです。
+validatorは、Beacon Chainの一貫性とセキュリティを維持する責任があります。
+これは、トランザクションや新しいブロック提案をリッスンし、提案されたブロックに合法的で有効なトランザクションが含まれていることを、裏で数値計算と検証を行うことで**attestation**することによって行われます。
+時には、自分で新しいブロックを提案することもあります。
 
-Validators are assigned attestations and block proposals **on a randomized schedule**.
-This is very different from the old Proof of Work system, where everyone was constantly trying to race each other and come up with the next block before everyone else.
-This means that unlike Proof of Work where miners weren't guaranteed to earn a block reward unless they found the next block, Proof of Stake validators _are_ guaranteed to have slow, steady income as long as they perform their duties.
-If a validator is offline and misses an attestation or a block proposal, it will be **slightly penalized**.
-The penalties are quite small though; as a rule of thumb, if a validator is offline for X hours, it will make all of its lost ETH back after the same X hours of being back online.
+validatorには、**ランダムなスケジュール**でattestationとブロック提案が割り当てられます。
+これは、すべての人が常に互いに競争して他の全員よりも先に次のブロックを見つけようとしていた古いProof of Workシステムとは大きく異なります。
+つまり、マイナーが次のブロックを見つけない限りブロック報酬を得ることが保証されていなかったProof of Workとは異なり、Proof of Stakeのvalidatorは、職務を果たしている限り、ゆっくりと安定した収入を得ることが_保証されています_。
+validatorがオフラインになってattestationやブロック提案を逃すと、**わずかにペナルティを受けます**。
+ただし、ペナルティは非常に小さいです。経験則として、validatorがX時間オフラインの場合、オンラインに戻ってattestationを行った後、同じX時間で失ったETHをすべて取り戻します。
 
-### Rewards
+### 報酬
 
-Validators earn consensus layer rewards from Attestation, Block Proposals, Sync Committees (rare), and Slashing Rewards (vanishingly rare). They also earn execution layer rewards from Priority Fees and MEV.
+validatorは、Attestation、Block Proposals、Sync Committees(まれ)、Slashing Rewards(非常にまれ)からコンセンサスレイヤー報酬を獲得します。また、Priority FeesとMEVから実行レイヤー報酬も獲得します。
 
-As of 10/2024, overall APR is ~3.5%, with 2.8% being consensus layer APR, and 0.7% being execution layer APR. One place to find this info is the [rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake).
+2024年10月時点では、全体のAPRは約3.5%で、コンセンサスレイヤーAPRが2.8%、実行レイヤーAPRが0.7%です。この情報を見つける場所の1つは、[rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake)です。
 
-### Penalties
+### ペナルティ
 
-Validators are penalized for small amounts of ETH if they are offline and fail to perform their assigned duties.
-This is called **leaking**.
-If a validator violates one of the core rules of the Beacon chain and appears to be attacking the network, it may get **slashed**.
-Slashing is a forceful exit of your validator without your permission, accompanied by a relatively large fine that removes some of your validator's ETH balance.
+validatorがオフラインになり、割り当てられた職務を実行できない場合、少額のETHのペナルティを受けます。
+これは**leaking**と呼ばれます。
+validatorがBeacon chainの中核ルールの1つに違反し、ネットワークを攻撃しているように見える場合、**slashing**される可能性があります。
+Slashingは、許可なくvalidatorが強制的に終了され、validatorのETH残高の一部が削除される比較的大きな罰金が伴います。
 
-Realistically, the only condition that can cause a slashing is if you run your validator's keys on two nodes at the same time (such as a failover / redundancy setup, where your backup node accidentally turns on while your main node is still running).
-Don't let this happen, and **you won't get slashed**.
-Slashing _cannot occur_ from being offline for maintenance.
+現実的には、slashingを引き起こす可能性がある唯一の条件は、validatorのキーを2つのノードで同時に実行する場合です(バックアップノードがメインノードがまだ実行中に誤ってオンになるフェイルオーバー/冗長性設定など)。
+これが起こらないようにすれば、**slashingされることはありません**。
+メンテナンスのためにオフラインになることからslashingが発生することは_ありません_。
 
-Below is a table that shows the penalties that can happen to a validator:
+以下は、validatorに発生する可能性のあるペナルティを示す表です。
 
-| Type                  | Layer     | Amount                                                                            |
+| タイプ                 | レイヤー   | 量                                                                                |
 | --------------------- | --------- | --------------------------------------------------------------------------------- |
 | Missed Attestation    | Consensus | -0.000011 ETH\* per attestation (-9/10 the value of a normal attestation reward)  |
 | Missed Proposal       | Consensus | 0                                                                                 |
 | Missed Sync Committee | Consensus | -0.00047 ETH\* per epoch (-0.1 ETH total if offline for the whole sync committee) |
 | Slashing              | Consensus | At least 1/32 of your balance, up to your entire balance in extreme circumstances |
 
-\*_Varies based on the total number of validators in the network.
-Approximated for 435,000 active validators._
+\*_ネットワーク内のvalidatorの総数に基づいて変動します。
+435,000のアクティブなvalidatorに対する概算値です。_
 
-::: tip TIP
-As a rule of thumb, if you're offline for X hours (and you aren't in a sync committee), then you'll make all of your leaked ETH back after X hours once you're back online and attesting.
+::: tip ヒント
+経験則として、X時間オフラインになった場合(sync committeeに参加していない場合)、オンラインに戻ってattestationを行った後、X時間後にリークしたETHをすべて取り戻すことができます。
 :::
 
-## How Rocket Pool Nodes Work
+## Rocket Pool Nodeの仕組み
 
-Unlike solo stakers, who are required to put 32 ETH up for deposit to create a new validator, Rocket Pool nodes only need to deposit 8 ETH per validator (called "bond ETH").
-This will be coupled with 24 ETH from the staking pool (called "borrowed ETH", which comes from liquid staker deposits in exchange for rETH) to create a new validator.
-This new validator belongs to a **minipool**.
+新しいvalidatorを作成するために32 ETHを預ける必要があるソロステーカーとは異なり、Rocket Pool nodeはvalidatorごとに8 ETHのみを預ける必要があります(「bond ETH」と呼ばれます)。
+これは、ステーキングプールからの24 ETH(「borrowed ETH」と呼ばれ、rETHと引き換えにliquid stakerの預金から得られます)と組み合わせて、新しいvalidatorを作成します。
+この新しいvalidatorは**minipool**に属します。
 
-To the Beacon chain, a minipool looks exactly the same as a normal validator.
-It has the same responsibilities, same rules it must follow, same rewards, and so on.
-The only difference is in how the minipool was created on the execution layer, and how withdrawals work when the node operator decides to voluntarily exit the minipool.
-All of the creation, withdrawing, and rewards delegation is handled by Rocket Pool's **smart contracts** on the Ethereum chain.
-This makes it completely decentralized.
+Beacon chainにとって、minipoolは通常のvalidatorとまったく同じに見えます。
+同じ責任、従わなければならない同じルール、同じ報酬などがあります。
+唯一の違いは、minipoolが実行レイヤーでどのように作成されたか、およびNode Operatorが自発的にminipoolを終了することを決定したときに出金がどのように機能するかです。
+作成、出金、報酬委任のすべては、EthereumチェーンのRocket Poolの**smart contracts**によって処理されます。
+これにより、完全に分散化されます。
 
-A Rocket Pool **Node** is a single computer with an Ethereum wallet that was registered with Rocket Pool's smart contracts.
-The node can then create as many minipools as it can afford, all running happily on the same machine together.
-**A single Rocket Pool node can run many, many minipools.**
-Each minipool has a negligible impact on overall system performance; some people have been able to run hundreds of them on a single node.
+Rocket Pool **Node**は、Rocket Poolのスマートコントラクトに登録されたEthereumウォレットを持つ単一のコンピューターです。
+nodeは、同じマシン上で一緒に実行できる限り、多くのminipoolを作成できます。
+**単一のRocket Pool nodeは、多数のminipoolを実行できます。**
+各minipoolは、全体的なシステムパフォーマンスにほとんど影響を与えません。単一のノードで数百のminipoolを実行できた人もいます。
 
-A minipool's upfront cost is 8 ETH. In addition, a node operator may stake RPL to their node to qualify for additional rewards and to gain voting power within the protocol DAO.
+minipoolの初期コストは8 ETHです。さらに、Node Operatorは、追加報酬の資格を得るため、およびプロトコルDAO内で投票権を獲得するために、nodeにRPLをステーキングできます。
 
 ## Rocket Pool Node Operators
 
-**Node operators** are the heart and soul of Rocket Pool.
-They are the individuals that run Rocket Pool nodes.
+**Node operators**は、Rocket Poolの心と魂です。
+彼らは、Rocket Pool nodeを実行する個人です。
 
-### Responsibilities
+### 責任
 
-They put ETH from the staking pool to work by running minipools with it, which earn staking rewards for the Rocket Pool protocol (and thus, increase rETH's value).
-Their job is straightforward, but crucially important: _run validators with the highest quality possible, and maximize staking rewards_.
+彼らは、ステーキングプールからのETHをminipoolで実行することで活用し、Rocket Poolプロトコルのステーキング報酬を獲得します(したがって、rETHの価値を高めます)。
+彼らの仕事は簡単ですが、非常に重要です。_可能な限り最高品質でvalidatorを実行し、ステーキング報酬を最大化すること_。
 
-Node operators are responsible for:
+Node operatorは以下の責任があります。
 
-- Setting up a computer (either physical or virtual)
-- Configuring it correctly, including their home network if applicable
-- Installing Rocket Pool on it and setting up minipools to perform validation
-- Securing it, both from outside and inside threats
-- Maintaining it for the life of their validators
+- コンピューター(物理または仮想)のセットアップ
+- ホームネットワークを含めて正しく設定すること(該当する場合)
+- Rocket Poolをインストールし、検証を実行するためのminipoolをセットアップすること
+- 外部と内部の脅威から保護すること
+- validatorの寿命の間、メンテナンスを行うこと
 
-It's a big responsibility, and not a simple set-it-and-forget-it kind of job; you need to care for your node for as long as it's staking.
-With great responsibility, however, comes great rewards.
+これは大きな責任であり、単純に設定して忘れるような仕事ではありません。ステーキングしている限り、nodeの世話をする必要があります。
+しかし、大きな責任には大きな報酬が伴います。
 
-### Rewards
+### 報酬
 
-Here are the major benefits of running a Rocket Pool node:
+Rocket Pool nodeを実行する主なメリットは次のとおりです。
 
-- You earn your portion of each validator's ETH rewards, plus commission.
-  - For 8 ETH-bonded minipools with no staked RPL, this comes to 30% more than solo staking (`(8+24*.1)/8 = 1.3`)
-  - Staking RPL provides boosted commission. With RPL stake valued at 10% of your total borrowed ETH or more, ETH rewards come to 42% more than solo staking (`(8+24*.14)/8 = 1.42`)
-  - **Note:** if you do not participate in the smoothing pool, you will instead receive 15% more than solo staking (`(8+24*.05)/8 = 1.15`) -- it is highly recommended that users with minipools made on/after 2024-10-28 opt into the smoothing pool.
-- You also earn issuance rewards on the RPL you stake.
-  - At the end of a period (every 28 days), there's a snapshot of your RPL.
-  - You can earn max yield on RPL **up to 15%** of the value of your total borrowed ETH.
-    - You will earn yield on RPL beyond that, at a decreasing level.
-  - You will get vote power based on the square root of your staked RPL.
+- 各validatorのETH報酬のあなたの部分と手数料を獲得します。
+  - ステーキングされたRPLがない8 ETH-bonded minipoolの場合、これはソロステーキングよりも30%多くなります(`(8+24*.1)/8 = 1.3`)
+  - RPLをステーキングすると、手数料がブーストされます。総borrowed ETHの10%以上の価値があるRPLステークの場合、ETH報酬はソロステーキングよりも42%多くなります(`(8+24*.14)/8 = 1.42`)
+  - **注意:** smoothing poolに参加しない場合、代わりにソロステーキングよりも15%多く受け取ります(`(8+24*.05)/8 = 1.15`) -- 2024-10-28以降に作成されたminipoolを持つユーザーは、smoothing poolにオプトインすることを強くお勧めします。
+- ステーキングしたRPLの発行報酬も獲得します。
+  - 期間の終わり(28日ごと)に、RPLのスナップショットがあります。
+  - 総borrowed ETHの価値の**最大15%まで**のRPLで最大利回りを獲得できます。
+    - それを超えるRPLで利回りを獲得しますが、減少レベルで。
+  - ステーキングされたRPLの平方根に基づいて投票権を獲得します。
 
-### Limitations
+### 制限事項
 
-There are some limitations that come along with the rewards above:
+上記の報酬には、いくつかの制限事項があります。
 
-- If your node performs poorly and you actually end up losing ETH by the time you decide to exit your minipool, all of the lost ETH is coming out of your share.
-  - For example: if you exit with a balance of 30 ETH, then your minipool lost 2 ETH from its initial 32 ETH deposit. You will receive 6 ETH, and 24 ETH will be returned to the staking pool.
-- Your staked RPL will be less liquid
-  - You can only withdraw RPL stake beyond that valued at 60% of your bonded ETH.
-  - You cannot withdraw RPL if you've staked in the last 28 days
+- nodeのパフォーマンスが悪く、minipoolを終了することを決定するまでに実際にETHを失った場合、失われたETHはすべてあなたのシェアから出ます。
+  - 例:30 ETHの残高で終了した場合、minipoolは最初の32 ETHの預金から2 ETHを失いました。あなたは6 ETHを受け取り、24 ETHがステーキングプールに返されます。
+- ステーキングされたRPLは流動性が低くなります
+  - bonded ETHの60%の価値を超えるRPLステークのみを引き出すことができます。
+  - 過去28日間にステーキングした場合、RPLを引き出すことはできません
 
-### You've got this
+### あなたならできます
 
-If you're fairly new to using the command line or computer maintenance, this can seem like a scary challenge.
-Luckily, one of Rocket Pool's most core principles is _decentralization_ - the fact that anyone, anywhere, can run a node if they have the determination and knowledge.
-While we can't help with determination, we _can_ help with knowledge.
-This section is packed with guides, walkthroughs, and information that will help you understand how to run a great Rocket Pool node.
+コマンドラインやコンピューターのメンテナンスを使用するのが初めての場合、これは怖い挑戦のように思えるかもしれません。
+幸いなことに、Rocket Poolの最も中核的な原則の1つは_分散化_です。つまり、決意と知識があれば、誰でも、どこでもnodeを実行できるという事実です。
+決意については手助けできませんが、知識については手助けできます。
+このセクションには、素晴らしいRocket Pool nodeを実行する方法を理解するのに役立つガイド、ウォークスルー、情報が満載です。

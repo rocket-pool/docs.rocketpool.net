@@ -1,46 +1,46 @@
-# Selecting a Hosting Provider
+# ホスティングプロバイダーの選択
 
-If you've arrived at this section, then you would like to run a Rocket Pool node but can't set one up locally at your home; you require a **virtual private server (VPS)** hosted on the cloud.
-There are several different services available that can provide such a machine, and they come in two different flavors: VPS providers and public cloud providers.
+このセクションに来た場合、Rocket Poolノードを運用したいが自宅でローカルにセットアップできない状況であり、クラウド上でホストされる**仮想プライベートサーバー(VPS)**が必要です。
+このようなマシンを提供できるサービスはいくつかあり、VPSプロバイダーとパブリッククラウドプロバイダーの2つの異なる形態があります。
 
-Choosing the correct one can be difficult, and understanding the differences between them is key.
-In this guide, we'll shine some light onto the distinction and list a few of the services that other Rocket Pool users have leveraged in the past to help you navigate through your options.
+適切なものを選択するのは難しい場合があり、それらの違いを理解することが重要です。
+このガイドでは、その違いを明らかにし、他のRocket Poolユーザーが過去に活用したサービスをいくつか紹介して、選択肢をナビゲートするのに役立てます。
 
-## Traditional VPS Hosting
+## 従来のVPSホスティング
 
-A virtual private server is a single instance of a virtual machine that resides on a larger physical machine.
-They are the cheapest option, and they are less-frequently employed than the ubiquitous cloud platforms so they tend to contribute more towards the Ethereum network's decentralization.
+仮想プライベートサーバーは、より大きな物理マシン上に存在する仮想マシンの単一インスタンスです。
+これらは最も安価なオプションであり、ユビキタスなクラウドプラットフォームよりも使用頻度が低いため、Ethereumネットワークの分散化により貢献する傾向があります。
 
-However, they rarely have high-availability support; if the physical server goes down, it's likely that your VPS hosted on it will go down as well.
-Also, they have a fixed resource footprint; it's usually not possible to increase or decrease resources like CPU and RAM on demand.
+ただし、高可用性サポートがほとんどありません。物理サーバーがダウンすると、その上でホストされているVPSもダウンする可能性があります。
+また、リソースのフットプリントが固定されています。通常、CPUやRAMなどのリソースをオンデマンドで増減することはできません。
 
-As of 10/2024, one well-priced and performant option was the RS 12000 G11 from [Netcup](https://www.netcup.eu/vserver/vps.php).
-One word of warning is that storage is shared with others, so storage IOPs are a potential bottleneck.
+2024年10月現在、価格が手頃でパフォーマンスの高いオプションの1つは、[Netcup](https://www.netcup.eu/vserver/vps.php)のRS 12000 G11でした。
+注意点として、ストレージは他のユーザーと共有されるため、ストレージIOPSが潜在的なボトルネックになる可能性があります。
 
-## Dedicated Server Hosting
+## 専用サーバーホスティング
 
-Unlike a VPS, a dedicated server is an entire physical device that is rented by you. They are a relatively affordable option, and they are less-frequently employed than the ubiquitous cloud platforms so they tend to contribute more towards the Ethereum network's decentralization.
+VPSとは異なり、専用サーバーはあなたがレンタルする物理デバイス全体です。比較的手頃な価格のオプションであり、ユビキタスなクラウドプラットフォームよりも使用頻度が低いため、Ethereumネットワークの分散化により貢献する傾向があります。
 
-As of 10/2024 two well-priced and performant options were the Rise and Advanced bare-metal servers from [OVH](https://us.ovhcloud.com/). There are a variety of these that change over time, as well as significant sales. You'll need to check that the [hardware guidelines](../local/hardware.md) are met.
+2024年10月現在、価格が手頃でパフォーマンスの高いオプションは、[OVH](https://us.ovhcloud.com/)のRiseとAdvancedベアメタルサーバーでした。これらは時間とともに変化するさまざまなバリエーションがあり、大幅なセールもあります。[ハードウェアガイドライン](../local/hardware.md)を満たしていることを確認する必要があります。
 
-## Cloud Hosting
+## クラウドホスティング
 
-Cloud hosting refers to virtual machines that are split across on a distributed network of multiple servers, rather than being hosted on a single physical machine.
-If one of the hosting machines fails, the others can seamlessly take over for it so availability and reliability tend to be extremely high on these platforms.
-They also tend to offer flexible resource options; it's relatively simple to add more CPU, RAM, or disk space on demand.
+クラウドホスティングとは、単一の物理マシン上にホストされるのではなく、複数のサーバーの分散ネットワーク上に分割された仮想マシンを指します。
+ホストマシンの1つが故障した場合、他のマシンがシームレスに引き継ぐことができるため、これらのプラットフォームでは可用性と信頼性が非常に高い傾向があります。
+また、柔軟なリソースオプションを提供する傾向があります。オンデマンドでCPU、RAM、またはディスク容量を追加するのは比較的簡単です。
 
-Due to these extra benefits, cloud-based servers tend to be more expensive than VPS solutions.
-They're also very popular platforms, so using them generally reduces the overall decentralization of the Ethereum network.
+これらの追加の利点により、クラウドベースのサーバーはVPSソリューションよりも高価になる傾向があります。
+また、非常に人気のあるプラットフォームであるため、それらを使用すると一般的にEthereumネットワークの全体的な分散化が低下します。
 
-The 3 primary cloud providers are [Amazon Web Services (AWS)](https://aws.amazon.com/), [Microsoft Azure](https://azure.microsoft.com/en-us/), and [Google Cloud Platform (GCP)](https://cloud.google.com/).
-We do not recommend using cloud hosting due to price and centralization concerns.
+主要な3つのクラウドプロバイダーは、[Amazon Web Services (AWS)](https://aws.amazon.com/)、[Microsoft Azure](https://azure.microsoft.com/en-us/)、および[Google Cloud Platform (GCP)](https://cloud.google.com/)です。
+価格と集中化の懸念から、クラウドホスティングの使用はお勧めしません。
 
-## Key Considerations
+## 主な考慮事項
 
-### Price
+### 価格
 
-Cloud hosting solutions are usually a safer choice if cost is not a priority.
-The section below has a more detailed breakdown of cost estimates but here is a general comparison between a VPS option and a cloud option:
+コストが優先事項でない場合、クラウドホスティングソリューションは通常より安全な選択です。
+以下のセクションでは、コスト見積もりのより詳細な内訳がありますが、VPSオプションとクラウドオプションの一般的な比較は次のとおりです。
 
-- OVH Dedicated Server: $90-160/mo
-- Netcup VPS: $90/mo
+- OVH専用サーバー: $90-160/月
+- Netcup VPS: $90/月

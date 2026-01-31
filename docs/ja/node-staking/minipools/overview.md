@@ -1,39 +1,39 @@
 ---
 next:
-  text: Creating a New Minipool (Validator)
-  link: "/en/node-staking/create-validator"
+  text: 新しいMinipoolの作成（Validator）
+  link: "/ja/node-staking/create-validator"
 ---
 
-::: danger WARNING
-Minipool deposits are currently disabled in preparation for Saturn 1.
+::: danger 警告
+Saturn 1の準備のため、現在minipoolの入金は無効になっています。
 :::
 
-# Overview
+# 概要
 
-This section covers the processes of creating and migrating minipools (Rocket Pool validators).
-This is where you'll learn how to start validating the Ethereum network and earn rewards for it.
+このセクションでは、minipoolの作成と移行プロセス（Rocket Pool validator）について説明します。
+ここでは、Ethereumネットワークの検証を開始し、報酬を獲得する方法を学びます。
 
-## Prerequisites
+## 前提条件
 
-Before running minipools, please make sure you:
+minipoolを実行する前に、以下を確認してください。
 
-- Have set up a node machine (or virtual machine) and secured it (via the [Securing your Node](../securing-your-node) guide)
-- Have the Smartnode [installed](../installing/overview) and [configured](../config/overview) on it
-- Have a node wallet loaded on your Smartnode
-- Synced your Execution and Consensus clients
-- Provisioned your node with [a withdrawal address](../prepare-node.mdx#setting-your-withdrawal-address), set up your [fallback clients](../fallback) (optional), opted into the [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (optional), and configured [MEV](../mev.mdx)
+- ノードマシン（または仮想マシン）をセットアップし、セキュリティを確保していること（[ノードのセキュリティ確保](../securing-your-node)ガイドを参照）
+- Smartnodeを[インストール](../installing/overview)し、[設定](../config/overview)していること
+- Smartnodeにノードウォレットをロードしていること
+- ExecutionクライアントとConsensusクライアントを同期していること
+- ノードに[出金アドレス](../prepare-node.mdx#setting-your-withdrawal-address)をプロビジョニングし、[フォールバッククライアント](../fallback)を設定し（オプション）、[Smoothing Pool](../fee-distrib-sp#the-smoothing-pool)にオプトインし（オプション）、[MEV](../mev.mdx)を設定していること
 
-## Guides
+## ガイド
 
-[Creating a New Minipool (Validator)](../create-validator.mdx) explains the process of creating a new Rocket Pool minipool and corresponding validator on the Beacon Chain.
-Whether you're making your very first minipool or already have some and would like to make another one, this guide will walk you through it step-by-step.
+[新しいMinipoolの作成（Validator）](../create-validator.mdx)では、新しいRocket Pool minipoolと対応するBeacon Chain上のvalidatorを作成するプロセスを説明します。
+初めてのminipoolを作成する場合でも、既にいくつか持っていて別のものを作成したい場合でも、このガイドがステップバイステップで説明します。
 
-[The Minipool Delegate](./delegates) explains a bit about what the minipool contract is, and introduces the **delegate** contract that contains most of its functionality.
-It also demonstrates how to update the delegate for your minipools after a network upgrade to take advantage of new features.
+[Minipool Delegate](./delegates)では、minipoolコントラクトとは何か、そしてその機能のほとんどを含む**delegate**コントラクトについて説明します。
+また、ネットワークアップグレード後に新機能を利用するため、minipoolのdelegateを更新する方法も示します。
 
-[Converting a Solo Validator into a Minipool](../solo-staker-migration) walks through the process of converting an existing validator outside of Rocket Pool (such as one you use for solo staking) directly into a Rocket Pool minipool without needing to exit the Beacon Chain and create a new minipool.
-If you're a solo staker that wants to take advantage of this capability, this is the guide for you!
+[Solo ValidatorをMinipoolに変換する](../solo-staker-migration)では、Rocket Pool外の既存のvalidator（ソロステーキングに使用しているものなど）をBeacon Chainから退出せずに、新しいminipoolを作成することなく直接Rocket Pool minipoolに変換するプロセスを説明します。
+この機能を利用したいソロステーカーの方は、このガイドをご覧ください！
 
-[Migrating a 16-ETH Minipool to 8-ETH](../leb-migration.mdx) shows how to reduce the bonded amount of ETH for a minipool from 16 ETH down to 8 ETH, giving you 8 ETH in credit that can be used to create a new minipool for free (though it still costs ETH for gas, of course).
+[16-ETH Minipoolを8-ETHに移行する](../leb-migration.mdx)では、minipoolのボンドされたETH量を16 ETHから8 ETHに削減する方法を示します。これにより、無料で新しいminipoolを作成するために使用できる8 ETHのクレジットが得られます（ただし、ガス代は必要です）。
 
-[The Deposit Credit System](../credit) covers the "ETH Credit" system that lets you create new minipools without having to pay for their ETH bonds after you perform one of the above migrations.
+[デポジットクレジットシステム](../credit)では、上記の移行のいずれかを実行した後、ETHボンドを支払うことなく新しいminipoolを作成できる「ETH Credit」システムについて説明します。

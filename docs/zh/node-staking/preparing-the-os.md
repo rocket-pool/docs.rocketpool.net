@@ -1,3 +1,3 @@
-# Preparing the Operating System
+# 准备操作系统
 
-[TBD] This should be where we describe how to do things like setting up a 2nd hard drive if applicable, running an IOPS test with `fio`, setting up swap space... everything someone might need to do. The `fio` test is important I think, but the other stuff might be skippable.
+[待定] 这应该是我们描述如何执行诸如设置第二块硬盘(如果适用)、使用 `fio` 运行 IOPS 测试、设置交换空间等操作的地方...所有可能需要做的事情。我认为 `fio` 测试很重要,但其他内容可能是可选的。

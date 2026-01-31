@@ -1,46 +1,46 @@
-# Selecting a Hosting Provider
+# 选择托管服务商
 
-If you've arrived at this section, then you would like to run a Rocket Pool node but can't set one up locally at your home; you require a **virtual private server (VPS)** hosted on the cloud.
-There are several different services available that can provide such a machine, and they come in two different flavors: VPS providers and public cloud providers.
+如果您已到达本节,那么您希望运行 Rocket Pool 节点但无法在家里本地设置;您需要一台托管在云上的**虚拟专用服务器(VPS)**。
+有几种不同的服务可以提供这样的机器,它们有两种不同的类型:VPS 提供商和公有云提供商。
 
-Choosing the correct one can be difficult, and understanding the differences between them is key.
-In this guide, we'll shine some light onto the distinction and list a few of the services that other Rocket Pool users have leveraged in the past to help you navigate through your options.
+选择正确的服务可能很困难,理解它们之间的区别是关键。
+在本指南中,我们将阐明这些区别,并列出一些其他 Rocket Pool 用户过去使用过的服务,以帮助您浏览各种选项。
 
-## Traditional VPS Hosting
+## 传统 VPS 托管
 
-A virtual private server is a single instance of a virtual machine that resides on a larger physical machine.
-They are the cheapest option, and they are less-frequently employed than the ubiquitous cloud platforms so they tend to contribute more towards the Ethereum network's decentralization.
+虚拟专用服务器是驻留在更大物理机器上的虚拟机的单个实例。
+它们是最便宜的选择,并且使用频率低于无处不在的云平台,因此它们往往更有助于以太坊网络的去中心化。
 
-However, they rarely have high-availability support; if the physical server goes down, it's likely that your VPS hosted on it will go down as well.
-Also, they have a fixed resource footprint; it's usually not possible to increase or decrease resources like CPU and RAM on demand.
+然而,它们很少具有高可用性支持;如果物理服务器宕机,您托管在其上的 VPS 也可能会宕机。
+此外,它们具有固定的资源占用;通常无法按需增加或减少 CPU 和 RAM 等资源。
 
-As of 10/2024, one well-priced and performant option was the RS 12000 G11 from [Netcup](https://www.netcup.eu/vserver/vps.php).
-One word of warning is that storage is shared with others, so storage IOPs are a potential bottleneck.
+截至 2024 年 10 月,一个价格合理且性能良好的选择是来自 [Netcup](https://www.netcup.eu/vserver/vps.php) 的 RS 12000 G11。
+需要警告的是,存储与他人共享,因此存储 IOPS 是一个潜在的瓶颈。
 
-## Dedicated Server Hosting
+## 专用服务器托管
 
-Unlike a VPS, a dedicated server is an entire physical device that is rented by you. They are a relatively affordable option, and they are less-frequently employed than the ubiquitous cloud platforms so they tend to contribute more towards the Ethereum network's decentralization.
+与 VPS 不同,专用服务器是由您租用的整台物理设备。它们是一个相对实惠的选择,并且使用频率低于无处不在的云平台,因此它们往往更有助于以太坊网络的去中心化。
 
-As of 10/2024 two well-priced and performant options were the Rise and Advanced bare-metal servers from [OVH](https://us.ovhcloud.com/). There are a variety of these that change over time, as well as significant sales. You'll need to check that the [hardware guidelines](../local/hardware.md) are met.
+截至 2024 年 10 月,两个价格合理且性能良好的选择是来自 [OVH](https://us.ovhcloud.com/) 的 Rise 和 Advanced 裸机服务器。这些服务器有多种类型,会随时间变化,并且会有大幅折扣。您需要检查是否满足[硬件指南](../local/hardware.md)的要求。
 
-## Cloud Hosting
+## 云托管
 
-Cloud hosting refers to virtual machines that are split across on a distributed network of multiple servers, rather than being hosted on a single physical machine.
-If one of the hosting machines fails, the others can seamlessly take over for it so availability and reliability tend to be extremely high on these platforms.
-They also tend to offer flexible resource options; it's relatively simple to add more CPU, RAM, or disk space on demand.
+云托管是指虚拟机分布在多个服务器的分布式网络上,而不是托管在单个物理机器上。
+如果其中一台托管机器出现故障,其他机器可以无缝接管,因此这些平台的可用性和可靠性往往非常高。
+它们还倾向于提供灵活的资源选项;按需添加更多 CPU、RAM 或磁盘空间相对简单。
 
-Due to these extra benefits, cloud-based servers tend to be more expensive than VPS solutions.
-They're also very popular platforms, so using them generally reduces the overall decentralization of the Ethereum network.
+由于这些额外的好处,基于云的服务器往往比 VPS 解决方案更昂贵。
+它们也是非常受欢迎的平台,因此使用它们通常会降低以太坊网络的整体去中心化。
 
-The 3 primary cloud providers are [Amazon Web Services (AWS)](https://aws.amazon.com/), [Microsoft Azure](https://azure.microsoft.com/en-us/), and [Google Cloud Platform (GCP)](https://cloud.google.com/).
-We do not recommend using cloud hosting due to price and centralization concerns.
+三个主要的云提供商是 [Amazon Web Services (AWS)](https://aws.amazon.com/)、[Microsoft Azure](https://azure.microsoft.com/en-us/) 和 [Google Cloud Platform (GCP)](https://cloud.google.com/)。
+由于价格和中心化问题,我们不建议使用云托管。
 
-## Key Considerations
+## 关键考虑因素
 
-### Price
+### 价格
 
-Cloud hosting solutions are usually a safer choice if cost is not a priority.
-The section below has a more detailed breakdown of cost estimates but here is a general comparison between a VPS option and a cloud option:
+如果成本不是优先考虑的因素,云托管解决方案通常是更安全的选择。
+下面的部分有更详细的成本估算细分,但这里是 VPS 选项和云选项之间的一般比较:
 
-- OVH Dedicated Server: $90-160/mo
-- Netcup VPS: $90/mo
+- OVH 专用服务器:90-160 美元/月
+- Netcup VPS:90 美元/月

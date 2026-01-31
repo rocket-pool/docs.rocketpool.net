@@ -11,549 +11,549 @@ import tuiExternalDD from "./images/tui-external-dd.png";
 import tuiExternalPrysm from "./images/tui-external-prysm.png";
 import tuiExternalTeku from "./images/tui-external-teku.png";
 
-# Configuring the Smartnode Stack (Docker / Hybrid Mode)
+# Smartnodeスタックの設定（Docker / Hybridモード）
 
-Running complete Execution layer and Consensus layer clients can be daunting; there are several options to choose from and each of them has a plethora of different settings.
-Luckily, the Smartnode is designed to hide all of that complexity so it's quick and easy to configure, while still giving you the freedom to customize everything if you so desire.
+完全なExecution層とConsensus層のクライアントを実行することは困難に思えるかもしれません。選択できるオプションがいくつかあり、それぞれに多数の異なる設定があります。
+幸いなことに、Smartnodeはそのような複雑さをすべて隠すように設計されており、迅速かつ簡単に設定できる一方で、必要に応じてすべてをカスタマイズする自由も提供します。
 
-In this section, we'll go over the various methods for configuring the Smartnode if you're using the **Docker-based setup** or a **Hybrid setup** where you connect to externally managed Execution or Consensus clients (e.g., clients you manage outside of the Smartnode for solo staking).
+このセクションでは、**Dockerベースのセットアップ**を使用している場合、または外部で管理されているExecutionまたはConsensusクライアント（例えば、ソロステーキング用にSmartnode外で管理しているクライアント）に接続する**Hybridセットアップ**を使用している場合の、Smartnodeを設定するさまざまな方法について説明します。
 
-::: warning NOTE
-If you're using Native mode without Docker, please visit the [Native configuration guide](./config-native) instead.
+::: warning 注意
+Dockerを使用しないNativeモードを使用している場合は、代わりに[Native設定ガイド](./config-native)をご覧ください。
 :::
 
-There are three ways to configure it:
+設定には3つの方法があります。
 
-- Via the [Wizard UI](#configuring-via-the-wizard) - this is the easiest way. It only asks you a few basic questions and uses well-tested defaults for the test. This will be what you are presented with when you run `rocketpool service config` for the first time.
-- Via the [Settings Manager UI](#configuring-via-the-settings-manager) - this gives you access to all of the Smartnode's settings so you can customize everything as much as you want.
-- Headlessly via the [Command Line](#configuring-via-the-command-line) - this is an option for people who run the Smartnode in a headless (non-interactive) environment and need to configure it automatically.
+- [ウィザードUI](#ウィザードによる設定)経由 - これが最も簡単な方法です。いくつかの基本的な質問だけを行い、十分にテストされたデフォルト値を使用します。これは初めて`rocketpool service config`を実行したときに表示されます。
+- [設定マネージャーUI](#設定マネージャーによる設定)経由 - これにより、Smartnodeのすべての設定にアクセスでき、必要なだけカスタマイズできます。
+- [コマンドライン](#コマンドラインによる設定)によるヘッドレス設定 - これは、Smartnodeをヘッドレス（非対話型）環境で実行し、自動的に設定する必要がある人向けのオプションです。
 
-Choose which mode you'd like to learn more about from the list above, or simply scroll through each option below.
+上記のリストから詳しく知りたいモードを選択するか、以下の各オプションをスクロールしてください。
 
-## Configuring via the Wizard
+## ウィザードによる設定
 
-To start the configuration process, run the following command:
+設定プロセスを開始するには、次のコマンドを実行します。
 
 ```shell
 rocketpool service config
 ```
 
-This will launch a terminal-based UI that will allow you to quickly and easily configure your node, as well as provide optional fine-grained control over every setting for advanced customization.
+これにより、ターミナルベースのUIが起動し、ノードを迅速かつ簡単に設定できるとともに、高度なカスタマイズのためのすべての設定に対するオプションの詳細な制御も提供されます。
 
-::: tip NOTE
-If you've already configured the Smartnode, you will instead be greeted with the [Settings Manager](#configuring-the-smartnode-stack-via-the-settings-manager).
-You can choose to re-open the Wizard from there if you prefer it, and all of your existing settings will be pre-selected for you.
+::: tip 注意
+すでにSmartnodeを設定している場合は、代わりに[設定マネージャー](#設定マネージャーによる設定)が表示されます。
+そこからウィザードを再度開くこともでき、既存の設定がすべて事前選択されています。
 :::
 
-When you run the config UI for the first time (or if you choose to run the Wizard again later), you will be presented with a screen that looks like this:
+設定UIを初めて実行すると（または後でウィザードを再度実行することを選択した場合）、次のような画面が表示されます。
 
 <img src="./images/tui-first-time.png" width="100%" height="auto" />
 
-::: tip TIP
-To use the Wizard, **press the `Arrow Keys` (up/down/left/right) to navigate between things such as buttons (choices) or text boxes**.
-You can also use `Tab` and `Shift+Tab` if you prefer - it will do the same thing.
+::: tip ヒント
+ウィザードを使用するには、**`矢印キー`（上/下/左/右）を押して、ボタン（選択肢）やテキストボックスなどの間を移動します**。
+`Tab`と`Shift+Tab`を使用することもできます - 同じことができます。
 
-For buttons, **the one that's currently selected will be highlighted in green**.
-The ones in black are not selected.
-In the screenshot above, `Next` is currently selected and `Quit` is not.
+ボタンの場合、**現在選択されているものが緑色でハイライト表示されます**。
+黒いものは選択されていません。
+上のスクリーンショットでは、`Next`が現在選択されており、`Quit`は選択されていません。
 
-**Press `Enter` or `Space` to select a button**, analogous to clicking on it with the mouse.
+**`Enter`または`Space`を押してボタンを選択します**。これはマウスでクリックするのと同じです。
 
-**Press `Escape` to go back to the previous dialog** if you changed your mind about something.
-This will come in handy as you progress through the various Wizard pages.
+**`Escape`を押すと前のダイアログに戻ります**。何かについて気が変わった場合に便利です。
+これは、さまざまなウィザードページを進むにつれて役立ちます。
 
-**Hold `Ctrl` and press `C` at any time to exit the Wizard without saving anything**.
+**いつでも`Ctrl`を押しながら`C`を押すと、何も保存せずにウィザードを終了できます**。
 
-For example, on the screen above, you could press the `left` and `right` arrow keys to move between the `Next` and `Quit` buttons.
+たとえば、上の画面では、`左`と`右`の矢印キーを押して`Next`と`Quit`ボタンの間を移動できます。
 
-Pressing `Enter` while `Next` is selected will proceed to the next screen.
-Pressing `Enter` while `Quit` is selected will quit the Wizard without saving.
+`Next`が選択されているときに`Enter`を押すと、次の画面に進みます。
+`Quit`が選択されているときに`Enter`を押すと、保存せずにウィザードを終了します。
 :::
 
-When you're ready to begin, press `Next`.
+準備ができたら、`Next`を押してください。
 
-### Choosing a Network
+### ネットワークの選択
 
-In the next screen, you will be asked to choose which network you want to use:
+次の画面では、使用するネットワークを選択するよう求められます。
 
 <img src="./images/tui-network.png" width="100%" height="auto" />
 
-You can highlight the different choices with the `Up` and `Down` arrow keys (or `Tab` and `Shift+Tab`).
-When you change choices, the **Description** box on the right will show you a brief description of each option.
-This is true for all choice-based pages in the Wizard, not just the network selection, so you will see this style of page frequently.
+`上`と`下`の矢印キー（または`Tab`と`Shift+Tab`）を使用して、さまざまな選択肢をハイライト表示できます。
+選択肢を変更すると、右側の**説明**ボックスに各オプションの簡単な説明が表示されます。
+これはウィザードのすべての選択ベースのページに当てはまり、ネットワーク選択だけではありません。したがって、このスタイルのページは頻繁に表示されます。
 
-If you want to practice running a Rocket Pool node on the Hoodi test network with fake ETH and RPL you can get for free, select **Hoodi Testnet**.
+無料で入手できる偽のETHとRPLを使ってHoodiテストネットワークでRocket Poolノードを実行する練習をしたい場合は、**Hoodi Testnet**を選択してください。
 
-If you're ready to create a real Rocket Pool node on Mainnet to earn real rewards, select **Mainnet**.
+実際の報酬を得るために本物のRocket PoolノードをMainnetで作成する準備ができている場合は、**Mainnet**を選択してください。
 
-### Client Mode
+### クライアントモード
 
-You will be presented with two options for client mode:
+クライアントモードには2つのオプションが表示されます。
 
 <img src="./images/tui-client-mode.png" width="100%" height="auto" />
 
-**Locally Managed** (also known as **"Docker Mode"**) is the default choice.
-Use it if you don't already have a client pair and you want the Smartnode to manage one for you.
-By choosing this, the Smartnode will create, configure and manage an Execution & Consensus Client pair as Docker containers.
-Don't worry, you'll get to choose _which_ client you want to run next.
+**Locally Managed**（**「Dockerモード」**とも呼ばれます）がデフォルトの選択肢です。
+すでにクライアントペアを持っておらず、Smartnodeに管理してもらいたい場合に使用します。
+これを選択すると、SmartnodeはDockerコンテナとしてExecution & Consensusクライアントペアを作成、設定、管理します。
+心配しないでください、次に実行する_どの_クライアントを選択するかを決めることができます。
 
-**Externally Managed** (also known as **"Hybrid Mode"**) is a convenient choice for users that already have an Execution & Consensus client pair running elsewhere that they manage manually.
-By choosing this, the Smartnode will simply connect to your existing clients and will not run one of its own.
-For example, users can use this to plug into the clients that they currently use for solo staking; that way, they don't need to have two separate copies of the clients.
+**Externally Managed**（**「Hybridモード」**とも呼ばれます）は、すでに別の場所で手動で管理しているExecution & Consensusクライアントペアを実行しているユーザーにとって便利な選択肢です。
+これを選択すると、Smartnodeは既存のクライアントに接続するだけで、独自のクライアントは実行しません。
+たとえば、ユーザーは現在ソロステーキングに使用しているクライアントにプラグインすることができます。そうすれば、クライアントの2つの別々のコピーを持つ必要がありません。
 
-:::warning NOTE
-Since the Execution-Consensus Layer Merge, you _cannot_ mix and match these modes (e.g., you cannot have a local Execution client but an externally-managed Consensus client).
-You must either choose all locally-managed or all externally-managed.
+:::warning 注意
+Execution-Consensus LayerのMerge以降、これらのモードを混在させることは_できません_（例えば、ローカルExecutionクライアントと外部管理Consensusクライアントを持つことはできません）。
+すべてローカル管理またはすべて外部管理のいずれかを選択する必要があります。
 :::
 
-### Execution Client Setup
+### Executionクライアントの設定
 
-Choose which mode you'd like to use for managing your Execution client and follow the steps in the corresponding tab below:
+Executionクライアントを管理するために使用するモードを選択し、以下の対応するタブの手順に従ってください。
 
 <div className="p-3">
   <Tabs>
     <Tab label="Locally Managed">
-      If you want the Smartnode to manage an Execution client for you, the next screen will ask you to pick a client:
+      SmartnodeにExecutionクライアントを管理してもらいたい場合、次の画面でクライアントを選択するよう求められます。
 
       <img src={ECSelection} width="100%" height="auto"/>
 
-      Please refer to the [Choosing your ETH clients](/en/node-staking/eth-clients#execution-clients) section for a description of each option.
-      Once you've made your choice, click on the appropriate tab below to learn how to configure it:
+      各オプションの説明については、[ETHクライアントの選択](/ja/node-staking/eth-clients#execution-clients)セクションを参照してください。
+      選択したら、以下の適切なタブをクリックして設定方法を学んでください。
 
-      If you choose **Geth**, **Besu**, or **Nethermind**, the Wizard will handle all of the configuration for you.
-      You can manually adjust some of its parameters at the end of this process, but the defaults that it uses are completely appropriate for node operation.
-      You can proceed to the next section.
+      **Geth**、**Besu**、または**Nethermind**を選択した場合、ウィザードがすべての設定を処理します。
+      このプロセスの最後にいくつかのパラメータを手動で調整できますが、使用されるデフォルト値はノード操作に完全に適しています。
+      次のセクションに進むことができます。
 
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        **Open up the P2P port in your router's port forwarding setup**. Configure it to forward **port 30303** on both TCP and UDP to your machine's local IP address.
-        This way, other Consensus clients can discover it and communicate with it from the outside. This will help your Consensus client sync quickly and improve performance (and thus rewards).
+        <p className="rspress-directive-title">注意</p>
+        **ルーターのポート転送設定でP2Pポートを開いてください**。**ポート30303**のTCPとUDPの両方をマシンのローカルIPアドレスに転送するように設定します。
+        これにより、他のConsensusクライアントがそれを発見し、外部から通信できるようになります。これにより、Consensusクライアントが迅速に同期し、パフォーマンス（したがって報酬）が向上します。
 
-        Each router has a different way of doing this, so **you'll need to check out your router's manual on how to set up port forwarding**.
+        各ルーターには異なる方法があるため、**ポート転送の設定方法については、ルーターのマニュアルを確認する必要があります**。
       </p>
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-        You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your Execution client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+        <p className="rspress-directive-title">注意</p>
+        Smartnodeは独自のDockerコンテナで実行されるため、Dockerの内部ネットワークを使用します。
+        ここでは`localhost`や`127.0.0.1`のようなホスト名を使用できません。Executionクライアントが Smartnodeと同じマシンで実行されている場合は、代わりにマシンのLAN IPアドレスを提供する必要があります。
       </p>
 
-      And with that, your Execution client is all set!
+      これで、Executionクライアントの設定はすべて完了です。
     </Tab>
     <Tab label="External">
-      For an externally managed Execution client, the next screen will prompt you for the URLs of its HTTP-based RPC (web3) API and its Websocket-based RPC API:
+      外部管理のExecutionクライアントの場合、次の画面でHTTPベースのRPC（web3）APIのURLとWebsocketベースのRPC APIのURLを入力するよう求められます。
 
       <img src={tuiExternalEC} width="100%" height="auto"/>
 
-      The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting transactions.
-      **If you don't already have your client's API port enabled and accessible from your Smartnode machine, you will need to set it up now.**
-      Instructions on this vary from client to client; consult your client's documentation to learn how to set up the HTTP RPC endpoint.
+      SmartNodeはHTTP URLを使用して通信し、チェーンの状態のクエリやトランザクションの送信などのブロックチェーンアクティビティを実行します。
+      **まだクライアントのAPIポートを有効にしてSmartNodeマシンからアクセスできるようにしていない場合は、今すぐ設定する必要があります。**
+      これに関する手順はクライアントごとに異なります。HTTP RPCエンドポイントの設定方法については、クライアントのドキュメントを参照してください。
 
-      The Websocket URL is only relevant if you need it for your own usage; the Smartnode does not use it.
-      You can leave it blank if you do not need it.
+      Websocket URLは、自分で使用する必要がある場合にのみ関連します。Smartnodeは使用しません。
+      必要ない場合は空白のままにできます。
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-        You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your fallback Execution client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+        <p className="rspress-directive-title">注意</p>
+        Smartnodeは独自のDockerコンテナで実行されるため、Dockerの内部ネットワークを使用します。
+        ここでは`localhost`や`127.0.0.1`のようなホスト名を使用できません。フォールバックExecutionクライアントがSmartnodeと同じマシンで実行されている場合は、代わりにマシンのLAN IPアドレスを提供する必要があります。
       </p>
 
-      When you're happy with your fallback Execution client choices, proceed to the next step.
+      フォールバックExecutionクライアントの選択に満足したら、次のステップに進みます。
     </Tab>
 
   </Tabs>
 </div>
 
-### Consensus Client Setup
+### Consensusクライアントの設定
 
-Now that you have an Execution client ready, the next task is to set up the Consensus client.
-The "mode" (local or external) will be inherited from the choice you used for your Execution client earlier.
+Executionクライアントの準備ができたので、次のタスクはConsensusクライアントの設定です。
+「モード」（ローカルまたは外部）は、以前にExecutionクライアントに使用した選択から継承されます。
 
-Choose which mode you selected earlier from the tabs below:
+以下のタブから以前に選択したモードを選択してください。
 
 <div className="p-3">
   <Tabs>
     <Tab label="Locally Managed">
-      If you want the Smartnode to manage a Consensus client for you, the next screen will ask you to pick a client:
+      SmartnodeにConsensusクライアントを管理してもらいたい場合、次の画面でクライアントを選択するよう求められます。
 
       <img src={tuiLocalCC} width="100%" height="auto"/>
 
-      **The preferred choice** for the overall health and diversity of the network is the **Random (Recommended)** choice, which will randomly choose among one of the four supported Consensus clients for you.
+      ネットワーク全体の健全性と多様性のために**推奨される選択肢**は、**Random (Recommended)**選択肢です。これは、サポートされている4つのConsensusクライアントの中からランダムに1つを選択します。
 
-      If you would prefer to choose an explicit client, please refer to the [Choosing your ETH clients](./eth-clients#eth2-clients) section for a description of each option so you can make an educated decision.
+      明示的にクライアントを選択したい場合は、[ETHクライアントの選択](./eth-clients#eth2-clients)セクションを参照して、各オプションの説明を読んで、十分な情報に基づいた決定を下してください。
 
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        There are two conditions that will prompt you with warnings based on client selection:
+        <p className="rspress-directive-title">注意</p>
+        クライアント選択に基づいて警告が表示される2つの条件があります。
 
-        - The selected client is currently [a supermajority client](https://clientdiversity.org/), meaning that an unhealthy majority of validators on the Beacon Chain use it which threatens the stability of the network
+        - 選択したクライアントが現在[スーパーマジョリティクライアント](https://clientdiversity.org/)である場合、つまり、Beacon Chainのバリデータの不健全な大多数がそれを使用しており、ネットワークの安定性を脅かしている
 
-        - The selected client is **too resource-heavy** for the hardware you're currently using
+        - 選択したクライアントが現在使用しているハードウェアに対して**リソースを消費しすぎる**場合
 
-        If either of those cases is true for your chosen client, you will be warned and asked to choose a different client.
-        You have the option of continuing to use the one you selected, but you must be aware of the risks in doing so.
+        選択したクライアントにこれらのケースのいずれかが当てはまる場合、警告が表示され、別のクライアントを選択するよう求められます。
+        選択したものを引き続き使用するオプションもありますが、そうすることのリスクを認識しておく必要があります。
       </p>
 
-      Once you've made your choice or have been assigned a random client, click on the appropriate tab below to learn how to configure it:
+      選択を行ったか、ランダムクライアントが割り当てられたら、以下の適切なタブをクリックして設定方法を学んでください。
 
       <div className="p-3">
         <Tabs>
           <Tab label="Lighthouse">
-            The first option in Lighthouse's configuration will ask about your validator's **graffiti** message:
+            Lighthouseの設定の最初のオプションは、バリデータの**graffiti**メッセージについて尋ねます。
 
             <img src={tuiLocalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            これは、Beacon Chainで提案するブロックに添付できるオプションのカスタムメッセージです。
+            メッセージは永遠に保存されるので、自分の痕跡を残す楽しい小さな方法と考えてください。
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **graffitiの最大長は16文字です。**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            今日バリデータがGraffitiに何を使用しているかの例を見たい場合は、[こちらをご覧ください](https://beaconcha.in/blocks)。
 
-            Next up is an option to enable or disable **Checkpoint Sync**:
+            次は、**Checkpoint Sync**を有効または無効にするオプションです。
 
             <img src={tuiLocalCheckpoint} width="100%" height="auto"/>
 
-            Lighthouse has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
-            This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-            Take a look at [their documentation on checkpoint syncing](https://lighthouse-book.sigmaprime.io/checkpoint-sync.html) for more information if you are curious.
+            Lighthouseには、信頼できる既存のBeacon Nodeに接続することで、Beacon Chainネットワークの最新ブロックに即座に同期する機能があります。
+            これは従来の同期よりも好まれます。時間がかからない（従来の同期には数日かかる可能性があります）ため、いくつかのセキュリティ上の利点もあります。
+            詳しく知りたい場合は、[チェックポイント同期に関する彼らのドキュメント](https://lighthouse-book.sigmaprime.io/checkpoint-sync.html)をご覧ください。
 
-            You can enter the URL of any Beacon Node that provides access to its REST API here.
+            REST APIへのアクセスを提供する任意のBeacon NodeのURLをここに入力できます。
 
-            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            使用したい場合は、[以下のCheckpoint Syncingに関するセクション](#beacon-chain-checkpoint-syncing)をご覧ください。
 
-            The final question will ask if you want to enable Doppelgänger Protection:
+            最後の質問は、Doppelgänger Protectionを有効にするかどうかを尋ねます。
 
             <img src={tuiLocalDD} width="100%" height="auto"/>
 
-            Lighthouse supports a feature called [Doppelgänger Detection](https://lighthouse-book.sigmaprime.io/validator-doppelganger.html).
-            In a nutshell, this feature will **intentionally** miss a few attestations after Lighthouse's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            Lighthouseは[Doppelgänger Detection](https://lighthouse-book.sigmaprime.io/validator-doppelganger.html)と呼ばれる機能をサポートしています。
+            簡単に言えば、この機能はLighthouseのValidator Client再起動後に**意図的に**いくつかのアテステーションをミスします。その間、バリデータキーを使用してアテステーションがネットワークに送信されているかどうかを監視します。
 
-            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-            After its short waiting period, Lighthouse would start validating normally.
+            理想的には、アテステーションはありません（つまり、他のマシンがバリデータキーを添付して実行していないことを意味します）。
+            短い待機期間の後、Lighthouseは通常どおり検証を開始します。
 
-            _However_, if there _is_ another machine running with your validator keys attached, then Lighthouse will immediately shut down and issue an error message in its log files.
-            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            _ただし_、バリデータキーを添付して実行している他のマシンが_ある_場合、Lighthouseは即座にシャットダウンし、ログファイルにエラーメッセージを発行します。
+            これは、アテステーションも開始すると、**二重アテステーション**が発生し、これは**スラッシュ可能な違反**だからです。
+            スラッシュされると、バリデータはBeacon Chainから強制的に退出され、大量のETHがペナルティとして課されます。
 
-            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            ほとんどの場合、doppelgänger detectionは、クライアント再起動後のいくつかのアテステーションのミス以外には何も生じません。
+            ただし、バリデータを新しいマシンに移動している場合や新しいBeaconクライアントに変更している場合、**doppelgänger detectionは、誤って二重アテステーションしてスラッシュされるのを防ぐことができます**。
 
-            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            ミニプールの安価な保険と考えてください。再起動するたびにわずかな利益をミスしますが、キーを2か所で実行してスラッシュされることがないとかなり確信できます。
 
-            Starting on version 4.5.0 Lighthouse has an option to establish P2P connections in a more efficient way using the [QUIC protocol](https://en.wikipedia.org/wiki/QUIC). If you are willing to use this feature you'll need to define an extra port "P2P QUIC port" field on the ETH2 settings, and forward it to your node in your router's port forwarding setup. The default P2P QUIC port is 8001 (UDP). Make sure to avoid collisions with ports already in use by your node (or fallback/testnet nodes). Also make sure the same port is open if you're using a firewall on your node (check `ufw status`).
-            To check if the QUIC configuration is working you should see a 2-digit number after `libp2p_quic_peers` when running `docker run --network rocketpool_net curlimages/curl http://eth2:9100/metrics | grep libp2p_peers_multi`.
+            バージョン4.5.0以降、Lighthouseには[QUICプロトコル](https://en.wikipedia.org/wiki/QUIC)を使用してより効率的な方法でP2P接続を確立するオプションがあります。この機能を使用する場合は、ETH2設定で追加のポート「P2P QUICポート」フィールドを定義し、ルーターのポート転送設定でノードに転送する必要があります。デフォルトのP2P QUICポートは8001（UDP）です。ノード（またはフォールバック/テストネットノード）で既に使用されているポートとの競合を避けてください。また、ノードでファイアウォールを使用している場合は、同じポートが開いていることを確認してください（`ufw status`を確認してください）。
+            QUIC設定が機能しているかどうかを確認するには、`docker run --network rocketpool_net curlimages/curl http://eth2:9100/metrics | grep libp2p_peers_multi`を実行したときに`libp2p_quic_peers`の後に2桁の数字が表示されるはずです。
 
           </Tab>
           <Tab label="Nimbus">
-            The first option in Nimbus's configuration will ask about your validator's **graffiti** message:
+            Nimbusの設定の最初のオプションは、バリデータの**graffiti**メッセージについて尋ねます。
 
             <img src={tuiLocalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            これは、Beacon Chainで提案するブロックに添付できるオプションのカスタムメッセージです。
+            メッセージは永遠に保存されるので、自分の痕跡を残す楽しい小さな方法と考えてください。
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **graffitiの最大長は16文字です。**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            今日バリデータがGraffitiに何を使用しているかの例を見たい場合は、[こちらをご覧ください](https://beaconcha.in/blocks)。
 
-            Next up is an option to enable or disable **Checkpoint Sync**:
+            次は、**Checkpoint Sync**を有効または無効にするオプションです。
 
             <img src={tuiLocalCheckpoint} width="100%" height="auto"/>
 
-            Nimbus has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
-            This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-            Take a look at [their documentation on checkpoint syncing](https://nimbus.guide/trusted-node-sync.html) for more information if you are curious.
+            Nimbusには、信頼できる既存のBeacon Nodeに接続することで、Beacon Chainネットワークの最新ブロックに即座に同期する機能があります。
+            これは従来の同期よりも好まれます。時間がかからない（従来の同期には数日かかる可能性があります）ため、いくつかのセキュリティ上の利点もあります。
+            詳しく知りたい場合は、[チェックポイント同期に関する彼らのドキュメント](https://nimbus.guide/trusted-node-sync.html)をご覧ください。
 
-            You can enter the URL of any Beacon Node that provides access to its REST API here.
+            REST APIへのアクセスを提供する任意のBeacon NodeのURLをここに入力できます。
 
-            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            使用したい場合は、[以下のCheckpoint Syncingに関するセクション](#beacon-chain-checkpoint-syncing)をご覧ください。
 
-            The final question will ask if you want to enable Doppelgänger Protection:
+            最後の質問は、Doppelgänger Protectionを有効にするかどうかを尋ねます。
 
             <img src={tuiLocalDD} width="100%" height="auto"/>
 
-            Nimbus supports a feature called [Doppelgänger Protection](https://nimbus.guide/faq.html#why-does-my-validator-miss-two-epochs-of-attestations-after-restarting).
-            In a nutshell, this feature will **intentionally** miss a few attestations after Nimbus restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            Nimbusは[Doppelgänger Protection](https://nimbus.guide/faq.html#why-does-my-validator-miss-two-epochs-of-attestations-after-restarting)と呼ばれる機能をサポートしています。
+            簡単に言えば、この機能はNimbus再起動後に**意図的に**いくつかのアテステーションをミスします。その間、バリデータキーを使用してアテステーションがネットワークに送信されているかどうかを監視します。
 
-            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-            After its short waiting period, Nimbus would start validating normally.
+            理想的には、アテステーションはありません（つまり、他のマシンがバリデータキーを添付して実行していないことを意味します）。
+            短い待機期間の後、Nimbusは通常どおり検証を開始します。
 
-            _However_, if there _is_ another machine running with your validator keys attached, then Nimbus will immediately shut down and issue an error message in its log files.
-            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            _ただし_、バリデータキーを添付して実行している他のマシンが_ある_場合、Nimbusは即座にシャットダウンし、ログファイルにエラーメッセージを発行します。
+            これは、アテステーションも開始すると、**二重アテステーション**が発生し、これは**スラッシュ可能な違反**だからです。
+            スラッシュされると、バリデータはBeacon Chainから強制的に退出され、大量のETHがペナルティとして課されます。
 
-            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            ほとんどの場合、doppelgänger detectionは、クライアント再起動後のいくつかのアテステーションのミス以外には何も生じません。
+            ただし、バリデータを新しいマシンに移動している場合や新しいBeaconクライアントに変更している場合、**doppelgänger detectionは、誤って二重アテステーションしてスラッシュされるのを防ぐことができます**。
 
-            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            ミニプールの安価な保険と考えてください。再起動するたびにわずかな利益をミスしますが、キーを2か所で実行してスラッシュされることがないとかなり確信できます。
 
           </Tab>
           <Tab label="Prysm">
-            The first option in Prysm's configuration will ask about your validator's **graffiti** message:
+            Prysmの設定の最初のオプションは、バリデータの**graffiti**メッセージについて尋ねます。
 
             <img src={tuiLocalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            これは、Beacon Chainで提案するブロックに添付できるオプションのカスタムメッセージです。
+            メッセージは永遠に保存されるので、自分の痕跡を残す楽しい小さな方法と考えてください。
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **graffitiの最大長は16文字です。**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            今日バリデータがGraffitiに何を使用しているかの例を見たい場合は、[こちらをご覧ください](https://beaconcha.in/blocks)。
 
-            Next up is an option to enable or disable **Checkpoint Sync**:
+            次は、**Checkpoint Sync**を有効または無効にするオプションです。
 
             <img src={tuiLocalCheckpoint} width="100%" height="auto"/>
 
-            Prysm has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
-            This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-            Take a look at [their documentation on checkpoint syncing](https://docs.prylabs.network/docs/prysm-usage/checkpoint-sync) for more information if you are curious.
+            Prysmには、信頼できる既存のBeacon Nodeに接続することで、Beacon Chainネットワークの最新ブロックに即座に同期する機能があります。
+            これは従来の同期よりも好まれます。時間がかからない（従来の同期には数日かかる可能性があります）ため、いくつかのセキュリティ上の利点もあります。
+            詳しく知りたい場合は、[チェックポイント同期に関する彼らのドキュメント](https://docs.prylabs.network/docs/prysm-usage/checkpoint-sync)をご覧ください。
 
-            You can enter the URL of any Beacon Node that provides access to its REST API here.
+            REST APIへのアクセスを提供する任意のBeacon NodeのURLをここに入力できます。
 
-            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            使用したい場合は、[以下のCheckpoint Syncingに関するセクション](#beacon-chain-checkpoint-syncing)をご覧ください。
 
-            The final question will ask if you want to enable Doppelgänger Protection:
+            最後の質問は、Doppelgänger Protectionを有効にするかどうかを尋ねます。
 
             <img src={tuiLocalDD} width="100%" height="auto"/>
 
-            Prysm supports a feature called Doppelgänger Protection.
-            In a nutshell, this feature will **intentionally** miss a few attestations after Prysm's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            PrysmはDoppelgänger Protectionと呼ばれる機能をサポートしています。
+            簡単に言えば、この機能はPrysmのValidator Client再起動後に**意図的に**いくつかのアテステーションをミスします。その間、バリデータキーを使用してアテステーションがネットワークに送信されているかどうかを監視します。
 
-            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-            After its short waiting period, Prysm would start validating normally.
+            理想的には、アテステーションはありません（つまり、他のマシンがバリデータキーを添付して実行していないことを意味します）。
+            短い待機期間の後、Prysmは通常どおり検証を開始します。
 
-            _However_, if there _is_ another machine running with your validator keys attached, then Prysm will immediately shut down and issue an error message in its log files.
-            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            _ただし_、バリデータキーを添付して実行している他のマシンが_ある_場合、Prysmは即座にシャットダウンし、ログファイルにエラーメッセージを発行します。
+            これは、アテステーションも開始すると、**二重アテステーション**が発生し、これは**スラッシュ可能な違反**だからです。
+            スラッシュされると、バリデータはBeacon Chainから強制的に退出され、大量のETHがペナルティとして課されます。
 
-            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            ほとんどの場合、doppelgänger detectionは、クライアント再起動後のいくつかのアテステーションのミス以外には何も生じません。
+            ただし、バリデータを新しいマシンに移動している場合や新しいBeaconクライアントに変更している場合、**doppelgänger detectionは、誤って二重アテステーションしてスラッシュされるのを防ぐことができます**。
 
-            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            ミニプールの安価な保険と考えてください。再起動するたびにわずかな利益をミスしますが、キーを2か所で実行してスラッシュされることがないとかなり確信できます。
 
           </Tab>
           <Tab label="Teku">
-            The first option in Teku's configuration will ask about your validator's **graffiti** message:
+            Tekuの設定の最初のオプションは、バリデータの**graffiti**メッセージについて尋ねます。
 
             <img src={tuiLocalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            これは、Beacon Chainで提案するブロックに添付できるオプションのカスタムメッセージです。
+            メッセージは永遠に保存されるので、自分の痕跡を残す楽しい小さな方法と考えてください。
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **graffitiの最大長は16文字です。**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            今日バリデータがGraffitiに何を使用しているかの例を見たい場合は、[こちらをご覧ください](https://beaconcha.in/blocks)。
 
-            The final question is an option to enable or disable **Checkpoint Sync**:
+            最後の質問は、**Checkpoint Sync**を有効または無効にするオプションです。
 
             <img src={tuiLocalCheckpoint} width="100%" height="auto"/>
 
-            Teku has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
-            This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-            Take a look at [their documentation on checkpoint syncing](https://docs.teku.consensys.net/en/latest/HowTo/Get-Started/Checkpoint-Start/) for more information if you are curious.
+            Tekuには、信頼できる既存のBeacon Nodeに接続することで、Beacon Chainネットワークの最新ブロックに即座に同期する機能があります。
+            これは従来の同期よりも好まれます。時間がかからない（従来の同期には数日かかる可能性があります）ため、いくつかのセキュリティ上の利点もあります。
+            詳しく知りたい場合は、[チェックポイント同期に関する彼らのドキュメント](https://docs.teku.consensys.net/en/latest/HowTo/Get-Started/Checkpoint-Start/)をご覧ください。
 
-            You can enter the URL of any Beacon Node that provides access to its REST API here.
+            REST APIへのアクセスを提供する任意のBeacon NodeのURLをここに入力できます。
 
-            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            使用したい場合は、[以下のCheckpoint Syncingに関するセクション](#beacon-chain-checkpoint-syncing)をご覧ください。
           </Tab>
           <Tab label="Lodestar">
-            The first option in Lodestar's configuration will ask about your validator's **graffiti** message:
+            Lodestarの設定の最初のオプションは、バリデータの**graffiti**メッセージについて尋ねます。
 
             <img src={tuiLocalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            これは、Beacon Chainで提案するブロックに添付できるオプションのカスタムメッセージです。
+            メッセージは永遠に保存されるので、自分の痕跡を残す楽しい小さな方法と考えてください。
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **graffitiの最大長は16文字です。**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            今日バリデータがGraffitiに何を使用しているかの例を見たい場合は、[こちらをご覧ください](https://beaconcha.in/blocks)。
 
-            Next up is an option to enable or disable **Checkpoint Sync**:
+            次は、**Checkpoint Sync**を有効または無効にするオプションです。
 
             <img src={tuiLocalCheckpoint} width="100%" height="auto"/>
 
-            Lodestar has the ability to instantly sync to the latest block on the Beacon Chain network by connecting to an existing Beacon Node that you trust.
-            This is preferred over conventional syncing because it doesn't require any time (whereas conventional syncing can take days) and comes with some security benefits.
-            Take a look at [their documentation on checkpoint syncing](https://chainsafe.github.io/lodestar/run/beacon-management/starting-a-node#checkpoint-sync) for more information if you are curious.
+            Lodestarには、信頼できる既存のBeacon Nodeに接続することで、Beacon Chainネットワークの最新ブロックに即座に同期する機能があります。
+            これは従来の同期よりも好まれます。時間がかからない（従来の同期には数日かかる可能性があります）ため、いくつかのセキュリティ上の利点もあります。
+            詳しく知りたい場合は、[チェックポイント同期に関する彼らのドキュメント](https://chainsafe.github.io/lodestar/run/beacon-management/starting-a-node#checkpoint-sync)をご覧ください。
 
-            You can enter the URL of any Beacon Node that provides access to its REST API here.
+            REST APIへのアクセスを提供する任意のBeacon NodeのURLをここに入力できます。
 
-            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            使用したい場合は、[以下のCheckpoint Syncingに関するセクション](#beacon-chain-checkpoint-syncing)をご覧ください。
 
-            The final question will ask if you want to enable Doppelgänger Protection:
+            最後の質問は、Doppelgänger Protectionを有効にするかどうかを尋ねます。
 
             <img src={tuiLocalDD} width="100%" height="auto"/>
 
-            Lodestar supports a feature called Doppelgänger Detection.
-            In a nutshell, this feature will **intentionally** miss a few attestations after Lodestar's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            LodestarはDoppelgänger Detectionと呼ばれる機能をサポートしています。
+            簡単に言えば、この機能はLodestarのValidator Client再起動後に**意図的に**いくつかのアテステーションをミスします。その間、バリデータキーを使用してアテステーションがネットワークに送信されているかどうかを監視します。
 
-            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-            After its short waiting period, Lodestar would start validating normally.
+            理想的には、アテステーションはありません（つまり、他のマシンがバリデータキーを添付して実行していないことを意味します）。
+            短い待機期間の後、Lodestarは通常どおり検証を開始します。
 
-            _However_, if there _is_ another machine running with your validator keys attached, then Lodestar will immediately shut down and issue an error message in its log files.
-            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            _ただし_、バリデータキーを添付して実行している他のマシンが_ある_場合、Lodestarは即座にシャットダウンし、ログファイルにエラーメッセージを発行します。
+            これは、アテステーションも開始すると、**二重アテステーション**が発生し、これは**スラッシュ可能な違反**だからです。
+            スラッシュされると、バリデータはBeacon Chainから強制的に退出され、大量のETHがペナルティとして課されます。
 
-            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            ほとんどの場合、doppelgänger detectionは、クライアント再起動後のいくつかのアテステーションのミス以外には何も生じません。
+            ただし、バリデータを新しいマシンに移動している場合や新しいBeaconクライアントに変更している場合、**doppelgänger detectionは、誤って二重アテステーションしてスラッシュされるのを防ぐことができます**。
 
-            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            ミニプールの安価な保険と考えてください。再起動するたびにわずかな利益をミスしますが、キーを2か所で実行してスラッシュされることがないとかなり確信できます。
 
           </Tab>
         </Tabs>
       </div>
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        **Open up the P2P port in your router's port forwarding setup**. Configure it to forward **port 9001** on both TCP and UDP to your machine's local IP address.
-        This way, other Consensus clients can discover it and communicate with it from the outside. This will help your Consensus client sync quickly and improve performance (and thus rewards).
+        <p className="rspress-directive-title">注意</p>
+        **ルーターのポート転送設定でP2Pポートを開いてください**。**ポート9001**のTCPとUDPの両方をマシンのローカルIPアドレスに転送するように設定します。
+        これにより、他のConsensusクライアントがそれを発見し、外部から通信できるようになります。これにより、Consensusクライアントが迅速に同期し、パフォーマンス（したがって報酬）が向上します。
 
-        Each router has a different way of doing this, so **you'll need to check out your router's manual on how to set up port forwarding**
+        各ルーターには異なる方法があるため、**ポート転送の設定方法については、ルーターのマニュアルを確認する必要があります**
       </p>
     </Tab>
     <Tab label="Externally Managed">
-      Because each Consensus client has slightly different behavior, the Smartnode needs to know which one you're using externally so it can adapt its own behavior accordingly.
-      Start by choosing which client you have from the list in the next screen:
+      各Consensusクライアントの動作は若干異なるため、Smartnodeは外部で使用しているクライアントを知る必要があり、それに応じて自身の動作を適応させることができます。
+      次の画面のリストから使用しているクライアントを選択することから始めます。
 
       <img src="./images/tui-external-cc.png" width="100%" height="auto"/>
 
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        At this time, **Nimbus** is not compatible with External mode because it cannot run as a standalone Validator Container (VC) yet.
-        When the client supports this feature, it will be added to the list here.
+        <p className="rspress-directive-title">注意</p>
+        現時点では、**Nimbus**はスタンドアロンのValidator Container（VC）としてまだ実行できないため、Externalモードと互換性がありません。
+        クライアントがこの機能をサポートすると、ここのリストに追加されます。
       </p>
 
-      Select your client from the tabs below to learn how to finish configuring it.
+      以下のタブからクライアントを選択して、設定を完了する方法を学んでください。
 
       <div className="p-3">
         <Tabs>
           <Tab label="Lighthouse">
-            Start by specifying the URL for your Lighthouse Beacon Node's API:
+            まず、Lighthouse Beacon NodeのAPIのURLを指定します。
 
             <img src={tuiExternalLH} width="100%" height="auto"/>
 
-            The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
-            **If you don't already have the API port enabled and accessible from your Smartnode machine, you will need to set it up now.**
-            See [Lighthouse's documentation](https://lighthouse-book.sigmaprime.io/api-bn.html) for instructions on how to do this.
+            Smartnodeは、HTTP URLを使用して通信し、チェーンの状態のクエリやメッセージの送信などのブロックチェーンアクティビティを実行します。
+            **まだAPIポートを有効にしてSmartnodeマシンからアクセスできるようにしていない場合は、今すぐ設定する必要があります。**
+            これを行う方法については、[Lighthouseのドキュメント](https://lighthouse-book.sigmaprime.io/api-bn.html)を参照してください。
 
             <p className="rspress-directive warning">
-              <p className="rspress-directive-title">NOTE</p>
-              Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-              You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+              <p className="rspress-directive-title">注意</p>
+              Smartnodeは独自のDockerコンテナで実行されるため、Dockerの内部ネットワークを使用します。
+              ここでは`localhost`や`127.0.0.1`のようなホスト名を使用できません。クライアントがSmartnodeと同じマシンで実行されている場合は、代わりにマシンのLAN IPアドレスを提供する必要があります。
             </p>
 
 
-            Next, it will ask about your validator's **graffiti** message:
+            次に、バリデータの**graffiti**メッセージについて尋ねます。
 
             <img src={tuiExternalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            これは、Beacon Chainで提案するブロックに添付できるオプションのカスタムメッセージです。
+            メッセージは永遠に保存されるので、自分の痕跡を残す楽しい小さな方法と考えてください。
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **graffitiの最大長は16文字です。**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            今日バリデータがGraffitiに何を使用しているかの例を見たい場合は、[こちらをご覧ください](https://beaconcha.in/blocks)。
 
-            The final question will ask if you want to enable Doppelgänger Protection:
+            最後の質問は、Doppelgänger Protectionを有効にするかどうかを尋ねます。
 
             <img src={tuiExternalDD} width="100%" height="auto"/>
 
-            Lighthouse supports a feature called [Doppelgänger Detection](https://lighthouse-book.sigmaprime.io/validator-doppelganger.html).
-            In a nutshell, this feature will **intentionally** miss a few attestations after Lighthouse's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            Lighthouseは[Doppelgänger Detection](https://lighthouse-book.sigmaprime.io/validator-doppelganger.html)と呼ばれる機能をサポートしています。
+            簡単に言えば、この機能はLighthouseのValidator Client再起動後に**意図的に**いくつかのアテステーションをミスします。その間、バリデータキーを使用してアテステーションがネットワークに送信されているかどうかを監視します。
 
-            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-            After its short waiting period, Lighthouse would start validating normally.
+            理想的には、アテステーションはありません（つまり、他のマシンがバリデータキーを添付して実行していないことを意味します）。
+            短い待機期間の後、Lighthouseは通常どおり検証を開始します。
 
-            _However_, if there _is_ another machine running with your validator keys attached, then Lighthouse will immediately shut down and issue an error message in its log files.
-            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            _ただし_、バリデータキーを添付して実行している他のマシンが_ある_場合、Lighthouseは即座にシャットダウンし、ログファイルにエラーメッセージを発行します。
+            これは、アテステーションも開始すると、**二重アテステーション**が発生し、これは**スラッシュ可能な違反**だからです。
+            スラッシュされると、バリデータはBeacon Chainから強制的に退出され、大量のETHがペナルティとして課されます。
 
-            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            ほとんどの場合、doppelgänger detectionは、クライアント再起動後のいくつかのアテステーションのミス以外には何も生じません。
+            ただし、バリデータを新しいマシンに移動している場合や新しいBeaconクライアントに変更している場合、**doppelgänger detectionは、誤って二重アテステーションしてスラッシュされるのを防ぐことができます**。
 
-            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            ミニプールの安価な保険と考えてください。再起動するたびにわずかな利益をミスしますが、キーを2か所で実行してスラッシュされることがないとかなり確信できます。
 
           </Tab>
           <Tab label="Prysm">
-            Start by specifying the URL for your Prysm Beacon Node's API and the URL for its JSON-RPC API:
+            まず、Prysm Beacon NodeのAPIのURLとJSON-RPC APIのURLを指定します。
 
             <img src={tuiExternalPrysm} width="100%" height="auto"/>
 
-            The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
-            It will prepare its Prysm Validator Client with the JSON-RPC URL so it can communicate with your Beacon Node, as _Prysm's Validator Client currently cannot work over the HTTP API._
+            Smartnodeは、HTTP URLを使用して通信し、チェーンの状態のクエリやメッセージの送信などのブロックチェーンアクティビティを実行します。
+            JSON-RPC URLでPrysm Validator Clientを準備し、Beacon Nodeと通信できるようにします。_PrysmのValidator ClientはHTTP APIを介して動作できないためです。_
 
-            **If you don't already have the API ports enabled and accessible from your Smartnode machine, you will need to set them up now.**
-            See [Prysm's documentation](https://docs.prylabs.network/docs/prysm-usage/parameters) for instructions on how to do this.
-            **You will need the `grpc-gateway` _and_ the `rpc-host` enabled.**
+            **まだAPIポートを有効にしてSmartnodeマシンからアクセスできるようにしていない場合は、今すぐ設定する必要があります。**
+            これを行う方法については、[Prysmのドキュメント](https://docs.prylabs.network/docs/prysm-usage/parameters)を参照してください。
+            **`grpc-gateway`_および_`rpc-host`を有効にする必要があります。**
 
             <p className="rspress-directive warning">
-              <p className="rspress-directive-title">NOTE</p>
-              Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-              You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+              <p className="rspress-directive-title">注意</p>
+              Smartnodeは独自のDockerコンテナで実行されるため、Dockerの内部ネットワークを使用します。
+              ここでは`localhost`や`127.0.0.1`のようなホスト名を使用できません。クライアントがSmartnodeと同じマシンで実行されている場合は、代わりにマシンのLAN IPアドレスを提供する必要があります。
             </p>
 
 
-            Next, it will ask about your validator's **graffiti** message:
+            次に、バリデータの**graffiti**メッセージについて尋ねます。
 
             <img src={tuiExternalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            これは、Beacon Chainで提案するブロックに添付できるオプションのカスタムメッセージです。
+            メッセージは永遠に保存されるので、自分の痕跡を残す楽しい小さな方法と考えてください。
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **graffitiの最大長は16文字です。**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            今日バリデータがGraffitiに何を使用しているかの例を見たい場合は、[こちらをご覧ください](https://beaconcha.in/blocks)。
 
-            The final question will ask if you want to enable Doppelgänger Protection:
+            最後の質問は、Doppelgänger Protectionを有効にするかどうかを尋ねます。
 
             <img src={tuiExternalDD} width="100%" height="auto"/>
 
-            Prysm supports a feature called Doppelgänger Protection.
-            In a nutshell, this feature will **intentionally** miss a few attestations after Prysm's Validator Client restarts; while doing this, it will listen to see if attestations are still being sent to the network using your validator keys.
+            PrysmはDoppelgänger Protectionと呼ばれる機能をサポートしています。
+            簡単に言えば、この機能はPrysmのValidator Client再起動後に**意図的に**いくつかのアテステーションをミスします。その間、バリデータキーを使用してアテステーションがネットワークに送信されているかどうかを監視します。
 
-            Ideally, there would not be any attestations (which means no other machine is running with your validator keys attached).
-            After its short waiting period, Prysm would start validating normally.
+            理想的には、アテステーションはありません（つまり、他のマシンがバリデータキーを添付して実行していないことを意味します）。
+            短い待機期間の後、Prysmは通常どおり検証を開始します。
 
-            _However_, if there _is_ another machine running with your validator keys attached, then Prysm will immediately shut down and issue an error message in its log files.
-            The reason for this is that if it were to start attesting as well, then you would start **double attesting** which is a **slashable offense**.
-            When slashed, your validator would be forcibly exited from the Beacon chain and you would be penalized a significant amount of ETH.
+            _ただし_、バリデータキーを添付して実行している他のマシンが_ある_場合、Prysmは即座にシャットダウンし、ログファイルにエラーメッセージを発行します。
+            これは、アテステーションも開始すると、**二重アテステーション**が発生し、これは**スラッシュ可能な違反**だからです。
+            スラッシュされると、バリデータはBeacon Chainから強制的に退出され、大量のETHがペナルティとして課されます。
 
-            Most of the time, doppelgänger detection will result in nothing but a few missed attestations after a client restart.
-            In situations where you are moving your validator to a new machine or you are changing to a new Beacon client, however, **doppelgänger detection can prevent you from being slashed by double attesting accidentally**.
+            ほとんどの場合、doppelgänger detectionは、クライアント再起動後のいくつかのアテステーションのミス以外には何も生じません。
+            ただし、バリデータを新しいマシンに移動している場合や新しいBeaconクライアントに変更している場合、**doppelgänger detectionは、誤って二重アテステーションしてスラッシュされるのを防ぐことができます**。
 
-            Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
+            ミニプールの安価な保険と考えてください。再起動するたびにわずかな利益をミスしますが、キーを2か所で実行してスラッシュされることがないとかなり確信できます。
 
           </Tab>
           <Tab label="Teku">
-            Start by specifying the URL for your Teku Beacon Node's API:
+            まず、Teku Beacon NodeのAPIのURLを指定します。
 
             <img src={tuiExternalTeku} width="100%" height="auto"/>
 
-            The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
-            **If you don't already have the API port enabled and accessible from your Smartnode machine, you will need to set it up now.**
-            See [Teku's documentation](https://docs.teku.consensys.net/en/latest/Reference/CLI/CLI-Syntax/#rest-api-enabled) for instructions on how to do this.
+            Smartnodeは、HTTP URLを使用して通信し、チェーンの状態のクエリやメッセージの送信などのブロックチェーンアクティビティを実行します。
+            **まだAPIポートを有効にしてSmartnodeマシンからアクセスできるようにしていない場合は、今すぐ設定する必要があります。**
+            これを行う方法については、[Tekuのドキュメント](https://docs.teku.consensys.net/en/latest/Reference/CLI/CLI-Syntax/#rest-api-enabled)を参照してください。
 
 
             <p className="rspress-directive warning">
-              <p className="rspress-directive-title">NOTE</p>
-              Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-              You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+              <p className="rspress-directive-title">注意</p>
+              Smartnodeは独自のDockerコンテナで実行されるため、Dockerの内部ネットワークを使用します。
+              ここでは`localhost`や`127.0.0.1`のようなホスト名を使用できません。クライアントがSmartnodeと同じマシンで実行されている場合は、代わりにマシンのLAN IPアドレスを提供する必要があります。
             </p>
 
-            Next, it will ask about your validator's **graffiti** message:
+            次に、バリデータの**graffiti**メッセージについて尋ねます。
 
             <img src={tuiExternalGraffiti} width="100%" height="auto"/>
 
-            This is an optional custom message you can attach to any blocks you propose on the Beacon Chain.
-            The message will be preserved forever, so think of it like a fun little way to leave your mark!
+            これは、Beacon Chainで提案するブロックに添付できるオプションのカスタムメッセージです。
+            メッセージは永遠に保存されるので、自分の痕跡を残す楽しい小さな方法と考えてください。
 
-            **Note the maximum length of the graffiti is 16 characters.**
+            **graffitiの最大長は16文字です。**
 
-            If you'd like to see some examples of what validators are using for Graffiti today, [take a look here](https://beaconcha.in/blocks).
+            今日バリデータがGraffitiに何を使用しているかの例を見たい場合は、[こちらをご覧ください](https://beaconcha.in/blocks)。
           </Tab>
 
         </Tabs>
@@ -563,28 +563,28 @@ Choose which mode you selected earlier from the tabs below:
   </Tabs>
 </div>
 
-#### Beacon Chain Checkpoint Syncing
+#### Beacon Chainチェックポイント同期
 
-**Checkpoint syncing** is a very useful technique that some Beacon Chain clients support.
-It allows your Beacon client to instantly sync the entire Beacon chain without having to start from the beginning and catch up on every block.
-This means instead of taking **days**, your Beacon client can be ready in a matter of **minutes**.
-All it needs is access to an existing Beacon client that you trust.
+**チェックポイント同期**は、一部のBeacon Chainクライアントがサポートする非常に有用な技術です。
+これにより、Beaconクライアントは、最初から開始してすべてのブロックをキャッチアップすることなく、Beacon Chain全体を即座に同期できます。
+これは、**数日**かかる代わりに、Beaconクライアントが**数分**で準備できることを意味します。
+必要なのは、信頼できる既存のBeaconクライアントへのアクセスだけです。
 
-You can use any Beacon node that provides access to its HTTP API.
-Currently, many node operators are using the checkpoint-sync-endpoints - a service that allows Rocket Pool node operators to checkpoint sync easily.
-Both the Hoodi Testnet and Mainnet are supported.
-A list of checkpoint sync urls can be found via the following link:
+HTTP APIへのアクセスを提供する任意のBeacon Nodeを使用できます。
+現在、多くのノードオペレーターはcheckpoint-sync-endpointsを使用しています。これは、Rocket Poolノードオペレーターが簡単にチェックポイント同期できるようにするサービスです。
+Hoodi TestnetとMainnetの両方がサポートされています。
+チェックポイント同期URLのリストは、次のリンクから見つけることができます。
 
-- [Checkpoint Sync Urls](https://eth-clients.github.io/checkpoint-sync-endpoints/)
+- [チェックポイント同期URL](https://eth-clients.github.io/checkpoint-sync-endpoints/)
 
-Choose a relevant checkpoint sync url and paste in the terminal during `rocketpool service config` when it prompts you for a Checkpoint Sync Provider.
+関連するチェックポイント同期URLを選択し、Checkpoint Sync Providerの入力を求められたときに`rocketpool service config`中にターミナルに貼り付けます。
 
-After that, your Beacon node will automatically connect to the checkpoint sync node when it first starts up and instantly pull down the latest state of the chain!
+その後、Beacon Nodeは最初に起動したときにチェックポイント同期ノードに自動的に接続し、チェーンの最新の状態を即座にプルダウンします。
 
-::: warning NOTE
-Checkpoint Sync will only occur if you _don't have any Beacon Chain data yet_.
-In other words, if you start syncing normally and decide to checkpoint sync later, you will have to remove your chain data first in order for checkpoint sync to work.
-This can easily be done with the following command:
+::: warning 注意
+チェックポイント同期は、_まだBeacon Chainデータがない_場合にのみ発生します。
+言い換えれば、通常の同期を開始してから後でチェックポイント同期を決定した場合、チェックポイント同期が機能するためには、最初にチェーンデータを削除する必要があります。
+これは次のコマンドで簡単に実行できます。
 
 ```shell
 rocketpool service resync-eth2
@@ -592,164 +592,164 @@ rocketpool service resync-eth2
 
 :::
 
-### Fallback Node
+### フォールバックノード
 
-Starting with 1.5.0 of the Smartnode stack, you can provide a "fallback" Execution client and Consensus client pair that can take over for your primary clients if they ever go offline (such as because you use Geth and need to prune it).
-In this situation, your primary node machine will still be responsible for attesting and proposing blocks with your minipools' validator keys, but it will connect to an external machine to interact with the Execution layer and Beacon chains.
+Smartnodeスタックの1.5.0以降、プライマリクライアントがオフラインになった場合（Gethを使用していてプルーニングする必要がある場合など）に引き継ぐことができる「フォールバック」ExecutionクライアントとConsensusクライアントのペアを提供できます。
+この状況では、プライマリノードマシンは、ミニプールのバリデータキーでアテステーションとブロック提案を行う責任を引き続き負いますが、Execution層とBeacon Chainと対話するために外部マシンに接続します。
 
-[To learn more about fall back nodes, see this section](./fallback) and return here when you're done.
+[フォールバックノードの詳細については、このセクションを参照してください](./fallback)。完了したらここに戻ってください。
 
-### Metrics Configuration
+### メトリクス設定
 
-Rocket Pool comes with the ability to display a detailed dashboard showing metrics about your node's hardware health, system updates, your validator performance, your rewards, information about the overall Rocket Pool network, and more:
+Rocket Poolには、ノードのハードウェアの健全性、システムアップデート、バリデータのパフォーマンス、報酬、Rocket Poolネットワーク全体に関する情報などを示す詳細なダッシュボードを表示する機能が付属しています。
 
 <img src="./images/nimbus-dashboard.png" width="100%" height="auto" />
 
-The next question in the Wizard will ask you if you want to enable this:
+ウィザードの次の質問では、これを有効にするかどうかを尋ねます。
 
 <img src="./images/tui-metrics.png" width="100%" height="auto" />
 
-If you choose to enable it, you will learn more about setting it up and how to use it in the [Setting up the Grafana Dashboard](./grafana) section later in the process.
+有効にすることを選択した場合、プロセスの後半の[Grafanaダッシュボードの設定](./grafana)セクションで、設定方法と使用方法について詳しく学びます。
 
-::: warning NOTE
-All of the data collected by this system **stays on your machine**.
-Rocket Pool does not collect any of the telemetry or send it to a separate service.
-It's purely there for you to use so you can monitor your own node!
+::: warning 注意
+このシステムによって収集されるすべてのデータは**マシンに残ります**。
+Rocket Poolはテレメトリを収集したり、別のサービスに送信したりしません。
+これは純粋に、自分のノードを監視できるようにするためのものです。
 :::
 
-### MEV Configuration
+### MEV設定
 
-Since the Merge of the Execution and Consensus layers in September 2022, Ethereum validators now have the ability to earn priority fees and participate in Maximal Extractable Value (or MEV for short).
+2022年9月のExecution層とConsensus層のMerge以降、Ethereumバリデータは優先手数料を獲得し、Maximal Extractable Value（略してMEV）に参加する能力を持つようになりました。
 
-Starting with Smartnode v1.7.0, MEV is now _opt-out_ so its configuration is presented as part of the initial setup, as you see in the next screen:
+Smartnode v1.7.0以降、MEVは_オプトアウト_になったため、初期設定の一部として構成が提示されます。次の画面に表示されます。
 
 <img src="./images/tui-mev-mode.png" width="100%" height="auto" />
 
-[Please read our MEV guide to learn more about MEV, its configuration, and what to do in this section of the wizard.](./mev)
-Return here when you're finished.
+[MEVの詳細、設定、およびウィザードのこのセクションで何をすべきかについては、MEVガイドをお読みください。](./mev)
+完了したらここに戻ってください。
 
-### Completion
+### 完了
 
-After this question, you've finished setting up the Smartnode!
-You will see the following dialog:
+この質問の後、Smartnodeの設定が完了しました。
+次のダイアログが表示されます。
 
 <img src="./images/tui-finished.png" width="100%" height="auto" />
 
-If you're happy with your setup and are ready to start the Smartnode, click `Save and Exit` here and go to the [Securing your Node](./securing-your-node) section next.
+セットアップに満足していてSmartnodeを開始する準備ができている場合は、ここで`Save and Exit`をクリックして、次に[ノードの保護](./securing-your-node)セクションに進んでください。
 
-If you would like to review all of the settings and customize many additional settings that weren't included in the Wizard, click `Review All Settings` and go to the [next section](#configuring-via-the-settings-manager).
+すべての設定を確認し、ウィザードに含まれていない多くの追加設定をカスタマイズしたい場合は、`Review All Settings`をクリックして、[次のセクション](#設定マネージャーによる設定)に進んでください。
 
-## Configuring via the Settings Manager
+## 設定マネージャーによる設定
 
-If you've already run `rocketpool service config`, instead of being greeted by the Wizard, you will see the **Settings Manager** screen:
+すでに`rocketpool service config`を実行している場合、ウィザードではなく、**設定マネージャー**画面が表示されます。
 
 <img src="./images/tui-settings-manager.png" width="100%" height="auto" />
 
-There are three main features of this screen:
+この画面には3つの主な機能があります。
 
-1. The **Category List**, which lets you drill down into the settings for each category of the Smartnode stack
-2. The **Review Changes and Save** button, which you can use when you're ready to see what settings you've changed and save the updated configuration
-3. The **Open the Config Wizard** button, which will bring you to the [Setup Wizard](#configuring-the-smartnode-stack-via-the-wizard) if you prefer that interface instead
+1. **カテゴリリスト**。Smartnodeスタックの各カテゴリの設定にドリルダウンできます
+2. **Review Changes and Save**ボタン。変更した設定を確認して更新された設定を保存する準備ができたときに使用できます
+3. **Open the Config Wizard**ボタン。代わりにそのインターフェイスを希望する場合は、[セットアップウィザード](#ウィザードによる設定)に移動します
 
-::: tip TIP
-To use the Settings Manager, **press the `Arrow Keys` (up/down/left/right) to navigate between options in the home page**.
+::: tip ヒント
+設定マネージャーを使用するには、**`矢印キー`（上/下/左/右）を押して、ホームページのオプション間を移動します**。
 
-Press `Tab` to go **between the category list (1) and the buttons (2 and 3)** at the bottom of the screen.
-The button that's currently selected will be **highlighted in green**.
+`Tab`を押して**カテゴリリスト（1）と画面下部のボタン（2および3）の間を移動します**。
+現在選択されているボタンは**緑色でハイライト表示されます**。
 
-**Press `Enter` or `Space` to select a button**, analogous to clicking on it with the mouse.
+**`Enter`または`Space`を押してボタンを選択します**。これはマウスでクリックするのと同じです。
 
-**Hold `Ctrl` and press `C` at any time to exit the Settings Manager without saving anything**.
+**いつでも`Ctrl`を押しながら`C`を押すと、何も保存せずに設定マネージャーを終了できます**。
 :::
 
-As you scroll through the categories list, each option will have a helpful description appear in the **Description Box** to the right of the screen.
-Feel free to explore them; nothing you do will be saved until you go through the Review dialog via the **Review Changes and Save** button, and you can press **Ctrl+C** at any time to exit without saving, so you won't accidentally mess something up by playing with the settings here.
+カテゴリリストをスクロールすると、各オプションは画面の右側の**説明ボックス**に役立つ説明が表示されます。
+自由に探索してください。Reviewダイアログを介して**Review Changes and Save**ボタンを使用するまで何も保存されず、いつでも**Ctrl+C**を押して保存せずに終了できるため、ここで設定をいじって誤って何かを台無しにすることはありません。
 
-### Configuring the Settings
+### 設定の構成
 
-From the home screen, select any one of the categories with the `Enter` key to view the settings for that category.
-For example, here is the screen for the **Smartnode and TX Fees** category:
+ホーム画面から、`Enter`キーを使用して任意のカテゴリを選択し、そのカテゴリの設定を表示します。
+たとえば、これは**Smartnode and TX Fees**カテゴリの画面です。
 
 <img src="./images/tui-smartnode.png" width="100%" height="auto" />
 
-Use the `Arrow Keys` to move up and down between the settings.
-The currently selected one will have a white square at the end of it (if it's a text box or a check box), or will be highlighted in white (if it's a drop down).
+`矢印キー`を使用して設定を上下に移動します。
+現在選択されているものには、末尾に白い四角形があります（テキストボックスまたはチェックボックスの場合）、または白でハイライト表示されます（ドロップダウンの場合）。
 
-Press `Escape` to go back to the home screen of the Settings Manager when you're done.
+終了したら、`Escape`を押して設定マネージャーのホーム画面に戻ります。
 
-As you scroll through the settings, each one will show a brief description of what it does in the **Description Box** on the right.
-It will also show the **default value** there in case you want to revert it to its stock setting.
+設定をスクロールすると、各設定は右側の**説明ボックス**に何をするかの簡単な説明が表示されます。
+また、ストック設定に戻したい場合に備えて、**デフォルト値**も表示されます。
 
-In this example, the **RPL Claim Gas Threshold** setting is currently selected (highlighted with a green box on the left-hand side of the screen).
-It has been changed to `40`, but you can see that it has a default of `150` in the top-right corner (the top of the **Description Box**).
+この例では、**RPL Claim Gas Threshold**設定が現在選択されています（左側の画面で緑色のボックスでハイライト表示されています）。
+`40`に変更されていますが、右上隅（**説明ボックス**の上部）に`150`のデフォルトがあることがわかります。
 
-::: tip TIP
-As a reminder, nothing will be saved to disk until you go through the Review dialog via the **Review Changes and Save** button.
-You are encouraged to explore all of the settings to learn about them and see what your Smartnode can do!
+::: tip ヒント
+思い出してください。**Review Changes and Save**ボタンを介してReviewダイアログを通過するまで、何もディスクに保存されません。
+すべての設定を探索して、Smartnodeができることを学ぶことをお勧めします。
 :::
 
-### The Setting Types and How to Use Them
+### 設定タイプとその使用方法
 
-The settings manager uses the following setting types and UI elements:
+設定マネージャーは、次の設定タイプとUI要素を使用します。
 
-#### Text Boxes
+#### テキストボックス
 
-Text boxes are used to enter arbitrary strings of text or numbers.
-They look like this:
+テキストボックスは、任意のテキストまたは数字の文字列を入力するために使用されます。
+次のように見えます。
 
 <img src="./images/tui-textbox.png" width="100%" height="auto" />
 
-Enter your desired values into them, then **press `Enter` or use the `Arrow Keys` to navigate to a different setting in order to preserve your changes.**
-If you don't, the Settings Manager will assume you're still updating that setting and won't mark it as changed yet.
+希望する値を入力してから、**`Enter`を押すか、`矢印キー`を使用して別の設定に移動して変更を保持します。**
+そうしないと、設定マネージャーはまだその設定を更新していると想定し、まだ変更としてマークしません。
 
-#### Drop Downs
+#### ドロップダウン
 
-Drop downs are used to select an option from a list of choices.
-They look like this (when they're open):
+ドロップダウンは、選択肢のリストからオプションを選択するために使用されます。
+次のように見えます（開いている場合）。
 
 <img src="./images/tui-dropdown-open.png" width="100%" height="auto" />
 
-The **green** item is the one that is currently selected.
-Use the `Arrow Keys` to change options - as you do, the **Description Box** on the right will update to tell you more about the currently selected option.
-When you're happy with your choice, press `Enter` to choose the selected option and the drop down will close, revealing the option that is currently selected:
+**緑色**の項目が現在選択されているものです。
+`矢印キー`を使用してオプションを変更します。変更すると、右側の**説明ボックス**が更新され、現在選択されているオプションについて詳しく説明します。
+選択に満足したら、`Enter`を押して選択したオプションを選択すると、ドロップダウンが閉じ、現在選択されているオプションが表示されます。
 
 <img src="./images/tui-dropdown-closed.png" width="100%" height="auto" />
 
-#### Check Boxes
+#### チェックボックス
 
-Check boxes are used for simple Yes/No questions.
-They look like this:
+チェックボックスは、単純なYes/Noの質問に使用されます。
+次のように見えます。
 
 <img src="./images/tui-checkbox-checked.png" width="100%" height="auto" />
 
-When they are checked, they will have an `X` in the middle as you see above.
-When they are _unchecked_, they will simply be blank like this:
+チェックされている場合、上記のように中央に`X`があります。
+_チェックされていない_場合、次のように単に空白になります。
 
 <img src="./images/tui-checkbox-unchecked.png" width="100%" height="auto" />
 
-To change the setting, simply select it and press `Enter`.
+設定を変更するには、単に選択して`Enter`を押します。
 
-### Saving Changes
+### 変更の保存
 
-When you're happy with your changes and you'd like to review them before saving, press the **Review Changes and Save** button on the home screen.
-As a reminder, to get to it, press the `Tab` key.
+変更に満足していて、保存する前に確認したい場合は、ホーム画面の**Review Changes and Save**ボタンを押します。
+思い出してください。それにアクセスするには、`Tab`キーを押します。
 
-You will be presented with a view that looks like this:
+次のようなビューが表示されます。
 
 <img src="./images/tui-review.png" width="100%" height="auto" />
 
-The **Review Box** here will present all of the settings you've changed, showing the old values and the new ones.
-For example, the first line here shows that the **RPL Claim Gas Threshold** used to be `150`, and it's been changed to `40`.
+ここの**Reviewボックス**には、変更したすべての設定が表示され、古い値と新しい値が表示されます。
+たとえば、ここの最初の行は、**RPL Claim Gas Threshold**が`150`であったことを示し、`40`に変更されました。
 
-It will also show you which containers are affected by the settings you've modified and will offer to restart them for you after you've saved your changes.
+また、変更した設定によって影響を受けるコンテナも表示され、変更を保存した後にそれらを再起動するように提案されます。
 
-::: tip NOTE
-At this point, your changes **still haven't been saved yet**.
-If you want to go back and modify something, press `Escape` to return to the home screen.
+::: tip 注意
+この時点では、変更は**まだ保存されていません**。
+何かを戻して変更したい場合は、`Escape`を押してホーム画面に戻ります。
 :::
 
-When you are satisfied with the changes, press `Enter` to save the new configuration to disk.
-You will then exit the Terminal UI and be presented with something like this message:
+変更に満足したら、`Enter`を押して新しい設定をディスクに保存します。
+その後、ターミナルUIを終了し、次のようなメッセージが表示されます。
 
 ```
 Your changes have been saved!
@@ -761,33 +761,33 @@ The following containers must be restarted for the changes to take effect:
 Would you like to restart them automatically now? [y/n]
 ```
 
-Press `y` and `Enter` if you want to automatically apply your new configuration changes and restart the affected containers.
+新しい設定変更を自動的に適用して、影響を受けるコンテナを再起動する場合は、`y`と`Enter`を押します。
 
-Press `n` and `Enter` if you have other things you want to do before restarting them, and will do it manually later.
+再起動する前に他にやりたいことがあり、後で手動で行う場合は、`n`と`Enter`を押します。
 
-In either case, your configuration is done!
+いずれの場合も、設定は完了です。
 
-::: tip NOTE
-You may see an error message like the one below:
+::: tip 注意
+次のようなエラーメッセージが表示される場合があります。
 
 ```
 2022/08/13 13:49:41 Error piping stdout: read |0: file already closed
 ```
 
-This is not actually an error, it's simply a cosmetic glitch.
-You can safely ignore it.
+これは実際にはエラーではなく、単なる表面的な不具合です。
+安全に無視できます。
 :::
 
-::: tip NOTE
-If you are running Mac OS, you may see an issue complaining about node_exporter.
-You will need to run these commands to fix.
+::: tip 注意
+Mac OSを実行している場合、node_exporterに関する問題が表示される場合があります。
+修正するには、これらのコマンドを実行する必要があります。
 
 ```shell
 rocketpool service stop
 nano ~/.rocketpool/override/exporter.yml
 ```
 
-Replace the entire contents of the file with:
+ファイルの内容全体を次のように置き換えます。
 
 ```
 # Enter your own customizations for the node exporter container here. These changes will persist after upgrades, so you only need to do them once.
@@ -802,21 +802,21 @@ services:
     volumes:   ["/proc:/host/proc:ro","/sys:/host/sys:ro"]
 ```
 
-then finally `rocketpool service start`.
+最後に`rocketpool service start`を実行します。
 :::
 
-## Configuring via the Command Line
+## コマンドラインによる設定
 
-If you use the Smartnode in a headless environment where you can't interact with the Terminal UI, you can configure your node via the command line instead.
+ターミナルUIと対話できないヘッドレス環境でSmartnodeを使用する場合は、代わりにコマンドラインでノードを設定できます。
 
-The `rocketpool service config` command accepts, as arguments, every setting that can normally be configured via the Terminal UI.
-Run the following command to see a list of them (note that it's quite long):
+`rocketpool service config`コマンドは、引数として、通常ターミナルUI経由で設定できるすべての設定を受け入れます。
+次のコマンドを実行して、それらのリストを表示します（非常に長いことに注意してください）。
 
 ```shell
 rocketpool service config --help
 ```
 
-The output will look like this:
+出力は次のようになります。
 
 ```
 NAME:
@@ -840,15 +840,15 @@ OPTIONS:
 ...
 ```
 
-Each option will have its name, its type, its default value, and (if it's a choice parameter) its options.
-Using this text, you can find the option(s) you want to set and specify them via the appropriate arguments.
+各オプションには、名前、タイプ、デフォルト値、および（choiceパラメータの場合）オプションがあります。
+このテキストを使用して、設定したいオプションを見つけて、適切な引数を介して指定できます。
 
-::: tip NOTE
-This command builds on top of your existing configuration, so if you have some settings already saved and just want to modify others, you don't need to repeat them.
-It will only update settings that you include as arguments to this command.
+::: tip 注意
+このコマンドは既存の設定の上に構築されるため、すでにいくつかの設定を保存していて他の設定を変更したいだけの場合は、それらを繰り返す必要はありません。
+このコマンドに引数として含める設定のみを更新します。
 :::
 
-## Next Steps
+## 次のステップ
 
-Once you've configured your node just the way you want it, you're ready to secure your operating system to protect your node.
-Move on to the [Securing your Node](./securing-your-node) section next.
+ノードを好みどおりに設定したら、オペレーティングシステムを保護してノードを保護する準備ができています。
+次に[ノードの保護](./securing-your-node)セクションに進んでください。

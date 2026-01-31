@@ -1,37 +1,37 @@
-# Monitoring your Smartnode Stack with Alert Notifications
+# Monitorare il tuo Stack Smartnode con Notifiche di Allerta
 
-The Smartnode alert notification functionality allows you to receive notifications about the health and important events of your Rocket Pool Smartnode.
+La funzionalità di notifica degli alert dello Smartnode ti consente di ricevere notifiche sulla salute e sugli eventi importanti del tuo Smartnode Rocket Pool.
 
-## Alerting System Overview
+## Panoramica del Sistema di Allerta
 
-The notification functionality utilizes [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) to deliver alerts. Alerting requires that you have already followed the [Setting up the Grafana Dashboard](../grafana.mdx) which walks through setting up the Smartnode stack's metrics tracker. The alerts are triggered when important metrics from your Smartnode exceed certain thresholds or when particular events occur like when your node's fee recipient is changed.
+La funzionalità di notifica utilizza [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) per recapitare gli alert. L'alerting richiede che tu abbia già seguito la guida [Configurare la Dashboard Grafana](../grafana.mdx) che spiega come configurare il tracker delle metriche dello stack Smartnode. Gli alert vengono attivati quando metriche importanti del tuo Smartnode superano determinate soglie o quando si verificano eventi particolari, come quando il fee recipient del tuo nodo viene modificato.
 
-## Setting up Discord Notifications
+## Configurare le Notifiche Discord
 
-Currently, notifications can be sent to Discord channels. You can configure Discord notifications within the Rocket Pool Text User Interface (TUI) on the "Monitoring / Alerting" page.
+Attualmente, le notifiche possono essere inviate ai canali Discord. Puoi configurare le notifiche Discord all'interno dell'Interfaccia Utente Testuale (TUI) di Rocket Pool nella pagina "Monitoring / Alerting".
 
-### Adding a Discord Webhook URL:
+### Aggiungere un URL Webhook Discord:
 
-1. Navigate to your desired Discord channel and open its settings.
-2. Under "Integrations," locate and click on "Webhooks."
-3. Click "Create Webhook."
-4. Give your webhook a name and choose a channel to send the alerts to.
-5. Copy the provided Webhook URL.
-6. Within the Rocket Pool TUI, navigate to the "Monitoring / Alerting" page.
-7. Paste the copied Webhook URL into the designated field and save the configuration.
+1. Naviga nel canale Discord desiderato e apri le sue impostazioni.
+2. Sotto "Integrazioni", individua e clicca su "Webhook".
+3. Clicca su "Crea Webhook".
+4. Assegna un nome al tuo webhook e scegli un canale a cui inviare gli alert.
+5. Copia l'URL del Webhook fornito.
+6. All'interno della TUI di Rocket Pool, naviga alla pagina "Monitoring / Alerting".
+7. Incolla l'URL del Webhook copiato nel campo designato e salva la configurazione.
 
-::: tip TIP
-Is your favorite notification missing? The Rocket Pool team is actively looking for feedback from the community regarding additional notification destinations. Feel free to suggest new notification destinations at https://github.com/rocket-pool/smartnode/issues.
+::: tip SUGGERIMENTO
+Manca la tua notifica preferita? Il team di Rocket Pool sta attivamente cercando feedback dalla community riguardo a destinazioni di notifica aggiuntive. Sentiti libero di suggerire nuove destinazioni di notifica su https://github.com/rocket-pool/smartnode/issues.
 :::
 
-## Disabling and Enabling Alerts
+## Disabilitare e Abilitare gli Alert
 
-The Rocket Pool TUI provides a user-friendly interface for managing your alerts. You can access this functionality through the "Monitoring / Alerting" page. This interface allows you to View a list of all configured alerts and Enable or disable individual alerts based on your preference.
+La TUI di Rocket Pool fornisce un'interfaccia user-friendly per gestire i tuoi alert. Puoi accedere a questa funzionalità tramite la pagina "Monitoring / Alerting". Questa interfaccia ti consente di visualizzare un elenco di tutti gli alert configurati e abilitare o disabilitare i singoli alert in base alle tue preferenze.
 
-## Advanced Configuration
+## Configurazione Avanzata
 
-::: warning NOTE
-This section is for advanced users who are experienced with Prometheus and modifying YAML files.
+::: warning NOTA
+Questa sezione è per utenti avanzati che hanno esperienza con Prometheus e con la modifica di file YAML.
 :::
 
-For more advanced configuration of alerts you can add your own based on any metric that is available in the Prometheus container managed by the Smartnode Stack. Add your own yaml file containing [Prometheus Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) into the `~/.rocketpool/alerting/rules/` directory and those rules and restart the Prometheus container with `docker stop rocketpool_prometheus` followed by `docker start rocketpool_prometheus`. Then run `docker logs rocketpool_prometheus` to confirm that Prometheus loaded your configuration file successfully (you want to see a line with _msg="Completed loading of configuration file" filename=/etc/prometheus/prometheus.yml_ and not _err="error loading config from \"/etc/prometheus/prometheus.yml\"..._)
+Per una configurazione più avanzata degli alert puoi aggiungere i tuoi basandoti su qualsiasi metrica disponibile nel container Prometheus gestito dallo Stack Smartnode. Aggiungi il tuo file yaml contenente [Prometheus Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) nella directory `~/.rocketpool/alerting/rules/` e riavvia il container Prometheus con `docker stop rocketpool_prometheus` seguito da `docker start rocketpool_prometheus`. Quindi esegui `docker logs rocketpool_prometheus` per confermare che Prometheus abbia caricato correttamente il tuo file di configurazione (dovresti vedere una riga con _msg="Completed loading of configuration file" filename=/etc/prometheus/prometheus.yml_ e non _err="error loading config from \"/etc/prometheus/prometheus.yml\"..._)

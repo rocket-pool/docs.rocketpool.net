@@ -1,169 +1,169 @@
 ---
 next:
-  text: Staking Directly via Rocket Pool
-  link: "/en/liquid-staking/via-rp"
+  text: Direkt über Rocket Pool staken
+  link: "/de/liquid-staking/via-rp"
 ---
 
-# Staking Overview
+# Staking-Übersicht
 
-This guide will introduce you to how staking with Rocket Pool works (how your ETH is put to work and your rewards are generated) and summarize the ways in which you can stake.
+Dieser Leitfaden wird Ihnen vorstellen, wie das Staking mit Rocket Pool funktioniert (wie Ihr ETH eingesetzt wird und Ihre Belohnungen generiert werden) und die Möglichkeiten zum Staken zusammenfassen.
 
-::: tip NOTE
-If you're not interested in how staking works and just want to learn how to stake, [**click here to skip to that section.**](#how-to-stake-with-rocket-pool)
+::: tip HINWEIS
+Wenn Sie nicht daran interessiert sind, wie Staking funktioniert und einfach nur lernen möchten, wie man staked, [**klicken Sie hier, um zu diesem Abschnitt zu springen.**](#wie-man-mit-rocket-pool-staked)
 :::
 
-## How Ethereum Staking Works
+## Wie Ethereum-Staking funktioniert
 
-Before getting into Rocket Pool, let's talk about staking on Ethereum in general.
-Since [the Merge](https://ethereum.org/en/upgrades/merge/) on September 15th, 2022, Ethereum now comprises two blockchains in parallel: the Execution layer (formerly ETH1), which contains all of Ethereum's transaction data, and the Consensus layer (also known as the [Beacon Chain](https://ethereum.org/en/roadmap/beacon-chain/), formerly ETH2) which consists of a network of **validators** that collectively determine the validity of each transaction and each block broadcast to the network.
+Bevor wir zu Rocket Pool kommen, sprechen wir über Staking auf Ethereum im Allgemeinen.
+Seit [dem Merge](https://ethereum.org/en/upgrades/merge/) am 15. September 2022 besteht Ethereum nun aus zwei parallelen Blockchains: der Execution Layer (früher ETH1), die alle Transaktionsdaten von Ethereum enthält, und der Consensus Layer (auch bekannt als [Beacon Chain](https://ethereum.org/en/roadmap/beacon-chain/), früher ETH2), die aus einem Netzwerk von **Validatoren** besteht, die gemeinsam die Gültigkeit jeder Transaktion und jedes ins Netzwerk übertragenen Blocks bestimmen.
 
-**Staking** is the process of creating and maintaining one (or more) of these validators on the Beacon Chain to help the network maintain the consistency and security of the Ethereum blockchain.
-Validators do this by listening for transactions and new block proposals, and **attesting** that the proposed block contains legal, valid transactions by doing some number crunching and verification behind the scenes.
-Occasionally, they get to propose new blocks themselves.
+**Staking** ist der Prozess der Erstellung und Wartung eines (oder mehrerer) dieser Validatoren auf der Beacon Chain, um dem Netzwerk zu helfen, die Konsistenz und Sicherheit der Ethereum-Blockchain aufrechtzuerhalten.
+Validatoren tun dies, indem sie auf Transaktionen und neue Blockvorschläge hören und **bestätigen**, dass der vorgeschlagene Block legale, gültige Transaktionen enthält, indem sie im Hintergrund einige Berechnungen und Überprüfungen durchführen.
+Gelegentlich dürfen sie selbst neue Blöcke vorschlagen.
 
-To ensure that the network is resilient against malicious validators that lie about the current state of the chain, each validator is required to lock exactly 32 ETH up as a "stake" in the networks.
-Performing their duties correctly and agreeing with the majority of the other validators will earn them rewards; performing incorrectly and attacking the chain will cost them some of their locked 32 ETH balance.
-The amount taken depends on the severity of the attack and the number of validators that participated in it.
+Um sicherzustellen, dass das Netzwerk gegen böswillige Validatoren, die über den aktuellen Zustand der Chain lügen, widerstandsfähig ist, muss jeder Validator genau 32 ETH als "Stake" im Netzwerk hinterlegen.
+Die ordnungsgemäße Erfüllung ihrer Aufgaben und die Übereinstimmung mit der Mehrheit der anderen Validatoren bringt ihnen Belohnungen ein; eine fehlerhafte Ausführung und Angriffe auf die Chain kosten sie einen Teil ihres hinterlegten 32-ETH-Guthabens.
+Der abgezogene Betrag hängt von der Schwere des Angriffs und der Anzahl der daran beteiligten Validatoren ab.
 
-Validators in Ethereum are assigned attestations and block proposals **on a schedule**.
-This is very different from the old Proof of Work (PoW) system, where everyone is constantly trying to race each other and come up with the next block before everyone else.
-This means that unlike PoW where a miner isn't guaranteed to earn a block reward unless they find the next block, Proof of Stake validators are guaranteed to have slow, steady income as long as they perform their duties.
+Validatoren in Ethereum werden Attestierungen und Blockvorschlägen **nach einem Zeitplan** zugewiesen.
+Dies unterscheidet sich sehr vom alten Proof-of-Work (PoW)-System, wo jeder ständig versuchte, sich gegenseitig zu überholen und den nächsten Block vor allen anderen zu finden.
+Das bedeutet, dass Proof-of-Stake-Validatoren im Gegensatz zu PoW, wo ein Miner keine Blockbelohnung garantiert erhielt, es sei denn, er fand den nächsten Block, ein langsames, stetiges Einkommen garantiert haben, solange sie ihre Aufgaben erfüllen.
 
-Initially, validator rewards simply accrued on the Beacon Chain against each validator and were inaccessible by their operator. As of the "Shapella" hard fork, validator rewards are routinely ["skimmed"](../node-staking/skimming) to the Execution Layer address defined by the validator's withdrawal credentials.
+Zunächst wurden Validator-Belohnungen einfach auf der Beacon Chain gegen jeden Validator angesammelt und waren für ihren Betreiber unzugänglich. Seit dem "Shapella"-Hardfork werden Validator-Belohnungen routinemäßig ["abgeschöpft"](../node-staking/skimming) zur Execution Layer-Adresse, die durch die Withdrawal Credentials des Validators definiert ist.
 
-Additionally, now that the Execution and Consensus layers have merged, validators are _also_ awarded with **priority fees** for transactions included in blocks they propose.
-These priority fees are paid **directly on the Execution layer** according the "Fee Recipient" set by the block proposer.
-If the validator is participating in [a MEV network](https://ethereum.org/en/developers/docs/mev/) to propose a block built by someone else, that builder will provide a supplemental tip to the validator known as a **MEV reward**.
-This is _also_ available directly on the Execution layer and is provided at the same time as priority fees.
+Da die Execution- und Consensus-Layer nun zusammengeführt wurden, werden Validatoren zusätzlich mit **Priority Fees** für Transaktionen belohnt, die in von ihnen vorgeschlagenen Blöcken enthalten sind.
+Diese Priority Fees werden **direkt auf der Execution Layer** gemäß dem vom Blockvorschlagenden festgelegten "Fee Recipient" bezahlt.
+Wenn der Validator an [einem MEV-Netzwerk](https://ethereum.org/en/developers/docs/mev/) teilnimmt, um einen von jemand anderem erstellten Block vorzuschlagen, wird dieser Builder dem Validator ein zusätzliches Trinkgeld geben, das als **MEV-Belohnung** bekannt ist.
+Diese ist _ebenfalls_ direkt auf der Execution Layer verfügbar und wird zur gleichen Zeit wie Priority Fees bereitgestellt.
 
-## How Rocket Pool Works
+## Wie Rocket Pool funktioniert
 
-Unlike solo stakers, who are required to put 32 ETH up for deposit to create a new validator, Rocket Pool nodes only need to deposit either 8 ETH or 16 ETH per validator.
-This will be coupled with 24 ETH or 16 ETH respectively from the staking pool (which stakers deposited in exchange for rETH) to create a new Ethereum validator.
-This new validator is called a **minipool**.
+Im Gegensatz zu Solo-Stakern, die 32 ETH einzahlen müssen, um einen neuen Validator zu erstellen, müssen Rocket Pool Nodes nur entweder 8 ETH oder 16 ETH pro Validator einzahlen.
+Dies wird mit 24 ETH bzw. 16 ETH aus dem Staking-Pool kombiniert (den Staker im Austausch für rETH eingezahlt haben), um einen neuen Ethereum-Validator zu erstellen.
+Dieser neue Validator wird **Minipool** genannt.
 
-To the Beacon chain, a minipool looks exactly the same as a normal validator.
-It has the same responsibilities, same rules it must follow, same rewards, and so on.
-The only difference is in how the minipool was created and how withdrawals work when the node operator decides to voluntarily exit the minipool or gets slashed.
-All of the creation, withdrawing, and rewards delegation is handled by Rocket Pool's **smart contracts** on the Execution layer.
-This makes it completely decentralized.
+Für die Beacon Chain sieht ein Minipool genauso aus wie ein normaler Validator.
+Er hat die gleichen Verantwortlichkeiten, die gleichen Regeln, die er befolgen muss, die gleichen Belohnungen und so weiter.
+Der einzige Unterschied besteht darin, wie der Minipool erstellt wurde und wie Abhebungen funktionieren, wenn der Node-Betreiber beschließt, den Minipool freiwillig zu beenden oder geslasht wird.
+Die gesamte Erstellung, Abhebung und Belohnungsverteilung wird von Rocket Pools **Smart Contracts** auf der Execution Layer gehandhabt.
+Das macht es vollständig dezentralisiert.
 
-## The rETH Token
+## Der rETH-Token
 
-As a Rocket Pool staker, your role is to deposit ETH into the deposit pool which will enable a node operator to create a new Beacon Chain validator.
-You can stake as little as **0.01 ETH**.
+Als Rocket Pool Staker besteht Ihre Rolle darin, ETH in den Deposit Pool einzuzahlen, was einem Node-Betreiber ermöglicht, einen neuen Beacon Chain Validator zu erstellen.
+Sie können so wenig wie **0,01 ETH** staken.
 
-In doing so, you will be given a token called **rETH**. rETH represents both **how much** ETH you deposited, and **when** you deposited it.
-The ratio includes rewards that Rocket Pool node operators earn from:
+Dabei erhalten Sie einen Token namens **rETH**. rETH repräsentiert sowohl **wie viel** ETH Sie eingezahlt haben als auch **wann** Sie es eingezahlt haben.
+Das Verhältnis umfasst Belohnungen, die Rocket Pool Node-Betreiber verdienen von:
 
-- The Beacon Chain itself
-- Priority fees from block proposals
-- MEV rewards from block proposals
+- Der Beacon Chain selbst
+- Priority Fees aus Blockvorschlägen
+- MEV-Belohnungen aus Blockvorschlägen
 
-More specifically, the value of rETH is determined by the following ratio:
+Genauer gesagt wird der Wert von rETH durch das folgende Verhältnis bestimmt:
 
 ```
-rETH:ETH ratio = (total rETH supply) / (total ETH staked + total rETH contract balance + total rETH share of priority fees + total rETH share of MEV rewards)
+rETH:ETH-Verhältnis = (gesamtes rETH-Angebot) / (gesamtes gestaktes ETH + gesamter rETH-Vertragssaldo + gesamter rETH-Anteil an Priority Fees + gesamter rETH-Anteil an MEV-Belohnungen)
 ```
 
-Since the Beacon Chain rewards, priority fees, and MEV rewards will constantly accumulate, this means that **rETH's value effectively always increases relative to ETH**.
-The rETH/ETH exchange rate is updated approximately every 24 hours based on the Beacon Chain rewards earned by Rocket Pool node operators.
+Da die Beacon Chain Belohnungen, Priority Fees und MEV-Belohnungen ständig akkumulieren, bedeutet dies, dass **der Wert von rETH effektiv immer relativ zu ETH steigt**.
+Der rETH/ETH-Wechselkurs wird ungefähr alle 24 Stunden basierend auf den von Rocket Pool Node-Betreibern verdienten Beacon Chain Belohnungen aktualisiert.
 
-To illustrate this point, here is a chart of rETH's value (relative to ETH) over time - as expected, it demonstrates slow but steady growth:
+Um dies zu veranschaulichen, hier ist ein Diagramm des Wertes von rETH (relativ zu ETH) im Laufe der Zeit - wie erwartet zeigt es ein langsames, aber stetiges Wachstum:
 
-<img src="./images/reth_rate.png" alt="rETH/ETH exchange rate over time" width="100%" height="auto" />
+<img src="./images/reth_rate.png" alt="rETH/ETH-Wechselkurs im Zeitverlauf" width="100%" height="auto" />
 
-Let's do a simple example as a demonstration.
+Machen wir ein einfaches Beispiel zur Demonstration.
 
-Say you stake at the very beginning when 1 ETH = 1 rETH.
-You deposit 10 ETH and receive 10 rETH back.
+Angenommen, Sie staken ganz am Anfang, wenn 1 ETH = 1 rETH.
+Sie zahlen 10 ETH ein und erhalten 10 rETH zurück.
 
-After a few years, the balances on the Beacon Chain grow due to validator rewards.
-Say 128 ETH had been staked with Rocket Pool and the sum of all validator balances on the Beacon Chain was 160 ETH.
-Then 1 ETH would be worth (128/160) = 0.8 rETH; conversely, 1 rETH would be worth (160/128) = 1.25 ETH.
+Nach ein paar Jahren wachsen die Guthaben auf der Beacon Chain aufgrund von Validator-Belohnungen.
+Angenommen, 128 ETH wurden mit Rocket Pool gestaked und die Summe aller Validator-Guthaben auf der Beacon Chain betrug 160 ETH.
+Dann wäre 1 ETH (128/160) = 0,8 rETH wert; umgekehrt wäre 1 rETH (160/128) = 1,25 ETH wert.
 
-At this point, you could trade your 10 rETH back to Rocket Pool's smart contracts and receive 12.5 ETH in return.
+An diesem Punkt könnten Sie Ihre 10 rETH zurück an Rocket Pools Smart Contracts tauschen und 12,5 ETH als Gegenwert erhalten.
 
-This means **as long as you are holding rETH**, you are staking with Rocket Pool!
-**You do not need to get it from Rocket Pool directly.**
-For example, you can purchase rETH on an exchange; as every rETH token is exactly the same, you will **automatically receive the benefits of staking just by holding the token!**
+Das bedeutet, **solange Sie rETH halten, staken Sie mit Rocket Pool!**
+**Sie müssen es nicht direkt von Rocket Pool erhalten.**
+Sie können beispielsweise rETH an einer Börse kaufen; da jeder rETH-Token genau gleich ist, erhalten Sie **automatisch die Vorteile des Stakings, nur indem Sie den Token halten!**
 
-::: warning NOTE
-Trading rETH back for ETH directly with Rocket Pool is only possible when the staking pool has enough ETH in it to handle your trade.
-ETH in this pool comes from two sources:
+::: warning HINWEIS
+Der Rücktausch von rETH gegen ETH direkt mit Rocket Pool ist nur möglich, wenn der Staking-Pool genügend ETH enthält, um Ihren Tausch zu bewältigen.
+ETH in diesem Pool stammt aus zwei Quellen:
 
-1. ETH that other stakers have deposited, which hasn't been used by a node operator to create a new validator yet
-2. ETH that was returned by a node operator after they exited one of their validators and received their rewards from the Beacon Chain
+1. ETH, das andere Staker eingezahlt haben und das noch nicht von einem Node-Betreiber verwendet wurde, um einen neuen Validator zu erstellen
+2. ETH, das von einem Node-Betreiber zurückgegeben wurde, nachdem er einen seiner Validatoren beendet und seine Belohnungen von der Beacon Chain erhalten hat
 
-It's possible that if node operators have put all of the staking pool to work on the Beacon chain, then the liquidity pool won't have enough balance to cover your unstaking.
-In this scenario, you may find other ways to trade your rETH back to ETH (such as a decentralized exchange like [Uniswap](https://app.uniswap.org/#/swap)) - though they will likely come with a small premium.
+Es ist möglich, dass der Liquiditätspool nicht genügend Guthaben hat, um Ihr Unstaking abzudecken, wenn Node-Betreiber den gesamten Staking-Pool auf der Beacon Chain eingesetzt haben.
+In diesem Szenario können Sie andere Wege finden, um Ihr rETH zurück zu ETH zu tauschen (wie eine dezentrale Börse wie [Uniswap](https://app.uniswap.org/#/swap)) - obwohl diese wahrscheinlich mit einer kleinen Prämie verbunden sind.
 :::
 
-As an alternative to holding onto and eventually returning your rETH to the Rocket Pool, you are also free to **use it in DeFi applications**.
-You can trade it, lend it, use it as collateral... as rETH is a standard ERC20 token, you can use it in any way you could use any other token.
+Als Alternative zum Halten und eventuellen Zurückgeben Ihres rETH an Rocket Pool steht es Ihnen frei, **es in DeFi-Anwendungen zu verwenden**.
+Sie können es handeln, verleihen, als Sicherheit verwenden... da rETH ein Standard-ERC20-Token ist, können Sie es auf jede Weise verwenden, wie Sie jeden anderen Token verwenden könnten.
 
-## Tax Implications
+## Steuerliche Auswirkungen
 
-Each country has its own tax laws, and it would be impossible to document them all here.  
-In some countries, depositing ETH for rETH may be considered **a taxable event**.
-However, because rETH inherently accumulates value while the actual amount of the token you hold remains constant, simply holding it usually **does not generate any taxable events**.
+Jedes Land hat seine eigenen Steuergesetze, und es wäre unmöglich, sie alle hier zu dokumentieren.
+In einigen Ländern kann die Einzahlung von ETH für rETH als **steuerpflichtiges Ereignis** betrachtet werden.
+Da rETH jedoch inhärent an Wert gewinnt, während die tatsächliche Menge des von Ihnen gehaltenen Tokens konstant bleibt, erzeugt das einfache Halten normalerweise **keine steuerpflichtigen Ereignisse**.
 
-This may make rETH **a preferable staking token for long-term holding** if your country separates short-term and long-term capital gains taxes.
+Dies kann rETH zu einem **bevorzugten Staking-Token für langfristige Haltung** machen, wenn Ihr Land zwischen kurzfristigen und langfristigen Kapitalertragssteuern unterscheidet.
 
-Tax laws related to cryptocurrencies are in their infancy; each user should do their own research and consider speaking with a tax professional.
+Steuergesetze im Zusammenhang mit Kryptowährungen stecken noch in den Kinderschuhen; jeder Benutzer sollte seine eigene Recherche durchführen und erwägen, mit einem Steuerberater zu sprechen.
 
-Below are some helpful sites that offer tax assistance to users related to Ethereum.
-**This is not an official endorsement - users are advised to do their own research regarding tax implications and strategies**:
+Nachfolgend finden Sie einige hilfreiche Websites, die Benutzern Steuerassistenz im Zusammenhang mit Ethereum bieten.
+**Dies ist keine offizielle Empfehlung - Benutzer wird geraten, ihre eigene Recherche zu steuerlichen Auswirkungen und Strategien durchzuführen**:
 
 - [https://koinly.io/](https://koinly.io/)
 - [https://cryptotaxcalculator.io/](https://cryptotaxcalculator.io/)
 - [https://rotki.com/](https://rotki.com/)
 
-## How to Stake with Rocket Pool
+## Wie man mit Rocket Pool staked
 
-As described above, as long as you are holding the rETH token, you are a **Rocket Pool Staker**.
-We will summarize several common ways to acquire it here.
+Wie oben beschrieben, sind Sie ein **Rocket Pool Staker**, solange Sie den rETH-Token halten.
+Wir werden hier mehrere gängige Möglichkeiten zusammenfassen, um ihn zu erwerben.
 
-::: warning NOTE
-All of the methods described here rely on the usage of an Ethereum wallet such as [MetaMask](https://metamask.io/).
-If you have never used an Ethereum wallet before, we strongly encourage you to learn more about them and practice using them before staking with Rocket Pool.
-The sections below include some steps that are demonstrated with MetaMask as an example; they should translate to your wallet of choice easily enough for you to follow along.
+::: warning HINWEIS
+Alle hier beschriebenen Methoden basieren auf der Verwendung einer Ethereum-Wallet wie [MetaMask](https://metamask.io/).
+Wenn Sie noch nie eine Ethereum-Wallet verwendet haben, empfehlen wir Ihnen dringend, mehr über sie zu lernen und sie zu üben, bevor Sie mit Rocket Pool staken.
+Die folgenden Abschnitte enthalten einige Schritte, die mit MetaMask als Beispiel demonstriert werden; sie sollten sich leicht genug auf Ihre gewählte Wallet übertragen lassen, damit Sie folgen können.
 :::
 
-### Via Rocket Pool Directly
+### Direkt über Rocket Pool
 
-With this method, you will use a web3 wallet (such as MetaMask) and interact with Rocket Pool's website to swap ETH for rETH and vice-versa.
-This method is **guaranteed** to provide you with the exact amount of rETH that your ETH is worth, since it's coming directly from Rocket Pool's smart contracts, but it can be somewhat expensive if the network's gas prices are high and you're staking a relatively small amount of ETH.
+Mit dieser Methode verwenden Sie eine Web3-Wallet (wie MetaMask) und interagieren mit der Rocket Pool Website, um ETH gegen rETH zu tauschen und umgekehrt.
+Diese Methode **garantiert**, dass Sie genau die Menge rETH erhalten, die Ihr ETH wert ist, da sie direkt von Rocket Pools Smart Contracts stammt, aber sie kann etwas teuer sein, wenn die Gas-Preise des Netzwerks hoch sind und Sie eine relativ kleine Menge ETH staken.
 
-::: tip NOTE
-If you are practicing staking on the Hoodi Testnet, the direct method above is the only option currently supported.
+::: tip HINWEIS
+Wenn Sie das Staking im Hoodi Testnet üben, ist die direkte Methode oben derzeit die einzige unterstützte Option.
 :::
 
-[Click here to learn how to stake via Rocket Pool directly.](./via-rp)
+[Klicken Sie hier, um zu erfahren, wie man direkt über Rocket Pool staked.](./via-rp)
 
-### Via a Decentralized Exchange on Ethereum (Layer 1)
+### Über eine dezentrale Börse auf Ethereum (Layer 1)
 
-With this method, you will access a decentralized exchange such as [Balancer](https://docs.balancer.fi/) or [Uniswap](https://docs.uniswap.org/protocol/introduction) and purchase rETH using your token of choice, just like you would do any other token swap.
+Mit dieser Methode greifen Sie auf eine dezentrale Börse wie [Balancer](https://docs.balancer.fi/) oder [Uniswap](https://docs.uniswap.org/protocol/introduction) zu und kaufen rETH mit Ihrem Token Ihrer Wahl, genau wie Sie jeden anderen Token-Tausch durchführen würden.
 
-Rocket Pool has officially created a [Balancer composable stable pool](https://docs.balancer.fi/products/balancer-pools/composable-stable-pools).
-Composable stable pools are ideal for tokens like rETH, because **they honor the true exchange rate reported by the Oracle DAO** - this means exchanging with it will have **much lower slippage** and **lower fees** than a conventional decentralized exchange, so you get a much better deal when buying or selling rETH.
+Rocket Pool hat offiziell einen [Balancer Composable Stable Pool](https://docs.balancer.fi/products/balancer-pools/composable-stable-pools) erstellt.
+Composable Stable Pools sind ideal für Token wie rETH, weil **sie den vom Oracle DAO gemeldeten echten Wechselkurs berücksichtigen** - das bedeutet, dass der Austausch damit **viel geringeren Slippage** und **niedrigere Gebühren** als eine konventionelle dezentrale Börse hat, sodass Sie ein viel besseres Angebot beim Kauf oder Verkauf von rETH erhalten.
 
-Because of this, and because it has a **smaller transaction fee** than swapping directly via Rocket Pool's website, we **strongly recommended** using Balancer if you want to stake via this route.
+Deshalb und weil es eine **kleinere Transaktionsgebühr** hat als der direkte Tausch über die Rocket Pool Website, empfehlen wir **dringend**, Balancer zu verwenden, wenn Sie über diese Route staken möchten.
 
-If Balancer doesn't work for you, there is also an ETH-rETH liquidity pool on Uniswap.
-Note that this is a conventional pool, so **you will be affected by slippage and higher fees** if you use it, but the gas fee will still be lower than staking directly via Rocket Pool's website.
+Wenn Balancer für Sie nicht funktioniert, gibt es auch einen ETH-rETH-Liquiditätspool auf Uniswap.
+Beachten Sie, dass dies ein konventioneller Pool ist, sodass **Sie von Slippage und höheren Gebühren betroffen sind**, wenn Sie ihn verwenden, aber die Gas-Gebühr wird immer noch niedriger sein als das direkte Staking über die Rocket Pool Website.
 
-[Click here to learn how to swap ETH for rETH via a decentralized exchange on Layer 1.](./via-l1)
+[Klicken Sie hier, um zu erfahren, wie man ETH gegen rETH über eine dezentrale Börse auf Layer 1 tauscht.](./via-l1)
 
-### Via a Decentralized Exchange on a Layer 2 Network
+### Über eine dezentrale Börse auf einem Layer-2-Netzwerk
 
-With this method, you will start by bridging your existing ETH (or other tokens of choice) onto an Ethereum Layer 2 network such as [Optimism](https://www.optimism.io/) or [Arbitrum](https://arbitrum.io/) and then use a decentralized exchange on the network to purchase rETH. If you already have tokens on a Layer 2 network, this method is compelling because **the transaction fees are ~10x smaller than on the Ethereum mainnet**. However, if you have not used a Layer 2 network before, it does require a few additional steps to get set up.
+Mit dieser Methode beginnen Sie damit, Ihr bestehendes ETH (oder andere Token Ihrer Wahl) auf ein Ethereum Layer-2-Netzwerk wie [Optimism](https://www.optimism.io/) oder [Arbitrum](https://arbitrum.io/) zu überbrücken und verwenden dann eine dezentrale Börse auf dem Netzwerk, um rETH zu kaufen. Wenn Sie bereits Token auf einem Layer-2-Netzwerk haben, ist diese Methode überzeugend, weil **die Transaktionsgebühren etwa 10x kleiner sind als auf dem Ethereum-Mainnet**. Wenn Sie jedoch noch kein Layer-2-Netzwerk verwendet haben, erfordert es einige zusätzliche Schritte für die Einrichtung.
 
-[Click here to learn how to swap ETH for rETH via a decentralized exchange on a Layer 2 network.](./via-l2)
+[Klicken Sie hier, um zu erfahren, wie man ETH gegen rETH über eine dezentrale Börse auf einem Layer-2-Netzwerk tauscht.](./via-l2)
 
-### Video Demonstration
+### Video-Demonstration
 
-Community member **Kevster** has put together a helpful video that demonstrates each of these options step-by-step:
+Community-Mitglied **Kevster** hat ein hilfreiches Video zusammengestellt, das jede dieser Optionen Schritt für Schritt demonstriert:
 
 <div style={{ position: "relative", paddingBottom: "56.25%", height: 0 }}>
   <iframe
@@ -174,4 +174,4 @@ Community member **Kevster** has put together a helpful video that demonstrates 
     allowFullScreen></iframe>
 </div>
 
-For a more detailed writeup, select which method you would like to use from the links above and follow the guide for that section.
+Für eine detailliertere Beschreibung wählen Sie aus den obigen Links aus, welche Methode Sie verwenden möchten, und folgen Sie der Anleitung für diesen Abschnitt.

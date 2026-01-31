@@ -1,87 +1,87 @@
-# Preparing a Mac
+# 准备 Mac
 
-Before installing Rocket Pool, there are a few checks you should do to make sure your system is compatible and will work correctly.
+在安装 Rocket Pool 之前，您应该进行一些检查，以确保您的系统兼容并能正常工作。
 
 ::: danger
-We strongly encourage you to create a dedicated machine for running a Rocket Pool node.
-Running a node on a general-use machine, such as your daily work desktop, presents extra security risks that may compromise your wallet and result in the theft of your coins.
+我们强烈建议您创建一个专用于运行 Rocket Pool 节点的专用机器。
+在通用机器上运行节点，例如您的日常工作台式机，会带来额外的安全风险，可能会危及您的钱包并导致您的币被盗。
 
-**For maximum safety, please build a new machine that is dedicated exclusively to running a node.**
+**为了最大限度地提高安全性，请构建一台专门用于运行节点的新机器。**
 :::
 
-## System Requirements
+## 系统要求
 
-Below is a brief description of the software and hardware requirements that a Rocket Pool node requires.
-This guide assumes that you already have your machine physically built, and the operating system installed.
+以下是 Rocket Pool 节点所需的软件和硬件要求的简要说明。
+本指南假设您已经物理构建了您的机器，并安装了操作系统。
 
-### Supported Operating Systems
+### 支持的操作系统
 
-Rocket Pool recommends you use the latest version of macOS for your hardware.
+Rocket Pool 建议您为您的硬件使用最新版本的 macOS。
 
-### macOS Support
+### macOS 支持
 
-You will need to install the following pre-requisites:
+您需要安装以下先决条件：
 
-We highly recommend using [Homebrew](https://brew.sh) as your package manager for Mac. It allows you to install packages easily using the `brew` command.
+我们强烈建议使用 [Homebrew](https://brew.sh) 作为您的 Mac 包管理器。它允许您使用 `brew` 命令轻松安装包。
 
-You can install it via
+您可以通过以下方式安装它
 
 ```shell
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-It should install some pre-requisites for you, such as XCode Command Line Tools. If it doesn't, you can install them manually using
+它应该为您安装一些先决条件，例如 XCode 命令行工具。如果没有，您可以使用以下命令手动安装它们
 
 ```shell
 xcode-select --install
 ```
 
-Once installed, ensure everything is working correctly by using
+安装后,使用以下命令确保一切正常工作
 
 ```shell
 brew doctor
 ```
 
-Once everything is installed & working, Homebrew will allow you to install packages using the `brew` command.
+安装并正常工作后，Homebrew 将允许您使用 `brew` 命令安装包。
 
-For example, to install `wget` using Homebrew execute the following command in the Terminal:
+例如，要使用 Homebrew 安装 `wget`，请在终端中执行以下命令：
 
 ```shell
 brew install wget
 ```
 
-Now that we have Homebrew installed, we can install our Docker client, [Orbstack](https://orbstack.dev).
+现在我们已经安装了 Homebrew，我们可以安装我们的 Docker 客户端，[Orbstack](https://orbstack.dev)。
 
 ```shell
 brew install --cask orbstack
 ```
 
-Orbstack will be installed to your Applications folder. Launch it from there and it will initialise. If you are migrating from Docker Desktop, it should detect your existing Docker installation and migrate your images and containers.
+Orbstack 将安装到您的应用程序文件夹。从那里启动它，它将初始化。如果您从 Docker Desktop 迁移，它应该检测到您现有的 Docker 安装并迁移您的映像和容器。
 
-You may need to adjust your Orbstack settings depending on your hardware.
+您可能需要根据硬件调整 Orbstack 设置。
 
-If you have previously installed Docker Desktop, you will need to uninstall it first. Docker Desktop used to be the recommended Docker Client however in the last year a few new clients have been released that provide much better stability.
+如果您之前安装了 Docker Desktop，则需要先将其卸载。Docker Desktop 曾经是推荐的 Docker 客户端，但在去年发布了一些新客户端，提供了更好的稳定性。
 
-Please ensure your Firewall (System Settings -> Network -> Firewall) is turned on and Orbstack is added to the list of applications allowing incoming connections. (Orbstack should do this for you)
+请确保您的防火墙（系统设置 -> 网络 -> 防火墙）已打开，并且 Orbstack 已添加到允许传入连接的应用程序列表中。（Orbstack 应该为您执行此操作）
 
 ![](../local/images/mac/firewall.png)
 
-### Installing and Using SSH
+### 安装和使用 SSH
 
-SSH should already be installed with macOS.
+SSH 应该已经随 macOS 一起安装。
 
-### Pre-installation System Checks
+### 安装前系统检查
 
-Before installing Rocket Pool, please review the following checklist:
+在安装 Rocket Pool 之前，请查看以下清单：
 
-- Your system is fully built, powers on, and can boot into the operating system.
-- You will not do any other activity on the system, such as browsing the Internet, checking email, or playing games.
-- You have a macOS operating system installed.
-- Your user account has root / administrator privileges.
-- You have an SSD that meets the performance requirements.
-- Your SSD is mounted on your file system.
-- You have at least 1.5TB of space free for the initial Execution and Consensus syncing process.
-- If your ISP caps your data, it is more than 2 TB per month.
+- 您的系统已完全构建，可以开机，并可以启动到操作系统。
+- 您不会在系统上进行任何其他活动，例如浏览互联网、检查电子邮件或玩游戏。
+- 您已安装 macOS 操作系统。
+- 您的用户帐户具有 root / 管理员权限。
+- 您有一个满足性能要求的 SSD。
+- 您的 SSD 已挂载在文件系统上。
+- 您至少有 1.5TB 的可用空间用于初始执行和共识同步过程。
+- 如果您的 ISP 限制了您的数据，则每月超过 2 TB。
 
-If you have checked and confirmed all of these items, then you are ready to install Rocket Pool and begin running a node!
-Move on to the [Choosing your ETH Clients](../eth-clients) section.
+如果您已检查并确认所有这些项目，那么您已准备好安装 Rocket Pool 并开始运行节点！
+继续到[选择您的 ETH 客户端](../eth-clients)部分。

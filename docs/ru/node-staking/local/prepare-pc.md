@@ -1,97 +1,74 @@
-# Preparing a PC, Mini-PC, or NUC
+# Подготовка PC, Mini-PC или NUC
 
-Before installing Rocket Pool, there are a few checks you should do to make sure your system is compatible and will work
-correctly.
+Перед установкой Rocket Pool необходимо выполнить несколько проверок, чтобы убедиться, что ваша система совместима и будет работать правильно.
 
 ::: danger
-We strongly encourage you to create a dedicated machine for running a Rocket Pool node.
-Running a node on a general-use machine, such as your daily work desktop or a gaming rig, presents extra security risks
-that may compromise your wallet and result in the theft of your coins.
+Мы настоятельно рекомендуем создать выделенную машину для работы узла Rocket Pool.
+Запуск узла на машине общего назначения, такой как ваш ежедневный рабочий компьютер или игровая установка, представляет дополнительные риски безопасности, которые могут скомпрометировать ваш кошелек и привести к краже ваших монет.
 
-**For maximum safety, please build a new machine that is dedicated exclusively to running a node.**
+**Для максимальной безопасности постройте новую машину, предназначенную исключительно для работы узла.**
 :::
 
-## System Requirements
+## Системные требования
 
-Below is a brief description of the software and hardware requirements that a Rocket Pool node requires.
-This guide assumes that you already have your machine physically built, and the operating system installed.
+Ниже приведено краткое описание программных и аппаратных требований, которые требуются узлу Rocket Pool.
+Это руководство предполагает, что ваша машина уже физически собрана и операционная система установлена.
 
-### Supported Operating Systems
+### Поддерживаемые операционные системы
 
-Rocket Pool's Smartnode client currently supports **Linux** and **macOS** systems.
+Клиент Smartnode Rocket Pool в настоящее время поддерживает системы **Linux** и **macOS**.
 
-At this time, **Windows** can be used to remotely manage a remote Linux or Mac machine, but the Smartnode itself cannot
-currently run on a Windows system. However, Rocket Pool _can_ be run on a
-Linux [virtual machine](https://en.wikipedia.org/wiki/System_virtual_machine) hosted by a Windows machine.
-This setup is not recommended over simply installing Linux as the host operating system, but it does work if necessary.
-Note that it will require extra resource overhead, and comes with its own set of security risks, so we do not advise
-using this setup when staking real Ether on the main network.
+В настоящее время **Windows** может использоваться для удаленного управления удаленной машиной Linux или Mac, но сам Smartnode в настоящее время не может работать в системе Windows. Однако Rocket Pool _может_ работать на Linux [виртуальной машине](https://en.wikipedia.org/wiki/System_virtual_machine), размещенной на машине Windows.
+Эта настройка не рекомендуется вместо простой установки Linux в качестве хостовой операционной системы, но она работает при необходимости.
+Обратите внимание, что это потребует дополнительных накладных расходов на ресурсы и сопряжено с собственным набором рисков безопасности, поэтому мы не советуем использовать эту настройку при стейкинге реального Ether в основной сети.
 
-Rocket Pool is natively compatible with **AMD64 (x64)** and **arm64 (aarch64)** CPU architectures.
-For other architectures, you will need to compile the smartnode clients from source.
+Rocket Pool нативно совместим с архитектурами процессоров **AMD64 (x64)** и **arm64 (aarch64)**.
+Для других архитектур вам нужно будет скомпилировать клиенты smartnode из исходного кода.
 
-Note that the user must have **root / Administrator** access (or **sudo** privileges) to install the Smartnode.
+Обратите внимание, что пользователь должен иметь доступ **root / Administrator** (или привилегии **sudo**) для установки Smartnode.
 
-#### Linux Support
+#### Поддержка Linux
 
-There are many variants of the Linux OS (called distributions, or **distros** for short). While you can run Rocket Pool
-from any modern distro, Rocket Pool's installer can automatically install the entire stack
-on [Ubuntu](https://ubuntu.com/about), [Debian](https://www.debian.org/intro/why_debian), [CentOS](https://www.centos.org/about/),
-and [Fedora](https://docs.fedoraproject.org/en-US/project/).
+Существует много вариантов ОС Linux (называемых дистрибутивами или **distros** для краткости). Хотя вы можете запустить Rocket Pool из любого современного дистрибутива, установщик Rocket Pool может автоматически установить весь стек на [Ubuntu](https://ubuntu.com/about), [Debian](https://www.debian.org/intro/why_debian), [CentOS](https://www.centos.org/about/) и [Fedora](https://docs.fedoraproject.org/en-US/project/).
 
-::: warning NOTE
-If you plan to use Ubuntu, we strongly recommend using an **LTS** release such as 24.04.
-These releases are actively maintained for longer periods of time, which helps with the security and stability of your
-node.
+::: warning ПРИМЕЧАНИЕ
+Если вы планируете использовать Ubuntu, мы настоятельно рекомендуем использовать **LTS** релиз, такой как 24.04.
+Эти релизы активно поддерживаются в течение более длительных периодов времени, что помогает с безопасностью и стабильностью вашего узла.
 :::
 
-For installation on other distros, the Smartnode installer will not be able to automatically install some system
-dependencies (such as `docker-compose`).
-Some manual steps will be required during installation.
+Для установки на других дистрибутивах установщик Smartnode не сможет автоматически установить некоторые системные зависимости (такие как `docker-compose`).
+Во время установки потребуются некоторые ручные шаги.
 
-For `arm64` systems, the Smartnode installer only natively supports Debian and Debian-based distros such as Ubuntu.
-For other distros, manual steps will be required during installation.
+Для систем `arm64` установщик Smartnode изначально поддерживает только Debian и дистрибутивы на основе Debian, такие как Ubuntu.
+Для других дистрибутивов во время установки потребуются ручные шаги.
 
-## Installing the Operating System
+## Установка операционной системы
 
-If you're using macOS, it's highly likely that you already have the Operating System installed and can skip this step.
+Если вы используете macOS, вполне вероятно, что у вас уже установлена операционная система, и вы можете пропустить этот шаг.
 
-If you're installing Linux from scratch, each of the distributions listed above come with helpful and detailed tutorials
-for installing the Operating System from scratch.
-As an example though, we will walk you through the process of installing and preparing **Debian Server**.
-Debian is a good choice for node operation because it focuses on **maximum stability and reliability** - both of which
-are highly desirable for node machines that must be running 24/7.
+Если вы устанавливаете Linux с нуля, каждый из перечисленных выше дистрибутивов поставляется с полезными и подробными руководствами по установке операционной системы с нуля.
+В качестве примера мы проведем вас через процесс установки и подготовки **Debian Server**.
+Debian - хороший выбор для работы узла, потому что он фокусируется на **максимальной стабильности и надежности** - оба из которых очень желательны для узловых машин, которые должны работать 24/7.
 
-[Here is a good step-by-step guide](https://itslinuxfoss.com/debian-11-bullseye-guide/) with screenshots that shows you
-how to install Debian on your node machine from scratch.
+[Вот хорошее пошаговое руководство](https://itslinuxfoss.com/debian-11-bullseye-guide/) со скриншотами, которое покажет вам, как установить Debian на вашу узловую машину с нуля.
 
 :::tip
-We have a few helpful amendments to the guide linked above, which you may want to follow:
+У нас есть несколько полезных дополнений к руководству, приведенному выше, которым вы можете захотеть следовать:
 
-- When prompted to set up a **root password**, we recommend leaving it **blank**. This will disable the `root` account
-  and instead install the `sudo` package, allowing your user to perform root operations by re-entering its password to
-  elevate its permissions. This is analogous to the way Ubuntu Linux is set up, which may be more familiar to users.
-- In the **Software selection** screen towards the end, you may not want to have a desktop GUI installed.
-  - Desktop GUIs are largely unnecessary for a node; they add extra overhead and most of the time will not be used since
-    you'll be remote controlling it via the terminal anyway, so we prefer to **uncheck GNOME and Debian desktop
-    environment** here.
-  - If you _do_ want a desktop UI on your node, we recommend you **uncheck GNOME and check XFCE** instead, as it's
-    lighter on system resources. We also recommend running no additional software on the node, such as browsers or
-    Discord, as they diminish security and consume system resources.
-  - Uncheck **web server**, but leave **SSH server** and **standard system utilities** checked.
-- If you have created a flash drive from an iso, you may need to disable the CD-ROM repository in order to run `apt`.
-  You can find an explanation of how to do
-  this [here](https://www.linuxtechi.com/things-to-do-after-installing-debian-11/).
-- Your system may be set up to sleep/hibernate by default. To disable these settings, you can run the following command:
-  `sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target`
-
+- При запросе установки **пароля root** мы рекомендуем оставить его **пустым**. Это отключит учетную запись `root` и вместо этого установит пакет `sudo`, позволяя вашему пользователю выполнять операции root, повторно вводя свой пароль для повышения своих привилегий. Это аналогично тому, как настроен Ubuntu Linux, что может быть более знакомо пользователям.
+- На экране **Выбор программного обеспечения** ближе к концу вы можете не захотеть устанавливать графический интерфейс рабочего стола.
+  - Графические интерфейсы рабочего стола в основном не нужны для узла; они добавляют дополнительные накладные расходы, и большую часть времени они не будут использоваться, так как вы все равно будете удаленно управлять им через терминал, поэтому мы предпочитаем **снять флажки с GNOME и Debian desktop environment** здесь.
+  - Если вы _действительно_ хотите пользовательский интерфейс рабочего стола на вашем узле, мы рекомендуем **снять флажок с GNOME и поставить флажок XFCE**, так как он легче для системных ресурсов. Мы также рекомендуем не запускать дополнительное программное обеспечение на узле, такое как браузеры или Discord, так как они уменьшают безопасность и потребляют системные ресурсы.
+  - Снимите флажок **веб-сервер**, но оставьте флажки **SSH-сервер** и **стандартные системные утилиты**.
+- Если вы создали флэш-накопитель из iso, вам может потребоваться отключить репозиторий CD-ROM, чтобы запустить `apt`. Вы можете найти объяснение того, как это сделать [здесь](https://www.linuxtechi.com/things-to-do-after-installing-debian-11/).
+- Ваша система может быть настроена на спящий режим/гибернацию по умолчанию. Чтобы отключить эти настройки, вы можете запустить следующую команду: `sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target`
 :::
 
-### Installing `sudo`
+### Установка `sudo`
 
-Rocket Pool's installer requires the `sudo` program to acquire all of its dependencies.
-If you left the **root user password blank** in the previous step, you will already have this.
-If not, please install it now by running the following commands:
+Установщику Rocket Pool требуется программа `sudo` для получения всех своих зависимостей.
+Если вы оставили **пароль пользователя root пустым** на предыдущем шаге, у вас уже будет это.
+Если нет, пожалуйста, установите его сейчас, выполнив следующие команды:
 
 ```shell
 apt update
@@ -105,13 +82,13 @@ apt install sudo
 usermod -aG sudo $USER
 ```
 
-Then restart the machine.
-You should now be able to run commands via `sudo` such as `sudo apt update`.
+Затем перезагрузите машину.
+Теперь вы должны иметь возможность запускать команды через `sudo`, такие как `sudo apt update`.
 
-### Using SSH
+### Использование SSH
 
-Once the server is installed and you're able to log in, you need to get its IP address.
-An easy way to do this is with `ifconfig` which is built into the 'net-tools' package:
+После установки сервера и возможности войти в систему вам нужно получить его IP-адрес.
+Простой способ сделать это - с помощью `ifconfig`, который встроен в пакет 'net-tools':
 
 ```shell
 sudo apt update
@@ -125,7 +102,7 @@ sudo apt install net-tools
 sudo ifconfig
 ```
 
-You may see several entries here, but the one you want to look for is going to look something like this:
+Вы можете увидеть несколько записей здесь, но та, которую вы ищете, будет выглядеть примерно так:
 
 ```
 eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
@@ -135,162 +112,150 @@ eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
       ...
 ```
 
-The flags should say `UP,BROADCAST,RUNNING,MULTICAST`.
-The `inet` value (here `192.168.1.8`) is your machine's local IP address.
+Флаги должны говорить `UP,BROADCAST,RUNNING,MULTICAST`.
+Значение `inet` (здесь `192.168.1.8`) - это локальный IP-адрес вашей машины.
 
-Next, install SSH:
+Далее установите SSH:
 
 ```shell
 sudo apt install openssh-server
 ```
 
-:::tip NOTE
-If you had the **SSH server** box checked during Debian's installation, you should already have this installed so this
-command won't do anything.
+:::tip ПРИМЕЧАНИЕ
+Если у вас был флажок **SSH-сервер** отмечен во время установки Debian, у вас уже должно быть это установлено, поэтому эта команда ничего не сделает.
 :::
 
-Once this is done, you can log into the machine's terminal remotely from your laptop or desktop using `ssh`.
+После того, как это сделано, вы можете войти в терминал машины удаленно с вашего ноутбука или настольного компьютера, используя `ssh`.
 
-If you aren't familiar with `ssh`, take a look at the [Intro to Secure Shell](../ssh) guide.
+Если вы не знакомы с `ssh`, взгляните на руководство [Введение в Secure Shell](../ssh).
 
-:::warning NOTE
-At this point, you should _strongly consider_ configuring your router to make your node's IP address **static**.
-This means that your node will have the same IP address forever, so you can always SSH into it using that IP address.
-Otherwise, it's possible that your node's IP could change at some point, and the above SSH command will no longer work.
-You'll have to enter your router's configuration to find out what your node's new IP address is.
+:::warning ПРИМЕЧАНИЕ
+На этом этапе вы должны _настоятельно рассмотреть_ настройку вашего роутера, чтобы сделать IP-адрес вашего узла **статическим**.
+Это означает, что ваш узел будет иметь один и тот же IP-адрес навсегда, поэтому вы всегда сможете войти в него по SSH, используя этот IP-адрес.
+В противном случае возможно, что IP-адрес вашего узла может измениться в какой-то момент, и вышеуказанная команда SSH больше не будет работать.
+Вам придется войти в конфигурацию вашего роутера, чтобы узнать, каков новый IP-адрес вашего узла.
 
-Each router is different, so you will need to consult your router's documentation to learn how to assign a static IP
-address.
+Каждый роутер отличается, поэтому вам нужно будет обратиться к документации вашего роутера, чтобы узнать, как назначить статический IP-адрес.
 :::
 
-## Setting up Swap Space
+## Настройка пространства подкачки
 
-In most cases, if you choose your Execution and Consensus clients and your instance type carefully, you should not run
-out of RAM.
-Then again, it never hurts to add a little more.
-What we're going to do now is add what's called **swap space**.
-Essentially, it means we're going to use the SSD as "backup RAM" in case something goes horribly, horribly wrong and
-your server runs out of regular RAM.
-The SSD isn't nearly as fast as the regular RAM, so if it hits the swap space it will slow things down, but it won't
-completely crash and break everything.
-Think of this as extra insurance that you'll (most likely) never need.
+В большинстве случаев, если вы тщательно выбираете свои клиенты Execution и Consensus и тип вашего экземпляра, у вас не должно закончиться ОЗУ.
+Тем не менее, никогда не помешает добавить немного больше.
+То, что мы собираемся сделать сейчас, - это добавить то, что называется **пространством подкачки**.
+По сути, это означает, что мы собираемся использовать SSD как "резервное ОЗУ" на случай, если что-то пойдет ужасно, ужасно не так, и ваш сервер закончит обычное ОЗУ.
+SSD не такой быстрый, как обычное ОЗУ, поэтому, если он попадет в пространство подкачки, это замедлит работу, но не приведет к полному сбою и не сломает все.
+Думайте об этом как о дополнительной страховке, которая вам (скорее всего) никогда не понадобится.
 
-### Creating a Swap File
+### Создание файла подкачки
 
-The first step is to make a new file that will act as your swap space.
-Decide how much you want to use - a reasonable start would be 8 GB, so you have 8 GB of normal RAM and 8 GB of "backup
-RAM" for a total of 16 GB.
-To be super safe, you can make it 24 GB so your system has 8 GB of normal RAM and 24 GB of "backup RAM" for a total of
-32 GB, but this is probably overkill.
-Luckily, since your SSD has 1 or 2 TB of space, allocating 8 to 24 GB for a swapfile is negligible.
+Первый шаг - создать новый файл, который будет действовать как ваше пространство подкачки.
+Решите, сколько вы хотите использовать - разумным началом будет 8 ГБ, поэтому у вас есть 8 ГБ обычного ОЗУ и 8 ГБ "резервного ОЗУ" на общую сумму 16 ГБ.
+Чтобы быть супер безопасным, вы можете сделать его 24 ГБ, чтобы ваша система имела 8 ГБ обычного ОЗУ и 24 ГБ "резервного ОЗУ" на общую сумму 32 ГБ, но это, вероятно, излишне.
+К счастью, поскольку ваш SSD имеет 1 или 2 ТБ пространства, выделение 8-24 ГБ для файла подкачки незначительно.
 
-For the sake of this walkthrough, let's pick a nice middleground - say, 16 GB of swap space for a total RAM of 24 GB.
-Just substitute whatever number you want in as we go.
+Ради этого руководства давайте выберем хорошую золотую середину - скажем, 16 ГБ пространства подкачки на общую ОЗУ 24 ГБ.
+Просто замените любое число, которое вы хотите, по ходу дела.
 
-Enter this, which will create a new file called `/swapfile` and fill it with 16 GB of zeros.
-To change the amount, just change the number in `count=16` to whatever you want. **Note that this is going to take a
-long time, but that's ok.**
+Введите это, что создаст новый файл с именем `/swapfile` и заполнит его 16 ГБ нулей.
+Чтобы изменить количество, просто измените число в `count=16` на то, что вы хотите. **Обратите внимание, что это займет много времени, но это нормально.**
 
 ```shell
 sudo dd if=/dev/zero of=/swapfile bs=1G count=16 status=progress
 ```
 
-Next, set the permissions so only the root user can read or write to it (for security):
+Далее установите разрешения, чтобы только пользователь root мог читать или записывать в него (для безопасности):
 
 ```shell
 sudo chmod 600 /swapfile
 ```
 
-Now, mark it as a swap file:
+Теперь отметьте его как файл подкачки:
 
 ```shell
 sudo mkswap /swapfile
 ```
 
-Next, enable it:
+Далее включите его:
 
 ```shell
 sudo swapon /swapfile
 ```
 
-Finally, add it to the mount table so it automatically loads when your server reboots:
+Наконец, добавьте его в таблицу монтирования, чтобы он автоматически загружался при перезагрузке вашего сервера:
 
 ```shell
 sudo nano /etc/fstab
 ```
 
-Add a new line at the end that looks like this:
+Добавьте новую строку в конце, которая выглядит так:
 
 ```
 /swapfile                            none            swap    sw              0       0
 ```
 
-Press `Ctrl+O` and `Enter` to save, then `Ctrl+X` and `Enter` to exit.
+Нажмите `Ctrl+O` и `Enter` для сохранения, затем `Ctrl+X` и `Enter` для выхода.
 
-To verify that it's active, run these commands:
+Чтобы проверить, что он активен, выполните эти команды:
 
 ```shell
 sudo apt install htop
 htop
 ```
 
-Your output should look like this at the top:
+Ваш вывод должен выглядеть так вверху:
 ![](../local/images/pi/Swap.png)
 
-If the second number in the last row labeled `Swp` (the one after the `/`) is non-zero, then you're all set.
-For example, if it shows `0K / 16.0G` then your swap space was activated successfully.
-If it shows `0K / 0K` then it did not work and you'll have to confirm that you entered the previous steps properly.
+Если второе число в последней строке с меткой `Swp` (то, что после `/`) не равно нулю, тогда все готово.
+Например, если оно показывает `0K / 16.0G`, то ваше пространство подкачки было активировано успешно.
+Если оно показывает `0K / 0K`, то оно не сработало, и вам придется подтвердить, что вы правильно ввели предыдущие шаги.
 
-Press `q` or `F10` to quit out of `htop` and get back to the terminal.
+Нажмите `q` или `F10`, чтобы выйти из `htop` и вернуться в терминал.
 
-### Configuring Swappiness and Cache Pressure
+### Настройка Swappiness и Cache Pressure
 
-By default, Linux will eagerly use a lot of swap space to take some of the pressure off of the system's RAM.
-We don't want that. We want it to use all of the RAM up to the very last second before relying on SWAP.
-The next step is to change what's called the "swappiness" of the system, which is basically how eager it is to use the
-swap space.
-There is a lot of debate about what value to set this to, but we've found a value of 6 works well enough.
+По умолчанию Linux будет активно использовать много пространства подкачки, чтобы снять часть давления с ОЗУ системы.
+Мы этого не хотим. Мы хотим, чтобы он использовал всю ОЗУ до самой последней секунды перед тем, как полагаться на SWAP.
+Следующий шаг - изменить то, что называется "swappiness" системы, что в основном показывает, насколько активно она использует пространство подкачки.
+Существует много споров о том, какое значение установить, но мы обнаружили, что значение 6 работает достаточно хорошо.
 
-We also want to turn down the "cache pressure", which dictates how quickly the server will delete a cache of its
-filesystem.
-Since we're going to have a lot of spare RAM with our setup, we can make this "10" which will leave the cache in memory
-for a while, reducing disk I/O.
+Мы также хотим уменьшить "давление кэша", которое определяет, насколько быстро сервер удалит кэш своей файловой системы.
+Поскольку у нас будет много свободной ОЗУ с нашей настройкой, мы можем сделать это "10", что оставит кэш в памяти на некоторое время, уменьшая дисковый I/O.
 
-To set these, run these commands:
+Чтобы установить это, выполните эти команды:
 
 ```shell
 sudo sysctl vm.swappiness=6
 sudo sysctl vm.vfs_cache_pressure=10
 ```
 
-Now, put them into the `sysctl.conf` file so they are reapplied after a reboot:
+Теперь поместите их в файл `sysctl.conf`, чтобы они применялись повторно после перезагрузки:
 
 ```shell
 sudo nano /etc/sysctl.conf
 ```
 
-Add these two lines to the end:
+Добавьте эти две строки в конец:
 
 ```shell
 vm.swappiness=6
 vm.vfs_cache_pressure=10
 ```
 
-Then save and exit like you've done before (`Ctrl+O`, `Ctrl+X`).
+Затем сохраните и выйдите, как вы делали раньше (`Ctrl+O`, `Ctrl+X`).
 
-### Pre-installation System Checks
+### Проверки системы перед установкой
 
-Before installing Rocket Pool, please review the following checklist:
+Перед установкой Rocket Pool, пожалуйста, просмотрите следующий контрольный список:
 
-- Your system is fully built, powers on, and can boot into the operating system.
-- You will not do any other activity on the system, such as browsing the Internet, checking email, or playing games.
-- You have a Linux operating system installed.
-- Your user account has root / administrator privileges.
-- You have an SSD that meets the performance requirements.
-- Your SSD is mounted on your file system.
-- You have at least 1.5 TB of disk space free for the initial Execution and Consensus syncing process.
-- If your ISP caps your data, it is more than 2 TB per month.
+- Ваша система полностью собрана, включается и может загрузиться в операционную систему.
+- Вы не будете выполнять никаких других действий в системе, таких как просмотр Интернета, проверка электронной почты или игры.
+- У вас установлена операционная система Linux.
+- Ваша учетная запись пользователя имеет привилегии root / администратора.
+- У вас есть SSD, который соответствует требованиям производительности.
+- Ваш SSD смонтирован в вашей файловой системе.
+- У вас есть не менее 1,5 ТБ свободного дискового пространства для первоначального процесса синхронизации Execution и Consensus.
+- Если ваш интернет-провайдер ограничивает ваши данные, это более 2 ТБ в месяц.
 
-If you have checked and confirmed all of these items, then you are ready to install Rocket Pool and begin running a
-node!
-Move on to the [Choosing your ETH Clients](../eth-clients) section.
+Если вы проверили и подтвердили все эти пункты, то вы готовы установить Rocket Pool и начать работу узла!
+Перейдите к разделу [Выбор ваших ETH клиентов](../eth-clients).

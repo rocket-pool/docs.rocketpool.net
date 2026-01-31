@@ -17,300 +17,300 @@ import tui_native_settings_home from "./images/tui-native-settings-home.png";
 import tui_native_smartnode from "./images/tui-native-smartnode.png";
 import tui_textbox from "./images/tui-textbox.png";
 
-# Configuring the Smartnode Stack (Native Mode)
+# Настройка стека Smartnode (Native режим)
 
-In this section, we'll go over the various methods for configuring the Smartnode if you're using the **Native setup** that doesn't use Docker at all.
+В этом разделе мы рассмотрим различные методы настройки Smartnode, если вы используете **Native установку**, которая вообще не использует Docker.
 
-::: warning NOTE
-If you're using a Docker-based setup, please visit the [Docker configuration guide](./config-docker) instead.
+::: warning ПРИМЕЧАНИЕ
+Если вы используете установку на основе Docker, пожалуйста, посетите [руководство по настройке Docker](./config-docker) вместо этого.
 :::
 
-There are three ways to configure it:
+Существует три способа настройки:
 
-- Via the [Wizard UI](#configuring-via-the-wizard) - this is the easiest way. It only asks you a few basic question and uses well-tested defaults for the test. This will be what you are presented with when you run `rocketpool service config` for the first time.
-- Via the [Settings Manager UI](#configuring-via-the-settings-manager) - this gives you access to all of the Smartnode's settings so you can customize everything as much as you want.
-- Headlessly via the [Command Line](#configuring-via-the-command-line) - this is an option for people who run the Smartnode in a headless (non-interactive) environment and need to configure it automatically.
+- Через [Мастер настройки UI](#настройка-через-мастер) - это самый простой способ. Он задает вам только несколько базовых вопросов и использует хорошо протестированные значения по умолчанию для остальных. Это то, что вам будет представлено при первом запуске `rocketpool service config`.
+- Через [Менеджер настроек UI](#настройка-через-менеджер-настроек) - это дает вам доступ ко всем настройкам Smartnode, чтобы вы могли настроить все так, как вы хотите.
+- Без интерфейса через [Командную строку](#настройка-через-командную-строку) - это опция для людей, которые запускают Smartnode в безголовой (неинтерактивной) среде и нуждаются в автоматической настройке.
 
-Choose which mode you'd like to learn more about from the list above, or simply scroll through each option below.
+Выберите, о каком режиме вы хотите узнать больше, из списка выше, или просто прокрутите каждый вариант ниже.
 
-## Configuring via the Wizard
+## Настройка через Мастер
 
-To configure the Smartnode, run the configuration command:
+Чтобы настроить Smartnode, выполните команду настройки:
 
 ```shell
 rp service config
 ```
 
-This will launch a terminal-based UI that will allow you to quickly and easily configure your node, as well as provide optional fine-grained control over the settings that are relevant to Native mode.
+Это запустит интерфейс на основе терминала, который позволит вам быстро и легко настроить ваш узел, а также предоставит дополнительный детальный контроль над настройками, которые относятся к Native режиму.
 
-::: tip NOTE
-If you've already configured the Smartnode, you will instead be greeted with the [Settings Manager](#configuring-the-smartnode-stack-via-the-settings-manager).
-You can choose to re-open the Wizard from there if you prefer it, and all of your existing settings will be pre-selected for you.
+::: tip ПРИМЕЧАНИЕ
+Если вы уже настроили Smartnode, вместо этого вы увидите [Менеджер настроек](#настройка-через-менеджер-настроек).
+Вы можете выбрать повторное открытие Мастера оттуда, если вы предпочитаете его, и все ваши существующие настройки будут предварительно выбраны для вас.
 :::
 
-When you run the config UI for the first time (or if you choose to run the Wizard again later), you will be presented with a screen that looks like this:
+Когда вы запускаете пользовательский интерфейс настройки в первый раз (или если вы решите запустить Мастер снова позже), вам будет представлен экран, который выглядит так:
 
 <img src={tui_native_welcome} width="100%" height="auto" />
 
-::: tip TIP
-To use the Wizard, **press the `Arrow Keys` (up/down/left/right) to navigate between things such as buttons (choices) or text boxes**.
-You can also use `Tab` and `Shift+Tab` if you prefer - it will do the same thing.
+::: tip СОВЕТ
+Для использования Мастера **нажимайте `клавиши со стрелками` (вверх/вниз/влево/вправо) для навигации между элементами, такими как кнопки (выборы) или текстовые поля**.
+Вы также можете использовать `Tab` и `Shift+Tab`, если хотите - это будет делать то же самое.
 
-For buttons, **the one that's currently selected will be highlighted in green**.
-The ones in black are not selected.
-In the screenshot above, `Next` is currently selected and `Quit` is not.
+Для кнопок **та, которая в данный момент выбрана, будет выделена зеленым цветом**.
+Черные кнопки не выбраны.
+На скриншоте выше в данный момент выбрана кнопка `Next`, а `Quit` не выбрана.
 
-**Press `Enter` or `Space` to select a button**, analogous to clicking on it with the mouse.
+**Нажмите `Enter` или `Пробел` для выбора кнопки**, аналогично щелчку мыши по ней.
 
-**Press `Escape` to go back to the previous dialog** if you changed your mind about something.
-This will come in handy as you progress through the various Wizard pages.
+**Нажмите `Escape` для возврата к предыдущему диалогу**, если вы передумали о чем-то.
+Это пригодится по мере продвижения по различным страницам Мастера.
 
-**Hold `Ctrl` and press `C` at any time to exit the Wizard without saving anything**.
+**Удерживайте `Ctrl` и нажмите `C` в любое время, чтобы выйти из Мастера без сохранения**.
 
-For example, on the screen above, you could press the `left` and `right` arrow keys to move between the `Next` and `Quit` buttons.
+Например, на экране выше вы могли бы нажимать клавиши со стрелками `влево` и `вправо` для перемещения между кнопками `Next` и `Quit`.
 
-Pressing `Enter` while `Next` is selected will proceed to the next screen.
-Pressing `Enter` while `Quit` is selected will quit the Wizard without saving.
+Нажатие `Enter` при выбранной `Next` перейдет к следующему экрану.
+Нажатие `Enter` при выбранной `Quit` выйдет из Мастера без сохранения.
 :::
 
-When you're ready to begin, press `Next`.
+Когда будете готовы начать, нажмите `Next`.
 
-### Choosing a Network
+### Выбор сети
 
-In the next screen, you will be asked to choose which network you want to use:
+На следующем экране вам будет предложено выбрать, какую сеть вы хотите использовать:
 
 <img src={tui_native_network} width="100%" height="auto" />
 
-You can highlight the different choices with the `Up` and `Down` arrow keys (or `Tab` and `Shift+Tab`).
-When you change choices, the **Description** box on the right will show you a brief description of each option.
-This is true for all choice-based pages in the Wizard, not just the network selection, so you will see this style of page frequently.
+Вы можете выделить различные варианты с помощью клавиш со стрелками `Вверх` и `Вниз` (или `Tab` и `Shift+Tab`).
+Когда вы меняете варианты, поле **Description** справа покажет вам краткое описание каждого варианта.
+Это верно для всех страниц на основе выбора в Мастере, а не только для выбора сети, поэтому вы будете часто видеть этот стиль страницы.
 
-If you want to practice running a Rocket Pool node on the Hoodi test network with fake ETH and RPL you can get for free, select **Hoodi Testnet**.
+Если вы хотите попрактиковаться в запуске узла Rocket Pool в тестовой сети Hoodi с фальшивыми ETH и RPL, которые можно получить бесплатно, выберите **Hoodi Testnet**.
 
-If you're ready to create a real Rocket Pool node on Mainnet to earn real rewards, select **Mainnet**.
+Если вы готовы создать реальный узел Rocket Pool в Mainnet для получения реальных вознаграждений, выберите **Mainnet**.
 
-### Execution Client Setup
+### Настройка Execution клиента
 
-The next screen will prompt you for the URL of your Execution client's HTTP-based RPC API:
+Следующий экран предложит вам ввести URL HTTP-based RPC API вашего Execution клиента:
 
 <img src={tui_native_ec} width="100%" height="auto" />
 
-Enter `http://127.0.0.1:8545` here if you plan to run an Execution client on the same machine as the Smartnode (in the rest of this guide, we will assume this is what you plan to do).
-However, if you already have an Execution client set up elsewhere, use its URL here instead.
+Введите здесь `http://127.0.0.1:8545`, если вы планируете запустить Execution клиент на том же компьютере, что и Smartnode (в остальной части этого руководства мы предполагаем, что это то, что вы планируете сделать).
+Однако, если у вас уже есть Execution клиент, настроенный в другом месте, используйте его URL здесь.
 
-Note that you can always change this by running `rp service config` again later.
+Обратите внимание, что вы всегда можете изменить это, запустив `rp service config` снова позже.
 
-### Consensus Client Setup
+### Настройка Consensus клиента
 
-Next, you'll be asked which Consensus client you are using (or plan to use).
-Because each Consensus client has slightly different behavior, the Smartnode needs to know which one you're using so it can adapt its own behavior accordingly.
-Choose your client from the list in the following screen:
+Далее вас спросят, какой Consensus клиент вы используете (или планируете использовать).
+Поскольку каждый Consensus клиент имеет немного отличающееся поведение, Smartnode необходимо знать, какой из них вы используете, чтобы он мог соответствующим образом адаптировать свое собственное поведение.
+Выберите свой клиент из списка на следующем экране:
 
 <img src={tui_native_cc} width="100%" height="auto" />
 
-Next, you will see a screen prompting you for your client's API URL:
+Далее вы увидите экран с запросом URL API вашего клиента:
 
 <img src={tui_native_cc_url} width="100%" height="auto" />
 
-Enter `http://127.0.0.1:5052` here if you plan to run the Beacon Node of your Consensus client on the same machine as the Smartnode (in the rest of this guide, we will assume this is what you plan to do).
-However, if you already have a Beacon Node set up elsewhere, use its URL here instead.
+Введите здесь `http://127.0.0.1:5052`, если вы планируете запустить Beacon Node вашего Consensus клиента на том же компьютере, что и Smartnode (в остальной части этого руководства мы предполагаем, что это то, что вы планируете сделать).
+Однако, если у вас уже есть Beacon Node, настроенный в другом месте, используйте его URL здесь.
 
-### Other Settings
+### Другие настройки
 
-The next screen will have a few other miscellaneous settings:
+На следующем экране будут несколько других различных настроек:
 
 <img src={tui_native_other} width="100%" height="auto" />
 
-Leave these as the default options unless you have decided to use a directory other than `/srv/rocketpool` for your Smartnode installation.
+Оставьте их в качестве параметров по умолчанию, если вы не решили использовать каталог, отличный от `/srv/rocketpool` для установки Smartnode.
 
-### Fallback Clients
+### Резервные клиенты
 
-Starting with 1.5.0 of the Smartnode stack, you can provide a "fallback" Execution client and Consensus client pair that can take over for your primary clients if they ever go offline (such as because you use Geth and need to prune it).
-In this situation, your primary node machine will still be responsible for attesting and proposing blocks with your minipools' validator keys, but it will connect to an external machine to interact with the Execution layer and Beacon chains.
+Начиная с версии 1.5.0 стека Smartnode, вы можете предоставить "резервную" пару Execution клиента и Consensus клиента, которые могут взять на себя управление от ваших основных клиентов, если они когда-либо отключатся (например, потому что вы используете Geth и нуждаетесь в его обрезке).
+В этой ситуации ваш основной узел по-прежнему будет отвечать за аттестацию и предложение блоков с ключами валидаторов ваших minipools, но он будет подключаться к внешней машине для взаимодействия с уровнем Execution и цепочками Beacon.
 
-[To learn more about fall back nodes, see this section](./fallback) and return here when you're done.
+[Чтобы узнать больше о резервных узлах, смотрите этот раздел](./fallback) и вернитесь сюда, когда закончите.
 
-### Metrics
+### Метрики
 
-Rocket Pool has the ability to integrate with Prometheus and Grafana to produce convenient web-based dashboards that let you observe your node's health at a glance:
+Rocket Pool имеет возможность интеграции с Prometheus и Grafana для создания удобных веб-панелей, которые позволяют вам наблюдать за состоянием вашего узла с первого взгляда:
 
 <img src={nimbus_dashboard} width="100%" height="auto" />
 
-The final question in the Wizard will ask you if you want to enable this:
+Последний вопрос в Мастере спросит вас, хотите ли вы включить это:
 
 <img src={tui_native_metrics} width="100%" height="auto" />
 
-If you choose to enable it, you will learn more about setting it up and how to use it in the [Setting up the Grafana Dashboard](./grafana.mdx) section later in the process.
+Если вы решите включить это, вы узнаете больше о настройке и использовании в разделе [Настройка панели Grafana](./grafana.mdx) позже в процессе.
 
-::: warning NOTE
-All of the data collected by this system **stays on your machine**.
-Rocket Pool does not collect any of the telemetry or send it to a separate service.
-It's purely there for you to use so you can monitor your own node!
+::: warning ПРИМЕЧАНИЕ
+Все данные, собранные этой системой, **остаются на вашей машине**.
+Rocket Pool не собирает никакую телеметрию и не отправляет ее в отдельную службу.
+Это чисто для вас, чтобы вы могли контролировать свой собственный узел!
 :::
 
-### MEV Configuration
+### Настройка MEV
 
-Since the Merge of the Execution and Consensus layers in September 2022, Ethereum validators now have the ability to earn priority fees and participate in Maximal Extractable Value (or MEV for short).
+Начиная со Слияния уровней Execution и Consensus в сентябре 2022 года, валидаторы Ethereum теперь имеют возможность зарабатывать приоритетные комиссии и участвовать в Максимальной извлекаемой стоимости (или MEV, если коротко).
 
-Starting with Smartnode v1.7.0, MEV is now _opt-out_ so a notification about configuring it is presented as part of the initial setup, as you see in the next screen:
+Начиная со Smartnode v1.7.0, MEV теперь _opt-out_, поэтому уведомление о его настройке представлено как часть первоначальной настройки, как вы видите на следующем экране:
 
 <img src={tui_native_mev} width="100%" height="auto" />
 
-[Please read our MEV guide to learn more about MEV, its configuration, and what to do in this section of the wizard.](./mev.mdx)
-Return here when you're finished.
+[Пожалуйста, прочитайте наше руководство по MEV, чтобы узнать больше о MEV, его настройке и что делать в этом разделе мастера.](./mev.mdx)
+Вернитесь сюда, когда закончите.
 
-### Completion
+### Завершение
 
-After this question, you've finished setting up the Smartnode configuration.
-You will see the following dialog:
+После этого вопроса вы закончили настройку конфигурации Smartnode.
+Вы увидите следующий диалог:
 
 <img src={tui_native_finished} width="100%" height="auto" />
 
-If you're happy with your setup and are ready to start the Smartnode, click `Save and Exit` here.
+Если вы довольны своей настройкой и готовы запустить Smartnode, нажмите здесь `Save and Exit`.
 
-If you haven't finished installing Rocket Pool yet, return to the Native setup guide now.
-Otherwise, the next step is to restart your daemon services with:
+Если вы еще не закончили установку Rocket Pool, вернитесь к руководству по Native установке сейчас.
+В противном случае следующий шаг - перезапустить ваши daemon службы:
 
 ```shell
 sudo systemctl restart rp-node rp-watchtower
 ```
 
-If you would like to review all of the settings and customize many additional settings that weren't included in the Wizard, click `Review All Settings` and go to the [next section](#configuring-via-the-settings-manager).
+Если вы хотите просмотреть все настройки и настроить множество дополнительных параметров, которые не были включены в Мастер, нажмите `Review All Settings` и перейдите к [следующему разделу](#настройка-через-менеджер-настроек).
 
-## Configuring via the Settings Manager
+## Настройка через Менеджер настроек
 
-If you've already run `rp service config`, instead of being greeted by the Wizard, you will see the **Settings Manager** screen:
+Если вы уже запустили `rp service config`, вместо того, чтобы встретить вас Мастер, вы увидите экран **Менеджер настроек**:
 
 <img src={tui_native_settings_home} width="100%" height="auto" />
 
-There are three main features of this screen:
+На этом экране есть три основные функции:
 
-1. The **Category List**, which lets you drill down into the settings for each category of the Smartnode stack that is relevant to Native mode
-2. The **Review Changes and Save** button, which you can use when you're ready to see what settings you've changed and save the updated configuration
-3. The **Open the Config Wizard** button, which will bring you to the [Setup Wizard](#configuring-the-smartnode-stack-via-the-wizard) if you prefer that interface instead
+1. **Список категорий**, который позволяет вам детализировать настройки для каждой категории стека Smartnode, которая относится к Native режиму
+2. Кнопка **Review Changes and Save**, которую вы можете использовать, когда готовы увидеть, какие настройки вы изменили, и сохранить обновленную конфигурацию
+3. Кнопка **Open the Config Wizard**, которая приведет вас к [Мастеру настройки](#настройка-через-мастер), если вы предпочитаете этот интерфейс
 
-::: tip TIP
-To use the Settings Manager, **press the `Arrow Keys` (up/down/left/right) to navigate between options in the home page**.
+::: tip СОВЕТ
+Для использования Менеджера настроек **нажимайте `клавиши со стрелками` (вверх/вниз/влево/вправо) для навигации между опциями на главной странице**.
 
-Press `Tab` to go **between the category list (1) and the buttons (2 and 3)** at the bottom of the screen.
-The button that's currently selected will be **highlighted in green**.
+Нажмите `Tab` для перехода **между списком категорий (1) и кнопками (2 и 3)** внизу экрана.
+Кнопка, которая в данный момент выбрана, будет **выделена зеленым цветом**.
 
-**Press `Enter` or `Space` to select a button**, analogous to clicking on it with the mouse.
+**Нажмите `Enter` или `Пробел` для выбора кнопки**, аналогично щелчку мыши по ней.
 
-**Hold `Ctrl` and press `C` at any time to exit the Settings Manager without saving anything**.
+**Удерживайте `Ctrl` и нажмите `C` в любое время, чтобы выйти из Менеджера настроек без сохранения**.
 :::
 
-As you scroll through the categories list, each option will have a helpful description appear in the **Description Box** to the right of the screen.
-Feel free to explore them; nothing you do will be saved until you go through the Review dialog via the **Review Changes and Save** button, and you can press **Ctrl+C** at any time to exit without saving, so you won't accidentally mess something up by playing with the settings here.
+По мере прокрутки списка категорий для каждой опции появится полезное описание в **поле Описание** справа от экрана.
+Не стесняйтесь их исследовать; ничего не будет сохранено, пока вы не пройдете через диалог Review через кнопку **Review Changes and Save**, и вы можете нажать **Ctrl+C** в любое время, чтобы выйти без сохранения, поэтому вы не случайно что-то испортите, играя с настройками здесь.
 
-### Configuring the Settings
+### Настройка параметров
 
-From the home screen, select any one of the categories with the `Enter` key to view the settings for that category.
-For example, here is the screen for the **Smartnode and TX Fees** category:
+На главном экране выберите любую из категорий клавишей `Enter`, чтобы просмотреть настройки для этой категории.
+Например, вот экран для категории **Smartnode and TX Fees**:
 
 <img src={tui_native_smartnode} width="100%" height="auto" />
 
-Use the `Arrow Keys` to move up and down between the settings.
-The currently selected one will have a white square at the end of it (if it's a text box or a check box), or will be highlighted in white (if it's a drop down).
+Используйте `клавиши со стрелками` для перемещения вверх и вниз между настройками.
+У той, которая в данный момент выбрана, будет белый квадрат в конце (если это текстовое поле или флажок), или она будет выделена белым (если это выпадающий список).
 
-Press `Escape` to go back to the home screen of the Settings Manager when you're done.
+Нажмите `Escape`, чтобы вернуться на главный экран Менеджера настроек, когда закончите.
 
-As you scroll through the settings, each one will show a brief description of what it does in the **Description Box** on the right.
-It will also show the **default value** there in case you want to revert it to its stock setting.
+По мере прокрутки настроек каждая из них будет показывать краткое описание того, что она делает, в **поле Описание** справа.
+Там также будет показано **значение по умолчанию** на случай, если вы хотите вернуть его к стандартной настройке.
 
-In this example, the **RPL Claim Gas Threshold** setting is currently selected (highlighted with a green box on the left-hand side of the screen).
-It has been changed to `40`, but you can see that it has a default of `150` in the top-right corner (the top of the **Description Box**).
+В этом примере в данный момент выбрана настройка **RPL Claim Gas Threshold** (выделена зеленым прямоугольником в левой части экрана).
+Она была изменена на `40`, но вы можете видеть, что она имеет значение по умолчанию `150` в правом верхнем углу (верхняя часть **поля Описание**).
 
-::: tip TIP
-As a reminder, nothing will be saved to disk until you go through the Review dialog via the **Review Changes and Save** button.
-You are encouraged to explore all of the settings to learn about them.
+::: tip СОВЕТ
+Напоминаем, что ничего не будет сохранено на диск, пока вы не пройдете через диалог Review через кнопку **Review Changes and Save**.
+Вам рекомендуется изучить все настройки, чтобы узнать о них.
 :::
 
-### The Setting Types and How to Use Them
+### Типы настроек и как их использовать
 
-The settings manager uses the following setting types and UI elements:
+Менеджер настроек использует следующие типы настроек и элементы пользовательского интерфейса:
 
-#### Text Boxes
+#### Текстовые поля
 
-Text boxes are used to enter arbitrary strings of text or numbers.
-They look like this:
+Текстовые поля используются для ввода произвольных строк текста или чисел.
+Они выглядят так:
 
 <img src={tui_textbox} width="100%" height="auto" />
 
-Enter your desired values into them, then **press `Enter` or use the `Arrow Keys` to navigate to a different setting in order to preserve your changes.**
-If you don't, the Settings Manager will assume you're still updating that setting and won't mark it as changed yet.
+Введите желаемые значения, затем **нажмите `Enter` или используйте `клавиши со стрелками` для навигации к другой настройке, чтобы сохранить ваши изменения.**
+Если вы этого не сделаете, Менеджер настроек будет считать, что вы все еще обновляете эту настройку, и не пометит ее как измененную.
 
-#### Drop Downs
+#### Выпадающие списки
 
-Drop downs are used to select an option from a list of choices.
-They look like this (when they're open):
+Выпадающие списки используются для выбора опции из списка вариантов.
+Они выглядят так (когда они открыты):
 
 <img src={tui_dropdown_open} width="100%" height="auto" />
 
-The **green** item is the one that is currently selected.
-Use the `Arrow Keys` to change options - as you do, the **Description Box** on the right will update to tell you more about the currently selected option.
-When you're happy with your choice, press `Enter` to choose the selected option and the drop down will close, revealing the option that is currently selected:
+**Зеленый** элемент - тот, который в данный момент выбран.
+Используйте `клавиши со стрелками` для изменения опций - по мере этого **поле Описание** справа будет обновляться, чтобы рассказать вам больше о выбранной в данный момент опции.
+Когда вы довольны своим выбором, нажмите `Enter`, чтобы выбрать выбранную опцию, и выпадающий список закроется, показывая опцию, которая в данный момент выбрана:
 
 <img src={tui_dropdown_closed} width="100%" height="auto" />
 
-#### Check Boxes
+#### Флажки
 
-Check boxes are used for simple Yes/No questions.
-They look like this:
+Флажки используются для простых вопросов Да/Нет.
+Они выглядят так:
 
 <img src={tui_checkbox_checked} width="100%" height="auto" />
 
-When they are checked, they will have an `X` in the middle as you see above.
-When they are _unchecked_, they will simply be blank like this:
+Когда они отмечены, у них будет `X` посередине, как вы видите выше.
+Когда они _не отмечены_, они будут просто пустыми, как это:
 
 <img src={tui_checkbox_unchecked} width="100%" height="auto" />
 
-To change the setting, simply select it and press `Enter`.
+Чтобы изменить настройку, просто выберите ее и нажмите `Enter`.
 
-### Saving Changes
+### Сохранение изменений
 
-When you're happy with your changes and you'd like to review them before saving, press the **Review Changes and Save** button on the home screen.
-As a reminder, to get to it, press the `Tab` key.
+Когда вы довольны своими изменениями и хотите просмотреть их перед сохранением, нажмите кнопку **Review Changes and Save** на главном экране.
+Напоминаем, что для этого нажмите клавишу `Tab`.
 
-You will be presented with a view that looks like this:
+Вам будет представлен вид, который выглядит так:
 
 <img src={tui_native_review} width="100%" height="auto" />
 
-The **Review Box** here will present all of the settings you've changed, showing the old values and the new ones.
-For example, the first line here shows that the **RPL Claim Gas Threshold** used to be `150`, and it's been changed to `40`.
+**Поле Review** здесь представит все настройки, которые вы изменили, показывая старые значения и новые.
+Например, первая строка здесь показывает, что **RPL Claim Gas Threshold** раньше был `150`, и он был изменен на `40`.
 
-::: tip NOTE
-At this point, your changes **still haven't been saved yet**.
-If you want to go back and modify something, press `Escape` to return to the home screen.
+::: tip ПРИМЕЧАНИЕ
+На этом этапе ваши изменения **все еще не были сохранены**.
+Если вы хотите вернуться и изменить что-то, нажмите `Escape`, чтобы вернуться на главный экран.
 :::
 
-When you are satisfied with the changes, press `Enter` to save the new configuration to disk.
-You will then exit the Terminal UI and be presented with this message:
+Когда вы удовлетворены изменениями, нажмите `Enter`, чтобы сохранить новую конфигурацию на диск.
+Затем вы выйдете из терминального UI и увидите это сообщение:
 
 ```
 Your changes have been saved!
 Please restart your daemon service for them to take effect.
 ```
 
-If you haven't finished installing Rocket Pool yet, return to the Native setup guide now.
-Otherwise, now you can restart your daemon services with:
+Если вы еще не закончили установку Rocket Pool, вернитесь к руководству по Native установке сейчас.
+В противном случае теперь вы можете перезапустить ваши daemon службы:
 
 ```shell
 sudo systemctl restart rp-node rp-watchtower
 ```
 
-## Configuring via the Command Line
+## Настройка через командную строку
 
-If you use the Smartnode in a headless environment where you can't interact with the Terminal UI, you can configure your node via the command line instead.
+Если вы используете Smartnode в безголовой среде, где вы не можете взаимодействовать с терминальным UI, вы можете настроить свой узел через командную строку вместо этого.
 
-The `rocketpool service config` command accepts, as arguments, every setting that can normally be configured via the Terminal UI.
-Run the following command to see a list of them (note that it's quite long):
+Команда `rocketpool service config` принимает в качестве аргументов каждую настройку, которую обычно можно настроить через терминальный UI.
+Выполните следующую команду, чтобы увидеть их список (обратите внимание, что он довольно длинный):
 
 ```
 rocketpool service config --help
 ```
 
-The output will look like this:
+Вывод будет выглядеть так:
 
 ```
 NAME:
@@ -334,16 +334,16 @@ OPTIONS:
 ...
 ```
 
-Each option will have its name, its type, its default value, and (if it's a choice parameter) its options.
-Using this text, you can find the option(s) you want to set and specify them via the appropriate arguments.
+Каждая опция будет иметь свое имя, свой тип, свое значение по умолчанию и (если это параметр выбора) свои опции.
+Используя этот текст, вы можете найти опцию(и), которую вы хотите установить, и указать их через соответствующие аргументы.
 
-::: tip NOTE
-This command builds on top of your existing configuration, so if you have some settings already saved and just want to modify others, you don't need to repeat them.
-It will only update settings that you include as arguments to this command.
+::: tip ПРИМЕЧАНИЕ
+Эта команда строится поверх вашей существующей конфигурации, поэтому, если у вас уже сохранены некоторые настройки и вы просто хотите изменить другие, вам не нужно их повторять.
+Она обновит только те настройки, которые вы включили в качестве аргументов в эту команду.
 :::
 
-If you haven't finished installing Rocket Pool yet, return to the Native setup guide now.
-Otherwise, the next step is to restart your daemon services with:
+Если вы еще не закончили установку Rocket Pool, вернитесь к руководству по Native установке сейчас.
+В противном случае следующий шаг - перезапустить ваши daemon службы:
 
 ```shell
 sudo systemctl restart rp-node rp-watchtower

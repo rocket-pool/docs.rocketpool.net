@@ -1,37 +1,37 @@
-# Monitoring your Smartnode Stack with Alert Notifications
+# Surveillance de votre stack Smartnode avec des notifications d'alerte
 
-The Smartnode alert notification functionality allows you to receive notifications about the health and important events of your Rocket Pool Smartnode.
+La fonctionnalité de notification d'alerte du Smartnode vous permet de recevoir des notifications sur la santé et les événements importants de votre Smartnode Rocket Pool.
 
-## Alerting System Overview
+## Aperçu du système d'alerte
 
-The notification functionality utilizes [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) to deliver alerts. Alerting requires that you have already followed the [Setting up the Grafana Dashboard](../grafana.mdx) which walks through setting up the Smartnode stack's metrics tracker. The alerts are triggered when important metrics from your Smartnode exceed certain thresholds or when particular events occur like when your node's fee recipient is changed.
+La fonctionnalité de notification utilise [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) pour livrer les alertes. L'alerte nécessite que vous ayez déjà suivi le guide [Configuration du tableau de bord Grafana](../grafana.mdx) qui explique comment configurer le traqueur de métriques de la stack Smartnode. Les alertes sont déclenchées lorsque des métriques importantes de votre Smartnode dépassent certains seuils ou lorsque des événements particuliers se produisent, comme lorsque le destinataire des frais de votre nœud est modifié.
 
-## Setting up Discord Notifications
+## Configuration des notifications Discord
 
-Currently, notifications can be sent to Discord channels. You can configure Discord notifications within the Rocket Pool Text User Interface (TUI) on the "Monitoring / Alerting" page.
+Actuellement, les notifications peuvent être envoyées vers des canaux Discord. Vous pouvez configurer les notifications Discord dans l'interface utilisateur texte (TUI) de Rocket Pool sur la page "Monitoring / Alerting".
 
-### Adding a Discord Webhook URL:
+### Ajout d'une URL de Webhook Discord :
 
-1. Navigate to your desired Discord channel and open its settings.
-2. Under "Integrations," locate and click on "Webhooks."
-3. Click "Create Webhook."
-4. Give your webhook a name and choose a channel to send the alerts to.
-5. Copy the provided Webhook URL.
-6. Within the Rocket Pool TUI, navigate to the "Monitoring / Alerting" page.
-7. Paste the copied Webhook URL into the designated field and save the configuration.
+1. Accédez au canal Discord souhaité et ouvrez ses paramètres.
+2. Sous "Intégrations", localisez et cliquez sur "Webhooks".
+3. Cliquez sur "Créer un Webhook".
+4. Donnez un nom à votre webhook et choisissez un canal pour envoyer les alertes.
+5. Copiez l'URL de Webhook fournie.
+6. Dans le TUI de Rocket Pool, accédez à la page "Monitoring / Alerting".
+7. Collez l'URL de Webhook copiée dans le champ désigné et enregistrez la configuration.
 
-::: tip TIP
-Is your favorite notification missing? The Rocket Pool team is actively looking for feedback from the community regarding additional notification destinations. Feel free to suggest new notification destinations at https://github.com/rocket-pool/smartnode/issues.
+::: tip ASTUCE
+Votre notification préférée est-elle manquante ? L'équipe Rocket Pool recherche activement les retours de la communauté concernant des destinations de notification supplémentaires. N'hésitez pas à suggérer de nouvelles destinations de notification sur https://github.com/rocket-pool/smartnode/issues.
 :::
 
-## Disabling and Enabling Alerts
+## Désactivation et activation des alertes
 
-The Rocket Pool TUI provides a user-friendly interface for managing your alerts. You can access this functionality through the "Monitoring / Alerting" page. This interface allows you to View a list of all configured alerts and Enable or disable individual alerts based on your preference.
+Le TUI de Rocket Pool fournit une interface conviviale pour gérer vos alertes. Vous pouvez accéder à cette fonctionnalité via la page "Monitoring / Alerting". Cette interface vous permet de visualiser une liste de toutes les alertes configurées et d'activer ou de désactiver les alertes individuelles selon vos préférences.
 
-## Advanced Configuration
+## Configuration avancée
 
-::: warning NOTE
-This section is for advanced users who are experienced with Prometheus and modifying YAML files.
+::: warning REMARQUE
+Cette section est destinée aux utilisateurs avancés qui ont de l'expérience avec Prometheus et la modification de fichiers YAML.
 :::
 
-For more advanced configuration of alerts you can add your own based on any metric that is available in the Prometheus container managed by the Smartnode Stack. Add your own yaml file containing [Prometheus Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) into the `~/.rocketpool/alerting/rules/` directory and those rules and restart the Prometheus container with `docker stop rocketpool_prometheus` followed by `docker start rocketpool_prometheus`. Then run `docker logs rocketpool_prometheus` to confirm that Prometheus loaded your configuration file successfully (you want to see a line with _msg="Completed loading of configuration file" filename=/etc/prometheus/prometheus.yml_ and not _err="error loading config from \"/etc/prometheus/prometheus.yml\"..._)
+Pour une configuration plus avancée des alertes, vous pouvez ajouter vos propres alertes basées sur n'importe quelle métrique disponible dans le conteneur Prometheus géré par la stack Smartnode. Ajoutez votre propre fichier yaml contenant des [règles d'alerte Prometheus](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) dans le répertoire `~/.rocketpool/alerting/rules/` et redémarrez le conteneur Prometheus avec `docker stop rocketpool_prometheus` suivi de `docker start rocketpool_prometheus`. Ensuite, exécutez `docker logs rocketpool_prometheus` pour confirmer que Prometheus a chargé votre fichier de configuration avec succès (vous voulez voir une ligne avec _msg="Completed loading of configuration file" filename=/etc/prometheus/prometheus.yml_ et non _err="error loading config from \"/etc/prometheus/prometheus.yml\"..._)

@@ -1,46 +1,46 @@
-# Selecting a Hosting Provider
+# 호스팅 제공업체 선택하기
 
-If you've arrived at this section, then you would like to run a Rocket Pool node but can't set one up locally at your home; you require a **virtual private server (VPS)** hosted on the cloud.
-There are several different services available that can provide such a machine, and they come in two different flavors: VPS providers and public cloud providers.
+이 섹션에 도착하셨다면, Rocket Pool 노드를 실행하고 싶지만 집에서 로컬로 설정할 수 없어서 클라우드에 호스팅되는 **가상 사설 서버(VPS)**가 필요한 상황이실 것입니다.
+이러한 머신을 제공할 수 있는 여러 다양한 서비스가 있으며, VPS 제공업체와 퍼블릭 클라우드 제공업체라는 두 가지 유형으로 나뉩니다.
 
-Choosing the correct one can be difficult, and understanding the differences between them is key.
-In this guide, we'll shine some light onto the distinction and list a few of the services that other Rocket Pool users have leveraged in the past to help you navigate through your options.
+올바른 것을 선택하는 것은 어려울 수 있으며, 이들 간의 차이점을 이해하는 것이 핵심입니다.
+이 가이드에서는 차이점을 명확히 하고 다른 Rocket Pool 사용자들이 과거에 활용했던 몇 가지 서비스를 나열하여 옵션을 탐색하는 데 도움을 드리겠습니다.
 
-## Traditional VPS Hosting
+## 전통적인 VPS 호스팅
 
-A virtual private server is a single instance of a virtual machine that resides on a larger physical machine.
-They are the cheapest option, and they are less-frequently employed than the ubiquitous cloud platforms so they tend to contribute more towards the Ethereum network's decentralization.
+가상 사설 서버는 더 큰 물리적 머신에 상주하는 가상 머신의 단일 인스턴스입니다.
+이들은 가장 저렴한 옵션이며, 유비쿼터스한 클라우드 플랫폼보다 덜 빈번하게 사용되므로 Ethereum 네트워크의 탈중앙화에 더 많이 기여하는 경향이 있습니다.
 
-However, they rarely have high-availability support; if the physical server goes down, it's likely that your VPS hosted on it will go down as well.
-Also, they have a fixed resource footprint; it's usually not possible to increase or decrease resources like CPU and RAM on demand.
+하지만 고가용성 지원이 거의 없습니다. 물리적 서버가 다운되면 그 위에 호스팅된 VPS도 다운될 가능성이 높습니다.
+또한 고정된 리소스 공간을 가지고 있어서 CPU와 RAM 같은 리소스를 온디맨드로 증가하거나 감소시키는 것이 일반적으로 불가능합니다.
 
-As of 10/2024, one well-priced and performant option was the RS 12000 G11 from [Netcup](https://www.netcup.eu/vserver/vps.php).
-One word of warning is that storage is shared with others, so storage IOPs are a potential bottleneck.
+2024년 10월 기준으로, 가격 대비 성능이 좋은 옵션 중 하나는 [Netcup](https://www.netcup.eu/vserver/vps.php)의 RS 12000 G11이었습니다.
+한 가지 주의할 점은 스토리지가 다른 사용자들과 공유되므로 스토리지 IOPs가 잠재적인 병목 지점이 될 수 있다는 것입니다.
 
-## Dedicated Server Hosting
+## 전용 서버 호스팅
 
-Unlike a VPS, a dedicated server is an entire physical device that is rented by you. They are a relatively affordable option, and they are less-frequently employed than the ubiquitous cloud platforms so they tend to contribute more towards the Ethereum network's decentralization.
+VPS와 달리, 전용 서버는 귀하가 임대하는 전체 물리적 장치입니다. 이들은 비교적 저렴한 옵션이며, 유비쿼터스한 클라우드 플랫폼보다 덜 빈번하게 사용되므로 Ethereum 네트워크의 탈중앙화에 더 많이 기여하는 경향이 있습니다.
 
-As of 10/2024 two well-priced and performant options were the Rise and Advanced bare-metal servers from [OVH](https://us.ovhcloud.com/). There are a variety of these that change over time, as well as significant sales. You'll need to check that the [hardware guidelines](../local/hardware.md) are met.
+2024년 10월 기준으로, 가격 대비 성능이 좋은 두 가지 옵션은 [OVH](https://us.ovhcloud.com/)의 Rise와 Advanced 베어메탈 서버였습니다. 시간이 지남에 따라 변경되는 다양한 옵션들과 상당한 할인이 있습니다. [하드웨어 가이드라인](../local/hardware.md)을 충족하는지 확인해야 합니다.
 
-## Cloud Hosting
+## 클라우드 호스팅
 
-Cloud hosting refers to virtual machines that are split across on a distributed network of multiple servers, rather than being hosted on a single physical machine.
-If one of the hosting machines fails, the others can seamlessly take over for it so availability and reliability tend to be extremely high on these platforms.
-They also tend to offer flexible resource options; it's relatively simple to add more CPU, RAM, or disk space on demand.
+클라우드 호스팅은 단일 물리적 머신에 호스팅되는 것이 아니라 여러 서버의 분산 네트워크에 분할되는 가상 머신을 의미합니다.
+호스팅 머신 중 하나가 실패하면 다른 머신들이 원활하게 대체할 수 있으므로 이러한 플랫폼에서는 가용성과 신뢰성이 매우 높은 경향이 있습니다.
+또한 유연한 리소스 옵션을 제공하는 경향이 있어서, 온디맨드로 더 많은 CPU, RAM 또는 디스크 공간을 추가하는 것이 비교적 간단합니다.
 
-Due to these extra benefits, cloud-based servers tend to be more expensive than VPS solutions.
-They're also very popular platforms, so using them generally reduces the overall decentralization of the Ethereum network.
+이러한 추가 이점으로 인해 클라우드 기반 서버는 VPS 솔루션보다 더 비싼 경향이 있습니다.
+또한 매우 인기 있는 플랫폼이므로 이를 사용하면 일반적으로 Ethereum 네트워크의 전체적인 탈중앙화가 감소합니다.
 
-The 3 primary cloud providers are [Amazon Web Services (AWS)](https://aws.amazon.com/), [Microsoft Azure](https://azure.microsoft.com/en-us/), and [Google Cloud Platform (GCP)](https://cloud.google.com/).
-We do not recommend using cloud hosting due to price and centralization concerns.
+3대 주요 클라우드 제공업체는 [Amazon Web Services (AWS)](https://aws.amazon.com/), [Microsoft Azure](https://azure.microsoft.com/en-us/), [Google Cloud Platform (GCP)](https://cloud.google.com/)입니다.
+우리는 가격과 중앙화 우려로 인해 클라우드 호스팅을 권장하지 않습니다.
 
-## Key Considerations
+## 주요 고려 사항
 
-### Price
+### 가격
 
-Cloud hosting solutions are usually a safer choice if cost is not a priority.
-The section below has a more detailed breakdown of cost estimates but here is a general comparison between a VPS option and a cloud option:
+비용이 우선 순위가 아니라면 클라우드 호스팅 솔루션이 일반적으로 더 안전한 선택입니다.
+아래 섹션에는 비용 추정치에 대한 더 자세한 분석이 있지만 여기 VPS 옵션과 클라우드 옵션 간의 일반적인 비교가 있습니다:
 
-- OVH Dedicated Server: $90-160/mo
-- Netcup VPS: $90/mo
+- OVH 전용 서버: $90-160/월
+- Netcup VPS: $90/월

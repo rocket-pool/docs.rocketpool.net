@@ -1,146 +1,146 @@
 ---
 next:
   text: "Tailscale"
-  link: "/en/node-staking/tailscale"
+  link: "/ja/node-staking/tailscale"
 ---
 
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Securing your Node
+# ノードのセキュリティ保護
 
-The goal of this guide is to walk you through steps you can take to secure your node against malicious actors.
-Whether you're running a local server at home or a VPS server / virtual machine on the cloud, the tips here will help you harden your node against outside attack and help protect it during its lifespan.
+このガイドの目的は、悪意のある攻撃者からノードを保護するための手順を説明することです。
+自宅でローカルサーバーを運用している場合でも、クラウド上でVPSサーバーや仮想マシンを運用している場合でも、ここで紹介するヒントは、外部からの攻撃に対してノードを強化し、その寿命の間保護するのに役立ちます。
 
-This section will describe both **essential** actions, which you **must** take, and **nice-to-have** actions, which are helpful but not required.
+このセクションでは、**必須**のアクション（**必ず**実行する必要があるもの）と、**あると良い**アクション（役立ちますが必須ではないもの）の両方を説明します。
 
-::: tip NOTE
-This guide is meant to be an **introduction** to some of the things you can do to harden your node machine.
-If you are comfortable with the command-line terminal and want to go even further in protecting your node, take a look at the popular [imthenachoman/How-To-Secure-A-Linux-Server](https://github.com/imthenachoman/How-To-Secure-A-Linux-Server) guide.
+::: tip 注記
+このガイドは、ノードマシンを強化するためにできることの**入門**として意図されています。
+コマンドラインターミナルに慣れており、ノードをさらに保護したい場合は、人気の高い[imthenachoman/How-To-Secure-A-Linux-Server](https://github.com/imthenachoman/How-To-Secure-A-Linux-Server)ガイドをご覧ください。
 :::
 
-## Assumptions in This Guide
+## このガイドの前提条件
 
-This guide assumes your node runs `Ubuntu 20.04 LTS`.
-The concepts will carry over to other systems but the example commands may not.
+このガイドは、ノードが`Ubuntu 20.04 LTS`で動作していることを前提としています。
+概念は他のシステムにも適用できますが、サンプルコマンドは適用できない場合があります。
 
-As with all of the commands in this guide, we assume that you are connecting **remotely** to your node's command terminal using `ssh`.
-If you need a refresher on how to use `ssh`, take a look at the [Intro to Secure Shell](./ssh) guide first.
+このガイドのすべてのコマンドと同様に、`ssh`を使用してノードのコマンドターミナルに**リモート**で接続していることを前提としています。
+`ssh`の使い方を復習する必要がある場合は、まず[Secure Shellの紹介](./ssh)ガイドをご覧ください。
 
-## ESSENTIAL: Keep your Client Machine Secure
+## 必須: クライアントマシンのセキュリティを確保する
 
-::: warning NOTE
-If you use your Smartnode locally (by physically logging into it with a keyboard and monitor directly attached to it), then **this section is not relevant to you - you can skip it**.
+::: warning 注記
+Smartnodeをローカルで使用している（キーボードとモニターを直接接続して物理的にログインしている）場合、**このセクションは関係ありません - スキップできます**。
 :::
 
-Most Smartnode operators interact with their node remotely by connecting to its terminal from another computer using `ssh`:
+ほとんどのSmartnodeオペレーターは、`ssh`を使用して別のコンピューターからターミナルに接続することで、ノードとリモートでやり取りします。
 
-- The machine you connect _to_ (in this case, your node machine) is called the **server**.
-- The machine you connect _from_ (such as your laptop, desktop, or even your phone) is the **client**.
+- 接続_先_のマシン（この場合、ノードマシン）は**サーバー**と呼ばれます。
+- 接続_元_のマシン（ラップトップ、デスクトップ、さらにはスマートフォンなど）は**クライアント**と呼ばれます。
 
-One of the most important things you can do to secure your Smartnode is to **keep your client machine secure**.
-If your client machine is compromised and you use it to log into your node, then most of the security settings you apply to the node can be bypassed.
+Smartnodeを保護するために最も重要なことの1つは、**クライアントマシンのセキュリティを確保する**ことです。
+クライアントマシンが侵害され、それを使用してノードにログインした場合、ノードに適用するセキュリティ設定のほとんどをバイパスできます。
 
-For example: if you use a laptop as an SSH client, and it has a [keylogger](https://en.wikipedia.org/wiki/Keystroke_logging) installed, then any secret things you type on the node (such as your password or recovery mnemonic) when connected via SSH will be stolen.
+たとえば、ラップトップをSSHクライアントとして使用し、[キーロガー](https://en.wikipedia.org/wiki/Keystroke_logging)がインストールされている場合、SSH経由で接続しているときにノードで入力した秘密のもの（パスワードやリカバリーニーモニックなど）は盗まれます。
 
-There is no definitive guide to keeping your client machine secure, but being aware that it is a factor in your security is a good first step.
-Make sure that your client machine is as secure as it can be.
+クライアントマシンのセキュリティを確保するための決定的なガイドはありませんが、それがセキュリティの要因であることを認識することは良い第一歩です。
+クライアントマシンができる限り安全であることを確認してください。
 
-Here are a few tips:
+いくつかのヒントを以下に示します。
 
-- Don't use your client machine for **risky activities** (such as visiting untrustworthy websites or installing unnecessary programs)
-- Keep your client machine updated with the **latest security patches**
-- If possible, use a **malware and antivirus protection** program for your Operating System
+- クライアントマシンを**危険な活動**（信頼できないウェブサイトへのアクセスや不要なプログラムのインストールなど）に使用しない
+- クライアントマシンを**最新のセキュリティパッチ**で更新し続ける
+- 可能であれば、オペレーティングシステム用の**マルウェアおよびアンチウイルス保護**プログラムを使用する
 
-For maximum security, you may want to use a **dedicated machine** as your SSH client, though this may not be practical for you.
+最大限のセキュリティを確保するために、SSHクライアントとして**専用マシン**を使用することをお勧めしますが、これは実用的ではない場合があります。
 
-## ESSENTIAL: Secure your SSH Access
+## 必須: SSHアクセスのセキュリティを確保する
 
-::: warning NOTE
-If you use your Smartnode locally (by physically logging into it with a keyboard and monitor directly attached to it), then **this section is not relevant to you - you can skip it**.
+::: warning 注記
+Smartnodeをローカルで使用している（キーボードとモニターを直接接続して物理的にログインしている）場合、**このセクションは関係ありません - スキップできます**。
 :::
 
-Whether you run your Smartnode at home or you use a VPS in a remote datacenter, it is likely that either you access it through SSH, or that SSH is enabled **even if you do not use it**.
+自宅でSmartnodeを運用している場合でも、リモートデータセンターでVPSを使用している場合でも、SSH経由でアクセスするか、**使用していなくてもSSHが有効になっている**可能性があります。
 
-SSH connections are based on secure cryptography, but as with any secure system, the real security comes from using it correctly.
-There are two main things to do for your SSH settings:
+SSH接続は安全な暗号化に基づいていますが、すべての安全なシステムと同様に、本当のセキュリティは正しく使用することから生まれます。
+SSH設定で行うべき主なことは2つあります。
 
-1. Use an SSH key to log in remotely instead of a username and password
-2. Disable password-based authentication entirely, so SSH keys are the only remote login option
+1. ユーザー名とパスワードの代わりにSSHキーを使用してリモートログインする
+2. パスワードベースの認証を完全に無効にし、SSHキーのみをリモートログインオプションにする
 
-As you are probably familiar with now, the default way to log into your node via SSH is with a username and password.
-The downside of this is that your password is typically something rather "short" and susceptible to [brute-force attacks](https://en.wikipedia.org/wiki/Brute-force_attack).
+おそらくご存知のとおり、SSH経由でノードにログインするデフォルトの方法は、ユーザー名とパスワードを使用することです。
+これの欠点は、パスワードが通常かなり「短く」、[ブルートフォース攻撃](https://en.wikipedia.org/wiki/Brute-force_attack)に対して脆弱であることです。
 
-Luckily, there is an alternative way to log in via SSH: an **SSH key pair**.
+幸いなことに、SSH経由でログインする別の方法があります。**SSHキーペア**です。
 
-SSH key pairs work similarly to blockchain wallets; they come with a public part (such as your wallet address) and a private part (the private key for your wallet address):
+SSHキーペアはブロックチェーンウォレットと同様に機能します。公開部分（ウォレットアドレスなど）と秘密部分（ウォレットアドレスの秘密鍵）が付属しています。
 
-- You provide the **public part** to your node. This way, the node knows you're allowed to connect to it, and it knows that it's really you trying to connect.
-- You keep the **private part** to yourself on your client machine. This way, you (and only you) can connect to your node.
-  - You can (and should!) protect the private part with a **password**, so someone who steals your key can't use it.
-- From a computer's perspective, the private key is **exponentially harder** to crack than a password is. This mitigates the risk of a brute-force attack against your node.
+- **公開部分**をノードに提供します。これにより、ノードはあなたが接続を許可されていることを認識し、実際にあなたが接続しようとしていることを認識します。
+- **秘密部分**はクライアントマシンに保管します。これにより、あなた（そしてあなただけ）がノードに接続できます。
+  - 秘密部分を**パスワード**で保護できます（そしてすべきです！）。これにより、キーを盗んだ人がそれを使用できなくなります。
+- コンピューターの観点から見ると、秘密鍵はパスワードよりも**指数関数的に解読が困難**です。これにより、ノードに対するブルートフォース攻撃のリスクが軽減されます。
 
-::: tip TIP
-If you'd like to learn more about SSH key pairs before creating your own, take a look at these links:
+::: tip ヒント
+SSHキーペアを作成する前に詳しく知りたい場合は、以下のリンクをご覧ください。
 
 - [https://canvas.cse.taylor.edu/courses/27/pages/ssh-key-tutorial](https://canvas.cse.taylor.edu/courses/27/pages/ssh-key-tutorial)
 - [https://www.ssh.com/academy/ssh/host-key](https://www.ssh.com/academy/ssh/host-key)
 
 :::
 
-### Creating an SSH Key Pair
+### SSHキーペアの作成
 
-Let's start by creating a new SSH key pair **on your client machine**.
-There are many varieties of key out there, but we're going to use a key type called [ed25519](https://en.wikipedia.org/wiki/EdDSA#Ed25519) which provides excellent security.
+**クライアントマシン**で新しいSSHキーペアを作成することから始めましょう。
+キーにはさまざまな種類がありますが、優れたセキュリティを提供する[ed25519](https://en.wikipedia.org/wiki/EdDSA#Ed25519)と呼ばれるキータイプを使用します。
 
-Run the following command **on your client machine** (i.e., you should **not** run this while already SSH'd into your node machine - if you are, **exit out of SSH first**):
+**クライアントマシン**で次のコマンドを実行します（つまり、ノードマシンにSSH接続している間にこれを実行**しないでください** - 接続している場合は、**最初にSSHから抜けてください**）。
 
 ```shell
 ssh-keygen -t ed25519 -C "your_email@example.com"
 ```
 
-You will see the following:
+次のように表示されます。
 
 ```
 Generating public/private ed25519 key pair.
 Enter file in which to save the key (/home/username/.ssh/id_ed25519):
 ```
 
-This asks you where you would like to save your private key file.
-SSH is compatible with the provided default and will automatically use it for you if you select it.
-However, you have the option of changing it to something else if you wish.
+これは、秘密鍵ファイルを保存する場所を尋ねています。
+SSHは提供されたデフォルトと互換性があり、それを選択すると自動的に使用されます。
+ただし、必要に応じて別のものに変更することもできます。
 
-::: tip NOTE
-The path `/home/username/.ssh/id_ed25519` is just an example, assuming your username is `username`.
-You likely have a different username.
-Whenever you see a path like the above in this guide, replace it with whatever path your system actually prints with your actual username.
+::: tip 注記
+パス`/home/username/.ssh/id_ed25519`は単なる例で、ユーザー名が`username`であると仮定しています。
+おそらく別のユーザー名を持っています。
+このガイドで上記のようなパスが表示された場合は、システムが実際のユーザー名で実際に出力したパスに置き換えてください。
 :::
 
-If you are comfortable with the default setting, simply press `Enter`.
+デフォルト設定で問題ない場合は、単に`Enter`を押してください。
 
-Otherwise, type your desired location for the key.
-It must be an absolute path (e.g. `/home/username/.ssh/rocketpool_key` on Linux, or `/Users/username/.ssh/rocketpool_key` on OSX).
-Press `Enter` when you're done.
+それ以外の場合は、キーの希望の場所を入力してください。
+絶対パスである必要があります（例：Linuxでは`/home/username/.ssh/rocketpool_key`、macOSでは`/Users/username/.ssh/rocketpool_key`）。
+完了したら`Enter`を押してください。
 
-After pressing `Enter`, you will see:
+`Enter`を押すと、次のように表示されます。
 
 ```
 Enter passphrase (empty for no passphrase):
 ```
 
-**This will become the password for the private key itself**.
-Whenever you use the key to connect to your node, you will need to enter this password first.
+**これが秘密鍵自体のパスワードになります**。
+ノードに接続するためにキーを使用するたびに、最初にこのパスワードを入力する必要があります。
 
-::: danger WARNING
-**You should not leave this blank** - otherwise, anyone with the SSH key file will be able to use it!
-Pick a good password that you (and only you) will know.
+::: danger 警告
+**これを空白のままにしないでください** - そうしないと、SSHキーファイルを持っている人なら誰でも使用できるようになります！
+あなた（そしてあなただけ）が知っている良いパスワードを選択してください。
 
-Also, **don't forget your password** - there is no way to recover this password if you lose it.
+また、**パスワードを忘れないでください** - このパスワードを失った場合、回復する方法はありません。
 :::
 
-Once you finish typing the password, press `Enter`.
-It will ask you to retype it for confirmation.
+パスワードの入力が完了したら、`Enter`を押してください。
+確認のために再入力するように求められます。
 
-After that, you will see something like the following output:
+その後、次のような出力が表示されます。
 
 ```
 Your identification has been saved in /home/username/.ssh/id_ed25519
@@ -161,75 +161,75 @@ The key's randomart image is:
 +----[SHA256]-----+
 ```
 
-The first line states the location of the **private key**, which is called `id_ed25519` by default (notice that it does not have a file extension).
-Ubuntu will load this key for you automatically when you use `ssh` if this private key file is in the default location.
+最初の行は**秘密鍵**の場所を示しており、デフォルトでは`id_ed25519`と呼ばれます（ファイル拡張子がないことに注意してください）。
+この秘密鍵ファイルがデフォルトの場所にある場合、Ubuntuは`ssh`を使用するときに自動的にこのキーを読み込みます。
 
-The second line states the location of the **public key**, which is called `id_ed25519.pub` by default.
-We'll need the public key for the next step.
+2行目は**公開鍵**の場所を示しており、デフォルトでは`id_ed25519.pub`と呼ばれます。
+次のステップで公開鍵が必要になります。
 
-::: tip NOTE
-Ubuntu _should_ load this new key automatically.
-However, some systems (such as macOS machines) will not load it automatically - you will have to tell it to do this with the following command **on your client machine**:
+::: tip 注記
+Ubuntuはこの新しいキーを自動的に読み込む_はず_です。
+ただし、一部のシステム（macOSマシンなど）は自動的に読み込まれません - **クライアントマシン**で次のコマンドを使用してこれを行うように指示する必要があります。
 
 ```shell
 ssh-add $HOME/.ssh/id_ed25519
 ```
 
-Note that this is the path of the **private key** that we generated in the previous step, **not the public key**.
-Replace the path with whatever your system printed in that previous step.
+これは、前のステップで生成した**秘密鍵**のパスであり、**公開鍵ではない**ことに注意してください。
+前のステップでシステムが出力したパスに置き換えてください。
 
-If you get an error saying that the `ssh-agent` is not running, start it by running the following command **on your client machine**:
+`ssh-agent`が実行されていないというエラーが表示された場合は、**クライアントマシン**で次のコマンドを実行して起動します。
 
 ```shell
 eval $(ssh-agent)
 ```
 
-If you don't want to type these two commands every time you open the terminal, you can create a shortcut for adding your key by adding an `alias` to your `~/.bashrc` file.
+ターミナルを開くたびにこれらの2つのコマンドを入力したくない場合は、`~/.bashrc`ファイルに`alias`を追加して、キーを追加するためのショートカットを作成できます。
 
-Open the file using the text editor:
+テキストエディタでファイルを開きます。
 
 ```shell
 nano ~/.bashrc
 ```
 
-Add this line to the end (assuming you used the default path for the private key - update as necessary):
+最後に次の行を追加します（秘密鍵にデフォルトのパスを使用したと仮定して - 必要に応じて更新してください）。
 
 ```shell
 alias loadkey='ssh-add $HOME/.ssh/id_ed25519'
 ```
 
-Save and exit with `Ctrl+O` and `Enter`, then `Ctrl+X`.
-Next, close and open your terminal for the changes to take effect.
+`Ctrl+O`と`Enter`で保存して終了し、次に`Ctrl+X`で終了します。
+次に、ターミナルを閉じて開き、変更を有効にします。
 
-You can now type `loadkey` **on your client machine** to load the key.
+これで、**クライアントマシン**で`loadkey`と入力してキーを読み込むことができます。
 :::
 
-### Adding the Public Key to your Node
+### ノードへの公開鍵の追加
 
-Once you have your SSH key pair, you can now add the **public key** to your node.
-This will let you connect to it over `ssh` using the private key you just generated, instead of your username and password.
+SSHキーペアを取得したら、**公開鍵**をノードに追加できます。
+これにより、生成した秘密鍵を使用して`ssh`経由で接続できるようになり、ユーザー名とパスワードの代わりになります。
 
-There are two ways to do this - if one doesn't work, try the other way:
+これを行うには2つの方法があります - 一方が機能しない場合は、もう一方の方法を試してください。
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Using ssh-copy-id">
-      **Note**: if your client machine is running Windows, `ssh-copy-id` is not yet available.
-      Please follow the instructions in the "Manually Adding the Key" tab.
+    <Tab label="ssh-copy-idを使用する">
+      **注記**: クライアントマシンがWindowsを実行している場合、`ssh-copy-id`はまだ利用できません。
+      「手動でキーを追加する」タブの手順に従ってください。
 
-      Run the following command **on your client machine**:
+      **クライアントマシン**で次のコマンドを実行します。
 
       ```shell
       ssh-copy-id -i $HOME/.ssh/id_ed25519.pub username@node.ip.address
       ```
 
-      For example, if my username on the node was `staker` and my node's IP address was `192.168.1.10`, I would run the following command:
+      たとえば、ノード上のユーザー名が`staker`で、ノードのIPアドレスが`192.168.1.10`の場合、次のコマンドを実行します。
 
       ```shell
       ssh-copy-id -i $HOME/.ssh/id_ed25519.pub staker@192.168.1.10
       ```
 
-      You will see some messages like the following:
+      次のようなメッセージが表示されます。
 
       ```
       /usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/home/username/.ssh/id_ed25519.pub"
@@ -237,13 +237,13 @@ There are two ways to do this - if one doesn't work, try the other way:
       /usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
       ```
 
-      This tells you that it's trying to log in with your key first to make sure it isn't already there.
-      Once it fails logging in, it knows that it's OK to add the new public key to the node machine.
+      これは、キーが既にそこにないことを確認するために、最初にキーでログインしようとしていることを示しています。
+      ログインに失敗すると、新しい公開鍵をノードマシンに追加しても問題ないことがわかります。
 
-      It will then prompt you for the **password of the user on your node machine**.
-      (_Note that this is **not the password of the SSH key**!_)
+      次に、**ノードマシン上のユーザーのパスワード**を要求されます。
+      （_これは**SSHキーのパスワードではありません**！_）
 
-      Enter your user's password, and you will see the following output:
+      ユーザーのパスワードを入力すると、次の出力が表示されます。
 
       ```
       Number of key(s) added: 1
@@ -252,187 +252,187 @@ There are two ways to do this - if one doesn't work, try the other way:
       and check to make sure that only the key(s) you wanted were added.
       ```
 
-      That means it worked!
+      それは成功したことを意味します！
     </Tab>
-    <Tab label="Manually Adding the Key">
-      Start by getting the contents of the **public key** - run this command **on your client machine**:
+    <Tab label="手動でキーを追加する">
+      **公開鍵**の内容を取得することから始めます - **クライアントマシン**で次のコマンドを実行します。
 
-      - On macOS and Linux:
+      - macOSとLinuxの場合:
 
       ```shell
       cat ~/.ssh/id_ed25519.pub
       ```
 
-      - On Windows (Command Prompt):
+      - Windowsの場合（コマンドプロンプト）:
 
       ```shell
       type %USERPROFILE%\.ssh\id_ed25519.pub
       ```
 
-      - On Windows (PowerShell):
+      - Windowsの場合（PowerShell）:
 
       ```shell
       type $ENV:UserProfile\.ssh\id_ed25519.pub
       ```
 
-      The output will look something like this:
+      出力は次のようになります。
 
       ```
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGUgU3a6mNjy3N1TyWOwY+VA/nifAeABl2Ch2yIl1bGa your_email@example.com
       ```
 
-      This is your **public key**.
-      Copy this output and store it somewhere convenient - you're going to need it in a minute.
+      これがあなたの**公開鍵**です。
+      この出力をコピーして便利な場所に保存してください - すぐに必要になります。
 
-      Next, use `ssh` to connect to your node like you normally would (using your node's username and password).
+      次に、`ssh`を使用して通常どおりノードに接続します（ノードのユーザー名とパスワードを使用）。
 
-      Once you're connected to your node, run the following commands:
+      ノードに接続したら、次のコマンドを実行します。
 
       ```shell
       mkdir -p ~/.ssh
       nano ~/.ssh/authorized_keys
       ```
 
-      The second command will open a text editor for the file used to store all of the public keys that your node's user account trusts.
+      2番目のコマンドは、ノードのユーザーアカウントが信頼するすべての公開鍵を保存するために使用されるファイルのテキストエディタを開きます。
 
-      In this file, paste the **public key** that you retrieved a few steps ago using the `cat` command (the whole line starting with `ssh-ed25519`).
+      このファイルで、数ステップ前に`cat`コマンドを使用して取得した**公開鍵**を貼り付けます（`ssh-ed25519`で始まる行全体）。
 
-      When it's in, save the file with `Ctrl+O` and `Enter`, then press `Ctrl+X` to exit.
+      完了したら、`Ctrl+O`と`Enter`でファイルを保存し、`Ctrl+X`を押して終了します。
 
-      Now, exit `ssh` by running the `exit` command so you return back to your local client machine's terminal.
+      次に、`exit`コマンドを実行して`ssh`を終了し、ローカルクライアントマシンのターミナルに戻ります。
     </Tab>
 
   </Tabs>
 </div>
 
-You should now be able to `ssh` into the node like you normally would, but now you won't have to type the password of the user account.
+これで、通常どおり`ssh`でノードにログインできるようになりますが、ユーザーアカウントのパスワードを入力する必要はなくなりました。
 
-Instead, you will have to type **the password of your SSH private key**.
-Depending on your system settings, you may only have to do this once per restart, or you may have to do it every time you use the key to connect to your node.
+代わりに、**SSH秘密鍵のパスワード**を入力する必要があります。
+システム設定によっては、再起動ごとに1回だけ入力する必要がある場合もあれば、ノードに接続するためにキーを使用するたびに入力する必要がある場合もあります。
 
-### Disable Login-via-Password
+### パスワードでのログインを無効にする
 
-Even though you have an SSH key pair set up, your node will still allow other machines to try to log in using the username and password method.
-This defeats the entire purpose of using SSH keys in the first place, so the next step is to disable those.
+SSHキーペアが設定されていても、ノードは他のマシンがユーザー名とパスワード方式を使用してログインしようとすることを許可します。
+これはSSHキーを使用する目的全体を無効にするため、次のステップはそれらを無効にすることです。
 
-::: danger NOTE
-You are about to modify the SSH server's configuration.
-All of your **existing** SSH sessions will be preserved.
-However, if you make a mistake, then it's possible that you will not be able to create **new** SSH sessions anymore and effectively lock yourself out of the machine.
+::: danger 注記
+これからSSHサーバーの構成を変更します。
+**既存の**SSHセッションはすべて保持されます。
+ただし、間違えた場合、**新しい**SSHセッションを作成できなくなり、事実上マシンからロックアウトされる可能性があります。
 
-To prevent this, we strongly recommend that you create **2 SSH sessions** for the next steps - one for editing things and testing, and one as a backup so you can revert any breaking changes.
+これを防ぐために、次のステップでは**2つのSSHセッション**を作成することを強くお勧めします - 1つは編集とテスト用、もう1つはバックアップとして、破壊的な変更を元に戻すことができます。
 :::
 
-Start by logging into your machine using `ssh` as usual:
+通常どおり`ssh`を使用してマシンにログインすることから始めます。
 
 ```shell
 ssh user@your.node.ip.address
 ```
 
-As a reminder, **you should do this twice on two separate terminals so you have a backup session just in case**.
-You can ignore the backup session for now - we'll tell you when you need it.
-Run the following commands **only in the first session**.
+注意として、**念のため、2つの別々のターミナルでこれを2回実行する必要があります**。
+バックアップセッションは今のところ無視できます - 必要なときに通知します。
+次のコマンドは**最初のセッションでのみ**実行してください。
 
-Open the configuration file for the SSH server:
+SSHサーバーの構成ファイルを開きます。
 
 ```shell
 sudo nano /etc/ssh/sshd_config
 ```
 
-As with all commands that start with `sudo`, this will prompt you for your **user account's password**.
-This is a large file, so you'll have to navigate through it using the arrow keys on your keyboard or `Page Up` / `Page Down`.
+`sudo`で始まるすべてのコマンドと同様に、これは**ユーザーアカウントのパスワード**を要求します。
+これは大きなファイルなので、キーボードの矢印キーまたは`Page Up` / `Page Down`を使用してナビゲートする必要があります。
 
-Make the following changes:
+次の変更を加えます。
 
-1. Uncomment `#AuthorizedKeysFile` if it is commented (by removing the `#` in front of it)
-2. Change `KbdInteractiveAuthentication yes` to `KbdInteractiveAuthentication no` and uncomment (by removing the `#` in front of it) - **note that older versions of SSH call this option `ChallengeResponseAuthentication` instead of `KbdInteractiveAuthentication`**
-3. Change `PasswordAuthentication yes` to `PasswordAuthentication no` and uncomment (by removing the `#` in front of it)
-4. Change `PermitRootLogin yes` to `PermitRootLogin prohibit-password` unless it's already set to that and has a `#` in front of it
+1. コメントされている場合は`#AuthorizedKeysFile`のコメントを解除します（前の`#`を削除します）
+2. `KbdInteractiveAuthentication yes`を`KbdInteractiveAuthentication no`に変更し、コメントを解除します（前の`#`を削除します） - **古いバージョンのSSHでは、このオプションは`KbdInteractiveAuthentication`ではなく`ChallengeResponseAuthentication`と呼ばれることに注意してください**
+3. `PasswordAuthentication yes`を`PasswordAuthentication no`に変更し、コメントを解除します（前の`#`を削除します）
+4. `PermitRootLogin yes`を`PermitRootLogin prohibit-password`に変更します（既にそれに設定されていて前に`#`がない場合を除く）
 
-Once you're done, save with `Ctrl+O` and `Enter`, then exit with `Ctrl+X`.
+完了したら、`Ctrl+O`と`Enter`で保存し、`Ctrl+X`で終了します。
 
-Finally, run `sudo sshd -T | grep -i passwordauthentication` and make sure that it prints `passwordauthentication no`.  
-If it does not, you may need to run `sudo nano /etc/ssh/sshd_config.d/50-cloud-init.conf` and set `PasswordAuthentication yes` to `PasswordAuthentication no` in that file as well.
-Save and exit as before, with `Ctrl+O` and `Enter`, then `Ctrl+X`
+最後に、`sudo sshd -T | grep -i passwordauthentication`を実行し、`passwordauthentication no`が出力されることを確認します。
+出力されない場合は、`sudo nano /etc/ssh/sshd_config.d/50-cloud-init.conf`を実行し、そのファイルでも`PasswordAuthentication yes`を`PasswordAuthentication no`に設定する必要がある場合があります。
+前と同じように保存して終了し、`Ctrl+O`と`Enter`、次に`Ctrl+X`で終了します。
 
-Next, restart the SSH server so it picks up the new settings:
+次に、SSHサーバーを再起動して新しい設定を取得します。
 
 ```shell
 sudo systemctl restart ssh.service
 ```
 
-After this, logging into SSH via a username and password should be disabled.
+この後、ユーザー名とパスワードを介したSSHログインが無効になります。
 
-::: warning NOTE
-At this point, you should exit the SSH session and try to SSH back in.
-If you are able to do so successfully, then your SSH configuration is still valid!
+::: warning 注記
+この時点で、SSHセッションを終了し、再度SSHで接続してみる必要があります。
+正常に接続できる場合、SSH構成はまだ有効です！
 
-If you are **not** able to get back in, then something has gone wrong with your configuration.
-Use the backup SSH session you created at the start of this section to modify the `/etc/ssh/sshd_config` file.
+接続**できない**場合は、構成に何か問題が発生しています。
+このセクションの最初に作成したバックアップSSHセッションを使用して、`/etc/ssh/sshd_config`ファイルを変更します。
 
-Try to find the mistake or undo your changes, then restart the SSH server using `sudo systemctl restart sshd`.
+間違いを見つけるか、変更を元に戻してから、`sudo systemctl restart sshd`を使用してSSHサーバーを再起動してください。
 
-Once it's been restarted, try connecting with SSH again on your "other" terminal.
-Keep doing this until you have it working again and are able to successfully connect.
+再起動されたら、「他の」ターミナルでSSHで再度接続してみてください。
+再び正常に接続できるまでこれを続けてください。
 :::
 
-### (Optional) Enable Two-Factor Authentication
+### （オプション）二要素認証を有効にする
 
-Two-factor authentication involves requiring a second security measure in addition to your password or SSH key, usually on a separate device from your primary one.
+二要素認証には、通常、パスワードまたはSSHキーに加えて、プライマリデバイスとは別のデバイスで2番目のセキュリティ対策が必要です。
 
-For example, you may be familiar with logging into a website such as a crypto exchange using both a password and a Google Authenticator code (or an SMS code).
-This two-step process is an example of two-factor authentication.
+たとえば、暗号通貨取引所などのウェブサイトにパスワードとGoogle Authenticatorコード（またはSMSコード）の両方を使用してログインすることに慣れているかもしれません。
+この2ステップのプロセスは、二要素認証の例です。
 
-SSH can also be configured to require a Google Authenticator code, which means that an attacker that somehow compromised your SSH key and its passphrase would **still need the device with the authenticator app on it** (presumably your phone).
-This adds an extra layer of security to your system.
+SSHはGoogle Authenticatorコードを要求するように構成することもできます。これは、何らかの方法でSSHキーとそのパスフレーズを侵害した攻撃者が、**認証アプリがインストールされたデバイス**（おそらくあなたの電話）を**まだ必要とする**ことを意味します。
+これにより、システムにセキュリティの層が追加されます。
 
-::: danger WARNING
-We **strongly recommend** that you open a second terminal with an SSH connection to your node, just in case you misconfigure something.
-This way, you will have a backup that is still connected in case you lock yourself out, so you can easily undo your mistakes.
+::: danger 警告
+何かを誤って構成した場合に備えて、ノードへのSSH接続を備えた2番目のターミナルを開くことを**強くお勧めします**。
+これにより、ロックアウトされた場合でもバックアップが接続されているため、間違いを簡単に元に戻すことができます。
 
-If you **do** manage to lock yourself out, you will need to physically access your node via its local monitor and keyboard to log in and repair the misconfiguration.
+**ロックアウト**された場合、ログインして誤った構成を修復するには、ローカルモニターとキーボードを介してノードに物理的にアクセスする必要があります。
 :::
 
-Start by installing [Google Authenticator](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en_US&gl=US) (or a compatible equivalent) on your phone if you don't already have it.
-For Android users, consider [andOTP](https://play.google.com/store/apps/details?id=org.shadowice.flocke.andotp&hl=en_US&gl=US) which is an open-source alternative that supports password locking and convenient backups.
+まず、まだインストールしていない場合は、電話に[Google Authenticator](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en_US&gl=US)（または互換性のある同等のもの）をインストールします。
+Androidユーザーの場合、パスワードロックと便利なバックアップをサポートするオープンソースの代替として[andOTP](https://play.google.com/store/apps/details?id=org.shadowice.flocke.andotp&hl=en_US&gl=US)を検討してください。
 
-Next, install the Google Authenticator module on your node with this command:
+次に、次のコマンドでノードにGoogle Authenticatorモジュールをインストールします。
 
 ```shell
 sudo apt install -y libpam-google-authenticator
 ```
 
-Now tell the `PAM` (pluggable authentication modules) to use this module.
-First, open the config file:
+次に、このモジュールを使用するように`PAM`（プラグイン可能な認証モジュール）に指示します。
+まず、構成ファイルを開きます。
 
 ```shell
 sudo nano /etc/pam.d/sshd
 ```
 
-Find `@include common-auth` (it should be at the top) and comment it out by adding a `#` in front of it, so it looks like this:
+`@include common-auth`を見つけて（先頭にあるはずです）、前に`#`を追加してコメントアウトします。次のようになります。
 
 ```
 # Standard Un*x authentication.
 #@include common-auth
 ```
 
-Next, add these lines to the top of the file:
+次に、これらの行をファイルの先頭に追加します。
 
 ```shell
 # Enable Google Authenticator
 auth required pam_google_authenticator.so
 ```
 
-Then save and exit the file with `Ctrl+O`, `Enter`, and `Ctrl+X`.
+次に、`Ctrl+O`、`Enter`、`Ctrl+X`でファイルを保存して終了します。
 
-Now that `PAM` knows to use Google Authenticator, the next step is to tell `sshd` to use `PAM`.
-Open the `sshd` config file:
+`PAM`がGoogle Authenticatorを使用することを認識したので、次のステップは`sshd`に`PAM`を使用するように指示することです。
+`sshd`構成ファイルを開きます。
 
 ```shell
 sudo nano /etc/ssh/sshd_config
 ```
 
-Now change the line `KbdInteractiveAuthentication no` to `KbdInteractiveAuthentication yes` so it looks like this:
+次に、`KbdInteractiveAuthentication no`の行を`KbdInteractiveAuthentication yes`に変更して、次のようにします。
 
 ```
 # Change to yes to enable challenge-response passwords (beware issues with
@@ -440,32 +440,32 @@ Now change the line `KbdInteractiveAuthentication no` to `KbdInteractiveAuthenti
 KbdInteractiveAuthentication yes
 ```
 
-(Older versions of SSH call this option `ChallengeResponseAuthentication` instead of `KbdInteractiveAuthentication`.)
+（古いバージョンのSSHでは、このオプションは`KbdInteractiveAuthentication`ではなく`ChallengeResponseAuthentication`と呼ばれます。）
 
-Add the following line to the bottom of the file, which indicates to `sshd` that it needs both an SSH key and the Google Authenticator code:
+ファイルの最後に次の行を追加します。これは、SSHキーとGoogle Authenticatorコードの両方が必要であることを`sshd`に示します。
 
 ```shell
 AuthenticationMethods publickey,keyboard-interactive:pam
 ```
 
-Then save and exit the file with `Ctrl+O`, `Enter`, and `Ctrl+X`.
+次に、`Ctrl+O`、`Enter`、`Ctrl+X`でファイルを保存して終了します。
 
-Now that `sshd` is set up, we need to create our 2FA codes.
-In your terminal, run:
+`sshd`が設定されたので、2FAコードを作成する必要があります。
+ターミナルで実行します。
 
 ```shell
 google-authenticator
 ```
 
-First, it will ask you about time-based tokens.
-Say `y` to this question:
+まず、時間ベースのトークンについて尋ねられます。
+この質問に`y`と答えてください。
 
 ```
 Do you want authentication tokens to be time-based: y
 ```
 
-You will now see a big QR code on your screen; scan it with your Google Authenticator app to add it.
-You will also see your secret and a few backup codes looking like this:
+画面に大きなQRコードが表示されます。Google Authenticatorアプリでスキャンして追加します。
+また、次のようにシークレットといくつかのバックアップコードも表示されます。
 
 ```
 Your new secret key is: IRG2TALMR5U2LK5VQ5AQIG3HA4
@@ -478,12 +478,12 @@ Your emergency scratch codes are:
   82649596
 ```
 
-::: warning NOTE
-Record the emergency scratch codes somewhere safe in case you need to log into the machine but don't have your 2FA app handy.
-Without the app, you will no longer be able to SSH into the machine!
+::: warning 注記
+2FAアプリが手元にない場合にマシンにログインする必要がある場合に備えて、緊急スクラッチコードを安全な場所に記録してください。
+アプリがないと、SSHでマシンにログインできなくなります！
 :::
 
-Finally, it will ask you for some more parameters; the recommended defaults are as follows:
+最後に、いくつかのパラメータについて尋ねられます。推奨されるデフォルトは次のとおりです。
 
 ```
 Do you want me to update your "/<username>/.google_authenticator" file: y
@@ -492,33 +492,33 @@ By default... < long story about time skew > ... Do you want to do so: n
 Do you want to enable rate-limiting: y
 ```
 
-Once you're done, restart `sshd` so it grabs the new settings:
+完了したら、`sshd`を再起動して新しい設定を取得します。
 
 ```shell
 sudo systemctl restart sshd
 ```
 
-When you try to SSH into your server with your SSH keys, you should now also be asked for a 2FA verification code, but not for a password.
+SSHキーでサーバーにSSH接続しようとすると、パスワードは要求されませんが、2FA確認コードも要求されるようになります。
 
-## ESSENTIAL: Enable Automatic Security Updates
+## 必須: 自動セキュリティ更新を有効にする
 
-Operating System vendors routinely publish updates and security fixes, so it is important that you keep your system up to date with the latest patches.
-The easiest way to do this is to enable automatic updates.
+オペレーティングシステムベンダーは定期的に更新とセキュリティ修正を公開するため、システムを最新のパッチで最新の状態に保つことが重要です。
+これを行う最も簡単な方法は、自動更新を有効にすることです。
 
-Run the following commands **on your node machine**:
+**ノードマシン**で次のコマンドを実行します。
 
 ```shell
 sudo apt update
 sudo apt install -y unattended-upgrades update-notifier-common
 ```
 
-You can change the auto-update settings by editing `/etc/apt/apt.conf.d/20auto-upgrades`:
+`/etc/apt/apt.conf.d/20auto-upgrades`を編集することで、自動更新設定を変更できます。
 
 ```shell
 sudo nano /etc/apt/apt.conf.d/20auto-upgrades
 ```
 
-This is an example of reasonable auto-update settings:
+これは、妥当な自動更新設定の例です。
 
 ```shell
 APT::Periodic::Update-Package-Lists "1";
@@ -533,94 +533,94 @@ Unattended-Upgrade::Automatic-Reboot "true";
 Unattended-Upgrade::Automatic-Reboot-Time "02:00";
 ```
 
-When you are done adding your changes, save with `Ctrl+O` and `Enter`, then exit with `Ctrl+X`.
+変更の追加が完了したら、`Ctrl+O`と`Enter`で保存し、`Ctrl+X`で終了します。
 
-After, make sure to load the new settings:
+その後、新しい設定を読み込むことを忘れないでください。
 
 ```shell
 sudo systemctl restart unattended-upgrades
 ```
 
-## ESSENTIAL: Enable a Firewall
+## 必須: ファイアウォールを有効にする
 
-In general, your machine should only accept network traffic on ports that your Execution client, Consensus client, and Smartnode stack use.
-To enforce that and prevent any unexpected or undesirable traffic, we can install a **firewall** on the node.
+一般的に、マシンはExecution client、Consensus client、およびSmartnodeスタックが使用するポートでのみネットワークトラフィックを受け入れる必要があります。
+それを強制し、予期しない、または望ましくないトラフィックを防ぐために、ノードに**ファイアウォール**をインストールできます。
 
-::: tip NOTE
-If you selected a different execution/consensus client port during the Rocketpool setup, you need to edit the ports below to reflect your settings.
+::: tip 注記
+Rocketpoolセットアップ中に別のexecution/consensus clientポートを選択した場合、以下のポートを設定に合わせて編集する必要があります。
 :::
 
-Ubuntu comes with `ufw` installed by default (the **u**ncomplicated **f**ire **w**all), which is a convenient utility for managing your node's firewall settings.
+Ubuntuにはデフォルトで`ufw`がインストールされています（**u**ncomplicated **f**ire **w**all）。これは、ノードのファイアウォール設定を管理するための便利なユーティリティです。
 
-The following commands will set `ufw` up with a good default configuration for your Smartnode.
-**Run these on your node machine**.
+次のコマンドは、Smartnodeの適切なデフォルト構成で`ufw`を設定します。
+**ノードマシンでこれらを実行してください**。
 
-Disable connections unless they're explicitly allowed by later rules:
+明示的に後のルールで許可されていない限り、接続を無効にします。
 
 ```shell
 sudo ufw default deny incoming comment 'Deny all incoming traffic'
 ```
 
-Allow SSH:
+SSHを許可します。
 
 ```shell
 sudo ufw allow "22/tcp" comment 'Allow SSH'
 ```
 
-Allow execution client (formerly referred to as ETH1):
+execution client（以前はETH1と呼ばれていました）を許可します。
 
 ```shell
 sudo ufw allow 30303/tcp comment 'Execution client port, standardized by Rocket Pool'
 sudo ufw allow 30303/udp comment 'Execution client port, standardized by Rocket Pool'
 ```
 
-Allow consensus client (formerly referred to as ETH2):
+consensus client（以前はETH2と呼ばれていました）を許可します。
 
 ```shell
 sudo ufw allow 9001/tcp comment 'Consensus client port, standardized by Rocket Pool'
 sudo ufw allow 9001/udp comment 'Consensus client port, standardized by Rocket Pool'
 ```
 
-If you run lighthouse client v4.5.0+, you can use quic protocol to reduce latency / increase bandwidth, quic protocol uses lighthouse's --port + 1 to listen for quic messages by default: https://lighthouse-blog.sigmaprime.io/Quic,%20Networking.html
+lighthouse client v4.5.0+を実行している場合、quicプロトコルを使用してレイテンシを削減/帯域幅を増やすことができます。quicプロトコルはデフォルトでlighthouseの--port + 1を使用してquicメッセージをリッスンします: https://lighthouse-blog.sigmaprime.io/Quic,%20Networking.html
 
 ```shell
 sudo ufw allow 8001/udp comment 'Consensus client port, standardised by Rocket Pool'
 ```
 
-Finally, enable `ufw`:
+最後に、`ufw`を有効にします。
 
 ```shell
 sudo ufw enable
 ```
 
-::: tip NOTE
-`iptables` experts might note that Docker bypasses `ufw` settings.
-Strictly speaking, that means unless you are running in Hybrid mode, you do not need the Execution and Consensus client rules.
-Adding them, however, has no downside and will make sure that if you ever switch to Hybrid mode you will not run into firewall issues.
+::: tip 注記
+`iptables`の専門家は、Dockerが`ufw`設定をバイパスすることに気付くかもしれません。
+厳密に言えば、つまりHybridモードで実行していない場合、ExecutionおよびConsensus clientルールは必要ありません。
+ただし、それらを追加してもデメリットはなく、Hybridモードに切り替えた場合にファイアウォールの問題が発生しないようにします。
 :::
 
-## (Optional) Enable Brute-Force and DDoS Protection
+## （オプション）ブルートフォースおよびDDoS保護を有効にする
 
-To protect your server from DDoS attacks and brute-force connection attempts, you can install `fail2ban`.
-This program will monitor incoming connections and block IP addresses that try to log in with faulty credentials repeatedly.
+DDoS攻撃やブルートフォース接続試行からサーバーを保護するために、`fail2ban`をインストールできます。
+このプログラムは着信接続を監視し、繰り返し誤った資格情報でログインしようとするIPアドレスをブロックします。
 
-See [this guide](https://github.com/imthenachoman/How-To-Secure-A-Linux-Server#application-intrusion-detection-and-prevention-with-fail2ban) for more information on intrusion prevention.
+侵入防止の詳細については、[このガイド](https://github.com/imthenachoman/How-To-Secure-A-Linux-Server#application-intrusion-detection-and-prevention-with-fail2ban)を参照してください。
 
-Run the following commands **on your node machine**:
+**ノードマシン**で次のコマンドを実行します。
 
-Install the service:
+サービスをインストールします。
 
 ```shell
 sudo apt install -y fail2ban
 ```
 
-Next, open `/etc/fail2ban/jail.d/ssh.local`:
+次に、`/etc/fail2ban/jail.d/ssh.local`を開きます。
 
 ```shell
 sudo nano /etc/fail2ban/jail.d/ssh.local
 ```
 
-Add the following contents to it:
+次の内容を追加します。
 
 ```
 [sshd]
@@ -632,15 +632,15 @@ logpath = %(sshd_log)s
 maxretry = 5
 ```
 
-You can change the `maxretry` setting, which is the number of attempts it will allow before locking the offending address out.
+`maxretry`設定を変更できます。これは、違反アドレスをロックアウトする前に許可する試行回数です。
 
-Once you're done, save and exit with `Ctrl+O` and `Enter`, then `Ctrl+X`.
+完了したら、`Ctrl+O`と`Enter`で保存して終了し、次に`Ctrl+X`で終了します。
 
-Finally, restart the service:
+最後に、サービスを再起動します。
 
 ```shell
 sudo systemctl restart fail2ban
 ```
 
-And with that, you've just greatly improved the security posture of your node.
-Congratulations!
+これで、ノードのセキュリティ態勢を大幅に改善しました。
+おめでとうございます！

@@ -1,74 +1,74 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 import tuiOdao from "./images/tui-odao.png";
 
-# Setting up an Oracle DAO Node
+# Configurazione di un Nodo Oracle DAO
 
-At a bare minimum, a standard Rocket Pool node runs the following:
+Come minimo indispensabile, un nodo standard di Rocket Pool esegue quanto segue:
 
-- The Smartnode CLI
-- The Smartnode API daemon
-- The Smartnode `node` daemon
-- The Smartnode `watchtower` daemon
+- La CLI Smartnode
+- Il daemon API Smartnode
+- Il daemon `node` Smartnode
+- Il daemon `watchtower` Smartnode
 
-Optionally, the node can also run the following components:
+Facoltativamente, il nodo può anche eseguire i seguenti componenti:
 
-- An Execution Client
-- A Beacon Node
-- A Validator Client
+- Un Execution Client
+- Un Beacon Node
+- Un Validator Client
 - MEV-Boost
 - Prometheus
-- The Prometheus Node Exporter
+- Il Prometheus Node Exporter
 - Grafana
 
-Each of these components can be run as Docker containers in the standard setup, as `systemd` services in the "Native Mode" setup, or run as externally-managed entities that the Smartnode can connect to via their respective API routes.
+Ciascuno di questi componenti può essere eseguito come container Docker nella configurazione standard, come servizi `systemd` nella configurazione "Native Mode", o eseguito come entità gestite esternamente a cui lo Smartnode può connettersi tramite le rispettive route API.
 
-Conveniently, Oracle DAO nodes are the same as normal Rocket Pool nodes, but the `watchtower` daemon performs the supplemental Oracle DAO duties and there are more Prometheus metrics collected for performance monitoring purposes.
+Convenientemente, i nodi Oracle DAO sono gli stessi dei normali nodi Rocket Pool, ma il daemon `watchtower` svolge i compiti supplementari dell'Oracle DAO e vengono raccolte più metriche Prometheus per scopi di monitoraggio delle prestazioni.
 
-## Initial Node Setup
+## Configurazione Iniziale del Nodo
 
-The best way to start is by following [the standard setup instructions](../node-staking/platform) for a normal Rocket Pool node.
-That process will help you determine how you'd like to configure and run your node.
+Il modo migliore per iniziare è seguire [le istruzioni di configurazione standard](../node-staking/platform) per un normale nodo Rocket Pool.
+Questo processo ti aiuterà a determinare come desideri configurare ed eseguire il tuo nodo.
 
-If you would like to run minipools (validators) on your node, please follow the normal node documentation from start to finish and return here when you're done.
+Se desideri eseguire minipool (validator) sul tuo nodo, segui la normale documentazione del nodo dall'inizio alla fine e torna qui quando hai finito.
 
-If you do _not_ intend to run minipools and instead will use it purely for Oracle DAO duties, you can skip all of the steps relating to staking RPL and minipool creation.
-The other steps such as node registration, establishing a good security posture, monitoring the node's health and performance, and updating the Smartnode after an update all still apply to you and you should review them carefully before proceeding.
-Return here when you've finished.
+Se _non_ intendi eseguire minipool e invece lo utilizzerai esclusivamente per i compiti dell'Oracle DAO, puoi saltare tutti i passaggi relativi allo staking di RPL e alla creazione di minipool.
+Gli altri passaggi come la registrazione del nodo, stabilire una buona postura di sicurezza, monitorare la salute e le prestazioni del nodo e aggiornare lo Smartnode dopo un aggiornamento si applicano ancora a te e dovresti esaminarli attentamente prima di procedere.
+Torna qui quando hai finito.
 
-## Additional Oracle DAO Configuration
+## Configurazione Aggiuntiva dell'Oracle DAO
 
-There are two additional settings you need to provision in order to satisfy your Oracle DAO responsibilities.
-Please select the mode you use to configure your node below from the tabs below.
+Ci sono due impostazioni aggiuntive che devi configurare per soddisfare le tue responsabilità dell'Oracle DAO.
+Seleziona la modalità che usi per configurare il tuo nodo dalle schede seguenti.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="(service config) Interactive UI">
-      Open the `rocketpool service config` TUI and go to the `Smartnode and TX Fees` section.
-      Here, you will see two options at the bottom:
+    <Tab label="(service config) UI Interattiva">
+      Apri la TUI `rocketpool service config` e vai alla sezione `Smartnode and TX Fees`.
+      Qui vedrai due opzioni in fondo:
 
       <img src={tuiOdao} width="100%" height="auto"/>
 
-      The `Archive-Mode EC URL` must be the HTTP endpoint of the RPC API for your Archive Execution Client.
-      **Note that if you are already using your Archive EC as your primary client in Externally-Managed mode, you can ignore this setting.**
+      L'`Archive-Mode EC URL` deve essere l'endpoint HTTP della RPC API per il tuo Archive Execution Client.
+      **Nota che se stai già utilizzando il tuo Archive EC come client primario in modalità Externally-Managed, puoi ignorare questa impostazione.**
     </Tab>
     <Tab label="(service config) Headlessly">
 
-      Run the following command to configure your node headlessly:
+      Esegui il seguente comando per configurare il tuo nodo headlessly:
 
       ```shell
       rocketpool service config --smartnode-archiveECUrl "http://your Archive EC URL"
       ```
 
-      Where:
+      Dove:
 
-      `--smartnode-archiveECUrl` must be the HTTP endpoint of the RPC API for your Archive Execution Client.
-      **Note that if you are already using your Archive EC as your primary client in Externally-Managed mode, you can ignore this setting.**
+      `--smartnode-archiveECUrl` deve essere l'endpoint HTTP della RPC API per il tuo Archive Execution Client.
+      **Nota che se stai già utilizzando il tuo Archive EC come client primario in modalità Externally-Managed, puoi ignorare questa impostazione.**
 
-      Finally, restart your `watchtower` daemon (i.e., with `docker restart rocketpool_watchtower` in Docker or Hybrid mode, or `sudo systemctl restart rp_watchtower` in Native mode) for the settings to take effect.
+      Infine, riavvia il tuo daemon `watchtower` (ad esempio, con `docker restart rocketpool_watchtower` in modalità Docker o Hybrid, o `sudo systemctl restart rp_watchtower` in modalità Native) affinché le impostazioni abbiano effetto.
     </Tab>
-    <Tab label="Direct Config File">
-      Open the `user-settings.yml` file in your Smartnode directory (`~/.rocketpool` by default) in a text editor.
-      Scroll down to the `smartnode` section:
+    <Tab label="File di Configurazione Diretto">
+      Apri il file `user-settings.yml` nella directory Smartnode (`~/.rocketpool` per impostazione predefinita) in un editor di testo.
+      Scorri verso il basso fino alla sezione `smartnode`:
 
       ```
       smartnode:
@@ -82,20 +82,20 @@ Please select the mode you use to configure your node below from the tabs below.
       rewardsTreeMode: generate
       ```
 
-      Replace the values in the `archiveECUrl` field, where:
+      Sostituisci i valori nel campo `archiveECUrl`, dove:
 
-      `archiveECUrl` must be the HTTP endpoint of the RPC API for your Archive Execution Client.
-      **Note that if you are already using your Archive EC as your primary client in Externally-Managed mode, you can ignore this setting.**
+      `archiveECUrl` deve essere l'endpoint HTTP della RPC API per il tuo Archive Execution Client.
+      **Nota che se stai già utilizzando il tuo Archive EC come client primario in modalità Externally-Managed, puoi ignorare questa impostazione.**
 
-      Finally, restart your `watchtower` daemon (i.e., with `docker restart rocketpool_watchtower` in Docker or Hybrid mode, or `sudo systemctl restart rp_watchtower` in Native mode) for the settings to take effect.
+      Infine, riavvia il tuo daemon `watchtower` (ad esempio, con `docker restart rocketpool_watchtower` in modalità Docker o Hybrid, o `sudo systemctl restart rp_watchtower` in modalità Native) affinché le impostazioni abbiano effetto.
     </Tab>
 
   </Tabs>
 </div>
 
-## Oracle DAO Smartnode Commands
+## Comandi Smartnode dell'Oracle DAO
 
-The Smartnode CLI's `odao` command group is used to interact with the Oracle DAO contracts and duties on-chain:
+Il gruppo di comandi `odao` della CLI Smartnode viene utilizzato per interagire con i contratti e i compiti dell'Oracle DAO on-chain:
 
 ```
 NAME:
@@ -121,7 +121,7 @@ OPTIONS:
 
 ### status
 
-The `status` command simply summarizes a few details about the Oracle DAO such as member count and proposal count:
+Il comando `status` riassume semplicemente alcuni dettagli sull'Oracle DAO come il numero di membri e il numero di proposte:
 
 ```
 The node is a member of the oracle DAO - it can create unbonded minipools, vote on DAO proposals and perform watchtower duties.
@@ -135,7 +135,7 @@ There are 29 oracle DAO proposal(s) in total:
 
 ### members
 
-The `members` command prints detailed information about each member of the Oracle DAO, including their handle, their contact information, their node address, their RPL bond, and the last time they submitted a proposal for voting:
+Il comando `members` stampa informazioni dettagliate su ciascun membro dell'Oracle DAO, incluso il loro handle, le informazioni di contatto, l'indirizzo del nodo, il bond RPL e l'ultima volta che hanno presentato una proposta per la votazione:
 
 ```
 The oracle DAO has 8 members:
@@ -154,7 +154,7 @@ Unbonded minipools:   0
 
 ### member-settings
 
-`member-settings` shows the current values for each of the configurable parameters related to Oracle DAO membership:
+`member-settings` mostra i valori correnti per ciascuno dei parametri configurabili relativi all'appartenenza all'Oracle DAO:
 
 ```
 ODAO Voting Quorum Threshold: 51.000000%
@@ -165,11 +165,11 @@ Challenge Meeting Window: 900 Blocks
 Cost for Non-members to Challenge Members: 1.000000 ETH
 ```
 
-This command is described in more detail in the [Oracle DAO Proposals](./proposals) section.
+Questo comando è descritto in maggiore dettaglio nella sezione [Proposte dell'Oracle DAO](./proposals).
 
 ### proposal-settings
 
-`proposal-settings` shows the current values for each of the configurable parameters related to proposals that the Oracle DAO can vote on:
+`proposal-settings` mostra i valori correnti per ciascuno dei parametri configurabili relativi alle proposte su cui l'Oracle DAO può votare:
 
 ```
 Cooldown Between Proposals: 1h0m0s
@@ -179,11 +179,11 @@ Window to Execute an Accepted Proposal: 168h0m0s
 Window to Act on an Executed Proposal: 168h0m0s
 ```
 
-This command is described in more detail in the [Oracle DAO Proposals](./proposals) section.
+Questo comando è descritto in maggiore dettaglio nella sezione [Proposte dell'Oracle DAO](./proposals).
 
 ### minipool-settings
 
-`minipool-settings` shows the current values for each of the configurable parameters related to minipools on the Rocket Pool network:
+`minipool-settings` mostra i valori correnti per ciascuno dei parametri configurabili relativi ai minipool sulla rete Rocket Pool:
 
 ```
 Scrub Period: 1h0m0s
@@ -191,15 +191,15 @@ Scrub Period: 1h0m0s
 
 ### propose
 
-The `propose` command is used to submit governance proposals that the rest of the Oracle DAO can vote on.
-These can involve changing a setting or modifying the Oracle DAO members (i.e., inviting or kicking other members).
+Il comando `propose` viene utilizzato per presentare proposte di governance su cui il resto dell'Oracle DAO può votare.
+Queste possono comportare la modifica di un'impostazione o la modifica dei membri dell'Oracle DAO (ad esempio, invitare o rimuovere altri membri).
 
-This command is described in more detail in the [Oracle DAO Proposals](./proposals) section.
+Questo comando è descritto in maggiore dettaglio nella sezione [Proposte dell'Oracle DAO](./proposals).
 
 ### proposals
 
-The `proposals` command is used to interact with existing Oracle DAO governance proposals.
-It can view them, rescind proposals that you made, vote on them, and execute them (if applicable) causing them to take effect after they have been approved by the other members:
+Il comando `proposals` viene utilizzato per interagire con le proposte di governance esistenti dell'Oracle DAO.
+Può visualizzarle, revocare proposte che hai fatto, votarle ed eseguirle (se applicabile) facendole entrare in vigore dopo che sono state approvate dagli altri membri:
 
 ```
 NAME:
@@ -220,37 +220,37 @@ OPTIONS:
 
 ```
 
-This command is described in more detail in the [Oracle DAO Proposals](./proposals) section.
+Questo comando è descritto in maggiore dettaglio nella sezione [Proposte dell'Oracle DAO](./proposals).
 
 ### join / leave
 
-The `join` and `leave` commands are used to join the Oracle DAO once you've been invited, or leave the Oracle DAO once the other members have approved your resignation request.
+I comandi `join` e `leave` vengono utilizzati per unirti all'Oracle DAO una volta che sei stato invitato, o lasciare l'Oracle DAO una volta che gli altri membri hanno approvato la tua richiesta di dimissioni.
 
-## Joining the Oracle DAO
+## Unirsi all'Oracle DAO
 
-### The RPL Bond
+### Il Bond RPL
 
-In order to join the Oracle DAO, your node wallet will need enough RPL in it to cover the required membership bond.
-This will be locked in Rocket Pool's vault as part of the joining process.
-The exact amount of RPL required for the bond will be determined at the time of your invitation, and will be communicated to you by the other Oracle DAO members prior to onboarding you.
+Per unirti all'Oracle DAO, il wallet del tuo nodo avrà bisogno di abbastanza RPL per coprire il bond di appartenenza richiesto.
+Questo verrà bloccato nel vault di Rocket Pool come parte del processo di adesione.
+L'importo esatto di RPL richiesto per il bond sarà determinato al momento del tuo invito e ti verrà comunicato dagli altri membri dell'Oracle DAO prima di effettuare il tuo onboarding.
 
-::: warning NOTE
-Unlike all other ETH and RPL rewards, the RPL bond is _not_ sent to your node's withdrawal address upon exiting the Oracle DAO.
-It is sent back to your node wallet itself.
-Consider this as extra incentive to protect your node wallet from compromise.
+::: warning NOTA
+A differenza di tutte le altre ricompense ETH e RPL, il bond RPL _non_ viene inviato al withdrawal address del tuo nodo quando esci dall'Oracle DAO.
+Viene restituito al wallet del tuo nodo stesso.
+Considera questo come un incentivo extra per proteggere il wallet del tuo nodo da compromissioni.
 :::
 
-### Accepting an Invitation
+### Accettare un Invito
 
-Once your node is set up and you have been invited to join the Oracle DAO by the existing members, you can use the `rocketpool odao join` command to accept the invitation.
-This will involve two transactions:
+Una volta che il tuo nodo è configurato e sei stato invitato a unirti all'Oracle DAO dai membri esistenti, puoi utilizzare il comando `rocketpool odao join` per accettare l'invito.
+Questo comporterà due transazioni:
 
-- One to lock the RPL required for your bond
-- One to join the Oracle DAO when the bond has been received
+- Una per bloccare gli RPL richiesti per il tuo bond
+- Una per unirti all'Oracle DAO quando il bond è stato ricevuto
 
-Once you've joined, your `watchtower` daemon will automatically begin performing its required duties.
-You can verify this by looking at its logs (e.g. `rocketpool service logs watchtower` for standard Docker-based installations); the watchtower performs its loop of duties every 4 to 6 minutes, and you will notice a distinct change in its output once you've joined the Oracle DAO.
+Una volta che ti sei unito, il tuo daemon `watchtower` inizierà automaticamente a svolgere i suoi compiti richiesti.
+Puoi verificarlo guardando i suoi log (ad esempio `rocketpool service logs watchtower` per le installazioni standard basate su Docker); il watchtower esegue il suo ciclo di compiti ogni 4-6 minuti e noterai un cambiamento distinto nel suo output una volta che ti sarai unito all'Oracle DAO.
 
-### Next Steps
+### Prossimi Passi
 
-Now that you've joined the Oracle DAO, take a look at the next section to learn how to test your node in this role.
+Ora che ti sei unito all'Oracle DAO, dai un'occhiata alla sezione successiva per imparare come testare il tuo nodo in questo ruolo.

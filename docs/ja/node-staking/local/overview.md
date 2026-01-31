@@ -1,19 +1,19 @@
 ---
 next:
-  text: Selecting Staking Hardware
-  link: "/en/node-staking/local/hardware"
+  text: Staking Hardware の選択
+  link: "/ja/node-staking/local/hardware"
 ---
 
-# Overview
+# 概要
 
-This section is aimed at helping you understand the process of preparing a local machine for use as a Rocket Pool node at home.
+このセクションは、ご自宅でRocket Pool nodeとして使用するローカルマシンを準備するプロセスを理解するためのものです。
 
-## Guides
+## ガイド
 
-[Selecting Staking Hardware](./hardware) shows a wide variety of viable hardware configurations for node operation, hopefully helping you find inspiration when picking what to get for yourself.
+[Staking Hardware の選択](./hardware)では、node運用のための様々な実行可能なハードウェア構成を幅広く紹介し、自分に合ったものを選ぶ際のインスピレーションを提供します。
 
-[Preparing a PC, Mini-PC, or NUC](./prepare-pc) walks you through the basic steps of installing and configuring the base Operating System on your machine to prepare it for life as a node.
+[PC、Mini-PC、または NUC の準備](./prepare-pc)では、マシンに基本的なオペレーティングシステムをインストールし、nodeとしての運用に備えるための基本的な手順を説明します。
 
-[Preparing a Mac](./prepare-mac) is the same, but for macOS systems.
+[Mac の準備](./prepare-mac)は同様の内容ですが、macOS システム向けです。
 
-[Intro to Secure Shell (SSH)](../ssh) shows you how to use **SSH**, a popular remote-access tool for working with your node machine remotely and securely from a different machine (such as a laptop or desktop) so you don't have to interact with the node directly via a monitor and keyboard connected to it.
+[Secure Shell (SSH) 入門](../ssh)では、**SSH** という人気のあるリモートアクセスツールの使い方を説明します。これにより、別のマシン(ノートパソコンやデスクトップなど)からnodeマシンに安全にリモートアクセスできるため、nodeに直接モニターやキーボードを接続して操作する必要がありません。

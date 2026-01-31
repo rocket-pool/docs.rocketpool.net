@@ -1,226 +1,226 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Staking via a Decentralized Exchange on Layer 2
+# 通过Layer 2去中心化交易所质押
 
-As a reminder, you do not have to swap ETH for rETH directly via Rocket Pool in order to enjoy the benefits of decentralized staking.
-All you need to do is hold rETH as it inherently grows in value - how you get it doesn't matter!
+提醒一下,你不必通过Rocket Pool直接将ETH兑换为rETH来享受去中心化质押的好处。
+你只需要持有rETH,它的价值就会自然增长 - 你如何获得它并不重要!
 
-That being said, one of the main concerns (especially in recent times) is the cost of gas associated with staking or swapping ETH for rETH.
+话虽如此,主要关注点之一(尤其是近期)是与质押或将ETH兑换为rETH相关的gas成本。
 
-To help reduce this, the Ethereum network has started adopting the use of [rollups](https://www.youtube.com/watch?v=7pWxCklcNsU) - also known as **Layer 2**.
+为了帮助降低这一成本,Ethereum网络已经开始采用[rollups](https://www.youtube.com/watch?v=7pWxCklcNsU)的使用 - 也称为**Layer 2**。
 
-Layer 2 comprises several separate networks that live underneath Ethereum, executing lots of transactions like Ethereum normally would, but rolling all of them up into one single "mega" transaction and posting _that_ to the main Ethereum chain instead.
-Ideally, this means you'd get all of the security benefits associated with Ethereum's decentralized nature, but enjoy **much lower gas fees** for your transactions since execution and storage costs on Layer 2s can be much lower and only a portion of your transactions must be stored on Layer 1 where state is much more expensive.
+Layer 2由多个独立网络组成,这些网络位于Ethereum之下,像Ethereum通常那样执行大量交易,但将所有交易汇总到一个"超级"交易中,然后将_该交易_发布到主Ethereum链上。
+理想情况下,这意味着你可以获得与Ethereum去中心化特性相关的所有安全优势,但享受**更低的gas费用**,因为Layer 2上的执行和存储成本可以低得多,并且只有一部分交易必须存储在状态更昂贵的Layer 1上。
 
-Rocket Pool currently supports two Layer 2 networks: [Optimism](https://www.optimism.io/) and [Arbitrum](https://arbitrum.io/).
-Both of them have running versions of [Uniswap](https://docs.uniswap.org/protocol/introduction), the most widely-used decentralized exchange protocol.
-With Uniswap, you can quickly and easily exchange ETH for rETH.
+Rocket Pool目前支持两个Layer 2网络:[Optimism](https://www.optimism.io/)和[Arbitrum](https://arbitrum.io/)。
+它们都运行着[Uniswap](https://docs.uniswap.org/protocol/introduction)的版本,这是使用最广泛的去中心化交易协议。
+使用Uniswap,你可以快速轻松地将ETH兑换为rETH。
 
-The advantage of using this approach is that **gas fees will be substantially lower** than with other methods.
-If this is important to you because you want to stake a small amount of ETH, then using a Layer 2 network is likely going to be your option of choice.
+使用这种方法的优势是**gas费用将大大低于**其他方法。
+如果这对你很重要,因为你想质押少量ETH,那么使用Layer 2网络可能是你的首选。
 
-The disadvantage is that you might not get the best deal on rETH.
-Uniswap requires a small fee that's given to its liquidity providers, and large transactions will require large liquidity pools in order to get good deals without too much price impact.
-Layer 2 networks tend to have lower rETH liquidity than the main Ethereum network.
+缺点是你可能无法获得rETH的最佳价格。
+Uniswap需要向其流动性提供者支付一小笔费用,而大额交易需要大型流动性池才能在没有太多价格影响的情况下获得好价格。
+Layer 2网络往往比主Ethereum网络拥有更低的rETH流动性。
 
-Therefore, we recommend you compare the total rETH you would get on a Layer 2 network with what you'd get via the other methods to determine if it makes sense for you to pursue this path.
+因此,我们建议你比较在Layer 2网络上获得的rETH总量与通过其他方法获得的数量,以确定是否有意义选择此路径。
 
-You can view the current ETH and rETH balances of the [Optimism pool](https://info.uniswap.org/#/optimism/pools/0xaefc1edaede6adadcdf3bb344577d45a80b19582) and the [Arbitrum pool](https://info.uniswap.org/#/arbitrum/pools/0xaac7de2b91293ba1791503d9127d2bdf2159db65) to determine if they have enough rETH to cover your swap.
+您可以查看 [Optimism 池](https://info.uniswap.org/#/optimism/pools/0xaefc1edaede6adadcdf3bb344577d45a80b19582) 和 [Arbitrum 池](https://info.uniswap.org/#/arbitrum/pools/0xaac7de2b91293ba1791503d9127d2bdf2159db65) 的当前 ETH 和 rETH 余额,以确定它们是否有足够的 rETH 来覆盖您的兑换。
 
-In the following example, we will demonstrate how to interact with Layer 2 networks and use Uniswap to swap ETH for rETH.
+在以下示例中,我们将演示如何与 Layer 2 网络交互并使用 Uniswap 将 ETH 兑换为 rETH。
 
-::: warning NOTE
-Currently this method is only available on Mainnet.
-If you want to practice on the Hoodi Testnet, you must [swap with Rocket Pool directly](./via-rp).
+::: warning 注意
+目前这种方法仅在主网上可用。
+如果您想在 Hoodi 测试网上练习,您必须[直接与 Rocket Pool 进行兑换](./via-rp)。
 
-**The rest of this guide will assume you are on Mainnet.**
+**本指南的其余部分将假设您在主网上。**
 :::
 
-This process can be completed with any web3-compatible wallet.
-For demonstration purposes, we're going to use [MetaMask](https://metamask.io/) as it is one of the more popular wallet choices.
+这个过程可以使用任何兼容 web3 的钱包完成。
+出于演示目的,我们将使用 [MetaMask](https://metamask.io/),因为它是较受欢迎的钱包选择之一。
 
-**You should be able to follow along using similar steps with a different wallet if you choose - just find the comparable function in your wallet for each step.**
+**如果您选择使用不同的钱包,您应该能够按照类似的步骤进行操作——只需在每一步中找到钱包中的可比功能。**
 
-## Setting up MetaMask on Mainnet
+## 在主网上设置 MetaMask
 
-Start by installing [MetaMask](https://metamask.io/) if you haven't already.
-Follow the instructions on their site to install the extension, create an account, and sign in.
+首先,如果您还没有安装 [MetaMask](https://metamask.io/),请先安装。
+按照他们网站上的说明安装扩展程序、创建帐户并登录。
 
-Next, open the MetaMask panel using its icon in your browser toolbar.
-Click on the **network dropdown** in the toolbar at the top and ensure that **Ethereum Mainnet** is selected:
+接下来,使用浏览器工具栏中的图标打开 MetaMask 面板。
+单击顶部工具栏中的**网络下拉菜单**,并确保选择了 **Ethereum Mainnet**:
 
 <img src="./images/mm_network_main.png" width="100%" height="auto" />
 
-The address directly below that is your **Ethereum wallet address**.
+正下方的地址是您的 **Ethereum 钱包地址**。
 
-Before going any further, you will need to supply this wallet with ETH.
-If you don't already have ETH in the account from prior usage, you can do this by transferring ETH from an existing account to this wallet address.
+在继续之前,您需要向该钱包提供 ETH。
+如果您之前没有在该帐户中使用过 ETH,您可以通过将 ETH 从现有帐户转移到该钱包地址来完成此操作。
 
-## Transferring ETH from Layer 1 to Layer 2 via Hop
+## 通过 Hop 将 ETH 从 Layer 1 转移到 Layer 2
 
-There are several ways to bridge ETH from the Ethereum Mainnet to a Layer 2 network.
-In this demonstration, we're going to use the [Hop](https://docs.hop.exchange/faq) protocol - a simple and reliable way to move ETH (and a few other coins) from Layer 1 to several Layer 2 networks, or between Layer 2 networks.
+有几种方法可以将 ETH 从 Ethereum 主网桥接到 Layer 2 网络。
+在这个演示中,我们将使用 [Hop](https://docs.hop.exchange/faq) 协议——一种简单可靠的方式,可以将 ETH(以及其他一些币)从 Layer 1 转移到几个 Layer 2 网络,或者在 Layer 2 网络之间转移。
 
-Navigate to the Hop exchange website here:
+导航到 Hop 交易所网站:
 
 [https://app.hop.exchange/send?token=ETH](https://app.hop.exchange/send?token=ETH)
 
-The home screen should look like this:
+主屏幕应该如下所示:
 
 <img src="./images/hop.png" width="100%" height="auto" />
 
-Start by clicking on the **Connect a Wallet** button in the top right corner.
-You will be prompted with a screen that asks you which wallet provider you want to use.
-For this example, select **MetaMask**.
+首先单击右上角的 **Connect a Wallet** 按钮。
+您将看到一个屏幕,询问您想使用哪个钱包提供商。
+对于此示例,选择 **MetaMask**。
 
-::: tip NOTE
-If you're not using MetaMask, one of the other providers such as WalletConnect will likely be compatible with your wallet.
+::: tip 注意
+如果您不使用 MetaMask,其他提供商之一(如 WalletConnect)可能会与您的钱包兼容。
 :::
 
-Upon clicking that button, MetaMask will pop up with a prompt asking you to select which accounts you want to use.
-Assuming you only have one, your account should already be selected.
-Click **Next**.
+单击该按钮后,MetaMask 将弹出一个提示,要求您选择要使用的帐户。
+假设您只有一个帐户,您的帐户应该已经被选中。
+单击 **Next**。
 
-It will then ask if you would like to give Hop access to view the addresses of your accounts:
+然后它会询问您是否愿意让 Hop 访问查看您帐户的地址:
 
 <img src="./images/hop_connect.png" width="100%" height="auto" />
 
-Click **Connect** and after a brief pause, your wallet will be connected to Hop.
-You should now see its ETH balance in the top right corner of the screen.
+单击 **Connect**,短暂暂停后,您的钱包将连接到 Hop。
+您现在应该在屏幕右上角看到其 ETH 余额。
 
-Now, you can use the two dropdowns in the **From** and **To (estimated)** boxes to select your networks, and enter the amount of ETH you want to send in the **From** box.
+现在,您可以使用 **From** 和 **To (estimated)** 框中的两个下拉菜单选择您的网络,并在 **From** 框中输入您想发送的 ETH 数量。
 
-For example, this is what it would look like to send 0.1 ETH from Layer 1 to Arbitrum:
+例如,这是将 0.1 ETH 从 Layer 1 发送到 Arbitrum 的样子:
 
 <img src="./images/hop_send.png" width="100%" height="auto" />
 
-::: warning NOTE
-As a reminder, Uniswap (and thus Rocket Pool staking) is currently **only supported on Optimism and Arbitrum**.
-You must select one of those networks.
+::: warning 注意
+提醒一下,Uniswap(因此 Rocket Pool staking)**目前仅在 Optimism 和 Arbitrum 上受支持**。
+您必须选择其中一个网络。
 :::
 
-When you're ready, click the **Send** button.
-Metamask will pop up with a confirmation dialog that shows you the gas fee associated with the transaction:
+准备好后,单击 **Send** 按钮。
+Metamask 将弹出一个确认对话框,显示与交易相关的 gas 费用:
 
 <img src="./images/hop_confirm.png" width="100%" height="auto" />
 
-If you are comfortable with those gas fees, click **Confirm** to begin the transaction.
-After a few moments, MetaMask will pop up with a successful transaction confirmation message, and your ETH will now be available on your Layer 2 network of choice!
+如果您对这些 gas 费用感到满意,请单击 **Confirm** 开始交易。
+片刻之后,MetaMask 将弹出一个成功的交易确认消息,您的 ETH 现在将在您选择的 Layer 2 网络上可用!
 
-## Connecting to Uniswap on Layer 2
+## 在 Layer 2 上连接到 Uniswap
 
-Now that your wallet is set up and funded, head to this URL which will open Uniswap and automatically show swapping ETH for rETH:
+现在您的钱包已设置并充值,请转到此 URL,它将打开 Uniswap 并自动显示将 ETH 兑换为 rETH:
 
 [https://app.uniswap.org/#/swap?inputCurrency=eth](https://app.uniswap.org/#/swap?inputCurrency=eth)
 
-The page will look like this initially:
+该页面最初将如下所示:
 
 <img src="./images/uni_connect.png" width="100%" height="auto" />
 
-Click on one of the `Connect Wallet` buttons such as the highlighted one in the top-right corner.
-You will be prompted with a screen that asks you which wallet provider you want to use.
-For this example, select **MetaMask**.
+单击其中一个 `Connect Wallet` 按钮,例如右上角突出显示的那个。
+您将看到一个屏幕,询问您想使用哪个钱包提供商。
+对于此示例,选择 **MetaMask**。
 
-::: tip NOTE
-If you're not using MetaMask, one of the other providers such as WalletConnect will likely be compatible with your wallet.
+::: tip 注意
+如果您不使用 MetaMask,其他提供商之一(如 WalletConnect)可能会与您的钱包兼容。
 :::
 
-Upon clicking that button, MetaMask will pop up with another prompt asking you to select which accounts you want to use, just like it did with Hop.
-Leave your account selected, click **Next**, and then click **Connect** as you did with Hop before.
-After a brief pause, your wallet will be connected to Uniswap.
-You should now see its ETH balance in the top right corner of the screen.
+单击该按钮后,MetaMask 将弹出另一个提示,要求您选择要使用的帐户,就像它在 Hop 中所做的那样。
+保持您的帐户被选中,单击 **Next**,然后像之前在 Hop 中那样单击 **Connect**。
+短暂暂停后,您的钱包将连接到 Uniswap。
+您现在应该在屏幕右上角看到其 ETH 余额。
 
-The first thing to do is change your network from the Ethereum mainnet to the Layer 2 you just swapped to.
-Click on the network dropdown at the top right of the screen (highlighted in red here):
+首先要做的是将您的网络从 Ethereum 主网更改为您刚刚交换到的 Layer 2。
+单击屏幕右上角的网络下拉菜单(此处以红色突出显示):
 
 <img src="./images/uni_network.png" width="100%" height="auto" />
 
-Once you do, MetaMask will prompt you to confirm that you want to add a custom network:
+一旦您这样做,MetaMask 将提示您确认要添加自定义网络:
 
 <img src="./images/uni_net_confirm.png" width="100%" height="auto" />
 
-Click **Approve** and then click **Switch Network**.
-This will change MetaMask to use the new Layer 2 network instead of Ethereum's mainnet for transactions.
+单击 **Approve**,然后单击 **Switch Network**。
+这将更改 MetaMask,使其使用新的 Layer 2 网络而不是 Ethereum 主网进行交易。
 
-::: warning NOTE
-Before you do any transactions with MetaMask, _always_ verify which network it's currently using by opening MetaMask and looking at the network dropdown on the top!
-It's easy to accidentally switch to a different network and forget!
+::: warning 注意
+在使用 MetaMask 进行任何交易之前,_始终_通过打开 MetaMask 并查看顶部的网络下拉菜单来验证它当前使用的是哪个网络!
+很容易意外切换到不同的网络并忘记!
 :::
 
-## Adding rETH to MetaMask
+## 将 rETH 添加到 MetaMask
 
-The next step is to add the rETH token to MetaMask so you can see your balance and access it for trading.
-Click the **Assets** tab, then click **Add Token**:
+下一步是将 rETH 代币添加到 MetaMask,以便您可以看到您的余额并访问它进行交易。
+单击 **Assets** 选项卡,然后单击 **Add Token**:
 
 <img src="./images/mm_add_token.png" width="100%" height="auto" />
 
-Ensure that **Custom Token** is selected in this dialog, and select the appropriate tab for the Layer 2 network you chose below:
+确保在此对话框中选择了 **Custom Token**,并在下方选择您选择的 Layer 2 网络的相应选项卡:
 
 <div className="p-3">
   <Tabs>
     <Tab label="Optimism">
-      In the **Token Contract Address** box, put the following value:
+      在 **Token Contract Address** 框中,输入以下值:
 
       ```shell
       0x9bcef72be871e61ed4fbbc7630889bee758eb81d
       ```
 
-      The **Token Symbol** should automatically be populated with `rETH`, and the **Decimals of Precision** should automatically be populated with `18`.
+      **Token Symbol** 应自动填充为 `rETH`,**Decimals of Precision** 应自动填充为 `18`。
 
-      Accept the rest of the prompts, and then you will see the rETH token appear in your list.
+      接受其余提示,然后您将看到 rETH 代币出现在您的列表中。
     </Tab>
     <Tab label="Arbitrum">
-      In the **Token Contract Address** box, put the following value:
+      在 **Token Contract Address** 框中,输入以下值:
 
       ```shell
       0xec70dcb4a1efa46b8f2d97c310c9c4790ba5ffa8
       ```
 
-      The **Token Symbol** should automatically be populated with `rETH`, and the **Decimals of Precision** should automatically be populated with `18`.
+      **Token Symbol** 应自动填充为 `rETH`,**Decimals of Precision** 应自动填充为 `18`。
 
-      Accept the rest of the prompts, and then you will see the rETH token appear in your list.
+      接受其余提示,然后您将看到 rETH 代币出现在您的列表中。
     </Tab>
 
   </Tabs>
 </div>
 
-## Swapping ETH for rETH with Uniswap
+## 使用 Uniswap 将 ETH 兑换为 rETH
 
-The final step of the process is to do the swap!
+流程的最后一步是进行兑换!
 
-Click on the **Select a token** dropdown and enter the address for rETH that you just added to MetaMask (you can also just type rETH, but **make sure it is the correct token and not an impostor or scam token** by verifying its address first).
+单击 **Select a token** 下拉菜单,并输入您刚刚添加到 MetaMask 的 rETH 地址(您也可以只输入 rETH,但**确保它是正确的代币而不是冒充或诈骗代币**,首先验证其地址)。
 
-::: warning NOTE
-You may initially be prompted with a warning that looks like this:
+::: warning 注意
+您可能最初会看到如下警告:
 
 <img src="./images/unknown_token.jpg" width="100%" height="auto" />
 
-This is just a temporary warning until Uniswap adds rETH to its canonical token list on the Layer you're using.
-As long as the token address is `0x9bcef72be871e61ed4fbbc7630889bee758eb81d` on Optimism or `0xec70dcb4a1efa46b8f2d97c310c9c4790ba5ffa8` on Arbitrum, you can add it safely.
+这只是一个临时警告,直到 Uniswap 将 rETH 添加到您正在使用的 Layer 上的规范代币列表中。
+只要代币地址在 Optimism 上是 `0x9bcef72be871e61ed4fbbc7630889bee758eb81d` 或在 Arbitrum 上是 `0xec70dcb4a1efa46b8f2d97c310c9c4790ba5ffa8`,您就可以安全地添加它。
 :::
 
-Next, enter the amount of ETH you want to swap and Uniswap's UI will show you the amount of rETH you will receive in return:
+接下来,输入您想兑换的 ETH 数量,Uniswap 的 UI 将显示您将收到的 rETH 数量:
 
 <img src="./images/arb_swap.png" width="100%" height="auto" />
 
-::: warning NOTE
-Notice that the amount of rETH you receive will be **less than** the amount of ETH you put in.
-This is normal, because **rETH is worth more than ETH** and continuously appreciates over time.
-You can see this in the exchange rate highlighted at the bottom of the screenshot.
+::: warning 注意
+请注意,您收到的 rETH 数量将**少于**您投入的 ETH 数量。
+这是正常的,因为 **rETH 比 ETH 更有价值**并且随着时间的推移持续增值。
+您可以在截图底部突出显示的汇率中看到这一点。
 :::
 
-Now click **Swap** to see the details of the trade, including the minimum amount you could receive due to slippage.
-If you're satisfied, click **Confirm Swap**.
-This will send the request to MetaMask, where you can review the total transaction cost before confirming it:
+现在单击 **Swap** 查看交易的详细信息,包括由于滑点您可能收到的最小金额。
+如果您满意,请单击 **Confirm Swap**。
+这将向 MetaMask 发送请求,您可以在其中查看总交易成本,然后再确认:
 
 <img src="./images/arb_gas.png" width="100%" height="auto" />
 
-::: tip NOTE
-Pay **close attention** to the estimated gas fee here.
-You will likely notice that it is **approximately 10x cheaper** in terms of gas fees to do this swap on a Layer 2 network than it is on the Ethereum Mainnet!
+::: tip 注意
+**密切关注**此处估计的 gas 费用。
+您可能会注意到,在 Layer 2 网络上进行此兑换的 gas 费用**大约便宜 10 倍**,相比在 Ethereum 主网上!
 :::
 
-If you are happy with the gas fees relative to the total amount of rETH you'll be receiving, click **Confirm** to submit the transaction.
-After a short period, you should see a notification from MetaMask that it completed successfully, and you will now see the rETH token in your wallet.
+如果您对相对于您将收到的 rETH 总量的 gas 费用感到满意,请单击 **Confirm** 提交交易。
+短暂时间后,您应该会看到 MetaMask 的通知,表明交易成功完成,您现在将在钱包中看到 rETH 代币。
 
-That's it! You're now staking with Rocket Pool. All you need to do is hold onto your rETH, and you'll automatically gain your staking rewards as the value of the rETH token increases.
+就是这样!您现在正在使用 Rocket Pool 进行 staking。您只需持有 rETH,就会随着 rETH 代币价值的增加自动获得 staking 奖励。

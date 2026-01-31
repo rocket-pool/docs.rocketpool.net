@@ -1,202 +1,202 @@
-# Fee Distributors and the Smoothing Pool
+# Distribuidores de Tarifas y el Smoothing Pool
 
-Now that [the Merge](https://ethereum.org/en/upgrades/merge/) has passed, node operators receive **priority fees** (**tips**) from the transactions they include in any blocks that they propose to the Ethereum chain.
-These fees come from and stay on the Execution layer.
+Ahora que [la Fusión](https://ethereum.org/es/upgrades/merge/) ha pasado, los operadores de nodos reciben **priority fees** (**propinas**) de las transacciones que incluyen en cualquier bloque que proponen a la cadena de Ethereum.
+Estas tarifas provienen y permanecen en la capa de Execution.
 
-Unlike most validation rewards which are generated on the Consensus layer and automatically withdrawn periodically, these fees are _immediately liquid_.
-In general, priority fees provide almost as much ETH to you as Beacon Chain rewards do, so they are a very nice benefit of the Merge.
+A diferencia de la mayoría de las recompensas de validación que se generan en la capa de Consensus y se retiran automáticamente periódicamente, estas tarifas son _inmediatamente líquidas_.
+En general, las priority fees proporcionan casi tanto ETH como las recompensas de Beacon Chain, por lo que son un muy buen beneficio de la Fusión.
 
-::: tip NOTE
-As a quick reminder here's a breakdown of the different types of rewards and which layer they're provided on:
+::: tip NOTA
+Como un recordatorio rápido, aquí hay un desglose de los diferentes tipos de recompensas y en qué capa se proporcionan:
 
-- Consensus Layer: attestations, block proposals, sync committees, slashing reports
-- Execution Layer: priority fees and MEV (discussed in the next section) from block proposals
+- Capa de Consensus: attestations, propuestas de bloques, comités de sincronización, reportes de slashing
+- Capa de Execution: priority fees y MEV (discutido en la siguiente sección) de propuestas de bloques
 
 :::
 
-## Fee Recipients
+## Destinatarios de Tarifas
 
-When you propose a block on the Ethereum chain, the protocol needs to know where to send the tips from each transaction included in your block.
-It can't send them to your validator's address, because that's on the Consensus layer - not the Execution layer.
-It can't send them to your minipool address, because it has to work for solo stakers too and solo stakers don't have an address on the Execution layer attached to their validators the way Rocket Pool does.
+Cuando propone un bloque en la cadena de Ethereum, el protocolo necesita saber dónde enviar las propinas de cada transacción incluida en su bloque.
+No puede enviarlas a la dirección de su validador, porque esa está en la capa de Consensus - no en la capa de Execution.
+No puede enviarlas a la dirección de su minipool, porque tiene que funcionar también para stakers solo y los stakers solo no tienen una dirección en la capa de Execution adjunta a sus validadores de la manera en que lo hace Rocket Pool.
 
-Instead, the way it works is fairly straightforward: when Rocket Pool starts up your Validator Client, it passes in an argument called the **fee recipient**.
-The fee recipient is simply an address on the Execution layer where you want the tips to go.
+En su lugar, la forma en que funciona es bastante directa: cuando Rocket Pool inicia su cliente Validator, pasa un argumento llamado **fee recipient**.
+El fee recipient es simplemente una dirección en la capa de Execution donde desea que vayan las propinas.
 
-Rocket Pool is designed to fairly distribute these rewards between you and the rETH pool stakers, the same way it fairly distributes your Beacon chain rewards: your portion of any priority fees your minipool validators earn will go to you (plus the average commission of all of your minipools), and the remaining portion will go to the pool stakers (minus your average commission).
-The exact portion depends on the number of 8 ETH-bonded versus 16 ETH-bonded minipools you have.
+Rocket Pool está diseñado para distribuir equitativamente estas recompensas entre usted y los stakers del pool de rETH, de la misma manera que distribuye equitativamente sus recompensas de Beacon chain: su porción de cualquier priority fee que ganen sus validadores de minipool irá a usted (más la comisión promedio de todos sus minipools), y la porción restante irá a los stakers del pool (menos su comisión promedio).
+La porción exacta depende del número de minipools vinculados de 8 ETH versus 16 ETH que tenga.
 
-To that end, the Smartnode will automatically set your node's `fee recipient` to either of these special contracts:
+Para ese fin, el Smartnode establecerá automáticamente el `fee recipient` de su nodo en cualquiera de estos contratos especiales:
 
-- Your node's own personal **Fee Distributor** (the default)
-- The **Smoothing Pool** (opt-in)
+- El **Fee Distributor** personal de su nodo (predeterminado)
+- El **Smoothing Pool** (opt-in)
 
-In brief, the **Fee Distributor** is a unique contract attached to your node that collects and fairly splits your priority fees between you and the rETH stakers.
-It's like your own personal vault for priority fees.
-Anyone (including you) can distribute its balance at any time to ensure that the rewards are always available to rETH stakers.
+En resumen, el **Fee Distributor** es un contrato único adjunto a su nodo que recopila y divide equitativamente sus priority fees entre usted y los stakers de rETH.
+Es como su propia bóveda personal para priority fees.
+Cualquiera (incluido usted) puede distribuir su saldo en cualquier momento para asegurar que las recompensas siempre estén disponibles para los stakers de rETH.
 
-The **Smoothing Pool** is a special opt-in contract that allows all participating node operators to aggregate and pool their priority fees together, and distributes them evenly among the participants during each Rocket Pool rewards interval (currently every 28 days) and the rETH pool stakers.
-This is a very compelling feature for node operators that don't want to worry about the luck factor involved in getting block proposals with high priority fees, and would rather have a nice, regular, consistent set of monthly earnings.
+El **Smoothing Pool** es un contrato especial de opt-in que permite a todos los operadores de nodos participantes agregar y agrupar sus priority fees juntas, y las distribuye equitativamente entre los participantes durante cada intervalo de recompensas de Rocket Pool (actualmente cada 28 días) y los stakers del pool de rETH.
+Esta es una característica muy atractiva para los operadores de nodos que no quieren preocuparse por el factor de suerte involucrado en obtener propuestas de bloques con priority fees altas, y preferirían tener un conjunto agradable, regular y consistente de ganancias mensuales.
 
-We'll cover both of these below so you understand the difference and whether or not you want to join the Smoothing Pool.
+Cubriremos ambos a continuación para que entienda la diferencia y si desea unirse o no al Smoothing Pool.
 
-::: tip NOTE
-For minipools created after 2024-10-28, the smoothing pool is STRONGLY recommended, as it is used to distribute bonus commission. If you opt out of the smoothing pool, these minipools will get 5% commission total. If you opt into the smoothing pool, these minipools will get between 10% (no RPL staked) and 14% (RPL stake is valued at 10% of borrowed ETH or more) commission.
+::: tip NOTA
+Para minipools creados después del 2024-10-28, se recomienda FUERTEMENTE el smoothing pool, ya que se usa para distribuir comisión de bonificación. Si opta por no participar en el smoothing pool, estos minipools obtendrán una comisión total del 5%. Si opta por participar en el smoothing pool, estos minipools obtendrán entre 10% (sin RPL en stake) y 14% (el stake de RPL tiene un valor del 10% del ETH prestado o más) de comisión.
 :::
 
-## Your Fee Distributor
+## Su Fee Distributor
 
-Your Fee Distributor is a unique contract on the Execution Layer that's **specific to your node**.
-It will hold all of the priority fees you've earned over time, and it contains the logic required to fairly split and distribute them to the rETH pool stakers and your withdrawal address.
-This distribution process **can be called by anyone** (including rETH stakers), and can be done **at any time**.
-It does not have a time limit before rewards expire.
+Su Fee Distributor es un contrato único en la capa de Execution que es **específico para su nodo**.
+Contendrá todas las priority fees que ha ganado con el tiempo, y contiene la lógica requerida para dividirlas y distribuirlas equitativamente a los stakers del pool de rETH y su dirección de retiro.
+Este proceso de distribución **puede ser llamado por cualquiera** (incluidos los stakers de rETH), y puede hacerse **en cualquier momento**.
+No tiene un límite de tiempo antes de que las recompensas expiren.
 
-The address for your node's Fee Distributor is **deterministically based on your node address**.
-That means it is known ahead of time, before the Fee Distributor is even created.
+La dirección de su Fee Distributor de nodo es **determinísticamente basada en su dirección de nodo**.
+Eso significa que se conoce de antemano, antes de que el Fee Distributor sea siquiera creado.
 
-New Rocket Pool nodes will automatically create (initialize) their node's Fee Distributor contract upon registration.
-Nodes that were created before the Redstone upgrade will need to do this process manually.
-This only needs to be run once.
+Los nuevos nodos de Rocket Pool crearán (inicializarán) automáticamente el contrato Fee Distributor de su nodo al registrarse.
+Los nodos que fueron creados antes de la actualización de Redstone necesitarán hacer este proceso manualmente.
+Esto solo necesita ejecutarse una vez.
 
-One interesting ramification of this is that your Distributor's address may start accruing a balance **before** you've initialized your Fee Distributor contract.
-This is okay, because your Distributor will gain access to all of this existing balance as soon as you initialize it.
+Una ramificación interesante de esto es que la dirección de su Distributor puede comenzar a acumular un saldo **antes** de que haya inicializado su contrato Fee Distributor.
+Esto está bien, porque su Distributor obtendrá acceso a todo este saldo existente tan pronto como lo inicialice.
 
-**By default, your node will use its Fee Distributor as the fee recipient for your validators.**
+**Por defecto, su nodo usará su Fee Distributor como el fee recipient para sus validadores.**
 
-### Viewing its Address and Balance
+### Ver su Dirección y Saldo
 
-You can view your fee distributor's address and balance as part of:
+Puede ver la dirección y saldo de su fee distributor como parte de:
 
 ```shell
 rocketpool node status
 ```
 
-The output will look like this:
+La salida se verá así:
 
 ![](../node-staking/images/status-fee-distributor.png)
 
-### Initializing the Fee Distributor
+### Inicializar el Fee Distributor
 
-To initialize your node's distributor, simply run this new command:
+Para inicializar el distributor de su nodo, simplemente ejecute este nuevo comando:
 
 ```shell
 rocketpool node initialize-fee-distributor
 ```
 
-::: warning NOTE
-If you created your node before the Redstone update, you must call this function once before you can create any new minipools with `rocketpool node deposit`.
+::: warning NOTA
+Si creó su nodo antes de la actualización de Redstone, debe llamar a esta función una vez antes de poder crear cualquier minipool nuevo con `rocketpool node deposit`.
 :::
 
-When your distributor has been initialized, you can claim and distribute its entire balance using the following command:
+Cuando su distributor haya sido inicializado, puede reclamar y distribuir todo su saldo usando el siguiente comando:
 
 ```shell
 rocketpool node distribute-fees
 ```
 
-This will send your share of the rewards to your **withdrawal address**.
+Esto enviará su parte de las recompensas a su **dirección de retiro**.
 
-::: warning NOTE ON TAXABLE EVENTS
-Whenever you create a new minipool, Rocket Pool will automatically call `distribute-fees`.
-This is to ensure that whatever fees you had accumulated are distributed using your node's average commission, which could change when you create the new minipool.
+::: warning NOTA SOBRE EVENTOS IMPONIBLES
+Siempre que cree un nuevo minipool, Rocket Pool llamará automáticamente a `distribute-fees`.
+Esto es para asegurar que cualquier tarifa que haya acumulado se distribuya usando la comisión promedio de su nodo, que podría cambiar cuando cree el nuevo minipool.
 
-Also, note that anyone can call `distribute-fees` on your fee distributor (to prevent you from holding rETH rewards hostage).
-You may have a taxable event whenever this method is called.
+Además, tenga en cuenta que cualquiera puede llamar a `distribute-fees` en su fee distributor (para evitar que usted retenga las recompensas de rETH como rehén).
+Puede tener un evento imponible siempre que se llame a este método.
 
-Please keep these conditions in mind when deciding whether or not to use the Smoothing Pool (discussed below).
+Por favor, tenga en cuenta estas condiciones al decidir si usar o no el Smoothing Pool (discutido a continuación).
 :::
 
-### The Penalty System
+### El Sistema de Penalización
 
-To ensure that node operators don't "cheat" by manually modifying the fee recipient used in their Validator Client, Rocket Pool employs a penalty system.
+Para asegurar que los operadores de nodos no "hagan trampa" al modificar manualmente el fee recipient usado en su cliente Validator, Rocket Pool emplea un sistema de penalización.
 
-The Oracle DAO constantly monitors each block produced by Rocket Pool node operators.
+El Oracle DAO monitorea constantemente cada bloque producido por los operadores de nodos de Rocket Pool.
 
-If a node is _opted out_ of the Smoothing Pool, the following addresses are considered valid fee recipients:
+Si un nodo está _opted out_ del Smoothing Pool, las siguientes direcciones se consideran fee recipients válidos:
 
-- The rETH address
-- The Smoothing Pool address
-- The node's fee distributor contract
+- La dirección de rETH
+- La dirección del Smoothing Pool
+- El contrato fee distributor del nodo
 
-If a node is _opted in_ to the Smoothing Pool, the following address is considered a valid fee recipient:
+Si un nodo está _opted in_ al Smoothing Pool, la siguiente dirección se considera un fee recipient válido:
 
-- The Smoothing Pool address
+- La dirección del Smoothing Pool
 
-A fee recipient other than one of valid addresses above is considered to be **invalid**.
+Un fee recipient diferente a una de las direcciones válidas anteriores se considera **inválido**.
 
-A minipool that proposed a block with an **invalid** fee recipient will be issued **a strike**.
-On the third strike, the minipool will begin receiving **infractions** - each infraction will dock **10% of its total Beacon Chain balance, including ETH earnings** and send them to the rETH pool stakers upon withdrawing funds from the minipool.
+Un minipool que propuso un bloque con un fee recipient **inválido** recibirá **una falta**.
+En la tercera falta, el minipool comenzará a recibir **infracciones** - cada infracción descontará **10% de su saldo total de Beacon Chain, incluidas las ganancias de ETH** y las enviará a los stakers del pool de rETH al retirar fondos del minipool.
 
-Infractions are at a **minipool** level, not a **node** level.
+Las infracciones están a nivel de **minipool**, no a nivel de **nodo**.
 
-The Smartnode software is designed to ensure honest users will never get penalized, even if it must take the Validator Client offline to do so.
-If this happens, you will stop attesting and will see error messages in your log files about why the Smartnode can't correctly set your fee recipient.
+El software Smartnode está diseñado para asegurar que los usuarios honestos nunca sean penalizados, incluso si debe desconectar el cliente Validator para hacerlo.
+Si esto sucede, dejará de atestiguar y verá mensajes de error en sus archivos de registro sobre por qué el Smartnode no puede configurar correctamente su fee recipient.
 
-## The Smoothing Pool
+## El Smoothing Pool
 
-The **Smoothing Pool** is a unique opt-in feature of the Rocket Pool network that is available to our node operators.
-Essentially, it becomes the fee recipient for every node operator that opts into it and collectively accumulates the priority fees from blocks proposed by those node operators into one large pool. During a Rocket Pool rewards checkpoint (the same ones used to distribute RPL rewards), the total ETH balance of the pool is distributed fairly to the pool stakers and the node operators that opted into it.
+El **Smoothing Pool** es una característica única de opt-in de la red de Rocket Pool que está disponible para nuestros operadores de nodos.
+Esencialmente, se convierte en el fee recipient para cada operador de nodo que opta por participar y acumula colectivamente las priority fees de los bloques propuestos por esos operadores de nodos en un gran pool. Durante un checkpoint de recompensas de Rocket Pool (los mismos utilizados para distribuir recompensas de RPL), el saldo total de ETH del pool se distribuye equitativamente a los stakers del pool y los operadores de nodos que optaron por participar.
 
-In essence, the Smoothing Pool is a way to effectively eliminate the randomness associated with being selected for block proposals.
-If you've ever had a streak of bad luck and gone months without a proposal, or if your block proposals only have low priority fees, you may find the Smoothing Pool quite exciting.
+En esencia, el Smoothing Pool es una forma de eliminar efectivamente la aleatoriedad asociada con ser seleccionado para propuestas de bloques.
+Si alguna vez ha tenido una racha de mala suerte y pasó meses sin una propuesta, o si sus propuestas de bloques solo tienen priority fees bajas, puede encontrar el Smoothing Pool muy emocionante.
 
-To make the math easy to understand, community member Ken Smith has put together a [massive analysis](https://raw.githubusercontent.com/htimsk/SPanalysis/main/report/Analysis%20of%20the%20Smoothing%20Pool.pdf) comparing the profitability of the Smoothing Pool and the Fee Distributor, which is summarized nicely with this chart:
+Para facilitar la comprensión de las matemáticas, el miembro de la comunidad Ken Smith ha elaborado un [análisis masivo](https://raw.githubusercontent.com/htimsk/SPanalysis/main/report/Analysis%20of%20the%20Smoothing%20Pool.pdf) comparando la rentabilidad del Smoothing Pool y el Fee Distributor, que se resume muy bien con este gráfico:
 
 ![](../node-staking/images/sp-chart.png)
 
-In short, as long as the Smoothing Pool has more minipools than you do, it's more likely that you'll come out ahead by joining it.
+En resumen, mientras el Smoothing Pool tenga más minipools que usted, es más probable que salga beneficiado al unirse.
 
-### The Rules
+### Las Reglas
 
-The Smoothing Pool uses the following rules:
+El Smoothing Pool usa las siguientes reglas:
 
-- During a Rocket Pool rewards checkpoint when the Smoothing Pool's balance is distributed, the contract's total ETH balance is split in two.
-  - rETH stakers receive 1/2 (for 16 ETH bonds) or 3/4 (for 8 ETH bonds aka LEB8), minus the **average commission** of all opted-in node operators
-  - The remainder goes to the node operators that opted in.
+- Durante un checkpoint de recompensas de Rocket Pool cuando se distribuye el saldo del Smoothing Pool, el saldo total de ETH del contrato se divide en dos.
+  - Los stakers de rETH reciben 1/2 (para bonos de 16 ETH) o 3/4 (para bonos de 8 ETH también conocidos como LEB8), menos la **comisión promedio** de todos los operadores de nodos que optaron por participar
+  - El resto va a los operadores de nodos que optaron por participar.
 
-- Opting into the Smoothing Pool is done on a **node level**. If you opt in, all of your minipools are opted in.
+- Optar por participar en el Smoothing Pool se hace a **nivel de nodo**. Si opta por participar, todos sus minipools están incluidos.
 
-- Anyone can opt in at any time. They must wait a full rewards interval (3 days on Hoodi, 28 days on Mainnet) before opting out to prevent gaming the system (e.g. leaving the SP right after being selected to propose a block).
-  - Once opted out, they must wait another full interval to opt back in.
+- Cualquiera puede optar por participar en cualquier momento. Deben esperar un intervalo de recompensas completo (3 días en Hoodi, 28 días en Mainnet) antes de optar por salir para evitar jugar con el sistema (por ejemplo, salir del SP justo después de ser seleccionado para proponer un bloque).
+  - Una vez que optan por salir, deben esperar otro intervalo completo para volver a optar por participar.
 
-- The Smoothing Pool calculates the "share" of each minipool (portion of the pool's ETH for the interval) owned by each node opted in.
-  - The share is a function of your minipool's performance during the interval (calculated by looking at how many attestations you sent on the Beacon Chain, and how many you missed), and your minipool's commission rate.
+- El Smoothing Pool calcula la "participación" de cada minipool (porción del ETH del pool para el intervalo) propiedad de cada nodo que optó por participar.
+  - La participación es una función del rendimiento de su minipool durante el intervalo (calculado mirando cuántas attestations envió en la Beacon Chain, y cuántas perdió), y la tasa de comisión de su minipool.
 
-- Your node's total share is the sum of your minipool shares.
+- La participación total de su nodo es la suma de las participaciones de sus minipools.
 
-- Your node's total share is scaled by the amount of time you were opted in.
-  - If you were opted in for the full interval, you receive your full share.
-  - If you were opted in for 30% of an interval, you receive 30% of your full share.
+- La participación total de su nodo se escala según la cantidad de tiempo que optó por participar.
+  - Si optó por participar durante el intervalo completo, recibe su participación completa.
+  - Si optó por participar durante el 30% de un intervalo, recibe el 30% de su participación completa.
 
-If you are interested in the complete technical details of Smoothing Pool rewards calculation, please review the [full specification here](https://github.com/rocket-pool/rocketpool-research/blob/master/Merkle%20Rewards%20System/rewards-calculation-spec.md#smoothing-pool-rewards).
+Si está interesado en los detalles técnicos completos del cálculo de recompensas del Smoothing Pool, por favor revise [la especificación completa aquí](https://github.com/rocket-pool/rocketpool-research/blob/master/Merkle%20Rewards%20System/rewards-calculation-spec.md#smoothing-pool-rewards).
 
-### Joining and Leaving the Smoothing Pool
+### Unirse y Salir del Smoothing Pool
 
-To opt into the Smoothing Pool, run the following command:
+Para optar por participar en el Smoothing Pool, ejecute el siguiente comando:
 
 ```shell
 rocketpool node join-smoothing-pool
 ```
 
-This will record you as opted-in in the Rocket Pool contracts and automatically change your Validator Client's `fee recipient` from your node's distributor contract to the Smoothing Pool contract.
+Esto lo registrará como opt-in en los contratos de Rocket Pool y cambiará automáticamente el `fee recipient` de su cliente Validator del contrato distributor de su nodo al contrato del Smoothing Pool.
 
-To leave the pool, run this command:
+Para salir del pool, ejecute este comando:
 
 ```shell
 rocketpool node leave-smoothing-pool
 ```
 
-This will record you as opted-out in the Rocket Pool contracts, and once a small delay has passed, will automatically change your Validator Client's `fee recipient` from the Smoothing Pool contract back to your node's Fee Distributor contract.
+Esto lo registrará como opted-out en los contratos de Rocket Pool, y una vez que haya pasado un pequeño retraso, cambiará automáticamente el `fee recipient` de su cliente Validator del contrato del Smoothing Pool de nuevo al contrato Fee Distributor de su nodo.
 
-### Claiming Rewards from the Smoothing Pool
+### Reclamar Recompensas del Smoothing Pool
 
-Rewards from the Smoothing Pool are bundled together with RPL at the end of each rewards interval using the Redstone rewards system.
-Claiming them is as simple as running:
+Las recompensas del Smoothing Pool se agrupan junto con RPL al final de cada intervalo de recompensas usando el sistema de recompensas de Redstone.
+Reclamarlas es tan simple como ejecutar:
 
 ```shell
 rocketpool node claim-rewards
 ```
 
-If opted into the Smoothing Pool, you will notice that the amount of ETH you receive for each interval is more than zero:
+Si optó por participar en el Smoothing Pool, notará que la cantidad de ETH que recibe por cada intervalo es mayor que cero:
 
 ```
 Welcome to the new rewards system!
@@ -218,10 +218,10 @@ Total Pending Rewards:
 Which intervals would you like to claim? Use a comma separated list (such as '1,2,3') or leave it blank to claim all intervals at once.
 ```
 
-Note that the Smoothing Pool rewards in Interval 1 here indicate that the node was opted in during that interval and received rewards accordingly.
+Tenga en cuenta que las recompensas del Smoothing Pool en el Intervalo 1 aquí indican que el nodo optó por participar durante ese intervalo y recibió recompensas en consecuencia.
 
-We'll cover more about claiming RPL and Smoothing Pool rewards later in the guide, in the [Claiming Rewards](./rewards) section.
+Cubriremos más sobre la reclamación de recompensas de RPL y Smoothing Pool más adelante en la guía, en la sección [Reclamar Recompensas](./rewards).
 
-## Next Steps
+## Próximos Pasos
 
-Once you've decided on whether or not you want to join the Smoothing Pool, take a look at the next section on MEV and MEV rewards.
+Una vez que haya decidido si desea unirse o no al Smoothing Pool, eche un vistazo a la siguiente sección sobre MEV y recompensas de MEV.
