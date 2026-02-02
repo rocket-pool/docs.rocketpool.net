@@ -1,5 +1,30 @@
 import { defineConfig } from "@rspress/core";
 
+const navTranslations: Record<string, { overview: string; liquidStaking: string; nodeStaking: string; website: string }> = {
+  en: { overview: "Overview", liquidStaking: "Liquid Staking", nodeStaking: "Node Staking", website: "Website" },
+  zh: { overview: "概述", liquidStaking: "流动性质押", nodeStaking: "节点质押", website: "网站" },
+  es: { overview: "Descripción general", liquidStaking: "Staking Líquido", nodeStaking: "Staking de Nodo", website: "Sitio web" },
+  fr: { overview: "Aperçu", liquidStaking: "Staking Liquide", nodeStaking: "Staking de Nœud", website: "Site web" },
+  de: { overview: "Übersicht", liquidStaking: "Liquid Staking", nodeStaking: "Node Staking", website: "Webseite" },
+  ja: { overview: "概要", liquidStaking: "リキッドステーキング", nodeStaking: "ノードステーキング", website: "ウェブサイト" },
+  ko: { overview: "개요", liquidStaking: "리퀴드 스테이킹", nodeStaking: "노드 스테이킹", website: "웹사이트" },
+  pt: { overview: "Visão geral", liquidStaking: "Staking Líquido", nodeStaking: "Staking de Nó", website: "Site" },
+  ru: { overview: "Обзор", liquidStaking: "Ликвидный стейкинг", nodeStaking: "Стейкинг ноды", website: "Сайт" },
+  it: { overview: "Panoramica", liquidStaking: "Liquid Staking", nodeStaking: "Node Staking", website: "Sito web" },
+  tr: { overview: "Genel Bakış", liquidStaking: "Likit Staking", nodeStaking: "Node Staking", website: "Web sitesi" },
+};
+
+function localeNav(lang: string) {
+  const t = navTranslations[lang];
+  const prefix = lang === "en" ? "" : `/${lang}`;
+  return [
+    { text: t.overview, link: `${prefix}/overview/` },
+    { text: t.liquidStaking, link: `${prefix}/liquid-staking/overview` },
+    { text: t.nodeStaking, link: `${prefix}/node-staking/responsibilities` },
+    { text: t.website, link: "https://www.rocketpool.net" },
+  ];
+}
+
 const locales = [
   { lang: "en", label: "English", title: "Rocket Pool Guides & Documentation", description: "Rocket Pool Guides & Documentation - Decentralised Ethereum Liquid Staking Protocol" },
   { lang: "zh", label: "简体中文", title: "Rocket Pool 指南与文档", description: "Rocket Pool 指南与文档 - 去中心化以太坊流动性质押协议" },
@@ -57,12 +82,10 @@ export default defineConfig({
       docRepoBaseUrl: "https://github.com/rocket-pool/docs.rocketpool.net/tree/main/docs",
       text: "📝 Edit this page on GitHub",
     },
-    nav: [
-      { text: "Overview", link: "/en/overview/" },
-      { text: "Liquid Staking", link: "/en/liquid-staking/overview" },
-      { text: "Node Staking", link: "/en/node-staking/responsibilities" },
-      { text: "Website", link: "https://www.rocketpool.net" },
-    ],
+    locales: locales.map(({ lang }) => ({
+      lang,
+      nav: localeNav(lang),
+    })),
     sidebar: {
       ...localeSidebars(),
     },
@@ -334,14 +357,14 @@ function legacy(prefix: string) {
 function localeSidebars() {
   const sidebar: Record<string, unknown> = {};
   for (const { lang } of locales) {
-    const prefix = `/${lang}`;
-    sidebar[`/${lang}/overview/`] = overview(prefix);
-    sidebar[`/${lang}/liquid-staking/`] = liquidStaking(prefix);
-    sidebar[`/${lang}/node-staking/`] = nodeStaking(prefix);
-    sidebar[`/${lang}/odao/`] = odao(prefix);
-    sidebar[`/${lang}/upgrades/`] = upgrades(prefix);
-    sidebar[`/${lang}/testnet/`] = testnet(prefix);
-    sidebar[`/${lang}/legacy/`] = legacy(prefix);
+    const prefix = lang === "en" ? "" : `/${lang}`;
+    sidebar[`${prefix}/overview`] = overview(prefix);
+    sidebar[`${prefix}/liquid-staking`] = liquidStaking(prefix);
+    sidebar[`${prefix}/node-staking`] = nodeStaking(prefix);
+    sidebar[`${prefix}/odao`] = odao(prefix);
+    sidebar[`${prefix}/upgrades`] = upgrades(prefix);
+    sidebar[`${prefix}/testnet`] = testnet(prefix);
+    sidebar[`${prefix}/legacy`] = legacy(prefix);
   }
   return sidebar;
 }

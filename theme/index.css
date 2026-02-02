@@ -333,3 +333,21 @@ html.rp-dark .rp-home-background {
   margin: 0 auto;
   padding: 2rem 1.5rem;
 }
+
+.rp-nav-menu__item {
+  position: relative;
+}
+
+.rp-nav-menu__item__content {
+  padding-top: 16px;
+  margin-top: -8px;
+  background-color: var(--rp-c-bg);
+  border: 1px solid var(--rp-c-divider);
+  border-radius: var(--rp-radius-small);
+  box-shadow: var(--rp-shadow-3);
+}
+
+.rp-nav-menu__item:hover .rp-nav-menu__item__content,
+.rp-nav-menu__item__content:hover {
+  display: block;
+}
