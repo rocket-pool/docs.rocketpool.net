@@ -143,7 +143,7 @@ h6 {
 
 :root {
   --rp-z-index-local-nav: 10;
-  --rp-z-index-nav: 20;
+  --rp-z-index-nav: 50;
   --rp-z-index-backdrop: 30;
   --rp-z-index-sidebar: 40;
 }
