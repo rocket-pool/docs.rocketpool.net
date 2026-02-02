@@ -1,52 +1,52 @@
 ---
 next:
-  text: The Protocol DAO
-  link: "/en/pdao/pdao"
+  text: El DAO del Protocolo
+  link: "/es/pdao/pdao"
 ---
 
-# Overview
+# Resumen
 
-This section outlines the process of setting up your node to participate in on-chain and snapshot proposals. There's a lot to unpack, so we highly recommend reading through an overview of the [Houston Upgrade](/en/legacy/houston/whats-new). This will help you understand the latest features that enable on-chain governance and how you can participate in shaping the protocol.
+Esta sección describe el proceso de configuración de tu nodo para participar en propuestas on-chain y de Snapshot. Hay mucho que desempacar, por lo que recomendamos encarecidamente leer un resumen de la [Actualización Houston](/es/legacy/houston/whats-new). Esto te ayudará a comprender las últimas características que habilitan la gobernanza on-chain y cómo puedes participar en dar forma al protocolo.
 
-## Prerequisites
+## Requisitos previos
 
-Before configuring your Smartnode, please make sure you:
+Antes de configurar tu Smartnode, asegúrate de:
 
-- Have set up a node machine (or virtual machine) and secured it (via the [Securing your Node](/en/node-staking/securing-your-node) guide)
-- Have the Smartnode [installed](/en/node-staking/installing/overview) and [configured](/en/node-staking/config/overview) on it
-- Have a node wallet loaded on your Smartnode
-- Synced your Execution and Consensus clients
-- Provisioned your node with [a withdrawal address](/en/node-staking/prepare-node#setting-your-withdrawal-address), set up your [fallback clients](/en/node-staking/fallback) (optional), opted into the [Smoothing Pool](/en/node-staking/fee-distrib-sp#the-smoothing-pool) (optional), and configured [MEV](/en/node-staking/mev)
-- Created at least one [minipool](/en/node-staking/create-validator)
+- Haber configurado una máquina de nodo (o máquina virtual) y haberla asegurado (mediante la guía [Asegurando tu nodo](/es/node-staking/securing-your-node))
+- Tener el Smartnode [instalado](/es/node-staking/installing/overview) y [configurado](/es/node-staking/config/overview) en él
+- Tener una billetera de nodo cargada en tu Smartnode
+- Haber sincronizado tus clientes de Ejecución y Consenso
+- Haber provisionado tu nodo con [una dirección de retiro](/es/node-staking/prepare-node#setting-your-withdrawal-address), configurado tus [clientes de respaldo](/es/node-staking/fallback) (opcional), optado por el [Smoothing Pool](/es/node-staking/fee-distrib-sp#the-smoothing-pool) (opcional), y configurado [MEV](/es/node-staking/mev)
+- Haber creado al menos un [minipool](/es/node-staking/create-validator)
 
-## There are three addresses involved in voting
+## Hay tres direcciones involucradas en la votación
 
-- pDAO Signalling Address — will be used as your Snapshot address, if you want to vote directly or if you want to override your delegate's Snapshot vote. This address is only used for Snapshot not on-chain voting.
+- Dirección de señalización del pDAO — se utilizará como tu dirección de Snapshot, si deseas votar directamente o si deseas anular el voto de Snapshot de tu delegado. Esta dirección solo se usa para Snapshot, no para votación on-chain.
 
-- pDAO Delegate Node — if you choose to delegate your vote. You will set this to your delegate's node address. If you choose a delegate they will vote for you on Snapshot and for on-chain proposals.
+- Nodo delegado del pDAO — si eliges delegar tu voto. Configurarás esto a la dirección de nodo de tu delegado. Si eliges un delegado, votará por ti en Snapshot y en propuestas on-chain.
 
-- Node Address — if you have not delegated your vote or if you wish to override your delegate's on-chain vote you can do this from your node.
+- Dirección de nodo — si no has delegado tu voto o si deseas anular el voto on-chain de tu delegado, puedes hacerlo desde tu nodo.
 
-## Guides
+## Guías
 
-[The Protocol DAO](/en/pdao/pdao) discusses who and how the pDAO governs Rocket Pool. This page will fill you in on how pDAO duties such as treasury spends can be executed on-chain, along with the role of the all new Security Council. It'll also walk you through the lifecycle of a pDAO proposal and explain some of the measures taken to prevent spam and gun down malicious proposals.
+[El DAO del Protocolo](/es/pdao/pdao) discute quién y cómo el pDAO gobierna Rocket Pool. Esta página te informará sobre cómo las tareas del pDAO, como los gastos del tesoro, pueden ejecutarse on-chain, junto con el papel del nuevo Consejo de Seguridad. También te guiará a través del ciclo de vida de una propuesta del pDAO y explicará algunas de las medidas tomadas para prevenir spam y rechazar propuestas maliciosas.
 
-[Voting setup for non-smartnode users](/en/legacy/houston/nonsmartnode-setup) shows non-smartnode users (such as Allnodes users) how to set up voting.
+[Configuración de votación para usuarios que no usan smartnode](/es/legacy/houston/nonsmartnode-setup) muestra a los usuarios que no usan smartnode (como usuarios de Allnodes) cómo configurar la votación.
 
-[Initializing Voting Power](/en/pdao/participate#initializing-voting) shows you how to initialize your node's voting power. This step is only required if your node was registered before the Houston Upgrade.
+[Inicializando el poder de voto](/es/pdao/participate#initializing-voting) te muestra cómo inicializar el poder de voto de tu nodo. Este paso solo es necesario si tu nodo fue registrado antes de la Actualización Houston.
 
-[Setting your Snapshot Signalling Address](/en/pdao/participate#setting-your-snapshot-signalling-address) will walk you through the steps for setting a Signalling Address. It'll allow you to vote on Snapshot using your node's voting power without needing to load your node's private key onto a hot wallet. Make sure you have your Smartnode CLI handy and prepare a address (that isn't your node wallet) for this guide.
+[Configurando tu dirección de señalización de Snapshot](/es/pdao/participate#setting-your-snapshot-signalling-address) te guiará a través de los pasos para configurar una dirección de señalización. Te permitirá votar en Snapshot usando el poder de voto de tu nodo sin necesidad de cargar la clave privada de tu nodo en una billetera caliente. Asegúrate de tener tu CLI de Smartnode a mano y prepara una dirección (que no sea tu billetera de nodo) para esta guía.
 
-[Delegating Voting Power](/en/pdao/participate#delegating-voting-power) is a quick command you can use to delegate voting power instead of voting directly on proposals.
+[Delegando el poder de voto](/es/pdao/participate#delegating-voting-power) es un comando rápido que puedes usar para delegar el poder de voto en lugar de votar directamente en propuestas.
 
-[Viewing the State of a Proposal](/en/pdao/participate#viewing-the-state-of-a-proposal) is a guide on how you can view a list of past and ongoing on-chain proposals. You'll be able to check the state and read up on the details of any given on-chain proposal.
+[Viendo el estado de una propuesta](/es/pdao/participate#viewing-the-state-of-a-proposal) es una guía sobre cómo puedes ver una lista de propuestas on-chain pasadas y en curso. Podrás verificar el estado y leer los detalles de cualquier propuesta on-chain dada.
 
-[Voting on a Proposal](/en/pdao/participate#voting-on-a-proposal) shows you how cast a vote on an on-chain proposal. This guide also goes over the four options: **Abstain**, **For**, **Against**, and **Veto**.
+[Votando en una propuesta](/es/pdao/participate#voting-on-a-proposal) te muestra cómo emitir un voto en una propuesta on-chain. Esta guía también repasa las cuatro opciones: **Abstención**, **A favor**, **En contra** y **Veto**.
 
-[Creating a Proposal](/en/pdao/participate#creating-a-proposal) walks you through the requirements and steps to raise an on-chain proposal.
+[Creando una propuesta](/es/pdao/participate#creating-a-proposal) te guía a través de los requisitos y pasos para presentar una propuesta on-chain.
 
-[Executing a successful proposal](/en/pdao/participate#executing-a-successful-proposal) will show you how to apply the effects of a successful proposal to the Rocket Pool Protocol.
+[Ejecutando una propuesta exitosa](/es/pdao/participate#executing-a-successful-proposal) te mostrará cómo aplicar los efectos de una propuesta exitosa al Protocolo Rocket Pool.
 
-[Claiming Bonds and Rewards](/en/pdao/participate#claiming-bonds-and-rewards) discusses the conditions in which bonds or rewards can be claimed by a Proposer or Challenger.
+[Reclamando bonos y recompensas](/es/pdao/participate#claiming-bonds-and-rewards) discute las condiciones bajo las cuales los bonos o recompensas pueden ser reclamados por un proponente o retador.
 
-[Creating and Claiming a recurring treasury spend](/en/pdao/participate#creating-a-recurring-treasury-spend) is a feature which gives the pDAO full control over adding, modifying, and removing recurring payments.
+[Creando y reclamando un gasto recurrente del tesoro](/es/pdao/participate#creating-a-recurring-treasury-spend) es una característica que otorga al pDAO control total sobre agregar, modificar y eliminar pagos recurrentes.

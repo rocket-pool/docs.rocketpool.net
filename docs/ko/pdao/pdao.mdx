@@ -3,124 +3,124 @@ import proposal_checker from "./images/proposal_checker.png";
 
 # The Protocol DAO (pDAO)
 
-The Rocket Pool Protocol DAO (pDAO) is responsible for shaping the direction of the protocol and is run by RPL governance. Its members and their voting power are made up of node operators, big and small, all of which are directly participating in the protocol. It serves the Rocket Pool community at large, including rETH holders, Node Operators, and RPL holders. The pDAO prioritizes the safety of the Rocket Pool protocol and the health of the Ethereum Network. For an explicit definition of who and what the pDAO is, feel free to take a look at the [pDAO charter](https://rpips.rocketpool.net/RPIPs/RPIP-23).
+Rocket Pool Protocol DAO(pDAO)는 프로토콜의 방향을 형성하는 책임을 지며 RPL 거버넌스에 의해 운영됩니다. 구성원과 투표권은 프로토콜에 직접 참여하는 크고 작은 노드 운영자들로 구성됩니다. rETH 보유자, 노드 운영자 및 RPL 보유자를 포함한 Rocket Pool 커뮤니티 전체에 서비스를 제공합니다. pDAO는 Rocket Pool 프로토콜의 안전과 Ethereum 네트워크의 건전성을 우선시합니다. pDAO가 누구이고 무엇인지에 대한 명시적 정의는 [pDAO charter](https://rpips.rocketpool.net/RPIPs/RPIP-23)를 참조하세요.
 
-## New pDAO features in Houston
+## Houston의 새로운 pDAO 기능
 
-### On-chain execution of pDAO responsibilities
+### pDAO 책임의 온체인 실행
 
-The Houston Upgrade introduces an on-chain replacement for the pDAO governance system's execution process. It uses an optimistic fraud-proof system that allows any node operator to raise proposals and vote on proposals to adjust "pDAO protocol parameters" and spend treasury funds. To see a comprehensive list of pDAO controllable parameters, click [here](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table).
-Pre-Houston, the core team was responsible for executing pDAO duties at the behest of the community governance process. For example, the team carries out the monthly IMC and GMC payments as per the governance voted payment schedules. The plan was for this power to reside with the team temporarily until a new power structure is set up to take over these responsibilities. Houston removes this dependency on the team, making the protocol more decentralized and trustless.
+Houston 업그레이드는 pDAO 거버넌스 시스템의 실행 프로세스에 대한 온체인 대체를 도입합니다. 모든 노드 운영자가 제안을 제기하고 "pDAO 프로토콜 매개변수"를 조정하고 재무 자금을 지출하는 제안에 투표할 수 있는 낙관적 사기 증명 시스템을 사용합니다. pDAO가 제어할 수 있는 매개변수의 포괄적인 목록을 보려면 [여기](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table)를 클릭하세요.
+Houston 이전에는 코어 팀이 커뮤니티 거버넌스 프로세스의 요청에 따라 pDAO 업무를 실행할 책임이 있었습니다. 예를 들어, 팀은 거버넌스가 투표한 지급 일정에 따라 월별 IMC 및 GMC 지급을 수행합니다. 계획은 새로운 권력 구조가 이러한 책임을 인수할 때까지 이 권한이 팀에 일시적으로 있는 것이었습니다. Houston은 팀에 대한 이러한 의존성을 제거하여 프로토콜을 더욱 분산화되고 신뢰가 필요 없게 만듭니다.
 
 ### Security Council
 
-The Houston upgrade also includes a new security council to help react quickly in the event of any potential issues with the protocol. These members can be elected by the pDAO and have the ability to propose and execute changes without delay. The pDAO has the power to elect and remove members from the security council. It's a serious role and the pDAO should develop strong entry requirements and processes for flushing stale members. The pDAO guardian will be the security council's sole member at the start of Houston.
+Houston 업그레이드에는 프로토콜의 잠재적인 문제가 발생할 경우 신속하게 대응할 수 있도록 새로운 security council도 포함됩니다. 이러한 구성원은 pDAO에 의해 선출될 수 있으며 지연 없이 변경 사항을 제안하고 실행할 수 있는 능력을 가지고 있습니다. pDAO는 security council에서 구성원을 선출하고 제거할 권한을 가지고 있습니다. 이것은 심각한 역할이며 pDAO는 강력한 진입 요구 사항과 오래된 구성원을 제거하는 프로세스를 개발해야 합니다. pDAO guardian은 Houston 시작 시 security council의 유일한 구성원이 될 것입니다.
 
-### Recurring Treasury Spends
+### 반복 재무 지출
 
-RPL has a 5% inflation rate. 22% of this inflation is directed towards the pDAO as defined in [RPIP-25](https://rpips.rocketpool.net/RPIPs/RPIP-25). The pDAO can use these funds for a variety of purposes. For example, incentives such as liquidity provider (LP) bonuses, grants and bounties for 3rd party improvements and projects, and funding the development of the Rocket Pool protocol. The Houston upgrade also introduces a new feature that enables recurring treasury payments made to a specified beneficiary each rewards period.
+RPL은 5%의 인플레이션율을 가지고 있습니다. 이 인플레이션의 22%는 [RPIP-25](https://rpips.rocketpool.net/RPIPs/RPIP-25)에 정의된 대로 pDAO로 향합니다. pDAO는 이러한 자금을 다양한 목적으로 사용할 수 있습니다. 예를 들어, 유동성 공급자(LP) 보너스와 같은 인센티브, 제3자 개선 및 프로젝트에 대한 보조금 및 현상금, Rocket Pool 프로토콜 개발 자금 조달 등이 있습니다. Houston 업그레이드는 또한 각 보상 기간마다 지정된 수혜자에게 지급되는 반복 재무 지급을 가능하게 하는 새로운 기능을 도입합니다.
 
-## Protocol DAO (pDAO) proposals
+## Protocol DAO (pDAO) 제안
 
-Any node with a non-zero voting power may raise or participate in a pDAO proposal at any time. Proposals can be one of the following types:
+0이 아닌 투표권을 가진 모든 노드는 언제든지 pDAO 제안을 제기하거나 참여할 수 있습니다. 제안은 다음 유형 중 하나가 될 수 있습니다:
 
-- Changing pDAO settings
-- One-time treasury spends
-- Repeat treasury spends (management committees)
-- Security council membership
+- pDAO 설정 변경
+- 일회성 재무 지출
+- 반복 재무 지출 (관리 위원회)
+- Security council 멤버십
 
-For greater detail and rationale, refer to [proposal types](https://rpips.rocketpool.net/RPIPs/RPIP-33#proposal-types). It's important to understand that a pDAO proposal is an on-chain entity that exists to execute changes at the protocol level.
+자세한 내용과 근거는 [제안 유형](https://rpips.rocketpool.net/RPIPs/RPIP-33#proposal-types)을 참조하세요. pDAO 제안은 프로토콜 수준에서 변경 사항을 실행하기 위해 존재하는 온체인 엔티티라는 것을 이해하는 것이 중요합니다.
 
-## Lifecycle of a pDAO proposal
+## pDAO 제안의 라이프사이클
 
-A proposal should be forecasted by the [governance process](./participate#governance-process) before it ends up on-chain. It consists of 4 Periods, all of which are pDAO [controllable parameters](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table):
+제안은 온체인에 올라가기 전에 [거버넌스 프로세스](./participate#governance-process)를 통해 예고되어야 합니다. 4개의 기간으로 구성되며, 모두 pDAO [제어 가능한 매개변수](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table)입니다:
 
-- Vote Delay Period: `proposal.vote.delay.time`
-- Vote Phase 1: `proposal.vote.phase1.time`
-- Vote Phase 2: `proposal.vote.phase2.time`
-- Execution: `proposal.execute.time	`
+- 투표 지연 기간: `proposal.vote.delay.time`
+- 투표 1단계: `proposal.vote.phase1.time`
+- 투표 2단계: `proposal.vote.phase2.time`
+- 실행: `proposal.execute.time	`
 
 <img src={proposal_diagram} width="100%" height="auto" />
 
-### Vote Delay Period
+### 투표 지연 기간
 
-In order to decide the outcome of a proposal, the protocol must know the quorum required. A proposer calculates this value off-chain and submits it alongside their proposal. The value is optimistically accepted, but in the case of fraud, verifiers can perform a challenge/response process to prove the value is incorrect. Invalid proposals are then discarded.
+제안의 결과를 결정하기 위해 프로토콜은 필요한 정족수를 알아야 합니다. 제안자는 이 값을 오프체인에서 계산하고 제안과 함께 제출합니다. 값은 낙관적으로 수락되지만 사기의 경우 검증자는 값이 올바르지 않음을 증명하기 위해 도전/응답 프로세스를 수행할 수 있습니다. 그런 다음 잘못된 제안은 폐기됩니다.
 
-A few reasons why proposers and challengers are required to lock RPL.
+제안자와 도전자가 RPL을 잠가야 하는 몇 가지 이유입니다.
 
-- `proposal.bond` incentivizes valid proposals and disincentivizes spam.
-- `proposal.challenge.bond` incentivizes the takedown of invalid/malicious proposals.
+- `proposal.bond`는 유효한 제안을 장려하고 스팸을 억제합니다.
+- `proposal.challenge.bond`는 무효/악의적인 제안의 제거를 장려합니다.
 
-Challengers supply an index into the Merkle-sum tree that they are alleging is incorrect. Any node operator can participate in challenging fraudulent proposals (and earn a reward in doing so). Feel free to read about the [pDAO Challenge Process](./pdao#challenge-process) if you're interested in opting in. A proposal not defeated in a challenge by the end of the vote delay period will enter voting stages.
+도전자는 잘못되었다고 주장하는 Merkle-sum 트리의 인덱스를 제공합니다. 모든 노드 운영자는 사기성 제안에 도전하는 데 참여할 수 있습니다(그렇게 함으로써 보상을 얻음). 참여를 선택하는 데 관심이 있다면 [pDAO 도전 프로세스](./pdao#challenge-process)에 대해 자유롭게 읽어보세요. 투표 지연 기간이 끝날 때까지 도전에서 패배하지 않은 제안은 투표 단계로 들어갑니다.
 
-::: tip NOTE
-When `proposal.vote.delay.time` expires, the proposal is no longer able to be challenged or defeated.
+::: tip 참고
+`proposal.vote.delay.time`이 만료되면 제안은 더 이상 도전하거나 패배할 수 없습니다.
 :::
 
-### Vote Period 1
+### 투표 기간 1
 
-During a voting period, Node Operators and Delegates can cast a vote with one of four options:
+투표 기간 동안 노드 운영자와 위임자는 네 가지 옵션 중 하나로 투표할 수 있습니다:
 
 ```
-1. Abstain: The voter's voting power is contributed to quorum but is neither for nor against the proposal.
-2. For: The voter votes in favor of the proposal being executed.
-3. Against: The voter votes against the proposal being executed.
-4. Veto: The voter votes against the proposal as well as indicating they deem the proposal as spam or malicious.
+1. Abstain: 투표자의 투표권은 정족수에 기여하지만 제안에 찬성하거나 반대하지 않습니다.
+2. For: 투표자는 제안이 실행되는 것에 찬성합니다.
+3. Against: 투표자는 제안이 실행되는 것에 반대합니다.
+4. Veto: 투표자는 제안에 반대하며 제안을 스팸 또는 악의적인 것으로 간주한다는 것을 나타냅니다.
 ```
 
-Their voting power will be included in the option of their choosing.
+투표권은 선택한 옵션에 포함됩니다.
 
-This can be done using the command:
+다음 명령을 사용하여 수행할 수 있습니다:
 
 ```shell
 rocketpool pdao proposals vote
 ```
 
-If the veto quorum (as defined by the `proposal.veto.quorum` parameter) is met, the proposal is immediately defeated and the proposer loses their bond. This is to dissuade spam, low quality proposals, or proposals that have not gone through off-chain processes first. The smartnode command `rocketpool pdao proposals finalize` is used to finalize a vetoed proposal by burning the proposer's locked RPL bond.
+veto 정족수(`proposal.veto.quorum` 매개변수로 정의됨)가 충족되면 제안은 즉시 패배하고 제안자는 보증금을 잃습니다. 이것은 스팸, 저품질 제안 또는 오프체인 프로세스를 먼저 거치지 않은 제안을 억제하기 위한 것입니다. smartnode 명령 `rocketpool pdao proposals finalize`는 제안자의 잠긴 RPL 보증금을 소각하여 거부된 제안을 최종화하는 데 사용됩니다.
 
-The duration of period 1 is determined by the `proposal.vote.phase1.time` parameter. The proposal will transition to phase 2 regardless of whether `proposal.quorum` is reached or not.
+1단계의 기간은 `proposal.vote.phase1.time` 매개변수에 의해 결정됩니다. 제안은 `proposal.quorum`에 도달했는지 여부와 관계없이 2단계로 전환됩니다.
 
-### Vote Period 2
+### 투표 기간 2
 
-Delegates can vote during vote period 2, but only their vote is only worth their **local voting power**. Voters who didn't vote in period 1 will still be able to cast a vote during period 2. Node operators who disagree with their delegate's choice will have the opportunity to overturn their delegate's vote.
+위임자는 투표 기간 2 동안 투표할 수 있지만 투표는 **로컬 투표권**만 가치가 있습니다. 1단계에서 투표하지 않은 투표자는 여전히 2단계 동안 투표할 수 있습니다. 위임자의 선택에 동의하지 않는 노드 운영자는 위임자의 투표를 뒤집을 기회를 얻습니다.
 
-The process of overturning a vote is pretty simple, just call `rocketpool pdao proposals vote` during vote period 2 and follow the prompts. The delegate's voting power will be overturned by the delegatee's voting power.
+투표를 뒤집는 과정은 꽤 간단합니다. 투표 기간 2 동안 `rocketpool pdao proposals vote`를 호출하고 프롬프트를 따르세요. 위임자의 투표권은 위임받은 사람의 투표권에 의해 뒤집힙니다.
 
-The result of a proposal is concluded when vote period 2 is over. In order for a result to be determined (and executed), `proposal.quorum` total voting power must be reached by the end of `proposal.vote.phase2.time`. If quorum is met and consensus is reached, the proposal will pass the voting periods and be marked as successful.
+제안의 결과는 투표 기간 2가 끝나면 결론이 납니다. 결과가 결정(및 실행)되려면 `proposal.vote.phase2.time`이 끝날 때까지 `proposal.quorum` 총 투표권에 도달해야 합니다. 정족수가 충족되고 합의에 도달하면 제안은 투표 기간을 통과하고 성공으로 표시됩니다.
 
-::: tip NOTE
-No further actions can be taken in the event that `proposal.quorum` is not met. A proposal is considered concluded and final if quorum is not met.
+::: tip 참고
+`proposal.quorum`이 충족되지 않으면 추가 조치를 취할 수 없습니다. 정족수가 충족되지 않으면 제안은 결론 및 최종으로 간주됩니다.
 :::
 
-### Execution
+### 실행
 
-Once both voting periods have passed and the proposal is successful, the proposal can be executed and the change (defined by the payload) is applied to the Rocket Pool protocol. To execute a proposal, use the command:
+두 투표 기간이 모두 지나고 제안이 성공하면 제안을 실행할 수 있으며 변경 사항(페이로드에 정의됨)이 Rocket Pool 프로토콜에 적용됩니다. 제안을 실행하려면 다음 명령을 사용하세요:
 
 ```shell
 rocketpool pdao proposals execute
 ```
 
-You will be prompted to select a proposal to execute, the proposal will be applied to the protocol after this step!
+실행할 제안을 선택하라는 메시지가 표시되며, 이 단계 후에 제안이 프로토콜에 적용됩니다!
 
-After the proposal has passed the voting periods, the proposer may [claim](./participate#claiming-bonds-and-rewards) their locked RPL bond, unless the proposal was defeated by a challenge or vetoed.
+제안이 투표 기간을 통과한 후 제안자는 제안이 도전에 의해 패배하거나 거부되지 않는 한 잠긴 RPL 보증금을 [청구](./participate#claiming-bonds-and-rewards)할 수 있습니다.
 
-::: tip NOTE
-There is a window `proposal.execute.time` where a proposal can be executed. A proposal will expire if this timer reaches its end.
+::: tip 참고
+제안을 실행할 수 있는 `proposal.execute.time` 기간이 있습니다. 이 타이머가 끝에 도달하면 제안이 만료됩니다.
 :::
 
-And that's it! Keep in mind that all of the variables mentioned above are pDAO controllable parameters. Click [here](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table) for a comprehensive list of every parameter the pDAO has authority to change using on-chain proposals.
+그게 다입니다! 위에서 언급한 모든 변수는 pDAO 제어 가능한 매개변수라는 점을 명심하세요. pDAO가 온체인 제안을 사용하여 변경할 권한이 있는 모든 매개변수의 포괄적인 목록을 보려면 [여기](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table)를 클릭하세요.
 
-## Challenge Process
+## 도전 프로세스
 
-The complete network voting power tree is stored off-chain due to gas limits. When a user submits a new proposal, they are responsible for constructing the network voting tree at target block number. This tree is generated off-chain but verifiable via Merkle roots that are submitted on-chain. The protocol relies on **verifiers** to check the details submitted by the proposer.
+완전한 네트워크 투표권 트리는 가스 제한으로 인해 오프체인에 저장됩니다. 사용자가 새 제안을 제출하면 대상 블록 번호에서 네트워크 투표 트리를 구성할 책임이 있습니다. 이 트리는 오프체인에서 생성되지만 온체인에 제출된 Merkle 루트를 통해 검증할 수 있습니다. 프로토콜은 **검증자**에게 제안자가 제출한 세부 정보를 확인하도록 의존합니다.
 
-Any node can participate in tracking and verifying the correctness of proposals. To opt into this responsibility, use the command `rocketpool service config`, navigate to the **Smartnode and TX Fee Settings** menu, and check the box `Enable PDAO Proposal Checker`.
+모든 노드는 제안의 정확성을 추적하고 검증하는 데 참여할 수 있습니다. 이 책임을 선택하려면 `rocketpool service config` 명령을 사용하고 **Smartnode and TX Fee Settings** 메뉴로 이동하여 `Enable PDAO Proposal Checker` 상자를 선택하세요.
 
 <img src={proposal_checker} width="100%" height="auto" />
 
-When this setting is enabled, the node will check for new proposals, verify their correctness, and submit challenges to invalid proposals. The only prerequisite is that [RPL Locking](./participate#allowing-rpl-locking) is enabled.
+이 설정을 활성화하면 노드는 새 제안을 확인하고 정확성을 검증하며 잘못된 제안에 도전을 제출합니다. 유일한 전제 조건은 [RPL 잠금](./participate#allowing-rpl-locking)이 활성화되어 있어야 한다는 것입니다.
 
-This check runs every 5 minutes in conjunction with a few other node related duties. We'll run through an example of what challenging a fraudulent proposal looks like. We can use the smartnode command `rocketpool service logs node` to monitor the progress:
+이 확인은 다른 몇 가지 노드 관련 업무와 함께 5분마다 실행됩니다. 사기성 제안에 도전하는 것이 어떻게 보이는지 예를 살펴보겠습니다. smartnode 명령 `rocketpool service logs node`를 사용하여 진행 상황을 모니터링할 수 있습니다:
 
 ```
 rocketpool_node  | 2024/04/05 02:19:16 Checking for Protocol DAO proposal challenges to defend...
@@ -140,9 +140,9 @@ rocketpool_node  | 2024/04/05 02:19:26 https://holesky.etherscan.io/tx/0x327e59e
 
 ```
 
-We can see that our node has caught a fraudulent proposal and started the process of challenging it. Block `1283202` is the block in which proposal 177 was raised, which means voting power for this proposal will be calculated at block `1283202`. If you're interested in seeing what these **Voting Info Snapshots** look like, you can locate them in this directory: `~/.rocketpool/data/voting`
+노드가 사기성 제안을 발견하고 도전 프로세스를 시작했음을 알 수 있습니다. 블록 `1283202`는 제안 177이 제기된 블록이며, 이는 이 제안에 대한 투표권이 블록 `1283202`에서 계산됨을 의미합니다. 이러한 **Voting Info Snapshots**가 어떻게 보이는지 보려면 이 디렉토리에서 찾을 수 있습니다: `~/.rocketpool/data/voting`
 
-Because the proposer was caught submitting incorrect voting info, our node makes a contract call `Function: createChallenge` on proposal 177 at index 5 and waits for the proposer to respond to the challenge.
+제안자가 잘못된 투표 정보를 제출한 것이 발각되었기 때문에 노드는 제안 177의 인덱스 5에서 계약 호출 `Function: createChallenge`를 하고 제안자가 도전에 응답할 때까지 기다립니다.
 
 ```
 rocketpool3_node  | 2024/04/05 02:56:51 Checking for Protocol DAO proposal challenges to defend...
@@ -161,12 +161,12 @@ rocketpool3_node  | 2024/04/05 02:57:01 Waiting for the transaction to be valida
 rocketpool3_node  | 2024/04/05 02:57:13 Successfully defeated proposal.
 ```
 
-Since the proposer's voting info is incorrect, it won't be able to respond to the challenge in time (determined by `proposal.challenge.period`). The proposal is considered defeated at this point. When the proposal is defeated, our node automatically makes the contract call `defeatProposal` on proposal 177 at index 5 to end the proposal.
+제안자의 투표 정보가 올바르지 않기 때문에 제안자는 도전에 제시간에 응답할 수 없습니다(`proposal.challenge.period`에 의해 결정됨). 이 시점에서 제안은 패배한 것으로 간주됩니다. 제안이 패배하면 노드는 자동으로 제안 177의 인덱스 5에서 계약 호출 `defeatProposal`을 하여 제안을 종료합니다.
 
-::: tip NOTE
-Challengers who participate in defeating the proposal are paid a proportional amount of the proposer's bond if they submit an index proven to be incorrect. All other challengers receive their bond back only.
+::: tip 참고
+제안 패배에 참여한 도전자는 잘못된 것으로 입증된 인덱스를 제출한 경우 제안자의 보증금의 비례 금액을 지급받습니다. 다른 모든 도전자는 보증금만 돌려받습니다.
 :::
 
-Now that the proposal is defeated, our node (the challenger) can [claim](./participate#claiming-bonds-and-rewards) their original RPL bond as well as the proposer's RPL bond as a reward for defeating a fraudulent proposal.
+이제 제안이 패배했으므로 노드(도전자)는 원래 RPL 보증금과 사기성 제안을 패배시킨 보상으로 제안자의 RPL 보증금을 [청구](./participate#claiming-bonds-and-rewards)할 수 있습니다.
 
-If you're curious to dig into the details of the pDAO proposal and challenge system, take a look at the [technical specifications](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#draft-protocol-dao-proposal-challenge-system-specification). Feel free to skip to this section on the [challenge process](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#challenge-process) if you're interested in studying an example that goes into low level details.
+pDAO 제안 및 도전 시스템의 세부 사항을 살펴보고 싶다면 [기술 사양](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#draft-protocol-dao-proposal-challenge-system-specification)을 살펴보세요. 낮은 수준의 세부 사항을 연구하는 데 관심이 있다면 [도전 프로세스](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#challenge-process)에 관한 이 섹션으로 자유롭게 건너뛸 수 있습니다.

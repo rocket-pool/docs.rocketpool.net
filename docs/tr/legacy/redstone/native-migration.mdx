@@ -53,7 +53,7 @@ Aşağıdaki adımları atmayı düşünün:
 Birleşme öncesinde kurulması gereken **kritik** detaylardan biri, validator client'ınız tarafından belirtilen **fee recipient**tır.
 [Genel bakış makalesinde](./whats-new#fee-recipients-and-your-distributor) açıklandığı gibi, bu iki değerden biri olabilir:
 
-- Smoothing Pool'a **katıldıysanız**, bu **Smoothing Pool sözleşmesinin** adresi olmalıdır. Adresi [resmi sözleşmeler sayfasından](/tr/overview/contracts-integrations) alabilirsiniz.
+- Smoothing Pool'a **katıldıysanız**, bu **Smoothing Pool sözleşmesinin** adresi olmalıdır. Adresi [resmi sözleşmeler sayfasından](/tr/protocol/contracts-integrations) alabilirsiniz.
 - Smoothing Pool'da **değilseniz**, bu düğümünüzün **fee distributor sözleşmesinin** adresi olmalıdır. Adresi `rocketpool node status` komutunu çalıştırarak, `Fee Distributor and Smoothing Pool` bölümünde görebilirsiniz.
 
 Native modda, Smartnode daemon servisi `rp-node`'u kullanırsanız Smartnode'un bunu sizin için yönetmesine izin verme veya daemon'u kullanmazsanız kendiniz yönetme seçeneğiniz vardır.
@@ -168,7 +168,7 @@ Lütfen yapılandırmanıza göre neye ayarlanması gerektiğini ve ne zaman bir
 Bunu yapmamanız minipool'larınızın cezalandırılmasına neden olabilir!
 :::
 
-**Redstone dağıtılmadan önce**, üzerinde bulunduğunuz ağ için rETH adresini kullanabilirsiniz ([resmi sözleşmeler sayfasında](/tr/overview/contracts-integrations) bulunabilir).
+**Redstone dağıtılmadan önce**, üzerinde bulunduğunuz ağ için rETH adresini kullanabilirsiniz ([resmi sözleşmeler sayfasında](/tr/protocol/contracts-integrations) bulunabilir).
 rETH adresi ne olursa olsun her zaman güvenlidir.
 
 **Redstone dağıtıldıktan sonra**, `rocketpool node status` aracılığıyla fee recipient'ınızı ayarlamanız gereken tam adresi görebilirsiniz. Örneğin, Smoothing Pool'a katıldıysanız, Smoothing Pool'un adresini gösterecek ve bunu fee recipient olarak kullanmanız gerektiğini belirtecektir:
@@ -192,9 +192,9 @@ Nasıl yapılandıracağınızı öğrenmek için aşağıdan Consensus client'�
 
       `address` şunlardan biridir:
 
-      - Redstone güncellemesi dağıtılmadan **önce** [rETH adresi](/tr/overview/contracts-integrations/#token-contracts) (örneğin, Mainnet'te `0xae78736Cd615f374D3085123A210448E74Fc6393`)
+      - Redstone güncellemesi dağıtılmadan **önce** [rETH adresi](/tr/protocol/contracts-integrations/#token-contracts) (örneğin, Mainnet'te `0xae78736Cd615f374D3085123A210448E74Fc6393`)
       - Redstone dağıtıldıktan sonra düğümünüzün **fee distributor**'ı, sözleşme yükseltmesi gerçekleştikten sonra `rocketpool node status` ile alabileceğiniz
-      - Smoothing Pool'a katılırsanız [Smoothing Pool adresi](/tr/overview/contracts-integrations/#protocol-contracts)
+      - Smoothing Pool'a katılırsanız [Smoothing Pool adresi](/tr/protocol/contracts-integrations/#protocol-contracts)
 
       Hatırlatma olarak, `rocketpool node status` her zaman kullanmanız gereken doğru fee recipient'ı gösterecektir.
 
@@ -209,9 +209,9 @@ Nasıl yapılandıracağınızı öğrenmek için aşağıdan Consensus client'�
 
       `address` şunlardan biridir:
 
-      - Redstone güncellemesi dağıtılmadan **önce** [rETH adresi](/tr/overview/contracts-integrations/#token-contracts) (örneğin, Mainnet'te `0xae78736Cd615f374D3085123A210448E74Fc6393`)
+      - Redstone güncellemesi dağıtılmadan **önce** [rETH adresi](/tr/protocol/contracts-integrations/#token-contracts) (örneğin, Mainnet'te `0xae78736Cd615f374D3085123A210448E74Fc6393`)
       - Redstone dağıtıldıktan sonra düğümünüzün **fee distributor**'ı, sözleşme yükseltmesi gerçekleştikten sonra `rocketpool node status` ile alabileceğiniz
-      - Smoothing Pool'a katılırsanız [Smoothing Pool adresi](/tr/overview/contracts-integrations/#protocol-contracts)
+      - Smoothing Pool'a katılırsanız [Smoothing Pool adresi](/tr/protocol/contracts-integrations/#protocol-contracts)
 
       Hatırlatma olarak, `rocketpool node status` her zaman kullanmanız gereken doğru fee recipient'ı gösterecektir.
 
@@ -226,9 +226,9 @@ Nasıl yapılandıracağınızı öğrenmek için aşağıdan Consensus client'�
 
       `address` şunlardan biridir:
 
-      - Redstone güncellemesi dağıtılmadan **önce** [rETH adresi](/tr/overview/contracts-integrations/#token-contracts) (örneğin, Mainnet'te `0xae78736Cd615f374D3085123A210448E74Fc6393`)
+      - Redstone güncellemesi dağıtılmadan **önce** [rETH adresi](/tr/protocol/contracts-integrations/#token-contracts) (örneğin, Mainnet'te `0xae78736Cd615f374D3085123A210448E74Fc6393`)
       - Redstone dağıtıldıktan sonra düğümünüzün **fee distributor**'ı, sözleşme yükseltmesi gerçekleştikten sonra `rocketpool node status` ile alabileceğiniz
-      - Smoothing Pool'a katılırsanız [Smoothing Pool adresi](/tr/overview/contracts-integrations/#protocol-contracts)
+      - Smoothing Pool'a katılırsanız [Smoothing Pool adresi](/tr/protocol/contracts-integrations/#protocol-contracts)
 
       Hatırlatma olarak, `rocketpool node status` her zaman kullanmanız gereken doğru fee recipient'ı gösterecektir.
 
@@ -243,9 +243,9 @@ Nasıl yapılandıracağınızı öğrenmek için aşağıdan Consensus client'�
 
       `address` şunlardan biridir:
 
-      - Redstone güncellemesi dağıtılmadan **önce** [rETH adresi](/tr/overview/contracts-integrations/#token-contracts) (örneğin, Mainnet'te `0xae78736Cd615f374D3085123A210448E74Fc6393`)
+      - Redstone güncellemesi dağıtılmadan **önce** [rETH adresi](/tr/protocol/contracts-integrations/#token-contracts) (örneğin, Mainnet'te `0xae78736Cd615f374D3085123A210448E74Fc6393`)
       - Redstone dağıtıldıktan sonra düğümünüzün **fee distributor**'ı, sözleşme yükseltmesi gerçekleştikten sonra `rocketpool node status` ile alabileceğiniz
-      - Smoothing Pool'a katılırsanız [Smoothing Pool adresi](/tr/overview/contracts-integrations/#protocol-contracts)
+      - Smoothing Pool'a katılırsanız [Smoothing Pool adresi](/tr/protocol/contracts-integrations/#protocol-contracts)
 
       Hatırlatma olarak, `rocketpool node status` her zaman kullanmanız gereken doğru fee recipient'ı gösterecektir.
 

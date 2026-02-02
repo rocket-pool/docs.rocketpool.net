@@ -1,60 +1,43 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Participating in on-chain pDAO Proposals
+# Участие в on-chain предложениях pDAO
 
-Any node with a non-zero voting power may raise or participate in a pDAO proposal at any time. Proposals can be one of
-the following types:
+Любая нода с ненулевой силой голоса может выдвинуть или участвовать в предложении pDAO в любое время. Предложения могут быть одного из следующих типов:
 
-- Changing pDAO settings
-- One-time treasury spends
-- Repeat treasury spends (management committees)
-- Security council membership
+- Изменение настроек pDAO
+- Одноразовые расходы казначейства
+- Повторяющиеся расходы казначейства (комитеты управления)
+- Членство в Security Council
 
-For greater detail and rationale, refer to [proposal types](https://rpips.rocketpool.net/RPIPs/RPIP-33#proposal-types).
-It's important to understand that a pDAO proposal is an on-chain entity that exists to execute changes at the protocol
-level.
+Для получения более подробной информации и обоснования обратитесь к [типам предложений](https://rpips.rocketpool.net/RPIPs/RPIP-33#proposal-types).
+Важно понимать, что предложение pDAO — это on-chain сущность, которая существует для выполнения изменений на уровне протокола.
 
-## Governance Process
+## Процесс управления
 
-A proposal should be forecasted by the governance process before it ends up on-chain.
+Предложение должно быть предсказано процессом управления до того, как оно окажется on-chain.
 
-Changes to the Rocket Pool protocol and proposed, voted, and executed using a strict, yet transparent governance
-process. The process begins with an informal discussion of an idea within the Discord community. This idea then
-progresses to formal discussions in
-the [#governance](https://discordapp.com/channels/405159462932971535/774497904559783947) channel on Discord and
-the [DAO Forum](https://dao.rocketpool.net/), where it undergoes thorough research, modeling, and scrutiny in
-preparation for a [Rocket Pool Improvement Proposal (RPIP)](https://rpips.rocketpool.net/). Following this, a draft RPIP
-is prepared and reviewed by designated RPIP reviewers to ensure its quality and readiness for presentation to the DAO.
-The draft proposal is then presented to the DAO on the forum for further review, feedback, and incorporation of any
-necessary changes. Once the proposal has been refined based on community input, a poll is raised on the DAO forum to
-gauge readiness for finalizing the RPIP text. If the poll passes, indicating community approval, the RPIP is marked
-final and ready for a Protocol DAO vote, which is conducted via Snapshot to determine whether the proposal should be
-implemented.
+Изменения в протоколе Rocket Pool предлагаются, голосуются и выполняются с использованием строгого, но прозрачного процесса управления. Процесс начинается с неформального обсуждения идеи в сообществе Discord. Затем эта идея переходит к формальным обсуждениям в канале [#governance](https://discordapp.com/channels/405159462932971535/774497904559783947) в Discord и на [DAO Forum](https://dao.rocketpool.net/), где она подвергается тщательному исследованию, моделированию и проверке при подготовке к [Rocket Pool Improvement Proposal (RPIP)](https://rpips.rocketpool.net/). После этого готовится черновик RPIP и проверяется назначенными рецензентами RPIP, чтобы обеспечить его качество и готовность к представлению DAO.
+Черновик предложения затем представляется DAO на форуме для дальнейшего рассмотрения, обратной связи и внесения необходимых изменений. Как только предложение будет доработано на основе вклада сообщества, на форуме DAO проводится опрос для оценки готовности к завершению текста RPIP. Если опрос проходит, указывая на одобрение сообщества, RPIP помечается как окончательный и готов к голосованию Protocol DAO, которое проводится через Snapshot, чтобы определить, следует ли внедрять предложение.
 
-From here, the Oracle DAO will raise an on-chain proposal. There is a window in which the Protocol DAO, Oracle DAO and
-community can review the proposal. If consensus is reached, the proposal is executed and changes are applied to the
-protocol.
+Отсюда Oracle DAO выдвинет on-chain предложение. Есть окно, в течение которого Protocol DAO, Oracle DAO и сообщество могут рассмотреть предложение. Если достигается консенсус, предложение выполняется, и изменения применяются к протоколу.
 
-A handy dandy visual representation of this process can be found on
-the [Rocket Pool website](https://rocketpool.net/governance/process).
+Удобное визуальное представление этого процесса можно найти на [сайте Rocket Pool](https://rocketpool.net/governance/process).
 
-## Prerequisite
+## Предварительное условие
 
-Please read the [lifecycle of a proposal](./pdao#lifecycle-of-a-pdao-proposal) before proceeding. It'll explain
-the differences between all the voting periods and the actions that can be taken during each period.
+Пожалуйста, прочитайте [жизненный цикл предложения](./pdao#lifecycle-of-a-pdao-proposal) перед продолжением. Это объяснит различия между всеми периодами голосования и действиями, которые можно предпринять в течение каждого периода.
 
-The rest of this page will walk you through the steps required for participating in on-chain pDAO proposals.
+Остальная часть этой страницы проведёт вас через шаги, необходимые для участия в on-chain предложениях pDAO.
 
-## Initializing Voting
+## Инициализация голосования
 
-If you are a node operator who registered before the Houston upgrade, you need to initialize voting to unlock voting
-power. Keep in mind that having at least one minipool is a requirement for having voting power.
+Если вы оператор ноды, который зарегистрировался до обновления Houston, вам нужно инициализировать голосование, чтобы разблокировать силу голоса. Имейте в виду, что наличие хотя бы одного minipool является требованием для обладания силой голоса.
 
 ```shell
 rocketpool pdao initialize-voting
 ```
 
-This command will raise the prompt below. Please read it carefully:
+Эта команда вызовет приглашение ниже. Пожалуйста, прочтите его внимательно:
 
 ```
 Thanks for initializing your voting power!
@@ -72,95 +55,73 @@ You have two options:
 You can see a list of existing public delegates at https://delegates.rocketpool.net,
 however, you can delegate to any node address.
 
-Learn more about how this all works via: /en/pdao/participate#participating-in-on-chain-pdao-proposals
+Learn more about how this all works via: /ru/pdao/participate#participating-in-on-chain-pdao-proposals
 
 Please type `direct` or `delegate` to continue:
 ```
 
-- If you respond with `direct`, voting power will be initialized to your node and you'll be able to vote directly on
-  Protocol DAO proposals.
-- If you respond with `delegate`, you'll have the opportunity to save a bit of gas by initializing voting
-  and [setting a delegate](./participate#delegating-voting-power) within the same transaction.
+- Если вы ответите `direct`, сила голоса будет инициализирована для вашей ноды, и вы сможете голосовать напрямую по предложениям Protocol DAO.
+- Если вы ответите `delegate`, у вас будет возможность сэкономить немного газа, инициализируя голосование и [устанавливая делегата](./participate#delegating-voting-power) в рамках одной транзакции.
 
-You only need to do this once. It configures the initial snapshot information for a node. After you initialize voting,
-every action taken will update your node's snapshot information. Once your voting power is initialized, you can check
-how much you have using the following smartnode command:
+Вам нужно сделать это только один раз. Это настраивает начальную информацию snapshot для ноды. После инициализации голосования каждое предпринятое действие будет обновлять информацию snapshot вашей ноды. Как только ваша сила голоса инициализирована, вы можете проверить, сколько у вас её, используя следующую команду smartnode:
 
 ```shell
 rocketpool pdao status
 ```
 
-:::tip NOTE
-Whenever a new proposal is created, a voting tree representing a snapshot of the network's voting power and delegate info
-is created in conjunction with the new proposal. This means your node's voting power won't be included in a proposal if
-it was raised before you initialized voting. `rocketpool pdao status` will display your node's voting power at the
-latest block, which may or may not be representative of your voting power on a particular proposal.
+:::tip ПРИМЕЧАНИЕ
+Когда создаётся новое предложение, дерево голосования, представляющее snapshot силы голоса и информации о делегатах сети, создаётся вместе с новым предложением. Это означает, что сила голоса вашей ноды не будет включена в предложение, если оно было выдвинуто до того, как вы инициализировали голосование. `rocketpool pdao status` отобразит силу голоса вашей ноды на последнем блоке, которая может быть репрезентативной или не репрезентативной для вашей силы голоса по конкретному предложению.
 :::
 
-## Auto Initialize Vote Power
+## Автоматическая инициализация силы голоса
 
-Smartnode version `1.13.8` introduces a new feature **Auto Initialize Vote Power**, which is designed to automatically
-initialize voting power on nodes who have not yet done so. Automatically initialized voting power is self-delegated.
-This feature can be configured in the Smartnode settings by running `rocketpool service config` and navigating to the \*
-\*Smartnode and TX Fees\*\* section.
+Smartnode версии `1.13.8` вводит новую функцию **Auto Initialize Vote Power**, которая предназначена для автоматической инициализации силы голоса на нодах, которые ещё этого не сделали. Автоматически инициализированная сила голоса делегируется самому себе.
+Эту функцию можно настроить в настройках Smartnode, выполнив `rocketpool service config` и перейдя в раздел **Smartnode and TX Fees**.
 
 <img src="./images/auto_init_vp.png" width="100%" height="auto" />
 
-The **Auto-Init Vote Power Gas Threshold** is a limit (in gwei) on this automatic transaction. You can opt out of this
-task by setting the threshold to 0. Feel free to opt out if your node was registered after the Houston upgrade or if
-voting power is already enabled.
+**Auto-Init Vote Power Gas Threshold** — это лимит (в gwei) на эту автоматическую транзакцию. Вы можете отказаться от этой задачи, установив порог на 0. Не стесняйтесь отказываться, если ваша нода была зарегистрирована после обновления Houston или если сила голоса уже включена.
 
-## Setting your Snapshot Signalling Address
+## Установка вашего адреса сигнализации Snapshot
 
-Setting your Snapshot signalling address will allow you to participate in Snapshot votes on a browser or mobile device
-without having to expose node keys to a hot wallet.
+Установка вашего адреса сигнализации Snapshot позволит вам участвовать в голосованиях Snapshot на браузере или мобильном устройстве без необходимости раскрывать ключи ноды горячему кошельку.
 
-There are a few things to prepare:
+Необходимо подготовить несколько вещей:
 
-- Your node's address
-- An address you want to use for snapshot voting (signalling address)
+- Адрес вашей ноды
+- Адрес, который вы хотите использовать для голосования в snapshot (адрес сигнализации)
 
-You'll be signing a message saying that your node's address can delegate to the new address. This message states your
-intent to use your wallet address as a Snapshot signalling address.
+Вы будете подписывать сообщение, говорящее, что адрес вашей ноды может делегировать новому адресу. Это сообщение заявляет о вашем намерении использовать адрес вашего кошелька в качестве адреса сигнализации Snapshot.
 
-Select which network you're using from one of the tabs below.
+Выберите, какую сеть вы используете, из одной из вкладок ниже.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Hoodi Testnet">If you're trying this out on Hoodi testnet, you can sign on this page: https://testnet.node.rocketpool.net/signalling-address</Tab>
-    <Tab label="Mainnet">If you're ready to configure this on mainnet, go here instead: https://node.rocketpool.net/signalling-address</Tab>
+    <Tab label="Hoodi Testnet">Если вы пробуете это в тестовой сети Hoodi, вы можете подписать на этой странице: https://testnet.node.rocketpool.net/signalling-address</Tab>
+    <Tab label="Mainnet">Если вы готовы настроить это в mainnet, перейдите сюда: https://node.rocketpool.net/signalling-address</Tab>
   </Tabs>
 </div>
 
-:::danger WARNING
-Do not load your node's private key onto a hot wallet. Please choose another account to be your signalling address.
-After setting the signalling address, you can use it to vote on Snapshot with your node's voting power.
+:::danger ПРЕДУПРЕЖДЕНИЕ
+Не загружайте приватный ключ вашей ноды в горячий кошелёк. Пожалуйста, выберите другой аккаунт в качестве адреса сигнализации.
+После установки адреса сигнализации вы можете использовать его для голосования в Snapshot с силой голоса вашей ноды.
 :::
 
-Start by **connecting the address you want to use as a signalling address** to the website using MetaMask,
-WalletConnect, or any of the other methods the website supports. You will then be presented with this dialog to look up
-your node address.
+Начните с **подключения адреса, который вы хотите использовать в качестве адреса сигнализации**, к веб-сайту, используя MetaMask, WalletConnect или любой из других методов, которые поддерживает веб-сайт. Затем вам будет представлен этот диалог для поиска адреса вашей ноды.
 
-Next, you'll enter your node address then click the orange "Find" button. This will check if the address is a registered
-node and then bring you to the next step.
+Далее вы введёте адрес вашей ноды, а затем нажмёте оранжевую кнопку "Find". Это проверит, является ли адрес зарегистрированной нодой, а затем перейдёт к следующему шагу.
 
-:::tip TIP
-**Make sure you have the correct node address before doing this!** if you need to confirm your node's address, you can
-quickly retrieve it via the CLI using the `rocketpool node status` command.
+:::tip СОВЕТ
+**Убедитесь, что у вас правильный адрес ноды, прежде чем делать это!** Если вам нужно подтвердить адрес вашей ноды, вы можете быстро получить его через CLI, используя команду `rocketpool node status`.
 :::
 
-Once you've signed in and confirmed your node address, you'll see your **Snapshot signalling address**. It should be the
-same as the account you've signed into the site with. Double check that this is correct before proceeding. Once you're
-confident that you're signed into the desired account, click the orange "Sign Message" button. You'll see a prompt in
-your wallet extension app to sign the following message:
+Как только вы войдёте и подтвердите адрес вашей ноды, вы увидите ваш **адрес сигнализации Snapshot**. Он должен совпадать с аккаунтом, в который вы вошли на сайт. Дважды проверьте, что это правильно, прежде чем продолжить. Как только вы уверены, что вы вошли в желаемый аккаунт, нажмите оранжевую кнопку "Sign Message". Вы увидите запрос в вашем приложении расширения кошелька для подписи следующего сообщения:
 
 ```
 `snapshot signalling address` may delegate to me for Rocket Pool governance
 ```
 
-Signing won't cost you any gas but setting will. After you sign, the frontend will give you a command to paste into the
-smartnode. Go ahead and paste it into your smartnode's CLI and follow the prompted steps. The command should look
-something like this:
+Подпись не будет стоить вам газа, но установка будет стоить. После того, как вы подпишете, интерфейс даст вам команду для вставки в smartnode. Вставьте её в CLI вашего smartnode и следуйте предложенным шагам. Команда должна выглядеть примерно так:
 
 ```shell
 rocketpool pdao set-signalling-address
@@ -168,89 +129,76 @@ rocketpool pdao set-signalling-address
 `EIP712 signature`
 ```
 
-If you see this message in your CLI, you're all set!
+Если вы видите это сообщение в вашем CLI, всё готово!
 
 ```
 The node's signalling address was successfully set to `snapshot signalling address`
 ```
 
-:::tip TIP
-Don't worry if you accidentally close the site or lose track of the command. You can simply repeat the steps and **sign
-again using the same node address and signalling address**. The frontend uses `signer.Signmessage()` from the ethers
-library, which means your signature is deterministic given the same input.
-Click [here](https://docs.ethers.org/v6/api/providers/#cid_865) to learn more.
+:::tip СОВЕТ
+Не беспокойтесь, если вы случайно закроете сайт или потеряете команду. Вы можете просто повторить шаги и **подписать снова, используя тот же адрес ноды и адрес сигнализации**. Интерфейс использует `signer.Signmessage()` из библиотеки ethers, что означает, что ваша подпись детерминирована при одинаковом входе.
+Нажмите [здесь](https://docs.ethers.org/v6/api/providers/#cid_865), чтобы узнать больше.
 :::
 
-Clearing your signalling address is pretty easy, just use this command in the CLI:
+Очистка вашего адреса сигнализации довольно проста, просто используйте эту команду в CLI:
 
 ```shell
 rocketpool pdao clear-signalling-address
 ```
 
-## Allowing RPL Locking
+## Разрешение блокировки RPL
 
-You may ignore this step if you are only interested in voting on a proposal. Allowing RPL locking is only required for
-those who wish to propose or challenge a proposal.
+Вы можете проигнорировать этот шаг, если вас интересует только голосование по предложению. Разрешение блокировки RPL требуется только для тех, кто желает предложить или оспорить предложение.
 
-RPL locking is required for proposing and challenging. By default, locking RPL for any purpose, will be disabled. Node
-operator's will opt-in to performing governance activities by enabling the locking of RPL from their node or primary
-withdrawal address. You can do so using this command in the Smartnode:
+Блокировка RPL требуется для предложения и оспаривания. По умолчанию блокировка RPL для любой цели будет отключена. Операторы нод будут соглашаться на выполнение действий управления, разрешая блокировку RPL со своей ноды или основного адреса вывода средств. Вы можете сделать это, используя эту команду в Smartnode:
 
 ```shell
 rocketpool node allow-rpl-locking
 ```
 
-This will prompt you to allow the locking of RPL when creating or challenging governance proposals. Conversely you can
-use the following command to opt-out of RPL locking:
+Это предложит вам разрешить блокировку RPL при создании или оспаривании предложений управления. И наоборот, вы можете использовать следующую команду, чтобы отказаться от блокировки RPL:
 
 ```shell
 rocketpool node deny-rpl-locking
 ```
 
-::: tip NOTE
-Locked RPL acts the same way as regular staked RPL for the purposes of rewards, voting, and collateral requirements.
-Locked RPL is not counted towards thresholds for withdrawing RPL.
+::: tip ПРИМЕЧАНИЕ
+Заблокированный RPL действует так же, как обычный застейканный RPL для целей вознаграждений, голосования и требований к обеспечению.
+Заблокированный RPL не учитывается в пороговых значениях для вывода RPL.
 :::
 
-## Delegating Voting Power
+## Делегирование силы голоса
 
-A node operator can elect to delegate their voting power to another node operator. The only requirement is that your
-delegate is a registered node.
+Оператор ноды может решить делегировать свою силу голоса другому оператору ноды. Единственное требование заключается в том, что ваш делегат является зарегистрированной нодой.
 
-To delegate on-chain voting power to another node, use the following command:
+Чтобы делегировать on-chain силу голоса другой ноде, используйте следующую команду:
 
 ```shell
 rocketpool pdao set-voting-delegate `address`
 ```
 
-::: tip NOTE
-If you've delegated your voting power to another node operator, you can reset this by setting the delegate address to
-your own node's address.
+::: tip ПРИМЕЧАНИЕ
+Если вы делегировали свою силу голоса другому оператору ноды, вы можете сбросить это, установив адрес делегата на адрес вашей собственной ноды.
 :::
 
-- During phase 1 of a proposal: **Voters** and **Delegates** may cast their vote on a proposal.
-- During phase 2 of a proposal: **Node Operators** who have delegated their vote get the opportunity to overturn their
-  Delegate's vote, if they disagree.
+- Во время фазы 1 предложения: **Избиратели** и **Делегаты** могут отдать свой голос по предложению.
+- Во время фазы 2 предложения: **Операторы нод**, которые делегировали свой голос, получают возможность отменить голос своего делегата, если они не согласны.
 
-If you are a node operator with delegated voting power, you must vote during voting phase 1 for the delegated voting
-power to count towards the proposal. Your vote in phase 1 will be worth your **local voting power + delegated voting
-power**. Your vote in phase 2 is worth your **local voting power** only.
+Если вы оператор ноды с делегированной силой голоса, вы должны голосовать во время фазы голосования 1, чтобы делегированная сила голоса учитывалась для предложения. Ваш голос в фазе 1 будет стоить вашу **локальную силу голоса + делегированную силу голоса**. Ваш голос в фазе 2 стоит только вашу **локальную силу голоса**.
 
-## Creating a Proposal
+## Создание предложения
 
-In order to be eligible to propose, a node must meet a few requirements:
+Чтобы иметь право на предложение, нода должна соответствовать нескольким требованиям:
 
-- Included in snapshotting (either by [initializing voting](./participate#initializing-voting) or by
-  registering post Houston)
-- Must have at least one minipool
-- Has non-zero voting power
-- Has allowed [RPL locking](./participate#allowing-rpl-locking)
-- Has an RPL stake (minus any already locked RPL) greater than the proposal bond
+- Включена в снимки (либо путём [инициализации голосования](./participate#initializing-voting), либо путём регистрации после Houston)
+- Должна иметь хотя бы один minipool
+- Имеет ненулевую силу голоса
+- Разрешила [блокировку RPL](./participate#allowing-rpl-locking)
+- Имеет стейк RPL (за вычетом любого уже заблокированного RPL) больше, чем залог предложения
 
-Proposals exist to change parameters and execute code at the protocol level! There should be discussion and consensus
-through the [governance](./participate#governance-process) process before a proposal is created on chain.
+Предложения существуют для изменения параметров и выполнения кода на уровне протокола! Должно быть обсуждение и консенсус через процесс [управления](./participate#governance-process) до того, как предложение будет создано on-chain.
 
-Use the command `rocketpool pdao propose` to bring up a menu of options
+Используйте команду `rocketpool pdao propose`, чтобы вызвать меню опций
 
 ```
 COMMANDS:
@@ -262,16 +210,14 @@ COMMANDS:
    setting, s                   Make a Protocol DAO setting proposal
 ```
 
-Each of these commands will prompt you with a list of inputs to create your desired proposal. In this guide, we'll
-invite a node to the security council to serve as an example. To raise a proposal to invite a node to the security
-council, you would use the command:
+Каждая из этих команд предложит вам список вводов для создания вашего желаемого предложения. В этом руководстве мы пригласим ноду в Security Council в качестве примера. Чтобы выдвинуть предложение о приглашении ноды в Security Council, вы бы использовали команду:
 
 ```shell
 rocketpool pdao propose security-council invite
 ```
 
-Keep in mind that this step will have some slight variation depending on the type of proposal. This particular command:
-`rocketpool pdao propose security-council invite` will prompt you to enter an ID followed by a member address.
+Имейте в виду, что этот шаг будет иметь некоторые незначительные вариации в зависимости от типа предложения. Эта конкретная команда:
+`rocketpool pdao propose security-council invite` предложит вам ввести ID, а затем адрес участника.
 
 ```
 Please enter an ID for the member you'd like to invite: (no spaces)
@@ -285,26 +231,22 @@ Please enter the member's address:
 Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council? [y/n]
 ```
 
-After this is included in a block, a pDAO proposal will be created! The proposal will enter
-the [vote delay period](./pdao#vote-delay-period) upon creation.
+После того, как это будет включено в блок, будет создано предложение pDAO! Предложение войдёт в [период задержки голосования](./pdao#vote-delay-period) при создании.
 
-## Viewing the State of a Proposal
+## Просмотр состояния предложения
 
-Every proposal is assigned a `proposalID`. In this case, our proposal to invite `0xBdbc...` to the security council is
-represented with `ID 71`. There are a few ways to view the state of the proposal. One method will display a list of
-every pdao proposal along with their state (pending, succeeded, executed, etc). The second method displays in-depth
-details about a specific proposal.
+Каждому предложению присваивается `proposalID`. В этом случае наше предложение пригласить `0xBdbc...` в Security Council представлено `ID 71`. Есть несколько способов просмотреть состояние предложения. Один метод отобразит список каждого предложения pdao вместе с их состоянием (ожидание, успех, выполнено и т. д.). Второй метод отображает подробную информацию о конкретном предложении.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Viewing a List of Proposals">
-      To list all proposals, use the following command:
+    <Tab label="Просмотр списка предложений">
+      Чтобы перечислить все предложения, используйте следующую команду:
 
       ```shell
       rocketpool pdao proposals list
       ```
 
-      This will display a list of all proposals and their state
+      Это отобразит список всех предложений и их состояние
 
       ```
       1 Pending proposal(s):
@@ -326,21 +268,16 @@ details about a specific proposal.
 
       ```
 
-      Here we can see that our proposal `invite test-member` has an ID of 71 and is in the pending state. In this state,
-      [challengers](/en/pdao/pdao#challenge-process) can dispute the validity of the
-      merkle pollard (used to calculate voting power) supplied by the proposer. When `proposal.vote.delay.time` ends,
-      the proposal will transition into active voting phases. Feel free to review [lifecycle of a
-      proposal](./pdao#lifecycle-of-a-pdao-proposal) for a refresher.
+      Здесь мы можем видеть, что наше предложение `invite test-member` имеет ID 71 и находится в состоянии ожидания. В этом состоянии [оспаривающие](/ru/pdao/pdao#challenge-process) могут оспорить действительность pollard дерева Меркла (используемого для расчёта силы голоса), предоставленного предлагателем. Когда `proposal.vote.delay.time` закончится, предложение перейдёт в активные фазы голосования. Не стесняйтесь просмотреть [жизненный цикл предложения](./pdao#lifecycle-of-a-pdao-proposal) для обновления.
     </Tab>
-    <Tab label="Viewing Proposal Details">
-      Now that you have the proposal ID, you can view the status of your proposal using this command:
+    <Tab label="Просмотр деталей предложения">
+      Теперь, когда у вас есть ID предложения, вы можете просмотреть статус вашего предложения, используя эту команду:
 
       ```shell
       rocketpool pdao proposals details `proposal-id`
       ```
 
-      This is where you can view all the information in regards to a specific proposal. For example, the execution
-      payload, what phase the proposal is in, and vote direction.
+      Здесь вы можете просмотреть всю информацию о конкретном предложении. Например, полезную нагрузку выполнения, в какой фазе находится предложение и направление голосования.
 
       ```
       Proposal ID: 71
@@ -362,45 +299,40 @@ details about a specific proposal.
       ```
 
       <p className="rspress-directive tip">
-        <p className="rspress-directive-title">NOTE</p>
-        The state of this sample proposal is `Pending`. This indicates that the proposal can be challenged, before
-        moving onto `Active (Phase 1)`. No voting can take place during the `Pending` state.
+        <p className="rspress-directive-title">ПРИМЕЧАНИЕ</p>
+        Состояние этого примера предложения — `Pending`. Это указывает на то, что предложение может быть оспорено перед переходом к `Active (Phase 1)`. Голосование не может происходить в состоянии `Pending`.
       </p>
     </Tab>
 
   </Tabs>
 </div>
 
-## Voting on a Proposal
+## Голосование по предложению
 
-During a voting period, **Node Operators** and **Delegates** can cast a vote with one of four options:
+Во время периода голосования **Операторы нод** и **Делегаты** могут отдать голос с одним из четырёх вариантов:
 
 ```
-1. Abstain: The voter's voting power is contributed to quorum but is neither for nor against the proposal.
-2. For: The voter votes in favor of the proposal being executed.
-3. Against: The voter votes against the proposal being executed.
-4. Veto: The voter votes against the proposal as well as indicating they deem the proposal as spam or malicious.
+1. Abstain: Сила голоса избирателя вносит вклад в кворум, но не является ни за, ни против предложения.
+2. For: Избиратель голосует за выполнение предложения.
+3. Against: Избиратель голосует против выполнения предложения.
+4. Veto: Избиратель голосует против предложения, а также указывает, что считает предложение спамом или вредоносным.
 ```
 
-Their voting power will be applied to the option of their choosing. Voting power is a function of "effective RPL stake."
-A more detailed reading can be found in
-the [rocketpool-research repo](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting).
+Их сила голоса будет применена к выбранному ими варианту. Сила голоса является функцией "эффективного стейка RPL".
+Более подробное чтение можно найти в [репозитории rocketpool-research](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting).
 
-::: tip NOTE
-If you are a node operator with delegated voting power, you must vote during voting phase 1 for the delegated voting
-power to count towards the proposal. Your vote in phase 1 will be worth your local voting power + delegated voting
-power. Your vote in phase 2 is worth your local voting power only. Please keep in mind that a node may vote once and
-only once on a proposal, so choose carefully.
+::: tip ПРИМЕЧАНИЕ
+Если вы оператор ноды с делегированной силой голоса, вы должны голосовать во время фазы голосования 1, чтобы делегированная сила голоса учитывалась для предложения. Ваш голос в фазе 1 будет стоить вашу локальную силу голоса + делегированную силу голоса. Ваш голос в фазе 2 стоит только вашу локальную силу голоса. Пожалуйста, имейте в виду, что нода может голосовать один и только один раз по предложению, поэтому выбирайте тщательно.
 :::
 
-Use this command to cast a vote:
+Используйте эту команду для голосования:
 
 ```shell
 rocketpool pdao proposals vote
 ```
 
-You'll be prompted to select a proposal to vote on if there is at least one proposal in an active voting phase.
-The menu should display all of the proposals your node is eligible to vote on:
+Вам будет предложено выбрать предложение для голосования, если есть хотя бы одно предложение в активной фазе голосования.
+Меню должно отображать все предложения, по которым ваша нода имеет право голосовать:
 
 ```
 1: proposal 71 (message: 'invite test-member', payload: proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145), phase 1 end: 14 Mar 24 05:40 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
@@ -408,7 +340,7 @@ The menu should display all of the proposals your node is eligible to vote on:
 3: proposal 73 (message: 'set proposal.vote.delay.time', payload: proposalSettingUint(rocketDAOProtocolSettingsProposals,proposal.vote.delay.time,60), phase 1 end: 14 Mar 24 05:41 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
 ```
 
-After selecting an option, you'll be asked how you want to cast your vote.
+После выбора варианта вас спросят, как вы хотите отдать свой голос.
 
 ```
 How would you like to vote on the proposal?
@@ -418,7 +350,7 @@ How would you like to vote on the proposal?
 4: Veto
 ```
 
-Selecting an option will then display your voting power, and then prompt you to send the transaction:
+Выбор варианта затем отобразит вашу силу голоса, а затем предложит вам отправить транзакцию:
 
 ```
 Your current voting power: 20123617964
@@ -434,9 +366,7 @@ These prices include a maximum priority fee of 2.00 gwei.
 Please enter your max fee (including the priority fee) or leave blank for the default of 56 gwei:
 ```
 
-You've successfully voted on the proposal once the transaction is included in the block! At this point, you may use
-`rocketpool pdao proposal details <proposal-id>` to view the state of the proposal. A proposal needs to reach
-`proposal.quorum` **voting power required** and a majority **voting power for** for it to be successful.
+Вы успешно проголосовали по предложению, как только транзакция будет включена в блок! В этот момент вы можете использовать `rocketpool pdao proposal details <proposal-id>`, чтобы просмотреть состояние предложения. Предложению необходимо достичь `proposal.quorum` **требуемой силы голоса** и большинства **силы голоса за**, чтобы оно было успешным.
 
 ```
 Voting power required:  140970562215
@@ -447,24 +377,17 @@ Voting power against:   0
 Node has voted:         In Favor
 ```
 
-For the example above to pass, the voting power needs to exceed a quorum of `140970562215` voting power. There is
-`197980809837` voting power in favor and no votes against or abstained. The proposal is poised for success and ready
-for
-execution by the end of `proposal.vote.phase2.time`.
+Чтобы приведённый выше пример прошёл, сила голоса должна превышать кворум `140970562215` силы голоса. Есть `197980809837` силы голоса за и нет голосов против или воздержавшихся. Предложение готово к успеху и готово к выполнению к концу `proposal.vote.phase2.time`.
 
-## Executing a Successful Proposal
+## Выполнение успешного предложения
 
-Congrats! Your proposal has passed! Now all that's left to do is to execute the proposal. Keep in mind that anybody
-can
-be the executor to a proposal. To execute a successful proposal, type in the command:
+Поздравляем! Ваше предложение прошло! Теперь всё, что осталось сделать, — это выполнить предложение. Имейте в виду, что кто угодно может быть исполнителем предложения. Чтобы выполнить успешное предложение, введите команду:
 
 ```shell
 rocketpool pdao execute
 ```
 
-Selecting an option will prompt you to send a transaction. Once this transaction is included in a block, the change
-will
-be applied to the Rocket Pool protocol!
+Выбор варианта предложит вам отправить транзакцию. Как только эта транзакция будет включена в блок, изменение будет применено к протоколу Rocket Pool!
 
 ```
 Please select a proposal to execute:
@@ -473,34 +396,24 @@ Please select a proposal to execute:
 proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145)
 ```
 
-## Claiming Bonds and Rewards
+## Получение залогов и вознаграждений
 
-Proposers or Challengers may claim their bonds upon conclusion of a proposal. Depending on the outcome of a proposal,
-a
-Proposer or Challenger may or may not be able to claim their `proposal.bond` and `proposal.challenge.bond`.
+Предлагатели или оспаривающие могут получить свои залоги по завершении предложения. В зависимости от результата предложения предлагатель или оспаривающий может или не может получить свои `proposal.bond` и `proposal.challenge.bond`.
 
-Here are some rules that dictate the conditions in which bonds can be claimed:
+Вот несколько правил, которые диктуют условия, при которых залоги могут быть получены:
 
-- If a proposal is defeated, the proposer forfeits their bond which is divided proportionally amongst the challengers
-  who contributed to the proposal's defeat. All other challengers receive their bond back only.
-- Contributing to the defeat of a proposal means a challenger submitted an index which was later proven to be
-  incorrect
-  by the proposers inability to reply to a challenge. It is possible that there are multiple incorrect indices but only
-  those that resulted in the defeat of the proposal share the reward. All other challengers receive their bond back
-  only.
-- If a challenger challenges a node, the proposer responds, and the proposal does not get defeated. The proposer can
-  claim the challenge bonds from the invalid challenges.
-- If a proposal is defeated, the proposer forfeits their bond which is divided proportionally amongst the challengers
-  who contributed to the proposal's defeat.
+- Если предложение отклонено, предлагатель теряет свой залог, который делится пропорционально между оспаривающими, которые способствовали отклонению предложения. Все остальные оспаривающие получают обратно только свой залог.
+- Вклад в отклонение предложения означает, что оспаривающий представил индекс, который позже был доказан как неверный из-за неспособности предлагателя ответить на вызов. Возможно, что существует несколько неправильных индексов, но только те, которые привели к отклонению предложения, разделяют вознаграждение. Все остальные оспаривающие получают обратно только свой залог.
+- Если оспаривающий оспаривает ноду, предлагатель отвечает, и предложение не отклоняется. Предлагатель может получить залоги вызова из недействительных вызовов.
+- Если предложение отклонено, предлагатель теряет свой залог, который делится пропорционально между оспаривающими, которые способствовали отклонению предложения.
 
-Use this command to claim bonds:
+Используйте эту команду для получения залогов:
 
 ```shell
 rocketpool pdao claim-bonds
 ```
 
-This will display every proposal you're eligible to claim bonds from. You can either claim bonds from a specified
-proposal, or you can claim bonds and rewards from all eligible proposals.
+Это отобразит каждое предложение, из которого вы имеете право получить залоги. Вы можете либо получить залоги из указанного предложения, либо вы можете получить залоги и вознаграждения из всех подходящих предложений.
 
 ```
 Please select a proposal to unlock bonds / claim rewards from:
@@ -514,8 +427,7 @@ Please select a proposal to unlock bonds / claim rewards from:
 8: Proposal 49 (proposer: true, unlockable: 21.00 RPL, rewards: 0.00 RPL)
 ```
 
-Once you've selected an option, you'll be prompted with the network's current gas costs recommendations; confirm your
-gas price selection and follow the rest of the prompts.
+Как только вы выбрали вариант, вам будут представлены текущие рекомендации по стоимости газа в сети; подтвердите выбор цены на газ и следуйте остальным подсказкам.
 
 ```
 +============== Suggested Gas Prices ==============+
@@ -534,32 +446,30 @@ Using a max fee of 21.00 gwei and a priority fee of 2.00 gwei.
 Are you sure you want to claim bonds and rewards from 7 proposals? [y/n]
 ```
 
-Note that if you select the first option to claim all available proposals, they will each execute individually and not
-as one transaction.
+Обратите внимание, что если вы выберете первый вариант для получения всех доступных предложений, они будут выполняться индивидуально, а не как одна транзакция.
 
-## Creating a Recurring Treasury Spend
+## Создание повторяющегося расхода казначейства
 
-You'll need to prepare a few inputs to create a recurring treasury spend:
+Вам нужно подготовить несколько вводов для создания повторяющегося расхода казначейства:
 
-- A contract name
-- The recipient's address
-- Amount of RPL to send per period
-- The start time for the recurring payment (as a UNIX timestamp)
-- The length of each payment period in hours / minutes / seconds (e.g., 168h0m0s)
-- Number of payment periods
+- Имя контракта
+- Адрес получателя
+- Количество RPL для отправки за период
+- Время начала для повторяющегося платежа (как временная метка UNIX)
+- Длительность каждого периода оплаты в часах / минутах / секундах (например, 168h0m0s)
+- Количество периодов оплаты
 
-::: tip INFO
-The recipient will need to keep note of the contract name in order to claim payments. Don't worry though, as this
-information is stored and can be retrieved using the command `rocketpool pdao proposals details <proposal-id>`
+::: tip ИНФО
+Получателю нужно будет запомнить имя контракта, чтобы получить платежи. Не беспокойтесь, так как эта информация хранится и может быть получена с помощью команды `rocketpool pdao proposals details <proposal-id>`
 :::
 
-To raise a proposal to set up a recurring treasury spend, use the following smartnode command and follow the prompts:
+Чтобы выдвинуть предложение о настройке повторяющегося расхода казначейства, используйте следующую команду smartnode и следуйте подсказкам:
 
 ```shell
 rocketpool pdao propose recurring-spend
 ```
 
-Here's what it looks like all together:
+Вот как это выглядит все вместе:
 
 ```
 Please enter a contract name for this recurring payment:
@@ -593,31 +503,19 @@ Please enter the total number of payment periods:
 24
 ```
 
-Once you've entered all the required inputs, a proposal to create a recurring payment will be raised. When the pDAO
-passes and executes this proposal, the recipient is allocated `1 RPL` starting at `2024-06-09 12:13:53 +0000 UTC`
-every
-`720 hours` for a total of `24 payments`.
+Как только вы введёте все необходимые вводы, будет выдвинуто предложение о создании повторяющегося платежа. Когда pDAO примет и выполнит это предложение, получатель получит `1 RPL`, начиная с `2024-06-09 12:13:53 +0000 UTC` каждые `720 часов` в течение `24 платежей`.
 
-## Claiming a Recurring Treasury Spend
+## Получение повторяющегося расхода казначейства
 
-Claiming recurring payments should be pretty simple! Navigate to our frontend
-tool [here](https://node.rocketpool.net/claim-recurring-payments) to do so. If you're trying this out on
-Hoodi
-testnet, use [this](https://testnet.node.rocketpool.net/stake-rpl-on-behalf-of-node) link instead.
+Получение повторяющихся платежей должно быть довольно простым! Перейдите к нашему инструменту интерфейса [здесь](https://node.rocketpool.net/claim-recurring-payments), чтобы сделать это. Если вы пробуете это в тестовой сети Hoodi, используйте [эту](https://testnet.node.rocketpool.net/stake-rpl-on-behalf-of-node) ссылку вместо этого.
 
-Once you're on the site, click the **connect wallet** button. Please read through and accept the Terms of Service &
-Privacy Policy, this will enable different ways to connect, then click connect **metamask**.
+Как только вы на сайте, нажмите кнопку **подключить кошелёк**. Пожалуйста, прочтите и примите Условия обслуживания и Политику конфиденциальности, это позволит различные способы подключения, затем нажмите подключить **metamask**.
 
-MetaMask will prompt you to select an account to connect to the website. After you've signed in, you'll need to enter
-the **contract name**. Doing so will display all the relevant details. Make sure you double check the recipient's
-address. Anybody can call the claim function, but each payment contract will have a designated recipient to disperse
-RPL
-towards.
+MetaMask предложит вам выбрать аккаунт для подключения к веб-сайту. После того, как вы войдёте, вам нужно будет ввести **имя контракта**. Это отобразит все соответствующие детали. Убедитесь, что вы дважды проверили адрес получателя. Любой может вызвать функцию получения, но каждый контракт оплаты будет иметь назначенного получателя для распределения RPL.
 
 <img src="./images/claim_recurring1.png" width="100%" height="auto" />
 
-You can claim your payments at any time, you'll just get the total unclaimed RPL up until the most recent period.
-Alternatively you can wait until all periods have passed to collect all at once and save on gas.
+Вы можете получить свои платежи в любое время, вы просто получите общий невостребованный RPL до самого последнего периода.
+Альтернативно, вы можете дождаться, пока пройдут все периоды, чтобы собрать всё сразу и сэкономить на газе.
 
-Just hit the big orange claim button when you're ready and review the transaction in metamask (or your preferred
-wallet). Once that's done, you're all set!
+Просто нажмите большую оранжевую кнопку получения, когда будете готовы, и просмотрите транзакцию в metamask (или в вашем предпочитаемом кошельке). Как только это будет сделано, всё готово!

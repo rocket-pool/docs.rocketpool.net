@@ -1,0 +1,271 @@
+---
+permalink: /protocol/faq
+---
+
+# Häufig gestellte Fragen
+
+Dieser FAQ-Bereich soll die [Erklärungsserie](/de/protocol/explainer-series) mit prägnanten Antworten auf häufig gestellte Fragen ergänzen.
+
+![Rocket Pool FAQs](/images/headers/faq.png)
+
+## Allgemeines
+
+[**Was ist Proof of Stake?**](#what-is-proof-of-stake)
+_Ein kurzer Überblick darüber, was Proof of Stake ist und warum es großartig ist._
+
+[**Was macht Rocket Pool?**](#what-does-rocket-pool-do)
+_Eine kurze Einführung in das, was Rocket Pool tatsächlich macht._
+
+[**Warum sollte ich es verwenden?**](#why-would-i-need-to-use-it)
+_Gute Frage und hoffentlich noch bessere Antworten._
+
+[**Wie funktioniert es?**](#how-does-it-work)
+_Smart Contracts, Smart Nodes & dezentrale Infrastruktur._
+
+[**Unabhängiger Node-Betreiber vs. Staking as a Service (SaaS) Anbieter?**](#independent-node-operator-vs-staking-as-a-service-saas-provider)
+_Protokolle können von jedem genutzt werden, von regulären Nutzern bis zu professionellen SaaS-Anbietern._
+
+[**Welche Token verwendet Rocket Pool?**](#what-tokens-does-rocket-pool-use)
+_Wir verwenden zwei Token. RPL und rETH. Erfahren Sie hier mehr._
+
+[**Wer entwickelt es?**](#who-is-making-it)
+_Es sind keine Außerirdischen oder Echsenmenschen. Ziemlich sicher jedenfalls._
+
+## Staking
+
+[**Was ist die Mindesteinzahlung?**](#what-is-the-minimum-deposit)
+_Ich spare Ihnen das Scrollen, es sind 0,01 ETH._
+
+[**Was ist die Höchsteinzahlung?**](#what-is-the-maximum-deposit)
+_Ich spare Ihnen weiteres Scrollen, es gibt keine Grenze._
+
+[**Welche Staking-Zeiträume gibt es?**](#what-are-the-staking-periods)
+_Keine für Staker und Node-Betreiber. Kommen und gehen Sie, wie Sie möchten._
+
+[**Wie viel kostet das Staking mit Rocket Pool?**](#how-much-does-it-cost-to-stake-with-rocket-pool)
+_Wir nehmen überhaupt keinen Anteil, stattdessen erhalten alle Node-Betreiber, die das Protokoll betreiben, variable Provisionen_
+
+[**Wie schützt das Protokoll den Wert von rETH?**](#how-does-the-protocol-protect-the-value-of-reth)
+_Unsere oberste Priorität! Wir haben viele Funktionen implementiert._
+
+[**Was ist ein dezentrales Staking-Protokoll genau?**](#what-is-a-decentralised-staking-protocol-exactly)
+_OK, bereiten Sie sich darauf vor, beeindruckt zu werden._
+
+[**Wie kann ich auf meine Einzahlung und Belohnungen zugreifen?**](#how-can-i-access-my-deposit-and-rewards)
+_Ich habe etwas davon gehört, dass Abhebungen eine Zeit lang nicht erlaubt waren..._
+
+[**Sind Ihre Smart Contracts geprüft und Open Source?**](#are-your-smart-contracts-audited-and-open-source)
+_Auf jeden Fall! Betas, Audits, Audits und noch mehr Audits._
+
+## Node-Betreiber
+
+[**Warum sollte ich eine Rocket Pool Smart Node betreiben statt solo zu staken?**](#why-would-i-run-a-rocket-pool-smart-node-vs-going-solo)
+_Halb so viel ETH erforderlich und ETH-Provisionen + zusätzliche RPL-Belohnungen verdienen, boom!_
+
+[**Was ist der minimale Staking-Betrag für einen Node-Betreiber?**](#what-is-the-minimum-staking-amount-for-a-node-operator)
+_Es sind 8 ETH, möchten Sie mehr wissen?_
+
+[**Was ist mit dem Betrieb einer Rocket Pool Node verbunden?**](#what-is-involved-in-running-a-rocket-pool-node)
+_Etwas ETH, RPL und Uptime, Uptime, Uptime._
+
+[**Wie wird der RPL-Token verwendet?**](#how-is-the-rpl-token-used)
+_Staken Sie RPL auf Ihrer Node als Versicherungsversprechen an das Protokoll und verdienen Sie zusätzliche RPL-Belohnungen!_
+
+## dApps, SaaS Business und mehr
+
+[**Kann ich auf dem Protokoll aufbauen oder es in meinem SaaS-Geschäft verwenden?**](#integrated-dapps-saas-business-and-more)
+_Verbinden Sie Ihre dApp mit dezentralem Staking oder betreiben Sie eine Node im Netzwerk und generieren Sie höhere Renditen!_
+
+## Kontakt
+
+[**Website**](https://www.rocketpool.net/)
+_Kontaktieren Sie uns hier per E-Mail oder lesen Sie einfach über Rocket Pool._
+
+[**Discord**](https://discordapp.com/invite/tCRG54c)
+_Schauen Sie vorbei für einen Chat und stellen Sie einige Fragen, wir sind eine freundliche Gruppe._
+
+[**Doc Hub**](https://docs.rocketpool.net/)
+_Sie lesen ihn gerade :) Aber es gibt noch ein paar weitere Artikel zu finden…_
+
+---
+
+### What is Proof of Stake?
+
+Proof of Stake ist ein Konsensprotokoll, das in Ethereum verwendet wird. Es unterscheidet sich vom Proof of Work (PoW) Protokoll, von dem Sie vielleicht schon gehört haben, da Bitcoin PoW verwendet. Bei einer dezentralen Blockchain helfen diese Konsensprotokolle, alle auf dem gleichen Stand zu halten, damit wir alle wissen, welche Transaktionen verarbeitet wurden und in welcher Reihenfolge. Dies wird als Validierung bezeichnet.
+
+Ethereum hat eine Proof of Stake (PoS) Chain namens Beacon Chain, die schneller, energieeffizienter und dezentraler als PoW ist. Sie wird durch Nutzer betrieben, die ETH einzahlen und rund um die Uhr eine Ethereum Node online bereitstellen, um die erforderliche Validierung durchzuführen. Als Belohnung für die Bereitstellung der Node gibt die Beacon Chain den Node-Betreibern zusätzliches ETH zu ihren Einzahlungen. Es kann ähnlich wie das Verdienen von Zinsen auf einem Bankkonto betrachtet werden, mit der Ausnahme, dass diese Belohnungen als Gegenleistung dafür generiert werden, dass man hilft, das Netzwerk zu sichern.
+
+### What does Rocket Pool do?
+
+Rocket Pool ist das Basisprotokoll für dezentrales und vertrauensloses Ethereum Staking.
+
+Entwickelt, um Staker aller Größen zu unterstützen, wurde Rocket Pool mit der Absicht gebaut, jedem zu ermöglichen, vertrauenslos nur **0,01** ETH in einem Netzwerk dezentraler Node-Betreiber mit voller Autonomie zu staken, unterstützt durch RPL-Sicherheiten (eine Art Bindung oder Versicherung, die gutes Verhalten gewährleistet). Sie können **ETH** staken, indem Sie es gegen **rETH** tauschen, einen [Token, der im Laufe der Zeit Staking-Belohnungen erhält](https://medium.com/rocket-pool/rocket-pool-2-5-tokenised-staking-48601d52d924#92b0), basierend auf der Leistung eines gesamten Netzwerks dezentraler Node-Betreiber. Sie können auch **8 oder 16 ETH** als Node-Betreiber im Protokoll staken, gebührenfrei Belohnungen auf Ihren eigenen Stake verdienen und zusätzlich Provisionen und RPL-Belohnungen aus dem Netzwerk verdienen, was einen höheren ROI durch Staking im Protokoll gegenüber dem Staking außerhalb als Solo-Node-Betreiber generiert.
+
+### Why would I need to use it?
+
+Rocket Pool beseitigt mehrere hohe Eintrittsbarrieren, die beim Proof of Stake auf Ethereum für Einzelpersonen, Gruppen und Unternehmen existieren.
+
+- Die Beacon Chain erfordert eine Einzahlung von mindestens **32 ETH**. Rocket Pool ermöglicht es jedem, Belohnungen auf Einzahlungen von nur **0,01 ETH** zu verdienen.
+
+- Die Einzahlung von ETH bei der Beacon Chain erfordert auch, dass der Nutzer Kenntnisse über die Interaktion mit Smart Contracts hat. Rocket Pool übernimmt alle Interaktionen mit der Beacon Chain für Sie.
+
+- Mit Rocket Pool erhalten Sie sofort unseren rETH-Token bei der Einzahlung. Dies ist eine tokenisierte Staking-Einzahlung, die im Laufe der Zeit Belohnungen erhält und nicht bei uns gesperrt werden muss. Sie kann jederzeit gehandelt/verkauft/gehalten werden und bietet unseren Nutzern Liquidität. Sie kann auch jederzeit gegen ETH plus verdiente Belohnungen an Rocket Pool zurückgetauscht werden, wenn ausreichend Liquidität im Protokoll verfügbar ist.
+
+- Die Beacon Chain erfordert von einem Nutzer, der eine Einzahlung tätigt, technisch versiert im Betrieb einer Ethereum Node rund um die Uhr zu sein und diese Node online und sicher zu halten. Rocket Pool hat ein dezentrales Netzwerk unabhängiger Ethereum-Node-Betreiber, die diesen Service bereitstellen.
+
+- Die Beacon Chain wird Nutzer bestrafen, die eine Einzahlung tätigen, aber ihre Node nicht online halten. Rocket Pool sozialisiert alle Strafen oder Verluste, die auf Nodes auftreten, über das gesamte Netzwerk, was den Effekt für jeden einzelnen Nutzer stark minimiert.
+
+- Einige Nutzer sind möglicherweise zuversichtlich, ihre eigene Node zu betreiben, haben aber nicht die 32 ETH, die für die Einzahlung erforderlich sind. Wenn sie dem dezentralen Netzwerk von Ethereum-Node-Betreibern von Rocket Pool beitreten, benötigen sie nur mindestens 8 ETH zum Solo-Staking. Sie erhalten auch den zusätzlichen Vorteil, zusätzliches Einkommen aus dem Netzwerk zu erhalten, indem sie diesen Service bereitstellen, was einen höheren ROI als Solo-Staking generiert.
+
+### How does it work?
+
+Halten Sie sich fest, das ist ein umfangreiches Thema! Das Protokoll besteht hauptsächlich aus 3 Hauptelementen: Smart Contracts, dem Smart Node Network und Minipool Validators.
+
+- Unsere Smart Contracts akzeptieren ETH-Einzahlungen, weisen sie Node-Betreibern mit Staking-Provisionssätzen basierend auf der aktuellen Nachfrage von Node-Betreibern zu und geben verschiedene Token aus und verfolgen diese.
+
+- Unser Smart Node Network ist ein dezentrales Netzwerk spezieller Ethereum-Nodes, die unsere Smart Node Software ausführen. Sie verfügen über benutzerdefinierte Hintergrundprozesse, die es ihnen ermöglichen, mit den Smart Contracts des Protokolls zu kommunizieren und, ebenso wichtig, den Netzwerkkonsens (Validierung) bereitzustellen, der von der Beacon Chain benötigt wird.
+
+- Jeder Nutzer kann eine dieser Smart Nodes betreiben und sein eigenes ETH gebührenfrei staken, wenn er die erforderlichen mindestens 8 ETH hat. Für die Bereitstellung einer Smart Node für das Protokoll erhält der Nutzer auch zusätzliche Belohnungen aus dem Netzwerk zusätzlich zu den Belohnungen, die er durch das Staking seines eigenen ETH verdient. Sie verdienen RPL-Token als Gegenleistung dafür, dass sie zunächst RPL als Sicherheit hinterlegen und ihre Node gegen schlechtes Verhalten oder schlechte Leistung versichern oder binden.
+
+- Minipool Validators sind ein weiterer Smart Contract, aber diese sind es wert, eigenständig definiert zu werden, da sie ein so wichtiger Aspekt des Protokolls sind. Diese Smart Contracts werden von Node-Betreibern erstellt, die 8 oder 16 ETH auf ihrer Node einzahlen. Betrachten wir den Fall, in dem der Node-Betreiber sich entscheidet, 8 ETH einzuzahlen. Wenn sie dies tun, erhält dieser Smart Contract 24 ETH in Einzahlungen von Nutzern, die nur staken, aber keine Node betreiben möchten (rETH-Staker). Wenn dieser Vertrag insgesamt 32 ETH enthält (8 ETH Ersteinzahlung plus 24 ETH von rETH-Stakern), wird ein neuer Validator auf der Node erstellt, der die Konsenspflichten für diese Einzahlung erfüllt, um Staking-Belohnungen zu verdienen. Genial!
+
+Sehen Sie sich die visuelle Anleitung unten an, um einen Einblick zu erhalten, wie diese Komponenten im Rocket Pool Protokoll zusammenarbeiten.
+
+[![Wie Staking im Protokoll fließt](/images/rp-infographic-staking-protocol-flow.png)](https://www.rocketpool.net/images/infographic-rocket-pool-2.png)
+
+### Independent node operator vs Staking as a Service (SaaS) provider?
+
+Rocket Pool Protokolle unterstützen eine breite Palette von Akteuren, einschließlich unabhängiger Node-Betreiber und Dienstleister.
+
+Web3 ist voll von hochqualifizierten Staking as a Service Anbietern, die der Welt helfen, mit Projekten wie Ethereum besser auf die Proof of Stake Landschaft zuzugreifen. Sie unterstützen alles von institutionellem Kapital über Hedgefonds, Family Offices und alles dazwischen.
+
+Rocket Pool wurde entwickelt, um diese Anbieter zu unterstützen, was bedeutet, dass über SaaS-Lösungen gestaktes ETH über Rocket Pool eingesetzt werden kann, anstatt für jeden Kunden maßgeschneiderte Staking-Lösungen aufbauen zu müssen.
+
+ETH-Inhaber können wählen, ob sie einen SaaS-Anbieter bezahlen oder selbst als Betreiber bezahlt werden möchten. Mit Rocket Pool maximieren SaaS-Anbieter und unabhängige Betreiber ihre Rendite, indem sie für den Betrieb einer Node bezahlt werden, sowohl in ETH als auch in RPL. Das Protokoll ermöglicht es Teams, ihre eigene Infrastruktur zu betreiben und Rocket Pool zu nutzen, um ETH vertrauenslos in Chargen von 8 oder 16 ETH zu staken – ihr Kapital weiter einzusetzen und einen größeren Anteil an Renditen zu verdienen.
+
+Dieses Design bedeutet, dass Bison Trails oder Gemini Rocket Pool genauso nutzen könnten wie ein DeFi-Power-User. Erscheinen Sie einfach mit 8 oder 16 ETH und Sie werden genauso behandelt wie jeder andere Node-Betreiber. Das demokratisierte Staking-System von Rocket Pool bevorzugt keine Partei, da über Rocket Pool gestaktes ETH das Netzwerk immer direkt unterstützt.
+
+Rocket Pools gestakter ETH-Wrapper, rETH, ist der reinste in DeFi, da das Rocket Pool Netzwerk vollständig verteilt und vertrauensminimiert ist. Dies macht rETH zu einem natürlichen Baustein für Ethereum und Anbieter aller Art.
+
+### What tokens does Rocket Pool use?
+
+**RPL — Rocket Pool Protocol Token**
+
+RPL ist der primäre Protokoll-Token, der für die Governance des Protokolls verwendet wird und auch auf einer Rocket Pool Node gestakt werden kann.
+
+Aus Sicht eines Node-Betreibers:
+
+- Ab Saturn 1 erhalten wahlberechtigte gestakte RPL einen Anteil am gesamten Protokollumsatz
+- Die [Mehrheit](https://rpips.rocketpool.net/RPIPs/RPIP-25) der RPL-Inflation wird als Belohnung an Node-Betreiber basierend auf gestaktem RPL gegeben; diese Belohnungen sollen mit Saturn 2 auslaufen
+- Für Saturn 0 Minipools, die nach dem 28.10.2024 erstellt wurden: Gestaktes RPL bietet bis zu 4% zusätzliche Bonusprovision; die Bonusprovision soll einige Monate nach dem Start von Saturn 1 auslaufen.
+- Gestaktes RPL bietet Stimmrecht für die Governance
+
+Aus Protokollsicht:
+
+- Eine [Minderheit](https://rpips.rocketpool.net/RPIPs/RPIP-25) der RPL-Inflation stellt Finanzierung für die pDAO bereit
+- Eine [Minderheit](https://rpips.rocketpool.net/RPIPs/RPIP-25) der RPL-Inflation stellt Finanzierung für die oDAO bereit
+- Es kann als sekundäre Sicherheit dienen (z.B. gegen Slashing)
+
+**rETH — Rocket Pool Staking Deposit Token**
+Wenn ein Nutzer in das Protokoll einzahlt, erhält er sofort den rETH-Token, der eine tokenisierte Staking-Einzahlung und die Belohnungen darstellt, die er im Laufe der Zeit im Rocket Pool Netzwerk erhält.
+
+Dieser Token muss nicht im Netzwerk gesperrt werden und kann nach Belieben des Nutzers gehandelt, verkauft oder gehalten werden.
+
+Dieser Token kann auch jederzeit gegen ETH + verdiente Belohnungen an das Protokoll zurückgetauscht werden, vorausgesetzt, es ist ausreichend Liquidität im Protokoll vorhanden, um den Tausch zu erfüllen.
+
+### Who is making it?
+
+Rocket Pool wurde ursprünglich [Ende 2016 von David Rugendyke](https://medium.com/rocket-pool/rocket-pool-your-new-casper-friendly-ethereum-pos-pool-in-alpha-75709bd19936) gestartet, einem Senior-Entwickler mit über 18 Jahren kommerzieller Erfahrung und einem Informatik-Hintergrund.
+
+Im Mai 2017 wurde eine Alpha-Version des Produkts veröffentlicht. Eine lebendige Community begann sich zu bilden und das Team begann zu expandieren. Mit Hilfe einer enthusiastischen Community führte Rocket Pool fünf öffentliche Betas mit über 100.000 gestaktem ETH (Testnet) und Hunderten von teilnehmenden Nutzern durch, bevor der offizielle Start im Ethereum Mainnet im Oktober 2021 erfolgte.
+
+## Heute arbeitet ein großartiges Team leidenschaftlich an Rocket Pool zusammen mit einer fantastischen Community von mehr als dreitausend Node-Betreibern
+
+---
+
+### What is the minimum deposit?
+
+Das Rocket Pool Protokoll ermöglicht es jedem, Belohnungen auf Einzahlungen von nur 0,01 ETH zu verdienen. Wenn Sie ETH tauschen, erhalten Sie rETH, einen Token, der im Laufe der Zeit Staking-Belohnungen erhält, basierend auf der Leistung aller dezentralen Node-Betreiber im Protokoll.
+
+### What is the maximum deposit?
+
+So groß, wie Sie sich wohl fühlen, unbegrenzt.
+
+### What are the staking periods?
+
+Wenn Sie nur staken möchten, erhalten Sie unseren rETH-Token, wenn Sie einzahlen. Sie können dann mit diesem Token tun, was Sie möchten, er wird weiterhin im Laufe der Zeit Staking-Belohnungen erhalten und kann verkauft/gehandelt oder gegen ETH + Belohnungen an Rocket Pool zurückgetauscht werden, wenn Liquidität für den Tausch verfügbar ist.
+
+Wenn Sie eine Node im Netzwerk betreiben möchten, können Sie so kurz oder lange als Node staken, wie Sie möchten. Je länger Sie staken, desto mehr Belohnungen erhalten Sie natürlich.
+
+### What commissions are possible when staking with Rocket Pool?
+
+Provisionen für Node-Betreiber stammen aus Belohnungen, die aus den 16 oder 24 ETH generiert werden, die von Nicht-Betreiber-Stakern gepoolt werden. Die Provision ist auf 14% festgelegt.
+
+### How does the protocol protect the value of rETH?
+
+Unsere Smart Contracts sind für das Halten und Bewegen von Geldern verantwortlich. Im Interesse der Transparenz sind sie [Open Source](https://github.com/rocket-pool/rocketpool), damit alle sie analysieren können. Zusätzlich wurden die Smart Contracts vor der Bereitstellung im Mainnet vollständig von Sigma Prime und ConsenSys Diligence geprüft, zwei der besten Audit-Teams.
+
+Rocket Pool ist ein dezentrales Netzwerk von Node-Betreibern. Wenn Sie ein Nicht-Betreiber-Staker sind, wird Ihre Einzahlung einem Node-Betreiber zugewiesen, der Proof of Stake Aufgaben erfüllt. Node-Betreiber müssen so viel ETH staken, wie ihnen zugewiesen wird. Wenn es aufgrund schlechter Node-Leistung zu ETH-Verlusten kommt, muss der Betreiber zunächst das verlorene ETH des Pools mit seinen ursprünglichen 8 oder 16 ETH und dem Verlust von RPL kompensieren. Wenn dies den Verlust nicht vollständig ausgleicht, wird der Rest über das gesamte Netzwerk verteilt durch eine Reduzierung des relativen Werts von rETH, anstatt dass ein Nutzer große Verluste erleidet, nur weil seine Einzahlung durch Pech auf einer schlechten Node landete.
+
+Wenn beispielsweise ein Node-Betreiber 16 ETH gestakt hat und seine Node das Netzwerk mit 28 ETH verlässt, behält der Betreiber 12 ETH, das Netzwerk behält 16 ETH - der gesamte Verlust liegt beim Betreiber. Wenn ihre Node mit 15 ETH geht, behält das Netzwerk 16 ETH und der Betreiber gleicht das fehlende 1 ETH durch den Verlust von RPL aus. Wenn die Node mit 10 ETH geht und es nur RPL im Wert von 1,6 ETH aus der ursprünglichen Bindung gibt, behält das Netzwerk 11,6 ETH (10 + 1,6), und der Verlust von 4,4 ETH (16 - 11,6) wird über das Netzwerk verteilt.
+
+Node-Betreiber haben somit einen großen Anreiz, gut zu performen. Node-Betreiber werden auch vom Protokoll angereizt, so viel RPL wie möglich als Versicherung zu staken, aufgrund zusätzlicher Belohnungen, die für die Bereitstellung eines größeren Sicherheitsnetzes gegeben werden, falls sie schlecht performen sollten.
+
+### What is a decentralised staking protocol exactly?
+
+Rocket Pool ist ein Protokoll, das ein dezentrales Netzwerk von Node-Betreibern enthält. Jeder Node-Betreiber ist eine separate Entität mit eigener Server-Infrastruktur. Dieses heterogene Netzwerk zu haben ist wichtig für:
+
+- _Fehlertoleranz_ — Ausfälle betreffen nur eine kleine Anzahl von Nodes
+- _Skalierbarkeit_ — durch Öffnung des Netzwerks können eine große Anzahl von Nodes online gebracht werden, um die Nachfrage zu decken
+- _Quadratic Leaking_ — dies ist ein ausgefallener Begriff dafür, wie die Beacon Chain Validatoren für Offline-Sein bestraft. Als Node-Betreiber, wenn Sie mit einer großen Gruppe anderer Validatoren offline gehen, ist Ihre Strafe größer — dies schreckt zentralisierte Staking-Dienste ab.
+
+### How can I access my deposit and rewards?
+
+Wenn Sie ein Nicht-Betreiber-Staker sind und nur Ihre Einzahlung an die Smart Contracts von Rocket Pool senden, erhalten Sie sofort rETH-Token, die eine Form des tokenisierten Stakings sind, sie werden im Laufe der Zeit weiterhin Belohnungen erhalten, aber Sie müssen sie nicht bei uns halten und können sie nach Belieben handeln/verkaufen oder halten. Sie können sie auch gegen ETH + erhaltene Belohnungen an das Protokoll zurücktauschen, wenn Liquidität im Protokoll verfügbar ist, um den Tausch abzudecken.
+
+### Are your smart contracts audited and open source?
+
+Im Interesse der Transparenz sind sie [Open Source](https://github.com/rocket-pool/rocketpool), damit alle sie analysieren können. Zusätzlich wurden die Smart Contracts vor der Bereitstellung im Mainnet vollständig von Sigma Prime und ConsenSys Diligence geprüft, zwei der besten Audit-Teams.
+
+---
+
+---
+
+### Why would I run a Rocket Pool smart node vs going solo?
+
+Als Node-Betreiber können Sie von folgenden Vorteilen profitieren:
+
+- Sie können unseren großartigen [Smart Node Stack](https://github.com/rocket-pool/smartnode) verwenden, ein super praktisches Setup, um Staking sehr einfach zu machen. [Beginnen Sie hier mit dem Installer](https://github.com/rocket-pool/smartnode).
+- Sie benötigen nur 8 ETH zum Staking (im Gegensatz zu 32 ETH solo), da Rocket Pool 24 ETH der Protokolleinzahlungen zuweist. Sie können auch mehrfach 8 ETH Einzahlungen auf einer Node staken.
+- Sie verdienen zusätzliche Belohnungen, indem Sie Rocket Pool Nutzern eine Provision von 14% der auf Ihrer Node durch ihr ETH verdienten Belohnungen berechnen.
+- Sie staken Ihr eigenes ETH, frei von jeglichen Provisionen.
+- Sie staken RPL auf Ihrer Node als Sicherheit und verdienen mehr RPL vom Protokoll für die Bereitstellung dieses Versicherungsversprechens.
+- Sie haben immer die Kontrolle über Ihre eigene Node.
+- Sie können jederzeit vom Netzwerk kommen und gehen.
+
+### What is the minimum staking amount for a node operator?
+
+Der minimale Staking-Betrag für einen Node-Betreiber beträgt 8 ETH. Sie können jedoch mit unserer Smart Node Software problemlos in Vielfachen von 8 ETH auf Ihrer eigenen Node staken. Sie benötigen auch etwas RPL, das als Sicherheit im Falle schwerwiegender Ausfallzeiten oder Strafen dient. Diese Sicherheit wird als Versicherungsversprechen an das Protokoll behandelt, das Ihnen mehr RPL einbringt, je länger Sie staken.
+
+### What is involved in running a Rocket Pool node?
+
+Als Node-Betreiber müssen Sie einen Server rund um die Uhr betreiben, der Proof of Stake Validator-Aufgaben erfüllt. Verwenden Sie unseren [Smart Node Stack](https://github.com/rocket-pool/smartnode), um Ihre Node + Validatoren im Protokoll zu verwalten, ein super praktisches Paket, um Staking sehr einfach zu machen. [Beginnen Sie hier mit dem Installer](https://github.com/rocket-pool/smartnode).
+
+Seit dem [Saturn 0 Upgrade](/de/upgrades/saturn-0/whats-new) erfordert das Rocket Pool Protokoll keine Mindestmenge an RPL mehr. Vor dem [Saturn 0 Upgrade](/de/upgrades/saturn-0/whats-new) waren mindestens 10% des Wertes in RPL des vom Protokoll bereitgestellten ETH (10% von 24 oder 16 ETH, also 2,4 oder 1,6 ETH) erforderlich.
+
+### How is the RPL token used?
+
+Schauen Sie sich [den Token-Abschnitt](#what-tokens-does-rocket-pool-use) für einen großartigen Überblick an!
+
+---
+
+---
+
+### Integrated dApps, SaaS Business and more
+
+Wenn Sie eine dApp sind, können Sie direkt in die Smart Contracts von Rocket Pool integrieren, um ETH zu staken, das Ihre dApp möglicherweise hält. Sie erhalten sofort rETH (eine tokenisierte Staking-Einzahlung) zurück, wenn Sie einzahlen, das nach Belieben Ihrer dApp verwendet werden kann. Sie haben jetzt Staking in einer dezentralen dApp mit einem dezentralen Staking-Netzwerk, wow!
+
+Wenn Sie ein SaaS (Staking as a Service) Anbieter sind, möchten Sie möglicherweise die Renditen für Ihre Nutzer maximieren. Starten Sie ein paar Smart Nodes im Rocket Pool Netzwerk und setzen Sie dieses ETH ein, um Staking-Belohnungen + zusätzliche Provisionen + RPL-Belohnungen zu verdienen.
+
+Sind Sie eine Wallet oder DEX und möchten Ihren Nutzern die Möglichkeit geben, ihr ETH zu staken, ohne Ihren Service zu verlassen? Schreiben Sie einfach einen Smart Contract, der das Einzahlen von ETH in Rocket Pool im Namen Ihrer Nutzer verwalten kann und dann sofort rETH zurückerhält. Bam! Staking-Services geliefert.
+Es gibt viele weitere Möglichkeiten. Rocket Pool ist ein erlaubnisfreies Smart Contract basiertes Staking-Protokoll, jeder kann sich damit verbinden. Ihre Nutzer müssen nicht einmal wissen, dass Sie uns verwenden, das liegt ganz bei Ihnen!

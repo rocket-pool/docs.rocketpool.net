@@ -53,7 +53,7 @@ Envisagez de prendre les mesures suivantes :
 L'un des détails **critiques** à configurer avant le Merge est le **destinataire de frais** spécifié par votre client de validateur.
 Comme décrit dans [l'article de présentation](./whats-new#fee-recipients-and-your-distributor), cela peut être l'une des deux valeurs :
 
-- Si vous **avez opté** pour le Smoothing Pool, cela doit être l'adresse du **contrat Smoothing Pool**. Vous pouvez obtenir l'adresse à partir de [la page officielle des contrats](/fr/overview/contracts-integrations).
+- Si vous **avez opté** pour le Smoothing Pool, cela doit être l'adresse du **contrat Smoothing Pool**. Vous pouvez obtenir l'adresse à partir de [la page officielle des contrats](/fr/protocol/contracts-integrations).
 - Si vous n'êtes **pas** dans le Smoothing Pool, cela doit être l'adresse du **contrat de distributeur de frais** de votre nœud. Vous pouvez obtenir l'adresse en exécutant `rocketpool node status`, sous la section `Fee Distributor and Smoothing Pool`.
 
 En mode natif, vous avez le choix de laisser le Smartnode gérer cela pour vous si vous utilisez le service démon Smartnode, `rp-node`, ou de le gérer vous-même si vous n'utilisez pas le démon.
@@ -168,7 +168,7 @@ Veuillez lire la [spécification des pénalités](https://github.com/rocket-pool
 Ne pas le faire pourrait entraîner la pénalisation de vos minipools !
 :::
 
-**Avant le déploiement de Redstone**, vous pouvez simplement utiliser l'adresse rETH pour le réseau sur lequel vous vous trouvez (qui peut être trouvée dans [la page officielle des contrats](/fr/overview/contracts-integrations)).
+**Avant le déploiement de Redstone**, vous pouvez simplement utiliser l'adresse rETH pour le réseau sur lequel vous vous trouvez (qui peut être trouvée dans [la page officielle des contrats](/fr/protocol/contracts-integrations)).
 L'adresse rETH est toujours sûre quoi qu'il arrive.
 
 **Une fois Redstone déployé**, vous pouvez voir l'adresse exacte à laquelle vous devez définir votre destinataire de frais via `rocketpool node status`. Par exemple, si vous avez opté pour le Smoothing Pool, il affichera l'adresse du Smoothing Pool et notera que vous devez l'utiliser comme destinataire de frais :
@@ -192,9 +192,9 @@ Sélectionnez votre client de consensus ci-dessous pour apprendre comment le con
 
       Où `address` est :
 
-      - L'[adresse rETH](/fr/overview/contracts-integrations/#token-contracts) **avant** le déploiement de la mise à jour Redstone (par exemple, `0xae78736Cd615f374D3085123A210448E74Fc6393` sur Mainnet)
+      - L'[adresse rETH](/fr/protocol/contracts-integrations/#token-contracts) **avant** le déploiement de la mise à jour Redstone (par exemple, `0xae78736Cd615f374D3085123A210448E74Fc6393` sur Mainnet)
       - Le **distributeur de frais** de votre nœud après le déploiement de Redstone, que vous pouvez récupérer avec `rocketpool node status` une fois la mise à jour du contrat effectuée
-      - L'[adresse du Smoothing Pool](/fr/overview/contracts-integrations/#protocol-contracts) si vous optez pour le Smoothing Pool
+      - L'[adresse du Smoothing Pool](/fr/protocol/contracts-integrations/#protocol-contracts) si vous optez pour le Smoothing Pool
 
       Pour rappel, `rocketpool node status` vous montrera le destinataire de frais correct à utiliser à tout moment.
 
@@ -209,9 +209,9 @@ Sélectionnez votre client de consensus ci-dessous pour apprendre comment le con
 
       Où `address` est :
 
-      - L'[adresse rETH](/fr/overview/contracts-integrations/#token-contracts) **avant** le déploiement de la mise à jour Redstone (par exemple, `0xae78736Cd615f374D3085123A210448E74Fc6393` sur Mainnet)
+      - L'[adresse rETH](/fr/protocol/contracts-integrations/#token-contracts) **avant** le déploiement de la mise à jour Redstone (par exemple, `0xae78736Cd615f374D3085123A210448E74Fc6393` sur Mainnet)
       - Le **distributeur de frais** de votre nœud après le déploiement de Redstone, que vous pouvez récupérer avec `rocketpool node status` une fois la mise à jour du contrat effectuée
-      - L'[adresse du Smoothing Pool](/fr/overview/contracts-integrations/#protocol-contracts) si vous optez pour le Smoothing Pool
+      - L'[adresse du Smoothing Pool](/fr/protocol/contracts-integrations/#protocol-contracts) si vous optez pour le Smoothing Pool
 
       Pour rappel, `rocketpool node status` vous montrera le destinataire de frais correct à utiliser à tout moment.
 
@@ -226,9 +226,9 @@ Sélectionnez votre client de consensus ci-dessous pour apprendre comment le con
 
       Où `address` est :
 
-      - L'[adresse rETH](/fr/overview/contracts-integrations/#token-contracts) **avant** le déploiement de la mise à jour Redstone (par exemple, `0xae78736Cd615f374D3085123A210448E74Fc6393` sur Mainnet)
+      - L'[adresse rETH](/fr/protocol/contracts-integrations/#token-contracts) **avant** le déploiement de la mise à jour Redstone (par exemple, `0xae78736Cd615f374D3085123A210448E74Fc6393` sur Mainnet)
       - Le **distributeur de frais** de votre nœud après le déploiement de Redstone, que vous pouvez récupérer avec `rocketpool node status` une fois la mise à jour du contrat effectuée
-      - L'[adresse du Smoothing Pool](/fr/overview/contracts-integrations/#protocol-contracts) si vous optez pour le Smoothing Pool
+      - L'[adresse du Smoothing Pool](/fr/protocol/contracts-integrations/#protocol-contracts) si vous optez pour le Smoothing Pool
 
       Pour rappel, `rocketpool node status` vous montrera le destinataire de frais correct à utiliser à tout moment.
 
@@ -243,9 +243,9 @@ Sélectionnez votre client de consensus ci-dessous pour apprendre comment le con
 
       Où `address` est :
 
-      - L'[adresse rETH](/fr/overview/contracts-integrations/#token-contracts) **avant** le déploiement de la mise à jour Redstone (par exemple, `0xae78736Cd615f374D3085123A210448E74Fc6393` sur Mainnet)
+      - L'[adresse rETH](/fr/protocol/contracts-integrations/#token-contracts) **avant** le déploiement de la mise à jour Redstone (par exemple, `0xae78736Cd615f374D3085123A210448E74Fc6393` sur Mainnet)
       - Le **distributeur de frais** de votre nœud après le déploiement de Redstone, que vous pouvez récupérer avec `rocketpool node status` une fois la mise à jour du contrat effectuée
-      - L'[adresse du Smoothing Pool](/fr/overview/contracts-integrations/#protocol-contracts) si vous optez pour le Smoothing Pool
+      - L'[adresse du Smoothing Pool](/fr/protocol/contracts-integrations/#protocol-contracts) si vous optez pour le Smoothing Pool
 
       Pour rappel, `rocketpool node status` vous montrera le destinataire de frais correct à utiliser à tout moment.
 

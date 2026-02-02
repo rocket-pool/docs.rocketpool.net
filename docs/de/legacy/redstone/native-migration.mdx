@@ -53,7 +53,7 @@ Erwägen Sie die folgenden Schritte:
 Eines der **kritischen** Details, die vor The Merge eingerichtet werden müssen, ist der **Fee Recipient**, der von Ihrem Validator Client angegeben wird.
 Wie im [Übersichtsartikel](./whats-new#fee-recipients-and-your-distributor) beschrieben, kann dies einer von zwei Werten sein:
 
-- Wenn Sie **in den Smoothing Pool eingetreten sind**, muss dies die Adresse des **Smoothing Pool Contracts** sein. Sie können die Adresse von [der offiziellen Contracts-Seite](/de/overview/contracts-integrations) erhalten.
+- Wenn Sie **in den Smoothing Pool eingetreten sind**, muss dies die Adresse des **Smoothing Pool Contracts** sein. Sie können die Adresse von [der offiziellen Contracts-Seite](/de/protocol/contracts-integrations) erhalten.
 - Wenn Sie **nicht** im Smoothing Pool sind, muss dies die Adresse Ihres **Fee Distributor Contracts** Ihres Nodes sein. Sie können die Adresse durch Ausführen von `rocketpool node status` erhalten, unter dem Abschnitt `Fee Distributor and Smoothing Pool`.
 
 Im Native-Modus haben Sie die Wahl, dies vom Smart Node verwalten zu lassen, wenn Sie den Smart Node-Daemon-Service `rp-node` verwenden, oder es selbst zu verwalten, wenn Sie den Daemon nicht verwenden.
@@ -168,7 +168,7 @@ Bitte lesen Sie die [Strafspezifikation](https://github.com/rocket-pool/rocketpo
 Andernfalls könnten Ihre Minipools bestraft werden!
 :::
 
-**Vor der Bereitstellung von Redstone** können Sie einfach die rETH-Adresse für das Netzwerk verwenden, auf dem Sie sich befinden (die auf [der offiziellen Contracts-Seite](/de/overview/contracts-integrations) zu finden ist).
+**Vor der Bereitstellung von Redstone** können Sie einfach die rETH-Adresse für das Netzwerk verwenden, auf dem Sie sich befinden (die auf [der offiziellen Contracts-Seite](/de/protocol/contracts-integrations) zu finden ist).
 Die rETH-Adresse ist immer sicher, egal was passiert.
 
 **Sobald Redstone bereitgestellt wurde**, können Sie die genaue Adresse, auf die Sie Ihren Fee Recipient setzen sollten, über `rocketpool node status` sehen. Wenn Sie beispielsweise in den Smoothing Pool eingetreten sind, wird die Adresse des Smoothing Pools angezeigt und vermerkt, dass Sie sie als Ihren Fee Recipient verwenden müssen:
@@ -192,9 +192,9 @@ Wählen Sie unten Ihren Consensus Client aus, um zu erfahren, wie Sie ihn konfig
 
       Wobei `address` ist:
 
-      - Die [rETH-Adresse](/de/overview/contracts-integrations/#token-contracts) **vor** der Bereitstellung des Redstone-Updates (z.B. `0xae78736Cd615f374D3085123A210448E74Fc6393` auf Mainnet)
+      - Die [rETH-Adresse](/de/protocol/contracts-integrations/#token-contracts) **vor** der Bereitstellung des Redstone-Updates (z.B. `0xae78736Cd615f374D3085123A210448E74Fc6393` auf Mainnet)
       - Ihr **Fee Distributor** Ihres Nodes nach der Bereitstellung von Redstone, den Sie mit `rocketpool node status` abrufen können, sobald das Contract-Upgrade stattfindet
-      - Die [Smoothing Pool-Adresse](/de/overview/contracts-integrations/#protocol-contracts), wenn Sie dem Smoothing Pool beitreten
+      - Die [Smoothing Pool-Adresse](/de/protocol/contracts-integrations/#protocol-contracts), wenn Sie dem Smoothing Pool beitreten
 
       Zur Erinnerung: `rocketpool node status` zeigt Ihnen jederzeit den korrekten Fee Recipient an.
 
@@ -209,9 +209,9 @@ Wählen Sie unten Ihren Consensus Client aus, um zu erfahren, wie Sie ihn konfig
 
       Wobei `address` ist:
 
-      - Die [rETH-Adresse](/de/overview/contracts-integrations/#token-contracts) **vor** der Bereitstellung des Redstone-Updates (z.B. `0xae78736Cd615f374D3085123A210448E74Fc6393` auf Mainnet)
+      - Die [rETH-Adresse](/de/protocol/contracts-integrations/#token-contracts) **vor** der Bereitstellung des Redstone-Updates (z.B. `0xae78736Cd615f374D3085123A210448E74Fc6393` auf Mainnet)
       - Ihr **Fee Distributor** Ihres Nodes nach der Bereitstellung von Redstone, den Sie mit `rocketpool node status` abrufen können, sobald das Contract-Upgrade stattfindet
-      - Die [Smoothing Pool-Adresse](/de/overview/contracts-integrations/#protocol-contracts), wenn Sie dem Smoothing Pool beitreten
+      - Die [Smoothing Pool-Adresse](/de/protocol/contracts-integrations/#protocol-contracts), wenn Sie dem Smoothing Pool beitreten
 
       Zur Erinnerung: `rocketpool node status` zeigt Ihnen jederzeit den korrekten Fee Recipient an.
 
@@ -226,9 +226,9 @@ Wählen Sie unten Ihren Consensus Client aus, um zu erfahren, wie Sie ihn konfig
 
       Wobei `address` ist:
 
-      - Die [rETH-Adresse](/de/overview/contracts-integrations/#token-contracts) **vor** der Bereitstellung des Redstone-Updates (z.B. `0xae78736Cd615f374D3085123A210448E74Fc6393` auf Mainnet)
+      - Die [rETH-Adresse](/de/protocol/contracts-integrations/#token-contracts) **vor** der Bereitstellung des Redstone-Updates (z.B. `0xae78736Cd615f374D3085123A210448E74Fc6393` auf Mainnet)
       - Ihr **Fee Distributor** Ihres Nodes nach der Bereitstellung von Redstone, den Sie mit `rocketpool node status` abrufen können, sobald das Contract-Upgrade stattfindet
-      - Die [Smoothing Pool-Adresse](/de/overview/contracts-integrations/#protocol-contracts), wenn Sie dem Smoothing Pool beitreten
+      - Die [Smoothing Pool-Adresse](/de/protocol/contracts-integrations/#protocol-contracts), wenn Sie dem Smoothing Pool beitreten
 
       Zur Erinnerung: `rocketpool node status` zeigt Ihnen jederzeit den korrekten Fee Recipient an.
 
@@ -243,9 +243,9 @@ Wählen Sie unten Ihren Consensus Client aus, um zu erfahren, wie Sie ihn konfig
 
       Wobei `address` ist:
 
-      - Die [rETH-Adresse](/de/overview/contracts-integrations/#token-contracts) **vor** der Bereitstellung des Redstone-Updates (z.B. `0xae78736Cd615f374D3085123A210448E74Fc6393` auf Mainnet)
+      - Die [rETH-Adresse](/de/protocol/contracts-integrations/#token-contracts) **vor** der Bereitstellung des Redstone-Updates (z.B. `0xae78736Cd615f374D3085123A210448E74Fc6393` auf Mainnet)
       - Ihr **Fee Distributor** Ihres Nodes nach der Bereitstellung von Redstone, den Sie mit `rocketpool node status` abrufen können, sobald das Contract-Upgrade stattfindet
-      - Die [Smoothing Pool-Adresse](/de/overview/contracts-integrations/#protocol-contracts), wenn Sie dem Smoothing Pool beitreten
+      - Die [Smoothing Pool-Adresse](/de/protocol/contracts-integrations/#protocol-contracts), wenn Sie dem Smoothing Pool beitreten
 
       Zur Erinnerung: `rocketpool node status` zeigt Ihnen jederzeit den korrekten Fee Recipient an.
 

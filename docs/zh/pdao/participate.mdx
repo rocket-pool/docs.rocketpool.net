@@ -1,60 +1,41 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Participating in on-chain pDAO Proposals
+# 参与链上 pDAO 提案
 
-Any node with a non-zero voting power may raise or participate in a pDAO proposal at any time. Proposals can be one of
-the following types:
+任何具有非零投票权的节点都可以随时提出或参与 pDAO 提案。提案可以是以下类型之一：
 
-- Changing pDAO settings
-- One-time treasury spends
-- Repeat treasury spends (management committees)
-- Security council membership
+- 更改 pDAO 设置
+- 一次性国库支出
+- 重复国库支出（管理委员会）
+- 安全委员会成员资格
 
-For greater detail and rationale, refer to [proposal types](https://rpips.rocketpool.net/RPIPs/RPIP-33#proposal-types).
-It's important to understand that a pDAO proposal is an on-chain entity that exists to execute changes at the protocol
-level.
+有关更多详细信息和理由，请参阅[提案类型](https://rpips.rocketpool.net/RPIPs/RPIP-33#proposal-types)。重要的是要理解，pDAO 提案是一个链上实体，旨在在协议层面执行变更。
 
-## Governance Process
+## 治理流程
 
-A proposal should be forecasted by the governance process before it ends up on-chain.
+提案应在进入链上之前通过治理流程进行预告。
 
-Changes to the Rocket Pool protocol and proposed, voted, and executed using a strict, yet transparent governance
-process. The process begins with an informal discussion of an idea within the Discord community. This idea then
-progresses to formal discussions in
-the [#governance](https://discordapp.com/channels/405159462932971535/774497904559783947) channel on Discord and
-the [DAO Forum](https://dao.rocketpool.net/), where it undergoes thorough research, modeling, and scrutiny in
-preparation for a [Rocket Pool Improvement Proposal (RPIP)](https://rpips.rocketpool.net/). Following this, a draft RPIP
-is prepared and reviewed by designated RPIP reviewers to ensure its quality and readiness for presentation to the DAO.
-The draft proposal is then presented to the DAO on the forum for further review, feedback, and incorporation of any
-necessary changes. Once the proposal has been refined based on community input, a poll is raised on the DAO forum to
-gauge readiness for finalizing the RPIP text. If the poll passes, indicating community approval, the RPIP is marked
-final and ready for a Protocol DAO vote, which is conducted via Snapshot to determine whether the proposal should be
-implemented.
+对 Rocket Pool 协议的更改使用严格但透明的治理流程进行提议、投票和执行。该流程始于 Discord 社区内对一个想法的非正式讨论。然后，这个想法发展到 Discord 上的 [#governance](https://discordapp.com/channels/405159462932971535/774497904559783947) 频道和 [DAO Forum](https://dao.rocketpool.net/) 上的正式讨论，在那里它经过彻底的研究、建模和审查，为 [Rocket Pool 改进提案 (RPIP)](https://rpips.rocketpool.net/) 做准备。随后，准备 RPIP 草案并由指定的 RPIP 审查者审查，以确保其质量和向 DAO 展示的准备情况。然后将草案提案提交给论坛上的 DAO 进行进一步审查、反馈和纳入任何必要的更改。一旦提案根据社区意见进行了完善，就会在 DAO 论坛上进行投票，以衡量最终确定 RPIP 文本的准备情况。如果投票通过，表明社区批准，RPIP 将被标记为最终版本，并准备好进行 Protocol DAO 投票，该投票通过 Snapshot 进行，以确定是否应实施该提案。
 
-From here, the Oracle DAO will raise an on-chain proposal. There is a window in which the Protocol DAO, Oracle DAO and
-community can review the proposal. If consensus is reached, the proposal is executed and changes are applied to the
-protocol.
+从这里开始，Oracle DAO 将提出链上提案。Protocol DAO、Oracle DAO 和社区有一个审查提案的窗口期。如果达成共识，则执行提案并将更改应用于协议。
 
-A handy dandy visual representation of this process can be found on
-the [Rocket Pool website](https://rocketpool.net/governance/process).
+可以在 [Rocket Pool 网站](https://rocketpool.net/governance/process)上找到此流程的便捷可视化表示。
 
-## Prerequisite
+## 前置条件
 
-Please read the [lifecycle of a proposal](./pdao#lifecycle-of-a-pdao-proposal) before proceeding. It'll explain
-the differences between all the voting periods and the actions that can be taken during each period.
+请在继续之前阅读[提案的生命周期](./pdao#lifecycle-of-a-pdao-proposal)。它将解释所有投票期之间的差异以及在每个期间可以采取的行动。
 
-The rest of this page will walk you through the steps required for participating in on-chain pDAO proposals.
+本页的其余部分将引导您完成参与链上 pDAO 提案所需的步骤。
 
-## Initializing Voting
+## 初始化投票
 
-If you are a node operator who registered before the Houston upgrade, you need to initialize voting to unlock voting
-power. Keep in mind that having at least one minipool is a requirement for having voting power.
+如果您是在 Houston 升级之前注册的节点运营商，则需要初始化投票以解锁投票权。请记住，拥有至少一个 minipool 是拥有投票权的要求。
 
 ```shell
 rocketpool pdao initialize-voting
 ```
 
-This command will raise the prompt below. Please read it carefully:
+此命令将显示以下提示。请仔细阅读：
 
 ```
 Thanks for initializing your voting power!
@@ -72,95 +53,71 @@ You have two options:
 You can see a list of existing public delegates at https://delegates.rocketpool.net,
 however, you can delegate to any node address.
 
-Learn more about how this all works via: /en/pdao/participate#participating-in-on-chain-pdao-proposals
+Learn more about how this all works via: /zh/pdao/participate#participating-in-on-chain-pdao-proposals
 
 Please type `direct` or `delegate` to continue:
 ```
 
-- If you respond with `direct`, voting power will be initialized to your node and you'll be able to vote directly on
-  Protocol DAO proposals.
-- If you respond with `delegate`, you'll have the opportunity to save a bit of gas by initializing voting
-  and [setting a delegate](./participate#delegating-voting-power) within the same transaction.
+- 如果您回复 `direct`，投票权将初始化到您的节点，您将能够直接对 Protocol DAO 提案进行投票。
+- 如果您回复 `delegate`，您将有机会通过在同一笔交易中初始化投票和[设置委托人](./participate#delegating-voting-power)来节省一些 gas。
 
-You only need to do this once. It configures the initial snapshot information for a node. After you initialize voting,
-every action taken will update your node's snapshot information. Once your voting power is initialized, you can check
-how much you have using the following smartnode command:
+您只需执行一次此操作。它为节点配置初始快照信息。在您初始化投票后，采取的每个操作都将更新您节点的快照信息。一旦您的投票权被初始化，您可以使用以下 smartnode 命令检查您拥有多少投票权：
 
 ```shell
 rocketpool pdao status
 ```
 
-:::tip NOTE
-Whenever a new proposal is created, a voting tree representing a snapshot of the network's voting power and delegate info
-is created in conjunction with the new proposal. This means your node's voting power won't be included in a proposal if
-it was raised before you initialized voting. `rocketpool pdao status` will display your node's voting power at the
-latest block, which may or may not be representative of your voting power on a particular proposal.
+:::tip 注意
+每当创建新提案时，都会创建一个投票树，代表网络投票权和委托信息的快照，与新提案一起创建。这意味着如果提案是在您初始化投票之前提出的，则您节点的投票权将不会包含在提案中。`rocketpool pdao status` 将显示您节点在最新区块的投票权，这可能代表也可能不代表您在特定提案上的投票权。
 :::
 
-## Auto Initialize Vote Power
+## 自动初始化投票权
 
-Smartnode version `1.13.8` introduces a new feature **Auto Initialize Vote Power**, which is designed to automatically
-initialize voting power on nodes who have not yet done so. Automatically initialized voting power is self-delegated.
-This feature can be configured in the Smartnode settings by running `rocketpool service config` and navigating to the \*
-\*Smartnode and TX Fees\*\* section.
+Smartnode 版本 `1.13.8` 引入了一项新功能 **自动初始化投票权**，旨在自动初始化尚未初始化的节点的投票权。自动初始化的投票权是自我委托的。可以通过运行 `rocketpool service config` 并导航到 **Smartnode and TX Fees** 部分在 Smartnode 设置中配置此功能。
 
 <img src="./images/auto_init_vp.png" width="100%" height="auto" />
 
-The **Auto-Init Vote Power Gas Threshold** is a limit (in gwei) on this automatic transaction. You can opt out of this
-task by setting the threshold to 0. Feel free to opt out if your node was registered after the Houston upgrade or if
-voting power is already enabled.
+**Auto-Init Vote Power Gas Threshold** 是此自动交易的限制（以 gwei 为单位）。您可以通过将阈值设置为 0 来选择退出此任务。如果您的节点在 Houston 升级后注册或投票权已启用，请随时选择退出。
 
-## Setting your Snapshot Signalling Address
+## 设置您的 Snapshot 信号地址
 
-Setting your Snapshot signalling address will allow you to participate in Snapshot votes on a browser or mobile device
-without having to expose node keys to a hot wallet.
+设置您的 Snapshot 信号地址将允许您在浏览器或移动设备上参与 Snapshot 投票，而无需将节点密钥暴露给热钱包。
 
-There are a few things to prepare:
+需要准备一些东西：
 
-- Your node's address
-- An address you want to use for snapshot voting (signalling address)
+- 您的节点地址
+- 您想用于 snapshot 投票的地址（信号地址）
 
-You'll be signing a message saying that your node's address can delegate to the new address. This message states your
-intent to use your wallet address as a Snapshot signalling address.
+您将签署一条消息，说明您的节点地址可以委托给新地址。此消息表明您打算使用您的钱包地址作为 Snapshot 信号地址。
 
-Select which network you're using from one of the tabs below.
+从下面的选项卡中选择您正在使用的网络。
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Hoodi Testnet">If you're trying this out on Hoodi testnet, you can sign on this page: https://testnet.node.rocketpool.net/signalling-address</Tab>
-    <Tab label="Mainnet">If you're ready to configure this on mainnet, go here instead: https://node.rocketpool.net/signalling-address</Tab>
+    <Tab label="Hoodi Testnet">如果您在 Hoodi 测试网上尝试此操作，可以在此页面上签名：https://testnet.node.rocketpool.net/signalling-address</Tab>
+    <Tab label="Mainnet">如果您准备在主网上配置此功能，请转到此处：https://node.rocketpool.net/signalling-address</Tab>
   </Tabs>
 </div>
 
-:::danger WARNING
-Do not load your node's private key onto a hot wallet. Please choose another account to be your signalling address.
-After setting the signalling address, you can use it to vote on Snapshot with your node's voting power.
+:::danger 警告
+不要将节点的私钥加载到热钱包中。请选择另一个账户作为您的信号地址。设置信号地址后，您可以使用它在 Snapshot 上使用节点的投票权进行投票。
 :::
 
-Start by **connecting the address you want to use as a signalling address** to the website using MetaMask,
-WalletConnect, or any of the other methods the website supports. You will then be presented with this dialog to look up
-your node address.
+首先，使用 MetaMask、WalletConnect 或网站支持的任何其他方法**将您想用作信号地址的地址连接**到网站。然后，您将看到此对话框以查找您的节点地址。
 
-Next, you'll enter your node address then click the orange "Find" button. This will check if the address is a registered
-node and then bring you to the next step.
+接下来，您将输入您的节点地址，然后单击橙色的"Find"按钮。这将检查该地址是否为已注册的节点，然后将您带到下一步。
 
-:::tip TIP
-**Make sure you have the correct node address before doing this!** if you need to confirm your node's address, you can
-quickly retrieve it via the CLI using the `rocketpool node status` command.
+:::tip 提示
+**在执行此操作之前，请确保您拥有正确的节点地址！** 如果您需要确认节点的地址，可以使用 `rocketpool node status` 命令通过 CLI 快速检索。
 :::
 
-Once you've signed in and confirmed your node address, you'll see your **Snapshot signalling address**. It should be the
-same as the account you've signed into the site with. Double check that this is correct before proceeding. Once you're
-confident that you're signed into the desired account, click the orange "Sign Message" button. You'll see a prompt in
-your wallet extension app to sign the following message:
+登录并确认节点地址后，您将看到您的 **Snapshot 信号地址**。它应该与您登录网站的账户相同。在继续之前，请仔细检查这是否正确。一旦确信您已登录到所需的账户，请单击橙色的"Sign Message"按钮。您将在钱包扩展程序中看到一个提示，要求签署以下消息：
 
 ```
 `snapshot signalling address` may delegate to me for Rocket Pool governance
 ```
 
-Signing won't cost you any gas but setting will. After you sign, the frontend will give you a command to paste into the
-smartnode. Go ahead and paste it into your smartnode's CLI and follow the prompted steps. The command should look
-something like this:
+签名不会花费任何 gas，但设置会花费。签名后，前端将为您提供一个命令，粘贴到 smartnode 中。继续并将其粘贴到 smartnode 的 CLI 中，然后按照提示的步骤操作。该命令应如下所示：
 
 ```shell
 rocketpool pdao set-signalling-address
@@ -168,89 +125,74 @@ rocketpool pdao set-signalling-address
 `EIP712 signature`
 ```
 
-If you see this message in your CLI, you're all set!
+如果您在 CLI 中看到此消息，则一切就绪！
 
 ```
 The node's signalling address was successfully set to `snapshot signalling address`
 ```
 
-:::tip TIP
-Don't worry if you accidentally close the site or lose track of the command. You can simply repeat the steps and **sign
-again using the same node address and signalling address**. The frontend uses `signer.Signmessage()` from the ethers
-library, which means your signature is deterministic given the same input.
-Click [here](https://docs.ethers.org/v6/api/providers/#cid_865) to learn more.
+:::tip 提示
+如果您不小心关闭了网站或丢失了命令，请不要担心。您可以简单地重复这些步骤，并**使用相同的节点地址和信号地址再次签名**。前端使用 ethers 库中的 `signer.Signmessage()`，这意味着您的签名对于相同的输入是确定性的。单击[此处](https://docs.ethers.org/v6/api/providers/#cid_865)了解更多信息。
 :::
 
-Clearing your signalling address is pretty easy, just use this command in the CLI:
+清除信号地址非常简单，只需在 CLI 中使用此命令：
 
 ```shell
 rocketpool pdao clear-signalling-address
 ```
 
-## Allowing RPL Locking
+## 允许 RPL 锁定
 
-You may ignore this step if you are only interested in voting on a proposal. Allowing RPL locking is only required for
-those who wish to propose or challenge a proposal.
+如果您只对提案进行投票感兴趣，则可以忽略此步骤。只有那些希望提出或挑战提案的人才需要允许 RPL 锁定。
 
-RPL locking is required for proposing and challenging. By default, locking RPL for any purpose, will be disabled. Node
-operator's will opt-in to performing governance activities by enabling the locking of RPL from their node or primary
-withdrawal address. You can do so using this command in the Smartnode:
+提出和挑战需要 RPL 锁定。默认情况下，出于任何目的锁定 RPL 都将被禁用。节点运营商将通过启用从其节点或主要提款地址锁定 RPL 来选择参与治理活动。您可以在 Smartnode 中使用此命令来执行此操作：
 
 ```shell
 rocketpool node allow-rpl-locking
 ```
 
-This will prompt you to allow the locking of RPL when creating or challenging governance proposals. Conversely you can
-use the following command to opt-out of RPL locking:
+这将提示您允许在创建或挑战治理提案时锁定 RPL。相反，您可以使用以下命令选择退出 RPL 锁定：
 
 ```shell
 rocketpool node deny-rpl-locking
 ```
 
-::: tip NOTE
-Locked RPL acts the same way as regular staked RPL for the purposes of rewards, voting, and collateral requirements.
-Locked RPL is not counted towards thresholds for withdrawing RPL.
+::: tip 注意
+锁定的 RPL 在奖励、投票和抵押品要求方面与常规质押的 RPL 作用相同。锁定的 RPL 不计入提取 RPL 的阈值。
 :::
 
-## Delegating Voting Power
+## 委托投票权
 
-A node operator can elect to delegate their voting power to another node operator. The only requirement is that your
-delegate is a registered node.
+节点运营商可以选择将其投票权委托给另一个节点运营商。唯一的要求是您的委托人是注册节点。
 
-To delegate on-chain voting power to another node, use the following command:
+要将链上投票权委托给另一个节点，请使用以下命令：
 
 ```shell
 rocketpool pdao set-voting-delegate `address`
 ```
 
-::: tip NOTE
-If you've delegated your voting power to another node operator, you can reset this by setting the delegate address to
-your own node's address.
+::: tip 注意
+如果您已将投票权委托给另一个节点运营商，则可以通过将委托地址设置为您自己节点的地址来重置此设置。
 :::
 
-- During phase 1 of a proposal: **Voters** and **Delegates** may cast their vote on a proposal.
-- During phase 2 of a proposal: **Node Operators** who have delegated their vote get the opportunity to overturn their
-  Delegate's vote, if they disagree.
+- 在提案的第 1 阶段：**投票者**和**委托人**可以对提案进行投票。
+- 在提案的第 2 阶段：已委托投票的**节点运营商**有机会推翻其委托人的投票（如果他们不同意）。
 
-If you are a node operator with delegated voting power, you must vote during voting phase 1 for the delegated voting
-power to count towards the proposal. Your vote in phase 1 will be worth your **local voting power + delegated voting
-power**. Your vote in phase 2 is worth your **local voting power** only.
+如果您是具有委托投票权的节点运营商，则必须在投票第 1 阶段进行投票，委托的投票权才能计入提案。您在第 1 阶段的投票价值为您的**本地投票权 + 委托投票权**。您在第 2 阶段的投票仅价值您的**本地投票权**。
 
-## Creating a Proposal
+## 创建提案
 
-In order to be eligible to propose, a node must meet a few requirements:
+为了有资格提出提案，节点必须满足一些要求：
 
-- Included in snapshotting (either by [initializing voting](./participate#initializing-voting) or by
-  registering post Houston)
-- Must have at least one minipool
-- Has non-zero voting power
-- Has allowed [RPL locking](./participate#allowing-rpl-locking)
-- Has an RPL stake (minus any already locked RPL) greater than the proposal bond
+- 包含在快照中（通过[初始化投票](./participate#initializing-voting)或在 Houston 后注册）
+- 必须至少有一个 minipool
+- 具有非零投票权
+- 已允许 [RPL 锁定](./participate#allowing-rpl-locking)
+- 拥有大于提案保证金的 RPL 质押（减去任何已锁定的 RPL）
 
-Proposals exist to change parameters and execute code at the protocol level! There should be discussion and consensus
-through the [governance](./participate#governance-process) process before a proposal is created on chain.
+提案的存在是为了在协议层面更改参数和执行代码！在链上创建提案之前，应该通过[治理](./participate#governance-process)流程进行讨论并达成共识。
 
-Use the command `rocketpool pdao propose` to bring up a menu of options
+使用命令 `rocketpool pdao propose` 调出选项菜单
 
 ```
 COMMANDS:
@@ -262,16 +204,13 @@ COMMANDS:
    setting, s                   Make a Protocol DAO setting proposal
 ```
 
-Each of these commands will prompt you with a list of inputs to create your desired proposal. In this guide, we'll
-invite a node to the security council to serve as an example. To raise a proposal to invite a node to the security
-council, you would use the command:
+这些命令中的每一个都会提示您输入一系列输入以创建所需的提案。在本指南中，我们将邀请一个节点加入安全委员会作为示例。要提出邀请节点加入安全委员会的提案，您将使用以下命令：
 
 ```shell
 rocketpool pdao propose security-council invite
 ```
 
-Keep in mind that this step will have some slight variation depending on the type of proposal. This particular command:
-`rocketpool pdao propose security-council invite` will prompt you to enter an ID followed by a member address.
+请记住，此步骤会根据提案类型略有不同。此特定命令：`rocketpool pdao propose security-council invite` 将提示您输入 ID，然后输入成员地址。
 
 ```
 Please enter an ID for the member you'd like to invite: (no spaces)
@@ -285,26 +224,22 @@ Please enter the member's address:
 Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council? [y/n]
 ```
 
-After this is included in a block, a pDAO proposal will be created! The proposal will enter
-the [vote delay period](./pdao#vote-delay-period) upon creation.
+在此包含在区块中后，将创建 pDAO 提案！提案将在创建时进入[投票延迟期](./pdao#vote-delay-period)。
 
-## Viewing the State of a Proposal
+## 查看提案的状态
 
-Every proposal is assigned a `proposalID`. In this case, our proposal to invite `0xBdbc...` to the security council is
-represented with `ID 71`. There are a few ways to view the state of the proposal. One method will display a list of
-every pdao proposal along with their state (pending, succeeded, executed, etc). The second method displays in-depth
-details about a specific proposal.
+每个提案都分配有一个 `proposalID`。在这种情况下，我们邀请 `0xBdbc...` 加入安全委员会的提案用 `ID 71` 表示。有几种方法可以查看提案的状态。一种方法将显示每个 pdao 提案及其状态（待处理、成功、已执行等）的列表。第二种方法显示有关特定提案的深入详细信息。
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Viewing a List of Proposals">
-      To list all proposals, use the following command:
+    <Tab label="查看提案列表">
+      要列出所有提案，请使用以下命令：
 
       ```shell
       rocketpool pdao proposals list
       ```
 
-      This will display a list of all proposals and their state
+      这将显示所有提案及其状态的列表
 
       ```
       1 Pending proposal(s):
@@ -326,21 +261,16 @@ details about a specific proposal.
 
       ```
 
-      Here we can see that our proposal `invite test-member` has an ID of 71 and is in the pending state. In this state,
-      [challengers](/en/pdao/pdao#challenge-process) can dispute the validity of the
-      merkle pollard (used to calculate voting power) supplied by the proposer. When `proposal.vote.delay.time` ends,
-      the proposal will transition into active voting phases. Feel free to review [lifecycle of a
-      proposal](./pdao#lifecycle-of-a-pdao-proposal) for a refresher.
+      在这里，我们可以看到我们的提案 `invite test-member` 的 ID 为 71，处于待处理状态。在此状态下，[挑战者](/zh/pdao/pdao#challenge-process)可以对提案者提供的 merkle pollard（用于计算投票权）的有效性提出异议。当 `proposal.vote.delay.time` 结束时，提案将过渡到活跃投票阶段。请随时查看[提案的生命周期](./pdao#lifecycle-of-a-pdao-proposal)以进行复习。
     </Tab>
-    <Tab label="Viewing Proposal Details">
-      Now that you have the proposal ID, you can view the status of your proposal using this command:
+    <Tab label="查看提案详情">
+      现在您有了提案 ID，可以使用此命令查看提案的状态：
 
       ```shell
       rocketpool pdao proposals details `proposal-id`
       ```
 
-      This is where you can view all the information in regards to a specific proposal. For example, the execution
-      payload, what phase the proposal is in, and vote direction.
+      在这里您可以查看有关特定提案的所有信息。例如，执行有效负载、提案处于哪个阶段以及投票方向。
 
       ```
       Proposal ID: 71
@@ -362,45 +292,38 @@ details about a specific proposal.
       ```
 
       <p className="rspress-directive tip">
-        <p className="rspress-directive-title">NOTE</p>
-        The state of this sample proposal is `Pending`. This indicates that the proposal can be challenged, before
-        moving onto `Active (Phase 1)`. No voting can take place during the `Pending` state.
+        <p className="rspress-directive-title">注意</p>
+        此示例提案的状态为 `Pending`。这表明在移至 `Active (Phase 1)` 之前可以对提案提出挑战。在 `Pending` 状态下无法进行投票。
       </p>
     </Tab>
 
   </Tabs>
 </div>
 
-## Voting on a Proposal
+## 对提案进行投票
 
-During a voting period, **Node Operators** and **Delegates** can cast a vote with one of four options:
+在投票期间，**节点运营商**和**委托人**可以使用四个选项之一进行投票：
 
 ```
-1. Abstain: The voter's voting power is contributed to quorum but is neither for nor against the proposal.
-2. For: The voter votes in favor of the proposal being executed.
-3. Against: The voter votes against the proposal being executed.
-4. Veto: The voter votes against the proposal as well as indicating they deem the proposal as spam or malicious.
+1. Abstain: 投票者的投票权计入法定人数，但既不赞成也不反对提案。
+2. For: 投票者投票赞成执行提案。
+3. Against: 投票者投票反对执行提案。
+4. Veto: 投票者投票反对提案，并表明他们认为该提案是垃圾邮件或恶意的。
 ```
 
-Their voting power will be applied to the option of their choosing. Voting power is a function of "effective RPL stake."
-A more detailed reading can be found in
-the [rocketpool-research repo](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting).
+他们的投票权将应用于他们选择的选项。投票权是"有效 RPL 质押"的函数。可以在 [rocketpool-research 仓库](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting)中找到更详细的阅读材料。
 
-::: tip NOTE
-If you are a node operator with delegated voting power, you must vote during voting phase 1 for the delegated voting
-power to count towards the proposal. Your vote in phase 1 will be worth your local voting power + delegated voting
-power. Your vote in phase 2 is worth your local voting power only. Please keep in mind that a node may vote once and
-only once on a proposal, so choose carefully.
+::: tip 注意
+如果您是具有委托投票权的节点运营商，则必须在投票第 1 阶段进行投票，委托的投票权才能计入提案。您在第 1 阶段的投票价值为您的本地投票权 + 委托投票权。您在第 2 阶段的投票仅价值您的本地投票权。请记住，节点只能对提案投票一次，因此请仔细选择。
 :::
 
-Use this command to cast a vote:
+使用此命令进行投票：
 
 ```shell
 rocketpool pdao proposals vote
 ```
 
-You'll be prompted to select a proposal to vote on if there is at least one proposal in an active voting phase.
-The menu should display all of the proposals your node is eligible to vote on:
+如果至少有一个提案处于活跃投票阶段，您将被提示选择要投票的提案。菜单应显示您的节点有资格投票的所有提案：
 
 ```
 1: proposal 71 (message: 'invite test-member', payload: proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145), phase 1 end: 14 Mar 24 05:40 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
@@ -408,7 +331,7 @@ The menu should display all of the proposals your node is eligible to vote on:
 3: proposal 73 (message: 'set proposal.vote.delay.time', payload: proposalSettingUint(rocketDAOProtocolSettingsProposals,proposal.vote.delay.time,60), phase 1 end: 14 Mar 24 05:41 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
 ```
 
-After selecting an option, you'll be asked how you want to cast your vote.
+选择一个选项后，系统将询问您如何进行投票。
 
 ```
 How would you like to vote on the proposal?
@@ -418,7 +341,7 @@ How would you like to vote on the proposal?
 4: Veto
 ```
 
-Selecting an option will then display your voting power, and then prompt you to send the transaction:
+选择一个选项将显示您的投票权，然后提示您发送交易：
 
 ```
 Your current voting power: 20123617964
@@ -434,9 +357,7 @@ These prices include a maximum priority fee of 2.00 gwei.
 Please enter your max fee (including the priority fee) or leave blank for the default of 56 gwei:
 ```
 
-You've successfully voted on the proposal once the transaction is included in the block! At this point, you may use
-`rocketpool pdao proposal details <proposal-id>` to view the state of the proposal. A proposal needs to reach
-`proposal.quorum` **voting power required** and a majority **voting power for** for it to be successful.
+一旦交易包含在区块中，您就已成功对提案进行投票！此时，您可以使用 `rocketpool pdao proposal details <proposal-id>` 查看提案的状态。提案需要达到 `proposal.quorum` **所需投票权**和多数**赞成投票权**才能成功。
 
 ```
 Voting power required:  140970562215
@@ -447,24 +368,17 @@ Voting power against:   0
 Node has voted:         In Favor
 ```
 
-For the example above to pass, the voting power needs to exceed a quorum of `140970562215` voting power. There is
-`197980809837` voting power in favor and no votes against or abstained. The proposal is poised for success and ready
-for
-execution by the end of `proposal.vote.phase2.time`.
+对于上面的示例，投票权需要超过 `140970562215` 投票权的法定人数。有 `197980809837` 投票权赞成，没有反对或弃权的投票。该提案有望成功，并准备在 `proposal.vote.phase2.time` 结束前执行。
 
-## Executing a Successful Proposal
+## 执行成功的提案
 
-Congrats! Your proposal has passed! Now all that's left to do is to execute the proposal. Keep in mind that anybody
-can
-be the executor to a proposal. To execute a successful proposal, type in the command:
+恭喜！您的提案通过了！现在剩下要做的就是执行提案。请记住，任何人都可以成为提案的执行者。要执行成功的提案，请输入以下命令：
 
 ```shell
 rocketpool pdao execute
 ```
 
-Selecting an option will prompt you to send a transaction. Once this transaction is included in a block, the change
-will
-be applied to the Rocket Pool protocol!
+选择一个选项将提示您发送交易。一旦此交易包含在区块中，更改将应用于 Rocket Pool 协议！
 
 ```
 Please select a proposal to execute:
@@ -473,34 +387,24 @@ Please select a proposal to execute:
 proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145)
 ```
 
-## Claiming Bonds and Rewards
+## 领取保证金和奖励
 
-Proposers or Challengers may claim their bonds upon conclusion of a proposal. Depending on the outcome of a proposal,
-a
-Proposer or Challenger may or may not be able to claim their `proposal.bond` and `proposal.challenge.bond`.
+提案者或挑战者可以在提案结束时领取其保证金。根据提案的结果，提案者或挑战者可能能够或不能够领取其 `proposal.bond` 和 `proposal.challenge.bond`。
 
-Here are some rules that dictate the conditions in which bonds can be claimed:
+以下是一些规定可以领取保证金的条件的规则：
 
-- If a proposal is defeated, the proposer forfeits their bond which is divided proportionally amongst the challengers
-  who contributed to the proposal's defeat. All other challengers receive their bond back only.
-- Contributing to the defeat of a proposal means a challenger submitted an index which was later proven to be
-  incorrect
-  by the proposers inability to reply to a challenge. It is possible that there are multiple incorrect indices but only
-  those that resulted in the defeat of the proposal share the reward. All other challengers receive their bond back
-  only.
-- If a challenger challenges a node, the proposer responds, and the proposal does not get defeated. The proposer can
-  claim the challenge bonds from the invalid challenges.
-- If a proposal is defeated, the proposer forfeits their bond which is divided proportionally amongst the challengers
-  who contributed to the proposal's defeat.
+- 如果提案被击败，提案者将没收其保证金，该保证金将按比例分配给促成提案失败的挑战者。所有其他挑战者仅收回其保证金。
+- 促成提案失败意味着挑战者提交了一个索引，该索引后来被提案者无法回应挑战而证明是错误的。可能存在多个错误索引，但只有那些导致提案失败的索引才能分享奖励。所有其他挑战者仅收回其保证金。
+- 如果挑战者挑战节点，提案者做出回应，并且提案未被击败。提案者可以从无效挑战中领取挑战保证金。
+- 如果提案被击败，提案者将没收其保证金，该保证金将按比例分配给促成提案失败的挑战者。
 
-Use this command to claim bonds:
+使用此命令领取保证金：
 
 ```shell
 rocketpool pdao claim-bonds
 ```
 
-This will display every proposal you're eligible to claim bonds from. You can either claim bonds from a specified
-proposal, or you can claim bonds and rewards from all eligible proposals.
+这将显示您有资格领取保证金的每个提案。您可以从指定的提案中领取保证金，也可以从所有符合条件的提案中领取保证金和奖励。
 
 ```
 Please select a proposal to unlock bonds / claim rewards from:
@@ -514,8 +418,7 @@ Please select a proposal to unlock bonds / claim rewards from:
 8: Proposal 49 (proposer: true, unlockable: 21.00 RPL, rewards: 0.00 RPL)
 ```
 
-Once you've selected an option, you'll be prompted with the network's current gas costs recommendations; confirm your
-gas price selection and follow the rest of the prompts.
+选择一个选项后，您将收到网络当前 gas 成本建议的提示；确认您的 gas 价格选择并按照其余提示操作。
 
 ```
 +============== Suggested Gas Prices ==============+
@@ -534,32 +437,30 @@ Using a max fee of 21.00 gwei and a priority fee of 2.00 gwei.
 Are you sure you want to claim bonds and rewards from 7 proposals? [y/n]
 ```
 
-Note that if you select the first option to claim all available proposals, they will each execute individually and not
-as one transaction.
+请注意，如果您选择第一个选项来领取所有可用提案，它们将分别执行，而不是作为一笔交易。
 
-## Creating a Recurring Treasury Spend
+## 创建定期国库支出
 
-You'll need to prepare a few inputs to create a recurring treasury spend:
+您需要准备一些输入来创建定期国库支出：
 
-- A contract name
-- The recipient's address
-- Amount of RPL to send per period
-- The start time for the recurring payment (as a UNIX timestamp)
-- The length of each payment period in hours / minutes / seconds (e.g., 168h0m0s)
-- Number of payment periods
+- 合约名称
+- 接收者的地址
+- 每期发送的 RPL 数量
+- 定期付款的开始时间（作为 UNIX 时间戳）
+- 每个付款期的长度，以小时/分钟/秒为单位（例如，168h0m0s）
+- 付款期数
 
-::: tip INFO
-The recipient will need to keep note of the contract name in order to claim payments. Don't worry though, as this
-information is stored and can be retrieved using the command `rocketpool pdao proposals details <proposal-id>`
+::: tip 信息
+接收者需要记下合约名称以领取付款。不过不用担心，这些信息会被存储，可以使用命令 `rocketpool pdao proposals details <proposal-id>` 检索
 :::
 
-To raise a proposal to set up a recurring treasury spend, use the following smartnode command and follow the prompts:
+要提出设置定期国库支出的提案，请使用以下 smartnode 命令并按照提示操作：
 
 ```shell
 rocketpool pdao propose recurring-spend
 ```
 
-Here's what it looks like all together:
+以下是整体的样子：
 
 ```
 Please enter a contract name for this recurring payment:
@@ -593,31 +494,18 @@ Please enter the total number of payment periods:
 24
 ```
 
-Once you've entered all the required inputs, a proposal to create a recurring payment will be raised. When the pDAO
-passes and executes this proposal, the recipient is allocated `1 RPL` starting at `2024-06-09 12:13:53 +0000 UTC`
-every
-`720 hours` for a total of `24 payments`.
+输入所有必需的输入后，将提出创建定期付款的提案。当 pDAO 通过并执行此提案时，接收者将从 `2024-06-09 12:13:53 +0000 UTC` 开始每 `720 小时`分配 `1 RPL`，总共 `24 次付款`。
 
-## Claiming a Recurring Treasury Spend
+## 领取定期国库支出
 
-Claiming recurring payments should be pretty simple! Navigate to our frontend
-tool [here](https://node.rocketpool.net/claim-recurring-payments) to do so. If you're trying this out on
-Hoodi
-testnet, use [this](https://testnet.node.rocketpool.net/stake-rpl-on-behalf-of-node) link instead.
+领取定期付款应该非常简单！导航到我们的前端工具[这里](https://node.rocketpool.net/claim-recurring-payments)进行操作。如果您在 Hoodi 测试网上尝试此操作，请改用[此](https://testnet.node.rocketpool.net/stake-rpl-on-behalf-of-node)链接。
 
-Once you're on the site, click the **connect wallet** button. Please read through and accept the Terms of Service &
-Privacy Policy, this will enable different ways to connect, then click connect **metamask**.
+进入网站后，单击 **connect wallet** 按钮。请阅读并接受服务条款和隐私政策，这将启用不同的连接方式，然后单击连接 **metamask**。
 
-MetaMask will prompt you to select an account to connect to the website. After you've signed in, you'll need to enter
-the **contract name**. Doing so will display all the relevant details. Make sure you double check the recipient's
-address. Anybody can call the claim function, but each payment contract will have a designated recipient to disperse
-RPL
-towards.
+MetaMask 将提示您选择一个账户连接到网站。登录后，您需要输入**合约名称**。这样做将显示所有相关详细信息。请务必仔细检查接收者的地址。任何人都可以调用领取函数，但每个付款合约都将有一个指定的接收者来分配 RPL。
 
 <img src="./images/claim_recurring1.png" width="100%" height="auto" />
 
-You can claim your payments at any time, you'll just get the total unclaimed RPL up until the most recent period.
-Alternatively you can wait until all periods have passed to collect all at once and save on gas.
+您可以随时领取付款，您将获得截至最近期间的未领取 RPL 总额。或者，您可以等到所有期间都过去后一次性收集所有付款，以节省 gas。
 
-Just hit the big orange claim button when you're ready and review the transaction in metamask (or your preferred
-wallet). Once that's done, you're all set!
+准备好后，只需按大橙色领取按钮，然后在 metamask（或您首选的钱包）中查看交易。完成后，一切就绪！

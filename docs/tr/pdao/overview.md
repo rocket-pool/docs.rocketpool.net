@@ -1,52 +1,52 @@
 ---
 next:
-  text: The Protocol DAO
-  link: "/en/pdao/pdao"
+  text: Protokol DAO
+  link: "/tr/pdao/pdao"
 ---
 
-# Overview
+# Genel Bakış
 
-This section outlines the process of setting up your node to participate in on-chain and snapshot proposals. There's a lot to unpack, so we highly recommend reading through an overview of the [Houston Upgrade](/en/legacy/houston/whats-new). This will help you understand the latest features that enable on-chain governance and how you can participate in shaping the protocol.
+Bu bölüm, düğümünüzü on-chain ve snapshot tekliflerine katılacak şekilde yapılandırma sürecini özetlemektedir. Anlatılacak çok şey var, bu nedenle [Houston Güncellemesi](/tr/legacy/houston/whats-new) hakkındaki genel bakışı okumanızı şiddetle tavsiye ederiz. Bu, on-chain yönetimi etkinleştiren en son özellikleri ve protokolü şekillendirmeye nasıl katılabileceğinizi anlamanıza yardımcı olacaktır.
 
-## Prerequisites
+## Ön Koşullar
 
-Before configuring your Smartnode, please make sure you:
+Smartnode'unuzu yapılandırmadan önce lütfen aşağıdakileri yaptığınızdan emin olun:
 
-- Have set up a node machine (or virtual machine) and secured it (via the [Securing your Node](/en/node-staking/securing-your-node) guide)
-- Have the Smartnode [installed](/en/node-staking/installing/overview) and [configured](/en/node-staking/config/overview) on it
-- Have a node wallet loaded on your Smartnode
-- Synced your Execution and Consensus clients
-- Provisioned your node with [a withdrawal address](/en/node-staking/prepare-node#setting-your-withdrawal-address), set up your [fallback clients](/en/node-staking/fallback) (optional), opted into the [Smoothing Pool](/en/node-staking/fee-distrib-sp#the-smoothing-pool) (optional), and configured [MEV](/en/node-staking/mev)
-- Created at least one [minipool](/en/node-staking/create-validator)
+- Bir düğüm makinesi (veya sanal makine) kurduğunuzu ve güvenliğini sağladığınızı ([Düğümünüzü Güvence Altına Alma](/tr/node-staking/securing-your-node) rehberi aracılığıyla)
+- Smartnode'un üzerine [kurulduğunu](/tr/node-staking/installing/overview) ve [yapılandırıldığını](/tr/node-staking/config/overview)
+- Smartnode'unuza yüklenmiş bir düğüm cüzdanınız olduğunu
+- Execution ve Consensus istemcilerinizi senkronize ettiğinizi
+- Düğümünüzü [bir çekim adresi](/tr/node-staking/prepare-node#setting-your-withdrawal-address) ile yapılandırdığınızı, [yedek istemcilerinizi](/tr/node-staking/fallback) kurduğunuzu (opsiyonel), [Smoothing Pool](/tr/node-staking/fee-distrib-sp#the-smoothing-pool)'a katıldığınızı (opsiyonel) ve [MEV](/tr/node-staking/mev)'i yapılandırdığınızı
+- En az bir [minipool](/tr/node-staking/create-validator) oluşturduğunuzu
 
-## There are three addresses involved in voting
+## Oylamada üç adres rol alır
 
-- pDAO Signalling Address — will be used as your Snapshot address, if you want to vote directly or if you want to override your delegate's Snapshot vote. This address is only used for Snapshot not on-chain voting.
+- pDAO Signalling Address — Doğrudan oy kullanmak istiyorsanız veya delegenizin Snapshot oyunu geçersiz kılmak istiyorsanız Snapshot adresiniz olarak kullanılacaktır. Bu adres yalnızca Snapshot için kullanılır, on-chain oylama için değil.
 
-- pDAO Delegate Node — if you choose to delegate your vote. You will set this to your delegate's node address. If you choose a delegate they will vote for you on Snapshot and for on-chain proposals.
+- pDAO Delegate Node — Oyunuzu devretmeyi seçerseniz. Bunu delegenizin düğüm adresine ayarlayacaksınız. Bir delege seçerseniz, onlar sizin için Snapshot'ta ve on-chain tekliflerde oy kullanacaktır.
 
-- Node Address — if you have not delegated your vote or if you wish to override your delegate's on-chain vote you can do this from your node.
+- Node Address — Oyunuzu devretmediyseniz veya delegenizin on-chain oyunu geçersiz kılmak istiyorsanız bunu düğümünüzden yapabilirsiniz.
 
-## Guides
+## Rehberler
 
-[The Protocol DAO](/en/pdao/pdao) discusses who and how the pDAO governs Rocket Pool. This page will fill you in on how pDAO duties such as treasury spends can be executed on-chain, along with the role of the all new Security Council. It'll also walk you through the lifecycle of a pDAO proposal and explain some of the measures taken to prevent spam and gun down malicious proposals.
+[Protokol DAO](/tr/pdao/pdao), pDAO'nun Rocket Pool'u kimin ve nasıl yönettiğini tartışır. Bu sayfa, hazine harcamaları gibi pDAO görevlerinin on-chain üzerinde nasıl yürütülebileceği ve yepyeni Güvenlik Konseyi'nin rolü hakkında sizi bilgilendirecektir. Ayrıca bir pDAO teklifinin yaşam döngüsünde size yol gösterecek ve spam'i önlemek ve kötü niyetli teklifleri engellemek için alınan bazı önlemleri açıklayacaktır.
 
-[Voting setup for non-smartnode users](/en/legacy/houston/nonsmartnode-setup) shows non-smartnode users (such as Allnodes users) how to set up voting.
+[Smartnode olmayan kullanıcılar için oylama kurulumu](/tr/legacy/houston/nonsmartnode-setup), smartnode olmayan kullanıcılara (Allnodes kullanıcıları gibi) oylamayı nasıl kuracaklarını gösterir.
 
-[Initializing Voting Power](/en/pdao/participate#initializing-voting) shows you how to initialize your node's voting power. This step is only required if your node was registered before the Houston Upgrade.
+[Oy Gücünü Başlatma](/tr/pdao/participate#initializing-voting), düğümünüzün oy gücünü nasıl başlatacağınızı gösterir. Bu adım yalnızca düğümünüz Houston Güncellemesinden önce kaydedildiyse gereklidir.
 
-[Setting your Snapshot Signalling Address](/en/pdao/participate#setting-your-snapshot-signalling-address) will walk you through the steps for setting a Signalling Address. It'll allow you to vote on Snapshot using your node's voting power without needing to load your node's private key onto a hot wallet. Make sure you have your Smartnode CLI handy and prepare a address (that isn't your node wallet) for this guide.
+[Snapshot Signalling Address Ayarlama](/tr/pdao/participate#setting-your-snapshot-signalling-address), bir Signalling Address ayarlama adımlarında size yol gösterecektir. Düğümünüzün özel anahtarını hot wallet'a yüklemenize gerek kalmadan düğümünüzün oy gücünü kullanarak Snapshot'ta oy kullanmanıza izin verecektir. Bu rehber için Smartnode CLI'ınızı hazır bulundurun ve (düğüm cüzdanınız olmayan) bir adres hazırlayın.
 
-[Delegating Voting Power](/en/pdao/participate#delegating-voting-power) is a quick command you can use to delegate voting power instead of voting directly on proposals.
+[Oy Gücünü Devretme](/tr/pdao/participate#delegating-voting-power), teklifler üzerinde doğrudan oy kullanmak yerine oy gücünü devretmek için kullanabileceğiniz hızlı bir komuttur.
 
-[Viewing the State of a Proposal](/en/pdao/participate#viewing-the-state-of-a-proposal) is a guide on how you can view a list of past and ongoing on-chain proposals. You'll be able to check the state and read up on the details of any given on-chain proposal.
+[Bir Teklifin Durumunu Görüntüleme](/tr/pdao/participate#viewing-the-state-of-a-proposal), geçmiş ve devam eden on-chain tekliflerin listesini nasıl görüntüleyebileceğinize dair bir rehberdir. Herhangi bir on-chain teklifin durumunu kontrol edebilecek ve ayrıntılarını okuyabileceksiniz.
 
-[Voting on a Proposal](/en/pdao/participate#voting-on-a-proposal) shows you how cast a vote on an on-chain proposal. This guide also goes over the four options: **Abstain**, **For**, **Against**, and **Veto**.
+[Bir Teklife Oy Verme](/tr/pdao/participate#voting-on-a-proposal), bir on-chain teklifine nasıl oy vereceğinizi gösterir. Bu rehber ayrıca dört seçeneği de ele alır: **Abstain**, **For**, **Against** ve **Veto**.
 
-[Creating a Proposal](/en/pdao/participate#creating-a-proposal) walks you through the requirements and steps to raise an on-chain proposal.
+[Bir Teklif Oluşturma](/tr/pdao/participate#creating-a-proposal), bir on-chain teklifi oluşturma gerekliliklerinde ve adımlarında size yol gösterir.
 
-[Executing a successful proposal](/en/pdao/participate#executing-a-successful-proposal) will show you how to apply the effects of a successful proposal to the Rocket Pool Protocol.
+[Başarılı bir teklifi yürütme](/tr/pdao/participate#executing-a-successful-proposal), başarılı bir teklifin etkilerini Rocket Pool Protokolüne nasıl uygulayacağınızı gösterecektir.
 
-[Claiming Bonds and Rewards](/en/pdao/participate#claiming-bonds-and-rewards) discusses the conditions in which bonds or rewards can be claimed by a Proposer or Challenger.
+[Tahvil ve Ödülleri Talep Etme](/tr/pdao/participate#claiming-bonds-and-rewards), bir Teklif Sahibi veya Challenger tarafından tahvillerin veya ödüllerin talep edilebileceği koşulları tartışır.
 
-[Creating and Claiming a recurring treasury spend](/en/pdao/participate#creating-a-recurring-treasury-spend) is a feature which gives the pDAO full control over adding, modifying, and removing recurring payments.
+[Yinelenen bir hazine harcaması oluşturma ve talep etme](/tr/pdao/participate#creating-a-recurring-treasury-spend), pDAO'ya yinelenen ödemeleri ekleme, değiştirme ve kaldırma konusunda tam kontrol sağlayan bir özelliktir.

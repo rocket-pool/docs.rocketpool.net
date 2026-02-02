@@ -1,0 +1,271 @@
+---
+permalink: /protocol/faq
+---
+
+# Sık Sorulan Sorular
+
+Bu SSS bölümü, [açıklayıcı makale serisini](/tr/protocol/explainer-series) sık karşılaşılan sorulara kısa cevaplarla tamamlamayı amaçlamaktadır.
+
+![Rocket Pool SSS'leri](/images/headers/faq.png)
+
+## Genel
+
+[**Proof of Stake nedir?**](#what-is-proof-of-stake)
+_Proof of Stake nedir ve neden harika olduğunun kısa bir özeti._
+
+[**Rocket Pool ne yapar?**](#what-does-rocket-pool-do)
+_Rocket Pool'un gerçekte ne yaptığına hızlı bir giriş._
+
+[**Neden kullanmam gerekir?**](#why-would-i-need-to-use-it)
+_İyi soru ve umarız daha iyi cevaplar._
+
+[**Nasıl çalışır?**](#how-does-it-work)
+_Akıllı sözleşmeler, akıllı düğümler ve merkeziyetsiz altyapı._
+
+[**Bağımsız düğüm operatörü vs Staking as a Service (SaaS) sağlayıcısı?**](#independent-node-operator-vs-staking-as-a-service-saas-provider)
+_Protokoller, normal kullanıcılardan profesyonel SaaS sağlayıcılarına kadar herkes tarafından kullanılabilir._
+
+[**Rocket Pool hangi jetonları kullanır?**](#what-tokens-does-rocket-pool-use)
+_İki jeton kullanıyoruz. RPL ve rETH. Buradan daha fazla bilgi edinin._
+
+[**Kim yapıyor?**](#who-is-making-it)
+_Uzaylılar veya kertenkele insanları değil. Oldukça eminim._
+
+## Staking
+
+[**Minimum depozito nedir?**](#what-is-the-minimum-deposit)
+_Kaydırmanızı kurtarıyorum, 0.01 ETH._
+
+[**Maksimum depozito nedir?**](#what-is-the-maximum-deposit)
+_Başka bir kaydırmayı da kurtarıyorum, sınır yok._
+
+[**Staking dönemleri nelerdir?**](#what-are-the-staking-periods)
+_Hem stakerler hem de düğüm operatörleri için hiçbiri. İstediğiniz zaman gelin ve gidin._
+
+[**Rocket Pool ile stake etmek ne kadar tutar?**](#how-much-does-it-cost-to-stake-with-rocket-pool)
+_Hiç kesinti almıyoruz, bunun yerine protokolü destekleyen tüm düğüm operatörleri değişken tabanlı komişyonlar alırlar._
+
+[**Protokol rETH'nin değerini nasıl korur?**](#how-does-the-protocol-protect-the-value-of-reth)
+_Bizim en üst önceliğimiz! Yerinde birçok özelliğimiz var._
+
+[**Merkeziyetsiz staking protokolü tam olarak nedir?**](#what-is-a-decentralised-staking-protocol-exactly)
+_Tamam, bu konuda aklınızın şaşırdığını bekliyoruz._
+
+[**Depozitime ve ödüllerime nasıl erişebilirim?**](#how-can-i-access-my-deposit-and-rewards)
+_Bir süre boyunca çekilişlere izin verilmediğini duydum..._
+
+[**Akıllı sözleşmeleriniz denetlendi mi ve açık kaynak mı?**](#are-your-smart-contracts-audited-and-open-source)
+_Kesinlikle! Betalar, denetimler, denetimler ve daha fazla denetim._
+
+## Düğüm Operatörleri
+
+[**Neden solo yerine Rocket Pool akıllı düğümü çalıştırayım?**](#why-would-i-run-a-rocket-pool-smart-node-vs-going-solo)
+_Bunu yapmak için gereken ETH'nin yarısı ve ETH komişyonları + ekstra RPL ödülleri, tam vuruş!_
+
+[**Düğüm operatörü için minimum staking miktarı nedir?**](#what-is-the-minimum-staking-amount-for-a-node-operator)
+_Bu 8 ETH, daha fazlasını bilmek ister misiniz?_
+
+[**Rocket Pool düğümü çalıştırma ne gerektirir?**](#what-is-involved-in-running-a-rocket-pool-node)
+_Biraz ETH, RPL ve çalışma süresi, çalışma süresi, çalışma süresi._
+
+[**RPL jetonu nasıl kullanılır?**](#how-is-the-rpl-token-used)
+_Düğümünüzde RPL'yi stake edin kötü davranış sigortası olarak ve ekstra RPL ödülleri kazanın!_
+
+## dApp'ler, SaaS İşletmesi ve daha fazlası
+
+[**Protokolün üzerine inşa edebilir veya SaaS işletmemde kullanabilir miyim?**](#integrated-dapps-saas-business-and-more)
+_Merkeziyetsiz staking ile dApp'inizi bağlayın veya ağda bir düğüm çalıştırın ve daha yüksek getiri elde edin!_
+
+## İletişim
+
+[**Web Sitesi**](https://www.rocketpool.net/)
+_Buradan e-posta veya sadece Rocket Pool hakkında okuyun._
+
+[**Discord**](https://discordapp.com/invite/tCRG54c)
+_Sohbet etmek ve bazı sorular sormak için uğrayın, biz dostça bir topuluz._
+
+[**Doc Hub**](https://docs.rocketpool.net/)
+_Bunu okuyorsunuz :) Ama bulunacak birkaç makale daha var…_
+
+---
+
+### Proof of Stake nedir?
+
+Proof of Stake, Ethereum'da kullanılan bir uzlaşma protokolüdür. Proof of Work (PoW) protokolünden farklıdır; Bitcoin PoW kullanıyor olabilir çünkü belki duymuş olabilirsiniz. Merkeziyetsiz bir blokzincir ile, bu uzlaşma protokolleri herkesin aynı sayfada olması için yardımcı olur, böylece hangi işlemlerin işlendiğini ve hangi sırada olduğunu bilir. Bu doğrulamaya bilinir.
+
+Ethereum, Beacon Chain adlı bir Proof of Stake (PoS) zincire sahiptir; bu, PoW'tan daha hızlı, daha enerji verimli ve daha merkeziyetsizdir. Kullanıcılar tarafından ETH yatırması ve gerekli doğrulamayı gerçekleştirmek için 24/7 çevrimiçi bir Ethereum düğümü sağlayarak desteklenir. Düğümü sağlamak için bir ödül olarak, Beacon Chain, düğüm operatörlerine mevduatlarının üstüne ek ETH verir. Bu, bir banka hesabında faiz kazanmaya benzer şekilde görülebilir; tek fark, bu ödüllerin ağı güvence altına almaya yardımcı olmak için geri döndürülmesidir.
+
+### Rocket Pool ne yapar?
+
+Rocket Pool, merkeziyetsiz ve güvensiz Ethereum staking'inin temel katman protokolüdür.
+
+Her türlü şekil ve boyuttaki stakerları desteklemek için tasarlanan Rocket Pool, herkesin **0.01** ETH kadar az bir miktarı RPL teminatı tarafından desteklenen tam otonomi ile merkeziyetsiz düğüm operatörlerinin bir ağına güvensiz bir şekilde stake etmesine izin vermek amacıyla inşa edilmiştir (iyi davranışı sağlayan bir tür tahvil veya sigorta). **ETH**'yi **rETH** için ticaret yaparak stake edebilirsiniz; bu [jeton zaman içinde staking ödülleri kazanır](https://medium.com/rocket-pool/rocket-pool-2-5-tokenised-staking-48601d52d924#92b0) merkeziyetsiz düğüm operatörlerinin tüm ağının performansına bağlı olarak. Ayrıca protokolde **8 veya 16 ETH** stake ederek bir düğüm operatörü olarak ödüller kazanabilir, ücret içermeyen kendi stake etme konusunda ödüller kazanabilir ve ağdan komişyonlar ve RPL ödülleri kazanabilir; bu protokolde solo düğüm operatörü olarak staking yapmaktan daha yüksek bir ROI yaratır.
+
+### Neden kullanmam gerekir?
+
+Rocket Pool, hem bireyler, gruplar hem de işletmeler için Ethereum'da Proof of Stake ile var olan birkaç yüksek giriş bariyerini ortadan kaldırır.
+
+- The Beacon Chain requires a deposit of at least **32 ETH**. Rocket Pool will allow anyone to earn rewards on deposits as small as **0.01 ETH**.
+
+- Depositing ETH with the Beacon Chain will also require the user to have knowledge on how to interact with smart contracts. Rocket Pool handles all interactions with the Beacon Chain for you.
+
+- With Rocket Pool you instantly get our rETH token when depositing. This is a tokenised staking deposit which gains rewards over time and doesn't need to be locked with us. It can be traded/sold/held at any time providing our users with liquidity. It can also be traded back to Rocket Pool for ETH plus rewards at any time if there is liquidity available.
+
+- The Beacon Chain will require a user who makes a deposit to be technically proficient at running an Ethereum node 24/7 and keeping that node online and secure. Rocket Pool has a decentralised network of independent Ethereum node operators that provide this service.
+
+- The Beacon Chain will penalise users who make a deposit but fail to keep their node online. Rocket Pool socialises any penalties or losses that occur on nodes across the whole network which minimises the effect greatly for any single user.
+
+- Some users may be confident in running their own node but do not have the 32 ETH required for the deposit. If they join Rocket Pool's decentralised network of Ethereum node operators, they only need 8 ETH minimum to solo stake. They also get the added benefit of receiving extra income from the network for providing this service which generates a higher ROI than staking solo.
+
+### Nasıl çalışır?
+
+Sıkı tutun, bu etli bir tane! Protokol, temel olarak 3 ana öğeden oluşur; akıllı sözleşmeler, Smart Node Network ve Minipool Validators.
+
+- Akıllı sözleşmelerimiz ETH mevduatlarını kabul eder; bunları mevcut düğüm operatörü talebine göre staking komisyon oranlarına sahip düğüm operatörleri atayarak çeşitli jetonları yayın ve takip eder.
+
+- Smart Node Network'ümüz, Smart Node yazılımımızı çalıştıran özel Ethereum düğümlerinin merkeziyetsiz bir ağıdır. Bunlar, protokolün akıllı sözleşmeleriyle iletişim kurmalarına izin veren özel arka plan işlemleri ve aynı derecede önemli olan Beacon Chain tarafından gerekli olan ağ consensüsü (doğrulama) sağlarlar.
+
+- Herkes bu Smart Nodes'un birini çalıştırabilir ve minimum 8 ETH'ye sahip olduğu takdirde kendi ETH'lerini ücret olarak stake edebilir. Protokole Smart Node sağladığı için, kullanıcı ayrıca kendi ETH'lerini stake ederek kazandıkları ödüllerin üzerine ağdan ekstra ödüller alır. RPL ile teminatlandırılmış olarak kötü davranış veya zayıf performansa karşı düğümlerini sigorta altına almak veya bağlamak için RPL jetonları alırlar.
+
+- Minipool Validators başka bir akıllı sözleşmedir; ancak bunlar, protokolün bu kadar önemli bir yönü olması nedeniyle kendi başlarına tanımlamaya değer. Bu akıllı sözleşmeler, düğümlerine 8 veya 16 ETH yatıran düğüm operatörleri tarafından oluşturulur. Düğüm operatörünün 8 ETH yatırmayı seçtiği durumu ele alalım. Bunu yaptıklarında, bu akıllı sözleşme, bir düğüm çalıştırmak istemeyenlerin sadece stake etmek isteyen kullanıcılarından 24 ETH depozito alır (rETH stakerler). Bu sözleşme toplam 32 ETH içerdiğinde (8 ETH ilk depozito artı rETH stakerlerden 24 ETH), bu depoziton staking ödülleri kazanmak için consensus görevlerini gerçekleştiren düğüm üzerinde yeni bir validator oluşturulur. Düzgün!
+
+View the visual guide below to get a glimpse of how these components work together in the Rocket Pool protocol.
+
+[![How staking in the protocol flows](/images/rp-infographic-staking-protocol-flow.png)](https://www.rocketpool.net/images/infographic-rocket-pool-2.png)
+
+### Bağımsız düğüm operatörü vs Staking as a Service (SaaS) sağlayıcısı?
+
+Rocket Pool protokolleri bağımsız düğüm operatörleri ve hizmet sağlayıcılar da dahil olmak üzere çok çeşitli aktörleri destekler.
+
+Web3 is full of highly knowledgeable Staking as a Service providers, helping the world better access the proof of stake landscape with projects like Ethereum. They support everything from institutional capital, to hedge funds, family offices and everything in between.
+
+Rocket Pool was designed to support those providers, meaning ETH staked through SaaS solutions can be put to use through Rocket Pool, rather than having to spin up bespoke staking solutions to deal with each client.
+
+ETH holders can choose between paying a SaaS provider or being paid to be an operator themselves. With Rocket Pool, SaaS providers and independent operators maximize their return by being paid to run a node, both in ETH and RPL. The protocol allows teams to run their own infrastructure, and use Rocket Pool to trustlessly stake ETH in batches of 8 or 16 ETH — putting their capital to work further and earn a larger share of returns.
+
+This design means Bison Trails or Gemini could use Rocket Pool the same as a DeFi power user. Simply show up with 8 or 16 ETH and you’re treated the same as any other node operator. Rocket Pool’s democratized staking system doesn’t favor any one party, as ETH staked through Rocket Pool always directly supports the network.
+
+Rocket Pool’s staked ETH wrapper, rETH, is the purest in DeFi because of the Rocket Pool network being fully distributed and trust-minimised. This makes rETH a natural building block for Ethereum and providers of all kinds.
+
+### Rocket Pool hangi jetonları kullanır?
+
+**RPL — Rocket Pool Protokol Jetonu**
+
+RPL is the primary protocol token that will be used in governance of the protocol and can also be staked on a Rocket Pool node.
+
+From a Node Operator perspective:
+
+- As of Saturn 1, vote-eligible staked RPL will get a share of total protocol revenue
+- The [majority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation is given as rewards to Node Operators based on staked RPL; these rewards are planned to be phase out with Saturn 2
+- For Saturn 0 minipools made after 10/28/2024: Staked RPL provides up to 4% additional bonus commission; bonus commission is planned to be phased out a few months after Saturn 1's launch.
+- Staked provides voting power for governance
+
+From a protocol perspective:
+
+- A [minority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation provides funding for the pDAO
+- A [minority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation provides funding for the oDAO
+- It can serve as secondary collateral (e.g., against slashing)
+
+**rETH — Rocket Pool Staking Deposit Token**  
+When a user deposits into the protocol, they will instantly receive the rETH token which represents a tokenised staking deposit and the rewards it gains over time in the Rocket Pool network.
+
+This token does not need to be locked within the network and it can be traded, sold or held as the user desires.
+
+This token can also be traded back to the protocol for ETH + rewards earned at any time, providing there is sufficient liquidity in the protocol to meet the trade.
+
+### Kim yapıyor?
+
+Rocket Pool ilk olarak [2016 sonunda David Rugendyke tarafından başlatılmıştır](https://medium.com/rocket-pool/rocket-pool-your-new-casper-friendly-ethereum-pos-pool-in-alpha-75709bd19936); 18 yıldan fazla ticari deneyimi ve bilgisayar bilimleri geçmişi olan kıdemli bir geliştirici.
+
+Mayıs 2017'de, ürünün bir alfa sürümü yayınlandı. Canlı bir topluluk oluşmaya başladı ve ekip genişlemeye başladı. Coşkulu bir topluluğun yardımıyla, Rocket Pool, Ethereum mainnet üzerinde resmi lansman öncesi, 100.000'den fazla ETH (testnet) stake edilmiş ve yüzlerce kullanıcı katılmış beş kamu betası çalıştırdı, Ekim 2021'de.
+
+## Bugün, Rocket Pool'da üç bin'den fazla düğüm operatöründen oluşan fantastik bir topluluk yönetiminin yanı sıra tutkuyla çalışan harika bir ekip vardır
+
+---
+
+### Minimum depozito nedir?
+
+Rocket Pool protokolü, herkesin 0.01 ETH kadar düşük mevduatlarda ödül kazanmasına izin verir. ETH ticaret yaptığınızda, protokoldeki tüm merkeziyetsiz düğüm operatörlerinin performansına göre zaman içinde staking ödülleri kazanan rETH jetonunu alacaksınız.
+
+### Maksimum depozito nedir?
+
+Rahat olduğunuz kadar büyük, sınırsız.
+
+### Staking dönemleri nelerdir?
+
+Sadece stake etmek istiyorsanız, depozito yaptığınızda rETH jetonunu alacaksınız. Daha sonra bu jeton ile ne isterseniz onu yapabilirsiniz, zaman içinde staking ödülleri kazanmaya devam edecek ve likidite varsa Rocket Pool'a ETH + ödüller için satılabilir/ticaret yapılabilir.
+
+Ağda bir düğüm çalıştırmak istiyorsanız, istediğiniz kadar kısa veya uzun süre bir düğüm olarak stake edebilirsiniz. Ne kadar uzun stake ederseniz, elbette o kadar fazla ödül kazanırsınız.
+
+### Rocket Pool ile stake ederken mümkün olan komişyonlar nelerdir?
+
+Düğüm operatörleri için komişyonlar, operatör olmayan stakerlardan havuzlanan 16 veya 24 ETH'den oluşturulan ödüllerin elde edilmesinde yapılır. Komişyon %14'te sabittir.
+
+### Protokol rETH'nin değerini nasıl korur?
+
+Akıllı sözleşmelerimiz, fonları tutma ve taşımadan sorumludur. Şeffaflık adına, [açık kaynaktır](https://github.com/rocket-pool/rocketpool) herkesin analiz etmesi için. Buna ek olarak, akıllı sözleşmeler mainnet'e dağıtılmadan önce, etrafta iki en iyi denetim ekibi olan Sigma Prime ve ConsenSys Diligence tarafından tam olarak denetlendiler.
+
+Rocket Pool, düğüm operatörlerinin merkeziyetsiz bir ağıdır. Eğer operatör olmayan bir stakerseniz, depozitonuz Proof of Stake görevlerini gerçekleştirecek bir düğüm operatörüne tahsis edilecektir. Düğüm operatörleri, kendilerine atanan ETH kadar ETH stake etmeleri gerekir. Zayıf düğüm performansı nedeniyle ETH kaybı olursa, operatör önce kayıp ETH'yi orijinal 8 veya 16 ETH'leri ve RPL kaybıyla havuzuna dengelemek zorundadır. Bu kayıpı tamamen telafi etmezse, geri kalanı rETH'nin göreceli değerinde bir azalma aracılığıyla tüm ağ genelinde yayılır; ziyade kötü düğümde kötü şanstan dolayı birden fazla kullanıcı büyük kayıp almaz.
+
+Örneğin, düğüm operatörü 16 ETH stake etti ve düğümleri ağı 28 ETH ile terk ettiyse, operatör 12 ETH alır; ağ 16 ETH tutar - tüm kayıplar operatörde yapılır. Düğümleri 15 ETH ile terk ettiyse, ağ 16 ETH tutar ve operatör RPL kaybı aracılığıyla eksik 1 ETH'yi dengeledi. Düğümleri 10 ETH ile terk ederse ve orijinal tahvildeki 1.6 ETH değerinde RPL varsa, ağ 11.6 ETH (10 + 1.6) tutar ve 4.4 ETH'lik kayıp (16 - 11.6) ağ genelinde yayılır.
+
+Düğüm operatörleri böylece iyi performans göstermek için geniş bir teşvike sahiptir. Düğüm operatörleri, protokol tarafından daha geniş bir güvenlik ağı sağladıkları için ekstra ödüller nedeniyle mümkün olduğunca çok RPL stake etmek için teşvik edilirler; kötü performans gösterebilirler.
+
+### Merkeziyetsiz staking protokolü tam olarak nedir?
+
+Rocket Pool, merkeziyetsiz düğüm operatörlerinin bir ağını içeren bir protokoldür. Her düğüm operatörü, kendi sunucu altyapısına sahip ayrı bir kuruluştur. Bu heterojen ağa sahip olmak önemlidir:
+
+- _Hata toleransı_ — başarısızlıklar yalnızca az sayıda düğümü etkiler
+- _Ölçeklenebilirlik_ — ağı açarak talepte karşılamak için çok sayıda düğümün çevrimiçi olması anlamına gelir
+- _Kuadratik Sızıntı_ — bu, Beacon Chain'ın doğrulayıcıları çevrimdışı olması için cezalandırma yöntemidir. Bir düğüm operatörü olarak, diğer doğrulayıcılar büyük bir grubla çevrimdışı derseniz; cezanız daha büyüktür — bu, merkezileştirilmiş staking hizmetlerini caydırır.
+
+### Depozitime ve ödüllerime nasıl erişebilirim?
+
+Eğer operatör olmayan bir staker iseniz ve depozitonuzu Rocket Pool'un akıllı sözleşmelerine gönderiyor olun, anında rETH jetonları alacaksınız; bu, tokenleştirilmiş staking'in bir biçimi olacaktır; zaman içinde ödülleri kazanmaya devam edecekler; ancak biz onları tutmak zorunda değilsiniz ve ticaret yapabilir/satabilir veya istediğiniz şekilde tutabilirsiniz. Ayrıca protokole geri ticaret yapabilirsiniz; ETH + kazanılan ödüller için, protokolde işlemi kapsayacak yeterli likidite varsa.
+
+### Akıllı sözleşmeleriniz denetlendi mi ve açık kaynak mı?
+
+Şeffaflık adına, [açık kaynaktır](https://github.com/rocket-pool/rocketpool) herkesin analiz etmesi için. Buna ek olarak, akıllı sözleşmeler mainnet'e dağıtılmadan önce, etrafta iki en iyi denetim ekibi olan Sigma Prime ve ConsenSys Diligence tarafından tam olarak denetlendiler.
+
+---
+
+---
+
+### Neden solo yerine Rocket Pool akıllı düğümü çalıştırayım?
+
+Bir düğüm operatörü olarak, aşağıdaki avantajlardan yararlanabilirsiniz:
+
+- Staking'i çok kolay hale getiren bir kurulum olan harika [Smart Node Stack'ımızı](https://github.com/rocket-pool/smartnode) kullanabilirsiniz. [Yükleyiciyle burada başlayın](https://github.com/rocket-pool/smartnode).
+- Sadece 8 ETH'ye stake etmeniz gerekir (solo 32 ETH'ye karşılık), Rocket Pool protokolünün 24 ETH'sine atanır. Ayrıca tek bir düğümde 8 ETH depozitolarını birden fazla kez stake edebilirsiniz.
+- Rocket Pool kullanıcılarına düğümde kazanılan ödüllerin %14'ünü komişyon olarak yükleyerek ekstra ödüller kazanırsınız.
+- Kendi ETH'inizi, komişyon olarak ücret içermeyen bir şekilde stake edersiniz.
+- RPL'yi düğümünüze teminat olarak stake edersiniz ve bu sigorta vaadini sağladıkları için protokolden daha fazla RPL kazanırsınız.
+- Her zaman kendi düğümünüzün kontrolünü sizde tutarsınız.
+- İstediğiniz zaman ağı terk edebilirsiniz.
+
+### Düğüm operatörü için minimum staking miktarı nedir?
+
+Düğüm operatörü için minimum staking miktarı 8 ETH'dir. Ancak akıllı düğüm yazılımımızı kullanarak kendi düğümünüzde 8 ETH'nin katları halinde kolayca stake edebilirsiniz. Ayrıca ciddi kesinti veya cezalar durumunda teminat olarak hareket etmesi için biraz RPL'ye ihtiyacınız olacaktır. Bu teminat, protokole sigorta vaadi olarak kabul edilir; stake ettikçe daha fazla RPL kazanırsınız.
+
+### Rocket Pool düğümü çalıştırma ne gerektirir?
+
+Bir düğüm operatörü olarak, proof of stake doğrulayıcı görevlerini gerçekleştiren 24/7 bir sunucu çalıştırmanız gerekecektir. Düğümü + validatörleri protokolde yönetmek için [Smart Node Stack'ımızı](https://github.com/rocket-pool/smartnode) kullanın; staking'i çok kolay hale getiren harika bir paket. [Yükleyiciyle burada başlayın](https://github.com/rocket-pool/smartnode).
+
+[Saturn 0 yükseltmesinden](/tr/upgrades/saturn-0/whats-new) bu yana, Rocket Pool protokolü artık minimum RPL miktarı gerektirmez. [Saturn 0 yükseltmesinden](/tr/upgrades/saturn-0/whats-new) önce, protokol tarafından sağlanan ETH değerinin minimum %10 RPL'de gerekti (%24 veya sırasıyla %16 ETH; yani 2.4 veya 1.6 ETH).
+
+### RPL jetonu nasıl kullanılır?
+
+[Jetonlar bölümüne](#what-tokens-does-rocket-pool-use) göz atın; harika bir özet için!
+
+---
+
+---
+
+### Entegre dApp'ler, SaaS İşletmesi ve daha fazlası
+
+Eğer bir dApp'seniz, dApp'iniz tarafından tutulabilecek ETH'yi stake etmek için doğrudan Rocket Pool'un akıllı sözleşmelerine entegre edebilirsiniz. Depozito yaptığınızda, dApp'iniz istediği şekilde kullanabileceği rETH (tokenleştirilmiş staking depozito) anında geri alırsınız. Şimdi merkeziyetsiz staking merkezi olmayan bir dApp kullanarak staking yapıyorsunuz, hay hay!
+
+Eğer bir SaaS (Staking as a Service) sağlayıcısı iseniz, kullanıcılarınız için getiriyi maksimize etmek isteyebilirsiniz. Rocket Pool ağında birkaç akıllı düğüm çalıştırın ve o ETH'yi staking ödülleri + ekstra komişyonlar + RPL ödülleri kazanmak için çalıştırın.
+
+Bir cüzdan veya DEX misiniz ve kullanıcılarınıza ETH stake etme yeteneği vermek istiyorum ancak hizmetinizi bırakmayın? Kullanıcılarınız adına Rocket Pool'a ETH depozito yönetebilecek bir akıllı sözleşme yazın ve sonra anında rETH geri alın. Bam! Staking hizmetleri sunulmuştur.
+Pek çok daha fazla olasılık vardır. Rocket Pool, izne dayalı bir akıllı sözleşme staking protokolüdür; herkes bağlantılı olabilir. Kullanıcılarınızın onu kullandığınızdan bile bilmesi gerekmez; bu tamamen seçiminizdir!

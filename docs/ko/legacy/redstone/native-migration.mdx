@@ -53,7 +53,7 @@ Native mode에서는 업그레이드 후 수동으로 수행해야 하는 몇 �
 The Merge 전에 설정해야 하는 **중요한** 세부 사항 중 하나는 validator client가 지정한 **fee recipient**입니다.
 [개요 문서](./whats-new#fee-recipients-and-your-distributor)에 설명된 대로 다음 두 값 중 하나일 수 있습니다:
 
-- Smoothing Pool에 **가입한 경우** **Smoothing Pool contract**의 주소여야 합니다. [공식 계약 페이지](/ko/overview/contracts-integrations)에서 주소를 얻을 수 있습니다.
+- Smoothing Pool에 **가입한 경우** **Smoothing Pool contract**의 주소여야 합니다. [공식 계약 페이지](/ko/protocol/contracts-integrations)에서 주소를 얻을 수 있습니다.
 - Smoothing Pool에 **가입하지 않은 경우** 노드의 **fee distributor contract** 주소여야 합니다. `Fee Distributor and Smoothing Pool` 섹션 아래의 `rocketpool node status`를 실행하여 주소를 얻을 수 있습니다.
 
 Native mode에서는 Smartnode 데몬 서비스인 `rp-node`를 사용하는 경우 Smartnode가 이를 관리하도록 하거나 데몬을 사용하지 않는 경우 직접 관리할 수 있습니다.
@@ -168,7 +168,7 @@ Smartnode 데몬은 노드에 적합한 fee recipient를 자동으로 결정하�
 그렇게 하지 않으면 minipool이 벌금을 받을 수 있습니다!
 :::
 
-**Redstone이 배포되기 전에는** 사용 중인 네트워크의 rETH 주소를 사용하면 됩니다([공식 계약 페이지](/ko/overview/contracts-integrations)에서 찾을 수 있습니다).
+**Redstone이 배포되기 전에는** 사용 중인 네트워크의 rETH 주소를 사용하면 됩니다([공식 계약 페이지](/ko/protocol/contracts-integrations)에서 찾을 수 있습니다).
 rETH 주소는 어떤 경우에도 항상 안전합니다.
 
 **Redstone이 배포된 후에는** `rocketpool node status`를 통해 fee recipient로 설정해야 하는 정확한 주소를 확인할 수 있습니다. 예를 들어, Smoothing Pool에 가입한 경우 Smoothing Pool의 주소가 표시되며 이를 fee recipient로 사용해야 한다고 표시됩니다:
@@ -192,9 +192,9 @@ Smoothing Pool에 가입하지 _않은_ 경우 fee distributor 주소가 표시�
 
       여기서 `address`는:
 
-      - Redstone 업데이트가 배포되기 **전**의 [rETH address](/ko/overview/contracts-integrations/#token-contracts) (예: Mainnet에서 `0xae78736Cd615f374D3085123A210448E74Fc6393`)
+      - Redstone 업데이트가 배포되기 **전**의 [rETH address](/ko/protocol/contracts-integrations/#token-contracts) (예: Mainnet에서 `0xae78736Cd615f374D3085123A210448E74Fc6393`)
       - Redstone이 배포된 후 노드의 **fee distributor**이며, 계약 업그레이드가 발생하면 `rocketpool node status`로 검색할 수 있습니다
-      - Smoothing Pool에 가입한 경우 [Smoothing Pool address](/ko/overview/contracts-integrations/#protocol-contracts)
+      - Smoothing Pool에 가입한 경우 [Smoothing Pool address](/ko/protocol/contracts-integrations/#protocol-contracts)
 
       참고로 `rocketpool node status`는 언제든지 사용할 올바른 fee recipient를 보여줍니다.
 
@@ -209,9 +209,9 @@ Smoothing Pool에 가입하지 _않은_ 경우 fee distributor 주소가 표시�
 
       여기서 `address`는:
 
-      - Redstone 업데이트가 배포되기 **전**의 [rETH address](/ko/overview/contracts-integrations/#token-contracts) (예: Mainnet에서 `0xae78736Cd615f374D3085123A210448E74Fc6393`)
+      - Redstone 업데이트가 배포되기 **전**의 [rETH address](/ko/protocol/contracts-integrations/#token-contracts) (예: Mainnet에서 `0xae78736Cd615f374D3085123A210448E74Fc6393`)
       - Redstone이 배포된 후 노드의 **fee distributor**이며, 계약 업그레이드가 발생하면 `rocketpool node status`로 검색할 수 있습니다
-      - Smoothing Pool에 가입한 경우 [Smoothing Pool address](/ko/overview/contracts-integrations/#protocol-contracts)
+      - Smoothing Pool에 가입한 경우 [Smoothing Pool address](/ko/protocol/contracts-integrations/#protocol-contracts)
 
       참고로 `rocketpool node status`는 언제든지 사용할 올바른 fee recipient를 보여줍니다.
 
@@ -226,9 +226,9 @@ Smoothing Pool에 가입하지 _않은_ 경우 fee distributor 주소가 표시�
 
       여기서 `address`는:
 
-      - Redstone 업데이트가 배포되기 **전**의 [rETH address](/ko/overview/contracts-integrations/#token-contracts) (예: Mainnet에서 `0xae78736Cd615f374D3085123A210448E74Fc6393`)
+      - Redstone 업데이트가 배포되기 **전**의 [rETH address](/ko/protocol/contracts-integrations/#token-contracts) (예: Mainnet에서 `0xae78736Cd615f374D3085123A210448E74Fc6393`)
       - Redstone이 배포된 후 노드의 **fee distributor**이며, 계약 업그레이드가 발생하면 `rocketpool node status`로 검색할 수 있습니다
-      - Smoothing Pool에 가입한 경우 [Smoothing Pool address](/ko/overview/contracts-integrations/#protocol-contracts)
+      - Smoothing Pool에 가입한 경우 [Smoothing Pool address](/ko/protocol/contracts-integrations/#protocol-contracts)
 
       참고로 `rocketpool node status`는 언제든지 사용할 올바른 fee recipient를 보여줍니다.
 
@@ -243,9 +243,9 @@ Smoothing Pool에 가입하지 _않은_ 경우 fee distributor 주소가 표시�
 
       여기서 `address`는:
 
-      - Redstone 업데이트가 배포되기 **전**의 [rETH address](/ko/overview/contracts-integrations/#token-contracts) (예: Mainnet에서 `0xae78736Cd615f374D3085123A210448E74Fc6393`)
+      - Redstone 업데이트가 배포되기 **전**의 [rETH address](/ko/protocol/contracts-integrations/#token-contracts) (예: Mainnet에서 `0xae78736Cd615f374D3085123A210448E74Fc6393`)
       - Redstone이 배포된 후 노드의 **fee distributor**이며, 계약 업그레이드가 발생하면 `rocketpool node status`로 검색할 수 있습니다
-      - Smoothing Pool에 가입한 경우 [Smoothing Pool address](/ko/overview/contracts-integrations/#protocol-contracts)
+      - Smoothing Pool에 가입한 경우 [Smoothing Pool address](/ko/protocol/contracts-integrations/#protocol-contracts)
 
       참고로 `rocketpool node status`는 언제든지 사용할 올바른 fee recipient를 보여줍니다.
 
