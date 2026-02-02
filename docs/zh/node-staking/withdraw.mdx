@@ -1,31 +1,31 @@
 ---
 next:
-  text: Rescuing a Dissolved Minipool
-  link: "/en/node-staking/rescue-dissolved"
+  text: 救援已解散的 Minipool
+  link: "/zh/node-staking/rescue-dissolved"
 ---
 
-# Shut Down a Minipool
+# 关闭 Minipool
 
-## Exiting your Validator
+## 退出您的验证者
 
-When you have decided that you no longer want to run a minipool and want to access the full balance locked on the Beacon Chain, you will have to take several steps:
+当您决定不再想运行 minipool 并想要访问在信标链上锁定的全部余额时，您需要执行几个步骤：
 
-1. Send a voluntary exit request for the minipool's validator from the Beacon Chain.
-2. Wait for your validator to exit.
-3. Wait for your validator's balance to be withdrawn to your minipool on the Execution layer.
-4. Close the minipool to distribute the rewards and access the funds
+1. 为 minipool 的验证者从信标链发送自愿退出请求。
+2. 等待您的验证者退出。
+3. 等待您的验证者余额被提取到执行层上的 minipool。
+4. 关闭 minipool 以分配奖励并访问资金
 
-We'll cover each step below.
+我们将在下面介绍每个步骤。
 
-### Sending the Exit Request
+### 发送退出请求
 
-If you want to exit the validator attached to a minipool, run the following command:
+如果您想退出附加到 minipool 的验证者，请运行以下命令：
 
 ```shell
 rocketpool minipool exit
 ```
 
-You will be presented with a list of minipools that can be exited:
+您将看到可以退出的 minipool 列表：
 
 ```
 Please select a minipool to exit:
@@ -34,49 +34,49 @@ Please select a minipool to exit:
 3: 0xd8E804cFA64ADb386F52DB20717810130c90f674 (staking since 2023-02-08, 06:33 +0000 UTC)
 ```
 
-Once you confirm you want to exit, your node will send a voluntary exit request to the Beacon Chain.
-This is **not** a normal Execution layer transaction, so you do not need to pay gas for it.
+一旦确认要退出，您的节点将向信标链发送自愿退出请求。
+这**不是**正常的执行层交易，因此您无需为其支付 gas 费用。
 
-If you need the validator public key for the minipool you just exited, you can retrieve it using `rocketpool minipool status`.
-You can view your validator's exit status on a Beacon Chain explorer such as [https://beaconcha.in](https://beaconcha.in) (or [https://hoodi.beaconcha.in](https://hoodi.beaconcha.in) for the Hoodi Testnet).
-It will take some time for your status to be updated, but once it is you will see it in the "exiting" state:
+如果您需要刚刚退出的 minipool 的验证者公钥，可以使用 `rocketpool minipool status` 检索它。
+您可以在信标链浏览器（例如 [https://beaconcha.in](https://beaconcha.in)（或 Hoodi 测试网的 [https://hoodi.beaconcha.in](https://hoodi.beaconcha.in)））上查看验证者的退出状态。
+您的状态需要一些时间才能更新，但更新后您将看到它处于"退出中"状态：
 
 <img src="./images/exiting.png" width="100%" height="auto" />
 
-Here you can see the Status is `Exiting`, the epoch it will exit on is highlighted (5224), and the "Exited" icon will be pulsing green to indicate the operation is in progress.
-It may take some time for your validator to exit, _especially_ if there are a large number of validators exiting the Beacon Chain at the same time; the protocol is designed to only allow a small number of validators to exit per epoch so you may have to wait your turn.
+在这里您可以看到状态为 `Exiting`，突出显示了它将退出的 epoch（5224），并且"Exited"图标将呈绿色脉冲，表示操作正在进行中。
+您的验证者可能需要一些时间才能退出，_特别是_如果同时有大量验证者退出信标链；该协议旨在每个 epoch 只允许少数验证者退出，因此您可能需要等待轮到您。
 
-Once your exit epoch has passed, your validator will officially exit the chain and will no longer attest or propose blocks.
-You can confirm this in your Validator Client logs, or on the explorer:
+一旦您的退出 epoch 过去，您的验证者将正式退出链，并且将不再证明或提议区块。
+您可以在验证者客户端日志或浏览器上确认这一点：
 
 <img src="./images/exited.png" width="100%" height="auto" />
 
-The status has changed to `Exited` and there is some text underneath that indicates your **withdrawable epoch** (which should be 256 epochs after you exit, or about 27 hours).
-Beaconcha.in also conveniently provides the local timestamps for when your validator will exit and when it will be withdrawable.
+状态已更改为 `Exited`，下面有一些文字指示您的**可提取 epoch**（应该是您退出后的 256 个 epoch，或大约 27 小时）。
+Beaconcha.in 还方便地提供了验证者何时退出以及何时可提取的本地时间戳。
 
-Once it has entered the **withdrawable** state, your validator will be enqueued by the Beacon Chain for rewards distribution.
-This queue depends on how many validators are currently withdrawing.
-Once it's your turn, the Beacon Chain will _automatically_ send your balance to your minipool's address on the Execution layer.
-At this point, you can access it using the Smartnode CLI to do a distribution.
+一旦它进入**可提取**状态，您的验证者将被信标链排队等待奖励分配。
+此队列取决于当前有多少验证者正在提取。
+轮到您时，信标链将_自动_将您的余额发送到执行层上的 minipool 地址。
+此时，您可以使用 Smartnode CLI 访问它来进行分配。
 
-### Distributing Full Rewards
+### 分配全额奖励
 
-::: tip NOTE
-This process requires your validator to be exited from the Beacon Chain and your validator's balance to have been transferred to the minipool contract.
-If you need a refresher on how to do that process, please see the [**Exiting your Validator**](#exiting-your-validator) section above - return here once you're done.
+::: tip 注意
+此过程要求您的验证者已从信标链退出，并且验证者的余额已转移到 minipool 合约。
+如果您需要复习如何执行该过程，请参阅上面的[**退出您的验证者**](#exiting-your-validator)部分 - 完成后再回到这里。
 :::
 
-If you have exited your validator from the Beacon Chain and your balance has been deposited into the minipool contract, you can safely withdraw the entire thing in one command.
-Unlike [manual distribution](./skimming#manual-distribution), this process will actually **finalize** your minipool which closes it and renders it inactive.
-Once your balance has been withdrawn from the Beacon Chain and you go through the following process to access the funds, the minipool's duty is over.
+如果您已从信标链退出验证者，并且余额已存入 minipool 合约，则可以使用一个命令安全地提取全部内容。
+与[手动分配](./skimming#manual-distribution)不同，此过程实际上会**最终确定**您的 minipool，从而关闭它并使其变为非活动状态。
+一旦您的余额从信标链提取，并且您完成以下过程访问资金，minipool 的职责就结束了。
 
-To retrieve the funds and close the minipool, run the following command:
+要检索资金并关闭 minipool，请运行以下命令：
 
 ```shell
 rocketpool minipool close
 ```
 
-This will present you with a list of minipools that are eligible for closure:
+这将向您显示符合关闭条件的 minipool 列表：
 
 ```
 Please select a minipool to close:
@@ -84,52 +84,52 @@ Please select a minipool to close:
 2: 0xd8E804cFA64ADb386F52DB20717810130c90f674 (32.007209 ETH available, 8.002559 ETH is yours plus a refund of 0.000000 ETH)
 ```
 
-Here you can see the total balance for each eligible minipool, how much of that balance will be distributed to you, and how much of that balance is reserved for you as a refund (which bypasses distribution).
+在这里，您可以看到每个符合条件的 minipool 的总余额、将分配给您的余额以及为您保留的退款金额（绕过分配）。
 
-Select which minipool you'd like to distribute and close from the list, confirm the action, and wait for your transaction to be validated.
-Once it does, your share of the minipool balance (and your refund) will be sent to your withdrawal address, and the minipool will enter the `finalized` state.
+从列表中选择您想要分配和关闭的 minipool，确认操作，然后等待您的交易得到验证。
+完成后，您的 minipool 余额份额（和您的退款）将被发送到您的提取地址，并且 minipool 将进入 `finalized` 状态。
 
-You can verify it by looking at the transaction on a block explorer; for example, see [the transaction for closing the above minipool (Goerli Testnet)](https://goerli.etherscan.io/tx/0xe81415b3b66f9b42d43ac17a0983e792725726c9fdd35ac855745bd12a053509).
+您可以通过在区块浏览器上查看交易来验证它；例如，请参阅[关闭上述 minipool 的交易（Goerli 测试网）](https://goerli.etherscan.io/tx/0xe81415b3b66f9b42d43ac17a0983e792725726c9fdd35ac855745bd12a053509)。
 
-### Unstaking RPL
+### 取消质押 RPL
 
-At this point, your effective RPL will be updated to remove this minipool from the calculation.
-You can now unstake any RPL you have that would put you over the 60% bonded ETH threshold.
+此时，您的有效 RPL 将更新以从计算中删除此 minipool。
+您现在可以取消质押任何会使您超过 60% 绑定 ETH 阈值的 RPL。
 
-To unstake RPL against the node, run the following command:
+要针对节点取消质押 RPL，请运行以下命令：
 
 ```shell
 rocketpool node withdraw-rpl
 ```
 
-::: tip NOTE
-There are two limitations on RPL withdrawals:
+::: tip 注意
+RPL 提取有两个限制：
 
-RPL cannot be withdrawn within 28 days of staking (or restaking) RPL. Be careful if you claim these rewards before closing your minipool, if you restake any amount of RPL rewards you will not be able to withdraw any amount of RPL for 28 days since the last staking action.
+在质押（或重新质押）RPL 后的 28 天内无法提取 RPL。请注意，如果您在关闭 minipool 之前领取这些奖励，如果您重新质押任何数量的 RPL 奖励，您将无法在自上次质押操作以来的 28 天内提取任何数量的 RPL。
 
-RPL can be withdrawn down to 60% of your total bonded ETH. On a full exit, that means all of it can be withdrawn; for partial exits, plan with this limit in mind.
+RPL 可以提取到您总绑定 ETH 的 60%。对于完全退出，这意味着所有 RPL 都可以提取；对于部分退出，请记住此限制。
 :::
 
-## A Note on the Old Delegate
+## 关于旧委托的注意事项
 
-The **original minipool delegate** assigned to every minipool from Rocket Pool's launch until Atlas's deployment was built with two assumptions in mind:
+从 Rocket Pool 启动到 Atlas 部署期间分配给每个 minipool 的**原始 minipool 委托**是在考虑两个假设的情况下构建的：
 
-1. The only time your minipool will ever have a balance is after the validator has exited the Beacon Chain.
-2. The Oracle DAO will change your minipool's state from "staking" to "withdrawable" once the balance has been transferred from the Beacon Chain to the minipool contract.
+1. 您的 minipool 唯一有余额的时间是在验证者从信标链退出之后。
+2. 一旦余额从信标链转移到 minipool 合约，Oracle DAO 将把您的 minipool 状态从"质押中"更改为"可提取"。
 
-The first point is clearly no longer relevant now that Ethereum is being upgraded to support skimming.
-The second point is _also_ no longer true, because the Oracle DAO is **no longer** going to flag "withdrawable" minipools.
-This was an intentional design decision to reduce the power that the Oracle DAO yields over Rocket Pool node operators and allow them to access rewards without any supplemental requirement on trusted parties.
+第一点现在显然不再相关，因为以太坊正在升级以支持撇取。
+第二点_也_不再正确，因为 Oracle DAO **不再**标记"可提取"的 minipool。
+这是一个有意的设计决策，旨在减少 Oracle DAO 对 Rocket Pool 节点运营商施加的权力，并允许他们在没有对受信任方的任何补充要求的情况下访问奖励。
 
-Because of these deficiencies, the Smartnode CLI **no longer supports** withdrawals or fund distribution on the original minipool delegate.
-If you'd like to access your rewards, you **must** upgrade to the Atlas delegate which supports the new withdrawal conditions listed above.
+由于这些缺陷，Smartnode CLI **不再支持**原始 minipool 委托上的提取或资金分配。
+如果您想访问您的奖励，您**必须**升级到支持上述新提取条件的 Atlas 委托。
 
-::: danger DANGER
-If you are an advanced user and bypass the CLI to invoke the distribution functionality on the contract directly via a third-party tool, be advised of the following things:
+::: danger 危险
+如果您是高级用户，并通过第三方工具绕过 CLI 直接调用合约上的分配功能，请注意以下事项：
 
-1. The delegate's distribution function will revert if the minipool's balance is **below 16 ETH**. Balances below 16 ETH **cannot be accessed.**
-2. If the minipool has **between 16 and 32 ETH** in its balance, distribution by the original delegate will assume your validator has been **slashed**. It will return 16 ETH to the staking pool and give you whatever is left over. It will _only_ function properly if the minipool balance is above 32 ETH.
-3. The minipool will never enter the `finalized` state because the Oracle DAO will never mark it as `withdrawable`, so even though you may be able to access your ETH, **your RPL will be locked** until you upgrade to the Atlas delegate.
+1. 如果 minipool 的余额**低于 16 ETH**，委托的分配函数将回退。低于 16 ETH 的余额**无法访问。**
+2. 如果 minipool 的余额**在 16 到 32 ETH 之间**，原始委托的分配将假设您的验证者已被**罚没**。它将向质押池返还 16 ETH，并给您剩余的部分。只有当 minipool 余额超过 32 ETH 时，它才会_正常_运行。
+3. minipool 永远不会进入 `finalized` 状态，因为 Oracle DAO 永远不会将其标记为 `withdrawable`，因此即使您可能能够访问您的 ETH，**您的 RPL 将被锁定**，直到您升级到 Atlas 委托。
 
-Because of these points, we **strongly recommend** you just upgrade to the Atlas delegate in the first place and avoid them entirely.
+由于这些原因，我们**强烈建议**您首先升级到 Atlas 委托，完全避免它们。
 :::

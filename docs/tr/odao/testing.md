@@ -1,39 +1,39 @@
-# Testing your Oracle DAO Node
+# Oracle DAO Node'unuzu Test Etme
 
-Once your node is set up and you've joined the Oracle DAO, you should test it to ensure it's able to perform its duties properly.
-The best way to do this is to have it build the Redstone rewards Merkle tree using Rocket Pool's `treegen` utility.
+Node'unuz kurulduktan ve Oracle DAO'ya katıldıktan sonra, görevlerini düzgün bir şekilde yerine getirebilmesini sağlamak için test etmelisiniz.
+Bunu yapmanın en iyi yolu, Rocket Pool'un `treegen` yardımcı programını kullanarak Redstone ödülleri Merkle ağacını oluşturmaktır.
 
 ### treegen
 
-`treegen` is a tool that can reproduce the entire rewards Merkle tree and accompanying artifacts for a previous rewards interval via your archive Execution and Consensus clients.
-It can also "dry run" the current interval by pretending that it ended at the latest finalized epoch (at the time of running it) and producing a partial tree from the start of the interval up to that point.
+`treegen`, önceki bir ödül aralığı için tam ödüller Merkle ağacını ve beraberindeki eserleri arşiv Execution ve Consensus istemcileriniz aracılığıyla yeniden oluşturabilen bir araçtır.
+Ayrıca, mevcut aralığın (çalıştırma anında) en son sonlandırılmış epoch'ta sona ermiş gibi davranarak ve aralığın başlangıcından o noktaya kadar kısmi bir ağaç üreterek "kuru çalıştırma" yapabilir.
 
-::: tip TIP
-For more information on the rewards tree itself and accompanying files, please visit [**the formal specification**](https://github.com/rocket-pool/rocketpool-research/blob/master/Merkle%20Rewards%20System/merkle-tree-spec).
+::: tip İPUCU
+Ödül ağacının kendisi ve beraberindeki dosyalar hakkında daha fazla bilgi için lütfen [**resmi spesifikasyonu**](https://github.com/rocket-pool/rocketpool-research/blob/master/Merkle%20Rewards%20System/merkle-tree-spec) ziyaret edin.
 :::
 
-`treegen` can be used as a standalone binary (currently only built for Linux systems, x64 and arm64) or as a Docker container.
+`treegen`, bağımsız bir binary olarak (şu anda yalnızca Linux sistemleri, x64 ve arm64 için derlenmiştir) veya bir Docker container'ı olarak kullanılabilir.
 
-If you would like to download the standalone binary, you can find it in the releases here: [https://github.com/rocket-pool/treegen](https://github.com/rocket-pool/treegen).
-Usage instructions are included in the README there, but we'll cover some examples below as well.
+Bağımsız binary'yi indirmek isterseniz, buradaki sürümlerde bulabilirsiniz: [https://github.com/rocket-pool/treegen](https://github.com/rocket-pool/treegen).
+Kullanım talimatları oradaki README'de yer almaktadır, ancak aşağıda bazı örnekleri de ele alacağız.
 
-The Docker container tag for it is `rocketpool/treegen:latest`.
+Docker container tag'i `rocketpool/treegen:latest` şeklindedir.
 
-## Building a Dry-Run Tree
+## Kuru Çalıştırma Ağacı Oluşturma
 
-For a first test, run `treegen` to generate a dry-run tree that calculates the tree from the start of the rewards interval to the latest (finalized) slot.
-We'll use [the script](https://github.com/rocket-pool/treegen/blob/main/treegen.sh) included in the repository that leverages the Docker container to run it on the node machine itself for simplicity:
+İlk test için, ödül aralığının başlangıcından en son (sonlandırılmış) slot'a kadar ağacı hesaplayan kuru çalıştırma ağacı oluşturmak üzere `treegen` çalıştırın.
+Basitlik için, Docker container'ını kullanarak node makinesinin kendisinde çalıştıran repository'deki [script'i](https://github.com/rocket-pool/treegen/blob/main/treegen.sh) kullanacağız:
 
 ```shell
 ./treegen.sh -e http://localhost:8545 -b http://localhost:5052
 ```
 
-::: warning NOTE
-Note that this particular configuration requires you to expose the Execution Client and Beacon Node APIs through the Docker configuration - ensure you have both options enabled in the `rocketpool service config` TUI.
+::: warning NOT
+Bu özel yapılandırmanın, Docker yapılandırması üzerinden Execution Client ve Beacon Node API'lerini açığa çıkarmanızı gerektirdiğini unutmayın - `rocketpool service config` TUI'de her iki seçeneğin de etkin olduğundan emin olun.
 :::
 
-This will test your clients' abilities to respond to queries in a timely fashion (e.g., if you are using a third-party service, this will be helpful to assess whether or not its query rate-limit is insufficient), but **will not test their Archive Mode capabilities**.
-It will produce output like the following:
+Bu, istemcilerinizin sorgulara zamanında yanıt verme yeteneklerini test edecektir (örneğin, üçüncü taraf bir hizmet kullanıyorsanız, bu, sorgu hız sınırının yetersiz olup olmadığını değerlendirmek için yararlı olacaktır), ancak **Arşiv Modu yeteneklerini test etmeyecektir**.
+Aşağıdaki gibi bir çıktı üretecektir:
 
 ```
 2022/11/06 12:11:37 Beacon node is configured for Mainnet.
@@ -68,30 +68,30 @@ It will produce output like the following:
 2022/11/06 12:50:52 Successfully generated rewards snapshot for interval 3.
 ```
 
-If this runs without error, it will generate the rewards tree artifacts and save them as JSON files in your working directory.
-You are free to explore them and ensure their contents are sane, but as they are dry-run files, they aren't canonically stored anywhere for comparison.
+Bu hatasız çalışırsa, ödül ağacı eserlerini oluşturacak ve bunları çalışma dizininizde JSON dosyaları olarak kaydedecektir.
+İçeriklerini keşfetmekte ve mantıklı olduklarından emin olmakta özgürsünüz, ancak bunlar kuru çalıştırma dosyaları olduğundan, karşılaştırma için herhangi bir yerde kanonik olarak saklanmazlar.
 
-## Building a Canonical Tree from a Past Interval
+## Geçmiş Bir Aralıktan Kanonik Ağaç Oluşturma
 
-This next test is to replicate one of the complete trees from a past interval.
-This will require archival access on both the Execution Layer and the Consensus Layer, so it will serve as a good test of both capabilities.
+Bu sonraki test, geçmiş bir aralıktan tam ağaçlardan birini çoğaltmaktır.
+Bu, hem Execution Layer hem de Consensus Layer üzerinde arşiv erişimi gerektirecektir, bu nedenle her iki yeteneğin de iyi bir testi olarak hizmet edecektir.
 
-As of this writing, **Interval 2** is an ideal choice as it is far in the past () and involved the Smoothing Pool (which accounts for the largest computational load when calculating the rewards for the period).
+Bu yazının yazıldığı tarih itibarıyla, **Interval 2** ideal bir seçimdir çünkü geçmişte çok uzaktadır ve Smoothing Pool'u içeriyordu (bu, dönem için ödülleri hesaplarken en büyük hesaplama yükünü oluşturur).
 
-Run `treegen` using the following command:
+Aşağıdaki komutu kullanarak `treegen` çalıştırın:
 
 ```shell
 ./treegen.sh -e http://<your archive EC url> -b http://localhost:5052 -i 2
 ```
 
-Note that the **Execution Client URL** is different here: it _must be_ an Archive EC as the snapshot block for Interval 2 was far in the past.
+Burada **Execution Client URL**'sinin farklı olduğuna dikkat edin: Interval 2 için snapshot bloğu geçmişte çok uzakta olduğundan, bir Arşiv EC _olmalıdır_.
 
-::: warning NOTE
-Depending on your client configuration, building this tree can take _hours_.
-The Smartnode will give you status indicators about its progress along the way, as you can see in the example below.
+::: warning NOT
+İstemci yapılandırmanıza bağlı olarak, bu ağacı oluşturmak _saatler_ sürebilir.
+Smartnode, aşağıdaki örnekte görebileceğiniz gibi, yol boyunca ilerleme hakkında durum göstergeleri verecektir.
 :::
 
-The output will look like this (truncated for previty):
+Çıktı şöyle görünecektir (kısalık için kesilmiştir):
 
 ```
 2022/11/07 23:44:34 Beacon node is configured for Mainnet.
@@ -135,18 +135,18 @@ The output will look like this (truncated for previty):
 2022/11/07 18:26:10 Successfully generated rewards snapshot for interval 2.
 ```
 
-The key thing to look for here is this message at the end:
+Burada dikkat edilmesi gereken önemli şey, sondaki bu mesajdır:
 
 ```
 Your Merkle tree's root of 0x278fd75797e2a9eddc128c0199b448877e30d1196c12306bdc95fb731647c18f matches the canonical root! You will be able to use this file for claiming rewards.
 ```
 
-If you receive this, then your watchtower can build the tree correctly.
+Bunu alırsanız, watchtower'ınız ağacı doğru şekilde oluşturabilir demektir.
 
-::: danger NOTE
-While this proves you can build the tree, you _must_ ensure your Web3.Storage API token has been entered into the Smartnode's configuration so it can upload the resulting tree to IPFS.
+::: danger NOT
+Bu, ağacı oluşturabileceğinizi kanıtlarken, sonuç ağacını IPFS'ye yükleyebilmesi için Web3.Storage API token'ınızın Smartnode yapılandırmasına girilmiş olduğundan emin olmalısınız.
 :::
 
-### Next Steps
+### Sonraki Adımlar
 
-Next up, we'll cover how to monitor your node's performance.
+Sonra, node'unuzun performansını nasıl izleyeceğinizi ele alacağız.

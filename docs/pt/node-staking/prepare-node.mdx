@@ -2,225 +2,225 @@ import { Tab, Tabs } from "@rspress/core/theme";
 import nodeAddress from "./images/nodeaddress.png";
 import rplWithdrawalConfirmation from "./images/rpl_withdrawal_confirmation.png";
 
-# Preparing your Node for Operation
+# Preparando seu Nó para Operação
 
-If you're here, then you've successfully started the Smartnode services, created a wallet, and finished syncing both the Execution and Consensus chains on your respective clients.
-If so, then you are ready to register your node on the Rocket Pool network and create a minipool with a validator!
-If not, please review the previous sections and return here once you've completed those steps.
+Se você chegou até aqui, então você iniciou com sucesso os serviços do Smartnode, criou uma carteira e terminou de sincronizar as cadeias de Execução e Consenso em seus respectivos clientes.
+Se sim, então você está pronto para registrar seu nó na rede Rocket Pool e criar um minipool com um validador!
+Caso contrário, revise as seções anteriores e retorne aqui quando tiver completado essas etapas.
 
-Before creating a new minipool and validator, there are a few steps to take to finish preparing your node.
-These only need to be done once though; once you've done them, you can skip to the [Creating a New Minipool](./create-validator.mdx) section if you want to create multiple minipools on your node.
+Antes de criar um novo minipool e validador, há algumas etapas a serem seguidas para terminar de preparar seu nó.
+Estas só precisam ser feitas uma vez; depois que você as fizer, pode pular para a seção [Criando um Novo Minipool](./create-validator.mdx) se quiser criar múltiplos minipools em seu nó.
 
-## Loading your Node Wallet
+## Carregando sua Carteira do Nó
 
-Registering your node and standing up a validator both involve submitting transactions to the Ethereum network from your node wallet.
-This means **you'll need to have some ETH on it** to pay for the gas costs of those transactions.
-You'll also need to stake some of the **RPL token** prior to creating a minipool as collateral; you can do this directly on the node, or (preferably) you can use the Rocket Pool website's **Stake on Behalf** function to stake for your node with RPL in your cold wallet.
-We'll discuss the Stake on Behalf feature later in this guide when it's time to stake your RPL.
+Registrar seu nó e estabelecer um validador envolvem submeter transações à rede Ethereum a partir da carteira do seu nó.
+Isso significa que **você precisará ter algum ETH nela** para pagar os custos de gas dessas transações.
+Você também precisará fazer stake de algum **token RPL** antes de criar um minipool como colateral; você pode fazer isso diretamente no nó, ou (preferivelmente) você pode usar a função **Stake on Behalf** do site da Rocket Pool para fazer stake para seu nó com RPL em sua carteira fria.
+Vamos discutir a funcionalidade Stake on Behalf mais tarde neste guia quando for hora de fazer stake do seu RPL.
 
-The ETH required for gas fees to set up a node with one minipool is about 0.0025 ETH times the current gas price in gwei.
-For example, with a gas price of 30 gwei, you would pay about 0.075 ETH in gas fees.
+O ETH necessário para as taxas de gas para configurar um nó com um minipool é cerca de 0.0025 ETH vezes o preço atual de gas em gwei.
+Por exemplo, com um preço de gas de 30 gwei, você pagaria cerca de 0.075 ETH em taxas de gas.
 
-See [this worksheet](https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552) to help estimate the gas fees for various network conditions.
+Veja [esta planilha](https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552) para ajudar a estimar as taxas de gas para várias condições de rede.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Running on the Hoodi Test Network">
-      f you're running on the Hoodi test network, please see the [Practicing with the Test Network](/en/node-staking/testnet/overview) section to learn how to acquire test ETH.
+    <Tab label="Executando na Rede de Teste Hoodi">
+      Se você estiver executando na rede de teste Hoodi, consulte a seção [Praticando com a Rede de Teste](/pt/node-staking/testnet/overview) para aprender como adquirir ETH de teste.
 
-      For test RPL, we have added a similar faucet function directly to the CLI.
-      Please see the [Getting Test RPL on Hoodi](/en/node-staking/testnet/overview#getting-test-rpl-on-hoodi) guide to acquire some.
+      Para RPL de teste, adicionamos uma função de faucet similar diretamente ao CLI.
+      Consulte o guia [Obtendo RPL de Teste no Hoodi](/pt/node-staking/testnet/overview#getting-test-rpl-on-hoodi) para adquirir alguns.
     </Tab>
-    <Tab label="Running on the Main Network">
-      We assume that you already have a separate Ethereum-compatible wallet that is holding your ETH.
-      If you need RPL, you can purchase it on a centralized exchange such as [Kraken](https://www.kraken.com/prices/rocket-pool?quote=usd) or a decentralized exchange such as [Balancer](https://app.balancer.fi/#/trade/ether/0xD33526068D116cE69F19A9ee46F0bd304F21A51f).
+    <Tab label="Executando na Rede Principal">
+      Assumimos que você já possui uma carteira compatível com Ethereum separada que está mantendo seu ETH.
+      Se você precisa de RPL, você pode comprá-lo em uma exchange centralizada como [Kraken](https://www.kraken.com/prices/rocket-pool?quote=usd) ou uma exchange descentralizada como [Balancer](https://app.balancer.fi/#/trade/ether/0xD33526068D116cE69F19A9ee46F0bd304F21A51f).
 
-      Start by transferring some ETH from your existing wallet to the node wallet.
-      If running on Mainnet, **leave your RPL on the wallet you used to purchase it.**
+      Comece transferindo algum ETH da sua carteira existente para a carteira do nó.
+      Se estiver executando na Mainnet, **deixe seu RPL na carteira que você usou para comprá-lo.**
 
-      As a reminder, you can use `rocketpool wallet status` to get the address of the node wallet if you need it.
-      If you are not sure how to send cryptocurrency from your existing wallet, please consult your wallet's documentation.
+      Como lembrete, você pode usar `rocketpool wallet status` para obter o endereço da carteira do nó se precisar.
+      Se você não tiver certeza de como enviar criptomoeda da sua carteira existente, consulte a documentação da sua carteira.
 
       <p className="rspress-directive danger">
-        <p className="rspress-directive-title">WARNING</p>
-        Sending cryptocurrency across wallets is a non-reversible operation!
-        If you enter the wrong recipient address, **there is no way to retrieve your tokens**.
-        We recommend you send a small amount of ETH first as a **test transaction** to verify that you correctly entered the node wallet's address, and then **whitelist** that address in your other wallet, if possible, to avoid mistyping it.
+        <p className="rspress-directive-title">AVISO</p>
+        Enviar criptomoeda entre carteiras é uma operação irreversível!
+        Se você digitar o endereço de destinatário errado, **não há maneira de recuperar seus tokens**.
+        Recomendamos que você envie uma pequena quantidade de ETH primeiro como uma **transação de teste** para verificar se você digitou corretamente o endereço da carteira do nó, e depois **adicionar à lista de permissões** esse endereço em sua outra carteira, se possível, para evitar digitá-lo incorretamente.
       </p>
     </Tab>
 
   </Tabs>
 </div>
 
-## Registering your Node with the Network
+## Registrando seu Nó com a Rede
 
-Once you have ETH in your wallet, you can register your node with the Rocket Pool network to access all of its features.
-To do this, run the following command:
+Depois de ter ETH em sua carteira, você pode registrar seu nó com a rede Rocket Pool para acessar todos os seus recursos.
+Para fazer isso, execute o seguinte comando:
 
 ```shell
 rocketpool node register
 ```
 
-This will prompt you for the timezone you want to register with.
-By default, this will detect the timezone from your system clock, but you can change it if you prefer.
-Any of the `Country/City` format timezones [listed on this page](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) should be acceptable.
+Isso solicitará o fuso horário com o qual você deseja se registrar.
+Por padrão, isso detectará o fuso horário do relógio do seu sistema, mas você pode alterá-lo se preferir.
+Qualquer um dos fusos horários no formato `País/Cidade` [listados nesta página](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) deve ser aceitável.
 
-::: tip NOTE
-The timezone is just used for the global map of node operators displayed on the main site.
-You don't need to set it to your actual timezone if you have security concerns.
-If you prefer to remain anonymous, use a generic option such as `Etc/UTC`.
+::: tip NOTA
+O fuso horário é usado apenas para o mapa global de operadores de nó exibido no site principal.
+Você não precisa configurá-lo para seu fuso horário real se tiver preocupações de segurança.
+Se preferir permanecer anônimo, use uma opção genérica como `Etc/UTC`.
 :::
 
-Once this is complete, you will officially be a member of the Rocket Pool network!
+Quando isso estiver completo, você será oficialmente um membro da rede Rocket Pool!
 
-## Setting your Primary Withdrawal Address
+## Definindo seu Endereço de Retirada Primário
 
-Before anything else, we highly recommended you change the **primary withdrawal address** for your node.
-This is the address that all of your RPL checkpoint rewards, your staked RPL, and your Beacon Chain ETH will be sent to when you claim your checkpoint rewards or exit your validator and withdraw from your minipool.
+Antes de qualquer outra coisa, recomendamos enfaticamente que você altere o **endereço de retirada primário** do seu nó.
+Este é o endereço para o qual todas as suas recompensas de checkpoint de RPL, seu RPL em stake e seu ETH da Beacon Chain serão enviados quando você reivindicar suas recompensas de checkpoint ou sair do seu validador e retirar do seu minipool.
 
-Optionally, you can set a withdrawal address for your ETH and [a new one for your RPL](https://rpips.rocketpool.net/RPIPs/RPIP-31). The RPL withdrawal address if set will be able to trigger and claim RPL from inflation rewards and will have no effect on ETH consensus rewards or anything related to ETH. If you haven't set an RPL withdrawal address, the Primary Withdrawal Address will receive RPL rewards as well. By default, **whoever controls the primary withdrawal address can access ALL your staked RPL, ETH, and rewards.**
+Opcionalmente, você pode definir um endereço de retirada para seu ETH e [um novo para seu RPL](https://rpips.rocketpool.net/RPIPs/RPIP-31). O endereço de retirada de RPL, se definido, poderá acionar e reivindicar RPL das recompensas de inflação e não terá efeito nas recompensas de consenso de ETH ou qualquer coisa relacionada a ETH. Se você não tiver definido um endereço de retirada de RPL, o Endereço de Retirada Primário receberá recompensas de RPL também. Por padrão, **quem controla o endereço de retirada primário pode acessar TODO o seu RPL em stake, ETH e recompensas.**
 
-The address used to supply a node with ETH should be the primary withdrawal address for the node. Click [here](../legacy/houston/stake-eth-on-behalf.mdx) to read about **staking ETH on behalf of a node**.
+O endereço usado para fornecer ETH a um nó deve ser o endereço de retirada primário para o nó. Clique [aqui](../legacy/houston/stake-eth-on-behalf.mdx) para ler sobre **fazer stake de ETH em nome de um nó**.
 
-::: warning NOTE
-Upon setting up your node for the first time, this is set to your node's wallet address.
-However, for security reasons, **it is vitally important to set this to a different address controlled by a cold wallet.**
-A cold wallet could be a hardware wallet (such as a [Ledger](https://www.ledger.com/), [Trezor](https://trezor.io/), or [Grid+](https://gridplus.io/)), or a Smart Contract wallet (such as [Argent](https://www.argent.xyz/)).
+::: warning NOTA
+Ao configurar seu nó pela primeira vez, isso é definido como o endereço da carteira do seu nó.
+No entanto, por motivos de segurança, **é de vital importância definir isso para um endereço diferente controlado por uma carteira fria.**
+Uma carteira fria pode ser uma carteira de hardware (como [Ledger](https://www.ledger.com/), [Trezor](https://trezor.io/) ou [Grid+](https://gridplus.io/)), ou uma carteira Smart Contract (como [Argent](https://www.argent.xyz/)).
 
-We **strongly recommend** that you DO NOT use a hot wallet such as MetaMask as your primary withdrawal address.
+Nós **fortemente recomendamos** que você NÃO use uma carteira quente como MetaMask como seu endereço de retirada primário.
 
-This way, if your node wallet is compromised, the attacker doesn't get access to your staked ETH and RPL by forcing you to exit because all of those funds will be sent to your separate cold wallet (which they hopefully do not have).
+Dessa forma, se a carteira do seu nó for comprometida, o atacante não terá acesso ao seu ETH e RPL em stake ao forçá-lo a sair, porque todos esses fundos serão enviados para sua carteira fria separada (que eles esperamos não possuam).
 
-Primary withdrawal addresses are set at a node operator level.
-If you create multiple minipools, they will all refer to the same primary withdrawal address so you only need to perform this setup once.
+Endereços de retirada primários são definidos no nível do operador do nó.
+Se você criar múltiplos minipools, todos eles se referirão ao mesmo endereço de retirada primário, então você só precisa realizar essa configuração uma vez.
 
-[See here](https://ethereum.org/en/security/#wallet-security) for some basics on wallet security from the Ethereum Foundation.
+[Veja aqui](https://ethereum.org/en/security/#wallet-security) alguns conceitos básicos sobre segurança de carteira da Ethereum Foundation.
 :::
 
-There are two different ways to do this.
-Please read both options below to determine which one applies to you.
+Existem duas maneiras diferentes de fazer isso.
+Leia as duas opções abaixo para determinar qual se aplica a você.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Method 1">
-      **Use this method if your new primary withdrawal address can be used to sign transactions via MetaMask or WalletConnect.**
+    <Tab label="Método 1">
+      **Use este método se seu novo endereço de retirada primário puder ser usado para assinar transações via MetaMask ou WalletConnect.**
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        This method will require you to **submit a transaction** from your new primary withdrawal address, so **you must have a small amount of ETH in that address already.**
+        <p className="rspress-directive-title">NOTA</p>
+        Este método exigirá que você **submeta uma transação** do seu novo endereço de retirada primário, então **você deve ter uma pequena quantidade de ETH nesse endereço já.**
       </p>
 
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        For users of **Ledger** hardware wallets, note that Ledger Live does not yet support MetaMask or WalletConnect natively.
-        You will need to use MetaMask and connect it to your Ledger instead.
-        Follow [the official Ledger instructions](https://www.ledger.com/academy/security/the-safest-way-to-use-metamask) to do this.
+        <p className="rspress-directive-title">NOTA</p>
+        Para usuários de carteiras de hardware **Ledger**, observe que o Ledger Live ainda não suporta MetaMask ou WalletConnect nativamente.
+        Você precisará usar o MetaMask e conectá-lo ao seu Ledger.
+        Siga [as instruções oficiais do Ledger](https://www.ledger.com/academy/security/the-safest-way-to-use-metamask) para fazer isso.
 
-        To work with the Rocket Pool website, you will need to have your Ledger connected, unlocked, and the ETH app open.
-        You will also need to **enable "blind signing"** for the current session; you can find this within the Settings portion of the ETH app on the device.
-        Bind signing will automatically be disabled after you close the session.
+        Para trabalhar com o site da Rocket Pool, você precisará ter seu Ledger conectado, desbloqueado e o app ETH aberto.
+        Você também precisará **ativar "blind signing"** para a sessão atual; você pode encontrar isso na parte de Configurações do app ETH no dispositivo.
+        O Blind signing será automaticamente desativado depois que você fechar a sessão.
 
-        If you are using Hoodi Testnet and want to use your Ledger as your primary withdrawal address, **you must create a new Ethereum wallet on your Ledger** first to ensure you don't connect your live address to the test network, which tends to cause confusion.
-        Make sure to select the **Hoodi Testnet** in the network selection dropdown when connecting your Ledger to MetaMask.
-        Note that Ledger Live will not show your balance on the test network, but other applications which support the test network (such as MetaMask and Etherscan) will be able to display it.
+        Se você estiver usando Hoodi Testnet e quiser usar seu Ledger como seu endereço de retirada primário, **você deve criar uma nova carteira Ethereum no seu Ledger** primeiro para garantir que você não conecte seu endereço real à rede de teste, o que tende a causar confusão.
+        Certifique-se de selecionar a **Hoodi Testnet** no menu suspenso de seleção de rede ao conectar seu Ledger ao MetaMask.
+        Observe que o Ledger Live não mostrará seu saldo na rede de teste, mas outros aplicativos que suportam a rede de teste (como MetaMask e Etherscan) poderão exibi-lo.
       </p>
 
-      1. Run `rocketpool node set-primary-withdrawal-address 'your cold wallet address or ENS name'`. Your new primary withdrawal address will be marked as "pending". Until you confirm it, **your old primary withdrawal address will still be used**.
-      2. To confirm it, you must send a special transaction **from your new primary withdrawal address** to the minipool contract to verify that you own the primary withdrawal address.
-      1. The easiest way to do this is to navigate to the Rocket Pool primary withdrawal address site (for the [Hoodi Testnet](https://testnet.node.rocketpool.net/primary-withdrawal-address) or for [Mainnet](https://node.rocketpool.net/primary-withdrawal-address)).
-      3. If you haven't already connected Metamask or WalletConnect to the Rocket Pool website, do this now. Click the **select wallet** button in the center of the screen, and choose MetaMask or WalletConnect based on which wallet you would like to use. You will then be prompted asking you to confirm the connection. For example, using MetaMask:
+      1. Execute `rocketpool node set-primary-withdrawal-address 'endereço da sua carteira fria ou nome ENS'`. Seu novo endereço de retirada primário será marcado como "pendente". Até você confirmá-lo, **seu antigo endereço de retirada primário ainda será usado**.
+      2. Para confirmá-lo, você deve enviar uma transação especial **do seu novo endereço de retirada primário** para o contrato do minipool para verificar que você possui o endereço de retirada primário.
+      1. A maneira mais fácil de fazer isso é navegar até o site de endereço de retirada primário da Rocket Pool (para a [Hoodi Testnet](https://testnet.node.rocketpool.net/primary-withdrawal-address) ou para [Mainnet](https://node.rocketpool.net/primary-withdrawal-address)).
+      3. Se você ainda não conectou o Metamask ou WalletConnect ao site da Rocket Pool, faça isso agora. Clique no botão **select wallet** no centro da tela e escolha MetaMask ou WalletConnect com base em qual carteira você gostaria de usar. Você será solicitado a confirmar a conexão. Por exemplo, usando MetaMask:
 
-      Click **Next**, then click **Confirm** to enable the Rocket Pool website to use your wallet. 3. Select **primary Withdrawal Address** from the top menu (or the hamburger menu on the left side if you're on a mobile device). 4. You will see this prompt:
+      Clique em **Next**, depois clique em **Confirm** para permitir que o site da Rocket Pool use sua carteira. 3. Selecione **primary Withdrawal Address** no menu superior (ou no menu hambúrguer no lado esquerdo se você estiver em um dispositivo móvel). 4. Você verá este prompt:
 
-      4. Type your **node wallet address** here and click on the **Check Mark button** to continue.
+      4. Digite seu **endereço da carteira do nó** aqui e clique no **botão Check Mark** para continuar.
 
-      1. You will be prompted with a question asking if you want to set a new node primary withdrawal address or confirm a pending one. Select **Confirm**.
-      2. Now, there should be a new confirmation dialog in your wallet. Again, using MetaMask as an example, click the MetaMask icon to open it and you should see something like this:
+      1. Você será solicitado com uma pergunta perguntando se deseja definir um novo endereço de retirada primário do nó ou confirmar um pendente. Selecione **Confirm**.
+      2. Agora, deve haver uma nova caixa de diálogo de confirmação em sua carteira. Novamente, usando MetaMask como exemplo, clique no ícone do MetaMask para abri-lo e você deve ver algo assim:
 
-      Click **Confirm** to send the transaction to the network. This will take some time until it gets included in a block, but once it does, you will see a confirmation dialog:
+      Clique em **Confirm** para enviar a transação para a rede. Isso levará algum tempo até ser incluído em um bloco, mas quando isso acontecer, você verá uma caixa de diálogo de confirmação:
 
       <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/confirm_pending_withdrawal.mp4" />
 
-      5. Your new primary withdrawal address will now be confirmed and activated. You can view this with `rocketpool node status`.
+      5. Seu novo endereço de retirada primário agora será confirmado e ativado. Você pode ver isso com `rocketpool node status`.
     </Tab>
-    <Tab label="Method 2">
-      **Use this method only if your primary withdrawal address _cannot_ be used to sign transactions via MetaMask or WalletConnect.**
+    <Tab label="Método 2">
+      **Use este método apenas se seu endereço de retirada primário _não puder_ ser usado para assinar transações via MetaMask ou WalletConnect.**
 
-      In this method, you will run:
+      Neste método, você executará:
 
       ```shell
-      rocketpool node set-primary-withdrawal-address --force 'your cold wallet address'
+      rocketpool node set-primary-withdrawal-address --force 'endereço da sua carteira fria'
       ```
 
-      You will be offered the chance to send a test transaction before confirming this, to ensure that you have the right address.
-      If you confirm this command when it prompts you, your new primary withdrawal address will be set immediately.
+      Você terá a chance de enviar uma transação de teste antes de confirmar isso, para garantir que você tenha o endereço correto.
+      Se você confirmar este comando quando solicitado, seu novo endereço de retirada primário será definido imediatamente.
 
       ::: danger
-      By doing this, you bypass the safety measure associated with Method 1, which requires you to prove that you own the new address.
-      If you make a typo here, there is no way to undo it and **your minipool's rewards will be lost forever**.
+      Ao fazer isso, você ignora a medida de segurança associada ao Método 1, que exige que você prove que possui o novo endereço.
+      Se você cometer um erro de digitação aqui, não há como desfazer e **as recompensas do seu minipool serão perdidas para sempre**.
 
-      We **strongly** encourage you to use the test transaction mechanism before confirming this, and if possible, use Method 1 instead.
+      Nós **fortemente** encorajamos você a usar o mecanismo de transação de teste antes de confirmar isso e, se possível, use o Método 1.
     </Tab>
 
   </Tabs>
 </div>
 
-Once this is done, you will **no longer be able to change your primary withdrawal address using the `set-primary-withdrawal-address` command**.
-To change it, you will need to send a signed transaction from your **active** primary withdrawal address (the one you just switched to).
-The Rocket Pool website has a function to help you do this.
+Depois disso, você **não poderá mais alterar seu endereço de retirada primário usando o comando `set-primary-withdrawal-address`**.
+Para alterá-lo, você precisará enviar uma transação assinada do seu endereço de retirada primário **ativo** (aquele para o qual você acabou de mudar).
+O site da Rocket Pool tem uma função para ajudá-lo a fazer isso.
 
-## Setting your Snapshot Signalling Address
+## Definindo seu Endereço de Sinalização Snapshot
 
-Setting your Snapshot signalling address will allow you to participate in Snapshot votes on a browser or mobile device
-without having to expose node keys to a hot wallet.
+Definir seu endereço de sinalização Snapshot permitirá que você participe de votações Snapshot em um navegador ou dispositivo móvel
+sem ter que expor as chaves do nó a uma carteira quente.
 
-There are a few things to prepare:
+Há algumas coisas para preparar:
 
-- Your node's address
-- An address you want to use for snapshot voting (signalling address)
+- O endereço do seu nó
+- Um endereço que você deseja usar para votação snapshot (endereço de sinalização)
 
-You'll be signing a message saying that your node's address can delegate to the new address. This message states your
-intent to use your wallet address as a Snapshot signalling address.
+Você estará assinando uma mensagem dizendo que o endereço do seu nó pode delegar ao novo endereço. Esta mensagem declara sua
+intenção de usar o endereço da sua carteira como um endereço de sinalização Snapshot.
 
-Select which network you're using from one of the tabs below.
+Selecione qual rede você está usando em uma das abas abaixo.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Hoodi Testnet">If you're trying this out on Hoodi testnet, you can sign on this page: https://testnet.node.rocketpool.net/signalling-address</Tab>
-    <Tab label="Mainnet">If you're ready to configure this on mainnet, go here instead: https://node.rocketpool.net/signalling-address</Tab>
+    <Tab label="Hoodi Testnet">Se você estiver experimentando isso no Hoodi testnet, você pode assinar nesta página: https://testnet.node.rocketpool.net/signalling-address</Tab>
+    <Tab label="Mainnet">Se você estiver pronto para configurar isso na mainnet, vá aqui: https://node.rocketpool.net/signalling-address</Tab>
   </Tabs>
 </div>
 
-:::danger WARNING
-Do not load your node's private key onto a hot wallet. Please choose another account to be your signalling address.
-After setting the signalling address, you can use it to vote on Snapshot with your node's voting power.
+:::danger AVISO
+Não carregue a chave privada do seu nó em uma carteira quente. Escolha outra conta para ser seu endereço de sinalização.
+Depois de definir o endereço de sinalização, você pode usá-lo para votar no Snapshot com o poder de voto do seu nó.
 :::
 
-Start by **connecting the address you want to use as a signalling address** to the website using MetaMask,
-WalletConnect, or any of the other methods the website supports. You will then be presented with this dialog to look up
-your node address.
+Comece **conectando o endereço que você deseja usar como endereço de sinalização** ao site usando MetaMask,
+WalletConnect ou qualquer um dos outros métodos que o site suporta. Você será então apresentado com esta caixa de diálogo para procurar
+seu endereço de nó.
 
-Next, you'll enter your node address then click the orange "Find" button. This will check if the address is a registered
-node and then bring you to the next step.
+Em seguida, você digitará seu endereço de nó e clicará no botão laranja "Find". Isso verificará se o endereço é um
+nó registrado e então o levará para a próxima etapa.
 
-:::tip TIP
-**Make sure you have the correct node address before doing this!** if you need to confirm your node's address, you can
-quickly retrieve it via the CLI using the `rocketpool node status` command.
+:::tip DICA
+**Certifique-se de ter o endereço de nó correto antes de fazer isso!** se você precisar confirmar o endereço do seu nó, você pode
+recuperá-lo rapidamente via CLI usando o comando `rocketpool node status`.
 :::
 
-Once you've signed in and confirmed your node address, you'll see your **Snapshot signalling address**. It should be the
-same as the account you've signed into the site with. Double check that this is correct before proceeding. Once you're
-confident that you're signed into the desired account, click the orange "Sign Message" button. You'll see a prompt in
-your wallet extension app to sign the following message:
+Depois de fazer login e confirmar o endereço do seu nó, você verá seu **endereço de sinalização Snapshot**. Deve ser o
+mesmo da conta com a qual você entrou no site. Verifique se isso está correto antes de prosseguir. Quando tiver
+certeza de que está conectado à conta desejada, clique no botão laranja "Sign Message". Você verá um prompt no
+aplicativo de extensão da sua carteira para assinar a seguinte mensagem:
 
 ```
 `snapshot signalling address` may delegate to me for Rocket Pool governance
 ```
 
-Signing won't cost you any gas but setting will. After you sign, the frontend will give you a command to paste into the
-smartnode. Go ahead and paste it into your smartnode's CLI and follow the prompted steps. The command should look
-something like this:
+Assinar não custará nenhum gas, mas definir custará. Depois de assinar, o frontend fornecerá um comando para colar no
+smartnode. Vá em frente e cole-o no CLI do seu smartnode e siga as etapas solicitadas. O comando deve se parecer
+com isto:
 
 ```shell
 rocketpool pdao set-signalling-address
@@ -228,125 +228,125 @@ rocketpool pdao set-signalling-address
 `EIP712 signature`
 ```
 
-If you see this message in your CLI, you're all set!
+Se você vir esta mensagem em seu CLI, está tudo pronto!
 
 ```
 The node's signalling address was successfully set to `snapshot signalling address`
 ```
 
-:::tip TIP
-Don't worry if you accidentally close the site or lose track of the command. You can simply repeat the steps and **sign
-again using the same node address and signalling address**. The frontend uses `signer.Signmessage()` from the ethers
-library, which means your signature is deterministic given the same input.
-Click [here](https://docs.ethers.org/v6/api/providers/#cid_865) to learn more.
+:::tip DICA
+Não se preocupe se você fechar acidentalmente o site ou perder o rastro do comando. Você pode simplesmente repetir as etapas e **assinar
+novamente usando o mesmo endereço de nó e endereço de sinalização**. O frontend usa `signer.Signmessage()` da biblioteca ethers,
+o que significa que sua assinatura é determinística dado o mesmo input.
+Clique [aqui](https://docs.ethers.org/v6/api/providers/#cid_865) para saber mais.
 :::
 
-Clearing your signalling address is pretty easy, just use this command in the CLI:
+Limpar seu endereço de sinalização é bem fácil, basta usar este comando no CLI:
 
 ```shell
 rocketpool pdao clear-signalling-address
 ```
 
-## Setting your RPL Withdrawal Address
+## Definindo seu Endereço de Retirada de RPL
 
-It's important to understand the difference between your [primary withdrawal address](./prepare-node#setting-your-primary-withdrawal-address) and your RPL withdrawal address. By default, your RPL withdrawal address is unset and your Primary withdrawal address is where all of your RPL checkpoint rewards, your staked RPL, and Beacon Chain ETH will be sent to.
+É importante entender a diferença entre seu [endereço de retirada primário](./prepare-node#setting-your-primary-withdrawal-address) e seu endereço de retirada de RPL. Por padrão, seu endereço de retirada de RPL não está definido e seu endereço de retirada Primário é para onde todas as suas recompensas de checkpoint de RPL, seu RPL em stake e ETH da Beacon Chain serão enviados.
 
-You can set a [separate withdrawal address for your RPL](https://rpips.rocketpool.net/RPIPs/RPIP-31) if you wish. Your RPL withdrawal address if set will be able to trigger and claim RPL from inflation rewards and will have no effect on ETH consensus rewards or anything related to ETH. In this case, your Primary withdrawal address will no longer have any authority over RPL related actions.
+Você pode definir um [endereço de retirada separado para seu RPL](https://rpips.rocketpool.net/RPIPs/RPIP-31) se desejar. Seu endereço de retirada de RPL, se definido, poderá acionar e reivindicar RPL das recompensas de inflação e não terá efeito nas recompensas de consenso de ETH ou qualquer coisa relacionada a ETH. Neste caso, seu endereço de retirada Primário não terá mais nenhuma autoridade sobre ações relacionadas a RPL.
 
-This creates some interesting opportunities where RPL can be supplied by an entity to a node operator that does not wish to have exposure to RPL. That entity can then claim RPL rewards for putting up the required insurance collateral for the node. In other words, this allows different actors to supply each collateral type.
+Isso cria algumas oportunidades interessantes onde RPL pode ser fornecido por uma entidade a um operador de nó que não deseja ter exposição a RPL. Essa entidade pode então reivindicar recompensas de RPL por fornecer o colateral de seguro necessário para o nó. Em outras palavras, isso permite que diferentes atores forneçam cada tipo de colateral.
 
-::: warning NOTE
-Upon setting up your node for the first time, your RPL withdrawal address defaults to being unset.
-If you choose to set an RPL withdrawal address, **it is vitally important to set this to a different address controlled by a cold wallet.**
-A cold wallet could be a hardware wallet (such as a [Ledger](https://www.ledger.com/), [Trezor](https://trezor.io/), or [Grid+](https://gridplus.io/)), or a Smart Contract wallet (such as [Safe](https://app.safe.global/welcome)).
+::: warning NOTA
+Ao configurar seu nó pela primeira vez, seu endereço de retirada de RPL por padrão não está definido.
+Se você optar por definir um endereço de retirada de RPL, **é de vital importância definir isso para um endereço diferente controlado por uma carteira fria.**
+Uma carteira fria pode ser uma carteira de hardware (como [Ledger](https://www.ledger.com/), [Trezor](https://trezor.io/) ou [Grid+](https://gridplus.io/)), ou uma carteira Smart Contract (como [Safe](https://app.safe.global/welcome)).
 
-We **strongly recommend** that you DO NOT use a hot wallet such as MetaMask as your RPL withdrawal address.
+Nós **fortemente recomendamos** que você NÃO use uma carteira quente como MetaMask como seu endereço de retirada de RPL.
 
-This way, if your node wallet is compromised, the attacker doesn't get access to your staked RPL by forcing you to exit because all of those funds will be sent to your separate cold wallet (which they hopefully do not have).
+Dessa forma, se a carteira do seu nó for comprometida, o atacante não terá acesso ao seu RPL em stake ao forçá-lo a sair, porque todos esses fundos serão enviados para sua carteira fria separada (que eles esperamos não possuam).
 
-RPL withdrawal addresses are set at a node operator level.
-If you create multiple minipools, they will all refer to the same RPL withdrawal address so you only need to perform this setup once.
+Endereços de retirada de RPL são definidos no nível do operador do nó.
+Se você criar múltiplos minipools, todos eles se referirão ao mesmo endereço de retirada de RPL, então você só precisa realizar essa configuração uma vez.
 
-[See here](https://ethereum.org/en/security/#wallet-security) for some basics on wallet security from the Ethereum Foundation.
+[Veja aqui](https://ethereum.org/en/security/#wallet-security) alguns conceitos básicos sobre segurança de carteira da Ethereum Foundation.
 :::
 
-There are two different ways to do this.
-Please read both options below to determine which one applies to you.
+Existem duas maneiras diferentes de fazer isso.
+Leia as duas opções abaixo para determinar qual se aplica a você.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Method 1">
-      *Use this method if your new RPL withdrawal address can be used to sign transactions via MetaMask or WalletConnect.**
+    <Tab label="Método 1">
+      **Use este método se seu novo endereço de retirada de RPL puder ser usado para assinar transações via MetaMask ou WalletConnect.**
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        This method will require you to **submit a transaction** from your new RPL withdrawal address, so **you must have a small amount of ETH in that address already.**
+        <p className="rspress-directive-title">NOTA</p>
+        Este método exigirá que você **submeta uma transação** do seu novo endereço de retirada de RPL, então **você deve ter uma pequena quantidade de ETH nesse endereço já.**
       </p>
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        For users of **Ledger** hardware wallets, note that Ledger Live does not yet support MetaMask or WalletConnect natively.
-        You will need to use MetaMask and connect it to your Ledger instead.
-        Follow [the official Ledger instructions](https://www.ledger.com/academy/security/the-safest-way-to-use-metamask) to do this.
+        <p className="rspress-directive-title">NOTA</p>
+        Para usuários de carteiras de hardware **Ledger**, observe que o Ledger Live ainda não suporta MetaMask ou WalletConnect nativamente.
+        Você precisará usar o MetaMask e conectá-lo ao seu Ledger.
+        Siga [as instruções oficiais do Ledger](https://www.ledger.com/academy/security/the-safest-way-to-use-metamask) para fazer isso.
 
-        To work with the Rocket Pool website, you will need to have your Ledger connected, unlocked, and the ETH app open.
-        You will also need to **enable "blind signing"** for the current session; you can find this within the Settings portion of the ETH app on the device.
-        Bind signing will automatically be disabled after you close the session.
+        Para trabalhar com o site da Rocket Pool, você precisará ter seu Ledger conectado, desbloqueado e o app ETH aberto.
+        Você também precisará **ativar "blind signing"** para a sessão atual; você pode encontrar isso na parte de Configurações do app ETH no dispositivo.
+        O Blind signing será automaticamente desativado depois que você fechar a sessão.
 
-        If you are using Hoodi Testnet and want to use your Ledger as your RPL withdrawal address, **you must create a new Ethereum wallet on your Ledger** first to ensure you don't connect your live address to the test network, which tends to cause confusion.
-        Make sure to select the **Hoodi Testnet** in the network selection dropdown when connecting your Ledger to MetaMask.
-        Note that Ledger Live will not show your balance on the test network, but other applications which support the test network (such as MetaMask and Etherscan) will be able to display it.
+        Se você estiver usando Hoodi Testnet e quiser usar seu Ledger como seu endereço de retirada de RPL, **você deve criar uma nova carteira Ethereum no seu Ledger** primeiro para garantir que você não conecte seu endereço real à rede de teste, o que tende a causar confusão.
+        Certifique-se de selecionar a **Hoodi Testnet** no menu suspenso de seleção de rede ao conectar seu Ledger ao MetaMask.
+        Observe que o Ledger Live não mostrará seu saldo na rede de teste, mas outros aplicativos que suportam a rede de teste (como MetaMask e Etherscan) poderão exibi-lo.
       </p>
 
-      1. Run `rocketpool node set-rpl-withdrawal-address 'your cold wallet address or ENS name'`. Your new RPL withdrawal address will be marked as "pending". Until you confirm it, **your old RPL withdrawal address will still be used**.
-      2. To confirm it, you must send a special transaction **from your new RPL withdrawal address** to the minipool contract to verify that you own the RPL withdrawal address.
-      1. The easiest way to do this is to navigate to the Rocket Pool RPL withdrawal address site (for the [Hoodi Testnet](https://testnet.node.rocketpool.net/rpl-withdrawal-address) or for [Mainnet](https://node.rocketpool.net/rpl-withdrawal-address)).
-      3. If you haven't already connected Metamask or WalletConnect to the Rocket Pool website, do this now. Click the **select wallet** button in the center of the screen, and choose MetaMask or WalletConnect based on which wallet you would like to use. You will then be prompted asking you to confirm the connection. For example, using MetaMask:
+      1. Execute `rocketpool node set-rpl-withdrawal-address 'endereço da sua carteira fria ou nome ENS'`. Seu novo endereço de retirada de RPL será marcado como "pendente". Até você confirmá-lo, **seu antigo endereço de retirada de RPL ainda será usado**.
+      2. Para confirmá-lo, você deve enviar uma transação especial **do seu novo endereço de retirada de RPL** para o contrato do minipool para verificar que você possui o endereço de retirada de RPL.
+      1. A maneira mais fácil de fazer isso é navegar até o site de endereço de retirada de RPL da Rocket Pool (para a [Hoodi Testnet](https://testnet.node.rocketpool.net/rpl-withdrawal-address) ou para [Mainnet](https://node.rocketpool.net/rpl-withdrawal-address)).
+      3. Se você ainda não conectou o Metamask ou WalletConnect ao site da Rocket Pool, faça isso agora. Clique no botão **select wallet** no centro da tela e escolha MetaMask ou WalletConnect com base em qual carteira você gostaria de usar. Você será solicitado a confirmar a conexão. Por exemplo, usando MetaMask:
 
-      Click **Next**, then click **Confirm** to enable the Rocket Pool website to use your wallet. 3. Select **RPL Withdrawal Address** from the top menu (or the hamburger menu on the left side if you're on a mobile device). 4. You will see this prompt:
+      Clique em **Next**, depois clique em **Confirm** para permitir que o site da Rocket Pool use sua carteira. 3. Selecione **RPL Withdrawal Address** no menu superior (ou no menu hambúrguer no lado esquerdo se você estiver em um dispositivo móvel). 4. Você verá este prompt:
 
-      4. Type your **node wallet address** here and click on the orange **Find** button to continue.
+      4. Digite seu **endereço da carteira do nó** aqui e clique no botão laranja **Find** para continuar.
 
       <img src={nodeAddress} width="100%" height="auto"/>
 
-      1.  You will be prompted to confirm a pending RPL withdrawal address. This should be the same address you used while running this command previously: `rocketpool node set-rpl-withdrawal-address` Select **Confirm Pending** when you're ready.
-      2.  Now, there should be a new confirmation dialog in your wallet. Again, using MetaMask as an example, click the MetaMask icon to open it and you should see something like this:
+      1.  Você será solicitado a confirmar um endereço de retirada de RPL pendente. Este deve ser o mesmo endereço que você usou ao executar este comando anteriormente: `rocketpool node set-rpl-withdrawal-address` Selecione **Confirm Pending** quando estiver pronto.
+      2.  Agora, deve haver uma nova caixa de diálogo de confirmação em sua carteira. Novamente, usando MetaMask como exemplo, clique no ícone do MetaMask para abri-lo e você deve ver algo assim:
 
-      Click **Confirm** to send the transaction to the network. This will take some time until it gets included in a block, but once it does, you will see a confirmation dialog:
+      Clique em **Confirm** para enviar a transação para a rede. Isso levará algum tempo até ser incluído em um bloco, mas quando isso acontecer, você verá uma caixa de diálogo de confirmação:
 
       <img src={rplWithdrawalConfirmation} width="100%" height="auto"/>
 
-      5. Your new RPL withdrawal address will now be confirmed and activated. You can view this with `rocketpool node status`.
+      5. Seu novo endereço de retirada de RPL agora será confirmado e ativado. Você pode ver isso com `rocketpool node status`.
     </Tab>
-    <Tab label="Method 2">
-      **Use this method only if your RPL withdrawal address _cannot_ be used to sign transactions via MetaMask or WalletConnect.**
+    <Tab label="Método 2">
+      **Use este método apenas se seu endereço de retirada de RPL _não puder_ ser usado para assinar transações via MetaMask ou WalletConnect.**
 
-      In this method, you will run:
+      Neste método, você executará:
 
       ```shell
-      rocketpool node set-rpl-withdrawal-address --force `your cold wallet address`
+      rocketpool node set-rpl-withdrawal-address --force `endereço da sua carteira fria`
       ```
 
-      You will be offered the chance to send a test transaction before confirming this, to ensure that you have the right address.
-      If you confirm this command when it prompts you, your new RPL withdrawal address will be set immediately.
+      Você terá a chance de enviar uma transação de teste antes de confirmar isso, para garantir que você tenha o endereço correto.
+      Se você confirmar este comando quando solicitado, seu novo endereço de retirada de RPL será definido imediatamente.
 
 
       <p className="rspress-directive danger">
-        By doing this, you bypass the safety measure associated with Method 1, which requires you to prove that you own the new address.
-        If you make a typo here, there is no way to undo it and **your minipool's rewards will be lost forever**.
+        Ao fazer isso, você ignora a medida de segurança associada ao Método 1, que exige que você prove que possui o novo endereço.
+        Se você cometer um erro de digitação aqui, não há como desfazer e **as recompensas do seu minipool serão perdidas para sempre**.
 
-        We **strongly** encourage you to use the test transaction mechanism before confirming this, and if possible, use Method 1 instead.
+        Nós **fortemente** encorajamos você a usar o mecanismo de transação de teste antes de confirmar isso e, se possível, use o Método 1.
       </p>
     </Tab>
 
   </Tabs>
 </div>
 
-Once this is done, you will **no longer be able to change your RPL withdrawal address using the `set-rpl-withdrawal-address` command**.
-To change it, you will need to send a signed transaction from your **active** RPL withdrawal address (the one you just switched to).
-The Rocket Pool website has a function to help you do this.
+Depois disso, você **não poderá mais alterar seu endereço de retirada de RPL usando o comando `set-rpl-withdrawal-address`**.
+Para alterá-lo, você precisará enviar uma transação assinada do seu endereço de retirada de RPL **ativo** (aquele para o qual você acabou de mudar).
+O site da Rocket Pool tem uma função para ajudá-lo a fazer isso.
 
-If you'd like to unset your RPL withdrawal address, the process is pretty simple. First thing, you'll want to navigate back to the RPL Withdrawl Address page on the Rocket Pool website.
+Se você quiser desfazer seu endereço de retirada de RPL, o processo é bem simples. Primeiro, você vai querer navegar de volta para a página de Endereço de Retirada de RPL no site da Rocket Pool.
 
 <div className="p-3">
   <Tabs>
@@ -355,49 +355,49 @@ If you'd like to unset your RPL withdrawal address, the process is pretty simple
   </Tabs>
 </div>
 
-If you're signed in with the node's RPL withdrawal address, you should be able to click the **unset** button on the right here:
+Se você estiver logado com o endereço de retirada de RPL do nó, você deve ser capaz de clicar no botão **unset** à direita aqui:
 
 <img src="./images/unset_rpl_withdrawal.png" width="100%" height="auto" />
 
-Clicking **unset** will take you to a page where you can confirm the details. If you're happy with what you see, click the orange **unset** button to send the transaction to the network.
+Clicar em **unset** levará você a uma página onde você pode confirmar os detalhes. Se você estiver satisfeito com o que vê, clique no botão laranja **unset** para enviar a transação para a rede.
 
-That's all there is to setting your RPL withdrawal address! We hope you found the process quick and easy.
+Isso é tudo o que há para definir seu endereço de retirada de RPL! Esperamos que você tenha achado o processo rápido e fácil.
 
-Feel free to swing by [our Discord server](https://discord.gg/G46XgK264a) to let us know what you thought of it and keep tabs on the project as it evolves.
+Sinta-se à vontade para dar uma passada em [nosso servidor Discord](https://discord.gg/G46XgK264a) para nos contar o que você achou e acompanhar o projeto conforme ele evolui.
 
-## Map an ENS Name to your Node Wallet
+## Mapear um Nome ENS para sua Carteira do Nó
 
-If you want your node wallet address to be mapped to a human-readable name like `alice.eth`, follow these steps:
+Se você quiser que o endereço da carteira do seu nó seja mapeado para um nome legível por humanos como `alice.eth`, siga estas etapas:
 
-1. Purchase an ENS name at [the official ENS website](https://app.ens.domains).
+1. Compre um nome ENS no [site oficial ENS](https://app.ens.domains).
 
-2. Still at the ENS website, setup the **forward resolution** for the name, defining which address will be used when someone references your `.eth` name.
+2. Ainda no site ENS, configure a **resolução direta** para o nome, definindo qual endereço será usado quando alguém referenciar seu nome `.eth`.
 
-- Select "My account"
-- Click on the ENS name you want to edit
-- Click on "Add/edit record"
-- Insert your desired ETH address, click "Confirm" and submit the transaction.
+- Selecione "My account"
+- Clique no nome ENS que você deseja editar
+- Clique em "Add/edit record"
+- Insira o endereço ETH desejado, clique em "Confirm" e submeta a transação.
 
-3. After the previous transaction is confirmed, you can use the Smartnode CLI to setup the **reverse resolution**. This will allow applications to map back from your node wallet address to your `.eth` name.
+3. Depois que a transação anterior for confirmada, você pode usar o CLI do Smartnode para configurar a **resolução reversa**. Isso permitirá que aplicativos mapeiem de volta do endereço da carteira do seu nó para seu nome `.eth`.
 
-Execute the command:
+Execute o comando:
 
 ```shell
-rocketpool wallet set-ens-name <your-ens-name.eth>
+rocketpool wallet set-ens-name <seu-nome-ens.eth>
 ```
 
-This action also requires sending a transaction. You'll need to confirm the desired parameters and submit the transaction.
+Esta ação também requer o envio de uma transação. Você precisará confirmar os parâmetros desejados e submeter a transação.
 
-::: warning NOTE
-**Make sure you completed step 2 to setup the forward resolution before running the CLI command to setup the reverse resolution**. This is a safety measure to stop wallets from trying to impersonate an ENS name they don't control.
+::: warning NOTA
+**Certifique-se de ter completado a etapa 2 para configurar a resolução direta antes de executar o comando CLI para configurar a resolução reversa**. Esta é uma medida de segurança para impedir que carteiras tentem se passar por um nome ENS que não controlam.
 :::
 
-4. After the transaction was successfully included in a block, run `rocketpool node status` to see that your your wallet is now associated to your ENS name.
+4. Depois que a transação for incluída com sucesso em um bloco, execute `rocketpool node status` para ver que sua carteira agora está associada ao seu nome ENS.
 
-## Next Steps
+## Próximos Passos
 
-The next steps to prepare your node will teach you about setting up a fallback node, how priority fees work, your Fee Distributor and the Smoothing Pool, and MEV.
-Each topic will require you to make a choice about how you want to run your node.
-Please move on to the next sections in the guide when you're ready.
+Os próximos passos para preparar seu nó ensinarão você sobre como configurar um nó de fallback, como funcionam as taxas de prioridade, seu Fee Distributor e o Smoothing Pool, e MEV.
+Cada tópico exigirá que você faça uma escolha sobre como deseja executar seu nó.
+Vá para as próximas seções do guia quando estiver pronto.
 
-Once you're done with those topics, you'll be guided through the process of making a minipool and earning staking rewards.
+Depois de terminar esses tópicos, você será guiado através do processo de criação de um minipool e ganhar recompensas de staking.

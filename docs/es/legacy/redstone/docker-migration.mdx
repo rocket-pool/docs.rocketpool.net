@@ -1,129 +1,129 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# [Docker Mode] Guide to the Redstone Update and the Merge
+# [Modo Docker] Guía para la Actualización Redstone y The Merge
 
-This guide will cover everything you need to know in order to prepare your node for the Redstone Update and The Merge if you are using **Docker Mode**.
+Esta guía cubrirá todo lo que necesita saber para preparar su nodo para la Actualización Redstone y The Merge si está usando **Modo Docker**.
 
-## Things to Do Before Upgrading to v1.5.0
+## Cosas que hacer antes de actualizar a v1.5.0
 
-Before upgrading to v1.5.0 and higher of the Smartnode, please go through the following checklist to make sure you're prepared:
+Antes de actualizar a v1.5.0 y versiones superiores del Smartnode, por favor revise la siguiente lista de verificación para asegurarse de que está preparado:
 
-### Switch to a Full Execution Client
+### Cambiar a un Cliente de Ejecución Completo
 
-The Merge requires you to run your own Execution client, so you won't be able to use remote providers like Infura or Pocket anymore.
-v1.5.0 won't have them anymore, and won't let you start the stack until you select a full Execution client.
+The Merge requiere que ejecute su propio cliente de Ejecución, por lo que ya no podrá usar proveedores remotos como Infura o Pocket.
+v1.5.0 ya no los tendrá, y no le permitirá iniciar el stack hasta que seleccione un cliente de Ejecución completo.
 
-Because of this change, you should switch to a full client while you're still on v1.4, let it sync to completion, and then upgrade to v1.5.
+Debido a este cambio, debe cambiar a un cliente completo mientras aún está en v1.4, dejarlo sincronizar hasta completarse, y luego actualizar a v1.5.
 
-Docker Mode makes switching clients very easy.
-[This guide](../../node-staking/change-clients#changing-execution-clients) provides a walkthrough of the process.
+El Modo Docker hace que cambiar de clientes sea muy fácil.
+[Esta guía](../../node-staking/change-clients#changing-execution-clients) proporciona un tutorial del proceso.
 
-## Upgrading to v1.5.0
+## Actualizar a v1.5.0
 
-Upgrading the Smartnode stack to v1.5.0 is no different than any other upgrade.
-Simply follow [the normal directions here](../../node-staking/updates#updating-the-smartnode-stack).
+Actualizar el stack Smartnode a v1.5.0 no es diferente a cualquier otra actualización.
+Simplemente siga [las instrucciones normales aquí](../../node-staking/updates#updating-the-smartnode-stack).
 
-## Things the Smartnode Handles Automatically
+## Cosas que el Smartnode maneja automáticamente
 
-In Docker mode, the Smartnode will take care of most of the changes needed to support Redstone and The Merge automatically once you update to v1.5.0.
-Here's a brief list of what it will do for you without any manual intervention:
+En Modo Docker, el Smartnode se encargará de la mayoría de los cambios necesarios para admitir Redstone y The Merge automáticamente una vez que actualice a v1.5.0.
+Aquí hay una breve lista de lo que hará por usted sin ninguna intervención manual:
 
-### The Engine API
+### La Engine API
 
-The Merge changes the way your Execution client talks to your Consensus client.
-Instead of using the old HTTP or Websocket based RPC system, The Merge requires a new system exposed by your Execution client called the Engine API.
+The Merge cambia la forma en que su cliente de Ejecución se comunica con su cliente de Consenso.
+En lugar de usar el antiguo sistema RPC basado en HTTP o Websocket, The Merge requiere un nuevo sistema expuesto por su cliente de Ejecución llamado Engine API.
 
-This is a special connection that lets the Consensus client replace the old Proof-of-Work mining system with Proof-of-Stake; it's the heart of The Merge.
-It's also **authenticated** with a secret token, so only your Consensus client can connect to your Execution client - nothing else can.
+Esta es una conexión especial que permite que el cliente de Consenso reemplace el antiguo sistema de minería Proof-of-Work con Proof-of-Stake; es el corazón de The Merge.
+También está **autenticada** con un token secreto, por lo que solo su cliente de Consenso puede conectarse a su cliente de Ejecución - nada más puede hacerlo.
 
-The Smartnode will handle the set up of the authentication token and the Engine API on both your Execution and Consensus clients automatically.
+El Smartnode manejará la configuración del token de autenticación y la Engine API en sus clientes de Ejecución y Consenso automáticamente.
 
-### Your Fee Recipient
+### Su destinatario de tarifas
 
-The **fee recipient** is the address on the Execution layer chain that will receive all of the priority fees for blocks you propose.
-It is a setting provided to your Validator client when it first starts.
+El **destinatario de tarifas** es la dirección en la cadena de la capa de Ejecución que recibirá todas las tarifas de prioridad de los bloques que propone.
+Es una configuración proporcionada a su cliente Validator cuando se inicia por primera vez.
 
-The Smartnode will handle setting it up to the correct address when you upgrade to v1.5, and will constantly check to make sure you're using the correct one so you don't get [penalized accidentally](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
+El Smartnode manejará su configuración a la dirección correcta cuando actualice a v1.5, y constantemente verificará para asegurarse de que está usando la correcta para que no sea [penalizado accidentalmente](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
 
-If you opted into the [Smoothing Pool](./whats-new#smoothing-pool), it will make that your fee recipient.
-If you didn't, it will make your [fee distributor contract](./whats-new#fee-recipients-and-your-distributor) the fee recipient.
+Si optó por el [Smoothing Pool](./whats-new#smoothing-pool), lo hará su destinatario de tarifas.
+Si no lo hizo, hará que su [contrato distribuidor de tarifas](./whats-new#fee-recipients-and-your-distributor) sea el destinatario de tarifas.
 
 ### MEV-Boost
 
-[MEV-boost](https://boost.flashbots.net/) is the system Flashbots provides to give MEV rewards to Proof-of-Stake validators after The Merge.
-Rocket Pool has MEV-Boost built into the Smartnode and automatically configures your node to use it, so your proposals get the maximum amount of rewards.
+[MEV-boost](https://boost.flashbots.net/) es el sistema que Flashbots proporciona para dar recompensas MEV a los validadores Proof-of-Stake después de The Merge.
+Rocket Pool tiene MEV-Boost integrado en el Smartnode y configura automáticamente su nodo para usarlo, por lo que sus propuestas obtienen la máxima cantidad de recompensas.
 
-## Things You Should Do After Upgrading
+## Cosas que debe hacer después de actualizar
 
-While the Smartnode handles most of the changes for you, there are a few additional things you should do manually:
+Si bien el Smartnode maneja la mayoría de los cambios por usted, hay algunas cosas adicionales que debe hacer manualmente:
 
-### Ensure a Successful Upgrade
+### Asegurar una actualización exitosa
 
-The first thing to do is ensure that your node is working correctly.
-Consider taking the following steps:
+Lo primero que debe hacer es asegurarse de que su nodo esté funcionando correctamente.
+Considere seguir los siguientes pasos:
 
-- Check the logs for errors with `rocketpool service logs eth1`, `rocketpool service logs eth2`, `rocketpool service logs validator`, and `rocketpool service logs node`.
-- Confirm with a Block Explorer (such as your Grafana dashboard and [https://beaconcha.in](https://beaconcha.in)) that you are still attesting properly
-  - Remember that if you have Doppelganger protection enabled, you will miss a few attestations after the restart. This is normal!
+- Verifique los registros en busca de errores con `rocketpool service logs eth1`, `rocketpool service logs eth2`, `rocketpool service logs validator`, y `rocketpool service logs node`.
+- Confirme con un Block Explorer (como su dashboard de Grafana y [https://beaconcha.in](https://beaconcha.in)) que todavía está atestiguando correctamente
+  - ¡Recuerde que si tiene habilitada la protección Doppelganger, perderá algunas atestaciones después del reinicio. Esto es normal!
 
-### Set Up a Fallback Node
+### Configurar un nodo de respaldo
 
-Because The Merge is not compatible with remote providers like Infura and Pocket, you'll lose the ability to use them as fallback Execution clients when your primary goes offline.
+Debido a que The Merge no es compatible con proveedores remotos como Infura y Pocket, perderá la capacidad de usarlos como clientes de Ejecución de respaldo cuando su principal se desconecte.
 
-The Smartnode still has the ability to provide a fallback Execution client (and now a fallback Consensus client as well), but you will now need to use Execution and Consensus clients that you control.
+El Smartnode todavía tiene la capacidad de proporcionar un cliente de Ejecución de respaldo (y ahora también un cliente de Consenso de respaldo), pero ahora necesitará usar clientes de Ejecución y Consenso que usted controle.
 
-For more information on setting up a fallback node, see the [Fallback node guide](../../node-staking/fallback).
+Para obtener más información sobre cómo configurar un nodo de respaldo, consulte la [guía de nodo de respaldo](../../node-staking/fallback).
 
-### Initialize your Fee Distributor
+### Inicializar su distribuidor de tarifas
 
-If you aren't planning to opt into the [Smoothing Pool](./whats-new#smoothing-pool) and claim all of your priority fees and MEV rewards to your [fee distributor contract](./whats-new#fee-recipients-and-your-distributor), you will eventually have to initialize it (create the contract instance on the chain) in order to claim rewards from it to your withdrawal address.
+Si no planea optar por el [Smoothing Pool](./whats-new#smoothing-pool) y reclamar todas sus tarifas de prioridad y recompensas MEV en su [contrato distribuidor de tarifas](./whats-new#fee-recipients-and-your-distributor), eventualmente tendrá que inicializarlo (crear la instancia del contrato en la cadena) para reclamar recompensas desde él a su dirección de retiro.
 
-This is a fairly cheap operation and only needs to be done once.
+Esta es una operación bastante económica y solo necesita hacerse una vez.
 
-::: tip TIP
-Initializing your fee distributor can be done at **any time**.
-You can let rewards accumulate in its address long before you initialize it, and your balance will remain after initialization.
+::: tip CONSEJO
+Inicializar su distribuidor de tarifas se puede hacer en **cualquier momento**.
+Puede dejar que las recompensas se acumulen en su dirección mucho antes de inicializarlo, y su saldo permanecerá después de la inicialización.
 
-We recommend you do so when gas prices are low to minimize the overhead cost.
+Le recomendamos que lo haga cuando los precios del gas sean bajos para minimizar el costo adicional.
 
-Note that it **must be initialized in order to claim your rewards.**
+Tenga en cuenta que **debe inicializarse para reclamar sus recompensas.**
 :::
 
-### Opt Into the Smoothing Pool
+### Optar por el Smoothing Pool
 
-If you plan on taking advantage of the [Smoothing Pool](./whats-new#smoothing-pool) right away, you should opt in before the end of the first Redstone rewards period to maximize your "eligibility" amount.
+Si planea aprovechar el [Smoothing Pool](./whats-new#smoothing-pool) de inmediato, debe optar antes del final del primer período de recompensas de Redstone para maximizar su cantidad de "elegibilidad".
 
-Opting in can be done via running the following command:
+Optar puede hacerse ejecutando el siguiente comando:
 
 ```
 rocketpool node join-smoothing-pool
 ```
 
-### Claim Rewards
+### Reclamar recompensas
 
-The Redstone upgrade replaces the expensive, problematic old rewards system with a [brand new one](./whats-new#new-rewards-system) that's much cheaper, supports automatic restaking of RPL (both partial and full amounts), and - most importantly - **lets you claim your rewards whenever you want**.
+La actualización Redstone reemplaza el costoso y problemático sistema de recompensas antiguo con [uno completamente nuevo](./whats-new#new-rewards-system) que es mucho más económico, admite el re-staking automático de RPL (tanto en cantidades parciales como completas), y - lo más importante - **le permite reclamar sus recompensas cuando quiera**.
 
-Because there is no longer a time limit on claiming rewards, and because it's cheaper to claim many rewards intervals at once, the automatic rewards claiming feature of the Smartnode **has been removed**.
-You will now be able to claim rewards via the following command:
+Debido a que ya no hay un límite de tiempo para reclamar recompensas, y debido a que es más económico reclamar muchos intervalos de recompensas a la vez, la función de reclamación automática de recompensas del Smartnode **ha sido eliminada**.
+Ahora podrá reclamar recompensas a través del siguiente comando:
 
 ```
 rocketpool node claim-rewards
 ```
 
-This will show you all of the rewards you've accumulated across all of the rewards intervals starting with the Redstone upgrade.
+Esto le mostrará todas las recompensas que ha acumulado en todos los intervalos de recompensas comenzando con la actualización Redstone.
 
-## Reverting to v1.4.3
+## Revertir a v1.4.3
 
-If, for any reason, something isn't to your liking and you want to revert to the previous Smartnode release, you can do so easily.
-The Smartnode automatically backs up your settings from the previous version when you upgrade it, so simply get the previous version (here we're demonstrating **v1.4.3**) and replace the settings with the backup:
+Si, por alguna razón, algo no es de su agrado y desea revertir a la versión anterior del Smartnode, puede hacerlo fácilmente.
+El Smartnode hace automáticamente una copia de seguridad de su configuración de la versión anterior cuando lo actualiza, así que simplemente obtenga la versión anterior (aquí estamos demostrando **v1.4.3**) y reemplace la configuración con la copia de seguridad:
 
-1. Stop the service:
+1. Detenga el servicio:
 
 ```shell
 rocketpool service stop
 ```
 
-1. Download the v1.4.3 CLI:
+1. Descargue el CLI v1.4.3:
 
 <div className="p-3">
   <Tabs>
@@ -134,33 +134,33 @@ rocketpool service stop
   </Tabs>
 </div>
 
-1. Install the v1.4.3 package:
+1. Instale el paquete v1.4.3:
 
 ```shell
 rocketpool service install -d
 ```
 
-1. Replace your old configuration with the v1.4.3 backup configuration:
+1. Reemplace su configuración antigua con la configuración de respaldo v1.4.3:
 
 ```shell
 cp ~/.rocketpool/user-settings-backup.yml ~/.rocketpool/user-settings.yml
 ```
 
-1. Verify all of your old settings are now being used:
+1. Verifique que todas sus configuraciones antiguas ahora se están usando:
 
 ```shell
 rocketpool service config
 ```
 
-1. If it looks good, start the Smartnode stack:
+1. Si se ve bien, inicie el stack Smartnode:
 
 ```shell
 rocketpool service start
 ```
 
-All set! You're now back on the old version and should begin attesting shortly after starting the service.
+¡Todo listo! Ahora está de vuelta en la versión anterior y debería comenzar a atestiguar poco después de iniciar el servicio.
 
-::: danger WARNING
-v1.4.3 is **deprecated** and will no longer be usable after the Redstone update is deployed.
-If you do need to revert to it, please make plans to upgrade back to v1.5.0 before the contracts are updated!
+::: danger ADVERTENCIA
+v1.4.3 está **obsoleto** y ya no será utilizable después de que se implemente la actualización Redstone.
+Si necesita revertir a él, ¡haga planes para actualizar de nuevo a v1.5.0 antes de que se actualicen los contratos!
 :::

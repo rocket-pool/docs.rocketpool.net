@@ -1,61 +1,59 @@
 # スキミング報酬の分配
 
-The ETH rewards you receive for running a validator for Ethereum are routinely sent to your minipools in a process referred to as "skimming".
-The frequency of skims depends on the number of activate validators on the Beacon Chain. At the time of writing the number of validators is around
-500,000 which results in a skim occurring approximately every 2-3 days.
+EthereumのValidatorを運用することで受け取るETH報酬は、「スキミング」と呼ばれるプロセスで定期的にminipoolに送信されます。
+スキムの頻度は、Beacon Chain上のアクティブなvalidatorの数によって異なります。執筆時点では、validatorの数は約500,000であり、
+約2〜3日ごとにスキムが発生します。
 
-Skimmed rewards will accrue in each of your minipools until you "distribute" them. This process distributes the skimmed rewards between you, as the node operator, and rETH holders
-based on your commission rate and ratio of supplied and provided ETH.
+スキミングされた報酬は、「分配」するまで各minipoolに蓄積されます。このプロセスは、あなたの手数料率と提供されたETHと供給されたETHの比率に基づいて、
+ノードオペレーターであるあなたとrETH保有者の間でスキミングされた報酬を分配します。
 
 ::: warning NOTE
-In order to access your minipool's balance, you will need to upgrade to the [Atlas delegate](./minipools/delegates) first.
-The old Redstone delegate cannot be used to distribute the minipool's balance.
+minipoolの残高にアクセスするには、最初に[Atlas delegate](./minipools/delegates)にアップグレードする必要があります。
+古いRedstone delegateは、minipoolの残高を分配するために使用できません。
 :::
 
-## Automatic Distribution
+## 自動分配
 
-By default, the Smartnode is configured to automatically distribute any of your minipools when their individual balances reach **1 ETH**. This
-threshold can be configured in the TUI by following the steps below.
+デフォルトでは、Smartnodeは個々の残高が**1 ETH**に達したときに、minipoolのいずれかを自動的に分配するように構成されています。
+この閾値は、以下の手順に従ってTUIで構成できます。
 
-Run:
+実行:
 
 ```shell
 rocketpool service config
 ```
 
-Navigate to the setting `Smartnode and TX Fee Settings > Auto Distribute Threshold` shown below.
+以下に示す`Smartnode and TX Fee Settings > Auto Distribute Threshold`設定に移動します。
 
 ![](./images/tui-automatic-skimming.png)
 
-Changing this setting will adjust the threshold at which the Smartnode will automatically distribute your minipools.
-Setting the parameter to 0 will disable automatic distributions.
+この設定を変更すると、Smartnodeがminipoolを自動的に分配する閾値が調整されます。
+パラメータを0に設定すると、自動分配が無効になります。
 
 ::: warning WARNING
-If you decide to disable automatic distribution, it is important that you still perform a manual distribution on a regular
-basis. Read the [manual distribution section](#manual-distribution) that follows on how to do this.
+自動分配を無効にすることにした場合、定期的に手動分配を実行することが重要です。
+これを行う方法については、続く[手動分配セクション](#manual-distribution)を読んでください。
 
-After a long period of time your skimmed rewards may exceed 8 ETH. If this situation occurs you will no longer be able
-to distribute them and will need to exit your validator to access your accrued rewards.
+長期間の後、スキミングされた報酬が8 ETHを超える可能性があります。この状況が発生すると、それらを分配できなくなり、
+蓄積された報酬にアクセスするにはvalidatorを終了する必要があります。
 
-Rocket Pool features a failsafe design which allows anyone, after a long waiting period, to distribute your minipool when
-its balance exceeds 8 ETH. To protect your capital, the Smartnode monitors this situation and will automatically exit
-your minipool if it occurs.
+Rocket Poolには、長い待機期間の後、誰でも残高が8 ETHを超えたときにminipoolを分配できるフェイルセーフ設計が備わっています。
+資本を保護するために、Smartnodeはこの状況を監視し、発生した場合に自動的にminipoolを終了します。
 :::
 
-## Manual Distribution
+## 手動分配
 
-If you have disabled the automatic distribution of skimmed rewards, you will need to routinely distribute them yourself
-with the following process.
+スキミングされた報酬の自動分配を無効にした場合、次のプロセスで定期的に自分で分配する必要があります。
 
-You can also manually distribute your rewards using this process at any time without waiting for the automatic process above.
+上記の自動プロセスを待たずに、いつでもこのプロセスを使用して報酬を手動で分配することもできます。
 
-If your minipool has less than 8 ETH in it, you can distribute your rewards using the following command:
+minipoolに8 ETH未満がある場合、次のコマンドを使用して報酬を分配できます。
 
 ```shell
 rocketpool minipool distribute-balance
 ```
 
-This will show you the minipools you have that are eligible for distribution, how much ETH they have, and how much ETH you (the node operator) will receive:
+これにより、分配の対象となるminipool、保有するETHの量、および(ノードオペレーターとしての)あなたが受け取るETHの量が表示されます。
 
 ```
 WARNING: The following minipools are using an old delegate and cannot have their rewards safely distributed:
@@ -75,16 +73,16 @@ Please select a minipool to distribute the balance of:
 6: 0xffCAB546539b55756b1F85678f229dd707328A2F (0.070989 ETH available, 0.025201 ETH goes to you plus a refund of 0.000000 ETH)
 ```
 
-Any minipools using the original launch delegate will be mentioned at the start, letting you know that you cannot call `distribute-balance` on them until you upgrade their delegates.
-This delegate was written before skimmed withdrawals were specified and, as such, do not feature a way to distribute skimmed rewards.
+元のローンチdelegateを使用しているminipoolは最初に言及され、delegateをアップグレードするまで`distribute-balance`を呼び出すことができないことが通知されます。
+このdelegateは、スキミング引き出しが指定される前に書かれたため、スキミングされた報酬を分配する方法がありません。
 
-Note that for eligible minipools, you are also shown the **refund amount**.
-This is an amount owed directly to you (for example, because you had a balance in your minipool prior to [migrating from a 16-ETH bond down to an 8-ETH bond](./leb-migration.mdx) or you [converted a solo validator into a minipool](./solo-staker-migration) with existing rewards).
-It will not be shared with the rETH holders.
+対象となるminipoolについては、**払い戻し額**も表示されることに注意してください。
+これは、あなたに直接支払われる金額です(例えば、[16-ETHボンドから8-ETHボンドへの移行](./leb-migration.mdx)前にminipoolに残高があったため、または既存の報酬を持つ[ソロvalidatorをminipoolに変換](./solo-staker-migration)したため)。
+rETH保有者と共有されません。
 
-Enter the number of the minipool that you want to distribute.
-You will be prompted with the gas price chart as usual, and asked to confirm your decision.
-Once you have, your minipool's balance will be distributed:
+分配したいminipoolの番号を入力します。
+通常どおりガス価格チャートが表示され、決定の確認を求められます。
+確認すると、minipoolの残高が分配されます。
 
 ```
 Using a max fee of 2.00 gwei and a priority fee of 2.00 gwei.
@@ -98,4 +96,4 @@ Waiting for the transaction to be included in a block... you may wait here for i
 Successfully distributed the ETH balance of minipool 0x7E5700bcd65B1770bA68abB288D3f53814d376aC.
 ```
 
-As you can see [from the transaction](https://zhejiang.beaconcha.in/tx/b883eab903d9688b40d291c5c2030084f9bce19135837ebf96a5c1e8871cfbf9), this provided the node's withdrawal address with the node's share of the rewards (plus the refund amount) and returned the rest to the staking pool.
+[トランザクションから](https://zhejiang.beaconcha.in/tx/b883eab903d9688b40d291c5c2030084f9bce19135837ebf96a5c1e8871cfbf9)わかるように、これによりノードの引き出しアドレスにノードの報酬シェア(払い戻し額を含む)が提供され、残りがステーキングプールに返されました。

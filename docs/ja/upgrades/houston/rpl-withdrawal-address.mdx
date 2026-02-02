@@ -2,106 +2,106 @@ import { Tab, Tabs } from "@rspress/core/theme";
 import nodeAddress from "./images/node_address.png";
 import rplWithdrawalConfirmation from "./images/rpl_withdrawal_confirmation.png";
 
-# Setting your RPL Withdrawal Address
+# RPL引き出しアドレスの設定
 
-It's important to understand the difference between your [primary withdrawal address](../../node-staking/prepare-node#setting-your-primary-withdrawal-address) and your RPL withdrawal address. By default, your RPL withdrawal address is unset and your Primary withdrawal address is where all of your RPL checkpoint rewards, your staked RPL, and Beacon Chain ETH will be sent to.
+[プライマリ引き出しアドレス](../../node-staking/prepare-node#setting-your-primary-withdrawal-address)とRPL引き出しアドレスの違いを理解することが重要です。デフォルトでは、RPL引き出しアドレスは未設定であり、プライマリ引き出しアドレスは、すべてのRPLチェックポイント報酬、ステーキングされたRPL、およびBeacon Chain ETHが送信される場所です。
 
-You can set a [separate withdrawal address for your RPL](https://rpips.rocketpool.net/RPIPs/RPIP-31) if you wish. Your RPL withdrawal address if set will be able to trigger and claim RPL from inflation rewards and will have no effect on ETH consensus rewards or anything related to ETH. In this case, your Primary withdrawal address will no longer have any authority over RPL related actions.
+希望する場合は、[RPLの個別の引き出しアドレス](https://rpips.rocketpool.net/RPIPs/RPIP-31)を設定できます。設定されている場合、RPL引き出しアドレスはインフレーション報酬からRPLをトリガーおよび請求でき、ETHコンセンサス報酬やETHに関連するものには影響しません。この場合、プライマリ引き出しアドレスはRPL関連のアクションに対する権限を失います。
 
-This creates some interesting opportunities where RPL can be supplied by an entity to a node operator that does not wish to have exposure to RPL. That entity can then claim RPL rewards for putting up the required insurance collateral for the node. In other words, this allows different actors to supply each collateral type.
+これにより、RPLへのエクスポージャーを望まないノードオペレーターにエンティティがRPLを供給できる興味深い機会が生まれます。そのエンティティは、ノードに必要な保険担保を提供することでRPL報酬を請求できます。言い換えれば、これにより、異なる関係者が各担保タイプを供給できるようになります。
 
-::: warning NOTE
-Upon setting up your node for the first time, your RPL withdrawal address defaults to being unset.
-If you choose to set an RPL withdrawal address, **it is vitally important to set this to a different address controlled by a cold wallet.**
-A cold wallet could be a hardware wallet (such as a [Ledger](https://www.ledger.com/), [Trezor](https://trezor.io/), or [Grid+](https://gridplus.io/)), or a Smart Contract wallet (such as [Safe](https://app.safe.global/welcome)).
+::: warning 注意
+ノードを初めて設定する際、RPL引き出しアドレスはデフォルトで未設定になっています。
+RPL引き出しアドレスを設定することを選択する場合、**コールドウォレットで管理される別のアドレスに設定することが非常に重要です。**
+コールドウォレットは、ハードウェアウォレット（[Ledger](https://www.ledger.com/)、[Trezor](https://trezor.io/)、または[Grid+](https://gridplus.io/)など）、またはスマートコントラクトウォレット（[Safe](https://app.safe.global/welcome)など）である可能性があります。
 
-We **strongly recommend** that you DO NOT use a hot wallet such as MetaMask as your RPL withdrawal address.
+RPL引き出しアドレスとしてMetaMaskなどのホットウォレットを使用**しない**ことを強くお勧めします。
 
-This way, if your node wallet is compromised, the attacker doesn't get access to your staked RPL by forcing you to exit because all of those funds will be sent to your separate cold wallet (which they hopefully do not have).
+こうすることで、ノードウォレットが侵害された場合でも、攻撃者は強制的に退出させることであなたのステーキングされたRPLにアクセスすることができません。これらの資金はすべて別のコールドウォレット（うまくいけば彼らがアクセスできない）に送信されるためです。
 
-RPL withdrawal addresses are set at a node operator level.
-If you create multiple minipools, they will all refer to the same RPL withdrawal address so you only need to perform this setup once.
+RPL引き出しアドレスはノードオペレーターレベルで設定されます。
+複数のミニプールを作成する場合、それらはすべて同じRPL引き出しアドレスを参照するため、このセットアップを実行する必要があるのは1回だけです。
 
-[See here](https://ethereum.org/en/security/#wallet-security) for some basics on wallet security from the Ethereum Foundation.
+Ethereum Foundationからのウォレットセキュリティの基本については、[こちらを参照](https://ethereum.org/en/security/#wallet-security)してください。
 :::
 
-There are two different ways to do this.
-Please read both options below to determine which one applies to you.
+これを行うには2つの異なる方法があります。
+以下の両方のオプションを読んで、どちらが適用されるかを判断してください。
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Method 1">
-      *Use this method if your new RPL withdrawal address can be used to sign transactions via MetaMask or WalletConnect.**
+    <Tab label="方法1">
+      *新しいRPL引き出しアドレスがMetaMaskまたはWalletConnect経由でトランザクションに署名するために使用できる場合は、この方法を使用してください。**
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        This method will require you to **submit a transaction** from your new RPL withdrawal address, so **you must have a small amount of ETH in that address already.**
+        <p className="rspress-directive-title">注意</p>
+        この方法では、新しいRPL引き出しアドレスから**トランザクションを送信**する必要があるため、**そのアドレスに少量のETHがすでに必要です。**
       </p>
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        For users of **Ledger** hardware wallets, note that Ledger Live does not yet support MetaMask or WalletConnect natively.
-        You will need to use MetaMask and connect it to your Ledger instead.
-        Follow [the official Ledger instructions](https://www.ledger.com/academy/security/the-safest-way-to-use-metamask) to do this.
+        <p className="rspress-directive-title">注意</p>
+        **Ledger**ハードウェアウォレットのユーザーの場合、Ledger LiveはまだMetaMaskまたはWalletConnectをネイティブにサポートしていないことに注意してください。
+        代わりにMetaMaskを使用してLedgerに接続する必要があります。
+        これを行うには、[公式のLedgerの指示](https://www.ledger.com/academy/security/the-safest-way-to-use-metamask)に従ってください。
 
-        To work with the Rocket Pool website, you will need to have your Ledger connected, unlocked, and the ETH app open.
-        You will also need to **enable "blind signing"** for the current session; you can find this within the Settings portion of the ETH app on the device.
-        Bind signing will automatically be disabled after you close the session.
+        Rocket Poolウェブサイトで動作するには、Ledgerを接続し、ロックを解除し、ETHアプリを開いている必要があります。
+        また、現在のセッションの**「ブラインド署名」を有効にする**必要があります。これは、デバイスのETHアプリの設定部分にあります。
+        バインド署名は、セッションを閉じた後、自動的に無効になります。
 
-        If you are using Hoodi Testnet and want to use your Ledger as your RPL withdrawal address, **you must create a new Ethereum wallet on your Ledger** first to ensure you don't connect your live address to the test network, which tends to cause confusion.
-        Make sure to select the **Hoodi Testnet** in the network selection dropdown when connecting your Ledger to MetaMask.
-        Note that Ledger Live will not show your balance on the test network, but other applications which support the test network (such as MetaMask and Etherscan) will be able to display it.
+        Hoodi Testnetを使用していて、LedgerをRPL引き出しアドレスとして使用したい場合、テストネットワークにライブアドレスを接続して混乱を招かないように、**Ledgerに新しいEthereumウォレットを最初に作成する必要があります。**
+        LedgerをMetaMaskに接続する際は、ネットワーク選択ドロップダウンで**Hoodi Testnet**を必ず選択してください。
+        Ledger Liveはテストネットワークでの残高を表示しませんが、テストネットワークをサポートする他のアプリケーション（MetaMaskやEtherscanなど）では表示できることに注意してください。
       </p>
 
-      1. Run `rocketpool node set-rpl-withdrawal-address 'your cold wallet address or ENS name'`. Your new RPL withdrawal address will be marked as "pending". Until you confirm it, **your old RPL withdrawal address will still be used**.
-      2. To confirm it, you must send a special transaction **from your new RPL withdrawal address** to the minipool contract to verify that you own the RPL withdrawal address.
-      1. The easiest way to do this is to navigate to the Rocket Pool RPL withdrawal address site (for the [Hoodi Testnet](https://testnet.node.rocketpool.net/rpl-withdrawal-address) or for [Mainnet](https://node.rocketpool.net/rpl-withdrawal-address)).
-      3. If you haven't already connected Metamask or WalletConnect to the Rocket Pool website, do this now. Click the **select wallet** button in the center of the screen, and choose MetaMask or WalletConnect based on which wallet you would like to use. You will then be prompted asking you to confirm the connection. For example, using MetaMask:
+      1. `rocketpool node set-rpl-withdrawal-address 'your cold wallet address or ENS name'`を実行します。新しいRPL引き出しアドレスは「保留中」としてマークされます。確認するまで、**古いRPL引き出しアドレスが引き続き使用されます**。
+      2. 確認するには、**新しいRPL引き出しアドレスから**ミニプールコントラクトに特別なトランザクションを送信して、RPL引き出しアドレスを所有していることを確認する必要があります。
+      1. これを行う最も簡単な方法は、Rocket Pool RPL引き出しアドレスサイト（[Hoodi Testnet](https://testnet.node.rocketpool.net/rpl-withdrawal-address)または[Mainnet](https://node.rocketpool.net/rpl-withdrawal-address)用）にアクセスすることです。
+      3. Rocket PoolウェブサイトにMetamaskまたはWalletConnectをまだ接続していない場合は、今すぐ接続してください。画面中央の**select wallet**ボタンをクリックし、使用したいウォレットに基づいてMetaMaskまたはWalletConnectを選択します。その後、接続を確認するプロンプトが表示されます。たとえば、MetaMaskを使用する場合:
 
-      Click **Next**, then click **Confirm** to enable the Rocket Pool website to use your wallet. 3. Select **RPL Withdrawal Address** from the top menu (or the hamburger menu on the left side if you're on a mobile device). 4. You will see this prompt:
+      **Next**をクリックし、次に**Confirm**をクリックして、Rocket Poolウェブサイトがウォレットを使用できるようにします。3. 上部メニュー（またはモバイルデバイスの場合は左側のハンバーガーメニュー）から**RPL Withdrawal Address**を選択します。4. このプロンプトが表示されます:
 
-      4. Type your **node wallet address** here and click on the orange **Find** button to continue.
+      4. **ノードウォレットアドレス**をここに入力し、オレンジ色の**Find**ボタンをクリックして続行します。
 
       <img src={nodeAddress} width="100%" height="auto"/>
 
-      1.  You will be prompted to confirm a pending RPL withdrawal address. This should be the same address you used while running this command previously: `rocketpool node set-rpl-withdrawal-address` Select **Confirm Pending** when you're ready.
-      2.  Now, there should be a new confirmation dialog in your wallet. Again, using MetaMask as an example, click the MetaMask icon to open it and you should see something like this:
+      1.  保留中のRPL引き出しアドレスを確認するプロンプトが表示されます。これは、以前にこのコマンドを実行したときに使用したアドレスと同じである必要があります: `rocketpool node set-rpl-withdrawal-address` 準備ができたら**Confirm Pending**を選択します。
+      2.  次に、ウォレットに新しい確認ダイアログが表示されます。再度、MetaMaskを例として使用すると、MetaMaskアイコンをクリックして開き、次のようなものが表示されるはずです:
 
-      Click **Confirm** to send the transaction to the network. This will take some time until it gets included in a block, but once it does, you will see a confirmation dialog:
+      **Confirm**をクリックして、トランザクションをネットワークに送信します。これがブロックに含まれるまで時間がかかりますが、含まれると確認ダイアログが表示されます:
 
       <img src={rplWithdrawalConfirmation} width="100%" height="auto"/>
 
-      5. Your new RPL withdrawal address will now be confirmed and activated. You can view this with `rocketpool node status`.
+      5. 新しいRPL引き出しアドレスが確認されてアクティブになります。`rocketpool node status`で確認できます。
     </Tab>
-    <Tab label="Method 2">
-      **Use this method only if your RPL withdrawal address _cannot_ be used to sign transactions via MetaMask or WalletConnect.**
+    <Tab label="方法2">
+      **RPL引き出しアドレスがMetaMaskまたはWalletConnect経由でトランザクションに署名するために使用_できない_場合にのみ、この方法を使用してください。**
 
-      In this method, you will run:
+      この方法では、次のコマンドを実行します:
 
       ```shell
       rocketpool node set-rpl-withdrawal-address --force `your cold wallet address`
       ```
 
-      You will be offered the chance to send a test transaction before confirming this, to ensure that you have the right address.
-      If you confirm this command when it prompts you, your new RPL withdrawal address will be set immediately.
+      これを確認する前に、正しいアドレスを持っていることを確認するために、テストトランザクションを送信する機会が提供されます。
+      プロンプトが表示されたときにこのコマンドを確認すると、新しいRPL引き出しアドレスがすぐに設定されます。
 
 
       <p className="rspress-directive danger">
-        By doing this, you bypass the safety measure associated with Method 1, which requires you to prove that you own the new address.
-        If you make a typo here, there is no way to undo it and **your minipool's rewards will be lost forever**.
+        これを行うことで、新しいアドレスを所有していることを証明する必要がある方法1に関連する安全対策をバイパスします。
+        ここでタイプミスをした場合、元に戻す方法はなく、**ミニプールの報酬は永久に失われます**。
 
-        We **strongly** encourage you to use the test transaction mechanism before confirming this, and if possible, use Method 1 instead.
+        確認する前にテストトランザクションメカニズムを使用することを**強く**お勧めします。可能であれば、方法1を代わりに使用してください。
       </p>
     </Tab>
 
   </Tabs>
 </div>
 
-Once this is done, you will **no longer be able to change your RPL withdrawal address using the `set-rpl-withdrawal-address` command**.
-To change it, you will need to send a signed transaction from your **active** RPL withdrawal address (the one you just switched to).
-The Rocket Pool website has a function to help you do this.
+これが完了すると、`set-rpl-withdrawal-address`コマンドを使用してRPL引き出しアドレスを変更できなく**なります**。
+変更するには、**アクティブな**RPL引き出しアドレス（今切り替えたもの）から署名されたトランザクションを送信する必要があります。
+Rocket Poolウェブサイトには、これを行うのに役立つ機能があります。
 
-If you'd like to unset your RPL withdrawal address, the process is pretty simple. First thing, you'll want to navigate back to the RPL Withdrawl Address page on the Rocket Pool website.
+RPL引き出しアドレスの設定を解除したい場合、プロセスは非常に簡単です。まず、Rocket PoolウェブサイトのRPL引き出しアドレスページに戻ります。
 
 <div className="p-3">
   <Tabs>
@@ -110,12 +110,12 @@ If you'd like to unset your RPL withdrawal address, the process is pretty simple
   </Tabs>
 </div>
 
-If you're signed in with the node's RPL withdrawal address, you should be able to click the **unset** button on the right here:
+ノードのRPL引き出しアドレスでサインインしている場合、ここの右側にある**unset**ボタンをクリックできるはずです:
 
 <img src="./images/unset_rpl_withdrawal.png" width="100%" height="auto" />
 
-Clicking **unset** will take you to a page where you can confirm the details. If you're happy with what you see, click the orange **unset** button to send the transaction to the network.
+**unset**をクリックすると、詳細を確認できるページに移動します。表示されている内容に満足している場合は、オレンジ色の**unset**ボタンをクリックして、トランザクションをネットワークに送信します。
 
-That's all there is to setting your RPL withdrawal address! We hope you found the process quick and easy.
+RPL引き出しアドレスの設定は以上です！プロセスが迅速で簡単だったことを願っています。
 
-Feel free to swing by [our Discord server](https://discord.gg/G46XgK264a) to let us know what you thought of it and keep tabs on the project as it evolves.
+お気軽に[Discordサーバー](https://discord.gg/G46XgK264a)にお立ち寄りいただき、プロジェクトが進化するにつれて意見をお聞かせください。

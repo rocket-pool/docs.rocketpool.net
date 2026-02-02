@@ -1,322 +1,322 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# [Native Mode] Guide to the Redstone Update and the Merge
+# [ネイティブモード] RedstoneアップデートとMergeのガイド
 
-This guide will cover everything you need to know in order to prepare your node for the Redstone Update and The Merge if you are using **Native Mode**.
+このガイドでは、**ネイティブモード**を使用している場合に、RedstoneアップデートとMergeに向けてノードを準備するために知っておく必要があるすべてをカバーします。
 
-## Things to Do Before Upgrading to v1.5.0
+## v1.5.0へのアップグレード前にすべきこと
 
-Before upgrading to v1.5.0 and higher of the Smartnode, please go through the following checklist to make sure you're prepared:
+Smartnodeのv1.5.0以降にアップグレードする前に、次のチェックリストを確認して準備が整っていることを確認してください：
 
-### Switch to a Full Execution Client
+### フルExecutionクライアントへの切り替え
 
-The Merge requires you to run your own Execution client, so you won't be able to use remote providers like Infura or Pocket anymore.
+Mergeでは独自のExecutionクライアントを実行する必要があるため、InfuraやPocketなどのリモートプロバイダーを使用できなくなります。
 
-Because of this change, if you're currently using a light Execution client, you should switch to a full client while you're still on v1.4, let it sync to completion, and then upgrade to v1.5.
+この変更により、現在ライトExecutionクライアントを使用している場合は、v1.4のままフルクライアントに切り替え、同期を完了させてからv1.5にアップグレードする必要があります。
 
-### Set Up the Engine API
+### Engine APIのセットアップ
 
-The Merge changes the way your Execution client talks to your Consensus client.
-Instead of using the old HTTP or Websocket based RPC system, The Merge requires a new system exposed by your Execution client called the Engine API.
+MergeはExecutionクライアントとConsensusクライアントの通信方法を変更します。
+古いHTTPまたはWebsocketベースのRPCシステムを使用する代わりに、MergeはExecutionクライアントによって公開されるEngine APIと呼ばれる新しいシステムを必要とします。
 
-This is a special connection that lets the Consensus client replace the old Proof-of-Work mining system with Proof-of-Stake; it's the heart of The Merge.
-It's also **authenticated** with a secret token, so only your Consensus client can connect to your Execution client - nothing else can.
+これは、Consensusクライアントが古いProof-of-WorkマイニングシステムをProof-of-Stakeに置き換えることを可能にする特別な接続です。これはMergeの心臓部です。
+また、秘密トークンで**認証**されているため、ConsensusクライアントのみがExecutionクライアントに接続でき、他には何もできません。
 
-As you manage your own Execution and Consensus clients, you'll need to set up the Engine API manually.
-How to do it depends entirely on which clients you're running.
+独自のExecutionおよびConsensusクライアントを管理しているため、Engine APIを手動でセットアップする必要があります。
+その方法は、実行しているクライアントによって完全に異なります。
 
-CoinCashew has [a great and concise guide](https://www.coincashew.com/coins/overview-eth/ethereum-merge-upgrade-checklist-for-home-stakers-and-validators) on how to set up the Engine API on your Execution and Consensus clients.
-Give that a look, and test the new configuration out by making sure it still attests properly before upgrading.
+CoinCashewには、ExecutionおよびConsensusクライアントでEngine APIをセットアップする方法についての[優れた簡潔なガイド](https://www.coincashew.com/coins/overview-eth/ethereum-merge-upgrade-checklist-for-home-stakers-and-validators)があります。
+それを見て、アップグレードする前に正しくattestすることを確認して新しい構成をテストしてください。
 
-We'll show you how to set up your Validator client so that it uses the correct fee recipient required by the Smartnode software automatically below.
+以下で、Smartnodeソフトウェアが自動的に必要とする正しいfee recipientを使用するようにValidator Clientをセットアップする方法を示します。
 
-## Upgrading to v1.5.0
+## v1.5.0へのアップグレード
 
-Upgrading the Smartnode stack to v1.5.0 is no different than any other upgrade.
-Simply follow [the normal directions here](../../node-staking/updates#updating-the-smartnode-stack).
+Smartnodeスタックをv1.5.0にアップグレードすることは、他のアップグレードと変わりません。
+単に[こちらの通常の手順](../../node-staking/updates#updating-the-smartnode-stack)に従ってください。
 
-## Things You Should Do After Upgrading
+## アップグレード後にすべきこと
 
-In Native mode, there are several things you will need to do manually after upgrading:
+ネイティブモードでは、アップグレード後に手動で行う必要があることがいくつかあります：
 
-### Ensure a Successful Upgrade
+### アップグレードの成功を確認
 
-The first thing to do is ensure that your node is working correctly.
-Consider taking the following steps:
+最初にすべきことは、ノードが正しく動作していることを確認することです。
+次の手順を検討してください：
 
-- Check your log scripts for the Execution client, the Consensus client, the Validator client, and the Smartnode daemon (the `rp-node` service) to ensure they're all functioning normally without errors.
-- Confirm with a Block Explorer (such as your Grafana dashboard and [https://beaconcha.in](https://beaconcha.in)) that you are still attesting properly
-  - Remember that if you have Doppelganger protection enabled, you will miss a few attestations after the restart. This is normal!
+- Executionクライアント、Consensusクライアント、Validator Client、およびSmartnodeデーモン（`rp-node`サービス）のログスクリプトをチェックして、エラーなく正常に機能していることを確認します。
+- Block Explorer（Grafanaダッシュボードや[https://beaconcha.in](https://beaconcha.in)など）で、まだ適切にattestしていることを確認します
+  - Doppelganger保護を有効にしている場合、再起動後にいくつかのattestationを失うことを忘れないでください。これは正常です！
 
-### Set up the Fee Recipient in your Validator Client
+### Validator ClientでFee Recipientをセットアップ
 
-One of the **critical** details to set up prior to the Merge is the **fee recipient** specified by your validator client.
-As described in the [overview article](./whats-new#fee-recipients-and-your-distributor), this can be one of two values:
+Merge前にセットアップすべき**重要な**詳細の1つは、Validator Clientによって指定された**fee recipient**です。
+[概要記事](./whats-new#fee-recipients-and-your-distributor)で説明されているように、これは次の2つの値のいずれかになります：
 
-- If you **are opted into** the Smoothing Pool, this must be the address of the **Smoothing Pool contract**. You can get the address from [the official contracts page](/en/protocol/contracts-integrations).
-- If you are **not** in the Smoothing Pool, this must be the address of your node's **fee distributor contract**. You can get the address by running `rocketpool node status`, under the `Fee Distributor and Smoothing Pool` section.
+- Smoothing Poolに**オプトイン**している場合、これは**Smoothing Pool契約**のアドレスである必要があります。アドレスは[公式契約ページ](/ja/protocol/contracts-integrations)から取得できます。
+- Smoothing Poolに**いない**場合、これはノードの**fee distributor契約**のアドレスである必要があります。アドレスは、`Fee Distributor and Smoothing Pool`セクションの下の`rocketpool node status`を実行して取得できます。
 
-In Native mode, you have the choice of letting the Smartnode manage this for you if you use the Smartnode daemon service, `rp-node`, or managing it yourself if you do not use the daemon.
+ネイティブモードでは、Smartnodeデーモンサービス`rp-node`を使用する場合はSmartnodeにこれを管理させるか、デーモンを使用しない場合は自分で管理するかを選択できます。
 
-#### Automatic Management via the Daemon
+#### デーモンによる自動管理
 
-The Smartnode daemon will automatically determine the appropriate fee recipient for your node and manage it in case it changes (such as opting into and out of the Smoothing Pool).
-This is the **safest** option, because the Smartnode will always ensure it's set to a value that **prevents [penalization](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)**.
+Smartnodeデーモンは、ノードに適切なfee recipientを自動的に決定し、変更された場合（Smoothing Poolへのオプトインおよびアウトなど）に管理します。
+これは**最も安全な**オプションです。Smartnodeは常に[ペナルティ](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)を防ぐ値に設定されることを保証するためです。
 
-The way it does this is by maintaining a file with the correct fee recipient in it, and regularly refreshing it to ensure its correctness.
-When it needs to be updated, it modifies the file and restarts your Validator client automatically so it loads the new recipient - similarly to how it restarts your Validator client after staking a new minipool.
+これを行う方法は、正しいfee recipientを含むファイルを維持し、定期的に更新して正確性を確保することです。
+更新が必要な場合、ファイルを変更し、Validator Clientを自動的に再起動して新しいrecipientをロードします。新しいminipoolをステークした後にValidator Clientを再起動する方法と同様です。
 
-Select your client below to learn how to set it up:
+以下でクライアントを選択して、セットアップ方法を学んでください：
 
 <div className="p-3">
   <Tabs>
     <Tab label="Lighthouse">
-      Modify your Validator Client service by adding the following line _before_ the `ExecStart` line:
+      `ExecStart`行の_前_に次の行を追加して、Validator Clientサービスを変更します：
 
       ```
       EnvironmentFile=`data dir`/validators/rp-fee-recipient-env.txt
       ```
 
-      For example:
+      例えば：
 
       ```
       EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
       ```
 
-      Next, add the following command line argument _to the end_ of your `ExecStart` line:
+      次に、`ExecStart`行の_末尾_に次のコマンドライン引数を追加します：
 
       ```
       --suggested-fee-recipient ${FEE_RECIPIENT}
       ```
 
-      Your VC will now use the file managed by the Smartnode daemon, and will automatically be restarted whenever the fee recipient changes.
+      VCは、Smartnodeデーモンによって管理されるファイルを使用するようになり、fee recipientが変更されるたびに自動的に再起動されます。
     </Tab>
     <Tab label="Nimbus">
-      Modify your Validator Client service by adding the following line _before_ the `ExecStart` line:
+      `ExecStart`行の_前_に次の行を追加して、Validator Clientサービスを変更します：
 
       ```
       EnvironmentFile=`data dir`/validators/rp-fee-recipient-env.txt
       ```
 
-      For example:
+      例えば：
 
       ```
       EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
       ```
 
-      Next, add the following command line argument _to the end_ of your `ExecStart` line:
+      次に、`ExecStart`行の_末尾_に次のコマンドライン引数を追加します：
 
       ```
       --suggested-fee-recipient=${FEE_RECIPIENT}
       ```
 
-      Your VC will now use the file managed by the Smartnode daemon, and will automatically be restarted whenever the fee recipient changes.
+      VCは、Smartnodeデーモンによって管理されるファイルを使用するようになり、fee recipientが変更されるたびに自動的に再起動されます。
     </Tab>
     <Tab label="Prysm">
-      Modify your Validator Client service by adding the following line _before_ the `ExecStart` line:
+      `ExecStart`行の_前_に次の行を追加して、Validator Clientサービスを変更します：
 
       ```
       EnvironmentFile=`data dir`/validators/rp-fee-recipient-env.txt
       ```
 
-      For example:
+      例えば：
 
       ```
       EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
       ```
 
-      Next, add the following command line argument _to the end_ of your `ExecStart` line:
+      次に、`ExecStart`行の_末尾_に次のコマンドライン引数を追加します：
 
       ```
       --suggested-fee-recipient ${FEE_RECIPIENT}
       ```
 
-      Your VC will now use the file managed by the Smartnode daemon, and will automatically be restarted whenever the fee recipient changes.
+      VCは、Smartnodeデーモンによって管理されるファイルを使用するようになり、fee recipientが変更されるたびに自動的に再起動されます。
     </Tab>
     <Tab label="Teku">
-      Modify your Validator Client service by adding the following line _before_ the `ExecStart` line:
+      `ExecStart`行の_前_に次の行を追加して、Validator Clientサービスを変更します：
 
       ```
       EnvironmentFile=`data dir`/validators/rp-fee-recipient-env.txt
       ```
 
-      For example:
+      例えば：
 
       ```
       EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
       ```
 
-      Next, add the following command line argument _to the end_ of your `ExecStart` line:
+      次に、`ExecStart`行の_末尾_に次のコマンドライン引数を追加します：
 
       ```
       --validators-proposer-default-fee-recipient=${FEE_RECIPIENT}
       ```
 
-      Your VC will now use the file managed by the Smartnode daemon, and will automatically be restarted whenever the fee recipient changes.
+      VCは、Smartnodeデーモンによって管理されるファイルを使用するようになり、fee recipientが変更されるたびに自動的に再起動されます。
     </Tab>
 
   </Tabs>
 </div>
 
-#### Manual Fee Recipient Management
+#### 手動Fee Recipient管理
 
-::: danger WARNING
-By doing this, you assume full responsibility for ensuring your fee recipient is always set to the correct address.
+::: danger 警告
+これを行うことにより、fee recipientが常に正しいアドレスに設定されていることを確認する全責任を負います。
 
-Please read the [penalty specification](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) to understand what it must be set to given your configuration, and when you can safely change it from one value to another.
+[ペナルティ仕様](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)を読んで、構成に応じて何に設定する必要があるか、およびある値から別の値に安全に変更できる時期を理解してください。
 
-Failure to do so could result in your minipools being penalized!
+そうしないと、minipoolがペナルティを受ける可能性があります！
 :::
 
-**Prior to Redstone being deployed**, you can simply use the rETH address for the network you're on (which can be found in [the official contracts page](/en/protocol/contracts-integrations)).
-The rETH address is always safe no matter what.
+**Redstoneがデプロイされる前**は、使用しているネットワークのrETHアドレス（[公式契約ページ](/ja/protocol/contracts-integrations)にあります）を単純に使用できます。
+rETHアドレスは常に何があっても安全です。
 
-**Once Redstone has been deployed**, you can see the exact address that you should set your fee recipient to via `rocketpool node status`. For example, if you are opted into the Smoothing Pool, it will show the Smoothing Pool's address and note that you must use it as your fee recipient:
+**Redstoneがデプロイされた後**は、`rocketpool node status`を介してfee recipientとして設定する必要がある正確なアドレスを確認できます。たとえば、Smoothing Poolにオプトインしている場合、Smoothing Poolのアドレスが表示され、fee recipientとして使用する必要があることが示されます：
 
 <img src="../../node-staking/images/native-fee-rc-in.png" width="100%" height="auto" />
 
-If you are _not_ opted into the Smoothing Pool, it will show your fee distributor address and note that you must use it as your fee recipient:
+Smoothing Poolにオプトイン_していない_場合、fee distributorアドレスが表示され、fee recipientとして使用する必要があることが示されます：
 
 <img src="../../node-staking/images/native-fee-rc-out.png" width="100%" height="auto" />
 
-Select your Consensus client below to learn how to configure it.
+以下でConsensusクライアントを選択して、構成方法を学んでください。
 
 <div className="p-3">
   <Tabs>
     <Tab label="Lighthouse">
-      Add the following command line argument to your Validator Client's service definition file:
+      Validator Clientのサービス定義ファイルに次のコマンドライン引数を追加します：
 
       ```
       --suggested-fee-recipient `address`
       ```
 
-      Where `address` is:
+      ここで`address`は：
 
-      - The [rETH address](/en/protocol/contracts-integrations/#token-contracts) **before** the Redstone update is deployed (e.g., `0xae78736Cd615f374D3085123A210448E74Fc6393` on Mainnet)
-      - Your node's **fee distributor** after Redstone is deployed, which you can retrieve with `rocketpool node status` once the contract upgrade occurs
-      - The [Smoothing Pool address](/en/protocol/contracts-integrations/#protocol-contracts) if you opt into the Smoothing Pool
+      - Redstoneアップデートがデプロイされる**前**は[rETHアドレス](/ja/protocol/contracts-integrations/#token-contracts)（例：Mainnetの`0xae78736Cd615f374D3085123A210448E74Fc6393`）
+      - Redstoneがデプロイされた後はノードの**fee distributor**で、契約アップグレードが発生したら`rocketpool node status`で取得できます
+      - Smoothing Poolにオプトインする場合は[Smoothing Poolアドレス](/ja/protocol/contracts-integrations/#protocol-contracts)
 
-      As a reminder, `rocketpool node status` will show you the correct fee recipient to use at any time.
+      念のため、`rocketpool node status`はいつでも使用する正しいfee recipientを表示します。
 
-      **Please read the [penalty specification](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) carefully to understand the conditions and expectations around the fee recipient.**
+      **[ペナルティ仕様](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)を注意深く読んで、fee recipientに関する条件と期待を理解してください。**
     </Tab>
     <Tab label="Nimbus">
-      Add the following command line argument to Nimbus's service definition file:
+      Nimbusのサービス定義ファイルに次のコマンドライン引数を追加します：
 
       ```
       --suggested-fee-recipient=`address`
       ```
 
-      Where `address` is:
+      ここで`address`は：
 
-      - The [rETH address](/en/protocol/contracts-integrations/#token-contracts) **before** the Redstone update is deployed (e.g., `0xae78736Cd615f374D3085123A210448E74Fc6393` on Mainnet)
-      - Your node's **fee distributor** after Redstone is deployed, which you can retrieve with `rocketpool node status` once the contract upgrade occurs
-      - The [Smoothing Pool address](/en/protocol/contracts-integrations/#protocol-contracts) if you opt into the Smoothing Pool
+      - Redstoneアップデートがデプロイされる**前**は[rETHアドレス](/ja/protocol/contracts-integrations/#token-contracts)（例：Mainnetの`0xae78736Cd615f374D3085123A210448E74Fc6393`）
+      - Redstoneがデプロイされた後はノードの**fee distributor**で、契約アップグレードが発生したら`rocketpool node status`で取得できます
+      - Smoothing Poolにオプトインする場合は[Smoothing Poolアドレス](/ja/protocol/contracts-integrations/#protocol-contracts)
 
-      As a reminder, `rocketpool node status` will show you the correct fee recipient to use at any time.
+      念のため、`rocketpool node status`はいつでも使用する正しいfee recipientを表示します。
 
-      **Please read the [penalty specification](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) carefully to understand the conditions and expectations around the fee recipient.**
+      **[ペナルティ仕様](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)を注意深く読んで、fee recipientに関する条件と期待を理解してください。**
     </Tab>
     <Tab label="Prysm">
-      Add the following command line argument to your Validator Client's service definition file:
+      Validator Clientのサービス定義ファイルに次のコマンドライン引数を追加します：
 
       ```
       --suggested-fee-recipient `address`
       ```
 
-      Where `address` is:
+      ここで`address`は：
 
-      - The [rETH address](/en/protocol/contracts-integrations/#token-contracts) **before** the Redstone update is deployed (e.g., `0xae78736Cd615f374D3085123A210448E74Fc6393` on Mainnet)
-      - Your node's **fee distributor** after Redstone is deployed, which you can retrieve with `rocketpool node status` once the contract upgrade occurs
-      - The [Smoothing Pool address](/en/protocol/contracts-integrations/#protocol-contracts) if you opt into the Smoothing Pool
+      - Redstoneアップデートがデプロイされる**前**は[rETHアドレス](/ja/protocol/contracts-integrations/#token-contracts)（例：Mainnetの`0xae78736Cd615f374D3085123A210448E74Fc6393`）
+      - Redstoneがデプロイされた後はノードの**fee distributor**で、契約アップグレードが発生したら`rocketpool node status`で取得できます
+      - Smoothing Poolにオプトインする場合は[Smoothing Poolアドレス](/ja/protocol/contracts-integrations/#protocol-contracts)
 
-      As a reminder, `rocketpool node status` will show you the correct fee recipient to use at any time.
+      念のため、`rocketpool node status`はいつでも使用する正しいfee recipientを表示します。
 
-      **Please read the [penalty specification](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) carefully to understand the conditions and expectations around the fee recipient.**
+      **[ペナルティ仕様](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)を注意深く読んで、fee recipientに関する条件と期待を理解してください。**
     </Tab>
     <Tab label="Teku">
-      Add the following command line argument to your Validator Client's service definition file:
+      Validator Clientのサービス定義ファイルに次のコマンドライン引数を追加します：
 
       ```
       --validators-proposer-default-fee-recipient=`address`
       ```
 
-      Where `address` is:
+      ここで`address`は：
 
-      - The [rETH address](/en/protocol/contracts-integrations/#token-contracts) **before** the Redstone update is deployed (e.g., `0xae78736Cd615f374D3085123A210448E74Fc6393` on Mainnet)
-      - Your node's **fee distributor** after Redstone is deployed, which you can retrieve with `rocketpool node status` once the contract upgrade occurs
-      - The [Smoothing Pool address](/en/protocol/contracts-integrations/#protocol-contracts) if you opt into the Smoothing Pool
+      - Redstoneアップデートがデプロイされる**前**は[rETHアドレス](/ja/protocol/contracts-integrations/#token-contracts)（例：Mainnetの`0xae78736Cd615f374D3085123A210448E74Fc6393`）
+      - Redstoneがデプロイされた後はノードの**fee distributor**で、契約アップグレードが発生したら`rocketpool node status`で取得できます
+      - Smoothing Poolにオプトインする場合は[Smoothing Poolアドレス](/ja/protocol/contracts-integrations/#protocol-contracts)
 
-      As a reminder, `rocketpool node status` will show you the correct fee recipient to use at any time.
+      念のため、`rocketpool node status`はいつでも使用する正しいfee recipientを表示します。
 
-      **Please read the [penalty specification](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) carefully to understand the conditions and expectations around the fee recipient.**
+      **[ペナルティ仕様](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)を注意深く読んで、fee recipientに関する条件と期待を理解してください。**
     </Tab>
 
   </Tabs>
 </div>
 
-### Set Up MEV-Boost
+### MEV-Boostのセットアップ
 
-[MEV-boost](https://boost.flashbots.net/) is the system Flashbots provides to give MEV rewards to Proof-of-Stake validators after The Merge.
+[MEV-boost](https://boost.flashbots.net/)は、Merge後にMEV報酬をProof-of-Stake validatorに提供するためにFlashbotsが提供するシステムです。
 
-**Rocket Pool requires all nodes to use it to maximize their returns and thus keep the protocol competitive with other staking services.**
+**Rocket Poolは、リターンを最大化し、プロトコルを他のstakingサービスと競争力のあるものに保つために、すべてのノードがこれを使用することを要求しています。**
 
-You will need to make some adjustments to your Beacon Node / Consensus client to connect it to MEV-boost.
+MEV-boostに接続するには、Beacon Node / Consensusクライアントにいくつかの調整を行う必要があります。
 
-MEV-boost is currently not available on Hoodi or Mainnet, so you do not need to set it up at this time.
-Of course, you will not be penalized for not using it during this transition period.
+MEV-boostは現在HoodiまたはMainnetで利用できないため、現時点でセットアップする必要はありません。
+もちろん、この移行期間中に使用しなくてもペナルティを受けることはありません。
 
-Once it becomes available, we will announce a date at which it must be installed and connected to your node.
-Flashbots will provide instructions you can follow at that time, and we will link to them here.
+利用可能になったら、すべてのノードオペレーターがインストールしてノードに接続する必要がある日付を発表します。
+その時点でFlashbotsは従うことができる手順を提供し、ここにリンクします。
 
-::: danger NOTE
-Once we make the announcement that MEV-boost must be enabled by all node operators, you must ensure you have it properly installed and configured with your Beacon Node!
+::: danger 注意
+すべてのノードオペレーターがMEV-boostを有効にする必要があるという発表を行ったら、Beacon Nodeに適切にインストールされ構成されていることを確認する必要があります！
 
-Not doing so will result in your minipool being [penalized](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
+そうしないと、minipoolが[ペナルティ](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)を受けることになります。
 :::
 
-### Set Up a Fallback Node
+### フォールバックノードのセットアップ
 
-Because The Merge is not compatible with remote providers like Infura and Pocket, you'll lose the ability to use them as fallback Execution clients when your primary goes offline.
+Mergeは、InfuraやPocketなどのリモートプロバイダーと互換性がないため、プライマリがオフラインになったときにフォールバックExecutionクライアントとして使用する能力を失います。
 
-The Smartnode still has the ability to provide a fallback Execution client (and now a fallback Consensus client as well), but you will now need to use Execution and Consensus clients that you control.
+Smartnodeには依然としてフォールバックExecutionクライアント（および現在はフォールバックConsensusクライアントも）を提供する能力がありますが、制御するExecutionおよびConsensusクライアントを使用する必要があります。
 
-For more information on setting up a fallback node, see the [Fallback node guide](../../node-staking/fallback).
+フォールバックノードのセットアップの詳細については、[フォールバックノードガイド](../../node-staking/fallback)を参照してください。
 
-### Initialize your Fee Distributor
+### Fee Distributorの初期化
 
-If you aren't planning to opt into the [Smoothing Pool](./whats-new#smoothing-pool) and claim all of your priority fees and MEV rewards to your [fee distributor contract](./whats-new#fee-recipients-and-your-distributor), you will eventually have to initialize it (create the contract instance on the chain) in order to claim rewards from it to your withdrawal address.
+[Smoothing Pool](./whats-new#smoothing-pool)にオプトインせず、すべてのpriority feesとMEV報酬を[fee distributor契約](./whats-new#fee-recipients-and-your-distributor)に請求する予定がない場合、最終的には初期化（チェーン上に契約インスタンスを作成）して、そこから出金アドレスに報酬を請求する必要があります。
 
-This is a fairly cheap operation and only needs to be done once.
+これはかなり安価な操作であり、一度だけ行う必要があります。
 
-::: tip TIP
-Initializing your fee distributor can be done at **any time**.
-You can let rewards accumulate in its address long before you initialize it, and your balance will remain after initialization.
+::: tip ヒント
+fee distributorの初期化は**いつでも**行うことができます。
+初期化するずっと前に報酬をそのアドレスに蓄積させることができ、初期化後も残高は残ります。
 
-We recommend you do so when gas prices are low to minimize the overhead cost.
+オーバーヘッドコストを最小限に抑えるために、ガス価格が低いときに行うことをお勧めします。
 
-Note that it **must be initialized in order to claim your rewards.**
+**報酬を請求するには初期化する必要があります。**
 :::
 
-### Opt Into the Smoothing Pool
+### Smoothing Poolへのオプトイン
 
-If you plan on taking advantage of the [Smoothing Pool](./whats-new#smoothing-pool) right away, you should opt in before the end of the first Redstone rewards period to maximize your "eligibility" amount.
+すぐに[Smoothing Pool](./whats-new#smoothing-pool)を利用する予定がある場合は、「適格性」金額を最大化するために、最初のRedstone報酬期間の終了前にオプトインする必要があります。
 
-Opting in can be done via running the following command:
+オプトインは次のコマンドを実行して行うことができます：
 
 ```shell
 rocketpool node join-smoothing-pool
 ```
 
-### Claim Rewards
+### 報酬の請求
 
-The Redstone upgrade replaces the expensive, problematic old rewards system with a [brand new one](./whats-new#new-rewards-system) that's much cheaper, supports automatic restaking of RPL (both partial and full amounts), and - most importantly - **lets you claim your rewards whenever you want**.
+Redstoneアップグレードは、高価で問題のある古い報酬システムを、はるかに安価で、RPLの自動再ステーク（部分的および完全な金額の両方）をサポートし、そして最も重要なことに**いつでも報酬を請求できる**[真新しいもの](./whats-new#new-rewards-system)に置き換えます。
 
-Because there is no longer a time limit on claiming rewards, and because it's cheaper to claim many rewards intervals at once, the automatic rewards claiming feature of the Smartnode **has been removed**.
-You will now be able to claim rewards via the following command:
+報酬請求に時間制限がなくなり、多くの報酬間隔を一度に請求する方が安価になるため、Smartnodeの自動報酬請求機能は**削除されました**。
+次のコマンドを介して報酬を請求できるようになります：
 
 ```shell
 rocketpool node claim-rewards
 ```
 
-This will show you all of the rewards you've accumulated across all of the rewards intervals starting with the Redstone upgrade.
+これにより、Redstoneアップグレードから始まるすべての報酬間隔にわたって蓄積したすべての報酬が表示されます。

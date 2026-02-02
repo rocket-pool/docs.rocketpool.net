@@ -1,74 +1,74 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 import tuiOdao from "./images/tui-odao.png";
 
-# Setting up an Oracle DAO Node
+# Oracle DAO Nodeのセットアップ
 
-At a bare minimum, a standard Rocket Pool node runs the following:
+最低限、標準のRocket Poolノードは次のものを実行します:
 
-- The Smartnode CLI
-- The Smartnode API daemon
-- The Smartnode `node` daemon
-- The Smartnode `watchtower` daemon
+- Smartnode CLI
+- Smartnode APIデーモン
+- Smartnode `node`デーモン
+- Smartnode `watchtower`デーモン
 
-Optionally, the node can also run the following components:
+オプションで、ノードは次のコンポーネントも実行できます:
 
-- An Execution Client
-- A Beacon Node
-- A Validator Client
+- Execution Client
+- Beacon Node
+- Validator Client
 - MEV-Boost
 - Prometheus
-- The Prometheus Node Exporter
+- Prometheus Node Exporter
 - Grafana
 
-Each of these components can be run as Docker containers in the standard setup, as `systemd` services in the "Native Mode" setup, or run as externally-managed entities that the Smartnode can connect to via their respective API routes.
+これらの各コンポーネントは、標準セットアップではDockerコンテナとして、「Native Mode」セットアップでは`systemd`サービスとして実行でき、またはSmartnodeがそれぞれのAPIルートを介して接続できる外部管理エンティティとして実行できます。
 
-Conveniently, Oracle DAO nodes are the same as normal Rocket Pool nodes, but the `watchtower` daemon performs the supplemental Oracle DAO duties and there are more Prometheus metrics collected for performance monitoring purposes.
+便利なことに、Oracle DAOノードは通常のRocket Poolノードと同じですが、`watchtower`デーモンが補足的なOracle DAOの役割を実行し、パフォーマンス監視のためにより多くのPrometheusメトリクスが収集されます。
 
-## Initial Node Setup
+## 初期ノードセットアップ
 
-The best way to start is by following [the standard setup instructions](../node-staking/platform) for a normal Rocket Pool node.
-That process will help you determine how you'd like to configure and run your node.
+開始する最良の方法は、通常のRocket Poolノードの[標準セットアップ手順](../node-staking/platform)に従うことです。
+このプロセスは、ノードの設定と実行方法を決定するのに役立ちます。
 
-If you would like to run minipools (validators) on your node, please follow the normal node documentation from start to finish and return here when you're done.
+ノードでminipools(validators)を実行したい場合は、通常のノードドキュメントに最初から最後まで従い、完了したらここに戻ってください。
 
-If you do _not_ intend to run minipools and instead will use it purely for Oracle DAO duties, you can skip all of the steps relating to staking RPL and minipool creation.
-The other steps such as node registration, establishing a good security posture, monitoring the node's health and performance, and updating the Smartnode after an update all still apply to you and you should review them carefully before proceeding.
-Return here when you've finished.
+minipoolsを実行する予定が_ない_場合で、純粋にOracle DAOの役割のためにそれを使用する場合は、RPLのステーキングとminipool作成に関連するすべてのステップをスキップできます。
+ノード登録、優れたセキュリティ体制の確立、ノードの健全性とパフォーマンスの監視、アップデート後のSmartnodeの更新などの他のステップはすべてあなたに適用されるため、先に進む前に慎重に確認する必要があります。
+完了したらここに戻ってください。
 
-## Additional Oracle DAO Configuration
+## 追加のOracle DAO設定
 
-There are two additional settings you need to provision in order to satisfy your Oracle DAO responsibilities.
-Please select the mode you use to configure your node below from the tabs below.
+Oracle DAOの責任を満たすために、プロビジョニングする必要がある2つの追加設定があります。
+以下のタブから、ノードの設定に使用するモードを選択してください。
 
 <div className="p-3">
   <Tabs>
     <Tab label="(service config) Interactive UI">
-      Open the `rocketpool service config` TUI and go to the `Smartnode and TX Fees` section.
-      Here, you will see two options at the bottom:
+      `rocketpool service config` TUIを開き、`Smartnode and TX Fees`セクションに移動します。
+      ここで、下部に2つのオプションが表示されます:
 
       <img src={tuiOdao} width="100%" height="auto"/>
 
-      The `Archive-Mode EC URL` must be the HTTP endpoint of the RPC API for your Archive Execution Client.
-      **Note that if you are already using your Archive EC as your primary client in Externally-Managed mode, you can ignore this setting.**
+      `Archive-Mode EC URL`は、Archive Execution ClientのRPC APIのHTTPエンドポイントである必要があります。
+      **Externally-Managedモードで既にArchive ECをプライマリクライアントとして使用している場合は、この設定を無視できます。**
     </Tab>
     <Tab label="(service config) Headlessly">
 
-      Run the following command to configure your node headlessly:
+      次のコマンドを実行して、ノードをヘッドレスで設定します:
 
       ```shell
       rocketpool service config --smartnode-archiveECUrl "http://your Archive EC URL"
       ```
 
-      Where:
+      ここで:
 
-      `--smartnode-archiveECUrl` must be the HTTP endpoint of the RPC API for your Archive Execution Client.
-      **Note that if you are already using your Archive EC as your primary client in Externally-Managed mode, you can ignore this setting.**
+      `--smartnode-archiveECUrl`は、Archive Execution ClientのRPC APIのHTTPエンドポイントである必要があります。
+      **Externally-Managedモードで既にArchive ECをプライマリクライアントとして使用している場合は、この設定を無視できます。**
 
-      Finally, restart your `watchtower` daemon (i.e., with `docker restart rocketpool_watchtower` in Docker or Hybrid mode, or `sudo systemctl restart rp_watchtower` in Native mode) for the settings to take effect.
+      最後に、設定を有効にするために`watchtower`デーモンを再起動します(DockerまたはHybridモードでは`docker restart rocketpool_watchtower`、Nativeモードでは`sudo systemctl restart rp_watchtower`で)。
     </Tab>
     <Tab label="Direct Config File">
-      Open the `user-settings.yml` file in your Smartnode directory (`~/.rocketpool` by default) in a text editor.
-      Scroll down to the `smartnode` section:
+      Smartnodeディレクトリ(デフォルトでは`~/.rocketpool`)の`user-settings.yml`ファイルをテキストエディタで開きます。
+      `smartnode`セクションまでスクロールします:
 
       ```
       smartnode:
@@ -82,20 +82,20 @@ Please select the mode you use to configure your node below from the tabs below.
       rewardsTreeMode: generate
       ```
 
-      Replace the values in the `archiveECUrl` field, where:
+      `archiveECUrl`フィールドの値を置き換えます。ここで:
 
-      `archiveECUrl` must be the HTTP endpoint of the RPC API for your Archive Execution Client.
-      **Note that if you are already using your Archive EC as your primary client in Externally-Managed mode, you can ignore this setting.**
+      `archiveECUrl`は、Archive Execution ClientのRPC APIのHTTPエンドポイントである必要があります。
+      **Externally-Managedモードで既にArchive ECをプライマリクライアントとして使用している場合は、この設定を無視できます。**
 
-      Finally, restart your `watchtower` daemon (i.e., with `docker restart rocketpool_watchtower` in Docker or Hybrid mode, or `sudo systemctl restart rp_watchtower` in Native mode) for the settings to take effect.
+      最後に、設定を有効にするために`watchtower`デーモンを再起動します(DockerまたはHybridモードでは`docker restart rocketpool_watchtower`、Nativeモードでは`sudo systemctl restart rp_watchtower`で)。
     </Tab>
 
   </Tabs>
 </div>
 
-## Oracle DAO Smartnode Commands
+## Oracle DAO Smartnodeコマンド
 
-The Smartnode CLI's `odao` command group is used to interact with the Oracle DAO contracts and duties on-chain:
+Smartnode CLIの`odao`コマンドグループは、Oracle DAOコントラクトおよびオンチェーンの役割とやり取りするために使用されます:
 
 ```
 NAME:
@@ -121,7 +121,7 @@ OPTIONS:
 
 ### status
 
-The `status` command simply summarizes a few details about the Oracle DAO such as member count and proposal count:
+`status`コマンドは、メンバー数やプロポーザル数など、Oracle DAOに関するいくつかの詳細を単純に要約します:
 
 ```
 The node is a member of the oracle DAO - it can create unbonded minipools, vote on DAO proposals and perform watchtower duties.
@@ -135,7 +135,7 @@ There are 29 oracle DAO proposal(s) in total:
 
 ### members
 
-The `members` command prints detailed information about each member of the Oracle DAO, including their handle, their contact information, their node address, their RPL bond, and the last time they submitted a proposal for voting:
+`members`コマンドは、Oracle DAOの各メンバーに関する詳細情報を出力します。ハンドル、連絡先情報、ノードアドレス、RPLボンド、および投票のためにプロポーザルを最後に提出した時刻が含まれます:
 
 ```
 The oracle DAO has 8 members:
@@ -154,7 +154,7 @@ Unbonded minipools:   0
 
 ### member-settings
 
-`member-settings` shows the current values for each of the configurable parameters related to Oracle DAO membership:
+`member-settings`は、Oracle DAOメンバーシップに関連する各設定可能なパラメータの現在の値を表示します:
 
 ```
 ODAO Voting Quorum Threshold: 51.000000%
@@ -165,11 +165,11 @@ Challenge Meeting Window: 900 Blocks
 Cost for Non-members to Challenge Members: 1.000000 ETH
 ```
 
-This command is described in more detail in the [Oracle DAO Proposals](./proposals) section.
+このコマンドの詳細は、[Oracle DAOプロポーザル](./proposals)セクションで説明されています。
 
 ### proposal-settings
 
-`proposal-settings` shows the current values for each of the configurable parameters related to proposals that the Oracle DAO can vote on:
+`proposal-settings`は、Oracle DAOが投票できるプロポーザルに関連する各設定可能なパラメータの現在の値を表示します:
 
 ```
 Cooldown Between Proposals: 1h0m0s
@@ -179,11 +179,11 @@ Window to Execute an Accepted Proposal: 168h0m0s
 Window to Act on an Executed Proposal: 168h0m0s
 ```
 
-This command is described in more detail in the [Oracle DAO Proposals](./proposals) section.
+このコマンドの詳細は、[Oracle DAOプロポーザル](./proposals)セクションで説明されています。
 
 ### minipool-settings
 
-`minipool-settings` shows the current values for each of the configurable parameters related to minipools on the Rocket Pool network:
+`minipool-settings`は、Rocket Poolネットワーク上のminipoolsに関連する各設定可能なパラメータの現在の値を表示します:
 
 ```
 Scrub Period: 1h0m0s
@@ -191,15 +191,15 @@ Scrub Period: 1h0m0s
 
 ### propose
 
-The `propose` command is used to submit governance proposals that the rest of the Oracle DAO can vote on.
-These can involve changing a setting or modifying the Oracle DAO members (i.e., inviting or kicking other members).
+`propose`コマンドは、Oracle DAOの残りのメンバーが投票できるガバナンスプロポーザルを提出するために使用されます。
+これには、設定の変更やOracle DAOメンバーの変更(つまり、他のメンバーの招待またはキック)が含まれます。
 
-This command is described in more detail in the [Oracle DAO Proposals](./proposals) section.
+このコマンドの詳細は、[Oracle DAOプロポーザル](./proposals)セクションで説明されています。
 
 ### proposals
 
-The `proposals` command is used to interact with existing Oracle DAO governance proposals.
-It can view them, rescind proposals that you made, vote on them, and execute them (if applicable) causing them to take effect after they have been approved by the other members:
+`proposals`コマンドは、既存のOracle DAOガバナンスプロポーザルとやり取りするために使用されます。
+それらを表示し、作成したプロポーザルを取り消し、それらに投票し、(該当する場合)他のメンバーによって承認された後に有効にするためにそれらを実行できます:
 
 ```
 NAME:
@@ -220,37 +220,37 @@ OPTIONS:
 
 ```
 
-This command is described in more detail in the [Oracle DAO Proposals](./proposals) section.
+このコマンドの詳細は、[Oracle DAOプロポーザル](./proposals)セクションで説明されています。
 
 ### join / leave
 
-The `join` and `leave` commands are used to join the Oracle DAO once you've been invited, or leave the Oracle DAO once the other members have approved your resignation request.
+`join`および`leave`コマンドは、招待されたらOracle DAOに参加するため、または他のメンバーが辞任要求を承認したらOracle DAOを離れるために使用されます。
 
-## Joining the Oracle DAO
+## Oracle DAOへの参加
 
-### The RPL Bond
+### RPLボンド
 
-In order to join the Oracle DAO, your node wallet will need enough RPL in it to cover the required membership bond.
-This will be locked in Rocket Pool's vault as part of the joining process.
-The exact amount of RPL required for the bond will be determined at the time of your invitation, and will be communicated to you by the other Oracle DAO members prior to onboarding you.
+Oracle DAOに参加するには、ノードウォレットに必要なメンバーシップボンドをカバーするのに十分なRPLが必要です。
+これは、参加プロセスの一部としてRocket Poolのボールトにロックされます。
+ボンドに必要なRPLの正確な金額は、招待時に決定され、オンボーディング前に他のOracle DAOメンバーから通知されます。
 
-::: warning NOTE
-Unlike all other ETH and RPL rewards, the RPL bond is _not_ sent to your node's withdrawal address upon exiting the Oracle DAO.
-It is sent back to your node wallet itself.
-Consider this as extra incentive to protect your node wallet from compromise.
+::: warning 注意
+他のすべてのETHおよびRPL報酬とは異なり、RPLボンドはOracle DAOを離れる際にノードの出金アドレスに送信_されません_。
+ノードウォレット自体に送り返されます。
+これを、ノードウォレットを侵害から保護するための追加のインセンティブと考えてください。
 :::
 
-### Accepting an Invitation
+### 招待の受諾
 
-Once your node is set up and you have been invited to join the Oracle DAO by the existing members, you can use the `rocketpool odao join` command to accept the invitation.
-This will involve two transactions:
+ノードがセットアップされ、既存のメンバーによってOracle DAOに参加するよう招待されたら、`rocketpool odao join`コマンドを使用して招待を受諾できます。
+これには2つのトランザクションが含まれます:
 
-- One to lock the RPL required for your bond
-- One to join the Oracle DAO when the bond has been received
+- ボンドに必要なRPLをロックするためのもの
+- ボンドが受信されたらOracle DAOに参加するためのもの
 
-Once you've joined, your `watchtower` daemon will automatically begin performing its required duties.
-You can verify this by looking at its logs (e.g. `rocketpool service logs watchtower` for standard Docker-based installations); the watchtower performs its loop of duties every 4 to 6 minutes, and you will notice a distinct change in its output once you've joined the Oracle DAO.
+参加すると、`watchtower`デーモンは自動的に必要な役割の実行を開始します。
+そのログを確認することで確認できます(標準のDockerベースのインストールの場合は`rocketpool service logs watchtower`など)。watchtowerは4〜6分ごとに役割のループを実行し、Oracle DAOに参加すると出力に明確な変化が見られます。
 
-### Next Steps
+### 次のステップ
 
-Now that you've joined the Oracle DAO, take a look at the next section to learn how to test your node in this role.
+これでOracle DAOに参加したので、次のセクションを見て、この役割でノードをテストする方法を学びましょう。

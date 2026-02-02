@@ -5,129 +5,129 @@ import mm_network_main from "./images/mm_network_main.png";
 import mm_add_token from "./images/mm_add_token.png";
 import rp_test_site from "./images/rp_test_site.png";
 
-# Staking Directly via Rocket Pool
+# Rocket Pool을 통해 직접 스테이킹
 
-## Overview
+## 개요
 
-Rocket Pool's staking interface now offers two distinct routes for converting between ETH and rETH:
+Rocket Pool의 스테이킹 인터페이스는 이제 ETH와 rETH 간 변환을 위한 두 가지 별도의 경로를 제공합니다:
 
-1. **Protocol Route** - Direct interaction with Rocket Pool smart contracts
-2. **CoW Swap Route** - Decentralized exchange aggregator with MEV protection (Mainnet only)
+1. **프로토콜 경로** - Rocket Pool 스마트 컨트랙트와 직접 상호 작용
+2. **CoW Swap 경로** - MEV 보호 기능이 있는 탈중앙화 거래소 통합기 (메인넷 전용)
 
-The interface automatically recommends the best route based on current market conditions and liquidity availability.
+인터페이스는 현재 시장 상황과 유동성 가용성을 기반으로 최상의 경로를 자동으로 권장합니다.
 
 <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/stake_options.mp4" />
 
-## Routing Options Explained
+## 라우팅 옵션 설명
 
-### Protocol Route
+### 프로토콜 경로
 
-**How it works:** Direct interaction with Rocket Pool's deposit pool and smart contracts on-chain.
+**작동 방식:** 온체인에서 Rocket Pool의 예치 풀 및 스마트 컨트랙트와 직접 상호 작용합니다.
 
-**Advantages:**
+**장점:**
 
-- Instant execution
-- Predictable exchange rate based on current rETH/ETH ratio
-- No intermediary tokens required (direct ETH ↔ rETH conversion)
-- Lower complexity
-- Always get exactly as much rETH as your ETH is worth (minus a 0.05% deposit fee)
-- No slippage, no liquidity issues, no sandwiching or front-running
+- 즉시 실행
+- 현재 rETH/ETH 비율을 기반으로 한 예측 가능한 환율
+- 중개 토큰 불필요 (직접 ETH ↔ rETH 변환)
+- 낮은 복잡성
+- 항상 ETH의 가치만큼 정확히 rETH를 받습니다 (0.05% 예치 수수료 제외)
+- 슬리피지, 유동성 문제, 샌드위칭 또는 프런트러닝 없음
 
-**Limitations:**
+**제한사항:**
 
-- Subject to deposit pool limits when staking
-- Subject to liquidity availability when unstaking
-- Requires gas fees for transaction
-- Gas fees might be expensive for small amounts
+- 스테이킹 시 예치 풀 한도의 적용을 받음
+- 언스테이킹 시 유동성 가용성의 적용을 받음
+- 거래에 가스 수수료 필요
+- 소액의 경우 가스 수수료가 비쌀 수 있음
 
-### CoW Swap Route (Mainnet Only)
+### CoW Swap 경로 (메인넷 전용)
 
-**How it works:** Uses CoW Protocol's batch auction system to find the best price across multiple DEXs.
+**작동 방식:** CoW 프로토콜의 배치 경매 시스템을 사용하여 여러 DEX에서 최상의 가격을 찾습니다.
 
-**Advantages:**
+**장점:**
 
-- MEV (Maximum Extractable Value) protection against sandwich attacks
-- Gasless execution - you only sign the order
-- Often provides better rates through DEX aggregation
-- Always available regardless of protocol deposit pool limits
-- No gas fees for the swap itself
+- 샌드위치 공격에 대한 MEV(Maximum Extractable Value) 보호
+- 가스 없는 실행 - 주문에 서명만 하면 됩니다
+- DEX 통합을 통해 종종 더 나은 비율 제공
+- 프로토콜 예치 풀 한도와 관계없이 항상 사용 가능
+- 스왑 자체에 대한 가스 수수료 없음
 
-**Limitations:**
+**제한사항:**
 
-- Requires WETH wrapping/unwrapping steps (handled automatically)
-- Orders may take 2-5 minutes to execute
-- Orders can expire if not matched within the time limit
-- Requires one-time token approvals
+- WETH 래핑/언래핑 단계 필요 (자동으로 처리됨)
+- 주문 실행에 2-5분 소요될 수 있음
+- 제한 시간 내에 매칭되지 않으면 주문이 만료될 수 있음
+- 일회성 토큰 승인 필요
 
-## Key Concepts
+## 주요 개념
 
 ### WETH (Wrapped ETH)
 
-When using CoW Swap, the interface automatically handles WETH conversions:
+CoW Swap을 사용할 때 인터페이스는 자동으로 WETH 변환을 처리합니다:
 
-- WETH is an ERC-20 token representing ETH in a standardized format
-- 1 WETH always equals 1 ETH
-- The interface wraps ETH to WETH before trading and unwraps after
-- You only pay gas for the initial wrap (one-time)
+- WETH는 표준화된 형식으로 ETH를 나타내는 ERC-20 토큰입니다
+- 1 WETH는 항상 1 ETH와 같습니다
+- 인터페이스는 거래 전에 ETH를 WETH로 래핑하고 거래 후 언래핑합니다
+- 초기 래핑에 대한 가스만 지불하면 됩니다 (일회성)
 
-### Slippage Tolerance
+### 슬리피지 허용 범위
 
-For CoW Swap orders:
+CoW Swap 주문의 경우:
 
-- Default: 0.5%
-- Adjustable based on your preference
-- Higher slippage = more likely to execute
-- Lower slippage = better price protection
+- 기본값: 0.5%
+- 선호도에 따라 조정 가능
+- 슬리피지가 높을수록 = 실행 가능성이 높아짐
+- 슬리피지가 낮을수록 = 더 나은 가격 보호
 
-### Order Expiry
+### 주문 만료
 
-CoW Swap orders have a time limit:
+CoW Swap 주문에는 시간 제한이 있습니다:
 
-- Default: 30 minutes
-- Adjustable from 5 minutes to 24 hours
-- Orders automatically cancel if not executed
+- 기본값: 30분
+- 5분에서 24시간까지 조정 가능
+- 주문이 실행되지 않으면 자동으로 취소됨
 
-### Better Rate Indicator
+### 더 나은 비율 표시기
 
-The interface shows which route offers better value:
+인터페이스는 어떤 경로가 더 나은 가치를 제공하는지 보여줍니다:
 
-- Green badge with "X% better" indicates the optimal route
-- Automatically pre-selects the best option
-- Updates in real-time as market conditions change
+- "X% 더 나음"이 있는 녹색 배지는 최적의 경로를 나타냅니다
+- 최상의 옵션을 자동으로 미리 선택합니다
+- 시장 상황이 변경됨에 따라 실시간으로 업데이트됩니다
 
-### Protocol Liquidity
+### 프로토콜 유동성
 
-When unstaking rETH:
+rETH를 언스테이킹할 때:
 
-- Protocol route requires available ETH in the deposit pool
-- Shows "Insufficient liquidity" when pool is empty
-- Automatically routes through CoW Swap when protocol liquidity is unavailable
+- 프로토콜 경로는 예치 풀에 사용 가능한 ETH가 필요합니다
+- 풀이 비어 있을 때 "유동성 부족"이 표시됩니다
+- 프로토콜 유동성을 사용할 수 없을 때 자동으로 CoW Swap을 통해 라우팅됩니다
 
-## Getting Started
+## 시작하기
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Preparing on the Hoodi Testnet">
+    <Tab label="Hoodi 테스트넷에서 준비하기">
       <p className="rspress-directive danger">
-        <p className="rspress-directive-title">WARNING</p>
-        When practicing staking on the test network, you **do not need to provide any of your real ETH** during this process.
-        You will be given **fake test ETH** to use instead.
+        <p className="rspress-directive-title">경고</p>
+        테스트 네트워크에서 스테이킹을 연습할 때 이 과정에서 **실제 ETH를 제공할 필요가 없습니다**.
+        대신 **가짜 테스트 ETH**가 제공됩니다.
 
-        **Do not attempt to move your real ETH on mainnet to the testnet or you will lose it permanently!**
+        **메인넷의 실제 ETH를 테스트넷으로 옮기려고 시도하지 마세요. 영구적으로 잃게 됩니다!**
       </p>
 
-      Start by installing [MetaMask](https://metamask.io/) if you haven't already.
-      Follow the instructions on their site to install the extension, create an account, and sign in.
+      아직 설치하지 않았다면 [MetaMask](https://metamask.io/)를 설치하여 시작하세요.
+      사이트의 지침에 따라 확장 프로그램을 설치하고, 계정을 만들고, 로그인하세요.
 
-      Next, open the MetaMask panel using its icon in your browser toolbar.
+      다음으로 브라우저 도구 모음의 아이콘을 사용하여 MetaMask 패널을 여세요.
 
-      You will need to add the Hoodi Testnet to MetaMask.
+      MetaMask에 Hoodi 테스트넷을 추가해야 합니다.
 
-      Click on the top left dropdown & click the "Add Network" button.
+      왼쪽 상단 드롭다운을 클릭하고 "Add Network" 버튼을 클릭하세요.
 
-      You will see a list of networks, Hoodi is not in this list so click the "Add a network manually" button.
+      네트워크 목록이 표시되지만 Hoodi는 이 목록에 없으므로 "Add a network manually" 버튼을 클릭하세요.
 
-      Fill in the following details:
+      다음 세부 정보를 입력하세요:
 
       ```
       Network Name: Hoodi
@@ -137,142 +137,142 @@ When unstaking rETH:
       Block Explorer Url: https://hoodi.etherscan.io
       ```
 
-      Then click Save. You should now see the Hoodi network in the top left dropdown.
+      그런 다음 저장을 클릭하세요. 이제 왼쪽 상단 드롭다운에 Hoodi 네트워크가 표시되어야 합니다.
 
-      Click on the **network dropdown** in the top left of the Metamask extension & select **Hoodi Test Network**.
+      Metamask 확장의 왼쪽 상단에 있는 **네트워크 드롭다운**을 클릭하고 **Hoodi Test Network**를 선택하세요.
 
-      Finally, add the rETH token to MetaMask so you can see your balance and access it for trading.
-      Click the **Assets** tab, then click **Add Token**:
+      마지막으로 rETH 토큰을 MetaMask에 추가하여 잔액을 확인하고 거래를 위해 액세스할 수 있도록 하세요.
+      **Assets** 탭을 클릭한 다음 **Add Token**을 클릭하세요:
 
       <img src={mm_add_token} width="100%" height="auto" />
 
-      Ensure that **Custom Token** is selected in this dialog.
-      In the **Token Contract Address** box, put the following value:
+      이 대화 상자에서 **Custom Token**이 선택되었는지 확인하세요.
+      **Token Contract Address** 상자에 다음 값을 입력하세요:
 
       ```
       0x7322c24752f79c05ffd1e2a6fcb97020c1c264f1
       ```
 
-      The **Token Symbol** should automatically be populated with `rETH`, and the **Decimals of Precision** should automatically be populated with `18`.
+      **Token Symbol**은 자동으로 `rETH`로 채워지고 **Decimals of Precision**은 자동으로 `18`로 채워져야 합니다.
 
-      Accept the rest of the prompts, and then you will see the rETH token appear in your list.
+      나머지 프롬프트를 수락하면 목록에 rETH 토큰이 나타납니다.
 
-      Now that you have a wallet address in MetaMask, you need to fill it with some test ETH.
-      Head over to the [Practicing with the Test Network](../node-staking/testnet/overview#getting-test-eth-on-hoodi) page for a quick guide on how to use a testnet faucet to get some test ETH on Hoodi.
+      이제 MetaMask에 지갑 주소가 있으니 테스트 ETH로 채워야 합니다.
+      테스트넷 faucet을 사용하여 Hoodi에서 테스트 ETH를 얻는 방법에 대한 빠른 가이드는 [테스트 네트워크로 연습하기](../node-staking/testnet/overview#getting-test-eth-on-hoodi) 페이지로 이동하세요.
 
-      Once you have some Hoodi ETH to test with, head to [https://testnet.rocketpool.net/](https://testnet.rocketpool.net/).
+      테스트할 Hoodi ETH가 있으면 [https://testnet.rocketpool.net/](https://testnet.rocketpool.net/)으로 이동하세요.
 
-      **Note:** Testnet only supports Protocol routing. CoW Swap is available on mainnet only.
+      **참고:** 테스트넷은 프로토콜 라우팅만 지원합니다. CoW Swap은 메인넷에서만 사용할 수 있습니다.
     </Tab>
-    <Tab label="Preparing on Ethereum Mainnet">
-      Start by installing [MetaMask](https://metamask.io/) if you haven't already.
-      Follow the instructions on their site to install the extension, create an account, and sign in.
+    <Tab label="이더리움 메인넷에서 준비하기">
+      아직 설치하지 않았다면 [MetaMask](https://metamask.io/)를 설치하여 시작하세요.
+      사이트의 지침에 따라 확장 프로그램을 설치하고, 계정을 만들고, 로그인하세요.
 
-      Next, open the MetaMask panel using its icon in your browser toolbar.
-      Click on the **network dropdown** in the toolbar at the top and ensure that **Ethereum Mainnet** is selected:
+      다음으로 브라우저 도구 모음의 아이콘을 사용하여 MetaMask 패널을 여세요.
+      상단 도구 모음의 **네트워크 드롭다운**을 클릭하고 **Ethereum Mainnet**이 선택되었는지 확인하세요:
 
       <img src={mm_network_main} width="100%" height="auto" />
 
-      Finally, add the rETH token to MetaMask so you can see your balance and access it for trading.
-      Click the **Assets** tab, then click **Add Token**:
+      마지막으로 rETH 토큰을 MetaMask에 추가하여 잔액을 확인하고 거래를 위해 액세스할 수 있도록 하세요.
+      **Assets** 탭을 클릭한 다음 **Add Token**을 클릭하세요:
 
       <img src={mm_add_token} width="100%" height="auto" />
 
-      Ensure that **Custom Token** is selected in this dialog.
-      In the **Token Contract Address** box, put the following value:
+      이 대화 상자에서 **Custom Token**이 선택되었는지 확인하세요.
+      **Token Contract Address** 상자에 다음 값을 입력하세요:
 
       ```
       0xae78736Cd615f374D3085123A210448E74Fc6393
       ```
 
-      The **Token Symbol** should automatically be populated with `rETH`, and the **Decimals of Precision** should automatically be populated with `18`.
+      **Token Symbol**은 자동으로 `rETH`로 채워지고 **Decimals of Precision**은 자동으로 `18`로 채워져야 합니다.
 
-      Accept the rest of the prompts, and then you will see the rETH token appear in your list.
+      나머지 프롬프트를 수락하면 목록에 rETH 토큰이 나타납니다.
 
-      Now that you have a wallet address in MetaMask, you need to transfer some ETH into it.
-      You will need to supply this from an existing wallet or buy ETH on an exchange.
+      이제 MetaMask에 지갑 주소가 있으니 일부 ETH를 전송해야 합니다.
+      기존 지갑에서 이를 제공하거나 거래소에서 ETH를 구매해야 합니다.
 
-      Once you have some ETH to stake, head to [https://stake.rocketpool.net/](https://stake.rocketpool.net/).
+      스테이킹할 ETH가 있으면 [https://stake.rocketpool.net/](https://stake.rocketpool.net/)으로 이동하세요.
     </Tab>
 
   </Tabs>
 </div>
 
-## Staking ETH for rETH
+## ETH를 rETH로 스테이킹
 
-Once you're at the staking site, click on the **connect wallet** button. Please read through and accept the Terms of Service & Privacy Policy, this will enable different ways to connect, then click **connect metamask**.
+스테이킹 사이트에 도착하면 **connect wallet** 버튼을 클릭하세요. 서비스 약관 및 개인정보 보호정책을 읽고 수락하면 다양한 연결 방법이 활성화됩니다. 그런 다음 **connect metamask**를 클릭하세요.
 
-MetaMask will prompt you to select an account to connect to the website. Choose one, confirm a few permissions, and you'll see your balances update in the UI.
+MetaMask는 웹사이트에 연결할 계정을 선택하라는 메시지를 표시합니다. 하나를 선택하고 몇 가지 권한을 확인하면 UI에서 잔액이 업데이트되는 것을 볼 수 있습니다.
 
-### Step 1: Enter Amount
+### 1단계: 금액 입력
 
-Enter the amount of ETH you want to stake in the **Stake ETH** input field.
+**Stake ETH** 입력 필드에 스테이킹하려는 ETH 금액을 입력하세요.
 
-[Image placeholder: Input field with amount being entered]
+[이미지 자리 표시자: 금액이 입력되는 입력 필드]
 
-### Step 2: Review Routing Options
+### 2단계: 라우팅 옵션 검토
 
-The interface will display two routing options (mainnet only):
+인터페이스는 두 가지 라우팅 옵션을 표시합니다 (메인넷 전용):
 
-- **Protocol Card**: Shows if deposit pool is available or full
-- **CoW Swap Card**: Shows estimated output and rate comparison
+- **프로토콜 카드**: 예치 풀이 사용 가능한지 가득 찼는지 표시합니다
+- **CoW Swap 카드**: 예상 출력 및 비율 비교를 표시합니다
 
-The better option will be highlighted with a green "X% better" badge and automatically selected.
+더 나은 옵션은 녹색 "X% 더 나음" 배지로 강조 표시되고 자동으로 선택됩니다.
 
-[Image placeholder: Routing cards showing comparison]
+[이미지 자리 표시자: 비교를 보여주는 라우팅 카드]
 
-### Step 3: Configure Settings (CoW Swap Only)
+### 3단계: 설정 구성 (CoW Swap 전용)
 
-If using CoW Swap, you can optionally:
+CoW Swap을 사용하는 경우 선택적으로 다음을 수행할 수 있습니다:
 
-- Adjust slippage tolerance (default 0.5%)
-- Set order expiry time (default 30 minutes)
+- 슬리피지 허용 범위 조정 (기본값 0.5%)
+- 주문 만료 시간 설정 (기본값 30분)
 
-### Step 4: Execute Transaction
+### 4단계: 거래 실행
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Via Protocol">
-      Click **Stake via Protocol** button.
+    <Tab label="프로토콜을 통해">
+      **Stake via Protocol** 버튼을 클릭하세요.
 
-      MetaMask will prompt you to:
-      1. **Approve the transaction** with gas fees shown
-      2. **Confirm the transaction**
+      MetaMask는 다음을 요청합니다:
+      1. 표시된 가스 수수료로 **거래 승인**
+      2. **거래 확인**
 
-      ::: danger IMPORTANT
-      Check the total gas cost before approving - if it's very expensive relative to your stake amount, consider using CoW Swap instead!
+      ::: danger 중요
+      승인하기 전에 총 가스 비용을 확인하세요 - 스테이킹 금액에 비해 매우 비싸다면 대신 CoW Swap 사용을 고려하세요!
       :::
 
-      Once confirmed, the transaction will be mined and you'll receive your rETH immediately.
+      확인되면 거래가 채굴되고 즉시 rETH를 받게 됩니다.
 
       <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/protocol_stake.mp4" />
     </Tab>
-    <Tab label="Via CoW Swap">
-      Click **Stake via CoW Swap** button.
+    <Tab label="CoW Swap을 통해">
+      **Stake via CoW Swap** 버튼을 클릭하세요.
 
-      The process involves several automated steps:
+      프로세스에는 여러 자동화된 단계가 포함됩니다:
 
-      1. **WETH Wrapping** (if needed)
-      - Approve ETH to WETH conversion
-      - One-time gas fee required
+      1. **WETH 래핑** (필요한 경우)
+      - ETH에서 WETH로의 변환 승인
+      - 일회성 가스 수수료 필요
 
-      2. **WETH Approval** (first time only)
-      - Approve CoW Protocol to use your WETH
-      - One-time gas fee required
+      2. **WETH 승인** (처음만)
+      - CoW 프로토콜이 WETH를 사용하도록 승인
+      - 일회성 가스 수수료 필요
 
-      3. **Sign Order**
-      - Review order details
-      - Sign with MetaMask (gasless)
-      - No gas fees
+      3. **주문 서명**
+      - 주문 세부 정보 검토
+      - MetaMask로 서명 (가스 없음)
+      - 가스 수수료 없음
 
-      4. **Order Execution**
-      - Monitor progress in modal
-      - Typical wait: 2-5 minutes
-      - Can close modal and continue browsing
+      4. **주문 실행**
+      - 모달에서 진행 상황 모니터링
+      - 일반적인 대기 시간: 2-5분
+      - 모달을 닫고 계속 탐색할 수 있습니다
 
-      5. **Completion**
-      - rETH automatically appears in wallet
-      - View on Etherscan if needed
+      5. **완료**
+      - rETH가 자동으로 지갑에 나타남
+      - 필요한 경우 Etherscan에서 확인
 
       <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/cowswap_stake.mp4" preload="auto"/>
     </Tab>
@@ -280,63 +280,63 @@ If using CoW Swap, you can optionally:
   </Tabs>
 </div>
 
-::: tip NOTE
-It's **completely normal** to receive less rETH than the ETH you put in. rETH and ETH have a **dynamic exchange rate**: as the Rocket Pool network earns rewards, 1 rETH becomes worth more than 1 ETH.
+::: tip 참고
+투입한 ETH보다 적은 rETH를 받는 것은 **완전히 정상**입니다. rETH와 ETH는 **동적 환율**을 갖습니다: Rocket Pool 네트워크가 보상을 얻으면 1 rETH는 1 ETH보다 더 많은 가치를 갖게 됩니다.
 :::
 
-## Unstaking rETH for ETH
+## rETH를 ETH로 언스테이킹
 
-When you're ready to unstake and trade your rETH back for ETH, head back to the staking website and click on the **swap direction button** to switch to unstaking mode:
+언스테이킹하고 rETH를 ETH로 다시 교환할 준비가 되면 스테이킹 웹사이트로 돌아가서 **스왑 방향 버튼**을 클릭하여 언스테이킹 모드로 전환하세요:
 
-### Step 1: Enter Amount
+### 1단계: 금액 입력
 
-Enter the amount of rETH you want to unstake in the **Unstake rETH** field.
+**Unstake rETH** 필드에 언스테이킹하려는 rETH 금액을 입력하세요.
 
-### Step 2: Check Routing Availability
+### 2단계: 라우팅 가용성 확인
 
-The interface will show:
+인터페이스는 다음을 표시합니다:
 
-- **Protocol liquidity** available in the deposit pool
-- **Protocol card** status (available or "Insufficient liquidity")
-- **CoW Swap card** with estimated ETH output
+- 예치 풀에서 사용 가능한 **프로토콜 유동성**
+- **프로토콜 카드** 상태 (사용 가능 또는 "유동성 부족")
+- 예상 ETH 출력이 포함된 **CoW Swap 카드**
 
-### Step 3: Execute Unstaking
+### 3단계: 언스테이킹 실행
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Via Protocol">
-      If protocol liquidity is available:
+    <Tab label="프로토콜을 통해">
+      프로토콜 유동성이 사용 가능한 경우:
 
-      1. Click **Unstake via Protocol**
-      2. Confirm transaction in MetaMask
-      3. Pay gas fees
-      4. Receive ETH immediately
+      1. **Unstake via Protocol** 클릭
+      2. MetaMask에서 거래 확인
+      3. 가스 수수료 지불
+      4. 즉시 ETH 수령
 
-      ::: warning NOTE
-      Protocol unstaking is only possible when the deposit pool has enough ETH. If you see "Insufficient liquidity", use CoW Swap instead.
+      ::: warning 주의
+      프로토콜 언스테이킹은 예치 풀에 충분한 ETH가 있을 때만 가능합니다. "유동성 부족"이 표시되면 대신 CoW Swap을 사용하세요.
       :::
 
       <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/unstake_mainnet.mp4" preload="auto"/>
     </Tab>
-    <Tab label="Via CoW Swap">
-      CoW Swap is always available for unstaking:
+    <Tab label="CoW Swap을 통해">
+      CoW Swap은 언스테이킹에 항상 사용 가능합니다:
 
-      1. **rETH Approval** (first time only)
-      - Approve rETH for CoW Protocol
-      - One-time gas fee
+      1. **rETH 승인** (처음만)
+      - CoW 프로토콜에 대한 rETH 승인
+      - 일회성 가스 수수료
 
-      2. **Sign Order**
-      - Review details
-      - Sign order (gasless)
+      2. **주문 서명**
+      - 세부 정보 검토
+      - 주문 서명 (가스 없음)
 
-      3. **Order Execution**
-      - Monitor in modal
-      - 2-5 minute wait
+      3. **주문 실행**
+      - 모달에서 모니터링
+      - 2-5분 대기
 
-      4. **WETH Unwrapping** (automatic)
-      - Receives WETH from swap
-      - Automatically unwraps to ETH
-      - ETH appears in wallet
+      4. **WETH 언래핑** (자동)
+      - 스왑에서 WETH 수령
+      - 자동으로 ETH로 언래핑
+      - ETH가 지갑에 나타남
 
       <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/cowswap_unstake.mp4" preload="auto"/>
     </Tab>
@@ -344,346 +344,346 @@ The interface will show:
   </Tabs>
 </div>
 
-## Troubleshooting
+## 문제 해결
 
-### Common Issues
+### 일반적인 문제
 
-#### Order Expired (CoW Swap)
+#### 주문 만료됨 (CoW Swap)
 
-Your order didn't execute within the time limit.
+제한 시간 내에 주문이 실행되지 않았습니다.
 
-**Solutions:**
+**해결 방법:**
 
-- Increase order expiry time (up to 24 hours)
-- Adjust slippage tolerance higher
-- Try again with current market prices
-- Use Protocol route if available
+- 주문 만료 시간 늘리기 (최대 24시간)
+- 슬리피지 허용 범위를 높게 조정
+- 현재 시장 가격으로 다시 시도
+- 사용 가능한 경우 프로토콜 경로 사용
 
-#### Insufficient Balance
+#### 잔액 부족
 
-Not enough ETH/rETH for the transaction.
+거래에 필요한 ETH/rETH가 충분하지 않습니다.
 
-**Solutions:**
+**해결 방법:**
 
-- Check wallet balance
-- Account for gas fees (Protocol route)
-- Reduce stake/unstake amount
+- 지갑 잔액 확인
+- 가스 수수료 고려 (프로토콜 경로)
+- 스테이킹/언스테이킹 금액 줄이기
 
-#### Pool Full (Protocol Staking)
+#### 풀이 가득 참 (프로토콜 스테이킹)
 
-Deposit pool has reached its limit.
+예치 풀이 한도에 도달했습니다.
 
-**Solution:**
+**해결 방법:**
 
-- Use CoW Swap route (automatically selected)
-- Wait for node operators to pull ETH from pool
-- Check back later for availability
+- CoW Swap 경로 사용 (자동으로 선택됨)
+- 노드 운영자가 풀에서 ETH를 인출할 때까지 대기
+- 나중에 가용성 확인
 
-#### Insufficient Liquidity (Protocol Unstaking)
+#### 유동성 부족 (프로토콜 언스테이킹)
 
-Not enough ETH in deposit pool for unstaking.
+언스테이킹을 위한 예치 풀에 ETH가 충분하지 않습니다.
 
-**Solution:**
+**해결 방법:**
 
-- Use CoW Swap route (automatically selected)
-- Always available regardless of pool state
+- CoW Swap 경로 사용 (자동으로 선택됨)
+- 풀 상태와 관계없이 항상 사용 가능
 
-### Manual WETH Conversion
+### 수동 WETH 변환
 
-If you have WETH that wasn't automatically unwrapped:
+자동으로 언래핑되지 않은 WETH가 있는 경우:
 
-1. Visit [swap.cow.fi](https://swap.cow.fi)
-2. Connect your wallet
-3. Swap WETH → ETH (1:1 ratio, gasless)
+1. [swap.cow.fi](https://swap.cow.fi) 방문
+2. 지갑 연결
+3. WETH → ETH 스왑 (1:1 비율, 가스 없음)
 
-Or use Etherscan:
+또는 Etherscan 사용:
 
-1. Go to WETH contract: `0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2`
-2. Connect wallet to "Write Contract"
-3. Use `withdraw` function
-4. Enter amount in Wei
-5. Execute transaction
+1. WETH 컨트랙트로 이동: `0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2`
+2. "Write Contract"에 지갑 연결
+3. `withdraw` 함수 사용
+4. Wei로 금액 입력
+5. 거래 실행
 
-## Best Practices
+## 모범 사례
 
-### For Optimal Rates
+### 최적의 비율을 위해
 
-- Let the interface auto-select the best route
-- Check during low network activity for better protocol availability
-- For large amounts, CoW Swap often provides better rates
-- Adjust slippage carefully to balance execution likelihood vs price
+- 인터페이스가 최상의 경로를 자동 선택하도록 함
+- 더 나은 프로토콜 가용성을 위해 네트워크 활동이 낮을 때 확인
+- 많은 금액의 경우 CoW Swap이 종종 더 나은 비율을 제공
+- 실행 가능성과 가격의 균형을 맞추기 위해 슬리피지를 신중하게 조정
 
-### For Security
+### 보안을 위해
 
-- Verify you're on the correct website: [https://stake.rocketpool.net](https://stake.rocketpool.net)
-- Start with small test amounts
-- Review all transaction details before confirming
-- Keep some ETH for gas fees
-- Only approve trusted contracts
+- 올바른 웹사이트에 있는지 확인: [https://stake.rocketpool.net](https://stake.rocketpool.net)
+- 소액의 테스트 금액으로 시작
+- 확인하기 전에 모든 거래 세부 정보 검토
+- 가스 수수료를 위해 일부 ETH 유지
+- 신뢰할 수 있는 컨트랙트만 승인
 
-### For Gas Optimization
+### 가스 최적화를 위해
 
-- Compare gas costs between routes
-- Batch transactions when possible
-- Use CoW Swap for small amounts to avoid high gas fees
-- Monitor gas prices at [etherscan.io/gastracker](https://etherscan.io/gastracker)
+- 경로 간 가스 비용 비교
+- 가능한 경우 거래 일괄 처리
+- 높은 가스 수수료를 피하기 위해 소액의 경우 CoW Swap 사용
+- [etherscan.io/gastracker](https://etherscan.io/gastracker)에서 가스 가격 모니터링
 
-## Tax Implications
+## 세금 영향
 
-::: warning IMPORTANT
-This section provides general educational information only. Tax laws vary significantly by jurisdiction and individual circumstances. **Always consult with a qualified tax professional** for advice specific to your situation.
+::: warning 중요
+이 섹션은 일반적인 교육 정보만 제공합니다. 세법은 관할 구역 및 개인 상황에 따라 크게 다릅니다. 귀하의 상황에 특정한 조언은 **항상 자격을 갖춘 세무 전문가와 상담하세요**.
 :::
 
-### Understanding rETH and Taxes
+### rETH와 세금 이해
 
-When staking with Rocket Pool, it's crucial to understand potential tax implications:
+Rocket Pool로 스테이킹할 때 잠재적인 세금 영향을 이해하는 것이 중요합니다:
 
-#### The Staking Transaction (ETH → rETH)
+#### 스테이킹 거래 (ETH → rETH)
 
-**Potential Tax Events:**
+**잠재적 과세 사건:**
 
-- **Token Swap**: Converting ETH to rETH may be considered a taxable event in many jurisdictions
-- **Capital Gains/Losses**: If your ETH has appreciated since acquisition, you may owe capital gains tax
-- **Cost Basis**: The value of rETH received becomes your new cost basis for future transactions
+- **토큰 스왑**: 많은 관할 구역에서 ETH를 rETH로 변환하는 것이 과세 사건으로 간주될 수 있습니다
+- **자본 이득/손실**: 취득 이후 ETH가 가치가 상승했다면 자본 이득세가 부과될 수 있습니다
+- **취득 원가**: 받은 rETH의 가치가 향후 거래를 위한 새로운 취득 원가가 됩니다
 
-**Example Scenario:**
-
-```
-Bought 1 ETH at $1,000
-Stake when ETH is worth $2,000
-Potential taxable gain: $1,000
-Your rETH cost basis: $2,000
-```
-
-#### Holding rETH (Earning Rewards)
-
-**How rETH Appreciates:**
-
-- rETH increases in value relative to ETH automatically
-- No new tokens are received - the token itself appreciates
-- This appreciation represents your staking rewards
-
-**Tax Treatment Varies:**
-
-- **Some jurisdictions**: Tax on appreciation only when realized (upon sale/swap)
-- **Other jurisdictions**: May tax unrealized gains annually
-- **Income vs. Capital Gains**: Classification affects tax rates
-
-#### The Unstaking Transaction (rETH → ETH)
-
-**Tax Considerations:**
-
-- Converting rETH back to ETH is typically a taxable event
-- Calculate gain/loss based on:
-- **Cost basis**: Value when you acquired rETH
-- **Disposal value**: Value when converting back to ETH
-- The difference is your capital gain or loss
-
-### Routing Method Tax Implications
-
-#### Protocol Route
-
-- Single taxable event per transaction
-- Clear timestamp and value for tax records
-- On-chain transaction provides permanent record
-
-#### CoW Swap Route
-
-- WETH wrapping/unwrapping typically not taxable (1:1 conversion)
-- Main swap (ETH/WETH ↔ rETH) is the taxable event
-- Order execution provides clear tax documentation
-
-### Record Keeping Best Practices
-
-**Essential Records to Maintain:**
-
-1. **For Each Stake:**
-
-- Date and time of transaction
-- Amount of ETH staked
-- Amount of rETH received
-- ETH price at time of staking
-- Transaction hash
-- Gas fees paid
-
-2. **While Holding:**
-
-- Periodic snapshots of rETH/ETH exchange rate
-- Your rETH balance over time
-- Market values on key dates (year-end, etc.)
-
-3. **For Each Unstake:**
-
-- Date and time of transaction
-- Amount of rETH unstaked
-- Amount of ETH received
-- ETH price at time of unstaking
-- Transaction hash
-- Gas fees paid
-
-**Tools for Tracking:**
-
-- Export transactions from Etherscan
-- Use portfolio tracking apps that support rETH
-- Maintain a spreadsheet with all transactions
-- Consider using crypto tax software
-
-### Tax Optimization Strategies
-
-**Timing Considerations:**
-
-- **Tax-Loss Harvesting**: Unstake during market downturns if you have losses to offset gains
-- **Long-term vs. Short-term**: Many jurisdictions favor long-term holdings (typically >1 year)
-- **Year-end Planning**: Consider timing of transactions around tax year boundaries
-
-**Cost Basis Methods:**
-
-- **FIFO (First In, First Out)**: Default in many jurisdictions
-- **LIFO (Last In, First Out)**: May be available in some regions
-- **Specific Identification**: Track specific rETH portions if allowed
-
-### Common Tax Scenarios
-
-#### Scenario 1: Regular Staking
+**예시 시나리오:**
 
 ```
-Action: Stake 10 ETH for 9.5 rETH
-Tax Event: Disposal of ETH, acquisition of rETH
-Report: Capital gain/loss on ETH disposal
-Track: 9.5 rETH with new cost basis
+$1,000에 1 ETH 구매
+ETH가 $2,000일 때 스테이킹
+잠재적 과세 이득: $1,000
+rETH 취득 원가: $2,000
 ```
 
-#### Scenario 2: Partial Unstaking
+#### rETH 보유 (보상 획득)
+
+**rETH가 가치 상승하는 방법:**
+
+- rETH는 ETH에 비해 자동으로 가치가 증가합니다
+- 새로운 토큰을 받지 않음 - 토큰 자체가 가치 상승합니다
+- 이 가치 상승은 스테이킹 보상을 나타냅니다
+
+**세금 처리 방식은 다양합니다:**
+
+- **일부 관할 구역**: 실현될 때만 가치 상승에 대한 세금 (판매/스왑 시)
+- **기타 관할 구역**: 미실현 이득에 대해 매년 과세할 수 있음
+- **소득 대 자본 이득**: 분류가 세율에 영향을 미칩니다
+
+#### 언스테이킹 거래 (rETH → ETH)
+
+**세금 고려 사항:**
+
+- rETH를 ETH로 다시 변환하는 것은 일반적으로 과세 사건입니다
+- 다음을 기반으로 이득/손실 계산:
+- **취득 원가**: rETH를 취득했을 때의 가치
+- **처분 가치**: ETH로 다시 변환할 때의 가치
+- 차이가 자본 이득 또는 손실입니다
+
+### 라우팅 방법 세금 영향
+
+#### 프로토콜 경로
+
+- 거래당 단일 과세 사건
+- 세금 기록을 위한 명확한 타임스탬프 및 가치
+- 온체인 거래는 영구 기록을 제공합니다
+
+#### CoW Swap 경로
+
+- WETH 래핑/언래핑은 일반적으로 과세되지 않음 (1:1 변환)
+- 주요 스왑 (ETH/WETH ↔ rETH)이 과세 사건입니다
+- 주문 실행은 명확한 세금 문서를 제공합니다
+
+### 기록 보관 모범 사례
+
+**유지해야 할 필수 기록:**
+
+1. **각 스테이킹에 대해:**
+
+- 거래 날짜 및 시간
+- 스테이킹된 ETH 금액
+- 받은 rETH 금액
+- 스테이킹 당시 ETH 가격
+- 거래 해시
+- 지불한 가스 수수료
+
+2. **보유하는 동안:**
+
+- rETH/ETH 환율의 주기적 스냅샷
+- 시간 경과에 따른 rETH 잔액
+- 주요 날짜의 시장 가치 (연말 등)
+
+3. **각 언스테이킹에 대해:**
+
+- 거래 날짜 및 시간
+- 언스테이킹된 rETH 금액
+- 받은 ETH 금액
+- 언스테이킹 당시 ETH 가격
+- 거래 해시
+- 지불한 가스 수수료
+
+**추적을 위한 도구:**
+
+- Etherscan에서 거래 내보내기
+- rETH를 지원하는 포트폴리오 추적 앱 사용
+- 모든 거래가 포함된 스프레드시트 유지
+- 암호화폐 세금 소프트웨어 사용 고려
+
+### 세금 최적화 전략
+
+**타이밍 고려 사항:**
+
+- **세금 손실 수확**: 상쇄할 손실이 있는 경우 시장 하락 중 언스테이킹
+- **장기 대 단기**: 많은 관할 구역에서 장기 보유 선호 (일반적으로 >1년)
+- **연말 계획**: 과세 연도 경계를 중심으로 거래 타이밍 고려
+
+**취득 원가 방법:**
+
+- **FIFO (First In, First Out)**: 많은 관할 구역에서 기본값
+- **LIFO (Last In, First Out)**: 일부 지역에서 사용 가능할 수 있음
+- **특정 식별**: 허용되는 경우 특정 rETH 부분 추적
+
+### 일반적인 세금 시나리오
+
+#### 시나리오 1: 일반 스테이킹
 
 ```
-Action: Unstake 5 rETH for 5.3 ETH
-Tax Event: Disposal of rETH, acquisition of ETH
-Report: Capital gain/loss on rETH disposal
-Track: Remaining rETH balance and cost basis
+작업: 10 ETH를 9.5 rETH로 스테이킹
+과세 사건: ETH 처분, rETH 취득
+보고: ETH 처분에 대한 자본 이득/손실
+추적: 새 취득 원가로 9.5 rETH
 ```
 
-#### Scenario 3: DeFi Integration
+#### 시나리오 2: 부분 언스테이킹
 
 ```
-Action: Use rETH in DeFi protocols
-Tax Event: Each protocol interaction may be taxable
-Report: Track all movements and value changes
-Track: Yields, swaps, and liquidity provisions
+작업: 5 rETH를 5.3 ETH로 언스테이킹
+과세 사건: rETH 처분, ETH 취득
+보고: rETH 처분에 대한 자본 이득/손실
+추적: 나머지 rETH 잔액 및 취득 원가
 ```
 
-### Jurisdiction-Specific Considerations
+#### 시나리오 3: DeFi 통합
 
-**United States:**
+```
+작업: DeFi 프로토콜에서 rETH 사용
+과세 사건: 각 프로토콜 상호 작용이 과세 대상일 수 있음
+보고: 모든 이동 및 가치 변화 추적
+추적: 수익률, 스왑 및 유동성 제공
+```
 
-- IRS treats crypto-to-crypto swaps as taxable
-- Staking rewards may be taxable when received or when sold (evolving guidance)
-- Form 8949 and Schedule D for reporting
+### 관할 구역별 고려 사항
 
-**European Union:**
+**미국:**
 
-- Tax treatment varies by member state
-- Some countries tax upon realization, others annually
-- Consider local crypto tax regulations
+- IRS는 암호화폐 간 스왑을 과세 대상으로 취급합니다
+- 스테이킹 보상은 받았을 때 또는 판매했을 때 과세 대상일 수 있습니다 (진화하는 지침)
+- 보고를 위한 Form 8949 및 Schedule D
 
-**United Kingdom:**
+**유럽 연합:**
 
-- HMRC treats staking rewards as income or capital gains depending on circumstances
-- Detailed record keeping required
-- Consider "bed and breakfasting" rules
+- 세금 처리는 회원국마다 다릅니다
+- 일부 국가는 실현 시 과세하고 다른 국가는 매년 과세합니다
+- 현지 암호화폐 세금 규정 고려
 
-**Other Jurisdictions:**
+**영국:**
 
-- Research your local tax authority's crypto guidance
-- Many countries are still developing frameworks
-- Professional advice strongly recommended
+- HMRC는 스테이킹 보상을 상황에 따라 소득 또는 자본 이득으로 취급합니다
+- 상세한 기록 보관 필요
+- "bed and breakfasting" 규칙 고려
 
-### Using Tax Software
+**기타 관할 구역:**
 
-**Popular Crypto Tax Tools:**
+- 현지 세무 당국의 암호화폐 지침 조사
+- 많은 국가가 아직 프레임워크를 개발 중입니다
+- 전문가 조언을 강력히 권장합니다
 
-- Most support rETH tracking
-- Can import from Etherscan
-- Calculate gains/losses automatically
-- Generate tax reports for your jurisdiction
+### 세금 소프트웨어 사용
 
-**Integration Tips:**
+**인기 있는 암호화폐 세금 도구:**
 
-1. Import all wallet addresses
-2. Verify rETH/ETH transactions are correctly classified
-3. Ensure exchange rates are accurate
-4. Review calculated gains/losses
-5. Export reports for tax filing
+- 대부분 rETH 추적 지원
+- Etherscan에서 가져올 수 있음
+- 이득/손실을 자동으로 계산
+- 관할 구역에 대한 세금 보고서 생성
 
-### Red Flags to Avoid
+**통합 팁:**
 
-**Common Mistakes:**
+1. 모든 지갑 주소 가져오기
+2. rETH/ETH 거래가 올바르게 분류되었는지 확인
+3. 환율이 정확한지 확인
+4. 계산된 이득/손실 검토
+5. 세금 신고를 위한 보고서 내보내기
 
-- Not tracking cost basis
-- Forgetting to report staking transactions
-- Ignoring small transactions
-- Missing DeFi interactions
-- Incorrect exchange rate data
+### 피해야 할 위험 신호
 
-**Audit Preparation:**
+**일반적인 실수:**
 
-- Keep all transaction records
-- Document your calculation methods
-- Save exchange rate sources
-- Maintain wallet ownership proof
-- Store records for required retention period
+- 취득 원가 추적하지 않음
+- 스테이킹 거래 보고를 잊음
+- 소액 거래 무시
+- DeFi 상호 작용 누락
+- 잘못된 환율 데이터
 
-## FAQs
+**감사 준비:**
 
-**Q: Which route should I choose?**
-A: The interface automatically recommends the best route with a green "better rate" badge. Generally, use the recommended option.
+- 모든 거래 기록 보관
+- 계산 방법 문서화
+- 환율 출처 저장
+- 지갑 소유권 증명 유지
+- 필요한 보유 기간 동안 기록 저장
 
-**Q: Why does CoW Swap sometimes offer better rates?**
-A: CoW Swap aggregates liquidity from multiple DEXs and uses batch auctions to find optimal prices, often beating the fixed protocol rate.
+## FAQ
 
-**Q: Is CoW Swap really gasless?**
-A: Order creation and signing are gasless. You only pay gas for initial WETH wrapping and token approvals (one-time setup).
+**Q: 어떤 경로를 선택해야 하나요?**
+A: 인터페이스는 녹색 "더 나은 비율" 배지로 최상의 경로를 자동으로 권장합니다. 일반적으로 권장 옵션을 사용하세요.
 
-**Q: How long do CoW Swap orders take?**
-A: Typically 2-5 minutes, but can vary based on market conditions.
+**Q: CoW Swap이 때때로 더 나은 비율을 제공하는 이유는 무엇인가요?**
+A: CoW Swap은 여러 DEX의 유동성을 통합하고 배치 경매를 사용하여 최적의 가격을 찾으며, 종종 고정 프로토콜 비율을 능가합니다.
 
-**Q: What happens if my CoW Swap order expires?**
-A: Nothing is lost. Your tokens remain in your wallet. You can place a new order with adjusted parameters.
+**Q: CoW Swap이 정말 가스 없나요?**
+A: 주문 생성 및 서명은 가스 없이 이루어집니다. 초기 WETH 래핑 및 토큰 승인에 대해서만 가스를 지불합니다 (일회성 설정).
 
-**Q: Why is the Protocol route sometimes unavailable?**
-A: **For staking:** Deposit pool is full. **For unstaking:** Insufficient ETH liquidity. These are temporary states that change as users interact with the protocol.
+**Q: CoW Swap 주문은 얼마나 걸리나요?**
+A: 일반적으로 2-5분이지만 시장 상황에 따라 다를 수 있습니다.
 
-**Q: Are staking transactions taxable?**
-A: In most jurisdictions, yes. Converting ETH to rETH and back are typically taxable events. Consult a tax professional for your specific situation.
+**Q: CoW Swap 주문이 만료되면 어떻게 되나요?**
+A: 아무것도 잃지 않습니다. 토큰은 지갑에 남아 있습니다. 조정된 매개변수로 새 주문을 할 수 있습니다.
 
-**Q: How do I track my rETH cost basis?**
-A: Record the value of ETH when you stake it - this becomes your rETH cost basis. Use transaction hashes, timestamps, and prices for accurate records.
+**Q: 프로토콜 경로가 때때로 사용할 수 없는 이유는 무엇인가요?**
+A: **스테이킹의 경우:** 예치 풀이 가득 찼습니다. **언스테이킹의 경우:** ETH 유동성이 부족합니다. 이들은 사용자가 프로토콜과 상호 작용함에 따라 변경되는 임시 상태입니다.
 
-**Q: Is moving between Protocol and CoW Swap routes different for taxes?**
-A: The tax treatment is typically the same - both involve exchanging ETH for rETH. The route chosen doesn't usually affect tax obligations, though record keeping may differ slightly.
+**Q: 스테이킹 거래는 과세 대상인가요?**
+A: 대부분의 관할 구역에서 그렇습니다. ETH를 rETH로 변환하고 되돌리는 것은 일반적으로 과세 사건입니다. 특정 상황에 대해서는 세무 전문가와 상담하세요.
 
-## Additional Resources
+**Q: rETH 취득 원가를 어떻게 추적하나요?**
+A: ETH를 스테이킹할 때의 가치를 기록하세요 - 이것이 rETH 취득 원가가 됩니다. 정확한 기록을 위해 거래 해시, 타임스탬프 및 가격을 사용하세요.
 
-- [Rocket Pool Documentation](https://docs.rocketpool.net)
-- [CoW Swap Documentation](https://docs.cow.fi)
+**Q: 프로토콜과 CoW Swap 경로 간 이동은 세금에 차이가 있나요?**
+A: 세금 처리는 일반적으로 동일합니다 - 둘 다 ETH를 rETH로 교환하는 것을 포함합니다. 선택한 경로는 일반적으로 세금 의무에 영향을 미치지 않지만 기록 보관은 약간 다를 수 있습니다.
+
+## 추가 리소스
+
+- [Rocket Pool 문서](https://docs.rocketpool.net)
+- [CoW Swap 문서](https://docs.cow.fi)
 - [Rocket Pool Discord](https://discord.gg/rocketpool)
 - [Etherscan Gas Tracker](https://etherscan.io/gastracker)
 
-## Contract Addresses
+## 컨트랙트 주소
 
-### Mainnet
+### 메인넷
 
-- **rETH Token:** `0xae78736Cd615f374D3085123A210448E74Fc6393`
-- **WETH Token:** `0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2`
+- **rETH 토큰:** `0xae78736Cd615f374D3085123A210448E74Fc6393`
+- **WETH 토큰:** `0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2`
 - **Rocket Storage:** `0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46`
 - **CoW Protocol VaultRelayer:** `0xC92E8bdf79f0507f65a392b0ab4667716BFE0110`
 
-### Hoodi Testnet
+### Hoodi 테스트넷
 
-- **rETH Token:** `0x7322c24752f79c05ffd1e2a6fcb97020c1c264f1`
-- Check [Rocket Pool Documentation](https://docs.rocketpool.net) for other Hoodi testnet addresses.
+- **rETH 토큰:** `0x7322c24752f79c05ffd1e2a6fcb97020c1c264f1`
+- 다른 Hoodi 테스트넷 주소는 [Rocket Pool 문서](https://docs.rocketpool.net)를 확인하세요.
 
 ---
 
-That's all there is to staking with Rocket Pool! We hope you find the new routing options helpful in getting the best value for your stake.
+Rocket Pool로 스테이킹하는 것은 이게 전부입니다! 새로운 라우팅 옵션이 스테이킹에 최상의 가치를 얻는 데 도움이 되기를 바랍니다.
 
-Feel free to swing by [our Discord server](https://discord.gg/rocketpool) to let us know what you thought of it and keep tabs on the project as it evolves.
+[Discord 서버](https://discord.gg/rocketpool)에 들러서 귀하의 의견을 알려주시고 프로젝트가 발전하는 과정을 지켜봐 주세요.

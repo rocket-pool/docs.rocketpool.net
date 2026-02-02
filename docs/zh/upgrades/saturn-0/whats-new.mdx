@@ -1,53 +1,48 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# The Saturn 0 Upgrade
+# Saturn 0 升级
 
-Welcome to Saturn 0! This upgrade aims to improve RPL tokenomics in the short term to unlock protocol growth. If you're a returning or prospective node operator, this page will
-serve as an introduction to some new and exciting changes to the Rocket Pool protocol.
+欢迎来到 Saturn 0！此升级旨在短期内改善 RPL 代币经济学以解锁协议增长。如果您是回归或未来的节点运营者，本页将作为 Rocket Pool 协议的一些新的和令人兴奋的变化的介绍。
 
-## ETH only minipools in Saturn 0
+## Saturn 0 中的纯 ETH minipool
 
-- The RPL requirement for new minipools is a thing of the past! Minipools in Saturn 0 do not require RPL stake to be deployed.
-- The RPL requirement for new minipools is a thing of the past! Minipools in Saturn 0 do not require RPL stake to be deployed.
-  Node operators can now create minipools with an upfront cost of 8 ETH, which will feature a commission of 10%. In addition, a node
-  operator may optionally stake RPL to qualify for additional rewards and access voting power within the [Protocol DAO](/en/legacy/houston/pdao#the-protocol-dao-pdao).
+- 新 minipool 的 RPL 要求已成为过去！Saturn 0 中的 minipool 不需要 RPL 质押即可部署。
+- 新 minipool 的 RPL 要求已成为过去！Saturn 0 中的 minipool 不需要 RPL 质押即可部署。
+  节点运营者现在可以以 8 ETH 的前期成本创建 minipool，佣金为 10%。此外，节点运营者可以选择性地质押 RPL 以获得额外奖励并访问[协议 DAO](/zh/legacy/houston/pdao#the-protocol-dao-pdao) 内的投票权。
 
-- Nodes with an RPL stake of any size qualify for RPL issuance rewards. This unlocks RPL rewards for Node Operators under the 10% collateral cliff
-  who were previously unqualified for RPL issuance rewards.
+- 任何规模的 RPL 质押节点都有资格获得 RPL 发行奖励。这为 10% 抵押品悬崖下的节点运营者解锁了 RPL 奖励，这些运营者以前没有资格获得 RPL 发行奖励。
 
-- This means nodes with an RPL stake of 0-15% of borrowed ETH receive the maximum APY on RPL. Nodes still earn RPL yield beyond 15% collateral, at a decreasing rate.
-  Feel free to take a look how RPL issuance beyond 15% borrowed ETH is defined in [RPIP-30](https://rpips.rocketpool.net/RPIPs/RPIP-30#specification).
+- 这意味着借入 ETH 的 0-15% RPL 质押节点可获得 RPL 的最高 APY。节点仍然可以在 15% 抵押品以上获得 RPL 收益，但收益率递减。
+  请随时查看 [RPIP-30](https://rpips.rocketpool.net/RPIPs/RPIP-30#specification) 中如何定义超过 15% 借入 ETH 的 RPL 发行。
 
-## New Commission Structure
+## 新的佣金结构
 
-We're excited to announce that newly launched Saturn 0 minipools will feature a commission structure ranging from 10% to 14%.
+我们很高兴地宣布，新推出的 Saturn 0 minipool 将具有 10% 至 14% 的佣金结构。
 
-- Nodes without any staked RPL will earn 10% commission (5% from the minipool contract, and 5% from the dynamic commission boost).
-- Nodes with staked RPL receive up to an additional 4% dynamic commission boost for staked RPL valued at >= 10% of borrowed ETH.
+- 没有任何质押 RPL 的节点将获得 10% 的佣金（5% 来自 minipool 合约，5% 来自动态佣金提升）。
+- 质押了 RPL 价值 >= 借入 ETH 的 10% 的节点可额外获得高达 4% 的动态佣金提升。
 
-Note that the dynamic commission boost will be reduced to 0% on the 5th reward snapshot after Saturn 1 is released (leaving only the 5% minipool contract commission). This serves to increase the yield advantage of migrating to megapools.
+请注意，在 Saturn 1 发布后的第 5 个奖励快照中，动态佣金提升将降低至 0%（仅保留 5% 的 minipool 合约佣金）。这有助于增加迁移到 megapool 的收益优势。
 
-::: warning WARNING
-Your node must be opted into the [Smoothing Pool](/en/node-staking/fee-distrib-sp#the-smoothing-pool) to benefit from the dynamic commission boost. The Smart Node will inform you
-to opt into the Smoothing Pool when depositing a minipool if you are not already opted in. _Your new minipools will miss out on additional yield if your node
-isn't in the Smoothing Pool!!_
+::: warning 警告
+您的节点必须选择加入[平滑池](/zh/node-staking/fee-distrib-sp#the-smoothing-pool)才能从动态佣金提升中受益。如果您尚未选择加入，Smart Node 将在存入 minipool 时通知您选择加入平滑池。_如果您的节点不在平滑池中，您的新 minipool 将错过额外的收益！！_
 :::
 
-## Node Operator Guide
+## 节点运营者指南
 
-If you're interested in running a Rocket Pool node to create your own Ethereum validators, take a look at our [Node Operator's guide](/en/node-staking/responsibilities).
-This is a very comprehensive guide that goes over all of the considerations involved in node operation, including:
+如果您有兴趣运行 Rocket Pool 节点以创建自己的 Ethereum 验证器，请查看我们的[节点运营者指南](/zh/node-staking/responsibilities)。
+这是一个非常全面的指南，涵盖了节点操作涉及的所有考虑因素，包括：
 
-- Deciding to run a node locally at home, or remotely on the cloud
-- Selecting the hardware for a local machine, or selecting a remote hosting provider
-- Preparing and securing the operating system of your node
-- Selecting your Execution and Consensus clients
-- Installing Rocket Pool's Smartnode stack
-- Creating a new Beacon Chain validator using the Rocket Pool network
-- Maintaining and updating your node
-- Participating in on-chain governance
+- 决定在家中本地运行节点，还是在云上远程运行
+- 为本地机器选择硬件，或选择远程托管提供商
+- 准备和保护节点的操作系统
+- 选择您的 Execution 和 Consensus 客户端
+- 安装 Rocket Pool 的 Smartnode 堆栈
+- 使用 Rocket Pool 网络创建新的信标链验证器
+- 维护和更新您的节点
+- 参与链上治理
 
-Both guides will show you how to practice for free on the Rocket Pool testnet so you can get a feel for everything without risking any of your real-life ETH, and how to stake your real ETH on the Ethereum mainnet once you're comfortable with the process.
+两个指南都将向您展示如何在 Rocket Pool 测试网上免费练习，这样您就可以在不冒任何真实 ETH 风险的情况下感受一切，以及在您熟悉该过程后如何在 Ethereum 主网上质押您的真实 ETH。
 
-When you're ready, select a guide from the options above based on your interests.
-You are also free to explore the various pages using the sidebar to the left.
+准备好后，请根据您的兴趣从上面的选项中选择一个指南。
+您也可以使用左侧的侧边栏随意浏览各个页面。

@@ -1,129 +1,129 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# [Docker Mode] Guide to the Redstone Update and the Merge
+# [Docker Mode] Руководство по обновлению Redstone и Merge
 
-This guide will cover everything you need to know in order to prepare your node for the Redstone Update and The Merge if you are using **Docker Mode**.
+Это руководство охватывает всё, что вам нужно знать для подготовки вашей ноды к обновлению Redstone и The Merge, если вы используете **Docker Mode**.
 
-## Things to Do Before Upgrading to v1.5.0
+## Что нужно сделать перед обновлением до v1.5.0
 
-Before upgrading to v1.5.0 and higher of the Smartnode, please go through the following checklist to make sure you're prepared:
+Перед обновлением до v1.5.0 и выше Smartnode, пожалуйста, пройдитесь по следующему чек-листу, чтобы убедиться, что вы готовы:
 
-### Switch to a Full Execution Client
+### Переключитесь на полный Execution Client
 
-The Merge requires you to run your own Execution client, so you won't be able to use remote providers like Infura or Pocket anymore.
-v1.5.0 won't have them anymore, and won't let you start the stack until you select a full Execution client.
+Merge требует, чтобы вы запускали свой собственный Execution клиент, поэтому вы больше не сможете использовать удаленные провайдеры, такие как Infura или Pocket.
+В v1.5.0 их больше не будет, и вам не позволят запустить стек, пока вы не выберете полный Execution клиент.
 
-Because of this change, you should switch to a full client while you're still on v1.4, let it sync to completion, and then upgrade to v1.5.
+Из-за этого изменения вам следует переключиться на полный клиент, пока вы всё ещё на v1.4, дать ему полностью синхронизироваться, а затем обновиться до v1.5.
 
-Docker Mode makes switching clients very easy.
-[This guide](../../node-staking/change-clients#changing-execution-clients) provides a walkthrough of the process.
+Docker Mode делает переключение клиентов очень простым.
+[Это руководство](../../node-staking/change-clients#changing-execution-clients) предоставляет пошаговое описание процесса.
 
-## Upgrading to v1.5.0
+## Обновление до v1.5.0
 
-Upgrading the Smartnode stack to v1.5.0 is no different than any other upgrade.
-Simply follow [the normal directions here](../../node-staking/updates#updating-the-smartnode-stack).
+Обновление стека Smartnode до v1.5.0 не отличается от любого другого обновления.
+Просто следуйте [обычным инструкциям здесь](../../node-staking/updates#updating-the-smartnode-stack).
 
-## Things the Smartnode Handles Automatically
+## Что Smartnode обрабатывает автоматически
 
-In Docker mode, the Smartnode will take care of most of the changes needed to support Redstone and The Merge automatically once you update to v1.5.0.
-Here's a brief list of what it will do for you without any manual intervention:
+В режиме Docker, Smartnode позаботится о большинстве изменений, необходимых для поддержки Redstone и The Merge, автоматически после обновления до v1.5.0.
+Вот краткий список того, что он сделает за вас без какого-либо ручного вмешательства:
 
-### The Engine API
+### Engine API
 
-The Merge changes the way your Execution client talks to your Consensus client.
-Instead of using the old HTTP or Websocket based RPC system, The Merge requires a new system exposed by your Execution client called the Engine API.
+Merge изменяет способ взаимодействия вашего Execution клиента с вашим Consensus клиентом.
+Вместо использования старой RPC системы на базе HTTP или Websocket, Merge требует новую систему, предоставляемую вашим Execution клиентом, называемую Engine API.
 
-This is a special connection that lets the Consensus client replace the old Proof-of-Work mining system with Proof-of-Stake; it's the heart of The Merge.
-It's also **authenticated** with a secret token, so only your Consensus client can connect to your Execution client - nothing else can.
+Это специальное соединение, которое позволяет Consensus клиенту заменить старую систему майнинга Proof-of-Work на Proof-of-Stake; это сердце The Merge.
+Оно также **аутентифицировано** секретным токеном, поэтому только ваш Consensus клиент может подключиться к вашему Execution клиенту — ничто другое не может.
 
-The Smartnode will handle the set up of the authentication token and the Engine API on both your Execution and Consensus clients automatically.
+Smartnode обработает настройку токена аутентификации и Engine API как на вашем Execution, так и на Consensus клиентах автоматически.
 
-### Your Fee Recipient
+### Ваш Fee Recipient
 
-The **fee recipient** is the address on the Execution layer chain that will receive all of the priority fees for blocks you propose.
-It is a setting provided to your Validator client when it first starts.
+**Fee recipient** — это адрес на цепочке Execution layer, который будет получать все priority fees за блоки, которые вы предлагаете.
+Это настройка, предоставляемая вашему Validator клиенту при его первом запуске.
 
-The Smartnode will handle setting it up to the correct address when you upgrade to v1.5, and will constantly check to make sure you're using the correct one so you don't get [penalized accidentally](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
+Smartnode обработает его настройку на правильный адрес при обновлении до v1.5 и будет постоянно проверять, что вы используете правильный адрес, чтобы вы случайно не получили [штраф](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
 
-If you opted into the [Smoothing Pool](./whats-new#smoothing-pool), it will make that your fee recipient.
-If you didn't, it will make your [fee distributor contract](./whats-new#fee-recipients-and-your-distributor) the fee recipient.
+Если вы подписались на [Smoothing Pool](./whats-new#smoothing-pool), это будет ваш fee recipient.
+Если нет, то ваш [fee distributor контракт](./whats-new#fee-recipients-and-your-distributor) станет fee recipient.
 
 ### MEV-Boost
 
-[MEV-boost](https://boost.flashbots.net/) is the system Flashbots provides to give MEV rewards to Proof-of-Stake validators after The Merge.
-Rocket Pool has MEV-Boost built into the Smartnode and automatically configures your node to use it, so your proposals get the maximum amount of rewards.
+[MEV-boost](https://boost.flashbots.net/) — это система, которую предоставляет Flashbots для получения MEV наград валидаторами Proof-of-Stake после The Merge.
+Rocket Pool имеет MEV-Boost, встроенный в Smartnode, и автоматически настраивает вашу ноду для его использования, чтобы ваши предложения получали максимальное количество наград.
 
-## Things You Should Do After Upgrading
+## Что вам следует сделать после обновления
 
-While the Smartnode handles most of the changes for you, there are a few additional things you should do manually:
+Хотя Smartnode обрабатывает большинство изменений за вас, есть несколько дополнительных вещей, которые вам следует сделать вручную:
 
-### Ensure a Successful Upgrade
+### Убедитесь в успешном обновлении
 
-The first thing to do is ensure that your node is working correctly.
-Consider taking the following steps:
+Первое, что нужно сделать, это убедиться, что ваша нода работает корректно.
+Рассмотрите следующие шаги:
 
-- Check the logs for errors with `rocketpool service logs eth1`, `rocketpool service logs eth2`, `rocketpool service logs validator`, and `rocketpool service logs node`.
-- Confirm with a Block Explorer (such as your Grafana dashboard and [https://beaconcha.in](https://beaconcha.in)) that you are still attesting properly
-  - Remember that if you have Doppelganger protection enabled, you will miss a few attestations after the restart. This is normal!
+- Проверьте логи на наличие ошибок с помощью `rocketpool service logs eth1`, `rocketpool service logs eth2`, `rocketpool service logs validator` и `rocketpool service logs node`.
+- Подтвердите с помощью Block Explorer (например, вашей Grafana панели и [https://beaconcha.in](https://beaconcha.in)), что вы всё ещё правильно аттестуете
+  - Помните, что если у вас включена защита от Doppelganger, вы пропустите несколько аттестаций после перезапуска. Это нормально!
 
-### Set Up a Fallback Node
+### Настройте резервную ноду
 
-Because The Merge is not compatible with remote providers like Infura and Pocket, you'll lose the ability to use them as fallback Execution clients when your primary goes offline.
+Поскольку The Merge несовместим с удаленными провайдерами, такими как Infura и Pocket, вы потеряете возможность использовать их в качестве резервных Execution клиентов, когда ваш основной клиент будет недоступен.
 
-The Smartnode still has the ability to provide a fallback Execution client (and now a fallback Consensus client as well), but you will now need to use Execution and Consensus clients that you control.
+Smartnode всё ещё имеет возможность предоставлять резервный Execution клиент (а теперь и резервный Consensus клиент), но теперь вам нужно будет использовать Execution и Consensus клиенты, которые вы контролируете.
 
-For more information on setting up a fallback node, see the [Fallback node guide](../../node-staking/fallback).
+Для получения дополнительной информации о настройке резервной ноды см. [Руководство по резервной ноде](../../node-staking/fallback).
 
-### Initialize your Fee Distributor
+### Инициализируйте свой Fee Distributor
 
-If you aren't planning to opt into the [Smoothing Pool](./whats-new#smoothing-pool) and claim all of your priority fees and MEV rewards to your [fee distributor contract](./whats-new#fee-recipients-and-your-distributor), you will eventually have to initialize it (create the contract instance on the chain) in order to claim rewards from it to your withdrawal address.
+Если вы не планируете подключаться к [Smoothing Pool](./whats-new#smoothing-pool) и требовать все свои priority fees и MEV награды в свой [fee distributor контракт](./whats-new#fee-recipients-and-your-distributor), вам в конечном итоге придется инициализировать его (создать экземпляр контракта в цепи), чтобы востребовать награды из него на ваш адрес вывода средств.
 
-This is a fairly cheap operation and only needs to be done once.
+Это довольно дешевая операция, которую нужно выполнить только один раз.
 
-::: tip TIP
-Initializing your fee distributor can be done at **any time**.
-You can let rewards accumulate in its address long before you initialize it, and your balance will remain after initialization.
+::: tip СОВЕТ
+Инициализация вашего fee distributor может быть выполнена в **любое время**.
+Вы можете позволить наградам накапливаться по его адресу задолго до того, как вы его инициализируете, и ваш баланс останется после инициализации.
 
-We recommend you do so when gas prices are low to minimize the overhead cost.
+Мы рекомендуем сделать это, когда цены на газ низкие, чтобы минимизировать накладные расходы.
 
-Note that it **must be initialized in order to claim your rewards.**
+Обратите внимание, что он **должен быть инициализирован, чтобы востребовать ваши награды.**
 :::
 
-### Opt Into the Smoothing Pool
+### Подключитесь к Smoothing Pool
 
-If you plan on taking advantage of the [Smoothing Pool](./whats-new#smoothing-pool) right away, you should opt in before the end of the first Redstone rewards period to maximize your "eligibility" amount.
+Если вы планируете сразу же воспользоваться преимуществами [Smoothing Pool](./whats-new#smoothing-pool), вам следует подключиться до конца первого периода наград Redstone, чтобы максимизировать вашу сумму "права".
 
-Opting in can be done via running the following command:
+Подключение можно выполнить, запустив следующую команду:
 
 ```
 rocketpool node join-smoothing-pool
 ```
 
-### Claim Rewards
+### Востребуйте награды
 
-The Redstone upgrade replaces the expensive, problematic old rewards system with a [brand new one](./whats-new#new-rewards-system) that's much cheaper, supports automatic restaking of RPL (both partial and full amounts), and - most importantly - **lets you claim your rewards whenever you want**.
+Обновление Redstone заменяет дорогую, проблемную старую систему наград [совершенно новой](./whats-new#new-rewards-system), которая намного дешевле, поддерживает автоматическое рестейкинг RPL (как частичные, так и полные суммы) и — что самое важное — **позволяет вам востребовать свои награды, когда вы захотите**.
 
-Because there is no longer a time limit on claiming rewards, and because it's cheaper to claim many rewards intervals at once, the automatic rewards claiming feature of the Smartnode **has been removed**.
-You will now be able to claim rewards via the following command:
+Поскольку больше нет временного ограничения на востребование наград, и поскольку дешевле востребовать много интервалов наград за раз, функция автоматического востребования наград Smartnode **была удалена**.
+Теперь вы сможете востребовать награды с помощью следующей команды:
 
 ```
 rocketpool node claim-rewards
 ```
 
-This will show you all of the rewards you've accumulated across all of the rewards intervals starting with the Redstone upgrade.
+Это покажет вам все награды, которые вы накопили за все интервалы наград, начиная с обновления Redstone.
 
-## Reverting to v1.4.3
+## Возврат к v1.4.3
 
-If, for any reason, something isn't to your liking and you want to revert to the previous Smartnode release, you can do so easily.
-The Smartnode automatically backs up your settings from the previous version when you upgrade it, so simply get the previous version (here we're demonstrating **v1.4.3**) and replace the settings with the backup:
+Если по какой-либо причине что-то вам не нравится, и вы хотите вернуться к предыдущему релизу Smartnode, вы можете сделать это легко.
+Smartnode автоматически создает резервную копию ваших настроек из предыдущей версии при обновлении, поэтому просто получите предыдущую версию (здесь мы демонстрируем **v1.4.3**) и замените настройки резервной копией:
 
-1. Stop the service:
+1. Остановите сервис:
 
 ```shell
 rocketpool service stop
 ```
 
-1. Download the v1.4.3 CLI:
+1. Загрузите v1.4.3 CLI:
 
 <div className="p-3">
   <Tabs>
@@ -134,33 +134,33 @@ rocketpool service stop
   </Tabs>
 </div>
 
-1. Install the v1.4.3 package:
+1. Установите пакет v1.4.3:
 
 ```shell
 rocketpool service install -d
 ```
 
-1. Replace your old configuration with the v1.4.3 backup configuration:
+1. Замените вашу старую конфигурацию резервной конфигурацией v1.4.3:
 
 ```shell
 cp ~/.rocketpool/user-settings-backup.yml ~/.rocketpool/user-settings.yml
 ```
 
-1. Verify all of your old settings are now being used:
+1. Убедитесь, что все ваши старые настройки теперь используются:
 
 ```shell
 rocketpool service config
 ```
 
-1. If it looks good, start the Smartnode stack:
+1. Если всё выглядит хорошо, запустите стек Smartnode:
 
 ```shell
 rocketpool service start
 ```
 
-All set! You're now back on the old version and should begin attesting shortly after starting the service.
+Всё готово! Теперь вы вернулись к старой версии и должны начать аттестовать вскоре после запуска сервиса.
 
-::: danger WARNING
-v1.4.3 is **deprecated** and will no longer be usable after the Redstone update is deployed.
-If you do need to revert to it, please make plans to upgrade back to v1.5.0 before the contracts are updated!
+::: danger ПРЕДУПРЕЖДЕНИЕ
+v1.4.3 **устарела** и больше не будет использоваться после развертывания обновления Redstone.
+Если вам всё же нужно вернуться к ней, пожалуйста, планируйте обновиться обратно до v1.5.0 до того, как контракты будут обновлены!
 :::

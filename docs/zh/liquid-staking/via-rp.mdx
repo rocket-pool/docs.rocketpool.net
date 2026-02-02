@@ -5,129 +5,129 @@ import mm_network_main from "./images/mm_network_main.png";
 import mm_add_token from "./images/mm_add_token.png";
 import rp_test_site from "./images/rp_test_site.png";
 
-# Staking Directly via Rocket Pool
+# 直接通过 Rocket Pool 质押
 
-## Overview
+## 概述
 
-Rocket Pool's staking interface now offers two distinct routes for converting between ETH and rETH:
+Rocket Pool 的质押界面现在提供两种不同的 ETH 和 rETH 转换路线：
 
-1. **Protocol Route** - Direct interaction with Rocket Pool smart contracts
-2. **CoW Swap Route** - Decentralized exchange aggregator with MEV protection (Mainnet only)
+1. **协议路线** - 直接与 Rocket Pool 智能合约交互
+2. **CoW Swap 路线** - 具有 MEV 保护的去中心化交易所聚合器（仅限主网）
 
-The interface automatically recommends the best route based on current market conditions and liquidity availability.
+界面会根据当前市场状况和流动性可用性自动推荐最佳路线。
 
 <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/stake_options.mp4" />
 
-## Routing Options Explained
+## 路线选项说明
 
-### Protocol Route
+### 协议路线
 
-**How it works:** Direct interaction with Rocket Pool's deposit pool and smart contracts on-chain.
+**工作原理：** 直接与 Rocket Pool 的存款池和链上智能合约交互。
 
-**Advantages:**
+**优点：**
 
-- Instant execution
-- Predictable exchange rate based on current rETH/ETH ratio
-- No intermediary tokens required (direct ETH ↔ rETH conversion)
-- Lower complexity
-- Always get exactly as much rETH as your ETH is worth (minus a 0.05% deposit fee)
-- No slippage, no liquidity issues, no sandwiching or front-running
+- 即时执行
+- 基于当前 rETH/ETH 比率的可预测汇率
+- 不需要中间代币（直接 ETH ↔ rETH 转换）
+- 复杂度较低
+- 始终获得与您的 ETH 价值完全相符的 rETH（减去 0.05% 存款费）
+- 无滑点、无流动性问题、无夹心攻击或抢跑
 
-**Limitations:**
+**限制：**
 
-- Subject to deposit pool limits when staking
-- Subject to liquidity availability when unstaking
-- Requires gas fees for transaction
-- Gas fees might be expensive for small amounts
+- 质押时受存款池限制
+- 取消质押时受流动性可用性限制
+- 交易需要 gas 费用
+- 对于小额交易，gas 费用可能很昂贵
 
-### CoW Swap Route (Mainnet Only)
+### CoW Swap 路线（仅限主网）
 
-**How it works:** Uses CoW Protocol's batch auction system to find the best price across multiple DEXs.
+**工作原理：** 使用 CoW 协议的批量拍卖系统在多个 DEX 中找到最佳价格。
 
-**Advantages:**
+**优点：**
 
-- MEV (Maximum Extractable Value) protection against sandwich attacks
-- Gasless execution - you only sign the order
-- Often provides better rates through DEX aggregation
-- Always available regardless of protocol deposit pool limits
-- No gas fees for the swap itself
+- MEV（最大可提取价值）保护，防止夹心攻击
+- 无 gas 执行 - 您只需签署订单
+- 通过 DEX 聚合通常提供更好的汇率
+- 无论协议存款池限制如何，始终可用
+- 交易本身无 gas 费用
 
-**Limitations:**
+**限制：**
 
-- Requires WETH wrapping/unwrapping steps (handled automatically)
-- Orders may take 2-5 minutes to execute
-- Orders can expire if not matched within the time limit
-- Requires one-time token approvals
+- 需要 WETH 包装/解包步骤（自动处理）
+- 订单可能需要 2-5 分钟执行
+- 如果在时间限制内未匹配，订单可能会过期
+- 需要一次性代币批准
 
-## Key Concepts
+## 关键概念
 
-### WETH (Wrapped ETH)
+### WETH（包装 ETH）
 
-When using CoW Swap, the interface automatically handles WETH conversions:
+使用 CoW Swap 时，界面会自动处理 WETH 转换：
 
-- WETH is an ERC-20 token representing ETH in a standardized format
-- 1 WETH always equals 1 ETH
-- The interface wraps ETH to WETH before trading and unwraps after
-- You only pay gas for the initial wrap (one-time)
+- WETH 是以标准化格式表示 ETH 的 ERC-20 代币
+- 1 WETH 始终等于 1 ETH
+- 界面在交易前将 ETH 包装为 WETH，之后解包
+- 您只需为初始包装支付 gas（一次性）
 
-### Slippage Tolerance
+### 滑点容差
 
-For CoW Swap orders:
+对于 CoW Swap 订单：
 
-- Default: 0.5%
-- Adjustable based on your preference
-- Higher slippage = more likely to execute
-- Lower slippage = better price protection
+- 默认值：0.5%
+- 可根据您的偏好调整
+- 滑点越高 = 越有可能执行
+- 滑点越低 = 更好的价格保护
 
-### Order Expiry
+### 订单到期
 
-CoW Swap orders have a time limit:
+CoW Swap 订单有时间限制：
 
-- Default: 30 minutes
-- Adjustable from 5 minutes to 24 hours
-- Orders automatically cancel if not executed
+- 默认值：30 分钟
+- 可从 5 分钟调整到 24 小时
+- 如果未执行，订单会自动取消
 
-### Better Rate Indicator
+### 更好汇率指示器
 
-The interface shows which route offers better value:
+界面显示哪条路线提供更好的价值：
 
-- Green badge with "X% better" indicates the optimal route
-- Automatically pre-selects the best option
-- Updates in real-time as market conditions change
+- 绿色徽章显示"好 X%"表示最佳路线
+- 自动预选最佳选项
+- 随着市场状况的变化实时更新
 
-### Protocol Liquidity
+### 协议流动性
 
-When unstaking rETH:
+取消质押 rETH 时：
 
-- Protocol route requires available ETH in the deposit pool
-- Shows "Insufficient liquidity" when pool is empty
-- Automatically routes through CoW Swap when protocol liquidity is unavailable
+- 协议路线需要存款池中有可用的 ETH
+- 当池为空时显示"流动性不足"
+- 当协议流动性不可用时，自动通过 CoW Swap 路由
 
-## Getting Started
+## 入门
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Preparing on the Hoodi Testnet">
+    <Tab label="在 Hoodi 测试网上准备">
       <p className="rspress-directive danger">
-        <p className="rspress-directive-title">WARNING</p>
-        When practicing staking on the test network, you **do not need to provide any of your real ETH** during this process.
-        You will be given **fake test ETH** to use instead.
+        <p className="rspress-directive-title">警告</p>
+        在测试网络上练习质押时，您**无需在此过程中提供任何真实的 ETH**。
+        您将获得**假的测试 ETH** 来使用。
 
-        **Do not attempt to move your real ETH on mainnet to the testnet or you will lose it permanently!**
+        **不要尝试将您在主网上的真实 ETH 移至测试网，否则您将永久失去它！**
       </p>
 
-      Start by installing [MetaMask](https://metamask.io/) if you haven't already.
-      Follow the instructions on their site to install the extension, create an account, and sign in.
+      如果您还没有安装 [MetaMask](https://metamask.io/)，请先安装。
+      按照他们网站上的说明安装扩展程序、创建账户并登录。
 
-      Next, open the MetaMask panel using its icon in your browser toolbar.
+      接下来，使用浏览器工具栏中的图标打开 MetaMask 面板。
 
-      You will need to add the Hoodi Testnet to MetaMask.
+      您需要将 Hoodi 测试网添加到 MetaMask。
 
-      Click on the top left dropdown & click the "Add Network" button.
+      点击左上角的下拉菜单并点击"添加网络"按钮。
 
-      You will see a list of networks, Hoodi is not in this list so click the "Add a network manually" button.
+      您将看到一个网络列表，Hoodi 不在此列表中，因此点击"手动添加网络"按钮。
 
-      Fill in the following details:
+      填写以下详细信息：
 
       ```
       Network Name: Hoodi
@@ -137,142 +137,142 @@ When unstaking rETH:
       Block Explorer Url: https://hoodi.etherscan.io
       ```
 
-      Then click Save. You should now see the Hoodi network in the top left dropdown.
+      然后点击保存。您现在应该在左上角的下拉菜单中看到 Hoodi 网络。
 
-      Click on the **network dropdown** in the top left of the Metamask extension & select **Hoodi Test Network**.
+      点击 Metamask 扩展程序左上角的**网络下拉菜单**并选择 **Hoodi Test Network**。
 
-      Finally, add the rETH token to MetaMask so you can see your balance and access it for trading.
-      Click the **Assets** tab, then click **Add Token**:
+      最后，将 rETH 代币添加到 MetaMask，以便您可以查看余额并访问它进行交易。
+      点击 **Assets** 标签，然后点击 **Add Token**：
 
       <img src={mm_add_token} width="100%" height="auto" />
 
-      Ensure that **Custom Token** is selected in this dialog.
-      In the **Token Contract Address** box, put the following value:
+      确保在此对话框中选择了 **Custom Token**。
+      在 **Token Contract Address** 框中，输入以下值：
 
       ```
       0x7322c24752f79c05ffd1e2a6fcb97020c1c264f1
       ```
 
-      The **Token Symbol** should automatically be populated with `rETH`, and the **Decimals of Precision** should automatically be populated with `18`.
+      **Token Symbol** 应该自动填充为 `rETH`，**Decimals of Precision** 应该自动填充为 `18`。
 
-      Accept the rest of the prompts, and then you will see the rETH token appear in your list.
+      接受其余的提示，然后您将看到 rETH 代币出现在您的列表中。
 
-      Now that you have a wallet address in MetaMask, you need to fill it with some test ETH.
-      Head over to the [Practicing with the Test Network](../node-staking/testnet/overview#getting-test-eth-on-hoodi) page for a quick guide on how to use a testnet faucet to get some test ETH on Hoodi.
+      现在您在 MetaMask 中有了钱包地址，您需要用一些测试 ETH 填充它。
+      前往[使用测试网络进行练习](../node-staking/testnet/overview#getting-test-eth-on-hoodi)页面，快速了解如何使用测试网水龙头在 Hoodi 上获取一些测试 ETH。
 
-      Once you have some Hoodi ETH to test with, head to [https://testnet.rocketpool.net/](https://testnet.rocketpool.net/).
+      一旦您有一些 Hoodi ETH 可以测试，请前往 [https://testnet.rocketpool.net/](https://testnet.rocketpool.net/)。
 
-      **Note:** Testnet only supports Protocol routing. CoW Swap is available on mainnet only.
+      **注意：** 测试网仅支持协议路由。CoW Swap 仅在主网上可用。
     </Tab>
-    <Tab label="Preparing on Ethereum Mainnet">
-      Start by installing [MetaMask](https://metamask.io/) if you haven't already.
-      Follow the instructions on their site to install the extension, create an account, and sign in.
+    <Tab label="在以太坊主网上准备">
+      如果您还没有安装 [MetaMask](https://metamask.io/)，请先安装。
+      按照他们网站上的说明安装扩展程序、创建账户并登录。
 
-      Next, open the MetaMask panel using its icon in your browser toolbar.
-      Click on the **network dropdown** in the toolbar at the top and ensure that **Ethereum Mainnet** is selected:
+      接下来，使用浏览器工具栏中的图标打开 MetaMask 面板。
+      点击顶部的**网络下拉菜单**，确保选择了 **Ethereum Mainnet**：
 
       <img src={mm_network_main} width="100%" height="auto" />
 
-      Finally, add the rETH token to MetaMask so you can see your balance and access it for trading.
-      Click the **Assets** tab, then click **Add Token**:
+      最后，将 rETH 代币添加到 MetaMask，以便您可以查看余额并访问它进行交易。
+      点击 **Assets** 标签，然后点击 **Add Token**：
 
       <img src={mm_add_token} width="100%" height="auto" />
 
-      Ensure that **Custom Token** is selected in this dialog.
-      In the **Token Contract Address** box, put the following value:
+      确保在此对话框中选择了 **Custom Token**。
+      在 **Token Contract Address** 框中，输入以下值：
 
       ```
       0xae78736Cd615f374D3085123A210448E74Fc6393
       ```
 
-      The **Token Symbol** should automatically be populated with `rETH`, and the **Decimals of Precision** should automatically be populated with `18`.
+      **Token Symbol** 应该自动填充为 `rETH`，**Decimals of Precision** 应该自动填充为 `18`。
 
-      Accept the rest of the prompts, and then you will see the rETH token appear in your list.
+      接受其余的提示，然后您将看到 rETH 代币出现在您的列表中。
 
-      Now that you have a wallet address in MetaMask, you need to transfer some ETH into it.
-      You will need to supply this from an existing wallet or buy ETH on an exchange.
+      现在您在 MetaMask 中有了钱包地址，您需要向其中转入一些 ETH。
+      您需要从现有钱包提供此资金或在交易所购买 ETH。
 
-      Once you have some ETH to stake, head to [https://stake.rocketpool.net/](https://stake.rocketpool.net/).
+      一旦您有一些 ETH 可以质押，请前往 [https://stake.rocketpool.net/](https://stake.rocketpool.net/)。
     </Tab>
 
   </Tabs>
 </div>
 
-## Staking ETH for rETH
+## 质押 ETH 换取 rETH
 
-Once you're at the staking site, click on the **connect wallet** button. Please read through and accept the Terms of Service & Privacy Policy, this will enable different ways to connect, then click **connect metamask**.
+到达质押网站后，点击 **connect wallet** 按钮。请仔细阅读并接受服务条款和隐私政策，这将启用不同的连接方式，然后点击 **connect metamask**。
 
-MetaMask will prompt you to select an account to connect to the website. Choose one, confirm a few permissions, and you'll see your balances update in the UI.
+MetaMask 将提示您选择要连接到网站的账户。选择一个，确认一些权限，您将看到您的余额在 UI 中更新。
 
-### Step 1: Enter Amount
+### 步骤 1：输入金额
 
-Enter the amount of ETH you want to stake in the **Stake ETH** input field.
+在 **Stake ETH** 输入字段中输入您想要质押的 ETH 金额。
 
-[Image placeholder: Input field with amount being entered]
+[图片占位符：输入正在输入金额的字段]
 
-### Step 2: Review Routing Options
+### 步骤 2：查看路线选项
 
-The interface will display two routing options (mainnet only):
+界面将显示两个路线选项（仅限主网）：
 
-- **Protocol Card**: Shows if deposit pool is available or full
-- **CoW Swap Card**: Shows estimated output and rate comparison
+- **协议卡片：** 显示存款池是可用还是已满
+- **CoW Swap 卡片：** 显示预估输出和汇率比较
 
-The better option will be highlighted with a green "X% better" badge and automatically selected.
+更好的选项将用绿色"好 X%"徽章突出显示并自动选择。
 
-[Image placeholder: Routing cards showing comparison]
+[图片占位符：显示比较的路线卡片]
 
-### Step 3: Configure Settings (CoW Swap Only)
+### 步骤 3：配置设置（仅限 CoW Swap）
 
-If using CoW Swap, you can optionally:
+如果使用 CoW Swap，您可以选择：
 
-- Adjust slippage tolerance (default 0.5%)
-- Set order expiry time (default 30 minutes)
+- 调整滑点容差（默认 0.5%）
+- 设置订单到期时间（默认 30 分钟）
 
-### Step 4: Execute Transaction
+### 步骤 4：执行交易
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Via Protocol">
-      Click **Stake via Protocol** button.
+    <Tab label="通过协议">
+      点击 **Stake via Protocol** 按钮。
 
-      MetaMask will prompt you to:
-      1. **Approve the transaction** with gas fees shown
-      2. **Confirm the transaction**
+      MetaMask 将提示您：
+      1. **批准交易**，显示 gas 费用
+      2. **确认交易**
 
-      ::: danger IMPORTANT
-      Check the total gas cost before approving - if it's very expensive relative to your stake amount, consider using CoW Swap instead!
+      ::: danger 重要
+      在批准之前检查总 gas 成本 - 如果相对于您的质押金额非常昂贵，请考虑使用 CoW Swap！
       :::
 
-      Once confirmed, the transaction will be mined and you'll receive your rETH immediately.
+      确认后，交易将被挖掘，您将立即收到 rETH。
 
       <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/protocol_stake.mp4" />
     </Tab>
-    <Tab label="Via CoW Swap">
-      Click **Stake via CoW Swap** button.
+    <Tab label="通过 CoW Swap">
+      点击 **Stake via CoW Swap** 按钮。
 
-      The process involves several automated steps:
+      该过程涉及几个自动化步骤：
 
-      1. **WETH Wrapping** (if needed)
-      - Approve ETH to WETH conversion
-      - One-time gas fee required
+      1. **WETH 包装**（如果需要）
+      - 批准 ETH 到 WETH 的转换
+      - 需要一次性 gas 费用
 
-      2. **WETH Approval** (first time only)
-      - Approve CoW Protocol to use your WETH
-      - One-time gas fee required
+      2. **WETH 批准**（仅限第一次）
+      - 批准 CoW 协议使用您的 WETH
+      - 需要一次性 gas 费用
 
-      3. **Sign Order**
-      - Review order details
-      - Sign with MetaMask (gasless)
-      - No gas fees
+      3. **签署订单**
+      - 查看订单详情
+      - 使用 MetaMask 签署（无 gas）
+      - 无 gas 费用
 
-      4. **Order Execution**
-      - Monitor progress in modal
-      - Typical wait: 2-5 minutes
-      - Can close modal and continue browsing
+      4. **订单执行**
+      - 在模态窗口中监控进度
+      - 典型等待时间：2-5 分钟
+      - 可以关闭模态窗口并继续浏览
 
-      5. **Completion**
-      - rETH automatically appears in wallet
-      - View on Etherscan if needed
+      5. **完成**
+      - rETH 自动出现在钱包中
+      - 如果需要，可以在 Etherscan 上查看
 
       <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/cowswap_stake.mp4" preload="auto"/>
     </Tab>
@@ -280,63 +280,63 @@ If using CoW Swap, you can optionally:
   </Tabs>
 </div>
 
-::: tip NOTE
-It's **completely normal** to receive less rETH than the ETH you put in. rETH and ETH have a **dynamic exchange rate**: as the Rocket Pool network earns rewards, 1 rETH becomes worth more than 1 ETH.
+::: tip 注意
+收到的 rETH 少于您投入的 ETH 是**完全正常的**。rETH 和 ETH 有一个**动态汇率**：随着 Rocket Pool 网络赚取奖励，1 rETH 的价值会超过 1 ETH。
 :::
 
-## Unstaking rETH for ETH
+## 取消质押 rETH 换取 ETH
 
-When you're ready to unstake and trade your rETH back for ETH, head back to the staking website and click on the **swap direction button** to switch to unstaking mode:
+当您准备取消质押并将 rETH 交易回 ETH 时，请返回质押网站并点击**交换方向按钮**以切换到取消质押模式：
 
-### Step 1: Enter Amount
+### 步骤 1：输入金额
 
-Enter the amount of rETH you want to unstake in the **Unstake rETH** field.
+在 **Unstake rETH** 字段中输入您想要取消质押的 rETH 金额。
 
-### Step 2: Check Routing Availability
+### 步骤 2：检查路线可用性
 
-The interface will show:
+界面将显示：
 
-- **Protocol liquidity** available in the deposit pool
-- **Protocol card** status (available or "Insufficient liquidity")
-- **CoW Swap card** with estimated ETH output
+- 存款池中可用的**协议流动性**
+- **协议卡片**状态（可用或"流动性不足"）
+- **CoW Swap 卡片**，显示预估的 ETH 输出
 
-### Step 3: Execute Unstaking
+### 步骤 3：执行取消质押
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Via Protocol">
-      If protocol liquidity is available:
+    <Tab label="通过协议">
+      如果协议流动性可用：
 
-      1. Click **Unstake via Protocol**
-      2. Confirm transaction in MetaMask
-      3. Pay gas fees
-      4. Receive ETH immediately
+      1. 点击 **Unstake via Protocol**
+      2. 在 MetaMask 中确认交易
+      3. 支付 gas 费用
+      4. 立即收到 ETH
 
-      ::: warning NOTE
-      Protocol unstaking is only possible when the deposit pool has enough ETH. If you see "Insufficient liquidity", use CoW Swap instead.
+      ::: warning 注意
+      仅当存款池有足够的 ETH 时，才能进行协议取消质押。如果您看到"流动性不足"，请改用 CoW Swap。
       :::
 
       <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/unstake_mainnet.mp4" preload="auto"/>
     </Tab>
-    <Tab label="Via CoW Swap">
-      CoW Swap is always available for unstaking:
+    <Tab label="通过 CoW Swap">
+      CoW Swap 始终可用于取消质押：
 
-      1. **rETH Approval** (first time only)
-      - Approve rETH for CoW Protocol
-      - One-time gas fee
+      1. **rETH 批准**（仅限第一次）
+      - 为 CoW 协议批准 rETH
+      - 一次性 gas 费用
 
-      2. **Sign Order**
-      - Review details
-      - Sign order (gasless)
+      2. **签署订单**
+      - 查看详情
+      - 签署订单（无 gas）
 
-      3. **Order Execution**
-      - Monitor in modal
-      - 2-5 minute wait
+      3. **订单执行**
+      - 在模态窗口中监控
+      - 2-5 分钟等待
 
-      4. **WETH Unwrapping** (automatic)
-      - Receives WETH from swap
-      - Automatically unwraps to ETH
-      - ETH appears in wallet
+      4. **WETH 解包**（自动）
+      - 从交换中接收 WETH
+      - 自动解包为 ETH
+      - ETH 出现在钱包中
 
       <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/cowswap_unstake.mp4" preload="auto"/>
     </Tab>
@@ -344,346 +344,346 @@ The interface will show:
   </Tabs>
 </div>
 
-## Troubleshooting
+## 故障排除
 
-### Common Issues
+### 常见问题
 
-#### Order Expired (CoW Swap)
+#### 订单过期（CoW Swap）
 
-Your order didn't execute within the time limit.
+您的订单未在时间限制内执行。
 
-**Solutions:**
+**解决方案：**
 
-- Increase order expiry time (up to 24 hours)
-- Adjust slippage tolerance higher
-- Try again with current market prices
-- Use Protocol route if available
+- 增加订单到期时间（最多 24 小时）
+- 将滑点容差调高
+- 使用当前市场价格重试
+- 如果可用，使用协议路线
 
-#### Insufficient Balance
+#### 余额不足
 
-Not enough ETH/rETH for the transaction.
+没有足够的 ETH/rETH 进行交易。
 
-**Solutions:**
+**解决方案：**
 
-- Check wallet balance
-- Account for gas fees (Protocol route)
-- Reduce stake/unstake amount
+- 检查钱包余额
+- 考虑 gas 费用（协议路线）
+- 减少质押/取消质押金额
 
-#### Pool Full (Protocol Staking)
+#### 池已满（协议质押）
 
-Deposit pool has reached its limit.
+存款池已达到其限制。
 
-**Solution:**
+**解决方案：**
 
-- Use CoW Swap route (automatically selected)
-- Wait for node operators to pull ETH from pool
-- Check back later for availability
+- 使用 CoW Swap 路线（自动选择）
+- 等待节点运营商从池中提取 ETH
+- 稍后再检查可用性
 
-#### Insufficient Liquidity (Protocol Unstaking)
+#### 流动性不足（协议取消质押）
 
-Not enough ETH in deposit pool for unstaking.
+存款池中没有足够的 ETH 用于取消质押。
 
-**Solution:**
+**解决方案：**
 
-- Use CoW Swap route (automatically selected)
-- Always available regardless of pool state
+- 使用 CoW Swap 路线（自动选择）
+- 无论池状态如何，始终可用
 
-### Manual WETH Conversion
+### 手动 WETH 转换
 
-If you have WETH that wasn't automatically unwrapped:
+如果您有未自动解包的 WETH：
 
-1. Visit [swap.cow.fi](https://swap.cow.fi)
-2. Connect your wallet
-3. Swap WETH → ETH (1:1 ratio, gasless)
+1. 访问 [swap.cow.fi](https://swap.cow.fi)
+2. 连接您的钱包
+3. 交换 WETH → ETH（1:1 比率，无 gas）
 
-Or use Etherscan:
+或使用 Etherscan：
 
-1. Go to WETH contract: `0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2`
-2. Connect wallet to "Write Contract"
-3. Use `withdraw` function
-4. Enter amount in Wei
-5. Execute transaction
+1. 转到 WETH 合约：`0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2`
+2. 将钱包连接到"Write Contract"
+3. 使用 `withdraw` 函数
+4. 以 Wei 输入金额
+5. 执行交易
 
-## Best Practices
+## 最佳实践
 
-### For Optimal Rates
+### 获得最佳汇率
 
-- Let the interface auto-select the best route
-- Check during low network activity for better protocol availability
-- For large amounts, CoW Swap often provides better rates
-- Adjust slippage carefully to balance execution likelihood vs price
+- 让界面自动选择最佳路线
+- 在网络活动较少时检查，以获得更好的协议可用性
+- 对于大额交易，CoW Swap 通常提供更好的汇率
+- 仔细调整滑点以平衡执行可能性与价格
 
-### For Security
+### 安全性
 
-- Verify you're on the correct website: [https://stake.rocketpool.net](https://stake.rocketpool.net)
-- Start with small test amounts
-- Review all transaction details before confirming
-- Keep some ETH for gas fees
-- Only approve trusted contracts
+- 验证您在正确的网站上：[https://stake.rocketpool.net](https://stake.rocketpool.net)
+- 从小额测试金额开始
+- 在确认之前查看所有交易详情
+- 保留一些 ETH 用于 gas 费用
+- 仅批准受信任的合约
 
-### For Gas Optimization
+### Gas 优化
 
-- Compare gas costs between routes
-- Batch transactions when possible
-- Use CoW Swap for small amounts to avoid high gas fees
-- Monitor gas prices at [etherscan.io/gastracker](https://etherscan.io/gastracker)
+- 比较路线之间的 gas 成本
+- 尽可能批量处理交易
+- 对于小额交易使用 CoW Swap 以避免高额 gas 费用
+- 在 [etherscan.io/gastracker](https://etherscan.io/gastracker) 监控 gas 价格
 
-## Tax Implications
+## 税务影响
 
-::: warning IMPORTANT
-This section provides general educational information only. Tax laws vary significantly by jurisdiction and individual circumstances. **Always consult with a qualified tax professional** for advice specific to your situation.
+::: warning 重要
+本节仅提供一般教育信息。税法因司法管辖区和个人情况而异。**始终咨询合格的税务专业人士**以获取针对您情况的建议。
 :::
 
-### Understanding rETH and Taxes
+### 了解 rETH 和税务
 
-When staking with Rocket Pool, it's crucial to understand potential tax implications:
+在 Rocket Pool 质押时，了解潜在的税务影响至关重要：
 
-#### The Staking Transaction (ETH → rETH)
+#### 质押交易（ETH → rETH）
 
-**Potential Tax Events:**
+**潜在税务事件：**
 
-- **Token Swap**: Converting ETH to rETH may be considered a taxable event in many jurisdictions
-- **Capital Gains/Losses**: If your ETH has appreciated since acquisition, you may owe capital gains tax
-- **Cost Basis**: The value of rETH received becomes your new cost basis for future transactions
+- **代币交换：** 在许多司法管辖区，将 ETH 转换为 rETH 可能被视为应税事件
+- **资本利得/损失：** 如果您的 ETH 自获取以来升值，您可能需要缴纳资本利得税
+- **成本基础：** 收到的 rETH 的价值成为您未来交易的新成本基础
 
-**Example Scenario:**
-
-```
-Bought 1 ETH at $1,000
-Stake when ETH is worth $2,000
-Potential taxable gain: $1,000
-Your rETH cost basis: $2,000
-```
-
-#### Holding rETH (Earning Rewards)
-
-**How rETH Appreciates:**
-
-- rETH increases in value relative to ETH automatically
-- No new tokens are received - the token itself appreciates
-- This appreciation represents your staking rewards
-
-**Tax Treatment Varies:**
-
-- **Some jurisdictions**: Tax on appreciation only when realized (upon sale/swap)
-- **Other jurisdictions**: May tax unrealized gains annually
-- **Income vs. Capital Gains**: Classification affects tax rates
-
-#### The Unstaking Transaction (rETH → ETH)
-
-**Tax Considerations:**
-
-- Converting rETH back to ETH is typically a taxable event
-- Calculate gain/loss based on:
-- **Cost basis**: Value when you acquired rETH
-- **Disposal value**: Value when converting back to ETH
-- The difference is your capital gain or loss
-
-### Routing Method Tax Implications
-
-#### Protocol Route
-
-- Single taxable event per transaction
-- Clear timestamp and value for tax records
-- On-chain transaction provides permanent record
-
-#### CoW Swap Route
-
-- WETH wrapping/unwrapping typically not taxable (1:1 conversion)
-- Main swap (ETH/WETH ↔ rETH) is the taxable event
-- Order execution provides clear tax documentation
-
-### Record Keeping Best Practices
-
-**Essential Records to Maintain:**
-
-1. **For Each Stake:**
-
-- Date and time of transaction
-- Amount of ETH staked
-- Amount of rETH received
-- ETH price at time of staking
-- Transaction hash
-- Gas fees paid
-
-2. **While Holding:**
-
-- Periodic snapshots of rETH/ETH exchange rate
-- Your rETH balance over time
-- Market values on key dates (year-end, etc.)
-
-3. **For Each Unstake:**
-
-- Date and time of transaction
-- Amount of rETH unstaked
-- Amount of ETH received
-- ETH price at time of unstaking
-- Transaction hash
-- Gas fees paid
-
-**Tools for Tracking:**
-
-- Export transactions from Etherscan
-- Use portfolio tracking apps that support rETH
-- Maintain a spreadsheet with all transactions
-- Consider using crypto tax software
-
-### Tax Optimization Strategies
-
-**Timing Considerations:**
-
-- **Tax-Loss Harvesting**: Unstake during market downturns if you have losses to offset gains
-- **Long-term vs. Short-term**: Many jurisdictions favor long-term holdings (typically >1 year)
-- **Year-end Planning**: Consider timing of transactions around tax year boundaries
-
-**Cost Basis Methods:**
-
-- **FIFO (First In, First Out)**: Default in many jurisdictions
-- **LIFO (Last In, First Out)**: May be available in some regions
-- **Specific Identification**: Track specific rETH portions if allowed
-
-### Common Tax Scenarios
-
-#### Scenario 1: Regular Staking
+**示例场景：**
 
 ```
-Action: Stake 10 ETH for 9.5 rETH
-Tax Event: Disposal of ETH, acquisition of rETH
-Report: Capital gain/loss on ETH disposal
-Track: 9.5 rETH with new cost basis
+以 $1,000 购买 1 ETH
+当 ETH 价值 $2,000 时质押
+潜在应税收益：$1,000
+您的 rETH 成本基础：$2,000
 ```
 
-#### Scenario 2: Partial Unstaking
+#### 持有 rETH（赚取奖励）
+
+**rETH 如何升值：**
+
+- rETH 相对于 ETH 的价值自动增加
+- 不会收到新代币 - 代币本身升值
+- 这种升值代表您的质押奖励
+
+**税务处理各不相同：**
+
+- **某些司法管辖区：** 仅在实现时（出售/交换时）对升值征税
+- **其他司法管辖区：** 可能每年对未实现收益征税
+- **收入与资本利得：** 分类影响税率
+
+#### 取消质押交易（rETH → ETH）
+
+**税务考虑：**
+
+- 将 rETH 转换回 ETH 通常是应税事件
+- 根据以下内容计算收益/损失：
+- **成本基础：** 您获得 rETH 时的价值
+- **处置价值：** 转换回 ETH 时的价值
+- 差额是您的资本利得或损失
+
+### 路由方法税务影响
+
+#### 协议路线
+
+- 每笔交易一个应税事件
+- 清晰的时间戳和税务记录价值
+- 链上交易提供永久记录
+
+#### CoW Swap 路线
+
+- WETH 包装/解包通常不应税（1:1 转换）
+- 主要交换（ETH/WETH ↔ rETH）是应税事件
+- 订单执行提供清晰的税务文档
+
+### 记录保存最佳实践
+
+**必须维护的重要记录：**
+
+1. **每次质押：**
+
+- 交易日期和时间
+- 质押的 ETH 金额
+- 收到的 rETH 金额
+- 质押时的 ETH 价格
+- 交易哈希
+- 支付的 gas 费用
+
+2. **持有期间：**
+
+- rETH/ETH 汇率的定期快照
+- 您的 rETH 余额随时间变化
+- 关键日期的市场价值（年末等）
+
+3. **每次取消质押：**
+
+- 交易日期和时间
+- 取消质押的 rETH 金额
+- 收到的 ETH 金额
+- 取消质押时的 ETH 价格
+- 交易哈希
+- 支付的 gas 费用
+
+**跟踪工具：**
+
+- 从 Etherscan 导出交易
+- 使用支持 rETH 的投资组合跟踪应用
+- 维护包含所有交易的电子表格
+- 考虑使用加密税务软件
+
+### 税务优化策略
+
+**时机考虑：**
+
+- **税务损失收获：** 如果您有损失可以抵消收益，请在市场下跌期间取消质押
+- **长期与短期：** 许多司法管辖区青睐长期持有（通常 >1 年）
+- **年末规划：** 考虑围绕纳税年度边界的交易时机
+
+**成本基础方法：**
+
+- **先进先出（FIFO）：** 许多司法管辖区的默认方法
+- **后进先出（LIFO）：** 在某些地区可能可用
+- **特定识别：** 如果允许，跟踪特定的 rETH 部分
+
+### 常见税务场景
+
+#### 场景 1：常规质押
 
 ```
-Action: Unstake 5 rETH for 5.3 ETH
-Tax Event: Disposal of rETH, acquisition of ETH
-Report: Capital gain/loss on rETH disposal
-Track: Remaining rETH balance and cost basis
+操作：质押 10 ETH 换取 9.5 rETH
+税务事件：处置 ETH，获取 rETH
+报告：ETH 处置的资本利得/损失
+跟踪：9.5 rETH 具有新的成本基础
 ```
 
-#### Scenario 3: DeFi Integration
+#### 场景 2：部分取消质押
 
 ```
-Action: Use rETH in DeFi protocols
-Tax Event: Each protocol interaction may be taxable
-Report: Track all movements and value changes
-Track: Yields, swaps, and liquidity provisions
+操作：取消质押 5 rETH 换取 5.3 ETH
+税务事件：处置 rETH，获取 ETH
+报告：rETH 处置的资本利得/损失
+跟踪：剩余 rETH 余额和成本基础
 ```
 
-### Jurisdiction-Specific Considerations
+#### 场景 3：DeFi 集成
 
-**United States:**
+```
+操作：在 DeFi 协议中使用 rETH
+税务事件：每次协议交互可能应税
+报告：跟踪所有移动和价值变化
+跟踪：收益、交换和流动性提供
+```
 
-- IRS treats crypto-to-crypto swaps as taxable
-- Staking rewards may be taxable when received or when sold (evolving guidance)
-- Form 8949 and Schedule D for reporting
+### 特定司法管辖区的考虑因素
 
-**European Union:**
+**美国：**
 
-- Tax treatment varies by member state
-- Some countries tax upon realization, others annually
-- Consider local crypto tax regulations
+- IRS 将加密货币到加密货币的交换视为应税
+- 质押奖励在收到时或出售时可能应税（指导不断发展）
+- 使用 8949 表格和附表 D 进行报告
 
-**United Kingdom:**
+**欧盟：**
 
-- HMRC treats staking rewards as income or capital gains depending on circumstances
-- Detailed record keeping required
-- Consider "bed and breakfasting" rules
+- 税务处理因成员国而异
+- 一些国家在实现时征税，其他国家每年征税
+- 考虑当地的加密货币税收法规
 
-**Other Jurisdictions:**
+**英国：**
 
-- Research your local tax authority's crypto guidance
-- Many countries are still developing frameworks
-- Professional advice strongly recommended
+- HMRC 根据情况将质押奖励视为收入或资本利得
+- 需要详细的记录保存
+- 考虑"床和早餐"规则
 
-### Using Tax Software
+**其他司法管辖区：**
 
-**Popular Crypto Tax Tools:**
+- 研究您当地税务机关的加密货币指南
+- 许多国家仍在制定框架
+- 强烈建议寻求专业建议
 
-- Most support rETH tracking
-- Can import from Etherscan
-- Calculate gains/losses automatically
-- Generate tax reports for your jurisdiction
+### 使用税务软件
 
-**Integration Tips:**
+**流行的加密税务工具：**
 
-1. Import all wallet addresses
-2. Verify rETH/ETH transactions are correctly classified
-3. Ensure exchange rates are accurate
-4. Review calculated gains/losses
-5. Export reports for tax filing
+- 大多数支持 rETH 跟踪
+- 可以从 Etherscan 导入
+- 自动计算收益/损失
+- 为您的司法管辖区生成税务报告
 
-### Red Flags to Avoid
+**集成提示：**
 
-**Common Mistakes:**
+1. 导入所有钱包地址
+2. 验证 rETH/ETH 交易是否正确分类
+3. 确保汇率准确
+4. 查看计算的收益/损失
+5. 导出报告用于报税
 
-- Not tracking cost basis
-- Forgetting to report staking transactions
-- Ignoring small transactions
-- Missing DeFi interactions
-- Incorrect exchange rate data
+### 要避免的危险信号
 
-**Audit Preparation:**
+**常见错误：**
 
-- Keep all transaction records
-- Document your calculation methods
-- Save exchange rate sources
-- Maintain wallet ownership proof
-- Store records for required retention period
+- 不跟踪成本基础
+- 忘记报告质押交易
+- 忽略小额交易
+- 遗漏 DeFi 交互
+- 不正确的汇率数据
 
-## FAQs
+**审计准备：**
 
-**Q: Which route should I choose?**
-A: The interface automatically recommends the best route with a green "better rate" badge. Generally, use the recommended option.
+- 保留所有交易记录
+- 记录您的计算方法
+- 保存汇率来源
+- 维护钱包所有权证明
+- 在要求的保留期内存储记录
 
-**Q: Why does CoW Swap sometimes offer better rates?**
-A: CoW Swap aggregates liquidity from multiple DEXs and uses batch auctions to find optimal prices, often beating the fixed protocol rate.
+## 常见问题
 
-**Q: Is CoW Swap really gasless?**
-A: Order creation and signing are gasless. You only pay gas for initial WETH wrapping and token approvals (one-time setup).
+**问：我应该选择哪条路线？**
+答：界面会自动推荐带有绿色"更好汇率"徽章的最佳路线。通常，使用推荐的选项。
 
-**Q: How long do CoW Swap orders take?**
-A: Typically 2-5 minutes, but can vary based on market conditions.
+**问：为什么 CoW Swap 有时提供更好的汇率？**
+答：CoW Swap 聚合来自多个 DEX 的流动性，并使用批量拍卖来找到最优价格，通常可以击败固定的协议汇率。
 
-**Q: What happens if my CoW Swap order expires?**
-A: Nothing is lost. Your tokens remain in your wallet. You can place a new order with adjusted parameters.
+**问：CoW Swap 真的无 gas 吗？**
+答：订单创建和签署无 gas。您只需为初始 WETH 包装和代币批准支付 gas（一次性设置）。
 
-**Q: Why is the Protocol route sometimes unavailable?**
-A: **For staking:** Deposit pool is full. **For unstaking:** Insufficient ETH liquidity. These are temporary states that change as users interact with the protocol.
+**问：CoW Swap 订单需要多长时间？**
+答：通常为 2-5 分钟，但可能因市场状况而异。
 
-**Q: Are staking transactions taxable?**
-A: In most jurisdictions, yes. Converting ETH to rETH and back are typically taxable events. Consult a tax professional for your specific situation.
+**问：如果我的 CoW Swap 订单过期会发生什么？**
+答：不会损失任何东西。您的代币仍在您的钱包中。您可以使用调整后的参数下新订单。
 
-**Q: How do I track my rETH cost basis?**
-A: Record the value of ETH when you stake it - this becomes your rETH cost basis. Use transaction hashes, timestamps, and prices for accurate records.
+**问：为什么协议路线有时不可用？**
+答：**质押时：** 存款池已满。**取消质押时：** ETH 流动性不足。这些是临时状态，随着用户与协议的交互而变化。
 
-**Q: Is moving between Protocol and CoW Swap routes different for taxes?**
-A: The tax treatment is typically the same - both involve exchanging ETH for rETH. The route chosen doesn't usually affect tax obligations, though record keeping may differ slightly.
+**问：质押交易应税吗？**
+答：在大多数司法管辖区，是的。将 ETH 转换为 rETH 以及反向转换通常是应税事件。请咨询税务专业人士以了解您的具体情况。
 
-## Additional Resources
+**问：我如何跟踪我的 rETH 成本基础？**
+答：记录您质押时 ETH 的价值 - 这成为您的 rETH 成本基础。使用交易哈希、时间戳和价格进行准确记录。
 
-- [Rocket Pool Documentation](https://docs.rocketpool.net)
-- [CoW Swap Documentation](https://docs.cow.fi)
+**问：在协议和 CoW Swap 路线之间移动对税务有影响吗？**
+答：税务处理通常相同 - 两者都涉及将 ETH 交换为 rETH。选择的路线通常不会影响税务义务，尽管记录保存可能略有不同。
+
+## 其他资源
+
+- [Rocket Pool 文档](https://docs.rocketpool.net)
+- [CoW Swap 文档](https://docs.cow.fi)
 - [Rocket Pool Discord](https://discord.gg/rocketpool)
-- [Etherscan Gas Tracker](https://etherscan.io/gastracker)
+- [Etherscan Gas 跟踪器](https://etherscan.io/gastracker)
 
-## Contract Addresses
+## 合约地址
 
-### Mainnet
+### 主网
 
 - **rETH Token:** `0xae78736Cd615f374D3085123A210448E74Fc6393`
 - **WETH Token:** `0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2`
 - **Rocket Storage:** `0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46`
 - **CoW Protocol VaultRelayer:** `0xC92E8bdf79f0507f65a392b0ab4667716BFE0110`
 
-### Hoodi Testnet
+### Hoodi 测试网
 
 - **rETH Token:** `0x7322c24752f79c05ffd1e2a6fcb97020c1c264f1`
-- Check [Rocket Pool Documentation](https://docs.rocketpool.net) for other Hoodi testnet addresses.
+- 查看 [Rocket Pool 文档](https://docs.rocketpool.net)了解其他 Hoodi 测试网地址。
 
 ---
 
-That's all there is to staking with Rocket Pool! We hope you find the new routing options helpful in getting the best value for your stake.
+这就是使用 Rocket Pool 质押的全部内容！我们希望您觉得新的路由选项有助于为您的质押获得最佳价值。
 
-Feel free to swing by [our Discord server](https://discord.gg/rocketpool) to let us know what you thought of it and keep tabs on the project as it evolves.
+欢迎访问[我们的 Discord 服务器](https://discord.gg/rocketpool)，让我们知道您的想法，并随时了解项目的演变。

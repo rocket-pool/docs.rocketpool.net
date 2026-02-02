@@ -1,32 +1,32 @@
-# How to Write Add-ons for Rocket Pool Smart Node
+# Rocket Pool Smart Node용 Add-on 작성 방법
 
-## Introduction
+## 소개
 
-Rocket Pool Smart Node add-ons are extensions that provide additional features to the Smart Node stack. They can be implemented as Docker containers that integrate with the Ethereum clients or the Smart Node service. Add-ons can be enabled and configured through the Smart Node's terminal user interface (TUI) via the `rocketpool service config` command.
+Rocket Pool Smart Node add-on은 Smart Node 스택에 추가 기능을 제공하는 확장 프로그램입니다. Ethereum 클라이언트 또는 Smart Node 서비스와 통합되는 Docker 컨테이너로 구현할 수 있습니다. Add-on은 `rocketpool service config` 명령을 통해 Smart Node의 터미널 사용자 인터페이스(TUI)에서 활성화하고 구성할 수 있습니다.
 
-Add-on development can be based on two existing examples:
+Add-on 개발은 두 가지 기존 예제를 기반으로 할 수 있습니다:
 
-- **Graffiti Wall Writer**: Enables node operators to contribute to community drawings on the Beaconcha.in graffiti wall by dynamically setting block proposal graffiti. It uses a decentralized drawing tool to determine which pixels to "paint" with each proposal.
-- **Rescue Node**: Provides a fallback beacon node service using credentials from the Rocket Rescue Node project. This helps prevent missed attestations during node maintenance, syncing, or outages by routing requests to a shared remote beacon node.
+- **Graffiti Wall Writer**: Node Operator가 블록 제안 graffiti를 동적으로 설정하여 Beaconcha.in graffiti wall의 커뮤니티 그림에 기여할 수 있게 합니다. 분산형 그림 도구를 사용하여 각 제안에서 어떤 픽셀을 "그릴지" 결정합니다.
+- **Rescue Node**: Rocket Rescue Node 프로젝트의 자격 증명을 사용하여 대체 beacon node 서비스를 제공합니다. 노드 유지 관리, 동기화 또는 중단 중에 요청을 공유 원격 beacon node로 라우팅하여 누락된 attestation을 방지하는 데 도움이 됩니다.
 
-Add-ons are part of the Smart Node source code and must be contributed via pull request to the repository. They implement a standardized interface for configuration and integration.
+Add-on은 Smart Node 소스 코드의 일부이며 리포지토리에 pull request를 통해 기여해야 합니다. 구성 및 통합을 위한 표준화된 인터페이스를 구현합니다.
 
-## Prerequisites
+## 전제 조건
 
-- Familiarity with Go programming, as add-ons are written in Go.
-- Understanding of Docker, as add-ons can run as containers.
-- Knowledge of the Rocket Pool Smart Node architecture, including its Docker compose setup and configuration system.
-- Access to the Smart Node repository for local development and testing.
+- Add-on은 Go로 작성되므로 Go 프로그래밍에 대한 친숙함.
+- Add-on이 컨테이너로 실행될 수 있으므로 Docker에 대한 이해.
+- Docker compose 설정 및 구성 시스템을 포함한 Rocket Pool Smart Node 아키텍처에 대한 지식.
+- 로컬 개발 및 테스트를 위한 Smart Node 리포지토리에 대한 액세스.
 
-## Steps to Create an Add-on
+## Add-on 생성 단계
 
-To create a new add-on, you will need to add code in specific locations within the Smart Node repository. The process involves implementing the add-on logic, configuring its UI, registering it, and handling integration with the Docker stack.
+새 add-on을 생성하려면 Smart Node 리포지토리 내의 특정 위치에 코드를 추가해야 합니다. 이 프로세스에는 add-on 로직 구현, UI 구성, 등록 및 Docker 스택과의 통합 처리가 포함됩니다.
 
-### 1. Implement the Add-on Logic
+### 1. Add-on 로직 구현
 
-Create a new subdirectory in `addons/` named after your add-on (use snake_case, e.g., `my_addon`).
+`addons/`에 add-on 이름을 딴 새 하위 디렉토리를 만듭니다(snake_case 사용, 예: `my_addon`).
 
-In this directory, create a Go file (e.g., `my_addon.go`) that defines the add-on struct and implements the `SmartnodeAddon` interface from `github.com/rocket-pool/smartnode/shared/types/addons`.
+이 디렉토리에 add-on 구조체를 정의하고 `github.com/rocket-pool/smartnode/shared/types/addons`의 `SmartnodeAddon` 인터페이스를 구현하는 Go 파일(예: `my_addon.go`)을 만듭니다.
 
 ```
 type MyAddon struct {
@@ -40,37 +40,37 @@ func NewMyAddon() addons.SmartnodeAddon {
 }
 ```
 
-Key methods to implement:
+구현할 주요 메서드:
 
-- `GetName()`: Returns the display name of the add-on.
-- `GetDescription()`: Returns a brief description.
-- `GetConfig()`: Returns the configuration object with parameters (e.g., enabled flag, API keys, URLs).
-- `GetEnabledParameter()`: Returns the parameter controlling whether the add-on is enabled.
-- Methods for starting/stopping the add-on, generating Docker compose sections, or interacting with other services.
+- `GetName()`: add-on의 표시 이름을 반환합니다.
+- `GetDescription()`: 간단한 설명을 반환합니다.
+- `GetConfig()`: 매개변수(예: 활성화 플래그, API 키, URL)가 있는 구성 객체를 반환합니다.
+- `GetEnabledParameter()`: add-on이 활성화되었는지 여부를 제어하는 매개변수를 반환합니다.
+- add-on 시작/중지, Docker compose 섹션 생성 또는 다른 서비스와의 상호 작용을 위한 메서드.
 
-If the add-on runs a Docker container:
+add-on이 Docker 컨테이너를 실행하는 경우:
 
-- Define the Docker image (e.g., a custom image or external one).
-- Specify volumes, ports, or environment variables needed.
+- Docker 이미지(예: 사용자 지정 이미지 또는 외부 이미지)를 정의합니다.
+- 필요한 볼륨, 포트 또는 환경 변수를 지정합니다.
 
-For example, the Graffiti Wall Writer add-on runs a container that periodically updates the validator client's graffiti file based on a JSON configuration for the image to draw.
+예를 들어, Graffiti Wall Writer add-on은 그릴 이미지에 대한 JSON 구성을 기반으로 validator 클라이언트의 graffiti 파일을 주기적으로 업데이트하는 컨테이너를 실행합니다.
 
-The Rescue Node add-on configures the validator client to use a remote fallback beacon node via a proxy, requiring username and password parameters.
+Rescue Node add-on은 validator 클라이언트가 프록시를 통해 원격 대체 beacon node를 사용하도록 구성하며, 사용자 이름과 비밀번호 매개변수가 필요합니다.
 
-### 2. Create the Configuration UI
+### 2. 구성 UI 생성
 
-Add a file in `rocketpool-cli/service/config/` named `addon-myaddon.go`.
+`rocketpool-cli/service/config/`에 `addon-myaddon.go`라는 파일을 추가합니다.
 
-This file defines the TUI page for configuring the add-on using the `tview` library.
+이 파일은 `tview` 라이브러리를 사용하여 add-on 구성을 위한 TUI 페이지를 정의합니다.
 
-Key elements:
+주요 요소:
 
-- Define a struct `AddonMyAddonPage` with fields for the layout, master config, and form items.
-- Constructor `NewAddonMyAddonPage` that initializes the page and calls `createContent()`.
-- `createContent()`: Sets up the form with checkboxes (e.g., enabled) and input fields for other parameters.
-- Event handlers like `handleEnableChanged()` to show/hide parameters based on the enabled state.
+- 레이아웃, 마스터 구성 및 양식 항목에 대한 필드가 있는 구조체 `AddonMyAddonPage`를 정의합니다.
+- 페이지를 초기화하고 `createContent()`를 호출하는 생성자 `NewAddonMyAddonPage`.
+- `createContent()`: 체크박스(예: 활성화됨) 및 기타 매개변수에 대한 입력 필드로 양식을 설정합니다.
+- 활성화 상태에 따라 매개변수를 표시/숨기기 위한 `handleEnableChanged()`와 같은 이벤트 핸들러.
 
-Example snippet:
+예제 스니펫:
 
 ```go
 package config
@@ -84,7 +84,6 @@ import (
 	cfgtypes "github.com/rocket-pool/smartnode/shared/types/config"
 )
 
-// The page wrapper for the add-on config
 type AddonMyAddonPage struct {
 	addonsPage   *AddonsPage
 	page         *page
@@ -95,7 +94,6 @@ type AddonMyAddonPage struct {
 	otherParams  []*parameterizedFormItem
 }
 
-// Creates a new page for the add-on settings
 func NewAddonMyAddonPage(addonsPage *AddonsPage, addon addons.SmartnodeAddon) *AddonMyAddonPage {
 	configPage := &AddonMyAddonPage{
 		addonsPage:   addonsPage,
@@ -103,23 +101,19 @@ func NewAddonMyAddonPage(addonsPage *AddonsPage, addon addons.SmartnodeAddon) *A
 		addon:        addon,
 	}
 	configPage.createContent()
-	// ... (additional code for page setup)
 }
 
-// Creates the content for the settings page
 func (configPage *AddonMyAddonPage) createContent() {
-	// Setup layout and form items
-	// ...
 }
 ```
 
-### 3. Register the Add-on
+### 3. Add-on 등록
 
-Update `addons/constructors.go` to include a constructor for your add-on.
+`addons/constructors.go`를 업데이트하여 add-on에 대한 생성자를 포함합니다.
 
-This file contains functions to instantiate all add-ons.
+이 파일에는 모든 add-on을 인스턴스화하는 함수가 포함되어 있습니다.
 
-Example:
+예제:
 
 ```
 func NewMyAddon() addons.SmartnodeAddon {
@@ -127,52 +121,51 @@ func NewMyAddon() addons.SmartnodeAddon {
 }
 ```
 
-Then add it to the list of available addons within the`NewRocketPoolConfig` in `shared/services/config/rocket-pool-config.go`.
+그런 다음 `shared/services/config/rocket-pool-config.go`의 `NewRocketPoolConfig` 내에서 사용 가능한 addon 목록에 추가합니다.
 
 ```
-// Addons
 cfg.GraffitiWallWriter = addons.NewGraffitiWallWriter()
 cfg.RescueNode = addons.NewRescueNode()
 cfg.MyAddon = addons.MyAddon()
 ```
 
-### 4. Integrate with Docker Compose
+### 4. Docker Compose와 통합
 
-Add-ons often require modifications to the Docker compose files.
+Add-on은 종종 Docker compose 파일을 수정해야 합니다.
 
-- Add templates in the `shared/services/rocketpool/assets/install/templates/addons` directory for your add-on's compose section (e.g., `my_addon.tmpl`).
-- The add-on code generates the compose YAML when enabled, including services, volumes, and dependencies.
+- add-on의 compose 섹션에 대한 `shared/services/rocketpool/assets/install/templates/addons` 디렉토리에 템플릿을 추가합니다(예: `my_addon.tmpl`).
+- add-on 코드는 활성화될 때 서비스, 볼륨 및 종속성을 포함하여 compose YAML을 생성합니다.
 
-The `composeAddons` function inside the `services/rocketpool/client` folder is responsible for provisioning Docker Compose containers based on the Rocket Pool configuration, setting up runtime, template and override assets for the add-on.
+`services/rocketpool/client` 폴더 내의 `composeAddons` 함수는 Rocket Pool 구성을 기반으로 Docker Compose 컨테이너를 프로비저닝하고 add-on에 대한 런타임, 템플릿 및 재정의 자산을 설정하는 역할을 담당합니다.
 
-For installation:
+설치의 경우:
 
-- Update the installer script (`install.sh`) if the add-on needs files copied (e.g., default config files).
+- add-on에 복사해야 하는 파일(예: 기본 구성 파일)이 필요한 경우 설치 스크립트(`install.sh`)를 업데이트합니다.
 
-### 5. Optional Integrations
+### 5. 선택적 통합
 
-- **Node Status Command**: If the add-on has status info (e.g., credential expiration for Rescue Node), update `rocketpool-cli/node/status.go` to display it.
-- **Metrics or Logs**: Integrate with Prometheus/Grafana if applicable.
-- **External Dependencies**: If using an external repo (e.g., Rescue Node proxy), ensure it's documented.
+- **Node Status Command**: add-on에 상태 정보(예: Rescue Node에 대한 자격 증명 만료)가 있는 경우 `rocketpool-cli/node/status.go`를 업데이트하여 표시합니다.
+- **메트릭 또는 로그**: 해당되는 경우 Prometheus/Grafana와 통합합니다.
+- **외부 종속성**: 외부 리포지토리(예: Rescue Node 프록시)를 사용하는 경우 문서화되어 있는지 확인합니다.
 
-### 6. Testing and Submission
+### 6. 테스트 및 제출
 
-- Build and test locally: Use the Makefile to build the Smart Node, install, and enable your add-on.
-- Verify in the TUI, check Docker containers, and test functionality.
-- Submit a pull request to https://github.com/rocket-pool/smartnode with your changes.
+- 로컬로 빌드 및 테스트: Makefile을 사용하여 Smart Node를 빌드, 설치 및 add-on을 활성화합니다.
+- TUI에서 확인하고 Docker 컨테이너를 확인하며 기능을 테스트합니다.
+- https://github.com/rocket-pool/smartnode에 변경 사항이 포함된 pull request를 제출합니다.
 
-## Example: Graffiti Wall Writer
+## 예제: Graffiti Wall Writer
 
-- **Purpose**: Draws community images on the Beaconcha.in graffiti wall using block proposals.
-- **Implementation**: Runs a Docker container that fetches wall state and updates the validator's graffiti file.
-- **Config**: Enabled flag and parameter for image JSON URL (default: Rocket Pool logo).
-- **Integration**: The container mounts the validator's data directory to write the graffiti file. Enabled via TUI; contributes to decentralized drawing.
+- **목적**: 블록 제안을 사용하여 Beaconcha.in graffiti wall에 커뮤니티 이미지를 그립니다.
+- **구현**: wall 상태를 가져오고 validator의 graffiti 파일을 업데이트하는 Docker 컨테이너를 실행합니다.
+- **구성**: 활성화 플래그 및 이미지 JSON URL에 대한 매개변수(기본값: Rocket Pool 로고).
+- **통합**: 컨테이너는 validator의 데이터 디렉토리를 마운트하여 graffiti 파일을 작성합니다. TUI를 통해 활성화됨; 분산형 그리기에 기여합니다.
 
-## Example: Rescue Node
+## 예제: Rescue Node
 
-- **Purpose**: Fallback beacon node to avoid penalties during downtime.
-- **Implementation**: Configures the validator client to use a remote proxy with authentication.
-- **Config**: Enabled flag, username, and password from Rescue Node website.
-- **Integration**: Modifies validator config to point to the rescue proxy. Shows credential status in `rocketpool node status`.
+- **목적**: 다운타임 중 페널티를 피하기 위한 대체 beacon node.
+- **구현**: validator 클라이언트가 인증을 통해 원격 프록시를 사용하도록 구성합니다.
+- **구성**: 활성화 플래그, Rescue Node 웹사이트의 사용자 이름 및 비밀번호.
+- **통합**: validator 구성을 수정하여 rescue 프록시를 가리킵니다. `rocketpool node status`에 자격 증명 상태를 표시합니다.
 
-For more details, review the source code in the repository or contribute to improve add-on development docs.
+자세한 내용은 리포지토리의 소스 코드를 검토하거나 add-on 개발 문서 개선에 기여하십시오.

@@ -1,12 +1,12 @@
 # Komut Satırı Arayüzüne Giriş
 
-Bir düğüm operatörü olarak, CLI Rocket Pool ile etkileşim kurmanız için birincil aracınızdır.
-Yeni minipool'lar oluşturmak, her şeyin durumunu kontrol etmek, düzenli RPL ödüllerini talep etmek, hazır olduğunuzda minipool'larınızdan çıkmak ve para çekmek ve bir dizi başka faaliyet için kullanacaksınız.
+Node operatörü olarak, CLI Rocket Pool ile etkileşim kurmak için kullanacağınız birincil araçtır.
+Bunu yeni minipool'lar oluşturmak, her şeyin durumunu kontrol etmek, periyodik RPL ödüllerini talep etmek, hazır olduğunuzda minipool'larınızdan çıkmak ve para çekmek ve diğer birçok faaliyet için kullanacaksınız.
 
-Execution ve Beacon zincirlerini senkronize etmeyi bitirdikten sonra, tüm komutlar kullanımınıza hazır olacaktır.
-Bu bölümde, daha yaygın olanlardan bazılarına kısa bir tur ve CLI'nin yapabileceği diğer bazı püf noktalara göz atacağız.
+Execution ve Beacon zincirlerini senkronize etmeyi tamamladıktan sonra, tüm komutlar kullanımınız için hazır olacaktır.
+Bu bölümde, daha yaygın olanlardan bazılarına ve CLI'nin yapabileceği diğer bazı püf noktalara kısa bir tur atacağız.
 
-## Komutlar Hakkında Bilgi Edinme
+## Komutları Öğrenmek
 
 Mevcut tüm komutları listelemek için şunu yazın:
 
@@ -14,7 +14,7 @@ Mevcut tüm komutları listelemek için şunu yazın:
 rocketpool help
 ```
 
-Çıktı şu şekilde görünecektir:
+Çıktı şöyle görünecektir:
 
 ```
 NAME:
@@ -56,11 +56,11 @@ COPYRIGHT:
    (c) 2025 Rocket Pool Pty Ltd
 ```
 
-## Servis Komutları
+## Service Komutları
 
-Servis grubu, smart node'un sizin için yönettiği çeşitli servisleri yönetmeyi içerir.
+Service grubu, smart node'un sizin için yönettiği çeşitli servisleri yönetmeyi içerir.
 
-`rocketpool service help` çıktısı şunu gösterecektir:
+`rocketpool service help` çıktısının göstereceği şey budur:
 
 ```
 NAME:
@@ -99,8 +99,8 @@ GLOBAL OPTIONS:
 
 ### `status`
 
-Bu komut, Rocket Pool tarafından yönetilen her bir Docker konteynırının mevcut çalışma durumunu size gösterir.
-Örneğin, varsayılan Docker kurulumunun çıktısı şu şekilde görünür:
+Bu komut, Rocket Pool tarafından yönetilen her bir Docker konteynerinin mevcut çalışma durumunu gösterir.
+Örneğin, varsayılan Docker kurulumunun çıktısı şöyle görünür:
 
 ```
         Name                       Command              State                                                       Ports
@@ -113,34 +113,34 @@ rocketpool_validator    sh /setup/start-validator.sh    Up
 rocketpool_watchtower   /go/bin/rocketpool watchtower   Up
 ```
 
-Docker konteynırlarından herhangi birinin sorun yaşayıp yaşamadığını hızlıca kontrol etmek veya bir `start` veya `stop` komutunun doğru çalıştığından emin olmak için kullanabilirsiniz.
+Bunu Docker konteynerlerinden herhangi birinin sorun yaşayıp yaşamadığını hızlıca kontrol etmek veya bir `start` veya `stop` komutunun doğru çalıştığından emin olmak için kullanabilirsiniz.
 
 ### `start` ve `stop`
 
-Bu iki komutu zaten biliyorsunuz.
-Basitçe tüm Rocket Pool konteynırlarını başlatırlar veya durdururlar.
+Bu iki komutu zaten tanıyorsunuz.
+Sadece tüm Rocket Pool konteynerlerini başlatır veya durdururlar.
 
 ::: tip
 `pause` komutu `stop` ile aynı şeyi yapar.
-Rocket Pool'un önceki sürümlerinden kalan eski bir komuttur.
+Sadece Rocket Pool'un önceki sürümlerinden kalma eski bir komuttur.
 :::
 
 ### `logs`
 
-Bu, zaten görmüş olmanız gereken bir başka komuttur.
-Her Docker konteynırının çıktı loglarına bakmak için kullanabilirsiniz.
+Bu komut, zaten görmüş olmanız gereken bir diğer komuttur.
+Her Docker konteynerinin çıktı loglarına bakmak için kullanabilirsiniz.
 Bu, sorun giderme veya onlardan daha ayrıntılı bir durum raporu almak için yararlı olabilir.
 
-Başka bir argüman olmadan sadece `rocketpool service logs` yaparsanız, tüm logları bir araya toplayacak ve size bir seferde gösterecektir.
+Eğer başka argüman olmadan sadece `rocketpool service logs` yaparsanız, tüm logları bir araya toplayacak ve size hepsini bir kerede gösterecektir.
 
-Bir konteynırın çıktısına odaklanmak istiyorsanız, konteynırı belirtmek için sona bir argüman ekleyebilirsiniz.
+Bir konteynerin çıktısına odaklanmak istiyorsanız, konteyneri belirtmek için sonuna bir argüman ekleyebilirsiniz.
 Geçerli değerler: `eth1`, `eth2`, `validator`, `api`, `node`, `watchtower`, `prometheus`, `grafana` ve `node-exporter`.
 
 ### `stats`
 
-Bu komut, her bir konteynırdan bazı kaynak istatistiklerini gösterir; bunları her birinin donanım ve ağ tüketimini profillemek için kullanabilirsiniz.
+Bu komut, her konteynerden bazı kaynak istatistiklerini gösterir, bunu her birinin donanım ve ağ tüketimini profil etmek için kullanabilirsiniz.
 
-Sisteminiz yavaş çalışmaya başlarsa veya RAM sorunları yaşarsa konteynırları izlemek için yararlı bulabilirsiniz.
+Sisteminiz yavaş çalışmaya başlarsa veya RAM sorunları yaşarsa konteyerleri izlemek için yararlı bulabilirsiniz.
 
 İşte bazı örnek çıktılar:
 
@@ -155,41 +155,41 @@ a3c22f54eff0   rocketpool_node         0.00%     12.13MiB / 62.78GiB   0.02%    
 ```
 
 ::: tip NOT
-Buradaki RAM istatistiği **toplam ayrılmış belleği** gösterir, bu da _sanal_ belleği içerir.
-Ham _resident_ bellek tüketimini göstermez.
+Buradaki RAM istatistiği **toplam tahsis edilmiş belleği** gösterir, bu _sanal_ belleği içerir.
+Ham _yerleşik_ bellek tüketimini göstermez.
 
-Benzer şekilde, CPU kullanımı, konteynırın kullandığı tüm CPU çekirdekleri üzerinden ortalama alınan toplam CPU tüketim miktarını gösterir.
+Benzer şekilde, CPU kullanımı, konteynerin kullandığı tüm CPU çekirdeklerinde ortalaması alınan toplam CPU tüketim miktarını gösterir.
 Burada, ETH2 için CPU neredeyse %100 gösteriyor çünkü tek iş parçacıklı olan Nimbus kullanıyor.
 
-`htop` veya `btop` gibi bir programın gerçek kaynak tüketimine daha iyi içgörü sunduğunu görebilirsiniz.
+`htop` veya `btop` gibi bir programın gerçek kaynak tüketimine daha iyi içgörü sunabileceğini görebilirsiniz.
 :::
 
 ### `config`
 
-Bu komut yapılandırma görüşmesini yeniden çalıştırır.
-Execution veya Consensus istemci seçiminizi değiştirmek istiyorsanız veya onları seçtiğinizde başlangıçta belirttiğiniz bazı parametreleri değiştirmek istiyorsanız (validatörünüzün graffiti mesajı, bağlanılacak maksimum eş sayısı vb. gibi) kullanabilirsiniz.
+Bu komut yapılandırma röportajını yeniden çalıştırır.
+Execution veya Consensus istemci seçiminizi değiştirmek veya onları seçtiğinizde başlangıçta belirttiğiniz bazı parametreleri değiştirmek istiyorsanız bunu kullanabilirsiniz (örneğin validator'ınızın graffiti mesajı, bağlanılacak maksimum peer sayısı vb.).
 
-Bu komutu istediğiniz zaman çağırabilirsiniz, ancak değişiklikler `rocketpool service stop` ve `rocketpool service start` çağrılana kadar yürürlüğe girmeyecektir.
+Bu komutu istediğiniz zaman çağırabilirsiniz, ancak değişiklikler `rocketpool service stop` ve `rocketpool service start` komutlarını çağırana kadar etkili olmayacaktır.
 
 ### `terminate`
 
-Bu komut Docker konteynırlarını kapatacak, ardından onları silecek, Rocket Pool sanal ağını silecek ve ETH1 ve ETH2 zincir veri hacimlerini silecektir.
+Bu komut Docker konteynerlerini kapatacak, ardından onları, Rocket Pool sanal ağını ve ETH1 ve ETH2 zincir veri hacimlerini silecektir.
 Temelde Docker kurulumunuzdan tüm Rocket Pool öğelerini kaldırır.
-Rocket Pool kurulumunun bu bölümünü temizlemek istediğinizde kullanın.
+Rocket Pool kurulumunun bu bölümünü temizlemek istediğinizde bunu kullanın.
 
 ::: warning
-Bu, zincir verilerinizi geri alınamaz şekilde kaldıracaktır, yani ETH1 ve ETH2'yi tekrar senkronize etmeniz gerekecektir.
+Bu, zincir verilerinizi geri döndürülemez şekilde kaldıracaktır, bu da ETH1 ve ETH2'yi tekrar senkronize etmeniz gerektiği anlamına gelir.
 
-Bu, cüzdan ve şifre dosyalarınızı, yapılandırılmış ayarlarınızı veya validatör anahtarlarınızı **kaldırmayacaktır**.
-Bunları kaldırmak için Docker veya Hibrit Modda `~/.rocketpool/data` klasörünü veya Native Modda karşılık gelen dizini silmeniz gerekecektir.
+Bu, cüzdan ve şifre dosyalarınızı, yapılandırılmış ayarlarınızı veya validator anahtarlarınızı **kaldırmayacaktır**.
+Bunları kaldırmak için, Docker veya Hybrid Mode'da `~/.rocketpool/data` klasörünü veya Native Mode'da ilgili dizini silmeniz gerekecektir.
 :::
 
-## Düğüm Komutları
+## Node Komutları
 
-`node` grubu, Rocket Pool düğümünüz üzerindeki işlemleri içerir.
-Bunları bir minipool oluşturduğumuz bir sonraki bölümde daha derinlemesine ele alacağız, ancak hepsini bir bakışta görmek yararlı olabilir.
+`node` grubu, Rocket Pool node'unuzdaki işlemleri içerir.
+Bunları bir sonraki bölümde bir minipool oluştururken daha ayrıntılı olarak ele alacağız, ancak hepsini bir bakışta görmek yararlı olabilir.
 
-`rocketpool node help` çıktısı şunu gösterecektir:
+`rocketpool node help` çıktısının göstereceği şey budur:
 
 ```
 NAME:
@@ -236,14 +236,14 @@ GLOBAL OPTIONS:
    --help, -h  show help
 ```
 
-Aşağıda, tipik düğüm işlemi sırasında ihtiyaç duyacağınız bazı komutların özeti bulunmaktadır.
+Aşağıda, tipik node işletimi sırasında ihtiyaç duyma eğiliminde olacağınız komutlardan bazılarının bir özeti bulunmaktadır.
 
 ### `status`
 
-Bu komut, tüm düğümünüzün bir bakışta üst düzey bir görünümünü verecektir.
-Ne kadar ETH ve RPL stake ettiğinizi, kaç minipool'unuzun olduğunu ve durumlarını, RPL teminat oranınızı ve daha fazlasını içerir.
+Bu komut size tüm node'unuzun bir bakışta yüksek seviye bir görünümünü verecektir.
+Ne kadar ETH ve RPL stake ettiğinizi, kaç minipool'unuz olduğunu ve durumlarını, RPL teminat oranınızı ve daha fazlasını içerir.
 
-Düğümünüzü kaydettikten ve bazı minipool'lar kurduktan sonra `rocketpool node status`'un gösterdiklerine bir örnek:
+Bu, node'unuzu kaydettiğinizde ve bazı minipool'ları kurduğunuzda `rocketpool node status` komutunun gösterdiği bir örnektir:
 
 ```
 === Account and Balances ===
@@ -290,9 +290,9 @@ The node has a total of 1 active minipool(s):
 ### `sync`
 
 Bu komut, Execution ve Consensus istemcilerinizin mevcut senkronizasyon durumunu gösterecektir.
-Muhtemelen düğümü ilk kurduğunuzda çok kullanacaksınız, sonra bir daha ihtiyacınız olmayacak (istemcilerinizi değiştirmediğiniz veya sıfırlamadığınız sürece).
+Muhtemelen node'u ilk kurduğunuzda bunu çok kullanacaksınız, ardından bir daha ihtiyacınız olmayacak (istemcilerinizi değiştirmediğiniz veya sıfırlamadığınız sürece).
 
-`rocketpool node sync` çıktısı şu şekilde görünecektir:
+`rocketpool node sync` komutunun çıktısı şöyle görünecektir:
 
 ```
 Your Smartnode is currently using the Hoodi Test Network.
@@ -306,16 +306,16 @@ Your primary consensus client is still syncing (99.94%).
 You do not have a fallback consensus client enabled.
 ```
 
-**Prysm**'in şu anda tamamlanma yüzdesini sağlamadığını unutmayın - kullanıyorsanız `eth2` loglarına bakmanız gerekecektir.
+**Prysm**'in şu anda tamamlanma yüzdesini sağlamadığını unutmayın - kullanıyorsanız `eth2` loglarına bakmanız gerekecek.
 
 ### `stake-rpl`
 
-Bu komut, düğümünüze daha fazla RPL teminatı eklemek istediğinizde kullanacağınız komuttur.
-Bunu yapmak teminat oranınızı artıracak ve her kontrol noktasında RPL ödüllerinizi artıracaktır (daha fazlası daha sonra).
+Bu komut, node'unuza daha fazla RPL teminatı eklemek istediğinizde kullanacağınız komuttur.
+Bunu yapmak teminat oranınızı artıracaktır, bu da her kontrol noktasında RPL ödüllerinizi artıracaktır (bunun hakkında daha sonra).
 
-Şimdiye kadarki diğer komutların aksine, bu gerçekten _etkileşimlidir_ çünkü bir işlem tetikleyecektir - sadece bilgilendirici değildir.
+Şimdiye kadarki diğer komutların aksine, bu aslında _etkileşimlidir_ çünkü bir işlemi tetikleyecektir - sadece bilgilendirici değildir.
 
-İlk olarak size ne kadar RPL stake etmek istediğinizi soracak, kolaylık için bazı önceden tanımlanmış seçenekler veya özel bir miktar belirtme yeteneği sunacaktır:
+Önce size ne kadar RPL stake etmek istediğinizi soracak, kolaylık için bazı önceden tanımlanmış seçenekler veya özel bir miktar belirtme yeteneği ile:
 
 ```
 NOTE: By staking RPL, you become a member of the Rocket Pool pDAO. Stay informed on governance proposals by joining the Rocket Pool Discord.
@@ -328,7 +328,7 @@ Please choose an amount of RPL to stake:
 5: A custom amount
 ```
 
-Bir seçenek seçtikten sonra, önerilen gaz fiyatı ve kullanılacak tahmini miktar hakkında bazı bilgiler ve bir onay diyalogu gösterilecektir. Düğümde ilk kez RPL stake ediyorsanız, RPL'nizle etkileşime girmesi için staking sözleşmesine onay vermeniz gerekecektir:
+Bir seçenek seçtiğinizde, size önerilen gaz fiyatı ve kullanılacak tahmini miktar hakkında bazı bilgiler ile birlikte bir onay diyalogu gösterilecektir. Node'da ilk kez RPL stake ediyorsanız, stake etme sözleşmesine RPL'nizle etkileşim kurma izni vermeniz gerekecektir:
 
 ```
 Before staking RPL, you must first give the staking contract approval to interact with your RPL.
@@ -372,7 +372,7 @@ Using a max fee of 4.00 gwei and a priority fee of 2.00 gwei.
 Are you sure you want to stake 733.993925 RPL? You will not be able to unstake this RPL until you exit your validators and close your minipools, or reach 2201.981777 staked RPL (15% of bonded eth)! [y/n]
 ```
 
-Onaylarsanız, işlem hash'i gösterilecek ve ilerlemesini takip edebilmeniz için [Etherscan](https://etherscan.io) bağlantısı verilecektir:
+Onaylarsanız, size işlem hash'i gösterilecek ve ilerlemesini takip edebilmeniz için [Etherscan](https://etherscan.io)'e bir bağlantı verilecektir:
 
 ```
 Staking RPL...
@@ -389,42 +389,42 @@ Successfully staked 733.993925 RPL.
 
 ### `deposit`
 
-Bu komut ETH yatırmanıza ve yeni bir minipool (yeni bir Ethereum validatörü) oluşturmanıza olanak tanır.
+Bu komut, ETH yatırmanıza ve yeni bir minipool (yeni bir Ethereum validator'ı) oluşturmanıza izin verecektir.
 
-İşlem için beklenen gaz maliyeti ve bir son onay diyalogu ile karşılaşacaksınız.
-Kabul ederseniz, ETH yatırmanız işlenecek ve yeni bir minipool (ve karşılık gelen bir Ethereum validatörü) oluşturacaksınız.
+Size işlem için beklenen gaz maliyeti ve son bir onay diyalogu ile sorulacaktır.
+Kabul ederseniz, ETH yatırımınız işlenecek ve yeni bir minipool (ve buna karşılık gelen bir Ethereum validator'ı) oluşturacaksınız.
 
-(Daha fazla bilgi için, [Minipool Oluşturma](./create-validator.mdx) konusundaki bir sonraki bölüme bakın).
+(Daha fazla bilgi için, [Bir Minipool Oluşturma](./create-validator.mdx) ile ilgili bir sonraki bölüme bakın).
 
 ### `claim-rewards`
 
-Düğümünüz yeni bir ödül kontrol noktası algıladığında, o aralık için bilgileri içeren ödül ağacı dosyasını otomatik olarak indirecektir (varsayılan İndirme Modunu kullanıyorsanız - Oracle DAO tarafından oluşturulanı indirmek yerine kendi ağaçlarınızı oluşturma hakkında bilgi için aşağıya bakın).
-Ardından ödüllerinizi aşağıdaki komutu kullanarak gözden geçirebilirsiniz:
+Node'unuz yeni bir ödül kontrol noktası tespit ettiğinde, otomatik olarak o aralığın bilgilerini içeren ödül ağacı dosyasını indirecektir (Download Mode varsayılanını kullanıyorsanız - kendi ağaçlarınızı oluşturmak yerine indirme hakkında bilgi için aşağıya bakın).
+Ardından ödüllerinizi aşağıdaki komutu kullanarak inceleyebilirsiniz:
 
 ```
 rocketpool node claim-rewards
 ```
 
-Aralıklar geçtikçe ve ödüller biriktikçe, çıktı şu şekilde görünecektir:
+Aralıklar ilerledikçe ve ödüller biriktikçe, çıktı şöyle görünecektir:
 
 ![](../node-staking/images/claim-rewards-gb.png)
 
 Burada her aralıkta kaç ödül kazandığınızı hızlıca görebilir ve hangilerini talep etmek istediğinize karar verebilirsiniz.
 
-Ayrıca bu talep sırasında yeniden stake etmek istediğiniz bir miktar belirtebilirsiniz:
+Bu talep sırasında yeniden stake etmek istediğiniz bir miktar da belirtebilirsiniz:
 
 ![](../node-staking/images/autostake.png)
 
-Bu, RPL ödüllerinizi tek bir işlemde bileşiklendirmenize olanak tanır; eski talep sistemiyle kullanmanız gereken gaz miktarından önemli ölçüde daha az gaz kullanarak.
+Bu, RPL ödüllerinizi tek bir işlemde birleştirmenize izin verecektir, eski talep sistemiyle şu anda kullanmanız gerekenden önemli ölçüde daha az gaz kullanarak.
 
 ::: tip NOT
-Oracle DAO tarafından oluşturulanı indirmek yerine ödül kontrol noktasını manuel olarak oluşturmayı tercih ederseniz, bu ayarı TUI'de `Download`'dan `Generate`'e değiştirebilirsiniz:
+Eğer Oracle DAO tarafından oluşturulan ödül kontrol noktasını indirmek yerine manuel olarak oluşturmayı tercih ederseniz, bu ayarı TUI'de `Download`'dan `Generate`'e değiştirebilirsiniz:
 
 ![](../node-staking/images/tui-generate-tree.png)
 
-İpucunun ima ettiği gibi, bunu yapmak için bir Execution istemci arşiv düğümüne erişiminiz olması gerekecektir.
-Yerel Execution istemciniz bir arşiv düğümü değilse, aynı menüde daha aşağıdaki `Archive-Mode EC URL`'de ayrı bir tane (Infura veya Alchemy gibi) belirtebilirsiniz.
-Bu URL yalnızca Merkle ağaçları oluştururken kullanılacaktır; doğrulama görevleri için kullanılmayacaktır.
+İpucunun ima ettiği gibi, bunu yapmak için bir Execution istemcisi arşiv node'una erişmeniz gerekecektir.
+Eğer yerel Execution istemciniz bir arşiv node'u değilse, aynı menüde daha aşağıda bulunan `Archive-Mode EC URL`'de ayrı bir tane (Infura veya Alchemy gibi) belirtebilirsiniz.
+Bu URL yalnızca Merkle ağaçları oluşturulurken kullanılacaktır; doğrulama görevleri için kullanılmayacaktır.
 :::
 
 ### `join-smoothing-pool`
@@ -433,9 +433,9 @@ Bu URL yalnızca Merkle ağaçları oluştururken kullanılacaktır; doğrulama 
 rocketpool node join-smoothing-pool
 ```
 
-Bu, sizi Rocket Pool sözleşmelerinde katılım olarak kaydedecek ve Validator Client'ınızın `fee recipient`'ini düğümünüzün dağıtıcı sözleşmesinden Smoothing Pool sözleşmesine otomatik olarak değiştirecektir.
+Bu, sizi Rocket Pool sözleşmelerinde katılmış olarak kaydedecek ve Validator Client'ınızın `fee recipient`'ini otomatik olarak node'unuzun dağıtıcı sözleşmesinden Smoothing Pool sözleşmesine değiştirecektir.
 
-Katıldıktan sonra, çıkabilmeniz için **28 günlük bir bekleme süresi** (bir tam ödül aralığı uzunluğu) olduğunu unutmayın.
+Katıldıktan sonra, çıkış yapabilmeniz için **28 günlük bir bekleme süresi** olduğunu (bir tam ödül aralığı uzunluğu) unutmayın.
 
 ### `leave-smoothing-pool`
 
@@ -443,13 +443,13 @@ Katıldıktan sonra, çıkabilmeniz için **28 günlük bir bekleme süresi** (b
 rocketpool node leave-smoothing-pool
 ```
 
-Bu, şu anda katıldıysanız ve katıldıktan sonra en az 28 gün beklediyseniz sizi Smoothing Pool'dan çıkaracaktır.
-**Mevcut epoch'tan sonraki bir sonraki epoch** tamamlandığında, düğümünüzün `fee recipient`'ini Smoothing Pool'dan düğümünüzün dağıtıcı sözleşmesine otomatik olarak değiştirecektir.
-Bu, bir teklif geldiğini gördüğünüzde çıkış sürecini öne almaktan ceza almayacağınızdan emin olmak içindir.
+Bu, şu anda katılmışsanız ve katıldıktan sonra en az 28 gün beklediyseniz sizi Smoothing Pool'dan çıkaracaktır.
+**Mevcut epoch'tan sonraki epoch** sonlandırıldığında, otomatik olarak node'unuzun `fee recipient`'ini Smoothing Pool'dan tekrar node'unuzun dağıtıcı sözleşmesine değiştirecektir.
+Bu, önümüzde bir teklif geldiğini gördüğünüzde çıkış sürecinden önce hareket ettiğiniz için cezalandırılmamanızı sağlamak içindir.
 
 ### `initialize-fee-distributor`
 
-Düğümünüzün dağıtıcısını başlatmak için bu yeni komutu çalıştırmanız yeterlidir:
+Node'unuzun dağıtıcısını başlatmak için bu yeni komutu çalıştırın:
 
 ```shell
 rocketpool node initialize-fee-distributor
@@ -457,20 +457,20 @@ rocketpool node initialize-fee-distributor
 
 ### `distribute-fees`
 
-Dağıtıcınız başlatıldıktan sonra, tüm bakiyesini aşağıdaki komutu kullanarak talep edebilir ve dağıtabilirsiniz:
+Dağıtıcınız başlatıldığında, tüm bakiyesini aşağıdaki komutu kullanarak talep edebilir ve dağıtabilirsiniz:
 
 ```shell
 rocketpool node distribute-fees
 ```
 
-Bu, ödüllerin sizin payınızı **withdrawal address**'inize gönderecektir.
+Bu, ödüllerin sizin payınızı **withdrawal adresinize** gönderecektir.
 
 ### `send`
 
-Bu komut, düğüm cüzdanından farklı bir adrese ETH, RPL veya diğer Rocket Pool ile ilgili token'ları göndermenize olanak tanır.
-Cüzdanınızdaki fonlarınızı başka bir yere taşımak istiyorsanız bu yararlı olabilir.
+Bu komut, node cüzdanından farklı bir adrese ETH, RPL veya diğer Rocket Pool ile ilgili token'ları göndermenize izin verir.
+Bu, cüzdandaki fonlarınızı başka bir yere taşımak istiyorsanız yararlı olabilir.
 
-`send` komutunu kullanma sözdizimi şu şekildedir:
+`send` komutunu kullanmanın sözdizimi şöyledir:
 
 ```shell
 rocketpool node send <amount> <token> <address or ENS name>
@@ -479,8 +479,8 @@ rocketpool node send <amount> <token> <address or ENS name>
 Argümanlar şunlardır:
 
 - `<amount>` gönderilecek token miktarıdır.
-- `<token>` gönderilecek token'dır - bu `eth`, `rpl`, `fsrpl` (eski RPL v1 token'ı) veya `reth` olabilir.
-- `<address or ENS name>` token'ların gönderileceği Ethereum adresi (veya ENS adı)'dir.
+- `<token>` gönderilecek token'dır - bu `eth`, `rpl`, `fsrpl` (eski legacy RPL token'ı) veya `reth` olabilir.
+- `<address or ENS name>` token'ların gönderileceği Ethereum adresi (veya ENS adı)dır.
 
 Örneğin:
 
@@ -493,9 +493,9 @@ arkadaşıma 1 ETH gönderir.
 ## Minipool Komutları
 
 `minipool` grubu, minipool'larınızı etkileyen komutları içerir.
-`node` grubunda olduğu gibi, bunları bir sonraki bölümde daha derinlemesine ele alacağız, ancak hepsini şimdi görmek yararlı olabilir.
+`node` grubunda olduğu gibi, bunları bir sonraki bölümde daha ayrıntılı olarak ele alacağız ancak hepsini şimdi görmek yararlı olabilir.
 
-`rocketpool minipool help` çıktısı şunu gösterecektir:
+`rocketpool minipool help` çıktısının göstereceği şey budur:
 
 ```
 NAME:
@@ -529,12 +529,12 @@ GLOBAL OPTIONS:
    --help, -h  show help
 ```
 
-Aşağıda tipik olarak kullanacağınız komutların özeti bulunmaktadır.
+Aşağıda genellikle kullanacağınız komutların bir özeti bulunmaktadır.
 
 ### `status`
 
-Bu komut basitçe her minipool'unuzun bir özetini sağlar.
-Bu, mevcut durumunu, minipool'un eth1 adresini, üzerindeki komisyonu (`node fee` olarak adlandırılır), karşılık gelen ETH2 validatörünün genel anahtarını ve diğer bazı şeyleri içerir:
+Bu komut sadece her minipool'unuzun bir özetini sağlar.
+Bu, mevcut durumunu, minipool'un eth1 adresini, üzerindeki komisyonu (`node fee` olarak adlandırılır), ilgili ETH2 validator'ının genel anahtarını ve diğer bazı şeyleri içerir:
 
 ```
 $ rocketpool minipool status
@@ -567,56 +567,56 @@ Effective delegate:    0x56903694d881282D33ed0643EAe14263880Dd47F
 
 ### `refund`
 
-Bu komut, bir minipool oluşturmak için 32 ETH yatırdıysanız, Rocket Pool rETH staking havuzundan 16 ETH katkıda bulunabildiğinde 16 ETH'yi geri çekmenize olanak tanır.
+Bu komut, bir tane oluşturmak için 32 ETH yatırdıysanız, Rocket Pool rETH stake etme havuzundan 16 ETH katkıda bulunabildiğinde bir minipool'dan 16 ETH geri çekmenize izin verir.
 
 ### `exit`
 
-Bu komut, Beacon Chain'deki validatörünüz için gönüllü bir çıkış gönderir.
-Bir validatörü kapatmak ve son ETH bakiyesini çekmek istediğinizde bunu kullanın.
-Bunun **geri alınamayacağını** unutmayın - bir çıkışı tetiklediğinizde, validatör kalıcı olarak kapanacaktır.
+Bu komut, Beacon Chain'deki validator'ınız için gönüllü bir çıkış gönderir.
+Bir validator'ı kapatmak ve son ETH bakiyesini çekmek istediğinizde bunu kullanın.
+Bunun **geri alınamayacağını** unutmayın - bir çıkış tetiklediğinizde, validator kalıcı olarak kapanacaktır.
 
 ## Yararlı Bayraklar
 
-Yukarıdaki komutlardan bazılarına ekleyebileceğiniz ve yararlanmak isteyebileceğiniz bazı yararlı genel bayraklar vardır.
+Yukarıdaki komutlardan bazılarına ekleyebileceğiniz, yararlanmak isteyebileceğiniz bazı yararlı global bayraklar vardır.
 
-### Özel Maksimum Ücret veya Öncelik Ücreti Ayarlama (Gaz Fiyatı)
+### Özel Bir Maksimum Ücret veya Öncelik Ücreti (Gaz Fiyatı) Ayarlama
 
-Temmuz 2021'deki [London ETH1 hardfork](https://coinquora.com/ethereum-london-hard-fork-all-you-need-to-know/) ile başlayarak, Ethereum işlemleri artık işlemleri için tek bir gaz fiyatı kullanmıyor.
+2021 Temmuz'unda [London ETH1 hardfork'u](https://coinquora.com/ethereum-london-hard-fork-all-you-need-to-know/) ile başlayarak, Ethereum işlemleri artık işlemleri için tek bir gaz fiyatı kullanmıyor.
 Bunun yerine, modern Ethereum işlemleri iki değer kullanır:
 
-- **Max fee**, bir işlemde kabul etmeye hazır olduğunuz mutlak maksimum gaz fiyatını tanımlar
-- **Max priority fee**, işleminizi bir bloğa dahil etmesi için madenciye "bahşiş" olarak vermeye hazır olduğunuz maksimum miktarı tanımlar
+- **max fee**, bir işlemde kabul etmeye istekli olduğunuz mutlak maksimum gaz fiyatını tanımlar
+- **max priority fee**, bloğunuza işleminizi dahil etmesi için madenciye "bahşiş" olarak vermeye istekli olduğunuz maksimum miktarı tanımlar
 
 ::: tip İPUCU
 Bu iki değerin nasıl çalıştığı biraz karmaşık olabilir, bu yüzden işte bazı basit örnekler.
 
-Diyelim ki **base fee** olarak adlandırılan mevcut ağ ücreti 50 gwei'de.
+Diyelim ki mevcut ağ ücreti, **base fee** olarak adlandırılan, 50 gwei.
 **80 gwei** maksimum ücret ve **2 gwei** öncelik ücreti ile bir işlem gönderiyorsunuz.
 
-Ağın base fee'si maksimum ücretinizden düşük olduğu için, bu işlem mevcut bloğa alınabilir.
-Base fee için **50 gwei** ve öncelik ücreti için **2 gwei** maliyetiniz olacaktır; maksimum ücretinizi 80'e ayarlamanıza rağmen, **size toplamda sadece 52 gwei mal olacaktır**.
+Ağın base fee'si maksimum ücretinizden düşük olduğundan, bu işlem mevcut bloğa alınabilir.
+Size base fee için **50 gwei** ve öncelik ücreti için **2 gwei** mal olacaktır; maksimum ücretinizi 80'e ayarlamış olsanız da, **size toplamda sadece 52 gwei mal olacaktır**.
 
-Başka bir örnek olarak, aynı işleminiz var diyelim, ancak şimdi ağın base fee'si **100 gwei**.
-100 gwei, 80 gwei maksimum ücretinizden daha büyük olduğu için, işleminiz bu bloğa **dahil edilmeyecektir**.
-Bunun yerine, base fee dahil edilmesine yetecek kadar düşük olana kadar işlem havuzunda bekleyecektir.
+Başka bir örnek olarak, aynı işleminiz olduğunu varsayalım, ancak şimdi ağın base fee'si **100 gwei**.
+100 gwei, 80 gwei maksimum ücretinizden büyük olduğu için, işleminiz bu bloğa **dahil edilmeyecektir**.
+Bunun yerine, base fee onu dahil edecek kadar düşük olana kadar sadece işlem havuzunda bekleyecektir.
 
-Şimdi, mevcut base fee'nin yine **50 gwei** olduğunu ve işleminizin **80** gwei maksimum ücret ve **4 gwei** öncelik ücretine sahip olduğunu varsayalım.
+Şimdi, mevcut base fee'nin tekrar **50 gwei** olduğunu ve işleminizin maksimum 80 gwei ücreti ve **4 gwei** öncelik ücreti olduğunu varsayalım.
 Toplam **54 gwei** maliyetle yürütülecektir.
 4 gwei öncelik ücreti, daha düşük öncelik ücretine sahip tüm işlemlerin önünde dahil edilmesini sağlayacaktır.
 
-İşlemin **her ne pahasına olursa olsun** geçmesini istiyorsanız, öncelik ücretini maksimum ücretle aynı olacak şekilde ayarlayabilirsiniz.
+İşlemin her ne pahasına olursa olsun gerçekleşmesini **gerçekten** istiyorsanız, öncelik ücretini maksimum ücretle aynı olarak ayarlayabilirsiniz.
 Bu, eski gaz davranışını taklit eder, bu nedenle işleminiz verdiğiniz tüm gazı kullanacaktır - ağın base fee'sinin maksimum ücretinizden düşük olup olmadığına bakılmaksızın.
 :::
 
-Varsayılan olarak, Rocket Pool tetiklediğiniz tüm işlemler için mevcut işlem havuzuna bakmak ve makul bir maksimum ücret önermek için bir oracle kullanacaktır.
-Birincil öneri oracle'ı olarak [EtherChain](https://etherchain.org/tools/gasnow)'i ve yedek olarak [Etherscan](https://etherscan.io/gastracker)'ı kullanır.
+Varsayılan olarak, Rocket Pool mevcut işlem havuzuna bakmak ve tetiklediğiniz herhangi bir işlem için makul bir maksimum ücret önermek için bir oracle kullanacaktır.
+Birincil öneri oracle'ı için [EtherChain](https://etherchain.org/tools/gasnow) ve yedek olarak [Etherscan](https://etherscan.io/gastracker) kullanır.
 
-Tercih ederseniz, `-f` bayrağı ile ödemeye hazır olduğunuz özel bir maksimum ücret (gwei cinsinden) ayarlayabilirsiniz.
-Ayrıca `-i` bayrağı ile özel bir öncelik ücreti ayarlayabilirsiniz.
+İsterseniz, `-f` bayrağı ile ödemeye razı olacağınız özel bir maksimum ücret (gwei cinsinden) ayarlayabilirsiniz.
+Ayrıca `-i` bayrağı ile özel bir öncelik ücreti de ayarlayabilirsiniz.
 
 Bunu yapmak için, bunları `rocketpool`'dan sonra ve diğer komut bilgilerinden önce ekleyin.
 
-Örneğin, `node set-timezone`'u bu bayrakla çağırmak aşağıdaki çıktıyı sağlayacaktır:
+Örneğin, bu bayrakla `node set-timezone` çağrısı aşağıdaki çıktıyı sağlayacaktır:
 
 ```
 $ rocketpool -f 10 node set-timezone
@@ -635,46 +635,46 @@ Total cost: 0.0005 to 0.0007 ETH
 Are you sure you want to set your timezone? [y/n]
 ```
 
-Bu, ağın hangi maksimum ücreti önerdiğine bakılmaksızın, bu işlemi gönderirken özel 10 gwei maksimum ücretinizi (ve belirtirseniz öncelik ücretinizi) kullanacağını gösterir.
+Bu, ağın önerdiği maksimum ücret ne olursa olsun, bu işlemi gönderirken bunun yerine 10 gwei'lik özel maksimum ücretinizi (ve belirtirseniz öncelik ücretini) kullanacağını gösterir.
 
 ::: warning NOT
-Manuel bir maksimum ücret ayarlarsanız, işlemi göndermeden önce bu ücretin mevcut ağ koşulları için yeterince yüksek olup olmadığını belirlemek için [EtherChain](https://etherchain.org/tools/gasnow) gibi üçüncü taraf bir gaz fiyatı oracle'ı kullanmanızı şiddetle tavsiye ederiz.
+Manuel bir maksimum ücret ayarlarsanız, işlemi göndermeden önce bu ücretin mevcut ağ koşulları için yeterince yüksek olup olmadığını belirlemek için [EtherChain](https://etherchain.org/tools/gasnow) gibi üçüncü taraf bir gaz fiyatı oracle'ı kullanmanızı şiddetle öneririz.
 :::
 
-### Takılı Bir İşlemi İptal Etme / Üzerine Yazma
+### Sıkışmış Bir İşlemi İptal Etme / Üzerine Yazma
 
-Bazen, ağa bir işlem gönderdiğiniz ancak ağ koşulları için çok düşük bir gaz fiyatı kullandığınız ve yürütülmesinin engelleyici derecede uzun süreceği bir senaryoyla karşılaşabilirsiniz.
-Sonraki tüm işlemleriniz bu işlemin geçmesini bekleyeceğinden, bu işlem temelde Rocket Pool düğümünüzdeki tüm işlemleri bloke eder.
-Bu durumla başa çıkmak için, böyle bir işlemi başka bir şeyle değiştirerek "iptal etmenizi" sağlayan bir genel bayrak ekledik.
+Bazen, ağa bir işlem gönderdiğiniz ancak ağ koşulları için çok düşük bir gaz fiyatı kullandığınız ve yürütülmesi çok uzun süreceği bir senaryoyla karşılaşabilirsiniz.
+Sonraki tüm işlemleriniz bu işlemin geçmesini bekleyeceğinden, bu işlem aslında Rocket Pool node'unuzdaki tüm işlemleri bloke eder.
+Bu durumla başa çıkmak için, böyle bir işlemi başka bir şeyle değiştirerek "iptal etmenize" izin veren global bir bayrak ekledik.
 
-Düğüm cüzdanınız dahil her Ethereum cüzdanı, işlemleri sırayla gönderir.
-Gönderdiğiniz her işlemin, o dizide nerede bulunduğunu tanımlayan `nonce` adında bir numarası vardır.
-Gönderdiğiniz ilk işlem `nonce` 0'a sahip olacak, sonraki `nonce` 1'e sahip olacak ve böyle devam edecektir.
+Node cüzdanınız dahil her Ethereum cüzdanı, işlemleri sırayla gönderir.
+Gönderdiğiniz her işlemin, o sıradaki yerini tanımlayan `nonce` adı verilen bir numarası vardır.
+Göndereceğiniz ilk işlemin `nonce`'u 0 olacak, bir sonraki göndereceğiniz işlemin `nonce`'u 1 olacak ve böyle devam edecektir.
 
-Bu üzerine yazma tekniği, mevcut _takılı_ işleminizle aynı `nonce`'u kullanan ancak ideal olarak takılı olandan daha yüksek bir gaz fiyatı içerecek _yeni_ bir işlem göndermeyi içerir.
+Bu üzerine yazma tekniği, mevcut _sıkışmış_ işleminizle aynı `nonce`'u kullanan _yeni_ bir işlem göndermeyi içerir, ancak ideal olarak sıkışmış olandan daha yüksek bir gaz fiyatı içerecektir.
 Bu, yeni olanın önce madencilik yapılacağı anlamına gelir.
-Bir bloğa eklendiği anda, eski olan ağdan hiç gönderilmemiş gibi atılacaktır.
+Bir bloğa kazılır kazılmaz, eskisi hiç gönderilmemiş gibi ağdan atılacaktır.
 
-Bu bayrağı kullanmak için, önce takılı işleminizin `nonce`'unu bulmanız gerekir:
+Bu bayrağı kullanmak için, önce sıkışmış işleminizin `nonce`'unu bulmanız gerekir:
 
 1. [https://etherscan.io](https://etherscan.io) gibi bir ETH1 blok gezginine gidin.
 1. Cüzdanınızın adresine gidin ve işlem listesine bakın.
-1. En yeniden başlayarak, `Pending` durumuna sahip olan listedeki en uzaktaki işlemi bulana kadar işlemleri inceleyin.
+1. En son olanla başlayarak, `Pending` durumuna sahip olan listede en aşağıdakini bulana kadar gözden geçirin.
 1. O işlemin `nonce`'unu işaretleyin. İhtiyacınız olan budur.
 
-Onu aldıktan sonra, CLI ile `rocketpool`'dan sonra ve komutun geri kalanından önce `--nonce <value> -i 2.2` bayraklarını kullanarak herhangi bir işlemi çağırmanız yeterlidir.
+Bunu aldığınızda, `--nonce <value> -i 2.2` bayraklarını `rocketpool`'dan sonra ve komutun geri kalanından önce kullanarak herhangi bir işlemi CLI ile çağırın.
 
 ::: warning NOT
-Önceki bir işlemin üzerine yazmak için `-i` (öncelik ücreti) bayrağını **dahil etmelisiniz**.
+Önceki bir işlemin üzerine yazmak için `-i` (öncelik ücreti) bayrağını **dahil etmeniz gerekir**.
 Bu sayı, eski işleminizin kullandığı öncelik ücretinden en az %10 daha yüksek olmalıdır.
-Smartnode varsayılan olarak 2 gwei öncelik ücreti kullanır, bu nedenle geçersiz kılma için `2.2` değeri genellikle yeterlidir.
+Smartnode varsayılan olarak 2 gwei öncelik ücreti kullanır, bu nedenle bir geçersiz kılma için `2.2` değeri genellikle yeterlidir.
 
-Eski işleminiz özel bir ücret kullandıysa (örneğin 10 gwei), geçersiz kılan işlemde en az %10 daha yüksek ayarlamanız gerekecektir (bu örnekte 11 gwei).
+Eski işleminiz özel bir ücret kullandıysa (örneğin, 10 gwei), geçersiz kılma işleminde en az %10 daha yüksek ayarlamanız gerekecektir (bu örnekte, 11 gwei).
 :::
 
-Örnek olarak, `nonce` 10 ve maksimum ücret 20 gwei olan bir işlem gönderdim, ancak mevcut ağ ücreti 100 gwei olduğu için işlemim takıldı.
-Bunu düzeltmek için, kendimden kendime küçük bir miktarda ETH gönderdiğim, daha yüksek bir maksimum ücret (örneğin 150 gwei) ve daha yüksek bir öncelik ücreti ile bir işlem göndereceğim.
-Bunu yaparken biraz gaz yakacağım, ancak takılı işlemi çözecektir:
+Örnek olarak, 10 `nonce`'lu ve 20 gwei maksimum ücretli bir işlem gönderdim ancak mevcut ağ ücreti 100 gwei olduğu için işlemim sıkıştı.
+Bunu düzeltmek için, daha yüksek bir maksimum ücret (örneğin, 150 gwei) ve daha yüksek bir öncelik ücreti ile kendimden kendime küçük bir miktar ETH gönderdiğim bir işlem göndereceğim.
+Bunu yaparken biraz gaz yakacağım, ancak bozuk işlemi açacak:
 
 ```
 $ rocketpool --nonce 10 -f 150 -i 2.2 node send 0.0001 eth <node wallet address>
@@ -684,9 +684,9 @@ Total cost: 0.0032 to 0.0032 ETH
 Are you sure you want to send 0.000100 eth to <node wallet address>? This action cannot be undone! [y/n]
 ```
 
-Smartnode yığını, sağladığınız `nonce`'un geçerli olduğundan (bekleyen bir işleme atıfta bulunduğundan) emin olmak için göndermeden ve yanlışlıkla gazınızı boşa harcamadan önce otomatik olarak kontrol edecektir.
+Smartnode yığını, sağladığınız `nonce`'un geçerli olduğunu (bekleyen bir işleme atıfta bulunduğunu) göndermeden ve kazara gazınızı boşa harcamadan önce otomatik olarak kontrol edecektir.
 Değilse, bir hata mesajı döndürecektir.
-Aksi takdirde, devam edecek ve eski takılı işleminizi gerçekten geçersiz kıldığını doğrulayabilmeniz için işlem ayrıntılarını size sağlayacaktır.
+Aksi takdirde, geçecek ve size işlem ayrıntılarını sağlayacak, böylece eski sıkışmış işleminizin üzerine gerçekten yazdığını doğrulamak için izleyebilirsiniz.
 
 Yaygın CLI komutları için bu kadar.
-Bir sonraki bölümde, bir minipool oluşturmayı ve Beacon Chain'de doğrulamaya başlamayı inceleyeceğiz.
+Bir sonraki bölümde, bir minipool oluşturma ve Beacon Chain'de doğrulama başlatma adımlarını ele alacağız.

@@ -96,3 +96,7 @@ translate-all:
 # Show what would be translated (dry run)
 translate-dry:
     bun scripts/translate.ts dry-run
+
+# Detect files with untranslated English content
+detect-untranslated *args:
+    bun scripts/detect-untranslated.ts {{args}}

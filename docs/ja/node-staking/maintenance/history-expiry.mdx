@@ -1,35 +1,35 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# マージ前履歴の期限切れ
+# マージ前履歴の削除
 
-すべてのExecutionクライアントは、[EIP-4444](https://eips.ethereum.org/EIPS/eip-4444)に従って部分的な履歴期限切れをサポートしています。ユーザーは、Smartnodeバージョン`v1.17.0`以降でマージ前のブロック履歴を削除することにより、ノードのストレージ要件を大幅に削減できます。部分的な履歴期限切れの詳細については、このブログ投稿をご覧ください: https://blog.ethereum.org/2025/07/08/partial-history-exp
+すべてのExecution clientは、[EIP-4444](https://eips.ethereum.org/EIPS/eip-4444)に従って部分履歴削除をサポートするようになりました。Smartnodeバージョン`v1.17.0`以降、ユーザーはマージ前のブロック履歴を削除することで、ノードのストレージ要件を大幅に削減できます。部分履歴削除の詳細については、こちらのブログ記事をご覧ください: https://blog.ethereum.org/2025/07/08/partial-history-exp
 
 ::: tip 注意
 
-    マージ前履歴を削除する手順は、ノードで選択されているExecutionクライアントによって異なることに注意してください:
+    マージ前履歴を削除する手順は、ノードで選択されているExecution clientによって異なります:
     - Nethermindユーザーは、マージ前履歴を削除するために完全な再同期が必要です。
     - Gethユーザーは、`rocketpool service prune-eth1`コマンドを使用するか、完全な再同期を実行できます。
-    - BesuおよびRethユーザーは、ノードがアテステーションを続けながらオンラインプルーニングを実行できます。
+    - BesuおよびRethユーザーは、ノードがアテステーションを継続しながらオンラインプルーニングを実行できます。
 
 :::
 
-以下のマージ前履歴を削除する手順は、Dockerモードのノードのみを対象としています。HybridモードまたはNativeモードで外部クライアントを使用している場合は、Executionクライアントが提供するドキュメントを参照してください。
+マージ前履歴を削除する以下の手順は、Dockerモードのノードのみのものです。HybridモードまたはNativeモードで外部クライアントを使用している場合は、Execution clientが提供するドキュメントを参照してください。
 
-まず、Settings Managerを開きます。
+まず、設定マネージャーを開きます:
 
 ```shell
 rocketpool service config
 ```
 
-Execution Clientのプルーニングモードを変更するには、`Execution Client (ETH1)`メニューに移動し、`Pruning Mode`のドロップダウンメニューで`History Expiry`設定を選択します。
+Execution Clientのプルーニングモードを変更するには、`Execution Client (ETH1)`メニューに移動し、`Pruning Mode`のドロップダウンメニューで`History Expiry`設定を選択します
 
 ![](../images/tui-history-expiry.png)
 
-選択を行った後、`escape`を押してメインメニューに戻り、次に`tab`を押して`Review Changes and Save`ボタンをハイライトします。`enter`キーを押して続行します。Executionクライアント設定の変更をプレビューするメニューが表示されます。
+選択後、`escape`を押してメインメニューに戻り、`tab`を押して`Review Changes and Save`ボタンをハイライトします。`enter`キーを押して続行します。Execution clientの設定変更をプレビューするメニューが表示されます。
 
 ![](../images/tui-review-history-expiry.png)
 
-`Save Settings`で`enter`キーを押して保存し、Settings Managerを終了します。次に、`y`を入力して`rocketpool_eth1`コンテナを再起動します。
+`Save Settings`で`enter`キーを押して設定を保存し、設定マネージャーを終了します。次に`y`を入力して`rocketpool_eth1`コンテナを再起動します。
 
 ```shell
 Your changes have been saved!
@@ -38,25 +38,24 @@ The following containers must be restarted for the changes to take effect:
 Would you like to restart them automatically now? [y/n]
 ```
 
-この時点から、使用しているExecutionクライアントによって手順が異なります。
+この時点から、使用しているExecution clientによって手順が異なります:
 
 <div className="p-3">
   <Tabs>
 
         <Tab label="Nethermind">
-        Nethermindノードは、マージ前履歴を削除するために完全な再同期が必要です。`History Expiry`設定を保存し、`eth1`コンテナを再起動した後、Executionクライアントを再同期する必要があります。
+        Nethermindノードは、マージ前履歴を削除するために完全な再同期が必要です。`History Expiry`設定を保存し、`eth1`コンテナを再起動した後、Execution clientを再同期する必要があります。
 
         ::: warning 警告
-        フォールバックノードが設定されていない場合、再同期中にノードは検証を停止します。フォールバックノードがあれば、プライマリノードはプルーニングまたは再同期中もアテステーションとブロック提案を続けることができます。フォールバックノードの設定方法については、[こちら](/ja/node-staking/fallback)をクリックしてください。
+        フォールバックノードが設定されていない場合、再同期中にノードは検証を停止します。フォールバックノードを使用すると、プルーニングまたは再同期中もプライマリノードがアテステーションとブロック提案を継続できます。フォールバックノードの設定方法については[こちら](/ja/node-staking/fallback)をクリックしてください。
         :::
 
-        以下のコマンドを使用してExecutionクライアントを再同期します。
+        次のコマンドを使用してExecution clientを再同期します:
         ```shell
         rocketpool service resync-eth1
         ```
 
-        これで完了です! ノードはマージ前のデータを保存しなくなり、2 TBドライブにノードを収めることの実現可能性が大幅に向上します。
-        以下のコマンドを使用して進行状況を監視することをお勧めします。
+        これで完了です！ノードはマージ前のデータを保存しなくなり、2TBドライブにノードを収める実現可能性が大幅に向上します。次のコマンドを使用して進行状況を監視することをお勧めします。
         ```shell
         rocketpool service logs eth1
         ```
@@ -65,24 +64,23 @@ Would you like to restart them automatically now? [y/n]
 
     <Tab label="Geth">
 
-        Gethノードは、マージ前履歴を削除するためにオフラインプルーニングが必要です。`History Expiry`設定を保存し、`eth1`コンテナを再起動した後、Executionクライアントをプルーニングする必要があります。または、マージ前履歴を削除するために完全な再同期を実行することもできます。
+        Gethノードは、マージ前履歴を削除するためにオフラインプルーニングが必要です。`History Expiry`設定を保存し、`eth1`コンテナを再起動した後、Execution clientをプルーニングする必要があります。また、マージ前履歴を削除するために完全な再同期を実行することもできます。
 
         ::: tip 注意
-        完全な再同期を実行するよりも、プルーニングを推奨します。新しいGethデータベースで最初からやり直したい場合、またはプルーニングに問題がある場合は、`rocketpool service resync-eth1`を使用してExecutionクライアントを再同期できます。どちらの選択肢も、マージ前履歴が期限切れになるはずです。
+        完全な再同期よりもプルーニングを推奨します。Gethデータベースを最初からやり直したい場合や、プルーニングに問題がある場合は、`rocketpool service resync-eth1`を使用してExecution clientを再同期できます。どちらの選択肢でもマージ前履歴の削除結果が得られるはずです。
         :::
 
         ::: warning 警告
-        フォールバックノードが設定されていない場合、プルーニングまたは再同期中にノードは検証を停止します。フォールバックノードがあれば、プライマリノードはプルーニングまたは再同期中もアテステーションとブロック提案を続けることができます。フォールバックノードの設定方法については、[こちら](/ja/node-staking/fallback)をクリックしてください。
+        フォールバックノードが設定されていない場合、プルーニングまたは再同期中にノードは検証を停止します。フォールバックノードを使用すると、プルーニングまたは再同期中もプライマリノードがアテステーションとブロック提案を継続できます。フォールバックノードの設定方法については[こちら](/ja/node-staking/fallback)をクリックしてください。
         :::
 
-        以下のコマンドを実行してExecutionクライアントをプルーニングしてください。
+        次のコマンドを実行してExecution clientをプルーニングしてください:
         ```shell
         rocketpool service prune-eth1
         ```
-        プルーニングの詳細については、[こちら](/ja/node-staking/pruning#starting-a-prune)をクリックしてください。
+        プルーニングの詳細については[こちら](/ja/node-staking/pruning#starting-a-prune)をクリックしてください。
 
-        これで完了です! ノードはマージ前のデータを保存しなくなり、2 TBドライブにノードを収めることの実現可能性が大幅に向上します。
-        以下のコマンドを使用して進行状況を監視することをお勧めします。
+        これで完了です！ノードはマージ前のデータを保存しなくなり、2TBドライブにノードを収める実現可能性が大幅に向上します。次のコマンドを使用して進行状況を監視することをお勧めします。
         ```shell
         rocketpool service logs eth1
         ```
@@ -91,9 +89,7 @@ Would you like to restart them automatically now? [y/n]
 
     <Tab label="Besu">
 
-        これで完了です! Besuノードは、アテステーションとブロック提案を続けながらオンラインプルーニングを実行します。
-        ノードはマージ前のデータを保存しなくなり、2 TBドライブにノードを収めることの実現可能性が大幅に向上します。
-        以下のコマンドを使用して進行状況を監視することをお勧めします。
+        これで完了です！Besuノードは、アテステーションとブロック提案を継続しながらオンラインプルーニングを実行します。ノードはマージ前のデータを保存しなくなり、2TBドライブにノードを収める実現可能性が大幅に向上します。次のコマンドを使用して進行状況を監視することをお勧めします。
         ```shell
         rocketpool service logs eth1
         ```
@@ -102,9 +98,7 @@ Would you like to restart them automatically now? [y/n]
 
     <Tab label="Reth">
 
-        これで完了です! Rethノードは、アテステーションとブロック提案を続けながらオンラインプルーニングを実行します。
-        ノードはマージ前のデータを保存しなくなり、2 TBドライブにノードを収めることの実現可能性が大幅に向上します。
-        以下のコマンドを使用して進行状況を監視することをお勧めします。
+        これで完了です！Rethノードは、アテステーションとブロック提案を継続しながらオンラインプルーニングを実行します。ノードはマージ前のデータを保存しなくなり、2TBドライブにノードを収める実現可能性が大幅に向上します。次のコマンドを使用して進行状況を監視することをお勧めします。
         ```shell
         rocketpool service logs eth1
          ```

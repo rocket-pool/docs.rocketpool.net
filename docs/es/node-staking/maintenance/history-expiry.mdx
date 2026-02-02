@@ -1,22 +1,22 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Expiración del Historial Pre-Merge
+# Caducidad del Historial Pre-Merge
 
-Todos los clientes de Ejecución ahora soportan la expiración parcial del historial de acuerdo con [EIP-4444](https://eips.ethereum.org/EIPS/eip-4444). Los usuarios pueden reducir sustancialmente
-los requisitos de almacenamiento para su nodo eliminando el historial de bloques pre-merge comenzando en la versión `v1.17.0` de Smartnode. No dudes en consultar
-esta publicación del blog para aprender más sobre la expiración parcial del historial: https://blog.ethereum.org/2025/07/08/partial-history-exp
+Todos los clientes de Ejecución ahora admiten la caducidad parcial del historial de acuerdo con [EIP-4444](https://eips.ethereum.org/EIPS/eip-4444). Los usuarios pueden reducir sustancialmente
+los requisitos de almacenamiento de su nodo eliminando el historial de bloques pre-merge a partir de la versión `v1.17.0` del Smartnode. No dudes en consultar
+esta publicación del blog para obtener más información sobre la caducidad parcial del historial: https://blog.ethereum.org/2025/07/08/partial-history-exp
 
 ::: tip NOTA
 
     Ten en cuenta que los pasos para eliminar el historial pre-merge dependen del cliente de Ejecución seleccionado en tu nodo:
     - Los usuarios de Nethermind necesitarán una resincronización completa para eliminar el historial pre-merge.
     - Los usuarios de Geth pueden usar el comando `rocketpool service prune-eth1` o realizar una resincronización completa.
-    - Los usuarios de Besu y Reth pueden realizar una poda en línea mientras su nodo continúa atestiguando.
+    - Los usuarios de Besu y Reth pueden realizar una poda en línea mientras su nodo continúa atestando.
 
 :::
 
-Los siguientes pasos para eliminar el historial pre-merge son solo para nodos en modo Docker. Si estás usando un cliente externo en modo
-Híbrido o modo Nativo, por favor consulta la documentación proporcionada por tu cliente de Ejecución.
+Los siguientes pasos para eliminar el historial pre-merge son solo para nodos en modo Docker. Si estás utilizando un cliente externo en
+modo Híbrido o modo Nativo, consulta la documentación proporcionada por tu cliente de Ejecución.
 
 Comienza abriendo el Administrador de Configuración:
 
@@ -28,7 +28,7 @@ Para cambiar el modo de poda del Cliente de Ejecución, ve al menú `Execution C
 
 ![](../images/tui-history-expiry.png)
 
-Después de haber hecho la selección, presiona `escape` para regresar al menú principal, luego presiona `tab` para resaltar el botón `Review Changes and Save`. Presiona
+Después de haber realizado la selección, presiona `escape` para volver al menú principal, luego presiona `tab` para resaltar el botón `Review Changes and Save`. Presiona
 la tecla `enter` para continuar. Se te presentará un menú para previsualizar los cambios en la configuración de tu cliente de Ejecución.
 
 ![](../images/tui-review-history-expiry.png)
@@ -42,18 +42,18 @@ The following containers must be restarted for the changes to take effect:
 Would you like to restart them automatically now? [y/n]
 ```
 
-A partir de este punto, los pasos difieren dependiendo de qué cliente de Ejecución estés usando:
+A partir de este punto, los pasos difieren según el cliente de Ejecución que estés usando:
 
 <div className="p-3">
   <Tabs>
 
         <Tab label="Nethermind">
-        Los nodos de Nethermind requieren una resincronización completa para eliminar el historial pre-merge. Debes resincronizar tu cliente de Ejecución después de guardar
+        Los nodos Nethermind requieren una resincronización completa para eliminar el historial pre-merge. Debes resincronizar tu cliente de Ejecución después de guardar
         la configuración `History Expiry` y reiniciar tu contenedor `eth1`.
 
         ::: warning ADVERTENCIA
-        Si no tienes configurado un nodo de respaldo, tu nodo dejará de validar durante una resincronización. Un nodo de respaldo permitirá
-        que tu nodo principal continúe atestiguando y proponiendo bloques durante una poda o resincronización. Haz clic [aquí](/es/node-staking/fallback)
+        Si no tienes un nodo de respaldo configurado, tu nodo dejará de validar durante una resincronización. Un nodo de respaldo
+        permitirá que tu nodo principal continúe atestando y proponiendo bloques durante una poda o resincronización. Haz clic [aquí](/es/node-staking/fallback)
         para aprender cómo configurar un nodo de respaldo.
         :::
 
@@ -62,7 +62,7 @@ A partir de este punto, los pasos difieren dependiendo de qué cliente de Ejecuc
         rocketpool service resync-eth1
         ```
 
-        ¡Listo! El nodo ya no almacenará datos pre-merge, mejorando sustancialmente la viabilidad de ajustar un nodo en una unidad de 2 TB.
+        ¡Todo listo! El nodo ya no almacenará datos pre-merge, mejorando sustancialmente la viabilidad de ajustar un nodo en una unidad de 2 TB.
         Recomendamos monitorear el progreso usando el siguiente comando.
         ```shell
         rocketpool service logs eth1
@@ -72,27 +72,27 @@ A partir de este punto, los pasos difieren dependiendo de qué cliente de Ejecuc
 
     <Tab label="Geth">
 
-        Los nodos de Geth requieren una poda sin conexión para eliminar el historial pre-merge. Debes podar tu cliente de Ejecución después de guardar
-        la configuración `History Expiry` y reiniciar tu contenedor `eth1`. Alternativamente puedes optar por realizar una resincronización completa para eliminar el historial pre-merge.
+        Los nodos Geth requieren una poda sin conexión para eliminar el historial pre-merge. Debes podar tu cliente de Ejecución después de guardar
+        la configuración `History Expiry` y reiniciar tu contenedor `eth1`. Alternativamente, puedes optar por realizar una resincronización completa para eliminar el historial pre-merge.
 
         ::: tip NOTA
-        Recomendamos podar en lugar de realizar una resincronización completa. Si deseas empezar de nuevo con una base de datos Geth nueva o tienes un problema
-        con la poda, puedes resincronizar el cliente de Ejecución usando `rocketpool service resync-eth1`. Ambas opciones deberían resultar en la expiración del historial pre-merge.
+        Recomendamos la poda sobre realizar una resincronización completa. Si deseas comenzar de nuevo con una base de datos Geth fresca o tienes un problema
+        con la poda, puedes resincronizar el cliente de Ejecución usando `rocketpool service resync-eth1`. Ambas opciones deberían resultar en historial pre-merge caducado.
         :::
 
         ::: warning ADVERTENCIA
-        Si no tienes configurado un nodo de respaldo, tu nodo dejará de validar durante una poda o resincronización. Un nodo de respaldo permitirá
-        que tu nodo principal continúe atestiguando y proponiendo bloques durante una poda o resincronización. Haz clic [aquí](/es/node-staking/fallback)
+        Si no tienes un nodo de respaldo configurado, tu nodo dejará de validar durante una poda o resincronización. Un nodo de respaldo
+        permitirá que tu nodo principal continúe atestando y proponiendo bloques durante una poda o resincronización. Haz clic [aquí](/es/node-staking/fallback)
         para aprender cómo configurar un nodo de respaldo.
         :::
 
-        Por favor ejecuta el siguiente comando para podar tu cliente de Ejecución:
+        Ejecuta el siguiente comando para podar tu cliente de Ejecución:
         ```shell
         rocketpool service prune-eth1
         ```
-        Puedes hacer clic [aquí](/es/node-staking/pruning#starting-a-prune) para aprender más sobre la poda.
+        Puedes hacer clic [aquí](/es/node-staking/pruning#starting-a-prune) para obtener más información sobre la poda.
 
-        ¡Listo! El nodo ya no almacenará datos pre-merge, mejorando sustancialmente la viabilidad de ajustar un nodo en una unidad de 2 TB.
+        ¡Todo listo! El nodo ya no almacenará datos pre-merge, mejorando sustancialmente la viabilidad de ajustar un nodo en una unidad de 2 TB.
         Recomendamos monitorear el progreso usando el siguiente comando.
         ```shell
         rocketpool service logs eth1
@@ -102,7 +102,7 @@ A partir de este punto, los pasos difieren dependiendo de qué cliente de Ejecuc
 
     <Tab label="Besu">
 
-        ¡Listo! Los nodos de Besu realizarán una poda en línea mientras continúan atestiguando y proponiendo bloques.
+        ¡Todo listo! Los nodos Besu realizarán una poda en línea mientras continúan atestando y proponiendo bloques.
         El nodo ya no almacenará datos pre-merge, mejorando sustancialmente la viabilidad de ajustar un nodo en una unidad de 2 TB.
         Recomendamos monitorear el progreso usando el siguiente comando.
         ```shell
@@ -113,7 +113,7 @@ A partir de este punto, los pasos difieren dependiendo de qué cliente de Ejecuc
 
     <Tab label="Reth">
 
-        ¡Listo! Los nodos de Reth realizarán una poda en línea mientras continúan atestiguando y proponiendo bloques.
+        ¡Todo listo! Los nodos Reth realizarán una poda en línea mientras continúan atestando y proponiendo bloques.
         El nodo ya no almacenará datos pre-merge, mejorando sustancialmente la viabilidad de ajustar un nodo en una unidad de 2 TB.
         Recomendamos monitorear el progreso usando el siguiente comando.
         ```shell

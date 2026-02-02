@@ -1,53 +1,48 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# The Saturn 0 Upgrade
+# Обновление Saturn 0
 
-Welcome to Saturn 0! This upgrade aims to improve RPL tokenomics in the short term to unlock protocol growth. If you're a returning or prospective node operator, this page will
-serve as an introduction to some new and exciting changes to the Rocket Pool protocol.
+Добро пожаловать в Saturn 0! Это обновление направлено на улучшение токеномики RPL в краткосрочной перспективе для разблокировки роста протокола. Если вы вернувшийся или потенциальный оператор ноды, эта страница послужит введением в некоторые новые и интересные изменения в протоколе Rocket Pool.
 
-## ETH only minipools in Saturn 0
+## ETH only minipools в Saturn 0
 
-- The RPL requirement for new minipools is a thing of the past! Minipools in Saturn 0 do not require RPL stake to be deployed.
-- The RPL requirement for new minipools is a thing of the past! Minipools in Saturn 0 do not require RPL stake to be deployed.
-  Node operators can now create minipools with an upfront cost of 8 ETH, which will feature a commission of 10%. In addition, a node
-  operator may optionally stake RPL to qualify for additional rewards and access voting power within the [Protocol DAO](/en/legacy/houston/pdao#the-protocol-dao-pdao).
+- Требование RPL для новых minipools - это история! Minipools в Saturn 0 не требуют stake RPL для развертывания.
+- Требование RPL для новых minipools - это история! Minipools в Saturn 0 не требуют stake RPL для развертывания.
+  Операторы нод теперь могут создавать minipools с первоначальной стоимостью 8 ETH, которые будут иметь комиссию 10%. Кроме того, оператор ноды может дополнительно stake RPL, чтобы получить право на дополнительные награды и доступ к праву голоса в [Protocol DAO](/ru/legacy/houston/pdao#the-protocol-dao-pdao).
 
-- Nodes with an RPL stake of any size qualify for RPL issuance rewards. This unlocks RPL rewards for Node Operators under the 10% collateral cliff
-  who were previously unqualified for RPL issuance rewards.
+- Ноды с любым размером stake RPL имеют право на награды от эмиссии RPL. Это разблокирует награды RPL для операторов нод ниже порога залога 10%, которые ранее не имели права на награды от эмиссии RPL.
 
-- This means nodes with an RPL stake of 0-15% of borrowed ETH receive the maximum APY on RPL. Nodes still earn RPL yield beyond 15% collateral, at a decreasing rate.
-  Feel free to take a look how RPL issuance beyond 15% borrowed ETH is defined in [RPIP-30](https://rpips.rocketpool.net/RPIPs/RPIP-30#specification).
+- Это означает, что ноды с stake RPL 0-15% от заемного ETH получают максимальный APY на RPL. Ноды по-прежнему зарабатывают доход RPL выше 15% залога, но с убывающей ставкой.
+  Не стесняйтесь посмотреть, как определяется эмиссия RPL выше 15% заемного ETH в [RPIP-30](https://rpips.rocketpool.net/RPIPs/RPIP-30#specification).
 
-## New Commission Structure
+## Новая структура комиссий
 
-We're excited to announce that newly launched Saturn 0 minipools will feature a commission structure ranging from 10% to 14%.
+Мы рады объявить, что недавно запущенные minipools Saturn 0 будут иметь структуру комиссий в диапазоне от 10% до 14%.
 
-- Nodes without any staked RPL will earn 10% commission (5% from the minipool contract, and 5% from the dynamic commission boost).
-- Nodes with staked RPL receive up to an additional 4% dynamic commission boost for staked RPL valued at >= 10% of borrowed ETH.
+- Ноды без какого-либо staked RPL будут зарабатывать комиссию 10% (5% от контракта minipool и 5% от динамического бонуса комиссии).
+- Ноды с staked RPL получают до дополнительных 4% динамического бонуса комиссии за staked RPL стоимостью >= 10% от заемного ETH.
 
-Note that the dynamic commission boost will be reduced to 0% on the 5th reward snapshot after Saturn 1 is released (leaving only the 5% minipool contract commission). This serves to increase the yield advantage of migrating to megapools.
+Обратите внимание, что динамический бонус комиссии будет снижен до 0% на 5-м снимке наград после выпуска Saturn 1 (оставив только 5% комиссии контракта minipool). Это служит для увеличения преимущества доходности при миграции на megapools.
 
-::: warning WARNING
-Your node must be opted into the [Smoothing Pool](/en/node-staking/fee-distrib-sp#the-smoothing-pool) to benefit from the dynamic commission boost. The Smart Node will inform you
-to opt into the Smoothing Pool when depositing a minipool if you are not already opted in. _Your new minipools will miss out on additional yield if your node
-isn't in the Smoothing Pool!!_
+::: warning ПРЕДУПРЕЖДЕНИЕ
+Ваша нода должна быть подключена к [Smoothing Pool](/ru/node-staking/fee-distrib-sp#the-smoothing-pool), чтобы получить выгоду от динамического бонуса комиссии. Smart Node сообщит вам о необходимости подключиться к Smoothing Pool при депозите minipool, если вы еще не подключены. _Ваши новые minipools упустят дополнительный доход, если ваша нода не находится в Smoothing Pool!!_
 :::
 
-## Node Operator Guide
+## Руководство оператора ноды
 
-If you're interested in running a Rocket Pool node to create your own Ethereum validators, take a look at our [Node Operator's guide](/en/node-staking/responsibilities).
-This is a very comprehensive guide that goes over all of the considerations involved in node operation, including:
+Если вы заинтересованы в запуске ноды Rocket Pool для создания собственных validator Ethereum, ознакомьтесь с нашим [руководством оператора ноды](/ru/node-staking/responsibilities).
+Это очень подробное руководство, которое охватывает все соображения, связанные с эксплуатацией ноды, включая:
 
-- Deciding to run a node locally at home, or remotely on the cloud
-- Selecting the hardware for a local machine, or selecting a remote hosting provider
-- Preparing and securing the operating system of your node
-- Selecting your Execution and Consensus clients
-- Installing Rocket Pool's Smartnode stack
-- Creating a new Beacon Chain validator using the Rocket Pool network
-- Maintaining and updating your node
-- Participating in on-chain governance
+- Решение о запуске ноды локально дома или удаленно в облаке
+- Выбор оборудования для локальной машины или выбор провайдера удаленного хостинга
+- Подготовка и защита операционной системы вашей ноды
+- Выбор ваших клиентов Execution и Consensus
+- Установка стека Smartnode Rocket Pool
+- Создание нового validator Beacon Chain с использованием сети Rocket Pool
+- Обслуживание и обновление вашей ноды
+- Участие в он-чейн управлении
 
-Both guides will show you how to practice for free on the Rocket Pool testnet so you can get a feel for everything without risking any of your real-life ETH, and how to stake your real ETH on the Ethereum mainnet once you're comfortable with the process.
+Оба руководства покажут вам, как практиковаться бесплатно в testnet Rocket Pool, чтобы вы могли освоиться со всем, не рискуя своим реальным ETH, и как stake ваш реальный ETH на Ethereum mainnet, когда вы будете уверены в процессе.
 
-When you're ready, select a guide from the options above based on your interests.
-You are also free to explore the various pages using the sidebar to the left.
+Когда будете готовы, выберите руководство из опций выше на основе ваших интересов.
+Вы также можете свободно исследовать различные страницы, используя боковую панель слева.

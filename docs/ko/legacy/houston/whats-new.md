@@ -1,93 +1,93 @@
 ---
 next:
-  text: The Protocol DAO
-  link: "/en/legacy/houston/pdao"
+  text: Protocol DAO
+  link: "/ko/legacy/houston/pdao"
 ---
 
-# The Houston Upgrade
+# Houston 업그레이드
 
-The Houston upgrade is largely aimed at introducing a fully on-chain DAO to govern the protocol, known as the Protocol DAO or pDAO. It is a DAO like no other and it does not require snapshot voting or any other 3rd party tools to function, it is truly on-chain and one of a kind, more on that below.
+Houston 업그레이드는 주로 Protocol DAO 또는 pDAO로 알려진 프로토콜을 관리하기 위한 완전한 온체인 DAO를 도입하는 것을 목표로 합니다. 이는 다른 DAO와는 다르며 snapshot voting이나 다른 타사 도구가 필요하지 않습니다. 진정으로 온체인이며 독특합니다. 자세한 내용은 아래에서 확인하세요.
 
-This upgrade will also be introducing some other very exciting features that will allow new integrations and platforms to be built on the protocol. Some of these include the ability to stake ETH on behalf of node (not just from the node itself) and a new RPL withdrawal address feature, that allows one party to supply the ETH for staking and another party to provide the RPL without giving custody to the node operator"
+이 업그레이드는 또한 프로토콜에 새로운 통합 및 플랫폼을 구축할 수 있도록 하는 매우 흥미로운 기능들을 도입합니다. 여기에는 노드를 대신하여 ETH를 stake할 수 있는 기능(노드 자체에서만이 아님)과 한 쪽에서 staking을 위한 ETH를 제공하고 다른 쪽에서 Node Operator에게 관리권을 주지 않고 RPL을 제공할 수 있는 새로운 RPL 출금 주소 기능이 포함됩니다"
 
 ## Protocol DAO
 
-The Rocket Pool Protocol DAO (pDAO) is responsible for shaping the direction of the protocol and is run by RPL governance. Its members and their voting power are made up of node operators, big and small, all of which are directly participating in the protocol.
+Rocket Pool Protocol DAO(pDAO)는 프로토콜의 방향을 결정하는 책임이 있으며 RPL 거버넌스에 의해 운영됩니다. 그 구성원과 투표권은 프로토콜에 직접 참여하는 크고 작은 Node Operator로 구성됩니다.
 
-Typically DAO governance in the wider crypto space is done by token weight voting. Basically, the more tokens you hold for a protocol/project, the bigger your voting power. You also don’t need to be actively participating in the protocol, simply holding the tokens is enough.
+일반적으로 더 넓은 암호화폐 공간에서 DAO 거버넌스는 토큰 가중치 투표로 수행됩니다. 기본적으로 프로토콜/프로젝트에 대해 보유한 토큰이 많을수록 투표권이 커집니다. 또한 프로토콜에 적극적으로 참여할 필요가 없으며 단순히 토큰을 보유하는 것만으로도 충분합니다.
 
-This style of governance we wanted to avoid. If you want to help direct and guide the future of Rocket Pool, you need to be actively involved, not just storing tokens in a cold wallet. From the biggest Venture Capitalist funds to your ordinary guy running a single minipool, you will need to be actively participating in the protocol to help govern it.
+우리는 이러한 스타일의 거버넌스를 피하고 싶었습니다. Rocket Pool의 미래를 지시하고 안내하는 데 도움을 주고 싶다면 콜드 월렛에 토큰을 저장하는 것이 아니라 적극적으로 참여해야 합니다. 가장 큰 벤처 캐피털 펀드부터 단일 minipool을 실행하는 일반인까지 프로토콜을 관리하는 데 도움이 되려면 프로토콜에 적극적으로 참여해야 합니다.
 
-Currently the protocol DAO has control over a variety of on-chain settings that are used in the protocol. New Rocket Pool Improvement Proposals (RPIP) can be made and voted on by these Node Operators within Rocket Pool. You can see the [**current RPIP registry here**](https://rpips.rocketpool.net/). If you’re a devil for the details, the current RPIP for the on-chain protocol DAO talked about now can be found here.
+현재 protocol DAO는 프로토콜에서 사용되는 다양한 온체인 설정을 제어합니다. 새로운 Rocket Pool Improvement Proposals(RPIP)를 만들고 Rocket Pool 내의 Node Operator가 투표할 수 있습니다. [**현재 RPIP 레지스트리는 여기**](https://rpips.rocketpool.net/)에서 볼 수 있습니다. 세부 사항에 대한 devil이라면 지금 논의되고 있는 온체인 protocol DAO에 대한 현재 RPIP는 여기에서 찾을 수 있습니다.
 
-### What can the pDAO do?
+### pDAO는 무엇을 할 수 있나요?
 
-The pDAO has control over many settings of the protocol, it can spend treasury funds and in our Houston upgrade, it comes with a new security council to help react quickly in the event of any potential issues with the protocol. Lets talk about each of those a little more below.
+pDAO는 프로토콜의 많은 설정을 제어하고 재무 자금을 지출할 수 있으며 Houston 업그레이드에서는 프로토콜의 잠재적 문제 발생 시 신속하게 대응할 수 있도록 새로운 보안 위원회가 제공됩니다. 아래에서 각각에 대해 조금 더 자세히 이야기해 보겠습니다.
 
-**Protocol Parameters:** These control certain facets of the protocol such as the setting that controls the minimum ETH amount that can be deposited for rETH (currently 0.01 ETH) or even controlling the maximum size of the deposit pool, this is how much max ETH that can be deposited into the protocol while waiting to be assigned to node operators for staking. You can find a full table of [these settings here](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table).
+**프로토콜 매개변수:** 이들은 rETH에 입금할 수 있는 최소 ETH 금액을 제어하는 설정(현재 0.01 ETH) 또는 입금 풀의 최대 크기를 제어하는 것과 같은 프로토콜의 특정 측면을 제어합니다. 이것은 Node Operator에게 staking을 위해 할당되기를 기다리는 동안 프로토콜에 입금할 수 있는 최대 ETH입니다. [이러한 설정의 전체 표는 여기](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table)에서 찾을 수 있습니다.
 
-**Treasury Funds:** RPL has a 5% inflation rate and a portion of that is allocated to the pDAO treasury. The pDAO have the ability to spend this treasury on a variety of protocol oriented endeavors, from funding development of the protocol directly, grants management for funding 3rd party improvements and projects that make use of Rocket Pool and more. Our Houston upgrade adds a new ability where these payments from the treasury can be done not just in a lump sum manner, but in a progressive manner to help track goals in relation to ongoing funding.
+**재무 자금:** RPL은 5% 인플레이션율을 가지고 있으며 그 일부는 pDAO 재무에 할당됩니다. pDAO는 프로토콜 개발을 직접 자금 지원하는 것부터 Rocket Pool을 사용하는 타사 개선 사항 및 프로젝트에 자금을 지원하기 위한 보조금 관리 등 다양한 프로토콜 지향적 노력에 이 재무를 지출할 수 있습니다. Houston 업그레이드는 재무에서 이러한 지불이 일괄 방식뿐만 아니라 진행 중인 자금 지원과 관련하여 목표를 추적하는 데 도움이 되는 점진적 방식으로도 수행될 수 있는 새로운 기능을 추가합니다.
 
-**Security Council:** As the Houston upgrade moves the pDAO to a fully on-chain system, a new safety measure was introduced in the form of the [security council](https://rpips.rocketpool.net/RPIPs/RPIP-33#security-council). These members can be elected by the pDAO and they have the ability to pause the protocol quickly in the event any potential issues occur. Quorum must be met among members for any security response to be executed. The pDAO also has the power to remove members or disband the security council entirely if they need to.
+**보안 위원회:** Houston 업그레이드가 pDAO를 완전한 온체인 시스템으로 이동함에 따라 [보안 위원회](https://rpips.rocketpool.net/RPIPs/RPIP-33#security-council) 형태로 새로운 안전 조치가 도입되었습니다. 이러한 구성원은 pDAO에 의해 선출될 수 있으며 잠재적 문제가 발생하는 경우 프로토콜을 신속하게 일시 중지할 수 있는 능력이 있습니다. 보안 대응이 실행되려면 구성원 간에 정족수가 충족되어야 합니다. pDAO는 필요한 경우 구성원을 제거하거나 보안 위원회를 완전히 해산할 수 있는 권한도 가지고 있습니다.
 
-### Proposals and Voting
+### 제안 및 투표
 
-For any governance system to function, there needs to be proposals and voting. At the moment, snapshot voting is used for these settings and proposal changes, then some manual intervention is needed to execute the changes. With the introduction of the [Houston upgrade and RPIP-33](https://rpips.rocketpool.net/RPIPs/RPIP-33), this is moved to a new optimistic fraud-proof system that allows any node operator to raise, vote on or challenge proposals, directly on-chain without the need for any 3rd party tools.
+거버넌스 시스템이 작동하려면 제안과 투표가 필요합니다. 현재 이러한 설정 및 제안 변경에 대해 snapshot voting이 사용되고 변경 사항을 실행하려면 일부 수동 개입이 필요합니다. [Houston 업그레이드 및 RPIP-33](https://rpips.rocketpool.net/RPIPs/RPIP-33)의 도입으로 이는 타사 도구가 필요 없이 온체인에서 직접 Node Operator가 제안을 제기하거나 투표하거나 이의를 제기할 수 있는 새로운 낙관적 사기 증명 시스템으로 이동합니다.
 
-**Proposing:** Any node with a non-zero voting power may raise a proposal at any time. When doing so they must lock a proposal bond in the form of RPL for the entire proposal process.
+**제안:** 투표권이 0이 아닌 모든 노드는 언제든지 제안을 제기할 수 있습니다. 그렇게 할 때 전체 제안 프로세스 동안 RPL 형태의 제안 보증금을 잠가야 합니다.
 
-**Challenging:** If a node that created a proposal has been found to have done so with incorrect data required, they can be challenged and the challenger must provide a bond for the challenge. The node that makes the challenge can be rewarded with the proposers bond made when creating the proposal if successful, however if they have made an invalid challenge, the proposer can collect their challenge bond.
+**이의 제기:** 제안을 만든 노드가 필요한 데이터가 잘못된 것으로 발견되면 이의를 제기할 수 있으며 이의 제기자는 이의 제기에 대한 보증금을 제공해야 합니다. 이의를 제기한 노드는 성공하면 제안을 만들 때 만든 제안자의 보증금으로 보상받을 수 있지만 무효한 이의 제기를 한 경우 제안자가 이의 제기 보증금을 수집할 수 있습니다.
 
-**Voting**: If a proposal passes the period where it can be challenged, it enters the voting periods. Node operators can then choose to vote in one of the following flavors:
+**투표**: 제안이 이의를 제기할 수 있는 기간을 통과하면 투표 기간에 들어갑니다. Node Operator는 다음 중 하나의 방식으로 투표할 수 있습니다:
 
-1. Abstain: The voter’s voting power is contributed to quorum but is neither for nor against the proposal.
-2. For: The voter votes in favor of the proposal being executed.
-3. Against: The voter votes against the proposal being executed.
-4. Veto: The voter votes against the proposal as well as indicating they deem the proposal as spam or malicious. If the veto quorum is met, the proposal is immediately defeated and the proposer loses their bond. This is to dissuade spam, low quality proposals, or proposals that have not gone through off-chain processes first such as signaling by snapshot voting.
+1. Abstain: 투표자의 투표권은 정족수에 기여하지만 제안에 찬성하거나 반대하지 않습니다.
+2. For: 투표자는 제안이 실행되는 것에 찬성 투표합니다.
+3. Against: 투표자는 제안이 실행되는 것에 반대 투표합니다.
+4. Veto: 투표자는 제안에 반대 투표하며 제안을 스팸 또는 악의적이라고 간주함을 나타냅니다. 거부권 정족수가 충족되면 제안이 즉시 패배하고 제안자는 보증금을 잃습니다. 이는 스팸, 저품질 제안 또는 snapshot voting에 의한 신호와 같은 오프체인 프로세스를 먼저 거치지 않은 제안을 단념시키기 위한 것입니다.
 
-There are **two voting periods**
+**두 개의 투표 기간**이 있습니다
 
-- Vote Period 1: For voters or delegates voting on behalf of others.
-- Vote Period 2: For voters who delegated their power and want to overturn their delegate's decision.
+- 투표 기간 1: 다른 사람을 대신하여 투표하는 투표자 또는 대리인용.
+- 투표 기간 2: 권한을 위임한 투표자가 대리인의 결정을 뒤집고 싶어하는 경우.
 
-Once both voting periods have passed and the proposal is successful, the proposal can be executed and the change is applied to the Rocket Pool protocol.
+두 투표 기간이 모두 통과되고 제안이 성공하면 제안을 실행할 수 있으며 변경 사항이 Rocket Pool 프로토콜에 적용됩니다.
 
-After the proposal has passed the voting periods, the proposer may unlock their RPL bond, unless the proposal was defeated by a challenge or vetoed.
+제안이 투표 기간을 통과한 후 제안이 이의 제기로 패배하거나 거부되지 않는 한 제안자는 RPL 보증금을 잠금 해제할 수 있습니다.
 
-## Stake ETH on Behalf of a node
+## 노드를 대신하여 ETH Stake
 
-[RPIP-32](https://rpips.rocketpool.net/RPIPs/RPIP-32) allows an account to [stake ETH on behalf](../houston/stake-eth-on-behalf.mdx) of a Rocket Pool node that is registered in the protocol. This supports a variety of situations where the node operator is not directly providing the ETH:
+[RPIP-32](https://rpips.rocketpool.net/RPIPs/RPIP-32)는 계정이 프로토콜에 등록된 Rocket Pool 노드를 [대신하여 ETH를 stake](../houston/stake-eth-on-behalf.mdx)할 수 있도록 허용합니다. 이는 Node Operator가 ETH를 직접 제공하지 않는 다양한 상황을 지원합니다:
 
-- Enhanced security for node operators, as they can stake directly from their hardware wallet, eliminating the need to transfer funds to the node beforehand.
-- Staking as a Service providers where custody of funds are managed by a trusted custodian.
-- Protocol integrations where custody of funds are managed by smart contracts.
-- DAOs or organizations where custody of funds are managed by a treasury.
+- Node Operator의 보안 강화, 노드로 자금을 미리 전송할 필요를 없애고 하드웨어 월렛에서 직접 stake할 수 있습니다.
+- 신뢰할 수 있는 관리자가 자금의 관리권을 관리하는 Staking as a Service 제공업체.
+- 스마트 계약이 자금의 관리권을 관리하는 프로토콜 통합.
+- 재무가 자금의 관리권을 관리하는 DAO 또는 조직.
 
-While the primary aim of this feature is to facilitate single depositor scenarios, it’s worth noting that multiple independent depositors can also leverage this capability by creating smart contracts layered on top. Rocket Pool also introduced the ability to stake RPL on behalf of back in our previous Atlas release.
+이 기능의 주요 목표는 단일 입금자 시나리오를 용이하게 하는 것이지만 여러 독립 입금자도 그 위에 스마트 계약을 만들어 이 기능을 활용할 수 있다는 점은 주목할 가치가 있습니다. Rocket Pool은 또한 이전 Atlas 릴리스에서 노드를 대신하여 RPL을 stake할 수 있는 기능을 도입했습니다.
 
-## RPL Withdrawal Address
+## RPL 출금 주소
 
-Rocket Pool currently allows node operators to specify a withdrawal address for their ETH and RPL. This could be an external hardware wallet or something similarly secure.
+Rocket Pool은 현재 Node Operator가 ETH 및 RPL에 대한 출금 주소를 지정할 수 있습니다. 이는 외부 하드웨어 월렛 또는 유사하게 안전한 것일 수 있습니다.
 
-With [RPIP-31](https://rpips.rocketpool.net/RPIPs/RPIP-31), you can set a withdrawal address for your ETH and [a new one for your RPL](../houston/rpl-withdrawal-address) if you wish. The RPL withdrawal address if set will be able to trigger and claim RPL from inflation rewards and will have no effect on ETH consensus rewards or anything related to ETH.
+[RPIP-31](https://rpips.rocketpool.net/RPIPs/RPIP-31)을 사용하면 원하는 경우 ETH에 대한 출금 주소와 [RPL에 대한 새 주소](../houston/rpl-withdrawal-address)를 설정할 수 있습니다. 설정된 경우 RPL 출금 주소는 인플레이션 보상에서 RPL을 트리거하고 청구할 수 있으며 ETH consensus 보상이나 ETH와 관련된 어떤 것에도 영향을 미치지 않습니다.
 
-This creates some interesting opportunities where RPL can be supplied by an entity to a node operator that does not wish to have exposure to RPL. That entity can then claim RPL rewards for putting up the required insurance collateral for the node.
+이것은 RPL에 노출되기를 원하지 않는 Node Operator에게 RPL을 제공할 수 있는 흥미로운 기회를 만듭니다. 그 개체는 노드에 필요한 보험 담보를 제공한 대가로 RPL 보상을 청구할 수 있습니다.
 
-## Time-based Balance and RPL Price Submissions
+## 시간 기반 잔액 및 RPL 가격 제출
 
-Rocket Pool nodes need to have at least 10% collateral in RPL staked to be eligible for rewards, with their "effective stake" calculated based on the ETH:RPL ratio, which is reported by the Oracle DAO at the end of each rewards interval. Previously, this "top up window" (the time between the final RPL report and the end of the interval) had some uncertainty and fluctuated from interval to interval because it was being specified by number of blocks. This was valid pre-merge but didn't factor variability and randomness in the way blocks are added.
+Rocket Pool 노드는 보상을 받을 자격이 되려면 RPL에 최소 10%의 담보를 stake해야 하며, "유효 stake"는 각 보상 간격 끝에 Oracle DAO가 보고하는 ETH:RPL 비율을 기반으로 계산됩니다. 이전에는 이 "top up window"(최종 RPL 보고서와 간격 끝 사이의 시간)가 블록 수로 지정되었기 때문에 약간의 불확실성이 있었고 간격마다 변동했습니다. 이것은 머지 이전에는 유효했지만 블록이 추가되는 방식의 가변성과 무작위성을 고려하지 않았습니다.
 
-To address this, the intervals for price and balance reporting will now be based on seconds rather than blocks. This change ensures predictability and has parity with the way rewards intervals are calculated today. If the interval is set to `86400` seconds (number of seconds in 24 hours), prices and balances are reported at the same time every day.
+이를 해결하기 위해 가격 및 잔액 보고 간격은 이제 블록이 아닌 초를 기반으로 합니다. 이 변경은 예측 가능성을 보장하고 오늘날 보상 간격이 계산되는 방식과 동등합니다. 간격이 `86400`초(24시간의 초 수)로 설정되면 가격과 잔액이 매일 같은 시간에 보고됩니다.
 
-The protocol now has a fixed and controllable "top up window," removing guesswork and providing users with a consistent 24-hour window for topping up after the final price update. Feel free to read more about this change in [RPIP-35](https://rpips.rocketpool.net/RPIPs/RPIP-35).
+프로토콜은 이제 고정되고 제어 가능한 "top up window"를 가지고 있어 추측을 제거하고 사용자에게 최종 가격 업데이트 후 top up을 위한 일관된 24시간 창을 제공합니다. 이 변경 사항에 대한 자세한 내용은 [RPIP-35](https://rpips.rocketpool.net/RPIPs/RPIP-35)에서 확인할 수 있습니다.
 
-## Audits
+## 감사
 
-In preparation for the Houston Upgrade, Rocket Pool engaged with three of the most esteemed auditing teams in the Ethereum ecosystem.
+Houston 업그레이드를 준비하기 위해 Rocket Pool은 Ethereum 생태계에서 가장 존경받는 세 개의 감사 팀과 협력했습니다.
 
-- [Consensys Diligence](https://consensys.io/diligence/audits/2023/12/rocket-pool-houston/) (Late November to Mid December 2023)
-- [Sigma Prime](https://rocketpool.net/files/audits/sigma-prime-audit-houston.pdf) x2 (Late November 2023, then a second round March 2024)
-- [Chainsafe](https://rocketpool.net/files/audits/chainsafe-audit-houston.pdf) (Mid January to April 2024)
+- [Consensys Diligence](https://consensys.io/diligence/audits/2023/12/rocket-pool-houston/) (2023년 11월 말부터 12월 중순까지)
+- [Sigma Prime](https://rocketpool.net/files/audits/sigma-prime-audit-houston.pdf) x2 (2023년 11월 말, 그 다음 2024년 3월 두 번째 라운드)
+- [Chainsafe](https://rocketpool.net/files/audits/chainsafe-audit-houston.pdf) (2024년 1월 중순부터 4월까지)
 
-For a full history of audits plus details on the Immunefi bug bounty program, visit here:
+감사의 전체 히스토리와 Immunefi 버그 바운티 프로그램에 대한 자세한 내용은 여기를 방문하십시오:
 https://rocketpool.net/protocol/security

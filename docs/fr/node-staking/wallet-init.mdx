@@ -1,67 +1,72 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Creating a New Wallet
+# Créer un nouveau portefeuille
 
-If the Smartnode services are up and running, the next step is to set up an Ethereum wallet for your node.
-This is simply an Execution Layer address that will hold your node's funds - it will use this to send ETH to your minipool when you begin staking, pay for gas during various transactions, and other various operations.
+Si les services Smartnode sont opérationnels, l'étape suivante consiste à configurer un portefeuille Ethereum pour votre nœud.
+Il s'agit simplement d'une adresse de la couche d'exécution qui contiendra les fonds de votre nœud - elle sera utilisée pour envoyer de l'ETH à votre minipool lorsque vous commencerez le staking, payer les frais de gas lors de diverses transactions et autres opérations diverses.
 
-You have the option of either creating a brand new wallet from scratch, or importing / recovering an existing wallet or address.
-Please choose which option you'd like from the tabs below.
+Vous avez la possibilité soit de créer un tout nouveau portefeuille à partir de zéro, soit d'importer ou de récupérer un portefeuille ou une adresse existante.
+Veuillez choisir l'option souhaitée parmi les onglets ci-dessous.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Creating a New Wallet">
-      The most common way to run a node is to create a new Ethereum address that is dedicated to the node.
-      The Smartnode CLI provides a way to do this easily:
+    <Tab label="Créer un nouveau portefeuille">
+      La façon la plus courante d'exécuter un nœud est de créer une nouvelle adresse Ethereum dédiée au nœud.
+      L'interface CLI Smartnode offre un moyen simple de le faire :
 
       ```shell
       rocketpool wallet init
       ```
 
-      You will first be prompted for a password to protect your wallet's private key.
-      Next, you will be presented the **unique 24-word mnemonic** for your new wallet.
-      This is the **recovery phrase** for your wallet.
-      If you ever lose your machine, you can use this phrase to regenerate your wallet and resurrect all of the Consensus validators attached to it.
+      Vous serez d'abord invité à saisir un mot de passe pour protéger la clé privée de votre portefeuille.
+      Ensuite, vous recevrez la **phrase mnémonique unique de 24 mots** pour votre nouveau portefeuille.
+      Il s'agit de la **phrase de récupération** de votre portefeuille.
+      Si vous perdez votre machine, vous pouvez utiliser cette phrase pour régénérer votre portefeuille et restaurer tous les validateurs de la couche de consensus qui y sont attachés.
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        It is **essential** that you write this mnemonic down because this is the only time it will be shown to you, but keep it somewhere safe.
-        Anyone with this phrase can gain control of your wallet.
+        <p className="rspress-directive-title">REMARQUE</p>
+        Il est **essentiel** que vous notiez cette phrase mnémonique car c'est la seule fois qu'elle vous sera montrée, mais conservez-la dans un endroit sûr.
+        Toute personne disposant de cette phrase peut prendre le contrôle de votre portefeuille.
       </p>
 
-      Once you confirm your mnemonic phrase, you will be presented with the unique Ethereum address for your node wallet.
+      Une fois que vous avez confirmé votre phrase mnémonique, vous recevrez l'adresse Ethereum unique de votre portefeuille de nœud.
     </Tab>
-    <Tab label="Recovering or Importing an Existing Wallet">
-      If you already have a node wallet that you created in a previous installation of the Smartnode, or if you want to import an address that you created elsewhere (such as with **Allnodes**), please follow the instructions in the [Importing an Existing Wallet for your Node](./recovering-rp) guide.
+    <Tab label="Récupérer ou importer un portefeuille existant">
+      Une fois que vous avez terminé de saisir la phrase mnémonique, vous verrez un message de succès comme celui-ci :
+      "Le portefeuille du nœud a été initialisé avec succès.
+        Compte du nœud : {LongueChaineDeLettresEtDeChiffres}"
+      Il s'agit de l'adresse publique à laquelle vous enverrez de l'ETH dans "Préparer votre nœud pour le fonctionnement". Vous pouvez également la vérifier en tapant "rocketpool wallet status".
 
-      Return here when you're finished.
+      Si vous avez déjà un portefeuille de nœud que vous avez créé lors d'une installation précédente du Smartnode, ou si vous souhaitez importer une adresse que vous avez créée ailleurs (comme avec **Allnodes**), veuillez suivre les instructions du guide [Importer un portefeuille existant pour votre nœud](./recovering-rp).
+
+      Revenez ici une fois que vous avez terminé.
     </Tab>
 
   </Tabs>
 </div>
 
-::: warning NOTE
-As of the current build, Rocket Pool needs to have access to your wallet's private key in order to perform its automatic duties.
-**This means that the private key will exist in a file on your machine.**
-If an attacker manages to gain access to your machine, they could gain access to your node wallet and steal all of the tokens that it contains!
-Please ensure that you have followed the security guide in the [Securing your Node](./securing-your-node) section before you continue, and are comfortable with your security posture.
+::: warning REMARQUE
+Depuis la version actuelle, Rocket Pool doit avoir accès à la clé privée de votre portefeuille afin d'effectuer ses tâches automatiques.
+**Cela signifie que la clé privée existera dans un fichier sur votre machine.**
+Si un attaquant parvient à accéder à votre machine, il pourrait accéder à votre portefeuille de nœud et voler tous les tokens qu'il contient !
+Veuillez vous assurer que vous avez suivi le guide de sécurité dans la section [Sécuriser votre nœud](./securing-your-node) avant de continuer, et que vous êtes à l'aise avec votre posture de sécurité.
 :::
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Docker & Hybrid Modes">
-      Your wallet's private key will be stored in a file located at `~/.rocketpool/data/wallet`.
+    <Tab label="Modes Docker et Hybride">
+      La clé privée de votre portefeuille sera stockée dans un fichier situé à `~/.rocketpool/data/wallet`.
 
-      The password used to encrypt your wallet's key will be stored in `~/.rocketpool/data/password`.
-      This is the file that must be protected at all times.
+      Le mot de passe utilisé pour chiffrer la clé de votre portefeuille sera stocké dans `~/.rocketpool/data/password`.
+      C'est le fichier qui doit être protégé en permanence.
     </Tab>
-    <Tab label="Native Mode">
-      The wallet and password files will be stored in the `data` directory under the Rocket Pool directory that you set up earlier (e.g. `/srv/rocketpool`).
+    <Tab label="Mode natif">
+      Les fichiers de portefeuille et de mot de passe seront stockés dans le répertoire `data` sous le répertoire Rocket Pool que vous avez configuré précédemment (par exemple `/srv/rocketpool`).
 
-      Your wallet's private key will be stored in a file located at `/srv/rocketpool/data/wallet`.
+      La clé privée de votre portefeuille sera stockée dans un fichier situé à `/srv/rocketpool/data/wallet`.
 
-      The password used to encrypt your wallet's key will be stored in `/srv/rocketpool/data/password`.
-      This is the file that must be protected at all times.
+      Le mot de passe utilisé pour chiffrer la clé de votre portefeuille sera stocké dans `/srv/rocketpool/data/password`.
+      C'est le fichier qui doit être protégé en permanence.
     </Tab>
 
   </Tabs>

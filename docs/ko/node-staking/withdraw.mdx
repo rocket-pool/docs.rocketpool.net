@@ -1,31 +1,31 @@
 ---
 next:
-  text: Rescuing a Dissolved Minipool
-  link: "/en/node-staking/rescue-dissolved"
+  text: 해산된 미니풀 복구
+  link: "/ko/node-staking/rescue-dissolved"
 ---
 
-# Shut Down a Minipool
+# 미니풀 종료
 
-## Exiting your Validator
+## 검증자 종료
 
-When you have decided that you no longer want to run a minipool and want to access the full balance locked on the Beacon Chain, you will have to take several steps:
+미니풀을 더 이상 실행하지 않고 비콘 체인에 잠긴 전체 잔액에 액세스하려는 경우 몇 가지 단계를 수행해야 합니다:
 
-1. Send a voluntary exit request for the minipool's validator from the Beacon Chain.
-2. Wait for your validator to exit.
-3. Wait for your validator's balance to be withdrawn to your minipool on the Execution layer.
-4. Close the minipool to distribute the rewards and access the funds
+1. 미니풀의 검증자에 대한 자발적 종료 요청을 비콘 체인에서 보냅니다.
+2. 검증자가 종료될 때까지 기다립니다.
+3. 검증자의 잔액이 실행 레이어의 미니풀로 인출될 때까지 기다립니다.
+4. 보상을 분배하고 자금에 액세스하기 위해 미니풀을 닫습니다.
 
-We'll cover each step below.
+각 단계를 아래에서 다루겠습니다.
 
-### Sending the Exit Request
+### 종료 요청 보내기
 
-If you want to exit the validator attached to a minipool, run the following command:
+미니풀에 연결된 검증자를 종료하려면 다음 명령을 실행하세요:
 
 ```shell
 rocketpool minipool exit
 ```
 
-You will be presented with a list of minipools that can be exited:
+종료할 수 있는 미니풀 목록이 표시됩니다:
 
 ```
 Please select a minipool to exit:
@@ -34,49 +34,49 @@ Please select a minipool to exit:
 3: 0xd8E804cFA64ADb386F52DB20717810130c90f674 (staking since 2023-02-08, 06:33 +0000 UTC)
 ```
 
-Once you confirm you want to exit, your node will send a voluntary exit request to the Beacon Chain.
-This is **not** a normal Execution layer transaction, so you do not need to pay gas for it.
+종료를 확인하면 노드가 비콘 체인에 자발적 종료 요청을 보냅니다.
+이것은 일반적인 실행 레이어 트랜잭션이 **아니므로** 가스 비용을 지불할 필요가 없습니다.
 
-If you need the validator public key for the minipool you just exited, you can retrieve it using `rocketpool minipool status`.
-You can view your validator's exit status on a Beacon Chain explorer such as [https://beaconcha.in](https://beaconcha.in) (or [https://hoodi.beaconcha.in](https://hoodi.beaconcha.in) for the Hoodi Testnet).
-It will take some time for your status to be updated, but once it is you will see it in the "exiting" state:
+방금 종료한 미니풀의 검증자 공개 키가 필요한 경우 `rocketpool minipool status`를 사용하여 검색할 수 있습니다.
+[https://beaconcha.in](https://beaconcha.in)(또는 Hoodi 테스트넷의 경우 [https://hoodi.beaconcha.in](https://hoodi.beaconcha.in))과 같은 비콘 체인 탐색기에서 검증자의 종료 상태를 볼 수 있습니다.
+상태가 업데이트되는 데 시간이 걸리지만 업데이트되면 "exiting" 상태로 표시됩니다:
 
 <img src="./images/exiting.png" width="100%" height="auto" />
 
-Here you can see the Status is `Exiting`, the epoch it will exit on is highlighted (5224), and the "Exited" icon will be pulsing green to indicate the operation is in progress.
-It may take some time for your validator to exit, _especially_ if there are a large number of validators exiting the Beacon Chain at the same time; the protocol is designed to only allow a small number of validators to exit per epoch so you may have to wait your turn.
+여기서 상태가 `Exiting`이고 종료될 에포크가 강조 표시되어 있으며(5224) "Exited" 아이콘이 녹색으로 깜박이며 작업이 진행 중임을 나타냅니다.
+검증자가 종료되는 데 시간이 걸릴 수 있으며, _특히_ 동시에 비콘 체인을 종료하는 검증자가 많은 경우 그렇습니다. 프로토콜은 에포크당 소수의 검증자만 종료할 수 있도록 설계되어 있으므로 차례를 기다려야 할 수 있습니다.
 
-Once your exit epoch has passed, your validator will officially exit the chain and will no longer attest or propose blocks.
-You can confirm this in your Validator Client logs, or on the explorer:
+종료 에포크가 지나면 검증자는 공식적으로 체인을 종료하고 더 이상 증명하거나 블록을 제안하지 않습니다.
+검증자 클라이언트 로그 또는 탐색기에서 이를 확인할 수 있습니다:
 
 <img src="./images/exited.png" width="100%" height="auto" />
 
-The status has changed to `Exited` and there is some text underneath that indicates your **withdrawable epoch** (which should be 256 epochs after you exit, or about 27 hours).
-Beaconcha.in also conveniently provides the local timestamps for when your validator will exit and when it will be withdrawable.
+상태가 `Exited`로 변경되었으며 그 아래에 **인출 가능한 에포크**(종료 후 256 에포크, 약 27시간)를 나타내는 텍스트가 있습니다.
+Beaconcha.in은 또한 검증자가 종료되고 인출 가능해질 때의 로컬 타임스탬프를 편리하게 제공합니다.
 
-Once it has entered the **withdrawable** state, your validator will be enqueued by the Beacon Chain for rewards distribution.
-This queue depends on how many validators are currently withdrawing.
-Once it's your turn, the Beacon Chain will _automatically_ send your balance to your minipool's address on the Execution layer.
-At this point, you can access it using the Smartnode CLI to do a distribution.
+**인출 가능** 상태가 되면 검증자는 비콘 체인에 의해 보상 분배를 위해 대기열에 추가됩니다.
+이 대기열은 현재 인출 중인 검증자 수에 따라 다릅니다.
+차례가 되면 비콘 체인이 _자동으로_ 잔액을 실행 레이어의 미니풀 주소로 보냅니다.
+이 시점에서 Smartnode CLI를 사용하여 분배를 수행하여 액세스할 수 있습니다.
 
-### Distributing Full Rewards
+### 전체 보상 분배
 
-::: tip NOTE
-This process requires your validator to be exited from the Beacon Chain and your validator's balance to have been transferred to the minipool contract.
-If you need a refresher on how to do that process, please see the [**Exiting your Validator**](#exiting-your-validator) section above - return here once you're done.
+::: tip 참고
+이 프로세스는 검증자가 비콘 체인에서 종료되고 검증자의 잔액이 미니풀 계약으로 전송되어야 합니다.
+이 프로세스를 다시 확인해야 하는 경우 위의 [**검증자 종료**](#exiting-your-validator) 섹션을 참조하세요 - 완료한 후 여기로 돌아오세요.
 :::
 
-If you have exited your validator from the Beacon Chain and your balance has been deposited into the minipool contract, you can safely withdraw the entire thing in one command.
-Unlike [manual distribution](./skimming#manual-distribution), this process will actually **finalize** your minipool which closes it and renders it inactive.
-Once your balance has been withdrawn from the Beacon Chain and you go through the following process to access the funds, the minipool's duty is over.
+비콘 체인에서 검증자를 종료하고 잔액이 미니풀 계약에 입금된 경우 한 번의 명령으로 전체를 안전하게 인출할 수 있습니다.
+[수동 분배](./skimming#manual-distribution)와 달리 이 프로세스는 실제로 미니풀을 **완료**하여 닫고 비활성화합니다.
+비콘 체인에서 잔액이 인출되고 다음 프로세스를 거쳐 자금에 액세스하면 미니풀의 의무가 끝납니다.
 
-To retrieve the funds and close the minipool, run the following command:
+자금을 검색하고 미니풀을 닫으려면 다음 명령을 실행하세요:
 
 ```shell
 rocketpool minipool close
 ```
 
-This will present you with a list of minipools that are eligible for closure:
+닫을 수 있는 미니풀 목록이 표시됩니다:
 
 ```
 Please select a minipool to close:
@@ -84,52 +84,52 @@ Please select a minipool to close:
 2: 0xd8E804cFA64ADb386F52DB20717810130c90f674 (32.007209 ETH available, 8.002559 ETH is yours plus a refund of 0.000000 ETH)
 ```
 
-Here you can see the total balance for each eligible minipool, how much of that balance will be distributed to you, and how much of that balance is reserved for you as a refund (which bypasses distribution).
+여기서 각 적격 미니풀의 총 잔액, 해당 잔액 중 귀하에게 분배될 금액, 환불로 예약된 금액(분배를 우회함)을 볼 수 있습니다.
 
-Select which minipool you'd like to distribute and close from the list, confirm the action, and wait for your transaction to be validated.
-Once it does, your share of the minipool balance (and your refund) will be sent to your withdrawal address, and the minipool will enter the `finalized` state.
+목록에서 분배하고 닫을 미니풀을 선택하고 작업을 확인한 후 트랜잭션이 검증될 때까지 기다리세요.
+검증되면 미니풀 잔액 중 귀하의 몫(및 환불)이 인출 주소로 전송되고 미니풀이 `finalized` 상태가 됩니다.
 
-You can verify it by looking at the transaction on a block explorer; for example, see [the transaction for closing the above minipool (Goerli Testnet)](https://goerli.etherscan.io/tx/0xe81415b3b66f9b42d43ac17a0983e792725726c9fdd35ac855745bd12a053509).
+블록 탐색기에서 트랜잭션을 보면 확인할 수 있습니다. 예를 들어 [위 미니풀을 닫는 트랜잭션(Goerli 테스트넷)](https://goerli.etherscan.io/tx/0xe81415b3b66f9b42d43ac17a0983e792725726c9fdd35ac855745bd12a053509)을 참조하세요.
 
-### Unstaking RPL
+### RPL 언스테이킹
 
-At this point, your effective RPL will be updated to remove this minipool from the calculation.
-You can now unstake any RPL you have that would put you over the 60% bonded ETH threshold.
+이 시점에서 유효 RPL이 업데이트되어 계산에서 이 미니풀이 제거됩니다.
+이제 60% 본딩된 ETH 임계값을 초과하는 RPL을 언스테이킹할 수 있습니다.
 
-To unstake RPL against the node, run the following command:
+노드에 대한 RPL을 언스테이킹하려면 다음 명령을 실행하세요:
 
 ```shell
 rocketpool node withdraw-rpl
 ```
 
-::: tip NOTE
-There are two limitations on RPL withdrawals:
+::: tip 참고
+RPL 인출에는 두 가지 제한 사항이 있습니다:
 
-RPL cannot be withdrawn within 28 days of staking (or restaking) RPL. Be careful if you claim these rewards before closing your minipool, if you restake any amount of RPL rewards you will not be able to withdraw any amount of RPL for 28 days since the last staking action.
+RPL은 스테이킹(또는 재스테이킹) 후 28일 이내에 인출할 수 없습니다. 미니풀을 닫기 전에 이러한 보상을 청구하는 경우 RPL 보상을 재스테이킹하면 마지막 스테이킹 작업 이후 28일 동안 RPL을 인출할 수 없으므로 주의하세요.
 
-RPL can be withdrawn down to 60% of your total bonded ETH. On a full exit, that means all of it can be withdrawn; for partial exits, plan with this limit in mind.
+RPL은 총 본딩된 ETH의 60%까지 인출할 수 있습니다. 전체 종료의 경우 모두 인출할 수 있습니다. 부분 종료의 경우 이 제한을 염두에 두고 계획하세요.
 :::
 
-## A Note on the Old Delegate
+## 이전 위임에 대한 참고 사항
 
-The **original minipool delegate** assigned to every minipool from Rocket Pool's launch until Atlas's deployment was built with two assumptions in mind:
+Rocket Pool 출시부터 Atlas 배포까지 모든 미니풀에 할당된 **원래 미니풀 위임**은 두 가지 가정을 염두에 두고 구축되었습니다:
 
-1. The only time your minipool will ever have a balance is after the validator has exited the Beacon Chain.
-2. The Oracle DAO will change your minipool's state from "staking" to "withdrawable" once the balance has been transferred from the Beacon Chain to the minipool contract.
+1. 미니풀이 잔액을 갖는 유일한 시간은 검증자가 비콘 체인을 종료한 후입니다.
+2. Oracle DAO는 비콘 체인에서 미니풀 계약으로 잔액이 전송되면 미니풀의 상태를 "staking"에서 "withdrawable"로 변경합니다.
 
-The first point is clearly no longer relevant now that Ethereum is being upgraded to support skimming.
-The second point is _also_ no longer true, because the Oracle DAO is **no longer** going to flag "withdrawable" minipools.
-This was an intentional design decision to reduce the power that the Oracle DAO yields over Rocket Pool node operators and allow them to access rewards without any supplemental requirement on trusted parties.
+첫 번째 사항은 이더리움이 스키밍을 지원하도록 업그레이드된 지금 더 이상 관련이 없습니다.
+두 번째 사항은 Oracle DAO가 더 이상 "withdrawable" 미니풀을 플래그 지정하지 **않기** 때문에 _또한_ 더 이상 사실이 아닙니다.
+이것은 Oracle DAO가 Rocket Pool 노드 운영자에게 행사하는 권한을 줄이고 신뢰할 수 있는 당사자에 대한 추가 요구 사항 없이 보상에 액세스할 수 있도록 하기 위한 의도적인 설계 결정이었습니다.
 
-Because of these deficiencies, the Smartnode CLI **no longer supports** withdrawals or fund distribution on the original minipool delegate.
-If you'd like to access your rewards, you **must** upgrade to the Atlas delegate which supports the new withdrawal conditions listed above.
+이러한 결함으로 인해 Smartnode CLI는 원래 미니풀 위임에서 인출 또는 자금 분배를 더 이상 **지원하지 않습니다**.
+보상에 액세스하려면 위에 나열된 새로운 인출 조건을 지원하는 Atlas 위임으로 **업그레이드해야** 합니다.
 
-::: danger DANGER
-If you are an advanced user and bypass the CLI to invoke the distribution functionality on the contract directly via a third-party tool, be advised of the following things:
+::: danger 위험
+고급 사용자이고 CLI를 우회하여 타사 도구를 통해 계약에서 직접 분배 기능을 호출하는 경우 다음 사항에 유의하세요:
 
-1. The delegate's distribution function will revert if the minipool's balance is **below 16 ETH**. Balances below 16 ETH **cannot be accessed.**
-2. If the minipool has **between 16 and 32 ETH** in its balance, distribution by the original delegate will assume your validator has been **slashed**. It will return 16 ETH to the staking pool and give you whatever is left over. It will _only_ function properly if the minipool balance is above 32 ETH.
-3. The minipool will never enter the `finalized` state because the Oracle DAO will never mark it as `withdrawable`, so even though you may be able to access your ETH, **your RPL will be locked** until you upgrade to the Atlas delegate.
+1. 미니풀 잔액이 **16 ETH 미만**이면 위임의 분배 함수가 되돌아갑니다. 16 ETH 미만의 잔액은 **액세스할 수 없습니다.**
+2. 미니풀의 잔액이 **16에서 32 ETH 사이**인 경우 원래 위임에 의한 분배는 검증자가 **슬래시**되었다고 가정합니다. 16 ETH를 스테이킹 풀에 반환하고 남은 것을 제공합니다. 미니풀 잔액이 32 ETH를 초과하는 경우에만 _제대로_ 작동합니다.
+3. Oracle DAO가 `withdrawable`로 표시하지 않기 때문에 미니풀은 `finalized` 상태가 되지 않으므로 ETH에 액세스할 수 있더라도 Atlas 위임으로 업그레이드할 때까지 **RPL이 잠깁니다**.
 
-Because of these points, we **strongly recommend** you just upgrade to the Atlas delegate in the first place and avoid them entirely.
+이러한 사항 때문에 처음부터 Atlas 위임으로 업그레이드하고 완전히 피하는 것을 **강력히 권장**합니다.
 :::

@@ -1,20 +1,20 @@
-# Smart Contracts
+# Smart Contract
 
-## Introduction
+## Introduzione
 
-The Rocket Pool [Smart Contracts](https://www.ethereum.org/learn/#smart-contracts) form the foundation of the Rocket Pool protocol. They are the base layer of infrastructure which all other elements of the network are built on top of, the Smart Node software stack, and all web or application interfaces.
+Gli [Smart Contract](https://www.ethereum.org/learn/#smart-contracts) di Rocket Pool costituiscono le fondamenta del protocollo Rocket Pool. Sono il livello base di infrastruttura su cui sono costruiti tutti gli altri elementi della rete, lo stack software Smart Node e tutte le interfacce web o applicative.
 
-Direct interaction with the contracts is usually not necessary, and is facilitated through the use of other software. This section provides a detailed description of the contract design, and information on how to build on top of Rocket Pool for developers wishing to extend it. All code examples are given as Solidity `v0.7.6`.
+L'interazione diretta con i contratti solitamente non è necessaria ed è facilitata attraverso l'uso di altri software. Questa sezione fornisce una descrizione dettagliata del design dei contratti e informazioni su come costruire sopra Rocket Pool per gli sviluppatori che desiderano estenderlo. Tutti gli esempi di codice sono forniti in Solidity `v0.7.6`.
 
-### Contract Design
+### Design dei Contratti
 
-The Rocket Pool network contracts are built with upgradability in mind, using a hub-and-spoke architecture. The central hub of the network is the `RocketStorage` contract, which is responsible for storing the state of the entire protocol. This is implemented through the use of maps for key-value storage, and getter and setter methods for reading and writing values for a key.
+I contratti di rete di Rocket Pool sono costruiti con l'aggiornabilità in mente, utilizzando un'architettura hub-and-spoke. Il fulcro centrale della rete è il contratto `RocketStorage`, che è responsabile della memorizzazione dello stato dell'intero protocollo. Questo è implementato attraverso l'uso di mappe per l'archiviazione chiave-valore e metodi getter e setter per leggere e scrivere valori per una chiave.
 
-The `RocketStorage` contract also stores the addresses of all other network contracts (keyed by name), and restricts data modification to those contracts only. Using this architecture, the protocol can be upgraded by deploying new versions of an existing contract, and updating its address in storage. This gives Rocket Pool the flexibility required to fix bugs or implement new features to improve the protocol.
+Il contratto `RocketStorage` memorizza anche gli indirizzi di tutti gli altri contratti di rete (indicizzati per nome) e limita la modifica dei dati solo a quei contratti. Utilizzando questa architettura, il protocollo può essere aggiornato distribuendo nuove versioni di un contratto esistente e aggiornando il suo indirizzo nello storage. Questo fornisce a Rocket Pool la flessibilità necessaria per correggere bug o implementare nuove funzionalità per migliorare il protocollo.
 
-### Interacting With Rocket Pool
+### Interagire con Rocket Pool
 
-To begin interacting with the Rocket Pool network, first create an instance of the `RocketStorage` contract using its [interface](https://github.com/rocket-pool/rocketpool/blob/master/contracts/interface/RocketStorageInterface.sol):
+Per iniziare a interagire con la rete Rocket Pool, crea prima un'istanza del contratto `RocketStorage` usando la sua [interfaccia](https://github.com/rocket-pool/rocketpool/blob/master/contracts/interface/RocketStorageInterface.sol):
 
 ```solidity
 import "RocketStorageInterface.sol";
@@ -30,11 +30,11 @@ contract Example {
 }
 ```
 
-The above constructor should be called with the address of the `RocketStorage` contract on the appropriate network.
+Il costruttore sopra dovrebbe essere chiamato con l'indirizzo del contratto `RocketStorage` sulla rete appropriata.
 
-Because of Rocket Pool's architecture, the addresses of other contracts should not be used directly but retrieved from the blockchain before use. Network upgrades may have occurred since the previous interaction, resulting in outdated addresses. `RocketStorage` can never change address, so it is safe to store a reference to it.
+A causa dell'architettura di Rocket Pool, gli indirizzi degli altri contratti non dovrebbero essere usati direttamente ma recuperati dalla blockchain prima dell'uso. Potrebbero essere avvenuti aggiornamenti di rete dall'interazione precedente, risultando in indirizzi obsoleti. `RocketStorage` non può mai cambiare indirizzo, quindi è sicuro memorizzarne un riferimento.
 
-Other contract instances can be created using the appropriate interface taken from the [Rocket Pool repository](https://github.com/rocket-pool/rocketpool/tree/master/contracts/interface), e.g.:
+Altre istanze di contratti possono essere create usando l'interfaccia appropriata presa dal [repository Rocket Pool](https://github.com/rocket-pool/rocketpool/tree/master/contracts/interface), ad esempio:
 
 ```solidity
 import "RocketStorageInterface.sol";
@@ -45,12 +45,12 @@ contract Example {
     RocketStorageInterface rocketStorage = RocketStorageInterface(address(0));
 
     constructor(address _rocketStorageAddress) public {
-        // It is safe to store reference to RocketStorage
+        // È sicuro memorizzare il riferimento a RocketStorage
         rocketStorage = RocketStorageInterface(_rocketStorageAddress);
     }
 
     function exampleMethod() public {
-        // All other contracts should be queried each time they are used
+        // Tutti gli altri contratti dovrebbero essere interrogati ogni volta che vengono utilizzati
         address rocketDepositPoolAddress = rocketStorage.getAddress(keccak256(abi.encodePacked("contract.address", "rocketDepositPool")));
         RocketDepositPoolInterface rocketDepositPool = RocketDepositPoolInterface(rocketDepositPoolAddress);
         // ...
@@ -59,75 +59,75 @@ contract Example {
 }
 ```
 
-The Rocket Pool contracts, as defined in `RocketStorage`, are:
+I contratti Rocket Pool, come definiti in `RocketStorage`, sono:
 
-- `rocketVault` - Stores ETH held by network contracts (internal, not upgradeable)
-- `rocketAuctionManager` - Handles the auctioning of RPL slashed from node operators' stake
-- `rocketDepositPool` - Accepts user-deposited ETH and handles assignment to minipools
-- `rocketSmoothingPool` - Receives priority fees and MEV
-- `rocketMinipoolBase` - Contains the initialisation and delegate upgrade logic for minipools
-- `rocketMinipoolBondReducer` - Handles bond reduction window and trusted node cancellation
-- `rocketMinipoolFactory` - Handles creation of minipool contracts
-- `rocketMinipoolDelegate` - Minipool utility contract (internal)
-- `rocketMinipoolManager` - Creates & manages all minipools in the network
-- `rocketMinipoolQueue` - Organises minipools into a queue for ETH assignment
-- `rocketMinipoolStatus` - Handles minipool status updates from watchtower nodes
-- `rocketMinipoolPenalty` - Stores penalties applied to node operators by the oDAO
-- `rocketNetworkBalances` - Handles network balance updates from watchtower nodes
-- `rocketNetworkFees` - Calculates node commission rates based on network node demand
-- `rocketNetworkPrices` - Handles RPL price and effective stake updates from watchtower nodes
-- `rocketNetworkWithdrawal` - Handles processing of beacon chain validator withdrawals
-- `rocketNetworkPenalties` - Handles minipool penalties
-- `rocketRewardsPool` - Handles the distribution of rewards to each rewards contract
-- `rocketClaimDAO` - Handles the claiming of rewards for the pDAO
-- `rocketNodeDeposit` - Handles node deposits for minipool creation
-- `rocketMerkleDistributorMainnet` - Handles distribution of RPL and ETH rewards
-- `rocketNodeDistributorDelegate` - Contains the logic for RocketNodeDistributors
-- `rocketNodeDistributorFactory` - Handles creation of RocketNodeDistributor contracts
-- `rocketNodeManager` - Registers & manages all nodes in the network
-- `rocketNodeStaking` - Handles node staking and unstaking
-- `rocketDAOProposal` - Contains common oDAO and pDAO functionality
-- `rocketDAONodeTrusted` - Handles oDAO related proposals
-- `rocketDAONodeTrustedProposals` - Contains oDAO proposal functionality (internal)
-- `rocketDAONodeTrustedActions` - Contains oDAO action functionality (internal)
-- `rocketDAONodeTrustedUpgrade` - Handles oDAO contract upgrade functionality (internal)
-- `rocketDAONodeTrustedSettingsMembers` - Handles settings relating to trusted members
-- `rocketDAONodeTrustedSettingsProposals` - Handles settings relating to proposals
-- `rocketDAONodeTrustedSettingsMinipool` - Handles settings relating to minipools
-- `rocketDAONodeTrustedSettingsRewards` - Handles settings relating to rewards
-- `rocketDAOProtocol` - Handles pDAO related proposals
-- `rocketDAOProtocolProposals` - Handles pDAO proposal functionality (internal)
-- `rocketDAOProtocolActions` - Handles pDAO action functionality (internal)
-- `rocketDAOProtocolSettingsInflation` - Handles settings related to inflation
-- `rocketDAOProtocolSettingsRewards` - Handles settings related to rewards
-- `rocketDAOProtocolSettingsAuction` - Handles settings related to auction system
-- `rocketDAOProtocolSettingsNode` - Handles settings related to node operators
-- `rocketDAOProtocolSettingsNetwork` - Handles settings related to the network
-- `rocketDAOProtocolSettingsDeposit` - Handles settings related to deposits
-- `rocketDAOProtocolSettingsMinipool` - Handles settings related to minipools
-- `rocketTokenRETH` - The rETH token contract (not upgradeable)
-- `rocketTokenRPL` - The RPL token contract (not upgradeable)
-- `rocketUpgradeOneDotOne` - Handled the Rocket Pool protocol Redstone upgrade.
-- `rocketUpgradeOneDotTwo` - Handled the Rocket Pool protocol Atlas upgrade
-- `addressQueueStorage` - A utility contract (internal)
-- `addressSetStorage` - A utility contract (internal)
+- `rocketVault` - Memorizza ETH detenuto dai contratti di rete (interno, non aggiornabile)
+- `rocketAuctionManager` - Gestisce l'asta di RPL tagliato dallo stake dei node operator
+- `rocketDepositPool` - Accetta ETH depositato dagli utenti e gestisce l'assegnazione ai minipool
+- `rocketSmoothingPool` - Riceve priority fees e MEV
+- `rocketMinipoolBase` - Contiene la logica di inizializzazione e aggiornamento delegato per i minipool
+- `rocketMinipoolBondReducer` - Gestisce la finestra di riduzione del bond e la cancellazione del trusted node
+- `rocketMinipoolFactory` - Gestisce la creazione dei contratti minipool
+- `rocketMinipoolDelegate` - Contratto utility minipool (interno)
+- `rocketMinipoolManager` - Crea e gestisce tutti i minipool nella rete
+- `rocketMinipoolQueue` - Organizza i minipool in una coda per l'assegnazione ETH
+- `rocketMinipoolStatus` - Gestisce gli aggiornamenti dello stato del minipool dai nodi watchtower
+- `rocketMinipoolPenalty` - Memorizza le penalità applicate ai node operator dalla oDAO
+- `rocketNetworkBalances` - Gestisce gli aggiornamenti del saldo di rete dai nodi watchtower
+- `rocketNetworkFees` - Calcola i tassi di commissione del nodo in base alla domanda di nodi della rete
+- `rocketNetworkPrices` - Gestisce gli aggiornamenti del prezzo RPL e dello stake effettivo dai nodi watchtower
+- `rocketNetworkWithdrawal` - Gestisce l'elaborazione dei prelievi del validator della beacon chain
+- `rocketNetworkPenalties` - Gestisce le penalità dei minipool
+- `rocketRewardsPool` - Gestisce la distribuzione delle ricompense a ciascun contratto di ricompense
+- `rocketClaimDAO` - Gestisce la richiesta di ricompense per la pDAO
+- `rocketNodeDeposit` - Gestisce i depositi dei nodi per la creazione di minipool
+- `rocketMerkleDistributorMainnet` - Gestisce la distribuzione delle ricompense RPL ed ETH
+- `rocketNodeDistributorDelegate` - Contiene la logica per i RocketNodeDistributor
+- `rocketNodeDistributorFactory` - Gestisce la creazione dei contratti RocketNodeDistributor
+- `rocketNodeManager` - Registra e gestisce tutti i nodi nella rete
+- `rocketNodeStaking` - Gestisce lo staking e l'unstaking dei nodi
+- `rocketDAOProposal` - Contiene funzionalità comuni a oDAO e pDAO
+- `rocketDAONodeTrusted` - Gestisce le proposte relative alla oDAO
+- `rocketDAONodeTrustedProposals` - Contiene funzionalità delle proposte oDAO (interno)
+- `rocketDAONodeTrustedActions` - Contiene funzionalità delle azioni oDAO (interno)
+- `rocketDAONodeTrustedUpgrade` - Gestisce la funzionalità di aggiornamento del contratto oDAO (interno)
+- `rocketDAONodeTrustedSettingsMembers` - Gestisce le impostazioni relative ai membri trusted
+- `rocketDAONodeTrustedSettingsProposals` - Gestisce le impostazioni relative alle proposte
+- `rocketDAONodeTrustedSettingsMinipool` - Gestisce le impostazioni relative ai minipool
+- `rocketDAONodeTrustedSettingsRewards` - Gestisce le impostazioni relative alle ricompense
+- `rocketDAOProtocol` - Gestisce le proposte relative alla pDAO
+- `rocketDAOProtocolProposals` - Gestisce la funzionalità delle proposte pDAO (interno)
+- `rocketDAOProtocolActions` - Gestisce la funzionalità delle azioni pDAO (interno)
+- `rocketDAOProtocolSettingsInflation` - Gestisce le impostazioni relative all'inflazione
+- `rocketDAOProtocolSettingsRewards` - Gestisce le impostazioni relative alle ricompense
+- `rocketDAOProtocolSettingsAuction` - Gestisce le impostazioni relative al sistema d'asta
+- `rocketDAOProtocolSettingsNode` - Gestisce le impostazioni relative ai node operator
+- `rocketDAOProtocolSettingsNetwork` - Gestisce le impostazioni relative alla rete
+- `rocketDAOProtocolSettingsDeposit` - Gestisce le impostazioni relative ai depositi
+- `rocketDAOProtocolSettingsMinipool` - Gestisce le impostazioni relative ai minipool
+- `rocketTokenRETH` - Il contratto del token rETH (non aggiornabile)
+- `rocketTokenRPL` - Il contratto del token RPL (non aggiornabile)
+- `rocketUpgradeOneDotOne` - Ha gestito l'upgrade del protocollo Rocket Pool Redstone.
+- `rocketUpgradeOneDotTwo` - Ha gestito l'upgrade del protocollo Rocket Pool Atlas
+- `addressQueueStorage` - Un contratto utility (interno)
+- `addressSetStorage` - Un contratto utility (interno)
 
-Legacy Rocket Pool contracts, that have been removed from `RocketStorage` since the initial deployment, are:
+I contratti legacy di Rocket Pool, che sono stati rimossi da `RocketStorage` dalla distribuzione iniziale, sono:
 
-- `rocketClaimNode` - Handled the claiming of rewards for node operators
-- `rocketClaimTrustedNode` - Handled the claiming of rewards for the oDAO
+- `rocketClaimNode` - Gestiva la richiesta di ricompense per i node operator
+- `rocketClaimTrustedNode` - Gestiva la richiesta di ricompense per la oDAO
 
-Contracts marked as “internal” do not provide methods which are accessible to the general public, and so are generally not useful for extension. For information on specific contract methods, consult their interfaces in the [Rocket Pool repository](https://github.com/rocket-pool/rocketpool/tree/master/contracts/interface).
+I contratti contrassegnati come "interni" non forniscono metodi accessibili al pubblico generale e quindi generalmente non sono utili per l'estensione. Per informazioni su metodi specifici dei contratti, consulta le loro interfacce nel [repository Rocket Pool](https://github.com/rocket-pool/rocketpool/tree/master/contracts/interface).
 
-## Deposits
+## Depositi
 
-The main reason for extending the Rocket Pool network is to implement custom deposit logic which funnels user deposits into the deposit pool. For example, a fund manager may wish to stake their users’ ETH in Rocket Pool via their own smart contracts, and abstract the use of Rocket Pool itself away from their users.
+Il motivo principale per estendere la rete Rocket Pool è implementare una logica di deposito personalizzata che incanala i depositi degli utenti nella deposit pool. Ad esempio, un fund manager potrebbe voler mettere in stake l'ETH dei propri utenti in Rocket Pool tramite i propri smart contract e astrarre l'uso di Rocket Pool stesso dai propri utenti.
 
-Note: the `RocketDepositPool` contract address should not be hard-coded in your contracts, but retrieved from `RocketStorage` dynamically. See [Interacting With Rocket Pool](#interacting-with-rocket-pool) for more details.
+Nota: l'indirizzo del contratto `RocketDepositPool` non dovrebbe essere codificato nei tuoi contratti, ma recuperato da `RocketStorage` dinamicamente. Vedi [Interagire con Rocket Pool](#interagire-con-rocket-pool) per maggiori dettagli.
 
-### Implementation
+### Implementazione
 
-The following describes a basic example contract which forwards deposited ETH into Rocket Pool and minted rETH back to the caller:
+Di seguito viene descritto un esempio di contratto base che inoltra l'ETH depositato in Rocket Pool e restituisce rETH mintato al chiamante:
 
 ```solidity
 import "RocketStorageInterface.sol";
@@ -144,28 +144,28 @@ contract Example {
     }
 
     function deposit() external payable {
-        // Check deposit amount
+        // Controlla l'importo del deposito
         require(msg.value > 0, "Invalid deposit amount");
-        // Load contracts
+        // Carica i contratti
         address rocketDepositPoolAddress = rocketStorage.getAddress(keccak256(abi.encodePacked("contract.address", "rocketDepositPool")));
         RocketDepositPoolInterface rocketDepositPool = RocketDepositPoolInterface(rocketDepositPoolAddress);
         address rocketTokenRETHAddress = rocketStorage.getAddress(keccak256(abi.encodePacked("contract.address", "rocketTokenRETH")));
         RocketTokenRETHInterface rocketTokenRETH = RocketTokenRETHInterface(rocketTokenRETHAddress);
-        // Forward deposit to RP & get amount of rETH minted
+        // Inoltra il deposito a RP e ottieni la quantità di rETH mintato
         uint256 rethBalance1 = rocketTokenRETH.balanceOf(address(this));
         rocketDepositPool.deposit{value: msg.value}();
         uint256 rethBalance2 = rocketTokenRETH.balanceOf(address(this));
         require(rethBalance2 > rethBalance1, "No rETH was minted");
         uint256 rethMinted = rethBalance2 - rethBalance1;
-        // Update user's balance
+        // Aggiorna il saldo dell'utente
         balances[msg.sender] += rethMinted;
     }
 
     function withdraw() external {
-        // Load contracts
+        // Carica i contratti
         address rocketTokenRETHAddress = rocketStorage.getAddress(keccak256(abi.encodePacked("contract.address", "rocketTokenRETH")));
         RocketTokenRETHInterface rocketTokenRETH = RocketTokenRETHInterface(rocketTokenRETHAddress);
-        // Transfer rETH to caller
+        // Trasferisci rETH al chiamante
         uint256 balance = balances[msg.sender];
         balances[msg.sender] = 0;
         require(rocketTokenRETH.transfer(msg.sender, balance), "rETH was not transferred to caller");

@@ -1,113 +1,113 @@
-# Practicing with the Test Network
+# Pratique avec le Réseau de Test
 
-An Ethereum **test network** (`testnet` for short) is an Ethereum blockchain, functionally identical to the standard Ethereum blockchain, but it's intended to be used for testing smart contracts before they go live onto the main "real" blockchain (called `mainnet`).
-Testnets run in parallel with mainnet - there are actually several of them running right now!
+Un **réseau de test** Ethereum (`testnet` en abrégé) est une blockchain Ethereum, fonctionnellement identique à la blockchain Ethereum standard, mais elle est destinée à être utilisée pour tester des contrats intelligents avant qu'ils ne soient mis en service sur la blockchain "réelle" principale (appelée `mainnet`).
+Les réseaux de test fonctionnent en parallèle avec le réseau principal - il y en a en fait plusieurs en cours d'exécution en ce moment !
 
-You can read more about some of the Execution Layer testnets [here](https://support.mycrypto.com/how-to/getting-started/where-to-get-testnet-ether) if you like.
-Rocket Pool uses **Hoodi** for its Execution Layer testnet.
-You can use a block explorer for it here if you'd like to take a look at it: [https://hoodi.etherscan.io/](https://hoodi.etherscan.io/)
+Vous pouvez en savoir plus sur certains des réseaux de test de la couche d'exécution [ici](https://support.mycrypto.com/how-to/getting-started/where-to-get-testnet-ether) si vous le souhaitez.
+Rocket Pool utilise **Hoodi** pour son réseau de test de couche d'exécution.
+Vous pouvez utiliser un explorateur de blocs pour celui-ci ici si vous souhaitez y jeter un œil : [https://hoodi.etherscan.io/](https://hoodi.etherscan.io/)
 
-The same concept applies to the Consensus Layer as well.
-Rocket Pool uses **Hoodi** for its Consensus Layer testnet.
-You can find a block explorer for it here: [https://hoodi.beaconcha.in/](https://hoodi.beaconcha.in/)
+Le même concept s'applique à la couche de consensus également.
+Rocket Pool utilise **Hoodi** pour son réseau de test de couche de consensus.
+Vous pouvez trouver un explorateur de blocs pour celui-ci ici : [https://hoodi.beaconcha.in/](https://hoodi.beaconcha.in/)
 
-Because the networks are intended for testing, **ETH on them is given out for free to help people test**.
-This ETH **cannot be transferred** to mainnet; it must stay on Hoodi and has no real value, so you can think of it as **Monopoly money**.
+Parce que les réseaux sont destinés aux tests, **l'ETH sur ceux-ci est distribué gratuitement pour aider les gens à tester**.
+Cet ETH **ne peut pas être transféré** vers le réseau principal ; il doit rester sur Hoodi et n'a pas de valeur réelle, vous pouvez donc le considérer comme **de l'argent Monopoly**.
 
 ::: danger
-**DO NOT use your real ETH from mainnet at any point if you are trying out Rocket Pool's test network!**
-You will **lose your funds** forever if you do this!
-You should only use test ETH that you received on the Hoodi network from a faucet (described below)!
+**N'utilisez PAS votre vrai ETH du réseau principal si vous essayez le réseau de test de Rocket Pool !**
+Vous **perdrez vos fonds** pour toujours si vous faites cela !
+Vous ne devriez utiliser que l'ETH de test que vous avez reçu sur le réseau Hoodi à partir d'un robinet (décrit ci-dessous) !
 :::
 
-## Configuring the Testnet
+## Configuration du Réseau de Test
 
-[The default configuration of Rocket Pool using Docker](../install-modes) handles all of the settings involved in using a testnet for you automatically.
-There's nothing special you need to do.
+[La configuration par défaut de Rocket Pool utilisant Docker](../install-modes) gère automatiquement tous les paramètres impliqués dans l'utilisation d'un réseau de test pour vous.
+Il n'y a rien de spécial que vous devez faire.
 
-If you're using [a different setup](../install-modes) with an external execution or consensus client, or are running your clients [natively without Docker](../install-modes), then you will need to set this up manually:
+Si vous utilisez [une configuration différente](../install-modes) avec un client d'exécution ou de consensus externe, ou si vous exécutez vos clients [nativement sans Docker](../install-modes), vous devrez configurer cela manuellement :
 
-- For **Geth**: add `--hoodi` to the launch command.
-- For **Lighthouse**: add `--network hoodi` to the launch command.
-- For **Nimbus**: add `--network=hoodi` to the launch command.
-- For **Prysm**: add `--hoodi` to the launch command.
-- For **Teku**: add `--network=hoodi` to the launch command.
-- For **Lodestar**: prefix the launch command with `LODESTAR_NETWORK=hoodi`
+- Pour **Geth** : ajoutez `--hoodi` à la commande de lancement.
+- Pour **Lighthouse** : ajoutez `--network hoodi` à la commande de lancement.
+- Pour **Nimbus** : ajoutez `--network=hoodi` à la commande de lancement.
+- Pour **Prysm** : ajoutez `--hoodi` à la commande de lancement.
+- Pour **Teku** : ajoutez `--network=hoodi` à la commande de lancement.
+- Pour **Lodestar** : préfixez la commande de lancement avec `LODESTAR_NETWORK=hoodi`
 
-Check the next section to learn how to get some test ETH on Hoodi, which you'll need to test Rocket Pool out.
+Consultez la section suivante pour apprendre comment obtenir de l'ETH de test sur Hoodi, dont vous aurez besoin pour tester Rocket Pool.
 
-## Getting Test ETH on Hoodi
+## Obtenir de l'ETH de Test sur Hoodi
 
-To use the Rocket Pool test network, you'll need ETH on Hoodi.
-Luckily, you can get this for free using a **faucet** - an automated service that will provide you with Hoodi ETH to test with.
+Pour utiliser le réseau de test Rocket Pool, vous aurez besoin d'ETH sur Hoodi.
+Heureusement, vous pouvez obtenir cela gratuitement en utilisant un **robinet** - un service automatisé qui vous fournira de l'ETH Hoodi pour tester.
 
 ::: warning NOTE
-You will need to provide an Ethereum address in order to receive test ETH.
+Vous devrez fournir une adresse Ethereum pour recevoir de l'ETH de test.
 
-If you are just trying to stake your ETH normally and receive rETH, please review the [Staking Guide](../../liquid-staking/overview) before getting Hoodi ETH.
-You will be prompted to return here at the appropriate step.
+Si vous essayez simplement de staker votre ETH normalement et de recevoir du rETH, veuillez consulter le [Guide de Staking](../../liquid-staking/overview) avant d'obtenir de l'ETH Hoodi.
+Vous serez invité à revenir ici à l'étape appropriée.
 
-If you are planning to run a node, please go through the [Node Operator Guide](../responsibilities) to set up a node and create a new wallet first.
-You will be prompted to return here at the appropriate step.
+Si vous prévoyez d'exploiter un nœud, veuillez parcourir le [Guide de l'Opérateur de Nœud](../responsibilities) pour configurer un nœud et créer d'abord un nouveau portefeuille.
+Vous serez invité à revenir ici à l'étape appropriée.
 :::
 
-Rocket Pool provides a faucet in its [Discord server](https://discord.gg/rocketpool).
-Join the server and head to the `#support` channel.
+Rocket Pool fournit un robinet sur son [serveur Discord](https://discord.gg/rocketpool).
+Rejoignez le serveur et dirigez-vous vers le canal `#support`.
 
-Here, you can ask for testnet ETH.
-You will need to provide your node address.
+Ici, vous pouvez demander de l'ETH de test.
+Vous devrez fournir l'adresse de votre nœud.
 
 ::: warning NOTE
-The testnet faucet bot is no longer directly accessible to the public due to previous abuse.
-It is only available to the dev team and prominent members of the community.
-To receive testnet eth, run the below commands, state your intentions in the channel.
-Be patient and someone will access the faucet on your behalf.
+Le bot de robinet du réseau de test n'est plus directement accessible au public en raison d'abus antérieurs.
+Il n'est disponible que pour l'équipe de développement et les membres éminents de la communauté.
+Pour recevoir de l'eth de test, exécutez les commandes ci-dessous, indiquez vos intentions dans le canal.
+Soyez patient et quelqu'un accédera au robinet en votre nom.
 :::
 
-If you aren't planning to register a node and just want some ETH to test staking to receive rETH, type the following command in the channel:
+Si vous ne prévoyez pas d'enregistrer un nœud et que vous voulez simplement de l'ETH pour tester le staking afin de recevoir du rETH, tapez la commande suivante dans le canal :
 
 ```
-!hoodiEth <your hoodi address>
+!hoodiEth <votre adresse hoodi>
 ```
 
-without the angle brackets.
-If your wallet doesn't have any ETH already, the bot will send your wallet 1 ETH to test with.
+sans les crochets.
+Si votre portefeuille n'a pas déjà d'ETH, le bot enverra à votre portefeuille 1 ETH pour tester.
 
-If you _are_ planning to run a node, do the following:
+Si vous _prévoyez_ d'exploiter un nœud, procédez comme suit :
 
-1. Start by running the `!hoodiEth` command above to acquire enough ETH to register your node
-2. Register your node (see the [Preparing your Node](../prepare-node) page for instructions)
-3. Run the following command to get 8 Hoodi ETH so you can create a validator:
+1. Commencez par exécuter la commande `!hoodiEth` ci-dessus pour acquérir suffisamment d'ETH pour enregistrer votre nœud
+2. Enregistrez votre nœud (consultez la page [Préparation de votre Nœud](../prepare-node) pour les instructions)
+3. Exécutez la commande suivante pour obtenir 8 ETH Hoodi afin de pouvoir créer un validateur :
 
 ```
-!hoodiOperator <your hoodi address>
+!hoodiOperator <votre adresse hoodi>
 ```
 
-In order to use `!hoodiOperator`, the address you provide it _must_ be a registered Rocket Pool node.
-Therefore, you must follow these 3 steps in that order.
+Pour utiliser `!hoodiOperator`, l'adresse que vous fournissez _doit_ être un nœud Rocket Pool enregistré.
+Par conséquent, vous devez suivre ces 3 étapes dans cet ordre.
 
-## Getting Test RPL on Hoodi
+## Obtenir du RPL de Test sur Hoodi
 
-If you're testing out node operation, you'll need some test RPL in addition to test ETH.
+Si vous testez l'exploitation de nœud, vous aurez besoin de RPL de test en plus de l'ETH de test.
 
-Rocket Pool provides a faucet in its [Discord server](https://discord.gg/rocketpool).
-Join the server and head to the `#support` channel.
+Rocket Pool fournit un robinet sur son [serveur Discord](https://discord.gg/rocketpool).
+Rejoignez le serveur et dirigez-vous vers le canal `#support`.
 
-Here, you can ask for testnet RPL.
-You will need to provide your node address.
+Ici, vous pouvez demander du RPL de test.
+Vous devrez fournir l'adresse de votre nœud.
 
 ::: warning NOTE
-The testnet faucet bot is no longer directly accessible to the public due to previous abuse.
-It is only available to the dev team and prominent members of the community.
-To receive testnet RPL, run the below commands, state your intentions in the channel.
-Be patient and someone will access the faucet on your behalf.
+Le bot de robinet du réseau de test n'est plus directement accessible au public en raison d'abus antérieurs.
+Il n'est disponible que pour l'équipe de développement et les membres éminents de la communauté.
+Pour recevoir du RPL de test, exécutez les commandes ci-dessous, indiquez vos intentions dans le canal.
+Soyez patient et quelqu'un accédera au robinet en votre nom.
 :::
 
 ```
-!hoodiRpl <your hoodi node address>
+!hoodiRpl <votre adresse de nœud hoodi>
 ```
 
-This will provide you with 600 of the **legacy (v1) RPL** token, which is analogous to the original RPL token on mainnet.
-Rocket Pool uses a **new (v2) RPL** token which supports the inflation used to reward node operators.
+Cela vous fournira 600 du token **RPL hérité (v1)**, qui est analogue au token RPL original sur le réseau principal.
+Rocket Pool utilise un **nouveau token RPL (v2)** qui prend en charge l'inflation utilisée pour récompenser les opérateurs de nœuds.
 
-To learn how to swap legacy RPL for new RPL, follow the steps in the [Creating a Minipool (Validator)](../create-validator) guide.
+Pour apprendre à échanger du RPL hérité contre du nouveau RPL, suivez les étapes du guide [Création d'un Minipool (Validateur)](../create-validator).

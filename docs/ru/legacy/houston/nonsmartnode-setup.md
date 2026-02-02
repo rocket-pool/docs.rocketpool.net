@@ -1,38 +1,38 @@
-# Voting setup for non-smartnode users
+# Настройка голосования для пользователей без smartnode
 
-Some users (eg, Allnodes users) don't use the smartnode and may need to set up voting using direct contract interaction.
-This guide contains both a minimal and a complete setup guide for such users.
+Некоторые пользователи (например, пользователи Allnodes) не используют smartnode и могут потребовать настройки голосования через прямое взаимодействие с контрактами.
+Это руководство содержит как минимальное, так и полное руководство по настройке для таких пользователей.
 
 ::: tip
-Your node address should be loaded onto a hardware wallet for this.
+Для этого ваш адрес узла должен быть загружен на аппаратный кошелёк.
 :::
 
-## Minimal setup guide
+## Минимальное руководство по настройке
 
-This allows your delegate to vote for you on-chain and offchain. You'll be able to override your delegate on-chain, but not off-chain.
+Это позволяет вашему делегату голосовать за вас он-чейн и офф-чейн. Вы сможете переопределить своего делегата он-чейн, но не офф-чейн.
 
-- Use etherscan to initialize vote power ("Connect to Web3" with node address) with a delegate https://etherscan.io/address/0xA9d27E1952f742d659143a544d3e535fFf3Eebe1#writeContract#F2
-- You can find delegates at https://delegates.rocketpool.net/
+- Используйте etherscan для инициализации силы голоса ("Connect to Web3" с адресом узла) с делегатом https://etherscan.io/address/0xA9d27E1952f742d659143a544d3e535fFf3Eebe1#writeContract#F2
+- Вы можете найти делегатов на https://delegates.rocketpool.net/
 
-## Full setup guide
+## Полное руководство по настройке
 
-Use etherscan to initialize vote power ("Connect to Web3" with node address)
+Используйте etherscan для инициализации силы голоса ("Connect to Web3" с адресом узла)
 
-- [recommended for most] Initialize voting with a different node as the delegate https://etherscan.io/address/0xA9d27E1952f742d659143a544d3e535fFf3Eebe1#writeContract#F2
-  - You can find delegates at https://delegates.rocketpool.net/
-  - Remember you will always be able to override your delegates
-- Initialize voting with your own node as the delegate https://etherscan.io/address/0xA9d27E1952f742d659143a544d3e535fFf3Eebe1#writeContract#F1
-  - Here you'll be responsible for voting every time
-  - I would mostly suggest this option for folks that wish to be delegates since they _do_ need to vote every time.
-- If your node was registered after Houston:
-  - You will already have your vote power initialized with your own node as the delegate
-  - You can set a new delegate with https://etherscan.io/address/0xA9d27E1952f742d659143a544d3e535fFf3Eebe1#writeContract#F3
+- [рекомендуется для большинства] Инициализируйте голосование с другим узлом в качестве делегата https://etherscan.io/address/0xA9d27E1952f742d659143a544d3e535fFf3Eebe1#writeContract#F2
+  - Вы можете найти делегатов на https://delegates.rocketpool.net/
+  - Помните, что вы всегда сможете переопределить своих делегатов
+- Инициализируйте голосование со своим собственным узлом в качестве делегата https://etherscan.io/address/0xA9d27E1952f742d659143a544d3e535fFf3Eebe1#writeContract#F1
+  - Здесь вы будете нести ответственность за голосование каждый раз
+  - Я бы в основном рекомендовал этот вариант для тех, кто хочет быть делегатами, поскольку им _нужно_ голосовать каждый раз.
+- Если ваш узел был зарегистрирован после Houston:
+  - У вас уже будет инициализирована сила голоса с вашим собственным узлом в качестве делегата
+  - Вы можете установить нового делегата с помощью https://etherscan.io/address/0xA9d27E1952f742d659143a544d3e535fFf3Eebe1#writeContract#F3
 
-Set snapshot signalling address:
+Установите адрес сигнализации snapshot:
 
-- Go to https://node.rocketpool.net/signalling-address and connect your node address
-  - Put in your desired snapshot signalling address and sign the message to get the r, s, and v arguments you'll need
-  - Note: your snapshot signalling address MUST NOT be your node address
-- In a new tab, go to https://etherscan.io/address/0xc1062617d10Ae99E09D941b60746182A87eAB38F#writeContract#F2
-  - "Connect to Web3" with node address
-  - Fill in the arguments with your signalling address and the r, s, v parameters given in the previous step
+- Перейдите на https://node.rocketpool.net/signalling-address и подключите адрес вашего узла
+  - Введите желаемый адрес сигнализации snapshot и подпишите сообщение, чтобы получить аргументы r, s и v, которые вам понадобятся
+  - Примечание: ваш адрес сигнализации snapshot НЕ ДОЛЖЕН быть адресом вашего узла
+- В новой вкладке перейдите на https://etherscan.io/address/0xc1062617d10Ae99E09D941b60746182A87eAB38F#writeContract#F2
+  - "Connect to Web3" с адресом узла
+  - Заполните аргументы своим адресом сигнализации и параметрами r, s, v, указанными на предыдущем шаге

@@ -1,22 +1,19 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Expiration de l'historique pré-Merge
+# Expiration de l'Historique Pré-Fusion
 
-Tous les clients d'exécution prennent désormais en charge l'expiration partielle de l'historique conformément à [EIP-4444](https://eips.ethereum.org/EIPS/eip-4444). Les utilisateurs peuvent considérablement
-réduire les besoins de stockage de leur nœud en supprimant l'historique des blocs pré-merge à partir de la version `v1.17.0` du Smartnode. N'hésitez pas à consulter
-cet article de blog pour en savoir plus sur l'expiration partielle de l'historique : https://blog.ethereum.org/2025/07/08/partial-history-exp
+Tous les clients d'exécution prennent désormais en charge l'expiration partielle de l'historique conformément à [EIP-4444](https://eips.ethereum.org/EIPS/eip-4444). Les utilisateurs peuvent réduire considérablement les besoins de stockage de leur nœud en supprimant l'historique des blocs pré-fusion à partir de la version Smartnode `v1.17.0`. N'hésitez pas à consulter cet article de blog pour en savoir plus sur l'expiration partielle de l'historique : https://blog.ethereum.org/2025/07/08/partial-history-exp
 
-::: tip REMARQUE
+::: tip NOTE
 
-    Veuillez garder à l'esprit que les étapes pour supprimer l'historique pré-merge dépendent du client d'exécution sélectionné par votre nœud :
-    - Les utilisateurs de Nethermind devront effectuer une resynchronisation complète pour supprimer l'historique pré-merge.
+    Veuillez garder à l'esprit que les étapes pour supprimer l'historique pré-fusion dépendent du client d'exécution sélectionné par votre nœud :
+    - Les utilisateurs de Nethermind devront effectuer une resynchronisation complète pour supprimer l'historique pré-fusion.
     - Les utilisateurs de Geth peuvent utiliser la commande `rocketpool service prune-eth1` ou effectuer une resynchronisation complète.
     - Les utilisateurs de Besu et Reth peuvent effectuer un élagage en ligne pendant que leur nœud continue d'attester.
 
 :::
 
-Les étapes suivantes pour supprimer l'historique pré-merge sont uniquement pour les nœuds en mode Docker. Si vous utilisez un client externe en
-mode hybride ou en mode natif, veuillez vous référer à la documentation fournie par votre client d'exécution.
+Les étapes suivantes pour supprimer l'historique pré-fusion sont uniquement pour les nœuds en mode Docker. Si vous utilisez un client externe en mode Hybride ou en mode Natif, veuillez vous référer à la documentation fournie par votre client d'exécution.
 
 Commencez par ouvrir le gestionnaire de paramètres :
 
@@ -24,16 +21,15 @@ Commencez par ouvrir le gestionnaire de paramètres :
 rocketpool service config
 ```
 
-Pour changer le mode d'élagage du client d'exécution, allez dans le menu `Execution Client (ETH1)` et sélectionnez le paramètre `History Expiry` dans le menu déroulant pour `Pruning Mode`
+Pour modifier le mode d'élagage du client d'exécution, accédez au menu `Execution Client (ETH1)` et sélectionnez le paramètre `History Expiry` dans le menu déroulant pour `Pruning Mode`
 
 ![](../images/tui-history-expiry.png)
 
-Après avoir effectué la sélection, appuyez sur `escape` pour revenir au menu principal, puis appuyez sur `tab` pour mettre en surbrillance le bouton `Review Changes and Save`. Appuyez sur
-la touche `entrée` pour continuer. Vous verrez un menu pour prévisualiser les modifications de vos paramètres de client d'exécution.
+Une fois que vous avez fait la sélection, appuyez sur `échap` pour revenir au menu principal, puis appuyez sur `tab` pour mettre en surbrillance le bouton `Review Changes and Save`. Appuyez sur la touche `entrée` pour continuer. Un menu s'affichera pour prévisualiser les modifications apportées aux paramètres de votre client d'exécution.
 
 ![](../images/tui-review-history-expiry.png)
 
-Appuyez sur la touche `enter` sur `Save Settings` pour enregistrer et quitter le gestionnaire de paramètres, puis entrez `y` pour redémarrer votre conteneur `rocketpool_eth1`.
+Appuyez sur la touche `entrée` sur `Save Settings` pour enregistrer et quitter le gestionnaire de paramètres, puis entrez `y` pour redémarrer votre conteneur `rocketpool_eth1`.
 
 ```shell
 Your changes have been saved!
@@ -42,19 +38,16 @@ The following containers must be restarted for the changes to take effect:
 Would you like to restart them automatically now? [y/n]
 ```
 
-À partir de ce point, les étapes diffèrent selon le client d'exécution que vous utilisez :
+À partir de ce moment, les étapes diffèrent selon le client d'exécution que vous utilisez :
 
 <div className="p-3">
   <Tabs>
 
         <Tab label="Nethermind">
-        Les nœuds Nethermind nécessitent une resynchronisation complète pour supprimer l'historique pré-merge. Vous devez resynchroniser votre client d'exécution après avoir enregistré
-        le paramètre `History Expiry` et redémarré votre conteneur `eth1`.
+        Les nœuds Nethermind nécessitent une resynchronisation complète pour supprimer l'historique pré-fusion. Vous devez resynchroniser votre client d'exécution après avoir enregistré le paramètre `History Expiry` et redémarré votre conteneur `eth1`.
 
-        ::: warning AVERTISSEMENT
-        Si vous n'avez pas de nœud de secours configuré, votre nœud arrêtera de valider pendant une resynchronisation. Un nœud de secours
-        permettra à votre nœud principal de continuer à attester et à proposer des blocs pendant un élagage ou une resynchronisation. Cliquez [ici](/fr/node-staking/fallback)
-        pour apprendre comment configurer un nœud de secours.
+        ::: warning WARNING
+        Si vous n'avez pas configuré de nœud de secours, votre nœud cessera de valider pendant une resynchronisation. Un nœud de secours permettra à votre nœud principal de continuer à attester et à proposer des blocs pendant un élagage ou une resynchronisation. Cliquez [ici](/fr/node-staking/fallback) pour apprendre comment configurer un nœud de secours.
         :::
 
         Utilisez la commande suivante pour resynchroniser votre client d'exécution :
@@ -62,8 +55,7 @@ Would you like to restart them automatically now? [y/n]
         rocketpool service resync-eth1
         ```
 
-        C'est tout ! Le nœud ne stockera plus de données pré-merge, améliorant considérablement la faisabilité de faire tenir un nœud sur un disque de 2 To.
-        Nous recommandons de surveiller la progression en utilisant la commande suivante.
+        Vous êtes prêt ! Le nœud ne stockera plus les données pré-fusion, améliorant considérablement la faisabilité d'installer un nœud sur un disque de 2 To. Nous vous recommandons de surveiller la progression à l'aide de la commande suivante.
         ```shell
         rocketpool service logs eth1
         ```
@@ -72,18 +64,14 @@ Would you like to restart them automatically now? [y/n]
 
     <Tab label="Geth">
 
-        Les nœuds Geth nécessitent un élagage hors ligne pour supprimer l'historique pré-merge. Vous devez élaguer votre client d'exécution après avoir enregistré
-        le paramètre `History Expiry` et redémarré votre conteneur `eth1`. Alternativement, vous pouvez choisir d'effectuer une resynchronisation complète pour supprimer l'historique pré-merge.
+        Les nœuds Geth nécessitent un élagage hors ligne pour supprimer l'historique pré-fusion. Vous devez élaguer votre client d'exécution après avoir enregistré le paramètre `History Expiry` et redémarré votre conteneur `eth1`. Alternativement, vous pouvez choisir d'effectuer une resynchronisation complète pour supprimer l'historique pré-fusion.
 
-        ::: tip REMARQUE
-        Nous recommandons l'élagage plutôt qu'une resynchronisation complète. Si vous souhaitez recommencer avec une base de données Geth fraîche ou avez un problème
-        avec l'élagage, vous pouvez resynchroniser le client d'exécution en utilisant `rocketpool service resync-eth1`. Les deux choix devraient aboutir à l'expiration de l'historique pré-merge.
+        ::: tip NOTE
+        Nous recommandons l'élagage plutôt qu'une resynchronisation complète. Si vous souhaitez repartir de zéro avec une nouvelle base de données Geth ou si vous avez un problème avec l'élagage, vous pouvez resynchroniser le client d'exécution en utilisant `rocketpool service resync-eth1`. Les deux options devraient aboutir à l'expiration de l'historique pré-fusion.
         :::
 
-        ::: warning AVERTISSEMENT
-        Si vous n'avez pas de nœud de secours configuré, votre nœud arrêtera de valider pendant un élagage ou une resynchronisation. Un nœud de secours
-        permettra à votre nœud principal de continuer à attester et à proposer des blocs pendant un élagage ou une resynchronisation. Cliquez [ici](/fr/node-staking/fallback)
-        pour apprendre comment configurer un nœud de secours.
+        ::: warning WARNING
+        Si vous n'avez pas configuré de nœud de secours, votre nœud cessera de valider pendant un élagage ou une resynchronisation. Un nœud de secours permettra à votre nœud principal de continuer à attester et à proposer des blocs pendant un élagage ou une resynchronisation. Cliquez [ici](/fr/node-staking/fallback) pour apprendre comment configurer un nœud de secours.
         :::
 
         Veuillez exécuter la commande suivante pour élaguer votre client d'exécution :
@@ -92,8 +80,7 @@ Would you like to restart them automatically now? [y/n]
         ```
         Vous pouvez cliquer [ici](/fr/node-staking/pruning#starting-a-prune) pour en savoir plus sur l'élagage.
 
-        C'est tout ! Le nœud ne stockera plus de données pré-merge, améliorant considérablement la faisabilité de faire tenir un nœud sur un disque de 2 To.
-        Nous recommandons de surveiller la progression en utilisant la commande suivante.
+        Vous êtes prêt ! Le nœud ne stockera plus les données pré-fusion, améliorant considérablement la faisabilité d'installer un nœud sur un disque de 2 To. Nous vous recommandons de surveiller la progression à l'aide de la commande suivante.
         ```shell
         rocketpool service logs eth1
         ```
@@ -102,9 +89,7 @@ Would you like to restart them automatically now? [y/n]
 
     <Tab label="Besu">
 
-        C'est tout ! Les nœuds Besu effectueront un élagage en ligne tout en continuant à attester et à proposer des blocs.
-        Le nœud ne stockera plus de données pré-merge, améliorant considérablement la faisabilité de faire tenir un nœud sur un disque de 2 To.
-        Nous recommandons de surveiller la progression en utilisant la commande suivante.
+        Vous êtes prêt ! Les nœuds Besu effectueront un élagage en ligne tout en continuant à attester et à proposer des blocs. Le nœud ne stockera plus les données pré-fusion, améliorant considérablement la faisabilité d'installer un nœud sur un disque de 2 To. Nous vous recommandons de surveiller la progression à l'aide de la commande suivante.
         ```shell
         rocketpool service logs eth1
         ```
@@ -113,9 +98,7 @@ Would you like to restart them automatically now? [y/n]
 
     <Tab label="Reth">
 
-        C'est tout ! Les nœuds Reth effectueront un élagage en ligne tout en continuant à attester et à proposer des blocs.
-        Le nœud ne stockera plus de données pré-merge, améliorant considérablement la faisabilité de faire tenir un nœud sur un disque de 2 To.
-        Nous recommandons de surveiller la progression en utilisant la commande suivante.
+        Vous êtes prêt ! Les nœuds Reth effectueront un élagage en ligne tout en continuant à attester et à proposer des blocs. Le nœud ne stockera plus les données pré-fusion, améliorant considérablement la faisabilité d'installer un nœud sur un disque de 2 To. Nous vous recommandons de surveiller la progression à l'aide de la commande suivante.
         ```shell
         rocketpool service logs eth1
          ```

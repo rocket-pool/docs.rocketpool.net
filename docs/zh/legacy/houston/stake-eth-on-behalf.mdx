@@ -2,51 +2,51 @@ import { Tab, Tabs } from "@rspress/core/theme";
 import mmNetwork from "./images/mm_network.png";
 import mmNetworkMain from "./images/mm_network_main.png";
 
-# Stake ETH on behalf of node
+# 代表节点质押 ETH
 
-RPIP-32 allows an account to [stake ETH on behalf](https://rpips.rocketpool.net/RPIPs/RPIP-32) of a Rocket Pool node that is registered in the protocol. This supports a variety of situations where the node operator is not directly providing the ETH:
+RPIP-32 允许账户[代表](https://rpips.rocketpool.net/RPIPs/RPIP-32)已在协议中注册的 Rocket Pool 节点质押 ETH。这支持多种情况,其中节点运营者并非直接提供 ETH:
 
-- Enhanced security for node operators, as they can stake directly from their hardware wallet, eliminating the need to transfer funds to the node beforehand.
-- Staking as a Service providers where custody of funds are managed by a trusted custodian.
-- Protocol integrations where custody of funds are managed by smart contracts.
-- DAOs or organizations where custody of funds are managed by a treasury.
+- 为节点运营者增强安全性,因为他们可以直接从硬件钱包质押,无需事先将资金转移到节点。
+- 质押即服务提供商,其中资金托管由受信任的托管方管理。
+- 协议集成,其中资金托管由智能合约管理。
+- DAO 或组织,其中资金托管由金库管理。
 
-While the primary aim of this feature is to facilitate single depositor scenarios, it’s worth noting that multiple independent depositors can also leverage this capability by creating smart contracts layered on top. Rocket Pool also introduced the ability to [stake RPL on behalf](../../node-staking/create-validator#whitelisting-an-address-to-stake-on-behalf) of a node back in our previous Atlas release.
+虽然此功能的主要目的是促进单一存款人场景,但值得注意的是,多个独立存款人也可以通过在上层创建智能合约来利用此功能。Rocket Pool 还在我们之前的 Atlas 版本中引入了[代表节点质押 RPL](../../node-staking/create-validator#whitelisting-an-address-to-stake-on-behalf) 的能力。
 
-### Prerequisite
+### 前提条件
 
-Make sure that you've properly configured the [primary withdrawal address](../../node-staking/prepare-node#setting-your-primary-withdrawal-address) of the node you intend on funding. Follow the link above for a guide on how withdrawal addresses act post houston.
+确保您已正确配置了您打算资助的节点的[主提款地址](../../node-staking/prepare-node#setting-your-primary-withdrawal-address)。请点击上面的链接查看 houston 后提款地址如何运作的指南。
 
-::: tip NOTE
-Don't skip this step! All ETH bond/rewards will be withdrawn to the primary withdrawal address. In other words, the address that supplies ETH for a node should be used as the primary withdrawal address! Please make sure that the node's primary withdrawal address is set to a wallet you have custody over.
+::: tip 注意
+不要跳过此步骤!所有 ETH 保证金/奖励将被提取到主提款地址。换句话说,为节点提供 ETH 的地址应该用作主提款地址!请确保节点的主提款地址设置为您拥有托管权的钱包。
 :::
 
-The process is slightly different for the Hoodi Testnet and Mainnet, so choose the network you are interested in from the tabs below.
+Hoodi 测试网和主网的流程略有不同,因此请从下面的选项卡中选择您感兴趣的网络。
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Preparing on the Hoodi Testnet">
+    <Tab label="在 Hoodi 测试网上准备">
 
       <p className="rspress-directive danger">
-        <p className="rspress-directive-title">WARNING</p>
-        When practicing staking on the test network, you **do not need to provide any of your real ETH** during this process.
-        You will be given **fake test ETH** to use instead.
+        <p className="rspress-directive-title">警告</p>
+        在测试网络上练习质押时,您**无需提供任何真实的 ETH**。
+        您将获得**假的测试 ETH** 来使用。
 
-        **Do not attempt to move your real ETH on mainnet to the testnet or you will lose it permanently!**
+        **不要尝试将您的真实 ETH 从主网转移到测试网,否则您将永久失去它!**
       </p>
 
-      Start by installing [MetaMask](https://metamask.io/) if you haven't already.
-      Follow the instructions on their site to install the extension, create an account, and sign in.
+      首先安装 [MetaMask](https://metamask.io/)(如果您还没有安装)。
+      按照他们网站上的说明安装扩展程序、创建账户并登录。
 
-      Next, open the MetaMask panel using its icon in your browser toolbar.
+      接下来,使用浏览器工具栏中的图标打开 MetaMask 面板。
 
-      You will need to add the Hoodi Testnet to MetaMask.
+      您需要将 Hoodi 测试网添加到 MetaMask。
 
-      Click on the top left dropdown & click the "Add Network" button.
+      点击左上角的下拉菜单并点击"添加网络"按钮。
 
-      You will see a list of networks, Hoodi is not in this list so click the "Add a network manually" button.
+      您将看到网络列表,Hoodi 不在此列表中,因此点击"手动添加网络"按钮。
 
-      Fill in the following details:
+      填写以下详细信息:
 
       ```
       Network Name: Hoodi
@@ -56,98 +56,98 @@ The process is slightly different for the Hoodi Testnet and Mainnet, so choose t
       Block Explorer Url: https://hoodi.etherscan.io
       ```
 
-      Then click Save. You should now see the Hoodi network in the top left dropdown.
+      然后点击保存。您现在应该在左上角的下拉菜单中看到 Hoodi 网络。
 
-      Click on the **network dropdown** in the top left of the Metamask extension & select **Hoodi Test Network**:
+      点击 Metamask 扩展程序左上角的**网络下拉菜单**并选择 **Hoodi Test Network**:
 
       <img src={mmNetwork} width="100%" height="auto"/>
 
-      Now that you have a wallet address in MetaMask, you need to fill it with some test ETH.
-      Head over to the [Practicing with the Test Network](../../node-staking/testnet/overview#getting-test-eth-on-hoodi) page for a quick guide on how to use a testnet faucet to get some test ETH on Hoodi.
+      现在您在 MetaMask 中有了钱包地址,您需要用一些测试 ETH 填充它。
+      前往[测试网络练习](../../node-staking/testnet/overview#getting-test-eth-on-hoodi)页面,获取有关如何使用测试网水龙头在 Hoodi 上获取一些测试 ETH 的快速指南。
 
-      Once you have some Hoodi ETH to test with, head to [https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node](https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node).
+      一旦您有了一些 Hoodi ETH 进行测试,请前往 [https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node](https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node)。
 
-      If you see a notice about a web3 browser being required, or the current network ID being unsupported, make sure you’ve completed the previous steps correctly before continuing.
+      如果您看到需要 web3 浏览器的通知,或当前网络 ID 不受支持,请确保您在继续之前已正确完成前面的步骤。
     </Tab>
-    <Tab label="Preparing on the Ethereum Mainnet">
-      Start by installing [MetaMask](https://metamask.io/) if you haven't already.
+    <Tab label="在以太坊主网上准备">
+      首先安装 [MetaMask](https://metamask.io/)(如果您还没有安装)。
 
-      Follow the instructions on their site to install the extension, create an account, and sign in.
+      按照他们网站上的说明安装扩展程序、创建账户并登录。
 
-      Next, open the MetaMask panel using its icon in your browser toolbar.
+      接下来,使用浏览器工具栏中的图标打开 MetaMask 面板。
 
-      Click on the **network dropdown** in the toolbar at the top and ensure that **Ethereum Mainnet** is selected:
+      点击顶部工具栏中的**网络下拉菜单**并确保选择了 **Ethereum Mainnet**:
 
       <img src={mmNetworkMain} width="100%" height="auto"/>
 
-      Now that you have a wallet address in MetaMask, you need to transfer some ETH into it.
+      现在您在 MetaMask 中有了钱包地址,您需要向其中转入一些 ETH。
 
-      You will need to supply this from an existing wallet or buy ETH on an exchange.
+      您需要从现有钱包提供或在交易所购买 ETH。
 
-      Once you have some ETH to stake, head to [https://node.rocketpool.net/deposit-eth-on-behalf-of-node](https://node.rocketpool.net/deposit-eth-on-behalf-of-node).
+      一旦您有了一些 ETH 可以质押,请前往 [https://node.rocketpool.net/deposit-eth-on-behalf-of-node](https://node.rocketpool.net/deposit-eth-on-behalf-of-node)。
 
-      If you see a notice about a web3 browser being required, or the current network ID being unsupported, make sure you’ve completed the previous steps correctly before continuing.
+      如果您看到需要 web3 浏览器的通知,或当前网络 ID 不受支持,请确保您在继续之前已正确完成前面的步骤。
     </Tab>
 
   </Tabs>
 </div>
 
-Once you're at the site, click on the **connect wallet** button. Please read through and accept the Terms of Service & Privacy Policy, this will enable different ways to connect, then click **connect metamask**.
+到达网站后,点击**连接钱包**按钮。请阅读并接受服务条款和隐私政策,这将启用不同的连接方式,然后点击**连接 metamask**。
 
-MetaMask will prompt you to select an account to connect to the website.
-Choose one, confirm a few permissions. You'll see an overview of your balances by clicking the wallet icon located at the top right of the window.
+MetaMask 将提示您选择要连接到网站的账户。
+选择一个,确认一些权限。您可以通过点击窗口右上角的钱包图标来查看余额概览。
 
-From here, you'll want to enter the address of the node you'd like to deposit ETH on behalf of. The page should look like this:
+在这里,您需要输入要代表其存入 ETH 的节点地址。页面应如下所示:
 
 <img src="./images/enter_node_address.png" width="100%" height="auto" />
 
-Go ahead and paste your desired address into this box and click find. In this example, we'll use `0xd3e317806456102d19db283b4c2201f0ef41a296`
+继续将您想要的地址粘贴到此框中并点击查找。在本示例中,我们将使用 `0xd3e317806456102d19db283b4c2201f0ef41a296`
 
 <img src="./images/eth_on_behalf.png" width="100%" height="auto" />
 
-In the first box, enter the amount of ETH you would like to deposit on behalf of the node. The second box indicates which address you'll be depositing ETH on behalf of. Please ensure that you've entered the correct address and deposit. Once you're satisfied, click Deposit and MetaMask will pop up with a window asking you to confirm your transaction.
+在第一个框中,输入您想要代表节点存入的 ETH 数量。第二个框指示您将代表哪个地址存入 ETH。请确保您已输入正确的地址和存款金额。满意后,点击存款,MetaMask 将弹出一个窗口要求您确认交易。
 
-Once you confirm it, the transaction will begin.
-When it's been included in a block and added to the chain, your delegate will be able to use the command `rocketpool node status` in smartnode to see the new balance. This balance can also be viewed through the Rocket Pool staking site.
+一旦您确认,交易将开始。
+当它被包含在区块中并添加到链上后,您的委托人将能够使用智能节点中的命令 `rocketpool node status` 来查看新余额。此余额也可以通过 Rocket Pool 质押网站查看。
 
 ```
 The node has 0.000000 ETH in its credit balance and 8.000000 ETH staked on its behalf. 8.000000 can be used to make new minipools.
 ```
 
-::: warning NOTE
-If a node operator deposits your ETH into a minipool, you won't be able to exit their minipool without access to their withdrawal credentials, so keep this in mind! You can use the Rocket Pool staking site to withdraw ETH staked on behalf of a node if it isn't being used in a minipool.
+::: warning 注意
+如果节点运营者将您的 ETH 存入迷你池,如果没有访问其提款凭证,您将无法退出他们的迷你池,因此请记住这一点!如果 ETH 没有在迷你池中使用,您可以使用 Rocket Pool 质押网站提取代表节点质押的 ETH。
 :::
 
-That's it!
-You're now staking with Rocket Pool.
+就是这样!
+您现在正在使用 Rocket Pool 进行质押。
 
-# Unstake ETH on behalf of node
+# 取消代表节点质押的 ETH
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Preparing on the Hoodi Testnet">
-      When you're ready to withdraw ETH you've staked on behalf of a node, head over to [https://testnet.node.rocketpool.net/withdraw-eth](https://testnet.node.rocketpool.net/withdraw-eth). After
-      signing in as the node's [primary withdrawal address](../../node-staking/prepare-node#setting-your-primary-withdrawal-address), you should be greeted with a familiar menu. You'll be prompted to
-      enter the node address you want to withdraw from:
+    <Tab label="在 Hoodi 测试网上准备">
+      当您准备好提取代表节点质押的 ETH 时,请前往 [https://testnet.node.rocketpool.net/withdraw-eth](https://testnet.node.rocketpool.net/withdraw-eth)。在
+      以节点的[主提款地址](../../node-staking/prepare-node#setting-your-primary-withdrawal-address)登录后,您应该会看到一个熟悉的菜单。系统将提示您
+      输入要从中提取的节点地址:
     </Tab>
-    <Tab label="Preparing on the Ethereum Mainnet">
-      When you're ready to withdraw ETH you've staked on behalf of a node, head over to [https://node.rocketpool.net/withdraw-eth](https://node.rocketpool.net/withdraw-eth). After signing in as the
-      node's [primary withdrawal address](../../node-staking/prepare-node#setting-your-primary-withdrawal-address), you should be greeted with a familiar menu. You'll be prompted to enter the node
-      address you want to withdraw from:
+    <Tab label="在以太坊主网上准备">
+      当您准备好提取代表节点质押的 ETH 时,请前往 [https://node.rocketpool.net/withdraw-eth](https://node.rocketpool.net/withdraw-eth)。在以节点的
+      [主提款地址](../../node-staking/prepare-node#setting-your-primary-withdrawal-address)登录后,您应该会看到一个熟悉的菜单。系统将提示您输入要
+      从中提取的节点地址:
     </Tab>
   </Tabs>
 </div>
 
 <img src="./images/enter_node_address.png" width="100%" height="auto" />
 
-After entering an address, clicking "Find" will take you to the next menu where you can withdraw ETH you've staked on behalf of that node.
+输入地址后,点击"查找"将带您进入下一个菜单,您可以在其中提取您代表该节点质押的 ETH。
 
 <img src="./images/withdraw_eth_on_behalf.png" width="100%" height="auto" />
 
-You'll be able to see how much ETH is available for withdrawal in the top right. After you input your desired quantity and confirm the node address, click the orange **Withdraw ETH** button to send the transaction to the network.
+您将能够在右上角看到可提取的 ETH 数量。输入您想要的数量并确认节点地址后,点击橙色的**提取 ETH** 按钮将交易发送到网络。
 
-Once the transaction is confirmed, you'll see the proper balances in your account!
+交易确认后,您将在账户中看到正确的余额!
 
-That's all there is to staking ETH on behalf of a node! We hope you found the process quick and easy.
+这就是代表节点质押 ETH 的全部内容!我们希望您发现这个过程快速而简单。
 
-Feel free to swing by [our Discord server](https://discord.gg/G46XgK264a) to let us know what you thought of it and keep tabs on the project as it evolves.
+欢迎访问[我们的 Discord 服务器](https://discord.gg/G46XgK264a),让我们知道您的想法,并随时关注项目的发展。

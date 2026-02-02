@@ -1,38 +1,38 @@
-# Voting setup for non-smartnode users
+# 非smartnodeユーザー向けの投票設定
 
-Some users (eg, Allnodes users) don't use the smartnode and may need to set up voting using direct contract interaction.
-This guide contains both a minimal and a complete setup guide for such users.
+一部のユーザー(例: Allnodesのユーザー)はsmartnodeを使用せず、直接コントラクトとのやり取りによって投票を設定する必要がある場合があります。
+このガイドには、そのようなユーザー向けの最小限のセットアップガイドと完全なセットアップガイドの両方が含まれています。
 
 ::: tip
-Your node address should be loaded onto a hardware wallet for this.
+ノードアドレスはハードウェアウォレットに読み込んでおく必要があります。
 :::
 
-## Minimal setup guide
+## 最小限のセットアップガイド
 
-This allows your delegate to vote for you on-chain and offchain. You'll be able to override your delegate on-chain, but not off-chain.
+これにより、デリゲートがオンチェーンとオフチェーンであなたの代わりに投票できるようになります。オンチェーンではデリゲートを上書きできますが、オフチェーンでは上書きできません。
 
-- Use etherscan to initialize vote power ("Connect to Web3" with node address) with a delegate https://etherscan.io/address/0xA9d27E1952f742d659143a544d3e535fFf3Eebe1#writeContract#F2
-- You can find delegates at https://delegates.rocketpool.net/
+- Etherscanを使用して、デリゲートを指定して投票権を初期化します(ノードアドレスで「Connect to Web3」) https://etherscan.io/address/0xA9d27E1952f742d659143a544d3e535fFf3Eebe1#writeContract#F2
+- デリゲートは https://delegates.rocketpool.net/ で見つけることができます
 
-## Full setup guide
+## 完全なセットアップガイド
 
-Use etherscan to initialize vote power ("Connect to Web3" with node address)
+Etherscanを使用して投票権を初期化します(ノードアドレスで「Connect to Web3」)
 
-- [recommended for most] Initialize voting with a different node as the delegate https://etherscan.io/address/0xA9d27E1952f742d659143a544d3e535fFf3Eebe1#writeContract#F2
-  - You can find delegates at https://delegates.rocketpool.net/
-  - Remember you will always be able to override your delegates
-- Initialize voting with your own node as the delegate https://etherscan.io/address/0xA9d27E1952f742d659143a544d3e535fFf3Eebe1#writeContract#F1
-  - Here you'll be responsible for voting every time
-  - I would mostly suggest this option for folks that wish to be delegates since they _do_ need to vote every time.
-- If your node was registered after Houston:
-  - You will already have your vote power initialized with your own node as the delegate
-  - You can set a new delegate with https://etherscan.io/address/0xA9d27E1952f742d659143a544d3e535fFf3Eebe1#writeContract#F3
+- [ほとんどの人に推奨] 別のノードをデリゲートとして投票を初期化 https://etherscan.io/address/0xA9d27E1952f742d659143a544d3e535fFf3Eebe1#writeContract#F2
+  - デリゲートは https://delegates.rocketpool.net/ で見つけることができます
+  - デリゲートはいつでも上書きできることを覚えておいてください
+- 自分のノードをデリゲートとして投票を初期化 https://etherscan.io/address/0xA9d27E1952f742d659143a544d3e535fFf3Eebe1#writeContract#F1
+  - ここでは毎回投票する責任があります
+  - このオプションは主に、毎回投票する必要があるデリゲートになりたい人に提案します
+- ノードがHouston後に登録された場合:
+  - 投票権は既に自分のノードをデリゲートとして初期化されています
+  - https://etherscan.io/address/0xA9d27E1952f742d659143a544d3e535fFf3Eebe1#writeContract#F3 で新しいデリゲートを設定できます
 
-Set snapshot signalling address:
+Snapshotシグナリングアドレスを設定:
 
-- Go to https://node.rocketpool.net/signalling-address and connect your node address
-  - Put in your desired snapshot signalling address and sign the message to get the r, s, and v arguments you'll need
-  - Note: your snapshot signalling address MUST NOT be your node address
-- In a new tab, go to https://etherscan.io/address/0xc1062617d10Ae99E09D941b60746182A87eAB38F#writeContract#F2
-  - "Connect to Web3" with node address
-  - Fill in the arguments with your signalling address and the r, s, v parameters given in the previous step
+- https://node.rocketpool.net/signalling-address にアクセスし、ノードアドレスを接続します
+  - 希望するSnapshotシグナリングアドレスを入力し、メッセージに署名して、必要なr、s、v引数を取得します
+  - 注意: Snapshotシグナリングアドレスはノードアドレスであってはなりません
+- 新しいタブで https://etherscan.io/address/0xc1062617d10Ae99E09D941b60746182A87eAB38F#writeContract#F2 にアクセスします
+  - ノードアドレスで「Connect to Web3」
+  - シグナリングアドレスと前のステップで取得したr、s、vパラメータを使用して引数を入力します

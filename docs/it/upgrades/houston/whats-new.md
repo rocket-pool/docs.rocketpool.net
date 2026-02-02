@@ -1,93 +1,93 @@
 ---
 next:
   text: The Protocol DAO
-  link: "/en/legacy/houston/pdao"
+  link: "/it/legacy/houston/pdao"
 ---
 
-# The Houston Upgrade
+# L'Aggiornamento Houston
 
-The Houston upgrade is largely aimed at introducing a fully on-chain DAO to govern the protocol, known as the Protocol DAO or pDAO. It is a DAO like no other and it does not require snapshot voting or any other 3rd party tools to function, it is truly on-chain and one of a kind, more on that below.
+L'aggiornamento Houston è in gran parte mirato a introdurre una DAO completamente on-chain per governare il protocollo, conosciuta come Protocol DAO o pDAO. È una DAO come nessun'altra e non richiede votazioni snapshot o altri strumenti di terze parti per funzionare, è veramente on-chain e unica nel suo genere, più su questo qui sotto.
 
-This upgrade will also be introducing some other very exciting features that will allow new integrations and platforms to be built on the protocol. Some of these include the ability to stake ETH on behalf of node (not just from the node itself) and a new RPL withdrawal address feature, that allows one party to supply the ETH for staking and another party to provide the RPL without giving custody to the node operator"
+Questo aggiornamento introdurrà anche altre funzionalità molto interessanti che permetteranno la costruzione di nuove integrazioni e piattaforme sul protocollo. Alcune di queste includono la capacità di fare staking di ETH per conto del nodo (non solo dal nodo stesso) e una nuova funzionalità di indirizzo di prelievo RPL, che consente a una parte di fornire gli ETH per lo staking e a un'altra parte di fornire l'RPL senza dare la custodia al node operator.
 
 ## Protocol DAO
 
-The Rocket Pool Protocol DAO (pDAO) is responsible for shaping the direction of the protocol and is run by RPL governance. Its members and their voting power are made up of node operators, big and small, all of which are directly participating in the protocol.
+La Rocket Pool Protocol DAO (pDAO) è responsabile di dare forma alla direzione del protocollo ed è gestita dalla governance RPL. I suoi membri e il loro potere di voto sono composti da node operator, grandi e piccoli, tutti i quali partecipano direttamente al protocollo.
 
-Typically DAO governance in the wider crypto space is done by token weight voting. Basically, the more tokens you hold for a protocol/project, the bigger your voting power. You also don’t need to be actively participating in the protocol, simply holding the tokens is enough.
+Tipicamente la governance DAO nello spazio crypto più ampio viene fatta attraverso votazioni ponderate per token. Fondamentalmente, più token detieni per un protocollo/progetto, maggiore è il tuo potere di voto. Inoltre non hai bisogno di partecipare attivamente al protocollo, semplicemente detenere i token è sufficiente.
 
-This style of governance we wanted to avoid. If you want to help direct and guide the future of Rocket Pool, you need to be actively involved, not just storing tokens in a cold wallet. From the biggest Venture Capitalist funds to your ordinary guy running a single minipool, you will need to be actively participating in the protocol to help govern it.
+Questo stile di governance volevamo evitarlo. Se vuoi aiutare a dirigere e guidare il futuro di Rocket Pool, devi essere attivamente coinvolto, non solo conservare token in un cold wallet. Dal più grande fondo Venture Capitalist al tuo normale tizio che gestisce un singolo minipool, dovrai partecipare attivamente al protocollo per aiutare a governarlo.
 
-Currently the protocol DAO has control over a variety of on-chain settings that are used in the protocol. New Rocket Pool Improvement Proposals (RPIP) can be made and voted on by these Node Operators within Rocket Pool. You can see the [**current RPIP registry here**](https://rpips.rocketpool.net/). If you’re a devil for the details, the current RPIP for the on-chain protocol DAO talked about now can be found here.
+Attualmente la protocol DAO ha il controllo su una varietà di impostazioni on-chain che vengono utilizzate nel protocollo. Nuove Rocket Pool Improvement Proposal (RPIP) possono essere fatte e votate da questi Node Operator all'interno di Rocket Pool. Puoi vedere il [**registro RPIP corrente qui**](https://rpips.rocketpool.net/). Se sei un diavolo per i dettagli, l'attuale RPIP per la protocol DAO on-chain di cui si parla ora può essere trovata qui.
 
-### What can the pDAO do?
+### Cosa può fare la pDAO?
 
-The pDAO has control over many settings of the protocol, it can spend treasury funds and in our Houston upgrade, it comes with a new security council to help react quickly in the event of any potential issues with the protocol. Lets talk about each of those a little more below.
+La pDAO ha il controllo su molte impostazioni del protocollo, può spendere fondi della tesoreria e nel nostro aggiornamento Houston, viene fornita con un nuovo consiglio di sicurezza per aiutare a reagire rapidamente in caso di potenziali problemi con il protocollo. Parliamo un po' di più di ciascuno di questi qui sotto.
 
-**Protocol Parameters:** These control certain facets of the protocol such as the setting that controls the minimum ETH amount that can be deposited for rETH (currently 0.01 ETH) or even controlling the maximum size of the deposit pool, this is how much max ETH that can be deposited into the protocol while waiting to be assigned to node operators for staking. You can find a full table of [these settings here](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table).
+**Parametri del Protocollo:** Questi controllano certe sfaccettature del protocollo come l'impostazione che controlla l'importo minimo di ETH che può essere depositato per rETH (attualmente 0,01 ETH) o anche controllare la dimensione massima del pool di deposito, questo è la quantità massima di ETH che può essere depositata nel protocollo mentre aspetta di essere assegnata ai node operator per lo staking. Puoi trovare una tabella completa di [queste impostazioni qui](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table).
 
-**Treasury Funds:** RPL has a 5% inflation rate and a portion of that is allocated to the pDAO treasury. The pDAO have the ability to spend this treasury on a variety of protocol oriented endeavors, from funding development of the protocol directly, grants management for funding 3rd party improvements and projects that make use of Rocket Pool and more. Our Houston upgrade adds a new ability where these payments from the treasury can be done not just in a lump sum manner, but in a progressive manner to help track goals in relation to ongoing funding.
+**Fondi della Tesoreria:** L'RPL ha un tasso di inflazione del 5% e una parte di questo è allocata alla tesoreria pDAO. La pDAO ha la capacità di spendere questa tesoreria in una varietà di sforzi orientati al protocollo, dal finanziamento dello sviluppo del protocollo direttamente, gestione di sovvenzioni per finanziare miglioramenti di terze parti e progetti che fanno uso di Rocket Pool e altro. Il nostro aggiornamento Houston aggiunge una nuova capacità dove questi pagamenti dalla tesoreria possono essere fatti non solo in modo forfettario, ma in modo progressivo per aiutare a tracciare gli obiettivi in relazione al finanziamento in corso.
 
-**Security Council:** As the Houston upgrade moves the pDAO to a fully on-chain system, a new safety measure was introduced in the form of the [security council](https://rpips.rocketpool.net/RPIPs/RPIP-33#security-council). These members can be elected by the pDAO and they have the ability to pause the protocol quickly in the event any potential issues occur. Quorum must be met among members for any security response to be executed. The pDAO also has the power to remove members or disband the security council entirely if they need to.
+**Consiglio di Sicurezza:** Poiché l'aggiornamento Houston sposta la pDAO a un sistema completamente on-chain, è stata introdotta una nuova misura di sicurezza sotto forma di [consiglio di sicurezza](https://rpips.rocketpool.net/RPIPs/RPIP-33#security-council). Questi membri possono essere eletti dalla pDAO e hanno la capacità di mettere in pausa il protocollo rapidamente in caso si verifichino potenziali problemi. Il quorum deve essere raggiunto tra i membri per qualsiasi risposta di sicurezza da eseguire. La pDAO ha anche il potere di rimuovere membri o sciogliere completamente il consiglio di sicurezza se necessario.
 
-### Proposals and Voting
+### Proposte e Votazioni
 
-For any governance system to function, there needs to be proposals and voting. At the moment, snapshot voting is used for these settings and proposal changes, then some manual intervention is needed to execute the changes. With the introduction of the [Houston upgrade and RPIP-33](https://rpips.rocketpool.net/RPIPs/RPIP-33), this is moved to a new optimistic fraud-proof system that allows any node operator to raise, vote on or challenge proposals, directly on-chain without the need for any 3rd party tools.
+Perché qualsiasi sistema di governance funzioni, devono esserci proposte e votazioni. Al momento, la votazione snapshot viene utilizzata per queste impostazioni e modifiche delle proposte, poi è necessario un intervento manuale per eseguire le modifiche. Con l'introduzione dell'[aggiornamento Houston e RPIP-33](https://rpips.rocketpool.net/RPIPs/RPIP-33), questo viene spostato a un nuovo sistema ottimistico di fraud-proof che consente a qualsiasi node operator di sollevare, votare o contestare proposte, direttamente on-chain senza la necessità di strumenti di terze parti.
 
-**Proposing:** Any node with a non-zero voting power may raise a proposal at any time. When doing so they must lock a proposal bond in the form of RPL for the entire proposal process.
+**Proporre:** Qualsiasi nodo con un potere di voto non zero può sollevare una proposta in qualsiasi momento. Quando lo fa deve bloccare un bond di proposta sotto forma di RPL per l'intero processo di proposta.
 
-**Challenging:** If a node that created a proposal has been found to have done so with incorrect data required, they can be challenged and the challenger must provide a bond for the challenge. The node that makes the challenge can be rewarded with the proposers bond made when creating the proposal if successful, however if they have made an invalid challenge, the proposer can collect their challenge bond.
+**Contestare:** Se un nodo che ha creato una proposta è stato trovato ad averlo fatto con dati errati richiesti, può essere contestato e il contestatore deve fornire un bond per la contestazione. Il nodo che fa la contestazione può essere ricompensato con il bond del proponente fatto quando ha creato la proposta se ha successo, tuttavia se ha fatto una contestazione non valida, il proponente può raccogliere il loro bond di contestazione.
 
-**Voting**: If a proposal passes the period where it can be challenged, it enters the voting periods. Node operators can then choose to vote in one of the following flavors:
+**Votare:** Se una proposta supera il periodo in cui può essere contestata, entra nei periodi di votazione. I node operator possono quindi scegliere di votare in uno dei seguenti modi:
 
-1. Abstain: The voter’s voting power is contributed to quorum but is neither for nor against the proposal.
-2. For: The voter votes in favor of the proposal being executed.
-3. Against: The voter votes against the proposal being executed.
-4. Veto: The voter votes against the proposal as well as indicating they deem the proposal as spam or malicious. If the veto quorum is met, the proposal is immediately defeated and the proposer loses their bond. This is to dissuade spam, low quality proposals, or proposals that have not gone through off-chain processes first such as signaling by snapshot voting.
+1. Astenersi: Il potere di voto del votante contribuisce al quorum ma non è né a favore né contro la proposta.
+2. A favore: Il votante vota a favore dell'esecuzione della proposta.
+3. Contro: Il votante vota contro l'esecuzione della proposta.
+4. Veto: Il votante vota contro la proposta e indica anche che ritiene la proposta spam o maliziosa. Se il quorum di veto è raggiunto, la proposta viene immediatamente sconfitta e il proponente perde il loro bond. Questo è per scoraggiare spam, proposte di bassa qualità o proposte che non hanno attraversato processi off-chain prima come la segnalazione tramite votazione snapshot.
 
-There are **two voting periods**
+Ci sono **due periodi di votazione**
 
-- Vote Period 1: For voters or delegates voting on behalf of others.
-- Vote Period 2: For voters who delegated their power and want to overturn their delegate's decision.
+- Periodo di Voto 1: Per i votanti o delegati che votano per conto di altri.
+- Periodo di Voto 2: Per i votanti che hanno delegato il loro potere e vogliono ribaltare la decisione del loro delegato.
 
-Once both voting periods have passed and the proposal is successful, the proposal can be executed and the change is applied to the Rocket Pool protocol.
+Una volta che entrambi i periodi di votazione sono passati e la proposta ha successo, la proposta può essere eseguita e la modifica viene applicata al protocollo Rocket Pool.
 
-After the proposal has passed the voting periods, the proposer may unlock their RPL bond, unless the proposal was defeated by a challenge or vetoed.
+Dopo che la proposta ha superato i periodi di votazione, il proponente può sbloccare il loro bond RPL, a meno che la proposta non sia stata sconfitta da una contestazione o messa in veto.
 
-## Stake ETH on Behalf of a node
+## Stake ETH per conto di un nodo
 
-[RPIP-32](https://rpips.rocketpool.net/RPIPs/RPIP-32) allows an account to [stake ETH on behalf](../houston/stake-eth-on-behalf.mdx) of a Rocket Pool node that is registered in the protocol. This supports a variety of situations where the node operator is not directly providing the ETH:
+[RPIP-32](https://rpips.rocketpool.net/RPIPs/RPIP-32) consente a un account di [fare staking di ETH per conto](../houston/stake-eth-on-behalf.mdx) di un nodo Rocket Pool registrato nel protocollo. Questo supporta una varietà di situazioni in cui il node operator non fornisce direttamente gli ETH:
 
-- Enhanced security for node operators, as they can stake directly from their hardware wallet, eliminating the need to transfer funds to the node beforehand.
-- Staking as a Service providers where custody of funds are managed by a trusted custodian.
-- Protocol integrations where custody of funds are managed by smart contracts.
-- DAOs or organizations where custody of funds are managed by a treasury.
+- Sicurezza migliorata per i node operator, poiché possono fare staking direttamente dal loro hardware wallet, eliminando la necessità di trasferire fondi al nodo in anticipo.
+- Provider Staking as a Service dove la custodia dei fondi è gestita da un custode fidato.
+- Integrazioni di protocollo dove la custodia dei fondi è gestita da smart contract.
+- DAO o organizzazioni dove la custodia dei fondi è gestita da una tesoreria.
 
-While the primary aim of this feature is to facilitate single depositor scenarios, it’s worth noting that multiple independent depositors can also leverage this capability by creating smart contracts layered on top. Rocket Pool also introduced the ability to stake RPL on behalf of back in our previous Atlas release.
+Sebbene l'obiettivo principale di questa funzionalità sia facilitare scenari con un singolo depositante, vale la pena notare che più depositanti indipendenti possono anche sfruttare questa capacità creando smart contract stratificati sopra. Rocket Pool ha anche introdotto la capacità di fare staking di RPL per conto di già nel nostro precedente rilascio Atlas.
 
-## RPL Withdrawal Address
+## Indirizzo di Prelievo RPL
 
-Rocket Pool currently allows node operators to specify a withdrawal address for their ETH and RPL. This could be an external hardware wallet or something similarly secure.
+Rocket Pool attualmente consente ai node operator di specificare un indirizzo di prelievo per i loro ETH e RPL. Questo potrebbe essere un hardware wallet esterno o qualcosa di simile sicuro.
 
-With [RPIP-31](https://rpips.rocketpool.net/RPIPs/RPIP-31), you can set a withdrawal address for your ETH and [a new one for your RPL](../houston/rpl-withdrawal-address) if you wish. The RPL withdrawal address if set will be able to trigger and claim RPL from inflation rewards and will have no effect on ETH consensus rewards or anything related to ETH.
+Con [RPIP-31](https://rpips.rocketpool.net/RPIPs/RPIP-31), puoi impostare un indirizzo di prelievo per i tuoi ETH e [uno nuovo per il tuo RPL](../houston/rpl-withdrawal-address) se lo desideri. L'indirizzo di prelievo RPL se impostato sarà in grado di attivare e rivendicare RPL dalle ricompense di inflazione e non avrà effetto sulle ricompense di consenso ETH o su qualsiasi cosa relativa a ETH.
 
-This creates some interesting opportunities where RPL can be supplied by an entity to a node operator that does not wish to have exposure to RPL. That entity can then claim RPL rewards for putting up the required insurance collateral for the node.
+Questo crea alcune opportunità interessanti dove l'RPL può essere fornito da un'entità a un node operator che non desidera avere esposizione all'RPL. Quell'entità può quindi rivendicare le ricompense RPL per aver messo il collaterale assicurativo richiesto per il nodo.
 
-## Time-based Balance and RPL Price Submissions
+## Submission di Saldi e Prezzi RPL Basate sul Tempo
 
-Rocket Pool nodes need to have at least 10% collateral in RPL staked to be eligible for rewards, with their "effective stake" calculated based on the ETH:RPL ratio, which is reported by the Oracle DAO at the end of each rewards interval. Previously, this "top up window" (the time between the final RPL report and the end of the interval) had some uncertainty and fluctuated from interval to interval because it was being specified by number of blocks. This was valid pre-merge but didn't factor variability and randomness in the way blocks are added.
+I nodi Rocket Pool devono avere almeno il 10% di collaterale in RPL in staking per essere idonei alle ricompense, con il loro "stake effettivo" calcolato in base al rapporto ETH:RPL, che viene riportato dall'Oracle DAO alla fine di ogni intervallo di ricompense. In precedenza, questa "finestra di ricarica" (il tempo tra il rapporto RPL finale e la fine dell'intervallo) aveva una certa incertezza e fluttuava da intervallo a intervallo perché veniva specificata in numero di blocchi. Questo era valido pre-merge ma non teneva conto della variabilità e casualità nel modo in cui i blocchi vengono aggiunti.
 
-To address this, the intervals for price and balance reporting will now be based on seconds rather than blocks. This change ensures predictability and has parity with the way rewards intervals are calculated today. If the interval is set to `86400` seconds (number of seconds in 24 hours), prices and balances are reported at the same time every day.
+Per affrontare questo, gli intervalli per la segnalazione dei prezzi e dei saldi saranno ora basati sui secondi anziché sui blocchi. Questo cambiamento garantisce prevedibilità e ha parità con il modo in cui gli intervalli di ricompense vengono calcolati oggi. Se l'intervallo è impostato su `86400` secondi (numero di secondi in 24 ore), prezzi e saldi vengono riportati alla stessa ora ogni giorno.
 
-The protocol now has a fixed and controllable "top up window," removing guesswork and providing users with a consistent 24-hour window for topping up after the final price update. Feel free to read more about this change in [RPIP-35](https://rpips.rocketpool.net/RPIPs/RPIP-35).
+Il protocollo ora ha una "finestra di ricarica" fissa e controllabile, rimuovendo le congetture e fornendo agli utenti una finestra costante di 24 ore per ricaricare dopo l'aggiornamento finale del prezzo. Sentiti libero di leggere di più su questo cambiamento in [RPIP-35](https://rpips.rocketpool.net/RPIPs/RPIP-35).
 
-## Audits
+## Audit
 
-In preparation for the Houston Upgrade, Rocket Pool engaged with three of the most esteemed auditing teams in the Ethereum ecosystem.
+In preparazione per l'Aggiornamento Houston, Rocket Pool si è impegnato con tre dei team di audit più stimati nell'ecosistema Ethereum.
 
-- [Consensys Diligence](https://consensys.io/diligence/audits/2023/12/rocket-pool-houston/) (Late November to Mid December 2023)
-- [Sigma Prime](https://rocketpool.net/files/audits/sigma-prime-audit-houston.pdf) x2 (Late November 2023, then a second round March 2024)
-- [Chainsafe](https://rocketpool.net/files/audits/chainsafe-audit-houston.pdf) (Mid January to April 2024)
+- [Consensys Diligence](https://consensys.io/diligence/audits/2023/12/rocket-pool-houston/) (Fine novembre a metà dicembre 2023)
+- [Sigma Prime](https://rocketpool.net/files/audits/sigma-prime-audit-houston.pdf) x2 (Fine novembre 2023, poi un secondo round marzo 2024)
+- [Chainsafe](https://rocketpool.net/files/audits/chainsafe-audit-houston.pdf) (Metà gennaio ad aprile 2024)
 
-For a full history of audits plus details on the Immunefi bug bounty program, visit here:
+Per una cronologia completa degli audit più dettagli sul programma bug bounty Immunefi, visita qui:
 https://rocketpool.net/protocol/security

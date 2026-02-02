@@ -1,52 +1,52 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Migrating the Smartnode from Previous Beta Tests
+# Migration du Smartnode depuis les Tests Bêta Précédents
 
-If you've been a Rocket Pool node operator during our previous beta tests on Medalla or Pyrmont, thank you for helping us improve the protocol and welcome back!
-This brief guide will walk you through the process of purging your own beta build and setting up the newest build for either the Hoodi testnet, or for real staking on mainnet.
+Si vous avez été un opérateur de nœud Rocket Pool durant nos précédents tests bêta sur Medalla ou Pyrmont, merci de nous avoir aidé à améliorer le protocole et bienvenue de retour !
+Ce bref guide vous guidera à travers le processus de purge de votre ancienne build bêta et de configuration de la nouvelle build soit pour le testnet Hoodi, soit pour le staking réel sur mainnet.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Hoodi Network">
+    <Tab label="Réseau Hoodi">
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        You will need to create a new node wallet to interact with the Hoodi test network.
-        Re-using a wallet from a previous beta build may result in failures while creating new validators!
+        <p className="rspress-directive-title">REMARQUE</p>
+        Vous devrez créer un nouveau portefeuille de nœud pour interagir avec le réseau de test Hoodi.
+        La réutilisation d'un portefeuille d'une build bêta précédente peut entraîner des échecs lors de la création de nouveaux validateurs !
       </p>
 
-      There are three major steps towards upgrading from a beta build to the Hoodi test network.
+      Il y a trois étapes majeures pour passer d'une build bêta au réseau de test Hoodi.
 
-      First, migrate any hoodi ETH you have to a separate wallet.
-      You can then migrate it back to the new node wallet you create after you reinstall Rocket Pool, so you don't need to rely as much on a faucet for hoodi ETH.
+      Tout d'abord, migrez tout ETH hoodi que vous possédez vers un portefeuille séparé.
+      Vous pouvez ensuite le migrer vers le nouveau portefeuille de nœud que vous créerez après la réinstallation de Rocket Pool, afin de ne pas avoir à dépendre autant d'un robinet pour l'ETH hoodi.
 
-      The easiest way to do this is via Metamask - see the [rETH staking guide](../liquid-staking/overview) for a walkthrough of how to set up a new wallet.
-      You can do this using the following command:
+      La méthode la plus simple pour ce faire est via Metamask - consultez le [guide de staking rETH](../liquid-staking/overview) pour une procédure pas à pas sur la création d'un nouveau portefeuille.
+      Vous pouvez le faire en utilisant la commande suivante :
 
       ```shell
       rocketpool node send XXX eth 0xabcd1234...
       ```
 
-      where `XXX` is the amount of hoodi ETH to send, and `0xabcd1234...` is the address of the new wallet you created.
-      **Note that you'll need to leave a little bit of ETH behind to pay for the gas used in the transaction!**
+      où `XXX` est le montant d'ETH hoodi à envoyer, et `0xabcd1234...` est l'adresse du nouveau portefeuille que vous avez créé.
+      **Notez que vous devrez laisser un peu d'ETH pour payer le gaz utilisé dans la transaction !**
 
-      Next, remove all the old Docker images and chain data with the following command:
+      Ensuite, supprimez toutes les anciennes images Docker et données de chaîne avec la commande suivante :
 
       ```shell
       rocketpool service terminate
       ```
 
-      Once this is done, remove the old Rocket Pool data and settings folder.
-      **This will delete your old wallet and your old validators, so make sure you no longer need to save them for anything!**
+      Une fois cela fait, supprimez l'ancien dossier de données et paramètres Rocket Pool.
+      **Cela supprimera votre ancien portefeuille et vos anciens validateurs, assurez-vous donc de ne plus avoir besoin de les sauvegarder pour quoi que ce soit !**
 
       ```shell
       sudo rm -rf ~/.rocketpool
       ```
 
-      Once this is done, your old beta setup will be cleaned.
-      You can follow the [Rocket Pool installation guide](../node-staking/eth-clients) for a walkthrough on installing and configuring Rocket Pool for the Hoodi testnet.
+      Une fois cela fait, votre ancienne configuration bêta sera nettoyée.
+      Vous pouvez suivre le [guide d'installation de Rocket Pool](../node-staking/eth-clients) pour une procédure pas à pas sur l'installation et la configuration de Rocket Pool pour le testnet Hoodi.
     </Tab>
-    <Tab label="Mainnet Network">
-      _Coming soon!_
+    <Tab label="Réseau Mainnet">
+      _Prochainement !_
     </Tab>
 
   </Tabs>

@@ -1,129 +1,129 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# [Docker Mode] Guide to the Redstone Update and the Merge
+# [Docker 模式] Redstone 更新和合并指南
 
-This guide will cover everything you need to know in order to prepare your node for the Redstone Update and The Merge if you are using **Docker Mode**.
+本指南将涵盖您需要了解的所有内容,以便在使用 **Docker 模式**时为您的节点准备 Redstone 更新和合并。
 
-## Things to Do Before Upgrading to v1.5.0
+## 升级到 v1.5.0 之前要做的事情
 
-Before upgrading to v1.5.0 and higher of the Smartnode, please go through the following checklist to make sure you're prepared:
+在升级到 Smartnode 的 v1.5.0 及更高版本之前,请检查以下清单以确保您已准备好:
 
-### Switch to a Full Execution Client
+### 切换到完整执行客户端
 
-The Merge requires you to run your own Execution client, so you won't be able to use remote providers like Infura or Pocket anymore.
-v1.5.0 won't have them anymore, and won't let you start the stack until you select a full Execution client.
+合并要求您运行自己的执行客户端,因此您将无法再使用像 Infura 或 Pocket 这样的远程提供商。
+v1.5.0 将不再有它们,并且在您选择完整执行客户端之前不会让您启动堆栈。
 
-Because of this change, you should switch to a full client while you're still on v1.4, let it sync to completion, and then upgrade to v1.5.
+由于此更改,您应该在仍使用 v1.4 时切换到完整客户端,让它同步完成,然后升级到 v1.5。
 
-Docker Mode makes switching clients very easy.
-[This guide](../../node-staking/change-clients#changing-execution-clients) provides a walkthrough of the process.
+Docker 模式使切换客户端变得非常容易。
+[本指南](../../node-staking/change-clients#changing-execution-clients)提供了该过程的演练。
 
-## Upgrading to v1.5.0
+## 升级到 v1.5.0
 
-Upgrading the Smartnode stack to v1.5.0 is no different than any other upgrade.
-Simply follow [the normal directions here](../../node-staking/updates#updating-the-smartnode-stack).
+将 Smartnode 堆栈升级到 v1.5.0 与任何其他升级没有区别。
+只需遵循[此处的正常说明](../../node-staking/updates#updating-the-smartnode-stack)。
 
-## Things the Smartnode Handles Automatically
+## Smartnode 自动处理的事项
 
-In Docker mode, the Smartnode will take care of most of the changes needed to support Redstone and The Merge automatically once you update to v1.5.0.
-Here's a brief list of what it will do for you without any manual intervention:
+在 Docker 模式下,一旦您更新到 v1.5.0,Smartnode 将自动处理支持 Redstone 和合并所需的大部分更改。
+以下是它将在无需任何手动干预的情况下为您执行的操作的简要列表:
 
-### The Engine API
+### Engine API
 
-The Merge changes the way your Execution client talks to your Consensus client.
-Instead of using the old HTTP or Websocket based RPC system, The Merge requires a new system exposed by your Execution client called the Engine API.
+合并改变了执行客户端与共识客户端的通信方式。
+合并不再使用基于旧 HTTP 或 Websocket 的 RPC 系统,而是需要执行客户端公开的新系统,称为 Engine API。
 
-This is a special connection that lets the Consensus client replace the old Proof-of-Work mining system with Proof-of-Stake; it's the heart of The Merge.
-It's also **authenticated** with a secret token, so only your Consensus client can connect to your Execution client - nothing else can.
+这是一个特殊的连接,让共识客户端用权益证明替换旧的工作量证明挖矿系统;它是合并的核心。
+它还使用秘密令牌进行**身份验证**,因此只有您的共识客户端可以连接到您的执行客户端 - 其他任何东西都不能。
 
-The Smartnode will handle the set up of the authentication token and the Engine API on both your Execution and Consensus clients automatically.
+Smartnode 将自动处理身份验证令牌的设置以及执行客户端和共识客户端上的 Engine API。
 
-### Your Fee Recipient
+### 您的费用接收者
 
-The **fee recipient** is the address on the Execution layer chain that will receive all of the priority fees for blocks you propose.
-It is a setting provided to your Validator client when it first starts.
+**费用接收者**是执行层链上的地址,将接收您提议的区块的所有优先费用。
+这是在验证器客户端首次启动时提供给它的设置。
 
-The Smartnode will handle setting it up to the correct address when you upgrade to v1.5, and will constantly check to make sure you're using the correct one so you don't get [penalized accidentally](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
+当您升级到 v1.5 时,Smartnode 将处理将其设置为正确的地址,并将不断检查以确保您使用正确的地址,这样您就不会[意外受到惩罚](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)。
 
-If you opted into the [Smoothing Pool](./whats-new#smoothing-pool), it will make that your fee recipient.
-If you didn't, it will make your [fee distributor contract](./whats-new#fee-recipients-and-your-distributor) the fee recipient.
+如果您选择加入[平滑池](./whats-new#smoothing-pool),它将使其成为您的费用接收者。
+如果您没有,它将使您的[费用分配器合约](./whats-new#fee-recipients-and-your-distributor)成为费用接收者。
 
 ### MEV-Boost
 
-[MEV-boost](https://boost.flashbots.net/) is the system Flashbots provides to give MEV rewards to Proof-of-Stake validators after The Merge.
-Rocket Pool has MEV-Boost built into the Smartnode and automatically configures your node to use it, so your proposals get the maximum amount of rewards.
+[MEV-boost](https://boost.flashbots.net/) 是 Flashbots 提供的系统,用于在合并后向权益证明验证器提供 MEV 奖励。
+Rocket Pool 已将 MEV-Boost 内置到 Smartnode 中,并自动配置您的节点使用它,因此您的提议可以获得最大奖励。
 
-## Things You Should Do After Upgrading
+## 升级后您应该做的事情
 
-While the Smartnode handles most of the changes for you, there are a few additional things you should do manually:
+虽然 Smartnode 为您处理了大部分更改,但您仍应手动执行一些其他操作:
 
-### Ensure a Successful Upgrade
+### 确保成功升级
 
-The first thing to do is ensure that your node is working correctly.
-Consider taking the following steps:
+首先要做的是确保您的节点正常工作。
+考虑采取以下步骤:
 
-- Check the logs for errors with `rocketpool service logs eth1`, `rocketpool service logs eth2`, `rocketpool service logs validator`, and `rocketpool service logs node`.
-- Confirm with a Block Explorer (such as your Grafana dashboard and [https://beaconcha.in](https://beaconcha.in)) that you are still attesting properly
-  - Remember that if you have Doppelganger protection enabled, you will miss a few attestations after the restart. This is normal!
+- 使用 `rocketpool service logs eth1`、`rocketpool service logs eth2`、`rocketpool service logs validator` 和 `rocketpool service logs node` 检查日志中的错误。
+- 使用区块浏览器(如您的 Grafana 仪表板和 [https://beaconcha.in](https://beaconcha.in))确认您仍在正确证明
+  - 请记住,如果您启用了 Doppelganger 保护,重启后您将错过一些证明。这是正常的!
 
-### Set Up a Fallback Node
+### 设置后备节点
 
-Because The Merge is not compatible with remote providers like Infura and Pocket, you'll lose the ability to use them as fallback Execution clients when your primary goes offline.
+由于合并与 Infura 和 Pocket 等远程提供商不兼容,当您的主执行客户端离线时,您将失去将它们用作后备执行客户端的能力。
 
-The Smartnode still has the ability to provide a fallback Execution client (and now a fallback Consensus client as well), but you will now need to use Execution and Consensus clients that you control.
+Smartnode 仍然能够提供后备执行客户端(现在还有后备共识客户端),但您现在需要使用您控制的执行客户端和共识客户端。
 
-For more information on setting up a fallback node, see the [Fallback node guide](../../node-staking/fallback).
+有关设置后备节点的更多信息,请参阅[后备节点指南](../../node-staking/fallback)。
 
-### Initialize your Fee Distributor
+### 初始化您的费用分配器
 
-If you aren't planning to opt into the [Smoothing Pool](./whats-new#smoothing-pool) and claim all of your priority fees and MEV rewards to your [fee distributor contract](./whats-new#fee-recipients-and-your-distributor), you will eventually have to initialize it (create the contract instance on the chain) in order to claim rewards from it to your withdrawal address.
+如果您不打算选择加入[平滑池](./whats-new#smoothing-pool)并将所有优先费用和 MEV 奖励申领到您的[费用分配器合约](./whats-new#fee-recipients-and-your-distributor),您最终将必须初始化它(在链上创建合约实例),以便将奖励从其申领到您的提款地址。
 
-This is a fairly cheap operation and only needs to be done once.
+这是一个相当便宜的操作,只需要做一次。
 
-::: tip TIP
-Initializing your fee distributor can be done at **any time**.
-You can let rewards accumulate in its address long before you initialize it, and your balance will remain after initialization.
+::: tip 提示
+初始化您的费用分配器可以在**任何时候**完成。
+您可以在初始化它之前让奖励在其地址中累积很长时间,初始化后您的余额将保留。
 
-We recommend you do so when gas prices are low to minimize the overhead cost.
+我们建议您在 gas 价格较低时这样做以最小化管理费用成本。
 
-Note that it **must be initialized in order to claim your rewards.**
+请注意,它**必须初始化才能申领您的奖励。**
 :::
 
-### Opt Into the Smoothing Pool
+### 选择加入平滑池
 
-If you plan on taking advantage of the [Smoothing Pool](./whats-new#smoothing-pool) right away, you should opt in before the end of the first Redstone rewards period to maximize your "eligibility" amount.
+如果您计划立即利用[平滑池](./whats-new#smoothing-pool),您应该在第一个 Redstone 奖励期结束前选择加入,以最大化您的"资格"金额。
 
-Opting in can be done via running the following command:
+可以通过运行以下命令来选择加入:
 
 ```
 rocketpool node join-smoothing-pool
 ```
 
-### Claim Rewards
+### 申领奖励
 
-The Redstone upgrade replaces the expensive, problematic old rewards system with a [brand new one](./whats-new#new-rewards-system) that's much cheaper, supports automatic restaking of RPL (both partial and full amounts), and - most importantly - **lets you claim your rewards whenever you want**.
+Redstone 升级用[全新系统](./whats-new#new-rewards-system)取代了昂贵且有问题的旧奖励系统,该系统更便宜,支持 RPL 的自动重新质押(部分和全额),最重要的是 - **让您随时申领奖励**。
 
-Because there is no longer a time limit on claiming rewards, and because it's cheaper to claim many rewards intervals at once, the automatic rewards claiming feature of the Smartnode **has been removed**.
-You will now be able to claim rewards via the following command:
+由于申领奖励不再有时间限制,而且一次申领多个奖励间隔更便宜,Smartnode 的自动奖励申领功能**已被移除**。
+您现在可以通过以下命令申领奖励:
 
 ```
 rocketpool node claim-rewards
 ```
 
-This will show you all of the rewards you've accumulated across all of the rewards intervals starting with the Redstone upgrade.
+这将显示您从 Redstone 升级开始的所有奖励间隔中累积的所有奖励。
 
-## Reverting to v1.4.3
+## 恢复到 v1.4.3
 
-If, for any reason, something isn't to your liking and you want to revert to the previous Smartnode release, you can do so easily.
-The Smartnode automatically backs up your settings from the previous version when you upgrade it, so simply get the previous version (here we're demonstrating **v1.4.3**) and replace the settings with the backup:
+如果出于任何原因,某些内容不符合您的喜好,并且您想恢复到以前的 Smartnode 版本,您可以轻松做到这一点。
+Smartnode 在升级时会自动备份您以前版本的设置,因此只需获取以前的版本(这里我们演示 **v1.4.3**)并用备份替换设置:
 
-1. Stop the service:
+1. 停止服务:
 
 ```shell
 rocketpool service stop
 ```
 
-1. Download the v1.4.3 CLI:
+1. 下载 v1.4.3 CLI:
 
 <div className="p-3">
   <Tabs>
@@ -134,33 +134,33 @@ rocketpool service stop
   </Tabs>
 </div>
 
-1. Install the v1.4.3 package:
+1. 安装 v1.4.3 包:
 
 ```shell
 rocketpool service install -d
 ```
 
-1. Replace your old configuration with the v1.4.3 backup configuration:
+1. 用 v1.4.3 备份配置替换旧配置:
 
 ```shell
 cp ~/.rocketpool/user-settings-backup.yml ~/.rocketpool/user-settings.yml
 ```
 
-1. Verify all of your old settings are now being used:
+1. 验证所有旧设置现在正在使用:
 
 ```shell
 rocketpool service config
 ```
 
-1. If it looks good, start the Smartnode stack:
+1. 如果看起来不错,启动 Smartnode 堆栈:
 
 ```shell
 rocketpool service start
 ```
 
-All set! You're now back on the old version and should begin attesting shortly after starting the service.
+完成!您现在回到了旧版本,应该在启动服务后不久开始证明。
 
-::: danger WARNING
-v1.4.3 is **deprecated** and will no longer be usable after the Redstone update is deployed.
-If you do need to revert to it, please make plans to upgrade back to v1.5.0 before the contracts are updated!
+::: danger 警告
+v1.4.3 已**弃用**,在部署 Redstone 更新后将无法再使用。
+如果您确实需要恢复到它,请计划在合约更新之前升级回 v1.5.0!
 :::

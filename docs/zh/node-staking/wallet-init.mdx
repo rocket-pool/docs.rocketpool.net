@@ -1,72 +1,72 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Creating a New Wallet
+# 创建新钱包
 
-If the Smartnode services are up and running, the next step is to set up an Ethereum wallet for your node.
-This is simply an Execution Layer address that will hold your node's funds - it will use this to send ETH to your minipool when you begin staking, pay for gas during various transactions, and other various operations.
+如果Smartnode服务已启动并运行,下一步是为您的节点设置Ethereum钱包。
+这只是一个执行层地址,用于持有您节点的资金 - 当您开始质押时,它将使用这个地址向您的minipool发送ETH,在各种交易中支付gas费用,以及执行其他各种操作。
 
-You have the option of either creating a brand new wallet from scratch, or importing / recovering an existing wallet or address.
-Please choose which option you'd like from the tabs below.
+您可以选择从头创建一个全新的钱包,或导入/恢复现有的钱包或地址。
+请从下面的选项卡中选择您想要的选项。
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Creating a New Wallet">
-      The most common way to run a node is to create a new Ethereum address that is dedicated to the node.
-      The Smartnode CLI provides a way to do this easily:
+    <Tab label="创建新钱包">
+      运行节点最常见的方式是创建一个专门用于节点的新Ethereum地址。
+      Smartnode CLI提供了一种简单的方法来实现这一点:
 
       ```shell
       rocketpool wallet init
       ```
 
-      You will first be prompted for a password to protect your wallet's private key.
-      Next, you will be presented the **unique 24-word mnemonic** for your new wallet.
-      This is the **recovery phrase** for your wallet.
-      If you ever lose your machine, you can use this phrase to regenerate your wallet and resurrect all of the Consensus validators attached to it.
+      首先,系统会提示您输入密码以保护钱包的私钥。
+      接下来,您将看到钱包的**唯一24个单词的助记词**。
+      这是您钱包的**恢复短语**。
+      如果您丢失了机器,可以使用此短语重新生成钱包并恢复与之关联的所有共识层验证者。
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        It is **essential** that you write this mnemonic down because this is the only time it will be shown to you, but keep it somewhere safe.
-        Anyone with this phrase can gain control of your wallet.
+        <p className="rspress-directive-title">注意</p>
+        **至关重要**的是,您必须记下这个助记词,因为这是唯一一次向您显示,但要将其保存在安全的地方。
+        任何拥有此短语的人都可以控制您的钱包。
       </p>
 
-      Once you confirm your mnemonic phrase, you will be presented with the unique Ethereum address for your node wallet.
+      确认助记词后,您将看到节点钱包的唯一Ethereum地址。
     </Tab>
-    <Tab label="Recovering or Importing an Existing Wallet">
-      Once you are finished entering the mnemonic phrase, you will see a success message like the following:
+    <Tab label="恢复或导入现有钱包">
+      输入完助记词后,您将看到以下成功消息:
       "The node wallet was successfully initialized.
         Node account: {LongStringOfLettersAndNumbers}"
-      This is the public address you to which you will send ETH in "Preparing your Node for Operation". You may also verify it by typing "rocketpool       wallet status".
+      这是您将在"准备节点运行"中发送ETH的公共地址。您也可以通过输入"rocketpool       wallet status"来验证它。
 
-      If you already have a node wallet that you created in a previous installation of the Smartnode, or if you want to import an address that you created elsewhere (such as with **Allnodes**), please follow the instructions in the [Importing an Existing Wallet for your Node](./recovering-rp) guide.
+      如果您已经有在之前安装的Smartnode中创建的节点钱包,或者如果您想导入在其他地方创建的地址(例如使用**Allnodes**),请按照[为您的节点导入现有钱包](./recovering-rp)指南中的说明操作。
 
-      Return here when you're finished.
+      完成后返回这里。
     </Tab>
 
   </Tabs>
 </div>
 
-::: warning NOTE
-As of the current build, Rocket Pool needs to have access to your wallet's private key in order to perform its automatic duties.
-**This means that the private key will exist in a file on your machine.**
-If an attacker manages to gain access to your machine, they could gain access to your node wallet and steal all of the tokens that it contains!
-Please ensure that you have followed the security guide in the [Securing your Node](./securing-your-node) section before you continue, and are comfortable with your security posture.
+::: warning 注意
+从目前的版本来看,Rocket Pool需要访问您钱包的私钥才能执行其自动任务。
+**这意味着私钥将作为文件存在于您的机器上。**
+如果攻击者设法访问您的机器,他们可能会访问您的节点钱包并窃取其中包含的所有代币!
+请确保您已遵循[保护您的节点](./securing-your-node)部分中的安全指南,并对您的安全状况感到满意后再继续。
 :::
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Docker & Hybrid Modes">
-      Your wallet's private key will be stored in a file located at `~/.rocketpool/data/wallet`.
+    <Tab label="Docker和Hybrid模式">
+      您钱包的私钥将存储在位于`~/.rocketpool/data/wallet`的文件中。
 
-      The password used to encrypt your wallet's key will be stored in `~/.rocketpool/data/password`.
-      This is the file that must be protected at all times.
+      用于加密钱包密钥的密码将存储在`~/.rocketpool/data/password`中。
+      这是必须始终受到保护的文件。
     </Tab>
-    <Tab label="Native Mode">
-      The wallet and password files will be stored in the `data` directory under the Rocket Pool directory that you set up earlier (e.g. `/srv/rocketpool`).
+    <Tab label="Native模式">
+      钱包和密码文件将存储在您之前设置的Rocket Pool目录下的`data`目录中(例如`/srv/rocketpool`)。
 
-      Your wallet's private key will be stored in a file located at `/srv/rocketpool/data/wallet`.
+      您钱包的私钥将存储在位于`/srv/rocketpool/data/wallet`的文件中。
 
-      The password used to encrypt your wallet's key will be stored in `/srv/rocketpool/data/password`.
-      This is the file that must be protected at all times.
+      用于加密钱包密钥的密码将存储在`/srv/rocketpool/data/password`中。
+      这是必须始终受到保护的文件。
     </Tab>
 
   </Tabs>

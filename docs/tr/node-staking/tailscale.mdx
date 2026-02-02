@@ -1,90 +1,90 @@
 import tailscale_dashboard_client from "./images/tailscale-dashboard-client.png";
 import tailscale_dashboard_servers from "./images/tailscale-dashboard-servers.png";
 
-# Configuring a Tailscale VPN Server
+# Tailscale VPN Sunucusu Yapılandırma
 
-::: tip NOTE
-This is **optional.**
-You only need to consider this section if you run a node at home and would like to connect to it from outside of your home network.
+::: tip NOT
+Bu **isteğe bağlıdır.**
+Bu bölümü yalnızca evde bir düğüm çalıştırıyorsanız ve ev ağınızın dışından bağlanmak istiyorsanız dikkate almanız gerekir.
 :::
 
-If you would like to log into your home network remotely, such as while on vacation or on a business trip, the most common route is to use a **Virtual Private Network** server.
-This will allow you to connect to your node via SSH **and** monitor your Grafana dashboard from anywhere in the world, all without exposing your SSH port to the internet.
+Tatildeyken veya iş gezisindeyken olduğu gibi ev ağınıza uzaktan giriş yapmak istiyorsanız, en yaygın yol bir **Sanal Özel Ağ** sunucusu kullanmaktır.
+Bu, SSH portunu internete açmadan, dünyanın her yerinden SSH aracılığıyla düğümünüze giriş yapmanıza **ve** Grafana panonuzu izlemenize olanak tanır.
 
-Many Rocket Pool node operators use [Tailscale](https://tailscale.com/blog/how-tailscale-works/) as their VPN server of choice for this.
-Tailscale is an open source P2P VPN tunnel and hosted endpoint discovery service.
-It takes care of authentication, publication, and the NAT traversal required to establish an end-to-end encrypted path between your machine and your node without sending any sensitive traffic to a centralized server.
-It is a very powerful tool.
+Birçok Rocket Pool düğüm operatörü bunun için tercih ettikleri VPN sunucusu olarak [Tailscale](https://tailscale.com/blog/how-tailscale-works/) kullanır.
+Tailscale, açık kaynaklı bir P2P VPN tüneli ve barındırılan uç nokta keşif hizmetidir.
+Makineniz ile düğümünüz arasında uçtan uca şifrelenmiş bir yol oluşturmak için gereken kimlik doğrulama, yayınlama ve NAT geçişini merkezi bir sunucuya hassas trafik göndermeden halleder.
+Çok güçlü bir araçtır.
 
-We will briefly cover a basic configuration of it, but feel free to [review their documentation](https://tailscale.com/kb/start/) for more details.
+Temel bir yapılandırmasını kısaca ele alacağız, ancak daha fazla ayrıntı için [belgelerini incelemekten](https://tailscale.com/kb/start/) çekinmeyin.
 
-## Setting Tailscale Up
+## Tailscale'i Kurma
 
-First, create a free [Tailscale account](https://tailscale.com/).
-Tailscale requires the use of an SSO identity provider such as Google, GitHub, Okta, Microsoft, etc.
-For details, visit [their SSO Page](https://tailscale.com/kb/1013/sso-providers/).
+İlk olarak, ücretsiz bir [Tailscale hesabı](https://tailscale.com/) oluşturun.
+Tailscale, Google, GitHub, Okta, Microsoft gibi bir SSO kimlik sağlayıcısının kullanılmasını gerektirir.
+Ayrıntılar için [SSO Sayfalarını](https://tailscale.com/kb/1013/sso-providers/) ziyaret edin.
 
-It is recommended that you enable 2FA (Two Factor Authentication) on whichever identity provider you choose for added security.
+Ek güvenlik için seçtiğiniz kimlik sağlayıcıda 2FA (İki Faktörlü Kimlik Doğrulama) etkinleştirmeniz önerilir.
 
-Next, follow [their onboarding guide](https://tailscale.com/kb/1017/install/) to install Tailscale on your **client** - the machine you want to connect to your network with.
-For example, this could be a laptop or your phone.
-**Note that it is _not_ your Rocket Pool node!**
+Ardından, Tailscale'i **istemcinize** - ağınıza bağlanmak istediğiniz makineye - kurmak için [başlangıç kılavuzlarını](https://tailscale.com/kb/1017/install/) izleyin.
+Örneğin, bu bir dizüstü bilgisayar veya telefonunuz olabilir.
+**Bunun Rocket Pool düğümünüz _olmadığını_ unutmayın!**
 
-Once completed you should see your computer as 'connected' on the [Tailscale dashboard](https://login.tailscale.com/admin/machines).
+Tamamlandığında bilgisayarınızı [Tailscale panosunda](https://login.tailscale.com/admin/machines) 'bağlı' olarak görmelisiniz.
 
 <img src={tailscale_dashboard_client} width="100%" height="auto" />
 
-Now, install Tailscale on your **Rocket Pool node**.
-You can find instructions for this on their website; for example, here are the [installation instructions for Ubuntu](https://tailscale.com/kb/1039/install-ubuntu-2004/).
+Şimdi, Tailscale'i **Rocket Pool düğümünüze** kurun.
+Bunun için talimatları web sitelerinde bulabilirsiniz; örneğin, işte [Ubuntu için kurulum talimatları](https://tailscale.com/kb/1039/install-ubuntu-2004/).
 
-::: warning NOTE
-If you have UFW configured, you will also want to follow the [UFW Configuration Instructions](https://tailscale.com/kb/1077/secure-server-ubuntu-18-04/)).
+::: warning NOT
+UFW yapılandırılmışsa, ayrıca [UFW Yapılandırma Talimatlarını](https://tailscale.com/kb/1077/secure-server-ubuntu-18-04/) da izlemek isteyeceksiniz.
 :::
 
-First, add Tailscale’s package signing key and repository **on your Rocket Pool node**:
+İlk olarak, Tailscale'in paket imzalama anahtarını ve deposunu **Rocket Pool düğümünüze** ekleyin:
 
 ```shell
 curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/focal.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
 curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/focal.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
 ```
 
-Now, install Tailscale **on your Rocket Pool node**:
+Şimdi, Tailscale'i **Rocket Pool düğümünüze** kurun:
 
 ```shell
 sudo apt-get update
 sudo apt-get install tailscale
 ```
 
-Finally, authenticate and connect your machine to your Tailscale network **on your Rocket Pool node**:
+Son olarak, makinenizi Tailscale ağınıza kimlik doğrulayın ve bağlayın **Rocket Pool düğümünüzde**:
 
 ```shell
 sudo tailscale up
 ```
 
-You’re connected!
-You can find your Tailscale IPv4 address by running:
+Bağlandınız!
+Tailscale IPv4 adresinizi şunu çalıştırarak bulabilirsiniz:
 
 ```shell
 tailscale ip -4
 ```
 
-You should now see your node machine added to the on the [Tailscale dashboard](https://login.tailscale.com/admin/machines).
-You may also change the name of the **node machine** through the dashboard, e.g. to `rocketnode`.
+Artık düğüm makinenizi [Tailscale panosunda](https://login.tailscale.com/admin/machines) eklenmiş olarak görmelisiniz.
+Ayrıca pano üzerinden **düğüm makinesinin** adını, örneğin `rocketnode` olarak değiştirebilirsiniz.
 
 <img src={tailscale_dashboard_servers} width="100%" height="auto" />
 
-It is suggested to [disable key expiry](https://tailscale.com/kb/1028/key-expiry) for the node machine to prevent the need to periodically re-authenticate.
+Düzenli olarak yeniden kimlik doğrulama ihtiyacını önlemek için düğüm makinesi için [anahtar süresini devre dışı bırakmanız](https://tailscale.com/kb/1028/key-expiry) önerilir.
 
-::: tip Note
-If you would like to access your node using a memorable hostname such as rocketnode, you can do so by enabling MagicDNS in the Tailscale settings.
+::: tip Not
+Düğümünüze rocketnode gibi akılda kalıcı bir ana makine adı kullanarak erişmek istiyorsanız, Tailscale ayarlarında MagicDNS'i etkinleştirerek bunu yapabilirsiniz.
 :::
 
-You should now be able to `exit` the SSH session to your node on your client, and SSH into your node again through Tailscale using `ssh your.user@rocketnode`.
+Artık istemcinizde düğümünüze olan SSH oturumundan `exit` yapabilmeli ve Tailscale üzerinden `ssh your.user@rocketnode` kullanarak düğümünüze tekrar SSH yapabilmelisiniz.
 
-::: warning NOTE
-If you modified the SSH port of the **node machine** in `/etc/ssh/sshd_config` when you first configured it, use `ssh your.user@rocketnode -p <your port>` instead.
+::: warning NOT
+**Düğüm makinesinde** `/etc/ssh/sshd_config` dosyasında SSH portunu ilk yapılandırdığınızda değiştirdiyseniz, bunun yerine `ssh your.user@rocketnode -p <port numaranız>` kullanın.
 
-For example, if you assigned SSH to port 1234, you would do:
+Örneğin, SSH'yi 1234 portuna atadıysanız, şunu yaparsınız:
 
 ```shell
 ssh your.user@rocketnode -p 1234
@@ -92,49 +92,49 @@ ssh your.user@rocketnode -p 1234
 
 :::
 
-You can now also visit `http://rocketnode:3100` in your web browser to access your Grafana dashboard from your **client**.
+Artık **istemcinizden** Grafana panonuza erişmek için web tarayıcınızda `http://rocketnode:3100` adresini de ziyaret edebilirsiniz.
 
-If you have UFW configured, you can now add a rule to accept any incoming SSH connections over Tailscale.
+UFW yapılandırılmışsa, şimdi Tailscale üzerinden gelen tüm SSH bağlantılarını kabul etmek için bir kural ekleyebilirsiniz.
 
-::: danger WARNING
-The following steps will modify your firewall rules.
-\*\*You must have at least 2 SSH sessions open to your node machine before proceeding - one for modifying the configuration and testing it afterwards, and one that will stay logged in as a backup in case your changes break SSH so you can revert them!
+::: danger UYARI
+Aşağıdaki adımlar güvenlik duvarı kurallarınızı değiştirecektir.
+\*\*Devam etmeden önce düğüm makinesine en az 2 açık SSH oturumunuz olmalıdır - biri yapılandırmayı değiştirmek ve sonrasında test etmek için, diğeri ise değişiklikleriniz SSH'yi bozarsa geri alabilmeniz için yedek olarak oturum açık kalacak!
 :::
 
-**Run these commands on the node machine.**
+**Bu komutları düğüm makinesinde çalıştırın.**
 
-Allow access to all incoming ssh connections over Talscale.
+Tailscale üzerinden gelen tüm ssh bağlantılarına erişime izin verin.
 
 ```shell
 sudo ufw allow in on tailscale0
 ```
 
-You may also remove access to the SSH port adding from the [enabling a firewall](/en/node-staking/securing-your-node#essential-enable-a-firewall) steps to completely lock down your node.
-Note that you **will not** be able to login from the local network as tailscale will become the only way to login.
-Only run the following command if you are okay with this.
+Düğümünüzü tamamen kilitlemek için [güvenlik duvarını etkinleştirme](/tr/node-staking/securing-your-node#essential-enable-a-firewall) adımlarından SSH portuna eklenen erişimi de kaldırabilirsiniz.
+Tailscale giriş yapmanın tek yolu olacağından yerel ağdan giriş yapamayacağınızı **unutmayın**.
+Bununla sorun yoksa yalnızca aşağıdaki komutu çalıştırın.
 
 ```shell
 sudo ufw delete "22/tcp"
 ```
 
-Once you’ve set up firewall rules to restrict all non-Tailscale connections, restart UFW and SSH:
+Tüm Tailscale olmayan bağlantıları kısıtlamak için güvenlik duvarı kurallarını ayarladıktan sonra UFW ve SSH'yi yeniden başlatın:
 
 ```shell
 sudo ufw reload
 sudo service ssh restart
 ```
 
-Now, confirm that everything is working as expected.
-`exit` from one of your current SSH sessions (**but remember to keep the second one open as a backup**).
+Şimdi, her şeyin beklendiği gibi çalıştığını doğrulayın.
+Mevcut SSH oturumlarınızdan birinden `exit` yapın (**ancak ikincisini yedek olarak açık tutmayı unutmayın**).
 
-Next, connect to the **node machine** via SSH using the Tailscale IP address:
+Ardından, Tailscale IP adresini kullanarak **düğüm makinesine** SSH ile bağlanın:
 
 ```shell
 ssh your.user@rocketnode
 ```
 
-If it works, you did everything right and can now safely log into your home network while abroad!
+Çalışıyorsa, her şeyi doğru yaptınız ve artık yurt dışındayken ev ağınıza güvenle giriş yapabilirsiniz!
 
-::: tip TIP
-If you've previously port forwarded your node's SSH port in your router, you can now remove it.
+::: tip İPUCU
+Daha önce yönlendiricinizde düğümünüzün SSH portunu yönlendirdiyseniz, artık kaldırabilirsiniz.
 :::

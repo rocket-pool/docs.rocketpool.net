@@ -1,82 +1,82 @@
-# Monitoring your Oracle DAO Node
+# Oracle DAOノードの監視
 
-Once your node is up and running, it's important that you regularly monitor its health to ensure that it's correctly performing its automated duties.
-Doing so involves the following:
+ノードが起動して実行されたら、自動化された職務を正しく実行していることを確認するために、定期的にその健全性を監視することが重要です。
+これには次のことが含まれます。
 
-- Monitoring the health of your physical (or virtual) system at the OS level
-- Monitoring the health of your Execution and/or Consensus clients (if you run local clients)
-- Ensuring your node is regularly submitting the required transactions to the chain for status updates
-- Ensuring you have a sufficient ETH balance in your node wallet to execute those transactions
-- Routinely applying updates to the Smartnode, your clients (if applicable), and your Operating System
-- Monitoring the health of the other Oracle DAO members, and communicating with them if you believe their node(s) are not functioning properlyS
+- OSレベルでの物理（または仮想）システムの健全性の監視
+- 実行クライアントおよび/またはコンセンサスクライアント（ローカルクライアントを実行している場合）の健全性の監視
+- ステータス更新のためにノードがチェーンに必要なトランザクションを定期的に送信していることの確認
+- それらのトランザクションを実行するためにノードウォレットに十分なETH残高があることの確認
+- Smartnode、クライアント（該当する場合）、およびオペレーティングシステムへの更新を定期的に適用すること
+- 他のOracle DAOメンバーの健全性を監視し、そのノードが正しく機能していないと思われる場合は彼らと連絡を取ること
 
-In this section, we'll describe a few examples of how to do these via the Smartnode's built-in [Grafana](https://grafana.com/) support.
+このセクションでは、Smartnodeの組み込み[Grafana](https://grafana.com/)サポートを介してこれらを行う方法のいくつかの例を説明します。
 
-## The Standard Rocket Pool Dashboard
+## 標準Rocket Poolダッシュボード
 
-The Smartnode provides a convenient dashboard that allows you to monitor many of the metrics listed above.
-There is one dashboard for each Consensus Client.
-Below is an example of the dashboard for Nimbus:
+Smartnodeは、上記の多くのメトリクスを監視できる便利なダッシュボードを提供します。
+各コンセンサスクライアントに1つのダッシュボードがあります。
+以下はNimbusのダッシュボードの例です。
 
 ![](../node-staking/images/nimbus-dashboard.png)
 
-- Your machine's hardware health is captured in the upper-left quadrant.
-- Your Execution client is functioning properly if the Network Stats in the lower-left quadrant are being populated.
-- Your Consensus client is functioning properly if the peer count in the upper-right quadrant is updating with a non-zero number; the exact number depends on your choice of client and your network configuration.
-- Your node's ETH balance is displayed in the table at the bottom right.
-- Any Operating System updates or Smartnode updates are presented in the `Available Updates` box in the top-middle panel.
+- マシンのハードウェアの健全性は左上の象限に表示されます。
+- 左下の象限のネットワーク統計が入力されている場合、実行クライアントは正常に機能しています。
+- 右上の象限のピア数がゼロ以外の数値で更新されている場合、コンセンサスクライアントは正常に機能しています。正確な数値は、選択したクライアントとネットワーク構成によって異なります。
+- ノードのETH残高は右下のテーブルに表示されます。
+- オペレーティングシステムの更新またはSmartnodeの更新は、上部中央パネルの`Available Updates`ボックスに表示されます。
 
-::: tip NOTE
-Operating System and Smartnode updates require the update tracker, which you can install via `rocketpool service install-update-tracker`.
+::: tip 注意
+オペレーティングシステムとSmartnodeの更新には、`rocketpool service install-update-tracker`でインストールできる更新トラッカーが必要です。
 :::
 
-For information on how to prepare the metrics system and the Smartnode dashboard, please visit the [Monitoring your Node's Performance](../node-staking/performance) and the [Setting up the Grafana Dashboard](../node-staking/grafana.mdx) pages of the Smartnode documentation.
+メトリクスシステムとSmartnodeダッシュボードの準備方法については、Smartnodeドキュメントの[ノードのパフォーマンスの監視](../node-staking/performance)および[Grafanaダッシュボードのセットアップ](../node-staking/grafana.mdx)ページをご覧ください。
 
-## The Oracle DAO Dashboard
+## Oracle DAOダッシュボード
 
-We have also constructed a simple dashboard specifically tailored towards Oracle DAO members:
+また、Oracle DAOメンバー向けに特別に調整されたシンプルなダッシュボードも構築しました。
 
 ![](../odao/images/odao-dashboard.png)
 
-This dashboard that tracks the following:
+このダッシュボードは次のものを追跡します。
 
-- The status of the Oracle DAO proposals that need to be voted on or executed (more details on these in the next section)
-- The history of submissions for price and balance updates\*
-- The ETH balances of each Oracle DAO node
+- 投票または実行が必要なOracle DAOプロポーザルのステータス（次のセクションで詳細を説明します）
+- 価格および残高更新の送信履歴\*
+- 各Oracle DAOノードのETH残高
 
-\*_Note that price and balance submission currently requires a quorum of 51% of nodes to agree on each one, at which point the submission is canonized. Submissions from other members will revert as they are no longer required, so if your node does not submit for a given interval, it doesn't mean that it's offline. You should be concerned if you miss more than 5 consecutive intervals in a row, and should check your `watchtower` daemon logs to verify there aren't any issues._
+\*_現在、価格と残高の送信には51%のノードのクォーラムが各送信に同意する必要があり、その時点で送信が正規化されることに注意してください。他のメンバーからの送信は不要になったため、リバートされます。したがって、特定の間隔でノードが送信しない場合でも、オフラインであることを意味するわけではありません。5回以上連続して間隔を見逃した場合は注意が必要であり、`watchtower`デーモンログを確認して問題がないことを確認する必要があります。_
 
-Enabling this dashboard is a two-step process.
+このダッシュボードを有効にするのは2段階のプロセスです。
 
-First, enable Oracle DAO metrics in the `Metrics` section of the `rocketpool service config` editor:
+まず、`rocketpool service config`エディターの`Metrics`セクションでOracle DAOメトリクスを有効にします。
 
 ![](../odao/images/tui-odao-metrics.png)
 
-If you are running in Docker or Hybrid mode, this will restart your `node` daemon to apply the changes.
-If you are running in Native mode, please restart the `node` service manually.
+DockerまたはHybridモードで実行している場合、これにより`node`デーモンが再起動され、変更が適用されます。
+ネイティブモードで実行している場合は、`node`サービスを手動で再起動してください。
 
-Second, import the [Oracle DAO dashboard](https://grafana.com/grafana/dashboards/15003-odao-member-dashboard/) from Grafana Labs (ID `15003`) into your node's local Grafana server.
+次に、Grafana Labs（ID `15003`）から[Oracle DAOダッシュボード](https://grafana.com/grafana/dashboards/15003-odao-member-dashboard/)をノードのローカルGrafanaサーバーにインポートします。
 
-## Checking the Logs
+## ログの確認
 
-If you or one of the other Oracle DAO members has expressed concern with your node, the first line of defense is to look at the `watchtower` daemon logs using (for Docker and Hybrid mode) the following command:
+あなたまたは他のOracle DAOメンバーの1人があなたのノードに懸念を表明している場合、最初の防御線は（DockerおよびHybridモードの場合）次のコマンドを使用して`watchtower`デーモンログを確認することです。
 
 ```shell
 rocketpool service logs watchtower
 ```
 
-This will show the `docker` logs for the watchtower container, truncating to the last hundred lines or so.
+これにより、watchtowerコンテナの`docker`ログが表示され、最後の100行程度に切り捨てられます。
 
-To go further back, you can use the `-t` flag to indicate the number of lines.
-For example:
+さらに前に戻るには、`-t`フラグを使用して行数を指定できます。
+例えば:
 
 ```shell
 rocketpool service logs watchtower -t 2000
 ```
 
-will show the last 2000 lines.
-As this will get cluttered very fast, you may want to pipe this into a utility like `less` so it is scrollable.
+は最後の2000行を表示します。
+これはすぐに乱雑になるため、スクロール可能にするために`less`のようなユーティリティにパイプすることをお勧めします。
 
-## Next Steps
+## 次のステップ
 
-In the next section, we'll cover the duties that you must perform manually as an Oracle DAO member.
+次のセクションでは、Oracle DAOメンバーとして手動で実行する必要がある職務について説明します。

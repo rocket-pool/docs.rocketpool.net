@@ -1,322 +1,322 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# [Native Mode] Guide to the Redstone Update and the Merge
+# [Modo Nativo] Guia para a Atualização Redstone e o Merge
 
-This guide will cover everything you need to know in order to prepare your node for the Redstone Update and The Merge if you are using **Native Mode**.
+Este guia cobrirá tudo o que você precisa saber para preparar seu nó para a Atualização Redstone e o Merge se você estiver usando o **Modo Nativo**.
 
-## Things to Do Before Upgrading to v1.5.0
+## Coisas a Fazer Antes de Atualizar para v1.5.0
 
-Before upgrading to v1.5.0 and higher of the Smartnode, please go through the following checklist to make sure you're prepared:
+Antes de atualizar para v1.5.0 e versões superiores do Smartnode, por favor, percorra a seguinte lista de verificação para garantir que você esteja preparado:
 
-### Switch to a Full Execution Client
+### Mudar para um Cliente de Execução Completo
 
-The Merge requires you to run your own Execution client, so you won't be able to use remote providers like Infura or Pocket anymore.
+O Merge exige que você execute seu próprio cliente de Execução, então você não poderá mais usar provedores remotos como Infura ou Pocket.
 
-Because of this change, if you're currently using a light Execution client, you should switch to a full client while you're still on v1.4, let it sync to completion, and then upgrade to v1.5.
+Devido a essa mudança, se você estiver usando atualmente um cliente de Execução leve, você deve mudar para um cliente completo enquanto ainda estiver na v1.4, deixá-lo sincronizar até a conclusão e então atualizar para v1.5.
 
-### Set Up the Engine API
+### Configurar a Engine API
 
-The Merge changes the way your Execution client talks to your Consensus client.
-Instead of using the old HTTP or Websocket based RPC system, The Merge requires a new system exposed by your Execution client called the Engine API.
+O Merge muda a forma como seu cliente de Execução se comunica com seu cliente de Consenso.
+Em vez de usar o antigo sistema RPC baseado em HTTP ou Websocket, o Merge requer um novo sistema exposto por seu cliente de Execução chamado Engine API.
 
-This is a special connection that lets the Consensus client replace the old Proof-of-Work mining system with Proof-of-Stake; it's the heart of The Merge.
-It's also **authenticated** with a secret token, so only your Consensus client can connect to your Execution client - nothing else can.
+Esta é uma conexão especial que permite ao cliente de Consenso substituir o antigo sistema de mineração Proof-of-Work por Proof-of-Stake; é o coração do Merge.
+Também é **autenticado** com um token secreto, então apenas seu cliente de Consenso pode se conectar ao seu cliente de Execução - nada mais pode.
 
-As you manage your own Execution and Consensus clients, you'll need to set up the Engine API manually.
-How to do it depends entirely on which clients you're running.
+Como você gerencia seus próprios clientes de Execução e Consenso, você precisará configurar a Engine API manualmente.
+Como fazer isso depende inteiramente de quais clientes você está executando.
 
-CoinCashew has [a great and concise guide](https://www.coincashew.com/coins/overview-eth/ethereum-merge-upgrade-checklist-for-home-stakers-and-validators) on how to set up the Engine API on your Execution and Consensus clients.
-Give that a look, and test the new configuration out by making sure it still attests properly before upgrading.
+CoinCashew tem [um guia ótimo e conciso](https://www.coincashew.com/coins/overview-eth/ethereum-merge-upgrade-checklist-for-home-stakers-and-validators) sobre como configurar a Engine API em seus clientes de Execução e Consenso.
+Dê uma olhada nisso e teste a nova configuração certificando-se de que ainda atesta adequadamente antes de atualizar.
 
-We'll show you how to set up your Validator client so that it uses the correct fee recipient required by the Smartnode software automatically below.
+Mostraremos a você como configurar seu cliente Validator para que ele use o destinatário de taxa correto exigido pelo software Smartnode automaticamente abaixo.
 
-## Upgrading to v1.5.0
+## Atualizando para v1.5.0
 
-Upgrading the Smartnode stack to v1.5.0 is no different than any other upgrade.
-Simply follow [the normal directions here](../../node-staking/updates#updating-the-smartnode-stack).
+Atualizar a pilha Smartnode para v1.5.0 não é diferente de qualquer outra atualização.
+Simplesmente siga [as instruções normais aqui](../../node-staking/updates#updating-the-smartnode-stack).
 
-## Things You Should Do After Upgrading
+## Coisas que Você Deve Fazer Após Atualizar
 
-In Native mode, there are several things you will need to do manually after upgrading:
+No modo Nativo, há várias coisas que você precisará fazer manualmente após atualizar:
 
-### Ensure a Successful Upgrade
+### Garantir uma Atualização Bem-Sucedida
 
-The first thing to do is ensure that your node is working correctly.
-Consider taking the following steps:
+A primeira coisa a fazer é garantir que seu nó esteja funcionando corretamente.
+Considere seguir as seguintes etapas:
 
-- Check your log scripts for the Execution client, the Consensus client, the Validator client, and the Smartnode daemon (the `rp-node` service) to ensure they're all functioning normally without errors.
-- Confirm with a Block Explorer (such as your Grafana dashboard and [https://beaconcha.in](https://beaconcha.in)) that you are still attesting properly
-  - Remember that if you have Doppelganger protection enabled, you will miss a few attestations after the restart. This is normal!
+- Verifique seus scripts de log para o cliente de Execução, o cliente de Consenso, o cliente Validator e o daemon Smartnode (o serviço `rp-node`) para garantir que todos estejam funcionando normalmente sem erros.
+- Confirme com um Block Explorer (como seu dashboard Grafana e [https://beaconcha.in](https://beaconcha.in)) que você ainda está atestando adequadamente
+  - Lembre-se de que se você tem proteção Doppelganger habilitada, você perderá alguns atestados após a reinicialização. Isso é normal!
 
-### Set up the Fee Recipient in your Validator Client
+### Configurar o Destinatário de Taxa em seu Cliente Validator
 
-One of the **critical** details to set up prior to the Merge is the **fee recipient** specified by your validator client.
-As described in the [overview article](./whats-new#fee-recipients-and-your-distributor), this can be one of two values:
+Um dos detalhes **críticos** a configurar antes do Merge é o **destinatário de taxa** especificado por seu cliente validator.
+Como descrito no [artigo de visão geral](./whats-new#fee-recipients-and-your-distributor), isso pode ser um de dois valores:
 
-- If you **are opted into** the Smoothing Pool, this must be the address of the **Smoothing Pool contract**. You can get the address from [the official contracts page](/en/protocol/contracts-integrations).
-- If you are **not** in the Smoothing Pool, this must be the address of your node's **fee distributor contract**. You can get the address by running `rocketpool node status`, under the `Fee Distributor and Smoothing Pool` section.
+- Se você **está inscrito** no Smoothing Pool, este deve ser o endereço do **contrato Smoothing Pool**. Você pode obter o endereço da [página de contratos oficiais](/pt/protocol/contracts-integrations).
+- Se você **não está** no Smoothing Pool, este deve ser o endereço do **contrato distribuidor de taxas** do seu nó. Você pode obter o endereço executando `rocketpool node status`, na seção `Fee Distributor and Smoothing Pool`.
 
-In Native mode, you have the choice of letting the Smartnode manage this for you if you use the Smartnode daemon service, `rp-node`, or managing it yourself if you do not use the daemon.
+No modo Nativo, você tem a escolha de deixar o Smartnode gerenciar isso para você se usar o serviço daemon Smartnode, `rp-node`, ou gerenciar você mesmo se não usar o daemon.
 
-#### Automatic Management via the Daemon
+#### Gerenciamento Automático via Daemon
 
-The Smartnode daemon will automatically determine the appropriate fee recipient for your node and manage it in case it changes (such as opting into and out of the Smoothing Pool).
-This is the **safest** option, because the Smartnode will always ensure it's set to a value that **prevents [penalization](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)**.
+O daemon Smartnode determinará automaticamente o destinatário de taxa apropriado para seu nó e o gerenciará caso ele mude (como optar por entrar e sair do Smoothing Pool).
+Esta é a opção **mais segura**, porque o Smartnode sempre garantirá que esteja definido para um valor que **previne [penalização](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)**.
 
-The way it does this is by maintaining a file with the correct fee recipient in it, and regularly refreshing it to ensure its correctness.
-When it needs to be updated, it modifies the file and restarts your Validator client automatically so it loads the new recipient - similarly to how it restarts your Validator client after staking a new minipool.
+A forma como ele faz isso é mantendo um arquivo com o destinatário de taxa correto nele e atualizando-o regularmente para garantir sua correção.
+Quando precisa ser atualizado, ele modifica o arquivo e reinicia seu cliente Validator automaticamente para que ele carregue o novo destinatário - de forma similar a como reinicia seu cliente Validator após fazer stake de um novo minipool.
 
-Select your client below to learn how to set it up:
+Selecione seu cliente abaixo para aprender como configurá-lo:
 
 <div className="p-3">
   <Tabs>
     <Tab label="Lighthouse">
-      Modify your Validator Client service by adding the following line _before_ the `ExecStart` line:
+      Modifique seu serviço de Cliente Validator adicionando a seguinte linha _antes_ da linha `ExecStart`:
 
       ```
       EnvironmentFile=`data dir`/validators/rp-fee-recipient-env.txt
       ```
 
-      For example:
+      Por exemplo:
 
       ```
       EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
       ```
 
-      Next, add the following command line argument _to the end_ of your `ExecStart` line:
+      Em seguida, adicione o seguinte argumento de linha de comando _ao final_ da sua linha `ExecStart`:
 
       ```
       --suggested-fee-recipient ${FEE_RECIPIENT}
       ```
 
-      Your VC will now use the file managed by the Smartnode daemon, and will automatically be restarted whenever the fee recipient changes.
+      Seu VC agora usará o arquivo gerenciado pelo daemon Smartnode e será automaticamente reiniciado sempre que o destinatário de taxa mudar.
     </Tab>
     <Tab label="Nimbus">
-      Modify your Validator Client service by adding the following line _before_ the `ExecStart` line:
+      Modifique seu serviço de Cliente Validator adicionando a seguinte linha _antes_ da linha `ExecStart`:
 
       ```
       EnvironmentFile=`data dir`/validators/rp-fee-recipient-env.txt
       ```
 
-      For example:
+      Por exemplo:
 
       ```
       EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
       ```
 
-      Next, add the following command line argument _to the end_ of your `ExecStart` line:
+      Em seguida, adicione o seguinte argumento de linha de comando _ao final_ da sua linha `ExecStart`:
 
       ```
       --suggested-fee-recipient=${FEE_RECIPIENT}
       ```
 
-      Your VC will now use the file managed by the Smartnode daemon, and will automatically be restarted whenever the fee recipient changes.
+      Seu VC agora usará o arquivo gerenciado pelo daemon Smartnode e será automaticamente reiniciado sempre que o destinatário de taxa mudar.
     </Tab>
     <Tab label="Prysm">
-      Modify your Validator Client service by adding the following line _before_ the `ExecStart` line:
+      Modifique seu serviço de Cliente Validator adicionando a seguinte linha _antes_ da linha `ExecStart`:
 
       ```
       EnvironmentFile=`data dir`/validators/rp-fee-recipient-env.txt
       ```
 
-      For example:
+      Por exemplo:
 
       ```
       EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
       ```
 
-      Next, add the following command line argument _to the end_ of your `ExecStart` line:
+      Em seguida, adicione o seguinte argumento de linha de comando _ao final_ da sua linha `ExecStart`:
 
       ```
       --suggested-fee-recipient ${FEE_RECIPIENT}
       ```
 
-      Your VC will now use the file managed by the Smartnode daemon, and will automatically be restarted whenever the fee recipient changes.
+      Seu VC agora usará o arquivo gerenciado pelo daemon Smartnode e será automaticamente reiniciado sempre que o destinatário de taxa mudar.
     </Tab>
     <Tab label="Teku">
-      Modify your Validator Client service by adding the following line _before_ the `ExecStart` line:
+      Modifique seu serviço de Cliente Validator adicionando a seguinte linha _antes_ da linha `ExecStart`:
 
       ```
       EnvironmentFile=`data dir`/validators/rp-fee-recipient-env.txt
       ```
 
-      For example:
+      Por exemplo:
 
       ```
       EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
       ```
 
-      Next, add the following command line argument _to the end_ of your `ExecStart` line:
+      Em seguida, adicione o seguinte argumento de linha de comando _ao final_ da sua linha `ExecStart`:
 
       ```
       --validators-proposer-default-fee-recipient=${FEE_RECIPIENT}
       ```
 
-      Your VC will now use the file managed by the Smartnode daemon, and will automatically be restarted whenever the fee recipient changes.
+      Seu VC agora usará o arquivo gerenciado pelo daemon Smartnode e será automaticamente reiniciado sempre que o destinatário de taxa mudar.
     </Tab>
 
   </Tabs>
 </div>
 
-#### Manual Fee Recipient Management
+#### Gerenciamento Manual do Destinatário de Taxa
 
-::: danger WARNING
-By doing this, you assume full responsibility for ensuring your fee recipient is always set to the correct address.
+::: danger AVISO
+Ao fazer isso, você assume total responsabilidade por garantir que seu destinatário de taxa esteja sempre definido para o endereço correto.
 
-Please read the [penalty specification](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) to understand what it must be set to given your configuration, and when you can safely change it from one value to another.
+Por favor, leia a [especificação de penalidade](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) para entender para o que ele deve estar definido dada sua configuração e quando você pode alterá-lo com segurança de um valor para outro.
 
-Failure to do so could result in your minipools being penalized!
+Não fazer isso pode resultar em seus minipools sendo penalizados!
 :::
 
-**Prior to Redstone being deployed**, you can simply use the rETH address for the network you're on (which can be found in [the official contracts page](/en/protocol/contracts-integrations)).
-The rETH address is always safe no matter what.
+**Antes da implantação do Redstone**, você pode simplesmente usar o endereço rETH para a rede em que você está (que pode ser encontrado na [página de contratos oficiais](/pt/protocol/contracts-integrations)).
+O endereço rETH é sempre seguro, não importa o quê.
 
-**Once Redstone has been deployed**, you can see the exact address that you should set your fee recipient to via `rocketpool node status`. For example, if you are opted into the Smoothing Pool, it will show the Smoothing Pool's address and note that you must use it as your fee recipient:
+**Uma vez que o Redstone tenha sido implantado**, você pode ver o endereço exato para o qual deve definir seu destinatário de taxa via `rocketpool node status`. Por exemplo, se você está inscrito no Smoothing Pool, ele mostrará o endereço do Smoothing Pool e notará que você deve usá-lo como seu destinatário de taxa:
 
 <img src="../../node-staking/images/native-fee-rc-in.png" width="100%" height="auto" />
 
-If you are _not_ opted into the Smoothing Pool, it will show your fee distributor address and note that you must use it as your fee recipient:
+Se você _não_ está inscrito no Smoothing Pool, ele mostrará seu endereço de distribuidor de taxas e notará que você deve usá-lo como seu destinatário de taxa:
 
 <img src="../../node-staking/images/native-fee-rc-out.png" width="100%" height="auto" />
 
-Select your Consensus client below to learn how to configure it.
+Selecione seu cliente de Consenso abaixo para aprender como configurá-lo.
 
 <div className="p-3">
   <Tabs>
     <Tab label="Lighthouse">
-      Add the following command line argument to your Validator Client's service definition file:
+      Adicione o seguinte argumento de linha de comando ao arquivo de definição de serviço do seu Cliente Validator:
 
       ```
       --suggested-fee-recipient `address`
       ```
 
-      Where `address` is:
+      Onde `address` é:
 
-      - The [rETH address](/en/protocol/contracts-integrations/#token-contracts) **before** the Redstone update is deployed (e.g., `0xae78736Cd615f374D3085123A210448E74Fc6393` on Mainnet)
-      - Your node's **fee distributor** after Redstone is deployed, which you can retrieve with `rocketpool node status` once the contract upgrade occurs
-      - The [Smoothing Pool address](/en/protocol/contracts-integrations/#protocol-contracts) if you opt into the Smoothing Pool
+      - O [endereço rETH](/pt/protocol/contracts-integrations/#token-contracts) **antes** da implantação da atualização Redstone (por exemplo, `0xae78736Cd615f374D3085123A210448E74Fc6393` na Mainnet)
+      - O **distribuidor de taxas** do seu nó após o Redstone ser implantado, que você pode recuperar com `rocketpool node status` uma vez que a atualização do contrato ocorra
+      - O [endereço do Smoothing Pool](/pt/protocol/contracts-integrations/#protocol-contracts) se você optar por entrar no Smoothing Pool
 
-      As a reminder, `rocketpool node status` will show you the correct fee recipient to use at any time.
+      Como lembrete, `rocketpool node status` mostrará o destinatário de taxa correto a ser usado a qualquer momento.
 
-      **Please read the [penalty specification](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) carefully to understand the conditions and expectations around the fee recipient.**
+      **Por favor, leia a [especificação de penalidade](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) cuidadosamente para entender as condições e expectativas em torno do destinatário de taxa.**
     </Tab>
     <Tab label="Nimbus">
-      Add the following command line argument to Nimbus's service definition file:
+      Adicione o seguinte argumento de linha de comando ao arquivo de definição de serviço do Nimbus:
 
       ```
       --suggested-fee-recipient=`address`
       ```
 
-      Where `address` is:
+      Onde `address` é:
 
-      - The [rETH address](/en/protocol/contracts-integrations/#token-contracts) **before** the Redstone update is deployed (e.g., `0xae78736Cd615f374D3085123A210448E74Fc6393` on Mainnet)
-      - Your node's **fee distributor** after Redstone is deployed, which you can retrieve with `rocketpool node status` once the contract upgrade occurs
-      - The [Smoothing Pool address](/en/protocol/contracts-integrations/#protocol-contracts) if you opt into the Smoothing Pool
+      - O [endereço rETH](/pt/protocol/contracts-integrations/#token-contracts) **antes** da implantação da atualização Redstone (por exemplo, `0xae78736Cd615f374D3085123A210448E74Fc6393` na Mainnet)
+      - O **distribuidor de taxas** do seu nó após o Redstone ser implantado, que você pode recuperar com `rocketpool node status` uma vez que a atualização do contrato ocorra
+      - O [endereço do Smoothing Pool](/pt/protocol/contracts-integrations/#protocol-contracts) se você optar por entrar no Smoothing Pool
 
-      As a reminder, `rocketpool node status` will show you the correct fee recipient to use at any time.
+      Como lembrete, `rocketpool node status` mostrará o destinatário de taxa correto a ser usado a qualquer momento.
 
-      **Please read the [penalty specification](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) carefully to understand the conditions and expectations around the fee recipient.**
+      **Por favor, leia a [especificação de penalidade](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) cuidadosamente para entender as condições e expectativas em torno do destinatário de taxa.**
     </Tab>
     <Tab label="Prysm">
-      Add the following command line argument to your Validator Client's service definition file:
+      Adicione o seguinte argumento de linha de comando ao arquivo de definição de serviço do seu Cliente Validator:
 
       ```
       --suggested-fee-recipient `address`
       ```
 
-      Where `address` is:
+      Onde `address` é:
 
-      - The [rETH address](/en/protocol/contracts-integrations/#token-contracts) **before** the Redstone update is deployed (e.g., `0xae78736Cd615f374D3085123A210448E74Fc6393` on Mainnet)
-      - Your node's **fee distributor** after Redstone is deployed, which you can retrieve with `rocketpool node status` once the contract upgrade occurs
-      - The [Smoothing Pool address](/en/protocol/contracts-integrations/#protocol-contracts) if you opt into the Smoothing Pool
+      - O [endereço rETH](/pt/protocol/contracts-integrations/#token-contracts) **antes** da implantação da atualização Redstone (por exemplo, `0xae78736Cd615f374D3085123A210448E74Fc6393` na Mainnet)
+      - O **distribuidor de taxas** do seu nó após o Redstone ser implantado, que você pode recuperar com `rocketpool node status` uma vez que a atualização do contrato ocorra
+      - O [endereço do Smoothing Pool](/pt/protocol/contracts-integrations/#protocol-contracts) se você optar por entrar no Smoothing Pool
 
-      As a reminder, `rocketpool node status` will show you the correct fee recipient to use at any time.
+      Como lembrete, `rocketpool node status` mostrará o destinatário de taxa correto a ser usado a qualquer momento.
 
-      **Please read the [penalty specification](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) carefully to understand the conditions and expectations around the fee recipient.**
+      **Por favor, leia a [especificação de penalidade](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) cuidadosamente para entender as condições e expectativas em torno do destinatário de taxa.**
     </Tab>
     <Tab label="Teku">
-      Add the following command line argument to your Validator Client's service definition file:
+      Adicione o seguinte argumento de linha de comando ao arquivo de definição de serviço do seu Cliente Validator:
 
       ```
       --validators-proposer-default-fee-recipient=`address`
       ```
 
-      Where `address` is:
+      Onde `address` é:
 
-      - The [rETH address](/en/protocol/contracts-integrations/#token-contracts) **before** the Redstone update is deployed (e.g., `0xae78736Cd615f374D3085123A210448E74Fc6393` on Mainnet)
-      - Your node's **fee distributor** after Redstone is deployed, which you can retrieve with `rocketpool node status` once the contract upgrade occurs
-      - The [Smoothing Pool address](/en/protocol/contracts-integrations/#protocol-contracts) if you opt into the Smoothing Pool
+      - O [endereço rETH](/pt/protocol/contracts-integrations/#token-contracts) **antes** da implantação da atualização Redstone (por exemplo, `0xae78736Cd615f374D3085123A210448E74Fc6393` na Mainnet)
+      - O **distribuidor de taxas** do seu nó após o Redstone ser implantado, que você pode recuperar com `rocketpool node status` uma vez que a atualização do contrato ocorra
+      - O [endereço do Smoothing Pool](/pt/protocol/contracts-integrations/#protocol-contracts) se você optar por entrar no Smoothing Pool
 
-      As a reminder, `rocketpool node status` will show you the correct fee recipient to use at any time.
+      Como lembrete, `rocketpool node status` mostrará o destinatário de taxa correto a ser usado a qualquer momento.
 
-      **Please read the [penalty specification](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) carefully to understand the conditions and expectations around the fee recipient.**
+      **Por favor, leia a [especificação de penalidade](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) cuidadosamente para entender as condições e expectativas em torno do destinatário de taxa.**
     </Tab>
 
   </Tabs>
 </div>
 
-### Set Up MEV-Boost
+### Configurar o MEV-Boost
 
-[MEV-boost](https://boost.flashbots.net/) is the system Flashbots provides to give MEV rewards to Proof-of-Stake validators after The Merge.
+[MEV-boost](https://boost.flashbots.net/) é o sistema que a Flashbots fornece para dar recompensas MEV aos validadores Proof-of-Stake após o Merge.
 
-**Rocket Pool requires all nodes to use it to maximize their returns and thus keep the protocol competitive with other staking services.**
+**O Rocket Pool exige que todos os nós o usem para maximizar seus retornos e, assim, manter o protocolo competitivo com outros serviços de staking.**
 
-You will need to make some adjustments to your Beacon Node / Consensus client to connect it to MEV-boost.
+Você precisará fazer alguns ajustes em seu Beacon Node / cliente de Consenso para conectá-lo ao MEV-boost.
 
-MEV-boost is currently not available on Hoodi or Mainnet, so you do not need to set it up at this time.
-Of course, you will not be penalized for not using it during this transition period.
+O MEV-boost atualmente não está disponível na Hoodi ou Mainnet, então você não precisa configurá-lo neste momento.
+É claro que você não será penalizado por não usá-lo durante este período de transição.
 
-Once it becomes available, we will announce a date at which it must be installed and connected to your node.
-Flashbots will provide instructions you can follow at that time, and we will link to them here.
+Uma vez que esteja disponível, anunciaremos uma data na qual ele deve ser instalado e conectado ao seu nó.
+A Flashbots fornecerá instruções que você pode seguir naquele momento, e as vincularemos aqui.
 
-::: danger NOTE
-Once we make the announcement that MEV-boost must be enabled by all node operators, you must ensure you have it properly installed and configured with your Beacon Node!
+::: danger NOTA
+Uma vez que façamos o anúncio de que o MEV-boost deve ser habilitado por todos os operadores de nós, você deve garantir que o tenha instalado e configurado adequadamente com seu Beacon Node!
 
-Not doing so will result in your minipool being [penalized](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
+Não fazer isso resultará em seu minipool sendo [penalizado](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
 :::
 
-### Set Up a Fallback Node
+### Configurar um Nó de Fallback
 
-Because The Merge is not compatible with remote providers like Infura and Pocket, you'll lose the ability to use them as fallback Execution clients when your primary goes offline.
+Como o Merge não é compatível com provedores remotos como Infura e Pocket, você perderá a capacidade de usá-los como clientes de Execução de fallback quando seu primário ficar offline.
 
-The Smartnode still has the ability to provide a fallback Execution client (and now a fallback Consensus client as well), but you will now need to use Execution and Consensus clients that you control.
+O Smartnode ainda tem a capacidade de fornecer um cliente de Execução de fallback (e agora também um cliente de Consenso de fallback), mas você precisará usar clientes de Execução e Consenso que você controla.
 
-For more information on setting up a fallback node, see the [Fallback node guide](../../node-staking/fallback).
+Para mais informações sobre como configurar um nó de fallback, veja o [guia de nó de fallback](../../node-staking/fallback).
 
-### Initialize your Fee Distributor
+### Inicializar seu Distribuidor de Taxas
 
-If you aren't planning to opt into the [Smoothing Pool](./whats-new#smoothing-pool) and claim all of your priority fees and MEV rewards to your [fee distributor contract](./whats-new#fee-recipients-and-your-distributor), you will eventually have to initialize it (create the contract instance on the chain) in order to claim rewards from it to your withdrawal address.
+Se você não está planejando optar pelo [Smoothing Pool](./whats-new#smoothing-pool) e reivindicar todas as suas taxas de prioridade e recompensas MEV para seu [contrato distribuidor de taxas](./whats-new#fee-recipients-and-your-distributor), você eventualmente terá que inicializá-lo (criar a instância do contrato na cadeia) para reivindicar recompensas dele para seu endereço de retirada.
 
-This is a fairly cheap operation and only needs to be done once.
+Esta é uma operação bastante barata e só precisa ser feita uma vez.
 
-::: tip TIP
-Initializing your fee distributor can be done at **any time**.
-You can let rewards accumulate in its address long before you initialize it, and your balance will remain after initialization.
+::: tip DICA
+Inicializar seu distribuidor de taxas pode ser feito a **qualquer momento**.
+Você pode deixar as recompensas se acumularem em seu endereço muito antes de inicializá-lo, e seu saldo permanecerá após a inicialização.
 
-We recommend you do so when gas prices are low to minimize the overhead cost.
+Recomendamos que você faça isso quando os preços do gás estiverem baixos para minimizar o custo indireto.
 
-Note that it **must be initialized in order to claim your rewards.**
+Note que ele **deve ser inicializado para reivindicar suas recompensas.**
 :::
 
-### Opt Into the Smoothing Pool
+### Optar pelo Smoothing Pool
 
-If you plan on taking advantage of the [Smoothing Pool](./whats-new#smoothing-pool) right away, you should opt in before the end of the first Redstone rewards period to maximize your "eligibility" amount.
+Se você planeja aproveitar o [Smoothing Pool](./whats-new#smoothing-pool) imediatamente, você deve optar por entrar antes do final do primeiro período de recompensas Redstone para maximizar sua quantidade de "elegibilidade".
 
-Opting in can be done via running the following command:
+Optar por entrar pode ser feito executando o seguinte comando:
 
 ```shell
 rocketpool node join-smoothing-pool
 ```
 
-### Claim Rewards
+### Reivindicar Recompensas
 
-The Redstone upgrade replaces the expensive, problematic old rewards system with a [brand new one](./whats-new#new-rewards-system) that's much cheaper, supports automatic restaking of RPL (both partial and full amounts), and - most importantly - **lets you claim your rewards whenever you want**.
+A atualização Redstone substitui o antigo sistema de recompensas caro e problemático por um [totalmente novo](./whats-new#new-rewards-system) que é muito mais barato, suporta restaking automático de RPL (tanto quantidades parciais quanto totais) e - mais importante - **permite que você reivindique suas recompensas quando quiser**.
 
-Because there is no longer a time limit on claiming rewards, and because it's cheaper to claim many rewards intervals at once, the automatic rewards claiming feature of the Smartnode **has been removed**.
-You will now be able to claim rewards via the following command:
+Como não há mais um limite de tempo para reivindicar recompensas, e porque é mais barato reivindicar muitos intervalos de recompensas de uma vez, o recurso de reivindicação automática de recompensas do Smartnode **foi removido**.
+Você agora poderá reivindicar recompensas através do seguinte comando:
 
 ```shell
 rocketpool node claim-rewards
 ```
 
-This will show you all of the rewards you've accumulated across all of the rewards intervals starting with the Redstone upgrade.
+Isso mostrará todas as recompensas que você acumulou em todos os intervalos de recompensas começando com a atualização Redstone.

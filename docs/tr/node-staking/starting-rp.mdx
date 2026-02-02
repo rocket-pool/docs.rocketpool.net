@@ -1,27 +1,27 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Starting Rocket Pool
+# Rocket Pool'u Başlatma
 
-At this point, you should have the complete Rocket Pool infrastructure running, including the Smartnode stack, an Execution and a Consensus client.
-You should also have hardened your operating system from outside attackers.
-If you've completed both of these steps, you're ready to create a Rocket Pool node and begin staking.
-If not, please review the previous sections and return here once you've completed those steps.
+Bu noktada, Smartnode yığını, bir Yürütüm ve bir Fikir Birliği istemcisi dahil olmak üzere eksiksiz Rocket Pool altyapısına sahip olmalısınız.
+Ayrıca işletim sisteminizi dışarıdan gelen saldırganlara karşı sağlamlaştırmış olmalısınız.
+Bu adımların her ikisini de tamamladıysanız, bir Rocket Pool düğümü oluşturmaya ve stake etmeye başlamaya hazırsınız.
+Değilse, lütfen önceki bölümleri gözden geçirin ve bu adımları tamamladıktan sonra buraya geri dönün.
 
-## Starting and Stopping the Rocket Pool Services
+## Rocket Pool Hizmetlerini Başlatma ve Durdurma
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Docker (Default) Mode">
-      Now that you have the Smartnode installed, starting the stack is easy.
-      Simply enter the following command:
+    <Tab label="Docker (Varsayılan) Modu">
+      Artık Smartnode yüklü olduğuna göre, yığını başlatmak kolaydır.
+      Sadece aşağıdaki komutu girin:
 
       ```shell
       rocketpool service start
       ```
 
-      This command will create all of the necessary Docker images if they don't already exist, make sure the Rocket Pool docker network and storage volumes have been initialized, and update any containers if they no longer match the configuration settings from `rocketpool service config`'s UI.
+      Bu komut, henüz mevcut değillerse gerekli tüm Docker görüntülerini oluşturacak, Rocket Pool docker ağının ve depolama birimlerinin başlatıldığından emin olacak ve `rocketpool service config`'in kullanıcı arayüzündeki yapılandırma ayarlarıyla artık eşleşmeyen konteynerları güncelleyecektir.
 
-      The first time you do it, the output should look like this:
+      İlk kez yaptığınızda, çıktı şöyle görünmelidir:
 
       ```
       $ rocketpool service start
@@ -45,10 +45,10 @@ If not, please review the previous sections and return here once you've complete
       Creating rocketpool_watchtower ... done
       ```
 
-      If it does, then the Smartnode stack has been successfully initialized and is now running.
+      Eğer öyleyse, Smartnode yığını başarıyla başlatılmış ve şu anda çalışıyor demektir.
 
-      If you ever need to stop the services (for example, during an upgrade or because you need to do maintenance), you can use `rocketpool service stop` to shut everything down.
-      The output should look like this:
+      Hizmetleri durdurmanız gerekirse (örneğin, bir yükseltme sırasında veya bakım yapmanız gerektiği için), her şeyi kapatmak için `rocketpool service stop` komutunu kullanabilirsiniz.
+      Çıktı şöyle görünmelidir:
 
       ```
       $ rocketpool service stop
@@ -73,22 +73,22 @@ If not, please review the previous sections and return here once you've complete
       ```
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        Once you call this, Rocket Pool will **not** automatically start after a system reboot.
-        You will have to call `rocketpool service start` to start all of the Docker containers and enable auto-start on reboot again.
+        <p className="rspress-directive-title">NOT</p>
+        Bunu çağırdığınızda, Rocket Pool sistem yeniden başlatıldığında **otomatik olarak** başlamayacaktır.
+        Tüm Docker konteynerlerini başlatmak ve yeniden başlatmada otomatik başlatmayı yeniden etkinleştirmek için `rocketpool service start` komutunu çağırmanız gerekecektir.
       </p>
     </Tab>
-    <Tab label="Hybrid Mode">
-      Now that you have the Smartnode installed, starting the stack is easy.
-      Simply enter the following command:
+    <Tab label="Hibrit Mod">
+      Artık Smartnode yüklü olduğuna göre, yığını başlatmak kolaydır.
+      Sadece aşağıdaki komutu girin:
 
       ```shell
       rocketpool service start
       ```
 
-      This command will create all of the necessary Docker images if they don't already exist, make sure the Rocket Pool docker network and storage volumes have been initialized, and update any containers if they no longer match the configuration settings from `rocketpool service config`'s UI.
+      Bu komut, henüz mevcut değillerse gerekli tüm Docker görüntülerini oluşturacak, Rocket Pool docker ağının ve depolama birimlerinin başlatıldığından emin olacak ve `rocketpool service config`'in kullanıcı arayüzündeki yapılandırma ayarlarıyla artık eşleşmeyen konteynerları güncelleyecektir.
 
-      The first time you do it, the output should look like this:
+      İlk kez yaptığınızda, çıktı şöyle görünmelidir:
 
       ```
       $ rocketpool service start
@@ -104,13 +104,13 @@ If not, please review the previous sections and return here once you've complete
       Creating rocketpool_watchtower ... done
       ```
 
-      If it does, then the Smartnode stack has been successfully initialized and is now running.
+      Eğer öyleyse, Smartnode yığını başarıyla başlatılmış ve şu anda çalışıyor demektir.
 
-      Note that your external Execution and/or Consensus clients will not be listed here, as Rocket Pool does not manage them and thus cannot start them.
-      You will have to ensure that you've started them separately, using whatever mechanism you originally created them with.
+      Harici Yürütüm ve/veya Fikir Birliği istemcilerinizin burada listelenmeyeceğini unutmayın, çünkü Rocket Pool bunları yönetmez ve dolayısıyla başlatamaz.
+      Bunları başlangıçta oluşturduğunuz mekanizmayı kullanarak ayrı olarak başlattığınızdan emin olmanız gerekecektir.
 
-      If you ever need to stop the services (for example, during an upgrade or because you need to do maintenance), you can use `rocketpool service stop` to shut everything down.
-      The output should look like this:
+      Hizmetleri durdurmanız gerekirse (örneğin, bir yükseltme sırasında veya bakım yapmanız gerektiği için), her şeyi kapatmak için `rocketpool service stop` komutunu kullanabilirsiniz.
+      Çıktı şöyle görünmelidir:
 
       ```
       $ rocketpool service stop
@@ -128,44 +128,44 @@ If not, please review the previous sections and return here once you've complete
       Stopping rocketpool_api        ... done
       ```
 
-      Again, you will be responsible for manually ensuring that your Execution and Consensus clients are stopped appropriately as well, if you want them to be stopped.
+      Yine, istiyorsanız Yürütüm ve Fikir Birliği istemcilerinizin de uygun şekilde durdurulduğundan manuel olarak emin olmak sizin sorumluluğunuzdadır.
 
       <p className="rspress-directive tip">
-        <p className="rspress-directive-title">NOTE</p>
-        Once you call this, Rocket Pool will not automatically start after a system reboot.
-        You will have to call `rocketpool service start` to start all of the Docker containers and enable auto-start on reboot again.
+        <p className="rspress-directive-title">NOT</p>
+        Bunu çağırdığınızda, Rocket Pool sistem yeniden başlatıldığında otomatik olarak başlamayacaktır.
+        Tüm Docker konteynerlerini başlatmak ve yeniden başlatmada otomatik başlatmayı yeniden etkinleştirmek için `rocketpool service start` komutunu çağırmanız gerekecektir.
       </p>
 
     </Tab>
-    <Tab label="Native Mode">
-      In native mode, you already set up and started the Smartnode services as part of the [Configuring a Native Rocket Pool Node without Docker](./native) section.
+    <Tab label="Yerel Mod">
+      Yerel modda, [Docker Olmadan Yerel Rocket Pool Düğümü Yapılandırma](./native) bölümünün bir parçası olarak Smartnode hizmetlerini zaten kurdunuz ve başlattınız.
 
-      Assuming you set them up as `systemd` services, you can start them with `sudo systemctl start ...`.
-      For example, if you are using Geth for Execution and Teku for Consensus:
+      Bunları `systemd` hizmetleri olarak kurduğunuzu varsayarsak, `sudo systemctl start ...` ile başlatabilirsiniz.
+      Örneğin, Yürütüm için Geth ve Fikir Birliği için Teku kullanıyorsanız:
 
       ```shell
       sudo systemctl start geth teku-bn teku-vc rp-node rp-watchtower
       ```
 
-      Stopping them is the same process, but using `sudo systemctl stop ...`.
+      Durdurmak aynı süreçtir, ancak `sudo systemctl stop ...` kullanılır.
 
-      Note that stopping the services **does not disable autostart**; the processes will automatically start upon a reboot.
+      Hizmetleri durdurmanın **otomatik başlatmayı devre dışı bırakmadığını** unutmayın; işlemler yeniden başlatma sonrası otomatik olarak başlayacaktır.
 
     </Tab>
 
   </Tabs>
 </div>
 
-## Confirming the Correct Version and Network
+## Doğru Sürüm ve Ağı Onaylama
 
-Once the containers or services are up, a good first step is to confirm that you have the correct versions of the clients and are on the network that you expect.
-You can do this with the following command:
+Konteynerler veya hizmetler çalışmaya başladığında, iyi bir ilk adım, istemcilerin doğru sürümlerine sahip olduğunuzu ve beklediğiniz ağda olduğunuzu doğrulamaktır.
+Bunu aşağıdaki komutla yapabilirsiniz:
 
 ```shell
 rocketpool service version
 ```
 
-The output will look like this **(note that you may have a newer version than what is displayed here, this is just an example)**:
+Çıktı şöyle görünecektir **(burada görüntülenenden daha yeni bir sürümünüz olabileceğini unutmayın, bu sadece bir örnektir)**:
 
 ```
 Your Smartnode is currently using the Ethereum Mainnet.
@@ -178,34 +178,34 @@ Selected Eth 2.0 client: Lighthouse (Locally managed)
 Image: sigp/lighthouse:v3.1.0
 ```
 
-The first line will tell you if your Smartnode is configured for the Ethereum mainnet or for the Hoodi testnet.
+İlk satır, Smartnode'unuzun Ethereum mainnet'i için mi yoksa Hoodi testnet'i için mi yapılandırıldığını söyleyecektir.
 
-::: warning NOTE
-**For Docker / Hybrid users:**
-If you are not on the network you expect to be on, go back to the Installing Rocket Pool section and review the installation instructions - you may have missed the portion that has different instructions depending on which network you want to use.
+::: warning NOT
+**Docker / Hibrit kullanıcıları için:**
+Beklediğiniz ağda değilseniz, Rocket Pool Kurulumu bölümüne geri dönün ve kurulum talimatlarını gözden geçirin - hangi ağı kullanmak istediğinize bağlı olarak farklı talimatlara sahip bölümü kaçırmış olabilirsiniz.
 
-**For Native users:**
-If you accepted the default settings when you first ran `rp service config`, then it's possible that the network reported here is incorrect.
-Simply switch it in the `rp service config` TUI, in the `Smartnode` section, to the proper network and restart your `node` and `watchtower` services.
+**Yerel kullanıcılar için:**
+`rp service config` komutunu ilk çalıştırdığınızda varsayılan ayarları kabul ettiyseniz, burada bildirilen ağın yanlış olması mümkündür.
+`rp service config` TUI'sinde, `Smartnode` bölümünde uygun ağa geçin ve `node` ve `watchtower` hizmetlerinizi yeniden başlatın.
 :::
 
-The second set of lines will tell you which clients you're using, and which versions of them are defined in Rocket Pool's configuration.
+İkinci satır seti, hangi istemcileri kullandığınızı ve bunların hangi sürümlerinin Rocket Pool yapılandırmasında tanımlandığını söyleyecektir.
 
-## Checking the Service Status and Logs
+## Hizmet Durumunu ve Günlüklerini Kontrol Etme
 
-Now that the Smartnode services have been started, it's a good idea to check that they're running correctly without errors.
+Artık Smartnode hizmetleri başlatıldığına göre, hatasız bir şekilde doğru çalıştıklarını kontrol etmek iyi bir fikirdir.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Docker (Default) Mode">
-      The first thing to check is whether the Docker containers are running well, or if they are constantly restarting due to an error.
-      Run the following command:
+    <Tab label="Docker (Varsayılan) Modu">
+      Kontrol edilecek ilk şey, Docker konteynerlerinin iyi çalışıp çalışmadığı veya bir hata nedeniyle sürekli yeniden başlatılıp başlatılmadığıdır.
+      Aşağıdaki komutu çalıştırın:
 
       ```shell
       docker ps
       ```
 
-      The results should look like this:
+      Sonuçlar şöyle görünmelidir:
 
       ```
       CONTAINER ID   IMAGE                         COMMAND                  CREATED       STATUS      PORTS                                                                                                         NAMES
@@ -220,23 +220,23 @@ Now that the Smartnode services have been started, it's a good idea to check tha
       dedc577fe361   prom/node-exporter:v1.3.1     "/bin/node_exporter …"   2 weeks ago   Up 9 days                                                                                                                 rocketpool_exporter
       ```
 
-      The key thing to check is the `STATUS` column.
-      If none of the entries state `Restarting...`, then the containers should be running properly (see the below note for an exception about the `rocketpool_validator` container).
+      Kontrol edilecek anahtar şey `STATUS` sütunudur.
+      Girişlerden hiçbiri `Restarting...` durumunda değilse, konteynerler düzgün çalışıyor olmalıdır (`rocketpool_validator` konteyneri hakkındaki aşağıdaki not için bir istisna görün).
 
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        If you are using Prysm or Lodestar as your Consensus client, you will likely notice the `rocketpool_validator` container is constantly restarting.
-        This is okay!
-        The validator container will fail until a new validator has been created using the `rocketpool node deposit` command, which we will cover in the [Creating a Minipool (Validator)](./create-validator) section.
-        Once this is done, the container will function correctly - until then, just ignore it.
+        <p className="rspress-directive-title">NOT</p>
+        Fikir Birliği istemciniz olarak Prysm veya Lodestar kullanıyorsanız, muhtemelen `rocketpool_validator` konteynerinin sürekli yeniden başlatıldığını fark edeceksiniz.
+        Bu normaldir!
+        Doğrulayıcı konteyneri, [Minipool (Doğrulayıcı) Oluşturma](./create-validator) bölümünde ele alacağımız `rocketpool node deposit` komutu kullanılarak yeni bir doğrulayıcı oluşturulana kadar başarısız olacaktır.
+        Bu tamamlandığında, konteyner düzgün çalışacaktır - o zamana kadar, sadece görmezden gelin.
       </p>
 
-      Still, it might be useful to check the logs of the various services.
+      Yine de, çeşitli hizmetlerin günlüklerini kontrol etmek yararlı olabilir.
 
-      To check on the logs, use the `rocketpool service logs container` command, where `container` is one of `eth1`, `eth2`, `validator`, `api`, `node`, or `watchtower`.
+      Günlükleri kontrol etmek için `rocketpool service logs container` komutunu kullanın, burada `container`, `eth1`, `eth2`, `validator`, `api`, `node` veya `watchtower`'dan biridir.
 
-      For example, to check the logs for your ETH1 client:
+      Örneğin, ETH1 istemcinizin günlüklerini kontrol etmek için:
 
       ```
       $ rocketpool service logs eth1
@@ -252,17 +252,17 @@ Now that the Smartnode services have been started, it's a good idea to check tha
       eth1_1        | INFO [06-17|05:17:19.486] Imported new block receipts              count=6    elapsed=26.042ms    number=247,557   hash=fd6656..ca2439 age=2y3mo2w  size=3.77KiB
       ```
 
-      You should do this for both `eth1` and `eth2` to make sure both clients are running without any errors.
+      Hem `eth1` hem de `eth2` için bunu yapmalısınız, böylece her iki istemcinin de hatasız çalıştığından emin olursunuz.
     </Tab>
-    <Tab label="Hybrid Mode">
-      The first thing to check is whether the Docker containers are running well, or if they are constantly restarting due to an error.
-      Run the following command:
+    <Tab label="Hibrit Mod">
+      Kontrol edilecek ilk şey, Docker konteynerlerinin iyi çalışıp çalışmadığı veya bir hata nedeniyle sürekli yeniden başlatılıp başlatılmadığıdır.
+      Aşağıdaki komutu çalıştırın:
 
       ```shell
       docker ps
       ```
 
-      The results should look like this:
+      Sonuçlar şöyle görünmelidir:
 
       ```
       CONTAINER ID   IMAGE                               COMMAND                  CREATED       STATUS         NAMES
@@ -272,54 +272,54 @@ Now that the Smartnode services have been started, it's a good idea to check tha
       62314e5a0ecf   rocketpool/smartnode:v1.0.0-rc3     "/bin/sleep infinity"    2 hours ago   Up 2 minutes   rocketpool_api
       ```
 
-      The key thing to check is the `STATUS` column.
-      If none of the entries state `Restarting...`, then the containers should be running properly (see the below note for an exception about the `rocketpool_validator` container).
+      Kontrol edilecek anahtar şey `STATUS` sütunudur.
+      Girişlerden hiçbiri `Restarting...` durumunda değilse, konteynerler düzgün çalışıyor olmalıdır (`rocketpool_validator` konteyneri hakkındaki aşağıdaki not için bir istisna görün).
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        If you are using **Lodestar** or **Prysm** as your Consensus client, you will likely notice the `rocketpool_validator` container is constantly restarting.
-        This is okay!
-        The validator container will fail until a new validator has been created using the `rocketpool node deposit` command, which we will cover in the [Creating a Minipool (Validator)](./create-validator) section.
-        Once this is done, the container will function correctly - until then, just ignore it.
+        <p className="rspress-directive-title">NOT</p>
+        Fikir Birliği istemciniz olarak **Lodestar** veya **Prysm** kullanıyorsanız, muhtemelen `rocketpool_validator` konteynerinin sürekli yeniden başlatıldığını fark edeceksiniz.
+        Bu normaldir!
+        Doğrulayıcı konteyneri, [Minipool (Doğrulayıcı) Oluşturma](./create-validator) bölümünde ele alacağımız `rocketpool node deposit` komutu kullanılarak yeni bir doğrulayıcı oluşturulana kadar başarısız olacaktır.
+        Bu tamamlandığında, konteyner düzgün çalışacaktır - o zamana kadar, sadece görmezden gelin.
       </p>
 
-      Still, it might be useful to check the logs of the various services.
+      Yine de, çeşitli hizmetlerin günlüklerini kontrol etmek yararlı olabilir.
 
-      To check on the logs, use the `rocketpool service logs container` command, where `container` is one of `eth1`, `eth2`, `validator`, `api`, `node`, or `watchtower`.
+      Günlükleri kontrol etmek için `rocketpool service logs container` komutunu kullanın, burada `container`, `eth1`, `eth2`, `validator`, `api`, `node` veya `watchtower`'dan biridir.
 
-      You can ignore `eth1` and/or `eth2` based on which ones you are maintaining externally, but if you are letting Rocket Pool manage one of them, you should check the status of it now using this command.
+      Harici olarak hangi istemcileri yönettiğinize bağlı olarak `eth1` ve/veya `eth2`'yi görmezden gelebilirsiniz, ancak Rocket Pool'un bunlardan birini yönetmesine izin veriyorsanız, şimdi bu komutu kullanarak durumunu kontrol etmelisiniz.
     </Tab>
-    <Tab label="Native Mode">
-      The easiest way to check the status and logs in native mode is to use the logging scripts that you created when you first set up the Smartnode services.
+    <Tab label="Yerel Mod">
+      Yerel modda durum ve günlükleri kontrol etmenin en kolay yolu, Smartnode hizmetlerini ilk kurduğunuzda oluşturduğunuz günlük betiklerini kullanmaktır.
 
-      For example, to check Geth's log, you would just run:
+      Örneğin, Geth'in günlüğünü kontrol etmek için şunu çalıştırırsınız:
 
       ```shell
       /srv/geth/log.sh
       ```
 
-      You should see that it is slowly chugging along without any errors.
-      Do this for your Execution and Consensus clients now to verify that they are working properly.
+      Herhangi bir hata olmadan yavaş yavaş ilerlediğini görmelisiniz.
+      Yürütüm ve Fikir Birliği istemcileriniz için bunu şimdi yapın ve düzgün çalıştıklarını doğrulayın.
     </Tab>
 
   </Tabs>
 </div>
 
-::: tip TIP
-When you're done looking at the logs, you can exit and return to the command prompt using `Ctrl + C`.
+::: tip İPUCU
+Günlüklere bakmayı bitirdiğinizde, `Ctrl + C` kullanarak çıkıp komut istemine geri dönebilirsiniz.
 :::
 
-## Waiting for Your ETH Clients to Sync
+## ETH İstemcilerinizin Senkronize Olmasını Bekleme
 
-Now that your clients have started up, you're going to want to wait until your Execution and Consensus clients have finished syncing with the network before proceeding.
+Artık istemcileriniz başladığına göre, devam etmeden önce Yürütüm ve Fikir Birliği istemcilerinizin ağla senkronizasyonunu tamamlamasını beklemek isteyeceksiniz.
 
-One easy way to check on their status is with the following command:
+Durumlarını kontrol etmenin kolay bir yolu aşağıdaki komutla:
 
 ```shell
 rocketpool node sync
 ```
 
-This command will show how far along your Execution & Consensus clients are in the syncing process, similar to this:
+Bu komut, Yürütüm ve Fikir Birliği istemcilerinizin senkronizasyon sürecinde ne kadar ilerlediğini şuna benzer şekilde gösterecektir:
 
 ```shell
 $ rocketpool node sync
@@ -333,23 +333,23 @@ You do not have a fallback execution client enabled.
 Your consensus client is still syncing (99.69%).
 ```
 
-You can call this occasionally to keep tabs on your clients' progress.
+İstemcilerinizin ilerlemesini takip etmek için bunu zaman zaman çağırabilirsiniz.
 
-To get an actual ETA of the sync time, it's easiest to look at the logs for your clients with `rocketpool service logs eth1` and `rocketpool service logs eth2` respectively (or the equivalent log script commands if you're using the hybrid / native modes.)
-Each client typically provides an ETA on its sync status in its log output.
+Senkronizasyon süresinin gerçek bir tahminini almak için, istemcilerinizin günlüklerine `rocketpool service logs eth1` ve `rocketpool service logs eth2` ile bakmak en kolay yoldur (veya hibrit / yerel modları kullanıyorsanız eşdeğer günlük betiği komutları.)
+Her istemci genellikle günlük çıktısında senkronizasyon durumu için bir tahmini süre sağlar.
 
-::: tip NOTE
-It can take **days** to fully sync both ETH1 and ETH2 depending on your client selection and your machine's hardware profile.
-**This is expected**.
-Sit back, relax, and wait for both of them to finish.
+::: tip NOT
+Hem ETH1 hem de ETH2'yi tam olarak senkronize etmek, istemci seçiminize ve makinenizin donanım profiline bağlı olarak **günler** alabilir.
+**Bu beklenen bir durumdur**.
+Rahat edin ve her ikisinin de bitmesini bekleyin.
 :::
 
-::: warning NOTE
-If your node is not syncing at all or has no peers, it may be because your router is blocking ports 30303 and 9001. If they're closed, you'll need to setup port forwarding on your router. Also, make sure your node has a static local IP address so the port forwarding does not break due to your node getting a new address.
+::: warning NOT
+Düğümünüz hiç senkronize olmuyorsa veya eşi yoksa, bunun nedeni yönlendiricinizin 30303 ve 9001 portlarını engellemesi olabilir. Kapalılarsa, yönlendiricinizde port yönlendirmesi ayarlamanız gerekecektir. Ayrıca, düğümünüzün statik bir yerel IP adresine sahip olduğundan emin olun, böylece düğümünüz yeni bir adres aldığında port yönlendirmesi bozulmaz.
 :::
 
-## Next Steps
+## Sonraki Adımlar
 
-Once your clients have synced, you're ready to either [create a new wallet](./wallet-init) if this is your first node, or [recover an existing wallet](./recovering-rp) if you're restoring from a backup or migrating from another provider such as Allnodes to your own hardware.
+İstemcileriniz senkronize olduktan sonra, bu ilk düğümünüzse [yeni bir cüzdan oluşturmaya](./wallet-init) veya bir yedeklemeden geri yükleme yapıyorsanız veya Allnodes gibi başka bir sağlayıcıdan kendi donanımınıza geçiş yapıyorsanız [mevcut bir cüzdanı kurtarmaya](./recovering-rp) hazırsınız.
 
-Select which one you'd like to learn more about and follow the steps in the corresponding guide.
+Hangisi hakkında daha fazla bilgi edinmek istediğinizi seçin ve ilgili kılavuzdaki adımları izleyin.

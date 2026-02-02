@@ -1,67 +1,72 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Creating a New Wallet
+# Criando uma Nova Carteira
 
-If the Smartnode services are up and running, the next step is to set up an Ethereum wallet for your node.
-This is simply an Execution Layer address that will hold your node's funds - it will use this to send ETH to your minipool when you begin staking, pay for gas during various transactions, and other various operations.
+Se os serviços do Smartnode estiverem funcionando, o próximo passo é configurar uma carteira Ethereum para seu nó.
+Esta é simplesmente um endereço da Camada de Execução que manterá os fundos do seu nó - ele usará isso para enviar ETH ao seu minipool quando você começar a fazer staking, pagar por gas durante várias transações e outras operações diversas.
 
-You have the option of either creating a brand new wallet from scratch, or importing / recovering an existing wallet or address.
-Please choose which option you'd like from the tabs below.
+Você tem a opção de criar uma carteira totalmente nova do zero, ou importar / recuperar uma carteira ou endereço existente.
+Por favor, escolha qual opção você deseja nas abas abaixo.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Creating a New Wallet">
-      The most common way to run a node is to create a new Ethereum address that is dedicated to the node.
-      The Smartnode CLI provides a way to do this easily:
+    <Tab label="Criando uma Nova Carteira">
+      A maneira mais comum de executar um nó é criar um novo endereço Ethereum dedicado ao nó.
+      A CLI do Smartnode oferece uma maneira fácil de fazer isso:
 
       ```shell
       rocketpool wallet init
       ```
 
-      You will first be prompted for a password to protect your wallet's private key.
-      Next, you will be presented the **unique 24-word mnemonic** for your new wallet.
-      This is the **recovery phrase** for your wallet.
-      If you ever lose your machine, you can use this phrase to regenerate your wallet and resurrect all of the Consensus validators attached to it.
+      Primeiro, você será solicitado a fornecer uma senha para proteger a chave privada da sua carteira.
+      Em seguida, você verá o **mnemônico único de 24 palavras** para sua nova carteira.
+      Esta é a **frase de recuperação** da sua carteira.
+      Se você perder sua máquina, pode usar esta frase para regenerar sua carteira e ressuscitar todos os validadores da Camada de Consenso anexados a ela.
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        It is **essential** that you write this mnemonic down because this is the only time it will be shown to you, but keep it somewhere safe.
-        Anyone with this phrase can gain control of your wallet.
+        <p className="rspress-directive-title">NOTA</p>
+        É **essencial** que você anote este mnemônico porque esta é a única vez que ele será mostrado a você, mas mantenha-o em um lugar seguro.
+        Qualquer pessoa com esta frase pode obter controle da sua carteira.
       </p>
 
-      Once you confirm your mnemonic phrase, you will be presented with the unique Ethereum address for your node wallet.
+      Depois de confirmar sua frase mnemônica, você verá o endereço Ethereum único para a carteira do seu nó.
     </Tab>
-    <Tab label="Recovering or Importing an Existing Wallet">
-      If you already have a node wallet that you created in a previous installation of the Smartnode, or if you want to import an address that you created elsewhere (such as with **Allnodes**), please follow the instructions in the [Importing an Existing Wallet for your Node](./recovering-rp) guide.
+    <Tab label="Recuperando ou Importando uma Carteira Existente">
+      Assim que terminar de inserir a frase mnemônica, você verá uma mensagem de sucesso como a seguinte:
+      "The node wallet was successfully initialized.
+        Node account: {LongStringOfLettersAndNumbers}"
+      Este é o endereço público para o qual você enviará ETH em "Preparando seu Nó para Operação". Você também pode verificá-lo digitando "rocketpool wallet status".
 
-      Return here when you're finished.
+      Se você já tem uma carteira de nó que criou em uma instalação anterior do Smartnode, ou se deseja importar um endereço que criou em outro lugar (como com **Allnodes**), siga as instruções no guia [Importando uma Carteira Existente para seu Nó](./recovering-rp).
+
+      Retorne aqui quando terminar.
     </Tab>
 
   </Tabs>
 </div>
 
-::: warning NOTE
-As of the current build, Rocket Pool needs to have access to your wallet's private key in order to perform its automatic duties.
-**This means that the private key will exist in a file on your machine.**
-If an attacker manages to gain access to your machine, they could gain access to your node wallet and steal all of the tokens that it contains!
-Please ensure that you have followed the security guide in the [Securing your Node](./securing-your-node) section before you continue, and are comfortable with your security posture.
+::: warning NOTA
+A partir da versão atual, o Rocket Pool precisa ter acesso à chave privada da sua carteira para executar suas funções automáticas.
+**Isso significa que a chave privada existirá em um arquivo na sua máquina.**
+Se um invasor conseguir acesso à sua máquina, ele poderá obter acesso à carteira do seu nó e roubar todos os tokens que ela contém!
+Certifique-se de ter seguido o guia de segurança na seção [Protegendo seu Nó](./securing-your-node) antes de continuar, e esteja confortável com sua postura de segurança.
 :::
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Docker & Hybrid Modes">
-      Your wallet's private key will be stored in a file located at `~/.rocketpool/data/wallet`.
+    <Tab label="Modos Docker e Híbrido">
+      A chave privada da sua carteira será armazenada em um arquivo localizado em `~/.rocketpool/data/wallet`.
 
-      The password used to encrypt your wallet's key will be stored in `~/.rocketpool/data/password`.
-      This is the file that must be protected at all times.
+      A senha usada para criptografar a chave da sua carteira será armazenada em `~/.rocketpool/data/password`.
+      Este é o arquivo que deve ser protegido o tempo todo.
     </Tab>
-    <Tab label="Native Mode">
-      The wallet and password files will be stored in the `data` directory under the Rocket Pool directory that you set up earlier (e.g. `/srv/rocketpool`).
+    <Tab label="Modo Nativo">
+      Os arquivos de carteira e senha serão armazenados no diretório `data` sob o diretório Rocket Pool que você configurou anteriormente (por exemplo, `/srv/rocketpool`).
 
-      Your wallet's private key will be stored in a file located at `/srv/rocketpool/data/wallet`.
+      A chave privada da sua carteira será armazenada em um arquivo localizado em `/srv/rocketpool/data/wallet`.
 
-      The password used to encrypt your wallet's key will be stored in `/srv/rocketpool/data/password`.
-      This is the file that must be protected at all times.
+      A senha usada para criptografar a chave da sua carteira será armazenada em `/srv/rocketpool/data/password`.
+      Este é o arquivo que deve ser protegido o tempo todo.
     </Tab>
 
   </Tabs>

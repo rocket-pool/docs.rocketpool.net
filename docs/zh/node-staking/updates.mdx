@@ -2,42 +2,42 @@ import { Tab, Tabs } from "@rspress/core/theme";
 import tuiEcContainerTag from "./images/tui-ec-container-tag.png";
 import tuiCcContainerTag from "./images/tui-cc-container-tag.png";
 
-# Checking for Updates
+# 检查更新
 
-One of the responsibilities of a node operator is making sure your system is up to date with the latest security patches.
-Automatic updates are convenient but can interfere with your node operation, so it may be preferable to run them manually.
-In either case, **you must make sure that your machine is regularly patched!**
+节点操作者的职责之一是确保系统安装了最新的安全补丁。
+自动更新虽然方便,但可能会干扰节点操作,因此手动运行更新可能更可取。
+无论哪种情况,**您必须确保机器定期打补丁!**
 
-::: tip NOTE
-Most of the time, updating will not require your system to be down for more than a few minutes.
-You might be concerned that such downtime will negatively affect your Beacon Chain balance.
-Rest assured, the penalty for being offline for such a short period of time is **completely negligible**.
+::: tip 注意
+大多数情况下,更新不需要系统停机超过几分钟。
+您可能担心这样的停机时间会对信标链余额产生负面影响。
+请放心,离线这么短的时间的惩罚**完全可以忽略不计**。
 
-Each attestation you miss will penalize you for slightly less than the amount you'd earn from a successful attestation.
-As a rule of thumb, if you're offline for an hour, you will earn it all back after being online for an hour again.
+您错过的每次证明都会使您受到略低于成功证明所赚取金额的惩罚。
+根据经验,如果您离线一小时,在重新上线一小时后就会赚回来。
 
-Also note that there is **absolutely no chance** that you will be _slashed_ by going offline for a short time.
-Slashing only occurs if you attack the network, and going offline for maintenance does not count as attacking the network.
+另请注意,短时间离线**绝对不可能**被_罚没_。
+罚没仅在您攻击网络时发生,而离线维护不算攻击网络。
 
-**Please keep your systems up to date - don't worry about the downtime penalties!**
+**请保持系统更新 - 不要担心停机惩罚!**
 :::
 
-## Updating your Operating System
+## 更新操作系统
 
-You should frequently check your Operating System's package manager or update service to ensure that quickly apply any new important security patches.
-The exact instructions vary for each Operating System and can be found with your system's documentation, but here are a few examples.
+您应该经常检查操作系统的包管理器或更新服务,以确保快速应用任何新的重要安全补丁。
+具体说明因每个操作系统而异,可以在系统文档中找到,但这里有一些示例。
 
 <div className="p-3">
   <Tabs>
     <Tab label="Ubuntu">
-      In a terminal, type the following:
+      在终端中,输入以下内容:
 
       ```shell
       sudo apt update
       ```
 
-      This will access the package servers and check to see if any of your installed packages have new versions available.
-      If updates are available, the output will look like this:
+      这将访问包服务器并检查是否有任何已安装的包有新版本可用。
+      如果有可用更新,输出将如下所示:
 
       ```
       Fetched 3974 kB in 2s (1641 kB/s)
@@ -47,13 +47,13 @@ The exact instructions vary for each Operating System and can be found with your
       12 packages can be upgraded. Run 'apt list --upgradable' to see them.
       ```
 
-      You can install the updates with the following command:
+      您可以使用以下命令安装更新:
 
       ```shell
       sudo apt dist-upgrade
       ```
 
-      This will show you the list of packages that are about to be updated, and if the total installation size is large enough, it will show you the size and prompt you to confirm that you accept:
+      这将显示即将更新的包列表,如果总安装大小足够大,它将显示大小并提示您确认接受:
 
       ```
       12 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
@@ -62,34 +62,34 @@ The exact instructions vary for each Operating System and can be found with your
       Do you want to continue? [Y/n]
       ```
 
-      Ensure that you have enough space available to do this, then press `y` and `Enter` to begin the update process.
+      确保您有足够的可用空间来执行此操作,然后按 `y` 和 `Enter` 开始更新过程。
 
-      Once the progress bar is finished and you're dropped back into the terminal prompt, run the following command to clean up any old versions of packages that were just replaced:
+      进度条完成并返回到终端提示符后,运行以下命令清理刚刚替换的包的任何旧版本:
 
       ```shell
       sudo apt autoremove
       ```
 
-      Next, check if your system needs to be rebooted:
+      接下来,检查系统是否需要重启:
 
       ```shell
       cat /var/run/reboot-required
       ```
 
-      If the above command prints `No such file or directory`, then reboot is not required and you can skip the step below.
+      如果上述命令打印 `No such file or directory`,则不需要重启,您可以跳过下面的步骤。
 
-      However if the command prints `*** System restart required ***`, then you should restart your machine to finish applying the updates when you are able:
+      但是,如果命令打印 `*** System restart required ***`,那么您应该在能够重启时重启机器以完成更新的应用:
 
       ```shell
       sudo reboot
       ```
 
-      Rocket Pool will gracefully shut down and automatically start back up with the system once it reboots.
+      Rocket Pool 将优雅地关闭,并在系统重启后自动启动。
     </Tab>
     <Tab label="MacOS">
-      To update the OS packages, use the UI to select `Apple -> Software Update`.
+      要更新 OS 包,请使用 UI 选择 `Apple -> Software Update`。
 
-      To update packages themselves, the easiest way is via `homebrew` in the terminal:
+      要更新包本身,最简单的方法是在终端中通过 `homebrew`:
 
       ```shell
       brew update && brew upgrade
@@ -99,90 +99,90 @@ The exact instructions vary for each Operating System and can be found with your
   </Tabs>
 </div>
 
-## Updating the Smartnode Stack
+## 更新 Smartnode 堆栈
 
-Occasionally, Rocket Pool will release a new version of the Smartnode stack.
-Updates can contain new versions of the CLI or the Rocket Pool Docker containers, as well as new versions of the Execution and Consensus clients.
+Rocket Pool 偶尔会发布新版本的 Smartnode 堆栈。
+更新可能包含 CLI 或 Rocket Pool Docker 容器的新版本,以及执行层和共识层客户端的新版本。
 
-The most consistent way to find out about new releases is to subscribe to the Rocket Pool Discord server; they will always be posted in the Releases channel and you will receive a notification.
+了解新版本的最一致方法是订阅 Rocket Pool Discord 服务器;它们将始终发布在发布频道中,您将收到通知。
 
-::: warning NOTE
-Note that running `apt update` will not update the node software.
-This must be done manually using the steps below.
+::: warning 注意
+请注意,运行 `apt update` 不会更新节点软件。
+必须使用以下步骤手动完成。
 :::
 
-::: tip TIP
-When you have completed the Smartnode upgrade, the Grafana dashboard will still indicate there is still an update available.
-It will automatically clear within a day when the system next auto-checks for updates.
+::: tip 提示
+完成 Smartnode 升级后,Grafana 仪表板仍会指示有可用更新。
+当系统下次自动检查更新时,它将在一天内自动清除。
 
-If you want to clear it immediately after the update, simply run:
+如果您想在更新后立即清除它,只需运行:
 `sudo apt update`
 :::
 
-::: tip TIP
-If you do not know your CPU architecture, you can run the following command to find it:
+::: tip 提示
+如果您不知道您的 CPU 架构,可以运行以下命令来查找:
 
 ```shell
 uname -m
 ```
 
-The output of this command will print your architecture.
-**Note that `x86_64` is the same as `x64` and `amd64`.**
-**Note that `aarch64` is the same as `arm64`.**
+此命令的输出将打印您的架构。
+**请注意,`x86_64` 与 `x64` 和 `amd64` 相同。**
+**请注意,`aarch64` 与 `arm64` 相同。**
 :::
 
-The steps to upgrade depend on which mode your node uses. Select from the options below:
+升级步骤取决于节点使用的模式。从以下选项中选择:
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Linux (Docker or Hybrid Mode)">
-      Stop the Rocket Pool services:
+    <Tab label="Linux(Docker 或混合模式)">
+      停止 Rocket Pool 服务:
 
       ```shell
       rocketpool service stop
       ```
 
-      Download the new Smartnode CLI:
+      下载新的 Smartnode CLI:
 
-      For `x64` systems (most normal machines):
+      对于 `x64` 系统(大多数普通机器):
 
       ```shell
       wget https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-amd64 -O ~/bin/rocketpool
       ```
 
-      For `arm64` systems:
+      对于 `arm64` 系统:
 
       ```shell
       wget https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-arm64 -O ~/bin/rocketpool
       ```
 
-      Now run the install command:
+      现在运行安装命令:
 
       ```shell
       rocketpool service install -d
       ```
 
-      The `-d` flag tells it to ignore system dependencies like Docker, since you already have them.
+      `-d` 标志告诉它忽略系统依赖项(如 Docker),因为您已经有它们了。
 
-      If you'd like to see what's changed, open the Settings Manager - the Review Page will show you what's new:
+      如果您想查看更改内容,请打开设置管理器 - 审核页面将显示新内容:
 
       ```shell
       rocketpool service config
       ```
 
-      When you're done, start Rocket Pool up again:
+      完成后,再次启动 Rocket Pool:
 
       ```shell
       rocketpool service start
       ```
 
-      Finally, check the version to make sure the CLI and Smartnode stack are both up to date:
+      最后,检查版本以确保 CLI 和 Smartnode 堆栈都是最新的:
 
       ```shell
       rocketpool service version
       ```
 
-      The output should look something like this:
+      输出应该是这样的:
 
       ```
       Your Smartnode is currently using the Hoodi Test Network.
@@ -195,24 +195,24 @@ The steps to upgrade depend on which mode your node uses. Select from the option
       Image: rocketpool/lighthouse:mevboost-5ee3bc5
       ```
 
-      Both the client and service should match the new release version.
+      客户端和服务都应与新发布版本匹配。
     </Tab>
-    <Tab label="Linux (Native Mode)">
+    <Tab label="Linux(原生模式)">
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        This will only update the Smartnode stack itself - it **will not** update your Execution or Consensus clients.
-        You will have to do this manually (see the next section below).
+        <p className="rspress-directive-title">注意</p>
+        这只会更新 Smartnode 堆栈本身 - **不会**更新执行层或共识层客户端。
+        您必须手动执行此操作(请参见下面的下一部分)。
       </p>
 
-      Stop the Rocket Pool services:
+      停止 Rocket Pool 服务:
 
       ```shell
       sudo systemctl stop rp-node rp-watchtower
       ```
 
-      Download the new Smartnode CLI and back up the old CLI and daemon binaries if you need to bring them back:
+      下载新的 Smartnode CLI 并备份旧的 CLI 和守护程序二进制文件,以防需要恢复它们:
 
-      For `x64` systems (most normal machines):
+      对于 `x64` 系统(大多数普通机器):
 
       ```shell
       sudo mv /usr/local/bin/rocketpool /usr/local/bin/rocketpool_bak
@@ -226,7 +226,7 @@ The steps to upgrade depend on which mode your node uses. Select from the option
       sudo chmod +x /usr/local/bin/rocketpool /usr/local/bin/rocketpoold
       ```
 
-      For `arm64` systems:
+      对于 `arm64` 系统:
 
       ```shell
       sudo mv /usr/local/bin/rocketpool /usr/local/bin/rocketpool_bak
@@ -240,19 +240,19 @@ The steps to upgrade depend on which mode your node uses. Select from the option
       sudo chmod +x /usr/local/bin/rocketpool /usr/local/bin/rocketpoold
       ```
 
-      If you'd like to see what's changed, open the Settings Manager - the Review Page will show you what's new:
+      如果您想查看更改内容,请打开设置管理器 - 审核页面将显示新内容:
 
       ```shell
       rp service config
       ```
 
-      When you're done, start Rocket Pool up again:
+      完成后,再次启动 Rocket Pool:
 
       ```shell
       sudo systemctl start rp-node rp-watchtower
       ```
 
-      Finally, check the version to make sure the CLI and Smartnode stack are both up to date:
+      最后,检查版本以确保 CLI 和 Smartnode 堆栈都是最新的:
 
       ```
       rocketpool service version
@@ -263,50 +263,50 @@ The steps to upgrade depend on which mode your node uses. Select from the option
       Selected Eth 2.0 client: Nimbus (statusim/nimbus:v1.4.0)
       ```
 
-      Both the client and service should match the new release version.
+      客户端和服务都应与新发布版本匹配。
     </Tab>
-    <Tab label="macOS (Docker or Hybrid Mode)">
-      Stop the Rocket Pool services:
+    <Tab label="macOS(Docker 或混合模式)">
+      停止 Rocket Pool 服务:
 
       ```shell
       rocketpool service stop
       ```
 
-      Download the new Smartnode CLI:
+      下载新的 Smartnode CLI:
 
-      For `x64` systems (most Macs):
+      对于 `x64` 系统(大多数 Mac):
 
       ```shell
       wget https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-darwin-amd64 -O /usr/local/bin/rocketpool
       ```
 
-      For `arm64` systems, such as the Mac mini with M1:
+      对于 `arm64` 系统,例如带有 M1 的 Mac mini:
 
       ```shell
       wget https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-darwin-arm64 -O /opt/homebrew/bin/rocketpool
       ```
 
-      Now run the install command:
+      现在运行安装命令:
 
       ```shell
       rocketpool service install -d
       ```
 
-      The `-d` flag tells it to ignore system dependencies like Docker, since you already have them.
+      `-d` 标志告诉它忽略系统依赖项(如 Docker),因为您已经有它们了。
 
-      If you'd like to see what's changed, open the Settings Manager - the Review Page will show you what's new:
+      如果您想查看更改内容,请打开设置管理器 - 审核页面将显示新内容:
 
       ```shell
       rocketpool service config
       ```
 
-      When you're done, start Rocket Pool up again:
+      完成后,再次启动 Rocket Pool:
 
       ```shell
       rocketpool service start
       ```
 
-      Finally, check the version to make sure the CLI and Smartnode stack are both up to date:
+      最后,检查版本以确保 CLI 和 Smartnode 堆栈都是最新的:
 
       ```shell
       rocketpool service version
@@ -317,61 +317,61 @@ The steps to upgrade depend on which mode your node uses. Select from the option
       Selected Eth 2.0 client: Nimbus (statusim/nimbus:v1.4.0)
       ```
 
-      Both the client and service should match the new release version.
+      客户端和服务都应与新发布版本匹配。
 
     </Tab>
 
   </Tabs>
 </div>
 
-## Manually Updating the Execution or Consensus Client
+## 手动更新执行层或共识层客户端
 
-Each new release of the Smartnode stack will come with updated references to the latest compatible versions to the Execution and Consensus Docker containers.
-In some cases, however, you might want to upgrade one of those clients _before_ waiting for a new Smartnode stack release.
-This section will show you how to do just that.
+Smartnode 堆栈的每个新版本都将附带对执行层和共识层 Docker 容器的最新兼容版本的更新引用。
+但是,在某些情况下,您可能希望在等待新的 Smartnode 堆栈发布之前升级其中一个客户端。
+本节将向您展示如何做到这一点。
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Docker Mode">
-      Updating to new client versions is easy in Docker mode.
+    <Tab label="Docker 模式">
+      在 Docker 模式下更新到新客户端版本很简单。
 
-      Start by opening the Settings Manager:
+      首先打开设置管理器:
 
       ```shell
       rocketpool service config
       ```
 
-      To change the Execution client version, go to the **Execution Client** category.
-      Modify the **Container Tag** setting:
+      要更改执行层客户端版本,请转到 **Execution Client** 类别。
+      修改 **Container Tag** 设置:
 
       <img src={tuiEcContainerTag} width="100%" height="auto"/>
 
-      To change the Consensus client version, go to the **Consensus Client** category.
-      Modify the **Beacon Node Container Tag** setting:
+      要更改共识层客户端版本,请转到 **Consensus Client** 类别。
+      修改 **Beacon Node Container Tag** 设置:
 
       <img src={tuiCcContainerTag} width="100%" height="auto"/>
 
-      When you're happy with your changes, save and exit as usual.
-      The Smartnode will offer to restart all of the affected containers automatically.
+      对更改满意后,像往常一样保存并退出。
+      Smartnode 将提供自动重启所有受影响的容器。
     </Tab>
-    <Tab label="Native Mode">
-      First, shut down your Execution client, Beacon Node, and/or Validator client service depending on what you'd like to update.
-      For example, shutting down Geth:
+    <Tab label="原生模式">
+      首先,关闭您的执行层客户端、信标节点和/或验证者客户端服务,具体取决于您想要更新的内容。
+      例如,关闭 Geth:
 
       ```shell
       sudo systemctl stop geth
       ```
 
-      Next, download the latest binary release from the vendor of your client (or build it from source) and replace the old binary with the new one.
-      We recommend you **move the old binary to a backup location** instead of overwriting it, just in case the new client has problems.
+      接下来,从客户端供应商下载最新的二进制版本(或从源代码构建),并用新的替换旧的二进制文件。
+      我们建议您**将旧的二进制文件移动到备份位置**而不是覆盖它,以防新客户端出现问题。
 
-      Finally, start the client service again - for example, starting Geth:
+      最后,再次启动客户端服务 - 例如,启动 Geth:
 
       ```shell
       sudo systemctl start geth
       ```
 
-      You should follow the log scripts closely after the upgrade to ensure that the new client works as expected.
+      升级后您应该密切关注日志脚本,以确保新客户端按预期工作。
     </Tab>
 
   </Tabs>

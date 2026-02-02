@@ -5,129 +5,129 @@ import mm_network_main from "./images/mm_network_main.png";
 import mm_add_token from "./images/mm_add_token.png";
 import rp_test_site from "./images/rp_test_site.png";
 
-# Staking Directly via Rocket Pool
+# Doğrudan Rocket Pool Üzerinden Staking
 
-## Overview
+## Genel Bakış
 
-Rocket Pool's staking interface now offers two distinct routes for converting between ETH and rETH:
+Rocket Pool'un staking arayüzü artık ETH ve rETH arasında dönüşüm için iki farklı rota sunuyor:
 
-1. **Protocol Route** - Direct interaction with Rocket Pool smart contracts
-2. **CoW Swap Route** - Decentralized exchange aggregator with MEV protection (Mainnet only)
+1. **Protocol Route** - Rocket Pool akıllı sözleşmeleriyle doğrudan etkileşim
+2. **CoW Swap Route** - MEV koruması ile merkezi olmayan borsa toplayıcı (Sadece Mainnet)
 
-The interface automatically recommends the best route based on current market conditions and liquidity availability.
+Arayüz, mevcut piyasa koşullarına ve likidite durumuna göre en iyi rotayı otomatik olarak önerir.
 
 <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/stake_options.mp4" />
 
-## Routing Options Explained
+## Rota Seçenekleri Açıklaması
 
 ### Protocol Route
 
-**How it works:** Direct interaction with Rocket Pool's deposit pool and smart contracts on-chain.
+**Nasıl çalışır:** Rocket Pool'un deposit havuzu ve zincir üstü akıllı sözleşmeleriyle doğrudan etkileşim.
 
-**Advantages:**
+**Avantajlar:**
 
-- Instant execution
-- Predictable exchange rate based on current rETH/ETH ratio
-- No intermediary tokens required (direct ETH ↔ rETH conversion)
-- Lower complexity
-- Always get exactly as much rETH as your ETH is worth (minus a 0.05% deposit fee)
-- No slippage, no liquidity issues, no sandwiching or front-running
+- Anlık yürütme
+- Mevcut rETH/ETH oranına dayalı öngörülebilir döviz kuru
+- Ara token gerekmez (doğrudan ETH ↔ rETH dönüşümü)
+- Daha düşük karmaşıklık
+- ETH'nizin değeri kadar tam olarak rETH alırsınız (% 0,05 depozito ücreti hariç)
+- Kayma yok, likidite sorunu yok, sandviçleme veya ön çalıştırma yok
 
-**Limitations:**
+**Sınırlamalar:**
 
-- Subject to deposit pool limits when staking
-- Subject to liquidity availability when unstaking
-- Requires gas fees for transaction
-- Gas fees might be expensive for small amounts
+- Stake ederken deposit havuzu limitine tabidir
+- Unstake ederken likidite durumuna tabidir
+- İşlem için gaz ücreti gerektirir
+- Küçük miktarlar için gaz ücretleri pahalı olabilir
 
-### CoW Swap Route (Mainnet Only)
+### CoW Swap Route (Sadece Mainnet)
 
-**How it works:** Uses CoW Protocol's batch auction system to find the best price across multiple DEXs.
+**Nasıl çalışır:** Birden fazla DEX'te en iyi fiyatı bulmak için CoW Protocol'ün toplu müzayede sistemini kullanır.
 
-**Advantages:**
+**Avantajlar:**
 
-- MEV (Maximum Extractable Value) protection against sandwich attacks
-- Gasless execution - you only sign the order
-- Often provides better rates through DEX aggregation
-- Always available regardless of protocol deposit pool limits
-- No gas fees for the swap itself
+- Sandviç saldırılarına karşı MEV (Maximum Extractable Value) koruması
+- Gazsız yürütme - sadece siparişi imzalarsınız
+- DEX toplaması sayesinde genellikle daha iyi oranlar sağlar
+- Protocol deposit havuzu limitlerine bakılmaksızın her zaman kullanılabilir
+- Swap'ın kendisi için gaz ücreti yok
 
-**Limitations:**
+**Sınırlamalar:**
 
-- Requires WETH wrapping/unwrapping steps (handled automatically)
-- Orders may take 2-5 minutes to execute
-- Orders can expire if not matched within the time limit
-- Requires one-time token approvals
+- WETH sarma/açma adımları gerektirir (otomatik olarak halledilir)
+- Siparişlerin yürütülmesi 2-5 dakika sürebilir
+- Zaman sınırı içinde eşleşmezse siparişlerin süresi dolabilir
+- Tek seferlik token onayları gerektirir
 
-## Key Concepts
+## Temel Kavramlar
 
 ### WETH (Wrapped ETH)
 
-When using CoW Swap, the interface automatically handles WETH conversions:
+CoW Swap kullanırken arayüz WETH dönüşümlerini otomatik olarak halleder:
 
-- WETH is an ERC-20 token representing ETH in a standardized format
-- 1 WETH always equals 1 ETH
-- The interface wraps ETH to WETH before trading and unwraps after
-- You only pay gas for the initial wrap (one-time)
+- WETH, standart bir formatta ETH'yi temsil eden bir ERC-20 token'dır
+- 1 WETH her zaman 1 ETH'ye eşittir
+- Arayüz, işlem yapmadan önce ETH'yi WETH'e sarar ve sonra açar
+- Sadece ilk sarma için gaz ödersiniz (tek seferlik)
 
-### Slippage Tolerance
+### Slippage Tolerance (Kayma Toleransı)
 
-For CoW Swap orders:
+CoW Swap siparişleri için:
 
-- Default: 0.5%
-- Adjustable based on your preference
-- Higher slippage = more likely to execute
-- Lower slippage = better price protection
+- Varsayılan: % 0,5
+- Tercihinize göre ayarlanabilir
+- Daha yüksek kayma = yürütülme olasılığı daha yüksek
+- Daha düşük kayma = daha iyi fiyat koruması
 
-### Order Expiry
+### Order Expiry (Sipariş Süresi)
 
-CoW Swap orders have a time limit:
+CoW Swap siparişlerinin bir zaman sınırı vardır:
 
-- Default: 30 minutes
-- Adjustable from 5 minutes to 24 hours
-- Orders automatically cancel if not executed
+- Varsayılan: 30 dakika
+- 5 dakikadan 24 saate kadar ayarlanabilir
+- Yürütülmezse siparişler otomatik olarak iptal edilir
 
-### Better Rate Indicator
+### Better Rate Indicator (Daha İyi Oran Göstergesi)
 
-The interface shows which route offers better value:
+Arayüz hangi rotanın daha iyi değer sunduğunu gösterir:
 
-- Green badge with "X% better" indicates the optimal route
-- Automatically pre-selects the best option
-- Updates in real-time as market conditions change
+- "X% daha iyi" yazılı yeşil rozet optimal rotayı gösterir
+- En iyi seçeneği otomatik olarak önceden seçer
+- Piyasa koşulları değiştikçe gerçek zamanlı olarak güncellenir
 
-### Protocol Liquidity
+### Protocol Liquidity (Protokol Likiditesi)
 
-When unstaking rETH:
+rETH unstake ederken:
 
-- Protocol route requires available ETH in the deposit pool
-- Shows "Insufficient liquidity" when pool is empty
-- Automatically routes through CoW Swap when protocol liquidity is unavailable
+- Protocol route, deposit havuzunda mevcut ETH gerektirir
+- Havuz boş olduğunda "Insufficient liquidity" (Yetersiz likidite) gösterir
+- Protokol likiditesi mevcut olmadığında otomatik olarak CoW Swap üzerinden yönlendirir
 
-## Getting Started
+## Başlarken
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Preparing on the Hoodi Testnet">
+    <Tab label="Hoodi Testnet'te Hazırlık">
       <p className="rspress-directive danger">
-        <p className="rspress-directive-title">WARNING</p>
-        When practicing staking on the test network, you **do not need to provide any of your real ETH** during this process.
-        You will be given **fake test ETH** to use instead.
+        <p className="rspress-directive-title">UYARI</p>
+        Test ağında staking alıştırması yaparken, bu işlem sırasında **gerçek ETH'nizin hiçbirini sağlamanıza gerek yoktur**.
+        Bunun yerine size **sahte test ETH'si** verilecektir.
 
-        **Do not attempt to move your real ETH on mainnet to the testnet or you will lose it permanently!**
+        **Gerçek ETH'nizi mainnet'ten testnet'e taşımaya çalışmayın yoksa onu kalıcı olarak kaybedersiniz!**
       </p>
 
-      Start by installing [MetaMask](https://metamask.io/) if you haven't already.
-      Follow the instructions on their site to install the extension, create an account, and sign in.
+      Henüz yapmadıysanız [MetaMask](https://metamask.io/) yükleyerek başlayın.
+      Uzantıyı yüklemek, bir hesap oluşturmak ve oturum açmak için sitelerindeki talimatları izleyin.
 
-      Next, open the MetaMask panel using its icon in your browser toolbar.
+      Ardından, tarayıcı araç çubuğunuzdaki simgesini kullanarak MetaMask panelini açın.
 
-      You will need to add the Hoodi Testnet to MetaMask.
+      MetaMask'e Hoodi Testnet'i eklemeniz gerekecek.
 
-      Click on the top left dropdown & click the "Add Network" button.
+      Sol üstteki açılır menüye tıklayın ve "Add Network" düğmesine tıklayın.
 
-      You will see a list of networks, Hoodi is not in this list so click the "Add a network manually" button.
+      Bir ağ listesi göreceksiniz, Hoodi bu listede değil, bu yüzden "Add a network manually" düğmesine tıklayın.
 
-      Fill in the following details:
+      Aşağıdaki detayları girin:
 
       ```
       Network Name: Hoodi
@@ -137,142 +137,142 @@ When unstaking rETH:
       Block Explorer Url: https://hoodi.etherscan.io
       ```
 
-      Then click Save. You should now see the Hoodi network in the top left dropdown.
+      Ardından Save'e tıklayın. Şimdi sol üst açılır menüde Hoodi ağını görmelisiniz.
 
-      Click on the **network dropdown** in the top left of the Metamask extension & select **Hoodi Test Network**.
+      Metamask uzantısının sol üstündeki **network dropdown**'a tıklayın ve **Hoodi Test Network**'ü seçin.
 
-      Finally, add the rETH token to MetaMask so you can see your balance and access it for trading.
-      Click the **Assets** tab, then click **Add Token**:
+      Son olarak, bakiyenizi görebilmeniz ve işlem için erişebilmeniz için rETH token'ını MetaMask'e ekleyin.
+      **Assets** sekmesine tıklayın, ardından **Add Token**'a tıklayın:
 
       <img src={mm_add_token} width="100%" height="auto" />
 
-      Ensure that **Custom Token** is selected in this dialog.
-      In the **Token Contract Address** box, put the following value:
+      Bu diyalogda **Custom Token**'ın seçili olduğundan emin olun.
+      **Token Contract Address** kutusuna aşağıdaki değeri girin:
 
       ```
       0x7322c24752f79c05ffd1e2a6fcb97020c1c264f1
       ```
 
-      The **Token Symbol** should automatically be populated with `rETH`, and the **Decimals of Precision** should automatically be populated with `18`.
+      **Token Symbol** otomatik olarak `rETH` ile doldurulmalıdır ve **Decimals of Precision** otomatik olarak `18` ile doldurulmalıdır.
 
-      Accept the rest of the prompts, and then you will see the rETH token appear in your list.
+      Geri kalan istemleri kabul edin ve rETH token'ının listenizde göründüğünü göreceksiniz.
 
-      Now that you have a wallet address in MetaMask, you need to fill it with some test ETH.
-      Head over to the [Practicing with the Test Network](../node-staking/testnet/overview#getting-test-eth-on-hoodi) page for a quick guide on how to use a testnet faucet to get some test ETH on Hoodi.
+      Artık MetaMask'te bir cüzdan adresiniz olduğuna göre, onu biraz test ETH'si ile doldurmanız gerekiyor.
+      Hoodi'de test ETH'si almak için testnet musluğunu nasıl kullanacağınıza dair hızlı bir kılavuz için [Test Ağı ile Pratik Yapma](../node-staking/testnet/overview#getting-test-eth-on-hoodi) sayfasına gidin.
 
-      Once you have some Hoodi ETH to test with, head to [https://testnet.rocketpool.net/](https://testnet.rocketpool.net/).
+      Test etmek için Hoodi ETH'niz olduktan sonra [https://testnet.rocketpool.net/](https://testnet.rocketpool.net/) adresine gidin.
 
-      **Note:** Testnet only supports Protocol routing. CoW Swap is available on mainnet only.
+      **Not:** Testnet sadece Protocol routing'i destekler. CoW Swap sadece mainnet'te kullanılabilir.
     </Tab>
-    <Tab label="Preparing on Ethereum Mainnet">
-      Start by installing [MetaMask](https://metamask.io/) if you haven't already.
-      Follow the instructions on their site to install the extension, create an account, and sign in.
+    <Tab label="Ethereum Mainnet'te Hazırlık">
+      Henüz yapmadıysanız [MetaMask](https://metamask.io/) yükleyerek başlayın.
+      Uzantıyı yüklemek, bir hesap oluşturmak ve oturum açmak için sitelerindeki talimatları izleyin.
 
-      Next, open the MetaMask panel using its icon in your browser toolbar.
-      Click on the **network dropdown** in the toolbar at the top and ensure that **Ethereum Mainnet** is selected:
+      Ardından, tarayıcı araç çubuğunuzdaki simgesini kullanarak MetaMask panelini açın.
+      Üstteki araç çubuğundaki **network dropdown**'a tıklayın ve **Ethereum Mainnet**'in seçili olduğundan emin olun:
 
       <img src={mm_network_main} width="100%" height="auto" />
 
-      Finally, add the rETH token to MetaMask so you can see your balance and access it for trading.
-      Click the **Assets** tab, then click **Add Token**:
+      Son olarak, bakiyenizi görebilmeniz ve işlem için erişebilmeniz için rETH token'ını MetaMask'e ekleyin.
+      **Assets** sekmesine tıklayın, ardından **Add Token**'a tıklayın:
 
       <img src={mm_add_token} width="100%" height="auto" />
 
-      Ensure that **Custom Token** is selected in this dialog.
-      In the **Token Contract Address** box, put the following value:
+      Bu diyalogda **Custom Token**'ın seçili olduğundan emin olun.
+      **Token Contract Address** kutusuna aşağıdaki değeri girin:
 
       ```
       0xae78736Cd615f374D3085123A210448E74Fc6393
       ```
 
-      The **Token Symbol** should automatically be populated with `rETH`, and the **Decimals of Precision** should automatically be populated with `18`.
+      **Token Symbol** otomatik olarak `rETH` ile doldurulmalıdır ve **Decimals of Precision** otomatik olarak `18` ile doldurulmalıdır.
 
-      Accept the rest of the prompts, and then you will see the rETH token appear in your list.
+      Geri kalan istemleri kabul edin ve rETH token'ının listenizde göründüğünü göreceksiniz.
 
-      Now that you have a wallet address in MetaMask, you need to transfer some ETH into it.
-      You will need to supply this from an existing wallet or buy ETH on an exchange.
+      Artık MetaMask'te bir cüzdan adresiniz olduğuna göre, içine biraz ETH transfer etmeniz gerekiyor.
+      Bunu mevcut bir cüzdandan sağlamanız veya bir borsadan ETH satın almanız gerekecek.
 
-      Once you have some ETH to stake, head to [https://stake.rocketpool.net/](https://stake.rocketpool.net/).
+      Stake etmek için biraz ETH'niz olduktan sonra [https://stake.rocketpool.net/](https://stake.rocketpool.net/) adresine gidin.
     </Tab>
 
   </Tabs>
 </div>
 
-## Staking ETH for rETH
+## ETH'yi rETH için Stake Etme
 
-Once you're at the staking site, click on the **connect wallet** button. Please read through and accept the Terms of Service & Privacy Policy, this will enable different ways to connect, then click **connect metamask**.
+Staking sitesine vardığınızda, **connect wallet** düğmesine tıklayın. Lütfen Hizmet Şartları ve Gizlilik Politikasını okuyun ve kabul edin, bu farklı bağlantı yollarını etkinleştirecektir, ardından **connect metamask**'e tıklayın.
 
-MetaMask will prompt you to select an account to connect to the website. Choose one, confirm a few permissions, and you'll see your balances update in the UI.
+MetaMask, web sitesine bağlanmak için bir hesap seçmenizi isteyecektir. Bir tane seçin, birkaç izni onaylayın ve bakiyelerinizin kullanıcı arayüzünde güncellendiğini göreceksiniz.
 
-### Step 1: Enter Amount
+### Adım 1: Miktar Girin
 
-Enter the amount of ETH you want to stake in the **Stake ETH** input field.
+**Stake ETH** giriş alanına stake etmek istediğiniz ETH miktarını girin.
 
-[Image placeholder: Input field with amount being entered]
+[Görsel yer tutucu: Miktar girilirken giriş alanı]
 
-### Step 2: Review Routing Options
+### Adım 2: Rota Seçeneklerini İnceleyin
 
-The interface will display two routing options (mainnet only):
+Arayüz iki rota seçeneği gösterecektir (sadece mainnet):
 
-- **Protocol Card**: Shows if deposit pool is available or full
-- **CoW Swap Card**: Shows estimated output and rate comparison
+- **Protocol Card**: Deposit havuzunun mevcut veya dolu olduğunu gösterir
+- **CoW Swap Card**: Tahmini çıktı ve oran karşılaştırmasını gösterir
 
-The better option will be highlighted with a green "X% better" badge and automatically selected.
+Daha iyi seçenek yeşil "X% daha iyi" rozeti ile vurgulanacak ve otomatik olarak seçilecektir.
 
-[Image placeholder: Routing cards showing comparison]
+[Görsel yer tutucu: Karşılaştırmayı gösteren rota kartları]
 
-### Step 3: Configure Settings (CoW Swap Only)
+### Adım 3: Ayarları Yapılandırın (Sadece CoW Swap)
 
-If using CoW Swap, you can optionally:
+CoW Swap kullanıyorsanız, isteğe bağlı olarak:
 
-- Adjust slippage tolerance (default 0.5%)
-- Set order expiry time (default 30 minutes)
+- Slippage tolerance ayarlayın (varsayılan % 0,5)
+- Sipariş süresini ayarlayın (varsayılan 30 dakika)
 
-### Step 4: Execute Transaction
+### Adım 4: İşlemi Yürütün
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Via Protocol">
-      Click **Stake via Protocol** button.
+    <Tab label="Protocol Üzerinden">
+      **Stake via Protocol** düğmesine tıklayın.
 
-      MetaMask will prompt you to:
-      1. **Approve the transaction** with gas fees shown
-      2. **Confirm the transaction**
+      MetaMask sizden şunları isteyecektir:
+      1. Gaz ücretleri gösterilen **işlemi onaylayın**
+      2. **İşlemi onaylayın**
 
-      ::: danger IMPORTANT
-      Check the total gas cost before approving - if it's very expensive relative to your stake amount, consider using CoW Swap instead!
+      ::: danger ÖNEMLİ
+      Onaylamadan önce toplam gaz maliyetini kontrol edin - stake miktarınıza göre çok pahalıysa, bunun yerine CoW Swap kullanmayı düşünün!
       :::
 
-      Once confirmed, the transaction will be mined and you'll receive your rETH immediately.
+      Onaylandıktan sonra işlem madene işlenecek ve hemen rETH'nizi alacaksınız.
 
       <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/protocol_stake.mp4" />
     </Tab>
-    <Tab label="Via CoW Swap">
-      Click **Stake via CoW Swap** button.
+    <Tab label="CoW Swap Üzerinden">
+      **Stake via CoW Swap** düğmesine tıklayın.
 
-      The process involves several automated steps:
+      Süreç birkaç otomatik adım içerir:
 
-      1. **WETH Wrapping** (if needed)
-      - Approve ETH to WETH conversion
-      - One-time gas fee required
+      1. **WETH Wrapping** (gerekirse)
+      - ETH'den WETH'e dönüşümü onaylayın
+      - Tek seferlik gaz ücreti gereklidir
 
-      2. **WETH Approval** (first time only)
-      - Approve CoW Protocol to use your WETH
-      - One-time gas fee required
+      2. **WETH Approval** (sadece ilk kez)
+      - CoW Protocol'ün WETH'nizi kullanmasına izin verin
+      - Tek seferlik gaz ücreti gereklidir
 
-      3. **Sign Order**
-      - Review order details
-      - Sign with MetaMask (gasless)
-      - No gas fees
+      3. **Siparişi İmzalayın**
+      - Sipariş detaylarını inceleyin
+      - MetaMask ile imzalayın (gazsız)
+      - Gaz ücreti yok
 
-      4. **Order Execution**
-      - Monitor progress in modal
-      - Typical wait: 2-5 minutes
-      - Can close modal and continue browsing
+      4. **Sipariş Yürütme**
+      - Modal'da ilerlemeyi izleyin
+      - Tipik bekleme: 2-5 dakika
+      - Modal'ı kapatıp gezinmeye devam edebilirsiniz
 
-      5. **Completion**
-      - rETH automatically appears in wallet
-      - View on Etherscan if needed
+      5. **Tamamlanma**
+      - rETH otomatik olarak cüzdanda görünür
+      - Gerekirse Etherscan'de görüntüleyin
 
       <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/cowswap_stake.mp4" preload="auto"/>
     </Tab>
@@ -280,63 +280,63 @@ If using CoW Swap, you can optionally:
   </Tabs>
 </div>
 
-::: tip NOTE
-It's **completely normal** to receive less rETH than the ETH you put in. rETH and ETH have a **dynamic exchange rate**: as the Rocket Pool network earns rewards, 1 rETH becomes worth more than 1 ETH.
+::: tip NOT
+Koyduğunuz ETH'den daha az rETH almanız **tamamen normaldir**. rETH ve ETH **dinamik bir döviz kuruna** sahiptir: Rocket Pool ağı ödül kazandıkça, 1 rETH 1 ETH'den daha değerli hale gelir.
 :::
 
-## Unstaking rETH for ETH
+## rETH'yi ETH için Unstake Etme
 
-When you're ready to unstake and trade your rETH back for ETH, head back to the staking website and click on the **swap direction button** to switch to unstaking mode:
+Unstake etmeye ve rETH'nizi ETH ile geri değiştirmeye hazır olduğunuzda, staking web sitesine geri dönün ve unstaking moduna geçmek için **swap direction button**'a tıklayın:
 
-### Step 1: Enter Amount
+### Adım 1: Miktar Girin
 
-Enter the amount of rETH you want to unstake in the **Unstake rETH** field.
+**Unstake rETH** alanına unstake etmek istediğiniz rETH miktarını girin.
 
-### Step 2: Check Routing Availability
+### Adım 2: Rota Kullanılabilirliğini Kontrol Edin
 
-The interface will show:
+Arayüz şunları gösterecektir:
 
-- **Protocol liquidity** available in the deposit pool
-- **Protocol card** status (available or "Insufficient liquidity")
-- **CoW Swap card** with estimated ETH output
+- Deposit havuzunda mevcut **Protocol liquidity**
+- **Protocol card** durumu (mevcut veya "Insufficient liquidity")
+- Tahmini ETH çıktısı ile **CoW Swap card**
 
-### Step 3: Execute Unstaking
+### Adım 3: Unstaking İşlemini Yürütün
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Via Protocol">
-      If protocol liquidity is available:
+    <Tab label="Protocol Üzerinden">
+      Protokol likiditesi mevcutsa:
 
-      1. Click **Unstake via Protocol**
-      2. Confirm transaction in MetaMask
-      3. Pay gas fees
-      4. Receive ETH immediately
+      1. **Unstake via Protocol**'a tıklayın
+      2. MetaMask'te işlemi onaylayın
+      3. Gaz ücretlerini ödeyin
+      4. ETH'yi hemen alın
 
-      ::: warning NOTE
-      Protocol unstaking is only possible when the deposit pool has enough ETH. If you see "Insufficient liquidity", use CoW Swap instead.
+      ::: warning NOT
+      Protocol unstaking sadece deposit havuzunda yeterli ETH olduğunda mümkündür. "Insufficient liquidity" görüyorsanız, bunun yerine CoW Swap kullanın.
       :::
 
       <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/unstake_mainnet.mp4" preload="auto"/>
     </Tab>
-    <Tab label="Via CoW Swap">
-      CoW Swap is always available for unstaking:
+    <Tab label="CoW Swap Üzerinden">
+      CoW Swap unstaking için her zaman kullanılabilir:
 
-      1. **rETH Approval** (first time only)
-      - Approve rETH for CoW Protocol
-      - One-time gas fee
+      1. **rETH Approval** (sadece ilk kez)
+      - CoW Protocol için rETH'yi onaylayın
+      - Tek seferlik gaz ücreti
 
-      2. **Sign Order**
-      - Review details
-      - Sign order (gasless)
+      2. **Siparişi İmzalayın**
+      - Detayları inceleyin
+      - Siparişi imzalayın (gazsız)
 
-      3. **Order Execution**
-      - Monitor in modal
-      - 2-5 minute wait
+      3. **Sipariş Yürütme**
+      - Modal'da izleyin
+      - 2-5 dakika bekleme
 
-      4. **WETH Unwrapping** (automatic)
-      - Receives WETH from swap
-      - Automatically unwraps to ETH
-      - ETH appears in wallet
+      4. **WETH Unwrapping** (otomatik)
+      - Swap'tan WETH alır
+      - Otomatik olarak ETH'ye açar
+      - ETH cüzdanda görünür
 
       <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/cowswap_unstake.mp4" preload="auto"/>
     </Tab>
@@ -344,331 +344,331 @@ The interface will show:
   </Tabs>
 </div>
 
-## Troubleshooting
+## Sorun Giderme
 
-### Common Issues
+### Yaygın Sorunlar
 
-#### Order Expired (CoW Swap)
+#### Order Expired (Sipariş Süresi Doldu) (CoW Swap)
 
-Your order didn't execute within the time limit.
+Siparişiniz zaman sınırı içinde yürütülmedi.
 
-**Solutions:**
+**Çözümler:**
 
-- Increase order expiry time (up to 24 hours)
-- Adjust slippage tolerance higher
-- Try again with current market prices
-- Use Protocol route if available
+- Sipariş süresini artırın (24 saate kadar)
+- Slippage tolerance'ı daha yükseğe ayarlayın
+- Mevcut piyasa fiyatlarıyla tekrar deneyin
+- Mevcutsa Protocol route kullanın
 
-#### Insufficient Balance
+#### Insufficient Balance (Yetersiz Bakiye)
 
-Not enough ETH/rETH for the transaction.
+İşlem için yeterli ETH/rETH yok.
 
-**Solutions:**
+**Çözümler:**
 
-- Check wallet balance
-- Account for gas fees (Protocol route)
-- Reduce stake/unstake amount
+- Cüzdan bakiyesini kontrol edin
+- Gaz ücretlerini hesaba katın (Protocol route)
+- Stake/unstake miktarını azaltın
 
-#### Pool Full (Protocol Staking)
+#### Pool Full (Havuz Dolu) (Protocol Staking)
 
-Deposit pool has reached its limit.
+Deposit havuzu limitine ulaştı.
 
-**Solution:**
+**Çözüm:**
 
-- Use CoW Swap route (automatically selected)
-- Wait for node operators to pull ETH from pool
-- Check back later for availability
+- CoW Swap route kullanın (otomatik olarak seçilir)
+- Node operatörlerinin havuzdan ETH çekmesini bekleyin
+- Kullanılabilirlik için daha sonra tekrar kontrol edin
 
-#### Insufficient Liquidity (Protocol Unstaking)
+#### Insufficient Liquidity (Yetersiz Likidite) (Protocol Unstaking)
 
-Not enough ETH in deposit pool for unstaking.
+Unstaking için deposit havuzunda yeterli ETH yok.
 
-**Solution:**
+**Çözüm:**
 
-- Use CoW Swap route (automatically selected)
-- Always available regardless of pool state
+- CoW Swap route kullanın (otomatik olarak seçilir)
+- Havuz durumuna bakılmaksızın her zaman kullanılabilir
 
-### Manual WETH Conversion
+### Manuel WETH Dönüşümü
 
-If you have WETH that wasn't automatically unwrapped:
+Otomatik olarak açılmayan WETH'niz varsa:
 
-1. Visit [swap.cow.fi](https://swap.cow.fi)
-2. Connect your wallet
-3. Swap WETH → ETH (1:1 ratio, gasless)
+1. [swap.cow.fi](https://swap.cow.fi) adresini ziyaret edin
+2. Cüzdanınızı bağlayın
+3. WETH → ETH swap yapın (1:1 oran, gazsız)
 
-Or use Etherscan:
+Veya Etherscan kullanın:
 
-1. Go to WETH contract: `0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2`
-2. Connect wallet to "Write Contract"
-3. Use `withdraw` function
-4. Enter amount in Wei
-5. Execute transaction
+1. WETH sözleşmesine gidin: `0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2`
+2. "Write Contract"'a cüzdan bağlayın
+3. `withdraw` fonksiyonunu kullanın
+4. Miktarı Wei cinsinden girin
+5. İşlemi yürütün
 
-## Best Practices
+## En İyi Uygulamalar
 
-### For Optimal Rates
+### Optimal Oranlar İçin
 
-- Let the interface auto-select the best route
-- Check during low network activity for better protocol availability
-- For large amounts, CoW Swap often provides better rates
-- Adjust slippage carefully to balance execution likelihood vs price
+- Arayüzün en iyi rotayı otomatik seçmesine izin verin
+- Daha iyi protokol kullanılabilirliği için düşük ağ aktivitesi sırasında kontrol edin
+- Büyük miktarlar için CoW Swap genellikle daha iyi oranlar sağlar
+- Yürütme olasılığı ile fiyat arasında denge kurmak için slippage'ı dikkatli ayarlayın
 
-### For Security
+### Güvenlik İçin
 
-- Verify you're on the correct website: [https://stake.rocketpool.net](https://stake.rocketpool.net)
-- Start with small test amounts
-- Review all transaction details before confirming
-- Keep some ETH for gas fees
-- Only approve trusted contracts
+- Doğru web sitesinde olduğunuzu doğrulayın: [https://stake.rocketpool.net](https://stake.rocketpool.net)
+- Küçük test miktarlarıyla başlayın
+- Onaylamadan önce tüm işlem detaylarını inceleyin
+- Gaz ücretleri için biraz ETH bulundurun
+- Sadece güvenilir sözleşmeleri onaylayın
 
-### For Gas Optimization
+### Gaz Optimizasyonu İçin
 
-- Compare gas costs between routes
-- Batch transactions when possible
-- Use CoW Swap for small amounts to avoid high gas fees
-- Monitor gas prices at [etherscan.io/gastracker](https://etherscan.io/gastracker)
+- Rotalar arasındaki gaz maliyetlerini karşılaştırın
+- Mümkün olduğunda işlemleri toplu yapın
+- Yüksek gaz ücretlerinden kaçınmak için küçük miktarlar için CoW Swap kullanın
+- [etherscan.io/gastracker](https://etherscan.io/gastracker) adresinden gaz fiyatlarını izleyin
 
-## Tax Implications
+## Vergi Etkileri
 
-::: warning IMPORTANT
-This section provides general educational information only. Tax laws vary significantly by jurisdiction and individual circumstances. **Always consult with a qualified tax professional** for advice specific to your situation.
+::: warning ÖNEMLİ
+Bu bölüm yalnızca genel eğitim bilgisi sağlar. Vergi yasaları yargı yetkisine ve bireysel koşullara göre önemli ölçüde değişir. Durumunuza özel tavsiye için **her zaman nitelikli bir vergi uzmanına danışın**.
 :::
 
-### Understanding rETH and Taxes
+### rETH ve Vergileri Anlamak
 
-When staking with Rocket Pool, it's crucial to understand potential tax implications:
+Rocket Pool ile stake ederken, potansiyel vergi etkilerini anlamak çok önemlidir:
 
-#### The Staking Transaction (ETH → rETH)
+#### Staking İşlemi (ETH → rETH)
 
-**Potential Tax Events:**
+**Potansiyel Vergi Olayları:**
 
-- **Token Swap**: Converting ETH to rETH may be considered a taxable event in many jurisdictions
-- **Capital Gains/Losses**: If your ETH has appreciated since acquisition, you may owe capital gains tax
-- **Cost Basis**: The value of rETH received becomes your new cost basis for future transactions
+- **Token Swap**: ETH'den rETH'ye dönüşüm birçok yargı bölgesinde vergiye tabi bir olay olarak kabul edilebilir
+- **Sermaye Kazançları/Kayıpları**: ETH'niz ediniminden bu yana değer kazandıysa, sermaye kazancı vergisi borçlu olabilirsiniz
+- **Maliyet Temeli**: Alınan rETH'nin değeri gelecekteki işlemler için yeni maliyet temeliniz olur
 
-**Example Scenario:**
+**Örnek Senaryo:**
 
 ```
-Bought 1 ETH at $1,000
-Stake when ETH is worth $2,000
-Potential taxable gain: $1,000
-Your rETH cost basis: $2,000
+1 ETH'yi 1.000$'dan satın aldınız
+ETH 2.000$ değerindeyken stake edin
+Potansiyel vergiye tabi kazanç: 1.000$
+rETH maliyet temeliniz: 2.000$
 ```
 
-#### Holding rETH (Earning Rewards)
+#### rETH Tutma (Ödül Kazanma)
 
-**How rETH Appreciates:**
+**rETH Nasıl Değer Kazanır:**
 
-- rETH increases in value relative to ETH automatically
-- No new tokens are received - the token itself appreciates
-- This appreciation represents your staking rewards
+- rETH, ETH'ye göre otomatik olarak değer kazanır
+- Yeni token alınmaz - token'ın kendisi değer kazanır
+- Bu değer artışı staking ödüllerinizi temsil eder
 
-**Tax Treatment Varies:**
+**Vergi Muamelesi Değişir:**
 
-- **Some jurisdictions**: Tax on appreciation only when realized (upon sale/swap)
-- **Other jurisdictions**: May tax unrealized gains annually
-- **Income vs. Capital Gains**: Classification affects tax rates
+- **Bazı yargı bölgeleri**: Sadece gerçekleştiğinde (satış/swap sırasında) değer artışı üzerinden vergi
+- **Diğer yargı bölgeleri**: Gerçekleşmemiş kazançları yıllık olarak vergilendirebilir
+- **Gelir vs. Sermaye Kazançları**: Sınıflandırma vergi oranlarını etkiler
 
-#### The Unstaking Transaction (rETH → ETH)
+#### Unstaking İşlemi (rETH → ETH)
 
-**Tax Considerations:**
+**Vergi Hususları:**
 
-- Converting rETH back to ETH is typically a taxable event
-- Calculate gain/loss based on:
-- **Cost basis**: Value when you acquired rETH
-- **Disposal value**: Value when converting back to ETH
-- The difference is your capital gain or loss
+- rETH'yi ETH'ye geri çevirmek tipik olarak vergiye tabi bir olaydır
+- Kazanç/kayıp hesabı şuna dayanır:
+- **Maliyet temeli**: rETH'yi edindiğinizde değer
+- **Elden çıkarma değeri**: ETH'ye geri dönüştürürken değer
+- Fark, sermaye kazancınız veya kaybınızdır
 
-### Routing Method Tax Implications
+### Rota Yöntemi Vergi Etkileri
 
 #### Protocol Route
 
-- Single taxable event per transaction
-- Clear timestamp and value for tax records
-- On-chain transaction provides permanent record
+- İşlem başına tek vergiye tabi olay
+- Vergi kayıtları için net zaman damgası ve değer
+- Zincir üstü işlem kalıcı kayıt sağlar
 
 #### CoW Swap Route
 
-- WETH wrapping/unwrapping typically not taxable (1:1 conversion)
-- Main swap (ETH/WETH ↔ rETH) is the taxable event
-- Order execution provides clear tax documentation
+- WETH sarma/açma tipik olarak vergiye tabi değildir (1:1 dönüşüm)
+- Ana swap (ETH/WETH ↔ rETH) vergiye tabi olaydır
+- Sipariş yürütme net vergi belgelendirmesi sağlar
 
-### Record Keeping Best Practices
+### Kayıt Tutma En İyi Uygulamaları
 
-**Essential Records to Maintain:**
+**Tutulması Gereken Temel Kayıtlar:**
 
-1. **For Each Stake:**
+1. **Her Stake İçin:**
 
-- Date and time of transaction
-- Amount of ETH staked
-- Amount of rETH received
-- ETH price at time of staking
-- Transaction hash
-- Gas fees paid
+- İşlem tarihi ve saati
+- Stake edilen ETH miktarı
+- Alınan rETH miktarı
+- Staking anındaki ETH fiyatı
+- İşlem hash'i
+- Ödenen gaz ücretleri
 
-2. **While Holding:**
+2. **Tutarken:**
 
-- Periodic snapshots of rETH/ETH exchange rate
-- Your rETH balance over time
-- Market values on key dates (year-end, etc.)
+- rETH/ETH döviz kurunun periyodik anlık görüntüleri
+- Zaman içinde rETH bakiyeniz
+- Önemli tarihlerdeki piyasa değerleri (yıl sonu, vb.)
 
-3. **For Each Unstake:**
+3. **Her Unstake İçin:**
 
-- Date and time of transaction
-- Amount of rETH unstaked
-- Amount of ETH received
-- ETH price at time of unstaking
-- Transaction hash
-- Gas fees paid
+- İşlem tarihi ve saati
+- Unstake edilen rETH miktarı
+- Alınan ETH miktarı
+- Unstaking anındaki ETH fiyatı
+- İşlem hash'i
+- Ödenen gaz ücretleri
 
-**Tools for Tracking:**
+**Takip Araçları:**
 
-- Export transactions from Etherscan
-- Use portfolio tracking apps that support rETH
-- Maintain a spreadsheet with all transactions
-- Consider using crypto tax software
+- Etherscan'den işlemleri dışa aktarın
+- rETH'yi destekleyen portföy takip uygulamalarını kullanın
+- Tüm işlemlerle bir elektronik tablo tutun
+- Kripto vergi yazılımı kullanmayı düşünün
 
-### Tax Optimization Strategies
+### Vergi Optimizasyon Stratejileri
 
-**Timing Considerations:**
+**Zamanlama Hususları:**
 
-- **Tax-Loss Harvesting**: Unstake during market downturns if you have losses to offset gains
-- **Long-term vs. Short-term**: Many jurisdictions favor long-term holdings (typically >1 year)
-- **Year-end Planning**: Consider timing of transactions around tax year boundaries
+- **Vergi-Kayıp Hasadı**: Kazançları dengelemek için kayıplarınız varsa piyasa düşüşleri sırasında unstake edin
+- **Uzun vadeli vs. Kısa vadeli**: Birçok yargı bölgesi uzun vadeli tutmayı tercih eder (tipik olarak >1 yıl)
+- **Yıl sonu Planlama**: Vergi yılı sınırları etrafında işlem zamanlamasını düşünün
 
-**Cost Basis Methods:**
+**Maliyet Temeli Yöntemleri:**
 
-- **FIFO (First In, First Out)**: Default in many jurisdictions
-- **LIFO (Last In, First Out)**: May be available in some regions
-- **Specific Identification**: Track specific rETH portions if allowed
+- **FIFO (First In, First Out)**: Birçok yargı bölgesinde varsayılan
+- **LIFO (Last In, First Out)**: Bazı bölgelerde mevcut olabilir
+- **Specific Identification**: İzin verilirse belirli rETH kısımlarını takip edin
 
-### Common Tax Scenarios
+### Yaygın Vergi Senaryoları
 
-#### Scenario 1: Regular Staking
-
-```
-Action: Stake 10 ETH for 9.5 rETH
-Tax Event: Disposal of ETH, acquisition of rETH
-Report: Capital gain/loss on ETH disposal
-Track: 9.5 rETH with new cost basis
-```
-
-#### Scenario 2: Partial Unstaking
+#### Senaryo 1: Normal Staking
 
 ```
-Action: Unstake 5 rETH for 5.3 ETH
-Tax Event: Disposal of rETH, acquisition of ETH
-Report: Capital gain/loss on rETH disposal
-Track: Remaining rETH balance and cost basis
+Eylem: 10 ETH'yi 9,5 rETH için stake edin
+Vergi Olayı: ETH elden çıkarma, rETH edinme
+Rapor: ETH elden çıkarmada sermaye kazancı/kaybı
+Takip: Yeni maliyet temeli ile 9,5 rETH
 ```
 
-#### Scenario 3: DeFi Integration
+#### Senaryo 2: Kısmi Unstaking
 
 ```
-Action: Use rETH in DeFi protocols
-Tax Event: Each protocol interaction may be taxable
-Report: Track all movements and value changes
-Track: Yields, swaps, and liquidity provisions
+Eylem: 5 rETH'yi 5,3 ETH için unstake edin
+Vergi Olayı: rETH elden çıkarma, ETH edinme
+Rapor: rETH elden çıkarmada sermaye kazancı/kaybı
+Takip: Kalan rETH bakiyesi ve maliyet temeli
 ```
 
-### Jurisdiction-Specific Considerations
+#### Senaryo 3: DeFi Entegrasyonu
 
-**United States:**
+```
+Eylem: DeFi protokollerinde rETH kullanın
+Vergi Olayı: Her protokol etkileşimi vergiye tabi olabilir
+Rapor: Tüm hareketleri ve değer değişikliklerini takip edin
+Takip: Getiriler, swap'lar ve likidite sağlamaları
+```
 
-- IRS treats crypto-to-crypto swaps as taxable
-- Staking rewards may be taxable when received or when sold (evolving guidance)
-- Form 8949 and Schedule D for reporting
+### Yargı Bölgesine Özel Hususlar
 
-**European Union:**
+**Amerika Birleşik Devletleri:**
 
-- Tax treatment varies by member state
-- Some countries tax upon realization, others annually
-- Consider local crypto tax regulations
+- IRS kripto-kripto swap'larını vergiye tabi olarak değerlendirir
+- Staking ödülleri alındığında veya satıldığında vergiye tabi olabilir (gelişen rehberlik)
+- Raporlama için Form 8949 ve Schedule D
 
-**United Kingdom:**
+**Avrupa Birliği:**
 
-- HMRC treats staking rewards as income or capital gains depending on circumstances
-- Detailed record keeping required
-- Consider "bed and breakfasting" rules
+- Vergi muamelesi üye ülkeye göre değişir
+- Bazı ülkeler gerçekleşme üzerine, diğerleri yıllık olarak vergilendirir
+- Yerel kripto vergi düzenlemelerini göz önünde bulundurun
 
-**Other Jurisdictions:**
+**Birleşik Krallık:**
 
-- Research your local tax authority's crypto guidance
-- Many countries are still developing frameworks
-- Professional advice strongly recommended
+- HMRC staking ödüllerini koşullara bağlı olarak gelir veya sermaye kazancı olarak değerlendirir
+- Detaylı kayıt tutma gereklidir
+- "Bed and breakfasting" kurallarını göz önünde bulundurun
 
-### Using Tax Software
+**Diğer Yargı Bölgeleri:**
 
-**Popular Crypto Tax Tools:**
+- Yerel vergi dairenizin kripto rehberliğini araştırın
+- Birçok ülke hala çerçeveler geliştiriyor
+- Profesyonel tavsiye şiddetle önerilir
 
-- Most support rETH tracking
-- Can import from Etherscan
-- Calculate gains/losses automatically
-- Generate tax reports for your jurisdiction
+### Vergi Yazılımı Kullanımı
 
-**Integration Tips:**
+**Popüler Kripto Vergi Araçları:**
 
-1. Import all wallet addresses
-2. Verify rETH/ETH transactions are correctly classified
-3. Ensure exchange rates are accurate
-4. Review calculated gains/losses
-5. Export reports for tax filing
+- Çoğu rETH takibini destekler
+- Etherscan'den içe aktarabilir
+- Kazançları/kayıpları otomatik hesaplar
+- Yargı bölgeniz için vergi raporları oluşturur
 
-### Red Flags to Avoid
+**Entegrasyon İpuçları:**
 
-**Common Mistakes:**
+1. Tüm cüzdan adreslerini içe aktarın
+2. rETH/ETH işlemlerinin doğru sınıflandırıldığını doğrulayın
+3. Döviz kurlarının doğru olduğundan emin olun
+4. Hesaplanan kazançları/kayıpları inceleyin
+5. Vergi beyannamesi için raporları dışa aktarın
 
-- Not tracking cost basis
-- Forgetting to report staking transactions
-- Ignoring small transactions
-- Missing DeFi interactions
-- Incorrect exchange rate data
+### Kaçınılması Gereken Kırmızı Bayraklar
 
-**Audit Preparation:**
+**Yaygın Hatalar:**
 
-- Keep all transaction records
-- Document your calculation methods
-- Save exchange rate sources
-- Maintain wallet ownership proof
-- Store records for required retention period
+- Maliyet temelini takip etmemek
+- Staking işlemlerini raporlamayı unutmak
+- Küçük işlemleri göz ardı etmek
+- DeFi etkileşimlerini kaçırmak
+- Yanlış döviz kuru verileri
 
-## FAQs
+**Denetim Hazırlığı:**
 
-**Q: Which route should I choose?**
-A: The interface automatically recommends the best route with a green "better rate" badge. Generally, use the recommended option.
+- Tüm işlem kayıtlarını saklayın
+- Hesaplama yöntemlerinizi belgeleyin
+- Döviz kuru kaynaklarını saklayın
+- Cüzdan sahipliği kanıtını muhafaza edin
+- Kayıtları gerekli saklama süresi boyunca saklayın
 
-**Q: Why does CoW Swap sometimes offer better rates?**
-A: CoW Swap aggregates liquidity from multiple DEXs and uses batch auctions to find optimal prices, often beating the fixed protocol rate.
+## SSS
 
-**Q: Is CoW Swap really gasless?**
-A: Order creation and signing are gasless. You only pay gas for initial WETH wrapping and token approvals (one-time setup).
+**S: Hangi rotayı seçmeliyim?**
+C: Arayüz yeşil "daha iyi oran" rozeti ile en iyi rotayı otomatik olarak önerir. Genel olarak önerilen seçeneği kullanın.
 
-**Q: How long do CoW Swap orders take?**
-A: Typically 2-5 minutes, but can vary based on market conditions.
+**S: CoW Swap neden bazen daha iyi oranlar sunuyor?**
+C: CoW Swap birden fazla DEX'ten likidite toplar ve optimal fiyatları bulmak için toplu müzayedeleri kullanır, genellikle sabit protokol oranını geçer.
 
-**Q: What happens if my CoW Swap order expires?**
-A: Nothing is lost. Your tokens remain in your wallet. You can place a new order with adjusted parameters.
+**S: CoW Swap gerçekten gazsız mı?**
+C: Sipariş oluşturma ve imzalama gazsızdır. Sadece ilk WETH sarma ve token onayları (tek seferlik kurulum) için gaz ödersiniz.
 
-**Q: Why is the Protocol route sometimes unavailable?**
-A: **For staking:** Deposit pool is full. **For unstaking:** Insufficient ETH liquidity. These are temporary states that change as users interact with the protocol.
+**S: CoW Swap siparişleri ne kadar sürer?**
+C: Tipik olarak 2-5 dakika, ancak piyasa koşullarına bağlı olarak değişebilir.
 
-**Q: Are staking transactions taxable?**
-A: In most jurisdictions, yes. Converting ETH to rETH and back are typically taxable events. Consult a tax professional for your specific situation.
+**S: CoW Swap siparişimin süresi dolarsa ne olur?**
+C: Hiçbir şey kaybedilmez. Token'larınız cüzdanınızda kalır. Ayarlanmış parametrelerle yeni bir sipariş verebilirsiniz.
 
-**Q: How do I track my rETH cost basis?**
-A: Record the value of ETH when you stake it - this becomes your rETH cost basis. Use transaction hashes, timestamps, and prices for accurate records.
+**S: Protocol route neden bazen kullanılamıyor?**
+C: **Staking için:** Deposit havuzu dolu. **Unstaking için:** Yetersiz ETH likiditesi. Bunlar kullanıcılar protokolle etkileşime girdikçe değişen geçici durumlardır.
 
-**Q: Is moving between Protocol and CoW Swap routes different for taxes?**
-A: The tax treatment is typically the same - both involve exchanging ETH for rETH. The route chosen doesn't usually affect tax obligations, though record keeping may differ slightly.
+**S: Staking işlemleri vergiye tabi mi?**
+C: Çoğu yargı bölgesinde evet. ETH'den rETH'ye ve geri dönüşüm tipik olarak vergiye tabi olaylardır. Özel durumunuz için bir vergi uzmanına danışın.
 
-## Additional Resources
+**S: rETH maliyet temelimi nasıl takip ederim?**
+C: Stake ettiğinizde ETH'nin değerini kaydedin - bu rETH maliyet temeliniz olur. Doğru kayıtlar için işlem hash'lerini, zaman damgalarını ve fiyatları kullanın.
 
-- [Rocket Pool Documentation](https://docs.rocketpool.net)
-- [CoW Swap Documentation](https://docs.cow.fi)
+**S: Protocol ve CoW Swap rotaları arasında geçiş vergiler için farklı mı?**
+C: Vergi muamelesi tipik olarak aynıdır - her ikisi de ETH'yi rETH ile değiştirmeyi içerir. Seçilen rota genellikle vergi yükümlülüklerini etkilemez, ancak kayıt tutma biraz farklı olabilir.
+
+## Ek Kaynaklar
+
+- [Rocket Pool Dokümantasyonu](https://docs.rocketpool.net)
+- [CoW Swap Dokümantasyonu](https://docs.cow.fi)
 - [Rocket Pool Discord](https://discord.gg/rocketpool)
 - [Etherscan Gas Tracker](https://etherscan.io/gastracker)
 
-## Contract Addresses
+## Sözleşme Adresleri
 
 ### Mainnet
 
@@ -680,10 +680,10 @@ A: The tax treatment is typically the same - both involve exchanging ETH for rET
 ### Hoodi Testnet
 
 - **rETH Token:** `0x7322c24752f79c05ffd1e2a6fcb97020c1c264f1`
-- Check [Rocket Pool Documentation](https://docs.rocketpool.net) for other Hoodi testnet addresses.
+- Diğer Hoodi testnet adresleri için [Rocket Pool Dokümantasyonu](https://docs.rocketpool.net)'na bakın.
 
 ---
 
-That's all there is to staking with Rocket Pool! We hope you find the new routing options helpful in getting the best value for your stake.
+Rocket Pool ile staking hakkında bilmeniz gereken her şey bu kadar! Yeni rota seçeneklerinin stake'iniz için en iyi değeri almanızda yardımcı olmasını umuyoruz.
 
-Feel free to swing by [our Discord server](https://discord.gg/rocketpool) to let us know what you thought of it and keep tabs on the project as it evolves.
+Ne düşündüğünüzü bize bildirmek ve proje geliştikçe takip etmek için [Discord sunucumuza](https://discord.gg/rocketpool) uğramaktan çekinmeyin.

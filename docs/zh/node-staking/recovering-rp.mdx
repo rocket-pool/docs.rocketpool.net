@@ -2,35 +2,35 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # 导入/恢复现有钱包
 
-如果您已经有一个想要用于节点的钱包,或者您正在恢复之前使用 Smartnode 创建的钱包,本指南将帮助您完成导入/恢复过程。
+如果您已经有一个想要用于节点的钱包，或者您正在恢复之前使用 Smartnode 创建的钱包，本指南将帮助您完成导入/恢复过程。
 
 请从以下部分中选择适当的选项。
 
 ## 恢复 Smartnode 钱包
 
-如果您使用 Smartnode 生成了节点钱包,并且只是在新机器上恢复它,过程非常简单。
-确保您已经安装了 Smartnode 软件,然后在安装完成后只需运行以下命令:
+如果您使用 Smartnode 生成了节点钱包，并且只是在新机器上恢复它，过程非常简单。
+确保您已经安装了 Smartnode 软件，然后在安装完成后只需运行以下命令：
 
 ```shell
 rocketpool wallet recover
 ```
 
 ::: warning 注意
-如果出于某种原因,您想要恢复钱包但_不想_恢复附加到节点 minipool 的任何验证器密钥,您可以指定 `-k` 标志以跳过重建过程:
+如果出于某种原因，您想恢复钱包但_不_恢复附加到节点 minipool 的任何验证器密钥，您可以指定 `-k` 标志以跳过重建过程：
 
 ```shell
 rocketpool wallet recover -k
 ```
 
-如果您不指定此标志,Smartnode 将尝试恢复您的 minipool 的验证器密钥;但是请注意,在执行客户端完成同步之前这将无法工作。
-请查看其日志文件以查看何时完成;完成后,您可以运行此步骤。
+如果您不指定此标志，Smartnode 将尝试恢复您的 minipool 的验证器密钥；但是，请注意，在您的 Execution 客户端完成同步之前，这不会起作用。
+请查看其日志文件以了解何时完成；完成后，您可以运行此步骤。
 :::
 
-这将首先要求您输入一个密码来加密您的钱包。
-之后,它将要求您输入**24 个词的助记词恢复短语**。
-仔细输入——为了安全起见,它不会显示在屏幕上,在输入时很容易出错,所以请慢慢来。
+这将首先要求您输入要用于加密钱包的密码。
+之后，它会要求您输入您的 **24 个单词助记恢复短语**。
+小心输入 - 出于安全考虑，它不会显示在屏幕上，并且在输入时很容易出错，所以请慢慢来。
 
-完成后,您应该看到类似以下的输出:
+完成后，您应该看到类似以下的输出：
 
 ```shell
 $ rocketpool wallet recover
@@ -47,100 +47,100 @@ Node account: <your wallet address>
 No validator keys were found.
 ```
 
-如果您没有看到任何错误,那么您的钱包和验证器将被恢复。
+如果您没有看到任何错误，那么您的钱包和验证器将被恢复。
 
-完成后,请确保使用以下命令重启验证器客户端(适用于 Docker 和混合模式用户):
+完成后，请务必使用以下命令重新启动 Docker 和 Hybrid 模式用户的验证器客户端：
 
 ```shell
 docker restart rocketpool_validator
 ```
 
-**原生模式**用户只需重启他们的验证器容器进程。
+**Native 模式**用户只需重新启动他们的验证器容器进程。
 
-这将确保 VC 获取所有新恢复的验证器密钥。
+这将确保 VC 接收所有新恢复的验证器密钥。
 
 ## 将现有地址导入为节点钱包
 
-如果您有一个想要用于节点的地址,但_没有_使用 Smartnode 创建它(例如,您使用 MetaMask 或硬件钱包创建它),那么这是要遵循的部分。
+如果您有一个想用于节点的地址，但_没有_使用 Smartnode 创建它（例如，您使用 MetaMask 或硬件钱包创建了它），那么这是要遵循的部分。
 
 ::: danger 警告
-这样做后,您的地址将成为**热钱包**。
+通过这样做，您的地址将成为**热钱包**。
 私钥将存储在您的节点机器上。
 
-如果您导入的地址是冷钱包,例如硬件钱包,请注意**硬件钱包提供的保护将不再存在!**
+如果您导入的地址是冷钱包，例如硬件钱包，请注意**硬件钱包提供的保护将不再存在！**
 
-如果您将此钱包用于_任何其他加密货币活动_,**您必须在将其导入到您的节点之前将其所有资金迁移到单独的地址(例如不同的硬件钱包)!只在此地址上留下足够的 ETH 用于节点的 gas 成本(通常 0.5 ETH 就足够了)。**
+如果您将此钱包用于_任何其他加密货币活动_，**您必须在将其导入节点之前将其所有资金迁移到单独的地址（例如不同的硬件钱包）！仅在此地址上留下足够的 ETH 用于节点的 gas 成本（通常 0.5 ETH 就足够了）。**
 
-在将您的地址导入为节点钱包之前,请确保通过遵循[保护您的节点](./securing-your-node)指南中的步骤尽可能地保护您的机器。
+在导入您的地址作为节点钱包之前，请按照[保护您的节点](./securing-your-node)指南中的步骤尽可能地保护您的机器。
 :::
 
-此功能仅在 Smartnode **v1.4.3 或更高版本**中可用。
-如果您的版本较低,您需要先升级。
+此功能仅适用于 Smartnode **v1.4.3 或更高版本**。
+如果您的版本较低，您需要先升级。
 
-这是一个多步骤过程,因此请仔细遵循以下各节。
+这是一个多步骤过程，因此请仔细遵循以下部分。
 
-### Step 1: Add Externally-Generated Validator Keys
+### 步骤 1：添加外部生成的验证器密钥
 
-**If you don't have any existing minipools attached to the address you're importing, you can skip this step.**
+**如果您没有附加到要导入的地址的任何现有 minipool，则可以跳过此步骤。**
 
-If your address has already been registered as a Rocket Pool node wallet (such as via a service like **Allnodes**) and already has active minipools, and you'd like to import them into the Smartnode stack along with your address, you will need to provide the private keystore files for each of their corresponding validators.
-These files will be encrypted with a password of your own choosing, so you will need that password for each file as well.
+如果您的地址已经注册为 Rocket Pool 节点钱包（例如通过 **Allnodes** 等服务），并且已经有活跃的 minipool，并且您想将它们与您的地址一起导入到 Smartnode 堆栈中，您将需要为每个相应验证器提供私有密钥库文件。
+这些文件将使用您自己选择的密码加密，因此您将需要每个文件的密码。
 
-You need to get these files from the service that is currently running your node in order to import it.
-Some service providers may be able to retrieve these files upon request.
-If you use Allnodes, you can get these files during your initial setup process but **will not be able to retrieve them in the future unless you saved them during minipool creation.**
+您需要从当前运行您节点的服务获取这些文件才能导入它。
+某些服务提供商可能能够根据请求检索这些文件。
+如果您使用 Allnodes，您可以在初始设置过程中获取这些文件，但**除非您在 minipool 创建期间保存了它们，否则将来将无法检索它们。**
 
-Select your installation mode and follow the steps below.
+选择您的安装模式并按照以下步骤操作。
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Docker and Hybrid Mode">
-      First, ensure you've started the Smartnode with `rocketpool service start`.
-      This will create a special folder that can be used to hold the encrypted keystore files for your validators.
+    <Tab label="Docker 和 Hybrid 模式">
+      首先，确保您已使用 `rocketpool service start` 启动了 Smartnode。
+      这将创建一个特殊文件夹，可用于保存验证器的加密密钥库文件。
 
-      By default, the folder is located in `~/.rocketpool/data/custom-keys`.
-      If you've customized your installation or data directories, substitute appropriately to find the `custom-keys` folder.
+      默认情况下，该文件夹位于 `~/.rocketpool/data/custom-keys`。
+      如果您自定义了安装或数据目录，请适当替换以找到 `custom-keys` 文件夹。
 
-      Check with a file explorer or the `ls` command to make sure this folder exists.
-      If not, no worries - just make the folder with the following command:
+      使用文件资源管理器或 `ls` 命令检查以确保此文件夹存在。
+      如果不存在，不用担心 - 只需使用以下命令创建文件夹：
 
       ```shell
       mkdir ~/.rocketpool/data/custom-keys
       ```
     </Tab>
-    <Tab label="Native Mode">
-      Create a folder called `custom-keys` inside of your Smartnode's `data` folder (for example, `/srv/rocketpool/data/custom-keys`).
+    <Tab label="Native 模式">
+      在 Smartnode 的 `data` 文件夹内创建一个名为 `custom-keys` 的文件夹（例如，`/srv/rocketpool/data/custom-keys`）。
     </Tab>
 
   </Tabs>
 </div>
 
-Next, place each of the validator keystore files into this folder.
-The names of the files don't matter, but they must be JSON files that conform to the [EIP-2335](https://eips.ethereum.org/EIPS/eip-2335#scrypt-test-vector) format.
+接下来，将每个验证器密钥库文件放入此文件夹。
+文件的名称无关紧要，但它们必须是符合 [EIP-2335](https://eips.ethereum.org/EIPS/eip-2335#scrypt-test-vector) 格式的 JSON 文件。
 
-The Smartnode will look in this directory for any keystore files you have placed here in the next steps.
+Smartnode 将在下一步中查找您放置在此目录中的任何密钥库文件。
 
-::: warning NOTE
-The import process will _only_ look for validator keys that are attached to minipools registered to the address you're importing.
-You **cannot** use this process to import other validator keys, such as for solo staking validators, into the Validator client managed by the Smartnode stack.
+::: warning 注意
+导入过程将_仅_查找附加到注册到您导入的地址的 minipool 的验证器密钥。
+您**不能**使用此过程将其他验证器密钥（例如用于单独质押验证器）导入到 Smartnode 堆栈管理的验证器客户端中。
 
-Please see the documentation for running in [Reverse Hybrid Mode](./advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode) if you are interested in doing this.
+如果您有兴趣这样做，请参阅[反向混合模式](./advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode)运行文档。
 :::
 
-### Step 2 (Optional): Test Importing the Address
+### 步骤 2（可选）：测试导入地址
 
-If you would like to test the recovery process to ensure you have the correct mnemonic and passwords **without actually regenerating your node wallet's private key or importing your validator keys**, you can do so with the following command:
+如果您想测试恢复过程以确保您有正确的助记词和密码**而不实际重新生成节点钱包的私钥或导入验证器密钥**，您可以使用以下命令：
 
 ```shell
 rocketpool wallet test-recovery -a 0x1234abcd...
 ```
 
-Where `0x1234abcd...` is the address you want to import, starting with the `0x` prefix.
-**You will need your mnemonic phrase to import the private key for your address.**
+其中 `0x1234abcd...` 是您要导入的地址，以 `0x` 前缀开头。
+**您需要助记短语来导入地址的私钥。**
 
-::: tip TIP
-If, for some reason, you want to recover the wallet but _not_ any of the validator keys for your minipools, you can specify the `-k` flag to skip the validator key recovery process.
-For example:
+::: tip 提示
+如果出于某种原因，您想恢复钱包但_不_恢复 minipool 的任何验证器密钥，您可以指定 `-k` 标志以跳过验证器密钥恢复过程。
+例如：
 
 ```shell
 rocketpool wallet test-recovery -a 0x1234abcd... -k
@@ -148,29 +148,29 @@ rocketpool wallet test-recovery -a 0x1234abcd... -k
 
 :::
 
-The Smartnode will automatically search through the most popular derivation paths (e.g. the ones used by Ledger Live, MyEtherWallet, Trezor, and the Smartnode stack) and address indicies to find the settings that correspond to the address you provided.
+Smartnode 将自动搜索最流行的派生路径（例如 Ledger Live、MyEtherWallet、Trezor 和 Smartnode 堆栈使用的路径）和地址索引，以找到与您提供的地址相对应的设置。
 
-::: tip TIP
-If you have a custom derivation path, use the `-d` flag to specify it.
-For example:
+::: tip 提示
+如果您有自定义派生路径，请使用 `-d` 标志指定它。
+例如：
 
 ```shell
 rocketpool wallet test-recovery -d "m/44'/60'/0'/%d"
 ```
 
-Use `%d` for the portion of the path that can be iterated to use different indicies.
+对路径中可以迭代以使用不同索引的部分使用 `%d`。
 
-If you have a custom address index, use the `-i` flag to specify it.
-For example, if your address was the 6th one on the standard derivation path, you could use:
+如果您有自定义地址索引，请使用 `-i` 标志指定它。
+例如，如果您的地址是标准派生路径上的第 6 个，您可以使用：
 
 ```shell
 rocketpool wallet test-recovery -i 5
 ```
 
-You can use both the `-d` and `-i` flags at the same time if you require.
+如果需要，您可以同时使用 `-d` 和 `-i` 标志。
 :::
 
-First, you'll be prompted for your address's mnemonic phrase:
+首先，系统会提示您输入地址的助记短语：
 
 ```
 Please enter the number of words in your mnemonic phrase (24 by default):
@@ -179,9 +179,9 @@ Please enter the number of words in your mnemonic phrase (24 by default):
 Enter Word Number 1 of your mnemonic:
 ```
 
-Enter it carefully, and the Smartnode will begin searching through all of the standard options to find it (unless you explicitly specified them using the `-d` and/or `-i` flags).
+小心输入，Smartnode 将开始搜索所有标准选项以找到它（除非您使用 `-d` 和/或 `-i` 标志明确指定它们）。
 
-Next, if you have private keystore files to import from Step 1, you will be prompted for the passwords to each of those keystore files:
+接下来，如果您有要从步骤 1 导入的私有密钥库文件，系统将提示您输入每个密钥库文件的密码：
 
 ```
 It looks like you have some custom keystores for your minipool's validators.
@@ -190,10 +190,10 @@ You will be prompted for the passwords each one was encrypted with, so they can 
 Please enter the password that the keystore for <validator pubkey> was encrypted with:
 ```
 
-They will be organized by the **pubkey** list, **not the filenames**.
-Ensure you know which file corresponds to which validator pubkey so you enter the correct passwords.
+它们将按**公钥**列表组织，**而不是文件名**。
+确保您知道哪个文件对应哪个验证器公钥，以便输入正确的密码。
 
-Once you've done this, the test recovery process will proceed and report back on whether it succeeded or failed:
+完成此操作后，测试恢复过程将继续进行并报告是成功还是失败：
 
 ```
 Searching for the derivation path and index for wallet 0x1234abcd...
@@ -206,28 +206,28 @@ Validator keys:
 <validator pubkey>
 ```
 
-The above indicates a successful test recovery.
+以上表示测试恢复成功。
 
-### Step 3: Import the Address
+### 步骤 3：导入地址
 
-::: danger WARNING
-If your address is a Rocket Pool node that is _not_ managed by your own self-hosted Smartnode (e.g. hosted by an external service like **Allnodes**), **IT IS CRITICAL** that you coordinate with the service running your node **before you begin this import process** and inform them that you would like to migrate to your own self-hosted system.
+::: danger 警告
+如果您的地址是_不是_由您自己的自托管 Smartnode 管理的 Rocket Pool 节点（例如由 **Allnodes** 等外部服务托管），**在开始此导入过程之前**与运行您节点的服务协调**至关重要**，并告知他们您想迁移到自己的自托管系统。
 
-You **MUST CONFIRM** that they have shut down validation for your node and **will NEVER resume it**, and manually confirm that your validators are no longer attesting using a Blockchain explorer such as [https://beaconcha.in](https://beaconcha.in).
-You must confirm that each validator has missed **AT LEAST 2 ATTESTATIONS** to ensure you can safely migrate.
-Otherwise, you will both attest at the same time and **YOUR MINIPOOLS WILL BE SLASHED!**
+您**必须确认**他们已关闭您节点的验证，并且**永远不会恢复它**，并使用 Blockchain 浏览器（如 [https://beaconcha.in](https://beaconcha.in)）手动确认您的验证器不再进行证明。
+您必须确认每个验证器至少错过了 **2 次证明**，以确保您可以安全迁移。
+否则，您将同时进行证明，**您的 MINIPOOL 将被罚没！**
 
-The Smartnode will require you to confirm that you have done this before allowing you to proceed with the import process.
+Smartnode 将要求您在允许您继续导入过程之前确认您已完成此操作。
 :::
 
-If the test recovery succeeded, or if you skipped it, you will next import the wallet and regenerate all of its associated key files.
-The process is exactly the same as the above, but use the `recover` command instead of the `test-recovery` command:
+如果测试恢复成功，或者如果您跳过了它，您接下来将导入钱包并重新生成其所有关联的密钥文件。
+该过程与上述完全相同，但使用 `recover` 命令而不是 `test-recovery` 命令：
 
 ```shell
 rocketpool wallet recover -a 0x1234abcd...
 ```
 
-When you run this command, you will first be prompted for a password to encrypt your imported node wallet with.
+运行此命令时，系统将首先提示您输入密码以加密您导入的节点钱包。
 
 ```
 Please enter a password to secure your wallet with:
@@ -235,9 +235,9 @@ Please enter a password to secure your wallet with:
 Please confirm your password:
 ```
 
-After that, the mnemonic and custom validator keystore password prompts will proceed as they did before.
+之后，助记词和自定义验证器密钥库密码提示将像以前一样继续。
 
-Once you've entered all of this information, the Smartnode will recover your address and (if not disabled) the custom validator keys for your minipools:
+输入所有这些信息后，Smartnode 将恢复您的地址和（如果未禁用）您的 minipool 的自定义验证器密钥：
 
 ```
 Searching for the derivation path and index for wallet 0x1234abcd...
@@ -250,27 +250,27 @@ Validator keys:
 <validator pubkey>
 ```
 
-Your address's private key will now be stored in the `data/wallet` file (e.g. `~/.rocketpool/data/wallet`), and the password for it will be stored in the `data/password` file (e.g. `~/.rocketpool/data/password`).
+您地址的私钥现在将存储在 `data/wallet` 文件中（例如 `~/.rocketpool/data/wallet`），其密码将存储在 `data/password` 文件中（例如 `~/.rocketpool/data/password`）。
 
-The private keys for each of your validators will be stored in the `data/validators` folders for each of the Consensus clients that the Smartnode supports.
+每个验证器的私钥将存储在 Smartnode 支持的每个共识客户端的 `data/validators` 文件夹中。
 
-::: danger NOTE
-By importing an address in this fashion, the validator keys were **not** derived from your node wallet, and thus they **cannot** be recovered later by simply running `rocketpool wallet recover` as with a normal node wallet.
+::: danger 注意
+通过以这种方式导入地址，验证器密钥**不是**从您的节点钱包派生的，因此它们**以后不能**通过简单运行 `rocketpool wallet recover` 来恢复，就像使用普通节点钱包一样。
 
-If you ever need to recover or import this wallet again, you will need to follow this same process which means **you will need to have these validator private keystores and their passwords backed up somewhere safe.**
+如果您以后需要再次恢复或导入此钱包，您将需要遵循相同的过程，这意味着**您需要将这些验证器私有密钥库及其密码备份在安全的地方。**
 
-If you ever lose them, **you will no longer be able to recover these validator keys!**
+如果您丢失它们，**您将无法再恢复这些验证器密钥！**
 :::
 
-### Step 4: Cleanup
+### 步骤 4：清理
 
-At this point, you can now delete all of the private keystore files in the `data/custom-keys` directory.
-The Smartnode will have imported them already and assigned randomized passwords to them, so those keystore files are no longer necessary.
+此时，您现在可以删除 `data/custom-keys` 目录中的所有私有密钥库文件。
+Smartnode 将已经导入它们并为它们分配了随机密码，因此这些密钥库文件不再需要。
 
-Finally, ensure that there is **not** a file named `custom-key-passwords` in your `data` directory (e.g. `~/.rocketpool/data/custom-key-passwords`).
-The Smartnode will build this temporary file only during the recover process, and will remove it automatically regardless of whether or not the recovery process succeeded; if for any reason it failed to remove it, it will alert you in the console output.
-However, it never hurts to be too careful.
+最后，确保您的 `data` 目录中**没有**名为 `custom-key-passwords` 的文件（例如 `~/.rocketpool/data/custom-key-passwords`）。
+Smartnode 将仅在恢复过程中构建此临时文件，无论恢复过程是否成功，都将自动删除它；如果出于任何原因未能删除它，它将在控制台输出中提醒您。
+但是，过于小心总是没有坏处的。
 
-## Next Steps
+## 下一步
 
-Once you've imported or recovered your node wallet, follow the next steps in the [Intro to the Command Line Interface](./cli-intro) guide.
+导入或恢复节点钱包后，请按照[命令行界面简介](./cli-intro)指南中的下一步操作。

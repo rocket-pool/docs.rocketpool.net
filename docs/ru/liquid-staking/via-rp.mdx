@@ -5,129 +5,129 @@ import mm_network_main from "./images/mm_network_main.png";
 import mm_add_token from "./images/mm_add_token.png";
 import rp_test_site from "./images/rp_test_site.png";
 
-# Staking Directly via Rocket Pool
+# Стейкинг напрямую через Rocket Pool
 
-## Overview
+## Обзор
 
-Rocket Pool's staking interface now offers two distinct routes for converting between ETH and rETH:
+Интерфейс стейкинга Rocket Pool теперь предлагает два разных маршрута для конвертации между ETH и rETH:
 
-1. **Protocol Route** - Direct interaction with Rocket Pool smart contracts
-2. **CoW Swap Route** - Decentralized exchange aggregator with MEV protection (Mainnet only)
+1. **Маршрут протокола** - прямое взаимодействие со смарт-контрактами Rocket Pool
+2. **Маршрут CoW Swap** - децентрализованный агрегатор обмена с защитой от MEV (только Mainnet)
 
-The interface automatically recommends the best route based on current market conditions and liquidity availability.
+Интерфейс автоматически рекомендует лучший маршрут на основе текущих рыночных условий и доступности ликвидности.
 
 <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/stake_options.mp4" />
 
-## Routing Options Explained
+## Объяснение вариантов маршрутизации
 
-### Protocol Route
+### Маршрут протокола
 
-**How it works:** Direct interaction with Rocket Pool's deposit pool and smart contracts on-chain.
+**Как это работает:** Прямое взаимодействие с депозитным пулом Rocket Pool и смарт-контрактами в цепи.
 
-**Advantages:**
+**Преимущества:**
 
-- Instant execution
-- Predictable exchange rate based on current rETH/ETH ratio
-- No intermediary tokens required (direct ETH ↔ rETH conversion)
-- Lower complexity
-- Always get exactly as much rETH as your ETH is worth (minus a 0.05% deposit fee)
-- No slippage, no liquidity issues, no sandwiching or front-running
+- Мгновенное выполнение
+- Предсказуемый обменный курс на основе текущего соотношения rETH/ETH
+- Не требуется промежуточных токенов (прямая конвертация ETH ↔ rETH)
+- Меньшая сложность
+- Всегда получаете точно столько rETH, сколько стоит ваш ETH (минус комиссия за депозит 0.05%)
+- Без проскальзывания, без проблем с ликвидностью, без сэндвичинга или фронтраннинга
 
-**Limitations:**
+**Ограничения:**
 
-- Subject to deposit pool limits when staking
-- Subject to liquidity availability when unstaking
-- Requires gas fees for transaction
-- Gas fees might be expensive for small amounts
+- Подвержено лимитам депозитного пула при стейкинге
+- Подвержено доступности ликвидности при анстейкинге
+- Требуются комиссии за газ для транзакции
+- Комиссии за газ могут быть дорогими для малых сумм
 
-### CoW Swap Route (Mainnet Only)
+### Маршрут CoW Swap (только Mainnet)
 
-**How it works:** Uses CoW Protocol's batch auction system to find the best price across multiple DEXs.
+**Как это работает:** Использует систему пакетных аукционов CoW Protocol для поиска лучшей цены на нескольких DEX.
 
-**Advantages:**
+**Преимущества:**
 
-- MEV (Maximum Extractable Value) protection against sandwich attacks
-- Gasless execution - you only sign the order
-- Often provides better rates through DEX aggregation
-- Always available regardless of protocol deposit pool limits
-- No gas fees for the swap itself
+- Защита от MEV (Maximum Extractable Value) от сэндвич-атак
+- Выполнение без газа - вы только подписываете ордер
+- Часто предоставляет лучшие ставки через агрегацию DEX
+- Всегда доступен независимо от лимитов депозитного пула протокола
+- Нет комиссий за газ для самого обмена
 
-**Limitations:**
+**Ограничения:**
 
-- Requires WETH wrapping/unwrapping steps (handled automatically)
-- Orders may take 2-5 minutes to execute
-- Orders can expire if not matched within the time limit
-- Requires one-time token approvals
+- Требуются шаги обертывания/развертывания WETH (обрабатываются автоматически)
+- Ордера могут занять 2-5 минут для выполнения
+- Ордера могут истечь, если не совпадут в течение временного лимита
+- Требуются одноразовые разрешения токенов
 
-## Key Concepts
+## Ключевые концепции
 
 ### WETH (Wrapped ETH)
 
-When using CoW Swap, the interface automatically handles WETH conversions:
+При использовании CoW Swap интерфейс автоматически обрабатывает конвертации WETH:
 
-- WETH is an ERC-20 token representing ETH in a standardized format
-- 1 WETH always equals 1 ETH
-- The interface wraps ETH to WETH before trading and unwraps after
-- You only pay gas for the initial wrap (one-time)
+- WETH - это токен ERC-20, представляющий ETH в стандартизированном формате
+- 1 WETH всегда равен 1 ETH
+- Интерфейс оборачивает ETH в WETH перед торговлей и разворачивает после
+- Вы платите газ только за начальное обертывание (одноразово)
 
-### Slippage Tolerance
+### Допуск проскальзывания
 
-For CoW Swap orders:
+Для ордеров CoW Swap:
 
-- Default: 0.5%
-- Adjustable based on your preference
-- Higher slippage = more likely to execute
-- Lower slippage = better price protection
+- По умолчанию: 0.5%
+- Регулируется в зависимости от ваших предпочтений
+- Более высокое проскальзывание = более вероятное выполнение
+- Более низкое проскальзывание = лучшая защита цены
 
-### Order Expiry
+### Истечение ордера
 
-CoW Swap orders have a time limit:
+Ордера CoW Swap имеют временной лимит:
 
-- Default: 30 minutes
-- Adjustable from 5 minutes to 24 hours
-- Orders automatically cancel if not executed
+- По умолчанию: 30 минут
+- Регулируется от 5 минут до 24 часов
+- Ордера автоматически отменяются, если не выполнены
 
-### Better Rate Indicator
+### Индикатор лучшей ставки
 
-The interface shows which route offers better value:
+Интерфейс показывает, какой маршрут предлагает лучшую ценность:
 
-- Green badge with "X% better" indicates the optimal route
-- Automatically pre-selects the best option
-- Updates in real-time as market conditions change
+- Зеленый значок с "X% лучше" указывает оптимальный маршрут
+- Автоматически предварительно выбирает лучший вариант
+- Обновляется в реальном времени по мере изменения рыночных условий
 
-### Protocol Liquidity
+### Ликвидность протокола
 
-When unstaking rETH:
+При анстейкинге rETH:
 
-- Protocol route requires available ETH in the deposit pool
-- Shows "Insufficient liquidity" when pool is empty
-- Automatically routes through CoW Swap when protocol liquidity is unavailable
+- Маршрут протокола требует доступного ETH в депозитном пуле
+- Показывает "Недостаточная ликвидность", когда пул пуст
+- Автоматически направляет через CoW Swap, когда ликвидность протокола недоступна
 
-## Getting Started
+## Начало работы
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Preparing on the Hoodi Testnet">
+    <Tab label="Подготовка на Hoodi Testnet">
       <p className="rspress-directive danger">
-        <p className="rspress-directive-title">WARNING</p>
-        When practicing staking on the test network, you **do not need to provide any of your real ETH** during this process.
-        You will be given **fake test ETH** to use instead.
+        <p className="rspress-directive-title">ПРЕДУПРЕЖДЕНИЕ</p>
+        При практике стейкинга в тестовой сети вам **не нужно предоставлять какой-либо ваш настоящий ETH** во время этого процесса.
+        Вам будет предоставлен **фальшивый тестовый ETH** для использования вместо этого.
 
-        **Do not attempt to move your real ETH on mainnet to the testnet or you will lose it permanently!**
+        **Не пытайтесь переместить ваш настоящий ETH из mainnet в testnet, иначе вы потеряете его навсегда!**
       </p>
 
-      Start by installing [MetaMask](https://metamask.io/) if you haven't already.
-      Follow the instructions on their site to install the extension, create an account, and sign in.
+      Начните с установки [MetaMask](https://metamask.io/), если вы еще этого не сделали.
+      Следуйте инструкциям на их сайте, чтобы установить расширение, создать учетную запись и войти.
 
-      Next, open the MetaMask panel using its icon in your browser toolbar.
+      Далее откройте панель MetaMask, используя его значок на панели инструментов браузера.
 
-      You will need to add the Hoodi Testnet to MetaMask.
+      Вам нужно будет добавить Hoodi Testnet в MetaMask.
 
-      Click on the top left dropdown & click the "Add Network" button.
+      Нажмите на выпадающее меню в верхнем левом углу и нажмите кнопку "Add Network".
 
-      You will see a list of networks, Hoodi is not in this list so click the "Add a network manually" button.
+      Вы увидите список сетей, Hoodi нет в этом списке, поэтому нажмите кнопку "Add a network manually".
 
-      Fill in the following details:
+      Заполните следующие данные:
 
       ```
       Network Name: Hoodi
@@ -137,142 +137,142 @@ When unstaking rETH:
       Block Explorer Url: https://hoodi.etherscan.io
       ```
 
-      Then click Save. You should now see the Hoodi network in the top left dropdown.
+      Затем нажмите Save. Теперь вы должны увидеть сеть Hoodi в выпадающем меню в верхнем левом углу.
 
-      Click on the **network dropdown** in the top left of the Metamask extension & select **Hoodi Test Network**.
+      Нажмите на **выпадающее меню сети** в верхнем левом углу расширения Metamask и выберите **Hoodi Test Network**.
 
-      Finally, add the rETH token to MetaMask so you can see your balance and access it for trading.
-      Click the **Assets** tab, then click **Add Token**:
+      Наконец, добавьте токен rETH в MetaMask, чтобы вы могли видеть свой баланс и получить к нему доступ для торговли.
+      Нажмите вкладку **Assets**, затем нажмите **Add Token**:
 
       <img src={mm_add_token} width="100%" height="auto" />
 
-      Ensure that **Custom Token** is selected in this dialog.
-      In the **Token Contract Address** box, put the following value:
+      Убедитесь, что выбран **Custom Token** в этом диалоговом окне.
+      В поле **Token Contract Address** введите следующее значение:
 
       ```
       0x7322c24752f79c05ffd1e2a6fcb97020c1c264f1
       ```
 
-      The **Token Symbol** should automatically be populated with `rETH`, and the **Decimals of Precision** should automatically be populated with `18`.
+      **Token Symbol** должен автоматически заполниться как `rETH`, и **Decimals of Precision** должны автоматически заполниться как `18`.
 
-      Accept the rest of the prompts, and then you will see the rETH token appear in your list.
+      Примите остальные подсказки, и тогда вы увидите токен rETH в вашем списке.
 
-      Now that you have a wallet address in MetaMask, you need to fill it with some test ETH.
-      Head over to the [Practicing with the Test Network](../node-staking/testnet/overview#getting-test-eth-on-hoodi) page for a quick guide on how to use a testnet faucet to get some test ETH on Hoodi.
+      Теперь, когда у вас есть адрес кошелька в MetaMask, вам нужно заполнить его некоторым тестовым ETH.
+      Перейдите на страницу [Практика с тестовой сетью](../node-staking/testnet/overview#getting-test-eth-on-hoodi) для быстрого руководства о том, как использовать testnet faucet для получения некоторого тестового ETH на Hoodi.
 
-      Once you have some Hoodi ETH to test with, head to [https://testnet.rocketpool.net/](https://testnet.rocketpool.net/).
+      Как только у вас будет некоторый Hoodi ETH для тестирования, перейдите на [https://testnet.rocketpool.net/](https://testnet.rocketpool.net/).
 
-      **Note:** Testnet only supports Protocol routing. CoW Swap is available on mainnet only.
+      **Примечание:** Testnet поддерживает только маршрутизацию протокола. CoW Swap доступен только на mainnet.
     </Tab>
-    <Tab label="Preparing on Ethereum Mainnet">
-      Start by installing [MetaMask](https://metamask.io/) if you haven't already.
-      Follow the instructions on their site to install the extension, create an account, and sign in.
+    <Tab label="Подготовка на Ethereum Mainnet">
+      Начните с установки [MetaMask](https://metamask.io/), если вы еще этого не сделали.
+      Следуйте инструкциям на их сайте, чтобы установить расширение, создать учетную запись и войти.
 
-      Next, open the MetaMask panel using its icon in your browser toolbar.
-      Click on the **network dropdown** in the toolbar at the top and ensure that **Ethereum Mainnet** is selected:
+      Далее откройте панель MetaMask, используя его значок на панели инструментов браузера.
+      Нажмите на **выпадающее меню сети** на панели инструментов в верхней части и убедитесь, что выбран **Ethereum Mainnet**:
 
       <img src={mm_network_main} width="100%" height="auto" />
 
-      Finally, add the rETH token to MetaMask so you can see your balance and access it for trading.
-      Click the **Assets** tab, then click **Add Token**:
+      Наконец, добавьте токен rETH в MetaMask, чтобы вы могли видеть свой баланс и получить к нему доступ для торговли.
+      Нажмите вкладку **Assets**, затем нажмите **Add Token**:
 
       <img src={mm_add_token} width="100%" height="auto" />
 
-      Ensure that **Custom Token** is selected in this dialog.
-      In the **Token Contract Address** box, put the following value:
+      Убедитесь, что выбран **Custom Token** в этом диалоговом окне.
+      В поле **Token Contract Address** введите следующее значение:
 
       ```
       0xae78736Cd615f374D3085123A210448E74Fc6393
       ```
 
-      The **Token Symbol** should automatically be populated with `rETH`, and the **Decimals of Precision** should automatically be populated with `18`.
+      **Token Symbol** должен автоматически заполниться как `rETH`, и **Decimals of Precision** должны автоматически заполниться как `18`.
 
-      Accept the rest of the prompts, and then you will see the rETH token appear in your list.
+      Примите остальные подсказки, и тогда вы увидите токен rETH в вашем списке.
 
-      Now that you have a wallet address in MetaMask, you need to transfer some ETH into it.
-      You will need to supply this from an existing wallet or buy ETH on an exchange.
+      Теперь, когда у вас есть адрес кошелька в MetaMask, вам нужно перевести некоторый ETH в него.
+      Вам нужно будет предоставить это из существующего кошелька или купить ETH на бирже.
 
-      Once you have some ETH to stake, head to [https://stake.rocketpool.net/](https://stake.rocketpool.net/).
+      Как только у вас будет некоторый ETH для стейкинга, перейдите на [https://stake.rocketpool.net/](https://stake.rocketpool.net/).
     </Tab>
 
   </Tabs>
 </div>
 
-## Staking ETH for rETH
+## Стейкинг ETH за rETH
 
-Once you're at the staking site, click on the **connect wallet** button. Please read through and accept the Terms of Service & Privacy Policy, this will enable different ways to connect, then click **connect metamask**.
+Как только вы окажетесь на сайте стейкинга, нажмите кнопку **connect wallet**. Пожалуйста, прочитайте и примите Условия обслуживания и Политику конфиденциальности, это позволит различные способы подключения, затем нажмите **connect metamask**.
 
-MetaMask will prompt you to select an account to connect to the website. Choose one, confirm a few permissions, and you'll see your balances update in the UI.
+MetaMask попросит вас выбрать учетную запись для подключения к веб-сайту. Выберите одну, подтвердите несколько разрешений, и вы увидите обновление ваших балансов в пользовательском интерфейсе.
 
-### Step 1: Enter Amount
+### Шаг 1: Введите сумму
 
-Enter the amount of ETH you want to stake in the **Stake ETH** input field.
+Введите количество ETH, которое вы хотите застейкать, в поле ввода **Stake ETH**.
 
-[Image placeholder: Input field with amount being entered]
+[Заполнитель изображения: Поле ввода с вводимой суммой]
 
-### Step 2: Review Routing Options
+### Шаг 2: Просмотрите варианты маршрутизации
 
-The interface will display two routing options (mainnet only):
+Интерфейс отобразит два варианта маршрутизации (только mainnet):
 
-- **Protocol Card**: Shows if deposit pool is available or full
-- **CoW Swap Card**: Shows estimated output and rate comparison
+- **Карточка протокола**: Показывает, доступен ли депозитный пул или полон
+- **Карточка CoW Swap**: Показывает ожидаемый выход и сравнение ставок
 
-The better option will be highlighted with a green "X% better" badge and automatically selected.
+Лучший вариант будет выделен зеленым значком "X% лучше" и автоматически выбран.
 
-[Image placeholder: Routing cards showing comparison]
+[Заполнитель изображения: Карточки маршрутизации, показывающие сравнение]
 
-### Step 3: Configure Settings (CoW Swap Only)
+### Шаг 3: Настройте параметры (только CoW Swap)
 
-If using CoW Swap, you can optionally:
+Если используете CoW Swap, вы можете опционально:
 
-- Adjust slippage tolerance (default 0.5%)
-- Set order expiry time (default 30 minutes)
+- Настроить допуск проскальзывания (по умолчанию 0.5%)
+- Установить время истечения ордера (по умолчанию 30 минут)
 
-### Step 4: Execute Transaction
+### Шаг 4: Выполните транзакцию
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Via Protocol">
-      Click **Stake via Protocol** button.
+    <Tab label="Через протокол">
+      Нажмите кнопку **Stake via Protocol**.
 
-      MetaMask will prompt you to:
-      1. **Approve the transaction** with gas fees shown
-      2. **Confirm the transaction**
+      MetaMask попросит вас:
+      1. **Одобрить транзакцию** с показанными комиссиями за газ
+      2. **Подтвердить транзакцию**
 
-      ::: danger IMPORTANT
-      Check the total gas cost before approving - if it's very expensive relative to your stake amount, consider using CoW Swap instead!
+      ::: danger ВАЖНО
+      Проверьте общую стоимость газа перед одобрением - если она очень дорогая относительно вашей суммы стейка, рассмотрите использование CoW Swap вместо этого!
       :::
 
-      Once confirmed, the transaction will be mined and you'll receive your rETH immediately.
+      После подтверждения транзакция будет добыта, и вы немедленно получите свой rETH.
 
       <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/protocol_stake.mp4" />
     </Tab>
-    <Tab label="Via CoW Swap">
-      Click **Stake via CoW Swap** button.
+    <Tab label="Через CoW Swap">
+      Нажмите кнопку **Stake via CoW Swap**.
 
-      The process involves several automated steps:
+      Процесс включает несколько автоматизированных шагов:
 
-      1. **WETH Wrapping** (if needed)
-      - Approve ETH to WETH conversion
-      - One-time gas fee required
+      1. **Обертывание WETH** (если необходимо)
+      - Одобрить конвертацию ETH в WETH
+      - Требуется одноразовая комиссия за газ
 
-      2. **WETH Approval** (first time only)
-      - Approve CoW Protocol to use your WETH
-      - One-time gas fee required
+      2. **Одобрение WETH** (только первый раз)
+      - Одобрить CoW Protocol использовать ваш WETH
+      - Требуется одноразовая комиссия за газ
 
-      3. **Sign Order**
-      - Review order details
-      - Sign with MetaMask (gasless)
-      - No gas fees
+      3. **Подписать ордер**
+      - Просмотреть детали ордера
+      - Подписать с помощью MetaMask (без газа)
+      - Без комиссий за газ
 
-      4. **Order Execution**
-      - Monitor progress in modal
-      - Typical wait: 2-5 minutes
-      - Can close modal and continue browsing
+      4. **Выполнение ордера**
+      - Отслеживать прогресс в модальном окне
+      - Типичное ожидание: 2-5 минут
+      - Можно закрыть модальное окно и продолжить просмотр
 
-      5. **Completion**
-      - rETH automatically appears in wallet
-      - View on Etherscan if needed
+      5. **Завершение**
+      - rETH автоматически появляется в кошельке
+      - Просмотр на Etherscan при необходимости
 
       <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/cowswap_stake.mp4" preload="auto"/>
     </Tab>
@@ -280,63 +280,63 @@ If using CoW Swap, you can optionally:
   </Tabs>
 </div>
 
-::: tip NOTE
-It's **completely normal** to receive less rETH than the ETH you put in. rETH and ETH have a **dynamic exchange rate**: as the Rocket Pool network earns rewards, 1 rETH becomes worth more than 1 ETH.
+::: tip ПРИМЕЧАНИЕ
+Это **совершенно нормально** получить меньше rETH, чем ETH, который вы вложили. rETH и ETH имеют **динамический обменный курс**: по мере того как сеть Rocket Pool зарабатывает вознаграждения, 1 rETH становится стоить больше, чем 1 ETH.
 :::
 
-## Unstaking rETH for ETH
+## Анстейкинг rETH за ETH
 
-When you're ready to unstake and trade your rETH back for ETH, head back to the staking website and click on the **swap direction button** to switch to unstaking mode:
+Когда вы готовы снять стейк и обменять ваш rETH обратно на ETH, вернитесь на веб-сайт стейкинга и нажмите кнопку **направления обмена**, чтобы переключиться в режим анстейкинга:
 
-### Step 1: Enter Amount
+### Шаг 1: Введите сумму
 
-Enter the amount of rETH you want to unstake in the **Unstake rETH** field.
+Введите количество rETH, которое вы хотите снять, в поле **Unstake rETH**.
 
-### Step 2: Check Routing Availability
+### Шаг 2: Проверьте доступность маршрутизации
 
-The interface will show:
+Интерфейс покажет:
 
-- **Protocol liquidity** available in the deposit pool
-- **Protocol card** status (available or "Insufficient liquidity")
-- **CoW Swap card** with estimated ETH output
+- **Ликвидность протокола** доступна в депозитном пуле
+- Статус **карточки протокола** (доступна или "Недостаточная ликвидность")
+- **Карточку CoW Swap** с ожидаемым выходом ETH
 
-### Step 3: Execute Unstaking
+### Шаг 3: Выполните анстейкинг
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Via Protocol">
-      If protocol liquidity is available:
+    <Tab label="Через протокол">
+      Если ликвидность протокола доступна:
 
-      1. Click **Unstake via Protocol**
-      2. Confirm transaction in MetaMask
-      3. Pay gas fees
-      4. Receive ETH immediately
+      1. Нажмите **Unstake via Protocol**
+      2. Подтвердите транзакцию в MetaMask
+      3. Оплатите комиссии за газ
+      4. Получите ETH немедленно
 
-      ::: warning NOTE
-      Protocol unstaking is only possible when the deposit pool has enough ETH. If you see "Insufficient liquidity", use CoW Swap instead.
+      ::: warning ПРИМЕЧАНИЕ
+      Анстейкинг протокола возможен только тогда, когда в депозитном пуле достаточно ETH. Если вы видите "Недостаточная ликвидность", используйте CoW Swap вместо этого.
       :::
 
       <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/unstake_mainnet.mp4" preload="auto"/>
     </Tab>
-    <Tab label="Via CoW Swap">
-      CoW Swap is always available for unstaking:
+    <Tab label="Через CoW Swap">
+      CoW Swap всегда доступен для анстейкинга:
 
-      1. **rETH Approval** (first time only)
-      - Approve rETH for CoW Protocol
-      - One-time gas fee
+      1. **Одобрение rETH** (только первый раз)
+      - Одобрить rETH для CoW Protocol
+      - Одноразовая комиссия за газ
 
-      2. **Sign Order**
-      - Review details
-      - Sign order (gasless)
+      2. **Подписать ордер**
+      - Просмотреть детали
+      - Подписать ордер (без газа)
 
-      3. **Order Execution**
-      - Monitor in modal
-      - 2-5 minute wait
+      3. **Выполнение ордера**
+      - Отслеживать в модальном окне
+      - Ожидание 2-5 минут
 
-      4. **WETH Unwrapping** (automatic)
-      - Receives WETH from swap
-      - Automatically unwraps to ETH
-      - ETH appears in wallet
+      4. **Развертывание WETH** (автоматическое)
+      - Получает WETH от обмена
+      - Автоматически разворачивает в ETH
+      - ETH появляется в кошельке
 
       <video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/cowswap_unstake.mp4" preload="auto"/>
     </Tab>
@@ -344,346 +344,346 @@ The interface will show:
   </Tabs>
 </div>
 
-## Troubleshooting
+## Устранение неполадок
 
-### Common Issues
+### Распространенные проблемы
 
-#### Order Expired (CoW Swap)
+#### Ордер истек (CoW Swap)
 
-Your order didn't execute within the time limit.
+Ваш ордер не выполнился в течение временного лимита.
 
-**Solutions:**
+**Решения:**
 
-- Increase order expiry time (up to 24 hours)
-- Adjust slippage tolerance higher
-- Try again with current market prices
-- Use Protocol route if available
+- Увеличить время истечения ордера (до 24 часов)
+- Настроить допуск проскальзывания выше
+- Попробовать снова с текущими рыночными ценами
+- Использовать маршрут протокола, если доступен
 
-#### Insufficient Balance
+#### Недостаточный баланс
 
-Not enough ETH/rETH for the transaction.
+Недостаточно ETH/rETH для транзакции.
 
-**Solutions:**
+**Решения:**
 
-- Check wallet balance
-- Account for gas fees (Protocol route)
-- Reduce stake/unstake amount
+- Проверить баланс кошелька
+- Учесть комиссии за газ (маршрут протокола)
+- Уменьшить сумму стейка/анстейка
 
-#### Pool Full (Protocol Staking)
+#### Пул полон (стейкинг протокола)
 
-Deposit pool has reached its limit.
+Депозитный пул достиг своего лимита.
 
-**Solution:**
+**Решение:**
 
-- Use CoW Swap route (automatically selected)
-- Wait for node operators to pull ETH from pool
-- Check back later for availability
+- Использовать маршрут CoW Swap (автоматически выбран)
+- Подождать, пока операторы узлов извлекут ETH из пула
+- Проверить позже на доступность
 
-#### Insufficient Liquidity (Protocol Unstaking)
+#### Недостаточная ликвидность (анстейкинг протокола)
 
-Not enough ETH in deposit pool for unstaking.
+Недостаточно ETH в депозитном пуле для анстейкинга.
 
-**Solution:**
+**Решение:**
 
-- Use CoW Swap route (automatically selected)
-- Always available regardless of pool state
+- Использовать маршрут CoW Swap (автоматически выбран)
+- Всегда доступен независимо от состояния пула
 
-### Manual WETH Conversion
+### Ручная конвертация WETH
 
-If you have WETH that wasn't automatically unwrapped:
+Если у вас есть WETH, который не был автоматически развернут:
 
-1. Visit [swap.cow.fi](https://swap.cow.fi)
-2. Connect your wallet
-3. Swap WETH → ETH (1:1 ratio, gasless)
+1. Посетите [swap.cow.fi](https://swap.cow.fi)
+2. Подключите свой кошелек
+3. Обменяйте WETH → ETH (соотношение 1:1, без газа)
 
-Or use Etherscan:
+Или используйте Etherscan:
 
-1. Go to WETH contract: `0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2`
-2. Connect wallet to "Write Contract"
-3. Use `withdraw` function
-4. Enter amount in Wei
-5. Execute transaction
+1. Перейдите к контракту WETH: `0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2`
+2. Подключите кошелек к "Write Contract"
+3. Используйте функцию `withdraw`
+4. Введите сумму в Wei
+5. Выполните транзакцию
 
-## Best Practices
+## Лучшие практики
 
-### For Optimal Rates
+### Для оптимальных ставок
 
-- Let the interface auto-select the best route
-- Check during low network activity for better protocol availability
-- For large amounts, CoW Swap often provides better rates
-- Adjust slippage carefully to balance execution likelihood vs price
+- Позвольте интерфейсу автоматически выбрать лучший маршрут
+- Проверяйте во время низкой сетевой активности для лучшей доступности протокола
+- Для больших сумм CoW Swap часто предоставляет лучшие ставки
+- Настраивайте проскальзывание осторожно, чтобы сбалансировать вероятность выполнения и цену
 
-### For Security
+### Для безопасности
 
-- Verify you're on the correct website: [https://stake.rocketpool.net](https://stake.rocketpool.net)
-- Start with small test amounts
-- Review all transaction details before confirming
-- Keep some ETH for gas fees
-- Only approve trusted contracts
+- Убедитесь, что вы на правильном веб-сайте: [https://stake.rocketpool.net](https://stake.rocketpool.net)
+- Начните с малых тестовых сумм
+- Просмотрите все детали транзакции перед подтверждением
+- Держите немного ETH для комиссий за газ
+- Одобряйте только доверенные контракты
 
-### For Gas Optimization
+### Для оптимизации газа
 
-- Compare gas costs between routes
-- Batch transactions when possible
-- Use CoW Swap for small amounts to avoid high gas fees
-- Monitor gas prices at [etherscan.io/gastracker](https://etherscan.io/gastracker)
+- Сравните стоимость газа между маршрутами
+- Пакетируйте транзакции, когда возможно
+- Используйте CoW Swap для малых сумм, чтобы избежать высоких комиссий за газ
+- Отслеживайте цены на газ на [etherscan.io/gastracker](https://etherscan.io/gastracker)
 
-## Tax Implications
+## Налоговые последствия
 
-::: warning IMPORTANT
-This section provides general educational information only. Tax laws vary significantly by jurisdiction and individual circumstances. **Always consult with a qualified tax professional** for advice specific to your situation.
+::: warning ВАЖНО
+Этот раздел предоставляет только общую образовательную информацию. Налоговые законы значительно различаются в зависимости от юрисдикции и индивидуальных обстоятельств. **Всегда консультируйтесь с квалифицированным налоговым специалистом** для получения советов, специфичных для вашей ситуации.
 :::
 
-### Understanding rETH and Taxes
+### Понимание rETH и налогов
 
-When staking with Rocket Pool, it's crucial to understand potential tax implications:
+При стейкинге с Rocket Pool важно понимать потенциальные налоговые последствия:
 
-#### The Staking Transaction (ETH → rETH)
+#### Транзакция стейкинга (ETH → rETH)
 
-**Potential Tax Events:**
+**Потенциальные налоговые события:**
 
-- **Token Swap**: Converting ETH to rETH may be considered a taxable event in many jurisdictions
-- **Capital Gains/Losses**: If your ETH has appreciated since acquisition, you may owe capital gains tax
-- **Cost Basis**: The value of rETH received becomes your new cost basis for future transactions
+- **Обмен токенов**: Конвертация ETH в rETH может считаться налогооблагаемым событием во многих юрисдикциях
+- **Прирост/убыток капитала**: Если ваш ETH вырос в цене с момента приобретения, вы можете задолжать налог на прирост капитала
+- **Базис стоимости**: Стоимость полученного rETH становится вашим новым базисом стоимости для будущих транзакций
 
-**Example Scenario:**
-
-```
-Bought 1 ETH at $1,000
-Stake when ETH is worth $2,000
-Potential taxable gain: $1,000
-Your rETH cost basis: $2,000
-```
-
-#### Holding rETH (Earning Rewards)
-
-**How rETH Appreciates:**
-
-- rETH increases in value relative to ETH automatically
-- No new tokens are received - the token itself appreciates
-- This appreciation represents your staking rewards
-
-**Tax Treatment Varies:**
-
-- **Some jurisdictions**: Tax on appreciation only when realized (upon sale/swap)
-- **Other jurisdictions**: May tax unrealized gains annually
-- **Income vs. Capital Gains**: Classification affects tax rates
-
-#### The Unstaking Transaction (rETH → ETH)
-
-**Tax Considerations:**
-
-- Converting rETH back to ETH is typically a taxable event
-- Calculate gain/loss based on:
-- **Cost basis**: Value when you acquired rETH
-- **Disposal value**: Value when converting back to ETH
-- The difference is your capital gain or loss
-
-### Routing Method Tax Implications
-
-#### Protocol Route
-
-- Single taxable event per transaction
-- Clear timestamp and value for tax records
-- On-chain transaction provides permanent record
-
-#### CoW Swap Route
-
-- WETH wrapping/unwrapping typically not taxable (1:1 conversion)
-- Main swap (ETH/WETH ↔ rETH) is the taxable event
-- Order execution provides clear tax documentation
-
-### Record Keeping Best Practices
-
-**Essential Records to Maintain:**
-
-1. **For Each Stake:**
-
-- Date and time of transaction
-- Amount of ETH staked
-- Amount of rETH received
-- ETH price at time of staking
-- Transaction hash
-- Gas fees paid
-
-2. **While Holding:**
-
-- Periodic snapshots of rETH/ETH exchange rate
-- Your rETH balance over time
-- Market values on key dates (year-end, etc.)
-
-3. **For Each Unstake:**
-
-- Date and time of transaction
-- Amount of rETH unstaked
-- Amount of ETH received
-- ETH price at time of unstaking
-- Transaction hash
-- Gas fees paid
-
-**Tools for Tracking:**
-
-- Export transactions from Etherscan
-- Use portfolio tracking apps that support rETH
-- Maintain a spreadsheet with all transactions
-- Consider using crypto tax software
-
-### Tax Optimization Strategies
-
-**Timing Considerations:**
-
-- **Tax-Loss Harvesting**: Unstake during market downturns if you have losses to offset gains
-- **Long-term vs. Short-term**: Many jurisdictions favor long-term holdings (typically >1 year)
-- **Year-end Planning**: Consider timing of transactions around tax year boundaries
-
-**Cost Basis Methods:**
-
-- **FIFO (First In, First Out)**: Default in many jurisdictions
-- **LIFO (Last In, First Out)**: May be available in some regions
-- **Specific Identification**: Track specific rETH portions if allowed
-
-### Common Tax Scenarios
-
-#### Scenario 1: Regular Staking
+**Пример сценария:**
 
 ```
-Action: Stake 10 ETH for 9.5 rETH
-Tax Event: Disposal of ETH, acquisition of rETH
-Report: Capital gain/loss on ETH disposal
-Track: 9.5 rETH with new cost basis
+Купили 1 ETH за $1,000
+Стейк, когда ETH стоит $2,000
+Потенциальная налогооблагаемая прибыль: $1,000
+Ваш базис стоимости rETH: $2,000
 ```
 
-#### Scenario 2: Partial Unstaking
+#### Удержание rETH (заработок вознаграждений)
+
+**Как rETH растет в цене:**
+
+- rETH увеличивается в стоимости относительно ETH автоматически
+- Новые токены не получаются - сам токен растет в цене
+- Это повышение стоимости представляет ваши вознаграждения за стейкинг
+
+**Налоговое обращение различается:**
+
+- **Некоторые юрисдикции**: Налог на повышение стоимости только при реализации (при продаже/обмене)
+- **Другие юрисдикции**: Могут облагать налогом нереализованную прибыль ежегодно
+- **Доход против прироста капитала**: Классификация влияет на налоговые ставки
+
+#### Транзакция анстейкинга (rETH → ETH)
+
+**Налоговые соображения:**
+
+- Конвертация rETH обратно в ETH обычно является налогооблагаемым событием
+- Рассчитайте прибыль/убыток на основе:
+- **Базис стоимости**: Стоимость, когда вы приобрели rETH
+- **Стоимость выбытия**: Стоимость при конвертации обратно в ETH
+- Разница - это ваш прирост или убыток капитала
+
+### Налоговые последствия метода маршрутизации
+
+#### Маршрут протокола
+
+- Единственное налогооблагаемое событие на транзакцию
+- Четкая временная метка и стоимость для налоговых записей
+- Транзакция в цепи предоставляет постоянную запись
+
+#### Маршрут CoW Swap
+
+- Обертывание/развертывание WETH обычно не облагается налогом (конвертация 1:1)
+- Основной обмен (ETH/WETH ↔ rETH) является налогооблагаемым событием
+- Выполнение ордера предоставляет четкую налоговую документацию
+
+### Лучшие практики ведения записей
+
+**Основные записи для ведения:**
+
+1. **Для каждого стейка:**
+
+- Дата и время транзакции
+- Количество застейканного ETH
+- Количество полученного rETH
+- Цена ETH на момент стейкинга
+- Хеш транзакции
+- Уплаченные комиссии за газ
+
+2. **Во время удержания:**
+
+- Периодические снимки обменного курса rETH/ETH
+- Ваш баланс rETH с течением времени
+- Рыночные стоимости на ключевые даты (конец года и т.д.)
+
+3. **Для каждого анстейка:**
+
+- Дата и время транзакции
+- Количество снятого rETH
+- Количество полученного ETH
+- Цена ETH на момент анстейкинга
+- Хеш транзакции
+- Уплаченные комиссии за газ
+
+**Инструменты для отслеживания:**
+
+- Экспортируйте транзакции из Etherscan
+- Используйте приложения отслеживания портфеля, которые поддерживают rETH
+- Ведите электронную таблицу со всеми транзакциями
+- Рассмотрите использование программного обеспечения для налогов на криптовалюту
+
+### Стратегии налоговой оптимизации
+
+**Соображения по времени:**
+
+- **Сбор налоговых убытков**: Снимите стейк во время рыночных спадов, если у вас есть убытки для компенсации прибыли
+- **Долгосрочные против краткосрочных**: Многие юрисдикции предпочитают долгосрочные удержания (обычно >1 года)
+- **Планирование конца года**: Рассмотрите время транзакций вокруг границ налогового года
+
+**Методы базиса стоимости:**
+
+- **FIFO (First In, First Out)**: По умолчанию во многих юрисдикциях
+- **LIFO (Last In, First Out)**: Может быть доступен в некоторых регионах
+- **Конкретная идентификация**: Отслеживайте конкретные части rETH, если разрешено
+
+### Распространенные налоговые сценарии
+
+#### Сценарий 1: Обычный стейкинг
 
 ```
-Action: Unstake 5 rETH for 5.3 ETH
-Tax Event: Disposal of rETH, acquisition of ETH
-Report: Capital gain/loss on rETH disposal
-Track: Remaining rETH balance and cost basis
+Действие: Стейк 10 ETH за 9.5 rETH
+Налоговое событие: Выбытие ETH, приобретение rETH
+Отчет: Прирост/убыток капитала при выбытии ETH
+Отслеживание: 9.5 rETH с новым базисом стоимости
 ```
 
-#### Scenario 3: DeFi Integration
+#### Сценарий 2: Частичный анстейкинг
 
 ```
-Action: Use rETH in DeFi protocols
-Tax Event: Each protocol interaction may be taxable
-Report: Track all movements and value changes
-Track: Yields, swaps, and liquidity provisions
+Действие: Анстейк 5 rETH за 5.3 ETH
+Налоговое событие: Выбытие rETH, приобретение ETH
+Отчет: Прирост/убыток капитала при выбытии rETH
+Отслеживание: Остаточный баланс rETH и базис стоимости
 ```
 
-### Jurisdiction-Specific Considerations
+#### Сценарий 3: Интеграция DeFi
 
-**United States:**
+```
+Действие: Использование rETH в протоколах DeFi
+Налоговое событие: Каждое взаимодействие с протоколом может облагаться налогом
+Отчет: Отслеживайте все движения и изменения стоимости
+Отслеживание: Доходы, обмены и предоставление ликвидности
+```
 
-- IRS treats crypto-to-crypto swaps as taxable
-- Staking rewards may be taxable when received or when sold (evolving guidance)
-- Form 8949 and Schedule D for reporting
+### Соображения для конкретных юрисдикций
 
-**European Union:**
+**Соединенные Штаты:**
 
-- Tax treatment varies by member state
-- Some countries tax upon realization, others annually
-- Consider local crypto tax regulations
+- IRS рассматривает обмены криптовалюты на криптовалюту как налогооблагаемые
+- Вознаграждения за стейкинг могут облагаться налогом при получении или при продаже (развивающееся руководство)
+- Форма 8949 и Schedule D для отчетности
 
-**United Kingdom:**
+**Европейский Союз:**
 
-- HMRC treats staking rewards as income or capital gains depending on circumstances
-- Detailed record keeping required
-- Consider "bed and breakfasting" rules
+- Налоговое обращение различается в зависимости от государства-члена
+- Некоторые страны облагают налогом при реализации, другие ежегодно
+- Рассмотрите местные правила налогов на криптовалюту
 
-**Other Jurisdictions:**
+**Великобритания:**
 
-- Research your local tax authority's crypto guidance
-- Many countries are still developing frameworks
-- Professional advice strongly recommended
+- HMRC рассматривает вознаграждения за стейкинг как доход или прирост капитала в зависимости от обстоятельств
+- Требуется подробное ведение записей
+- Рассмотрите правила "bed and breakfasting"
 
-### Using Tax Software
+**Другие юрисдикции:**
 
-**Popular Crypto Tax Tools:**
+- Исследуйте руководство вашего местного налогового органа по криптовалюте
+- Многие страны все еще разрабатывают рамки
+- Профессиональный совет настоятельно рекомендуется
 
-- Most support rETH tracking
-- Can import from Etherscan
-- Calculate gains/losses automatically
-- Generate tax reports for your jurisdiction
+### Использование налогового программного обеспечения
 
-**Integration Tips:**
+**Популярные инструменты налогов на криптовалюту:**
 
-1. Import all wallet addresses
-2. Verify rETH/ETH transactions are correctly classified
-3. Ensure exchange rates are accurate
-4. Review calculated gains/losses
-5. Export reports for tax filing
+- Большинство поддерживают отслеживание rETH
+- Могут импортировать из Etherscan
+- Автоматически рассчитывают прибыль/убытки
+- Генерируют налоговые отчеты для вашей юрисдикции
 
-### Red Flags to Avoid
+**Советы по интеграции:**
 
-**Common Mistakes:**
+1. Импортируйте все адреса кошельков
+2. Убедитесь, что транзакции rETH/ETH правильно классифицированы
+3. Убедитесь, что обменные курсы точны
+4. Просмотрите рассчитанную прибыль/убытки
+5. Экспортируйте отчеты для подачи налогов
 
-- Not tracking cost basis
-- Forgetting to report staking transactions
-- Ignoring small transactions
-- Missing DeFi interactions
-- Incorrect exchange rate data
+### Красные флаги, которых следует избегать
 
-**Audit Preparation:**
+**Распространенные ошибки:**
 
-- Keep all transaction records
-- Document your calculation methods
-- Save exchange rate sources
-- Maintain wallet ownership proof
-- Store records for required retention period
+- Не отслеживать базис стоимости
+- Забывать сообщать о транзакциях стейкинга
+- Игнорировать малые транзакции
+- Пропускать взаимодействия DeFi
+- Неправильные данные обменного курса
 
-## FAQs
+**Подготовка к аудиту:**
 
-**Q: Which route should I choose?**
-A: The interface automatically recommends the best route with a green "better rate" badge. Generally, use the recommended option.
+- Храните все записи транзакций
+- Документируйте свои методы расчета
+- Сохраняйте источники обменного курса
+- Сохраняйте доказательство владения кошельком
+- Храните записи в течение требуемого периода хранения
 
-**Q: Why does CoW Swap sometimes offer better rates?**
-A: CoW Swap aggregates liquidity from multiple DEXs and uses batch auctions to find optimal prices, often beating the fixed protocol rate.
+## FAQ
 
-**Q: Is CoW Swap really gasless?**
-A: Order creation and signing are gasless. You only pay gas for initial WETH wrapping and token approvals (one-time setup).
+**В: Какой маршрут я должен выбрать?**
+О: Интерфейс автоматически рекомендует лучший маршрут с зеленым значком "лучшая ставка". Как правило, используйте рекомендуемый вариант.
 
-**Q: How long do CoW Swap orders take?**
-A: Typically 2-5 minutes, but can vary based on market conditions.
+**В: Почему CoW Swap иногда предлагает лучшие ставки?**
+О: CoW Swap агрегирует ликвидность из нескольких DEX и использует пакетные аукционы для поиска оптимальных цен, часто превосходя фиксированную ставку протокола.
 
-**Q: What happens if my CoW Swap order expires?**
-A: Nothing is lost. Your tokens remain in your wallet. You can place a new order with adjusted parameters.
+**В: Действительно ли CoW Swap без газа?**
+О: Создание и подписание ордера без газа. Вы платите газ только за начальное обертывание WETH и разрешения токенов (одноразовая настройка).
 
-**Q: Why is the Protocol route sometimes unavailable?**
-A: **For staking:** Deposit pool is full. **For unstaking:** Insufficient ETH liquidity. These are temporary states that change as users interact with the protocol.
+**В: Сколько времени занимают ордера CoW Swap?**
+О: Обычно 2-5 минут, но может варьироваться в зависимости от рыночных условий.
 
-**Q: Are staking transactions taxable?**
-A: In most jurisdictions, yes. Converting ETH to rETH and back are typically taxable events. Consult a tax professional for your specific situation.
+**В: Что происходит, если мой ордер CoW Swap истекает?**
+О: Ничего не потеряно. Ваши токены остаются в вашем кошельке. Вы можете разместить новый ордер с настроенными параметрами.
 
-**Q: How do I track my rETH cost basis?**
-A: Record the value of ETH when you stake it - this becomes your rETH cost basis. Use transaction hashes, timestamps, and prices for accurate records.
+**В: Почему маршрут протокола иногда недоступен?**
+О: **Для стейкинга:** Депозитный пул полон. **Для анстейкинга:** Недостаточная ликвидность ETH. Это временные состояния, которые меняются по мере взаимодействия пользователей с протоколом.
 
-**Q: Is moving between Protocol and CoW Swap routes different for taxes?**
-A: The tax treatment is typically the same - both involve exchanging ETH for rETH. The route chosen doesn't usually affect tax obligations, though record keeping may differ slightly.
+**В: Облагаются ли налогом транзакции стейкинга?**
+О: В большинстве юрисдикций да. Конвертация ETH в rETH и обратно обычно являются налогооблагаемыми событиями. Проконсультируйтесь с налоговым специалистом для вашей конкретной ситуации.
 
-## Additional Resources
+**В: Как я отслеживаю свой базис стоимости rETH?**
+О: Запишите стоимость ETH, когда вы его стейкаете - это становится вашим базисом стоимости rETH. Используйте хеши транзакций, временные метки и цены для точных записей.
 
-- [Rocket Pool Documentation](https://docs.rocketpool.net)
-- [CoW Swap Documentation](https://docs.cow.fi)
-- [Rocket Pool Discord](https://discord.gg/rocketpool)
-- [Etherscan Gas Tracker](https://etherscan.io/gastracker)
+**В: Отличается ли движение между маршрутами протокола и CoW Swap для налогов?**
+О: Налоговое обращение обычно одинаково - оба включают обмен ETH на rETH. Выбранный маршрут обычно не влияет на налоговые обязательства, хотя ведение записей может немного отличаться.
 
-## Contract Addresses
+## Дополнительные ресурсы
+
+- [Документация Rocket Pool](https://docs.rocketpool.net)
+- [Документация CoW Swap](https://docs.cow.fi)
+- [Discord Rocket Pool](https://discord.gg/rocketpool)
+- [Трекер газа Etherscan](https://etherscan.io/gastracker)
+
+## Адреса контрактов
 
 ### Mainnet
 
-- **rETH Token:** `0xae78736Cd615f374D3085123A210448E74Fc6393`
-- **WETH Token:** `0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2`
+- **Токен rETH:** `0xae78736Cd615f374D3085123A210448E74Fc6393`
+- **Токен WETH:** `0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2`
 - **Rocket Storage:** `0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46`
 - **CoW Protocol VaultRelayer:** `0xC92E8bdf79f0507f65a392b0ab4667716BFE0110`
 
 ### Hoodi Testnet
 
-- **rETH Token:** `0x7322c24752f79c05ffd1e2a6fcb97020c1c264f1`
-- Check [Rocket Pool Documentation](https://docs.rocketpool.net) for other Hoodi testnet addresses.
+- **Токен rETH:** `0x7322c24752f79c05ffd1e2a6fcb97020c1c264f1`
+- Проверьте [Документацию Rocket Pool](https://docs.rocketpool.net) для других адресов Hoodi testnet.
 
 ---
 
-That's all there is to staking with Rocket Pool! We hope you find the new routing options helpful in getting the best value for your stake.
+Вот и все, что касается стейкинга с Rocket Pool! Мы надеемся, что новые варианты маршрутизации будут полезны для получения лучшей ценности для вашего стейка.
 
-Feel free to swing by [our Discord server](https://discord.gg/rocketpool) to let us know what you thought of it and keep tabs on the project as it evolves.
+Не стесняйтесь заглянуть на [наш сервер Discord](https://discord.gg/rocketpool), чтобы сообщить нам, что вы думаете об этом, и следить за проектом по мере его развития.

@@ -1,26 +1,26 @@
 ---
 next:
   text: Claiming Node Operator Rewards
-  link: "/en/node-staking/rewards"
+  link: "/tr/node-staking/rewards"
 ---
 
-# Overview
+# Genel Bakış
 
-This section covers how to access the rewards your node generates while validating.
+Bu bölüm, node'unuzun doğrulama yaparken ürettiği ödüllere nasıl erişeceğinizi kapsar.
 
-## Prerequisites
+## Ön Koşullar
 
-Before configuring your Smartnode, please make sure you:
+Smartnode'unuzu yapılandırmadan önce, lütfen aşağıdakileri yaptığınızdan emin olun:
 
-- Have set up a node machine (or virtual machine) and secured it (via the [Securing your Node](../securing-your-node) guide)
-- Have the Smartnode [installed](../installing/overview) and [configured](../config/overview) on it
-- Have a node wallet loaded on your Smartnode
-- Synced your Execution and Consensus clients
-- Provisioned your node with [a withdrawal address](../prepare-node.mdx#setting-your-withdrawal-address), set up your [fallback clients](../fallback) (optional), opted into the [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (optional), and configured [MEV](../mev.mdx)
-- Created at least one [minipool](../create-validator.mdx)
+- Bir node makinesi (veya sanal makine) kurdunuz ve güvenliğini sağladınız ([Securing your Node](../securing-your-node) kılavuzu aracılığıyla)
+- Üzerine Smartnode'u [kurdunuz](../installing/overview) ve [yapılandırdınız](../config/overview)
+- Smartnode'unuza bir node wallet yüklediniz
+- Execution ve Consensus istemcilerinizi senkronize ettiniz
+- Node'unuzu [bir withdrawal adresi](../prepare-node.mdx#setting-your-withdrawal-address) ile sağladınız, [yedek istemcilerinizi](../fallback) kurdunuz (isteğe bağlı), [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool)'a katıldınız (isteğe bağlı) ve [MEV](../mev.mdx)'yi yapılandırdınız
+- En az bir [minipool](../create-validator.mdx) oluşturdunuz
 
-## Guides
+## Kılavuzlar
 
-[Claiming Node Operator Rewards](../rewards) explains how RPL rewards and Execution-layer rewards work, and how to access them.
+[Claiming Node Operator Rewards](../rewards), RPL ödüllerinin ve Execution-layer ödüllerinin nasıl çalıştığını ve bunlara nasıl erişeceğinizi açıklar.
 
-[Distributing Skimmed Rewards](../skimming) covers accessing rewards from the Beacon Chain that periodically get "skimmed" by the protocol and delivered to your minipools.
+[Distributing Skimmed Rewards](../skimming), protokol tarafından periyodik olarak "skimmed" edilen ve minipool'larınıza teslim edilen Beacon Chain'den ödüllere erişmeyi kapsar.

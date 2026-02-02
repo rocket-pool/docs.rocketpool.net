@@ -1,100 +1,100 @@
-# 8-ETH Bonded Minipools
+# 8-ETH 保证金迷你矿池
 
-When Rocket Pool was first launched, it supported two types of minipools:
+当 Rocket Pool 首次启动时,它支持两种类型的迷你矿池:
 
-1. A **16-ETH bond**, where the node operator provided 16 ETH and the remaning 16 ETH would come from the staking pool to create a complete (32 ETH) validator.
-2. A **32-ETH temporary bond**, where the node operator would provide all 32 ETH so they could skip the initialization process and start validating on the Beacon Chain right away, then be given a refund of 16 ETH once the deposit pool had enough ETH to cover it. At this point it would turn into a normal 16-ETH bonded minipool.
+1. **16-ETH 保证金**,节点运营者提供 16 ETH,剩余的 16 ETH 将来自质押池,以创建一个完整的(32 ETH)验证者。
+2. **32-ETH 临时保证金**,节点运营者提供全部 32 ETH,以便可以跳过初始化过程并立即在信标链上开始验证,然后在存款池有足够的 ETH 覆盖时获得 16 ETH 的退款。此时它将变成普通的 16-ETH 保证金迷你矿池。
 
-The latter was removed by a community vote several months into the protocol's life due to it no longer being necessary and resulting in long refund delays.
+后者在协议运行几个月后被社区投票移除,因为它不再必要并导致退款延迟。
 
-The former represented the protocol's lowest bond amount because it guaranteed that if a node operator used Rocket Pool to attack the Ethereum protocol and had their _entire bond_ slashed, they would stand to lose just as much as the rETH stakers and would not come out ahead.
+前者代表了协议的最低保证金数额,因为它保证了如果节点运营者使用 Rocket Pool 攻击以太坊协议并被削减_全部保证金_,他们的损失将与 rETH 质押者一样多,不会获利。
 
-Since Rocket Pool's launch, the community has done [significant research](https://dao.rocketpool.net/t/leb8-discussion-thread/899) on the security provided by this bond and found that it was very conservative.
-For all intents and purposes, a slashing of 16 ETH was deemed unrealistic and a 16-ETH bond effectively provided the same security benefits as a bond of only 8 ETH (plus the supplemental RPL requirement).
-Thus, backed by this research, the Atlas upgrade introduces a new type of minipool to the list: the **8-ETH bond**, colloquially referred to by the Rocket Pool community as a "LEB8" (Lower ETH Bond - 8 ETH).
+自 Rocket Pool 启动以来,社区对此保证金提供的安全性进行了[大量研究](https://dao.rocketpool.net/t/leb8-discussion-thread/899),并发现它非常保守。
+从各方面来看,16 ETH 的削减被认为是不现实的,16-ETH 保证金实际上提供了与仅 8 ETH 保证金(加上补充的 RPL 要求)相同的安全优势。
+因此,在此研究的支持下,Atlas 升级引入了一种新的迷你矿池类型:**8-ETH 保证金**,Rocket Pool 社区通俗地称为"LEB8"(Lower ETH Bond - 8 ETH)。
 
-To create an 8-ETH minipool, the node operator only needs to provide **8 of their own ETH** (plus enough RPL to cover the collateral requirement - more on this in [RPL Collateral](#rpl-collateral)).
-It will then pull **24 ETH** from the deposit pool in order to complete the validator and get to work on the Beacon Chain.
+要创建 8-ETH 迷你矿池,节点运营者只需提供**他们自己的 8 ETH**(加上足够的 RPL 以满足抵押品要求 - 有关更多信息,请参阅 [RPL 抵押品](#rpl-抵押品))。
+然后它将从存款池中提取**24 ETH**,以完成验证者并在信标链上开始工作。
 
-This **opens the door to new prospective node operators** that want to run a node but don't quite have 16 ETH.
-Further, it lets larger node operators **put more pool staker ETH to work** on the Beacon Chain earning rewards.
-As this works without meaningfully compromising security, everybody wins!
+这为想要运行节点但没有 16 ETH 的新节点运营者**打开了大门**。
+此外,它让更大的节点运营者**让更多的池质押者 ETH 在信标链上工作**,赚取奖励。
+由于这在不显著降低安全性的情况下运作,每个人都是赢家!
 
-In this guide, we'll cover three topics:
+在本指南中,我们将涵盖三个主题:
 
-- How 8-ETH bonded minipools actually work, and the reward numbers behind them
-- How to create a new 8-ETH minipool
-- How to migrate an _existing_ 16-ETH minipool down to an 8-ETH minipool without exiting
+- 8-ETH 保证金迷你矿池的实际工作原理以及背后的奖励数字
+- 如何创建新的 8-ETH 迷你矿池
+- 如何在不退出的情况下将_现有的_ 16-ETH 迷你矿池迁移到 8-ETH 迷你矿池
 
-Read on to learn more about each topic.
+继续阅读以了解每个主题的更多信息。
 
-## How 8-ETH Bonded Minipools Work
+## 8-ETH 保证金迷你矿池的工作原理
 
-Mechanically, 8-ETH bonded minipools behave **identically** to every other minipool in the protocol.
-They still "own" a validator on the Beacon Chain (they represent that validator's withdrawal credentials), they still come with a commission (though the commission with Atlas **will be fixed at 14%** for all new minipools), and they provide all the same functionality that a 16-ETH bonded minipool does.
-The difference lies entirely in the numbers.
+从机制上讲,8-ETH 保证金迷你矿池与协议中的其他迷你矿池**完全相同**。
+它们仍然"拥有"信标链上的验证者(它们代表该验证者的提款凭证),它们仍然带有佣金(尽管 Atlas 的佣金**将固定为 14%** 用于所有新迷你矿池),并且它们提供与 16-ETH 保证金迷你矿池相同的功能。
+区别完全在于数字。
 
-### Rewards
+### 奖励
 
-From a profitability perspective (looking _purely_ at ETH rewards and ignoring RPL), 8-ETH bonded minipools with a 14% commission provide _more rewards_ to the node operator than even _16-ETH bonded minipools at 20% commission_ (which, as of Redstone, is the highest possible reward configuration).
-At the same time, they also provide more rewards to the _rETH holders_ as well due to the fact that the node operators are more efficiently putting the capital of the rETH holders to work.
+从盈利能力的角度来看(_纯粹_从 ETH 奖励的角度看,忽略 RPL),具有 14% 佣金的 8-ETH 保证金迷你矿池为节点运营者提供的奖励_甚至比_ _20% 佣金的 16-ETH 保证金迷你矿池_更多(截至 Redstone,这是最高的奖励配置)。
+同时,由于节点运营者更有效地利用 rETH 持有者的资本,它们也为 _rETH 持有者_提供更多的奖励。
 
-Let's walk through a simple example to illustrate.
-Say we are a node operator with 16 ETH available to stake (plus the required RPL bond).
-Say we've earned 1 ETH of rewards on the Beacon Chain per validator.
-Here's how the math works out for a single 16-ETH minipool with a 20% commission, versus two 8-ETH minipools at 14% commission:
+让我们通过一个简单的例子来说明。
+假设我们是一个有 16 ETH 可用于质押的节点运营者(加上所需的 RPL 保证金)。
+假设我们在信标链上每个验证者赚取了 1 ETH 的奖励。
+以下是单个 16-ETH 迷你矿池在 20% 佣金下的计算,与两个 14% 佣金的 8-ETH 迷你矿池相比的数学:
 
 ```
-1x 16 ETH Minipool @ 20%:
-Rewards: 1 ETH
-Node Share = (16/32) + (16/32 * 0.2)
-           = 0.5 + (0.5 * 0.2)
-           = 0.5 + 0.1
-           = 0.6 ETH
+1x 16 ETH 迷你矿池 @ 20%:
+奖励: 1 ETH
+节点份额 = (16/32) + (16/32 * 0.2)
+         = 0.5 + (0.5 * 0.2)
+         = 0.5 + 0.1
+         = 0.6 ETH
 
-rETH Share = 1 - 0.6
-           = 0.4 ETH
+rETH 份额 = 1 - 0.6
+          = 0.4 ETH
 
 
-2x 8 ETH Minipools @ 14%:
-Rewards: 2 ETH
-Node Share = ((8/32) + (24/32 * 0.14)) * 2
-           = (0.25 + (0.75 * 0.14)) * 2
-           = (0.25 + 0.105) * 2
-           = 0.71 ETH
+2x 8 ETH 迷你矿池 @ 14%:
+奖励: 2 ETH
+节点份额 = ((8/32) + (24/32 * 0.14)) * 2
+         = (0.25 + (0.75 * 0.14)) * 2
+         = (0.25 + 0.105) * 2
+         = 0.71 ETH
 
-rETH Share = 2 - 0.71
-           = 1.29 ETH
+rETH 份额 = 2 - 0.71
+          = 1.29 ETH
 ```
 
-In other words, a node operator will earn **18% more ETH** via two 8-ETH minipools than they would with a single 16-ETH minipool at 20% commission.
+换句话说,节点运营者通过两个 8-ETH 迷你矿池将比单个 20% 佣金的 16-ETH 迷你矿池多赚取 **18% 的 ETH**。
 
-### RPL Collateral
+### RPL 抵押品
 
-In order to create an 8-ETH minipool, node operators still need to stake enough RPL to cover the minimum collateral requirements for their node (accounting for all of its minipools of all bond sizes).
+为了创建 8-ETH 迷你矿池,节点运营者仍然需要质押足够的 RPL 以满足其节点的最低抵押品要求(考虑其所有不同保证金规模的迷你矿池)。
 
-These rules have been clarified with Atlas:
+这些规则在 Atlas 中已经明确:
 
-- The **minimum RPL** per minipool is **10% of the _borrowed_ amount**
-- The **maximum RPL** per minipool is **150% of the _bonded_ amount**
+- 每个迷你矿池的**最低 RPL** 是**_借入_金额的 10%**
+- 每个迷你矿池的**最高 RPL** 是**_保证金_金额的 150%**
 
-For a 16-ETH minipool, this remains unchanged; the minimum is 1.6 ETH worth of RPL, and the maximum is 24 ETH worth of RPL.
+对于 16-ETH 迷你矿池,这保持不变;最低为 1.6 ETH 价值的 RPL,最高为 24 ETH 价值的 RPL。
 
-For an 8-ETH minipool, this becomes a **minimum of 2.4 ETH worth of RPL** (10% of the borrowed amount, which is 24 ETH) and a **maximum of 12 ETH worth of RPL** (150% of the bonded amount).
+对于 8-ETH 迷你矿池,这变成了**最低 2.4 ETH 价值的 RPL**(借入金额的 10%,即 24 ETH)和**最高 12 ETH 价值的 RPL**(保证金金额的 150%)。
 
-These numbers were selected by the Rocket Pool community [as part of a governance vote](https://vote.rocketpool.net/#/proposal/0x7426469ae1f7c6de482ab4c2929c3e29054991601c95f24f4f4056d424f9f671).
+这些数字是由 Rocket Pool 社区[作为治理投票的一部分](https://vote.rocketpool.net/#/proposal/0x7426469ae1f7c6de482ab4c2929c3e29054991601c95f24f4f4056d424f9f671)选择的。
 
-## Creating a New 8-ETH Minipool
+## 创建新的 8-ETH 迷你矿池
 
-The process to create a new minipool with an 8-ETH bond is identical to the process for creating a 16-ETH minipool.
+使用 8-ETH 保证金创建新迷你矿池的过程与创建 16-ETH 迷你矿池的过程相同。
 
-Simply run the following command:
+只需运行以下命令:
 
 ```shell
 rocketpool node deposit
 ```
 
-When prompted for your bond amount, select `8 ETH`:
+当提示您输入保证金金额时,选择 `8 ETH`:
 
 ```
 Your eth2 client is on the correct network.
@@ -114,10 +114,10 @@ This deposit will use 8.000000 ETH from your credit balance and will not require
 ...
 ```
 
-::: tip NOTE
-This example also shows usage of the [**new Deposit Credit System**](../../node-staking/credit).
-Since the node operator has 8 ETH in credit, creating this 8-ETH minipool is free!
+::: tip 注意
+此示例还展示了[**新存款信用系统**](../../node-staking/credit)的使用。
+由于节点运营者有 8 ETH 的信用,创建这个 8-ETH 迷你矿池是免费的!
 :::
 
-That's all there is to it!
-The rest of the process is the same as [the usual minipool creation instructions](../../node-staking/create-validator.mdx).
+就是这样!
+其余过程与[常规迷你矿池创建说明](../../node-staking/create-validator.mdx)相同。

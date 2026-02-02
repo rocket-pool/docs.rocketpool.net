@@ -2,51 +2,51 @@ import { Tab, Tabs } from "@rspress/core/theme";
 import mmNetwork from "./images/mm_network.png";
 import mmNetworkMain from "./images/mm_network_main.png";
 
-# Stake ETH on behalf of node
+# ノードの代理でETHをステーク
 
-RPIP-32 allows an account to [stake ETH on behalf](https://rpips.rocketpool.net/RPIPs/RPIP-32) of a Rocket Pool node that is registered in the protocol. This supports a variety of situations where the node operator is not directly providing the ETH:
+RPIP-32により、プロトコルに登録されたRocket Poolノードの[代理でETHをステーク](https://rpips.rocketpool.net/RPIPs/RPIP-32)できるアカウントが可能になりました。これは、ノードオペレーターが直接ETHを提供しない様々な状況をサポートします。
 
-- Enhanced security for node operators, as they can stake directly from their hardware wallet, eliminating the need to transfer funds to the node beforehand.
-- Staking as a Service providers where custody of funds are managed by a trusted custodian.
-- Protocol integrations where custody of funds are managed by smart contracts.
-- DAOs or organizations where custody of funds are managed by a treasury.
+- ノードオペレーターのセキュリティ強化により、ハードウェアウォレットから直接ステークでき、事前にノードへ資金を転送する必要がなくなります。
+- カストディアンが資金の管理を行うStaking as a Serviceプロバイダー。
+- スマートコントラクトが資金の管理を行うプロトコル統合。
+- 財務が資金の管理を行うDAOまたは組織。
 
-While the primary aim of this feature is to facilitate single depositor scenarios, it’s worth noting that multiple independent depositors can also leverage this capability by creating smart contracts layered on top. Rocket Pool also introduced the ability to [stake RPL on behalf](../../node-staking/create-validator#whitelisting-an-address-to-stake-on-behalf) of a node back in our previous Atlas release.
+この機能の主な目的は単一預金者のシナリオを促進することですが、複数の独立した預金者もスマートコントラクトをその上に重ねることでこの機能を活用できることは注目に値します。Rocket Poolはまた、以前のAtlasリリースでノードの[代理でRPLをステーク](../../node-staking/create-validator#whitelisting-an-address-to-stake-on-behalf)する機能も導入しました。
 
-### Prerequisite
+### 前提条件
 
-Make sure that you've properly configured the [primary withdrawal address](../../node-staking/prepare-node#setting-your-primary-withdrawal-address) of the node you intend on funding. Follow the link above for a guide on how withdrawal addresses act post houston.
+資金を提供する予定のノードの[プライマリ引出しアドレス](../../node-staking/prepare-node#setting-your-primary-withdrawal-address)を適切に設定していることを確認してください。Houston後の引出しアドレスの動作については、上記のリンクのガイドに従ってください。
 
-::: tip NOTE
-Don't skip this step! All ETH bond/rewards will be withdrawn to the primary withdrawal address. In other words, the address that supplies ETH for a node should be used as the primary withdrawal address! Please make sure that the node's primary withdrawal address is set to a wallet you have custody over.
+::: tip 注意
+このステップをスキップしないでください！すべてのETHボンド/報酬はプライマリ引出しアドレスに引き出されます。つまり、ノードにETHを供給するアドレスをプライマリ引出しアドレスとして使用すべきです！ノードのプライマリ引出しアドレスが管理権限を持つウォレットに設定されていることを確認してください。
 :::
 
-The process is slightly different for the Hoodi Testnet and Mainnet, so choose the network you are interested in from the tabs below.
+プロセスはHoodi TestnetとMainnetで若干異なりますので、以下のタブから興味のあるネットワークを選択してください。
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Preparing on the Hoodi Testnet">
+    <Tab label="Hoodi Testnetでの準備">
 
       <p className="rspress-directive danger">
-        <p className="rspress-directive-title">WARNING</p>
-        When practicing staking on the test network, you **do not need to provide any of your real ETH** during this process.
-        You will be given **fake test ETH** to use instead.
+        <p className="rspress-directive-title">警告</p>
+        テストネットワークでステーキングを練習する場合、このプロセス中に**実際のETHを提供する必要はありません**。
+        代わりに**偽のテストETH**が提供されます。
 
-        **Do not attempt to move your real ETH on mainnet to the testnet or you will lose it permanently!**
+        **メインネット上の実際のETHをテストネットに移動しようとすると、永久に失われます！**
       </p>
 
-      Start by installing [MetaMask](https://metamask.io/) if you haven't already.
-      Follow the instructions on their site to install the extension, create an account, and sign in.
+      まだインストールしていない場合は、[MetaMask](https://metamask.io/)をインストールすることから始めます。
+      サイトの指示に従って、拡張機能をインストールし、アカウントを作成してサインインしてください。
 
-      Next, open the MetaMask panel using its icon in your browser toolbar.
+      次に、ブラウザツールバーのアイコンを使用してMetaMaskパネルを開きます。
 
-      You will need to add the Hoodi Testnet to MetaMask.
+      MetaMaskにHoodi Testnetを追加する必要があります。
 
-      Click on the top left dropdown & click the "Add Network" button.
+      左上のドロップダウンをクリックして「ネットワークを追加」ボタンをクリックします。
 
-      You will see a list of networks, Hoodi is not in this list so click the "Add a network manually" button.
+      ネットワークのリストが表示されますが、Hoodiはこのリストにないため、「ネットワークを手動で追加」ボタンをクリックします。
 
-      Fill in the following details:
+      以下の詳細を入力します。
 
       ```
       Network Name: Hoodi
@@ -56,98 +56,94 @@ The process is slightly different for the Hoodi Testnet and Mainnet, so choose t
       Block Explorer Url: https://hoodi.etherscan.io
       ```
 
-      Then click Save. You should now see the Hoodi network in the top left dropdown.
+      次に「保存」をクリックします。左上のドロップダウンにHoodiネットワークが表示されるはずです。
 
-      Click on the **network dropdown** in the top left of the Metamask extension & select **Hoodi Test Network**:
+      Metamask拡張機能の左上にある**ネットワークドロップダウン**をクリックし、**Hoodi Test Network**を選択します。
 
       <img src={mmNetwork} width="100%" height="auto"/>
 
-      Now that you have a wallet address in MetaMask, you need to fill it with some test ETH.
-      Head over to the [Practicing with the Test Network](../../node-staking/testnet/overview#getting-test-eth-on-hoodi) page for a quick guide on how to use a testnet faucet to get some test ETH on Hoodi.
+      MetaMaskにウォレットアドレスができたので、テストETHで満たす必要があります。
+      [テストネットワークでの練習](../../node-staking/testnet/overview#getting-test-eth-on-hoodi)ページに移動して、テストネットフォーセットを使用してHoodiでテストETHを取得する方法の簡単なガイドをご覧ください。
 
-      Once you have some Hoodi ETH to test with, head to [https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node](https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node).
+      テスト用のHoodi ETHを取得したら、[https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node](https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node)にアクセスします。
 
-      If you see a notice about a web3 browser being required, or the current network ID being unsupported, make sure you’ve completed the previous steps correctly before continuing.
+      web3ブラウザが必要という通知、または現在のネットワークIDがサポートされていないという通知が表示される場合は、続行する前に前の手順を正しく完了していることを確認してください。
     </Tab>
-    <Tab label="Preparing on the Ethereum Mainnet">
-      Start by installing [MetaMask](https://metamask.io/) if you haven't already.
+    <Tab label="Ethereum Mainnetでの準備">
+      まだインストールしていない場合は、[MetaMask](https://metamask.io/)をインストールすることから始めます。
 
-      Follow the instructions on their site to install the extension, create an account, and sign in.
+      サイトの指示に従って、拡張機能をインストールし、アカウントを作成してサインインしてください。
 
-      Next, open the MetaMask panel using its icon in your browser toolbar.
+      次に、ブラウザツールバーのアイコンを使用してMetaMaskパネルを開きます。
 
-      Click on the **network dropdown** in the toolbar at the top and ensure that **Ethereum Mainnet** is selected:
+      上部のツールバーにある**ネットワークドロップダウン**をクリックし、**Ethereum Mainnet**が選択されていることを確認します。
 
       <img src={mmNetworkMain} width="100%" height="auto"/>
 
-      Now that you have a wallet address in MetaMask, you need to transfer some ETH into it.
+      MetaMaskにウォレットアドレスができたので、ETHを転送する必要があります。
 
-      You will need to supply this from an existing wallet or buy ETH on an exchange.
+      既存のウォレットから提供するか、取引所でETHを購入する必要があります。
 
-      Once you have some ETH to stake, head to [https://node.rocketpool.net/deposit-eth-on-behalf-of-node](https://node.rocketpool.net/deposit-eth-on-behalf-of-node).
+      ステークするETHを取得したら、[https://node.rocketpool.net/deposit-eth-on-behalf-of-node](https://node.rocketpool.net/deposit-eth-on-behalf-of-node)にアクセスします。
 
-      If you see a notice about a web3 browser being required, or the current network ID being unsupported, make sure you’ve completed the previous steps correctly before continuing.
+      web3ブラウザが必要という通知、または現在のネットワークIDがサポートされていないという通知が表示される場合は、続行する前に前の手順を正しく完了していることを確認してください。
     </Tab>
 
   </Tabs>
 </div>
 
-Once you're at the site, click on the **connect wallet** button. Please read through and accept the Terms of Service & Privacy Policy, this will enable different ways to connect, then click **connect metamask**.
+サイトにアクセスしたら、**ウォレットを接続**ボタンをクリックします。利用規約とプライバシーポリシーを読んで受け入れてください。これにより様々な接続方法が有効になり、その後**MetaMaskを接続**をクリックします。
 
-MetaMask will prompt you to select an account to connect to the website.
-Choose one, confirm a few permissions. You'll see an overview of your balances by clicking the wallet icon located at the top right of the window.
+MetaMaskはウェブサイトに接続するアカウントを選択するよう促します。
+1つを選択し、いくつかの権限を確認します。ウィンドウの右上にあるウォレットアイコンをクリックすると、残高の概要が表示されます。
 
-From here, you'll want to enter the address of the node you'd like to deposit ETH on behalf of. The page should look like this:
+ここから、代理でETHを預金したいノードのアドレスを入力します。ページは次のように表示されるはずです。
 
 <img src="./images/enter_node_address.png" width="100%" height="auto" />
 
-Go ahead and paste your desired address into this box and click find. In this example, we'll use `0xd3e317806456102d19db283b4c2201f0ef41a296`
+このボックスに希望のアドレスを貼り付けて、検索をクリックします。この例では、`0xd3e317806456102d19db283b4c2201f0ef41a296`を使用します。
 
 <img src="./images/eth_on_behalf.png" width="100%" height="auto" />
 
-In the first box, enter the amount of ETH you would like to deposit on behalf of the node. The second box indicates which address you'll be depositing ETH on behalf of. Please ensure that you've entered the correct address and deposit. Once you're satisfied, click Deposit and MetaMask will pop up with a window asking you to confirm your transaction.
+最初のボックスに、ノードの代理で預金したいETHの量を入力します。2番目のボックスは、代理でETHを預金するアドレスを示しています。正しいアドレスと預金を入力したことを確認してください。満足したら、Depositをクリックすると、MetaMaskがトランザクションの確認を求めるウィンドウをポップアップ表示します。
 
-Once you confirm it, the transaction will begin.
-When it's been included in a block and added to the chain, your delegate will be able to use the command `rocketpool node status` in smartnode to see the new balance. This balance can also be viewed through the Rocket Pool staking site.
+確認すると、トランザクションが開始されます。
+ブロックに含まれてチェーンに追加されると、委任者はsmartnodeでコマンド`rocketpool node status`を使用して新しい残高を確認できます。この残高は、Rocket Poolステーキングサイトでも表示できます。
 
 ```
 The node has 0.000000 ETH in its credit balance and 8.000000 ETH staked on its behalf. 8.000000 can be used to make new minipools.
 ```
 
-::: warning NOTE
-If a node operator deposits your ETH into a minipool, you won't be able to exit their minipool without access to their withdrawal credentials, so keep this in mind! You can use the Rocket Pool staking site to withdraw ETH staked on behalf of a node if it isn't being used in a minipool.
+::: warning 注意
+ノードオペレーターがあなたのETHをミニプールに預金した場合、引出し認証情報にアクセスせずに彼らのミニプールを終了することはできませんので、これを覚えておいてください！ノードの代理でステークされたETHがミニプールで使用されていない場合は、Rocket Poolステーキングサイトを使用して引き出すことができます。
 :::
 
-That's it!
-You're now staking with Rocket Pool.
+以上です！
+これでRocket Poolでステーキングしています。
 
-# Unstake ETH on behalf of node
+# ノードの代理でETHをアンステーク
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Preparing on the Hoodi Testnet">
-      When you're ready to withdraw ETH you've staked on behalf of a node, head over to [https://testnet.node.rocketpool.net/withdraw-eth](https://testnet.node.rocketpool.net/withdraw-eth). After
-      signing in as the node's [primary withdrawal address](../../node-staking/prepare-node#setting-your-primary-withdrawal-address), you should be greeted with a familiar menu. You'll be prompted to
-      enter the node address you want to withdraw from:
+    <Tab label="Hoodi Testnetでの準備">
+      ノードの代理でステークしたETHを引き出す準備ができたら、[https://testnet.node.rocketpool.net/withdraw-eth](https://testnet.node.rocketpool.net/withdraw-eth)にアクセスします。ノードの[プライマリ引出しアドレス](../../node-staking/prepare-node#setting-your-primary-withdrawal-address)としてサインインすると、おなじみのメニューが表示されます。引き出し元のノードアドレスを入力するよう求められます。
     </Tab>
-    <Tab label="Preparing on the Ethereum Mainnet">
-      When you're ready to withdraw ETH you've staked on behalf of a node, head over to [https://node.rocketpool.net/withdraw-eth](https://node.rocketpool.net/withdraw-eth). After signing in as the
-      node's [primary withdrawal address](../../node-staking/prepare-node#setting-your-primary-withdrawal-address), you should be greeted with a familiar menu. You'll be prompted to enter the node
-      address you want to withdraw from:
+    <Tab label="Ethereum Mainnetでの準備">
+      ノードの代理でステークしたETHを引き出す準備ができたら、[https://node.rocketpool.net/withdraw-eth](https://node.rocketpool.net/withdraw-eth)にアクセスします。ノードの[プライマリ引出しアドレス](../../node-staking/prepare-node#setting-your-primary-withdrawal-address)としてサインインすると、おなじみのメニューが表示されます。引き出し元のノードアドレスを入力するよう求められます。
     </Tab>
   </Tabs>
 </div>
 
 <img src="./images/enter_node_address.png" width="100%" height="auto" />
 
-After entering an address, clicking "Find" will take you to the next menu where you can withdraw ETH you've staked on behalf of that node.
+アドレスを入力した後、「検索」をクリックすると、そのノードの代理でステークしたETHを引き出せる次のメニューに移動します。
 
 <img src="./images/withdraw_eth_on_behalf.png" width="100%" height="auto" />
 
-You'll be able to see how much ETH is available for withdrawal in the top right. After you input your desired quantity and confirm the node address, click the orange **Withdraw ETH** button to send the transaction to the network.
+右上で引き出し可能なETHの量を確認できます。希望の数量を入力してノードアドレスを確認したら、オレンジ色の**Withdraw ETH**ボタンをクリックして、トランザクションをネットワークに送信します。
 
-Once the transaction is confirmed, you'll see the proper balances in your account!
+トランザクションが確認されると、アカウントに適切な残高が表示されます！
 
-That's all there is to staking ETH on behalf of a node! We hope you found the process quick and easy.
+ノードの代理でETHをステーキングするのはこれだけです！プロセスが迅速で簡単だったことを願っています。
 
-Feel free to swing by [our Discord server](https://discord.gg/G46XgK264a) to let us know what you thought of it and keep tabs on the project as it evolves.
+[私たちのDiscordサーバー](https://discord.gg/G46XgK264a)に立ち寄って、ご意見をお聞かせいただき、プロジェクトの進化を追跡してください。

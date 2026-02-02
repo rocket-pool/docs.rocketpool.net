@@ -1,242 +1,242 @@
-# The Rocket Pool Redstone Update
+# Rocket Pool Redstone 업데이트
 
-Rocket Pool's next major update, titled **Redstone**, has been released for beta testing on the Ropsten and Holesky test networks.
-This page describes the major changes that Redstone brings, including updates to both the Smartnode stack and to the Rocket Pool protocol in general.
+**Redstone**이라는 Rocket Pool의 다음 주요 업데이트가 Ropsten 및 Holesky 테스트 네트워크에서 베타 테스트를 위해 출시되었습니다.
+이 페이지는 Smartnode 스택과 Rocket Pool 프로토콜 전반에 대한 업데이트를 포함하여 Redstone이 가져오는 주요 변경 사항을 설명합니다.
 
-Please read through this page thoroughly to understand all of the differences between the previous version of Rocket Pool and Redstone.
+이전 버전의 Rocket Pool과 Redstone 간의 모든 차이점을 이해하기 위해 이 페이지를 철저히 읽어주세요.
 
-::: tip ATTENTION
-For detailed information on how to prepare your node for the upgrade and what to do after the upgrade, please look at the following guides:
+::: tip 주의
+업그레이드를 위해 노드를 준비하는 방법과 업그레이드 후 수행할 작업에 대한 자세한 내용은 다음 가이드를 참조하세요:
 
-- [Guide for Docker Mode](./docker-migration.mdx)
-- [Guide for Hybrid Mode](./hybrid-migration.mdx)
-- [Guide for Native Mode](./native-migration.mdx)
+- [Docker 모드 가이드](./docker-migration.mdx)
+- [하이브리드 모드 가이드](./hybrid-migration.mdx)
+- [네이티브 모드 가이드](./native-migration.mdx)
 
 :::
 
-## Client Changes and The Merge
+## 클라이언트 변경 사항 및 The Merge
 
-Ropsten (and shortly, Holesky) have successfully undergone **The Merge of the Execution and Consensus Layers**.
-It no longer uses Proof-of-Work; instead, validators on Ropsten are now responsible for creating and proposing blocks on both chains.
-While this comes with some exciting financial benefits (which will be discussed later), it also comes with some important changes to the way validators operate.
+Ropsten(그리고 곧 Holesky)은 **실행 및 합의 레이어의 The Merge**를 성공적으로 거쳤습니다.
+더 이상 Proof-of-Work를 사용하지 않습니다. 대신 Ropsten의 validator가 이제 두 체인에서 블록을 생성하고 제안하는 책임이 있습니다.
+이것은 몇 가지 흥미로운 재정적 혜택을 제공하지만(나중에 논의됨) validator가 작동하는 방식에도 몇 가지 중요한 변경 사항이 있습니다.
 
-Below is a brief summary of the changes to client behavior as part of The Merge:
+다음은 The Merge의 일부로 클라이언트 동작에 대한 변경 사항의 간략한 요약입니다:
 
-- Your Execution client now uses three API ports:
-  - One for HTTP access to its API (**default 8545**)
-  - One for Websocket access to its API (**default 8546**)
-  - One for the new **Engine API** used by Consensus clients after The Merge (**default 8551**)
+- 실행 클라이언트는 이제 세 개의 API 포트를 사용합니다:
+  - API에 대한 HTTP 액세스용 하나(**기본값 8545**)
+  - API에 대한 Websocket 액세스용 하나(**기본값 8546**)
+  - The Merge 이후 합의 클라이언트가 사용하는 새로운 **Engine API**용 하나(**기본값 8551**)
 
-- Execution clients now require a Consensus client to function, and Consensus clients now require an Execution client to function.
-  - **Neither one can operate in isolation any longer.**
+- 실행 클라이언트는 이제 기능하기 위해 합의 클라이언트가 필요하고 합의 클라이언트는 이제 기능하기 위해 실행 클라이언트가 필요합니다.
+  - **더 이상 둘 중 하나만 단독으로 작동할 수 없습니다.**
 
-- One Execution client must be linked to one, and only one, Consensus client (and vice versa).
-  - You will not be able to link multiple Execution clients to a single Consensus client, or multiple Consensus clients to a single Execution client.
-  - Because of this, **fallback execution clients are no longer available** for Rocket Pool node operators.
+- 하나의 실행 클라이언트는 하나의, 그리고 오직 하나의 합의 클라이언트에 연결되어야 합니다(그 반대도 마찬가지).
+  - 여러 실행 클라이언트를 단일 합의 클라이언트에 연결하거나 여러 합의 클라이언트를 단일 실행 클라이언트에 연결할 수 없습니다.
+  - 이 때문에 **대체 실행 클라이언트는 더 이상 사용할 수 없습니다** Rocket Pool 노드 운영자용.
 
-- **Full execution clients** are required.
-  - Remote providers (like Infura and Pocket) can no longer be used by any validators, Rocket Pool or otherwise.
+- **전체 실행 클라이언트**가 필요합니다.
+  - 원격 제공자(Infura 및 Pocket과 같은)는 더 이상 Rocket Pool이든 아니든 어떤 validator도 사용할 수 없습니다.
 
-## Fee Recipients and Your Distributor
+## 수수료 수신자 및 분배자
 
-As validators are now responsible for creating blocks, that means they receive the **priority fees** (also known as **tips**) attached to each transaction.
-These fees are paid in ETH, and they are provided directly to you every time one of your minipool validators proposes a block.
-Unlike the ETH locked on the Beacon Chain, **you don't have to wait for withdrawals to access your priority fees**!
-They are simply awarded to you as part of the block proposal process.
+validator가 이제 블록 생성을 담당하므로 각 트랜잭션에 첨부된 **우선 순위 수수료**(**팁**이라고도 함)를 받습니다.
+이러한 수수료는 ETH로 지불되며 minipool validator 중 하나가 블록을 제안할 때마다 직접 제공됩니다.
+Beacon Chain에 잠긴 ETH와 달리 **우선 순위 수수료에 액세스하기 위해 출금을 기다릴 필요가 없습니다**!
+블록 제안 프로세스의 일부로 단순히 수여됩니다.
 
-In order to know where to send the fees to, your Validator Client requires an extra parameter known as the `fee recipient`.
-This is the address on the Execution Layer (ETH1) that all of the priority fees earned by your node during block proposals will be sent to.
+수수료를 어디로 보낼지 알기 위해 Validator Client는 `fee recipient`라는 추가 매개변수가 필요합니다.
+이것은 블록 제안 중에 노드가 얻은 모든 우선 순위 수수료가 전송될 실행 레이어(ETH1)의 주소입니다.
 
-Rocket Pool is designed to fairly distribute these rewards, the same way it fairly distributes your Beacon chain rewards: half of any priority fees your minipool validators earn will go to you (plus the average commission of all of your minipools), and the other half will go to the pool stakers (minus your average commission).
+Rocket Pool은 Beacon Chain 보상을 공정하게 분배하는 것과 같은 방식으로 이러한 보상을 공정하게 분배하도록 설계되었습니다: minipool validator가 얻은 우선 순위 수수료의 절반은 귀하에게(모든 minipool의 평균 수수료 포함), 나머지 절반은 풀 스테이커에게(평균 수수료 제외) 전달됩니다.
 
-To that end, the Smartnode will automatically set your Validator Client's `fee recipient` to a special address known as your node's **fee distributor**.
-Your fee distributor is a unique contract on the Execution Layer that's **specific to your node**.
-It will hold all of the priority fees you've earned over time, and it contains the logic required to fairly split and distribute them.
-This distribution process is controlled by you (the node operator), and can be done whenever you please.
-It does not have a time limit.
+이를 위해 Smartnode는 Validator Client의 `fee recipient`를 노드의 **수수료 분배자**로 알려진 특수 주소로 자동 설정합니다.
+수수료 분배자는 실행 레이어의 **노드에 특정한** 고유한 계약입니다.
+시간이 지남에 따라 얻은 모든 우선 순위 수수료를 보유하고 공정하게 분할하고 분배하는 데 필요한 논리를 포함합니다.
+이 분배 프로세스는 귀하(노드 운영자)가 제어하며 원하는 시간에 수행할 수 있습니다.
+시간 제한이 없습니다.
 
-The address for your node's fee distributor is **deterministically based on your node address**.
-That means it is known ahead of time, before the fee distributor is even created.
-**The Smartnode will use this address as your fee recipient.**
+노드의 수수료 분배자 주소는 **노드 주소를 기반으로 결정적**입니다.
+즉, 수수료 분배자가 생성되기 전에 미리 알려져 있습니다.
+**Smartnode는 이 주소를 수수료 수신자로 사용합니다.**
 
-::: tip NOTE
-By default, your fee recipient will be set to the **rETH address** when you install Smartnode v1.5.0 (if the Redstone contract updates haven't been deployed yet).
-The Smartnode will automatically update this to your node's fee distributor address once the Redstone update has been deployed.
+::: tip 참고
+기본적으로 Smartnode v1.5.0을 설치할 때(Redstone 계약 업데이트가 아직 배포되지 않은 경우) 수수료 수신자가 **rETH 주소**로 설정됩니다.
+Redstone 업데이트가 배포되면 Smartnode가 자동으로 노드의 수수료 분배자 주소로 업데이트합니다.
 
-One exception to this rule is if you are opted into the **Smoothing Pool** - see the section at the end of this page for more information on it.
+이 규칙의 한 가지 예외는 **Smoothing Pool**에 가입한 경우입니다 - 자세한 내용은 이 페이지 끝 부분의 섹션을 참조하세요.
 :::
 
-New Rocket Pool nodes will automatically initialize their node's distributor contract upon registration.
-Existing nodes will need to do this process manually.
-This only needs to be run once.
+새로운 Rocket Pool 노드는 등록 시 자동으로 노드의 분배자 계약을 초기화합니다.
+기존 노드는 이 프로세스를 수동으로 수행해야 합니다.
+이것은 한 번만 실행하면 됩니다.
 
-One interesting ramification of this is that your distributor's address may start accruing a balance **before** you've initialized your node distributor contract.
-This is okay, because your distributor will gain access to all of this existing balance as soon as you initialize it.
+이것의 흥미로운 결과 중 하나는 분배자의 주소가 노드 분배자 계약을 초기화하기 **전에** 잔액이 누적되기 시작할 수 있다는 것입니다.
+분배자가 초기화되는 즉시 기존 잔액 전체에 액세스할 수 있기 때문에 괜찮습니다.
 
-You can view your fee distributor's balance as part of:
+다음의 일부로 수수료 분배자의 잔액을 볼 수 있습니다:
 
 ```shell
 rocketpool node status
 ```
 
-The output will look like this:
+출력은 다음과 같습니다:
 
 ![](../../node-staking/images/status-fee-distributor.png)
 
-To initialize your node's distributor, simply run this new command:
+노드의 분배자를 초기화하려면 이 새 명령을 실행하기만 하면 됩니다:
 
 ```shell
 rocketpool node initialize-fee-distributor
 ```
 
-::: warning NOTE
-After the Redstone update, you must call this function before you can create any new minipools with `rocketpool node deposit`.
+::: warning 참고
+Redstone 업데이트 후 `rocketpool node deposit`로 새 minipool을 생성하려면 먼저 이 함수를 호출해야 합니다.
 :::
 
-When your distributor has been initialized, you can claim and distribute its entire balance using the following command:
+분배자가 초기화되면 다음 명령을 사용하여 전체 잔액을 청구하고 분배할 수 있습니다:
 
 ```shell
 rocketpool node distribute-fees
 ```
 
-This will send your share of the rewards to your **withdrawal address**.
+이것은 보상의 귀하의 몫을 **출금 주소**로 보냅니다.
 
-## Rocket Pool Protocol Changes
+## Rocket Pool 프로토콜 변경 사항
 
-In addition to the Execution and Consensus client changes and the new priority fees, the Rocket Pool protocol itself has undergone some important changes you should be aware of.
+실행 및 합의 클라이언트 변경 사항과 새로운 우선 순위 수수료 외에도 Rocket Pool 프로토콜 자체도 알아야 할 몇 가지 중요한 변경 사항을 거쳤습니다.
 
-### New Rewards System
+### 새로운 보상 시스템
 
-One of the most significant changes introduced with the Redstone update is the **new rewards system**.
-This is a complete overhaul of the way node operators receive their RPL rewards (and ETH from the Smoothing Pool - discussed later).
+Redstone 업데이트와 함께 도입된 가장 중요한 변경 사항 중 하나는 **새로운 보상 시스템**입니다.
+이것은 노드 운영자가 RPL 보상(및 Smoothing Pool의 ETH - 나중에 논의됨)을 받는 방식을 완전히 개편한 것입니다.
 
-The _old_ rewards system had the following drawbacks:
+_이전_ 보상 시스템에는 다음과 같은 단점이 있었습니다:
 
-- Claiming cost approximately 400k gas, which is quite expensive.
-- Node operators had to claim the rewards at each interval (every 28 days), or would forfeit them. This meant the gas costs could become prohibitively expensive for node operators with small amounts of RPL.
-- Rewards were determined at the time of the _claim_, not at the time of the checkpoint. If a user staked a significant amount of RPL between the checkpoint and your claim, your rewards could be diluted and you'd receive less RPL than you were expecting.
+- 청구 비용은 약 400k 가스로 상당히 비쌌습니다.
+- 노드 운영자는 각 간격(28일마다)마다 보상을 청구해야 했으며 그렇지 않으면 포기했습니다. 이는 가스 비용이 소량의 RPL을 가진 노드 운영자에게 금지적으로 비쌀 수 있음을 의미했습니다.
+- 보상은 체크포인트 시점이 아니라 _청구_ 시점에 결정되었습니다. 체크포인트와 청구 사이에 사용자가 상당한 양의 RPL을 스테이킹하면 보상이 희석되어 예상보다 적은 RPL을 받을 수 있습니다.
 
-The _new_ claims system solves all of these problems.
+_새로운_ 청구 시스템은 이러한 모든 문제를 해결합니다.
 
-At every interval, the Oracle DAO will collectively create a **true snapshot** of the state of the node operators in the Rocket Pool network, including all of their effective stake amounts.
-This information is compiled into a [Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree) - an extremely efficient way to make all of the details available to smart contracts.
-The Merkle Tree is built into a JSON file and hosted on the [InterPlanetary File System (IPFS)](https://en.wikipedia.org/wiki/InterPlanetary_File_System), and the root of the Merkle Tree is submitted to the contracts.
+모든 간격마다 Oracle DAO는 모든 효과적인 스테이크 금액을 포함하여 Rocket Pool 네트워크의 노드 운영자 상태에 대한 **실제 스냅샷**을 집합적으로 생성합니다.
+이 정보는 [Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree)로 컴파일됩니다 - 스마트 계약에서 모든 세부 정보를 사용할 수 있도록 하는 매우 효율적인 방법입니다.
+Merkle Tree는 JSON 파일로 빌드되어 [InterPlanetary File System (IPFS)](https://en.wikipedia.org/wiki/InterPlanetary_File_System)에 호스팅되며 Merkle Tree의 루트가 계약에 제출됩니다.
 
-This new system has the following features:
+이 새 시스템에는 다음과 같은 기능이 있습니다:
 
-- You can now **let rewards accumulate** for as long as you want. No more time limit on when you need to claim.
-- You can claim **multiple intervals** all at once.
-- Your first claim transaction uses about 85k gas. Each subsequent claim transaction costs about 55k gas.
-  - If you're claiming multiple intervals at once, each supplemental interval costs **6k gas** so it's most cost-effective to claim as many of them at once as possible.
-- Your RPL rewards **no longer get diluted** - your RPL rewards are fixed at the time of the snapshot, and you are always eligible for that amount.
-- You can **restake some (or all) of your RPL rewards** as part of the claiming transaction, which further trims down gas requirements compared to today.
-- Currently, **all of your claims must be on Mainnet** but we have the infrastructure in place to build the ability to claim on Layer 2 networks at a later date.
+- 이제 원하는 기간만큼 **보상을 누적**할 수 있습니다. 청구해야 하는 시기에 더 이상 시간 제한이 없습니다.
+- **여러 간격**을 한 번에 청구할 수 있습니다.
+- 첫 번째 청구 트랜잭션은 약 85k 가스를 사용합니다. 각 후속 청구 트랜잭션은 약 55k 가스가 소요됩니다.
+  - 한 번에 여러 간격을 청구하는 경우 각 추가 간격은 **6k 가스**가 소요되므로 가능한 한 많은 간격을 한 번에 청구하는 것이 가장 비용 효율적입니다.
+- RPL 보상이 **더 이상 희석되지 않습니다** - RPL 보상은 스냅샷 시점에 고정되며 항상 해당 금액에 대한 자격이 있습니다.
+- 청구 트랜잭션의 일부로 **RPL 보상의 일부(또는 전부)를 다시 스테이킹**할 수 있으므로 오늘날과 비교하여 가스 요구 사항을 더욱 줄입니다.
+- 현재 **모든 청구는 메인넷에 있어야 합니다** 하지만 나중에 레이어 2 네트워크에서 청구할 수 있는 기능을 구축할 수 있는 인프라가 있습니다.
 
-When your node detects a new rewards checkpoint, it will automatically download the JSON file for that interval.
-You can then review your rewards using the following command:
+노드가 새 보상 체크포인트를 감지하면 해당 간격에 대한 JSON 파일을 자동으로 다운로드합니다.
+그런 다음 다음 명령을 사용하여 보상을 검토할 수 있습니다:
 
 ```shell
 rocketpool node claim-rewards
 ```
 
-As intervals go by and you accumulate rewards, the output will look like this:
+간격이 지나고 보상이 누적되면 출력은 다음과 같습니다:
 
 ![](../../node-staking/images/claim-rewards-gb.png)
 
-Here you can quickly see how many rewards you've earned at each interval, and can decide which ones you want to claim.
-Note that **Ropsten's interval time is set to 1 day to facilitate testing.**
+여기에서 각 간격에서 얻은 보상 수를 빠르게 확인하고 청구할 보상을 결정할 수 있습니다.
+**Ropsten의 간격 시간은 테스트를 용이하게 하기 위해 1일로 설정되어 있습니다.**
 
-You can also specify an amount you want to restake during this claim:
+또한 이 청구 중에 다시 스테이킹하려는 금액을 지정할 수도 있습니다:
 
 ![](../../node-staking/images/autostake.png)
 
-This will let you compound your RPL rewards in one transaction, using substantially less gas than you currently need to use today.
+이를 통해 현재 사용해야 하는 것보다 훨씬 적은 가스를 사용하여 하나의 트랜잭션에서 RPL 보상을 복리화할 수 있습니다.
 
-::: tip NOTE
-If you prefer to build the rewards checkpoint manually instead of downloading the one created by the Oracle DAO, you can change this setting from `Download` to `Generate` in the TUI:
+::: tip 참고
+Oracle DAO가 생성한 것을 다운로드하는 대신 보상 체크포인트를 수동으로 빌드하려는 경우 TUI에서 이 설정을 `Download`에서 `Generate`로 변경할 수 있습니다:
 
 ![](../../node-staking/images/tui-generate-tree.png)
 
-As the tip implies, you will need access to an archive node to do this.
-If your local Execution client is not an archive node, you can specify a separate one (such as Infura or Alchemy) in the `Archive-Mode EC URL` box below it.
-This URL will only be used when generating Merkle trees; it will not be used for validation duties.
+팁에서 암시하듯이 이를 수행하려면 아카이브 노드에 액세스해야 합니다.
+로컬 실행 클라이언트가 아카이브 노드가 아닌 경우 아래의 `Archive-Mode EC URL` 상자에서 별도의 노드(Infura 또는 Alchemy와 같은)를 지정할 수 있습니다.
+이 URL은 Merkle 트리를 생성할 때만 사용됩니다. 검증 의무에는 사용되지 않습니다.
 :::
 
-::: danger WARNING
-If you are below 10% RPL collateral _at the time of the snapshot_, you will not be eligible for rewards for that snapshot.
-Unlike the current system, where you can simply "top off" before you claim in order to become eligible again, this will be locked in that snapshot forever and **you will never receive rewards for that period**.
-You **must** be above 10% collateral at the time of a snapshot in order to receive rewards for that period.
+::: danger 경고
+_스냅샷 시점에_ 10% RPL 담보 미만인 경우 해당 스냅샷에 대한 보상을 받을 수 없습니다.
+다시 자격을 얻기 위해 청구하기 전에 단순히 "채울" 수 있는 현재 시스템과 달리 이것은 해당 스냅샷에 영구적으로 잠기며 **해당 기간에 대한 보상을 절대 받지 못합니다**.
+해당 기간에 대한 보상을 받으려면 스냅샷 시점에 10% 담보 이상이어야 **합니다**.
 :::
 
 ### Smoothing Pool
 
-One final exciting new feature of the Redstone update is the **Smoothing Pool**.
-The Smoothing Pool is **an opt-in feature** that will collectively pool the priority fees of every member opted into it.
-During a rewards checkpoint, the total ETH balance of the pool is divided into a pool staker portion and a node operator portion.
-All of the rewards in the node operator portion are **distributed fairly to every member of the pool**.
+Redstone 업데이트의 마지막 흥미로운 새로운 기능은 **Smoothing Pool**입니다.
+Smoothing Pool은 가입한 모든 회원의 우선 순위 수수료를 집합적으로 풀링하는 **옵트인 기능**입니다.
+보상 체크포인트 동안 풀의 총 ETH 잔액은 풀 스테이커 부분과 노드 운영자 부분으로 나뉩니다.
+노드 운영자 부분의 모든 보상은 **풀의 모든 회원에게 공정하게 분배**됩니다.
 
-In essence, the Smoothing Pool is a way to effectively eliminate the randomness associated with block proposals on the Beacon Chain.
-If you've ever had a streak of bad luck and gone months without a proposal, you may find the Smoothing Pool quite exciting.
+본질적으로 Smoothing Pool은 Beacon Chain의 블록 제안과 관련된 무작위성을 효과적으로 제거하는 방법입니다.
+불운의 연속을 겪고 몇 달 동안 제안이 없었던 경우 Smoothing Pool이 매우 흥미로울 수 있습니다.
 
-::: tip NOTE
-The Smoothing Pool rewards are built into the Merkle Tree used for RPL rewards, so you claim them at the same time you claim RPL using `rocketpool node claim-rewards`.
+::: tip 참고
+Smoothing Pool 보상은 RPL 보상에 사용되는 Merkle Tree에 내장되어 있으므로 `rocketpool node claim-rewards`를 사용하여 RPL을 청구할 때 동시에 청구합니다.
 :::
 
-To help clarify the details, the Smoothing Pool uses the following rules:
+세부 사항을 명확히 하기 위해 Smoothing Pool은 다음 규칙을 사용합니다:
 
-- Opting into the Smoothing Pool is done on a **node level**. If you opt in, all of your minipools are opted in.
+- Smoothing Pool에 가입하는 것은 **노드 수준**에서 수행됩니다. 가입하면 모든 minipool이 가입됩니다.
 
-- The node operator's total share is determined by the average commission of every minipool in every node opted into the Smoothing Pool.
+- 노드 운영자의 총 몫은 Smoothing Pool에 가입한 모든 노드의 모든 minipool의 평균 수수료에 의해 결정됩니다.
 
-- Anyone can opt in at any time. They must wait a full rewards interval (1 day on Ropsten, 28 days on Mainnet) before opting out to prevent gaming the system.
-  - Once opted out, you must wait another full interval to opt back in.
+- 누구나 언제든지 가입할 수 있습니다. 시스템 게임을 방지하기 위해 탈퇴하기 전에 전체 보상 간격(Ropsten에서 1일, 메인넷에서 28일)을 기다려야 합니다.
+  - 탈퇴하면 다시 가입하려면 또 다른 전체 간격을 기다려야 합니다.
 
-- The Smoothing Pool calculates the "share" of each minipool (portion of the pool's ETH for the interval) owned by each node opted in.
-  - The share is a function of your minipool's performance during the interval (calculated by looking at how many attestations you sent on the Beacon Chain, and how many you missed), and your minipool's commission rate.
+- Smoothing Pool은 가입한 각 노드가 소유한 각 minipool의 "몫"(간격에 대한 풀의 ETH 부분)을 계산합니다.
+  - 몫은 간격 동안 minipool의 성능(Beacon Chain에서 보낸 증명 수와 누락된 증명 수를 확인하여 계산됨)과 minipool의 수수료율의 함수입니다.
 
-- Your node's total share is the sum of your minipool shares.
+- 노드의 총 몫은 minipool 몫의 합계입니다.
 
-- Your node's total share is scaled by the amount of time you were opted in.
-  - If you were opted in for the full interval, you receive your full share.
-  - If you were opted in for 30% of an interval, you receive 30% of your full share.
+- 노드의 총 몫은 가입한 시간만큼 확대됩니다.
+  - 전체 간격 동안 가입한 경우 전체 몫을 받습니다.
+  - 간격의 30% 동안 가입한 경우 전체 몫의 30%를 받습니다.
 
-To opt into the Smoothing Pool, run the following command:
+Smoothing Pool에 가입하려면 다음 명령을 실행하세요:
 
 ```shell
 rocketpool node join-smoothing-pool
 ```
 
-This will record you as opted-in in the Rocket Pool contracts and automatically change your Validator Client's `fee recipient` from your node's distributor contract to the Smoothing Pool contract.
+이것은 Rocket Pool 계약에 가입한 것으로 기록하고 Validator Client의 `fee recipient`를 노드의 분배자 계약에서 Smoothing Pool 계약으로 자동 변경합니다.
 
-To leave the pool, run this command:
+풀을 떠나려면 이 명령을 실행하세요:
 
 ```shell
 rocketpool node leave-smoothing-pool
 ```
 
-### The Penalty System
+### 벌칙 시스템
 
-To ensure that node operators don't "cheat" by manually modifying the fee recipient used in their Validator Client, Rocket Pool employs a penalty system.
+노드 운영자가 Validator Client에서 사용하는 수수료 수신자를 수동으로 수정하여 "속이지" 않도록 하기 위해 Rocket Pool은 벌칙 시스템을 사용합니다.
 
-The Oracle DAO constantly monitors each block produced by Rocket Pool node operators.
-Any block that has a fee recipient other than one of the following addresses is considered to be **invalid**:
+Oracle DAO는 Rocket Pool 노드 운영자가 생성한 각 블록을 지속적으로 모니터링합니다.
+다음 주소 중 하나가 아닌 수수료 수신자가 있는 블록은 **무효**로 간주됩니다:
 
-- The rETH address
-- The Smoothing Pool address
-- The node's fee distributor contract (if opted out of the Smoothing Pool)
+- rETH 주소
+- Smoothing Pool 주소
+- 노드의 수수료 분배자 계약(Smoothing Pool에서 탈퇴한 경우)
 
-A minipool that proposed a block with an **invalid** fee recipient will be issued **a strike**.
-On the third strike, the minipool will begin receiving **infractions** - each infraction will dock **10% of its total Beacon Chain balance, including ETH earnings** and send them to the rETH pool stakers upon withdrawing funds from the minipool.
+**무효** 수수료 수신자로 블록을 제안한 minipool은 **스트라이크**를 받습니다.
+세 번째 스트라이크에서 minipool은 **위반**을 받기 시작합니다 - 각 위반은 minipool에서 자금을 인출할 때 **총 Beacon Chain 잔액의 10%(ETH 수익 포함)**을 차감하고 rETH 풀 스테이커에게 보냅니다.
 
-Infractions are at a **minipool** level, not a **node** level.
+위반은 **노드** 수준이 아니라 **minipool** 수준입니다.
 
-The Smartnode software is designed to ensure honest users will never get penalized, even if it must take the Validator Client offline to do so.
-If this happens, you will stop attesting and will see error messages in your log files about why the Smartnode can't correctly set your fee recipient.
+Smartnode 소프트웨어는 정직한 사용자가 벌칙을 받지 않도록 설계되었으며, 그렇게 하기 위해 Validator Client를 오프라인으로 전환해야 하는 경우에도 마찬가지입니다.
+이런 일이 발생하면 증명을 중단하고 Smartnode가 수수료 수신자를 올바르게 설정할 수 없는 이유에 대한 오류 메시지가 로그 파일에 표시됩니다.
 
-## Guides for Pre- and Post-Upgrade
+## 업그레이드 전후 가이드
 
-For detailed information on how to prepare your node for the upgrade and what to do after the upgrade, please look at the following guides:
+업그레이드를 위해 노드를 준비하는 방법과 업그레이드 후 수행할 작업에 대한 자세한 내용은 다음 가이드를 참조하세요:
 
-- [Guide for Docker Mode](./docker-migration.mdx)
-- [Guide for Hybrid Mode](./hybrid-migration.mdx)
-- [Guide for Native Mode](./native-migration.mdx)
+- [Docker 모드 가이드](./docker-migration.mdx)
+- [하이브리드 모드 가이드](./hybrid-migration.mdx)
+- [네이티브 모드 가이드](./native-migration.mdx)

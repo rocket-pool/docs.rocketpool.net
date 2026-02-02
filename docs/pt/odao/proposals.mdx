@@ -1,44 +1,44 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Oracle DAO Proposals
+# Propostas do Oracle DAO
 
-As a reminder, there are two types of Oracle DAO duties:
+Como lembrete, existem dois tipos de tarefas do Oracle DAO:
 
-1. **Automated duties** - these are duties related to routine Rocket Pool operation, such as shuttling information from the Consensus Layer to the Execution Layer, calculating various aspects of the protocol off-chain, and submitting them as updates to the Smart Contracts. Each of these is performed automatically by the `watchtower` daemon process and do not require manual intervention so long as your Execution and Consensus Clients, and your `watchtower` daemon, are all operating normally. You set up the `watchtower` daemon in the previous steps already, so this section will not go over them again.
-2. **Manual duties** - these are duties that require your own decision-making and out-of-band communication with the rest of the Oracle DAO to perform. They include things such as voting on contract upgrades, changing parameters, and inviting or kicking members to/from the Oracle DAO. These can all be done via the standard Smartnode CLI. This section describes each of these duties and how to perform them.
+1. **Tarefas automatizadas** - estas são tarefas relacionadas à operação rotineira do Rocket Pool, como transferir informações da Camada de Consensus para a Camada de Execution, calcular vários aspectos do protocolo off-chain e submetê-los como atualizações para os Smart Contracts. Cada uma delas é realizada automaticamente pelo processo daemon `watchtower` e não requer intervenção manual, desde que seus Clientes Execution e Consensus, e seu daemon `watchtower`, estejam todos operando normalmente. Você já configurou o daemon `watchtower` nos passos anteriores, então esta seção não irá abordá-los novamente.
+2. **Tarefas manuais** - estas são tarefas que requerem sua própria tomada de decisão e comunicação fora da banda com o resto do Oracle DAO para realizar. Elas incluem coisas como votar em atualizações de contratos, mudar parâmetros e convidar ou expulsar membros de/para o Oracle DAO. Todas podem ser feitas via CLI padrão do Smartnode. Esta seção descreve cada uma dessas tarefas e como realizá-las.
 
-Proposals form the core of your responsibilities outside the automated `watchtower` duties.
-Essentially, they work as follows:
+As propostas formam o núcleo de suas responsabilidades fora das tarefas automatizadas da `watchtower`.
+Essencialmente, elas funcionam da seguinte forma:
 
-- The collective Oracle DAO should discuss an upcoming proposal extensively ahead of time, so each member is aware of it and understands what that proposal will entail.
-- An Oracle DAO member then creates the proposal via an on-chain transaction.
-- The proposal will then enter a **wait period** before voting can begin to have further discussion and form their opinion on it. This is currently **7 days** on Mainnet.
-- After the wait period is over, members can vote on the proposal via a simple yes-or-no vote.
-- When a quorum of 51% of the Oracle DAO members has voted the same way, the vote is concluded. If 51% agreed to the proposal, it will be able to be **executed**. Any member can execute the proposal once it is approved.
-- Execution refers to formally triggering the change on-chain, thus modifying the state of the core Rocket Pool contracts.
+- O Oracle DAO coletivo deve discutir uma proposta futura extensivamente com antecedência, para que cada membro esteja ciente dela e entenda o que essa proposta implicará.
+- Um membro do Oracle DAO então cria a proposta via uma transação on-chain.
+- A proposta então entrará em um **período de espera** antes que a votação possa começar para ter mais discussão e formar sua opinião sobre ela. Atualmente é **7 dias** na Mainnet.
+- Após o período de espera terminar, os membros podem votar na proposta via um voto simples de sim ou não.
+- Quando um quórum de 51% dos membros do Oracle DAO votou da mesma forma, o voto é concluído. Se 51% concordaram com a proposta, ela poderá ser **executada**. Qualquer membro pode executar a proposta uma vez que seja aprovada.
+- Execução refere-se a acionar formalmente a mudança on-chain, modificando assim o estado dos contratos principais do Rocket Pool.
 
-## Making a Proposal
+## Fazendo uma Proposta
 
-Once you make a proposal, it will enter a **review period** where the other members can see it and discuss it, but will not be able to vote on it.
-At the time of writing, this is currently **7 days**.
+Uma vez que você faz uma proposta, ela entrará em um **período de revisão** onde os outros membros podem vê-la e discuti-la, mas não poderão votar nela.
+No momento desta escrita, atualmente são **7 dias**.
 
-After the review period, there will be a **voting period** where members can vote either for the proposal, or against it.
-At the time of writing, this is currently **14 days**.
+Após o período de revisão, haverá um **período de votação** onde os membros podem votar a favor da proposta ou contra ela.
+No momento desta escrita, atualmente são **14 dias**.
 
-If the proposal reaches quorum before it expires (that is, if enough members vote in favor of it to reach consensus), it will be **passed**.
-Quorum is a configurable parameter by the Oracle DAO; it is currently set to at least **51%** of the total member pool.
+Se a proposta alcançar quórum antes de expirar (ou seja, se membros suficientes votarem a favor dela para alcançar consenso), ela será **aprovada**.
+Quórum é um parâmetro configurável pelo Oracle DAO; atualmente está definido em pelo menos **51%** do pool total de membros.
 
-Once a vote is passed, it can be **executed** which causes its changes to go into effect.
-At the time of writing, the execution is **14 days** after the proposal was passed.
+Uma vez que um voto é aprovado, pode ser **executado** o que faz com que suas mudanças entrem em vigor.
+No momento desta escrita, a execução é **14 dias** após a proposta ter sido aprovada.
 
-The process for making a new proposal depends on the type of proposal you want to make.
-Select a type from the tabs below.
+O processo para fazer uma nova proposta depende do tipo de proposta que você quer fazer.
+Selecione um tipo das abas abaixo.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Oracle DAO Member List">
-      To propose modifying the list of Oracle DAO members, use the `rocketpool odao propose member` command which
-      provides the following options:
+    <Tab label="Lista de Membros do Oracle DAO">
+      Para propor modificar a lista de membros do Oracle DAO, use o comando `rocketpool odao propose member` que
+      fornece as seguintes opções:
 
       ```
       NAME:
@@ -58,32 +58,31 @@ Select a type from the tabs below.
 
       #### invite
 
-      Inviting a member is done via `rocketpool odao propose member invite` which will take 3 additional arguments:
+      Convidar um membro é feito via `rocketpool odao propose member invite` que receberá 3 argumentos adicionais:
 
-      - The node address to invite (must be a registered Rocket Pool node)
-      - The name / label for this node
-      - The URL or contact info for the user or organization running the node
+      - O endereço do node a convidar (deve ser um node Rocket Pool registrado)
+      - O nome / rótulo para este node
+      - A URL ou informação de contato para o usuário ou organização que executa o node
 
-      For example: to invite a new member, run `rocketpool odao propose member invite
+      Por exemplo: para convidar um novo membro, execute `rocketpool odao propose member invite
       0xabcd1234abcd1234abcd1234abcd1234abcd1234 some-user user@example.com`.
 
       #### kick
 
-      Kicking a member out of the Oracle DAO is done via the `rocketpool odao propose member kick` command.
-      It will ask you to select which member you want to kick, and issue an optional fine (from 0 RPL up to the bonded
-      RPL amount, currently 1750 RPL).
-      This fine, if provided, will burn part of (or all of) the member's RPL bond if the Oracle DAO votes to kick that
-      member.
+      Expulsar um membro do Oracle DAO é feito via o comando `rocketpool odao propose member kick`.
+      Ele pedirá que você selecione qual membro você quer expulsar e emita uma multa opcional (de 0 RPL até o
+      valor de RPL vinculado, atualmente 1750 RPL).
+      Esta multa, se fornecida, queimará parte (ou todo) do bond de RPL do membro se o Oracle DAO votar para expulsar aquele
+      membro.
 
       #### leave
 
-      If you would like to voluntarily resign from the Oracle DAO, use the `rocketpool odao propose member leave`
-      command.
-      This will create a new proposal so the other members can vote on whether or not to approve your resignation.
+      Se você gostaria de voluntariamente renunciar do Oracle DAO, use o comando `rocketpool odao propose member leave`.
+      Isso criará uma nova proposta para que os outros membros possam votar se aprovam ou não sua renúncia.
     </Tab>
-    <Tab label="Oracle DAO Parameters">
-      To propose modifying the parameters that govern how Oracle DAO votes and membership modification work, use the
-      `rocketpool odao propose setting` command which provides the following options:
+    <Tab label="Parâmetros do Oracle DAO">
+      Para propor modificar os parâmetros que governam como os votos do Oracle DAO e modificação de membros funcionam, use o
+      comando `rocketpool odao propose setting` que fornece as seguintes opções:
 
       ```
       NAME:
@@ -108,125 +107,124 @@ Select a type from the tabs below.
 
       #### members-quorum
 
-      Using `rocketpool odao propose setting members-quorum value` will change the quorum required for the Oracle DAO's
-      duties before they are considered canonized.
-      `value` here can be a floating point number between 0 and 100, indicating the percent of members needed to reach
-      quorum on Oracle DAO votes.
+      Usar `rocketpool odao propose setting members-quorum value` mudará o quórum necessário para as tarefas do Oracle DAO
+      antes de serem consideradas canonizadas.
+      `value` aqui pode ser um número de ponto flutuante entre 0 e 100, indicando a porcentagem de membros necessários para alcançar
+      quórum nos votos do Oracle DAO.
 
-      ::: warning NOTE
-      Note that this does **not** affect the quorum required for automated duties such as RPL price and rETH balance
-      submission; those settings are controlled by the Protocol DAO (pDAO), _not_ the Oracle DAO.
+      ::: warning NOTA
+      Note que isso **não** afeta o quórum necessário para tarefas automatizadas como submissão de preço RPL e saldo rETH; essas configurações são controladas pelo Protocol DAO (pDAO), _não_ pelo Oracle DAO.
       :::
 
       #### members-rplbond
 
-      Use `rocketpool odao propose setting members-rplbond value` to change the amount of RPL required as a bond for new
-      members invited to the Oracle DAO.
-      For example, entering `5000` for `value` will set the bond at 5000 RPL.
-      Note that this does not affect members that already exist; it only affects new members invited after the change.
+      Use `rocketpool odao propose setting members-rplbond value` para mudar a quantidade de RPL necessária como bond para novos
+      membros convidados para o Oracle DAO.
+      Por exemplo, inserir `5000` para `value` definirá o bond em 5000 RPL.
+      Note que isso não afeta membros que já existem; afeta apenas novos membros convidados após a mudança.
 
       #### proposal-cooldown
 
-      Use `rocketpool odao propose setting proposal-cooldown value` to change the cooldown time that a member must wait
-      between submitting proposals.
+      Use `rocketpool odao propose setting proposal-cooldown value` para mudar o tempo de cooldown que um membro deve esperar
+      entre submeter propostas.
 
-      `value` is a string-formatted time duration, such as `1h30m45s` for one hour, thirty minutes, and forty-five
-      seconds.
-      It does not accept days; for multiple days, simply use the total number of hours.
+      `value` é uma duração de tempo formatada como string, como `1h30m45s` para uma hora, trinta minutos e quarenta e cinco
+      segundos.
+      Não aceita dias; para vários dias, simplesmente use o número total de horas.
 
       #### proposal-vote-timespan
 
-      Use `rocketpool odao propose setting proposal-vote-timespan value` to change how long a vote can exist before
-      expiring.
+      Use `rocketpool odao propose setting proposal-vote-timespan value` para mudar quanto tempo um voto pode existir antes de
+      expirar.
 
-      `value` is a string-formatted time duration, such as `1h30m45s` for one hour, thirty minutes, and forty-five
-      seconds.
-      It does not accept days; for multiple days, simply use the total number of hours.
+      `value` é uma duração de tempo formatada como string, como `1h30m45s` para uma hora, trinta minutos e quarenta e cinco
+      segundos.
+      Não aceita dias; para vários dias, simplesmente use o número total de horas.
 
       #### proposal-vote-delay-timespan
 
-      Use `rocketpool odao propose setting proposal-vote-delay-timespan value` to change how long the Oracle DAO must
-      wait before being able to vote on a new proposal.
+      Use `rocketpool odao propose setting proposal-vote-delay-timespan value` para mudar quanto tempo o Oracle DAO deve
+      esperar antes de poder votar em uma nova proposta.
 
-      `value` is a string-formatted time duration, such as `1h30m45s` for one hour, thirty minutes, and forty-five
-      seconds.
-      It does not accept days; for multiple days, simply use the total number of hours.
+      `value` é uma duração de tempo formatada como string, como `1h30m45s` para uma hora, trinta minutos e quarenta e cinco
+      segundos.
+      Não aceita dias; para vários dias, simplesmente use o número total de horas.
 
       #### proposal-execute-timespan
 
-      Use `rocketpool odao propose setting proposal-execute-timespan value` to change how long the Oracle DAO has to
-      execute (enact) a proposal after it is approved.
-      If none of the members execute the proposal during this window, it will expire and the proposal will become
-      invalid.
+      Use `rocketpool odao propose setting proposal-execute-timespan value` para mudar quanto tempo o Oracle DAO tem para
+      executar (efetivar) uma proposta após ser aprovada.
+      Se nenhum dos membros executar a proposta durante esta janela, ela expirará e a proposta se tornará
+      inválida.
 
-      `value` is a string-formatted time duration, such as `1h30m45s` for one hour, thirty minutes, and forty-five
-      seconds.
-      It does not accept days; for multiple days, simply use the total number of hours.
+      `value` é uma duração de tempo formatada como string, como `1h30m45s` para uma hora, trinta minutos e quarenta e cinco
+      segundos.
+      Não aceita dias; para vários dias, simplesmente use o número total de horas.
 
       #### proposal-action-timespan
 
-      Certain proposals require secondary actions after being executed for them to finish taking effect (such as
-      inviting a member to join, then them actually joining).
-      Use `rocketpool odao propose setting proposal-action-timespan `value`` to change how long this secondary action is
-      able to be run after the proposal is executed.
-      The user will be unable to take this action _after_ this window; if the action isn't taken in time, the proposal
-      is essentially invalid.
+      Certas propostas requerem ações secundárias após serem executadas para terminarem de entrar em vigor (como
+      convidar um membro para entrar, então eles realmente entrando).
+      Use `rocketpool odao propose setting proposal-action-timespan `value`` para mudar quanto tempo esta ação secundária pode
+      ser executada após a proposta ser executada.
+      O usuário não poderá realizar esta ação _após_ esta janela; se a ação não for realizada a tempo, a proposta
+      é essencialmente inválida.
 
-      `value` is a string-formatted time duration, such as `1h30m45s` for one hour, thirty minutes, and forty-five
-      seconds.
-      It does not accept days; for multiple days, simply use the total number of hours.
+      `value` é uma duração de tempo formatada como string, como `1h30m45s` para uma hora, trinta minutos e quarenta e cinco
+      segundos.
+      Não aceita dias; para vários dias, simplesmente use o número total de horas.
 
       #### scrub-period
 
-      Use `rocketpool odao propose setting scrub-period value` to change how long the "scrub period" lasts (the time
-      between a new minipool entering `prelaunch` status and entering `staking` status).
-      The Oracle DAO has this long to check new minipools for the [withdrawal credentials
-      exploit](https://github.com/rocket-pool/rocketpool-research/blob/master/Reports/withdrawal-creds-exploit) and
-      scrub them if the exploit is detected, thus ensuring rETH funds are not stolen.
-      This duty is performed automatically by the `watchtower` daemon.
-      As the check is usually done in a matter of minutes, this value is simply designed to act as an insurance buffer
-      in the case that the Oracle DAO cannot come to consensus due to node failure; the members have this long to
-      resolve the problem and reach the quorum on scrubbing an exploited minipool.
+      Use `rocketpool odao propose setting scrub-period value` para mudar quanto tempo o "período de scrub" dura (o tempo
+      entre um novo minipool entrar no status `prelaunch` e entrar no status `staking`).
+      O Oracle DAO tem esse tempo para verificar novos minipools quanto ao [exploit de credenciais de
+      retirada](https://github.com/rocket-pool/rocketpool-research/blob/master/Reports/withdrawal-creds-exploit) e
+      fazer scrub neles se o exploit for detectado, garantindo assim que fundos rETH não sejam roubados.
+      Esta tarefa é realizada automaticamente pelo daemon `watchtower`.
+      Como a verificação geralmente é feita em questão de minutos, este valor é simplesmente projetado para atuar como um buffer de seguro
+      no caso de que o Oracle DAO não possa chegar a consenso devido a falha de node; os membros têm esse tempo para
+      resolver o problema e alcançar o quórum para fazer scrub em um minipool exploitado.
 
-      `value` is a string-formatted time duration, such as `1h30m45s` for one hour, thirty minutes, and forty-five
-      seconds.
-      It does not accept days; for multiple days, simply use the total number of hours.
+      `value` é uma duração de tempo formatada como string, como `1h30m45s` para uma hora, trinta minutos e quarenta e cinco
+      segundos.
+      Não aceita dias; para vários dias, simplesmente use o número total de horas.
     </Tab>
-    <Tab label="Contract Upgrades">
-      Contract upgrades are currently outside the scope of the CLI.
-      The transactions must be submitted manually; please consult the Rocket Pool team if you would like to learn how to
-      propose a contract upgrade to the network.
+    <Tab label="Atualizações de Contrato">
+      Atualizações de contrato estão atualmente fora do escopo da CLI.
+      As transações devem ser submetidas manualmente; por favor consulte a equipe Rocket Pool se você gostaria de aprender como
+      propor uma atualização de contrato para a rede.
     </Tab>
 
   </Tabs>
 </div>
 
-## Viewing Proposals
+## Visualizando Propostas
 
-To view a brief summary of all of the proposals in the protocol's history, use `rocketpool odao proposals list`.
-This will sort the proposals by their status and show who proposed it and what it does.
+Para ver um resumo breve de todas as propostas na história do protocolo, use `rocketpool odao proposals list`.
+Isso classificará as propostas por seu status e mostrará quem a propôs e o que ela faz.
 
-To view the details of a specific proposal, use `rocketpool odao proposals details value` where `value` is the ID of the proposal you would like to view.
-This will show a comprehensive breakdown of the proposal's information including who created it, when it was created, the payload body, how many members voted in favor of it, how many members voted against it, and whether or not your node has voted on it yet.
+Para ver os detalhes de uma proposta específica, use `rocketpool odao proposals details value` onde `value` é o ID da proposta que você gostaria de ver.
+Isso mostrará um detalhamento abrangente das informações da proposta incluindo quem a criou, quando foi criada, o corpo da carga, quantos membros votaram a favor dela, quantos membros votaram contra ela, e se o seu node já votou nela ou não.
 
-## Voting on Proposals
+## Votando em Propostas
 
-To vote on a proposal, use the following command:
+Para votar em uma proposta, use o seguinte comando:
 
 ```shell
 rocketpool odao proposals vote
 ```
 
-This will provide you with an interactive dialog asking which proposal you would like to vote on, and whether you would like to vote in favor of it or against it.
-Follow the prompts carefully to complete the vote.
+Isso fornecerá um diálogo interativo perguntando em qual proposta você gostaria de votar, e se você gostaria de votar a favor dela ou contra ela.
+Siga os prompts cuidadosamente para completar o voto.
 
-## Executing Proposals
+## Executando Propostas
 
-When a proposal has received enough votes in favor of it to reach quorum, any member of the Oracle DAO can then _execute_ the proposal (apply its changes) using the following command:
+Quando uma proposta recebeu votos suficientes a favor dela para alcançar quórum, qualquer membro do Oracle DAO pode então _executar_ a proposta (aplicar suas mudanças) usando o seguinte comando:
 
 ```shell
 rocketpool odao proposals execute
 ```
 
-This will provide you with an interactive dialog asking which proposal you would like to execute.
-Follow the prompts carefully to complete the execution.
+Isso fornecerá um diálogo interativo perguntando qual proposta você gostaria de executar.
+Siga os prompts cuidadosamente para completar a execução.

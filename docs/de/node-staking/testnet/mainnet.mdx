@@ -1,67 +1,67 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Migrating from the Test Network to Mainnet
+# Migration vom Testnetzwerk zum Mainnet
 
-If you've already used Rocket Pool on our Hoodi test network, are comfortable with its ins and out, and are ready to either stake ETH or run a node for real on the main Ethereum chain, then this guide is for you!
-Here you will find instructions on how to migrate an existing Smartnode stack from the Hoodi test network to one connected to the Ethereum mainnet, ready for staking your own real ETH and RPL.
+Wenn Sie Rocket Pool bereits in unserem Hoodi-Testnetzwerk verwendet haben, mit seinen Funktionen vertraut sind und bereit sind, echtes ETH zu staken oder einen Node in der Ethereum-Hauptkette zu betreiben, dann ist diese Anleitung für Sie!
+Hier finden Sie Anweisungen, wie Sie einen bestehenden Smartnode-Stack vom Hoodi-Testnetzwerk zu einem mit dem Ethereum-Mainnet verbundenen Stack migrieren können, bereit zum Staken Ihrer eigenen echten ETH und RPL.
 
-## Pool Staking on Mainnet
+## Pool-Staking im Mainnet
 
-Pool staking is largely the same process on mainnet as it was on the testnet.
-The URL will be different and the address of the rETH token may be different, but there are no significant changes to the workflow.
-Follow the [Staking Guide](../../liquid-staking/overview), which has been updated with instructions for mainnet.
+Pool-Staking ist im Mainnet weitgehend derselbe Prozess wie im Testnetz.
+Die URL ist unterschiedlich und die Adresse des rETH-Tokens kann anders sein, aber es gibt keine wesentlichen Änderungen im Arbeitsablauf.
+Folgen Sie der [Staking-Anleitung](../../liquid-staking/overview), die mit Anweisungen für das Mainnet aktualisiert wurde.
 
-### Differences Between the Testnet and Mainnet
+### Unterschiede zwischen Testnetz und Mainnet
 
-- The testnet Smartnode has a faucet for test ETH. The mainnet Smartnode **does not have a faucet**. You will need to supply your own ETH in order to stake.
-- Mainnet supports many Ethereum wallets via WalletConnect, so you can use other wallets that you could not use on the testnet. **You are no longer restricted to using Metamask in order to stake**.
+- Der Testnet-Smartnode verfügt über einen Faucet für Test-ETH. Der Mainnet-Smartnode **hat keinen Faucet**. Sie müssen Ihr eigenes ETH bereitstellen, um zu staken.
+- Mainnet unterstützt viele Ethereum-Wallets über WalletConnect, sodass Sie andere Wallets verwenden können, die Sie im Testnetz nicht verwenden konnten. **Sie sind nicht mehr auf die Verwendung von Metamask zum Staken beschränkt**.
 
-## Smartnode Operation on Mainnet
+## Smartnode-Betrieb im Mainnet
 
-::: danger NOTE
-**Nothing** from the test network can be migrated to mainnet.
-The chain data is different for both Execution and Consensus, so you must remove the old chain data and resync the mainnet chains from scratch.
-Your validators on the testnet do not carry over to mainnet.
-Also, for security, compatibility, and safety purposes, **you must make a new wallet on mainnet!**
-**Do not use your testnet node wallet on mainnet!**
+::: danger HINWEIS
+**Nichts** aus dem Testnetzwerk kann zum Mainnet migriert werden.
+Die Chain-Daten sind sowohl für Execution als auch Consensus unterschiedlich, daher müssen Sie die alten Chain-Daten entfernen und die Mainnet-Chains von Grund auf neu synchronisieren.
+Ihre Validatoren im Testnetz werden nicht zum Mainnet übertragen.
+Aus Sicherheits-, Kompatibilitäts- und Sicherheitsgründen **müssen Sie außerdem ein neues Wallet im Mainnet erstellen!**
+**Verwenden Sie Ihr Testnetz-Node-Wallet nicht im Mainnet!**
 
-**The following steps will delete all of your testnet data.**
-If you want to preserve your test network setup, you should back up your hard drive or move it to a second machine.
+**Die folgenden Schritte löschen alle Ihre Testnetz-Daten.**
+Wenn Sie Ihr Testnetzwerk-Setup beibehalten möchten, sollten Sie Ihre Festplatte sichern oder auf einen zweiten Rechner verschieben.
 :::
 
-### Differences Between the Testnet and Mainnet
+### Unterschiede zwischen Testnetz und Mainnet
 
-- The testnet Smartnode has a faucet for ETH and RPL. The mainnet Smartnode **does not have a faucet**. You will need to supply your own ETH and your own RPL.
-- If you are using Geth, your node's workload will be **considerabily higher**. Geth takes approximately 40x the storage space of Hoodi, and requires more CPU power and RAM to process. If you're using the Rocket Pool Grafana dashboard, be prepared to see much higher usage.
-  A full Geth node uses 1.4 TB as of 2025-09-19. [Expiring block data prior to the merge](../maintenance/history-expiry) can reduce the storage usage by about 300-500 GB.
-- Your Beacon Chain peers (and thus, your attestation effectiveness) will be **higher** than the testnet. Peers on mainnet are much more diverse and tend to be higher quality than on the testnet.
-- The RPL rewards checkpoint occurs every **28 days** instead of every 2 days, to help offset high gas costs.
-- The RPL price used by the Rocket Pool network (and thus, your collateral level) along with the total effective staked RPL across the network are reported **once every 24 hours** instead of once every hour.
+- Der Testnet-Smartnode verfügt über einen Faucet für ETH und RPL. Der Mainnet-Smartnode **hat keinen Faucet**. Sie müssen Ihr eigenes ETH und Ihr eigenes RPL bereitstellen.
+- Wenn Sie Geth verwenden, wird die Arbeitslast Ihres Nodes **erheblich höher** sein. Geth benötigt etwa 40-mal so viel Speicherplatz wie Hoodi und erfordert mehr CPU-Leistung und RAM zur Verarbeitung. Wenn Sie das Rocket Pool Grafana-Dashboard verwenden, seien Sie auf eine viel höhere Auslastung vorbereitet.
+  Ein vollständiger Geth-Node verwendet 1,4 TB (Stand 2025-09-19). [Das Ablaufen von Blockdaten vor der Merge](../maintenance/history-expiry) kann die Speichernutzung um etwa 300-500 GB reduzieren.
+- Ihre Beacon-Chain-Peers (und damit Ihre Attestation-Effektivität) werden **höher** sein als im Testnetz. Peers im Mainnet sind wesentlich vielfältiger und tendenziell von höherer Qualität als im Testnetz.
+- Der RPL-Belohnungs-Checkpoint erfolgt alle **28 Tage** statt alle 2 Tage, um hohe Gaskosten auszugleichen.
+- Der vom Rocket Pool-Netzwerk verwendete RPL-Preis (und damit Ihr Collateral-Level) zusammen mit dem gesamten effektiv gestakten RPL im Netzwerk werden **einmal alle 24 Stunden** statt einmal pro Stunde gemeldet.
 
-### Automatic Migration (Docker Mode Only)
+### Automatische Migration (nur Docker-Modus)
 
-For Docker Mode users, the Smartnode can migrate to Mainnet for you automatically.
+Für Docker-Modus-Benutzer kann der Smartnode die Migration zum Mainnet automatisch durchführen.
 
-**While you still have the testnet configured**, exit your validators on Hoodi:
+**Während Sie noch das Testnetz konfiguriert haben**, beenden Sie Ihre Validatoren auf Hoodi:
 
 ```
 rocketpool minipool exit
 ```
 
-Select `1: All available minipools` from the list of choices and wait for it to complete.
-This will help clean up the network by removing your validators instead of leaving them to constantly fail attestations and weaken Hoodi's health (since they're no longer online).
+Wählen Sie `1: All available minipools` aus der Liste der Optionen und warten Sie, bis der Vorgang abgeschlossen ist.
+Dies hilft, das Netzwerk aufzuräumen, indem Sie Ihre Validatoren entfernen, anstatt sie ständig bei Attestations scheitern zu lassen und die Gesundheit von Hoodi zu schwächen (da sie nicht mehr online sind).
 
-Once that's done, open the Settings Manager:
+Sobald das erledigt ist, öffnen Sie den Settings Manager:
 
 ```
 rocketpool service config
 ```
 
-Next, open the **Smartnode and TX Fees** category and change the **Network** drop down from `Hoodi Testnet` to `Ethereum Mainnet`:
+Öffnen Sie als Nächstes die Kategorie **Smartnode and TX Fees** und ändern Sie das **Network**-Dropdown von `Hoodi Testnet` zu `Ethereum Mainnet`:
 
 <img src="../images/tui-change-network.png" width="100%" height="auto" />
 
-When you save and exit, you will be prompted with a notification that everything is about to be erased and a confirmation dialog:
+Wenn Sie speichern und beenden, werden Sie mit einer Benachrichtigung aufgefordert, dass alles gelöscht wird, und einem Bestätigungsdialog:
 
 ```
 WARNING: You have requested to change networks.
@@ -73,107 +73,106 @@ Please confirm you have backed up everything you want to keep, because it will b
 Would you like the Smartnode to automatically switch networks for you? This will destroy and rebuild your `data` folder and all of Rocket Pool's Docker containers. [y/n]
 ```
 
-Back up anything you want to keep (such as your `data` folder which contains your node wallet and validator keys), then press `y` and `Enter` when you're ready.
-The Smartnode will handle switching over automatically.
+Sichern Sie alles, was Sie behalten möchten (wie Ihren `data`-Ordner, der Ihr Node-Wallet und Validator-Schlüssel enthält), und drücken Sie dann `y` und `Enter`, wenn Sie bereit sind.
+Der Smartnode übernimmt die Umstellung automatisch.
 
-When it's done, you will be left with a fresh install on Mainnet.
-All of your settings (such as client choice) will be preserved, but you will need to create a new wallet. Also, you likely will not have a _Checkpoint Sync URL_ on mainnet and should set one up as explained [here](../config-docker.html#beacon-chain-checkpoint-syncing); otherwise it will take a long time to sync the mainnet beacon chain.
+Wenn es fertig ist, haben Sie eine frische Installation auf dem Mainnet.
+Alle Ihre Einstellungen (wie die Client-Auswahl) werden beibehalten, aber Sie müssen ein neues Wallet erstellen. Außerdem haben Sie wahrscheinlich keine _Checkpoint Sync URL_ im Mainnet und sollten eine einrichten, wie [hier](../config-docker#beacon-chain-checkpoint-syncing) erklärt; andernfalls dauert es lange, die Mainnet-Beacon-Chain zu synchronisieren.
 
-### Migrating Manually
+### Manuelle Migration
 
-If for any reason you cannot leverage the Smartnode's automatic migration process, you can do it manually in a few simple steps:
+Wenn Sie aus irgendeinem Grund den automatischen Migrationsprozess des Smartnode nicht nutzen können, können Sie es in wenigen einfachen Schritten manuell durchführen:
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker">
-      1. **While you still have the testnet configured**, exit your validators on Hoodi:
+      1. **Während Sie noch das Testnetz konfiguriert haben**, beenden Sie Ihre Validatoren auf Hoodi:
 
       ```shell
       rocketpool minipool exit
       ```
 
-      Select `1: All available minipools` from the list of choices and wait for it to complete.
-      This will help clean up the network by removing your validators instead of leaving them to constantly fail attestations and weaken Hoodi's health (since they're no longer online).
+      Wählen Sie `1: All available minipools` aus der Liste der Optionen und warten Sie, bis der Vorgang abgeschlossen ist.
+      Dies hilft, das Netzwerk aufzuräumen, indem Sie Ihre Validatoren entfernen, anstatt sie ständig bei Attestations scheitern zu lassen und die Gesundheit von Hoodi zu schwächen (da sie nicht mehr online sind).
 
-      2. Shut down the testnet:
+      2. Fahren Sie das Testnetz herunter:
 
       ```shell
       rocketpool service stop
       ```
 
-      3. Delete your testnet chain data and Docker containers:
+      3. Löschen Sie Ihre Testnetz-Chain-Daten und Docker-Container:
 
       ```shell
       rocketpool service terminate
       ```
 
-      4. Delete your Rocket Pool configuration folder:
+      4. Löschen Sie Ihren Rocket Pool-Konfigurationsordner:
 
       ```shell
       sudo rm -rf ~/.rocketpool
       ```
 
-      5. (Optional) Delete your Rocket Pool CLI:
+      5. (Optional) Löschen Sie Ihr Rocket Pool CLI:
 
       ```shell
       rm ~/bin/rocketpool
       ```
-      You will overwrite this with the latest version of the CLI anyway, but if you want to be thorough, you can remove the old one first.
+      Sie werden dies sowieso mit der neuesten Version des CLI überschreiben, aber wenn Sie gründlich sein möchten, können Sie zuerst das alte entfernen.
 
-      At this point your testnet installation has been purged, and you can safely migrate to a new mainnet installation.
-      Follow the [Creating Node with Docker](../docker) guide carefully to set it up.
+      An diesem Punkt wurde Ihre Testnetz-Installation bereinigt, und Sie können sicher zu einer neuen Mainnet-Installation migrieren.
+      Folgen Sie sorgfältig der Anleitung [Node mit Docker erstellen](../docker), um es einzurichten.
     </Tab>
     <Tab label="Native Mode">
-      1. **While you still have the testnet configured**, exit your validators on Hoodi:
+      1. **Während Sie noch das Testnetz konfiguriert haben**, beenden Sie Ihre Validatoren auf Hoodi:
 
       ```shell
       rocketpool minipool exit
       ```
 
-      Select `1: All available minipools` from the list of choices and wait for it to complete.
-      This will help clean up the network by removing your validators instead of leaving them to constantly fail attestations and weaken Hoodi's health (since they're no longer online).
+      Wählen Sie `1: All available minipools` aus der Liste der Optionen und warten Sie, bis der Vorgang abgeschlossen ist.
+      Dies hilft, das Netzwerk aufzuräumen, indem Sie Ihre Validatoren entfernen, anstatt sie ständig bei Attestations scheitern zu lassen und die Gesundheit von Hoodi zu schwächen (da sie nicht mehr online sind).
 
-      2. Stop all of the Rocket Pool and Ethereum services (using, for example, `geth` and `lighthouse`; replace with the services you created during installation):
+      2. Stoppen Sie alle Rocket Pool- und Ethereum-Dienste (z. B. mit `geth` und `lighthouse`; ersetzen Sie sie durch die Dienste, die Sie während der Installation erstellt haben):
 
       ```shell
       sudo systemctl stop rp-node rp-watchtower geth lh-bn lh-vc
       ```
 
-      3. Delete all of the testnet chain data (for example, using `geth` and `lighthouse` on x64; replace with your own configuration):
+      3. Löschen Sie alle Testnetz-Chain-Daten (z. B. mit `geth` und `lighthouse` auf x64; ersetzen Sie sie durch Ihre eigene Konfiguration):
 
       ```shell
       sudo rm -rf /srv/geth/geth_data
       sudo rm -rf /srv/lighthouse/lighthouse_data
       ```
 
-      4. Delete the Rocket Pool configuration folder:
+      4. Löschen Sie den Rocket Pool-Konfigurationsordner:
 
       ```shell
       sudo rm -rf /srv/rocketpool
       ```
 
-      5. (Optional) Remove the Rocket Pool CLI and Daemon binaries:
+      5. (Optional) Entfernen Sie die Rocket Pool CLI- und Daemon-Binärdateien:
       ```shell
       sudo rm /usr/local/bin/rocketpool /usr/local/bin/rocketpoold
       ```
-      You will overwrite these with the latest versions anyway, but if you want to be thorough, you can remove the old ones first.
+      Sie werden diese sowieso mit den neuesten Versionen überschreiben, aber wenn Sie gründlich sein möchten, können Sie zuerst die alten entfernen.
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        For the sake of simplicity, these instructions _do not include_ some steps such as removing the `eth1` and `eth2` users, or removing the services that you stopped earlier.
-        You can reuse them and ignore the steps involved in setting them up in the installation guide.
+        <p className="rspress-directive-title">HINWEIS</p>
+        Der Einfachheit halber enthalten diese Anweisungen _nicht_ einige Schritte wie das Entfernen der `eth1`- und `eth2`-Benutzer oder das Entfernen der zuvor gestoppten Dienste.
+        Sie können sie wiederverwenden und die entsprechenden Einrichtungsschritte in der Installationsanleitung ignorieren.
 
-        You will need to redo some of the installation steps including:
+        Sie müssen einige der Installationsschritte wiederholen, darunter:
 
-        - Create the `/srv/rocketpool` folder and its skeleton framework, and set the permissions properly
-        - Get the latest release versions of the Execution and Consensus, and Validator client binaries
-        - Set the **`ExecStart` string** in the services (**use the mainnet configuration defined in the installation
-        guide!)**
-        - Get the latest CLI and Daemon binaries
-            - Get the latest configuration files from the installer archive, put them into `/srv/rocketpool`, and adjust them to match your node's setup
+        - Erstellen Sie den `/srv/rocketpool`-Ordner und sein Gerüst und setzen Sie die Berechtigungen richtig
+        - Holen Sie sich die neuesten Release-Versionen der Execution- und Consensus- sowie Validator-Client-Binärdateien
+        - Setzen Sie die **`ExecStart`-Zeichenfolge** in den Diensten (**verwenden Sie die in der Installationsanleitung definierte Mainnet-Konfiguration!**)
+        - Holen Sie sich die neuesten CLI- und Daemon-Binärdateien
+            - Holen Sie sich die neuesten Konfigurationsdateien aus dem Installer-Archiv, legen Sie sie in `/srv/rocketpool` ab und passen Sie sie an die Einrichtung Ihres Nodes an
       </p>
 
-      At this point you're ready to migrate following the [native installation guide](../native).
+      An diesem Punkt sind Sie bereit zur Migration gemäß der [nativen Installationsanleitung](../native).
     </Tab>
 
   </Tabs>

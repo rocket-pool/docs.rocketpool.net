@@ -1,72 +1,72 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Upgrading to Smartnode v1.3.x
+# Atualizando para Smartnode v1.3.x
 
-Version 1.3.0 of the Smartnode stack brings some important changes that users should be aware of.
-They are designed to significantly improve your node operator experience and address many of the features that our users have requested since Rocket Pool's launch.
+A versão 1.3.0 do stack Smartnode traz algumas mudanças importantes das quais os usuários devem estar cientes.
+Elas foram projetadas para melhorar significativamente sua experiência como operador de nó e abordar muitos dos recursos que nossos usuários solicitaram desde o lançamento do Rocket Pool.
 
-In this guide, we'll walk you through the process of migrating from an older version of the Smartnode from an older version to v1.3.x and beyond.
+Neste guia, vamos orientá-lo no processo de migração de uma versão mais antiga do Smartnode para v1.3.x e versões posteriores.
 
-## Configuration File Changes
+## Mudanças no Arquivo de Configuração
 
-v1.3.0 introduces some significant changes in the way the Smartnode's configuration is managed.
-If you've manually modified the Smartnode configuration before, you should be aware of the following changes:
+A v1.3.0 introduz algumas mudanças significativas na forma como a configuração do Smartnode é gerenciada.
+Se você modificou manualmente a configuração do Smartnode antes, deve estar ciente das seguintes mudanças:
 
-- The `config.yml` file has been removed. All of its information is now baked directly into the Smartnode stack, so users can no longer accidentally modify the file in a way that prevented the Smartnode from working properly.
-  - All of the user-configurable parameters that were previously part of it are now settings in the new `service config` Terminal UI.
+- O arquivo `config.yml` foi removido. Todas as suas informações agora estão incorporadas diretamente no stack Smartnode, para que os usuários não possam mais modificar acidentalmente o arquivo de forma a impedir que o Smartnode funcione corretamente.
+  - Todos os parâmetros configuráveis pelo usuário que faziam parte dele agora são configurações na nova Interface de Terminal `service config`.
 
-- The `settings.yml` file has been replaced with a new file called `user-settings.yml`. This contains all of your settings for every user-configurable portion of the Smartnode.
-  - This file is **not meant to be modified directly**. Modification should be done through the new `service config` Terminal UI instead.
+- O arquivo `settings.yml` foi substituído por um novo arquivo chamado `user-settings.yml`. Este contém todas as suas configurações para cada parte configurável pelo usuário do Smartnode.
+  - Este arquivo **não deve ser modificado diretamente**. A modificação deve ser feita através da nova Interface de Terminal `service config`.
 
-- The `chains` folder has been removed. The scripts for launching the Execution Client (ETH1), the Beacon Node, and the Validator Client now reside in the `scripts` folder.
+- A pasta `chains` foi removida. Os scripts para iniciar o Cliente de Execução (ETH1), o Nó Beacon e o Cliente Validador agora residem na pasta `scripts`.
 
-- The `docker-compose` YAML files have been removed. Each container now gets its own file in the `templates` folder. Upon `rocketpool service start`, these templates are filled out with your settings and put into the `runtime` folder automatically.
-  - Modifying the templates or runtime files is not recommended. Instead, fill in your container customizations using the **override** files for each container in the `override` folder. These files will overwrite the Docker files in `runtime`, so you are free to customize them as you see fit.
-  - The files in `override` **will persist upon Smartnode upgrades and reinstallation** so you only need to create them once.
-  - If you are interested in modifying the `docker-compose` files via this override mechanic, please see [this section](../node-staking/advanced-config#customizing-the-docker-compose-definition-files)
+- Os arquivos YAML do `docker-compose` foram removidos. Cada container agora tem seu próprio arquivo na pasta `templates`. Ao executar `rocketpool service start`, esses templates são preenchidos com suas configurações e colocados na pasta `runtime` automaticamente.
+  - Não é recomendado modificar os templates ou arquivos de runtime. Em vez disso, preencha suas personalizações de container usando os arquivos de **override** para cada container na pasta `override`. Esses arquivos sobrescreverão os arquivos Docker em `runtime`, então você é livre para personalizá-los como quiser.
+  - Os arquivos em `override` **persistirão após atualizações e reinstalações do Smartnode**, então você só precisa criá-los uma vez.
+  - Se você estiver interessado em modificar os arquivos `docker-compose` por meio dessa mecânica de override, consulte [esta seção](../node-staking/advanced-config#customizing-the-docker-compose-definition-files)
 
-## Installing the New Version
+## Instalando a Nova Versão
 
-Installing the new version should feel very familiar.
+Instalar a nova versão deve parecer muito familiar.
 
-Start by stopping the services and downloading the new CLI as usual:
+Comece parando os serviços e baixando o novo CLI como de costume:
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Docker or Hybrid Mode">
-      Stop the Rocket Pool services:
+    <Tab label="Modo Docker ou Híbrido">
+      Pare os serviços do Rocket Pool:
 
       ```
       rocketpool service stop
       ```
 
-      Download the new Smartnode CLI for your system (choose from the tabs below):
+      Baixe o novo CLI Smartnode para seu sistema (escolha entre as abas abaixo):
 
       <div className="p-3">
         <Tabs>
           <Tab label="Linux x64">
-            For `x64` systems (most normal machines):
+            Para sistemas `x64` (a maioria das máquinas normais):
 
             ```shell
             wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-linux-amd64 -O ~/bin/rocketpool
             ```
           </Tab>
           <Tab label="Linux arm64">
-            For `arm64` systems:
+            Para sistemas `arm64`:
 
             ```shell
             wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-linux-arm64 -O ~/bin/rocketpool
             ```
           </Tab>
           <Tab label="macOS x64">
-            For `x64` systems (most Macs):
+            Para sistemas `x64` (a maioria dos Macs):
 
             ```shell
             curl -L https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-darwin-amd64 > /usr/local/bin/rocketpool
             ```
           </Tab>
           <Tab label="macOS arm64">
-            For `arm64` systems, such as the Mac mini with M1:
+            Para sistemas `arm64`, como o Mac mini com M1:
 
             ```shell
             curl -L https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-darwin-arm64 > /usr/local/bin/rocketpool
@@ -75,39 +75,39 @@ Start by stopping the services and downloading the new CLI as usual:
         </Tabs>
       </div>
 
-      Now run the install command:
+      Agora execute o comando de instalação:
 
       ```
       rocketpool service install -d
       ```
 
-      The `-d` flag tells it to ignore system dependencies like Docker, since you already have them.
+      A flag `-d` diz para ignorar dependências do sistema como Docker, já que você já as tem.
 
       <p className="rspress-directive tip">
-        <p className="rspress-directive-title">NOTE</p>
-        As of v1.3.0, you **no longer have to specify which network you want to install for!**
-        The new Smartnode will know which network you're already using, and it will let you change your network dynamically using the new Terminal UI.
+        <p className="rspress-directive-title">NOTA</p>
+        A partir da v1.3.0, você **não precisa mais especificar para qual rede deseja instalar!**
+        O novo Smartnode saberá qual rede você já está usando e permitirá que você mude sua rede dinamicamente usando a nova Interface de Terminal.
       </p>
     </Tab>
-    <Tab label="Native Mode">
+    <Tab label="Modo Nativo">
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        This will only update the Smartnode stack itself - it **will not** update your Execution and Consensus clients.
-        You will have to do this manually (see [the manual update guide](../node-staking/updates#manually-updating-the-eth1-or-eth2-client) to learn how to do it).
+        <p className="rspress-directive-title">NOTA</p>
+        Isso atualizará apenas o próprio stack Smartnode - **não** atualizará seus clientes de Execução e Consenso.
+        Você terá que fazer isso manualmente (consulte [o guia de atualização manual](../node-staking/updates#manually-updating-the-eth1-or-eth2-client) para aprender como fazer isso).
       </p>
 
-      Stop the Rocket Pool services:
+      Pare os serviços do Rocket Pool:
 
       ```shell
       sudo systemctl stop rp-node rp-watchtower
       ```
 
-      Download the new Smartnode CLI and daemon binaries:
+      Baixe os novos binários do CLI e daemon do Smartnode:
 
       <div className="p-3">
         <Tabs>
           <Tab label="Linux x64">
-            For `x64` systems (most normal machines):
+            Para sistemas `x64` (a maioria das máquinas normais):
 
             ```shell
             sudo wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-linux-amd64 -O /usr/local/bin/rocketpool
@@ -116,7 +116,7 @@ Start by stopping the services and downloading the new CLI as usual:
             ```
           </Tab>
           <Tab label="Linux arm64">
-            For `arm64` systems:
+            Para sistemas `arm64`:
 
             ```shell
             sudo wget https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-linux-arm64 -O /usr/local/bin/rocketpool
@@ -125,7 +125,7 @@ Start by stopping the services and downloading the new CLI as usual:
             ```
           </Tab>
           <Tab label="macOS x64">
-            For `x64` systems (most Macs):
+            Para sistemas `x64` (a maioria dos Macs):
 
             ```shell
             curl -L https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-darwin-amd64 > /usr/local/bin/rocketpool
@@ -134,7 +134,7 @@ Start by stopping the services and downloading the new CLI as usual:
             ```
           </Tab>
           <Tab label="macOS arm64">
-            For `arm64` systems, such as the Mac mini with M1:
+            Para sistemas `arm64`, como o Mac mini com M1:
 
             ```shell
             curl -L https://github.com/rocket-pool/smartnode-install/releases/latest/download/rocketpool-cli-darwin-arm64 > /usr/local/bin/rocketpool
@@ -146,14 +146,14 @@ Start by stopping the services and downloading the new CLI as usual:
       </div>
 
       <p className="rspress-directive tip">
-        <p className="rspress-directive-title">NOTE</p>
-        As of v1.3.0, `config.yml` has been removed.
-        **You no longer need to download the installer package and extract it.**
+        <p className="rspress-directive-title">NOTA</p>
+        A partir da v1.3.0, `config.yml` foi removido.
+        **Você não precisa mais baixar o pacote do instalador e extraí-lo.**
       </p>
-      Next, create a backup folder called `old_config_backup` in your Smartnode directory and move your old configuration files into it (`config.yml` and `settings.yml`).
-      The Smartnode will use these to migrate your settings to the new system.
+      Em seguida, crie uma pasta de backup chamada `old_config_backup` em seu diretório Smartnode e mova seus arquivos de configuração antigos para ela (`config.yml` e `settings.yml`).
+      O Smartnode usará estes para migrar suas configurações para o novo sistema.
 
-      For example, if you followed the Native setup guide and your Smartnode directory is `/srv/rocketpool`:
+      Por exemplo, se você seguiu o guia de configuração Nativa e seu diretório Smartnode é `/srv/rocketpool`:
 
       ```shell
       cd /srv/rocketpool
@@ -162,27 +162,27 @@ Start by stopping the services and downloading the new CLI as usual:
       mv settings.yml old_config_backup
       ```
 
-      Now, modify the service definition files for `rp-node`:
+      Agora, modifique os arquivos de definição de serviço para `rp-node`:
 
       ```shell
       sudo nano /etc/systemd/system/rp-node.service
       ```
 
-      Replace the `ExecStart` line with the following:
+      Substitua a linha `ExecStart` pelo seguinte:
 
       ```
       ExecStart=/home/ubuntu20/bin/rocketpoold --settings /srv/rocketpool/user-settings.yml node
       ```
 
-      Note that the `--config` flag has been removed, and `--settings` now points to `user-settings.yml`.
-      **Don't worry that this file doesn't exist yet; it will be generated automatically in the next step.**
+      Observe que a flag `--config` foi removida, e `--settings` agora aponta para `user-settings.yml`.
+      **Não se preocupe que este arquivo ainda não existe; ele será gerado automaticamente na próxima etapa.**
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        If you are an Oracle DAO member, you _must_ repeat the above process for the `rp-watchtower` service as well.
+        <p className="rspress-directive-title">NOTA</p>
+        Se você é um membro do Oracle DAO, você _deve_ repetir o processo acima para o serviço `rp-watchtower` também.
       </p>
 
-      Finally, reload the service definitions:
+      Finalmente, recarregue as definições de serviço:
 
       ```shell
       sudo systemctl daemon-reload
@@ -192,81 +192,81 @@ Start by stopping the services and downloading the new CLI as usual:
   </Tabs>
 </div>
 
-After the installation, all of your old configuration files will be moved to a folder named `old_config_backup` in your Smartnode directory (by default `~/.rocketpool/old_config_backup`).
-You can find them there if you ever need to refer to them for any reason.
+Após a instalação, todos os seus arquivos de configuração antigos serão movidos para uma pasta chamada `old_config_backup` em seu diretório Smartnode (por padrão `~/.rocketpool/old_config_backup`).
+Você pode encontrá-los lá se precisar consultá-los por qualquer motivo.
 
-**If you are looking for instructions on reverting to v1.2.4 from this backup, please scroll to the [Reverting to Your Previous Configuration](#reverting-to-your-previous-configuration) section at the end of this page.**
+**Se você está procurando instruções sobre como reverter para v1.2.4 a partir deste backup, role até a seção [Revertendo para Sua Configuração Anterior](#revertendo-para-sua-configuracao-anterior) no final desta página.**
 
-## Configuring the Smartnode with the Terminal UI
+## Configurando o Smartnode com a Interface de Terminal
 
-Now that you have the new CLI and package installed, all of your previous settings have been preserved and migrated to the new system.
-In the next step, you should run `rocketpool service config`.
-This will look quite different compared to previous versions of this function; v1.3.0 introduces the **Terminal UI**: a terminal-based dynamic user interface for configuring your Smartnode.
+Agora que você tem o novo CLI e pacote instalados, todas as suas configurações anteriores foram preservadas e migradas para o novo sistema.
+Na próxima etapa, você deve executar `rocketpool service config`.
+Isso parecerá bastante diferente em comparação com versões anteriores desta função; a v1.3.0 introduz a **Interface de Terminal**: uma interface de usuário dinâmica baseada em terminal para configurar seu Smartnode.
 
-You must run it before starting the Docker containers after the migration process to view the configuration, verify that all of your changes were migrated successfully, and update any other settings that you desire.
+Você deve executá-la antes de iniciar os containers Docker após o processo de migração para visualizar a configuração, verificar se todas as suas mudanças foram migradas com sucesso e atualizar quaisquer outras configurações que desejar.
 
-When you first run it, you will be prompted with this greeting screen (if you were using **Docker or Hybrid mode**):
+Quando você executá-la pela primeira vez, será apresentado com esta tela de saudação (se você estava usando **modo Docker ou Híbrido**):
 
 <img src="../node-staking/images/tui-migrate.png" width="100%" height="auto" />
 
-:::tip NOTE
-**Native Mode users** will see this screen with slightly different wording, which states the Smartnode is operating in Native mode.
+:::tip NOTA
+**Usuários do Modo Nativo** verão esta tela com redação ligeiramente diferente, que afirma que o Smartnode está operando no modo Nativo.
 :::
 
-The TUI will begin with **the Wizard**, which allows you to quickly and easily change the most important parameters of the Smartnode (such as client mode and selection).
+A TUI começará com **o Assistente**, que permite que você altere de forma rápida e fácil os parâmetros mais importantes do Smartnode (como modo e seleção de cliente).
 
-**All of your previous settings should already be highlighted as you traverse through each page of the wizard so you don't have to remember what your previous configuration was off the top of your head.**
+**Todas as suas configurações anteriores já devem estar destacadas enquanto você percorre cada página do assistente, para que você não precise lembrar qual era sua configuração anterior de cabeça.**
 
-:::warning NOTE
-**For a detailed walkthrough of this Wizard, please visit the following pages:**
+:::warning NOTA
+**Para um passo a passo detalhado deste Assistente, visite as seguintes páginas:**
 
-- For **Docker Mode**, please visit [the new Docker configuration guide](../node-staking/config-docker).
+- Para **Modo Docker**, visite [o novo guia de configuração Docker](../node-staking/config-docker).
 
-- **Hybrid Mode** users: Hybrid Mode is now a **first-class feature** of the Smartnode and configuring it is _much_ easier than it used to be. Please visit [the new Docker configuration guide](../node-staking/config-docker) and follow it. When you are prompted to choose an Execution client mode and Consensus client mode, choose **Externally Managed** for them accordingly.
+- **Usuários do Modo Híbrido**: o Modo Híbrido agora é um **recurso de primeira classe** do Smartnode e configurá-lo é _muito_ mais fácil do que costumava ser. Visite [o novo guia de configuração Docker](../node-staking/config-docker) e siga-o. Quando for solicitado a escolher um modo de cliente de Execução e modo de cliente de Consenso, escolha **Gerenciado Externamente** para eles de acordo.
 
-- For **Native Mode**, please visit [the new Native configuration guide](../node-staking/config-native).
+- Para **Modo Nativo**, visite [o novo guia de configuração Nativa](../node-staking/config-native).
 
 :::
 
-Navigate through this wizard and confirm that all of your settings are correct.
+Navegue por este assistente e confirme que todas as suas configurações estão corretas.
 
-Once you are done, you will have the option of **reviewing all of the settings before saving** if you desire.
-This includes settings that the Wizard didn't cover, such as the **RPL claim gas threshold** or your **max number of Geth peers** as examples.
+Depois de terminar, você terá a opção de **revisar todas as configurações antes de salvar**, se desejar.
+Isso inclui configurações que o Assistente não cobriu, como o **limite de gás de reivindicação de RPL** ou seu **número máximo de peers do Geth** como exemplos.
 
-The **main settings screen**, which you should also look at to confirm your previous settings, will look like this (for Docker and Hybrid mode users):
+A **tela principal de configurações**, que você também deve examinar para confirmar suas configurações anteriores, será assim (para usuários do modo Docker e Híbrido):
 
 <img src="../node-staking/images/tui-settings-home.png" width="100%" height="auto" />
 
-:::tip NOTE
-**Native Mode users** will see a slightly different screen that is unique to Native mode and only presents the settings that are relevant for it.
+:::tip NOTA
+**Usuários do Modo Nativo** verão uma tela ligeiramente diferente que é exclusiva para o modo Nativo e apresenta apenas as configurações relevantes para ele.
 :::
 
-Feel free to explore this new UI and adjust any settings you see fit.
-Use the `Arrow Keys` to navigate, and press `Enter` to enter a category or confirm any changes to a setting that you make.
+Sinta-se à vontade para explorar esta nova interface e ajustar quaisquer configurações que considerar adequadas.
+Use as `Teclas de Seta` para navegar e pressione `Enter` para entrar em uma categoria ou confirmar quaisquer alterações em uma configuração que você fizer.
 
-Press `Esc` when you're finished editing a category to return to this home screen.
+Pressione `Esc` quando terminar de editar uma categoria para retornar a esta tela inicial.
 
-When you're ready to save your changes and start the Smartnode stack, simply press `Tab` to move down to the buttons at the bottom of the screen, select `Review Changes and Save` (by making it green via the arrow keys).
-Press `Enter` to be brought to the **Review Page**, where you can see everything you've changed since the last time you ran `rocketpool service config`.
+Quando estiver pronto para salvar suas alterações e iniciar o stack Smartnode, simplesmente pressione `Tab` para descer até os botões na parte inferior da tela, selecione `Review Changes and Save` (tornando-o verde através das teclas de seta).
+Pressione `Enter` para ser levado à **Página de Revisão**, onde você pode ver tudo o que alterou desde a última vez que executou `rocketpool service config`.
 
-Confirm all of your change are present, and then press `Enter` again to save them.
-The screen will show you which containers need to be restarted for the changes to apply, though since you're migrating, you've already turned the containers off and they will all be restarted anyway.
+Confirme que todas as suas alterações estão presentes e pressione `Enter` novamente para salvá-las.
+A tela mostrará quais containers precisam ser reiniciados para que as alterações sejam aplicadas, embora, como você está migrando, já tenha desligado os containers e todos serão reiniciados de qualquer forma.
 
-## Starting the Smartnode Stack
+## Iniciando o Stack Smartnode
 
-Once you've saved your configuration, the terminal will ask if you want to restart the containers automatically (unless you're using Native mode).
-If you do not / cannot allow them to start automatically, you can start them up manually with the following commands:
+Depois de salvar sua configuração, o terminal perguntará se você deseja reiniciar os containers automaticamente (a menos que você esteja usando o modo Nativo).
+Se você não deseja / não pode permitir que eles iniciem automaticamente, você pode iniciá-los manualmente com os seguintes comandos:
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Docker or Hybrid Mode">```shell rocketpool service start ```</Tab>
-    <Tab label="Native Mode">```shell sudo systemctl start rp-node rp-watchtower ```</Tab>
+    <Tab label="Modo Docker ou Híbrido">```shell rocketpool service start ```</Tab>
+    <Tab label="Modo Nativo">```shell sudo systemctl start rp-node rp-watchtower ```</Tab>
   </Tabs>
 </div>
 
-Once they're up, you can verify that everything is working as intended.
+Depois que eles estiverem ativos, você pode verificar se tudo está funcionando conforme o esperado.
 
-Use the `rocketpool service version` command to check that you have the correct version of the Smartnode and client containers:
+Use o comando `rocketpool service version` para verificar se você tem a versão correta do Smartnode e dos containers de cliente:
 
 ```
 $ rocketpool service version
@@ -281,45 +281,45 @@ Selected Eth 2.0 client: Nimbus (Locally managed)
 	Image: statusim/nimbus-eth2:multiarch-v22.3.0
 ```
 
-Use the `rocketpool service logs eth1` and `rocketpool service logs eth2` commands to watch the logs for your Execution client (formerly ETH1 client) and your Consensus client (formerly ETH2 client).
-Look out for any errors and [please visit our Discord server for help](https://discord.com/invite/rocketpool) if you encounter them.
+Use os comandos `rocketpool service logs eth1` e `rocketpool service logs eth2` para assistir os logs do seu cliente de Execução (anteriormente cliente ETH1) e seu cliente de Consenso (anteriormente cliente ETH2).
+Fique atento a quaisquer erros e [visite nosso servidor Discord para obter ajuda](https://discord.com/invite/rocketpool) se encontrá-los.
 
-## Reverting to your Previous Configuration
+## Revertendo para Sua Configuração Anterior
 
-If, for any reason, you need to revert back to v1.2.4 of the Smartnode stack, don't worry!
-All of your old configuration files have been preserved in a backup directory and can easily be retrieved to restore your previous setup.
+Se, por qualquer motivo, você precisar reverter para a v1.2.4 do stack Smartnode, não se preocupe!
+Todos os seus arquivos de configuração antigos foram preservados em um diretório de backup e podem ser facilmente recuperados para restaurar sua configuração anterior.
 
-Select which mode you use from the tabs below and follow the instructions.
+Selecione qual modo você usa nas abas abaixo e siga as instruções.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Docker or Hybrid Mode">
-      Start by replacing the CLI with the v1.2.4 CLI for your system:
+    <Tab label="Modo Docker ou Híbrido">
+      Comece substituindo o CLI pelo CLI v1.2.4 para seu sistema:
       <div className="p-3">
         <Tabs>
           <Tab label="Linux x64">
-            For `x64` systems (most normal machines):
+            Para sistemas `x64` (a maioria das máquinas normais):
 
             ```shell
             wget https://github.com/rocket-pool/smartnode-install/releases/download/v1.2.4/rocketpool-cli-linux-amd64 -O ~/bin/rocketpool
             ```
           </Tab>
           <Tab label="Linux arm64">
-            For `arm64` systems:
+            Para sistemas `arm64`:
 
             ```shell
             wget https://github.com/rocket-pool/smartnode-install/releases/download/v1.2.4/rocketpool-cli-linux-arm64 -O ~/bin/rocketpool
             ```
           </Tab>
           <Tab label="macOS x64">
-            For `x64` systems (most Macs):
+            Para sistemas `x64` (a maioria dos Macs):
 
             ```shell
             curl -L https://github.com/rocket-pool/smartnode-install/releases/download/v1.2.4/rocketpool-cli-darwin-amd64 > /usr/local/bin/rocketpool
             ```
           </Tab>
           <Tab label="macOS arm64">
-            For `arm64` systems, such as the Mac mini with M1:
+            Para sistemas `arm64`, como o Mac mini com M1:
 
             ```shell
             curl -L https://github.com/rocket-pool/smartnode-install/releases/download/v1.2.4/rocketpool-cli-darwin-arm64 > /usr/local/bin/rocketpool
@@ -328,29 +328,29 @@ Select which mode you use from the tabs below and follow the instructions.
         </Tabs>
       </div>
 
-      Next, copy all of your old configuration files from the `old_config_backup` folder back into the Smartnode's folder:
+      Em seguida, copie todos os seus arquivos de configuração antigos da pasta `old_config_backup` de volta para a pasta do Smartnode:
 
       ```shell
       cd ~/.rocketpool
       cp -r old_config_backup/*
       ```
 
-      Now, all you need to do is restart the Docker containers:
+      Agora, tudo o que você precisa fazer é reiniciar os containers Docker:
 
       ```shell
       rocketpool service start
       ```
 
-      Done! Your old configuration is back.
+      Pronto! Sua configuração antiga está de volta.
 
     </Tab>
-    <Tab label="Native Mode">
-      Stop the Rocket Pool services:
+    <Tab label="Modo Nativo">
+      Pare os serviços do Rocket Pool:
 
       <div className="p-3">
         <Tabs>
           <Tab label="Linux x64">
-            For `x64` systems (most normal machines):
+            Para sistemas `x64` (a maioria das máquinas normais):
 
             ```shell
             sudo wget https://github.com/rocket-pool/smartnode-install/releases/download/v1.2.4/rocketpool-cli-linux-amd64 -O /usr/local/bin/rocketpool
@@ -359,7 +359,7 @@ Select which mode you use from the tabs below and follow the instructions.
             ```
           </Tab>
           <Tab label="Linux arm64">
-            For `arm64` systems:
+            Para sistemas `arm64`:
 
             ```shell
             sudo wget https://github.com/rocket-pool/smartnode-install/releases/download/v1.2.4/rocketpool-cli-linux-arm64 -O /usr/local/bin/rocketpool
@@ -368,7 +368,7 @@ Select which mode you use from the tabs below and follow the instructions.
             ```
           </Tab>
           <Tab label="macOS x64">
-            For `x64` systems (most Macs):
+            Para sistemas `x64` (a maioria dos Macs):
 
             ```shell
             curl -L https://github.com/rocket-pool/smartnode-install/releases/download/v1.2.4/rocketpool-cli-darwin-amd64 > /usr/local/bin/rocketpool
@@ -377,7 +377,7 @@ Select which mode you use from the tabs below and follow the instructions.
             ```
           </Tab>
           <Tab label="macOS arm64">
-            For `arm64` systems, such as the Mac mini with M1:
+            Para sistemas `arm64`, como o Mac mini com M1:
 
             ```shell
             curl -L https://github.com/rocket-pool/smartnode-install/releases/download/v1.2.4/rocketpool-cli-darwin-arm64 > /usr/local/bin/rocketpool
@@ -387,20 +387,20 @@ Select which mode you use from the tabs below and follow the instructions.
           </Tab>
         </Tabs>
       </div>
-      Copy the previous settings files back into your Smartnode directory:
+      Copie os arquivos de configurações anteriores de volta para seu diretório Smartnode:
 
       ```shell
       cd /srv/rocketpool
       cp old_config_backup *
       ```
 
-      Now, revert the service definition files for `rp-node`:
+      Agora, reverta os arquivos de definição de serviço para `rp-node`:
 
       ```shell
       sudo nano /etc/systemd/system/rp-node.service
       ```
 
-      Replace the `ExecStart` line with the following:
+      Substitua a linha `ExecStart` pelo seguinte:
 
       ```
       ExecStart=/usr/local/bin/rocketpoold --config /srv/rocketpool/config.yml --settings /srv/rocketpool/settings.yml node
@@ -408,11 +408,11 @@ Select which mode you use from the tabs below and follow the instructions.
 
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        If you are an Oracle DAO member, you _must_ repeat the above process for the `rp-watchtower` service as well.
+        <p className="rspress-directive-title">NOTA</p>
+        Se você é um membro do Oracle DAO, você _deve_ repetir o processo acima para o serviço `rp-watchtower` também.
       </p>
 
-      Finally, reload the service definitions and restart the services:
+      Finalmente, recarregue as definições de serviço e reinicie os serviços:
 
       ```shell
       sudo systemctl daemon-reload
@@ -420,7 +420,7 @@ Select which mode you use from the tabs below and follow the instructions.
       sudo systemctl start rp-node rp-watchtower
       ```
 
-      Done! Your old configuration is back.
+      Pronto! Sua configuração antiga está de volta.
     </Tab>
 
   </Tabs>

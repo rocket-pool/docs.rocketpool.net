@@ -4,268 +4,268 @@ permalink: /protocol/faq
 
 # 자주 묻는 질문
 
-이 FAQ 섹션은 [설명서 시리즈 기사](/ko/protocol/explainer-series)를 보완하며 자주 받는 질문에 대한 간결한 답변을 제공합니다.
+이 FAQ 섹션은 우리가 받는 일반적인 질문에 대한 간결한 답변으로 [설명 시리즈 문서](/ko/protocol/explainer-series)를 보완하는 것을 목표로 합니다.
 
-![Rocket Pool 자주 묻는 질문](/images/headers/faq.png)
+![Rocket Pool FAQs](/images/headers/faq.png)
 
-## General
+## 일반
 
-[**What is Proof of Stake?**](#what-is-proof-of-stake)  
-_A brief overview of what Proof of Stake is and why it is awesome._
+[**Proof of Stake란 무엇인가요?**](#what-is-proof-of-stake)
+_Proof of Stake가 무엇이며 왜 훌륭한지에 대한 간략한 개요입니다._
 
-[**What does Rocket Pool do?**](#what-does-rocket-pool-do)  
-_A quick introduction into what Rocket Pool actually does._
+[**Rocket Pool은 무엇을 하나요?**](#what-does-rocket-pool-do)
+_Rocket Pool이 실제로 무엇을 하는지에 대한 간단한 소개입니다._
 
-[**Why would I need to use it?**](#why-would-i-need-to-use-it)  
-_Good question and hopefully even better answers._
+[**왜 사용해야 하나요?**](#why-would-i-need-to-use-it)
+_좋은 질문이며 더 나은 답변을 제공하겠습니다._
 
-[**How does it work?**](#how-does-it-work)  
-_Smart contracts, smart nodes & decentralised infrastructure._
+[**어떻게 작동하나요?**](#how-does-it-work)
+_스마트 계약, 스마트 노드 및 분산 인프라._
 
-[**Independent node operator vs Staking as a Service (SaaS) provider?**](#independent-node-operator-vs-staking-as-a-service-saas-provider)  
-_Protocols can be used by everyone, from regular users to professional SaaS providers._
+[**독립 노드 운영자 vs Staking as a Service (SaaS) 제공자?**](#independent-node-operator-vs-staking-as-a-service-saas-provider)
+_프로토콜은 일반 사용자부터 전문 SaaS 제공자까지 모든 사람이 사용할 수 있습니다._
 
-[**What tokens does Rocket Pool use?**](#what-tokens-does-rocket-pool-use)  
-_We use two tokens. RPL and rETH. Find out more here._
+[**Rocket Pool은 어떤 토큰을 사용하나요?**](#what-tokens-does-rocket-pool-use)
+_우리는 두 개의 토큰을 사용합니다. RPL과 rETH. 여기에서 자세히 알아보세요._
 
-[**Who's making it?**](#who-is-making-it)  
-_It's not aliens or lizard people. Well, fairly sure anyway._
+[**누가 만들고 있나요?**](#who-is-making-it)
+_외계인이나 도마뱀 사람이 아닙니다. 적어도 확신합니다._
 
-## Staking
+## 스테이킹
 
-[**What is the minimum deposit?**](#what-is-the-minimum-deposit)  
-_I’ll save you a scroll, it’s 0.01 ETH._
+[**최소 예금은 얼마인가요?**](#what-is-the-minimum-deposit)
+_스크롤을 절약해 드리자면, 0.01 ETH입니다._
 
-[**What is the maximum deposit?**](#what-is-the-maximum-deposit)  
-_I’ll save you another scroll, there is no limit._
+[**최대 예금은 얼마인가요?**](#what-is-the-maximum-deposit)
+_또 다른 스크롤을 절약해 드리자면, 제한이 없습니다._
 
-[**What are the staking periods?**](#what-are-the-staking-periods)  
-_None for both stakers and node operators. Come and go as you please._
+[**스테이킹 기간은 어떻게 되나요?**](#what-are-the-staking-periods)
+_스테이커와 노드 운영자 모두에게 없습니다. 원하는 대로 오고 가세요._
 
-[**How much does it cost to stake with Rocket Pool?**](#how-much-does-it-cost-to-stake-with-rocket-pool)  
-_We don't take a cut at all, instead all node operators that power the protocol get variable based commissions_
+[**Rocket Pool로 스테이킹하는 데 비용이 얼마나 드나요?**](#how-much-does-it-cost-to-stake-with-rocket-pool)
+_우리는 전혀 수수료를 받지 않으며, 대신 프로토콜을 운영하는 모든 노드 운영자가 변동 수수료를 받습니다_
 
-[**How does the protocol protect the value of rETH?**](#how-does-the-protocol-protect-the-value-of-reth)  
-_Our top priority! We have lots of features in place._
+[**프로토콜은 rETH의 가치를 어떻게 보호하나요?**](#how-does-the-protocol-protect-the-value-of-reth)
+_우리의 최우선 순위입니다! 많은 기능이 있습니다._
 
-[**What is a decentralised staking protocol exactly?**](#what-is-a-decentralised-staking-protocol-exactly)  
-_OK, expect your mind to be blown._
+[**분산 스테이킹 프로토콜이란 정확히 무엇인가요?**](#what-is-a-decentralised-staking-protocol-exactly)
+_좋아요, 충격을 받을 준비를 하세요._
 
-[**How can I access my deposit and rewards?**](#how-can-i-access-my-deposit-and-rewards)  
-_I heard something about withdrawals not being allowed for a while..._
+[**예금과 보상에 어떻게 접근하나요?**](#how-can-i-access-my-deposit-and-rewards)
+_한동안 출금이 허용되지 않는다는 말을 들었습니다..._
 
-[**Are your smart contracts audited and open source?**](#are-your-smart-contracts-audited-and-open-source)  
-_For sure! Betas, audits, audits and more audits._
+[**스마트 계약은 감사를 받았으며 오픈 소스인가요?**](#are-your-smart-contracts-audited-and-open-source)
+_물론입니다! 베타, 감사, 감사, 더 많은 감사._
 
-## Node Operators
+## 노드 운영자
 
-[**Why would I run a Rocket Pool smart node vs going solo?**](#why-would-i-run-a-rocket-pool-smart-node-vs-going-solo)  
-_Half the ETH required to do so and earn ETH commissions + extra RPL rewards, boom!._
+[**솔로로 가는 것과 Rocket Pool 스마트 노드를 실행하는 이유는 무엇인가요?**](#why-would-i-run-a-rocket-pool-smart-node-vs-going-solo)
+_필요한 ETH의 절반과 ETH 수수료 + 추가 RPL 보상을 받을 수 있습니다!_
 
-[**What is the minimum staking amount for a node operator?**](#what-is-the-minimum-staking-amount-for-a-node-operator)  
-_It’s 8 ETH, would you like to know more?_
+[**노드 운영자의 최소 스테이킹 금액은 얼마인가요?**](#what-is-the-minimum-staking-amount-for-a-node-operator)
+_8 ETH입니다, 자세히 알고 싶으신가요?_
 
-[**What is involved in running a Rocket Pool node?**](#what-is-involved-in-running-a-rocket-pool-node)  
-_Some ETH, RPL and uptime, uptime, uptime._
+[**Rocket Pool 노드를 실행하는 데 무엇이 필요한가요?**](#what-is-involved-in-running-a-rocket-pool-node)
+_약간의 ETH, RPL 그리고 가동 시간, 가동 시간, 가동 시간._
 
-[**How is the RPL token used?**](#how-is-the-rpl-token-used)  
-_Stake RPL on your node as an insurance promise to the protocol and earn extra RPL rewards!_
+[**RPL 토큰은 어떻게 사용되나요?**](#how-is-the-rpl-token-used)
+_노드에 RPL을 스테이킹하여 프로토콜에 대한 보험 약속으로 사용하고 추가 RPL 보상을 받으세요!_
 
-## dApps, SaaS Business and more
+## dApp, SaaS 비즈니스 등
 
-[**Can I build on top of the protocol or use it in my SaaS business?**](#integrated-dapps-saas-business-and-more)  
-_Get your dApp connected with decentralised staking or run a node in the network and generate higher returns!_
+[**프로토콜 위에 구축하거나 SaaS 비즈니스에 사용할 수 있나요?**](#integrated-dapps-saas-business-and-more)
+_dApp을 분산 스테이킹과 연결하거나 네트워크에서 노드를 실행하여 더 높은 수익을 창출하세요!_
 
-## Contact
+## 연락처
 
-[**Website**](https://www.rocketpool.net/)  
-_Contact us here via email or just read up on Rocket Pool._
+[**웹사이트**](https://www.rocketpool.net/)
+_이메일을 통해 여기에서 연락하거나 Rocket Pool에 대해 읽어보세요._
 
-[**Discord**](https://discordapp.com/invite/tCRG54c)  
-_Drop by for a chat and ask some questions, we’re a friendly bunch._
+[**Discord**](https://discordapp.com/invite/tCRG54c)
+_채팅하고 질문하러 들러주세요, 우리는 친근한 사람들입니다._
 
-[**Doc Hub**](https://docs.rocketpool.net/)  
-_You’re reading it :) But there’s a few more articles to be found…_
+[**Doc Hub**](https://docs.rocketpool.net/)
+_지금 읽고 계십니다 :) 그러나 더 많은 문서를 찾을 수 있습니다…_
 
 ---
 
-### What is Proof of Stake?
+### Proof of Stake란 무엇인가요?
 
-Proof of Stake is a consensus protocol used in Ethereum. It is different from the Proof of Work (PoW) protocol, which you may have heard of before, because Bitcoin uses PoW. With a decentralised blockchain, these consensus protocols help keep everyone on the same page, so we all know what transactions have been processed and in what order. This is known as validation.
+Proof of Stake는 Ethereum에서 사용되는 합의 프로토콜입니다. Bitcoin이 사용하는 Proof of Work (PoW) 프로토콜과 다릅니다. 분산 블록체인에서 이러한 합의 프로토콜은 모든 사람이 같은 페이지에 있도록 도와주므로 어떤 트랜잭션이 처리되었는지 그리고 어떤 순서로 처리되었는지 알 수 있습니다. 이것을 검증이라고 합니다.
 
-Ethereum has a Proof of Stake (PoS) chain called the Beacon Chain, which is faster, more energy efficient and more decentralised than PoW. It's powered by users depositing ETH and providing an Ethereum node online 24/7 to perform the required validation. As a reward for providing the node, the Beacon Chain gives node operators additional ETH on top of their deposits. It can be viewed similarly to earning interest in a bank account, with the exception that these rewards are generated in return for helping secure the network.
+Ethereum은 Beacon Chain이라고 하는 Proof of Stake (PoS) 체인을 가지고 있으며, 이는 PoW보다 빠르고 에너지 효율적이며 더 분산되어 있습니다. 사용자가 ETH를 예치하고 필요한 검증을 수행하기 위해 Ethereum 노드를 연중무휴 24시간 제공함으로써 구동됩니다. 노드를 제공하는 대가로 Beacon Chain은 노드 운영자에게 예금 위에 추가 ETH를 제공합니다. 이는 은행 계좌에서 이자를 받는 것과 유사하게 볼 수 있지만, 이러한 보상은 네트워크 보안을 돕는 대가로 생성된다는 점이 다릅니다.
 
-### What does Rocket Pool do?
+### Rocket Pool은 무엇을 하나요?
 
-Rocket Pool is the base layer protocol for decentralised and trustless Ethereum staking.
+Rocket Pool은 분산되고 신뢰가 필요 없는 Ethereum 스테이킹을 위한 기본 레이어 프로토콜입니다.
 
-Designed to support stakers of all shapes and sizes, Rocket Pool was built with the intent to allow anyone to trustlessly stake as little as **0.01** ETH to a network of decentralised node operators with full autonomy underpinned by RPL collateral (a type of bonding or insurance that ensures good behavior). You can stake **ETH** by trading it for **rETH**, a [token which gains staking rewards over time](https://medium.com/rocket-pool/rocket-pool-2-5-tokenised-staking-48601d52d924#92b0) based on the performance of an entire network of decentralised node operators. You can also stake **8 or 16 ETH** as a node operator in the protocol, earn rewards on your own stake fee free, plus earn commissions and RPL rewards from the network, generating a higher ROI by staking in the protocol vs staking outside of it as a solo node operator.
+모든 형태와 규모의 스테이커를 지원하도록 설계된 Rocket Pool은 RPL 담보(좋은 행동을 보장하는 일종의 본딩 또는 보험)를 기반으로 한 완전한 자율성을 가진 분산 노드 운영자 네트워크에 누구나 신뢰 없이 **0.01** ETH만큼 적게 스테이킹할 수 있도록 하는 의도로 구축되었습니다. 분산 노드 운영자의 전체 네트워크의 성능에 따라 [시간이 지남에 따라 스테이킹 보상을 얻는 토큰](https://medium.com/rocket-pool/rocket-pool-2-5-tokenised-staking-48601d52d924#92b0)인 **rETH**로 거래하여 **ETH**를 스테이킹할 수 있습니다. 또한 프로토콜에서 노드 운영자로 **8 또는 16 ETH**를 스테이킹하고, 자신의 스테이크에 대해 수수료 없이 보상을 받으며, 네트워크에서 수수료 및 RPL 보상을 받아 솔로 노드 운영자로 프로토콜 외부에서 스테이킹하는 것보다 프로토콜에서 스테이킹하여 더 높은 ROI를 생성할 수 있습니다.
 
-### Why would I need to use it?
+### 왜 사용해야 하나요?
 
-Rocket Pool removes several high barriers to entry that exist with Proof of Stake on Ethereum for both individuals, groups and businesses.
+Rocket Pool은 개인, 그룹 및 기업을 위해 Ethereum의 Proof of Stake에 존재하는 여러 높은 진입 장벽을 제거합니다.
 
-- The Beacon Chain requires a deposit of at least **32 ETH**. Rocket Pool will allow anyone to earn rewards on deposits as small as **0.01 ETH**.
+- Beacon Chain은 최소 **32 ETH**의 예금을 요구합니다. Rocket Pool은 누구나 **0.01 ETH**만큼 적은 예금으로 보상을 받을 수 있도록 합니다.
 
-- Depositing ETH with the Beacon Chain will also require the user to have knowledge on how to interact with smart contracts. Rocket Pool handles all interactions with the Beacon Chain for you.
+- Beacon Chain에 ETH를 예치하려면 사용자가 스마트 계약과 상호 작용하는 방법에 대한 지식이 필요합니다. Rocket Pool은 Beacon Chain과의 모든 상호 작용을 처리합니다.
 
-- With Rocket Pool you instantly get our rETH token when depositing. This is a tokenised staking deposit which gains rewards over time and doesn't need to be locked with us. It can be traded/sold/held at any time providing our users with liquidity. It can also be traded back to Rocket Pool for ETH plus rewards at any time if there is liquidity available.
+- Rocket Pool을 사용하면 예치할 때 즉시 rETH 토큰을 받습니다. 이것은 시간이 지남에 따라 보상을 얻는 토큰화된 스테이킹 예금이며 우리와 함께 잠글 필요가 없습니다. 언제든지 거래/판매/보유할 수 있어 사용자에게 유동성을 제공합니다. 또한 유동성이 있는 경우 언제든지 Rocket Pool로 다시 거래하여 ETH + 보상을 받을 수 있습니다.
 
-- The Beacon Chain will require a user who makes a deposit to be technically proficient at running an Ethereum node 24/7 and keeping that node online and secure. Rocket Pool has a decentralised network of independent Ethereum node operators that provide this service.
+- Beacon Chain은 예금을 하는 사용자가 Ethereum 노드를 연중무휴 24시간 실행하고 해당 노드를 온라인 상태로 유지하고 보안을 유지하는 데 기술적으로 능숙해야 합니다. Rocket Pool에는 이 서비스를 제공하는 분산된 독립 Ethereum 노드 운영자 네트워크가 있습니다.
 
-- The Beacon Chain will penalise users who make a deposit but fail to keep their node online. Rocket Pool socialises any penalties or losses that occur on nodes across the whole network which minimises the effect greatly for any single user.
+- Beacon Chain은 예금을 하지만 노드를 온라인 상태로 유지하지 못하는 사용자에게 벌칙을 부과합니다. Rocket Pool은 노드에서 발생하는 벌칙이나 손실을 전체 네트워크에 사회화하여 단일 사용자에 대한 영향을 크게 최소화합니다.
 
-- Some users may be confident in running their own node but do not have the 32 ETH required for the deposit. If they join Rocket Pool's decentralised network of Ethereum node operators, they only need 8 ETH minimum to solo stake. They also get the added benefit of receiving extra income from the network for providing this service which generates a higher ROI than staking solo.
+- 일부 사용자는 자신의 노드를 실행하는 데 자신이 있지만 예금에 필요한 32 ETH가 없을 수 있습니다. Rocket Pool의 분산 Ethereum 노드 운영자 네트워크에 가입하면 솔로 스테이킹을 위해 최소 8 ETH만 필요합니다. 또한 이 서비스를 제공하여 네트워크에서 추가 수입을 받을 수 있는 추가 혜택이 있어 솔로 스테이킹보다 높은 ROI를 생성합니다.
 
-### How does it work?
+### 어떻게 작동하나요?
 
-Hold tight, this is a meaty one! The protocol is primarily composed of 3 main elements, smart contracts, the Smart Node Network and Minipool Validators.
+단단히 잡으세요, 이것은 실속 있는 것입니다! 프로토콜은 주로 스마트 계약, Smart Node Network 및 Minipool Validator의 3가지 주요 요소로 구성됩니다.
 
-- Our smart contracts accept ETH deposits, assigning them to node operators with staking commission rates based on current node operator demand, and also issue and track various tokens.
+- 우리의 스마트 계약은 ETH 예금을 수락하고, 현재 노드 운영자 수요에 따라 스테이킹 수수료율이 있는 노드 운영자에게 할당하며, 다양한 토큰을 발행하고 추적합니다.
 
-- Our Smart Node Network is a decentralised network of special Ethereum nodes that run our Smart Node software. They feature custom background processes that allow them to communicate with the protocol's smart contracts, and just as importantly, provide the network consensus (validation) required by the Beacon Chain.
+- Smart Node Network는 Smart Node 소프트웨어를 실행하는 특수 Ethereum 노드의 분산 네트워크입니다. 프로토콜의 스마트 계약과 통신할 수 있는 사용자 정의 백그라운드 프로세스를 제공하며, 마찬가지로 중요한 것은 Beacon Chain에 필요한 네트워크 합의(검증)를 제공합니다.
 
-- Any user can run one of these Smart Nodes and stake their own ETH fee-free if they have the minimum 8 ETH required. For providing the protocol with a Smart Node, the user also receives extra rewards from the network on top of the rewards they earn staking their own ETH. They earn RPL tokens in return for initially putting up RPL as collateral, insuring or bonding their node against bad behavior or poor performance.
+- 모든 사용자는 필요한 최소 8 ETH가 있는 경우 이러한 Smart Node 중 하나를 실행하고 자신의 ETH를 수수료 없이 스테이킹할 수 있습니다. 프로토콜에 Smart Node를 제공하면 사용자는 자신의 ETH를 스테이킹하여 얻는 보상 위에 네트워크에서 추가 보상을 받습니다. 나쁜 행동이나 낮은 성능에 대해 노드를 보험 또는 본딩하기 위해 처음에 RPL을 담보로 제공한 대가로 RPL 토큰을 받습니다.
 
-- Minipool Validators are another smart contract, but these are worth defining on their own due to being such a key aspect of the protocol. These smart contracts are created by node operators who deposit 8 or 16 ETH on their node. Let's consider the case where the node operator choses to deposit 8 ETH. When they do this, this smart contract receives 24 ETH in deposits from users who just want to stake but not run a node (rETH stakers). When this contract contains a total of 32 ETH (8 ETH initial deposit plus 24 ETH from rETH stakers), a new validator is created on the node which performs the consensus duties for that deposit to earn staking rewards. Neat!
+- Minipool Validator는 또 다른 스마트 계약이지만 프로토콜의 핵심 측면이기 때문에 자체적으로 정의할 가치가 있습니다. 이러한 스마트 계약은 노드에 8 또는 16 ETH를 예치하는 노드 운영자가 생성합니다. 노드 운영자가 8 ETH를 예치하기로 선택한 경우를 고려해 봅시다. 그렇게 하면 이 스마트 계약은 노드를 실행하지 않고 스테이킹만 하려는 사용자(rETH 스테이커)로부터 24 ETH의 예금을 받습니다. 이 계약에 총 32 ETH(8 ETH 초기 예금 + rETH 스테이커로부터 24 ETH)가 포함되면 스테이킹 보상을 받기 위해 해당 예금에 대한 합의 의무를 수행하는 새로운 validator가 노드에서 생성됩니다. 멋지죠!
 
-View the visual guide below to get a glimpse of how these components work together in the Rocket Pool protocol.
+Rocket Pool 프로토콜에서 이러한 구성 요소가 어떻게 함께 작동하는지 살펴보려면 아래의 시각적 가이드를 확인하세요.
 
 [![How staking in the protocol flows](/images/rp-infographic-staking-protocol-flow.png)](https://www.rocketpool.net/images/infographic-rocket-pool-2.png)
 
-### Independent node operator vs Staking as a Service (SaaS) provider?
+### 독립 노드 운영자 vs Staking as a Service (SaaS) 제공자?
 
-Rocket Pool protocols support a wide array of actors, including independent node operators and service providers.
+Rocket Pool 프로토콜은 독립 노드 운영자 및 서비스 제공자를 포함한 광범위한 주체를 지원합니다.
 
-Web3 is full of highly knowledgeable Staking as a Service providers, helping the world better access the proof of stake landscape with projects like Ethereum. They support everything from institutional capital, to hedge funds, family offices and everything in between.
+Web3는 Ethereum과 같은 프로젝트로 proof of stake 환경에 대한 세계의 접근을 개선하는 데 도움을 주는 매우 지식이 풍부한 Staking as a Service 제공자로 가득 차 있습니다. 그들은 기관 자본부터 헤지 펀드, 패밀리 오피스 및 그 사이의 모든 것을 지원합니다.
 
-Rocket Pool was designed to support those providers, meaning ETH staked through SaaS solutions can be put to use through Rocket Pool, rather than having to spin up bespoke staking solutions to deal with each client.
+Rocket Pool은 이러한 제공자를 지원하도록 설계되었습니다. 즉, SaaS 솔루션을 통해 스테이킹된 ETH를 각 클라이언트를 처리하기 위해 맞춤형 스테이킹 솔루션을 구축해야 하는 대신 Rocket Pool을 통해 사용할 수 있습니다.
 
-ETH holders can choose between paying a SaaS provider or being paid to be an operator themselves. With Rocket Pool, SaaS providers and independent operators maximize their return by being paid to run a node, both in ETH and RPL. The protocol allows teams to run their own infrastructure, and use Rocket Pool to trustlessly stake ETH in batches of 8 or 16 ETH — putting their capital to work further and earn a larger share of returns.
+ETH 보유자는 SaaS 제공자에게 비용을 지불하거나 스스로 운영자가 되어 비용을 받는 것 중에서 선택할 수 있습니다. Rocket Pool을 사용하면 SaaS 제공자와 독립 운영자는 ETH와 RPL 모두에서 노드를 실행하여 수익을 극대화합니다. 프로토콜을 통해 팀은 자체 인프라를 실행하고 Rocket Pool을 사용하여 8 또는 16 ETH 배치로 ETH를 신뢰 없이 스테이킹할 수 있습니다 — 자본을 더 활용하고 더 큰 수익 몫을 얻을 수 있습니다.
 
-This design means Bison Trails or Gemini could use Rocket Pool the same as a DeFi power user. Simply show up with 8 or 16 ETH and you’re treated the same as any other node operator. Rocket Pool’s democratized staking system doesn’t favor any one party, as ETH staked through Rocket Pool always directly supports the network.
+이 설계는 Bison Trails 또는 Gemini가 DeFi 파워 유저와 동일하게 Rocket Pool을 사용할 수 있음을 의미합니다. 8 또는 16 ETH만 가지고 나타나면 다른 노드 운영자와 동일하게 취급됩니다. Rocket Pool의 민주화된 스테이킹 시스템은 어떤 당사자도 선호하지 않습니다. Rocket Pool을 통해 스테이킹된 ETH는 항상 네트워크를 직접 지원하기 때문입니다.
 
-Rocket Pool’s staked ETH wrapper, rETH, is the purest in DeFi because of the Rocket Pool network being fully distributed and trust-minimised. This makes rETH a natural building block for Ethereum and providers of all kinds.
+Rocket Pool의 스테이킹된 ETH 래퍼인 rETH는 Rocket Pool 네트워크가 완전히 분산되고 신뢰가 최소화되어 있기 때문에 DeFi에서 가장 순수합니다. 이로 인해 rETH는 Ethereum 및 모든 종류의 제공자를 위한 자연스러운 빌딩 블록이 됩니다.
 
-### What tokens does Rocket Pool use?
+### Rocket Pool은 어떤 토큰을 사용하나요?
 
 **RPL — Rocket Pool Protocol Token**
 
-RPL is the primary protocol token that will be used in governance of the protocol and can also be staked on a Rocket Pool node.
+RPL은 프로토콜의 거버넌스에 사용될 주요 프로토콜 토큰이며 Rocket Pool 노드에 스테이킹할 수도 있습니다.
 
-From a Node Operator perspective:
+노드 운영자 관점에서:
 
-- As of Saturn 1, vote-eligible staked RPL will get a share of total protocol revenue
-- The [majority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation is given as rewards to Node Operators based on staked RPL; these rewards are planned to be phase out with Saturn 2
-- For Saturn 0 minipools made after 10/28/2024: Staked RPL provides up to 4% additional bonus commission; bonus commission is planned to be phased out a few months after Saturn 1's launch.
-- Staked provides voting power for governance
+- Saturn 1부터 투표 자격이 있는 스테이킹된 RPL은 총 프로토콜 수익의 몫을 받습니다
+- RPL 인플레이션의 [대부분](https://rpips.rocketpool.net/RPIPs/RPIP-25)은 스테이킹된 RPL을 기반으로 노드 운영자에게 보상으로 제공됩니다; 이러한 보상은 Saturn 2에서 단계적으로 폐지될 예정입니다
+- 2024년 10월 28일 이후에 만들어진 Saturn 0 minipool의 경우: 스테이킹된 RPL은 최대 4%의 추가 보너스 수수료를 제공합니다; 보너스 수수료는 Saturn 1 출시 후 몇 달 후에 단계적으로 폐지될 예정입니다.
+- 스테이킹은 거버넌스에 대한 투표권을 제공합니다
 
-From a protocol perspective:
+프로토콜 관점에서:
 
-- A [minority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation provides funding for the pDAO
-- A [minority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation provides funding for the oDAO
-- It can serve as secondary collateral (e.g., against slashing)
+- RPL 인플레이션의 [소수](https://rpips.rocketpool.net/RPIPs/RPIP-25)는 pDAO에 자금을 제공합니다
+- RPL 인플레이션의 [소수](https://rpips.rocketpool.net/RPIPs/RPIP-25)는 oDAO에 자금을 제공합니다
+- 보조 담보로 사용될 수 있습니다(예: 슬래싱에 대해)
 
-**rETH — Rocket Pool Staking Deposit Token**  
-When a user deposits into the protocol, they will instantly receive the rETH token which represents a tokenised staking deposit and the rewards it gains over time in the Rocket Pool network.
+**rETH — Rocket Pool Staking Deposit Token**
+사용자가 프로토콜에 예치하면 즉시 rETH 토큰을 받습니다. 이 토큰은 토큰화된 스테이킹 예금과 Rocket Pool 네트워크에서 시간이 지남에 따라 얻는 보상을 나타냅니다.
 
-This token does not need to be locked within the network and it can be traded, sold or held as the user desires.
+이 토큰은 네트워크 내에 잠글 필요가 없으며 사용자가 원하는 대로 거래, 판매 또는 보유할 수 있습니다.
 
-This token can also be traded back to the protocol for ETH + rewards earned at any time, providing there is sufficient liquidity in the protocol to meet the trade.
+이 토큰은 거래를 충족할 수 있는 충분한 유동성이 프로토콜에 있는 경우 언제든지 ETH + 획득한 보상으로 프로토콜로 다시 거래할 수도 있습니다.
 
-### Who is making it?
+### 누가 만들고 있나요?
 
-Rocket Pool was originally started in [late 2016 by David Rugendyke](https://medium.com/rocket-pool/rocket-pool-your-new-casper-friendly-ethereum-pos-pool-in-alpha-75709bd19936), a senior developer with over 18 years commercial experience and a computer science background.
+Rocket Pool은 원래 18년 이상의 상업적 경험과 컴퓨터 과학 배경을 가진 선임 개발자 [David Rugendyke가 2016년 말에 시작](https://medium.com/rocket-pool/rocket-pool-your-new-casper-friendly-ethereum-pos-pool-in-alpha-75709bd19936)했습니다.
 
-In May 2017, an alpha version of the product was released. A vibrant community started to form and the team began expanding. With the help of a enthusiastic community, Rocket Pool ran five public betas with over 100,000 ETH (testnet) staked and hundreds of users participating, before the official launch on Ethereum mainnet in October 2021.
+2017년 5월에 제품의 알파 버전이 출시되었습니다. 활기찬 커뮤니티가 형성되기 시작했고 팀이 확장되기 시작했습니다. 열정적인 커뮤니티의 도움으로 Rocket Pool은 2021년 10월 Ethereum 메인넷에 공식 출시되기 전에 100,000 ETH(테스트넷) 이상이 스테이킹되고 수백 명의 사용자가 참여하는 5번의 공개 베타를 실행했습니다.
 
-## Today there is a great team working on Rocket Pool passionately alongside a fantastic community of more than three thousand node operators
-
----
-
-### What is the minimum deposit?
-
-Rocket Pool protocol allows anyone to earn rewards on deposits as low as 0.01 ETH. When you trade ETH, you will receive rETH, a token that gains staking rewards over time based on the performance of all decentralised node operators in the protocol.
-
-### What is the maximum deposit?
-
-As big as you're comfortable with, unlimited.
-
-### What are the staking periods?
-
-If you just want to stake you will receive our rETH token when you deposit. You can then do as you want with this token, it will still gain staking rewards over time and can be sold/traded or traded back to Rocket Pool for ETH + rewards if there is liquidity available for the trade.
-
-If you want to run a node in the network, you can stake as a node for as little or long as you wish. The longer you stake, the more rewards you gain of course.
-
-### What commissions are possible when staking with Rocket Pool?
-
-Commissions for node operators come from rewards generated from the 16 or 24 ETH pooled from non-operator stakers. The commission is fixed at 14%.
-
-### How does the protocol protect the value of rETH?
-
-Our smart contracts are responsible for holding and moving funds. In the interest of transparency, they are [open source](https://github.com/rocket-pool/rocketpool) for all to analyse. Additionally, before the smart contracts were deployed to mainnet they were fully audited by both Sigma Prime and ConsenSys Diligence, two of the best auditing teams around.
-
-Rocket Pool is a decentralised network of node operators. If you are a non-operator staker, your deposit will be allocated to a node operator who will perform Proof of Stake duties. Node operators are required to stake as much ETH as they are assigned. If there is ETH loss due to poor node performance, the operator must first compensate the pool's lost ETH with their original 8 or 16 ETH and the loss of RPL. If this does not completely make up for the loss, the rest is spread across the entire network through a reduction in the relative value of rETH, rather than one user taking large losses just due to bad luck that their deposit ended up on a bad node.
-
-For example, if node operator staked 16 ETH and their node leaves the network with 28 ETH, the operator retains 12 ETH, the network retains 16 ETH - all loss is on the operator. If their node leaves with 15 ETH, the network retains 16 ETH and the operator makes up the missing 1 ETH through the loss of RPL. If the node leaves with 10 ETH, and there is only 1.6 ETH-worth of RPL from the original bond, the network retains 11.6 ETH (10 + 1.6), and the loss of 4.4 ETH (16 - 11.6) is spread across the network.
-
-Node operators thus have a large incentive to perform well. Node operators are also incentivised by the protocol to stake as much RPL as insurance as possible, due to additional rewards that are given for providing a bigger safety net should they perform poorly.
-
-### What is a decentralised staking protocol exactly?
-
-Rocket Pool is a protocol that contains a decentralised network of node operators. Each node operator is a separate entity with their own server infrastructure. Having this heterogeneous network is important for:
-
-- _Fault tolerance_ — failures only affect a small number of nodes
-- _Scalability_ — by opening up the network it means a huge number of nodes can be brought online to meet demand
-- _Quadratic Leaking_ — this is a fancy term for how the Beacon Chain punishes validators for being offline. As a node operator, if you go offline with a big group of other validators your punishment is greater — this deters centralised staking services.
-
-### How can I access my deposit and rewards?
-
-If you are a non-operator staker and just sending your deposit to Rocket Pools smart contracts, you will instantly receive rETH tokens which are a form of tokenised staking, they will still gain rewards over time, but you don’t need to hold them with us and can trade/sell or hold them as you wish. You can also trade them back to the protocol for ETH + rewards gained if there is liquidity available in the protocol to cover the exchange.
-
-### Are your smart contracts audited and open source?
-
-In the interest of transparency, they are [open source](https://github.com/rocket-pool/rocketpool) for all to analyse. Additionally, before the smart contracts were deployed to mainnet they were fully audited by both Sigma Prime and ConsenSys Diligence, two of the best auditing teams around.
+## 현재 3천 명 이상의 노드 운영자로 구성된 환상적인 커뮤니티와 함께 Rocket Pool에 열정적으로 일하는 훌륭한 팀이 있습니다
 
 ---
 
----
+### 최소 예금은 얼마인가요?
 
-### Why would I run a Rocket Pool smart node vs going solo?
+Rocket Pool 프로토콜은 누구나 0.01 ETH만큼 낮은 예금으로 보상을 받을 수 있도록 합니다. ETH를 거래하면 프로토콜의 모든 분산 노드 운영자의 성능에 따라 시간이 지남에 따라 스테이킹 보상을 얻는 토큰인 rETH를 받습니다.
 
-As a node operator, you can take advantage of the following benefits:
+### 최대 예금은 얼마인가요?
 
-- You get to use our awesome [Smart Node Stack](https://github.com/rocket-pool/smartnode), a super handy setup to make staking very easy. [Get started here with the installer](https://github.com/rocket-pool/smartnode).
-- You need only 8 ETH to stake (as opposed to 32 ETH solo), since Rocket Pool assigns 24 ETH of the protocol's deposits. You can also stake 8 ETH deposits multiple times on the one node.
-- You earn extra rewards by charging Rocket Pool users a commission of 14% of the rewards earned on your node by their ETH.
-- You stake your own ETH, free from any commissions.
-- You stake RPL on your node as collateral and earn more RPL from the protocol for providing this insurance promise.
-- You are always in control of your own node.
-- You can come and go anytime from the network.
+편안한 만큼 크게, 무제한입니다.
 
-### What is the minimum staking amount for a node operator?
+### 스테이킹 기간은 어떻게 되나요?
 
-The minimum staking amount for a node operator is 8 ETH. But you can easily stake in multiples of 8 ETH on your own node using our smart node software. You will also need some RPL to act as collateral in the event of serious downtime or penalties. This collateral is treated as an insurance promise to the protocol which earns you more RPL the longer you stake.
+스테이킹만 하려는 경우 예치할 때 rETH 토큰을 받습니다. 그런 다음 이 토큰으로 원하는 대로 할 수 있으며 시간이 지남에 따라 여전히 스테이킹 보상을 얻을 수 있으며 거래에 사용할 수 있는 유동성이 있는 경우 판매/거래하거나 Rocket Pool로 다시 거래하여 ETH + 보상을 받을 수 있습니다.
 
-### What is involved in running a Rocket Pool node?
+네트워크에서 노드를 실행하려는 경우 원하는 만큼 짧게 또는 길게 노드로 스테이킹할 수 있습니다. 물론 더 오래 스테이킹할수록 더 많은 보상을 받습니다.
 
-As a node operator you will need to run a server 24/7 performing proof of stake validator duties. Use our [Smart Node Stack](https://github.com/rocket-pool/smartnode) to manage your node + validators in the protocol, a super handy package to make staking very easy. [Get started here with the installer](https://github.com/rocket-pool/smartnode).
+### Rocket Pool로 스테이킹할 때 가능한 수수료는 무엇인가요?
 
-Since the [Saturn 0 upgrade](/en/upgrades/saturn-0/whats-new), the Rocket Pool protocol no longer requires a minimum amount of RPL. Before [Saturn 0 upgrade](/en/upgrades/saturn-0/whats-new), a minimum of 10% of the value in RPL of the ETH provided by the protocol (10% of 24 or 16 ETH respectively, that is, 2.4 or 1.6 ETH) was required.
+노드 운영자의 수수료는 운영자가 아닌 스테이커로부터 풀링된 16 또는 24 ETH에서 생성된 보상에서 나옵니다. 수수료는 14%로 고정되어 있습니다.
 
-### How is the RPL token used?
+### 프로토콜은 rETH의 가치를 어떻게 보호하나요?
 
-Check out [the tokens section](#what-tokens-does-rocket-pool-use) for a great overview!
+우리의 스마트 계약은 자금을 보유하고 이동하는 책임이 있습니다. 투명성을 위해 모든 사람이 분석할 수 있도록 [오픈 소스](https://github.com/rocket-pool/rocketpool)입니다. 또한 스마트 계약이 메인넷에 배포되기 전에 최고의 감사 팀인 Sigma Prime과 ConsenSys Diligence 두 곳에서 완전히 감사를 받았습니다.
+
+Rocket Pool은 분산된 노드 운영자 네트워크입니다. 운영자가 아닌 스테이커인 경우 예금은 Proof of Stake 의무를 수행할 노드 운영자에게 할당됩니다. 노드 운영자는 할당된 만큼의 ETH를 스테이킹해야 합니다. 노드 성능이 좋지 않아 ETH 손실이 발생하면 운영자는 먼저 원래 8 또는 16 ETH와 RPL 손실로 풀의 손실된 ETH를 보상해야 합니다. 이것이 손실을 완전히 보상하지 못하면 나머지는 운하지 못한 운이 나쁜 노드에 예금이 배치되었기 때문에 한 사용자가 큰 손실을 입는 대신 rETH의 상대적 가치 감소를 통해 전체 네트워크에 분산됩니다.
+
+예를 들어 노드 운영자가 16 ETH를 스테이킹하고 노드가 28 ETH로 네트워크를 떠나면 운영자는 12 ETH를 유지하고 네트워크는 16 ETH를 유지합니다 - 모든 손실은 운영자에게 있습니다. 노드가 15 ETH로 떠나면 네트워크는 16 ETH를 유지하고 운영자는 RPL 손실을 통해 누락된 1 ETH를 보충합니다. 노드가 10 ETH로 떠나고 원래 본드에서 1.6 ETH 상당의 RPL만 있는 경우 네트워크는 11.6 ETH(10 + 1.6)를 유지하고 4.4 ETH(16 - 11.6)의 손실은 네트워크 전체에 분산됩니다.
+
+따라서 노드 운영자는 잘 수행할 큰 인센티브가 있습니다. 노드 운영자는 또한 성능이 좋지 않을 경우 더 큰 안전망을 제공하기 위해 가능한 한 많은 RPL을 보험으로 스테이킹하도록 프로토콜에 의해 인센티브를 받으며, 이를 위해 추가 보상이 제공됩니다.
+
+### 분산 스테이킹 프로토콜이란 정확히 무엇인가요?
+
+Rocket Pool은 분산된 노드 운영자 네트워크를 포함하는 프로토콜입니다. 각 노드 운영자는 자체 서버 인프라를 가진 별도의 엔티티입니다. 이러한 이기종 네트워크를 갖는 것은 다음과 같은 이유로 중요합니다:
+
+- _내결함성_ — 장애는 소수의 노드에만 영향을 미칩니다
+- _확장성_ — 네트워크를 개방함으로써 수요를 충족하기 위해 엄청난 수의 노드를 온라인으로 가져올 수 있음을 의미합니다
+- _Quadratic Leaking_ — 이것은 Beacon Chain이 오프라인 validator에게 벌칙을 주는 방법에 대한 멋진 용어입니다. 노드 운영자로서 다른 validator의 큰 그룹과 함께 오프라인이 되면 벌칙이 더 큽니다 — 이것은 중앙화된 스테이킹 서비스를 억제합니다.
+
+### 예금과 보상에 어떻게 접근하나요?
+
+운영자가 아닌 스테이커이고 Rocket Pool 스마트 계약에 예금을 보내기만 하는 경우 즉시 rETH 토큰을 받습니다. rETH 토큰은 토큰화된 스테이킹의 한 형태로 시간이 지남에 따라 여전히 보상을 얻지만 우리와 함께 보유할 필요가 없으며 원하는 대로 거래/판매 또는 보유할 수 있습니다. 교환을 커버할 수 있는 유동성이 프로토콜에 있는 경우 ETH + 획득한 보상으로 프로토콜로 다시 거래할 수도 있습니다.
+
+### 스마트 계약은 감사를 받았으며 오픈 소스인가요?
+
+투명성을 위해 모든 사람이 분석할 수 있도록 [오픈 소스](https://github.com/rocket-pool/rocketpool)입니다. 또한 스마트 계약이 메인넷에 배포되기 전에 최고의 감사 팀인 Sigma Prime과 ConsenSys Diligence 두 곳에서 완전히 감사를 받았습니다.
 
 ---
 
 ---
 
-### Integrated dApps, SaaS Business and more
+### 솔로로 가는 것과 Rocket Pool 스마트 노드를 실행하는 이유는 무엇인가요?
 
-If you’re a dApp, you can integrate directly into Rocket Pools smart contracts to stake ETH that your dApp might hold. You’ll instantly receive rETH (a tokenised staking deposit) back when depositing which can be used as your dApp wishes. You now have staking in a decentralised dApp using a decentralised staking network, whoa!
+노드 운영자로서 다음과 같은 혜택을 누릴 수 있습니다:
 
-If you’re a SaaS (Staking as a Service) provider, you might want to maximise returns for your users. Spin up a few smart nodes in the Rocket Pool network and put that ETH to work earning staking rewards + extra commissions + RPL rewards.
+- 스테이킹을 매우 쉽게 만드는 매우 편리한 설정인 우리의 멋진 [Smart Node Stack](https://github.com/rocket-pool/smartnode)을 사용할 수 있습니다. [여기 설치 프로그램으로 시작하세요](https://github.com/rocket-pool/smartnode).
+- Rocket Pool이 프로토콜 예금의 24 ETH를 할당하기 때문에 스테이킹하는 데 8 ETH만 필요합니다(솔로 32 ETH와 반대). 하나의 노드에서 8 ETH 예금을 여러 번 스테이킹할 수도 있습니다.
+- Rocket Pool 사용자에게 노드에서 그들의 ETH로 얻은 보상의 14% 수수료를 청구하여 추가 보상을 받습니다.
+- 수수료 없이 자신의 ETH를 스테이킹합니다.
+- 이 보험 약속을 제공하기 위해 노드에 RPL을 스테이킹하고 프로토콜에서 더 많은 RPL을 받습니다.
+- 항상 자신의 노드를 제어합니다.
+- 네트워크에서 언제든지 오고 갈 수 있습니다.
 
-Are you a wallet or DEX and want to give your users the ability to stake their ETH but not leave your service? Just write a smart contract that can manage depositing ETH into Rocket Pool on your users' behalf and then receive rETH back instantly. Bam! Staking services delivered.
-There are many more possibilities. Rocket Pool is a permissionless smart contract based staking protocol, anyone can plug into it. Your users don’t even have to know you’re using us, that’s entirely up to you!
+### 노드 운영자의 최소 스테이킹 금액은 얼마인가요?
+
+노드 운영자의 최소 스테이킹 금액은 8 ETH입니다. 그러나 스마트 노드 소프트웨어를 사용하여 자신의 노드에서 8 ETH의 배수로 쉽게 스테이킹할 수 있습니다. 또한 심각한 다운타임이나 벌칙이 발생할 경우 담보 역할을 할 RPL이 필요합니다. 이 담보는 스테이킹하는 기간이 길수록 더 많은 RPL을 얻는 프로토콜에 대한 보험 약속으로 취급됩니다.
+
+### Rocket Pool 노드를 실행하는 데 무엇이 필요한가요?
+
+노드 운영자로서 proof of stake validator 의무를 수행하는 서버를 연중무휴 24시간 실행해야 합니다. 스테이킹을 매우 쉽게 만드는 매우 편리한 패키지인 프로토콜에서 노드 + validator를 관리하기 위해 [Smart Node Stack](https://github.com/rocket-pool/smartnode)을 사용하세요. [여기 설치 프로그램으로 시작하세요](https://github.com/rocket-pool/smartnode).
+
+[Saturn 0 업그레이드](/ko/upgrades/saturn-0/whats-new) 이후 Rocket Pool 프로토콜은 더 이상 최소 RPL 금액을 요구하지 않습니다. [Saturn 0 업그레이드](/ko/upgrades/saturn-0/whats-new) 이전에는 프로토콜이 제공하는 ETH의 RPL 가치의 최소 10%(각각 24 또는 16 ETH의 10%, 즉 2.4 또는 1.6 ETH)가 필요했습니다.
+
+### RPL 토큰은 어떻게 사용되나요?
+
+[토큰 섹션](#what-tokens-does-rocket-pool-use)에서 훌륭한 개요를 확인하세요!
+
+---
+
+---
+
+### 통합 dApp, SaaS 비즈니스 등
+
+dApp인 경우 Rocket Pool 스마트 계약에 직접 통합하여 dApp이 보유할 수 있는 ETH를 스테이킹할 수 있습니다. 예치할 때 즉시 rETH(토큰화된 스테이킹 예금)를 받게 되며 dApp이 원하는 대로 사용할 수 있습니다. 이제 분산 스테이킹 네트워크를 사용하여 분산 dApp에서 스테이킹이 가능합니다!
+
+SaaS(Staking as a Service) 제공자인 경우 사용자의 수익을 극대화하고 싶을 수 있습니다. Rocket Pool 네트워크에서 몇 개의 스마트 노드를 구동하고 해당 ETH가 스테이킹 보상 + 추가 수수료 + RPL 보상을 받도록 하세요.
+
+지갑이나 DEX이고 사용자가 서비스를 떠나지 않고 ETH를 스테이킹할 수 있는 기능을 제공하고 싶으신가요? 사용자를 대신하여 Rocket Pool에 ETH를 예치한 다음 즉시 rETH를 받을 수 있는 스마트 계약을 작성하기만 하면 됩니다. 짠! 스테이킹 서비스가 제공되었습니다.
+더 많은 가능성이 있습니다. Rocket Pool은 누구나 연결할 수 있는 무허가 스마트 계약 기반 스테이킹 프로토콜입니다. 사용자는 귀하가 우리를 사용하고 있다는 것을 알 필요조차 없으며, 그것은 전적으로 귀하에게 달려 있습니다!

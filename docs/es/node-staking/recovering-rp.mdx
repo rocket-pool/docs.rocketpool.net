@@ -1,36 +1,36 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Importing / Recovering an Existing Wallet
+# Importar / Recuperar una Billetera Existente
 
-If you already have a wallet you'd like to use for your node, or if you're recovering a wallet you already created with the Smartnode earlier, this guide will help you through the import / recovery process.
+Si ya tienes una billetera que te gustaría usar para tu nodo, o si estás recuperando una billetera que ya creaste con el Smartnode anteriormente, esta guía te ayudará a través del proceso de importación / recuperación.
 
-Please select the appropriate option from the sections below.
+Selecciona la opción apropiada de las secciones a continuación.
 
-## Recovering a Smartnode Wallet
+## Recuperar una Billetera Smartnode
 
-If you generated your node wallet using the Smartnode and are simply recovering it on a new machine, the process is quite simple.
-Make sure you've already installed the Smartnode software, and then simply run the following command once it's installed:
+Si generaste tu billetera de nodo usando el Smartnode y simplemente la estás recuperando en una máquina nueva, el proceso es bastante simple.
+Asegúrate de haber instalado ya el software Smartnode, y luego simplemente ejecuta el siguiente comando una vez que esté instalado:
 
 ```shell
 rocketpool wallet recover
 ```
 
-::: warning NOTE
-If, for some reason, you want to recover the wallet but _not_ any of the validator keys attached to your node's minipools, you can specify the `-k` flag to skip the rebuild process:
+::: warning NOTA
+Si, por alguna razón, deseas recuperar la billetera pero _no_ las claves de validador adjuntas a los minipools de tu nodo, puedes especificar el indicador `-k` para omitir el proceso de reconstrucción:
 
 ```shell
 rocketpool wallet recover -k
 ```
 
-If you do not specify this flag, the Smartnode will attempt to recover the validator keys for your minipools; however, note that this will not work until your Execution client has finished syncing.
-Please watch its log file to see when it's done; once it is, you can run this step.
+Si no especificas este indicador, el Smartnode intentará recuperar las claves de validador para tus minipools; sin embargo, ten en cuenta que esto no funcionará hasta que tu cliente de Ejecución haya terminado de sincronizar.
+Observa su archivo de registro para ver cuándo ha terminado; una vez que lo haya hecho, puedes ejecutar este paso.
 :::
 
-This will first ask you for a password you want to use to encrypt your wallet.
-After that, it will ask for your **24 word mnemonic recovery phrase**.
-Enter it carefully - it will not be shown on-screen for safety, and it is very easy to make a mistake while typing it so take your time.
+Esto primero te pedirá una contraseña que desees usar para cifrar tu billetera.
+Después de eso, te pedirá tu **frase de recuperación mnemónica de 24 palabras**.
+Ingrésala con cuidado - no se mostrará en pantalla por seguridad, y es muy fácil cometer un error al escribirla, así que tómate tu tiempo.
 
-When you're done, you should see output similar to this:
+Cuando hayas terminado, deberías ver una salida similar a esta:
 
 ```shell
 $ rocketpool wallet recover
@@ -47,100 +47,100 @@ Node account: <your wallet address>
 No validator keys were found.
 ```
 
-If you don't see any errors, then your wallet and validators will be recovered.
+Si no ves ningún error, entonces tu billetera y validadores se habrán recuperado.
 
-Once you're done, be sure to restart the Validator client with the following command for Docker and Hybrid mode users:
+Una vez que hayas terminado, asegúrate de reiniciar el cliente Validador con el siguiente comando para usuarios en modo Docker e Híbrido:
 
 ```shell
 docker restart rocketpool_validator
 ```
 
-**Native mode** users will simply have to restart their Validator container process.
+Los usuarios en **modo Nativo** simplemente tendrán que reiniciar su proceso de contenedor Validador.
 
-This will ensure that the VC picks up all of the newly restored validator keys.
+Esto asegurará que el VC recoja todas las claves de validador recién restauradas.
 
-## Importing an Existing Address as a Node Wallet
+## Importar una Dirección Existente como Billetera de Nodo
 
-If you have an address you'd like to use for a node, but _didn't_ create it with the Smartnode (e.g., you created it with MetaMask or a hardware wallet), then this is the section to follow.
+Si tienes una dirección que te gustaría usar para un nodo, pero _no_ la creaste con el Smartnode (por ejemplo, la creaste con MetaMask o una billetera de hardware), entonces esta es la sección a seguir.
 
-::: danger WARNING
-By doing this, your address will become a **hot wallet**.
-The private key will be stored on your node machine.
+::: danger ADVERTENCIA
+Al hacer esto, tu dirección se convertirá en una **billetera caliente**.
+La clave privada se almacenará en tu máquina de nodo.
 
-If you're importing an address that is a cold wallet, such as a hardware wallet, be advised that **the protection provided by the hardware wallet will no longer exist!**
+Si estás importando una dirección que es una billetera fría, como una billetera de hardware, ten en cuenta que **¡la protección proporcionada por la billetera de hardware ya no existirá!**
 
-If you use this wallet for _any other cryptocurrency activity at all_, **you must migrate all of its funds to a separate address (e.g. a different hardware wallet) before importing it into your node! Only leave enough ETH on this address for your node's gas costs (typically 0.5 ETH is sufficient).**
+Si usas esta billetera para _cualquier otra actividad de criptomonedas_, **debes migrar todos sus fondos a una dirección separada (por ejemplo, otra billetera de hardware) antes de importarla en tu nodo. Solo deja suficiente ETH en esta dirección para los costos de gas de tu nodo (típicamente 0.5 ETH es suficiente).**
 
-Please ensure that you have secured your machine as much as possible by following the steps in the [Securing your Node](./securing-your-node) guide before importing your address as a node wallet.
+Asegúrate de haber asegurado tu máquina tanto como sea posible siguiendo los pasos en la guía [Asegurar tu Nodo](./securing-your-node) antes de importar tu dirección como billetera de nodo.
 :::
 
-This capability is only available with Smartnode **v1.4.3 or higher**.
-If you have a lower version, you'll need to upgrade first.
+Esta capacidad solo está disponible con Smartnode **v1.4.3 o superior**.
+Si tienes una versión inferior, necesitarás actualizar primero.
 
-This is a multi-step process, so follow the below sections carefully.
+Este es un proceso de múltiples pasos, así que sigue las secciones a continuación con cuidado.
 
-### Step 1: Add Externally-Generated Validator Keys
+### Paso 1: Agregar Claves de Validador Generadas Externamente
 
-**If you don't have any existing minipools attached to the address you're importing, you can skip this step.**
+**Si no tienes ningún minipool existente adjunto a la dirección que estás importando, puedes omitir este paso.**
 
-If your address has already been registered as a Rocket Pool node wallet (such as via a service like **Allnodes**) and already has active minipools, and you'd like to import them into the Smartnode stack along with your address, you will need to provide the private keystore files for each of their corresponding validators.
-These files will be encrypted with a password of your own choosing, so you will need that password for each file as well.
+Si tu dirección ya ha sido registrada como billetera de nodo de Rocket Pool (como a través de un servicio como **Allnodes**) y ya tiene minipools activos, y te gustaría importarlos en el stack de Smartnode junto con tu dirección, necesitarás proporcionar los archivos de keystore privados para cada uno de sus validadores correspondientes.
+Estos archivos estarán cifrados con una contraseña de tu propia elección, por lo que necesitarás esa contraseña para cada archivo también.
 
-You need to get these files from the service that is currently running your node in order to import it.
-Some service providers may be able to retrieve these files upon request.
-If you use Allnodes, you can get these files during your initial setup process but **will not be able to retrieve them in the future unless you saved them during minipool creation.**
+Necesitas obtener estos archivos del servicio que actualmente ejecuta tu nodo para poder importarlo.
+Algunos proveedores de servicios pueden recuperar estos archivos a pedido.
+Si usas Allnodes, puedes obtener estos archivos durante tu proceso de configuración inicial pero **no podrás recuperarlos en el futuro a menos que los hayas guardado durante la creación del minipool.**
 
-Select your installation mode and follow the steps below.
+Selecciona tu modo de instalación y sigue los pasos a continuación.
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker and Hybrid Mode">
-      First, ensure you've started the Smartnode with `rocketpool service start`.
-      This will create a special folder that can be used to hold the encrypted keystore files for your validators.
+      Primero, asegúrate de haber iniciado el Smartnode con `rocketpool service start`.
+      Esto creará una carpeta especial que se puede usar para contener los archivos de keystore cifrados para tus validadores.
 
-      By default, the folder is located in `~/.rocketpool/data/custom-keys`.
-      If you've customized your installation or data directories, substitute appropriately to find the `custom-keys` folder.
+      Por defecto, la carpeta se encuentra en `~/.rocketpool/data/custom-keys`.
+      Si has personalizado tu instalación o directorios de datos, sustitúyelos apropiadamente para encontrar la carpeta `custom-keys`.
 
-      Check with a file explorer or the `ls` command to make sure this folder exists.
-      If not, no worries - just make the folder with the following command:
+      Verifica con un explorador de archivos o el comando `ls` para asegurarte de que esta carpeta exista.
+      Si no, no te preocupes - simplemente crea la carpeta con el siguiente comando:
 
       ```shell
       mkdir ~/.rocketpool/data/custom-keys
       ```
     </Tab>
     <Tab label="Native Mode">
-      Create a folder called `custom-keys` inside of your Smartnode's `data` folder (for example, `/srv/rocketpool/data/custom-keys`).
+      Crea una carpeta llamada `custom-keys` dentro de la carpeta `data` de tu Smartnode (por ejemplo, `/srv/rocketpool/data/custom-keys`).
     </Tab>
 
   </Tabs>
 </div>
 
-Next, place each of the validator keystore files into this folder.
-The names of the files don't matter, but they must be JSON files that conform to the [EIP-2335](https://eips.ethereum.org/EIPS/eip-2335#scrypt-test-vector) format.
+A continuación, coloca cada uno de los archivos de keystore del validador en esta carpeta.
+Los nombres de los archivos no importan, pero deben ser archivos JSON que cumplan con el formato [EIP-2335](https://eips.ethereum.org/EIPS/eip-2335#scrypt-test-vector).
 
-The Smartnode will look in this directory for any keystore files you have placed here in the next steps.
+El Smartnode buscará en este directorio cualquier archivo de keystore que hayas colocado aquí en los siguientes pasos.
 
-::: warning NOTE
-The import process will _only_ look for validator keys that are attached to minipools registered to the address you're importing.
-You **cannot** use this process to import other validator keys, such as for solo staking validators, into the Validator client managed by the Smartnode stack.
+::: warning NOTA
+El proceso de importación _solo_ buscará claves de validador que estén adjuntas a minipools registrados en la dirección que estás importando.
+**No puedes** usar este proceso para importar otras claves de validador, como las de validadores de staking solo, en el cliente Validador administrado por el stack de Smartnode.
 
-Please see the documentation for running in [Reverse Hybrid Mode](./advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode) if you are interested in doing this.
+Consulta la documentación para ejecutar en [Modo Híbrido Inverso](./advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode) si estás interesado en hacer esto.
 :::
 
-### Step 2 (Optional): Test Importing the Address
+### Paso 2 (Opcional): Probar la Importación de la Dirección
 
-If you would like to test the recovery process to ensure you have the correct mnemonic and passwords **without actually regenerating your node wallet's private key or importing your validator keys**, you can do so with the following command:
+Si deseas probar el proceso de recuperación para asegurarte de que tienes el mnemónico y las contraseñas correctas **sin regenerar realmente la clave privada de tu billetera de nodo ni importar tus claves de validador**, puedes hacerlo con el siguiente comando:
 
 ```shell
 rocketpool wallet test-recovery -a 0x1234abcd...
 ```
 
-Where `0x1234abcd...` is the address you want to import, starting with the `0x` prefix.
-**You will need your mnemonic phrase to import the private key for your address.**
+Donde `0x1234abcd...` es la dirección que deseas importar, comenzando con el prefijo `0x`.
+**Necesitarás tu frase mnemónica para importar la clave privada de tu dirección.**
 
 ::: tip TIP
-If, for some reason, you want to recover the wallet but _not_ any of the validator keys for your minipools, you can specify the `-k` flag to skip the validator key recovery process.
-For example:
+Si, por alguna razón, deseas recuperar la billetera pero _no_ las claves de validador para tus minipools, puedes especificar el indicador `-k` para omitir el proceso de recuperación de claves de validador.
+Por ejemplo:
 
 ```shell
 rocketpool wallet test-recovery -a 0x1234abcd... -k
@@ -148,29 +148,29 @@ rocketpool wallet test-recovery -a 0x1234abcd... -k
 
 :::
 
-The Smartnode will automatically search through the most popular derivation paths (e.g. the ones used by Ledger Live, MyEtherWallet, Trezor, and the Smartnode stack) and address indicies to find the settings that correspond to the address you provided.
+El Smartnode buscará automáticamente a través de las rutas de derivación más populares (por ejemplo, las utilizadas por Ledger Live, MyEtherWallet, Trezor y el stack de Smartnode) e índices de direcciones para encontrar las configuraciones que corresponden a la dirección que proporcionaste.
 
 ::: tip TIP
-If you have a custom derivation path, use the `-d` flag to specify it.
-For example:
+Si tienes una ruta de derivación personalizada, usa el indicador `-d` para especificarla.
+Por ejemplo:
 
 ```shell
 rocketpool wallet test-recovery -d "m/44'/60'/0'/%d"
 ```
 
-Use `%d` for the portion of the path that can be iterated to use different indicies.
+Usa `%d` para la porción de la ruta que puede iterarse para usar diferentes índices.
 
-If you have a custom address index, use the `-i` flag to specify it.
-For example, if your address was the 6th one on the standard derivation path, you could use:
+Si tienes un índice de dirección personalizado, usa el indicador `-i` para especificarlo.
+Por ejemplo, si tu dirección fue la sexta en la ruta de derivación estándar, podrías usar:
 
 ```shell
 rocketpool wallet test-recovery -i 5
 ```
 
-You can use both the `-d` and `-i` flags at the same time if you require.
+Puedes usar ambos indicadores `-d` y `-i` al mismo tiempo si lo necesitas.
 :::
 
-First, you'll be prompted for your address's mnemonic phrase:
+Primero, se te pedirá tu frase mnemónica de la dirección:
 
 ```
 Please enter the number of words in your mnemonic phrase (24 by default):
@@ -179,9 +179,9 @@ Please enter the number of words in your mnemonic phrase (24 by default):
 Enter Word Number 1 of your mnemonic:
 ```
 
-Enter it carefully, and the Smartnode will begin searching through all of the standard options to find it (unless you explicitly specified them using the `-d` and/or `-i` flags).
+Ingrésala con cuidado, y el Smartnode comenzará a buscar a través de todas las opciones estándar para encontrarla (a menos que las hayas especificado explícitamente usando los indicadores `-d` y/o `-i`).
 
-Next, if you have private keystore files to import from Step 1, you will be prompted for the passwords to each of those keystore files:
+A continuación, si tienes archivos de keystore privados para importar del Paso 1, se te pedirán las contraseñas de cada uno de esos archivos de keystore:
 
 ```
 It looks like you have some custom keystores for your minipool's validators.
@@ -190,10 +190,10 @@ You will be prompted for the passwords each one was encrypted with, so they can 
 Please enter the password that the keystore for <validator pubkey> was encrypted with:
 ```
 
-They will be organized by the **pubkey** list, **not the filenames**.
-Ensure you know which file corresponds to which validator pubkey so you enter the correct passwords.
+Estarán organizados por la lista de **pubkey**, **no por los nombres de archivo**.
+Asegúrate de saber qué archivo corresponde a qué pubkey de validador para que ingreses las contraseñas correctas.
 
-Once you've done this, the test recovery process will proceed and report back on whether it succeeded or failed:
+Una vez que hayas hecho esto, el proceso de recuperación de prueba continuará e informará sobre si tuvo éxito o falló:
 
 ```
 Searching for the derivation path and index for wallet 0x1234abcd...
@@ -206,28 +206,28 @@ Validator keys:
 <validator pubkey>
 ```
 
-The above indicates a successful test recovery.
+Lo anterior indica una recuperación de prueba exitosa.
 
-### Step 3: Import the Address
+### Paso 3: Importar la Dirección
 
-::: danger WARNING
-If your address is a Rocket Pool node that is _not_ managed by your own self-hosted Smartnode (e.g. hosted by an external service like **Allnodes**), **IT IS CRITICAL** that you coordinate with the service running your node **before you begin this import process** and inform them that you would like to migrate to your own self-hosted system.
+::: danger ADVERTENCIA
+Si tu dirección es un nodo de Rocket Pool que _no_ está administrado por tu propio Smartnode auto-alojado (por ejemplo, alojado por un servicio externo como **Allnodes**), **ES CRÍTICO** que coordines con el servicio que ejecuta tu nodo **antes de comenzar este proceso de importación** e informarles que te gustaría migrar a tu propio sistema auto-alojado.
 
-You **MUST CONFIRM** that they have shut down validation for your node and **will NEVER resume it**, and manually confirm that your validators are no longer attesting using a Blockchain explorer such as [https://beaconcha.in](https://beaconcha.in).
-You must confirm that each validator has missed **AT LEAST 2 ATTESTATIONS** to ensure you can safely migrate.
-Otherwise, you will both attest at the same time and **YOUR MINIPOOLS WILL BE SLASHED!**
+**DEBES CONFIRMAR** que han apagado la validación de tu nodo y **NUNCA la reanudarán**, y confirmar manualmente que tus validadores ya no están atestando usando un explorador de Blockchain como [https://beaconcha.in](https://beaconcha.in).
+Debes confirmar que cada validador ha perdido **AL MENOS 2 ATESTACIONES** para asegurarte de que puedes migrar de forma segura.
+De lo contrario, ambos atestarán al mismo tiempo y **¡TUS MINIPOOLS SERÁN PENALIZADOS!**
 
-The Smartnode will require you to confirm that you have done this before allowing you to proceed with the import process.
+El Smartnode requerirá que confirmes que has hecho esto antes de permitirte continuar con el proceso de importación.
 :::
 
-If the test recovery succeeded, or if you skipped it, you will next import the wallet and regenerate all of its associated key files.
-The process is exactly the same as the above, but use the `recover` command instead of the `test-recovery` command:
+Si la recuperación de prueba tuvo éxito, o si la omitiste, a continuación importarás la billetera y regenerarás todos sus archivos de clave asociados.
+El proceso es exactamente el mismo que el anterior, pero usa el comando `recover` en lugar del comando `test-recovery`:
 
 ```shell
 rocketpool wallet recover -a 0x1234abcd...
 ```
 
-When you run this command, you will first be prompted for a password to encrypt your imported node wallet with.
+Cuando ejecutes este comando, primero se te pedirá una contraseña para cifrar tu billetera de nodo importada.
 
 ```
 Please enter a password to secure your wallet with:
@@ -235,9 +235,9 @@ Please enter a password to secure your wallet with:
 Please confirm your password:
 ```
 
-After that, the mnemonic and custom validator keystore password prompts will proceed as they did before.
+Después de eso, las solicitudes de contraseña de keystore del validador personalizado y mnemónica procederán como lo hicieron antes.
 
-Once you've entered all of this information, the Smartnode will recover your address and (if not disabled) the custom validator keys for your minipools:
+Una vez que hayas ingresado toda esta información, el Smartnode recuperará tu dirección y (si no está deshabilitado) las claves de validador personalizadas para tus minipools:
 
 ```
 Searching for the derivation path and index for wallet 0x1234abcd...
@@ -250,27 +250,27 @@ Validator keys:
 <validator pubkey>
 ```
 
-Your address's private key will now be stored in the `data/wallet` file (e.g. `~/.rocketpool/data/wallet`), and the password for it will be stored in the `data/password` file (e.g. `~/.rocketpool/data/password`).
+La clave privada de tu dirección ahora se almacenará en el archivo `data/wallet` (por ejemplo, `~/.rocketpool/data/wallet`), y la contraseña para ella se almacenará en el archivo `data/password` (por ejemplo, `~/.rocketpool/data/password`).
 
-The private keys for each of your validators will be stored in the `data/validators` folders for each of the Consensus clients that the Smartnode supports.
+Las claves privadas de cada uno de tus validadores se almacenarán en las carpetas `data/validators` para cada uno de los clientes de Consenso que soporta el Smartnode.
 
-::: danger NOTE
-By importing an address in this fashion, the validator keys were **not** derived from your node wallet, and thus they **cannot** be recovered later by simply running `rocketpool wallet recover` as with a normal node wallet.
+::: danger NOTA
+Al importar una dirección de esta manera, las claves de validador **no** se derivaron de tu billetera de nodo, y por lo tanto **no pueden** recuperarse más tarde simplemente ejecutando `rocketpool wallet recover` como con una billetera de nodo normal.
 
-If you ever need to recover or import this wallet again, you will need to follow this same process which means **you will need to have these validator private keystores and their passwords backed up somewhere safe.**
+Si alguna vez necesitas recuperar o importar esta billetera nuevamente, necesitarás seguir este mismo proceso, lo que significa que **necesitarás tener estos keystores privados de validador y sus contraseñas respaldados en algún lugar seguro.**
 
-If you ever lose them, **you will no longer be able to recover these validator keys!**
+Si alguna vez los pierdes, **¡ya no podrás recuperar estas claves de validador!**
 :::
 
-### Step 4: Cleanup
+### Paso 4: Limpieza
 
-At this point, you can now delete all of the private keystore files in the `data/custom-keys` directory.
-The Smartnode will have imported them already and assigned randomized passwords to them, so those keystore files are no longer necessary.
+En este punto, ahora puedes eliminar todos los archivos de keystore privados en el directorio `data/custom-keys`.
+El Smartnode ya los habrá importado y les habrá asignado contraseñas aleatorizadas, por lo que esos archivos de keystore ya no son necesarios.
 
-Finally, ensure that there is **not** a file named `custom-key-passwords` in your `data` directory (e.g. `~/.rocketpool/data/custom-key-passwords`).
-The Smartnode will build this temporary file only during the recover process, and will remove it automatically regardless of whether or not the recovery process succeeded; if for any reason it failed to remove it, it will alert you in the console output.
-However, it never hurts to be too careful.
+Finalmente, asegúrate de que **no** haya un archivo llamado `custom-key-passwords` en tu directorio `data` (por ejemplo, `~/.rocketpool/data/custom-key-passwords`).
+El Smartnode construirá este archivo temporal solo durante el proceso de recuperación y lo eliminará automáticamente independientemente de si el proceso de recuperación tuvo éxito o no; si por alguna razón no logró eliminarlo, te alertará en la salida de la consola.
+Sin embargo, nunca está de más ser demasiado cuidadoso.
 
-## Next Steps
+## Próximos Pasos
 
-Once you've imported or recovered your node wallet, follow the next steps in the [Intro to the Command Line Interface](./cli-intro) guide.
+Una vez que hayas importado o recuperado tu billetera de nodo, sigue los siguientes pasos en la guía [Introducción a la Interfaz de Línea de Comandos](./cli-intro).

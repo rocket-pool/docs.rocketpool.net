@@ -2,51 +2,51 @@ import { Tab, Tabs } from "@rspress/core/theme";
 import mmNetwork from "./images/mm_network.png";
 import mmNetworkMain from "./images/mm_network_main.png";
 
-# Stake ETH on behalf of node
+# ETH im Namen eines Nodes staken
 
-RPIP-32 allows an account to [stake ETH on behalf](https://rpips.rocketpool.net/RPIPs/RPIP-32) of a Rocket Pool node that is registered in the protocol. This supports a variety of situations where the node operator is not directly providing the ETH:
+RPIP-32 erlaubt es einem Konto, [ETH im Namen](https://rpips.rocketpool.net/RPIPs/RPIP-32) eines Rocket Pool-Nodes zu staken, der im Protokoll registriert ist. Dies unterstützt eine Vielzahl von Situationen, in denen der Node-Operator das ETH nicht direkt bereitstellt:
 
-- Enhanced security for node operators, as they can stake directly from their hardware wallet, eliminating the need to transfer funds to the node beforehand.
-- Staking as a Service providers where custody of funds are managed by a trusted custodian.
-- Protocol integrations where custody of funds are managed by smart contracts.
-- DAOs or organizations where custody of funds are managed by a treasury.
+- Verbesserte Sicherheit für Node-Operatoren, da sie direkt von ihrem Hardware-Wallet staken können, ohne Mittel vorher zum Node übertragen zu müssen.
+- Staking-as-a-Service-Anbieter, bei denen das Sorgerecht für Mittel von einem vertrauenswürdigen Verwahrer verwaltet wird.
+- Protokollintegrationen, bei denen das Sorgerecht für Mittel von Smart Contracts verwaltet wird.
+- DAOs oder Organisationen, bei denen das Sorgerecht für Mittel von einer Treasury verwaltet wird.
 
-While the primary aim of this feature is to facilitate single depositor scenarios, it’s worth noting that multiple independent depositors can also leverage this capability by creating smart contracts layered on top. Rocket Pool also introduced the ability to [stake RPL on behalf](../../node-staking/create-validator#whitelisting-an-address-to-stake-on-behalf) of a node back in our previous Atlas release.
+Während das primäre Ziel dieser Funktion darin besteht, Einzeleinzahlungsszenarien zu erleichtern, ist es erwähnenswert, dass mehrere unabhängige Einzahler diese Fähigkeit auch nutzen können, indem sie Smart Contracts darüber legen. Rocket Pool führte auch die Möglichkeit ein, [RPL im Namen](../../node-staking/create-validator#whitelisting-an-address-to-stake-on-behalf) eines Nodes zu staken, bereits in unserem vorherigen Atlas-Release.
 
-### Prerequisite
+### Voraussetzung
 
-Make sure that you've properly configured the [primary withdrawal address](../../node-staking/prepare-node#setting-your-primary-withdrawal-address) of the node you intend on funding. Follow the link above for a guide on how withdrawal addresses act post houston.
+Stellen Sie sicher, dass Sie die [primäre Abhebungsadresse](../../node-staking/prepare-node#setting-your-primary-withdrawal-address) des Nodes, den Sie finanzieren möchten, ordnungsgemäß konfiguriert haben. Folgen Sie dem obigen Link für eine Anleitung, wie Abhebungsadressen nach Houston funktionieren.
 
-::: tip NOTE
-Don't skip this step! All ETH bond/rewards will be withdrawn to the primary withdrawal address. In other words, the address that supplies ETH for a node should be used as the primary withdrawal address! Please make sure that the node's primary withdrawal address is set to a wallet you have custody over.
+::: tip HINWEIS
+Überspringen Sie diesen Schritt nicht! Alle ETH-Bonds/Belohnungen werden an die primäre Abhebungsadresse abgehoben. Mit anderen Worten, die Adresse, die ETH für einen Node bereitstellt, sollte als primäre Abhebungsadresse verwendet werden! Bitte stellen Sie sicher, dass die primäre Abhebungsadresse des Nodes auf ein Wallet gesetzt ist, über das Sie die Kontrolle haben.
 :::
 
-The process is slightly different for the Hoodi Testnet and Mainnet, so choose the network you are interested in from the tabs below.
+Der Prozess ist für das Hoodi Testnet und Mainnet leicht unterschiedlich, wählen Sie also das Netzwerk aus, an dem Sie interessiert sind, aus den Tabs unten.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Preparing on the Hoodi Testnet">
+    <Tab label="Vorbereitung auf dem Hoodi Testnet">
 
       <p className="rspress-directive danger">
-        <p className="rspress-directive-title">WARNING</p>
-        When practicing staking on the test network, you **do not need to provide any of your real ETH** during this process.
-        You will be given **fake test ETH** to use instead.
+        <p className="rspress-directive-title">WARNUNG</p>
+        Beim Üben des Stakings im Testnetzwerk müssen Sie **keines Ihrer echten ETH** während dieses Prozesses bereitstellen.
+        Sie erhalten stattdessen **gefälschtes Test-ETH**.
 
-        **Do not attempt to move your real ETH on mainnet to the testnet or you will lose it permanently!**
+        **Versuchen Sie nicht, Ihr echtes ETH auf Mainnet zum Testnet zu verschieben, oder Sie werden es dauerhaft verlieren!**
       </p>
 
-      Start by installing [MetaMask](https://metamask.io/) if you haven't already.
-      Follow the instructions on their site to install the extension, create an account, and sign in.
+      Installieren Sie zunächst [MetaMask](https://metamask.io/), falls Sie dies noch nicht getan haben.
+      Befolgen Sie die Anweisungen auf ihrer Website, um die Erweiterung zu installieren, ein Konto zu erstellen und sich anzumelden.
 
-      Next, open the MetaMask panel using its icon in your browser toolbar.
+      Öffnen Sie als Nächstes das MetaMask-Panel über sein Symbol in Ihrer Browser-Symbolleiste.
 
-      You will need to add the Hoodi Testnet to MetaMask.
+      Sie müssen das Hoodi Testnet zu MetaMask hinzufügen.
 
-      Click on the top left dropdown & click the "Add Network" button.
+      Klicken Sie auf die obere linke Dropdown-Liste und klicken Sie auf die Schaltfläche "Add Network".
 
-      You will see a list of networks, Hoodi is not in this list so click the "Add a network manually" button.
+      Sie sehen eine Liste von Netzwerken, Hoodi ist nicht in dieser Liste, also klicken Sie auf die Schaltfläche "Add a network manually".
 
-      Fill in the following details:
+      Füllen Sie die folgenden Details aus:
 
       ```
       Network Name: Hoodi
@@ -56,98 +56,98 @@ The process is slightly different for the Hoodi Testnet and Mainnet, so choose t
       Block Explorer Url: https://hoodi.etherscan.io
       ```
 
-      Then click Save. You should now see the Hoodi network in the top left dropdown.
+      Klicken Sie dann auf Save. Sie sollten jetzt das Hoodi-Netzwerk in der oberen linken Dropdown-Liste sehen.
 
-      Click on the **network dropdown** in the top left of the Metamask extension & select **Hoodi Test Network**:
+      Klicken Sie auf die **Netzwerk-Dropdown-Liste** oben links in der Metamask-Erweiterung und wählen Sie **Hoodi Test Network**:
 
       <img src={mmNetwork} width="100%" height="auto"/>
 
-      Now that you have a wallet address in MetaMask, you need to fill it with some test ETH.
-      Head over to the [Practicing with the Test Network](../../node-staking/testnet/overview#getting-test-eth-on-hoodi) page for a quick guide on how to use a testnet faucet to get some test ETH on Hoodi.
+      Jetzt, da Sie eine Wallet-Adresse in MetaMask haben, müssen Sie sie mit etwas Test-ETH füllen.
+      Gehen Sie zur Seite [Üben mit dem Testnetzwerk](../../node-staking/testnet/overview#getting-test-eth-on-hoodi) für eine kurze Anleitung zur Verwendung eines Testnet-Faucets, um etwas Test-ETH auf Hoodi zu erhalten.
 
-      Once you have some Hoodi ETH to test with, head to [https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node](https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node).
+      Sobald Sie etwas Hoodi-ETH zum Testen haben, gehen Sie zu [https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node](https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node).
 
-      If you see a notice about a web3 browser being required, or the current network ID being unsupported, make sure you’ve completed the previous steps correctly before continuing.
+      Wenn Sie eine Benachrichtigung über einen erforderlichen web3-Browser oder eine nicht unterstützte aktuelle Netzwerk-ID sehen, stellen Sie sicher, dass Sie die vorherigen Schritte korrekt abgeschlossen haben, bevor Sie fortfahren.
     </Tab>
-    <Tab label="Preparing on the Ethereum Mainnet">
-      Start by installing [MetaMask](https://metamask.io/) if you haven't already.
+    <Tab label="Vorbereitung auf dem Ethereum Mainnet">
+      Installieren Sie zunächst [MetaMask](https://metamask.io/), falls Sie dies noch nicht getan haben.
 
-      Follow the instructions on their site to install the extension, create an account, and sign in.
+      Befolgen Sie die Anweisungen auf ihrer Website, um die Erweiterung zu installieren, ein Konto zu erstellen und sich anzumelden.
 
-      Next, open the MetaMask panel using its icon in your browser toolbar.
+      Öffnen Sie als Nächstes das MetaMask-Panel über sein Symbol in Ihrer Browser-Symbolleiste.
 
-      Click on the **network dropdown** in the toolbar at the top and ensure that **Ethereum Mainnet** is selected:
+      Klicken Sie auf die **Netzwerk-Dropdown-Liste** in der Symbolleiste oben und stellen Sie sicher, dass **Ethereum Mainnet** ausgewählt ist:
 
       <img src={mmNetworkMain} width="100%" height="auto"/>
 
-      Now that you have a wallet address in MetaMask, you need to transfer some ETH into it.
+      Jetzt, da Sie eine Wallet-Adresse in MetaMask haben, müssen Sie etwas ETH hinein übertragen.
 
-      You will need to supply this from an existing wallet or buy ETH on an exchange.
+      Sie müssen dies von einem vorhandenen Wallet bereitstellen oder ETH auf einer Börse kaufen.
 
-      Once you have some ETH to stake, head to [https://node.rocketpool.net/deposit-eth-on-behalf-of-node](https://node.rocketpool.net/deposit-eth-on-behalf-of-node).
+      Sobald Sie etwas ETH zum Staken haben, gehen Sie zu [https://node.rocketpool.net/deposit-eth-on-behalf-of-node](https://node.rocketpool.net/deposit-eth-on-behalf-of-node).
 
-      If you see a notice about a web3 browser being required, or the current network ID being unsupported, make sure you’ve completed the previous steps correctly before continuing.
+      Wenn Sie eine Benachrichtigung über einen erforderlichen web3-Browser oder eine nicht unterstützte aktuelle Netzwerk-ID sehen, stellen Sie sicher, dass Sie die vorherigen Schritte korrekt abgeschlossen haben, bevor Sie fortfahren.
     </Tab>
 
   </Tabs>
 </div>
 
-Once you're at the site, click on the **connect wallet** button. Please read through and accept the Terms of Service & Privacy Policy, this will enable different ways to connect, then click **connect metamask**.
+Sobald Sie auf der Website sind, klicken Sie auf die Schaltfläche **connect wallet**. Bitte lesen Sie die Terms of Service & Privacy Policy durch und akzeptieren Sie sie, dies ermöglicht verschiedene Möglichkeiten zur Verbindung, klicken Sie dann auf **connect metamask**.
 
-MetaMask will prompt you to select an account to connect to the website.
-Choose one, confirm a few permissions. You'll see an overview of your balances by clicking the wallet icon located at the top right of the window.
+MetaMask fordert Sie auf, ein Konto auszuwählen, um sich mit der Website zu verbinden.
+Wählen Sie eines aus, bestätigen Sie einige Berechtigungen. Sie sehen eine Übersicht Ihrer Guthaben, indem Sie auf das Wallet-Symbol oben rechts im Fenster klicken.
 
-From here, you'll want to enter the address of the node you'd like to deposit ETH on behalf of. The page should look like this:
+Von hier aus möchten Sie die Adresse des Nodes eingeben, für den Sie ETH im Namen hinterlegen möchten. Die Seite sollte so aussehen:
 
 <img src="./images/enter_node_address.png" width="100%" height="auto" />
 
-Go ahead and paste your desired address into this box and click find. In this example, we'll use `0xd3e317806456102d19db283b4c2201f0ef41a296`
+Fügen Sie Ihre gewünschte Adresse in dieses Feld ein und klicken Sie auf Find. In diesem Beispiel verwenden wir `0xd3e317806456102d19db283b4c2201f0ef41a296`
 
 <img src="./images/eth_on_behalf.png" width="100%" height="auto" />
 
-In the first box, enter the amount of ETH you would like to deposit on behalf of the node. The second box indicates which address you'll be depositing ETH on behalf of. Please ensure that you've entered the correct address and deposit. Once you're satisfied, click Deposit and MetaMask will pop up with a window asking you to confirm your transaction.
+Geben Sie im ersten Feld die Menge an ETH ein, die Sie im Namen des Nodes hinterlegen möchten. Das zweite Feld zeigt an, für welche Adresse Sie ETH im Namen hinterlegen. Bitte stellen Sie sicher, dass Sie die richtige Adresse und Einzahlung eingegeben haben. Sobald Sie zufrieden sind, klicken Sie auf Deposit und MetaMask öffnet ein Fenster, das Sie auffordert, Ihre Transaktion zu bestätigen.
 
-Once you confirm it, the transaction will begin.
-When it's been included in a block and added to the chain, your delegate will be able to use the command `rocketpool node status` in smartnode to see the new balance. This balance can also be viewed through the Rocket Pool staking site.
+Sobald Sie sie bestätigen, beginnt die Transaktion.
+Wenn sie in einen Block aufgenommen und der Chain hinzugefügt wurde, kann Ihr Delegat den Befehl `rocketpool node status` im Smartnode verwenden, um das neue Guthaben zu sehen. Dieses Guthaben kann auch über die Rocket Pool-Staking-Website angezeigt werden.
 
 ```
 The node has 0.000000 ETH in its credit balance and 8.000000 ETH staked on its behalf. 8.000000 can be used to make new minipools.
 ```
 
-::: warning NOTE
-If a node operator deposits your ETH into a minipool, you won't be able to exit their minipool without access to their withdrawal credentials, so keep this in mind! You can use the Rocket Pool staking site to withdraw ETH staked on behalf of a node if it isn't being used in a minipool.
+::: warning HINWEIS
+Wenn ein Node-Operator Ihr ETH in einen Minipool einzahlt, können Sie deren Minipool ohne Zugriff auf ihre Abhebungsdaten nicht beenden, also beachten Sie dies! Sie können die Rocket Pool-Staking-Website verwenden, um ETH, das im Namen eines Nodes gestakt wurde, abzuheben, wenn es nicht in einem Minipool verwendet wird.
 :::
 
-That's it!
-You're now staking with Rocket Pool.
+Das war's!
+Sie staken jetzt mit Rocket Pool.
 
-# Unstake ETH on behalf of node
+# ETH im Namen eines Nodes unstaken
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Preparing on the Hoodi Testnet">
-      When you're ready to withdraw ETH you've staked on behalf of a node, head over to [https://testnet.node.rocketpool.net/withdraw-eth](https://testnet.node.rocketpool.net/withdraw-eth). After
-      signing in as the node's [primary withdrawal address](../../node-staking/prepare-node#setting-your-primary-withdrawal-address), you should be greeted with a familiar menu. You'll be prompted to
-      enter the node address you want to withdraw from:
+    <Tab label="Vorbereitung auf dem Hoodi Testnet">
+      Wenn Sie bereit sind, ETH abzuheben, das Sie im Namen eines Nodes gestakt haben, gehen Sie zu [https://testnet.node.rocketpool.net/withdraw-eth](https://testnet.node.rocketpool.net/withdraw-eth). Nach
+      der Anmeldung als [primäre Abhebungsadresse](../../node-staking/prepare-node#setting-your-primary-withdrawal-address) des Nodes sollten Sie mit einem vertrauten Menü begrüßt werden. Sie werden aufgefordert,
+      die Node-Adresse einzugeben, von der Sie abheben möchten:
     </Tab>
-    <Tab label="Preparing on the Ethereum Mainnet">
-      When you're ready to withdraw ETH you've staked on behalf of a node, head over to [https://node.rocketpool.net/withdraw-eth](https://node.rocketpool.net/withdraw-eth). After signing in as the
-      node's [primary withdrawal address](../../node-staking/prepare-node#setting-your-primary-withdrawal-address), you should be greeted with a familiar menu. You'll be prompted to enter the node
-      address you want to withdraw from:
+    <Tab label="Vorbereitung auf dem Ethereum Mainnet">
+      Wenn Sie bereit sind, ETH abzuheben, das Sie im Namen eines Nodes gestakt haben, gehen Sie zu [https://node.rocketpool.net/withdraw-eth](https://node.rocketpool.net/withdraw-eth). Nach der Anmeldung als
+      [primäre Abhebungsadresse](../../node-staking/prepare-node#setting-your-primary-withdrawal-address) des Nodes sollten Sie mit einem vertrauten Menü begrüßt werden. Sie werden aufgefordert, die Node-Adresse
+      einzugeben, von der Sie abheben möchten:
     </Tab>
   </Tabs>
 </div>
 
 <img src="./images/enter_node_address.png" width="100%" height="auto" />
 
-After entering an address, clicking "Find" will take you to the next menu where you can withdraw ETH you've staked on behalf of that node.
+Nach Eingabe einer Adresse bringt Sie das Klicken auf "Find" zum nächsten Menü, wo Sie ETH abheben können, das Sie im Namen dieses Nodes gestakt haben.
 
 <img src="./images/withdraw_eth_on_behalf.png" width="100%" height="auto" />
 
-You'll be able to see how much ETH is available for withdrawal in the top right. After you input your desired quantity and confirm the node address, click the orange **Withdraw ETH** button to send the transaction to the network.
+Sie können oben rechts sehen, wie viel ETH zur Abhebung verfügbar ist. Nachdem Sie Ihre gewünschte Menge eingegeben und die Node-Adresse bestätigt haben, klicken Sie auf die orangefarbene Schaltfläche **Withdraw ETH**, um die Transaktion an das Netzwerk zu senden.
 
-Once the transaction is confirmed, you'll see the proper balances in your account!
+Sobald die Transaktion bestätigt ist, sehen Sie die richtigen Guthaben in Ihrem Konto!
 
-That's all there is to staking ETH on behalf of a node! We hope you found the process quick and easy.
+Das ist alles zum Staken von ETH im Namen eines Nodes! Wir hoffen, Sie fanden den Prozess schnell und einfach.
 
-Feel free to swing by [our Discord server](https://discord.gg/G46XgK264a) to let us know what you thought of it and keep tabs on the project as it evolves.
+Schauen Sie gerne in [unserem Discord-Server](https://discord.gg/G46XgK264a) vorbei, um uns mitzuteilen, was Sie davon halten, und verfolgen Sie das Projekt, während es sich entwickelt.

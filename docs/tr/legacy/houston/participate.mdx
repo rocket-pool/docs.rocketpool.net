@@ -1,166 +1,131 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Participating in on-chain pDAO Proposals
+# Zincir Üzerinde pDAO Tekliflerine Katılma
 
-Any node with a non-zero voting power may raise or participate in a pDAO proposal at any time. Proposals can be one of
-the following types:
+Sıfır olmayan oy gücüne sahip herhangi bir node, herhangi bir zamanda bir pDAO teklifi oluşturabilir veya katılabilir. Teklifler aşağıdaki türlerden biri olabilir:
 
-- Changing pDAO settings
-- One-time treasury spends
-- Repeat treasury spends (management committees)
-- Security council membership
+- pDAO ayarlarını değiştirme
+- Tek seferlik hazine harcamaları
+- Tekrarlayan hazine harcamaları (yönetim komiteleri)
+- Güvenlik konseyi üyeliği
 
-For greater detail and rationale, refer to [proposal types](https://rpips.rocketpool.net/RPIPs/RPIP-33#proposal-types).
-It's important to understand that a pDAO proposal is an on-chain entity that exists to execute changes at the protocol
-level.
+Daha fazla ayrıntı ve gerekçe için [teklif türlerine](https://rpips.rocketpool.net/RPIPs/RPIP-33#proposal-types) bakın.
+Bir pDAO teklifinin protokol seviyesinde değişiklikler yürütmek için var olan zincir üzerinde bir varlık olduğunu anlamak önemlidir.
 
-## Governance Process
+## Yönetişim Süreci
 
-A proposal should be forecasted by the governance process before it ends up on-chain.
+Bir teklif, zincir üzerinde sona ermeden önce yönetişim süreci tarafından tahmin edilmelidir.
 
-Changes to the Rocket Pool protocol and proposed, voted, and executed using a strict, yet transparent governance
-process. The process begins with an informal discussion of an idea within the Discord community. This idea then
-progresses to formal discussions in
-the [#governance](https://discordapp.com/channels/405159462932971535/774497904559783947) channel on Discord and
-the [DAO Forum](https://dao.rocketpool.net/), where it undergoes thorough research, modeling, and scrutiny in
-preparation for a [Rocket Pool Improvement Proposal (RPIP)](https://rpips.rocketpool.net/). Following this, a draft RPIP
-is prepared and reviewed by designated RPIP reviewers to ensure its quality and readiness for presentation to the DAO.
-The draft proposal is then presented to the DAO on the forum for further review, feedback, and incorporation of any
-necessary changes. Once the proposal has been refined based on community input, a poll is raised on the DAO forum to
-gauge readiness for finalizing the RPIP text. If the poll passes, indicating community approval, the RPIP is marked
-final and ready for a Protocol DAO vote, which is conducted via Snapshot to determine whether the proposal should be
-implemented.
+Rocket Pool protokolündeki değişiklikler, katı ama şeffaf bir yönetişim süreci kullanılarak önerilir, oylanır ve yürütülür. Süreç, Discord topluluğu içinde bir fikrin gayri resmi tartışılmasıyla başlar. Bu fikir daha sonra
+Discord'daki [#governance](https://discordapp.com/channels/405159462932971535/774497904559783947) kanalında ve
+[DAO Forumu](https://dao.rocketpool.net/)'nda resmi tartışmalara ilerler, burada [Rocket Pool İyileştirme Teklifi (RPIP)](https://rpips.rocketpool.net/) hazırlığında kapsamlı araştırma, modelleme ve incelemeye tabi tutulur. Bunu takiben, bir taslak RPIP
+hazırlanır ve DAO'ya sunmak için kalitesini ve hazırlığını sağlamak için belirlenmiş RPIP gözden geçiricileri tarafından incelenir.
+Taslak teklif daha sonra daha fazla inceleme, geri bildirim ve gerekli değişikliklerin dahil edilmesi için forumda DAO'ya sunulur. Teklif topluluk girdilerine dayalı olarak rafine edildikten sonra, RPIP metnini sonlandırmaya hazır olup olmadığını ölçmek için DAO forumunda bir anket oluşturulur. Anket geçerse, topluluk onayını belirtir, RPIP kesinleşmiş olarak işaretlenir ve teklifin uygulanıp uygulanmayacağını belirlemek için Snapshot üzerinden yapılan bir Protokol DAO oylamasına hazır hale gelir.
 
-From here, the Oracle DAO will raise an on-chain proposal. There is a window in which the Protocol DAO, Oracle DAO and
-community can review the proposal. If consensus is reached, the proposal is executed and changes are applied to the
-protocol.
+Buradan, Oracle DAO zincir üzerinde bir teklif oluşturacaktır. Protokol DAO, Oracle DAO ve topluluğun teklifi inceleyebileceği bir pencere vardır. Konsensüs sağlanırsa, teklif yürütülür ve değişiklikler protokole uygulanır.
 
-A handy dandy visual representation of this process can be found on
-the [Rocket Pool website](https://rocketpool.net/governance/process).
+Bu sürecin kullanışlı bir görsel temsili
+[Rocket Pool web sitesinde](https://rocketpool.net/governance/process) bulunabilir.
 
-## Prerequisite
+## Ön Koşul
 
-Please read the [lifecycle of a proposal](../houston/pdao#lifecycle-of-a-pdao-proposal) before proceeding. It'll explain
-the differences between all the voting periods and the actions that can be taken during each period.
+Devam etmeden önce lütfen [bir teklifin yaşam döngüsünü](/tr/legacy/houston/pdao#lifecycle-of-a-pdao-proposal) okuyun. Bu, tüm oylama dönemleri arasındaki farkları ve her dönem boyunca alınabilecek eylemleri açıklayacaktır.
 
-The rest of this page will walk you through the steps required for participating in on-chain pDAO proposals.
+Bu sayfanın geri kalanı, zincir üzerinde pDAO tekliflerine katılmak için gereken adımları size anlatacaktır.
 
-## Initializing Voting
+## Oylamayı Başlatma
 
-If you are a node operator who registered before the Houston upgrade, you need to initialize voting to unlock voting
-power. Keep in mind that having at least one minipool is a requirement for having voting power.
+Houston yükseltmesinden önce kaydolan bir node operatörüyseniz, oy gücünüzün kilidini açmak için oylamayı başlatmanız gerekir. En az bir minipool'a sahip olmanın oy gücüne sahip olmak için bir gereklilik olduğunu unutmayın.
 
 ```shell
 rocketpool pdao initialize-voting
 ```
 
-This command will raise the prompt below. Please read it carefully:
+Bu komut aşağıdaki istemi açacaktır. Lütfen dikkatlice okuyun:
 
 ```
-Thanks for initializing your voting power!
+Oy gücünüzü başlattığınız için teşekkürler!
 
-You have two options:
+İki seçeneğiniz var:
 
-1. Vote directly (delegate vote power to yourself)
-   This will allow you to vote on proposals directly,
-   allowing you to personally shape the direction of the protocol.
+1. Doğrudan oy kullanın (oy gücünü kendinize devredin)
+   Bu, teklifler üzerinde doğrudan oy kullanmanıza izin verir,
+   protokolün yönünü kişisel olarak şekillendirmenizi sağlar.
 
-2. Delegate your vote
-   This will delegate your vote power to someone you trust,
-   giving them the power to vote on your behalf. You will have the option to override.
+2. Oyunuzu devredin
+   Bu, oy gücünüzü güvendiğiniz birine devredecektir,
+   onlara sizin adınıza oy kullanma yetkisi verir. Geçersiz kılma seçeneğiniz olacaktır.
 
-You can see a list of existing public delegates at https://delegates.rocketpool.net,
-however, you can delegate to any node address.
+Mevcut genel temsilcilerin listesini https://delegates.rocketpool.net adresinde görebilirsiniz,
+ancak herhangi bir node adresine devredebilirsiniz.
 
-Learn more about how this all works via: /en/legacy/houston/participate#participating-in-on-chain-pdao-proposals
+Bunların nasıl çalıştığı hakkında daha fazla bilgi edinin: /tr/legacy/houston/participate#participating-in-on-chain-pdao-proposals
 
-Please type `direct` or `delegate` to continue:
+Devam etmek için lütfen `direct` veya `delegate` yazın:
 ```
 
-- If you respond with `direct`, voting power will be initialized to your node and you'll be able to vote directly on
-  Protocol DAO proposals.
-- If you respond with `delegate`, you'll have the opportunity to save a bit of gas by initializing voting
-  and [setting a delegate](../houston/participate#delegating-voting-power) within the same transaction.
+- `direct` ile yanıt verirseniz, oy gücü node'unuza başlatılacak ve Protokol DAO teklifleri üzerinde doğrudan oy kullanabileceksiniz.
+- `delegate` ile yanıt verirseniz, oylamayı başlatarak ve aynı işlem içinde [bir temsilci belirleyerek](../houston/participate#delegating-voting-power) biraz gas tasarrufu yapma fırsatına sahip olacaksınız.
 
-You only need to do this once. It configures the initial snapshot information for a node. After you initialize voting,
-every action taken will update your node's snapshot information. Once your voting power is initialized, you can check
-how much you have using the following smartnode command:
+Bunu yalnızca bir kez yapmanız gerekir. Bu, bir node için ilk snapshot bilgilerini yapılandırır. Oylamayı başlattıktan sonra, alınan her eylem node'unuzun snapshot bilgilerini güncelleyecektir. Oy gücünüz başlatıldıktan sonra, aşağıdaki smartnode komutunu kullanarak ne kadar olduğunu kontrol edebilirsiniz:
 
 ```shell
 rocketpool pdao status
 ```
 
-:::tip NOTE
-Whenever a new proposal is created, a voting tree representing a snapshot of the network's voting power and delegate info
-is created in conjunction with the new proposal. This means your node's voting power won't be included in a proposal if
-it was raised before you initialized voting. `rocketpool pdao status` will display your node's voting power at the
-latest block, which may or may not be representative of your voting power on a particular proposal.
+:::tip NOT
+Yeni bir teklif oluşturulduğunda, ağın oy gücü ve temsilci bilgilerinin bir anlık görüntüsünü temsil eden bir oylama ağacı yeni teklifle birlikte oluşturulur. Bu, oylamayı başlatmadan önce oluşturulmuşsa, node'unuzun oy gücünün bir teklife dahil edilmeyeceği anlamına gelir. `rocketpool pdao status`, node'unuzun en son bloktaki oy gücünü görüntüleyecektir, bu belirli bir teklifteki oy gücünüzü temsil edebilir veya etmeyebilir.
 :::
 
-## Auto Initialize Vote Power
+## Oy Gücünü Otomatik Başlatma
 
-Smartnode version `1.13.8` introduces a new feature **Auto Initialize Vote Power**, which is designed to automatically
-initialize voting power on nodes who have not yet done so. Automatically initialized voting power is self-delegated.
-This feature can be configured in the Smartnode settings by running `rocketpool service config` and navigating to the \*
-\*Smartnode and TX Fees\*\* section.
+Smartnode sürüm `1.13.8`, henüz yapmamış olan node'larda oy gücünü otomatik olarak başlatmak için tasarlanmış yeni bir özellik **Oy Gücünü Otomatik Başlatma**'yı tanıtıyor. Otomatik olarak başlatılan oy gücü kendi kendine devredilir.
+Bu özellik, `rocketpool service config` komutunu çalıştırarak ve \*\*Smartnode ve TX Ücretleri\*\* bölümüne giderek Smartnode ayarlarında yapılandırılabilir.
 
 <img src="./images/auto_init_vp.png" width="100%" height="auto" />
 
-The **Auto-Init Vote Power Gas Threshold** is a limit (in gwei) on this automatic transaction. You can opt out of this
-task by setting the threshold to 0. Feel free to opt out if your node was registered after the Houston upgrade or if
-voting power is already enabled.
+**Otomatik Başlatma Oy Gücü Gas Eşiği**, bu otomatik işlem için bir sınırdır (gwei cinsinden). Eşiği 0'a ayarlayarak bu görevden vazgeçebilirsiniz. Node'unuz Houston yükseltmesinden sonra kaydedildiyse veya oy gücü zaten etkinleştirildiyse vazgeçmekten çekinmeyin.
 
-## Setting your Snapshot Signalling Address
+## Snapshot Sinyal Adresinizi Ayarlama
 
-Setting your Snapshot signalling address will allow you to participate in Snapshot votes on a browser or mobile device
-without having to expose node keys to a hot wallet.
+Snapshot sinyal adresinizi ayarlamak, node anahtarlarını sıcak bir cüzdana maruz bırakmak zorunda kalmadan bir tarayıcı veya mobil cihazda Snapshot oylamalarına katılmanıza olanak tanır.
 
-There are a few things to prepare:
+Hazırlanması gereken birkaç şey var:
 
-- Your node's address
-- An address you want to use for snapshot voting (signalling address)
+- Node'unuzun adresi
+- Snapshot oylaması için kullanmak istediğiniz bir adres (sinyal adresi)
 
-You'll be signing a message saying that your node's address can delegate to the new address. This message states your
-intent to use your wallet address as a Snapshot signalling address.
+Node'unuzun adresinin yeni adrese devredebileceğini söyleyen bir mesaj imzalayacaksınız. Bu mesaj, cüzdan adresinizi bir Snapshot sinyal adresi olarak kullanma niyetinizi belirtir.
 
-Select which network you're using from one of the tabs below.
+Aşağıdaki sekmelerden birinden hangi ağı kullandığınızı seçin.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Hoodi Testnet">If you're trying this out on Hoodi testnet, you can sign on this page: https://testnet.node.rocketpool.net/signalling-address</Tab>
-    <Tab label="Mainnet">If you're ready to configure this on mainnet, go here instead: https://node.rocketpool.net/signalling-address</Tab>
+    <Tab label="Hoodi Testnet">Bunu Hoodi testnet'te deniyorsanız, bu sayfada imzalayabilirsiniz: https://testnet.node.rocketpool.net/signalling-address</Tab>
+    <Tab label="Mainnet">Bunu mainnet'te yapılandırmaya hazırsanız, buraya gidin: https://node.rocketpool.net/signalling-address</Tab>
   </Tabs>
 </div>
 
-:::danger WARNING
-Do not load your node's private key onto a hot wallet. Please choose another account to be your signalling address.
-After setting the signalling address, you can use it to vote on Snapshot with your node's voting power.
+:::danger UYARI
+Node'unuzun özel anahtarını sıcak bir cüzdana yüklemeyin. Lütfen sinyal adresiniz olmak üzere başka bir hesap seçin.
+Sinyal adresini ayarladıktan sonra, node'unuzun oy gücüyle Snapshot'ta oy kullanmak için kullanabilirsiniz.
 :::
 
-Start by **connecting the address you want to use as a signalling address** to the website using MetaMask,
-WalletConnect, or any of the other methods the website supports. You will then be presented with this dialog to look up
-your node address.
+MetaMask, WalletConnect veya web sitesinin desteklediği diğer yöntemlerden herhangi birini kullanarak **sinyal adresi olarak kullanmak istediğiniz adresi bağlayarak** başlayın. Daha sonra node adresinizi aramak için bu diyalog ile karşılaşacaksınız.
 
-Next, you'll enter your node address then click the orange "Find" button. This will check if the address is a registered
-node and then bring you to the next step.
+Ardından, node adresinizi girecek ve ardından turuncu "Find" düğmesine tıklayacaksınız. Bu, adresin kayıtlı bir node olup olmadığını kontrol edecek ve ardından sizi bir sonraki adıma getirecektir.
 
-:::tip TIP
-**Make sure you have the correct node address before doing this!** if you need to confirm your node's address, you can
-quickly retrieve it via the CLI using the `rocketpool node status` command.
+:::tip İPUCU
+**Bunu yapmadan önce doğru node adresine sahip olduğunuzdan emin olun!** Node'unuzun adresini onaylamanız gerekiyorsa, `rocketpool node status` komutunu kullanarak CLI aracılığıyla hızlıca alabilirsiniz.
 :::
 
-Once you've signed in and confirmed your node address, you'll see your **Snapshot signalling address**. It should be the
-same as the account you've signed into the site with. Double check that this is correct before proceeding. Once you're
-confident that you're signed into the desired account, click the orange "Sign Message" button. You'll see a prompt in
-your wallet extension app to sign the following message:
+Oturum açtıktan ve node adresinizi onayladıktan sonra, **Snapshot sinyal adresinizi** göreceksiniz. Siteye oturum açtığınız hesapla aynı olmalıdır. Devam etmeden önce bunun doğru olduğunu iki kez kontrol edin. İstediğiniz hesaba oturum açtığınızdan emin olduğunuzda, turuncu "Sign Message" düğmesine tıklayın. Cüzdan uzantı uygulamanızda aşağıdaki mesajı imzalamanız için bir istem göreceksiniz:
 
 ```
-`snapshot signalling address` may delegate to me for Rocket Pool governance
+`snapshot signalling address` Rocket Pool yönetişimi için bana devredebilir
 ```
 
-Signing won't cost you any gas but setting will. After you sign, the frontend will give you a command to paste into the
-smartnode. Go ahead and paste it into your smartnode's CLI and follow the prompted steps. The command should look
-something like this:
+İmzalama size gas maliyeti getirmeyecek ancak ayarlama getirecektir. İmzaladıktan sonra, ön yüz size smartnode'a yapıştırmanız için bir komut verecektir. Devam edin ve smartnode'unuzun CLI'sine yapıştırın ve istenen adımları izleyin. Komut şuna benzer bir şey görünmelidir:
 
 ```shell
 rocketpool pdao set-signalling-address
@@ -168,456 +133,400 @@ rocketpool pdao set-signalling-address
 `EIP712 signature`
 ```
 
-If you see this message in your CLI, you're all set!
+CLI'nizde bu mesajı görüyorsanız, her şey tamam!
 
 ```
-The node's signalling address was successfully set to `snapshot signalling address`
+Node'un sinyal adresi başarıyla `snapshot signalling address` olarak ayarlandı
 ```
 
-:::tip TIP
-Don't worry if you accidentally close the site or lose track of the command. You can simply repeat the steps and **sign
-again using the same node address and signalling address**. The frontend uses `signer.Signmessage()` from the ethers
-library, which means your signature is deterministic given the same input.
-Click [here](https://docs.ethers.org/v6/api/providers/#cid_865) to learn more.
+:::tip İPUCU
+Siteyi yanlışlıkla kapatırsanız veya komutu takip etmeyi kaybederseniz endişelenmeyin. Adımları tekrarlayabilir ve **aynı node adresi ve sinyal adresini kullanarak tekrar imzalayabilirsiniz**. Ön yüz, ethers kitaplığından `signer.Signmessage()` kullanır, bu da imzanızın aynı girdiyle deterministik olduğu anlamına gelir.
+Daha fazla bilgi edinmek için [buraya](https://docs.ethers.org/v6/api/providers/#cid_865) tıklayın.
 :::
 
-Clearing your signalling address is pretty easy, just use this command in the CLI:
+Sinyal adresinizi temizlemek oldukça kolaydır, CLI'de bu komutu kullanmanız yeterlidir:
 
 ```shell
 rocketpool pdao clear-signalling-address
 ```
 
-## Allowing RPL Locking
+## RPL Kilitlenmesine İzin Verme
 
-You may ignore this step if you are only interested in voting on a proposal. Allowing RPL locking is only required for
-those who wish to propose or challenge a proposal.
+Yalnızca bir teklif üzerinde oy kullanmakla ilgileniyorsanız bu adımı yok sayabilirsiniz. RPL kilitlenmesine izin vermek yalnızca teklif vermek veya bir teklife itiraz etmek isteyenler için gereklidir.
 
-RPL locking is required for proposing and challenging. By default, locking RPL for any purpose, will be disabled. Node
-operator's will opt-in to performing governance activities by enabling the locking of RPL from their node or primary
-withdrawal address. You can do so using this command in the Smartnode:
+Teklif verme ve itiraz etme için RPL kilitlenmesi gereklidir. Varsayılan olarak, herhangi bir amaçla RPL'yi kilitlemek devre dışı bırakılacaktır. Node operatörü, node'undan veya birincil çekim adresinden RPL'nin kilitlenmesini etkinleştirerek yönetişim faaliyetlerini gerçekleştirmeyi seçecektir. Smartnode'da bu komutu kullanarak bunu yapabilirsiniz:
 
 ```shell
 rocketpool node allow-rpl-locking
 ```
 
-This will prompt you to allow the locking of RPL when creating or challenging governance proposals. Conversely you can
-use the following command to opt-out of RPL locking:
+Bu, yönetişim teklifleri oluştururken veya bunlara itiraz ederken RPL'nin kilitlenmesine izin vermenizi isteyecektir. Tersine, RPL kilitlemesinden vazgeçmek için aşağıdaki komutu kullanabilirsiniz:
 
 ```shell
 rocketpool node deny-rpl-locking
 ```
 
-::: tip NOTE
-Locked RPL acts the same way as regular staked RPL for the purposes of rewards, voting, and collateral requirements.
-Locked RPL is not counted towards thresholds for withdrawing RPL.
+::: tip NOT
+Kilitli RPL, ödüller, oylama ve teminat gereksinimleri amacıyla normal stake edilmiş RPL ile aynı şekilde davranır.
+Kilitli RPL, RPL çekmek için eşiklere sayılmaz.
 :::
 
-## Delegating Voting Power
+## Oy Gücünü Devretme
 
-A node operator can elect to delegate their voting power to another node operator. The only requirement is that your
-delegate is a registered node.
+Bir node operatörü oy gücünü başka bir node operatörüne devretmeyi seçebilir. Tek gereksinim, temsilcinizin kayıtlı bir node olmasıdır.
 
-To delegate on-chain voting power to another node, use the following command:
+Zincir üzerinde oy gücünü başka bir node'a devretmek için aşağıdaki komutu kullanın:
 
 ```shell
 rocketpool pdao set-voting-delegate `address`
 ```
 
-::: tip NOTE
-If you've delegated your voting power to another node operator, you can reset this by setting the delegate address to
-your own node's address.
+::: tip NOT
+Oy gücünüzü başka bir node operatörüne devrettiyseniz, temsilci adresini kendi node'unuzun adresine ayarlayarak bunu sıfırlayabilirsiniz.
 :::
 
-- During phase 1 of a proposal: **Voters** and **Delegates** may cast their vote on a proposal.
-- During phase 2 of a proposal: **Node Operators** who have delegated their vote get the opportunity to overturn their
-  Delegate's vote, if they disagree.
+- Bir teklifin 1. aşamasında: **Seçmenler** ve **Temsilciler** bir teklif üzerinde oylarını kullanabilirler.
+- Bir teklifin 2. aşamasında: Oylarını devreden **Node Operatörleri**, katılmadıkları takdirde Temsilcilerinin oyunu bozma fırsatı elde ederler.
 
-If you are a node operator with delegated voting power, you must vote during voting phase 1 for the delegated voting
-power to count towards the proposal. Your vote in phase 1 will be worth your **local voting power + delegated voting
-power**. Your vote in phase 2 is worth your **local voting power** only.
+Devredilmiş oy gücüne sahip bir node operatörüyseniz, devredilen oy gücünün teklife sayılması için oylama aşaması 1'de oy kullanmalısınız. Aşama 1'deki oyunuz **yerel oy gücü + devredilen oy gücü** değerinde olacaktır. Aşama 2'deki oyunuz yalnızca **yerel oy gücü** değerindedir.
 
-## Creating a Proposal
+## Teklif Oluşturma
 
-In order to be eligible to propose, a node must meet a few requirements:
+Teklif vermeye uygun olmak için, bir node birkaç gereksinimi karşılamalıdır:
 
-- Included in snapshotting (either by [initializing voting](../houston/participate#initializing-voting) or by
-  registering post Houston)
-- Must have at least one minipool
-- Has non-zero voting power
-- Has allowed [RPL locking](../houston/participate#allowing-rpl-locking)
-- Has an RPL stake (minus any already locked RPL) greater than the proposal bond
+- Anlık görüntü almaya dahil edilmiş (ya [oylamayı başlatarak](../houston/participate#initializing-voting) ya da Houston sonrası kaydolarak)
+- En az bir minipool'a sahip olmalı
+- Sıfır olmayan oy gücüne sahip
+- [RPL kilitlenmesine](../houston/participate#allowing-rpl-locking) izin vermiş
+- Teklif tahvilinden daha büyük bir RPL stake'ine sahip (zaten kilitli RPL hariç)
 
-Proposals exist to change parameters and execute code at the protocol level! There should be discussion and consensus
-through the [governance](../houston/participate#governance-process) process before a proposal is created on chain.
+Teklifler, protokol seviyesinde parametreleri değiştirmek ve kod yürütmek için var olur! Zincir üzerinde bir teklif oluşturulmadan önce [yönetişim](../houston/participate#governance-process) süreci boyunca tartışma ve konsensüs olmalıdır.
 
-Use the command `rocketpool pdao propose` to bring up a menu of options
+Seçenekler menüsünü açmak için `rocketpool pdao propose` komutunu kullanın
 
 ```
-COMMANDS:
-   rewards-percentages, rp      Propose updating the RPL rewards allocation percentages for node operators, the Oracle DAO, and the Protocol DAO
-   one-time-spend, ots          Propose a one-time spend of the Protocol DAO's treasury
-   recurring-spend, rs          Propose a recurring spend of the Protocol DAO's treasury
-   recurring-spend-update, rsu  Propose an update to an existing recurring spend plan
-   security-council, sc         Modify the security council
-   setting, s                   Make a Protocol DAO setting proposal
+KOMUTLAR:
+   rewards-percentages, rp      Node operatörleri, Oracle DAO ve Protokol DAO için RPL ödül tahsisi yüzdelerini güncellemeyi önerin
+   one-time-spend, ots          Protokol DAO'nun hazinesinin tek seferlik bir harcamasını önerin
+   recurring-spend, rs          Protokol DAO'nun hazinesinin tekrarlayan bir harcamasını önerin
+   recurring-spend-update, rsu  Mevcut bir tekrarlayan harcama planına güncelleme önerin
+   security-council, sc         Güvenlik konseyini değiştirin
+   setting, s                   Bir Protokol DAO ayar teklifi yapın
 ```
 
-Each of these commands will prompt you with a list of inputs to create your desired proposal. In this guide, we'll
-invite a node to the security council to serve as an example. To raise a proposal to invite a node to the security
-council, you would use the command:
+Bu komutların her biri, istediğiniz teklifi oluşturmak için sizden bir girdi listesi isteyecektir. Bu kılavuzda, örnek olarak hizmet vermesi için bir node'u güvenlik konseyine davet edeceğiz. Güvenlik konseyine bir node'u davet etmek için bir teklif oluşturmak için şu komutu kullanırsınız:
 
 ```shell
 rocketpool pdao propose security-council invite
 ```
 
-Keep in mind that this step will have some slight variation depending on the type of proposal. This particular command:
-`rocketpool pdao propose security-council invite` will prompt you to enter an ID followed by a member address.
+Bu adımın teklif türüne bağlı olarak biraz değişiklik göstereceğini unutmayın. Bu özel komut:
+`rocketpool pdao propose security-council invite` bir ID girmenizi ve ardından bir üye adresi girmenizi isteyecektir.
 
 ```
-Please enter an ID for the member you'd like to invite: (no spaces)
+Davet etmek istediğiniz üye için lütfen bir ID girin: (boşluksuz)
 test-member
 
-Please enter the member's address:
+Lütfen üyenin adresini girin:
 0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145
 
-... gas estimations ...
+... gas tahminleri ...
 
-Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council? [y/n]
+test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) adresini güvenlik konseyine davet etmeyi önermek istediğinizden emin misiniz? [y/n]
 ```
 
-After this is included in a block, a pDAO proposal will be created! The proposal will enter
-the [vote delay period](../houston/pdao#vote-delay-period) upon creation.
+Bu bir bloka dahil edildikten sonra, bir pDAO teklifi oluşturulacaktır! Teklif, oluşturulduktan sonra [oylama gecikme dönemine](../houston/pdao#vote-delay-period) girecektir.
 
-## Viewing the State of a Proposal
+## Bir Teklifin Durumunu Görüntüleme
 
-Every proposal is assigned a `proposalID`. In this case, our proposal to invite `0xBdbc...` to the security council is
-represented with `ID 71`. There are a few ways to view the state of the proposal. One method will display a list of
-every pdao proposal along with their state (pending, succeeded, executed, etc). The second method displays in-depth
-details about a specific proposal.
+Her teklife bir `proposalID` atanır. Bu durumda, güvenlik konseyine `0xBdbc...` adresini davet etme teklifimiz `ID 71` ile temsil edilmektedir. Teklifin durumunu görüntülemenin birkaç yolu vardır. Bir yöntem, her pdao teklifinin durumu (beklemede, başarılı, yürütüldü, vb.) ile birlikte bir listesini görüntüler. İkinci yöntem, belirli bir teklif hakkında derinlemesine ayrıntıları görüntüler.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Viewing a List of Proposals">
-      To list all proposals, use the following command:
+    <Tab label="Teklif Listesini Görüntüleme">
+      Tüm teklifleri listelemek için aşağıdaki komutu kullanın:
 
       ```shell
       rocketpool pdao proposals list
       ```
 
-      This will display a list of all proposals and their state
+      Bu, tüm tekliflerin ve durumlarının bir listesini görüntüleyecektir
 
       ```
-      1 Pending proposal(s):
+      1 Bekleyen teklif(ler):
 
-      71: invite test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council - Proposed by:
+      71: test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) adresini güvenlik konseyine davet et - Öneren:
       0x681B8BBf08708e64694005c7Dc307b381b4D1A7D
 
-      Succeeded proposal(s):
+      Başarılı teklif(ler):
 
-      Executed proposal(s):
+      Yürütülen teklif(ler):
 
-      Destroyed proposal(s):
+      Yok edilen teklif(ler):
 
-      Quorum not Met proposal(s):
+      Çoğunluk Sağlanamayan teklif(ler):
 
-      Defeated proposal(s):
+      Reddedilen teklif(ler):
 
-      Expired proposal(s):
+      Süresi Dolan teklif(ler):
 
       ```
 
-      Here we can see that our proposal `invite test-member` has an ID of 71 and is in the pending state. In this state,
-      [challengers](/en/legacy/houston/pdao#challenge-process) can dispute the validity of the
-      merkle pollard (used to calculate voting power) supplied by the proposer. When `proposal.vote.delay.time` ends,
-      the proposal will transition into active voting phases. Feel free to review [lifecycle of a
-      proposal](../houston/pdao#lifecycle-of-a-pdao-proposal) for a refresher.
+      Burada `test-member'ı davet et` teklifimizin 71 ID'sine sahip olduğunu ve beklemede durumunda olduğunu görebiliriz. Bu durumda,
+      [itiraz edenler](/tr/legacy/houston/pdao#challenge-process) teklif verenin sağladığı merkle pollard'ın (oy gücünü hesaplamak için kullanılır) geçerliliğine itiraz edebilir. `proposal.vote.delay.time` sona erdiğinde,
+      teklif aktif oylama aşamalarına geçecektir. Yenilemek için [bir teklifin yaşam döngüsünü](../houston/pdao#lifecycle-of-a-pdao-proposal) incelemeye çekinmeyin.
     </Tab>
-    <Tab label="Viewing Proposal Details">
-      Now that you have the proposal ID, you can view the status of your proposal using this command:
+    <Tab label="Teklif Ayrıntılarını Görüntüleme">
+      Teklif ID'sine sahip olduğunuza göre, bu komutu kullanarak teklifinizin durumunu görüntüleyebilirsiniz:
 
       ```shell
       rocketpool pdao proposals details `proposal-id`
       ```
 
-      This is where you can view all the information in regards to a specific proposal. For example, the execution
-      payload, what phase the proposal is in, and vote direction.
+      Burası, belirli bir teklifle ilgili tüm bilgileri görüntüleyebileceğiniz yerdir. Örneğin, yürütme
+      yükü, teklifin hangi aşamada olduğu ve oy yönü.
 
       ```
-      Proposal ID: 71
-      Message: invite test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council
-      Payload: proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145)
-      Payload (bytes):
+      Teklif ID: 71
+      Mesaj: test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) adresini güvenlik konseyine davet et
+      Yük: proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145)
+      Yük (bytes):
       f944c19f0000000000000000000000000000000000000000000000000000000000000040000000000000000000000000bdbcb42dd8e39323a395b2b72d2c8e7039f1f145000000000000000000000000000000000000000000000000000000000000000b746573742d6d656d626572000000000000000000000000000000000000000000
-      Proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D
-      Created at: 12 Mar 24 06:15 UTC
-      State: Pending
-      Voting start: 12 Mar 24 06:20 UTC
-      Challenge window: 30m0s
-      Voting power required: 90943818825
-      Voting power for: 0
-      Voting power against: 0
-      Voting power abstained: 0
-      Voting power against: 0
-      Node has voted: no
+      Öneren: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D
+      Oluşturulma: 12 Mar 24 06:15 UTC
+      Durum: Beklemede
+      Oylama başlangıcı: 12 Mar 24 06:20 UTC
+      İtiraz penceresi: 30m0s
+      Gerekli oy gücü: 90943818825
+      Lehte oy gücü: 0
+      Aleyhte oy gücü: 0
+      Çekimser oy gücü: 0
+      Aleyhte oy gücü: 0
+      Node oy kullandı mı: hayır
       ```
 
       <p className="rspress-directive tip">
-        <p className="rspress-directive-title">NOTE</p>
-        The state of this sample proposal is `Pending`. This indicates that the proposal can be challenged, before
-        moving onto `Active (Phase 1)`. No voting can take place during the `Pending` state.
+        <p className="rspress-directive-title">NOT</p>
+        Bu örnek teklifin durumu `Beklemede`dir. Bu, teklifin `Aktif (Aşama 1)`'e geçmeden önce itiraz edilebileceğini gösterir. `Beklemede` durumunda hiçbir oylama yapılamaz.
       </p>
     </Tab>
 
   </Tabs>
 </div>
 
-## Voting on a Proposal
+## Bir Teklife Oy Verme
 
-During a voting period, **Node Operators** and **Delegates** can cast a vote with one of four options:
+Bir oylama döneminde, **Node Operatörleri** ve **Temsilciler** dört seçenekten biriyle oy kullanabilirler:
 
 ```
-1. Abstain: The voter's voting power is contributed to quorum but is neither for nor against the proposal.
-2. For: The voter votes in favor of the proposal being executed.
-3. Against: The voter votes against the proposal being executed.
-4. Veto: The voter votes against the proposal as well as indicating they deem the proposal as spam or malicious.
+1. Çekimser: Seçmenin oy gücü çoğunluğa katkıda bulunur ancak teklifin lehinde veya aleyhinde değildir.
+2. Lehte: Seçmen teklifin yürütülmesi lehinde oy kullanır.
+3. Aleyhte: Seçmen teklifin yürütülmesi aleyhinde oy kullanır.
+4. Veto: Seçmen teklifin aleyhinde oy kullanır ve ayrıca teklifi spam veya kötü niyetli olarak değerlendirdiğini belirtir.
 ```
 
-Their voting power will be applied to the option of their choosing. Voting power is a function of "effective RPL stake."
-A more detailed reading can be found in
-the [rocketpool-research repo](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting).
+Oy güçleri seçtikleri seçeneğe uygulanacaktır. Oy gücü, "etkili RPL stake'i"nin bir fonksiyonudur.
+Daha ayrıntılı bir okuma
+[rocketpool-research deposunda](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting) bulunabilir.
 
-::: tip NOTE
-If you are a node operator with delegated voting power, you must vote during voting phase 1 for the delegated voting
-power to count towards the proposal. Your vote in phase 1 will be worth your local voting power + delegated voting
-power. Your vote in phase 2 is worth your local voting power only. Please keep in mind that a node may vote once and
-only once on a proposal, so choose carefully.
+::: tip NOT
+Devredilmiş oy gücüne sahip bir node operatörüyseniz, devredilen oy gücünün teklife sayılması için oylama aşaması 1'de oy kullanmalısınız. Aşama 1'deki oyunuz yerel oy gücünüz + devredilen oy gücünüz değerinde olacaktır. Aşama 2'deki oyunuz yalnızca yerel oy gücünüz değerindedir. Lütfen bir node'un bir teklif üzerinde bir ve yalnızca bir kez oy kullanabileceğini unutmayın, bu yüzden dikkatli seçin.
 :::
 
-Use this command to cast a vote:
+Oy kullanmak için bu komutu kullanın:
 
 ```shell
 rocketpool pdao proposals vote
 ```
 
-You'll be prompted to select a proposal to vote on if there is at least one proposal in an active voting phase.
-The menu should display all of the proposals your node is eligible to vote on:
+En az bir teklif aktif bir oylama aşamasındaysa, oy kullanmak için bir teklif seçmeniz istenecektir.
+Menü, node'unuzun oy kullanmaya uygun olduğu tüm teklifleri görüntülemelidir:
 
 ```
-1: proposal 71 (message: 'invite test-member', payload: proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145), phase 1 end: 14 Mar 24 05:40 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
-2: proposal 72 (message: 'replace langers-not-his-eoa (0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E) on the security council with tpan (0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E)', payload: proposalSecurityReplace(0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E,tpan,0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E), phase 1 end: 14 Mar 24 05:40 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0xe2fC31d61E28BB16c0857D4682AB3616FA7A793d)
-3: proposal 73 (message: 'set proposal.vote.delay.time', payload: proposalSettingUint(rocketDAOProtocolSettingsProposals,proposal.vote.delay.time,60), phase 1 end: 14 Mar 24 05:41 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
+1: teklif 71 (mesaj: 'test-member'ı davet et', yük: proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145), aşama 1 sonu: 14 Mar 24 05:40 UTC, gerekli vp: 0.00, lehte: 0.00, aleyhte: 0.00, çekimser: 0.00, veto: 0.00, öneren: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
+2: teklif 72 (mesaj: 'güvenlik konseyinde langers-not-his-eoa (0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E) adresini tpan (0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E) ile değiştir', yük: proposalSecurityReplace(0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E,tpan,0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E), aşama 1 sonu: 14 Mar 24 05:40 UTC, gerekli vp: 0.00, lehte: 0.00, aleyhte: 0.00, çekimser: 0.00, veto: 0.00, öneren: 0xe2fC31d61E28BB16c0857D4682AB3616FA7A793d)
+3: teklif 73 (mesaj: 'proposal.vote.delay.time ayarla', yük: proposalSettingUint(rocketDAOProtocolSettingsProposals,proposal.vote.delay.time,60), aşama 1 sonu: 14 Mar 24 05:41 UTC, gerekli vp: 0.00, lehte: 0.00, aleyhte: 0.00, çekimser: 0.00, veto: 0.00, öneren: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
 ```
 
-After selecting an option, you'll be asked how you want to cast your vote.
+Bir seçenek seçtikten sonra, oyunuzu nasıl kullanmak istediğiniz sorulacaktır.
 
 ```
-How would you like to vote on the proposal?
-1: Abstain
-2: In Favor
-3: Against
+Teklif üzerinde nasıl oy kullanmak istersiniz?
+1: Çekimser
+2: Lehte
+3: Aleyhte
 4: Veto
 ```
 
-Selecting an option will then display your voting power, and then prompt you to send the transaction:
+Bir seçenek seçmek oy gücünüzü görüntüleyecek ve ardından işlemi göndermenizi isteyecektir:
 
 ```
-Your current voting power: 20123617964
+Mevcut oy gücünüz: 20123617964
 
-+============== Suggested Gas Prices ==============+
-| Avg Wait Time |  Max Fee  |    Total Gas Cost    |
-| 15 Seconds    | 76 gwei   | 0.0176 to 0.0265 ETH |
-| 1 Minute      | 56 gwei   | 0.0127 to 0.0190 ETH |
-| 3 Minutes     | 56 gwei   | 0.0127 to 0.0190 ETH |
-| >10 Minutes   | 56 gwei   | 0.0127 to 0.0190 ETH |
++============== Önerilen Gas Fiyatları ==============+
+| Ort. Bekleme Süresi |  Maks Ücret  |    Toplam Gas Maliyeti    |
+| 15 Saniye    | 76 gwei   | 0.0176 ila 0.0265 ETH |
+| 1 Dakika      | 56 gwei   | 0.0127 ila 0.0190 ETH |
+| 3 Dakika     | 56 gwei   | 0.0127 ila 0.0190 ETH |
+| >10 Dakika   | 56 gwei   | 0.0127 ila 0.0190 ETH |
 +==================================================+
-These prices include a maximum priority fee of 2.00 gwei.
-Please enter your max fee (including the priority fee) or leave blank for the default of 56 gwei:
+Bu fiyatlar maksimum 2.00 gwei öncelik ücretini içerir.
+Lütfen maksimum ücretinizi (öncelik ücreti dahil) girin veya varsayılan 56 gwei için boş bırakın:
 ```
 
-You've successfully voted on the proposal once the transaction is included in the block! At this point, you may use
-`rocketpool pdao proposal details <proposal-id>` to view the state of the proposal. A proposal needs to reach
-`proposal.quorum` **voting power required** and a majority **voting power for** for it to be successful.
+İşlem bloka dahil edildikten sonra teklif üzerinde başarıyla oy kullanmış olursunuz! Bu noktada, teklifin durumunu görüntülemek için
+`rocketpool pdao proposal details <proposal-id>` kullanabilirsiniz. Bir teklifin başarılı olması için `proposal.quorum` **gerekli oy gücü**'ne ulaşması ve çoğunluk **lehte oy gücü**'ne sahip olması gerekir.
 
 ```
-Voting power required:  140970562215
-Voting power for:       197980809837
-Voting power against:   0
-Voting power abstained: 0
-Voting power against:   0
-Node has voted:         In Favor
+Gerekli oy gücü:  140970562215
+Lehte oy gücü:       197980809837
+Aleyhte oy gücü:   0
+Çekimser oy gücü: 0
+Aleyhte oy gücü:   0
+Node oy kullandı:         Lehte
 ```
 
-For the example above to pass, the voting power needs to exceed a quorum of `140970562215` voting power. There is
-`197980809837` voting power in favor and no votes against or abstained. The proposal is poised for success and ready
-for
-execution by the end of `proposal.vote.phase2.time`.
+Yukarıdaki örneğin geçmesi için, oy gücünün `140970562215` oy gücü çoğunluğunu aşması gerekir. Lehte `197980809837` oy gücü var ve aleyhte veya çekimser oy yok. Teklif başarı için hazır ve `proposal.vote.phase2.time`'ın sonuna kadar
+yürütülmeye hazır.
 
-## Executing a Successful Proposal
+## Başarılı Bir Teklifi Yürütme
 
-Congrats! Your proposal has passed! Now all that's left to do is to execute the proposal. Keep in mind that anybody
-can
-be the executor to a proposal. To execute a successful proposal, type in the command:
+Tebrikler! Teklifiniz geçti! Şimdi yapılacak tek şey teklifi yürütmek. Herkesin bir teklifin yürütücüsü olabileceğini unutmayın. Başarılı bir teklifi yürütmek için komutu yazın:
 
 ```shell
 rocketpool pdao execute
 ```
 
-Selecting an option will prompt you to send a transaction. Once this transaction is included in a block, the change
-will
-be applied to the Rocket Pool protocol!
+Bir seçenek seçmek bir işlem göndermenizi isteyecektir. Bu işlem bir bloka dahil edildikten sonra, değişiklik Rocket Pool protokolüne uygulanacaktır!
 
 ```
-Please select a proposal to execute:
-1: All available proposals
-2: proposal 71 (invite test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council)',
+Lütfen yürütülecek bir teklif seçin:
+1: Mevcut tüm teklifler
+2: teklif 71 (test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) adresini güvenlik konseyine davet et)',
 proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145)
 ```
 
-## Claiming Bonds and Rewards
+## Tahvilleri ve Ödülleri Talep Etme
 
-Proposers or Challengers may claim their bonds upon conclusion of a proposal. Depending on the outcome of a proposal,
-a
-Proposer or Challenger may or may not be able to claim their `proposal.bond` and `proposal.challenge.bond`.
+Teklif Verenler veya İtiraz Edenler, bir teklifin sonuçlandırılması üzerine tahvillerini talep edebilirler. Bir teklifin sonucuna bağlı olarak,
+bir Teklif Veren veya İtiraz Eden `proposal.bond` ve `proposal.challenge.bond`'larını talep edebilir veya edemeyebilir.
 
-Here are some rules that dictate the conditions in which bonds can be claimed:
+Tahvillerin talep edilebileceği koşulları belirleyen bazı kurallar:
 
-- If a proposal is defeated, the proposer forfeits their bond which is divided proportionally amongst the challengers
-  who contributed to the proposal's defeat. All other challengers receive their bond back only.
-- Contributing to the defeat of a proposal means a challenger submitted an index which was later proven to be
-  incorrect
-  by the proposers inability to reply to a challenge. It is possible that there are multiple incorrect indices but only
-  those that resulted in the defeat of the proposal share the reward. All other challengers receive their bond back
-  only.
-- If a challenger challenges a node, the proposer responds, and the proposal does not get defeated. The proposer can
-  claim the challenge bonds from the invalid challenges.
-- If a proposal is defeated, the proposer forfeits their bond which is divided proportionally amongst the challengers
-  who contributed to the proposal's defeat.
+- Bir teklif reddedilirse, teklif veren tahvilini kaybeder ve bu, teklifin yenilmesine katkıda bulunan itiraz edenler arasında orantılı olarak paylaştırılır. Diğer tüm itiraz edenler yalnızca tahvillerini geri alırlar.
+- Bir teklifin yenilmesine katkıda bulunmak, bir itiraz edenin daha sonra teklif verenin bir itiraza cevap verememesi nedeniyle yanlış olduğu kanıtlanan bir indeks sunduğu anlamına gelir. Birden fazla yanlış indeks olması mümkündür, ancak yalnızca teklifin yenilmesine neden olanlar ödülü paylaşır. Diğer tüm itiraz edenler yalnızca tahvillerini geri alırlar.
+- Bir itiraz eden bir node'a itiraz ederse, teklif veren yanıt verirse ve teklif yenilmezse. Teklif veren geçersiz itirazlardan itiraz tahvillerini talep edebilir.
+- Bir teklif reddedilirse, teklif veren tahvilini kaybeder ve bu, teklifin yenilmesine katkıda bulunan itiraz edenler arasında orantılı olarak paylaştırılır.
 
-Use this command to claim bonds:
+Tahvilleri talep etmek için bu komutu kullanın:
 
 ```shell
 rocketpool pdao claim-bonds
 ```
 
-This will display every proposal you're eligible to claim bonds from. You can either claim bonds from a specified
-proposal, or you can claim bonds and rewards from all eligible proposals.
+Bu, tahvilleri talep etmeye uygun olduğunuz her teklifi görüntüleyecektir. Belirli bir tekliften tahvilleri talep edebilir veya uygun tüm tekliflerden tahvilleri ve ödülleri talep edebilirsiniz.
 
 ```
-Please select a proposal to unlock bonds / claim rewards from:
-1: All available proposals
-2: Proposal 42 (proposer: true, unlockable: 21.00 RPL, rewards: 0.00 RPL)
-3: Proposal 43 (proposer: true, unlockable: 21.00 RPL, rewards: 0.00 RPL)
-4: Proposal 44 (proposer: true, unlockable: 21.00 RPL, rewards: 0.00 RPL)
-5: Proposal 46 (proposer: true, unlockable: 21.00 RPL, rewards: 0.00 RPL)
-6: Proposal 47 (proposer: true, unlockable: 21.00 RPL, rewards: 0.00 RPL)
-7: Proposal 48 (proposer: true, unlockable: 21.00 RPL, rewards: 0.00 RPL)
-8: Proposal 49 (proposer: true, unlockable: 21.00 RPL, rewards: 0.00 RPL)
+Lütfen tahvilleri kilitlemeyi açmak / ödülleri talep etmek için bir teklif seçin:
+1: Mevcut tüm teklifler
+2: Teklif 42 (teklif veren: true, kilidi açılabilir: 21.00 RPL, ödüller: 0.00 RPL)
+3: Teklif 43 (teklif veren: true, kilidi açılabilir: 21.00 RPL, ödüller: 0.00 RPL)
+4: Teklif 44 (teklif veren: true, kilidi açılabilir: 21.00 RPL, ödüller: 0.00 RPL)
+5: Teklif 46 (teklif veren: true, kilidi açılabilir: 21.00 RPL, ödüller: 0.00 RPL)
+6: Teklif 47 (teklif veren: true, kilidi açılabilir: 21.00 RPL, ödüller: 0.00 RPL)
+7: Teklif 48 (teklif veren: true, kilidi açılabilir: 21.00 RPL, ödüller: 0.00 RPL)
+8: Teklif 49 (teklif veren: true, kilidi açılabilir: 21.00 RPL, ödüller: 0.00 RPL)
 ```
 
-Once you've selected an option, you'll be prompted with the network's current gas costs recommendations; confirm your
-gas price selection and follow the rest of the prompts.
+Bir seçenek seçtikten sonra, ağın mevcut gas maliyeti önerileri ile karşılaşacaksınız; gas fiyatı seçiminizi onaylayın ve diğer istemleri takip edin.
 
 ```
-+============== Suggested Gas Prices ==============+
-| Avg Wait Time |  Max Fee  |    Total Gas Cost    |
-| 15 Seconds    | 26 gwei   | 0.1591 to 0.2387 ETH |
-| 1 Minute      | 21 gwei   | 0.1261 to 0.1891 ETH |
-| 3 Minutes     | 21 gwei   | 0.1261 to 0.1891 ETH |
-| >10 Minutes   | 21 gwei   | 0.1261 to 0.1891 ETH |
++============== Önerilen Gas Fiyatları ==============+
+| Ort. Bekleme Süresi |  Maks Ücret  |    Toplam Gas Maliyeti    |
+| 15 Saniye    | 26 gwei   | 0.1591 ila 0.2387 ETH |
+| 1 Dakika      | 21 gwei   | 0.1261 ila 0.1891 ETH |
+| 3 Dakika     | 21 gwei   | 0.1261 ila 0.1891 ETH |
+| >10 Dakika   | 21 gwei   | 0.1261 ila 0.1891 ETH |
 +==================================================+
 
-These prices include a maximum priority fee of 2.00 gwei.
-Please enter your max fee (including the priority fee) or leave blank for the default of 21 gwei:
+Bu fiyatlar maksimum 2.00 gwei öncelik ücretini içerir.
+Lütfen maksimum ücretinizi (öncelik ücreti dahil) girin veya varsayılan 21 gwei için boş bırakın:
 
 
-Using a max fee of 21.00 gwei and a priority fee of 2.00 gwei.
-Are you sure you want to claim bonds and rewards from 7 proposals? [y/n]
+Maksimum 21.00 gwei ücret ve 2.00 gwei öncelik ücreti kullanılıyor.
+7 tekliften tahvilleri ve ödülleri talep etmek istediğinizden emin misiniz? [y/n]
 ```
 
-Note that if you select the first option to claim all available proposals, they will each execute individually and not
-as one transaction.
+İlk seçeneği seçerek mevcut tüm teklifleri talep ederseniz, bunların her birinin ayrı ayrı yürütüleceğini ve tek bir işlem olarak değil olduğunu unutmayın.
 
-## Creating a Recurring Treasury Spend
+## Tekrarlayan Hazine Harcaması Oluşturma
 
-You'll need to prepare a few inputs to create a recurring treasury spend:
+Tekrarlayan bir hazine harcaması oluşturmak için birkaç girdi hazırlamanız gerekecek:
 
-- A contract name
-- The recipient's address
-- Amount of RPL to send per period
-- The start time for the recurring payment (as a UNIX timestamp)
-- The length of each payment period in hours / minutes / seconds (e.g., 168h0m0s)
-- Number of payment periods
+- Bir sözleşme adı
+- Alıcının adresi
+- Dönem başına gönderilecek RPL miktarı
+- Tekrarlayan ödeme için başlangıç zamanı (UNIX zaman damgası olarak)
+- Her ödeme döneminin saat / dakika / saniye cinsinden uzunluğu (örn., 168h0m0s)
+- Ödeme dönemlerinin sayısı
 
-::: tip INFO
-The recipient will need to keep note of the contract name in order to claim payments. Don't worry though, as this
-information is stored and can be retrieved using the command `rocketpool pdao proposals details <proposal-id>`
+::: tip BİLGİ
+Alıcının ödemeleri talep edebilmesi için sözleşme adını not etmesi gerekecektir. Ancak endişelenmeyin, bu bilgi saklanır ve `rocketpool pdao proposals details <proposal-id>` komutu kullanılarak alınabilir
 :::
 
-To raise a proposal to set up a recurring treasury spend, use the following smartnode command and follow the prompts:
+Tekrarlayan bir hazine harcaması ayarlamak için bir teklif oluşturmak üzere aşağıdaki smartnode komutunu kullanın ve istemleri takip edin:
 
 ```shell
 rocketpool pdao propose recurring-spend
 ```
 
-Here's what it looks like all together:
+İşte hepsi bir arada nasıl görünüyor:
 
 ```
-Please enter a contract name for this recurring payment:
+Bu tekrarlayan ödeme için lütfen bir sözleşme adı girin:
 test-recurring-spend
 
-Please enter a recipient address for this recurring payment:
+Bu tekrarlayan ödeme için lütfen bir alıcı adresi girin:
 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D
 
-Please enter an amount of RPL to send to 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D per period:
+Dönem başına 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D adresine gönderilecek RPL miktarını girin:
 1
 
-Your value will be multiplied by 10^18 to be used in the contracts, which results in:
+Değeriniz sözleşmelerde kullanılmak üzere 10^18 ile çarpılacak, bu da şu sonucu verir:
 
 [1000000000000000000]
 
-Please make sure this is what you want and does not have any floating-point errors.
+Lütfen bunun istediğiniz şey olduğundan ve herhangi bir kayan nokta hatası olmadığından emin olun.
 
-Is this result correct? [y/n]
+Bu sonuç doğru mu? [y/n]
 y
 
-Please enter the time that the recurring payment will start (as a UNIX timestamp):
+Tekrarlayan ödemenin başlayacağı zamanı girin (UNIX zaman damgası olarak):
 1717935233
 
-The provided timestamp corresponds to 2024-06-09 12:13:53 +0000 UTC - is this correct? [y/n]
+Sağlanan zaman damgası 2024-06-09 12:13:53 +0000 UTC'ye karşılık geliyor - bu doğru mu? [y/n]
 y
 
-Please enter the length of each payment period in hours / minutes / seconds (e.g., 168h0m0s):
+Her ödeme döneminin uzunluğunu saat / dakika / saniye cinsinden girin (örn., 168h0m0s):
 720h
 
-Please enter the total number of payment periods:
+Toplam ödeme dönemlerinin sayısını girin:
 24
 ```
 
-Once you've entered all the required inputs, a proposal to create a recurring payment will be raised. When the pDAO
-passes and executes this proposal, the recipient is allocated `1 RPL` starting at `2024-06-09 12:13:53 +0000 UTC`
-every
-`720 hours` for a total of `24 payments`.
+Gerekli tüm girdileri girdikten sonra, tekrarlayan bir ödeme oluşturmak için bir teklif oluşturulacaktır. pDAO bu teklifi geçirip yürüttüğünde, alıcıya `2024-06-09 12:13:53 +0000 UTC`'den başlayarak her `720 saatte` bir toplam `24 ödeme` için `1 RPL` tahsis edilir.
 
-## Claiming a Recurring Treasury Spend
+## Tekrarlayan Hazine Harcaması Talep Etme
 
-Claiming recurring payments should be pretty simple! Navigate to our frontend
-tool [here](https://node.rocketpool.net/claim-recurring-payments) to do so. If you're trying this out on
-Hoodi
-testnet, use [this](https://testnet.node.rocketpool.net/stake-rpl-on-behalf-of-node) link instead.
+Tekrarlayan ödemeleri talep etmek oldukça basit olmalı! Bunu yapmak için ön yüz aracımıza [buradan](https://node.rocketpool.net/claim-recurring-payments) gidin. Bunu Hoodi testnet'te deniyorsanız, bunun yerine [bu](https://testnet.node.rocketpool.net/stake-rpl-on-behalf-of-node) bağlantıyı kullanın.
 
-Once you're on the site, click the **connect wallet** button. Please read through and accept the Terms of Service &
-Privacy Policy, this will enable different ways to connect, then click connect **metamask**.
+Siteye girdiğinizde, **cüzdanı bağla** düğmesine tıklayın. Lütfen Hizmet Şartları ve Gizlilik Politikası'nı okuyun ve kabul edin, bu bağlanmanın farklı yollarını etkinleştirecektir, ardından **metamask** bağlan'a tıklayın.
 
-MetaMask will prompt you to select an account to connect to the website. After you've signed in, you'll need to enter
-the **contract name**. Doing so will display all the relevant details. Make sure you double check the recipient's
-address. Anybody can call the claim function, but each payment contract will have a designated recipient to disperse
-RPL
-towards.
+MetaMask, web sitesine bağlanmak için bir hesap seçmenizi isteyecektir. Oturum açtıktan sonra, **sözleşme adını** girmeniz gerekecektir. Bunu yapmak tüm ilgili ayrıntıları görüntüleyecektir. Alıcının adresini iki kez kontrol ettiğinizden emin olun. Herkes talep fonksiyonunu çağırabilir, ancak her ödeme sözleşmesinin RPL dağıtmak için belirlenmiş bir alıcısı olacaktır.
 
 <img src="./images/claim_recurring1.png" width="100%" height="auto" />
 
-You can claim your payments at any time, you'll just get the total unclaimed RPL up until the most recent period.
-Alternatively you can wait until all periods have passed to collect all at once and save on gas.
+Ödemelerinizi istediğiniz zaman talep edebilirsiniz, en son döneme kadar toplam talep edilmemiş RPL'yi alacaksınız.
+Alternatif olarak tüm dönemlerin geçmesini bekleyebilir ve gas tasarrufu yapmak için hepsini bir kerede toplayabilirsiniz.
 
-Just hit the big orange claim button when you're ready and review the transaction in metamask (or your preferred
-wallet). Once that's done, you're all set!
+Hazır olduğunuzda büyük turuncu talep düğmesine basmanız ve metamask'te (veya tercih ettiğiniz cüzdanda) işlemi gözden geçirmeniz yeterlidir. Bu işlem tamamlandıktan sonra, her şey tamam!

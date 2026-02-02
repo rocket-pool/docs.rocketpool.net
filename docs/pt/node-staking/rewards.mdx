@@ -1,134 +1,134 @@
 import claim_rewards_gb from "./images/claim-rewards-gb.png";
 import autostake from "./images/autostake.png";
 
-# Claiming Node Operator Rewards
+# Reivindicando Recompensas de Node Operator
 
-As a Rocket Pool node operator, you are entitled to regular rewards that will be provided in the form of the RPL token and (if you are opted into the Smoothing Pool) some ETH as well.
-This section will describe how these rewards work and how you can claim them.
+Como node operator do Rocket Pool, você tem direito a recompensas regulares que serão fornecidas na forma do token RPL e (se você estiver optado no Smoothing Pool) algum ETH também.
+Esta seção descreverá como essas recompensas funcionam e como você pode reivindicá-las.
 
-## Rewards and Checkpoints
+## Recompensas e Checkpoints
 
-At regular intervals, Rocket Pool will flag a **checkpoint** on the network.
-Currently, checkpoints occur **every 28 days**.
+Em intervalos regulares, o Rocket Pool sinalizará um **checkpoint** na rede.
+Atualmente, os checkpoints ocorrem **a cada 28 dias**.
 
-At a new checkpoint, the Oracle DAO will collectively create a **true snapshot** of the state of the node operators in the Rocket Pool network, which it will use to determine the RPL and Smoothing Pool ETH rewards for each node during that interval. Note that "bonus commission" for Saturn 0 minipools is distributed using smoothing pool rewards (Saturn 0 minipools are the ones created after 2024/10/28, which have a contract commission of 5%).
+Em um novo checkpoint, o Oracle DAO criará coletivamente um **snapshot verdadeiro** do estado dos node operators na rede Rocket Pool, que será usado para determinar as recompensas de RPL e ETH do Smoothing Pool para cada node durante esse intervalo. Note que a "comissão bônus" para minipools Saturn 0 é distribuída usando recompensas do smoothing pool (minipools Saturn 0 são aqueles criados após 28/10/2024, que têm uma comissão de contrato de 5%).
 
-This information is compiled into a [Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree) - an extremely efficient way to make all of the details available to smart contracts.
-The Merkle Tree is built into a JSON file and hosted on the [InterPlanetary File System (IPFS)](https://en.wikipedia.org/wiki/InterPlanetary_File_System) and mirrored on [a GitHub repository that we maintain](https://github.com/rocket-pool/rewards-trees/).
+Esta informação é compilada em uma [Árvore de Merkle](https://en.wikipedia.org/wiki/Merkle_tree) - uma maneira extremamente eficiente de disponibilizar todos os detalhes para contratos inteligentes.
+A Árvore de Merkle é construída em um arquivo JSON e hospedada no [InterPlanetary File System (IPFS)](https://en.wikipedia.org/wiki/InterPlanetary_File_System) e espelhada em [um repositório GitHub que mantemos](https://github.com/rocket-pool/rewards-trees/).
 
-Once the tree is submitted, the Rocket Pool smart contracts will mint new RPL tokens and move them, along with the Smoothing Pool's entire ETH balance, into the Rocket Pool vault for secure storage.
-You can then view how many RPL and ETH rewards you earned during that interval and claim those rewards.
+Uma vez que a árvore é submetida, os contratos inteligentes do Rocket Pool criarão novos tokens RPL e os moverão, juntamente com todo o saldo ETH do Smoothing Pool, para o cofre do Rocket Pool para armazenamento seguro.
+Você pode então visualizar quantas recompensas de RPL e ETH você ganhou durante esse intervalo e reivindicar essas recompensas.
 
-The rewards system has the following features:
+O sistema de recompensas possui os seguintes recursos:
 
-- Each interval is independent. The amount of RPL and ETH you earned in one interval does not affect the earnings for subsequent intervals.
-- You can **let rewards accumulate** for as long as you want. You do not need to claim rewards by a specific time; they will always be available for you to claim, and will always provide exactly the same amount of RPL and ETH **regardless of when you claim them**.
-- You can claim one interval at a time, or **multiple intervals** all at once.
-- Your first claim transaction uses about 85k gas. Each subsequent claim transaction costs about 55k gas.
-  - If you're claiming multiple intervals at once, each supplemental interval costs **6k gas** so it's most cost-effective to claim as many of them at once as possible.
-- You can **restake some (or all) of your RPL rewards** as part of the claiming transaction so it's all done in a single transaction (which further reduces gas costs).
-- Currently, **all of your claims must be on Mainnet** but we have the infrastructure in place to build the ability to claim on Layer 2 networks at a later date.
+- Cada intervalo é independente. A quantidade de RPL e ETH que você ganhou em um intervalo não afeta os ganhos para intervalos subsequentes.
+- Você pode **deixar as recompensas acumularem** pelo tempo que quiser. Você não precisa reivindicar recompensas até um momento específico; elas sempre estarão disponíveis para você reivindicar, e sempre fornecerão exatamente a mesma quantidade de RPL e ETH **independentemente de quando você as reivindicar**.
+- Você pode reivindicar um intervalo por vez, ou **múltiplos intervalos** de uma só vez.
+- Sua primeira transação de reivindicação usa cerca de 85k de gas. Cada transação de reivindicação subsequente custa cerca de 55k de gas.
+  - Se você estiver reivindicando múltiplos intervalos de uma vez, cada intervalo suplementar custa **6k de gas**, então é mais econômico reivindicar o máximo deles de uma vez possível.
+- Você pode **reestaquear parte (ou toda) de suas recompensas de RPL** como parte da transação de reivindicação, então tudo é feito em uma única transação (o que reduz ainda mais os custos de gas).
+- Atualmente, **todas as suas reivindicações devem estar na Mainnet**, mas temos a infraestrutura em vigor para construir a capacidade de reivindicar em redes Layer 2 em uma data posterior.
 
-For more information on how the Merkle Tree is built and how rewards are calculated, [please visit our `research` repository and view the official specifications](https://github.com/rocket-pool/rocketpool-research/tree/master/Merkle%20Rewards%20System).
-We've provided a brief explanation of them below.
+Para mais informações sobre como a Árvore de Merkle é construída e como as recompensas são calculadas, [visite nosso repositório `research` e veja as especificações oficiais](https://github.com/rocket-pool/rocketpool-research/tree/master/Merkle%20Rewards%20System).
+Fornecemos uma breve explicação delas abaixo.
 
-### RPL Rewards
+### Recompensas de RPL
 
-RPL's current rewards rate is **5% inflation per year** and rewards are paid out every 28 day period.
-As of 2024/10/21, the last period's inflation was 77,533. Since 70% is distributed to Rocket Pool node operators, that was 54,273 RPL that period.
+A taxa de recompensas atual do RPL é **5% de inflação por ano** e as recompensas são pagas a cada período de 28 dias.
+A partir de 21/10/2024, a inflação do último período foi de 77.533. Como 70% é distribuído aos node operators do Rocket Pool, isso foi 54.273 RPL naquele período.
 
-This amount will be divided among all of the node operators on the network, based on their [node weight](https://rpips.rocketpool.net/RPIPs/RPIP-30#specification).
-Node operators earn the maximum APY for staked RPL positions worth 0-15% of borrowed ETH.
-RPL stake beyond 15% borrowed ETH still earns further rewards, but at a reduced marginal APY.
+Essa quantidade será dividida entre todos os node operators na rede, com base em seu [peso de node](https://rpips.rocketpool.net/RPIPs/RPIP-30#specification).
+Node operators ganham o APY máximo para posições de RPL estaquedas valendo 0-15% do ETH emprestado.
+O stake de RPL além de 15% do ETH emprestado ainda ganha recompensas adicionais, mas com um APY marginal reduzido.
 
-If less than 28 days have passed between the time when you registered your node and the checkpoint, your rewards in that first rewards interval will be **pro-rated** to account for that. For example, if you registered on day 14 of the interval, you would receive 50% of normal rewards.
+Se menos de 28 dias se passaram entre o momento em que você registrou seu node e o checkpoint, suas recompensas naquele primeiro intervalo de recompensas serão **proporcionais** para contabilizar isso. Por exemplo, se você se registrou no dia 14 do intervalo, você receberia 50% das recompensas normais.
 
-After that first interval, your node will have been registered long enough on subsequent intervals that you will receive full rewards for all of them.
+Depois desse primeiro intervalo, seu node terá sido registrado tempo suficiente nos intervalos subsequentes para que você receba recompensas completas para todos eles.
 
-The `rocketpool node status` command will show you your current collateralization ratio at any point of time. This collateralization ratio will be based on the prices at the time at which you run the command. However, if you want to know what your collateralization ratio will be at the next rewards round, follow the next steps:
+O comando `rocketpool node status` mostrará seu índice de colateralização atual em qualquer momento. Este índice de colateralização será baseado nos preços no momento em que você executar o comando. No entanto, se você quiser saber qual será seu índice de colateralização na próxima rodada de recompensas, siga as próximas etapas:
 
-- Run the `/when` command in the "random" channel of the [Rocketpool Discord](https://discord.com/channels/405159462932971535/405503016234385409), and see how many hours are left before the next rewards period starts.
-- The oDAO takes a price snapshot every 19.2 hours (i.e. around 5760 blocks \* 12 seconds, excluding missed blocks). Therefore, checking the oDAO price submission contract in Etherscan will tell you whether a price snapshot was taken in the 19.2 previous hours before the time stated in the bullet point above. If that is the case, the price snapshot has been taken. If not, it is yet to be done and you can estimate when it will happen by looking at the last round of oDAO price submissionas, and adding 19.2 hours.
-- To check which RPL/ETH price ratio was taken as a snapshot by the oDAO for the next rewards round, check the oDAO price submission contract in Etherscan (which you can obtain by running the `/get_address_of_contract contract:rocketNetworkPrices` command in the "random" channel of the Rocketpool Discord). Afterwards, open one or more of the transactions submitted by the oDAO members. <a href="/images/node/rewards/rewards-1.png" target="_blank"><img src="/images/node/rewards/rewards-1.png" style={{ display: "block", margin: "0 auto" }} /></a>
-- Scroll down and in the "More Details" section, click on **"+ Click to show more"**, and then click on **"Decode Input Data"**. <a href="/images/node/rewards/rewards-2.png" target="_blank"><img src="/images/node/rewards/rewards-2.png" style={{ display: "block", margin: "0 auto" }} /></a>
-- The RPL price (shown in wei units) displayed in the Input Data box, divided by 10^18 (to convert it to ETH units) multiplied by the number of RPL staked, should be >= 1.6 ETH (for 16 ETH minipools) and >= 2.4 ETH (for LEB8s), times the number of minipools of each type which you operate. <a href="/images/node/rewards/rewards-3.png" target="_blank"><img src="/images/node/rewards/rewards-3.png" style={{ display: "block", margin: "0 auto" }} /></a>
-- If your collateral ratio is below the required amount as explained in the previous point, you can stake additional RPL in the time between the oDAO took the last price snapshot (see bullet point 3 above), and the time when the next rewards round begins (see bullet points 1 and 2 above), in order to bring your node back to a >=10% collateralization ratio.
-- An alternative to checking the oDAO price submissions in etherscan is to keep an eye on the "events" channel of the Rocketpool discord, and look for the **RPL Price Update** message from the Rocket Watch bot (see example below) within the last 19.2 hours before the next rewards period starts. <a href="/images/node/rewards/rewards-4.png" target="_blank"><img src="/images/node/rewards/rewards-4.png" style={{ display: "block", margin: "0 auto" }} /></a>
+- Execute o comando `/when` no canal "random" do [Discord Rocketpool](https://discord.com/channels/405159462932971535/405503016234385409), e veja quantas horas faltam antes que o próximo período de recompensas comece.
+- O oDAO faz um snapshot de preço a cada 19,2 horas (ou seja, cerca de 5760 blocos \* 12 segundos, excluindo blocos perdidos). Portanto, verificar o contrato de submissão de preço do oDAO no Etherscan dirá se um snapshot de preço foi feito nas 19,2 horas anteriores antes do momento declarado no ponto acima. Se for esse o caso, o snapshot de preço foi feito. Se não, ainda está por ser feito e você pode estimar quando acontecerá olhando para a última rodada de submissões de preço do oDAO e adicionando 19,2 horas.
+- Para verificar qual proporção de preço RPL/ETH foi usada como snapshot pelo oDAO para a próxima rodada de recompensas, verifique o contrato de submissão de preço do oDAO no Etherscan (que você pode obter executando o comando `/get_address_of_contract contract:rocketNetworkPrices` no canal "random" do Discord Rocketpool). Depois, abra uma ou mais das transações submetidas pelos membros do oDAO. <a href="/images/node/rewards/rewards-1.png" target="_blank"><img src="/images/node/rewards/rewards-1.png" style={{ display: "block", margin: "0 auto" }} /></a>
+- Role para baixo e na seção "More Details", clique em **"+ Click to show more"**, e depois clique em **"Decode Input Data"**. <a href="/images/node/rewards/rewards-2.png" target="_blank"><img src="/images/node/rewards/rewards-2.png" style={{ display: "block", margin: "0 auto" }} /></a>
+- O preço RPL (mostrado em unidades wei) exibido na caixa Input Data, dividido por 10^18 (para convertê-lo em unidades ETH) multiplicado pelo número de RPL estaquedos, deve ser >= 1,6 ETH (para minipools de 16 ETH) e >= 2,4 ETH (para LEB8s), vezes o número de minipools de cada tipo que você opera. <a href="/images/node/rewards/rewards-3.png" target="_blank"><img src="/images/node/rewards/rewards-3.png" style={{ display: "block", margin: "0 auto" }} /></a>
+- Se seu índice de colateral estiver abaixo da quantidade necessária conforme explicado no ponto anterior, você pode estaquear RPL adicional no tempo entre o oDAO ter feito o último snapshot de preço (veja o ponto 3 acima), e o momento em que a próxima rodada de recompensas começa (veja os pontos 1 e 2 acima), a fim de trazer seu node de volta para um índice de colateralização >=10%.
+- Uma alternativa para verificar as submissões de preço do oDAO no etherscan é ficar de olho no canal "events" do Discord Rocketpool, e procurar pela mensagem **RPL Price Update** do bot Rocket Watch (veja o exemplo abaixo) nas últimas 19,2 horas antes do início do próximo período de recompensas. <a href="/images/node/rewards/rewards-4.png" target="_blank"><img src="/images/node/rewards/rewards-4.png" style={{ display: "block", margin: "0 auto" }} /></a>
 
-### Smoothing Pool ETH Rewards
+### Recompensas de ETH do Smoothing Pool
 
-Along with RPL rewards, the Smoothing Pool's entire ETH balance is distributed during rewards checkpoints.
-Out of the entire Smoothing Pool's rewards balance, the percentage which corresponds to pool stakers (50% for 16 ETH minipools, or 75% for LEB8s), minus the respective node commission, will be sent to the rETH contract. There it can either 1) be burned for ETH from pool stakers that want to exit, or 2) be used to create more minipools.
-The remaining portion will be distributed amongst the eligible node operators.
+Juntamente com recompensas de RPL, todo o saldo ETH do Smoothing Pool é distribuído durante checkpoints de recompensas.
+Do saldo total de recompensas do Smoothing Pool, a porcentagem que corresponde aos stakers do pool (50% para minipools de 16 ETH, ou 75% para LEB8s), menos a respectiva comissão do node, será enviada ao contrato rETH. Lá pode 1) ser queimado por ETH de stakers do pool que querem sair, ou 2) ser usado para criar mais minipools.
+A porção restante será distribuída entre os node operators elegíveis.
 
-Nodes that are opted into the smoothing pool for the interval, even if only part of the time, are eligible for a portion of the Smoothing Pool's total balance.
-The balance is snapshotted at the rewards checkpoint, and the Oracle DAO determines each eligible node's portion.
-The portion is determined by the following factors:
+Nodes que estão optados no smoothing pool para o intervalo, mesmo que apenas parte do tempo, são elegíveis para uma porção do saldo total do Smoothing Pool.
+O saldo é fotografado no checkpoint de recompensas, e o Oracle DAO determina a porção de cada node elegível.
+A porção é determinada pelos seguintes fatores:
 
-- Amount of time in the Smoothing Pool this interval
-- Attestation performance on the Beacon Chain for each minipool
-- The commission of each minipool
+- Quantidade de tempo no Smoothing Pool neste intervalo
+- Performance de atestação na Beacon Chain para cada minipool
+- A comissão de cada minipool
 
-If you'd like to know more, please see the `research` repository linked above for a full breakdown of how the rewards are calculated.
+Se você quiser saber mais, consulte o repositório `research` vinculado acima para uma análise completa de como as recompensas são calculadas.
 
-### (Optional) Generating the Rewards Tree
+### (Opcional) Gerando a Árvore de Recompensas
 
-When a new rewards checkpoint is reached, the Oracle DAO will begin to build the rewards tree for that interval.
-Building this tree currently takes approximately 2 hours, and the rewards for the interval aren't available to claim until the tree has been built and submitted.
-Once it's available, your node will automatically download this file and you'll be able to view and claim your rewards for that interval.
+Quando um novo checkpoint de recompensas é alcançado, o Oracle DAO começará a construir a árvore de recompensas para esse intervalo.
+Construir esta árvore atualmente leva aproximadamente 2 horas, e as recompensas para o intervalo não estão disponíveis para reivindicação até que a árvore tenha sido construída e submetida.
+Uma vez disponível, seu node fará o download automático deste arquivo e você poderá visualizar e reivindicar suas recompensas para esse intervalo.
 
-If you'd like to generate the tree yourself instead of downloading the pre-built one from the Oracle DAO, you can do so!
+Se você quiser gerar a árvore você mesmo em vez de baixar a pré-construída do Oracle DAO, você pode fazê-lo!
 
-- Enter the `rocketpool service config` TUI.
-- Navigate to the `Smartnode and TX Fees` section.
-- Change the `Rewards Tree Mode` from `Download` to `Generate`.
-- If your primary Execution client is not an archive node, you can add a URL for a separate archive node in the `Archive-Mode EC URL` box.
-  - This is needed to generate historical rewards trees.
-  - The Archive EC will only be used for tree generation; it will not be used for any other Smartnode duties.
-  - [Infura](https://infura.io/product/ethereum) and [Alchemy](https://www.alchemy.com/supernode) offer archive node access. **Note that the free tiers are usually not sufficient to handle tree generation, so you will need one of the paid tiers.**
+- Entre na TUI `rocketpool service config`.
+- Navegue até a seção `Smartnode and TX Fees`.
+- Mude o `Rewards Tree Mode` de `Download` para `Generate`.
+- Se seu cliente Execution primário não for um node de arquivo, você pode adicionar uma URL para um node de arquivo separado na caixa `Archive-Mode EC URL`.
+  - Isso é necessário para gerar árvores de recompensas históricas.
+  - O EC de Arquivo será usado apenas para geração de árvore; não será usado para nenhuma outra tarefa do Smartnode.
+  - [Infura](https://infura.io/product/ethereum) e [Alchemy](https://www.alchemy.com/supernode) oferecem acesso a node de arquivo. **Note que os níveis gratuitos geralmente não são suficientes para lidar com a geração de árvores, então você precisará de um dos níveis pagos.**
 
-Now your Smartnode will build the tree completely independently from the Oracle DAO, using only the data provided by your Execution and Consensus clients.
-You can watch it during a rewards interval checkpoint with `rocketpool service logs watchtower`.
+Agora seu Smartnode construirá a árvore completamente independente do Oracle DAO, usando apenas os dados fornecidos por seus clientes Execution e Consensus.
+Você pode assistir durante um checkpoint de intervalo de recompensas com `rocketpool service logs watchtower`.
 
-If you'd like to rebuild past trees from previous intervals, you can do so with the following command:
+Se você quiser reconstruir árvores passadas de intervalos anteriores, você pode fazer isso com o seguinte comando:
 
 ```shell
 rocketpool network generate-rewards-tree
 ```
 
-Follow the prompts, and then use `rocketpool service logs watchtower` to view its progress.
+Siga os prompts, e depois use `rocketpool service logs watchtower` para visualizar seu progresso.
 
-## Claiming Rewards
+## Reivindicando Recompensas
 
-To view your pending unclaimed rewards, run the following command:
+Para visualizar suas recompensas pendentes não reivindicadas, execute o seguinte comando:
 
 ```shell
 rocketpool node claim-rewards
 ```
 
-As intervals go by and you accumulate rewards, the output will look like this:
+À medida que os intervalos passam e você acumula recompensas, a saída será parecida com esta:
 
 <img src={claim_rewards_gb} width="100%" height="auto" />
 
-Here you can quickly see how many rewards you've earned at each interval, and can decide which one(s) you want to claim.
+Aqui você pode ver rapidamente quantas recompensas você ganhou em cada intervalo, e pode decidir qual(is) você quer reivindicar.
 
-You can also specify an amount you want to restake during this claim:
+Você também pode especificar uma quantidade que deseja reestaquear durante esta reivindicação:
 
 <img src={autostake} width="100%" height="auto" />
 
-This will let you compound your RPL rewards in one transaction, which saves on gas costs.
+Isso permitirá que você componha suas recompensas de RPL em uma transação, o que economiza custos de gas.
 
-Simply follow the prompts, ensure your node wallet has enough ETH to pay for the gas costs of claiming, and you're done!
-**Your rewards will be sent to your withdrawal address.**
+Simplesmente siga os prompts, certifique-se de que sua carteira de node tenha ETH suficiente para pagar os custos de gas da reivindicação, e pronto!
+**Suas recompensas serão enviadas para seu endereço de retirada.**
 
 ::: tip TIP
-To view your node's total rewards, including those you've already claimed, use the following command:
+Para visualizar as recompensas totais do seu node, incluindo aquelas que você já reivindicou, use o seguinte comando:
 
 ```shell
 rocketpool node rewards
 ```
 
-This will provide a breakdown of how much RPL and ETH you've claimed so far, and how much is still unclaimed:
+Isso fornecerá uma divisão de quanto RPL e ETH você reivindicou até agora, e quanto ainda não está reivindicado:
 
 ```
 === ETH ===
@@ -150,34 +150,34 @@ You may claim these rewards at any time. You no longer need to claim them within
 
 :::
 
-## Execution-Layer Rewards in your Fee Distributor
+## Recompensas da Execution-Layer no seu Fee Distributor
 
-If you're **not** opted into the Smoothing Pool, the Execution-layer portion of your rewards from block proposals (including transaction fees and MEV) will be sent to your node's [Fee Distributor](./fee-distrib-sp#fee-distributors-and-the-smoothing-pool) contract instead.
+Se você **não está** optado no Smoothing Pool, a porção da Execution-layer de suas recompensas de propostas de bloco (incluindo taxas de transação e recompensas MEV) será enviada para o contrato [Fee Distributor](./fee-distrib-sp#fee-distributors-and-the-smoothing-pool) do seu node.
 
-To check the balance of your Fee Distributor, you can either use a chain explorer like [https://etherscan.io](https://etherscan.io) or simply run `rocketpool node status` - there will be a section called **Fee Distributor and Smoothing Pool** that shows it:
+Para verificar o saldo do seu Fee Distributor, você pode usar um explorador de chain como [https://etherscan.io](https://etherscan.io) ou simplesmente executar `rocketpool node status` - haverá uma seção chamada **Fee Distributor and Smoothing Pool** que o mostra:
 
 ```
 === Fee Distributor and Smoothing Pool ===
 The node is not opted into the Smoothing Pool.
-To learn more about the Smoothing Pool, please visit /en/legacy/redstone/whats-new.html#smoothing-pool.
+To learn more about the Smoothing Pool, please visit /pt/legacy/redstone/whats-new.html#smoothing-pool.
 The node's fee distributor 0xA0bfbFC582f5814585f8455Ed6D7B620eA9a9EE4 has a balance of 1.143598 ETH.
 ```
 
-### Distributing the Balance
+### Distribuindo o Saldo
 
-To access the Fee Distributor's balance, you will **distribute** it (hence the name, _Fee Distributor_).
-This will calculate your share of the rewards (based on your node's average minipool commission) and send it to your node's withdrawal address; the rest is sent to the staking pool.
+Para acessar o saldo do Fee Distributor, você vai **distribuí-lo** (daí o nome, _Fee Distributor_).
+Isso calculará sua parte das recompensas (com base na comissão média de minipool do seu node) e a enviará para o endereço de retirada do seu node; o resto é enviado para o staking pool.
 
-Distribution can be done **at any time**.
-You can sit on the balance and let it accumulate if you choose, or distribute it regularly.
+A distribuição pode ser feita **a qualquer momento**.
+Você pode manter o saldo e deixá-lo acumular se desejar, ou distribuí-lo regularmente.
 
-To distribute the balance, run the following command:
+Para distribuir o saldo, execute o seguinte comando:
 
 ```shell
 rocketpool node distribute-fees
 ```
 
-This will show how much goes to you and how much goes to the staking pool:
+Isso mostrará quanto vai para você e quanto vai para o staking pool:
 
 ```
 Your node's average commission is 15.00%.
@@ -186,5 +186,5 @@ Your fee distributor's balance of 1.143599 ETH will be distributed as follows:
  rETH pool stakers will receive 0.486030 ETH.
 ```
 
-Simply confirm the gas price you want and submit the transaction.
-Once it's been completed, your portion of the rewards will be available in your node's withdrawal address.
+Simplesmente confirme o preço de gas que você deseja e submeta a transação.
+Uma vez concluída, sua porção das recompensas estará disponível no endereço de retirada do seu node.

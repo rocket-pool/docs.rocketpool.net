@@ -1,67 +1,72 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Creating a New Wallet
+# Yeni Bir Cüzdan Oluşturma
 
-If the Smartnode services are up and running, the next step is to set up an Ethereum wallet for your node.
-This is simply an Execution Layer address that will hold your node's funds - it will use this to send ETH to your minipool when you begin staking, pay for gas during various transactions, and other various operations.
+Smartnode hizmetleri çalışır durumdaysa, bir sonraki adım node'unuz için bir Ethereum cüzdanı oluşturmaktır.
+Bu, node'unuzun fonlarını tutacak basitçe bir Execution Layer adresidir - staking'e başladığınızda minipool'unuza ETH göndermek, çeşitli işlemler sırasında gas ödemek ve diğer çeşitli işlemler için bunu kullanacaktır.
 
-You have the option of either creating a brand new wallet from scratch, or importing / recovering an existing wallet or address.
-Please choose which option you'd like from the tabs below.
+Sıfırdan yepyeni bir cüzdan oluşturma veya mevcut bir cüzdanı ya da adresi içe aktarma / kurtarma seçeneğiniz vardır.
+Lütfen aşağıdaki sekmelerden hangisini istediğinizi seçin.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Creating a New Wallet">
-      The most common way to run a node is to create a new Ethereum address that is dedicated to the node.
-      The Smartnode CLI provides a way to do this easily:
+    <Tab label="Yeni Bir Cüzdan Oluşturma">
+      Bir node çalıştırmanın en yaygın yolu, node'a özel yeni bir Ethereum adresi oluşturmaktır.
+      Smartnode CLI bunu kolayca yapmanın bir yolunu sağlar:
 
       ```shell
       rocketpool wallet init
       ```
 
-      You will first be prompted for a password to protect your wallet's private key.
-      Next, you will be presented the **unique 24-word mnemonic** for your new wallet.
-      This is the **recovery phrase** for your wallet.
-      If you ever lose your machine, you can use this phrase to regenerate your wallet and resurrect all of the Consensus validators attached to it.
+      İlk olarak cüzdanınızın özel anahtarını korumak için bir şifre girmeniz istenecektir.
+      Ardından, yeni cüzdanınız için **benzersiz 24 kelimelik anımsatıcı** sunulacaktır.
+      Bu, cüzdanınız için **kurtarma ifadesidir**.
+      Makinenizi kaybederseniz, bu ifadeyi kullanarak cüzdanınızı yeniden oluşturabilir ve ona bağlı tüm Consensus validator'larını geri getirebilirsiniz.
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        It is **essential** that you write this mnemonic down because this is the only time it will be shown to you, but keep it somewhere safe.
-        Anyone with this phrase can gain control of your wallet.
+        <p className="rspress-directive-title">NOT</p>
+        Bu anımsatıcıyı yazmanız **zorunludur** çünkü bu size gösterileceği tek seferdir, ancak onu güvenli bir yerde saklayın.
+        Bu ifadeye sahip olan herkes cüzdanınızın kontrolünü ele geçirebilir.
       </p>
 
-      Once you confirm your mnemonic phrase, you will be presented with the unique Ethereum address for your node wallet.
+      Anımsatıcı ifadenizi onayladıktan sonra, node cüzdanınız için benzersiz Ethereum adresi sunulacaktır.
     </Tab>
-    <Tab label="Recovering or Importing an Existing Wallet">
-      If you already have a node wallet that you created in a previous installation of the Smartnode, or if you want to import an address that you created elsewhere (such as with **Allnodes**), please follow the instructions in the [Importing an Existing Wallet for your Node](./recovering-rp) guide.
+    <Tab label="Mevcut Bir Cüzdanı Kurtarma veya İçe Aktarma">
+      Anımsatıcı ifadeyi girmeyi bitirdiğinizde, şu şekilde bir başarı mesajı göreceksiniz:
+      "Node cüzdanı başarıyla başlatıldı.
+        Node hesabı: {UzunHarfVeSayıDizisi}"
+      Bu, "Node'unuzu İşlem için Hazırlama" bölümünde ETH göndereceğiniz genel adrestir. Ayrıca "rocketpool wallet status" yazarak da doğrulayabilirsiniz.
 
-      Return here when you're finished.
+      Zaten Smartnode'un önceki bir kurulumunda oluşturduğunuz bir node cüzdanınız varsa veya başka bir yerde oluşturduğunuz bir adresi (örneğin **Allnodes** ile) içe aktarmak istiyorsanız, lütfen [Node'unuz için Mevcut Bir Cüzdanı İçe Aktarma](./recovering-rp) kılavuzundaki talimatları izleyin.
+
+      Bitirdiğinizde buraya dönün.
     </Tab>
 
   </Tabs>
 </div>
 
-::: warning NOTE
-As of the current build, Rocket Pool needs to have access to your wallet's private key in order to perform its automatic duties.
-**This means that the private key will exist in a file on your machine.**
-If an attacker manages to gain access to your machine, they could gain access to your node wallet and steal all of the tokens that it contains!
-Please ensure that you have followed the security guide in the [Securing your Node](./securing-your-node) section before you continue, and are comfortable with your security posture.
+::: warning NOT
+Mevcut yapı itibarıyla, Rocket Pool'un otomatik görevlerini yerine getirebilmesi için cüzdanınızın özel anahtarına erişimi olması gerekir.
+**Bu, özel anahtarın makinenizdeki bir dosyada bulunacağı anlamına gelir.**
+Bir saldırgan makinenize erişim sağlarsa, node cüzdanınıza erişim kazanabilir ve içerdiği tüm token'ları çalabilir!
+Lütfen devam etmeden önce [Node'unuzu Güvence Altına Alma](./securing-your-node) bölümündeki güvenlik kılavuzunu takip ettiğinizden ve güvenlik duruşunuzdan memnun olduğunuzdan emin olun.
 :::
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Docker & Hybrid Modes">
-      Your wallet's private key will be stored in a file located at `~/.rocketpool/data/wallet`.
+    <Tab label="Docker & Hybrid Modları">
+      Cüzdanınızın özel anahtarı `~/.rocketpool/data/wallet` konumunda bulunan bir dosyada saklanacaktır.
 
-      The password used to encrypt your wallet's key will be stored in `~/.rocketpool/data/password`.
-      This is the file that must be protected at all times.
+      Cüzdanınızın anahtarını şifrelemek için kullanılan şifre `~/.rocketpool/data/password` konumunda saklanacaktır.
+      Her zaman korunması gereken dosya budur.
     </Tab>
-    <Tab label="Native Mode">
-      The wallet and password files will be stored in the `data` directory under the Rocket Pool directory that you set up earlier (e.g. `/srv/rocketpool`).
+    <Tab label="Native Mod">
+      Cüzdan ve şifre dosyaları, daha önce kurduğunuz Rocket Pool dizini altındaki `data` dizininde saklanacaktır (örn. `/srv/rocketpool`).
 
-      Your wallet's private key will be stored in a file located at `/srv/rocketpool/data/wallet`.
+      Cüzdanınızın özel anahtarı `/srv/rocketpool/data/wallet` konumunda bulunan bir dosyada saklanacaktır.
 
-      The password used to encrypt your wallet's key will be stored in `/srv/rocketpool/data/password`.
-      This is the file that must be protected at all times.
+      Cüzdanınızın anahtarını şifrelemek için kullanılan şifre `/srv/rocketpool/data/password` konumunda saklanacaktır.
+      Her zaman korunması gereken dosya budur.
     </Tab>
 
   </Tabs>

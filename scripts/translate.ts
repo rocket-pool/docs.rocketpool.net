@@ -1,27 +1,15 @@
 #!/usr/bin/env bun
 
-import { createHash } from "crypto";
-import { readdir, readFile, writeFile, mkdir } from "fs/promises";
+import { readdir, readFile, writeFile, mkdir, stat } from "fs/promises";
 import { join, relative, dirname } from "path";
 import { fileURLToPath } from "url";
+import { execSync } from "child_process";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const ROOT_DIR = join(__dirname, "..");
 const DOCS_DIR = join(__dirname, "..", "docs");
-const MANIFEST_PATH = join(DOCS_DIR, ".translation-manifest.json");
 const SOURCE_LOCALE = "en";
 const TARGET_LOCALES = ["zh", "es", "fr", "de", "ja", "ko", "pt", "ru", "it", "tr"];
-
-interface FileManifest {
-  hash: string;
-  lastTranslated: string;
-  translations: Record<string, { hash: string; date: string }>;
-}
-
-interface TranslationManifest {
-  version: number;
-  lastUpdated: string;
-  files: Record<string, FileManifest>;
-}
 
 interface TranslationJob {
   sourcePath: string;
@@ -42,24 +30,6 @@ const LOCALE_NAMES: Record<string, string> = {
   it: "Italian",
   tr: "Turkish",
 };
-
-async function loadManifest(): Promise<TranslationManifest> {
-  try {
-    const content = await readFile(MANIFEST_PATH, "utf-8");
-    return JSON.parse(content);
-  } catch {
-    return { version: 1, lastUpdated: new Date().toISOString(), files: {} };
-  }
-}
-
-async function saveManifest(manifest: TranslationManifest): Promise<void> {
-  manifest.lastUpdated = new Date().toISOString();
-  await writeFile(MANIFEST_PATH, JSON.stringify(manifest, null, 2));
-}
-
-function computeHash(content: string): string {
-  return createHash("sha256").update(content).digest("hex").slice(0, 16);
-}
 
 async function getMarkdownFiles(dir: string): Promise<string[]> {
   const files: string[] = [];
@@ -288,34 +258,78 @@ async function translateFile(sourcePath: string, targetLocale: string): Promise<
   return restoredBody;
 }
 
-async function detectChanges(manifest: TranslationManifest, targetLocales: string[]): Promise<TranslationJob[]> {
+function getMainBranch(): string {
+  try {
+    const result = execSync("git rev-parse --verify main 2>/dev/null", { cwd: ROOT_DIR, encoding: "utf-8" });
+    if (result.trim()) return "main";
+  } catch {}
+
+  try {
+    const result = execSync("git rev-parse --verify master 2>/dev/null", { cwd: ROOT_DIR, encoding: "utf-8" });
+    if (result.trim()) return "master";
+  } catch {}
+
+  return "main";
+}
+
+function getChangedEnglishFiles(): string[] {
+  const mainBranch = getMainBranch();
+
+  try {
+    const output = execSync(`git diff ${mainBranch}...HEAD --name-only -- 'docs/en/**/*.md' 'docs/en/**/*.mdx'`, {
+      cwd: ROOT_DIR,
+      encoding: "utf-8",
+    });
+
+    return output
+      .trim()
+      .split("\n")
+      .filter((f) => f.length > 0)
+      .map((f) => join(ROOT_DIR, f));
+  } catch {
+    return [];
+  }
+}
+
+async function fileExists(path: string): Promise<boolean> {
+  try {
+    await stat(path);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function getFileMtime(path: string): Promise<number> {
+  try {
+    const s = await stat(path);
+    return s.mtimeMs;
+  } catch {
+    return 0;
+  }
+}
+
+async function detectChanges(targetLocales: string[]): Promise<TranslationJob[]> {
   const sourceDir = join(DOCS_DIR, SOURCE_LOCALE);
-  const sourceFiles = await getMarkdownFiles(sourceDir);
+  const changedFiles = getChangedEnglishFiles();
   const jobs: TranslationJob[] = [];
 
-  for (const sourcePath of sourceFiles) {
+  for (const sourcePath of changedFiles) {
     const relativePath = relative(sourceDir, sourcePath);
-    const content = await readFile(sourcePath, "utf-8");
-    const currentHash = computeHash(content);
-
-    const fileManifest = manifest.files[relativePath];
 
     for (const targetLocale of targetLocales) {
       const targetPath = join(DOCS_DIR, targetLocale, relativePath);
+      const targetExists = await fileExists(targetPath);
 
-      if (!fileManifest) {
+      if (!targetExists) {
         jobs.push({ sourcePath, targetLocale, targetPath, reason: "new" });
-        continue;
-      }
+      } else {
+        const sourceMtime = await getFileMtime(sourcePath);
+        const targetMtime = await getFileMtime(targetPath);
 
-      if (fileManifest.hash !== currentHash) {
-        jobs.push({ sourcePath, targetLocale, targetPath, reason: "changed" });
-        continue;
-      }
-
-      const translation = fileManifest.translations[targetLocale];
-      if (!translation) {
-        jobs.push({ sourcePath, targetLocale, targetPath, reason: "new" });
+        if (sourceMtime > targetMtime) {
+          jobs.push({ sourcePath, targetLocale, targetPath, reason: "changed" });
+        }
       }
     }
   }
@@ -323,7 +337,35 @@ async function detectChanges(manifest: TranslationManifest, targetLocales: strin
   return jobs;
 }
 
-async function processJobs(jobs: TranslationJob[], manifest: TranslationManifest, dryRun: boolean): Promise<void> {
+async function detectAllChanges(targetLocales: string[]): Promise<TranslationJob[]> {
+  const sourceDir = join(DOCS_DIR, SOURCE_LOCALE);
+  const sourceFiles = await getMarkdownFiles(sourceDir);
+  const jobs: TranslationJob[] = [];
+
+  for (const sourcePath of sourceFiles) {
+    const relativePath = relative(sourceDir, sourcePath);
+
+    for (const targetLocale of targetLocales) {
+      const targetPath = join(DOCS_DIR, targetLocale, relativePath);
+      const targetExists = await fileExists(targetPath);
+
+      if (!targetExists) {
+        jobs.push({ sourcePath, targetLocale, targetPath, reason: "new" });
+      } else {
+        const sourceMtime = await getFileMtime(sourcePath);
+        const targetMtime = await getFileMtime(targetPath);
+
+        if (sourceMtime > targetMtime) {
+          jobs.push({ sourcePath, targetLocale, targetPath, reason: "changed" });
+        }
+      }
+    }
+  }
+
+  return jobs;
+}
+
+async function processJobs(jobs: TranslationJob[], dryRun: boolean): Promise<void> {
   const sourceDir = join(DOCS_DIR, SOURCE_LOCALE);
   let completed = 0;
   const total = jobs.length;
@@ -341,25 +383,6 @@ async function processJobs(jobs: TranslationJob[], manifest: TranslationManifest
       await mkdir(dirname(job.targetPath), { recursive: true });
       await writeFile(job.targetPath, translatedContent);
 
-      const content = await readFile(job.sourcePath, "utf-8");
-      const currentHash = computeHash(content);
-
-      if (!manifest.files[relativePath]) {
-        manifest.files[relativePath] = {
-          hash: currentHash,
-          lastTranslated: new Date().toISOString(),
-          translations: {},
-        };
-      }
-
-      manifest.files[relativePath].hash = currentHash;
-      manifest.files[relativePath].translations[job.targetLocale] = {
-        hash: computeHash(translatedContent),
-        date: new Date().toISOString(),
-      };
-
-      await saveManifest(manifest);
-
       await new Promise((resolve) => setTimeout(resolve, 1000));
     } catch (error) {
       console.error(`  Error: ${error instanceof Error ? error.message : String(error)}`);
@@ -371,11 +394,9 @@ async function main(): Promise<void> {
   const args = process.argv.slice(2);
   const command = args[0] || "check";
 
-  const manifest = await loadManifest();
-
   switch (command) {
     case "check": {
-      const jobs = await detectChanges(manifest, TARGET_LOCALES);
+      const jobs = await detectChanges(TARGET_LOCALES);
       if (jobs.length === 0) {
         console.log("All translations are up to date.");
         return;
@@ -414,14 +435,14 @@ async function main(): Promise<void> {
         process.exit(1);
       }
 
-      const jobs = await detectChanges(manifest, locales);
+      const jobs = await detectChanges(locales);
       if (jobs.length === 0) {
         console.log("All translations are up to date.");
         return;
       }
 
       console.log(`Translating ${jobs.length} files...`);
-      await processJobs(jobs, manifest, false);
+      await processJobs(jobs, false);
       console.log("Translation complete.");
       break;
     }
@@ -435,12 +456,9 @@ async function main(): Promise<void> {
         process.exit(1);
       }
 
-      manifest.files = {};
-      await saveManifest(manifest);
-
-      const jobs = await detectChanges(manifest, locales);
+      const jobs = await detectAllChanges(locales);
       console.log(`Force re-translating ${jobs.length} files...`);
-      await processJobs(jobs, manifest, false);
+      await processJobs(jobs, false);
       console.log("Translation complete.");
       break;
     }
@@ -449,14 +467,14 @@ async function main(): Promise<void> {
       const targetLocale = args[1];
       const locales = targetLocale ? [targetLocale] : TARGET_LOCALES;
 
-      const jobs = await detectChanges(manifest, locales);
+      const jobs = await detectChanges(locales);
       if (jobs.length === 0) {
         console.log("All translations are up to date.");
         return;
       }
 
       console.log(`Dry run - would translate ${jobs.length} files:\n`);
-      await processJobs(jobs, manifest, true);
+      await processJobs(jobs, true);
       break;
     }
 
@@ -464,9 +482,9 @@ async function main(): Promise<void> {
       console.log(`Usage: bun scripts/translate.ts <command> [locale]
 
 Commands:
-  check           Check which files need translation
+  check           Check which files need translation (git-based, compares to main)
   translate       Translate changed files (optionally specify locale)
-  translate-all   Force re-translate all files (optionally specify locale)
+  translate-all   Translate all files where source is newer than translation
   dry-run         Show what would be translated without translating
 
 Locales: ${TARGET_LOCALES.join(", ")}

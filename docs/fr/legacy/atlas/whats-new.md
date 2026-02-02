@@ -1,130 +1,130 @@
-# The Atlas Update
+# La mise à jour Atlas
 
-::: tip NOTE
-Atlas was deployed on `18 April 2023, 00:00 UTC`. Please visit [here](../houston/whats-new) to read about Houston, the latest protocol upgrade.
+::: tip REMARQUE
+Atlas a été déployé le `18 avril 2023, 00:00 UTC`. Veuillez visiter [ici](../houston/whats-new) pour en savoir plus sur Houston, la dernière mise à niveau du protocole.
 :::
 
-This page describes the major changes that Rocket Pool's next major update, titled **Atlas**, brings to the protocol including updates to both the Smartnode stack and to the Rocket Pool protocol in general.
+Cette page décrit les changements majeurs que la prochaine mise à jour importante de Rocket Pool, intitulée **Atlas**, apporte au protocole, y compris les mises à jour de la stack Smartnode et du protocole Rocket Pool en général.
 
-Please read through this page thoroughly to understand all of the differences between the previous version of Rocket Pool (Redstone) and Atlas.
+Veuillez lire attentivement cette page pour comprendre toutes les différences entre la version précédente de Rocket Pool (Redstone) et Atlas.
 
-## New Protocol Features
+## Nouvelles fonctionnalités du protocole
 
-Atlas brings about some exciting new features that are based on both community feedback and changes to the Ethereum protocol itself.
-Below is a brief list of these changes - click on any of them to learn more about it.
+Atlas apporte de nouvelles fonctionnalités passionnantes basées à la fois sur les retours de la communauté et sur les changements du protocole Ethereum lui-même.
+Voici une brève liste de ces changements - cliquez sur l'un d'eux pour en savoir plus.
 
-### Shapella and Withdrawals
+### Shapella et les retraits
 
-The Ethereum protocol is preparing to undergo its next major upgrade: **Shanghai** on the Execution layer, and **Capella** on the Consensus layer - since these are now interconnected, both will occur at the same time.
-Ethereum users have affectionately come to call the combined upgrade [**"Shapella"**](https://blog.ethereum.org/2023/02/21/sepolia-shapella-announcement) accordingly.
+Le protocole Ethereum se prépare à subir sa prochaine mise à niveau majeure : **Shanghai** sur la couche Execution, et **Capella** sur la couche Consensus - puisque celles-ci sont maintenant interconnectées, les deux se produiront en même temps.
+Les utilisateurs d'Ethereum ont affectueusement appelé la mise à niveau combinée [**"Shapella"**](https://blog.ethereum.org/2023/02/21/sepolia-shapella-announcement) en conséquence.
 
-Shapella introduces **withdrawals** to the Beacon Chain, meaning node operators are now able to access the ETH that is currently locked on the Beacon Chain.
-This comes in two flavors:
+Shapella introduit les **retraits** sur la Beacon Chain, ce qui signifie que les Node Operators peuvent maintenant accéder à l'ETH actuellement verrouillé sur la Beacon Chain.
+Cela se présente sous deux formes :
 
-- Partial withdrawals (**skimming**), where your rewards (your excess Beacon Chain balance over 32 ETH) are sent to your minipool on the Execution Layer. This is done _automatically by the protocol itself_ every so often (about once every four or five days on Mainnet).
-- **Full withdrawals**, where you exit your validator from the Beacon Chain and its entire balance is sent to your minipool on the Execution Layer. This is done _automatically by the protocol itself_ once your validator has been exited from the chain long enough.
+- Les retraits partiels (**skimming**), où vos récompenses (votre solde excédentaire de la Beacon Chain au-dessus de 32 ETH) sont envoyées à votre minipool sur la couche Execution. Ceci est effectué _automatiquement par le protocole lui-même_ de temps en temps (environ une fois tous les quatre ou cinq jours sur le Mainnet).
+- Les **retraits complets**, où vous sortez votre validateur de la Beacon Chain et son solde entier est envoyé à votre minipool sur la couche Execution. Ceci est effectué _automatiquement par le protocole lui-même_ une fois que votre validateur a été sorti de la chaîne suffisamment longtemps.
 
-Atlas introduces a new delegate contract for minipools that allows node operators to **distribute** the minipool's ETH balance, splitting it evenly between the node operator and the rETH holders (plus commission, of course) at any time.
-This gives node operators **immediate access** to their Beacon Chain rewards!
-It also puts the rETH holders's share back into the deposit pool, so it can be used to unstake rETH for ETH at the protocol's exchange rate (or to create new minipools).
+Atlas introduit un nouveau contrat délégué pour les minipools qui permet aux Node Operators de **distribuer** le solde ETH du minipool, en le divisant de manière égale entre le Node Operator et les détenteurs de rETH (plus la commission, bien sûr) à tout moment.
+Cela donne aux Node Operators un **accès immédiat** à leurs récompenses de la Beacon Chain !
+Cela remet également la part des détenteurs de rETH dans le pool de dépôt, afin qu'elle puisse être utilisée pour unstaker du rETH contre de l'ETH au taux de change du protocole (ou pour créer de nouveaux minipools).
 
-### 8-ETH Bonded Minipools
+### Minipools avec caution de 8 ETH
 
-One of the most anticipated changes made in Atlas is the introduction of the ability to only provide 8 ETH to make a minipool instead of 16 ETH.
-Minipools with only 8 ETH bonded by their owning node operator are matched with **24 ETH** from the staking pool (provided by rETH holders) in order to make a validator.
-This significantly reduces the capital requirement for running your own validator _and_ results in greater returns for both the node operator and the rETH stakers!
-In fact, running two 8-ETH minipool instead of one 16-ETH minipool will provide **over 18% more rewards** - even if the 16-ETH minipool has a commission rate of 20%.
+L'un des changements les plus attendus apportés par Atlas est l'introduction de la capacité de ne fournir que 8 ETH pour créer un minipool au lieu de 16 ETH.
+Les minipools avec seulement 8 ETH cautionnés par leur Node Operator propriétaire sont associés à **24 ETH** du pool de staking (fourni par les détenteurs de rETH) afin de créer un validateur.
+Cela réduit considérablement les exigences en capital pour exécuter votre propre validateur _et_ entraîne des rendements plus élevés pour le Node Operator et les stakers rETH !
+En fait, exécuter deux minipools de 8 ETH au lieu d'un minipool de 16 ETH fournira **plus de 18% de récompenses supplémentaires** - même si le minipool de 16 ETH a un taux de commission de 20%.
 
-Creating an 8 ETH minipool requires that you stake a **minimum of 2.4 ETH worth of RPL** and a **maximum of 12 ETH worth of RPL**.
-These represent 10% of the amount you're _borrowing_ from the protocol, and 150% of the amount you're _bonding_ (staking) yourself.
+La création d'un minipool de 8 ETH nécessite que vous stakiez un **minimum de 2,4 ETH en valeur de RPL** et un **maximum de 12 ETH en valeur de RPL**.
+Ceux-ci représentent 10% du montant que vous _empruntez_ au protocole, et 150% du montant que vous _cautionnez_ (stakez) vous-même.
 
-New minipools can be created with either 8 ETH or 16 ETH.
-16 ETH minipools are unchanged from how they work today, and are available for users that want to minimize their exposure to the RPL token.
+Les nouveaux minipools peuvent être créés avec soit 8 ETH soit 16 ETH.
+Les minipools de 16 ETH sont inchangés par rapport à leur fonctionnement actuel et sont disponibles pour les utilisateurs qui souhaitent minimiser leur exposition au jeton RPL.
 
-To learn how to make new minipools using an 8 ETH bond, please visit the [minipool creation guide](../../node-staking/create-validator.mdx).
+Pour apprendre comment créer de nouveaux minipools en utilisant une caution de 8 ETH, veuillez visiter le [guide de création de minipool](../../node-staking/create-validator.mdx).
 
-Also, once Atlas has been applied, node operators can **migrate existing 16-ETH minipools directly into 8-ETH minipool without needing to exit**.
-This will give them 8 ETH back in [deposit credit](../../node-staking/credit), which can be used to create a **new 8-ETH minipool for free**!
+De plus, une fois qu'Atlas a été appliqué, les Node Operators peuvent **migrer les minipools existants de 16 ETH directement en minipools de 8 ETH sans avoir besoin de sortir**.
+Cela leur rendra 8 ETH sous forme de [crédit de dépôt](../../node-staking/credit), qui peut être utilisé pour créer un **nouveau minipool de 8 ETH gratuitement** !
 
-To learn more about 8-ETH bond minipools, please visit the [bond reduction guide](../../node-staking/leb-migration.mdx).
+Pour en savoir plus sur les minipools avec caution de 8 ETH, veuillez visiter le [guide de réduction de caution](../../node-staking/leb-migration.mdx).
 
-### Solo Validator Conversion
+### Conversion de validateur solo
 
-Part of the Shapella upgrade involves the ability for solo validators to [change their validators' withdrawal credentials](https://notes.ethereum.org/@launchpad/withdrawals-faq) from the original (now unused) BLS-based withdrawal key to an address on the Execution layer.
-This address will be the recipient for all of that validator's rewards and its full ETH balance once it exits the Beacon Chain.
+Une partie de la mise à niveau Shapella implique la capacité pour les validateurs solo de [changer les identifiants de retrait de leurs validateurs](https://notes.ethereum.org/@launchpad/withdrawals-faq) de la clé de retrait BLS d'origine (maintenant inutilisée) vers une adresse sur la couche Execution.
+Cette adresse sera le destinataire de toutes les récompenses de ce validateur et de son solde ETH complet une fois qu'il sort de la Beacon Chain.
 
-Regular Rocket Pool node operators don't need to worry about any of this, as the protocol automatically set this up for your minipools when you created them.
-_However_, as part of this new requirement for solo validators, Atlas brings an exciting opportunity: the ability to **create a special minipool** that will become the withdrawal address for your **existing solo validator**.
+Les Node Operators réguliers de Rocket Pool n'ont pas à se soucier de tout cela, car le protocole a automatiquement configuré cela pour vos minipools lorsque vous les avez créés.
+_Cependant_, dans le cadre de cette nouvelle exigence pour les validateurs solo, Atlas apporte une opportunité passionnante : la capacité de **créer un minipool spécial** qui deviendra l'adresse de retrait de votre **validateur solo existant**.
 
-In other words, this will allow you to **directly convert a solo validator into a Rocket Pool minipool without needing to exit it!**
+En d'autres termes, cela vous permettra de **convertir directement un validateur solo en minipool Rocket Pool sans avoir besoin de le sortir !**
 
-This means you will get all the benefits of Rocket Pool minipools, including:
+Cela signifie que vous obtiendrez tous les avantages des minipools Rocket Pool, notamment :
 
-- The ability to convert your one validator (with a 32 ETH bond) into **four minipools** (each with an 8 ETH bond), effectively **quadrupling** your presence on the Beacon Chain
-- Commission on the portion of those minipools provided by rETH stakers
-- Access to Rocket Pool's [Smoothing Pool](../../node-staking/fee-distrib-sp#the-smoothing-pool) to pool and evenly distribute rewards from block proposals and MEV
+- La capacité de convertir votre validateur unique (avec une caution de 32 ETH) en **quatre minipools** (chacun avec une caution de 8 ETH), **quadruplant** efficacement votre présence sur la Beacon Chain
+- Une commission sur la portion de ces minipools fournie par les stakers rETH
+- Accès au [Smoothing Pool](../../node-staking/fee-distrib-sp#the-smoothing-pool) de Rocket Pool pour mettre en commun et distribuer équitablement les récompenses des propositions de blocs et MEV
 
-To learn more about converting a solo validator into a minipool, please visit the [Converting a Solo Validator into a Minipool](../../node-staking/solo-staker-migration) guide.
+Pour en savoir plus sur la conversion d'un validateur solo en minipool, veuillez visiter le guide [Conversion d'un validateur solo en minipool](../../node-staking/solo-staker-migration).
 
-## New Smartnode Features
+## Nouvelles fonctionnalités du Smartnode
 
-In addition to core changes to the Rocket Pool protocol, Atlas also brings some exciting upgrades to the Smartnode stack itself which are present in v1.9.0.
+En plus des changements fondamentaux au protocole Rocket Pool, Atlas apporte également des mises à niveau passionnantes à la stack Smartnode elle-même, qui sont présentes dans la v1.9.0.
 
-### Automatic Rewards Distributions
+### Distributions automatiques de récompenses
 
-If you're already an active Rocket Pool node operator, you may be familiar with the `rocketpool_node` process that handles certain automated processes.
-For example, it ensures you have the correct fee recipient and automatically runs the second `stake` transaction for you after `prelaunch` minipools pass the 12-hour scrub check.
+Si vous êtes déjà un Node Operator actif de Rocket Pool, vous connaissez peut-être le processus `rocketpool_node` qui gère certains processus automatisés.
+Par exemple, il garantit que vous avez le bon destinataire de frais et exécute automatiquement la deuxième transaction `stake` pour vous après que les minipools `prelaunch` passent la vérification de nettoyage de 12 heures.
 
-Starting with Atlas, the `node` has a new duty: **automatic distribution of minipool rewards!**
-This is due to the way [the Shapella upgrade works](../../node-staking/skimming), by skimming your rewards from the Beacon Chain into your minipool every few days.
+À partir d'Atlas, le `node` a un nouveau devoir : **distribution automatique des récompenses de minipool !**
+Ceci est dû à la façon dont [la mise à niveau Shapella fonctionne](../../node-staking/skimming), en écrémant vos récompenses de la Beacon Chain dans votre minipool tous les quelques jours.
 
-Whenever one of your minipools reaches a balance larger than a user-specified threshold (default of 1 ETH), the node will automatically run `distribute-balance` on it.
-This will send your portion of the rewards to your withdrawal address, and the pool staker's portion back to the deposit pool.
+Chaque fois que l'un de vos minipools atteint un solde supérieur à un seuil spécifié par l'utilisateur (par défaut 1 ETH), le nœud exécutera automatiquement `distribute-balance` dessus.
+Cela enverra votre portion des récompenses à votre adresse de retrait, et la portion du staker de pool retournera au pool de dépôt.
 
-Changing the threshold can be done in the `Smartnode and TX Fees` section of the `service config` TUI, under the `Auto-Distribute Threshold` setting.
+Le changement du seuil peut être effectué dans la section `Smartnode and TX Fees` du TUI `service config`, sous le paramètre `Auto-Distribute Threshold`.
 
-### Unified Grafana Dashboard
+### Tableau de bord Grafana unifié
 
-By popular demand, we have created a new [**Grafana dashboard**](https://grafana.com/grafana/dashboards/21863) to help node operators track and assess the status, progress, and overall health of their nodes:
+Suite à une demande populaire, nous avons créé un nouveau [**tableau de bord Grafana**](https://grafana.com/grafana/dashboards/21863) pour aider les Node Operators à suivre et évaluer l'état, la progression et la santé globale de leurs nœuds :
 
 ![](../../node-staking/images/grafana-1.3.jpg)
 
-It comes with the following highly requested features:
+Il est livré avec les fonctionnalités très demandées suivantes :
 
-- Support for all Execution and Consensus clients in a single dashboard - no more changing dashboards based on which clients you're using!
-- Execution client stats, including CPU and RAM usage, and peer count
-- Attestation accuracy tracking which follows how "correct" your attestations were for the previous epoch, so you know how far off from optimal rewards you're getting
-- Tracking of the Smoothing Pool's balance
-- Tracking of claimed and unclaimed rewards, now including ETH from the Smoothing Pool
-- Stats about Rocket Pool's Snapshot-based governance votes
-- Room for tracking a second SSD's used space and temperature if you have one for your OS and a different one for your chain data
-- And more!
+- Prise en charge de tous les clients Execution et Consensus dans un seul tableau de bord - plus besoin de changer de tableau de bord en fonction des clients que vous utilisez !
+- Statistiques du client Execution, y compris l'utilisation du CPU et de la RAM, et le nombre de pairs
+- Suivi de la précision des attestations qui suit à quel point vos attestations étaient "correctes" pour l'époque précédente, afin que vous sachiez à quelle distance vous êtes des récompenses optimales
+- Suivi du solde du Smoothing Pool
+- Suivi des récompenses réclamées et non réclamées, y compris maintenant l'ETH du Smoothing Pool
+- Statistiques sur les votes de gouvernance basés sur Snapshot de Rocket Pool
+- Espace pour suivre l'espace utilisé et la température d'un deuxième SSD si vous en avez un pour votre système d'exploitation et un autre pour vos données de chaîne
+- Et plus encore !
 
-You can import the new dashboard from the official Grafana service using ID `21863` by following our [Grafana guide](../../node-staking/grafana.mdx).
+Vous pouvez importer le nouveau tableau de bord depuis le service officiel Grafana en utilisant l'ID `21863` en suivant notre [guide Grafana](../../node-staking/grafana.mdx).
 
-This new dashboard was a labor of love that involved extensive help from community member **0xFornax** - thank you for all of your hard work!
+Ce nouveau tableau de bord a été un travail d'amour qui a impliqué l'aide considérable du membre de la communauté **0xFornax** - merci pour tout votre travail acharné !
 
-### Nimbus Changes
+### Changements Nimbus
 
-Smartnode v1.9.0 introduces **split mode support** for Nimbus!
-Instead of running the Beacon Node and Validator Client inside a single process / container, the Smartnode will now run them in separate containers like the other clients. This has the following benefits:
+Smartnode v1.9.0 introduit le **support du mode split** pour Nimbus !
+Au lieu d'exécuter le Beacon Node et le Validator Client à l'intérieur d'un seul processus / conteneur, le Smartnode les exécutera maintenant dans des conteneurs séparés comme les autres clients. Cela présente les avantages suivants :
 
-- Nimbus now supports **fallback clients** (a secondary Execution client and Beacon Node that Nimbus's Validator Client can connect to when your primary clients are down for maintenance, such as resyncing).
-- Nimbus is now supported in **Externally-Managed (Hybrid) Mode**, so you can couple the Validator Client that the Smartnode manages to an external Beacon Node that you maintain on your own.
-- The Beacon Node no longer needs to be restarted after the addition of new minipools, meaning you don't lose attestations while it reconnects to its peers.
+- Nimbus prend désormais en charge les **clients de secours** (un client Execution secondaire et un Beacon Node auxquels le Validator Client de Nimbus peut se connecter lorsque vos clients principaux sont en panne pour maintenance, comme la resynchronisation).
+- Nimbus est maintenant pris en charge en **mode géré en externe (hybride)**, vous pouvez donc coupler le Validator Client que le Smartnode gère à un Beacon Node externe que vous maintenez vous-même.
+- Le Beacon Node n'a plus besoin d'être redémarré après l'ajout de nouveaux minipools, ce qui signifie que vous ne perdez pas d'attestations pendant qu'il se reconnecte à ses pairs.
 
-### Lodestar Support
+### Support Lodestar
 
-[Lodestar](https://chainsafe.github.io/lodestar/) is now supported as an option for your Consensus Client of choice!
-This is the newest addition to be officially accepted onto [Ethereum's Launchpad](https://launchpad.ethereum.org/en/lodestar), and it's ready for validation.
-Lodestar supports many of the great features you've come to love from the other clients, including Doppelganger Detection, MEV-Boost, externally-managed clients (Hybrid Mode), and more!
+[Lodestar](https://chainsafe.github.io/lodestar/) est maintenant pris en charge comme option pour votre client Consensus de choix !
+C'est le nouvel ajout à être officiellement accepté sur [le Launchpad d'Ethereum](https://launchpad.ethereum.org/en/lodestar), et il est prêt pour la validation.
+Lodestar prend en charge de nombreuses fonctionnalités formidables que vous avez apprises à aimer des autres clients, y compris la détection de Doppelganger, MEV-Boost, les clients gérés en externe (mode hybride), et plus encore !
 
-### New Network Snapshot System
+### Nouveau système d'instantané du réseau
 
-On a slightly more technical note, v1.9.0 introduces a brand new system for quickly capturing a snapshot of the state of **everything about your node** on both the Execution and the Consensus layers.
-Under the hood, this system leverages [MakerDAO's multicall contract](https://github.com/makerdao/multicall) and Will O'Beirne's [Ethereum Balance Checker contract](https://github.com/wbobeirne/eth-balance-checker) to batch thousands of individual Execution client queries up into a single request.
+Sur une note légèrement plus technique, la v1.9.0 introduit un tout nouveau système pour capturer rapidement un instantané de l'état de **tout ce qui concerne votre nœud** sur les couches Execution et Consensus.
+Sous le capot, ce système exploite [le contrat multicall de MakerDAO](https://github.com/makerdao/multicall) et [le contrat Ethereum Balance Checker de Will O'Beirne](https://github.com/wbobeirne/eth-balance-checker) pour regrouper des milliers de requêtes individuelles de client Execution en une seule requête.
 
-This makes the `node` process much less taxing on the Execution client for node operators with a large number of validators, and should significantly reduce its CPU load which will improve attestations and overall rewards.
+Cela rend le processus `node` beaucoup moins exigeant sur le client Execution pour les Node Operators avec un grand nombre de validateurs, et devrait réduire considérablement sa charge CPU, ce qui améliorera les attestations et les récompenses globales.
 
-This new system hasn't made its way into the CLI itself yet, so any commands you run there (such as `rocketpool minipool status`) will still use the old single-query setup.
-Over time we'll introduce it into the CLI too, which will make all of its commands lightning fast (_except for waiting for transactions to be validated, that still takes a while_).
+Ce nouveau système n'a pas encore été intégré dans le CLI lui-même, donc toutes les commandes que vous y exécutez (telles que `rocketpool minipool status`) utiliseront toujours l'ancienne configuration à requête unique.
+Au fil du temps, nous l'introduirons également dans le CLI, ce qui rendra toutes ses commandes ultra-rapides (_sauf pour attendre que les transactions soient validées, cela prend encore du temps_).

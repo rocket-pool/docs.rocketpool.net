@@ -1,44 +1,43 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Oracle DAO Proposals
+# Oracle DAOプロポーザル
 
-As a reminder, there are two types of Oracle DAO duties:
+念のため、Oracle DAOの役割には2つのタイプがあります:
 
-1. **Automated duties** - these are duties related to routine Rocket Pool operation, such as shuttling information from the Consensus Layer to the Execution Layer, calculating various aspects of the protocol off-chain, and submitting them as updates to the Smart Contracts. Each of these is performed automatically by the `watchtower` daemon process and do not require manual intervention so long as your Execution and Consensus Clients, and your `watchtower` daemon, are all operating normally. You set up the `watchtower` daemon in the previous steps already, so this section will not go over them again.
-2. **Manual duties** - these are duties that require your own decision-making and out-of-band communication with the rest of the Oracle DAO to perform. They include things such as voting on contract upgrades, changing parameters, and inviting or kicking members to/from the Oracle DAO. These can all be done via the standard Smartnode CLI. This section describes each of these duties and how to perform them.
+1. **自動化された役割** - これらは、Consensus LayerからExecution Layerへの情報の伝達、プロトコルのさまざまな側面のオフチェーン計算、およびそれらをSmart Contractsへの更新として送信するなど、Rocket Poolの通常運用に関連する役割です。これらはすべて`watchtower`デーモンプロセスによって自動的に実行され、Execution ClientとConsensus Client、および`watchtower`デーモンがすべて正常に動作している限り、手動介入は必要ありません。`watchtower`デーモンは前のステップですでに設定しているため、このセクションでは再度説明しません。
+2. **手動の役割** - これらは、Oracle DAOの他のメンバーとの独自の意思決定とバンド外通信を必要とする役割です。これには、コントラクトのアップグレードへの投票、パラメータの変更、Oracle DAOへのメンバーの招待またはキックなどが含まれます。これらはすべて標準のSmartnode CLIを介して実行できます。このセクションでは、これらの各役割とその実行方法について説明します。
 
-Proposals form the core of your responsibilities outside the automated `watchtower` duties.
-Essentially, they work as follows:
+プロポーザルは、自動化された`watchtower`の役割以外の責任の中核を形成します。
+基本的に、次のように機能します:
 
-- The collective Oracle DAO should discuss an upcoming proposal extensively ahead of time, so each member is aware of it and understands what that proposal will entail.
-- An Oracle DAO member then creates the proposal via an on-chain transaction.
-- The proposal will then enter a **wait period** before voting can begin to have further discussion and form their opinion on it. This is currently **7 days** on Mainnet.
-- After the wait period is over, members can vote on the proposal via a simple yes-or-no vote.
-- When a quorum of 51% of the Oracle DAO members has voted the same way, the vote is concluded. If 51% agreed to the proposal, it will be able to be **executed**. Any member can execute the proposal once it is approved.
-- Execution refers to formally triggering the change on-chain, thus modifying the state of the core Rocket Pool contracts.
+- Oracle DAO全体が、各メンバーがそれを認識し、そのプロポーザルが何を伴うかを理解できるように、今後のプロポーザルについて事前に広範囲に議論する必要があります。
+- Oracle DAOメンバーが、オンチェーントランザクションを介してプロポーザルを作成します。
+- プロポーザルは、投票が開始される前に**待機期間**に入り、さらなる議論と意見形成を行います。これは現在Mainnetで**7日間**です。
+- 待機期間が終了すると、メンバーは単純な賛成か反対の投票でプロポーザルに投票できます。
+- Oracle DAOメンバーの51%のクォーラムが同じ方法で投票した場合、投票は終了します。51%がプロポーザルに同意した場合、それは**実行**できるようになります。プロポーザルが承認されると、任意のメンバーがプロポーザルを実行できます。
+- 実行とは、オンチェーンで正式に変更をトリガーし、コアRocket Poolコントラクトの状態を変更することを指します。
 
-## Making a Proposal
+## プロポーザルの作成
 
-Once you make a proposal, it will enter a **review period** where the other members can see it and discuss it, but will not be able to vote on it.
-At the time of writing, this is currently **7 days**.
+プロポーザルを作成すると、**レビュー期間**に入り、他のメンバーがそれを確認して議論できますが、投票することはできません。
+この記事の執筆時点では、これは現在**7日間**です。
 
-After the review period, there will be a **voting period** where members can vote either for the proposal, or against it.
-At the time of writing, this is currently **14 days**.
+レビュー期間の後、メンバーがプロポーザルに賛成または反対のいずれかで投票できる**投票期間**があります。
+この記事の執筆時点では、これは現在**14日間**です。
 
-If the proposal reaches quorum before it expires (that is, if enough members vote in favor of it to reach consensus), it will be **passed**.
-Quorum is a configurable parameter by the Oracle DAO; it is currently set to at least **51%** of the total member pool.
+プロポーザルが期限切れになる前にクォーラムに達した場合(つまり、コンセンサスに達するのに十分なメンバーが賛成票を投じた場合)、それは**可決**されます。
+クォーラムはOracle DAOによって設定可能なパラメータです。現在、総メンバープールの少なくとも**51%**に設定されています。
 
-Once a vote is passed, it can be **executed** which causes its changes to go into effect.
-At the time of writing, the execution is **14 days** after the proposal was passed.
+投票が可決されると、**実行**でき、その変更が有効になります。
+この記事の執筆時点では、実行はプロポーザルが可決されてから**14日後**です。
 
-The process for making a new proposal depends on the type of proposal you want to make.
-Select a type from the tabs below.
+新しいプロポーザルを作成するプロセスは、作成したいプロポーザルのタイプによって異なります。
+以下のタブからタイプを選択してください。
 
 <div className="p-3">
   <Tabs>
     <Tab label="Oracle DAO Member List">
-      To propose modifying the list of Oracle DAO members, use the `rocketpool odao propose member` command which
-      provides the following options:
+      Oracle DAOメンバーのリストを変更するプロポーザルを行うには、`rocketpool odao propose member`コマンドを使用します。このコマンドは次のオプションを提供します:
 
       ```
       NAME:
@@ -58,32 +57,28 @@ Select a type from the tabs below.
 
       #### invite
 
-      Inviting a member is done via `rocketpool odao propose member invite` which will take 3 additional arguments:
+      メンバーの招待は`rocketpool odao propose member invite`を介して行われ、3つの追加引数が必要です:
 
-      - The node address to invite (must be a registered Rocket Pool node)
-      - The name / label for this node
-      - The URL or contact info for the user or organization running the node
+      - 招待するノードアドレス(登録されたRocket Poolノードである必要があります)
+      - このノードの名前/ラベル
+      - ノードを実行しているユーザーまたは組織のURLまたは連絡先情報
 
-      For example: to invite a new member, run `rocketpool odao propose member invite
-      0xabcd1234abcd1234abcd1234abcd1234abcd1234 some-user user@example.com`.
+      例:新しいメンバーを招待するには、`rocketpool odao propose member invite
+      0xabcd1234abcd1234abcd1234abcd1234abcd1234 some-user user@example.com`を実行します。
 
       #### kick
 
-      Kicking a member out of the Oracle DAO is done via the `rocketpool odao propose member kick` command.
-      It will ask you to select which member you want to kick, and issue an optional fine (from 0 RPL up to the bonded
-      RPL amount, currently 1750 RPL).
-      This fine, if provided, will burn part of (or all of) the member's RPL bond if the Oracle DAO votes to kick that
-      member.
+      Oracle DAOからメンバーをキックするには、`rocketpool odao propose member kick`コマンドを使用します。
+      キックしたいメンバーを選択し、オプションの罰金(0 RPLから保証されているRPL金額、現在1750 RPLまで)を発行するよう求められます。
+      この罰金が提供された場合、Oracle DAOがそのメンバーをキックすることに投票すると、メンバーのRPLボンドの一部(またはすべて)がバーンされます。
 
       #### leave
 
-      If you would like to voluntarily resign from the Oracle DAO, use the `rocketpool odao propose member leave`
-      command.
-      This will create a new proposal so the other members can vote on whether or not to approve your resignation.
+      Oracle DAOから自主的に辞任したい場合は、`rocketpool odao propose member leave`コマンドを使用します。
+      これにより、他のメンバーがあなたの辞任要求を承認するかどうかを投票できるように、新しいプロポーザルが作成されます。
     </Tab>
     <Tab label="Oracle DAO Parameters">
-      To propose modifying the parameters that govern how Oracle DAO votes and membership modification work, use the
-      `rocketpool odao propose setting` command which provides the following options:
+      Oracle DAOの投票とメンバーシップの変更がどのように機能するかを管理するパラメータを変更するプロポーザルを行うには、`rocketpool odao propose setting`コマンドを使用します。このコマンドは次のオプションを提供します:
 
       ```
       NAME:
@@ -108,125 +103,102 @@ Select a type from the tabs below.
 
       #### members-quorum
 
-      Using `rocketpool odao propose setting members-quorum value` will change the quorum required for the Oracle DAO's
-      duties before they are considered canonized.
-      `value` here can be a floating point number between 0 and 100, indicating the percent of members needed to reach
-      quorum on Oracle DAO votes.
+      `rocketpool odao propose setting members-quorum value`を使用すると、Oracle DAOの役割が正規化されたと見なされる前に必要なクォーラムが変更されます。
+      ここでの`value`は0から100までの浮動小数点数で、Oracle DAO投票でクォーラムに達するために必要なメンバーのパーセンテージを示します。
 
-      ::: warning NOTE
-      Note that this does **not** affect the quorum required for automated duties such as RPL price and rETH balance
-      submission; those settings are controlled by the Protocol DAO (pDAO), _not_ the Oracle DAO.
+      ::: warning 注意
+      これは、RPL価格やrETHバランス提出などの自動化された役割に必要なクォーラムには影響**しません**。これらの設定はProtocol DAO(pDAO)によって制御されており、Oracle DAOでは_ありません_。
       :::
 
       #### members-rplbond
 
-      Use `rocketpool odao propose setting members-rplbond value` to change the amount of RPL required as a bond for new
-      members invited to the Oracle DAO.
-      For example, entering `5000` for `value` will set the bond at 5000 RPL.
-      Note that this does not affect members that already exist; it only affects new members invited after the change.
+      `rocketpool odao propose setting members-rplbond value`を使用して、Oracle DAOに招待された新しいメンバーのボンドとして必要なRPLの量を変更します。
+      例えば、`value`に`5000`を入力すると、ボンドが5000 RPLに設定されます。
+      これは既に存在するメンバーには影響しません。変更後に招待された新しいメンバーにのみ影響します。
 
       #### proposal-cooldown
 
-      Use `rocketpool odao propose setting proposal-cooldown value` to change the cooldown time that a member must wait
-      between submitting proposals.
+      `rocketpool odao propose setting proposal-cooldown value`を使用して、メンバーがプロポーザルを提出する間に待機する必要があるクールダウン時間を変更します。
 
-      `value` is a string-formatted time duration, such as `1h30m45s` for one hour, thirty minutes, and forty-five
-      seconds.
-      It does not accept days; for multiple days, simply use the total number of hours.
+      `value`は、1時間30分45秒の場合`1h30m45s`のような文字列形式の期間です。
+      日数は受け付けません。複数日の場合は、単純に合計時間数を使用してください。
 
       #### proposal-vote-timespan
 
-      Use `rocketpool odao propose setting proposal-vote-timespan value` to change how long a vote can exist before
-      expiring.
+      `rocketpool odao propose setting proposal-vote-timespan value`を使用して、投票が期限切れになる前に存在できる期間を変更します。
 
-      `value` is a string-formatted time duration, such as `1h30m45s` for one hour, thirty minutes, and forty-five
-      seconds.
-      It does not accept days; for multiple days, simply use the total number of hours.
+      `value`は、1時間30分45秒の場合`1h30m45s`のような文字列形式の期間です。
+      日数は受け付けません。複数日の場合は、単純に合計時間数を使用してください。
 
       #### proposal-vote-delay-timespan
 
-      Use `rocketpool odao propose setting proposal-vote-delay-timespan value` to change how long the Oracle DAO must
-      wait before being able to vote on a new proposal.
+      `rocketpool odao propose setting proposal-vote-delay-timespan value`を使用して、Oracle DAOが新しいプロポーザルに投票できるようになるまで待機する必要がある期間を変更します。
 
-      `value` is a string-formatted time duration, such as `1h30m45s` for one hour, thirty minutes, and forty-five
-      seconds.
-      It does not accept days; for multiple days, simply use the total number of hours.
+      `value`は、1時間30分45秒の場合`1h30m45s`のような文字列形式の期間です。
+      日数は受け付けません。複数日の場合は、単純に合計時間数を使用してください。
 
       #### proposal-execute-timespan
 
-      Use `rocketpool odao propose setting proposal-execute-timespan value` to change how long the Oracle DAO has to
-      execute (enact) a proposal after it is approved.
-      If none of the members execute the proposal during this window, it will expire and the proposal will become
-      invalid.
+      `rocketpool odao propose setting proposal-execute-timespan value`を使用して、Oracle DAOがプロポーザルが承認された後にプロポーザルを実行(制定)する必要がある期間を変更します。
+      この期間中にメンバーの誰もプロポーザルを実行しない場合、それは期限切れになり、プロポーザルは無効になります。
 
-      `value` is a string-formatted time duration, such as `1h30m45s` for one hour, thirty minutes, and forty-five
-      seconds.
-      It does not accept days; for multiple days, simply use the total number of hours.
+      `value`は、1時間30分45秒の場合`1h30m45s`のような文字列形式の期間です。
+      日数は受け付けません。複数日の場合は、単純に合計時間数を使用してください。
 
       #### proposal-action-timespan
 
-      Certain proposals require secondary actions after being executed for them to finish taking effect (such as
-      inviting a member to join, then them actually joining).
-      Use `rocketpool odao propose setting proposal-action-timespan `value`` to change how long this secondary action is
-      able to be run after the proposal is executed.
-      The user will be unable to take this action _after_ this window; if the action isn't taken in time, the proposal
-      is essentially invalid.
+      特定のプロポーザルは、有効になるために実行された後にセカンダリアクションを必要とします(メンバーを招待してから実際に参加するなど)。
+      `rocketpool odao propose setting proposal-action-timespan value`を使用して、プロポーザルが実行された後にこのセカンダリアクションを実行できる期間を変更します。
+      ユーザーはこの期間_後_にこのアクションを実行できません。アクションが時間内に実行されない場合、プロポーザルは本質的に無効です。
 
-      `value` is a string-formatted time duration, such as `1h30m45s` for one hour, thirty minutes, and forty-five
-      seconds.
-      It does not accept days; for multiple days, simply use the total number of hours.
+      `value`は、1時間30分45秒の場合`1h30m45s`のような文字列形式の期間です。
+      日数は受け付けません。複数日の場合は、単純に合計時間数を使用してください。
 
       #### scrub-period
 
-      Use `rocketpool odao propose setting scrub-period value` to change how long the "scrub period" lasts (the time
-      between a new minipool entering `prelaunch` status and entering `staking` status).
-      The Oracle DAO has this long to check new minipools for the [withdrawal credentials
-      exploit](https://github.com/rocket-pool/rocketpool-research/blob/master/Reports/withdrawal-creds-exploit) and
-      scrub them if the exploit is detected, thus ensuring rETH funds are not stolen.
-      This duty is performed automatically by the `watchtower` daemon.
-      As the check is usually done in a matter of minutes, this value is simply designed to act as an insurance buffer
-      in the case that the Oracle DAO cannot come to consensus due to node failure; the members have this long to
-      resolve the problem and reach the quorum on scrubbing an exploited minipool.
+      `rocketpool odao propose setting scrub-period value`を使用して、「スクラブ期間」の持続時間を変更します(新しいminipoolが`prelaunch`ステータスに入ってから`staking`ステータスに入るまでの時間)。
+      Oracle DAOは、[withdrawal credentials
+      exploit](https://github.com/rocket-pool/rocketpool-research/blob/master/Reports/withdrawal-creds-exploit)について新しいminipoolsをチェックし、exploitが検出された場合にそれらをスクラブして、rETH資金が盗まれないようにするこの時間があります。
+      この役割は`watchtower`デーモンによって自動的に実行されます。
+      チェックは通常数分で完了するため、この値は、ノード障害によりOracle DAOがコンセンサスに達することができない場合の保険バッファとして機能するように設計されています。メンバーは、問題を解決し、exploitされたminipoolをスクラブするクォーラムに達するまでこの時間があります。
 
-      `value` is a string-formatted time duration, such as `1h30m45s` for one hour, thirty minutes, and forty-five
-      seconds.
-      It does not accept days; for multiple days, simply use the total number of hours.
+      `value`は、1時間30分45秒の場合`1h30m45s`のような文字列形式の期間です。
+      日数は受け付けません。複数日の場合は、単純に合計時間数を使用してください。
     </Tab>
     <Tab label="Contract Upgrades">
-      Contract upgrades are currently outside the scope of the CLI.
-      The transactions must be submitted manually; please consult the Rocket Pool team if you would like to learn how to
-      propose a contract upgrade to the network.
+      コントラクトのアップグレードは現在CLIの範囲外です。
+      トランザクションは手動で送信する必要があります。ネットワークへのコントラクトアップグレードのプロポーザル方法を学びたい場合は、Rocket Poolチームにお問い合わせください。
     </Tab>
 
   </Tabs>
 </div>
 
-## Viewing Proposals
+## プロポーザルの表示
 
-To view a brief summary of all of the proposals in the protocol's history, use `rocketpool odao proposals list`.
-This will sort the proposals by their status and show who proposed it and what it does.
+プロトコルの履歴のすべてのプロポーザルの簡単な概要を表示するには、`rocketpool odao proposals list`を使用します。
+これにより、プロポーザルがステータスでソートされ、誰が提案したか、何をするかが表示されます。
 
-To view the details of a specific proposal, use `rocketpool odao proposals details value` where `value` is the ID of the proposal you would like to view.
-This will show a comprehensive breakdown of the proposal's information including who created it, when it was created, the payload body, how many members voted in favor of it, how many members voted against it, and whether or not your node has voted on it yet.
+特定のプロポーザルの詳細を表示するには、`rocketpool odao proposals details value`を使用します。ここで`value`は表示したいプロポーザルのIDです。
+これにより、誰がそれを作成したか、いつ作成されたか、ペイロードボディ、何人のメンバーが賛成票を投じたか、何人のメンバーが反対票を投じたか、あなたのノードがまだそれに投票したかどうかなど、プロポーザルの情報の包括的な内訳が表示されます。
 
-## Voting on Proposals
+## プロポーザルへの投票
 
-To vote on a proposal, use the following command:
+プロポーザルに投票するには、次のコマンドを使用します:
 
 ```shell
 rocketpool odao proposals vote
 ```
 
-This will provide you with an interactive dialog asking which proposal you would like to vote on, and whether you would like to vote in favor of it or against it.
-Follow the prompts carefully to complete the vote.
+これにより、どのプロポーザルに投票したいか、それに賛成票を投じたいか反対票を投じたいかを尋ねるインタラクティブなダイアログが提供されます。
+プロンプトに従って慎重に投票を完了してください。
 
-## Executing Proposals
+## プロポーザルの実行
 
-When a proposal has received enough votes in favor of it to reach quorum, any member of the Oracle DAO can then _execute_ the proposal (apply its changes) using the following command:
+プロポーザルがクォーラムに達するのに十分な賛成票を受け取った場合、Oracle DAOの任意のメンバーが次のコマンドを使用してプロポーザルを_実行_(その変更を適用)できます:
 
 ```shell
 rocketpool odao proposals execute
 ```
 
-This will provide you with an interactive dialog asking which proposal you would like to execute.
-Follow the prompts carefully to complete the execution.
+これにより、実行したいプロポーザルを尋ねるインタラクティブなダイアログが提供されます。
+プロンプトに従って慎重に実行を完了してください。

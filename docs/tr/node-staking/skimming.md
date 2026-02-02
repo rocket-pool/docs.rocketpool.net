@@ -1,20 +1,20 @@
 # Skimmed Ödüllerin Dağıtımı
 
-Ethereum için bir validator çalıştırdığınızda aldığınız ETH ödülleri, "skimming" olarak adlandırılan bir süreçte rutin olarak minipool'larınıza gönderilir.
-Skim'lerin sıklığı, Beacon Chain'deki aktif validator sayısına bağlıdır. Bu yazının yazıldığı sırada validator sayısı yaklaşık
-500.000 civarında olup, bu da yaklaşık her 2-3 günde bir skim gerçekleşmesine neden olmaktadır.
+Ethereum için bir validator çalıştırmanız karşılığında aldığınız ETH ödülleri, "skimming" olarak adlandırılan bir süreçte düzenli olarak minipool'larınıza gönderilir.
+Skim'lerin sıklığı Beacon Chain'deki aktif validator sayısına bağlıdır. Bu yazının yazıldığı sırada validator sayısı yaklaşık
+500.000 civarındadır ve bu da yaklaşık her 2-3 günde bir skim gerçekleşmesine neden olmaktadır.
 
-Skimmed ödüller, siz bunları "dağıtana" kadar her minipool'unuzda birikecektir. Bu süreç, skimmed ödülleri sizin (node operatörü olarak) ve rETH sahipleri arasında
+Skimmed ödüller, siz onları "dağıtana" kadar her bir minipool'unuzda birikecektir. Bu süreç, skimmed ödülleri sizin (node operatörü olarak) ve rETH sahipleri arasında
 komisyon oranınıza ve sağlanan ile tedarik edilen ETH oranına göre dağıtır.
 
 ::: warning NOT
-Minipool'unuzun bakiyesine erişmek için önce [Atlas delegate](./minipools/delegates) sürümüne yükseltme yapmanız gerekecektir.
+Minipool'unuzun bakiyesine erişmek için önce [Atlas delegate](./minipools/delegates)'e yükseltme yapmanız gerekecektir.
 Eski Redstone delegate, minipool'un bakiyesini dağıtmak için kullanılamaz.
 :::
 
 ## Otomatik Dağıtım
 
-Varsayılan olarak, Smartnode, minipool'larınızdan herhangi birinin bireysel bakiyeleri **1 ETH**'ye ulaştığında bunları otomatik olarak dağıtacak şekilde yapılandırılmıştır. Bu
+Varsayılan olarak, Smartnode bireysel bakiyeleri **1 ETH**'ye ulaştığında minipool'larınızdan herhangi birini otomatik olarak dağıtacak şekilde yapılandırılmıştır. Bu
 eşik, aşağıdaki adımları izleyerek TUI'de yapılandırılabilir.
 
 Şunu çalıştırın:
@@ -31,10 +31,10 @@ Bu ayarı değiştirmek, Smartnode'un minipool'larınızı otomatik olarak dağ�
 Parametreyi 0'a ayarlamak otomatik dağıtımları devre dışı bırakacaktır.
 
 ::: warning UYARI
-Otomatik dağıtımı devre dışı bırakmaya karar verirseniz, yine de düzenli olarak manuel dağıtım yapmanız önemlidir.
-Bunu nasıl yapacağınızı öğrenmek için takip eden [manuel dağıtım bölümünü](#manuel-dagitim) okuyun.
+Otomatik dağıtımı devre dışı bırakmaya karar verirseniz, yine de düzenli olarak
+manuel dağıtım yapmanız önemlidir. Bunu nasıl yapacağınızı öğrenmek için takip eden [manuel dağıtım bölümünü](#manuel-dagitim) okuyun.
 
-Uzun bir süre sonra skimmed ödülleriniz 8 ETH'yi aşabilir. Bu durum gerçekleşirse, artık bunları
+Uzun bir süre sonra skimmed ödülleriniz 8 ETH'yi aşabilir. Bu durum gerçekleşirse, artık onları
 dağıtamayacaksınız ve birikmiş ödüllerinize erişmek için validator'ınızdan çıkış yapmanız gerekecektir.
 
 Rocket Pool, uzun bir bekleme süresinden sonra, bakiyesi 8 ETH'yi aştığında herhangi birinin minipool'unuzu dağıtmasına izin veren
@@ -44,18 +44,18 @@ minipool'unuzdan otomatik olarak çıkış yapacaktır.
 
 ## Manuel Dağıtım
 
-Skimmed ödüllerin otomatik dağıtımını devre dışı bıraktıysanız, bunları aşağıdaki süreçle
-kendiniz düzenli olarak dağıtmanız gerekecektir.
+Skimmed ödüllerin otomatik dağıtımını devre dışı bıraktıysanız, bunları düzenli olarak kendiniz
+aşağıdaki süreçle dağıtmanız gerekecektir.
 
 Ayrıca yukarıdaki otomatik süreci beklemeden herhangi bir zamanda bu süreci kullanarak ödüllerinizi manuel olarak dağıtabilirsiniz.
 
-Minipool'unuzda 8 ETH'den az varsa, ödüllerinizi aşağıdaki komutla dağıtabilirsiniz:
+Minipool'unuzda 8 ETH'den az varsa, ödüllerinizi aşağıdaki komutu kullanarak dağıtabilirsiniz:
 
 ```shell
 rocketpool minipool distribute-balance
 ```
 
-Bu, dağıtım için uygun olan minipool'larınızı, ne kadar ETH'ye sahip olduklarını ve sizin (node operatörü olarak) ne kadar ETH alacağınızı gösterecektir:
+Bu size dağıtım için uygun olan minipool'larınızı, ne kadar ETH'ye sahip olduklarını ve sizin (node operatörü olarak) ne kadar ETH alacağınızı gösterecektir:
 
 ```
 WARNING: The following minipools are using an old delegate and cannot have their rewards safely distributed:
@@ -75,16 +75,16 @@ Please select a minipool to distribute the balance of:
 6: 0xffCAB546539b55756b1F85678f229dd707328A2F (0.070989 ETH available, 0.025201 ETH goes to you plus a refund of 0.000000 ETH)
 ```
 
-Orijinal başlatma delegate'ini kullanan tüm minipool'lar başlangıçta belirtilecek ve delegate'lerini yükseltene kadar bunlar üzerinde `distribute-balance` çağrısı yapamayacağınızı size bildirecektir.
-Bu delegate, skimmed çekimler belirlenmeden önce yazılmıştır ve bu nedenle skimmed ödülleri dağıtmanın bir yolunu içermez.
+Orijinal başlatma delegate'ini kullanan herhangi bir minipool başlangıçta belirtilecek ve delegate'lerini yükseltene kadar onlar üzerinde `distribute-balance` çağrısı yapamayacağınızı size bildirecektir.
+Bu delegate, skimmed çekimler belirlenmeden önce yazılmıştır ve bu nedenle skimmed ödülleri dağıtmanın bir yoluna sahip değildir.
 
 Uygun minipool'lar için **iade miktarının** da gösterildiğine dikkat edin.
-Bu, doğrudan size ait olan bir miktardır (örneğin, [16-ETH bond'dan 8-ETH bond'a geçiş yapmadan](./leb-migration.mdx) önce minipool'unuzda bir bakiyeniz vardıysa veya mevcut ödüllere sahip [bir solo validator'ı minipool'a dönüştürdüyseniz](./solo-staker-migration)).
-Bu, rETH sahipleriyle paylaşılmayacaktır.
+Bu, doğrudan size ait olan bir miktardır (örneğin, [16-ETH bond'dan 8-ETH bond'a geçiş yapmadan](./leb-migration.mdx) önce minipool'unuzda bir bakiyeniz vardıysa veya mevcut ödüllere sahip [bir solo validator'ı bir minipool'a dönüştürdüyseniz](./solo-staker-migration)).
+rETH sahipleriyle paylaşılmayacaktır.
 
 Dağıtmak istediğiniz minipool'un numarasını girin.
 Her zamanki gibi gaz fiyat tablosu ile karşılaşacaksınız ve kararınızı onaylamanız istenecektir.
-Onayladığınızda, minipool'unuzun bakiyesi dağıtılacaktır:
+Onayladıktan sonra, minipool'unuzun bakiyesi dağıtılacaktır:
 
 ```
 Using a max fee of 2.00 gwei and a priority fee of 2.00 gwei.
@@ -98,4 +98,4 @@ Waiting for the transaction to be included in a block... you may wait here for i
 Successfully distributed the ETH balance of minipool 0x7E5700bcd65B1770bA68abB288D3f53814d376aC.
 ```
 
-[İşlemden](https://zhejiang.beaconcha.in/tx/b883eab903d9688b40d291c5c2030084f9bce19135837ebf96a5c1e8871cfbf9) görebileceğiniz gibi, bu, node'un çekim adresine node'un ödül payını (artı iade miktarını) sağladı ve geri kalanını staking havuzuna geri gönderdi.
+[İşlemden](https://zhejiang.beaconcha.in/tx/b883eab903d9688b40d291c5c2030084f9bce19135837ebf96a5c1e8871cfbf9) görebileceğiniz gibi, bu node'un çekim adresine node'un ödül payını (artı iade miktarını) sağladı ve geri kalanını staking havuzuna iade etti.

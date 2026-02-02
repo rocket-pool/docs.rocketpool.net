@@ -1,32 +1,32 @@
-# How to Write Add-ons for Rocket Pool Smart Node
+# Rocket Pool Smart Node için Add-on Yazma
 
-## Introduction
+## Giriş
 
-Rocket Pool Smart Node add-ons are extensions that provide additional features to the Smart Node stack. They can be implemented as Docker containers that integrate with the Ethereum clients or the Smart Node service. Add-ons can be enabled and configured through the Smart Node's terminal user interface (TUI) via the `rocketpool service config` command.
+Rocket Pool Smart Node add-on'ları, Smart Node yığınına ek özellikler sağlayan uzantılardır. Ethereum istemcileri veya Smart Node servisi ile entegre olan Docker container'ları olarak uygulanabilirler. Add-on'lar, `rocketpool service config` komutu aracılığıyla Smart Node'un terminal kullanıcı arayüzü (TUI) üzerinden etkinleştirilebilir ve yapılandırılabilir.
 
-Add-on development can be based on two existing examples:
+Add-on geliştirme, mevcut iki örneğe dayanabilir:
 
-- **Graffiti Wall Writer**: Enables node operators to contribute to community drawings on the Beaconcha.in graffiti wall by dynamically setting block proposal graffiti. It uses a decentralized drawing tool to determine which pixels to "paint" with each proposal.
-- **Rescue Node**: Provides a fallback beacon node service using credentials from the Rocket Rescue Node project. This helps prevent missed attestations during node maintenance, syncing, or outages by routing requests to a shared remote beacon node.
+- **Graffiti Wall Writer**: Node operatörlerinin blok teklifi graffitisini dinamik olarak ayarlayarak Beaconcha.in graffiti duvarındaki topluluk çizimlerine katkıda bulunmalarını sağlar. Her teklifle hangi pikselleri "boyayacağını" belirlemek için merkezi olmayan bir çizim aracı kullanır.
+- **Rescue Node**: Rocket Rescue Node projesinden kimlik bilgilerini kullanarak bir yedek beacon node servisi sağlar. Bu, node bakımı, senkronizasyon veya kesintiler sırasında istekleri paylaşılan bir uzak beacon node'a yönlendirerek kaçırılan onayları önlemeye yardımcı olur.
 
-Add-ons are part of the Smart Node source code and must be contributed via pull request to the repository. They implement a standardized interface for configuration and integration.
+Add-on'lar Smart Node kaynak kodunun bir parçasıdır ve repository'ye pull request aracılığıyla katkıda bulunulmalıdır. Yapılandırma ve entegrasyon için standartlaştırılmış bir arayüz uygularlar.
 
-## Prerequisites
+## Ön Koşullar
 
-- Familiarity with Go programming, as add-ons are written in Go.
-- Understanding of Docker, as add-ons can run as containers.
-- Knowledge of the Rocket Pool Smart Node architecture, including its Docker compose setup and configuration system.
-- Access to the Smart Node repository for local development and testing.
+- Add-on'lar Go'da yazıldığı için Go programlama diline aşinalık.
+- Add-on'lar container olarak çalışabildiği için Docker anlayışı.
+- Docker compose kurulumu ve yapılandırma sistemi dahil olmak üzere Rocket Pool Smart Node mimarisine ilişkin bilgi.
+- Yerel geliştirme ve test için Smart Node repository'sine erişim.
 
-## Steps to Create an Add-on
+## Add-on Oluşturma Adımları
 
-To create a new add-on, you will need to add code in specific locations within the Smart Node repository. The process involves implementing the add-on logic, configuring its UI, registering it, and handling integration with the Docker stack.
+Yeni bir add-on oluşturmak için, Smart Node repository'si içindeki belirli konumlara kod eklemeniz gerekecektir. Süreç, add-on mantığını uygulamayı, kullanıcı arayüzünü yapılandırmayı, kaydetmeyi ve Docker yığınıyla entegrasyonu işlemeyi içerir.
 
-### 1. Implement the Add-on Logic
+### 1. Add-on Mantığını Uygulama
 
-Create a new subdirectory in `addons/` named after your add-on (use snake_case, e.g., `my_addon`).
+`addons/` içinde add-on'unuzun adını taşıyan yeni bir alt dizin oluşturun (snake_case kullanın, örneğin, `my_addon`).
 
-In this directory, create a Go file (e.g., `my_addon.go`) that defines the add-on struct and implements the `SmartnodeAddon` interface from `github.com/rocket-pool/smartnode/shared/types/addons`.
+Bu dizinde, add-on struct'ını tanımlayan ve `github.com/rocket-pool/smartnode/shared/types/addons`'dan `SmartnodeAddon` arayüzünü uygulayan bir Go dosyası oluşturun (örneğin, `my_addon.go`).
 
 ```
 type MyAddon struct {
@@ -40,37 +40,37 @@ func NewMyAddon() addons.SmartnodeAddon {
 }
 ```
 
-Key methods to implement:
+Uygulanması gereken ana metotlar:
 
-- `GetName()`: Returns the display name of the add-on.
-- `GetDescription()`: Returns a brief description.
-- `GetConfig()`: Returns the configuration object with parameters (e.g., enabled flag, API keys, URLs).
-- `GetEnabledParameter()`: Returns the parameter controlling whether the add-on is enabled.
-- Methods for starting/stopping the add-on, generating Docker compose sections, or interacting with other services.
+- `GetName()`: Add-on'un görünen adını döndürür.
+- `GetDescription()`: Kısa bir açıklama döndürür.
+- `GetConfig()`: Parametrelerle birlikte yapılandırma nesnesini döndürür (örneğin, etkin bayrağı, API anahtarları, URL'ler).
+- `GetEnabledParameter()`: Add-on'un etkin olup olmadığını kontrol eden parametreyi döndürür.
+- Add-on'u başlatma/durdurma, Docker compose bölümleri oluşturma veya diğer servislerle etkileşim kurma metotları.
 
-If the add-on runs a Docker container:
+Add-on bir Docker container'ı çalıştırıyorsa:
 
-- Define the Docker image (e.g., a custom image or external one).
-- Specify volumes, ports, or environment variables needed.
+- Docker imajını tanımlayın (örneğin, özel bir imaj veya harici bir imaj).
+- Gerekli volume'leri, portları veya ortam değişkenlerini belirtin.
 
-For example, the Graffiti Wall Writer add-on runs a container that periodically updates the validator client's graffiti file based on a JSON configuration for the image to draw.
+Örneğin, Graffiti Wall Writer add-on'u, çizilecek imaj için bir JSON yapılandırmasına dayalı olarak validator istemcisinin graffiti dosyasını periyodik olarak güncelleyen bir container çalıştırır.
 
-The Rescue Node add-on configures the validator client to use a remote fallback beacon node via a proxy, requiring username and password parameters.
+Rescue Node add-on'u, validator istemcisini bir proxy aracılığıyla uzak bir yedek beacon node kullanacak şekilde yapılandırır, kullanıcı adı ve şifre parametreleri gerektirir.
 
-### 2. Create the Configuration UI
+### 2. Yapılandırma Kullanıcı Arayüzünü Oluşturma
 
-Add a file in `rocketpool-cli/service/config/` named `addon-myaddon.go`.
+`rocketpool-cli/service/config/` içinde `addon-myaddon.go` adlı bir dosya ekleyin.
 
-This file defines the TUI page for configuring the add-on using the `tview` library.
+Bu dosya, `tview` kütüphanesini kullanarak add-on'u yapılandırmak için TUI sayfasını tanımlar.
 
-Key elements:
+Ana öğeler:
 
-- Define a struct `AddonMyAddonPage` with fields for the layout, master config, and form items.
-- Constructor `NewAddonMyAddonPage` that initializes the page and calls `createContent()`.
-- `createContent()`: Sets up the form with checkboxes (e.g., enabled) and input fields for other parameters.
-- Event handlers like `handleEnableChanged()` to show/hide parameters based on the enabled state.
+- Layout, master config ve form öğeleri için alanlarla bir `AddonMyAddonPage` struct'ı tanımlayın.
+- Sayfayı başlatan ve `createContent()` çağıran `NewAddonMyAddonPage` constructor'ı.
+- `createContent()`: Checkbox'lar (örneğin, etkin) ve diğer parametreler için giriş alanları ile formu kurar.
+- Etkin duruma göre parametreleri göstermek/gizlemek için `handleEnableChanged()` gibi olay işleyicileri.
 
-Example snippet:
+Örnek parçacık:
 
 ```go
 package config
@@ -84,7 +84,6 @@ import (
 	cfgtypes "github.com/rocket-pool/smartnode/shared/types/config"
 )
 
-// The page wrapper for the add-on config
 type AddonMyAddonPage struct {
 	addonsPage   *AddonsPage
 	page         *page
@@ -95,7 +94,6 @@ type AddonMyAddonPage struct {
 	otherParams  []*parameterizedFormItem
 }
 
-// Creates a new page for the add-on settings
 func NewAddonMyAddonPage(addonsPage *AddonsPage, addon addons.SmartnodeAddon) *AddonMyAddonPage {
 	configPage := &AddonMyAddonPage{
 		addonsPage:   addonsPage,
@@ -103,23 +101,19 @@ func NewAddonMyAddonPage(addonsPage *AddonsPage, addon addons.SmartnodeAddon) *A
 		addon:        addon,
 	}
 	configPage.createContent()
-	// ... (additional code for page setup)
 }
 
-// Creates the content for the settings page
 func (configPage *AddonMyAddonPage) createContent() {
-	// Setup layout and form items
-	// ...
 }
 ```
 
-### 3. Register the Add-on
+### 3. Add-on'u Kaydetme
 
-Update `addons/constructors.go` to include a constructor for your add-on.
+Add-on'unuz için bir constructor içermek üzere `addons/constructors.go`'yu güncelleyin.
 
-This file contains functions to instantiate all add-ons.
+Bu dosya tüm add-on'ları başlatmak için fonksiyonlar içerir.
 
-Example:
+Örnek:
 
 ```
 func NewMyAddon() addons.SmartnodeAddon {
@@ -127,52 +121,51 @@ func NewMyAddon() addons.SmartnodeAddon {
 }
 ```
 
-Then add it to the list of available addons within the`NewRocketPoolConfig` in `shared/services/config/rocket-pool-config.go`.
+Ardından `shared/services/config/rocket-pool-config.go` içindeki `NewRocketPoolConfig` içindeki mevcut addon'lar listesine ekleyin.
 
 ```
-// Addons
 cfg.GraffitiWallWriter = addons.NewGraffitiWallWriter()
 cfg.RescueNode = addons.NewRescueNode()
 cfg.MyAddon = addons.MyAddon()
 ```
 
-### 4. Integrate with Docker Compose
+### 4. Docker Compose ile Entegrasyon
 
-Add-ons often require modifications to the Docker compose files.
+Add-on'lar genellikle Docker compose dosyalarında değişiklik gerektirir.
 
-- Add templates in the `shared/services/rocketpool/assets/install/templates/addons` directory for your add-on's compose section (e.g., `my_addon.tmpl`).
-- The add-on code generates the compose YAML when enabled, including services, volumes, and dependencies.
+- Add-on'unuzun compose bölümü için `shared/services/rocketpool/assets/install/templates/addons` dizinine şablonlar ekleyin (örneğin, `my_addon.tmpl`).
+- Add-on kodu etkinleştirildiğinde, servisler, volume'ler ve bağımlılıklar dahil olmak üzere compose YAML'ını oluşturur.
 
-The `composeAddons` function inside the `services/rocketpool/client` folder is responsible for provisioning Docker Compose containers based on the Rocket Pool configuration, setting up runtime, template and override assets for the add-on.
+`services/rocketpool/client` klasörü içindeki `composeAddons` fonksiyonu, Rocket Pool yapılandırmasına dayalı olarak Docker Compose container'larını sağlamaktan, add-on için runtime, template ve override varlıklarını kurmaktan sorumludur.
 
-For installation:
+Kurulum için:
 
-- Update the installer script (`install.sh`) if the add-on needs files copied (e.g., default config files).
+- Add-on'un dosya kopyalanmasını gerektiriyorsa (örneğin, varsayılan yapılandırma dosyaları), installer script'ini (`install.sh`) güncelleyin.
 
-### 5. Optional Integrations
+### 5. İsteğe Bağlı Entegrasyonlar
 
-- **Node Status Command**: If the add-on has status info (e.g., credential expiration for Rescue Node), update `rocketpool-cli/node/status.go` to display it.
-- **Metrics or Logs**: Integrate with Prometheus/Grafana if applicable.
-- **External Dependencies**: If using an external repo (e.g., Rescue Node proxy), ensure it's documented.
+- **Node Status Komutu**: Add-on'un durum bilgisi varsa (örneğin, Rescue Node için kimlik bilgisi süresi), bunu görüntülemek için `rocketpool-cli/node/status.go`'yu güncelleyin.
+- **Metrikler veya Loglar**: Uygulanabilirse Prometheus/Grafana ile entegre edin.
+- **Harici Bağımlılıklar**: Harici bir repo kullanıyorsanız (örneğin, Rescue Node proxy), bunun belgelendiğinden emin olun.
 
-### 6. Testing and Submission
+### 6. Test ve Gönderim
 
-- Build and test locally: Use the Makefile to build the Smart Node, install, and enable your add-on.
-- Verify in the TUI, check Docker containers, and test functionality.
-- Submit a pull request to https://github.com/rocket-pool/smartnode with your changes.
+- Yerel olarak oluşturun ve test edin: Smart Node'u oluşturmak, kurmak ve add-on'unuzu etkinleştirmek için Makefile'ı kullanın.
+- TUI'de doğrulayın, Docker container'larını kontrol edin ve işlevselliği test edin.
+- Değişikliklerinizle https://github.com/rocket-pool/smartnode adresine bir pull request gönderin.
 
-## Example: Graffiti Wall Writer
+## Örnek: Graffiti Wall Writer
 
-- **Purpose**: Draws community images on the Beaconcha.in graffiti wall using block proposals.
-- **Implementation**: Runs a Docker container that fetches wall state and updates the validator's graffiti file.
-- **Config**: Enabled flag and parameter for image JSON URL (default: Rocket Pool logo).
-- **Integration**: The container mounts the validator's data directory to write the graffiti file. Enabled via TUI; contributes to decentralized drawing.
+- **Amaç**: Blok teklifleri kullanarak Beaconcha.in graffiti duvarında topluluk imajları çizer.
+- **Uygulama**: Duvar durumunu getiren ve validator'ın graffiti dosyasını güncelleyen bir Docker container çalıştırır.
+- **Config**: Etkin bayrağı ve imaj JSON URL'si için parametre (varsayılan: Rocket Pool logosu).
+- **Entegrasyon**: Container, graffiti dosyasını yazmak için validator'ın veri dizinini mount eder. TUI aracılığıyla etkinleştirilir; merkezi olmayan çizime katkıda bulunur.
 
-## Example: Rescue Node
+## Örnek: Rescue Node
 
-- **Purpose**: Fallback beacon node to avoid penalties during downtime.
-- **Implementation**: Configures the validator client to use a remote proxy with authentication.
-- **Config**: Enabled flag, username, and password from Rescue Node website.
-- **Integration**: Modifies validator config to point to the rescue proxy. Shows credential status in `rocketpool node status`.
+- **Amaç**: Kesinti sırasında cezalardan kaçınmak için yedek beacon node.
+- **Uygulama**: Validator istemcisini kimlik doğrulaması olan uzak bir proxy kullanacak şekilde yapılandırır.
+- **Config**: Etkin bayrağı, Rescue Node web sitesinden kullanıcı adı ve şifre.
+- **Entegrasyon**: Validator yapılandırmasını rescue proxy'sine işaret edecek şekilde değiştirir. `rocketpool node status` içinde kimlik bilgisi durumunu gösterir.
 
-For more details, review the source code in the repository or contribute to improve add-on development docs.
+Daha fazla ayrıntı için, repository'deki kaynak kodu inceleyin veya add-on geliştirme belgelerini geliştirmeye katkıda bulunun.

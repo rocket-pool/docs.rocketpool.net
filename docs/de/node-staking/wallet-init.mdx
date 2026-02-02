@@ -1,67 +1,72 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Creating a New Wallet
+# Eine neue Wallet erstellen
 
-If the Smartnode services are up and running, the next step is to set up an Ethereum wallet for your node.
-This is simply an Execution Layer address that will hold your node's funds - it will use this to send ETH to your minipool when you begin staking, pay for gas during various transactions, and other various operations.
+Wenn die Smartnode-Dienste aktiv und betriebsbereit sind, ist der nächste Schritt die Einrichtung einer Ethereum-Wallet für Ihren Node.
+Dies ist einfach eine Execution Layer-Adresse, die die Mittel Ihres Nodes verwahrt - sie wird verwendet, um ETH an Ihren Minipool zu senden, wenn Sie mit dem Staking beginnen, Gas für verschiedene Transaktionen zu bezahlen und andere verschiedene Operationen durchzuführen.
 
-You have the option of either creating a brand new wallet from scratch, or importing / recovering an existing wallet or address.
-Please choose which option you'd like from the tabs below.
+Sie haben die Möglichkeit, entweder eine völlig neue Wallet von Grund auf zu erstellen oder eine bestehende Wallet oder Adresse zu importieren bzw. wiederherzustellen.
+Bitte wählen Sie aus den folgenden Registerkarten die gewünschte Option aus.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Creating a New Wallet">
-      The most common way to run a node is to create a new Ethereum address that is dedicated to the node.
-      The Smartnode CLI provides a way to do this easily:
+    <Tab label="Eine neue Wallet erstellen">
+      Die üblichste Methode zum Betreiben eines Nodes ist die Erstellung einer neuen Ethereum-Adresse, die ausschließlich für den Node bestimmt ist.
+      Die Smartnode CLI bietet eine einfache Möglichkeit, dies zu tun:
 
       ```shell
       rocketpool wallet init
       ```
 
-      You will first be prompted for a password to protect your wallet's private key.
-      Next, you will be presented the **unique 24-word mnemonic** for your new wallet.
-      This is the **recovery phrase** for your wallet.
-      If you ever lose your machine, you can use this phrase to regenerate your wallet and resurrect all of the Consensus validators attached to it.
+      Sie werden zunächst nach einem Passwort gefragt, um den privaten Schlüssel Ihrer Wallet zu schützen.
+      Anschließend wird Ihnen die **einzigartige 24-Wort-Mnemonic** für Ihre neue Wallet präsentiert.
+      Dies ist die **Wiederherstellungsphrase** für Ihre Wallet.
+      Sollten Sie jemals Ihre Maschine verlieren, können Sie mit dieser Phrase Ihre Wallet wiederherstellen und alle damit verbundenen Consensus-Validatoren wiederherstellen.
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        It is **essential** that you write this mnemonic down because this is the only time it will be shown to you, but keep it somewhere safe.
-        Anyone with this phrase can gain control of your wallet.
+        <p className="rspress-directive-title">HINWEIS</p>
+        Es ist **unerlässlich**, dass Sie diese Mnemonic aufschreiben, da sie Ihnen nur dieses eine Mal angezeigt wird, bewahren Sie sie jedoch an einem sicheren Ort auf.
+        Jeder, der diese Phrase besitzt, kann die Kontrolle über Ihre Wallet erlangen.
       </p>
 
-      Once you confirm your mnemonic phrase, you will be presented with the unique Ethereum address for your node wallet.
+      Sobald Sie Ihre Mnemonic-Phrase bestätigt haben, wird Ihnen die eindeutige Ethereum-Adresse für Ihre Node-Wallet angezeigt.
     </Tab>
-    <Tab label="Recovering or Importing an Existing Wallet">
-      If you already have a node wallet that you created in a previous installation of the Smartnode, or if you want to import an address that you created elsewhere (such as with **Allnodes**), please follow the instructions in the [Importing an Existing Wallet for your Node](./recovering-rp) guide.
+    <Tab label="Eine bestehende Wallet wiederherstellen oder importieren">
+      Sobald Sie die Eingabe der Mnemonic-Phrase abgeschlossen haben, sehen Sie eine Erfolgsmeldung wie die folgende:
+      „Die Node-Wallet wurde erfolgreich initialisiert.
+        Node-Konto: {LangeZeichenfolgeAusBuchstabenUndZahlen}"
+      Dies ist die öffentliche Adresse, an die Sie ETH senden werden, wie in „Vorbereitung Ihres Nodes für den Betrieb" beschrieben. Sie können sie auch durch Eingabe von „rocketpool wallet status" überprüfen.
 
-      Return here when you're finished.
+      Wenn Sie bereits eine Node-Wallet haben, die Sie in einer früheren Installation des Smartnode erstellt haben, oder wenn Sie eine Adresse importieren möchten, die Sie anderswo erstellt haben (z. B. mit **Allnodes**), folgen Sie bitte den Anweisungen im Leitfaden [Importieren einer bestehenden Wallet für Ihren Node](./recovering-rp).
+
+      Kehren Sie hierher zurück, wenn Sie fertig sind.
     </Tab>
 
   </Tabs>
 </div>
 
-::: warning NOTE
-As of the current build, Rocket Pool needs to have access to your wallet's private key in order to perform its automatic duties.
-**This means that the private key will exist in a file on your machine.**
-If an attacker manages to gain access to your machine, they could gain access to your node wallet and steal all of the tokens that it contains!
-Please ensure that you have followed the security guide in the [Securing your Node](./securing-your-node) section before you continue, and are comfortable with your security posture.
+::: warning HINWEIS
+Ab dem aktuellen Build muss Rocket Pool Zugriff auf den privaten Schlüssel Ihrer Wallet haben, um seine automatischen Aufgaben ausführen zu können.
+**Das bedeutet, dass der private Schlüssel in einer Datei auf Ihrer Maschine existiert.**
+Sollte ein Angreifer Zugang zu Ihrer Maschine erlangen, könnte er Zugriff auf Ihre Node-Wallet erhalten und alle darin enthaltenen Token stehlen!
+Bitte stellen Sie sicher, dass Sie den Sicherheitsleitfaden im Abschnitt [Sichern Ihres Nodes](./securing-your-node) befolgt haben, bevor Sie fortfahren, und mit Ihrer Sicherheitslage zufrieden sind.
 :::
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Docker & Hybrid Modes">
-      Your wallet's private key will be stored in a file located at `~/.rocketpool/data/wallet`.
+    <Tab label="Docker & Hybrid-Modi">
+      Der private Schlüssel Ihrer Wallet wird in einer Datei unter `~/.rocketpool/data/wallet` gespeichert.
 
-      The password used to encrypt your wallet's key will be stored in `~/.rocketpool/data/password`.
-      This is the file that must be protected at all times.
+      Das Passwort zur Verschlüsselung des Schlüssels Ihrer Wallet wird in `~/.rocketpool/data/password` gespeichert.
+      Dies ist die Datei, die jederzeit geschützt werden muss.
     </Tab>
-    <Tab label="Native Mode">
-      The wallet and password files will be stored in the `data` directory under the Rocket Pool directory that you set up earlier (e.g. `/srv/rocketpool`).
+    <Tab label="Native-Modus">
+      Die Wallet- und Passwortdateien werden im `data`-Verzeichnis unter dem Rocket Pool-Verzeichnis gespeichert, das Sie zuvor eingerichtet haben (z. B. `/srv/rocketpool`).
 
-      Your wallet's private key will be stored in a file located at `/srv/rocketpool/data/wallet`.
+      Der private Schlüssel Ihrer Wallet wird in einer Datei unter `/srv/rocketpool/data/wallet` gespeichert.
 
-      The password used to encrypt your wallet's key will be stored in `/srv/rocketpool/data/password`.
-      This is the file that must be protected at all times.
+      Das Passwort zur Verschlüsselung des Schlüssels Ihrer Wallet wird in `/srv/rocketpool/data/password` gespeichert.
+      Dies ist die Datei, die jederzeit geschützt werden muss.
     </Tab>
 
   </Tabs>

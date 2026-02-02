@@ -1,31 +1,31 @@
 ---
 next:
   text: Rescuing a Dissolved Minipool
-  link: "/en/node-staking/rescue-dissolved"
+  link: "/tr/node-staking/rescue-dissolved"
 ---
 
-# Shut Down a Minipool
+# Bir Minipool'u Kapatma
 
-## Exiting your Validator
+## Validator'ınızdan Çıkış
 
-When you have decided that you no longer want to run a minipool and want to access the full balance locked on the Beacon Chain, you will have to take several steps:
+Artık bir minipool çalıştırmak istemediğinize ve Beacon Chain'de kilitli olan tam bakiyeye erişmek istediğinize karar verdiğinizde, birkaç adım atmanız gerekecektir:
 
-1. Send a voluntary exit request for the minipool's validator from the Beacon Chain.
-2. Wait for your validator to exit.
-3. Wait for your validator's balance to be withdrawn to your minipool on the Execution layer.
-4. Close the minipool to distribute the rewards and access the funds
+1. Minipool'un validator'ı için Beacon Chain'den gönüllü çıkış talebi gönderin.
+2. Validator'ınızın çıkmasını bekleyin.
+3. Validator'ınızın bakiyesinin Execution layer'daki minipool'unuza çekilmesini bekleyin.
+4. Ödülleri dağıtmak ve fonlara erişmek için minipool'u kapatın
 
-We'll cover each step below.
+Her adımı aşağıda ele alacağız.
 
-### Sending the Exit Request
+### Çıkış Talebini Gönderme
 
-If you want to exit the validator attached to a minipool, run the following command:
+Bir minipool'a bağlı validator'dan çıkmak istiyorsanız, aşağıdaki komutu çalıştırın:
 
 ```shell
 rocketpool minipool exit
 ```
 
-You will be presented with a list of minipools that can be exited:
+Çıkılabilecek minipool'ların bir listesi ile karşılaşacaksınız:
 
 ```
 Please select a minipool to exit:
@@ -34,49 +34,49 @@ Please select a minipool to exit:
 3: 0xd8E804cFA64ADb386F52DB20717810130c90f674 (staking since 2023-02-08, 06:33 +0000 UTC)
 ```
 
-Once you confirm you want to exit, your node will send a voluntary exit request to the Beacon Chain.
-This is **not** a normal Execution layer transaction, so you do not need to pay gas for it.
+Çıkmak istediğinizi onayladıktan sonra, node'unuz Beacon Chain'e gönüllü bir çıkış talebi gönderecektir.
+Bu normal bir Execution layer işlemi **değildir**, bu nedenle bunun için gas ödemeniz gerekmez.
 
-If you need the validator public key for the minipool you just exited, you can retrieve it using `rocketpool minipool status`.
-You can view your validator's exit status on a Beacon Chain explorer such as [https://beaconcha.in](https://beaconcha.in) (or [https://hoodi.beaconcha.in](https://hoodi.beaconcha.in) for the Hoodi Testnet).
-It will take some time for your status to be updated, but once it is you will see it in the "exiting" state:
+Az önce çıktığınız minipool için validator public key'ine ihtiyacınız varsa, `rocketpool minipool status` kullanarak alabilirsiniz.
+Validator'ınızın çıkış durumunu [https://beaconcha.in](https://beaconcha.in) (veya Hoodi Testnet için [https://hoodi.beaconcha.in](https://hoodi.beaconcha.in)) gibi bir Beacon Chain explorer'ında görüntüleyebilirsiniz.
+Durumunuzun güncellenmesi biraz zaman alacaktır, ancak güncellendiğinde onu "exiting" durumunda göreceksiniz:
 
 <img src="./images/exiting.png" width="100%" height="auto" />
 
-Here you can see the Status is `Exiting`, the epoch it will exit on is highlighted (5224), and the "Exited" icon will be pulsing green to indicate the operation is in progress.
-It may take some time for your validator to exit, _especially_ if there are a large number of validators exiting the Beacon Chain at the same time; the protocol is designed to only allow a small number of validators to exit per epoch so you may have to wait your turn.
+Burada Durumun `Exiting` olduğunu, çıkacağı epoch'un vurgulandığını (5224) ve işlemin devam ettiğini belirtmek için "Exited" simgesinin yeşil yanıp söndüğünü görebilirsiniz.
+Validator'ınızın çıkması biraz zaman alabilir, _özellikle_ aynı anda çok sayıda validator Beacon Chain'den çıkıyorsa; protokol, epoch başına yalnızca az sayıda validator'ın çıkmasına izin verecek şekilde tasarlanmıştır, bu nedenle sıranızı beklemeniz gerekebilir.
 
-Once your exit epoch has passed, your validator will officially exit the chain and will no longer attest or propose blocks.
-You can confirm this in your Validator Client logs, or on the explorer:
+Çıkış epoch'unuz geçtikten sonra, validator'ınız resmi olarak zincirden çıkacak ve artık tasdik etmeyecek veya blok teklif etmeyecektir.
+Bunu Validator Client loglarınızda veya explorer'da doğrulayabilirsiniz:
 
 <img src="./images/exited.png" width="100%" height="auto" />
 
-The status has changed to `Exited` and there is some text underneath that indicates your **withdrawable epoch** (which should be 256 epochs after you exit, or about 27 hours).
-Beaconcha.in also conveniently provides the local timestamps for when your validator will exit and when it will be withdrawable.
+Durum `Exited` olarak değişti ve altında **withdrawable epoch**'unuzu belirten bir metin var (çıktıktan 256 epoch sonra veya yaklaşık 27 saat olmalıdır).
+Beaconcha.in ayrıca validator'ınızın ne zaman çıkacağı ve ne zaman çekilebilir olacağı için yerel zaman damgalarını da kolayca sağlar.
 
-Once it has entered the **withdrawable** state, your validator will be enqueued by the Beacon Chain for rewards distribution.
-This queue depends on how many validators are currently withdrawing.
-Once it's your turn, the Beacon Chain will _automatically_ send your balance to your minipool's address on the Execution layer.
-At this point, you can access it using the Smartnode CLI to do a distribution.
+**Withdrawable** durumuna girdikten sonra, validator'ınız ödül dağıtımı için Beacon Chain tarafından sıraya alınacaktır.
+Bu kuyruk, şu anda kaç validator'ın çekildiğine bağlıdır.
+Sıranız geldiğinde, Beacon Chain bakiyenizi Execution layer'daki minipool adresinize _otomatik olarak_ gönderecektir.
+Bu noktada, bir dağıtım yapmak için Smartnode CLI'yi kullanarak erişebilirsiniz.
 
-### Distributing Full Rewards
+### Tam Ödülleri Dağıtma
 
-::: tip NOTE
-This process requires your validator to be exited from the Beacon Chain and your validator's balance to have been transferred to the minipool contract.
-If you need a refresher on how to do that process, please see the [**Exiting your Validator**](#exiting-your-validator) section above - return here once you're done.
+::: tip NOT
+Bu süreç, validator'ınızın Beacon Chain'den çıkmasını ve validator'ınızın bakiyesinin minipool contract'ına aktarılmasını gerektirir.
+Bu süreci nasıl yapacağınıza dair bir hatırlatmaya ihtiyacınız varsa, lütfen yukarıdaki [**Validator'ınızdan Çıkış**](#exiting-your-validator) bölümüne bakın - işiniz bittiğinde buraya geri dönün.
 :::
 
-If you have exited your validator from the Beacon Chain and your balance has been deposited into the minipool contract, you can safely withdraw the entire thing in one command.
-Unlike [manual distribution](./skimming#manual-distribution), this process will actually **finalize** your minipool which closes it and renders it inactive.
-Once your balance has been withdrawn from the Beacon Chain and you go through the following process to access the funds, the minipool's duty is over.
+Validator'ınızı Beacon Chain'den çıkardıysanız ve bakiyeniz minipool contract'ına yatırıldıysa, tek bir komutla güvenli bir şekilde tamamını çekebilirsiniz.
+[Manuel dağıtımın](./skimming#manual-distribution) aksine, bu süreç aslında minipool'unuzu **sonlandıracak**, bu da onu kapatır ve devre dışı bırakır.
+Bakiyeniz Beacon Chain'den çekildikten ve fonlara erişmek için aşağıdaki süreci tamamladıktan sonra, minipool'un görevi sona erer.
 
-To retrieve the funds and close the minipool, run the following command:
+Fonları almak ve minipool'u kapatmak için aşağıdaki komutu çalıştırın:
 
 ```shell
 rocketpool minipool close
 ```
 
-This will present you with a list of minipools that are eligible for closure:
+Bu size kapatmaya uygun minipool'ların bir listesini sunacaktır:
 
 ```
 Please select a minipool to close:
@@ -84,52 +84,52 @@ Please select a minipool to close:
 2: 0xd8E804cFA64ADb386F52DB20717810130c90f674 (32.007209 ETH available, 8.002559 ETH is yours plus a refund of 0.000000 ETH)
 ```
 
-Here you can see the total balance for each eligible minipool, how much of that balance will be distributed to you, and how much of that balance is reserved for you as a refund (which bypasses distribution).
+Burada her uygun minipool için toplam bakiyeyi, bu bakiyenin ne kadarının size dağıtılacağını ve bu bakiyenin ne kadarının size geri ödeme olarak ayrıldığını (dağıtımı atlayan) görebilirsiniz.
 
-Select which minipool you'd like to distribute and close from the list, confirm the action, and wait for your transaction to be validated.
-Once it does, your share of the minipool balance (and your refund) will be sent to your withdrawal address, and the minipool will enter the `finalized` state.
+Listeden dağıtmak ve kapatmak istediğiniz minipool'u seçin, eylemi onaylayın ve işleminizin doğrulanmasını bekleyin.
+Doğrulandığında, minipool bakiyesindeki payınız (ve geri ödemeniz) withdrawal adresinize gönderilecek ve minipool `finalized` durumuna girecektir.
 
-You can verify it by looking at the transaction on a block explorer; for example, see [the transaction for closing the above minipool (Goerli Testnet)](https://goerli.etherscan.io/tx/0xe81415b3b66f9b42d43ac17a0983e792725726c9fdd35ac855745bd12a053509).
+Bunu bir blok explorer'ında işleme bakarak doğrulayabilirsiniz; örneğin, [yukarıdaki minipool'u kapatma işlemine (Goerli Testnet) bakın](https://goerli.etherscan.io/tx/0xe81415b3b66f9b42d43ac17a0983e792725726c9fdd35ac855745bd12a053509).
 
-### Unstaking RPL
+### RPL Stake'inden Çıkma
 
-At this point, your effective RPL will be updated to remove this minipool from the calculation.
-You can now unstake any RPL you have that would put you over the 60% bonded ETH threshold.
+Bu noktada, efektif RPL'niz bu minipool'u hesaplamadan çıkarmak için güncellenecektir.
+Artık sizi %60 bonded ETH eşiğinin üzerine çıkaracak herhangi bir RPL'nin stake'inden çıkabilirsiniz.
 
-To unstake RPL against the node, run the following command:
+Node'a karşı RPL stake'inden çıkmak için aşağıdaki komutu çalıştırın:
 
 ```shell
 rocketpool node withdraw-rpl
 ```
 
-::: tip NOTE
-There are two limitations on RPL withdrawals:
+::: tip NOT
+RPL çekimlerinde iki sınırlama vardır:
 
-RPL cannot be withdrawn within 28 days of staking (or restaking) RPL. Be careful if you claim these rewards before closing your minipool, if you restake any amount of RPL rewards you will not be able to withdraw any amount of RPL for 28 days since the last staking action.
+RPL, stake edilmesinden (veya yeniden stake edilmesinden) sonraki 28 gün içinde çekilemez. Minipool'unuzu kapatmadan önce bu ödülleri talep ederseniz dikkatli olun, herhangi bir miktarda RPL ödülünü yeniden stake ederseniz son stake etme işleminden bu yana 28 gün boyunca herhangi bir miktarda RPL çekemeyeceksiniz.
 
-RPL can be withdrawn down to 60% of your total bonded ETH. On a full exit, that means all of it can be withdrawn; for partial exits, plan with this limit in mind.
+RPL, toplam bonded ETH'nizin %60'ına kadar çekilebilir. Tam bir çıkışta, bu tamamının çekilebileceği anlamına gelir; kısmi çıkışlar için, bu sınırı aklınızda tutarak planlayın.
 :::
 
-## A Note on the Old Delegate
+## Eski Delegate Hakkında Bir Not
 
-The **original minipool delegate** assigned to every minipool from Rocket Pool's launch until Atlas's deployment was built with two assumptions in mind:
+Rocket Pool'un lansmanından Atlas'ın dağıtımına kadar her minipool'a atanan **orijinal minipool delegate**, iki varsayım göz önünde bulundurularak inşa edildi:
 
-1. The only time your minipool will ever have a balance is after the validator has exited the Beacon Chain.
-2. The Oracle DAO will change your minipool's state from "staking" to "withdrawable" once the balance has been transferred from the Beacon Chain to the minipool contract.
+1. Minipool'unuzun herhangi bir zamanda bakiyesi olacak tek zaman, validator Beacon Chain'den çıktıktan sonradır.
+2. Oracle DAO, bakiye Beacon Chain'den minipool contract'ına aktarıldıktan sonra minipool'unuzun durumunu "staking"den "withdrawable"a değiştirecektir.
 
-The first point is clearly no longer relevant now that Ethereum is being upgraded to support skimming.
-The second point is _also_ no longer true, because the Oracle DAO is **no longer** going to flag "withdrawable" minipools.
-This was an intentional design decision to reduce the power that the Oracle DAO yields over Rocket Pool node operators and allow them to access rewards without any supplemental requirement on trusted parties.
+İlk nokta, Ethereum'un skimming'i desteklemek için yükseltilmesiyle artık açıkça alakalı değildir.
+İkinci nokta da _artık_ doğru değildir, çünkü Oracle DAO **artık** "withdrawable" minipool'ları işaretlemeyecektir.
+Bu, Oracle DAO'nun Rocket Pool node operatörleri üzerinde sahip olduğu gücü azaltmak ve onların güvenilir taraflara ek bir gereksinim olmadan ödüllere erişmelerine izin vermek için kasıtlı bir tasarım kararıydı.
 
-Because of these deficiencies, the Smartnode CLI **no longer supports** withdrawals or fund distribution on the original minipool delegate.
-If you'd like to access your rewards, you **must** upgrade to the Atlas delegate which supports the new withdrawal conditions listed above.
+Bu eksiklikler nedeniyle, Smartnode CLI **artık** orijinal minipool delegate üzerinde çekimleri veya fon dağıtımını **desteklememektedir**.
+Ödüllerinize erişmek istiyorsanız, yukarıda listelenen yeni çekim koşullarını destekleyen Atlas delegate'ine **yükseltmeniz gerekir**.
 
-::: danger DANGER
-If you are an advanced user and bypass the CLI to invoke the distribution functionality on the contract directly via a third-party tool, be advised of the following things:
+::: danger TEHLİKE
+İleri düzey bir kullanıcıysanız ve CLI'yi atlayarak üçüncü taraf bir araç aracılığıyla contract üzerindeki dağıtım işlevini doğrudan çağırırsanız, aşağıdaki şeylerden haberdar olun:
 
-1. The delegate's distribution function will revert if the minipool's balance is **below 16 ETH**. Balances below 16 ETH **cannot be accessed.**
-2. If the minipool has **between 16 and 32 ETH** in its balance, distribution by the original delegate will assume your validator has been **slashed**. It will return 16 ETH to the staking pool and give you whatever is left over. It will _only_ function properly if the minipool balance is above 32 ETH.
-3. The minipool will never enter the `finalized` state because the Oracle DAO will never mark it as `withdrawable`, so even though you may be able to access your ETH, **your RPL will be locked** until you upgrade to the Atlas delegate.
+1. Minipool'un bakiyesi **16 ETH'nin altındaysa** delegate'in dağıtım işlevi geri dönecektir. 16 ETH'nin altındaki bakiyelere **erişilemez.**
+2. Minipool bakiyesinde **16 ile 32 ETH arasında** varsa, orijinal delegate tarafından dağıtım validator'ınızın **slashlanded** olduğunu varsayacaktır. Staking pool'a 16 ETH döndürecek ve size kalan her şeyi verecektir. Yalnızca minipool bakiyesi 32 ETH'nin üzerindeyse _düzgün_ çalışacaktır.
+3. Minipool asla `finalized` durumuna girmeyecektir çünkü Oracle DAO asla onu `withdrawable` olarak işaretlemeyecektir, bu nedenle ETH'nize erişebilseniz bile, **RPL'niz kilitli kalacaktır** Atlas delegate'ine yükseltene kadar.
 
-Because of these points, we **strongly recommend** you just upgrade to the Atlas delegate in the first place and avoid them entirely.
+Bu noktalar nedeniyle, ilk etapta Atlas delegate'ine yükseltmenizi ve bunlardan tamamen kaçınmanızı **şiddetle tavsiye ediyoruz**.
 :::

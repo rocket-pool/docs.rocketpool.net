@@ -1,39 +1,39 @@
-# Testing your Oracle DAO Node
+# Tester votre nœud Oracle DAO
 
-Once your node is set up and you've joined the Oracle DAO, you should test it to ensure it's able to perform its duties properly.
-The best way to do this is to have it build the Redstone rewards Merkle tree using Rocket Pool's `treegen` utility.
+Une fois votre nœud configuré et que vous avez rejoint l'Oracle DAO, vous devez le tester pour vous assurer qu'il est capable d'effectuer ses tâches correctement.
+La meilleure façon de le faire est de lui faire construire l'arbre de Merkle des récompenses Redstone en utilisant l'utilitaire `treegen` de Rocket Pool.
 
 ### treegen
 
-`treegen` is a tool that can reproduce the entire rewards Merkle tree and accompanying artifacts for a previous rewards interval via your archive Execution and Consensus clients.
-It can also "dry run" the current interval by pretending that it ended at the latest finalized epoch (at the time of running it) and producing a partial tree from the start of the interval up to that point.
+`treegen` est un outil qui peut reproduire l'intégralité de l'arbre de Merkle des récompenses et les artefacts associés pour un intervalle de récompenses précédent via vos clients d'Execution et de Consensus en mode archive.
+Il peut également effectuer un "essai à blanc" de l'intervalle actuel en prétendant qu'il s'est terminé à la dernière époque finalisée (au moment de l'exécution) et en produisant un arbre partiel du début de l'intervalle jusqu'à ce point.
 
-::: tip TIP
-For more information on the rewards tree itself and accompanying files, please visit [**the formal specification**](https://github.com/rocket-pool/rocketpool-research/blob/master/Merkle%20Rewards%20System/merkle-tree-spec).
+::: tip ASTUCE
+Pour plus d'informations sur l'arbre de récompenses lui-même et les fichiers associés, veuillez consulter [**la spécification formelle**](https://github.com/rocket-pool/rocketpool-research/blob/master/Merkle%20Rewards%20System/merkle-tree-spec).
 :::
 
-`treegen` can be used as a standalone binary (currently only built for Linux systems, x64 and arm64) or as a Docker container.
+`treegen` peut être utilisé comme un binaire autonome (actuellement construit uniquement pour les systèmes Linux, x64 et arm64) ou comme un conteneur Docker.
 
-If you would like to download the standalone binary, you can find it in the releases here: [https://github.com/rocket-pool/treegen](https://github.com/rocket-pool/treegen).
-Usage instructions are included in the README there, but we'll cover some examples below as well.
+Si vous souhaitez télécharger le binaire autonome, vous pouvez le trouver dans les versions ici : [https://github.com/rocket-pool/treegen](https://github.com/rocket-pool/treegen).
+Les instructions d'utilisation sont incluses dans le README là-bas, mais nous couvrirons également quelques exemples ci-dessous.
 
-The Docker container tag for it is `rocketpool/treegen:latest`.
+Le tag du conteneur Docker pour celui-ci est `rocketpool/treegen:latest`.
 
-## Building a Dry-Run Tree
+## Construire un arbre d'essai à blanc
 
-For a first test, run `treegen` to generate a dry-run tree that calculates the tree from the start of the rewards interval to the latest (finalized) slot.
-We'll use [the script](https://github.com/rocket-pool/treegen/blob/main/treegen.sh) included in the repository that leverages the Docker container to run it on the node machine itself for simplicity:
+Pour un premier test, exécutez `treegen` pour générer un arbre d'essai à blanc qui calcule l'arbre depuis le début de l'intervalle de récompenses jusqu'au dernier slot (finalisé).
+Nous utiliserons [le script](https://github.com/rocket-pool/treegen/blob/main/treegen.sh) inclus dans le dépôt qui exploite le conteneur Docker pour l'exécuter sur la machine du nœud elle-même par simplicité :
 
 ```shell
 ./treegen.sh -e http://localhost:8545 -b http://localhost:5052
 ```
 
 ::: warning NOTE
-Note that this particular configuration requires you to expose the Execution Client and Beacon Node APIs through the Docker configuration - ensure you have both options enabled in the `rocketpool service config` TUI.
+Notez que cette configuration particulière nécessite que vous exposiez les API du client d'Execution et du nœud Beacon via la configuration Docker - assurez-vous d'avoir activé les deux options dans le TUI `rocketpool service config`.
 :::
 
-This will test your clients' abilities to respond to queries in a timely fashion (e.g., if you are using a third-party service, this will be helpful to assess whether or not its query rate-limit is insufficient), but **will not test their Archive Mode capabilities**.
-It will produce output like the following:
+Cela testera les capacités de vos clients à répondre aux requêtes en temps opportun (par exemple, si vous utilisez un service tiers, cela sera utile pour évaluer si sa limite de débit de requêtes est insuffisante), mais **ne testera pas leurs capacités en mode Archive**.
+Il produira une sortie comme celle-ci :
 
 ```
 2022/11/06 12:11:37 Beacon node is configured for Mainnet.
@@ -68,30 +68,30 @@ It will produce output like the following:
 2022/11/06 12:50:52 Successfully generated rewards snapshot for interval 3.
 ```
 
-If this runs without error, it will generate the rewards tree artifacts and save them as JSON files in your working directory.
-You are free to explore them and ensure their contents are sane, but as they are dry-run files, they aren't canonically stored anywhere for comparison.
+Si cela s'exécute sans erreur, il générera les artefacts de l'arbre de récompenses et les enregistrera sous forme de fichiers JSON dans votre répertoire de travail.
+Vous êtes libre de les explorer et de vous assurer que leur contenu est cohérent, mais comme ce sont des fichiers d'essai à blanc, ils ne sont pas stockés de manière canonique quelque part pour comparaison.
 
-## Building a Canonical Tree from a Past Interval
+## Construire un arbre canonique à partir d'un intervalle passé
 
-This next test is to replicate one of the complete trees from a past interval.
-This will require archival access on both the Execution Layer and the Consensus Layer, so it will serve as a good test of both capabilities.
+Ce prochain test consiste à répliquer l'un des arbres complets d'un intervalle passé.
+Cela nécessitera un accès en mode archive à la fois sur la couche d'Execution et sur la couche de Consensus, donc cela servira de bon test des deux capacités.
 
-As of this writing, **Interval 2** is an ideal choice as it is far in the past () and involved the Smoothing Pool (which accounts for the largest computational load when calculating the rewards for the period).
+Au moment de la rédaction, **l'intervalle 2** est un choix idéal car il est loin dans le passé et implique le Smoothing Pool (qui représente la charge de calcul la plus importante lors du calcul des récompenses pour la période).
 
-Run `treegen` using the following command:
+Exécutez `treegen` en utilisant la commande suivante :
 
 ```shell
-./treegen.sh -e http://<your archive EC url> -b http://localhost:5052 -i 2
+./treegen.sh -e http://<votre url EC archive> -b http://localhost:5052 -i 2
 ```
 
-Note that the **Execution Client URL** is different here: it _must be_ an Archive EC as the snapshot block for Interval 2 was far in the past.
+Notez que **l'URL du client d'Execution** est différente ici : elle _doit être_ un EC en mode archive car le bloc instantané pour l'intervalle 2 était loin dans le passé.
 
 ::: warning NOTE
-Depending on your client configuration, building this tree can take _hours_.
-The Smartnode will give you status indicators about its progress along the way, as you can see in the example below.
+Selon la configuration de votre client, la construction de cet arbre peut prendre _des heures_.
+Le Smartnode vous donnera des indicateurs de statut sur sa progression tout au long du processus, comme vous pouvez le voir dans l'exemple ci-dessous.
 :::
 
-The output will look like this (truncated for previty):
+La sortie ressemblera à ceci (tronquée pour la brièveté) :
 
 ```
 2022/11/07 23:44:34 Beacon node is configured for Mainnet.
@@ -135,18 +135,18 @@ The output will look like this (truncated for previty):
 2022/11/07 18:26:10 Successfully generated rewards snapshot for interval 2.
 ```
 
-The key thing to look for here is this message at the end:
+L'élément clé à rechercher ici est ce message à la fin :
 
 ```
 Your Merkle tree's root of 0x278fd75797e2a9eddc128c0199b448877e30d1196c12306bdc95fb731647c18f matches the canonical root! You will be able to use this file for claiming rewards.
 ```
 
-If you receive this, then your watchtower can build the tree correctly.
+Si vous recevez ceci, alors votre watchtower peut construire l'arbre correctement.
 
 ::: danger NOTE
-While this proves you can build the tree, you _must_ ensure your Web3.Storage API token has been entered into the Smartnode's configuration so it can upload the resulting tree to IPFS.
+Bien que cela prouve que vous pouvez construire l'arbre, vous _devez_ vous assurer que votre jeton API Web3.Storage a été entré dans la configuration du Smartnode afin qu'il puisse télécharger l'arbre résultant vers IPFS.
 :::
 
-### Next Steps
+### Prochaines étapes
 
-Next up, we'll cover how to monitor your node's performance.
+Ensuite, nous verrons comment surveiller les performances de votre nœud.

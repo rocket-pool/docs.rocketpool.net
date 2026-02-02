@@ -1,67 +1,72 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Creating a New Wallet
+# 새 지갑 생성하기
 
-If the Smartnode services are up and running, the next step is to set up an Ethereum wallet for your node.
-This is simply an Execution Layer address that will hold your node's funds - it will use this to send ETH to your minipool when you begin staking, pay for gas during various transactions, and other various operations.
+Smartnode 서비스가 실행 중이라면, 다음 단계는 노드를 위한 Ethereum 지갑을 설정하는 것입니다.
+이것은 단순히 노드의 자금을 보관할 Execution Layer 주소입니다 - 스테이킹을 시작할 때 minipool에 ETH를 보내고, 다양한 트랜잭션 중 가스를 지불하며, 기타 여러 작업을 수행하는 데 사용됩니다.
 
-You have the option of either creating a brand new wallet from scratch, or importing / recovering an existing wallet or address.
-Please choose which option you'd like from the tabs below.
+처음부터 완전히 새로운 지갑을 생성하거나, 기존 지갑 또는 주소를 가져오기/복구할 수 있는 옵션이 있습니다.
+아래 탭에서 원하는 옵션을 선택하세요.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Creating a New Wallet">
-      The most common way to run a node is to create a new Ethereum address that is dedicated to the node.
-      The Smartnode CLI provides a way to do this easily:
+    <Tab label="새 지갑 생성하기">
+      노드를 실행하는 가장 일반적인 방법은 노드 전용으로 새로운 Ethereum 주소를 생성하는 것입니다.
+      Smartnode CLI는 이를 쉽게 수행할 수 있는 방법을 제공합니다:
 
       ```shell
       rocketpool wallet init
       ```
 
-      You will first be prompted for a password to protect your wallet's private key.
-      Next, you will be presented the **unique 24-word mnemonic** for your new wallet.
-      This is the **recovery phrase** for your wallet.
-      If you ever lose your machine, you can use this phrase to regenerate your wallet and resurrect all of the Consensus validators attached to it.
+      먼저 지갑의 개인 키를 보호하기 위한 비밀번호를 입력하라는 메시지가 표시됩니다.
+      다음으로, 새 지갑을 위한 **고유한 24단어 니모닉**이 표시됩니다.
+      이것은 지갑의 **복구 구문**입니다.
+      기기를 분실한 경우, 이 구문을 사용하여 지갑을 재생성하고 연결된 모든 Consensus validator를 복원할 수 있습니다.
 
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        It is **essential** that you write this mnemonic down because this is the only time it will be shown to you, but keep it somewhere safe.
-        Anyone with this phrase can gain control of your wallet.
+        <p className="rspress-directive-title">참고</p>
+        이 니모닉은 단 한 번만 표시되므로 반드시 기록해 두어야 하지만, 안전한 곳에 보관하세요.
+        이 구문을 가진 사람은 누구나 지갑을 제어할 수 있습니다.
       </p>
 
-      Once you confirm your mnemonic phrase, you will be presented with the unique Ethereum address for your node wallet.
+      니모닉 구문을 확인하면, 노드 지갑의 고유한 Ethereum 주소가 표시됩니다.
     </Tab>
-    <Tab label="Recovering or Importing an Existing Wallet">
-      If you already have a node wallet that you created in a previous installation of the Smartnode, or if you want to import an address that you created elsewhere (such as with **Allnodes**), please follow the instructions in the [Importing an Existing Wallet for your Node](./recovering-rp) guide.
+    <Tab label="기존 지갑 복구 또는 가져오기">
+      니모닉 구문 입력을 완료하면, 다음과 같은 성공 메시지가 표시됩니다:
+      "The node wallet was successfully initialized.
+        Node account: {긴문자열과숫자}"
+      이것은 "노드 운영 준비하기"에서 ETH를 보낼 공개 주소입니다. "rocketpool wallet status"를 입력하여 확인할 수도 있습니다.
 
-      Return here when you're finished.
+      이전 Smartnode 설치에서 생성한 노드 지갑이 이미 있거나, **Allnodes**와 같은 다른 곳에서 생성한 주소를 가져오려는 경우, [노드용 기존 지갑 가져오기](./recovering-rp) 가이드의 지침을 따르세요.
+
+      완료되면 여기로 돌아오세요.
     </Tab>
 
   </Tabs>
 </div>
 
-::: warning NOTE
-As of the current build, Rocket Pool needs to have access to your wallet's private key in order to perform its automatic duties.
-**This means that the private key will exist in a file on your machine.**
-If an attacker manages to gain access to your machine, they could gain access to your node wallet and steal all of the tokens that it contains!
-Please ensure that you have followed the security guide in the [Securing your Node](./securing-your-node) section before you continue, and are comfortable with your security posture.
+::: warning 참고
+현재 빌드 기준으로, Rocket Pool은 자동 작업을 수행하기 위해 지갑의 개인 키에 액세스할 수 있어야 합니다.
+**이는 개인 키가 기기의 파일에 존재한다는 것을 의미합니다.**
+공격자가 기기에 액세스하면, 노드 지갑에 액세스하여 포함된 모든 토큰을 탈취할 수 있습니다!
+계속 진행하기 전에 [노드 보안](./securing-your-node) 섹션의 보안 가이드를 따랐으며, 보안 상태에 만족하는지 확인하세요.
 :::
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Docker & Hybrid Modes">
-      Your wallet's private key will be stored in a file located at `~/.rocketpool/data/wallet`.
+    <Tab label="Docker 및 Hybrid 모드">
+      지갑의 개인 키는 `~/.rocketpool/data/wallet`에 위치한 파일에 저장됩니다.
 
-      The password used to encrypt your wallet's key will be stored in `~/.rocketpool/data/password`.
-      This is the file that must be protected at all times.
+      지갑 키를 암호화하는 데 사용되는 비밀번호는 `~/.rocketpool/data/password`에 저장됩니다.
+      이 파일은 항상 보호해야 하는 파일입니다.
     </Tab>
-    <Tab label="Native Mode">
-      The wallet and password files will be stored in the `data` directory under the Rocket Pool directory that you set up earlier (e.g. `/srv/rocketpool`).
+    <Tab label="Native 모드">
+      지갑과 비밀번호 파일은 이전에 설정한 Rocket Pool 디렉토리(예: `/srv/rocketpool`) 아래의 `data` 디렉토리에 저장됩니다.
 
-      Your wallet's private key will be stored in a file located at `/srv/rocketpool/data/wallet`.
+      지갑의 개인 키는 `/srv/rocketpool/data/wallet`에 위치한 파일에 저장됩니다.
 
-      The password used to encrypt your wallet's key will be stored in `/srv/rocketpool/data/password`.
-      This is the file that must be protected at all times.
+      지갑 키를 암호화하는 데 사용되는 비밀번호는 `/srv/rocketpool/data/password`에 저장됩니다.
+      이 파일은 항상 보호해야 하는 파일입니다.
     </Tab>
 
   </Tabs>

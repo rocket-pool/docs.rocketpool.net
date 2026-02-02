@@ -1,126 +1,126 @@
 import proposal_diagram from "./images/proposal_diagram.png";
 import proposal_checker from "./images/proposal_checker.png";
 
-# The Protocol DAO (pDAO)
+# Protocol DAO (pDAO)
 
-The Rocket Pool Protocol DAO (pDAO) is responsible for shaping the direction of the protocol and is run by RPL governance. Its members and their voting power are made up of node operators, big and small, all of which are directly participating in the protocol. It serves the Rocket Pool community at large, including rETH holders, Node Operators, and RPL holders. The pDAO prioritizes the safety of the Rocket Pool protocol and the health of the Ethereum Network. For an explicit definition of who and what the pDAO is, feel free to take a look at the [pDAO charter](https://rpips.rocketpool.net/RPIPs/RPIP-23).
+Protocol DAO Rocket Pool (pDAO) отвечает за формирование направления протокола и управляется управлением RPL. Его члены и их голосующая сила состоят из операторов нод, больших и малых, все из которых напрямую участвуют в протоколе. Он служит сообществу Rocket Pool в целом, включая держателей rETH, операторов нод и держателей RPL. pDAO отдает приоритет безопасности протокола Rocket Pool и здоровью сети Ethereum. Для явного определения того, кто и что такое pDAO, ознакомьтесь с [уставом pDAO](https://rpips.rocketpool.net/RPIPs/RPIP-23).
 
-## New pDAO features in Houston
+## Новые функции pDAO в Houston
 
-### On-chain execution of pDAO responsibilities
+### Исполнение обязанностей pDAO в цепи
 
-The Houston Upgrade introduces an on-chain replacement for the pDAO governance system's execution process. It uses an optimistic fraud-proof system that allows any node operator to raise proposals and vote on proposals to adjust "pDAO protocol parameters" and spend treasury funds. To see a comprehensive list of pDAO controllable parameters, click [here](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table).
-Pre-Houston, the core team was responsible for executing pDAO duties at the behest of the community governance process. For example, the team carries out the monthly IMC and GMC payments as per the governance voted payment schedules. The plan was for this power to reside with the team temporarily until a new power structure is set up to take over these responsibilities. Houston removes this dependency on the team, making the protocol more decentralized and trustless.
+Обновление Houston вводит замену в цепи для процесса исполнения системы управления pDAO. Оно использует оптимистическую систему доказательства мошенничества, которая позволяет любому оператору ноды выдвигать предложения и голосовать за предложения по корректировке "параметров протокола pDAO" и расходованию средств казны. Для просмотра полного списка параметров, контролируемых pDAO, нажмите [здесь](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table).
+До Houston основная команда отвечала за выполнение обязанностей pDAO по указанию процесса управления сообщества. Например, команда осуществляет ежемесячные платежи IMC и GMC в соответствии с графиками платежей, утвержденными управлением. План состоял в том, чтобы эта власть временно находилась у команды до тех пор, пока не будет создана новая структура власти для принятия этих обязанностей. Houston устраняет эту зависимость от команды, делая протокол более децентрализованным и не требующим доверия.
 
-### Security Council
+### Совет безопасности
 
-The Houston upgrade also includes a new security council to help react quickly in the event of any potential issues with the protocol. These members can be elected by the pDAO and have the ability to propose and execute changes without delay. The pDAO has the power to elect and remove members from the security council. It's a serious role and the pDAO should develop strong entry requirements and processes for flushing stale members. The pDAO guardian will be the security council's sole member at the start of Houston.
+Обновление Houston также включает новый совет безопасности, чтобы помочь быстро реагировать в случае любых потенциальных проблем с протоколом. Эти члены могут быть избраны pDAO и имеют возможность предлагать и выполнять изменения без задержки. pDAO имеет право избирать и удалять членов из совета безопасности. Это серьезная роль, и pDAO должно разработать строгие требования к вступлению и процессы для удаления устаревших членов. Хранитель pDAO будет единственным членом совета безопасности в начале Houston.
 
-### Recurring Treasury Spends
+### Повторяющиеся расходы казны
 
-RPL has a 5% inflation rate. 22% of this inflation is directed towards the pDAO as defined in [RPIP-25](https://rpips.rocketpool.net/RPIPs/RPIP-25). The pDAO can use these funds for a variety of purposes. For example, incentives such as liquidity provider (LP) bonuses, grants and bounties for 3rd party improvements and projects, and funding the development of the Rocket Pool protocol. The Houston upgrade also introduces a new feature that enables recurring treasury payments made to a specified beneficiary each rewards period.
+RPL имеет ставку инфляции 5%. 22% этой инфляции направляется в pDAO, как определено в [RPIP-25](https://rpips.rocketpool.net/RPIPs/RPIP-25). pDAO может использовать эти средства для различных целей. Например, стимулы, такие как бонусы поставщикам ликвидности (LP), гранты и награды за улучшения и проекты третьих лиц, а также финансирование разработки протокола Rocket Pool. Обновление Houston также вводит новую функцию, которая позволяет повторяющиеся платежи из казны, сделанные указанному получателю каждый период вознаграждений.
 
-## Protocol DAO (pDAO) proposals
+## Предложения Protocol DAO (pDAO)
 
-Any node with a non-zero voting power may raise or participate in a pDAO proposal at any time. Proposals can be one of the following types:
+Любая нода с ненулевой голосующей силой может выдвинуть или участвовать в предложении pDAO в любое время. Предложения могут быть одного из следующих типов:
 
-- Changing pDAO settings
-- One-time treasury spends
-- Repeat treasury spends (management committees)
-- Security council membership
+- Изменение настроек pDAO
+- Единовременные расходы казны
+- Повторяющиеся расходы казны (комитеты управления)
+- Членство в совете безопасности
 
-For greater detail and rationale, refer to [proposal types](https://rpips.rocketpool.net/RPIPs/RPIP-33#proposal-types). It's important to understand that a pDAO proposal is an on-chain entity that exists to execute changes at the protocol level.
+Для получения более подробной информации и обоснования обратитесь к [типам предложений](https://rpips.rocketpool.net/RPIPs/RPIP-33#proposal-types). Важно понимать, что предложение pDAO — это сущность в цепи, которая существует для выполнения изменений на уровне протокола.
 
-## Lifecycle of a pDAO proposal
+## Жизненный цикл предложения pDAO
 
-A proposal should be forecasted by the [governance process](../houston/participate#governance-process) before it ends up on-chain. It consists of 4 Periods, all of which are pDAO [controllable parameters](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table):
+Предложение должно быть предсказано [процессом управления](../houston/participate#governance-process) до того, как оно окажется в цепи. Оно состоит из 4 периодов, все из которых являются [контролируемыми параметрами](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table) pDAO:
 
-- Vote Delay Period: `proposal.vote.delay.time`
-- Vote Phase 1: `proposal.vote.phase1.time`
-- Vote Phase 2: `proposal.vote.phase2.time`
-- Execution: `proposal.execute.time	`
+- Период задержки голосования: `proposal.vote.delay.time`
+- Фаза голосования 1: `proposal.vote.phase1.time`
+- Фаза голосования 2: `proposal.vote.phase2.time`
+- Исполнение: `proposal.execute.time	`
 
 <img src={proposal_diagram} width="100%" height="auto" />
 
-### Vote Delay Period
+### Период задержки голосования
 
-In order to decide the outcome of a proposal, the protocol must know the quorum required. A proposer calculates this value off-chain and submits it alongside their proposal. The value is optimistically accepted, but in the case of fraud, verifiers can perform a challenge/response process to prove the value is incorrect. Invalid proposals are then discarded.
+Чтобы определить результат предложения, протокол должен знать требуемый кворум. Предлагающий рассчитывает это значение вне цепи и отправляет его вместе со своим предложением. Значение оптимистически принимается, но в случае мошенничества верификаторы могут выполнить процесс вызов/ответ, чтобы доказать, что значение неверно. Недействительные предложения затем отклоняются.
 
-A few reasons why proposers and challengers are required to lock RPL.
+Несколько причин, почему предлагающие и претенденты должны заблокировать RPL.
 
-- `proposal.bond` incentivizes valid proposals and disincentivizes spam.
-- `proposal.challenge.bond` incentivizes the takedown of invalid/malicious proposals.
+- `proposal.bond` стимулирует действительные предложения и препятствует спаму.
+- `proposal.challenge.bond` стимулирует устранение недействительных/вредоносных предложений.
 
-Challengers supply an index into the Merkle-sum tree that they are alleging is incorrect. Any node operator can participate in challenging fraudulent proposals (and earn a reward in doing so). Feel free to read about the [pDAO Challenge Process](../houston/pdao#challenge-process) if you're interested in opting in. A proposal not defeated in a challenge by the end of the vote delay period will enter voting stages.
+Претенденты предоставляют индекс в дереве Merkle-sum, который, по их утверждению, является неправильным. Любой оператор ноды может участвовать в оспаривании мошеннических предложений (и получить вознаграждение за это). Не стесняйтесь прочитать о [процессе оспаривания pDAO](../houston/pdao#challenge-process), если вам интересно принять участие. Предложение, не побежденное в оспаривании к концу периода задержки голосования, перейдет на этапы голосования.
 
-::: tip NOTE
-When `proposal.vote.delay.time` expires, the proposal is no longer able to be challenged or defeated.
+::: tip ПРИМЕЧАНИЕ
+Когда `proposal.vote.delay.time` истекает, предложение больше не может быть оспорено или побеждено.
 :::
 
-### Vote Period 1
+### Период голосования 1
 
-During a voting period, Node Operators and Delegates can cast a vote with one of four options:
+Во время периода голосования операторы нод и делегаты могут отдать голос с одним из четырех вариантов:
 
 ```
-1. Abstain: The voter's voting power is contributed to quorum but is neither for nor against the proposal.
-2. For: The voter votes in favor of the proposal being executed.
-3. Against: The voter votes against the proposal being executed.
-4. Veto: The voter votes against the proposal as well as indicating they deem the proposal as spam or malicious.
+1. Воздержаться: Голосующая сила избирателя вносится в кворум, но не является ни за, ни против предложения.
+2. За: Избиратель голосует за выполнение предложения.
+3. Против: Избиратель голосует против выполнения предложения.
+4. Вето: Избиратель голосует против предложения, а также указывает, что считает предложение спамом или вредоносным.
 ```
 
-Their voting power will be included in the option of their choosing.
+Их голосующая сила будет включена в вариант их выбора.
 
-This can be done using the command:
+Это можно сделать с помощью команды:
 
 ```shell
 rocketpool pdao proposals vote
 ```
 
-If the veto quorum (as defined by the `proposal.veto.quorum` parameter) is met, the proposal is immediately defeated and the proposer loses their bond. This is to dissuade spam, low quality proposals, or proposals that have not gone through off-chain processes first. The smartnode command `rocketpool pdao proposals finalize` is used to finalize a vetoed proposal by burning the proposer's locked RPL bond.
+Если кворум вето (как определено параметром `proposal.veto.quorum`) достигнут, предложение немедленно отклоняется, и предлагающий теряет свой залог. Это призвано отговорить от спама, некачественных предложений или предложений, которые не прошли сначала процессы вне цепи. Команда smartnode `rocketpool pdao proposals finalize` используется для завершения предложения с вето путем сжигания заблокированного залога RPL предлагающего.
 
-The duration of period 1 is determined by the `proposal.vote.phase1.time` parameter. The proposal will transition to phase 2 regardless of whether `proposal.quorum` is reached or not.
+Продолжительность периода 1 определяется параметром `proposal.vote.phase1.time`. Предложение перейдет к фазе 2 независимо от того, достигнут ли `proposal.quorum` или нет.
 
-### Vote Period 2
+### Период голосования 2
 
-Delegates can vote during vote period 2, but only their vote is only worth their **local voting power**. Voters who didn't vote in period 1 will still be able to cast a vote during period 2. Node operators who disagree with their delegate's choice will have the opportunity to overturn their delegate's vote.
+Делегаты могут голосовать во время периода голосования 2, но только их голос стоит их **локальной голосующей силы**. Избиратели, которые не голосовали в периоде 1, все еще смогут отдать голос во время периода 2. Операторы нод, которые не согласны с выбором своего делегата, будут иметь возможность отменить голос своего делегата.
 
-The process of overturning a vote is pretty simple, just call `rocketpool pdao proposals vote` during vote period 2 and follow the prompts. The delegate's voting power will be overturned by the delegatee's voting power.
+Процесс отмены голоса довольно прост, просто вызовите `rocketpool pdao proposals vote` во время периода голосования 2 и следуйте подсказкам. Голосующая сила делегата будет отменена голосующей силой делегировавшего.
 
-The result of a proposal is concluded when vote period 2 is over. In order for a result to be determined (and executed), `proposal.quorum` total voting power must be reached by the end of `proposal.vote.phase2.time`. If quorum is met and consensus is reached, the proposal will pass the voting periods and be marked as successful.
+Результат предложения определяется, когда период голосования 2 заканчивается. Чтобы результат был определен (и исполнен), общая голосующая сила `proposal.quorum` должна быть достигнута к концу `proposal.vote.phase2.time`. Если кворум достигнут и достигнут консенсус, предложение пройдет периоды голосования и будет отмечено как успешное.
 
-::: tip NOTE
-No further actions can be taken in the event that `proposal.quorum` is not met. A proposal is considered concluded and final if quorum is not met.
+::: tip ПРИМЕЧАНИЕ
+Дальнейшие действия не могут быть предприняты в случае, если `proposal.quorum` не достигнут. Предложение считается завершенным и окончательным, если кворум не достигнут.
 :::
 
-### Execution
+### Исполнение
 
-Once both voting periods have passed and the proposal is successful, the proposal can be executed and the change (defined by the payload) is applied to the Rocket Pool protocol. To execute a proposal, use the command:
+После того как оба периода голосования прошли и предложение успешно, предложение может быть исполнено, и изменение (определенное полезной нагрузкой) применяется к протоколу Rocket Pool. Чтобы исполнить предложение, используйте команду:
 
 ```shell
 rocketpool pdao proposals execute
 ```
 
-You will be prompted to select a proposal to execute, the proposal will be applied to the protocol after this step!
+Вам будет предложено выбрать предложение для исполнения, предложение будет применено к протоколу после этого шага!
 
-After the proposal has passed the voting periods, the proposer may [claim](../houston/participate#claiming-bonds-and-rewards) their locked RPL bond, unless the proposal was defeated by a challenge or vetoed.
+После того как предложение прошло периоды голосования, предлагающий может [запросить](../houston/participate#claiming-bonds-and-rewards) свой заблокированный залог RPL, если предложение не было побеждено в оспаривании или вето.
 
-::: tip NOTE
-There is a window `proposal.execute.time` where a proposal can be executed. A proposal will expire if this timer reaches its end.
+::: tip ПРИМЕЧАНИЕ
+Есть окно `proposal.execute.time`, в течение которого предложение может быть исполнено. Предложение истечет, если этот таймер достигнет своего конца.
 :::
 
-And that's it! Keep in mind that all of the variables mentioned above are pDAO controllable parameters. Click [here](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table) for a comprehensive list of every parameter the pDAO has authority to change using on-chain proposals.
+И это все! Имейте в виду, что все переменные, упомянутые выше, являются контролируемыми параметрами pDAO. Нажмите [здесь](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table) для полного списка всех параметров, которые pDAO имеет полномочия изменять с помощью предложений в цепи.
 
-## Challenge Process
+## Процесс оспаривания
 
-The complete network voting power tree is stored off-chain due to gas limits. When a user submits a new proposal, they are responsible for constructing the network voting tree at target block number. This tree is generated off-chain but verifiable via Merkle roots that are submitted on-chain. The protocol relies on **verifiers** to check the details submitted by the proposer.
+Полное дерево голосующей силы сети хранится вне цепи из-за ограничений газа. Когда пользователь отправляет новое предложение, он отвечает за построение дерева голосования сети на целевом номере блока. Это дерево генерируется вне цепи, но проверяется через корни Merkle, которые отправляются в цепи. Протокол полагается на **верификаторов**, чтобы проверить детали, отправленные предлагающим.
 
-Any node can participate in tracking and verifying the correctness of proposals. To opt into this responsibility, use the command `rocketpool service config`, navigate to the **Smartnode and TX Fee Settings** menu, and check the box `Enable PDAO Proposal Checker`.
+Любая нода может участвовать в отслеживании и проверке правильности предложений. Чтобы принять участие в этой ответственности, используйте команду `rocketpool service config`, перейдите в меню **Smartnode and TX Fee Settings** и отметьте флажок `Enable PDAO Proposal Checker`.
 
 <img src={proposal_checker} width="100%" height="auto" />
 
-When this setting is enabled, the node will check for new proposals, verify their correctness, and submit challenges to invalid proposals. The only prerequisite is that [RPL Locking](../houston/participate#allowing-rpl-locking) is enabled.
+Когда эта настройка включена, нода будет проверять новые предложения, проверять их правильность и отправлять оспаривания недействительным предложениям. Единственное условие — это включена [блокировка RPL](../houston/participate#allowing-rpl-locking).
 
-This check runs every 5 minutes in conjunction with a few other node related duties. We'll run through an example of what challenging a fraudulent proposal looks like. We can use the smartnode command `rocketpool service logs node` to monitor the progress:
+Эта проверка выполняется каждые 5 минут в сочетании с несколькими другими обязанностями, связанными с нодой. Мы пройдем через пример того, как выглядит оспаривание мошеннического предложения. Мы можем использовать команду smartnode `rocketpool service logs node` для мониторинга прогресса:
 
 ```
 rocketpool_node  | 2024/04/05 02:19:16 Checking for Protocol DAO proposal challenges to defend...
@@ -140,9 +140,9 @@ rocketpool_node  | 2024/04/05 02:19:26 https://holesky.etherscan.io/tx/0x327e59e
 
 ```
 
-We can see that our node has caught a fraudulent proposal and started the process of challenging it. Block `1283202` is the block in which proposal 177 was raised, which means voting power for this proposal will be calculated at block `1283202`. If you're interested in seeing what these **Voting Info Snapshots** look like, you can locate them in this directory: `~/.rocketpool/data/voting`
+Мы можем видеть, что наша нода поймала мошенническое предложение и начала процесс его оспаривания. Блок `1283202` — это блок, в котором было выдвинуто предложение 177, что означает, что голосующая сила для этого предложения будет рассчитана в блоке `1283202`. Если вам интересно увидеть, как выглядят эти **снимки информации о голосовании**, вы можете найти их в этом каталоге: `~/.rocketpool/data/voting`
 
-Because the proposer was caught submitting incorrect voting info, our node makes a contract call `Function: createChallenge` on proposal 177 at index 5 and waits for the proposer to respond to the challenge.
+Поскольку предлагающий был пойман на отправке неправильной информации о голосовании, наша нода делает вызов контракта `Function: createChallenge` по предложению 177 по индексу 5 и ждет, пока предлагающий ответит на оспаривание.
 
 ```
 rocketpool3_node  | 2024/04/05 02:56:51 Checking for Protocol DAO proposal challenges to defend...
@@ -161,12 +161,12 @@ rocketpool3_node  | 2024/04/05 02:57:01 Waiting for the transaction to be valida
 rocketpool3_node  | 2024/04/05 02:57:13 Successfully defeated proposal.
 ```
 
-Since the proposer's voting info is incorrect, it won't be able to respond to the challenge in time (determined by `proposal.challenge.period`). The proposal is considered defeated at this point. When the proposal is defeated, our node automatically makes the contract call `defeatProposal` on proposal 177 at index 5 to end the proposal.
+Поскольку информация о голосовании предлагающего неверна, он не сможет ответить на оспаривание вовремя (определяется `proposal.challenge.period`). Предложение считается побежденным в этот момент. Когда предложение побеждено, наша нода автоматически делает вызов контракта `defeatProposal` по предложению 177 по индексу 5, чтобы завершить предложение.
 
-::: tip NOTE
-Challengers who participate in defeating the proposal are paid a proportional amount of the proposer's bond if they submit an index proven to be incorrect. All other challengers receive their bond back only.
+::: tip ПРИМЕЧАНИЕ
+Претенденты, которые участвуют в поражении предложения, получают пропорциональную сумму залога предлагающего, если они отправляют индекс, доказанный как неправильный. Все остальные претенденты получают обратно только свой залог.
 :::
 
-Now that the proposal is defeated, our node (the challenger) can [claim](../houston/participate#claiming-bonds-and-rewards) their original RPL bond as well as the proposer's RPL bond as a reward for defeating a fraudulent proposal.
+Теперь, когда предложение побеждено, наша нода (претендент) может [запросить](../houston/participate#claiming-bonds-and-rewards) свой первоначальный залог RPL, а также залог RPL предлагающего в качестве вознаграждения за поражение мошеннического предложения.
 
-If you're curious to dig into the details of the pDAO proposal and challenge system, take a look at the [technical specifications](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#draft-protocol-dao-proposal-challenge-system-specification). Feel free to skip to this section on the [challenge process](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#challenge-process) if you're interested in studying an example that goes into low level details.
+Если вам интересно углубиться в детали системы предложений pDAO и оспаривания, взгляните на [технические спецификации](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#draft-protocol-dao-proposal-challenge-system-specification). Не стесняйтесь перейти к этому разделу о [процессе оспаривания](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#challenge-process), если вам интересно изучить пример, который входит в низкоуровневые детали.

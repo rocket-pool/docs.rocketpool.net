@@ -1,48 +1,48 @@
-# 8-ETH Bonded Minipools
+# 8-ETH ボンドミニプール
 
-When Rocket Pool was first launched, it supported two types of minipools:
+Rocket Poolが最初にローンチされた際、2種類のミニプールをサポートしていました。
 
-1. A **16-ETH bond**, where the node operator provided 16 ETH and the remaning 16 ETH would come from the staking pool to create a complete (32 ETH) validator.
-2. A **32-ETH temporary bond**, where the node operator would provide all 32 ETH so they could skip the initialization process and start validating on the Beacon Chain right away, then be given a refund of 16 ETH once the deposit pool had enough ETH to cover it. At this point it would turn into a normal 16-ETH bonded minipool.
+1. **16-ETHボンド**、ノードオペレーターが16 ETHを提供し、残りの16 ETHがステーキングプールから提供されて完全な（32 ETH）バリデーターが作成されます。
+2. **32-ETH一時ボンド**、ノードオペレーターが32 ETH全額を提供することで初期化プロセスをスキップし、すぐにBeacon Chainでバリデーションを開始できます。その後、デポジットプールに十分なETHがある時点で16 ETHの返金を受け、通常の16-ETHボンドミニプールに変換されます。
 
-The latter was removed by a community vote several months into the protocol's life due to it no longer being necessary and resulting in long refund delays.
+後者は、もはや必要なくなり返金の遅延が長期化したため、プロトコルのライフサイクルの数ヶ月後にコミュニティの投票により削除されました。
 
-The former represented the protocol's lowest bond amount because it guaranteed that if a node operator used Rocket Pool to attack the Ethereum protocol and had their _entire bond_ slashed, they would stand to lose just as much as the rETH stakers and would not come out ahead.
+前者は、プロトコルの最低ボンド額を表していました。なぜなら、ノードオペレーターがRocket Poolを使用してEthereumプロトコルを攻撃し、_ボンド全体_がスラッシュされた場合、rETHステーカーと同じだけの損失を被り、利益を得ることはないことを保証していたからです。
 
-Since Rocket Pool's launch, the community has done [significant research](https://dao.rocketpool.net/t/leb8-discussion-thread/899) on the security provided by this bond and found that it was very conservative.
-For all intents and purposes, a slashing of 16 ETH was deemed unrealistic and a 16-ETH bond effectively provided the same security benefits as a bond of only 8 ETH (plus the supplemental RPL requirement).
-Thus, backed by this research, the Atlas upgrade introduces a new type of minipool to the list: the **8-ETH bond**, colloquially referred to by the Rocket Pool community as a "LEB8" (Lower ETH Bond - 8 ETH).
+Rocket Poolのローンチ以来、コミュニティはこのボンドが提供するセキュリティについて[重要な研究](https://dao.rocketpool.net/t/leb8-discussion-thread/899)を行い、非常に保守的であることを発見しました。
+実質的な目的において、16 ETHのスラッシュは非現実的と見なされ、16-ETHボンドは実質的に8 ETHのボンド（プラス補足的なRPL要件）と同じセキュリティ上の利点を提供すると考えられました。
+したがって、この研究に裏付けられ、Atlasアップグレードは新しいタイプのミニプールを導入します。**8-ETHボンド**、Rocket Poolコミュニティでは「LEB8」（Lower ETH Bond - 8 ETH）と呼ばれています。
 
-To create an 8-ETH minipool, the node operator only needs to provide **8 of their own ETH** (plus enough RPL to cover the collateral requirement - more on this in [RPL Collateral](#rpl-collateral)).
-It will then pull **24 ETH** from the deposit pool in order to complete the validator and get to work on the Beacon Chain.
+8-ETHミニプールを作成するには、ノードオペレーターは**自分の8 ETHのみ**を提供する必要があります（プラス、担保要件をカバーするのに十分なRPL - 詳細は[RPL担保](#rpl担保)を参照）。
+その後、バリデーターを完成させBeacon Chainで動作を開始するために、デポジットプールから**24 ETH**を引き出します。
 
-This **opens the door to new prospective node operators** that want to run a node but don't quite have 16 ETH.
-Further, it lets larger node operators **put more pool staker ETH to work** on the Beacon Chain earning rewards.
-As this works without meaningfully compromising security, everybody wins!
+これにより、ノードを実行したいが16 ETHを持っていない**新しい潜在的なノードオペレーターへの扉**が開かれます。
+さらに、大規模なノードオペレーターは、Beacon Chainで報酬を獲得する**プールステーカーのETHをより多く活用**できます。
+これはセキュリティを大きく損なうことなく機能するため、誰もが利益を得ます！
 
-In this guide, we'll cover three topics:
+このガイドでは、3つのトピックをカバーします。
 
-- How 8-ETH bonded minipools actually work, and the reward numbers behind them
-- How to create a new 8-ETH minipool
-- How to migrate an _existing_ 16-ETH minipool down to an 8-ETH minipool without exiting
+- 8-ETHボンドミニプールが実際にどのように機能するか、およびその背後にある報酬の数値
+- 新しい8-ETHミニプールを作成する方法
+- 既存の16-ETHミニプールを終了せずに8-ETHミニプールにマイグレーションする方法
 
-Read on to learn more about each topic.
+各トピックの詳細については、続きをお読みください。
 
-## How 8-ETH Bonded Minipools Work
+## 8-ETHボンドミニプールの仕組み
 
-Mechanically, 8-ETH bonded minipools behave **identically** to every other minipool in the protocol.
-They still "own" a validator on the Beacon Chain (they represent that validator's withdrawal credentials), they still come with a commission (though the commission with Atlas **will be fixed at 14%** for all new minipools), and they provide all the same functionality that a 16-ETH bonded minipool does.
-The difference lies entirely in the numbers.
+機械的には、8-ETHボンドミニプールはプロトコル内の他のすべてのミニプールと**同じように**動作します。
+依然としてBeacon Chain上のバリデーターを「所有」し（そのバリデーターの引き出し資格情報を表します）、手数料を伴い（ただし、Atlasでは手数料はすべての新しいミニプールに対して**14%に固定**されます）、16-ETHボンドミニプールが提供するすべての同じ機能を提供します。
+違いは完全に数値にあります。
 
-### Rewards
+### 報酬
 
-From a profitability perspective (looking _purely_ at ETH rewards and ignoring RPL), 8-ETH bonded minipools with a 14% commission provide _more rewards_ to the node operator than even _16-ETH bonded minipools at 20% commission_ (which, as of Redstone, is the highest possible reward configuration).
-At the same time, they also provide more rewards to the _rETH holders_ as well due to the fact that the node operators are more efficiently putting the capital of the rETH holders to work.
+収益性の観点から（_純粋に_ETH報酬を見てRPLを無視すると）、14%手数料の8-ETHボンドミニプールは、_16-ETHボンドミニプール（20%手数料）_（Redstoneの時点で、これが最も高い報酬構成です）よりも_多くの報酬_をノードオペレーターに提供します。
+同時に、ノードオペレーターがrETH保有者の資本をより効率的に活用しているため、_rETH保有者_にもより多くの報酬を提供します。
 
-Let's walk through a simple example to illustrate.
-Say we are a node operator with 16 ETH available to stake (plus the required RPL bond).
-Say we've earned 1 ETH of rewards on the Beacon Chain per validator.
-Here's how the math works out for a single 16-ETH minipool with a 20% commission, versus two 8-ETH minipools at 14% commission:
+簡単な例を見てみましょう。
+ステーク可能な16 ETHを持つノードオペレーター（プラス必要なRPLボンド）がいるとします。
+バリデーターごとにBeacon Chainで1 ETHの報酬を獲得したとします。
+20%手数料の単一の16-ETHミニプールと、14%手数料の2つの8-ETHミニプールの数式は次のとおりです。
 
 ```
 1x 16 ETH Minipool @ 20%:
@@ -67,34 +67,34 @@ rETH Share = 2 - 0.71
            = 1.29 ETH
 ```
 
-In other words, a node operator will earn **18% more ETH** via two 8-ETH minipools than they would with a single 16-ETH minipool at 20% commission.
+言い換えると、ノードオペレーターは2つの8-ETHミニプールを介して、20%手数料の単一の16-ETHミニプールよりも**18%多くのETH**を獲得します。
 
-### RPL Collateral
+### RPL担保
 
-In order to create an 8-ETH minipool, node operators still need to stake enough RPL to cover the minimum collateral requirements for their node (accounting for all of its minipools of all bond sizes).
+8-ETHミニプールを作成するには、ノードオペレーターは依然として、ノードの最小担保要件（すべてのボンドサイズのすべてのミニプールを考慮して）をカバーするのに十分なRPLをステークする必要があります。
 
-These rules have been clarified with Atlas:
+これらのルールはAtlasで明確化されました。
 
-- The **minimum RPL** per minipool is **10% of the _borrowed_ amount**
-- The **maximum RPL** per minipool is **150% of the _bonded_ amount**
+- ミニプールごとの**最小RPL**は**_借り入れ_額の10%**
+- ミニプールごとの**最大RPL**は**_ボンド_額の150%**
 
-For a 16-ETH minipool, this remains unchanged; the minimum is 1.6 ETH worth of RPL, and the maximum is 24 ETH worth of RPL.
+16-ETHミニプールの場合、これは変更されません。最小値は1.6 ETH相当のRPLで、最大値は24 ETH相当のRPLです。
 
-For an 8-ETH minipool, this becomes a **minimum of 2.4 ETH worth of RPL** (10% of the borrowed amount, which is 24 ETH) and a **maximum of 12 ETH worth of RPL** (150% of the bonded amount).
+8-ETHミニプールの場合、これは**最小2.4 ETH相当のRPL**（借り入れ額の10%、つまり24 ETH）と**最大12 ETH相当のRPL**（ボンド額の150%）になります。
 
-These numbers were selected by the Rocket Pool community [as part of a governance vote](https://vote.rocketpool.net/#/proposal/0x7426469ae1f7c6de482ab4c2929c3e29054991601c95f24f4f4056d424f9f671).
+これらの数値は、Rocket Poolコミュニティによって[ガバナンス投票の一環として](https://vote.rocketpool.net/#/proposal/0x7426469ae1f7c6de482ab4c2929c3e29054991601c95f24f4f4056d424f9f671)選択されました。
 
-## Creating a New 8-ETH Minipool
+## 新しい8-ETHミニプールの作成
 
-The process to create a new minipool with an 8-ETH bond is identical to the process for creating a 16-ETH minipool.
+8-ETHボンドで新しいミニプールを作成するプロセスは、16-ETHミニプールを作成するプロセスと同じです。
 
-Simply run the following command:
+単純に次のコマンドを実行します。
 
 ```shell
 rocketpool node deposit
 ```
 
-When prompted for your bond amount, select `8 ETH`:
+ボンド額の入力を求められたら、`8 ETH`を選択します。
 
 ```
 Your eth2 client is on the correct network.
@@ -114,10 +114,10 @@ This deposit will use 8.000000 ETH from your credit balance and will not require
 ...
 ```
 
-::: tip NOTE
-This example also shows usage of the [**new Deposit Credit System**](../../node-staking/credit).
-Since the node operator has 8 ETH in credit, creating this 8-ETH minipool is free!
+::: tip 注意
+この例では、[**新しいデポジットクレジットシステム**](../../node-staking/credit)の使用も示しています。
+ノードオペレーターが8 ETHのクレジットを持っているため、この8-ETHミニプールの作成は無料です！
 :::
 
-That's all there is to it!
-The rest of the process is the same as [the usual minipool creation instructions](../../node-staking/create-validator.mdx).
+これだけです！
+残りのプロセスは[通常のミニプール作成手順](../../node-staking/create-validator.mdx)と同じです。

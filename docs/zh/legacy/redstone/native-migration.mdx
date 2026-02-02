@@ -1,322 +1,322 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# [Native Mode] Guide to the Redstone Update and the Merge
+# [原生模式] Redstone 更新和合并指南
 
-This guide will cover everything you need to know in order to prepare your node for the Redstone Update and The Merge if you are using **Native Mode**.
+本指南将涵盖在使用**原生模式**时,为 Redstone 更新和合并准备节点所需了解的所有内容。
 
-## Things to Do Before Upgrading to v1.5.0
+## 升级到 v1.5.0 之前需要做的事情
 
-Before upgrading to v1.5.0 and higher of the Smartnode, please go through the following checklist to make sure you're prepared:
+在升级到 Smartnode v1.5.0 及更高版本之前,请检查以下清单以确保您已准备就绪:
 
-### Switch to a Full Execution Client
+### 切换到完整执行客户端
 
-The Merge requires you to run your own Execution client, so you won't be able to use remote providers like Infura or Pocket anymore.
+合并要求您运行自己的执行客户端,因此您将无法再使用 Infura 或 Pocket 等远程提供商。
 
-Because of this change, if you're currently using a light Execution client, you should switch to a full client while you're still on v1.4, let it sync to completion, and then upgrade to v1.5.
+由于这一变化,如果您当前使用的是轻量级执行客户端,您应该在仍使用 v1.4 时切换到完整客户端,让它同步完成,然后再升级到 v1.5。
 
-### Set Up the Engine API
+### 设置引擎 API
 
-The Merge changes the way your Execution client talks to your Consensus client.
-Instead of using the old HTTP or Websocket based RPC system, The Merge requires a new system exposed by your Execution client called the Engine API.
+合并改变了执行客户端与共识客户端的通信方式。
+合并不再使用基于旧的 HTTP 或 Websocket 的 RPC 系统,而是需要执行客户端公开的新系统,称为引擎 API。
 
-This is a special connection that lets the Consensus client replace the old Proof-of-Work mining system with Proof-of-Stake; it's the heart of The Merge.
-It's also **authenticated** with a secret token, so only your Consensus client can connect to your Execution client - nothing else can.
+这是一个特殊连接,让共识客户端用权益证明替代旧的工作量证明挖矿系统;这是合并的核心。
+它还通过密钥令牌进行**身份验证**,因此只有您的共识客户端可以连接到您的执行客户端 - 其他任何东西都不行。
 
-As you manage your own Execution and Consensus clients, you'll need to set up the Engine API manually.
-How to do it depends entirely on which clients you're running.
+由于您管理自己的执行客户端和共识客户端,您需要手动设置引擎 API。
+如何操作完全取决于您运行的客户端。
 
-CoinCashew has [a great and concise guide](https://www.coincashew.com/coins/overview-eth/ethereum-merge-upgrade-checklist-for-home-stakers-and-validators) on how to set up the Engine API on your Execution and Consensus clients.
-Give that a look, and test the new configuration out by making sure it still attests properly before upgrading.
+CoinCashew 有[一份很棒且简明的指南](https://www.coincashew.com/coins/overview-eth/ethereum-merge-upgrade-checklist-for-home-stakers-and-validators),介绍如何在执行客户端和共识客户端上设置引擎 API。
+看看那个指南,并在升级之前通过确保它仍然正常证明来测试新配置。
 
-We'll show you how to set up your Validator client so that it uses the correct fee recipient required by the Smartnode software automatically below.
+我们将在下面向您展示如何设置验证器客户端,使其自动使用 Smartnode 软件所需的正确费用接收者。
 
-## Upgrading to v1.5.0
+## 升级到 v1.5.0
 
-Upgrading the Smartnode stack to v1.5.0 is no different than any other upgrade.
-Simply follow [the normal directions here](../../node-staking/updates#updating-the-smartnode-stack).
+将 Smartnode 栈升级到 v1.5.0 与任何其他升级没有什么不同。
+只需遵循[此处的常规说明](../../node-staking/updates#updating-the-smartnode-stack)。
 
-## Things You Should Do After Upgrading
+## 升级后应该做的事情
 
-In Native mode, there are several things you will need to do manually after upgrading:
+在原生模式下,升级后您需要手动完成几件事:
 
-### Ensure a Successful Upgrade
+### 确保升级成功
 
-The first thing to do is ensure that your node is working correctly.
-Consider taking the following steps:
+首先要做的是确保您的节点正常工作。
+考虑采取以下步骤:
 
-- Check your log scripts for the Execution client, the Consensus client, the Validator client, and the Smartnode daemon (the `rp-node` service) to ensure they're all functioning normally without errors.
-- Confirm with a Block Explorer (such as your Grafana dashboard and [https://beaconcha.in](https://beaconcha.in)) that you are still attesting properly
-  - Remember that if you have Doppelganger protection enabled, you will miss a few attestations after the restart. This is normal!
+- 检查执行客户端、共识客户端、验证器客户端和 Smartnode 守护程序(`rp-node` 服务)的日志脚本,以确保它们都正常运行且没有错误。
+- 通过区块浏览器(例如您的 Grafana 仪表板和 [https://beaconcha.in](https://beaconcha.in))确认您仍在正确证明
+  - 请记住,如果您启用了 Doppelganger 保护,重启后您会错过几次证明。这是正常的!
 
-### Set up the Fee Recipient in your Validator Client
+### 在验证器客户端中设置费用接收者
 
-One of the **critical** details to set up prior to the Merge is the **fee recipient** specified by your validator client.
-As described in the [overview article](./whats-new#fee-recipients-and-your-distributor), this can be one of two values:
+在合并之前需要设置的**关键**细节之一是验证器客户端指定的**费用接收者**。
+如[概述文章](./whats-new#fee-recipients-and-your-distributor)中所述,这可以是以下两个值之一:
 
-- If you **are opted into** the Smoothing Pool, this must be the address of the **Smoothing Pool contract**. You can get the address from [the official contracts page](/en/protocol/contracts-integrations).
-- If you are **not** in the Smoothing Pool, this must be the address of your node's **fee distributor contract**. You can get the address by running `rocketpool node status`, under the `Fee Distributor and Smoothing Pool` section.
+- 如果您**选择加入**平滑池,这必须是**平滑池合约**的地址。您可以从[官方合约页面](/zh/protocol/contracts-integrations)获取地址。
+- 如果您**未**加入平滑池,这必须是您节点的**费用分配器合约**的地址。您可以通过运行 `rocketpool node status`,在 `Fee Distributor and Smoothing Pool` 部分下获取地址。
 
-In Native mode, you have the choice of letting the Smartnode manage this for you if you use the Smartnode daemon service, `rp-node`, or managing it yourself if you do not use the daemon.
+在原生模式下,如果您使用 Smartnode 守护程序服务 `rp-node`,您可以选择让 Smartnode 为您管理此项,或者如果您不使用守护程序,则自行管理。
 
-#### Automatic Management via the Daemon
+#### 通过守护程序自动管理
 
-The Smartnode daemon will automatically determine the appropriate fee recipient for your node and manage it in case it changes (such as opting into and out of the Smoothing Pool).
-This is the **safest** option, because the Smartnode will always ensure it's set to a value that **prevents [penalization](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)**.
+Smartnode 守护程序将自动确定您节点的适当费用接收者,并在其发生变化时进行管理(例如选择加入和退出平滑池)。
+这是**最安全的**选项,因为 Smartnode 将始终确保将其设置为**防止[处罚](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)**的值。
 
-The way it does this is by maintaining a file with the correct fee recipient in it, and regularly refreshing it to ensure its correctness.
-When it needs to be updated, it modifies the file and restarts your Validator client automatically so it loads the new recipient - similarly to how it restarts your Validator client after staking a new minipool.
+它的工作方式是维护一个包含正确费用接收者的文件,并定期刷新以确保其正确性。
+当需要更新时,它会修改文件并自动重启您的验证器客户端,以便加载新接收者 - 类似于在质押新 minipool 后重启验证器客户端的方式。
 
-Select your client below to learn how to set it up:
+选择您的客户端以了解如何设置:
 
 <div className="p-3">
   <Tabs>
     <Tab label="Lighthouse">
-      Modify your Validator Client service by adding the following line _before_ the `ExecStart` line:
+      在 `ExecStart` 行_之前_添加以下行来修改您的验证器客户端服务:
 
       ```
       EnvironmentFile=`data dir`/validators/rp-fee-recipient-env.txt
       ```
 
-      For example:
+      例如:
 
       ```
       EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
       ```
 
-      Next, add the following command line argument _to the end_ of your `ExecStart` line:
+      接下来,在 `ExecStart` 行的_末尾_添加以下命令行参数:
 
       ```
       --suggested-fee-recipient ${FEE_RECIPIENT}
       ```
 
-      Your VC will now use the file managed by the Smartnode daemon, and will automatically be restarted whenever the fee recipient changes.
+      您的验证器客户端现在将使用由 Smartnode 守护程序管理的文件,并在费用接收者更改时自动重启。
     </Tab>
     <Tab label="Nimbus">
-      Modify your Validator Client service by adding the following line _before_ the `ExecStart` line:
+      在 `ExecStart` 行_之前_添加以下行来修改您的验证器客户端服务:
 
       ```
       EnvironmentFile=`data dir`/validators/rp-fee-recipient-env.txt
       ```
 
-      For example:
+      例如:
 
       ```
       EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
       ```
 
-      Next, add the following command line argument _to the end_ of your `ExecStart` line:
+      接下来,在 `ExecStart` 行的_末尾_添加以下命令行参数:
 
       ```
       --suggested-fee-recipient=${FEE_RECIPIENT}
       ```
 
-      Your VC will now use the file managed by the Smartnode daemon, and will automatically be restarted whenever the fee recipient changes.
+      您的验证器客户端现在将使用由 Smartnode 守护程序管理的文件,并在费用接收者更改时自动重启。
     </Tab>
     <Tab label="Prysm">
-      Modify your Validator Client service by adding the following line _before_ the `ExecStart` line:
+      在 `ExecStart` 行_之前_添加以下行来修改您的验证器客户端服务:
 
       ```
       EnvironmentFile=`data dir`/validators/rp-fee-recipient-env.txt
       ```
 
-      For example:
+      例如:
 
       ```
       EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
       ```
 
-      Next, add the following command line argument _to the end_ of your `ExecStart` line:
+      接下来,在 `ExecStart` 行的_末尾_添加以下命令行参数:
 
       ```
       --suggested-fee-recipient ${FEE_RECIPIENT}
       ```
 
-      Your VC will now use the file managed by the Smartnode daemon, and will automatically be restarted whenever the fee recipient changes.
+      您的验证器客户端现在将使用由 Smartnode 守护程序管理的文件,并在费用接收者更改时自动重启。
     </Tab>
     <Tab label="Teku">
-      Modify your Validator Client service by adding the following line _before_ the `ExecStart` line:
+      在 `ExecStart` 行_之前_添加以下行来修改您的验证器客户端服务:
 
       ```
       EnvironmentFile=`data dir`/validators/rp-fee-recipient-env.txt
       ```
 
-      For example:
+      例如:
 
       ```
       EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
       ```
 
-      Next, add the following command line argument _to the end_ of your `ExecStart` line:
+      接下来,在 `ExecStart` 行的_末尾_添加以下命令行参数:
 
       ```
       --validators-proposer-default-fee-recipient=${FEE_RECIPIENT}
       ```
 
-      Your VC will now use the file managed by the Smartnode daemon, and will automatically be restarted whenever the fee recipient changes.
+      您的验证器客户端现在将使用由 Smartnode 守护程序管理的文件,并在费用接收者更改时自动重启。
     </Tab>
 
   </Tabs>
 </div>
 
-#### Manual Fee Recipient Management
+#### 手动费用接收者管理
 
-::: danger WARNING
-By doing this, you assume full responsibility for ensuring your fee recipient is always set to the correct address.
+::: danger 警告
+通过这样做,您将承担全部责任,确保您的费用接收者始终设置为正确的地址。
 
-Please read the [penalty specification](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) to understand what it must be set to given your configuration, and when you can safely change it from one value to another.
+请阅读[处罚规范](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)以了解根据您的配置必须将其设置为什么,以及何时可以安全地从一个值更改为另一个值。
 
-Failure to do so could result in your minipools being penalized!
+如果不这样做,可能会导致您的 minipool 受到处罚!
 :::
 
-**Prior to Redstone being deployed**, you can simply use the rETH address for the network you're on (which can be found in [the official contracts page](/en/protocol/contracts-integrations)).
-The rETH address is always safe no matter what.
+**在 Redstone 部署之前**,您可以简单地使用您所在网络的 rETH 地址(可以在[官方合约页面](/zh/protocol/contracts-integrations)中找到)。
+无论如何,rETH 地址始终是安全的。
 
-**Once Redstone has been deployed**, you can see the exact address that you should set your fee recipient to via `rocketpool node status`. For example, if you are opted into the Smoothing Pool, it will show the Smoothing Pool's address and note that you must use it as your fee recipient:
+**一旦部署了 Redstone**,您可以通过 `rocketpool node status` 查看应该将费用接收者设置为的确切地址。例如,如果您选择加入平滑池,它将显示平滑池的地址,并注明您必须将其用作费用接收者:
 
 <img src="../../node-staking/images/native-fee-rc-in.png" width="100%" height="auto" />
 
-If you are _not_ opted into the Smoothing Pool, it will show your fee distributor address and note that you must use it as your fee recipient:
+如果您_未_选择加入平滑池,它将显示您的费用分配器地址,并注明您必须将其用作费用接收者:
 
 <img src="../../node-staking/images/native-fee-rc-out.png" width="100%" height="auto" />
 
-Select your Consensus client below to learn how to configure it.
+选择您的共识客户端以了解如何配置。
 
 <div className="p-3">
   <Tabs>
     <Tab label="Lighthouse">
-      Add the following command line argument to your Validator Client's service definition file:
+      将以下命令行参数添加到验证器客户端的服务定义文件:
 
       ```
       --suggested-fee-recipient `address`
       ```
 
-      Where `address` is:
+      其中 `address` 是:
 
-      - The [rETH address](/en/protocol/contracts-integrations/#token-contracts) **before** the Redstone update is deployed (e.g., `0xae78736Cd615f374D3085123A210448E74Fc6393` on Mainnet)
-      - Your node's **fee distributor** after Redstone is deployed, which you can retrieve with `rocketpool node status` once the contract upgrade occurs
-      - The [Smoothing Pool address](/en/protocol/contracts-integrations/#protocol-contracts) if you opt into the Smoothing Pool
+      - 在 Redstone 更新部署**之前**的 [rETH 地址](/zh/protocol/contracts-integrations/#token-contracts)(例如,主网上的 `0xae78736Cd615f374D3085123A210448E74Fc6393`)
+      - 在部署 Redstone 之后,您节点的**费用分配器**,您可以在合约升级发生后通过 `rocketpool node status` 检索
+      - 如果您选择加入平滑池,则为[平滑池地址](/zh/protocol/contracts-integrations/#protocol-contracts)
 
-      As a reminder, `rocketpool node status` will show you the correct fee recipient to use at any time.
+      提醒一下,`rocketpool node status` 将随时显示要使用的正确费用接收者。
 
-      **Please read the [penalty specification](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) carefully to understand the conditions and expectations around the fee recipient.**
+      **请仔细阅读[处罚规范](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)以了解有关费用接收者的条件和期望。**
     </Tab>
     <Tab label="Nimbus">
-      Add the following command line argument to Nimbus's service definition file:
+      将以下命令行参数添加到 Nimbus 的服务定义文件:
 
       ```
       --suggested-fee-recipient=`address`
       ```
 
-      Where `address` is:
+      其中 `address` 是:
 
-      - The [rETH address](/en/protocol/contracts-integrations/#token-contracts) **before** the Redstone update is deployed (e.g., `0xae78736Cd615f374D3085123A210448E74Fc6393` on Mainnet)
-      - Your node's **fee distributor** after Redstone is deployed, which you can retrieve with `rocketpool node status` once the contract upgrade occurs
-      - The [Smoothing Pool address](/en/protocol/contracts-integrations/#protocol-contracts) if you opt into the Smoothing Pool
+      - 在 Redstone 更新部署**之前**的 [rETH 地址](/zh/protocol/contracts-integrations/#token-contracts)(例如,主网上的 `0xae78736Cd615f374D3085123A210448E74Fc6393`)
+      - 在部署 Redstone 之后,您节点的**费用分配器**,您可以在合约升级发生后通过 `rocketpool node status` 检索
+      - 如果您选择加入平滑池,则为[平滑池地址](/zh/protocol/contracts-integrations/#protocol-contracts)
 
-      As a reminder, `rocketpool node status` will show you the correct fee recipient to use at any time.
+      提醒一下,`rocketpool node status` 将随时显示要使用的正确费用接收者。
 
-      **Please read the [penalty specification](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) carefully to understand the conditions and expectations around the fee recipient.**
+      **请仔细阅读[处罚规范](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)以了解有关费用接收者的条件和期望。**
     </Tab>
     <Tab label="Prysm">
-      Add the following command line argument to your Validator Client's service definition file:
+      将以下命令行参数添加到验证器客户端的服务定义文件:
 
       ```
       --suggested-fee-recipient `address`
       ```
 
-      Where `address` is:
+      其中 `address` 是:
 
-      - The [rETH address](/en/protocol/contracts-integrations/#token-contracts) **before** the Redstone update is deployed (e.g., `0xae78736Cd615f374D3085123A210448E74Fc6393` on Mainnet)
-      - Your node's **fee distributor** after Redstone is deployed, which you can retrieve with `rocketpool node status` once the contract upgrade occurs
-      - The [Smoothing Pool address](/en/protocol/contracts-integrations/#protocol-contracts) if you opt into the Smoothing Pool
+      - 在 Redstone 更新部署**之前**的 [rETH 地址](/zh/protocol/contracts-integrations/#token-contracts)(例如,主网上的 `0xae78736Cd615f374D3085123A210448E74Fc6393`)
+      - 在部署 Redstone 之后,您节点的**费用分配器**,您可以在合约升级发生后通过 `rocketpool node status` 检索
+      - 如果您选择加入平滑池,则为[平滑池地址](/zh/protocol/contracts-integrations/#protocol-contracts)
 
-      As a reminder, `rocketpool node status` will show you the correct fee recipient to use at any time.
+      提醒一下,`rocketpool node status` 将随时显示要使用的正确费用接收者。
 
-      **Please read the [penalty specification](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) carefully to understand the conditions and expectations around the fee recipient.**
+      **请仔细阅读[处罚规范](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)以了解有关费用接收者的条件和期望。**
     </Tab>
     <Tab label="Teku">
-      Add the following command line argument to your Validator Client's service definition file:
+      将以下命令行参数添加到验证器客户端的服务定义文件:
 
       ```
       --validators-proposer-default-fee-recipient=`address`
       ```
 
-      Where `address` is:
+      其中 `address` 是:
 
-      - The [rETH address](/en/protocol/contracts-integrations/#token-contracts) **before** the Redstone update is deployed (e.g., `0xae78736Cd615f374D3085123A210448E74Fc6393` on Mainnet)
-      - Your node's **fee distributor** after Redstone is deployed, which you can retrieve with `rocketpool node status` once the contract upgrade occurs
-      - The [Smoothing Pool address](/en/protocol/contracts-integrations/#protocol-contracts) if you opt into the Smoothing Pool
+      - 在 Redstone 更新部署**之前**的 [rETH 地址](/zh/protocol/contracts-integrations/#token-contracts)(例如,主网上的 `0xae78736Cd615f374D3085123A210448E74Fc6393`)
+      - 在部署 Redstone 之后,您节点的**费用分配器**,您可以在合约升级发生后通过 `rocketpool node status` 检索
+      - 如果您选择加入平滑池,则为[平滑池地址](/zh/protocol/contracts-integrations/#protocol-contracts)
 
-      As a reminder, `rocketpool node status` will show you the correct fee recipient to use at any time.
+      提醒一下,`rocketpool node status` 将随时显示要使用的正确费用接收者。
 
-      **Please read the [penalty specification](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) carefully to understand the conditions and expectations around the fee recipient.**
+      **请仔细阅读[处罚规范](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)以了解有关费用接收者的条件和期望。**
     </Tab>
 
   </Tabs>
 </div>
 
-### Set Up MEV-Boost
+### 设置 MEV-Boost
 
-[MEV-boost](https://boost.flashbots.net/) is the system Flashbots provides to give MEV rewards to Proof-of-Stake validators after The Merge.
+[MEV-boost](https://boost.flashbots.net/) 是 Flashbots 提供的系统,在合并后为权益证明验证器提供 MEV 奖励。
 
-**Rocket Pool requires all nodes to use it to maximize their returns and thus keep the protocol competitive with other staking services.**
+**Rocket Pool 要求所有节点使用它以最大化回报,从而保持协议与其他质押服务的竞争力。**
 
-You will need to make some adjustments to your Beacon Node / Consensus client to connect it to MEV-boost.
+您需要对信标节点/共识客户端进行一些调整,以将其连接到 MEV-boost。
 
-MEV-boost is currently not available on Hoodi or Mainnet, so you do not need to set it up at this time.
-Of course, you will not be penalized for not using it during this transition period.
+MEV-boost 目前在 Hoodi 或主网上不可用,因此您此时不需要设置它。
+当然,在此过渡期间,您不会因未使用它而受到处罚。
 
-Once it becomes available, we will announce a date at which it must be installed and connected to your node.
-Flashbots will provide instructions you can follow at that time, and we will link to them here.
+一旦它可用,我们将宣布一个日期,届时必须安装并连接到您的节点。
+Flashbots 届时将提供您可以遵循的说明,我们将在此处链接到它们。
 
-::: danger NOTE
-Once we make the announcement that MEV-boost must be enabled by all node operators, you must ensure you have it properly installed and configured with your Beacon Node!
+::: danger 注意
+一旦我们宣布所有节点运营商必须启用 MEV-boost,您必须确保已正确安装并配置了信标节点!
 
-Not doing so will result in your minipool being [penalized](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
+不这样做将导致您的 minipool 受到[处罚](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)。
 :::
 
-### Set Up a Fallback Node
+### 设置后备节点
 
-Because The Merge is not compatible with remote providers like Infura and Pocket, you'll lose the ability to use them as fallback Execution clients when your primary goes offline.
+由于合并与 Infura 和 Pocket 等远程提供商不兼容,当您的主执行客户端离线时,您将失去将它们用作后备执行客户端的能力。
 
-The Smartnode still has the ability to provide a fallback Execution client (and now a fallback Consensus client as well), but you will now need to use Execution and Consensus clients that you control.
+Smartnode 仍然具有提供后备执行客户端(现在也提供后备共识客户端)的能力,但您现在需要使用您控制的执行客户端和共识客户端。
 
-For more information on setting up a fallback node, see the [Fallback node guide](../../node-staking/fallback).
+有关设置后备节点的更多信息,请参阅[后备节点指南](../../node-staking/fallback)。
 
-### Initialize your Fee Distributor
+### 初始化您的费用分配器
 
-If you aren't planning to opt into the [Smoothing Pool](./whats-new#smoothing-pool) and claim all of your priority fees and MEV rewards to your [fee distributor contract](./whats-new#fee-recipients-and-your-distributor), you will eventually have to initialize it (create the contract instance on the chain) in order to claim rewards from it to your withdrawal address.
+如果您不打算选择加入[平滑池](./whats-new#smoothing-pool)并将所有优先费用和 MEV 奖励索取到您的[费用分配器合约](./whats-new#fee-recipients-and-your-distributor),您最终将必须初始化它(在链上创建合约实例)才能将奖励索取到您的提款地址。
 
-This is a fairly cheap operation and only needs to be done once.
+这是一个相当便宜的操作,只需要执行一次。
 
-::: tip TIP
-Initializing your fee distributor can be done at **any time**.
-You can let rewards accumulate in its address long before you initialize it, and your balance will remain after initialization.
+::: tip 提示
+初始化您的费用分配器可以在**任何时候**完成。
+您可以在初始化之前很久就让奖励在其地址中累积,并且您的余额在初始化后将保留。
 
-We recommend you do so when gas prices are low to minimize the overhead cost.
+我们建议您在 gas 价格较低时这样做,以尽量减少开销成本。
 
-Note that it **must be initialized in order to claim your rewards.**
+请注意,**必须初始化才能索取您的奖励。**
 :::
 
-### Opt Into the Smoothing Pool
+### 选择加入平滑池
 
-If you plan on taking advantage of the [Smoothing Pool](./whats-new#smoothing-pool) right away, you should opt in before the end of the first Redstone rewards period to maximize your "eligibility" amount.
+如果您打算立即利用[平滑池](./whats-new#smoothing-pool),您应该在第一个 Redstone 奖励周期结束之前选择加入,以最大化您的"资格"金额。
 
-Opting in can be done via running the following command:
+可以通过运行以下命令来选择加入:
 
 ```shell
 rocketpool node join-smoothing-pool
 ```
 
-### Claim Rewards
+### 索取奖励
 
-The Redstone upgrade replaces the expensive, problematic old rewards system with a [brand new one](./whats-new#new-rewards-system) that's much cheaper, supports automatic restaking of RPL (both partial and full amounts), and - most importantly - **lets you claim your rewards whenever you want**.
+Redstone 升级用[全新系统](./whats-new#new-rewards-system)替换了昂贵且有问题的旧奖励系统,该系统更便宜,支持 RPL 的自动重新质押(部分和全部金额),并且 - 最重要的是 - **让您可以随时索取奖励**。
 
-Because there is no longer a time limit on claiming rewards, and because it's cheaper to claim many rewards intervals at once, the automatic rewards claiming feature of the Smartnode **has been removed**.
-You will now be able to claim rewards via the following command:
+由于不再有索取奖励的时间限制,并且一次索取多个奖励间隔更便宜,Smartnode 的自动奖励索取功能**已被删除**。
+您现在可以通过以下命令索取奖励:
 
 ```shell
 rocketpool node claim-rewards
 ```
 
-This will show you all of the rewards you've accumulated across all of the rewards intervals starting with the Redstone upgrade.
+这将向您显示从 Redstone 升级开始的所有奖励间隔中累积的所有奖励。

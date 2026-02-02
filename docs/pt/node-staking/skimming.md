@@ -4,7 +4,7 @@ As recompensas ETH que você recebe por executar um validador para Ethereum são
 A frequência dos skims depende do número de validadores ativos na Beacon Chain. No momento da redação, o número de validadores está em torno de
 500.000, o que resulta em um skim ocorrendo aproximadamente a cada 2-3 dias.
 
-As recompensas skimmed acumularão em cada um de seus minipools até você "distribuí-las". Este processo distribui as recompensas skimmed entre você, como node operator, e os detentores de rETH
+As recompensas skimmed acumularão em cada um de seus minipools até você "distribuí-las". Este processo distribui as recompensas skimmed entre você, como operador de nó, e os detentores de rETH
 com base na sua taxa de comissão e proporção de ETH fornecido e provido.
 
 ::: warning NOTA
@@ -32,7 +32,7 @@ Definir o parâmetro como 0 desabilitará as distribuições automáticas.
 
 ::: warning AVISO
 Se você decidir desabilitar a distribuição automática, é importante que você ainda realize uma distribuição manual regularmente.
-Leia a [seção de distribuição manual](#distribuição-manual) que segue sobre como fazer isso.
+Leia a [seção de distribuição manual](#distribuicao-manual) que segue sobre como fazer isso.
 
 Após um longo período de tempo, suas recompensas skimmed podem exceder 8 ETH. Se esta situação ocorrer, você não poderá mais
 distribuí-las e precisará sair do seu validador para acessar suas recompensas acumuladas.
@@ -55,7 +55,7 @@ Se seu minipool tiver menos de 8 ETH, você pode distribuir suas recompensas usa
 rocketpool minipool distribute-balance
 ```
 
-Isso mostrará os minipools que você tem que são elegíveis para distribuição, quanto ETH eles têm, e quanto ETH você (o node operator) receberá:
+Isso mostrará os minipools que você tem que são elegíveis para distribuição, quanto ETH eles têm e quanto ETH você (o operador de nó) receberá:
 
 ```
 WARNING: The following minipools are using an old delegate and cannot have their rewards safely distributed:
@@ -83,7 +83,7 @@ Este é um valor devido diretamente a você (por exemplo, porque você tinha um 
 Ele não será compartilhado com os detentores de rETH.
 
 Digite o número do minipool que você deseja distribuir.
-Você será solicitado com o gráfico de preço de gás como de costume, e será solicitado a confirmar sua decisão.
+Você será solicitado com o gráfico de preço de gas como de costume e será solicitado a confirmar sua decisão.
 Uma vez que você confirme, o saldo do seu minipool será distribuído:
 
 ```

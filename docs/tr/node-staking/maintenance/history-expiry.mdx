@@ -1,19 +1,19 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Merge Öncesi Geçmişin Silinmesi
+# Merge Öncesi Geçmişi Sona Erdirme
 
-Tüm Execution istemcileri artık [EIP-4444](https://eips.ethereum.org/EIPS/eip-4444)'e göre kısmi geçmiş silme işlemini desteklemektedir. Kullanıcılar Smartnode sürüm `v1.17.0`'dan başlayarak merge öncesi blok geçmişini kaldırarak düğümlerinin depolama gereksinimlerini önemli ölçüde azaltabilir. Kısmi geçmiş silme hakkında daha fazla bilgi edinmek için bu blog yazısına göz atabilirsiniz: https://blog.ethereum.org/2025/07/08/partial-history-exp
+Tüm Execution istemcileri artık [EIP-4444](https://eips.ethereum.org/EIPS/eip-4444) uyarınca kısmi geçmiş sona erdirmeyi desteklemektedir. Kullanıcılar Smartnode sürüm `v1.17.0` ile başlayarak merge öncesi blok geçmişini kaldırarak node'ları için depolama gereksinimlerini önemli ölçüde azaltabilir. Kısmi geçmiş sona erdirme hakkında daha fazla bilgi edinmek için bu blog yazısını inceleyebilirsiniz: https://blog.ethereum.org/2025/07/08/partial-history-exp
 
 ::: tip NOT
 
-    Lütfen merge öncesi geçmişi kaldırma adımlarının düğümünüzün seçili Execution istemcisine bağlı olduğunu unutmayın:
-    - Nethermind kullanıcılarının merge öncesi geçmişi kaldırmak için tam bir resync yapması gerekecektir.
-    - Geth kullanıcıları `rocketpool service prune-eth1` komutunu kullanabilir veya tam bir resync yapabilir.
-    - Besu ve Reth kullanıcıları düğümleri attestation yapmaya devam ederken çevrimiçi budama gerçekleştirebilir.
+    Lütfen merge öncesi geçmişi kaldırma adımlarının node'unuzun seçili Execution istemcisine bağlı olduğunu unutmayın:
+    - Nethermind kullanıcılarının merge öncesi geçmişi kaldırmak için tam bir yeniden senkronizasyon yapması gerekecektir.
+    - Geth kullanıcıları `rocketpool service prune-eth1` komutunu kullanabilir veya tam bir yeniden senkronizasyon gerçekleştirebilir.
+    - Besu ve Reth kullanıcıları, node'ları attestation yapmaya devam ederken çevrimiçi bir budama gerçekleştirebilir.
 
 :::
 
-Merge öncesi geçmişi kaldırmak için aşağıdaki adımlar yalnızca Docker modundaki düğümler içindir. Hybrid modda veya Native modda harici bir istemci kullanıyorsanız, lütfen Execution istemciniz tarafından sağlanan dokümantasyona başvurun.
+Merge öncesi geçmişi kaldırmak için aşağıdaki adımlar yalnızca Docker modu node'ları içindir. Hybrid modda veya Native modda harici bir istemci kullanıyorsanız, lütfen Execution istemciniz tarafından sağlanan dokümantasyona bakın.
 
 Ayarlar Yöneticisini açarak başlayın:
 
@@ -25,11 +25,11 @@ Execution Client budama modunu değiştirmek için `Execution Client (ETH1)` men
 
 ![](../images/tui-history-expiry.png)
 
-Seçimi yaptıktan sonra ana menüye dönmek için `escape` tuşuna basın, ardından `Review Changes and Save` düğmesini vurgulamak için `tab` tuşuna basın. Devam etmek için `enter` tuşuna basın. Execution istemci ayarlarınızdaki değişiklikleri önizlemek için bir menü sunulacaktır.
+Seçimi yaptıktan sonra, ana menüye dönmek için `escape` tuşuna basın, ardından `Review Changes and Save` düğmesini vurgulamak için `tab` tuşuna basın. Devam etmek için `enter` tuşuna basın. Execution istemci ayarlarınızdaki değişiklikleri önizlemek için bir menü sunulacaktır.
 
 ![](../images/tui-review-history-expiry.png)
 
-Ayarları kaydetmek ve Ayarlar Yöneticisinden çıkmak için `Save Settings` üzerinde `enter` tuşuna basın, ardından `rocketpool_eth1` konteynerinizi yeniden başlatmak için `y` girin.
+Ayarları kaydetmek ve Ayarlar Yöneticisinden çıkmak için `Save Settings` üzerinde `enter` tuşuna basın, ardından `rocketpool_eth1` container'ınızı yeniden başlatmak için `y` girin.
 
 ```shell
 Your changes have been saved!
@@ -44,18 +44,18 @@ Bu noktadan itibaren, adımlar hangi Execution istemcisini kullandığınıza ba
   <Tabs>
 
         <Tab label="Nethermind">
-        Nethermind düğümleri merge öncesi geçmişi kaldırmak için tam bir resync gerektirir. `History Expiry` ayarını kaydettikten ve `eth1` konteynerinizi yeniden başlattıktan sonra Execution istemcinizi resync etmelisiniz.
+        Nethermind node'ları merge öncesi geçmişi kaldırmak için tam bir yeniden senkronizasyon gerektirir. `History Expiry` ayarını kaydettikten ve `eth1` container'ınızı yeniden başlattıktan sonra Execution istemcinizi yeniden senkronize etmelisiniz.
 
         ::: warning UYARI
-        Yapılandırılmış bir yedek düğümünüz yoksa, düğümünüz resync sırasında doğrulamayı durduracaktır. Bir yedek düğüm, birincil düğümünüzün budama veya resync sırasında attestation ve blok önermeye devam etmesini sağlayacaktır. Yedek düğümün nasıl yapılandırılacağını öğrenmek için [buraya](/tr/node-staking/fallback) tıklayın.
+        Yapılandırılmış bir yedek node'unuz yoksa, node'unuz yeniden senkronizasyon sırasında doğrulamayı durduracaktır. Bir yedek node, birincil node'unuzun budama veya yeniden senkronizasyon sırasında attestation ve blok önermeye devam etmesini sağlayacaktır. Bir yedek node'u nasıl yapılandıracağınızı öğrenmek için [buraya](/tr/node-staking/fallback) tıklayın.
         :::
 
-        Execution istemcinizi resync etmek için aşağıdaki komutu kullanın:
+        Execution istemcinizi yeniden senkronize etmek için aşağıdaki komutu kullanın:
         ```shell
         rocketpool service resync-eth1
         ```
 
-        Hazırsınız! Düğüm artık merge öncesi verileri depolamayacak, bu da bir düğümü 2 TB sürücüye sığdırma fizibilitesini önemli ölçüde artıracaktır.
+        Hazırsınız! Node artık merge öncesi verileri depolamayacak ve 2 TB'lık bir sürücüye bir node sığdırmanın fizibilitesini önemli ölçüde artıracaktır.
         Aşağıdaki komutu kullanarak ilerlemeyi izlemenizi öneririz.
         ```shell
         rocketpool service logs eth1
@@ -65,14 +65,14 @@ Bu noktadan itibaren, adımlar hangi Execution istemcisini kullandığınıza ba
 
     <Tab label="Geth">
 
-        Geth düğümleri merge öncesi geçmişi kaldırmak için çevrimdışı budama gerektirir. `History Expiry` ayarını kaydettikten ve `eth1` konteynerinizi yeniden başlattıktan sonra Execution istemcinizi budamalısınız. Alternatif olarak merge öncesi geçmişi kaldırmak için tam bir resync yapmayı seçebilirsiniz.
+        Geth node'ları merge öncesi geçmişi kaldırmak için çevrimdışı bir budama gerektirir. `History Expiry` ayarını kaydettikten ve `eth1` container'ınızı yeniden başlattıktan sonra Execution istemcinizi budamalısınız. Alternatif olarak merge öncesi geçmişi kaldırmak için tam bir yeniden senkronizasyon yapmayı seçebilirsiniz.
 
         ::: tip NOT
-        Tam resync yapmak yerine budamayı öneriyoruz. Yeni bir Geth veritabanıyla baştan başlamak istiyorsanız veya budamayla ilgili bir sorununuz varsa, `rocketpool service resync-eth1` kullanarak Execution istemcisini resync edebilirsiniz. Her iki seçenek de merge öncesi geçmişin silinmesiyle sonuçlanmalıdır.
+        Tam bir yeniden senkronizasyon yapmak yerine budamayı öneririz. Yeni bir Geth veritabanıyla baştan başlamak isterseniz veya budama ile ilgili bir sorununuz varsa, `rocketpool service resync-eth1` kullanarak Execution istemcisini yeniden senkronize edebilirsiniz. Her iki seçenek de merge öncesi geçmişin sona ermesiyle sonuçlanmalıdır.
         :::
 
         ::: warning UYARI
-        Yapılandırılmış bir yedek düğümünüz yoksa, düğümünüz budama veya resync sırasında doğrulamayı durduracaktır. Bir yedek düğüm, birincil düğümünüzün budama veya resync sırasında attestation ve blok önermeye devam etmesini sağlayacaktır. Yedek düğümün nasıl yapılandırılacağını öğrenmek için [buraya](/tr/node-staking/fallback) tıklayın.
+        Yapılandırılmış bir yedek node'unuz yoksa, node'unuz budama veya yeniden senkronizasyon sırasında doğrulamayı durduracaktır. Bir yedek node, birincil node'unuzun budama veya yeniden senkronizasyon sırasında attestation ve blok önermeye devam etmesini sağlayacaktır. Bir yedek node'u nasıl yapılandıracağınızı öğrenmek için [buraya](/tr/node-staking/fallback) tıklayın.
         :::
 
         Execution istemcinizi budamak için lütfen aşağıdaki komutu çalıştırın:
@@ -81,7 +81,7 @@ Bu noktadan itibaren, adımlar hangi Execution istemcisini kullandığınıza ba
         ```
         Budama hakkında daha fazla bilgi edinmek için [buraya](/tr/node-staking/pruning#starting-a-prune) tıklayabilirsiniz.
 
-        Hazırsınız! Düğüm artık merge öncesi verileri depolamayacak, bu da bir düğümü 2 TB sürücüye sığdırma fizibilitesini önemli ölçüde artıracaktır.
+        Hazırsınız! Node artık merge öncesi verileri depolamayacak ve 2 TB'lık bir sürücüye bir node sığdırmanın fizibilitesini önemli ölçüde artıracaktır.
         Aşağıdaki komutu kullanarak ilerlemeyi izlemenizi öneririz.
         ```shell
         rocketpool service logs eth1
@@ -91,8 +91,8 @@ Bu noktadan itibaren, adımlar hangi Execution istemcisini kullandığınıza ba
 
     <Tab label="Besu">
 
-        Hazırsınız! Besu düğümleri attestation ve blok önermeye devam ederken çevrimiçi budama gerçekleştirecektir.
-        Düğüm artık merge öncesi verileri depolamayacak, bu da bir düğümü 2 TB sürücüye sığdırma fizibilitesini önemli ölçüde artıracaktır.
+        Hazırsınız! Besu node'ları attestation ve blok önermeye devam ederken çevrimiçi bir budama gerçekleştirecektir.
+        Node artık merge öncesi verileri depolamayacak ve 2 TB'lık bir sürücüye bir node sığdırmanın fizibilitesini önemli ölçüde artıracaktır.
         Aşağıdaki komutu kullanarak ilerlemeyi izlemenizi öneririz.
         ```shell
         rocketpool service logs eth1
@@ -102,8 +102,8 @@ Bu noktadan itibaren, adımlar hangi Execution istemcisini kullandığınıza ba
 
     <Tab label="Reth">
 
-        Hazırsınız! Reth düğümleri attestation ve blok önermeye devam ederken çevrimiçi budama gerçekleştirecektir.
-        Düğüm artık merge öncesi verileri depolamayacak, bu da bir düğümü 2 TB sürücüye sığdırma fizibilitesini önemli ölçüde artıracaktır.
+        Hazırsınız! Reth node'ları attestation ve blok önermeye devam ederken çevrimiçi bir budama gerçekleştirecektir.
+        Node artık merge öncesi verileri depolamayacak ve 2 TB'lık bir sürücüye bir node sığdırmanın fizibilitesini önemli ölçüde artıracaktır.
         Aşağıdaki komutu kullanarak ilerlemeyi izlemenizi öneririz.
         ```shell
         rocketpool service logs eth1

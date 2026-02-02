@@ -2,42 +2,42 @@ import { Tab, Tabs } from "@rspress/core/theme";
 import tuiEcContainerTag from "./images/tui-ec-container-tag.png";
 import tuiCcContainerTag from "./images/tui-cc-container-tag.png";
 
-# Checking for Updates
+# Güncellemeleri Kontrol Etme
 
-One of the responsibilities of a node operator is making sure your system is up to date with the latest security patches.
-Automatic updates are convenient but can interfere with your node operation, so it may be preferable to run them manually.
-In either case, **you must make sure that your machine is regularly patched!**
+Bir düğüm operatörünün sorumluluklarından biri, sisteminizin en son güvenlik yamaları ile güncel olduğundan emin olmaktır.
+Otomatik güncellemeler kullanışlıdır ancak düğüm işletmenizi kesintiye uğratabilir, bu nedenle bunları manuel olarak çalıştırmak tercih edilebilir.
+Her iki durumda da, **makinenizin düzenli olarak yamalandığından emin olmalısınız!**
 
-::: tip NOTE
-Most of the time, updating will not require your system to be down for more than a few minutes.
-You might be concerned that such downtime will negatively affect your Beacon Chain balance.
-Rest assured, the penalty for being offline for such a short period of time is **completely negligible**.
+::: tip NOT
+Çoğu zaman, güncelleme sisteminizin birkaç dakikadan fazla kapalı kalmasını gerektirmez.
+Bu tür bir kesinti süresinin Beacon Chain bakiyenizi olumsuz etkileyeceğinden endişe edebilirsiniz.
+Emin olun ki, bu kadar kısa bir süre için çevrimdışı olmanın cezası **tamamen önemsizdir**.
 
-Each attestation you miss will penalize you for slightly less than the amount you'd earn from a successful attestation.
-As a rule of thumb, if you're offline for an hour, you will earn it all back after being online for an hour again.
+Kaçırdığınız her doğrulama, başarılı bir doğrulamadan kazanacağınız miktardan biraz daha az cezalandıracaktır.
+Genel kural olarak, bir saat çevrimdışıyseniz, bir saat daha çevrimiçi olduktan sonra hepsini geri kazanırsınız.
 
-Also note that there is **absolutely no chance** that you will be _slashed_ by going offline for a short time.
-Slashing only occurs if you attack the network, and going offline for maintenance does not count as attacking the network.
+Ayrıca, kısa bir süre için çevrimdışı olarak _cezalandırılma (slashing)_ olasılığınızın **kesinlikle olmadığını** unutmayın.
+Cezalandırma yalnızca ağa saldırırsanız gerçekleşir ve bakım için çevrimdışı olmak ağa saldırı olarak sayılmaz.
 
-**Please keep your systems up to date - don't worry about the downtime penalties!**
+**Lütfen sistemlerinizi güncel tutun - kesinti cezaları için endişelenmeyin!**
 :::
 
-## Updating your Operating System
+## İşletim Sisteminizi Güncelleme
 
-You should frequently check your Operating System's package manager or update service to ensure that quickly apply any new important security patches.
-The exact instructions vary for each Operating System and can be found with your system's documentation, but here are a few examples.
+İşletim Sisteminizin paket yöneticisini veya güncelleme hizmetini sık sık kontrol ederek yeni önemli güvenlik yamalarını hızlı bir şekilde uyguladığınızdan emin olmalısınız.
+Kesin talimatlar her İşletim Sistemi için değişir ve sisteminizin belgelerinde bulunabilir, ancak işte birkaç örnek.
 
 <div className="p-3">
   <Tabs>
     <Tab label="Ubuntu">
-      In a terminal, type the following:
+      Bir terminalde, aşağıdakileri yazın:
 
       ```shell
       sudo apt update
       ```
 
-      This will access the package servers and check to see if any of your installed packages have new versions available.
-      If updates are available, the output will look like this:
+      Bu, paket sunucularına erişecek ve yüklü paketlerinizden herhangi birinin yeni sürümlerinin mevcut olup olmadığını kontrol edecektir.
+      Güncellemeler mevcutsa, çıktı şöyle görünecektir:
 
       ```
       Fetched 3974 kB in 2s (1641 kB/s)
@@ -47,13 +47,13 @@ The exact instructions vary for each Operating System and can be found with your
       12 packages can be upgraded. Run 'apt list --upgradable' to see them.
       ```
 
-      You can install the updates with the following command:
+      Güncellemeleri aşağıdaki komutla kurabilirsiniz:
 
       ```shell
       sudo apt dist-upgrade
       ```
 
-      This will show you the list of packages that are about to be updated, and if the total installation size is large enough, it will show you the size and prompt you to confirm that you accept:
+      Bu size güncellenecek paketlerin listesini gösterecek ve toplam kurulum boyutu yeterince büyükse, size boyutu gösterecek ve kabul ettiğinizi onaylamanızı isteyecektir:
 
       ```
       12 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
@@ -62,34 +62,34 @@ The exact instructions vary for each Operating System and can be found with your
       Do you want to continue? [Y/n]
       ```
 
-      Ensure that you have enough space available to do this, then press `y` and `Enter` to begin the update process.
+      Bunu yapmak için yeterli alanınız olduğundan emin olun, ardından `y` ve `Enter` tuşlarına basarak güncelleme işlemini başlatın.
 
-      Once the progress bar is finished and you're dropped back into the terminal prompt, run the following command to clean up any old versions of packages that were just replaced:
+      İlerleme çubuğu tamamlandığında ve terminal istemine geri bırakıldığınızda, yeni değiştirilen paketlerin eski sürümlerini temizlemek için aşağıdaki komutu çalıştırın:
 
       ```shell
       sudo apt autoremove
       ```
 
-      Next, check if your system needs to be rebooted:
+      Ardından, sisteminizin yeniden başlatılması gerekip gerekmediğini kontrol edin:
 
       ```shell
       cat /var/run/reboot-required
       ```
 
-      If the above command prints `No such file or directory`, then reboot is not required and you can skip the step below.
+      Yukarıdaki komut `No such file or directory` yazdırırsa, yeniden başlatma gerekli değildir ve aşağıdaki adımı atlayabilirsiniz.
 
-      However if the command prints `*** System restart required ***`, then you should restart your machine to finish applying the updates when you are able:
+      Ancak komut `*** System restart required ***` yazdırırsa, güncellemeleri uygulamayı tamamlamak için yapabildiğinizde makinenizi yeniden başlatmalısınız:
 
       ```shell
       sudo reboot
       ```
 
-      Rocket Pool will gracefully shut down and automatically start back up with the system once it reboots.
+      Rocket Pool zarif bir şekilde kapanacak ve sistem yeniden başlatıldığında otomatik olarak tekrar başlayacaktır.
     </Tab>
     <Tab label="MacOS">
-      To update the OS packages, use the UI to select `Apple -> Software Update`.
+      İşletim sistemi paketlerini güncellemek için, kullanıcı arayüzünü kullanarak `Apple -> Software Update` seçeneğini seçin.
 
-      To update packages themselves, the easiest way is via `homebrew` in the terminal:
+      Paketlerin kendisini güncellemek için en kolay yol terminalde `homebrew` kullanmaktır:
 
       ```shell
       brew update && brew upgrade
@@ -99,90 +99,90 @@ The exact instructions vary for each Operating System and can be found with your
   </Tabs>
 </div>
 
-## Updating the Smartnode Stack
+## Smartnode Yığınını Güncelleme
 
-Occasionally, Rocket Pool will release a new version of the Smartnode stack.
-Updates can contain new versions of the CLI or the Rocket Pool Docker containers, as well as new versions of the Execution and Consensus clients.
+Zaman zaman, Rocket Pool Smartnode yığınının yeni bir sürümünü yayınlayacaktır.
+Güncellemeler, CLI'nin veya Rocket Pool Docker konteynerlerinin yeni sürümlerini ve ayrıca Yürütüm ve Fikir Birliği istemcilerinin yeni sürümlerini içerebilir.
 
-The most consistent way to find out about new releases is to subscribe to the Rocket Pool Discord server; they will always be posted in the Releases channel and you will receive a notification.
+Yeni sürümler hakkında bilgi almanın en tutarlı yolu Rocket Pool Discord sunucusuna abone olmaktır; her zaman Releases kanalında yayınlanacaklar ve bir bildirim alacaksınız.
 
-::: warning NOTE
-Note that running `apt update` will not update the node software.
-This must be done manually using the steps below.
+::: warning NOT
+`apt update` komutunu çalıştırmanın düğüm yazılımını güncellemeyeceğini unutmayın.
+Bu, aşağıdaki adımlar kullanılarak manuel olarak yapılmalıdır.
 :::
 
-::: tip TIP
-When you have completed the Smartnode upgrade, the Grafana dashboard will still indicate there is still an update available.
-It will automatically clear within a day when the system next auto-checks for updates.
+::: tip İPUCU
+Smartnode yükseltmesini tamamladığınızda, Grafana panosu hala bir güncellemenin mevcut olduğunu gösterecektir.
+Sistem bir sonraki otomatik güncelleme kontrolünü yaptığında bir gün içinde otomatik olarak temizlenecektir.
 
-If you want to clear it immediately after the update, simply run:
+Güncellemeden hemen sonra temizlemek istiyorsanız, sadece şunu çalıştırın:
 `sudo apt update`
 :::
 
-::: tip TIP
-If you do not know your CPU architecture, you can run the following command to find it:
+::: tip İPUCU
+CPU mimarinizi bilmiyorsanız, bunu bulmak için aşağıdaki komutu çalıştırabilirsiniz:
 
 ```shell
 uname -m
 ```
 
-The output of this command will print your architecture.
-**Note that `x86_64` is the same as `x64` and `amd64`.**
-**Note that `aarch64` is the same as `arm64`.**
+Bu komutun çıktısı mimarinizi yazdıracaktır.
+**`x86_64`'ün `x64` ve `amd64` ile aynı olduğunu unutmayın.**
+**`aarch64`'ün `arm64` ile aynı olduğunu unutmayın.**
 :::
 
-The steps to upgrade depend on which mode your node uses. Select from the options below:
+Yükseltme adımları düğümünüzün hangi modu kullandığına bağlıdır. Aşağıdaki seçeneklerden birini seçin:
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Linux (Docker or Hybrid Mode)">
-      Stop the Rocket Pool services:
+    <Tab label="Linux (Docker veya Hibrit Mod)">
+      Rocket Pool hizmetlerini durdurun:
 
       ```shell
       rocketpool service stop
       ```
 
-      Download the new Smartnode CLI:
+      Yeni Smartnode CLI'yi indirin:
 
-      For `x64` systems (most normal machines):
+      `x64` sistemler için (çoğu normal makine):
 
       ```shell
       wget https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-amd64 -O ~/bin/rocketpool
       ```
 
-      For `arm64` systems:
+      `arm64` sistemler için:
 
       ```shell
       wget https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-arm64 -O ~/bin/rocketpool
       ```
 
-      Now run the install command:
+      Şimdi kurulum komutunu çalıştırın:
 
       ```shell
       rocketpool service install -d
       ```
 
-      The `-d` flag tells it to ignore system dependencies like Docker, since you already have them.
+      `-d` bayrağı, Docker gibi sistem bağımlılıklarını görmezden gelmesini söyler, çünkü zaten onlara sahipsiniz.
 
-      If you'd like to see what's changed, open the Settings Manager - the Review Page will show you what's new:
+      Nelerin değiştiğini görmek istiyorsanız, Ayarlar Yöneticisini açın - İnceleme Sayfası size yenilikleri gösterecektir:
 
       ```shell
       rocketpool service config
       ```
 
-      When you're done, start Rocket Pool up again:
+      İşiniz bittiğinde, Rocket Pool'u tekrar başlatın:
 
       ```shell
       rocketpool service start
       ```
 
-      Finally, check the version to make sure the CLI and Smartnode stack are both up to date:
+      Son olarak, CLI ve Smartnode yığınının her ikisinin de güncel olduğundan emin olmak için sürümü kontrol edin:
 
       ```shell
       rocketpool service version
       ```
 
-      The output should look something like this:
+      Çıktı şuna benzer bir şey görünmelidir:
 
       ```
       Your Smartnode is currently using the Hoodi Test Network.
@@ -195,24 +195,24 @@ The steps to upgrade depend on which mode your node uses. Select from the option
       Image: rocketpool/lighthouse:mevboost-5ee3bc5
       ```
 
-      Both the client and service should match the new release version.
+      Hem istemci hem de hizmet yeni sürüm sürümüyle eşleşmelidir.
     </Tab>
-    <Tab label="Linux (Native Mode)">
+    <Tab label="Linux (Yerel Mod)">
       <p className="rspress-directive warning">
-        <p className="rspress-directive-title">NOTE</p>
-        This will only update the Smartnode stack itself - it **will not** update your Execution or Consensus clients.
-        You will have to do this manually (see the next section below).
+        <p className="rspress-directive-title">NOT</p>
+        Bu yalnızca Smartnode yığınının kendisini güncelleyecektir - Yürütüm veya Fikir Birliği istemcilerinizi **güncellemeyecektir**.
+        Bunu manuel olarak yapmanız gerekecektir (aşağıdaki bir sonraki bölüme bakın).
       </p>
 
-      Stop the Rocket Pool services:
+      Rocket Pool hizmetlerini durdurun:
 
       ```shell
       sudo systemctl stop rp-node rp-watchtower
       ```
 
-      Download the new Smartnode CLI and back up the old CLI and daemon binaries if you need to bring them back:
+      Yeni Smartnode CLI'yi indirin ve geri getirmeniz gerekebilecek eski CLI ve daemon ikili dosyalarını yedekleyin:
 
-      For `x64` systems (most normal machines):
+      `x64` sistemler için (çoğu normal makine):
 
       ```shell
       sudo mv /usr/local/bin/rocketpool /usr/local/bin/rocketpool_bak
@@ -226,7 +226,7 @@ The steps to upgrade depend on which mode your node uses. Select from the option
       sudo chmod +x /usr/local/bin/rocketpool /usr/local/bin/rocketpoold
       ```
 
-      For `arm64` systems:
+      `arm64` sistemler için:
 
       ```shell
       sudo mv /usr/local/bin/rocketpool /usr/local/bin/rocketpool_bak
@@ -240,19 +240,19 @@ The steps to upgrade depend on which mode your node uses. Select from the option
       sudo chmod +x /usr/local/bin/rocketpool /usr/local/bin/rocketpoold
       ```
 
-      If you'd like to see what's changed, open the Settings Manager - the Review Page will show you what's new:
+      Nelerin değiştiğini görmek istiyorsanız, Ayarlar Yöneticisini açın - İnceleme Sayfası size yenilikleri gösterecektir:
 
       ```shell
       rp service config
       ```
 
-      When you're done, start Rocket Pool up again:
+      İşiniz bittiğinde, Rocket Pool'u tekrar başlatın:
 
       ```shell
       sudo systemctl start rp-node rp-watchtower
       ```
 
-      Finally, check the version to make sure the CLI and Smartnode stack are both up to date:
+      Son olarak, CLI ve Smartnode yığınının her ikisinin de güncel olduğundan emin olmak için sürümü kontrol edin:
 
       ```
       rocketpool service version
@@ -263,50 +263,50 @@ The steps to upgrade depend on which mode your node uses. Select from the option
       Selected Eth 2.0 client: Nimbus (statusim/nimbus:v1.4.0)
       ```
 
-      Both the client and service should match the new release version.
+      Hem istemci hem de hizmet yeni sürüm sürümüyle eşleşmelidir.
     </Tab>
-    <Tab label="macOS (Docker or Hybrid Mode)">
-      Stop the Rocket Pool services:
+    <Tab label="macOS (Docker veya Hibrit Mod)">
+      Rocket Pool hizmetlerini durdurun:
 
       ```shell
       rocketpool service stop
       ```
 
-      Download the new Smartnode CLI:
+      Yeni Smartnode CLI'yi indirin:
 
-      For `x64` systems (most Macs):
+      `x64` sistemler için (çoğu Mac):
 
       ```shell
       wget https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-darwin-amd64 -O /usr/local/bin/rocketpool
       ```
 
-      For `arm64` systems, such as the Mac mini with M1:
+      M1'li Mac mini gibi `arm64` sistemler için:
 
       ```shell
       wget https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-darwin-arm64 -O /opt/homebrew/bin/rocketpool
       ```
 
-      Now run the install command:
+      Şimdi kurulum komutunu çalıştırın:
 
       ```shell
       rocketpool service install -d
       ```
 
-      The `-d` flag tells it to ignore system dependencies like Docker, since you already have them.
+      `-d` bayrağı, Docker gibi sistem bağımlılıklarını görmezden gelmesini söyler, çünkü zaten onlara sahipsiniz.
 
-      If you'd like to see what's changed, open the Settings Manager - the Review Page will show you what's new:
+      Nelerin değiştiğini görmek istiyorsanız, Ayarlar Yöneticisini açın - İnceleme Sayfası size yenilikleri gösterecektir:
 
       ```shell
       rocketpool service config
       ```
 
-      When you're done, start Rocket Pool up again:
+      İşiniz bittiğinde, Rocket Pool'u tekrar başlatın:
 
       ```shell
       rocketpool service start
       ```
 
-      Finally, check the version to make sure the CLI and Smartnode stack are both up to date:
+      Son olarak, CLI ve Smartnode yığınının her ikisinin de güncel olduğundan emin olmak için sürümü kontrol edin:
 
       ```shell
       rocketpool service version
@@ -317,61 +317,61 @@ The steps to upgrade depend on which mode your node uses. Select from the option
       Selected Eth 2.0 client: Nimbus (statusim/nimbus:v1.4.0)
       ```
 
-      Both the client and service should match the new release version.
+      Hem istemci hem de hizmet yeni sürüm sürümüyle eşleşmelidir.
 
     </Tab>
 
   </Tabs>
 </div>
 
-## Manually Updating the Execution or Consensus Client
+## Yürütüm veya Fikir Birliği İstemcisini Manuel Olarak Güncelleme
 
-Each new release of the Smartnode stack will come with updated references to the latest compatible versions to the Execution and Consensus Docker containers.
-In some cases, however, you might want to upgrade one of those clients _before_ waiting for a new Smartnode stack release.
-This section will show you how to do just that.
+Smartnode yığınının her yeni sürümü, Yürütüm ve Fikir Birliği Docker konteynerlerinin en son uyumlu sürümlerine güncellenmiş referanslarla gelecektir.
+Ancak bazı durumlarda, yeni bir Smartnode yığını sürümünü beklemeden _önce_ bu istemcilerden birini yükseltmek isteyebilirsiniz.
+Bu bölüm size tam olarak bunu nasıl yapacağınızı gösterecektir.
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Docker Mode">
-      Updating to new client versions is easy in Docker mode.
+    <Tab label="Docker Modu">
+      Docker modunda yeni istemci sürümlerine güncelleme kolaydır.
 
-      Start by opening the Settings Manager:
+      Ayarlar Yöneticisini açarak başlayın:
 
       ```shell
       rocketpool service config
       ```
 
-      To change the Execution client version, go to the **Execution Client** category.
-      Modify the **Container Tag** setting:
+      Yürütüm istemci sürümünü değiştirmek için **Execution Client** kategorisine gidin.
+      **Container Tag** ayarını değiştirin:
 
       <img src={tuiEcContainerTag} width="100%" height="auto"/>
 
-      To change the Consensus client version, go to the **Consensus Client** category.
-      Modify the **Beacon Node Container Tag** setting:
+      Fikir Birliği istemci sürümünü değiştirmek için **Consensus Client** kategorisine gidin.
+      **Beacon Node Container Tag** ayarını değiştirin:
 
       <img src={tuiCcContainerTag} width="100%" height="auto"/>
 
-      When you're happy with your changes, save and exit as usual.
-      The Smartnode will offer to restart all of the affected containers automatically.
+      Değişikliklerinizden memnun olduğunuzda, her zamanki gibi kaydedin ve çıkın.
+      Smartnode, etkilenen tüm konteynerleri otomatik olarak yeniden başlatmayı teklif edecektir.
     </Tab>
-    <Tab label="Native Mode">
-      First, shut down your Execution client, Beacon Node, and/or Validator client service depending on what you'd like to update.
-      For example, shutting down Geth:
+    <Tab label="Yerel Mod">
+      İlk olarak, neyi güncellemek istediğinize bağlı olarak Yürütüm istemcinizi, Beacon Node'unuzu ve/veya Doğrulayıcı istemci hizmetinizi kapatın.
+      Örneğin, Geth'i kapatmak için:
 
       ```shell
       sudo systemctl stop geth
       ```
 
-      Next, download the latest binary release from the vendor of your client (or build it from source) and replace the old binary with the new one.
-      We recommend you **move the old binary to a backup location** instead of overwriting it, just in case the new client has problems.
+      Ardından, istemcinizin satıcısından en son ikili sürümü indirin (veya kaynaktan oluşturun) ve eski ikili dosyayı yenisiyle değiştirin.
+      **Eski ikili dosyayı üzerine yazmak yerine bir yedek konuma taşımanızı** öneririz, yeni istemcide sorun olması durumunda.
 
-      Finally, start the client service again - for example, starting Geth:
+      Son olarak, istemci hizmetini tekrar başlatın - örneğin, Geth'i başlatmak için:
 
       ```shell
       sudo systemctl start geth
       ```
 
-      You should follow the log scripts closely after the upgrade to ensure that the new client works as expected.
+      Yükseltmeden sonra yeni istemcinin beklendiği gibi çalıştığından emin olmak için günlük betiklerini yakından takip etmelisiniz.
     </Tab>
 
   </Tabs>
