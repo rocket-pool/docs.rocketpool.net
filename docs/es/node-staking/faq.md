@@ -19,7 +19,7 @@ If that doesn't help, you can ask your question on the Rocket Pool **#support** 
 
 ### How can I get test ETH to experiment with creating and running a minipool? I can't post messages on the faucet channel.
 
-See [Getting test ETH on Hoodi](../testnet/overview#getting-test-eth-on-hoodi).
+See [Getting test ETH on Hoodi](./testnet/overview#getting-test-eth-on-hoodi).
 
 ### How do I recover my node if my machine breaks?
 

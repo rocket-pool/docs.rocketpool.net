@@ -19,7 +19,7 @@ rETHトークンはリベースしません。
 
 ### minipoolの作成と実行を試すために、テストETHを取得するにはどうすればよいですか? faucetチャンネルにメッセージを投稿できません。
 
-[HoodiでテストETHを取得する](../testnet/overview#getting-test-eth-on-hoodi)を参照してください。
+[HoodiでテストETHを取得する](./testnet/overview#getting-test-eth-on-hoodi)を参照してください。
 
 ### マシンが壊れた場合、ノードを復旧するにはどうすればよいですか?
 

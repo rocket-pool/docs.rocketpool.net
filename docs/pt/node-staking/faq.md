@@ -19,7 +19,7 @@ Se isso não ajudar, você pode fazer sua pergunta no canal **#support** do Rock
 
 ### Como posso obter ETH de teste para experimentar criar e executar um minipool? Não consigo postar mensagens no canal de faucet.
 
-Veja [Obtendo ETH de teste no Hoodi](../testnet/overview#getting-test-eth-on-hoodi).
+Veja [Obtendo ETH de teste no Hoodi](./testnet/overview#getting-test-eth-on-hoodi).
 
 ### Como recupero meu node se minha máquina quebrar?
 

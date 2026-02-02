@@ -1,0 +1,196 @@
+import { Tab, Tabs } from "@rspress/core/theme";
+
+# [Hibrit Mod] Redstone Güncellemesi ve Birleşme Rehberi
+
+Bu rehber, **Hibrit Mod** kullanıyorsanız düğümünüzü Redstone Güncellemesi ve Birleşme için hazırlamak üzere bilmeniz gereken her şeyi kapsayacaktır.
+
+## v1.5.0'a Yükseltmeden Önce Yapılacaklar
+
+Smartnode'un v1.5.0 ve üzeri sürümlerine yükseltmeden önce, hazırlıklı olduğunuzdan emin olmak için lütfen aşağıdaki kontrol listesini gözden geçirin:
+
+### Tam Execution Client'a Geçiş
+
+Birleşme, kendi Execution client'ınızı çalıştırmanızı gerektirir, bu nedenle artık Infura veya Pocket gibi uzak sağlayıcıları kullanamayacaksınız.
+
+Bu değişiklik nedeniyle, şu anda hafif bir Execution client kullanıyorsanız, v1.4'teyken tam bir client'a geçmeli, senkronizasyonunun tamamlanmasını beklemelisiniz ve ardından v1.5'e yükseltmelisiniz.
+
+### EC ve CC'nin Her İkisinin de Harici Yönetildiğinden Emin Olun
+
+Smartnode stack'inin önceki sürümleri, bir client'ın yerel olarak yönetilmesine ve diğerinin harici olarak yönetilmesine izin veriyordu.
+Örneğin, Smartnode'un yönettiği bir Execution client'a sahip olabilir ve bunu harici olarak yönettiğiniz bir Consensus client'a bağlayabilirsiniz.
+
+v1.5'ten başlayarak, bu yapılandırma artık desteklenmemektedir.
+Ya yerel olarak yönetilen bir Execution ve Consensus client'a ([Docker Modu](./docker-migration.mdx) olarak da bilinir) geçmeniz gerekecek ya da kendi başınıza yönettiğiniz hem bir Execution hem de bir Consensus client kurmanız gerekecek.
+
+::: tip İPUCU
+Smartnode'un kendi Execution ve Consensus client'ını sürdürmesine izin vermek ancak kendi Validator client'ınız üzerinde kontrolü elinizde tutmak istiyorsanız (örneğin, ona bağlı kendi solo staking validator anahtarlarınız varsa), tam olarak bunu yapan [Ters Hibrit Modu](../../node-staking/advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode)'nu değerlendirmek isteyebilirsiniz!
+:::
+
+### Engine API'yi Ayarlayın
+
+Birleşme, Execution client'ınızın Consensus client'ınızla konuşma şeklini değiştirir.
+Eski HTTP veya Websocket tabanlı RPC sistemini kullanmak yerine, Birleşme Execution client'ınız tarafından sunulan Engine API adlı yeni bir sistem gerektirir.
+
+Bu, Consensus client'ın eski Proof-of-Work madencilik sistemini Proof-of-Stake ile değiştirmesine izin veren özel bir bağlantıdır; Birleşme'nin kalbidir.
+Ayrıca gizli bir token ile **kimlik doğrulamalıdır**, böylece yalnızca Consensus client'ınız Execution client'ınıza bağlanabilir - başka hiçbir şey bağlanamaz.
+
+Kendi Execution ve Consensus client'larınızı yönettiğiniz için, Engine API'yi manuel olarak ayarlamanız gerekecektir.
+Bunu nasıl yapacağınız tamamen hangi client'ları çalıştırdığınıza bağlıdır.
+
+CoinCashew, Execution ve Consensus client'larınızda Engine API'nin nasıl kurulacağına dair [harika ve özlü bir rehbere](https://www.coincashew.com/coins/overview-eth/ethereum-merge-upgrade-checklist-for-home-stakers-and-validators) sahiptir.
+Ona bir göz atın ve yükseltmeden önce yeni yapılandırmayı test edin ve hala düzgün şekilde onay verdiğinden emin olun.
+
+Her zaman olduğu gibi, Rocket Pool kendi Validator client'ını yönetecektir, bu nedenle onu manuel olarak değiştirme konusunda endişelenmenize gerek yok.
+
+## v1.5.0'a Yükseltme
+
+Smartnode stack'ini v1.5.0'a yükseltmek, diğer yükseltmelerden farklı değildir.
+Sadece [buradaki normal talimatları](../../node-staking/updates#updating-the-smartnode-stack) izleyin.
+
+## Smartnode'un Otomatik Olarak Hallettiği Şeyler
+
+Hibrit modda, v1.5.0'a güncelleme yaptığınızda Smartnode Redstone'u desteklemek için gereken bazı değişiklikleri otomatik olarak halledecektir, ancak Hibrit Mod'da bazılarını manuel olarak ele almanız gerekecektir.
+
+İşte sizin için herhangi bir manuel müdahale olmadan yapacağı şeylerin kısa bir listesi:
+
+### Fee Recipient'ınız
+
+**Fee recipient**, önerdiğiniz bloklar için tüm öncelik ücretlerini alacak olan Execution katmanı (eth1) zincirindeki adrestir.
+Validator client'ınız ilk başladığında ona sağlanan bir ayardır.
+
+Smartnode, v1.5'e yükseltme yaptığınızda yönettiği Validator client'ta bunu doğru adrese ayarlamayı halledecek ve yanlışlıkla [cezalandırılmamanız](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) için doğru olanı kullandığınızdan sürekli emin olacaktır.
+
+[Smoothing Pool'a](./whats-new#smoothing-pool) katılmayı seçtiyseniz, bu sizin fee recipient'ınız olacaktır.
+Katılmadıysanız, [fee distributor sözleşmeniz](./whats-new#fee-recipients-and-your-distributor) fee recipient olacaktır.
+
+## Yükseltme Sonrası Yapmanız Gerekenler
+
+Smartnode değişikliklerin çoğunu sizin için hallederken, manuel olarak yapmanız gereken birkaç ek şey var:
+
+### Başarılı Bir Yükseltme Sağlayın
+
+Yapılacak ilk şey düğümünüzün doğru çalıştığından emin olmaktır.
+Aşağıdaki adımları atmayı düşünün:
+
+- `rocketpool service logs validator` ve `rocketpool service logs node` ile hataları kontrol edin.
+- Bir Block Explorer (Grafana panonuz ve [https://beaconcha.in](https://beaconcha.in) gibi) ile hala düzgün şekilde onay verdiğinizi doğrulayın
+  - Doppelganger koruması etkinse, yeniden başlatmadan sonra birkaç onayı kaçıracağınızı unutmayın. Bu normaldir!
+
+### MEV-Boost'u Ayarlayın
+
+[MEV-boost](https://boost.flashbots.net/), Flashbots'un Birleşme sonrası Proof-of-Stake validator'lara MEV ödülleri sağlamak için sunduğu sistemdir.
+
+**Rocket Pool, protokolü diğer staking hizmetleriyle rekabetçi tutmak için getirilerini maksimize etmek adına tüm düğümlerin bunu kullanmasını gerektirir.**
+
+Beacon Node / Consensus client'ınızı MEV-boost'a bağlamak için bazı ayarlamalar yapmanız gerekecektir.
+
+MEV-boost şu anda Hoodi veya Mainnet'te mevcut değildir, bu nedenle şu anda kurmanıza gerek yoktur.
+Tabii ki, bu geçiş dönemi boyunca kullanmadığınız için cezalandırılmayacaksınız.
+
+Kullanılabilir hale geldiğinde, düğümünüze kurulması ve bağlanması gereken bir tarih duyuracağız.
+Flashbots o zaman takip edebileceğiniz talimatlar sağlayacak ve biz de onları buraya bağlayacağız.
+
+::: danger NOT
+Tüm düğüm operatörleri tarafından MEV-boost'un etkinleştirilmesi gerektiğini duyurduğumuzda, Beacon Node'unuza düzgün şekilde kurulmuş ve yapılandırılmış olduğundan emin olmalısınız!
+
+Bunu yapmamanız minipool'unuzun [cezalandırılması](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) ile sonuçlanacaktır.
+:::
+
+### Fallback Düğümü Ayarlayın
+
+Birleşme, Infura ve Pocket gibi uzak sağlayıcılarla uyumlu olmadığı için, birincil düğümünüz çevrimdışı olduğunda onları fallback Execution client olarak kullanma yeteneğinizi kaybedeceksiniz.
+
+Smartnode hala fallback Execution client (ve artık fallback Consensus client) sağlama yeteneğine sahiptir, ancak artık kontrol ettiğiniz Execution ve Consensus client'larını kullanmanız gerekecektir.
+
+Fallback düğümü kurma hakkında daha fazla bilgi için [Fallback düğümü rehberine](../../node-staking/fallback) bakın.
+
+### Fee Distributor'ınızı Başlatın
+
+[Smoothing Pool'a](./whats-new#smoothing-pool) katılmayı planlamıyorsanız ve tüm öncelik ücretlerinizi ve MEV ödüllerinizi [fee distributor sözleşmenize](./whats-new#fee-recipients-and-your-distributor) talep edecekseniz, sonunda ödüllerinizi çekim adresinize talep edebilmek için onu başlatmanız (zincirde sözleşme örneğini oluşturmanız) gerekecektir.
+
+Bu oldukça ucuz bir işlemdir ve yalnızca bir kez yapılması gerekir.
+
+::: tip İPUCU
+Fee distributor'ınızı başlatmak **herhangi bir zamanda** yapılabilir.
+Ödüllerin adresinde başlatmadan uzun süre önce birikmesine izin verebilirsiniz ve bakiyeniz başlatma sonrasında kalacaktır.
+
+Genel gider maliyetini en aza indirmek için gas fiyatları düşükken yapmanızı öneririz.
+
+**Ödüllerinizi talep edebilmek için başlatılmış olması gerektiğini** unutmayın.
+:::
+
+### Smoothing Pool'a Katılın
+
+[Smoothing Pool'dan](./whats-new#smoothing-pool) hemen yararlanmayı planlıyorsanız, "uygunluk" miktarınızı maksimize etmek için ilk Redstone ödül döneminin sonundan önce katılmalısınız.
+
+Katılım, aşağıdaki komutu çalıştırarak yapılabilir:
+
+```shell
+rocketpool node join-smoothing-pool
+```
+
+### Ödülleri Talep Edin
+
+Redstone yükseltmesi, pahalı, sorunlu eski ödül sistemini çok daha ucuz olan, RPL'nin otomatik yeniden stake edilmesini destekleyen (hem kısmi hem de tam miktarlar) ve - en önemlisi - **ödüllerinizi istediğiniz zaman talep etmenize izin veren** [yepyeni bir sistemle](./whats-new#new-rewards-system) değiştirir.
+
+Artık ödülleri talep etmek için zaman sınırı olmadığından ve birçok ödül aralığını bir kerede talep etmek daha ucuz olduğundan, Smartnode'un otomatik ödül talep etme özelliği **kaldırılmıştır**.
+Artık ödülleri aşağıdaki komut aracılığıyla talep edebileceksiniz:
+
+```shell
+rocketpool node claim-rewards
+```
+
+Bu, Redstone yükseltmesinden başlayarak tüm ödül aralıkları boyunca biriktirdiğiniz tüm ödülleri gösterecektir.
+
+## v1.4.3'e Geri Dönme
+
+Herhangi bir nedenle, bir şey beğeninize uygun değilse ve önceki Smartnode sürümüne geri dönmek isterseniz, bunu kolayca yapabilirsiniz.
+Smartnode, onu yükselttiğinizde önceki sürümdeki ayarlarınızı otomatik olarak yedekler, bu nedenle sadece önceki sürümü alın (burada **v1.4.3** gösteriyoruz) ve ayarları yedeğiyle değiştirin:
+
+1. Servisi durdurun:
+
+```shell
+rocketpool service stop
+```
+
+1. v1.4.3 CLI'yi indirin:
+
+<div className="p-3">
+  <Tabs>
+    <Tab label="Linux x64">```shell wget https://github.com/rocket-pool/smartnode/releases/download/v1.4.3/rocketpool-cli-linux-amd64 -O ~/bin/rocketpool ```</Tab>
+    <Tab label="Linux arm64">```shell wget https://github.com/rocket-pool/smartnode/releases/download/v1.4.3/rocketpool-cli-linux-arm64 -O ~/bin/rocketpool ```</Tab>
+    <Tab label="Mac x64">```shell curl -L https://github.com/rocket-pool/smartnode/releases/download/v1.4.3/rocketpool-cli-darwin-amd64 > /usr/local/bin/rocketpool ```</Tab>
+    <Tab label="Mac arm64">```shell curl -L https://github.com/rocket-pool/smartnode/releases/download/v1.4.3/rocketpool-cli-darwin-arm64 > /usr/local/bin/rocketpool ```</Tab>
+  </Tabs>
+</div>
+
+1. v1.4.3 paketini yükleyin:
+
+```shell
+rocketpool service install -d
+```
+
+1. Eski yapılandırmanızı v1.4.3 yedek yapılandırmasıyla değiştirin:
+
+```shell
+cp ~/.rocketpool/user-settings-backup.yml ~/.rocketpool/user-settings.yml
+```
+
+1. Tüm eski ayarlarınızın şimdi kullanıldığını doğrulayın:
+
+```shell
+rocketpool service config
+```
+
+1. İyi görünüyorsa, Smartnode stack'ini başlatın:
+
+```shell
+rocketpool service start
+```
+
+Tamam! Artık eski sürümdesiniz ve servisi başlattıktan kısa süre sonra onay vermeye başlamalısınız.
+
+::: danger UYARI
+v1.4.3 **kullanımdan kaldırılmıştır** ve Redstone güncellemesi dağıtıldıktan sonra artık kullanılamayacaktır.
+Ona geri dönmeniz gerekiyorsa, lütfen sözleşmeler güncellenmeden önce v1.5.0'a geri yükseltme planları yapın!
+:::

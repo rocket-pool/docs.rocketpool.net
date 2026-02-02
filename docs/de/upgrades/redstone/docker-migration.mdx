@@ -1,0 +1,166 @@
+import { Tab, Tabs } from "@rspress/core/theme";
+
+# [Docker-Modus] Leitfaden für das Redstone-Update und The Merge
+
+Dieser Leitfaden behandelt alles, was Sie wissen müssen, um Ihren Node auf das Redstone-Update und The Merge vorzubereiten, wenn Sie den **Docker-Modus** verwenden.
+
+## Aufgaben vor dem Upgrade auf v1.5.0
+
+Bevor Sie auf v1.5.0 und höher des Smart Node upgraden, gehen Sie bitte die folgende Checkliste durch, um sicherzustellen, dass Sie vorbereitet sind:
+
+### Wechsel zu einem vollständigen Execution Client
+
+The Merge erfordert, dass Sie Ihren eigenen Execution Client betreiben, sodass Sie keine Remote-Provider wie Infura oder Pocket mehr verwenden können.
+v1.5.0 wird diese nicht mehr haben und lässt Sie den Stack erst starten, wenn Sie einen vollständigen Execution Client ausgewählt haben.
+
+Aufgrund dieser Änderung sollten Sie zu einem vollständigen Client wechseln, während Sie noch auf v1.4 sind, ihn vollständig synchronisieren lassen und dann auf v1.5 upgraden.
+
+Der Docker-Modus macht den Wechsel von Clients sehr einfach.
+[Dieser Leitfaden](../../node-staking/change-clients#changing-execution-clients) bietet eine Anleitung für den Prozess.
+
+## Upgrade auf v1.5.0
+
+Das Upgrade des Smart Node-Stacks auf v1.5.0 unterscheidet sich nicht von jedem anderen Upgrade.
+Befolgen Sie einfach [die normalen Anweisungen hier](../../node-staking/updates#updating-the-smartnode-stack).
+
+## Was der Smart Node automatisch erledigt
+
+Im Docker-Modus kümmert sich der Smart Node nach dem Update auf v1.5.0 automatisch um die meisten Änderungen, die zur Unterstützung von Redstone und The Merge erforderlich sind.
+Hier ist eine kurze Liste dessen, was er für Sie ohne manuelle Eingriffe tun wird:
+
+### Die Engine API
+
+The Merge ändert die Art und Weise, wie Ihr Execution Client mit Ihrem Consensus Client kommuniziert.
+Anstatt das alte HTTP- oder Websocket-basierte RPC-System zu verwenden, erfordert The Merge ein neues System, das von Ihrem Execution Client bereitgestellt wird, genannt Engine API.
+
+Dies ist eine spezielle Verbindung, die es dem Consensus Client ermöglicht, das alte Proof-of-Work-Mining-System durch Proof-of-Stake zu ersetzen; sie ist das Herzstück von The Merge.
+Sie ist auch **authentifiziert** mit einem geheimen Token, sodass nur Ihr Consensus Client sich mit Ihrem Execution Client verbinden kann - nichts anderes.
+
+Der Smart Node wird die Einrichtung des Authentifizierungstokens und der Engine API sowohl auf Ihrem Execution als auch auf Ihrem Consensus Client automatisch übernehmen.
+
+### Ihr Fee Recipient
+
+Der **Fee Recipient** ist die Adresse auf der Execution Layer Chain, die alle Priority Fees für von Ihnen vorgeschlagene Blöcke erhält.
+Es ist eine Einstellung, die Ihrem Validator Client beim ersten Start übergeben wird.
+
+Der Smart Node wird sie beim Upgrade auf v1.5 auf die richtige Adresse einstellen und ständig überprüfen, ob Sie die richtige verwenden, damit Sie nicht [versehentlich bestraft werden](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
+
+Wenn Sie sich für den [Smoothing Pool](./whats-new#smoothing-pool) entschieden haben, wird dies Ihr Fee Recipient sein.
+Wenn nicht, wird Ihr [Fee Distributor Contract](./whats-new#fee-recipients-and-your-distributor) der Fee Recipient sein.
+
+### MEV-Boost
+
+[MEV-boost](https://boost.flashbots.net/) ist das System, das Flashbots bereitstellt, um MEV-Belohnungen an Proof-of-Stake-Validatoren nach The Merge zu geben.
+Rocket Pool hat MEV-Boost in den Smart Node integriert und konfiguriert Ihren Node automatisch für die Verwendung, damit Ihre Vorschläge die maximale Menge an Belohnungen erhalten.
+
+## Aufgaben nach dem Upgrade
+
+Während der Smart Node die meisten Änderungen für Sie übernimmt, gibt es ein paar zusätzliche Dinge, die Sie manuell tun sollten:
+
+### Sicherstellen eines erfolgreichen Upgrades
+
+Das erste, was zu tun ist, ist sicherzustellen, dass Ihr Node korrekt funktioniert.
+Erwägen Sie die folgenden Schritte:
+
+- Überprüfen Sie die Logs auf Fehler mit `rocketpool service logs eth1`, `rocketpool service logs eth2`, `rocketpool service logs validator` und `rocketpool service logs node`.
+- Bestätigen Sie mit einem Block Explorer (wie Ihrem Grafana-Dashboard und [https://beaconcha.in](https://beaconcha.in)), dass Sie noch ordnungsgemäß attestieren
+  - Denken Sie daran, dass Sie bei aktiviertem Doppelgänger-Schutz nach dem Neustart einige Attestierungen verpassen werden. Das ist normal!
+
+### Einrichten eines Fallback-Nodes
+
+Da The Merge nicht mit Remote-Providern wie Infura und Pocket kompatibel ist, verlieren Sie die Möglichkeit, diese als Fallback-Execution-Clients zu verwenden, wenn Ihr primärer offline geht.
+
+Der Smart Node hat weiterhin die Möglichkeit, einen Fallback-Execution-Client (und jetzt auch einen Fallback-Consensus-Client) bereitzustellen, aber Sie müssen jetzt Execution- und Consensus-Clients verwenden, die Sie kontrollieren.
+
+Weitere Informationen zur Einrichtung eines Fallback-Nodes finden Sie im [Fallback-Node-Leitfaden](../../node-staking/fallback).
+
+### Initialisieren Ihres Fee Distributors
+
+Wenn Sie nicht vorhaben, sich für den [Smoothing Pool](./whats-new#smoothing-pool) zu entscheiden und alle Ihre Priority Fees und MEV-Belohnungen an Ihren [Fee Distributor Contract](./whats-new#fee-recipients-and-your-distributor) zu beanspruchen, müssen Sie ihn schließlich initialisieren (die Contract-Instanz auf der Chain erstellen), um Belohnungen daraus an Ihre Withdrawal-Adresse beanspruchen zu können.
+
+Dies ist eine relativ günstige Operation und muss nur einmal durchgeführt werden.
+
+::: tip TIPP
+Die Initialisierung Ihres Fee Distributors kann **jederzeit** erfolgen.
+Sie können Belohnungen lange vor der Initialisierung auf seiner Adresse ansammeln lassen, und Ihr Guthaben bleibt nach der Initialisierung erhalten.
+
+Wir empfehlen, dies zu tun, wenn die Gaspreise niedrig sind, um die Overhead-Kosten zu minimieren.
+
+Beachten Sie, dass er **initialisiert werden muss, um Ihre Belohnungen beanspruchen zu können.**
+:::
+
+### Dem Smoothing Pool beitreten
+
+Wenn Sie den [Smoothing Pool](./whats-new#smoothing-pool) sofort nutzen möchten, sollten Sie vor dem Ende der ersten Redstone-Belohnungsperiode beitreten, um Ihren "Berechtigungs"-Betrag zu maximieren.
+
+Der Beitritt kann durch Ausführen des folgenden Befehls erfolgen:
+
+```
+rocketpool node join-smoothing-pool
+```
+
+### Belohnungen beanspruchen
+
+Das Redstone-Upgrade ersetzt das teure, problematische alte Belohnungssystem durch ein [brandneues](./whats-new#new-rewards-system), das viel günstiger ist, das automatische Restaking von RPL (sowohl teilweise als auch vollständige Beträge) unterstützt und - am wichtigsten - **Sie Ihre Belohnungen beanspruchen lässt, wann immer Sie wollen**.
+
+Da es keine zeitliche Begrenzung mehr für die Beanspruchung von Belohnungen gibt und es günstiger ist, viele Belohnungsintervalle auf einmal zu beanspruchen, wurde die automatische Belohnungsbeanspruchungsfunktion des Smart Node **entfernt**.
+Sie können nun Belohnungen über den folgenden Befehl beanspruchen:
+
+```
+rocketpool node claim-rewards
+```
+
+Dies zeigt Ihnen alle Belohnungen, die Sie über alle Belohnungsintervalle seit dem Redstone-Upgrade angesammelt haben.
+
+## Zurückkehren zu v1.4.3
+
+Wenn Ihnen aus irgendeinem Grund etwas nicht gefällt und Sie zur vorherigen Smart Node-Version zurückkehren möchten, können Sie dies problemlos tun.
+Der Smart Node sichert automatisch Ihre Einstellungen von der vorherigen Version, wenn Sie ein Upgrade durchführen. Holen Sie sich also einfach die vorherige Version (hier demonstrieren wir **v1.4.3**) und ersetzen Sie die Einstellungen durch das Backup:
+
+1. Stoppen Sie den Service:
+
+```shell
+rocketpool service stop
+```
+
+1. Laden Sie die v1.4.3 CLI herunter:
+
+<div className="p-3">
+  <Tabs>
+    <Tab label="Linux x64">```shell wget https://github.com/rocket-pool/smartnode/releases/download/v1.4.3/rocketpool-cli-linux-amd64 -O ~/bin/rocketpool ```</Tab>
+    <Tab label="Linux arm64">```shell wget https://github.com/rocket-pool/smartnode/releases/download/v1.4.3/rocketpool-cli-linux-arm64 -O ~/bin/rocketpool ```</Tab>
+    <Tab label="Mac x64">```shell curl -L https://github.com/rocket-pool/smartnode/releases/download/v1.4.3/rocketpool-cli-darwin-amd64 > /usr/local/bin/rocketpool ```</Tab>
+    <Tab label="Mac arm64">```shell curl -L https://github.com/rocket-pool/smartnode/releases/download/v1.4.3/rocketpool-cli-darwin-arm64 > /usr/local/bin/rocketpool ```</Tab>
+  </Tabs>
+</div>
+
+1. Installieren Sie das v1.4.3-Paket:
+
+```shell
+rocketpool service install -d
+```
+
+1. Ersetzen Sie Ihre alte Konfiguration durch die v1.4.3-Backup-Konfiguration:
+
+```shell
+cp ~/.rocketpool/user-settings-backup.yml ~/.rocketpool/user-settings.yml
+```
+
+1. Überprüfen Sie, dass alle Ihre alten Einstellungen jetzt verwendet werden:
+
+```shell
+rocketpool service config
+```
+
+1. Wenn es gut aussieht, starten Sie den Smart Node-Stack:
+
+```shell
+rocketpool service start
+```
+
+Fertig! Sie sind jetzt wieder auf der alten Version und sollten kurz nach dem Start des Services wieder mit dem Attestieren beginnen.
+
+::: danger WARNUNG
+v1.4.3 ist **veraltet** und wird nach der Bereitstellung des Redstone-Updates nicht mehr verwendbar sein.
+Wenn Sie darauf zurückkehren müssen, planen Sie bitte ein Upgrade zurück auf v1.5.0, bevor die Contracts aktualisiert werden!
+:::

@@ -1,0 +1,196 @@
+import { Tab, Tabs } from "@rspress/core/theme";
+
+# [Hybrid Mode] Redstone 업데이트 및 The Merge 가이드
+
+이 가이드는 **Hybrid Mode**를 사용하는 경우 Redstone 업데이트 및 The Merge를 위해 노드를 준비하는 데 필요한 모든 정보를 다룹니다.
+
+## v1.5.0으로 업그레이드하기 전에 해야 할 일
+
+Smartnode를 v1.5.0 이상으로 업그레이드하기 전에 다음 체크리스트를 확인하여 준비가 되었는지 확인하세요:
+
+### 전체 Execution Client로 전환
+
+The Merge는 자체 Execution client를 실행해야 하므로 Infura 또는 Pocket과 같은 원격 공급자를 더 이상 사용할 수 없습니다.
+
+이러한 변경으로 인해 현재 라이트 Execution client를 사용하는 경우 v1.4를 사용하는 동안 전체 클라이언트로 전환하고 동기화가 완료되면 v1.5로 업그레이드해야 합니다.
+
+### EC 및 CC가 모두 외부에서 관리되는지 확인
+
+이전 버전의 Smartnode 스택에서는 하나의 클라이언트를 로컬로 관리하고 다른 클라이언트를 외부에서 관리할 수 있었습니다.
+예를 들어, Smartnode가 관리하는 Execution client를 가지고 외부에서 관리하는 Consensus client에 연결할 수 있었습니다.
+
+v1.5부터는 이 구성이 더 이상 지원되지 않습니다.
+로컬로 관리되는 Execution 및 Consensus client([Docker Mode](./docker-migration.mdx)라고도 함)로 전환하거나 직접 관리하는 Execution 및 Consensus client를 모두 설정해야 합니다.
+
+::: tip 팁
+Smartnode가 자체 Execution 및 Consensus client를 유지하도록 하면서 자체 Validator client를 제어하고 싶다면(예: 자체 solo staking validator 키가 연결되어 있는 경우), 정확히 이를 수행하는 [Reverse Hybrid Mode](../../node-staking/advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode)를 고려할 수 있습니다!
+:::
+
+### Engine API 설정
+
+The Merge는 Execution client가 Consensus client와 통신하는 방식을 변경합니다.
+기존 HTTP 또는 Websocket 기반 RPC 시스템을 사용하는 대신, The Merge는 Execution client가 노출하는 Engine API라는 새로운 시스템을 필요로 합니다.
+
+이것은 Consensus client가 기존 Proof-of-Work 마이닝 시스템을 Proof-of-Stake로 대체할 수 있게 하는 특별한 연결입니다. 이것이 The Merge의 핵심입니다.
+또한 비밀 토큰으로 **인증**되므로 Consensus client만 Execution client에 연결할 수 있으며 다른 것은 연결할 수 없습니다.
+
+자체 Execution 및 Consensus client를 관리하므로 Engine API를 수동으로 설정해야 합니다.
+방법은 실행 중인 클라이언트에 따라 완전히 다릅니다.
+
+CoinCashew는 Execution 및 Consensus client에서 Engine API를 설정하는 방법에 대한 [훌륭하고 간결한 가이드](https://www.coincashew.com/coins/overview-eth/ethereum-merge-upgrade-checklist-for-home-stakers-and-validators)를 제공합니다.
+해당 가이드를 살펴보고 업그레이드하기 전에 여전히 올바르게 증명하는지 확인하여 새 구성을 테스트하세요.
+
+항상 그렇듯이 Rocket Pool은 자체 Validator client를 관리하므로 수동으로 수정할 필요가 없습니다.
+
+## v1.5.0으로 업그레이드
+
+Smartnode 스택을 v1.5.0으로 업그레이드하는 것은 다른 업그레이드와 다르지 않습니다.
+[여기의 일반 지침](../../node-staking/updates#updating-the-smartnode-stack)을 따르기만 하면 됩니다.
+
+## Smartnode가 자동으로 처리하는 사항
+
+Hybrid mode에서 Smartnode는 v1.5.0으로 업데이트하면 Redstone을 지원하는 데 필요한 일부 변경 사항을 자동으로 처리하지만 Hybrid Mode에서는 다른 것들을 수동으로 처리해야 합니다.
+
+수동 개입 없이 자동으로 수행할 작업에 대한 간략한 목록은 다음과 같습니다:
+
+### Fee Recipient
+
+**fee recipient**는 제안한 블록에 대한 모든 우선 수수료를 받을 Execution layer(eth1) 체인의 주소입니다.
+이는 Validator client가 처음 시작할 때 제공되는 설정입니다.
+
+Smartnode는 v1.5로 업그레이드할 때 관리하는 Validator client에서 올바른 주소로 설정하고 [실수로 벌금을 받지](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) 않도록 올바른 주소를 사용하고 있는지 지속적으로 확인합니다.
+
+[Smoothing Pool](./whats-new#smoothing-pool)에 가입한 경우 해당 주소가 fee recipient가 됩니다.
+그렇지 않은 경우 [fee distributor contract](./whats-new#fee-recipients-and-your-distributor)가 fee recipient가 됩니다.
+
+## 업그레이드 후 수행해야 할 작업
+
+Smartnode가 대부분의 변경 사항을 처리하지만 수동으로 수행해야 하는 몇 가지 추가 작업이 있습니다:
+
+### 성공적인 업그레이드 확인
+
+가장 먼저 해야 할 일은 노드가 올바르게 작동하는지 확인하는 것입니다.
+다음 단계를 수행하는 것을 고려하세요:
+
+- `rocketpool service logs validator` 및 `rocketpool service logs node`로 로그의 오류를 확인합니다.
+- Block Explorer(예: Grafana 대시보드 및 [https://beaconcha.in](https://beaconcha.in))를 통해 여전히 올바르게 증명하고 있는지 확인합니다
+  - Doppelganger 보호가 활성화된 경우 재시작 후 몇 개의 증명을 놓치게 됩니다. 이것은 정상입니다!
+
+### MEV-Boost 설정
+
+[MEV-boost](https://boost.flashbots.net/)는 Flashbots가 The Merge 이후 Proof-of-Stake validator에게 MEV 보상을 제공하는 시스템입니다.
+
+**Rocket Pool은 모든 노드가 이를 사용하여 수익을 극대화하고 다른 스테이킹 서비스와 프로토콜의 경쟁력을 유지할 것을 요구합니다.**
+
+Beacon Node / Consensus client를 MEV-boost에 연결하려면 몇 가지 조정을 해야 합니다.
+
+MEV-boost는 현재 Hoodi 또는 Mainnet에서 사용할 수 없으므로 현재로서는 설정할 필요가 없습니다.
+물론 이 전환 기간 동안 사용하지 않아도 벌금이 부과되지 않습니다.
+
+사용 가능해지면 노드에 설치하고 연결해야 하는 날짜를 발표할 것입니다.
+Flashbots가 그때 따를 수 있는 지침을 제공할 것이며 여기에 링크할 것입니다.
+
+::: danger 참고
+모든 노드 운영자가 MEV-boost를 활성화해야 한다는 발표가 있으면 Beacon Node에 올바르게 설치 및 구성되어 있는지 확인해야 합니다!
+
+그렇게 하지 않으면 minipool이 [벌금을 받게](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) 됩니다.
+:::
+
+### Fallback Node 설정
+
+The Merge는 Infura 및 Pocket과 같은 원격 공급자와 호환되지 않으므로 기본 Execution client가 오프라인 상태일 때 해당 공급자를 fallback Execution client로 사용할 수 없습니다.
+
+Smartnode는 여전히 fallback Execution client(및 이제 fallback Consensus client도)를 제공할 수 있지만 이제 제어하는 Execution 및 Consensus client를 사용해야 합니다.
+
+fallback node 설정에 대한 자세한 내용은 [Fallback node 가이드](../../node-staking/fallback)를 참조하세요.
+
+### Fee Distributor 초기화
+
+[Smoothing Pool](./whats-new#smoothing-pool)에 가입하지 않고 모든 우선 수수료 및 MEV 보상을 [fee distributor contract](./whats-new#fee-recipients-and-your-distributor)로 청구하려는 경우, 출금 주소로 보상을 청구하려면 결국 초기화(체인에 계약 인스턴스 생성)해야 합니다.
+
+이것은 상당히 저렴한 작업이며 한 번만 수행하면 됩니다.
+
+::: tip 팁
+fee distributor 초기화는 **언제든지** 수행할 수 있습니다.
+초기화하기 훨씬 전에 주소에 보상을 누적할 수 있으며 초기화 후에도 잔액이 유지됩니다.
+
+오버헤드 비용을 최소화하려면 가스 가격이 낮을 때 수행하는 것이 좋습니다.
+
+**보상을 청구하려면 초기화해야 합니다.**
+:::
+
+### Smoothing Pool 가입
+
+[Smoothing Pool](./whats-new#smoothing-pool)을 즉시 활용할 계획이라면 첫 번째 Redstone 보상 기간이 끝나기 전에 가입하여 "적격성" 금액을 최대화해야 합니다.
+
+가입은 다음 명령을 실행하여 수행할 수 있습니다:
+
+```shell
+rocketpool node join-smoothing-pool
+```
+
+### 보상 청구
+
+Redstone 업그레이드는 비용이 많이 들고 문제가 있는 기존 보상 시스템을 [새로운 시스템](./whats-new#new-rewards-system)으로 교체합니다. 이 시스템은 훨씬 저렴하고 RPL의 자동 재스테이킹(부분 및 전체 금액 모두)을 지원하며 가장 중요한 것은 **원하는 때에 보상을 청구할 수 있다**는 것입니다.
+
+보상 청구에 더 이상 시간 제한이 없고 많은 보상 기간을 한 번에 청구하는 것이 더 저렴하기 때문에 Smartnode의 자동 보상 청구 기능이 **제거되었습니다**.
+이제 다음 명령을 통해 보상을 청구할 수 있습니다:
+
+```shell
+rocketpool node claim-rewards
+```
+
+이것은 Redstone 업그레이드부터 시작하여 모든 보상 기간에 걸쳐 누적된 모든 보상을 보여줍니다.
+
+## v1.4.3으로 되돌리기
+
+어떤 이유로든 마음에 들지 않아 이전 Smartnode 릴리스로 되돌리고 싶다면 쉽게 할 수 있습니다.
+Smartnode는 업그레이드 시 이전 버전의 설정을 자동으로 백업하므로 이전 버전(여기서는 **v1.4.3**을 시연합니다)을 가져와서 백업으로 설정을 교체하기만 하면 됩니다:
+
+1. 서비스를 중지합니다:
+
+```shell
+rocketpool service stop
+```
+
+1. v1.4.3 CLI를 다운로드합니다:
+
+<div className="p-3">
+  <Tabs>
+    <Tab label="Linux x64">```shell wget https://github.com/rocket-pool/smartnode/releases/download/v1.4.3/rocketpool-cli-linux-amd64 -O ~/bin/rocketpool ```</Tab>
+    <Tab label="Linux arm64">```shell wget https://github.com/rocket-pool/smartnode/releases/download/v1.4.3/rocketpool-cli-linux-arm64 -O ~/bin/rocketpool ```</Tab>
+    <Tab label="Mac x64">```shell curl -L https://github.com/rocket-pool/smartnode/releases/download/v1.4.3/rocketpool-cli-darwin-amd64 > /usr/local/bin/rocketpool ```</Tab>
+    <Tab label="Mac arm64">```shell curl -L https://github.com/rocket-pool/smartnode/releases/download/v1.4.3/rocketpool-cli-darwin-arm64 > /usr/local/bin/rocketpool ```</Tab>
+  </Tabs>
+</div>
+
+1. v1.4.3 패키지를 설치합니다:
+
+```shell
+rocketpool service install -d
+```
+
+1. 이전 구성을 v1.4.3 백업 구성으로 교체합니다:
+
+```shell
+cp ~/.rocketpool/user-settings-backup.yml ~/.rocketpool/user-settings.yml
+```
+
+1. 모든 이전 설정이 현재 사용되고 있는지 확인합니다:
+
+```shell
+rocketpool service config
+```
+
+1. 문제가 없으면 Smartnode 스택을 시작합니다:
+
+```shell
+rocketpool service start
+```
+
+완료되었습니다! 이제 이전 버전으로 돌아갔으며 서비스를 시작한 직후 증명을 시작해야 합니다.
+
+::: danger 경고
+v1.4.3은 **더 이상 사용되지 않으며** Redstone 업데이트가 배포된 후에는 더 이상 사용할 수 없습니다.
+되돌려야 하는 경우 계약이 업데이트되기 전에 v1.5.0으로 다시 업그레이드할 계획을 세우세요!
+:::

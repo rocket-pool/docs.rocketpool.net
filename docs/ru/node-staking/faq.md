@@ -19,7 +19,7 @@
 
 ### Как я могу получить тестовый ETH для экспериментов с созданием и запуском minipool? Я не могу публиковать сообщения в канале faucet.
 
-См. [Получение тестового ETH на Hoodi](../testnet/overview#getting-test-eth-on-hoodi).
+См. [Получение тестового ETH на Hoodi](./testnet/overview#getting-test-eth-on-hoodi).
 
 ### Как восстановить мой узел, если моя машина сломается?
 

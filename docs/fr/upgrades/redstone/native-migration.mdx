@@ -1,0 +1,322 @@
+import { Tab, Tabs } from "@rspress/core/theme";
+
+# [Mode natif] Guide de la mise à jour Redstone et du Merge
+
+Ce guide couvrira tout ce que vous devez savoir pour préparer votre nœud à la mise à jour Redstone et au Merge si vous utilisez le **mode natif**.
+
+## Choses à faire avant la mise à jour vers v1.5.0
+
+Avant de mettre à jour vers la v1.5.0 et les versions supérieures du Smartnode, veuillez parcourir la liste de contrôle suivante pour vous assurer que vous êtes prêt :
+
+### Passer à un client d'exécution complet
+
+Le Merge nécessite que vous exécutiez votre propre client d'exécution, vous ne pourrez donc plus utiliser de fournisseurs distants comme Infura ou Pocket.
+
+En raison de ce changement, si vous utilisez actuellement un client d'exécution léger, vous devriez passer à un client complet pendant que vous êtes encore sur v1.4, le laisser se synchroniser complètement, puis mettre à jour vers v1.5.
+
+### Configurer l'API Engine
+
+Le Merge modifie la façon dont votre client d'exécution communique avec votre client de consensus.
+Au lieu d'utiliser l'ancien système RPC basé sur HTTP ou Websocket, le Merge nécessite un nouveau système exposé par votre client d'exécution appelé l'API Engine.
+
+Il s'agit d'une connexion spéciale qui permet au client de consensus de remplacer l'ancien système de minage Proof-of-Work par Proof-of-Stake ; c'est le cœur du Merge.
+Elle est également **authentifiée** avec un jeton secret, de sorte que seul votre client de consensus peut se connecter à votre client d'exécution - rien d'autre ne le peut.
+
+Comme vous gérez vos propres clients d'exécution et de consensus, vous devrez configurer l'API Engine manuellement.
+La façon de le faire dépend entièrement des clients que vous exécutez.
+
+CoinCashew a [un guide excellent et concis](https://www.coincashew.com/coins/overview-eth/ethereum-merge-upgrade-checklist-for-home-stakers-and-validators) sur la façon de configurer l'API Engine sur vos clients d'exécution et de consensus.
+Jetez-y un œil et testez la nouvelle configuration en vous assurant qu'elle atteste toujours correctement avant de mettre à jour.
+
+Nous vous montrerons comment configurer votre client de validateur afin qu'il utilise automatiquement le destinataire de frais correct requis par le logiciel Smartnode ci-dessous.
+
+## Mise à jour vers v1.5.0
+
+La mise à jour de la pile Smartnode vers v1.5.0 n'est pas différente de toute autre mise à jour.
+Suivez simplement [les instructions normales ici](../../node-staking/updates#updating-the-smartnode-stack).
+
+## Choses à faire après la mise à jour
+
+En mode natif, il y a plusieurs choses que vous devrez faire manuellement après la mise à jour :
+
+### Assurer une mise à jour réussie
+
+La première chose à faire est de s'assurer que votre nœud fonctionne correctement.
+Envisagez de prendre les mesures suivantes :
+
+- Vérifiez vos scripts de journalisation pour le client d'exécution, le client de consensus, le client de validateur et le démon Smartnode (le service `rp-node`) pour vous assurer qu'ils fonctionnent tous normalement sans erreurs.
+- Confirmez avec un explorateur de blocs (tel que votre tableau de bord Grafana et [https://beaconcha.in](https://beaconcha.in)) que vous attestez toujours correctement
+  - N'oubliez pas que si vous avez la protection Doppelganger activée, vous manquerez quelques attestations après le redémarrage. C'est normal !
+
+### Configurer le destinataire de frais dans votre client de validateur
+
+L'un des détails **critiques** à configurer avant le Merge est le **destinataire de frais** spécifié par votre client de validateur.
+Comme décrit dans [l'article de présentation](./whats-new#fee-recipients-and-your-distributor), cela peut être l'une des deux valeurs :
+
+- Si vous **avez opté** pour le Smoothing Pool, cela doit être l'adresse du **contrat Smoothing Pool**. Vous pouvez obtenir l'adresse à partir de [la page officielle des contrats](/fr/overview/contracts-integrations).
+- Si vous n'êtes **pas** dans le Smoothing Pool, cela doit être l'adresse du **contrat de distributeur de frais** de votre nœud. Vous pouvez obtenir l'adresse en exécutant `rocketpool node status`, sous la section `Fee Distributor and Smoothing Pool`.
+
+En mode natif, vous avez le choix de laisser le Smartnode gérer cela pour vous si vous utilisez le service démon Smartnode, `rp-node`, ou de le gérer vous-même si vous n'utilisez pas le démon.
+
+#### Gestion automatique via le démon
+
+Le démon Smartnode déterminera automatiquement le destinataire de frais approprié pour votre nœud et le gérera au cas où il changerait (comme l'adhésion et le désabonnement du Smoothing Pool).
+C'est l'option la **plus sûre**, car le Smartnode s'assurera toujours qu'il est défini sur une valeur qui **empêche la [pénalisation](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)**.
+
+La façon dont il procède est en maintenant un fichier avec le destinataire de frais correct dedans, et en le rafraîchissant régulièrement pour assurer son exactitude.
+Lorsqu'il doit être mis à jour, il modifie le fichier et redémarre automatiquement votre client de validateur afin qu'il charge le nouveau destinataire - de la même manière qu'il redémarre votre client de validateur après avoir staké un nouveau minipool.
+
+Sélectionnez votre client ci-dessous pour apprendre comment le configurer :
+
+<div className="p-3">
+  <Tabs>
+    <Tab label="Lighthouse">
+      Modifiez votre service de client de validateur en ajoutant la ligne suivante _avant_ la ligne `ExecStart` :
+
+      ```
+      EnvironmentFile=`data dir`/validators/rp-fee-recipient-env.txt
+      ```
+
+      Par exemple :
+
+      ```
+      EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
+      ```
+
+      Ensuite, ajoutez l'argument de ligne de commande suivant _à la fin_ de votre ligne `ExecStart` :
+
+      ```
+      --suggested-fee-recipient ${FEE_RECIPIENT}
+      ```
+
+      Votre VC utilisera maintenant le fichier géré par le démon Smartnode et sera automatiquement redémarré chaque fois que le destinataire de frais change.
+    </Tab>
+    <Tab label="Nimbus">
+      Modifiez votre service de client de validateur en ajoutant la ligne suivante _avant_ la ligne `ExecStart` :
+
+      ```
+      EnvironmentFile=`data dir`/validators/rp-fee-recipient-env.txt
+      ```
+
+      Par exemple :
+
+      ```
+      EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
+      ```
+
+      Ensuite, ajoutez l'argument de ligne de commande suivant _à la fin_ de votre ligne `ExecStart` :
+
+      ```
+      --suggested-fee-recipient=${FEE_RECIPIENT}
+      ```
+
+      Votre VC utilisera maintenant le fichier géré par le démon Smartnode et sera automatiquement redémarré chaque fois que le destinataire de frais change.
+    </Tab>
+    <Tab label="Prysm">
+      Modifiez votre service de client de validateur en ajoutant la ligne suivante _avant_ la ligne `ExecStart` :
+
+      ```
+      EnvironmentFile=`data dir`/validators/rp-fee-recipient-env.txt
+      ```
+
+      Par exemple :
+
+      ```
+      EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
+      ```
+
+      Ensuite, ajoutez l'argument de ligne de commande suivant _à la fin_ de votre ligne `ExecStart` :
+
+      ```
+      --suggested-fee-recipient ${FEE_RECIPIENT}
+      ```
+
+      Votre VC utilisera maintenant le fichier géré par le démon Smartnode et sera automatiquement redémarré chaque fois que le destinataire de frais change.
+    </Tab>
+    <Tab label="Teku">
+      Modifiez votre service de client de validateur en ajoutant la ligne suivante _avant_ la ligne `ExecStart` :
+
+      ```
+      EnvironmentFile=`data dir`/validators/rp-fee-recipient-env.txt
+      ```
+
+      Par exemple :
+
+      ```
+      EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
+      ```
+
+      Ensuite, ajoutez l'argument de ligne de commande suivant _à la fin_ de votre ligne `ExecStart` :
+
+      ```
+      --validators-proposer-default-fee-recipient=${FEE_RECIPIENT}
+      ```
+
+      Votre VC utilisera maintenant le fichier géré par le démon Smartnode et sera automatiquement redémarré chaque fois que le destinataire de frais change.
+    </Tab>
+
+  </Tabs>
+</div>
+
+#### Gestion manuelle du destinataire de frais
+
+::: danger AVERTISSEMENT
+En faisant cela, vous assumez l'entière responsabilité de vous assurer que votre destinataire de frais est toujours défini sur la bonne adresse.
+
+Veuillez lire la [spécification des pénalités](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) pour comprendre à quoi il doit être défini en fonction de votre configuration, et quand vous pouvez le changer en toute sécurité d'une valeur à une autre.
+
+Ne pas le faire pourrait entraîner la pénalisation de vos minipools !
+:::
+
+**Avant le déploiement de Redstone**, vous pouvez simplement utiliser l'adresse rETH pour le réseau sur lequel vous vous trouvez (qui peut être trouvée dans [la page officielle des contrats](/fr/overview/contracts-integrations)).
+L'adresse rETH est toujours sûre quoi qu'il arrive.
+
+**Une fois Redstone déployé**, vous pouvez voir l'adresse exacte à laquelle vous devez définir votre destinataire de frais via `rocketpool node status`. Par exemple, si vous avez opté pour le Smoothing Pool, il affichera l'adresse du Smoothing Pool et notera que vous devez l'utiliser comme destinataire de frais :
+
+<img src="../../node-staking/images/native-fee-rc-in.png" width="100%" height="auto" />
+
+Si vous n'avez _pas_ opté pour le Smoothing Pool, il affichera votre adresse de distributeur de frais et notera que vous devez l'utiliser comme destinataire de frais :
+
+<img src="../../node-staking/images/native-fee-rc-out.png" width="100%" height="auto" />
+
+Sélectionnez votre client de consensus ci-dessous pour apprendre comment le configurer.
+
+<div className="p-3">
+  <Tabs>
+    <Tab label="Lighthouse">
+      Ajoutez l'argument de ligne de commande suivant au fichier de définition de service de votre client de validateur :
+
+      ```
+      --suggested-fee-recipient `address`
+      ```
+
+      Où `address` est :
+
+      - L'[adresse rETH](/fr/overview/contracts-integrations/#token-contracts) **avant** le déploiement de la mise à jour Redstone (par exemple, `0xae78736Cd615f374D3085123A210448E74Fc6393` sur Mainnet)
+      - Le **distributeur de frais** de votre nœud après le déploiement de Redstone, que vous pouvez récupérer avec `rocketpool node status` une fois la mise à jour du contrat effectuée
+      - L'[adresse du Smoothing Pool](/fr/overview/contracts-integrations/#protocol-contracts) si vous optez pour le Smoothing Pool
+
+      Pour rappel, `rocketpool node status` vous montrera le destinataire de frais correct à utiliser à tout moment.
+
+      **Veuillez lire attentivement la [spécification des pénalités](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) pour comprendre les conditions et les attentes concernant le destinataire de frais.**
+    </Tab>
+    <Tab label="Nimbus">
+      Ajoutez l'argument de ligne de commande suivant au fichier de définition de service de Nimbus :
+
+      ```
+      --suggested-fee-recipient=`address`
+      ```
+
+      Où `address` est :
+
+      - L'[adresse rETH](/fr/overview/contracts-integrations/#token-contracts) **avant** le déploiement de la mise à jour Redstone (par exemple, `0xae78736Cd615f374D3085123A210448E74Fc6393` sur Mainnet)
+      - Le **distributeur de frais** de votre nœud après le déploiement de Redstone, que vous pouvez récupérer avec `rocketpool node status` une fois la mise à jour du contrat effectuée
+      - L'[adresse du Smoothing Pool](/fr/overview/contracts-integrations/#protocol-contracts) si vous optez pour le Smoothing Pool
+
+      Pour rappel, `rocketpool node status` vous montrera le destinataire de frais correct à utiliser à tout moment.
+
+      **Veuillez lire attentivement la [spécification des pénalités](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) pour comprendre les conditions et les attentes concernant le destinataire de frais.**
+    </Tab>
+    <Tab label="Prysm">
+      Ajoutez l'argument de ligne de commande suivant au fichier de définition de service de votre client de validateur :
+
+      ```
+      --suggested-fee-recipient `address`
+      ```
+
+      Où `address` est :
+
+      - L'[adresse rETH](/fr/overview/contracts-integrations/#token-contracts) **avant** le déploiement de la mise à jour Redstone (par exemple, `0xae78736Cd615f374D3085123A210448E74Fc6393` sur Mainnet)
+      - Le **distributeur de frais** de votre nœud après le déploiement de Redstone, que vous pouvez récupérer avec `rocketpool node status` une fois la mise à jour du contrat effectuée
+      - L'[adresse du Smoothing Pool](/fr/overview/contracts-integrations/#protocol-contracts) si vous optez pour le Smoothing Pool
+
+      Pour rappel, `rocketpool node status` vous montrera le destinataire de frais correct à utiliser à tout moment.
+
+      **Veuillez lire attentivement la [spécification des pénalités](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) pour comprendre les conditions et les attentes concernant le destinataire de frais.**
+    </Tab>
+    <Tab label="Teku">
+      Ajoutez l'argument de ligne de commande suivant au fichier de définition de service de votre client de validateur :
+
+      ```
+      --validators-proposer-default-fee-recipient=`address`
+      ```
+
+      Où `address` est :
+
+      - L'[adresse rETH](/fr/overview/contracts-integrations/#token-contracts) **avant** le déploiement de la mise à jour Redstone (par exemple, `0xae78736Cd615f374D3085123A210448E74Fc6393` sur Mainnet)
+      - Le **distributeur de frais** de votre nœud après le déploiement de Redstone, que vous pouvez récupérer avec `rocketpool node status` une fois la mise à jour du contrat effectuée
+      - L'[adresse du Smoothing Pool](/fr/overview/contracts-integrations/#protocol-contracts) si vous optez pour le Smoothing Pool
+
+      Pour rappel, `rocketpool node status` vous montrera le destinataire de frais correct à utiliser à tout moment.
+
+      **Veuillez lire attentivement la [spécification des pénalités](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) pour comprendre les conditions et les attentes concernant le destinataire de frais.**
+    </Tab>
+
+  </Tabs>
+</div>
+
+### Configurer MEV-Boost
+
+[MEV-boost](https://boost.flashbots.net/) est le système fourni par Flashbots pour donner des récompenses MEV aux validateurs Proof-of-Stake après le Merge.
+
+**Rocket Pool exige que tous les nœuds l'utilisent pour maximiser leurs rendements et ainsi maintenir la compétitivité du protocole avec les autres services de staking.**
+
+Vous devrez apporter quelques ajustements à votre nœud Beacon / client de consensus pour le connecter à MEV-boost.
+
+MEV-boost n'est actuellement pas disponible sur Hoodi ou Mainnet, vous n'avez donc pas besoin de le configurer pour le moment.
+Bien sûr, vous ne serez pas pénalisé pour ne pas l'utiliser pendant cette période de transition.
+
+Une fois qu'il sera disponible, nous annoncerons une date à laquelle il devra être installé et connecté à votre nœud.
+Flashbots fournira des instructions que vous pourrez suivre à ce moment-là, et nous les lierons ici.
+
+::: danger NOTE
+Une fois que nous aurons annoncé que MEV-boost doit être activé par tous les opérateurs de nœuds, vous devez vous assurer que vous l'avez correctement installé et configuré avec votre nœud Beacon !
+
+Ne pas le faire entraînera la [pénalisation](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) de votre minipool.
+:::
+
+### Configurer un nœud de secours
+
+Parce que le Merge n'est pas compatible avec les fournisseurs distants comme Infura et Pocket, vous perdrez la possibilité de les utiliser comme clients d'exécution de secours lorsque votre client principal est hors ligne.
+
+Le Smartnode a toujours la possibilité de fournir un client d'exécution de secours (et maintenant un client de consensus de secours également), mais vous devrez maintenant utiliser des clients d'exécution et de consensus que vous contrôlez.
+
+Pour plus d'informations sur la configuration d'un nœud de secours, consultez le [guide du nœud de secours](../../node-staking/fallback).
+
+### Initialiser votre distributeur de frais
+
+Si vous ne prévoyez pas d'opter pour le [Smoothing Pool](./whats-new#smoothing-pool) et de réclamer tous vos frais prioritaires et récompenses MEV à votre [contrat de distributeur de frais](./whats-new#fee-recipients-and-your-distributor), vous devrez éventuellement l'initialiser (créer l'instance de contrat sur la chaîne) afin de réclamer les récompenses à votre adresse de retrait.
+
+Il s'agit d'une opération assez bon marché qui ne doit être effectuée qu'une seule fois.
+
+::: tip CONSEIL
+L'initialisation de votre distributeur de frais peut être effectuée à **tout moment**.
+Vous pouvez laisser les récompenses s'accumuler à son adresse bien avant de l'initialiser, et votre solde restera après l'initialisation.
+
+Nous vous recommandons de le faire lorsque les prix du gaz sont bas pour minimiser le coût supplémentaire.
+
+Notez qu'il **doit être initialisé pour réclamer vos récompenses.**
+:::
+
+### Opter pour le Smoothing Pool
+
+Si vous prévoyez de profiter du [Smoothing Pool](./whats-new#smoothing-pool) immédiatement, vous devriez opter avant la fin de la première période de récompenses Redstone pour maximiser votre montant d'« éligibilité ».
+
+L'adhésion peut être effectuée en exécutant la commande suivante :
+
+```shell
+rocketpool node join-smoothing-pool
+```
+
+### Réclamer les récompenses
+
+La mise à jour Redstone remplace l'ancien système de récompenses coûteux et problématique par un [tout nouveau système](./whats-new#new-rewards-system) qui est beaucoup moins cher, prend en charge le restaking automatique de RPL (montants partiels et complets), et - plus important encore - **vous permet de réclamer vos récompenses quand vous le souhaitez**.
+
+Comme il n'y a plus de limite de temps pour réclamer les récompenses, et parce qu'il est moins cher de réclamer de nombreux intervalles de récompenses en une seule fois, la fonctionnalité de réclamation automatique des récompenses du Smartnode **a été supprimée**.
+Vous pourrez maintenant réclamer les récompenses via la commande suivante :
+
+```shell
+rocketpool node claim-rewards
+```
+
+Cela vous montrera toutes les récompenses que vous avez accumulées à travers tous les intervalles de récompenses à partir de la mise à jour Redstone.

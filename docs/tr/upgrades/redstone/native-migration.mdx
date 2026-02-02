@@ -1,0 +1,322 @@
+import { Tab, Tabs } from "@rspress/core/theme";
+
+# [Native Mod] Redstone Güncellemesi ve Birleşme Rehberi
+
+Bu rehber, **Native Mod** kullanıyorsanız düğümünüzü Redstone Güncellemesi ve Birleşme için hazırlamak üzere bilmeniz gereken her şeyi kapsayacaktır.
+
+## v1.5.0'a Yükseltmeden Önce Yapılacaklar
+
+Smartnode'un v1.5.0 ve üzeri sürümlerine yükseltmeden önce, hazırlıklı olduğunuzdan emin olmak için lütfen aşağıdaki kontrol listesini gözden geçirin:
+
+### Tam Execution Client'a Geçiş
+
+Birleşme, kendi Execution client'ınızı çalıştırmanızı gerektirir, bu nedenle artık Infura veya Pocket gibi uzak sağlayıcıları kullanamayacaksınız.
+
+Bu değişiklik nedeniyle, şu anda hafif bir Execution client kullanıyorsanız, v1.4'teyken tam bir client'a geçmeli, senkronizasyonunun tamamlanmasını beklemelisiniz ve ardından v1.5'e yükseltmelisiniz.
+
+### Engine API'yi Ayarlayın
+
+Birleşme, Execution client'ınızın Consensus client'ınızla konuşma şeklini değiştirir.
+Eski HTTP veya Websocket tabanlı RPC sistemini kullanmak yerine, Birleşme Execution client'ınız tarafından sunulan Engine API adlı yeni bir sistem gerektirir.
+
+Bu, Consensus client'ın eski Proof-of-Work madencilik sistemini Proof-of-Stake ile değiştirmesine izin veren özel bir bağlantıdır; Birleşme'nin kalbidir.
+Ayrıca gizli bir token ile **kimlik doğrulamalıdır**, böylece yalnızca Consensus client'ınız Execution client'ınıza bağlanabilir - başka hiçbir şey bağlanamaz.
+
+Kendi Execution ve Consensus client'larınızı yönettiğiniz için, Engine API'yi manuel olarak ayarlamanız gerekecektir.
+Bunu nasıl yapacağınız tamamen hangi client'ları çalıştırdığınıza bağlıdır.
+
+CoinCashew, Execution ve Consensus client'larınızda Engine API'nin nasıl kurulacağına dair [harika ve özlü bir rehbere](https://www.coincashew.com/coins/overview-eth/ethereum-merge-upgrade-checklist-for-home-stakers-and-validators) sahiptir.
+Ona bir göz atın ve yükseltmeden önce yeni yapılandırmayı test edin ve hala düzgün şekilde onay verdiğinden emin olun.
+
+Validator client'ınızı Smartnode yazılımının otomatik olarak gerektirdiği doğru fee recipient'ı kullanacak şekilde nasıl kuracağınızı aşağıda göstereceğiz.
+
+## v1.5.0'a Yükseltme
+
+Smartnode stack'ini v1.5.0'a yükseltmek, diğer yükseltmelerden farklı değildir.
+Sadece [buradaki normal talimatları](../../node-staking/updates#updating-the-smartnode-stack) izleyin.
+
+## Yükseltme Sonrası Yapmanız Gerekenler
+
+Native modda, yükseltme sonrasında manuel olarak yapmanız gereken birkaç şey vardır:
+
+### Başarılı Bir Yükseltme Sağlayın
+
+Yapılacak ilk şey düğümünüzün doğru çalıştığından emin olmaktır.
+Aşağıdaki adımları atmayı düşünün:
+
+- Execution client, Consensus client, Validator client ve Smartnode daemon (`rp-node` servisi) için log scriptlerinizi kontrol ederek hepsinin hatasız normal şekilde çalıştığından emin olun.
+- Bir Block Explorer (Grafana panonuz ve [https://beaconcha.in](https://beaconcha.in) gibi) ile hala düzgün şekilde onay verdiğinizi doğrulayın
+  - Doppelganger koruması etkinse, yeniden başlatmadan sonra birkaç onayı kaçıracağınızı unutmayın. Bu normaldir!
+
+### Validator Client'ınızda Fee Recipient'ı Ayarlayın
+
+Birleşme öncesinde kurulması gereken **kritik** detaylardan biri, validator client'ınız tarafından belirtilen **fee recipient**tır.
+[Genel bakış makalesinde](./whats-new#fee-recipients-and-your-distributor) açıklandığı gibi, bu iki değerden biri olabilir:
+
+- Smoothing Pool'a **katıldıysanız**, bu **Smoothing Pool sözleşmesinin** adresi olmalıdır. Adresi [resmi sözleşmeler sayfasından](/tr/overview/contracts-integrations) alabilirsiniz.
+- Smoothing Pool'da **değilseniz**, bu düğümünüzün **fee distributor sözleşmesinin** adresi olmalıdır. Adresi `rocketpool node status` komutunu çalıştırarak, `Fee Distributor and Smoothing Pool` bölümünde görebilirsiniz.
+
+Native modda, Smartnode daemon servisi `rp-node`'u kullanırsanız Smartnode'un bunu sizin için yönetmesine izin verme veya daemon'u kullanmazsanız kendiniz yönetme seçeneğiniz vardır.
+
+#### Daemon Üzerinden Otomatik Yönetim
+
+Smartnode daemon, düğümünüz için uygun fee recipient'ı otomatik olarak belirleyecek ve değişmesi durumunda yönetecektir (Smoothing Pool'a katılma ve çıkma gibi).
+Bu **en güvenli** seçenektir, çünkü Smartnode her zaman [cezalandırmayı](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) **önleyen** bir değere ayarlandığından emin olacaktır.
+
+Bunu yapma şekli, içinde doğru fee recipient'ın bulunduğu bir dosyayı sürdürmek ve doğruluğunu sağlamak için düzenli olarak yenilemektir.
+Güncellenmesi gerektiğinde, dosyayı değiştirir ve Validator client'ınızı yeni alıcıyı yüklemesi için otomatik olarak yeniden başlatır - yeni bir minipool stake ettikten sonra Validator client'ınızı yeniden başlatmasına benzer şekilde.
+
+Nasıl kuracağınızı öğrenmek için aşağıdan client'ınızı seçin:
+
+<div className="p-3">
+  <Tabs>
+    <Tab label="Lighthouse">
+      Validator Client servisinizi, `ExecStart` satırından _önce_ aşağıdaki satırı ekleyerek değiştirin:
+
+      ```
+      EnvironmentFile=`data dir`/validators/rp-fee-recipient-env.txt
+      ```
+
+      Örneğin:
+
+      ```
+      EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
+      ```
+
+      Ardından, `ExecStart` satırınızın _sonuna_ aşağıdaki komut satırı argümanını ekleyin:
+
+      ```
+      --suggested-fee-recipient ${FEE_RECIPIENT}
+      ```
+
+      VC'niz artık Smartnode daemon tarafından yönetilen dosyayı kullanacak ve fee recipient her değiştiğinde otomatik olarak yeniden başlatılacaktır.
+    </Tab>
+    <Tab label="Nimbus">
+      Validator Client servisinizi, `ExecStart` satırından _önce_ aşağıdaki satırı ekleyerek değiştirin:
+
+      ```
+      EnvironmentFile=`data dir`/validators/rp-fee-recipient-env.txt
+      ```
+
+      Örneğin:
+
+      ```
+      EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
+      ```
+
+      Ardından, `ExecStart` satırınızın _sonuna_ aşağıdaki komut satırı argümanını ekleyin:
+
+      ```
+      --suggested-fee-recipient=${FEE_RECIPIENT}
+      ```
+
+      VC'niz artık Smartnode daemon tarafından yönetilen dosyayı kullanacak ve fee recipient her değiştiğinde otomatik olarak yeniden başlatılacaktır.
+    </Tab>
+    <Tab label="Prysm">
+      Validator Client servisinizi, `ExecStart` satırından _önce_ aşağıdaki satırı ekleyerek değiştirin:
+
+      ```
+      EnvironmentFile=`data dir`/validators/rp-fee-recipient-env.txt
+      ```
+
+      Örneğin:
+
+      ```
+      EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
+      ```
+
+      Ardından, `ExecStart` satırınızın _sonuna_ aşağıdaki komut satırı argümanını ekleyin:
+
+      ```
+      --suggested-fee-recipient ${FEE_RECIPIENT}
+      ```
+
+      VC'niz artık Smartnode daemon tarafından yönetilen dosyayı kullanacak ve fee recipient her değiştiğinde otomatik olarak yeniden başlatılacaktır.
+    </Tab>
+    <Tab label="Teku">
+      Validator Client servisinizi, `ExecStart` satırından _önce_ aşağıdaki satırı ekleyerek değiştirin:
+
+      ```
+      EnvironmentFile=`data dir`/validators/rp-fee-recipient-env.txt
+      ```
+
+      Örneğin:
+
+      ```
+      EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
+      ```
+
+      Ardından, `ExecStart` satırınızın _sonuna_ aşağıdaki komut satırı argümanını ekleyin:
+
+      ```
+      --validators-proposer-default-fee-recipient=${FEE_RECIPIENT}
+      ```
+
+      VC'niz artık Smartnode daemon tarafından yönetilen dosyayı kullanacak ve fee recipient her değiştiğinde otomatik olarak yeniden başlatılacaktır.
+    </Tab>
+
+  </Tabs>
+</div>
+
+#### Manuel Fee Recipient Yönetimi
+
+::: danger UYARI
+Bunu yaparak, fee recipient'ınızın her zaman doğru adrese ayarlandığından emin olma sorumluluğunu tam olarak üstleniyorsunuz.
+
+Lütfen yapılandırmanıza göre neye ayarlanması gerektiğini ve ne zaman bir değerden diğerine güvenle değiştirebileceğinizi anlamak için [ceza şartnamesini](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) okuyun.
+
+Bunu yapmamanız minipool'larınızın cezalandırılmasına neden olabilir!
+:::
+
+**Redstone dağıtılmadan önce**, üzerinde bulunduğunuz ağ için rETH adresini kullanabilirsiniz ([resmi sözleşmeler sayfasında](/tr/overview/contracts-integrations) bulunabilir).
+rETH adresi ne olursa olsun her zaman güvenlidir.
+
+**Redstone dağıtıldıktan sonra**, `rocketpool node status` aracılığıyla fee recipient'ınızı ayarlamanız gereken tam adresi görebilirsiniz. Örneğin, Smoothing Pool'a katıldıysanız, Smoothing Pool'un adresini gösterecek ve bunu fee recipient olarak kullanmanız gerektiğini belirtecektir:
+
+<img src="../../node-staking/images/native-fee-rc-in.png" width="100%" height="auto" />
+
+Smoothing Pool'a katılma_dıysanız_, fee distributor adresinizi gösterecek ve bunu fee recipient olarak kullanmanız gerektiğini belirtecektir:
+
+<img src="../../node-staking/images/native-fee-rc-out.png" width="100%" height="auto" />
+
+Nasıl yapılandıracağınızı öğrenmek için aşağıdan Consensus client'ınızı seçin.
+
+<div className="p-3">
+  <Tabs>
+    <Tab label="Lighthouse">
+      Validator Client'ınızın servis tanım dosyasına aşağıdaki komut satırı argümanını ekleyin:
+
+      ```
+      --suggested-fee-recipient `address`
+      ```
+
+      `address` şunlardan biridir:
+
+      - Redstone güncellemesi dağıtılmadan **önce** [rETH adresi](/tr/overview/contracts-integrations/#token-contracts) (örneğin, Mainnet'te `0xae78736Cd615f374D3085123A210448E74Fc6393`)
+      - Redstone dağıtıldıktan sonra düğümünüzün **fee distributor**'ı, sözleşme yükseltmesi gerçekleştikten sonra `rocketpool node status` ile alabileceğiniz
+      - Smoothing Pool'a katılırsanız [Smoothing Pool adresi](/tr/overview/contracts-integrations/#protocol-contracts)
+
+      Hatırlatma olarak, `rocketpool node status` her zaman kullanmanız gereken doğru fee recipient'ı gösterecektir.
+
+      **Lütfen fee recipient etrafındaki koşulları ve beklentileri anlamak için [ceza şartnamesini](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) dikkatlice okuyun.**
+    </Tab>
+    <Tab label="Nimbus">
+      Nimbus'un servis tanım dosyasına aşağıdaki komut satırı argümanını ekleyin:
+
+      ```
+      --suggested-fee-recipient=`address`
+      ```
+
+      `address` şunlardan biridir:
+
+      - Redstone güncellemesi dağıtılmadan **önce** [rETH adresi](/tr/overview/contracts-integrations/#token-contracts) (örneğin, Mainnet'te `0xae78736Cd615f374D3085123A210448E74Fc6393`)
+      - Redstone dağıtıldıktan sonra düğümünüzün **fee distributor**'ı, sözleşme yükseltmesi gerçekleştikten sonra `rocketpool node status` ile alabileceğiniz
+      - Smoothing Pool'a katılırsanız [Smoothing Pool adresi](/tr/overview/contracts-integrations/#protocol-contracts)
+
+      Hatırlatma olarak, `rocketpool node status` her zaman kullanmanız gereken doğru fee recipient'ı gösterecektir.
+
+      **Lütfen fee recipient etrafındaki koşulları ve beklentileri anlamak için [ceza şartnamesini](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) dikkatlice okuyun.**
+    </Tab>
+    <Tab label="Prysm">
+      Validator Client'ınızın servis tanım dosyasına aşağıdaki komut satırı argümanını ekleyin:
+
+      ```
+      --suggested-fee-recipient `address`
+      ```
+
+      `address` şunlardan biridir:
+
+      - Redstone güncellemesi dağıtılmadan **önce** [rETH adresi](/tr/overview/contracts-integrations/#token-contracts) (örneğin, Mainnet'te `0xae78736Cd615f374D3085123A210448E74Fc6393`)
+      - Redstone dağıtıldıktan sonra düğümünüzün **fee distributor**'ı, sözleşme yükseltmesi gerçekleştikten sonra `rocketpool node status` ile alabileceğiniz
+      - Smoothing Pool'a katılırsanız [Smoothing Pool adresi](/tr/overview/contracts-integrations/#protocol-contracts)
+
+      Hatırlatma olarak, `rocketpool node status` her zaman kullanmanız gereken doğru fee recipient'ı gösterecektir.
+
+      **Lütfen fee recipient etrafındaki koşulları ve beklentileri anlamak için [ceza şartnamesini](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) dikkatlice okuyun.**
+    </Tab>
+    <Tab label="Teku">
+      Validator Client'ınızın servis tanım dosyasına aşağıdaki komut satırı argümanını ekleyin:
+
+      ```
+      --validators-proposer-default-fee-recipient=`address`
+      ```
+
+      `address` şunlardan biridir:
+
+      - Redstone güncellemesi dağıtılmadan **önce** [rETH adresi](/tr/overview/contracts-integrations/#token-contracts) (örneğin, Mainnet'te `0xae78736Cd615f374D3085123A210448E74Fc6393`)
+      - Redstone dağıtıldıktan sonra düğümünüzün **fee distributor**'ı, sözleşme yükseltmesi gerçekleştikten sonra `rocketpool node status` ile alabileceğiniz
+      - Smoothing Pool'a katılırsanız [Smoothing Pool adresi](/tr/overview/contracts-integrations/#protocol-contracts)
+
+      Hatırlatma olarak, `rocketpool node status` her zaman kullanmanız gereken doğru fee recipient'ı gösterecektir.
+
+      **Lütfen fee recipient etrafındaki koşulları ve beklentileri anlamak için [ceza şartnamesini](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) dikkatlice okuyun.**
+    </Tab>
+
+  </Tabs>
+</div>
+
+### MEV-Boost'u Ayarlayın
+
+[MEV-boost](https://boost.flashbots.net/), Flashbots'un Birleşme sonrası Proof-of-Stake validator'lara MEV ödülleri sağlamak için sunduğu sistemdir.
+
+**Rocket Pool, protokolü diğer staking hizmetleriyle rekabetçi tutmak için getirilerini maksimize etmek adına tüm düğümlerin bunu kullanmasını gerektirir.**
+
+Beacon Node / Consensus client'ınızı MEV-boost'a bağlamak için bazı ayarlamalar yapmanız gerekecektir.
+
+MEV-boost şu anda Hoodi veya Mainnet'te mevcut değildir, bu nedenle şu anda kurmanıza gerek yoktur.
+Tabii ki, bu geçiş dönemi boyunca kullanmadığınız için cezalandırılmayacaksınız.
+
+Kullanılabilir hale geldiğinde, düğümünüze kurulması ve bağlanması gereken bir tarih duyuracağız.
+Flashbots o zaman takip edebileceğiniz talimatlar sağlayacak ve biz de onları buraya bağlayacağız.
+
+::: danger NOT
+Tüm düğüm operatörleri tarafından MEV-boost'un etkinleştirilmesi gerektiğini duyurduğumuzda, Beacon Node'unuza düzgün şekilde kurulmuş ve yapılandırılmış olduğundan emin olmalısınız!
+
+Bunu yapmamanız minipool'unuzun [cezalandırılması](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) ile sonuçlanacaktır.
+:::
+
+### Fallback Düğümü Ayarlayın
+
+Birleşme, Infura ve Pocket gibi uzak sağlayıcılarla uyumlu olmadığı için, birincil düğümünüz çevrimdışı olduğunda onları fallback Execution client olarak kullanma yeteneğinizi kaybedeceksiniz.
+
+Smartnode hala fallback Execution client (ve artık fallback Consensus client) sağlama yeteneğine sahiptir, ancak artık kontrol ettiğiniz Execution ve Consensus client'larını kullanmanız gerekecektir.
+
+Fallback düğümü kurma hakkında daha fazla bilgi için [Fallback düğümü rehberine](../../node-staking/fallback) bakın.
+
+### Fee Distributor'ınızı Başlatın
+
+[Smoothing Pool'a](./whats-new#smoothing-pool) katılmayı planlamıyorsanız ve tüm öncelik ücretlerinizi ve MEV ödüllerinizi [fee distributor sözleşmenize](./whats-new#fee-recipients-and-your-distributor) talep edecekseniz, sonunda ödüllerinizi çekim adresinize talep edebilmek için onu başlatmanız (zincirde sözleşme örneğini oluşturmanız) gerekecektir.
+
+Bu oldukça ucuz bir işlemdir ve yalnızca bir kez yapılması gerekir.
+
+::: tip İPUCU
+Fee distributor'ınızı başlatmak **herhangi bir zamanda** yapılabilir.
+Ödüllerin adresinde başlatmadan uzun süre önce birikmesine izin verebilirsiniz ve bakiyeniz başlatma sonrasında kalacaktır.
+
+Genel gider maliyetini en aza indirmek için gas fiyatları düşükken yapmanızı öneririz.
+
+**Ödüllerinizi talep edebilmek için başlatılmış olması gerektiğini** unutmayın.
+:::
+
+### Smoothing Pool'a Katılın
+
+[Smoothing Pool'dan](./whats-new#smoothing-pool) hemen yararlanmayı planlıyorsanız, "uygunluk" miktarınızı maksimize etmek için ilk Redstone ödül döneminin sonundan önce katılmalısınız.
+
+Katılım, aşağıdaki komutu çalıştırarak yapılabilir:
+
+```shell
+rocketpool node join-smoothing-pool
+```
+
+### Ödülleri Talep Edin
+
+Redstone yükseltmesi, pahalı, sorunlu eski ödül sistemini çok daha ucuz olan, RPL'nin otomatik yeniden stake edilmesini destekleyen (hem kısmi hem de tam miktarlar) ve - en önemlisi - **ödüllerinizi istediğiniz zaman talep etmenize izin veren** [yepyeni bir sistemle](./whats-new#new-rewards-system) değiştirir.
+
+Artık ödülleri talep etmek için zaman sınırı olmadığından ve birçok ödül aralığını bir kerede talep etmek daha ucuz olduğundan, Smartnode'un otomatik ödül talep etme özelliği **kaldırılmıştır**.
+Artık ödülleri aşağıdaki komut aracılığıyla talep edebileceksiniz:
+
+```shell
+rocketpool node claim-rewards
+```
+
+Bu, Redstone yükseltmesinden başlayarak tüm ödül aralıkları boyunca biriktirdiğiniz tüm ödülleri gösterecektir.

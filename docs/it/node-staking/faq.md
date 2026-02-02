@@ -19,7 +19,7 @@ Se questo non aiuta, puoi fare la tua domanda sul canale **#support** di Rocket 
 
 ### Come posso ottenere ETH di test per sperimentare con la creazione e l'esecuzione di un minipool? Non posso pubblicare messaggi sul canale faucet.
 
-Vedi [Ottenere ETH di test su Hoodi](../testnet/overview#getting-test-eth-on-hoodi).
+Vedi [Ottenere ETH di test su Hoodi](./testnet/overview#getting-test-eth-on-hoodi).
 
 ### Come recupero il mio nodo se la mia macchina si rompe?
 

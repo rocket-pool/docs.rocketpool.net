@@ -19,7 +19,7 @@ rETH 토큰은 리베이스되지 않습니다.
 
 ### minipool을 생성하고 운영하는 실험을 위해 테스트 ETH를 어떻게 얻을 수 있습니까? faucet 채널에 메시지를 게시할 수 없습니다.
 
-[Hoodi에서 테스트 ETH 받기](../testnet/overview#getting-test-eth-on-hoodi)를 참조하세요.
+[Hoodi에서 테스트 ETH 받기](./testnet/overview#getting-test-eth-on-hoodi)를 참조하세요.
 
 ### 기기가 고장 나면 노드를 어떻게 복구합니까?
 

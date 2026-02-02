@@ -19,7 +19,7 @@ Wenn das nicht hilft, können Sie Ihre Frage im **#support**-Kanal von Rocket Po
 
 ### Wie kann ich Test-ETH bekommen, um mit der Erstellung und dem Betrieb eines Minipools zu experimentieren? Ich kann keine Nachrichten im Faucet-Kanal posten.
 
-Siehe [Test-ETH auf Hoodi erhalten](../testnet/overview#getting-test-eth-on-hoodi).
+Siehe [Test-ETH auf Hoodi erhalten](./testnet/overview#getting-test-eth-on-hoodi).
 
 ### Wie kann ich meinen Node wiederherstellen, wenn meine Maschine kaputt geht?
 

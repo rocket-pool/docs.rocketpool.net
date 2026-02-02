@@ -19,7 +19,7 @@ Bu yardımcı olmazsa, sorunuzu [Discord sunucusundaki](https://discord.gg/rocke
 
 ### Bir minipool oluşturma ve çalıştırma konusunda denemeler yapmak için test ETH'sini nasıl alabilirim? Faucet kanalına mesaj gönderemiyorum.
 
-[Hoodi'de test ETH alma](../testnet/overview#getting-test-eth-on-hoodi) bölümüne bakın.
+[Hoodi'de test ETH alma](./testnet/overview#getting-test-eth-on-hoodi) bölümüne bakın.
 
 ### Makinem bozulursa düğümümü nasıl kurtarırım?
 

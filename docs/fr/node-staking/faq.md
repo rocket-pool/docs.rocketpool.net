@@ -19,7 +19,7 @@ Si cela ne vous aide pas, vous pouvez poser votre question sur le canal **#suppo
 
 ### Comment puis-je obtenir de l'ETH de test pour expérimenter la création et l'exécution d'un minipool ? Je ne peux pas publier de messages sur le canal faucet.
 
-Voir [Obtenir de l'ETH de test sur Hoodi](../testnet/overview#getting-test-eth-on-hoodi).
+Voir [Obtenir de l'ETH de test sur Hoodi](./testnet/overview#getting-test-eth-on-hoodi).
 
 ### Comment récupérer mon nœud si ma machine tombe en panne ?
 

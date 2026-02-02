@@ -19,7 +19,7 @@ rETH 代币不会重新调整基数。
 
 ### 如何获取测试 ETH 来试验创建和运行 minipool?我无法在水龙头频道发布消息。
 
-请参阅[在 Hoodi 上获取测试 ETH](../testnet/overview#getting-test-eth-on-hoodi)。
+请参阅[在 Hoodi 上获取测试 ETH](./testnet/overview#getting-test-eth-on-hoodi)。
 
 ### 如果我的机器损坏,如何恢复我的节点?
 
