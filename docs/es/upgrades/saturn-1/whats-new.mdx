@@ -1,3 +1,108 @@
-# The Saturn 1 Upgrade
+# La Actualización Saturn 1
 
-Coming soon.
+¡Bienvenido! Esta página sirve como introducción a las características clave incluidas en la última actualización de Rocket Pool. Saturn 1 representa la actualización de protocolo más significativa en la historia de Rocket Pool, transformando fundamentalmente la capacidad, economía y posicionamiento competitivo del protocolo en el ecosistema de liquid staking.
+
+1. **Escalabilidad**: Elimina las restricciones de capacidad, permitiendo a los node operators ejecutar más validators y al protocolo satisfacer una mayor demanda de rETH,
+2. **Flexibilidad y competitividad**: Las estructuras de comisión ajustables permiten optimizar las ganancias de los node operators a medida que evolucionan las condiciones del mercado,
+3. **Sostenibilidad**: Una tokenomics mejorada de RPL crea una alineación más fuerte entre el éxito del protocolo y las recompensas de los node operators
+
+## Saturn 0
+
+[La actualización Saturn 0](/es/upgrades/saturn-0/whats-new) fue el precursor de Saturn 1. Se desplegó el 28 de octubre de 2024, marcando el primer salto hacia los objetivos generales de desarrollo de Saturn. Esta actualización habilitó los minipools solo de ETH mediante el ajuste de los parámetros del protocolo a través del [DAO on-chain](/es/pdao/overview) de Rocket Pool. Además, todo el RPL stakeado se volvió elegible para recompensas de RPL ya que se eliminó el requisito de colateral del 10%.
+
+El resto de esta página cubrirá las características incluidas en Saturn 1.
+
+## Saturn 1: Presentación de los Megapools
+
+Los [Megapools](https://rpips.rocketpool.net/RPIPs/RPIP-43) se presentan en la actualización Saturn 1. Si eres un Node Operator veterano de Rocket Pool, sabrás que cada validator minipool es gestionado por un contrato inteligente minipool individual.
+Un megapool es un único contrato inteligente por node operator que sirve como dirección de retiro de Ethereum para múltiples validators.
+
+El costo de gas continuo e inicial de gestionar múltiples validators y distribuir recompensas es significativamente menor cuando se utiliza un único contrato megapool en comparación con el uso de múltiples contratos minipool.
+Los depósitos de minipools legacy están deshabilitados y los node operators pueden migrar sus validators minipool a un megapool.
+En general, los megapools deberían mejorar la experiencia de los node operators y la sostenibilidad a largo plazo de Rocket Pool.
+
+
+El contrato delegado sirve como dirección de retiro de Ethereum y gestiona las actividades de los validators. Los node operators actualmente pueden elegir actualizar o permanecer con los mismos delegados minipool, lo que dificulta el diseño de futuras actualizaciones. La Actualización Saturn 1 introduce las [Actualizaciones Forzadas de Delegados](https://rpips.rocketpool.net/RPIPs/RPIP-47), permitiendo al protocolo iterar de manera más eficiente. Las actualizaciones forzadas de delegados en los contratos megapool significan que el protocolo de Rocket Pool no se verá obstaculizado por la compatibilidad con versiones anteriores al diseñar futuras actualizaciones, y da al pDAO más flexibilidad para mejorar Rocket Pool con el tiempo.
+
+## Requisitos de bond más bajos
+
+Los megapools reducen los costos operativos, permitiendo a Rocket Pool reducir el requisito de bond por validator de 8 ETH a 4 ETH.
+Bonds de ETH más bajos permiten que la misma cantidad de ETH bonded soporte un mayor volumen de rETH y mejoran la eficiencia de capital de Rocket Pool. En otras palabras, bonds más bajos permiten más comisión por ETH bonded.
+
+
+| Tipo de Validator | Bond Requerido | ETH Protocolo Matched | Tasa de Comisión | Comisión por ETH Bonded |
+|-------------------|----------------|----------------------|-----------------|---------------------------|
+| 8 ETH Minipool | 8 ETH         | 24 ETH              | 5%              | 15%                       |
+| 4 ETH Megapool | 4 ETH         | 28 ETH              | 5%              | **35%** (mejora de 2.3x)|
+
+El requisito de bond es un parámetro ajustable por el pDAO en Saturn 1.
+Esto prepara el terreno para la futura actualización de Rocket Pool, Saturn 2, que planifica bonds de 4 ETH para los primeros dos validators y luego bonds de 1.5 ETH para cada validator subsiguiente.
+Consulta [RPIP-42: Bond curves](https://rpips.rocketpool.net/RPIPs/RPIP-42) para profundizar en los detalles.
+
+## Participación en los ingresos de RPL
+En Saturn 1, RPL se convierte en un token de participación en ingresos con acumulación de ETH. Los node operators con RPL elegible para voto stakeado en su megapool obtienen una parte de los ingresos de ETH proporcional a su RPL stakeado. La siguiente sección explica cómo funciona esta distribución de ingresos.
+
+## Universal Adjustable Revenue Split (UARS)
+
+Saturn 1 introduce el [Universal Adjustable Revenue Split (UARS)](https://rpips.rocketpool.net/RPIPs/RPIP-46), un nuevo sistema ajustable para distribuir los ingresos de ETH del protocolo provenientes de las comisiones de los node operators. Esta adaptabilidad permite a Rocket Pool ser competitivo a medida que cambian las condiciones del mercado.
+
+UARS divide los ingresos de ETH entre cuatro grupos. Cada participación es ajustable mediante la gobernanza del pDAO:
+- Comisión base para node operators (5%)
+- Recompensas por participación de voto para stakers de RPL (9%)
+- Participación del pDAO para la tesorería del protocolo (0%, ajustable mediante gobernanza)
+- Los poseedores de rETH reciben el resto
+
+Cada node operator recibe una participación de voto basada en su proporción de RPL elegible para voto stakeado en su megapool.
+En Saturn 1, las recompensas por inflación de RPL continúan junto con este nuevo mecanismo de participación de voto, proporcionando incentivos adicionales para los node operators que stakean RPL.
+
+## Mecánicas de depósito rediseñadas
+
+La Actualización Saturn 1 incluye algunos cambios notables en cómo se maneja la cola de depósitos para la creación de validators. En caso de una cola de depósitos larga, los node operators que deseen retirar su depósito de la cola pueden hacerlo a cambio de rETH.
+
+La cola de depósitos mejorada presenta dos tipos de colas: cola estándar y cola express. La cola express procesa depósitos a un ritmo más rápido, pero requiere un ticket de cola express para cada depósito de validator. Esta estructura recompensa a los node operators existentes y facilita la incorporación de nuevos node operators. También ayuda en la migración de minipools a megapools.
+
+Los node operators existentes reciben tickets de cola express basados en su ETH bonded en minipools legacy: un ticket por cada 4 ETH bonded.
+Por ejemplo, un node operator con un minipool legacy de 8 ETH obtiene 2 tickets de cola express. Esto es suficiente para migrar completamente a dos validators megapool de 4 ETH usando la cola express.
+[RPIP-59: Deposit Mechanics](https://rpips.rocketpool.net/RPIPs/RPIP-59#deposit-queue) entra en los detalles de cómo se manejan los depósitos.
+
+## Parámetros de protección oDAO y pDAO
+
+Además de los parámetros de participación en ingresos, se incluyen algunos parámetros de protección (controlables por el pDAO) en Saturn 1 para reducir las suposiciones de confianza hacia la oracle DAO y la protocolo DAO.
+Estas protecciones sirven para mejorar la seguridad sin interferir con el uso legítimo.
+- [RPIP-58: MEV Penalty Guardrail](https://rpips.rocketpool.net/RPIPs/RPIP-58): establece un límite en el número de penalizaciones MEV que la oDAO puede aplicar a los minipools por semana.
+- [RPIP-61: Balance Submission Guardrail](https://rpips.rocketpool.net/RPIPs/RPIP-61): durante la operación normal, la tasa de cambio de rETH no necesita cambiar frecuentemente. RPIP-61 establece un límite en la frecuencia con la que la oDAO puede cambiar la tasa de cambio de rETH.
+- [RPIP-60: Protocol Upgrade Guardrails](https://rpips.rocketpool.net/RPIPs/RPIP-60): introduce un retraso entre el momento en que se aprueba una actualización del protocolo y el momento en que se ejecuta. RPIP-60 permite a los usuarios tiempo suficiente para salir del protocolo si cambia de una manera con la que no están de acuerdo. También otorga al consejo de seguridad el poder de vetar una actualización del protocolo.
+
+## Liquidez de rETH
+
+Actualmente, el ETH de los mints de rETH fluye hacia el Deposit Pool para estar disponible para el matching de los node operators. En Saturn 1, una proporción del ETH de los nuevos mints de rETH fluirá hacia el contrato rETH en lugar del Deposit Pool. El ETH excedente por encima de un umbral de buffer del 1% del TVL de rETH fluirá hacia el Deposit Pool. Este cambio sirve para priorizar la liquidez de retiro de rETH minimizando la creación de oferta adicional y permitiendo que los burns de rETH reflejen mejor la demanda. Un análisis más detallado de la justificación y cómo se determina el tamaño del buffer se encuentra aquí: [RPIP-65: Prioritize rETH Withdrawal Buffer](https://rpips.rocketpool.net/RPIPs/RPIP-65)
+
+## Auditorías
+
+Rocket Pool está comprometido con garantizar la seguridad del protocolo. Saturn 1 ha sido sometido a múltiples rondas de auditorías integrales con equipos líderes del ecosistema Ethereum.
+Los informes finales de auditoría para Saturn 1 se encuentran a continuación:
+
+- [Cantina](https://rocketpool.net/files/audits/cantina-audit-saturn-1.pdf)
+- [Bailsec](https://rocketpool.net/files/audits/bailsec-audit-saturn-1.pdf)
+- [Sigma Prime](https://rocketpool.net/files/audits/sigma-prime-audit-saturn-1.pdf)
+
+Para un historial completo de auditorías, visita la página de [Seguridad del Protocolo](https://rocketpool.net/protocol/security).
+Rocket Pool también mantiene un [programa activo de bug bounty en Immunefi](https://immunefi.com/bug-bounty/rocketpool/information/) con recompensas de hasta $500,000 por vulnerabilidades críticas.
+
+## Guía del Node Operator
+Si estás interesado en ejecutar un nodo de Rocket Pool para crear tus propios validators de Ethereum, consulta nuestra [guía del Node Operator](/es/node-staking/responsibilities).
+Esta es una guía muy completa que cubre todas las consideraciones involucradas en la operación de un nodo, incluyendo:
+
+- Decidir si ejecutar un nodo localmente en casa o remotamente en la nube
+- Seleccionar el hardware para una máquina local o seleccionar un proveedor de hosting remoto
+- Preparar y asegurar el sistema operativo de tu nodo
+- Seleccionar tus clientes de Execution y Consensus
+- Instalar el stack Smartnode de Rocket Pool
+- Crear un nuevo validator de Beacon Chain usando la red de Rocket Pool
+- Mantener y actualizar tu nodo
+- Participar en la gobernanza on-chain
+
+Ambas guías te mostrarán cómo practicar gratis en el testnet de Rocket Pool para que puedas familiarizarte con todo sin arriesgar tu ETH real, y cómo stakear tu ETH real en el mainnet de Ethereum una vez que estés cómodo con el proceso.
+
+Cuando estés listo, selecciona una guía de las opciones anteriores según tus intereses.
+También eres libre de explorar las diversas páginas usando la barra lateral a la izquierda.

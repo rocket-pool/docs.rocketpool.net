@@ -1,3 +1,108 @@
-# The Saturn 1 Upgrade
+# Saturn 1 업그레이드
 
-Coming soon.
+환영합니다! 이 페이지는 최신 Rocket Pool 업그레이드에 포함된 주요 기능을 소개합니다. Saturn 1은 Rocket Pool 역사상 가장 중요한 프로토콜 업그레이드로, 프로토콜의 용량, 경제성, 리퀴드 스테이킹 생태계에서의 경쟁력을 근본적으로 변화시킵니다.
+
+1. **확장성**: 용량 제한을 제거하여 node operators가 더 많은 validators를 운영하고 프로토콜이 더 큰 rETH 수요를 충족할 수 있도록 합니다
+2. **유연성 및 경쟁력**: 조정 가능한 수수료 구조를 통해 시장 상황이 변화함에 따라 node operator 수익을 최적화할 수 있습니다
+3. **지속 가능성**: 향상된 RPL 토크노믹스가 프로토콜 성공과 node operator 보상 간의 더 강한 정렬을 만듭니다
+
+## Saturn 0
+
+[Saturn 0 업그레이드](/ko/upgrades/saturn-0/whats-new)는 Saturn 1의 전신이었습니다. 2024년 10월 28일에 배포되어 Saturn 전체 개발 목표를 향한 첫 번째 도약을 표시했습니다. 이 업그레이드는 Rocket Pool의 [온체인 DAO](/ko/pdao/overview)를 통해 프로토콜 매개변수를 조정하여 ETH 전용 minipool을 가능하게 했습니다. 또한 10% 담보 요건이 제거됨에 따라 모든 스테이킹된 RPL이 RPL 보상을 받을 수 있게 되었습니다.
+
+이 페이지의 나머지 부분에서는 Saturn 1에 포함된 기능을 다룹니다.
+
+## Saturn 1: Megapools 소개
+
+[Megapools](https://rpips.rocketpool.net/RPIPs/RPIP-43)는 Saturn 1 업그레이드에서 도입됩니다. 베테랑 Rocket Pool Node Operator라면 각 minipool validator가 개별 minipool 스마트 컨트랙트에 의해 관리된다는 것을 알고 계실 것입니다.
+Megapool은 node operator당 하나의 스마트 컨트랙트로, 여러 validators의 Ethereum 출금 주소 역할을 합니다.
+
+여러 validators를 관리하고 보상을 분배하는 지속적이고 초기 가스 비용은 여러 minipool 컨트랙트를 사용하는 것에 비해 단일 megapool 컨트랙트를 사용할 때 크게 낮아집니다.
+레거시 minipool 예치금은 비활성화되었으며 node operators는 minipool validators를 megapool로 마이그레이션할 수 있습니다.
+전반적으로 megapools는 node operator 경험과 Rocket Pool의 장기적 지속 가능성을 향상시킬 것입니다.
+
+
+델리게이트 컨트랙트는 Ethereum 출금 주소 역할을 하며 validator 활동을 관리합니다. Node operators는 현재 minipool 델리게이트를 업그레이드하거나 동일한 것을 유지할 수 있어 향후 업그레이드 설계가 어렵습니다. Saturn 1 업그레이드는 [강제 델리게이트 업그레이드](https://rpips.rocketpool.net/RPIPs/RPIP-47)를 도입하여 프로토콜이 더 효율적으로 반복할 수 있게 합니다. Megapool 컨트랙트의 강제 델리게이트 업그레이드는 Rocket Pool 프로토콜이 향후 업그레이드 설계 시 하위 호환성에 제약받지 않게 하며, pDAO에 시간이 지남에 따라 Rocket Pool을 개선할 수 있는 더 큰 유연성을 부여합니다.
+
+## 더 낮은 Bond 요건
+
+Megapools는 운영 비용을 줄여 Rocket Pool이 validator당 bond 요건을 8 ETH에서 4 ETH로 낮출 수 있게 합니다.
+더 낮은 ETH bond는 동일한 양의 bonded ETH가 더 큰 볼륨의 rETH를 지원할 수 있게 하고 Rocket Pool의 자본 효율성을 향상시킵니다. 다시 말해, 더 낮은 bond는 bonded ETH당 더 많은 수수료를 가능하게 합니다.
+
+
+| Validator 유형 | 필요한 Bond | 프로토콜 ETH 매칭 | 수수료율 | ETH Bonded당 수수료 |
+|---------------|------------|------------------|---------|-------------------|
+| 8 ETH Minipool | 8 ETH         | 24 ETH              | 5%              | 15%                       |
+| 4 ETH Megapool | 4 ETH         | 28 ETH              | 5%              | **35%** (2.3배 개선)|
+
+Bond 요건은 Saturn 1에서 pDAO가 조정 가능한 매개변수입니다.
+이것은 Rocket Pool의 향후 업그레이드 Saturn 2를 위한 기반을 마련하며, Saturn 2는 처음 두 validators에 4 ETH bond, 이후 각 validator에 1.5 ETH bond를 계획하고 있습니다.
+[RPIP-42: Bond curves](https://rpips.rocketpool.net/RPIPs/RPIP-42)에서 세부 사항을 확인하세요.
+
+## RPL 수익 공유
+Saturn 1에서 RPL은 ETH 축적 수익 공유 토큰이 됩니다. Megapool에 투표 자격이 있는 RPL을 스테이킹한 node operators는 스테이킹한 RPL에 비례하여 ETH 수익의 일부를 얻습니다. 다음 섹션에서는 이 수익 분배가 어떻게 작동하는지 설명합니다.
+
+## Universal Adjustable Revenue Split (UARS)
+
+Saturn 1은 [Universal Adjustable Revenue Split (UARS)](https://rpips.rocketpool.net/RPIPs/RPIP-46)를 도입합니다. 이는 node operator 수수료에서 발생하는 프로토콜 ETH 수익을 분배하기 위한 새롭고 조정 가능한 시스템입니다. 이 적응성 덕분에 Rocket Pool은 시장 상황이 변화함에 따라 경쟁력을 유지할 수 있습니다.
+
+UARS는 ETH 수익을 네 그룹으로 나눕니다. 각 지분은 pDAO 거버넌스를 통해 조정 가능합니다:
+- Node operators를 위한 기본 수수료 지분 (5%)
+- RPL stakers를 위한 투표 지분 보상 (9%)
+- 프로토콜 금고를 위한 pDAO 지분 (0%, 거버넌스를 통해 조정 가능)
+- rETH 보유자가 나머지를 받습니다
+
+각 node operator는 megapool에 스테이킹한 투표 자격 RPL의 비율에 따라 투표 지분을 받습니다.
+Saturn 1에서는 RPL 인플레이션 보상이 이 새로운 투표 지분 메커니즘과 함께 계속되어 RPL을 스테이킹하는 node operators에게 추가적인 인센티브를 제공합니다.
+
+## 개편된 예치금 메커니즘
+
+Saturn 1 업그레이드는 validator 생성을 위한 예치금 대기열 처리 방식에 몇 가지 주목할 만한 변경 사항을 포함합니다. 긴 예치금 대기열의 경우, 예치금을 대기열에서 빼고자 하는 node operators는 rETH와 교환하여 그렇게 할 수 있습니다.
+
+개선된 예치금 대기열은 표준 대기열과 익스프레스 대기열 두 가지 유형을 제공합니다. 익스프레스 대기열은 더 빠른 속도로 예치금을 처리하지만 각 validator 예치금에 익스프레스 대기열 티켓이 필요합니다. 이 구조는 기존 node operators에게 보상을 제공하고 새로운 node operators의 온보딩을 용이하게 합니다. 또한 minipools에서 megapools로의 마이그레이션을 지원합니다.
+
+기존 node operators는 레거시 minipools의 bonded ETH를 기반으로 익스프레스 대기열 티켓을 받습니다: bonded ETH 4당 티켓 1장.
+예를 들어, 8 ETH 레거시 minipool을 가진 node operator는 익스프레스 대기열 티켓 2장을 받습니다. 이는 익스프레스 대기열을 사용하여 두 개의 4 ETH megapool validators로 완전히 마이그레이션하기에 충분한 티켓입니다.
+[RPIP-59: Deposit Mechanics](https://rpips.rocketpool.net/RPIPs/RPIP-59#deposit-queue)에서 예치금 처리 방식의 세부 사항을 확인할 수 있습니다.
+
+## oDAO 및 pDAO 가드레일 매개변수
+
+수익 공유 매개변수 외에도, oracle DAO와 프로토콜 DAO 신뢰 가정을 줄이기 위해 몇 가지 가드레일 매개변수(pDAO가 제어 가능)가 Saturn 1에 포함됩니다.
+이러한 가드레일은 합법적인 사용을 방해하지 않으면서 안전성을 향상시키는 역할을 합니다.
+- [RPIP-58: MEV Penalty Guardrail](https://rpips.rocketpool.net/RPIPs/RPIP-58): oDAO가 주당 minipools에 적용할 수 있는 MEV 페널티 수에 제한을 둡니다.
+- [RPIP-61: Balance Submission Guardrail](https://rpips.rocketpool.net/RPIPs/RPIP-61): 정상 운영 중 rETH 환율은 자주 변경될 필요가 없습니다. RPIP-61은 oDAO가 rETH 환율을 변경할 수 있는 빈도에 제한을 둡니다.
+- [RPIP-60: Protocol Upgrade Guardrails](https://rpips.rocketpool.net/RPIPs/RPIP-60): 프로토콜 업그레이드가 통과된 시점과 업그레이드가 실행되는 시점 사이에 지연을 도입합니다. RPIP-60은 프로토콜이 동의하지 않는 방식으로 변경될 경우 사용자가 프로토콜을 떠날 수 있는 충분한 시간을 제공합니다. 또한 보안 위원회에 프로토콜 업그레이드를 거부할 수 있는 권한을 부여합니다.
+
+## rETH 유동성
+
+현재 rETH 발행으로부터의 ETH는 node operating 매칭에 사용할 수 있도록 Deposit Pool로 유입됩니다. Saturn 1에서는 새로운 rETH 발행 ETH의 일부가 Deposit Pool이 아닌 rETH 컨트랙트로 유입됩니다. rETH TVL의 1% 버퍼 임계값을 초과하는 잉여 ETH는 Deposit Pool로 유입됩니다. 이 변경은 추가 공급 생성을 최소화하고 rETH 소각이 수요를 더 잘 반영할 수 있도록 하여 rETH 출금 유동성을 우선시하는 것을 목적으로 합니다. 근거와 버퍼 크기 결정 방법에 대한 자세한 분석은 여기에서 확인할 수 있습니다: [RPIP-65: Prioritize rETH Withdrawal Buffer](https://rpips.rocketpool.net/RPIPs/RPIP-65)
+
+## 감사
+
+Rocket Pool은 프로토콜의 보안을 보장하기 위해 노력하고 있습니다. Saturn 1은 Ethereum 생태계의 선도적인 팀들과 함께 여러 차례의 포괄적인 감사를 거쳤습니다.
+Saturn 1의 최종 감사 보고서는 아래에서 확인할 수 있습니다:
+
+- [Cantina](https://rocketpool.net/files/audits/cantina-audit-saturn-1.pdf)
+- [Bailsec](https://rocketpool.net/files/audits/bailsec-audit-saturn-1.pdf)
+- [Sigma Prime](https://rocketpool.net/files/audits/sigma-prime-audit-saturn-1.pdf)
+
+전체 감사 이력은 [프로토콜 보안](https://rocketpool.net/protocol/security) 페이지를 방문하세요.
+Rocket Pool은 또한 치명적 취약점에 대해 최대 $500,000의 보상을 제공하는 활성 [Immunefi 버그 바운티 프로그램](https://immunefi.com/bug-bounty/rocketpool/information/)을 유지하고 있습니다.
+
+## Node Operator 가이드
+Rocket Pool 노드를 운영하여 자신만의 Ethereum validators를 만드는 데 관심이 있다면 [Node Operator 가이드](/ko/node-staking/responsibilities)를 확인하세요.
+이것은 노드 운영과 관련된 모든 고려 사항을 다루는 매우 포괄적인 가이드로, 다음을 포함합니다:
+
+- 집에서 로컬로 노드를 운영할지 클라우드에서 원격으로 운영할지 결정
+- 로컬 머신의 하드웨어 선택 또는 원격 호스팅 제공업체 선택
+- 노드 운영 체제 준비 및 보안
+- Execution 및 Consensus 클라이언트 선택
+- Rocket Pool의 Smartnode 스택 설치
+- Rocket Pool 네트워크를 사용하여 새 Beacon Chain validator 생성
+- 노드 유지 관리 및 업데이트
+- 온체인 거버넌스 참여
+
+두 가이드 모두 실제 ETH를 위험에 빠뜨리지 않고 Rocket Pool testnet에서 무료로 연습하는 방법과 프로세스에 익숙해진 후 Ethereum mainnet에서 실제 ETH를 스테이킹하는 방법을 보여줍니다.
+
+준비가 되면 관심사에 따라 위의 옵션에서 가이드를 선택하세요.
+왼쪽 사이드바를 사용하여 다양한 페이지를 자유롭게 탐색할 수도 있습니다.

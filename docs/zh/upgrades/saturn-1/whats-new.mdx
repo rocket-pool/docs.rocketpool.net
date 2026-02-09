@@ -1,3 +1,108 @@
-# The Saturn 1 Upgrade
+# Saturn 1 升级
 
-Coming soon.
+欢迎！本页面介绍最新 Rocket Pool 升级中包含的关键功能。Saturn 1 代表了 Rocket Pool 历史上最重要的协议升级，从根本上改变了协议的容量、经济模型和在流动性质押生态系统中的竞争地位。
+
+1. **扩展性**：消除容量限制，使 node operators 能够运行更多 validators，协议能够满足更大的 rETH 需求，
+2. **灵活性与竞争力**：可调节的佣金结构允许随着市场条件的变化优化 node operator 收益，
+3. **可持续性**：增强的 RPL tokenomics 在协议成功与 node operator 奖励之间创造更强的一致性
+
+## Saturn 0
+
+[Saturn 0 升级](/zh/upgrades/saturn-0/whats-new)是 Saturn 1 的前身。它于 2024 年 10 月 28 日部署，标志着向 Saturn 总体开发目标迈出的第一步。此次升级通过 Rocket Pool 的[链上 DAO](/zh/pdao/overview) 调整协议参数，实现了纯 ETH minipool。此外，由于取消了 10% 的抵押要求，所有已质押的 RPL 都有资格获得 RPL 奖励。
+
+本页其余部分将介绍 Saturn 1 中包含的功能。
+
+## Saturn 1：引入 Megapools
+
+[Megapools](https://rpips.rocketpool.net/RPIPs/RPIP-43) 在 Saturn 1 升级中推出。如果您是经验丰富的 Rocket Pool Node Operator，您会知道每个 minipool validator 都由一个单独的 minipool 智能合约管理。
+Megapool 是每个 node operator 的单一智能合约，作为多个 validators 的 Ethereum 提款地址。
+
+使用单个 megapool 合约管理多个 validators 和分配奖励的持续和前期 gas 成本远低于使用多个 minipool 合约。
+Legacy minipool 存款已被禁用，node operators 可以将其 minipool validators 迁移到 megapool。
+总体而言，megapools 应该改善 node operator 体验和 Rocket Pool 的长期可持续性。
+
+
+委托合约作为 Ethereum 提款地址并管理 validator 活动。Node operators 目前可以选择升级或保持相同的 minipool 委托，这使得设计未来升级变得困难。Saturn 1 升级引入了[强制委托升级](https://rpips.rocketpool.net/RPIPs/RPIP-47)，使协议能够更高效地迭代。Megapool 合约上的强制委托升级意味着 Rocket Pool 协议在设计未来升级时不会受到向后兼容性的阻碍，并为 pDAO 提供更大的灵活性来改进 Rocket Pool。
+
+## 更低的 Bond 要求
+
+Megapools 降低了运营成本，使 Rocket Pool 能够将每个 validator 的 bond 要求从 8 ETH 降低到 4 ETH。
+更低的 ETH bond 允许相同数量的 bonded ETH 支持更大规模的 rETH，并提高了 Rocket Pool 的资本效率。换句话说，更低的 bond 允许每个 bonded ETH 获得更多佣金。
+
+
+| Validator 类型 | 所需 Bond | 协议匹配 ETH | 佣金率 | 每 ETH Bonded 佣金 |
+|----------------|-----------|-------------|--------|-------------------|
+| 8 ETH Minipool | 8 ETH         | 24 ETH              | 5%              | 15%                       |
+| 4 ETH Megapool | 4 ETH         | 28 ETH              | 5%              | **35%**（2.3 倍提升）|
+
+Bond 要求是 Saturn 1 中 pDAO 可调节的参数。
+这为 Rocket Pool 的未来升级 Saturn 2 奠定了基础，Saturn 2 计划前两个 validators 使用 4 ETH bond，随后每个 validator 使用 1.5 ETH bond。
+查看 [RPIP-42: Bond curves](https://rpips.rocketpool.net/RPIPs/RPIP-42) 深入了解详情。
+
+## RPL 收入分享
+在 Saturn 1 中，RPL 成为 ETH 累积收入分享代币。在其 megapool 上质押了具有投票资格的 RPL 的 node operators 将按其质押的 RPL 比例获得 ETH 收入份额。下一节将解释这种收入分配如何运作。
+
+## Universal Adjustable Revenue Split (UARS)
+
+Saturn 1 引入了 [Universal Adjustable Revenue Split (UARS)](https://rpips.rocketpool.net/RPIPs/RPIP-46)，这是一个新的可调节系统，用于分配来自 node operator 佣金的协议 ETH 收入。这种适应性使 Rocket Pool 能够在市场条件变化时保持竞争力。
+
+UARS 将 ETH 收入分配给四个群体。每个份额可通过 pDAO 治理调整：
+- Node operators 的基础佣金份额（5%）
+- RPL stakers 的投票份额奖励（9%）
+- pDAO 协议金库份额（0%，可通过治理调整）
+- rETH 持有者获得剩余部分
+
+每个 node operator 根据其在 megapool 上质押的具有投票资格的 RPL 比例获得投票份额。
+在 Saturn 1 中，RPL 通胀奖励与这个新的投票份额机制并行继续，为质押 RPL 的 node operators 提供额外激励。
+
+## 重新设计的存款机制
+
+Saturn 1 升级包含了一些关于 validator 创建存款队列处理方式的重要变化。在存款队列较长的情况下，希望取消排队的 node operators 可以用 rETH 换取退出。
+
+改进的存款队列包含两种类型的队列——标准队列和快速队列。快速队列以更快的速度处理存款，但每个 validator 存款需要一张快速队列票。这种结构奖励现有的 node operators 并方便新 node operators 的加入。它还有助于从 minipools 迁移到 megapools。
+
+现有的 node operators 根据其在 legacy minipools 中的 bonded ETH 获得快速队列票：每 4 ETH bonded 获得一张票。
+例如，拥有一个 8 ETH legacy minipool 的 node operator 获得 2 张快速队列票。这足以通过快速队列完全迁移到两个 4 ETH megapool validators。
+[RPIP-59: Deposit Mechanics](https://rpips.rocketpool.net/RPIPs/RPIP-59#deposit-queue) 详细介绍了存款的处理方式。
+
+## oDAO 和 pDAO 护栏参数
+
+除了收入分享参数外，Saturn 1 还包含一些护栏参数（由 pDAO 控制），以减少对 oracle DAO 和协议 DAO 的信任假设。
+这些护栏旨在提高安全性而不干扰合法使用。
+- [RPIP-58: MEV Penalty Guardrail](https://rpips.rocketpool.net/RPIPs/RPIP-58)：限制 oDAO 每周可以对 minipools 施加的 MEV 惩罚数量。
+- [RPIP-61: Balance Submission Guardrail](https://rpips.rocketpool.net/RPIPs/RPIP-61)：在正常运行期间，rETH 汇率不需要频繁变化。RPIP-61 限制了 oDAO 更改 rETH 汇率的频率。
+- [RPIP-60: Protocol Upgrade Guardrails](https://rpips.rocketpool.net/RPIPs/RPIP-60)：在协议升级通过和升级执行之间引入延迟。RPIP-60 允许用户有充足的时间在协议以他们不同意的方式改变时退出。它还赋予安全委员会否决协议升级的权力。
+
+## rETH 流动性
+
+目前，rETH 铸造的 ETH 流入 Deposit Pool 以供 node operating 匹配使用。在 Saturn 1 中，新 rETH 铸造的一部分 ETH 将流入 rETH 合约而非 Deposit Pool。超过 rETH TVL 1% 缓冲阈值的多余 ETH 将流入 Deposit Pool。此变更旨在通过最小化额外供应的创建并使 rETH 销毁更好地反映需求来优先保障 rETH 提款流动性。关于理由和缓冲规模如何确定的更详细分析可在此处找到：[RPIP-65: Prioritize rETH Withdrawal Buffer](https://rpips.rocketpool.net/RPIPs/RPIP-65)
+
+## 审计
+
+Rocket Pool 致力于确保协议的安全性。Saturn 1 已与 Ethereum 生态系统中的领先团队进行了多轮全面审计。
+Saturn 1 的最终审计报告如下：
+
+- [Cantina](https://rocketpool.net/files/audits/cantina-audit-saturn-1.pdf)
+- [Bailsec](https://rocketpool.net/files/audits/bailsec-audit-saturn-1.pdf)
+- [Sigma Prime](https://rocketpool.net/files/audits/sigma-prime-audit-saturn-1.pdf)
+
+如需完整的审计历史，请访问[协议安全](https://rocketpool.net/protocol/security)页面。
+Rocket Pool 还维护着一个活跃的 [Immunefi 漏洞赏金计划](https://immunefi.com/bug-bounty/rocketpool/information/)，关键漏洞奖励高达 $500,000。
+
+## Node Operator 指南
+如果您有兴趣运行 Rocket Pool 节点来创建自己的 Ethereum validators，请查看我们的 [Node Operator 指南](/zh/node-staking/responsibilities)。
+这是一份非常全面的指南，涵盖了节点运营涉及的所有考虑因素，包括：
+
+- 决定在家本地运行节点还是在云端远程运行
+- 为本地机器选择硬件或选择远程托管提供商
+- 准备和保护节点的操作系统
+- 选择您的 Execution 和 Consensus 客户端
+- 安装 Rocket Pool 的 Smartnode 堆栈
+- 使用 Rocket Pool 网络创建新的 Beacon Chain validator
+- 维护和更新您的节点
+- 参与链上治理
+
+两份指南都将向您展示如何在 Rocket Pool testnet 上免费练习，让您在不冒险使用真实 ETH 的情况下熟悉一切，以及当您对流程感到满意后如何在 Ethereum mainnet 上质押您的真实 ETH。
+
+准备好后，根据您的兴趣从上面的选项中选择一份指南。
+您也可以使用左侧的侧边栏自由浏览各个页面。

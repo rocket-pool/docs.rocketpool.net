@@ -1,3 +1,108 @@
-# The Saturn 1 Upgrade
+# Saturn 1 Yükseltmesi
 
-Coming soon.
+Hoş geldiniz! Bu sayfa, en son Rocket Pool Yükseltmesinde yer alan temel özelliklere giriş niteliğindedir. Saturn 1, Rocket Pool tarihindeki en önemli protokol yükseltmesini temsil eder ve protokolün kapasitesini, ekonomisini ve liquid staking ekosistemindeki rekabetçi konumunu temelden dönüştürür.
+
+1. **Ölçeklendirme**: Kapasite kısıtlamalarını kaldırarak node operators'ın daha fazla validator çalıştırmasını ve protokolün daha büyük rETH talebini karşılamasını sağlar,
+2. **Esneklik ve Rekabetçilik**: Ayarlanabilir komisyon yapıları, piyasa koşulları değiştikçe node operator kazançlarının optimize edilmesine olanak tanır,
+3. **Sürdürülebilirlik**: Geliştirilmiş RPL tokenomics, protokol başarısı ile node operator ödülleri arasında daha güçlü bir uyum oluşturur
+
+## Saturn 0
+
+[Saturn 0 yükseltmesi](/tr/upgrades/saturn-0/whats-new) Saturn 1'in öncüsüydü. 28 Ekim 2024'te dağıtıldı ve genel Saturn geliştirme hedeflerine doğru ilk sıçramayı işaret etti. Bu yükseltme, Rocket Pool'un [zincir üstü DAO](/tr/pdao/overview)'su aracılığıyla protokol parametrelerini ayarlayarak yalnızca ETH minipool'larını mümkün kıldı. Ayrıca, %10 teminat gereksinimi kaldırıldığından tüm stakelenmiş RPL, RPL ödülleri için uygun hale geldi.
+
+Bu sayfanın geri kalanı Saturn 1'de yer alan özellikleri ele alacaktır.
+
+## Saturn 1: Megapools'un Tanıtımı
+
+[Megapools](https://rpips.rocketpool.net/RPIPs/RPIP-43) Saturn 1 yükseltmesinde sunulmaktadır. Deneyimli bir Rocket Pool Node Operator iseniz, her minipool validator'ın bireysel bir minipool akıllı sözleşmesi tarafından yönetildiğini bilirsiniz.
+Megapool, her node operator başına birden fazla validator için Ethereum çekim adresi görevi gören tek bir akıllı sözleşmedir.
+
+Birden fazla validator'ı yönetme ve ödülleri dağıtma ile ilgili süregelen ve ön gas maliyeti, birden fazla minipool sözleşmesi kullanmaya kıyasla tek bir megapool sözleşmesi kullanıldığında önemli ölçüde düşüktür.
+Eski minipool depozitolar devre dışı bırakılmıştır ve node operators minipool validator'larını bir megapool'a taşıyabilir.
+Genel olarak, megapool'lar node operator deneyimini ve Rocket Pool'un uzun vadeli sürdürülebilirliğini iyileştirmelidir.
+
+
+Delege sözleşmesi, Ethereum çekim adresi olarak hizmet eder ve validator faaliyetlerini yönetir. Node operators şu anda minipool delegelerini yükseltmeyi veya aynı kalma seçeneğini tercih edebilir, bu da gelecekteki yükseltmeleri tasarlamayı zorlaştırır. Saturn 1 Yükseltmesi, [Zorunlu Delege Yükseltmeleri](https://rpips.rocketpool.net/RPIPs/RPIP-47) getirerek protokolün daha verimli bir şekilde yinelemesine olanak tanır. Megapool sözleşmelerindeki zorunlu delege yükseltmeleri, Rocket Pool Protokolünün gelecekteki yükseltmeleri tasarlarken geriye dönük uyumluluk tarafından engellenmeyeceği anlamına gelir ve pDAO'ya Rocket Pool'u zaman içinde iyileştirmek için daha fazla esneklik verir.
+
+## Daha Düşük Bond Gereksinimleri
+
+Megapools operasyonel maliyeti azaltarak Rocket Pool'un validator başına bond gereksinimini 8 ETH'den 4 ETH'ye düşürmesine olanak tanır.
+Daha düşük ETH bond'ları, aynı miktarda bonded ETH'nin daha büyük bir rETH hacmini desteklemesine olanak tanır ve Rocket Pool'un sermaye verimliliğini artırır. Başka bir deyişle, daha düşük bond'lar bonded ETH başına daha fazla komisyon sağlar.
+
+
+| Validator Türü | Gerekli Bond | Protokol ETH Eşleşmesi | Komisyon Oranı | ETH Bonded Başına Komisyon |
+|----------------|-------------|------------------------|----------------|----------------------------|
+| 8 ETH Minipool | 8 ETH         | 24 ETH              | 5%              | 15%                       |
+| 4 ETH Megapool | 4 ETH         | 28 ETH              | 5%              | **%35** (2.3x iyileştirme)|
+
+Bond gereksinimi Saturn 1'de pDAO tarafından ayarlanabilir bir parametredir.
+Bu, Rocket Pool'un gelecek yükseltmesi Saturn 2 için zemin hazırlar; Saturn 2, ilk iki validator için 4 ETH bond, ardından her sonraki validator için 1.5 ETH bond planlamaktadır.
+Detaylara inmek için [RPIP-42: Bond curves](https://rpips.rocketpool.net/RPIPs/RPIP-42)'e göz atın.
+
+## RPL Gelir Paylaşımı
+Saturn 1'de RPL, ETH biriktiren bir gelir paylaşım tokenı haline gelir. Megapool'larında oy kullanmaya uygun RPL stakelemiş node operators, stakelenen RPL'leriyle orantılı olarak ETH gelirinden bir pay kazanır. Bir sonraki bölüm bu gelir dağılımının nasıl çalıştığını açıklar.
+
+## Universal Adjustable Revenue Split (UARS)
+
+Saturn 1, [Universal Adjustable Revenue Split (UARS)](https://rpips.rocketpool.net/RPIPs/RPIP-46)'ı tanıtır; bu, node operator komisyonlarından elde edilen protokol ETH gelirini dağıtmak için yeni ve ayarlanabilir bir sistemdir. Bu uyum kabiliyeti, Rocket Pool'un piyasa koşulları değiştikçe rekabetçi kalmasını sağlar.
+
+UARS, ETH gelirini dört grup arasında böler. Her pay pDAO yönetişimi aracılığıyla ayarlanabilir:
+- Node operators için temel komisyon payı (%5)
+- RPL staker'lar için oy payı ödülleri (%9)
+- Protokol hazinesi için pDAO payı (%0, yönetişim aracılığıyla ayarlanabilir)
+- rETH sahipleri kalanı alır
+
+Her node operator, megapool'unda stakelenen oy kullanmaya uygun RPL oranına göre oy payı alır.
+Saturn 1'de, RPL enflasyon ödülleri bu yeni oy payı mekanizmasıyla birlikte devam eder ve RPL stakeleyennode operators'a ek teşvikler sağlar.
+
+## Yeniden Tasarlanmış Depozito Mekanikleri
+
+Saturn 1 Yükseltmesi, validator oluşturma için depozito kuyruğunun nasıl ele alındığına dair birkaç önemli değişiklik içerir. Uzun bir depozito kuyruğu durumunda, depozitolarını kuyruktan çıkarmak isteyen node operators bunu rETH karşılığında yapabilir.
+
+Geliştirilmiş depozito kuyruğu iki tür kuyruk sunar - standart kuyruk ve ekspres kuyruk. Ekspres kuyruk depozitoları daha hızlı işler, ancak her validator depozitosu için bir ekspres kuyruk bileti gerektirir. Bu yapı mevcut node operators'ı ödüllendirir ve yeni node operators'ın katılımını kolaylaştırır. Ayrıca minipool'lardan megapool'lara geçişe yardımcı olur.
+
+Mevcut node operators, eski minipool'lardaki bonded ETH'lerine göre ekspres kuyruk biletleri alır: her 4 ETH bonded için bir bilet.
+Örneğin, 8 ETH'lik eski bir minipool'a sahip bir node operator 2 ekspres kuyruk bileti alır. Bu, ekspres kuyruğu kullanarak iki 4 ETH megapool validator'a tam olarak geçiş yapmak için yeterli bilettir.
+[RPIP-59: Deposit Mechanics](https://rpips.rocketpool.net/RPIPs/RPIP-59#deposit-queue) depozitoların nasıl ele alındığının ayrıntılarına girer.
+
+## oDAO ve pDAO Koruma Parametreleri
+
+Gelir paylaşımı parametrelerine ek olarak, oracle DAO ve protokol DAO güven varsayımlarını azaltmak için Saturn 1'e birkaç koruma parametresi (pDAO tarafından kontrol edilebilir) dahil edilmektedir.
+Bu korumalar, meşru kullanıma müdahale etmeden güvenliği artırmaya hizmet eder.
+- [RPIP-58: MEV Penalty Guardrail](https://rpips.rocketpool.net/RPIPs/RPIP-58): oDAO'nun haftalık minipool'lara uygulayabileceği MEV ceza sayısına bir sınır koyar.
+- [RPIP-61: Balance Submission Guardrail](https://rpips.rocketpool.net/RPIPs/RPIP-61): normal çalışma sırasında rETH döviz kurunun sık sık değişmesine gerek yoktur. RPIP-61, oDAO'nun rETH döviz kurunu ne sıklıkla değiştirebileceğine bir sınır koyar.
+- [RPIP-60: Protocol Upgrade Guardrails](https://rpips.rocketpool.net/RPIPs/RPIP-60): bir protokol yükseltmesinin kabul edilmesi ile yükseltmenin uygulanması arasında bir gecikme getirir. RPIP-60, protokol kabul etmedikleri bir şekilde değişirse kullanıcılara protokolden çıkmak için yeterli zaman tanır. Ayrıca güvenlik konseyine bir protokol yükseltmesini veto etme yetkisi verir.
+
+## rETH Likiditesi
+
+Şu anda, rETH basımlarından elde edilen ETH, node operating eşleştirmesi için kullanılabilir olmak üzere Deposit Pool'a akar. Saturn 1'de, yeni rETH basımlarından elde edilen ETH'nin bir kısmı Deposit Pool yerine rETH sözleşmesine akacaktır. rETH TVL'sinin %1'lik tampon eşiğinin üzerindeki fazla ETH Deposit Pool'a akacaktır. Bu değişiklik, ek arz oluşturmayı en aza indirerek ve rETH yakımlarının talebi daha iyi yansıtmasını sağlayarak rETH çekim likiditesine öncelik vermeye hizmet eder. Gerekçe ve tampon boyutunun nasıl belirlendiğine dair daha yakından bir inceleme burada bulunabilir: [RPIP-65: Prioritize rETH Withdrawal Buffer](https://rpips.rocketpool.net/RPIPs/RPIP-65)
+
+## Denetimler
+
+Rocket Pool, protokolün güvenliğini sağlamaya kararlıdır. Saturn 1, Ethereum ekosistemindeki önde gelen ekiplerle birden fazla kapsamlı denetim turlarından geçmiştir.
+Saturn 1 için nihai denetim raporları aşağıda bulunabilir:
+
+- [Cantina](https://rocketpool.net/files/audits/cantina-audit-saturn-1.pdf)
+- [Bailsec](https://rocketpool.net/files/audits/bailsec-audit-saturn-1.pdf)
+- [Sigma Prime](https://rocketpool.net/files/audits/sigma-prime-audit-saturn-1.pdf)
+
+Denetimlerin tam geçmişi için [Protokol Güvenliği](https://rocketpool.net/protocol/security) sayfasını ziyaret edin.
+Rocket Pool ayrıca kritik güvenlik açıkları için 500.000$'a kadar ödüller sunan aktif bir [Immunefi bug bounty programı](https://immunefi.com/bug-bounty/rocketpool/information/) sürdürmektedir.
+
+## Node Operator Rehberi
+Kendi Ethereum validator'larınızı oluşturmak için bir Rocket Pool düğümü çalıştırmakla ilgileniyorsanız, [Node Operator rehberimize](/tr/node-staking/responsibilities) göz atın.
+Bu, düğüm işletimi ile ilgili tüm hususları kapsayan çok kapsamlı bir rehberdir, şunlar dahil:
+
+- Bir düğümü yerel olarak evde mi yoksa bulutta uzaktan mı çalıştıracağınıza karar verme
+- Yerel bir makine için donanım seçimi veya uzak bir barındırma sağlayıcısı seçimi
+- Düğümünüzün işletim sistemini hazırlama ve güvence altına alma
+- Execution ve Consensus istemcilerinizi seçme
+- Rocket Pool'un Smartnode yığınını kurma
+- Rocket Pool ağını kullanarak yeni bir Beacon Chain validator oluşturma
+- Düğümünüzü bakım yapma ve güncelleme
+- Zincir üstü yönetişime katılma
+
+Her iki rehber de gerçek ETH'nizi riske atmadan Rocket Pool testnet'inde ücretsiz olarak pratik yapmanızı ve süreçte kendinizi rahat hissettiğinizde Ethereum mainnet'inde gerçek ETH'nizi stakelemenizi gösterecektir.
+
+Hazır olduğunuzda, ilgi alanlarınıza göre yukarıdaki seçeneklerden bir rehber seçin.
+Ayrıca soldaki kenar çubuğunu kullanarak çeşitli sayfaları keşfetmekte özgürsünüz.
