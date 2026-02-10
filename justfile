@@ -66,6 +66,7 @@ login-and-deploy:
 # Build and deploy to ECR
 deploy:
     just ui-build
+    rm doc_build/.DS_Store
     docker build --platform linux/amd64 -t docs.rocketpool.net:latest .
     docker tag docs.rocketpool.net:latest $DOCKER_REPO/docs.rocketpool.net:latest
     docker push $DOCKER_REPO/docs.rocketpool.net:latest
