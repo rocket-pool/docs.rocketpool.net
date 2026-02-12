@@ -7,8 +7,8 @@ Your node will manage a Megapool that serves as an Ethereum withdrawal address f
 Each validator is comprised of a portion of your ETH, known as the bond amount, and a portion of ETH from the rETH staking pool, 
 known as the borrowed amount. Your Megapool is responsible for merging the bond amount and borrowed amount ETH to form 32 ETH total, which is 
 then sent to the Beacon Chain deposit contract to create a new validator.
-Your Megapool is created at the time of your first validator deposit. Afterwards you'll be able to use the same Megapool to manage as many validators as you wish! You won't need 
-to create a new Megapool every time you deposit a new validator. 
+It's deployed at the time of your first validator deposit. Afterwards you'll be able to use the same Megapool to manage as many validators as you wish! You won't need 
+to deploy a new Megapool every time you create a new validator. 
 
 
 ::: tip NOTE
@@ -44,8 +44,8 @@ There are two types of queues within Rocket Pool's deposit queue: express queue 
 The deposit queue features an express queue system to help existing node operators migrate their megapool validator ETH
 to megapool validator ETH. It also creates more predictable deposit timelines for deposits using the express queue.
 
-The express queue is processed at a 4:1 ratio which means 4 validators from the express queue for every 1 validator matched from
-the standard queue. So 4 validators from the express queue are matched, then 1 from the standard queue, then 4 from the express queue and so on.
+The express queue is processed at a 4:1 ratio which means 4 validators from the express queue get matched for every 1 validator matched from
+the standard queue. In other words: 4 validators from the express queue are matched, then 1 from the standard queue, then 4 from the express queue and so on.
 
 Existing node operators receive express queue tickets based on their bonded ETH in legacy minipools: one ticket for every 4 ETH bonded. 
 For example, a node operator with an 8 ETH legacy minipool gets 2 express queue tickets. This is enough tickets to fully migrate to two 4 ETH megapool validators using the express queue.
