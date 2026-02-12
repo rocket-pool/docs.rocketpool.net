@@ -22,11 +22,11 @@ The following tool provides a good estimate of how long you can expect to wait:
 Please review this tool to get an idea of how long you can expect to wait for your validator to become active.
 :::
 
+::: tip NOTE
 
-## Rocket Pool Deposit Queue 
 Validator creation is governed by two queues.
 
-1. The first is the Rocket Pool deposit queue. We'll go more into it different section, but essentially this queue is managed by the Rocket Pool protocol & determines when your validator will receive its borrowed ETH. 
+1. The first is the Rocket Pool deposit queue. We'll go more into it in a different section, but essentially this queue is managed by the Rocket Pool protocol & determines when your validator will receive its borrowed ETH. 
 There needs to be ETH available in the deposit pool to match your 4 ETH with 28 ETH in the deposit pool & create the validator.
 
 2. The second is the Beacon Chain queue, which is managed by the Ethereum Beacon Chain & determines when your validator will become active.
@@ -35,48 +35,175 @@ Please be aware that the time it takes for your validator to become active can v
 The Rocket Pool deposit queue features an express queue system to help existing node operators migrate their megapool validator ETH
 to megapool validator ETH. 
 
+:::
 
-## Creating a Megapool Validator
-
-
-## Confirming a Successful Stake
-
-## Creating Multiple Validators
-
-
-## Deposit Express Queue
+## Rocket Pool Deposit Queue and Express Queue
 
 There are two types of queues within Rocket Pool's deposit queue: express queue and standard queue. 
 
 The deposit queue features an express queue system to help existing node operators migrate their megapool validator ETH
-to megapool validator ETH. It also creates more predictable deposit timelines for deposits using the express queue
+to megapool validator ETH. It also creates more predictable deposit timelines for deposits using the express queue.
 
-The express queue is processed at a 4:1 ratio which means 4 validators from the express queue for every 1 validator matched from 
-the standard queue. 
+The express queue is processed at a 4:1 ratio which means 4 validators from the express queue for every 1 validator matched from
+the standard queue. So 4 validators from the express queue are matched, then 1 from the standard queue, then 4 from the express queue and so on.
 
 Existing node operators receive express queue tickets based on their bonded ETH in legacy minipools: one ticket for every 4 ETH bonded. 
 For example, a node operator with an 8 ETH legacy minipool gets 2 express queue tickets. This is enough tickets to fully migrate to two 4 ETH megapool validators using the express queue.
 [RPIP-59: Deposit Mechanics](https://rpips.rocketpool.net/RPIPs/RPIP-59#deposit-queue) goes into the nitty gritty of how deposits are handled. 
 
-Please keep in mind that your node will not be refunded an express queue ticket if you choose to dequeue your validator from the express queue! 
+Your node will be refunded an express queue ticket if you choose to [dequeue your validator from the express queue](./create-megapool-validator#exit-a-validator-from-the-rocket-pool-deposit-queue).
+
+## Depositing ETH and Creating a Validator
+
+If this is your node's first Megapool validator, your node's Megapool will also be deployed at the same time. Please remember that your node's Megapool can
+manage one or many validators, so Megapool development only happens once per node!
+
+Once you're ready to deposit your ETH into a Megapool and create a Beacon Chain validator, you can do so using the following command:
+
+```
+rocketpool megapool deposit
+```
+::: danger WARNING
+
+While the CLI does automate a lot of the next steps for you, we <strong>strongly</strong> recommend monitoring your node & transactions to ensure a successful transition from `prelaunch` to `staking`.
+
+Failed transactions (due to adjusted gas settings or insufficient ETH) could make your megapool validator transition to the `dissolved` state, which you want to avoid.
+
+[Learn more about how to confirm a successful stake](./create-megapool-validator#confirming-a-successful-stake)
+
+:::
+
+The first prompt will ask how many validators you'd like to create. You can create up to 35 in the same deposit, but we'll go with 1 validator
+for the rest of our demonstration here. Type `1` then hit `enter`
+```
+Your eth2 client is on the correct network.
+
+How many validators would you like to create? (max: 35)
+1
+```
+
+The second prompt will display a bit of information on how much ETH your node is currently bonded with, in addition
+to the total bond requirement for the number of validators you've selected. The node in our demonstration has no 
+megapool validators, hence `0.00 ETH bonded`. The current bond requirement is `4 ETH`.
+After you've read and understood the information shown, type `y` then hit `enter` to continue to the next prompt.
+
+
+```
+The node is currently bonded with 0.00 ETH.
+The total bond requirement is 4.00 ETH.
+
+NOTE: You are about to create 1 new megapool validator(s), requiring a total of: 4.00 ETH.
+Would you like to continue? [y/n]
+y
+```
+The next prompt will display the status of the [Rocket Pool deposit queue](/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-and-express-queue).
+This shows you how many validators waiting to be matched with ETH are ahead of you. The express queue is mainly for already existing node operators as new nodes won't have any express
+queue tickets. `The express queue rate is 4` means 4 validators from the express queue are matched for every 1 validator in the standard queue.
+```
+There are 45 validator(s) on the express queue.
+There are 21 validator(s) on the standard queue.
+The express queue rate is 4.
+```
+::: tip NOTE
+If you are a returning node operator and have express queue tickets available for this deposit, you'll be prompted to use them at this point.
+Enter `1` then hit `enter` to proceed with using one express queue ticket for this single megapool validator deposit.  
+```
+How many express tickets would you like to use? (max: 7)
+1
+```
+If you'd like to save your express queue ticket(s) and proceed in the standard queue, simply type `0` then hit `enter` to move on to the next prompt. 
+:::
+
+If you have any [deposit credit](/node-staking/megapools/credit) to redeem on a validator, you'll be prompted to do so here. Otherwise, this step will prompt
+you with the network's current gas price suggestions.
+```
+Your credit balance is 0.00 ETH. (Credit in addition to ETH staked on your behalf).
+Your consensus client is synced, you may safely create a megapool validator.
++================ Suggested Gas Prices ================+
+| Avg Wait Time |   Max Fee    |     Total Gas Cost     |
+| 15 Seconds    | 2.13120 gwei | 0.00160 to 0.00240 ETH |
+| 1 Minute      | 1.96787 gwei | 0.00148 to 0.00222 ETH |
+| 3 Minutes     | 1.00871 gwei | 0.00075 to 0.00113 ETH |
+| >10 Minutes   | 1.00871 gwei | 0.00075 to 0.00113 ETH |
++======================================================+
+
+These prices include a maximum priority fee of 0.010 gwei.
+Please enter your max fee (including the priority fee) or leave blank for the default of 1.96787 gwei:
+
+```
+After confirming your gas price, we'll make one last and final confirmation to create a megapool validator.
+```
+Using a max fee of 1.968 gwei and a priority fee of 0.010 gwei.
+You are about to deposit 4.000000 ETH to create 1 new megapool validator(s).
+ARE YOU SURE YOU WANT TO DO THIS? 
+ [y/n]
+y
+
+Creating 1 megapool validator(s) ...
+Transaction has been submitted with hash <tx-hash>.
+You may follow its progress by visiting:
+https://hoodi.etherscan.io/tx/<tx-hash>
+
+Waiting for the transaction to be included in a block... you may wait here for it, or press CTRL+C to exit and return to the terminal.
+
+The node deposit of 4.000000 ETH total was made successfully!
+Validator pubkeys:
+  1. <beacon-pubkey>
+
+The 1 new megapool validators have been created.
+Once your validators progress through the queue, ETH will be assigned and a 1 ETH prestake submitted for each.
+After the prestake, your node will automatically perform a stake transaction for each validator, to complete the progress.
+To check the status of your validators use `rocketpool megapool validators`
+To monitor the stake transactions use `rocketpool service logs node`
+
+```
+Once the transaction completes, you'll have a confirmation of your deposit 
+as an etherscan transaction hash along with the expected Beacon Chain pubkey once your Megapool validator comes online. Feel free to use the command `rocketpool megapool status` to 
+check the status of your megapool, or `rocketpool megapool validators` check the status of your specific validator. Your validator will be in the 
+`initialized` state as it progresses through the Rocket Pool deposit queue. Please keep in mind that your Megapool validator pubkey won't be registered on the Beacon Chain until it's been 
+processed by the Rocket Pool deposit queue and assigned ETH. 
+
+At this point, you've made it! Congrats on your megapool validator. You'll definitely want to check out the [Monitoring and Maintenance](/node-staking/maintenance/overview) section
+of our guides to learn how to keep your node in the best shape possible. Also continue reading the next section on confirming a successful stake to ensure 
+that your `initialized` validator smoothly progresses to `staking` without incurring any penalties. 
+
+## Confirming a Successful Stake
+
+## Creating Multiple Validators
 
 ## Exit a validator from the Rocket Pool Deposit Queue
 
 If you've had a validator waiting in queue (express OR standard) and wish to exit the queue, you may do so! Your 4 ETH deposit will be refunded 
-as credit redeemable for rETH. The steps are fairly simple: 
+as credit redeemable for an equivalent amount in rETH. The steps are fairly simple: 
 
-Use the following command to exit a validator from the queue
+First, check `rocketpool megapool validators` to determine which validator to dequeue. You want to make sure
+that the validator you are dequeueing is in the `Initialized` state. Take note of its pubkey. After your validator has been assigned ETH, you won't be able to dequeue it. 
+```
+1 Initialized validator(s):
+
+--------------------
+
+Megapool Validator ID:        6
+Expected pubkey:              <beacon-pubkey>
+Validator active:             no
+Validator Queue Position:     5
+Express Ticket Used:          no
+```
+
+
+Use the following command to exit a validator from the queue, then proceed with the selection: 
 ```
 staker@node:~$ rocketpool megapool exit-queue
 
 Please select a validator to exit the queue:
-1: Pubkey: 0x94272f1a4154a54c2d32503d7b98fc792f6d8b543655c62aa47f22b35e92b2ff523ad976b8518289ff3e5e6dbb19b8c5
+1: Pubkey: <beacon-pubkey>
 ```
-Once you've made your selection and confirm that your validator has exited the rocket pool deposit queue, you can use the following command to redeem the credit as rETH:
+Once you've made your selection and confirm that your validator has exited the Rocket Pool deposit queue, you can use the following command to redeem the credit as rETH:
 
 ```
 staker@node:~$ rocketpool node withdraw-credit
 
 You have 4.000000 ETH of credit that you can withdraw, receiving the equivalent amount in rETH. Would you like to withdraw the maximum amount of credit? [y/n]
 ```
-And there you have it! If you would like to deposit another validator, this credit is also redeemable as a validator deposit in addition to being redeemable as rETH. 
+And there you have it! If you would like to deposit another validator, this credit is also redeemable as a validator deposit in addition to being redeemable as rETH.
+If you happen to have used an express queue ticket on your exited (dequeued) validator, your node will be refunded that express queue ticket.  
