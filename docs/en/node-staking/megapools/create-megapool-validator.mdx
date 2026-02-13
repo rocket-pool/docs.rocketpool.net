@@ -158,9 +158,9 @@ To monitor the stake transactions use `rocketpool service logs node`
 
 ```
 Once the transaction completes, you'll have a confirmation of your deposit 
-as an etherscan transaction hash along with the expected Beacon Chain pubkey once your Megapool validator comes online. Feel free to use the command `rocketpool megapool status` to 
+as an etherscan transaction hash along with the expected Beacon Chain pubkey once your megapool validator comes online. Feel free to use the command `rocketpool megapool status` to 
 check the status of your megapool, or `rocketpool megapool validators` check the status of your specific validator. Your validator will be in the 
-`initialized` state as it progresses through the Rocket Pool deposit queue. Please keep in mind that your Megapool validator pubkey won't be registered on the Beacon Chain until it's been 
+`initialized` state as it progresses through the Rocket Pool deposit queue. Please keep in mind that your megapool validator pubkey won't be registered on the Beacon Chain until it's been 
 processed by the Rocket Pool deposit queue and assigned ETH. 
 
 At this point, you've made it! Congrats on your megapool validator. You'll definitely want to check out the [Monitoring and Maintenance](/node-staking/maintenance/overview) section
@@ -169,7 +169,77 @@ that your `initialized` validator smoothly progresses to `staking` without incur
 
 ## Confirming a Successful Stake
 
-## Creating Multiple Validators
+Make sure your node stays online during this entire process! It will perform a handful of fully automatic steps to ensure that your validator smoothly advances 
+between the various stages explained below: 
+
+Your new megapool validator will be in the `initialized` state. It will be in this state until it progresses through the Rocket Pool deposit queue 
+and is assigned 28 ETH from the deposit pool. Use the `rocketpool megapool validators` command to check the status of your validator. It should look something like this: 
+
+```
+1 Initialized validator(s):
+
+--------------------
+
+Megapool Validator ID:        7
+Expected pubkey:              <expected-pubkey>
+Validator active:             no
+Validator Queue Position:     4
+Express Ticket Used:          no
+```
+Once your validator is assigned ETH from the [Rocket Pool deposit queue](/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-and-express-queue), it will be moved into the `Prelaunch` state. At this point, 1 ETH from your megapool balance will be deposited
+in the Beacon Chain. Your validator's pubkey will also be registered on the Beacon Chain, which means you can view the status of your `Prelaunch` validator on an explorer such as https://beaconcha.in/ (or https://hoodi.beaconcha.in/ if you are using testnet). 
+You can observe your validator by searching the pubkey on https://beaconcha.in/ or visiting this link with the format: `https://beaconcha.in/validator/<your-validator-pubkey>`
+```
+1 Prelaunch validator(s):
+
+--------------------
+
+Megapool Validator ID:        7
+Validator pubkey:             <pubkey>
+Validator active:             no
+Express Ticket Used:          no
+
+```
+<img src="../images/prestaking.png" width="100%" height="auto" />
+After your `Prelaunch` validator is processed by the Beacon Chain and the initial 1 ETH deposit is credited. Your node will automatically perform a 
+`stake` transaction to complete the full 32 ETH Beacon Chain deposit. The `stake` transaction will progress your `Prelaunch` validator
+into a `Staking` validator. At this point your `Staking` validator has:
+- 32 ETH deposited into the Beacon Chain 
+- Assigned a validator index number 
+- Pending activation on the Beacon Chain
+
+```
+1 Staking validator(s):
+
+Megapool Validator ID:        1
+Validator pubkey:             <pubkey>
+Validator active:             no
+Validator index:              <index>
+Beacon status:                pending_queued
+Express Ticket Used:          no
+
+```
+<img src="../images/pending-activation.png" width="100%" height="auto" />
+
+The current status of the Beacon Chain validator queue can be found here: https://www.validatorqueue.com/. Once your `Staking` validator is activated on the Beacon Chain, you'll
+see `Beacon status:                active_ongoing` to confirm that it's been activated and ready to make attestations. 
+
+```
+1 Staking validator(s):
+
+--------------------
+
+Megapool Validator ID:        0
+Validator pubkey:             <pubkey>
+Validator active:             yes
+Validator index:              <index>
+Beacon status:                active_ongoing
+Express Ticket Used:          no
+```
+<img src="../images/activated.png" width="100%" height="auto" />
+
+At this stage you are all set! Congrats! You have officially created a megapool validator with Rocket Pool! Have a look at the [Monitoring and Maintenance](/node-staking/maintenance/overview) guides
+to learn how to monitor your node and keep it in tip top condition.
 
 ## Exit a validator from the Rocket Pool Deposit Queue
 
@@ -207,3 +277,15 @@ You have 4.000000 ETH of credit that you can withdraw, receiving the equivalent 
 ```
 And there you have it! If you would like to deposit another validator, this credit is also redeemable as a validator deposit in addition to being redeemable as rETH.
 If you happen to have used an express queue ticket on your exited (dequeued) validator, your node will be refunded that express queue ticket.  
+
+## Creating Multiple Megapool Validators
+
+Your node's megapool can manage as many validators as you'd like. If you'd like to create an additional validator (or create multiple validators in the same transaction to save on transaction fees), 
+you can do so using the `rocketpool megapool deposit` command. 
+
+## Next Steps
+
+Now that you have a megapool validator up and running, the next steps will walk you through how to monitor the health of your node, check for and apply updates, and maintain it throughout its life.
+
+Please read through the [Monitoring and Maintenance](/node-staking/maintenance/overview) section next to learn more about these topics.
+
