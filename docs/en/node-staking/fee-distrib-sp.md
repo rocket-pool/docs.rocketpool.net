@@ -1,6 +1,6 @@
 # Fee Distributors and the Smoothing Pool
 
-Now that [the Merge](https://ethereum.org/en/upgrades/merge/) has passed, node operators receive **priority fees** (**tips**) from the transactions they include in any blocks that they propose to the Ethereum chain.
+Node operators receive **priority fees** (**tips**) from the transactions they include in any blocks that they propose to the Ethereum chain.
 These fees come from and stay on the Execution layer.
 
 Unlike most validation rewards which are generated on the Consensus layer and automatically withdrawn periodically, these fees are _immediately liquid_.
@@ -23,13 +23,27 @@ It can't send them to your minipool address, because it has to work for solo sta
 Instead, the way it works is fairly straightforward: when Rocket Pool starts up your Validator Client, it passes in an argument called the **fee recipient**.
 The fee recipient is simply an address on the Execution layer where you want the tips to go.
 
-Rocket Pool is designed to fairly distribute these rewards between you and the rETH pool stakers, the same way it fairly distributes your Beacon chain rewards: your portion of any priority fees your minipool validators earn will go to you (plus the average commission of all of your minipools), and the remaining portion will go to the pool stakers (minus your average commission).
-The exact portion depends on the number of 8 ETH-bonded versus 16 ETH-bonded minipools you have.
+Your node's `fee recipient` can be one of the following special contracts:
 
-To that end, the Smartnode will automatically set your node's `fee recipient` to either of these special contracts:
-
-- Your node's own personal **Fee Distributor** (the default)
+- Your node's own personal **Fee Distributor** 
+- Your node's megapool contract
 - The **Smoothing Pool** (opt-in)
+
+The Smart Node will automatically set the correct fee recipient based on your configuration:
+
+| Smoothing Pool Status | Has Megapool Validators | Has Minipools | Fee Recipient |
+|----------------------|-------------------------|---------------|---------------|
+| Opted In | No | Yes | Smoothing Pool address |
+| Opted In | Yes | No | Smoothing Pool address |
+| Opted In | Yes | Yes | Smoothing Pool address (all validators) |
+| Opted Out | No | Yes | Fee Distributor contract address |
+| Opted Out | Yes | No | Megapool contract address |
+| Opted Out | Yes | Yes | Megapool validators → Megapool address<br>Minipool validators → Fee Distributor address<br>(Set per validator via [keymanager API](https://ethereum.github.io/keymanager-APIs/#/Fee%20Recipient/setFeeRecipient)) |
+
+
+
+Rocket Pool is designed to fairly distribute these rewards between you and the rETH pool stakers, the same way it fairly distributes your Beacon chain rewards: your portion of any priority fees your minipool validators earn will go to you (plus the average commission of all of your minipools), and the remaining portion will go to the pool stakers (minus your average commission).
+The exact portion depends on the number of 8 ETH-bonded, 16 ETH-bonded minipools, and 4 ETH-bonded megapool validators you have. 
 
 In brief, the **Fee Distributor** is a unique contract attached to your node that collects and fairly splits your priority fees between you and the rETH stakers.
 It's like your own personal vault for priority fees.
@@ -55,13 +69,10 @@ The address for your node's Fee Distributor is **deterministically based on your
 That means it is known ahead of time, before the Fee Distributor is even created.
 
 New Rocket Pool nodes will automatically create (initialize) their node's Fee Distributor contract upon registration.
-Nodes that were created before the Redstone upgrade will need to do this process manually.
 This only needs to be run once.
 
 One interesting ramification of this is that your Distributor's address may start accruing a balance **before** you've initialized your Fee Distributor contract.
 This is okay, because your Distributor will gain access to all of this existing balance as soon as you initialize it.
-
-**By default, your node will use its Fee Distributor as the fee recipient for your validators.**
 
 ### Viewing its Address and Balance
 
@@ -75,19 +86,9 @@ The output will look like this:
 
 ![](../node-staking/images/status-fee-distributor.png)
 
-### Initializing the Fee Distributor
+### Claiming fees from your Fee Distributor
 
-To initialize your node's distributor, simply run this new command:
-
-```shell
-rocketpool node initialize-fee-distributor
-```
-
-::: warning NOTE
-If you created your node before the Redstone update, you must call this function once before you can create any new minipools with `rocketpool node deposit`.
-:::
-
-When your distributor has been initialized, you can claim and distribute its entire balance using the following command:
+You can claim and distribute the entire balance of your fee distributor using the following command:
 
 ```shell
 rocketpool node distribute-fees
@@ -97,7 +98,7 @@ This will send your share of the rewards to your **withdrawal address**.
 
 ::: warning NOTE ON TAXABLE EVENTS
 Whenever you create a new minipool, Rocket Pool will automatically call `distribute-fees`.
-This is to ensure that whatever fees you had accumulated are distributed using your node's average commission, which could change when you create the new minipool.
+This is to ensure that whatever fees you had accumulated are distributed using your node's average commission, which could change when you create the new minipool. This does not apply to megapool validator creation. 
 
 Also, note that anyone can call `distribute-fees` on your fee distributor (to prevent you from holding rETH rewards hostage).
 You may have a taxable event whenever this method is called.
