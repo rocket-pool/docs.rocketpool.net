@@ -5,23 +5,26 @@ import rplWithdrawalConfirmation from "./images/rpl_withdrawal_confirmation.png"
 # Preparing your Node for Operation
 
 If you're here, then you've successfully started the Smartnode services, created a wallet, and finished syncing both the Execution and Consensus chains on your respective clients.
-If so, then you are ready to register your node on the Rocket Pool network and create a minipool with a validator!
+If so, then you are ready to register your node on the Rocket Pool network and create a megapool with a validator!
 If not, please review the previous sections and return here once you've completed those steps.
 
-Before creating a new minipool and validator, there are a few steps to take to finish preparing your node.
-These only need to be done once though; once you've done them, you can skip to the [Creating a New Minipool](./create-validator.mdx) section if you want to create multiple minipools on your node.
+Before creating a megapool and new validator, there are a few steps to take to finish preparing your node.
+These only need to be done once though; once you've done them, you can skip to the [Creating a Megapool Validator](/node-staking/megapools/create-megapool-validator) section if you want to create multiple validators on your node.
 
 ## Loading your Node Wallet
 
 Registering your node and standing up a validator both involve submitting transactions to the Ethereum network from your node wallet.
 This means **you'll need to have some ETH on it** to pay for the gas costs of those transactions.
-You'll also need to stake some of the **RPL token** prior to creating a minipool as collateral; you can do this directly on the node, or (preferably) you can use the Rocket Pool website's **Stake on Behalf** function to stake for your node with RPL in your cold wallet.
+If you wish to stake RPL you can do this directly on the node, or (preferably) you can use the Rocket Pool website's **Stake on Behalf** function to stake for your node with RPL in your cold wallet.
 We'll discuss the Stake on Behalf feature later in this guide when it's time to stake your RPL.
 
+
+::: tip NOTE 
 The ETH required for gas fees to set up a node with one minipool is about 0.0025 ETH times the current gas price in gwei.
 For example, with a gas price of 30 gwei, you would pay about 0.075 ETH in gas fees.
 
 See [this worksheet](https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552) to help estimate the gas fees for various network conditions.
+::: 
 
 <div className="p-3">
   <Tabs>
@@ -76,7 +79,7 @@ Once this is complete, you will officially be a member of the Rocket Pool networ
 ## Setting your Primary Withdrawal Address
 
 Before anything else, we highly recommended you change the **primary withdrawal address** for your node.
-This is the address that all of your RPL checkpoint rewards, your staked RPL, and your Beacon Chain ETH will be sent to when you claim your checkpoint rewards or exit your validator and withdraw from your minipool.
+This is the address that all of your RPL checkpoint rewards, your staked RPL, and your Beacon Chain ETH will be sent to when you claim your checkpoint rewards or exit your validator and withdraw from your megapool.
 
 Optionally, you can set a withdrawal address for your ETH and [a new one for your RPL](https://rpips.rocketpool.net/RPIPs/RPIP-31). The RPL withdrawal address if set will be able to trigger and claim RPL from inflation rewards and will have no effect on ETH consensus rewards or anything related to ETH. If you haven't set an RPL withdrawal address, the Primary Withdrawal Address will receive RPL rewards as well. By default, **whoever controls the primary withdrawal address can access ALL your staked RPL, ETH, and rewards.**
 
@@ -92,7 +95,7 @@ We **strongly recommend** that you DO NOT use a hot wallet such as MetaMask as y
 This way, if your node wallet is compromised, the attacker doesn't get access to your staked ETH and RPL by forcing you to exit because all of those funds will be sent to your separate cold wallet (which they hopefully do not have).
 
 Primary withdrawal addresses are set at a node operator level.
-If you create multiple minipools, they will all refer to the same primary withdrawal address so you only need to perform this setup once.
+If you create multiple megapool validators, they will all refer to the same primary withdrawal address so you only need to perform this setup once.
 
 [See here](https://ethereum.org/en/security/#wallet-security) for some basics on wallet security from the Ethereum Foundation.
 :::
@@ -127,7 +130,7 @@ Please read both options below to determine which one applies to you.
       </p>
 
       1. Run `rocketpool node set-primary-withdrawal-address 'your cold wallet address or ENS name'`. Your new primary withdrawal address will be marked as "pending". Until you confirm it, **your old primary withdrawal address will still be used**.
-      2. To confirm it, you must send a special transaction **from your new primary withdrawal address** to the minipool contract to verify that you own the primary withdrawal address.
+      2. To confirm it, you must send a special transaction **from your new primary withdrawal address** to the megapool contract to verify that you own the primary withdrawal address.
       1. The easiest way to do this is to navigate to the Rocket Pool primary withdrawal address site (for the [Hoodi Testnet](https://testnet.node.rocketpool.net/primary-withdrawal-address) or for [Mainnet](https://node.rocketpool.net/primary-withdrawal-address)).
       3. If you haven't already connected Metamask or WalletConnect to the Rocket Pool website, do this now. Click the **select wallet** button in the center of the screen, and choose MetaMask or WalletConnect based on which wallet you would like to use. You will then be prompted asking you to confirm the connection. For example, using MetaMask:
 
@@ -158,9 +161,10 @@ Please read both options below to determine which one applies to you.
 
       ::: danger
       By doing this, you bypass the safety measure associated with Method 1, which requires you to prove that you own the new address.
-      If you make a typo here, there is no way to undo it and **your minipool's rewards will be lost forever**.
+      If you make a typo here, there is no way to undo it and **your megapool's rewards will be lost forever**.
 
       We **strongly** encourage you to use the test transaction mechanism before confirming this, and if possible, use Method 1 instead.
+      :::
     </Tab>
 
   </Tabs>
@@ -265,7 +269,7 @@ We **strongly recommend** that you DO NOT use a hot wallet such as MetaMask as y
 This way, if your node wallet is compromised, the attacker doesn't get access to your staked RPL by forcing you to exit because all of those funds will be sent to your separate cold wallet (which they hopefully do not have).
 
 RPL withdrawal addresses are set at a node operator level.
-If you create multiple minipools, they will all refer to the same RPL withdrawal address so you only need to perform this setup once.
+If you create multiple megapool validators, they will all refer to the same RPL withdrawal address so you only need to perform this setup once.
 
 [See here](https://ethereum.org/en/security/#wallet-security) for some basics on wallet security from the Ethereum Foundation.
 :::
@@ -299,7 +303,7 @@ Please read both options below to determine which one applies to you.
       </p>
 
       1. Run `rocketpool node set-rpl-withdrawal-address 'your cold wallet address or ENS name'`. Your new RPL withdrawal address will be marked as "pending". Until you confirm it, **your old RPL withdrawal address will still be used**.
-      2. To confirm it, you must send a special transaction **from your new RPL withdrawal address** to the minipool contract to verify that you own the RPL withdrawal address.
+      2. To confirm it, you must send a special transaction **from your new RPL withdrawal address** to the megapool contract to verify that you own the RPL withdrawal address.
       1. The easiest way to do this is to navigate to the Rocket Pool RPL withdrawal address site (for the [Hoodi Testnet](https://testnet.node.rocketpool.net/rpl-withdrawal-address) or for [Mainnet](https://node.rocketpool.net/rpl-withdrawal-address)).
       3. If you haven't already connected Metamask or WalletConnect to the Rocket Pool website, do this now. Click the **select wallet** button in the center of the screen, and choose MetaMask or WalletConnect based on which wallet you would like to use. You will then be prompted asking you to confirm the connection. For example, using MetaMask:
 
@@ -333,7 +337,7 @@ Please read both options below to determine which one applies to you.
 
       <p className="rspress-directive danger">
         By doing this, you bypass the safety measure associated with Method 1, which requires you to prove that you own the new address.
-        If you make a typo here, there is no way to undo it and **your minipool's rewards will be lost forever**.
+        If you make a typo here, there is no way to undo it and **your megapool's rewards will be lost forever**.
 
         We **strongly** encourage you to use the test transaction mechanism before confirming this, and if possible, use Method 1 instead.
       </p>
@@ -400,4 +404,4 @@ The next steps to prepare your node will teach you about setting up a fallback n
 Each topic will require you to make a choice about how you want to run your node.
 Please move on to the next sections in the guide when you're ready.
 
-Once you're done with those topics, you'll be guided through the process of making a minipool and earning staking rewards.
+Once you're done with those topics, you'll be guided through the process of making a megapool validator and earning staking rewards.

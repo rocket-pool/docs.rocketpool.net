@@ -16,13 +16,13 @@ rocketpool wallet recover
 ```
 
 ::: warning NOTE
-If, for some reason, you want to recover the wallet but _not_ any of the validator keys attached to your node's minipools, you can specify the `-k` flag to skip the rebuild process:
+If, for some reason, you want to recover the wallet but _not_ any of the validator keys attached to your node's minipools or megapool validators, you can specify the `-k` flag to skip the rebuild process:
 
 ```shell
 rocketpool wallet recover -k
 ```
 
-If you do not specify this flag, the Smartnode will attempt to recover the validator keys for your minipools; however, note that this will not work until your Execution client has finished syncing.
+If you do not specify this flag, the Smartnode will attempt to recover the validator keys for your minipools or megapool validators; however, note that this will not work until your Execution client has finished syncing.
 Please watch its log file to see when it's done; once it is, you can run this step.
 :::
 
@@ -81,9 +81,9 @@ This is a multi-step process, so follow the below sections carefully.
 
 ### Step 1: Add Externally-Generated Validator Keys
 
-**If you don't have any existing minipools attached to the address you're importing, you can skip this step.**
+**If you don't have any existing minipools or megapool validators attached to the address you're importing, you can skip this step.**
 
-If your address has already been registered as a Rocket Pool node wallet (such as via a service like **Allnodes**) and already has active minipools, and you'd like to import them into the Smartnode stack along with your address, you will need to provide the private keystore files for each of their corresponding validators.
+If your address has already been registered as a Rocket Pool node wallet (such as via a service like **Allnodes**) and already has active minipools or megapool validators, and you'd like to import them into the Smartnode stack along with your address, you will need to provide the private keystore files for each of their corresponding validators.
 These files will be encrypted with a password of your own choosing, so you will need that password for each file as well.
 
 You need to get these files from the service that is currently running your node in order to import it.
@@ -121,7 +121,7 @@ The names of the files don't matter, but they must be JSON files that conform to
 The Smartnode will look in this directory for any keystore files you have placed here in the next steps.
 
 ::: warning NOTE
-The import process will _only_ look for validator keys that are attached to minipools registered to the address you're importing.
+The import process will _only_ look for validator keys that are attached to minipools or megapool validators registered to the address you're importing.
 You **cannot** use this process to import other validator keys, such as for solo staking validators, into the Validator client managed by the Smartnode stack.
 
 Please see the documentation for running in [Reverse Hybrid Mode](./advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode) if you are interested in doing this.
@@ -139,7 +139,7 @@ Where `0x1234abcd...` is the address you want to import, starting with the `0x` 
 **You will need your mnemonic phrase to import the private key for your address.**
 
 ::: tip TIP
-If, for some reason, you want to recover the wallet but _not_ any of the validator keys for your minipools, you can specify the `-k` flag to skip the validator key recovery process.
+If, for some reason, you want to recover the wallet but _not_ any of the validator keys for your minipools or megapool validators, you can specify the `-k` flag to skip the validator key recovery process.
 For example:
 
 ```shell
@@ -237,7 +237,7 @@ Please confirm your password:
 
 After that, the mnemonic and custom validator keystore password prompts will proceed as they did before.
 
-Once you've entered all of this information, the Smartnode will recover your address and (if not disabled) the custom validator keys for your minipools:
+Once you've entered all of this information, the Smartnode will recover your address and (if not disabled) the custom validator keys for your minipools and megapool validators:
 
 ```
 Searching for the derivation path and index for wallet 0x1234abcd...
