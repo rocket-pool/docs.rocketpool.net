@@ -100,9 +100,11 @@ The next prompt will display the status of the [Rocket Pool deposit queue](/node
 This shows you how many validators waiting to be matched with ETH are ahead of you. The express queue is mainly for already existing node operators as new nodes won't have any express
 queue tickets. `The express queue rate is 4` means 4 validators from the express queue are matched for every 1 validator in the standard queue.
 ```
-There are 45 validator(s) on the express queue.
-There are 21 validator(s) on the standard queue.
-The express queue rate is 4.
+There are 1 validator(s) on the express queue.
+There are 12 validator(s) on the standard queue.
+The express queue rate is 4 (4 express validators assigned per 1 standard).
+A new express validator would be at queue position 3.
+A new standard validator would be at queue position 14.
 ```
 ::: tip NOTE
 If you are a returning node operator and have express queue tickets available for this deposit, you'll be prompted to use them at this point.
@@ -183,7 +185,7 @@ and is assigned 28 ETH from the deposit pool. Use the `rocketpool megapool valid
 Megapool Validator ID:        7
 Expected pubkey:              <expected-pubkey>
 Validator active:             no
-Validator Queue Position:     4
+Validator Queue Position:     14
 Express Ticket Used:          no
 ```
 Once your validator is assigned ETH from the [Rocket Pool deposit queue](/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-and-express-queue), it will be moved into the `Prelaunch` state. At this point, 1 ETH from your megapool balance will be deposited
@@ -256,7 +258,7 @@ that the validator you are dequeueing is in the `Initialized` state. Take note o
 Megapool Validator ID:        6
 Expected pubkey:              <beacon-pubkey>
 Validator active:             no
-Validator Queue Position:     5
+Validator Queue Position:     14
 Express Ticket Used:          no
 ```
 
