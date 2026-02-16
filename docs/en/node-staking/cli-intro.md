@@ -498,6 +498,115 @@ rocketpool node send 1 eth <my friend's address>
 
 would send 1 ETH to my friend.
 
+## Megapool Commands
+The `megapool` group is where you can access all the commands used to manage your megapool and megapool validators. 
+
+Here's what `rocketpool megapool help` will show: 
+
+```
+NAME:
+   rocketpool megapool - Manage the node's megapool
+
+USAGE:
+   rocketpool megapool [global options] command [command options] [arguments...]
+
+VERSION:
+   1.19.1
+
+COMMANDS:
+   deposit, d                Make a deposit and create a new validator on the megapool. Optionally specify count to make multiple deposits.
+   status, s                 Get the node's megapool status
+   validators, v             Get a list of the megapool's validators
+   repay-debt, r             Repay megapool debt
+   reduce-bond, e            Reduce the megapool bond
+   claim, c                  Claim any megapool rewards that were distributed but not yet claimed
+   stake, k                  Stake a megapool validator
+   exit-queue, x             Exit the megapool queue
+   dissolve-validator, i     Dissolve a megapool validator
+   exit-validator, t         Request to exit a megapool validator
+   notify-validator-exit, n  Notify that a validator exit is in progress
+   notify-final-balance, f   Notify that a validator exit has completed and the final balance has been withdrawn
+   distribute, b             Distribute any accrued execution layer rewards sent to this megapool
+
+GLOBAL OPTIONS:
+   --help, -h  show help
+```
+
+Below is a summary of the commands that you'll typically use during normal operation:
+
+### `deposit`
+This command lets you create new validators on your megapool. We'll go more into it later. Feel free to jump ahead to [Creating a Megapool Validator](/node-staking/megapools/create-megapool-validator.mdx) if you'd like a preview.
+
+### `status`
+This command gives you some information on the state of your megapool and the validators managed by your megapool. You'll be able to see your megapool's address, number of express queue tickets, your megapool's delegate address, ETH balance on the execution and consensus layer, and lots of other useful information. Here's an example of the `rocketpool megapool status` output: 
+
+```
+=== Megapool ===
+The node has a megapool deployed at 0xCf3576c5A6e5a25AC00C9adb6751924BAe1680B1
+The node has 0 express ticket(s).
+The megapool has 9 validators.
+
+=== Megapool Delegate ===
+The megapool is using the latest delegate.
+The megapool's effective delegate address is 0x138602A95956995280f1146aA9477d6B4E481B3c
+The megapool has automatic delegate upgrades disabled. You can toggle this setting using 'rocketpool megapool set-use-latest-delegate'.
+
+=== Megapool Balance ===
+The megapool has 4.000000 node bonded ETH.
+The megapool has 28.000000 RP ETH for a total of 32.000000 bonded ETH.
+Megapool balance (EL): 32.051883 ETH
+The megapool has 1 validators exiting. You'll be able to see claimable rewards once the exit process is completed.
+Beacon balance (CL): 0.000000 ETH
+Your portion: 0.000000 ETH
+Current network commission: 5.000000%
+```
+
+### `validators`
+The `rocketpool megapool validators` command will show you the status of each and every validator managed by your node's megapool. You'll be able to see information such as the validator pubkeys, beacon chain state, and queue position of prestaking validators:
+```
+There are 8 validator(s) on the express queue.
+There are 2 validator(s) on the standard queue.
+The express queue rate is 2.
+
+1 Staking validator(s):
+
+Megapool Validator ID:        1
+Validator pubkey:             <pubkey>
+Validator active:             no
+Validator index:              <index>
+Beacon status:                pending_queued
+Express Ticket Used:          no
+
+
+1 Initialized validator(s):
+
+--------------------
+
+Megapool Validator ID:        2
+Expected pubkey:              <pubkey>
+Validator active:             no
+Validator Queue Position:     10
+Express Ticket Used:          no
+
+
+1 Exiting validator(s):
+
+--------------------
+
+Megapool Validator ID:        0
+Validator pubkey:             <pubkey>
+Validator active:             no
+Validator index:              <index>
+Beacon status:                withdrawal_done
+Express Ticket Used:          yes
+
+```
+
+### `exit-validator`
+
+This command allows you to select a validator to voluntarily exit on the Beacon Chain. Use this when you want to close a validator and withdraw its final ETH balance. Note that this cannot be undone - once you trigger an exit, the validator will shut down permanently.
+
+
 ## Minipool Commands
 
 The `minipool` group involves commands that affect your minipools.
