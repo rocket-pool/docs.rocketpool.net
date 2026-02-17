@@ -4,7 +4,8 @@ The deposit credit system is a mechanism to track ETH that was previously bonded
 The source of this credit comes from a few places:
 
 - [Exiting a validator from the Rocket Pool deposit queue](./create-megapool-validator#exit-a-validator-from-the-rocket-pool-deposit-queue). Dequeueing a validator will credit the node operator with the bonded amount (4 ETH) 
-- If a prestaking validator fails to stake within 28 days, the validator will be dissolved. The node operator is credited 3 ETH from their bond with a dissolve penalty of 0.05 applied as debt. The net credit for a dissolved validator is 2.95 ETH. 
+- If a prelaunch validator fails to stake within 28 days, the validator will be dissolved. The 1 ETH (of a 4 ETH bond) sent to the Beacon Chain during the prelaunch process is **not recoverable**.
+ The node operator is credited the remaining 3 ETH from their bond with a dissolve penalty of 0.05 ETH applied as debt. The net credit for a dissolved validator is 2.95 ETH. 
 
 The next two are only for node operators who made migrations pre-saturn. They are no longer possible: 
 - [Migrating an existing 16-ETH bonded minipool down to an 8-ETH bonded minipool](/node-staking/leb-migration.mdx) (which adds 8 ETH to the node operator's credit balance)
