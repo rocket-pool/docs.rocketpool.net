@@ -31,6 +31,8 @@ to either upgrade or stay on the same minipool delegates, making it challenging 
 iterate more efficiently. Forced delegate upgrades on megapool contracts means the Rocket Pool
 Protocol won't be hindered by backwards compatibility when designing future upgrades, and gives the pDAO more flexibility to improve Rocket Pool over time. 
 
+If you're a new or returning node operator and want to look into creating a megapool, feel free to take a look at the [Creating a Megapool Validator](/node-staking/megapools/create-megapool-validator#creating-a-megapool-validator) guide. 
+
 ## Lower Bond Requirements
 
 Megapools reduce operational cost, allowing Rocket Pool to lower the bond requirement per validator from 8 ETH to 4 ETH.
@@ -49,8 +51,8 @@ the first two validators then 1.5 ETH bonds on each subsequent validator.
 Check out [RPIP-42: Bond curves](https://rpips.rocketpool.net/RPIPs/RPIP-42) to dive into the details.
 
 ## RPL Revenue Share
-In Saturn 1, RPL becomes an ETH-accrual revenue share token. Node operators with vote-eligible RPL staked on their megapool 
-earn a share of ETH revenue proportional to their staked RPL. The next section explains how this revenue distribution works.
+In Saturn 1, RPL becomes an ETH-accrual revenue share token. Node operators with RPL staked on their megapool 
+earn an ETH share (9% of protocol revenue) proportional to their staked RPL. The next section explains how this revenue distribution works.
 
 ## Universal Adjustable Revenue Split (UARS)
 
@@ -65,8 +67,10 @@ UARS splits ETH revenue among four groups. Each share is adjustable via pDAO gov
 - pDAO share to the protocol treasury (0%, can be adjusted via governance) 
 - rETH holders receive the remainder 
 
-Each node operator receives voter share based on their proportion of vote-eligible RPL staked to their megapool. 
+The voter share (9% of protocol revenue) is distributed proportionally among all node operators based on their share of total megapool RPL staked. 
 In Saturn 1, RPL inflation rewards continue alongside this new voter share mechanism, providing additional incentives for node operators who stake RPL. 
+
+You [here](/node-staking/megapools/staking-and-claiming-rewards#whats-changed-in-saturn-1) learn more about RPL Revenue Share and UARS.
 
 ## Reworked Deposit Mechanics
 
