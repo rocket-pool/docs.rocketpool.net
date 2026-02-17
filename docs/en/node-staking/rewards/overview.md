@@ -23,4 +23,4 @@ Before configuring your Smartnode, please make sure you:
 
 [Claiming Node Operator Rewards](../rewards) explains how RPL rewards and Execution-layer rewards work, and how to access them.
 
-[Distributing Skimmed Rewards](../skimming) covers accessing rewards from the Beacon Chain that periodically get "skimmed" by the protocol and delivered to your minipools or megapool.
+[Distributing Skimmed Minipool Rewards](../skimming) covers accessing rewards from the Beacon Chain that periodically get "skimmed" by the protocol and delivered to your minipools.

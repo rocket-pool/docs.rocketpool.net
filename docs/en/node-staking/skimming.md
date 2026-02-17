@@ -1,4 +1,4 @@
-# Distributing Skimmed Rewards
+# Distributing Skimmed Minipool Rewards
 
 The ETH rewards you receive for running a validator for Ethereum are routinely sent to your minipools in a process referred to as "skimming".
 The frequency of skims depends on the number of activate validators on the Beacon Chain. At the time of writing the number of validators is around
