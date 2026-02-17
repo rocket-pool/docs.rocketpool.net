@@ -1,0 +1,97 @@
+# Megapool Doğrulayıcısından Çıkış
+
+Artık bir megapool doğrulayıcısı çalıştırmak istemiyorsanız ve Beacon Chain'de kilitli tam bakiyeye erişmek istiyorsanız,
+birkaç adımı izlemeniz gerekecektir. Bu sayfa, bir megapool doğrulayıcısından çıkış sürecinde size rehberlik etmek için hazırlanmıştır.
+
+1. Beacon Chain'e gönüllü çıkış isteği gönderme (manuel)
+2. Doğrulayıcı çıkışını bildirme (smart node tarafından otomatik)
+3. Son bakiyeyi bildirme (smart node tarafından otomatik)
+
+## Beacon Chain'e Çıkış İsteği Gönderme
+
+Beacon Chain'e çıkış isteği göndermek için smart node'daki `rocketpool megapool exit-validator` komutunu kullanın. Çıkış yapılabilecek doğrulayıcıların listesi size sunulacaktır.
+
+```
+staker@node:~$ rocketpool megapool exit-validator
+
+Please select a validator to EXIT:
+1: ID: 1 - Index: 1269834 Pubkey: 0x9455594c2f02674922eb6dee40d096f3203dd1762aa7f1a988ab6c277a62418ec3abfb460b57f33f13a5922e9551d5cc
+2: ID: 2 - Index: 1269835 Pubkey: 0xa188774e1adf42db768230541403347a8d2ebcd8386b7f5662bcf1004e17d8d53303889a7e527448cf29bff9bde34bb9
+3: ID: 3 - Index: 1269851 Pubkey: 0xa3e211e95a542ffaf8467ba211a3d893b58c59204dab8c32df29f0cfda3f9ce485a3bc13a50e4c205f912613521ed203
+4: ID: 7 - Index: 1274411 Pubkey: 0xb5369a5f8550daa07476378dc4864f08b74d4950e28c74844527b59b1e9dea9fd376ea3bd171ee8fba7de866cd4ea37e
+5: ID: 8 - Index: 1275239 Pubkey: 0xa56660fa14f0cb7a7030ea0c68a075c7fd700d98ee3afb498030f2bafbadfbf29703bf8fe8ccc9e1f2332b96dcb51ee2
+```
+
+Bir doğrulayıcı seçtikten sonra, smart node ek bir istemle devam edecektir. Çıkış yapmayı düşündüğünüz doğrulayıcıyı seçtiğinizi onaylayın,
+`y` yazın, ardından Beacon Chain'e gönüllü çıkış isteği göndermek için `enter` tuşuna basın. Bu işlem herhangi bir gaz gerektirmez. Doğrulayıcıyı gönüllü olarak
+çıkarmak için düğümünüzden beacon chain'e imzalı bir mesaj gönderir.
+
+```
+NOTE:
+You are about to exit a validator. This will tell each validator to stop all activities on the Beacon Chain.
+Please continue to run your validators until each one you've exited has been processed by the exit queue.
+You can watch their progress on the https://beaconcha.in explorer.
+Your funds will be locked on the Beacon Chain until they've been withdrawn, which will happen automatically (this may take a few days).
+Once your funds have been withdrawn, you can run `rocketpool megapool notify-validator-exit` to distribute them to your withdrawal address.
+
+Are you sure you want to EXIT validator id 1? [y/n]
+y
+
+Successfully requested to exit validator id 1.
+```
+
+Düğümünüz Beacon Chain'e gönüllü çıkış isteği gönderir. Bu noktada doğrulayıcınız `active_exiting` Beacon Chain durumunda olmalıdır. Bunu, çıkış isteğinde bulunduğunuz doğrulayıcıyı kontrol ederek
+`rocketpool megapool validators` komutunu çalıştırarak doğrulayabilirsiniz:
+
+```
+
+Megapool Validator ID:        1
+Validator pubkey:             0x9455594c2f02674922eb6dee40d096f3203dd1762aa7f1a988ab6c277a62418ec3abfb460b57f33f13a5922e9551d5cc
+Validator active:             yes
+Validator index:              1269834
+Beacon status:                active_exiting
+Express Ticket Used:          no
+```
+
+
+<img src="../images/megapool-exiting.png" width="100%" height="auto" />
+
+
+::: tip NOT
+Doğrulayıcınız, Beacon Chain çıkış kuyruğu tarafından işlenene kadar onay yapmaya devam edecektir; bu nedenle lütfen bu süreçte düğümünüzü çevrimiçi tutun! Bu birkaç gün veya daha uzun sürebilir.
+Mevcut kuyruk süresini kontrol etmek için bu web sitesi oldukça kullanışlıdır: https://www.validatorqueue.com/
+:::
+
+## Doğrulayıcı Çıkışını Bildirme
+
+Önceki `active_exiting` aşamasında, düğümünüz Beacon Chain çıkış kuyruğuna tabi kalırken onay yapıyordu. Süre,
+ne kadar ETH'nin çıkmayı beklediğine bağlı olarak değişir.
+
+Doğrulayıcınız bu kuyruğun sonuna ulaştıktan sonra `exited_unslashed` durumuna geçer. Bu aşamada, smart node'unuz otomatik olarak `notify validator exit` çağrısını yaparak
+Rocket Pool protokolüne doğrulayıcınızın çıktığını ve yakında çekilebilir olduğunu bildirir.
+
+::: warning UYARI
+Bu adım, smart node tarafından `rocketpool_node` görev döngüsü içinde tamamen otomatikleştirilmiştir. Bu süreçte düğümünüzü çevrimiçi tutmak çok önemlidir; aksi takdirde çevrimdışı olmak için `0,05 ETH` ceza alırsınız. Ceza,
+çekim bakiyenizden düşülür. Lütfen tüm doğrulayıcı çıkış süreci boyunca düğümünüzün durumunu izleyin.
+:::
+
+```
+Megapool Validator ID:        1
+Validator pubkey:             0x9455594c2f02674922eb6dee40d096f3203dd1762aa7f1a988ab6c277a62418ec3abfb460b57f33f13a5922e9551d5cc
+Validator active:             no
+Validator index:              1269834
+Beacon status:                exited_unslashed
+Express Ticket Used:          no
+```
+
+beaconcha.in'deki durum şöyle görünmelidir:
+
+<img src="../images/megapool-exited.png" width="100%" height="auto" />
+
+Beacon Chain'de 256 dönem sonra, diğer birikmiş ödüllerle birlikte tam 32 ETH, düğümünüzün megapool'una gönderilecektir.
+
+## Son Bakiyeyi Bildirme
+
+Bu noktada, doğrulayıcınız tamamen Beacon Chain'den çıkmış ve son çekim Beacon Chain'den megapool'unuza gönderilmiştir. Smart node'unuz otomatik olarak `notify final balance` çağrısını yapacaktır.
+Bu çağrı, megapool doğrulayıcınızın görevlerini tamamen sona erdirir ve aynı zamanda bakiyenizin payını düğümünüzün ETH çekim adresine dağıtır. Düğümünüzü çevrimiçi tuttuysanız ve `notify
+validator exit` ve `notify final balance` gibi otomatik görevler gerçekleştirildiyse, sizden başka herhangi bir adım gerekmemektedir.

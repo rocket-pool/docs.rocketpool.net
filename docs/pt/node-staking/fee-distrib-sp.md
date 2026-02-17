@@ -1,6 +1,6 @@
 # Distribuidores de Taxas e o Smoothing Pool
 
-Agora que [o Merge](https://ethereum.org/pt/upgrades/merge/) passou, os operadores de nó recebem **taxas de prioridade** (**tips**) das transações que incluem em qualquer bloco que propõem à cadeia Ethereum.
+Os operadores de nó recebem **taxas de prioridade** (**tips**) das transações que incluem em qualquer bloco que propõem à cadeia Ethereum.
 Essas taxas vêm e permanecem na camada de Execução.
 
 Ao contrário da maioria das recompensas de validação que são geradas na camada de Consenso e automaticamente sacadas periodicamente, essas taxas são _imediatamente líquidas_.
@@ -23,13 +23,27 @@ Ele não pode enviá-las para o endereço do seu minipool, porque precisa funcio
 Em vez disso, a maneira como funciona é bastante direta: quando Rocket Pool inicia seu Cliente Validador, ele passa um argumento chamado **destinatário de taxa**.
 O destinatário de taxa é simplesmente um endereço na camada de Execução para onde você quer que as tips vão.
 
-Rocket Pool é projetado para distribuir essas recompensas de forma justa entre você e os stakers do pool rETH, da mesma forma que distribui de forma justa suas recompensas da Beacon chain: sua parte de quaisquer taxas de prioridade que seus validadores de minipool ganhem irá para você (mais a comissão média de todos os seus minipools), e a parte restante irá para os stakers do pool (menos sua comissão média).
-A proporção exata depende do número de minipools com vínculo de 8 ETH versus 16 ETH que você possui.
+O `destinatário de taxa` do seu nó pode ser um dos seguintes contratos especiais:
 
-Para esse fim, o Smartnode definirá automaticamente o `destinatário de taxa` do seu nó para um desses contratos especiais:
-
-- O **Distribuidor de Taxas** pessoal do seu próprio nó (o padrão)
+- O **Distribuidor de Taxas** pessoal do seu próprio nó
+- O contrato de megapool do seu nó
 - O **Smoothing Pool** (opt-in)
+
+O Smart Node definirá automaticamente o destinatário de taxa correto com base na sua configuração:
+
+| Status no Smoothing Pool | Tem Validadores de Megapool | Tem Minipools | Destinatário de Taxa |
+|----------------------|-------------------------|---------------|---------------|
+| Participando | Não | Sim | Endereço do Smoothing Pool |
+| Participando | Sim | Não | Endereço do Smoothing Pool |
+| Participando | Sim | Sim | Endereço do Smoothing Pool (todos os validadores) |
+| Fora | Não | Sim | Endereço do contrato do Distribuidor de Taxas |
+| Fora | Sim | Não | Endereço do contrato do Megapool |
+| Fora | Sim | Sim | Validadores do Megapool → Endereço do Megapool<br>Validadores do Minipool → Endereço do Distribuidor de Taxas<br>(Definido por validador via [keymanager API](https://ethereum.github.io/keymanager-APIs/#/Fee%20Recipient/setFeeRecipient)) |
+
+
+
+Rocket Pool é projetado para distribuir essas recompensas de forma justa entre você e os stakers do pool rETH, da mesma forma que distribui de forma justa suas recompensas da Beacon chain: sua parte de quaisquer taxas de prioridade que seus validadores de minipool ganhem irá para você (mais a comissão média de todos os seus minipools), e a parte restante irá para os stakers do pool (menos sua comissão média).
+A proporção exata depende do número de minipools com vínculo de 8 ETH, 16 ETH e validadores de megapool com vínculo de 4 ETH que você possui.
 
 Em resumo, o **Distribuidor de Taxas** é um contrato único anexado ao seu nó que coleta e divide de forma justa suas taxas de prioridade entre você e os stakers do rETH.
 É como seu cofre pessoal para taxas de prioridade.
@@ -55,13 +69,10 @@ O endereço para o Distribuidor de Taxas do seu nó é **deterministicamente bas
 Isso significa que é conhecido antecipadamente, antes mesmo do Distribuidor de Taxas ser criado.
 
 Novos nós Rocket Pool criarão automaticamente (inicializarão) o contrato do Distribuidor de Taxas do seu nó após o registro.
-Nós que foram criados antes da atualização Redstone precisarão fazer esse processo manualmente.
 Isso só precisa ser executado uma vez.
 
 Uma ramificação interessante disso é que o endereço do seu Distribuidor pode começar a acumular um saldo **antes** de você ter inicializado seu contrato do Distribuidor de Taxas.
 Isso é aceitável, porque seu Distribuidor ganhará acesso a todo esse saldo existente assim que você o inicializar.
-
-**Por padrão, seu nó usará seu Distribuidor de Taxas como o destinatário de taxa para seus validadores.**
 
 ### Visualizando seu Endereço e Saldo
 
@@ -75,19 +86,9 @@ A saída ficará assim:
 
 ![](../node-staking/images/status-fee-distributor.png)
 
-### Inicializando o Distribuidor de Taxas
+### Reivindicando taxas do seu Distribuidor de Taxas
 
-Para inicializar o distribuidor do seu nó, simplesmente execute este novo comando:
-
-```shell
-rocketpool node initialize-fee-distributor
-```
-
-::: warning NOTA
-Se você criou seu nó antes da atualização Redstone, você deve chamar esta função uma vez antes de poder criar quaisquer novos minipools com `rocketpool node deposit`.
-:::
-
-Quando seu distribuidor foi inicializado, você pode reivindicar e distribuir todo o seu saldo usando o seguinte comando:
+Você pode reivindicar e distribuir todo o saldo do seu distribuidor de taxas usando o seguinte comando:
 
 ```shell
 rocketpool node distribute-fees
@@ -97,7 +98,7 @@ Isso enviará sua parte das recompensas para seu **endereço de saque**.
 
 ::: warning NOTA SOBRE EVENTOS TRIBUTÁVEIS
 Sempre que você criar um novo minipool, Rocket Pool chamará automaticamente `distribute-fees`.
-Isso é para garantir que quaisquer taxas que você acumulou sejam distribuídas usando a comissão média do seu nó, que pode mudar quando você criar o novo minipool.
+Isso é para garantir que quaisquer taxas que você acumulou sejam distribuídas usando a comissão média do seu nó, que pode mudar quando você criar o novo minipool. Isso não se aplica à criação de validadores de megapool.
 
 Além disso, observe que qualquer pessoa pode chamar `distribute-fees` no seu distribuidor de taxas (para evitar que você mantenha recompensas do rETH como refém).
 Você pode ter um evento tributável sempre que este método for chamado.
@@ -109,13 +110,14 @@ Por favor, mantenha essas condições em mente ao decidir se deve ou não usar o
 
 Para garantir que os operadores de nó não "trapaceiem" modificando manualmente o destinatário de taxa usado em seu Cliente Validador, Rocket Pool emprega um sistema de penalidades.
 
-O Oracle DAO monitora constantemente cada bloco produzido pelos operadores de nó do Rocket Pool.
+O Oracle DAO é capaz de penalizar operadores de nó que não seguem as regras do protocolo.
 
 Se um nó está _fora_ do Smoothing Pool, os seguintes endereços são considerados destinatários de taxa válidos:
 
 - O endereço do rETH
 - O endereço do Smoothing Pool
 - O contrato do distribuidor de taxas do nó
+- O contrato de megapool do nó
 
 Se um nó está _dentro_ do Smoothing Pool, o seguinte endereço é considerado um destinatário de taxa válido:
 
@@ -123,10 +125,7 @@ Se um nó está _dentro_ do Smoothing Pool, o seguinte endereço é considerado 
 
 Um destinatário de taxa diferente de um dos endereços válidos acima é considerado **inválido**.
 
-Um minipool que propôs um bloco com um destinatário de taxa **inválido** receberá **uma advertência**.
-Na terceira advertência, o minipool começará a receber **infrações** - cada infração descontará **10% de seu saldo total da Beacon Chain, incluindo ganhos de ETH** e os enviará para os stakers do pool rETH ao sacar fundos do minipool.
-
-As infrações são em nível de **minipool**, não em nível de **nó**.
+O software Smart Node define automaticamente o destinatário de taxa correto com base na sua configuração (se você está participando do Smoothing Pool, e se você tem validadores de megapool, minipools, ou ambos). Para nós com validadores de megapool e minipools enquanto estão fora, o destinatário de taxa é definido por validador usando a keymanager API. A lista completa de condições está resumida [aqui](/pt/node-staking/fee-distrib-sp#destinatários-de-taxas).
 
 O software Smartnode é projetado para garantir que usuários honestos nunca sejam penalizados, mesmo que precise colocar o Cliente Validador offline para fazer isso.
 Se isso acontecer, você parará de atestar e verá mensagens de erro em seus arquivos de log sobre por que o Smartnode não pode definir corretamente seu destinatário de taxa.
@@ -149,19 +148,17 @@ Em suma, contanto que o Smoothing Pool tenha mais minipools do que você, é mai
 
 O Smoothing Pool usa as seguintes regras:
 
-- Durante um ponto de verificação de recompensas do Rocket Pool quando o saldo do Smoothing Pool é distribuído, o saldo total de ETH do contrato é dividido em dois.
-  - Stakers do rETH recebem 1/2 (para vínculos de 16 ETH) ou 3/4 (para vínculos de 8 ETH também conhecido como LEB8), menos a **comissão média** de todos os operadores de nó participantes
-  - O restante vai para os operadores de nó que participaram.
+- Durante um ponto de verificação de recompensas do Rocket Pool quando o saldo do Smoothing Pool é distribuído entre operadores de nó (levando em conta sua comissão), operadores de nó com stake de RPL, stakers de rETH e potencialmente o Rocket Pool DAO. As porcentagens exatas são determinadas pela [governança do Protocol Dao (pDAO) do Rocket Pool](/pt/pdao/overview)
 
-- Optar por participar do Smoothing Pool é feito em **nível de nó**. Se você optar por participar, todos os seus minipools participarão.
+- Optar por participar do Smoothing Pool é feito em **nível de nó**. Se você optar por participar, todos os seus minipools e validadores de megapool participarão.
 
 - Qualquer pessoa pode optar por participar a qualquer momento. Eles devem esperar um intervalo completo de recompensas (3 dias no Hoodi, 28 dias na Mainnet) antes de optar por sair para evitar manipular o sistema (por exemplo, sair do SP logo após ser selecionado para propor um bloco).
   - Uma vez fora, eles devem esperar outro intervalo completo para optar por entrar novamente.
 
-- O Smoothing Pool calcula a "parte" de cada minipool (porção do ETH do pool para o intervalo) de propriedade de cada nó participante.
-  - A parte é uma função do desempenho do seu minipool durante o intervalo (calculado observando quantas atestações você enviou na Beacon Chain e quantas você perdeu), e a taxa de comissão do seu minipool.
+- O Smoothing Pool calcula a "parte" de cada validador (porção do ETH do pool para o intervalo) de propriedade de cada nó participante.
+  - A parte é uma função do desempenho do seu validador durante o intervalo (calculado observando quantas atestações você enviou na Beacon Chain e quantas você perdeu), e a taxa de comissão.
 
-- A parte total do seu nó é a soma das suas partes de minipool.
+- A parte total do seu nó é a soma das suas partes de validador.
 
 - A parte total do seu nó é escalonada pela quantidade de tempo que você participou.
   - Se você participou durante todo o intervalo, você recebe sua parte completa.

@@ -1,0 +1,32 @@
+---
+next:
+  text: 新しいMegapoolバリデーターの作成
+  link: "/ja/node-staking/create-validator"
+---
+
+# 概要
+
+このセクションでは、Rocket Pool megapoolとmegapoolバリデーターの作成について説明します。
+ここでは、Ethereumネットワークのバリデーションを開始してそれに対する報酬を得る方法を学びます。
+
+## 前提条件
+
+Megapoolバリデーターを実行する前に、次の条件を満たしていることを確認してください：
+
+- ノードマシン（または仮想マシン）をセットアップし、セキュリティを確保している（[ノードのセキュリティ確保](../securing-your-node)ガイドを参照）
+- Smartnodeが[インストール](../installing/overview)され、それに[設定](../config/overview)されている
+- Smartnodeにノードウォレットが読み込まれている
+- 実行クライアントとコンセンサスクライアントが同期されている
+- [引き出しアドレス](../prepare-node.mdx#setting-your-withdrawal-address)でノードをプロビジョニングし、[フォールバッククライアント](../fallback)を設定し（オプション）、[Smoothing Pool](../fee-distrib-sp#the-smoothing-pool)にオプトインし（オプション）、[MEV](../mev.mdx)を設定している
+
+## ガイド
+
+[Megapoolの作成（バリデーター）](./create-megapool-validator.mdx)では、新しいRocket Pool megapoolとBeacon Chain上の対応するバリデーターを作成するプロセスを説明します。
+初めてのmegapoolバリデーターを作成する場合でも、すでにいくつかのバリデーターを持っていてさらに作成したい場合でも、このガイドがステップバイステップで説明します。
+
+[ノードに代わってETHをステークする](/ja/upgrades/houston/stake-eth-on-behalf#stake-eth-on-behalf-of-node)では、独立したアドレス（ハードウェアウォレットなど）を使用してノードに代わってETHをステークする方法を説明します。ノードがETHに直接アクセスせずにバリデーターデポジットを作成したい場合に非常に便利です。
+
+[RPLのステーキングと報酬の請求](/ja/node-staking/megapools/staking-and-claiming-rewards)では、megapoolにRPLをステークし、ETHとRPL報酬を請求し、Saturn 1の新しい収益分配システムを理解する方法を説明します。
+レガシーRPLステークを移行する場合でも新規に始める場合でも、このガイドではステーキング、アンステーキング、プロトコル収益の取得について説明します。
+
+[デポジットクレジットシステム](./credit.mdx)では、ETHクレジットを累積するさまざまな方法と、それをrETHとして引き換えるか新しいバリデーターの作成に使用する方法について説明します。

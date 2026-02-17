@@ -1,0 +1,89 @@
+# 메가풀 검증자 종료
+
+메가풀 검증자를 더 이상 운영하지 않으려 하고 Beacon Chain에 잠긴 전체 잔액에 접근하고 싶다면 몇 가지 단계를 따라야 합니다. 이 페이지는 메가풀 검증자 종료 과정을 안내합니다.
+
+1. Beacon Chain에 자발적 종료 요청 전송 (수동)
+2. 검증자 종료 알림 (Smart Node에 의해 자동화)
+3. 최종 잔액 알림 (Smart Node에 의해 자동화)
+
+## Beacon Chain에 종료 요청 전송
+
+Beacon Chain에 종료 요청을 전송하려면 Smart Node에서 `rocketpool megapool exit-validator` 명령을 사용하세요. 종료할 수 있는 검증자 목록이 표시됩니다.
+
+```
+staker@node:~$ rocketpool megapool exit-validator
+
+Please select a validator to EXIT:
+1: ID: 1 - Index: 1269834 Pubkey: 0x9455594c2f02674922eb6dee40d096f3203dd1762aa7f1a988ab6c277a62418ec3abfb460b57f33f13a5922e9551d5cc
+2: ID: 2 - Index: 1269835 Pubkey: 0xa188774e1adf42db768230541403347a8d2ebcd8386b7f5662bcf1004e17d8d53303889a7e527448cf29bff9bde34bb9
+3: ID: 3 - Index: 1269851 Pubkey: 0xa3e211e95a542ffaf8467ba211a3d893b58c59204dab8c32df29f0cfda3f9ce485a3bc13a50e4c205f912613521ed203
+4: ID: 7 - Index: 1274411 Pubkey: 0xb5369a5f8550daa07476378dc4864f08b74d4950e28c74844527b59b1e9dea9fd376ea3bd171ee8fba7de866cd4ea37e
+5: ID: 8 - Index: 1275239 Pubkey: 0xa56660fa14f0cb7a7030ea0c68a075c7fd700d98ee3afb498030f2bafbadfbf29703bf8fe8ccc9e1f2332b96dcb51ee2
+```
+
+검증자를 선택한 후 Smart Node는 추가 프롬프트를 표시합니다. 종료하려는 검증자를 올바르게 선택했는지 확인한 후 `y`를 입력하고 `enter`를 눌러 Beacon Chain에 자발적 종료 요청을 전송합니다. 이 작업은 가스가 필요하지 않습니다. 노드에서 Beacon Chain으로 서명된 메시지를 전송하여 검증자를 자발적으로 종료합니다.
+
+```
+NOTE:
+You are about to exit a validator. This will tell each validator to stop all activities on the Beacon Chain.
+Please continue to run your validators until each one you've exited has been processed by the exit queue.
+You can watch their progress on the https://beaconcha.in explorer.
+Your funds will be locked on the Beacon Chain until they've been withdrawn, which will happen automatically (this may take a few days).
+Once your funds have been withdrawn, you can run `rocketpool megapool notify-validator-exit` to distribute them to your withdrawal address.
+
+Are you sure you want to EXIT validator id 1? [y/n]
+y
+
+Successfully requested to exit validator id 1.
+```
+
+노드가 Beacon Chain에 자발적 종료 요청을 전송합니다. 이 시점에서 검증자는 Beacon Chain의 `active_exiting` 상태여야 합니다. `rocketpool megapool validators` 명령을 실행하여 방금 종료 요청한 검증자를 확인할 수 있습니다:
+
+```
+
+Megapool Validator ID:        1
+Validator pubkey:             0x9455594c2f02674922eb6dee40d096f3203dd1762aa7f1a988ab6c277a62418ec3abfb460b57f33f13a5922e9551d5cc
+Validator active:             yes
+Validator index:              1269834
+Beacon status:                active_exiting
+Express Ticket Used:          no
+```
+
+
+<img src="../images/megapool-exiting.png" width="100%" height="auto" />
+
+
+::: tip 참고
+검증자는 Beacon Chain 종료 대기열에 의해 처리될 때까지 계속 증명을 수행하므로 이 과정 동안 노드를 온라인 상태로 유지하세요! 며칠 이상 걸릴 수 있습니다.
+현재 대기 시간을 확인하는 데 유용한 웹사이트: https://www.validatorqueue.com/
+:::
+
+## 검증자 종료 알림
+
+이전 단계인 `active_exiting`에서 노드는 Beacon Chain 종료 대기열 처리를 기다리는 동안 증명을 수행했습니다. 이 시간은 종료를 기다리는 ETH 양에 따라 달라집니다.
+
+검증자가 이 대기열의 끝에 도달하면 `exited_unslashed` 상태로 전환됩니다. 이 단계에서 Smart Node는 자동으로 `notify validator exit`를 호출하여 Rocket Pool 프로토콜에 검증자가 종료되었으며 곧 출금 가능하다는 신호를 보냅니다.
+
+::: warning 경고
+이 단계는 `rocketpool_node` 작업 루프 내에서 Smart Node에 의해 완전히 자동화됩니다. 이 과정 동안 노드를 온라인 상태로 유지하는 것이 매우 중요합니다. 그렇지 않으면 오프라인에 대한 `0.05 ETH` 벌금이 부과됩니다. 벌금은 출금 잔액에서 차감됩니다. 전체 검증자 종료 과정 동안 노드 상태를 모니터링하세요.
+:::
+
+```
+Megapool Validator ID:        1
+Validator pubkey:             0x9455594c2f02674922eb6dee40d096f3203dd1762aa7f1a988ab6c277a62418ec3abfb460b57f33f13a5922e9551d5cc
+Validator active:             no
+Validator index:              1269834
+Beacon status:                exited_unslashed
+Express Ticket Used:          no
+```
+
+beaconcha.in의 상태는 다음과 같아야 합니다:
+
+<img src="../images/megapool-exited.png" width="100%" height="auto" />
+
+Beacon Chain에서 256 에폭이 지나면 전체 32 ETH와 다른 누적 보상이 노드의 메가풀로 전송됩니다.
+
+## 최종 잔액 알림
+
+이 시점에서 검증자는 Beacon Chain에서 완전히 종료되고 최종 출금이 Beacon Chain에서 메가풀로 전송됩니다. Smart Node는 자동으로 `notify final balance`를 호출합니다.
+이 호출은 메가풀 검증자의 역할을 완전히 종료하고 잔액에서 귀하의 몫을 노드의 ETH 출금 주소로 분배합니다. 노드를 온라인 상태로 유지하고 `notify validator exit` 및 `notify final balance`와 같은 자동 작업이 수행된 경우 귀하의 추가 단계는 필요하지 않습니다.

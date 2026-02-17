@@ -1,0 +1,32 @@
+---
+next:
+  text: 새 메가풀 검증자 생성
+  link: "/ko/node-staking/create-validator"
+---
+
+# 개요
+
+이 섹션은 Rocket Pool 메가풀과 메가풀 검증자 생성을 다룹니다.
+여기서 Ethereum 네트워크를 검증하고 보상을 받는 방법을 알아볼 수 있습니다.
+
+## 사전 요구 사항
+
+메가풀 검증자를 실행하기 전에 다음 사항을 확인하세요:
+
+- 노드 머신(또는 가상 머신)을 설정하고 보안을 적용했습니다 ([노드 보안](../securing-your-node) 가이드 참조)
+- Smartnode를 [설치](../installing/overview)하고 [구성](../config/overview)했습니다
+- Smartnode에 노드 지갑이 로드되어 있습니다
+- 실행 클라이언트와 합의 클라이언트를 동기화했습니다
+- [출금 주소](../prepare-node.mdx#setting-your-withdrawal-address)로 노드를 프로비저닝하고, [폴백 클라이언트](../fallback)를 설정했으며(선택 사항), [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool)(선택 사항)에 가입했고, [MEV](../mev.mdx)를 구성했습니다
+
+## 가이드
+
+[메가풀 생성 (검증자)](./create-megapool-validator.mdx)는 새로운 Rocket Pool 메가풀과 Beacon Chain의 해당 검증자를 생성하는 과정을 설명합니다.
+첫 번째 메가풀 검증자를 만드는 경우든 이미 몇 개를 보유하고 있어 추가로 만들고 싶은 경우든, 이 가이드가 단계별로 안내해 드립니다.
+
+[노드 대신 ETH 스테이킹](/ko/upgrades/houston/stake-eth-on-behalf#stake-eth-on-behalf-of-node)은 독립적인 주소(예: 하드웨어 지갑)를 사용하여 노드 대신 ETH를 스테이킹하는 방법을 설명합니다. 노드가 ETH에 직접 접근하지 않고 검증자 입금을 생성하려는 경우 매우 유용합니다.
+
+[RPL 스테이킹 및 보상 청구](/ko/node-staking/megapools/staking-and-claiming-rewards)는 메가풀에 RPL을 스테이킹하고, ETH 및 RPL 보상을 청구하고, Saturn 1의 새로운 수익 분배 시스템을 이해하는 방법을 다룹니다.
+레거시 RPL 스테이크를 마이그레이션하든 새로 시작하든, 이 가이드는 스테이킹, 언스테이킹, 프로토콜 수익 획득 과정을 안내합니다.
+
+[입금 크레딧 시스템](./credit.mdx)은 ETH 크레딧을 쌓는 다양한 방법과 이를 rETH로 교환하거나 새 검증자를 생성하는 데 사용하는 방법을 설명합니다.

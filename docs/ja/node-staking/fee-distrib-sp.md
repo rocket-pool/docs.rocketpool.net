@@ -1,6 +1,6 @@
 # Fee DistributorとSmoothing Pool
 
-[the Merge](https://ethereum.org/en/upgrades/merge/)が完了した今、ノードオペレーターはEthereumチェーンに提案するブロックに含めるトランザクションから**priority fees**（**チップ**）を受け取ります。
+ノードオペレーターはEthereumチェーンに提案するブロックに含めるトランザクションから**priority fees**（**チップ**）を受け取ります。
 これらの手数料はExecutionレイヤーから来て、Executionレイヤーに留まります。
 
 Consensusレイヤーで生成され、定期的に自動的に引き出されるほとんどの検証報酬とは異なり、これらの手数料は_即座に流動的_です。
@@ -23,13 +23,27 @@ minipoolアドレスにも送信できません。ソロステーカーにも機
 代わりに、その仕組みはかなり単純です。Rocket PoolがValidator Clientを起動すると、**fee recipient**と呼ばれる引数を渡します。
 fee recipientは単に、チップを送信したいExecutionレイヤーのアドレスです。
 
-Rocket Poolは、Beacon chain報酬を公平に分配するのと同じ方法で、これらの報酬をあなたとrETHプールステーカーの間で公平に分配するように設計されています。minipoolのvalidatorが獲得したpriority feesのあなたの部分はあなたに行き（すべてのminipoolの平均手数料を加えたもの）、残りの部分はプールステーカーに行きます（あなたの平均手数料を差し引いたもの）。
-正確な部分は、8 ETHボンドと16 ETHボンドのminipoolの数によって異なります。
+ノードの`fee recipient`は次のいずれかの特別なコントラクトに設定できます:
 
-そのため、Smartnodeはノードの`fee recipient`を自動的に次のいずれかの特別なコントラクトに設定します。
-
-- ノード独自の個人的な**Fee Distributor**（デフォルト）
+- ノード独自の個人的な**Fee Distributor**
+- ノードのmegapoolコントラクト
 - **Smoothing Pool**（オプトイン）
+
+Smart Nodeは、設定に基づいて正しいfee recipientを自動的に設定します:
+
+| Smoothing Poolの状態 | Megapool Validatorの有無 | Minipoolの有無 | Fee Recipient |
+|----------------------|-------------------------|---------------|---------------|
+| オプトイン | なし | あり | Smoothing Poolアドレス |
+| オプトイン | あり | なし | Smoothing Poolアドレス |
+| オプトイン | あり | あり | Smoothing Poolアドレス（全validator） |
+| オプトアウト | なし | あり | Fee Distributorコントラクトアドレス |
+| オプトアウト | あり | なし | Megapoolコントラクトアドレス |
+| オプトアウト | あり | あり | Megapool validators → Megapoolアドレス<br>Minipool validators → Fee Distributorアドレス<br>（[keymanager API](https://ethereum.github.io/keymanager-APIs/#/Fee%20Recipient/setFeeRecipient)でvalidatorごとに設定） |
+
+
+
+Rocket Poolは、Beacon chain報酬を公平に分配するのと同じ方法で、これらの報酬をあなたとrETHプールステーカーの間で公平に分配するように設計されています。minipoolのvalidatorが獲得したpriority feesのあなたの部分はあなたに行き（すべてのminipoolの平均手数料を加えたもの）、残りの部分はプールステーカーに行きます（あなたの平均手数料を差し引いたもの）。
+正確な部分は、8 ETHボンドと16 ETHボンドのminipool、および4 ETHボンドのmegapool validatorの数によって異なります。
 
 簡単に言うと、**Fee Distributor**はノードに接続されたユニークなコントラクトで、priority feesを収集してあなたとrETHステーカーの間で公平に分割します。
 これはpriority fees用の個人的な金庫のようなものです。
@@ -55,13 +69,10 @@ Fee DistributorはExecutionレイヤーのユニークなコントラクトで�
 つまり、Fee Distributorが作成される前から、事前に知られています。
 
 新しいRocket Poolノードは、登録時にノードのFee Distributorコントラクトを自動的に作成（初期化）します。
-Redstoneアップグレード前に作成されたノードは、このプロセスを手動で実行する必要があります。
 これは一度だけ実行する必要があります。
 
 これの興味深い結果の1つは、Distributorのアドレスが、Fee Distributorコントラクトを初期化する**前に**残高を蓄積し始める可能性があることです。
 これは問題ありません。Distributorを初期化するとすぐに、この既存の残高すべてにアクセスできるようになるためです。
-
-**デフォルトでは、ノードはvalidatorのfee recipientとしてFee Distributorを使用します。**
 
 ### アドレスと残高の表示
 
@@ -75,19 +86,9 @@ rocketpool node status
 
 ![](../node-staking/images/status-fee-distributor.png)
 
-### Fee Distributorの初期化
+### Fee Distributorからの手数料請求
 
-ノードのdistributorを初期化するには、次の新しいコマンドを実行するだけです。
-
-```shell
-rocketpool node initialize-fee-distributor
-```
-
-::: warning 注記
-Redstoneアップデート前にノードを作成した場合、`rocketpool node deposit`で新しいminipoolを作成する前に、この関数を一度呼び出す必要があります。
-:::
-
-distributorが初期化されたら、次のコマンドを使用して残高全体を請求して分配できます。
+次のコマンドを使用して、fee distributorの残高全体を請求して分配できます:
 
 ```shell
 rocketpool node distribute-fees
@@ -97,7 +98,7 @@ rocketpool node distribute-fees
 
 ::: warning 課税イベントに関する注記
 新しいminipoolを作成するたびに、Rocket Poolは自動的に`distribute-fees`を呼び出します。
-これは、蓄積された手数料が、新しいminipoolを作成すると変わる可能性のあるノードの平均手数料を使用して分配されることを保証するためです。
+これは、蓄積された手数料が、新しいminipoolを作成すると変わる可能性のあるノードの平均手数料を使用して分配されることを保証するためです。これはmegapool validatorの作成には適用されません。
 
 また、誰でもfee distributorで`distribute-fees`を呼び出すことができます（rETH報酬を人質にすることを防ぐため）。
 このメソッドが呼び出されるたびに課税イベントが発生する可能性があります。
@@ -109,13 +110,14 @@ Smoothing Pool（以下で説明）を使用するかどうかを決定する際
 
 ノードオペレーターがValidator Clientで使用されるfee recipientを手動で変更して「不正」を行わないようにするため、Rocket Poolはペナルティシステムを採用しています。
 
-Oracle DAOは、Rocket Poolノードオペレーターによって生成された各ブロックを常に監視しています。
+Oracle DAOは、プロトコルルールに従わないノードオペレーターにペナルティを科すことができます。
 
 ノードがSmoothing Poolから_オプトアウト_している場合、次のアドレスが有効なfee recipientsと見なされます。
 
 - rETHアドレス
 - Smoothing Poolアドレス
 - ノードのfee distributorコントラクト
+- ノードのmegapoolコントラクト
 
 ノードがSmoothing Poolに_オプトイン_している場合、次のアドレスが有効なfee recipientと見なされます。
 
@@ -123,10 +125,7 @@ Oracle DAOは、Rocket Poolノードオペレーターによって生成され�
 
 上記の有効なアドレス以外のfee recipientは**無効**と見なされます。
 
-**無効な**fee recipientでブロックを提案したminipoolには**ストライク**が発行されます。
-3回目のストライクでは、minipoolは**infractions**を受け始めます。各infractionは**ETH収益を含むBeacon Chain残高の総計の10%**をドックし、minipoolから資金を引き出す際にrETHプールステーカーに送信します。
-
-Infractionsは**ノード**レベルではなく、**minipool**レベルです。
+Smart Nodeソフトウェアは、設定に基づいて正しいfee recipientを自動的に設定します（Smoothing Poolにオプトインしているかどうか、megapool validatorがあるか、minipoolがあるか、またはその両方）。オプトアウト状態でmegapool validatorとminipoolの両方を持つノードの場合、keymanager APIを使用してvalidatorごとにfee recipientが設定されます。条件の完全なリストは[こちら](/ja/node-staking/fee-distrib-sp#fee-recipients)にまとめられています。
 
 Smartnodeソフトウェアは、正直なユーザーがペナルティを受けないように設計されており、そのためにValidator Clientをオフラインにする必要がある場合でもそうします。
 これが発生すると、attestationを停止し、Smartnodeがfee recipientを正しく設定できない理由についてのエラーメッセージがログファイルに表示されます。
@@ -149,19 +148,17 @@ Smartnodeソフトウェアは、正直なユーザーがペナルティを受�
 
 Smoothing Poolは次のルールを使用します。
 
-- Smoothing Poolの残高が分配されるRocket Pool報酬チェックポイント中に、コントラクトの総ETH残高は2つに分割されます。
-  - rETHステーカーは1/2（16 ETHボンドの場合）または3/4（8 ETHボンド、別名LEB8の場合）を受け取り、オプトインしたすべてのノードオペレーターの**平均手数料**を差し引きます
-  - 残りはオプトインしたノードオペレーターに行きます。
+- Smoothing Poolの残高がノードオペレーター（手数料を考慮）、RPLステーキングノードオペレーター、rETHステーカー、および場合によってはRocket Pool DAOの間で分配されるRocket Pool報酬チェックポイント中。正確なパーセンテージはRocket Pool [Protocol DAO (pDAO)ガバナンス](/ja/pdao/overview)によって決定されます。
 
-- Smoothing Poolへのオプトインは**ノードレベル**で行われます。オプトインすると、すべてのminipoolがオプトインされます。
+- Smoothing Poolへのオプトインは**ノードレベル**で行われます。オプトインすると、すべてのminipoolとmegapool validatorがオプトインされます。
 
 - 誰でもいつでもオプトインできます。システムを悪用するのを防ぐため（例：ブロック提案に選ばれた直後にSPを離れる）、オプトアウトする前に完全な報酬インターバル（Hoodiで3日、Mainnetで28日）待つ必要があります。
   - オプトアウトしたら、再度オプトインするには別の完全なインターバルを待つ必要があります。
 
-- Smoothing Poolは、オプトインした各ノードが所有する各minipoolの「シェア」（インターバル中のプールのETHの部分）を計算します。
-  - シェアは、インターバル中のminipoolのパフォーマンス（Beacon Chainで送信したattestationsの数と見逃した数を調べて計算）とminipoolの手数料率の関数です。
+- Smoothing Poolは、オプトインした各ノードが所有する各validator（インターバル中のプールのETHの部分）の「シェア」を計算します。
+  - シェアは、インターバル中のvalidatorのパフォーマンス（Beacon Chainで送信したattestationsの数と見逃した数を調べて計算）と手数料率の関数です。
 
-- ノードの総シェアは、minipoolシェアの合計です。
+- ノードの総シェアは、validatorシェアの合計です。
 
 - ノードの総シェアは、オプトインしていた時間の量によってスケーリングされます。
   - 完全なインターバル中オプトインしていた場合、完全なシェアを受け取ります。

@@ -17,18 +17,31 @@ rocketpool help
 输出将如下所示:
 
 ```
+
+______           _        _    ______           _
+| ___ \         | |      | |   | ___ \         | |
+| |_/ /___   ___| | _____| |_  | |_/ /__   ___ | |
+|    // _ \ / __| |/ / _ \ __| |  __/ _ \ / _ \| |
+| |\ \ (_) | (__|   <  __/ |_  | | | (_) | (_) | |
+\_| \_\___/ \___|_|\_\___|\__| \_|  \___/ \___/|_|
+
+Authored by the Rocket Pool Core Team
+A special thanks to the Rocket Pool community for all their contributions.
+
 NAME:
    rocketpool - Rocket Pool CLI
 
 USAGE:
-   rocketpool [global options] command [command options] [arguments...]
+   rocketpoolcli [global options] command [command options] [arguments...]
 
 VERSION:
-   1.17.2
+   1.19.1
 
 COMMANDS:
    auction, a   Manage Rocket Pool RPL auctions
+   claims, l    View and claim all available rewards and credits across the node
    minipool, m  Manage the node's minipools
+   megapool, g  Manage the node's megapool
    network, e   Manage Rocket Pool network parameters
    node, n      Manage the node
    odao, o      Manage the Rocket Pool oracle DAO
@@ -53,7 +66,7 @@ GLOBAL OPTIONS:
    --version, -v                 print the version
 
 COPYRIGHT:
-   (c) 2025 Rocket Pool Pty Ltd
+   (c) 2026 Rocket Pool Pty Ltd
 ```
 
 ## Service 命令
@@ -70,7 +83,7 @@ USAGE:
    rocketpool service [global options] command [command options] [arguments...]
 
 VERSION:
-   1.17.2
+   1.19.1
 
 COMMANDS:
    install, i                 Install the Rocket Pool service
@@ -79,10 +92,10 @@ COMMANDS:
    start, s                   Start the Rocket Pool service
    pause, p                   Pause the Rocket Pool service
    stop, o                    Pause the Rocket Pool service (alias of 'rocketpool service pause')
-   reset-docker, rd           Cleanup Docker resources, including stopped containers, unused images and networks. Stops and restarts Smartnode.
+   reset-docker, rd           Cleanup Docker resources, including stopped containers, unused images and networks. Stops and restarts Smart Node.
    prune-docker, pd           Cleanup unused Docker resources, including stopped containers, unused images, networks and volumes. Does not restart smartnode, so the running containers and the images and networks they reference will not be pruned.
    logs, l                    View the Rocket Pool service logs
-   stats, a                   View the Rocket Pool service stats
+   stats, a                   (DEPRECATED) No longer supported. Use 'docker stats -a' instead
    compose                    View the Rocket Pool service docker compose config
    version, v                 View the Rocket Pool service version information
    prune-eth1, n              Shuts down the main ETH1 client and prunes its database, freeing up disk space, then restarts it when it's done.
@@ -90,7 +103,7 @@ COMMANDS:
    get-config-yaml            Generate YAML that shows the current configuration schema, including all of the parameters and their descriptions
    resync-eth1                Deletes the main ETH1 client's chain data and resyncs it from scratch. Only use this as a last resort!
    resync-eth2                Deletes the ETH2 client's chain data and resyncs it from scratch. Only use this as a last resort!
-   terminate, t               Deletes all of the Rocket Pool Docker containers and volumes, including your ETH1 and ETH2 chain data and your Prometheus database (if metrics are enabled). Also removes your entire `.rocketpool` configuration folder, including your wallet, password, and validator keys. Only use this if you are cleaning up the Smartnode and want to start over!
+   terminate, t               Deletes all of the Rocket Pool Docker containers and volumes, including your ETH1 and ETH2 chain data and your Prometheus database (if metrics are enabled). Also removes your entire `.rocketpool` configuration folder, including your wallet, password, and validator keys. Only use this if you are cleaning up the Smart Node and want to start over!
 
 GLOBAL OPTIONS:
    --compose-file value, -f value  Optional compose files to override the standard Rocket Pool docker compose YAML files; this flag may be defined multiple times
@@ -196,10 +209,7 @@ NAME:
    rocketpool node - Manage the node
 
 USAGE:
-   rocketpool node [global options] command [command options] [arguments...]
-
-VERSION:
-   1.17.2
+   rocketpool node command [command options] [arguments...]
 
 COMMANDS:
    status, s                                     Get the node's status
@@ -220,9 +230,10 @@ COMMANDS:
    claim-rewards, c                              Claim available RPL and ETH rewards for any checkpoint you haven't claimed yet
    withdraw-rpl, i                               Withdraw RPL staked against the node
    withdraw-eth, h                               Withdraw ETH staked on behalf of the node
+   withdraw-credit, wc                           (Saturn) Withdraw ETH credit from the node as rETH
    deposit, d                                    Make a deposit and create a minipool
    create-vacant-minipool, cvm                   Create an empty minipool, which can be used to migrate an existing solo staking validator as part of the 0x00 to 0x01 withdrawal credentials upgrade
-   send, n                                       Send ETH or tokens from the node account to an address. ENS names supported. <token> can be 'rpl', 'eth', 'fsrpl' (for the old RPL v1 token), 'reth', or the address of an arbitrary token you want to send (including the 0x prefix).
+   send, n                                       Send ETH or tokens from the node account to an address. ENS names supported. Use 'all' as the amount to send the entire balance. <token> can be 'rpl', 'eth', 'fsrpl' (for the old RPL v1 token), 'reth', or the address of an arbitrary token you want to send (including the 0x prefix).
    set-voting-delegate, sv                       (DEPRECATED) Use `rocketpool pdao set-signalling-address` instead
    clear-voting-delegate, cv                     (DEPRECATED) Use `rocketpool pdao clear-signalling-address` instead
    initialize-fee-distributor, z                 Create the fee distributor contract for your node, so you can withdraw priority fees and MEV rewards after the merge
@@ -231,8 +242,10 @@ COMMANDS:
    leave-smoothing-pool, ls                      Leave the Smoothing Pool
    sign-message, sm                              Sign an arbitrary message with the node's private key
    send-message                                  Send a zero-ETH transaction to the target address (or ENS) with the provided hex-encoded message as the data payload
+   claim-unclaimed-rewards, cur                  Sends any unclaimed rewards to the node's withdrawal address
+   provision-express-tickets, pet                Provision the node's express tickets
 
-GLOBAL OPTIONS:
+OPTIONS:
    --help, -h  show help
 ```
 
@@ -247,23 +260,26 @@ GLOBAL OPTIONS:
 
 ```
 === Account and Balances ===
-The node <node address> has a balance of 2.682258 ETH and 1881.677523 RPL.
-The node has 0.000000 ETH in its credit balance and 0.000000 ETH staked on its behalf. 0.000000 can be used to make new minipools.
+The node 0x4d19DE4A5a1B1B36EBaB3D5c32C01061fbDE328d has a balance of 49.402553 ETH and 0.000000 RPL.
+The node has 0.000000 ETH in its credit balance and 0.000000 ETH staked on its behalf. 0.000000 can be used to make new validators.
 The node is registered with Rocket Pool with a timezone location of America/Los_Angeles.
+
+=== Megapool ===
+The node has a megapool deployed at 0xCf3576c5A6e5a25AC00C9adb6751924BAe1680B1.
+The megapool has 9 validators.
+The node has 0 express queue ticket(s).
 
 === Penalty Status ===
 The node does not have any penalties for cheating with an invalid fee recipient.
 
 === Signalling on Snapshot ===
 The node does not currently have a snapshot signalling address set.
-To learn more about snapshot signalling, please visit /zh/legacy/houston/participate#setting-your-snapshot-signalling-address.
+To learn more about snapshot signalling, please visit https://docs.rocketpool.net/pdao/participate#setting-your-snapshot-signalling-address.
 Rocket Pool has no Snapshot governance proposals being voted on.
 
 === Onchain Voting ===
-The node has been initialized for onchain voting.
 The node doesn't have a delegate, which means it can vote directly on onchain proposals. You can have another node represent you by running `rocketpool p svd <address>`.
-The node is allowed to lock RPL to create governance proposals/challenges.
-The node currently has 300.000000 RPL locked.
+The node is NOT allowed to lock RPL to create governance proposals/challenges.
 
 === Primary Withdrawal Address ===
 The node's primary withdrawal address has not been changed, so ETH rewards and minipool withdrawals will be sent to the node itself.
@@ -273,18 +289,26 @@ Consider changing this to a cold wallet address that you control using the `set-
 The node's RPL withdrawal address has not been set. All RPL rewards will be sent to the primary withdrawal address.
 
 === Fee Distributor and Smoothing Pool ===
-The node's fee distributor <fee distributer contract address> has a balance of 0.000000 ETH.
-The node is currently opted into the Smoothing Pool <smoothing pool contract address>.
+The node's fee distributor 0x84c1f488CDecb2E335c40901E3Fe58925f4cC9A7 has a balance of 0.004897 ETH.
+NOTE: You are in Native Mode; you MUST ensure that your Validator Client is using this address as its fee recipient!
+The node is not opted into the Smoothing Pool.
+To learn more about the Smoothing Pool, please visit https://docs.rocketpool.net/upgrades/redstone/whats-new#smoothing-pool.
+You have 3 minipools that would earn extra commission if you opted into the smoothing pool!
+See https://rpips.rocketpool.net/RPIPs/RPIP-62 for more information about bonus commission, or run `rocketpool node join-smoothing-pool` to opt in.
 
 === RPL Stake ===
 NOTE: The following figures take *any pending bond reductions* into account.
 
-The node has a total stake of 588.950796 RPL.
-This is currently 4.01% of its borrowed ETH and 12.04% of its bonded ETH.
+The node has a total stake of 20000.000000 RPL.
+This is currently 3.74% of its borrowed ETH and 30.06% of its bonded ETH.
+The node has 0.000000 megapool staked RPL.
+The node has 20000.000000 legacy staked RPL.
+The node has a total stake (legacy minipool RPL plus megapool RPL) of 20000.000000 RPL.
+You have 0.000000 RPL staked on your megapool and can request to unstake up to 0.000000 RPL
 
 === Minipools ===
-The node has a total of 1 active minipool(s):
-- 1 staking
+The node has a total of 3 active minipool(s):
+- 3 staking
 ```
 
 ### `sync`
@@ -387,15 +411,6 @@ Successfully staked 733.993925 RPL.
 
 大多数操作只需要一个交易,因此 CLI 将等待直到它被包含在一个区块中,然后退出。但是,stake-rpl 是少数需要两个交易的命令之一,因此此对话框将出现两次。
 
-### `deposit`
-
-此命令将允许您存入 ETH 并创建一个新的 minipool(一个新的 Ethereum 验证者)。
-
-系统将提示您交易的预计 gas 成本和最后一个确认对话框。
-如果您接受,您的 ETH 存款将被处理,您将创建一个新的 minipool(以及相应的 Ethereum 验证者)。
-
-(有关更多信息,请参阅下一节关于[创建 Minipool](./create-validator.mdx) 的内容)。
-
 ### `claim-rewards`
 
 当您的节点检测到新的奖励检查点时,它将自动下载该区间的奖励树文件(如果您使用默认的下载模式 - 请参阅下文以了解有关生成您自己的树而不是下载它们的信息)。
@@ -447,17 +462,10 @@ rocketpool node leave-smoothing-pool
 一旦**当前纪元之后的下一个纪元**被最终确定,它将自动将您节点的 `fee recipient` 从 Smoothing Pool 更改回您节点的分配器合约。
 这是为了确保当您看到即将有提案时,您不会因为提前退出过程而受到惩罚。
 
-### `initialize-fee-distributor`
-
-要初始化您节点的分配器,只需运行此新命令:
-
-```shell
-rocketpool node initialize-fee-distributor
-```
 
 ### `distribute-fees`
 
-当您的分配器已初始化后,您可以使用以下命令领取并分配其全部余额:
+当您的分配器已积累奖励后,您可以使用以下命令领取并分配其全部余额:
 
 ```shell
 rocketpool node distribute-fees
@@ -490,6 +498,115 @@ rocketpool node send 1 eth <my friend's address>
 
 将向我的朋友发送 1 ETH。
 
+## Megapool 命令
+`megapool` 组是您可以访问用于管理 megapool 和 megapool 验证者的所有命令的地方。
+
+以下是 `rocketpool megapool help` 将显示的内容:
+
+```
+NAME:
+   rocketpool megapool - Manage the node's megapool
+
+USAGE:
+   rocketpool megapool [global options] command [command options] [arguments...]
+
+VERSION:
+   1.19.1
+
+COMMANDS:
+   deposit, d                Make a deposit and create a new validator on the megapool. Optionally specify count to make multiple deposits.
+   status, s                 Get the node's megapool status
+   validators, v             Get a list of the megapool's validators
+   repay-debt, r             Repay megapool debt
+   reduce-bond, e            Reduce the megapool bond
+   claim, c                  Claim any megapool rewards that were distributed but not yet claimed
+   stake, k                  Stake a megapool validator
+   exit-queue, x             Exit the megapool queue
+   dissolve-validator, i     Dissolve a megapool validator
+   exit-validator, t         Request to exit a megapool validator
+   notify-validator-exit, n  Notify that a validator exit is in progress
+   notify-final-balance, f   Notify that a validator exit has completed and the final balance has been withdrawn
+   distribute, b             Distribute any accrued execution layer rewards sent to this megapool
+
+GLOBAL OPTIONS:
+   --help, -h  show help
+```
+
+以下是您在正常操作期间通常会使用的命令摘要:
+
+### `deposit`
+此命令允许您在 megapool 上创建新的验证者。我们稍后将详细介绍。如果您想提前了解,请跳至[创建 Megapool 验证者](/node-staking/megapools/create-megapool-validator.mdx)。
+
+### `status`
+此命令为您提供有关 megapool 状态以及由 megapool 管理的验证者的信息。您将能够看到 megapool 的地址、快速通道票据数量、megapool 的委托地址、执行层和共识层上的 ETH 余额以及许多其他有用信息。以下是 `rocketpool megapool status` 输出的示例:
+
+```
+=== Megapool ===
+The node has a megapool deployed at 0xCf3576c5A6e5a25AC00C9adb6751924BAe1680B1
+The node has 0 express ticket(s).
+The megapool has 9 validators.
+
+=== Megapool Delegate ===
+The megapool is using the latest delegate.
+The megapool's effective delegate address is 0x138602A95956995280f1146aA9477d6B4E481B3c
+The megapool has automatic delegate upgrades disabled. You can toggle this setting using 'rocketpool megapool set-use-latest-delegate'.
+
+=== Megapool Balance ===
+The megapool has 4.000000 node bonded ETH.
+The megapool has 28.000000 RP ETH for a total of 32.000000 bonded ETH.
+Megapool balance (EL): 32.051883 ETH
+The megapool has 1 validators exiting. You'll be able to see claimable rewards once the exit process is completed.
+Beacon balance (CL): 0.000000 ETH
+Your portion: 0.000000 ETH
+Current network commission: 5.000000%
+```
+
+### `validators`
+`rocketpool megapool validators` 命令将显示由节点 megapool 管理的每个验证者的状态。您将能够看到验证者公钥、Beacon Chain 状态以及预质押验证者的队列位置等信息:
+```
+There are 8 validator(s) on the express queue.
+There are 2 validator(s) on the standard queue.
+The express queue rate is 2.
+
+1 Staking validator(s):
+
+Megapool Validator ID:        1
+Validator pubkey:             <pubkey>
+Validator active:             no
+Validator index:              <index>
+Beacon status:                pending_queued
+Express Ticket Used:          no
+
+
+1 Initialized validator(s):
+
+--------------------
+
+Megapool Validator ID:        2
+Expected pubkey:              <pubkey>
+Validator active:             no
+Validator Queue Position:     10
+Express Ticket Used:          no
+
+
+1 Exiting validator(s):
+
+--------------------
+
+Megapool Validator ID:        0
+Validator pubkey:             <pubkey>
+Validator active:             no
+Validator index:              <index>
+Beacon status:                withdrawal_done
+Express Ticket Used:          yes
+
+```
+
+### `exit-validator`
+
+此命令允许您选择一个验证者在 Beacon Chain 上自愿退出。当您想关闭验证者并提取其最终 ETH 余额时使用此命令。请注意,这无法撤消 - 一旦触发退出,验证者将永久关闭。
+
+
 ## Minipool 命令
 
 `minipool` 组涉及影响您的 minipool 的命令。
@@ -502,30 +619,25 @@ NAME:
    rocketpool minipool - Manage the node's minipools
 
 USAGE:
-   rocketpool minipool [global options] command [command options] [arguments...]
-
-VERSION:
-   1.17.2
+   rocketpool minipool command [command options] [arguments...]
 
 COMMANDS:
-   status, s                   Get a list of the node's minipools
-   stake, t                    Stake a minipool after the scrub check, moving it from prelaunch to staking.
-   set-withdrawal-creds, swc   Convert the withdrawal credentials for a migrated solo validator from the old 0x00 value to the minipool address. Required to complete the migration process.
-   import-key, ik              Import the externally-derived key for a minipool that was previously a solo validator, so the Smartnode's VC manages it instead of your externally-managed VC.
-   promote, p                  Promote a vacant minipool after the scrub check, completing a solo validator migration.
-   refund, r                   Refund ETH belonging to the node from minipools
-   begin-bond-reduction, bbr   Begins the ETH bond reduction process for a minipool, taking it from 16 ETH down to 8 ETH (begins conversion of a 16 ETH minipool to an LEB8)
-   reduce-bond, rb             Manually completes the ETH bond reduction process for a minipool from 16 ETH down to 8 ETH once it is eligible. Please run `begin-bond-reduction` first to start this process.
-   distribute-balance, d       Distribute a minipool's ETH balance between your withdrawal address and the rETH holders.
-   exit, e                     Exit staking minipools from the beacon chain
-   close, c                    Withdraw any remaining balance from a minipool and close it
-   delegate-upgrade, u         Upgrade a minipool's delegate contract to the latest version
-   delegate-rollback, b        Roll a minipool's delegate contract back to its previous version
-   set-use-latest-delegate, l  Use this to enable or disable the "use-latest-delegate" flag on one or more minipools. If enabled, the minipool will ignore its current delegate contract and always use whatever the latest delegate is.
-   find-vanity-address, v      Search for a custom vanity minipool address
-   rescue-dissolved, rd        Manually deposit ETH into the Beacon deposit contract for a dissolved minipool, activating it on the Beacon Chain so it can be exited.
+   status, s                  Get a list of the node's minipools
+   stake, t                   Stake a minipool after the scrub check, moving it from prelaunch to staking.
+   set-withdrawal-creds, swc  Convert the withdrawal credentials for a migrated solo validator from the old 0x00 value to the minipool address. Required to complete the migration process.
+   import-key, ik             Import the externally-derived key for a minipool that was previously a solo validator, so the Smart Node's VC manages it instead of your externally-managed VC.
+   promote, p                 Promote a vacant minipool after the scrub check, completing a solo validator migration.
+   refund, r                  Refund ETH belonging to the node from minipools
+   begin-bond-reduction, bbr  Begins the ETH bond reduction process for a minipool, taking it from 16 ETH down to 8 ETH (begins conversion of a 16 ETH minipool to an LEB8)
+   reduce-bond, rb            Manually completes the ETH bond reduction process for a minipool from 16 ETH down to 8 ETH once it is eligible. Please run `begin-bond-reduction` first to start this process.
+   distribute-balance, d      Distribute a minipool's ETH balance between your withdrawal address and the rETH holders.
+   exit, e                    Exit staking minipools from the beacon chain
+   close, c                   Withdraw any remaining balance from a minipool and close it
+   delegate-upgrade, u        Upgrade a minipool's delegate contract to the latest version
+   find-vanity-address, v     Search for a custom vanity minipool address
+   rescue-dissolved, rd       Manually deposit ETH into the Beacon deposit contract for a dissolved minipool, activating it on the Beacon Chain so it can be exited.
 
-GLOBAL OPTIONS:
+OPTIONS:
    --help, -h  show help
 ```
 

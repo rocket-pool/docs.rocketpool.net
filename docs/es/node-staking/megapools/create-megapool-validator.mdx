@@ -1,0 +1,306 @@
+
+
+# Creación de un Megapool (Validador)
+
+Bienvenido a Saturn 1! Un megapool de Rocket Pool es una instancia de contrato inteligente en la capa de ejecución.
+Tu nodo gestionará un megapool que sirve como dirección de retiro de Ethereum para uno o varios validadores.
+Cada validador está compuesto por una porción de tu ETH, conocida como el monto de garantía, y una porción de ETH del pool de staking de rETH,
+conocida como el monto prestado. Tu megapool es responsable de combinar el monto de garantía y el monto prestado de ETH para formar 32 ETH en total, que
+luego se envían al contrato de depósito de la Beacon Chain para crear un nuevo validador.
+
+Tu megapool se despliega automáticamente en el momento de tu primer depósito de validador. ¡Después podrás usar el mismo megapool para gestionar tantos validadores como desees! No necesitarás
+desplegar un nuevo megapool cada vez que crees un nuevo validador.
+
+
+::: tip NOTA
+Los tiempos de activación (y salida) de la cola de validadores de la Beacon Chain pueden variar enormemente dependiendo del estado actual de la red.
+
+Esto está fuera del control de Rocket Pool y es una función de la propia Beacon Chain.
+
+La siguiente herramienta proporciona una buena estimación de cuánto tiempo puedes esperar:
+[https://www.validatorqueue.com/](https://www.validatorqueue.com/)
+
+Por favor revisa esta herramienta para tener una idea de cuánto tiempo puedes esperar para que tu validador se active.
+:::
+
+::: tip NOTA
+
+La creación de validadores está gobernada por dos colas.
+
+1. La primera es la cola de depósitos de Rocket Pool. Entraremos en más detalles en una sección diferente, pero esencialmente esta cola es gestionada por el protocolo Rocket Pool y determina cuándo tu validador recibirá su ETH prestado.
+Es necesario que haya ETH disponible en el deposit pool para emparejar tus 4 ETH con 28 ETH del deposit pool y crear el validador.
+
+2. La segunda es la cola de la Beacon Chain, que es gestionada por la Ethereum Beacon Chain y determina cuándo tu validador se activará.
+Ten en cuenta que el tiempo que tarda tu validador en activarse puede variar enormemente dependiendo de tu posición en cada cola y el estado actual de la red.
+
+La cola de depósitos de Rocket Pool incluye un sistema de cola exprés para ayudar a los operadores de nodo existentes a migrar su ETH de validadores minipool
+a ETH de validadores megapool.
+
+:::
+
+## Cola de Depósitos y Cola Exprés de Rocket Pool
+
+Hay dos tipos de colas dentro de la cola de depósitos de Rocket Pool: cola exprés y cola estándar.
+
+La cola de depósitos incluye un sistema de cola exprés para ayudar a los operadores de nodo existentes a migrar su ETH de validadores minipool
+a ETH de validadores megapool. También crea plazos de depósito más predecibles para los depósitos que utilizan la cola exprés.
+
+La cola exprés se procesa en una proporción de 4:1, lo que significa que 4 validadores de la cola exprés se emparejan por cada 1 validador emparejado de
+la cola estándar. En otras palabras: se emparejan 4 validadores de la cola exprés, luego 1 de la cola estándar, luego 4 de la cola exprés y así sucesivamente.
+
+Los operadores de nodo existentes reciben tickets de cola exprés basados en su ETH en garantía en minipools heredados: un ticket por cada 4 ETH en garantía.
+Por ejemplo, un operador de nodo con un minipool heredado de 8 ETH obtiene 2 tickets de cola exprés. Esto es suficiente para migrar completamente a dos validadores megapool de 4 ETH usando la cola exprés.
+[RPIP-59: Deposit Mechanics](https://rpips.rocketpool.net/RPIPs/RPIP-59#deposit-queue) entra en los detalles de cómo se manejan los depósitos.
+
+Tu nodo recibirá un reembolso de un ticket de cola exprés si decides [retirar tu validador de la cola exprés](./create-megapool-validator#salir-de-un-validador-de-la-cola-de-depositos-de-rocket-pool).
+
+## Depositar ETH y Crear un Validador
+
+Si este es el primer validador megapool de tu nodo, el megapool de tu nodo también se desplegará automáticamente al mismo tiempo. Recuerda que el Megapool de tu nodo puede
+gestionar uno o varios validadores, ¡así que el despliegue del megapool solo ocurre una vez por nodo!
+
+Una vez que estés listo para depositar tu ETH en un megapool y crear un validador de Beacon Chain, puedes hacerlo usando el siguiente comando:
+
+```
+rocketpool megapool deposit
+```
+::: danger ADVERTENCIA
+
+Aunque la CLI automatiza muchos de los próximos pasos por ti, recomendamos <strong>encarecidamente</strong> monitorear tu nodo y transacciones para garantizar una transición exitosa de `prelaunch` a `staking`.
+
+Las transacciones fallidas (debido a configuraciones de gas ajustadas, ETH insuficiente para el gas, o el nodo fuera de línea durante 28 días después del depósito inicial) podrían hacer que tu validador megapool transite al estado `dissolved`, lo cual debes evitar.
+
+Si un validador en prelaunch falla en hacer stake dentro de 28 días, el validador se disolverá. El 1 ETH (de un bono de 4 ETH) enviado a la Beacon Chain durante el proceso de prelaunch **no es recuperable**.
+El operador de nodo recibe [crédito](/es/node-staking/megapools/credit) por los 3 ETH restantes de su bono con una penalización de disolución de 0.05 ETH aplicada como deuda. El crédito neto para un validador disuelto es de 2.95 ETH.
+
+[Aprende más sobre cómo confirmar un stake exitoso](./create-megapool-validator#confirmacion-de-un-stake-exitoso)
+
+:::
+
+El primer prompt preguntará cuántos validadores deseas crear. Puedes crear hasta 35 en el mismo depósito, pero usaremos 1 validador
+para el resto de nuestra demostración aquí. Escribe `1` y luego presiona `enter` para comenzar a crear 1 validador.
+```
+Your eth2 client is on the correct network.
+
+How many validators would you like to create? (max: 35)
+1
+```
+
+El segundo prompt mostrará información sobre cuánto ETH tiene tu nodo actualmente en garantía, además
+del requisito total de garantía para el número de validadores que has seleccionado. El nodo en nuestra demostración no tiene
+validadores megapool, de ahí `0.00 ETH bonded`. El requisito actual de garantía es `4 ETH`.
+Después de leer y entender la información mostrada, escribe `y` y luego presiona `enter` para continuar al siguiente prompt.
+
+
+```
+The node is currently bonded with 0.00 ETH.
+The total bond requirement is 4.00 ETH.
+
+NOTE: You are about to create 1 new megapool validator(s), requiring a total of: 4.00 ETH.
+Would you like to continue? [y/n]
+y
+```
+El siguiente prompt mostrará el estado de la [cola de depósitos de Rocket Pool](/es/node-staking/megapools/create-megapool-validator#cola-de-depositos-y-cola-expres-de-rocket-pool).
+Esto muestra cuántos validadores están esperando antes de ti para ser emparejados con ETH. La cola exprés es principalmente para operadores de nodo ya existentes, ya que los nuevos nodos no tendrán tickets de cola exprés. `The express queue rate is 4` significa que se emparejan 4 validadores de la cola exprés por cada 1 validador en la cola estándar.
+```
+There are 1 validator(s) on the express queue.
+There are 12 validator(s) on the standard queue.
+The express queue rate is 4 (4 express validators assigned per 1 standard).
+A new express validator would be at queue position 3.
+A new standard validator would be at queue position 14.
+```
+::: tip NOTA
+Si eres un operador de nodo que regresa y tienes tickets de cola exprés disponibles para este depósito, se te pedirá que los uses en este punto.
+Introduce `1` y luego presiona `enter` para proceder usando un ticket de cola exprés para este único depósito de validador megapool.
+```
+How many express tickets would you like to use? (max: 7)
+1
+```
+Si deseas guardar tu(s) ticket(s) de cola exprés y proceder en la cola estándar, simplemente escribe `0` y luego presiona `enter` para pasar al siguiente prompt.
+:::
+
+Si tienes algún [crédito de depósito](/es/node-staking/megapools/credit) para canjear en un validador, se te pedirá que lo hagas aquí. De lo contrario, este paso te mostrará las sugerencias de precio de gas actuales de la red.
+```
+Your credit balance is 0.00 ETH. (Credit in addition to ETH staked on your behalf).
+Your consensus client is synced, you may safely create a megapool validator.
++================ Suggested Gas Prices ================+
+| Avg Wait Time |   Max Fee    |     Total Gas Cost     |
+| 15 Seconds    | 2.13120 gwei | 0.00160 to 0.00240 ETH |
+| 1 Minute      | 1.96787 gwei | 0.00148 to 0.00222 ETH |
+| 3 Minutes     | 1.00871 gwei | 0.00075 to 0.00113 ETH |
+| >10 Minutes   | 1.00871 gwei | 0.00075 to 0.00113 ETH |
++======================================================+
+
+These prices include a maximum priority fee of 0.010 gwei.
+Please enter your max fee (including the priority fee) or leave blank for the default of 1.96787 gwei:
+
+```
+Después de confirmar tu precio de gas, haremos una última confirmación final para crear un validador megapool.
+```
+Using a max fee of 1.968 gwei and a priority fee of 0.010 gwei.
+You are about to deposit 4.000000 ETH to create 1 new megapool validator(s).
+ARE YOU SURE YOU WANT TO DO THIS?
+ [y/n]
+y
+
+Creating 1 megapool validator(s) ...
+Transaction has been submitted with hash <tx-hash>.
+You may follow its progress by visiting:
+https://hoodi.etherscan.io/tx/<tx-hash>
+
+Waiting for the transaction to be included in a block... you may wait here for it, or press CTRL+C to exit and return to the terminal.
+
+The node deposit of 4.000000 ETH total was made successfully!
+Validator pubkeys:
+  1. <beacon-pubkey>
+
+The 1 new megapool validators have been created.
+Once your validators progress through the queue, ETH will be assigned and a 1 ETH prestake submitted for each.
+After the prestake, your node will automatically perform a stake transaction for each validator, to complete the progress.
+To check the status of your validators use `rocketpool megapool validators`
+To monitor the stake transactions use `rocketpool service logs node`
+
+```
+Una vez que la transacción se complete, tendrás una confirmación de tu depósito
+como un hash de transacción de etherscan junto con el pubkey esperado de la Beacon Chain una vez que tu validador megapool esté en línea. No dudes en usar el comando `rocketpool megapool status` para
+verificar el estado de tu megapool, o `rocketpool megapool validators` para verificar el estado de tu validador específico. Tu validador estará en el
+estado `initialized` mientras progresa a través de la cola de depósitos de Rocket Pool. Ten en cuenta que el pubkey de tu validador megapool no se registrará en la Beacon Chain hasta que haya sido
+procesado por la cola de depósitos de Rocket Pool y se le asigne ETH.
+
+¡En este punto, lo has logrado! Felicidades por tu validador megapool. Definitivamente querrás consultar la sección [Monitoreo y Mantenimiento](/es/node-staking/maintenance/overview)
+de nuestras guías para aprender cómo mantener tu nodo en las mejores condiciones posibles. También continúa leyendo la siguiente sección sobre cómo confirmar un stake exitoso para asegurarte
+de que tu validador `initialized` progrese sin problemas a `staking` sin incurrir en penalizaciones.
+
+## Confirmación de un Stake Exitoso
+
+::: danger ADVERTENCIA
+
+Aunque la CLI automatiza muchos de los próximos pasos por ti, recomendamos <strong>encarecidamente</strong> monitorear tu nodo y transacciones para garantizar una transición exitosa de `prelaunch` a `staking`.
+
+Las transacciones fallidas (debido a configuraciones de gas ajustadas, ETH insuficiente para el gas, o el nodo fuera de línea durante 28 días después del depósito inicial) podrían hacer que tu validador megapool transite al estado `dissolved`, lo cual debes evitar.
+
+Si un validador en prelaunch falla en hacer stake dentro de 28 días, el validador se disolverá. El 1 ETH (de un bono de 4 ETH) enviado a la Beacon Chain durante el proceso de prelaunch **no es recuperable**.
+El operador de nodo recibe [crédito](/es/node-staking/megapools/credit) por los 3 ETH restantes de su bono con una penalización de disolución de 0.05 ETH aplicada como deuda. El crédito neto para un validador disuelto es de 2.95 ETH.
+
+:::
+
+
+¡Asegúrate de que tu nodo permanezca en línea durante todo este proceso! Realizará una serie de pasos completamente automáticos para garantizar que tu validador avance sin problemas
+entre las diversas etapas que se explican a continuación:
+
+Tu nuevo validador megapool estará en el estado `initialized`. Permanecerá en este estado hasta que progrese a través de la cola de depósitos de Rocket Pool
+y se le asignen 28 ETH del deposit pool. Usa el comando `rocketpool megapool validators` para verificar el estado de tu validador. Debería verse algo así:
+
+```
+1 Initialized validator(s):
+
+--------------------
+
+Megapool Validator ID:        7
+Expected pubkey:              <expected-pubkey>
+Validator active:             no
+Validator Queue Position:     14
+Express Ticket Used:          no
+```
+Una vez que tu validador reciba ETH de la [cola de depósitos de Rocket Pool](/es/node-staking/megapools/create-megapool-validator#cola-de-depositos-y-cola-expres-de-rocket-pool), pasará al estado `Prelaunch`. En este punto, 1 ETH de tu saldo de megapool se depositará
+en la Beacon Chain. El pubkey de tu validador también se registrará en la Beacon Chain, lo que significa que puedes ver el estado de tu validador `Prelaunch` en un explorador como https://beaconcha.in/ (o https://hoodi.beaconcha.in/ si estás usando testnet).
+Puedes observar tu validador buscando el pubkey en https://beaconcha.in/ o visitando este enlace con el formato: `https://beaconcha.in/validator/<your-validator-pubkey>`
+```
+1 Prelaunch validator(s):
+
+--------------------
+
+Megapool Validator ID:        7
+Validator pubkey:             <pubkey>
+Validator active:             no
+Express Ticket Used:          no
+
+```
+<img src="../images/prestaking.png" width="100%" height="auto" />
+Después de que tu validador `Prelaunch` sea procesado por la Beacon Chain y se acredite el depósito inicial de 1 ETH. Tu nodo realizará automáticamente una
+transacción `stake` para completar el depósito completo de 32 ETH en la Beacon Chain. La transacción `stake` avanzará tu validador `Prelaunch`
+a un validador `Staking`. En este punto, tu validador `Staking` tiene:
+- 32 ETH depositados en la Beacon Chain
+- Asignado un número de índice de validador
+- Activación pendiente en la Beacon Chain
+
+```
+1 Staking validator(s):
+
+Megapool Validator ID:        1
+Validator pubkey:             <pubkey>
+Validator active:             no
+Validator index:              <index>
+Beacon status:                pending_queued
+Express Ticket Used:          no
+
+```
+<img src="../images/pending-activation.png" width="100%" height="auto" />
+
+El estado actual de la cola de validadores de la Beacon Chain se puede encontrar aquí: https://www.validatorqueue.com/. Una vez que tu validador `Staking` se active en la Beacon Chain, verás
+`Beacon status:                active_ongoing` en el menú `rocketpool megapool validators` para confirmar que se ha activado y está listo para hacer attestations.
+
+```
+1 Staking validator(s):
+
+--------------------
+
+Megapool Validator ID:        0
+Validator pubkey:             <pubkey>
+Validator active:             yes
+Validator index:              <index>
+Beacon status:                active_ongoing
+Express Ticket Used:          no
+```
+<img src="../images/activated.png" width="100%" height="auto" />
+
+¡En esta etapa ya está todo listo! ¡Felicitaciones! ¡Has creado oficialmente un validador megapool con Rocket Pool! Echa un vistazo a las guías de [Monitoreo y Mantenimiento](/es/node-staking/maintenance/overview)
+para aprender cómo monitorear tu nodo y mantenerlo en perfectas condiciones.
+
+## Salir de un Validador de la Cola de Depósitos de Rocket Pool
+
+Si tienes un validador esperando en cola (exprés O estándar) y deseas salir de la cola, ¡puedes hacerlo! Tu depósito de 4 ETH será reembolsado
+como crédito canjeable por una cantidad equivalente en rETH. Los pasos son bastante simples:
+
+Primero, verifica `rocketpool megapool validators` para determinar qué validador retirar de la cola. Debes asegurarte de que
+el validador que estás retirando esté en el estado `Initialized`. Toma nota de su pubkey. Después de que tu validador haya recibido ETH asignado, no podrás retirarlo de la cola.
+```
+1 Initialized validator(s):
+
+--------------------
+
+Megapool Validator ID:        6
+Expected pubkey:              <beacon-pubkey>
+Validator active:             no
+Validator Queue Position:     14
+Express Ticket Used:          no
+```
+
+
+Usa el siguiente comando para salir de un validador de la cola, luego procede con la selección:
+```
+staker@node:~$ rocketpool megapool exit-queue
+
+Please select a validator to exit the queue:
+1: Pubkey: <beacon-pubkey>
+```
+Una vez que hayas hecho tu selección y confirmes que tu validador ha salido de la cola de depósitos de Rocket Pool, puedes usar el siguiente comando para canjear el crédito como rETH:
+
+```
+staker@node:~$ rocketpool node withdraw-credit
+
+You have 4.000000 ETH of credit that you can withdraw, receiving the equivalent amount in rETH. Would you like to withdraw the maximum amount of credit? [y/n]
+```
+¡Y listo! Si deseas depositar otro validador, este crédito también es canjeable como depósito de validador además de ser canjeable como rETH.
+Si usaste un ticket de cola exprés en tu validador retirado (de la cola), tu nodo recibirá un reembolso de ese ticket de cola exprés.
+
+## Creación de Múltiples Validadores Megapool
+
+El megapool de tu nodo puede gestionar tantos validadores como desees. Si deseas crear un validador adicional (o crear múltiples validadores en la misma transacción para ahorrar en comisiones de transacción),
+puedes hacerlo usando el comando `rocketpool megapool deposit`. Dado el límite de gas de bloque actual, la cantidad máxima de validadores que puedes crear en una transacción es 35.
+
+## Próximos Pasos
+
+Ahora que tienes un validador megapool funcionando, los próximos pasos te guiarán sobre cómo monitorear la salud de tu nodo, verificar y aplicar actualizaciones, y mantenerlo a lo largo de su vida.
+
+Por favor lee la sección [Monitoreo y Mantenimiento](/es/node-staking/maintenance/overview) a continuación para aprender más sobre estos temas.

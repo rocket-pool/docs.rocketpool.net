@@ -1,0 +1,291 @@
+
+
+# Megapool Oluşturma (Doğrulayıcı)
+
+Saturn 1'e hoş geldiniz! Bir Rocket Pool megapool'u, yürütme katmanındaki bir akıllı sözleşme örneğidir.
+Düğümünüz, bir veya birden fazla doğrulayıcı için Ethereum çekim adresi olarak hizmet veren bir megapool yönetecektir.
+Her doğrulayıcı, bond miktarı olarak bilinen ETH payınızdan ve borrowed miktar olarak bilinen rETH staking havuzundan alınan ETH payından oluşur.
+Megapool'unuz, bond miktarı ve borrowed miktar ETH'yi birleştirerek toplam 32 ETH oluşturmakla sorumludur; bu miktar
+ardından yeni bir doğrulayıcı oluşturmak için Beacon Chain deposit sözleşmesine gönderilir.
+
+Megapool'unuz, ilk doğrulayıcı yatırımınız sırasında otomatik olarak devreye alınır. Bundan sonra istediğiniz kadar doğrulayıcıyı yönetmek için aynı megapool'u kullanabileceksiniz! Her yeni doğrulayıcı oluşturduğunuzda
+yeni bir megapool dağıtmanız gerekmeyecek.
+
+
+::: tip NOT
+Beacon Chain doğrulayıcı kuyruğu etkinleştirme (ve çıkış) süreleri, ağın mevcut durumuna bağlı olarak büyük ölçüde değişebilir.
+
+Bu, Rocket Pool'un kontrolü dışındadır ve Beacon Chain'in kendisinin bir işlevidir.
+
+Aşağıdaki araç, ne kadar beklemeniz gerektiğine dair iyi bir tahmin sunar:
+[https://www.validatorqueue.com/](https://www.validatorqueue.com/)
+
+Doğrulayıcınızın aktif hale gelmesi için ne kadar beklemeniz gerektiğini anlamak için lütfen bu aracı inceleyin.
+:::
+
+::: tip NOT
+
+Doğrulayıcı oluşturma iki kuyruk tarafından yönetilir.
+
+1. Birincisi Rocket Pool deposit kuyruğudur. Bunu farklı bir bölümde daha ayrıntılı ele alacağız; ancak temelde bu kuyruk Rocket Pool protokolü tarafından yönetilir ve doğrulayıcınızın borrowed ETH'yi ne zaman alacağını belirler.
+4 ETH'nizi deposit havuzundaki 28 ETH ile eşleştirmek ve doğrulayıcıyı oluşturmak için deposit havuzunda ETH bulunması gerekir.
+
+2. İkincisi, Ethereum Beacon Chain tarafından yönetilen ve doğrulayıcınızın ne zaman aktif hale geleceğini belirleyen Beacon Chain kuyruğudur.
+Her kuyruktaki konumunuza ve ağın mevcut durumuna bağlı olarak doğrulayıcınızın aktif olma süresinin büyük ölçüde değişebileceğini lütfen unutmayın.
+
+Rocket Pool deposit kuyruğu, mevcut düğüm operatörlerinin minipool doğrulayıcı ETH'lerini
+megapool doğrulayıcı ETH'sine geçirmelerine yardımcı olmak için bir ekspres kuyruk sistemi sunar.
+
+:::
+
+## Rocket Pool Deposit Kuyruğu ve Ekspres Kuyruk
+
+Rocket Pool'un deposit kuyruğunda iki tür kuyruk bulunur: ekspres kuyruk ve standart kuyruk.
+
+Deposit kuyruğu, mevcut düğüm operatörlerinin minipool doğrulayıcı ETH'lerini
+megapool doğrulayıcı ETH'sine geçirmelerine yardımcı olmak için bir ekspres kuyruk sistemi sunar. Ayrıca ekspres kuyruğu kullanan yatırımlar için daha öngörülebilir deposit zaman çizelgeleri oluşturur.
+
+Ekspres kuyruk 4:1 oranında işlenir; yani standart kuyruktan her 1 doğrulayıcı eşleştirildiğinde ekspres kuyruktan 4 doğrulayıcı eşleştirilir. Diğer bir deyişle: ekspres kuyruktan 4 doğrulayıcı eşleştirilir, ardından standart kuyruktan 1, sonra tekrar ekspres kuyruktan 4 ve bu böyle devam eder.
+
+Mevcut düğüm operatörleri, eski minipoollarındaki bonded ETH'lerine göre ekspres kuyruk biletleri alır: her 4 ETH bond için bir bilet.
+Örneğin, 8 ETH'lik eski bir minipooluna sahip bir düğüm operatörü 2 ekspres kuyruk bileti alır. Bu, ekspres kuyruğu kullanarak iki adet 4 ETH megapool doğrulayıcısına tam olarak geçiş yapmak için yeterli bilettir.
+[RPIP-59: Deposit Mekaniği](https://rpips.rocketpool.net/RPIPs/RPIP-59#deposit-queue), yatırımların nasıl işlendiğine dair ayrıntılara girer.
+
+Doğrulayıcınızı [ekspres kuyruktan çıkarmayı](./create-megapool-validator#exit-a-validator-from-the-rocket-pool-deposit-queue) seçerseniz, düğümünüze bir ekspres kuyruk bileti iade edilecektir.
+
+## ETH Yatırma ve Doğrulayıcı Oluşturma
+
+Bu, düğümünüzün ilk megapool doğrulayıcısıysa, düğümünüzün megapool'u da aynı anda otomatik olarak devreye alınacaktır. Düğümünüzün Megapool'unun
+bir veya birden fazla doğrulayıcıyı yönetebileceğini, dolayısıyla megapool dağıtımının düğüm başına yalnızca bir kez gerçekleştiğini lütfen unutmayın!
+
+ETH'nizi bir megapool'a yatırmaya ve Beacon Chain doğrulayıcısı oluşturmaya hazır olduğunuzda, bunu aşağıdaki komutu kullanarak yapabilirsiniz:
+
+```
+rocketpool megapool deposit
+```
+::: danger UYARI
+
+CLI, sonraki adımların çoğunu sizin için otomatikleştirse de, `prelaunch` durumundan `staking` durumuna başarılı bir geçişi sağlamak için düğümünüzü ve işlemlerinizi izlemenizi <strong>şiddetle</strong> öneririz.
+
+Başarısız işlemler (ayarlanmış gaz ayarları, gaz için yetersiz ETH veya düğümün ilk yatırımdan sonra 28 gün boyunca çevrimdışı olması nedeniyle), megapool doğrulayıcınızın `dissolved` durumuna geçmesine neden olabilir ve bu durumdan kaçınmak istersiniz.
+
+Bir prelaunch doğrulayıcısı 28 gün içinde stake yapamazsa, doğrulayıcı çözülür. Prelaunch süreci sırasında Beacon Chain'e gönderilen 1 ETH (4 ETH bond'dan), **geri alınamaz**.
+Düğüm operatörüne, 0,05 ETH çözülme cezası borç olarak uygulanarak kalan 3 ETH bond için [kredi](/tr/node-staking/megapools/credit) verilir. Çözülmüş bir doğrulayıcı için net kredi 2,95 ETH'dir.
+
+[Başarılı bir stake'i nasıl onaylayacağınız hakkında daha fazla bilgi edinin](./create-megapool-validator#confirming-a-successful-stake)
+
+:::
+
+İlk istem, kaç doğrulayıcı oluşturmak istediğinizi soracaktır. Aynı yatırımda 35'e kadar doğrulayıcı oluşturabilirsiniz, ancak buradaki gösterimimizin geri kalanında 1 doğrulayıcı ile devam edeceğiz. 1 doğrulayıcı oluşturmaya başlamak için `1` yazın, ardından `enter` tuşuna basın.
+```
+Your eth2 client is on the correct network.
+
+How many validators would you like to create? (max: 35)
+1
+```
+
+İkinci istem, düğümünüzün şu anda kaç ETH bond'ladığına dair bazı bilgileri ve seçtiğiniz doğrulayıcı sayısı için toplam bond gereksinimini gösterecektir. Gösterimizdeki düğümün megapool doğrulayıcısı bulunmadığından `0.00 ETH bonded` görünmektedir. Mevcut bond gereksinimi `4 ETH`'dir.
+Gösterilen bilgileri okuyup anladıktan sonra, bir sonraki isteme geçmek için `y` yazın, ardından `enter` tuşuna basın.
+
+
+```
+The node is currently bonded with 0.00 ETH.
+The total bond requirement is 4.00 ETH.
+
+NOTE: You are about to create 1 new megapool validator(s), requiring a total of: 4.00 ETH.
+Would you like to continue? [y/n]
+y
+```
+Bir sonraki istem, [Rocket Pool deposit kuyruğunun](/tr/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-and-express-queue) durumunu gösterecektir.
+Bu, önünüzde ETH ile eşleştirilmeyi bekleyen kaç doğrulayıcı olduğunu gösterir. Ekspres kuyruk, yeni düğümlerin herhangi bir ekspres
+kuyruk bileti olmayacağından, öncelikle mevcut düğüm operatörleri içindir. `The express queue rate is 4`, standart kuyruktaki her 1 doğrulayıcı için ekspres kuyruktan 4 doğrulayıcının eşleştirildiği anlamına gelir.
+```
+There are 1 validator(s) on the express queue.
+There are 12 validator(s) on the standard queue.
+The express queue rate is 4 (4 express validators assigned per 1 standard).
+A new express validator would be at queue position 3.
+A new standard validator would be at queue position 14.
+```
+::: tip NOT
+Eğer geri dönen bir düğüm operatörüyseniz ve bu yatırım için kullanılabilir ekspres kuyruk biletleriniz varsa, bu noktada bunları kullanmanız istenecektir.
+Bu tek megapool doğrulayıcı yatırımı için bir ekspres kuyruk bileti kullanarak devam etmek için `1` girin, ardından `enter` tuşuna basın.
+```
+How many express tickets would you like to use? (max: 7)
+1
+```
+Ekspres kuyruk biletinizi/biletlerinizi saklamak ve standart kuyrukta devam etmek istiyorsanız, bir sonraki isteme geçmek için yalnızca `0` yazın, ardından `enter` tuşuna basın.
+:::
+
+Bir doğrulayıcıda kullanılacak herhangi bir [deposit kredisi](/tr/node-staking/megapools/credit) varsa, burada bunu yapmanız istenecektir. Aksi takdirde, bu adım sizi ağın mevcut gaz fiyatı önerileriyle karşılayacaktır.
+```
+Your credit balance is 0.00 ETH. (Credit in addition to ETH staked on your behalf).
+Your consensus client is synced, you may safely create a megapool validator.
++================ Suggested Gas Prices ================+
+| Avg Wait Time |   Max Fee    |     Total Gas Cost     |
+| 15 Seconds    | 2.13120 gwei | 0.00160 to 0.00240 ETH |
+| 1 Minute      | 1.96787 gwei | 0.00148 to 0.00222 ETH |
+| 3 Minutes     | 1.00871 gwei | 0.00075 to 0.00113 ETH |
+| >10 Minutes   | 1.00871 gwei | 0.00075 to 0.00113 ETH |
++======================================================+
+
+These prices include a maximum priority fee of 0.010 gwei.
+Please enter your max fee (including the priority fee) or leave blank for the default of 1.96787 gwei:
+
+```
+Gaz fiyatınızı onayladıktan sonra, bir megapool doğrulayıcısı oluşturmak için son ve kesin bir onay yapacağız.
+```
+Using a max fee of 1.968 gwei and a priority fee of 0.010 gwei.
+You are about to deposit 4.000000 ETH to create 1 new megapool validator(s).
+ARE YOU SURE YOU WANT TO DO THIS?
+ [y/n]
+y
+
+Creating 1 megapool validator(s) ...
+Transaction has been submitted with hash <tx-hash>.
+You may follow its progress by visiting:
+https://hoodi.etherscan.io/tx/<tx-hash>
+
+Waiting for the transaction to be included in a block... you may wait here for it, or press CTRL+C to exit and return to the terminal.
+
+The node deposit of 4.000000 ETH total was made successfully!
+Validator pubkeys:
+  1. <beacon-pubkey>
+
+The 1 new megapool validators have been created.
+Once your validators progress through the queue, ETH will be assigned and a 1 ETH prestake submitted for each.
+After the prestake, your node will automatically perform a stake transaction for each validator, to complete the progress.
+To check the status of your validators use `rocketpool megapool validators`
+To monitor the stake transactions use `rocketpool service logs node`
+
+```
+İşlem tamamlandığında, yatırımınızın bir etherscan işlem karması ile megapool doğrulayıcınız çevrimiçi olduğunda beklenen Beacon Chain pubkey'i olarak onayını alacaksınız. Megapool'unuzun durumunu kontrol etmek için `rocketpool megapool status` komutunu veya belirli doğrulayıcınızın durumunu kontrol etmek için `rocketpool megapool validators` komutunu kullanabilirsiniz. Doğrulayıcınız, Rocket Pool deposit kuyruğundan geçerken
+`initialized` durumunda olacaktır. Megapool doğrulayıcı pubkey'inizin, Rocket Pool deposit kuyruğu tarafından işlenip ETH atanana kadar Beacon Chain'e kaydedilmeyeceğini lütfen unutmayın.
+
+Bu noktada başardınız! Megapool doğrulayıcınız için tebrikler. Düğümünüzü mümkün olan en iyi durumda tutmayı öğrenmek için kılavuzlarımızın [İzleme ve Bakım](/tr/node-staking/maintenance/overview) bölümüne mutlaka göz atın. Ayrıca, `initialized` doğrulayıcınızın herhangi bir ceza almadan sorunsuz bir şekilde `staking` durumuna ilerlemesini sağlamak için başarılı bir stake'i onaylama hakkındaki sonraki bölümü okumaya devam edin.
+
+## Başarılı Bir Stake'i Onaylama
+
+::: danger UYARI
+
+CLI, sonraki adımların çoğunu sizin için otomatikleştirse de, `prelaunch` durumundan `staking` durumuna başarılı bir geçişi sağlamak için düğümünüzü ve işlemlerinizi izlemenizi <strong>şiddetle</strong> öneririz.
+
+Başarısız işlemler (ayarlanmış gaz ayarları, gaz için yetersiz ETH veya düğümün ilk yatırımdan sonra 28 gün boyunca çevrimdışı olması nedeniyle), megapool doğrulayıcınızın `dissolved` durumuna geçmesine neden olabilir ve bu durumdan kaçınmak istersiniz.
+
+Bir prelaunch doğrulayıcısı 28 gün içinde stake yapamazsa, doğrulayıcı çözülür. Prelaunch süreci sırasında Beacon Chain'e gönderilen 1 ETH (4 ETH bond'dan), **geri alınamaz**.
+Düğüm operatörüne, 0,05 ETH çözülme cezası borç olarak uygulanarak kalan 3 ETH bond için [kredi](/tr/node-staking/megapools/credit) verilir. Çözülmüş bir doğrulayıcı için net kredi 2,95 ETH'dir.
+
+:::
+
+
+Bu süreç boyunca düğümünüzün çevrimiçi kalmasını sağlayın! Doğrulayıcınızın aşağıda açıklanan çeşitli aşamalar arasında sorunsuz geçiş yapmasını sağlamak için birkaç tam otomatik adım gerçekleştirecektir:
+
+Yeni megapool doğrulayıcınız `initialized` durumunda olacaktır. Rocket Pool deposit kuyruğundan geçip deposit havuzundan 28 ETH atanana kadar bu durumda kalacaktır. Doğrulayıcınızın durumunu kontrol etmek için `rocketpool megapool validators` komutunu kullanın. Şuna benzer görünmelidir:
+
+```
+1 Initialized validator(s):
+
+--------------------
+
+Megapool Validator ID:        7
+Expected pubkey:              <expected-pubkey>
+Validator active:             no
+Validator Queue Position:     14
+Express Ticket Used:          no
+```
+Doğrulayıcınıza [Rocket Pool deposit kuyruğundan](/tr/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-and-express-queue) ETH atandığında, `Prelaunch` durumuna taşınacaktır. Bu noktada, megapool bakiyenizden 1 ETH Beacon Chain'e yatırılacaktır. Doğrulayıcınızın pubkey'i de Beacon Chain'e kaydedilecektir; bu, `Prelaunch` doğrulayıcınızın durumunu https://beaconcha.in/ (veya testnet kullanıyorsanız https://hoodi.beaconcha.in/) gibi bir gezginde görüntüleyebileceğiniz anlamına gelir.
+Doğrulayıcınızı https://beaconcha.in/ üzerinde pubkey'i aratarak veya şu biçimdeki bağlantıyı ziyaret ederek gözlemleyebilirsiniz: `https://beaconcha.in/validator/<doğrulayıcı-pubkey'iniz>`
+```
+1 Prelaunch validator(s):
+
+--------------------
+
+Megapool Validator ID:        7
+Validator pubkey:             <pubkey>
+Validator active:             no
+Express Ticket Used:          no
+
+```
+<img src="../images/prestaking.png" width="100%" height="auto" />
+`Prelaunch` doğrulayıcınız Beacon Chain tarafından işlenip başlangıç 1 ETH yatırımı alındıktan sonra. Düğümünüz, tam 32 ETH Beacon Chain yatırımını tamamlamak için otomatik olarak bir `stake` işlemi gerçekleştirecektir. `stake` işlemi, `Prelaunch` doğrulayıcınızı
+`Staking` doğrulayıcısına dönüştürecektir. Bu noktada `Staking` doğrulayıcınız:
+- Beacon Chain'e 32 ETH yatırılmış
+- Bir doğrulayıcı dizin numarası atanmış
+- Beacon Chain'de etkinleştirme bekliyor
+
+```
+1 Staking validator(s):
+
+Megapool Validator ID:        1
+Validator pubkey:             <pubkey>
+Validator active:             no
+Validator index:              <index>
+Beacon status:                pending_queued
+Express Ticket Used:          no
+
+```
+<img src="../images/pending-activation.png" width="100%" height="auto" />
+
+Beacon Chain doğrulayıcı kuyruğunun mevcut durumu burada bulunabilir: https://www.validatorqueue.com/. `Staking` doğrulayıcınız Beacon Chain'de etkinleştirildiğinde,
+aktif olduğunu ve onay yapabilmeye hazır olduğunu doğrulamak için `rocketpool megapool validators` menüsünde `Beacon status:                active_ongoing` göreceksiniz.
+
+```
+1 Staking validator(s):
+
+--------------------
+
+Megapool Validator ID:        0
+Validator pubkey:             <pubkey>
+Validator active:             yes
+Validator index:              <index>
+Beacon status:                active_ongoing
+Express Ticket Used:          no
+```
+<img src="../images/activated.png" width="100%" height="auto" />
+
+Bu aşamada hazırsınız! Tebrikler! Rocket Pool ile resmi olarak bir megapool doğrulayıcısı oluşturdunuz! Düğümünüzü nasıl izleyeceğinizi ve en iyi durumda nasıl tutacağınızı öğrenmek için [İzleme ve Bakım](/tr/node-staking/maintenance/overview) kılavuzlarına göz atın.
+
+## Rocket Pool Deposit Kuyruğundan Doğrulayıcı Çıkarma
+
+Kuyrukta (ekspres VEYA standart) bekleyen bir doğrulayıcınız varsa ve kuyruktan çıkmak istiyorsanız, bunu yapabilirsiniz! 4 ETH yatırımınız, eşdeğer rETH miktarı olarak kullanılabilecek kredi olarak iade edilecektir. Adımlar oldukça basittir:
+
+Önce, hangi doğrulayıcının sıradan çıkarılacağını belirlemek için `rocketpool megapool validators` komutunu çalıştırın. Sıradan çıkardığınız doğrulayıcının `Initialized` durumunda olduğundan emin olmak isteyeceksiniz. Pubkey'ini not edin. Doğrulayıcınıza ETH atandıktan sonra, sıradan çıkaramazsınız.
+```
+1 Initialized validator(s):
+
+--------------------
+
+Megapool Validator ID:        6
+Expected pubkey:              <beacon-pubkey>
+Validator active:             no
+Validator Queue Position:     14
+Express Ticket Used:          no
+```
+
+
+Bir doğrulayıcıyı kuyruktan çıkarmak için aşağıdaki komutu kullanın, ardından seçiminizle devam edin:
+```
+staker@node:~$ rocketpool megapool exit-queue
+
+Please select a validator to exit the queue:
+1: Pubkey: <beacon-pubkey>
+```
+Seçiminizi yaptıktan ve doğrulayıcınızın Rocket Pool deposit kuyruğundan çıktığını onayladıktan sonra, krediyi rETH olarak kullanmak için aşağıdaki komutu kullanabilirsiniz:
+
+```
+staker@node:~$ rocketpool node withdraw-credit
+
+You have 4.000000 ETH of credit that you can withdraw, receiving the equivalent amount in rETH. Would you like to withdraw the maximum amount of credit? [y/n]
+```
+İşte bu kadar! Başka bir doğrulayıcı yatırmak isterseniz, bu kredi rETH olarak kullanılabilmesinin yanı sıra doğrulayıcı yatırımı olarak da kullanılabilir.
+Çıkardığınız (sıradan çıkarılan) doğrulayıcıda bir ekspres kuyruk bileti kullanmışsanız, düğümünüze o ekspres kuyruk bileti iade edilecektir.
+
+## Birden Fazla Megapool Doğrulayıcısı Oluşturma
+
+Düğümünüzün megapool'u istediğiniz kadar doğrulayıcıyı yönetebilir. Ek bir doğrulayıcı oluşturmak istiyorsanız (veya işlem ücretlerinden tasarruf etmek için aynı işlemde birden fazla doğrulayıcı oluşturmak istiyorsanız),
+bunu `rocketpool megapool deposit` komutunu kullanarak yapabilirsiniz. Mevcut blok gaz limitine göre, tek bir işlemde oluşturabileceğiniz maksimum doğrulayıcı sayısı 35'tir.
+
+## Sonraki Adımlar
+
+Artık bir megapool doğrulayıcınız çalışır durumda olduğuna göre, sonraki adımlar düğümünüzün sağlığını nasıl izleyeceğinizi, güncellemeleri nasıl kontrol edip uygulayacağınızı ve yaşam döngüsü boyunca nasıl bakım yapacağınızı açıklayacaktır.
+
+Bu konular hakkında daha fazla bilgi edinmek için lütfen [İzleme ve Bakım](/tr/node-staking/maintenance/overview) bölümünü okuyun.

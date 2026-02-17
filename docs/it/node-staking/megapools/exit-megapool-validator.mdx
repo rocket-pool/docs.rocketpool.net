@@ -1,0 +1,97 @@
+# Uscita da un Validator Megapool
+
+Se non desideri più eseguire un validator megapool e vuoi accedere al saldo completo bloccato sulla Beacon Chain, dovrai seguire
+alcuni passaggi. Questa pagina serve a guidarti attraverso il processo di uscita da un validator megapool.
+
+1. Inviare una richiesta di uscita volontaria alla Beacon Chain (manuale)
+2. Notificare l'uscita del validator (automatizzato dallo smart node)
+3. Notificare il saldo finale (automatizzato dallo smart node)
+
+## Invio di una Richiesta di Uscita alla Beacon Chain
+
+Per inviare una richiesta di uscita alla Beacon Chain, usa il comando `rocketpool megapool exit-validator` nello smart node. Verrà presentato un elenco di validator che possono uscire.
+
+```
+staker@node:~$ rocketpool megapool exit-validator
+
+Please select a validator to EXIT:
+1: ID: 1 - Index: 1269834 Pubkey: 0x9455594c2f02674922eb6dee40d096f3203dd1762aa7f1a988ab6c277a62418ec3abfb460b57f33f13a5922e9551d5cc
+2: ID: 2 - Index: 1269835 Pubkey: 0xa188774e1adf42db768230541403347a8d2ebcd8386b7f5662bcf1004e17d8d53303889a7e527448cf29bff9bde34bb9
+3: ID: 3 - Index: 1269851 Pubkey: 0xa3e211e95a542ffaf8467ba211a3d893b58c59204dab8c32df29f0cfda3f9ce485a3bc13a50e4c205f912613521ed203
+4: ID: 7 - Index: 1274411 Pubkey: 0xb5369a5f8550daa07476378dc4864f08b74d4950e28c74844527b59b1e9dea9fd376ea3bd171ee8fba7de866cd4ea37e
+5: ID: 8 - Index: 1275239 Pubkey: 0xa56660fa14f0cb7a7030ea0c68a075c7fd700d98ee3afb498030f2bafbadfbf29703bf8fe8ccc9e1f2332b96dcb51ee2
+```
+
+Una volta selezionato un validator, lo smart node seguirà con un prompt aggiuntivo. Conferma di aver selezionato il validator che intendi far uscire
+digitando `y`, poi premi `invio` per inviare una richiesta di uscita volontaria alla Beacon Chain. Questa azione non richiede gas. Invia un messaggio firmato dal tuo nodo alla beacon chain per uscire volontariamente
+dal validator.
+
+```
+NOTE:
+You are about to exit a validator. This will tell each validator to stop all activities on the Beacon Chain.
+Please continue to run your validators until each one you've exited has been processed by the exit queue.
+You can watch their progress on the https://beaconcha.in explorer.
+Your funds will be locked on the Beacon Chain until they've been withdrawn, which will happen automatically (this may take a few days).
+Once your funds have been withdrawn, you can run `rocketpool megapool notify-validator-exit` to distribute them to your withdrawal address.
+
+Are you sure you want to EXIT validator id 1? [y/n]
+y
+
+Successfully requested to exit validator id 1.
+```
+
+Il tuo nodo invia una richiesta di uscita volontaria alla Beacon Chain. A questo punto, il tuo validator dovrebbe essere nello stato `active_exiting` della Beacon Chain. Puoi confermarlo eseguendo il
+comando `rocketpool megapool validators` e controllando il validator per cui hai richiesto l'uscita:
+
+```
+
+Megapool Validator ID:        1
+Validator pubkey:             0x9455594c2f02674922eb6dee40d096f3203dd1762aa7f1a988ab6c277a62418ec3abfb460b57f33f13a5922e9551d5cc
+Validator active:             yes
+Validator index:              1269834
+Beacon status:                active_exiting
+Express Ticket Used:          no
+```
+
+
+<img src="../images/megapool-exiting.png" width="100%" height="auto" />
+
+
+::: tip NOTA
+Il tuo validator continuerà a fare attestazioni finché non verrà elaborato dalla coda di uscita della Beacon Chain, quindi tieni il tuo nodo online durante questo processo! Potrebbero volerci alcuni giorni o più.
+Questo sito web è molto utile per controllare i tempi attuali della coda: https://www.validatorqueue.com/
+:::
+
+## Notifica dell'Uscita del Validator
+
+Nella fase precedente `active_exiting`, il tuo nodo stava facendo attestazioni mentre era soggetto alla coda di uscita della Beacon Chain. Il tempo varia a seconda di
+quanti ETH sono in attesa di uscita.
+
+Dopo che il tuo validator raggiunge la fine di questa coda, passa allo stato `exited_unslashed`. In questa fase, il tuo smart node chiamerà automaticamente `notify validator exit`, segnalando
+al protocollo Rocket Pool che il tuo validator è uscito ed è quasi pronto per il prelievo.
+
+::: warning ATTENZIONE
+Questo passaggio è completamente automatizzato dallo smart node all'interno del ciclo di attività `rocketpool_node`. È molto importante mantenere il tuo nodo online durante il processo, altrimenti si incorre in una multa di `0.05 ETH` per essere offline. La multa viene detratta
+dal saldo di prelievo. Monitora lo stato del tuo nodo durante l'intero processo di uscita del validator.
+:::
+
+```
+Megapool Validator ID:        1
+Validator pubkey:             0x9455594c2f02674922eb6dee40d096f3203dd1762aa7f1a988ab6c277a62418ec3abfb460b57f33f13a5922e9551d5cc
+Validator active:             no
+Validator index:              1269834
+Beacon status:                exited_unslashed
+Express Ticket Used:          no
+```
+
+Lo stato su beaconcha.in dovrebbe apparire come:
+
+<img src="../images/megapool-exited.png" width="100%" height="auto" />
+
+Dopo 256 epoch sulla Beacon Chain, i 32 ETH completi insieme ad altre ricompense accumulate verranno inviati al megapool del tuo nodo.
+
+## Notifica del Saldo Finale
+
+A questo punto, il tuo validator è completamente uscito dalla Beacon Chain e il prelievo finale viene inviato dalla Beacon Chain al tuo megapool. Il tuo smart node chiamerà automaticamente `notify final balance`.
+Questa chiamata termina completamente i doveri del tuo validator megapool e distribuisce anche la tua porzione del saldo all'indirizzo di prelievo ETH del tuo nodo. Se hai mantenuto il tuo nodo online e i compiti automatici come `notify
+validator exit` e `notify final balance` sono stati eseguiti, non sono necessari ulteriori passaggi da parte tua.

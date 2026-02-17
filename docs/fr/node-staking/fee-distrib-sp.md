@@ -1,6 +1,6 @@
 # Distributeurs de frais et la Smoothing Pool
 
-Maintenant que [la Fusion](https://ethereum.org/fr/upgrades/merge/) est passée, les opérateurs de nœuds reçoivent des **frais de priorité** (**pourboires**) des transactions qu'ils incluent dans les blocs qu'ils proposent à la chaîne Ethereum.
+Les opérateurs de nœuds reçoivent des **frais de priorité** (**pourboires**) des transactions qu'ils incluent dans les blocs qu'ils proposent à la chaîne Ethereum.
 Ces frais proviennent et restent sur la couche d'exécution.
 
 Contrairement à la plupart des récompenses de validation qui sont générées sur la couche de consensus et retirées automatiquement périodiquement, ces frais sont _immédiatement liquides_.
@@ -23,13 +23,27 @@ Il ne peut pas les envoyer à l'adresse de votre minipool, car cela doit fonctio
 Au lieu de cela, le fonctionnement est assez simple : lorsque Rocket Pool démarre votre Validator Client, il passe un argument appelé **destinataire des frais**.
 Le destinataire des frais est simplement une adresse sur la couche d'exécution où vous souhaitez que les pourboires soient envoyés.
 
-Rocket Pool est conçu pour distribuer équitablement ces récompenses entre vous et les stakers du pool rETH, de la même manière qu'il distribue équitablement vos récompenses de la Beacon Chain : votre part des frais de priorité que vos validateurs minipool gagnent ira à vous (plus la commission moyenne de tous vos minipools), et la part restante ira aux stakers du pool (moins votre commission moyenne).
-La part exacte dépend du nombre de minipools liés à 8 ETH par rapport aux minipools liés à 16 ETH que vous possédez.
+Le `fee recipient` de votre nœud peut être l'un des contrats spéciaux suivants :
 
-À cette fin, le Smartnode définira automatiquement le `destinataire des frais` de votre nœud sur l'un de ces contrats spéciaux :
-
-- Le **distributeur de frais** personnel de votre nœud (par défaut)
+- Le **distributeur de frais** personnel de votre nœud
+- Le contrat megapool de votre nœud
 - La **Smoothing Pool** (sur inscription volontaire)
+
+Le Smart Node définira automatiquement le destinataire des frais correct en fonction de votre configuration :
+
+| Statut Smoothing Pool | A des validateurs Megapool | A des Minipools | Destinataire des frais |
+|----------------------|----------------------------|-----------------|------------------------|
+| Inscrit | Non | Oui | Adresse Smoothing Pool |
+| Inscrit | Oui | Non | Adresse Smoothing Pool |
+| Inscrit | Oui | Oui | Adresse Smoothing Pool (tous les validateurs) |
+| Non inscrit | Non | Oui | Adresse du contrat distributeur de frais |
+| Non inscrit | Oui | Non | Adresse du contrat megapool |
+| Non inscrit | Oui | Oui | Validateurs megapool → adresse megapool<br>Validateurs minipool → adresse distributeur de frais<br>(Défini par validateur via [keymanager API](https://ethereum.github.io/keymanager-APIs/#/Fee%20Recipient/setFeeRecipient)) |
+
+
+
+Rocket Pool est conçu pour distribuer équitablement ces récompenses entre vous et les stakers du pool rETH, de la même manière qu'il distribue équitablement vos récompenses de la Beacon Chain : votre part des frais de priorité que vos validateurs minipool gagnent ira à vous (plus la commission moyenne de tous vos minipools), et la part restante ira aux stakers du pool (moins votre commission moyenne).
+La part exacte dépend du nombre de minipools liés à 8 ETH, de minipools liés à 16 ETH, et de validateurs megapool liés à 4 ETH que vous possédez.
 
 En bref, le **distributeur de frais** est un contrat unique attaché à votre nœud qui collecte et répartit équitablement vos frais de priorité entre vous et les stakers rETH.
 C'est comme votre coffre-fort personnel pour les frais de priorité.
@@ -55,13 +69,10 @@ L'adresse du distributeur de frais de votre nœud est **déterminée de manière
 Cela signifie qu'elle est connue à l'avance, avant même que le distributeur de frais ne soit créé.
 
 Les nouveaux nœuds Rocket Pool créeront (initialiseront) automatiquement le contrat de distributeur de frais de leur nœud lors de l'enregistrement.
-Les nœuds qui ont été créés avant la mise à niveau Redstone devront effectuer ce processus manuellement.
 Cela ne doit être exécuté qu'une seule fois.
 
 Une ramification intéressante de cela est que l'adresse de votre distributeur peut commencer à accumuler un solde **avant** que vous n'ayez initialisé votre contrat de distributeur de frais.
 Ce n'est pas grave, car votre distributeur aura accès à tout ce solde existant dès que vous l'initialiserez.
-
-**Par défaut, votre nœud utilisera son distributeur de frais comme destinataire des frais pour vos validateurs.**
 
 ### Afficher son adresse et son solde
 
@@ -75,19 +86,9 @@ La sortie ressemblera à ceci :
 
 ![](../node-staking/images/status-fee-distributor.png)
 
-### Initialiser le distributeur de frais
+### Réclamer les frais de votre distributeur de frais
 
-Pour initialiser le distributeur de votre nœud, exécutez simplement cette nouvelle commande :
-
-```shell
-rocketpool node initialize-fee-distributor
-```
-
-::: warning NOTE
-Si vous avez créé votre nœud avant la mise à jour Redstone, vous devez appeler cette fonction une fois avant de pouvoir créer de nouveaux minipools avec `rocketpool node deposit`.
-:::
-
-Lorsque votre distributeur a été initialisé, vous pouvez réclamer et distribuer l'intégralité de son solde en utilisant la commande suivante :
+Vous pouvez réclamer et distribuer l'intégralité du solde de votre distributeur de frais en utilisant la commande suivante :
 
 ```shell
 rocketpool node distribute-fees
@@ -97,7 +98,7 @@ Cela enverra votre part des récompenses à votre **adresse de retrait**.
 
 ::: warning NOTE SUR LES ÉVÉNEMENTS IMPOSABLES
 Chaque fois que vous créez un nouveau minipool, Rocket Pool appellera automatiquement `distribute-fees`.
-Cela permet de garantir que les frais que vous aviez accumulés sont distribués en utilisant la commission moyenne de votre nœud, qui pourrait changer lorsque vous créez le nouveau minipool.
+Cela permet de garantir que les frais que vous aviez accumulés sont distribués en utilisant la commission moyenne de votre nœud, qui pourrait changer lorsque vous créez le nouveau minipool. Cela ne s'applique pas à la création de validateurs megapool.
 
 De plus, notez que n'importe qui peut appeler `distribute-fees` sur votre distributeur de frais (pour vous empêcher de retenir les récompenses rETH en otage).
 Vous pourriez avoir un événement imposable chaque fois que cette méthode est appelée.
@@ -109,13 +110,14 @@ Veuillez garder ces conditions à l'esprit lorsque vous décidez d'utiliser ou n
 
 Pour garantir que les opérateurs de nœuds ne "trichent" pas en modifiant manuellement le destinataire des frais utilisé dans leur client validateur, Rocket Pool emploie un système de pénalités.
 
-L'Oracle DAO surveille en permanence chaque bloc produit par les opérateurs de nœuds Rocket Pool.
+L'Oracle DAO est en mesure de pénaliser les opérateurs de nœuds qui ne respectent pas les règles du protocole.
 
 Si un nœud a _refusé_ la Smoothing Pool, les adresses suivantes sont considérées comme des destinataires de frais valides :
 
 - L'adresse rETH
 - L'adresse de la Smoothing Pool
 - Le contrat de distributeur de frais du nœud
+- Le contrat megapool du nœud
 
 Si un nœud a _accepté_ la Smoothing Pool, l'adresse suivante est considérée comme un destinataire de frais valide :
 
@@ -123,10 +125,7 @@ Si un nœud a _accepté_ la Smoothing Pool, l'adresse suivante est considérée 
 
 Un destinataire de frais autre qu'une des adresses valides ci-dessus est considéré comme **invalide**.
 
-Un minipool qui a proposé un bloc avec un destinataire de frais **invalide** recevra **un avertissement**.
-Au troisième avertissement, le minipool commencera à recevoir des **infractions** - chaque infraction déduira **10% de son solde total de la Beacon Chain, y compris les gains ETH** et les enverra aux stakers du pool rETH lors du retrait des fonds du minipool.
-
-Les infractions sont au niveau du **minipool**, pas au niveau du **nœud**.
+Le logiciel Smart Node définit automatiquement le bon destinataire des frais en fonction de votre configuration (que vous soyez inscrit à la Smoothing Pool ou non, et que vous ayez des validateurs megapool, des minipools ou les deux). Pour les nœuds ayant à la fois des validateurs megapool et des minipools tout en étant non inscrits, le destinataire des frais est défini par validateur via l'API keymanager. La liste complète des conditions est résumée [ici](/fr/node-staking/fee-distrib-sp#fee-recipients).
 
 Le logiciel Smartnode est conçu pour garantir que les utilisateurs honnêtes ne seront jamais pénalisés, même s'il doit mettre le Validator Client hors ligne pour ce faire.
 Si cela se produit, vous arrêterez d'attester et verrez des messages d'erreur dans vos fichiers de logs expliquant pourquoi le Smartnode ne peut pas définir correctement votre destinataire de frais.
@@ -149,19 +148,17 @@ En bref, tant que la Smoothing Pool a plus de minipools que vous, il est plus pr
 
 La Smoothing Pool utilise les règles suivantes :
 
-- Lors d'un point de contrôle des récompenses Rocket Pool lorsque le solde de la Smoothing Pool est distribué, le solde ETH total du contrat est divisé en deux.
-  - Les stakers rETH reçoivent 1/2 (pour les obligations de 16 ETH) ou 3/4 (pour les obligations de 8 ETH alias LEB8), moins la **commission moyenne** de tous les opérateurs de nœuds ayant adhéré
-  - Le reste va aux opérateurs de nœuds qui ont adhéré.
+- Lors d'un point de contrôle des récompenses Rocket Pool lorsque le solde de la Smoothing Pool est distribué entre les opérateurs de nœuds (en tenant compte de leur commission), les opérateurs de nœuds qui stakent du RPL, les stakers rETH et potentiellement le DAO Rocket Pool. Les pourcentages exacts sont déterminés par la [gouvernance du Protocol DAO (pDAO) de Rocket Pool](/fr/pdao/overview)
 
-- L'adhésion à la Smoothing Pool se fait au **niveau du nœud**. Si vous adhérez, tous vos minipools adhèrent.
+- L'adhésion à la Smoothing Pool se fait au **niveau du nœud**. Si vous adhérez, tous vos minipools et validateurs megapool adhèrent.
 
 - N'importe qui peut adhérer à tout moment. Ils doivent attendre un intervalle de récompenses complet (3 jours sur Hoodi, 28 jours sur le réseau principal) avant de se retirer pour empêcher de jouer avec le système (par exemple, quitter la SP juste après avoir été sélectionné pour proposer un bloc).
   - Une fois retirés, ils doivent attendre un autre intervalle complet pour adhérer à nouveau.
 
-- La Smoothing Pool calcule la "part" de chaque minipool (portion de l'ETH du pool pour l'intervalle) détenue par chaque nœud ayant adhéré.
-  - La part est une fonction de la performance de votre minipool pendant l'intervalle (calculée en examinant combien d'attestations vous avez envoyées sur la Beacon Chain et combien vous en avez manquées), et du taux de commission de votre minipool.
+- La Smoothing Pool calcule la "part" de chaque validateur (portion de l'ETH du pool pour l'intervalle) détenue par chaque nœud ayant adhéré.
+  - La part est une fonction de la performance de votre validateur pendant l'intervalle (calculée en examinant combien d'attestations vous avez envoyées sur la Beacon Chain et combien vous en avez manquées), et de votre taux de commission.
 
-- La part totale de votre nœud est la somme de vos parts de minipool.
+- La part totale de votre nœud est la somme de vos parts de validateurs.
 
 - La part totale de votre nœud est mise à l'échelle en fonction du temps pendant lequel vous avez adhéré.
   - Si vous avez adhéré pour l'intervalle complet, vous recevez votre part complète.
@@ -177,7 +174,7 @@ Pour adhérer à la Smoothing Pool, exécutez la commande suivante :
 rocketpool node join-smoothing-pool
 ```
 
-Cela vous enregistrera comme ayant adhéré dans les contrats Rocket Pool et changera automatiquement le `destinataire des frais` de votre client validateur de votre contrat de distributeur de nœud au contrat de la Smoothing Pool.
+Cela vous enregistrera comme ayant adhéré dans les contrats Rocket Pool et changera automatiquement le `fee recipient` de votre client validateur de votre contrat de distributeur de nœud au contrat de la Smoothing Pool.
 
 Pour quitter le pool, exécutez cette commande :
 
@@ -185,7 +182,7 @@ Pour quitter le pool, exécutez cette commande :
 rocketpool node leave-smoothing-pool
 ```
 
-Cela vous enregistrera comme ayant refusé dans les contrats Rocket Pool, et une fois qu'un court délai sera passé, changera automatiquement le `destinataire des frais` de votre client validateur du contrat de la Smoothing Pool vers votre contrat de distributeur de frais de nœud.
+Cela vous enregistrera comme ayant refusé dans les contrats Rocket Pool, et une fois qu'un court délai sera passé, changera automatiquement le `fee recipient` de votre client validateur du contrat de la Smoothing Pool vers votre contrat de distributeur de frais de nœud.
 
 ### Réclamer les récompenses de la Smoothing Pool
 
@@ -199,23 +196,23 @@ rocketpool node claim-rewards
 Si vous avez adhéré à la Smoothing Pool, vous remarquerez que la quantité d'ETH que vous recevez pour chaque intervalle est supérieure à zéro :
 
 ```
-Bienvenue dans le nouveau système de récompenses !
-Vous n'avez plus besoin de réclamer les récompenses à chaque intervalle - vous pouvez simplement les laisser s'accumuler et les réclamer quand vous voulez.
-Ici, vous pouvez voir quels intervalles vous n'avez pas encore réclamés et combien de récompenses vous avez gagnées pendant chacun.
+Welcome to the new rewards system!
+You no longer need to claim rewards at each interval - you can simply let them accumulate and claim them whenever you want.
+Here you can see which intervals you haven't claimed yet, and how many rewards you earned during each one.
 
-Récompenses pour l'intervalle 0 (2022-08-04 01:35:39 -0400 EDT à 2022-09-01 01:35:39 -0400 EDT):
+Rewards for Interval 0 (2022-08-04 01:35:39 -0400 EDT to 2022-09-01 01:35:39 -0400 EDT):
 	Staking:        50.820133 RPL
 	Smoothing Pool: 0.000000 ETH
 
-Récompenses pour l'intervalle 1 (2022-09-01 01:35:39 -0400 EDT à 2022-09-29 01:35:39 -0400 EDT):
+Rewards for Interval 1 (2022-09-01 01:35:39 -0400 EDT to 2022-09-29 01:35:39 -0400 EDT):
 	Staking:        40.668885 RPL
 	Smoothing Pool: 0.096200 ETH
 
-Total des récompenses en attente:
+Total Pending Rewards:
 	91.489018 RPL
 	0.096200 ETH
 
-Quels intervalles souhaitez-vous réclamer ? Utilisez une liste séparée par des virgules (telle que '1,2,3') ou laissez vide pour réclamer tous les intervalles à la fois.
+Which intervals would you like to claim? Use a comma separated list (such as '1,2,3') or leave it blank to claim all intervals at once.
 ```
 
 Notez que les récompenses de la Smoothing Pool dans l'intervalle 1 ici indiquent que le nœud a adhéré pendant cet intervalle et a reçu des récompenses en conséquence.

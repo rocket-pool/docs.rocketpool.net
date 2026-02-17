@@ -5,23 +5,26 @@ import rplWithdrawalConfirmation from "./images/rpl_withdrawal_confirmation.png"
 # Node'unuzu Operasyon İçin Hazırlama
 
 Buraya geldiyseniz, Smartnode hizmetlerini başarıyla başlattınız, bir cüzdan oluşturdunuz ve ilgili istemcilerinizde hem Execution hem de Consensus zincirlerini senkronize etmeyi tamamladınız demektir.
-Eğer öyleyse, node'unuzu Rocket Pool ağına kaydetmeye ve bir validator ile minipool oluşturmaya hazırsınız!
+Eğer öyleyse, node'unuzu Rocket Pool ağına kaydetmeye ve bir validator ile megapool oluşturmaya hazırsınız!
 Değilse, lütfen önceki bölümleri gözden geçirin ve bu adımları tamamladıktan sonra buraya geri dönün.
 
-Yeni bir minipool ve validator oluşturmadan önce, node'unuzu hazırlamayı tamamlamak için birkaç adım daha atmak gerekir.
-Bunların yalnızca bir kez yapılması gerekir; bunları yaptıktan sonra, node'unuzda birden fazla minipool oluşturmak isterseniz [Yeni Bir Minipool Oluşturma](./create-validator.mdx) bölümüne geçebilirsiniz.
+Yeni bir megapool ve validator oluşturmadan önce, node'unuzu hazırlamayı tamamlamak için birkaç adım daha atmak gerekir.
+Bunların yalnızca bir kez yapılması gerekir; bunları yaptıktan sonra, node'unuzda birden fazla validator oluşturmak isterseniz [Megapool Validator Oluşturma](/node-staking/megapools/create-megapool-validator) bölümüne geçebilirsiniz.
 
 ## Node Cüzdanınızı Yükleme
 
 Node'unuzu kaydetmek ve bir validator kurmak, node cüzdanınızdan Ethereum ağına işlem göndermeyi içerir.
 Bu, bu işlemlerin gaz maliyetlerini ödemek için **üzerinde biraz ETH bulundurmanız gerektiği** anlamına gelir.
-Ayrıca bir minipool oluşturmadan önce teminat olarak **RPL token'ından** bir miktar stake etmeniz gerekecek; bunu doğrudan node üzerinde yapabilir veya (tercihen) node'unuz için soğuk cüzdanınızdaki RPL ile stake etmek için Rocket Pool web sitesinin **Stake on Behalf** işlevini kullanabilirsiniz.
+RPL stake etmek istiyorsanız bunu doğrudan node üzerinde yapabilir veya (tercihen) node'unuz için soğuk cüzdanınızdaki RPL ile stake etmek için Rocket Pool web sitesinin **Stake on Behalf** işlevini kullanabilirsiniz.
 RPL'nizi stake etme zamanı geldiğinde bu kılavuzun ilerleyen bölümlerinde Stake on Behalf özelliğini tartışacağız.
 
+
+::: tip NOT
 Bir minipool ile bir node kurmak için gereken gaz ücreti ETH'si, mevcut gwei cinsinden gaz fiyatının yaklaşık 0.0025 ETH katıdır.
 Örneğin, 30 gwei'lik bir gaz fiyatıyla, gaz ücretlerinde yaklaşık 0.075 ETH ödersiniz.
 
 Çeşitli ağ koşulları için gaz ücretlerini tahmin etmeye yardımcı olması için [bu çalışma tablosuna](https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552) bakın.
+:::
 
 <div className="p-3">
   <Tabs>
@@ -76,7 +79,7 @@ Bu tamamlandığında, resmi olarak Rocket Pool ağının bir üyesi olacaksın�
 ## Birincil Çekim Adresinizi Ayarlama
 
 Herhangi bir şeyden önce, node'unuz için **birincil çekim adresini** değiştirmenizi şiddetle öneririz.
-Bu, RPL checkpoint ödüllerinizin, stake edilmiş RPL'nizin ve Beacon Chain ETH'nizin tümünün checkpoint ödüllerinizi talep ettiğinizde veya validator'ünüzden çıkıp minipool'unuzdan çekildiğinizde gönderileceği adrestir.
+Bu, RPL checkpoint ödüllerinizin, stake edilmiş RPL'nizin ve Beacon Chain ETH'nizin tümünün checkpoint ödüllerinizi talep ettiğinizde veya validator'ünüzden çıkıp megapool'unuzdan çekildiğinizde gönderileceği adrestir.
 
 İsteğe bağlı olarak, ETH'niz için bir çekim adresi ve [RPL için yeni bir tane](https://rpips.rocketpool.net/RPIPs/RPIP-31) ayarlayabilirsiniz. Ayarlanmışsa RPL çekim adresi, enflasyon ödüllerinden RPL'yi tetikleyip talep edebilecek ve ETH consensus ödülleri veya ETH ile ilgili herhangi bir şey üzerinde hiçbir etkisi olmayacaktır. Bir RPL çekim adresi ayarlamadıysanız, Birincil Çekim Adresi de RPL ödüllerini alacaktır. Varsayılan olarak, **birincil çekim adresini kontrol eden kişi TÜM stake edilmiş RPL'nize, ETH'nize ve ödüllerinize erişebilir.**
 
@@ -92,7 +95,7 @@ Soğuk bir cüzdan, bir donanım cüzdanı ([Ledger](https://www.ledger.com/), [
 Bu şekilde, node cüzdanınız ele geçirilirse, saldırgan sizi çıkmaya zorlayarak stake edilmiş ETH ve RPL'nize erişemez çünkü tüm bu fonlar ayrı soğuk cüzdanınıza gönderilecektir (umarım sahip olmadıkları).
 
 Birincil çekim adresleri node operatör seviyesinde ayarlanır.
-Birden fazla minipool oluşturursanız, hepsi aynı birincil çekim adresine atıfta bulunacak, bu nedenle bu kurulumu yalnızca bir kez yapmanız gerekir.
+Birden fazla megapool validator oluşturursanız, hepsi aynı birincil çekim adresine atıfta bulunacak, bu nedenle bu kurulumu yalnızca bir kez yapmanız gerekir.
 
 Ethereum Foundation'dan cüzdan güvenliği hakkında bazı temel bilgiler için [buraya bakın](https://ethereum.org/en/security/#wallet-security).
 :::
@@ -127,7 +130,7 @@ Hangisinin size uygun olduğunu belirlemek için lütfen her iki seçeneği de o
       </p>
 
       1. `rocketpool node set-primary-withdrawal-address 'soğuk cüzdan adresiniz veya ENS adınız'` komutunu çalıştırın. Yeni birincil çekim adresiniz "beklemede" olarak işaretlenecektir. Onaylayana kadar, **eski birincil çekim adresiniz hala kullanılacaktır**.
-      2. Onaylamak için, birincil çekim adresine sahip olduğunuzu doğrulamak için **yeni birincil çekim adresinizden** minipool sözleşmesine özel bir işlem göndermelisiniz.
+      2. Onaylamak için, birincil çekim adresine sahip olduğunuzu doğrulamak için **yeni birincil çekim adresinizden** megapool sözleşmesine özel bir işlem göndermelisiniz.
       1. Bunu yapmanın en kolay yolu Rocket Pool birincil çekim adresi sitesine gitmektir ([Hoodi Testnet](https://testnet.node.rocketpool.net/primary-withdrawal-address) için veya [Mainnet](https://node.rocketpool.net/primary-withdrawal-address) için).
       3. Rocket Pool web sitesine henüz Metamask veya WalletConnect bağlamadıysanız, şimdi yapın. Ekranın ortasındaki **select wallet** düğmesine tıklayın ve kullanmak istediğiniz cüzdana göre MetaMask veya WalletConnect'i seçin. Ardından bağlantıyı onaylamanız istenecektir. Örneğin, MetaMask kullanarak:
 
@@ -158,9 +161,10 @@ Hangisinin size uygun olduğunu belirlemek için lütfen her iki seçeneği de o
 
       ::: danger
       Bunu yaparak, yeni adrese sahip olduğunuzu kanıtlamanızı gerektiren Yöntem 1 ile ilişkili güvenlik önlemini atlıyorsunuz.
-      Burada bir yazım hatası yaparsanız, bunu geri almanın hiçbir yolu yoktur ve **minipool'unuzun ödülleri sonsuza kadar kaybolacaktır**.
+      Burada bir yazım hatası yaparsanız, bunu geri almanın hiçbir yolu yoktur ve **megapool'unuzun ödülleri sonsuza kadar kaybolacaktır**.
 
       Bunu onaylamadan önce test işlemi mekanizmasını kullanmanızı **şiddetle** öneririz ve mümkünse bunun yerine Yöntem 1'i kullanın.
+      :::
     </Tab>
 
   </Tabs>
@@ -252,7 +256,7 @@ Soğuk bir cüzdan, bir donanım cüzdanı ([Ledger](https://www.ledger.com/), [
 Bu şekilde, node cüzdanınız ele geçirilirse, saldırgan sizi çıkmaya zorlayarak stake edilmiş RPL'nize erişemez çünkü tüm bu fonlar ayrı soğuk cüzdanınıza gönderilecektir (umarım sahip olmadıkları).
 
 RPL çekim adresleri node operatör seviyesinde ayarlanır.
-Birden fazla minipool oluşturursanız, hepsi aynı RPL çekim adresine atıfta bulunacak, bu nedenle bu kurulumu yalnızca bir kez yapmanız gerekir.
+Birden fazla megapool validator oluşturursanız, hepsi aynı RPL çekim adresine atıfta bulunacak, bu nedenle bu kurulumu yalnızca bir kez yapmanız gerekir.
 
 Ethereum Foundation'dan cüzdan güvenliği hakkında bazı temel bilgiler için [buraya bakın](https://ethereum.org/en/security/#wallet-security).
 :::
@@ -286,7 +290,7 @@ Hangisinin size uygun olduğunu belirlemek için lütfen her iki seçeneği de o
       </p>
 
       1. `rocketpool node set-rpl-withdrawal-address 'soğuk cüzdan adresiniz veya ENS adınız'` komutunu çalıştırın. Yeni RPL çekim adresiniz "beklemede" olarak işaretlenecektir. Onaylayana kadar, **eski RPL çekim adresiniz hala kullanılacaktır**.
-      2. Onaylamak için, RPL çekim adresine sahip olduğunuzu doğrulamak için **yeni RPL çekim adresinizden** minipool sözleşmesine özel bir işlem göndermelisiniz.
+      2. Onaylamak için, RPL çekim adresine sahip olduğunuzu doğrulamak için **yeni RPL çekim adresinizden** megapool sözleşmesine özel bir işlem göndermelisiniz.
       1. Bunu yapmanın en kolay yolu Rocket Pool RPL çekim adresi sitesine gitmektir ([Hoodi Testnet](https://testnet.node.rocketpool.net/rpl-withdrawal-address) için veya [Mainnet](https://node.rocketpool.net/rpl-withdrawal-address) için).
       3. Rocket Pool web sitesine henüz Metamask veya WalletConnect bağlamadıysanız, şimdi yapın. Ekranın ortasındaki **select wallet** düğmesine tıklayın ve kullanmak istediğiniz cüzdana göre MetaMask veya WalletConnect'i seçin. Ardından bağlantıyı onaylamanız istenecektir. Örneğin, MetaMask kullanarak:
 
@@ -320,7 +324,7 @@ Hangisinin size uygun olduğunu belirlemek için lütfen her iki seçeneği de o
 
       <p className="rspress-directive danger">
         Bunu yaparak, yeni adrese sahip olduğunuzu kanıtlamanızı gerektiren Yöntem 1 ile ilişkili güvenlik önlemini atlıyorsunuz.
-        Burada bir yazım hatası yaparsanız, bunu geri almanın hiçbir yolu yoktur ve **minipool'unuzun ödülleri sonsuza kadar kaybolacaktır**.
+        Burada bir yazım hatası yaparsanız, bunu geri almanın hiçbir yolu yoktur ve **megapool'unuzun ödülleri sonsuza kadar kaybolacaktır**.
 
         Bunu onaylamadan önce test işlemi mekanizmasını kullanmanızı **şiddetle** öneririz ve mümkünse bunun yerine Yöntem 1'i kullanın.
       </p>
@@ -387,4 +391,4 @@ Node'unuzu hazırlamak için sonraki adımlar, bir yedek node kurma, öncelik ü
 Her konu, node'unuzu nasıl çalıştırmak istediğiniz konusunda bir seçim yapmanızı gerektirecektir.
 Hazır olduğunuzda lütfen kılavuzdaki sonraki bölümlere geçin.
 
-Bu konularla işiniz bittiğinde, bir minipool oluşturma ve stake etme ödülleri kazanma süreci boyunca yönlendirileceksiniz.
+Bu konularla işiniz bittiğinde, bir megapool validator oluşturma ve stake etme ödülleri kazanma süreci boyunca yönlendirileceksiniz.

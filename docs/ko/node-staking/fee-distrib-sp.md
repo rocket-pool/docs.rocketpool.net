@@ -1,6 +1,6 @@
 # Fee Distributor와 Smoothing Pool
 
-이제 [Merge](https://ethereum.org/en/upgrades/merge/)가 통과되면서 노드 운영자는 Ethereum 체인에 제안하는 블록에 포함된 트랜잭션에서 **우선 수수료**(**팁**)를 받습니다.
+노드 운영자는 Ethereum 체인에 제안하는 블록에 포함된 트랜잭션에서 **우선 수수료**(**팁**)를 받습니다.
 이러한 수수료는 Execution 레이어에서 발생하고 그곳에 남아 있습니다.
 
 Consensus 레이어에서 생성되고 자동으로 주기적으로 출금되는 대부분의 검증 보상과 달리, 이러한 수수료는 _즉시 유동화_됩니다.
@@ -23,13 +23,27 @@ Ethereum 체인에 블록을 제안할 때 프로토콜은 블록에 포함된 �
 대신 작동 방식은 상당히 간단합니다: Rocket Pool이 Validator 클라이언트를 시작할 때 **fee recipient**라는 인수를 전달합니다.
 fee recipient는 단순히 팁을 보내려는 Execution 레이어의 주소입니다.
 
-Rocket Pool은 Beacon 체인 보상을 공정하게 분배하는 것과 같은 방식으로 귀하와 rETH 풀 스테이커 간에 이러한 보상을 공정하게 분배하도록 설계되었습니다: 미니풀 검증자가 얻는 모든 우선 수수료 중 귀하의 몫은 귀하에게 갑니다(모든 미니풀의 평균 수수료 포함), 나머지 부분은 풀 스테이커에게 갑니다(평균 수수료 제외).
-정확한 비율은 보유한 8 ETH 본딩 미니풀과 16 ETH 본딩 미니풀의 수에 따라 달라집니다.
+노드의 `fee recipient`는 다음 특수 계약 중 하나가 될 수 있습니다:
 
-이를 위해 Smartnode는 자동으로 노드의 `fee recipient`를 다음 특수 계약 중 하나로 설정합니다:
-
-- 노드 자체의 개인 **Fee Distributor** (기본값)
+- 노드 자체의 개인 **Fee Distributor**
+- 노드의 megapool 계약
 - **Smoothing Pool** (선택 사항)
+
+Smart Node는 구성에 따라 올바른 fee recipient를 자동으로 설정합니다:
+
+| Smoothing Pool 상태 | Megapool Validator 보유 | Minipool 보유 | Fee Recipient |
+|----------------------|-------------------------|---------------|---------------|
+| 가입 | 아니오 | 예 | Smoothing Pool 주소 |
+| 가입 | 예 | 아니오 | Smoothing Pool 주소 |
+| 가입 | 예 | 예 | Smoothing Pool 주소 (모든 validator) |
+| 미가입 | 아니오 | 예 | Fee Distributor 계약 주소 |
+| 미가입 | 예 | 아니오 | Megapool 계약 주소 |
+| 미가입 | 예 | 예 | Megapool validator → Megapool 주소<br>Minipool validator → Fee Distributor 주소<br>([keymanager API](https://ethereum.github.io/keymanager-APIs/#/Fee%20Recipient/setFeeRecipient)를 통해 validator별로 설정) |
+
+
+
+Rocket Pool은 Beacon 체인 보상을 공정하게 분배하는 것과 같은 방식으로 귀하와 rETH 풀 스테이커 간에 이러한 보상을 공정하게 분배하도록 설계되었습니다: 미니풀 검증자가 얻는 모든 우선 수수료 중 귀하의 몫은 귀하에게 갑니다(모든 미니풀의 평균 수수료 포함), 나머지 부분은 풀 스테이커에게 갑니다(평균 수수료 제외).
+정확한 비율은 보유한 8 ETH 본딩, 16 ETH 본딩 미니풀과 4 ETH 본딩 megapool validator의 수에 따라 달라집니다.
 
 간단히 말해서 **Fee Distributor**는 우선 수수료를 수집하고 귀하와 rETH 스테이커 간에 공정하게 분할하는 노드에 연결된 고유한 계약입니다.
 우선 수수료를 위한 개인 금고와 같습니다.
@@ -55,13 +69,10 @@ Rocket Pool은 Beacon 체인 보상을 공정하게 분배하는 것과 같은 �
 즉, Fee Distributor가 생성되기 전에 미리 알려져 있습니다.
 
 새로운 Rocket Pool 노드는 등록 시 노드의 Fee Distributor 계약을 자동으로 생성(초기화)합니다.
-Redstone 업그레이드 이전에 생성된 노드는 이 프로세스를 수동으로 수행해야 합니다.
 이것은 한 번만 실행하면 됩니다.
 
 이로 인한 흥미로운 결과 중 하나는 Fee Distributor 계약을 초기화하기 **전에** Distributor의 주소가 잔액을 누적하기 시작할 수 있다는 것입니다.
 이는 괜찮은데, Distributor를 초기화하자마자 기존 잔액 전체에 대한 액세스 권한을 얻기 때문입니다.
-
-**기본적으로 노드는 검증자의 fee recipient로 Fee Distributor를 사용합니다.**
 
 ### 주소 및 잔액 보기
 
@@ -75,19 +86,9 @@ rocketpool node status
 
 ![](../node-staking/images/status-fee-distributor.png)
 
-### Fee Distributor 초기화하기
+### Fee Distributor에서 수수료 청구하기
 
-노드의 distributor를 초기화하려면 이 새 명령을 실행하기만 하면 됩니다:
-
-```shell
-rocketpool node initialize-fee-distributor
-```
-
-::: warning 참고
-Redstone 업데이트 이전에 노드를 생성한 경우 `rocketpool node deposit`으로 새 미니풀을 생성하기 전에 이 함수를 한 번 호출해야 합니다.
-:::
-
-distributor가 초기화되면 다음 명령을 사용하여 전체 잔액을 청구하고 분배할 수 있습니다:
+다음 명령을 사용하여 fee distributor의 전체 잔액을 청구하고 분배할 수 있습니다:
 
 ```shell
 rocketpool node distribute-fees
@@ -97,7 +98,7 @@ rocketpool node distribute-fees
 
 ::: warning 과세 사건에 대한 참고 사항
 새 미니풀을 생성할 때마다 Rocket Pool은 자동으로 `distribute-fees`를 호출합니다.
-이는 새 미니풀을 생성할 때 변경될 수 있는 노드의 평균 수수료를 사용하여 누적된 수수료를 분배하기 위한 것입니다.
+이는 새 미니풀을 생성할 때 변경될 수 있는 노드의 평균 수수료를 사용하여 누적된 수수료를 분배하기 위한 것입니다. 이는 megapool validator 생성에는 적용되지 않습니다.
 
 또한 누구나 fee distributor에서 `distribute-fees`를 호출할 수 있다는 점에 유의하세요(rETH 보상을 인질로 잡는 것을 방지하기 위해).
 이 메서드가 호출될 때마다 과세 사건이 발생할 수 있습니다.
@@ -109,13 +110,14 @@ Smoothing Pool 사용 여부를 결정할 때 이러한 조건을 염두에 두�
 
 노드 운영자가 Validator 클라이언트에서 사용되는 fee recipient를 수동으로 수정하여 "부정행위"를 하지 않도록 하기 위해 Rocket Pool은 패널티 시스템을 사용합니다.
 
-Oracle DAO는 Rocket Pool 노드 운영자가 생성한 각 블록을 지속적으로 모니터링합니다.
+Oracle DAO는 프로토콜 규칙을 따르지 않는 노드 운영자에게 패널티를 부과할 수 있습니다.
 
 노드가 Smoothing Pool을 _선택 해제_한 경우 다음 주소가 유효한 fee recipient로 간주됩니다:
 
 - rETH 주소
 - Smoothing Pool 주소
 - 노드의 fee distributor 계약
+- 노드의 megapool 계약
 
 노드가 Smoothing Pool을 _선택_한 경우 다음 주소가 유효한 fee recipient로 간주됩니다:
 
@@ -123,10 +125,7 @@ Oracle DAO는 Rocket Pool 노드 운영자가 생성한 각 블록을 지속적�
 
 위의 유효한 주소 중 하나가 아닌 fee recipient는 **유효하지 않은** 것으로 간주됩니다.
 
-**유효하지 않은** fee recipient로 블록을 제안한 미니풀은 **스트라이크**를 받습니다.
-세 번째 스트라이크에서 미니풀은 **위반**을 받기 시작합니다 - 각 위반은 **ETH 수익을 포함한 총 Beacon Chain 잔액의 10%**를 차감하고 미니풀에서 자금을 출금할 때 rETH 풀 스테이커에게 보냅니다.
-
-위반은 **노드** 수준이 아닌 **미니풀** 수준입니다.
+Smart Node 소프트웨어는 구성에 따라 올바른 fee recipient를 자동으로 설정합니다(Smoothing Pool 가입 여부, megapool validator, minipool 또는 둘 다 보유 여부). megapool validator와 minipool을 모두 보유하면서 미가입한 노드의 경우 keymanager API를 사용하여 validator별로 fee recipient가 설정됩니다. 전체 조건 목록은 [여기](/node-staking/fee-distrib-sp#fee-recipients)에 요약되어 있습니다.
 
 Smartnode 소프트웨어는 정직한 사용자가 패널티를 받지 않도록 설계되었으며, 이를 위해 Validator 클라이언트를 오프라인으로 전환해야 하는 경우에도 그렇게 합니다.
 이 경우 증명을 중지하고 Smartnode가 fee recipient를 올바르게 설정할 수 없는 이유에 대한 오류 메시지가 로그 파일에 표시됩니다.
@@ -149,19 +148,17 @@ Smartnode 소프트웨어는 정직한 사용자가 패널티를 받지 않도�
 
 Smoothing Pool은 다음 규칙을 사용합니다:
 
-- Smoothing Pool의 잔액이 분배되는 Rocket Pool 보상 체크포인트 동안 계약의 총 ETH 잔액은 둘로 나뉩니다.
-  - rETH 스테이커는 1/2(16 ETH 본드의 경우) 또는 3/4(8 ETH 본드 즉 LEB8의 경우)를 받습니다. 선택한 모든 노드 운영자의 **평균 수수료**를 뺀 금액입니다
-  - 나머지는 선택한 노드 운영자에게 갑니다.
+- Smoothing Pool의 잔액이 분배되는 Rocket Pool 보상 체크포인트 동안 노드 운영자(수수료 반영), RPL 스테이킹 노드 운영자, rETH 스테이커, 그리고 잠재적으로 Rocket Pool DAO 간에 분배됩니다. 정확한 비율은 Rocket Pool [Protocol Dao (pDAO) 거버넌스](/pdao/overview)에 의해 결정됩니다.
 
-- Smoothing Pool 선택은 **노드 수준**에서 수행됩니다. 선택하면 모든 미니풀이 선택됩니다.
+- Smoothing Pool 선택은 **노드 수준**에서 수행됩니다. 선택하면 모든 미니풀과 megapool validator가 선택됩니다.
 
 - 누구나 언제든지 선택할 수 있습니다. 시스템을 조작하는 것을 방지하기 위해 선택 해제하기 전에 전체 보상 간격(Hoodi에서 3일, Mainnet에서 28일)을 기다려야 합니다(예: 블록을 제안하도록 선택된 직후 SP를 떠나는 것).
   - 선택 해제한 후에는 다시 선택하려면 다른 전체 간격을 기다려야 합니다.
 
-- Smoothing Pool은 선택한 각 노드가 소유한 각 미니풀의 "몫"(간격 동안 풀의 ETH 부분)을 계산합니다.
-  - 몫은 간격 동안 미니풀의 성능(Beacon Chain에서 보낸 증명 수와 놓친 증명 수를 확인하여 계산)과 미니풀의 수수료율의 함수입니다.
+- Smoothing Pool은 선택한 각 노드가 소유한 각 validator의 "몫"(간격 동안 풀의 ETH 부분)을 계산합니다.
+  - 몫은 간격 동안 validator의 성능(Beacon Chain에서 보낸 증명 수와 놓친 증명 수를 확인하여 계산)과 수수료율의 함수입니다.
 
-- 노드의 총 몫은 미니풀 몫의 합계입니다.
+- 노드의 총 몫은 validator 몫의 합계입니다.
 
 - 노드의 총 몫은 선택한 시간에 따라 조정됩니다.
   - 전체 간격 동안 선택한 경우 전체 몫을 받습니다.

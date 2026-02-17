@@ -1,0 +1,70 @@
+# Das Deposit-Guthaben-System
+
+Das Deposit-Guthaben-System ist ein Mechanismus, um ETH zu verfolgen, das zuvor von Node Operatoren gebondet wurde, aber nicht mehr benötigt wird, und es wieder nutzbar zu machen.
+Die Quellen dieses Guthabens kommen aus einigen Stellen:
+
+- [Einen Validator aus der Rocket Pool Deposit-Warteschlange entfernen](./create-megapool-validator#einen-validator-aus-der-rocket-pool-deposit-warteschlange-entfernen). Das Entfernen eines Validators aus der Warteschlange schreibt dem Node Operator den gebondeten Betrag (4 ETH) gut.
+- Wenn ein Prelaunch-Validator nicht innerhalb von 28 Tagen stakt, wird der Validator aufgelöst. Der 1 ETH (von einem 4 ETH Bond), der während des Prelaunch-Prozesses an die Beacon Chain gesendet wurde, ist **nicht wiederherstellbar**.
+  Dem Node Operator werden die verbleibenden 3 ETH aus seinem Bond gutgeschrieben, mit einer Auflösungsstrafe von 0,05 ETH als Schuld. Das Nettoguthaben für einen aufgelösten Validator beträgt 2,95 ETH.
+
+Die nächsten zwei sind nur für Node Operatoren, die Migrationen vor Saturn durchgeführt haben. Sie sind nicht mehr möglich:
+- [Migration eines bestehenden 16-ETH-gebondeten Minipools auf einen 8-ETH-gebondeten Minipool](/de/node-staking/leb-migration.mdx) (was 8 ETH zum Guthaben des Node Operators hinzufügt)
+- [Migration eines bestehenden Solo-Validators](/de/node-staking/solo-staker-migration) in einen Minipool (was je nach erstelltem Minipool-Typ während der Migration entweder 16 oder 24 ETH zum Guthaben des Node Operators hinzufügt)
+
+Jeder Node Operator beginnt mit einem Guthaben von **0 ETH**.
+
+Dieses ETH wird nicht flüssig gemacht und an den Node Operator zurückgegeben; stattdessen kann es für einen entsprechenden Betrag in rETH eingelöst werden. Darüber hinaus kann Guthaben verwendet werden, um
+**zusätzliche Megapool-Validatoren zu erstellen**, ohne ETH vom Node Operator zu benötigen.
+
+Das Guthaben-System ist für den Node Operator **transparent**; es wird bei `rocketpool node deposit`-Operationen automatisch verwendet (mit Benachrichtigungen in der Smartnode CLI, die erklären, dass es verwendet wird), wenn möglich.
+Falls es _nicht_ verwendet werden kann, benachrichtigt der Smartnode den Benutzer, dass es nicht verwendet werden kann, und erfordert einen normalen ETH-Bond während der jeweiligen Operation.
+
+Weitere Details findest du im Abschnitt [Guthaben-Verfügbarkeit](#guthaben-verfügbarkeit) unten.
+
+
+## Dein aktuelles Guthaben einsehen
+
+Um dein aktuelles Guthaben einzusehen, führe einfach den folgenden Befehl aus:
+
+```shell
+rocketpool node status
+```
+
+Dies erzeugt eine umfassende Liste mit Details zu deinem Node, einschließlich des Guthabens ganz oben:
+
+```
+Your Smart Node is currently using the Hoodi Test Network.
+
+=== Account and Balances ===
+The node <node-address> has a balance of 49.402553 ETH and 0.000000 RPL.
+The node has 4.000000 ETH in its credit balance and 0.000000 ETH staked on its behalf. 2.909175 can be used to make new validators.
+```
+
+## Guthaben gegen rETH einlösen
+
+Um Guthaben gegen rETH einzulösen, verwende den Befehl `rocketpool node withdraw-credit`. Der entsprechende Betrag in rETH wird an deine Withdrawal-Adresse (deine Node-Adresse, wenn keine Withdrawal-Adresse festgelegt ist) gesendet:
+```
+staker@node:~$ rocketpool node withdraw-credit
+
+You have 4.000000 ETH of credit that you can withdraw, receiving the equivalent amount in rETH.
+
+Would you like to withdraw the maximum amount of credit? [y/n]
+```
+
+
+## Guthaben-Verfügbarkeit
+
+Das ETH für dein Guthaben wird aus dem **Deposit-Pool** entnommen.
+In manchen Situationen kann dein Node ein verfügbares Guthaben haben, aber der Deposit-Pool hat nicht genug ETH, um deinen nächsten Megapool-Validator-Deposit vollständig zu bonden.
+
+Wenn du 4 ETH Guthaben verwenden möchtest, um einen neuen 4 ETH Megapool-Validator zu erstellen, benötigt dies 4 ETH aus dem Deposit-Pool und nichts von dir.
+Daher gilt: Wenn der Deposit-Pool nicht genug ETH hat, um den Bond-Wert (derzeit 4 ETH) zu decken, erfordert dein Deposit ETH aus deiner Node-Wallet, um einen Validator zu erstellen.
+
+Der Smartnode kann einen Validator erstellen, indem er ETH aus dem Deposit-Pool zusammen mit einem Teil deines Guthabens verwendet. Der Smartnode benachrichtigt dich während
+der `rocketpool megapool deposit`-Operation, wenn du Guthaben hast und ETH aus deiner Node-Wallet verwenden musst, um einen Validator zu erstellen.
+
+Im folgenden Beispiel hat der Node Operator `4 ETH` Guthaben, aber der Deposit-Pool hat nur `3,431627 ETH`, was `0,568373 ETH` aus der Node-Wallet erfordert, um den Deposit abzuschließen:
+```
+Your credit balance is 4.00 ETH. (Credit in addition to ETH staked on your behalf).
+This deposit will use 3.431627 ETH from your credit balance plus ETH staked on your behalf and 0.568373 ETH from your node wallet.
+```

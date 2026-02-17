@@ -5,31 +5,34 @@ import rplWithdrawalConfirmation from "./images/rpl_withdrawal_confirmation.png"
 # 노드 운영 준비하기
 
 여기에 있다면 Smartnode 서비스를 성공적으로 시작하고 지갑을 생성했으며 각 클라이언트에서 Execution 및 Consensus 체인 동기화를 완료한 것입니다.
-그렇다면 Rocket Pool 네트워크에 노드를 등록하고 validator와 함께 minipool을 생성할 준비가 된 것입니다!
+그렇다면 Rocket Pool 네트워크에 노드를 등록하고 validator와 함께 megapool을 생성할 준비가 된 것입니다!
 그렇지 않다면 이전 섹션을 검토하고 해당 단계를 완료한 후 여기로 돌아오십시오.
 
-새 minipool 및 validator를 생성하기 전에 노드 준비를 완료하기 위해 몇 가지 단계를 거쳐야 합니다.
-한 번만 수행하면 됩니다. 완료하면 노드에서 여러 minipool을 생성하려는 경우 [새 Minipool 생성](./create-validator.mdx) 섹션으로 건너뛸 수 있습니다.
+megapool과 새 validator를 생성하기 전에 노드 준비를 완료하기 위해 몇 가지 단계를 거쳐야 합니다.
+한 번만 수행하면 됩니다. 완료하면 노드에서 여러 validator를 생성하려는 경우 [Megapool Validator 생성](/node-staking/megapools/create-megapool-validator) 섹션으로 건너뛸 수 있습니다.
 
 ## 노드 지갑 로드하기
 
 노드를 등록하고 validator를 설정하는 것은 노드 지갑에서 Ethereum 네트워크에 트랜잭션을 제출하는 것을 포함합니다.
 이는 해당 트랜잭션의 가스 비용을 지불하기 위해 **ETH가 있어야 함**을 의미합니다.
-또한 minipool을 생성하기 전에 담보로 일부 **RPL 토큰**을 스테이킹해야 합니다. 노드에서 직접 수행하거나 (선호하는 방법으로) Rocket Pool 웹사이트의 **Stake on Behalf** 기능을 사용하여 콜드 지갑의 RPL로 노드에 스테이킹할 수 있습니다.
+RPL을 스테이킹하려는 경우 노드에서 직접 수행하거나 (선호하는 방법으로) Rocket Pool 웹사이트의 **Stake on Behalf** 기능을 사용하여 콜드 지갑의 RPL로 노드에 스테이킹할 수 있습니다.
 RPL을 스테이킹할 때가 되면 이 가이드 후반부에서 Stake on Behalf 기능에 대해 설명하겠습니다.
 
+
+::: tip 참고
 하나의 minipool로 노드를 설정하는 데 필요한 가스 수수료용 ETH는 현재 가스 가격(gwei)에 약 0.0025 ETH를 곱한 값입니다.
 예를 들어 가스 가격이 30 gwei인 경우 가스 수수료로 약 0.075 ETH를 지불하게 됩니다.
 
 다양한 네트워크 조건에 대한 가스 수수료를 추정하는 데 도움이 되는 [이 워크시트](https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552)를 참조하십시오.
+:::
 
 <div className="p-3">
   <Tabs>
     <Tab label="Hoodi 테스트 네트워크에서 실행">
-      Hoodi 테스트 네트워크에서 실행 중인 경우 테스트 ETH를 획득하는 방법을 알아보려면 [테스트 네트워크에서 연습하기](/ko/node-staking/testnet/overview) 섹션을 참조하십시오.
+      Hoodi 테스트 네트워크에서 실행 중인 경우 테스트 ETH를 획득하는 방법을 알아보려면 [테스트 네트워크에서 연습하기](/en/node-staking/testnet/overview) 섹션을 참조하십시오.
 
       테스트 RPL의 경우 CLI에 유사한 faucet 기능을 직접 추가했습니다.
-      일부를 획득하려면 [Hoodi에서 테스트 RPL 받기](/ko/node-staking/testnet/overview#getting-test-rpl-on-hoodi) 가이드를 참조하십시오.
+      일부를 획득하려면 [Hoodi에서 테스트 RPL 받기](/en/node-staking/testnet/overview#getting-test-rpl-on-hoodi) 가이드를 참조하십시오.
     </Tab>
     <Tab label="메인 네트워크에서 실행">
       ETH를 보유하고 있는 별도의 Ethereum 호환 지갑이 이미 있다고 가정합니다.
@@ -76,7 +79,7 @@ rocketpool node register
 ## Primary Withdrawal Address 설정하기
 
 무엇보다도 먼저 노드의 **primary withdrawal address**를 변경하는 것을 강력히 권장합니다.
-이것은 체크포인트 보상을 청구하거나 validator를 종료하고 minipool에서 출금할 때 모든 RPL 체크포인트 보상, 스테이킹된 RPL 및 Beacon Chain ETH가 전송될 주소입니다.
+이것은 체크포인트 보상을 청구하거나 validator를 종료하고 megapool에서 출금할 때 모든 RPL 체크포인트 보상, 스테이킹된 RPL 및 Beacon Chain ETH가 전송될 주소입니다.
 
 선택적으로 ETH에 대한 출금 주소를 설정하고 [RPL에 대한 새 주소](https://rpips.rocketpool.net/RPIPs/RPIP-31)를 설정할 수 있습니다. 설정된 경우 RPL 출금 주소는 인플레이션 보상에서 RPL을 트리거하고 청구할 수 있으며 ETH 합의 보상 또는 ETH와 관련된 모든 것에는 영향을 미치지 않습니다. RPL 출금 주소를 설정하지 않은 경우 Primary Withdrawal Address가 RPL 보상도 받습니다. 기본적으로 **primary withdrawal address를 제어하는 사람은 스테이킹된 모든 RPL, ETH 및 보상에 액세스할 수 있습니다.**
 
@@ -92,7 +95,7 @@ MetaMask와 같은 핫 지갑을 primary withdrawal address로 사용하지 **�
 이렇게 하면 노드 지갑이 손상되더라도 공격자가 강제로 종료하여 스테이킹된 ETH 및 RPL에 액세스할 수 없습니다. 해당 자금은 모두 별도의 콜드 지갑 (바라건대 가지고 있지 않은)으로 전송되기 때문입니다.
 
 Primary withdrawal address는 노드 운영자 수준에서 설정됩니다.
-여러 minipool을 생성하는 경우 모두 동일한 primary withdrawal address를 참조하므로 이 설정을 한 번만 수행하면 됩니다.
+여러 megapool validator를 생성하는 경우 모두 동일한 primary withdrawal address를 참조하므로 이 설정을 한 번만 수행하면 됩니다.
 
 Ethereum Foundation의 지갑 보안에 대한 기본 사항은 [여기](https://ethereum.org/en/security/#wallet-security)를 참조하십시오.
 :::
@@ -127,7 +130,7 @@ Ethereum Foundation의 지갑 보안에 대한 기본 사항은 [여기](https:/
       </p>
 
       1. `rocketpool node set-primary-withdrawal-address 'your cold wallet address or ENS name'`을 실행하십시오. 새 primary withdrawal address는 "pending"으로 표시됩니다. 확인할 때까지 **이전 primary withdrawal address가 계속 사용됩니다**.
-      2. 확인하려면 **새 primary withdrawal address**에서 minipool 계약으로 특수 트랜잭션을 보내 primary withdrawal address를 소유하고 있음을 확인해야 합니다.
+      2. 확인하려면 **새 primary withdrawal address**에서 megapool 계약으로 특수 트랜잭션을 보내 primary withdrawal address를 소유하고 있음을 확인해야 합니다.
       1. 이를 수행하는 가장 쉬운 방법은 Rocket Pool primary withdrawal address 사이트 ([Hoodi Testnet](https://testnet.node.rocketpool.net/primary-withdrawal-address) 또는 [Mainnet](https://node.rocketpool.net/primary-withdrawal-address))로 이동하는 것입니다.
       3. Rocket Pool 웹사이트에 Metamask 또는 WalletConnect를 아직 연결하지 않은 경우 지금 수행하십시오. 화면 중앙의 **select wallet** 버튼을 클릭하고 사용하려는 지갑에 따라 MetaMask 또는 WalletConnect를 선택합니다. 그러면 연결을 확인하라는 메시지가 표시됩니다. 예를 들어 MetaMask를 사용하는 경우:
 
@@ -158,9 +161,10 @@ Ethereum Foundation의 지갑 보안에 대한 기본 사항은 [여기](https:/
 
       ::: danger
       이렇게 하면 새 주소를 소유하고 있음을 증명해야 하는 방법 1과 관련된 안전 조치를 우회하게 됩니다.
-      여기에서 오타를 범하면 실행 취소할 방법이 없으며 **minipool의 보상이 영원히 손실됩니다**.
+      여기에서 오타를 범하면 실행 취소할 방법이 없으며 **megapool의 보상이 영원히 손실됩니다**.
 
       이를 확인하기 전에 테스트 트랜잭션 메커니즘을 사용하고 가능하면 방법 1을 대신 사용하는 것을 **강력히** 권장합니다.
+      :::
     </Tab>
 
   </Tabs>
@@ -252,7 +256,7 @@ MetaMask와 같은 핫 지갑을 RPL withdrawal address로 사용하지 **않는
 이렇게 하면 노드 지갑이 손상되더라도 공격자가 강제로 종료하여 스테이킹된 RPL에 액세스할 수 없습니다. 해당 자금은 모두 별도의 콜드 지갑 (바라건대 가지고 있지 않은)으로 전송되기 때문입니다.
 
 RPL withdrawal address는 노드 운영자 수준에서 설정됩니다.
-여러 minipool을 생성하는 경우 모두 동일한 RPL withdrawal address를 참조하므로 이 설정을 한 번만 수행하면 됩니다.
+여러 megapool validator를 생성하는 경우 모두 동일한 RPL withdrawal address를 참조하므로 이 설정을 한 번만 수행하면 됩니다.
 
 Ethereum Foundation의 지갑 보안에 대한 기본 사항은 [여기](https://ethereum.org/en/security/#wallet-security)를 참조하십시오.
 :::
@@ -286,7 +290,7 @@ Ethereum Foundation의 지갑 보안에 대한 기본 사항은 [여기](https:/
       </p>
 
       1. `rocketpool node set-rpl-withdrawal-address 'your cold wallet address or ENS name'`을 실행하십시오. 새 RPL withdrawal address는 "pending"으로 표시됩니다. 확인할 때까지 **이전 RPL withdrawal address가 계속 사용됩니다**.
-      2. 확인하려면 **새 RPL withdrawal address**에서 minipool 계약으로 특수 트랜잭션을 보내 RPL withdrawal address를 소유하고 있음을 확인해야 합니다.
+      2. 확인하려면 **새 RPL withdrawal address**에서 megapool 계약으로 특수 트랜잭션을 보내 RPL withdrawal address를 소유하고 있음을 확인해야 합니다.
       1. 이를 수행하는 가장 쉬운 방법은 Rocket Pool RPL withdrawal address 사이트 ([Hoodi Testnet](https://testnet.node.rocketpool.net/rpl-withdrawal-address) 또는 [Mainnet](https://node.rocketpool.net/rpl-withdrawal-address))로 이동하는 것입니다.
       3. Rocket Pool 웹사이트에 Metamask 또는 WalletConnect를 아직 연결하지 않은 경우 지금 수행하십시오. 화면 중앙의 **select wallet** 버튼을 클릭하고 사용하려는 지갑에 따라 MetaMask 또는 WalletConnect를 선택합니다. 그러면 연결을 확인하라는 메시지가 표시됩니다. 예를 들어 MetaMask를 사용하는 경우:
 
@@ -320,7 +324,7 @@ Ethereum Foundation의 지갑 보안에 대한 기본 사항은 [여기](https:/
 
       <p className="rspress-directive danger">
         이렇게 하면 새 주소를 소유하고 있음을 증명해야 하는 방법 1과 관련된 안전 조치를 우회하게 됩니다.
-        여기에서 오타를 범하면 실행 취소할 방법이 없으며 **minipool의 보상이 영원히 손실됩니다**.
+        여기에서 오타를 범하면 실행 취소할 방법이 없으며 **megapool의 보상이 영원히 손실됩니다**.
 
         이를 확인하기 전에 테스트 트랜잭션 메커니즘을 사용하고 가능하면 방법 1을 대신 사용하는 것을 **강력히** 권장합니다.
       </p>
@@ -387,4 +391,4 @@ rocketpool wallet set-ens-name <your-ens-name.eth>
 각 주제에서는 노드를 실행하는 방법에 대한 선택을 해야 합니다.
 준비가 되면 가이드의 다음 섹션으로 이동하십시오.
 
-해당 주제를 완료하면 minipool을 만들고 staking 보상을 받는 프로세스를 안내받게 됩니다.
+해당 주제를 완료하면 megapool validator를 만들고 staking 보상을 받는 프로세스를 안내받게 됩니다.

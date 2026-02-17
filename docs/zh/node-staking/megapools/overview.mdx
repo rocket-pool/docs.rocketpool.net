@@ -1,0 +1,32 @@
+---
+next:
+  text: 创建新的 Megapool 验证者
+  link: "/zh/node-staking/create-validator"
+---
+
+# 概述
+
+本节介绍 Rocket Pool megapool 和创建 megapool 验证者。
+在这里，您将学习如何开始验证以太坊网络并获得奖励。
+
+## 前提条件
+
+在运行 Megapool 验证者之前，请确保您已：
+
+- 设置节点机器（或虚拟机）并对其进行安全配置（通过[节点安全指南](../securing-your-node)）
+- 在节点上[安装](../installing/overview)并[配置](../config/overview)了 Smart Node
+- 在 Smart Node 上加载了节点钱包
+- 同步了您的执行客户端和共识客户端
+- 为您的节点设置了[提款地址](../prepare-node.mdx#setting-your-withdrawal-address)，配置了[备用客户端](../fallback)（可选），加入了 [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool)（可选），并配置了 [MEV](../mev.mdx)
+
+## 指南
+
+[创建 Megapool（验证者）](./create-megapool-validator.mdx) 说明了创建新的 Rocket Pool megapool 和信标链上对应验证者的过程。
+无论您是创建第一个 megapool 验证者，还是已有一些验证者并想再创建一个，本指南将一步步引导您完成。
+
+[代表节点质押 ETH](/zh/upgrades/houston/stake-eth-on-behalf#stake-eth-on-behalf-of-node) 说明了如何使用任何独立地址（例如硬件钱包）代表节点质押 ETH。如果您希望在节点不直接访问 ETH 的情况下创建验证者存款，这非常有用。
+
+[RPL 质押和领取奖励](/zh/node-staking/megapools/staking-and-claiming-rewards) 介绍了如何将 RPL 质押到您的 megapool、领取 ETH 和 RPL 奖励，以及了解 Saturn 1 的新收益分配系统。
+无论您是迁移旧版 RPL 质押还是全新开始，本指南都将引导您完成质押、取消质押和赚取协议收益份额的过程。
+
+[存款信用额度系统](./credit.mdx) 介绍了积累 ETH 信用额度的所有不同方式，以及如何将其兑换为 rETH 或用于创建新的验证者。

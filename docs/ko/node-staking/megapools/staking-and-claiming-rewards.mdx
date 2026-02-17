@@ -1,0 +1,378 @@
+# RPL 스테이킹 및 보상 청구
+
+Saturn 1에서 RPL은 ETH 수익 공유 토큰으로 근본적으로 변환되었습니다. 이 가이드는 메가풀에 RPL을 스테이킹하고,
+레거시 미니풀에서 기존 RPL 스테이크를 마이그레이션하고, 보상을 청구하고, 필요시 RPL을 인출하는 방법을 다룹니다. 또한 ETH 프로토콜 수익이 투표자 공유 보상을 통해 메가풀 RPL 스테이커에게 분배되는 메커니즘도 설명합니다.
+
+## Saturn 1에서 변경된 사항
+
+앞으로도 미니풀에 스테이킹된 레거시 RPL은 계속 인플레이션 보상을 받고 이전과 마찬가지로 투표 권한에 기여합니다.
+Saturn 1에서 메가풀에 RPL을 스테이킹하면 다음과 같은 여러 혜택을 받을 수 있습니다:
+
+1. **ETH 수익 공유**: 메가풀에 스테이킹된 RPL은 투표자 공유 메커니즘을 통해 프로토콜 ETH 수익의 비례적 몫을 획득합니다
+2. **RPL 인플레이션 보상**: 계속해서 RPL 인플레이션 보상을 획득합니다 (28일 보상 기간)
+3. **투표 권한**: 스테이킹된 RPL은 Rocket Pool의 [프로토콜 DAO (pDAO) 거버넌스](/ko/pdao/overview)에서 투표 권한을 부여합니다
+
+메가풀에 RPL을 스테이킹하면 프로토콜 수익으로 창출된 ETH 보상을 받을 수 있습니다. 투표자 공유(프로토콜 수익의 9%)는 총 메가풀 RPL 스테이크 대비 각 노드의 지분을 기준으로 모든 노드 운영자에게 비례적으로 분배됩니다.
+
+## 유니버설 조정 가능 수익 분배 (UARS)
+
+Saturn 1은 UARS를 도입하여 노드 운영자 커미션에서 발생하는 프로토콜 ETH 수익을 네 그룹에 분배합니다:
+
+| 그룹 | 기본 지분 | pDAO를 통해 조정 가능 |
+|-------|---------------|---------------------|
+| **기본 커미션** 노드 운영자 지분 | 5% | 예 |
+| **투표자 공유** 메가풀 RPL 스테이커 | 9% | 예 |
+| **pDAO 재무** | 0% | 예 |
+| **rETH 보유자** | 86% (나머지) | 자동 |
+
+이 매개변수는 [pDAO 거버넌스](/ko/pdao/overview)를 통해 조정 가능하여 시장 조건이 변화함에 따라 Rocket Pool 프로토콜이 적응하고 경쟁력을 유지할 수 있습니다. RPL을 스테이킹하고 검증자를 운영함으로써 이 과정에 참여할 자격이 생깁니다!
+
+## 메가풀 RPL 스테이커에게 투표자 공유 분배 방식
+
+투표자 공유(프로토콜 수익의 9%)는 총 메가풀 RPL 스테이크 대비 각 노드의 지분을 기준으로 모든 노드 운영자에게 비례적으로 분배됩니다. 28일마다 oracle
+DAO는 투표자 공유 풀에 축적된 총 ETH의 스냅샷과 메가풀 스테이킹 RPL 잔액을 기반으로 각 노드 운영자의 지분 기록을 촬영합니다.
+각 28일 보상 기간이 끝나면 Smart Node를 사용하여 보상을 청구할 수 있습니다. 또는 여러 기간에 걸쳐 보상을 누적한 다음 한 번에 청구할 수도 있습니다.
+
+[ETH 및 RPL 보상 확인](/ko/node-staking/megapools/staking-and-claiming-rewards#viewing-your-nodes-eth-and-rpl-rewards) 가이드에서 획득할 수 있는 다양한 유형의 보상과 보상 상태를 확인하는 방법을 알아보세요.
+
+익숙해지면 [보상 청구](/ko/node-staking/megapools/staking-and-claiming-rewards#claiming-your-nodes-eth-and-rpl-rewards)를 읽어 보상을 청구하는 방법을 알아보세요.
+
+## 투표 권한
+
+RPL이 투표 자격을 가지려면 다음 요건을 충족해야 합니다:
+
+- 노드 운영자 계정에 스테이킹되어 있어야 합니다 (레거시 및 메가풀에 귀속된 RPL 모두 자격이 있음)
+- 총 본드된 ETH(모든 미니풀 및 메가풀에 걸쳐)의 150%로 제한됩니다
+- 노드에 활성 검증자(미니풀 또는 메가풀)가 있어야 본드된 ETH에 기여합니다
+
+이러한 요건들은 대규모 스테이커가 투표 과정에서 불균형적인 영향력을 얻기 어렵게 만들어 공정성을 보장하기 위해 함께 작동합니다.
+
+투표 자격이 있는 RPL의 총 본드된 ETH 최대 150%는 다음과 같이 모든 미니풀과 메가풀에 걸친 본드된 ETH를 사용하여 계산됩니다:
+
+```
+vote-eligible RPL = min(1.5*RPL value of megapool bonded_eth, megapool staked rpl)
+```
+`rocketpool node status` 메뉴에서 노드의 본드된 ETH 비율을 확인할 수 있습니다:
+
+```
+=== RPL Stake ===
+NOTE: The following figures take *any pending bond reductions* into account.
+
+The node has a total stake of 5400.964614 RPL.
+This is currently 4.79% of its borrowed ETH and 14.38% of its bonded ETH.
+The node has 4383.275814 megapool staked RPL.
+The node has 1017.688800 legacy staked RPL.
+The node has a total stake (legacy minipool RPL plus megapool RPL) of 5400.964614 RPL.
+You have 4383.275814 RPL staked on your megapool and can request to unstake up to 4383.275814 RPL
+```
+
+::: tip 중요
+투표 시스템은 투표 권한을 계산할 때 모든 스테이킹된 RPL을 동등하게 취급합니다.
+그러나 투표자 공유 ETH 보상을 획득하려면 투표 자격이 있는 RPL이 메가풀에 스테이킹되어 있어야 합니다. 투표자 공유(프로토콜 ETH 수익의 9%)는 메가풀 스테이커에게만 분배됩니다.
+다시 말해, 모든 투표 자격이 있는 RPL은 투표 권한을 부여하지만 투표 자격이 있는 메가풀 RPL만 투표자 공유 보상을 획득합니다.
+
+따라서 위의 예시에서 노드의 `총 스테이크 5400.964614 RPL`은 총 본드된 ETH 최대 150% 이내이므로 투표 자격이 있습니다. 노드의 `4383.275814 메가풀 스테이킹 RPL`은
+투표자 공유 보상을 획득하지만 노드의 `1017.688800 레거시 스테이킹 RPL`은 그렇지 않습니다.
+:::
+
+## 레거시 미니풀에서 메가풀로 RPL 마이그레이션
+
+레거시 미니풀에 RPL을 스테이킹한 기존 노드 운영자라면 레거시 RPL 스테이크를 메가풀로 마이그레이션하는 것을 고려할 수 있습니다.
+미니풀에 스테이킹된 레거시 RPL은 투표자 공유 보상을 획득하지 못합니다. 그러나 레거시 RPL 스테이크는 계속해서 RPL 인플레이션 보상을 획득하고 [pDAO 거버넌스](/ko/pdao/overview)에서 노드의 투표 권한에 기여합니다.
+
+레거시 RPL을 마이그레이션하려면 먼저 [언스테이킹 및 인출](/ko/node-staking/megapools/staking-and-claiming-rewards#unstaking-and-withdrawing-rpl)을 통해 레거시 RPL을 인출한 다음 `rocketpool node stake-rpl` 명령을 사용하여 다시 [스테이킹](/ko/node-staking/megapools/staking-and-claiming-rewards#staking)합니다. 다음 섹션에서 방법을 설명합니다.
+
+## RPL 언스테이킹 및 인출
+
+Saturn 1은 RPL 언스테이킹을 위한 2단계 인출 시스템을 도입합니다. 특히 뱅크런의 경우 시장 변동성을 줄이기 위한 것입니다. 2단계 인출
+시스템은 노드 운영자가 RPL을 DeFi에서 보상을 받다가 보상 기간에 맞춰 스테이킹하는 방식으로 보상 시스템을 조작하는 시나리오도 방지합니다.
+
+1. 첫 번째 단계는 RPL 언스테이킹 요청을 하는 것입니다. 언스테이킹할 레거시 RPL 또는 메가풀 RPL의 양을 결정합니다.
+2. 28일 `언스테이킹 기간` 후, `언스테이킹` 중인 RPL이 `언스테이킹`됩니다. 이 시점에서 `언스테이킹된` RPL을 인출할 수 있습니다.
+
+메가풀 스테이킹 RPL의 언스테이킹 한도는 없으므로 언제든지 전체를 언스테이킹하고 인출할 수 있습니다.
+레거시 RPL을 보유한 노드 운영자는 차용 ETH 담보 15%까지 인출할 수 있습니다. 이 15% 최소값은 메가풀이 아닌 레거시 미니풀의 차용 ETH만 고려합니다. 다음 몇 섹션에서는
+RPL 언스테이킹 및 인출의 두 단계를 다룹니다.
+
+
+::: tip 레거시 RPL 스테이커를 위한 참고사항
+더 많은 RPL을 인출하기 위해 차용 ETH 담보 비율을 낮추고 싶다면
+[미니풀 종료](/ko/node-staking/withdraw#shut-down-a-minipool)를 고려하여 차용 ETH 담보 금액을 낮출 수 있습니다.
+
+
+:::
+
+### 1단계: RPL 언스테이킹 요청
+
+::: warning 경고
+
+28일 언스테이킹 기간 동안:
+- 언스테이킹을 요청한 RPL은 보상을 계속 획득하지 않습니다.
+- 언스테이킹 과정을 취소할 수 없지만, 28일 기간 후 인출한 다음 재스테이킹할 수 있습니다.
+- 28일 기간 동안 새 인출을 시작할 수 있지만, 모든 언스테이킹 중인 RPL이 28일로 갱신됩니다. 새 인출을 시작하기 전에 초기 인출을 완료하는 것이 좋습니다. 그렇지 않으면 언스테이킹 기간 전체를 다시 기다려야 합니다.
+
+:::
+
+과정을 시작하려면 `rocketpool node withdraw-rpl` 명령을 사용하세요. 다음 프롬프트가 표시됩니다:
+```
+The RPL withdrawal process has changed in Saturn. It is now a 2-step process:
+1. Request to unstake a certain RPL amount;
+2. Wait for the unstaking period to end (currently 28 days), and then withdraw the RPL.
+
+Your node has 1017.688800 RPL on its legacy stake (previously associated to minipools) and 4383.275814 RPL staked on its megapool.
+Your node currently has 0.000000 RPL locked on pDAO proposals.
+Your node's RPL withdrawal address is 0x89e860C8Feb86D9f54Ad4D7D6bcBe019EB1D6C24.
+
+You have 0.000000 RPL unstaked and ready to be withdrawn to your RPL withdrawal address.
+Please select one of the three options below.
+
+1: withdraw unstaked RPL
+2: request to unstake RPL
+3: request to unstake legacy RPL
+```
+
+- 메가풀 RPL을 언스테이킹하는 경우, `2`를 입력하고 키보드에서 `enter`를 눌러 두 번째 옵션 `request to unstake RPL`을 선택하세요.
+
+- 레거시 RPL을 마이그레이션하는 경우, 세 번째 옵션 `request to unstake legacy RPL`을 선택하세요.
+
+전체 잔액을 언스테이킹하거나 언스테이킹할 사용자 정의 금액을 입력하라는 메시지가 표시됩니다. 전체 금액을 언스테이킹하려면 `y`를 입력하거나 언스테이킹할 사용자 정의 금액을 입력하려면 `n`을 입력하세요.
+여기에서 Smart Node가 언스테이크 요청을 하는 데 필요한 나머지 단계를 안내합니다.
+```
+You have 4383.275814 RPL staked on your megapool and can request to unstake up to 4383.275814 RPL.
+Would you like to unstake the maximum amount of staked RPL? [y/n]
+n
+
+Please enter an amount of staked RPL to unstake:
+1000
+
++================ Suggested Gas Prices ================+
+| Avg Wait Time |   Max Fee    |     Total Gas Cost     |
+| 15 Seconds    | 2.97747 gwei | 0.00061 to 0.00091 ETH |
+| 1 Minute      | 2.47747 gwei | 0.00050 to 0.00076 ETH |
+| 3 Minutes     | 1.97747 gwei | 0.00040 to 0.00060 ETH |
+| >10 Minutes   | 1.97747 gwei | 0.00040 to 0.00060 ETH |
++======================================================+
+
+These prices include a maximum priority fee of 0.010 gwei.
+Please enter your max fee (including the priority fee) or leave blank for the default of 2.47747 gwei:
+
+
+Using a max fee of 2.477 gwei and a priority fee of 0.010 gwei.
+Are you sure you want to unstake 1000.000000 RPL? [y/n]
+y
+
+Unstaking RPL...
+Transaction has been submitted with hash <transaction-hash>.
+You may follow its progress by visiting:
+https://hoodi.etherscan.io/tx/<transaction-hash>
+
+Waiting for the transaction to be included in a block... you may wait here for it, or press CTRL+C to exit and return to the terminal.
+
+Successfully unstaked 1000.000000 RPL.
+
+```
+### 언스테이킹 중인 RPL 상태 확인
+
+RPL 언스테이킹 요청을 성공적으로 한 후, `rocketpool node withdraw-rpl` 명령은 언스테이킹 중인 RPL이 인출 가능한 시기를 알려줍니다:
+```
+Your node has 1017.688800 RPL on its legacy stake (previously associated to minipools) and 3383.275814 RPL staked on its megapool.
+Your node currently has 0.000000 RPL locked on pDAO proposals.
+Your node's RPL withdrawal address is <node-address>.
+
+You have 1000.000000 RPL currently unstaking until 2026-02-19, 04:05 +0000 UTC (47h57m19s from now).
+```
+
+### 2단계: 언스테이킹된 RPL 인출
+
+28일 언스테이킹 기간이 지나면 `rocketpool node withdraw-rpl` 명령에 상태가 반영되고 마침내 언스테이킹된 RPL을 인출할 수 있습니다.
+```
+You have 1000.000000 RPL unstaked and ready to be withdrawn to your RPL withdrawal address.
+```
+
+RPL 인출 주소가 구성되어 있지 않으면 RPL은 노드 지갑으로 인출됩니다. 사용자 지정 RPL 인출 주소를 보유한 노드 운영자는 노드 주소가 아닌 인출 주소에서 인출해야 합니다. 이 사이트를 사용하여 RPL 인출 주소로 인출할 수 있습니다: https://node.rocketpool.net/withdraw-rpl
+
+```
+Your node has 1017.688800 RPL on its legacy stake (previously associated to minipools) and 3383.275814 RPL staked on its megapool.
+Your node currently has 0.000000 RPL locked on pDAO proposals.
+Your node's RPL withdrawal address is <RPL-withdrawal-address>.
+
+You have 1000.000000 RPL unstaked and ready to be withdrawn to your RPL withdrawal address.
+Please select one of the three options below.
+
+1: withdraw unstaked RPL
+2: request to unstake RPL
+3: request to unstake legacy RPL
+1
+
++================ Suggested Gas Prices ================+
+| Avg Wait Time |   Max Fee    |     Total Gas Cost     |
+| 15 Seconds    | 2.97747 gwei | 0.00061 to 0.00091 ETH |
+| 1 Minute      | 2.47747 gwei | 0.00050 to 0.00076 ETH |
+| 3 Minutes     | 1.97747 gwei | 0.00040 to 0.00060 ETH |
+| >10 Minutes   | 1.97747 gwei | 0.00040 to 0.00060 ETH |
++======================================================+
+
+These prices include a maximum priority fee of 0.010 gwei.
+Please enter your max fee (including the priority fee) or leave blank for the default of 2.47747 gwei:
+
+
+Using a max fee of 2.477 gwei and a priority fee of 0.010 gwei.
+Are you sure you want to withdraw 1000.000000 RPL? [y/n]
+y
+
+Withdrawing RPL...
+Transaction has been submitted with hash <transaction-hash>.
+You may follow its progress by visiting:
+https://hoodi.etherscan.io/tx/<transaction-hash>
+
+Waiting for the transaction to be included in a block... you may wait here for it, or press CTRL+C to exit and return to the terminal.
+
+Successfully withdrew 1000.000000 RPL.
+```
+
+## 스테이킹
+
+`rocketpool node stake-rpl` 명령을 사용하여 메가풀에 RPL을 스테이킹할 수 있습니다.
+
+```
+staker@node:~$ rocketpool node stake-rpl
+
+NOTE: By staking RPL, you become a member of the Rocket Pool pDAO. Stay informed on governance proposals by joining the Rocket Pool Discord.
+
+The node has a balance of 0.000000 RPL.
+
+Please choose an amount of RPL to stake:
+1: 5% of borrowed ETH (2191.637908 RPL) for one validator?
+2: 10% of borrowed ETH (4383.275815 RPL) for one validator?
+3: 15% of borrowed ETH (6574.913722 RPL) for one validator?
+4: Your entire RPL balance (0.000000 RPL)?
+5: A custom amount
+```
+
+이 명령을 사용하면 메가풀에 RPL이 스테이킹되어 투표자 공유 보상이 증가합니다. 이제 미니풀에 RPL을 스테이킹하는 것은 더 이상 불가능합니다.
+
+## 노드의 ETH 및 RPL 보상 확인
+Smart Node에는 노드가 가질 수 있는 다양한 유형의 보상 상태를 확인할 수 있는 유용한 새 기능이 있습니다.
+가능한 모든 보상 유형의 목록은 다음과 같습니다:
+
+1. 메가풀 실행 레이어 보상
+2. 수수료 분배기 보상
+3. 미니풀 잔액 분배
+4. 정기 보상 (RPL + ETH)
+5. 미청구 보상
+6. 크레딧 잔액 인출
+7. 대리 스테이킹된 ETH 인출
+8. PDAO 본드 청구
+
+`rocketpool claims status` 명령을 사용하여 이 메뉴에 접근할 수 있습니다. 청구할 보상이 있는지와 어떤 유형인지를 알려줍니다.
+
+## 노드의 ETH 및 RPL 보상 청구
+
+보상을 청구할 준비가 되었다면 `rocketpool claims claim-all` 명령을 사용할 수 있습니다. 모든 또는 일부 보상 유형을 선택할 수 있습니다.
+
+메뉴 예시:
+
+```
+staker@node:~$ rocketpool claims claim-all
+
+============================================================
+              Available Rewards Summary
+============================================================
+
+--- [1] Megapool Execution Layer Rewards ---
+  Cannot distribute: 2 validator(s) exiting
+
+--- [2] Fee Distributor ---
+  Fee distributor not initialized. Run 'rocketpool node initialize-fee-distributor' first.
+
+--- [3] Minipool Balance Distribution ---
+  No minipools eligible for balance distribution.
+
+--- [4] Periodic Rewards (RPL + ETH) ---
+  Unclaimed intervals: 6
+    Interval 141: 0.000000 RPL, 0.000033 ETH
+    Interval 142: 0.000000 RPL, 0.000038 ETH
+    Interval 143: 0.000000 RPL, 0.000062 ETH
+    Interval 144: 0.000000 RPL, 0.000016 ETH
+    Interval 145: 0.000000 RPL, 0.000025 ETH
+    Interval 146: 0.000000 RPL, 0.000038 ETH
+  Total: 0.000000 RPL + 0.000215 ETH
+
+--- [5] Unclaimed Rewards ---
+  No unclaimed rewards.
+
+--- [6] Credit Balance Withdrawal ---
+  Credit balance: 4.000000 ETH (the equivalent amount in rETH will be transferred to 0x4d19DE4A5a1B1B36EBaB3D5c32C01061fbDE328d)
+
+--- [7] Staked ETH on Behalf Withdrawal ---
+  No ETH staked on behalf of the node.
+
+--- [8] PDAO Bond Claims ---
+  No claimable bonds or rewards.
+
+============================================================
+                       Totals
+============================================================
+  ETH: 4.000215
+  RPL: 0.000000
+
+The following 2 claim(s)/credits are available:
+  1. Periodic Rewards (RPL + ETH): 0.000215 ETH
+  2. Credit Balance Withdrawal: 4.000000 ETH
+
+Enter the numbers of the claims you want to execute (comma-separated), 'all' to claim everything, or 'none' to cancel:
+```
+선택을 하고 가스 옵션을 확인한 후, 청구하는 보상 유형에 따라 추가 프롬프트가 있을 수 있습니다. 여기서 모두 설명하지는 않겠습니다. Smart Node가 모든 단계를 안내해 드립니다.
+
+두 가지 유형의 보상 - 정기 보상 + ETH 크레딧을 교환하는 모습:
+```
++================ Suggested Gas Prices ================+
+| Avg Wait Time |   Max Fee    |     Total Gas Cost     |
+| 15 Seconds    | 2.93764 gwei | 0.00111 to 0.00167 ETH |
+| 1 Minute      | 2.56087 gwei | 0.00097 to 0.00146 ETH |
+| 3 Minutes     | 1.93764 gwei | 0.00073 to 0.00110 ETH |
+| >10 Minutes   | 1.93764 gwei | 0.00073 to 0.00110 ETH |
++======================================================+
+
+These prices include a maximum priority fee of 0.010 gwei.
+Please enter your max fee (including the priority fee) or leave blank for the default of 2.56087 gwei:
+
+
+Using a max fee of 2.561 gwei and a priority fee of 0.010 gwei.
+
+Executing 2 claim(s)...
+
+[1/2] Periodic Rewards (RPL + ETH)
+  Submitting transaction...
+  Claiming periodic rewards...
+Transaction has been submitted with hash 0x68585d6cef75a6b9507a10e634de2d01a77ae920ea05659ea79c5493a1bc9e30.
+You may follow its progress by visiting:
+https://hoodi.etherscan.io/tx/0x68585d6cef75a6b9507a10e634de2d01a77ae920ea05659ea79c5493a1bc9e30
+
+Waiting for the transaction to be included in a block... you may wait here for it, or press CTRL+C to exit and return to the terminal.
+
+  Successfully claimed periodic rewards.
+
+[2/2] Credit Balance Withdrawal
+  Submitting transaction...
+  Withdrawing credit balance...
+Transaction has been submitted with hash 0xabf1922e362e25238fc24857aae1f42093097a90a9ef3a0f2ca9dc44c24f8f15.
+You may follow its progress by visiting:
+https://hoodi.etherscan.io/tx/0xabf1922e362e25238fc24857aae1f42093097a90a9ef3a0f2ca9dc44c24f8f15
+
+Waiting for the transaction to be included in a block... you may wait here for it, or press CTRL+C to exit and return to the terminal.
+
+  Successfully withdrew 4.000000 credit as rETH.
+
+============================================================
+All 2 claim(s) completed successfully.
+============================================================
+```
+
+
+
+## 다음 단계
+
+Saturn 1에서의 RPL 스테이킹과 보상을 이해했으니 [pDAO 거버넌스](/ko/pdao/overview) 섹션을 확인하여 투표 권한이 Rocket Pool 개선을 위한 주요 결정에 참여하는 데 어떻게 사용될 수 있는지 알아보세요. 또한 [모니터링 및 유지 관리](/ko/node-staking/maintenance/overview)를 검토하여 업데이트 적용 방법, 노드 모니터링 방법, 수명 동안 노드를 최상의 상태로 유지하는 방법을 알아보세요.
+
+UARS와 투표자 공유 경제학에 대한 더 기술적인 세부 사항은 [RPIP-46: Universal Adjustable Revenue Split](https://rpips.rocketpool.net/RPIPs/RPIP-46)을 참조하세요.

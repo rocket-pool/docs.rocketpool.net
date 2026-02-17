@@ -5,7 +5,7 @@ import tui_fallback_clients from "./images/tui-fallback-clients.png";
 # Specificare un Nodo di Fallback
 
 A partire dalla versione **1.5.0** dello stack Smartnode, puoi fornire una coppia "di fallback" di client Execution e Consensus che può subentrare ai tuoi client primari se mai dovessero andare offline (come ad esempio perché [usi Geth e hai bisogno di fare il pruning](./pruning)).
-In questa situazione, la tua macchina nodo primaria sarà ancora responsabile per attestare e proporre blocchi con le chiavi validator dei tuoi minipool, ma si connetterà a una macchina esterna per interagire con il layer Execution e le chain Beacon.
+In questa situazione, la tua macchina nodo primaria sarà ancora responsabile per attestare e proporre blocchi con le chiavi validator del tuo megapool, ma si connetterà a una macchina esterna per interagire con il layer Execution e le chain Beacon.
 
 Essenzialmente, ti permette di utilizzare _temporaneamente_ un'altra coppia di client per cose come interrogare le chain, inviare transazioni e ricevere blocchi da attestare.
 Questa coppia può essere gestita esternamente (come in Hybrid mode), oppure può essere un altro nodo Rocket Pool (un'altra macchina in Docker mode che ha le porte API esposte, che tratteremo di seguito).
@@ -119,31 +119,44 @@ NOTE: primary clients are not ready, using fallback clients...
  Primary CC status: unavailable (Sync progress check failed with [Could not get node sync status: Get "http://eth2:5052/eth/v1/node/syncing": dial tcp: lookup eth2 on 127.0.0.11:53: no such host])
 
 ========== General Stats ==========
-Total Value Locked:      278978.009858 ETH
-Staking Pool Balance:    10.587295 ETH
-Minipool Queue Demand:   3360.000000 ETH
-Staking Pool ETH Used:   99.735490%
+Total Value Locked:          1196.926316 ETH
+Deposit Pool Balance:        23.586761 ETH
+Minipool Queue Demand:       0.000000 ETH
+Deposit Pool ETH Used:       6.809609%
 
 ============== Nodes ==============
-Current Commission Rate: 15.000000%
-Node Count:              1325
-Active Minipools:        6409
-    Initialized:         175
-    Prelaunch:           3
-    Staking:             6227
-    Withdrawable:        0
-    Dissolved:           4
-Inactive Minipools:      0
+Current Commission Rate:     5.000000%
+Node Count:                  16
+Active Minipools:            36
+    Initialized:             0
+    Prelaunch:               0
+    Staking:                 36
+    Withdrawable:            0
+    Dissolved:               0
+Finalized Minipools:         30
+
+=========== Megapools ============
+Megapool contracts deployed: 10
+Total megapool validators:  86
+     Staking:                51
+     In Prestake:            6
+     In Queue:               10
+     Exited:                 14
+     Locked:                 1
+     Exiting:                2
+     Dissolved:              2
 
 ========== Smoothing Pool =========
-Nodes Opted in:          0
-Pending Balance:         0.000000
+Contract Address:            0xE8D1136ac49DBe6ac8f299130253004DC63841a1
+Nodes Opted in:              3
+Pending Balance:             0.000000
 
 ============== Tokens =============
-rETH Price (ETH / rETH): 1.031919 ETH
-RPL Price (ETH / RPL):   0.011563 ETH
-Total RPL staked:        6098920.170527 RPL
-Effective RPL staked:    5751692.043848 RPL
+rETH Price (ETH / rETH):     1.185477 ETH
+RPL Price (ETH / RPL):       0.000639 ETH
+Total RPL staked:            33406.127068 RPL
+Total Megapool RPL staked:   11406.127068 RPL
+Total Legacy RPL staked:     22000.000000 RPL
 ```
 
 Infine, avvia nuovamente i tuoi client primari:

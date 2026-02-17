@@ -1,0 +1,32 @@
+---
+next:
+  text: Yeni Megapool Doğrulayıcısı Oluşturma
+  link: "/tr/node-staking/create-validator"
+---
+
+# Genel Bakış
+
+Bu bölüm, Rocket Pool megapoollarını ve megapool doğrulayıcıları oluşturmayı kapsamaktadır.
+Ethereum ağını doğrulamaya başlamayı ve bunun karşılığında ödül kazanmayı burada öğreneceksiniz.
+
+## Ön Koşullar
+
+Megapool Doğrulayıcılarını çalıştırmadan önce lütfen şunları yaptığınızdan emin olun:
+
+- Bir düğüm makinesi (veya sanal makine) kurmuş ve güvence altına almış olun ([Düğümünüzü Güvence Altına Alma](../securing-your-node) kılavuzu aracılığıyla)
+- Smartnode'un üzerine [yüklü](../installing/overview) ve [yapılandırılmış](../config/overview) olması
+- Smartnode'unuzda bir düğüm cüzdanı yüklü olması
+- Yürütme ve Konsensüs istemcilerinizin senkronize edilmiş olması
+- Düğümünüzü [çekim adresiyle](../prepare-node.mdx#setting-your-withdrawal-address) hazırlamış, [yedek istemcileri](../fallback) (isteğe bağlı) kurmuş, [Smoothing Pool'a](../fee-distrib-sp#the-smoothing-pool) katılmış (isteğe bağlı) ve [MEV'i](../mev.mdx) yapılandırmış olmanız
+
+## Kılavuzlar
+
+[Megapool Oluşturma (Doğrulayıcı)](./create-megapool-validator.mdx), Beacon Chain'de yeni bir Rocket Pool megapool ve buna karşılık gelen doğrulayıcı oluşturma sürecini açıklar.
+İster ilk megapool doğrulayıcınızı yapıyor olun, ister halihazırda bazılarınız olsun ve bir tane daha yapmak istiyorsanız, bu kılavuz sizi adım adım yönlendirecektir.
+
+[Düğüm adına ETH stake etme](/tr/upgrades/houston/stake-eth-on-behalf#stake-eth-on-behalf-of-node), bir düğüm adına ETH stake etmek için herhangi bir bağımsız adresi (örneğin bir donanım cüzdanı) nasıl kullanabileceğinizi açıklar. Düğümünüzün ETH'ye doğrudan erişimi olmaksızın doğrulayıcı yatırımları oluşturmak istiyorsanız oldukça kullanışlıdır.
+
+[RPL Staking ve Ödülleri Talep Etme](/tr/node-staking/megapools/staking-and-claiming-rewards), RPL'yi megapool'unuza nasıl stake edeceğinizi, ETH ve RPL ödüllerinizi nasıl talep edeceğinizi ve Saturn 1'in yeni gelir dağıtım sistemini nasıl anlayacağınızı kapsar.
+Eski RPL stake'inizi taşıyor olsanız da sıfırdan başlıyor olsanız da bu kılavuz, staking, unstaking ve protokol gelirinden payınızı kazanma konularında sizi yönlendirir.
+
+[Deposit Kredi Sistemi](./credit.mdx), ETH kredisi biriktirebileceğiniz tüm farklı yolları ve bunun rETH olarak nasıl kullanılabileceğini veya yeni doğrulayıcılar oluşturmak için nasıl kullanılabileceğini açıklar.

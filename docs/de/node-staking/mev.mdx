@@ -202,7 +202,7 @@ Um zu erfahren, wie Sie MEV-Boost konfigurieren, wählen Sie bitte unten aus, we
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">HINWEIS</p>
-        Wenn Sie Ihre eigene MEV-Boost-Instanz betreiben, **müssen** Sie sich nur bei den oben aufgeführten vertrauenswürdigen Relays registrieren. Wenn Ihr Rocket Pool Validator einen Block vorschlägt, der über ein nicht vertrauenswürdiges Relay gesendet wurde, wird das Oracle DAO Sie **wegen Betrugs markieren** und möglicherweise MEV von den rETH-Stakern stehlen. Dies führt zu [einer Strafe](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) auf Ihren Minipool!
+        Wenn Sie Ihre eigene MEV-Boost-Instanz betreiben, **müssen** Sie sich nur bei den oben aufgeführten vertrauenswürdigen Relays registrieren. Wenn Ihr Rocket Pool Validator einen Block vorschlägt, der über ein nicht vertrauenswürdiges Relay gesendet wurde, wird das Oracle DAO Sie **wegen Betrugs markieren** und möglicherweise MEV von den rETH-Stakern stehlen. Dies führt zu [einer Strafe](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) auf Ihren Minipools oder Megapool-Validatoren!
       </p>
 
       - Wenn Sie sich für eine `Locally Managed` Instanz von MEV-Boost entschieden haben, ermöglicht Ihnen das Feld `Selection Mode`, zwischen **Profile Mode** und **Relay Mode** umzuschalten.
@@ -258,7 +258,7 @@ mev-boost_1      | time="2022-09-28T22:02:06Z" level=info msg="Using genesis for
 mev-boost_1      | time="2022-09-28T22:02:06Z" level=info msg="using 4 relays" module=cli relays="[{0xac6e77dfe25ecd6110b8e780608cce0dab71fdd5ebea22a16c0205200f2f8e2e3ad3b71d3499c54ad14d6c21b41a37ae https://0xac6e77dfe25ecd6110b8e780608cce0dab71fdd5ebea22a16c0205200f2f8e2e3ad3b71d3499c54ad14d6c21b41a37ae@boost-relay.flashbots.net?id=rocketpool} {0xb0b07cd0abef743db4260b0ed50619cf6ad4d82064cb4fbec9d3ec530f7c5e6793d9f286c4e082c0244ffb9f2658fe88 https://0xb0b07cd0abef743db4260b0ed50619cf6ad4d82064cb4fbec9d3ec530f7c5e6793d9f286c4e082c0244ffb9f2658fe88@bloxroute.regulated.blxrbdn.com?id=rocketpool} {0x9000009807ed12c1f08bf4e81c6da3ba8e3fc3d953898ce0102433094e5f22f21102ec057841fcb81978ed1ea0fa8246 https://0x9000009807ed12c1f08bf4e81c6da3ba8e3fc3d953898ce0102433094e5f22f21102ec057841fcb81978ed1ea0fa8246@builder-relay-mainnet.blocknative.com?id=rocketpool} {0xb3ee7afcf27f1f1259ac1787876318c6584ee353097a50ed84f51a1f21a323b3736f271a895c7ce918c038e4265918be https://0xb3ee7afcf27f1f1259ac1787876318c6584ee353097a50ed84f51a1f21a323b3736f271a895c7ce918c038e4265918be@relay.edennetwork.io?id=rocketpool}]"
 mev-boost_1      | time="2022-09-28T22:02:06Z" level=info msg="Checking relay" module=service relay="https://0xac6e77dfe25ecd6110b8e780608cce0dab71fdd5ebea22a16c0205200f2f8e2e3ad3b71d3499c54ad14d6c21b41a37ae@boost-relay.flashbots.net?id=rocketpool"
 mev-boost_1      | time="2022-09-28T22:02:06Z" level=info msg="Checking relay" module=service relay="https://0xb0b07cd0abef743db4260b0ed50619cf6ad4d82064cb4fbec9d3ec530f7c5e6793d9f286c4e082c0244ffb9f2658fe88@bloxroute.regulated.blxrbdn.com?id=rocketpool"
-mev-boost_1      | time="2022-09-28T22:02:07Z" level=info msg="Checking relay" module=service relay="https://0x9000009807ed12c1f08bf4e81c6da3ba8e3fc3d953898ce0102433094e5f22f21102ec057841fcb81978ed1ea0fa8246@builder-relay-mainnet.blocknative.com?id=rocketpool"
+mev-boost_1      | time="2022-09-28T22:02:06Z" level=info msg="Checking relay" module=service relay="https://0x9000009807ed12c1f08bf4e81c6da3ba8e3fc3d953898ce0102433094e5f22f21102ec057841fcb81978ed1ea0fa8246@builder-relay-mainnet.blocknative.com?id=rocketpool"
 mev-boost_1      | time="2022-09-28T22:02:07Z" level=info msg="Checking relay" module=service relay="https://0xb3ee7afcf27f1f1259ac1787876318c6584ee353097a50ed84f51a1f21a323b3736f271a895c7ce918c038e4265918be@relay.edennetwork.io?id=rocketpool"
 mev-boost_1      | time="2022-09-28T22:02:07Z" level=info msg="listening on 0.0.0.0:18550" module=cli
 ```
@@ -276,5 +276,5 @@ Dies zeigt an, dass Ihr Beacon Node in der Lage war, sich ordnungsgemäß damit 
 
 ## Nächste Schritte
 
-Jetzt, da MEV-Boost eingerichtet wurde, sind Sie bereit, einen neuen Minipool zu erstellen und mit der Validierung im Ethereum-Netzwerk zu beginnen!
+Jetzt, da MEV-Boost eingerichtet wurde, sind Sie bereit, einen neuen Megapool-Validator zu erstellen und mit der Validierung im Ethereum-Netzwerk zu beginnen!
 Lesen Sie den nächsten Abschnitt, um diesen Prozess durchzugehen.

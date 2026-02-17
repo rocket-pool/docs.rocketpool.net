@@ -1,0 +1,89 @@
+# 退出 Megapool 验证者
+
+如果您不再想运行 megapool 验证者，并希望访问锁定在信标链上的完整余额，您需要遵循几个步骤。本页将引导您完成退出 megapool 验证者的过程。
+
+1. 向信标链发送自愿退出请求（手动）
+2. 通知验证者退出（由 Smart Node 自动执行）
+3. 通知最终余额（由 Smart Node 自动执行）
+
+## 向信标链发送退出请求
+
+要向信标链发送退出请求，请在 Smart Node 中使用 `rocketpool megapool exit-validator` 命令。您将看到可以退出的验证者列表。
+
+```
+staker@node:~$ rocketpool megapool exit-validator
+
+Please select a validator to EXIT:
+1: ID: 1 - Index: 1269834 Pubkey: 0x9455594c2f02674922eb6dee40d096f3203dd1762aa7f1a988ab6c277a62418ec3abfb460b57f33f13a5922e9551d5cc
+2: ID: 2 - Index: 1269835 Pubkey: 0xa188774e1adf42db768230541403347a8d2ebcd8386b7f5662bcf1004e17d8d53303889a7e527448cf29bff9bde34bb9
+3: ID: 3 - Index: 1269851 Pubkey: 0xa3e211e95a542ffaf8467ba211a3d893b58c59204dab8c32df29f0cfda3f9ce485a3bc13a50e4c205f912613521ed203
+4: ID: 7 - Index: 1274411 Pubkey: 0xb5369a5f8550daa07476378dc4864f08b74d4950e28c74844527b59b1e9dea9fd376ea3bd171ee8fba7de866cd4ea37e
+5: ID: 8 - Index: 1275239 Pubkey: 0xa56660fa14f0cb7a7030ea0c68a075c7fd700d98ee3afb498030f2bafbadfbf29703bf8fe8ccc9e1f2332b96dcb51ee2
+```
+
+选择验证者后，Smart Node 将进行额外提示。确认您选择了要退出的验证者，输入 `y`，然后按 `enter` 向信标链发送自愿退出请求。此操作不需要任何 gas。它从您的节点向信标链发送一条签名消息，以自愿退出验证者。
+
+```
+NOTE:
+You are about to exit a validator. This will tell each validator to stop all activities on the Beacon Chain.
+Please continue to run your validators until each one you've exited has been processed by the exit queue.
+You can watch their progress on the https://beaconcha.in explorer.
+Your funds will be locked on the Beacon Chain until they've been withdrawn, which will happen automatically (this may take a few days).
+Once your funds have been withdrawn, you can run `rocketpool megapool notify-validator-exit` to distribute them to your withdrawal address.
+
+Are you sure you want to EXIT validator id 1? [y/n]
+y
+
+Successfully requested to exit validator id 1.
+```
+
+您的节点向信标链发送自愿退出请求。此时，您的验证者应处于信标链的 `active_exiting` 状态。您可以运行 `rocketpool megapool validators` 命令并检查您刚刚请求退出的验证者来确认这一点：
+
+```
+
+Megapool Validator ID:        1
+Validator pubkey:             0x9455594c2f02674922eb6dee40d096f3203dd1762aa7f1a988ab6c277a62418ec3abfb460b57f33f13a5922e9551d5cc
+Validator active:             yes
+Validator index:              1269834
+Beacon status:                active_exiting
+Express Ticket Used:          no
+```
+
+
+<img src="../images/megapool-exiting.png" width="100%" height="auto" />
+
+
+::: tip 注意
+您的验证者将继续进行验证，直到被信标链退出队列处理，因此请在此过程中保持节点在线！这可能需要几天或更长时间。
+此网站非常便于查看当前队列时间：https://www.validatorqueue.com/
+:::
+
+## 通知验证者退出
+
+在上一阶段 `active_exiting` 中，您的节点在等待信标链退出队列期间一直在进行验证。等待时间取决于等待退出的 ETH 数量。
+
+您的验证者到达队列末尾后，将过渡到 `exited_unslashed` 状态。在此阶段，您的 Smart Node 将自动调用 `notify validator exit`，向 Rocket Pool 协议发送信号，表明您的验证者已退出并即将可提取。
+
+::: warning 警告
+此步骤由 Smart Node 在 `rocketpool_node` 任务循环中完全自动化。在此过程中保持节点在线非常重要，否则您将因离线而被罚款 `0.05 ETH`。该罚款将从您的提款余额中扣除。请在整个验证者退出过程中监控您的节点状态。
+:::
+
+```
+Megapool Validator ID:        1
+Validator pubkey:             0x9455594c2f02674922eb6dee40d096f3203dd1762aa7f1a988ab6c277a62418ec3abfb460b57f33f13a5922e9551d5cc
+Validator active:             no
+Validator index:              1269834
+Beacon status:                exited_unslashed
+Express Ticket Used:          no
+```
+
+beaconcha.in 上的状态应如下所示：
+
+<img src="../images/megapool-exited.png" width="100%" height="auto" />
+
+在信标链上经过 256 个 epoch 后，完整的 32 ETH 以及其他积累的奖励将发送到您节点的 megapool。
+
+## 通知最终余额
+
+此时，您的验证者已完全从信标链退出，最终提款从信标链发送到您的 megapool。您的 Smart Node 将自动调用 `notify final balance`。
+此调用完全结束您的 megapool 验证者职责，并将您的余额份额分配到您节点的 ETH 提款地址。如果您保持节点在线，并且 `notify validator exit` 和 `notify final balance` 等自动职责已执行，则无需您进行进一步操作。

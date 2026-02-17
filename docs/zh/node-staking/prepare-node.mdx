@@ -5,23 +5,26 @@ import rplWithdrawalConfirmation from "./images/rpl_withdrawal_confirmation.png"
 # 准备节点进行操作
 
 如果您来到这里,说明您已成功启动 Smartnode 服务,创建了钱包,并完成了执行层和共识层客户端的同步。
-如果是这样,那么您已准备好在 Rocket Pool 网络上注册节点并创建带有验证者的 minipool!
+如果是这样,那么您已准备好在 Rocket Pool 网络上注册节点并创建带有验证者的 megapool!
 如果还没有,请回顾前面的部分,完成这些步骤后再返回这里。
 
-在创建新的 minipool 和验证者之前,还需要采取几个步骤来完成节点的准备工作。
-不过这些步骤只需执行一次;完成后,如果您想在节点上创建多个 minipool,可以直接跳到[创建新的 Minipool](./create-validator.mdx)部分。
+在创建 megapool 和新验证者之前,还需要采取几个步骤来完成节点的准备工作。
+不过这些步骤只需执行一次;完成后,如果您想在节点上创建多个验证者,可以直接跳到[创建 Megapool 验证者](/node-staking/megapools/create-megapool-validator)部分。
 
 ## 加载节点钱包
 
 注册节点和启动验证者都涉及从节点钱包向以太坊网络提交交易。
 这意味着**您需要在钱包中有一些 ETH** 来支付这些交易的 gas 费用。
-在创建 minipool 之前,您还需要质押一些 **RPL 代币**作为抵押品;您可以直接在节点上执行此操作,或者(更好的方式)您可以使用 Rocket Pool 网站的**代表质押**功能,用冷钱包中的 RPL 为节点质押。
+如果您希望质押 RPL,可以直接在节点上执行此操作,或者(更好的方式)您可以使用 Rocket Pool 网站的**代表质押**功能,用冷钱包中的 RPL 为节点质押。
 我们将在本指南后面讨论代表质押功能,届时将质押 RPL。
 
-设置一个 minipool 的节点所需的 gas 费用约为 0.0025 ETH 乘以当前 gas 价格(以 gwei 为单位)。
+
+::: tip 注意
+设置一个带有一个 minipool 的节点所需的 gas 费用约为 0.0025 ETH 乘以当前 gas 价格(以 gwei 为单位)。
 例如,如果 gas 价格为 30 gwei,您将支付约 0.075 ETH 的 gas 费用。
 
 请参阅[此工作表](https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552)以帮助估算各种网络条件下的 gas 费用。
+:::
 
 <div className="p-3">
   <Tabs>
@@ -76,7 +79,7 @@ rocketpool node register
 ## 设置主提款地址
 
 在其他任何操作之前,我们强烈建议您更改节点的**主提款地址**。
-这是您在领取检查点奖励或退出验证者并从 minipool 提款时,所有 RPL 检查点奖励、质押的 RPL 和信标链 ETH 将被发送到的地址。
+这是您在领取检查点奖励或退出验证者并从 megapool 提款时,所有 RPL 检查点奖励、质押的 RPL 和 Beacon Chain ETH 将被发送到的地址。
 
 可选地,您可以为 ETH 设置提款地址,并[为 RPL 设置新的提款地址](https://rpips.rocketpool.net/RPIPs/RPIP-31)。如果设置了 RPL 提款地址,它将能够触发和领取来自通胀奖励的 RPL,并且对 ETH 共识奖励或与 ETH 相关的任何内容没有影响。如果您没有设置 RPL 提款地址,主提款地址也将接收 RPL 奖励。默认情况下,**控制主提款地址的人可以访问您所有质押的 RPL、ETH 和奖励。**
 
@@ -92,7 +95,7 @@ rocketpool node register
 这样,如果您的节点钱包被盗用,攻击者无法通过强制退出来访问您质押的 ETH 和 RPL,因为所有这些资金都会发送到您单独的冷钱包(希望他们没有)。
 
 主提款地址在节点操作者级别设置。
-如果您创建多个 minipool,它们都将引用相同的主提款地址,因此您只需执行一次此设置。
+如果您创建多个 megapool 验证者,它们都将引用相同的主提款地址,因此您只需执行一次此设置。
 
 [点击此处](https://ethereum.org/en/security/#wallet-security)查看以太坊基金会关于钱包安全的一些基础知识。
 :::
@@ -127,7 +130,7 @@ rocketpool node register
       </p>
 
       1. 运行 `rocketpool node set-primary-withdrawal-address '您的冷钱包地址或 ENS 名称'`。您的新主提款地址将被标记为"待定"。在确认之前,**您的旧主提款地址仍将被使用**。
-      2. 要确认它,您必须**从新的主提款地址**向 minipool 合约发送特殊交易,以验证您拥有主提款地址。
+      2. 要确认它,您必须**从新的主提款地址**向 megapool 合约发送特殊交易,以验证您拥有主提款地址。
       1. 最简单的方法是导航到 Rocket Pool 主提款地址网站([Hoodi 测试网](https://testnet.node.rocketpool.net/primary-withdrawal-address)或[主网](https://node.rocketpool.net/primary-withdrawal-address))。
       3. 如果您尚未将 Metamask 或 WalletConnect 连接到 Rocket Pool 网站,请立即执行此操作。点击屏幕中央的**选择钱包**按钮,然后根据您要使用的钱包选择 MetaMask 或 WalletConnect。然后系统会提示您确认连接。例如,使用 MetaMask:
 
@@ -158,9 +161,10 @@ rocketpool node register
 
       ::: danger
       这样做会绕过与方法 1 相关的安全措施,该措施要求您证明拥有新地址。
-      如果在此处输入错误,无法撤销,**您的 minipool 奖励将永远丢失**。
+      如果在此处输入错误,无法撤销,**您的 megapool 奖励将永远丢失**。
 
       我们**强烈**建议您在确认之前使用测试交易机制,如果可能,请使用方法 1。
+      :::
     </Tab>
 
   </Tabs>
@@ -248,7 +252,7 @@ rocketpool pdao clear-signalling-address
 
 ## 设置 RPL 提款地址
 
-重要的是要了解[主提款地址](./prepare-node#setting-your-primary-withdrawal-address)和 RPL 提款地址之间的区别。默认情况下,您的 RPL 提款地址未设置,您的主提款地址是所有 RPL 检查点奖励、质押的 RPL 和信标链 ETH 将被发送到的地方。
+重要的是要了解[主提款地址](./prepare-node#setting-your-primary-withdrawal-address)和 RPL 提款地址之间的区别。默认情况下,您的 RPL 提款地址未设置,您的主提款地址是所有 RPL 检查点奖励、质押的 RPL 和 Beacon Chain ETH 将被发送到的地方。
 
 如果需要,您可以[为 RPL 设置单独的提款地址](https://rpips.rocketpool.net/RPIPs/RPIP-31)。如果设置了 RPL 提款地址,它将能够触发和领取来自通胀奖励的 RPL,并且对 ETH 共识奖励或与 ETH 相关的任何内容没有影响。在这种情况下,您的主提款地址将不再对与 RPL 相关的操作拥有任何权限。
 
@@ -264,7 +268,7 @@ rocketpool pdao clear-signalling-address
 这样,如果您的节点钱包被盗用,攻击者无法通过强制退出来访问您质押的 RPL,因为所有这些资金都会发送到您单独的冷钱包(希望他们没有)。
 
 RPL 提款地址在节点操作者级别设置。
-如果您创建多个 minipool,它们都将引用相同的 RPL 提款地址,因此您只需执行一次此设置。
+如果您创建多个 megapool 验证者,它们都将引用相同的 RPL 提款地址,因此您只需执行一次此设置。
 
 [点击此处](https://ethereum.org/en/security/#wallet-security)查看以太坊基金会关于钱包安全的一些基础知识。
 :::
@@ -275,7 +279,7 @@ RPL 提款地址在节点操作者级别设置。
 <div className="p-3">
   <Tabs>
     <Tab label="方法 1">
-      *如果您的新 RPL 提款地址可以通过 MetaMask 或 WalletConnect 签署交易,请使用此方法。**
+      **如果您的新 RPL 提款地址可以通过 MetaMask 或 WalletConnect 签署交易,请使用此方法。**
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">注意</p>
@@ -298,7 +302,7 @@ RPL 提款地址在节点操作者级别设置。
       </p>
 
       1. 运行 `rocketpool node set-rpl-withdrawal-address '您的冷钱包地址或 ENS 名称'`。您的新 RPL 提款地址将被标记为"待定"。在确认之前,**您的旧 RPL 提款地址仍将被使用**。
-      2. 要确认它,您必须**从新的 RPL 提款地址**向 minipool 合约发送特殊交易,以验证您拥有 RPL 提款地址。
+      2. 要确认它,您必须**从新的 RPL 提款地址**向 megapool 合约发送特殊交易,以验证您拥有 RPL 提款地址。
       1. 最简单的方法是导航到 Rocket Pool RPL 提款地址网站([Hoodi 测试网](https://testnet.node.rocketpool.net/rpl-withdrawal-address)或[主网](https://node.rocketpool.net/rpl-withdrawal-address))。
       3. 如果您尚未将 Metamask 或 WalletConnect 连接到 Rocket Pool 网站,请立即执行此操作。点击屏幕中央的**选择钱包**按钮,然后根据您要使用的钱包选择 MetaMask 或 WalletConnect。然后系统会提示您确认连接。例如,使用 MetaMask:
 
@@ -332,7 +336,7 @@ RPL 提款地址在节点操作者级别设置。
 
       <p className="rspress-directive danger">
         这样做会绕过与方法 1 相关的安全措施,该措施要求您证明拥有新地址。
-        如果在此处输入错误,无法撤销,**您的 minipool 奖励将永远丢失**。
+        如果在此处输入错误,无法撤销,**您的 megapool 奖励将永远丢失**。
 
         我们**强烈**建议您在确认之前使用测试交易机制,如果可能,请使用方法 1。
       </p>
@@ -399,4 +403,4 @@ rocketpool wallet set-ens-name <your-ens-name.eth>
 每个主题都需要您就如何运行节点做出选择。
 准备好后,请继续阅读指南中的下一部分。
 
-完成这些主题后,您将被引导完成创建 minipool 和赚取质押奖励的过程。
+完成这些主题后,您将被引导完成创建 megapool 验证者和赚取质押奖励的过程。

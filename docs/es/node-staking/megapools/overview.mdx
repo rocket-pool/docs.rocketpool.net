@@ -1,0 +1,33 @@
+---
+next:
+  text: Creación de un Nuevo Validador Megapool
+  link: "/es/node-staking/create-validator"
+---
+
+# Descripción General
+
+Esta sección cubre los megapools de Rocket Pool y la creación de validadores megapool.
+Aquí aprenderás cómo comenzar a validar la red Ethereum y ganar recompensas por ello.
+
+## Requisitos Previos
+
+Antes de ejecutar Validadores Megapool, asegúrate de:
+
+- Haber configurado una máquina nodo (o máquina virtual) y haberla asegurado (a través de la guía [Asegurar tu Nodo](../securing-your-node))
+- Tener el Smart Node [instalado](../installing/overview) y [configurado](../config/overview) en él
+- Tener una billetera de nodo cargada en tu Smart Node
+- Haber sincronizado tus clientes de Ejecución y Consenso
+- Haber aprovisionado tu nodo con [una dirección de retiro](../prepare-node.mdx#setting-your-withdrawal-address), configurado tus [clientes de respaldo](../fallback) (opcional), optado por el [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (opcional), y configurado [MEV](../mev.mdx)
+
+## Guías
+
+[Creación de un Megapool (Validador)](./create-megapool-validator.mdx) explica el proceso de creación de un nuevo megapool de Rocket Pool y el correspondiente validador en la Beacon Chain.
+Ya sea que estés creando tu primer validador megapool o ya tengas algunos y quieras crear otro, esta guía te llevará paso a paso.
+
+[Hacer Stake de ETH en nombre del nodo](/es/upgrades/houston/stake-eth-on-behalf#stake-eth-on-behalf-of-node) explica cómo puedes usar cualquier dirección independiente (una billetera de hardware, por ejemplo) para hacer stake de ETH en nombre de un nodo. Bastante útil si quieres crear depósitos de validadores
+sin que tu nodo tenga acceso directo al ETH.
+
+[Staking de RPL y Reclamación de Recompensas](/es/node-staking/megapools/staking-and-claiming-rewards) cubre cómo hacer stake de RPL en tu megapool, reclamar tus recompensas de ETH y RPL, y entender el nuevo sistema de distribución de ingresos de Saturn 1.
+Ya sea que estés migrando stake de RPL heredado o comenzando desde cero, esta guía te lleva a través del staking, unstaking y cómo ganar tu parte de los ingresos del protocolo.
+
+[El Sistema de Crédito de Depósito](./credit.mdx) repasa todas las diferentes formas en que es posible acumular crédito de ETH y cómo puede canjearse por rETH o usarse para crear nuevos validadores.

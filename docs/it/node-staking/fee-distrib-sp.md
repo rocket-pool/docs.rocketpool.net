@@ -1,6 +1,6 @@
 # Fee Distributor e lo Smoothing Pool
 
-Ora che [the Merge](https://ethereum.org/en/upgrades/merge/) è passato, i node operator ricevono **priority fee** (**tip**) dalle transazioni che includono in qualsiasi blocco che propongono alla catena Ethereum.
+I node operator ricevono **priority fee** (**tip**) dalle transazioni che includono in qualsiasi blocco che propongono alla catena Ethereum.
 Queste commissioni provengono e rimangono sul layer Execution.
 
 A differenza della maggior parte delle ricompense di validazione che vengono generate sul layer Consensus e ritirate automaticamente periodicamente, queste commissioni sono _immediatamente liquide_.
@@ -23,13 +23,27 @@ Non può inviarle all'indirizzo del tuo minipool, perché deve funzionare anche 
 Invece, il modo in cui funziona è abbastanza semplice: quando Rocket Pool avvia il tuo client Validator, passa un argomento chiamato **fee recipient**.
 Il fee recipient è semplicemente un indirizzo sul layer Execution dove vuoi che vadano le tip.
 
-Rocket Pool è progettato per distribuire equamente queste ricompense tra te e gli staker del pool rETH, nello stesso modo in cui distribuisce equamente le tue ricompense Beacon chain: la tua porzione di qualsiasi priority fee guadagnata dai tuoi validator minipool andrà a te (più la commissione media di tutti i tuoi minipool), e la porzione rimanente andrà agli staker del pool (meno la tua commissione media).
-La porzione esatta dipende dal numero di minipool con bond da 8 ETH rispetto a quelli con bond da 16 ETH che hai.
+Il `fee recipient` del tuo nodo può essere uno dei seguenti contratti speciali:
 
-A tal fine, lo Smartnode imposterà automaticamente il `fee recipient` del tuo nodo su uno di questi contratti speciali:
-
-- Il tuo **Fee Distributor** personale del nodo (predefinito)
+- Il tuo **Fee Distributor** personale del nodo
+- Il contratto megapool del tuo nodo
 - Lo **Smoothing Pool** (opt-in)
+
+Lo Smart Node imposterà automaticamente il fee recipient corretto in base alla tua configurazione:
+
+| Stato Smoothing Pool | Ha Validator Megapool | Ha Minipool | Fee Recipient |
+|----------------------|-----------------------|-------------|---------------|
+| Iscritto | No | Sì | Indirizzo Smoothing Pool |
+| Iscritto | Sì | No | Indirizzo Smoothing Pool |
+| Iscritto | Sì | Sì | Indirizzo Smoothing Pool (tutti i validator) |
+| Non iscritto | No | Sì | Indirizzo contratto Fee Distributor |
+| Non iscritto | Sì | No | Indirizzo contratto Megapool |
+| Non iscritto | Sì | Sì | Validator megapool → Indirizzo Megapool<br>Validator minipool → Indirizzo Fee Distributor<br>(Impostato per validator tramite [keymanager API](https://ethereum.github.io/keymanager-APIs/#/Fee%20Recipient/setFeeRecipient)) |
+
+
+
+Rocket Pool è progettato per distribuire equamente queste ricompense tra te e gli staker del pool rETH, nello stesso modo in cui distribuisce equamente le tue ricompense Beacon chain: la tua porzione di qualsiasi priority fee guadagnata dai tuoi validator minipool andrà a te (più la commissione media di tutti i tuoi minipool), e la porzione rimanente andrà agli staker del pool (meno la tua commissione media).
+La porzione esatta dipende dal numero di minipool con bond da 8 ETH, minipool con bond da 16 ETH, e validator megapool con bond da 4 ETH che hai.
 
 In breve, il **Fee Distributor** è un contratto unico collegato al tuo nodo che raccoglie e divide equamente le tue priority fee tra te e gli staker rETH.
 È come il tuo caveau personale per le priority fee.
@@ -55,13 +69,10 @@ L'indirizzo del Fee Distributor del tuo nodo è **deterministicamente basato sul
 Ciò significa che è noto in anticipo, prima che il Fee Distributor sia stato creato.
 
 I nuovi nodi Rocket Pool creeranno (inizializzeranno) automaticamente il contratto Fee Distributor del loro nodo al momento della registrazione.
-I nodi che sono stati creati prima dell'aggiornamento Redstone dovranno fare questo processo manualmente.
 Questo deve essere eseguito solo una volta.
 
 Una ramificazione interessante di questo è che l'indirizzo del tuo Distributor potrebbe iniziare ad accumulare un saldo **prima** che tu abbia inizializzato il tuo contratto Fee Distributor.
 Va bene, perché il tuo Distributor avrà accesso a tutto questo saldo esistente non appena lo inizializzi.
-
-**Per impostazione predefinita, il tuo nodo utilizzerà il suo Fee Distributor come fee recipient per i tuoi validator.**
 
 ### Visualizzare il suo Indirizzo e Saldo
 
@@ -75,19 +86,9 @@ L'output apparirà così:
 
 ![](../node-staking/images/status-fee-distributor.png)
 
-### Inizializzare il Fee Distributor
+### Richiedere le commissioni dal tuo Fee Distributor
 
-Per inizializzare il distributor del tuo nodo, esegui semplicemente questo nuovo comando:
-
-```shell
-rocketpool node initialize-fee-distributor
-```
-
-::: warning NOTA
-Se hai creato il tuo nodo prima dell'aggiornamento Redstone, devi chiamare questa funzione una volta prima di poter creare nuovi minipool con `rocketpool node deposit`.
-:::
-
-Quando il tuo distributor è stato inizializzato, puoi richiedere e distribuire l'intero suo saldo usando il seguente comando:
+Puoi richiedere e distribuire l'intero saldo del tuo fee distributor usando il seguente comando:
 
 ```shell
 rocketpool node distribute-fees
@@ -97,7 +98,7 @@ Questo invierà la tua quota delle ricompense al tuo **indirizzo di prelievo**.
 
 ::: warning NOTA SUGLI EVENTI TASSABILI
 Ogni volta che crei un nuovo minipool, Rocket Pool chiamerà automaticamente `distribute-fees`.
-Questo è per garantire che qualsiasi commissione tu abbia accumulato venga distribuita usando la commissione media del tuo nodo, che potrebbe cambiare quando crei il nuovo minipool.
+Questo è per garantire che qualsiasi commissione tu abbia accumulato venga distribuita usando la commissione media del tuo nodo, che potrebbe cambiare quando crei il nuovo minipool. Questo non si applica alla creazione di validator megapool.
 
 Inoltre, nota che chiunque può chiamare `distribute-fees` sul tuo fee distributor (per impedirti di tenere in ostaggio le ricompense rETH).
 Potresti avere un evento tassabile ogni volta che questo metodo viene chiamato.
@@ -109,13 +110,14 @@ Tieni presenti queste condizioni quando decidi se utilizzare o meno lo Smoothing
 
 Per garantire che i node operator non "imbroglino" modificando manualmente il fee recipient utilizzato nel loro client Validator, Rocket Pool impiega un sistema di penalità.
 
-L'Oracle DAO monitora costantemente ogni blocco prodotto dai node operator di Rocket Pool.
+L'Oracle DAO è in grado di penalizzare i node operator che non seguono le regole del protocollo.
 
 Se un nodo ha _scelto di non partecipare_ allo Smoothing Pool, i seguenti indirizzi sono considerati fee recipient validi:
 
 - L'indirizzo rETH
 - L'indirizzo dello Smoothing Pool
 - Il contratto fee distributor del nodo
+- Il contratto megapool del nodo
 
 Se un nodo ha _scelto di partecipare_ allo Smoothing Pool, il seguente indirizzo è considerato un fee recipient valido:
 
@@ -123,10 +125,7 @@ Se un nodo ha _scelto di partecipare_ allo Smoothing Pool, il seguente indirizzo
 
 Un fee recipient diverso da uno degli indirizzi validi sopra è considerato **non valido**.
 
-Un minipool che ha proposto un blocco con un fee recipient **non valido** riceverà **uno strike**.
-Al terzo strike, il minipool inizierà a ricevere **infrazioni** - ogni infrazione dedurrà **il 10% del suo saldo totale della Beacon Chain, inclusi i guadagni ETH** e li invierà agli staker del pool rETH al momento del prelievo dei fondi dal minipool.
-
-Le infrazioni sono a livello di **minipool**, non a livello di **nodo**.
+Il software Smart Node imposta automaticamente il fee recipient corretto in base alla tua configurazione (se sei iscritto allo Smoothing Pool e se hai validator megapool, minipool, o entrambi). Per i nodi con sia validator megapool che minipool mentre non sono iscritti, il fee recipient viene impostato per validator usando la keymanager API. L'elenco completo delle condizioni è riassunto [qui](/it/node-staking/fee-distrib-sp#fee-recipient).
 
 Il software Smartnode è progettato per garantire che gli utenti onesti non vengano mai penalizzati, anche se deve portare offline il client Validator per farlo.
 Se questo accade, smetterai di attestare e vedrai messaggi di errore nei tuoi file di log sul motivo per cui lo Smartnode non può impostare correttamente il tuo fee recipient.
@@ -149,19 +148,17 @@ In breve, finché lo Smoothing Pool ha più minipool di quanti ne hai tu, è pi�
 
 Lo Smoothing Pool utilizza le seguenti regole:
 
-- Durante un checkpoint delle ricompense Rocket Pool quando il saldo dello Smoothing Pool viene distribuito, il saldo ETH totale del contratto viene diviso in due.
-  - Gli staker rETH ricevono 1/2 (per bond da 16 ETH) o 3/4 (per bond da 8 ETH aka LEB8), meno la **commissione media** di tutti i node operator che hanno scelto di partecipare
-  - Il resto va ai node operator che hanno scelto di partecipare.
+- Durante un checkpoint delle ricompense Rocket Pool quando il saldo dello Smoothing Pool viene distribuito tra i node operator (tenendo conto della loro commissione), i node operator che fanno staking di RPL, gli staker rETH e potenzialmente il Rocket Pool DAO. Le percentuali esatte sono determinate dalla [governance del Protocol DAO (pDAO) di Rocket Pool](/it/pdao/overview)
 
-- La scelta di partecipare allo Smoothing Pool viene fatta a **livello di nodo**. Se scegli di partecipare, tutti i tuoi minipool partecipano.
+- La scelta di partecipare allo Smoothing Pool viene fatta a **livello di nodo**. Se scegli di partecipare, tutti i tuoi minipool e i validator megapool partecipano.
 
 - Chiunque può scegliere di partecipare in qualsiasi momento. Deve attendere un intero intervallo di ricompense (3 giorni su Hoodi, 28 giorni su Mainnet) prima di poter scegliere di uscire per prevenire il gaming del sistema (ad esempio uscire dallo SP subito dopo essere stati selezionati per proporre un blocco).
   - Una volta usciti, devono attendere un altro intero intervallo per scegliere di rientrare.
 
-- Lo Smoothing Pool calcola la "quota" di ogni minipool (porzione dell'ETH del pool per l'intervallo) posseduta da ogni nodo che ha scelto di partecipare.
-  - La quota è una funzione della performance del tuo minipool durante l'intervallo (calcolata guardando quante attestazioni hai inviato sulla Beacon Chain e quante hai perso) e della tua tariffa di commissione del minipool.
+- Lo Smoothing Pool calcola la "quota" di ogni validator (porzione dell'ETH del pool per l'intervallo) posseduta da ogni nodo che ha scelto di partecipare.
+  - La quota è una funzione della performance del tuo validator durante l'intervallo (calcolata guardando quante attestazioni hai inviato sulla Beacon Chain e quante hai perso) e della tua tariffa di commissione.
 
-- La quota totale del tuo nodo è la somma delle quote dei tuoi minipool.
+- La quota totale del tuo nodo è la somma delle quote dei tuoi validator.
 
 - La quota totale del tuo nodo è scalata in base al tempo in cui sei stato partecipante.
   - Se sei stato partecipante per l'intero intervallo, ricevi la tua quota completa.

@@ -1,0 +1,281 @@
+
+
+# 메가풀 생성 (검증자)
+
+Saturn 1에 오신 것을 환영합니다! Rocket Pool 메가풀은 실행 레이어의 스마트 컨트랙트 인스턴스입니다.
+노드는 하나 또는 여러 검증자의 Ethereum 출금 주소 역할을 하는 메가풀을 관리합니다.
+각 검증자는 본드 금액으로 알려진 귀하의 ETH 일부와 rETH 스테이킹 풀에서 차용된 ETH 일부로 구성됩니다.
+메가풀은 본드 금액과 차용 금액 ETH를 합쳐 총 32 ETH를 만들고, 이를 Beacon Chain 입금 컨트랙트로 전송하여 새 검증자를 생성합니다.
+
+메가풀은 첫 번째 검증자 입금 시 자동으로 배포됩니다. 그 후에는 같은 메가풀을 사용하여 원하는 만큼 많은 검증자를 관리할 수 있습니다! 새 검증자를 생성할 때마다 새 메가풀을 배포할 필요가 없습니다.
+
+
+::: tip 참고
+Beacon Chain 검증자 대기열 활성화(및 종료) 시간은 네트워크의 현재 상태에 따라 크게 달라질 수 있습니다.
+
+이는 Rocket Pool의 제어 범위를 벗어나며 Beacon Chain 자체의 기능입니다.
+
+다음 도구에서 예상 대기 시간을 확인할 수 있습니다:
+[https://www.validatorqueue.com/](https://www.validatorqueue.com/)
+
+이 도구를 검토하여 검증자가 활성화되기까지 얼마나 기다려야 하는지 파악하시기 바랍니다.
+:::
+
+::: tip 참고
+
+검증자 생성은 두 개의 대기열에 의해 관리됩니다.
+
+1. 첫 번째는 Rocket Pool 입금 대기열입니다. 다른 섹션에서 더 자세히 설명하겠지만, 기본적으로 이 대기열은 Rocket Pool 프로토콜에 의해 관리되며 검증자가 차용 ETH를 받는 시점을 결정합니다.
+입금 풀에 귀하의 4 ETH와 매칭될 28 ETH가 있어야 검증자를 생성할 수 있습니다.
+
+2. 두 번째는 Beacon Chain 대기열로, Ethereum Beacon Chain에 의해 관리되며 검증자가 활성화되는 시점을 결정합니다.
+검증자가 활성화되기까지 걸리는 시간은 각 대기열에서의 위치와 네트워크의 현재 상태에 따라 크게 달라질 수 있다는 점을 유의하시기 바랍니다.
+
+Rocket Pool 입금 대기열에는 기존 노드 운영자가 미니풀 검증자 ETH를 메가풀 검증자 ETH로 마이그레이션하는 데 도움이 되는 급행 대기열 시스템이 있습니다.
+
+:::
+
+## Rocket Pool 입금 대기열 및 급행 대기열
+
+Rocket Pool의 입금 대기열에는 두 가지 유형의 대기열이 있습니다: 급행 대기열과 일반 대기열.
+
+입금 대기열에는 기존 노드 운영자가 미니풀 검증자 ETH를 메가풀 검증자 ETH로 마이그레이션하는 데 도움이 되는 급행 대기열 시스템이 있습니다. 또한 급행 대기열을 사용하는 입금에 대해 더 예측 가능한 입금 타임라인을 제공합니다.
+
+급행 대기열은 4:1 비율로 처리됩니다. 즉, 일반 대기열에서 1개의 검증자가 매칭될 때마다 급행 대기열에서 4개의 검증자가 매칭됩니다. 다시 말해, 급행 대기열에서 4개의 검증자가 매칭된 후 일반 대기열에서 1개, 다시 급행 대기열에서 4개 순으로 진행됩니다.
+
+기존 노드 운영자는 레거시 미니풀에 보유한 ETH를 기준으로 급행 대기열 티켓을 받습니다: 본드된 4 ETH마다 티켓 1개.
+예를 들어, 8 ETH 레거시 미니풀을 보유한 노드 운영자는 급행 대기열 티켓 2개를 받습니다. 이는 급행 대기열을 사용하여 두 개의 4 ETH 메가풀 검증자로 완전히 마이그레이션하기에 충분한 티켓입니다.
+[RPIP-59: Deposit Mechanics](https://rpips.rocketpool.net/RPIPs/RPIP-59#deposit-queue)에서 입금 처리 방법의 세부 사항을 확인할 수 있습니다.
+
+급행 대기열에서 [검증자를 대기열에서 제거](/ko/node-staking/megapools/create-megapool-validator#exit-a-validator-from-the-rocket-pool-deposit-queue)하기로 선택하면 급행 대기열 티켓이 환급됩니다.
+
+## ETH 입금 및 검증자 생성
+
+이것이 노드의 첫 번째 메가풀 검증자인 경우, 노드의 메가풀도 동시에 자동으로 배포됩니다. 노드의 메가풀은 하나 또는 여러 검증자를 관리할 수 있으므로 메가풀 배포는 노드당 한 번만 이루어진다는 점을 기억하세요!
+
+메가풀에 ETH를 입금하고 Beacon Chain 검증자를 생성할 준비가 되면 다음 명령을 사용하여 할 수 있습니다:
+
+```
+rocketpool megapool deposit
+```
+::: danger 경고
+
+CLI가 다음 단계의 많은 부분을 자동화하지만, `prelaunch`에서 `staking`으로 성공적으로 전환되도록 노드와 트랜잭션을 <strong>강력히</strong> 모니터링하는 것을 권장합니다.
+
+실패한 트랜잭션(가스 설정 조정, 가스를 위한 ETH 부족, 또는 초기 입금 후 28일 동안 노드가 오프라인인 경우)으로 인해 메가풀 검증자가 `dissolved` 상태로 전환될 수 있으며, 이는 피해야 합니다.
+
+사전 출시 검증자가 28일 이내에 스테이킹에 실패하면 검증자가 해산됩니다. 사전 출시 과정에서 Beacon Chain으로 전송된 1 ETH(4 ETH 본드 중)는 **복구할 수 없습니다**.
+노드 운영자는 0.05 ETH의 해산 페널티가 부채로 적용된 상태에서 본드의 나머지 3 ETH를 [크레딧](/ko/node-staking/megapools/credit)으로 받습니다. 해산된 검증자의 순 크레딧은 2.95 ETH입니다.
+
+[성공적인 스테이킹 확인 방법 자세히 알아보기](./create-megapool-validator#confirming-a-successful-stake)
+
+:::
+
+첫 번째 프롬프트에서는 생성할 검증자 수를 묻습니다. 동일한 입금에서 최대 35개까지 생성할 수 있지만, 여기서는 데모를 위해 검증자 1개로 진행하겠습니다. `1`을 입력한 후 `enter`를 눌러 검증자 1개 생성을 시작합니다.
+```
+Your eth2 client is on the correct network.
+
+How many validators would you like to create? (max: 35)
+1
+```
+
+두 번째 프롬프트에서는 현재 노드가 본드된 ETH 양과 선택한 검증자 수에 대한 총 본드 요구 사항에 대한 정보를 표시합니다. 데모의 노드에는 메가풀 검증자가 없으므로 `0.00 ETH bonded`입니다. 현재 본드 요구 사항은 `4 ETH`입니다.
+표시된 정보를 읽고 이해한 후, `y`를 입력한 다음 `enter`를 눌러 다음 프롬프트로 계속합니다.
+
+
+```
+The node is currently bonded with 0.00 ETH.
+The total bond requirement is 4.00 ETH.
+
+NOTE: You are about to create 1 new megapool validator(s), requiring a total of: 4.00 ETH.
+Would you like to continue? [y/n]
+y
+```
+다음 프롬프트에서는 [Rocket Pool 입금 대기열](/ko/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-and-express-queue) 상태를 표시합니다.
+여기에는 ETH와 매칭되기 위해 귀하보다 먼저 기다리고 있는 검증자 수가 표시됩니다. 급행 대기열은 주로 기존 노드 운영자를 위한 것으로 새 노드에는 급행 대기열 티켓이 없습니다. `The express queue rate is 4`는 일반 대기열의 검증자 1개당 급행 대기열의 검증자 4개가 매칭됨을 의미합니다.
+```
+There are 1 validator(s) on the express queue.
+There are 12 validator(s) on the standard queue.
+The express queue rate is 4 (4 express validators assigned per 1 standard).
+A new express validator would be at queue position 3.
+A new standard validator would be at queue position 14.
+```
+::: tip 참고
+기존 노드 운영자이고 이 입금에 사용 가능한 급행 대기열 티켓이 있는 경우, 이 시점에서 티켓 사용 여부를 묻는 메시지가 표시됩니다.
+`1`을 입력한 후 `enter`를 눌러 이 단일 메가풀 검증자 입금에 급행 대기열 티켓 1개를 사용하세요.
+```
+How many express tickets would you like to use? (max: 7)
+1
+```
+급행 대기열 티켓을 저장하고 일반 대기열로 진행하려면 `0`을 입력한 후 `enter`를 눌러 다음 프롬프트로 이동하세요.
+:::
+
+검증자에서 사용할 [입금 크레딧](/ko/node-staking/megapools/credit)이 있는 경우 여기서 사용하도록 메시지가 표시됩니다. 그렇지 않으면 이 단계에서 네트워크의 현재 가스 가격 제안을 표시합니다.
+```
+Your credit balance is 0.00 ETH. (Credit in addition to ETH staked on your behalf).
+Your consensus client is synced, you may safely create a megapool validator.
++================ Suggested Gas Prices ================+
+| Avg Wait Time |   Max Fee    |     Total Gas Cost     |
+| 15 Seconds    | 2.13120 gwei | 0.00160 to 0.00240 ETH |
+| 1 Minute      | 1.96787 gwei | 0.00148 to 0.00222 ETH |
+| 3 Minutes     | 1.00871 gwei | 0.00075 to 0.00113 ETH |
+| >10 Minutes   | 1.00871 gwei | 0.00075 to 0.00113 ETH |
++======================================================+
+
+These prices include a maximum priority fee of 0.010 gwei.
+Please enter your max fee (including the priority fee) or leave blank for the default of 1.96787 gwei:
+
+```
+가스 가격을 확인한 후, 메가풀 검증자를 생성하기 위한 마지막 최종 확인을 받게 됩니다.
+```
+Using a max fee of 1.968 gwei and a priority fee of 0.010 gwei.
+You are about to deposit 4.000000 ETH to create 1 new megapool validator(s).
+ARE YOU SURE YOU WANT TO DO THIS?
+ [y/n]
+y
+
+Creating 1 megapool validator(s) ...
+Transaction has been submitted with hash <tx-hash>.
+You may follow its progress by visiting:
+https://hoodi.etherscan.io/tx/<tx-hash>
+
+Waiting for the transaction to be included in a block... you may wait here for it, or press CTRL+C to exit and return to the terminal.
+
+The node deposit of 4.000000 ETH total was made successfully!
+Validator pubkeys:
+  1. <beacon-pubkey>
+
+The 1 new megapool validators have been created.
+Once your validators progress through the queue, ETH will be assigned and a 1 ETH prestake submitted for each.
+After the prestake, your node will automatically perform a stake transaction for each validator, to complete the progress.
+To check the status of your validators use `rocketpool megapool validators`
+To monitor the stake transactions use `rocketpool service logs node`
+
+```
+트랜잭션이 완료되면 etherscan 트랜잭션 해시와 함께 입금 확인 및 메가풀 검증자가 온라인 상태가 되면 예상되는 Beacon Chain 공개 키를 받게 됩니다. `rocketpool megapool status` 명령을 사용하여 메가풀 상태를 확인하거나 `rocketpool megapool validators`를 사용하여 특정 검증자의 상태를 확인할 수 있습니다. 검증자는 Rocket Pool 입금 대기열을 통해 진행되는 동안 `initialized` 상태에 있게 됩니다. 메가풀 검증자 공개 키는 Rocket Pool 입금 대기열에 의해 처리되고 ETH가 할당될 때까지 Beacon Chain에 등록되지 않는다는 점을 유의하세요.
+
+이제 여기까지 왔습니다! 메가풀 검증자 생성을 축하합니다. 노드를 최상의 상태로 유지하는 방법을 알아보려면 가이드의 [모니터링 및 유지 관리](/ko/node-staking/maintenance/overview) 섹션을 확인하세요. 또한 `initialized` 검증자가 페널티 없이 `staking`으로 원활하게 진행되도록 성공적인 스테이킹 확인에 대한 다음 섹션을 계속 읽으세요.
+
+## 성공적인 스테이킹 확인
+
+::: danger 경고
+
+CLI가 다음 단계의 많은 부분을 자동화하지만, `prelaunch`에서 `staking`으로 성공적으로 전환되도록 노드와 트랜잭션을 <strong>강력히</strong> 모니터링하는 것을 권장합니다.
+
+실패한 트랜잭션(가스 설정 조정, 가스를 위한 ETH 부족, 또는 초기 입금 후 28일 동안 노드가 오프라인인 경우)으로 인해 메가풀 검증자가 `dissolved` 상태로 전환될 수 있으며, 이는 피해야 합니다.
+
+사전 출시 검증자가 28일 이내에 스테이킹에 실패하면 검증자가 해산됩니다. 사전 출시 과정에서 Beacon Chain으로 전송된 1 ETH(4 ETH 본드 중)는 **복구할 수 없습니다**.
+노드 운영자는 0.05 ETH의 해산 페널티가 부채로 적용된 상태에서 본드의 나머지 3 ETH를 [크레딧](/ko/node-staking/megapools/credit)으로 받습니다. 해산된 검증자의 순 크레딧은 2.95 ETH입니다.
+
+:::
+
+
+이 전체 과정 동안 노드가 온라인 상태를 유지하도록 하세요! 아래에 설명된 다양한 단계 사이에서 검증자가 원활하게 진행되도록 완전히 자동화된 여러 단계를 수행합니다:
+
+새 메가풀 검증자는 `initialized` 상태에 있게 됩니다. Rocket Pool 입금 대기열을 통해 진행되어 입금 풀에서 28 ETH가 할당될 때까지 이 상태가 유지됩니다. `rocketpool megapool validators` 명령을 사용하여 검증자 상태를 확인하세요. 다음과 같이 표시될 것입니다:
+
+```
+1 Initialized validator(s):
+
+--------------------
+
+Megapool Validator ID:        7
+Expected pubkey:              <expected-pubkey>
+Validator active:             no
+Validator Queue Position:     14
+Express Ticket Used:          no
+```
+검증자가 [Rocket Pool 입금 대기열](/ko/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-and-express-queue)에서 ETH를 할당받으면 `Prelaunch` 상태로 이동합니다. 이 시점에서 메가풀 잔액에서 1 ETH가 Beacon Chain에 입금됩니다. 검증자의 공개 키도 Beacon Chain에 등록되어 https://beaconcha.in/ (테스트넷을 사용하는 경우 https://hoodi.beaconcha.in/)과 같은 탐색기에서 `Prelaunch` 검증자 상태를 볼 수 있습니다.
+https://beaconcha.in/에서 공개 키를 검색하거나 `https://beaconcha.in/validator/<your-validator-pubkey>` 형식의 링크를 방문하여 검증자를 확인할 수 있습니다.
+```
+1 Prelaunch validator(s):
+
+--------------------
+
+Megapool Validator ID:        7
+Validator pubkey:             <pubkey>
+Validator active:             no
+Express Ticket Used:          no
+
+```
+<img src="../images/prestaking.png" width="100%" height="auto" />
+`Prelaunch` 검증자가 Beacon Chain에 의해 처리되고 초기 1 ETH 입금이 인정된 후, 노드는 자동으로 전체 32 ETH Beacon Chain 입금을 완료하기 위한 `stake` 트랜잭션을 수행합니다. `stake` 트랜잭션은 `Prelaunch` 검증자를 `Staking` 검증자로 진행시킵니다. 이 시점에서 `Staking` 검증자는 다음 상태가 됩니다:
+- Beacon Chain에 32 ETH 입금 완료
+- 검증자 인덱스 번호 할당
+- Beacon Chain에서 활성화 대기 중
+
+```
+1 Staking validator(s):
+
+Megapool Validator ID:        1
+Validator pubkey:             <pubkey>
+Validator active:             no
+Validator index:              <index>
+Beacon status:                pending_queued
+Express Ticket Used:          no
+
+```
+<img src="../images/pending-activation.png" width="100%" height="auto" />
+
+Beacon Chain 검증자 대기열의 현재 상태는 https://www.validatorqueue.com/에서 확인할 수 있습니다. `Staking` 검증자가 Beacon Chain에서 활성화되면 `rocketpool megapool validators` 메뉴에서 `Beacon status: active_ongoing`을 확인하여 활성화되어 증명을 수행할 준비가 되었음을 알 수 있습니다.
+
+```
+1 Staking validator(s):
+
+--------------------
+
+Megapool Validator ID:        0
+Validator pubkey:             <pubkey>
+Validator active:             yes
+Validator index:              <index>
+Beacon status:                active_ongoing
+Express Ticket Used:          no
+```
+<img src="../images/activated.png" width="100%" height="auto" />
+
+이 단계에서 모든 설정이 완료되었습니다! 축하합니다! Rocket Pool로 메가풀 검증자를 공식적으로 생성하였습니다! [모니터링 및 유지 관리](/ko/node-staking/maintenance/overview) 가이드를 참조하여 노드를 모니터링하고 최상의 상태를 유지하는 방법을 알아보세요.
+
+## Rocket Pool 입금 대기열에서 검증자 제거
+
+대기열(급행 또는 일반)에서 검증자가 대기 중이고 대기열을 탈퇴하고자 하는 경우 그렇게 할 수 있습니다! 4 ETH 입금은 동등한 금액의 rETH로 교환 가능한 크레딧으로 환급됩니다. 단계는 매우 간단합니다:
+
+먼저 `rocketpool megapool validators`를 확인하여 어떤 검증자를 대기열에서 제거할지 결정합니다. 대기열에서 제거하려는 검증자가 `Initialized` 상태인지 확인하세요. 공개 키를 기록해 두세요. 검증자에 ETH가 할당된 후에는 대기열에서 제거할 수 없습니다.
+```
+1 Initialized validator(s):
+
+--------------------
+
+Megapool Validator ID:        6
+Expected pubkey:              <beacon-pubkey>
+Validator active:             no
+Validator Queue Position:     14
+Express Ticket Used:          no
+```
+
+
+다음 명령을 사용하여 대기열에서 검증자를 제거한 후 선택을 진행합니다:
+```
+staker@node:~$ rocketpool megapool exit-queue
+
+Please select a validator to exit the queue:
+1: Pubkey: <beacon-pubkey>
+```
+선택을 완료하고 검증자가 Rocket Pool 입금 대기열을 탈퇴한 것을 확인한 후, 다음 명령을 사용하여 크레딧을 rETH로 교환할 수 있습니다:
+
+```
+staker@node:~$ rocketpool node withdraw-credit
+
+You have 4.000000 ETH of credit that you can withdraw, receiving the equivalent amount in rETH. Would you like to withdraw the maximum amount of credit? [y/n]
+```
+완료되었습니다! 다른 검증자를 입금하고 싶다면 이 크레딧은 rETH로 교환하는 것 외에도 검증자 입금으로도 사용할 수 있습니다.
+제거된(대기열에서 제외된) 검증자에 급행 대기열 티켓을 사용한 경우, 노드에 해당 급행 대기열 티켓이 환급됩니다.
+
+## 여러 메가풀 검증자 생성
+
+노드의 메가풀은 원하는 만큼 많은 검증자를 관리할 수 있습니다. 추가 검증자를 생성하거나(또는 트랜잭션 수수료를 절약하기 위해 동일한 트랜잭션에서 여러 검증자를 생성하려는 경우) `rocketpool megapool deposit` 명령을 사용하여 할 수 있습니다. 현재 블록 가스 한도를 고려할 때 한 트랜잭션에서 생성할 수 있는 최대 검증자 수는 35개입니다.
+
+## 다음 단계
+
+메가풀 검증자를 시작하고 실행했으므로, 다음 단계에서는 노드의 상태를 모니터링하고, 업데이트를 확인 및 적용하고, 수명 동안 노드를 유지 관리하는 방법을 안내합니다.
+
+다음 주제에 대해 더 자세히 알아보려면 [모니터링 및 유지 관리](/ko/node-staking/maintenance/overview) 섹션을 읽으세요.

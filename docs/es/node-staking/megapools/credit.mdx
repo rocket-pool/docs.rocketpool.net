@@ -1,0 +1,70 @@
+# El Sistema de Crédito de Depósito
+
+El sistema de crédito de depósito es un mecanismo para rastrear el ETH que fue previamente depositado como garantía por operadores de nodo pero que ya no es requerido, y ponerlo disponible para su uso nuevamente.
+Las fuentes de este crédito provienen de algunos lugares:
+
+- [Salir de un validador de la cola de depósitos de Rocket Pool](./create-megapool-validator#salir-de-un-validador-de-la-cola-de-depositos-de-rocket-pool). Retirar un validador de la cola acreditará al operador de nodo con el monto de garantía (4 ETH)
+- Si un validador en prelaunch falla en hacer stake dentro de 28 días, el validador se disolverá. El 1 ETH (de un bono de 4 ETH) enviado a la Beacon Chain durante el proceso de prelaunch **no es recuperable**.
+ Al operador de nodo se le acredita el ETH restante de 3 ETH de su bono con una penalización de disolución de 0.05 ETH aplicada como deuda. El crédito neto para un validador disuelto es de 2.95 ETH.
+
+Los dos siguientes son solo para operadores de nodo que hicieron migraciones antes de saturn. Ya no son posibles:
+- [Migrar un minipool existente con garantía de 16 ETH a un minipool con garantía de 8 ETH](/es/node-staking/leb-migration.mdx) (que agrega 8 ETH al saldo de crédito del operador de nodo)
+- [Migrar un validador solo existente](/es/node-staking/solo-staker-migration) a un minipool (que agrega 16 o 24 ETH al saldo de crédito del operador de nodo, dependiendo del tipo de minipool que creen durante la migración)
+
+Cada operador de nodo comienza con un saldo de crédito de **0 ETH**.
+
+Este ETH no se hace líquido y se devuelve al operador de nodo; en cambio, puede canjearse por una cantidad equivalente de rETH. Además, el crédito puede usarse para
+**crear validadores megapool adicionales** sin requerir ETH del operador de nodo.
+
+El sistema de crédito es **transparente** para el operador de nodo; se usará automáticamente (con notificaciones en el Smart Node CLI explicando que se usará) durante las operaciones `rocketpool node deposit` si es posible.
+Si _no puede_ usarse, el Smart Node alertará al usuario de que no puede usarse y requerirá un bono normal de ETH durante cualquiera de las operaciones.
+
+Consulta la sección [Disponibilidad de Crédito](#disponibilidad-de-credito) a continuación para más detalles.
+
+
+## Ver tu Saldo de Crédito Actual
+
+Para ver tu saldo de crédito actual, simplemente ejecuta el siguiente comando:
+
+```shell
+rocketpool node status
+```
+
+Esto produce una lista completa de detalles sobre tu nodo, incluyendo su saldo de crédito justo al principio:
+
+```
+Your Smart Node is currently using the Hoodi Test Network.
+
+=== Account and Balances ===
+The node <node-address> has a balance of 49.402553 ETH and 0.000000 RPL.
+The node has 4.000000 ETH in its credit balance and 0.000000 ETH staked on its behalf. 2.909175 can be used to make new validators.
+```
+
+## Canjear Crédito por rETH
+
+Para canjear crédito por rETH, usa el comando `rocketpool node withdraw-credit`. La cantidad equivalente en rETH se enviará a tu dirección de retiro (tu dirección de nodo si no se ha configurado una dirección de retiro):
+```
+staker@node:~$ rocketpool node withdraw-credit
+
+You have 4.000000 ETH of credit that you can withdraw, receiving the equivalent amount in rETH.
+
+Would you like to withdraw the maximum amount of credit? [y/n]
+```
+
+
+## Disponibilidad de Crédito
+
+El ETH para tu saldo de crédito se toma del **deposit pool**.
+En algunas situaciones, tu nodo podría tener un saldo de crédito disponible, pero el deposit pool no tendrá el saldo de ETH para depositar completamente tu próximo validador megapool.
+
+Si deseas usar 4 ETH en crédito para crear un nuevo validador megapool de 4 ETH, requerirá 4 ETH del deposit pool y ninguno de tu parte.
+Por eso, si el deposit pool no tiene suficiente ETH para cubrir el valor del bono (actualmente establecido en 4 ETH), tu depósito requerirá ETH de tu billetera de nodo para crear un validador.
+
+El Smart Node podrá crear un validador usando ETH del deposit pool junto con una porción de tu crédito. El Smart Node te notificará durante
+la operación `rocketpool megapool deposit` si tienes crédito y debes usar ETH de tu billetera de nodo para crear un validador.
+
+En el siguiente ejemplo, el operador de nodo tiene `4 ETH` en crédito pero el deposit pool solo tiene `3.431627 ETH`, requiriendo `0.568373 ETH` de la billetera del nodo para completar el depósito:
+```
+Your credit balance is 4.00 ETH. (Credit in addition to ETH staked on your behalf).
+This deposit will use 3.431627 ETH from your credit balance plus ETH staked on your behalf and 0.568373 ETH from your node wallet.
+```

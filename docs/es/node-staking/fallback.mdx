@@ -4,19 +4,19 @@ import tui_fallback_clients from "./images/tui-fallback-clients.png";
 
 # Especificar un Nodo de Respaldo
 
-A partir de **1.5.0** del stack de Smartnode, puede proporcionar un par de cliente de Execution "de respaldo" y cliente de Consensus que puede asumir el control de sus clientes primarios si alguna vez se desconectan (como por ejemplo [si usa Geth y necesita podarlo](./pruning)).
-En esta situación, su máquina de nodo primaria seguirá siendo responsable de atestiguar y proponer bloques con las claves de validador de sus minipools, pero se conectará a una máquina externa para interactuar con las cadenas de Execution y Beacon.
+A partir de **1.5.0** del stack de Smartnode, puedes proporcionar un par de cliente de Execution "de respaldo" y cliente de Consensus que puede asumir el control de tus clientes primarios si alguna vez se desconectan (como por ejemplo [si usas Geth y necesitas podarlo](./pruning)).
+En esta situación, tu máquina de nodo primaria seguirá siendo responsable de atestiguar y proponer bloques con las claves de validador de tu megapool, pero se conectará a una máquina externa para interactuar con las cadenas de Execution y Beacon.
 
-Esencialmente, le permite usar _temporalmente_ otro par de clientes para cosas como consultar las cadenas, enviar transacciones y recibir bloques para atestiguar.
+Esencialmente, te permite usar _temporalmente_ otro par de clientes para cosas como consultar las cadenas, enviar transacciones y recibir bloques para atestiguar.
 Este par puede ser administrado externamente (como en modo Híbrido), o puede ser otro nodo de Rocket Pool (otra máquina en modo Docker que tiene los puertos API expuestos, lo cual cubriremos a continuación).
 
-Una vez que los clientes primarios de su nodo estén de vuelta en línea, el Smartnode y su cliente Validator volverán a ellos automáticamente.
+Una vez que los clientes primarios de tu nodo estén de vuelta en línea, el Smartnode y tu cliente Validator volverán a ellos automáticamente.
 
 ::: warning NOTA
 Un nodo de respaldo **no** es lo mismo que un nodo de "backup".
-Los nodos de respaldo tienen un par de cliente de Execution y Consensus sincronizados con la cadena y ejecutándose, pero **no** tienen la billetera de su nodo o sus claves de validador cargadas.
+Los nodos de respaldo tienen un par de cliente de Execution y Consensus sincronizados con la cadena y ejecutándose, pero **no** tienen la billetera de tu nodo o sus claves de validador cargadas.
 
-Si su nodo principal alguna vez se desconecta, **su respaldo no comenzará a validar por usted.**
+Si tu nodo principal alguna vez se desconecta, **tu respaldo no comenzará a validar por ti.**
 :::
 
 ## Clientes Compatibles
@@ -33,47 +33,47 @@ A partir de v1.9.0, todos nuestros clientes de validador compatibles han agregad
 
 ## Configurar un Nuevo Nodo (Modo Docker)
 
-Puede usar una segunda máquina que posea localmente, un nodo remoto alojado en un VPS, o un nodo basado en la nube como un nodo de respaldo.
+Puedes usar una segunda máquina que poseas localmente, un nodo remoto alojado en un VPS, o un nodo basado en la nube como un nodo de respaldo.
 
-Este ejemplo le muestra cómo crear un segundo Smartnode en una máquina diferente usando el modo Docker, que puede servir como un nodo de respaldo.
+Este ejemplo te muestra cómo crear un segundo Smartnode en una máquina diferente usando el modo Docker, que puede servir como un nodo de respaldo.
 
 ::: tip SUGERENCIA
-Si ya tiene un segundo nodo listo y tiene sus puertos RPC expuestos, siéntase libre de omitir esta sección.
+Si ya tienes un segundo nodo listo y tiene sus puertos RPC expuestos, siéntete libre de omitir esta sección.
 :::
 
-1. Siga los pasos en la guía sobre configuración de un nodo ([local](./local/hardware) o [remoto](./vps/providers)).
-2. Una vez que la máquina esté lista, [instale el stack de Smartnode](./docker).
-3. Ejecute `rocketpool service config` para especificar qué clientes le gustaría usar.
-   1. Cuando llegue al final del asistente y le pregunte si desea revisar su configuración, seleccione **Yes**.
-   2. Entre a la configuración de `Execution Client`.
-   3. Marque la casilla `Expose RPC Ports`:
+1. Sigue los pasos en la guía sobre configuración de un nodo ([local](./local/hardware) o [remoto](./vps/providers)).
+2. Una vez que la máquina esté lista, [instala el stack de Smartnode](./docker).
+3. Ejecuta `rocketpool service config` para especificar qué clientes te gustaría usar.
+   1. Cuando llegues al final del asistente y te pregunte si deseas revisar tu configuración, selecciona **Yes**.
+   2. Entra a la configuración de `Execution Client`.
+   3. Marca la casilla `Expose RPC Ports`:
 
    <img src={tui_ec_expose_ports} width="100%" height="auto" />
-   4. Regrese y entre a la configuración de `Consensus Client`. 5. Marque la casilla `Expose API Port` (y, si está usando **Prysm**, la casilla `Expose RPC Port` también):
+   4. Regresa y entra a la configuración de `Consensus Client`. 5. Marca la casilla `Expose API Port` (y, si estás usando **Prysm**, la casilla `Expose RPC Port` también):
 
    <img src={tui_cc_expose_ports} width="100%" height="auto" />
-   6. Guarde la configuración e inicie el Smartnode.
+   6. Guarda la configuración e inicia el Smartnode.
 
-4. Salte a la guía [Asegurando su Nodo](./securing-your-node) para configurar SSH y la postura de seguridad adecuada en él.
-   1. Si tiene `ufw` instalado, necesitará agregar reglas para permitir tráfico entrante a los puertos API (`8545`, `8546`, y `5052` por defecto; también `5053` si está usando **Prysm**).
+4. Salta a la guía [Asegurando tu Nodo](./securing-your-node) para configurar SSH y la postura de seguridad adecuada en él.
+   1. Si tienes `ufw` instalado, necesitarás agregar reglas para permitir tráfico entrante a los puertos API (`8545`, `8546`, y `5052` por defecto; también `5053` si estás usando **Prysm**).
 
-5. ¡Eso es todo! Puede detenerse aquí.
+5. ¡Eso es todo! Puedes detenerte aquí.
 
 ::: danger NOTA
-**No** cree una billetera con `rocketpool wallet init` ni recupere su billetera antigua.
-Deje este nodo sin una billetera y sin claves de validador.
+**No** crees una billetera con `rocketpool wallet init` ni recuperes tu billetera antigua.
+Deja este nodo sin una billetera y sin claves de validador.
 
 Su único trabajo es tener un cliente de Execution y cliente de Consensus sincronizados.
 :::
 
-## Conectar su Nodo Principal al Nodo de Respaldo
+## Conectar tu Nodo Principal al Nodo de Respaldo
 
-Una vez que tenga un nodo de respaldo preparado, puede conectarlo a su nodo principal.
+Una vez que tengas un nodo de respaldo preparado, puedes conectarlo a tu nodo principal.
 
-1. Entre al TUI de `rocketpool service config` y entre a la configuración de `Fallback Clients`.
-2. Marque la casilla `Use Fallback Clients`.
-3. Ingrese la URL RPC para su cliente de Execution en la casilla `Execution Client URL`. Por ejemplo, si la dirección IP de su nodo de respaldo es `192.168.1.45` y tiene su cliente de Execution en el puerto predeterminado de `8545`, ingresaría `http://192.168.1.45:8545` aquí.
-4. Haga lo mismo para la URL RPC de su cliente de Consensus de respaldo. Siguiendo el mismo ejemplo, si lo tiene en el puerto predeterminado de `5052`, ingresaría `http://192.168.1.45:5052` aquí.
+1. Entra al TUI de `rocketpool service config` y entra a la configuración de `Fallback Clients`.
+2. Marca la casilla `Use Fallback Clients`.
+3. Ingresa la URL RPC para tu cliente de Execution en la casilla `Execution Client URL`. Por ejemplo, si la dirección IP de tu nodo de respaldo es `192.168.1.45` y tienes tu cliente de Execution en el puerto predeterminado de `8545`, ingresarías `http://192.168.1.45:8545` aquí.
+4. Haz lo mismo para la URL RPC de tu cliente de Consensus de respaldo. Siguiendo el mismo ejemplo, si lo tienes en el puerto predeterminado de `5052`, ingresarías `http://192.168.1.45:5052` aquí.
 
 La página final debería verse así:
 
@@ -82,12 +82,12 @@ La página final debería verse así:
 ::: tip NOTA
 Los usuarios de **modo nativo** pueden seguir los mismos pasos, aunque el TUI se verá ligeramente diferente de la captura de pantalla anterior.
 
-Tenga en cuenta que esto solo proporcionará **al Smartnode mismo** (el servicio daemon) con soporte de respaldo; **tendrá que actualizar manualmente los argumentos del servicio de su cliente Validator para darle acceso a los clientes de respaldo.**
+Ten en cuenta que esto solo proporcionará **al Smartnode mismo** (el servicio daemon) con soporte de respaldo; **tendrás que actualizar manualmente los argumentos del servicio de tu cliente Validator para darle acceso a los clientes de respaldo.**
 :::
 
-Presione `enter` en la casilla final para asegurarse de que esté confirmada, luego guarde la configuración y aplique los cambios.
+Presiona `enter` en la casilla final para asegurarte de que esté confirmada, luego guarda la configuración y aplica los cambios.
 
-Una vez que se hayan aplicado, puede confirmar la disponibilidad de su nodo de respaldo usando el comando `rocketpool node sync`:
+Una vez que se hayan aplicado, puedes confirmar la disponibilidad de tu nodo de respaldo usando el comando `rocketpool node sync`:
 
 ```
 Your Smartnode is currently using the Ethereum Mainnet.
@@ -100,18 +100,18 @@ Your primary consensus client is fully synced.
 Your fallback consensus client is fully synced.
 ```
 
-Si muestra que tanto el cliente de Execution de respaldo como el cliente de Consensus están sincronizados, ¡entonces está todo listo!
+Si muestra que tanto el cliente de Execution de respaldo como el cliente de Consensus están sincronizados, ¡entonces estás todo listo!
 
 ## Probar los Clientes de Respaldo
 
-Si desea estar absolutamente seguro de que su configuración va a funcionar probando los clientes de respaldo, simplemente detenga los clientes de Execution y Consensus en su nodo principal:
+Si deseas estar absolutamente seguro de que tu configuración va a funcionar probando los clientes de respaldo, simplemente detén los clientes de Execution y Consensus en tu nodo principal:
 
 ```shell
 docker stop rocketpool_eth1 rocketpool_eth2
 ```
 
-Luego ejecute cualquier comando que consulte la cadena, como `rocketpool network stats`.
-Verá un mensaje de advertencia en la parte superior indicando que uno (o ambos) de sus clientes primarios están fuera de línea, y que está revirtiendo a los clientes de respaldo:
+Luego ejecuta cualquier comando que consulte la cadena, como `rocketpool network stats`.
+Verás un mensaje de advertencia en la parte superior indicando que uno (o ambos) de tus clientes primarios están fuera de línea, y que está revirtiendo a los clientes de respaldo:
 
 ```
 NOTE: primary clients are not ready, using fallback clients...
@@ -119,43 +119,56 @@ NOTE: primary clients are not ready, using fallback clients...
  Primary CC status: unavailable (Sync progress check failed with [Could not get node sync status: Get "http://eth2:5052/eth/v1/node/syncing": dial tcp: lookup eth2 on 127.0.0.11:53: no such host])
 
 ========== General Stats ==========
-Total Value Locked:      278978.009858 ETH
-Staking Pool Balance:    10.587295 ETH
-Minipool Queue Demand:   3360.000000 ETH
-Staking Pool ETH Used:   99.735490%
+Total Value Locked:          1196.926316 ETH
+Deposit Pool Balance:        23.586761 ETH
+Minipool Queue Demand:       0.000000 ETH
+Deposit Pool ETH Used:       6.809609%
 
 ============== Nodes ==============
-Current Commission Rate: 15.000000%
-Node Count:              1325
-Active Minipools:        6409
-    Initialized:         175
-    Prelaunch:           3
-    Staking:             6227
-    Withdrawable:        0
-    Dissolved:           4
-Inactive Minipools:      0
+Current Commission Rate:     5.000000%
+Node Count:                  16
+Active Minipools:            36
+    Initialized:             0
+    Prelaunch:               0
+    Staking:                 36
+    Withdrawable:            0
+    Dissolved:               0
+Finalized Minipools:         30
+
+=========== Megapools ============
+Megapool contracts deployed: 10
+Total megapool validators:  86
+     Staking:                51
+     In Prestake:            6
+     In Queue:               10
+     Exited:                 14
+     Locked:                 1
+     Exiting:                2
+     Dissolved:              2
 
 ========== Smoothing Pool =========
-Nodes Opted in:          0
-Pending Balance:         0.000000
+Contract Address:            0xE8D1136ac49DBe6ac8f299130253004DC63841a1
+Nodes Opted in:              3
+Pending Balance:             0.000000
 
 ============== Tokens =============
-rETH Price (ETH / rETH): 1.031919 ETH
-RPL Price (ETH / RPL):   0.011563 ETH
-Total RPL staked:        6098920.170527 RPL
-Effective RPL staked:    5751692.043848 RPL
+rETH Price (ETH / rETH):     1.185477 ETH
+RPL Price (ETH / RPL):       0.000639 ETH
+Total RPL staked:            33406.127068 RPL
+Total Megapool RPL staked:   11406.127068 RPL
+Total Legacy RPL staked:     22000.000000 RPL
 ```
 
-Finalmente, inicie sus clientes primarios nuevamente:
+Finalmente, inicia tus clientes primarios nuevamente:
 
 ```shell
 docker start rocketpool_eth1 rocketpool_eth2
 ```
 
 ¡Y listo!
-Su configuración de respaldo está funcionando.
+Tu configuración de respaldo está funcionando.
 
 ## Próximos Pasos
 
-Ya sea que haya optado o no por crear y/o ejecutar un nodo de respaldo para su configuración, el siguiente paso es aprender sobre las **priority fees**.
-Haga clic en la siguiente sección de la guía cuando esté listo para continuar.
+Ya sea que hayas optado o no por crear y/o ejecutar un nodo de respaldo para tu configuración, el siguiente paso es aprender sobre las **priority fees**.
+Haz clic en la siguiente sección de la guía cuando estés listo para continuar.

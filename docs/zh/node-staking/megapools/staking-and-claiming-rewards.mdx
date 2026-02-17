@@ -1,0 +1,373 @@
+# RPL 质押和领取奖励
+
+在 Saturn 1 中，RPL 已从根本上转变为一种积累 ETH 的收益分享代币。本指南介绍如何将 RPL 质押到您的 megapool、从旧版 minipool 迁移现有 RPL 质押、领取奖励，以及在需要时提取 RPL。本指南还介绍了 ETH 协议收益通过选民份额奖励分配给 megapool RPL 质押者的机制。
+
+## Saturn 1 中的变化
+
+今后，之前质押在 minipool 上的旧版 RPL 继续赚取通胀奖励并像以前一样贡献投票权。
+在 Saturn 1 中，在您的 megapool 上质押 RPL 提供以下几项好处：
+
+1. **ETH 收益分享**：Megapool 质押的 RPL 通过选民份额机制为您赚取协议 ETH 收益的比例份额
+2. **RPL 通胀奖励**：继续赚取 RPL 通胀奖励（28 天奖励周期）
+3. **投票权**：质押的 RPL 授予 Rocket Pool [协议 DAO（pDAO）治理](/zh/pdao/overview)中的投票权
+
+在您的 megapool 上质押 RPL 可解锁由协议收益产生的 ETH 奖励。选民份额（协议收益的 9%）根据所有节点运营者在 megapool 总 RPL 质押中的份额按比例分配。
+
+## 通用可调节收益分割（UARS）
+
+Saturn 1 引入了 UARS，它将来自节点运营者佣金的协议 ETH 收益分配给四个组：
+
+| 组别 | 默认份额 | 可通过 pDAO 调整 |
+|-------|---------------|---------------------|
+| **基础佣金** 分配给节点运营者 | 5% | 是 |
+| **选民份额** 分配给 megapool RPL 质押者 | 9% | 是 |
+| **pDAO 国库** | 0% | 是 |
+| **rETH 持有者** | 86%（其余部分） | 自动 |
+
+这些参数可通过 [pDAO 治理](/zh/pdao/overview)进行调整，使 Rocket Pool 协议能够随市场条件变化进行适应和竞争。通过质押 RPL 和运行验证者，您有资格参与此过程！
+
+## 选民份额如何分配给 Megapool RPL 质押者
+
+选民份额（协议收益的 9%）根据所有节点运营者在 megapool 总 RPL 质押中的份额按比例分配。每 28 天，oracle DAO 将对选民份额池中积累的总 ETH 进行快照，并记录每个节点运营者基于其 megapool 质押 RPL 余额的份额。
+在每个 28 天奖励期结束时，您可以使用 Smart Node 领取您的奖励。或者，您也可以在多个奖励期内积累奖励，然后一次性领取所有奖励。
+
+查看[查看您的 ETH 和 RPL 奖励](/zh/node-staking/megapools/staking-and-claiming-rewards#viewing-your-nodes-eth-and-rpl-rewards)指南，了解您可以赚取的不同类型奖励，以及如何检查您的奖励状态。
+
+熟悉之后，请阅读[领取奖励](/zh/node-staking/megapools/staking-and-claiming-rewards#claiming-your-nodes-eth-and-rpl-rewards)，了解如何领取您的奖励。
+
+## 投票权
+
+要使您的 RPL 具有投票资格，必须满足以下要求：
+
+- 质押在您的节点运营者账户中（旧版和 megapool 归属的 RPL 均符合条件）
+- 上限为您总质押 ETH 的 150%（跨所有 minipool 和 megapool）
+- 您的节点必须有活跃的验证者（minipool 或 megapool）才能贡献质押 ETH
+
+这些要求共同确保公平性，使大型质押者更难对投票过程产生不成比例的影响。
+
+最大具有投票资格的 RPL（总质押 ETH 的 150%）使用您在所有 minipool 和 megapool 中的质押 ETH 计算如下：
+
+```
+vote-eligible RPL = min(1.5*RPL value of megapool bonded_eth, megapool staked rpl)
+```
+您应该能够在 `rocketpool node status` 菜单中查看您节点的质押 ETH 比率：
+
+```
+=== RPL Stake ===
+NOTE: The following figures take *any pending bond reductions* into account.
+
+The node has a total stake of 5400.964614 RPL.
+This is currently 4.79% of its borrowed ETH and 14.38% of its bonded ETH.
+The node has 4383.275814 megapool staked RPL.
+The node has 1017.688800 legacy staked RPL.
+The node has a total stake (legacy minipool RPL plus megapool RPL) of 5400.964614 RPL.
+You have 4383.275814 RPL staked on your megapool and can request to unstake up to 4383.275814 RPL
+```
+
+::: tip 重要
+投票系统在计算您的投票权时平等对待所有质押的 RPL。
+但是，具有投票资格的 RPL 必须质押在 megapool 上才能赚取选民份额 ETH 奖励。选民份额（协议 ETH 收益的 9%）仅分配给 megapool 质押者。
+换句话说，所有具有投票资格的 RPL 都授予投票权，而具有投票资格的 megapool RPL 还能赚取选民份额奖励。
+
+因此，在上面的示例中，节点的 `total stake of 5400.964614 RPL` 具有投票资格，因为它在质押 ETH 上限 150% 以内。节点的 `4383.275814 megapool staked RPL` 赚取选民份额奖励，而节点的 `1017.688800 legacy staked RPL` 则不会。
+:::
+
+## 将 RPL 从旧版 Minipool 迁移到 Megapool
+
+如果您是一个在旧版 minipool 上质押了 RPL 的现有节点运营者，您可能考虑将旧版 RPL 质押迁移到您的 megapool。
+质押在 minipool 上的旧版 RPL 不会赚取选民份额奖励。但是，您的旧版 RPL 质押将继续赚取 RPL 通胀奖励，并贡献您节点在 [pDAO 治理](/zh/pdao/overview)中的投票权。
+
+要迁移您的旧版 RPL，您首先需要[取消质押并提取](/zh/node-staking/megapools/staking-and-claiming-rewards#unstaking-and-withdrawing-rpl)您的旧版 RPL，然后使用 `rocketpool node stake-rpl` 命令再次[质押](/zh/node-staking/megapools/staking-and-claiming-rewards#staking)。我们将在下一节介绍如何操作。
+
+## 取消质押和提取 RPL
+
+Saturn 1 引入了取消质押 RPL 的两步提取系统。这旨在减少市场波动性，特别是在银行挤兑的情况下。两步提取系统还可以防止节点运营者通过让其 RPL 在 DeFi 中赚取奖励，然后在奖励期内及时质押来操纵奖励系统的情况。
+
+1. 第一步是提出取消质押 RPL 的请求。您将决定希望取消质押多少旧版 RPL 或 megapool RPL。
+2. 经过 28 天的 `unstaking period`（取消质押期）后，`unstaking` 状态的 RPL 将变为 `unstaked` 状态。此时您可以提取您的 `unstaked` RPL。
+
+您可以取消质押的 megapool 质押 RPL 数量没有上限，这意味着您可以随时取消质押并提取全部金额。
+拥有旧版 RPL 的节点运营者可以提取至最低 15% 借入 ETH 抵押率。这 15% 的最低限额仅考虑来自旧版 minipool 的借入 ETH，不包括 megapool。以下几节将介绍取消质押和提取 RPL 的两个步骤。
+
+
+::: tip 旧版 RPL 质押者注意事项
+如果您想降低借入 ETH 抵押率以提取更多 RPL，您可能需要考虑
+[退出您的 minipool](/zh/node-staking/withdraw#shut-down-a-minipool) 以降低您的借入 ETH 抵押金额。
+
+
+:::
+
+### 步骤 1：申请取消质押 RPL
+
+::: warning 警告
+
+在 28 天取消质押期间：
+- 您申请取消质押的 RPL 不再继续赚取奖励。
+- 您无法取消取消质押过程，但您可以在 28 天期满后提取，然后重新质押。
+- 您可以在 28 天期间发起新的提取，但您所有取消质押中的 RPL 将重新计算 28 天的取消质押时间。建议在发起另一次提取之前完成初始提取。否则您需要再次等待完整的取消质押期。
+
+:::
+
+要开始此过程，请使用 `rocketpool node withdraw-rpl` 命令。您将看到以下提示：
+```
+The RPL withdrawal process has changed in Saturn. It is now a 2-step process:
+1. Request to unstake a certain RPL amount;
+2. Wait for the unstaking period to end (currently 28 days), and then withdraw the RPL.
+
+Your node has 1017.688800 RPL on its legacy stake (previously associated to minipools) and 4383.275814 RPL staked on its megapool.
+Your node currently has 0.000000 RPL locked on pDAO proposals.
+Your node's RPL withdrawal address is 0x89e860C8Feb86D9f54Ad4D7D6bcBe019EB1D6C24.
+
+You have 0.000000 RPL unstaked and ready to be withdrawn to your RPL withdrawal address.
+Please select one of the three options below.
+
+1: withdraw unstaked RPL
+2: request to unstake RPL
+3: request to unstake legacy RPL
+```
+
+- 如果您正在取消质押 megapool RPL，请输入 `2` 选择第二个选项 `request to unstake RPL`，然后按键盘上的 `enter`。
+
+- 如果您正在迁移旧版 RPL，请选择第三个选项 `request to unstake legacy RPL`。
+
+系统将提示您取消质押全部余额或输入自定义取消质押金额。输入 `y` 取消质押全部金额，或输入 `n` 输入自定义取消质押金额。
+从这里开始，Smart Node 将引导您完成发出取消质押请求所需的其余步骤。
+```
+You have 4383.275814 RPL staked on your megapool and can request to unstake up to 4383.275814 RPL.
+Would you like to unstake the maximum amount of staked RPL? [y/n]
+n
+
+Please enter an amount of staked RPL to unstake:
+1000
+
++================ Suggested Gas Prices ================+
+| Avg Wait Time |   Max Fee    |     Total Gas Cost     |
+| 15 Seconds    | 2.97747 gwei | 0.00061 to 0.00091 ETH |
+| 1 Minute      | 2.47747 gwei | 0.00050 to 0.00076 ETH |
+| 3 Minutes     | 1.97747 gwei | 0.00040 to 0.00060 ETH |
+| >10 Minutes   | 1.97747 gwei | 0.00040 to 0.00060 ETH |
++======================================================+
+
+These prices include a maximum priority fee of 0.010 gwei.
+Please enter your max fee (including the priority fee) or leave blank for the default of 2.47747 gwei:
+
+
+Using a max fee of 2.477 gwei and a priority fee of 0.010 gwei.
+Are you sure you want to unstake 1000.000000 RPL? [y/n]
+y
+
+Unstaking RPL...
+Transaction has been submitted with hash <transaction-hash>.
+You may follow its progress by visiting:
+https://hoodi.etherscan.io/tx/<transaction-hash>
+
+Waiting for the transaction to be included in a block... you may wait here for it, or press CTRL+C to exit and return to the terminal.
+
+Successfully unstaked 1000.000000 RPL.
+
+```
+### 检查您取消质押 RPL 的状态
+
+成功发出取消质押 RPL 请求后，`rocketpool node withdraw-rpl` 命令将通知您取消质押的 RPL 何时符合提取条件：
+```
+Your node has 1017.688800 RPL on its legacy stake (previously associated to minipools) and 3383.275814 RPL staked on its megapool.
+Your node currently has 0.000000 RPL locked on pDAO proposals.
+Your node's RPL withdrawal address is <node-address>.
+
+You have 1000.000000 RPL currently unstaking until 2026-02-19, 04:05 +0000 UTC (47h57m19s from now).
+```
+
+### 步骤 2：提取已取消质押的 RPL
+
+28 天取消质押期过后，状态将反映在 `rocketpool node withdraw-rpl` 命令中，您最终可以提取已取消质押的 RPL。
+```
+You have 1000.000000 RPL unstaked and ready to be withdrawn to your RPL withdrawal address.
+```
+
+如果您没有配置 RPL 提款地址，RPL 将提取到您的节点钱包。拥有自定义 RPL 提款地址的节点运营者需要从提款地址而非节点地址提取。您可以使用此网站通过您的 RPL 提款地址提取：https://node.rocketpool.net/withdraw-rpl
+
+```
+Your node has 1017.688800 RPL on its legacy stake (previously associated to minipools) and 3383.275814 RPL staked on its megapool.
+Your node currently has 0.000000 RPL locked on pDAO proposals.
+Your node's RPL withdrawal address is <RPL-withdrawal-address>.
+
+You have 1000.000000 RPL unstaked and ready to be withdrawn to your RPL withdrawal address.
+Please select one of the three options below.
+
+1: withdraw unstaked RPL
+2: request to unstake RPL
+3: request to unstake legacy RPL
+1
+
++================ Suggested Gas Prices ================+
+| Avg Wait Time |   Max Fee    |     Total Gas Cost     |
+| 15 Seconds    | 2.97747 gwei | 0.00061 to 0.00091 ETH |
+| 1 Minute      | 2.47747 gwei | 0.00050 to 0.00076 ETH |
+| 3 Minutes     | 1.97747 gwei | 0.00040 to 0.00060 ETH |
+| >10 Minutes   | 1.97747 gwei | 0.00040 to 0.00060 ETH |
++======================================================+
+
+These prices include a maximum priority fee of 0.010 gwei.
+Please enter your max fee (including the priority fee) or leave blank for the default of 2.47747 gwei:
+
+
+Using a max fee of 2.477 gwei and a priority fee of 0.010 gwei.
+Are you sure you want to withdraw 1000.000000 RPL? [y/n]
+y
+
+Withdrawing RPL...
+Transaction has been submitted with hash <transaction-hash>.
+You may follow its progress by visiting:
+https://hoodi.etherscan.io/tx/<transaction-hash>
+
+Waiting for the transaction to be included in a block... you may wait here for it, or press CTRL+C to exit and return to the terminal.
+
+Successfully withdrew 1000.000000 RPL.
+```
+
+## 质押
+
+可以使用 `rocketpool node stake-rpl` 命令在您的 megapool 上质押 RPL。
+
+```
+staker@node:~$ rocketpool node stake-rpl
+
+NOTE: By staking RPL, you become a member of the Rocket Pool pDAO. Stay informed on governance proposals by joining the Rocket Pool Discord.
+
+The node has a balance of 0.000000 RPL.
+
+Please choose an amount of RPL to stake:
+1: 5% of borrowed ETH (2191.637908 RPL) for one validator?
+2: 10% of borrowed ETH (4383.275815 RPL) for one validator?
+3: 15% of borrowed ETH (6574.913722 RPL) for one validator?
+4: Your entire RPL balance (0.000000 RPL)?
+5: A custom amount
+```
+
+使用此命令将在您的 megapool 上质押 RPL，增加您的选民份额奖励。现在不再可能在 minipool 上质押 RPL。
+
+## 查看您节点的 ETH 和 RPL 奖励
+Smart Node 有一个便捷的新功能，允许您检查您的节点可能拥有的所有不同类型奖励的状态。
+以下是所有可能的奖励类型列表：
+
+1. Megapool 执行层奖励
+2. 费用分配器奖励
+3. Minipool 余额分配
+4. 定期奖励（RPL + ETH）
+5. 未领取奖励
+6. 信用余额提取
+7. 代表质押的 ETH 提取
+8. pDAO 保证金领取
+
+您可以使用 `rocketpool claims status` 命令访问此菜单。它会告知您是否有奖励可领取以及奖励类型。
+
+## 领取您节点的 ETH 和 RPL 奖励
+
+如果您准备好领取奖励，可以使用 `rocketpool claims claim-all` 命令。它允许您选择全部或部分奖励类型。
+
+以下是菜单示例：
+
+```
+staker@node:~$ rocketpool claims claim-all
+
+============================================================
+              Available Rewards Summary
+============================================================
+
+--- [1] Megapool Execution Layer Rewards ---
+  Cannot distribute: 2 validator(s) exiting
+
+--- [2] Fee Distributor ---
+  Fee distributor not initialized. Run 'rocketpool node initialize-fee-distributor' first.
+
+--- [3] Minipool Balance Distribution ---
+  No minipools eligible for balance distribution.
+
+--- [4] Periodic Rewards (RPL + ETH) ---
+  Unclaimed intervals: 6
+    Interval 141: 0.000000 RPL, 0.000033 ETH
+    Interval 142: 0.000000 RPL, 0.000038 ETH
+    Interval 143: 0.000000 RPL, 0.000062 ETH
+    Interval 144: 0.000000 RPL, 0.000016 ETH
+    Interval 145: 0.000000 RPL, 0.000025 ETH
+    Interval 146: 0.000000 RPL, 0.000038 ETH
+  Total: 0.000000 RPL + 0.000215 ETH
+
+--- [5] Unclaimed Rewards ---
+  No unclaimed rewards.
+
+--- [6] Credit Balance Withdrawal ---
+  Credit balance: 4.000000 ETH (the equivalent amount in rETH will be transferred to 0x4d19DE4A5a1B1B36EBaB3D5c32C01061fbDE328d)
+
+--- [7] Staked ETH on Behalf Withdrawal ---
+  No ETH staked on behalf of the node.
+
+--- [8] PDAO Bond Claims ---
+  No claimable bonds or rewards.
+
+============================================================
+                       Totals
+============================================================
+  ETH: 4.000215
+  RPL: 0.000000
+
+The following 2 claim(s)/credits are available:
+  1. Periodic Rewards (RPL + ETH): 0.000215 ETH
+  2. Credit Balance Withdrawal: 4.000000 ETH
+
+Enter the numbers of the claims you want to execute (comma-separated), 'all' to claim everything, or 'none' to cancel:
+```
+完成选择并确认 gas 选项后，根据您领取的奖励类型，可能还有额外的提示需要跟进。我们不会在此一一介绍。Smart Node 应能够引导您完成所有步骤。
+
+以下是兑换两种奖励类型的示例——定期奖励 + ETH 信用额度：
+```
++================ Suggested Gas Prices ================+
+| Avg Wait Time |   Max Fee    |     Total Gas Cost     |
+| 15 Seconds    | 2.93764 gwei | 0.00111 to 0.00167 ETH |
+| 1 Minute      | 2.56087 gwei | 0.00097 to 0.00146 ETH |
+| 3 Minutes     | 1.93764 gwei | 0.00073 to 0.00110 ETH |
+| >10 Minutes   | 1.93764 gwei | 0.00073 to 0.00110 ETH |
++======================================================+
+
+These prices include a maximum priority fee of 0.010 gwei.
+Please enter your max fee (including the priority fee) or leave blank for the default of 2.56087 gwei:
+
+
+Using a max fee of 2.561 gwei and a priority fee of 0.010 gwei.
+
+Executing 2 claim(s)...
+
+[1/2] Periodic Rewards (RPL + ETH)
+  Submitting transaction...
+  Claiming periodic rewards...
+Transaction has been submitted with hash 0x68585d6cef75a6b9507a10e634de2d01a77ae920ea05659ea79c5493a1bc9e30.
+You may follow its progress by visiting:
+https://hoodi.etherscan.io/tx/0x68585d6cef75a6b9507a10e634de2d01a77ae920ea05659ea79c5493a1bc9e30
+
+Waiting for the transaction to be included in a block... you may wait here for it, or press CTRL+C to exit and return to the terminal.
+
+  Successfully claimed periodic rewards.
+
+[2/2] Credit Balance Withdrawal
+  Submitting transaction...
+  Withdrawing credit balance...
+Transaction has been submitted with hash 0xabf1922e362e25238fc24857aae1f42093097a90a9ef3a0f2ca9dc44c24f8f15.
+You may follow its progress by visiting:
+https://hoodi.etherscan.io/tx/0xabf1922e362e25238fc24857aae1f42093097a90a9ef3a0f2ca9dc44c24f8f15
+
+Waiting for the transaction to be included in a block... you may wait here for it, or press CTRL+C to exit and return to the terminal.
+
+  Successfully withdrew 4.000000 credit as rETH.
+
+============================================================
+All 2 claim(s) completed successfully.
+============================================================
+```
+
+
+
+## 后续步骤
+
+现在您已了解 Saturn 1 中的 RPL 质押和奖励，欢迎查看 [pDAO 治理](/zh/pdao/overview)部分，了解您的投票权如何用于参与改善 Rocket Pool 的关键决策。请花时间查阅[监控和维护](/zh/node-staking/maintenance/overview)，了解如何应用更新、监控您的节点，以及在整个生命周期内保持节点的最佳状态。
+
+有关 UARS 和选民份额背后经济学的更多技术细节，请参阅 [RPIP-46: 通用可调节收益分割](https://rpips.rocketpool.net/RPIPs/RPIP-46)。

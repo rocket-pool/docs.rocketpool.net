@@ -5,28 +5,31 @@ import rplWithdrawalConfirmation from "./images/rpl_withdrawal_confirmation.png"
 # Preparazione del tuo Nodo per l'Operatività
 
 Se sei qui, allora hai avviato con successo i servizi Smartnode, creato un wallet e completato la sincronizzazione sia delle catene Execution che Consensus sui rispettivi client.
-Se è così, allora sei pronto per registrare il tuo nodo sulla rete Rocket Pool e creare un minipool con un validator!
+Se è così, allora sei pronto per registrare il tuo nodo sulla rete Rocket Pool e creare un megapool con un validator!
 In caso contrario, rivedi le sezioni precedenti e torna qui una volta completati quei passaggi.
 
-Prima di creare un nuovo minipool e validator, ci sono alcuni passaggi da compiere per completare la preparazione del tuo nodo.
-Questi devono essere eseguiti solo una volta; una volta completati, puoi passare direttamente alla sezione [Creazione di un Nuovo Minipool](./create-validator.mdx) se desideri creare più minipool sul tuo nodo.
+Prima di creare un megapool e un nuovo validator, ci sono alcuni passaggi da compiere per completare la preparazione del tuo nodo.
+Questi devono essere eseguiti solo una volta; una volta completati, puoi passare direttamente alla sezione [Creazione di un Validator Megapool](/it/node-staking/megapools/create-megapool-validator) se desideri creare più validator sul tuo nodo.
 
 ## Caricamento del tuo Node Wallet
 
 Registrare il tuo nodo e attivare un validator comportano entrambi l'invio di transazioni alla rete Ethereum dal tuo node wallet.
 Ciò significa che **dovrai avere un po' di ETH su di esso** per pagare i costi del gas di quelle transazioni.
-Dovrai anche fare staking di un po' di **token RPL** prima di creare un minipool come collaterale; puoi farlo direttamente sul nodo, o (preferibilmente) puoi utilizzare la funzione **Stake on Behalf** del sito web Rocket Pool per fare staking per il tuo nodo con RPL nel tuo cold wallet.
+Se desideri fare staking di RPL puoi farlo direttamente sul nodo, o (preferibilmente) puoi utilizzare la funzione **Stake on Behalf** del sito web Rocket Pool per fare staking per il tuo nodo con RPL nel tuo cold wallet.
 Discuteremo la funzione Stake on Behalf più avanti in questa guida quando sarà il momento di fare staking dei tuoi RPL.
 
+
+::: tip NOTA
 L'ETH richiesto per le commissioni gas per configurare un nodo con un minipool è circa 0,0025 ETH moltiplicato per il prezzo corrente del gas in gwei.
 Ad esempio, con un prezzo del gas di 30 gwei, pagheresti circa 0,075 ETH in commissioni gas.
 
 Vedi [questo foglio di lavoro](https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552) per aiutare a stimare le commissioni gas per varie condizioni di rete.
+:::
 
 <div className="p-3">
   <Tabs>
     <Tab label="In Esecuzione sulla Rete di Test Hoodi">
-      Se stai eseguendo sulla rete di test Hoodi, consulta la sezione [Pratica con la Rete di Test](/it/node-staking/testnet/overview) per imparare come acquisire ETH di test.
+      f stai eseguendo sulla rete di test Hoodi, consulta la sezione [Pratica con la Rete di Test](/it/node-staking/testnet/overview) per imparare come acquisire ETH di test.
 
       Per i RPL di test, abbiamo aggiunto una funzione faucet simile direttamente alla CLI.
       Consulta la guida [Ottenere RPL di Test su Hoodi](/it/node-staking/testnet/overview#getting-test-rpl-on-hoodi) per acquisirne alcuni.
@@ -76,7 +79,7 @@ Una volta completato, sarai ufficialmente un membro della rete Rocket Pool!
 ## Impostazione del tuo Indirizzo di Prelievo Primario
 
 Prima di qualsiasi altra cosa, ti consigliamo vivamente di cambiare l'**indirizzo di prelievo primario** per il tuo nodo.
-Questo è l'indirizzo a cui verranno inviati tutti i tuoi premi checkpoint RPL, i tuoi RPL in staking e i tuoi ETH della Beacon Chain quando rivendichi i tuoi premi checkpoint o esci dal tuo validator e ti ritiri dal tuo minipool.
+Questo è l'indirizzo a cui verranno inviati tutti i tuoi premi checkpoint RPL, i tuoi RPL in staking e i tuoi ETH della Beacon Chain quando rivendichi i tuoi premi checkpoint o esci dal tuo validator e ti ritiri dal tuo megapool.
 
 Facoltativamente, puoi impostare un indirizzo di prelievo per i tuoi ETH e [uno nuovo per i tuoi RPL](https://rpips.rocketpool.net/RPIPs/RPIP-31). L'indirizzo di prelievo RPL, se impostato, sarà in grado di attivare e richiedere RPL dalle ricompense di inflazione e non avrà alcun effetto sui premi di consenso ETH o su qualsiasi cosa relativa agli ETH. Se non hai impostato un indirizzo di prelievo RPL, l'indirizzo di prelievo primario riceverà anche i premi RPL. Per impostazione predefinita, **chiunque controlli l'indirizzo di prelievo primario può accedere a TUTTI i tuoi RPL in staking, ETH e premi.**
 
@@ -92,7 +95,7 @@ Ti **consigliamo vivamente** di NON utilizzare un hot wallet come MetaMask come 
 In questo modo, se il tuo node wallet viene compromesso, l'attaccante non ottiene accesso ai tuoi ETH e RPL in staking forzandoti a uscire perché tutti quei fondi verranno inviati al tuo cold wallet separato (che si spera non abbiano).
 
 Gli indirizzi di prelievo primari sono impostati a livello di operatore di nodo.
-Se crei più minipool, faranno tutti riferimento allo stesso indirizzo di prelievo primario quindi devi eseguire questa configurazione solo una volta.
+Se crei più validator megapool, faranno tutti riferimento allo stesso indirizzo di prelievo primario quindi devi eseguire questa configurazione solo una volta.
 
 [Vedi qui](https://ethereum.org/en/security/#wallet-security) per alcune nozioni di base sulla sicurezza del wallet dalla Ethereum Foundation.
 :::
@@ -127,7 +130,7 @@ Leggi entrambe le opzioni qui sotto per determinare quale si applica a te.
       </p>
 
       1. Esegui `rocketpool node set-primary-withdrawal-address 'indirizzo del tuo cold wallet o nome ENS'`. Il tuo nuovo indirizzo di prelievo primario sarà contrassegnato come "in sospeso". Finché non lo confermi, **il tuo vecchio indirizzo di prelievo primario sarà ancora utilizzato**.
-      2. Per confermarlo, devi inviare una transazione speciale **dal tuo nuovo indirizzo di prelievo primario** al contratto minipool per verificare di possedere l'indirizzo di prelievo primario.
+      2. Per confermarlo, devi inviare una transazione speciale **dal tuo nuovo indirizzo di prelievo primario** al contratto megapool per verificare di possedere l'indirizzo di prelievo primario.
       1. Il modo più semplice per farlo è navigare sul sito dell'indirizzo di prelievo primario di Rocket Pool (per [Hoodi Testnet](https://testnet.node.rocketpool.net/primary-withdrawal-address) o per [Mainnet](https://node.rocketpool.net/primary-withdrawal-address)).
       3. Se non hai già collegato Metamask o WalletConnect al sito web Rocket Pool, fallo ora. Clicca il pulsante **select wallet** al centro dello schermo e scegli MetaMask o WalletConnect in base al wallet che vuoi utilizzare. Ti verrà quindi richiesto di confermare la connessione. Ad esempio, usando MetaMask:
 
@@ -158,9 +161,10 @@ Leggi entrambe le opzioni qui sotto per determinare quale si applica a te.
 
       ::: danger
       Facendo ciò, aggiri la misura di sicurezza associata al Metodo 1, che richiede di dimostrare di possedere il nuovo indirizzo.
-      Se fai un errore di battitura qui, non c'è modo di annullarlo e **i premi del tuo minipool andranno persi per sempre**.
+      Se fai un errore di battitura qui, non c'è modo di annullarlo e **i premi del tuo megapool andranno persi per sempre**.
 
       Ti **incoraggiamo vivamente** ad utilizzare il meccanismo di transazione di test prima di confermarlo e, se possibile, ad utilizzare invece il Metodo 1.
+      :::
     </Tab>
 
   </Tabs>
@@ -265,7 +269,7 @@ Ti **consigliamo vivamente** di NON utilizzare un hot wallet come MetaMask come 
 In questo modo, se il tuo node wallet viene compromesso, l'attaccante non ottiene accesso ai tuoi RPL in staking forzandoti a uscire perché tutti quei fondi verranno inviati al tuo cold wallet separato (che si spera non abbiano).
 
 Gli indirizzi di prelievo RPL sono impostati a livello di operatore di nodo.
-Se crei più minipool, faranno tutti riferimento allo stesso indirizzo di prelievo RPL quindi devi eseguire questa configurazione solo una volta.
+Se crei più validator megapool, faranno tutti riferimento allo stesso indirizzo di prelievo RPL quindi devi eseguire questa configurazione solo una volta.
 
 [Vedi qui](https://ethereum.org/en/security/#wallet-security) per alcune nozioni di base sulla sicurezza del wallet dalla Ethereum Foundation.
 :::
@@ -299,7 +303,7 @@ Leggi entrambe le opzioni qui sotto per determinare quale si applica a te.
       </p>
 
       1. Esegui `rocketpool node set-rpl-withdrawal-address 'indirizzo del tuo cold wallet o nome ENS'`. Il tuo nuovo indirizzo di prelievo RPL sarà contrassegnato come "in sospeso". Finché non lo confermi, **il tuo vecchio indirizzo di prelievo RPL sarà ancora utilizzato**.
-      2. Per confermarlo, devi inviare una transazione speciale **dal tuo nuovo indirizzo di prelievo RPL** al contratto minipool per verificare di possedere l'indirizzo di prelievo RPL.
+      2. Per confermarlo, devi inviare una transazione speciale **dal tuo nuovo indirizzo di prelievo RPL** al contratto megapool per verificare di possedere l'indirizzo di prelievo RPL.
       1. Il modo più semplice per farlo è navigare sul sito dell'indirizzo di prelievo RPL di Rocket Pool (per [Hoodi Testnet](https://testnet.node.rocketpool.net/rpl-withdrawal-address) o per [Mainnet](https://node.rocketpool.net/rpl-withdrawal-address)).
       3. Se non hai già collegato Metamask o WalletConnect al sito web Rocket Pool, fallo ora. Clicca il pulsante **select wallet** al centro dello schermo e scegli MetaMask o WalletConnect in base al wallet che vuoi utilizzare. Ti verrà quindi richiesto di confermare la connessione. Ad esempio, usando MetaMask:
 
@@ -333,7 +337,7 @@ Leggi entrambe le opzioni qui sotto per determinare quale si applica a te.
 
       <p className="rspress-directive danger">
         Facendo ciò, aggiri la misura di sicurezza associata al Metodo 1, che richiede di dimostrare di possedere il nuovo indirizzo.
-        Se fai un errore di battitura qui, non c'è modo di annullarlo e **i premi del tuo minipool andranno persi per sempre**.
+        Se fai un errore di battitura qui, non c'è modo di annullarlo e **i premi del tuo megapool andranno persi per sempre**.
 
         Ti **incoraggiamo vivamente** ad utilizzare il meccanismo di transazione di test prima di confermarlo e, se possibile, ad utilizzare invece il Metodo 1.
       </p>
@@ -400,4 +404,4 @@ I prossimi passi per preparare il tuo nodo ti insegneranno come configurare un n
 Ogni argomento ti richiederà di fare una scelta su come vuoi gestire il tuo nodo.
 Passa alle sezioni successive della guida quando sei pronto.
 
-Una volta che avrai finito con quegli argomenti, sarai guidato attraverso il processo di creazione di un minipool e guadagnare premi di staking.
+Una volta che avrai finito con quegli argomenti, sarai guidato attraverso il processo di creazione di un validator megapool e guadagnare premi di staking.

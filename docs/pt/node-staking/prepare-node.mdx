@@ -5,23 +5,26 @@ import rplWithdrawalConfirmation from "./images/rpl_withdrawal_confirmation.png"
 # Preparando seu Nó para Operação
 
 Se você chegou até aqui, então você iniciou com sucesso os serviços do Smartnode, criou uma carteira e terminou de sincronizar as cadeias de Execução e Consenso em seus respectivos clientes.
-Se sim, então você está pronto para registrar seu nó na rede Rocket Pool e criar um minipool com um validador!
+Se sim, então você está pronto para registrar seu nó na rede Rocket Pool e criar um megapool com um validador!
 Caso contrário, revise as seções anteriores e retorne aqui quando tiver completado essas etapas.
 
-Antes de criar um novo minipool e validador, há algumas etapas a serem seguidas para terminar de preparar seu nó.
-Estas só precisam ser feitas uma vez; depois que você as fizer, pode pular para a seção [Criando um Novo Minipool](./create-validator.mdx) se quiser criar múltiplos minipools em seu nó.
+Antes de criar um megapool e um novo validador, há algumas etapas a serem seguidas para terminar de preparar seu nó.
+Estas só precisam ser feitas uma vez; depois que você as fizer, pode pular para a seção [Criando um Validador de Megapool](/pt/node-staking/megapools/create-megapool-validator) se quiser criar múltiplos validadores em seu nó.
 
 ## Carregando sua Carteira do Nó
 
 Registrar seu nó e estabelecer um validador envolvem submeter transações à rede Ethereum a partir da carteira do seu nó.
 Isso significa que **você precisará ter algum ETH nela** para pagar os custos de gas dessas transações.
-Você também precisará fazer stake de algum **token RPL** antes de criar um minipool como colateral; você pode fazer isso diretamente no nó, ou (preferivelmente) você pode usar a função **Stake on Behalf** do site da Rocket Pool para fazer stake para seu nó com RPL em sua carteira fria.
+Se você deseja fazer stake de RPL, pode fazer isso diretamente no nó, ou (preferivelmente) pode usar a função **Stake on Behalf** do site da Rocket Pool para fazer stake para seu nó com RPL em sua carteira fria.
 Vamos discutir a funcionalidade Stake on Behalf mais tarde neste guia quando for hora de fazer stake do seu RPL.
 
+
+::: tip NOTA
 O ETH necessário para as taxas de gas para configurar um nó com um minipool é cerca de 0.0025 ETH vezes o preço atual de gas em gwei.
 Por exemplo, com um preço de gas de 30 gwei, você pagaria cerca de 0.075 ETH em taxas de gas.
 
 Veja [esta planilha](https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552) para ajudar a estimar as taxas de gas para várias condições de rede.
+:::
 
 <div className="p-3">
   <Tabs>
@@ -76,7 +79,7 @@ Quando isso estiver completo, você será oficialmente um membro da rede Rocket 
 ## Definindo seu Endereço de Retirada Primário
 
 Antes de qualquer outra coisa, recomendamos enfaticamente que você altere o **endereço de retirada primário** do seu nó.
-Este é o endereço para o qual todas as suas recompensas de checkpoint de RPL, seu RPL em stake e seu ETH da Beacon Chain serão enviados quando você reivindicar suas recompensas de checkpoint ou sair do seu validador e retirar do seu minipool.
+Este é o endereço para o qual todas as suas recompensas de checkpoint de RPL, seu RPL em stake e seu ETH da Beacon Chain serão enviados quando você reivindicar suas recompensas de checkpoint ou sair do seu validador e retirar do seu megapool.
 
 Opcionalmente, você pode definir um endereço de retirada para seu ETH e [um novo para seu RPL](https://rpips.rocketpool.net/RPIPs/RPIP-31). O endereço de retirada de RPL, se definido, poderá acionar e reivindicar RPL das recompensas de inflação e não terá efeito nas recompensas de consenso de ETH ou qualquer coisa relacionada a ETH. Se você não tiver definido um endereço de retirada de RPL, o Endereço de Retirada Primário receberá recompensas de RPL também. Por padrão, **quem controla o endereço de retirada primário pode acessar TODO o seu RPL em stake, ETH e recompensas.**
 
@@ -92,7 +95,7 @@ Nós **fortemente recomendamos** que você NÃO use uma carteira quente como Met
 Dessa forma, se a carteira do seu nó for comprometida, o atacante não terá acesso ao seu ETH e RPL em stake ao forçá-lo a sair, porque todos esses fundos serão enviados para sua carteira fria separada (que eles esperamos não possuam).
 
 Endereços de retirada primários são definidos no nível do operador do nó.
-Se você criar múltiplos minipools, todos eles se referirão ao mesmo endereço de retirada primário, então você só precisa realizar essa configuração uma vez.
+Se você criar múltiplos validadores de megapool, todos eles se referirão ao mesmo endereço de retirada primário, então você só precisa realizar essa configuração uma vez.
 
 [Veja aqui](https://ethereum.org/en/security/#wallet-security) alguns conceitos básicos sobre segurança de carteira da Ethereum Foundation.
 :::
@@ -127,7 +130,7 @@ Leia as duas opções abaixo para determinar qual se aplica a você.
       </p>
 
       1. Execute `rocketpool node set-primary-withdrawal-address 'endereço da sua carteira fria ou nome ENS'`. Seu novo endereço de retirada primário será marcado como "pendente". Até você confirmá-lo, **seu antigo endereço de retirada primário ainda será usado**.
-      2. Para confirmá-lo, você deve enviar uma transação especial **do seu novo endereço de retirada primário** para o contrato do minipool para verificar que você possui o endereço de retirada primário.
+      2. Para confirmá-lo, você deve enviar uma transação especial **do seu novo endereço de retirada primário** para o contrato do megapool para verificar que você possui o endereço de retirada primário.
       1. A maneira mais fácil de fazer isso é navegar até o site de endereço de retirada primário da Rocket Pool (para a [Hoodi Testnet](https://testnet.node.rocketpool.net/primary-withdrawal-address) ou para [Mainnet](https://node.rocketpool.net/primary-withdrawal-address)).
       3. Se você ainda não conectou o Metamask ou WalletConnect ao site da Rocket Pool, faça isso agora. Clique no botão **select wallet** no centro da tela e escolha MetaMask ou WalletConnect com base em qual carteira você gostaria de usar. Você será solicitado a confirmar a conexão. Por exemplo, usando MetaMask:
 
@@ -158,7 +161,7 @@ Leia as duas opções abaixo para determinar qual se aplica a você.
 
       ::: danger
       Ao fazer isso, você ignora a medida de segurança associada ao Método 1, que exige que você prove que possui o novo endereço.
-      Se você cometer um erro de digitação aqui, não há como desfazer e **as recompensas do seu minipool serão perdidas para sempre**.
+      Se você cometer um erro de digitação aqui, não há como desfazer e **as recompensas do seu megapool serão perdidas para sempre**.
 
       Nós **fortemente** encorajamos você a usar o mecanismo de transação de teste antes de confirmar isso e, se possível, use o Método 1.
     </Tab>
@@ -249,7 +252,7 @@ rocketpool pdao clear-signalling-address
 
 ## Definindo seu Endereço de Retirada de RPL
 
-É importante entender a diferença entre seu [endereço de retirada primário](./prepare-node#setting-your-primary-withdrawal-address) e seu endereço de retirada de RPL. Por padrão, seu endereço de retirada de RPL não está definido e seu endereço de retirada Primário é para onde todas as suas recompensas de checkpoint de RPL, seu RPL em stake e ETH da Beacon Chain serão enviados.
+É importante entender a diferença entre seu [endereço de retirada primário](./prepare-node#definindo-seu-endereço-de-retirada-primário) e seu endereço de retirada de RPL. Por padrão, seu endereço de retirada de RPL não está definido e seu endereço de retirada Primário é para onde todas as suas recompensas de checkpoint de RPL, seu RPL em stake e ETH da Beacon Chain serão enviados.
 
 Você pode definir um [endereço de retirada separado para seu RPL](https://rpips.rocketpool.net/RPIPs/RPIP-31) se desejar. Seu endereço de retirada de RPL, se definido, poderá acionar e reivindicar RPL das recompensas de inflação e não terá efeito nas recompensas de consenso de ETH ou qualquer coisa relacionada a ETH. Neste caso, seu endereço de retirada Primário não terá mais nenhuma autoridade sobre ações relacionadas a RPL.
 
@@ -265,7 +268,7 @@ Nós **fortemente recomendamos** que você NÃO use uma carteira quente como Met
 Dessa forma, se a carteira do seu nó for comprometida, o atacante não terá acesso ao seu RPL em stake ao forçá-lo a sair, porque todos esses fundos serão enviados para sua carteira fria separada (que eles esperamos não possuam).
 
 Endereços de retirada de RPL são definidos no nível do operador do nó.
-Se você criar múltiplos minipools, todos eles se referirão ao mesmo endereço de retirada de RPL, então você só precisa realizar essa configuração uma vez.
+Se você criar múltiplos validadores de megapool, todos eles se referirão ao mesmo endereço de retirada de RPL, então você só precisa realizar essa configuração uma vez.
 
 [Veja aqui](https://ethereum.org/en/security/#wallet-security) alguns conceitos básicos sobre segurança de carteira da Ethereum Foundation.
 :::
@@ -299,7 +302,7 @@ Leia as duas opções abaixo para determinar qual se aplica a você.
       </p>
 
       1. Execute `rocketpool node set-rpl-withdrawal-address 'endereço da sua carteira fria ou nome ENS'`. Seu novo endereço de retirada de RPL será marcado como "pendente". Até você confirmá-lo, **seu antigo endereço de retirada de RPL ainda será usado**.
-      2. Para confirmá-lo, você deve enviar uma transação especial **do seu novo endereço de retirada de RPL** para o contrato do minipool para verificar que você possui o endereço de retirada de RPL.
+      2. Para confirmá-lo, você deve enviar uma transação especial **do seu novo endereço de retirada de RPL** para o contrato do megapool para verificar que você possui o endereço de retirada de RPL.
       1. A maneira mais fácil de fazer isso é navegar até o site de endereço de retirada de RPL da Rocket Pool (para a [Hoodi Testnet](https://testnet.node.rocketpool.net/rpl-withdrawal-address) ou para [Mainnet](https://node.rocketpool.net/rpl-withdrawal-address)).
       3. Se você ainda não conectou o Metamask ou WalletConnect ao site da Rocket Pool, faça isso agora. Clique no botão **select wallet** no centro da tela e escolha MetaMask ou WalletConnect com base em qual carteira você gostaria de usar. Você será solicitado a confirmar a conexão. Por exemplo, usando MetaMask:
 
@@ -333,7 +336,7 @@ Leia as duas opções abaixo para determinar qual se aplica a você.
 
       <p className="rspress-directive danger">
         Ao fazer isso, você ignora a medida de segurança associada ao Método 1, que exige que você prove que possui o novo endereço.
-        Se você cometer um erro de digitação aqui, não há como desfazer e **as recompensas do seu minipool serão perdidas para sempre**.
+        Se você cometer um erro de digitação aqui, não há como desfazer e **as recompensas do seu megapool serão perdidas para sempre**.
 
         Nós **fortemente** encorajamos você a usar o mecanismo de transação de teste antes de confirmar isso e, se possível, use o Método 1.
       </p>
@@ -400,4 +403,4 @@ Os próximos passos para preparar seu nó ensinarão você sobre como configurar
 Cada tópico exigirá que você faça uma escolha sobre como deseja executar seu nó.
 Vá para as próximas seções do guia quando estiver pronto.
 
-Depois de terminar esses tópicos, você será guiado através do processo de criação de um minipool e ganhar recompensas de staking.
+Depois de terminar esses tópicos, você será guiado através do processo de criação de um validador de megapool e ganhar recompensas de staking.

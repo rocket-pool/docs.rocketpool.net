@@ -5,23 +5,26 @@ import rplWithdrawalConfirmation from "./images/rpl_withdrawal_confirmation.png"
 # Preparando tu Nodo para la Operación
 
 Si estás aquí, entonces has iniciado exitosamente los servicios de Smartnode, creado una billetera y terminado de sincronizar tanto la capa de Ejecución como la de Consenso en tus respectivos clientes.
-Si es así, ¡entonces estás listo para registrar tu nodo en la red de Rocket Pool y crear un minipool con un validador!
+Si es así, ¡entonces estás listo para registrar tu nodo en la red de Rocket Pool y crear un megapool con un validador!
 Si no, revisa las secciones anteriores y regresa aquí una vez que hayas completado esos pasos.
 
-Antes de crear un nuevo minipool y validador, hay algunos pasos que tomar para terminar de preparar tu nodo.
-Estos solo necesitan hacerse una vez; una vez que los hayas hecho, puedes saltar a la sección [Crear un Nuevo Minipool](./create-validator.mdx) si quieres crear múltiples minipools en tu nodo.
+Antes de crear un megapool y un nuevo validador, hay algunos pasos que tomar para terminar de preparar tu nodo.
+Estos solo necesitan hacerse una vez; una vez que los hayas hecho, puedes saltar a la sección [Crear un Validador de Megapool](/node-staking/megapools/create-megapool-validator) si quieres crear múltiples validadores en tu nodo.
 
 ## Cargar tu Billetera de Nodo
 
 Registrar tu nodo y establecer un validador implican enviar transacciones a la red Ethereum desde tu billetera de nodo.
 Esto significa que **necesitarás tener algo de ETH en ella** para pagar los costos de gas de esas transacciones.
-También necesitarás apostar algo del **token RPL** antes de crear un minipool como colateral; puedes hacer esto directamente en el nodo, o (preferiblemente) puedes usar la función **Stake on Behalf** del sitio web de Rocket Pool para apostar por tu nodo con RPL en tu billetera fría.
+Si deseas hacer stake de RPL puedes hacerlo directamente en el nodo, o (preferiblemente) puedes usar la función **Stake on Behalf** del sitio web de Rocket Pool para apostar por tu nodo con RPL en tu billetera fría.
 Discutiremos la función Stake on Behalf más adelante en esta guía cuando sea momento de apostar tu RPL.
 
+
+::: tip NOTA
 El ETH requerido para las tarifas de gas para configurar un nodo con un minipool es aproximadamente 0.0025 ETH multiplicado por el precio actual del gas en gwei.
 Por ejemplo, con un precio de gas de 30 gwei, pagarías aproximadamente 0.075 ETH en tarifas de gas.
 
 Consulta [esta hoja de cálculo](https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552) para ayudar a estimar las tarifas de gas para diversas condiciones de red.
+:::
 
 <div className="p-3">
   <Tabs>
@@ -76,7 +79,7 @@ Una vez que esto esté completo, ¡oficialmente serás miembro de la red de Rock
 ## Establecer tu Dirección de Retiro Principal
 
 Antes que nada, te recomendamos encarecidamente que cambies la **dirección de retiro principal** para tu nodo.
-Esta es la dirección a la que se enviarán todas tus recompensas de punto de control RPL, tu RPL apostado y tu ETH de Beacon Chain cuando reclames tus recompensas de punto de control o salgas de tu validador y retires de tu minipool.
+Esta es la dirección a la que se enviarán todas tus recompensas de punto de control RPL, tu RPL apostado y tu ETH de Beacon Chain cuando reclames tus recompensas de punto de control o salgas de tu validador y retires de tu megapool.
 
 Opcionalmente, puedes establecer una dirección de retiro para tu ETH y [una nueva para tu RPL](https://rpips.rocketpool.net/RPIPs/RPIP-31). La dirección de retiro RPL, si se establece, podrá activar y reclamar RPL de las recompensas de inflación y no tendrá efecto en las recompensas de consenso ETH ni en nada relacionado con ETH. Si no has establecido una dirección de retiro RPL, la Dirección de Retiro Principal recibirá también las recompensas RPL. Por defecto, **quien controla la dirección de retiro principal puede acceder a TODO tu RPL apostado, ETH y recompensas.**
 
@@ -92,7 +95,7 @@ Una billetera fría podría ser una billetera de hardware (como [Ledger](https:/
 De esta manera, si tu billetera de nodo se ve comprometida, el atacante no obtiene acceso a tu ETH y RPL apostados al forzarte a salir porque todos esos fondos se enviarán a tu billetera fría separada (que esperamos no tengan).
 
 Las direcciones de retiro principales se establecen a nivel de operador de nodo.
-Si creas múltiples minipools, todos se referirán a la misma dirección de retiro principal, por lo que solo necesitas realizar esta configuración una vez.
+Si creas múltiples validadores de megapool, todos se referirán a la misma dirección de retiro principal, por lo que solo necesitas realizar esta configuración una vez.
 
 [Consulta aquí](https://ethereum.org/en/security/#wallet-security) algunos conceptos básicos sobre seguridad de billeteras de la Fundación Ethereum.
 :::
@@ -127,7 +130,7 @@ Lee ambas opciones a continuación para determinar cuál se aplica a ti.
       </p>
 
       1. Ejecuta `rocketpool node set-primary-withdrawal-address 'tu dirección de billetera fría o nombre ENS'`. Tu nueva dirección de retiro principal se marcará como "pendiente". Hasta que la confirmes, **tu antigua dirección de retiro principal seguirá siendo usada**.
-      2. Para confirmarla, debes enviar una transacción especial **desde tu nueva dirección de retiro principal** al contrato del minipool para verificar que eres dueño de la dirección de retiro principal.
+      2. Para confirmarla, debes enviar una transacción especial **desde tu nueva dirección de retiro principal** al contrato del megapool para verificar que eres dueño de la dirección de retiro principal.
       1. La forma más fácil de hacer esto es navegar al sitio de dirección de retiro principal de Rocket Pool (para [Hoodi Testnet](https://testnet.node.rocketpool.net/primary-withdrawal-address) o para [Mainnet](https://node.rocketpool.net/primary-withdrawal-address)).
       3. Si aún no has conectado Metamask o WalletConnect al sitio web de Rocket Pool, hazlo ahora. Haz clic en el botón **select wallet** en el centro de la pantalla, y elige MetaMask o WalletConnect según la billetera que te gustaría usar. Luego se te pedirá que confirmes la conexión. Por ejemplo, usando MetaMask:
 
@@ -158,9 +161,10 @@ Lee ambas opciones a continuación para determinar cuál se aplica a ti.
 
       ::: danger
       Al hacer esto, omites la medida de seguridad asociada con el Método 1, que requiere que demuestres que eres dueño de la nueva dirección.
-      Si cometes un error tipográfico aquí, no hay forma de deshacerlo y **las recompensas de tu minipool se perderán para siempre**.
+      Si cometes un error tipográfico aquí, no hay forma de deshacerlo y **las recompensas de tu megapool se perderán para siempre**.
 
       **Recomendamos encarecidamente** que uses el mecanismo de transacción de prueba antes de confirmar esto y, si es posible, usa el Método 1 en su lugar.
+      :::
     </Tab>
 
   </Tabs>
@@ -265,7 +269,7 @@ Una billetera fría podría ser una billetera de hardware (como [Ledger](https:/
 De esta manera, si tu billetera de nodo se ve comprometida, el atacante no obtiene acceso a tu RPL apostado al forzarte a salir porque todos esos fondos se enviarán a tu billetera fría separada (que esperamos no tengan).
 
 Las direcciones de retiro RPL se establecen a nivel de operador de nodo.
-Si creas múltiples minipools, todos se referirán a la misma dirección de retiro RPL, por lo que solo necesitas realizar esta configuración una vez.
+Si creas múltiples validadores de megapool, todos se referirán a la misma dirección de retiro RPL, por lo que solo necesitas realizar esta configuración una vez.
 
 [Consulta aquí](https://ethereum.org/en/security/#wallet-security) algunos conceptos básicos sobre seguridad de billeteras de la Fundación Ethereum.
 :::
@@ -299,7 +303,7 @@ Lee ambas opciones a continuación para determinar cuál se aplica a ti.
       </p>
 
       1. Ejecuta `rocketpool node set-rpl-withdrawal-address 'tu dirección de billetera fría o nombre ENS'`. Tu nueva dirección de retiro RPL se marcará como "pendiente". Hasta que la confirmes, **tu antigua dirección de retiro RPL seguirá siendo usada**.
-      2. Para confirmarla, debes enviar una transacción especial **desde tu nueva dirección de retiro RPL** al contrato del minipool para verificar que eres dueño de la dirección de retiro RPL.
+      2. Para confirmarla, debes enviar una transacción especial **desde tu nueva dirección de retiro RPL** al contrato del megapool para verificar que eres dueño de la dirección de retiro RPL.
       1. La forma más fácil de hacer esto es navegar al sitio de dirección de retiro RPL de Rocket Pool (para [Hoodi Testnet](https://testnet.node.rocketpool.net/rpl-withdrawal-address) o para [Mainnet](https://node.rocketpool.net/rpl-withdrawal-address)).
       3. Si aún no has conectado Metamask o WalletConnect al sitio web de Rocket Pool, hazlo ahora. Haz clic en el botón **select wallet** en el centro de la pantalla, y elige MetaMask o WalletConnect según la billetera que te gustaría usar. Luego se te pedirá que confirmes la conexión. Por ejemplo, usando MetaMask:
 
@@ -333,7 +337,7 @@ Lee ambas opciones a continuación para determinar cuál se aplica a ti.
 
       <p className="rspress-directive danger">
         Al hacer esto, omites la medida de seguridad asociada con el Método 1, que requiere que demuestres que eres dueño de la nueva dirección.
-        Si cometes un error tipográfico aquí, no hay forma de deshacerlo y **las recompensas de tu minipool se perderán para siempre**.
+        Si cometes un error tipográfico aquí, no hay forma de deshacerlo y **las recompensas de tu megapool se perderán para siempre**.
 
         **Recomendamos encarecidamente** que uses el mecanismo de transacción de prueba antes de confirmar esto y, si es posible, usa el Método 1 en su lugar.
       </p>
@@ -400,4 +404,4 @@ Los próximos pasos para preparar tu nodo te enseñarán sobre configurar un nod
 Cada tema requerirá que tomes una decisión sobre cómo quieres ejecutar tu nodo.
 Pasa a las siguientes secciones de la guía cuando estés listo.
 
-Una vez que hayas terminado con esos temas, se te guiará a través del proceso de hacer un minipool y ganar recompensas de staking.
+Una vez que hayas terminado con esos temas, se te guiará a través del proceso de hacer un validador de megapool y ganar recompensas de staking.

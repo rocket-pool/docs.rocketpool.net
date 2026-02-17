@@ -235,7 +235,7 @@ MEV-Boostを設定する方法を学ぶには、使用しているモードを�
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOTE</p>
-        MEV-Boostインスタンスでは、上記の信頼できるrelayにのみ登録する**必要があります**。Rocket Poolのバリデーターが信頼できないrelayを介して送信されたブロックを提案した場合、Oracle DAOは**不正行為のフラグを立てます**。rETHステーカーからMEVを盗んでいる可能性があります。これにより、minipoolに[ペナルティ](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)が科されます。
+        MEV-Boostインスタンスでは、上記の信頼できるrelayにのみ登録する**必要があります**。Rocket Poolのバリデーターが信頼できないrelayを介して送信されたブロックを提案した場合、Oracle DAOは**不正行為のフラグを立てます**。rETHステーカーからMEVを盗んでいる可能性があります。これにより、minipoolまたはmegapool validatorに[ペナルティ](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)が科されます。
       </p>
     </Tab>
 
@@ -276,5 +276,5 @@ mev-boost_1      | time="2022-09-28T21:40:48Z" level=info msg="http: POST /eth/v
 
 ## 次のステップ
 
-MEV-Boostが設定されたので、新しいminipoolを作成してEthereumネットワークでの検証を開始する準備が整いました。
+MEV-Boostが設定されたので、新しいmegapool validatorを作成してEthereumネットワークでの検証を開始する準備が整いました。
 このプロセスを説明する次のセクションをお読みください。

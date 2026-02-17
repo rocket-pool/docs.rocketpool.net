@@ -5,7 +5,7 @@ import tui_fallback_clients from "./images/tui-fallback-clients.png";
 # 指定备用节点
 
 从Smartnode stack的**1.5.0**版本开始,您可以提供一对"备用"Execution客户端和Consensus客户端,在您的主客户端离线时接管(例如[您使用Geth并需要裁剪它](./pruning))。
-在这种情况下,您的主节点机器仍然负责使用minipool的验证者密钥进行证明和提议区块,但它将连接到外部机器与Execution层和Beacon链交互。
+在这种情况下,您的主节点机器仍然负责使用megapool的验证者密钥进行证明和提议区块,但它将连接到外部机器与Execution层和Beacon链交互。
 
 本质上,它允许您_临时_使用另一对客户端来完成查询链、发送交易和接收要证明的区块等任务。
 这对客户端可以是外部管理的(如混合模式),也可以是另一个Rocket Pool节点(另一台暴露了API端口的Docker模式机器,我们将在下面介绍)。
@@ -119,31 +119,44 @@ NOTE: primary clients are not ready, using fallback clients...
  Primary CC status: unavailable (Sync progress check failed with [Could not get node sync status: Get "http://eth2:5052/eth/v1/node/syncing": dial tcp: lookup eth2 on 127.0.0.11:53: no such host])
 
 ========== General Stats ==========
-Total Value Locked:      278978.009858 ETH
-Staking Pool Balance:    10.587295 ETH
-Minipool Queue Demand:   3360.000000 ETH
-Staking Pool ETH Used:   99.735490%
+Total Value Locked:          1196.926316 ETH
+Deposit Pool Balance:        23.586761 ETH
+Minipool Queue Demand:       0.000000 ETH
+Deposit Pool ETH Used:       6.809609%
 
 ============== Nodes ==============
-Current Commission Rate: 15.000000%
-Node Count:              1325
-Active Minipools:        6409
-    Initialized:         175
-    Prelaunch:           3
-    Staking:             6227
-    Withdrawable:        0
-    Dissolved:           4
-Inactive Minipools:      0
+Current Commission Rate:     5.000000%
+Node Count:                  16
+Active Minipools:            36
+    Initialized:             0
+    Prelaunch:               0
+    Staking:                 36
+    Withdrawable:            0
+    Dissolved:               0
+Finalized Minipools:         30
+
+=========== Megapools ============
+Megapool contracts deployed: 10
+Total megapool validators:  86
+     Staking:                51
+     In Prestake:            6
+     In Queue:               10
+     Exited:                 14
+     Locked:                 1
+     Exiting:                2
+     Dissolved:              2
 
 ========== Smoothing Pool =========
-Nodes Opted in:          0
-Pending Balance:         0.000000
+Contract Address:            0xE8D1136ac49DBe6ac8f299130253004DC63841a1
+Nodes Opted in:              3
+Pending Balance:             0.000000
 
 ============== Tokens =============
-rETH Price (ETH / rETH): 1.031919 ETH
-RPL Price (ETH / RPL):   0.011563 ETH
-Total RPL staked:        6098920.170527 RPL
-Effective RPL staked:    5751692.043848 RPL
+rETH Price (ETH / rETH):     1.185477 ETH
+RPL Price (ETH / RPL):       0.000639 ETH
+Total RPL staked:            33406.127068 RPL
+Total Megapool RPL staked:   11406.127068 RPL
+Total Legacy RPL staked:     22000.000000 RPL
 ```
 
 最后,再次启动您的主客户端:

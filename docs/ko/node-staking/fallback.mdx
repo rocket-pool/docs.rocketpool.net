@@ -2,10 +2,10 @@ import tui_ec_expose_ports from "./images/tui-ec-expose-ports.png";
 import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_fallback_clients from "./images/tui-fallback-clients.png";
 
-# 백업 노드 지정하기
+# Fallback 노드 지정하기
 
-Smartnode 스택의 **1.5.0** 버전부터 기본 클라이언트가 오프라인 상태가 될 경우([Geth를 사용하고 프루닝이 필요한 경우](./pruning)처럼) 이를 대체할 수 있는 "백업" Execution 클라이언트 및 Consensus 클라이언트 쌍을 제공할 수 있습니다.
-이 상황에서 기본 노드 머신은 여전히 미니풀의 검증자 키로 증명하고 블록을 제안하는 역할을 담당하지만, Execution 레이어 및 Beacon 체인과 상호작용하기 위해 외부 머신에 연결합니다.
+Smartnode 스택의 **1.5.0** 버전부터 기본 클라이언트가 오프라인 상태가 될 경우([Geth를 사용하고 프루닝이 필요한 경우](./pruning)처럼) 이를 대체할 수 있는 "fallback" Execution 클라이언트 및 Consensus 클라이언트 쌍을 제공할 수 있습니다.
+이 상황에서 기본 노드 머신은 여전히 megapool의 검증자 키로 증명하고 블록을 제안하는 역할을 담당하지만, Execution 레이어 및 Beacon 체인과 상호작용하기 위해 외부 머신에 연결합니다.
 
 본질적으로 체인 조회, 트랜잭션 전송, 증명할 블록 수신과 같은 작업에 다른 클라이언트 쌍을 _임시로_ 사용할 수 있습니다.
 이 쌍은 외부에서 관리될 수 있으며(Hybrid 모드처럼), 또는 다른 Rocket Pool 노드가 될 수도 있습니다(아래에서 다룰 API 포트가 노출된 Docker 모드 머신).
@@ -13,10 +13,10 @@ Smartnode 스택의 **1.5.0** 버전부터 기본 클라이언트가 오프라�
 노드의 기본 클라이언트가 다시 온라인 상태가 되면 Smartnode와 Validator 클라이언트가 자동으로 다시 전환됩니다.
 
 ::: warning 참고
-백업 노드는 "백업" 노드와 **동일하지 않습니다**.
-백업 노드는 체인에 동기화되고 실행 중인 Execution 및 Consensus 클라이언트 쌍을 가지고 있지만, 노드의 지갑이나 검증자 키는 **로드되어 있지 않습니다**.
+fallback 노드는 "백업" 노드와 **동일하지 않습니다**.
+Fallback 노드는 체인에 동기화되고 실행 중인 Execution 및 Consensus 클라이언트 쌍을 가지고 있지만, 노드의 지갑이나 검증자 키는 **로드되어 있지 않습니다**.
 
-메인 노드가 오프라인 상태가 되면 **백업 노드가 대신 검증을 시작하지 않습니다.**
+메인 노드가 오프라인 상태가 되면 **fallback 노드가 대신 검증을 시작하지 않습니다.**
 :::
 
 ## 지원되는 클라이언트
@@ -32,6 +32,7 @@ v1.9.0부터 지원하는 모든 검증자 클라이언트에 백업 지원이 �
 | Lodestar   | 예        | 모두                                                                       |
 
 ## 새 노드 설정하기 (Docker 모드)
+
 
 로컬에서 소유한 두 번째 머신, VPS에 호스팅된 원격 노드 또는 클라우드 기반 노드를 백업 노드로 사용할 수 있습니다.
 
@@ -66,7 +67,7 @@ v1.9.0부터 지원하는 모든 검증자 클라이언트에 백업 지원이 �
 이 노드의 유일한 역할은 동기화된 Execution 클라이언트와 Consensus 클라이언트를 갖는 것입니다.
 :::
 
-## 메인 노드를 백업 노드에 연결하기
+## 메인 노드를 Fallback 노드에 연결하기
 
 백업 노드가 준비되면 메인 노드에 연결할 수 있습니다.
 
@@ -119,31 +120,44 @@ NOTE: primary clients are not ready, using fallback clients...
  Primary CC status: unavailable (Sync progress check failed with [Could not get node sync status: Get "http://eth2:5052/eth/v1/node/syncing": dial tcp: lookup eth2 on 127.0.0.11:53: no such host])
 
 ========== General Stats ==========
-Total Value Locked:      278978.009858 ETH
-Staking Pool Balance:    10.587295 ETH
-Minipool Queue Demand:   3360.000000 ETH
-Staking Pool ETH Used:   99.735490%
+Total Value Locked:          1196.926316 ETH
+Deposit Pool Balance:        23.586761 ETH
+Minipool Queue Demand:       0.000000 ETH
+Deposit Pool ETH Used:       6.809609%
 
 ============== Nodes ==============
-Current Commission Rate: 15.000000%
-Node Count:              1325
-Active Minipools:        6409
-    Initialized:         175
-    Prelaunch:           3
-    Staking:             6227
-    Withdrawable:        0
-    Dissolved:           4
-Inactive Minipools:      0
+Current Commission Rate:     5.000000%
+Node Count:                  16
+Active Minipools:            36
+    Initialized:             0
+    Prelaunch:               0
+    Staking:                 36
+    Withdrawable:            0
+    Dissolved:               0
+Finalized Minipools:         30
+
+=========== Megapools ============
+Megapool contracts deployed: 10
+Total megapool validators:  86
+     Staking:                51
+     In Prestake:            6
+     In Queue:               10
+     Exited:                 14
+     Locked:                 1
+     Exiting:                2
+     Dissolved:              2
 
 ========== Smoothing Pool =========
-Nodes Opted in:          0
-Pending Balance:         0.000000
+Contract Address:            0xE8D1136ac49DBe6ac8f299130253004DC63841a1
+Nodes Opted in:              3
+Pending Balance:             0.000000
 
 ============== Tokens =============
-rETH Price (ETH / rETH): 1.031919 ETH
-RPL Price (ETH / RPL):   0.011563 ETH
-Total RPL staked:        6098920.170527 RPL
-Effective RPL staked:    5751692.043848 RPL
+rETH Price (ETH / rETH):     1.185477 ETH
+RPL Price (ETH / RPL):       0.000639 ETH
+Total RPL staked:            33406.127068 RPL
+Total Megapool RPL staked:   11406.127068 RPL
+Total Legacy RPL staked:     22000.000000 RPL
 ```
 
 마지막으로 기본 클라이언트를 다시 시작합니다:

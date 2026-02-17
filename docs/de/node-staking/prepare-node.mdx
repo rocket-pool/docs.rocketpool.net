@@ -5,23 +5,26 @@ import rplWithdrawalConfirmation from "./images/rpl_withdrawal_confirmation.png"
 # Vorbereitung Ihres Nodes für den Betrieb
 
 Wenn Sie hier sind, haben Sie erfolgreich die Smartnode-Dienste gestartet, ein Wallet erstellt und die Synchronisierung sowohl der Execution- als auch der Consensus-Chains auf Ihren jeweiligen Clients abgeschlossen.
-Wenn ja, dann sind Sie bereit, Ihren Node im Rocket Pool-Netzwerk zu registrieren und einen Minipool mit einem Validator zu erstellen!
+Wenn ja, dann sind Sie bereit, Ihren Node im Rocket Pool-Netzwerk zu registrieren und einen Megapool mit einem Validator zu erstellen!
 Falls nicht, überprüfen Sie bitte die vorherigen Abschnitte und kehren Sie hierher zurück, sobald Sie diese Schritte abgeschlossen haben.
 
-Bevor Sie einen neuen Minipool und Validator erstellen, sind einige Schritte erforderlich, um Ihren Node fertig vorzubereiten.
-Diese müssen jedoch nur einmal durchgeführt werden; sobald Sie sie erledigt haben, können Sie zum Abschnitt [Erstellen eines neuen Minipools](./create-validator.mdx) springen, wenn Sie mehrere Minipools auf Ihrem Node erstellen möchten.
+Bevor Sie einen Megapool und einen neuen Validator erstellen, sind einige Schritte erforderlich, um Ihren Node fertig vorzubereiten.
+Diese müssen jedoch nur einmal durchgeführt werden; sobald Sie sie erledigt haben, können Sie zum Abschnitt [Erstellen eines Megapool-Validators](/de/node-staking/megapools/create-megapool-validator) springen, wenn Sie mehrere Validatoren auf Ihrem Node erstellen möchten.
 
 ## Ihr Node-Wallet aufladen
 
 Die Registrierung Ihres Nodes und das Aufsetzen eines Validators erfordern beide das Absenden von Transaktionen an das Ethereum-Netzwerk von Ihrem Node-Wallet aus.
 Das bedeutet, **Sie müssen etwas ETH darauf haben**, um die Gaskosten für diese Transaktionen zu bezahlen.
-Sie müssen auch einige **RPL-Token** als Sicherheit vor dem Erstellen eines Minipools staken; Sie können dies direkt auf dem Node tun, oder (vorzugsweise) Sie können die **Stake on Behalf**-Funktion der Rocket Pool-Website verwenden, um für Ihren Node mit RPL in Ihrem Cold Wallet zu staken.
+Wenn Sie RPL staken möchten, können Sie dies direkt auf dem Node tun, oder (vorzugsweise) Sie können die **Stake on Behalf**-Funktion der Rocket Pool-Website verwenden, um für Ihren Node mit RPL in Ihrem Cold Wallet zu staken.
 Wir werden die Stake on Behalf-Funktion später in diesem Leitfaden besprechen, wenn es Zeit ist, Ihr RPL zu staken.
 
+
+::: tip HINWEIS
 Das für Gasgebühren benötigte ETH zum Einrichten eines Nodes mit einem Minipool beträgt etwa 0,0025 ETH mal dem aktuellen Gaspreis in gwei.
 Zum Beispiel würden Sie bei einem Gaspreis von 30 gwei etwa 0,075 ETH an Gasgebühren zahlen.
 
 Sehen Sie sich [dieses Arbeitsblatt](https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552https://docs.google.com/spreadsheets/d/1loB9U8wCIJn73a1DsR-mJJ9PQaYWMlF9asNc7BgM_zc/edit#gid=1413609552) an, um die Gasgebühren für verschiedene Netzwerkbedingungen zu schätzen.
+:::
 
 <div className="p-3">
   <Tabs>
@@ -76,7 +79,7 @@ Sobald dies abgeschlossen ist, sind Sie offiziell Mitglied des Rocket Pool-Netzw
 ## Ihre primäre Auszahlungsadresse festlegen
 
 Vor allem anderen empfehlen wir dringend, die **primäre Auszahlungsadresse** für Ihren Node zu ändern.
-Dies ist die Adresse, an die alle Ihre RPL-Checkpoint-Belohnungen, Ihr gestaktes RPL und Ihr Beacon Chain ETH gesendet werden, wenn Sie Ihre Checkpoint-Belohnungen beanspruchen oder Ihren Validator beenden und aus Ihrem Minipool abheben.
+Dies ist die Adresse, an die alle Ihre RPL-Checkpoint-Belohnungen, Ihr gestaktes RPL und Ihr Beacon Chain ETH gesendet werden, wenn Sie Ihre Checkpoint-Belohnungen beanspruchen oder Ihren Validator beenden und aus Ihrem Megapool abheben.
 
 Optional können Sie eine Auszahlungsadresse für Ihr ETH und [eine neue für Ihr RPL](https://rpips.rocketpool.net/RPIPs/RPIP-31) festlegen. Die RPL-Auszahlungsadresse kann, falls festgelegt, RPL-Inflationsbelohnungen auslösen und beanspruchen und hat keine Auswirkungen auf ETH-Konsensbelohnungen oder irgendetwas im Zusammenhang mit ETH. Wenn Sie keine RPL-Auszahlungsadresse festgelegt haben, erhält die primäre Auszahlungsadresse auch RPL-Belohnungen. Standardmäßig **kann, wer die primäre Auszahlungsadresse kontrolliert, auf ALL Ihr gestaktes RPL, ETH und Belohnungen zugreifen.**
 
@@ -92,7 +95,7 @@ Wir **empfehlen dringend**, dass Sie KEIN Hot Wallet wie MetaMask als primäre A
 Auf diese Weise erhält der Angreifer, falls Ihr Node-Wallet kompromittiert wird, keinen Zugriff auf Ihr gestaktes ETH und RPL, indem er Sie zum Ausstieg zwingt, da all diese Gelder an Ihr separates Cold Wallet gesendet werden (das sie hoffentlich nicht haben).
 
 Primäre Auszahlungsadressen werden auf Node-Betreiber-Ebene festgelegt.
-Wenn Sie mehrere Minipools erstellen, beziehen sich alle auf dieselbe primäre Auszahlungsadresse, sodass Sie diese Einrichtung nur einmal durchführen müssen.
+Wenn Sie mehrere Megapool-Validatoren erstellen, beziehen sich alle auf dieselbe primäre Auszahlungsadresse, sodass Sie diese Einrichtung nur einmal durchführen müssen.
 
 [Hier finden Sie](https://ethereum.org/en/security/#wallet-security) einige Grundlagen zur Wallet-Sicherheit von der Ethereum Foundation.
 :::
@@ -127,7 +130,7 @@ Bitte lesen Sie beide Optionen unten, um festzustellen, welche auf Sie zutrifft.
       </p>
 
       1. Führen Sie `rocketpool node set-primary-withdrawal-address 'Ihre Cold Wallet-Adresse oder ENS-Name'` aus. Ihre neue primäre Auszahlungsadresse wird als „ausstehend" markiert. Bis Sie sie bestätigen, **wird Ihre alte primäre Auszahlungsadresse weiterhin verwendet**.
-      2. Um sie zu bestätigen, müssen Sie eine spezielle Transaktion **von Ihrer neuen primären Auszahlungsadresse** an den Minipool-Vertrag senden, um zu verifizieren, dass Sie die primäre Auszahlungsadresse besitzen.
+      2. Um sie zu bestätigen, müssen Sie eine spezielle Transaktion **von Ihrer neuen primären Auszahlungsadresse** an den Megapool-Vertrag senden, um zu verifizieren, dass Sie die primäre Auszahlungsadresse besitzen.
       1. Der einfachste Weg, dies zu tun, ist die Navigation zur Rocket Pool-Website für primäre Auszahlungsadressen (für das [Hoodi-Testnetzwerk](https://testnet.node.rocketpool.net/primary-withdrawal-address) oder für [Mainnet](https://node.rocketpool.net/primary-withdrawal-address)).
       3. Wenn Sie Metamask oder WalletConnect noch nicht mit der Rocket Pool-Website verbunden haben, tun Sie dies jetzt. Klicken Sie auf die Schaltfläche **select wallet** in der Mitte des Bildschirms und wählen Sie MetaMask oder WalletConnect basierend auf dem Wallet, das Sie verwenden möchten. Sie werden dann aufgefordert, die Verbindung zu bestätigen. Zum Beispiel mit MetaMask:
 
@@ -158,9 +161,10 @@ Bitte lesen Sie beide Optionen unten, um festzustellen, welche auf Sie zutrifft.
 
       ::: danger
       Dadurch umgehen Sie die Sicherheitsmaßnahme von Methode 1, die erfordert, dass Sie nachweisen, dass Sie die neue Adresse besitzen.
-      Wenn Sie hier einen Tippfehler machen, gibt es keine Möglichkeit, dies rückgängig zu machen, und **die Belohnungen Ihres Minipools gehen für immer verloren**.
+      Wenn Sie hier einen Tippfehler machen, gibt es keine Möglichkeit, dies rückgängig zu machen, und **die Belohnungen Ihres Megapools gehen für immer verloren**.
 
       Wir **empfehlen dringend**, dass Sie den Testtransaktionsmechanismus verwenden, bevor Sie dies bestätigen, und wenn möglich, verwenden Sie stattdessen Methode 1.
+      :::
     </Tab>
 
   </Tabs>
@@ -252,7 +256,7 @@ Wir **empfehlen dringend**, dass Sie KEIN Hot Wallet wie MetaMask als RPL-Auszah
 Auf diese Weise erhält der Angreifer, falls Ihr Node-Wallet kompromittiert wird, keinen Zugriff auf Ihr gestaktes RPL, indem er Sie zum Ausstieg zwingt, da all diese Gelder an Ihr separates Cold Wallet gesendet werden (das sie hoffentlich nicht haben).
 
 RPL-Auszahlungsadressen werden auf Node-Betreiber-Ebene festgelegt.
-Wenn Sie mehrere Minipools erstellen, beziehen sich alle auf dieselbe RPL-Auszahlungsadresse, sodass Sie diese Einrichtung nur einmal durchführen müssen.
+Wenn Sie mehrere Megapool-Validatoren erstellen, beziehen sich alle auf dieselbe RPL-Auszahlungsadresse, sodass Sie diese Einrichtung nur einmal durchführen müssen.
 
 [Hier finden Sie](https://ethereum.org/en/security/#wallet-security) einige Grundlagen zur Wallet-Sicherheit von der Ethereum Foundation.
 :::
@@ -286,7 +290,7 @@ Bitte lesen Sie beide Optionen unten, um festzustellen, welche auf Sie zutrifft.
       </p>
 
       1. Führen Sie `rocketpool node set-rpl-withdrawal-address 'Ihre Cold Wallet-Adresse oder ENS-Name'` aus. Ihre neue RPL-Auszahlungsadresse wird als „ausstehend" markiert. Bis Sie sie bestätigen, **wird Ihre alte RPL-Auszahlungsadresse weiterhin verwendet**.
-      2. Um sie zu bestätigen, müssen Sie eine spezielle Transaktion **von Ihrer neuen RPL-Auszahlungsadresse** an den Minipool-Vertrag senden, um zu verifizieren, dass Sie die RPL-Auszahlungsadresse besitzen.
+      2. Um sie zu bestätigen, müssen Sie eine spezielle Transaktion **von Ihrer neuen RPL-Auszahlungsadresse** an den Megapool-Vertrag senden, um zu verifizieren, dass Sie die RPL-Auszahlungsadresse besitzen.
       1. Der einfachste Weg, dies zu tun, ist die Navigation zur Rocket Pool-Website für RPL-Auszahlungsadressen (für das [Hoodi-Testnetzwerk](https://testnet.node.rocketpool.net/rpl-withdrawal-address) oder für [Mainnet](https://node.rocketpool.net/rpl-withdrawal-address)).
       3. Wenn Sie Metamask oder WalletConnect noch nicht mit der Rocket Pool-Website verbunden haben, tun Sie dies jetzt. Klicken Sie auf die Schaltfläche **select wallet** in der Mitte des Bildschirms und wählen Sie MetaMask oder WalletConnect basierend auf dem Wallet, das Sie verwenden möchten. Sie werden dann aufgefordert, die Verbindung zu bestätigen. Zum Beispiel mit MetaMask:
 
@@ -320,7 +324,7 @@ Bitte lesen Sie beide Optionen unten, um festzustellen, welche auf Sie zutrifft.
 
       <p className="rspress-directive danger">
         Dadurch umgehen Sie die Sicherheitsmaßnahme von Methode 1, die erfordert, dass Sie nachweisen, dass Sie die neue Adresse besitzen.
-        Wenn Sie hier einen Tippfehler machen, gibt es keine Möglichkeit, dies rückgängig zu machen, und **die Belohnungen Ihres Minipools gehen für immer verloren**.
+        Wenn Sie hier einen Tippfehler machen, gibt es keine Möglichkeit, dies rückgängig zu machen, und **die Belohnungen Ihres Megapools gehen für immer verloren**.
 
         Wir **empfehlen dringend**, dass Sie den Testtransaktionsmechanismus verwenden, bevor Sie dies bestätigen, und wenn möglich, verwenden Sie stattdessen Methode 1.
       </p>
@@ -387,4 +391,4 @@ Die nächsten Schritte zur Vorbereitung Ihres Nodes bringen Ihnen bei, wie Sie e
 Jedes Thema erfordert, dass Sie eine Entscheidung treffen, wie Sie Ihren Node betreiben möchten.
 Bitte fahren Sie mit den nächsten Abschnitten im Leitfaden fort, wenn Sie bereit sind.
 
-Sobald Sie mit diesen Themen fertig sind, werden Sie durch den Prozess der Erstellung eines Minipools und des Verdienens von Staking-Belohnungen geführt.
+Sobald Sie mit diesen Themen fertig sind, werden Sie durch den Prozess der Erstellung eines Megapool-Validators und des Verdienens von Staking-Belohnungen geführt.

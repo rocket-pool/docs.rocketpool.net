@@ -1,6 +1,6 @@
 # Ücret Dağıtıcıları ve Smoothing Pool
 
-[Merge](https://ethereum.org/en/upgrades/merge/) geçtikten sonra, node operatörleri Ethereum zincirine önerdikleri herhangi bir blokta dahil ettikleri işlemlerden **öncelik ücretleri** (**bahşişler**) alırlar.
+Node operatörleri, Ethereum zincirine önerdikleri herhangi bir blokta dahil ettikleri işlemlerden **öncelik ücretleri** (**bahşişler**) alırlar.
 Bu ücretler Execution katmanından gelir ve orada kalır.
 
 Consensus katmanında oluşturulan ve otomatik olarak periyodik olarak çekilen çoğu doğrulama ödülünün aksine, bu ücretler _anında likidir_.
@@ -23,13 +23,27 @@ Bunları minipool adresinize gönderemez, çünkü solo staker'lar için de çal
 Bunun yerine, çalışma şekli oldukça basittir: Rocket Pool Validator Client'ınızı başlattığında, **ücret alıcısı** adında bir argüman geçirir.
 Ücret alıcısı, bahşişlerin gitmesini istediğiniz Execution katmanındaki bir adrestir.
 
-Rocket Pool, bu ödülleri sizinle rETH pool staker'ları arasında adil bir şekilde dağıtmak üzere tasarlanmıştır, aynı şekilde Beacon chain ödüllerinizi adil bir şekilde dağıtır: minipool validator'larınızın kazandığı herhangi bir öncelik ücretinden size ait kısım size gidecektir (artı tüm minipool'larınızın ortalama komisyonu) ve kalan kısım pool staker'lara gidecektir (ortalama komisyonunuz eksi).
-Tam kısım, sahip olduğunuz 8 ETH bağlı ve 16 ETH bağlı minipool sayısına bağlıdır.
+Node'unuzun `fee recipient`'i aşağıdaki özel sözleşmelerden biri olabilir:
 
-Bu amaçla, Smartnode node'unuzun `ücret alıcısını` otomatik olarak bunlardan birine ayarlayacaktır:
-
-- Node'unuzun kendi kişisel **Ücret Dağıtıcısı** (varsayılan)
+- Node'unuzun kendi kişisel **Ücret Dağıtıcısı**
+- Node'unuzun megapool sözleşmesi
 - **Smoothing Pool** (katılım isteğe bağlı)
+
+Smart Node, yapılandırmanıza göre doğru ücret alıcısını otomatik olarak ayarlayacaktır:
+
+| Smoothing Pool Durumu | Megapool Validator'ları Var | Minipool'ları Var | Ücret Alıcısı |
+|----------------------|-------------------------|---------------|---------------|
+| Katılmış | Hayır | Evet | Smoothing Pool adresi |
+| Katılmış | Evet | Hayır | Smoothing Pool adresi |
+| Katılmış | Evet | Evet | Smoothing Pool adresi (tüm validator'lar) |
+| Çıkmış | Hayır | Evet | Ücret Dağıtıcısı sözleşme adresi |
+| Çıkmış | Evet | Hayır | Megapool sözleşme adresi |
+| Çıkmış | Evet | Evet | Megapool validator'ları → Megapool adresi<br>Minipool validator'ları → Ücret Dağıtıcısı adresi<br>([keymanager API](https://ethereum.github.io/keymanager-APIs/#/Fee%20Recipient/setFeeRecipient) aracılığıyla validator başına ayarlanır) |
+
+
+
+Rocket Pool, bu ödülleri sizinle rETH pool staker'ları arasında adil bir şekilde dağıtmak üzere tasarlanmıştır, aynı şekilde Beacon chain ödüllerinizi adil bir şekilde dağıtır: minipool validator'larınızın kazandığı herhangi bir öncelik ücretinden size ait kısım size gidecektir (artı tüm minipool'larınızın ortalama komisyonu) ve kalan kısım pool staker'lara gidecektir (ortalama komisyonunuz eksi).
+Tam kısım, sahip olduğunuz 8 ETH bağlı, 16 ETH bağlı minipool'lar ve 4 ETH bağlı megapool validator'larının sayısına bağlıdır.
 
 Kısaca, **Ücret Dağıtıcısı** node'unuza bağlı, öncelik ücretlerinizi toplar ve adil bir şekilde sizinle rETH staker'lar arasında bölen benzersiz bir sözleşmedir.
 Öncelik ücretleri için kendi kişisel kasanız gibidir.
@@ -55,13 +69,10 @@ Node'unuzun Ücret Dağıtıcısı adresi, **node adresinize göre deterministik
 Bu, Ücret Dağıtıcısı oluşturulmadan önce bile önceden bilindiği anlamına gelir.
 
 Yeni Rocket Pool node'ları, kayıt sırasında otomatik olarak node'larının Ücret Dağıtıcısı sözleşmesini oluşturur (başlatır).
-Redstone güncellemesinden önce oluşturulan node'ların bu süreci manuel olarak yapması gerekir.
 Bu sadece bir kez çalıştırılması gerekir.
 
 Bunun ilginç bir sonucu, Dağıtıcınızın adresinin, Ücret Dağıtıcısı sözleşmenizi başlatmadan **önce** bakiye biriktirmeye başlayabilmesidir.
 Bu sorun değildir, çünkü Dağıtıcınız onu başlattığınız anda tüm bu mevcut bakiyeye erişim kazanacaktır.
-
-**Varsayılan olarak, node'unuz validator'larınız için ücret alıcısı olarak Ücret Dağıtıcısını kullanacaktır.**
 
 ### Adresini ve Bakiyesini Görüntüleme
 
@@ -75,29 +86,19 @@ rocketpool node status
 
 ![](../node-staking/images/status-fee-distributor.png)
 
-### Ücret Dağıtıcısını Başlatma
+### Ücret Dağıtıcınızdan Ücretleri Talep Etme
 
-Node'unuzun dağıtıcısını başlatmak için şu yeni komutu çalıştırmanız yeterlidir:
-
-```shell
-rocketpool node initialize-fee-distributor
-```
-
-::: warning NOT
-Node'unuzu Redstone güncellemesinden önce oluşturduysanız, `rocketpool node deposit` ile yeni minipool'lar oluşturabilmeden önce bu fonksiyonu bir kez çağırmanız gerekir.
-:::
-
-Dağıtıcınız başlatıldığında, tüm bakiyesini talep edebilir ve dağıtabilirsiniz:
+Aşağıdaki komutu kullanarak ücret dağıtıcınızın tüm bakiyesini talep edebilir ve dağıtabilirsiniz:
 
 ```shell
 rocketpool node distribute-fees
 ```
 
-Bu, ödüllerinizin payını **çekim adresinize** gönderecektir.
+Bu, ödüllerin sizin payınızı **çekim adresinize** gönderecektir.
 
 ::: warning VERGİYE TABİ OLAYLARA İLİŞKİN NOT
 Yeni bir minipool oluşturduğunuzda, Rocket Pool otomatik olarak `distribute-fees` çağıracaktır.
-Bu, biriktirdiğiniz ücretlerin node'unuzun ortalama komisyonu kullanılarak dağıtılmasını sağlamak içindir, bu da yeni minipool oluşturduğunuzda değişebilir.
+Bu, biriktirdiğiniz ücretlerin node'unuzun ortalama komisyonu kullanılarak dağıtılmasını sağlamak içindir, bu da yeni minipool oluşturduğunuzda değişebilir. Bu, megapool validator oluşturma için geçerli değildir.
 
 Ayrıca, herhangi birinin ücret dağıtıcınızda `distribute-fees` çağırabileceğini unutmayın (rETH ödüllerini rehin tutmanızı önlemek için).
 Bu yöntem her çağrıldığında vergiye tabi bir olay yaşayabilirsiniz.
@@ -109,13 +110,14 @@ Smoothing Pool'u (aşağıda tartışılacak) kullanıp kullanmamaya karar verir
 
 Node operatörlerinin Validator Client'larında kullanılan ücret alıcısını manuel olarak değiştirerek "hile yapmamalarını" sağlamak için Rocket Pool bir ceza sistemi kullanır.
 
-Oracle DAO, Rocket Pool node operatörleri tarafından üretilen her bloğu sürekli olarak izler.
+Oracle DAO, protokol kurallarına uymayan node operatörlerini cezalandırabilir.
 
 Bir node Smoothing Pool'dan _çıkarılmışsa_, aşağıdaki adresler geçerli ücret alıcıları olarak kabul edilir:
 
 - rETH adresi
 - Smoothing Pool adresi
 - Node'un ücret dağıtıcısı sözleşmesi
+- Node'un megapool sözleşmesi
 
 Bir node Smoothing Pool'a _katılmışsa_, aşağıdaki adres geçerli bir ücret alıcısı olarak kabul edilir:
 
@@ -123,10 +125,7 @@ Bir node Smoothing Pool'a _katılmışsa_, aşağıdaki adres geçerli bir ücre
 
 Yukarıdaki geçerli adreslerden biri dışında bir ücret alıcısı **geçersiz** kabul edilir.
 
-**Geçersiz** bir ücret alıcısı ile blok öneren bir minipool'a **bir uyarı** verilecektir.
-Üçüncü uyarıda, minipool **ihlaller** almaya başlayacaktır - her ihlal **toplam Beacon Chain bakiyesinin %10'unu, ETH kazançları dahil** keser ve minipool'dan fon çekerken bunları rETH pool staker'lara gönderir.
-
-İhlaller **minipool** seviyesindedir, **node** seviyesinde değildir.
+Smart Node yazılımı, yapılandırmanıza göre (Smoothing Pool'a katılıp katılmadığınız ve megapool validator'larınız, minipool'larınız veya her ikisi olup olmadığına göre) doğru ücret alıcısını otomatik olarak ayarlar. Her ikisine de sahip olan node'lar için çıkmış durumdayken, ücret alıcısı keymanager API kullanılarak validator başına ayarlanır. Koşulların tam listesi [burada](/node-staking/fee-distrib-sp#fee-recipients) özetlenmiştir.
 
 Smartnode yazılımı, dürüst kullanıcıların asla cezalandırılmamasını sağlamak üzere tasarlanmıştır, hatta bunu yapmak için Validator Client'ı çevrimdışına almak zorunda kalsa bile.
 Bu olursa, onaylama yapmayı durduracaksınız ve log dosyalarınızda Smartnode'un ücret alıcınızı neden doğru şekilde ayarlayamadığına dair hata mesajları göreceksiniz.
@@ -149,19 +148,17 @@ Kısacası, Smoothing Pool'da sizden daha fazla minipool olduğu sürece, ona ka
 
 Smoothing Pool aşağıdaki kuralları kullanır:
 
-- Smoothing Pool'un bakiyesinin dağıtıldığı bir Rocket Pool ödül kontrol noktası sırasında, sözleşmenin toplam ETH bakiyesi ikiye bölünür.
-  - rETH staker'lar 1/2 (16 ETH bağları için) veya 3/4 (8 ETH bağları aka LEB8 için) alır, tüm katılmış node operatörlerinin **ortalama komisyonu** eksi
-  - Geri kalanı katılan node operatörlerine gider.
+- Smoothing Pool'un bakiyesinin node operatörleri arasında dağıtıldığı bir Rocket Pool ödül kontrol noktası sırasında (komisyonları faktörlü olarak), RPL stake eden node operatörleri, rETH staker'ları ve potansiyel olarak Rocket Pool DAO. Kesin yüzdeler Rocket Pool [Protocol Dao (pDAO) yönetişimi](/pdao/overview) tarafından belirlenir.
 
-- Smoothing Pool'a katılmak **node seviyesinde** yapılır. Katılırsanız, tüm minipool'larınız katılmış olur.
+- Smoothing Pool'a katılmak **node seviyesinde** yapılır. Katılırsanız, tüm minipool'larınız ve megapool validator'larınız katılmış olur.
 
 - Herkes herhangi bir zamanda katılabilir. Sistemi oynamayı önlemek için (örneğin, blok önerisi için seçildikten hemen sonra SP'den ayrılmak) tam bir ödül aralığı (Hoodi'de 3 gün, Mainnet'te 28 gün) beklemeleri gerekir.
   - Çıktıktan sonra, tekrar katılmak için başka bir tam aralık beklemeleri gerekir.
 
-- Smoothing Pool, katılan her node'un sahip olduğu her minipool'un "payını" (aralık için havuzun ETH'sinin kısmı) hesaplar.
-  - Pay, minipool'unuzun aralık boyunca performansının (Beacon Chain'de kaç onaylama gönderdiğinize ve kaçını kaçırdığınıza bakarak hesaplanır) ve minipool'unuzun komisyon oranının bir fonksiyonudur.
+- Smoothing Pool, katılan her node'un sahip olduğu her validator'ın "payını" (aralık için havuzun ETH'sinin kısmı) hesaplar.
+  - Pay, validator'ünüzün aralık boyunca performansının (Beacon Chain'de kaç onaylama gönderdiğinize ve kaçını kaçırdığınıza bakarak hesaplanır) ve komisyon oranınızın bir fonksiyonudur.
 
-- Node'unuzun toplam payı, minipool paylarınızın toplamıdır.
+- Node'unuzun toplam payı, validator paylarınızın toplamıdır.
 
 - Node'unuzun toplam payı, katıldığınız süreye göre ölçeklendirilir.
   - Tam aralık boyunca katılmışsanız, tam payınızı alırsınız.
