@@ -110,24 +110,22 @@ Please keep these conditions in mind when deciding whether or not to use the Smo
 
 To ensure that node operators don't "cheat" by manually modifying the fee recipient used in their Validator Client, Rocket Pool employs a penalty system.
 
-The Oracle DAO constantly monitors each block produced by Rocket Pool node operators.
+The Oracle DAO are able to penalise node operators that do not follow the protocol rules.
 
 If a node is _opted out_ of the Smoothing Pool, the following addresses are considered valid fee recipients:
 
 - The rETH address
 - The Smoothing Pool address
 - The node's fee distributor contract
+- The node's megapool contract
 
 If a node is _opted in_ to the Smoothing Pool, the following address is considered a valid fee recipient:
 
 - The Smoothing Pool address
 
-A fee recipient other than one of valid addresses above is considered to be **invalid**.
+A fee recipient other than one of the valid addresses above is considered to be **invalid**.
 
-A minipool that proposed a block with an **invalid** fee recipient will be issued **a strike**.
-On the third strike, the minipool will begin receiving **infractions** - each infraction will dock **10% of its total Beacon Chain balance, including ETH earnings** and send them to the rETH pool stakers upon withdrawing funds from the minipool.
-
-Infractions are at a **minipool** level, not a **node** level.
+The Smart Node software automatically sets the correct fee recipient based on your configuration (whether you're opted into the Smoothing Pool, and whether you have megapool validators, minipools, or both). For nodes with both megapool validators and minipools while opted out, the fee recipient is set per validator using the keymanager API. The full list of conditions are summarized [here](/node-staking/fee-distrib-sp#fee-recipients).
 
 The Smartnode software is designed to ensure honest users will never get penalized, even if it must take the Validator Client offline to do so.
 If this happens, you will stop attesting and will see error messages in your log files about why the Smartnode can't correctly set your fee recipient.
@@ -150,25 +148,23 @@ In short, as long as the Smoothing Pool has more minipools than you do, it's mor
 
 The Smoothing Pool uses the following rules:
 
-- During a Rocket Pool rewards checkpoint when the Smoothing Pool's balance is distributed, the contract's total ETH balance is split in two.
-  - rETH stakers receive 1/2 (for 16 ETH bonds) or 3/4 (for 8 ETH bonds aka LEB8), minus the **average commission** of all opted-in node operators
-  - The remainder goes to the node operators that opted in.
+- During a Rocket Pool rewards checkpoint when the Smoothing Pool's balance is distributed between node operators (factoring in their commission), RPL staking node operators, rETH stakers, and potentially the Rocket Pool DAO. The exact percentages are determined by Rocket Pool [Protocol Dao (pDAO) governance](/pdao/overview)
 
-- Opting into the Smoothing Pool is done on a **node level**. If you opt in, all of your minipools are opted in.
+- Opting into the Smoothing Pool is done on a **node level**. If you opt in, all of your minipools and megapool validators are opted in.
 
 - Anyone can opt in at any time. They must wait a full rewards interval (3 days on Hoodi, 28 days on Mainnet) before opting out to prevent gaming the system (e.g. leaving the SP right after being selected to propose a block).
   - Once opted out, they must wait another full interval to opt back in.
 
-- The Smoothing Pool calculates the "share" of each minipool (portion of the pool's ETH for the interval) owned by each node opted in.
-  - The share is a function of your minipool's performance during the interval (calculated by looking at how many attestations you sent on the Beacon Chain, and how many you missed), and your minipool's commission rate.
+- The Smoothing Pool calculates the "share" of each validator (portion of the pool's ETH for the interval) owned by each node opted in.
+  - The share is a function of your validator's performance during the interval (calculated by looking at how many attestations you sent on the Beacon Chain, and how many you missed), and your commission rate.
 
-- Your node's total share is the sum of your minipool shares.
+- Your node's total share is the sum of your validator shares.
 
 - Your node's total share is scaled by the amount of time you were opted in.
   - If you were opted in for the full interval, you receive your full share.
   - If you were opted in for 30% of an interval, you receive 30% of your full share.
 
-If you are interested in the complete technical details of Smoothing Pool rewards calculation, please review the [full specification here](https://github.com/rocket-pool/rocketpool-research/blob/master/Merkle%20Rewards%20System/rewards-calculation-spec.md#smoothing-pool-rewards).
+If you are interested in the complete technical details of Smoothing Pool rewards calculation, please review the [full specification here](https://github.com/rocket-pool/rocketpool-research/blob/master/Merkle%20Rewards%20System/rewards-calculation-spec.md#smoothing-pool-rewards). 
 
 ### Joining and Leaving the Smoothing Pool
 
