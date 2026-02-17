@@ -2,8 +2,40 @@
   font-display: swap;
   font-family: "Inter";
   font-style: normal;
+  font-weight: 400;
+  src: url("/docs/public/inter-v13-latin-regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Inter";
+  font-style: normal;
   font-weight: 500;
   src: url("/docs/public/inter-v13-latin-500.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  src: url("/docs/public/inter-v13-latin-600.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/docs/public/inter-v13-latin-700.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 800;
+  src: url("/docs/public/inter-v13-latin-800.woff2") format("woff2");
 }
 
 @font-face {
@@ -12,6 +44,22 @@
   font-style: normal;
   font-weight: 600;
   src: url("/docs/public/poppins-v20-latin-600.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Geist Mono";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/docs/public/geist-mono-latin-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Geist Mono";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/docs/public/geist-mono-latin-700.woff2") format("woff2");
 }
 
 body {
@@ -45,6 +93,7 @@ h6 {
   --rp-nav-height: 72px;
   --rp-sidebar-width: 320px;
   --rp-aside-width: 268px;
+  --rp-font-family-mono: "Geist Mono", Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 :where(html:not(.rp-dark)) {
