@@ -2,13 +2,14 @@
 
 # Creating a Megapool (Validator)
 
-Welcome to Saturn 1! A Rocket Pool Megapool is a smart contract instance on the execution layer. 
-Your node will manage a Megapool that serves as an Ethereum withdrawal address for one or many validators.
+Welcome to Saturn 1! A Rocket Pool megapool is a smart contract instance on the execution layer. 
+Your node will manage a megapool that serves as an Ethereum withdrawal address for one or many validators.
 Each validator is comprised of a portion of your ETH, known as the bond amount, and a portion of ETH from the rETH staking pool, 
-known as the borrowed amount. Your Megapool is responsible for merging the bond amount and borrowed amount ETH to form 32 ETH total, which is 
+known as the borrowed amount. Your megapool is responsible for merging the bond amount and borrowed amount ETH to form 32 ETH total, which is 
 then sent to the Beacon Chain deposit contract to create a new validator.
-It's deployed at the time of your first validator deposit. Afterwards you'll be able to use the same Megapool to manage as many validators as you wish! You won't need 
-to deploy a new Megapool every time you create a new validator. 
+
+Your megapool is automatically deployed at the time of your first validator deposit. Afterwards you'll be able to use the same megapool to manage as many validators as you wish! You won't need 
+to deploy a new megapool every time you create a new validator. 
 
 
 ::: tip NOTE
@@ -32,7 +33,7 @@ There needs to be ETH available in the deposit pool to match your 4 ETH with 28 
 2. The second is the Beacon Chain queue, which is managed by the Ethereum Beacon Chain & determines when your validator will become active.
 Please be aware that the time it takes for your validator to become active can vary greatly depending on your position in each queue & the current state of the network.
 
-The Rocket Pool deposit queue features an express queue system to help existing node operators migrate their megapool validator ETH
+The Rocket Pool deposit queue features an express queue system to help existing node operators migrate their minipool validator ETH
 to megapool validator ETH. 
 
 :::
@@ -41,7 +42,7 @@ to megapool validator ETH.
 
 There are two types of queues within Rocket Pool's deposit queue: express queue and standard queue. 
 
-The deposit queue features an express queue system to help existing node operators migrate their megapool validator ETH
+The deposit queue features an express queue system to help existing node operators migrate their minipool validator ETH
 to megapool validator ETH. It also creates more predictable deposit timelines for deposits using the express queue.
 
 The express queue is processed at a 4:1 ratio which means 4 validators from the express queue get matched for every 1 validator matched from
@@ -55,10 +56,10 @@ Your node will be refunded an express queue ticket if you choose to [dequeue you
 
 ## Depositing ETH and Creating a Validator
 
-If this is your node's first Megapool validator, your node's Megapool will also be deployed at the same time. Please remember that your node's Megapool can
-manage one or many validators, so Megapool development only happens once per node!
+If this is your node's first megapool validator, your node's megapool will also be automatically deployed at the same time. Please remember that your node's Megapool can
+manage one or many validators, so megapool deployment only happens once per node!
 
-Once you're ready to deposit your ETH into a Megapool and create a Beacon Chain validator, you can do so using the following command:
+Once you're ready to deposit your ETH into a megapool and create a Beacon Chain validator, you can do so using the following command:
 
 ```
 rocketpool megapool deposit
@@ -67,14 +68,17 @@ rocketpool megapool deposit
 
 While the CLI does automate a lot of the next steps for you, we <strong>strongly</strong> recommend monitoring your node & transactions to ensure a successful transition from `prelaunch` to `staking`.
 
-Failed transactions (due to adjusted gas settings or insufficient ETH) could make your megapool validator transition to the `dissolved` state, which you want to avoid.
+Failed transactions (due to adjusted gas settings, insufficient ETH for gas, or the node being offline for 28 days after the initial deposit) could make your megapool validator transition to the `dissolved` state, which you want to avoid.
+
+If a prelaunch validator fails to stake within 28 days, the validator will be dissolved. The 1 ETH (of a 4 ETH bond) sent to the Beacon Chain during the prelaunch process is **not recoverable**.
+The node operator is [credited](/node-staking/megapools/credit) the remaining 3 ETH from their bond with a dissolve penalty of 0.05 ETH applied as debt. The net credit for a dissolved validator is 2.95 ETH. 
 
 [Learn more about how to confirm a successful stake](./create-megapool-validator#confirming-a-successful-stake)
 
 :::
 
 The first prompt will ask how many validators you'd like to create. You can create up to 35 in the same deposit, but we'll go with 1 validator
-for the rest of our demonstration here. Type `1` then hit `enter`
+for the rest of our demonstration here. Type `1` then hit `enter` to begin creating 1 validator.
 ```
 Your eth2 client is on the correct network.
 
@@ -97,7 +101,7 @@ Would you like to continue? [y/n]
 y
 ```
 The next prompt will display the status of the [Rocket Pool deposit queue](/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-and-express-queue).
-This shows you how many validators waiting to be matched with ETH are ahead of you. The express queue is mainly for already existing node operators as new nodes won't have any express
+This shows how many validators are waiting ahead of you to be matched with ETH. The express queue is mainly for already existing node operators as new nodes won't have any express
 queue tickets. `The express queue rate is 4` means 4 validators from the express queue are matched for every 1 validator in the standard queue.
 ```
 There are 1 validator(s) on the express queue.
@@ -171,6 +175,18 @@ that your `initialized` validator smoothly progresses to `staking` without incur
 
 ## Confirming a Successful Stake
 
+::: danger WARNING
+
+While the CLI does automate a lot of the next steps for you, we <strong>strongly</strong> recommend monitoring your node & transactions to ensure a successful transition from `prelaunch` to `staking`.
+
+Failed transactions (due to adjusted gas settings, insufficient ETH for gas, or the node being offline for 28 days after the initial deposit) could make your megapool validator transition to the `dissolved` state, which you want to avoid.
+
+If a prelaunch validator fails to stake within 28 days, the validator will be dissolved. The 1 ETH (of a 4 ETH bond) sent to the Beacon Chain during the prelaunch process is **not recoverable**.
+The node operator is [credited](/node-staking/megapools/credit) the remaining 3 ETH from their bond with a dissolve penalty of 0.05 ETH applied as debt. The net credit for a dissolved validator is 2.95 ETH. 
+
+:::
+
+
 Make sure your node stays online during this entire process! It will perform a handful of fully automatic steps to ensure that your validator smoothly advances 
 between the various stages explained below: 
 
@@ -224,7 +240,7 @@ Express Ticket Used:          no
 <img src="../images/pending-activation.png" width="100%" height="auto" />
 
 The current status of the Beacon Chain validator queue can be found here: https://www.validatorqueue.com/. Once your `Staking` validator is activated on the Beacon Chain, you'll
-see `Beacon status:                active_ongoing` to confirm that it's been activated and ready to make attestations. 
+see `Beacon status:                active_ongoing` in the `rocketpool megapool validators` menu to confirm that it's been activated and ready to make attestations. 
 
 ```
 1 Staking validator(s):
@@ -283,7 +299,7 @@ If you happen to have used an express queue ticket on your exited (dequeued) val
 ## Creating Multiple Megapool Validators
 
 Your node's megapool can manage as many validators as you'd like. If you'd like to create an additional validator (or create multiple validators in the same transaction to save on transaction fees), 
-you can do so using the `rocketpool megapool deposit` command. 
+you can do so using the `rocketpool megapool deposit` command. Given the current block gas limit, the maximum amount of validators you can create in one transaction is 35. 
 
 ## Next Steps
 
