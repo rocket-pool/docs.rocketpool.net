@@ -1,9 +1,9 @@
 #!/usr/bin/env bun
 
-import { readdir, readFile, writeFile, mkdir, stat } from "fs/promises";
-import { join, relative, dirname } from "path";
-import { fileURLToPath } from "url";
 import { execSync } from "child_process";
+import { mkdir, readdir, readFile, stat, writeFile } from "fs/promises";
+import { dirname, join, relative } from "path";
+import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = join(__dirname, "..");

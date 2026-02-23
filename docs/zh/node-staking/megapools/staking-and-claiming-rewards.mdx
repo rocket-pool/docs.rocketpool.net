@@ -17,12 +17,12 @@
 
 Saturn 1 引入了 UARS，它将来自节点运营者佣金的协议 ETH 收益分配给四个组：
 
-| 组别 | 默认份额 | 可通过 pDAO 调整 |
-|-------|---------------|---------------------|
-| **基础佣金** 分配给节点运营者 | 5% | 是 |
-| **选民份额** 分配给 megapool RPL 质押者 | 9% | 是 |
-| **pDAO 国库** | 0% | 是 |
-| **rETH 持有者** | 86%（其余部分） | 自动 |
+| 组别                                    | 默认份额        | 可通过 pDAO 调整 |
+| --------------------------------------- | --------------- | ---------------- |
+| **基础佣金** 分配给节点运营者           | 5%              | 是               |
+| **选民份额** 分配给 megapool RPL 质押者 | 9%              | 是               |
+| **pDAO 国库**                           | 0%              | 是               |
+| **rETH 持有者**                         | 86%（其余部分） | 自动             |
 
 这些参数可通过 [pDAO 治理](/zh/pdao/overview)进行调整，使 Rocket Pool 协议能够随市场条件变化进行适应和竞争。通过质押 RPL 和运行验证者，您有资格参与此过程！
 
@@ -50,6 +50,7 @@ Saturn 1 引入了 UARS，它将来自节点运营者佣金的协议 ETH 收益�
 ```
 vote-eligible RPL = min(1.5*RPL value of megapool bonded_eth, megapool staked rpl)
 ```
+
 您应该能够在 `rocketpool node status` 菜单中查看您节点的质押 ETH 比率：
 
 ```
@@ -89,11 +90,9 @@ Saturn 1 引入了取消质押 RPL 的两步提取系统。这旨在减少市场
 您可以取消质押的 megapool 质押 RPL 数量没有上限，这意味着您可以随时取消质押并提取全部金额。
 拥有旧版 RPL 的节点运营者可以提取至最低 15% 借入 ETH 抵押率。这 15% 的最低限额仅考虑来自旧版 minipool 的借入 ETH，不包括 megapool。以下几节将介绍取消质押和提取 RPL 的两个步骤。
 
-
 ::: tip 旧版 RPL 质押者注意事项
 如果您想降低借入 ETH 抵押率以提取更多 RPL，您可能需要考虑
 [退出您的 minipool](/zh/node-staking/withdraw#shut-down-a-minipool) 以降低您的借入 ETH 抵押金额。
-
 
 :::
 
@@ -102,6 +101,7 @@ Saturn 1 引入了取消质押 RPL 的两步提取系统。这旨在减少市场
 ::: warning 警告
 
 在 28 天取消质押期间：
+
 - 您申请取消质押的 RPL 不再继续赚取奖励。
 - 您无法取消取消质押过程，但您可以在 28 天期满后提取，然后重新质押。
 - 您可以在 28 天期间发起新的提取，但您所有取消质押中的 RPL 将重新计算 28 天的取消质押时间。建议在发起另一次提取之前完成初始提取。否则您需要再次等待完整的取消质押期。
@@ -109,6 +109,7 @@ Saturn 1 引入了取消质押 RPL 的两步提取系统。这旨在减少市场
 :::
 
 要开始此过程，请使用 `rocketpool node withdraw-rpl` 命令。您将看到以下提示：
+
 ```
 The RPL withdrawal process has changed in Saturn. It is now a 2-step process:
 1. Request to unstake a certain RPL amount;
@@ -132,6 +133,7 @@ Please select one of the three options below.
 
 系统将提示您取消质押全部余额或输入自定义取消质押金额。输入 `y` 取消质押全部金额，或输入 `n` 输入自定义取消质押金额。
 从这里开始，Smart Node 将引导您完成发出取消质押请求所需的其余步骤。
+
 ```
 You have 4383.275814 RPL staked on your megapool and can request to unstake up to 4383.275814 RPL.
 Would you like to unstake the maximum amount of staked RPL? [y/n]
@@ -166,9 +168,11 @@ Waiting for the transaction to be included in a block... you may wait here for i
 Successfully unstaked 1000.000000 RPL.
 
 ```
+
 ### 检查您取消质押 RPL 的状态
 
 成功发出取消质押 RPL 请求后，`rocketpool node withdraw-rpl` 命令将通知您取消质押的 RPL 何时符合提取条件：
+
 ```
 Your node has 1017.688800 RPL on its legacy stake (previously associated to minipools) and 3383.275814 RPL staked on its megapool.
 Your node currently has 0.000000 RPL locked on pDAO proposals.
@@ -180,6 +184,7 @@ You have 1000.000000 RPL currently unstaking until 2026-02-19, 04:05 +0000 UTC (
 ### 步骤 2：提取已取消质押的 RPL
 
 28 天取消质押期过后，状态将反映在 `rocketpool node withdraw-rpl` 命令中，您最终可以提取已取消质押的 RPL。
+
 ```
 You have 1000.000000 RPL unstaked and ready to be withdrawn to your RPL withdrawal address.
 ```
@@ -247,6 +252,7 @@ Please choose an amount of RPL to stake:
 使用此命令将在您的 megapool 上质押 RPL，增加您的选民份额奖励。现在不再可能在 minipool 上质押 RPL。
 
 ## 查看您节点的 ETH 和 RPL 奖励
+
 Smart Node 有一个便捷的新功能，允许您检查您的节点可能拥有的所有不同类型奖励的状态。
 以下是所有可能的奖励类型列表：
 
@@ -317,9 +323,11 @@ The following 2 claim(s)/credits are available:
 
 Enter the numbers of the claims you want to execute (comma-separated), 'all' to claim everything, or 'none' to cancel:
 ```
+
 完成选择并确认 gas 选项后，根据您领取的奖励类型，可能还有额外的提示需要跟进。我们不会在此一一介绍。Smart Node 应能够引导您完成所有步骤。
 
 以下是兑换两种奖励类型的示例——定期奖励 + ETH 信用额度：
+
 ```
 +================ Suggested Gas Prices ================+
 | Avg Wait Time |   Max Fee    |     Total Gas Cost     |
@@ -363,8 +371,6 @@ Waiting for the transaction to be included in a block... you may wait here for i
 All 2 claim(s) completed successfully.
 ============================================================
 ```
-
-
 
 ## 后续步骤
 

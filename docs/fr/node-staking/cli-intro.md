@@ -462,7 +462,6 @@ Cela vous retirera du Smoothing Pool si vous y participez actuellement et avez a
 Une fois **la prochaine époque après l'époque actuelle** finalisée, cela changera automatiquement le `fee recipient` de votre nœud du Smoothing Pool vers le contrat distributeur de votre nœud.
 C'est pour s'assurer que vous n'êtes pas pénalisé pour avoir devancé le processus de sortie lorsque vous voyez que vous avez une proposition à venir.
 
-
 ### `distribute-fees`
 
 Une fois que vous avez gagné des récompenses sur votre distributeur de frais, vous pouvez réclamer et distribuer l'intégralité de son solde en utilisant la commande suivante :
@@ -499,6 +498,7 @@ rocketpool node send 1 eth <my friend's address>
 enverrait 1 ETH à mon ami.
 
 ## Commandes Megapool
+
 Le groupe `megapool` est l'endroit où vous pouvez accéder à toutes les commandes utilisées pour gérer votre megapool et les validateurs du megapool.
 
 Voici ce que `rocketpool megapool help` affichera :
@@ -535,9 +535,11 @@ GLOBAL OPTIONS:
 Voici un résumé des commandes que vous utiliserez généralement lors du fonctionnement normal :
 
 ### `deposit`
+
 Cette commande vous permet de créer de nouveaux validateurs sur votre megapool. Nous y reviendrons plus en détail par la suite. N'hésitez pas à passer directement à [Créer un validateur Megapool](/node-staking/megapools/create-megapool-validator.mdx) si vous souhaitez un aperçu.
 
 ### `status`
+
 Cette commande vous donne des informations sur l'état de votre megapool et des validateurs gérés par votre megapool. Vous pourrez voir l'adresse de votre megapool, le nombre de billets de file d'attente express, l'adresse délégué de votre megapool, le solde ETH sur les couches d'exécution et de consensus, et de nombreuses autres informations utiles. Voici un exemple de la sortie de `rocketpool megapool status` :
 
 ```
@@ -562,7 +564,9 @@ Current network commission: 5.000000%
 ```
 
 ### `validators`
+
 La commande `rocketpool megapool validators` vous montrera l'état de chaque validateur géré par le megapool de votre nœud. Vous pourrez voir des informations telles que les clés publiques des validateurs, l'état sur la Beacon Chain, et la position dans la file d'attente des validateurs en prestaking :
+
 ```
 There are 8 validator(s) on the express queue.
 There are 2 validator(s) on the standard queue.
@@ -605,7 +609,6 @@ Express Ticket Used:          yes
 ### `exit-validator`
 
 Cette commande vous permet de sélectionner un validateur pour effectuer une sortie volontaire sur la Beacon Chain. Utilisez-la lorsque vous souhaitez fermer un validateur et retirer son solde ETH final. Notez que cela ne peut pas être annulé - une fois que vous déclenchez une sortie, le validateur s'arrêtera définitivement.
-
 
 ## Commandes Minipool
 

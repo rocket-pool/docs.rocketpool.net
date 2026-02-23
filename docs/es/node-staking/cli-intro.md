@@ -462,7 +462,6 @@ Esto te sacará del Smoothing Pool si actualmente estás participando y has espe
 Una vez que **la próxima época después de la época actual** esté finalizada, cambiará automáticamente el `fee recipient` de tu nodo del Smoothing Pool de vuelta al contrato distribuidor de tu nodo.
 Esto es para asegurarse de que no recibas penalizaciones por adelantarte al proceso de salida cuando veas que tienes una propuesta próxima.
 
-
 ### `distribute-fees`
 
 Una vez que hayas ganado recompensas en tu fee distributor, puedes reclamar y distribuir todo su saldo usando el siguiente comando:
@@ -499,6 +498,7 @@ rocketpool node send 1 eth <my friend's address>
 enviaría 1 ETH a mi amigo.
 
 ## Comandos de Megapool
+
 El grupo `megapool` es donde puedes acceder a todos los comandos usados para gestionar tu megapool y los validadores de tu megapool.
 
 Esto es lo que mostrará `rocketpool megapool help`:
@@ -535,9 +535,11 @@ GLOBAL OPTIONS:
 A continuación se muestra un resumen de los comandos que normalmente usarás durante la operación habitual:
 
 ### `deposit`
+
 Este comando te permite crear nuevos validadores en tu megapool. Profundizaremos en él más adelante. Siéntete libre de saltar a [Crear un Validador de Megapool](/node-staking/megapools/create-megapool-validator.mdx) si quieres una vista previa.
 
 ### `status`
+
 Este comando te proporciona información sobre el estado de tu megapool y los validadores gestionados por él. Podrás ver la dirección de tu megapool, el número de tickets de cola expréss, la dirección del delegado de tu megapool, el saldo ETH en la capa de ejecución y consenso, y mucha otra información útil. Aquí hay un ejemplo de la salida de `rocketpool megapool status`:
 
 ```
@@ -562,7 +564,9 @@ Current network commission: 5.000000%
 ```
 
 ### `validators`
+
 El comando `rocketpool megapool validators` te mostrará el estado de cada validador gestionado por el megapool de tu nodo. Podrás ver información como las claves públicas del validador, el estado en la Beacon Chain y la posición en la cola de los validadores en pre-stake:
+
 ```
 There are 8 validator(s) on the express queue.
 There are 2 validator(s) on the standard queue.
@@ -605,7 +609,6 @@ Express Ticket Used:          yes
 ### `exit-validator`
 
 Este comando te permite seleccionar un validador para salir voluntariamente de la Beacon Chain. Úsalo cuando quieras cerrar un validador y retirar su saldo final de ETH. Ten en cuenta que esto no se puede deshacer: una vez que activas una salida, el validador se apagará permanentemente.
-
 
 ## Comandos de Minipool
 

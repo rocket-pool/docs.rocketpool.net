@@ -461,7 +461,6 @@ rocketpool node leave-smoothing-pool
 **현재 epoch 다음 epoch**가 완료되면 node의 `fee recipient`가 Smoothing Pool에서 node의 distributor 계약으로 자동 변경됩니다.
 이는 제안이 예정되어 있을 때 exit 프로세스를 front-running하여 페널티를 받지 않도록 하기 위한 것입니다.
 
-
 ### `distribute-fees`
 
 fee distributor에서 보상을 획득한 후 다음 명령을 사용하여 전체 잔액을 청구하고 배포할 수 있습니다:
@@ -498,6 +497,7 @@ rocketpool node send 1 eth <my friend's address>
 는 친구에게 1 ETH를 보냅니다.
 
 ## Megapool 명령어
+
 `megapool` 그룹은 megapool과 megapool validator를 관리하는 데 사용되는 모든 명령에 액세스할 수 있는 곳입니다.
 
 `rocketpool megapool help`가 보여주는 내용은 다음과 같습니다:
@@ -534,9 +534,11 @@ GLOBAL OPTIONS:
 다음은 일반 운영 중에 일반적으로 사용하는 명령에 대한 요약입니다:
 
 ### `deposit`
+
 이 명령을 사용하면 megapool에 새 validator를 생성할 수 있습니다. 나중에 자세히 다룰 것입니다. 미리 보고 싶다면 [Megapool Validator 생성](/node-staking/megapools/create-megapool-validator.mdx)으로 건너뛰어도 됩니다.
 
 ### `status`
+
 이 명령은 megapool의 상태와 megapool이 관리하는 validator에 대한 정보를 제공합니다. megapool의 주소, express queue 티켓 수, megapool의 delegate 주소, execution 및 consensus 레이어의 ETH 잔액 및 기타 유용한 정보를 볼 수 있습니다. 다음은 `rocketpool megapool status` 출력 예시입니다:
 
 ```
@@ -561,7 +563,9 @@ Current network commission: 5.000000%
 ```
 
 ### `validators`
+
 `rocketpool megapool validators` 명령은 node의 megapool이 관리하는 모든 validator의 상태를 보여줍니다. validator 공개 키, beacon chain 상태, prestaking validator의 queue 위치 등의 정보를 볼 수 있습니다:
+
 ```
 There are 8 validator(s) on the express queue.
 There are 2 validator(s) on the standard queue.
@@ -604,7 +608,6 @@ Express Ticket Used:          yes
 ### `exit-validator`
 
 이 명령을 사용하면 Beacon Chain에서 자발적으로 exit할 validator를 선택할 수 있습니다. validator를 닫고 최종 ETH 잔액을 withdraw하려는 경우 사용하세요. 이는 실행 취소할 수 없습니다 - exit를 트리거하면 validator가 영구적으로 종료됩니다.
-
 
 ## Minipool 명령어
 

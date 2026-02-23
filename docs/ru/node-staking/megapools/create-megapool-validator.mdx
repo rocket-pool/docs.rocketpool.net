@@ -1,5 +1,3 @@
-
-
 # Создание мегапула (Validator)
 
 Добро пожаловать в Saturn 1! Мегапул Rocket Pool — это экземпляр смарт-контракта на уровне исполнения.
@@ -10,7 +8,6 @@
 
 Ваш мегапул автоматически развёртывается во время первого депозита валидатора. После этого вы сможете использовать тот же мегапул для управления любым количеством валидаторов! Вам не нужно
 будет развёртывать новый мегапул каждый раз, когда вы создаёте нового валидатора.
-
 
 ::: tip ПРИМЕЧАНИЕ
 Время активации (и выхода) из очереди валидаторов Beacon Chain может сильно варьироваться в зависимости от текущего состояния сети.
@@ -28,10 +25,10 @@
 Создание валидатора регулируется двумя очередями.
 
 1. Первая — это очередь депозитов Rocket Pool. Мы подробнее рассмотрим её в другом разделе, но по сути эта очередь управляется протоколом Rocket Pool и определяет, когда ваш валидатор получит заёмный ETH.
-Для создания валидатора необходимо наличие ETH в депозитном пуле для сопоставления ваших 4 ETH с 28 ETH из депозитного пула.
+   Для создания валидатора необходимо наличие ETH в депозитном пуле для сопоставления ваших 4 ETH с 28 ETH из депозитного пула.
 
 2. Вторая — это очередь Beacon Chain, которая управляется Ethereum Beacon Chain и определяет, когда ваш валидатор станет активным.
-Обратите внимание, что время активации валидатора может сильно варьироваться в зависимости от вашего положения в каждой очереди и текущего состояния сети.
+   Обратите внимание, что время активации валидатора может сильно варьироваться в зависимости от вашего положения в каждой очереди и текущего состояния сети.
 
 Очередь депозитов Rocket Pool имеет систему экспресс-очереди, которая помогает существующим операторам нод мигрировать ETH своих валидаторов minipool
 на ETH валидаторов megapool.
@@ -64,6 +61,7 @@
 ```
 rocketpool megapool deposit
 ```
+
 ::: danger ПРЕДУПРЕЖДЕНИЕ
 
 Хотя CLI автоматизирует многие следующие шаги за вас, мы <strong>настоятельно</strong> рекомендуем следить за вашей нодой и транзакциями, чтобы обеспечить успешный переход от `prelaunch` к `staking`.
@@ -79,6 +77,7 @@ rocketpool megapool deposit
 
 Первый запрос спросит, сколько валидаторов вы хотите создать. Вы можете создать до 35 в одном депозите, но мы продолжим с 1 валидатором
 для остальной части нашей демонстрации. Введите `1`, затем нажмите `enter`, чтобы начать создание 1 валидатора.
+
 ```
 Your eth2 client is on the correct network.
 
@@ -91,7 +90,6 @@ How many validators would you like to create? (max: 35)
 валидаторов megapool, поэтому `0.00 ETH bonded`. Текущее требование залога — `4 ETH`.
 После прочтения и понимания показанной информации введите `y`, затем нажмите `enter`, чтобы перейти к следующему запросу.
 
-
 ```
 The node is currently bonded with 0.00 ETH.
 The total bond requirement is 4.00 ETH.
@@ -100,9 +98,11 @@ NOTE: You are about to create 1 new megapool validator(s), requiring a total of:
 Would you like to continue? [y/n]
 y
 ```
+
 Следующий запрос отобразит статус [очереди депозитов Rocket Pool](/ru/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-and-express-queue).
 Это показывает, сколько валидаторов ожидают перед вами для сопоставления с ETH. Экспресс-очередь в основном предназначена для уже существующих операторов нод, поскольку у новых нод не будет билетов экспресс-очереди.
 `The express queue rate is 4` означает, что 4 валидатора из экспресс-очереди сопоставляются на каждый 1 из стандартной очереди.
+
 ```
 There are 1 validator(s) on the express queue.
 There are 12 validator(s) on the standard queue.
@@ -110,17 +110,21 @@ The express queue rate is 4 (4 express validators assigned per 1 standard).
 A new express validator would be at queue position 3.
 A new standard validator would be at queue position 14.
 ```
+
 ::: tip ПРИМЕЧАНИЕ
 Если вы возвращающийся оператор ноды и у вас есть доступные билеты экспресс-очереди для этого депозита, вам будет предложено использовать их на этом этапе.
 Введите `1`, затем нажмите `enter`, чтобы продолжить использование одного билета экспресс-очереди для этого одного депозита валидатора megapool.
+
 ```
 How many express tickets would you like to use? (max: 7)
 1
 ```
+
 Если вы хотите сохранить свой билет(ы) экспресс-очереди и продолжить в стандартной очереди, просто введите `0`, затем нажмите `enter`, чтобы перейти к следующему запросу.
 :::
 
 Если у вас есть [кредит для депозита](/ru/node-staking/megapools/credit), который нужно использовать для валидатора, вам будет предложено сделать это здесь. В противном случае на этом шаге вам будут предложены текущие предложения по цене газа в сети.
+
 ```
 Your credit balance is 0.00 ETH. (Credit in addition to ETH staked on your behalf).
 Your consensus client is synced, you may safely create a megapool validator.
@@ -136,7 +140,9 @@ These prices include a maximum priority fee of 0.010 gwei.
 Please enter your max fee (including the priority fee) or leave blank for the default of 1.96787 gwei:
 
 ```
+
 После подтверждения цены газа мы сделаем последнее и окончательное подтверждение для создания валидатора megapool.
+
 ```
 Using a max fee of 1.968 gwei and a priority fee of 0.010 gwei.
 You are about to deposit 4.000000 ETH to create 1 new megapool validator(s).
@@ -162,6 +168,7 @@ To check the status of your validators use `rocketpool megapool validators`
 To monitor the stake transactions use `rocketpool service logs node`
 
 ```
+
 После завершения транзакции вы получите подтверждение вашего депозита
 в виде хэша транзакции etherscan вместе с ожидаемым pubkey Beacon Chain после того, как ваш валидатор megapool выйдет в онлайн. Не стесняйтесь использовать команду `rocketpool megapool status` для
 проверки статуса вашего мегапула или `rocketpool megapool validators` для проверки статуса вашего конкретного валидатора. Ваш валидатор будет в
@@ -185,7 +192,6 @@ To monitor the stake transactions use `rocketpool service logs node`
 
 :::
 
-
 Убедитесь, что ваша нода остаётся онлайн на протяжении всего этого процесса! Она выполнит несколько полностью автоматических шагов, чтобы убедиться, что ваш валидатор плавно продвигается
 между различными этапами, описанными ниже:
 
@@ -203,9 +209,11 @@ Validator active:             no
 Validator Queue Position:     14
 Express Ticket Used:          no
 ```
+
 Как только вашему валидатору будет присвоен ETH из [очереди депозитов Rocket Pool](/ru/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-and-express-queue), он будет переведён в состояние `Prelaunch`. В этот момент 1 ETH из баланса вашего мегапула будет депонирован
 в Beacon Chain. Pubkey вашего валидатора также будет зарегистрирован в Beacon Chain, что означает, что вы можете просмотреть статус вашего `Prelaunch` валидатора в таком обозревателе, как https://beaconcha.in/ (или https://hoodi.beaconcha.in/, если вы используете тестовую сеть).
 Вы можете наблюдать за своим валидатором, выполнив поиск pubkey на https://beaconcha.in/ или перейдя по ссылке в формате: `https://beaconcha.in/validator/<your-validator-pubkey>`
+
 ```
 1 Prelaunch validator(s):
 
@@ -217,13 +225,11 @@ Validator active:             no
 Express Ticket Used:          no
 
 ```
+
 <img src="../images/prestaking.png" width="100%" height="auto" />
-После того как ваш `Prelaunch` валидатор будет обработан Beacon Chain и зачтён первоначальный депозит в 1 ETH, ваша нода автоматически выполнит
-транзакцию `stake` для завершения полного депозита в 32 ETH в Beacon Chain. Транзакция `stake` переведёт ваш `Prelaunch` валидатор
-в состояние `Staking`. На этом этапе ваш `Staking` валидатор:
-- Имеет 32 ETH, депонированных в Beacon Chain
-- Получил индексный номер валидатора
-- Ожидает активации в Beacon Chain
+После того как ваш `Prelaunch` валидатор будет обработан Beacon Chain и зачтён первоначальный депозит в 1 ETH, ваша нода автоматически выполнит транзакцию `stake` для завершения полного депозита в 32
+ETH в Beacon Chain. Транзакция `stake` переведёт ваш `Prelaunch` валидатор в состояние `Staking`. На этом этапе ваш `Staking` валидатор: - Имеет 32 ETH, депонированных в Beacon Chain - Получил
+индексный номер валидатора - Ожидает активации в Beacon Chain
 
 ```
 1 Staking validator(s):
@@ -236,6 +242,7 @@ Beacon status:                pending_queued
 Express Ticket Used:          no
 
 ```
+
 <img src="../images/pending-activation.png" width="100%" height="auto" />
 
 Текущий статус очереди валидаторов Beacon Chain можно найти здесь: https://www.validatorqueue.com/. Как только ваш `Staking` валидатор будет активирован в Beacon Chain, вы
@@ -253,6 +260,7 @@ Validator index:              <index>
 Beacon status:                active_ongoing
 Express Ticket Used:          no
 ```
+
 <img src="../images/activated.png" width="100%" height="auto" />
 
 На этом этапе всё готово! Поздравляем! Вы официально создали валидатор megapool с Rocket Pool! Ознакомьтесь с руководствами по [Мониторингу и обслуживанию](/ru/node-staking/maintenance/overview),
@@ -265,6 +273,7 @@ Express Ticket Used:          no
 
 Сначала проверьте `rocketpool megapool validators`, чтобы определить, какой валидатор вывести из очереди. Убедитесь,
 что валидатор, который вы выводите из очереди, находится в состоянии `Initialized`. Запомните его pubkey. После того как вашему валидатору будет присвоен ETH, вы не сможете вывести его из очереди.
+
 ```
 1 Initialized validator(s):
 
@@ -277,14 +286,15 @@ Validator Queue Position:     14
 Express Ticket Used:          no
 ```
 
-
 Используйте следующую команду для вывода валидатора из очереди, затем продолжите с выбором:
+
 ```
 staker@node:~$ rocketpool megapool exit-queue
 
 Please select a validator to exit the queue:
 1: Pubkey: <beacon-pubkey>
 ```
+
 После выбора и подтверждения того, что ваш валидатор покинул очередь депозитов Rocket Pool, вы можете использовать следующую команду для обмена кредита на rETH:
 
 ```
@@ -292,6 +302,7 @@ staker@node:~$ rocketpool node withdraw-credit
 
 You have 4.000000 ETH of credit that you can withdraw, receiving the equivalent amount in rETH. Would you like to withdraw the maximum amount of credit? [y/n]
 ```
+
 И вот всё готово! Если вы хотите внести депозит для другого валидатора, этот кредит также можно использовать для депозита валидатора в дополнение к обмену на rETH.
 Если вы использовали билет экспресс-очереди для вашего вышедшего (исключённого из очереди) валидатора, вашей ноде будет возвращён этот билет экспресс-очереди.
 

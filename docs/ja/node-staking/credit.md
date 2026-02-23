@@ -16,7 +16,7 @@ Saturn 1の準備のため、現在minipoolのデポジットは無効になっ�
 このETHは流動化されてノードオペレーターに返還されるわけではありません。代わりに、ノードオペレーターからのETHを必要とせずに**追加のminipoolを作成する**ために使用できます。
 
 クレジットシステムはノードオペレーターに対して**透明**です。`rocketpool node deposit`または`rocketpool node create-vacant-minipool`の操作中に可能であれば自動的に使用されます(使用されることをSmartnodeトノードCLIで通知します)。
-使用_できない_場合、Smartnodeはユーザーに使用できないことを警告し、どちらの操作でも通常のETH担保が必要になります。
+使用*できない*場合、Smartnodeはユーザーに使用できないことを警告し、どちらの操作でも通常のETH担保が必要になります。
 
 詳細については、以下の[クレジットの利用可能性](#credit-availability)セクションを参照してください。
 
@@ -27,7 +27,7 @@ Saturn 1の準備のため、現在minipoolのデポジットは無効になっ�
 これにより、もはや担保されていない**8 ETH**が発生します。
 その8 ETHは**クレジット残高**に配置されます。
 
-次に、_2つ目_の8-ETH minipoolを作成したいとします。
+次に、*2つ目*の8-ETH minipoolを作成したいとします。
 通常通り`rocketpool node deposit`を実行し、担保額として8-ETHを選択します。
 これには通常、minipool用に自分のETHを8提供する必要があります。
 しかし、クレジット残高が8 ETHあるため、Rocket Poolは**代わりにそれを自動的に使用します**。
@@ -45,7 +45,7 @@ This deposit will use 8.000000 ETH from your credit balance and will not require
 Your consensus client is synced, you may safely create a minipool.
 ```
 
-ここで2番目の行が重要です。クレジット残高にこのデポジットをカバーするのに十分なETHがあり、_それが使用可能である_ことが示されているため、残高が自動的に使用され、ノードウォレットから追加のETHは必要ありません。
+ここで2番目の行が重要です。クレジット残高にこのデポジットをカバーするのに十分なETHがあり、*それが使用可能である*ことが示されているため、残高が自動的に使用され、ノードウォレットから追加のETHは必要ありません。
 
 クレジット残高の利用可能性の詳細については、[以下の利用可能性セクション](#credit-availability)を参照してください。
 

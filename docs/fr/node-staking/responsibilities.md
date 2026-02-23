@@ -33,12 +33,12 @@ Le slashing _ne peut pas survenir_ en étant hors ligne pour maintenance.
 
 Ci-dessous se trouve un tableau qui montre les pénalités qui peuvent arriver à un validator :
 
-| Type                  | Couche    | Montant                                                                                           |
-| --------------------- | --------- | ------------------------------------------------------------------------------------------------- |
-| Missed Attestation    | Consensus | -0,000011 ETH\* par attestation (-9/10 de la valeur d'une récompense d'attestation normale)      |
-| Missed Proposal       | Consensus | 0                                                                                                 |
-| Missed Sync Committee | Consensus | -0,00047 ETH\* par epoch (-0,1 ETH au total si hors ligne pour tout le sync committee)           |
-| Slashing              | Consensus | Au moins 1/32 de votre solde, jusqu'à votre solde entier dans des circonstances extrêmes         |
+| Type                  | Couche    | Montant                                                                                     |
+| --------------------- | --------- | ------------------------------------------------------------------------------------------- |
+| Missed Attestation    | Consensus | -0,000011 ETH\* par attestation (-9/10 de la valeur d'une récompense d'attestation normale) |
+| Missed Proposal       | Consensus | 0                                                                                           |
+| Missed Sync Committee | Consensus | -0,00047 ETH\* par epoch (-0,1 ETH au total si hors ligne pour tout le sync committee)      |
+| Slashing              | Consensus | Au moins 1/32 de votre solde, jusqu'à votre solde entier dans des circonstances extrêmes    |
 
 \*_Varie en fonction du nombre total de validators dans le réseau.
 Approximé pour 435 000 validators actifs._

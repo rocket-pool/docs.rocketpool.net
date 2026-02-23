@@ -6,7 +6,7 @@ import mevBoostIntegrationOverview from "./images/mev-boost-integration-overview
 # MEV、MEV-Boost、MEV報酬
 
 前のセクションでは、node operatorがpriority feeを獲得する方法について学びました。
-Priority feeはnode operatorの収入を大幅に増やすものですが、Execution layerで利用可能な流動報酬の_唯一の_形態ではありません。
+Priority feeはnode operatorの収入を大幅に増やすものですが、Execution layerで利用可能な流動報酬の*唯一の*形態ではありません。
 **MEV報酬**として知られる補助的な形態の報酬が利用可能です。
 
 :::tip NOTE
@@ -22,7 +22,7 @@ Priority feeはnode operatorの収入を大幅に増やすものですが、Exec
 バリデーターがブロックを作成する際、通常は非常にシンプルなアルゴリズムを使用します。保留中のトランザクションのリストを追跡し、構築しているブロックにできるだけ多くのトランザクションをバンドルし（最も高いチップを持つものを優先）、そのブロックをチェーンに送信します。
 
 しかし、Ethereumネットワークのユーザーは、公開されている保留中のトランザクションのプール（**mempool**として知られる）を見ることができることの興味深い副作用を発見しました。
-この知識により、トランザクションの順序を変更し、場合によってはそれらの間に_新しい_トランザクションを導入する、巧妙で洗練されたアルゴリズムを採用できるようになりました。
+この知識により、トランザクションの順序を変更し、場合によってはそれらの間に*新しい*トランザクションを導入する、巧妙で洗練されたアルゴリズムを採用できるようになりました。
 これら2つの技術を組み合わせることで、ブロック提案から追加のETHを抽出できます。
 
 この追加のETHは、**Maximal Extractable Value**、略してMEVとして知られています。
@@ -37,8 +37,8 @@ Priority feeはnode operatorの収入を大幅に増やすものですが、Exec
 MEVの機会を見つけることは簡単なことではありません。最先端の機会発見者は**searcher**として知られており、非常に強力なコンピューターを必要とし、複雑なAIアルゴリズムを採用して、迅速にMEVを特定して抽出します。
 Searcherはこれらの機会を取得し、**block builder**（searcher自身または他の当事者である可能性がある）に提供します。block builderは、これらの機会のバンドルを集約して完全なEthereumブロックを形成するエンティティです。
 
-収益性の高いsearcherを実行するためのハードウェアとソフトウェアの要件により、ほとんどのnode operatorはそれらを使用すること（または少なくとも_競争力を持って_使用すること）ができず、したがって独自のMEV機会を見つけて活用することができません。
-幸いなことに、単にMEV機会を_見つける_ことは方程式の半分に過ぎません。
+収益性の高いsearcherを実行するためのハードウェアとソフトウェアの要件により、ほとんどのnode operatorはそれらを使用すること（または少なくとも*競争力を持って*使用すること）ができず、したがって独自のMEV機会を見つけて活用することができません。
+幸いなことに、単にMEV機会を*見つける*ことは方程式の半分に過ぎません。
 
 各Epoch（6.4分、または32スロット）ごとに、Beacon Chainはアクティブなバリデーターの全リストからランダムにバリデーターを選択して、そのEpochのスロットの1つに収まるブロックを提案します。
 このリストは、次の今後のEpochについて確認でき、つまり、各スロットにどのバリデーターが割り当てられているかを数分前に全員が確認できます。
@@ -54,15 +54,15 @@ block builderがバリデーターとやり取りするこの「マーケット�
 
 Rocket Poolは現在、node operatorに**複数の異なるrelay**へのアクセスを提供しています。
 
-| 名前                                                                                          | 規制                     | MEVタイプ |
-| --------------------------------------------------------------------------------------------- | ------------------------ | --------- |
+| 名前                                                                                          | 規制             | MEVタイプ      |
+| --------------------------------------------------------------------------------------------- | ---------------- | -------------- |
 | [Flashbots](https://boost.flashbots.net/)                                                     | OFAC制裁に準拠\* | すべてのタイプ |
 | [bloXroute Max Profit](https://docs.bloxroute.com/apis/mev-solution/mev-relay-for-validators) | OFAC制裁に準拠\* | すべてのタイプ |
 | [bloXroute Regulated](https://docs.bloxroute.com/apis/mev-solution/mev-relay-for-validators)  | OFAC制裁に準拠\* | すべてのタイプ |
-| [Ultra Sound](https://relay.ultrasound.money/)                                                | 規制なし                    | すべてのタイプ |
+| [Ultra Sound](https://relay.ultrasound.money/)                                                | 規制なし         | すべてのタイプ |
 | [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/)                              | OFAC制裁に準拠\* | すべてのタイプ |
-| [AESTUS](https://aestus.live/)                                                                | 規制なし                    | すべてのタイプ |
-| [Titan Global](https://docs.titanrelay.xyz/)                                                  | 規制なし                    | すべてのタイプ |
+| [AESTUS](https://aestus.live/)                                                                | 規制なし         | すべてのタイプ |
+| [Titan Global](https://docs.titanrelay.xyz/)                                                  | 規制なし         | すべてのタイプ |
 | [Titan Regional](https://docs.titanrelay.xyz/)                                                | OFAC制裁に準拠\* | すべてのタイプ |
 | [BTCS OFAC+](https://shop.btcs.com/ofac-relay/)                                               | OFAC制裁に準拠\* | すべてのタイプ |
 

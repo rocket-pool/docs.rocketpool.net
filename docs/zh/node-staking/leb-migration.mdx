@@ -73,7 +73,7 @@ Please select a minipool to begin the ETH bond reduction for:
 - Minipool 已升级为使用 [Atlas minipool 委托合约](./minipools/delegates)。
 - Minipool 的 validator 在 Beacon Chain 上的余额必须至少为 32 ETH。
 - Minipool 的 validator 必须处于待定或活跃状态。
-- 您已质押足够的 RPL 来支持债券减少_后_所需的最低 RPL 抵押水平。
+- 您已质押足够的 RPL 来支持债券减少*后*所需的最低 RPL 抵押水平。
 
 如果不满足,它将打印一条警告错误,说明需要首先完成什么;例如:
 
@@ -136,7 +136,7 @@ rocketpool_node  | 2023/02/25 09:04:21 Minipool 0x7E5703fdA638CD86c316B9EbAF7692
    ```
    该命令很简单;当您的 minipool 符合债券减少资格时,按照提示完成该过程。
 
-在债券减少期间,Rocket Pool **分配您的 minipool 的现有余额**,使用 minipool 债券减少前的债券和佣金,以确保您和 rETH staker 都能获得现有余额的公平份额,并且债券减少不会改变任何一方_本应_从该余额中获得的奖励。
+在债券减少期间,Rocket Pool **分配您的 minipool 的现有余额**,使用 minipool 债券减少前的债券和佣金,以确保您和 rETH staker 都能获得现有余额的公平份额,并且债券减少不会改变任何一方*本应*从该余额中获得的奖励。
 
 ### 债券减少的结果
 
@@ -197,7 +197,7 @@ Your portion:          8.000013 ETH
 
 - 如果您查看[交易](https://zhejiang.beaconcha.in/tx/0xf02f6b1a4ea68f356909e6f1974dc3c24d301ba115b97f3013c3c829ba2ca57c),您还会看到它从 minipool 向 staking 池发送了 0.06413383 ETH。
 - 在"之前"示例中,staking 池的份额是 minipool 的余额减去节点运营者的份额,即 `0.150713 - 0.086660 = 0.064053`,这是在债券减少期间转移到 staking 池的金额(加上审查检查期间发生的奖励撇脂的少量金额)。
-- 另一方面,_节点运营者_的份额不会被发送到节点运营者的提款地址。它被标记为**可用退款**,这就是为什么退款金额从 0 ETH 增加到之前 minipool 在 EL 上余额的"您的份额"金额。
+- 另一方面,*节点运营者*的份额不会被发送到节点运营者的提款地址。它被标记为**可用退款**,这就是为什么退款金额从 0 ETH 增加到之前 minipool 在 EL 上余额的"您的份额"金额。
   - 您可以随时使用以下命令领取此退款:
     ```shell
     rocketpool minipool refund

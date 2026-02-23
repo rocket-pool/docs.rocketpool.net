@@ -21,7 +21,6 @@ O custo de gas contínuo e inicial de gerenciar múltiplos validators e distribu
 Depósitos de minipools legacy estão desabilitados e node operators podem migrar seus validators minipool para um megapool.
 No geral, os megapools devem melhorar a experiência do node operator e a sustentabilidade de longo prazo do Rocket Pool.
 
-
 O contrato delegado serve como endereço de saque do Ethereum e gerencia as atividades dos validators. Node operators podem atualmente escolher atualizar ou permanecer com os mesmos delegados minipool, tornando desafiador projetar futuras atualizações. A Atualização Saturn 1 introduz [Atualizações Forçadas de Delegados](https://rpips.rocketpool.net/RPIPs/RPIP-47), permitindo que o protocolo itere de forma mais eficiente. Atualizações forçadas de delegados em contratos megapool significam que o protocolo Rocket Pool não será impedido pela compatibilidade retroativa ao projetar futuras atualizações, e dá ao pDAO mais flexibilidade para melhorar o Rocket Pool ao longo do tempo.
 
 ## Requisitos de bond mais baixos
@@ -29,17 +28,17 @@ O contrato delegado serve como endereço de saque do Ethereum e gerencia as ativ
 Os megapools reduzem o custo operacional, permitindo que o Rocket Pool reduza o requisito de bond por validator de 8 ETH para 4 ETH.
 Bonds de ETH mais baixos permitem que a mesma quantidade de ETH bonded suporte um maior volume de rETH e melhoram a eficiência de capital do Rocket Pool. Em outras palavras, bonds mais baixos permitem mais comissão por ETH bonded.
 
-
-| Tipo de Validator | Bond Necessário | ETH Protocolo Matched | Taxa de Comissão | Comissão por ETH Bonded |
-|-------------------|-----------------|----------------------|-----------------|---------------------------|
-| 8 ETH Minipool | 8 ETH         | 24 ETH              | 5%              | 15%                       |
-| 4 ETH Megapool | 4 ETH         | 28 ETH              | 5%              | **35%** (melhoria de 2.3x)|
+| Tipo de Validator | Bond Necessário | ETH Protocolo Matched | Taxa de Comissão | Comissão por ETH Bonded    |
+| ----------------- | --------------- | --------------------- | ---------------- | -------------------------- |
+| 8 ETH Minipool    | 8 ETH           | 24 ETH                | 5%               | 15%                        |
+| 4 ETH Megapool    | 4 ETH           | 28 ETH                | 5%               | **35%** (melhoria de 2.3x) |
 
 O requisito de bond é um parâmetro ajustável pelo pDAO no Saturn 1.
 Isso prepara o caminho para a futura atualização do Rocket Pool, Saturn 2, que planeja bonds de 4 ETH nos dois primeiros validators e depois bonds de 1.5 ETH em cada validator subsequente.
 Confira [RPIP-42: Bond curves](https://rpips.rocketpool.net/RPIPs/RPIP-42) para se aprofundar nos detalhes.
 
 ## Participação na receita de RPL
+
 No Saturn 1, RPL torna-se um token de participação na receita com acumulação de ETH. Node operators com RPL elegível para voto stakeado em seu megapool ganham uma parte da receita de ETH proporcional ao seu RPL stakeado. A próxima seção explica como essa distribuição de receita funciona.
 
 ## Universal Adjustable Revenue Split (UARS)
@@ -47,6 +46,7 @@ No Saturn 1, RPL torna-se um token de participação na receita com acumulação
 O Saturn 1 introduz o [Universal Adjustable Revenue Split (UARS)](https://rpips.rocketpool.net/RPIPs/RPIP-46), um novo sistema ajustável para distribuir a receita de ETH do protocolo proveniente das comissões dos node operators. Essa adaptabilidade permite que o Rocket Pool seja competitivo conforme as condições de mercado mudam.
 
 O UARS divide a receita de ETH entre quatro grupos. Cada parcela é ajustável via governança do pDAO:
+
 - Parcela de comissão base para node operators (5%)
 - Recompensas de participação de voto para stakers de RPL (9%)
 - Parcela do pDAO para o tesouro do protocolo (0%, ajustável via governança)
@@ -69,6 +69,7 @@ Por exemplo, um node operator com um minipool legacy de 8 ETH recebe 2 tickets d
 
 Além dos parâmetros de participação na receita, alguns parâmetros de proteção (controláveis pelo pDAO) estão sendo incluídos no Saturn 1 para reduzir as suposições de confiança no oracle DAO e no protocolo DAO.
 Essas proteções servem para melhorar a segurança sem interferir com o uso legítimo.
+
 - [RPIP-58: MEV Penalty Guardrail](https://rpips.rocketpool.net/RPIPs/RPIP-58): coloca um limite no número de penalidades MEV que o oDAO pode aplicar aos minipools por semana.
 - [RPIP-61: Balance Submission Guardrail](https://rpips.rocketpool.net/RPIPs/RPIP-61): durante a operação normal, a taxa de câmbio do rETH não precisa mudar frequentemente. RPIP-61 coloca um limite na frequência com que o oDAO pode mudar a taxa de câmbio do rETH.
 - [RPIP-60: Protocol Upgrade Guardrails](https://rpips.rocketpool.net/RPIPs/RPIP-60): introduz um atraso entre quando uma atualização de protocolo é aprovada e quando a atualização é executada. RPIP-60 permite que os usuários tenham tempo suficiente para sair do protocolo se ele mudar de uma forma com a qual não concordam. Também dá ao conselho de segurança o poder de vetar uma atualização de protocolo.
@@ -90,6 +91,7 @@ Para um histórico completo de auditorias, visite a página de [Segurança do Pr
 O Rocket Pool também mantém um [programa ativo de bug bounty na Immunefi](https://immunefi.com/bug-bounty/rocketpool/information/) com recompensas de até $500.000 para vulnerabilidades críticas.
 
 ## Guia do Node Operator
+
 Se você está interessado em executar um nó Rocket Pool para criar seus próprios validators Ethereum, dê uma olhada no nosso [guia do Node Operator](/pt/node-staking/responsibilities).
 Este é um guia muito abrangente que cobre todas as considerações envolvidas na operação de um nó, incluindo:
 

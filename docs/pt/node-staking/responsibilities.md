@@ -33,12 +33,12 @@ Slashing _não pode ocorrer_ por estar offline para manutenção.
 
 Abaixo está uma tabela que mostra as penalidades que podem acontecer a um validator:
 
-| Tipo                  | Camada    | Quantidade                                                                        |
-| --------------------- | --------- | --------------------------------------------------------------------------------- |
-| Atestação Perdida     | Consenso  | -0.000011 ETH\* por atestação (-9/10 do valor de uma recompensa de atestação normal) |
-| Proposta Perdida      | Consenso  | 0                                                                                 |
-| Sync Committee Perdido| Consenso  | -0.00047 ETH\* por época (-0.1 ETH total se offline por todo o sync committee)   |
-| Slashing              | Consenso  | Pelo menos 1/32 do seu saldo, até seu saldo inteiro em circunstâncias extremas   |
+| Tipo                   | Camada   | Quantidade                                                                           |
+| ---------------------- | -------- | ------------------------------------------------------------------------------------ |
+| Atestação Perdida      | Consenso | -0.000011 ETH\* por atestação (-9/10 do valor de uma recompensa de atestação normal) |
+| Proposta Perdida       | Consenso | 0                                                                                    |
+| Sync Committee Perdido | Consenso | -0.00047 ETH\* por época (-0.1 ETH total se offline por todo o sync committee)       |
+| Slashing               | Consenso | Pelo menos 1/32 do seu saldo, até seu saldo inteiro em circunstâncias extremas       |
 
 \*_Varia com base no número total de validators na rede.
 Aproximado para 435.000 validators ativos._

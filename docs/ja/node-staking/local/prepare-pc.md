@@ -18,7 +18,7 @@ Rocket Pool nodeを実行するための専用マシンを作成することを�
 
 Rocket PoolのSmartnodeクライアントは現在、**Linux**および**macOS**システムをサポートしています。
 
-現時点では、**Windows**はリモートのLinuxまたはMacマシンをリモート管理するために使用できますが、Smartnode自体は現在Windowsシステムでは実行できません。ただし、Rocket Poolは、Windowsマシンがホストする Linux [仮想マシン](https://en.wikipedia.org/wiki/System_virtual_machine)で実行_できます_。
+現時点では、**Windows**はリモートのLinuxまたはMacマシンをリモート管理するために使用できますが、Smartnode自体は現在Windowsシステムでは実行できません。ただし、Rocket Poolは、Windowsマシンがホストする Linux [仮想マシン](https://en.wikipedia.org/wiki/System_virtual_machine)で実行*できます*。
 このセットアップは、ホストオペレーティングシステムとしてLinuxをインストールするよりも推奨されませんが、必要に応じて動作します。
 追加のリソースオーバーヘッドが必要であり、独自のセキュリティリスクが伴うため、メインネットワークで実際のEtherをstakingする際にこのセットアップを使用することはお勧めしません。
 
@@ -133,7 +133,7 @@ Debianのインストール中に**SSHサーバー**ボックスにチェック�
 `ssh`に慣れていない場合は、[Secure Shell入門](../ssh)ガイドをご覧ください。
 
 :::warning NOTE
-この時点で、nodeのIPアドレスを**静的**にするようにルーターを構成することを_強く検討する_必要があります。
+この時点で、nodeのIPアドレスを**静的**にするようにルーターを構成することを*強く検討する*必要があります。
 これは、nodeが永遠に同じIPアドレスを持つことを意味し、そのIPアドレスを使用していつでもSSHでログインできます。
 そうしないと、nodeのIPが時点で変更される可能性があり、上記のSSHコマンドが機能しなくなります。
 nodeの新しいIPアドレスが何であるかを確認するには、ルーターの構成に入る必要があります。

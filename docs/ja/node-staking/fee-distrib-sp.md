@@ -3,7 +3,7 @@
 ノードオペレーターはEthereumチェーンに提案するブロックに含めるトランザクションから**priority fees**（**チップ**）を受け取ります。
 これらの手数料はExecutionレイヤーから来て、Executionレイヤーに留まります。
 
-Consensusレイヤーで生成され、定期的に自動的に引き出されるほとんどの検証報酬とは異なり、これらの手数料は_即座に流動的_です。
+Consensusレイヤーで生成され、定期的に自動的に引き出されるほとんどの検証報酬とは異なり、これらの手数料は*即座に流動的*です。
 一般的に、priority feesはBeacon Chain報酬とほぼ同じ量のETHを提供するため、Mergeの非常に良い利点です。
 
 ::: tip 注記
@@ -31,16 +31,14 @@ fee recipientは単に、チップを送信したいExecutionレイヤーのア�
 
 Smart Nodeは、設定に基づいて正しいfee recipientを自動的に設定します:
 
-| Smoothing Poolの状態 | Megapool Validatorの有無 | Minipoolの有無 | Fee Recipient |
-|----------------------|-------------------------|---------------|---------------|
-| オプトイン | なし | あり | Smoothing Poolアドレス |
-| オプトイン | あり | なし | Smoothing Poolアドレス |
-| オプトイン | あり | あり | Smoothing Poolアドレス（全validator） |
-| オプトアウト | なし | あり | Fee Distributorコントラクトアドレス |
-| オプトアウト | あり | なし | Megapoolコントラクトアドレス |
-| オプトアウト | あり | あり | Megapool validators → Megapoolアドレス<br>Minipool validators → Fee Distributorアドレス<br>（[keymanager API](https://ethereum.github.io/keymanager-APIs/#/Fee%20Recipient/setFeeRecipient)でvalidatorごとに設定） |
-
-
+| Smoothing Poolの状態 | Megapool Validatorの有無 | Minipoolの有無 | Fee Recipient                                                                                                                                                                                                      |
+| -------------------- | ------------------------ | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| オプトイン           | なし                     | あり           | Smoothing Poolアドレス                                                                                                                                                                                             |
+| オプトイン           | あり                     | なし           | Smoothing Poolアドレス                                                                                                                                                                                             |
+| オプトイン           | あり                     | あり           | Smoothing Poolアドレス（全validator）                                                                                                                                                                              |
+| オプトアウト         | なし                     | あり           | Fee Distributorコントラクトアドレス                                                                                                                                                                                |
+| オプトアウト         | あり                     | なし           | Megapoolコントラクトアドレス                                                                                                                                                                                       |
+| オプトアウト         | あり                     | あり           | Megapool validators → Megapoolアドレス<br>Minipool validators → Fee Distributorアドレス<br>（[keymanager API](https://ethereum.github.io/keymanager-APIs/#/Fee%20Recipient/setFeeRecipient)でvalidatorごとに設定） |
 
 Rocket Poolは、Beacon chain報酬を公平に分配するのと同じ方法で、これらの報酬をあなたとrETHプールステーカーの間で公平に分配するように設計されています。minipoolのvalidatorが獲得したpriority feesのあなたの部分はあなたに行き（すべてのminipoolの平均手数料を加えたもの）、残りの部分はプールステーカーに行きます（あなたの平均手数料を差し引いたもの）。
 正確な部分は、8 ETHボンドと16 ETHボンドのminipool、および4 ETHボンドのmegapool validatorの数によって異なります。
@@ -112,14 +110,14 @@ Smoothing Pool（以下で説明）を使用するかどうかを決定する際
 
 Oracle DAOは、プロトコルルールに従わないノードオペレーターにペナルティを科すことができます。
 
-ノードがSmoothing Poolから_オプトアウト_している場合、次のアドレスが有効なfee recipientsと見なされます。
+ノードがSmoothing Poolから*オプトアウト*している場合、次のアドレスが有効なfee recipientsと見なされます。
 
 - rETHアドレス
 - Smoothing Poolアドレス
 - ノードのfee distributorコントラクト
 - ノードのmegapoolコントラクト
 
-ノードがSmoothing Poolに_オプトイン_している場合、次のアドレスが有効なfee recipientと見なされます。
+ノードがSmoothing Poolに*オプトイン*している場合、次のアドレスが有効なfee recipientと見なされます。
 
 - Smoothing Poolアドレス
 

@@ -33,12 +33,12 @@ Slashing, bakım için çevrimdışı olmaktan _meydana gelemez_.
 
 Aşağıda bir validatora olabilecek cezaları gösteren bir tablo bulunmaktadır:
 
-| Tip                   | Katman    | Miktar                                                                                  |
-| --------------------- | --------- | --------------------------------------------------------------------------------------- |
-| Missed Attestation    | Consensus | -0.000011 ETH\* onay başına (-normal bir onay ödülünün değerinin 9/10'u)                |
-| Missed Proposal       | Consensus | 0                                                                                       |
+| Tip                   | Katman    | Miktar                                                                                        |
+| --------------------- | --------- | --------------------------------------------------------------------------------------------- |
+| Missed Attestation    | Consensus | -0.000011 ETH\* onay başına (-normal bir onay ödülünün değerinin 9/10'u)                      |
+| Missed Proposal       | Consensus | 0                                                                                             |
 | Missed Sync Committee | Consensus | -0.00047 ETH\* epoch başına (-tüm senkronizasyon komitesi için çevrimdışıysa toplam -0.1 ETH) |
-| Slashing              | Consensus | Bakiyenizin en az 1/32'si, aşırı durumlarda tüm bakiyenize kadar                        |
+| Slashing              | Consensus | Bakiyenizin en az 1/32'si, aşırı durumlarda tüm bakiyenize kadar                              |
 
 \*_Ağdaki toplam validator sayısına göre değişir.
 435.000 aktif validator için yaklaşık._

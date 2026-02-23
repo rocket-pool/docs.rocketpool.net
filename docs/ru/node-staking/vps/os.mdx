@@ -68,13 +68,13 @@
 Введите имя и описание, например **Smartnode** и **Smartnode Group**.
 Удалите все существующие правила в таблице и добавьте следующие правила:
 
-| Type       | Port Range | Source                           | Description |
-| ---------- | ---------- | -------------------------------- | ----------- |
+| Type       | Port Range | Source                        | Description |
+| ---------- | ---------- | ----------------------------- | ----------- |
 | SSH        | 22         | [Ваш публичный IP-адрес дома] | SSH Access  |
-| Custom TCP | 30303      | Anywhere                         | ETH1 P2P    |
-| Custom UDP | 30303      | Anywhere                         | ETH1 P2P    |
-| Custom TCP | 9001       | Anywhere                         | ETH2 P2P    |
-| Custom UDP | 9001       | Anywhere                         | ETH2 P2P    |
+| Custom TCP | 30303      | Anywhere                      | ETH1 P2P    |
+| Custom UDP | 30303      | Anywhere                      | ETH1 P2P    |
+| Custom TCP | 9001       | Anywhere                      | ETH2 P2P    |
+| Custom UDP | 9001       | Anywhere                      | ETH2 P2P    |
 
 Это позволит вам удаленно подключаться к вашему серверу через SSH (терминал командной строки) с вашего ноутбука или настольного компьютера.
 Это также позволит клиентам Execution и Consensus подключаться к другим нодам в сети Ethereum.

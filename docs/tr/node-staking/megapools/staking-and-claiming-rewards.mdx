@@ -20,12 +20,12 @@ düğüm operatörleri arasında toplam megapool RPL stake paylarına göre oran
 
 Saturn 1, düğüm operatörü komisyonlarından elde edilen protokol ETH gelirini dört grup arasında dağıtan UARS'ı tanıtır:
 
-| Grup | Varsayılan Pay | pDAO aracılığıyla Ayarlanabilir |
-|------|---------------|--------------------------------|
-| Düğüm operatörlerine **Temel Komisyon** payı | %5 | Evet |
-| Megapool RPL staker'larına **Voter Share** | %9 | Evet |
-| **pDAO Hazinesi** | %0 | Evet |
-| **rETH Sahipleri** | %86 (kalan) | Otomatik |
+| Grup                                         | Varsayılan Pay | pDAO aracılığıyla Ayarlanabilir |
+| -------------------------------------------- | -------------- | ------------------------------- |
+| Düğüm operatörlerine **Temel Komisyon** payı | %5             | Evet                            |
+| Megapool RPL staker'larına **Voter Share**   | %9             | Evet                            |
+| **pDAO Hazinesi**                            | %0             | Evet                            |
+| **rETH Sahipleri**                           | %86 (kalan)    | Otomatik                        |
 
 Bu parametreler [pDAO yönetimi](/tr/pdao/overview) aracılığıyla ayarlanabilir olup Rocket Pool protokolünün piyasa koşulları değiştikçe uyum sağlamasına ve rekabetçi kalmasına olanak tanır. RPL stake ederek
 ve doğrulayıcı çalıştırarak bu süreçe katılmaya hak kazanırsınız!
@@ -33,7 +33,7 @@ ve doğrulayıcı çalıştırarak bu süreçe katılmaya hak kazanırsınız!
 ## Voter Share'in Megapool RPL Staker'larına Nasıl Dağıtıldığı
 
 Voter share (protokol gelirinin %9'u), tüm düğüm operatörleri arasında toplam megapool RPL stake paylarına göre orantılı olarak dağıtılır. Her 28 günde bir, oracle
- DAO, voter share havuzunda biriken toplam ETH'nin bir anlık görüntüsünü ve her düğüm operatörünün megapool stake edilmiş RPL bakiyesine göre payının bir kaydını alır.
+DAO, voter share havuzunda biriken toplam ETH'nin bir anlık görüntüsünü ve her düğüm operatörünün megapool stake edilmiş RPL bakiyesine göre payının bir kaydını alır.
 Her 28 günlük ödül döneminin sonunda smart node'u kullanarak ödüllerinizi talep edebileceksiniz. Alternatif olarak, ödülleri birçok dönem boyunca biriktirebilir ve ardından
 hepsini bir kerede talep edebilirsiniz.
 
@@ -56,6 +56,7 @@ Toplam bonded ETH'nizin %150'si olan maksimum oy hakkına sahip RPL, şu şekild
 ```
 vote-eligible RPL = min(1.5*RPL value of megapool bonded_eth, megapool staked rpl)
 ```
+
 Düğümünüzün bonded ETH oranını `rocketpool node status` menüsünde görüntüleyebilmeniz gerekir:
 
 ```
@@ -99,11 +100,9 @@ Ne kadar megapool stake edilmiş RPL'yi unstake edebileceğiniz konusunda herhan
 Eski RPL'ye sahip düğüm operatörleri, %15 borrowed ETH teminatına kadar çekebilir. Bu %15 minimum, yalnızca eski minipool'lardan borrowed ETH'yi dikkate alır, megapool'ları değil. Sonraki birkaç bölüm,
 RPL'yi unstake etmek ve çekmek için iki adımı ele alacaktır.
 
-
 ::: tip Eski RPL Staker'ları için Not
 Daha fazla RPL çekmek için borrowed ETH teminatınızın yüzdesini düşürmek istiyorsanız,
 borrowed ETH teminat miktarınızı düşürmek için [minipool'larınızdan çıkmayı](/tr/node-staking/withdraw#shut-down-a-minipool) düşünebilirsiniz.
-
 
 :::
 
@@ -112,6 +111,7 @@ borrowed ETH teminat miktarınızı düşürmek için [minipool'larınızdan ç�
 ::: warning UYARI
 
 28 günlük unstake bekleme süresi boyunca:
+
 - Unstake etmeyi talep ettiğiniz RPL ödül kazanmaya devam etmez.
 - Unstake sürecini iptal edemezsiniz, ancak 28 günlük süre dolduktan sonra çekip yeniden stake edebilirsiniz.
 - 28 günlük süre içinde yeni bir çekim başlatabilirsiniz, ancak tüm unstaking RPL'niz 28 günlük unstake süresini yeniden başlatacaktır. Başka bir çekim yapmadan önce ilk çekiminizi tamamlamanız önerilir. Aksi takdirde tam unstake bekleme süresini tekrar beklemeniz gerekecektir.
@@ -119,6 +119,7 @@ borrowed ETH teminat miktarınızı düşürmek için [minipool'larınızdan ç�
 :::
 
 Süreci başlatmak için `rocketpool node withdraw-rpl` komutunu kullanın. Aşağıdaki istemi göreceksiniz:
+
 ```
 The RPL withdrawal process has changed in Saturn. It is now a 2-step process:
 1. Request to unstake a certain RPL amount;
@@ -142,6 +143,7 @@ Please select one of the three options below.
 
 Tam bakiyenizi unstake etmek veya özel bir miktar girmek isteyip istemediğiniz sorulacaktır. Tam miktarı unstake etmek için `y` girin veya özel bir miktar girmek için `n` girin.
 Buradan itibaren smart node, unstake talebini gerçekleştirmek için gereken adımların geri kalanında sizi yönlendirecektir.
+
 ```
 You have 4383.275814 RPL staked on your megapool and can request to unstake up to 4383.275814 RPL.
 Would you like to unstake the maximum amount of staked RPL? [y/n]
@@ -176,9 +178,11 @@ Waiting for the transaction to be included in a block... you may wait here for i
 Successfully unstaked 1000.000000 RPL.
 
 ```
+
 ### Unstaking RPL Durumunuzu Kontrol Etme
 
 RPL'yi unstake etmek için başarıyla talepte bulunduktan sonra, `rocketpool node withdraw-rpl` komutu, unstaking RPL'nin çekim için ne zaman uygun olduğunu bildirecektir:
+
 ```
 Your node has 1017.688800 RPL on its legacy stake (previously associated to minipools) and 3383.275814 RPL staked on its megapool.
 Your node currently has 0.000000 RPL locked on pDAO proposals.
@@ -190,6 +194,7 @@ You have 1000.000000 RPL currently unstaking until 2026-02-19, 04:05 +0000 UTC (
 ### Adım 2: Unstaked RPL'yi Çekme
 
 28 günlük unstake bekleme süresi geçtikten sonra, durum `rocketpool node withdraw-rpl` komutuna yansıyacak ve son olarak unstaked RPL'nizi çekebileceksiniz.
+
 ```
 You have 1000.000000 RPL unstaked and ready to be withdrawn to your RPL withdrawal address.
 ```
@@ -257,6 +262,7 @@ Please choose an amount of RPL to stake:
 Bu komutu kullanmak, RPL'nizi megapool'unuza stake ederek voter share ödüllerinizi artıracaktır. Artık bir minipool'a RPL stake etmek mümkün değildir.
 
 ## Düğümünüzün ETH ve RPL Ödüllerini Görüntüleme
+
 Smart node'un, düğümünüzün sahip olabileceği tüm farklı ödül türlerinin durumunu kontrol etmenizi sağlayan kullanışlı yeni bir özelliği vardır.
 İşte tüm olası ödül türlerinin listesi:
 
@@ -327,10 +333,12 @@ The following 2 claim(s)/credits are available:
 
 Enter the numbers of the claims you want to execute (comma-separated), 'all' to claim everything, or 'none' to cancel:
 ```
+
 Seçimlerinizi yapıp gaz seçeneklerini onayladıktan sonra, talep ettiğiniz ödül türüne bağlı olarak takip etmeniz gereken ek istemler olabilir. Ancak burada hepsine girmeyeceğiz. Smart node, sizi
 tüm adımlarda yönlendirebilmelidir.
 
 İşte iki tür ödülü kullanmanın nasıl göründüğü - periyodik ödüller + ETH kredisi:
+
 ```
 +================ Suggested Gas Prices ================+
 | Avg Wait Time |   Max Fee    |     Total Gas Cost     |
@@ -374,8 +382,6 @@ Waiting for the transaction to be included in a block... you may wait here for i
 All 2 claim(s) completed successfully.
 ============================================================
 ```
-
-
 
 ## Sonraki Adımlar
 

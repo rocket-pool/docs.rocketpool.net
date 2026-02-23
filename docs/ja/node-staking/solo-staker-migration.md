@@ -8,7 +8,7 @@ Beacon Chainが最初にローンチされたとき、validatorは特別な暗�
 
 validator keyは「ホットキー」で、インターネットに接続されたアクティブなマシンに保存する必要があります。これはアテステーションと提案に署名するために使用されるキーであり、Beacon Chain上の「アドレス」（validatorを識別するための16進文字列）としても機能します。
 
-一方、withdrawal keyは「コールドキー」で、インターネットに接続されたアクティブなマシンに保存_しない_（実際には_保存すべきではない_）ものです。
+一方、withdrawal keyは「コールドキー」で、インターネットに接続されたアクティブなマシンに保存*しない*（実際には*保存すべきではない*）ものです。
 必要になるまでコールドストレージにロックして保管することを目的としています。
 validator keyとは異なり、withdrawal keyは検証業務には一切関与しません。
 代わりに、その唯一の役割は、Beacon Chain上のvalidatorの資金の引き出しを管理することです（引き出しが実装された後）。
@@ -24,7 +24,7 @@ Ethereumでのwithdrawalsの動作をハイレベルで説明し、変換プロ�
 
 ## なぜ変換するのか？
 
-技術的な詳細に入る前に、答えるべき非常に重要な質問は、そもそも_なぜ_ソロステーカーがこのプロセスを検討するのかということです。
+技術的な詳細に入る前に、答えるべき非常に重要な質問は、そもそも*なぜ*ソロステーカーがこのプロセスを検討するのかということです。
 minipoolへの変換はすべての人に適しているわけではありませんが、このセクションは、それがあなたが追求したいものかどうかについて情報に基づいた選択をするのに役立ちます。
 
 Rocket Pool minipoolは、従来のソロステーキングvalidatorと比べていくつかの利点があります:
@@ -60,7 +60,7 @@ Rocket Pool minipoolは、従来のソロステーキングvalidatorと比べて
 ## プロセス概要
 
 最初のステップは、**新しい「vacant」minipoolを作成する**ことです。
-作成時に新しいvalidatorを作成する従来のminipoolとは異なり、vacant minipoolは_既存の_validatorを管理するために設計された特別なminipoolです。
+作成時に新しいvalidatorを作成する従来のminipoolとは異なり、vacant minipoolは\_既存の\_validatorを管理するために設計された特別なminipoolです。
 その結果、vacant minipoolは`prelaunch`ステージ中に従来のminipoolとは若干異なる動作をします。
 初期化が完了して`staking`ステージに入ると、従来のminipoolになります。
 
@@ -321,7 +321,7 @@ rocketpool service logs validator
 自分のVCからキーを削除し、Rocket Poolが管理するVCにインポートすると、fee recipientは`node`プロセスによって自動的に正しいアドレスに割り当てられます。
 :::
 
-VCに他のソロステーキングキーを保持していて、fee distributorやSmoothing Poolに設定_したくない_場合、これを達成する唯一の方法は、VC設定ファイルを使用して、移行されるvalidatorのfee recipientを手動で設定することです。
+VCに他のソロステーキングキーを保持していて、fee distributorやSmoothing Poolに設定*したくない*場合、これを達成する唯一の方法は、VC設定ファイルを使用して、移行されるvalidatorのfee recipientを手動で設定することです。
 
 このプロセスは、使用しているConsensus Clientによって異なります。詳細についてはドキュメントを参照してください。以下にいくつかの役立つリンクがあります:
 
@@ -375,7 +375,7 @@ rocketpool_node  | 2023/03/06 04:51:32 Minipool 0x8F3F149e4416a94e0ee909dE32f8A1
 解散したvacant minipoolは基本的に簡素化されたwithdrawal addressとして機能します:
 
 - 技術的にはRocket Poolネットワークの一部ではありません。
-- minipoolに預けられた資金は_ノードオペレーターのみ_に属します。プールステーカーと分割_されません_。
+- minipoolに預けられた資金は*ノードオペレーターのみ*に属します。プールステーカーと分割*されません*。
 - minipoolを作成してもdeposit creditは付与されません。
 
 次のコマンドでいつでもminipoolの残高にアクセスできます:
@@ -454,9 +454,9 @@ Total EL rewards:      0.086779 ETH
 
 - `Node deposit`は、このminipoolの一部として個人的にbondしたETHの量を示しています（この場合、8 ETH）。
 - `RP deposit`は、minipoolを作成するためにプールステーカーから借りたETHの量を示しています（この場合、24 ETH）。
-- `Available refund`は、minipoolの残高のうち、直接あなたに属する部分（プールステーカーと共有_されない_）を示しています。これは、vacant minipoolを作成した時点でのBeacon Chain上のすべての報酬に相当します。
+- `Available refund`は、minipoolの残高のうち、直接あなたに属する部分（プールステーカーと共有*されない*）を示しています。これは、vacant minipoolを作成した時点でのBeacon Chain上のすべての報酬に相当します。
 - `Minipool Balance (EL)`は、minipoolコントラクトの総残高を示しています。
-- `Your portion (EL)`は、minipoolの残高からrefundを差し引いた後にあなたに属する残高を示しています。言い換えれば、これはvacant minipoolを作成_した後_に獲得した報酬のあなたのシェアです。
+- `Your portion (EL)`は、minipoolの残高からrefundを差し引いた後にあなたに属する残高を示しています。言い換えれば、これはvacant minipoolを作成*した後*に獲得した報酬のあなたのシェアです。
 - `Total EL rewards`は、refundと変換後の報酬を合わせたものです。
 
 refundを請求するには、次のコマンドを実行します:

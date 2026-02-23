@@ -16,7 +16,7 @@ Bu iki işlemden herhangi biri bu bakiyeyi buna göre artıracaktır.
 Bu ETH likit hale _getirilmez_ ve node operatörüne iade edilmez; bunun yerine, node operatöründen herhangi bir ETH gerektirmeden **ek minipool'lar oluşturmak** için kullanılabilir.
 
 Kredi sistemi node operatörü için **şeffaftır**; mümkünse `rocketpool node deposit` veya `rocketpool node create-vacant-minipool` işlemleri sırasında otomatik olarak kullanılacaktır (Smartnode CLI'da kullanılacağını açıklayan bildirimlerle).
-Eğer kullanıla_mazsa_, Smartnode kullanıcıya kullanılamayacağını bildirecek ve her iki işlem için de normal bir ETH bağı gerektirecektir.
+Eğer kullanıla*mazsa*, Smartnode kullanıcıya kullanılamayacağını bildirecek ve her iki işlem için de normal bir ETH bağı gerektirecektir.
 
 Daha fazla ayrıntı için aşağıdaki [Kredi Kullanılabilirliği](#kredi-kullanilabilirligi) bölümüne bakın.
 

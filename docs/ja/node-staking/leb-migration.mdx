@@ -42,7 +42,7 @@ minipoolのbond reductionがスクラブされると、二度と試みること�
 20%の手数料を持つ16-ETH minipoolを削減する場合、**その20%の手数料は維持されません**。
 ネットワーク値(**現在は一律14%に設定されています**)に削減されます。
 
-[サンプル計算](./create-validator.mdx#rewards)セクションで示されているように、14%の8-ETH minipoolは20%の16-ETH minipoolよりも_依然として収益性が高い_ため、高い手数料率を保持することは、16 ETH bondを維持する説得力のある理由ではありません。
+[サンプル計算](./create-validator.mdx#rewards)セクションで示されているように、14%の8-ETH minipoolは20%の16-ETH minipoolよりも*依然として収益性が高い*ため、高い手数料率を保持することは、16 ETH bondを維持する説得力のある理由ではありません。
 :::
 
 ### ステップ1: Bond Reductionの開始
@@ -73,7 +73,7 @@ Please select a minipool to begin the ETH bond reduction for:
 - minipoolは[Atlas minipool delegate contract](./minipools/delegates)を使用するようにアップグレードされている必要があります。
 - minipoolのvalidatorは、Beacon Chain残高が少なくとも32 ETHである必要があります。
 - minipoolのvalidatorはpendingまたはactiveである必要があります。
-- bond reduction_後_に必要な最小RPL担保レベルをサポートするのに十分なRPLがステーキングされている必要があります。
+- bond reduction*後*に必要な最小RPL担保レベルをサポートするのに十分なRPLがステーキングされている必要があります。
 
 そうでない場合、最初に何をする必要があるかを説明する警告エラーが出力されます。例えば:
 
@@ -136,7 +136,7 @@ rocketpool_node  | 2023/02/25 09:04:21 Minipool 0x7E5703fdA638CD86c316B9EbAF7692
    ```
    コマンドは簡単です。minipoolがbond reductionの資格がある場合は、プロンプトに従ってプロセスを完了します。
 
-bond reduction中、Rocket Poolは**minipoolの既存の残高を分配**し、minipoolのbond reduction前のbondと手数料を使用して、あなたとrETHステーカーの両方がその既存の残高の公正な割合を取得し、bond reductionが両当事者が_受け取ったはずの_報酬を変更しないようにします。
+bond reduction中、Rocket Poolは**minipoolの既存の残高を分配**し、minipoolのbond reduction前のbondと手数料を使用して、あなたとrETHステーカーの両方がその既存の残高の公正な割合を取得し、bond reductionが両当事者が*受け取ったはずの*報酬を変更しないようにします。
 
 ### Reduced Bondの結果
 
@@ -197,7 +197,7 @@ Your portion:          8.000013 ETH
 
 - [トランザクション](https://zhejiang.beaconcha.in/tx/0xf02f6b1a4ea68f356909e6f1974dc3c24d301ba115b97f3013c3c829ba2ca57c)を見ると、minipoolからstakingプールに0.06413383 ETHを送信したこともわかります。
 - 「before」の例では、stakingプールのシェアはminipoolの残高からノードオペレーターの部分を引いたもの、つまり`0.150713 - 0.086660 = 0.064053`であり、これはbond reduction中にstakingプールに転送された金額です(スクラブチェック中に発生した報酬スキムからの少量が追加されています)。
-- 一方、_ノードオペレーター_のシェアは、ノードオペレーターのwithdrawalアドレスに送信されません。代わりに**available refund**としてブックマークされます。そのため、refund額が0 ETHから、以前はEL上のminipoolの残高の「your portion」額だったものに増加しました。
+- 一方、*ノードオペレーター*のシェアは、ノードオペレーターのwithdrawalアドレスに送信されません。代わりに**available refund**としてブックマークされます。そのため、refund額が0 ETHから、以前はEL上のminipoolの残高の「your portion」額だったものに増加しました。
   - このrefundは、次のコマンドを使用していつでも請求できます。
     ```shell
     rocketpool minipool refund

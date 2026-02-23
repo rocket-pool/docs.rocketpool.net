@@ -462,7 +462,6 @@ This will opt you out of the Smoothing Pool if you're currently opted in, and ha
 Once **the next epoch after the current epoch** is finalized, it will automatically change your node's `fee recipient` from the Smoothing Pool back to your node's distributor contract.
 This is to ensure you don't get penalized for front-running the exit process when you see that you have a proposal coming up.
 
-
 ### `distribute-fees`
 
 Once you've earned rewards on your fee distributor, you can claim and distribute its entire balance using the following command:
@@ -499,9 +498,10 @@ rocketpool node send 1 eth <my friend's address>
 would send 1 ETH to my friend.
 
 ## Megapool Commands
-The `megapool` group is where you can access all the commands used to manage your megapool and megapool validators. 
 
-Here's what `rocketpool megapool help` will show: 
+The `megapool` group is where you can access all the commands used to manage your megapool and megapool validators.
+
+Here's what `rocketpool megapool help` will show:
 
 ```
 NAME:
@@ -535,10 +535,12 @@ GLOBAL OPTIONS:
 Below is a summary of the commands that you'll typically use during normal operation:
 
 ### `deposit`
+
 This command lets you create new validators on your megapool. We'll go more into it later. Feel free to jump ahead to [Creating a Megapool Validator](/node-staking/megapools/create-megapool-validator.mdx) if you'd like a preview.
 
 ### `status`
-This command gives you some information on the state of your megapool and the validators managed by your megapool. You'll be able to see your megapool's address, number of express queue tickets, your megapool's delegate address, ETH balance on the execution and consensus layer, and lots of other useful information. Here's an example of the `rocketpool megapool status` output: 
+
+This command gives you some information on the state of your megapool and the validators managed by your megapool. You'll be able to see your megapool's address, number of express queue tickets, your megapool's delegate address, ETH balance on the execution and consensus layer, and lots of other useful information. Here's an example of the `rocketpool megapool status` output:
 
 ```
 === Megapool ===
@@ -562,7 +564,9 @@ Current network commission: 5.000000%
 ```
 
 ### `validators`
+
 The `rocketpool megapool validators` command will show you the status of each and every validator managed by your node's megapool. You'll be able to see information such as the validator pubkeys, beacon chain state, and queue position of prestaking validators:
+
 ```
 There are 8 validator(s) on the express queue.
 There are 2 validator(s) on the standard queue.
@@ -605,7 +609,6 @@ Express Ticket Used:          yes
 ### `exit-validator`
 
 This command allows you to select a validator to voluntarily exit on the Beacon Chain. Use this when you want to close a validator and withdraw its final ETH balance. Note that this cannot be undone - once you trigger an exit, the validator will shut down permanently.
-
 
 ## Minipool Commands
 

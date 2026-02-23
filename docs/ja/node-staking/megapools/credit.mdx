@@ -5,9 +5,10 @@
 
 - [Rocket Poolデポジットキューからバリデーターを退出する](./create-megapool-validator#exit-a-validator-from-the-rocket-pool-deposit-queue)。バリデーターをデキューすると、ノードオペレーターにボンド額（4 ETH）がクレジットされます。
 - prelaunchバリデーターが28日以内にステークに失敗した場合、バリデーターはdissolvedになります。prelunchプロセス中にBeacon Chainに送信された1 ETH（4 ETHボンドのうち）は**回収できません**。
- ノードオペレーターには、0.05 ETHのdissolveペナルティが負債として適用され、残りの3 ETHのボンドがクレジットされます。dissolvedバリデーターの正味クレジットは2.95 ETHです。
+  ノードオペレーターには、0.05 ETHのdissolveペナルティが負債として適用され、残りの3 ETHのボンドがクレジットされます。dissolvedバリデーターの正味クレジットは2.95 ETHです。
 
 次の2つはSaturn以前に移行を行ったノードオペレーターのみ対象です。これらはもはや不可能です：
+
 - [既存の16 ETHボンドのminipoolを8 ETHボンドのminipoolにダウン移行する](/ja/node-staking/leb-migration.mdx)（ノードオペレーターのクレジット残高に8 ETHが追加される）
 - [既存のソロバリデーターを移行する](/ja/node-staking/solo-staker-migration)（移行中に作成するminipoolのタイプに応じて、16または24 ETHがノードオペレーターのクレジット残高に追加される）
 
@@ -16,10 +17,9 @@
 このETHは流動的にされてノードオペレーターに返却されるのではなく、同等量のrETHとして引き換えることができます。また、クレジットはノードオペレーターがETHを必要とせずに**追加のmegapoolバリデーターを作成する**ために使用できます。
 
 クレジットシステムはノードオペレーターに対して**透明**です；`rocketpool node deposit`操作中に可能であれば自動的に使用されます（Smartnode CLIが使用される旨の通知を表示します）。
-使用_できない_場合、Smartnodeはユーザーに使用できないことを警告し、いずれかの操作中に通常のETHボンドが必要になることを知らせます。
+使用*できない*場合、Smartnodeはユーザーに使用できないことを警告し、いずれかの操作中に通常のETHボンドが必要になることを知らせます。
 
 詳細については、以下の[クレジット利用可能性](#credit-availability)セクションを参照してください。
-
 
 ## 現在のクレジット残高の確認
 
@@ -42,6 +42,7 @@ The node has 4.000000 ETH in its credit balance and 0.000000 ETH staked on its b
 ## クレジットをrETHとして引き換える
 
 クレジットをrETHとして引き換えるには、`rocketpool node withdraw-credit`コマンドを使用します。同等量のrETHがあなたの引き出しアドレス（引き出しアドレスが設定されていない場合はノードアドレス）に送信されます：
+
 ```
 staker@node:~$ rocketpool node withdraw-credit
 
@@ -49,7 +50,6 @@ You have 4.000000 ETH of credit that you can withdraw, receiving the equivalent 
 
 Would you like to withdraw the maximum amount of credit? [y/n]
 ```
-
 
 ## クレジット利用可能性 {#credit-availability}
 
@@ -62,6 +62,7 @@ Would you like to withdraw the maximum amount of credit? [y/n]
 Smartnodeは、クレジットの一部と合わせてデポジットプールからのETHを使用してバリデーターを作成できます。クレジットがありながらバリデーターを作成するためにノードウォレットからのETHを使用する必要がある場合、Smartnodeは`rocketpool megapool deposit`操作中にあなたに通知します。
 
 次の例では、ノードオペレーターは`4 ETH`のクレジットを持っていますが、デポジットプールには`3.431627 ETH`しかなく、デポジットを完了するためにノードウォレットから`0.568373 ETH`が必要です：
+
 ```
 Your credit balance is 4.00 ETH. (Credit in addition to ETH staked on your behalf).
 This deposit will use 3.431627 ETH from your credit balance plus ETH staked on your behalf and 0.568373 ETH from your node wallet.

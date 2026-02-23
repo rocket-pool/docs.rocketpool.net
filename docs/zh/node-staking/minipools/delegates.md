@@ -8,7 +8,7 @@ Minipool 存款当前已禁用，正在为 Saturn 1 做准备。
 
 每个 minipool 都是唯一的，以确保您（节点运营者）对其拥有最终控制权。没有其他人控制它，没有其他人可以更改它；它完全由您掌控。
 
-话虽如此，为了最大限度地降低节点存款期间的 gas 成本，minipool _本身_包含的实际功能非常少。它几乎可以做的所有事情都被推迟到**委托**合约。
+话虽如此，为了最大限度地降低节点存款期间的 gas 成本，minipool *本身*包含的实际功能非常少。它几乎可以做的所有事情都被推迟到**委托**合约。
 
 minipool 委托合约是一个特殊的合约，包含 minipool 所需的大部分逻辑 - 例如在您和池质押者之间公平分配余额。与每个 minipool 都是唯一合约的 minipool 不同，委托是一个单一合约，许多 minipool 可以"转发"请求到它。
 
@@ -51,7 +51,7 @@ Waiting for the transaction to be included in a block... you may wait here for i
 Successfully upgraded minipool 0x7e5702a2cE66B5B35E59B9Ac00eEAAa547881e40.
 ```
 
-您可以使用 `rocketpool minipool status` 验证它是否正在使用最新的委托。任何_未_使用最新委托的 minipool 都会在其状态下方有一个黄色通知，让您知道它们可以升级：
+您可以使用 `rocketpool minipool status` 验证它是否正在使用最新的委托。任何*未*使用最新委托的 minipool 都会在其状态下方有一个黄色通知，让您知道它们可以升级：
 
 ```
 Address:              0x7E5703fdA638CD86c316B9EbAF76927fF695ADC5

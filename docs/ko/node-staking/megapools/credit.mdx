@@ -5,9 +5,10 @@
 
 - [Rocket Pool 입금 대기열에서 검증자 제거](./create-megapool-validator#exit-a-validator-from-the-rocket-pool-deposit-queue). 검증자를 대기열에서 제거하면 노드 운영자에게 본드 금액(4 ETH)이 크레딧으로 적립됩니다.
 - 사전 출시 검증자가 28일 이내에 스테이킹에 실패하면 검증자가 해산됩니다. 사전 출시 과정에서 Beacon Chain으로 전송된 1 ETH(4 ETH 본드 중)는 **복구할 수 없습니다**.
- 노드 운영자는 0.05 ETH의 해산 페널티가 부채로 적용된 상태에서 본드의 나머지 3 ETH를 크레딧으로 받습니다. 해산된 검증자의 순 크레딧은 2.95 ETH입니다.
+  노드 운영자는 0.05 ETH의 해산 페널티가 부채로 적용된 상태에서 본드의 나머지 3 ETH를 크레딧으로 받습니다. 해산된 검증자의 순 크레딧은 2.95 ETH입니다.
 
 다음 두 가지는 Saturn 이전에 마이그레이션한 노드 운영자에게만 해당됩니다. 이는 더 이상 가능하지 않습니다:
+
 - [기존 16-ETH 본드 미니풀을 8-ETH 본드 미니풀로 마이그레이션](/ko/node-staking/leb-migration.mdx) (노드 운영자의 크레딧 잔액에 8 ETH 추가)
 - [기존 솔로 검증자를 미니풀로 마이그레이션](/ko/node-staking/solo-staker-migration) (마이그레이션 중 생성하는 미니풀 유형에 따라 노드 운영자의 크레딧 잔액에 16 또는 24 ETH 추가)
 
@@ -18,7 +19,6 @@
 크레딧 시스템은 노드 운영자에게 **투명하게** 운영됩니다; 가능한 경우 `rocketpool node deposit` 작업 중에 자동으로 사용됩니다(Smartnode CLI에서 사용될 것임을 알리는 알림과 함께). 사용할 _수 없는_ 경우, Smartnode는 사용할 수 없음을 사용자에게 알리고 두 작업 중 하나에서 일반 ETH 본드를 요구합니다.
 
 자세한 내용은 아래 [크레딧 가용성](#credit-availability) 섹션을 참조하세요.
-
 
 ## 현재 크레딧 잔액 확인
 
@@ -41,6 +41,7 @@ The node has 4.000000 ETH in its credit balance and 0.000000 ETH staked on its b
 ## 크레딧을 rETH로 교환
 
 크레딧을 rETH로 교환하려면 `rocketpool node withdraw-credit` 명령을 사용하세요. 동등한 금액의 rETH가 출금 주소(출금 주소가 설정되지 않은 경우 노드 주소)로 전송됩니다:
+
 ```
 staker@node:~$ rocketpool node withdraw-credit
 
@@ -48,7 +49,6 @@ You have 4.000000 ETH of credit that you can withdraw, receiving the equivalent 
 
 Would you like to withdraw the maximum amount of credit? [y/n]
 ```
-
 
 ## 크레딧 가용성
 
@@ -61,6 +61,7 @@ Would you like to withdraw the maximum amount of credit? [y/n]
 Smartnode는 입금 풀의 ETH와 크레딧의 일부를 사용하여 검증자를 생성할 수 있습니다. 크레딧이 있고 검증자를 생성하기 위해 노드 지갑의 ETH를 사용해야 하는 경우 `rocketpool megapool deposit` 작업 중에 Smartnode가 알려줍니다.
 
 다음 예시에서 노드 운영자는 `4 ETH`의 크레딧을 보유하고 있지만 입금 풀에는 `3.431627 ETH`만 있어 입금을 완료하기 위해 노드 지갑에서 `0.568373 ETH`가 필요합니다:
+
 ```
 Your credit balance is 4.00 ETH. (Credit in addition to ETH staked on your behalf).
 This deposit will use 3.431627 ETH from your credit balance plus ETH staked on your behalf and 0.568373 ETH from your node wallet.

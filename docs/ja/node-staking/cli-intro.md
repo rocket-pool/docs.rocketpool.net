@@ -168,8 +168,8 @@ a3c22f54eff0   rocketpool_node         0.00%     12.13MiB / 62.78GiB   0.02%    
 ```
 
 ::: tip 注意
-ここのRAM統計は、_仮想_メモリを含む**総割り当てメモリ**を示しています。
-生の_レジデント_メモリ消費は示していません。
+ここのRAM統計は、*仮想*メモリを含む**総割り当てメモリ**を示しています。
+生の*レジデント*メモリ消費は示していません。
 
 同様に、CPU使用率は、コンテナが使用するすべてのCPUコアにわたって平均化されたCPU消費の合計量を示しています。
 ここでは、ETH2のCPUがほぼ100%と表示されていますが、これはNimbusを使用しており、シングルスレッドであるためです。
@@ -337,7 +337,7 @@ You do not have a fallback consensus client enabled.
 このコマンドは、ノードにRPL担保を追加したいときに使用します。
 これにより、担保比率が上昇し、各チェックポイントでのRPL報酬が増加します(これについては後で詳しく説明します)。
 
-これまでの他のコマンドとは異なり、このコマンドはトランザクションをトリガーするため、実際に_インタラクティブ_です。単なる情報提供ではありません。
+これまでの他のコマンドとは異なり、このコマンドはトランザクションをトリガーするため、実際に*インタラクティブ*です。単なる情報提供ではありません。
 
 まず、ステーキングしたいRPLの量を尋ねられます。便利な事前定義オプションまたはカスタム量を指定する機能があります:
 
@@ -462,7 +462,6 @@ rocketpool node leave-smoothing-pool
 **現在のエポックの次のエポック**がファイナライズされると、ノードの`fee recipient`がSmoothing Poolからノードのディストリビューターコントラクトに自動的に変更されます。
 これは、提案が来ることがわかったときに退出プロセスをフロントランニングしてペナルティを受けないようにするためです。
 
-
 ### `distribute-fees`
 
 fee distributorで報酬を獲得したら、次のコマンドを使用して残高全体を請求および分配できます:
@@ -499,6 +498,7 @@ rocketpool node send 1 eth <my friend's address>
 は友人に1 ETHを送信します。
 
 ## Megapoolコマンド
+
 `megapool`グループは、megapoolおよびmegapool validatorを管理するために使用するすべてのコマンドにアクセスできる場所です。
 
 `rocketpool megapool help`の出力は次のようになります:
@@ -535,9 +535,11 @@ GLOBAL OPTIONS:
 以下は、通常の運用中に使用するコマンドの概要です:
 
 ### `deposit`
+
 このコマンドを使用すると、megapool上に新しいvalidatorを作成できます。後でさらに詳しく説明します。プレビューを見たい場合は[Megapool Validatorの作成](/node-staking/megapools/create-megapool-validator.mdx)に進んでください。
 
 ### `status`
+
 このコマンドは、megapoolの状態とmegapoolが管理するvalidatorに関する情報を提供します。megapoolのアドレス、express queueチケット数、megapoolのデリゲートアドレス、ExecutionレイヤーとConsensusレイヤーのETH残高、その他多くの有用な情報を確認できます。以下は`rocketpool megapool status`の出力例です:
 
 ```
@@ -562,7 +564,9 @@ Current network commission: 5.000000%
 ```
 
 ### `validators`
+
 `rocketpool megapool validators`コマンドは、ノードのmegapoolが管理するすべてのvalidatorのステータスを表示します。validatorの公開鍵、Beacon Chainの状態、プレステーキングvalidatorのキュー位置などの情報を確認できます:
+
 ```
 There are 8 validator(s) on the express queue.
 There are 2 validator(s) on the standard queue.
@@ -605,7 +609,6 @@ Express Ticket Used:          yes
 ### `exit-validator`
 
 このコマンドを使用すると、Beacon Chain上で自発的に退出するvalidatorを選択できます。validatorを閉じて最終的なETH残高を引き出したいときに使用します。これは元に戻せないことに注意してください。退出をトリガーすると、validatorは永続的にシャットダウンします。
-
 
 ## Minipoolコマンド
 
@@ -763,7 +766,7 @@ Are you sure you want to set your timezone? [y/n]
 送信する各トランザクションには、シーケンス内のどこにあるかを識別する`nonce`と呼ばれる番号があります。
 送信する最初のトランザクションは`nonce`が0になり、次に送信するトランザクションは`nonce`が1になります。
 
-この上書き技術には、既存の_スタックした_トランザクションと同じ`nonce`を使用する_新しい_トランザクションを送信することが含まれますが、理想的にはスタックしたものよりも高いガス価格が含まれます。
+この上書き技術には、既存の*スタックした*トランザクションと同じ`nonce`を使用する*新しい*トランザクションを送信することが含まれますが、理想的にはスタックしたものよりも高いガス価格が含まれます。
 これは、新しいものが最初にマイニングされることを意味します。
 ブロックにマイニングされるとすぐに、古いものは最初から送信されなかったかのようにネットワークから破棄されます。
 

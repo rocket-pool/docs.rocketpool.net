@@ -8,6 +8,7 @@ Die Quellen dieses Guthabens kommen aus einigen Stellen:
   Dem Node Operator werden die verbleibenden 3 ETH aus seinem Bond gutgeschrieben, mit einer Auflösungsstrafe von 0,05 ETH als Schuld. Das Nettoguthaben für einen aufgelösten Validator beträgt 2,95 ETH.
 
 Die nächsten zwei sind nur für Node Operatoren, die Migrationen vor Saturn durchgeführt haben. Sie sind nicht mehr möglich:
+
 - [Migration eines bestehenden 16-ETH-gebondeten Minipools auf einen 8-ETH-gebondeten Minipool](/de/node-staking/leb-migration.mdx) (was 8 ETH zum Guthaben des Node Operators hinzufügt)
 - [Migration eines bestehenden Solo-Validators](/de/node-staking/solo-staker-migration) in einen Minipool (was je nach erstelltem Minipool-Typ während der Migration entweder 16 oder 24 ETH zum Guthaben des Node Operators hinzufügt)
 
@@ -20,7 +21,6 @@ Das Guthaben-System ist für den Node Operator **transparent**; es wird bei `roc
 Falls es _nicht_ verwendet werden kann, benachrichtigt der Smartnode den Benutzer, dass es nicht verwendet werden kann, und erfordert einen normalen ETH-Bond während der jeweiligen Operation.
 
 Weitere Details findest du im Abschnitt [Guthaben-Verfügbarkeit](#guthaben-verfügbarkeit) unten.
-
 
 ## Dein aktuelles Guthaben einsehen
 
@@ -43,6 +43,7 @@ The node has 4.000000 ETH in its credit balance and 0.000000 ETH staked on its b
 ## Guthaben gegen rETH einlösen
 
 Um Guthaben gegen rETH einzulösen, verwende den Befehl `rocketpool node withdraw-credit`. Der entsprechende Betrag in rETH wird an deine Withdrawal-Adresse (deine Node-Adresse, wenn keine Withdrawal-Adresse festgelegt ist) gesendet:
+
 ```
 staker@node:~$ rocketpool node withdraw-credit
 
@@ -50,7 +51,6 @@ You have 4.000000 ETH of credit that you can withdraw, receiving the equivalent 
 
 Would you like to withdraw the maximum amount of credit? [y/n]
 ```
-
 
 ## Guthaben-Verfügbarkeit
 
@@ -64,6 +64,7 @@ Der Smartnode kann einen Validator erstellen, indem er ETH aus dem Deposit-Pool 
 der `rocketpool megapool deposit`-Operation, wenn du Guthaben hast und ETH aus deiner Node-Wallet verwenden musst, um einen Validator zu erstellen.
 
 Im folgenden Beispiel hat der Node Operator `4 ETH` Guthaben, aber der Deposit-Pool hat nur `3,431627 ETH`, was `0,568373 ETH` aus der Node-Wallet erfordert, um den Deposit abzuschließen:
+
 ```
 Your credit balance is 4.00 ETH. (Credit in addition to ETH staked on your behalf).
 This deposit will use 3.431627 ETH from your credit balance plus ETH staked on your behalf and 0.568373 ETH from your node wallet.

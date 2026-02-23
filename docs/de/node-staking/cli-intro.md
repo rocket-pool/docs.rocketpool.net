@@ -462,7 +462,6 @@ Dies meldet Sie vom Smoothing Pool ab, wenn Sie derzeit angemeldet sind und mind
 Sobald **die nächste Epoche nach der aktuellen Epoche** finalisiert ist, wird automatisch der `Fee Recipient` Ihres Knotens vom Smoothing Pool zurück zum Distributor-Vertrag Ihres Knotens geändert.
 Dies soll sicherstellen, dass Sie nicht für Front-Running des Exit-Prozesses bestraft werden, wenn Sie sehen, dass Sie einen Vorschlag haben.
 
-
 ### `distribute-fees`
 
 Sobald Sie Belohnungen auf Ihrem Fee Distributor angesammelt haben, können Sie dessen gesamtes Guthaben mit folgendem Befehl beanspruchen und verteilen:
@@ -499,6 +498,7 @@ rocketpool node send 1 eth <my friend's address>
 würde 1 ETH an meinen Freund senden.
 
 ## Megapool-Befehle
+
 Die `megapool`-Gruppe ist der Ort, an dem Sie auf alle Befehle zur Verwaltung Ihres Megapools und der Megapool-Validatoren zugreifen können.
 
 Hier sehen Sie, was `rocketpool megapool help` anzeigt:
@@ -535,9 +535,11 @@ GLOBAL OPTIONS:
 Im Folgenden finden Sie eine Zusammenfassung der Befehle, die Sie typischerweise im normalen Betrieb verwenden werden:
 
 ### `deposit`
+
 Dieser Befehl ermöglicht es Ihnen, neue Validatoren auf Ihrem Megapool zu erstellen. Wir werden später ausführlicher darauf eingehen. Springen Sie gerne schon jetzt zu [Erstellen eines Megapool-Validators](/node-staking/megapools/create-megapool-validator.mdx) für eine Vorschau.
 
 ### `status`
+
 Dieser Befehl gibt Ihnen Informationen über den Zustand Ihres Megapools und der von Ihrem Megapool verwalteten Validatoren. Sie können die Adresse Ihres Megapools, die Anzahl der Express-Queue-Tickets, die Delegate-Adresse Ihres Megapools, den ETH-Saldo auf der Execution- und Consensus-Layer und viele andere nützliche Informationen einsehen. Hier ist ein Beispiel der `rocketpool megapool status`-Ausgabe:
 
 ```
@@ -562,7 +564,9 @@ Current network commission: 5.000000%
 ```
 
 ### `validators`
+
 Der Befehl `rocketpool megapool validators` zeigt Ihnen den Status jedes einzelnen Validators, der vom Megapool Ihres Knotens verwaltet wird. Sie können Informationen wie die Validator-Pubkeys, den Beacon-Chain-Status und die Warteposition von Validatoren im Prestake-Zustand einsehen:
+
 ```
 There are 8 validator(s) on the express queue.
 There are 2 validator(s) on the standard queue.
@@ -605,7 +609,6 @@ Express Ticket Used:          yes
 ### `exit-validator`
 
 Dieser Befehl ermöglicht es Ihnen, einen Validator für den freiwilligen Austritt auf der Beacon Chain auszuwählen. Verwenden Sie ihn, wenn Sie einen Validator schließen und sein endgültiges ETH-Guthaben abheben möchten. Beachten Sie, dass dies nicht rückgängig gemacht werden kann - sobald Sie einen Austritt auslösen, wird der Validator dauerhaft heruntergefahren.
-
 
 ## Minipool-Befehle
 

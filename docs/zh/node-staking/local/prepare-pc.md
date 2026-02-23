@@ -18,7 +18,7 @@
 
 Rocket Pool 的 Smartnode 客户端目前支持 **Linux** 和 **macOS** 系统。
 
-目前，**Windows** 可用于远程管理远程 Linux 或 Mac 机器，但 Smartnode 本身目前无法在 Windows 系统上运行。但是，Rocket Pool _可以_在 Windows 机器托管的 Linux [虚拟机](https://en.wikipedia.org/wiki/System_virtual_machine)上运行。
+目前，**Windows** 可用于远程管理远程 Linux 或 Mac 机器，但 Smartnode 本身目前无法在 Windows 系统上运行。但是，Rocket Pool *可以*在 Windows 机器托管的 Linux [虚拟机](https://en.wikipedia.org/wiki/System_virtual_machine)上运行。
 不建议使用此设置而不是简单地将 Linux 安装为主机操作系统，但如果必要，它确实可以工作。
 请注意，它将需要额外的资源开销，并带有自己的一套安全风险，因此我们不建议在主网上质押真实以太币时使用此设置。
 
@@ -58,7 +58,7 @@ Debian 是节点操作的一个很好的选择，因为它专注于**最大的�
 - 当提示设置 **root 密码**时，我们建议将其留空**空白**。这将禁用 `root` 账户，而是安装 `sudo` 包，允许您的用户通过重新输入其密码来执行 root 操作以提升其权限。这类似于 Ubuntu Linux 的设置方式，对于用户来说可能更熟悉。
 - 在最后的 **软件选择**屏幕中，您可能不希望安装桌面 GUI。
   - 桌面 GUI 对于节点来说基本上是不必要的；它们增加了额外的开销，并且大多数时候不会被使用，因为您无论如何都将通过终端远程控制它，因此我们更喜欢在这里**取消选中 GNOME 和 Debian 桌面环境**。
-  - 如果您_确实_想要在节点上使用桌面 UI，我们建议您**取消选中 GNOME 并选中 XFCE**，因为它对系统资源的消耗较少。我们还建议不要在节点上运行任何其他软件，例如浏览器或 Discord，因为它们会降低安全性并消耗系统资源。
+  - 如果您*确实*想要在节点上使用桌面 UI，我们建议您**取消选中 GNOME 并选中 XFCE**，因为它对系统资源的消耗较少。我们还建议不要在节点上运行任何其他软件，例如浏览器或 Discord，因为它们会降低安全性并消耗系统资源。
   - 取消选中 **web 服务器**，但保留 **SSH 服务器**和**标准系统实用程序**选中。
 - 如果您从 iso 创建了闪存驱动器，您可能需要禁用 CD-ROM 存储库才能运行 `apt`。
   您可以在[此处](https://www.linuxtechi.com/things-to-do-after-installing-debian-11/)找到有关如何执行此操作的说明。
@@ -133,7 +133,7 @@ sudo apt install openssh-server
 如果您不熟悉 `ssh`，请查看[安全外壳简介](../ssh)指南。
 
 :::warning 注意
-此时，您应该_强烈考虑_配置路由器以使节点的 IP 地址**静态**。
+此时，您应该*强烈考虑*配置路由器以使节点的 IP 地址**静态**。
 这意味着您的节点将永远拥有相同的 IP 地址，因此您始终可以使用该 IP 地址通过 SSH 登录。
 否则，您的节点的 IP 可能会在某个时候更改，并且上面的 SSH 命令将不再有效。
 您必须进入路由器的配置以找出节点的新 IP 地址是什么。

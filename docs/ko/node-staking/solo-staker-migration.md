@@ -24,7 +24,7 @@ Ethereum에서 인출이 어떻게 작동하는지 개괄적으로 다루고, �
 
 ## 왜 변환해야 할까요?
 
-기술적 세부 사항을 다루기 전에 대답해야 할 매우 중요한 질문은 solo staker가 애초에 이 프로세스를 고려하는 _이유_입니다.
+기술적 세부 사항을 다루기 전에 대답해야 할 매우 중요한 질문은 solo staker가 애초에 이 프로세스를 고려하는 *이유*입니다.
 minipool로의 변환은 모든 사람을 위한 것이 아니지만 이 섹션은 귀하가 그것을 추구할 것인지 여부에 대해 정보에 입각한 선택을 하는 데 도움이 될 것입니다.
 
 Rocket Pool minipool은 기존 solo staking validator에 비해 몇 가지 장점을 누립니다:
@@ -252,7 +252,7 @@ validator를 minipool로 변환한 후에는 현재 직접 관리하는 대신 S
 그러나 이를 수행하기 전에 이해해야 할 **매우 중요한 고려 사항**이 있습니다:
 
 - 자체 Validator Client에서 validator의 키가 제거되었는지 **확인해야** 하며, Smartnode로 가져오기 전에 제거한 후 최소 15분 동안 기다려야 합니다. 아래의 경고 상자를 참조하십시오.
-- Smartnode wallet의 니모닉에서 파생되지 않았기 때문에 `rocketpool wallet recover` 및 `rocketpool wallet rebuild`와 같은 명령이 백업 없이 재생성할 수 **없으므로** validator keystore _및 비밀번호 파일_을 백업했는지 **확인해야** 합니다.
+- Smartnode wallet의 니모닉에서 파생되지 않았기 때문에 `rocketpool wallet recover` 및 `rocketpool wallet rebuild`와 같은 명령이 백업 없이 재생성할 수 **없으므로** validator keystore *및 비밀번호 파일*을 백업했는지 **확인해야** 합니다.
 
 validator key를 Smartnode로 가져오려면 아래를 계속 읽으십시오.
 

@@ -18,12 +18,12 @@ Saturn 1에서 메가풀에 RPL을 스테이킹하면 다음과 같은 여러 �
 
 Saturn 1은 UARS를 도입하여 노드 운영자 커미션에서 발생하는 프로토콜 ETH 수익을 네 그룹에 분배합니다:
 
-| 그룹 | 기본 지분 | pDAO를 통해 조정 가능 |
-|-------|---------------|---------------------|
-| **기본 커미션** 노드 운영자 지분 | 5% | 예 |
-| **투표자 공유** 메가풀 RPL 스테이커 | 9% | 예 |
-| **pDAO 재무** | 0% | 예 |
-| **rETH 보유자** | 86% (나머지) | 자동 |
+| 그룹                                | 기본 지분    | pDAO를 통해 조정 가능 |
+| ----------------------------------- | ------------ | --------------------- |
+| **기본 커미션** 노드 운영자 지분    | 5%           | 예                    |
+| **투표자 공유** 메가풀 RPL 스테이커 | 9%           | 예                    |
+| **pDAO 재무**                       | 0%           | 예                    |
+| **rETH 보유자**                     | 86% (나머지) | 자동                  |
 
 이 매개변수는 [pDAO 거버넌스](/ko/pdao/overview)를 통해 조정 가능하여 시장 조건이 변화함에 따라 Rocket Pool 프로토콜이 적응하고 경쟁력을 유지할 수 있습니다. RPL을 스테이킹하고 검증자를 운영함으로써 이 과정에 참여할 자격이 생깁니다!
 
@@ -52,6 +52,7 @@ RPL이 투표 자격을 가지려면 다음 요건을 충족해야 합니다:
 ```
 vote-eligible RPL = min(1.5*RPL value of megapool bonded_eth, megapool staked rpl)
 ```
+
 `rocketpool node status` 메뉴에서 노드의 본드된 ETH 비율을 확인할 수 있습니다:
 
 ```
@@ -94,11 +95,9 @@ Saturn 1은 RPL 언스테이킹을 위한 2단계 인출 시스템을 도입합�
 레거시 RPL을 보유한 노드 운영자는 차용 ETH 담보 15%까지 인출할 수 있습니다. 이 15% 최소값은 메가풀이 아닌 레거시 미니풀의 차용 ETH만 고려합니다. 다음 몇 섹션에서는
 RPL 언스테이킹 및 인출의 두 단계를 다룹니다.
 
-
 ::: tip 레거시 RPL 스테이커를 위한 참고사항
 더 많은 RPL을 인출하기 위해 차용 ETH 담보 비율을 낮추고 싶다면
 [미니풀 종료](/ko/node-staking/withdraw#shut-down-a-minipool)를 고려하여 차용 ETH 담보 금액을 낮출 수 있습니다.
-
 
 :::
 
@@ -107,6 +106,7 @@ RPL 언스테이킹 및 인출의 두 단계를 다룹니다.
 ::: warning 경고
 
 28일 언스테이킹 기간 동안:
+
 - 언스테이킹을 요청한 RPL은 보상을 계속 획득하지 않습니다.
 - 언스테이킹 과정을 취소할 수 없지만, 28일 기간 후 인출한 다음 재스테이킹할 수 있습니다.
 - 28일 기간 동안 새 인출을 시작할 수 있지만, 모든 언스테이킹 중인 RPL이 28일로 갱신됩니다. 새 인출을 시작하기 전에 초기 인출을 완료하는 것이 좋습니다. 그렇지 않으면 언스테이킹 기간 전체를 다시 기다려야 합니다.
@@ -114,6 +114,7 @@ RPL 언스테이킹 및 인출의 두 단계를 다룹니다.
 :::
 
 과정을 시작하려면 `rocketpool node withdraw-rpl` 명령을 사용하세요. 다음 프롬프트가 표시됩니다:
+
 ```
 The RPL withdrawal process has changed in Saturn. It is now a 2-step process:
 1. Request to unstake a certain RPL amount;
@@ -137,6 +138,7 @@ Please select one of the three options below.
 
 전체 잔액을 언스테이킹하거나 언스테이킹할 사용자 정의 금액을 입력하라는 메시지가 표시됩니다. 전체 금액을 언스테이킹하려면 `y`를 입력하거나 언스테이킹할 사용자 정의 금액을 입력하려면 `n`을 입력하세요.
 여기에서 Smart Node가 언스테이크 요청을 하는 데 필요한 나머지 단계를 안내합니다.
+
 ```
 You have 4383.275814 RPL staked on your megapool and can request to unstake up to 4383.275814 RPL.
 Would you like to unstake the maximum amount of staked RPL? [y/n]
@@ -171,9 +173,11 @@ Waiting for the transaction to be included in a block... you may wait here for i
 Successfully unstaked 1000.000000 RPL.
 
 ```
+
 ### 언스테이킹 중인 RPL 상태 확인
 
 RPL 언스테이킹 요청을 성공적으로 한 후, `rocketpool node withdraw-rpl` 명령은 언스테이킹 중인 RPL이 인출 가능한 시기를 알려줍니다:
+
 ```
 Your node has 1017.688800 RPL on its legacy stake (previously associated to minipools) and 3383.275814 RPL staked on its megapool.
 Your node currently has 0.000000 RPL locked on pDAO proposals.
@@ -185,6 +189,7 @@ You have 1000.000000 RPL currently unstaking until 2026-02-19, 04:05 +0000 UTC (
 ### 2단계: 언스테이킹된 RPL 인출
 
 28일 언스테이킹 기간이 지나면 `rocketpool node withdraw-rpl` 명령에 상태가 반영되고 마침내 언스테이킹된 RPL을 인출할 수 있습니다.
+
 ```
 You have 1000.000000 RPL unstaked and ready to be withdrawn to your RPL withdrawal address.
 ```
@@ -252,6 +257,7 @@ Please choose an amount of RPL to stake:
 이 명령을 사용하면 메가풀에 RPL이 스테이킹되어 투표자 공유 보상이 증가합니다. 이제 미니풀에 RPL을 스테이킹하는 것은 더 이상 불가능합니다.
 
 ## 노드의 ETH 및 RPL 보상 확인
+
 Smart Node에는 노드가 가질 수 있는 다양한 유형의 보상 상태를 확인할 수 있는 유용한 새 기능이 있습니다.
 가능한 모든 보상 유형의 목록은 다음과 같습니다:
 
@@ -322,9 +328,11 @@ The following 2 claim(s)/credits are available:
 
 Enter the numbers of the claims you want to execute (comma-separated), 'all' to claim everything, or 'none' to cancel:
 ```
+
 선택을 하고 가스 옵션을 확인한 후, 청구하는 보상 유형에 따라 추가 프롬프트가 있을 수 있습니다. 여기서 모두 설명하지는 않겠습니다. Smart Node가 모든 단계를 안내해 드립니다.
 
 두 가지 유형의 보상 - 정기 보상 + ETH 크레딧을 교환하는 모습:
+
 ```
 +================ Suggested Gas Prices ================+
 | Avg Wait Time |   Max Fee    |     Total Gas Cost     |
@@ -368,8 +376,6 @@ Waiting for the transaction to be included in a block... you may wait here for i
 All 2 claim(s) completed successfully.
 ============================================================
 ```
-
-
 
 ## 다음 단계
 

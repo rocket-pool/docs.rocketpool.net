@@ -168,8 +168,8 @@ a3c22f54eff0   rocketpool_node         0.00%     12.13MiB / 62.78GiB   0.02%    
 ```
 
 ::: tip 注意
-这里的 RAM 统计显示的是**总分配内存**,其中包括_虚拟_内存。
-它不显示原始的_常驻_内存消耗。
+这里的 RAM 统计显示的是**总分配内存**,其中包括*虚拟*内存。
+它不显示原始的*常驻*内存消耗。
 
 类似地,CPU 使用率显示的是容器使用的所有 CPU 核心的平均总 CPU 消耗。
 在这里,ETH2 的 CPU 显示接近 100%,因为它使用的是 Nimbus,这是单线程的。
@@ -337,7 +337,7 @@ You do not have a fallback consensus client enabled.
 当您想向节点添加更多 RPL 抵押品时,您将使用此命令。
 这样做将增加您的抵押率,这将增加您在每个检查点的 RPL 奖励(稍后会详细介绍)。
 
-与目前为止的其他命令不同,这个命令实际上是_交互式_的,因为它将触发一个交易 - 它不仅仅是信息性的。
+与目前为止的其他命令不同,这个命令实际上是*交互式*的,因为它将触发一个交易 - 它不仅仅是信息性的。
 
 它首先会问您想质押多少 RPL,提供一些预定义的选项以方便使用,或者允许您指定自定义金额:
 
@@ -462,7 +462,6 @@ rocketpool node leave-smoothing-pool
 一旦**当前纪元之后的下一个纪元**被最终确定,它将自动将您节点的 `fee recipient` 从 Smoothing Pool 更改回您节点的分配器合约。
 这是为了确保当您看到即将有提案时,您不会因为提前退出过程而受到惩罚。
 
-
 ### `distribute-fees`
 
 当您的分配器已积累奖励后,您可以使用以下命令领取并分配其全部余额:
@@ -499,6 +498,7 @@ rocketpool node send 1 eth <my friend's address>
 将向我的朋友发送 1 ETH。
 
 ## Megapool 命令
+
 `megapool` 组是您可以访问用于管理 megapool 和 megapool 验证者的所有命令的地方。
 
 以下是 `rocketpool megapool help` 将显示的内容:
@@ -535,9 +535,11 @@ GLOBAL OPTIONS:
 以下是您在正常操作期间通常会使用的命令摘要:
 
 ### `deposit`
+
 此命令允许您在 megapool 上创建新的验证者。我们稍后将详细介绍。如果您想提前了解,请跳至[创建 Megapool 验证者](/node-staking/megapools/create-megapool-validator.mdx)。
 
 ### `status`
+
 此命令为您提供有关 megapool 状态以及由 megapool 管理的验证者的信息。您将能够看到 megapool 的地址、快速通道票据数量、megapool 的委托地址、执行层和共识层上的 ETH 余额以及许多其他有用信息。以下是 `rocketpool megapool status` 输出的示例:
 
 ```
@@ -562,7 +564,9 @@ Current network commission: 5.000000%
 ```
 
 ### `validators`
+
 `rocketpool megapool validators` 命令将显示由节点 megapool 管理的每个验证者的状态。您将能够看到验证者公钥、Beacon Chain 状态以及预质押验证者的队列位置等信息:
+
 ```
 There are 8 validator(s) on the express queue.
 There are 2 validator(s) on the standard queue.
@@ -605,7 +609,6 @@ Express Ticket Used:          yes
 ### `exit-validator`
 
 此命令允许您选择一个验证者在 Beacon Chain 上自愿退出。当您想关闭验证者并提取其最终 ETH 余额时使用此命令。请注意,这无法撤消 - 一旦触发退出,验证者将永久关闭。
-
 
 ## Minipool 命令
 
@@ -763,7 +766,7 @@ Are you sure you want to set your timezone? [y/n]
 您发送的每个交易都有一个称为 `nonce` 的数字,用于标识它在该序列中的位置。
 您发送的第一个交易的 `nonce` 为 0,您发送的下一个交易的 `nonce` 为 1,依此类推。
 
-这种覆盖技术涉及发送一个_新_交易,该交易使用与您现有的_卡住的_交易相同的 `nonce`,但理想情况下将包含比卡住的交易更高的 gas 价格。
+这种覆盖技术涉及发送一个*新*交易,该交易使用与您现有的*卡住的*交易相同的 `nonce`,但理想情况下将包含比卡住的交易更高的 gas 价格。
 这意味着新的交易将首先被挖掘。
 一旦它被挖掘到一个区块中,旧的交易将从网络中被丢弃,就好像它从未被发送过一样。
 

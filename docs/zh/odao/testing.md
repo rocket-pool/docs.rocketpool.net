@@ -84,10 +84,10 @@
 ./treegen.sh -e http://<your archive EC url> -b http://localhost:5052 -i 2
 ```
 
-请注意，这里的 **Execution Client URL** 不同：它_必须是_归档 EC，因为间隔 2 的快照区块在很久以前。
+请注意，这里的 **Execution Client URL** 不同：它*必须是*归档 EC，因为间隔 2 的快照区块在很久以前。
 
 ::: warning 注意
-根据你的客户端配置，构建此树可能需要_数小时_。
+根据你的客户端配置，构建此树可能需要*数小时*。
 Smartnode 会在过程中提供有关其进度的状态指示器，如下面的示例所示。
 :::
 
@@ -144,7 +144,7 @@ Your Merkle tree's root of 0x278fd75797e2a9eddc128c0199b448877e30d1196c12306bdc9
 如果你收到此消息，那么你的 watchtower 可以正确构建树。
 
 ::: danger 注意
-虽然这证明你可以构建树，但你_必须_确保你的 Web3.Storage API 令牌已输入到 Smartnode 的配置中，以便它可以将生成的树上传到 IPFS。
+虽然这证明你可以构建树，但你*必须*确保你的 Web3.Storage API 令牌已输入到 Smartnode 的配置中，以便它可以将生成的树上传到 IPFS。
 :::
 
 ### 下一步

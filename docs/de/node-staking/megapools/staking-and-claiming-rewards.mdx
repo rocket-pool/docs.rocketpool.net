@@ -20,12 +20,12 @@ Node Operatoren basierend auf ihrem Anteil am gesamten Megapool-RPL-Stake vertei
 
 Saturn 1 führt UARS ein, das ETH-Protokolleinnahmen aus Node-Operator-Provisionen auf vier Gruppen verteilt:
 
-| Gruppe | Standardanteil | Anpassbar via pDAO |
-|--------|----------------|---------------------|
-| **Basiskommission** Anteil für Node Operatoren | 5% | Ja |
-| **Voter Share** an Megapool-RPL-Staker | 9% | Ja |
-| **pDAO Treasury** | 0% | Ja |
-| **rETH-Inhaber** | 86% (Rest) | Automatisch |
+| Gruppe                                         | Standardanteil | Anpassbar via pDAO |
+| ---------------------------------------------- | -------------- | ------------------ |
+| **Basiskommission** Anteil für Node Operatoren | 5%             | Ja                 |
+| **Voter Share** an Megapool-RPL-Staker         | 9%             | Ja                 |
+| **pDAO Treasury**                              | 0%             | Ja                 |
+| **rETH-Inhaber**                               | 86% (Rest)     | Automatisch        |
 
 Diese Parameter sind via [pDAO Governance](/de/pdao/overview) anpassbar, was dem Rocket Pool Protokoll ermöglicht, sich anzupassen und wettbewerbsfähig zu bleiben, wenn sich die Marktbedingungen ändern. Durch das Staking von RPL
 und den Betrieb von Validatoren bist du berechtigt, an diesem Prozess teilzunehmen!
@@ -57,6 +57,7 @@ Das Maximum von 150% des gesamten gebondeten ETH für abstimmungsberechtigtes RP
 ```
 abstimmungsberechtigtes RPL = min(1.5*RPL-Wert des Megapool-bonded_eth, megapool gestaktes rpl)
 ```
+
 Du solltest das gebondete ETH-Verhältnis deines Nodes im Menü `rocketpool node status` einsehen können:
 
 ```
@@ -100,11 +101,9 @@ Es gibt keine Begrenzung, wie viel Megapool-gestaktes RPL du unstaken kannst, wa
 Node Operatoren mit Legacy-RPL können bis zu einer Mindestbesicherung von 15% des geliehenen ETH abheben. Dieses 15%-Minimum berücksichtigt nur geliehenes ETH aus Legacy-Minipools, nicht Megapools. Die nächsten Abschnitte
 erläutern die zwei Schritte für Unstaking und Abheben von RPL.
 
-
 ::: tip Hinweis für Legacy-RPL-Staker
 Wenn du deinen Prozentsatz der geliehenen ETH-Besicherung reduzieren möchtest, um mehr deines RPL abzuheben, könnte es sinnvoll sein,
 [deinen/deine Minipool(s) zu beenden](/de/node-staking/withdraw#shut-down-a-minipool), um deinen geliehenen ETH-Besicherungsbetrag zu senken.
-
 
 :::
 
@@ -113,14 +112,16 @@ Wenn du deinen Prozentsatz der geliehenen ETH-Besicherung reduzieren möchtest, 
 ::: warning WARNUNG
 
 Während der 28-tägigen Unstaking-Periode:
+
 - Das RPL, dessen Unstaking du beantragt hast, verdient keine weiteren Belohnungen.
 - Du kannst den Unstaking-Prozess nicht abbrechen, aber du kannst nach der 28-tägigen Periode abheben und es dann erneut staken.
 - Du kannst während der 28-tägigen Periode eine neue Withdrawal-Anfrage stellen, aber dein gesamtes Unstaking-RPL wird auf 28 Tage in Unstaking zurückgesetzt. Es wird empfohlen,
-deine erste Withdrawal abzuschließen, bevor du eine weitere machst. Andernfalls musst du erneut die volle Länge der Unstaking-Periode warten.
+  deine erste Withdrawal abzuschließen, bevor du eine weitere machst. Andernfalls musst du erneut die volle Länge der Unstaking-Periode warten.
 
 :::
 
 Um den Prozess zu beginnen, verwende den Befehl `rocketpool node withdraw-rpl`. Du siehst folgende Eingabeaufforderung:
+
 ```
 The RPL withdrawal process has changed in Saturn. It is now a 2-step process:
 1. Request to unstake a certain RPL amount;
@@ -144,6 +145,7 @@ Please select one of the three options below.
 
 Du wirst aufgefordert, entweder dein volles Guthaben zu unstaken oder einen benutzerdefinierten Betrag einzugeben. Gib `y` ein, um den vollen Betrag zu unstaken, oder `n`, um einen benutzerdefinierten Betrag einzugeben.
 Von hier aus führt dich der Smart Node durch die restlichen Schritte, die erforderlich sind, um die Unstake-Anfrage zu stellen.
+
 ```
 You have 4383.275814 RPL staked on your megapool and can request to unstake up to 4383.275814 RPL.
 Would you like to unstake the maximum amount of staked RPL? [y/n]
@@ -178,9 +180,11 @@ Waiting for the transaction to be included in a block... you may wait here for i
 Successfully unstaked 1000.000000 RPL.
 
 ```
+
 ### Den Status deines Unstaking-RPL überprüfen
 
 Nachdem du erfolgreich eine Anfrage zum Unstaking von RPL gestellt hast, informiert dich der Befehl `rocketpool node withdraw-rpl`, wann das Unstaking-RPL für eine Withdrawal freigegeben ist:
+
 ```
 Your node has 1017.688800 RPL on its legacy stake (previously associated to minipools) and 3383.275814 RPL staked on its megapool.
 Your node currently has 0.000000 RPL locked on pDAO proposals.
@@ -192,6 +196,7 @@ You have 1000.000000 RPL currently unstaking until 2026-02-19, 04:05 +0000 UTC (
 ### Schritt 2: Unstaked RPL abheben
 
 Nach Ablauf der 28-tägigen Unstaking-Periode wird der Status im Befehl `rocketpool node withdraw-rpl` angezeigt und du kannst dein unstaked RPL endlich abheben.
+
 ```
 You have 1000.000000 RPL unstaked and ready to be withdrawn to your RPL withdrawal address.
 ```
@@ -260,6 +265,7 @@ Please choose an amount of RPL to stake:
 Die Verwendung dieses Befehls stakt RPL auf deinem Megapool und erhöht deine Voter-Share-Belohnungen. Es ist nicht mehr möglich, RPL auf einem Minipool zu staken.
 
 ## Die ETH- und RPL-Belohnungen deines Nodes einsehen
+
 Der Smart Node hat eine praktische neue Funktion, mit der du den Status aller verschiedenen Belohnungsarten überprüfen kannst, die dein Node möglicherweise hat.
 Hier ist eine Liste aller möglichen Belohnungsarten:
 
@@ -330,11 +336,13 @@ The following 2 claim(s)/credits are available:
 
 Enter the numbers of the claims you want to execute (comma-separated), 'all' to claim everything, or 'none' to cancel:
 ```
+
 Nachdem du deine Auswahl(en) getroffen und die Gas-Optionen bestätigt hast, können je nach Art der Belohnung, die du beanspruchst, zusätzliche Eingabeaufforderungen folgen.
 Wir gehen hier jedoch nicht auf alle ein. Der Smart Node sollte dich durch
 alle Schritte führen können.
 
 So sieht es aus, wenn du zwei Belohnungsarten einlöst - periodische Belohnungen + ETH-Guthaben:
+
 ```
 +================ Suggested Gas Prices ================+
 | Avg Wait Time |   Max Fee    |     Total Gas Cost     |
@@ -378,8 +386,6 @@ Waiting for the transaction to be included in a block... you may wait here for i
 All 2 claim(s) completed successfully.
 ============================================================
 ```
-
-
 
 ## Nächste Schritte
 

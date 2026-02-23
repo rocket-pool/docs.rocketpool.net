@@ -21,7 +21,6 @@ Megapool は、node operator ごとの単一のスマートコントラクトで
 レガシー minipool のデポジットは無効化され、node operators は minipool validators を megapool に移行できます。
 全体として、megapools は node operator の体験と Rocket Pool の長期的な持続可能性を向上させるはずです。
 
-
 デリゲートコントラクトは Ethereum 引き出しアドレスとして機能し、validator のアクティビティを管理します。Node operators は現在、minipool デリゲートをアップグレードするか、同じものに留まるかを選択でき、将来のアップグレードの設計が困難になっています。Saturn 1 アップグレードは[強制デリゲートアップグレード](https://rpips.rocketpool.net/RPIPs/RPIP-47)を導入し、プロトコルがより効率的に反復できるようにします。Megapool コントラクトの強制デリゲートアップグレードにより、Rocket Pool プロトコルは将来のアップグレードの設計時に後方互換性に妨げられることがなくなり、pDAO に Rocket Pool を改善するためのより大きな柔軟性を与えます。
 
 ## より低い Bond 要件
@@ -29,17 +28,17 @@ Megapool は、node operator ごとの単一のスマートコントラクトで
 Megapools は運用コストを削減し、Rocket Pool が validator あたりの bond 要件を 8 ETH から 4 ETH に引き下げることを可能にします。
 より低い ETH bond により、同じ量の bonded ETH でより大きなボリュームの rETH をサポートでき、Rocket Pool の資本効率が向上します。言い換えれば、より低い bond は bonded ETH あたりにより多くの手数料を得ることを可能にします。
 
-
 | Validator タイプ | 必要な Bond | プロトコル ETH マッチング | 手数料率 | ETH Bonded あたりの手数料 |
-|-----------------|------------|------------------------|---------|------------------------|
-| 8 ETH Minipool | 8 ETH         | 24 ETH              | 5%              | 15%                       |
-| 4 ETH Megapool | 4 ETH         | 28 ETH              | 5%              | **35%**（2.3 倍の改善）|
+| ---------------- | ----------- | ------------------------- | -------- | ------------------------- |
+| 8 ETH Minipool   | 8 ETH       | 24 ETH                    | 5%       | 15%                       |
+| 4 ETH Megapool   | 4 ETH       | 28 ETH                    | 5%       | **35%**（2.3 倍の改善）   |
 
 Bond 要件は Saturn 1 において pDAO が調整可能なパラメータです。
 これは Rocket Pool の将来のアップグレード Saturn 2 への基盤を築くもので、最初の 2 つの validators に 4 ETH bond、その後の各 validator に 1.5 ETH bond を計画しています。
 [RPIP-42: Bond curves](https://rpips.rocketpool.net/RPIPs/RPIP-42) で詳細を確認してください。
 
 ## RPL 収益分配
+
 Saturn 1 では、RPL は ETH 蓄積型の収益分配トークンになります。Megapool に投票資格のある RPL をステーキングしている node operators は、ステーキングした RPL に比例した ETH 収益のシェアを得られます。次のセクションでは、この収益分配がどのように機能するかを説明します。
 
 ## Universal Adjustable Revenue Split (UARS)
@@ -47,6 +46,7 @@ Saturn 1 では、RPL は ETH 蓄積型の収益分配トークンになりま�
 Saturn 1 は [Universal Adjustable Revenue Split (UARS)](https://rpips.rocketpool.net/RPIPs/RPIP-46) を導入します。これは node operator の手数料からのプロトコル ETH 収益を分配するための新しい調整可能なシステムです。この適応性により、Rocket Pool は市場環境の変化に応じて競争力を維持できます。
 
 UARS は ETH 収益を 4 つのグループに分配します。各シェアは pDAO ガバナンスを通じて調整可能です：
+
 - Node operators への基本手数料シェア（5%）
 - RPL stakers への投票シェア報酬（9%）
 - プロトコルトレジャリーへの pDAO シェア（0%、ガバナンスを通じて調整可能）
@@ -69,6 +69,7 @@ Saturn 1 アップグレードには、validator 作成のためのデポジッ�
 
 収益分配パラメータに加えて、oracle DAO とプロトコル DAO の信頼前提を減らすために、いくつかのガードレールパラメータ（pDAO が制御可能）が Saturn 1 に含まれています。
 これらのガードレールは、正当な使用を妨げることなく安全性を向上させることを目的としています。
+
 - [RPIP-58: MEV Penalty Guardrail](https://rpips.rocketpool.net/RPIPs/RPIP-58)：oDAO が週あたり minipools に適用できる MEV ペナルティの数に制限を設けます。
 - [RPIP-61: Balance Submission Guardrail](https://rpips.rocketpool.net/RPIPs/RPIP-61)：通常の運用中、rETH の為替レートは頻繁に変更する必要はありません。RPIP-61 は oDAO が rETH 為替レートを変更できる頻度に制限を設けます。
 - [RPIP-60: Protocol Upgrade Guardrails](https://rpips.rocketpool.net/RPIPs/RPIP-60)：プロトコルアップグレードが可決されてから実行されるまでの間に遅延を導入します。RPIP-60 は、プロトコルが同意できない方法で変更された場合にユーザーがプロトコルを離れるための十分な時間を与えます。また、セキュリティカウンシルにプロトコルアップグレードを拒否する権限を与えます。
@@ -90,6 +91,7 @@ Saturn 1 の最終監査レポートは以下で確認できます：
 Rocket Pool は、重大な脆弱性に対して最大 $500,000 の報酬を提供するアクティブな [Immunefi バグバウンティプログラム](https://immunefi.com/bug-bounty/rocketpool/information/)も維持しています。
 
 ## Node Operator ガイド
+
 Rocket Pool ノードを運用して独自の Ethereum validators を作成することに興味がある場合は、[Node Operator ガイド](/ja/node-staking/responsibilities)をご覧ください。
 これはノード運用に関わるすべての考慮事項を網羅した非常に包括的なガイドで、以下を含みます：
 

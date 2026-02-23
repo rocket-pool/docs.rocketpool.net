@@ -31,16 +31,14 @@ O `destinatário de taxa` do seu nó pode ser um dos seguintes contratos especia
 
 O Smart Node definirá automaticamente o destinatário de taxa correto com base na sua configuração:
 
-| Status no Smoothing Pool | Tem Validadores de Megapool | Tem Minipools | Destinatário de Taxa |
-|----------------------|-------------------------|---------------|---------------|
-| Participando | Não | Sim | Endereço do Smoothing Pool |
-| Participando | Sim | Não | Endereço do Smoothing Pool |
-| Participando | Sim | Sim | Endereço do Smoothing Pool (todos os validadores) |
-| Fora | Não | Sim | Endereço do contrato do Distribuidor de Taxas |
-| Fora | Sim | Não | Endereço do contrato do Megapool |
-| Fora | Sim | Sim | Validadores do Megapool → Endereço do Megapool<br>Validadores do Minipool → Endereço do Distribuidor de Taxas<br>(Definido por validador via [keymanager API](https://ethereum.github.io/keymanager-APIs/#/Fee%20Recipient/setFeeRecipient)) |
-
-
+| Status no Smoothing Pool | Tem Validadores de Megapool | Tem Minipools | Destinatário de Taxa                                                                                                                                                                                                                         |
+| ------------------------ | --------------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Participando             | Não                         | Sim           | Endereço do Smoothing Pool                                                                                                                                                                                                                   |
+| Participando             | Sim                         | Não           | Endereço do Smoothing Pool                                                                                                                                                                                                                   |
+| Participando             | Sim                         | Sim           | Endereço do Smoothing Pool (todos os validadores)                                                                                                                                                                                            |
+| Fora                     | Não                         | Sim           | Endereço do contrato do Distribuidor de Taxas                                                                                                                                                                                                |
+| Fora                     | Sim                         | Não           | Endereço do contrato do Megapool                                                                                                                                                                                                             |
+| Fora                     | Sim                         | Sim           | Validadores do Megapool → Endereço do Megapool<br>Validadores do Minipool → Endereço do Distribuidor de Taxas<br>(Definido por validador via [keymanager API](https://ethereum.github.io/keymanager-APIs/#/Fee%20Recipient/setFeeRecipient)) |
 
 Rocket Pool é projetado para distribuir essas recompensas de forma justa entre você e os stakers do pool rETH, da mesma forma que distribui de forma justa suas recompensas da Beacon chain: sua parte de quaisquer taxas de prioridade que seus validadores de minipool ganhem irá para você (mais a comissão média de todos os seus minipools), e a parte restante irá para os stakers do pool (menos sua comissão média).
 A proporção exata depende do número de minipools com vínculo de 8 ETH, 16 ETH e validadores de megapool com vínculo de 4 ETH que você possui.

@@ -23,7 +23,7 @@
   - 请记住,您始终可以覆盖您的委托人
 - 使用您自己的节点作为委托人初始化投票 https://etherscan.io/address/0xA9d27E1952f742d659143a544d3e535fFf3Eebe1#writeContract#F1
   - 在这里,您将负责每次投票
-  - 我主要建议希望成为委托人的人使用此选项,因为他们_确实_需要每次投票。
+  - 我主要建议希望成为委托人的人使用此选项,因为他们*确实*需要每次投票。
 - 如果您的节点是在 Houston 之后注册的:
   - 您的投票权将已经初始化,您自己的节点作为委托人
   - 您可以使用 https://etherscan.io/address/0xA9d27E1952f742d659143a544d3e535fFf3Eebe1#writeContract#F3 设置新的委托人

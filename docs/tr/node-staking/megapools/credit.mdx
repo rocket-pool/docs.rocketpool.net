@@ -5,9 +5,10 @@ Bu kredinin kaynağı birkaç yerden gelir:
 
 - [Rocket Pool deposit kuyruğundan doğrulayıcı çıkarma](./create-megapool-validator#exit-a-validator-from-the-rocket-pool-deposit-queue). Bir doğrulayıcıyı sıradan çıkarmak, düğüm operatörüne bonded miktarı (4 ETH) kredi olarak verecektir.
 - Bir prelaunch doğrulayıcısı 28 gün içinde stake yapamazsa, doğrulayıcı çözülür. Prelaunch süreci sırasında Beacon Chain'e gönderilen 1 ETH (4 ETH bond'dan), **geri alınamaz**.
- Düğüm operatörüne, 0,05 ETH çözülme cezası borç olarak uygulanarak kalan 3 ETH bond için kredi verilir. Çözülmüş bir doğrulayıcı için net kredi 2,95 ETH'dir.
+  Düğüm operatörüne, 0,05 ETH çözülme cezası borç olarak uygulanarak kalan 3 ETH bond için kredi verilir. Çözülmüş bir doğrulayıcı için net kredi 2,95 ETH'dir.
 
 Sonraki ikisi yalnızca saturn öncesi geçiş yapan düğüm operatörleri içindir. Artık mümkün değildir:
+
 - [Mevcut 16 ETH bonded minipool'u 8 ETH bonded minipool'a geçirme](/tr/node-staking/leb-migration.mdx) (düğüm operatörünün kredi bakiyesine 8 ETH ekler)
 - [Mevcut solo doğrulayıcıyı](/tr/node-staking/solo-staker-migration) minipool'a geçirme (geçiş sırasında oluşturdukları minipool türüne bağlı olarak düğüm operatörünün kredi bakiyesine 16 veya 24 ETH ekler)
 
@@ -17,10 +18,9 @@ Bu ETH likit hale getirilip düğüm operatörüne iade edilmez; bunun yerine e�
 **ek megapool doğrulayıcıları oluşturmak** için kullanılabilir.
 
 Kredi sistemi, düğüm operatörüne **şeffaf**tır; mümkünse `rocketpool node deposit` işlemleri sırasında otomatik olarak kullanılacaktır (Smartnode CLI'da kullanılacağını açıklayan bildirimlerle birlikte).
-Kullanıla_mıyorsa_, Smartnode kullanıcıyı kullanılamayacağı konusunda uyaracak ve her iki işlem sırasında da normal ETH bond gerektirecektir.
+Kullanıla*mıyorsa*, Smartnode kullanıcıyı kullanılamayacağı konusunda uyaracak ve her iki işlem sırasında da normal ETH bond gerektirecektir.
 
 Daha fazla ayrıntı için aşağıdaki [Kredi Kullanılabilirliği](#credit-availability) bölümüne bakın.
-
 
 ## Mevcut Kredi Bakiyenizi Görüntüleme
 
@@ -43,6 +43,7 @@ The node has 4.000000 ETH in its credit balance and 0.000000 ETH staked on its b
 ## Krediyi rETH Olarak Kullanma
 
 Krediyi rETH olarak kullanmak için `rocketpool node withdraw-credit` komutunu kullanın. Eşdeğer rETH miktarı çekim adresinize (çekim adresi ayarlanmamışsa düğüm adresinize) gönderilecektir:
+
 ```
 staker@node:~$ rocketpool node withdraw-credit
 
@@ -50,7 +51,6 @@ You have 4.000000 ETH of credit that you can withdraw, receiving the equivalent 
 
 Would you like to withdraw the maximum amount of credit? [y/n]
 ```
-
 
 ## Kredi Kullanılabilirliği
 
@@ -63,6 +63,7 @@ Bu nedenle, deposit havuzu bond değerini (şu anda 4 ETH olarak belirlenmiş) k
 Smartnode, deposit havuzundan gelen ETH ile kredinizin bir bölümünü kullanarak bir doğrulayıcı oluşturabilecektir. Krediniz varsa ve bir doğrulayıcı oluşturmak için düğüm cüzdanınızdan ETH kullanmanız gerekiyorsa, Smartnode sizi `rocketpool megapool deposit` işlemi sırasında bilgilendirecektir.
 
 Aşağıdaki örnekte düğüm operatörünün `4 ETH` kredisi bulunmaktadır ancak deposit havuzunda yalnızca `3,431627 ETH` bulunmakta olup, yatırımı tamamlamak için düğüm cüzdanından `0,568373 ETH` gerekmektedir:
+
 ```
 Your credit balance is 4.00 ETH. (Credit in addition to ETH staked on your behalf).
 This deposit will use 3.431627 ETH from your credit balance plus ETH staked on your behalf and 0.568373 ETH from your node wallet.

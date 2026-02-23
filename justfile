@@ -18,7 +18,7 @@ ui-build:
 
 # Use prettier & biome to format the code
 ui-format:
-    bun run prettier && bun run format
+    bun run format
 
 # convert all the images to webp
 ui-webp:

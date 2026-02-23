@@ -3,7 +3,7 @@
 노드 운영자는 Ethereum 체인에 제안하는 블록에 포함된 트랜잭션에서 **우선 수수료**(**팁**)를 받습니다.
 이러한 수수료는 Execution 레이어에서 발생하고 그곳에 남아 있습니다.
 
-Consensus 레이어에서 생성되고 자동으로 주기적으로 출금되는 대부분의 검증 보상과 달리, 이러한 수수료는 _즉시 유동화_됩니다.
+Consensus 레이어에서 생성되고 자동으로 주기적으로 출금되는 대부분의 검증 보상과 달리, 이러한 수수료는 *즉시 유동화*됩니다.
 일반적으로 우선 수수료는 Beacon Chain 보상만큼 거의 많은 ETH를 제공하므로 Merge의 매우 좋은 혜택입니다.
 
 ::: tip 참고
@@ -31,16 +31,14 @@ fee recipient는 단순히 팁을 보내려는 Execution 레이어의 주소입�
 
 Smart Node는 구성에 따라 올바른 fee recipient를 자동으로 설정합니다:
 
-| Smoothing Pool 상태 | Megapool Validator 보유 | Minipool 보유 | Fee Recipient |
-|----------------------|-------------------------|---------------|---------------|
-| 가입 | 아니오 | 예 | Smoothing Pool 주소 |
-| 가입 | 예 | 아니오 | Smoothing Pool 주소 |
-| 가입 | 예 | 예 | Smoothing Pool 주소 (모든 validator) |
-| 미가입 | 아니오 | 예 | Fee Distributor 계약 주소 |
-| 미가입 | 예 | 아니오 | Megapool 계약 주소 |
-| 미가입 | 예 | 예 | Megapool validator → Megapool 주소<br>Minipool validator → Fee Distributor 주소<br>([keymanager API](https://ethereum.github.io/keymanager-APIs/#/Fee%20Recipient/setFeeRecipient)를 통해 validator별로 설정) |
-
-
+| Smoothing Pool 상태 | Megapool Validator 보유 | Minipool 보유 | Fee Recipient                                                                                                                                                                                                 |
+| ------------------- | ----------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 가입                | 아니오                  | 예            | Smoothing Pool 주소                                                                                                                                                                                           |
+| 가입                | 예                      | 아니오        | Smoothing Pool 주소                                                                                                                                                                                           |
+| 가입                | 예                      | 예            | Smoothing Pool 주소 (모든 validator)                                                                                                                                                                          |
+| 미가입              | 아니오                  | 예            | Fee Distributor 계약 주소                                                                                                                                                                                     |
+| 미가입              | 예                      | 아니오        | Megapool 계약 주소                                                                                                                                                                                            |
+| 미가입              | 예                      | 예            | Megapool validator → Megapool 주소<br>Minipool validator → Fee Distributor 주소<br>([keymanager API](https://ethereum.github.io/keymanager-APIs/#/Fee%20Recipient/setFeeRecipient)를 통해 validator별로 설정) |
 
 Rocket Pool은 Beacon 체인 보상을 공정하게 분배하는 것과 같은 방식으로 귀하와 rETH 풀 스테이커 간에 이러한 보상을 공정하게 분배하도록 설계되었습니다: 미니풀 검증자가 얻는 모든 우선 수수료 중 귀하의 몫은 귀하에게 갑니다(모든 미니풀의 평균 수수료 포함), 나머지 부분은 풀 스테이커에게 갑니다(평균 수수료 제외).
 정확한 비율은 보유한 8 ETH 본딩, 16 ETH 본딩 미니풀과 4 ETH 본딩 megapool validator의 수에 따라 달라집니다.
@@ -112,14 +110,14 @@ Smoothing Pool 사용 여부를 결정할 때 이러한 조건을 염두에 두�
 
 Oracle DAO는 프로토콜 규칙을 따르지 않는 노드 운영자에게 패널티를 부과할 수 있습니다.
 
-노드가 Smoothing Pool을 _선택 해제_한 경우 다음 주소가 유효한 fee recipient로 간주됩니다:
+노드가 Smoothing Pool을 *선택 해제*한 경우 다음 주소가 유효한 fee recipient로 간주됩니다:
 
 - rETH 주소
 - Smoothing Pool 주소
 - 노드의 fee distributor 계약
 - 노드의 megapool 계약
 
-노드가 Smoothing Pool을 _선택_한 경우 다음 주소가 유효한 fee recipient로 간주됩니다:
+노드가 Smoothing Pool을 *선택*한 경우 다음 주소가 유효한 fee recipient로 간주됩니다:
 
 - Smoothing Pool 주소
 

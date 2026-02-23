@@ -33,12 +33,12 @@ El slashing _no puede ocurrir_ por estar desconectado para mantenimiento.
 
 A continuación hay una tabla que muestra las penalizaciones que pueden ocurrirle a un validador:
 
-| Tipo                         | Capa      | Cantidad                                                                                             |
-| ---------------------------- | --------- | ---------------------------------------------------------------------------------------------------- |
-| Atestiguación Perdida        | Consenso  | -0.000011 ETH\* por atestiguación (-9/10 del valor de una recompensa de atestiguación normal)       |
-| Propuesta Perdida            | Consenso  | 0                                                                                                    |
-| Comité de Sincronización Perdido | Consenso  | -0.00047 ETH\* por época (-0.1 ETH total si está desconectado durante todo el comité de sincronización) |
-| Slashing                     | Consenso  | Al menos 1/32 de tu saldo, hasta tu saldo completo en circunstancias extremas                       |
+| Tipo                             | Capa     | Cantidad                                                                                                |
+| -------------------------------- | -------- | ------------------------------------------------------------------------------------------------------- |
+| Atestiguación Perdida            | Consenso | -0.000011 ETH\* por atestiguación (-9/10 del valor de una recompensa de atestiguación normal)           |
+| Propuesta Perdida                | Consenso | 0                                                                                                       |
+| Comité de Sincronización Perdido | Consenso | -0.00047 ETH\* por época (-0.1 ETH total si está desconectado durante todo el comité de sincronización) |
+| Slashing                         | Consenso | Al menos 1/32 de tu saldo, hasta tu saldo completo en circunstancias extremas                           |
 
 \*_Varía según el número total de validadores en la red.
 Aproximado para 435,000 validadores activos._

@@ -1,10 +1,24 @@
 {
+  "files": {
+    "includes": ["**", "!doc_build"]
+  },
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
     "lineWidth": 200
   },
-  "assist": { "actions": { "source": { "organizeImports": "on" } } },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [":PACKAGE:", ":BLANK_LINE:", "@/**", ":BLANK_LINE:", ":PATH:"]
+          }
+        }
+      }
+    }
+  },
   "linter": {
     "enabled": true,
     "rules": { "recommended": true }

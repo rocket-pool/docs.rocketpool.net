@@ -20,12 +20,12 @@ operadores de nó com base na sua parcela do total de RPL em stake no megapool.
 
 O Saturn 1 introduz o UARS, que distribui a receita do protocolo ETH das comissões dos operadores de nó entre quatro grupos:
 
-| Grupo | Participação Padrão | Ajustável via pDAO |
-|-------|---------------|---------------------|
-| **Comissão Base** Participação para operadores de nó | 5% | Sim |
-| **Participação de Votação** para stakers de RPL de megapool | 9% | Sim |
-| **Tesouro do pDAO** | 0% | Sim |
-| **Detentores de rETH** | 86% (restante) | Automático |
+| Grupo                                                       | Participação Padrão | Ajustável via pDAO |
+| ----------------------------------------------------------- | ------------------- | ------------------ |
+| **Comissão Base** Participação para operadores de nó        | 5%                  | Sim                |
+| **Participação de Votação** para stakers de RPL de megapool | 9%                  | Sim                |
+| **Tesouro do pDAO**                                         | 0%                  | Sim                |
+| **Detentores de rETH**                                      | 86% (restante)      | Automático         |
 
 Esses parâmetros são ajustáveis via [governança do pDAO](/pt/pdao/overview), permitindo que o protocolo Rocket Pool se adapte e seja competitivo conforme as condições de mercado mudem. Ao fazer stake de RPL
 e executar validadores, você é elegível para participar desse processo!
@@ -57,6 +57,7 @@ O máximo de RPL elegível para votação de 150% do total de ETH em bond é cal
 ```
 RPL elegível para votação = min(1,5*valor em RPL do ETH em bond do megapool, RPL em stake no megapool)
 ```
+
 Você deve conseguir visualizar a proporção de ETH em bond do seu nó no menu `rocketpool node status`:
 
 ```
@@ -101,11 +102,9 @@ Não há limite para quanto RPL em stake no megapool você pode fazer unstake, o
 Operadores de nó com RPL legado podem retirar até o mínimo de 15% de colateral de ETH emprestado. Esse mínimo de 15% considera apenas o ETH emprestado de minipools legados, não megapools. As próximas seções
 abordarão as duas etapas para fazer unstake e retirar RPL.
 
-
 ::: tip Nota para Stakers de RPL Legado
 Se você quiser diminuir seu percentual de colateral de ETH emprestado para retirar mais do seu RPL, pode considerar
 [encerrar seu(s) minipool(s)](/pt/node-staking/withdraw#shut-down-a-minipool) para reduzir o valor do seu colateral de ETH emprestado.
-
 
 :::
 
@@ -114,14 +113,16 @@ Se você quiser diminuir seu percentual de colateral de ETH emprestado para reti
 ::: warning AVISO
 
 Durante o período de unstaking de 28 dias:
+
 - O RPL que você solicitou para fazer unstake não continua ganhando recompensas.
 - Você não pode cancelar o processo de unstaking, mas pode retirar após o período de 28 dias e então fazer stake novamente.
 - Você pode iniciar uma nova retirada durante o período de 28 dias, mas todo o seu RPL em unstaking será reiniciado para 28 dias em unstaking. Recomenda-se
-completar sua retirada inicial antes de fazer outra. Caso contrário, você precisará aguardar o período completo de unstaking novamente.
+  completar sua retirada inicial antes de fazer outra. Caso contrário, você precisará aguardar o período completo de unstaking novamente.
 
 :::
 
 Para iniciar o processo, use o comando `rocketpool node withdraw-rpl`. Você verá o seguinte prompt:
+
 ```
 The RPL withdrawal process has changed in Saturn. It is now a 2-step process:
 1. Request to unstake a certain RPL amount;
@@ -145,6 +146,7 @@ Please select one of the three options below.
 
 Você será solicitado a fazer unstake do seu saldo completo ou inserir um valor personalizado para fazer unstake. Digite `y` para fazer unstake do valor total ou `n` para inserir um valor personalizado para fazer unstake.
 A partir daqui, o smart node irá guiá-lo pelo restante das etapas necessárias para fazer a solicitação de unstake.
+
 ```
 You have 4383.275814 RPL staked on your megapool and can request to unstake up to 4383.275814 RPL.
 Would you like to unstake the maximum amount of staked RPL? [y/n]
@@ -179,9 +181,11 @@ Waiting for the transaction to be included in a block... you may wait here for i
 Successfully unstaked 1000.000000 RPL.
 
 ```
+
 ### Verificando o Status do Seu RPL em Unstaking
 
 Após fazer com sucesso uma solicitação de unstake de RPL, o comando `rocketpool node withdraw-rpl` informará quando o RPL em unstaking será elegível para retirada:
+
 ```
 Your node has 1017.688800 RPL on its legacy stake (previously associated to minipools) and 3383.275814 RPL staked on its megapool.
 Your node currently has 0.000000 RPL locked on pDAO proposals.
@@ -193,6 +197,7 @@ You have 1000.000000 RPL currently unstaking until 2026-02-19, 04:05 +0000 UTC (
 ### Etapa 2: Retirando RPL Unstaked
 
 Após o período de unstaking de 28 dias ter passado, o status será refletido no comando `rocketpool node withdraw-rpl` e você finalmente poderá retirar seu RPL unstaked.
+
 ```
 You have 1000.000000 RPL unstaked and ready to be withdrawn to your RPL withdrawal address.
 ```
@@ -261,6 +266,7 @@ Please choose an amount of RPL to stake:
 Usar este comando fará stake de RPL no seu megapool, aumentando suas recompensas de participação de votação. Não é mais possível fazer stake de RPL em um minipool.
 
 ## Visualizando as recompensas de ETH e RPL do seu nó
+
 O smart node tem um novo recurso útil que permite verificar o status de todos os diferentes tipos de recompensas que seu nó pode ter.
 Aqui está uma lista de todos os possíveis tipos de recompensas:
 
@@ -331,11 +337,13 @@ The following 2 claim(s)/credits are available:
 
 Enter the numbers of the claims you want to execute (comma-separated), 'all' to claim everything, or 'none' to cancel:
 ```
+
 Depois de fazer sua(s) seleção(ões) e confirmar as opções de gas, pode haver prompts adicionais a seguir dependendo
 do tipo de recompensa que você está resgatando. Não entraremos em todos eles aqui. O smart node deve ser capaz de guiá-lo
 por todas as etapas.
 
 Aqui está como parece resgatar dois tipos de recompensas - recompensas periódicas + crédito de ETH:
+
 ```
 +================ Suggested Gas Prices ================+
 | Avg Wait Time |   Max Fee    |     Total Gas Cost     |
@@ -379,8 +387,6 @@ Waiting for the transaction to be included in a block... you may wait here for i
 All 2 claim(s) completed successfully.
 ============================================================
 ```
-
-
 
 ## Próximos Passos
 

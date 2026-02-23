@@ -25,7 +25,7 @@ Smartnodeを設定する前に、次のことを確認してください。
 Ethereum validatorとしての在任中に使用する多くの基本的なツールをカバーしています。
 
 [Grafanaダッシュボードのセットアップ](../grafana.mdx)では、SmartnodeスタックのメトリクストラッカーとGrafanaダッシュボードのセットアップについて説明します。これは、ノードとvalidatorに関するすべてを監視するためのワンストップショップであり、各Node Operatorの武器庫の定番です。
-Grafanaダッシュボードを探索し、定期的にチェックすることを_強く_お勧めします。
+Grafanaダッシュボードを探索し、定期的にチェックすることを*強く*お勧めします。
 
 [Smartnodeスタックアラート通知](./alerting.md)では、Smartnodeアラート通知機能を使用して、Rocket Pool Smartnodeの健全性と重要なイベントに関する通知を受信する方法について説明します。
 

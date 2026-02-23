@@ -31,16 +31,14 @@ Node'unuzun `fee recipient`'i aşağıdaki özel sözleşmelerden biri olabilir:
 
 Smart Node, yapılandırmanıza göre doğru ücret alıcısını otomatik olarak ayarlayacaktır:
 
-| Smoothing Pool Durumu | Megapool Validator'ları Var | Minipool'ları Var | Ücret Alıcısı |
-|----------------------|-------------------------|---------------|---------------|
-| Katılmış | Hayır | Evet | Smoothing Pool adresi |
-| Katılmış | Evet | Hayır | Smoothing Pool adresi |
-| Katılmış | Evet | Evet | Smoothing Pool adresi (tüm validator'lar) |
-| Çıkmış | Hayır | Evet | Ücret Dağıtıcısı sözleşme adresi |
-| Çıkmış | Evet | Hayır | Megapool sözleşme adresi |
-| Çıkmış | Evet | Evet | Megapool validator'ları → Megapool adresi<br>Minipool validator'ları → Ücret Dağıtıcısı adresi<br>([keymanager API](https://ethereum.github.io/keymanager-APIs/#/Fee%20Recipient/setFeeRecipient) aracılığıyla validator başına ayarlanır) |
-
-
+| Smoothing Pool Durumu | Megapool Validator'ları Var | Minipool'ları Var | Ücret Alıcısı                                                                                                                                                                                                                              |
+| --------------------- | --------------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Katılmış              | Hayır                       | Evet              | Smoothing Pool adresi                                                                                                                                                                                                                      |
+| Katılmış              | Evet                        | Hayır             | Smoothing Pool adresi                                                                                                                                                                                                                      |
+| Katılmış              | Evet                        | Evet              | Smoothing Pool adresi (tüm validator'lar)                                                                                                                                                                                                  |
+| Çıkmış                | Hayır                       | Evet              | Ücret Dağıtıcısı sözleşme adresi                                                                                                                                                                                                           |
+| Çıkmış                | Evet                        | Hayır             | Megapool sözleşme adresi                                                                                                                                                                                                                   |
+| Çıkmış                | Evet                        | Evet              | Megapool validator'ları → Megapool adresi<br>Minipool validator'ları → Ücret Dağıtıcısı adresi<br>([keymanager API](https://ethereum.github.io/keymanager-APIs/#/Fee%20Recipient/setFeeRecipient) aracılığıyla validator başına ayarlanır) |
 
 Rocket Pool, bu ödülleri sizinle rETH pool staker'ları arasında adil bir şekilde dağıtmak üzere tasarlanmıştır, aynı şekilde Beacon chain ödüllerinizi adil bir şekilde dağıtır: minipool validator'larınızın kazandığı herhangi bir öncelik ücretinden size ait kısım size gidecektir (artı tüm minipool'larınızın ortalama komisyonu) ve kalan kısım pool staker'lara gidecektir (ortalama komisyonunuz eksi).
 Tam kısım, sahip olduğunuz 8 ETH bağlı, 16 ETH bağlı minipool'lar ve 4 ETH bağlı megapool validator'larının sayısına bağlıdır.

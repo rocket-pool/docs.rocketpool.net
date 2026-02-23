@@ -1,9 +1,8 @@
 #!/usr/bin/env bun
 
 import { readdir, readFile } from "fs/promises";
-import { join, relative } from "path";
+import { dirname, join, relative } from "path";
 import { fileURLToPath } from "url";
-import { dirname } from "path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DOCS_DIR = join(__dirname, "..", "docs");
@@ -29,12 +28,7 @@ const ENGLISH_INDICATORS = [
   /\b(Click on|Navigate to|Make sure|Keep in mind|Note that|Remember that|Be aware|Important:|Warning:|Tip:)\b/gi,
 ];
 
-const FALSE_POSITIVE_PATTERNS = [
-  /```[\s\S]*?```/g,
-  /`[^`]+`/g,
-  /<[A-Z][a-zA-Z]*[^>]*(?:\/>|>[\s\S]*?<\/[A-Z][a-zA-Z]*>)/g,
-  /!!!include\([^)]+\)!!!/g,
-];
+const FALSE_POSITIVE_PATTERNS = [/```[\s\S]*?```/g, /`[^`]+`/g, /<[A-Z][a-zA-Z]*[^>]*(?:\/>|>[\s\S]*?<\/[A-Z][a-zA-Z]*>)/g, /!!!include\([^)]+\)!!!/g];
 
 interface UntranslatedFile {
   locale: string;

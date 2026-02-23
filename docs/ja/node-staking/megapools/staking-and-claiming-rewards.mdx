@@ -20,12 +20,12 @@ megapoolにステークされたRPLの合計に対する各自のシェアに基
 
 Saturn 1はUARSを導入し、4つのグループ間でノードオペレーターコミッションからのプロトコルETH収益を分配します：
 
-| グループ | デフォルトシェア | pDAOによる調整可否 |
-|-------|---------------|---------------------|
-| **Base Commission** ノードオペレーターへのシェア | 5% | 可 |
-| **Voter Share** megapool RPLステーカーへ | 9% | 可 |
-| **pDAOトレジャリー** | 0% | 可 |
-| **rETHホルダー** | 86%（残余） | 自動 |
+| グループ                                         | デフォルトシェア | pDAOによる調整可否 |
+| ------------------------------------------------ | ---------------- | ------------------ |
+| **Base Commission** ノードオペレーターへのシェア | 5%               | 可                 |
+| **Voter Share** megapool RPLステーカーへ         | 9%               | 可                 |
+| **pDAOトレジャリー**                             | 0%               | 可                 |
+| **rETHホルダー**                                 | 86%（残余）      | 自動               |
 
 これらのパラメーターは[pDAOガバナンス](/ja/pdao/overview)を通じて調整可能で、市場状況の変化に応じてRocket Poolプロトコルが適応・競争力を維持できます。RPLをステーキングしてバリデーターを運用することで、このプロセスに参加する資格が得られます！
 
@@ -54,6 +54,7 @@ RPLを投票対象にするには、次の要件を満たす必要がありま�
 ```
 vote-eligible RPL = min(1.5*RPL value of megapool bonded_eth, megapool staked rpl)
 ```
+
 `rocketpool node status`メニューでノードのボンドETH比率を確認できます：
 
 ```
@@ -92,11 +93,9 @@ Saturn 1では、RPLをアンステークするための2ステップの引き�
 megapoolにステークされたRPLのアンステーク量に制限はないため、いつでもすべてをアンステークして引き出すことができます。
 レガシーRPLを持つノードオペレーターは、15%の借入ETH担保まで引き出すことができます。この15%の最小値は、megapoolからではなく、レガシーminipoolからの借入ETHのみを考慮します。次のいくつかのセクションでは、RPLをアンステークして引き出すための2つのステップについて説明します。
 
-
 ::: tip レガシーRPLステーカーへの注意
 RPLをより多く引き出すために借入ETH担保のパーセンテージを下げたい場合は、
 借入ETH担保額を下げるために[minipool(s)を終了する](/ja/node-staking/withdraw#shut-down-a-minipool)ことを検討するかもしれません。
-
 
 :::
 
@@ -105,6 +104,7 @@ RPLをより多く引き出すために借入ETH担保のパーセンテージ�
 ::: warning 警告
 
 28日間のアンステーキング期間中：
+
 - アンステークリクエストしたRPLは引き続き報酬を獲得しません。
 - アンステーキングプロセスはキャンセルできませんが、28日間の期間後に引き出してから再ステークすることができます。
 - 28日間の期間中に新しい引き出しを開始することができますが、すべてのアンステーキング中のRPLがアンステーキングの28日間にリフレッシュされます。別の引き出しを行う前に最初の引き出しを完了することをお勧めします。そうしないと、アンステーキング期間の全長を再度待つ必要があります。
@@ -112,6 +112,7 @@ RPLをより多く引き出すために借入ETH担保のパーセンテージ�
 :::
 
 プロセスを開始するには、`rocketpool node withdraw-rpl`コマンドを使用します。次のプロンプトが表示されます：
+
 ```
 The RPL withdrawal process has changed in Saturn. It is now a 2-step process:
 1. Request to unstake a certain RPL amount;
@@ -135,6 +136,7 @@ Please select one of the three options below.
 
 全残高をアンステークするか、カスタム額を入力するかを確認するプロンプトが表示されます。全額をアンステークするには`y`を、カスタム額を入力するには`n`を入力します。
 ここからSmart Nodeがアンステークリクエストを行うために必要な残りのステップを案内します。
+
 ```
 You have 4383.275814 RPL staked on your megapool and can request to unstake up to 4383.275814 RPL.
 Would you like to unstake the maximum amount of staked RPL? [y/n]
@@ -169,9 +171,11 @@ Waiting for the transaction to be included in a block... you may wait here for i
 Successfully unstaked 1000.000000 RPL.
 
 ```
+
 ### アンステーキング中のRPLのステータス確認
 
 RPLのアンステークリクエストが成功した後、`rocketpool node withdraw-rpl`コマンドはアンステーキング中のRPLが引き出し可能になる時期を通知します：
+
 ```
 Your node has 1017.688800 RPL on its legacy stake (previously associated to minipools) and 3383.275814 RPL staked on its megapool.
 Your node currently has 0.000000 RPL locked on pDAO proposals.
@@ -183,6 +187,7 @@ You have 1000.000000 RPL currently unstaking until 2026-02-19, 04:05 +0000 UTC (
 ### ステップ2：アンステークされたRPLの引き出し
 
 28日間のアンステーキング期間が過ぎると、ステータスが`rocketpool node withdraw-rpl`コマンドに反映され、ついにアンステークされたRPLを引き出すことができます。
+
 ```
 You have 1000.000000 RPL unstaked and ready to be withdrawn to your RPL withdrawal address.
 ```
@@ -250,6 +255,7 @@ Please choose an amount of RPL to stake:
 このコマンドを使用するとmegapoolにRPLがステークされ、voter share報酬が増加します。もはやminipoolにRPLをステークすることはできません。
 
 ## ノードのETHとRPL報酬の確認
+
 Smart Nodeには、ノードが持つすべての種類の報酬のステータスを確認できる便利な新機能があります。
 以下はすべての報酬タイプのリストです：
 
@@ -320,9 +326,11 @@ The following 2 claim(s)/credits are available:
 
 Enter the numbers of the claims you want to execute (comma-separated), 'all' to claim everything, or 'none' to cancel:
 ```
+
 選択（複数可）を行い、ガスオプションを確認したら、請求する報酬のタイプに応じて追加のプロンプトが表示される場合があります。ただし、ここではすべてについて説明しません。Smart Nodeがすべてのステップを案内できるはずです。
 
 定期報酬とETHクレジットの2種類の報酬を引き換える場合の例：
+
 ```
 +================ Suggested Gas Prices ================+
 | Avg Wait Time |   Max Fee    |     Total Gas Cost     |
@@ -366,8 +374,6 @@ Waiting for the transaction to be included in a block... you may wait here for i
 All 2 claim(s) completed successfully.
 ============================================================
 ```
-
-
 
 ## 次のステップ
 

@@ -33,12 +33,12 @@ Slashing _kann nicht_ durch Offline-Sein für Wartungsarbeiten auftreten.
 
 Unten ist eine Tabelle, die die Strafen zeigt, die einem Validator widerfahren können:
 
-| Typ                   | Schicht   | Betrag                                                                                      |
-| --------------------- | --------- | ------------------------------------------------------------------------------------------- |
-| Verpasste Bestätigung | Consensus | -0,000011 ETH\* pro Bestätigung (-9/10 des Werts einer normalen Bestätigungsbelohnung)     |
-| Verpasster Vorschlag  | Consensus | 0                                                                                           |
+| Typ                     | Schicht   | Betrag                                                                                          |
+| ----------------------- | --------- | ----------------------------------------------------------------------------------------------- |
+| Verpasste Bestätigung   | Consensus | -0,000011 ETH\* pro Bestätigung (-9/10 des Werts einer normalen Bestätigungsbelohnung)          |
+| Verpasster Vorschlag    | Consensus | 0                                                                                               |
 | Verpasstes Sync-Komitee | Consensus | -0,00047 ETH\* pro Epoche (-0,1 ETH insgesamt, wenn während des gesamten Sync-Komitees offline) |
-| Slashing              | Consensus | Mindestens 1/32 Ihres Guthabens, bis zu Ihrem gesamten Guthaben unter extremen Umständen  |
+| Slashing                | Consensus | Mindestens 1/32 Ihres Guthabens, bis zu Ihrem gesamten Guthaben unter extremen Umständen        |
 
 \*_Variiert basierend auf der Gesamtzahl der Validatoren im Netzwerk.
 Ungefähre Werte für 435.000 aktive Validatoren._

@@ -23,13 +23,13 @@ Wenn Ihre Haupt-Node jemals offline geht, **wird Ihr Fallback nicht für Sie val
 
 Ab Version 1.9.0 haben alle unsere unterstützten Validator-Clients Fallback-Unterstützung mit nur wenigen Einschränkungen hinzugefügt:
 
-| Name       | Unterstützt Fallback | Gültige Fallback-Clients                                                       |
-| ---------- | -------------------- | ------------------------------------------------------------------------------ |
-| Lighthouse | Ja                   | Alle (Doppelgänger-Schutz aus)<br />Lighthouse (Doppelgänger-Schutz an)       |
-| Nimbus     | Ja                   | Alle                                                                           |
-| Prysm      | Ja                   | Prysm                                                                          |
-| Teku       | Ja                   | Alle                                                                           |
-| Lodestar   | Ja                   | Alle                                                                           |
+| Name       | Unterstützt Fallback | Gültige Fallback-Clients                                                |
+| ---------- | -------------------- | ----------------------------------------------------------------------- |
+| Lighthouse | Ja                   | Alle (Doppelgänger-Schutz aus)<br />Lighthouse (Doppelgänger-Schutz an) |
+| Nimbus     | Ja                   | Alle                                                                    |
+| Prysm      | Ja                   | Prysm                                                                   |
+| Teku       | Ja                   | Alle                                                                    |
+| Lodestar   | Ja                   | Alle                                                                    |
 
 ## Einrichten einer neuen Node (Docker-Modus)
 
@@ -49,7 +49,8 @@ Wenn Sie bereits eine zweite Node bereit haben und deren RPC-Ports freigelegt si
    3. Aktivieren Sie das Kontrollkästchen `Expose RPC Ports`:
 
    <img src={tui_ec_expose_ports} width="100%" height="auto" />
-   4. Gehen Sie zurück und geben Sie die `Consensus Client`-Einstellungen ein. 5. Aktivieren Sie das Kontrollkästchen `Expose API Port` (und, falls Sie **Prysm** verwenden, auch das Kontrollkästchen `Expose RPC Port`):
+   4. Gehen Sie zurück und geben Sie die `Consensus Client`-Einstellungen ein. 5. Aktivieren Sie das Kontrollkästchen `Expose API Port` (und, falls Sie **Prysm** verwenden, auch das Kontrollkästchen
+   `Expose RPC Port`):
 
    <img src={tui_cc_expose_ports} width="100%" height="auto" />
    6. Speichern Sie die Einstellungen und starten Sie den Smartnode.

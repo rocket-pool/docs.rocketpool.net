@@ -8,7 +8,7 @@ Beacon Chain ilk başlatıldığında, validator'lar özel bir kriptografik anah
 
 Validator anahtarı bir "hot key"dir, yani İnternet'e bağlı aktif bir makinede saklanması gerekir; bu anahtar attestation'larınızı ve proposal'larınızı imzalamak için kullanılır ve ayrıca Beacon Chain'deki "adresiniz" olarak hizmet eder (validator'ınızı tanımlamak için kullanılan hex dizesi).
 
-Çekim anahtarı ise bir "cold key"dir, bu da İnternet'e bağlı aktif bir makinede saklanma_sı_ (ve aslında saklanma_ması gerektiği_) anlamına gelir.
+Çekim anahtarı ise bir "cold key"dir, bu da İnternet'e bağlı aktif bir makinede saklanma*sı* (ve aslında saklanma*ması gerektiği*) anlamına gelir.
 Gerekene kadar erişilememesi için cold storage'da kilitli tutulması amaçlanır.
 Validator anahtarından farklı olarak, çekim anahtarı doğrulama görevlerinden hiç sorumlu değildir.
 Bunun yerine, tek görevi Beacon Chain'deki validator fonlarınızın çekilmesini yönetmektir (çekimler uygulandıktan sonra).
@@ -321,7 +321,7 @@ Bunu yapmazsanız ve solo validator'larınız için fee recipient'ta bırakırsa
 Kendi VC'nizden kaldırıp Rocket Pool tarafından yönetilen VC'ye aktarırsanız, fee recipient'ınız `node` işlemi tarafından otomatik olarak doğru adrese atanacaktır.
 :::
 
-VC'nizde fee distributor veya Smoothing Pool'a ayarlamak isteme_diğiniz_ diğer solo-staking anahtarlarını tutabileceğiniz için, bunu başarmanın tek yolu, geçirilmekte olan validator için fee recipient'ı manuel olarak ayarlamak için bir VC yapılandırma dosyası kullanmaktır.
+VC'nizde fee distributor veya Smoothing Pool'a ayarlamak isteme*diğiniz* diğer solo-staking anahtarlarını tutabileceğiniz için, bunu başarmanın tek yolu, geçirilmekte olan validator için fee recipient'ı manuel olarak ayarlamak için bir VC yapılandırma dosyası kullanmaktır.
 
 Bu süreç, hangi Consensus Client'ı kullandığınıza bağlıdır; ayrıntılar için belgelere bakın, ancak işte bazı yararlı bağlantılar:
 

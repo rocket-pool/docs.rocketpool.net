@@ -33,12 +33,12 @@ Lo slashing _non può verificarsi_ per essere offline per manutenzione.
 
 Di seguito è riportata una tabella che mostra le penalità che possono accadere a un validator:
 
-| Tipo                      | Layer     | Importo                                                                                 |
-| ------------------------- | --------- | --------------------------------------------------------------------------------------- |
-| Attestazione Mancata      | Consensus | -0.000011 ETH\* per attestazione (-9/10 del valore di una normale ricompensa)          |
-| Proposta Mancata          | Consensus | 0                                                                                       |
-| Sync Committee Mancato    | Consensus | -0.00047 ETH\* per epoch (-0.1 ETH totale se offline per tutto il sync committee)      |
-| Slashing                  | Consensus | Almeno 1/32 del tuo saldo, fino all'intero saldo in circostanze estreme                |
+| Tipo                   | Layer     | Importo                                                                           |
+| ---------------------- | --------- | --------------------------------------------------------------------------------- |
+| Attestazione Mancata   | Consensus | -0.000011 ETH\* per attestazione (-9/10 del valore di una normale ricompensa)     |
+| Proposta Mancata       | Consensus | 0                                                                                 |
+| Sync Committee Mancato | Consensus | -0.00047 ETH\* per epoch (-0.1 ETH totale se offline per tutto il sync committee) |
+| Slashing               | Consensus | Almeno 1/32 del tuo saldo, fino all'intero saldo in circostanze estreme           |
 
 \*_Varia in base al numero totale di validator nella rete.
 Approssimato per 435.000 validator attivi._

@@ -68,13 +68,13 @@ Dans la section **Security Group**, gardez l'option **Create a new security grou
 Entrez un nom et une description tels que **Smartnode** et **Smartnode Group**.
 Supprimez toutes les règles existantes dans le tableau et ajoutez les règles suivantes :
 
-| Type       | Plage de ports | Source                                | Description |
-| ---------- | -------------- | ------------------------------------- | ----------- |
+| Type       | Plage de ports | Source                                 | Description |
+| ---------- | -------------- | -------------------------------------- | ----------- |
 | SSH        | 22             | [Votre adresse IP publique à domicile] | Accès SSH   |
-| Custom TCP | 30303          | Anywhere                              | ETH1 P2P    |
-| Custom UDP | 30303          | Anywhere                              | ETH1 P2P    |
-| Custom TCP | 9001           | Anywhere                              | ETH2 P2P    |
-| Custom UDP | 9001           | Anywhere                              | ETH2 P2P    |
+| Custom TCP | 30303          | Anywhere                               | ETH1 P2P    |
+| Custom UDP | 30303          | Anywhere                               | ETH1 P2P    |
+| Custom TCP | 9001           | Anywhere                               | ETH2 P2P    |
+| Custom UDP | 9001           | Anywhere                               | ETH2 P2P    |
 
 Cela vous permettra de vous connecter à distance à votre serveur via SSH (le terminal en ligne de commande) depuis votre ordinateur portable ou de bureau.
 Cela permettra également aux clients d'exécution et de consensus de se connecter à d'autres nœuds sur le réseau Ethereum.

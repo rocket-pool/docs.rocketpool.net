@@ -31,16 +31,14 @@ Il `fee recipient` del tuo nodo può essere uno dei seguenti contratti speciali:
 
 Lo Smart Node imposterà automaticamente il fee recipient corretto in base alla tua configurazione:
 
-| Stato Smoothing Pool | Ha Validator Megapool | Ha Minipool | Fee Recipient |
-|----------------------|-----------------------|-------------|---------------|
-| Iscritto | No | Sì | Indirizzo Smoothing Pool |
-| Iscritto | Sì | No | Indirizzo Smoothing Pool |
-| Iscritto | Sì | Sì | Indirizzo Smoothing Pool (tutti i validator) |
-| Non iscritto | No | Sì | Indirizzo contratto Fee Distributor |
-| Non iscritto | Sì | No | Indirizzo contratto Megapool |
-| Non iscritto | Sì | Sì | Validator megapool → Indirizzo Megapool<br>Validator minipool → Indirizzo Fee Distributor<br>(Impostato per validator tramite [keymanager API](https://ethereum.github.io/keymanager-APIs/#/Fee%20Recipient/setFeeRecipient)) |
-
-
+| Stato Smoothing Pool | Ha Validator Megapool | Ha Minipool | Fee Recipient                                                                                                                                                                                                                 |
+| -------------------- | --------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Iscritto             | No                    | Sì          | Indirizzo Smoothing Pool                                                                                                                                                                                                      |
+| Iscritto             | Sì                    | No          | Indirizzo Smoothing Pool                                                                                                                                                                                                      |
+| Iscritto             | Sì                    | Sì          | Indirizzo Smoothing Pool (tutti i validator)                                                                                                                                                                                  |
+| Non iscritto         | No                    | Sì          | Indirizzo contratto Fee Distributor                                                                                                                                                                                           |
+| Non iscritto         | Sì                    | No          | Indirizzo contratto Megapool                                                                                                                                                                                                  |
+| Non iscritto         | Sì                    | Sì          | Validator megapool → Indirizzo Megapool<br>Validator minipool → Indirizzo Fee Distributor<br>(Impostato per validator tramite [keymanager API](https://ethereum.github.io/keymanager-APIs/#/Fee%20Recipient/setFeeRecipient)) |
 
 Rocket Pool è progettato per distribuire equamente queste ricompense tra te e gli staker del pool rETH, nello stesso modo in cui distribuisce equamente le tue ricompense Beacon chain: la tua porzione di qualsiasi priority fee guadagnata dai tuoi validator minipool andrà a te (più la commissione media di tutti i tuoi minipool), e la porzione rimanente andrà agli staker del pool (meno la tua commissione media).
 La porzione esatta dipende dal numero di minipool con bond da 8 ETH, minipool con bond da 16 ETH, e validator megapool con bond da 4 ETH che hai.

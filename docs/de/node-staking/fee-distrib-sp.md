@@ -31,16 +31,14 @@ Der `Fee Recipient` Ihres Nodes kann einer der folgenden speziellen Contracts se
 
 Der Smart Node setzt automatisch den korrekten Fee Recipient basierend auf Ihrer Konfiguration:
 
-| Smoothing Pool Status | Hat Megapool-Validatoren | Hat Minipools | Fee Recipient |
-|----------------------|-------------------------|---------------|---------------|
-| Angemeldet | Nein | Ja | Smoothing Pool-Adresse |
-| Angemeldet | Ja | Nein | Smoothing Pool-Adresse |
-| Angemeldet | Ja | Ja | Smoothing Pool-Adresse (alle Validatoren) |
-| Abgemeldet | Nein | Ja | Fee Distributor Contract-Adresse |
-| Abgemeldet | Ja | Nein | Megapool Contract-Adresse |
-| Abgemeldet | Ja | Ja | Megapool-Validatoren → Megapool-Adresse<br>Minipool-Validatoren → Fee Distributor-Adresse<br>(Pro Validator über [keymanager API](https://ethereum.github.io/keymanager-APIs/#/Fee%20Recipient/setFeeRecipient) gesetzt) |
-
-
+| Smoothing Pool Status | Hat Megapool-Validatoren | Hat Minipools | Fee Recipient                                                                                                                                                                                                            |
+| --------------------- | ------------------------ | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Angemeldet            | Nein                     | Ja            | Smoothing Pool-Adresse                                                                                                                                                                                                   |
+| Angemeldet            | Ja                       | Nein          | Smoothing Pool-Adresse                                                                                                                                                                                                   |
+| Angemeldet            | Ja                       | Ja            | Smoothing Pool-Adresse (alle Validatoren)                                                                                                                                                                                |
+| Abgemeldet            | Nein                     | Ja            | Fee Distributor Contract-Adresse                                                                                                                                                                                         |
+| Abgemeldet            | Ja                       | Nein          | Megapool Contract-Adresse                                                                                                                                                                                                |
+| Abgemeldet            | Ja                       | Ja            | Megapool-Validatoren → Megapool-Adresse<br>Minipool-Validatoren → Fee Distributor-Adresse<br>(Pro Validator über [keymanager API](https://ethereum.github.io/keymanager-APIs/#/Fee%20Recipient/setFeeRecipient) gesetzt) |
 
 Rocket Pool ist so konzipiert, dass diese Belohnungen fair zwischen Ihnen und den rETH-Pool-Stakern verteilt werden, auf die gleiche Weise, wie es Ihre Beacon Chain Belohnungen fair verteilt: Ihr Anteil aller Priority Fees, die Ihre Minipool-Validatoren verdienen, geht an Sie (plus der durchschnittlichen Provision all Ihrer Minipools), und der verbleibende Anteil geht an die Pool-Staker (minus Ihrer durchschnittlichen Provision).
 Der genaue Anteil hängt von der Anzahl Ihrer 8 ETH-bonded, 16 ETH-bonded Minipools und 4 ETH-bonded Megapool-Validatoren ab.

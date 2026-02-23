@@ -28,8 +28,7 @@
   "scripts": {
     "dev": "rspress docs",
     "build": "rspress build",
-    "format": "bunx @biomejs/biome format --write .",
-    "prettier": "prettier -w -u . !package.json !pnpm-lock.yaml !bun.lockb"
+    "format": "bunx @biomejs/biome check --fix --javascript-linter-enabled=false . && prettier -w -u . !package.json !pnpm-lock.yaml !bun.lockb"
   },
   "prettier": {
     "semi": true,

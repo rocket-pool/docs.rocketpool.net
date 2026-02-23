@@ -73,7 +73,7 @@ Gethの剪定の詳細については、[Execution Clientの剪定](./pruning)�
 Hyperledger [Besu](https://besu.hyperledger.org/en/stable/)は、Apache 2.0ライセンスの下で開発された、[Java](https://en.wikipedia.org/wiki/Java_%28programming_language%29)で書かれたオープンソースのEthereumクライアントです。
 Besuの最も魅力的な機能は、状態ストレージに[Bonsai Tries](https://consensys.net/blog/news/bonsai-tries-a-big-update-for-small-state-storage-in-hyperledger-besu/)を使用していることです。パフォーマンス特性の向上に加えて、Bonsai Triesは他のクライアントにはない2つの興味深い利点をBesuに与えます:
 
-1. Besuは全く剪定する必要が_ありません_。この点で実質的にメンテナンスフリーです
+1. Besuは全く剪定する必要が*ありません*。この点で実質的にメンテナンスフリーです
 2. Besuはブロックチェーン内の任意の過去のブロックを参照できますが、これは各ブロックを巻き戻すことで行われるため、遠い昔のブロックに到達するには時間がかかる場合があります。
 
 Besuは現在、少なくとも**16 GBのRAM**を推奨していますが、8 GBで正常に実行することも可能です。
@@ -111,12 +111,12 @@ Rethは完全ノードには**少なくとも8 GBのRAM**、アーカイブノ�
 
 ### クライアント比較表
 
-| Client     | Type | CPU使用量 | 最小RAM使用量 | 同期時間  |
-| ---------- | ---- | --------- | ------------- | --------- |
-| Geth       | Full | 中程度    | 4 GB          | 中程度    |
-| Besu       | Full | 中程度    | 6 GB          | 遅い      |
-| Nethermind | Full | 中程度    | 16 GB         | 速い      |
-| Reth       | Full | 中程度    | 8 GB          | 速い      |
+| Client     | Type | CPU使用量 | 最小RAM使用量 | 同期時間 |
+| ---------- | ---- | --------- | ------------- | -------- |
+| Geth       | Full | 中程度    | 4 GB          | 中程度   |
+| Besu       | Full | 中程度    | 6 GB          | 遅い     |
+| Nethermind | Full | 中程度    | 16 GB         | 速い     |
+| Reth       | Full | 中程度    | 8 GB          | 速い     |
 
 ## Consensus Clients
 
@@ -175,10 +175,10 @@ TekuはApache 2.0ライセンスでJavaで書かれており、Javaはその成�
 
 ### クライアント比較表
 
-| Client     | CPU使用量 | 最小RAM使用量 | 同期時間                         |
-| ---------- | --------- | ------------- | -------------------------------- |
-| Lighthouse | 中程度    | 2 GB          | チェックポイント同期で即座       |
-| Lodestar   | 中程度    | 4 GB          | チェックポイント同期で即座       |
-| Nimbus     | 低        | 0.75 GB       | チェックポイント同期で即座       |
-| Prysm      | 中程度    | 2 GB          | チェックポイント同期で即座       |
-| Teku       | 中程度    | 4 GB          | チェックポイント同期で即座       |
+| Client     | CPU使用量 | 最小RAM使用量 | 同期時間                   |
+| ---------- | --------- | ------------- | -------------------------- |
+| Lighthouse | 中程度    | 2 GB          | チェックポイント同期で即座 |
+| Lodestar   | 中程度    | 4 GB          | チェックポイント同期で即座 |
+| Nimbus     | 低        | 0.75 GB       | チェックポイント同期で即座 |
+| Prysm      | 中程度    | 2 GB          | チェックポイント同期で即座 |
+| Teku       | 中程度    | 4 GB          | チェックポイント同期で即座 |

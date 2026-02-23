@@ -25,25 +25,23 @@ The fee recipient is simply an address on the Execution layer where you want the
 
 Your node's `fee recipient` can be one of the following special contracts:
 
-- Your node's own personal **Fee Distributor** 
+- Your node's own personal **Fee Distributor**
 - Your node's megapool contract
 - The **Smoothing Pool** (opt-in)
 
 The Smart Node will automatically set the correct fee recipient based on your configuration:
 
-| Smoothing Pool Status | Has Megapool Validators | Has Minipools | Fee Recipient |
-|----------------------|-------------------------|---------------|---------------|
-| Opted In | No | Yes | Smoothing Pool address |
-| Opted In | Yes | No | Smoothing Pool address |
-| Opted In | Yes | Yes | Smoothing Pool address (all validators) |
-| Opted Out | No | Yes | Fee Distributor contract address |
-| Opted Out | Yes | No | Megapool contract address |
-| Opted Out | Yes | Yes | Megapool validators → Megapool address<br>Minipool validators → Fee Distributor address<br>(Set per validator via [keymanager API](https://ethereum.github.io/keymanager-APIs/#/Fee%20Recipient/setFeeRecipient)) |
-
-
+| Smoothing Pool Status | Has Megapool Validators | Has Minipools | Fee Recipient                                                                                                                                                                                                     |
+| --------------------- | ----------------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Opted In              | No                      | Yes           | Smoothing Pool address                                                                                                                                                                                            |
+| Opted In              | Yes                     | No            | Smoothing Pool address                                                                                                                                                                                            |
+| Opted In              | Yes                     | Yes           | Smoothing Pool address (all validators)                                                                                                                                                                           |
+| Opted Out             | No                      | Yes           | Fee Distributor contract address                                                                                                                                                                                  |
+| Opted Out             | Yes                     | No            | Megapool contract address                                                                                                                                                                                         |
+| Opted Out             | Yes                     | Yes           | Megapool validators → Megapool address<br>Minipool validators → Fee Distributor address<br>(Set per validator via [keymanager API](https://ethereum.github.io/keymanager-APIs/#/Fee%20Recipient/setFeeRecipient)) |
 
 Rocket Pool is designed to fairly distribute these rewards between you and the rETH pool stakers, the same way it fairly distributes your Beacon chain rewards: your portion of any priority fees your minipool validators earn will go to you (plus the average commission of all of your minipools), and the remaining portion will go to the pool stakers (minus your average commission).
-The exact portion depends on the number of 8 ETH-bonded, 16 ETH-bonded minipools, and 4 ETH-bonded megapool validators you have. 
+The exact portion depends on the number of 8 ETH-bonded, 16 ETH-bonded minipools, and 4 ETH-bonded megapool validators you have.
 
 In brief, the **Fee Distributor** is a unique contract attached to your node that collects and fairly splits your priority fees between you and the rETH stakers.
 It's like your own personal vault for priority fees.
@@ -98,7 +96,7 @@ This will send your share of the rewards to your **withdrawal address**.
 
 ::: warning NOTE ON TAXABLE EVENTS
 Whenever you create a new minipool, Rocket Pool will automatically call `distribute-fees`.
-This is to ensure that whatever fees you had accumulated are distributed using your node's average commission, which could change when you create the new minipool. This does not apply to megapool validator creation. 
+This is to ensure that whatever fees you had accumulated are distributed using your node's average commission, which could change when you create the new minipool. This does not apply to megapool validator creation.
 
 Also, note that anyone can call `distribute-fees` on your fee distributor (to prevent you from holding rETH rewards hostage).
 You may have a taxable event whenever this method is called.
@@ -164,7 +162,7 @@ The Smoothing Pool uses the following rules:
   - If you were opted in for the full interval, you receive your full share.
   - If you were opted in for 30% of an interval, you receive 30% of your full share.
 
-If you are interested in the complete technical details of Smoothing Pool rewards calculation, please review the [full specification here](https://github.com/rocket-pool/rocketpool-research/blob/master/Merkle%20Rewards%20System/rewards-calculation-spec.md#smoothing-pool-rewards). 
+If you are interested in the complete technical details of Smoothing Pool rewards calculation, please review the [full specification here](https://github.com/rocket-pool/rocketpool-research/blob/master/Merkle%20Rewards%20System/rewards-calculation-spec.md#smoothing-pool-rewards).
 
 ### Joining and Leaving the Smoothing Pool
 

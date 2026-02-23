@@ -45,7 +45,7 @@ This deposit will use 8.000000 ETH from your credit balance and will not require
 Your consensus client is synced, you may safely create a minipool.
 ```
 
-第二组提示是相关的：它们告诉您在信用余额中有足够的 ETH 来支付此次存款_并且可以使用_，因此系统会自动使用余额，不需要从您的节点钱包中提供任何额外的 ETH。
+第二组提示是相关的：它们告诉您在信用余额中有足够的 ETH 来支付此次存款*并且可以使用*，因此系统会自动使用余额，不需要从您的节点钱包中提供任何额外的 ETH。
 
 有关信用余额可用性的详细信息，请参阅[下面的可用性部分](#credit-availability)。
 

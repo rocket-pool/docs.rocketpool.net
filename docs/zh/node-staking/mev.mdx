@@ -6,7 +6,7 @@ import mevBoostIntegrationOverview from "./images/mev-boost-integration-overview
 # MEV、MEV-Boost 和 MEV 奖励
 
 在上一节中,您了解了节点运营者如何赚取优先费用。
-优先费用是对节点运营者收入的一大提升,但它们并不是执行层上_唯一_可用的流动奖励形式。
+优先费用是对节点运营者收入的一大提升,但它们并不是执行层上*唯一*可用的流动奖励形式。
 还有一种补充形式的奖励可用,称为 **MEV 奖励**。
 
 :::tip 注意
@@ -22,7 +22,7 @@ import mevBoostIntegrationOverview from "./images/mev-boost-integration-overview
 当您的 validator 创建区块时,它通常使用一个非常简单的算法:跟踪待处理交易列表,将尽可能多的交易打包到您正在构建的区块中(优先处理小费最高的交易),然后将该区块提交到链上。
 
 然而,Ethereum 网络用户发现了能够看到公开可用的待处理交易池(称为 **mempool**)的一个有趣副作用。
-拥有这些知识使他们能够使用聪明而复杂的算法来修改这些交易的顺序,并在某些情况下,在它们之间引入_新_交易。
+拥有这些知识使他们能够使用聪明而复杂的算法来修改这些交易的顺序,并在某些情况下,在它们之间引入*新*交易。
 这两种技术结合可用于从区块提议中提取额外的 ETH。
 
 这个额外的 ETH 被称为**最大可提取价值**,简称 MEV。
@@ -37,15 +37,15 @@ import mevBoostIntegrationOverview from "./images/mev-boost-integration-overview
 寻找 MEV 机会并不容易;最先进的机会查找器(称为 **searcher**)需要极其强大的计算机,并采用复杂的 AI 算法来快速识别和提取 MEV。
 然后,searcher 获取这些机会并将它们提供给**区块构建者** - 将这些机会捆绑在一起以形成完整 Ethereum 区块的实体(可以是 searcher 本身或其他方)。
 
-运行有利可图的 searcher 的硬件和软件要求阻止了大多数节点运营者使用它们(或至少_竞争性地_使用它们),从而阻止他们找到自己的 MEV 机会来利用。
-幸运的是,简单地_寻找_ MEV 机会只是等式的一半。
+运行有利可图的 searcher 的硬件和软件要求阻止了大多数节点运营者使用它们(或至少*竞争性地*使用它们),从而阻止他们找到自己的 MEV 机会来利用。
+幸运的是,简单地*寻找* MEV 机会只是等式的一半。
 
 每个 Epoch(6.4 分钟,或 32 个时隙),Beacon Chain 从整个活跃 validator 列表中随机选择一个 validator 来提议一个区块,该区块将适合该 Epoch 中的一个时隙。
 可以看到下一个即将到来的 Epoch 的列表,这意味着每个人都可以提前几分钟看到哪些 validator 被分配到每个时隙。
 
 一些[聪明的实体](https://docs.flashbots.net/)利用这种提前知识本质上构建了一种"市场"。
 在这个市场中,validator 可以在即将进行区块提议时注册自己,区块构建者可以为他们希望 validator 提议的区块提交出价。
-这些出价总是将区块中每笔交易的优先费用提供给提议者,并且它们_还_向提议者提供来自构建者能够为自己提取的 MEV 的补充小费。
+这些出价总是将区块中每笔交易的优先费用提供给提议者,并且它们*还*向提议者提供来自构建者能够为自己提取的 MEV 的补充小费。
 
 然后,validator 可以检查这些出价,确定哪个最终提供最多利润,并提议该区块而不是构建自己的区块。
 
@@ -54,20 +54,19 @@ import mevBoostIntegrationOverview from "./images/mev-boost-integration-overview
 
 Rocket Pool 目前为其节点运营者提供对**多个不同中继**的访问:
 
-| 名称                                                                                          | 监管                     | MEV 类型 |
-| --------------------------------------------------------------------------------------------- | ------------------------ | -------- |
-| [Flashbots](https://boost.flashbots.net/)                                                     | 遵守 OFAC 制裁\*         | 所有类型 |
-| [bloXroute Max Profit](https://docs.bloxroute.com/apis/mev-solution/mev-relay-for-validators) | 遵守 OFAC 制裁\*         | 所有类型 |
-| [bloXroute Regulated](https://docs.bloxroute.com/apis/mev-solution/mev-relay-for-validators)  | 遵守 OFAC 制裁\*         | 所有类型 |
-| [Ultra Sound](https://relay.ultrasound.money/)                                                | 不受监管                 | 所有类型 |
-| [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/)                              | 遵守 OFAC 制裁\*         | 所有类型 |
-| [AESTUS](https://aestus.live/)                                                                | 不受监管                 | 所有类型 |
-| [Titan Global](https://docs.titanrelay.xyz/)                                                  | 不受监管                 | 所有类型 |
-| [Titan Regional](https://docs.titanrelay.xyz/)                                                | 遵守 OFAC 制裁\*         | 所有类型 |
-| [BTCS OFAC+](https://shop.btcs.com/ofac-relay/)                                               | 遵守 OFAC 制裁\*         | 所有类型 |
+| 名称                                                                                          | 监管             | MEV 类型 |
+| --------------------------------------------------------------------------------------------- | ---------------- | -------- |
+| [Flashbots](https://boost.flashbots.net/)                                                     | 遵守 OFAC 制裁\* | 所有类型 |
+| [bloXroute Max Profit](https://docs.bloxroute.com/apis/mev-solution/mev-relay-for-validators) | 遵守 OFAC 制裁\* | 所有类型 |
+| [bloXroute Regulated](https://docs.bloxroute.com/apis/mev-solution/mev-relay-for-validators)  | 遵守 OFAC 制裁\* | 所有类型 |
+| [Ultra Sound](https://relay.ultrasound.money/)                                                | 不受监管         | 所有类型 |
+| [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/)                              | 遵守 OFAC 制裁\* | 所有类型 |
+| [AESTUS](https://aestus.live/)                                                                | 不受监管         | 所有类型 |
+| [Titan Global](https://docs.titanrelay.xyz/)                                                  | 不受监管         | 所有类型 |
+| [Titan Regional](https://docs.titanrelay.xyz/)                                                | 遵守 OFAC 制裁\* | 所有类型 |
+| [BTCS OFAC+](https://shop.btcs.com/ofac-relay/)                                               | 遵守 OFAC 制裁\* | 所有类型 |
 
-::: warning 注意
-\*遵守 OFAC 制裁的中继遵循美国外国资产控制办公室 (OFAC) 维护的地址黑名单。
+::: warning 注意 \*遵守 OFAC 制裁的中继遵循美国外国资产控制办公室 (OFAC) 维护的地址黑名单。
 我们**强烈建议**您阅读更多关于 OFAC 制裁、网络审查的信息,并做出深思熟虑的决定,决定您是否认为应该遵守这些制裁以及您愿意使用哪些中继。
 
 更多信息可以在以下文章中找到:

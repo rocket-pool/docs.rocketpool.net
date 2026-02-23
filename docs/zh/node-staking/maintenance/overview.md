@@ -25,7 +25,7 @@ next:
 它涵盖了许多您在担任以太坊验证者期间将使用的基本工具。
 
 [设置 Grafana 仪表板](../grafana.mdx)介绍了如何设置 Smartnode 堆栈的指标跟踪器和 Grafana 仪表板 - 这是一个一站式商店,用于监控节点和验证者的所有内容,是每个节点运营商武器库中的主要工具。
-我们_强烈_建议探索 Grafana 仪表板并定期检查它。
+我们*强烈*建议探索 Grafana 仪表板并定期检查它。
 
 [Smartnode 堆栈警报通知](./alerting.md)介绍了如何使用 Smartnode 警报通知功能接收有关 Rocket Pool Smartnode 的健康状况和重要事件的通知。
 

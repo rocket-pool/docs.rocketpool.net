@@ -73,7 +73,7 @@ Geth 需要定期**离线修剪**其数据库:其数据库会随着时间增长,
 Hyperledger [Besu](https://besu.hyperledger.org/en/stable/) 是在 Apache 2.0 许可下开发的开源以太坊客户端,使用 [Java](https://en.wikipedia.org/wiki/Java_%28programming_language%29) 编写。
 Besu 最令人兴奋的功能是使用 [Bonsai Tries](https://consensys.net/blog/news/bonsai-tries-a-big-update-for-small-state-storage-in-hyperledger-besu/) 进行状态存储。除了更好的性能特性外,Bonsai Tries 为 Besu 提供了两个有趣的优势:
 
-1. Besu _不需要_修剪;在这方面它实际上是免维护的
+1. Besu *不需要*修剪;在这方面它实际上是免维护的
 2. Besu 能够访问区块链中的任何过去区块,尽管它是通过回退每个区块来实现的,因此到达很久以前的区块可能需要一些时间。
 
 Besu 目前建议至少 **16 GB RAM**,尽管可以在 8 GB 下成功运行。
@@ -112,11 +112,11 @@ Reth 对于完整节点需要**至少 8 GB RAM**,对于存档节点需要 **16 G
 ### 客户端比较表
 
 | 客户端     | 类型 | CPU 使用 | 最低 RAM 使用 | 同步时间 |
-| ---------- | ---- | --------- | ----------------- | --------- |
-| Geth       | 完整 | 中等  | 4 GB              | 中等  |
-| Besu       | 完整 | 中等  | 6 GB              | 慢      |
-| Nethermind | 完整 | 中等  | 16 GB             | 快      |
-| Reth       | 完整 | 中等  | 8 GB              | 快      |
+| ---------- | ---- | -------- | ------------- | -------- |
+| Geth       | 完整 | 中等     | 4 GB          | 中等     |
+| Besu       | 完整 | 中等     | 6 GB          | 慢       |
+| Nethermind | 完整 | 中等     | 16 GB         | 快       |
+| Reth       | 完整 | 中等     | 8 GB          | 快       |
 
 ## 共识层客户端
 
@@ -175,10 +175,10 @@ Teku 在 Apache 2.0 许可下发布,使用 Java 编写,这是一种以成熟和�
 
 ### 客户端比较表
 
-| 客户端     | CPU 使用 | 最低 RAM 使用 | 同步时间                    |
-| ---------- | --------- | ----------------- | ---------------------------- |
-| Lighthouse | 中等  | 2 GB              | 使用检查点同步即时 |
-| Lodestar   | 中等  | 4 GB              | 使用检查点同步即时 |
-| Nimbus     | 低       | 0.75 GB           | 使用检查点同步即时 |
-| Prysm      | 中等  | 2 GB              | 使用检查点同步即时 |
-| Teku       | 中等  | 4 GB              | 使用检查点同步即时 |
+| 客户端     | CPU 使用 | 最低 RAM 使用 | 同步时间           |
+| ---------- | -------- | ------------- | ------------------ |
+| Lighthouse | 中等     | 2 GB          | 使用检查点同步即时 |
+| Lodestar   | 中等     | 4 GB          | 使用检查点同步即时 |
+| Nimbus     | 低       | 0.75 GB       | 使用检查点同步即时 |
+| Prysm      | 中等     | 2 GB          | 使用检查点同步即时 |
+| Teku       | 中等     | 4 GB          | 使用检查点同步即时 |

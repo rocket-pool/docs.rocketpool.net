@@ -5,9 +5,10 @@ Ce crédit provient de plusieurs sources :
 
 - [Sortir un validateur de la file d'attente de dépôt Rocket Pool](/fr/node-staking/megapools/create-megapool-validator#sortir-un-validateur-de-la-file-dattente-de-dépôt-rocket-pool). Retirer un validateur de la file créditera l'opérateur de nœud du montant bondé (4 ETH)
 - Si un validateur en prelaunch ne parvient pas à staker dans les 28 jours, le validateur sera dissous. Le 1 ETH (sur un bond de 4 ETH) envoyé à la Beacon Chain pendant le processus de prelaunch n'est **pas récupérable**.
- L'opérateur de nœud reçoit un crédit pour les 3 ETH restants de son bond, avec une pénalité de dissolution de 0,05 ETH appliquée en dette. Le crédit net pour un validateur dissous est de 2,95 ETH.
+  L'opérateur de nœud reçoit un crédit pour les 3 ETH restants de son bond, avec une pénalité de dissolution de 0,05 ETH appliquée en dette. Le crédit net pour un validateur dissous est de 2,95 ETH.
 
 Les deux suivants concernent uniquement les opérateurs de nœuds ayant effectué des migrations avant Saturn. Ils ne sont plus possibles :
+
 - [Migration d'un minipool existant bondé à 16 ETH vers un minipool bondé à 8 ETH](/fr/node-staking/leb-migration.mdx) (ce qui ajoute 8 ETH au solde de crédit de l'opérateur de nœud)
 - [Migration d'un validateur solo existant](/fr/node-staking/solo-staker-migration) vers un minipool (ce qui ajoute soit 16 soit 24 ETH au solde de crédit de l'opérateur de nœud, selon le type de minipool créé lors de la migration)
 
@@ -20,7 +21,6 @@ Le système de crédit est **transparent** pour l'opérateur de nœud ; il sera 
 S'il ne _peut pas_ être utilisé, le Smart Node alertera l'utilisateur et nécessitera un bond ETH normal lors de l'une ou l'autre opération.
 
 Consultez la section [Disponibilité du crédit](#disponibilité-du-crédit) ci-dessous pour plus de détails.
-
 
 ## Consulter votre solde de crédit actuel
 
@@ -43,6 +43,7 @@ The node has 4.000000 ETH in its credit balance and 0.000000 ETH staked on its b
 ## Échanger le crédit contre du rETH
 
 Pour échanger du crédit contre du rETH, utilisez la commande `rocketpool node withdraw-credit`. Le montant équivalent en rETH sera envoyé à votre adresse de retrait (votre adresse de nœud si aucune adresse de retrait n'est définie) :
+
 ```
 staker@node:~$ rocketpool node withdraw-credit
 
@@ -50,7 +51,6 @@ You have 4.000000 ETH of credit that you can withdraw, receiving the equivalent 
 
 Would you like to withdraw the maximum amount of credit? [y/n]
 ```
-
 
 ## Disponibilité du crédit
 
@@ -64,6 +64,7 @@ Le Smart Node sera en mesure de créer un validateur en utilisant des ETH du poo
 l'opération `rocketpool megapool deposit` si vous avez du crédit et devez utiliser des ETH de votre portefeuille de nœud pour créer un validateur.
 
 Dans l'exemple suivant, l'opérateur de nœud a `4 ETH` de crédit mais le pool de dépôt n'a que `3,431627 ETH`, nécessitant `0,568373 ETH` du portefeuille de nœud pour compléter le dépôt :
+
 ```
 Your credit balance is 4.00 ETH. (Credit in addition to ETH staked on your behalf).
 This deposit will use 3.431627 ETH from your credit balance plus ETH staked on your behalf and 0.568373 ETH from your node wallet.

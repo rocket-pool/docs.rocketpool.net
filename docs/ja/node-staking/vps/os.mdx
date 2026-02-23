@@ -68,13 +68,13 @@ Rocket Poolノードには、**Ubuntu Server 24.04 LTS (HVM)**イメージの使
 **Smartnode**と**Smartnode Group**などの名前と説明を入力します。
 テーブル内の既存のルールをすべて削除し、次のルールを追加します。
 
-| Type       | Port Range | Source                           | Description |
-| ---------- | ---------- | -------------------------------- | ----------- |
+| Type       | Port Range | Source                       | Description |
+| ---------- | ---------- | ---------------------------- | ----------- |
 | SSH        | 22         | [自宅のパブリックIPアドレス] | SSH Access  |
-| Custom TCP | 30303      | Anywhere                         | ETH1 P2P    |
-| Custom UDP | 30303      | Anywhere                         | ETH1 P2P    |
-| Custom TCP | 9001       | Anywhere                         | ETH2 P2P    |
-| Custom UDP | 9001       | Anywhere                         | ETH2 P2P    |
+| Custom TCP | 30303      | Anywhere                     | ETH1 P2P    |
+| Custom UDP | 30303      | Anywhere                     | ETH1 P2P    |
+| Custom TCP | 9001       | Anywhere                     | ETH2 P2P    |
+| Custom UDP | 9001       | Anywhere                     | ETH2 P2P    |
 
 これにより、ラップトップまたはデスクトップからSSH(コマンドラインターミナル)を介してサーバーにリモート接続できるようになります。
 また、Execution ClientとConsensus ClientがEthereumネットワーク上の他のノードに接続できるようになります。

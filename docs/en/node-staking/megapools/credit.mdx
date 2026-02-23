@@ -3,11 +3,12 @@
 The deposit credit system is a mechanism to track ETH that was previously bonded by node operators but is no longer required and make it available for use again.
 The source of this credit comes from a few places:
 
-- [Exiting a validator from the Rocket Pool deposit queue](./create-megapool-validator#exit-a-validator-from-the-rocket-pool-deposit-queue). Dequeueing a validator will credit the node operator with the bonded amount (4 ETH) 
+- [Exiting a validator from the Rocket Pool deposit queue](./create-megapool-validator#exit-a-validator-from-the-rocket-pool-deposit-queue). Dequeueing a validator will credit the node operator with the bonded amount (4 ETH)
 - If a prelaunch validator fails to stake within 28 days, the validator will be dissolved. The 1 ETH (of a 4 ETH bond) sent to the Beacon Chain during the prelaunch process is **not recoverable**.
- The node operator is credited the remaining 3 ETH from their bond with a dissolve penalty of 0.05 ETH applied as debt. The net credit for a dissolved validator is 2.95 ETH. 
+  The node operator is credited the remaining 3 ETH from their bond with a dissolve penalty of 0.05 ETH applied as debt. The net credit for a dissolved validator is 2.95 ETH.
 
-The next two are only for node operators who made migrations pre-saturn. They are no longer possible: 
+The next two are only for node operators who made migrations pre-saturn. They are no longer possible:
+
 - [Migrating an existing 16-ETH bonded minipool down to an 8-ETH bonded minipool](/node-staking/leb-migration.mdx) (which adds 8 ETH to the node operator's credit balance)
 - [Migrating an existing solo validator](/node-staking/solo-staker-migration) into a minipool (which adds either 16 or 24 ETH to the node operator's credit balance, depending on which type of minipool they create during migration)
 
@@ -20,7 +21,6 @@ The credit system is **transparent** to the node operator; it will automatically
 If it _cannot_ be used, the Smartnode will alert the user that it cannot be used and will require a normal ETH bond during either operation.
 
 See the [Credit Availability](#credit-availability) section below for more details.
-
 
 ## Viewing your Current Credit Balance
 
@@ -42,31 +42,30 @@ The node has 4.000000 ETH in its credit balance and 0.000000 ETH staked on its b
 
 ## Redeeming credit for rETH
 
-To redeem credit for rETH, use the command `rocketpool node withdraw-credit`. The equivalent amount in rETH will be sent to your withdrawal (your node address if a withdrawal address is not set): 
+To redeem credit for rETH, use the command `rocketpool node withdraw-credit`. The equivalent amount in rETH will be sent to your withdrawal (your node address if a withdrawal address is not set):
+
 ```
 staker@node:~$ rocketpool node withdraw-credit
 
-You have 4.000000 ETH of credit that you can withdraw, receiving the equivalent amount in rETH. 
+You have 4.000000 ETH of credit that you can withdraw, receiving the equivalent amount in rETH.
 
 Would you like to withdraw the maximum amount of credit? [y/n]
 ```
 
-
 ## Credit Availability
 
 The ETH for your credit balance is taken from the **deposit pool**.
-In some situations, your node might have a credit balance available but the deposit pool won't have the ETH balance to fully bond your next megapool validator deposit. 
+In some situations, your node might have a credit balance available but the deposit pool won't have the ETH balance to fully bond your next megapool validator deposit.
 
 If you want to use 4 ETH in credit to create a new 4 ETH megapool validator, it will require 4 ETH from the deposit pool and require none from you.
-Because of this, if the deposit pool does not have enough ETH in it to cover the bond value (currently set to 4 ETH), your deposit will require ETH from your node wallet to create a validator. 
+Because of this, if the deposit pool does not have enough ETH in it to cover the bond value (currently set to 4 ETH), your deposit will require ETH from your node wallet to create a validator.
 
 The smartnode will be able to create a validator using ETH from the deposit pool alongside a portion of your credit. The smartnode will notify you during
-the `rocketpool megapool deposit` operation if you have credit and must use ETH from your node wallet to create a validator. 
+the `rocketpool megapool deposit` operation if you have credit and must use ETH from your node wallet to create a validator.
 
-In the following example the node operator has `4 ETH` in credit but the deposit pool only has `3.431627 ETH`, requiring `0.568373 ETH` from the node wallet to complete the deposit: 
+In the following example the node operator has `4 ETH` in credit but the deposit pool only has `3.431627 ETH`, requiring `0.568373 ETH` from the node wallet to complete the deposit:
+
 ```
 Your credit balance is 4.00 ETH. (Credit in addition to ETH staked on your behalf).
 This deposit will use 3.431627 ETH from your credit balance plus ETH staked on your behalf and 0.568373 ETH from your node wallet.
 ```
-
-

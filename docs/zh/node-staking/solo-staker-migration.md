@@ -24,7 +24,7 @@ Minipool存款当前已禁用,为Saturn 1做准备。
 
 ## 为什么要转换?
 
-在深入技术细节之前,一个非常重要的问题是_为什么_solo质押者首先要考虑这个过程。
+在深入技术细节之前,一个非常重要的问题是\_为什么\_solo质押者首先要考虑这个过程。
 转换为minipool并不适合所有人,但本节将帮助您就是否愿意追求它做出明智的选择。
 
 Rocket Pool minipool享有以下几个优于传统solo质押验证者的优势:
@@ -60,7 +60,7 @@ Rocket Pool minipool享有以下几个优于传统solo质押验证者的优势:
 ## 流程概述
 
 第一步是**创建一个新的"空缺"minipool**。
-与在创建期间创建新验证者的传统minipool不同,空缺minipool是专门设计用于管理_现有_验证者的特殊minipool。
+与在创建期间创建新验证者的传统minipool不同,空缺minipool是专门设计用于管理*现有*验证者的特殊minipool。
 因此,空缺minipool在`prelaunch`阶段的行为与传统minipool略有不同。
 一旦初始化完成并进入`staking`阶段,它们就会成为传统的minipool。
 
@@ -252,7 +252,7 @@ Changing withdrawal credentials to the minipool address... done!
 但是,在执行此操作之前,有一些**非常重要的注意事项**需要理解:
 
 - 您**必须确保**您的验证者密钥已从您自己的验证者客户端中删除,并且您在将其导入Smartnode之前已经等待至少15分钟。请参阅下面的警告框。
-- 您**必须确保**您已备份验证者密钥存储_及其密码文件_,因为像`rocketpool wallet recover`和`rocketpool wallet rebuild`这样的命令**无法**在没有备份的情况下重新生成它们,因为它们不是从Smartnode钱包的助记词派生的。
+- 您**必须确保**您已备份验证者密钥存储*及其密码文件*,因为像`rocketpool wallet recover`和`rocketpool wallet rebuild`这样的命令**无法**在没有备份的情况下重新生成它们,因为它们不是从Smartnode钱包的助记词派生的。
 
 如果您想将验证者密钥导入Smartnode,请继续阅读下面的内容。
 
@@ -321,7 +321,7 @@ rocketpool service logs validator
 如果您从自己的VC中删除它并将其导入到Rocket Pool管理的VC中,您的费用接收者将由`node`进程自动分配到正确的地址。
 :::
 
-由于您可能在VC中保留其他solo质押密钥,而您_不_想将其设置为费用分配器或Smoothing Pool,因此实现这一目标的唯一方法是使用VC配置文件手动为正在迁移的验证者设置费用接收者。
+由于您可能在VC中保留其他solo质押密钥,而您*不*想将其设置为费用分配器或Smoothing Pool,因此实现这一目标的唯一方法是使用VC配置文件手动为正在迁移的验证者设置费用接收者。
 
 此过程取决于您使用的共识客户端;有关具体信息,请查阅文档,但这里有一些有用的链接:
 
@@ -375,7 +375,7 @@ rocketpool_node  | 2023/03/06 04:51:32 Minipool 0x8F3F149e4416a94e0ee909dE32f8A1
 被解散的空缺minipool本质上充当简化的提款地址:
 
 - 它们在技术上不是Rocket Pool网络的一部分。
-- 存入minipool的任何资金_仅_属于节点运营商。它_不会_与池质押者分享。
+- 存入minipool的任何资金*仅*属于节点运营商。它*不会*与池质押者分享。
 - 您不会因创建minipool而获得存款信用。
 
 您可以随时使用以下命令访问minipool的余额:
@@ -456,7 +456,7 @@ Total EL rewards:      0.086779 ETH
 - `RP deposit`显示您从池质押者那里借入了多少ETH来创建minipool(在本例中为24 ETH)。
 - `Available refund`显示minipool余额中有多少直接归您所有(不与池质押者共享)。这相当于您在创建空缺minipool时在信标链上的所有奖励。
 - `Minipool Balance (EL)`显示minipool合约的总余额。
-- `Your portion (EL)`显示从minipool余额中减去退款后有多少余额属于您。换句话说,这是您在创建空缺minipool_之后_赚取的奖励份额。
+- `Your portion (EL)`显示从minipool余额中减去退款后有多少余额属于您。换句话说,这是您在创建空缺minipool*之后*赚取的奖励份额。
 - `Total EL rewards`是您的退款加上您转换后的奖励。
 
 要领取您的退款,请运行以下命令:

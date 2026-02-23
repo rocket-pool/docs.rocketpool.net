@@ -1,5 +1,3 @@
-
-
 # 创建 Megapool（验证者）
 
 欢迎来到 Saturn 1！Rocket Pool megapool 是执行层上的一个智能合约实例。
@@ -8,7 +6,6 @@
 您的 megapool 负责将质押金额和借入金额的 ETH 合并形成 32 ETH，然后发送到信标链存款合约以创建新的验证者。
 
 您的 megapool 会在您第一次验证者存款时自动部署。之后，您可以使用同一个 megapool 管理任意数量的验证者！您无需每次创建新验证者时都部署新的 megapool。
-
 
 ::: tip 注意
 信标链验证者队列的激活（和退出）时间可能因网络当前状态而有很大差异。
@@ -26,10 +23,10 @@
 验证者创建受两个队列管控。
 
 1. 第一个是 Rocket Pool 存款队列。我们将在另一个章节详细介绍，但本质上该队列由 Rocket Pool 协议管理，决定您的验证者何时收到其借入的 ETH。
-存款池中需要有可用的 ETH，才能将您的 4 ETH 与存款池中的 28 ETH 匹配并创建验证者。
+   存款池中需要有可用的 ETH，才能将您的 4 ETH 与存款池中的 28 ETH 匹配并创建验证者。
 
 2. 第二个是信标链队列，由以太坊信标链管理，决定您的验证者何时激活。
-请注意，您的验证者激活所需时间可能因您在每个队列中的位置和网络当前状态而有很大差异。
+   请注意，您的验证者激活所需时间可能因您在每个队列中的位置和网络当前状态而有很大差异。
 
 Rocket Pool 存款队列提供了快速队列系统，帮助现有节点运营者将其 minipool 验证者 ETH 迁移到 megapool 验证者 ETH。
 
@@ -58,6 +55,7 @@ Rocket Pool 存款队列中有两种类型的队列：快速队列和标准队�
 ```
 rocketpool megapool deposit
 ```
+
 ::: danger 警告
 
 虽然 CLI 会自动完成许多后续步骤，但我们<strong>强烈建议</strong>监控您的节点和交易，以确保从 `prelaunch` 到 `staking` 的成功过渡。
@@ -72,6 +70,7 @@ rocketpool megapool deposit
 :::
 
 第一个提示将询问您希望创建多少个验证者。您最多可以在同一次存款中创建 35 个，但我们在本示例中选择 1 个验证者。输入 `1` 然后按 `enter` 开始创建 1 个验证者。
+
 ```
 Your eth2 client is on the correct network.
 
@@ -82,7 +81,6 @@ How many validators would you like to create? (max: 35)
 第二个提示将显示您的节点当前质押的 ETH 数量，以及您所选验证者数量的总质押要求。我们示例中的节点没有 megapool 验证者，因此显示 `0.00 ETH bonded`。当前质押要求为 `4 ETH`。
 阅读并理解显示的信息后，输入 `y` 然后按 `enter` 继续下一个提示。
 
-
 ```
 The node is currently bonded with 0.00 ETH.
 The total bond requirement is 4.00 ETH.
@@ -91,8 +89,10 @@ NOTE: You are about to create 1 new megapool validator(s), requiring a total of:
 Would you like to continue? [y/n]
 y
 ```
+
 下一个提示将显示 [Rocket Pool 存款队列](/zh/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-and-express-queue) 的状态。
 这显示在您之前等待与 ETH 匹配的验证者数量。快速队列主要面向已有节点运营者，新节点不会有任何快速队列票据。`The express queue rate is 4` 表示每 1 个标准队列的验证者匹配 4 个快速队列的验证者。
+
 ```
 There are 1 validator(s) on the express queue.
 There are 12 validator(s) on the standard queue.
@@ -100,17 +100,21 @@ The express queue rate is 4 (4 express validators assigned per 1 standard).
 A new express validator would be at queue position 3.
 A new standard validator would be at queue position 14.
 ```
+
 ::: tip 注意
 如果您是回归节点运营者，并且此次存款有可用的快速队列票据，系统将在此时提示您使用它们。
 输入 `1` 然后按 `enter` 继续，为这次单个 megapool 验证者存款使用一张快速队列票据。
+
 ```
 How many express tickets would you like to use? (max: 7)
 1
 ```
+
 如果您希望保留快速队列票据并在标准队列中继续，只需输入 `0` 然后按 `enter` 进入下一个提示。
 :::
 
 如果您有任何[存款信用额度](/zh/node-staking/megapools/credit)可在验证者上兑换，系统将在此处提示您兑换。否则，此步骤将提示您当前网络的 gas 价格建议。
+
 ```
 Your credit balance is 0.00 ETH. (Credit in addition to ETH staked on your behalf).
 Your consensus client is synced, you may safely create a megapool validator.
@@ -126,7 +130,9 @@ These prices include a maximum priority fee of 0.010 gwei.
 Please enter your max fee (including the priority fee) or leave blank for the default of 1.96787 gwei:
 
 ```
+
 确认 gas 价格后，我们将进行最后一次最终确认以创建 megapool 验证者。
+
 ```
 Using a max fee of 1.968 gwei and a priority fee of 0.010 gwei.
 You are about to deposit 4.000000 ETH to create 1 new megapool validator(s).
@@ -152,6 +158,7 @@ To check the status of your validators use `rocketpool megapool validators`
 To monitor the stake transactions use `rocketpool service logs node`
 
 ```
+
 交易完成后，您将收到存款确认，包括 etherscan 交易哈希以及您的 megapool 验证者上线后预期的信标链公钥。您可以使用 `rocketpool megapool status` 命令检查 megapool 的状态，或使用 `rocketpool megapool validators` 检查特定验证者的状态。您的验证者将处于 `initialized` 状态，在 Rocket Pool 存款队列中排队推进。请注意，您的 megapool 验证者公钥直到被 Rocket Pool 存款队列处理并分配 ETH 后，才会在信标链上注册。
 
 到此为止，您已经完成了！恭喜您拥有了 megapool 验证者。您肯定会想查看我们指南的[监控和维护](/zh/node-staking/maintenance/overview)部分，了解如何让您的节点保持最佳状态。同时请继续阅读下一节关于确认成功质押的内容，以确保您的 `initialized` 验证者顺利过渡到 `staking` 状态而不产生任何罚款。
@@ -169,7 +176,6 @@ To monitor the stake transactions use `rocketpool service logs node`
 
 :::
 
-
 确保您的节点在整个过程中保持在线！它将自动执行几个步骤，以确保您的验证者顺利在以下各阶段之间推进：
 
 您的新 megapool 验证者将处于 `initialized` 状态。它将保持此状态，直到通过 Rocket Pool 存款队列并从存款池获得 28 ETH。使用 `rocketpool megapool validators` 命令检查验证者的状态。它应该如下所示：
@@ -185,8 +191,10 @@ Validator active:             no
 Validator Queue Position:     14
 Express Ticket Used:          no
 ```
+
 一旦您的验证者从 [Rocket Pool 存款队列](/zh/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-and-express-queue) 获得 ETH 分配，它将进入 `Prelaunch` 状态。此时，您 megapool 余额中的 1 ETH 将存入信标链。您的验证者公钥也将在信标链上注册，这意味着您可以在 https://beaconcha.in/（如果您使用测试网，则访问 https://hoodi.beaconcha.in/）等浏览器上查看 `Prelaunch` 验证者的状态。
 您可以通过在 https://beaconcha.in/ 上搜索公钥，或访问格式为 `https://beaconcha.in/validator/<your-validator-pubkey>` 的链接来观察您的验证者。
+
 ```
 1 Prelaunch validator(s):
 
@@ -198,11 +206,10 @@ Validator active:             no
 Express Ticket Used:          no
 
 ```
+
 <img src="../images/prestaking.png" width="100%" height="auto" />
-在您的 `Prelaunch` 验证者被信标链处理并且初始 1 ETH 存款被记入后，您的节点将自动执行 `stake` 交易以完成完整的 32 ETH 信标链存款。`stake` 交易将把您的 `Prelaunch` 验证者推进为 `Staking` 验证者。此时您的 `Staking` 验证者已：
-- 向信标链存入 32 ETH
-- 分配了验证者索引号
-- 在信标链上等待激活
+在您的 `Prelaunch` 验证者被信标链处理并且初始 1 ETH 存款被记入后，您的节点将自动执行 `stake` 交易以完成完整的 32 ETH 信标链存款。`stake` 交易将把您的 `Prelaunch` 验证者推进为 `Staking`
+验证者。此时您的 `Staking` 验证者已： - 向信标链存入 32 ETH - 分配了验证者索引号 - 在信标链上等待激活
 
 ```
 1 Staking validator(s):
@@ -215,6 +222,7 @@ Beacon status:                pending_queued
 Express Ticket Used:          no
 
 ```
+
 <img src="../images/pending-activation.png" width="100%" height="auto" />
 
 信标链验证者队列的当前状态可以在这里找到：https://www.validatorqueue.com/。一旦您的 `Staking` 验证者在信标链上激活，您将在 `rocketpool megapool validators` 菜单中看到 `Beacon status:                active_ongoing`，确认它已激活并准备好进行验证。
@@ -231,6 +239,7 @@ Validator index:              <index>
 Beacon status:                active_ongoing
 Express Ticket Used:          no
 ```
+
 <img src="../images/activated.png" width="100%" height="auto" />
 
 到这一步您已经完成了！恭喜！您已正式通过 Rocket Pool 创建了一个 megapool 验证者！请查看[监控和维护](/zh/node-staking/maintenance/overview)指南，了解如何监控您的节点并使其保持最佳状态。
@@ -240,6 +249,7 @@ Express Ticket Used:          no
 如果您的验证者一直在队列中等待（快速队列或标准队列）并希望退出队列，您可以这样做！您的 4 ETH 存款将以可兑换等额 rETH 的信用额度退还。步骤相当简单：
 
 首先，检查 `rocketpool megapool validators` 以确定要退出队列的验证者。您需要确保要退出队列的验证者处于 `Initialized` 状态。记下其公钥。在您的验证者被分配 ETH 后，您将无法将其退出队列。
+
 ```
 1 Initialized validator(s):
 
@@ -252,14 +262,15 @@ Validator Queue Position:     14
 Express Ticket Used:          no
 ```
 
-
 使用以下命令从队列中退出验证者，然后进行选择：
+
 ```
 staker@node:~$ rocketpool megapool exit-queue
 
 Please select a validator to exit the queue:
 1: Pubkey: <beacon-pubkey>
 ```
+
 完成选择并确认您的验证者已退出 Rocket Pool 存款队列后，您可以使用以下命令将信用额度兑换为 rETH：
 
 ```
@@ -267,6 +278,7 @@ staker@node:~$ rocketpool node withdraw-credit
 
 You have 4.000000 ETH of credit that you can withdraw, receiving the equivalent amount in rETH. Would you like to withdraw the maximum amount of credit? [y/n]
 ```
+
 就是这样！如果您想存入另一个验证者，这个信用额度除了可以兑换为 rETH 外，还可以兑换为验证者存款。
 如果您恰好在已退出（退出队列）的验证者上使用了快速队列票据，您的节点将获得该快速队列票据的退款。
 

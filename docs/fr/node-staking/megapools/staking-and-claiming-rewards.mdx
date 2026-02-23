@@ -20,12 +20,12 @@ opérateurs de nœuds en fonction de leur part du total des RPL megapool stakés
 
 Saturn 1 introduit l'UARS, qui distribue les revenus ETH du protocole provenant des commissions des opérateurs de nœuds entre quatre groupes :
 
-| Groupe | Part par défaut | Ajustable via pDAO |
-|--------|-----------------|---------------------|
-| **Base Commission** Part aux opérateurs de nœuds  | 5% | Oui |
-| **Voter Share** aux stakers de RPL megapool | 9% | Oui |
-| **Trésorerie pDAO** | 0% | Oui |
-| **Détenteurs de rETH** | 86% (reste) | Automatique |
+| Groupe                                           | Part par défaut | Ajustable via pDAO |
+| ------------------------------------------------ | --------------- | ------------------ |
+| **Base Commission** Part aux opérateurs de nœuds | 5%              | Oui                |
+| **Voter Share** aux stakers de RPL megapool      | 9%              | Oui                |
+| **Trésorerie pDAO**                              | 0%              | Oui                |
+| **Détenteurs de rETH**                           | 86% (reste)     | Automatique        |
 
 Ces paramètres sont ajustables via la [gouvernance pDAO](/fr/pdao/overview), permettant au protocole Rocket Pool de s'adapter et d'être compétitif à mesure que les conditions du marché évoluent. En stakant des RPL
 et en faisant fonctionner des validateurs, vous êtes éligible pour participer à ce processus !
@@ -57,6 +57,7 @@ Le maximum de RPL éligibles au vote de 150% de l'ETH total bondé est calculé 
 ```
 vote-eligible RPL = min(1.5*RPL value of megapool bonded_eth, megapool staked rpl)
 ```
+
 Vous devriez pouvoir voir le ratio d'ETH bondé de votre nœud dans le menu `rocketpool node status` :
 
 ```
@@ -101,11 +102,9 @@ Il n'y a pas de limite sur la quantité de RPL megapool stakés que vous pouvez 
 Les opérateurs de nœuds avec des RPL legacy peuvent retirer jusqu'à 15% de leur collateral d'ETH emprunté. Ce minimum de 15% ne prend en compte que l'ETH emprunté provenant des minipools legacy, pas des megapools. Les prochaines sections
 couvriront les deux étapes pour unstaker et retirer des RPL.
 
-
 ::: tip Note pour les stakers de RPL legacy
 Si vous souhaitez réduire votre pourcentage de collateral d'ETH emprunté pour retirer plus de vos RPL, vous pourriez envisager
 [de sortir votre ou vos minipool(s)](/fr/node-staking/withdraw#shut-down-a-minipool) pour réduire votre montant de collateral d'ETH emprunté.
-
 
 :::
 
@@ -114,14 +113,16 @@ Si vous souhaitez réduire votre pourcentage de collateral d'ETH emprunté pour 
 ::: warning AVERTISSEMENT
 
 Pendant la période d'unstaking de 28 jours :
+
 - Les RPL dont vous avez demandé l'unstake ne continuent pas à gagner des récompenses.
 - Vous ne pouvez pas annuler le processus d'unstaking, mais vous pouvez retirer après la période de 28 jours puis les restaker.
 - Vous pouvez initier un nouveau retrait pendant la période de 28 jours, mais tous vos RPL en cours d'unstaking seront réinitialisés à 28 jours d'unstaking. Il est recommandé
-de compléter votre retrait initial avant d'en faire un autre. Sinon, vous devrez attendre à nouveau toute la durée de la période d'unstaking.
+  de compléter votre retrait initial avant d'en faire un autre. Sinon, vous devrez attendre à nouveau toute la durée de la période d'unstaking.
 
 :::
 
 Pour commencer le processus, utilisez la commande `rocketpool node withdraw-rpl`. Vous verrez l'invite suivante :
+
 ```
 The RPL withdrawal process has changed in Saturn. It is now a 2-step process:
 1. Request to unstake a certain RPL amount;
@@ -145,6 +146,7 @@ Please select one of the three options below.
 
 Il vous sera demandé soit d'unstaker votre solde complet, soit d'entrer un montant personnalisé à unstaker. Entrez `y` pour unstaker le montant total ou `n` pour entrer un montant personnalisé à unstaker.
 À partir de là, le smart node vous guidera à travers les étapes restantes nécessaires pour faire la demande d'unstake.
+
 ```
 You have 4383.275814 RPL staked on your megapool and can request to unstake up to 4383.275814 RPL.
 Would you like to unstake the maximum amount of staked RPL? [y/n]
@@ -179,9 +181,11 @@ Waiting for the transaction to be included in a block... you may wait here for i
 Successfully unstaked 1000.000000 RPL.
 
 ```
+
 ### Vérifier le statut de vos RPL en cours d'unstaking
 
 Après avoir réussi à faire une demande d'unstake de RPL, la commande `rocketpool node withdraw-rpl` vous informera quand les RPL en cours d'unstaking sont éligibles au retrait :
+
 ```
 Your node has 1017.688800 RPL on its legacy stake (previously associated to minipools) and 3383.275814 RPL staked on its megapool.
 Your node currently has 0.000000 RPL locked on pDAO proposals.
@@ -193,6 +197,7 @@ You have 1000.000000 RPL currently unstaking until 2026-02-19, 04:05 +0000 UTC (
 ### Étape 2 : Retrait des RPL unstakés
 
 Après que la période d'unstaking de 28 jours est passée, le statut sera reflété dans la commande `rocketpool node withdraw-rpl` et vous pourrez enfin retirer vos RPL unstakés.
+
 ```
 You have 1000.000000 RPL unstaked and ready to be withdrawn to your RPL withdrawal address.
 ```
@@ -261,6 +266,7 @@ Please choose an amount of RPL to stake:
 Cette commande stakera des RPL sur votre megapool, augmentant vos récompenses de voter share. Il n'est plus possible de staker des RPL sur un minipool.
 
 ## Consulter les récompenses ETH et RPL de votre nœud
+
 Le smart node dispose d'une nouvelle fonctionnalité pratique qui vous permet de vérifier l'état de tous les différents types de récompenses que votre nœud pourrait avoir.
 Voici une liste de tous les types de récompenses possibles :
 
@@ -331,11 +337,13 @@ The following 2 claim(s)/credits are available:
 
 Enter the numbers of the claims you want to execute (comma-separated), 'all' to claim everything, or 'none' to cancel:
 ```
+
 Une fois que vous avez fait vos sélections et confirmé les options de gas, il pourrait y avoir des invites supplémentaires à suivre selon
 le type de récompense que vous réclamez. Nous ne les détaillerons pas toutes ici. Le smart node devrait être en mesure de vous guider à travers
 toutes les étapes.
 
 Voici à quoi ressemble le fait de racheter deux types de récompenses - récompenses périodiques + crédit ETH :
+
 ```
 +================ Suggested Gas Prices ================+
 | Avg Wait Time |   Max Fee    |     Total Gas Cost     |
@@ -379,8 +387,6 @@ Waiting for the transaction to be included in a block... you may wait here for i
 All 2 claim(s) completed successfully.
 ============================================================
 ```
-
-
 
 ## Prochaines étapes
 

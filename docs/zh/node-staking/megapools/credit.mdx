@@ -5,9 +5,10 @@
 
 - [从 Rocket Pool 存款队列中退出验证者](./create-megapool-validator#exit-a-validator-from-the-rocket-pool-deposit-queue)。退出队列的验证者将向节点运营者发放质押金额（4 ETH）的信用额度
 - 如果预启动验证者在 28 天内未能质押，该验证者将被解散。在预启动过程中发送到信标链的 1 ETH（4 ETH 质押金的一部分）**无法恢复**。
- 节点运营者将获得其质押中剩余 3 ETH 的信用额度，并扣除 0.05 ETH 的解散罚款作为债务。解散验证者的净信用额度为 2.95 ETH。
+  节点运营者将获得其质押中剩余 3 ETH 的信用额度，并扣除 0.05 ETH 的解散罚款作为债务。解散验证者的净信用额度为 2.95 ETH。
 
 以下两项仅适用于在 Saturn 之前进行迁移的节点运营者，现在不再可用：
+
 - [将现有的 16 ETH 质押 minipool 缩减为 8 ETH 质押 minipool](/zh/node-staking/leb-migration.mdx)（这会向节点运营者的信用余额添加 8 ETH）
 - [将现有的单独验证者](/zh/node-staking/solo-staker-migration)迁移到 minipool（这会向节点运营者的信用余额添加 16 或 24 ETH，取决于迁移期间创建的 minipool 类型）
 
@@ -16,10 +17,9 @@
 这些 ETH 不会直接变成流动资产返还给节点运营者；相反，它可以兑换为等额的 rETH。此外，信用额度还可以用于**创建额外的 megapool 验证者**，而无需节点运营者提供任何 ETH。
 
 信用系统对节点运营者来说是**透明的**；如果可能，它将在 `rocketpool node deposit` 操作期间自动使用（Smart Node CLI 中会有通知说明将使用信用额度）。
-如果_无法_使用，Smart Node 将提醒用户无法使用信用额度，并在任一操作期间要求正常的 ETH 质押金。
+如果*无法*使用，Smart Node 将提醒用户无法使用信用额度，并在任一操作期间要求正常的 ETH 质押金。
 
 有关更多详细信息，请参阅下面的[信用可用性](#credit-availability)部分。
-
 
 ## 查看当前信用余额
 
@@ -42,6 +42,7 @@ The node has 4.000000 ETH in its credit balance and 0.000000 ETH staked on its b
 ## 将信用额度兑换为 rETH
 
 要将信用额度兑换为 rETH，请使用命令 `rocketpool node withdraw-credit`。等额的 rETH 将发送到您的提款地址（如果未设置提款地址，则发送到您的节点地址）：
+
 ```
 staker@node:~$ rocketpool node withdraw-credit
 
@@ -49,7 +50,6 @@ You have 4.000000 ETH of credit that you can withdraw, receiving the equivalent 
 
 Would you like to withdraw the maximum amount of credit? [y/n]
 ```
-
 
 ## 信用可用性
 
@@ -62,6 +62,7 @@ Would you like to withdraw the maximum amount of credit? [y/n]
 如果您有信用额度且必须使用节点钱包中的 ETH 来创建验证者，Smart Node 将在 `rocketpool megapool deposit` 操作期间通知您。
 
 在以下示例中，节点运营者有 `4 ETH` 的信用额度，但存款池只有 `3.431627 ETH`，需要从节点钱包中提取 `0.568373 ETH` 来完成存款：
+
 ```
 Your credit balance is 4.00 ETH. (Credit in addition to ETH staked on your behalf).
 This deposit will use 3.431627 ETH from your credit balance plus ETH staked on your behalf and 0.568373 ETH from your node wallet.

@@ -462,7 +462,6 @@ Bu, şu anda katılmışsanız ve katıldıktan sonra en az 28 gün beklediyseni
 **Mevcut epoch'tan sonraki epoch** sonlandırıldığında, otomatik olarak node'unuzun `fee recipient`'ini Smoothing Pool'dan tekrar node'unuzun dağıtıcı sözleşmesine değiştirecektir.
 Bu, önümüzde bir teklif geldiğini gördüğünüzde çıkış sürecinden önce hareket ettiğiniz için cezalandırılmamanızı sağlamak içindir.
 
-
 ### `distribute-fees`
 
 Ücret dağıtıcınızda ödüller kazandıktan sonra, aşağıdaki komutu kullanarak tüm bakiyesini talep edebilir ve dağıtabilirsiniz:
@@ -499,6 +498,7 @@ rocketpool node send 1 eth <my friend's address>
 arkadaşıma 1 ETH gönderir.
 
 ## Megapool Komutları
+
 `megapool` grubu, megapool'unuzu ve megapool validator'larınızı yönetmek için kullanılan tüm komutlara erişebileceğiniz yerdir.
 
 `rocketpool megapool help` komutunun göstereceği şey budur:
@@ -535,9 +535,11 @@ GLOBAL OPTIONS:
 Aşağıda normal operasyon sırasında tipik olarak kullanacağınız komutların bir özeti bulunmaktadır:
 
 ### `deposit`
+
 Bu komut, megapool'unuzda yeni validator'lar oluşturmanıza izin verir. Bunu daha sonra daha ayrıntılı ele alacağız. Önizleme istiyorsanız [Megapool Validator Oluşturma](/node-staking/megapools/create-megapool-validator.mdx) bölümüne geçmekten çekinmeyin.
 
 ### `status`
+
 Bu komut, megapool'unuzun durumu ve megapool'unuz tarafından yönetilen validator'lar hakkında bazı bilgiler verir. Megapool'unuzun adresini, express queue biletlerinin sayısını, megapool'unuzun delege adresini, execution ve consensus katmanındaki ETH bakiyesini ve çok sayıda diğer yararlı bilgiyi görebileceksiniz. İşte `rocketpool megapool status` çıktısının bir örneği:
 
 ```
@@ -562,7 +564,9 @@ Current network commission: 5.000000%
 ```
 
 ### `validators`
+
 `rocketpool megapool validators` komutu, node'unuzun megapool'u tarafından yönetilen her bir validator'ın durumunu gösterir. Validator pubkey'leri, beacon chain durumu ve prestaking validator'larının kuyruk konumu gibi bilgileri görebileceksiniz:
+
 ```
 There are 8 validator(s) on the express queue.
 There are 2 validator(s) on the standard queue.
@@ -605,7 +609,6 @@ Express Ticket Used:          yes
 ### `exit-validator`
 
 Bu komut, Beacon Chain'de gönüllü olarak çıkış yapmak üzere bir validator seçmenize izin verir. Bir validator'ı kapatmak ve son ETH bakiyesini çekmek istediğinizde bunu kullanın. Bunun geri alınamayacağını unutmayın - bir çıkış tetiklediğinizde, validator kalıcı olarak kapanacaktır.
-
 
 ## Minipool Komutları
 
