@@ -85,7 +85,7 @@ minipool の 1 つがユーザー指定のしきい値 (デフォルトは 1 ETH
 
 ### 統合された Grafana ダッシュボード
 
-要望に応えて、ノードオペレーターがノードのステータス、進行状況、および全体的な健全性を追跡および評価するのに役立つ新しい [**Grafana ダッシュボード**](https://grafana.com/grafana/dashboards/21863)を作成しました。
+要望に応えて、ノードオペレーターがノードのステータス、進行状況、および全体的な健全性を追跡および評価するのに役立つ新しい [**Grafana ダッシュボード**](https://grafana.com/grafana/dashboards/24900-rocket-pool-dashboard-v1-4-0/)を作成しました。
 
 ![](../../node-staking/images/grafana-1.3.jpg)
 

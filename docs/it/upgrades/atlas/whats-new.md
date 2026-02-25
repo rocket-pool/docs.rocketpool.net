@@ -85,7 +85,7 @@ La modifica della soglia può essere effettuata nella sezione `Smartnode and TX 
 
 ### Dashboard Grafana Unificato
 
-A grande richiesta, abbiamo creato un nuovo [**dashboard Grafana**](https://grafana.com/grafana/dashboards/21863) per aiutare i node operator a monitorare e valutare lo stato, i progressi e la salute generale dei loro nodi:
+A grande richiesta, abbiamo creato un nuovo [**dashboard Grafana**](https://grafana.com/grafana/dashboards/24900-rocket-pool-dashboard-v1-4-0/) per aiutare i node operator a monitorare e valutare lo stato, i progressi e la salute generale dei loro nodi:
 
 ![](../../node-staking/images/grafana-1.3.jpg)
 

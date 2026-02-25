@@ -85,7 +85,7 @@ A alteração do limite pode ser feita na seção `Smartnode and TX Fees` do TUI
 
 ### Dashboard Grafana Unificado
 
-Por demanda popular, criamos um novo [**dashboard Grafana**](https://grafana.com/grafana/dashboards/21863) para ajudar os operadores de nós a rastrear e avaliar o status, progresso e saúde geral de seus nós:
+Por demanda popular, criamos um novo [**dashboard Grafana**](https://grafana.com/grafana/dashboards/24900-rocket-pool-dashboard-v1-4-0/) para ajudar os operadores de nós a rastrear e avaliar o status, progresso e saúde geral de seus nós:
 
 ![](../../node-staking/images/grafana-1.3.jpg)
 

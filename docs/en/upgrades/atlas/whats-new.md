@@ -85,7 +85,7 @@ Changing the threshold can be done in the `Smartnode and TX Fees` section of the
 
 ### Unified Grafana Dashboard
 
-By popular demand, we have created a new [**Grafana dashboard**](https://grafana.com/grafana/dashboards/21863) to help node operators track and assess the status, progress, and overall health of their nodes:
+By popular demand, we have created a new [**Grafana dashboard**](https://grafana.com/grafana/dashboards/24900-rocket-pool-dashboard-v1-4-0/) to help node operators track and assess the status, progress, and overall health of their nodes:
 
 ![](../../node-staking/images/grafana-1.3.jpg)
 

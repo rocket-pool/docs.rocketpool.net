@@ -85,7 +85,7 @@ El cambio del umbral se puede hacer en la sección `Smartnode and TX Fees` del T
 
 ### Panel de Grafana Unificado
 
-Por demanda popular, hemos creado un nuevo [**panel de Grafana**](https://grafana.com/grafana/dashboards/21863) para ayudar a los operadores de nodos a rastrear y evaluar el estado, progreso y salud general de sus nodos:
+Por demanda popular, hemos creado un nuevo [**panel de Grafana**](https://grafana.com/grafana/dashboards/24900-rocket-pool-dashboard-v1-4-0/) para ayudar a los operadores de nodos a rastrear y evaluar el estado, progreso y salud general de sus nodos:
 
 ![](../../node-staking/images/grafana-1.3.jpg)
 

@@ -85,7 +85,7 @@ minipoolのいずれかがユーザー指定のしきい値（デフォルトは
 
 ### 統合Grafanaダッシュボード
 
-人気の要望により、ノードオペレーターがノードのステータス、進捗、全体的な健全性を追跡および評価するのに役立つ新しい[**Grafanaダッシュボード**](https://grafana.com/grafana/dashboards/21863)を作成しました：
+人気の要望により、ノードオペレーターがノードのステータス、進捗、全体的な健全性を追跡および評価するのに役立つ新しい[**Grafanaダッシュボード**](https://grafana.com/grafana/dashboards/24900-rocket-pool-dashboard-v1-4-0/)を作成しました：
 
 ![](../../node-staking/images/grafana-1.3.jpg)
 

@@ -85,7 +85,7 @@ minipool 중 하나가 사용자 지정 임계값(기본값 1 ETH)보다 큰 잔
 
 ### 통합 Grafana 대시보드
 
-많은 요청에 따라 노드 운영자가 노드의 상태, 진행 상황 및 전반적인 상태를 추적하고 평가하는 데 도움이 되는 새로운 [**Grafana 대시보드**](https://grafana.com/grafana/dashboards/21863)를 만들었습니다:
+많은 요청에 따라 노드 운영자가 노드의 상태, 진행 상황 및 전반적인 상태를 추적하고 평가하는 데 도움이 되는 새로운 [**Grafana 대시보드**](https://grafana.com/grafana/dashboards/24900-rocket-pool-dashboard-v1-4-0/)를 만들었습니다:
 
 ![](../../node-staking/images/grafana-1.3.jpg)
 

@@ -85,7 +85,7 @@ Eşiği değiştirmek, `service config` TUI'sinin `Smartnode and TX Fees` bölü
 
 ### Birleşik Grafana Dashboard
 
-Popüler talep üzerine, düğüm operatörlerinin düğümlerinin durumunu, ilerlemesini ve genel sağlığını izlemelerine ve değerlendirmelerine yardımcı olmak için yeni bir [**Grafana dashboard**](https://grafana.com/grafana/dashboards/21863) oluşturduk:
+Popüler talep üzerine, düğüm operatörlerinin düğümlerinin durumunu, ilerlemesini ve genel sağlığını izlemelerine ve değerlendirmelerine yardımcı olmak için yeni bir [**Grafana dashboard**](https://grafana.com/grafana/dashboards/24900-rocket-pool-dashboard-v1-4-0/) oluşturduk:
 
 ![](../../node-staking/images/grafana-1.3.jpg)
 

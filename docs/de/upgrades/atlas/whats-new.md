@@ -85,7 +85,7 @@ Das Ändern des Schwellenwerts kann im Abschnitt `Smartnode and TX Fees` der `se
 
 ### Einheitliches Grafana Dashboard
 
-Auf vielfachen Wunsch haben wir ein neues [**Grafana Dashboard**](https://grafana.com/grafana/dashboards/21863) erstellt, um Node Operators dabei zu helfen, den Status, Fortschritt und die allgemeine Gesundheit ihrer Nodes zu verfolgen und zu bewerten:
+Auf vielfachen Wunsch haben wir ein neues [**Grafana Dashboard**](https://grafana.com/grafana/dashboards/24900-rocket-pool-dashboard-v1-4-0/) erstellt, um Node Operators dabei zu helfen, den Status, Fortschritt und die allgemeine Gesundheit ihrer Nodes zu verfolgen und zu bewerten:
 
 ![](../../node-staking/images/grafana-1.3.jpg)
 

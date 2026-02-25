@@ -85,7 +85,7 @@ Le changement du seuil peut être effectué dans la section `Smartnode and TX Fe
 
 ### Tableau de bord Grafana unifié
 
-Suite à une demande populaire, nous avons créé un nouveau [**tableau de bord Grafana**](https://grafana.com/grafana/dashboards/21863) pour aider les Node Operators à suivre et évaluer l'état, la progression et la santé globale de leurs nœuds :
+Suite à une demande populaire, nous avons créé un nouveau [**tableau de bord Grafana**](https://grafana.com/grafana/dashboards/24900-rocket-pool-dashboard-v1-4-0/) pour aider les Node Operators à suivre et évaluer l'état, la progression et la santé globale de leurs nœuds :
 
 ![](../../node-staking/images/grafana-1.3.jpg)
 

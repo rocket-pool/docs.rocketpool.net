@@ -85,7 +85,7 @@ _然而_，作为对独立验证者的这一新要求的一部分，Atlas 带来
 
 ### 统一的 Grafana 仪表板
 
-应大众需求，我们创建了一个新的 [**Grafana 仪表板**](https://grafana.com/grafana/dashboards/21863) 来帮助节点运营者跟踪和评估其节点的状态、进度和整体健康状况:
+应大众需求，我们创建了一个新的 [**Grafana 仪表板**](https://grafana.com/grafana/dashboards/24900-rocket-pool-dashboard-v1-4-0/) 来帮助节点运营者跟踪和评估其节点的状态、进度和整体健康状况:
 
 ![](../../node-staking/images/grafana-1.3.jpg)
 
