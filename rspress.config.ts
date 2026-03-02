@@ -67,7 +67,6 @@ type SidebarTranslation = {
     grafana: string;
     alerting: string;
     updates: string;
-    backups: string;
     masquerade: string;
     historyExpiry: string;
     pruning: string;
@@ -183,7 +182,6 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       grafana: "Setting up the Grafana Dashboard",
       alerting: "Smartnode Stack Alert Notifications",
       updates: "Checking for Updates",
-      backups: "Backing Up Your Node",
       masquerade: "Masquerading as Another Node Address",
       historyExpiry: "Expiring Pre-Merge History",
       pruning: "Pruning the Execution Client",
@@ -295,7 +293,6 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       grafana: "设置 Grafana 仪表板",
       alerting: "Smartnode 栈警报通知",
       updates: "检查更新",
-      backups: "备份您的节点",
       masquerade: "伪装为其他节点地址",
       historyExpiry: "过期合并前历史",
       pruning: "修剪执行客户端",
@@ -421,7 +418,6 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       grafana: "Configurando el Panel de Grafana",
       alerting: "Notificaciones de Alerta del Stack Smartnode",
       updates: "Verificando Actualizaciones",
-      backups: "Respaldando tu Nodo",
       masquerade: "Enmascarándose como Otra Dirección de Nodo",
       historyExpiry: "Expirando Historial Pre-Merge",
       pruning: "Podando el Cliente de Ejecución",
@@ -540,7 +536,6 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       grafana: "Configurer le Tableau de Bord Grafana",
       alerting: "Notifications d'Alerte de la Stack Smartnode",
       updates: "Vérifier les Mises à Jour",
-      backups: "Sauvegarder Votre Nœud",
       masquerade: "Se Faire Passer pour une Autre Adresse de Nœud",
       historyExpiry: "Expiration de l'Historique Pré-Merge",
       pruning: "Élaguer le Client d'Exécution",
@@ -659,7 +654,6 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       grafana: "Das Grafana-Dashboard einrichten",
       alerting: "Smartnode-Stack-Benachrichtigungen",
       updates: "Nach Updates suchen",
-      backups: "Ihren Node sichern",
       masquerade: "Als andere Node-Adresse maskieren",
       historyExpiry: "Pre-Merge-Verlauf ablaufen lassen",
       pruning: "Den Execution-Client beschneiden",
@@ -778,7 +772,6 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       grafana: "Grafanaダッシュボードの設定",
       alerting: "Smartnodeスタックアラート通知",
       updates: "アップデートの確認",
-      backups: "ノードのバックアップ",
       masquerade: "別のノードアドレスとして偽装",
       historyExpiry: "マージ前履歴の期限切れ",
       pruning: "実行クライアントのプルーニング",
@@ -897,7 +890,6 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       grafana: "Grafana 대시보드 설정",
       alerting: "Smartnode 스택 알림",
       updates: "업데이트 확인",
-      backups: "노드 백업",
       masquerade: "다른 노드 주소로 위장",
       historyExpiry: "머지 이전 기록 만료",
       pruning: "실행 클라이언트 프루닝",
@@ -1016,7 +1008,6 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       grafana: "Configurando o Painel Grafana",
       alerting: "Notificações de Alerta da Stack Smartnode",
       updates: "Verificando Atualizações",
-      backups: "Fazendo Backup do Seu Nó",
       masquerade: "Mascarando como Outro Endereço de Nó",
       historyExpiry: "Expirando Histórico Pré-Merge",
       pruning: "Podando o Cliente de Execução",
@@ -1135,7 +1126,6 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       grafana: "Настройка панели Grafana",
       alerting: "Уведомления стека Smartnode",
       updates: "Проверка обновлений",
-      backups: "Резервное копирование ноды",
       masquerade: "Маскировка под другой адрес ноды",
       historyExpiry: "Истечение истории до слияния",
       pruning: "Обрезка клиента исполнения",
@@ -1254,7 +1244,6 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       grafana: "Configurazione della Dashboard Grafana",
       alerting: "Notifiche di Avviso dello Stack Smartnode",
       updates: "Verifica degli Aggiornamenti",
-      backups: "Backup del Tuo Nodo",
       masquerade: "Mascheramento come Altro Indirizzo di Nodo",
       historyExpiry: "Scadenza della Cronologia Pre-Merge",
       pruning: "Potatura del Client di Esecuzione",
@@ -1373,7 +1362,6 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       grafana: "Grafana Panelini Kurma",
       alerting: "Smartnode Stack Uyarı Bildirimleri",
       updates: "Güncellemeleri Kontrol Etme",
-      backups: "Düğümünüzü Yedekleme",
       masquerade: "Başka Düğüm Adresi Olarak Maskeleme",
       historyExpiry: "Merge Öncesi Geçmişi Sona Erdirme",
       pruning: "Execution Client Budama",
@@ -1649,7 +1637,6 @@ function nodeStaking(prefix: string, lang: string) {
             { text: t.grafana, link: `${prefix}/node-staking/grafana` },
             { text: t.alerting, link: `${prefix}/node-staking/maintenance/alerting` },
             { text: t.updates, link: `${prefix}/node-staking/updates` },
-            { text: t.backups, link: `${prefix}/node-staking/backups` },
             { text: t.masquerade, link: `${prefix}/node-staking/masquerade` },
             { text: t.historyExpiry, link: `${prefix}/node-staking/maintenance/history-expiry` },
             { text: t.pruning, link: `${prefix}/node-staking/pruning` },
