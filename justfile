@@ -16,7 +16,6 @@ ui-build:
     bun run build
 
 
-# Use prettier & biome to format the code
 ui-format:
     bun run format
 

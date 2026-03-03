@@ -1,0 +1,15 @@
+{
+  "printWidth": 200,
+  "tabWidth": 2,
+  "useTabs": false,
+  "semi": true,
+  "singleQuote": false,
+  "trailingComma": "es5",
+  "bracketSpacing": true,
+  "bracketSameLine": true,
+  "endOfLine": "lf",
+  "sortImports": {
+    "groups": [["value-builtin", "value-external"], { "newlinesBetween": true }, ["value-parent", "value-sibling", "value-index"], "unknown"],
+    "newlinesBetween": false
+  }
+}

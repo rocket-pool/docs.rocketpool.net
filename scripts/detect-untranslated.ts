@@ -6,7 +6,6 @@ import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DOCS_DIR = join(__dirname, "..", "docs");
-const SOURCE_LOCALE = "en";
 const TARGET_LOCALES = ["zh", "es", "fr", "de", "ja", "ko", "pt", "ru", "it", "tr"];
 
 const LOCALE_NAMES: Record<string, string> = {

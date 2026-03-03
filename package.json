@@ -2,42 +2,33 @@
   "name": "rocketpool-docs",
   "version": "0.9.0",
   "description": "Rocket Pool Documentation - Decentralised Ethereum Liquid Staking Protocol",
-  "main": "index.js",
-  "type": "module",
-  "authors": {
-    "name": "Rocket Pool Protocol",
-    "email": "contact@rocketpool.net"
-  },
   "repository": "https://github.com/rocket-pool/docs.rocketpool.net",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "rspress docs",
+    "build": "rspress build",
+    "lint": "oxlint .",
+    "format": "oxfmt --write ."
+  },
   "dependencies": {
     "@rspress/core": "^2.0.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.5",
     "@headlessui/react": "^2.2.9",
     "@types/node": "^25.3.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "prettier": "^3.8.1",
+    "oxfmt": "^0.36.0",
+    "oxlint": "^1.51.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "taze": "^19.9.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   },
-  "scripts": {
-    "dev": "rspress docs",
-    "build": "rspress build",
-    "format": "bunx @biomejs/biome check --fix --javascript-linter-enabled=false . && prettier -w -u . !package.json !pnpm-lock.yaml !bun.lockb"
-  },
-  "prettier": {
-    "semi": true,
-    "endOfLine": "lf",
-    "printWidth": 200,
-    "tabWidth": 2,
-    "trailingComma": "es5",
-    "bracketSpacing": true,
-    "bracketSameLine": true,
-    "singleQuote": false
+  "authors": {
+    "name": "Rocket Pool Protocol",
+    "email": "contact@rocketpool.net"
   }
 }
