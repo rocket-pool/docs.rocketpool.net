@@ -68,8 +68,9 @@ Obwohl die CLI viele der nächsten Schritte für dich automatisiert, empfehlen w
 
 Fehlgeschlagene Transaktionen (aufgrund angepasster Gas-Einstellungen, unzureichendem ETH für Gas oder einem offline befindlichen Node für 28 Tage nach dem ersten Deposit) könnten deinen Megapool-Validator in den `dissolved`-Zustand versetzen, den du vermeiden möchtest.
 
-Wenn ein Prelaunch-Validator nicht innerhalb von 28 Tagen stakt, wird der Validator aufgelöst. Der 1 ETH (von einem 4 ETH Bond), der während des Prelaunch-Prozesses an die Beacon Chain gesendet wurde, ist **nicht wiederherstellbar**.
-Der Node Operator erhält die verbleibenden 3 ETH aus seinem Bond als [Guthaben](/de/node-staking/megapools/credit) gutgeschrieben, mit einer Auflösungsstrafe von 0,05 ETH als Schuld. Das Nettoguthaben für einen aufgelösten Validator beträgt 2,95 ETH.
+Wenn ein Prelaunch-Validator nicht innerhalb von 365 Tagen stakt, wird der Validator aufgelöst. Der 1 ETH (von einem 4 ETH Bond), der während des Prelaunch-Prozesses an die Beacon Chain gesendet wurde, ist **nicht wiederherstellbar**.
+Der Node Operator erhält die verbleibenden 3 ETH aus seinem Bond (abzüglich einer Auflösungsstrafe von 0,05 ETH als Schuld) als Rückerstattung in seinem Megapool, für eine Nettorückerstattung von 2,95 ETH.
+Dies kann mit `rocketpool megapool claim` oder `rocketpool claims claim-all` beansprucht werden.
 
 [Erfahre mehr darüber, wie du einen erfolgreichen Stake bestätigst](./create-megapool-validator#einen-erfolgreichen-stake-bestätigen)
 
@@ -187,8 +188,9 @@ Obwohl die CLI viele der nächsten Schritte für dich automatisiert, empfehlen w
 
 Fehlgeschlagene Transaktionen (aufgrund angepasster Gas-Einstellungen, unzureichendem ETH für Gas oder einem offline befindlichen Node für 28 Tage nach dem ersten Deposit) könnten deinen Megapool-Validator in den `dissolved`-Zustand versetzen, den du vermeiden möchtest.
 
-Wenn ein Prelaunch-Validator nicht innerhalb von 28 Tagen stakt, wird der Validator aufgelöst. Der 1 ETH (von einem 4 ETH Bond), der während des Prelaunch-Prozesses an die Beacon Chain gesendet wurde, ist **nicht wiederherstellbar**.
-Der Node Operator erhält die verbleibenden 3 ETH aus seinem Bond als [Guthaben](/de/node-staking/megapools/credit) gutgeschrieben, mit einer Auflösungsstrafe von 0,05 ETH als Schuld. Das Nettoguthaben für einen aufgelösten Validator beträgt 2,95 ETH.
+Wenn ein Prelaunch-Validator nicht innerhalb von 365 Tagen stakt, wird der Validator aufgelöst. Der 1 ETH (von einem 4 ETH Bond), der während des Prelaunch-Prozesses an die Beacon Chain gesendet wurde, ist **nicht wiederherstellbar**.
+Der Node Operator erhält die verbleibenden 3 ETH aus seinem Bond (abzüglich einer Auflösungsstrafe von 0,05 ETH als Schuld) als Rückerstattung in seinem Megapool, für eine Nettorückerstattung von 2,95 ETH.
+Dies kann mit `rocketpool megapool claim` oder `rocketpool claims claim-all` beansprucht werden.
 
 :::
 

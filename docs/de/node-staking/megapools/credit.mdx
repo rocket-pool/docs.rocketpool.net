@@ -4,8 +4,8 @@ Das Deposit-Guthaben-System ist ein Mechanismus, um ETH zu verfolgen, das zuvor 
 Die Quellen dieses Guthabens kommen aus einigen Stellen:
 
 - [Einen Validator aus der Rocket Pool Deposit-Warteschlange entfernen](./create-megapool-validator#einen-validator-aus-der-rocket-pool-deposit-warteschlange-entfernen). Das Entfernen eines Validators aus der Warteschlange schreibt dem Node Operator den gebondeten Betrag (4 ETH) gut.
-- Wenn ein Prelaunch-Validator nicht innerhalb von 28 Tagen stakt, wird der Validator aufgelöst. Der 1 ETH (von einem 4 ETH Bond), der während des Prelaunch-Prozesses an die Beacon Chain gesendet wurde, ist **nicht wiederherstellbar**.
-  Dem Node Operator werden die verbleibenden 3 ETH aus seinem Bond gutgeschrieben, mit einer Auflösungsstrafe von 0,05 ETH als Schuld. Das Nettoguthaben für einen aufgelösten Validator beträgt 2,95 ETH.
+- **Reduzierung deines Bond-Betrags**. Wenn dein aktueller Bond die Mindestanforderung des Protokolls übersteigt, kannst du deinen überschüssigen Bond reduzieren und ihn als Deposit-Guthaben erhalten. Beachte, dass die ersten zwei Validatoren immer 4 ETH Bonds erfordern
+(unabhängig von pDAO-Einstellungen). Bond-Reduzierung ist hauptsächlich für Node Operatoren mit 3+ Validatoren vorteilhaft, wenn die pDAO den `reduced_bond`-Parameter senkt. Verwende `rocketpool megapool reduce-bond`, um eine Bond-Reduzierung durchzuführen.
 
 Die nächsten zwei sind nur für Node Operatoren, die Migrationen vor Saturn durchgeführt haben. Sie sind nicht mehr möglich:
 

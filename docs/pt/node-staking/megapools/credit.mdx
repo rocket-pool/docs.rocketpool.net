@@ -4,8 +4,8 @@ O sistema de crédito de depósito é um mecanismo para rastrear ETH que foi ant
 A origem deste crédito vem de alguns lugares:
 
 - [Remover um validador da fila de depósitos do Rocket Pool](./create-megapool-validator#exit-a-validator-from-the-rocket-pool-deposit-queue). Remover um validador da fila creditará o operador do nó com o valor do bond (4 ETH)
-- Se um validador em prelaunch não conseguir fazer stake dentro de 28 dias, o validador será dissolvido. O 1 ETH (de um bond de 4 ETH) enviado à Beacon Chain durante o processo de prelaunch **não é recuperável**.
-  O operador do nó recebe crédito pelos 3 ETH restantes do seu bond com uma penalidade de dissolução de 0,05 ETH aplicada como débito. O crédito líquido para um validador dissolvido é de 2,95 ETH.
+- **Redução do valor do seu bond**. Se o seu bond atual exceder o requisito mínimo do protocolo, você pode reduzir o bond excedente e recebê-lo como crédito de depósito. Note que os dois primeiros validadores sempre requerem bonds de 4 ETH cada
+(independentemente das configurações do pDAO). A redução de bond beneficia principalmente operadores de nó com 3+ validadores quando o pDAO reduz o parâmetro `reduced_bond`. Use `rocketpool megapool reduce-bond` para realizar uma redução de bond.
 
 Os próximos dois são apenas para operadores de nó que fizeram migrações pré-saturn. Eles não são mais possíveis:
 

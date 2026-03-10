@@ -62,8 +62,9 @@ CLIは多くの次のステップを自動化しますが、`prelaunch`から`st
 
 失敗したトランザクション（ガス設定の調整、ガスのためのETH不足、または初回デポジットから28日後にノードがオフラインになることによる）は、あなたのmegapoolバリデーターを`dissolved`状態に移行させる可能性があり、それを避けるべきです。
 
-prelaunchバリデーターが28日以内にステークに失敗した場合、バリデーターはdissolvedになります。prelunchプロセス中にBeacon Chainに送信された1 ETH（4 ETHボンドのうち）は**回収できません**。
-ノードオペレーターには、0.05 ETHのdissolveペナルティが負債として適用され、残りの3 ETHのボンドが[クレジット](/ja/node-staking/megapools/credit)として付与されます。dissolvedバリデーターの正味クレジットは2.95 ETHです。
+prelaunchバリデーターが365日以内にステークに失敗した場合、バリデーターはdissolvedになります。prelaunchプロセス中にBeacon Chainに送信された1 ETH（4 ETHボンドのうち）は**回収できません**。
+ノードオペレーターは、ボンドの残り3 ETH（0.05 ETHのdissolveペナルティが負債として差し引かれた額）をメガプールへの返金として受け取ります。純返金額は2.95 ETHです。
+これは `rocketpool megapool claim` または `rocketpool claims claim-all` を使用して請求できます。
 
 [ステークの成功を確認する方法の詳細](./create-megapool-validator#confirming-a-successful-stake)
 
@@ -171,8 +172,9 @@ CLIは多くの次のステップを自動化しますが、`prelaunch`から`st
 
 失敗したトランザクション（ガス設定の調整、ガスのためのETH不足、または初回デポジットから28日後にノードがオフラインになることによる）は、あなたのmegapoolバリデーターを`dissolved`状態に移行させる可能性があり、それを避けるべきです。
 
-prelaunchバリデーターが28日以内にステークに失敗した場合、バリデーターはdissolvedになります。prelunchプロセス中にBeacon Chainに送信された1 ETH（4 ETHボンドのうち）は**回収できません**。
-ノードオペレーターには、0.05 ETHのdissolveペナルティが負債として適用され、残りの3 ETHのボンドが[クレジット](/ja/node-staking/megapools/credit)として付与されます。dissolvedバリデーターの正味クレジットは2.95 ETHです。
+prelaunchバリデーターが365日以内にステークに失敗した場合、バリデーターはdissolvedになります。prelaunchプロセス中にBeacon Chainに送信された1 ETH（4 ETHボンドのうち）は**回収できません**。
+ノードオペレーターは、ボンドの残り3 ETH（0.05 ETHのdissolveペナルティが負債として差し引かれた額）をメガプールへの返金として受け取ります。純返金額は2.95 ETHです。
+これは `rocketpool megapool claim` または `rocketpool claims claim-all` を使用して請求できます。
 
 :::
 

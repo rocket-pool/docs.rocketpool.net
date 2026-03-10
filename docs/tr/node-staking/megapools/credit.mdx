@@ -4,8 +4,8 @@ Deposit kredi sistemi, daha önce düğüm operatörleri tarafından bond'lanan 
 Bu kredinin kaynağı birkaç yerden gelir:
 
 - [Rocket Pool deposit kuyruğundan doğrulayıcı çıkarma](./create-megapool-validator#exit-a-validator-from-the-rocket-pool-deposit-queue). Bir doğrulayıcıyı sıradan çıkarmak, düğüm operatörüne bonded miktarı (4 ETH) kredi olarak verecektir.
-- Bir prelaunch doğrulayıcısı 28 gün içinde stake yapamazsa, doğrulayıcı çözülür. Prelaunch süreci sırasında Beacon Chain'e gönderilen 1 ETH (4 ETH bond'dan), **geri alınamaz**.
-  Düğüm operatörüne, 0,05 ETH çözülme cezası borç olarak uygulanarak kalan 3 ETH bond için kredi verilir. Çözülmüş bir doğrulayıcı için net kredi 2,95 ETH'dir.
+- **Bond miktarınızı azaltma**. Mevcut bond'unuz protokolün minimum gereksinimini aşıyorsa, fazla bond'unuzu azaltabilir ve deposit kredisi olarak alabilirsiniz. İlk iki doğrulayıcının her zaman 4 ETH bond gerektirdiğini unutmayın
+(pDAO ayarlarından bağımsız olarak). Bond azaltma, pDAO `reduced_bond` parametresini düşürdüğünde öncelikle 3+ doğrulayıcıya sahip düğüm operatörlerine fayda sağlar. Bond azaltma gerçekleştirmek için `rocketpool megapool reduce-bond` kullanın.
 
 Sonraki ikisi yalnızca saturn öncesi geçiş yapan düğüm operatörleri içindir. Artık mümkün değildir:
 

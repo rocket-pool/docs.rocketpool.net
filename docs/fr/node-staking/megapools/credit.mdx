@@ -4,8 +4,8 @@ Le système de crédit de dépôt est un mécanisme permettant de suivre l'ETH p
 Ce crédit provient de plusieurs sources :
 
 - [Sortir un validateur de la file d'attente de dépôt Rocket Pool](/fr/node-staking/megapools/create-megapool-validator#sortir-un-validateur-de-la-file-dattente-de-dépôt-rocket-pool). Retirer un validateur de la file créditera l'opérateur de nœud du montant bondé (4 ETH)
-- Si un validateur en prelaunch ne parvient pas à staker dans les 28 jours, le validateur sera dissous. Le 1 ETH (sur un bond de 4 ETH) envoyé à la Beacon Chain pendant le processus de prelaunch n'est **pas récupérable**.
-  L'opérateur de nœud reçoit un crédit pour les 3 ETH restants de son bond, avec une pénalité de dissolution de 0,05 ETH appliquée en dette. Le crédit net pour un validateur dissous est de 2,95 ETH.
+- **Réduction de votre montant de bond**. Si votre bond actuel dépasse l'exigence minimale du protocole, vous pouvez réduire votre bond excédentaire et le recevoir sous forme de crédit de dépôt. Notez que les deux premiers validateurs nécessitent toujours des bonds de 4 ETH chacun
+(indépendamment des paramètres pDAO). La réduction de bond bénéficie principalement aux opérateurs de nœuds avec 3+ validateurs lorsque la pDAO abaisse le paramètre `reduced_bond`. Utilisez `rocketpool megapool reduce-bond` pour effectuer une réduction de bond.
 
 Les deux suivants concernent uniquement les opérateurs de nœuds ayant effectué des migrations avant Saturn. Ils ne sont plus possibles :
 

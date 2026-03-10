@@ -62,8 +62,9 @@ rocketpool megapool deposit
 
 失败的交易（由于调整的 gas 设置、ETH gas 不足，或节点在初始存款后 28 天内离线）可能会使您的 megapool 验证者过渡到 `dissolved` 状态，这是您希望避免的。
 
-如果预启动验证者在 28 天内未能质押，该验证者将被解散。在预启动过程中发送到信标链的 1 ETH（4 ETH 质押金的一部分）**无法恢复**。
-节点运营者将获得[信用额度](/zh/node-staking/megapools/credit)，退还其质押中剩余的 3 ETH，并扣除 0.05 ETH 的解散罚款作为债务。解散验证者的净信用额度为 2.95 ETH。
+如果预启动验证者在 365 天内未能质押，该验证者将被解散。在预启动过程中发送到信标链的 1 ETH（4 ETH 质押金的一部分）**无法恢复**。
+节点运营者将收到其质押金中剩余的 3 ETH（扣除 0.05 ETH 的解散罚款作为债务）作为退款至其 megapool，净退款为 2.95 ETH。
+可以使用 `rocketpool megapool claim` 或 `rocketpool claims claim-all` 来领取。
 
 [了解如何确认质押成功](/zh/node-staking/megapools/create-megapool-validator#confirming-a-successful-stake)
 
@@ -171,8 +172,9 @@ To monitor the stake transactions use `rocketpool service logs node`
 
 失败的交易（由于调整的 gas 设置、ETH gas 不足，或节点在初始存款后 28 天内离线）可能会使您的 megapool 验证者过渡到 `dissolved` 状态，这是您希望避免的。
 
-如果预启动验证者在 28 天内未能质押，该验证者将被解散。在预启动过程中发送到信标链的 1 ETH（4 ETH 质押金的一部分）**无法恢复**。
-节点运营者将获得[信用额度](/zh/node-staking/megapools/credit)，退还其质押中剩余的 3 ETH，并扣除 0.05 ETH 的解散罚款作为债务。解散验证者的净信用额度为 2.95 ETH。
+如果预启动验证者在 365 天内未能质押，该验证者将被解散。在预启动过程中发送到信标链的 1 ETH（4 ETH 质押金的一部分）**无法恢复**。
+节点运营者将收到其质押金中剩余的 3 ETH（扣除 0.05 ETH 的解散罚款作为债务）作为退款至其 megapool，净退款为 2.95 ETH。
+可以使用 `rocketpool megapool claim` 或 `rocketpool claims claim-all` 来领取。
 
 :::
 

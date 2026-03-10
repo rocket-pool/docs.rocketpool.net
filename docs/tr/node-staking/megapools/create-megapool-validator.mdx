@@ -67,8 +67,9 @@ CLI, sonraki adımların çoğunu sizin için otomatikleştirse de, `prelaunch` 
 
 Başarısız işlemler (ayarlanmış gaz ayarları, gaz için yetersiz ETH veya düğümün ilk yatırımdan sonra 28 gün boyunca çevrimdışı olması nedeniyle), megapool doğrulayıcınızın `dissolved` durumuna geçmesine neden olabilir ve bu durumdan kaçınmak istersiniz.
 
-Bir prelaunch doğrulayıcısı 28 gün içinde stake yapamazsa, doğrulayıcı çözülür. Prelaunch süreci sırasında Beacon Chain'e gönderilen 1 ETH (4 ETH bond'dan), **geri alınamaz**.
-Düğüm operatörüne, 0,05 ETH çözülme cezası borç olarak uygulanarak kalan 3 ETH bond için [kredi](/tr/node-staking/megapools/credit) verilir. Çözülmüş bir doğrulayıcı için net kredi 2,95 ETH'dir.
+Bir prelaunch doğrulayıcısı 365 gün içinde stake yapamazsa, doğrulayıcı çözülür. Prelaunch süreci sırasında Beacon Chain'e gönderilen 1 ETH (4 ETH bond'dan), **geri alınamaz**.
+Düğüm operatörü, bond'undan kalan 3 ETH'yi (0,05 ETH çözülme cezası borç olarak düşülerek) megapool'unda geri ödeme olarak alır ve net geri ödeme 2,95 ETH'dir.
+Bu, `rocketpool megapool claim` veya `rocketpool claims claim-all` kullanılarak talep edilebilir.
 
 [Başarılı bir stake'i nasıl onaylayacağınız hakkında daha fazla bilgi edinin](./create-megapool-validator#confirming-a-successful-stake)
 
@@ -178,8 +179,9 @@ CLI, sonraki adımların çoğunu sizin için otomatikleştirse de, `prelaunch` 
 
 Başarısız işlemler (ayarlanmış gaz ayarları, gaz için yetersiz ETH veya düğümün ilk yatırımdan sonra 28 gün boyunca çevrimdışı olması nedeniyle), megapool doğrulayıcınızın `dissolved` durumuna geçmesine neden olabilir ve bu durumdan kaçınmak istersiniz.
 
-Bir prelaunch doğrulayıcısı 28 gün içinde stake yapamazsa, doğrulayıcı çözülür. Prelaunch süreci sırasında Beacon Chain'e gönderilen 1 ETH (4 ETH bond'dan), **geri alınamaz**.
-Düğüm operatörüne, 0,05 ETH çözülme cezası borç olarak uygulanarak kalan 3 ETH bond için [kredi](/tr/node-staking/megapools/credit) verilir. Çözülmüş bir doğrulayıcı için net kredi 2,95 ETH'dir.
+Bir prelaunch doğrulayıcısı 365 gün içinde stake yapamazsa, doğrulayıcı çözülür. Prelaunch süreci sırasında Beacon Chain'e gönderilen 1 ETH (4 ETH bond'dan), **geri alınamaz**.
+Düğüm operatörü, bond'undan kalan 3 ETH'yi (0,05 ETH çözülme cezası borç olarak düşülerek) megapool'unda geri ödeme olarak alır ve net geri ödeme 2,95 ETH'dir.
+Bu, `rocketpool megapool claim` veya `rocketpool claims claim-all` kullanılarak talep edilebilir.
 
 :::
 

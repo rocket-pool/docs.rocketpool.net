@@ -4,8 +4,8 @@ Il sistema di credito di deposito è un meccanismo per tracciare l'ETH precedent
 Le fonti di questo credito provengono da alcuni luoghi:
 
 - [Uscire un validator dalla coda di deposito di Rocket Pool](./create-megapool-validator#uscire-un-validator-dalla-coda-di-deposito-di-rocket-pool). La rimozione di un validator dalla coda accrediterà al node operator l'importo vincolato (4 ETH)
-- Se un validator in prelaunch non riesce a fare lo stake entro 28 giorni, il validator verrà dissolto. 1 ETH (di un bond da 4 ETH) inviato alla Beacon Chain durante il processo di prelaunch **non è recuperabile**.
-  Al node operator viene accreditato il restante 3 ETH dal suo bond con una penale di dissoluzione di 0.05 ETH applicata come debito. Il credito netto per un validator dissolto è di 2.95 ETH.
+- **Riduzione dell'importo del bond**. Se il tuo bond attuale supera il requisito minimo del protocollo, puoi ridurre il bond in eccesso e riceverlo come credito di deposito. Nota che i primi due validator richiedono sempre bond da 4 ETH ciascuno
+(indipendentemente dalle impostazioni pDAO). La riduzione del bond è principalmente vantaggiosa per i node operator con 3+ validator quando la pDAO abbassa il parametro `reduced_bond`. Usa `rocketpool megapool reduce-bond` per eseguire una riduzione del bond.
 
 I prossimi due si applicano solo ai node operator che hanno effettuato migrazioni pre-saturn. Non sono più possibili:
 

@@ -68,8 +68,9 @@ Embora o CLI automatize muitas das próximas etapas para você, <strong>recomend
 
 Transações com falha (devido a configurações de gas ajustadas, ETH insuficiente para gas ou o nó estar offline por 28 dias após o depósito inicial) podem fazer com que seu validador de megapool transite para o estado `dissolved`, o que você quer evitar.
 
-Se um validador em prelaunch não conseguir fazer stake dentro de 28 dias, o validador será dissolvido. O 1 ETH (de um bond de 4 ETH) enviado à Beacon Chain durante o processo de prelaunch **não é recuperável**.
-O operador do nó recebe [crédito](/pt/node-staking/megapools/credit) pelos 3 ETH restantes do seu bond com uma penalidade de dissolução de 0,05 ETH aplicada como débito. O crédito líquido para um validador dissolvido é de 2,95 ETH.
+Se um validador em prelaunch não conseguir fazer stake dentro de 365 dias, o validador será dissolvido. O 1 ETH (de um bond de 4 ETH) enviado à Beacon Chain durante o processo de prelaunch **não é recuperável**.
+O operador do nó recebe os 3 ETH restantes do seu bond (menos uma penalidade de dissolução de 0,05 ETH aplicada como débito) como reembolso no seu megapool, para um reembolso líquido de 2,95 ETH.
+Isso pode ser reivindicado usando `rocketpool megapool claim` ou `rocketpool claims claim-all`.
 
 [Saiba mais sobre como confirmar um stake bem-sucedido](./create-megapool-validator#confirming-a-successful-stake)
 
@@ -187,8 +188,9 @@ Embora o CLI automatize muitas das próximas etapas para você, <strong>recomend
 
 Transações com falha (devido a configurações de gas ajustadas, ETH insuficiente para gas ou o nó estar offline por 28 dias após o depósito inicial) podem fazer com que seu validador de megapool transite para o estado `dissolved`, o que você quer evitar.
 
-Se um validador em prelaunch não conseguir fazer stake dentro de 28 dias, o validador será dissolvido. O 1 ETH (de um bond de 4 ETH) enviado à Beacon Chain durante o processo de prelaunch **não é recuperável**.
-O operador do nó recebe [crédito](/pt/node-staking/megapools/credit) pelos 3 ETH restantes do seu bond com uma penalidade de dissolução de 0,05 ETH aplicada como débito. O crédito líquido para um validador dissolvido é de 2,95 ETH.
+Se um validador em prelaunch não conseguir fazer stake dentro de 365 dias, o validador será dissolvido. O 1 ETH (de um bond de 4 ETH) enviado à Beacon Chain durante o processo de prelaunch **não é recuperável**.
+O operador do nó recebe os 3 ETH restantes do seu bond (menos uma penalidade de dissolução de 0,05 ETH aplicada como débito) como reembolso no seu megapool, para um reembolso líquido de 2,95 ETH.
+Isso pode ser reivindicado usando `rocketpool megapool claim` ou `rocketpool claims claim-all`.
 
 :::
 
