@@ -16,7 +16,10 @@ Rocket Pool'un staking arayüzü artık ETH ve rETH arasında dönüşüm için 
 
 Arayüz, mevcut piyasa koşullarına ve likidite durumuna göre en iyi rotayı otomatik olarak önerir.
 
-<video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/stake_options.mp4" />
+<video
+  controls="controls"
+  src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/stake_options.mp4"
+/>
 
 ## Rota Seçenekleri Açıklaması
 
@@ -41,6 +44,11 @@ Arayüz, mevcut piyasa koşullarına ve likidite durumuna göre en iyi rotayı o
 - Küçük miktarlar için gaz ücretleri pahalı olabilir
 
 ### CoW Swap Route (Sadece Mainnet)
+
+::: danger UYARI
+CoW Swap rotası Rocket Pool protokolünün bir parçası değildir. Teklifler ve çözücüler, Rocket Pool protokolünün kontrolü veya görünürlüğü dışında olan **üçüncü taraf** sistemler tarafından belirlenir. Kullanıcılar, CoW Swap kullanmanın kendilerini kayma, fiyat etkisi, fonları yanlış yönlendiren çözücüler vb. ek risklere maruz bırakabileceğini unutmamalıdır. Ayrıntılı kontrol için
+CoW Swap'ı doğrudan kullanmanızı şiddetle tavsiye ederiz.
+:::
 
 **Nasıl çalışır:** Birden fazla DEX'te en iyi fiyatı bulmak için CoW Protocol'ün toplu müzayede sistemini kullanır.
 
@@ -506,13 +514,13 @@ rETH maliyet temeliniz: 2.000$
 - İşlem hash'i
 - Ödenen gaz ücretleri
 
-2. **Tutarken:**
+1. **Tutarken:**
 
 - rETH/ETH döviz kurunun periyodik anlık görüntüleri
 - Zaman içinde rETH bakiyeniz
 - Önemli tarihlerdeki piyasa değerleri (yıl sonu, vb.)
 
-3. **Her Unstake İçin:**
+1. **Her Unstake İçin:**
 
 - İşlem tarihi ve saati
 - Unstake edilen rETH miktarı

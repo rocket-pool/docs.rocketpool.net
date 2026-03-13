@@ -16,7 +16,10 @@ A interface de staking do Rocket Pool agora oferece duas rotas distintas para co
 
 A interface recomenda automaticamente a melhor rota com base nas condições atuais do mercado e disponibilidade de liquidez.
 
-<video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/stake_options.mp4" />
+<video
+  controls="controls"
+  src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/stake_options.mp4"
+/>
 
 ## Opções de Roteamento Explicadas
 
@@ -41,6 +44,11 @@ A interface recomenda automaticamente a melhor rota com base nas condições atu
 - Taxas de gas podem ser caras para pequenas quantias
 
 ### Rota CoW Swap (Somente Mainnet)
+
+::: danger AVISO
+A rota CoW Swap não faz parte do protocolo Rocket Pool. Cotações e solvers são determinados por sistemas de **terceiros** que estão fora do controle ou visibilidade do protocolo Rocket Pool. Os usuários devem observar que o uso do CoW Swap pode expô-los a riscos adicionais, como slippage, impacto no preço, solvers que roteiam fundos incorretamente, etc. Para um controle detalhado,
+recomendamos fortemente que você use o CoW Swap diretamente.
+:::
 
 **Como funciona:** Usa o sistema de leilão em lote do Protocolo CoW para encontrar o melhor preço em múltiplas DEXs.
 
@@ -506,13 +514,13 @@ Sua base de custo de rETH: $2.000
 - Hash da transação
 - Taxas de gas pagas
 
-2. **Enquanto Mantém:**
+1. **Enquanto Mantém:**
 
 - Snapshots periódicos da taxa de câmbio rETH/ETH
 - Seu saldo de rETH ao longo do tempo
 - Valores de mercado em datas chave (fim de ano, etc.)
 
-3. **Para Cada Unstake:**
+1. **Para Cada Unstake:**
 
 - Data e hora da transação
 - Quantia de rETH em unstake

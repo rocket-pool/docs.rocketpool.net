@@ -16,7 +16,10 @@ La interfaz de staking de Rocket Pool ahora ofrece dos rutas distintas para conv
 
 La interfaz recomienda automáticamente la mejor ruta según las condiciones actuales del mercado y la disponibilidad de liquidez.
 
-<video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/stake_options.mp4" />
+<video
+  controls="controls"
+  src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/stake_options.mp4"
+/>
 
 ## Opciones de Enrutamiento Explicadas
 
@@ -41,6 +44,11 @@ La interfaz recomienda automáticamente la mejor ruta según las condiciones act
 - Las tarifas de gas podrían ser caras para cantidades pequeñas
 
 ### Ruta CoW Swap (solo Mainnet)
+
+::: danger ADVERTENCIA
+La ruta de CoW Swap no es parte del protocolo de Rocket Pool. Las cotizaciones y los solvers son determinados por sistemas de **terceros** que están fuera del control o la visibilidad del protocolo de Rocket Pool. Los usuarios deben tener en cuenta que el uso de CoW Swap puede exponerlos a riesgos adicionales como slippage, impacto en el precio, solvers que enrutan fondos incorrectamente, etc. Para un control detallado,
+recomendamos encarecidamente que utilice CoW Swap directamente.
+:::
 
 **Cómo funciona:** Usa el sistema de subasta por lotes del Protocolo CoW para encontrar el mejor precio en múltiples DEXs.
 
@@ -506,13 +514,13 @@ Tu base de costo de rETH: $2,000
 - Hash de la transacción
 - Tarifas de gas pagadas
 
-2. **Mientras Mantienes:**
+1. **Mientras Mantienes:**
 
 - Instantáneas periódicas de la tasa de cambio rETH/ETH
 - Tu saldo de rETH a lo largo del tiempo
 - Valores de mercado en fechas clave (fin de año, etc.)
 
-3. **Para Cada Retiro del Stake:**
+1. **Para Cada Retiro del Stake:**
 
 - Fecha y hora de la transacción
 - Cantidad de rETH retirada del stake

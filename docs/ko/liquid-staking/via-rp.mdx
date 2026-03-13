@@ -16,7 +16,10 @@ Rocket Pool의 스테이킹 인터페이스는 이제 ETH와 rETH 간 변환을 
 
 인터페이스는 현재 시장 상황과 유동성 가용성을 기반으로 최상의 경로를 자동으로 권장합니다.
 
-<video controls="controls" src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/stake_options.mp4" />
+<video
+  controls="controls"
+  src="https://cdn-rocketpool.s3.us-west-2.amazonaws.com/stake_options.mp4"
+/>
 
 ## 라우팅 옵션 설명
 
@@ -41,6 +44,11 @@ Rocket Pool의 스테이킹 인터페이스는 이제 ETH와 rETH 간 변환을 
 - 소액의 경우 가스 수수료가 비쌀 수 있음
 
 ### CoW Swap 경로 (메인넷 전용)
+
+::: danger 경고
+CoW Swap 경로는 Rocket Pool 프로토콜의 일부가 아닙니다. 견적 및 솔버는 Rocket Pool 프로토콜의 통제 또는 가시성 범위 밖에 있는 **제3자** 시스템에 의해 결정됩니다. 사용자는 CoW Swap 사용이 슬리피지, 가격 영향, 자금을 잘못 라우팅하는 솔버 등의 추가 위험에 노출될 수 있음을 유의해야 합니다. 세밀한 제어를 위해
+CoW Swap을 직접 사용하는 것을 강력히 권장합니다.
+:::
 
 **작동 방식:** CoW 프로토콜의 배치 경매 시스템을 사용하여 여러 DEX에서 최상의 가격을 찾습니다.
 
@@ -506,13 +514,13 @@ rETH 취득 원가: $2,000
 - 거래 해시
 - 지불한 가스 수수료
 
-2. **보유하는 동안:**
+1. **보유하는 동안:**
 
 - rETH/ETH 환율의 주기적 스냅샷
 - 시간 경과에 따른 rETH 잔액
 - 주요 날짜의 시장 가치 (연말 등)
 
-3. **각 언스테이킹에 대해:**
+1. **각 언스테이킹에 대해:**
 
 - 거래 날짜 및 시간
 - 언스테이킹된 rETH 금액
