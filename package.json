@@ -19,13 +19,13 @@
     "@types/node": "^25.5.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "oxfmt": "^0.41.0",
-    "oxlint": "^1.56.0",
+    "oxfmt": "^0.42.0",
+    "oxlint": "^1.57.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "taze": "^19.10.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.2"
   },
   "authors": {
     "name": "Rocket Pool Protocol",
