@@ -12,7 +12,7 @@
     "format": "oxfmt --write ."
   },
   "dependencies": {
-    "@rspress/core": "^2.0.9"
+    "@rspress/core": "^2.0.10"
   },
   "devDependencies": {
     "@headlessui/react": "^2.2.10",
