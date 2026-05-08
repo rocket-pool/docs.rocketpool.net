@@ -131,11 +131,60 @@ The output of this command will print your architecture.
 **Note that `aarch64` is the same as `arm64`.**
 :::
 
-The steps to upgrade depend on which mode your node uses. Select from the options below:
+The steps to upgrade depend on which mode your node uses. The best way to update the Smart Node is by using
+the CLI's built-in update command. Select from the options below:
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Linux (Docker or Hybrid Mode)">
+    <Tab label="CLI Update Command (Docker Mode - Linux/macOS)">
+
+      To update the Smart Node using the built-in update command, run: 
+
+      ```shell
+      rocketpool update
+      ```
+      This command will:
+      1. Download and verify the latest CLI binary
+      2. Optionally stop, upgrade, and restart the service automatically
+
+      Follow the interactive prompts to complete the update.
+      ```
+      Your detected os/architecture is linux/amd64.
+
+      The cli at ~/bin/rocketpool will be replaced. Continue? [y/n]
+      y
+      ```
+
+      Afterwards, the Smart Node will download and verify the latest CLI binary:
+
+      ```
+      Replacing the cli at ~/bin/rocketpool with the latest version...
+      Downloading the new binary from https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-amd64
+
+      Verifying the binary signature
+      Downloading the signature from https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-amd64.sig
+      Signed by 651023D62E70B5DD
+        Fornax <dante@rocketpool.net>
+      Updating from 1.20.0 to 1.20.2
+
+      The cli has been updated.
+
+      Would you like to automatically stop, upgrade, and restart the service to complete the update? [y/n]
+      y
+      ```
+      At this point, you can select `y` on all the interactive prompts to let the Smart Node 
+      guide you through the rest of the steps. 
+      When finished, you'll see a message confirming the upgrade was successful:
+      ```
+      The upgrade to Smart Node 1.20.2 has been completed.
+      Please monitor your validators for a few minutes for issues.
+      ```
+
+      
+
+
+    </Tab>
+    <Tab label="Manual Update - Linux (Docker or Hybrid Mode)">
       Stop the Rocket Pool services:
 
       ```shell
@@ -197,7 +246,7 @@ The steps to upgrade depend on which mode your node uses. Select from the option
 
       Both the client and service should match the new release version.
     </Tab>
-    <Tab label="Linux (Native Mode)">
+    <Tab label="Manual Update - Linux (Native Mode)">
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOTE</p>
         This will only update the Smartnode stack itself - it **will not** update your Execution or Consensus clients.
@@ -265,7 +314,7 @@ The steps to upgrade depend on which mode your node uses. Select from the option
 
       Both the client and service should match the new release version.
     </Tab>
-    <Tab label="macOS (Docker or Hybrid Mode)">
+    <Tab label="Manual Update - macOS (Docker or Hybrid Mode)">
       Stop the Rocket Pool services:
 
       ```shell
