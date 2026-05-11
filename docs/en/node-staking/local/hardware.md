@@ -100,9 +100,9 @@ We **do not recommend DRAM-less drives**.
 :::
 
 The final consideration is drive size.
-As of 10/2024, the `geth` execution client database size requires about 1.2TB of space after it finishes its initial sync (or after you just finished pruning it).
+As of 4/2026, the `geth` execution client database size requires about 1.2TB of space after it finishes its initial sync (or after you just finished pruning it).
 This will grow steadily over time, and while pruning can regain some of that space, the freshly pruned state _does_ grow over time.
-You will have peace of mind with a larger drive.
+You will have peace of mind with a larger drive. The size of this database can be reduced if you [decide to not to store history before the merge](/node-staking/maintenance/history-expiry#expiring-pre-merge-history). 
 
 ### Common Accessories
 
