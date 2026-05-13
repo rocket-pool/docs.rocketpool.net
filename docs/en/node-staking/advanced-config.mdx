@@ -1,6 +1,7 @@
 import tui_ec_expose_ports from "./images/tui-ec-expose-ports.png";
 import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
+import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
 
 # Advanced Smartnode Configuration for Docker Mode
 
@@ -113,3 +114,128 @@ volumes:
 This will merge the parameters into the `eth1clientdata` volume specification, causing `/data/eth/eth1` to be the location of the eth1 client data rather than the default (`/var/lib/docker/volumes/rocketpool_eth1clientdata` if using default Docker configuration).
 
 For more information on how `docker-compose` overrides work, please visit [https://docs.docker.com/compose/extends/#adding-and-overriding-configuration](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration).
+
+## (Experimental) Enabling Dual-Stack (IPv4 + IPv6) networking
+
+This option is for users running Docker mode configurations with locally managed clients.
+Starting with Smart node v1.20.2, Rocket Pool supports dual-stack (IPv4 + IPv6) networking for your Ethereum clients. 
+
+When enabled, your consensus client can connect to both IPv4 and IPv6 peers, potentially improving peer discovery.
+This feature is also useful if your network is behind a CGNAT and struggles to peer using IPv4.
+
+
+::: tip TIP
+The following site gives a rundown on the status of Ethereum IPv6 Support. 
+
+[ipv6eth.info](https://ipv6eth.info/)
+:::
+
+::: warning EXPERIMENTAL FEATURE
+IPv6 support is currently experimental. While it has been tested with all supported consensus clients, you may encounter issues depending on your network configuration. 
+If you experience problems, you can disable IPv6 and restart your clients to return to IPv4-only mode. If you encounter any issues with IPv6 support, 
+please report them in the **#support** channel on the [Rocket Pool Discord](https://discord.gg/rocketpool).
+
+:::
+
+When you enable IPv6 support:
+
+- Your Docker network will be configured for dual-stack (IPv4 + IPv6)
+- Your consensus client will listen on both IPv4 and IPv6 addresses
+- Your node will be able to discover and connect to IPv6 peers in addition to IPv4 peers
+- Your node will advertise its IPv6 address in its ENR (Ethereum Node Record), making it discoverable by other IPv6 nodes
+
+### Client-Specific Behavior
+
+Different consensus clients handle IPv6 with varying levels of support:
+
+| Client | IPv6 Listening | IPv6 Broadcasting (ENR) | Peering Behavior | Notes |
+|--------|----------------|------------------------|------------------|-------|
+| **Teku** | Full | Full | Prioritizes IPv6 | Prefers IPv6 connections when available. Uses a separate IPv6 port (default: 9090). |
+| **Lighthouse** | Full | Full | No preference | Connects to whichever address (IPv4 or IPv6) responds first. Typically sees ~1-2% IPv6 peers. |
+| **Lodestar** | Full | Full | Prioritizes IPv4 | Listens and broadcasts on both IPv4 and IPv6, but only peers via IPv6 if the other node has IPv4 disabled. |
+| **Nimbus** | Full | IPv4 only* | Primarily IPv4 | Can accept inbound IPv6 connections, but broadcasts only IPv4 in ENR. |
+| **Prysm** | Full | IPv4 only* | Primarily IPv4 | Can accept inbound IPv6 connections, but broadcasts only IPv4 in ENR. |
+
+\* By default, broadcasts IPv4 address. On IPv6-only hosts, will broadcast IPv6 instead.
+
+
+### Prerequisites
+
+Before enabling IPv6, ensure that:
+
+1. Your ISP/host provides IPv6 connectivity - Test this with [ipv6test.google.com/](https://ipv6test.google.com/)
+or by running this command in your CLI: `curl -6 https://icanhazip.com`. If the command returns an IPv6 address in this format: `xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx`, you are good to go.
+2. Your firewall allows IPv6 traffic on the consensus client P2P port. The default P2P port is `9001`. Teku requires an additional dedicated
+port for IPv6. The default Teku P2P IPv6 port is `9090`. 
+3. You're using locally managed clients in Docker mode (not externally managed clients)
+
+### How to Enable IPv6
+
+
+To enable IPv6, go to the Smart Node and TX Fees category
+and check the **Enable IPv6** box then save and restart the Smart Node stack.
+<img src={tui_enable_ipv6} width="100%" height="auto" />
+
+::: warning NOTE
+If you enable IPv6 but don't have a public IPv6 address, the Smart node will display a warning during startup:
+```
+Warning: IPv6 is enabled but no public IPv6 address was detected.
+Your node will not be reachable by IPv6 peers.
+```
+Your node will continue to work normally using IPv4.
+:::
+
+### Verifying that IPv6 is Working
+
+After enabling IPv6 and restarting your services, you can verify it's working correctly:
+
+1. Check Docker Network Configuration
+
+```shell
+docker inspect rocketpool_net | grep -i ipv6
+```
+
+You should see `"EnableIPv6": true` and each container should have an `IPv6Address`.
+
+2. Verify Port Binding
+
+```shell
+ss -tlnp | grep 9001
+```
+
+You should see `[::]:9001` (IPv6 wildcard address).
+
+3. Confirm Your Public IPv6 Address
+
+```shell
+curl -6 https://icanhazip.com
+```
+
+Should return your public IPv6 address (e.g., `xxx:xxx:xxxx:...`).
+
+4. Check Consensus Client Logs
+
+View your consensus client logs to confirm IPv6 listening:
+
+```shell
+docker logs rocketpool_eth2 2>&1 | grep -iE "listen|ipv6|::" | head -20
+```
+
+**What to look for:**
+
+- **Lighthouse** - `Listening on /ip6/` or `listen_addr: /ip6/`
+- **Lodestar** - `Multiaddrs` showing both `/ip4/` and `/ip6/` addresses
+- **Teku** - `p2p-interface` showing both `0.0.0.0` and `::`
+- **Nimbus** - `Listening to incoming network requests` (does not explicitly mention IPv6)
+- **Prysm** - `Beacon chain gRPC server listening` (does not explicitly mention IPv6)
+
+5. Check for IPv6 Peers
+
+Check your beacon node's peer list via the API:
+
+```shell
+curl -s http://localhost:5052/eth/v1/node/peers | grep -o '/ip6/[^"]*' | head -10
+```
+
+This will show up to 10 IPv6 peer addresses if any are connected. Depending on which consensus client you are using, it may take
+a while for any IPv6 peers to connect. In our testing, we found that Teku was the only client to immediately connect to IPv6 peers.
