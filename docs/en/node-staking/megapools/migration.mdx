@@ -1,9 +1,14 @@
 # Migrating from Minipools to Megapool Validators 
 
 If you're a returning node operator looking to migrate their minipool stake to a megapool, this page will offer a step-by-step guide on 
-how to do so. Migration involves exiting your minipools, unstaking legacy RPL and creating new megapool validators. Additionally, you can restake 
-the RPL on your megapool to earn [voter share rewards](/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers) - 9% of protocol ETH revenue is distributed proportionally to RPL stakers with megapool validators.
+how to do so. Migration involves exiting your minipool, creating new megapool validators, unstaking legacy RPL, then restaking the RPL 
+on your megapool. The megapool validator bond is 4 ETH, which means you'll be able to create two megapool validators for every 8 ETH minipool validator you have.
+
+
+9% of protocol ETH revenue is distributed proportionally to RPL stakers with megapool validators in the form of [voter share rewards](/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers).
 This is in addition to the previously standard RPL inflation rewards.  
+
+
 
 There are a handful of separate steps: 
 
@@ -15,10 +20,7 @@ There are a handful of separate steps:
 Before you commit to migrating your minipool stake to a megapool, you'll want to consider the status of the Rocket Pool deposit queue
 and the Beacon Chain queue. Both of which are variable in wait time and independent of each other. The Rocket Pool deposit queue governs 
 the creation of new megapool validators and when they get matched with ETH from rETH stakers. Meanwhile, the Beacon Chain queue determines
-how soon your minipool validator can exit in addition to how soon your new megapool validator can begin participating in attestation duties.
-
-The megapool validator bond is 4 ETH, which means you'll be able to create two megapool validators for every 8 ETH minipool validator you have.
-
+how soon your minipool validator can exit. More importantly it also determines when your new megapool validator can begin participating in attestation duties.
 
 ::: tip Useful Links
 [saturn-1.net/queue](https://saturn-1.net/queue) is a community supported dashboard created by Steely! This page can give you an idea of how long the Rocket Pool deposit queue is.
