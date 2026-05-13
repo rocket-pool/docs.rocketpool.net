@@ -58,6 +58,7 @@ type SidebarTranslation = {
     megapoolsOverview: string;
     createMegapoolValidator: string;
     stakingAndClaimingRewards: string;
+    megapoolMigration: string; 
     credit: string;
     exitMegapoolValidator: string;
     stakeOnBehalf: string;
@@ -173,6 +174,7 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       megapoolsOverview: "Overview",
       createMegapoolValidator: "Creating a new Megapool (Validator)",
       stakingAndClaimingRewards: "RPL staking and Claiming Rewards",
+      megapoolMigration: "Migrating from Minipools to Megapools",
       stakeOnBehalf: "Stake ETH on Behalf of Node",
       credit: "The Deposit Credit System",
       exitMegapoolValidator: "Exiting a Megapool Validator",
@@ -286,6 +288,7 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       megapoolsOverview: "概述",
       createMegapoolValidator: "创建新的 Minipool (验证器)",
       stakingAndClaimingRewards: "RPL 质押和领取奖励",
+      megapoolMigration: "Migrating from Minipools to Megapools",
       stakeOnBehalf: "代表节点质押 ETH",
       credit: "存款信用系统",
       exitMegapoolValidator: "退出 Megapool 验证器",
@@ -413,6 +416,7 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       megapoolsOverview: "Descripción general",
       createMegapoolValidator: "Creando un nuevo Minipool (Validador)",
       stakingAndClaimingRewards: "Staking de RPL y Reclamación de Recompensas",
+      megapoolMigration: "Migrating from Minipools to Megapools",
       stakeOnBehalf: "Stake ETH en Nombre del Nodo",
       credit: "El Sistema de Crédito de Depósito",
       exitMegapoolValidator: "Salir de un Validador Megapool",
@@ -533,6 +537,7 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       megapoolsOverview: "Aperçu",
       createMegapoolValidator: "Créer un nouveau Minipool (Validateur)",
       stakingAndClaimingRewards: "Staking RPL et Réclamation des Récompenses",
+      megapoolMigration: "Migrating from Minipools to Megapools",
       stakeOnBehalf: "Staker ETH au Nom du Nœud",
       credit: "Le Système de Crédit de Dépôt",
       exitMegapoolValidator: "Quitter un Validateur Megapool",
@@ -653,6 +658,7 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       megapoolsOverview: "Übersicht",
       createMegapoolValidator: "Einen neuen Minipool (Validator) erstellen",
       stakingAndClaimingRewards: "RPL-Staking und Belohnungen einfordern",
+      megapoolMigration: "Migrating from Minipools to Megapools",
       stakeOnBehalf: "ETH im Namen des Nodes staken",
       credit: "Das Einzahlungskreditsystem",
       exitMegapoolValidator: "Einen Megapool-Validator beenden",
@@ -773,6 +779,7 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       megapoolsOverview: "概要",
       createMegapoolValidator: "新しいMinipool (バリデーター) の作成",
       stakingAndClaimingRewards: "RPLステーキングと報酬の請求",
+      megapoolMigration: "Migrating from Minipools to Megapools",
       stakeOnBehalf: "ノードの代わりにETHをステーク",
       credit: "デポジットクレジットシステム",
       exitMegapoolValidator: "Megapoolバリデーターの終了",
@@ -893,6 +900,7 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       megapoolsOverview: "개요",
       createMegapoolValidator: "새 Minipool (검증자) 생성",
       stakingAndClaimingRewards: "RPL 스테이킹 및 보상 청구",
+      megapoolMigration: "Migrating from Minipools to Megapools",
       stakeOnBehalf: "노드 대신 ETH 스테이킹",
       credit: "예치금 크레딧 시스템",
       exitMegapoolValidator: "Megapool 검증자 종료",
@@ -1013,6 +1021,7 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       megapoolsOverview: "Visão Geral",
       createMegapoolValidator: "Criando um novo Minipool (Validador)",
       stakingAndClaimingRewards: "Staking de RPL e Reivindicação de Recompensas",
+      megapoolMigration: "Migrating from Minipools to Megapools",
       stakeOnBehalf: "Staking de ETH em Nome do Nó",
       credit: "O Sistema de Crédito de Depósito",
       exitMegapoolValidator: "Saindo de um Validador Megapool",
@@ -1133,6 +1142,7 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       megapoolsOverview: "Обзор",
       createMegapoolValidator: "Создание нового Minipool (валидатора)",
       stakingAndClaimingRewards: "Стейкинг RPL и получение наград",
+      megapoolMigration: "Migrating from Minipools to Megapools",
       stakeOnBehalf: "Стейкинг ETH от имени ноды",
       credit: "Система депозитных кредитов",
       exitMegapoolValidator: "Выход из валидатора Megapool",
@@ -1253,6 +1263,7 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       megapoolsOverview: "Panoramica",
       createMegapoolValidator: "Creazione di un nuovo Minipool (Validatore)",
       stakingAndClaimingRewards: "Staking RPL e Richiesta Ricompense",
+      megapoolMigration: "Migrating from Minipools to Megapools",
       stakeOnBehalf: "Stake ETH per Conto del Nodo",
       credit: "Il Sistema di Credito per Depositi",
       exitMegapoolValidator: "Uscita da un Validatore Megapool",
@@ -1373,6 +1384,7 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       megapoolsOverview: "Genel Bakış",
       createMegapoolValidator: "Yeni Minipool (Doğrulayıcı) Oluşturma",
       stakingAndClaimingRewards: "RPL Stake Etme ve Ödül Talep Etme",
+      megapoolMigration: "Migrating from Minipools to Megapools",
       stakeOnBehalf: "Düğüm Adına ETH Stake Etme",
       credit: "Depozito Kredi Sistemi",
       exitMegapoolValidator: "Megapool Doğrulayıcısından Çıkış",
@@ -1642,6 +1654,7 @@ function nodeStaking(prefix: string, lang: string) {
             { text: t.megapoolsOverview, link: `${prefix}/node-staking/megapools/overview` },
             { text: t.createMegapoolValidator, link: `${prefix}/node-staking/megapools/create-megapool-validator` },
             { text: t.stakingAndClaimingRewards, link: `${prefix}/node-staking/megapools/staking-and-claiming-rewards` },
+            { text: t.megapoolMigration, link: `${prefix}/node-staking/megapools/migration` },
             { text: t.stakeOnBehalf, link: `${prefix}/upgrades/houston/stake-eth-on-behalf` },
             { text: t.credit, link: `${prefix}/node-staking/megapools/credit` },
             { text: t.exitMegapoolValidator, link: `${prefix}/node-staking/megapools/exit-megapool-validator` },

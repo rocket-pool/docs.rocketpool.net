@@ -1,0 +1,120 @@
+# Migrating from Minipools to Megapool Validators 
+
+If you're a returning node operator looking to migrate their minipool stake to a megapool, this page will offer a step-by-step guide on 
+how to do so. Migration involves exiting your minipool, creating new megapool validators, unstaking legacy RPL, then restaking the RPL 
+on your megapool. The megapool validator bond is 4 ETH, which means you'll be able to create two megapool validators for every 8 ETH minipool validator you have.
+
+
+9% of protocol ETH revenue is distributed proportionally to RPL stakers with megapool validators in the form of [voter share rewards](/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers).
+This is in addition to the previously standard RPL inflation rewards.  
+
+
+
+There are a handful of separate steps: 
+
+1. Exiting your minipool. That means finializing your minipool and withdrawing its full balance from the Beacon Chain. 
+2. Creating a new megapool validator
+3. [Optional] Unstaking and withdrawing your legacy RPL 
+4. [Optional] Restake the RPL on a megapool. Doing so will earn [voter share rewards](/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers) from ETH revenue in addition to RPL inflation rewards.
+
+Before you commit to migrating your minipool stake to a megapool, you'll want to consider the status of the Rocket Pool deposit queue
+and the Beacon Chain queue. Both of which are variable in wait time and independent of each other. The Rocket Pool deposit queue governs 
+the creation of new megapool validators and when they get matched with ETH from rETH stakers. Meanwhile, the Beacon Chain queue determines
+how soon your minipool validator can exit. More importantly it also determines when your new megapool validator can begin participating in attestation duties.
+
+::: tip Useful Links
+[saturn-1.net/queue](https://saturn-1.net/queue) is a community supported dashboard created by Steely! This page can give you an idea of how long the Rocket Pool deposit queue is.
+
+[validatorqueue.com](https://www.validatorqueue.com/) is a helpful site for checking the length of the Beacon Chain queue. This queue is contingent on the amount of ETH
+entering and leaving the Beacon Chain. It's processed at a rate of `256 ETH per epoch`.
+
+[rocketpool.net/node-staking/rpl-fee-switch](https://rocketpool.net/node-staking/rpl-fee-switch) models the impact of Saturn 1's fee switch on your staking rewards.
+
+:::
+
+::: warning WARNING
+There are two things to consider with respect to earning rewards:
+
+A. Your node won't earn RPL inflation rewards unless you have at least one active minipool or megapool validator.
+
+B. Once your minipool has fully exited from the Beacon Chain, you won't be earning ETH rewards (commission or voter share) until your megapool validator is actively validating.
+It needs to be processed by the Rocket Pool deposit queue *and* the Beacon Chain deposit queue before it can begin its attestation duties.
+You'll want to monitor the length of the queue to decide when to migrate. 
+
+:::
+
+::: warning WARNING
+Megapool validators need to clear the Beacon Chain queue twice. 
+1. Prestake (1 ETH). When ETH is assigned to your megapool validator from the deposit pool, only 1 ETH is sent
+to the Beacon Chain. At this point, your validator enters the Beacon Chain queue. 
+2. Stake (31 ETH). After the validator is processed by the Beacon Chain, the Rocket Pool protocol will verify the
+withdrawal credentials for the validator then stake the remaining 31 ETH on the Beacon Chain. At this point, the validator enters the Beacon
+Chain queue a second and final time. 
+
+Previously with minipools, the [Oracle DAO (oDAO)](/odao/overview#the-rocket-pool-oracle-dao) was responsible for verifying the withdrawal credentials for every
+minipool validator. This new system extends the queue time but removes a trust requirement enforced by the oDAO. 
+
+[validatorqueue.com](https://www.validatorqueue.com/) is a helpful tool for monitoring the length of the Beacon Chain queue. Please consider this factor
+when migrating your minipool stake to a megapool. 
+
+:::
+
+## Step 1: Exiting your Minipool
+
+Exiting your minipool is the first step for migrating stake to a megapool. Follow the link below for a handy guide on how
+to exit your minipool and withdraw funds from the Beacon Chain: 
+
+https://docs.rocketpool.net/node-staking/withdraw
+
+This process typically takes a few days depending on the Beacon Chain exit queue. Feel free to bookmark this page and revisit when it's complete.
+
+Don't forget to finalize your minipool by [distributing full rewards](/node-staking/withdraw#distributing-full-rewards).
+This will claim any rewards earned on the minipool and allow you to unstake your full balance of legacy RPL.
+
+
+## Step 2: Creating a Megapool Validator
+
+Once your minipool is closed and the ETH funds are fully accessible, you're ready to create a megapool validator!
+
+The following page will walk you through all the steps for creating a new megapool validator: 
+
+https://docs.rocketpool.net/node-staking/megapools/create-megapool-validator
+
+As a returning node operator, you'll receive one express queue ticket per 4 ETH bonded in minipools. That's 2 tickets per 8 ETH minipool. 
+These tickets are available to you automatically.
+
+The Rocket Pool deposit queue processes deposits at a rate of 4 express queue validators for each standard queue validator.
+Please read [Rocket Pool Deposit Queue and Express Queue](/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-and-express-queue)
+to learn more about how ETH is assigned to new megapool validators. 
+
+## Step 3: Unstaking and Withdrawing Legacy RPL
+
+The minimum legacy RPL stake requirement is 15% of minipool borrowed ETH. If you wish to unstake your full balance of legacy RPL, you need to
+close all of your minipools first (bringing borrowed ETH to 0). 
+
+When you're ready, you can use the following command to unstake and withdraw Legacy RPL:
+```
+rocketpool node withdraw-rpl
+```
+There is a 28-day unstaking period before you can withdraw your Legacy RPL.
+Please follow this link for detailed instructions on how to unstake and withdraw legacy RPL. 
+
+https://docs.rocketpool.net/node-staking/megapools/staking-and-claiming-rewards#unstaking-and-withdrawing-rpl
+
+## Step 4: Staking RPL on your megapool 
+
+Click on the following link for instructions on how to stake your RPL on a megapool: 
+
+https://docs.rocketpool.net/node-staking/megapools/staking-and-claiming-rewards#staking
+
+This step is totally optional as RPL staking is not required to create a megapool validator. You won't want to miss out on this step if 
+you want to earn voter share rewards, RPL inflation
+rewards (same as previous RPL inflation rewards), and have voting power in [Protocol Dao (pDAO) governance](/pdao/overview). 
+
+- The voter share (9% of protocol revenue) is distributed proportionally among all node operators based on their share of total megapool RPL staked.
+
+For more detailed information on how voter share is distributed to RPL stakers with megapool validators, read this guide:
+[How Voter Share is Distributed to Megapool RPL stakers](/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers)
+
+And there you have it! As always, don't forget to brush up on the [Monitoring and Maintenance](/node-staking/maintenance/overview) guide if needed. This section covers
+all the related topics to keeping your node in tip top shape, including software updates and how to monitor the health of your node. 
