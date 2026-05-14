@@ -9,16 +9,22 @@ then sent to the Beacon Chain deposit contract to create a new validator.
 Your megapool is automatically deployed at the time of your first validator deposit. Afterwards you'll be able to use the same megapool to manage as many validators as you wish! You won't need
 to deploy a new megapool every time you create a new validator.
 
-::: tip NOTE
-The Beacon Chain validator queue activation (and exit) times can vary greatly depending on the current state of the network.
+::: warning WARNING
+Megapool validators need to clear the Beacon Chain queue twice. 
+1. Prestake (1 ETH). When ETH is assigned to your megapool validator from the deposit pool, only 1 ETH is sent
+to the Beacon Chain. At this point, your validator enters the Beacon Chain queue. 
+2. Stake (31 ETH). After the validator is processed by the Beacon Chain, the Rocket Pool protocol will verify the
+withdrawal credentials for the validator then stake the remaining 31 ETH on the Beacon Chain. At this point, the validator enters the Beacon
+Chain queue a second and final time. 
 
-This is outside Rocket Pool's control and is a function of the Beacon Chain itself.
+Previously with minipools, the [Oracle DAO (oDAO)](/odao/overview#the-rocket-pool-oracle-dao) was responsible for verifying the withdrawal credentials for every
+minipool validator. This new system extends the queue time but removes a trust requirement enforced by the oDAO. 
 
-The following tool provides a good estimate of how long you can expect to wait:
-[https://www.validatorqueue.com/](https://www.validatorqueue.com/)
+[validatorqueue.com](https://www.validatorqueue.com/) is a helpful tool for monitoring the length of the Beacon Chain queue. Please consider this factor
+when migrating your minipool stake to a megapool. 
 
-Please review this tool to get an idea of how long you can expect to wait for your validator to become active.
 :::
+
 
 ::: tip NOTE
 
@@ -32,6 +38,16 @@ Validator creation is governed by two queues.
 
 The Rocket Pool deposit queue features an express queue system to help existing node operators migrate their minipool validator ETH
 to megapool validator ETH.
+
+:::
+
+::: tip Useful Links
+[saturn-1.net/queue](https://saturn-1.net/queue) is a community supported dashboard created by Steely! This page can give you an idea of how long the Rocket Pool deposit queue is.
+
+[validatorqueue.com](https://www.validatorqueue.com/) is a helpful site for checking the length of the Beacon Chain queue. This queue is contingent on the amount of ETH
+entering and leaving the Beacon Chain. It's processed at a rate of `256 ETH per epoch`.
+
+[rocketpool.net/node-staking/rpl-fee-switch](https://rocketpool.net/node-staking/rpl-fee-switch) models the impact of Saturn 1's fee switch on your staking rewards.
 
 :::
 
