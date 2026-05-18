@@ -6,31 +6,34 @@ next:
 
 # Panoramica
 
-Questa sezione copre i megapool di Rocket Pool e la creazione di validator megapool.
-Qui imparerai come iniziare a validare la rete Ethereum e guadagnare ricompense per farlo.
+Questa sezione tratta i megapool di Rocket Pool e la creazione di validator megapool.
+È qui che imparerai come iniziare a validare la rete Ethereum e guadagnare ricompense per farlo.
 
 ## Prerequisiti
 
-Prima di eseguire Validator Megapool, assicurati di:
+Prima di avviare i Validator Megapool, assicurati di:
 
-- Aver configurato un nodo (o una macchina virtuale) e averlo messo in sicurezza (tramite la guida [Protezione del tuo Nodo](../securing-your-node))
-- Avere lo Smartnode [installato](../installing/overview) e [configurato](../config/overview) su di esso
-- Avere un wallet del nodo caricato sullo Smartnode
-- Sincronizzato i tuoi client di Esecuzione e Consenso
-- Provisionato il tuo nodo con [un indirizzo di prelievo](../prepare-node.mdx#impostare-il-tuo-indirizzo-di-prelievo), configurato i tuoi [client di fallback](../fallback) (opzionale), aderito allo [Smoothing Pool](../fee-distrib-sp#lo-smoothing-pool) (opzionale), e configurato [MEV](../mev.mdx)
+- Aver configurato una macchina nodo (o macchina virtuale) e averla messa in sicurezza (tramite la guida [Protezione del tuo Nodo](../securing-your-node))
+- Aver [installato](../installing/overview) e [configurato](../config/overview) lo Smartnode su di essa
+- Avere un wallet del nodo caricato sul tuo Smartnode
+- Aver sincronizzato i tuoi client di Esecuzione e Consenso
+- Aver provisionato il tuo nodo con [un indirizzo di prelievo](../prepare-node.mdx#setting-your-withdrawal-address), configurato i tuoi [client di fallback](../fallback) (opzionale), aderito allo [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (opzionale), e configurato [MEV](../mev.mdx)
 
 ## Guide
 
 [Creazione di un Megapool (Validator)](./create-megapool-validator.mdx) spiega il processo di creazione di un nuovo megapool Rocket Pool e del corrispondente validator sulla Beacon Chain.
-Che tu stia creando il tuo primissimo validator megapool o che tu ne abbia già alcuni e voglia crearne un altro, questa guida ti accompagnerà passo dopo passo.
+Che tu stia creando il tuo primissimo validator megapool o ne abbia già alcuni e voglia crearne un altro, questa guida ti accompagnerà passo dopo passo.
 
-[Stake ETH per conto del nodo](/it/upgrades/houston/stake-eth-on-behalf#stake-eth-on-behalf-of-node) spiega come puoi usare qualsiasi indirizzo indipendente (ad esempio un hardware wallet) per fare stake di ETH per conto di un nodo. Molto utile se vuoi creare depositi di validator
+[Migrazione dai Minipool ai Validator Megapool](./migration.mdx) fornisce una guida passo per passo per i node operator che desiderano migrare lo stake del loro minipool ai megapool.
+Questa guida copre l'uscita dai minipool, la creazione di nuovi validator megapool, il ritiro dello stake RPL legacy e il re-staking dell'RPL per guadagnare ricompense voter share e inflazione RPL.
+
+[Stake ETH per conto del nodo](/it/upgrades/houston/stake-eth-on-behalf#stake-eth-on-behalf-of-node) spiega come puoi utilizzare qualsiasi indirizzo indipendente (ad esempio un hardware wallet) per fare staking di ETH per conto di un nodo. Molto utile se vuoi creare depositi di validator
 senza che il tuo nodo abbia accesso diretto all'ETH.
 
-[Staking RPL e Riscossione delle Ricompense](/it/node-staking/megapools/staking-and-claiming-rewards) copre come fare stake di RPL sul tuo megapool, riscuotere le tue ricompense in ETH e RPL, e comprendere il nuovo sistema di distribuzione dei ricavi di Saturn 1.
-Che tu stia migrando lo stake legacy di RPL o iniziando da zero, questa guida ti accompagna attraverso lo staking, l'unstaking e il guadagno della tua quota di ricavi del protocollo.
+[Staking RPL e Riscossione delle Ricompense](/it/node-staking/megapools/staking-and-claiming-rewards) spiega come fare staking di RPL nel tuo megapool, riscuotere le tue ricompense in ETH e RPL, e comprendere il nuovo sistema di distribuzione dei ricavi di Saturn 1.
+Che tu stia migrando lo stake RPL legacy o partendo da zero, questa guida ti accompagna attraverso lo staking, l'unstaking e la tua quota di ricavi del protocollo.
 
-[Il Sistema di Credito di Deposito](./credit.mdx) illustra tutti i diversi modi in cui è possibile accumulare credito ETH e come può essere riscattato per rETH o utilizzato per creare nuovi validator.
+[Il Sistema di Credito per i Depositi](./credit.mdx) illustra tutti i diversi modi in cui è possibile accumulare credito ETH e come può essere riscattato in rETH o utilizzato per creare nuovi validator.
 
-[Uscire da un Validatore Megapool](./exit-megapool-validator.mdx) ti guida attraverso il processo di uscita da un validatore megapool utilizzando lo Smartnode.
-Quando sei pronto a chiudere il tuo validatore megapool e accedere ai tuoi fondi dalla Beacon Chain, questa guida ti mostrerà come fare.
+[Uscita da un Validator Megapool](./exit-megapool-validator.mdx) ti guida attraverso il processo di uscita da un validator megapool utilizzando lo Smartnode.
+Quando sei pronto a chiudere il tuo validator megapool e ad accedere ai tuoi fondi dalla Beacon Chain, questa guida ti mostrerà come farlo.

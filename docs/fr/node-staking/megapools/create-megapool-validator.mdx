@@ -9,16 +9,22 @@ ensuite envoyé au contrat de dépôt de la Beacon Chain pour créer un nouveau 
 Votre megapool est automatiquement déployé au moment de votre premier dépôt de validateur. Ensuite, vous pourrez utiliser le même megapool pour gérer autant de validateurs que vous le souhaitez ! Vous n'aurez pas
 besoin de déployer un nouveau megapool à chaque fois que vous créez un nouveau validateur.
 
-::: tip NOTE
-Les temps d'activation de la file d'attente des validateurs de la Beacon Chain (et de sortie) peuvent varier considérablement en fonction de l'état actuel du réseau.
+::: warning AVERTISSEMENT
+Les validateurs megapool doivent traverser la file d'attente de la Beacon Chain deux fois.
+1. Prestake (1 ETH). Lorsque des ETH sont assignés à votre validateur megapool depuis le pool de dépôt, seulement 1 ETH est envoyé
+à la Beacon Chain. À ce stade, votre validateur entre dans la file d'attente de la Beacon Chain.
+2. Stake (31 ETH). Après que le validateur a été traité par la Beacon Chain, le protocole Rocket Pool vérifiera les
+identifiants de retrait du validateur, puis stakera les 31 ETH restants sur la Beacon Chain. À ce stade, le validateur entre dans la file d'attente de la
+Beacon Chain pour la deuxième et dernière fois.
 
-Cela est hors du contrôle de Rocket Pool et est une fonction de la Beacon Chain elle-même.
+Précédemment avec les minipools, l'[Oracle DAO (oDAO)](/fr/odao/overview#the-rocket-pool-oracle-dao) était responsable de vérifier les identifiants de retrait pour chaque
+validateur minipool. Ce nouveau système allonge le temps d'attente en file mais supprime une exigence de confiance imposée par l'oDAO.
 
-L'outil suivant fournit une bonne estimation du temps d'attente :
-[https://www.validatorqueue.com/](https://www.validatorqueue.com/)
+[validatorqueue.com](https://www.validatorqueue.com/) est un outil utile pour surveiller la longueur de la file d'attente de la Beacon Chain. Veuillez tenir compte de ce facteur
+lors de la migration de votre stake minipool vers un megapool.
 
-Veuillez consulter cet outil pour avoir une idée du temps d'attente avant que votre validateur ne devienne actif.
 :::
+
 
 ::: tip NOTE
 
@@ -32,6 +38,16 @@ La création de validateurs est régie par deux files d'attente.
 
 La file d'attente de dépôt Rocket Pool dispose d'un système de file express pour aider les opérateurs de nœuds existants à migrer leur ETH de validateur minipool
 vers de l'ETH de validateur megapool.
+
+:::
+
+::: tip Liens utiles
+[saturn-1.net/queue](https://saturn-1.net/queue) est un tableau de bord soutenu par la communauté créé par Steely ! Cette page peut vous donner une idée de la longueur de la file d'attente de dépôt Rocket Pool.
+
+[validatorqueue.com](https://www.validatorqueue.com/) est un site utile pour vérifier la longueur de la file d'attente de la Beacon Chain. Cette file dépend de la quantité d'ETH
+entrant et sortant de la Beacon Chain. Elle est traitée à un rythme de `256 ETH par epoch`.
+
+[rocketpool.net/node-staking/rpl-fee-switch](https://rocketpool.net/node-staking/rpl-fee-switch) modélise l'impact du fee switch de Saturn 1 sur vos récompenses de staking.
 
 :::
 

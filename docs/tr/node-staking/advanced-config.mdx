@@ -1,74 +1,75 @@
 import tui_ec_expose_ports from "./images/tui-ec-expose-ports.png";
 import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
+import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
 
-# Advanced Smartnode Configuration for Docker Mode
+# Docker Modu için Gelişmiş Smartnode Yapılandırması
 
-In this section, we will cover a few techniques that expand the Smartnode's customization and functionality.
+Bu bölümde, Smartnode'un özelleştirme ve işlevselliğini genişleten birkaç tekniği ele alacağız.
 
-## Allowing External Validator Clients to Connect to the Smartnode
+## Harici Doğrulayıcı İstemcilerinin Smartnode'a Bağlanmasına İzin Verme
 
-Because the Smartnode manages the Execution client and Beacon Node, it handles much of their configuration (including updates) automatically.
-One common request from users is for the ability to attach an externally-managed Validator client to the Smartnode's Execution and Consensus clients.
+Smartnode, Yürütme istemcisini ve Beacon Node'u yönettiğinden, yapılandırmalarının (güncellemeler dahil) büyük bölümünü otomatik olarak halleder.
+Kullanıcıların sık dile getirdiği bir istek, harici olarak yönetilen bir Doğrulayıcı istemcisini Smartnode'un Yürütme ve Konsensüs istemcilerine bağlayabilme yeteneğidir.
 
-Essentially, this acts as a sort of **"Reverse Hybrid" mode**; instead of the Smartnode managing its own Validator client and connecting to an external Execution and Consensus client, it manages all three things and an external Validator client can use its own clients instead.
+Bu, özünde bir tür **"Ters Hibrit" mod** olarak işlev görür; Smartnode kendi Doğrulayıcı istemcisini yönetip harici bir Yürütme ve Konsensüs istemcisine bağlanmak yerine, üçünü birden yönetir ve harici bir Doğrulayıcı istemcisi kendi istemcilerini kullanabilir.
 
-Enabling this is trivial using the [Settings Manager](./config-docker#configuring-via-the-settings-manager).
+Bunu etkinleştirmek, [Ayarlar Yöneticisi](./config-docker#configuring-via-the-settings-manager)'ni kullanarak son derece basittir.
 
-### Execution Client
+### Yürütme İstemcisi
 
-To enable access to the Execution client, go to the **Execution Client (ETH1)** category and check the **Expose RPC Ports** box:
+Yürütme istemcisine erişimi etkinleştirmek için **Yürütme İstemcisi (ETH1)** kategorisine gidin ve **RPC Portlarını Aç** kutusunu işaretleyin:
 
 <img src={tui_ec_expose_ports} width="100%" height="auto" />
 
-This will open the RPC ports (default 8545 for HTTP and 8546 for Websockets) on your node, so other machines on your local network can connect to them.
+Bu işlem, RPC portlarını (HTTP için varsayılan 8545 ve WebSocket için 8546) düğümünüzde açarak yerel ağınızdaki diğer makinelerin bunlara bağlanabilmesini sağlar.
 
-For example, if your node's local IP address were `192.168.1.45`, then by enabling this option you could use `http://192.168.1.45:8545` as the Execution client URL for your other services.
+Örneğin, düğümünüzün yerel IP adresi `192.168.1.45` ise, bu seçeneği etkinleştirerek diğer hizmetleriniz için Yürütme istemcisi URL'si olarak `http://192.168.1.45:8545` kullanabilirsiniz.
 
-### Beacon Node (Consensus Client)
+### Beacon Node (Konsensüs İstemcisi)
 
-To enable access to the Consensus client's Beacon Node, go to the **Consensus Client (ETH2)** category and check the **Expose API Port** box:
+Konsensüs istemcisinin Beacon Node'una erişimi etkinleştirmek için **Konsensüs İstemcisi (ETH2)** kategorisine gidin ve **API Portunu Aç** kutusunu işaretleyin:
 
 <img src={tui_cc_expose_ports} width="100%" height="auto" />
 
-This will open the HTTP API port (default 5052) on your node, so other machines on your local network can connect to it.
+Bu işlem, HTTP API portunu (varsayılan 5052) düğümünüzde açarak yerel ağınızdaki diğer makinelerin buna bağlanabilmesini sağlar.
 
-::: warning Note: Ports opened via iptables, not ufw
-When you expose RPC and API endpoints in using the Rocketpool configurator, ports are opened via `iptables` and therefore will not show up as a `ufw` firewall rule. To see which ports are open you can use `sudo lsof -i -P -n | grep LISTEN` or similar command.
+::: warning Not: Portlar iptables aracılığıyla açılır, ufw ile değil
+Rocketpool yapılandırıcısını kullanarak RPC ve API uç noktalarını açtığınızda, portlar `iptables` aracılığıyla açılır ve bu nedenle `ufw` güvenlik duvarı kuralı olarak görünmez. Hangi portların açık olduğunu görmek için `sudo lsof -i -P -n | grep LISTEN` veya benzer bir komut kullanabilirsiniz.
 :::
 
-For example, if your node's local IP address were `192.168.1.45`, then by enabling this option you could use `http://192.168.1.45:5052` as the Beacon Node URL for your other services.
+Örneğin, düğümünüzün yerel IP adresi `192.168.1.45` ise, bu seçeneği etkinleştirerek diğer hizmetleriniz için Beacon Node URL'si olarak `http://192.168.1.45:5052` kullanabilirsiniz.
 
-::: warning NOTE FOR PRYSM USERS
-**Prysm** has a second box called `Expose RPC Port` that must be checked if you want to attach an externally-managed Prysm Validator Client to your Beacon Node.
-This is because Prysm's Validator Client cannot currently connect to a Beacon Node via the standard Beacon HTTP API.
-In the future, this will be fixed and there will only be one checkbox like the other clients.
+::: warning PRYSM KULLANICILARI İÇİN NOT
+**Prysm**'in, harici olarak yönetilen bir Prysm Doğrulayıcı İstemcisini Beacon Node'unuza bağlamak istiyorsanız işaretlenmesi gereken `RPC Portunu Aç` adlı ikinci bir kutusu vardır.
+Bunun nedeni, Prysm'in Doğrulayıcı İstemcisinin şu anda standart Beacon HTTP API aracılığıyla bir Beacon Node'a bağlanamamasıdır.
+Gelecekte bu düzeltilecek ve diğer istemciler gibi yalnızca bir onay kutusu olacaktır.
 :::
 
 ### MEV-Boost
 
-To enable access to MEV-Boost, go to the **MEV-Boost** category and check the **Expose API Port** box:
+MEV-Boost'a erişimi etkinleştirmek için **MEV-Boost** kategorisine gidin ve **API Portunu Aç** kutusunu işaretleyin:
 
 <img src={tui_mev_expose_port} width="100%" height="auto" />
 
-This will open the HTTP API port (default 18550) on your node, so other machines on your local network can connect to it.
+Bu işlem, HTTP API portunu (varsayılan 18550) düğümünüzde açarak yerel ağınızdaki diğer makinelerin buna bağlanabilmesini sağlar.
 
-For example, if your node's local IP address were `192.168.1.45`, then by enabling this option you could use `http://192.168.1.45:18550` as the MEV-Boost URL for your other services.
+Örneğin, düğümünüzün yerel IP adresi `192.168.1.45` ise, bu seçeneği etkinleştirerek diğer hizmetleriniz için MEV-Boost URL'si olarak `http://192.168.1.45:18550` kullanabilirsiniz.
 
-## Customizing the Docker-Compose Definition Files
+## Docker-Compose Tanım Dosyalarını Özelleştirme
 
-While the Settings Manager contains many options you can use to customize your node, it doesn't wrap all of the features that `docker-compose` provides.
-Some users require supplemental customizations to the Smartnode's `docker-compose` files.
+Ayarlar Yöneticisi, düğümünüzü özelleştirmek için kullanabileceğiniz birçok seçenek içerse de `docker-compose`'un sağladığı tüm özellikleri kapsamaz.
+Bazı kullanıcılar, Smartnode'un `docker-compose` dosyalarına ek özelleştirmeler yapmayı gerektirir.
 
-Because the `docker-compose` files are regenerated (into the `runtime` directory) from their templates (in the `templates` directory) each time `rocketpool service start` is called, modifying the runtime files is not advised.
-Instead, we leverage `docker-compose`'s [inherent override functionality](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration) to let you make any modifications you need to which will be preserved upon restarts.
-Furthermore, this system _also_ **preserves your modifications after an upgrade to or reinstallation of the Smartnode stack**.
+`docker-compose` dosyaları, `rocketpool service start` çağrıldığında her seferinde şablonlardan (`templates` dizini) yeniden oluşturulduğundan (`runtime` dizinine), çalışma zamanı dosyalarını değiştirmek önerilmez.
+Bunun yerine, `docker-compose`'un [yerleşik geçersiz kılma işlevselliğinden](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration) yararlanarak yeniden başlatmalarda korunan gerekli değişiklikleri yapabilirsiniz.
+Üstelik bu sistem, **Smartnode yığınının yükseltmesinden veya yeniden kurulumundan sonra da değişikliklerinizi korur**.
 
-To do this, simply open the file for the container of your choice in the `override` folder, and add your customizations to it there.
-Anything you put in these files will **override** whatever the corresponding settings are in the `docker-compose` files from the `runtime` folder.
+Bunu yapmak için, `override` klasöründe tercih ettiğiniz konteynere ait dosyayı açın ve özelleştirmelerinizi buraya ekleyin.
+Bu dosyalara koyduğunuz her şey, `runtime` klasöründeki `docker-compose` dosyalarındaki ilgili ayarları **geçersiz kılacaktır**.
 
-For example, say you wanted to [add AWS credentials to Grafana for CloudWatch support](https://grafana.com/docs/grafana/latest/administration/configure-docker/#configure-aws-credentials-for-cloudwatch-support).
-You could do it by modifying `override/grafana.yml` like so:
+Örneğin, [CloudWatch desteği için Grafana'ya AWS kimlik bilgileri eklemek](https://grafana.com/docs/grafana/latest/administration/configure-docker/#configure-aws-credentials-for-cloudwatch-support) istediğinizi varsayalım.
+Bunu `override/grafana.yml` dosyasını şu şekilde değiştirerek yapabilirsiniz:
 
 ```yaml
 # Enter your own customizations for the Grafana container here. These changes will persist after upgrades, so you only need to do them once.
@@ -87,9 +88,9 @@ services:
       - GF_AWS_default_REGION=us-east-1
 ```
 
-This will merge the four environment variables listed here to the existing array of environment variables in the Grafana container.
+Bu işlem, burada listelenen dört ortam değişkenini Grafana konteynerindeki mevcut ortam değişkenleri dizisiyle birleştirecektir.
 
-Alternatively, if you wanted to save eth1 client data to a non-default path on your filesystem, you would modify `override/eth1.yml` to contain volume parameters like:
+Alternatif olarak, eth1 istemci verilerini dosya sisteminizde varsayılan olmayan bir yola kaydetmek istiyorsanız, `override/eth1.yml` dosyasını şu gibi birim parametreleri içerecek şekilde değiştirirsiniz:
 
 ```yaml
 # Enter your own customizations for the eth1 container here. These changes will persist after upgrades, so you only need to do them once.
@@ -110,6 +111,129 @@ volumes:
       device: "/data/eth/eth1"
 ```
 
-This will merge the parameters into the `eth1clientdata` volume specification, causing `/data/eth/eth1` to be the location of the eth1 client data rather than the default (`/var/lib/docker/volumes/rocketpool_eth1clientdata` if using default Docker configuration).
+Bu işlem, parametreleri `eth1clientdata` birim spesifikasyonuyla birleştirerek `/data/eth/eth1`'i eth1 istemci verilerinin konumu olarak belirler; varsayılan konum yerine (`/var/lib/docker/volumes/rocketpool_eth1clientdata` olur — varsayılan Docker yapılandırması kullanılıyorsa).
 
-For more information on how `docker-compose` overrides work, please visit [https://docs.docker.com/compose/extends/#adding-and-overriding-configuration](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration).
+`docker-compose` geçersiz kılmalarının nasıl çalıştığı hakkında daha fazla bilgi için lütfen [https://docs.docker.com/compose/extends/#adding-and-overriding-configuration](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration) adresini ziyaret edin.
+
+## (Deneysel) Çift Yığın (IPv4 + IPv6) Ağını Etkinleştirme
+
+Bu seçenek, yerel olarak yönetilen istemcilerle Docker modu yapılandırmalarını kullanan kullanıcılar içindir.
+Smart node v1.20.2'den itibaren Rocket Pool, Ethereum istemcileriniz için çift yığın (IPv4 + IPv6) ağını desteklemektedir.
+
+Etkinleştirildiğinde, konsensüs istemciniz hem IPv4 hem de IPv6 eşleriyle bağlantı kurabilir; bu da potansiyel olarak eş keşfini iyileştirir.
+Bu özellik aynı zamanda ağınız CGNAT arkasında olup IPv4 kullanarak eşleşmekte güçlük çekiyorsa da kullanışlıdır.
+
+
+::: tip İPUCU
+Aşağıdaki site, Ethereum IPv6 Desteği'nin durumuna ilişkin bir özet sunmaktadır.
+
+[ipv6eth.info](https://ipv6eth.info/)
+:::
+
+::: warning DENEYSELÖZELLİK
+IPv6 desteği şu anda deneysel aşamadadır. Desteklenen tüm konsensüs istemcilerinde test edilmiş olsa da ağ yapılandırmanıza bağlı olarak sorunlarla karşılaşabilirsiniz.
+Sorun yaşarsanız IPv6'yı devre dışı bırakabilir ve yalnızca IPv4 moduna dönmek için istemcilerinizi yeniden başlatabilirsiniz. IPv6 desteğiyle ilgili herhangi bir sorunla karşılaşırsanız,
+lütfen bunları [Rocket Pool Discord](https://discord.gg/rocketpool) sunucusundaki **#support** kanalında bildirin.
+
+:::
+
+IPv6 desteğini etkinleştirdiğinizde:
+
+- Docker ağınız çift yığın (IPv4 + IPv6) için yapılandırılacaktır
+- Konsensüs istemciniz hem IPv4 hem de IPv6 adreslerini dinleyecektir
+- Düğümünüz IPv4 eşlerine ek olarak IPv6 eşlerini keşfedip bağlanabilecektir
+- Düğümünüz IPv6 adresini ENR (Ethereum Düğüm Kaydı) içinde yayınlayacak, böylece diğer IPv6 düğümleri tarafından keşfedilebilir hale gelecektir
+
+### İstemciye Özgü Davranış
+
+Farklı konsensüs istemcileri IPv6'yı farklı destek düzeylerinde ele alır:
+
+| İstemci | IPv6 Dinleme | IPv6 Yayını (ENR) | Eşleşme Davranışı | Notlar |
+|---------|--------------|-------------------|-------------------|--------|
+| **Teku** | Tam | Tam | IPv6'ya Öncelik Verir | Mevcut olduğunda IPv6 bağlantılarını tercih eder. Ayrı bir IPv6 portu kullanır (varsayılan: 9090). |
+| **Lighthouse** | Tam | Tam | Tercih Yok | İlk yanıt veren adrese (IPv4 veya IPv6) bağlanır. Tipik olarak ~%1-2 IPv6 eşi görür. |
+| **Lodestar** | Tam | Tam | IPv4'e Öncelik Verir | Hem IPv4 hem de IPv6'yı dinler ve yayınlar, ancak yalnızca diğer düğümün IPv4'ü devre dışıysa IPv6 üzerinden eşleşir. |
+| **Nimbus** | Tam | Yalnızca IPv4* | Ağırlıklı IPv4 | Gelen IPv6 bağlantılarını kabul edebilir, ancak ENR'de yalnızca IPv4 yayınlar. |
+| **Prysm** | Tam | Yalnızca IPv4* | Ağırlıklı IPv4 | Gelen IPv6 bağlantılarını kabul edebilir, ancak ENR'de yalnızca IPv4 yayınlar. |
+
+\* Varsayılan olarak IPv4 adresini yayınlar. Yalnızca IPv6'ya sahip konakçılarda IPv6 yayınlayacaktır.
+
+
+### Ön Koşullar
+
+IPv6'yı etkinleştirmeden önce şunları sağlayın:
+
+1. ISP/konakçınız IPv6 bağlantısı sağlamaktadır - Bunu [ipv6test.google.com/](https://ipv6test.google.com/) ile test edin
+veya CLI'nızda şu komutu çalıştırın: `curl -6 https://icanhazip.com`. Komut `xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx` formatında bir IPv6 adresi döndürürse hazırsınız demektir.
+2. Güvenlik duvarınız konsensüs istemcisi P2P portundan IPv6 trafiğine izin vermektedir. Varsayılan P2P portu `9001`'dir. Teku, IPv6 için ek bir özel port gerektirir. Varsayılan Teku P2P IPv6 portu `9090`'dır.
+3. Docker modunda yerel olarak yönetilen istemciler kullanıyorsunuz (harici olarak yönetilen istemciler değil)
+
+### IPv6 Nasıl Etkinleştirilir
+
+
+IPv6'yı etkinleştirmek için Smart Node ve TX Ücretleri kategorisine gidin
+ve **IPv6'yı Etkinleştir** kutusunu işaretleyin, ardından kaydedin ve Smart Node yığınını yeniden başlatın.
+<img src={tui_enable_ipv6} width="100%" height="auto" />
+
+::: warning NOT
+IPv6'yı etkinleştirirseniz ancak genel bir IPv6 adresiniz yoksa, Smart node başlatma sırasında bir uyarı görüntüler:
+```
+Warning: IPv6 is enabled but no public IPv6 address was detected.
+Your node will not be reachable by IPv6 peers.
+```
+Düğümünüz IPv4 kullanarak normal şekilde çalışmaya devam edecektir.
+:::
+
+### IPv6'nın Çalıştığını Doğrulama
+
+IPv6'yı etkinleştirip hizmetlerinizi yeniden başlattıktan sonra, düzgün çalıştığını doğrulayabilirsiniz:
+
+1. Docker Ağ Yapılandırmasını Kontrol Edin
+
+```shell
+docker inspect rocketpool_net | grep -i ipv6
+```
+
+`"EnableIPv6": true` görmelisiniz ve her konteynerin bir `IPv6Address`'i olmalıdır.
+
+2. Port Bağlamasını Doğrulayın
+
+```shell
+ss -tlnp | grep 9001
+```
+
+`[::]:9001` (IPv6 joker adresi) görmelisiniz.
+
+3. Genel IPv6 Adresinizi Onaylayın
+
+```shell
+curl -6 https://icanhazip.com
+```
+
+Genel IPv6 adresinizi döndürmelidir (ör. `xxx:xxx:xxxx:...`).
+
+4. Konsensüs İstemcisi Günlüklerini Kontrol Edin
+
+IPv6 dinlemeyi onaylamak için konsensüs istemcisi günlüklerinizi görüntüleyin:
+
+```shell
+docker logs rocketpool_eth2 2>&1 | grep -iE "listen|ipv6|::" | head -20
+```
+
+**Nelere dikkat etmeli:**
+
+- **Lighthouse** - `Listening on /ip6/` veya `listen_addr: /ip6/`
+- **Lodestar** - Hem `/ip4/` hem de `/ip6/` adreslerini gösteren `Multiaddrs`
+- **Teku** - Hem `0.0.0.0` hem de `::` gösteren `p2p-interface`
+- **Nimbus** - `Listening to incoming network requests` (IPv6'dan açıkça bahsetmez)
+- **Prysm** - `Beacon chain gRPC server listening` (IPv6'dan açıkça bahsetmez)
+
+5. IPv6 Eşlerini Kontrol Edin
+
+API aracılığıyla beacon node'unuzun eş listesini kontrol edin:
+
+```shell
+curl -s http://localhost:5052/eth/v1/node/peers | grep -o '/ip6/[^"]*' | head -10
+```
+
+Bu, herhangi biri bağlıysa en fazla 10 IPv6 eş adresi gösterecektir. Kullandığınız konsensüs istemcisine bağlı olarak IPv6 eşlerinin bağlanması biraz zaman alabilir. Testlerimizde, IPv6 eşlerine anında bağlanan tek istemcinin Teku olduğunu gördük.

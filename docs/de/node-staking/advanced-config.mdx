@@ -1,74 +1,75 @@
 import tui_ec_expose_ports from "./images/tui-ec-expose-ports.png";
 import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
+import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
 
-# Advanced Smartnode Configuration for Docker Mode
+# Erweiterte Smartnode-Konfiguration für den Docker-Modus
 
-In this section, we will cover a few techniques that expand the Smartnode's customization and functionality.
+In diesem Abschnitt werden einige Techniken behandelt, die die Anpassungsmöglichkeiten und Funktionalität des Smartnodes erweitern.
 
-## Allowing External Validator Clients to Connect to the Smartnode
+## Externe Validator-Clients mit dem Smartnode verbinden
 
-Because the Smartnode manages the Execution client and Beacon Node, it handles much of their configuration (including updates) automatically.
-One common request from users is for the ability to attach an externally-managed Validator client to the Smartnode's Execution and Consensus clients.
+Da der Smartnode den Execution Client und den Beacon Node verwaltet, übernimmt er einen Großteil ihrer Konfiguration (einschließlich Updates) automatisch.
+Ein häufiger Wunsch von Benutzern ist die Möglichkeit, einen extern verwalteten Validator-Client an die Execution und Consensus Clients des Smartnodes anzuhängen.
 
-Essentially, this acts as a sort of **"Reverse Hybrid" mode**; instead of the Smartnode managing its own Validator client and connecting to an external Execution and Consensus client, it manages all three things and an external Validator client can use its own clients instead.
+Im Wesentlichen fungiert dies als eine Art **„Reverse-Hybrid"-Modus**: Anstatt dass der Smartnode seinen eigenen Validator-Client verwaltet und sich mit einem externen Execution und Consensus Client verbindet, verwaltet er alle drei Komponenten, und ein externer Validator-Client kann stattdessen seine eigenen Clients verwenden.
 
-Enabling this is trivial using the [Settings Manager](./config-docker#configuring-via-the-settings-manager).
+Die Aktivierung ist trivial mit dem [Einstellungsmanager](./config-docker#configuring-via-the-settings-manager).
 
 ### Execution Client
 
-To enable access to the Execution client, go to the **Execution Client (ETH1)** category and check the **Expose RPC Ports** box:
+Um den Zugriff auf den Execution Client zu aktivieren, gehe zur Kategorie **Execution Client (ETH1)** und aktiviere das Kontrollkästchen **Expose RPC Ports**:
 
 <img src={tui_ec_expose_ports} width="100%" height="auto" />
 
-This will open the RPC ports (default 8545 for HTTP and 8546 for Websockets) on your node, so other machines on your local network can connect to them.
+Dadurch werden die RPC-Ports (Standard 8545 für HTTP und 8546 für Websockets) auf deinem Node geöffnet, sodass andere Maschinen in deinem lokalen Netzwerk sich damit verbinden können.
 
-For example, if your node's local IP address were `192.168.1.45`, then by enabling this option you could use `http://192.168.1.45:8545` as the Execution client URL for your other services.
+Wenn die lokale IP-Adresse deines Nodes beispielsweise `192.168.1.45` wäre, könntest du durch Aktivieren dieser Option `http://192.168.1.45:8545` als Execution-Client-URL für deine anderen Dienste verwenden.
 
 ### Beacon Node (Consensus Client)
 
-To enable access to the Consensus client's Beacon Node, go to the **Consensus Client (ETH2)** category and check the **Expose API Port** box:
+Um den Zugriff auf den Beacon Node des Consensus Clients zu aktivieren, gehe zur Kategorie **Consensus Client (ETH2)** und aktiviere das Kontrollkästchen **Expose API Port**:
 
 <img src={tui_cc_expose_ports} width="100%" height="auto" />
 
-This will open the HTTP API port (default 5052) on your node, so other machines on your local network can connect to it.
+Dadurch wird der HTTP-API-Port (Standard 5052) auf deinem Node geöffnet, sodass andere Maschinen in deinem lokalen Netzwerk sich damit verbinden können.
 
-::: warning Note: Ports opened via iptables, not ufw
-When you expose RPC and API endpoints in using the Rocketpool configurator, ports are opened via `iptables` and therefore will not show up as a `ufw` firewall rule. To see which ports are open you can use `sudo lsof -i -P -n | grep LISTEN` or similar command.
+::: warning Hinweis: Ports werden über iptables geöffnet, nicht über ufw
+Wenn du RPC- und API-Endpunkte mit dem Rocketpool-Konfigurator freigibst, werden Ports über `iptables` geöffnet und erscheinen daher nicht als `ufw`-Firewall-Regel. Um zu sehen, welche Ports offen sind, kannst du `sudo lsof -i -P -n | grep LISTEN` oder einen ähnlichen Befehl verwenden.
 :::
 
-For example, if your node's local IP address were `192.168.1.45`, then by enabling this option you could use `http://192.168.1.45:5052` as the Beacon Node URL for your other services.
+Wenn die lokale IP-Adresse deines Nodes beispielsweise `192.168.1.45` wäre, könntest du durch Aktivieren dieser Option `http://192.168.1.45:5052` als Beacon-Node-URL für deine anderen Dienste verwenden.
 
-::: warning NOTE FOR PRYSM USERS
-**Prysm** has a second box called `Expose RPC Port` that must be checked if you want to attach an externally-managed Prysm Validator Client to your Beacon Node.
-This is because Prysm's Validator Client cannot currently connect to a Beacon Node via the standard Beacon HTTP API.
-In the future, this will be fixed and there will only be one checkbox like the other clients.
+::: warning HINWEIS FÜR PRYSM-BENUTZER
+**Prysm** hat ein zweites Kontrollkästchen namens `Expose RPC Port`, das aktiviert werden muss, wenn du einen extern verwalteten Prysm Validator Client an deinen Beacon Node anhängen möchtest.
+Dies liegt daran, dass der Prysm Validator Client derzeit keine Verbindung zu einem Beacon Node über die Standard-Beacon-HTTP-API herstellen kann.
+In Zukunft wird dies behoben sein und es wird wie bei den anderen Clients nur ein Kontrollkästchen geben.
 :::
 
 ### MEV-Boost
 
-To enable access to MEV-Boost, go to the **MEV-Boost** category and check the **Expose API Port** box:
+Um den Zugriff auf MEV-Boost zu aktivieren, gehe zur Kategorie **MEV-Boost** und aktiviere das Kontrollkästchen **Expose API Port**:
 
 <img src={tui_mev_expose_port} width="100%" height="auto" />
 
-This will open the HTTP API port (default 18550) on your node, so other machines on your local network can connect to it.
+Dadurch wird der HTTP-API-Port (Standard 18550) auf deinem Node geöffnet, sodass andere Maschinen in deinem lokalen Netzwerk sich damit verbinden können.
 
-For example, if your node's local IP address were `192.168.1.45`, then by enabling this option you could use `http://192.168.1.45:18550` as the MEV-Boost URL for your other services.
+Wenn die lokale IP-Adresse deines Nodes beispielsweise `192.168.1.45` wäre, könntest du durch Aktivieren dieser Option `http://192.168.1.45:18550` als MEV-Boost-URL für deine anderen Dienste verwenden.
 
-## Customizing the Docker-Compose Definition Files
+## Anpassen der Docker-Compose-Definitionsdateien
 
-While the Settings Manager contains many options you can use to customize your node, it doesn't wrap all of the features that `docker-compose` provides.
-Some users require supplemental customizations to the Smartnode's `docker-compose` files.
+Obwohl der Einstellungsmanager viele Optionen zur Anpassung deines Nodes bietet, deckt er nicht alle Funktionen ab, die `docker-compose` bereitstellt.
+Einige Benutzer benötigen ergänzende Anpassungen an den `docker-compose`-Dateien des Smartnodes.
 
-Because the `docker-compose` files are regenerated (into the `runtime` directory) from their templates (in the `templates` directory) each time `rocketpool service start` is called, modifying the runtime files is not advised.
-Instead, we leverage `docker-compose`'s [inherent override functionality](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration) to let you make any modifications you need to which will be preserved upon restarts.
-Furthermore, this system _also_ **preserves your modifications after an upgrade to or reinstallation of the Smartnode stack**.
+Da die `docker-compose`-Dateien bei jedem Aufruf von `rocketpool service start` aus ihren Vorlagen (im Verzeichnis `templates`) neu generiert werden (in das Verzeichnis `runtime`), wird von einer Änderung der Runtime-Dateien abgeraten.
+Stattdessen nutzen wir die [inherente Override-Funktionalität](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration) von `docker-compose`, um dir beliebige Änderungen zu ermöglichen, die auch nach Neustarts erhalten bleiben.
+Darüber hinaus **bewahrt dieses System deine Änderungen auch nach einem Upgrade oder einer Neuinstallation des Smartnode-Stacks**.
 
-To do this, simply open the file for the container of your choice in the `override` folder, and add your customizations to it there.
-Anything you put in these files will **override** whatever the corresponding settings are in the `docker-compose` files from the `runtime` folder.
+Öffne dazu einfach die Datei für den Container deiner Wahl im Ordner `override` und füge dort deine Anpassungen hinzu.
+Alles, was du in diese Dateien einträgst, **überschreibt** die entsprechenden Einstellungen in den `docker-compose`-Dateien aus dem Ordner `runtime`.
 
-For example, say you wanted to [add AWS credentials to Grafana for CloudWatch support](https://grafana.com/docs/grafana/latest/administration/configure-docker/#configure-aws-credentials-for-cloudwatch-support).
-You could do it by modifying `override/grafana.yml` like so:
+Wenn du beispielsweise [AWS-Anmeldedaten zu Grafana für CloudWatch-Support hinzufügen](https://grafana.com/docs/grafana/latest/administration/configure-docker/#configure-aws-credentials-for-cloudwatch-support) möchtest,
+kannst du dies durch Änderung von `override/grafana.yml` wie folgt tun:
 
 ```yaml
 # Enter your own customizations for the Grafana container here. These changes will persist after upgrades, so you only need to do them once.
@@ -87,9 +88,9 @@ services:
       - GF_AWS_default_REGION=us-east-1
 ```
 
-This will merge the four environment variables listed here to the existing array of environment variables in the Grafana container.
+Dadurch werden die vier hier aufgelisteten Umgebungsvariablen zum bestehenden Array von Umgebungsvariablen im Grafana-Container hinzugefügt.
 
-Alternatively, if you wanted to save eth1 client data to a non-default path on your filesystem, you would modify `override/eth1.yml` to contain volume parameters like:
+Alternativ, wenn du eth1-Client-Daten in einem nicht standardmäßigen Pfad auf deinem Dateisystem speichern möchtest, würdest du `override/eth1.yml` mit Volume-Parametern wie folgt ändern:
 
 ```yaml
 # Enter your own customizations for the eth1 container here. These changes will persist after upgrades, so you only need to do them once.
@@ -110,6 +111,129 @@ volumes:
       device: "/data/eth/eth1"
 ```
 
-This will merge the parameters into the `eth1clientdata` volume specification, causing `/data/eth/eth1` to be the location of the eth1 client data rather than the default (`/var/lib/docker/volumes/rocketpool_eth1clientdata` if using default Docker configuration).
+Dadurch werden die Parameter in die `eth1clientdata`-Volume-Spezifikation eingefügt, sodass `/data/eth/eth1` der Speicherort der eth1-Client-Daten ist anstelle des Standards (`/var/lib/docker/volumes/rocketpool_eth1clientdata` bei Verwendung der Standard-Docker-Konfiguration).
 
-For more information on how `docker-compose` overrides work, please visit [https://docs.docker.com/compose/extends/#adding-and-overriding-configuration](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration).
+Weitere Informationen zur Funktionsweise von `docker-compose`-Overrides findest du unter [https://docs.docker.com/compose/extends/#adding-and-overriding-configuration](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration).
+
+## (Experimentell) Dual-Stack-Netzwerk (IPv4 + IPv6) aktivieren
+
+Diese Option ist für Benutzer gedacht, die Docker-Modus-Konfigurationen mit lokal verwalteten Clients betreiben.
+Ab Smart Node v1.20.2 unterstützt Rocket Pool Dual-Stack-Netzwerk (IPv4 + IPv6) für deine Ethereum-Clients.
+
+Wenn aktiviert, kann dein Consensus Client sowohl mit IPv4- als auch mit IPv6-Peers kommunizieren, was die Peer-Erkennung potenziell verbessert.
+Diese Funktion ist auch nützlich, wenn dein Netzwerk hinter einem CGNAT liegt und Schwierigkeiten hat, über IPv4 Peers zu finden.
+
+
+::: tip TIPP
+Die folgende Seite gibt einen Überblick über den Status der Ethereum-IPv6-Unterstützung.
+
+[ipv6eth.info](https://ipv6eth.info/)
+:::
+
+::: warning EXPERIMENTELLE FUNKTION
+Die IPv6-Unterstützung ist derzeit experimentell. Obwohl sie mit allen unterstützten Consensus Clients getestet wurde, können je nach Netzwerkkonfiguration Probleme auftreten.
+Bei Problemen kannst du IPv6 deaktivieren und deine Clients neu starten, um in den IPv4-Only-Modus zurückzukehren. Wenn du Probleme mit der IPv6-Unterstützung feststellst,
+melde diese bitte im **#support**-Kanal auf dem [Rocket Pool Discord](https://discord.gg/rocketpool).
+
+:::
+
+Wenn du IPv6-Unterstützung aktivierst:
+
+- Wird dein Docker-Netzwerk für Dual-Stack (IPv4 + IPv6) konfiguriert
+- Hört dein Consensus Client auf sowohl IPv4- als auch IPv6-Adressen
+- Kann dein Node IPv6-Peers zusätzlich zu IPv4-Peers erkennen und sich damit verbinden
+- Bewirbt dein Node seine IPv6-Adresse in seinem ENR (Ethereum Node Record), wodurch er für andere IPv6-Nodes auffindbar wird
+
+### Client-spezifisches Verhalten
+
+Verschiedene Consensus Clients unterstützen IPv6 in unterschiedlichem Maße:
+
+| Client | IPv6-Listening | IPv6-Broadcasting (ENR) | Peering-Verhalten | Hinweise |
+|--------|----------------|------------------------|------------------|-------|
+| **Teku** | Vollständig | Vollständig | Priorisiert IPv6 | Bevorzugt IPv6-Verbindungen, wenn verfügbar. Verwendet einen separaten IPv6-Port (Standard: 9090). |
+| **Lighthouse** | Vollständig | Vollständig | Keine Präferenz | Verbindet sich mit der Adresse (IPv4 oder IPv6), die zuerst antwortet. Typischerweise ~1-2 % IPv6-Peers. |
+| **Lodestar** | Vollständig | Vollständig | Priorisiert IPv4 | Hört und sendet auf beiden IPv4 und IPv6, verbindet sich aber nur über IPv6 mit Peers, wenn der andere Node IPv4 deaktiviert hat. |
+| **Nimbus** | Vollständig | Nur IPv4* | Primär IPv4 | Kann eingehende IPv6-Verbindungen akzeptieren, sendet jedoch nur IPv4 im ENR. |
+| **Prysm** | Vollständig | Nur IPv4* | Primär IPv4 | Kann eingehende IPv6-Verbindungen akzeptieren, sendet jedoch nur IPv4 im ENR. |
+
+\* Standardmäßig wird die IPv4-Adresse gesendet. Auf reinen IPv6-Hosts wird stattdessen IPv6 gesendet.
+
+
+### Voraussetzungen
+
+Bevor du IPv6 aktivierst, stelle sicher, dass:
+
+1. Dein ISP/Host IPv6-Konnektivität bereitstellt – Teste dies mit [ipv6test.google.com/](https://ipv6test.google.com/)
+oder durch Ausführen dieses Befehls in deiner CLI: `curl -6 https://icanhazip.com`. Wenn der Befehl eine IPv6-Adresse in diesem Format zurückgibt: `xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx`, bist du startklar.
+2. Deine Firewall IPv6-Datenverkehr auf dem Consensus-Client-P2P-Port erlaubt. Der Standard-P2P-Port ist `9001`. Teku benötigt einen zusätzlichen dedizierten Port für IPv6. Der Standard-Teku-P2P-IPv6-Port ist `9090`.
+3. Du lokal verwaltete Clients im Docker-Modus verwendest (keine extern verwalteten Clients)
+
+### IPv6 aktivieren
+
+
+Um IPv6 zu aktivieren, gehe zur Kategorie Smart Node und TX Fees
+und aktiviere das Kontrollkästchen **Enable IPv6**, dann speichere und starte den Smart-Node-Stack neu.
+<img src={tui_enable_ipv6} width="100%" height="auto" />
+
+::: warning HINWEIS
+Wenn du IPv6 aktivierst, aber keine öffentliche IPv6-Adresse hast, zeigt der Smart Node beim Start eine Warnung an:
+```
+Warning: IPv6 is enabled but no public IPv6 address was detected.
+Your node will not be reachable by IPv6 peers.
+```
+Dein Node wird weiterhin normal über IPv4 funktionieren.
+:::
+
+### Überprüfen, ob IPv6 funktioniert
+
+Nachdem du IPv6 aktiviert und deine Dienste neu gestartet hast, kannst du überprüfen, ob es korrekt funktioniert:
+
+1. Docker-Netzwerkkonfiguration prüfen
+
+```shell
+docker inspect rocketpool_net | grep -i ipv6
+```
+
+Du solltest `"EnableIPv6": true` sehen und jeder Container sollte eine `IPv6Address` haben.
+
+2. Port-Bindung überprüfen
+
+```shell
+ss -tlnp | grep 9001
+```
+
+Du solltest `[::]:9001` sehen (IPv6-Wildcard-Adresse).
+
+3. Deine öffentliche IPv6-Adresse bestätigen
+
+```shell
+curl -6 https://icanhazip.com
+```
+
+Sollte deine öffentliche IPv6-Adresse zurückgeben (z. B. `xxx:xxx:xxxx:...`).
+
+4. Consensus-Client-Logs überprüfen
+
+Zeige deine Consensus-Client-Logs an, um das IPv6-Listening zu bestätigen:
+
+```shell
+docker logs rocketpool_eth2 2>&1 | grep -iE "listen|ipv6|::" | head -20
+```
+
+**Worauf zu achten ist:**
+
+- **Lighthouse** – `Listening on /ip6/` oder `listen_addr: /ip6/`
+- **Lodestar** – `Multiaddrs` zeigt sowohl `/ip4/`- als auch `/ip6/`-Adressen
+- **Teku** – `p2p-interface` zeigt sowohl `0.0.0.0` als auch `::`
+- **Nimbus** – `Listening to incoming network requests` (erwähnt IPv6 nicht explizit)
+- **Prysm** – `Beacon chain gRPC server listening` (erwähnt IPv6 nicht explizit)
+
+5. IPv6-Peers prüfen
+
+Überprüfe die Peer-Liste deines Beacon Nodes über die API:
+
+```shell
+curl -s http://localhost:5052/eth/v1/node/peers | grep -o '/ip6/[^"]*' | head -10
+```
+
+Dies zeigt bis zu 10 IPv6-Peer-Adressen an, sofern welche verbunden sind. Je nachdem, welchen Consensus Client du verwendest, kann es eine Weile dauern, bis sich IPv6-Peers verbinden. In unseren Tests hat sich Teku als einziger Client herausgestellt, der sofort IPv6-Peers verbunden hat.

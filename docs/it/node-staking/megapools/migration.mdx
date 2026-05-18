@@ -1,0 +1,120 @@
+# Migrazione dai Minipool ai Validator Megapool
+
+Se sei un node operator che desidera migrare lo stake del proprio minipool a un megapool, questa pagina offre una guida passo per passo su
+come farlo. La migrazione prevede l'uscita dal minipool, la creazione di nuovi validator megapool, il ritiro dello stake RPL legacy e il re-staking dell'RPL
+sul tuo megapool. Il bond del validator megapool è di 4 ETH, il che significa che potrai creare due validator megapool per ogni validator minipool da 8 ETH che possiedi.
+
+
+Il 9% dei ricavi ETH del protocollo viene distribuito proporzionalmente agli staker RPL con validator megapool sotto forma di [ricompense voter share](/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers).
+Questo si aggiunge alle precedenti ricompense standard di inflazione RPL.
+
+
+
+Ci sono una serie di passaggi separati:
+
+1. Uscire dal tuo minipool. Ciò significa finalizzare il tuo minipool e prelevare il saldo completo dalla Beacon Chain.
+2. Creare un nuovo validator megapool
+3. [Opzionale] Ritirare e prelevare il tuo RPL legacy
+4. [Opzionale] Re-stakare l'RPL su un megapool. Facendolo guadagnerai [ricompense voter share](/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers) dai ricavi ETH in aggiunta alle ricompense di inflazione RPL.
+
+Prima di impegnarti a migrare lo stake del tuo minipool a un megapool, dovrai considerare lo stato della coda di deposito di Rocket Pool
+e della coda della Beacon Chain. Entrambe hanno tempi di attesa variabili e sono indipendenti l'una dall'altra. La coda di deposito di Rocket Pool governa
+la creazione di nuovi validator megapool e quando vengono abbinati con ETH dagli staker rETH. Nel frattempo, la coda della Beacon Chain determina
+la rapidità con cui il tuo validator minipool può uscire. Ancora più importante, determina anche quando il tuo nuovo validator megapool può iniziare a partecipare ai compiti di attestazione.
+
+::: tip Link Utili
+[saturn-1.net/queue](https://saturn-1.net/queue) è un dashboard supportato dalla community creato da Steely! Questa pagina può darti un'idea di quanto sia lunga la coda di deposito di Rocket Pool.
+
+[validatorqueue.com](https://www.validatorqueue.com/) è un sito utile per verificare la lunghezza della coda della Beacon Chain. Questa coda dipende dalla quantità di ETH
+che entra ed esce dalla Beacon Chain. Viene elaborata a un ritmo di `256 ETH per epoch`.
+
+[rocketpool.net/node-staking/rpl-fee-switch](https://rocketpool.net/node-staking/rpl-fee-switch) modella l'impatto del fee switch di Saturn 1 sulle tue ricompense di staking.
+
+:::
+
+::: warning AVVISO
+Ci sono due cose da considerare rispetto al guadagno delle ricompense:
+
+A. Il tuo nodo non guadagnerà ricompense di inflazione RPL a meno che tu non abbia almeno un validator minipool o megapool attivo.
+
+B. Una volta che il tuo minipool è completamente uscito dalla Beacon Chain, non guadagnerai ricompense ETH (commissioni o voter share) fino a quando il tuo validator megapool non sarà attivamente in validazione.
+Deve essere elaborato dalla coda di deposito di Rocket Pool *e* dalla coda di deposito della Beacon Chain prima di poter iniziare i suoi compiti di attestazione.
+Dovrai monitorare la lunghezza della coda per decidere quando eseguire la migrazione.
+
+:::
+
+::: warning AVVISO
+I validator megapool devono superare la coda della Beacon Chain due volte.
+1. Prestake (1 ETH). Quando l'ETH viene assegnato al tuo validator megapool dal deposit pool, viene inviato solo 1 ETH
+alla Beacon Chain. A questo punto, il tuo validator entra nella coda della Beacon Chain.
+2. Stake (31 ETH). Dopo che il validator viene elaborato dalla Beacon Chain, il protocollo Rocket Pool verificherà
+le credenziali di prelievo per il validator e quindi staked i restanti 31 ETH sulla Beacon Chain. A questo punto, il validator entra nella
+coda della Beacon Chain per la seconda e ultima volta.
+
+In precedenza con i minipool, l'[Oracle DAO (oDAO)](/odao/overview#the-rocket-pool-oracle-dao) era responsabile della verifica delle credenziali di prelievo per ogni
+validator minipool. Questo nuovo sistema estende il tempo di coda ma rimuove un requisito di fiducia imposto dall'oDAO.
+
+[validatorqueue.com](https://www.validatorqueue.com/) è uno strumento utile per monitorare la lunghezza della coda della Beacon Chain. Tieni in considerazione questo fattore
+quando migri lo stake del tuo minipool a un megapool.
+
+:::
+
+## Passo 1: Uscire dal tuo Minipool
+
+Uscire dal tuo minipool è il primo passo per migrare lo stake a un megapool. Segui il link qui sotto per una pratica guida su come
+uscire dal tuo minipool e prelevare i fondi dalla Beacon Chain:
+
+https://docs.rocketpool.net/node-staking/withdraw
+
+Questo processo richiede in genere alcuni giorni a seconda della coda di uscita della Beacon Chain. Sentiti libero di aggiungere questa pagina ai segnalibri e tornare quando è completo.
+
+Non dimenticare di finalizzare il tuo minipool [distribuendo le ricompense complete](/node-staking/withdraw#distributing-full-rewards).
+Ciò riscuoterà le ricompense guadagnate sul minipool e ti permetterà di ritirare il tuo saldo completo di RPL legacy.
+
+
+## Passo 2: Creare un Validator Megapool
+
+Una volta che il tuo minipool è chiuso e i fondi ETH sono completamente accessibili, sei pronto per creare un validator megapool!
+
+La pagina seguente ti guiderà attraverso tutti i passaggi per creare un nuovo validator megapool:
+
+https://docs.rocketpool.net/node-staking/megapools/create-megapool-validator
+
+Come node operator di ritorno, riceverai un ticket per la coda express per ogni 4 ETH bonded nei minipool. Cioè 2 ticket per ogni minipool da 8 ETH.
+Questi ticket sono disponibili automaticamente.
+
+La coda di deposito di Rocket Pool elabora i depositi a un rapporto di 4 validator della coda express per ogni validator della coda standard.
+Leggi [Coda di Deposito di Rocket Pool e Coda Express](/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-and-express-queue)
+per saperne di più su come l'ETH viene assegnato ai nuovi validator megapool.
+
+## Passo 3: Ritiro e Prelievo dell'RPL Legacy
+
+Il requisito minimo di stake RPL legacy è il 15% dell'ETH preso in prestito dal minipool. Se desideri ritirare il tuo saldo completo di RPL legacy, devi prima
+chiudere tutti i tuoi minipool (portando l'ETH preso in prestito a 0).
+
+Quando sei pronto, puoi usare il seguente comando per ritirare e prelevare l'RPL Legacy:
+```
+rocketpool node withdraw-rpl
+```
+C'è un periodo di unstaking di 28 giorni prima di poter prelevare il tuo RPL Legacy.
+Segui questo link per istruzioni dettagliate su come ritirare e prelevare l'RPL legacy.
+
+https://docs.rocketpool.net/node-staking/megapools/staking-and-claiming-rewards#unstaking-and-withdrawing-rpl
+
+## Passo 4: Staking di RPL sul tuo megapool
+
+Clicca sul seguente link per istruzioni su come fare staking del tuo RPL su un megapool:
+
+https://docs.rocketpool.net/node-staking/megapools/staking-and-claiming-rewards#staking
+
+Questo passo è completamente opzionale poiché lo staking di RPL non è richiesto per creare un validator megapool. Non vorrai perderti questo passo se
+desideri guadagnare ricompense voter share, ricompense di inflazione RPL
+(le stesse delle precedenti ricompense di inflazione RPL), e avere potere di voto nella governance del [Protocol DAO (pDAO)](/pdao/overview).
+
+- Il voter share (9% dei ricavi del protocollo) viene distribuito proporzionalmente tra tutti i node operator in base alla loro quota di RPL totale in staking nel megapool.
+
+Per informazioni più dettagliate su come il voter share viene distribuito agli staker RPL con validator megapool, leggi questa guida:
+[Come il Voter Share viene Distribuito agli Staker RPL con Megapool](/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers)
+
+Ecco fatto! Come sempre, non dimenticare di consultare la guida [Monitoraggio e Manutenzione](/node-staking/maintenance/overview) se necessario. Questa sezione copre
+tutti gli argomenti correlati per mantenere il tuo nodo in perfetta forma, inclusi aggiornamenti software e come monitorare la salute del tuo nodo.

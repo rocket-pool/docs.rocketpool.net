@@ -1,6 +1,6 @@
 # Creación de un Megapool (Validador)
 
-Bienvenido a Saturn 1! Un megapool de Rocket Pool es una instancia de contrato inteligente en la capa de ejecución.
+¡Bienvenido a Saturn 1! Un megapool de Rocket Pool es una instancia de contrato inteligente en la capa de ejecución.
 Tu nodo gestionará un megapool que sirve como dirección de retiro de Ethereum para uno o varios validadores.
 Cada validador está compuesto por una porción de tu ETH, conocida como el monto de garantía, y una porción de ETH del pool de staking de rETH,
 conocida como el monto prestado. Tu megapool es responsable de combinar el monto de garantía y el monto prestado de ETH para formar 32 ETH en total, que
@@ -9,16 +9,22 @@ luego se envían al contrato de depósito de la Beacon Chain para crear un nuevo
 Tu megapool se despliega automáticamente en el momento de tu primer depósito de validador. ¡Después podrás usar el mismo megapool para gestionar tantos validadores como desees! No necesitarás
 desplegar un nuevo megapool cada vez que crees un nuevo validador.
 
-::: tip NOTA
-Los tiempos de activación (y salida) de la cola de validadores de la Beacon Chain pueden variar enormemente dependiendo del estado actual de la red.
+::: warning ADVERTENCIA
+Los validadores megapool necesitan superar la cola de la Beacon Chain dos veces. 
+1. Prestake (1 ETH). Cuando se asigna ETH a tu validador megapool desde el deposit pool, solo se envía 1 ETH
+a la Beacon Chain. En este punto, tu validador entra en la cola de la Beacon Chain. 
+2. Stake (31 ETH). Después de que el validador es procesado por la Beacon Chain, el protocolo Rocket Pool verificará
+las credenciales de retiro del validador y luego hará stake de los 31 ETH restantes en la Beacon Chain. En este punto, el validador entra en la cola de
+la Beacon Chain por segunda y última vez. 
 
-Esto está fuera del control de Rocket Pool y es una función de la propia Beacon Chain.
+Anteriormente con los minipools, el [Oracle DAO (oDAO)](/es/odao/overview#the-rocket-pool-oracle-dao) era responsable de verificar las credenciales de retiro de cada
+validador minipool. Este nuevo sistema extiende el tiempo en cola pero elimina un requisito de confianza impuesto por el oDAO. 
 
-La siguiente herramienta proporciona una buena estimación de cuánto tiempo puedes esperar:
-[https://www.validatorqueue.com/](https://www.validatorqueue.com/)
+[validatorqueue.com](https://www.validatorqueue.com/) es una herramienta útil para monitorear la longitud de la cola de la Beacon Chain. Por favor considera este factor
+al migrar tu stake de minipool a un megapool. 
 
-Por favor revisa esta herramienta para tener una idea de cuánto tiempo puedes esperar para que tu validador se active.
 :::
+
 
 ::: tip NOTA
 
@@ -32,6 +38,16 @@ La creación de validadores está gobernada por dos colas.
 
 La cola de depósitos de Rocket Pool incluye un sistema de cola exprés para ayudar a los operadores de nodo existentes a migrar su ETH de validadores minipool
 a ETH de validadores megapool.
+
+:::
+
+::: tip Enlaces Útiles
+[saturn-1.net/queue](https://saturn-1.net/queue) es un panel de control soportado por la comunidad creado por Steely! Esta página puede darte una idea de cuán larga es la cola de depósitos de Rocket Pool.
+
+[validatorqueue.com](https://www.validatorqueue.com/) es un sitio útil para verificar la longitud de la cola de la Beacon Chain. Esta cola depende de la cantidad de ETH
+que entra y sale de la Beacon Chain. Se procesa a una tasa de `256 ETH por época`.
+
+[rocketpool.net/node-staking/rpl-fee-switch](https://rocketpool.net/node-staking/rpl-fee-switch) modela el impacto del fee switch de Saturn 1 en tus recompensas de staking.
 
 :::
 

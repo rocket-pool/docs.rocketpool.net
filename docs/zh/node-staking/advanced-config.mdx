@@ -1,74 +1,75 @@
 import tui_ec_expose_ports from "./images/tui-ec-expose-ports.png";
 import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
+import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
 
-# Advanced Smartnode Configuration for Docker Mode
+# Docker 模式下的高级 Smartnode 配置
 
-In this section, we will cover a few techniques that expand the Smartnode's customization and functionality.
+在本节中，我们将介绍一些扩展 Smartnode 自定义功能的技巧。
 
-## Allowing External Validator Clients to Connect to the Smartnode
+## 允许外部验证者客户端连接到 Smartnode
 
-Because the Smartnode manages the Execution client and Beacon Node, it handles much of their configuration (including updates) automatically.
-One common request from users is for the ability to attach an externally-managed Validator client to the Smartnode's Execution and Consensus clients.
+由于 Smartnode 管理执行客户端和信标节点，它会自动处理大部分配置（包括更新）。
+用户的一个常见需求是能够将外部管理的验证者客户端连接到 Smartnode 的执行客户端和共识客户端。
 
-Essentially, this acts as a sort of **"Reverse Hybrid" mode**; instead of the Smartnode managing its own Validator client and connecting to an external Execution and Consensus client, it manages all three things and an external Validator client can use its own clients instead.
+本质上，这相当于一种**"反向混合"模式**；Smartnode 不再管理自己的验证者客户端并连接到外部执行客户端和共识客户端，而是管理这三者，外部验证者客户端可以使用其自己的客户端。
 
-Enabling this is trivial using the [Settings Manager](./config-docker#configuring-via-the-settings-manager).
+使用[设置管理器](./config-docker#configuring-via-the-settings-manager)可以轻松启用此功能。
 
-### Execution Client
+### 执行客户端
 
-To enable access to the Execution client, go to the **Execution Client (ETH1)** category and check the **Expose RPC Ports** box:
+要启用对执行客户端的访问，请转到 **Execution Client (ETH1)** 类别并勾选 **Expose RPC Ports** 复选框：
 
 <img src={tui_ec_expose_ports} width="100%" height="auto" />
 
-This will open the RPC ports (default 8545 for HTTP and 8546 for Websockets) on your node, so other machines on your local network can connect to them.
+这将在您的节点上开放 RPC 端口（HTTP 默认 8545，Websockets 默认 8546），使本地网络上的其他机器能够连接到它们。
 
-For example, if your node's local IP address were `192.168.1.45`, then by enabling this option you could use `http://192.168.1.45:8545` as the Execution client URL for your other services.
+例如，如果您节点的本地 IP 地址为 `192.168.1.45`，则启用此选项后，您可以将 `http://192.168.1.45:8545` 用作其他服务的执行客户端 URL。
 
-### Beacon Node (Consensus Client)
+### 信标节点（共识客户端）
 
-To enable access to the Consensus client's Beacon Node, go to the **Consensus Client (ETH2)** category and check the **Expose API Port** box:
+要启用对共识客户端信标节点的访问，请转到 **Consensus Client (ETH2)** 类别并勾选 **Expose API Port** 复选框：
 
 <img src={tui_cc_expose_ports} width="100%" height="auto" />
 
-This will open the HTTP API port (default 5052) on your node, so other machines on your local network can connect to it.
+这将在您的节点上开放 HTTP API 端口（默认 5052），使本地网络上的其他机器能够连接到它。
 
-::: warning Note: Ports opened via iptables, not ufw
-When you expose RPC and API endpoints in using the Rocketpool configurator, ports are opened via `iptables` and therefore will not show up as a `ufw` firewall rule. To see which ports are open you can use `sudo lsof -i -P -n | grep LISTEN` or similar command.
+::: warning 注意：端口通过 iptables 而非 ufw 开放
+当您在 Rocketpool 配置器中暴露 RPC 和 API 端点时，端口通过 `iptables` 开放，因此不会显示为 `ufw` 防火墙规则。要查看哪些端口已开放，您可以使用 `sudo lsof -i -P -n | grep LISTEN` 或类似命令。
 :::
 
-For example, if your node's local IP address were `192.168.1.45`, then by enabling this option you could use `http://192.168.1.45:5052` as the Beacon Node URL for your other services.
+例如，如果您节点的本地 IP 地址为 `192.168.1.45`，则启用此选项后，您可以将 `http://192.168.1.45:5052` 用作其他服务的信标节点 URL。
 
-::: warning NOTE FOR PRYSM USERS
-**Prysm** has a second box called `Expose RPC Port` that must be checked if you want to attach an externally-managed Prysm Validator Client to your Beacon Node.
-This is because Prysm's Validator Client cannot currently connect to a Beacon Node via the standard Beacon HTTP API.
-In the future, this will be fixed and there will only be one checkbox like the other clients.
+::: warning Prysm 用户注意
+**Prysm** 有一个名为 `Expose RPC Port` 的第二个复选框，如果您想将外部管理的 Prysm 验证者客户端连接到信标节点，必须勾选此复选框。
+这是因为 Prysm 的验证者客户端目前无法通过标准信标 HTTP API 连接到信标节点。
+未来此问题将得到修复，届时将只有一个复选框，与其他客户端一致。
 :::
 
 ### MEV-Boost
 
-To enable access to MEV-Boost, go to the **MEV-Boost** category and check the **Expose API Port** box:
+要启用对 MEV-Boost 的访问，请转到 **MEV-Boost** 类别并勾选 **Expose API Port** 复选框：
 
 <img src={tui_mev_expose_port} width="100%" height="auto" />
 
-This will open the HTTP API port (default 18550) on your node, so other machines on your local network can connect to it.
+这将在您的节点上开放 HTTP API 端口（默认 18550），使本地网络上的其他机器能够连接到它。
 
-For example, if your node's local IP address were `192.168.1.45`, then by enabling this option you could use `http://192.168.1.45:18550` as the MEV-Boost URL for your other services.
+例如，如果您节点的本地 IP 地址为 `192.168.1.45`，则启用此选项后，您可以将 `http://192.168.1.45:18550` 用作其他服务的 MEV-Boost URL。
 
-## Customizing the Docker-Compose Definition Files
+## 自定义 Docker-Compose 定义文件
 
-While the Settings Manager contains many options you can use to customize your node, it doesn't wrap all of the features that `docker-compose` provides.
-Some users require supplemental customizations to the Smartnode's `docker-compose` files.
+虽然设置管理器包含许多用于自定义节点的选项，但它并未封装 `docker-compose` 提供的所有功能。
+某些用户需要对 Smartnode 的 `docker-compose` 文件进行额外自定义。
 
-Because the `docker-compose` files are regenerated (into the `runtime` directory) from their templates (in the `templates` directory) each time `rocketpool service start` is called, modifying the runtime files is not advised.
-Instead, we leverage `docker-compose`'s [inherent override functionality](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration) to let you make any modifications you need to which will be preserved upon restarts.
-Furthermore, this system _also_ **preserves your modifications after an upgrade to or reinstallation of the Smartnode stack**.
+由于每次调用 `rocketpool service start` 时，`docker-compose` 文件都会从模板（位于 `templates` 目录）重新生成到 `runtime` 目录，因此不建议直接修改运行时文件。
+相反，我们利用 `docker-compose` 的[内置覆盖功能](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration)，让您进行任何所需的修改，并在重启后保留这些修改。
+此外，该系统还**在升级或重新安装 Smartnode 堆栈后保留您的修改**。
 
-To do this, simply open the file for the container of your choice in the `override` folder, and add your customizations to it there.
-Anything you put in these files will **override** whatever the corresponding settings are in the `docker-compose` files from the `runtime` folder.
+为此，只需在 `override` 文件夹中打开您选择的容器对应文件，然后在其中添加自定义内容即可。
+您放入这些文件的任何内容都将**覆盖** `runtime` 文件夹中 `docker-compose` 文件的相应设置。
 
-For example, say you wanted to [add AWS credentials to Grafana for CloudWatch support](https://grafana.com/docs/grafana/latest/administration/configure-docker/#configure-aws-credentials-for-cloudwatch-support).
-You could do it by modifying `override/grafana.yml` like so:
+例如，如果您想[为 Grafana 添加 AWS 凭证以支持 CloudWatch](https://grafana.com/docs/grafana/latest/administration/configure-docker/#configure-aws-credentials-for-cloudwatch-support)，
+可以通过如下修改 `override/grafana.yml` 来实现：
 
 ```yaml
 # Enter your own customizations for the Grafana container here. These changes will persist after upgrades, so you only need to do them once.
@@ -87,9 +88,9 @@ services:
       - GF_AWS_default_REGION=us-east-1
 ```
 
-This will merge the four environment variables listed here to the existing array of environment variables in the Grafana container.
+这将把此处列出的四个环境变量合并到 Grafana 容器的现有环境变量数组中。
 
-Alternatively, if you wanted to save eth1 client data to a non-default path on your filesystem, you would modify `override/eth1.yml` to contain volume parameters like:
+或者，如果您想将 eth1 客户端数据保存到文件系统的非默认路径，可以修改 `override/eth1.yml`，添加如下卷参数：
 
 ```yaml
 # Enter your own customizations for the eth1 container here. These changes will persist after upgrades, so you only need to do them once.
@@ -110,6 +111,129 @@ volumes:
       device: "/data/eth/eth1"
 ```
 
-This will merge the parameters into the `eth1clientdata` volume specification, causing `/data/eth/eth1` to be the location of the eth1 client data rather than the default (`/var/lib/docker/volumes/rocketpool_eth1clientdata` if using default Docker configuration).
+这将把参数合并到 `eth1clientdata` 卷规范中，使 `/data/eth/eth1` 成为 eth1 客户端数据的存储位置，而不是默认路径（使用默认 Docker 配置时为 `/var/lib/docker/volumes/rocketpool_eth1clientdata`）。
 
-For more information on how `docker-compose` overrides work, please visit [https://docs.docker.com/compose/extends/#adding-and-overriding-configuration](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration).
+有关 `docker-compose` 覆盖如何工作的更多信息，请访问 [https://docs.docker.com/compose/extends/#adding-and-overriding-configuration](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration)。
+
+## （实验性）启用双栈（IPv4 + IPv6）网络
+
+此选项适用于使用本地管理客户端的 Docker 模式配置用户。
+从 Smart node v1.20.2 开始，Rocket Pool 支持您的以太坊客户端使用双栈（IPv4 + IPv6）网络。
+
+启用后，您的共识客户端可以连接到 IPv4 和 IPv6 对等节点，可能改善对等节点发现。
+如果您的网络位于 CGNAT 后端且难以通过 IPv4 进行对等连接，此功能也非常有用。
+
+
+::: tip 提示
+以下网站提供了以太坊 IPv6 支持状态的概述。
+
+[ipv6eth.info](https://ipv6eth.info/)
+:::
+
+::: warning 实验性功能
+IPv6 支持目前处于实验阶段。虽然已对所有支持的共识客户端进行了测试，但根据您的网络配置，可能会遇到问题。
+如果遇到问题，您可以禁用 IPv6 并重启客户端以返回仅 IPv4 模式。如果您发现 IPv6 支持存在任何问题，
+请在 [Rocket Pool Discord](https://discord.gg/rocketpool) 的 **#support** 频道中报告。
+
+:::
+
+启用 IPv6 支持后：
+
+- 您的 Docker 网络将配置为双栈（IPv4 + IPv6）
+- 您的共识客户端将同时监听 IPv4 和 IPv6 地址
+- 您的节点将能够发现并连接到 IPv6 对等节点（除 IPv4 对等节点外）
+- 您的节点将在其 ENR（以太坊节点记录）中广播其 IPv6 地址，使其可被其他 IPv6 节点发现
+
+### 各客户端行为
+
+不同共识客户端对 IPv6 的支持程度各有不同：
+
+| 客户端 | IPv6 监听 | IPv6 广播（ENR） | 对等连接行为 | 备注 |
+|--------|-----------|-----------------|--------------|------|
+| **Teku** | 完整支持 | 完整支持 | 优先 IPv6 | 优先使用 IPv6 连接（如可用）。使用独立 IPv6 端口（默认：9090）。 |
+| **Lighthouse** | 完整支持 | 完整支持 | 无偏好 | 连接到最先响应的地址（IPv4 或 IPv6）。通常约有 1-2% 的 IPv6 对等节点。 |
+| **Lodestar** | 完整支持 | 完整支持 | 优先 IPv4 | 同时监听和广播 IPv4 和 IPv6，但仅在对方节点禁用 IPv4 时才通过 IPv6 对等连接。 |
+| **Nimbus** | 完整支持 | 仅 IPv4* | 主要使用 IPv4 | 可接受入站 IPv6 连接，但在 ENR 中仅广播 IPv4。 |
+| **Prysm** | 完整支持 | 仅 IPv4* | 主要使用 IPv4 | 可接受入站 IPv6 连接，但在 ENR 中仅广播 IPv4。 |
+
+\* 默认广播 IPv4 地址。在仅 IPv6 的主机上，将广播 IPv6。
+
+
+### 前提条件
+
+启用 IPv6 之前，请确保：
+
+1. 您的 ISP/主机提供 IPv6 连接 - 通过 [ipv6test.google.com/](https://ipv6test.google.com/) 测试，
+或在 CLI 中运行此命令：`curl -6 https://icanhazip.com`。如果命令返回如下格式的 IPv6 地址：`xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx`，则表示可以正常使用。
+2. 您的防火墙允许共识客户端 P2P 端口上的 IPv6 流量。默认 P2P 端口为 `9001`。Teku 需要一个额外的专用 IPv6 端口，默认 Teku P2P IPv6 端口为 `9090`。
+3. 您在 Docker 模式下使用本地管理的客户端（非外部管理的客户端）
+
+### 如何启用 IPv6
+
+
+要启用 IPv6，请转到 Smart Node 和 TX 费用类别，
+勾选 **Enable IPv6** 复选框，然后保存并重启 Smart Node 堆栈。
+<img src={tui_enable_ipv6} width="100%" height="auto" />
+
+::: warning 注意
+如果您启用了 IPv6 但没有公共 IPv6 地址，Smart node 将在启动时显示警告：
+```
+Warning: IPv6 is enabled but no public IPv6 address was detected.
+Your node will not be reachable by IPv6 peers.
+```
+您的节点将继续正常使用 IPv4 工作。
+:::
+
+### 验证 IPv6 是否正常工作
+
+启用 IPv6 并重启服务后，您可以验证其是否正常工作：
+
+1. 检查 Docker 网络配置
+
+```shell
+docker inspect rocketpool_net | grep -i ipv6
+```
+
+您应该看到 `"EnableIPv6": true`，且每个容器都应有一个 `IPv6Address`。
+
+2. 验证端口绑定
+
+```shell
+ss -tlnp | grep 9001
+```
+
+您应该看到 `[::]:9001`（IPv6 通配符地址）。
+
+3. 确认您的公共 IPv6 地址
+
+```shell
+curl -6 https://icanhazip.com
+```
+
+应返回您的公共 IPv6 地址（例如 `xxx:xxx:xxxx:...`）。
+
+4. 检查共识客户端日志
+
+查看共识客户端日志以确认 IPv6 监听状态：
+
+```shell
+docker logs rocketpool_eth2 2>&1 | grep -iE "listen|ipv6|::" | head -20
+```
+
+**需要查找的内容：**
+
+- **Lighthouse** - `Listening on /ip6/` 或 `listen_addr: /ip6/`
+- **Lodestar** - `Multiaddrs` 显示 `/ip4/` 和 `/ip6/` 地址
+- **Teku** - `p2p-interface` 显示 `0.0.0.0` 和 `::`
+- **Nimbus** - `Listening to incoming network requests`（不明确提及 IPv6）
+- **Prysm** - `Beacon chain gRPC server listening`（不明确提及 IPv6）
+
+5. 检查 IPv6 对等节点
+
+通过 API 检查信标节点的对等列表：
+
+```shell
+curl -s http://localhost:5052/eth/v1/node/peers | grep -o '/ip6/[^"]*' | head -10
+```
+
+如果有 IPv6 对等节点连接，这将显示最多 10 个 IPv6 对等节点地址。根据您使用的共识客户端不同，IPv6 对等节点连接可能需要一段时间。在我们的测试中，Teku 是唯一能立即连接到 IPv6 对等节点的客户端。

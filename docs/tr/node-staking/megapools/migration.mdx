@@ -1,0 +1,106 @@
+# Minipoollardan Megapool Doğrulayıcılarına Geçiş
+
+Minipool stake'ini bir megapool'a taşımak isteyen geri dönen bir düğüm operatörüyseniz, bu sayfa bunu nasıl yapacağınıza dair adım adım bir kılavuz sunacaktır. Geçiş; minipoolunuzdan çıkış, yeni megapool doğrulayıcıları oluşturma, eski RPL'yi unstaking işlemi ve ardından RPL'yi megapool'unuza yeniden stake etme adımlarını içerir. Megapool doğrulayıcı bond'u 4 ETH'dir; bu da sahip olduğunuz her 8 ETH minipool doğrulayıcısı için iki megapool doğrulayıcısı oluşturabileceğiniz anlamına gelir.
+
+
+Protokol ETH gelirinin %9'u, [voter share ödülleri](/tr/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers) şeklinde megapool doğrulayıcılarına sahip RPL stakerlarına orantılı olarak dağıtılır.
+Bu, daha önce standart olan RPL enflasyon ödüllerine ek olarak sağlanmaktadır.
+
+
+
+Birkaç ayrı adım bulunmaktadır:
+
+1. Minipoolunuzdan çıkış. Bu, minipoolunuzu sonlandırmak ve tam bakiyesini Beacon Chain'den çekmek anlamına gelir.
+2. Yeni bir megapool doğrulayıcısı oluşturma
+3. [İsteğe Bağlı] Eski RPL'yi unstaking ve çekme
+4. [İsteğe Bağlı] RPL'yi bir megapool'a yeniden stake etme. Bu işlem, RPL enflasyon ödüllerine ek olarak ETH gelirinden [voter share ödülleri](/tr/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers) kazandırır.
+
+Minipool stake'inizi bir megapool'a taşımayı taahhüt etmeden önce, Rocket Pool deposit kuyruğunun ve Beacon Chain kuyruğunun durumunu göz önünde bulundurmanız gerekir.
+Her ikisi de bekleme süresi açısından değişken ve birbirinden bağımsızdır. Rocket Pool deposit kuyruğu, yeni megapool doğrulayıcılarının oluşturulmasını ve rETH stakerlarından gelen ETH ile ne zaman eşleştirileceğini yönetir. Beacon Chain kuyruğu ise minipool doğrulayıcınızın ne zaman çıkış yapabileceğini belirler. Daha da önemlisi, yeni megapool doğrulayıcınızın onay görevlerine ne zaman başlayabileceğini de belirler.
+
+::: tip Kullanışlı Bağlantılar
+[saturn-1.net/queue](https://saturn-1.net/queue), Steely tarafından oluşturulmuş topluluk destekli bir gösterge panelidir! Bu sayfa, Rocket Pool deposit kuyruğunun ne kadar uzun olduğu hakkında fikir verebilir.
+
+[validatorqueue.com](https://www.validatorqueue.com/), Beacon Chain kuyruğunun uzunluğunu kontrol etmek için kullanışlı bir sitedir. Bu kuyruk, Beacon Chain'e giren ve çıkan ETH miktarına bağlıdır. `256 ETH per epoch` hızında işlenir.
+
+[rocketpool.net/node-staking/rpl-fee-switch](https://rocketpool.net/node-staking/rpl-fee-switch), Saturn 1'in fee switch'inin staking ödülleriniz üzerindeki etkisini modellemektedir.
+
+:::
+
+::: warning UYARI
+Ödül kazanmaya ilişkin göz önünde bulundurulması gereken iki husus vardır:
+
+A. En az bir aktif minipool veya megapool doğrulayıcınız olmadıkça düğümünüz RPL enflasyon ödülleri kazanamaz.
+
+B. Minipoolunuz Beacon Chain'den tam olarak çıktıktan sonra, megapool doğrulayıcınız aktif olarak doğrulamaya başlayana kadar ETH ödülleri (komisyon veya voter share) kazanamayacaksınız.
+Onay görevlerine başlamadan önce hem Rocket Pool deposit kuyruğu hem de Beacon Chain deposit kuyruğu tarafından işlenmesi gerekir.
+Ne zaman geçiş yapacağınıza karar vermek için kuyruğun uzunluğunu izlemek isteyeceksiniz.
+
+:::
+
+::: warning UYARI
+Megapool doğrulayıcılarının Beacon Chain kuyruğunu iki kez geçmesi gerekir.
+1. Prestake (1 ETH). Deposit havuzundan megapool doğrulayıcınıza ETH atandığında, Beacon Chain'e yalnızca 1 ETH gönderilir.
+Bu noktada doğrulayıcınız Beacon Chain kuyruğuna girer.
+2. Stake (31 ETH). Doğrulayıcı Beacon Chain tarafından işlendikten sonra, Rocket Pool protokolü doğrulayıcının çekim kimlik bilgilerini doğrular ve ardından kalan 31 ETH'yi Beacon Chain'e stake eder. Bu noktada doğrulayıcı, Beacon Chain kuyruğuna ikinci ve son kez girer.
+
+Önceden minipoollarla, [Oracle DAO (oDAO)](/tr/odao/overview#the-rocket-pool-oracle-dao) her minipool doğrulayıcısı için çekim kimlik bilgilerini doğrulamaktan sorumluydu. Bu yeni sistem kuyruk süresini uzatmaktadır ancak oDAO tarafından uygulanan bir güven gereksinimini ortadan kaldırmaktadır.
+
+[validatorqueue.com](https://www.validatorqueue.com/), Beacon Chain kuyruğunun uzunluğunu izlemek için kullanışlı bir araçtır. Minipool stake'inizi bir megapool'a taşırken lütfen bu faktörü göz önünde bulundurun.
+
+:::
+
+## Adım 1: Minipoolunuzdan Çıkış
+
+Minipoolunuzdan çıkmak, stake'i bir megapool'a taşımanın ilk adımıdır. Minipoolunuzdan nasıl çıkacağınıza ve Beacon Chain'den fonları nasıl çekeceğinize dair kullanışlı bir kılavuz için aşağıdaki bağlantıyı takip edin:
+
+https://docs.rocketpool.net/node-staking/withdraw
+
+Bu işlem, Beacon Chain çıkış kuyruğuna bağlı olarak genellikle birkaç gün sürer. Bu sayfayı yer imlerinize ekleyebilir ve tamamlandığında tekrar ziyaret edebilirsiniz.
+
+[Tam ödülleri dağıtarak](/tr/node-staking/withdraw#distributing-full-rewards) minipoolunuzu sonlandırmayı unutmayın.
+Bu işlem, minipool üzerinde kazanılan ödülleri talep edecek ve eski RPL'nizin tam bakiyesini unstaking yapmanıza olanak tanıyacaktır.
+
+
+## Adım 2: Megapool Doğrulayıcısı Oluşturma
+
+Minipoolunuz kapatıldığında ve ETH fonlarına tam erişim sağlandığında, megapool doğrulayıcısı oluşturmaya hazırsınız!
+
+Yeni bir megapool doğrulayıcısı oluşturmanın tüm adımları için aşağıdaki sayfayı takip edin:
+
+https://docs.rocketpool.net/node-staking/megapools/create-megapool-validator
+
+Geri dönen bir düğüm operatörü olarak, minipoollarında bonded her 4 ETH için bir ekspres kuyruk bileti alırsınız. Bu, her 8 ETH minipool için 2 bilettir.
+Bu biletler otomatik olarak kullanımınıza sunulur.
+
+Rocket Pool deposit kuyruğu, her standart kuyruk doğrulayıcısı için 4 ekspres kuyruk doğrulayıcısı oranında yatırımları işler.
+ETH'nin yeni megapool doğrulayıcılarına nasıl atandığı hakkında daha fazla bilgi edinmek için lütfen [Rocket Pool Deposit Kuyruğu ve Ekspres Kuyruk](/tr/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-and-express-queue) bölümünü okuyun.
+
+## Adım 3: Eski RPL'yi Unstaking ve Çekme
+
+Minimum eski RPL stake gereksinimi, minipool borrowed ETH'nin %15'idir. Eski RPL'nizin tamamını unstaking yapmak istiyorsanız, önce tüm minipoollarınızı kapatmanız gerekir (borrowed ETH'yi 0'a düşürür).
+
+Hazır olduğunuzda, eski RPL'yi unstaking yapmak ve çekmek için aşağıdaki komutu kullanabilirsiniz:
+```
+rocketpool node withdraw-rpl
+```
+Eski RPL'nizi çekebilmeden önce 28 günlük bir unstaking süresi bulunmaktadır.
+Eski RPL'yi unstaking ve çekme hakkında ayrıntılı talimatlar için lütfen bu bağlantıyı takip edin.
+
+https://docs.rocketpool.net/node-staking/megapools/staking-and-claiming-rewards#unstaking-and-withdrawing-rpl
+
+## Adım 4: Megapool'unuza RPL Stake Etme
+
+RPL'nizi bir megapool'a nasıl stake edeceğinize dair talimatlar için aşağıdaki bağlantıya tıklayın:
+
+https://docs.rocketpool.net/node-staking/megapools/staking-and-claiming-rewards#staking
+
+RPL staking, megapool doğrulayıcısı oluşturmak için zorunlu olmadığından bu adım tamamen isteğe bağlıdır. Voter share ödülleri, RPL enflasyon ödülleri
+(önceki RPL enflasyon ödülleriyle aynı) kazanmak ve [Protocol DAO (pDAO) yönetiminde](/tr/pdao/overview) oy hakkına sahip olmak istiyorsanız bu adımı atlamak istemeyeceksiniz.
+
+- Voter share (%9 protokol geliri), toplam megapool RPL stake'indeki paylarına göre tüm düğüm operatörleri arasında orantılı olarak dağıtılır.
+
+Voter share'in megapool doğrulayıcılarına sahip RPL stakerlarına nasıl dağıtıldığı hakkında daha ayrıntılı bilgi için şu kılavuzu okuyun:
+[Voter Share'in Megapool RPL Stakerlarına Nasıl Dağıtıldığı](/tr/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers)
+
+İşte bu kadar! Her zaman olduğu gibi, gerekirse [İzleme ve Bakım](/tr/node-staking/maintenance/overview) kılavuzunu incelemeyi unutmayın. Bu bölüm, yazılım güncellemeleri ve düğümünüzün sağlığını nasıl izleyeceğiniz dahil olmak üzere düğümünüzü en iyi durumda tutmayla ilgili tüm konuları kapsamaktadır.

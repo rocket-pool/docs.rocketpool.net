@@ -1,0 +1,103 @@
+# MinipoolからMegapoolバリデーターへの移行
+
+minipoolのステークをmegapoolに移行しようとしているノードオペレーターの方は、このページでその方法をステップバイステップで説明します。移行とは、minipoolを退出し、新しいmegapoolバリデーターを作成し、レガシーRPLをアンステーキングした後、megapoolにRPLを再ステーキングすることです。megapoolバリデーターのボンド額は4 ETHであるため、8 ETH minipoolバリデーター1つにつき2つのmegapoolバリデーターを作成できます。
+
+
+プロトコルETH収益の9%が、[Voter Share報酬](/ja/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers)の形でmegapoolバリデーターを持つRPLステーカーに比例配分されます。
+これは、従来の標準的なRPLインフレーション報酬に加えて支払われます。
+
+
+
+手順は大きく分けて以下のとおりです：
+
+1. minipoolの退出。これはminipoolをファイナライズし、Beacon Chainから全残高を引き出すことを意味します。
+2. 新しいmegapoolバリデーターの作成
+3. 【オプション】レガシーRPLのアンステーキングと引き出し
+4. 【オプション】megapoolへのRPLの再ステーキング。これにより、RPLインフレーション報酬に加えてETH収益からの[Voter Share報酬](/ja/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers)を得られます。
+
+minipoolのステークをmegapoolに移行する前に、Rocket Poolデポジットキューと Beacon Chainキューの状況を考慮する必要があります。どちらも待ち時間は変動し、互いに独立しています。Rocket Poolデポジットキューは新しいmegapoolバリデーターの作成と、rETHステーカーからのETHとのマッチングのタイミングを管理します。一方、Beacon Chainキューはあなたのminipoolバリデーターがいつ退出できるかを決定します。さらに重要なことは、新しいmegapoolバリデーターがいつアテステーション業務を開始できるかも決定することです。
+
+::: tip 有用なリンク
+[saturn-1.net/queue](https://saturn-1.net/queue) はSteely!によって作成されたコミュニティサポートのダッシュボードです。このページではRocket Poolデポジットキューの長さを確認できます。
+
+[validatorqueue.com](https://www.validatorqueue.com/) はBeacon Chainキューの長さを確認するのに役立つサイトです。このキューはBeacon Chainに入出するETH量によって変動し、`256 ETH per epoch`のレートで処理されます。
+
+[rocketpool.net/node-staking/rpl-fee-switch](https://rocketpool.net/node-staking/rpl-fee-switch) はSaturn 1のフィースイッチがあなたのステーキング報酬に与える影響をモデル化します。
+
+:::
+
+::: warning 警告
+報酬の獲得に関して、2つの点を考慮する必要があります：
+
+A. 少なくとも1つのアクティブなminipoolまたはmegapoolバリデーターがない限り、ノードはRPLインフレーション報酬を得られません。
+
+B. minipoolがBeacon Chainから完全に退出すると、megapoolバリデーターがアクティブにバリデーションを行うまでETH報酬（コミッションまたはVoter Share）を得られなくなります。
+アテステーション業務を開始するには、Rocket Poolデポジットキュー*と*Beacon Chainデポジットキューの両方を通過する必要があります。
+移行のタイミングを決めるためにキューの長さを監視することをお勧めします。
+
+:::
+
+::: warning 警告
+Megapoolバリデーターは Beacon Chainキューを2回クリアする必要があります。
+1. プレステーク（1 ETH）。デポジットプールからmegapoolバリデーターにETHが割り当てられると、Beacon Chainには1 ETHのみが送られます。この時点で、バリデーターはBeacon Chainキューに入ります。
+2. ステーク（31 ETH）。バリデーターがBeacon Chainによって処理された後、Rocket Poolプロトコルはバリデーターの引き出しクレデンシャルを検証し、残りの31 ETHをBeacon Chainにステークします。この時点で、バリデーターは2回目（最後）のBeacon Chainキューに入ります。
+
+以前のminipoolでは、[Oracle DAO（oDAO）](/ja/odao/overview#the-rocket-pool-oracle-dao)がすべてのminipoolバリデーターの引き出しクレデンシャルの検証を担当していました。この新しいシステムはキュー時間を延ばしますが、oDAOによって強制されていた信頼要件を取り除きます。
+
+[validatorqueue.com](https://www.validatorqueue.com/) はBeacon Chainキューの長さを監視するのに役立つツールです。minipoolのステークをmegapoolに移行する際は、この要素を考慮してください。
+
+:::
+
+## ステップ1：Minipoolの退出
+
+minipoolの退出はmegapoolへのステーク移行の最初のステップです。minipoolを退出してBeacon Chainから資金を引き出す方法については、以下のリンクをご参照ください：
+
+https://docs.rocketpool.net/node-staking/withdraw
+
+このプロセスはBeacon Chain退出キューによって通常数日かかります。このページをブックマークして、完了したら再度ご確認ください。
+
+[全額報酬の配分](/ja/node-staking/withdraw#distributing-full-rewards)によってminipoolをファイナライズすることをお忘れなく。
+これによりminipoolで得た報酬を請求し、レガシーRPLの全残高をアンステーキングできるようになります。
+
+
+## ステップ2：Megapoolバリデーターの作成
+
+minipoolが閉じられ、ETH資金に完全にアクセスできるようになったら、megapoolバリデーターを作成する準備ができました！
+
+新しいmegapoolバリデーターを作成するためのすべてのステップは、以下のページで説明しています：
+
+https://docs.rocketpool.net/node-staking/megapools/create-megapool-validator
+
+返還ノードオペレーターとして、minipoolでボンドした4 ETHごとに1枚のエクスプレスキューチケットを受け取ります。8 ETH minipoolごとに2枚のチケットです。
+これらのチケットは自動的に利用可能です。
+
+Rocket Poolデポジットキューは、標準キューのバリデーター1つにつきエクスプレスキューのバリデーター4つのレートでデポジットを処理します。
+新しいmegapoolバリデーターへのETH割り当て方法の詳細は、[Rocket Poolデポジットキューとエクスプレスキュー](/ja/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-and-express-queue)をお読みください。
+
+## ステップ3：レガシーRPLのアンステーキングと引き出し
+
+レガシーRPLの最低ステーク要件はminipoolの借入ETHの15%です。レガシーRPLの全残高をアンステーキングするには、まずすべてのminipoolを閉じる必要があります（借入ETHを0にする）。
+
+準備ができたら、以下のコマンドを使用してレガシーRPLをアンステーキングして引き出すことができます：
+```
+rocketpool node withdraw-rpl
+```
+レガシーRPLを引き出せるようになるまで28日間のアンステーキング期間があります。
+レガシーRPLのアンステーキングと引き出しの詳細な手順については、以下のリンクをご参照ください。
+
+https://docs.rocketpool.net/node-staking/megapools/staking-and-claiming-rewards#unstaking-and-withdrawing-rpl
+
+## ステップ4：MegapoolへのRPLのステーキング
+
+megapoolにRPLをステークする方法については、以下のリンクをクリックしてください：
+
+https://docs.rocketpool.net/node-staking/megapools/staking-and-claiming-rewards#staking
+
+このステップはmegapoolバリデーターの作成にRPLステーキングは必須ではないため、完全にオプションです。ただし、Voter Share報酬、RPLインフレーション報酬（従来のRPLインフレーション報酬と同様）を得たり、[Protocol DAO（pDAO）ガバナンス](/ja/pdao/overview)での投票権を持ちたい場合は、このステップを逃したくないでしょう。
+
+- Voter Share（プロトコル収益の9%）は、megapoolにステークされた全RPLに対する各ノードオペレーターのシェアに比例して配分されます。
+
+megapoolバリデーターを持つRPLステーカーへのVoter Share配分方法の詳細については、このガイドをお読みください：
+[MegapoolのRPLステーカーへのVoter Share配分方法](/ja/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers)
+
+以上です！いつものように、必要に応じて[モニタリングとメンテナンス](/ja/node-staking/maintenance/overview)ガイドを確認することをお忘れなく。このセクションでは、ソフトウェアのアップデートやノードの健全性の監視方法など、ノードを最良の状態に保つためのすべての関連トピックを網羅しています。

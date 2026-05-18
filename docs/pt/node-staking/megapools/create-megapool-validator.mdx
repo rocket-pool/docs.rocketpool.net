@@ -9,16 +9,22 @@ então enviado ao contrato de depósito da Beacon Chain para criar um novo valid
 Seu megapool é implantado automaticamente no momento do seu primeiro depósito de validador. Depois disso, você poderá usar o mesmo megapool para gerenciar quantos validadores quiser! Você não precisará
 implantar um novo megapool toda vez que criar um novo validador.
 
-::: tip NOTA
-Os tempos de ativação (e saída) da fila de validadores da Beacon Chain podem variar muito dependendo do estado atual da rede.
+::: warning AVISO
+Os validadores de megapool precisam passar pela fila da Beacon Chain duas vezes.
+1. Prestake (1 ETH). Quando ETH é atribuído ao seu validador de megapool do pool de depósitos, apenas 1 ETH é enviado
+para a Beacon Chain. Nesse ponto, seu validador entra na fila da Beacon Chain.
+2. Stake (31 ETH). Após o validador ser processado pela Beacon Chain, o protocolo Rocket Pool verificará as
+credenciais de retirada do validador e então fará stake dos 31 ETH restantes na Beacon Chain. Nesse ponto, o validador entra na fila da
+Beacon Chain pela segunda e última vez.
 
-Isso está fora do controle do Rocket Pool e é uma função da própria Beacon Chain.
+Anteriormente com minipools, o [Oracle DAO (oDAO)](/pt/odao/overview#the-rocket-pool-oracle-dao) era responsável por verificar as credenciais de retirada de cada
+validador de minipool. Este novo sistema estende o tempo de fila, mas remove um requisito de confiança imposto pelo oDAO.
 
-A seguinte ferramenta fornece uma boa estimativa de quanto tempo você pode esperar aguardar:
-[https://www.validatorqueue.com/](https://www.validatorqueue.com/)
+[validatorqueue.com](https://www.validatorqueue.com/) é uma ferramenta útil para monitorar o comprimento da fila da Beacon Chain. Por favor, considere este fator
+ao migrar seu stake de minipool para um megapool.
 
-Por favor, consulte esta ferramenta para ter uma ideia de quanto tempo você pode esperar para que seu validador se torne ativo.
 :::
+
 
 ::: tip NOTA
 
@@ -32,6 +38,16 @@ A criação de validadores é regida por duas filas.
 
 A fila de depósitos do Rocket Pool possui um sistema de fila expressa para ajudar os operadores de nó existentes a migrar o ETH de seus validadores de minipool
 para o ETH de validadores de megapool.
+
+:::
+
+::: tip Links Úteis
+[saturn-1.net/queue](https://saturn-1.net/queue) é um painel comunitário criado por Steely! Esta página pode dar uma ideia de quanto tempo a fila de depósitos do Rocket Pool está.
+
+[validatorqueue.com](https://www.validatorqueue.com/) é um site útil para verificar o comprimento da fila da Beacon Chain. Esta fila depende da quantidade de ETH
+entrando e saindo da Beacon Chain. É processada a uma taxa de `256 ETH por epoch`.
+
+[rocketpool.net/node-staking/rpl-fee-switch](https://rocketpool.net/node-staking/rpl-fee-switch) modela o impacto do fee switch do Saturn 1 nas suas recompensas de staking.
 
 :::
 

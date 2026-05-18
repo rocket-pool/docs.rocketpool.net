@@ -1,74 +1,75 @@
 import tui_ec_expose_ports from "./images/tui-ec-expose-ports.png";
 import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
+import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
 
-# Advanced Smartnode Configuration for Docker Mode
+# Docker 모드를 위한 고급 Smartnode 구성
 
-In this section, we will cover a few techniques that expand the Smartnode's customization and functionality.
+이 섹션에서는 Smartnode의 사용자 지정 및 기능을 확장하는 몇 가지 기술을 다룹니다.
 
-## Allowing External Validator Clients to Connect to the Smartnode
+## 외부 검증자 클라이언트의 Smartnode 연결 허용
 
-Because the Smartnode manages the Execution client and Beacon Node, it handles much of their configuration (including updates) automatically.
-One common request from users is for the ability to attach an externally-managed Validator client to the Smartnode's Execution and Consensus clients.
+Smartnode는 실행 클라이언트와 Beacon Node를 관리하므로, 구성(업데이트 포함)을 자동으로 처리합니다.
+사용자들의 일반적인 요청 중 하나는 외부에서 관리되는 검증자 클라이언트를 Smartnode의 실행 클라이언트 및 합의 클라이언트에 연결하는 기능입니다.
 
-Essentially, this acts as a sort of **"Reverse Hybrid" mode**; instead of the Smartnode managing its own Validator client and connecting to an external Execution and Consensus client, it manages all three things and an external Validator client can use its own clients instead.
+기본적으로, 이는 일종의 **"역 하이브리드" 모드**처럼 작동합니다. Smartnode가 자체 검증자 클라이언트를 관리하고 외부 실행 클라이언트 및 합의 클라이언트에 연결하는 대신, 세 가지 모두를 관리하고 외부 검증자 클라이언트가 자체 클라이언트를 사용할 수 있습니다.
 
-Enabling this is trivial using the [Settings Manager](./config-docker#configuring-via-the-settings-manager).
+이를 활성화하는 것은 [설정 관리자](./config-docker#configuring-via-the-settings-manager)를 사용하면 간단합니다.
 
-### Execution Client
+### 실행 클라이언트
 
-To enable access to the Execution client, go to the **Execution Client (ETH1)** category and check the **Expose RPC Ports** box:
+실행 클라이언트에 대한 접근을 활성화하려면, **Execution Client (ETH1)** 카테고리로 이동하여 **Expose RPC Ports** 체크박스를 선택하세요:
 
 <img src={tui_ec_expose_ports} width="100%" height="auto" />
 
-This will open the RPC ports (default 8545 for HTTP and 8546 for Websockets) on your node, so other machines on your local network can connect to them.
+이렇게 하면 노드의 RPC 포트(HTTP는 기본 8545, Websockets는 8546)가 열려, 로컬 네트워크의 다른 머신이 연결할 수 있습니다.
 
-For example, if your node's local IP address were `192.168.1.45`, then by enabling this option you could use `http://192.168.1.45:8545` as the Execution client URL for your other services.
+예를 들어, 노드의 로컬 IP 주소가 `192.168.1.45`인 경우, 이 옵션을 활성화하면 다른 서비스의 실행 클라이언트 URL로 `http://192.168.1.45:8545`를 사용할 수 있습니다.
 
-### Beacon Node (Consensus Client)
+### Beacon Node (합의 클라이언트)
 
-To enable access to the Consensus client's Beacon Node, go to the **Consensus Client (ETH2)** category and check the **Expose API Port** box:
+합의 클라이언트의 Beacon Node에 대한 접근을 활성화하려면, **Consensus Client (ETH2)** 카테고리로 이동하여 **Expose API Port** 체크박스를 선택하세요:
 
 <img src={tui_cc_expose_ports} width="100%" height="auto" />
 
-This will open the HTTP API port (default 5052) on your node, so other machines on your local network can connect to it.
+이렇게 하면 노드의 HTTP API 포트(기본 5052)가 열려, 로컬 네트워크의 다른 머신이 연결할 수 있습니다.
 
-::: warning Note: Ports opened via iptables, not ufw
-When you expose RPC and API endpoints in using the Rocketpool configurator, ports are opened via `iptables` and therefore will not show up as a `ufw` firewall rule. To see which ports are open you can use `sudo lsof -i -P -n | grep LISTEN` or similar command.
+::: warning 참고: iptables를 통해 열린 포트, ufw 아님
+Rocketpool 구성기를 사용하여 RPC 및 API 엔드포인트를 노출하면, 포트는 `iptables`를 통해 열리므로 `ufw` 방화벽 규칙으로는 표시되지 않습니다. 열린 포트를 확인하려면 `sudo lsof -i -P -n | grep LISTEN` 또는 유사한 명령을 사용할 수 있습니다.
 :::
 
-For example, if your node's local IP address were `192.168.1.45`, then by enabling this option you could use `http://192.168.1.45:5052` as the Beacon Node URL for your other services.
+예를 들어, 노드의 로컬 IP 주소가 `192.168.1.45`인 경우, 이 옵션을 활성화하면 다른 서비스의 Beacon Node URL로 `http://192.168.1.45:5052`를 사용할 수 있습니다.
 
-::: warning NOTE FOR PRYSM USERS
-**Prysm** has a second box called `Expose RPC Port` that must be checked if you want to attach an externally-managed Prysm Validator Client to your Beacon Node.
-This is because Prysm's Validator Client cannot currently connect to a Beacon Node via the standard Beacon HTTP API.
-In the future, this will be fixed and there will only be one checkbox like the other clients.
+::: warning PRYSM 사용자 참고
+**Prysm**에는 외부에서 관리되는 Prysm 검증자 클라이언트를 Beacon Node에 연결하려면 반드시 선택해야 하는 `Expose RPC Port`라는 두 번째 체크박스가 있습니다.
+Prysm의 검증자 클라이언트는 현재 표준 Beacon HTTP API를 통해 Beacon Node에 연결할 수 없기 때문입니다.
+향후 이 문제가 수정되면 다른 클라이언트처럼 체크박스가 하나로 줄어들 것입니다.
 :::
 
 ### MEV-Boost
 
-To enable access to MEV-Boost, go to the **MEV-Boost** category and check the **Expose API Port** box:
+MEV-Boost에 대한 접근을 활성화하려면, **MEV-Boost** 카테고리로 이동하여 **Expose API Port** 체크박스를 선택하세요:
 
 <img src={tui_mev_expose_port} width="100%" height="auto" />
 
-This will open the HTTP API port (default 18550) on your node, so other machines on your local network can connect to it.
+이렇게 하면 노드의 HTTP API 포트(기본 18550)가 열려, 로컬 네트워크의 다른 머신이 연결할 수 있습니다.
 
-For example, if your node's local IP address were `192.168.1.45`, then by enabling this option you could use `http://192.168.1.45:18550` as the MEV-Boost URL for your other services.
+예를 들어, 노드의 로컬 IP 주소가 `192.168.1.45`인 경우, 이 옵션을 활성화하면 다른 서비스의 MEV-Boost URL로 `http://192.168.1.45:18550`를 사용할 수 있습니다.
 
-## Customizing the Docker-Compose Definition Files
+## Docker-Compose 정의 파일 사용자 지정
 
-While the Settings Manager contains many options you can use to customize your node, it doesn't wrap all of the features that `docker-compose` provides.
-Some users require supplemental customizations to the Smartnode's `docker-compose` files.
+설정 관리자에는 노드를 사용자 지정하는 데 사용할 수 있는 많은 옵션이 있지만, `docker-compose`가 제공하는 모든 기능을 포함하지는 않습니다.
+일부 사용자는 Smartnode의 `docker-compose` 파일에 대한 추가 사용자 지정이 필요합니다.
 
-Because the `docker-compose` files are regenerated (into the `runtime` directory) from their templates (in the `templates` directory) each time `rocketpool service start` is called, modifying the runtime files is not advised.
-Instead, we leverage `docker-compose`'s [inherent override functionality](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration) to let you make any modifications you need to which will be preserved upon restarts.
-Furthermore, this system _also_ **preserves your modifications after an upgrade to or reinstallation of the Smartnode stack**.
+`docker-compose` 파일은 `rocketpool service start`가 호출될 때마다 템플릿(`templates` 디렉토리)에서 (`runtime` 디렉토리로) 재생성되므로, 런타임 파일을 직접 수정하는 것은 권장되지 않습니다.
+대신, `docker-compose`의 [고유한 오버라이드 기능](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration)을 활용하여 재시작 후에도 유지될 수 있는 필요한 수정 사항을 만들 수 있습니다.
+또한, 이 시스템은 **Smartnode 스택 업그레이드 또는 재설치 후에도 수정 사항을 보존**합니다.
 
-To do this, simply open the file for the container of your choice in the `override` folder, and add your customizations to it there.
-Anything you put in these files will **override** whatever the corresponding settings are in the `docker-compose` files from the `runtime` folder.
+이를 위해, `override` 폴더에서 원하는 컨테이너 파일을 열고 사용자 지정 내용을 추가하면 됩니다.
+이 파일에 넣은 모든 내용은 `runtime` 폴더의 `docker-compose` 파일에 있는 해당 설정을 **오버라이드**합니다.
 
-For example, say you wanted to [add AWS credentials to Grafana for CloudWatch support](https://grafana.com/docs/grafana/latest/administration/configure-docker/#configure-aws-credentials-for-cloudwatch-support).
-You could do it by modifying `override/grafana.yml` like so:
+예를 들어, [CloudWatch 지원을 위해 Grafana에 AWS 자격 증명을 추가](https://grafana.com/docs/grafana/latest/administration/configure-docker/#configure-aws-credentials-for-cloudwatch-support)하려는 경우,
+`override/grafana.yml`을 다음과 같이 수정하면 됩니다:
 
 ```yaml
 # Enter your own customizations for the Grafana container here. These changes will persist after upgrades, so you only need to do them once.
@@ -87,9 +88,9 @@ services:
       - GF_AWS_default_REGION=us-east-1
 ```
 
-This will merge the four environment variables listed here to the existing array of environment variables in the Grafana container.
+이렇게 하면 여기에 나열된 네 개의 환경 변수가 Grafana 컨테이너의 기존 환경 변수 배열에 병합됩니다.
 
-Alternatively, if you wanted to save eth1 client data to a non-default path on your filesystem, you would modify `override/eth1.yml` to contain volume parameters like:
+또는, eth1 클라이언트 데이터를 파일 시스템의 기본 경로가 아닌 다른 경로에 저장하려는 경우, `override/eth1.yml`을 다음과 같이 볼륨 파라미터를 포함하도록 수정하면 됩니다:
 
 ```yaml
 # Enter your own customizations for the eth1 container here. These changes will persist after upgrades, so you only need to do them once.
@@ -110,6 +111,129 @@ volumes:
       device: "/data/eth/eth1"
 ```
 
-This will merge the parameters into the `eth1clientdata` volume specification, causing `/data/eth/eth1` to be the location of the eth1 client data rather than the default (`/var/lib/docker/volumes/rocketpool_eth1clientdata` if using default Docker configuration).
+이렇게 하면 파라미터가 `eth1clientdata` 볼륨 명세에 병합되어, `/data/eth/eth1`이 기본값 대신 eth1 클라이언트 데이터 위치가 됩니다 (기본 Docker 구성을 사용하는 경우 기본값은 `/var/lib/docker/volumes/rocketpool_eth1clientdata`).
 
-For more information on how `docker-compose` overrides work, please visit [https://docs.docker.com/compose/extends/#adding-and-overriding-configuration](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration).
+`docker-compose` 오버라이드 작동 방식에 대한 자세한 내용은 [https://docs.docker.com/compose/extends/#adding-and-overriding-configuration](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration)을 방문하세요.
+
+## (실험적) 듀얼 스택 (IPv4 + IPv6) 네트워킹 활성화
+
+이 옵션은 로컬로 관리되는 클라이언트를 사용하는 Docker 모드 구성의 사용자를 위한 것입니다.
+Smart node v1.20.2부터 Rocket Pool은 Ethereum 클라이언트에 대한 듀얼 스택 (IPv4 + IPv6) 네트워킹을 지원합니다.
+
+활성화하면, 합의 클라이언트가 IPv4 및 IPv6 피어 모두에 연결할 수 있어 피어 검색이 개선될 수 있습니다.
+이 기능은 네트워크가 CGNAT 뒤에 있어 IPv4를 사용한 피어링에 어려움을 겪는 경우에도 유용합니다.
+
+
+::: tip 팁
+다음 사이트에서 Ethereum IPv6 지원 현황을 확인할 수 있습니다.
+
+[ipv6eth.info](https://ipv6eth.info/)
+:::
+
+::: warning 실험적 기능
+IPv6 지원은 현재 실험적입니다. 지원되는 모든 합의 클라이언트와 함께 테스트되었지만, 네트워크 구성에 따라 문제가 발생할 수 있습니다.
+문제가 발생하면 IPv6를 비활성화하고 클라이언트를 재시작하여 IPv4 전용 모드로 돌아갈 수 있습니다. IPv6 지원에 문제가 발생하면
+[Rocket Pool Discord](https://discord.gg/rocketpool)의 **#support** 채널에 보고해 주세요.
+
+:::
+
+IPv6 지원을 활성화하면:
+
+- Docker 네트워크가 듀얼 스택 (IPv4 + IPv6)으로 구성됩니다
+- 합의 클라이언트가 IPv4 및 IPv6 주소 모두에서 수신 대기합니다
+- 노드가 IPv4 피어 외에 IPv6 피어도 검색하고 연결할 수 있습니다
+- 노드가 ENR(Ethereum Node Record)에 IPv6 주소를 광고하여 다른 IPv6 노드에서 검색 가능하게 됩니다
+
+### 클라이언트별 동작
+
+서로 다른 합의 클라이언트는 다양한 수준의 IPv6 지원을 제공합니다:
+
+| 클라이언트 | IPv6 수신 | IPv6 브로드캐스트 (ENR) | 피어링 동작 | 참고 |
+|--------|----------------|------------------------|------------------|-------|
+| **Teku** | 완전 | 완전 | IPv6 우선 | 가능한 경우 IPv6 연결을 선호합니다. 별도의 IPv6 포트 사용 (기본값: 9090). |
+| **Lighthouse** | 완전 | 완전 | 우선순위 없음 | 먼저 응답하는 주소 (IPv4 또는 IPv6)에 연결합니다. 일반적으로 약 1-2%의 IPv6 피어를 봅니다. |
+| **Lodestar** | 완전 | 완전 | IPv4 우선 | IPv4 및 IPv6 모두에서 수신 및 브로드캐스트하지만, 상대 노드의 IPv4가 비활성화된 경우에만 IPv6로 피어링합니다. |
+| **Nimbus** | 완전 | IPv4 전용* | 주로 IPv4 | 인바운드 IPv6 연결을 수락할 수 있지만, ENR에는 IPv4만 브로드캐스트합니다. |
+| **Prysm** | 완전 | IPv4 전용* | 주로 IPv4 | 인바운드 IPv6 연결을 수락할 수 있지만, ENR에는 IPv4만 브로드캐스트합니다. |
+
+\* 기본적으로 IPv4 주소를 브로드캐스트합니다. IPv6 전용 호스트에서는 IPv6를 대신 브로드캐스트합니다.
+
+
+### 사전 요구 사항
+
+IPv6를 활성화하기 전에 다음을 확인하세요:
+
+1. ISP/호스트가 IPv6 연결을 제공하는지 확인 - [ipv6test.google.com/](https://ipv6test.google.com/)에서 테스트하거나
+CLI에서 다음 명령을 실행하세요: `curl -6 https://icanhazip.com`. 명령이 `xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx` 형식의 IPv6 주소를 반환하면 준비가 된 것입니다.
+2. 방화벽이 합의 클라이언트 P2P 포트에서 IPv6 트래픽을 허용하는지 확인합니다. 기본 P2P 포트는 `9001`입니다. Teku는 IPv6를 위한 추가 전용 포트가 필요합니다. 기본 Teku P2P IPv6 포트는 `9090`입니다.
+3. Docker 모드에서 로컬로 관리되는 클라이언트를 사용하고 있는지 확인합니다 (외부에서 관리되는 클라이언트 제외)
+
+### IPv6 활성화 방법
+
+
+IPv6를 활성화하려면, Smart Node 및 TX 수수료 카테고리로 이동하여
+**Enable IPv6** 체크박스를 선택한 다음 저장하고 Smart Node 스택을 재시작하세요.
+<img src={tui_enable_ipv6} width="100%" height="auto" />
+
+::: warning 참고
+IPv6를 활성화했지만 공개 IPv6 주소가 없는 경우, Smart node는 시작 시 경고를 표시합니다:
+```
+Warning: IPv6 is enabled but no public IPv6 address was detected.
+Your node will not be reachable by IPv6 peers.
+```
+노드는 IPv4를 사용하여 정상적으로 계속 작동합니다.
+:::
+
+### IPv6 작동 확인
+
+IPv6를 활성화하고 서비스를 재시작한 후, 올바르게 작동하는지 확인할 수 있습니다:
+
+1. Docker 네트워크 구성 확인
+
+```shell
+docker inspect rocketpool_net | grep -i ipv6
+```
+
+`"EnableIPv6": true`가 표시되고 각 컨테이너에 `IPv6Address`가 있어야 합니다.
+
+2. 포트 바인딩 확인
+
+```shell
+ss -tlnp | grep 9001
+```
+
+`[::]:9001` (IPv6 와일드카드 주소)이 표시되어야 합니다.
+
+3. 공개 IPv6 주소 확인
+
+```shell
+curl -6 https://icanhazip.com
+```
+
+공개 IPv6 주소 (예: `xxx:xxx:xxxx:...`)를 반환해야 합니다.
+
+4. 합의 클라이언트 로그 확인
+
+합의 클라이언트 로그를 조회하여 IPv6 수신을 확인하세요:
+
+```shell
+docker logs rocketpool_eth2 2>&1 | grep -iE "listen|ipv6|::" | head -20
+```
+
+**확인할 내용:**
+
+- **Lighthouse** - `Listening on /ip6/` 또는 `listen_addr: /ip6/`
+- **Lodestar** - `/ip4/` 및 `/ip6/` 주소 모두 포함하는 `Multiaddrs`
+- **Teku** - `0.0.0.0` 및 `::` 모두 포함하는 `p2p-interface`
+- **Nimbus** - `Listening to incoming network requests` (IPv6를 명시적으로 언급하지 않음)
+- **Prysm** - `Beacon chain gRPC server listening` (IPv6를 명시적으로 언급하지 않음)
+
+5. IPv6 피어 확인
+
+API를 통해 비콘 노드의 피어 목록을 확인하세요:
+
+```shell
+curl -s http://localhost:5052/eth/v1/node/peers | grep -o '/ip6/[^"]*' | head -10
+```
+
+연결된 IPv6 피어가 있는 경우 최대 10개의 IPv6 피어 주소가 표시됩니다. 사용 중인 합의 클라이언트에 따라 IPv6 피어가 연결되기까지 시간이 걸릴 수 있습니다. 테스트 결과, Teku만이 즉시 IPv6 피어에 연결되는 것으로 확인되었습니다.

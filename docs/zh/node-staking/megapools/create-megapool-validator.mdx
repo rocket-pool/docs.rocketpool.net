@@ -7,16 +7,17 @@
 
 您的 megapool 会在您第一次验证者存款时自动部署。之后，您可以使用同一个 megapool 管理任意数量的验证者！您无需每次创建新验证者时都部署新的 megapool。
 
-::: tip 注意
-信标链验证者队列的激活（和退出）时间可能因网络当前状态而有很大差异。
+::: warning 警告
+Megapool 验证者需要经历信标链队列两次。
+1. 预质押（1 ETH）。当来自存款池的 ETH 分配给您的 megapool 验证者时，只有 1 ETH 被发送到信标链。此时，您的验证者进入信标链队列。
+2. 质押（31 ETH）。在验证者被信标链处理后，Rocket Pool 协议将验证该验证者的提款凭证，然后在信标链上质押剩余的 31 ETH。此时，验证者第二次也是最后一次进入信标链队列。
 
-这超出了 Rocket Pool 的控制范围，是信标链本身的功能。
+以前使用 minipool 时，[Oracle DAO（oDAO）](/zh/odao/overview#the-rocket-pool-oracle-dao)负责验证每个 minipool 验证者的提款凭证。这个新系统延长了队列时间，但消除了 oDAO 执行的信任要求。
 
-以下工具可以很好地估计您预计需要等待的时间：
-[https://www.validatorqueue.com/](https://www.validatorqueue.com/)
+[validatorqueue.com](https://www.validatorqueue.com/) 是监控信标链队列长度的实用工具。在将您的 minipool 质押迁移到 megapool 时，请考虑这一因素。
 
-请查阅此工具，了解您的验证者激活需要等待的时间。
 :::
+
 
 ::: tip 注意
 
@@ -29,6 +30,15 @@
    请注意，您的验证者激活所需时间可能因您在每个队列中的位置和网络当前状态而有很大差异。
 
 Rocket Pool 存款队列提供了快速队列系统，帮助现有节点运营者将其 minipool 验证者 ETH 迁移到 megapool 验证者 ETH。
+
+:::
+
+::: tip 实用链接
+[saturn-1.net/queue](https://saturn-1.net/queue) 是由 Steely 创建的社区支持仪表板！此页面可以让您了解 Rocket Pool 存款队列的长度。
+
+[validatorqueue.com](https://www.validatorqueue.com/) 是一个用于查看信标链队列长度的实用网站。该队列取决于进出信标链的 ETH 数量，以 `256 ETH 每轮次` 的速率处理。
+
+[rocketpool.net/node-staking/rpl-fee-switch](https://rocketpool.net/node-staking/rpl-fee-switch) 可以模拟 Saturn 1 费用切换对您质押奖励的影响。
 
 :::
 
@@ -211,7 +221,7 @@ Express Ticket Used:          no
 
 <img src="../images/prestaking.png" width="100%" height="auto" />
 在您的 `Prelaunch` 验证者被信标链处理并且初始 1 ETH 存款被记入后，您的节点将自动执行 `stake` 交易以完成完整的 32 ETH 信标链存款。`stake` 交易将把您的 `Prelaunch` 验证者推进为 `Staking`
-验证者。此时您的 `Staking` 验证者已： - 向信标链存入 32 ETH - 分配了验证者索引号 - 在信标链上等待激活
+验证者。此时您的 `Staking` 验证者已：- 向信标链存入 32 ETH - 分配了验证者索引号 - 在信标链上等待激活
 
 ```
 1 Staking validator(s):

@@ -9,16 +9,22 @@ poi inviato al contratto di deposito della Beacon Chain per creare un nuovo vali
 Il tuo megapool viene automaticamente distribuito al momento del tuo primo deposito del validator. Successivamente potrai utilizzare lo stesso megapool per gestire tutti i validator che desideri! Non sarà necessario
 distribuire un nuovo megapool ogni volta che crei un nuovo validator.
 
-::: tip NOTA
-I tempi di attivazione (ed uscita) dalla coda dei validator della Beacon Chain possono variare notevolmente a seconda dello stato attuale della rete.
+::: warning AVVISO
+I validator megapool devono superare la coda della Beacon Chain due volte.
+1. Prestake (1 ETH). Quando l'ETH viene assegnato al tuo validator megapool dal deposit pool, viene inviato solo 1 ETH
+alla Beacon Chain. A questo punto, il tuo validator entra nella coda della Beacon Chain.
+2. Stake (31 ETH). Dopo che il validator viene elaborato dalla Beacon Chain, il protocollo Rocket Pool verificherà
+le credenziali di prelievo per il validator e quindi staked i restanti 31 ETH sulla Beacon Chain. A questo punto, il validator entra nella
+coda della Beacon Chain per la seconda e ultima volta.
 
-Questo è al di fuori del controllo di Rocket Pool ed è una funzione della Beacon Chain stessa.
+In precedenza con i minipool, l'[Oracle DAO (oDAO)](/odao/overview#the-rocket-pool-oracle-dao) era responsabile della verifica delle credenziali di prelievo per ogni
+validator minipool. Questo nuovo sistema estende il tempo di coda ma rimuove un requisito di fiducia imposto dall'oDAO.
 
-Il seguente strumento fornisce una buona stima del tempo di attesa previsto:
-[https://www.validatorqueue.com/](https://www.validatorqueue.com/)
+[validatorqueue.com](https://www.validatorqueue.com/) è uno strumento utile per monitorare la lunghezza della coda della Beacon Chain. Tieni in considerazione questo fattore
+quando migri lo stake del tuo minipool a un megapool.
 
-Si prega di consultare questo strumento per avere un'idea di quanto tempo si dovrà aspettare affinché il validator diventi attivo.
 :::
+
 
 ::: tip NOTA
 
@@ -32,6 +38,16 @@ La creazione del validator è governata da due code.
 
 La coda di deposito di Rocket Pool dispone di un sistema di coda prioritaria per aiutare i node operator esistenti a migrare l'ETH del loro validator minipool
 all'ETH del validator megapool.
+
+:::
+
+::: tip Link Utili
+[saturn-1.net/queue](https://saturn-1.net/queue) è un dashboard supportato dalla community creato da Steely! Questa pagina può darti un'idea di quanto sia lunga la coda di deposito di Rocket Pool.
+
+[validatorqueue.com](https://www.validatorqueue.com/) è un sito utile per verificare la lunghezza della coda della Beacon Chain. Questa coda dipende dalla quantità di ETH
+che entra ed esce dalla Beacon Chain. Viene elaborata a un ritmo di `256 ETH per epoch`.
+
+[rocketpool.net/node-staking/rpl-fee-switch](https://rocketpool.net/node-staking/rpl-fee-switch) modella l'impatto del fee switch di Saturn 1 sulle tue ricompense di staking.
 
 :::
 
