@@ -2,6 +2,8 @@ import tui_ec_expose_ports from "./images/tui-ec-expose-ports.png";
 import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
 import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
+import tui_api_port from "./images/tui-api-port.png";
+
 
 # Advanced Smartnode Configuration for Docker Mode
 
@@ -114,6 +116,58 @@ volumes:
 This will merge the parameters into the `eth1clientdata` volume specification, causing `/data/eth/eth1` to be the location of the eth1 client data rather than the default (`/var/lib/docker/volumes/rocketpool_eth1clientdata` if using default Docker configuration).
 
 For more information on how `docker-compose` overrides work, please visit [https://docs.docker.com/compose/extends/#adding-and-overriding-configuration](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration).
+
+## Node Daemon HTTP API
+
+The node daemon exposes a local HTTP API on port 8280 (localhost only). This API is used internally by the CLI and can also be called directly for custom automation or tooling.
+
+The HTTP API port can be adjusted in the Smart Node and TX Fees category under `API port` 
+
+<img src={tui_api_port} width="100%" height="auto" />
+
+External exposure is not currently supported. The API launches only on localhost while we determine the best approach for secure remote access. 
+There is no configuration option to expose the port at this time.
+
+You can call the API using standard HTTP requests. 
+
+- Read-only query (GET):
+```shell
+curl -s http://localhost:8280/api/node/sync | jq
+```
+```json
+{
+  "status": "success",
+  "error": "",
+  "ecStatus": {
+    "primaryEcStatus": {
+      "isWorking": true,
+      "isSynced": true,
+      "syncProgress": 1,
+      "networkId": 560048
+    }
+  },
+  "bcStatus": {
+    "primaryEcStatus": {
+      "isWorking": true,
+      "isSynced": true,
+      "syncProgress": 1
+    }
+  }
+}
+```
+
+- Transaction (POST):
+```shell
+curl -s -X POST http://localhost:8280/api/node/set-timezone \
+  -d "timezoneLocation=America/Los_Angeles" | jq
+```
+```json
+{
+  "status": "success",
+  "error": "",
+  "txHash": "0x0bab800962146f3e41c701601be6d636f9bec261ef6cabe667bc560ed19dfffb"
+}
+```
 
 ## (Experimental) Enabling Dual-Stack (IPv4 + IPv6) networking
 
