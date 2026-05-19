@@ -118,7 +118,6 @@ Par exemple, la sortie de l'installation Docker par défaut ressemble à ceci :
 ```
         Name                       Command              State                                                       Ports
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-rocketpool_api          /bin/sleep infinity             Up
 rocketpool_eth1         sh /setup/start-node.sh         Up      0.0.0.0:30303->30303/tcp,:::30303->30303/tcp, 0.0.0.0:30303->30303/udp,:::30303->30303/udp, 8545/tcp, 8546/tcp
 rocketpool_eth2         sh /setup/start-beacon.sh       Up      0.0.0.0:9001->9001/tcp,:::9001->9001/tcp, 0.0.0.0:9001->9001/udp,:::9001->9001/udp
 rocketpool_node         /go/bin/rocketpool node         Up
@@ -148,34 +147,6 @@ Si vous faites simplement `rocketpool service logs` sans autre argument, cela ag
 
 Si vous voulez vous concentrer sur la sortie d'un conteneur, vous pouvez ajouter un argument à la fin pour spécifier le conteneur.
 Les valeurs valides sont `eth1`, `eth2`, `validator`, `api`, `node`, `watchtower`, `prometheus`, `grafana` et `node-exporter`.
-
-### `stats`
-
-Cette commande vous montre quelques statistiques de ressources de chacun des conteneurs, que vous pouvez utiliser pour profiler la consommation matérielle et réseau de chacun.
-
-Vous pourriez la trouver utile pour surveiller les conteneurs si votre système commence à ralentir ou a des problèmes de RAM.
-
-Voici un exemple de sortie :
-
-```
-CONTAINER ID   NAME                    CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
-62314e5a0ecf   rocketpool_api          0.00%     18.89MiB / 62.78GiB   0.03%     50.6kB / 31.1kB   57.4MB / 0B       1
-ac629c08c896   rocketpool_eth1         5.44%     18.13GiB / 62.78GiB   28.88%    1.63GB / 1.66GB   24.4GB / 37.7GB   27
-4dfc7a2e939b   rocketpool_eth2         97.39%    2.369GiB / 62.78GiB   3.77%     1.79GB / 45MB     333MB / 24.1GB    2
-a3c22f54eff0   rocketpool_node         0.00%     12.13MiB / 62.78GiB   0.02%     308kB / 504kB     0B / 0B           15
-0d5818868ef6   rocketpool_validator    0.00%     936KiB / 62.78GiB     0.00%     12.1kB / 0B       4.57MB / 0B       2
-88bea525fa89   rocketpool_watchtower   0.00%     12.05MiB / 62.78GiB   0.02%     304kB / 503kB     0B / 0B           16
-```
-
-::: tip NOTE
-La statistique RAM ici montre **la mémoire totale allouée**, qui inclut la mémoire _virtuelle_.
-Elle ne montre pas la consommation de mémoire _résidente_ brute.
-
-De même, l'utilisation du CPU montre la quantité totale de consommation CPU moyennée sur tous les cœurs CPU que le conteneur utilise.
-Ici, le CPU pour ETH2 montre presque 100 % car il utilise Nimbus, qui est mono-thread.
-
-Vous pourriez trouver qu'un programme comme `htop` ou `btop` offre une meilleure vision de la consommation réelle des ressources.
-:::
 
 ### `config`
 

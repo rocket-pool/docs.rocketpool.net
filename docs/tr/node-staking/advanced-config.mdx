@@ -2,6 +2,7 @@ import tui_ec_expose_ports from "./images/tui-ec-expose-ports.png";
 import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
 import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
+import tui_api_port from "./images/tui-api-port.png";
 
 # Docker Modu için Gelişmiş Smartnode Yapılandırması
 
@@ -114,6 +115,58 @@ volumes:
 Bu işlem, parametreleri `eth1clientdata` birim spesifikasyonuyla birleştirerek `/data/eth/eth1`'i eth1 istemci verilerinin konumu olarak belirler; varsayılan konum yerine (`/var/lib/docker/volumes/rocketpool_eth1clientdata` olur — varsayılan Docker yapılandırması kullanılıyorsa).
 
 `docker-compose` geçersiz kılmalarının nasıl çalıştığı hakkında daha fazla bilgi için lütfen [https://docs.docker.com/compose/extends/#adding-and-overriding-configuration](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration) adresini ziyaret edin.
+
+## Node Daemon HTTP API
+
+Node daemon, 8280 portunda (yalnızca localhost) yerel bir HTTP API sunar. Bu API, CLI tarafından dahili olarak kullanılır ve özel otomasyon veya araçlar için doğrudan da çağrılabilir.
+
+HTTP API portu, Smart Node and TX Fees kategorisinde `API port` altından değiştirilebilir
+
+<img src={tui_api_port} width="100%" height="auto" />
+
+Harici olarak açma şu anda desteklenmemektedir. Güvenli uzaktan erişim için en iyi yaklaşımı belirlerken API yalnızca localhost üzerinde başlatılır.
+Şu anda portu açmak için bir yapılandırma seçeneği yoktur.
+
+API'yi standart HTTP istekleri kullanarak çağırabilirsiniz.
+
+- Salt okunur sorgu (GET):
+```shell
+curl -s http://localhost:8280/api/node/sync | jq
+```
+```json
+{
+  "status": "success",
+  "error": "",
+  "ecStatus": {
+    "primaryEcStatus": {
+      "isWorking": true,
+      "isSynced": true,
+      "syncProgress": 1,
+      "networkId": 560048
+    }
+  },
+  "bcStatus": {
+    "primaryEcStatus": {
+      "isWorking": true,
+      "isSynced": true,
+      "syncProgress": 1
+    }
+  }
+}
+```
+
+- İşlem (POST):
+```shell
+curl -s -X POST http://localhost:8280/api/node/set-timezone \
+  -d "timezoneLocation=America/Los_Angeles" | jq
+```
+```json
+{
+  "status": "success",
+  "error": "",
+  "txHash": "0x0bab800962146f3e41c701601be6d636f9bec261ef6cabe667bc560ed19dfffb"
+}
+```
 
 ## (Deneysel) Çift Yığın (IPv4 + IPv6) Ağını Etkinleştirme
 

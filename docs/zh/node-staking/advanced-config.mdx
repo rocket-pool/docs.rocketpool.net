@@ -2,6 +2,7 @@ import tui_ec_expose_ports from "./images/tui-ec-expose-ports.png";
 import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
 import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
+import tui_api_port from "./images/tui-api-port.png";
 
 # Docker 模式下的高级 Smartnode 配置
 
@@ -114,6 +115,58 @@ volumes:
 这将把参数合并到 `eth1clientdata` 卷规范中，使 `/data/eth/eth1` 成为 eth1 客户端数据的存储位置，而不是默认路径（使用默认 Docker 配置时为 `/var/lib/docker/volumes/rocketpool_eth1clientdata`）。
 
 有关 `docker-compose` 覆盖如何工作的更多信息，请访问 [https://docs.docker.com/compose/extends/#adding-and-overriding-configuration](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration)。
+
+## Node Daemon HTTP API
+
+Node daemon 在端口 8280（仅限 localhost）上提供一个本地 HTTP API。此 API 由 CLI 内部使用，也可以直接调用以进行自定义自动化或工具集成。
+
+HTTP API 端口可以在 Smart Node and TX Fees 类别下的 `API port` 中进行调整
+
+<img src={tui_api_port} width="100%" height="auto" />
+
+目前不支持外部暴露。在我们确定安全远程访问的最佳方案之前，该 API 仅在 localhost 上启动。
+目前没有用于暴露端口的配置选项。
+
+您可以使用标准 HTTP 请求调用该 API。
+
+- 只读查询 (GET)：
+```shell
+curl -s http://localhost:8280/api/node/sync | jq
+```
+```json
+{
+  "status": "success",
+  "error": "",
+  "ecStatus": {
+    "primaryEcStatus": {
+      "isWorking": true,
+      "isSynced": true,
+      "syncProgress": 1,
+      "networkId": 560048
+    }
+  },
+  "bcStatus": {
+    "primaryEcStatus": {
+      "isWorking": true,
+      "isSynced": true,
+      "syncProgress": 1
+    }
+  }
+}
+```
+
+- 交易 (POST)：
+```shell
+curl -s -X POST http://localhost:8280/api/node/set-timezone \
+  -d "timezoneLocation=America/Los_Angeles" | jq
+```
+```json
+{
+  "status": "success",
+  "error": "",
+  "txHash": "0x0bab800962146f3e41c701601be6d636f9bec261ef6cabe667bc560ed19dfffb"
+}
+```
 
 ## （实验性）启用双栈（IPv4 + IPv6）网络
 

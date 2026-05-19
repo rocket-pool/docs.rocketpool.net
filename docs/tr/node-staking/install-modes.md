@@ -16,7 +16,6 @@ Gerçek dosya sisteminizi veya diğer programları karıştırmadan işlerin ça
 Bu mod, Smartnode Installer'ın sizin için dağıtacağı şeydir.
 Aşağıdaki Docker containerlarını kullanır:
 
-- `rocketpool_api` - Bu, Rocket Pool'un komut satırı arayüzü (CLI) aracılığıyla onunla etkileşime girdiğinizde Smartnode'un sağladığı gerçek işlevselliği tutar.
 - `rocketpool_node` - Bu, bir ödül kontrol noktasından sonra RPL ödüllerini periyodik olarak kontrol edecek ve talep edecek bir arka plan işlemidir (otomatik talep etkinse, bununla ilgili daha fazlası daha sonra) ve bir minipool oluşturduğunuzda yeni validatorleri gerçekten stake etmekten sorumludur.
 - `rocketpool_watchtower` - Bu, Oracle Node'ları tarafından oracle ile ilgili görevleri yerine getirmek için kullanılır. Normal node operatorleri için bu basitçe boşta kalacaktır.
 - `rocketpool_eth1` - Bu sizin Execution clientınız olacaktır.
@@ -44,7 +43,6 @@ Bu modda, Rocket Pool kendi işlemleri ve yönettiği bir Validator client için
 
 Bu konfigürasyonu kullanırken, Smartnode aşağıdaki Docker containerlarını kullanacaktır (yukarıda açıklanmıştır):
 
-- `rocketpool_api`
 - `rocketpool_node`
 - `rocketpool_watchtower`
 - `rocketpool_validator`

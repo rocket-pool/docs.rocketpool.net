@@ -16,7 +16,6 @@ Quando não é mais necessário, pode simplesmente ser descartado.
 Este modo é o que o Smartnode Installer implantará para você.
 Ele usa os seguintes containers Docker:
 
-- `rocketpool_api` - Isso contém a funcionalidade real que o Smartnode fornece quando você interage com ele via interface de linha de comando (CLI) do Rocket Pool.
 - `rocketpool_node` - Este é um processo em segundo plano que verificará periodicamente e reivindicará recompensas de RPL após um checkpoint de recompensa (se você tiver auto-claim habilitado, mais sobre isso depois), e é responsável por realmente fazer staking de novos validators quando você cria um minipool.
 - `rocketpool_watchtower` - Isso é usado por Oracle Nodes para executar funções relacionadas ao oracle. Para node operators regulares, isso simplesmente ficará ocioso.
 - `rocketpool_eth1` - Este será seu cliente Execution.
@@ -44,7 +43,6 @@ Neste modo, o Rocket Pool implantará containers Docker para seus próprios proc
 
 Ao usar esta configuração, o Smartnode usará os seguintes containers Docker (que foram descritos acima):
 
-- `rocketpool_api`
 - `rocketpool_node`
 - `rocketpool_watchtower`
 - `rocketpool_validator`

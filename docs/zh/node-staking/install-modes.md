@@ -16,7 +16,6 @@ Rocket Pool 的 Smartnode 堆栈非常灵活;有几种不同的运行方式。
 这种模式是 Smartnode 安装程序将为您部署的。
 它使用以下 Docker 容器:
 
-- `rocketpool_api` - 这包含当您通过 Rocket Pool 的命令行界面(CLI)与其交互时 Smartnode 提供的实际功能。
 - `rocketpool_node` - 这是一个后台进程,将定期检查并在奖励检查点后领取 RPL 奖励(如果您启用了自动领取,稍后会详细介绍),并负责在您创建 minipool 时实际 staking 新的 validators。
 - `rocketpool_watchtower` - Oracle Nodes 使用此功能执行与 oracle 相关的职责。对于普通 node operators,这将保持空闲状态。
 - `rocketpool_eth1` - 这将是您的执行客户端。
@@ -44,7 +43,6 @@ Rocket Pool 的 Smartnode 堆栈非常灵活;有几种不同的运行方式。
 
 使用此配置时,Smartnode 将使用以下 Docker 容器(上面已描述):
 
-- `rocketpool_api`
 - `rocketpool_node`
 - `rocketpool_watchtower`
 - `rocketpool_validator`

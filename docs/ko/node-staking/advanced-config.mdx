@@ -2,6 +2,7 @@ import tui_ec_expose_ports from "./images/tui-ec-expose-ports.png";
 import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
 import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
+import tui_api_port from "./images/tui-api-port.png";
 
 # Docker 모드를 위한 고급 Smartnode 구성
 
@@ -114,6 +115,58 @@ volumes:
 이렇게 하면 파라미터가 `eth1clientdata` 볼륨 명세에 병합되어, `/data/eth/eth1`이 기본값 대신 eth1 클라이언트 데이터 위치가 됩니다 (기본 Docker 구성을 사용하는 경우 기본값은 `/var/lib/docker/volumes/rocketpool_eth1clientdata`).
 
 `docker-compose` 오버라이드 작동 방식에 대한 자세한 내용은 [https://docs.docker.com/compose/extends/#adding-and-overriding-configuration](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration)을 방문하세요.
+
+## Node Daemon HTTP API
+
+Node daemon은 포트 8280(localhost 전용)에서 로컬 HTTP API를 노출합니다. 이 API는 CLI에서 내부적으로 사용되며, 사용자 정의 자동화 또는 도구를 위해 직접 호출할 수도 있습니다.
+
+HTTP API 포트는 Smart Node 및 TX Fees 카테고리의 `API port`에서 조정할 수 있습니다.
+
+<img src={tui_api_port} width="100%" height="auto" />
+
+외부 노출은 현재 지원되지 않습니다. 안전한 원격 접근을 위한 최선의 방법을 결정하는 동안 API는 localhost에서만 실행됩니다.
+현재로서는 포트를 노출하는 구성 옵션이 없습니다.
+
+표준 HTTP 요청을 사용하여 API를 호출할 수 있습니다.
+
+- 읽기 전용 쿼리(GET):
+```shell
+curl -s http://localhost:8280/api/node/sync | jq
+```
+```json
+{
+  "status": "success",
+  "error": "",
+  "ecStatus": {
+    "primaryEcStatus": {
+      "isWorking": true,
+      "isSynced": true,
+      "syncProgress": 1,
+      "networkId": 560048
+    }
+  },
+  "bcStatus": {
+    "primaryEcStatus": {
+      "isWorking": true,
+      "isSynced": true,
+      "syncProgress": 1
+    }
+  }
+}
+```
+
+- 트랜잭션(POST):
+```shell
+curl -s -X POST http://localhost:8280/api/node/set-timezone \
+  -d "timezoneLocation=America/Los_Angeles" | jq
+```
+```json
+{
+  "status": "success",
+  "error": "",
+  "txHash": "0x0bab800962146f3e41c701601be6d636f9bec261ef6cabe667bc560ed19dfffb"
+}
+```
 
 ## (실험적) 듀얼 스택 (IPv4 + IPv6) 네트워킹 활성화
 

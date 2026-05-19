@@ -118,7 +118,6 @@ GLOBAL OPTIONS:
 ```
         Name                       Command              State                                                       Ports
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-rocketpool_api          /bin/sleep infinity             Up
 rocketpool_eth1         sh /setup/start-node.sh         Up      0.0.0.0:30303->30303/tcp,:::30303->30303/tcp, 0.0.0.0:30303->30303/udp,:::30303->30303/udp, 8545/tcp, 8546/tcp
 rocketpool_eth2         sh /setup/start-beacon.sh       Up      0.0.0.0:9001->9001/tcp,:::9001->9001/tcp, 0.0.0.0:9001->9001/udp,:::9001->9001/udp
 rocketpool_node         /go/bin/rocketpool node         Up
@@ -148,34 +147,6 @@ Docker 컨테이너에 문제가 있는지 빠르게 확인하거나 `start` 또
 
 한 컨테이너의 출력에 집중하려면 컨테이너를 지정하는 인수를 끝에 추가할 수 있습니다.
 유효한 값은 `eth1`, `eth2`, `validator`, `api`, `node`, `watchtower`, `prometheus`, `grafana`, `node-exporter`입니다.
-
-### `stats`
-
-이 명령은 각 컨테이너의 리소스 통계를 보여주며, 각 컨테이너의 하드웨어 및 네트워크 소비를 프로파일링하는 데 사용할 수 있습니다.
-
-시스템이 느려지거나 RAM 문제가 있는 경우 컨테이너를 모니터링하는 데 유용할 수 있습니다.
-
-다음은 예시 출력입니다:
-
-```
-CONTAINER ID   NAME                    CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
-62314e5a0ecf   rocketpool_api          0.00%     18.89MiB / 62.78GiB   0.03%     50.6kB / 31.1kB   57.4MB / 0B       1
-ac629c08c896   rocketpool_eth1         5.44%     18.13GiB / 62.78GiB   28.88%    1.63GB / 1.66GB   24.4GB / 37.7GB   27
-4dfc7a2e939b   rocketpool_eth2         97.39%    2.369GiB / 62.78GiB   3.77%     1.79GB / 45MB     333MB / 24.1GB    2
-a3c22f54eff0   rocketpool_node         0.00%     12.13MiB / 62.78GiB   0.02%     308kB / 504kB     0B / 0B           15
-0d5818868ef6   rocketpool_validator    0.00%     936KiB / 62.78GiB     0.00%     12.1kB / 0B       4.57MB / 0B       2
-88bea525fa89   rocketpool_watchtower   0.00%     12.05MiB / 62.78GiB   0.02%     304kB / 503kB     0B / 0B           16
-```
-
-::: tip 참고
-여기의 RAM 통계는 가상 메모리를 포함한 **총 할당된 메모리**를 보여줍니다.
-실제 상주 메모리 소비를 보여주지 않습니다.
-
-마찬가지로 CPU 사용량은 컨테이너가 사용하는 모든 CPU 코어에서 평균화된 총 CPU 소비량을 보여줍니다.
-여기서 ETH2의 CPU는 거의 100%를 보여주는데, 이는 단일 스레드인 Nimbus를 사용하기 때문입니다.
-
-`htop`이나 `btop`과 같은 프로그램이 실제 리소스 소비에 대한 더 나은 통찰력을 제공할 수 있습니다.
-:::
 
 ### `config`
 

@@ -32,8 +32,6 @@ In caso contrario, rivedi le sezioni precedenti e torna qui una volta completati
       Creating rocketpool_eth1 ...
       Creating rocketpool_eth1 ... done
       Creating rocketpool_eth2 ...
-      Creating rocketpool_api  ...
-      Creating rocketpool_api  ... done
       Creating rocketpool_eth2 ... done
       Creating rocketpool_watchtower ...
       Creating rocketpool_mev-boost   ...
@@ -61,12 +59,10 @@ In caso contrario, rivedi le sezioni precedenti e torna qui una volta completati
       Stopping rocketpool_watchtower ...
       Stopping rocketpool_mev-boost  ...
       Stopping rocketpool_eth2       ...
-      Stopping rocketpool_api        ...
       Stopping rocketpool_eth1       ...
       Stopping rocketpool_validator  ... done
       Stopping rocketpool_node       ... done
       Stopping rocketpool_watchtower ... done
-      Stopping rocketpool_api        ... done
       Stopping rocketpool_mev-boost  ... done
       Stopping rocketpool_eth2       ... done
       Stopping rocketpool_eth1       ... done
@@ -94,8 +90,6 @@ In caso contrario, rivedi le sezioni precedenti e torna qui una volta completati
       $ rocketpool service start
 
       Creating network "rocketpool_net" with the default driver
-      Creating rocketpool_api  ...
-      Creating rocketpool_api  ... done
       Creating rocketpool_watchtower ...
       Creating rocketpool_node       ...
       Creating rocketpool_validator  ...
@@ -121,11 +115,9 @@ In caso contrario, rivedi le sezioni precedenti e torna qui una volta completati
       Stopping rocketpool_node       ...
       Stopping rocketpool_validator  ...
       Stopping rocketpool_watchtower ...
-      Stopping rocketpool_api        ...
       Stopping rocketpool_validator  ... done
       Stopping rocketpool_node       ... done
       Stopping rocketpool_watchtower ... done
-      Stopping rocketpool_api        ... done
       ```
 
       Ancora una volta, sarai responsabile di assicurarti manualmente che i tuoi client Execution e Consensus siano arrestati in modo appropriato, se desideri che vengano arrestati.
@@ -170,12 +162,15 @@ L'output apparirà così **(nota che potresti avere una versione più recente di
 ```
 Your Smartnode is currently using the Ethereum Mainnet.
 
-Rocket Pool client version: 1.6.4
-Rocket Pool service version: 1.6.4
-Selected Eth 1.0 client: Geth (Locally managed)
-Image: ethereum/client-go:v1.10.25
-Selected Eth 2.0 client: Lighthouse (Locally managed)
-Image: sigp/lighthouse:v3.1.0
+Rocket Pool client version: 1.20.2
+Rocket Pool service version: 1.20.2
+Selected Eth 1.0 client: Reth (Locally managed)
+	Image: ghcr.io/paradigmxyz/reth:v2.1.0
+Selected Eth 2.0 client: Nimbus (Locally managed)
+	Image: statusim/nimbus-eth2:multiarch-v26.3.1
+	VC image: statusim/nimbus-validator-client:multiarch-v26.3.1
+MEV-Boost client: Disabled
+Commit-Boost client: Disabled
 ```
 
 La prima riga ti dirà se il tuo Smartnode è configurato per la mainnet Ethereum o per la testnet Hoodi.
@@ -213,7 +208,6 @@ Ora che i servizi Smartnode sono stati avviati, è una buona idea controllare ch
       56940decdd1f   sigp/lighthouse:v2.5.1        "sh /setup/start-bn.…"   9 days ago    Up 9 days   0.0.0.0:9001->9001/tcp, 0.0.0.0:9001->9001/udp, :::9001->9001/tcp, :::9001->9001/udp                          rocketpool_eth2
       bd061e632535   grafana/grafana:8.5.9         "/run.sh"                9 days ago    Up 9 days   3000/tcp, 0.0.0.0:3100->3100/tcp, :::3100->3100/tcp                                                           rocketpool_grafana
       5c4db92762fb   ethereum/client-go:v1.10.21   "sh /setup/start-ec.…"   9 days ago    Up 9 days   8545-8546/tcp, 0.0.0.0:30303->30303/tcp, 0.0.0.0:30303->30303/udp, :::30303->30303/tcp, :::30303->30303/udp   rocketpool_eth1
-      e20c560861fc   rocketpool/smartnode:v1.5.0   "/bin/sleep infinity"    9 days ago    Up 9 days                                                                                                                 rocketpool_api
       4cf8d364fb90   rocketpool/smartnode:v1.5.0   "/go/bin/rocketpool …"   9 days ago    Up 9 days                                                                                                                 rocketpool_watchtower
       9eb944c29997   rocketpool/smartnode:v1.5.0   "/go/bin/rocketpool …"   9 days ago    Up 9 days                                                                                                                 rocketpool_node
       2ca5d3dcb471   sigp/lighthouse:v2.5.1        "sh /setup/start-vc.…"   9 days ago    Up 9 days                                                                                                                 rocketpool_validator
@@ -269,7 +263,6 @@ Ora che i servizi Smartnode sono stati avviati, è una buona idea controllare ch
       a3c22f54eff0   rocketpool/smartnode:v1.0.0-rc3     "/go/bin/rocketpool …"   2 hours ago   Up 2 minutes   rocketpool_node
       0d5818868ef6   sigp/lighthouse:v1.4.0              "sh /setup/start-val…"   2 hours ago   Up 2 minutes   rocketpool_validator
       88bea525fa89   rocketpool/smartnode:v1.0.0-rc3     "/go/bin/rocketpool …"   2 hours ago   Up 2 minutes   rocketpool_watchtower
-      62314e5a0ecf   rocketpool/smartnode:v1.0.0-rc3     "/bin/sleep infinity"    2 hours ago   Up 2 minutes   rocketpool_api
       ```
 
       La cosa principale da controllare è la colonna `STATUS`.

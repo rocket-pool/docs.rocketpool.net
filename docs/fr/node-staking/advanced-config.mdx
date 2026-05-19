@@ -2,6 +2,7 @@ import tui_ec_expose_ports from "./images/tui-ec-expose-ports.png";
 import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
 import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
+import tui_api_port from "./images/tui-api-port.png";
 
 # Configuration avancée du Smartnode pour le mode Docker
 
@@ -114,6 +115,58 @@ volumes:
 Cela fusionnera les paramètres dans la spécification du volume `eth1clientdata`, faisant de `/data/eth/eth1` l'emplacement des données du client eth1 plutôt que le chemin par défaut (`/var/lib/docker/volumes/rocketpool_eth1clientdata` avec la configuration Docker par défaut).
 
 Pour plus d'informations sur le fonctionnement des remplacements `docker-compose`, veuillez visiter [https://docs.docker.com/compose/extends/#adding-and-overriding-configuration](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration).
+
+## API HTTP du Daemon de nœud
+
+Le daemon de nœud expose une API HTTP locale sur le port 8280 (localhost uniquement). Cette API est utilisée en interne par la CLI et peut également être appelée directement pour de l'automatisation ou de l'outillage personnalisé.
+
+Le port de l'API HTTP peut être ajusté dans la catégorie Smart Node and TX Fees sous `API port`
+
+<img src={tui_api_port} width="100%" height="auto" />
+
+L'exposition externe n'est actuellement pas prise en charge. L'API n'est lancée que sur localhost pendant que nous déterminons la meilleure approche pour un accès distant sécurisé.
+Il n'y a actuellement aucune option de configuration pour exposer le port.
+
+Vous pouvez appeler l'API en utilisant des requêtes HTTP standard.
+
+- Requête en lecture seule (GET) :
+```shell
+curl -s http://localhost:8280/api/node/sync | jq
+```
+```json
+{
+  "status": "success",
+  "error": "",
+  "ecStatus": {
+    "primaryEcStatus": {
+      "isWorking": true,
+      "isSynced": true,
+      "syncProgress": 1,
+      "networkId": 560048
+    }
+  },
+  "bcStatus": {
+    "primaryEcStatus": {
+      "isWorking": true,
+      "isSynced": true,
+      "syncProgress": 1
+    }
+  }
+}
+```
+
+- Transaction (POST) :
+```shell
+curl -s -X POST http://localhost:8280/api/node/set-timezone \
+  -d "timezoneLocation=America/Los_Angeles" | jq
+```
+```json
+{
+  "status": "success",
+  "error": "",
+  "txHash": "0x0bab800962146f3e41c701601be6d636f9bec261ef6cabe667bc560ed19dfffb"
+}
+```
 
 ## (Expérimental) Activer le réseau dual-stack (IPv4 + IPv6)
 
