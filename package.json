@@ -12,18 +12,18 @@
     "format": "oxfmt --write ."
   },
   "dependencies": {
-    "@rspress/core": "^2.0.11"
+    "@rspress/core": "^2.0.12"
   },
   "devDependencies": {
     "@headlessui/react": "^2.2.10",
-    "@types/node": "^25.8.0",
-    "@types/react": "^19.2.14",
+    "@types/node": "^25.9.1",
+    "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
-    "oxfmt": "^0.50.0",
-    "oxlint": "^1.65.0",
+    "oxfmt": "^0.51.0",
+    "oxlint": "^1.66.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "taze": "^19.12.0",
+    "taze": "^19.13.0",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3"
   },
