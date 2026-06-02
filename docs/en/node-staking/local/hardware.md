@@ -102,7 +102,7 @@ We **do not recommend DRAM-less drives**.
 The final consideration is drive size.
 As of 4/2026, the `geth` execution client database size requires about 1.2TB of space after it finishes its initial sync (or after you just finished pruning it).
 This will grow steadily over time, and while pruning can regain some of that space, the freshly pruned state _does_ grow over time.
-You will have peace of mind with a larger drive. The size of this database can be reduced if you [decide to not to store history before the merge](/node-staking/maintenance/history-expiry#expiring-pre-merge-history). 
+You will have peace of mind with a larger drive. The size of this database can be reduced if you [decide not to store history before the merge](/node-staking/maintenance/history-expiry#expiring-pre-merge-history).
 
 ### Common Accessories
 
@@ -110,7 +110,7 @@ Many node operators improve their setups beyond the minimum requirements.
 Some common additions include:
 
 - SSD heatsinks to extend the drive lifespan
-- Uninterruptable power supplies (UPS) in case of power outages
+- Uninterruptible power supplies (UPS) in case of power outages
 - A fallback node to have a backup in case something fails
 
 These are all convenient to have, but not required to run a Rocket Pool node.
