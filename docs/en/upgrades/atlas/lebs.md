@@ -2,7 +2,7 @@
 
 When Rocket Pool was first launched, it supported two types of minipools:
 
-1. A **16-ETH bond**, where the node operator provided 16 ETH and the remaning 16 ETH would come from the staking pool to create a complete (32 ETH) validator.
+1. A **16-ETH bond**, where the node operator provided 16 ETH and the remaining 16 ETH would come from the staking pool to create a complete (32 ETH) validator.
 2. A **32-ETH temporary bond**, where the node operator would provide all 32 ETH so they could skip the initialization process and start validating on the Beacon Chain right away, then be given a refund of 16 ETH once the deposit pool had enough ETH to cover it. At this point it would turn into a normal 16-ETH bonded minipool.
 
 The latter was removed by a community vote several months into the protocol's life due to it no longer being necessary and resulting in long refund delays.
