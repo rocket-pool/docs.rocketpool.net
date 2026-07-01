@@ -570,15 +570,15 @@ sudo ufw allow "22/tcp" comment 'Allow SSH'
 允许执行客户端（以前称为 ETH1）：
 
 ```shell
-sudo ufw allow 30303/tcp comment 'Execution client port, standardized by Rocket Pool'
-sudo ufw allow 30303/udp comment 'Execution client port, standardized by Rocket Pool'
+sudo ufw allow 30303/tcp comment 'Execution client port, standardised by Rocket Pool'
+sudo ufw allow 30303/udp comment 'Execution client port, standardised by Rocket Pool'
 ```
 
 允许共识客户端（以前称为 ETH2）：
 
 ```shell
-sudo ufw allow 9001/tcp comment 'Consensus client port, standardized by Rocket Pool'
-sudo ufw allow 9001/udp comment 'Consensus client port, standardized by Rocket Pool'
+sudo ufw allow 9001/tcp comment 'Consensus client port, standardised by Rocket Pool'
+sudo ufw allow 9001/udp comment 'Consensus client port, standardised by Rocket Pool'
 ```
 
 如果你运行 lighthouse 客户端 v4.5.0+，你可以使用 quic 协议来减少延迟/增加带宽，quic 协议默认使用 lighthouse 的 --port + 1 来监听 quic 消息：https://lighthouse-blog.sigmaprime.io/Quic,%20Networking.html
