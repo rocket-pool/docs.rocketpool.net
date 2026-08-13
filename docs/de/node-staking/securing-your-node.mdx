@@ -570,15 +570,15 @@ sudo ufw allow "22/tcp" comment 'Allow SSH'
 Erlauben Sie Execution-Client (früher als ETH1 bezeichnet):
 
 ```shell
-sudo ufw allow 30303/tcp comment 'Execution client port, standardized by Rocket Pool'
-sudo ufw allow 30303/udp comment 'Execution client port, standardized by Rocket Pool'
+sudo ufw allow 30303/tcp comment 'Execution client port, standardised by Rocket Pool'
+sudo ufw allow 30303/udp comment 'Execution client port, standardised by Rocket Pool'
 ```
 
 Erlauben Sie Consensus-Client (früher als ETH2 bezeichnet):
 
 ```shell
-sudo ufw allow 9001/tcp comment 'Consensus client port, standardized by Rocket Pool'
-sudo ufw allow 9001/udp comment 'Consensus client port, standardized by Rocket Pool'
+sudo ufw allow 9001/tcp comment 'Consensus client port, standardised by Rocket Pool'
+sudo ufw allow 9001/udp comment 'Consensus client port, standardised by Rocket Pool'
 ```
 
 Wenn Sie Lighthouse-Client v4.5.0+ ausführen, können Sie das QUIC-Protokoll verwenden, um die Latenz zu reduzieren / die Bandbreite zu erhöhen. Das QUIC-Protokoll verwendet standardmäßig den Port von Lighthouse + 1, um QUIC-Nachrichten zu empfangen: https://lighthouse-blog.sigmaprime.io/Quic,%20Networking.html
