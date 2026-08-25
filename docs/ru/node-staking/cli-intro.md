@@ -171,7 +171,7 @@ rocketpool_watchtower   /go/bin/rocketpool watchtower   Up
 ## Команды ноды
 
 Группа команд `node` управляет операциями вашей ноды Rocket Pool.
-Мы рассмотрим их более подробно в следующем разделе, где создадим minipool, но полезно увидеть их все сразу.
+Мы рассмотрим их более подробно в следующем разделе, где создадим megapool-валидатор, но полезно увидеть их все сразу.
 
 Вот что покажет вывод `rocketpool node help`:
 
@@ -202,8 +202,6 @@ COMMANDS:
    withdraw-rpl, i                               Withdraw RPL staked against the node
    withdraw-eth, h                               Withdraw ETH staked on behalf of the node
    withdraw-credit, wc                           (Saturn) Withdraw ETH credit from the node as rETH
-   deposit, d                                    Make a deposit and create a minipool
-   create-vacant-minipool, cvm                   Create an empty minipool, which can be used to migrate an existing solo staking validator as part of the 0x00 to 0x01 withdrawal credentials upgrade
    send, n                                       Send ETH or tokens from the node account to an address. ENS names supported. Use 'all' as the amount to send the entire balance. <token> can be 'rpl', 'eth', 'fsrpl' (for the old RPL v1 token), 'reth', or the address of an arbitrary token you want to send (including the 0x prefix).
    set-voting-delegate, sv                       (DEPRECATED) Use `rocketpool pdao set-signalling-address` instead
    clear-voting-delegate, cv                     (DEPRECATED) Use `rocketpool pdao clear-signalling-address` instead
@@ -301,14 +299,14 @@ Your primary consensus client is still syncing (99.94%).
 You do not have a fallback consensus client enabled.
 ```
 
-Обратите внимание, что **Prysm** в настоящее время не предоставляет процент завершения — вам нужно будет посмотреть логи `eth2`, если вы его используете.
+Обратите внимание, что **Prysm** в настоящее время не предоставляет процент завершения - вам нужно будет посмотреть логи `eth2`, если вы его используете.
 
 ### `stake-rpl`
 
 Эта команда используется, когда вы хотите добавить больше RPL в качестве обеспечения для вашей ноды.
 Это увеличит ваш коэффициент обеспечения, что увеличит ваши вознаграждения RPL на каждом контрольном пункте (об этом подробнее позже).
 
-В отличие от других команд, эта является _интерактивной_, потому что она запустит транзакцию — она не просто информационная.
+В отличие от других команд, эта является _интерактивной_, потому что она запустит транзакцию - она не просто информационная.
 
 Сначала она спросит, сколько RPL вы хотите застейкать, с несколькими предопределенными вариантами для удобства или возможностью указать пользовательскую сумму:
 
@@ -380,11 +378,11 @@ Waiting for the transaction to be included in a block... you may wait here for i
 Successfully staked 733.993925 RPL.
 ```
 
-Большинство операций требует только одной транзакции, поэтому CLI будет ждать, пока она не будет включена в блок, а затем завершится. Однако stake-rpl — это одна из немногих команд, которая требует двух транзакций, поэтому этот диалог появится дважды.
+Большинство операций требует только одной транзакции, поэтому CLI будет ждать, пока она не будет включена в блок, а затем завершится. Однако stake-rpl - это одна из немногих команд, которая требует двух транзакций, поэтому этот диалог появится дважды.
 
 ### `claim-rewards`
 
-Когда ваша нода обнаружит новый контрольный пункт вознаграждений, она автоматически загрузит файл дерева вознаграждений с информацией для этого интервала (если вы используете режим загрузки по умолчанию — см. ниже информацию о генерации собственных деревьев вместо их загрузки).
+Когда ваша нода обнаружит новый контрольный пункт вознаграждений, она автоматически загрузит файл дерева вознаграждений с информацией для этого интервала (если вы используете режим загрузки по умолчанию - см. ниже информацию о генерации собственных деревьев вместо их загрузки).
 Затем вы можете просмотреть свои вознаграждения с помощью следующей команды:
 
 ```
@@ -456,9 +454,9 @@ rocketpool node send <amount> <token> <address or ENS name>
 
 Аргументы следующие:
 
-- `<amount>` — количество токенов для отправки.
-- `<token>` — токен для отправки — это может быть `eth`, `rpl`, `fsrpl` (старый устаревший токен RPL) или `reth`.
-- `<address or ENS name>` — адрес Ethereum (или имя ENS), на который нужно отправить токены.
+- `<amount>` - количество токенов для отправки.
+- `<token>` - токен для отправки - это может быть `eth`, `rpl`, `fsrpl` (старый устаревший токен RPL) или `reth`.
+- `<address or ENS name>` - адрес Ethereum (или имя ENS), на который нужно отправить токены.
 
 Например:
 
@@ -579,7 +577,7 @@ Express Ticket Used:          yes
 
 ### `exit-validator`
 
-Эта команда позволяет выбрать валидатор для добровольного выхода из Beacon Chain. Используйте ее, когда хотите закрыть валидатор и вывести его окончательный баланс ETH. Обратите внимание, что это нельзя отменить — как только вы запустите выход, валидатор будет остановлен навсегда.
+Эта команда позволяет выбрать валидатор для добровольного выхода из Beacon Chain. Используйте ее, когда хотите закрыть валидатор и вывести его окончательный баланс ETH. Обратите внимание, что это нельзя отменить - как только вы запустите выход, валидатор будет остановлен навсегда.
 
 ## Команды Minipool
 
@@ -600,20 +598,21 @@ COMMANDS:
    stake, t                   Stake a minipool after the scrub check, moving it from prelaunch to staking.
    set-withdrawal-creds, swc  Convert the withdrawal credentials for a migrated solo validator from the old 0x00 value to the minipool address. Required to complete the migration process.
    import-key, ik             Import the externally-derived key for a minipool that was previously a solo validator, so the Smart Node's VC manages it instead of your externally-managed VC.
-   promote, p                 Promote a vacant minipool after the scrub check, completing a solo validator migration.
    refund, r                  Refund ETH belonging to the node from minipools
-   begin-bond-reduction, bbr  Begins the ETH bond reduction process for a minipool, taking it from 16 ETH down to 8 ETH (begins conversion of a 16 ETH minipool to an LEB8)
-   reduce-bond, rb            Manually completes the ETH bond reduction process for a minipool from 16 ETH down to 8 ETH once it is eligible. Please run `begin-bond-reduction` first to start this process.
    distribute-balance, d      Distribute a minipool's ETH balance between your withdrawal address and the rETH holders.
    exit, e                    Exit staking minipools from the beacon chain
    close, c                   Withdraw any remaining balance from a minipool and close it
    delegate-upgrade, u        Upgrade a minipool's delegate contract to the latest version
-   find-vanity-address, v     Search for a custom vanity minipool address
    rescue-dissolved, rd       Manually deposit ETH into the Beacon deposit contract for a dissolved minipool, activating it on the Beacon Chain so it can be exited.
 
 OPTIONS:
    --help, -h  show help
 ```
+
+::: warning ПРИМЕЧАНИЕ
+Команды `set-withdrawal-creds` и `import-key` применимы только к minipool, созданным в результате миграций соло-валидаторов до Saturn 1.
+[Миграция соло-валидаторов](/ru/node-staking/solo-staker-migration) больше невозможна, а соответствующие команды `create-vacant-minipool` и `promote` удалены из CLI.
+:::
 
 Ниже приведено краткое описание команд, которые вы обычно будете использовать.
 
@@ -659,7 +658,7 @@ Effective delegate:    0x56903694d881282D33ed0643EAe14263880Dd47F
 
 Эта команда подает добровольный выход для вашего валидатора в Beacon Chain.
 Используйте это, когда хотите закрыть валидатор и вывести его окончательный баланс ETH.
-Обратите внимание, что **это нельзя отменить** — как только вы запустите выход, валидатор будет остановлен навсегда.
+Обратите внимание, что **это нельзя отменить** - как только вы запустите выход, валидатор будет остановлен навсегда.
 
 ## Полезные флаги
 
@@ -691,7 +690,7 @@ Effective delegate:    0x56903694d881282D33ed0643EAe14263880Dd47F
 Приоритетная комиссия в 4 gwei гарантирует, что она будет включена раньше всех транзакций с более низкой приоритетной комиссией.
 
 Если вы **действительно** хотите, чтобы транзакция прошла любой ценой, вы можете установить приоритетную комиссию равной максимальной комиссии.
-Это эмулирует устаревшее поведение газа, поэтому ваша транзакция будет использовать весь газ, который вы ей дадите — независимо от того, ниже ли базовая комиссия сети вашей максимальной комиссии или нет.
+Это эмулирует устаревшее поведение газа, поэтому ваша транзакция будет использовать весь газ, который вы ей дадите - независимо от того, ниже ли базовая комиссия сети вашей максимальной комиссии или нет.
 :::
 
 По умолчанию Rocket Pool будет использовать оракул для просмотра текущего пула транзакций и предложения разумной максимальной комиссии для любых транзакций, которые вы запускаете.
@@ -775,4 +774,4 @@ Are you sure you want to send 0.000100 eth to <node wallet address>? This action
 В противном случае он пройдет и предоставит вам детали транзакции, чтобы вы могли отслеживать ее, чтобы подтвердить, что она действительно перезаписала вашу старую застрявшую транзакцию.
 
 Вот и все для общих команд CLI.
-В следующем разделе мы пройдем через процесс создания minipool и начало валидации в Beacon Chain.
+В следующем разделе мы пройдем через процесс создания megapool-валидатора и начало валидации в Beacon Chain.

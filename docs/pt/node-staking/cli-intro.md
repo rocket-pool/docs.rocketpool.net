@@ -171,7 +171,7 @@ Para removê-los, você precisará excluir a pasta `~/.rocketpool/data` no modo 
 ## Comandos do Nó
 
 O grupo `node` envolve operações em seu nó Rocket Pool.
-Cobriremos isso com mais profundidade na próxima seção onde criamos um minipool, mas pode ser útil vê-los todos de relance.
+Cobriremos isso com mais profundidade na próxima seção onde criamos um validator de megapool, mas pode ser útil vê-los todos de relance.
 
 Aqui está o que a saída de `rocketpool node help` mostrará:
 
@@ -202,8 +202,6 @@ COMMANDS:
    withdraw-rpl, i                               Withdraw RPL staked against the node
    withdraw-eth, h                               Withdraw ETH staked on behalf of the node
    withdraw-credit, wc                           (Saturn) Withdraw ETH credit from the node as rETH
-   deposit, d                                    Make a deposit and create a minipool
-   create-vacant-minipool, cvm                   Create an empty minipool, which can be used to migrate an existing solo staking validator as part of the 0x00 to 0x01 withdrawal credentials upgrade
    send, n                                       Send ETH or tokens from the node account to an address. ENS names supported. Use 'all' as the amount to send the entire balance. <token> can be 'rpl', 'eth', 'fsrpl' (for the old RPL v1 token), 'reth', or the address of an arbitrary token you want to send (including the 0x prefix).
    set-voting-delegate, sv                       (DEPRECATED) Use `rocketpool pdao set-signalling-address` instead
    clear-voting-delegate, cv                     (DEPRECATED) Use `rocketpool pdao clear-signalling-address` instead
@@ -600,20 +598,21 @@ COMMANDS:
    stake, t                   Stake a minipool after the scrub check, moving it from prelaunch to staking.
    set-withdrawal-creds, swc  Convert the withdrawal credentials for a migrated solo validator from the old 0x00 value to the minipool address. Required to complete the migration process.
    import-key, ik             Import the externally-derived key for a minipool that was previously a solo validator, so the Smart Node's VC manages it instead of your externally-managed VC.
-   promote, p                 Promote a vacant minipool after the scrub check, completing a solo validator migration.
    refund, r                  Refund ETH belonging to the node from minipools
-   begin-bond-reduction, bbr  Begins the ETH bond reduction process for a minipool, taking it from 16 ETH down to 8 ETH (begins conversion of a 16 ETH minipool to an LEB8)
-   reduce-bond, rb            Manually completes the ETH bond reduction process for a minipool from 16 ETH down to 8 ETH once it is eligible. Please run `begin-bond-reduction` first to start this process.
    distribute-balance, d      Distribute a minipool's ETH balance between your withdrawal address and the rETH holders.
    exit, e                    Exit staking minipools from the beacon chain
    close, c                   Withdraw any remaining balance from a minipool and close it
    delegate-upgrade, u        Upgrade a minipool's delegate contract to the latest version
-   find-vanity-address, v     Search for a custom vanity minipool address
    rescue-dissolved, rd       Manually deposit ETH into the Beacon deposit contract for a dissolved minipool, activating it on the Beacon Chain so it can be exited.
 
 OPTIONS:
    --help, -h  show help
 ```
+
+::: warning NOTA
+Os comandos `set-withdrawal-creds` e `import-key` só se aplicam a minipools criados a partir de migrações de validators solo antes do Saturn 1.
+A [migração de validators solo](/pt/node-staking/solo-staker-migration) não é mais possível, e os comandos correspondentes `create-vacant-minipool` e `promote` foram removidos da CLI.
+:::
 
 Abaixo está um resumo dos comandos que você normalmente usará.
 
@@ -775,4 +774,4 @@ Caso contrário, retornará uma mensagem de erro.
 Caso contrário, ele passará e fornecerá os detalhes da transação para que você possa monitorá-la e confirmar que ela, de fato, sobrescreveu sua antiga transação travada.
 
 Isso é tudo para os comandos CLI comuns.
-Na próxima seção, mostraremos como criar um minipool e começar a validar na Beacon Chain.
+Na próxima seção, mostraremos como criar um validator de megapool e começar a validar na Beacon Chain.

@@ -171,7 +171,7 @@ rocketpool_watchtower   /go/bin/rocketpool watchtower   Up
 ## Node 命令
 
 `node` 组涉及对您的 Rocket Pool 节点的操作。
-我们将在下一节中更深入地介绍这些,在那里我们将创建一个 minipool,但现在一目了然地查看它们可能会有所帮助。
+我们将在下一节中更深入地介绍这些,在那里我们将创建一个 megapool 验证者,但现在一目了然地查看它们可能会有所帮助。
 
 以下是 `rocketpool node help` 输出将显示的内容:
 
@@ -202,8 +202,6 @@ COMMANDS:
    withdraw-rpl, i                               Withdraw RPL staked against the node
    withdraw-eth, h                               Withdraw ETH staked on behalf of the node
    withdraw-credit, wc                           (Saturn) Withdraw ETH credit from the node as rETH
-   deposit, d                                    Make a deposit and create a minipool
-   create-vacant-minipool, cvm                   Create an empty minipool, which can be used to migrate an existing solo staking validator as part of the 0x00 to 0x01 withdrawal credentials upgrade
    send, n                                       Send ETH or tokens from the node account to an address. ENS names supported. Use 'all' as the amount to send the entire balance. <token> can be 'rpl', 'eth', 'fsrpl' (for the old RPL v1 token), 'reth', or the address of an arbitrary token you want to send (including the 0x prefix).
    set-voting-delegate, sv                       (DEPRECATED) Use `rocketpool pdao set-signalling-address` instead
    clear-voting-delegate, cv                     (DEPRECATED) Use `rocketpool pdao clear-signalling-address` instead
@@ -600,20 +598,21 @@ COMMANDS:
    stake, t                   Stake a minipool after the scrub check, moving it from prelaunch to staking.
    set-withdrawal-creds, swc  Convert the withdrawal credentials for a migrated solo validator from the old 0x00 value to the minipool address. Required to complete the migration process.
    import-key, ik             Import the externally-derived key for a minipool that was previously a solo validator, so the Smart Node's VC manages it instead of your externally-managed VC.
-   promote, p                 Promote a vacant minipool after the scrub check, completing a solo validator migration.
    refund, r                  Refund ETH belonging to the node from minipools
-   begin-bond-reduction, bbr  Begins the ETH bond reduction process for a minipool, taking it from 16 ETH down to 8 ETH (begins conversion of a 16 ETH minipool to an LEB8)
-   reduce-bond, rb            Manually completes the ETH bond reduction process for a minipool from 16 ETH down to 8 ETH once it is eligible. Please run `begin-bond-reduction` first to start this process.
    distribute-balance, d      Distribute a minipool's ETH balance between your withdrawal address and the rETH holders.
    exit, e                    Exit staking minipools from the beacon chain
    close, c                   Withdraw any remaining balance from a minipool and close it
    delegate-upgrade, u        Upgrade a minipool's delegate contract to the latest version
-   find-vanity-address, v     Search for a custom vanity minipool address
    rescue-dissolved, rd       Manually deposit ETH into the Beacon deposit contract for a dissolved minipool, activating it on the Beacon Chain so it can be exited.
 
 OPTIONS:
    --help, -h  show help
 ```
+
+::: warning 注意
+`set-withdrawal-creds` 和 `import-key` 命令仅适用于在 Saturn 1 之前通过单独验证者迁移创建的 minipool。
+[单独验证者迁移](/zh/node-staking/solo-staker-migration)已不再可行，相应的 `create-vacant-minipool` 和 `promote` 命令也已从 CLI 中移除。
+:::
 
 以下是您通常会使用的命令摘要。
 
@@ -775,4 +774,4 @@ Smartnode 堆栈将自动检查以确保您提供的 `nonce` 有效(它引用待
 否则,它将通过并为您提供交易详细信息,以便您可以监控它以确认它确实覆盖了您的旧卡住交易。
 
 关于常用 CLI 命令就这些了。
-在下一节中,我们将逐步介绍如何创建 minipool 并在 Beacon Chain 上开始验证。
+在下一节中,我们将逐步介绍如何创建 megapool 验证者并在 Beacon Chain 上开始验证。
