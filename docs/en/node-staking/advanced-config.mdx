@@ -2,7 +2,6 @@ import tui_ec_expose_ports from "./images/tui-ec-expose-ports.png";
 import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
 import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
-import tui_api_port from "./images/tui-api-port.png";
 
 
 # Advanced Smartnode Configuration for Docker Mode
@@ -119,21 +118,78 @@ For more information on how `docker-compose` overrides work, please visit [https
 
 ## Node Daemon HTTP API
 
-The node daemon exposes a local HTTP API on port 8280 (localhost only). This API is used internally by the CLI and can also be called directly for custom automation or tooling.
+The node daemon serves an HTTP API (default port **8280**) used by the local `rocketpool` CLI and by custom tooling.
+Configure it in `rocketpool service config` under the **API** category. Native mode uses the same category.
 
-The HTTP API port can be adjusted in the Smart Node and TX Fees category under `API port` 
+| Setting | Purpose |
+|---|---|
+| **API Port** | Listen port. Default `8280`. |
+| **Expose API Port** | **Closed** — not published; the host CLI cannot reach the API in Docker. **Open to Localhost** (default) — `127.0.0.1:8280`. **Open to External hosts** — published on all interfaces. |
 
-<img src={tui_api_port} width="100%" height="auto" />
+Changing these settings requires a node container restart. The Settings Manager flags that for you.
 
-External exposure is not currently supported. The API launches only on localhost while we determine the best approach for secure remote access. 
-There is no configuration option to expose the port at this time.
+::: warning Do not expose the API without TLS
+The API can export your wallet, send funds, and change node settings.
+Do not publish it to the public internet without TLS. Put it behind a reverse proxy, or keep it on a trusted LAN.
+:::
 
-You can call the API using standard HTTP requests. 
+### API authentication
 
-- Read-only query (GET):
-```shell
-curl -s http://localhost:8280/api/node/sync | jq
+Starting with Smart Node v1.22.0, API routes require a bearer token. Clients send:
+
 ```
+Authorization: Bearer <token>
+```
+
+Query-string tokens are ignored. The `rocketpool` CLI on this machine loads the write token from the data directory and sends it automatically.
+If the CLI returns `unauthorized`, point `-c` at the same config directory the daemon is using, or copy that install's `data/api-tokens.json`.
+
+| Setting | Purpose |
+|---|---|
+| **API Token** | Write-scoped secret. Format is `rpsn_` followed by 64 hex characters. Treat it like a password. Clearing the field and saving regenerates it. It is stored in `api-tokens.json`, not in `user-settings.yml`. |
+| **API Token Comment** | Non-secret label stored with the token. Default `rocketpool CLI`. |
+| **Unauthenticated Reads** | Server policy, not a per-token privilege. Default is **Require a token for read routes**: every route except `/healthz` needs a valid bearer token. Choosing **Allow unauthenticated reads** lets status, balances, and `can-*` estimates run without a token. Wallet operations, transactions, and other write routes still need a write-scoped token. |
+| **API Rate Limit** | Maximum requests per second. `0` disables the limit (this is the default). Burst equals one second of quota. Over the limit, the API returns HTTP 429 with `Retry-After: 1`. |
+
+`/healthz` never requires a token.
+
+Tokens live in `<data path>/api-tokens.json` (host default `~/.rocketpool/data/api-tokens.json`). The Docker daemon sees the same file at `/.rocketpool/data/api-tokens.json` on the data-directory bind mount. The file is mode `0600`.
+
+Each record has a scope:
+
+- `write` — all routes.
+- `read` — read routes only. Write routes return HTTP 403 `forbidden`.
+
+Add extra tokens by appending records to `api-tokens.json`, then restart the node:
+
+```json
+{
+  "tokens": [
+    {
+      "token": "rpsn_…",
+      "comment": "rocketpool CLI",
+      "scope": "write"
+    },
+    {
+      "token": "rpsn_…",
+      "comment": "monitoring",
+      "scope": "read"
+    }
+  ]
+}
+```
+
+Copy the token from the **API Token** field or from `api-tokens.json`. Do not put it in logs or screenshots.
+
+### Calling the API
+
+Read-only query (GET). A token is required unless unauthenticated reads are enabled:
+
+```shell
+curl -s -H "Authorization: Bearer $RP_API_TOKEN" \
+  http://127.0.0.1:8280/api/node/sync | jq
+```
+
 ```json
 {
   "status": "success",
@@ -156,11 +212,15 @@ curl -s http://localhost:8280/api/node/sync | jq
 }
 ```
 
-- Transaction (POST):
+Transaction (POST). Always requires a write-scoped token:
+
 ```shell
-curl -s -X POST http://localhost:8280/api/node/set-timezone \
-  -d "timezoneLocation=America/Los_Angeles" | jq
+curl -s -X POST \
+  -H "Authorization: Bearer $RP_API_TOKEN" \
+  -d "timezoneLocation=America/Los_Angeles" \
+  http://127.0.0.1:8280/api/node/set-timezone | jq
 ```
+
 ```json
 {
   "status": "success",
@@ -168,6 +228,12 @@ curl -s -X POST http://localhost:8280/api/node/set-timezone \
   "txHash": "0x0bab800962146f3e41c701601be6d636f9bec261ef6cabe667bc560ed19dfffb"
 }
 ```
+
+| Status | Body | When |
+|---|---|---|
+| 401 | `{"status":"error","error":"unauthorized"}` plus `WWW-Authenticate: Bearer` | Missing or invalid token |
+| 403 | `{"status":"error","error":"forbidden"}` | Read token used on a write route |
+| 429 | `{"status":"error","error":"too many requests"}` plus `Retry-After: 1` | Rate limit exceeded |
 
 ## (Experimental) Enabling Dual-Stack (IPv4 + IPv6) networking
 
