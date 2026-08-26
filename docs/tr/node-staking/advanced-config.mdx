@@ -2,7 +2,6 @@ import tui_ec_expose_ports from "./images/tui-ec-expose-ports.png";
 import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
 import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
-import tui_api_port from "./images/tui-api-port.png";
 
 # Docker Modu için Gelişmiş Smartnode Yapılandırması
 
@@ -118,21 +117,78 @@ Bu işlem, parametreleri `eth1clientdata` birim spesifikasyonuyla birleştirerek
 
 ## Node Daemon HTTP API
 
-Node daemon, 8280 portunda (yalnızca localhost) yerel bir HTTP API sunar. Bu API, CLI tarafından dahili olarak kullanılır ve özel otomasyon veya araçlar için doğrudan da çağrılabilir.
+Node daemon'ı, yerel `rocketpool` CLI ve özel araçlar tarafından kullanılan bir HTTP API sunar (varsayılan port **8280**).
+Bunu `rocketpool service config` içindeki **API** kategorisinden yapılandırın. Native mod aynı kategoriyi kullanır.
 
-HTTP API portu, Smart Node and TX Fees kategorisinde `API port` altından değiştirilebilir
+| Ayar | Amaç |
+|---|---|
+| **API Portu** | Dinleme portu. Varsayılan `8280`. |
+| **API Portunu Aç** | **Kapalı** — yayınlanmaz; Docker'da ana makinedeki CLI API'ye erişemez. **Localhost'a Açık** (varsayılan) — `127.0.0.1:8280`. **Harici ana bilgisayarlara açık** — tüm arayüzlerde yayınlanır. |
 
-<img src={tui_api_port} width="100%" height="auto" />
+Bu ayarları değiştirmek, node konteynerinin yeniden başlatılmasını gerektirir. Ayarlar Yöneticisi bunu sizin için işaretler.
 
-Harici olarak açma şu anda desteklenmemektedir. Güvenli uzaktan erişim için en iyi yaklaşımı belirlerken API yalnızca localhost üzerinde başlatılır.
-Şu anda portu açmak için bir yapılandırma seçeneği yoktur.
+::: warning API'yi TLS olmadan açığa çıkarmayın
+API, cüzdanınızı dışa aktarabilir, fon gönderebilir ve node ayarlarını değiştirebilir.
+TLS olmadan halka açık internete yayınlamayın. Bir ters proxy arkasına koyun veya güvenilir bir LAN içinde tutun.
+:::
 
-API'yi standart HTTP istekleri kullanarak çağırabilirsiniz.
+### API kimlik doğrulaması
 
-- Salt okunur sorgu (GET):
-```shell
-curl -s http://localhost:8280/api/node/sync | jq
+Smart Node v1.22.0'dan itibaren API rotaları bir bearer token gerektirir. İstemciler şunu gönderir:
+
 ```
+Authorization: Bearer <token>
+```
+
+Sorgu dizesindeki token'lar yok sayılır. Bu makinedeki `rocketpool` CLI, yazma token'ını veri dizininden yükler ve otomatik olarak gönderir.
+CLI `unauthorized` döndürürse, `-c` parametresini daemon'ın kullandığı yapılandırma diziniyle aynı dizine yönlendirin veya o kurulumun `data/api-tokens.json` dosyasını kopyalayın.
+
+| Ayar | Amaç |
+|---|---|
+| **API Token** | Yazma kapsamlı gizli anahtar. Biçimi `rpsn_` ve ardından 64 onaltılık karakterdir. Bir parola gibi davranın. Alanı temizleyip kaydetmek token'ı yeniden oluşturur. `user-settings.yml` içinde değil, `api-tokens.json` içinde saklanır. |
+| **API Token Açıklaması** | Token ile birlikte saklanan, gizli olmayan bir etiket. Varsayılan `rocketpool CLI`. |
+| **Kimlik Doğrulamasız Okumalar** | Token bazlı bir ayrıcalık değil, sunucu politikasıdır. Varsayılan, **Okuma rotaları için token zorunlu** seçeneğidir: `/healthz` dışındaki her rota geçerli bir bearer token gerektirir. **Kimlik doğrulamasız okumalara izin ver** seçildiğinde durum, bakiyeler ve `can-*` tahminleri token olmadan çalışabilir. Cüzdan işlemleri, transaction'lar ve diğer yazma rotaları yine de yazma kapsamlı bir token gerektirir. |
+| **API Hız Sınırı** | Saniyedeki en fazla istek sayısı. `0` sınırı devre dışı bırakır (varsayılan budur). Ani yük (burst), bir saniyelik kotaya eşittir. Sınır aşıldığında API, `Retry-After: 1` ile birlikte HTTP 429 döndürür. |
+
+`/healthz` hiçbir zaman token gerektirmez.
+
+Token'lar `<data path>/api-tokens.json` dosyasında bulunur (ana makinede varsayılan `~/.rocketpool/data/api-tokens.json`). Docker'daki daemon, veri dizini bind mount'u üzerinden aynı dosyayı `/.rocketpool/data/api-tokens.json` yolunda görür. Dosyanın izin modu `0600`'dür.
+
+Her kaydın bir kapsamı vardır:
+
+- `write` — tüm rotalar.
+- `read` — yalnızca okuma rotaları. Yazma rotaları HTTP 403 `forbidden` döndürür.
+
+`api-tokens.json` dosyasına kayıt ekleyerek ek token'lar oluşturun, ardından node'u yeniden başlatın:
+
+```json
+{
+  "tokens": [
+    {
+      "token": "rpsn_…",
+      "comment": "rocketpool CLI",
+      "scope": "write"
+    },
+    {
+      "token": "rpsn_…",
+      "comment": "monitoring",
+      "scope": "read"
+    }
+  ]
+}
+```
+
+Token'ı **API Token** alanından veya `api-tokens.json` dosyasından kopyalayın. Günlüklere veya ekran görüntülerine koymayın.
+
+### API'yi çağırma
+
+Salt okunur sorgu (GET). Kimlik doğrulamasız okumalar etkin değilse bir token gereklidir:
+
+```shell
+curl -s -H "Authorization: Bearer $RP_API_TOKEN" \
+  http://127.0.0.1:8280/api/node/sync | jq
+```
+
 ```json
 {
   "status": "success",
@@ -155,11 +211,15 @@ curl -s http://localhost:8280/api/node/sync | jq
 }
 ```
 
-- İşlem (POST):
+İşlem (POST). Her zaman yazma kapsamlı bir token gerektirir:
+
 ```shell
-curl -s -X POST http://localhost:8280/api/node/set-timezone \
-  -d "timezoneLocation=America/Los_Angeles" | jq
+curl -s -X POST \
+  -H "Authorization: Bearer $RP_API_TOKEN" \
+  -d "timezoneLocation=America/Los_Angeles" \
+  http://127.0.0.1:8280/api/node/set-timezone | jq
 ```
+
 ```json
 {
   "status": "success",
@@ -167,6 +227,12 @@ curl -s -X POST http://localhost:8280/api/node/set-timezone \
   "txHash": "0x0bab800962146f3e41c701601be6d636f9bec261ef6cabe667bc560ed19dfffb"
 }
 ```
+
+| Durum | Gövde | Ne zaman |
+|---|---|---|
+| 401 | `{"status":"error","error":"unauthorized"}` ve `WWW-Authenticate: Bearer` | Eksik veya geçersiz token |
+| 403 | `{"status":"error","error":"forbidden"}` | Yazma rotasında okuma token'ı kullanıldı |
+| 429 | `{"status":"error","error":"too many requests"}` ve `Retry-After: 1` | Hız sınırı aşıldı |
 
 ## (Deneysel) Çift Yığın (IPv4 + IPv6) Ağını Etkinleştirme
 

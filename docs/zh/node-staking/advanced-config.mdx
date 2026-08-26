@@ -2,7 +2,6 @@ import tui_ec_expose_ports from "./images/tui-ec-expose-ports.png";
 import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
 import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
-import tui_api_port from "./images/tui-api-port.png";
 
 # Docker 模式下的高级 Smartnode 配置
 
@@ -118,21 +117,78 @@ volumes:
 
 ## Node Daemon HTTP API
 
-Node daemon 在端口 8280（仅限 localhost）上提供一个本地 HTTP API。此 API 由 CLI 内部使用，也可以直接调用以进行自定义自动化或工具集成。
+节点守护进程提供一个 HTTP API（默认端口 **8280**），供本地 `rocketpool` CLI 和自定义工具使用。
+可在 `rocketpool service config` 的 **API** 类别中进行配置。Native 模式使用相同的类别。
 
-HTTP API 端口可以在 Smart Node and TX Fees 类别下的 `API port` 中进行调整
+| 设置 | 用途 |
+|---|---|
+| **API Port** | 监听端口。默认为 `8280`。 |
+| **Expose API Port** | **Closed**——不发布端口；在 Docker 下主机上的 CLI 无法访问该 API。**Open to Localhost**（默认）——`127.0.0.1:8280`。**Open to External hosts**——在所有网络接口上发布。 |
 
-<img src={tui_api_port} width="100%" height="auto" />
+更改这些设置需要重启节点容器。设置管理器会为你提示这一点。
 
-目前不支持外部暴露。在我们确定安全远程访问的最佳方案之前，该 API 仅在 localhost 上启动。
-目前没有用于暴露端口的配置选项。
+::: warning 请勿在没有 TLS 的情况下公开 API
+该 API 可以导出你的钱包、发送资金并更改节点设置。
+不要在没有 TLS 的情况下将其发布到公共互联网。请将其置于反向代理之后，或仅在可信的局域网中使用。
+:::
 
-您可以使用标准 HTTP 请求调用该 API。
+### API 认证
 
-- 只读查询 (GET)：
-```shell
-curl -s http://localhost:8280/api/node/sync | jq
+从 Smart Node v1.22.0 开始，API 路由需要 bearer 令牌。客户端发送：
+
 ```
+Authorization: Bearer <token>
+```
+
+查询字符串中的令牌会被忽略。本机上的 `rocketpool` CLI 会从数据目录加载写入令牌并自动发送。
+如果 CLI 返回 `unauthorized`，请将 `-c` 指向守护进程所使用的同一配置目录，或复制该安装的 `data/api-tokens.json`。
+
+| 设置 | 用途 |
+|---|---|
+| **API Token** | 具有写入权限的密钥。格式为 `rpsn_` 后跟 64 个十六进制字符。请像对待密码一样对待它。清空该字段并保存会重新生成令牌。它存储在 `api-tokens.json` 中，而不是 `user-settings.yml` 中。 |
+| **API Token Comment** | 与令牌一起存储的非机密标签。默认为 `rocketpool CLI`。 |
+| **Unauthenticated Reads** | 这是服务器策略，而不是单个令牌的权限。默认为 **Require a token for read routes**：除 `/healthz` 外的每个路由都需要有效的 bearer 令牌。选择 **Allow unauthenticated reads** 后，状态、余额和 `can-*` 估算可以在没有令牌的情况下运行。钱包操作、交易和其他写入路由仍然需要具有写入权限的令牌。 |
+| **API Rate Limit** | 每秒最大请求数。`0` 表示禁用限制（这是默认值）。突发额度等于一秒的配额。超出限制时，API 返回 HTTP 429 并附带 `Retry-After: 1`。 |
+
+`/healthz` 永远不需要令牌。
+
+令牌存放在 `<data path>/api-tokens.json` 中（主机默认路径为 `~/.rocketpool/data/api-tokens.json`）。Docker 中的守护进程通过数据目录绑定挂载在 `/.rocketpool/data/api-tokens.json` 看到同一个文件。该文件的权限为 `0600`。
+
+每条记录都有一个作用域：
+
+- `write`——所有路由。
+- `read`——仅读取路由。写入路由返回 HTTP 403 `forbidden`。
+
+通过向 `api-tokens.json` 追加记录来添加额外的令牌，然后重启节点：
+
+```json
+{
+  "tokens": [
+    {
+      "token": "rpsn_…",
+      "comment": "rocketpool CLI",
+      "scope": "write"
+    },
+    {
+      "token": "rpsn_…",
+      "comment": "monitoring",
+      "scope": "read"
+    }
+  ]
+}
+```
+
+从 **API Token** 字段或 `api-tokens.json` 中复制令牌。不要将其放入日志或截图中。
+
+### 调用 API
+
+只读查询（GET）。除非启用了未认证读取，否则需要令牌：
+
+```shell
+curl -s -H "Authorization: Bearer $RP_API_TOKEN" \
+  http://127.0.0.1:8280/api/node/sync | jq
+```
+
 ```json
 {
   "status": "success",
@@ -155,11 +211,15 @@ curl -s http://localhost:8280/api/node/sync | jq
 }
 ```
 
-- 交易 (POST)：
+交易（POST）。始终需要具有写入权限的令牌：
+
 ```shell
-curl -s -X POST http://localhost:8280/api/node/set-timezone \
-  -d "timezoneLocation=America/Los_Angeles" | jq
+curl -s -X POST \
+  -H "Authorization: Bearer $RP_API_TOKEN" \
+  -d "timezoneLocation=America/Los_Angeles" \
+  http://127.0.0.1:8280/api/node/set-timezone | jq
 ```
+
 ```json
 {
   "status": "success",
@@ -167,6 +227,12 @@ curl -s -X POST http://localhost:8280/api/node/set-timezone \
   "txHash": "0x0bab800962146f3e41c701601be6d636f9bec261ef6cabe667bc560ed19dfffb"
 }
 ```
+
+| 状态 | 响应体 | 触发条件 |
+|---|---|---|
+| 401 | `{"status":"error","error":"unauthorized"}` 以及 `WWW-Authenticate: Bearer` | 缺少令牌或令牌无效 |
+| 403 | `{"status":"error","error":"forbidden"}` | 在写入路由上使用了读取令牌 |
+| 429 | `{"status":"error","error":"too many requests"}` 以及 `Retry-After: 1` | 超出速率限制 |
 
 ## （实验性）启用双栈（IPv4 + IPv6）网络
 

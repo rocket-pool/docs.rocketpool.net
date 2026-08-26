@@ -2,7 +2,6 @@ import tui_ec_expose_ports from "./images/tui-ec-expose-ports.png";
 import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
 import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
-import tui_api_port from "./images/tui-api-port.png";
 
 # Erweiterte Smartnode-Konfiguration für den Docker-Modus
 
@@ -118,21 +117,78 @@ Weitere Informationen zur Funktionsweise von `docker-compose`-Overrides findest 
 
 ## Node-Daemon HTTP API
 
-Der Node-Daemon stellt eine lokale HTTP API auf Port 8280 bereit (nur localhost). Diese API wird intern von der CLI verwendet und kann auch direkt für benutzerdefinierte Automatisierung oder Tooling aufgerufen werden.
+Der Node-Daemon stellt eine HTTP API bereit (Standardport **8280**), die von der lokalen `rocketpool`-CLI und von eigenem Tooling verwendet wird.
+Konfiguriere sie in `rocketpool service config` in der Kategorie **API**. Der Native-Modus verwendet dieselbe Kategorie.
 
-Der HTTP-API-Port kann in der Kategorie Smart Node and TX Fees unter `API port` angepasst werden
+| Einstellung | Zweck |
+|---|---|
+| **API Port** | Listen-Port. Standard `8280`. |
+| **Expose API Port** | **Closed** — nicht veröffentlicht; die CLI auf dem Host kann die API in Docker nicht erreichen. **Open to Localhost** (Standard) — `127.0.0.1:8280`. **Open to External hosts** — auf allen Schnittstellen veröffentlicht. |
 
-<img src={tui_api_port} width="100%" height="auto" />
+Das Ändern dieser Einstellungen erfordert einen Neustart des Node-Containers. Der Einstellungsmanager weist dich darauf hin.
 
-Eine externe Freigabe wird derzeit nicht unterstützt. Die API wird nur auf localhost gestartet, während wir den besten Ansatz für sicheren Fernzugriff ermitteln.
-Es gibt derzeit keine Konfigurationsoption, um den Port freizugeben.
+::: warning Die API nicht ohne TLS freigeben
+Die API kann deine Wallet exportieren, Gelder senden und Node-Einstellungen ändern.
+Veröffentliche sie nicht ohne TLS im öffentlichen Internet. Betreibe sie hinter einem Reverse-Proxy oder halte sie in einem vertrauenswürdigen LAN.
+:::
 
-Du kannst die API mit standardmäßigen HTTP-Anfragen aufrufen.
+### API-Authentifizierung
 
-- Read-only-Anfrage (GET):
-```shell
-curl -s http://localhost:8280/api/node/sync | jq
+Ab Smart Node v1.22.0 erfordern API-Routen ein Bearer-Token. Clients senden:
+
 ```
+Authorization: Bearer <token>
+```
+
+Tokens im Query-String werden ignoriert. Die `rocketpool`-CLI auf dieser Maschine lädt das Write-Token aus dem Datenverzeichnis und sendet es automatisch.
+Wenn die CLI `unauthorized` zurückgibt, richte `-c` auf dasselbe Konfigurationsverzeichnis, das der Daemon verwendet, oder kopiere die `data/api-tokens.json` dieser Installation.
+
+| Einstellung | Zweck |
+|---|---|
+| **API Token** | Geheimnis mit Write-Scope. Das Format ist `rpsn_` gefolgt von 64 Hex-Zeichen. Behandle es wie ein Passwort. Das Leeren des Feldes und anschließendes Speichern generiert es neu. Es wird in `api-tokens.json` gespeichert, nicht in `user-settings.yml`. |
+| **API Token Comment** | Nicht geheimes Label, das zusammen mit dem Token gespeichert wird. Standard `rocketpool CLI`. |
+| **Unauthenticated Reads** | Server-Richtlinie, kein Privileg einzelner Tokens. Der Standard ist **Require a token for read routes**: Jede Route außer `/healthz` benötigt ein gültiges Bearer-Token. Mit **Allow unauthenticated reads** lassen sich Status, Kontostände und `can-*`-Abschätzungen ohne Token ausführen. Wallet-Operationen, Transaktionen und andere Write-Routen benötigen weiterhin ein Token mit Write-Scope. |
+| **API Rate Limit** | Maximale Anfragen pro Sekunde. `0` deaktiviert das Limit (dies ist der Standard). Der Burst entspricht einer Sekunde des Kontingents. Über dem Limit gibt die API HTTP 429 mit `Retry-After: 1` zurück. |
+
+`/healthz` erfordert nie ein Token.
+
+Tokens liegen in `<data path>/api-tokens.json` (Host-Standard `~/.rocketpool/data/api-tokens.json`). Der Docker-Daemon sieht dieselbe Datei unter `/.rocketpool/data/api-tokens.json` über den Bind-Mount des Datenverzeichnisses. Die Datei hat den Modus `0600`.
+
+Jeder Eintrag hat einen Scope:
+
+- `write` — alle Routen.
+- `read` — nur Read-Routen. Write-Routen geben HTTP 403 `forbidden` zurück.
+
+Füge zusätzliche Tokens hinzu, indem du Einträge an `api-tokens.json` anhängst, und starte dann den Node neu:
+
+```json
+{
+  "tokens": [
+    {
+      "token": "rpsn_…",
+      "comment": "rocketpool CLI",
+      "scope": "write"
+    },
+    {
+      "token": "rpsn_…",
+      "comment": "monitoring",
+      "scope": "read"
+    }
+  ]
+}
+```
+
+Kopiere das Token aus dem Feld **API Token** oder aus `api-tokens.json`. Füge es nicht in Logs oder Screenshots ein.
+
+### Aufrufen der API
+
+Read-only-Anfrage (GET). Ein Token ist erforderlich, es sei denn, nicht authentifizierte Reads sind aktiviert:
+
+```shell
+curl -s -H "Authorization: Bearer $RP_API_TOKEN" \
+  http://127.0.0.1:8280/api/node/sync | jq
+```
+
 ```json
 {
   "status": "success",
@@ -155,11 +211,15 @@ curl -s http://localhost:8280/api/node/sync | jq
 }
 ```
 
-- Transaktion (POST):
+Transaktion (POST). Erfordert immer ein Token mit Write-Scope:
+
 ```shell
-curl -s -X POST http://localhost:8280/api/node/set-timezone \
-  -d "timezoneLocation=America/Los_Angeles" | jq
+curl -s -X POST \
+  -H "Authorization: Bearer $RP_API_TOKEN" \
+  -d "timezoneLocation=America/Los_Angeles" \
+  http://127.0.0.1:8280/api/node/set-timezone | jq
 ```
+
 ```json
 {
   "status": "success",
@@ -167,6 +227,12 @@ curl -s -X POST http://localhost:8280/api/node/set-timezone \
   "txHash": "0x0bab800962146f3e41c701601be6d636f9bec261ef6cabe667bc560ed19dfffb"
 }
 ```
+
+| Status | Body | Wann |
+|---|---|---|
+| 401 | `{"status":"error","error":"unauthorized"}` plus `WWW-Authenticate: Bearer` | Fehlendes oder ungültiges Token |
+| 403 | `{"status":"error","error":"forbidden"}` | Read-Token auf einer Write-Route verwendet |
+| 429 | `{"status":"error","error":"too many requests"}` plus `Retry-After: 1` | Rate-Limit überschritten |
 
 ## (Experimentell) Dual-Stack-Netzwerk (IPv4 + IPv6) aktivieren
 

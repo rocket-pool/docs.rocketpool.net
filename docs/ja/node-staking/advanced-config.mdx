@@ -2,7 +2,6 @@ import tui_ec_expose_ports from "./images/tui-ec-expose-ports.png";
 import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
 import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
-import tui_api_port from "./images/tui-api-port.png";
 
 # DockerモードのSmartnode高度な設定
 
@@ -117,21 +116,78 @@ volumes:
 
 ## Node Daemon HTTP API
 
-Node daemonは、ポート8280（localhostのみ）でローカルHTTP APIを公開します。このAPIはCLIによって内部的に使用され、カスタム自動化やツール用に直接呼び出すこともできます。
+ノードデーモンは、ローカルの`rocketpool` CLIやカスタムツールから利用されるHTTP API（デフォルトポート**8280**）を提供します。
+`rocketpool service config`の**API**カテゴリーで設定できます。ネイティブモードでも同じカテゴリーを使用します。
 
-HTTP APIのポートは、Smart NodeとTX Feesカテゴリーの`API port`で調整できます。
+| 設定 | 目的 |
+|---|---|
+| **API Port** | リッスンポート。デフォルトは`8280`です。 |
+| **Expose API Port** | **Closed**——公開されません。Dockerではホスト側のCLIがAPIに到達できません。**Open to Localhost**（デフォルト）——`127.0.0.1:8280`。**Open to External hosts**——すべてのインターフェースで公開されます。 |
 
-<img src={tui_api_port} width="100%" height="auto" />
+これらの設定を変更するには、ノードコンテナの再起動が必要です。設定マネージャーがその旨を表示します。
 
-外部公開は現在サポートされていません。安全なリモートアクセスの最適な方法を検討している間、APIはlocalhostでのみ起動します。
-現時点では、ポートを公開する設定オプションはありません。
+::: warning TLSなしでAPIを公開しないでください
+このAPIはウォレットのエクスポート、資金の送信、ノード設定の変更が可能です。
+TLSなしで公共のインターネットに公開しないでください。リバースプロキシの背後に置くか、信頼できるLAN内に留めてください。
+:::
 
-標準のHTTPリクエストを使用してAPIを呼び出すことができます。
+### API認証
 
-- 読み取り専用クエリ（GET）:
-```shell
-curl -s http://localhost:8280/api/node/sync | jq
+Smart Node v1.22.0以降、APIルートにはベアラートークンが必要です。クライアントは次のように送信します：
+
 ```
+Authorization: Bearer <token>
+```
+
+クエリ文字列のトークンは無視されます。このマシン上の`rocketpool` CLIは、データディレクトリから書き込みトークンを読み込み、自動的に送信します。
+CLIが`unauthorized`を返す場合は、`-c`をデーモンが使用しているのと同じ設定ディレクトリに向けるか、そのインストールの`data/api-tokens.json`をコピーしてください。
+
+| 設定 | 目的 |
+|---|---|
+| **API Token** | 書き込みスコープのシークレットです。形式は`rpsn_`に続く64桁の16進文字です。パスワードと同様に扱ってください。フィールドを空にして保存すると再生成されます。`user-settings.yml`ではなく`api-tokens.json`に保存されます。 |
+| **API Token Comment** | トークンと共に保存される非機密のラベルです。デフォルトは`rocketpool CLI`です。 |
+| **Unauthenticated Reads** | トークンごとの権限ではなく、サーバーのポリシーです。デフォルトは**Require a token for read routes**で、`/healthz`を除くすべてのルートに有効なベアラートークンが必要です。**Allow unauthenticated reads**を選択すると、ステータス、残高、`can-*`の見積もりをトークンなしで実行できます。ウォレット操作、トランザクション、その他の書き込みルートには引き続き書き込みスコープのトークンが必要です。 |
+| **API Rate Limit** | 1秒あたりの最大リクエスト数です。`0`は制限を無効にします（これがデフォルトです）。バーストは1秒分のクォータに相当します。制限を超えると、APIは`Retry-After: 1`と共にHTTP 429を返します。 |
+
+`/healthz`にトークンは一切不要です。
+
+トークンは`<data path>/api-tokens.json`（ホストのデフォルトは`~/.rocketpool/data/api-tokens.json`）にあります。Docker内のデーモンは、データディレクトリのバインドマウントを通じて同じファイルを`/.rocketpool/data/api-tokens.json`として参照します。ファイルのモードは`0600`です。
+
+各レコードにはスコープがあります：
+
+- `write`——すべてのルート。
+- `read`——読み取りルートのみ。書き込みルートはHTTP 403 `forbidden`を返します。
+
+`api-tokens.json`にレコードを追記してトークンを追加し、その後ノードを再起動します：
+
+```json
+{
+  "tokens": [
+    {
+      "token": "rpsn_…",
+      "comment": "rocketpool CLI",
+      "scope": "write"
+    },
+    {
+      "token": "rpsn_…",
+      "comment": "monitoring",
+      "scope": "read"
+    }
+  ]
+}
+```
+
+トークンは**API Token**フィールドまたは`api-tokens.json`からコピーしてください。ログやスクリーンショットに含めないでください。
+
+### APIの呼び出し
+
+読み取り専用クエリ（GET）。認証なしの読み取りが有効になっていない限り、トークンが必要です：
+
+```shell
+curl -s -H "Authorization: Bearer $RP_API_TOKEN" \
+  http://127.0.0.1:8280/api/node/sync | jq
+```
+
 ```json
 {
   "status": "success",
@@ -154,11 +210,15 @@ curl -s http://localhost:8280/api/node/sync | jq
 }
 ```
 
-- トランザクション（POST）:
+トランザクション（POST）。常に書き込みスコープのトークンが必要です：
+
 ```shell
-curl -s -X POST http://localhost:8280/api/node/set-timezone \
-  -d "timezoneLocation=America/Los_Angeles" | jq
+curl -s -X POST \
+  -H "Authorization: Bearer $RP_API_TOKEN" \
+  -d "timezoneLocation=America/Los_Angeles" \
+  http://127.0.0.1:8280/api/node/set-timezone | jq
 ```
+
 ```json
 {
   "status": "success",
@@ -166,6 +226,12 @@ curl -s -X POST http://localhost:8280/api/node/set-timezone \
   "txHash": "0x0bab800962146f3e41c701601be6d636f9bec261ef6cabe667bc560ed19dfffb"
 }
 ```
+
+| ステータス | ボディ | 発生条件 |
+|---|---|---|
+| 401 | `{"status":"error","error":"unauthorized"}`と`WWW-Authenticate: Bearer` | トークンが欠落しているか無効 |
+| 403 | `{"status":"error","error":"forbidden"}` | 書き込みルートで読み取りトークンを使用 |
+| 429 | `{"status":"error","error":"too many requests"}`と`Retry-After: 1` | レート制限を超過 |
 
 ## （実験的）デュアルスタック（IPv4 + IPv6）ネットワークの有効化
 

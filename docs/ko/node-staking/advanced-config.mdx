@@ -2,7 +2,6 @@ import tui_ec_expose_ports from "./images/tui-ec-expose-ports.png";
 import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
 import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
-import tui_api_port from "./images/tui-api-port.png";
 
 # Docker 모드를 위한 고급 Smartnode 구성
 
@@ -118,21 +117,78 @@ volumes:
 
 ## Node Daemon HTTP API
 
-Node daemon은 포트 8280(localhost 전용)에서 로컬 HTTP API를 노출합니다. 이 API는 CLI에서 내부적으로 사용되며, 사용자 정의 자동화 또는 도구를 위해 직접 호출할 수도 있습니다.
+노드 데몬은 로컬 `rocketpool` CLI와 사용자 지정 도구에서 사용하는 HTTP API(기본 포트 **8280**)를 제공합니다.
+`rocketpool service config`의 **API** 카테고리에서 구성할 수 있습니다. 네이티브 모드도 동일한 카테고리를 사용합니다.
 
-HTTP API 포트는 Smart Node 및 TX Fees 카테고리의 `API port`에서 조정할 수 있습니다.
+| 설정 | 용도 |
+|---|---|
+| **API Port** | 수신 포트입니다. 기본값은 `8280`입니다. |
+| **Expose API Port** | **Closed** — 게시되지 않으며, Docker에서는 호스트의 CLI가 API에 접근할 수 없습니다. **Open to Localhost**(기본값) — `127.0.0.1:8280`. **Open to External hosts** — 모든 인터페이스에 게시됩니다. |
 
-<img src={tui_api_port} width="100%" height="auto" />
+이 설정을 변경하려면 노드 컨테이너를 재시작해야 합니다. 설정 관리자가 이를 표시해 줍니다.
 
-외부 노출은 현재 지원되지 않습니다. 안전한 원격 접근을 위한 최선의 방법을 결정하는 동안 API는 localhost에서만 실행됩니다.
-현재로서는 포트를 노출하는 구성 옵션이 없습니다.
+::: warning TLS 없이 API를 노출하지 마세요
+이 API는 지갑을 내보내고, 자금을 전송하고, 노드 설정을 변경할 수 있습니다.
+TLS 없이 공용 인터넷에 게시하지 마세요. 리버스 프록시 뒤에 두거나 신뢰할 수 있는 LAN 내에서만 사용하세요.
+:::
 
-표준 HTTP 요청을 사용하여 API를 호출할 수 있습니다.
+### API 인증
 
-- 읽기 전용 쿼리(GET):
-```shell
-curl -s http://localhost:8280/api/node/sync | jq
+Smart Node v1.22.0부터 API 라우트에는 bearer 토큰이 필요합니다. 클라이언트는 다음을 전송합니다:
+
 ```
+Authorization: Bearer <token>
+```
+
+쿼리 문자열의 토큰은 무시됩니다. 이 머신의 `rocketpool` CLI는 데이터 디렉터리에서 쓰기 토큰을 불러와 자동으로 전송합니다.
+CLI가 `unauthorized`를 반환하면, `-c`를 데몬이 사용 중인 것과 동일한 구성 디렉터리로 지정하거나 해당 설치의 `data/api-tokens.json`을 복사하세요.
+
+| 설정 | 용도 |
+|---|---|
+| **API Token** | 쓰기 범위의 비밀 값입니다. 형식은 `rpsn_` 뒤에 64자의 16진수 문자가 붙는 형태입니다. 비밀번호처럼 다루세요. 필드를 비우고 저장하면 다시 생성됩니다. `user-settings.yml`이 아니라 `api-tokens.json`에 저장됩니다. |
+| **API Token Comment** | 토큰과 함께 저장되는 비밀이 아닌 레이블입니다. 기본값은 `rocketpool CLI`입니다. |
+| **Unauthenticated Reads** | 토큰별 권한이 아닌 서버 정책입니다. 기본값은 **Require a token for read routes**로, `/healthz`를 제외한 모든 라우트에 유효한 bearer 토큰이 필요합니다. **Allow unauthenticated reads**를 선택하면 상태, 잔액, `can-*` 추정을 토큰 없이 실행할 수 있습니다. 지갑 작업, 트랜잭션 및 기타 쓰기 라우트에는 여전히 쓰기 범위 토큰이 필요합니다. |
+| **API Rate Limit** | 초당 최대 요청 수입니다. `0`은 제한을 비활성화합니다(기본값). 버스트는 1초 분량의 할당량과 같습니다. 제한을 초과하면 API는 `Retry-After: 1`과 함께 HTTP 429를 반환합니다. |
+
+`/healthz`에는 토큰이 전혀 필요하지 않습니다.
+
+토큰은 `<data path>/api-tokens.json`(호스트 기본값 `~/.rocketpool/data/api-tokens.json`)에 있습니다. Docker의 데몬은 데이터 디렉터리 바인드 마운트를 통해 동일한 파일을 `/.rocketpool/data/api-tokens.json`에서 봅니다. 파일 모드는 `0600`입니다.
+
+각 레코드에는 범위가 있습니다:
+
+- `write` — 모든 라우트.
+- `read` — 읽기 라우트 전용. 쓰기 라우트는 HTTP 403 `forbidden`을 반환합니다.
+
+`api-tokens.json`에 레코드를 추가하여 토큰을 더한 다음 노드를 재시작하세요:
+
+```json
+{
+  "tokens": [
+    {
+      "token": "rpsn_…",
+      "comment": "rocketpool CLI",
+      "scope": "write"
+    },
+    {
+      "token": "rpsn_…",
+      "comment": "monitoring",
+      "scope": "read"
+    }
+  ]
+}
+```
+
+**API Token** 필드나 `api-tokens.json`에서 토큰을 복사하세요. 로그나 스크린샷에 넣지 마세요.
+
+### API 호출
+
+읽기 전용 쿼리(GET)입니다. 인증되지 않은 읽기가 활성화되어 있지 않으면 토큰이 필요합니다:
+
+```shell
+curl -s -H "Authorization: Bearer $RP_API_TOKEN" \
+  http://127.0.0.1:8280/api/node/sync | jq
+```
+
 ```json
 {
   "status": "success",
@@ -155,11 +211,15 @@ curl -s http://localhost:8280/api/node/sync | jq
 }
 ```
 
-- 트랜잭션(POST):
+트랜잭션(POST)입니다. 항상 쓰기 범위 토큰이 필요합니다:
+
 ```shell
-curl -s -X POST http://localhost:8280/api/node/set-timezone \
-  -d "timezoneLocation=America/Los_Angeles" | jq
+curl -s -X POST \
+  -H "Authorization: Bearer $RP_API_TOKEN" \
+  -d "timezoneLocation=America/Los_Angeles" \
+  http://127.0.0.1:8280/api/node/set-timezone | jq
 ```
+
 ```json
 {
   "status": "success",
@@ -167,6 +227,12 @@ curl -s -X POST http://localhost:8280/api/node/set-timezone \
   "txHash": "0x0bab800962146f3e41c701601be6d636f9bec261ef6cabe667bc560ed19dfffb"
 }
 ```
+
+| 상태 | 본문 | 발생 시점 |
+|---|---|---|
+| 401 | `{"status":"error","error":"unauthorized"}` 및 `WWW-Authenticate: Bearer` | 토큰이 없거나 유효하지 않음 |
+| 403 | `{"status":"error","error":"forbidden"}` | 쓰기 라우트에 읽기 토큰 사용 |
+| 429 | `{"status":"error","error":"too many requests"}` 및 `Retry-After: 1` | 속도 제한 초과 |
 
 ## (실험적) 듀얼 스택 (IPv4 + IPv6) 네트워킹 활성화
 

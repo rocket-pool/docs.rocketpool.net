@@ -2,7 +2,6 @@ import tui_ec_expose_ports from "./images/tui-ec-expose-ports.png";
 import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
 import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
-import tui_api_port from "./images/tui-api-port.png";
 
 # Configuration avancée du Smartnode pour le mode Docker
 
@@ -118,21 +117,78 @@ Pour plus d'informations sur le fonctionnement des remplacements `docker-compose
 
 ## API HTTP du Daemon de nœud
 
-Le daemon de nœud expose une API HTTP locale sur le port 8280 (localhost uniquement). Cette API est utilisée en interne par la CLI et peut également être appelée directement pour de l'automatisation ou de l'outillage personnalisé.
+Le daemon de nœud sert une API HTTP (port par défaut **8280**) utilisée par la CLI locale `rocketpool` et par des outils personnalisés.
+Configurez-la dans `rocketpool service config`, sous la catégorie **API**. Le mode natif utilise la même catégorie.
 
-Le port de l'API HTTP peut être ajusté dans la catégorie Smart Node and TX Fees sous `API port`
+| Paramètre | Rôle |
+|---|---|
+| **Port API** | Port d'écoute. Par défaut `8280`. |
+| **Exposer le port API** | **Fermé** — non publié ; la CLI de l'hôte ne peut pas atteindre l'API sous Docker. **Ouvert sur localhost** (par défaut) — `127.0.0.1:8280`. **Ouvert aux hôtes externes** — publié sur toutes les interfaces. |
 
-<img src={tui_api_port} width="100%" height="auto" />
+La modification de ces paramètres nécessite un redémarrage du conteneur du nœud. Le Gestionnaire de paramètres vous le signale.
 
-L'exposition externe n'est actuellement pas prise en charge. L'API n'est lancée que sur localhost pendant que nous déterminons la meilleure approche pour un accès distant sécurisé.
-Il n'y a actuellement aucune option de configuration pour exposer le port.
+::: warning N'exposez pas l'API sans TLS
+L'API peut exporter votre wallet, envoyer des fonds et modifier les paramètres du nœud.
+Ne la publiez pas sur l'internet public sans TLS. Placez-la derrière un reverse proxy, ou gardez-la sur un LAN de confiance.
+:::
 
-Vous pouvez appeler l'API en utilisant des requêtes HTTP standard.
+### Authentification de l'API
 
-- Requête en lecture seule (GET) :
-```shell
-curl -s http://localhost:8280/api/node/sync | jq
+À partir de Smart Node v1.22.0, les routes de l'API exigent un jeton bearer. Les clients envoient :
+
 ```
+Authorization: Bearer <token>
+```
+
+Les jetons passés dans la query string sont ignorés. La CLI `rocketpool` de cette machine charge le jeton d'écriture depuis le répertoire de données et l'envoie automatiquement.
+Si la CLI renvoie `unauthorized`, pointez `-c` vers le même répertoire de configuration que celui utilisé par le daemon, ou copiez le fichier `data/api-tokens.json` de cette installation.
+
+| Paramètre | Rôle |
+|---|---|
+| **Jeton API** | Secret à portée écriture. Le format est `rpsn_` suivi de 64 caractères hexadécimaux. Traitez-le comme un mot de passe. Vider le champ puis enregistrer le régénère. Il est stocké dans `api-tokens.json`, pas dans `user-settings.yml`. |
+| **Commentaire du jeton API** | Étiquette non secrète stockée avec le jeton. Par défaut `rocketpool CLI`. |
+| **Lectures non authentifiées** | Politique du serveur, pas un privilège par jeton. Le comportement par défaut est **Exiger un jeton pour les routes de lecture** : chaque route, à l'exception de `/healthz`, nécessite un jeton bearer valide. Choisir **Autoriser les lectures non authentifiées** permet d'exécuter sans jeton le statut, les soldes et les estimations `can-*`. Les opérations de wallet, les transactions et les autres routes d'écriture nécessitent toujours un jeton à portée écriture. |
+| **Limite de débit de l'API** | Nombre maximal de requêtes par seconde. `0` désactive la limite (c'est la valeur par défaut). La rafale équivaut à une seconde de quota. Au-delà de la limite, l'API renvoie HTTP 429 avec `Retry-After: 1`. |
+
+`/healthz` n'exige jamais de jeton.
+
+Les jetons résident dans `<data path>/api-tokens.json` (par défaut sur l'hôte : `~/.rocketpool/data/api-tokens.json`). Le daemon Docker voit le même fichier à `/.rocketpool/data/api-tokens.json` via le bind mount du répertoire de données. Le fichier est en mode `0600`.
+
+Chaque enregistrement possède une portée :
+
+- `write` — toutes les routes.
+- `read` — routes de lecture uniquement. Les routes d'écriture renvoient HTTP 403 `forbidden`.
+
+Ajoutez des jetons supplémentaires en ajoutant des enregistrements à `api-tokens.json`, puis redémarrez le nœud :
+
+```json
+{
+  "tokens": [
+    {
+      "token": "rpsn_…",
+      "comment": "rocketpool CLI",
+      "scope": "write"
+    },
+    {
+      "token": "rpsn_…",
+      "comment": "monitoring",
+      "scope": "read"
+    }
+  ]
+}
+```
+
+Copiez le jeton depuis le champ **Jeton API** ou depuis `api-tokens.json`. Ne le mettez pas dans des logs ou des captures d'écran.
+
+### Appeler l'API
+
+Requête en lecture seule (GET). Un jeton est requis, sauf si les lectures non authentifiées sont activées :
+
+```shell
+curl -s -H "Authorization: Bearer $RP_API_TOKEN" \
+  http://127.0.0.1:8280/api/node/sync | jq
+```
+
 ```json
 {
   "status": "success",
@@ -155,11 +211,15 @@ curl -s http://localhost:8280/api/node/sync | jq
 }
 ```
 
-- Transaction (POST) :
+Transaction (POST). Exige toujours un jeton à portée écriture :
+
 ```shell
-curl -s -X POST http://localhost:8280/api/node/set-timezone \
-  -d "timezoneLocation=America/Los_Angeles" | jq
+curl -s -X POST \
+  -H "Authorization: Bearer $RP_API_TOKEN" \
+  -d "timezoneLocation=America/Los_Angeles" \
+  http://127.0.0.1:8280/api/node/set-timezone | jq
 ```
+
 ```json
 {
   "status": "success",
@@ -167,6 +227,12 @@ curl -s -X POST http://localhost:8280/api/node/set-timezone \
   "txHash": "0x0bab800962146f3e41c701601be6d636f9bec261ef6cabe667bc560ed19dfffb"
 }
 ```
+
+| Statut | Corps | Quand |
+|---|---|---|
+| 401 | `{"status":"error","error":"unauthorized"}` avec `WWW-Authenticate: Bearer` | Jeton manquant ou invalide |
+| 403 | `{"status":"error","error":"forbidden"}` | Jeton de lecture utilisé sur une route d'écriture |
+| 429 | `{"status":"error","error":"too many requests"}` avec `Retry-After: 1` | Limite de débit dépassée |
 
 ## (Expérimental) Activer le réseau dual-stack (IPv4 + IPv6)
 

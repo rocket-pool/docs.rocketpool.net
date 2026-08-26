@@ -2,7 +2,6 @@ import tui_ec_expose_ports from "./images/tui-ec-expose-ports.png";
 import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
 import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
-import tui_api_port from "./images/tui-api-port.png";
 
 # Configuração Avançada do Smartnode para Modo Docker
 
@@ -118,21 +117,78 @@ Para mais informações sobre como as substituições do `docker-compose` funcio
 
 ## HTTP API do Daemon do Nó
 
-O daemon do nó expõe uma HTTP API local na porta 8280 (somente localhost). Esta API é usada internamente pelo CLI e também pode ser chamada diretamente para automação ou ferramentas personalizadas.
+O daemon do nó serve uma API HTTP (porta padrão **8280**) usada pela CLI local `rocketpool` e por ferramentas personalizadas.
+Configure-a em `rocketpool service config`, na categoria **API**. O modo Nativo usa a mesma categoria.
 
-A porta da HTTP API pode ser ajustada na categoria Smart Node and TX Fees em `API port`
+| Configuração | Propósito |
+|---|---|
+| **API Port** | Porta de escuta. Padrão `8280`. |
+| **Expose API Port** | **Closed** — não publicada; a CLI do host não consegue alcançar a API no Docker. **Open to Localhost** (padrão) — `127.0.0.1:8280`. **Open to External hosts** — publicada em todas as interfaces. |
 
-<img src={tui_api_port} width="100%" height="auto" />
+Alterar essas configurações exige reiniciar o contêiner do nó. O Gerenciador de Configurações sinaliza isso para você.
 
-A exposição externa não é suportada no momento. A API é iniciada apenas em localhost enquanto determinamos a melhor abordagem para acesso remoto seguro.
-Atualmente não há opção de configuração para expor a porta.
+::: warning Não exponha a API sem TLS
+A API pode exportar sua carteira, enviar fundos e alterar as configurações do nó.
+Não a publique na internet pública sem TLS. Coloque-a atrás de um proxy reverso ou mantenha-a em uma LAN confiável.
+:::
 
-Você pode chamar a API usando requisições HTTP padrão.
+### Autenticação da API
 
-- Consulta somente de leitura (GET):
-```shell
-curl -s http://localhost:8280/api/node/sync | jq
+A partir do Smart Node v1.22.0, as rotas da API exigem um token bearer. Os clientes enviam:
+
 ```
+Authorization: Bearer <token>
+```
+
+Tokens na query string são ignorados. A CLI `rocketpool` nesta máquina carrega o token de escrita do diretório de dados e o envia automaticamente.
+Se a CLI retornar `unauthorized`, aponte `-c` para o mesmo diretório de configuração que o daemon está usando, ou copie o `data/api-tokens.json` dessa instalação.
+
+| Configuração | Propósito |
+|---|---|
+| **API Token** | Segredo com escopo de escrita. O formato é `rpsn_` seguido de 64 caracteres hexadecimais. Trate-o como uma senha. Limpar o campo e salvar o regenera. Ele é armazenado em `api-tokens.json`, não em `user-settings.yml`. |
+| **API Token Comment** | Rótulo não secreto armazenado com o token. Padrão `rocketpool CLI`. |
+| **Unauthenticated Reads** | Política do servidor, não um privilégio por token. O padrão é **Require a token for read routes**: toda rota, exceto `/healthz`, precisa de um token bearer válido. Escolher **Allow unauthenticated reads** permite que status, saldos e estimativas `can-*` sejam executados sem token. Operações de carteira, transações e outras rotas de escrita ainda precisam de um token com escopo de escrita. |
+| **API Rate Limit** | Máximo de requisições por segundo. `0` desativa o limite (este é o padrão). O burst equivale a um segundo de cota. Acima do limite, a API retorna HTTP 429 com `Retry-After: 1`. |
+
+`/healthz` nunca exige token.
+
+Os tokens ficam em `<data path>/api-tokens.json` (padrão no host: `~/.rocketpool/data/api-tokens.json`). O daemon no Docker vê o mesmo arquivo em `/.rocketpool/data/api-tokens.json` pelo bind mount do diretório de dados. O arquivo tem modo `0600`.
+
+Cada registro tem um escopo:
+
+- `write` — todas as rotas.
+- `read` — apenas rotas de leitura. Rotas de escrita retornam HTTP 403 `forbidden`.
+
+Adicione tokens extras acrescentando registros ao `api-tokens.json` e, em seguida, reinicie o nó:
+
+```json
+{
+  "tokens": [
+    {
+      "token": "rpsn_…",
+      "comment": "rocketpool CLI",
+      "scope": "write"
+    },
+    {
+      "token": "rpsn_…",
+      "comment": "monitoring",
+      "scope": "read"
+    }
+  ]
+}
+```
+
+Copie o token do campo **API Token** ou do `api-tokens.json`. Não o coloque em logs ou capturas de tela.
+
+### Chamando a API
+
+Consulta somente leitura (GET). Um token é necessário, a menos que leituras não autenticadas estejam habilitadas:
+
+```shell
+curl -s -H "Authorization: Bearer $RP_API_TOKEN" \
+  http://127.0.0.1:8280/api/node/sync | jq
+```
+
 ```json
 {
   "status": "success",
@@ -155,11 +211,15 @@ curl -s http://localhost:8280/api/node/sync | jq
 }
 ```
 
-- Transação (POST):
+Transação (POST). Sempre exige um token com escopo de escrita:
+
 ```shell
-curl -s -X POST http://localhost:8280/api/node/set-timezone \
-  -d "timezoneLocation=America/Los_Angeles" | jq
+curl -s -X POST \
+  -H "Authorization: Bearer $RP_API_TOKEN" \
+  -d "timezoneLocation=America/Los_Angeles" \
+  http://127.0.0.1:8280/api/node/set-timezone | jq
 ```
+
 ```json
 {
   "status": "success",
@@ -167,6 +227,12 @@ curl -s -X POST http://localhost:8280/api/node/set-timezone \
   "txHash": "0x0bab800962146f3e41c701601be6d636f9bec261ef6cabe667bc560ed19dfffb"
 }
 ```
+
+| Status | Corpo | Quando |
+|---|---|---|
+| 401 | `{"status":"error","error":"unauthorized"}` mais `WWW-Authenticate: Bearer` | Token ausente ou inválido |
+| 403 | `{"status":"error","error":"forbidden"}` | Token de leitura usado em uma rota de escrita |
+| 429 | `{"status":"error","error":"too many requests"}` mais `Retry-After: 1` | Limite de taxa excedido |
 
 ## (Experimental) Habilitando Rede Dual-Stack (IPv4 + IPv6)
 
