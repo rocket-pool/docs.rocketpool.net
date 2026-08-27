@@ -132,6 +132,8 @@ Die API kann deine Wallet exportieren, Gelder senden und Node-Einstellungen änd
 Veröffentliche sie nicht ohne TLS im öffentlichen Internet. Betreibe sie hinter einem Reverse-Proxy oder halte sie in einem vertrauenswürdigen LAN.
 :::
 
+Wenn du mehrere Nodes auf derselben Maschine betreibst, benötigt jede Instanz ihren eigenen API-Port und ihre eigene api-tokens.json-Datei.
+
 ### API-Authentifizierung
 
 Ab Smart Node v1.22.0 erfordern API-Routen ein Bearer-Token. Clients senden:

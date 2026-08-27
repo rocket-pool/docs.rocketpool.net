@@ -132,6 +132,8 @@ L'API peut exporter votre wallet, envoyer des fonds et modifier les paramètres 
 Ne la publiez pas sur l'internet public sans TLS. Placez-la derrière un reverse proxy, ou gardez-la sur un LAN de confiance.
 :::
 
+Si vous exécutez plusieurs nœuds sur la même machine, chaque instance a besoin de son propre port API et de son propre fichier api-tokens.json.
+
 ### Authentification de l'API
 
 À partir de Smart Node v1.22.0, les routes de l'API exigent un jeton bearer. Les clients envoient :
