@@ -260,9 +260,12 @@ COMMANDS:
    recurring-spend-update, rsu  Propose an update to an existing recurring spend plan
    security-council, sc         Modify the security council
    setting, s                   Make a Protocol DAO setting proposal
+   submit-batch, sb            Submit a single proposal that changes multiple Protocol DAO settings from a JSON file
 ```
 
-Each of these commands will prompt you with a list of inputs to create your desired proposal. In this guide, we'll
+Each of these commands will prompt you with a list of inputs to create your desired proposal. Setting propose commands accept `--to-json` to write or append a setting change to a JSON file instead of submitting a transaction. When the file is ready, submit it with `rocketpool pdao propose submit-batch`.
+
+In this guide, we'll
 invite a node to the security council to serve as an example. To raise a proposal to invite a node to the security
 council, you would use the command:
 

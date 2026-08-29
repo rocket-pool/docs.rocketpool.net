@@ -1,17 +1,26 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Expiring Pre-Merge History
+# Execution Client History Expiry
 
-All Execution clients now support partial history expiry in accordance to [EIP-4444](https://eips.ethereum.org/EIPS/eip-4444). Users can substantially
-reduce the storage requirements for their node by removing pre-merge block history starting in Smartnode version `v1.17.0`. Feel free to check out
-this blog post to learn more about partial history expiry: https://blog.ethereum.org/2025/07/08/partial-history-exp
+Execution clients can drop old block bodies and receipts so the chain data stays a manageable size. The Smartnode **Pruning Mode** setting (Execution Client → Pruning Mode) controls this.
+
+**Rolling History Expiry** is the default. Nethermind, Besu, Reth, and Erigon drop bodies and receipts older than about one year. Geth does not implement that mode yet and uses pre-Prague history expiry instead.
+
+The other choices:
+
+- **History Expiry** — drop *pre-merge* bodies and receipts only (partial [EIP-4444](https://eips.ethereum.org/EIPS/eip-4444) expiry). Erigon does not support pre-merge-only expiry.
+- **Full node** — keep the usual full-node data, including bodies and receipts. Erigon full-node mode keeps receipts.
+- **Archive** — keep history and historical state (which requires much more disk).
+
+Feel free to read this overview of partial history expiry: https://blog.ethereum.org/2025/07/08/partial-history-exp
 
 ::: tip NOTE
 
-    Please keep in mind that the steps to remove pre-merge history depend on your node's selected Execution client:
-    - Nethermind users will need a full resync to remove pre-merge history.
-    - Geth users can use the `rocketpool service prune-eth1` command or conduct a full resync.
-    - Besu and Reth users can perform an online prune while their node continues to attest.
+New installs already use Rolling History Expiry. If you previously picked a different Pruning Mode, select **Rolling History Expiry** in the TUI and **resync** the Execution client for it to take effect.
+
+- **Nethermind, Reth and Erigon** — resync after changing the mode (`rocketpool service resync-eth1`).
+- **Geth** — prune with `rocketpool service prune-eth1` or resync; Geth still uses pre-Prague expiry rather than one-year rolling expiry.
+- **Besu** — stays online.
 
 :::
 
@@ -25,6 +34,8 @@ rocketpool service config
 ```
 
 To change the Execution Client pruning mode, go to the `Execution Client (ETH1)` menu and select the `History Expiry` setting in the dropdown menu for `Pruning Mode`
+
+Pick **Rolling History Expiry** unless you have a reason to keep more history.
 
 ![](../images/tui-history-expiry.png)
 
@@ -114,11 +125,29 @@ From this point on, the steps differ depending on which Execution client you're 
     <Tab label="Reth">
 
         You're all set! Reth nodes will perform an online prune while continuing to attest and propose blocks.
+        On Mainnet with Rolling History Expiry selected, Reth downloads the official rolling-history snapshot on first start.
         The node will no longer store pre-merge data, substantially improving the feasibility of fitting a node on a 2 TB drive.
         We recommend monitoring the progress using the following command.
         ```shell
         rocketpool service logs eth1
          ```
+
+    </Tab>
+
+    <Tab label="Erigon">
+        Erigon nodes require a full resync to apply Rolling History Expiry. You must resync your Execution client after saving
+        the Pruning Mode setting and restarting your `eth1` container.
+
+        Use the following command to resync your Execution client:
+        ```shell
+        rocketpool service resync-eth1
+        ```
+
+        You're all set! The node will drop bodies and receipts older than about one year.
+        We recommend using the Rescue Node while resyncing and monitoring the progress using the following command.
+        ```shell
+        rocketpool service logs eth1
+        ```
 
     </Tab>
 

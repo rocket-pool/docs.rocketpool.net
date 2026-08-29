@@ -45,7 +45,7 @@ The options below help to describe each client so you can make an informed decis
 
 ## Execution Clients
 
-Rocket Pool supports four different Execution clients: **Geth**, **Besu**, **Nethermind**, and **Reth**.
+Rocket Pool supports five Execution clients: **Geth**, **Besu**, **Nethermind**, **Reth**, and **Erigon**.
 
 Running an Execution client involves storing a copy of the Execution layer blockchain on your machine.
 It interacts via peer-to-peer communications with other EC nodes to record and verify new blocks and transactions.
@@ -113,6 +113,16 @@ As the newest client in the ecosystem, Reth is rapidly evolving and gaining adop
 requirement is by far the disk. We suggest using a good [TLC disk](https://gist.github.com/yorickdowne/f3a3e79a573bf35767cd002cc977b038).
 Reth requires **at least 8 GB of RAM** for a full node or **16 GB of RAM** for an archive node.
 
+### Erigon
+
+[Erigon](https://erigon.tech/) is an Execution client written in [Go](https://go.dev/). It uses a staged-sync architecture and can pull snapshots over BitTorrent on first start, which makes initial sync comparatively fast if the torrent port is reachable.
+
+In the Settings Manager, Erigon exposes a **Torrent Port** (default `42069`, TCP and UDP) in addition to the usual P2P port (`30303`). Forward both if you want snapshot sync and peering to work well from outside your LAN.
+
+Erigon supports **Rolling History Expiry** (drop bodies and receipts older than about one year). It does **not** support pre-merge-only History Expiry; if you pick that mode, it keeps remaining block history with full-mode state pruning. If you run it as a **full node**, it keeps receipts.
+
+Like the other clients, RAM needs are flexible and disk quality matters. Open the torrent and P2P ports in your router (and host firewall) the same way you would for Geth's `30303`.
+
 ### Client Comparison Table
 
 | Client     | Type | RAM Usage |
@@ -121,6 +131,7 @@ Reth requires **at least 8 GB of RAM** for a full node or **16 GB of RAM** for a
 | Besu       | Full | ~10 GB    |
 | Nethermind | Full | ~7-15 GB  |
 | Reth       | Full | ~14 GB    |
+| Erigon     | Full | ~10 GB    |
 
 _RAM usage data sourced from [eth-docker](https://ethdocker.com/Usage/ResourceUsage/). Actual usage may vary based on configuration and network conditions._
 

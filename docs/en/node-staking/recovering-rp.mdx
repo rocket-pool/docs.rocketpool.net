@@ -22,8 +22,9 @@ If, for some reason, you want to recover the wallet but _not_ any of the validat
 rocketpool wallet recover -k
 ```
 
-If you do not specify this flag, the Smartnode will attempt to recover the validator keys for your minipools or megapool validators; however, note that this will not work until your Execution client has finished syncing.
-Please watch its log file to see when it's done; once it is, you can run this step.
+If you do not specify this flag, the Smartnode will attempt to recover the validator keys for your minipools or megapool validators. That step needs synced Execution and Beacon clients.
+
+With `-k`, recovering the **wallet only** does not need to wait for synced clients. You can do that while they are still syncing.
 :::
 
 This will first ask you for a password you want to use to encrypt your wallet.

@@ -14,7 +14,7 @@ Currently, checkpoints occur **every 28 days**.
 At a new checkpoint, the Oracle DAO will collectively create a **true snapshot** of the state of the node operators in the Rocket Pool network, which it will use to determine the RPL and Smoothing Pool ETH rewards for each node during that interval. Note that "bonus commission" for Saturn 0 minipools is distributed using smoothing pool rewards (Saturn 0 minipools are the ones created after 2024/10/28, which have a contract commission of 5%).
 
 This information is compiled into a [Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree) - an extremely efficient way to make all of the details available to smart contracts.
-The Merkle Tree is built into a JSON file and hosted on the [InterPlanetary File System (IPFS)](https://en.wikipedia.org/wiki/InterPlanetary_File_System) and mirrored on [a GitHub repository that we maintain](https://github.com/rocket-pool/rewards-trees/).
+The Merkle Tree is built into a JSON file and hosted on [a GitHub repository that we maintain](https://github.com/rocket-pool/rewards-trees/). The Smartnode can also load rewards-interval **events** from that GitHub repo, so you can still claim after aggressive history expiry has dropped old Execution-layer logs.
 
 Once the tree is submitted, the Rocket Pool smart contracts will mint new RPL tokens and move them, along with the Smoothing Pool's entire ETH balance, into the Rocket Pool vault for secure storage.
 You can then view how many RPL and ETH rewards you earned during that interval and claim those rewards.

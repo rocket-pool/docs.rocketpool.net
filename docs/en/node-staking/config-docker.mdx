@@ -120,9 +120,11 @@ Choose which mode you'd like to use for managing your Execution client and follo
       Please refer to the [Choosing your ETH clients](/en/node-staking/eth-clients#execution-clients) section for a description of each option.
       Once you've made your choice, click on the appropriate tab below to learn how to configure it:
 
-      If you choose **Geth**, **Besu**, or **Nethermind**, the Wizard will handle all of the configuration for you.
+      If you choose **Geth**, **Besu**, **Nethermind**, **Reth**, or **Erigon**, the Wizard will handle all of the configuration for you.
       You can manually adjust some of its parameters at the end of this process, but the defaults that it uses are completely appropriate for node operation.
       You can proceed to the next section.
+
+      If you choose **Erigon**, also forward its **Torrent Port** (default **42069**, TCP and UDP) as well as P2P port **30303**, so snapshot sync and peering work. The Wizard still uses sensible defaults for everything else.
 
 
       <p className="rspress-directive warning">

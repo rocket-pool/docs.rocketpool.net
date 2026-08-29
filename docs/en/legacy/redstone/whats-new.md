@@ -120,7 +120,7 @@ The _new_ claims system solves all of these problems.
 
 At every interval, the Oracle DAO will collectively create a **true snapshot** of the state of the node operators in the Rocket Pool network, including all of their effective stake amounts.
 This information is compiled into a [Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree) - an extremely efficient way to make all of the details available to smart contracts.
-The Merkle Tree is built into a JSON file and hosted on the [InterPlanetary File System (IPFS)](https://en.wikipedia.org/wiki/InterPlanetary_File_System), and the root of the Merkle Tree is submitted to the contracts.
+The Merkle Tree is built into a JSON file and hosted on GitHub, and the root of the Merkle Tree is submitted to the contracts.
 
 This new system has the following features:
 
