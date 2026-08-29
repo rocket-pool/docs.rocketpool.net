@@ -570,15 +570,15 @@ sudo ufw allow "22/tcp" comment 'Allow SSH'
 execution client（以前はETH1と呼ばれていました）を許可します。
 
 ```shell
-sudo ufw allow 30303/tcp comment 'Execution client port, standardized by Rocket Pool'
-sudo ufw allow 30303/udp comment 'Execution client port, standardized by Rocket Pool'
+sudo ufw allow 30303/tcp comment 'Execution client port, standardised by Rocket Pool'
+sudo ufw allow 30303/udp comment 'Execution client port, standardised by Rocket Pool'
 ```
 
 consensus client（以前はETH2と呼ばれていました）を許可します。
 
 ```shell
-sudo ufw allow 9001/tcp comment 'Consensus client port, standardized by Rocket Pool'
-sudo ufw allow 9001/udp comment 'Consensus client port, standardized by Rocket Pool'
+sudo ufw allow 9001/tcp comment 'Consensus client port, standardised by Rocket Pool'
+sudo ufw allow 9001/udp comment 'Consensus client port, standardised by Rocket Pool'
 ```
 
 lighthouse client v4.5.0+を実行している場合、quicプロトコルを使用してレイテンシを削減/帯域幅を増やすことができます。quicプロトコルはデフォルトでlighthouseの--port + 1を使用してquicメッセージをリッスンします: https://lighthouse-blog.sigmaprime.io/Quic,%20Networking.html
