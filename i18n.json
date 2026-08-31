@@ -90,6 +90,19 @@
     "it": "Ultimo aggiornamento",
     "tr": "Son güncelleme"
   },
+  "lastUpdatedAuthorText": {
+    "en": "by",
+    "zh": "作者",
+    "es": "por",
+    "fr": "par",
+    "de": "von",
+    "ja": "更新者",
+    "ko": "작성자",
+    "pt": "por",
+    "ru": "автор",
+    "it": "da",
+    "tr": "tarafından"
+  },
   "prevPageText": {
     "en": "Previous",
     "zh": "上一页",
@@ -285,6 +298,19 @@
     "it": "Copia codice",
     "tr": "Kodu kopyala"
   },
+  "codeButtonGroupWrapButtonText": {
+    "en": "Toggle code wrap",
+    "zh": "切换代码换行",
+    "es": "Alternar ajuste de línea",
+    "fr": "Basculer le retour à la ligne",
+    "de": "Zeilenumbruch umschalten",
+    "ja": "コードの折り返しを切り替え",
+    "ko": "코드 줄바꿈 전환",
+    "pt": "Alternar quebra de linha",
+    "ru": "Переключить перенос кода",
+    "it": "Attiva/disattiva a capo automatico",
+    "tr": "Kod kaydırmayı değiştir"
+  },
   "notFoundText": {
     "en": "Page not found",
     "zh": "页面未找到",
@@ -310,5 +336,57 @@
     "ru": "На главную",
     "it": "Torna alla home",
     "tr": "Ana sayfaya git"
+  },
+  "promptCopyText": {
+    "en": "Copy Prompt",
+    "zh": "复制 Prompt",
+    "es": "Copiar prompt",
+    "fr": "Copier le prompt",
+    "de": "Prompt kopieren",
+    "ja": "Prompt をコピー",
+    "ko": "프롬프트 복사",
+    "pt": "Copiar prompt",
+    "ru": "Скопировать Prompt",
+    "it": "Copia prompt",
+    "tr": "Prompt'u kopyala"
+  },
+  "promptCopiedText": {
+    "en": "Copied",
+    "zh": "已复制",
+    "es": "Copiado",
+    "fr": "Copié",
+    "de": "Kopiert",
+    "ja": "コピーしました",
+    "ko": "복사됨",
+    "pt": "Copiado",
+    "ru": "Скопировано",
+    "it": "Copiato",
+    "tr": "Kopyalandı"
+  },
+  "promptExpandText": {
+    "en": "Expand",
+    "zh": "展开",
+    "es": "Expandir",
+    "fr": "Développer",
+    "de": "Ausklappen",
+    "ja": "展開",
+    "ko": "펼치기",
+    "pt": "Expandir",
+    "ru": "Развернуть",
+    "it": "Espandi",
+    "tr": "Genişlet"
+  },
+  "promptCollapseText": {
+    "en": "Collapse",
+    "zh": "折叠",
+    "es": "Contraer",
+    "fr": "Réduire",
+    "de": "Einklappen",
+    "ja": "折りたたむ",
+    "ko": "접기",
+    "pt": "Recolher",
+    "ru": "Свернуть",
+    "it": "Comprimi",
+    "tr": "Daralt"
   }
 }
