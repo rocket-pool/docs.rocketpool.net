@@ -9,15 +9,15 @@ Saturn 1에 오신 것을 환영합니다! Rocket Pool 메가풀은 실행 레�
 
 ::: warning 경고
 메가풀 검증자는 Beacon Chain 대기열을 두 번 통과해야 합니다.
+
 1. 프리스테이크 (1 ETH). ETH가 입금 풀에서 메가풀 검증자에 배정될 때, 1 ETH만 Beacon Chain으로 전송됩니다. 이 시점에서 검증자는 Beacon Chain 대기열에 진입합니다.
 2. 스테이크 (31 ETH). 검증자가 Beacon Chain에 의해 처리된 후, Rocket Pool 프로토콜은 검증자의 출금 자격 증명을 확인한 다음 나머지 31 ETH를 Beacon Chain에 스테이킹합니다. 이 시점에서 검증자는 두 번째이자 마지막으로 Beacon Chain 대기열에 진입합니다.
 
-이전에 미니풀에서는 [Oracle DAO (oDAO)](/ko/odao/overview#the-rocket-pool-oracle-dao)가 모든 미니풀 검증자의 출금 자격 증명 확인을 담당했습니다. 이 새로운 시스템은 대기 시간을 늘리지만 oDAO가 시행하는 신뢰 요건을 제거합니다.
+이전에 미니풀에서는 [Oracle DAO (oDAO)](/ko/odao/overview#rocket-pool-oracle-dao)가 모든 미니풀 검증자의 출금 자격 증명 확인을 담당했습니다. 이 새로운 시스템은 대기 시간을 늘리지만 oDAO가 시행하는 신뢰 요건을 제거합니다.
 
 [validatorqueue.com](https://www.validatorqueue.com/)은 Beacon Chain 대기열 길이를 모니터링하는 데 유용한 도구입니다. 미니풀 스테이크를 메가풀로 마이그레이션할 때 이 요소를 고려하시기 바랍니다.
 
 :::
-
 
 ::: tip 참고
 
@@ -54,7 +54,7 @@ Rocket Pool의 입금 대기열에는 두 가지 유형의 대기열이 있습�
 예를 들어, 8 ETH 레거시 미니풀을 보유한 노드 운영자는 급행 대기열 티켓 2개를 받습니다. 이는 급행 대기열을 사용하여 두 개의 4 ETH 메가풀 검증자로 완전히 마이그레이션하기에 충분한 티켓입니다.
 [RPIP-59: Deposit Mechanics](https://rpips.rocketpool.net/RPIPs/RPIP-59#deposit-queue)에서 입금 처리 방법의 세부 사항을 확인할 수 있습니다.
 
-급행 대기열에서 [검증자를 대기열에서 제거](./create-megapool-validator#exit-a-validator-from-the-rocket-pool-deposit-queue)하기로 선택하면 급행 대기열 티켓이 환급됩니다.
+급행 대기열에서 [검증자를 대기열에서 제거](./create-megapool-validator#rocket-pool-입금-대기열에서-검증자-제거)하기로 선택하면 급행 대기열 티켓이 환급됩니다.
 
 ## ETH 입금 및 검증자 생성
 
@@ -76,7 +76,7 @@ CLI가 다음 단계의 많은 부분을 자동화하지만, `prelaunch`에서 `
 노드 운영자는 본드의 나머지 3 ETH를 (0.05 ETH의 해산 페널티가 부채로 차감된 후) 메가풀에서 환불로 받으며, 순 환불액은 2.95 ETH입니다.
 이는 `rocketpool megapool claim` 또는 `rocketpool claims claim-all`을 사용하여 청구할 수 있습니다.
 
-[성공적인 스테이킹 확인 방법 자세히 알아보기](./create-megapool-validator#confirming-a-successful-stake)
+[성공적인 스테이킹 확인 방법 자세히 알아보기](./create-megapool-validator#성공적인-스테이킹-확인)
 
 :::
 
@@ -101,7 +101,7 @@ Would you like to continue? [y/n]
 y
 ```
 
-다음 프롬프트에서는 [Rocket Pool 입금 대기열](/ko/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-and-express-queue) 상태를 표시합니다.
+다음 프롬프트에서는 [Rocket Pool 입금 대기열](/ko/node-staking/megapools/create-megapool-validator#rocket-pool-입금-대기열-및-급행-대기열) 상태를 표시합니다.
 여기에는 ETH와 매칭되기 위해 귀하보다 먼저 기다리고 있는 검증자 수가 표시됩니다. 급행 대기열은 주로 기존 노드 운영자를 위한 것으로 새 노드에는 급행 대기열 티켓이 없습니다. `The express queue rate is 4`는 일반 대기열의 검증자 1개당 급행 대기열의 검증자 4개가 매칭됨을 의미합니다.
 
 ```
@@ -204,7 +204,7 @@ Validator Queue Position:     14
 Express Ticket Used:          no
 ```
 
-검증자가 [Rocket Pool 입금 대기열](/ko/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-and-express-queue)에서 ETH를 할당받으면 `Prelaunch` 상태로 이동합니다. 이 시점에서 메가풀 잔액에서 1 ETH가 Beacon Chain에 입금됩니다. 검증자의 공개 키도 Beacon Chain에 등록되어 https://beaconcha.in/ (테스트넷을 사용하는 경우 https://hoodi.beaconcha.in/)과 같은 탐색기에서 `Prelaunch` 검증자 상태를 볼 수 있습니다.
+검증자가 [Rocket Pool 입금 대기열](/ko/node-staking/megapools/create-megapool-validator#rocket-pool-입금-대기열-및-급행-대기열)에서 ETH를 할당받으면 `Prelaunch` 상태로 이동합니다. 이 시점에서 메가풀 잔액에서 1 ETH가 Beacon Chain에 입금됩니다. 검증자의 공개 키도 Beacon Chain에 등록되어 https://beaconcha.in/ (테스트넷을 사용하는 경우 https://hoodi.beaconcha.in/)과 같은 탐색기에서 `Prelaunch` 검증자 상태를 볼 수 있습니다.
 https://beaconcha.in/에서 공개 키를 검색하거나 `https://beaconcha.in/validator/<your-validator-pubkey>` 형식의 링크를 방문하여 검증자를 확인할 수 있습니다.
 
 ```
@@ -221,7 +221,11 @@ Express Ticket Used:          no
 
 <img src="../images/prestaking.png" width="100%" height="auto" />
 `Prelaunch` 검증자가 Beacon Chain에 의해 처리되고 초기 1 ETH 입금이 인정된 후, 노드는 자동으로 전체 32 ETH Beacon Chain 입금을 완료하기 위한 `stake` 트랜잭션을 수행합니다. `stake` 트랜잭션은
-`Prelaunch` 검증자를 `Staking` 검증자로 진행시킵니다. 이 시점에서 `Staking` 검증자는 다음 상태가 됩니다: - Beacon Chain에 32 ETH 입금 완료 - 검증자 인덱스 번호 할당 - Beacon Chain에서 활성화 대기 중
+`Prelaunch` 검증자를 `Staking` 검증자로 진행시킵니다. 이 시점에서 `Staking` 검증자는 다음 상태가 됩니다:
+
+- Beacon Chain에 32 ETH 입금 완료
+- 검증자 인덱스 번호 할당
+- Beacon Chain에서 활성화 대기 중
 
 ```
 1 Staking validator(s):

@@ -3,9 +3,9 @@
 存款信用额度系统是一种跟踪节点运营者之前质押但不再需要的 ETH 的机制，并使其可以再次使用。
 该信用额度的来源有几个：
 
-- [从 Rocket Pool 存款队列中退出验证者](./create-megapool-validator#exit-a-validator-from-the-rocket-pool-deposit-queue)。退出队列的验证者将向节点运营者发放质押金额（4 ETH）的信用额度
+- [从 Rocket Pool 存款队列中退出验证者](./create-megapool-validator#从-rocket-pool-存款队列中退出验证者)。退出队列的验证者将向节点运营者发放质押金额（4 ETH）的信用额度
 - **减少您的质押金额**。如果您当前的质押金超过协议的最低要求，您可以减少多余的质押金并将其作为存款信用额度。请注意，前两个验证者始终需要各 4 ETH 的质押金
-（无论 pDAO 设置如何）。当 pDAO 降低 `reduced_bond` 参数时，质押金减少主要有利于拥有 3 个以上验证者的节点运营者。使用 `rocketpool megapool reduce-bond` 来执行质押金减少。
+  （无论 pDAO 设置如何）。当 pDAO 降低 `reduced_bond` 参数时，质押金减少主要有利于拥有 3 个以上验证者的节点运营者。使用 `rocketpool megapool reduce-bond` 来执行质押金减少。
 
 以下两项仅适用于在 Saturn 之前进行迁移的节点运营者，现在不再可用：
 
@@ -19,7 +19,7 @@
 信用系统对节点运营者来说是**透明的**；如果可能，它将在 `rocketpool node deposit` 操作期间自动使用（Smart Node CLI 中会有通知说明将使用信用额度）。
 如果*无法*使用，Smart Node 将提醒用户无法使用信用额度，并在任一操作期间要求正常的 ETH 质押金。
 
-有关更多详细信息，请参阅下面的[信用可用性](#credit-availability)部分。
+有关更多详细信息，请参阅下面的[信用可用性](#信用可用性)部分。
 
 ## 查看当前信用余额
 

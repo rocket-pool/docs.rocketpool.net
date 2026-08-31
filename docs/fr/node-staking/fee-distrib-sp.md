@@ -123,7 +123,7 @@ Si un nœud a _accepté_ la Smoothing Pool, l'adresse suivante est considérée 
 
 Un destinataire de frais autre qu'une des adresses valides ci-dessus est considéré comme **invalide**.
 
-Le logiciel Smart Node définit automatiquement le bon destinataire des frais en fonction de votre configuration (que vous soyez inscrit à la Smoothing Pool ou non, et que vous ayez des validateurs megapool, des minipools ou les deux). Pour les nœuds ayant à la fois des validateurs megapool et des minipools tout en étant non inscrits, le destinataire des frais est défini par validateur via l'API keymanager. La liste complète des conditions est résumée [ici](/fr/node-staking/fee-distrib-sp#fee-recipients).
+Le logiciel Smart Node définit automatiquement le bon destinataire des frais en fonction de votre configuration (que vous soyez inscrit à la Smoothing Pool ou non, et que vous ayez des validateurs megapool, des minipools ou les deux). Pour les nœuds ayant à la fois des validateurs megapool et des minipools tout en étant non inscrits, le destinataire des frais est défini par validateur via l'API keymanager. La liste complète des conditions est résumée [ici](/fr/node-staking/fee-distrib-sp#destinataires-des-frais).
 
 Le logiciel Smartnode est conçu pour garantir que les utilisateurs honnêtes ne seront jamais pénalisés, même s'il doit mettre le Validator Client hors ligne pour ce faire.
 Si cela se produit, vous arrêterez d'attester et verrez des messages d'erreur dans vos fichiers de logs expliquant pourquoi le Smartnode ne peut pas définir correctement votre destinataire de frais.

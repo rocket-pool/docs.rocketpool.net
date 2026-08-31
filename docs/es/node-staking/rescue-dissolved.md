@@ -4,18 +4,18 @@ En el improbable caso de que tu minipool no haga staking dentro de la ventana de
 
 ## Actualiza tu Delegate del Minipool
 
-Es altamente recomendable que uses el último delegate del minipool al realizar este proceso. Los delegates más antiguos contienen una operación `selfdestruct` cuando se cierran, lo que significa que, si el proceso no se completa correctamente en el orden especificado, los fondos podrían quedar bloqueados para siempre. Puedes verificar que tu minipool esté en el último delegate intentando [Actualizar tu Delegate](./minipools/delegates#upgrading-your-delegate). Si tu minipool no aparece en la lista de minipools que pueden ser actualizados, entonces puedes continuar abajo.
+Es altamente recomendable que uses el último delegate del minipool al realizar este proceso. Los delegates más antiguos contienen una operación `selfdestruct` cuando se cierran, lo que significa que, si el proceso no se completa correctamente en el orden especificado, los fondos podrían quedar bloqueados para siempre. Puedes verificar que tu minipool esté en el último delegate intentando [Actualizar tu Delegate](./minipools/delegates#actualizando-tu-delegate). Si tu minipool no aparece en la lista de minipools que pueden ser actualizados, entonces puedes continuar abajo.
 
 ## Recupera tu Saldo de Depósito No Utilizado
 
 ::: tip NOTA
-Si tu minipool fue disuelto antes de Atlas, puedes omitir este paso e ir directamente a [Incrementa tu Saldo en Beaconchain a 32 ETH](#increase-your-beaconchain-balance-to-32-eth).
+Si tu minipool fue disuelto antes de Atlas, puedes omitir este paso e ir directamente a [Incrementa tu Saldo en Beaconchain a 32 ETH](#incrementa-tu-saldo-en-beaconchain-a-32-eth).
 No necesitas recuperar tu saldo de depósito no utilizado porque el monto completo del bond fue depositado en la beaconchain antes de Atlas.
 :::
 
 1 ETH de tu depósito inicial de bond se usa como depósito inicial en la beaconchain para asegurar las credenciales de retiro de tu validador. El monto restante se deposita en tu minipool cuando se le asigna ETH del deposit pool.
 
-Cuando tu minipool se disuelve, el ETH del usuario se devuelve al deposit pool y tu ETH permanece en el minipool listo para ser devuelto a ti. Usa la función de [Distribución Manual](./skimming#manual-distribution) de recompensas para recuperar este ETH que luego puede ser usado en el siguiente paso para activar tu validador.
+Cuando tu minipool se disuelve, el ETH del usuario se devuelve al deposit pool y tu ETH permanece en el minipool listo para ser devuelto a ti. Usa la función de [Distribución Manual](./skimming#distribución-manual) de recompensas para recuperar este ETH que luego puede ser usado en el siguiente paso para activar tu validador.
 
 ## Incrementa tu Saldo en Beaconchain a 32 ETH
 
@@ -61,6 +61,6 @@ Una vez que este paso esté completo, tu validador entrará en la cola de entrad
 
 ### Salir de tu Validador
 
-Una vez que tu validador haya estado activo durante un mínimo de 256 epochs, puedes salir de tu minipool mediante el mismo proceso que cualquier otro minipool siguiendo la guía [Salir de tu Validador](./withdraw#exiting-your-validator).
+Una vez que tu validador haya estado activo durante un mínimo de 256 epochs, puedes salir de tu minipool mediante el mismo proceso que cualquier otro minipool siguiendo la guía [Salir de tu Validador](./withdraw#saliendo-de-tu-validador).
 
 El saldo completo de 32 ETH será devuelto a tu minipool y los minipools disueltos distribuyen el 100% de su saldo a la dirección de retiro del node operator.

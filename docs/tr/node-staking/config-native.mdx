@@ -27,9 +27,9 @@ Docker tabanlı bir kurulum kullanıyorsanız, lütfen bunun yerine [Docker yap�
 
 Üç yapılandırma yöntemi vardır:
 
-- [Sihirbaz UI](#sihirbaz-ile-yapilandirma) ile - bu en kolay yoldur. Sadece birkaç temel soru sorar ve geri kalanı için iyi test edilmiş varsayılanları kullanır. İlk kez `rocketpool service config` komutunu çalıştırdığınızda size sunulacak olan budur.
-- [Ayarlar Yöneticisi UI](#ayarlar-yoneticisi-ile-yapilandirma) ile - bu size Smartnode'un tüm ayarlarına erişim sağlar, böylece istediğiniz kadar her şeyi özelleştirebilirsiniz.
-- [Komut Satırı](#komut-satiri-ile-yapilandirma) ile başsız olarak - bu, Smartnode'u başsız (etkileşimsiz) bir ortamda çalıştıran ve otomatik olarak yapılandırması gereken kişiler için bir seçenektir.
+- [Sihirbaz UI](#sihirbaz-ile-yapılandırma) ile - bu en kolay yoldur. Sadece birkaç temel soru sorar ve geri kalanı için iyi test edilmiş varsayılanları kullanır. İlk kez `rocketpool service config` komutunu çalıştırdığınızda size sunulacak olan budur.
+- [Ayarlar Yöneticisi UI](#ayarlar-yöneticisi-ile-yapılandırma) ile - bu size Smartnode'un tüm ayarlarına erişim sağlar, böylece istediğiniz kadar her şeyi özelleştirebilirsiniz.
+- [Komut Satırı](#komut-satırı-ile-yapılandırma) ile başsız olarak - bu, Smartnode'u başsız (etkileşimsiz) bir ortamda çalıştıran ve otomatik olarak yapılandırması gereken kişiler için bir seçenektir.
 
 Yukarıdaki listeden hangi mod hakkında daha fazla bilgi edinmek istediğinizi seçin veya aşağıdaki her seçeneği kaydırın.
 
@@ -44,7 +44,7 @@ rp service config
 Bu, node'unuzu hızlı ve kolay bir şekilde yapılandırmanıza olanak tanıyan terminal tabanlı bir UI başlatacak ve Native modu ile ilgili ayarlar üzerinde isteğe bağlı ince ayarlı kontrol sağlayacaktır.
 
 ::: tip NOT
-Smartnode'u zaten yapılandırdıysanız, bunun yerine [Ayarlar Yöneticisi](#ayarlar-yoneticisi-ile-yapilandirma) ile karşılaşacaksınız.
+Smartnode'u zaten yapılandırdıysanız, bunun yerine [Ayarlar Yöneticisi](#ayarlar-yöneticisi-ile-yapılandırma) ile karşılaşacaksınız.
 Tercih ederseniz Sihirbazı oradan yeniden açmayı seçebilirsiniz ve mevcut tüm ayarlarınız sizin için önceden seçilmiş olacaktır.
 :::
 
@@ -175,7 +175,7 @@ Aksi takdirde, bir sonraki adım daemon servislerinizi şununla yeniden başlatm
 sudo systemctl restart rp-node rp-watchtower
 ```
 
-Tüm ayarları gözden geçirmek ve Sihirbaza dahil edilmeyen birçok ek ayarı özelleştirmek istiyorsanız, `Review All Settings`'e tıklayın ve [sonraki bölüme](#ayarlar-yoneticisi-ile-yapilandirma) gidin.
+Tüm ayarları gözden geçirmek ve Sihirbaza dahil edilmeyen birçok ek ayarı özelleştirmek istiyorsanız, `Review All Settings`'e tıklayın ve [sonraki bölüme](#ayarlar-yöneticisi-ile-yapılandırma) gidin.
 
 ## Ayarlar Yöneticisi ile Yapılandırma
 
@@ -187,7 +187,7 @@ Bu ekranın üç ana özelliği vardır:
 
 1. **Kategori Listesi**, Native modu ile ilgili Smartnode stack'inin her kategorisi için ayarları detaylandırmanıza olanak tanır
 2. **Değişiklikleri Gözden Geçir ve Kaydet** düğmesi, hangi ayarları değiştirdiğinizi görmek ve güncellenmiş yapılandırmayı kaydetmek için hazır olduğunuzda kullanabileceğiniz
-3. **Yapılandırma Sihirbazını Aç** düğmesi, bunun yerine o arayüzü tercih ederseniz sizi [Kurulum Sihirbazı](#sihirbaz-ile-yapilandirma)'na götürecektir
+3. **Yapılandırma Sihirbazını Aç** düğmesi, bunun yerine o arayüzü tercih ederseniz sizi [Kurulum Sihirbazı](#sihirbaz-ile-yapılandırma)'na götürecektir
 
 ::: tip İPUCU
 Ayarlar Yöneticisini kullanmak için, **ana sayfadaki seçenekler arasında gezinmek için `Ok Tuşlarına` (yukarı/aşağı/sol/sağ) basın**.

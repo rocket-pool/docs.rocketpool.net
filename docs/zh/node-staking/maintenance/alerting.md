@@ -8,7 +8,7 @@ Smartnode 警报通知功能允许您接收有关 Rocket Pool Smartnode 的健�
 
 ## 设置 Discord 通知
 
-目前,通知可以发送到 Discord 频道。您可以在"Monitoring / Alerting"页面上的 Rocket Pool 文本用户界面(TUI)中配置 Discord 通知。
+目前,通知可以发送到 Discord 频道和 Telegram 聊天。您可以在"Monitoring / Alerting"页面上的 Rocket Pool 文本用户界面(TUI)中配置其中一个或两个目标。
 
 ### 添加 Discord Webhook URL:
 
@@ -19,6 +19,30 @@ Smartnode 警报通知功能允许您接收有关 Rocket Pool Smartnode 的健�
 5. 复制提供的 Webhook URL。
 6. 在 Rocket Pool TUI 中,导航到"Monitoring / Alerting"页面。
 7. 将复制的 Webhook URL 粘贴到指定字段中并保存配置。
+
+## 设置 Telegram 通知
+
+您可以在"Monitoring / Alerting"页面上的 Rocket Pool 文本用户界面(TUI)中配置 Telegram 通知。Telegram 通知通过 Telegram Bot API 发送。机器人令牌和数字聊天 ID 两者都是必需的;只填写其中一项不会生效。
+
+### 添加 Telegram 机器人令牌和聊天 ID:
+
+1. 在 Telegram 中打开 [@BotFather](https://t.me/BotFather) 并创建一个新的机器人。
+2. 复制 BotFather 提供的机器人令牌(仅令牌本身 — 不要包含 `bot` 前缀)。
+3. 决定警报应发送到与您的私人聊天(DM)、群组还是频道。
+4. 如果您希望在私人聊天中接收警报,请先向您的机器人发送 `/start`。然后在浏览器中打开 `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates`(将 `<YOUR_BOT_TOKEN>` 替换为第 2 步中的令牌),并查找 `"chat"` 对象:
+
+```json
+"chat": {
+  "id": 123456789,
+  "type": "private"
+}
+```
+
+`"id"` 的值就是您应该在 Telegram Chat ID 字段中设置的聊天 ID。
+
+5. 如果您希望在群组或频道中接收警报,请将机器人添加为成员(对于频道,机器人必须是管理员)。群组和频道 ID 为负数(通常以 `-100` 开头)。当机器人可以看到该聊天后,使用相同的 `getUpdates` URL 查找数字聊天 ID。诸如 `@mychannel` 之类的用户名将不起作用。
+6. 在 Rocket Pool TUI 中,导航到"Monitoring / Alerting"页面。
+7. 将机器人令牌和数字聊天 ID 粘贴到指定字段中并保存配置。
 
 ::: tip 提示
 缺少您最喜欢的通知方式? Rocket Pool 团队正在积极寻求社区关于其他通知目的地的反馈。欢迎在 https://github.com/rocket-pool/smartnode/issues 上建议新的通知目的地。

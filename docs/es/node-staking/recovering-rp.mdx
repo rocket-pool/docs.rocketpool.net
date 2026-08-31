@@ -22,8 +22,9 @@ Si, por alguna razón, deseas recuperar la billetera pero _no_ las claves de val
 rocketpool wallet recover -k
 ```
 
-Si no especificas este indicador, el Smartnode intentará recuperar las claves de validador para tus minipools; sin embargo, ten en cuenta que esto no funcionará hasta que tu cliente de Ejecución haya terminado de sincronizar.
-Observa su archivo de registro para ver cuándo ha terminado; una vez que lo haya hecho, puedes ejecutar este paso.
+Si no especificas este indicador, el Smartnode intentará recuperar las claves de validador para tus minipools o validadores de megapool. Ese paso requiere clientes de Ejecución y Beacon sincronizados.
+
+Con `-k`, recuperar **solo la billetera** no necesita esperar a que los clientes estén sincronizados. Puedes hacerlo mientras todavía se están sincronizando.
 :::
 
 Esto primero te pedirá una contraseña que desees usar para cifrar tu billetera.
@@ -124,7 +125,7 @@ El Smartnode buscará en este directorio cualquier archivo de keystore que hayas
 El proceso de importación _solo_ buscará claves de validador que estén adjuntas a minipools registrados en la dirección que estás importando.
 **No puedes** usar este proceso para importar otras claves de validador, como las de validadores de staking solo, en el cliente Validador administrado por el stack de Smartnode.
 
-Consulta la documentación para ejecutar en [Modo Híbrido Inverso](./advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode) si estás interesado en hacer esto.
+Consulta la documentación para ejecutar en [Modo Híbrido Inverso](./advanced-config#permitir-que-clientes-validadores-externos-se-conecten-al-smartnode) si estás interesado en hacer esto.
 :::
 
 ### Paso 2 (Opcional): Probar la Importación de la Dirección

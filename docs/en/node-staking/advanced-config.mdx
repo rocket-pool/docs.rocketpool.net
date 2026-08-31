@@ -3,7 +3,6 @@ import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
 import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
 
-
 # Advanced Smartnode Configuration for Docker Mode
 
 In this section, we will cover a few techniques that expand the Smartnode's customization and functionality.
@@ -121,9 +120,9 @@ For more information on how `docker-compose` overrides work, please visit [https
 The node daemon serves an HTTP API (default port **8280**) used by the local `rocketpool` CLI and by custom tooling.
 Configure it in `rocketpool service config` under the **API** category. Native mode uses the same category.
 
-| Setting | Purpose |
-|---|---|
-| **API Port** | Listen port. Default `8280`. |
+| Setting             | Purpose                                                                                                                                                                                |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **API Port**        | Listen port. Default `8280`.                                                                                                                                                           |
 | **Expose API Port** | **Closed** — not published; the host CLI cannot reach the API in Docker. **Open to Localhost** (default) — `127.0.0.1:8280`. **Open to External hosts** — published on all interfaces. |
 
 Changing these settings requires a node container restart. The Settings Manager flags that for you.
@@ -146,12 +145,12 @@ Authorization: Bearer <token>
 Query-string tokens are ignored. The `rocketpool` CLI on this machine loads the write token from the data directory and sends it automatically.
 If the CLI returns `unauthorized`, point `-c` at the same config directory the daemon is using, or copy that install's `data/api-tokens.json`.
 
-| Setting | Purpose |
-|---|---|
-| **API Token** | Write-scoped secret. Format is `rpsn_` followed by 64 hex characters. Treat it like a password. Clearing the field and saving regenerates it. It is stored in `api-tokens.json`, not in `user-settings.yml`. |
-| **API Token Comment** | Non-secret label stored with the token. Default `rocketpool CLI`. |
+| Setting                   | Purpose                                                                                                                                                                                                                                                                                                                                                 |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **API Token**             | Write-scoped secret. Format is `rpsn_` followed by 64 hex characters. Treat it like a password. Clearing the field and saving regenerates it. It is stored in `api-tokens.json`, not in `user-settings.yml`.                                                                                                                                            |
+| **API Token Comment**     | Non-secret label stored with the token. Default `rocketpool CLI`.                                                                                                                                                                                                                                                                                       |
 | **Unauthenticated Reads** | Server policy, not a per-token privilege. Default is **Require a token for read routes**: every route except `/healthz` needs a valid bearer token. Choosing **Allow unauthenticated reads** lets status, balances, and `can-*` estimates run without a token. Wallet operations, transactions, and other write routes still need a write-scoped token. |
-| **API Rate Limit** | Maximum requests per second. `0` disables the limit (this is the default). Burst equals one second of quota. Over the limit, the API returns HTTP 429 with `Retry-After: 1`. |
+| **API Rate Limit**        | Maximum requests per second. `0` disables the limit (this is the default). Burst equals one second of quota. Over the limit, the API returns HTTP 429 with `Retry-After: 1`.                                                                                                                                                                            |
 
 `/healthz` never requires a token.
 
@@ -231,30 +230,29 @@ curl -s -X POST \
 }
 ```
 
-| Status | Body | When |
-|---|---|---|
-| 401 | `{"status":"error","error":"unauthorized"}` plus `WWW-Authenticate: Bearer` | Missing or invalid token |
-| 403 | `{"status":"error","error":"forbidden"}` | Read token used on a write route |
-| 429 | `{"status":"error","error":"too many requests"}` plus `Retry-After: 1` | Rate limit exceeded |
+| Status | Body                                                                        | When                             |
+| ------ | --------------------------------------------------------------------------- | -------------------------------- |
+| 401    | `{"status":"error","error":"unauthorized"}` plus `WWW-Authenticate: Bearer` | Missing or invalid token         |
+| 403    | `{"status":"error","error":"forbidden"}`                                    | Read token used on a write route |
+| 429    | `{"status":"error","error":"too many requests"}` plus `Retry-After: 1`      | Rate limit exceeded              |
 
 ## (Experimental) Enabling Dual-Stack (IPv4 + IPv6) networking
 
 This option is for users running Docker mode configurations with locally managed clients.
-Starting with Smart node v1.20.2, Rocket Pool supports dual-stack (IPv4 + IPv6) networking for your Ethereum clients. 
+Starting with Smart node v1.20.2, Rocket Pool supports dual-stack (IPv4 + IPv6) networking for your Ethereum clients.
 
 When enabled, your consensus client can connect to both IPv4 and IPv6 peers, potentially improving peer discovery.
 This feature is also useful if your network is behind a CGNAT and struggles to peer using IPv4.
 
-
 ::: tip TIP
-The following site gives a rundown on the status of Ethereum IPv6 Support. 
+The following site gives a rundown on the status of Ethereum IPv6 Support.
 
 [ipv6eth.info](https://ipv6eth.info/)
 :::
 
 ::: warning EXPERIMENTAL FEATURE
-IPv6 support is currently experimental. While it has been tested with all supported consensus clients, you may encounter issues depending on your network configuration. 
-If you experience problems, you can disable IPv6 and restart your clients to return to IPv4-only mode. If you encounter any issues with IPv6 support, 
+IPv6 support is currently experimental. While it has been tested with all supported consensus clients, you may encounter issues depending on your network configuration.
+If you experience problems, you can disable IPv6 and restart your clients to return to IPv4-only mode. If you encounter any issues with IPv6 support,
 please report them in the **#support** channel on the [Rocket Pool Discord](https://discord.gg/rocketpool).
 
 :::
@@ -270,13 +268,13 @@ When you enable IPv6 support:
 
 Different consensus clients handle IPv6 with varying levels of support:
 
-| Client | IPv6 Listening | IPv6 Broadcasting (ENR) | Peering Behavior | Notes |
-|--------|----------------|------------------------|------------------|-------|
-| **Teku** | Full | Full | Prioritizes IPv6 | Prefers IPv6 connections when available. Uses a separate IPv6 port (default: 9090). |
-| **Lighthouse** | Full | Full | No preference | Connects to whichever address (IPv4 or IPv6) responds first. Typically sees ~1-2% IPv6 peers. |
-| **Lodestar** | Full | Full | Prioritizes IPv4 | Listens and broadcasts on both IPv4 and IPv6, but only peers via IPv6 if the other node has IPv4 disabled. |
-| **Nimbus** | Full | IPv4 only* | Primarily IPv4 | Can accept inbound IPv6 connections, but broadcasts only IPv4 in ENR. |
-| **Prysm** | Full | IPv4 only* | Primarily IPv4 | Can accept inbound IPv6 connections, but broadcasts only IPv4 in ENR. |
+| Client         | IPv6 Listening | IPv6 Broadcasting (ENR) | Peering Behavior | Notes                                                                                                      |
+| -------------- | -------------- | ----------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------- |
+| **Teku**       | Full           | Full                    | Prioritizes IPv6 | Prefers IPv6 connections when available. Uses a separate IPv6 port (default: 9090).                        |
+| **Lighthouse** | Full           | Full                    | No preference    | Connects to whichever address (IPv4 or IPv6) responds first. Typically sees ~1-2% IPv6 peers.              |
+| **Lodestar**   | Full           | Full                    | Prioritizes IPv4 | Listens and broadcasts on both IPv4 and IPv6, but only peers via IPv6 if the other node has IPv4 disabled. |
+| **Nimbus**     | Full           | IPv4 only\*             | Primarily IPv4   | Can accept inbound IPv6 connections, but broadcasts only IPv4 in ENR.                                      |
+| **Prysm**      | Full           | IPv4 only\*             | Primarily IPv4   | Can accept inbound IPv6 connections, but broadcasts only IPv4 in ENR.                                      |
 
 \* By default, broadcasts IPv4 address. On IPv6-only hosts, will broadcast IPv6 instead.
 
@@ -285,24 +283,26 @@ Different consensus clients handle IPv6 with varying levels of support:
 Before enabling IPv6, ensure that:
 
 1. Your ISP/host provides IPv6 connectivity - Test this with [ipv6test.google.com/](https://ipv6test.google.com/)
-or by running this command in your CLI: `curl -6 https://icanhazip.com`. If the command returns an IPv6 address in this format: `xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx`, you are good to go.
+   or by running this command in your CLI: `curl -6 https://icanhazip.com`. If the command returns an IPv6 address in this format: `xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx`, you are good to go.
 2. Your firewall allows IPv6 traffic on the consensus client P2P port. The default P2P port is `9001`. Teku requires an additional dedicated
-port for IPv6. The default Teku P2P IPv6 port is `9090`. 
+   port for IPv6. The default Teku P2P IPv6 port is `9090`.
 3. You're using locally managed clients in Docker mode (not externally managed clients)
 
 ### How to Enable IPv6
 
-
 To enable IPv6, go to the Smart Node and TX Fees category
 and check the **Enable IPv6** box then save and restart the Smart Node stack.
+
 <img src={tui_enable_ipv6} width="100%" height="auto" />
 
 ::: warning NOTE
 If you enable IPv6 but don't have a public IPv6 address, the Smart node will display a warning during startup:
+
 ```
 Warning: IPv6 is enabled but no public IPv6 address was detected.
 Your node will not be reachable by IPv6 peers.
 ```
+
 Your node will continue to work normally using IPv4.
 :::
 

@@ -33,7 +33,7 @@ RPL은 5%의 인플레이션율을 가지고 있습니다. 이 인플레이션�
 
 ## pDAO 제안의 수명 주기
 
-제안은 온체인에 올라가기 전에 [거버넌스 프로세스](../houston/participate#governance-process)에 의해 예고되어야 합니다. 제안은 4개의 기간으로 구성되며, 이 모든 기간은 pDAO [제어 가능한 매개변수](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table)입니다:
+제안은 온체인에 올라가기 전에 [거버넌스 프로세스](../houston/participate#거버넌스-프로세스)에 의해 예고되어야 합니다. 제안은 4개의 기간으로 구성되며, 이 모든 기간은 pDAO [제어 가능한 매개변수](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table)입니다:
 
 - Vote Delay Period: `proposal.vote.delay.time`
 - Vote Phase 1: `proposal.vote.phase1.time`
@@ -51,7 +51,7 @@ RPL은 5%의 인플레이션율을 가지고 있습니다. 이 인플레이션�
 - `proposal.bond`는 유효한 제안을 장려하고 스팸을 억제합니다.
 - `proposal.challenge.bond`는 유효하지 않거나 악의적인 제안을 제거하도록 장려합니다.
 
-챌린저는 올바르지 않다고 주장하는 Merkle-sum 트리의 인덱스를 제공합니다. 모든 노드 운영자는 사기성 제안에 도전하는 데 참여할 수 있으며 (그렇게 함으로써 보상을 받을 수 있습니다). 참여에 관심이 있다면 [pDAO 챌린지 프로세스](../houston/pdao#challenge-process)에 대해 자유롭게 읽어보세요. 투표 지연 기간이 끝날 때까지 챌린지에서 패배하지 않은 제안은 투표 단계로 진입합니다.
+챌린저는 올바르지 않다고 주장하는 Merkle-sum 트리의 인덱스를 제공합니다. 모든 노드 운영자는 사기성 제안에 도전하는 데 참여할 수 있으며 (그렇게 함으로써 보상을 받을 수 있습니다). 참여에 관심이 있다면 [pDAO 챌린지 프로세스](../houston/pdao#챌린지-프로세스)에 대해 자유롭게 읽어보세요. 투표 지연 기간이 끝날 때까지 챌린지에서 패배하지 않은 제안은 투표 단계로 진입합니다.
 
 ::: tip NOTE
 `proposal.vote.delay.time`이 만료되면 제안은 더 이상 챌린지받거나 패배할 수 없습니다.
@@ -102,7 +102,7 @@ rocketpool pdao proposals execute
 
 실행할 제안을 선택하라는 메시지가 표시되며, 이 단계 후에 제안이 프로토콜에 적용됩니다!
 
-제안이 투표 기간을 통과한 후, 제안자는 챌린지로 패배하거나 거부되지 않은 한 잠긴 RPL 보증금을 [청구](../houston/participate#claiming-bonds-and-rewards)할 수 있습니다.
+제안이 투표 기간을 통과한 후, 제안자는 챌린지로 패배하거나 거부되지 않은 한 잠긴 RPL 보증금을 [청구](../houston/participate#본드-및-보상-청구)할 수 있습니다.
 
 ::: tip NOTE
 제안을 실행할 수 있는 기간 `proposal.execute.time`이 있습니다. 이 타이머가 끝에 도달하면 제안은 만료됩니다.
@@ -118,7 +118,7 @@ rocketpool pdao proposals execute
 
 <img src={proposal_checker} width="100%" height="auto" />
 
-이 설정이 활성화되면 노드는 새 제안을 확인하고 정확성을 검증하며 유효하지 않은 제안에 대해 챌린지를 제출합니다. 유일한 전제 조건은 [RPL Locking](../houston/participate#allowing-rpl-locking)이 활성화되어 있어야 한다는 것입니다.
+이 설정이 활성화되면 노드는 새 제안을 확인하고 정확성을 검증하며 유효하지 않은 제안에 대해 챌린지를 제출합니다. 유일한 전제 조건은 [RPL Locking](../houston/participate#rpl-잠금-허용)이 활성화되어 있어야 한다는 것입니다.
 
 이 확인은 몇 가지 다른 노드 관련 작업과 함께 5분마다 실행됩니다. 사기성 제안에 대한 챌린지가 어떻게 보이는지 예제를 살펴보겠습니다. smartnode 명령 `rocketpool service logs node`를 사용하여 진행 상황을 모니터링할 수 있습니다:
 
@@ -167,6 +167,6 @@ rocketpool3_node  | 2024/04/05 02:57:13 Successfully defeated proposal.
 제안을 패배시키는 데 참여한 챌린저는 올바르지 않은 것으로 입증된 인덱스를 제출하면 제안자의 보증금의 비례 금액을 지불받습니다. 다른 모든 챌린저는 보증금만 돌려받습니다.
 :::
 
-이제 제안이 패배했으므로 우리 노드(챌린저)는 원래 RPL 보증금과 사기성 제안을 패배시킨 보상으로 제안자의 RPL 보증금을 [청구](../houston/participate#claiming-bonds-and-rewards)할 수 있습니다.
+이제 제안이 패배했으므로 우리 노드(챌린저)는 원래 RPL 보증금과 사기성 제안을 패배시킨 보상으로 제안자의 RPL 보증금을 [청구](../houston/participate#본드-및-보상-청구)할 수 있습니다.
 
 pDAO 제안 및 챌린지 시스템의 세부 사항을 파고들고 싶다면 [기술 사양](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#draft-protocol-dao-proposal-challenge-system-specification)을 살펴보세요. 낮은 수준의 세부 사항을 다루는 예제를 연구하는 데 관심이 있다면 [챌린지 프로세스](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#challenge-process)에 대한 이 섹션으로 건너뛰세요.

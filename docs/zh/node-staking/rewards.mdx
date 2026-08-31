@@ -11,7 +11,7 @@ Rocket Pool 将定期在网络上标记一个**检查点**。目前，检查点*
 
 在新的检查点，Oracle DAO 将共同创建 Rocket Pool 网络中节点运营者状态的**真实快照**，它将使用该快照来确定该间隔期间每个节点的 RPL 和 Smoothing Pool ETH 奖励。请注意，Saturn 0 minipool 的"奖励佣金"使用 smoothing pool 奖励分配（Saturn 0 minipool 是 2024/10/28 之后创建的，合约佣金为 5%）。
 
-此信息被编译成[默克尔树](https://en.wikipedia.org/wiki/Merkle_tree) - 一种极其高效的方式，使所有详细信息可供智能合约使用。默克尔树被构建成 JSON 文件并托管在[星际文件系统 (IPFS)](https://en.wikipedia.org/wiki/InterPlanetary_File_System) 上，并在[我们维护的 GitHub 存储库](https://github.com/rocket-pool/rewards-trees/)上镜像。
+此信息被编译成[默克尔树](https://en.wikipedia.org/wiki/Merkle_tree) - 一种极其高效的方式，使所有详细信息可供智能合约使用。默克尔树被构建成 JSON 文件并托管在[我们维护的 GitHub 存储库](https://github.com/rocket-pool/rewards-trees/)上。Smartnode 还可以从该 GitHub 存储库加载奖励周期**事件**，因此即使激进的历史过期已删除旧的执行层日志，您仍然可以领取奖励。
 
 一旦提交树，Rocket Pool 智能合约将铸造新的 RPL 代币并将它们与 Smoothing Pool 的全部 ETH 余额一起移入 Rocket Pool 保险库进行安全存储。然后，您可以查看在该间隔期间赚取了多少 RPL 和 ETH 奖励并领取这些奖励。
 
@@ -136,7 +136,7 @@ You may claim these rewards at any time. You no longer need to claim them within
 
 ## 费用分配器中的 Execution-Layer 奖励
 
-如果您**未**选择加入 Smoothing Pool，来自区块提议的奖励的 Execution-layer 部分（包括交易费用和 MEV）将改为发送到您节点的[费用分配器](./fee-distrib-sp#fee-distributors-and-the-smoothing-pool)合约。
+如果您**未**选择加入 Smoothing Pool，来自区块提议的奖励的 Execution-layer 部分（包括交易费用和 MEV）将改为发送到您节点的[费用分配器](./fee-distrib-sp#费用分配器和平滑池)合约。
 
 要检查费用分配器的余额，您可以使用链浏览器（如 [https://etherscan.io](https://etherscan.io)）或简单地运行 `rocketpool node status` - 将有一个名为 **费用分配器和 Smoothing Pool** 的部分显示它：
 

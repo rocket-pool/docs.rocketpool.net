@@ -33,7 +33,7 @@ CoinCashew 有[一份很棒且简明的指南](https://www.coincashew.com/coins/
 ## 升级到 v1.5.0
 
 将 Smartnode 栈升级到 v1.5.0 与任何其他升级没有什么不同。
-只需遵循[此处的常规说明](../../node-staking/updates#updating-the-smartnode-stack)。
+只需遵循[此处的常规说明](../../node-staking/updates#更新-smartnode-堆栈)。
 
 ## 升级后应该做的事情
 
@@ -51,7 +51,7 @@ CoinCashew 有[一份很棒且简明的指南](https://www.coincashew.com/coins/
 ### 在验证器客户端中设置费用接收者
 
 在合并之前需要设置的**关键**细节之一是验证器客户端指定的**费用接收者**。
-如[概述文章](./whats-new#fee-recipients-and-your-distributor)中所述,这可以是以下两个值之一:
+如[概述文章](./whats-new#费用接收者和您的分配器)中所述,这可以是以下两个值之一:
 
 - 如果您**选择加入**平滑池,这必须是**平滑池合约**的地址。您可以从[官方合约页面](/zh/protocol/contracts-integrations)获取地址。
 - 如果您**未**加入平滑池,这必须是您节点的**费用分配器合约**的地址。您可以通过运行 `rocketpool node status`,在 `Fee Distributor and Smoothing Pool` 部分下获取地址。
@@ -192,9 +192,9 @@ Smartnode 守护程序将自动确定您节点的适当费用接收者,并在其
 
       其中 `address` 是:
 
-      - 在 Redstone 更新部署**之前**的 [rETH 地址](/zh/protocol/contracts-integrations/#token-contracts)(例如,主网上的 `0xae78736Cd615f374D3085123A210448E74Fc6393`)
+      - 在 Redstone 更新部署**之前**的 [rETH 地址](/zh/protocol/contracts-integrations/#代币合约)(例如,主网上的 `0xae78736Cd615f374D3085123A210448E74Fc6393`)
       - 在部署 Redstone 之后,您节点的**费用分配器**,您可以在合约升级发生后通过 `rocketpool node status` 检索
-      - 如果您选择加入平滑池,则为[平滑池地址](/zh/protocol/contracts-integrations/#protocol-contracts)
+      - 如果您选择加入平滑池,则为[平滑池地址](/zh/protocol/contracts-integrations/#关键协议合约)
 
       提醒一下,`rocketpool node status` 将随时显示要使用的正确费用接收者。
 
@@ -209,9 +209,9 @@ Smartnode 守护程序将自动确定您节点的适当费用接收者,并在其
 
       其中 `address` 是:
 
-      - 在 Redstone 更新部署**之前**的 [rETH 地址](/zh/protocol/contracts-integrations/#token-contracts)(例如,主网上的 `0xae78736Cd615f374D3085123A210448E74Fc6393`)
+      - 在 Redstone 更新部署**之前**的 [rETH 地址](/zh/protocol/contracts-integrations/#代币合约)(例如,主网上的 `0xae78736Cd615f374D3085123A210448E74Fc6393`)
       - 在部署 Redstone 之后,您节点的**费用分配器**,您可以在合约升级发生后通过 `rocketpool node status` 检索
-      - 如果您选择加入平滑池,则为[平滑池地址](/zh/protocol/contracts-integrations/#protocol-contracts)
+      - 如果您选择加入平滑池,则为[平滑池地址](/zh/protocol/contracts-integrations/#关键协议合约)
 
       提醒一下,`rocketpool node status` 将随时显示要使用的正确费用接收者。
 
@@ -226,9 +226,9 @@ Smartnode 守护程序将自动确定您节点的适当费用接收者,并在其
 
       其中 `address` 是:
 
-      - 在 Redstone 更新部署**之前**的 [rETH 地址](/zh/protocol/contracts-integrations/#token-contracts)(例如,主网上的 `0xae78736Cd615f374D3085123A210448E74Fc6393`)
+      - 在 Redstone 更新部署**之前**的 [rETH 地址](/zh/protocol/contracts-integrations/#代币合约)(例如,主网上的 `0xae78736Cd615f374D3085123A210448E74Fc6393`)
       - 在部署 Redstone 之后,您节点的**费用分配器**,您可以在合约升级发生后通过 `rocketpool node status` 检索
-      - 如果您选择加入平滑池,则为[平滑池地址](/zh/protocol/contracts-integrations/#protocol-contracts)
+      - 如果您选择加入平滑池,则为[平滑池地址](/zh/protocol/contracts-integrations/#关键协议合约)
 
       提醒一下,`rocketpool node status` 将随时显示要使用的正确费用接收者。
 
@@ -243,9 +243,9 @@ Smartnode 守护程序将自动确定您节点的适当费用接收者,并在其
 
       其中 `address` 是:
 
-      - 在 Redstone 更新部署**之前**的 [rETH 地址](/zh/protocol/contracts-integrations/#token-contracts)(例如,主网上的 `0xae78736Cd615f374D3085123A210448E74Fc6393`)
+      - 在 Redstone 更新部署**之前**的 [rETH 地址](/zh/protocol/contracts-integrations/#代币合约)(例如,主网上的 `0xae78736Cd615f374D3085123A210448E74Fc6393`)
       - 在部署 Redstone 之后,您节点的**费用分配器**,您可以在合约升级发生后通过 `rocketpool node status` 检索
-      - 如果您选择加入平滑池,则为[平滑池地址](/zh/protocol/contracts-integrations/#protocol-contracts)
+      - 如果您选择加入平滑池,则为[平滑池地址](/zh/protocol/contracts-integrations/#关键协议合约)
 
       提醒一下,`rocketpool node status` 将随时显示要使用的正确费用接收者。
 
@@ -285,7 +285,7 @@ Smartnode 仍然具有提供后备执行客户端(现在也提供后备共识客
 
 ### 初始化您的费用分配器
 
-如果您不打算选择加入[平滑池](./whats-new#smoothing-pool)并将所有优先费用和 MEV 奖励索取到您的[费用分配器合约](./whats-new#fee-recipients-and-your-distributor),您最终将必须初始化它(在链上创建合约实例)才能将奖励索取到您的提款地址。
+如果您不打算选择加入[平滑池](./whats-new#smoothing-pool)并将所有优先费用和 MEV 奖励索取到您的[费用分配器合约](./whats-new#费用接收者和您的分配器),您最终将必须初始化它(在链上创建合约实例)才能将奖励索取到您的提款地址。
 
 这是一个相当便宜的操作,只需要执行一次。
 
@@ -310,7 +310,7 @@ rocketpool node join-smoothing-pool
 
 ### 索取奖励
 
-Redstone 升级用[全新系统](./whats-new#new-rewards-system)替换了昂贵且有问题的旧奖励系统,该系统更便宜,支持 RPL 的自动重新质押(部分和全部金额),并且 - 最重要的是 - **让您可以随时索取奖励**。
+Redstone 升级用[全新系统](./whats-new#新的奖励系统)替换了昂贵且有问题的旧奖励系统,该系统更便宜,支持 RPL 的自动重新质押(部分和全部金额),并且 - 最重要的是 - **让您可以随时索取奖励**。
 
 由于不再有索取奖励的时间限制,并且一次索取多个奖励间隔更便宜,Smartnode 的自动奖励索取功能**已被删除**。
 您现在可以通过以下命令索取奖励:

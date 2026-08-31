@@ -237,7 +237,7 @@ Embora a CLI automatize muitas das próximas etapas para você, nós <strong>for
 
 Transações com falha (devido a configurações de gas ajustadas ou ETH insuficiente) podem fazer seu minipool transitar para o estado `dissolved`, o que você deseja evitar.
 
-[Saiba mais sobre como confirmar um staking bem-sucedido](/pt/node-staking/create-validator#confirming-a-successful-stake)
+[Saiba mais sobre como confirmar um staking bem-sucedido](/pt/node-staking/create-validator#confirmando-um-staking-bem-sucedido)
 
 :::
 
@@ -250,7 +250,7 @@ rocketpool node deposit --salt <seu salt, por exemplo, 0x1234abcd>
 
 :::
 
-Você verá primeiro uma nota de que depositar um novo minipool **automaticamente distribuirá** qualquer saldo no contrato [fee distributor](./fee-distrib-sp) do seu node (usado para capturar recompensas MEV se você não estiver optado pelo [Smoothing Pool](./fee-distrib-sp#the-smoothing-pool)):
+Você verá primeiro uma nota de que depositar um novo minipool **automaticamente distribuirá** qualquer saldo no contrato [fee distributor](./fee-distrib-sp) do seu node (usado para capturar recompensas MEV se você não estiver optado pelo [Smoothing Pool](./fee-distrib-sp#o-smoothing-pool)):
 
 ```
 Your eth2 client is on the correct network.

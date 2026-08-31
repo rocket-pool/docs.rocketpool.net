@@ -33,7 +33,7 @@ Daha fazla ayrıntı ve gerekçe için [teklif türlerine](https://rpips.rocketp
 
 ## Bir pDAO teklifinin yaşam döngüsü
 
-Bir teklif, on-chain üzerinde ortaya çıkmadan önce [yönetişim süreci](./participate#governance-process) tarafından öngörülmelidir. 4 Dönemden oluşur ve bunların hepsi pDAO [kontrol edilebilir parametreleridir](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table):
+Bir teklif, on-chain üzerinde ortaya çıkmadan önce [yönetişim süreci](./participate#yönetişim-süreci) tarafından öngörülmelidir. 4 Dönemden oluşur ve bunların hepsi pDAO [kontrol edilebilir parametreleridir](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table):
 
 - Vote Delay Period: `proposal.vote.delay.time`
 - Vote Phase 1: `proposal.vote.phase1.time`
@@ -51,7 +51,7 @@ Teklif sahiplerinin ve itiraz edenlerin RPL kilitlemelerinin gerektiği birkaç 
 - `proposal.bond` geçerli teklifleri teşvik eder ve spam'i caydırır.
 - `proposal.challenge.bond` geçersiz/kötü niyetli tekliflerin kaldırılmasını teşvik eder.
 
-İtiraz edenler, yanlış olduğunu iddia ettikleri Merkle-sum ağacına bir indeks sağlar. Herhangi bir düğüm operatörü hileli tekliflere itiraz etmeye (ve bunu yaparken ödül kazanmaya) katılabilir. Katılmakla ilgileniyorsanız [pDAO İtiraz Süreci](./pdao#challenge-process) hakkında okumaktan çekinmeyin. Oy gecikmesi süresinin sonunda bir itirazda yenilmeyen bir teklif oylama aşamalarına girecektir.
+İtiraz edenler, yanlış olduğunu iddia ettikleri Merkle-sum ağacına bir indeks sağlar. Herhangi bir düğüm operatörü hileli tekliflere itiraz etmeye (ve bunu yaparken ödül kazanmaya) katılabilir. Katılmakla ilgileniyorsanız [pDAO İtiraz Süreci](./pdao#i̇tiraz-süreci) hakkında okumaktan çekinmeyin. Oy gecikmesi süresinin sonunda bir itirazda yenilmeyen bir teklif oylama aşamalarına girecektir.
 
 ::: tip NOT
 `proposal.vote.delay.time` sona erdiğinde, teklife artık itiraz edilemez veya yenilmez.
@@ -102,7 +102,7 @@ rocketpool pdao proposals execute
 
 Yürütmek için bir teklif seçmeniz istenecektir, bu adımdan sonra teklif protokole uygulanacaktır!
 
-Teklif oylama dönemlerini geçtikten sonra, teklif sahibi kilitli RPL tahvilini [talep edebilir](./participate#claiming-bonds-and-rewards), teklif bir itirazla yenilmedikçe veya veto edilmedikçe.
+Teklif oylama dönemlerini geçtikten sonra, teklif sahibi kilitli RPL tahvilini [talep edebilir](./participate#tahvilleri-ve-ödülleri-talep-etme), teklif bir itirazla yenilmedikçe veya veto edilmedikçe.
 
 ::: tip NOT
 Bir teklifin yürütülebileceği bir `proposal.execute.time` penceresi vardır. Bu zamanlayıcı sonuna ulaşırsa bir teklif sona erecektir.
@@ -118,7 +118,7 @@ Herhangi bir düğüm, tekliflerin doğruluğunu izlemeye ve doğrulamaya katıl
 
 <img src={proposal_checker} width="100%" height="auto" />
 
-Bu ayar etkinleştirildiğinde, düğüm yeni teklifleri kontrol edecek, doğruluklarını doğrulayacak ve geçersiz tekliflere itirazlar sunacaktır. Tek ön koşul, [RPL Kilitlemenin](./participate#allowing-rpl-locking) etkinleştirilmiş olmasıdır.
+Bu ayar etkinleştirildiğinde, düğüm yeni teklifleri kontrol edecek, doğruluklarını doğrulayacak ve geçersiz tekliflere itirazlar sunacaktır. Tek ön koşul, [RPL Kilitlemenin](./participate#rpl-kilitlemeye-i̇zin-verme) etkinleştirilmiş olmasıdır.
 
 Bu kontrol, birkaç diğer düğümle ilgili görevle birlikte her 5 dakikada bir çalışır. Hileli bir teklife itiraz etmenin nasıl göründüğüne dair bir örnek üzerinden geçeceğiz. İlerlemeyi izlemek için smartnode komutu `rocketpool service logs node` kullanabiliriz:
 
@@ -167,6 +167,6 @@ Teklif sahibinin oylama bilgisi yanlış olduğu için (`proposal.challenge.peri
 Teklifin yenilgisine katılan itiraz edenler, yanlış olduğu kanıtlanan bir indeks gönderirlerse teklif sahibinin tahvilinin orantılı bir miktarını alırlar. Diğer tüm itiraz edenler yalnızca tahvillerini geri alırlar.
 :::
 
-Artık teklif yenildiğine göre, düğümümüz (itiraz eden) hileli bir teklifi yendiği için ödül olarak orijinal RPL tahvilini ve teklif sahibinin RPL tahvilini [talep edebilir](./participate#claiming-bonds-and-rewards).
+Artık teklif yenildiğine göre, düğümümüz (itiraz eden) hileli bir teklifi yendiği için ödül olarak orijinal RPL tahvilini ve teklif sahibinin RPL tahvilini [talep edebilir](./participate#tahvilleri-ve-ödülleri-talep-etme).
 
 pDAO teklif ve itiraz sisteminin ayrıntılarını incelemekle ilgileniyorsanız, [teknik özelliklere](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#draft-protocol-dao-proposal-challenge-system-specification) bir göz atın. Düşük seviye ayrıntılara giden bir örneği incelemekle ilgileniyorsanız [itiraz süreci](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#challenge-process) hakkındaki bu bölüme atlamaktan çekinmeyin.

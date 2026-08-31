@@ -28,7 +28,7 @@ Discordの[#governance](https://discordapp.com/channels/405159462932971535/77449
 
 ## 前提条件
 
-続行する前に、[提案のライフサイクル](/ja/legacy/houston/pdao#lifecycle-of-a-pdao-proposal)をお読みください。すべての投票期間の違いと各期間中に実行できるアクションについて説明しています。
+続行する前に、[提案のライフサイクル](/ja/legacy/houston/pdao#pdao提案のライフサイクル)をお読みください。すべての投票期間の違いと各期間中に実行できるアクションについて説明しています。
 
 このページの残りの部分では、オンチェーンpDAO提案への参加に必要な手順を説明します。
 
@@ -64,7 +64,7 @@ rocketpool pdao initialize-voting
 ```
 
 - `direct`と回答すると、投票権がノードに初期化され、Protocol DAO提案に直接投票できるようになります。
-- `delegate`と回答すると、初期化と[デリゲートの設定](/ja/legacy/houston/participate#delegating-voting-power)を同じトランザクション内で行うことで、ガス代を少し節約できます。
+- `delegate`と回答すると、初期化と[デリゲートの設定](/ja/legacy/houston/participate#投票権の委任)を同じトランザクション内で行うことで、ガス代を少し節約できます。
 
 これは一度だけ行う必要があります。ノードの初期スナップショット情報を設定します。投票を初期化した後、
 実行されるすべてのアクションがノードのスナップショット情報を更新します。投票権が初期化されたら、次のsmartnodeコマンドを使用して投票権を確認できます:
@@ -194,13 +194,13 @@ rocketpool pdao set-voting-delegate `address`
 
 提案を行う資格を得るには、ノードはいくつかの要件を満たす必要があります:
 
-- スナップショットに含まれている([投票の初期化](/ja/legacy/houston/participate#initializing-voting)またはHouston後の登録による)
+- スナップショットに含まれている([投票の初期化](/ja/legacy/houston/participate#投票の初期化)またはHouston後の登録による)
 - 少なくとも1つのミニプールを持っている
 - 非ゼロの投票権を持っている
-- [RPLロック](/ja/legacy/houston/participate#allowing-rpl-locking)を許可している
+- [RPLロック](/ja/legacy/houston/participate#rplロックの許可)を許可している
 - 提案ボンドより大きいRPLステーク(既にロックされたRPLを差し引いたもの)を持っている
 
-提案はパラメータを変更し、プロトコルレベルでコードを実行するために存在します! 提案がオンチェーンで作成される前に、[ガバナンス](/ja/legacy/houston/participate#governance-process)プロセスを通じて議論とコンセンサスが必要です。
+提案はパラメータを変更し、プロトコルレベルでコードを実行するために存在します! 提案がオンチェーンで作成される前に、[ガバナンス](/ja/legacy/houston/participate#ガバナンスプロセス)プロセスを通じて議論とコンセンサスが必要です。
 
 `rocketpool pdao propose`コマンドを使用してオプションメニューを表示します
 
@@ -235,7 +235,7 @@ Please enter the member's address:
 Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council? [y/n]
 ```
 
-これがブロックに含まれた後、pDAO提案が作成されます! 提案は作成時に[投票遅延期間](/ja/legacy/houston/pdao#vote-delay-period)に入ります。
+これがブロックに含まれた後、pDAO提案が作成されます! 提案は作成時に[投票遅延期間](/ja/legacy/houston/pdao#投票遅延期間)に入ります。
 
 ## 提案の状態の表示
 
@@ -273,8 +273,8 @@ Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B
       ```
 
       ここで、提案`invite test-member`のIDが71であり、保留中の状態であることがわかります。この状態では、
-      [異議申立人](/ja/legacy/houston/pdao#challenge-process)が提案者によって提供されたmerkle pollard(投票権の計算に使用)の有効性に異議を唱えることができます。`proposal.vote.delay.time`が終了すると、
-      提案はアクティブな投票フェーズに移行します。復習として、[提案のライフサイクル](/ja/legacy/houston/pdao#lifecycle-of-a-pdao-proposal)を自由にレビューしてください。
+      [異議申立人](/ja/legacy/houston/pdao#チャレンジプロセス)が提案者によって提供されたmerkle pollard(投票権の計算に使用)の有効性に異議を唱えることができます。`proposal.vote.delay.time`が終了すると、
+      提案はアクティブな投票フェーズに移行します。復習として、[提案のライフサイクル](/ja/legacy/houston/pdao#pdao提案のライフサイクル)を自由にレビューしてください。
     </Tab>
     <Tab label="提案の詳細の表示">
       提案IDを取得したので、次のコマンドを使用して提案の状態を表示できます:

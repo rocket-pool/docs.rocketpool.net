@@ -14,7 +14,7 @@ Una solicitud común de los usuarios es la capacidad de conectar un cliente Vali
 
 Esencialmente, esto actúa como una especie de **modo "Híbrido Inverso"**; en lugar de que el Smartnode gestione su propio cliente Validador y se conecte a un cliente de Ejecución y Consenso externo, gestiona las tres cosas y un cliente Validador externo puede usar sus propios clientes en su lugar.
 
-Habilitarlo es trivial usando el [Gestor de Configuración](./config-docker#configuring-via-the-settings-manager).
+Habilitarlo es trivial usando el [Gestor de Configuración](./config-docker#configuración-a-través-del-administrador-de-configuración).
 
 ### Cliente de Ejecución
 
@@ -120,9 +120,9 @@ Para más información sobre cómo funcionan los overrides de `docker-compose`, 
 El daemon del nodo sirve una API HTTP (puerto por defecto **8280**) utilizada por la CLI local de `rocketpool` y por herramientas personalizadas.
 Configúrala en `rocketpool service config` dentro de la categoría **API**. El modo Nativo usa la misma categoría.
 
-| Configuración | Propósito |
-|---|---|
-| **API Port** | Puerto de escucha. Por defecto `8280`. |
+| Configuración       | Propósito                                                                                                                                                                                               |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **API Port**        | Puerto de escucha. Por defecto `8280`.                                                                                                                                                                  |
 | **Expose API Port** | **Closed** — no se publica; la CLI del host no puede alcanzar la API en Docker. **Open to Localhost** (por defecto) — `127.0.0.1:8280`. **Open to External hosts** — publicado en todas las interfaces. |
 
 Cambiar estas configuraciones requiere reiniciar el contenedor del nodo. El Gestor de Configuración te lo indicará.
@@ -145,12 +145,12 @@ Authorization: Bearer <token>
 Los tokens en la query string se ignoran. La CLI de `rocketpool` en esta máquina carga el token de escritura desde el directorio de datos y lo envía automáticamente.
 Si la CLI devuelve `unauthorized`, apunta `-c` al mismo directorio de configuración que está usando el daemon, o copia el `data/api-tokens.json` de esa instalación.
 
-| Configuración | Propósito |
-|---|---|
-| **API Token** | Secreto con alcance de escritura. El formato es `rpsn_` seguido de 64 caracteres hexadecimales. Trátalo como una contraseña. Vaciar el campo y guardar lo regenera. Se almacena en `api-tokens.json`, no en `user-settings.yml`. |
-| **API Token Comment** | Etiqueta no secreta almacenada junto al token. Por defecto `rocketpool CLI`. |
+| Configuración             | Propósito                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **API Token**             | Secreto con alcance de escritura. El formato es `rpsn_` seguido de 64 caracteres hexadecimales. Trátalo como una contraseña. Vaciar el campo y guardar lo regenera. Se almacena en `api-tokens.json`, no en `user-settings.yml`.                                                                                                                                                                                                                |
+| **API Token Comment**     | Etiqueta no secreta almacenada junto al token. Por defecto `rocketpool CLI`.                                                                                                                                                                                                                                                                                                                                                                    |
 | **Unauthenticated Reads** | Política del servidor, no un privilegio por token. El valor por defecto es **Require a token for read routes**: todas las rutas excepto `/healthz` necesitan un token bearer válido. Elegir **Allow unauthenticated reads** permite que el estado, los balances y las estimaciones `can-*` se ejecuten sin token. Las operaciones de wallet, las transacciones y otras rutas de escritura siguen necesitando un token con alcance de escritura. |
-| **API Rate Limit** | Máximo de solicitudes por segundo. `0` desactiva el límite (este es el valor por defecto). La ráfaga equivale a un segundo de cuota. Al superar el límite, la API devuelve HTTP 429 con `Retry-After: 1`. |
+| **API Rate Limit**        | Máximo de solicitudes por segundo. `0` desactiva el límite (este es el valor por defecto). La ráfaga equivale a un segundo de cuota. Al superar el límite, la API devuelve HTTP 429 con `Retry-After: 1`.                                                                                                                                                                                                                                       |
 
 `/healthz` nunca requiere token.
 
@@ -230,30 +230,29 @@ curl -s -X POST \
 }
 ```
 
-| Estado | Cuerpo | Cuándo |
-|---|---|---|
-| 401 | `{"status":"error","error":"unauthorized"}` más `WWW-Authenticate: Bearer` | Token ausente o inválido |
-| 403 | `{"status":"error","error":"forbidden"}` | Token de lectura usado en una ruta de escritura |
-| 429 | `{"status":"error","error":"too many requests"}` más `Retry-After: 1` | Límite de tasa excedido |
+| Estado | Cuerpo                                                                     | Cuándo                                          |
+| ------ | -------------------------------------------------------------------------- | ----------------------------------------------- |
+| 401    | `{"status":"error","error":"unauthorized"}` más `WWW-Authenticate: Bearer` | Token ausente o inválido                        |
+| 403    | `{"status":"error","error":"forbidden"}`                                   | Token de lectura usado en una ruta de escritura |
+| 429    | `{"status":"error","error":"too many requests"}` más `Retry-After: 1`      | Límite de tasa excedido                         |
 
 ## (Experimental) Habilitar Redes Dual-Stack (IPv4 + IPv6)
 
 Esta opción es para usuarios que ejecutan configuraciones en modo Docker con clientes gestionados localmente.
-A partir de Smart Node v1.20.2, Rocket Pool admite redes dual-stack (IPv4 + IPv6) para tus clientes Ethereum. 
+A partir de Smart Node v1.20.2, Rocket Pool admite redes dual-stack (IPv4 + IPv6) para tus clientes Ethereum.
 
 Cuando se habilita, tu cliente de consenso puede conectarse tanto a pares IPv4 como IPv6, lo que puede mejorar el descubrimiento de pares.
 Esta función también es útil si tu red está detrás de un CGNAT y tiene dificultades para conectarse con pares usando IPv4.
 
-
 ::: tip CONSEJO
-El siguiente sitio ofrece un resumen del estado del soporte IPv6 en Ethereum. 
+El siguiente sitio ofrece un resumen del estado del soporte IPv6 en Ethereum.
 
 [ipv6eth.info](https://ipv6eth.info/)
 :::
 
 ::: warning FUNCIÓN EXPERIMENTAL
-El soporte IPv6 es actualmente experimental. Si bien ha sido probado con todos los clientes de consenso compatibles, podrías encontrar problemas según tu configuración de red. 
-Si experimentas problemas, puedes deshabilitar IPv6 y reiniciar tus clientes para volver al modo solo IPv4. Si encuentras algún problema con el soporte IPv6, 
+El soporte IPv6 es actualmente experimental. Si bien ha sido probado con todos los clientes de consenso compatibles, podrías encontrar problemas según tu configuración de red.
+Si experimentas problemas, puedes deshabilitar IPv6 y reiniciar tus clientes para volver al modo solo IPv4. Si encuentras algún problema con el soporte IPv6,
 por favor repórtalo en el canal **#support** del [Discord de Rocket Pool](https://discord.gg/rocketpool).
 
 :::
@@ -269,40 +268,41 @@ Cuando habilitas el soporte IPv6:
 
 Los diferentes clientes de consenso manejan IPv6 con distintos niveles de soporte:
 
-| Cliente | Escucha IPv6 | Transmisión IPv6 (ENR) | Comportamiento de Peering | Notas |
-|---------|--------------|------------------------|--------------------------|-------|
-| **Teku** | Completo | Completo | Prioriza IPv6 | Prefiere conexiones IPv6 cuando están disponibles. Usa un puerto IPv6 dedicado (por defecto: 9090). |
-| **Lighthouse** | Completo | Completo | Sin preferencia | Se conecta a la dirección (IPv4 o IPv6) que responde primero. Típicamente ve ~1-2% de pares IPv6. |
-| **Lodestar** | Completo | Completo | Prioriza IPv4 | Escucha y transmite en IPv4 e IPv6, pero solo se conecta por IPv6 si el otro nodo tiene IPv4 deshabilitado. |
-| **Nimbus** | Completo | Solo IPv4* | Principalmente IPv4 | Puede aceptar conexiones IPv6 entrantes, pero solo transmite IPv4 en el ENR. |
-| **Prysm** | Completo | Solo IPv4* | Principalmente IPv4 | Puede aceptar conexiones IPv6 entrantes, pero solo transmite IPv4 en el ENR. |
+| Cliente        | Escucha IPv6 | Transmisión IPv6 (ENR) | Comportamiento de Peering | Notas                                                                                                       |
+| -------------- | ------------ | ---------------------- | ------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| **Teku**       | Completo     | Completo               | Prioriza IPv6             | Prefiere conexiones IPv6 cuando están disponibles. Usa un puerto IPv6 dedicado (por defecto: 9090).         |
+| **Lighthouse** | Completo     | Completo               | Sin preferencia           | Se conecta a la dirección (IPv4 o IPv6) que responde primero. Típicamente ve ~1-2% de pares IPv6.           |
+| **Lodestar**   | Completo     | Completo               | Prioriza IPv4             | Escucha y transmite en IPv4 e IPv6, pero solo se conecta por IPv6 si el otro nodo tiene IPv4 deshabilitado. |
+| **Nimbus**     | Completo     | Solo IPv4\*            | Principalmente IPv4       | Puede aceptar conexiones IPv6 entrantes, pero solo transmite IPv4 en el ENR.                                |
+| **Prysm**      | Completo     | Solo IPv4\*            | Principalmente IPv4       | Puede aceptar conexiones IPv6 entrantes, pero solo transmite IPv4 en el ENR.                                |
 
 \* Por defecto, transmite la dirección IPv4. En hosts solo IPv6, transmitirá IPv6 en su lugar.
-
 
 ### Requisitos Previos
 
 Antes de habilitar IPv6, asegúrate de que:
 
 1. Tu ISP/proveedor te proporciona conectividad IPv6 - Prueba esto con [ipv6test.google.com/](https://ipv6test.google.com/)
-o ejecutando este comando en tu CLI: `curl -6 https://icanhazip.com`. Si el comando devuelve una dirección IPv6 en este formato: `xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx`, estás listo.
+   o ejecutando este comando en tu CLI: `curl -6 https://icanhazip.com`. Si el comando devuelve una dirección IPv6 en este formato: `xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx`, estás listo.
 2. Tu firewall permite el tráfico IPv6 en el puerto P2P del cliente de consenso. El puerto P2P predeterminado es `9001`. Teku requiere un puerto dedicado adicional
-para IPv6. El puerto IPv6 P2P predeterminado de Teku es `9090`. 
+   para IPv6. El puerto IPv6 P2P predeterminado de Teku es `9090`.
 3. Estás usando clientes gestionados localmente en modo Docker (no clientes gestionados externamente)
 
 ### Cómo Habilitar IPv6
 
-
 Para habilitar IPv6, ve a la categoría Smart Node y TX Fees
 y marca la casilla **Enable IPv6**, luego guarda y reinicia el stack del Smart Node.
+
 <img src={tui_enable_ipv6} width="100%" height="auto" />
 
 ::: warning NOTA
 Si habilitas IPv6 pero no tienes una dirección IPv6 pública, el Smart Node mostrará una advertencia al inicio:
+
 ```
 Warning: IPv6 is enabled but no public IPv6 address was detected.
 Your node will not be reachable by IPv6 peers.
 ```
+
 Tu nodo continuará funcionando normalmente usando IPv4.
 :::
 

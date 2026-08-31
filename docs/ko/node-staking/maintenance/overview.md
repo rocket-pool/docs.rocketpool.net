@@ -16,7 +16,7 @@ Smartnode를 구성하기 전에 다음을 확인하십시오.
 - Smartnode를 [설치](../installing/overview)하고 [구성](../config/overview)했습니다
 - Smartnode에 노드 지갑이 로드되어 있습니다
 - Execution 및 Consensus 클라이언트를 동기화했습니다
-- 노드에 [출금 주소](../prepare-node.mdx#setting-your-withdrawal-address)를 프로비저닝하고, [대체 클라이언트](../fallback)를 설정했으며(선택 사항), [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool)에 참여했고(선택 사항), [MEV](../mev.mdx)를 구성했습니다
+- 노드에 [출금 주소](../prepare-node.mdx#primary-withdrawal-address-설정하기)를 프로비저닝하고, [대체 클라이언트](../fallback)를 설정했으며(선택 사항), [Smoothing Pool](../fee-distrib-sp#smoothing-pool)에 참여했고(선택 사항), [MEV](../mev.mdx)를 구성했습니다
 - 최소 하나의 [minipool](../create-validator.mdx)을 생성했습니다
 
 ## 가이드

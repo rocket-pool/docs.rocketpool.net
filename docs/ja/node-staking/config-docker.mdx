@@ -120,9 +120,11 @@ Executionクライアントを管理するために使用するモードを選�
       各オプションの説明については、[ETHクライアントの選択](/ja/node-staking/eth-clients#execution-clients)セクションを参照してください。
       選択したら、以下の適切なタブをクリックして設定方法を学んでください。
 
-      **Geth**、**Besu**、または**Nethermind**を選択した場合、ウィザードがすべての設定を処理します。
+      **Geth**、**Besu**、**Nethermind**、**Reth**、または**Erigon**を選択した場合、ウィザードがすべての設定を処理します。
       このプロセスの最後にいくつかのパラメータを手動で調整できますが、使用されるデフォルト値はノード操作に完全に適しています。
       次のセクションに進むことができます。
+
+      **Erigon**を選択した場合は、P2Pポート**30303**に加えて**Torrent Port**(デフォルト**42069**、TCPおよびUDP)も転送してください。これによりスナップショット同期とピア接続が機能します。その他の設定については、ウィザードが引き続き適切なデフォルト値を使用します。
 
 
       <p className="rspress-directive warning">
@@ -181,7 +183,7 @@ Executionクライアントの準備ができたので、次のタスクはConse
 
       ネットワーク全体の健全性と多様性のために**推奨される選択肢**は、**Random (Recommended)**選択肢です。これは、サポートされている4つのConsensusクライアントの中からランダムに1つを選択します。
 
-      明示的にクライアントを選択したい場合は、[ETHクライアントの選択](./eth-clients#eth2-clients)セクションを参照して、各オプションの説明を読んで、十分な情報に基づいた決定を下してください。
+      明示的にクライアントを選択したい場合は、[ETHクライアントの選択](./eth-clients#consensus-clients)セクションを参照して、各オプションの説明を読んで、十分な情報に基づいた決定を下してください。
 
 
       <p className="rspress-directive warning">
@@ -222,7 +224,7 @@ Executionクライアントの準備ができたので、次のタスクはConse
 
             REST APIへのアクセスを提供する任意のBeacon NodeのURLをここに入力できます。
 
-            使用したい場合は、[以下のCheckpoint Syncingに関するセクション](#beacon-chain-checkpoint-syncing)をご覧ください。
+            使用したい場合は、[以下のCheckpoint Syncingに関するセクション](#beacon-chainチェックポイント同期)をご覧ください。
 
             最後の質問は、Doppelgänger Protectionを有効にするかどうかを尋ねます。
 
@@ -269,7 +271,7 @@ Executionクライアントの準備ができたので、次のタスクはConse
 
             REST APIへのアクセスを提供する任意のBeacon NodeのURLをここに入力できます。
 
-            使用したい場合は、[以下のCheckpoint Syncingに関するセクション](#beacon-chain-checkpoint-syncing)をご覧ください。
+            使用したい場合は、[以下のCheckpoint Syncingに関するセクション](#beacon-chainチェックポイント同期)をご覧ください。
 
             最後の質問は、Doppelgänger Protectionを有効にするかどうかを尋ねます。
 
@@ -313,7 +315,7 @@ Executionクライアントの準備ができたので、次のタスクはConse
 
             REST APIへのアクセスを提供する任意のBeacon NodeのURLをここに入力できます。
 
-            使用したい場合は、[以下のCheckpoint Syncingに関するセクション](#beacon-chain-checkpoint-syncing)をご覧ください。
+            使用したい場合は、[以下のCheckpoint Syncingに関するセクション](#beacon-chainチェックポイント同期)をご覧ください。
 
             最後の質問は、Doppelgänger Protectionを有効にするかどうかを尋ねます。
 
@@ -357,7 +359,7 @@ Executionクライアントの準備ができたので、次のタスクはConse
 
             REST APIへのアクセスを提供する任意のBeacon NodeのURLをここに入力できます。
 
-            使用したい場合は、[以下のCheckpoint Syncingに関するセクション](#beacon-chain-checkpoint-syncing)をご覧ください。
+            使用したい場合は、[以下のCheckpoint Syncingに関するセクション](#beacon-chainチェックポイント同期)をご覧ください。
           </Tab>
           <Tab label="Lodestar">
             Lodestarの設定の最初のオプションは、バリデータの**graffiti**メッセージについて尋ねます。
@@ -381,7 +383,7 @@ Executionクライアントの準備ができたので、次のタスクはConse
 
             REST APIへのアクセスを提供する任意のBeacon NodeのURLをここに入力できます。
 
-            使用したい場合は、[以下のCheckpoint Syncingに関するセクション](#beacon-chain-checkpoint-syncing)をご覧ください。
+            使用したい場合は、[以下のCheckpoint Syncingに関するセクション](#beacon-chainチェックポイント同期)をご覧ください。
 
             最後の質問は、Doppelgänger Protectionを有効にするかどうかを尋ねます。
 

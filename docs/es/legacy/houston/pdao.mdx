@@ -33,7 +33,7 @@ Para mayor detalle y justificación, consulta [tipos de propuestas](https://rpip
 
 ## Ciclo de vida de una propuesta del pDAO
 
-Una propuesta debe ser prevista por el [proceso de gobernanza](../houston/participate#governance-process) antes de terminar on-chain. Consiste en 4 Períodos, todos los cuales son [parámetros controlables](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table) del pDAO:
+Una propuesta debe ser prevista por el [proceso de gobernanza](../houston/participate#proceso-de-gobernanza) antes de terminar on-chain. Consiste en 4 Períodos, todos los cuales son [parámetros controlables](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table) del pDAO:
 
 - Período de Demora de Voto: `proposal.vote.delay.time`
 - Fase de Voto 1: `proposal.vote.phase1.time`
@@ -51,7 +51,7 @@ Algunas razones por las que se requiere que los proponentes y desafiadores bloqu
 - `proposal.bond` incentiva propuestas válidas y desincentiva el spam.
 - `proposal.challenge.bond` incentiva la eliminación de propuestas inválidas/maliciosas.
 
-Los desafiadores proporcionan un índice en el árbol Merkle-sum que están alegando que es incorrecto. Cualquier operador de nodo puede participar en desafiar propuestas fraudulentas (y ganar una recompensa al hacerlo). Siéntete libre de leer sobre el [Proceso de Desafío del pDAO](../houston/pdao#challenge-process) si estás interesado en optar por participar. Una propuesta que no sea derrotada en un desafío al final del período de demora de voto entrará en las etapas de votación.
+Los desafiadores proporcionan un índice en el árbol Merkle-sum que están alegando que es incorrecto. Cualquier operador de nodo puede participar en desafiar propuestas fraudulentas (y ganar una recompensa al hacerlo). Siéntete libre de leer sobre el [Proceso de Desafío del pDAO](../houston/pdao#proceso-de-desafío) si estás interesado en optar por participar. Una propuesta que no sea derrotada en un desafío al final del período de demora de voto entrará en las etapas de votación.
 
 ::: tip NOTA
 Cuando `proposal.vote.delay.time` expira, la propuesta ya no puede ser desafiada o derrotada.
@@ -102,7 +102,7 @@ rocketpool pdao proposals execute
 
 Se te pedirá que selecciones una propuesta para ejecutar, ¡la propuesta se aplicará al protocolo después de este paso!
 
-Después de que la propuesta haya pasado los períodos de votación, el proponente puede [reclamar](../houston/participate#claiming-bonds-and-rewards) su bono de RPL bloqueado, a menos que la propuesta haya sido derrotada por un desafío o vetada.
+Después de que la propuesta haya pasado los períodos de votación, el proponente puede [reclamar](../houston/participate#reclamar-bonos-y-recompensas) su bono de RPL bloqueado, a menos que la propuesta haya sido derrotada por un desafío o vetada.
 
 ::: tip NOTA
 Hay una ventana `proposal.execute.time` donde se puede ejecutar una propuesta. Una propuesta expirará si este temporizador llega a su fin.
@@ -118,7 +118,7 @@ Cualquier nodo puede participar en el seguimiento y verificación de la correcci
 
 <img src={proposal_checker} width="100%" height="auto" />
 
-Cuando esta configuración está habilitada, el nodo verificará nuevas propuestas, verificará su corrección y enviará desafíos a propuestas inválidas. El único requisito previo es que el [Bloqueo de RPL](../houston/participate#allowing-rpl-locking) esté habilitado.
+Cuando esta configuración está habilitada, el nodo verificará nuevas propuestas, verificará su corrección y enviará desafíos a propuestas inválidas. El único requisito previo es que el [Bloqueo de RPL](../houston/participate#permitir-el-bloqueo-de-rpl) esté habilitado.
 
 Esta verificación se ejecuta cada 5 minutos junto con algunas otras tareas relacionadas con el nodo. Veamos un ejemplo de cómo se ve desafiar una propuesta fraudulenta. Podemos usar el comando de smartnode `rocketpool service logs node` para monitorear el progreso:
 
@@ -167,6 +167,6 @@ Dado que la información de votación del proponente es incorrecta, no podrá re
 Los desafiadores que participan en derrotar la propuesta reciben una cantidad proporcional del bono del proponente si envían un índice que se demuestra que es incorrecto. Todos los demás desafiadores reciben solo su bono de vuelta.
 :::
 
-Ahora que la propuesta es derrotada, nuestro nodo (el desafiador) puede [reclamar](../houston/participate#claiming-bonds-and-rewards) su bono de RPL original así como el bono de RPL del proponente como recompensa por derrotar una propuesta fraudulenta.
+Ahora que la propuesta es derrotada, nuestro nodo (el desafiador) puede [reclamar](../houston/participate#reclamar-bonos-y-recompensas) su bono de RPL original así como el bono de RPL del proponente como recompensa por derrotar una propuesta fraudulenta.
 
 Si tienes curiosidad por profundizar en los detalles del sistema de propuestas y desafíos del pDAO, consulta las [especificaciones técnicas](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#draft-protocol-dao-proposal-challenge-system-specification). Siéntete libre de saltar a esta sección sobre el [proceso de desafío](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#challenge-process) si estás interesado en estudiar un ejemplo que entra en detalles de bajo nivel.

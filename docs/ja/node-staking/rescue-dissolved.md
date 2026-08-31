@@ -9,13 +9,13 @@ ETHを取り戻し、RPLをアンロックしてアンステークできるよ�
 このプロセスを実行する際には、最新のminipool delegateを使用することを強くお勧めします。古いdelegateには
 クローズ時に`selfdestruct`操作が含まれており、指定された順序でプロセスが正しく完了しない場合、
 資金が永久にロックされる可能性があります。minipoolが最新のdelegateにあるかどうかを確認するには、
-[Delegateのアップグレード](./minipools/delegates#upgrading-your-delegate)を試してください。アップグレード可能な
+[Delegateのアップグレード](./minipools/delegates#delegateのアップグレード)を試してください。アップグレード可能な
 minipoolのリストにminipoolが表示されない場合は、以下に進むことができます。
 
 ## 未使用のDeposit Balanceの取得
 
 ::: tip 注記
-minipoolがAtlas以前に解消された場合は、このステップをスキップして[Beaconchain Balanceを32 ETHに増やす](#increase-your-beaconchain-balance-to-32-eth)に直接進むことができます。
+minipoolがAtlas以前に解消された場合は、このステップをスキップして[Beaconchain Balanceを32 ETHに増やす](#beaconchain-balanceを32-ethに増やす)に直接進むことができます。
 未使用のdeposit balanceを取得する必要はありません。なぜなら、Atlas以前には全体のbond金額がbeaconchainに
 デポジットされていたためです。
 :::
@@ -25,7 +25,7 @@ withdrawal credentialsを保護するためのbeaconchainへの初期デポジ�
 deposit poolからETHが割り当てられたときにminipoolにデポジットされます。
 
 minipoolが解消されると、ユーザーETHはdeposit poolに返され、ETHはminipoolに残り、
-返却の準備ができています。報酬の[手動配分](./skimming#manual-distribution)機能を使用して、この
+返却の準備ができています。報酬の[手動配分](./skimming#手動分配)機能を使用して、この
 ETHを取得し、次のステップでvalidatorをアクティブ化するために使用できます。
 
 ## Beaconchain Balanceを32 ETHに増やす
@@ -80,7 +80,7 @@ validatorキーをロードして検証義務を実行できるように、valid
 ### Validatorの終了
 
 validatorが最低256 epochs間アクティブになったら、他のminipoolと同じプロセスで、
-[Validatorの終了](./withdraw#exiting-your-validator)ガイドに従ってminipoolを終了できます。
+[Validatorの終了](./withdraw#バリデータの終了)ガイドに従ってminipoolを終了できます。
 
 全32 ETH残高がminipoolに返され、解消されたminipoolは残高の100%を
 Node Operatorのwithdrawal addressに配分します。

@@ -1,15 +1,26 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Merge Öncesi Geçmişi Sona Erdirme
+# Execution İstemcisi Geçmiş Sona Erdirme
 
-Tüm Execution istemcileri artık [EIP-4444](https://eips.ethereum.org/EIPS/eip-4444) uyarınca kısmi geçmiş sona erdirmeyi desteklemektedir. Kullanıcılar Smartnode sürüm `v1.17.0` ile başlayarak merge öncesi blok geçmişini kaldırarak node'ları için depolama gereksinimlerini önemli ölçüde azaltabilir. Kısmi geçmiş sona erdirme hakkında daha fazla bilgi edinmek için bu blog yazısını inceleyebilirsiniz: https://blog.ethereum.org/2025/07/08/partial-history-exp
+Execution istemcileri, zincir verilerinin yönetilebilir bir boyutta kalması için eski blok gövdelerini ve makbuzlarını atabilir. Bunu Smartnode'un **Pruning Mode** ayarı (Execution Client → Pruning Mode) denetler.
+
+**Rolling History Expiry** varsayılan seçenektir. Nethermind, Besu, Reth ve Erigon, yaklaşık bir yıldan eski gövdeleri ve makbuzları atar. Geth bu modu henüz uygulamamaktadır ve bunun yerine Prague öncesi geçmiş sona erdirmeyi kullanır.
+
+Diğer seçenekler:
+
+- **History Expiry** — yalnızca _merge öncesi_ gövdeleri ve makbuzları atar (kısmi [EIP-4444](https://eips.ethereum.org/EIPS/eip-4444) sona erdirme). Erigon yalnızca merge öncesi sona erdirmeyi desteklemez.
+- **Full node** — gövdeler ve makbuzlar dahil olmak üzere olağan tam node verilerini saklar. Erigon'un tam node modu makbuzları saklar.
+- **Archive** — geçmişi ve geçmiş durumu saklar (bu çok daha fazla disk gerektirir).
+
+Kısmi geçmiş sona erdirmeye ilişkin bu genel bakışı okuyabilirsiniz: https://blog.ethereum.org/2025/07/08/partial-history-exp
 
 ::: tip NOT
 
-    Lütfen merge öncesi geçmişi kaldırma adımlarının node'unuzun seçili Execution istemcisine bağlı olduğunu unutmayın:
-    - Nethermind kullanıcılarının merge öncesi geçmişi kaldırmak için tam bir yeniden senkronizasyon yapması gerekecektir.
-    - Geth kullanıcıları `rocketpool service prune-eth1` komutunu kullanabilir veya tam bir yeniden senkronizasyon gerçekleştirebilir.
-    - Besu ve Reth kullanıcıları, node'ları attestation yapmaya devam ederken çevrimiçi bir budama gerçekleştirebilir.
+Yeni kurulumlar zaten Rolling History Expiry kullanmaktadır. Daha önce farklı bir Pruning Mode seçtiyseniz, TUI'de **Rolling History Expiry** seçeneğini seçin ve değişikliğin geçerli olması için Execution istemcisini **yeniden senkronize edin**.
+
+- **Nethermind, Reth ve Erigon** — modu değiştirdikten sonra yeniden senkronize edin (`rocketpool service resync-eth1`).
+- **Geth** — `rocketpool service prune-eth1` ile budayın veya yeniden senkronize edin; Geth bir yıllık kayan sona erdirme yerine hâlâ Prague öncesi sona erdirmeyi kullanır.
+- **Besu** — çevrimiçi kalır.
 
 :::
 
@@ -22,6 +33,8 @@ rocketpool service config
 ```
 
 Execution Client budama modunu değiştirmek için `Execution Client (ETH1)` menüsüne gidin ve `Pruning Mode` açılır menüsünde `History Expiry` ayarını seçin
+
+Daha fazla geçmiş saklamak için bir nedeniniz yoksa **Rolling History Expiry** seçeneğini seçin.
 
 ![](../images/tui-history-expiry.png)
 
@@ -79,7 +92,7 @@ Bu noktadan itibaren, adımlar hangi Execution istemcisini kullandığınıza ba
         ```shell
         rocketpool service prune-eth1
         ```
-        Budama hakkında daha fazla bilgi edinmek için [buraya](/tr/node-staking/pruning#starting-a-prune) tıklayabilirsiniz.
+        Budama hakkında daha fazla bilgi edinmek için [buraya](/tr/node-staking/pruning#budamayı-başlatma) tıklayabilirsiniz.
 
         Hazırsınız! Node artık merge öncesi verileri depolamayacak ve 2 TB'lık bir sürücüye bir node sığdırmanın fizibilitesini önemli ölçüde artıracaktır.
         Aşağıdaki komutu kullanarak ilerlemeyi izlemenizi öneririz.
@@ -103,11 +116,28 @@ Bu noktadan itibaren, adımlar hangi Execution istemcisini kullandığınıza ba
     <Tab label="Reth">
 
         Hazırsınız! Reth node'ları attestation ve blok önermeye devam ederken çevrimiçi bir budama gerçekleştirecektir.
+        Mainnet'te Rolling History Expiry seçiliyken Reth, ilk başlatmada resmî kayan geçmiş anlık görüntüsünü indirir.
         Node artık merge öncesi verileri depolamayacak ve 2 TB'lık bir sürücüye bir node sığdırmanın fizibilitesini önemli ölçüde artıracaktır.
         Aşağıdaki komutu kullanarak ilerlemeyi izlemenizi öneririz.
         ```shell
         rocketpool service logs eth1
          ```
+
+    </Tab>
+
+    <Tab label="Erigon">
+        Erigon node'ları Rolling History Expiry'yi uygulamak için tam bir yeniden senkronizasyon gerektirir. Pruning Mode ayarını kaydettikten ve `eth1` container'ınızı yeniden başlattıktan sonra Execution istemcinizi yeniden senkronize etmelisiniz.
+
+        Execution istemcinizi yeniden senkronize etmek için aşağıdaki komutu kullanın:
+        ```shell
+        rocketpool service resync-eth1
+        ```
+
+        Hazırsınız! Node, yaklaşık bir yıldan eski gövdeleri ve makbuzları atacaktır.
+        Yeniden senkronizasyon sırasında Rescue Node kullanmanızı ve aşağıdaki komutla ilerlemeyi izlemenizi öneririz.
+        ```shell
+        rocketpool service logs eth1
+        ```
 
     </Tab>
 

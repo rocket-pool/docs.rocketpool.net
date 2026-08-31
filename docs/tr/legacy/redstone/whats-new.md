@@ -120,7 +120,7 @@ _Yeni_ talep sistemi tüm bu sorunları çözer.
 
 Her aralıkta, Oracle DAO toplu olarak Rocket Pool ağındaki node operatörlerinin durumunun **gerçek bir anlık görüntüsünü** oluşturacak ve tüm efektif stake miktarlarını içerecektir.
 Bu bilgi bir [Merkle Ağacı](https://en.wikipedia.org/wiki/Merkle_tree)'na derlenir - tüm ayrıntıları smart contract'lara sunmanın son derece verimli bir yolu.
-Merkle Ağacı bir JSON dosyasına oluşturulur ve [InterPlanetary File System (IPFS)](https://en.wikipedia.org/wiki/InterPlanetary_File_System) üzerinde barındırılır ve Merkle Ağacının kökü sözleşmelere gönderilir.
+Merkle Ağacı bir JSON dosyasına oluşturulur ve GitHub üzerinde barındırılır ve Merkle Ağacının kökü sözleşmelere gönderilir.
 
 Bu yeni sistemin aşağıdaki özellikleri vardır:
 

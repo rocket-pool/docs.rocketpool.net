@@ -33,7 +33,7 @@ Smartnodeソフトウェアによって自動的に必要とされる正しい�
 ## v1.5.0へのアップグレード
 
 Smartnodeスタックをv1.5.0にアップグレードすることは、他のアップグレードと同じです。
-単純に[ここの通常の指示](../../node-staking/updates#updating-the-smartnode-stack)に従ってください。
+単純に[ここの通常の指示](../../node-staking/updates#smartnodeスタックの更新)に従ってください。
 
 ## アップグレード後にすべきこと
 
@@ -51,7 +51,7 @@ Smartnodeスタックをv1.5.0にアップグレードすることは、他の�
 ### バリデータークライアントで報酬受取人をセットアップする
 
 The Mergeの前にセットアップする**重要な**詳細の1つは、バリデータークライアントによって指定される**報酬受取人**です。
-[概要記事](./whats-new#fee-recipients-and-your-distributor)で説明されているように、これは次の2つの値のいずれかになります。
+[概要記事](./whats-new#fee-recipientとdistributor)で説明されているように、これは次の2つの値のいずれかになります。
 
 - Smoothing Poolに**オプトインしている**場合、これは**Smoothing Poolコントラクト**のアドレスでなければなりません。アドレスは[公式コントラクトページ](/ja/protocol/contracts-integrations)から取得できます。
 - Smoothing Poolに**参加していない**場合、これはノードの**報酬分配コントラクト**のアドレスでなければなりません。アドレスは`rocketpool node status`を実行することで、`Fee Distributor and Smoothing Pool`セクションの下で取得できます。
@@ -194,7 +194,7 @@ Smoothing Poolにオプトイン*していない*場合は、報酬分配アド�
 
       - Redstoneアップデートが展開される**前**は[rETHアドレス](/ja/protocol/contracts-integrations/#token-contracts)（例えば、Mainnetでは`0xae78736Cd615f374D3085123A210448E74Fc6393`）
       - Redstoneが展開された後、ノードの**報酬分配器**。コントラクトアップグレードが発生したら`rocketpool node status`で取得できます
-      - Smoothing Poolにオプトインした場合は[Smoothing Poolアドレス](/ja/protocol/contracts-integrations/#protocol-contracts)
+      - Smoothing Poolにオプトインした場合は[Smoothing Poolアドレス](/ja/protocol/contracts-integrations/#key-protocol-contracts)
 
       念のため、`rocketpool node status`は、いつでも使用すべき正しい報酬受取人を表示します。
 
@@ -211,7 +211,7 @@ Smoothing Poolにオプトイン*していない*場合は、報酬分配アド�
 
       - Redstoneアップデートが展開される**前**は[rETHアドレス](/ja/protocol/contracts-integrations/#token-contracts)（例えば、Mainnetでは`0xae78736Cd615f374D3085123A210448E74Fc6393`）
       - Redstoneが展開された後、ノードの**報酬分配器**。コントラクトアップグレードが発生したら`rocketpool node status`で取得できます
-      - Smoothing Poolにオプトインした場合は[Smoothing Poolアドレス](/ja/protocol/contracts-integrations/#protocol-contracts)
+      - Smoothing Poolにオプトインした場合は[Smoothing Poolアドレス](/ja/protocol/contracts-integrations/#key-protocol-contracts)
 
       念のため、`rocketpool node status`は、いつでも使用すべき正しい報酬受取人を表示します。
 
@@ -228,7 +228,7 @@ Smoothing Poolにオプトイン*していない*場合は、報酬分配アド�
 
       - Redstoneアップデートが展開される**前**は[rETHアドレス](/ja/protocol/contracts-integrations/#token-contracts)（例えば、Mainnetでは`0xae78736Cd615f374D3085123A210448E74Fc6393`）
       - Redstoneが展開された後、ノードの**報酬分配器**。コントラクトアップグレードが発生したら`rocketpool node status`で取得できます
-      - Smoothing Poolにオプトインした場合は[Smoothing Poolアドレス](/ja/protocol/contracts-integrations/#protocol-contracts)
+      - Smoothing Poolにオプトインした場合は[Smoothing Poolアドレス](/ja/protocol/contracts-integrations/#key-protocol-contracts)
 
       念のため、`rocketpool node status`は、いつでも使用すべき正しい報酬受取人を表示します。
 
@@ -245,7 +245,7 @@ Smoothing Poolにオプトイン*していない*場合は、報酬分配アド�
 
       - Redstoneアップデートが展開される**前**は[rETHアドレス](/ja/protocol/contracts-integrations/#token-contracts)（例えば、Mainnetでは`0xae78736Cd615f374D3085123A210448E74Fc6393`）
       - Redstoneが展開された後、ノードの**報酬分配器**。コントラクトアップグレードが発生したら`rocketpool node status`で取得できます
-      - Smoothing Poolにオプトインした場合は[Smoothing Poolアドレス](/ja/protocol/contracts-integrations/#protocol-contracts)
+      - Smoothing Poolにオプトインした場合は[Smoothing Poolアドレス](/ja/protocol/contracts-integrations/#key-protocol-contracts)
 
       念のため、`rocketpool node status`は、いつでも使用すべき正しい報酬受取人を表示します。
 
@@ -285,7 +285,7 @@ Smartnodeには依然としてフォールバック実行クライアント（�
 
 ### 報酬分配器の初期化
 
-[Smoothing Pool](./whats-new#smoothing-pool)にオプトインせず、すべての優先手数料とMEV報酬を[報酬分配コントラクト](./whats-new#fee-recipients-and-your-distributor)に請求する予定の場合、最終的にはそれを初期化（チェーン上にコントラクトインスタンスを作成）して、引き出しアドレスに報酬を請求する必要があります。
+[Smoothing Pool](./whats-new#smoothing-pool)にオプトインせず、すべての優先手数料とMEV報酬を[報酬分配コントラクト](./whats-new#fee-recipientとdistributor)に請求する予定の場合、最終的にはそれを初期化（チェーン上にコントラクトインスタンスを作成）して、引き出しアドレスに報酬を請求する必要があります。
 
 これは比較的安価な操作で、一度だけ行う必要があります。
 
@@ -310,7 +310,7 @@ rocketpool node join-smoothing-pool
 
 ### 報酬の請求
 
-Redstoneアップグレードは、高価で問題のある古い報酬システムを、より安価で、RPLの自動再ステーキング（部分的および全額の両方）をサポートし、最も重要なことに**いつでも報酬を請求できる**[まったく新しいシステム](./whats-new#new-rewards-system)に置き換えます。
+Redstoneアップグレードは、高価で問題のある古い報酬システムを、より安価で、RPLの自動再ステーキング（部分的および全額の両方）をサポートし、最も重要なことに**いつでも報酬を請求できる**[まったく新しいシステム](./whats-new#新しい報酬システム)に置き換えます。
 
 報酬を請求する時間制限がなくなり、多くの報酬間隔を一度に請求する方が安くなるため、Smartnodeの自動報酬請求機能は**削除されました**。
 次のコマンドを介して報酬を請求できるようになります。

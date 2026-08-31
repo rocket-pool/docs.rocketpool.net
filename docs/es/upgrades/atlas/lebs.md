@@ -13,7 +13,7 @@ Desde el lanzamiento de Rocket Pool, la comunidad ha realizado [investigación s
 Para todos los efectos prácticos, un slashing de 16 ETH se consideró poco realista y un depósito de 16 ETH efectivamente proporcionaba los mismos beneficios de seguridad que un depósito de solo 8 ETH (más el requisito suplementario de RPL).
 Así, respaldada por esta investigación, la actualización Atlas introduce un nuevo tipo de minipool a la lista: el **depósito de 8 ETH**, coloquialmente referido por la comunidad de Rocket Pool como un "LEB8" (Lower ETH Bond - 8 ETH).
 
-Para crear un minipool de 8 ETH, el operador del nodo solo necesita proporcionar **8 de sus propios ETH** (más suficiente RPL para cubrir el requisito de colateral - más sobre esto en [Colateral RPL](#rpl-collateral)).
+Para crear un minipool de 8 ETH, el operador del nodo solo necesita proporcionar **8 de sus propios ETH** (más suficiente RPL para cubrir el requisito de colateral - más sobre esto en [Colateral RPL](#colateral-rpl)).
 Luego extraerá **24 ETH** del pool de depósito para completar el validador y ponerse a trabajar en la Beacon Chain.
 
 Esto **abre la puerta a nuevos operadores de nodo prospectivos** que quieren ejecutar un nodo pero no tienen del todo 16 ETH.

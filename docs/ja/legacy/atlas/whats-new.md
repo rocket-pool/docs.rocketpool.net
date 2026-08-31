@@ -62,7 +62,7 @@ _ただし_、ソロvalidatorに対するこの新しい要件の一部として
 
 - 1つのvalidator（32 ETHボンド）を**4つのminipool**（それぞれ8 ETHボンド）に変換し、Beacon Chain上のプレゼンスを効果的に**4倍**にする能力
 - rETHステーカーによって提供されるこれらのminipoolの部分に対する手数料
-- ブロック提案とMEVからの報酬をプールし均等に配分するRocket Poolの[Smoothing Pool](../../node-staking/fee-distrib-sp#the-smoothing-pool)へのアクセス
+- ブロック提案とMEVからの報酬をプールし均等に配分するRocket Poolの[Smoothing Pool](../../node-staking/fee-distrib-sp#smoothing-pool)へのアクセス
 
 ソロvalidatorをminipoolに変換する方法の詳細については、[ソロvalidatorをminipoolに変換する](../../node-staking/solo-staker-migration)ガイドをご覧ください。
 

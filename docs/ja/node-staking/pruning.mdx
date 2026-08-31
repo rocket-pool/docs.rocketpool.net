@@ -3,8 +3,10 @@ import { Tab, Tabs } from "@rspress/core/theme";
 # Execution Clientのプルーニング
 
 ::: tip 注記
-これは`geth`と`nethermind`のユーザー向けです。
-Besuはプルーニングする必要は*ありません*。
+このページは、`geth`と`nethermind`向けの**オフライン／オンラインプルーニング**の手順です(`rocketpool service prune-eth1`)。
+
+ディスク使用量を抑える通常の方法は**Rolling History Expiry**(デフォルトのPruning Mode)です。Nethermind、Besu、Reth、Erigonは約1年より古いボディとレシートを破棄します。Gethは代わりにPrague以前の履歴削除を使用します。[Execution clientの履歴削除](./maintenance/history-expiry)を参照してください。
+
 :::
 
 主要なExecution clientとして`geth`または`nethermind`を使用している場合、ノードの空きディスク容量が時間の経過とともにゆっくりと減少していくことに気付くでしょう。
@@ -173,3 +175,25 @@ Execution clientのドキュメントを参照して、プルーニング方法�
 
   </Tabs>
 </div>
+
+## GethのPebble v2への移行
+
+**Geth**を実行していてデータベースがまだPebble v1の場合は、次のコマンドでその場で移行できます:
+
+```shell
+rocketpool service migrate-geth
+```
+
+このコマンドはGethをシャットダウンし、Pebble v1 → v2への移行を行った後、再起動します。これは`prune-eth1`とは**異なり**、コマンド名は**`migrate-geth`**です(`migrate-eth1`ではありません)。
+
+::: warning 警告
+移行中、Gethはオフラインになります。[フォールバックノード](./fallback)がない場合、移行が完了するまでアテステーションとブロック提案を逃します。
+:::
+
+プロンプトで確認するか、`--yes`を渡してスキップしてください。進行状況は次のコマンドで確認できます:
+
+```shell
+rocketpool service logs eth1
+```
+
+移行が完了するまでコンテナを中断しないでください。

@@ -7,7 +7,7 @@ next:
 # Resumen
 
 Esta sección cubre los detalles de cómo aprovisionar tu nodo para hacer staking con Rocket Pool una vez que hayas instalado y configurado el Smartnode.
-Es larga porque hay mucha información sobre staking que cubrir, ¡así que **por favor lee cada guía antes de crear tu primer minipool!**
+Es larga porque hay mucha información sobre staking que cubrir, ¡así que **por favor lee cada guía antes de crear tu primer validador megapool!**
 
 ## Prerrequisitos
 

@@ -31,7 +31,7 @@ Antes de cambiar tu cliente de Execution, vale la pena señalar los siguientes p
 El primer paso en el proceso es opcional: si lo deseas, puedes exportar tus datos de cadena existentes para tu cliente de Execution actual.
 Esto te permitirá liberar espacio de disco valioso en tu nodo para tu nuevo cliente de Execution, y puedes mantener los datos de cadena antiguos en caso de que desees volver al cliente antiguo y continuar donde lo dejaste.
 
-Consulta la guía [Respaldo de tu Nodo](./backups##respaldo-de-tus-datos-de-cadena-de-execution) para más detalles.
+Consulta la guía [Respaldo de tu Nodo](./backups#respaldo-de-tus-datos-de-cadena-de-execution) para más detalles.
 
 ### Cambiar tu Cliente de Execution Seleccionado
 
@@ -81,7 +81,7 @@ Deberías hacer esto lo antes posible después de cambiar de cliente para evitar
 
 ## Cambiar Clientes de Consensus
 
-Cambiar clientes de Consensus es incluso más fácil que los clientes de Execution, gracias al [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
+Cambiar clientes de Consensus es incluso más fácil que los clientes de Execution, gracias al [Checkpoint Sync](./config-docker#sincronización-de-punto-de-control-de-beacon-chain).
 Esta función te permite sincronizar inmediatamente un nuevo cliente de Consensus con la red, por lo que no hay necesidad de preservar tus datos de cadena antiguos.
 
 Comienza usando la interfaz de usuario `rocketpool service config` y navegando a la sección `Consensus Client (ETH2)`.
@@ -98,7 +98,7 @@ A continuación, verifica que estés usando un proveedor de Checkpoint Sync:
 
 <img src={tui_checkpoint_sync} width="100%" height="auto" />
 
-Si no tienes un proveedor de Checkpoint Sync configurado, [puedes usar fácilmente las instrucciones de aquí para hacerlo gratis](./config-docker#beacon-chain-checkpoint-syncing).
+Si no tienes un proveedor de Checkpoint Sync configurado, [puedes usar fácilmente las instrucciones de aquí para hacerlo gratis](./config-docker#sincronización-de-punto-de-control-de-beacon-chain).
 
 Cuando estés satisfecho con tu elección, presiona `Esc` para volver al menú principal, luego `Tab` para resaltar el botón `Review Changes and Save`.
 Se te presentará la pantalla de revisión, que mostrará tu cambio de selección de cliente:

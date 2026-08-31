@@ -5,7 +5,7 @@
 Tek bir solo validatör çalıştırarak, 32 ETH'niz üzerinde %100 ödül alırsınız.
 İki adet 16 ETH minipool çalıştırarak, 32 ETH'niz üzerinde %100 ödül **artı** Rocket Pool protokolü tarafından sağlanan 32 ETH üzerindeki ödüllerin %14'ünü alırsınız.
 Dört adet 8 ETH minipool çalıştırarak, 32 ETH'niz üzerinde %100 ödül **artı** Rocket Pool protokolü tarafından sağlanan 96 ETH üzerindeki ödüllerin %14'ünü alırsınız.
-Ayrıca Rocket Pool'un [Smoothing Pool](./prepare-node.mdx#smoothing-pool) özelliğini kullanma seçeneğiniz de olacaktır.
+Ayrıca Rocket Pool'un [Smoothing Pool](./fee-distrib-sp#smoothing-pool) özelliğini kullanma seçeneğiniz de olacaktır.
 
 ### rETH'imin ne kadar değerli olduğunu nasıl anlarım? Rebase yapıyor mu?
 
@@ -19,7 +19,7 @@ Bu yardımcı olmazsa, sorunuzu [Discord sunucusundaki](https://discord.gg/rocke
 
 ### Bir minipool oluşturma ve çalıştırma konusunda denemeler yapmak için test ETH'sini nasıl alabilirim? Faucet kanalına mesaj gönderemiyorum.
 
-[Hoodi'de test ETH alma](./testnet/overview#getting-test-eth-on-hoodi) bölümüne bakın.
+[Hoodi'de test ETH alma](./testnet/overview#hoodide-test-ethsi-almak) bölümüne bakın.
 
 ### Makinem bozulursa düğümümü nasıl kurtarırım?
 

@@ -24,7 +24,7 @@ Una rappresentazione visiva pratica di questo processo può essere trovata sul [
 
 ## Prerequisito
 
-Leggi il [ciclo di vita di una proposta](../houston/pdao#lifecycle-of-a-pdao-proposal) prima di procedere. Spiegherà le differenze tra tutti i periodi di voto e le azioni che possono essere intraprese durante ciascun periodo.
+Leggi il [ciclo di vita di una proposta](../houston/pdao#ciclo-di-vita-di-una-proposta-pdao) prima di procedere. Spiegherà le differenze tra tutti i periodi di voto e le azioni che possono essere intraprese durante ciascun periodo.
 
 Il resto di questa pagina ti guiderà attraverso i passaggi necessari per partecipare alle proposte on-chain del pDAO.
 
@@ -60,7 +60,7 @@ Per favore digita `direct` o `delegate` per continuare:
 ```
 
 - Se rispondi con `direct`, il potere di voto verrà inizializzato al tuo nodo e potrai votare direttamente sulle proposte del Protocol DAO.
-- Se rispondi con `delegate`, avrai l'opportunità di risparmiare un po' di gas inizializzando il voto e [impostando un delegato](../houston/participate#delegating-voting-power) all'interno della stessa transazione.
+- Se rispondi con `delegate`, avrai l'opportunità di risparmiare un po' di gas inizializzando il voto e [impostando un delegato](../houston/participate#delegare-il-potere-di-voto) all'interno della stessa transazione.
 
 Devi farlo solo una volta. Configura le informazioni dello snapshot iniziale per un nodo. Dopo aver inizializzato il voto, ogni azione intrapresa aggiornerà le informazioni dello snapshot del tuo nodo. Una volta che il tuo potere di voto è inizializzato, puoi controllare quanto ne hai usando il seguente comando smartnode:
 
@@ -189,13 +189,13 @@ Se sei un node operator con potere di voto delegato, devi votare durante la fase
 
 Per essere idoneo a proporre, un nodo deve soddisfare alcuni requisiti:
 
-- Incluso nello snapshotting (o [inizializzando il voto](../houston/participate#initializing-voting) o registrandosi post Houston)
+- Incluso nello snapshotting (o [inizializzando il voto](../houston/participate#inizializzazione-del-voto) o registrandosi post Houston)
 - Deve avere almeno un minipool
 - Ha un potere di voto diverso da zero
-- Ha consentito il [blocco di RPL](../houston/participate#allowing-rpl-locking)
+- Ha consentito il [blocco di RPL](../houston/participate#consentire-il-blocco-di-rpl)
 - Ha uno stake di RPL (meno qualsiasi RPL già bloccato) maggiore del bond della proposta
 
-Le proposte esistono per modificare parametri ed eseguire codice a livello di protocollo! Dovrebbe esserci discussione e consenso attraverso il [processo di governance](../houston/participate#governance-process) prima che una proposta venga creata on chain.
+Le proposte esistono per modificare parametri ed eseguire codice a livello di protocollo! Dovrebbe esserci discussione e consenso attraverso il [processo di governance](../houston/participate#processo-di-governance) prima che una proposta venga creata on chain.
 
 Usa il comando `rocketpool pdao propose` per visualizzare un menu di opzioni
 
@@ -267,10 +267,10 @@ A ogni proposta viene assegnato un `proposalID`. In questo caso, la nostra propo
       ```
 
       Qui possiamo vedere che la nostra proposta `invite test-member` ha un ID di 71 ed è nello stato pending. In questo stato,
-      i [challengers](/it/legacy/houston/pdao#challenge-process) possono contestare la validità del
+      i [challengers](/it/legacy/houston/pdao#processo-di-sfida) possono contestare la validità del
       merkle pollard (usato per calcolare il potere di voto) fornito dal proponente. Quando `proposal.vote.delay.time` termina,
       la proposta passerà alle fasi di voto attive. Sentiti libero di rivedere il [ciclo di vita di una
-      proposta](../houston/pdao#lifecycle-of-a-pdao-proposal) per un ripasso.
+      proposta](../houston/pdao#ciclo-di-vita-di-una-proposta-pdao) per un ripasso.
     </Tab>
     <Tab label="Visualizzare i Dettagli della Proposta">
       Ora che hai l'ID della proposta, puoi visualizzare lo stato della tua proposta usando questo comando:

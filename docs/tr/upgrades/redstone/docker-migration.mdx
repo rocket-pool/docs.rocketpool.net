@@ -16,12 +16,12 @@ v1.5.0'da bunlar artık olmayacak ve tam bir Execution client seçene kadar stac
 Bu değişiklik nedeniyle, hala v1.4'teyken tam bir client'a geçmeli, senkronizasyonun tamamlanmasına izin vermeli ve ardından v1.5'e yükseltmelisiniz.
 
 Docker Mode, client'ları değiştirmeyi çok kolay hale getirir.
-[Bu kılavuz](../../node-staking/change-clients#changing-execution-clients) sürecin bir açıklamasını sağlar.
+[Bu kılavuz](../../node-staking/change-clients#execution-clientlarını-değiştirme) sürecin bir açıklamasını sağlar.
 
 ## v1.5.0'a Yükseltme
 
 Smartnode stack'ini v1.5.0'a yükseltmek, diğer yükseltmelerden farklı değildir.
-Sadece [buradaki normal talimatları izleyin](../../node-staking/updates#updating-the-smartnode-stack).
+Sadece [buradaki normal talimatları izleyin](../../node-staking/updates#smartnode-yığınını-güncelleme).
 
 ## Smartnode'un Otomatik Olarak Hallettiği Şeyler
 
@@ -46,7 +46,7 @@ Validator client'ınız ilk başladığında ona sağlanan bir ayardır.
 Smartnode, v1.5'e yükselttiğinizde bunu doğru adrese ayarlamayı halleder ve [yanlışlıkla cezalandırılmamanız](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) için doğru olanı kullandığınızdan sürekli olarak emin olacaktır.
 
 [Smoothing Pool](./whats-new#smoothing-pool)'a katıldıysanız, bunu fee recipient yapacaktır.
-Katılmadıysanız, [fee distributor sözleşmenizi](./whats-new#fee-recipients-and-your-distributor) fee recipient yapacaktır.
+Katılmadıysanız, [fee distributor sözleşmenizi](./whats-new#fee-recipientler-ve-distributorünüz) fee recipient yapacaktır.
 
 ### MEV-Boost
 
@@ -76,7 +76,7 @@ Bir yedek node kurma hakkında daha fazla bilgi için [Yedek node kılavuzuna](.
 
 ### Fee Distributor'ünüzü Başlatın
 
-[Smoothing Pool](./whats-new#smoothing-pool)'a katılmayı planlamıyorsanız ve tüm öncelik ücretlerinizi ve MEV ödüllerinizi [fee distributor sözleşmenize](./whats-new#fee-recipients-and-your-distributor) talep edecekseniz, sonunda ödülleri withdrawal adresinize talep etmek için onu başlatmanız (zincirde sözleşme örneği oluşturmanız) gerekecektir.
+[Smoothing Pool](./whats-new#smoothing-pool)'a katılmayı planlamıyorsanız ve tüm öncelik ücretlerinizi ve MEV ödüllerinizi [fee distributor sözleşmenize](./whats-new#fee-recipientler-ve-distributorünüz) talep edecekseniz, sonunda ödülleri withdrawal adresinize talep etmek için onu başlatmanız (zincirde sözleşme örneği oluşturmanız) gerekecektir.
 
 Bu oldukça ucuz bir işlemdir ve yalnızca bir kez yapılması gerekir.
 
@@ -101,7 +101,7 @@ rocketpool node join-smoothing-pool
 
 ### Ödülleri Talep Edin
 
-Redstone güncellemesi, pahalı, sorunlu eski ödül sistemini çok daha ucuz, RPL'nin (hem kısmi hem de tam miktarlar) otomatik olarak yeniden stake edilmesini destekleyen ve - en önemlisi - **ödüllerinizi istediğiniz zaman talep etmenize izin veren** [yepyeni bir sistemle](./whats-new#new-rewards-system) değiştirir.
+Redstone güncellemesi, pahalı, sorunlu eski ödül sistemini çok daha ucuz, RPL'nin (hem kısmi hem de tam miktarlar) otomatik olarak yeniden stake edilmesini destekleyen ve - en önemlisi - **ödüllerinizi istediğiniz zaman talep etmenize izin veren** [yepyeni bir sistemle](./whats-new#yeni-ödül-sistemi) değiştirir.
 
 Artık ödülleri talep etme konusunda bir zaman sınırı olmadığından ve birçok ödül aralığını aynı anda talep etmek daha ucuz olduğundan, Smartnode'un otomatik ödül talep etme özelliği **kaldırılmıştır**.
 Artık aşağıdaki komut aracılığıyla ödülleri talep edebileceksiniz:

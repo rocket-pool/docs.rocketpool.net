@@ -1,4 +1,4 @@
-# Verteilung von Skimmed-Belohnungen
+# Verteilung von Skimmed-Minipool-Belohnungen
 
 Die ETH-Belohnungen, die Sie für den Betrieb eines Validators für Ethereum erhalten, werden routinemäßig an Ihre Minipools gesendet in einem Prozess, der als "Skimming" bezeichnet wird.
 Die Häufigkeit von Skims hängt von der Anzahl der aktiven Validatoren auf der Beacon Chain ab. Zum Zeitpunkt des Schreibens liegt die Anzahl der Validatoren bei etwa 500.000, was dazu führt, dass ein Skim etwa alle 2-3 Tage auftritt.
@@ -29,7 +29,7 @@ Wenn Sie den Parameter auf 0 setzen, wird die automatische Verteilung deaktivier
 
 ::: warning WARNUNG
 Wenn Sie sich entscheiden, die automatische Verteilung zu deaktivieren, ist es wichtig, dass Sie dennoch regelmäßig eine manuelle Verteilung durchführen.
-Lesen Sie den Abschnitt [manuelle Verteilung](#manual-distribution), der folgt, um zu erfahren, wie dies funktioniert.
+Lesen Sie den Abschnitt [manuelle Verteilung](#manuelle-verteilung), der folgt, um zu erfahren, wie dies funktioniert.
 
 Nach einer langen Zeit können Ihre skimmed-Belohnungen 8 ETH überschreiten. Wenn diese Situation eintritt, können Sie sie nicht mehr verteilen und müssen Ihren Validator beenden, um auf Ihre angesammelten Belohnungen zuzugreifen.
 

@@ -18,7 +18,7 @@ As penalidades são bem pequenas; como regra geral, se um validator estiver offl
 
 Validators ganham recompensas na camada de consenso através de Atestação, Propostas de Blocos, Sync Committees (raro), e Recompensas de Slashing (extremamente raro). Eles também ganham recompensas na camada de execução através de Priority Fees e MEV.
 
-Em 10/2024, o APR geral é ~3.5%, com 2.8% sendo APR da camada de consenso, e 0.7% sendo APR da camada de execução. Um lugar para encontrar esta informação é o [rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake).
+Em 5/2026, o APR geral é ~2.634%, com 2.8% sendo APR da camada de consenso, e 0.22% sendo APR da camada de execução. Um lugar para encontrar esta informação é o [rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake).
 
 ### Penalidades
 
@@ -49,22 +49,21 @@ Como regra geral, se você estiver offline por X horas (e não estiver em um syn
 
 ## Como Funcionam os Nodes do Rocket Pool
 
-Diferente dos solo stakers, que são obrigados a depositar 32 ETH para criar um novo validator, nodes do Rocket Pool precisam apenas depositar 8 ETH por validator (chamado de "bond ETH").
-Isso será combinado com 24 ETH do staking pool (chamado de "borrowed ETH", que vem de depósitos de liquid stakers em troca de rETH) para criar um novo validator.
-Este novo validator pertence a um **minipool**.
+Ao contrário dos stakers solo, que são obrigados a depositar 32 ETH para criar um novo validador, os nós Rocket Pool precisam apenas depositar 4 ETH por validador (chamado de "bonded ETH").
+Isso será acoplado com 28 ETH do pool de staking (chamado de "borrowed ETH", que vem dos depósitos dos liquid stakers em troca de rETH) para criar um novo validador de megapool.
 
-Para a Beacon chain, um minipool parece exatamente o mesmo que um validator normal.
+Para a Beacon chain, um validador de megapool parece exatamente o mesmo que um validador normal.
 Ele tem as mesmas responsabilidades, mesmas regras que deve seguir, mesmas recompensas, e assim por diante.
-A única diferença está em como o minipool foi criado na camada de execução, e como as retiradas funcionam quando o node operator decide voluntariamente sair do minipool.
+A única diferença está em como o validador de megapool foi criado na camada de execução e como as retiradas funcionam quando o operador do nó decide sair voluntariamente do validador de megapool.
 Toda a criação, retirada e delegação de recompensas é gerenciada pelos **smart contracts** do Rocket Pool na blockchain Ethereum.
 Isso o torna completamente descentralizado.
 
 Um **Node** do Rocket Pool é um único computador com uma carteira Ethereum que foi registrada com os smart contracts do Rocket Pool.
-O node pode então criar tantos minipools quanto puder pagar, todos executando felizmente na mesma máquina juntos.
-**Um único node do Rocket Pool pode executar muitos, muitos minipools.**
-Cada minipool tem um impacto insignificante no desempenho geral do sistema; algumas pessoas conseguiram executar centenas deles em um único node.
+O node pode então criar tantos validadores de megapool quanto puder pagar, todos executando felizmente na mesma máquina juntos.
+**Um único node do Rocket Pool pode executar muitos, muitos validadores de megapool.**
+Cada validador de megapool tem um impacto insignificante no desempenho geral do sistema; algumas pessoas conseguiram executar centenas deles em um único node.
 
-O custo inicial de um minipool é 8 ETH. Além disso, um node operator pode fazer staking de RPL em seu node para se qualificar para recompensas adicionais e para ganhar poder de voto dentro do DAO do protocolo.
+O custo inicial de um validador de megapool é 4 ETH. Além disso, um node operator pode opcionalmente fazer staking de RPL em seu node para se qualificar para recompensas adicionais e para ganhar poder de voto dentro do DAO do protocolo.
 
 ## Node Operators do Rocket Pool
 
@@ -73,14 +72,14 @@ Eles são os indivíduos que executam nodes do Rocket Pool.
 
 ### Responsabilidades
 
-Eles colocam ETH do staking pool para trabalhar executando minipools com ele, que ganham recompensas de staking para o protocolo Rocket Pool (e assim, aumentam o valor do rETH).
+Eles colocam ETH do staking pool para trabalhar executando validadores de megapool com ele, que ganham recompensas de staking para o protocolo Rocket Pool (e assim, aumentam o valor do rETH).
 Seu trabalho é direto, mas crucialmente importante: _executar validators com a mais alta qualidade possível, e maximizar recompensas de staking_.
 
 Node operators são responsáveis por:
 
 - Configurar um computador (físico ou virtual)
 - Configurá-lo corretamente, incluindo sua rede doméstica se aplicável
-- Instalar o Rocket Pool nele e configurar minipools para executar validação
+- Instalar o Rocket Pool nele e configurar validadores para executar validação
 - Protegê-lo, tanto de ameaças externas quanto internas
 - Mantê-lo durante a vida de seus validators
 
@@ -92,24 +91,25 @@ Com grande responsabilidade, porém, vêm grandes recompensas.
 Aqui estão os principais benefícios de executar um node do Rocket Pool:
 
 - Você ganha sua porção das recompensas de ETH de cada validator, mais comissão.
-  - Para minipools com bond de 8 ETH sem RPL em staking, isso resulta em 30% a mais do que solo staking (`(8+24*.1)/8 = 1.3`)
-  - Fazer staking de RPL fornece comissão aumentada. Com stake de RPL avaliado em 10% ou mais do seu total de ETH emprestado, as recompensas de ETH chegam a 42% a mais do que solo staking (`(8+24*.14)/8 = 1.42`)
-  - **Nota:** se você não participar do smoothing pool, você receberá 15% a mais do que solo staking (`(8+24*.05)/8 = 1.15`) -- é altamente recomendado que usuários com minipools criados em/após 28/10/2024 participem do smoothing pool.
-- Você também ganha recompensas de emissão no RPL que você faz staking.
-  - No final de um período (a cada 28 dias), há um snapshot do seu RPL.
-  - Você pode ganhar rendimento máximo em RPL **até 15%** do valor do seu total de ETH emprestado.
-    - Você ganhará rendimento em RPL além disso, a um nível decrescente.
-  - Você obterá poder de voto baseado na raiz quadrada do seu RPL em staking.
+  - Você executa um validador com apenas 4 ETH de capital próprio, sendo os 28 ETH restantes provenientes dos liquid stakers.
+  - Cada validador de megapool ganha 5% de comissão sobre as recompensas geradas pelos 28 ETH do protocolo. Isso equivale a 35% a mais do que fazer staking solo (`(4 bonded + 28 borrowed * 0.05) / 4 = 1.35`).
+  - Ao entrar na [Smoothing Pool](fee-distrib-sp#o-smoothing-pool), você compartilha as recompensas da camada de execução (taxas de prioridade e MEV) com outros participantes, proporcionando retornos mais consistentes em vez de depender da sorte nas propostas de bloco.
+- Fazer staking de RPL gera recompensas adicionais.
+  - Os stakers de RPL ganham uma [parte da comissão do protocolo](megapools/staking-and-claiming-rewards#como-a-participação-de-votação-é-distribuída-para-stakers-de-rpl-de-megapool) (paga em ETH) proporcional ao seu RPL em staking.
+  - Você também ganha recompensas de emissão (pagas em RPL) sobre o RPL que faz staking.
+    - No final de um período (a cada 28 dias), há um snapshot do seu RPL.
+    - Você pode ganhar rendimento máximo em RPL **até 15%** do valor do seu total de ETH emprestado.
+    - Você ganhará rendimento em RPL acima de 15%, em um nível decrescente.
+  - Você obterá poder de voto com base na raiz quadrada do seu RPL em staking, até 150% do seu ETH bonded.
 
 ### Limitações
 
 Existem algumas limitações que vêm junto com as recompensas acima:
 
-- Se seu node tiver um desempenho ruim e você acabar perdendo ETH no momento em que decidir sair do seu minipool, todo o ETH perdido virá da sua parte.
-  - Por exemplo: se você sair com um saldo de 30 ETH, então seu minipool perdeu 2 ETH de seu depósito inicial de 32 ETH. Você receberá 6 ETH, e 24 ETH serão devolvidos ao staking pool.
-- Seu RPL em staking será menos líquido
-  - Você só pode retirar stake de RPL além daquele avaliado em 60% do seu ETH em bond.
-  - Você não pode retirar RPL se fez staking nos últimos 28 dias
+- Se seu node tiver um desempenho ruim e você acabar perdendo ETH no momento em que decidir sair do seu validador de megapool, todo o ETH perdido virá da sua parte.
+  - Por exemplo: se você sair com um saldo de 31 ETH, então seu validador de megapool perdeu 1 ETH do seu depósito inicial de 32 ETH. Você receberá 3 ETH, e 28 ETH serão devolvidos ao staking pool.
+- Seu RPL em staking será menos líquido:
+  - Não há limite para quanto RPL em staking de megapool você pode retirar do stake, mas você precisa esperar 28 dias após iniciar o unstaking antes da retirada. Isso impede que usuários manipulem o sistema de recompensas fazendo staking de RPL bem a tempo do período de recompensas de 28 dias e retirando-o imediatamente após o período.
 
 ### Você consegue
 

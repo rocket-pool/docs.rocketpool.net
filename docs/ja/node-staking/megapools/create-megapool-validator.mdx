@@ -8,15 +8,15 @@ megapoolは最初のバリデーターデポジット時に自動的にデプロ
 
 ::: warning 警告
 Megapoolバリデーターは Beacon Chainキューを2回クリアする必要があります。
+
 1. プレステーク（1 ETH）。デポジットプールからmegapoolバリデーターにETHが割り当てられると、Beacon Chainには1 ETHのみが送られます。この時点で、バリデーターはBeacon Chainキューに入ります。
 2. ステーク（31 ETH）。バリデーターがBeacon Chainによって処理された後、Rocket Poolプロトコルはバリデーターの引き出しクレデンシャルを検証し、残りの31 ETHをBeacon Chainにステークします。この時点で、バリデーターは2回目（最後）のBeacon Chainキューに入ります。
 
-以前のminipoolでは、[Oracle DAO（oDAO）](/ja/odao/overview#the-rocket-pool-oracle-dao)がすべてのminipoolバリデーターの引き出しクレデンシャルの検証を担当していました。この新しいシステムはキュー時間を延ばしますが、oDAOによって強制されていた信頼要件を取り除きます。
+以前のminipoolでは、[Oracle DAO（oDAO）](/ja/odao/overview#rocket-pool-oracle-dao)がすべてのminipoolバリデーターの引き出しクレデンシャルの検証を担当していました。この新しいシステムはキュー時間を延ばしますが、oDAOによって強制されていた信頼要件を取り除きます。
 
 [validatorqueue.com](https://www.validatorqueue.com/) はBeacon Chainキューの長さを監視するのに役立つツールです。minipoolのステークをmegapoolに移行する際は、この要素を考慮してください。
 
 :::
-
 
 ::: tip 注意
 
@@ -53,7 +53,7 @@ Rocket Poolのデポジットキュー内には、エクスプレスキューと
 例えば、8 ETHのレガシーminipoolを持つノードオペレーターは2枚のエクスプレスキューチケットを受け取ります。これは2つの4 ETH megapoolバリデーターにエクスプレスキューを使って完全移行するのに十分なチケット数です。
 [RPIP-59：デポジットメカニクス](https://rpips.rocketpool.net/RPIPs/RPIP-59#deposit-queue)では、デポジット処理の詳細が説明されています。
 
-[エクスプレスキューからバリデーターをデキューする](./create-megapool-validator#exit-a-validator-from-the-rocket-pool-deposit-queue)ことを選択した場合、ノードはエクスプレスキューチケットを返金されます。
+[エクスプレスキューからバリデーターをデキューする](./create-megapool-validator#rocket-poolデポジットキューからバリデーターを退出する)ことを選択した場合、ノードはエクスプレスキューチケットを返金されます。
 
 ## ETHのデポジットとバリデーターの作成
 
@@ -75,7 +75,7 @@ CLIは次のステップの多くを自動化しますが、`prelaunch`から`st
 ノードオペレーターはmegapoolへの払い戻しとして残りの3 ETH（0.05 ETHのdissolveペナルティを負債として差し引いた後）を受け取り、正味払い戻し額は2.95 ETHです。
 これは`rocketpool megapool claim`または`rocketpool claims claim-all`を使用して請求できます。
 
-[成功したステークの確認方法についてはこちら](./create-megapool-validator#confirming-a-successful-stake)
+[成功したステークの確認方法についてはこちら](./create-megapool-validator#成功したステークの確認)
 
 :::
 
@@ -100,7 +100,7 @@ Would you like to continue? [y/n]
 y
 ```
 
-次のプロンプトでは[Rocket Poolデポジットキュー](/ja/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-and-express-queue)の状況が表示されます。
+次のプロンプトでは[Rocket Poolデポジットキュー](/ja/node-staking/megapools/create-megapool-validator#rocket-poolデポジットキューとエクスプレスキュー)の状況が表示されます。
 ETHとのマッチングを待っているバリデーターの数が表示されます。エクスプレスキューは主に既存のノードオペレーター向けで、新しいノードにはエクスプレスキューチケットがありません。`The express queue rate is 4`は、標準キューの1つに対してエクスプレスキューから4つのバリデーターがマッチングされることを意味します。
 
 ```
@@ -203,7 +203,7 @@ Validator Queue Position:     14
 Express Ticket Used:          no
 ```
 
-バリデーターに[Rocket Poolデポジットキュー](/ja/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-and-express-queue)からETHが割り当てられると、`Prelaunch`状態に移行します。この時点で、megapoolの残高から1 ETHがBeacon Chainにデポジットされます。バリデーターの公開鍵もBeacon Chainに登録されるため、https://beaconcha.in/（テストネットを使用している場合はhttps://hoodi.beaconcha.in/）などのエクスプローラーで`Prelaunch`バリデーターの状態を確認できます。
+バリデーターに[Rocket Poolデポジットキュー](/ja/node-staking/megapools/create-megapool-validator#rocket-poolデポジットキューとエクスプレスキュー)からETHが割り当てられると、`Prelaunch`状態に移行します。この時点で、megapoolの残高から1 ETHがBeacon Chainにデポジットされます。バリデーターの公開鍵もBeacon Chainに登録されるため、https://beaconcha.in/（テストネットを使用している場合はhttps://hoodi.beaconcha.in/）などのエクスプローラーで`Prelaunch`バリデーターの状態を確認できます。
 公開鍵で https://beaconcha.in/ を検索するか、 `https://beaconcha.in/validator/<your-validator-pubkey>` の形式でこのリンクにアクセスしてバリデーターを確認できます。
 
 ```
@@ -219,8 +219,12 @@ Express Ticket Used:          no
 ```
 
 <img src="../images/prestaking.png" width="100%" height="auto" />
-`Prelaunch`バリデーターがBeacon Chainによって処理され、初期1 ETHデポジットがクレジットされると、ノードは自動的に`stake`トランザクションを実行して32 ETHの完全なBeacon Chainデポジットを完了します。`stake`トランザクションにより`Prelaunch`バリデーターは`Staking`バリデーターに移行します。この時点で`Staking`バリデーターは：- 32 ETHがBeacon Chainにデポジットされている
-- バリデーターインデックス番号が割り当てられている - Beacon Chainでのアクティベーションが保留中
+`Prelaunch`バリデーターがBeacon Chainによって処理され、初期1 ETHデポジットがクレジットされると、ノードは自動的に`stake`トランザクションを実行して32 ETHの完全なBeacon
+Chainデポジットを完了します。`stake`トランザクションにより`Prelaunch`バリデーターは`Staking`バリデーターに移行します。この時点で`Staking`バリデーターは：
+
+- 32 ETHがBeacon Chainにデポジットされている
+- バリデーターインデックス番号が割り当てられている
+- Beacon Chainでのアクティベーションが保留中
 
 ```
 1 Staking validator(s):

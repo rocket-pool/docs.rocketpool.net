@@ -22,8 +22,9 @@ Si, pour une raison quelconque, vous souhaitez récupérer le portefeuille mais 
 rocketpool wallet recover -k
 ```
 
-Si vous ne spécifiez pas ce drapeau, le Smartnode tentera de récupérer les clés de validateur pour vos minipools ; cependant, notez que cela ne fonctionnera pas tant que votre client d'exécution n'aura pas terminé la synchronisation.
-Veuillez surveiller son fichier journal pour voir quand c'est terminé ; une fois que c'est le cas, vous pouvez exécuter cette étape.
+Si vous ne spécifiez pas ce drapeau, le Smartnode tentera de récupérer les clés de validateur pour vos minipools ou vos validateurs de megapool. Cette étape nécessite des clients d'exécution et Beacon synchronisés.
+
+Avec `-k`, la récupération du **portefeuille uniquement** n'a pas besoin d'attendre que les clients soient synchronisés. Vous pouvez le faire pendant qu'ils se synchronisent encore.
 :::
 
 Cela vous demandera d'abord un mot de passe que vous souhaitez utiliser pour chiffrer votre portefeuille.
@@ -124,7 +125,7 @@ Le Smartnode recherchera dans ce répertoire tous les fichiers de keystore que v
 Le processus d'importation recherchera _uniquement_ les clés de validateur attachées aux minipools enregistrés à l'adresse que vous importez.
 Vous **ne pouvez pas** utiliser ce processus pour importer d'autres clés de validateur, comme pour les validateurs de staking solo, dans le client Validator géré par la pile Smartnode.
 
-Veuillez consulter la documentation pour l'exécution en [Mode Hybride Inverse](./advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode) si vous êtes intéressé par cela.
+Veuillez consulter la documentation pour l'exécution en [Mode Hybride Inverse](./advanced-config#autoriser-les-clients-validateurs-externes-à-se-connecter-au-smartnode) si vous êtes intéressé par cela.
 :::
 
 ### Étape 2 (Facultatif) : Tester l'Importation de l'Adresse

@@ -17,7 +17,7 @@ Rocket Pool'u daha fazla hizmete ve protokole entegre etmeye yardımcı olarak k
 | Hoodi\* | Depozito | [0x320f3aAB9405e38b955178BBe75c477dECBA0C27](https://hoodi.etherscan.io/address/0x320f3aAB9405e38b955178BBe75c477dECBA0C27) |
 | &nbsp;  | Depolama | [0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1](https://hoodi.etherscan.io/address/0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1) |
 
-Protokol içinde, Depolama sözleşmesi gerektiğinde diğer tüm dağıtılan sözleşme adreslerini bulmak için kullanılır (bkz [örnek](/tr/protocol/contracts-usage#interacting-with-rocket-pool)).
+Protokol içinde, Depolama sözleşmesi gerektiğinde diğer tüm dağıtılan sözleşme adreslerini bulmak için kullanılır (bkz [örnek](/tr/protocol/contracts-usage#rocket-pool-ile-etkileşim)).
 Adresler listesinin tamamı için aşağıdaki [Tüm Aktif Dağıtılan Protokol Sözleşmeleri](#all-active-deployed-protocol-contracts) bölümüne bakın.
 
 <small>\* Testnet</small>
@@ -261,4 +261,4 @@ Adresler listesinin tamamı için aşağıdaki [Tüm Aktif Dağıtılan Protokol
 
 This list was updated 09/02/2026
 
-The addresses can be queried on chain as shown in this [example](/en/protocol/contracts-usage#interacting-with-rocket-pool).
+The addresses can be queried on chain as shown in this [example](/en/protocol/contracts-usage#rocket-pool-ile-etkileşim).

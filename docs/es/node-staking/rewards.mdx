@@ -14,7 +14,7 @@ Actualmente, los puntos de control ocurren **cada 28 días**.
 En un nuevo punto de control, el Oracle DAO creará colectivamente una **instantánea verdadera** del estado de los operadores de nodo en la red de Rocket Pool, que utilizará para determinar las recompensas de RPL y ETH del Smoothing Pool para cada nodo durante ese intervalo. Ten en cuenta que la "comisión adicional" para los minipools Saturn 0 se distribuye usando las recompensas del smoothing pool (los minipools Saturn 0 son los creados después del 28/10/2024, que tienen una comisión de contrato del 5%).
 
 Esta información se compila en un [Árbol de Merkle](https://en.wikipedia.org/wiki/Merkle_tree) - una forma extremadamente eficiente de hacer que todos los detalles estén disponibles para los contratos inteligentes.
-El Árbol de Merkle se construye en un archivo JSON y se aloja en el [Sistema de Archivos InterPlanetario (IPFS)](https://en.wikipedia.org/wiki/InterPlanetary_File_System) y se refleja en [un repositorio de GitHub que mantenemos](https://github.com/rocket-pool/rewards-trees/).
+El Árbol de Merkle se construye en un archivo JSON y se aloja en [un repositorio de GitHub que mantenemos](https://github.com/rocket-pool/rewards-trees/). El Smartnode también puede cargar los **eventos** de intervalo de recompensas desde ese repositorio de GitHub, por lo que aún puedes reclamar después de que una caducidad agresiva del historial haya descartado los registros antiguos de la capa de Ejecución.
 
 Una vez que se envía el árbol, los contratos inteligentes de Rocket Pool acuñarán nuevos tokens RPL y los moverán, junto con el saldo completo de ETH del Smoothing Pool, a la bóveda de Rocket Pool para almacenamiento seguro.
 Luego puedes ver cuántas recompensas de RPL y ETH ganaste durante ese intervalo y reclamar esas recompensas.
@@ -152,7 +152,7 @@ You may claim these rewards at any time. You no longer need to claim them within
 
 ## Recompensas de Capa de Ejecución en tu Distribuidor de Tarifas
 
-Si **no** estás incluido en el Smoothing Pool, la porción de Capa de Ejecución de tus recompensas de propuestas de bloque (incluidas las tarifas de transacción y MEV) se enviará al contrato [Distribuidor de Tarifas](./fee-distrib-sp#fee-distributors-and-the-smoothing-pool) de tu nodo en su lugar.
+Si **no** estás incluido en el Smoothing Pool, la porción de Capa de Ejecución de tus recompensas de propuestas de bloque (incluidas las tarifas de transacción y MEV) se enviará al contrato [Distribuidor de Tarifas](./fee-distrib-sp#distribuidores-de-tarifas-y-el-smoothing-pool) de tu nodo en su lugar.
 
 Para verificar el saldo de tu Distribuidor de Tarifas, puedes usar un explorador de cadena como [https://etherscan.io](https://etherscan.io) o simplemente ejecutar `rocketpool node status` - habrá una sección llamada **Fee Distributor and Smoothing Pool** que lo muestra:
 

@@ -9,13 +9,13 @@ effectuer le processus ci-dessous pour récupérer votre ETH et déverrouiller v
 Il est fortement recommandé d'utiliser le dernier délégué de minipool lors de l'exécution de ce processus. Les anciens délégués contiennent
 une opération `selfdestruct` lorsqu'ils sont fermés, ce qui signifie que si le processus n'est pas terminé correctement dans
 l'ordre spécifié, les fonds peuvent être verrouillés pour toujours. Vous pouvez vérifier que votre minipool utilise le dernier délégué en tentant
-de [Mettre à Niveau votre Délégué](./minipools/delegates#upgrading-your-delegate). Si votre minipool n'apparaît pas dans la
+de [Mettre à Niveau votre Délégué](./minipools/delegates#mise-à-niveau-de-votre-delegate). Si votre minipool n'apparaît pas dans la
 liste des minipools qui peuvent être mis à niveau, vous pouvez continuer ci-dessous.
 
 ## Récupérer Votre Solde de Dépôt Non Utilisé
 
 ::: tip NOTE
-Si votre minipool a été dissous avant Atlas, vous pouvez ignorer cette étape et aller directement à [Augmenter Votre Solde Beaconchain à 32 ETH](#increase-your-beaconchain-balance-to-32-eth).
+Si votre minipool a été dissous avant Atlas, vous pouvez ignorer cette étape et aller directement à [Augmenter Votre Solde Beaconchain à 32 ETH](#augmenter-votre-solde-beaconchain-à-32-eth).
 Vous n'avez pas besoin de récupérer votre solde de dépôt non utilisé car le montant total de la caution a été déposé sur la beaconchain
 avant Atlas.
 :::
@@ -25,7 +25,7 @@ informations d'identification de retrait de votre validateur. Le montant restant
 pool de dépôt.
 
 Lorsque votre minipool est dissous, l'ETH de l'utilisateur est retourné au pool de dépôt et votre ETH reste dans le minipool prêt
-à vous être retourné. Utilisez la fonction [Distribution Manuelle](./skimming#manual-distribution) des récompenses pour récupérer cet
+à vous être retourné. Utilisez la fonction [Distribution Manuelle](./skimming#distribution-manuelle) des récompenses pour récupérer cet
 ETH qui peut ensuite être utilisé dans la prochaine étape pour activer votre validateur.
 
 ## Augmenter Votre Solde Beaconchain à 32 ETH
@@ -80,7 +80,7 @@ suivants se produisent :
 ### Sortie de votre Validateur
 
 Une fois que votre validateur a été actif pendant au moins 256 époques, vous pouvez sortir votre minipool via le même processus que
-tout autre minipool en suivant le guide [Sortie de votre Validateur](./withdraw#exiting-your-validator).
+tout autre minipool en suivant le guide [Sortie de votre Validateur](./withdraw#sortir-votre-validateur).
 
 Le solde complet de 32 ETH sera retourné à votre minipool et les minipools dissous distribuent 100 % de leur solde à
 l'adresse de retrait de l'opérateur de nœud.

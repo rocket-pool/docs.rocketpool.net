@@ -11,15 +11,15 @@ nicht jedes Mal einen neuen Megapool bereitstellen, wenn du einen neuen Validato
 
 ::: warning WARNUNG
 Megapool-Validatoren müssen die Beacon Chain Queue zweimal durchlaufen.
+
 1. Prestake (1 ETH). Wenn ETH aus dem Deposit Pool deinem Megapool-Validator zugewiesen wird, wird nur 1 ETH an die Beacon Chain gesendet. Zu diesem Zeitpunkt tritt dein Validator in die Beacon Chain Queue ein.
 2. Stake (31 ETH). Nachdem der Validator von der Beacon Chain verarbeitet wurde, überprüft das Rocket Pool Protokoll die Withdrawal-Credentials des Validators und stakt die verbleibenden 31 ETH auf der Beacon Chain. Zu diesem Zeitpunkt tritt der Validator ein zweites und letztes Mal in die Beacon Chain Queue ein.
 
-Bisher war bei Minipools das [Oracle DAO (oDAO)](/de/odao/overview#the-rocket-pool-oracle-dao) für die Überprüfung der Withdrawal-Credentials jedes Minipool-Validators zuständig. Dieses neue System verlängert die Queue-Zeit, entfernt jedoch eine durch das oDAO durchgesetzte Vertrauensanforderung.
+Bisher war bei Minipools das [Oracle DAO (oDAO)](/de/odao/overview#das-rocket-pool-oracle-dao) für die Überprüfung der Withdrawal-Credentials jedes Minipool-Validators zuständig. Dieses neue System verlängert die Queue-Zeit, entfernt jedoch eine durch das oDAO durchgesetzte Vertrauensanforderung.
 
 [validatorqueue.com](https://www.validatorqueue.com/) ist ein hilfreiches Tool zur Überwachung der Länge der Beacon Chain Queue. Bitte berücksichtige diesen Faktor bei der Migration deines Minipool-Stakes zu einem Megapool.
 
 :::
-
 
 ::: tip HINWEIS
 
@@ -56,7 +56,7 @@ Bestehende Node-Operatoren erhalten Express-Queue-Tickets basierend auf ihrem ge
 Zum Beispiel erhält ein Node-Operator mit einem 8-ETH-Legacy-Minipool 2 Express-Queue-Tickets. Das reicht aus, um vollständig zu zwei 4-ETH-Megapool-Validatoren über die Express Queue zu migrieren.
 [RPIP-59: Deposit Mechanics](https://rpips.rocketpool.net/RPIPs/RPIP-59#deposit-queue) geht auf die Details der Deposit-Abwicklung ein.
 
-Dein Node erhält ein Express-Queue-Ticket zurückerstattet, wenn du dich entscheidest, [deinen Validator aus der Express Queue zu entfernen](./create-megapool-validator#exit-a-validator-from-the-rocket-pool-deposit-queue).
+Dein Node erhält ein Express-Queue-Ticket zurückerstattet, wenn du dich entscheidest, [deinen Validator aus der Express Queue zu entfernen](./create-megapool-validator#einen-validator-aus-der-rocket-pool-deposit-queue-entfernen).
 
 ## ETH einzahlen und einen Validator erstellen
 
@@ -78,7 +78,7 @@ Wenn ein Prelaunch-Validator innerhalb von 365 Tagen nicht stakt, wird der Valid
 Der Node-Operator erhält die verbleibenden 3 ETH aus seinem Bond (abzüglich einer 0,05-ETH-Auflösungsstrafe als Schulden) als Erstattung in seinem Megapool, für eine Nettoerstattung von 2,95 ETH.
 Dies kann mit `rocketpool megapool claim` oder `rocketpool claims claim-all` beansprucht werden.
 
-[Erfahre mehr darüber, wie du einen erfolgreichen Stake bestätigst](./create-megapool-validator#confirming-a-successful-stake)
+[Erfahre mehr darüber, wie du einen erfolgreichen Stake bestätigst](./create-megapool-validator#einen-erfolgreichen-stake-bestätigen)
 
 :::
 
@@ -103,7 +103,7 @@ Would you like to continue? [y/n]
 y
 ```
 
-Die nächste Eingabeaufforderung zeigt den Status der [Rocket Pool Deposit Queue](/de/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-and-express-queue) an.
+Die nächste Eingabeaufforderung zeigt den Status der [Rocket Pool Deposit Queue](/de/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-und-express-queue) an.
 Dies zeigt, wie viele Validatoren vor dir warten, um mit ETH abgeglichen zu werden. Die Express Queue ist hauptsächlich für bereits bestehende Node-Operatoren gedacht, da neue Nodes keine Express-Queue-Tickets haben. `The express queue rate is 4` bedeutet, dass 4 Validatoren aus der Express Queue für jeden 1 Validator in der Standard Queue abgeglichen werden.
 
 ```
@@ -206,7 +206,7 @@ Validator Queue Position:     14
 Express Ticket Used:          no
 ```
 
-Sobald deinem Validator ETH aus der [Rocket Pool Deposit Queue](/de/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-and-express-queue) zugewiesen wurde, wird er in den Zustand `Prelaunch` versetzt. Zu diesem Zeitpunkt wird 1 ETH aus deinem Megapool-Guthaben auf der Beacon Chain hinterlegt. Der Pubkey deines Validators wird ebenfalls auf der Beacon Chain registriert, was bedeutet, dass du den Status deines `Prelaunch`-Validators auf einem Explorer wie https://beaconcha.in/ (oder https://hoodi.beaconcha.in/ wenn du das Testnet verwendest) einsehen kannst.
+Sobald deinem Validator ETH aus der [Rocket Pool Deposit Queue](/de/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-und-express-queue) zugewiesen wurde, wird er in den Zustand `Prelaunch` versetzt. Zu diesem Zeitpunkt wird 1 ETH aus deinem Megapool-Guthaben auf der Beacon Chain hinterlegt. Der Pubkey deines Validators wird ebenfalls auf der Beacon Chain registriert, was bedeutet, dass du den Status deines `Prelaunch`-Validators auf einem Explorer wie https://beaconcha.in/ (oder https://hoodi.beaconcha.in/ wenn du das Testnet verwendest) einsehen kannst.
 Du kannst deinen Validator beobachten, indem du den Pubkey auf https://beaconcha.in/ suchst oder diesen Link im Format besuchst: `https://beaconcha.in/validator/<dein-validator-pubkey>`
 
 ```
@@ -222,7 +222,12 @@ Express Ticket Used:          no
 ```
 
 <img src="../images/prestaking.png" width="100%" height="auto" />
-Nachdem dein `Prelaunch`-Validator von der Beacon Chain verarbeitet und die anfängliche 1-ETH-Einzahlung gutgeschrieben wurde, führt dein Node automatisch eine `stake`-Transaktion durch, um die vollständige 32-ETH-Beacon-Chain-Einzahlung abzuschließen. Die `stake`-Transaktion versetzt deinen `Prelaunch`-Validator in einen `Staking`-Validator. Zu diesem Zeitpunkt hat dein `Staking`-Validator: – 32 ETH auf der Beacon Chain hinterlegt – eine Validator-Indexnummer erhalten – steht auf der Beacon Chain zur Aktivierung an
+Nachdem dein `Prelaunch`-Validator von der Beacon Chain verarbeitet und die anfängliche 1-ETH-Einzahlung gutgeschrieben wurde, führt dein Node automatisch eine `stake`-Transaktion durch, um die
+vollständige 32-ETH-Beacon-Chain-Einzahlung abzuschließen. Die `stake`-Transaktion versetzt deinen `Prelaunch`-Validator in einen `Staking`-Validator. Zu diesem Zeitpunkt hat dein `Staking`-Validator:
+
+- 32 ETH auf der Beacon Chain hinterlegt
+- eine Validator-Indexnummer erhalten
+- steht auf der Beacon Chain zur Aktivierung an
 
 ```
 1 Staking validator(s):

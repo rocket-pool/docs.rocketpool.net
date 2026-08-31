@@ -33,7 +33,7 @@ Nous vous montrerons comment configurer votre client de validateur afin qu'il ut
 ## Mise à jour vers v1.5.0
 
 La mise à jour de la pile Smartnode vers v1.5.0 n'est pas différente de toute autre mise à jour.
-Suivez simplement [les instructions normales ici](../../node-staking/updates#updating-the-smartnode-stack).
+Suivez simplement [les instructions normales ici](../../node-staking/updates#mise-à-jour-de-la-pile-smartnode).
 
 ## Choses à faire après la mise à jour
 
@@ -51,7 +51,7 @@ Envisagez de prendre les mesures suivantes :
 ### Configurer le destinataire de frais dans votre client de validateur
 
 L'un des détails **critiques** à configurer avant le Merge est le **destinataire de frais** spécifié par votre client de validateur.
-Comme décrit dans [l'article de présentation](./whats-new#fee-recipients-and-your-distributor), cela peut être l'une des deux valeurs :
+Comme décrit dans [l'article de présentation](./whats-new#destinataires-de-frais-et-votre-distributeur), cela peut être l'une des deux valeurs :
 
 - Si vous **avez opté** pour le Smoothing Pool, cela doit être l'adresse du **contrat Smoothing Pool**. Vous pouvez obtenir l'adresse à partir de [la page officielle des contrats](/fr/protocol/contracts-integrations).
 - Si vous n'êtes **pas** dans le Smoothing Pool, cela doit être l'adresse du **contrat de distributeur de frais** de votre nœud. Vous pouvez obtenir l'adresse en exécutant `rocketpool node status`, sous la section `Fee Distributor and Smoothing Pool`.
@@ -192,9 +192,9 @@ Sélectionnez votre client de consensus ci-dessous pour apprendre comment le con
 
       Où `address` est :
 
-      - L'[adresse rETH](/fr/protocol/contracts-integrations/#token-contracts) **avant** le déploiement de la mise à jour Redstone (par exemple, `0xae78736Cd615f374D3085123A210448E74Fc6393` sur Mainnet)
+      - L'[adresse rETH](/fr/protocol/contracts-integrations/#contrats-de-jetons) **avant** le déploiement de la mise à jour Redstone (par exemple, `0xae78736Cd615f374D3085123A210448E74Fc6393` sur Mainnet)
       - Le **distributeur de frais** de votre nœud après le déploiement de Redstone, que vous pouvez récupérer avec `rocketpool node status` une fois la mise à jour du contrat effectuée
-      - L'[adresse du Smoothing Pool](/fr/protocol/contracts-integrations/#protocol-contracts) si vous optez pour le Smoothing Pool
+      - L'[adresse du Smoothing Pool](/fr/protocol/contracts-integrations/#contrats-de-protocole-clés) si vous optez pour le Smoothing Pool
 
       Pour rappel, `rocketpool node status` vous montrera le destinataire de frais correct à utiliser à tout moment.
 
@@ -209,9 +209,9 @@ Sélectionnez votre client de consensus ci-dessous pour apprendre comment le con
 
       Où `address` est :
 
-      - L'[adresse rETH](/fr/protocol/contracts-integrations/#token-contracts) **avant** le déploiement de la mise à jour Redstone (par exemple, `0xae78736Cd615f374D3085123A210448E74Fc6393` sur Mainnet)
+      - L'[adresse rETH](/fr/protocol/contracts-integrations/#contrats-de-jetons) **avant** le déploiement de la mise à jour Redstone (par exemple, `0xae78736Cd615f374D3085123A210448E74Fc6393` sur Mainnet)
       - Le **distributeur de frais** de votre nœud après le déploiement de Redstone, que vous pouvez récupérer avec `rocketpool node status` une fois la mise à jour du contrat effectuée
-      - L'[adresse du Smoothing Pool](/fr/protocol/contracts-integrations/#protocol-contracts) si vous optez pour le Smoothing Pool
+      - L'[adresse du Smoothing Pool](/fr/protocol/contracts-integrations/#contrats-de-protocole-clés) si vous optez pour le Smoothing Pool
 
       Pour rappel, `rocketpool node status` vous montrera le destinataire de frais correct à utiliser à tout moment.
 
@@ -226,9 +226,9 @@ Sélectionnez votre client de consensus ci-dessous pour apprendre comment le con
 
       Où `address` est :
 
-      - L'[adresse rETH](/fr/protocol/contracts-integrations/#token-contracts) **avant** le déploiement de la mise à jour Redstone (par exemple, `0xae78736Cd615f374D3085123A210448E74Fc6393` sur Mainnet)
+      - L'[adresse rETH](/fr/protocol/contracts-integrations/#contrats-de-jetons) **avant** le déploiement de la mise à jour Redstone (par exemple, `0xae78736Cd615f374D3085123A210448E74Fc6393` sur Mainnet)
       - Le **distributeur de frais** de votre nœud après le déploiement de Redstone, que vous pouvez récupérer avec `rocketpool node status` une fois la mise à jour du contrat effectuée
-      - L'[adresse du Smoothing Pool](/fr/protocol/contracts-integrations/#protocol-contracts) si vous optez pour le Smoothing Pool
+      - L'[adresse du Smoothing Pool](/fr/protocol/contracts-integrations/#contrats-de-protocole-clés) si vous optez pour le Smoothing Pool
 
       Pour rappel, `rocketpool node status` vous montrera le destinataire de frais correct à utiliser à tout moment.
 
@@ -243,9 +243,9 @@ Sélectionnez votre client de consensus ci-dessous pour apprendre comment le con
 
       Où `address` est :
 
-      - L'[adresse rETH](/fr/protocol/contracts-integrations/#token-contracts) **avant** le déploiement de la mise à jour Redstone (par exemple, `0xae78736Cd615f374D3085123A210448E74Fc6393` sur Mainnet)
+      - L'[adresse rETH](/fr/protocol/contracts-integrations/#contrats-de-jetons) **avant** le déploiement de la mise à jour Redstone (par exemple, `0xae78736Cd615f374D3085123A210448E74Fc6393` sur Mainnet)
       - Le **distributeur de frais** de votre nœud après le déploiement de Redstone, que vous pouvez récupérer avec `rocketpool node status` une fois la mise à jour du contrat effectuée
-      - L'[adresse du Smoothing Pool](/fr/protocol/contracts-integrations/#protocol-contracts) si vous optez pour le Smoothing Pool
+      - L'[adresse du Smoothing Pool](/fr/protocol/contracts-integrations/#contrats-de-protocole-clés) si vous optez pour le Smoothing Pool
 
       Pour rappel, `rocketpool node status` vous montrera le destinataire de frais correct à utiliser à tout moment.
 
@@ -285,7 +285,7 @@ Pour plus d'informations sur la configuration d'un nœud de secours, consultez l
 
 ### Initialiser votre distributeur de frais
 
-Si vous ne prévoyez pas d'opter pour le [Smoothing Pool](./whats-new#smoothing-pool) et de réclamer tous vos frais prioritaires et récompenses MEV à votre [contrat de distributeur de frais](./whats-new#fee-recipients-and-your-distributor), vous devrez éventuellement l'initialiser (créer l'instance de contrat sur la chaîne) afin de réclamer les récompenses à votre adresse de retrait.
+Si vous ne prévoyez pas d'opter pour le [Smoothing Pool](./whats-new#smoothing-pool) et de réclamer tous vos frais prioritaires et récompenses MEV à votre [contrat de distributeur de frais](./whats-new#destinataires-de-frais-et-votre-distributeur), vous devrez éventuellement l'initialiser (créer l'instance de contrat sur la chaîne) afin de réclamer les récompenses à votre adresse de retrait.
 
 Il s'agit d'une opération assez bon marché qui ne doit être effectuée qu'une seule fois.
 
@@ -310,7 +310,7 @@ rocketpool node join-smoothing-pool
 
 ### Réclamer les récompenses
 
-La mise à jour Redstone remplace l'ancien système de récompenses coûteux et problématique par un [tout nouveau système](./whats-new#new-rewards-system) qui est beaucoup moins cher, prend en charge le restaking automatique de RPL (montants partiels et complets), et - plus important encore - **vous permet de réclamer vos récompenses quand vous le souhaitez**.
+La mise à jour Redstone remplace l'ancien système de récompenses coûteux et problématique par un [tout nouveau système](./whats-new#nouveau-système-de-récompenses) qui est beaucoup moins cher, prend en charge le restaking automatique de RPL (montants partiels et complets), et - plus important encore - **vous permet de réclamer vos récompenses quand vous le souhaitez**.
 
 Comme il n'y a plus de limite de temps pour réclamer les récompenses, et parce qu'il est moins cher de réclamer de nombreux intervalles de récompenses en une seule fois, la fonctionnalité de réclamation automatique des récompenses du Smartnode **a été supprimée**.
 Vous pourrez maintenant réclamer les récompenses via la commande suivante :

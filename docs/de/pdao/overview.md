@@ -16,7 +16,7 @@ Bevor Sie Ihren Smartnode konfigurieren, stellen Sie bitte sicher, dass Sie:
 - Den Smartnode darauf [installiert](/de/node-staking/installing/overview) und [konfiguriert](/de/node-staking/config/overview) haben
 - Eine Knoten-Wallet auf Ihrem Smartnode geladen haben
 - Ihre Execution und Consensus Clients synchronisiert haben
-- Ihren Knoten mit [einer Auszahlungsadresse](/de/node-staking/prepare-node#setting-your-withdrawal-address) ausgestattet haben, Ihre [Fallback-Clients](/de/node-staking/fallback) eingerichtet haben (optional), sich für den [Smoothing Pool](/de/node-staking/fee-distrib-sp#the-smoothing-pool) entschieden haben (optional) und [MEV](/de/node-staking/mev) konfiguriert haben
+- Ihren Knoten mit [einer Auszahlungsadresse](/de/node-staking/prepare-node#ihre-primäre-auszahlungsadresse-festlegen) ausgestattet haben, Ihre [Fallback-Clients](/de/node-staking/fallback) eingerichtet haben (optional), sich für den [Smoothing Pool](/de/node-staking/fee-distrib-sp#der-smoothing-pool) entschieden haben (optional) und [MEV](/de/node-staking/mev) konfiguriert haben
 - Mindestens einen [minipool](/de/node-staking/create-validator) erstellt haben
 
 ## Es gibt drei Adressen, die am Abstimmen beteiligt sind
@@ -33,20 +33,20 @@ Bevor Sie Ihren Smartnode konfigurieren, stellen Sie bitte sicher, dass Sie:
 
 [Abstimmungseinrichtung für Nicht-Smartnode-Benutzer](/de/legacy/houston/nonsmartnode-setup) zeigt Nicht-Smartnode-Benutzern (wie Allnodes-Benutzern), wie sie die Abstimmung einrichten.
 
-[Initialisierung der Stimmkraft](/de/pdao/participate#initializing-voting) zeigt Ihnen, wie Sie die Stimmkraft Ihres Knotens initialisieren. Dieser Schritt ist nur erforderlich, wenn Ihr Knoten vor dem Houston Upgrade registriert wurde.
+[Initialisierung der Stimmkraft](/de/pdao/participate#initialisierung-der-abstimmung) zeigt Ihnen, wie Sie die Stimmkraft Ihres Knotens initialisieren. Dieser Schritt ist nur erforderlich, wenn Ihr Knoten vor dem Houston Upgrade registriert wurde.
 
-[Festlegen Ihrer Snapshot Signalling Address](/de/pdao/participate#setting-your-snapshot-signalling-address) führt Sie durch die Schritte zum Festlegen einer Signalling Address. Es ermöglicht Ihnen, auf snapshot mit der Stimmkraft Ihres Knotens abzustimmen, ohne den privaten Schlüssel Ihres Knotens in eine Hot Wallet laden zu müssen. Stellen Sie sicher, dass Sie Ihre Smartnode CLI zur Hand haben und bereiten Sie eine Adresse (die nicht Ihre Knoten-Wallet ist) für diesen Leitfaden vor.
+[Festlegen Ihrer Snapshot Signalling Address](/de/pdao/participate#festlegen-ihrer-snapshot-signalling-address) führt Sie durch die Schritte zum Festlegen einer Signalling Address. Es ermöglicht Ihnen, auf snapshot mit der Stimmkraft Ihres Knotens abzustimmen, ohne den privaten Schlüssel Ihres Knotens in eine Hot Wallet laden zu müssen. Stellen Sie sicher, dass Sie Ihre Smartnode CLI zur Hand haben und bereiten Sie eine Adresse (die nicht Ihre Knoten-Wallet ist) für diesen Leitfaden vor.
 
-[Delegierung der Stimmkraft](/de/pdao/participate#delegating-voting-power) ist ein schneller Befehl, den Sie verwenden können, um Stimmkraft zu delegieren, anstatt direkt über Vorschläge abzustimmen.
+[Delegierung der Stimmkraft](/de/pdao/participate#delegierung-der-stimmkraft) ist ein schneller Befehl, den Sie verwenden können, um Stimmkraft zu delegieren, anstatt direkt über Vorschläge abzustimmen.
 
-[Anzeigen des Status eines Vorschlags](/de/pdao/participate#viewing-the-state-of-a-proposal) ist ein Leitfaden, wie Sie eine Liste vergangener und laufender on-chain Vorschläge anzeigen können. Sie können den Status überprüfen und sich über die Details eines beliebigen on-chain Vorschlags informieren.
+[Anzeigen des Status eines Vorschlags](/de/pdao/participate#anzeigen-des-status-eines-vorschlags) ist ein Leitfaden, wie Sie eine Liste vergangener und laufender on-chain Vorschläge anzeigen können. Sie können den Status überprüfen und sich über die Details eines beliebigen on-chain Vorschlags informieren.
 
-[Abstimmen über einen Vorschlag](/de/pdao/participate#voting-on-a-proposal) zeigt Ihnen, wie Sie über einen on-chain Vorschlag abstimmen. Dieser Leitfaden behandelt auch die vier Optionen: **Abstain**, **For**, **Against** und **Veto**.
+[Abstimmen über einen Vorschlag](/de/pdao/participate#abstimmen-über-einen-vorschlag) zeigt Ihnen, wie Sie über einen on-chain Vorschlag abstimmen. Dieser Leitfaden behandelt auch die vier Optionen: **Abstain**, **For**, **Against** und **Veto**.
 
-[Erstellen eines Vorschlags](/de/pdao/participate#creating-a-proposal) führt Sie durch die Anforderungen und Schritte zur Einreichung eines on-chain Vorschlags.
+[Erstellen eines Vorschlags](/de/pdao/participate#erstellen-eines-vorschlags) führt Sie durch die Anforderungen und Schritte zur Einreichung eines on-chain Vorschlags.
 
-[Ausführen eines erfolgreichen Vorschlags](/de/pdao/participate#executing-a-successful-proposal) zeigt Ihnen, wie Sie die Auswirkungen eines erfolgreichen Vorschlags auf das Rocket Pool Protokoll anwenden.
+[Ausführen eines erfolgreichen Vorschlags](/de/pdao/participate#ausführen-eines-erfolgreichen-vorschlags) zeigt Ihnen, wie Sie die Auswirkungen eines erfolgreichen Vorschlags auf das Rocket Pool Protokoll anwenden.
 
-[Anfordern von Bonds und Belohnungen](/de/pdao/participate#claiming-bonds-and-rewards) diskutiert die Bedingungen, unter denen Bonds oder Belohnungen von einem Proposer oder Challenger angefordert werden können.
+[Anfordern von Bonds und Belohnungen](/de/pdao/participate#anfordern-von-bonds-und-belohnungen) diskutiert die Bedingungen, unter denen Bonds oder Belohnungen von einem Proposer oder Challenger angefordert werden können.
 
-[Erstellen und Anfordern einer wiederkehrenden Treasury-Ausgabe](/de/pdao/participate#creating-a-recurring-treasury-spend) ist eine Funktion, die der pDAO die volle Kontrolle über das Hinzufügen, Ändern und Entfernen wiederkehrender Zahlungen gibt.
+[Erstellen und Anfordern einer wiederkehrenden Treasury-Ausgabe](/de/pdao/participate#erstellen-einer-wiederkehrenden-treasury-ausgabe) ist eine Funktion, die der pDAO die volle Kontrolle über das Hinzufügen, Ändern und Entfernen wiederkehrender Zahlungen gibt.

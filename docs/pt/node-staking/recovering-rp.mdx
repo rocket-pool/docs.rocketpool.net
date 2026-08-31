@@ -22,8 +22,9 @@ Se, por algum motivo, você deseja recuperar a carteira mas _não_ nenhuma das c
 rocketpool wallet recover -k
 ```
 
-Se você não especificar esta flag, o Smartnode tentará recuperar as chaves de validador para seus minipools; no entanto, note que isso não funcionará até que seu cliente Execution tenha terminado de sincronizar.
-Por favor, observe seu arquivo de log para ver quando terminar; uma vez que termine, você pode executar este passo.
+Se você não especificar esta flag, o Smartnode tentará recuperar as chaves de validador para seus minipools ou validadores de megapool. Esse passo precisa de clientes Execution e Beacon sincronizados.
+
+Com `-k`, recuperar **apenas a carteira** não precisa esperar por clientes sincronizados. Você pode fazer isso enquanto eles ainda estão sincronizando.
 :::
 
 Isso primeiro perguntará uma senha que você deseja usar para criptografar sua carteira.
@@ -124,7 +125,7 @@ O Smartnode procurará neste diretório por quaisquer arquivos de keystore que v
 O processo de importação _apenas_ procurará chaves de validador que estejam anexadas a minipools registrados no endereço que você está importando.
 Você **não pode** usar este processo para importar outras chaves de validador, como para validadores de solo staking, no cliente Validator gerenciado pelo stack Smartnode.
 
-Por favor, veja a documentação para executar em [Modo Híbrido Reverso](./advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode) se você está interessado em fazer isso.
+Por favor, veja a documentação para executar em [Modo Híbrido Reverso](./advanced-config#permitindo-que-clientes-validadores-externos-se-conectem-ao-smartnode) se você está interessado em fazer isso.
 :::
 
 ### Passo 2 (Opcional): Testar Importação do Endereço

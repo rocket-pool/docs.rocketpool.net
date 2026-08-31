@@ -16,12 +16,12 @@ v1.5.0 wird diese nicht mehr haben und lässt Sie den Stack erst starten, wenn S
 Aufgrund dieser Änderung sollten Sie zu einem vollständigen Client wechseln, während Sie noch auf v1.4 sind, ihn vollständig synchronisieren lassen und dann auf v1.5 upgraden.
 
 Der Docker-Modus macht den Wechsel von Clients sehr einfach.
-[Dieser Leitfaden](../../node-staking/change-clients#changing-execution-clients) bietet eine Anleitung für den Prozess.
+[Dieser Leitfaden](../../node-staking/change-clients#wechsel-von-execution-clients) bietet eine Anleitung für den Prozess.
 
 ## Upgrade auf v1.5.0
 
 Das Upgrade des Smart Node-Stacks auf v1.5.0 unterscheidet sich nicht von jedem anderen Upgrade.
-Befolgen Sie einfach [die normalen Anweisungen hier](../../node-staking/updates#updating-the-smartnode-stack).
+Befolgen Sie einfach [die normalen Anweisungen hier](../../node-staking/updates#aktualisierung-des-smartnode-stacks).
 
 ## Was der Smart Node automatisch erledigt
 
@@ -46,7 +46,7 @@ Es ist eine Einstellung, die Ihrem Validator Client beim ersten Start übergeben
 Der Smart Node wird sie beim Upgrade auf v1.5 auf die richtige Adresse einstellen und ständig überprüfen, ob Sie die richtige verwenden, damit Sie nicht [versehentlich bestraft werden](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
 
 Wenn Sie sich für den [Smoothing Pool](./whats-new#smoothing-pool) entschieden haben, wird dies Ihr Fee Recipient sein.
-Wenn nicht, wird Ihr [Fee Distributor Contract](./whats-new#fee-recipients-and-your-distributor) der Fee Recipient sein.
+Wenn nicht, wird Ihr [Fee Distributor Contract](./whats-new#fee-recipients-und-ihr-distributor) der Fee Recipient sein.
 
 ### MEV-Boost
 
@@ -76,7 +76,7 @@ Weitere Informationen zur Einrichtung eines Fallback-Nodes finden Sie im [Fallba
 
 ### Initialisieren Ihres Fee Distributors
 
-Wenn Sie nicht vorhaben, sich für den [Smoothing Pool](./whats-new#smoothing-pool) zu entscheiden und alle Ihre Priority Fees und MEV-Belohnungen an Ihren [Fee Distributor Contract](./whats-new#fee-recipients-and-your-distributor) zu beanspruchen, müssen Sie ihn schließlich initialisieren (die Contract-Instanz auf der Chain erstellen), um Belohnungen daraus an Ihre Withdrawal-Adresse beanspruchen zu können.
+Wenn Sie nicht vorhaben, sich für den [Smoothing Pool](./whats-new#smoothing-pool) zu entscheiden und alle Ihre Priority Fees und MEV-Belohnungen an Ihren [Fee Distributor Contract](./whats-new#fee-recipients-und-ihr-distributor) zu beanspruchen, müssen Sie ihn schließlich initialisieren (die Contract-Instanz auf der Chain erstellen), um Belohnungen daraus an Ihre Withdrawal-Adresse beanspruchen zu können.
 
 Dies ist eine relativ günstige Operation und muss nur einmal durchgeführt werden.
 
@@ -101,7 +101,7 @@ rocketpool node join-smoothing-pool
 
 ### Belohnungen beanspruchen
 
-Das Redstone-Upgrade ersetzt das teure, problematische alte Belohnungssystem durch ein [brandneues](./whats-new#new-rewards-system), das viel günstiger ist, das automatische Restaking von RPL (sowohl teilweise als auch vollständige Beträge) unterstützt und - am wichtigsten - **Sie Ihre Belohnungen beanspruchen lässt, wann immer Sie wollen**.
+Das Redstone-Upgrade ersetzt das teure, problematische alte Belohnungssystem durch ein [brandneues](./whats-new#neues-belohnungssystem), das viel günstiger ist, das automatische Restaking von RPL (sowohl teilweise als auch vollständige Beträge) unterstützt und - am wichtigsten - **Sie Ihre Belohnungen beanspruchen lässt, wann immer Sie wollen**.
 
 Da es keine zeitliche Begrenzung mehr für die Beanspruchung von Belohnungen gibt und es günstiger ist, viele Belohnungsintervalle auf einmal zu beanspruchen, wurde die automatische Belohnungsbeanspruchungsfunktion des Smart Node **entfernt**.
 Sie können nun Belohnungen über den folgenden Befehl beanspruchen:

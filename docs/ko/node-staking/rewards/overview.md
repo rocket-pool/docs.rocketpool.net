@@ -16,11 +16,11 @@ Smartnode를 구성하기 전에 다음을 확인하십시오:
 - Smartnode가 [설치](../installing/overview)되고 [구성](../config/overview)되었습니다
 - Smartnode에 노드 지갑이 로드되어 있습니다
 - Execution 및 Consensus 클라이언트가 동기화되었습니다
-- [출금 주소](../prepare-node.mdx#setting-your-withdrawal-address)로 노드를 프로비저닝하고, [대체 클라이언트](../fallback)를 설정했으며(선택 사항), [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool)에 참여했으며(선택 사항), [MEV](../mev.mdx)를 구성했습니다
+- [출금 주소](../prepare-node.mdx#primary-withdrawal-address-설정하기)로 노드를 프로비저닝하고, [대체 클라이언트](../fallback)를 설정했으며(선택 사항), [Smoothing Pool](../fee-distrib-sp#smoothing-pool)에 참여했으며(선택 사항), [MEV](../mev.mdx)를 구성했습니다
 - 최소 하나의 [minipool](../create-validator.mdx)을 생성했습니다
 
 ## 가이드
 
 [Node Operator 보상 청구](../rewards)는 RPL 보상 및 Execution 레이어 보상이 작동하는 방식과 이에 액세스하는 방법을 설명합니다.
 
-[Skimmed 보상 분배](../skimming)는 프로토콜에 의해 주기적으로 "skimmed"되어 minipool에 전달되는 Beacon Chain의 보상에 액세스하는 방법을 다룹니다.
+[스키밍된 Minipool 보상 분배](../skimming)는 프로토콜에 의해 주기적으로 "skimmed"되어 minipool에 전달되는 Beacon Chain의 보상에 액세스하는 방법을 다룹니다.

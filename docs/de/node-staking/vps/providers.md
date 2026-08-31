@@ -14,14 +14,14 @@ Sie sind die günstigste Option und werden weniger häufig eingesetzt als die al
 Sie haben jedoch selten Hochverfügbarkeitsunterstützung; wenn der physische Server ausfällt, ist es wahrscheinlich, dass Ihr darauf gehosteter VPS ebenfalls ausfällt.
 Außerdem haben sie einen festen Ressourcen-Fußabdruck; es ist normalerweise nicht möglich, Ressourcen wie CPU und RAM auf Abruf zu erhöhen oder zu verringern.
 
-Ab 10/2024 war eine gut bepreiste und leistungsstarke Option der RS 12000 G11 von [Netcup](https://www.netcup.eu/vserver/vps.php).
+Ab 5/2026 war eine gut bepreiste und leistungsstarke Option der RS 12000 G12 von [Netcup](https://www.netcup.eu/vserver/vps.php).
 Eine Warnung ist, dass der Speicher mit anderen geteilt wird, sodass Speicher-IOPs ein potenzieller Engpass sind.
 
 ## Dediziertes Server-Hosting
 
 Im Gegensatz zu einem VPS ist ein dedizierter Server ein vollständiges physisches Gerät, das von Ihnen gemietet wird. Sie sind eine relativ erschwingliche Option und werden weniger häufig eingesetzt als die allgegenwärtigen Cloud-Plattformen, sodass sie tendenziell mehr zur Dezentralisierung des Ethereum-Netzwerks beitragen.
 
-Ab 10/2024 waren zwei gut bepreiste und leistungsstarke Optionen die Rise- und Advanced-Bare-Metal-Server von [OVH](https://us.ovhcloud.com/). Es gibt eine Vielzahl davon, die sich im Laufe der Zeit ändern, sowie erhebliche Verkäufe. Sie müssen überprüfen, ob die [Hardware-Richtlinien](../local/hardware.md) erfüllt sind.
+Ab 5/2026 waren zwei gut bepreiste und leistungsstarke Optionen die Rise- und Advance-Bare-Metal-Server von [OVH](https://us.ovhcloud.com/). Es gibt eine Vielzahl davon, die sich im Laufe der Zeit ändern, sowie erhebliche Verkäufe. Sie müssen überprüfen, ob die [Hardware-Richtlinien](../local/hardware.md) erfüllt sind.
 
 ## Cloud-Hosting
 
@@ -40,7 +40,7 @@ Wir empfehlen nicht, Cloud-Hosting aufgrund von Preis- und Zentralisierungsbeden
 ### Preis
 
 Cloud-Hosting-Lösungen sind normalerweise eine sicherere Wahl, wenn Kosten keine Priorität sind.
-Der folgende Abschnitt enthält eine detailliertere Aufschlüsselung der Kostenschätzungen, aber hier ist ein allgemeiner Vergleich zwischen einer VPS-Option und einer Cloud-Option:
+Der folgende Abschnitt enthält eine detailliertere Aufschlüsselung der Kostenschätzungen, aber hier ist ein allgemeiner Vergleich zwischen einer VPS-Option und einer Dedicated-Server-Option:
 
-- OVH Dedicated Server: $90-160/Monat
-- Netcup VPS: $90/Monat
+- OVH Dedicated Server: $118-243/Monat
+- Netcup VPS: $81-117/Monat

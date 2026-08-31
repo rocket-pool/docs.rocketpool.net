@@ -100,9 +100,9 @@ Wir **empfehlen keine DRAM-losen Laufwerke**.
 :::
 
 Die letzte Überlegung ist die Laufwerksgröße.
-Ab 10/2024 benötigt die `geth` Execution-Client-Datenbank nach Abschluss der initialen Synchronisierung (oder nachdem Sie das Pruning gerade abgeschlossen haben) etwa 1,2 TB Speicherplatz.
+Ab 4/2026 benötigt die `geth` Execution-Client-Datenbank nach Abschluss der initialen Synchronisierung (oder nachdem Sie das Pruning gerade abgeschlossen haben) etwa 1,2 TB Speicherplatz.
 Dies wird im Laufe der Zeit stetig wachsen, und obwohl Pruning einen Teil dieses Speicherplatzes zurückgewinnen kann, _wächst_ der frisch beschnittene Zustand im Laufe der Zeit.
-Sie werden mit einem größeren Laufwerk mehr Sicherheit haben.
+Sie werden mit einem größeren Laufwerk mehr Sicherheit haben. Die Größe dieser Datenbank kann reduziert werden, wenn Sie sich [dafür entscheiden, die Historie vor dem Merge nicht zu speichern](/node-staking/maintenance/history-expiry).
 
 ### Häufiges Zubehör
 

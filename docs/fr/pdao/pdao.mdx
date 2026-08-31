@@ -33,7 +33,7 @@ Pour plus de détails et de justification, consultez les [types de propositions]
 
 ## Cycle de vie d'une proposition pDAO
 
-Une proposition devrait être anticipée par le [processus de gouvernance](./participate#governance-process) avant qu'elle ne se retrouve on-chain. Elle se compose de 4 périodes, toutes étant des [paramètres contrôlables](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table) de la pDAO :
+Une proposition devrait être anticipée par le [processus de gouvernance](./participate#processus-de-gouvernance) avant qu'elle ne se retrouve on-chain. Elle se compose de 4 périodes, toutes étant des [paramètres contrôlables](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table) de la pDAO :
 
 - Période de délai de vote : `proposal.vote.delay.time`
 - Phase de vote 1 : `proposal.vote.phase1.time`
@@ -51,7 +51,7 @@ Quelques raisons pour lesquelles les proposeurs et contestataires sont tenus de 
 - `proposal.bond` incite aux propositions valides et décourage le spam.
 - `proposal.challenge.bond` incite à éliminer les propositions invalides/malveillantes.
 
-Les contestataires fournissent un index dans l'arbre Merkle-sum qu'ils allèguent être incorrect. Tout opérateur de nœud peut participer à la contestation de propositions frauduleuses (et gagner une récompense en le faisant). N'hésitez pas à lire sur le [processus de contestation de la pDAO](./pdao#challenge-process) si vous êtes intéressé à y participer. Une proposition non vaincue lors d'une contestation à la fin de la période de délai de vote entrera dans les étapes de vote.
+Les contestataires fournissent un index dans l'arbre Merkle-sum qu'ils allèguent être incorrect. Tout opérateur de nœud peut participer à la contestation de propositions frauduleuses (et gagner une récompense en le faisant). N'hésitez pas à lire sur le [processus de contestation de la pDAO](./pdao#processus-de-contestation) si vous êtes intéressé à y participer. Une proposition non vaincue lors d'une contestation à la fin de la période de délai de vote entrera dans les étapes de vote.
 
 ::: tip NOTE
 Lorsque `proposal.vote.delay.time` expire, la proposition ne peut plus être contestée ou vaincue.
@@ -102,7 +102,7 @@ rocketpool pdao proposals execute
 
 Vous serez invité à sélectionner une proposition à exécuter, la proposition sera appliquée au protocole après cette étape !
 
-Après que la proposition ait passé les périodes de vote, le proposeur peut [réclamer](./participate#claiming-bonds-and-rewards) sa caution RPL verrouillée, sauf si la proposition a été vaincue par une contestation ou véto.
+Après que la proposition ait passé les périodes de vote, le proposeur peut [réclamer](./participate#réclamer-les-cautions-et-récompenses) sa caution RPL verrouillée, sauf si la proposition a été vaincue par une contestation ou véto.
 
 ::: tip NOTE
 Il y a une fenêtre `proposal.execute.time` où une proposition peut être exécutée. Une proposition expirera si ce minuteur atteint sa fin.
@@ -118,7 +118,7 @@ Tout nœud peut participer au suivi et à la vérification de l'exactitude des p
 
 <img src={proposal_checker} width="100%" height="auto" />
 
-Lorsque ce paramètre est activé, le nœud vérifiera les nouvelles propositions, vérifiera leur exactitude et soumettra des contestations aux propositions invalides. Le seul prérequis est que le [verrouillage de RPL](./participate#allowing-rpl-locking) soit activé.
+Lorsque ce paramètre est activé, le nœud vérifiera les nouvelles propositions, vérifiera leur exactitude et soumettra des contestations aux propositions invalides. Le seul prérequis est que le [verrouillage de RPL](./participate#autoriser-le-verrouillage-de-rpl) soit activé.
 
 Cette vérification s'exécute toutes les 5 minutes en conjonction avec quelques autres tâches liées au nœud. Nous allons parcourir un exemple de ce à quoi ressemble la contestation d'une proposition frauduleuse. Nous pouvons utiliser la commande smartnode `rocketpool service logs node` pour surveiller la progression :
 
@@ -167,6 +167,6 @@ Comme les informations de vote du proposeur sont incorrectes, il ne pourra pas r
 Les contestataires qui participent à vaincre la proposition reçoivent un montant proportionnel de la caution du proposeur s'ils soumettent un index prouvé incorrect. Tous les autres contestataires reçoivent uniquement leur caution en retour.
 :::
 
-Maintenant que la proposition est vaincue, notre nœud (le contestataire) peut [réclamer](./participate#claiming-bonds-and-rewards) sa caution RPL originale ainsi que la caution RPL du proposeur en tant que récompense pour avoir vaincu une proposition frauduleuse.
+Maintenant que la proposition est vaincue, notre nœud (le contestataire) peut [réclamer](./participate#réclamer-les-cautions-et-récompenses) sa caution RPL originale ainsi que la caution RPL du proposeur en tant que récompense pour avoir vaincu une proposition frauduleuse.
 
 Si vous êtes curieux d'approfondir les détails du système de proposition et de contestation de la pDAO, consultez les [spécifications techniques](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#draft-protocol-dao-proposal-challenge-system-specification). N'hésitez pas à passer à cette section sur le [processus de contestation](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#challenge-process) si vous êtes intéressé à étudier un exemple qui entre dans les détails de bas niveau.

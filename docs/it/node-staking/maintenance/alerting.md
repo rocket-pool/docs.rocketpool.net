@@ -8,7 +8,7 @@ La funzionalità di notifica utilizza [Alertmanager](https://prometheus.io/docs/
 
 ## Configurare le Notifiche Discord
 
-Attualmente, le notifiche possono essere inviate ai canali Discord. Puoi configurare le notifiche Discord all'interno dell'Interfaccia Utente Testuale (TUI) di Rocket Pool nella pagina "Monitoring / Alerting".
+Attualmente, le notifiche possono essere inviate ai canali Discord e alle chat Telegram. Puoi configurare una o entrambe le destinazioni all'interno dell'Interfaccia Utente Testuale (TUI) di Rocket Pool nella pagina "Monitoring / Alerting".
 
 ### Aggiungere un URL Webhook Discord:
 
@@ -19,6 +19,30 @@ Attualmente, le notifiche possono essere inviate ai canali Discord. Puoi configu
 5. Copia l'URL del Webhook fornito.
 6. All'interno della TUI di Rocket Pool, naviga alla pagina "Monitoring / Alerting".
 7. Incolla l'URL del Webhook copiato nel campo designato e salva la configurazione.
+
+## Configurare le notifiche Telegram
+
+Puoi configurare le notifiche Telegram all'interno dell'Interfaccia Utente Testuale (TUI) di Rocket Pool nella pagina "Monitoring / Alerting". Le notifiche Telegram vengono inviate tramite le API Bot di Telegram. Sono richiesti sia un token del bot sia un ID chat numerico; compilarne solo uno non produce alcun effetto.
+
+### Aggiungere un token del bot e un ID chat Telegram:
+
+1. Apri [@BotFather](https://t.me/BotFather) in Telegram e crea un nuovo bot.
+2. Copia il token del bot fornito da BotFather (solo il token — non includere il prefisso `bot`).
+3. Decidi se gli avvisi devono essere inviati a una chat privata (DM) con te, a un gruppo o a un canale.
+4. Se desideri ricevere gli avvisi in DM, invia prima `/start` al tuo bot. Quindi apri `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates` in un browser (sostituisci `<YOUR_BOT_TOKEN>` con il token del passaggio 2) e cerca l'oggetto `"chat"`:
+
+```json
+"chat": {
+  "id": 123456789,
+  "type": "private"
+}
+```
+
+Il valore `"id"` è l'ID chat che devi impostare nel campo Telegram Chat ID.
+
+5. Se desideri ricevere gli avvisi in un gruppo o in un canale, aggiungi il bot come membro (per i canali il bot deve essere amministratore). Gli ID di gruppi e canali sono negativi (in genere iniziano con `-100`). Una volta che il bot può vedere la chat, usa lo stesso URL `getUpdates` per trovare l'ID chat numerico. I nomi utente come `@mychannel` non funzioneranno.
+6. All'interno della TUI di Rocket Pool, vai alla pagina "Monitoring / Alerting".
+7. Incolla il token del bot e l'ID chat numerico nei campi designati e salva la configurazione.
 
 ::: tip SUGGERIMENTO
 Manca la tua notifica preferita? Il team di Rocket Pool sta attivamente cercando feedback dalla community riguardo a destinazioni di notifica aggiuntive. Sentiti libero di suggerire nuove destinazioni di notifica su https://github.com/rocket-pool/smartnode/issues.

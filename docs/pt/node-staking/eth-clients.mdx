@@ -7,7 +7,7 @@ O instalador do Smartnode do Rocket Pool pode transformar sua máquina em um nó
 Os termos ETH1/ETH2 foram descontinuados.
 As cadeias serão referidas como **Execution Layer (ETH1)** e **Beacon Chain ou Consensus Layer (ETH2)** no restante destes guias.
 
-Se você já possui clientes de Execution e Consensus em execução em uma máquina separada (por exemplo, se você já está fazendo staking solo), pule esta seção e vá para a seção [Configurando um Nó Rocket Pool Híbrido com Clientes Externos](./install-modes#the-hybrid-configuration-with-external-clients).
+Se você já possui clientes de Execution e Consensus em execução em uma máquina separada (por exemplo, se você já está fazendo staking solo), pule esta seção e vá para a seção [Configurando um Nó Rocket Pool Híbrido com Clientes Externos](./install-modes#a-configuração-híbrida-com-clientes-externos).
 
 Caso contrário, continue lendo para saber mais sobre suas opções de clientes de Execution e Consensus.
 
@@ -45,7 +45,7 @@ As opções abaixo ajudam a descrever cada cliente para que você possa tomar um
 
 ## Clientes de Execution
 
-O Rocket Pool suporta quatro clientes de Execution diferentes: **Geth**, **Besu**, **Nethermind** e **Reth**.
+O Rocket Pool suporta cinco clientes de Execution: **Geth**, **Besu**, **Nethermind**, **Reth** e **Erigon**.
 
 Executar um cliente de Execution envolve armazenar uma cópia da blockchain da Execution layer em sua máquina.
 Ele interage via comunicações peer-to-peer com outros nós EC para registrar e verificar novos blocos e transações.
@@ -60,7 +60,7 @@ Geth é o cliente de Execution mais antigo e mais amplamente usado ao redor do m
 Tem uma reputação de ser muito estável e confiável.
 
 É multithread, o que significa que pode aproveitar toda a sua CPU.
-Seu uso de RAM é configurável, até um **mínimo de cerca de 4 GB para a Mainnet**.
+Seu requisito mínimo de RAM é de 8 GB, mas 16 GB são recomendados.
 Isso o torna viável tanto para sistemas de baixa potência quanto para sistemas de alta potência.
 
 ::: warning NOTA
@@ -113,14 +113,27 @@ Como o cliente mais novo do ecossistema, Reth está evoluindo rapidamente e ganh
 é de longe o disco. Sugerimos usar um bom [disco TLC](https://gist.github.com/yorickdowne/f3a3e79a573bf35767cd002cc977b038).
 Reth requer **pelo menos 8 GB de RAM** para um nó completo ou **16 GB de RAM** para um nó de arquivo.
 
+### Erigon
+
+[Erigon](https://erigon.tech/) é um cliente de Execution escrito em [Go](https://go.dev/). Ele usa uma arquitetura de staged-sync e pode baixar snapshots via BitTorrent na primeira inicialização, o que torna a sincronização inicial comparativamente rápida se a porta torrent estiver acessível.
+
+No Gerenciador de Configurações, o Erigon expõe uma **Torrent Port** (padrão `42069`, TCP e UDP) além da porta P2P usual (`30303`). Encaminhe ambas se você quiser que a sincronização por snapshot e o peering funcionem bem fora da sua LAN.
+
+O Erigon suporta **Rolling History Expiry** (descartar corpos e recibos com mais de aproximadamente um ano). Ele **não** suporta a History Expiry restrita ao pré-merge; se você escolher esse modo, ele mantém o histórico de blocos restante com a poda de estado do modo completo. Se você executá-lo como **nó completo**, ele mantém os recibos.
+
+Como nos outros clientes, as necessidades de RAM são flexíveis e a qualidade do disco importa. Abra as portas torrent e P2P no seu roteador (e no firewall do host) da mesma forma que faria para a `30303` do Geth.
+
 ### Tabela de Comparação de Clientes
 
-| Cliente    | Tipo     | Uso de CPU | Uso Mínimo de RAM | Tempo de Sincronização |
-| ---------- | -------- | ---------- | ----------------- | ---------------------- |
-| Geth       | Completo | Moderado   | 4 GB              | Moderado               |
-| Besu       | Completo | Moderado   | 6 GB              | Lento                  |
-| Nethermind | Completo | Moderado   | 16 GB             | Rápido                 |
-| Reth       | Completo | Moderado   | 8 GB              | Rápido                 |
+| Cliente    | Tipo     | Uso de RAM |
+| ---------- | -------- | ---------- |
+| Geth       | Completo | ~8 GB      |
+| Besu       | Completo | ~10 GB     |
+| Nethermind | Completo | ~7-15 GB   |
+| Reth       | Completo | ~14 GB     |
+| Erigon     | Completo | ~10 GB     |
+
+_Dados de uso de RAM obtidos do [eth-docker](https://ethdocker.com/Usage/ResourceUsage/). O uso real pode variar de acordo com a configuração e as condições da rede._
 
 ## Clientes de Consensus
 
@@ -157,7 +170,7 @@ O nicho do Lodestar está em sua linguagem de implementação, [Typescript](http
 ### Nimbus
 
 [Nimbus](https://nimbus.team/) é uma implementação de cliente tanto para Ethereum 2.0 quanto para Ethereum 1.0 que se esforça para ser o mais leve possível em termos de recursos usados.
-Isso permite que ele tenha um bom desempenho em sistemas embarcados e dispositivos com recursos restritos.
+Isso permite que ele tenha um bom desempenho em sistemas embarcados e dispositivos com recursos restritos. Se você planeja executar um par de clientes de Execution e Consensus com 16GB de RAM no total em seu nó, o nimbus é recomendado.
 
 No entanto, hardware com recursos restritos não é a única coisa para a qual Nimbus é bom.
 Seu baixo consumo de recursos facilita a execução do Nimbus junto com outras cargas de trabalho em seu servidor (isso é especialmente valioso para stakers que procuram reduzir o custo de suas instâncias de servidor).
@@ -179,10 +192,12 @@ Teku é licenciado sob Apache 2.0 e escrito em Java, uma linguagem notável por 
 
 ### Tabela de Comparação de Clientes
 
-| Cliente    | Uso de CPU | Uso Mínimo de RAM | Tempo de Sincronização          |
-| ---------- | ---------- | ----------------- | ------------------------------- |
-| Lighthouse | Moderado   | 2 GB              | Instantâneo com checkpoint sync |
-| Lodestar   | Moderado   | 4 GB              | Instantâneo com checkpoint sync |
-| Nimbus     | Baixo      | 0.75 GB           | Instantâneo com checkpoint sync |
-| Prysm      | Moderado   | 2 GB              | Instantâneo com checkpoint sync |
-| Teku       | Moderado   | 4 GB              | Instantâneo com checkpoint sync |
+| Cliente    | Uso de RAM | Tempo de Sincronização          |
+| ---------- | ---------- | ------------------------------- |
+| Lighthouse | ~14 GB     | Instantâneo com checkpoint sync |
+| Lodestar   | ~12 GB     | Instantâneo com checkpoint sync |
+| Nimbus     | ~5 GB      | Instantâneo com checkpoint sync |
+| Prysm      | ~9 GB      | Instantâneo com checkpoint sync |
+| Teku       | ~10 GB     | Instantâneo com checkpoint sync |
+
+_Dados de uso de RAM obtidos do [eth-docker](https://ethdocker.com/Usage/ResourceUsage/). O uso real pode variar de acordo com a configuração e as condições da rede._

@@ -4,18 +4,18 @@
 
 ## 更新您的 Minipool 委托
 
-强烈建议您在执行此过程时使用最新的 minipool 委托。较旧的委托在关闭时包含 `selfdestruct` 操作,这意味着如果过程未按指定顺序正确完成,资金可能会永远锁定。您可以通过尝试[升级您的委托](./minipools/delegates#upgrading-your-delegate)来检查您的 minipool 是否使用最新的委托。如果您的 minipool 未出现在可以升级的 minipool 列表中,那么您可以继续执行以下步骤。
+强烈建议您在执行此过程时使用最新的 minipool 委托。较旧的委托在关闭时包含 `selfdestruct` 操作,这意味着如果过程未按指定顺序正确完成,资金可能会永远锁定。您可以通过尝试[升级您的委托](./minipools/delegates#升级您的委托)来检查您的 minipool 是否使用最新的委托。如果您的 minipool 未出现在可以升级的 minipool 列表中,那么您可以继续执行以下步骤。
 
 ## 取回您未使用的存款余额
 
 ::: tip 注意
-如果您的 minipool 在 Atlas 之前被解散,您可以跳过此步骤并直接前往[将您的信标链余额增加到 32 ETH](#increase-your-beaconchain-balance-to-32-eth)。
+如果您的 minipool 在 Atlas 之前被解散,您可以跳过此步骤并直接前往[将您的信标链余额增加到 32 ETH](#将您的信标链余额增加到-32-eth)。
 您不需要取回未使用的存款余额,因为在 Atlas 之前整个保证金金额已存入信标链。
 :::
 
 您初始保证金存款中的 1 ETH 用作信标链的初始存款,以确保您的验证器的提款凭证。剩余金额在您的 minipool 从存款池分配到 ETH 时存入您的 minipool。
 
-当您的 minipool 被解散时,用户 ETH 返回到存款池,您的 ETH 保留在 minipool 中准备返回给您。使用奖励的[手动分配](./skimming#manual-distribution)功能来取回此 ETH,然后可以在下一步中使用它来激活您的验证器。
+当您的 minipool 被解散时,用户 ETH 返回到存款池,您的 ETH 保留在 minipool 中准备返回给您。使用奖励的[手动分配](./skimming#手动分配)功能来取回此 ETH,然后可以在下一步中使用它来激活您的验证器。
 
 ## 将您的信标链余额增加到 32 ETH
 
@@ -61,6 +61,6 @@ Please select a minipool to rescue:
 
 ### 退出您的验证器
 
-一旦您的验证器已活跃至少 256 个 epoch,您可以通过与任何其他 minipool 相同的过程退出您的 minipool,方法是遵循[退出您的验证器](./withdraw#exiting-your-validator)指南。
+一旦您的验证器已活跃至少 256 个 epoch,您可以通过与任何其他 minipool 相同的过程退出您的 minipool,方法是遵循[退出您的验证器](./withdraw#退出您的验证者)指南。
 
 完整的 32 ETH 余额将返回到您的 minipool,已解散的 minipool 将其 100% 余额分配给节点运营商的提款地址。

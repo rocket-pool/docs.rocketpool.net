@@ -33,7 +33,7 @@ Wir zeigen Ihnen unten, wie Sie Ihren Validator Client so einrichten, dass er au
 ## Upgrade auf v1.5.0
 
 Das Upgrade des Smart Node-Stacks auf v1.5.0 unterscheidet sich nicht von jedem anderen Upgrade.
-Befolgen Sie einfach [die normalen Anweisungen hier](../../node-staking/updates#updating-the-smartnode-stack).
+Befolgen Sie einfach [die normalen Anweisungen hier](../../node-staking/updates#aktualisierung-des-smartnode-stacks).
 
 ## Aufgaben nach dem Upgrade
 
@@ -51,7 +51,7 @@ Erwägen Sie die folgenden Schritte:
 ### Einrichten des Fee Recipient in Ihrem Validator Client
 
 Eines der **kritischen** Details, die vor The Merge eingerichtet werden müssen, ist der **Fee Recipient**, der von Ihrem Validator Client angegeben wird.
-Wie im [Übersichtsartikel](./whats-new#fee-recipients-and-your-distributor) beschrieben, kann dies einer von zwei Werten sein:
+Wie im [Übersichtsartikel](./whats-new#fee-recipients-und-ihr-distributor) beschrieben, kann dies einer von zwei Werten sein:
 
 - Wenn Sie **in den Smoothing Pool eingetreten sind**, muss dies die Adresse des **Smoothing Pool Contracts** sein. Sie können die Adresse von [der offiziellen Contracts-Seite](/de/protocol/contracts-integrations) erhalten.
 - Wenn Sie **nicht** im Smoothing Pool sind, muss dies die Adresse Ihres **Fee Distributor Contracts** Ihres Nodes sein. Sie können die Adresse durch Ausführen von `rocketpool node status` erhalten, unter dem Abschnitt `Fee Distributor and Smoothing Pool`.
@@ -194,7 +194,7 @@ Wählen Sie unten Ihren Consensus Client aus, um zu erfahren, wie Sie ihn konfig
 
       - Die [rETH-Adresse](/de/protocol/contracts-integrations/#token-contracts) **vor** der Bereitstellung des Redstone-Updates (z.B. `0xae78736Cd615f374D3085123A210448E74Fc6393` auf Mainnet)
       - Ihr **Fee Distributor** Ihres Nodes nach der Bereitstellung von Redstone, den Sie mit `rocketpool node status` abrufen können, sobald das Contract-Upgrade stattfindet
-      - Die [Smoothing Pool-Adresse](/de/protocol/contracts-integrations/#protocol-contracts), wenn Sie dem Smoothing Pool beitreten
+      - Die [Smoothing Pool-Adresse](/de/protocol/contracts-integrations/#wichtige-protokoll-contracts), wenn Sie dem Smoothing Pool beitreten
 
       Zur Erinnerung: `rocketpool node status` zeigt Ihnen jederzeit den korrekten Fee Recipient an.
 
@@ -211,7 +211,7 @@ Wählen Sie unten Ihren Consensus Client aus, um zu erfahren, wie Sie ihn konfig
 
       - Die [rETH-Adresse](/de/protocol/contracts-integrations/#token-contracts) **vor** der Bereitstellung des Redstone-Updates (z.B. `0xae78736Cd615f374D3085123A210448E74Fc6393` auf Mainnet)
       - Ihr **Fee Distributor** Ihres Nodes nach der Bereitstellung von Redstone, den Sie mit `rocketpool node status` abrufen können, sobald das Contract-Upgrade stattfindet
-      - Die [Smoothing Pool-Adresse](/de/protocol/contracts-integrations/#protocol-contracts), wenn Sie dem Smoothing Pool beitreten
+      - Die [Smoothing Pool-Adresse](/de/protocol/contracts-integrations/#wichtige-protokoll-contracts), wenn Sie dem Smoothing Pool beitreten
 
       Zur Erinnerung: `rocketpool node status` zeigt Ihnen jederzeit den korrekten Fee Recipient an.
 
@@ -228,7 +228,7 @@ Wählen Sie unten Ihren Consensus Client aus, um zu erfahren, wie Sie ihn konfig
 
       - Die [rETH-Adresse](/de/protocol/contracts-integrations/#token-contracts) **vor** der Bereitstellung des Redstone-Updates (z.B. `0xae78736Cd615f374D3085123A210448E74Fc6393` auf Mainnet)
       - Ihr **Fee Distributor** Ihres Nodes nach der Bereitstellung von Redstone, den Sie mit `rocketpool node status` abrufen können, sobald das Contract-Upgrade stattfindet
-      - Die [Smoothing Pool-Adresse](/de/protocol/contracts-integrations/#protocol-contracts), wenn Sie dem Smoothing Pool beitreten
+      - Die [Smoothing Pool-Adresse](/de/protocol/contracts-integrations/#wichtige-protokoll-contracts), wenn Sie dem Smoothing Pool beitreten
 
       Zur Erinnerung: `rocketpool node status` zeigt Ihnen jederzeit den korrekten Fee Recipient an.
 
@@ -245,7 +245,7 @@ Wählen Sie unten Ihren Consensus Client aus, um zu erfahren, wie Sie ihn konfig
 
       - Die [rETH-Adresse](/de/protocol/contracts-integrations/#token-contracts) **vor** der Bereitstellung des Redstone-Updates (z.B. `0xae78736Cd615f374D3085123A210448E74Fc6393` auf Mainnet)
       - Ihr **Fee Distributor** Ihres Nodes nach der Bereitstellung von Redstone, den Sie mit `rocketpool node status` abrufen können, sobald das Contract-Upgrade stattfindet
-      - Die [Smoothing Pool-Adresse](/de/protocol/contracts-integrations/#protocol-contracts), wenn Sie dem Smoothing Pool beitreten
+      - Die [Smoothing Pool-Adresse](/de/protocol/contracts-integrations/#wichtige-protokoll-contracts), wenn Sie dem Smoothing Pool beitreten
 
       Zur Erinnerung: `rocketpool node status` zeigt Ihnen jederzeit den korrekten Fee Recipient an.
 
@@ -285,7 +285,7 @@ Weitere Informationen zur Einrichtung eines Fallback-Nodes finden Sie im [Fallba
 
 ### Initialisieren Ihres Fee Distributors
 
-Wenn Sie nicht vorhaben, sich für den [Smoothing Pool](./whats-new#smoothing-pool) zu entscheiden und alle Ihre Priority Fees und MEV-Belohnungen an Ihren [Fee Distributor Contract](./whats-new#fee-recipients-and-your-distributor) zu beanspruchen, müssen Sie ihn schließlich initialisieren (die Contract-Instanz auf der Chain erstellen), um Belohnungen daraus an Ihre Withdrawal-Adresse beanspruchen zu können.
+Wenn Sie nicht vorhaben, sich für den [Smoothing Pool](./whats-new#smoothing-pool) zu entscheiden und alle Ihre Priority Fees und MEV-Belohnungen an Ihren [Fee Distributor Contract](./whats-new#fee-recipients-und-ihr-distributor) zu beanspruchen, müssen Sie ihn schließlich initialisieren (die Contract-Instanz auf der Chain erstellen), um Belohnungen daraus an Ihre Withdrawal-Adresse beanspruchen zu können.
 
 Dies ist eine relativ günstige Operation und muss nur einmal durchgeführt werden.
 
@@ -310,7 +310,7 @@ rocketpool node join-smoothing-pool
 
 ### Belohnungen beanspruchen
 
-Das Redstone-Upgrade ersetzt das teure, problematische alte Belohnungssystem durch ein [brandneues](./whats-new#new-rewards-system), das viel günstiger ist, das automatische Restaking von RPL (sowohl teilweise als auch vollständige Beträge) unterstützt und - am wichtigsten - **Sie Ihre Belohnungen beanspruchen lässt, wann immer Sie wollen**.
+Das Redstone-Upgrade ersetzt das teure, problematische alte Belohnungssystem durch ein [brandneues](./whats-new#neues-belohnungssystem), das viel günstiger ist, das automatische Restaking von RPL (sowohl teilweise als auch vollständige Beträge) unterstützt und - am wichtigsten - **Sie Ihre Belohnungen beanspruchen lässt, wann immer Sie wollen**.
 
 Da es keine zeitliche Begrenzung mehr für die Beanspruchung von Belohnungen gibt und es günstiger ist, viele Belohnungsintervalle auf einmal zu beanspruchen, wurde die automatische Belohnungsbeanspruchungsfunktion des Smart Node **entfernt**.
 Sie können nun Belohnungen über den folgenden Befehl beanspruchen:

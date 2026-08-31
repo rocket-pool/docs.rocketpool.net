@@ -3,8 +3,10 @@ import { Tab, Tabs } from "@rspress/core/theme";
 # 修剪执行客户端
 
 ::: tip 注意
-这适用于 `geth` 和 `nethermind` 用户。
-Besu *不需要*修剪。
+本页面介绍 `geth` 和 `nethermind` 的**离线／在线修剪**路径（`rocketpool service prune-eth1`）。
+
+控制磁盘占用的常规方式是 **Rolling History Expiry**（默认的 Pruning Mode）。Nethermind、Besu、Reth 和 Erigon 会删除大约一年以前的区块体和收据；Geth 则使用 Prague 之前的历史过期方式。参见[执行客户端历史过期](./maintenance/history-expiry)。
+
 :::
 
 如果您使用 `geth` 或 `nethermind` 作为主执行客户端,您可能会注意到节点的可用磁盘空间随时间慢慢减少。
@@ -173,3 +175,25 @@ Besu *不需要*修剪。
 
   </Tabs>
 </div>
+
+## 将 Geth 迁移到 Pebble v2
+
+如果您运行 **Geth** 且数据库仍使用 Pebble v1，可以使用以下命令就地迁移：
+
+```shell
+rocketpool service migrate-geth
+```
+
+该命令会关闭 Geth，将数据库从 Pebble v1 迁移到 v2，然后重新启动它。它与 `prune-eth1` **不同**，并且命令名称是 **`migrate-geth`**（不是 `migrate-eth1`）。
+
+::: warning 警告
+迁移期间 Geth 处于离线状态。如果没有[备用节点](./fallback)，在迁移完成之前您将错过证明和区块提议。
+:::
+
+请确认提示，或传入 `--yes` 跳过提示。使用以下命令查看进度：
+
+```shell
+rocketpool service logs eth1
+```
+
+在迁移完成之前，请勿中断该容器。

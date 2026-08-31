@@ -18,7 +18,7 @@ Este ETH _no_ se hace líquido y se devuelve al operador del nodo; en su lugar, 
 El sistema de crédito es **transparente** para el operador del nodo; se usará automáticamente (con notificaciones en la CLI de Smartnode explicando que se usará) durante las operaciones de `rocketpool node deposit` o `rocketpool node create-vacant-minipool` si es posible.
 Si _no_ puede ser usado, el Smartnode alertará al usuario que no puede ser usado y requerirá un bono normal de ETH durante cualquiera de las operaciones.
 
-Consulte la sección [Disponibilidad de Crédito](#credit-availability) a continuación para más detalles.
+Consulte la sección [Disponibilidad de Crédito](#disponibilidad-de-crédito) a continuación para más detalles.
 
 ## Un Ejemplo
 
@@ -47,7 +47,7 @@ Your consensus client is synced, you may safely create a minipool.
 
 El segundo conjunto de líneas aquí es el relevante: le dicen que tiene suficiente ETH en su saldo de crédito para cubrir este depósito _y que está disponible para su uso_, por lo que usará el saldo automáticamente y no requerirá ningún ETH suplementario de su billetera de nodo.
 
-Consulte [la sección de disponibilidad a continuación](#credit-availability) para detalles sobre la disponibilidad del saldo de crédito.
+Consulte [la sección de disponibilidad a continuación](#disponibilidad-de-crédito) para detalles sobre la disponibilidad del saldo de crédito.
 
 ## Ver su Saldo de Crédito Actual
 

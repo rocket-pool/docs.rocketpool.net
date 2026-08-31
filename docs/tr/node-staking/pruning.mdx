@@ -3,8 +3,10 @@ import { Tab, Tabs } from "@rspress/core/theme";
 # Execution İstemcisini Budama
 
 ::: tip NOT
-Bu, `geth` ve `nethermind` kullanıcıları içindir.
-Besu'nun budanması _gerekmez_.
+Bu sayfa, `geth` ve `nethermind` için **çevrimdışı / çevrimiçi budama** yolunu anlatır (`rocketpool service prune-eth1`).
+
+Disk kullanımını kontrol altında tutmanın olağan yolu **Rolling History Expiry**'dir (varsayılan Pruning Mode). Nethermind, Besu, Reth ve Erigon yaklaşık bir yıldan eski gövdeleri ve makbuzları atar; Geth ise bunun yerine Prague öncesi geçmiş sona erdirmeyi kullanır. Bkz. [Execution İstemcisi Geçmiş Sona Erdirme](./maintenance/history-expiry).
+
 :::
 
 Birincil Execution istemciniz olarak `geth` veya `nethermind` kullanıyorsanız, muhtemelen düğümünüzün boş disk alanının zamanla yavaşça azaldığını fark edeceksiniz.
@@ -173,3 +175,25 @@ Aşağıdaki sekmelerden kullandığınız istemciyi seçin.
 
   </Tabs>
 </div>
+
+## Geth'i Pebble v2'ye Taşıma
+
+**Geth** çalıştırıyorsanız ve veritabanı hâlâ Pebble v1 ise, yerinde taşımak için şunu kullanın:
+
+```shell
+rocketpool service migrate-geth
+```
+
+Bu komut Geth'i kapatır, veritabanını Pebble v1 → v2'ye taşır ve ardından yeniden başlatır. Bu, `prune-eth1` ile **aynı değildir** ve komut adı **`migrate-geth`**'tir (`migrate-eth1` değil).
+
+::: warning UYARI
+Taşıma süresince Geth çevrimdışıdır. Bir [yedek node](./fallback) olmadan, işlem bitene kadar attestation ve blok önerilerini kaçırırsınız.
+:::
+
+İstemi onaylayın veya atlamak için `--yes` geçin. İlerlemeyi şu komutla izleyin:
+
+```shell
+rocketpool service logs eth1
+```
+
+Taşıma tamamlanana kadar container'ı kesmeyin.

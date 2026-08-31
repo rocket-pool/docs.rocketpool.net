@@ -11,11 +11,11 @@ RPIP-32により、アカウントはプロトコルに登録されているRock
 - 資金の管理がスマートコントラクトによって管理されるプロトコル統合。
 - 資金の管理が財務によって管理されるDAOまたは組織。
 
-この機能の主な目的は単一の預金者シナリオを促進することですが、複数の独立した預金者も、その上に階層化されたスマートコントラクトを作成することで、この機能を活用できることは注目に値します。Rocket Poolは、以前のAtlasリリースで、ノードの[代理でRPLをステーキング](../../node-staking/create-validator#whitelisting-an-address-to-stake-on-behalf)する機能も導入しました。
+この機能の主な目的は単一の預金者シナリオを促進することですが、複数の独立した預金者も、その上に階層化されたスマートコントラクトを作成することで、この機能を活用できることは注目に値します。Rocket Poolは、以前のAtlasリリースで、ノードの[代理でRPLをステーキング](../../node-staking/create-validator#アドレスをステーキングのために代理でホワイトリストに追加する)する機能も導入しました。
 
 ### 前提条件
 
-資金を提供する予定のノードの[プライマリ引き出しアドレス](../../node-staking/prepare-node#setting-your-primary-withdrawal-address)が適切に設定されていることを確認してください。Houstonの後に引き出しアドレスがどのように機能するかについては、上記のリンクをたどってください。
+資金を提供する予定のノードの[プライマリ引き出しアドレス](../../node-staking/prepare-node#primary-withdrawal-addressの設定)が適切に設定されていることを確認してください。Houstonの後に引き出しアドレスがどのように機能するかについては、上記のリンクをたどってください。
 
 ::: tip 注意
 このステップをスキップしないでください！すべてのETHボンド/報酬はプライマリ引き出しアドレスに引き出されます。言い換えれば、ノードにETHを供給するアドレスは、プライマリ引き出しアドレスとして使用する必要があります！ノードのプライマリ引き出しアドレスが管理しているウォレットに設定されていることを確認してください。
@@ -63,7 +63,7 @@ Hoodi TestnetとMainnetではプロセスがわずかに異なるため、以下
       <img src={mmNetwork} width="100%" height="auto"/>
 
       MetaMaskにウォレットアドレスができたので、テストETHで埋める必要があります。
-      テストネットフォーセットを使用してHoodiでテストETHを取得する方法の簡単なガイドについては、[テストネットワークでの練習](../../node-staking/testnet/overview#getting-test-eth-on-hoodi)ページにアクセスしてください。
+      テストネットフォーセットを使用してHoodiでテストETHを取得する方法の簡単なガイドについては、[テストネットワークでの練習](../../node-staking/testnet/overview#hoodi-でのテスト-eth-の取得)ページにアクセスしてください。
 
       テストするためのHoodi ETHを入手したら、[https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node](https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node)にアクセスしてください。
 
@@ -126,10 +126,10 @@ Rocket Poolでステーキングしています。
 <div className="p-3">
   <Tabs>
     <Tab label="Hoodi Testnetでの準備">
-      ノードの代理でステーキングしたETHを引き出す準備ができたら、[https://testnet.node.rocketpool.net/withdraw-eth](https://testnet.node.rocketpool.net/withdraw-eth)にアクセスしてください。ノードの[プライマリ引き出しアドレス](../../node-staking/prepare-node#setting-your-primary-withdrawal-address)としてサインインすると、見慣れたメニューが表示されます。引き出したいノードアドレスを入力するよう求められます:
+      ノードの代理でステーキングしたETHを引き出す準備ができたら、[https://testnet.node.rocketpool.net/withdraw-eth](https://testnet.node.rocketpool.net/withdraw-eth)にアクセスしてください。ノードの[プライマリ引き出しアドレス](../../node-staking/prepare-node#primary-withdrawal-addressの設定)としてサインインすると、見慣れたメニューが表示されます。引き出したいノードアドレスを入力するよう求められます:
     </Tab>
     <Tab label="Ethereum Mainnetでの準備">
-      ノードの代理でステーキングしたETHを引き出す準備ができたら、[https://node.rocketpool.net/withdraw-eth](https://node.rocketpool.net/withdraw-eth)にアクセスしてください。ノードの[プライマリ引き出しアドレス](../../node-staking/prepare-node#setting-your-primary-withdrawal-address)としてサインインすると、見慣れたメニューが表示されます。引き出したいノードアドレスを入力するよう求められます:
+      ノードの代理でステーキングしたETHを引き出す準備ができたら、[https://node.rocketpool.net/withdraw-eth](https://node.rocketpool.net/withdraw-eth)にアクセスしてください。ノードの[プライマリ引き出しアドレス](../../node-staking/prepare-node#primary-withdrawal-addressの設定)としてサインインすると、見慣れたメニューが表示されます。引き出したいノードアドレスを入力するよう求められます:
     </Tab>
   </Tabs>
 </div>

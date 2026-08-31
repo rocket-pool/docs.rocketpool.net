@@ -16,11 +16,11 @@ Smartnodeを設定する前に、以下を確認してください。
 - Smartnodeが[インストール](../installing/overview)され、[設定](../config/overview)されている
 - Smartnodeにノードウォレットがロードされている
 - ExecutionクライアントとConsensusクライアントが同期されている
-- [withdrawal address](../prepare-node.mdx#setting-your-withdrawal-address)でノードをプロビジョニングし、[fallbackクライアント](../fallback)を設定し（オプション）、[Smoothing Pool](../fee-distrib-sp#the-smoothing-pool)にオプトイン（オプション）し、[MEV](../mev.mdx)を設定している
+- [withdrawal address](../prepare-node.mdx#primary-withdrawal-addressの設定)でノードをプロビジョニングし、[fallbackクライアント](../fallback)を設定し（オプション）、[Smoothing Pool](../fee-distrib-sp#smoothing-pool)にオプトイン（オプション）し、[MEV](../mev.mdx)を設定している
 - 少なくとも1つの[minipool](../create-validator.mdx)を作成している
 
 ## ガイド
 
 [Node Operator報酬の請求](../rewards)では、RPL報酬とExecution layer報酬の仕組みと、それらにアクセスする方法について説明します。
 
-[Skimされた報酬の分配](../skimming)では、プロトコルによって定期的に「skimmed」され、minipoolに配信されるBeacon Chainからの報酬へのアクセスについて説明します。
+[Minipoolのスキミング報酬の分配](../skimming)では、プロトコルによって定期的に「skimmed」され、minipoolに配信されるBeacon Chainからの報酬へのアクセスについて説明します。

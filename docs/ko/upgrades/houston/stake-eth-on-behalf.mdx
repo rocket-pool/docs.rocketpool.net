@@ -11,11 +11,11 @@ RPIP-32는 계정이 프로토콜에 등록된 Rocket Pool 노드를 [대신하�
 - 스마트 계약이 자금의 관리권을 관리하는 프로토콜 통합.
 - 재무가 자금의 관리권을 관리하는 DAO 또는 조직.
 
-이 기능의 주요 목표는 단일 입금자 시나리오를 용이하게 하는 것이지만 여러 독립 입금자도 그 위에 스마트 계약을 만들어 이 기능을 활용할 수 있다는 점은 주목할 가치가 있습니다. Rocket Pool은 또한 이전 Atlas 릴리스에서 노드를 [대신하여 RPL을 stake](../../node-staking/create-validator#whitelisting-an-address-to-stake-on-behalf)할 수 있는 기능을 도입했습니다.
+이 기능의 주요 목표는 단일 입금자 시나리오를 용이하게 하는 것이지만 여러 독립 입금자도 그 위에 스마트 계약을 만들어 이 기능을 활용할 수 있다는 점은 주목할 가치가 있습니다. Rocket Pool은 또한 이전 Atlas 릴리스에서 노드를 [대신하여 RPL을 stake](../../node-staking/create-validator#대신-스테이킹할-주소-화이트리스트-등록)할 수 있는 기능을 도입했습니다.
 
 ### 전제 조건
 
-자금을 제공하려는 노드의 [primary withdrawal address](../../node-staking/prepare-node#setting-your-primary-withdrawal-address)를 제대로 구성했는지 확인하십시오. houston 이후 출금 주소가 작동하는 방식에 대한 가이드는 위 링크를 따르십시오.
+자금을 제공하려는 노드의 [primary withdrawal address](../../node-staking/prepare-node#primary-withdrawal-address-설정하기)를 제대로 구성했는지 확인하십시오. houston 이후 출금 주소가 작동하는 방식에 대한 가이드는 위 링크를 따르십시오.
 
 ::: tip 참고
 이 단계를 건너뛰지 마십시오! 모든 ETH bond/보상은 primary withdrawal address로 출금됩니다. 즉, 노드에 ETH를 공급하는 주소를 primary withdrawal address로 사용해야 합니다! 노드의 primary withdrawal address가 관리권을 가진 월렛으로 설정되어 있는지 확인하십시오.
@@ -63,7 +63,7 @@ Hoodi Testnet 및 Mainnet의 프로세스가 약간 다르므로 아래 탭에�
       <img src={mmNetwork} width="100%" height="auto"/>
 
       이제 MetaMask에 월렛 주소가 있으므로 일부 테스트 ETH로 채워야 합니다.
-      Hoodi에서 일부 테스트 ETH를 얻기 위해 testnet faucet을 사용하는 방법에 대한 빠른 가이드는 [테스트 네트워크로 연습](../../node-staking/testnet/overview#getting-test-eth-on-hoodi) 페이지로 이동하십시오.
+      Hoodi에서 일부 테스트 ETH를 얻기 위해 testnet faucet을 사용하는 방법에 대한 빠른 가이드는 [테스트 네트워크로 연습](../../node-staking/testnet/overview#hoodi에서-테스트-eth-얻기) 페이지로 이동하십시오.
 
       테스트할 Hoodi ETH가 있으면 [https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node](https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node)로 이동하십시오.
 
@@ -127,11 +127,11 @@ Node Operator가 귀하의 ETH를 minipool에 입금하면 그들의 출금 자�
   <Tabs>
     <Tab label="Hoodi Testnet에서 준비">
       노드를 대신하여 stake한 ETH를 출금할 준비가 되면 [https://testnet.node.rocketpool.net/withdraw-eth](https://testnet.node.rocketpool.net/withdraw-eth)로 이동하십시오. 노드의 [primary withdrawal
-      address](../../node-staking/prepare-node#setting-your-primary-withdrawal-address)로 로그인한 후 익숙한 메뉴가 표시되어야 합니다. 출금하려는 노드 주소를 입력하라는 메시지가 표시됩니다:
+      address](../../node-staking/prepare-node#primary-withdrawal-address-설정하기)로 로그인한 후 익숙한 메뉴가 표시되어야 합니다. 출금하려는 노드 주소를 입력하라는 메시지가 표시됩니다:
     </Tab>
     <Tab label="Ethereum Mainnet에서 준비">
       노드를 대신하여 stake한 ETH를 출금할 준비가 되면 [https://node.rocketpool.net/withdraw-eth](https://node.rocketpool.net/withdraw-eth)로 이동하십시오. 노드의 [primary withdrawal
-      address](../../node-staking/prepare-node#setting-your-primary-withdrawal-address)로 로그인한 후 익숙한 메뉴가 표시되어야 합니다. 출금하려는 노드 주소를 입력하라는 메시지가 표시됩니다:
+      address](../../node-staking/prepare-node#primary-withdrawal-address-설정하기)로 로그인한 후 익숙한 메뉴가 표시되어야 합니다. 출금하려는 노드 주소를 입력하라는 메시지가 표시됩니다:
     </Tab>
   </Tabs>
 </div>

@@ -11,11 +11,11 @@ RPIP-32 ermöglicht es einem Account, [ETH im Namen](https://rpips.rocketpool.ne
 - Protokollintegrationen, bei denen die Verwahrung der Mittel von Smart Contracts verwaltet wird.
 - DAOs oder Organisationen, bei denen die Verwahrung der Mittel von einer Schatzkammer verwaltet wird.
 
-Während das Hauptziel dieser Funktion darin besteht, Szenarien mit einem einzelnen Einzahler zu ermöglichen, ist zu beachten, dass auch mehrere unabhängige Einzahler diese Fähigkeit nutzen können, indem sie Smart Contracts darüber erstellen. Rocket Pool hat auch die Möglichkeit eingeführt, [RPL im Namen](../../node-staking/create-validator#whitelisting-an-address-to-stake-on-behalf) eines Nodes zu staken, bereits in unserem vorherigen Atlas-Release.
+Während das Hauptziel dieser Funktion darin besteht, Szenarien mit einem einzelnen Einzahler zu ermöglichen, ist zu beachten, dass auch mehrere unabhängige Einzahler diese Fähigkeit nutzen können, indem sie Smart Contracts darüber erstellen. Rocket Pool hat auch die Möglichkeit eingeführt, [RPL im Namen](../../node-staking/create-validator#whitelisting-einer-adresse-zum-staken-im-namen-von) eines Nodes zu staken, bereits in unserem vorherigen Atlas-Release.
 
 ### Voraussetzung
 
-Stellen Sie sicher, dass Sie die [primäre Withdrawal-Adresse](../../node-staking/prepare-node#setting-your-primary-withdrawal-address) des Nodes, den Sie finanzieren möchten, ordnungsgemäß konfiguriert haben. Folgen Sie dem obigen Link für eine Anleitung, wie Withdrawal-Adressen nach Houston funktionieren.
+Stellen Sie sicher, dass Sie die [primäre Withdrawal-Adresse](../../node-staking/prepare-node#ihre-primäre-auszahlungsadresse-festlegen) des Nodes, den Sie finanzieren möchten, ordnungsgemäß konfiguriert haben. Folgen Sie dem obigen Link für eine Anleitung, wie Withdrawal-Adressen nach Houston funktionieren.
 
 ::: tip HINWEIS
 Überspringen Sie diesen Schritt nicht! Alle ETH-Bonds/Belohnungen werden an die primäre Withdrawal-Adresse abgehoben. Mit anderen Worten, die Adresse, die ETH für einen Node bereitstellt, sollte als primäre Withdrawal-Adresse verwendet werden! Stellen Sie bitte sicher, dass die primäre Withdrawal-Adresse des Nodes auf eine Wallet gesetzt ist, über die Sie die Kontrolle haben.
@@ -63,7 +63,7 @@ Der Prozess ist für das Hoodi Testnet und Mainnet etwas unterschiedlich. Wähle
       <img src={mmNetwork} width="100%" height="auto"/>
 
       Jetzt, da Sie eine Wallet-Adresse in MetaMask haben, müssen Sie sie mit etwas Test-ETH füllen.
-      Gehen Sie zur Seite [Üben mit dem Testnetzwerk](../../node-staking/testnet/overview#getting-test-eth-on-hoodi) für eine kurze Anleitung, wie Sie einen Testnet-Faucet verwenden, um etwas Test-ETH auf Hoodi zu erhalten.
+      Gehen Sie zur Seite [Üben mit dem Testnetzwerk](../../node-staking/testnet/overview#test-eth-auf-hoodi-erhalten) für eine kurze Anleitung, wie Sie einen Testnet-Faucet verwenden, um etwas Test-ETH auf Hoodi zu erhalten.
 
       Sobald Sie etwas Hoodi-ETH zum Testen haben, gehen Sie zu [https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node](https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node).
 
@@ -128,12 +128,12 @@ Sie staken jetzt mit Rocket Pool.
     <Tab label="Vorbereitung im Hoodi Testnet">
       Wenn Sie bereit sind, ETH abzuheben, das Sie im Namen eines Nodes gestakt haben, gehen Sie zu
       [https://testnet.node.rocketpool.net/withdraw-eth](https://testnet.node.rocketpool.net/withdraw-eth). Nach der Anmeldung als [primäre
-      Withdrawal-Adresse](../../node-staking/prepare-node#setting-your-primary-withdrawal-address) des Nodes sollten Sie mit einem vertrauten Menü begrüßt werden. Sie werden aufgefordert, die
+      Withdrawal-Adresse](../../node-staking/prepare-node#ihre-primäre-auszahlungsadresse-festlegen) des Nodes sollten Sie mit einem vertrauten Menü begrüßt werden. Sie werden aufgefordert, die
       Node-Adresse einzugeben, von der Sie abheben möchten:
     </Tab>
     <Tab label="Vorbereitung im Ethereum Mainnet">
       Wenn Sie bereit sind, ETH abzuheben, das Sie im Namen eines Nodes gestakt haben, gehen Sie zu [https://node.rocketpool.net/withdraw-eth](https://node.rocketpool.net/withdraw-eth). Nach der
-      Anmeldung als [primäre Withdrawal-Adresse](../../node-staking/prepare-node#setting-your-primary-withdrawal-address) des Nodes sollten Sie mit einem vertrauten Menü begrüßt werden. Sie werden
+      Anmeldung als [primäre Withdrawal-Adresse](../../node-staking/prepare-node#ihre-primäre-auszahlungsadresse-festlegen) des Nodes sollten Sie mit einem vertrauten Menü begrüßt werden. Sie werden
       aufgefordert, die Node-Adresse einzugeben, von der Sie abheben möchten:
     </Tab>
   </Tabs>

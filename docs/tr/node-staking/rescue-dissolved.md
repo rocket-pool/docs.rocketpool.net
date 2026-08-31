@@ -4,18 +4,18 @@ Minipool'unuzun fesih penceresi içinde stake etmemesi gibi olası olmayan bir d
 
 ## Minipool Delegate'inizi Güncelleyin
 
-Bu işlemi gerçekleştirirken en son minipool delegate'ini kullanmanız şiddetle tavsiye edilir. Eski delegate'ler kapatıldıklarında bir `selfdestruct` operasyonu içerir, bu da işlem belirtilen sırayla doğru şekilde tamamlanmazsa fonların sonsuza kadar kilitlenebileceği anlamına gelir. Minipool'unuzun en son delegate üzerinde olup olmadığını [Delegate'inizi Yükseltme](./minipools/delegates#upgrading-your-delegate) işlemini deneyerek kontrol edebilirsiniz. Minipool'unuz yükseltilebilecek minipool'lar listesinde görünmüyorsa, aşağıya devam edebilirsiniz.
+Bu işlemi gerçekleştirirken en son minipool delegate'ini kullanmanız şiddetle tavsiye edilir. Eski delegate'ler kapatıldıklarında bir `selfdestruct` operasyonu içerir, bu da işlem belirtilen sırayla doğru şekilde tamamlanmazsa fonların sonsuza kadar kilitlenebileceği anlamına gelir. Minipool'unuzun en son delegate üzerinde olup olmadığını [Delegate'inizi Yükseltme](./minipools/delegates#delegateinizi-yükseltme) işlemini deneyerek kontrol edebilirsiniz. Minipool'unuz yükseltilebilecek minipool'lar listesinde görünmüyorsa, aşağıya devam edebilirsiniz.
 
 ## Kullanılmayan Deposit Bakiyenizi Alın
 
 ::: tip NOT
-Minipool'unuz Atlas'tan önce feshedildiyse, bu adımı atlayabilir ve doğrudan [Beaconchain Bakiyenizi 32 ETH'ye Yükseltin](#increase-your-beaconchain-balance-to-32-eth) bölümüne geçebilirsiniz.
+Minipool'unuz Atlas'tan önce feshedildiyse, bu adımı atlayabilir ve doğrudan [Beaconchain Bakiyenizi 32 ETH'ye Yükseltin](#beaconchain-bakiyenizi-32-ethye-yükseltin) bölümüne geçebilirsiniz.
 Kullanılmayan deposit bakiyenizi almanız gerekmez çünkü Atlas'tan önce tüm bond miktarı beaconchain'e yatırılmıştı.
 :::
 
 İlk bond yatırımınızdan 1 ETH, validator'ünüzün çekim kimlik bilgilerini güvence altına almak için beaconchain'e ilk depozito olarak kullanılır. Kalan miktar, deposit pool'dan ETH atandığında minipool'unuza yatırılır.
 
-Minipool'unuz feshedildiğinde, kullanıcı ETH'si deposit pool'a iade edilir ve ETH'niz size iade edilmeye hazır olarak minipool'da kalır. Bu ETH'yi almak için [Manuel Dağıtım](./skimming#manual-distribution) ödül özelliğini kullanın, böylece validator'ünüzü etkinleştirmek için bir sonraki adımda kullanılabilir.
+Minipool'unuz feshedildiğinde, kullanıcı ETH'si deposit pool'a iade edilir ve ETH'niz size iade edilmeye hazır olarak minipool'da kalır. Bu ETH'yi almak için [Manuel Dağıtım](./skimming#manuel-dağıtım) ödül özelliğini kullanın, böylece validator'ünüzü etkinleştirmek için bir sonraki adımda kullanılabilir.
 
 ## Beaconchain Bakiyenizi 32 ETH'ye Yükseltin
 
@@ -61,6 +61,6 @@ Bu adım tamamlandıktan sonra, validator'ünüz giriş kuyruğuna girecek ve a�
 
 ### Validator'ünüzden Çıkış
 
-Validator'ünüz minimum 256 epoch boyunca aktif olduktan sonra, [Validator'ünüzden Çıkış](./withdraw#exiting-your-validator) kılavuzunu izleyerek herhangi bir minipool ile aynı işlemle minipool'unuzdan çıkabilirsiniz.
+Validator'ünüz minimum 256 epoch boyunca aktif olduktan sonra, [Validator'ünüzden Çıkış](./withdraw#validatorınızdan-çıkış) kılavuzunu izleyerek herhangi bir minipool ile aynı işlemle minipool'unuzdan çıkabilirsiniz.
 
 Tam 32 ETH bakiyesi minipool'unuza iade edilecek ve feshedilmiş minipool'lar bakiyelerinin %100'ünü node operatörünün çekim adresine dağıtacaktır.

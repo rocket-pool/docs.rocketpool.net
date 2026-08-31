@@ -33,7 +33,7 @@ RPL は 5% のインフレ率を持っています。このインフレの 22% �
 
 ## pDAO 提案のライフサイクル
 
-提案は、オンチェーンに到達する前に[ガバナンスプロセス](../houston/participate#governance-process)によって予測されるべきです。これは 4 つの期間で構成され、すべて pDAO の[制御可能なパラメータ](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table)です。
+提案は、オンチェーンに到達する前に[ガバナンスプロセス](../houston/participate#ガバナンスプロセス)によって予測されるべきです。これは 4 つの期間で構成され、すべて pDAO の[制御可能なパラメータ](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table)です。
 
 - 投票遅延期間: `proposal.vote.delay.time`
 - 投票フェーズ 1: `proposal.vote.phase1.time`
@@ -51,7 +51,7 @@ RPL は 5% のインフレ率を持っています。このインフレの 22% �
 - `proposal.bond` は有効な提案を奨励し、スパムを抑止します。
 - `proposal.challenge.bond` は無効/悪意のある提案の削除を奨励します。
 
-チャレンジャーは、誤りであると主張する Merkle-sum ツリーへのインデックスを提供します。任意のノードオペレーターは、不正な提案へのチャレンジに参加できます (そしてそうすることで報酬を得ることができます)。興味がある場合は、[pDAO チャレンジプロセス](../houston/pdao#challenge-process)についてお読みください。投票遅延期間の終了までにチャレンジで打ち負かされなかった提案は、投票段階に入ります。
+チャレンジャーは、誤りであると主張する Merkle-sum ツリーへのインデックスを提供します。任意のノードオペレーターは、不正な提案へのチャレンジに参加できます (そしてそうすることで報酬を得ることができます)。興味がある場合は、[pDAO チャレンジプロセス](../houston/pdao#チャレンジプロセス)についてお読みください。投票遅延期間の終了までにチャレンジで打ち負かされなかった提案は、投票段階に入ります。
 
 ::: tip 注意
 `proposal.vote.delay.time` が期限切れになると、提案はチャレンジされたり打ち負かされたりすることができなくなります。
@@ -102,7 +102,7 @@ rocketpool pdao proposals execute
 
 実行する提案を選択するように求められ、このステップの後、提案がプロトコルに適用されます!
 
-提案が投票期間を通過した後、提案者は、提案がチャレンジによって打ち負かされたり拒否されたりしない限り、ロックされた RPL ボンドを[請求](../houston/participate#claiming-bonds-and-rewards)できます。
+提案が投票期間を通過した後、提案者は、提案がチャレンジによって打ち負かされたり拒否されたりしない限り、ロックされた RPL ボンドを[請求](../houston/participate#ボンドと報酬の請求)できます。
 
 ::: tip 注意
 提案を実行できるウィンドウ `proposal.execute.time` があります。このタイマーが終了に達すると、提案は期限切れになります。
@@ -118,7 +118,7 @@ rocketpool pdao proposals execute
 
 <img src={proposal_checker} width="100%" height="auto" />
 
-この設定が有効になっていると、ノードは新しい提案をチェックし、その正しさを検証し、無効な提案にチャレンジを送信します。唯一の前提条件は、[RPL ロック](../houston/participate#allowing-rpl-locking)が有効になっていることです。
+この設定が有効になっていると、ノードは新しい提案をチェックし、その正しさを検証し、無効な提案にチャレンジを送信します。唯一の前提条件は、[RPL ロック](../houston/participate#rplロックの許可)が有効になっていることです。
 
 このチェックは、他のいくつかのノード関連の義務と連携して 5 分ごとに実行されます。不正な提案にチャレンジする例を見ていきましょう。smartnode コマンド `rocketpool service logs node` を使用して進行状況を監視できます。
 
@@ -167,6 +167,6 @@ rocketpool3_node  | 2024/04/05 02:57:13 Successfully defeated proposal.
 提案の打破に参加したチャレンジャーは、誤りであることが証明されたインデックスを送信した場合、提案者のボンドの比例額を支払われます。他のすべてのチャレンジャーは、ボンドのみを受け取ります。
 :::
 
-提案が打ち負かされたので、ノード (チャレンジャー) は、元の RPL ボンドと、不正な提案を打ち負かした報酬として提案者の RPL ボンドを[請求](../houston/participate#claiming-bonds-and-rewards)できます。
+提案が打ち負かされたので、ノード (チャレンジャー) は、元の RPL ボンドと、不正な提案を打ち負かした報酬として提案者の RPL ボンドを[請求](../houston/participate#ボンドと報酬の請求)できます。
 
 pDAO 提案およびチャレンジシステムの詳細を掘り下げたい場合は、[技術仕様](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#draft-protocol-dao-proposal-challenge-system-specification)をご覧ください。低レベルの詳細に入る例を研究することに興味がある場合は、[チャレンジプロセス](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#challenge-process)のこのセクションに自由にスキップしてください。

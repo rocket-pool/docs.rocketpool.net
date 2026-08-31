@@ -5,7 +5,7 @@
 Al ejecutar un solo validador en solitario, recibirías recompensas del 100% sobre tus 32 ETH.
 Al ejecutar dos minipools de 16 ETH, recibirías recompensas del 100% sobre tus 32 ETH **más** el 14% de las recompensas sobre 32 ETH proporcionados por el protocolo Rocket Pool.
 Al ejecutar cuatro minipools de 8 ETH, recibirías recompensas del 100% sobre tus 32 ETH **más** el 14% de las recompensas sobre 96 ETH proporcionados por el protocolo Rocket Pool.
-También tendrías la opción de usar la función [Smoothing Pool](./prepare-node.mdx#smoothing-pool) de Rocket Pool.
+También tendrías la opción de usar la función [Smoothing Pool](./fee-distrib-sp#el-smoothing-pool) de Rocket Pool.
 
 ### ¿Cómo sé cuánto vale mi rETH? ¿Hace rebase?
 
@@ -19,7 +19,7 @@ Si eso no ayuda, puedes hacer tu pregunta en el canal **#support** de Rocket Poo
 
 ### ¿Cómo puedo obtener ETH de prueba para experimentar con la creación y ejecución de un minipool? No puedo publicar mensajes en el canal del faucet.
 
-Consulta [Obtener ETH de prueba en Hoodi](./testnet/overview#getting-test-eth-on-hoodi).
+Consulta [Obtener ETH de prueba en Hoodi](./testnet/overview#obteniendo-eth-de-prueba-en-hoodi).
 
 ### ¿Cómo recupero mi nodo si mi máquina se rompe?
 
@@ -39,7 +39,7 @@ Además, asegúrate de que tu nodo tenga una dirección IP local estática para 
 
 ### Mi cliente de consenso está tardando demasiado en sincronizar. ¿Qué debo hacer?
 
-Los clientes de consenso pueden tardar mucho tiempo en sincronizar si no comenzaste el proceso de sincronización usando [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
+Los clientes de consenso pueden tardar mucho tiempo en sincronizar si no comenzaste el proceso de sincronización usando [Checkpoint Sync](./config-docker#sincronización-de-punto-de-control-de-beacon-chain).
 Incluso si lo has estado ejecutando durante mucho tiempo, generalmente es más rápido configurar la URL de sincronización de checkpoint, borrar los datos de sincronización actuales con `rocketpool service resync-eth2` y comenzar de nuevo.
 Tu cliente debería estar sincronizado en menos de un minuto.
 

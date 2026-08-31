@@ -62,7 +62,7 @@ Questo significa che otterrai tutti i vantaggi dei minipool Rocket Pool, inclusi
 
 - La possibilità di convertire il tuo unico validator (con un bond di 32 ETH) in **quattro minipool** (ciascuno con un bond di 8 ETH), **quadruplicando** efficacemente la tua presenza sulla Beacon Chain
 - Commissione sulla porzione di quei minipool fornita dagli staker rETH
-- Accesso alla [Smoothing Pool](../../node-staking/fee-distrib-sp#the-smoothing-pool) di Rocket Pool per raggruppare e distribuire uniformemente le ricompense dalle proposte di blocco e MEV
+- Accesso alla [Smoothing Pool](../../node-staking/fee-distrib-sp#lo-smoothing-pool) di Rocket Pool per raggruppare e distribuire uniformemente le ricompense dalle proposte di blocco e MEV
 
 Per saperne di più sulla conversione di un validator solo in un minipool, visita la guida [Convertire un Validator Solo in un Minipool](../../node-staking/solo-staker-migration).
 

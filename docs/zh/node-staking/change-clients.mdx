@@ -31,7 +31,7 @@ import tui_confirm_cc from "./images/tui-confirm-cc.png";
 该过程的第一步是可选的：如果您愿意，可以导出当前 Execution 客户端的现有链数据。
 这将让您为新的 Execution 客户端释放节点上的宝贵磁盘空间，并且您可以保留旧链数据，以防您想恢复到旧客户端并从中断处继续。
 
-请参阅[备份您的节点](./backups##备份您的-execution-链数据)指南了解详细信息。
+请参阅[备份您的节点](./backups#备份您的-execution-链数据)指南了解详细信息。
 
 ### 更改您选择的 Execution 客户端
 
@@ -81,7 +81,7 @@ rocketpool service resync-eth1
 
 ## 更改 Consensus 客户端
 
-由于[检查点同步](./config-docker#beacon-chain-checkpoint-syncing)，更改 Consensus 客户端甚至比 Execution 客户端更容易。
+由于[检查点同步](./config-docker#信标链检查点同步)，更改 Consensus 客户端甚至比 Execution 客户端更容易。
 此功能使您可以立即将新的 Consensus 客户端与网络同步，因此无需保留旧链数据。
 
 首先使用 `rocketpool service config` UI 并导航到 `Consensus Client (ETH2)` 部分。
@@ -98,7 +98,7 @@ rocketpool service resync-eth1
 
 <img src={tui_checkpoint_sync} width="100%" height="auto" />
 
-如果您没有配置检查点同步提供商，[您可以轻松使用此处的说明免费执行此操作](./config-docker#beacon-chain-checkpoint-syncing)！
+如果您没有配置检查点同步提供商，[您可以轻松使用此处的说明免费执行此操作](./config-docker#信标链检查点同步)！
 
 当您对您的选择感到满意时，按 `Esc` 返回主菜单，然后按 `Tab` 突出显示 `Review Changes and Save` 按钮。
 您将看到审查屏幕，该屏幕将显示您的客户端选择更改：

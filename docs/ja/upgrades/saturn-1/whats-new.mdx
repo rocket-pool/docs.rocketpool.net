@@ -23,6 +23,8 @@ Megapool は、node operator ごとの単一のスマートコントラクトで
 
 デリゲートコントラクトは Ethereum 引き出しアドレスとして機能し、validator のアクティビティを管理します。Node operators は現在、minipool デリゲートをアップグレードするか、同じものに留まるかを選択でき、将来のアップグレードの設計が困難になっています。Saturn 1 アップグレードは[強制デリゲートアップグレード](https://rpips.rocketpool.net/RPIPs/RPIP-47)を導入し、プロトコルがより効率的に反復できるようにします。Megapool コントラクトの強制デリゲートアップグレードにより、Rocket Pool プロトコルは将来のアップグレードの設計時に後方互換性に妨げられることがなくなり、pDAO に Rocket Pool を改善するためのより大きな柔軟性を与えます。
 
+新規または復帰したnode operatorでmegapoolの作成を検討したい場合は、[Megapoolの作成（バリデーター）](/node-staking/megapools/create-megapool-validator#megapoolの作成バリデーター)ガイドをぜひご覧ください。
+
 ## より低い Bond 要件
 
 Megapools は運用コストを削減し、Rocket Pool が validator あたりの bond 要件を 8 ETH から 4 ETH に引き下げることを可能にします。
@@ -54,6 +56,8 @@ UARS は ETH 収益を 4 つのグループに分配します。各シェアは 
 
 各 node operator は、megapool にステーキングした投票資格のある RPL の割合に基づいて投票シェアを受け取ります。
 Saturn 1 では、RPL インフレ報酬がこの新しい投票シェアメカニズムと並行して継続し、RPL をステーキングする node operators に追加のインセンティブを提供します。
+
+RPL Revenue ShareとUARSについての詳細は[こちら](/node-staking/megapools/staking-and-claiming-rewards#saturn-1での変更点)をご覧ください。
 
 ## 刷新されたデポジットメカニクス
 
@@ -88,7 +92,7 @@ Saturn 1 の最終監査レポートは以下で確認できます：
 - [Sigma Prime](https://rocketpool.net/files/audits/sigma-prime-audit-saturn-1.pdf)
 
 監査の完全な履歴については、[プロトコルセキュリティ](https://rocketpool.net/protocol/security)ページをご覧ください。
-Rocket Pool は、重大な脆弱性に対して最大 $500,000 の報酬を提供するアクティブな [Immunefi バグバウンティプログラム](https://immunefi.com/bug-bounty/rocketpool/information/)も維持しています。
+Rocket Pool は、重大な脆弱性に対して最大 $150,000 の報酬を提供するアクティブな [Immunefi バグバウンティプログラム](https://immunefi.com/bug-bounty/rocketpool/information/)も維持しています。
 
 ## Node Operator ガイド
 

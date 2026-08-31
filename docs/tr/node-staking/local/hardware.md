@@ -100,9 +100,9 @@ Ancak, DRAM sorunsuz node işletimi sağlamak için oldukça önemlidir.
 :::
 
 Son değerlendirme sürücü boyutudur.
-10/2024 itibarıyla, `geth` execution istemci veritabanı boyutu, ilk senkronizasyonunu tamamladıktan sonra (veya budamayı yeni bitirdikten sonra) yaklaşık 1.2TB alan gerektirir.
+4/2026 itibarıyla, `geth` execution istemci veritabanı boyutu, ilk senkronizasyonunu tamamladıktan sonra (veya budamayı yeni bitirdikten sonra) yaklaşık 1.2TB alan gerektirir.
 Bu zamanla istikrarlı bir şekilde büyüyecektir ve budama bu alanın bir kısmını geri kazandırabilse de, yeni budanmış durum _zamanla_ büyür.
-Daha büyük bir sürücü ile gönül rahatlığına sahip olacaksınız.
+Daha büyük bir sürücü ile gönül rahatlığına sahip olacaksınız. Bu veritabanının boyutu, [merge öncesi geçmişi saklamamaya karar verirseniz](/node-staking/maintenance/history-expiry) küçültülebilir.
 
 ### Yaygın Aksesuarlar
 

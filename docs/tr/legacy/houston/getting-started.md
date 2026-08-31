@@ -6,7 +6,7 @@
 
 ### Oy Gücünü Başlatma
 
-Her şeyden önce, **Node Operatörüyseniz** en önemli adım, oy gücünüzü açmak için [oylama başlatmaktır](../houston/participate#initializing-voting). Oylamayı başlatan node'lar, ağın toplam oy gücü hesaplanırken dahil edilir.
+Her şeyden önce, **Node Operatörüyseniz** en önemli adım, oy gücünüzü açmak için [oylama başlatmaktır](../houston/participate#oylamayı-başlatma). Oylamayı başlatan node'lar, ağın toplam oy gücü hesaplanırken dahil edilir.
 
 Houston'un başlangıcında, yeterli sayıda node oylamayı başlatana kadar pDAO oylaması devre dışı bırakılmıştır. Bu, toplam oy gücü ve yeter sayı düşükken hileli tekliflerin geçmesini önlemek içindir. Yeterli sayıda node oylamayı başlattıktan sonra, bir anahtar çevrilecek ve pDAO dümeni ele alacaktır.
 
@@ -23,11 +23,11 @@ Bunu yalnızca bir kez yapmanız gerekir. Oylamayı başlatmak, node'unuzun oy g
 İkinci olarak, snapshot sinyal adresinizi ayarlamak isteyeceksiniz. Bu, node operatörlerinin node anahtarlarını sıcak bir cüzdana maruz bırakmak zorunda kalmadan tarayıcılarında veya mobil cihazlarında Snapshot oylarına katılmalarına olanak tanır.
 
 Bunu kurmak birkaç adım içerir, bu nedenle bu kılavuzu takip etmek isteyeceksiniz:
-[Snapshot Sinyal Adresinizi Ayarlama](../houston/participate#setting-your-snapshot-signalling-address).
+[Snapshot Sinyal Adresinizi Ayarlama](../houston/participate#snapshot-sinyal-adresinizi-ayarlama).
 
 ### Zincir İçi Oy Gücünü Devretme
 
-Seçtiğiniz bir topluluk üyesine zincir içi oy gücünü devretmek istiyorsanız, nasıl yapılacağını öğrenmek için [buraya](../houston/participate#delegating-voting-power) tıklayın.
+Seçtiğiniz bir topluluk üyesine zincir içi oy gücünü devretmek istiyorsanız, nasıl yapılacağını öğrenmek için [buraya](../houston/participate#oy-gücünü-devretme) tıklayın.
 
 ##
 

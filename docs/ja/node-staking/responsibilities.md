@@ -18,7 +18,7 @@ validatorがオフラインになってattestationやブロック提案を逃す
 
 validatorは、Attestation、Block Proposals、Sync Committees(まれ)、Slashing Rewards(非常にまれ)からコンセンサスレイヤー報酬を獲得します。また、Priority FeesとMEVから実行レイヤー報酬も獲得します。
 
-2024年10月時点では、全体のAPRは約3.5%で、コンセンサスレイヤーAPRが2.8%、実行レイヤーAPRが0.7%です。この情報を見つける場所の1つは、[rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake)です。
+2026年5月時点では、全体のAPRは約2.634%で、コンセンサスレイヤーAPRが2.8%、実行レイヤーAPRが0.22%です。この情報を見つける場所の1つは、[rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake)です。
 
 ### ペナルティ
 
@@ -49,22 +49,21 @@ Slashingは、許可なくvalidatorが強制的に終了され、validatorのETH
 
 ## Rocket Pool Nodeの仕組み
 
-新しいvalidatorを作成するために32 ETHを預ける必要があるソロステーカーとは異なり、Rocket Pool nodeはvalidatorごとに8 ETHのみを預ける必要があります(「bond ETH」と呼ばれます)。
-これは、ステーキングプールからの24 ETH(「borrowed ETH」と呼ばれ、rETHと引き換えにliquid stakerの預金から得られます)と組み合わせて、新しいvalidatorを作成します。
-この新しいvalidatorは**minipool**に属します。
+新しいvalidatorを作成するために32 ETHを預ける必要があるsolo stakerとは異なり、Rocket Pool nodeはvalidatorごとに4 ETH（「bonded ETH」と呼ばれます）を預けるだけで済みます。
+これは、staking poolからの28 ETH（「borrowed ETH」と呼ばれ、liquid stakerがrETHと引き換えに預けた資金に由来します）と組み合わされて、新しいMegapoolバリデーターを作成します。
 
-Beacon chainにとって、minipoolは通常のvalidatorとまったく同じに見えます。
+Beacon chainにとって、Megapoolバリデーターは通常のvalidatorとまったく同じように見えます。
 同じ責任、従わなければならない同じルール、同じ報酬などがあります。
-唯一の違いは、minipoolが実行レイヤーでどのように作成されたか、およびNode Operatorが自発的にminipoolを終了することを決定したときに出金がどのように機能するかです。
+唯一の違いは、Megapoolバリデーターがexecution layer上でどのように作成されたか、そしてnode operatorが自発的にMegapoolバリデーターを終了するときにwithdrawalがどのように機能するかです。
 作成、出金、報酬委任のすべては、EthereumチェーンのRocket Poolの**smart contracts**によって処理されます。
 これにより、完全に分散化されます。
 
 Rocket Pool **Node**は、Rocket Poolのスマートコントラクトに登録されたEthereumウォレットを持つ単一のコンピューターです。
-nodeは、同じマシン上で一緒に実行できる限り、多くのminipoolを作成できます。
-**単一のRocket Pool nodeは、多数のminipoolを実行できます。**
-各minipoolは、全体的なシステムパフォーマンスにほとんど影響を与えません。単一のノードで数百のminipoolを実行できた人もいます。
+nodeは、同じマシン上で一緒に実行できる限り、多くのMegapoolバリデーターを作成できます。
+**単一のRocket Pool nodeは、多数のMegapoolバリデーターを実行できます。**
+各Megapoolバリデーターは、全体的なシステムパフォーマンスにほとんど影響を与えません。単一のノードで数百を実行できた人もいます。
 
-minipoolの初期コストは8 ETHです。さらに、Node Operatorは、追加報酬の資格を得るため、およびプロトコルDAO内で投票権を獲得するために、nodeにRPLをステーキングできます。
+Megapoolバリデーターの初期コストは4 ETHです。さらに、Node Operatorは、追加報酬の資格を得るため、およびプロトコルDAO内で投票権を獲得するために、任意でnodeにRPLをステーキングできます。
 
 ## Rocket Pool Node Operators
 
@@ -73,14 +72,14 @@ minipoolの初期コストは8 ETHです。さらに、Node Operatorは、追加
 
 ### 責任
 
-彼らは、ステーキングプールからのETHをminipoolで実行することで活用し、Rocket Poolプロトコルのステーキング報酬を獲得します(したがって、rETHの価値を高めます)。
+彼らは、ステーキングプールからのETHをMegapoolバリデーターで運用し、Rocket Poolプロトコルのステーキング報酬を獲得します(したがって、rETHの価値を高めます)。
 彼らの仕事は簡単ですが、非常に重要です。_可能な限り最高品質でvalidatorを実行し、ステーキング報酬を最大化すること_。
 
 Node operatorは以下の責任があります。
 
 - コンピューター(物理または仮想)のセットアップ
 - ホームネットワークを含めて正しく設定すること(該当する場合)
-- Rocket Poolをインストールし、検証を実行するためのminipoolをセットアップすること
+- Rocket Poolをインストールし、検証を実行するためのvalidatorをセットアップすること
 - 外部と内部の脅威から保護すること
 - validatorの寿命の間、メンテナンスを行うこと
 
@@ -92,24 +91,25 @@ Node operatorは以下の責任があります。
 Rocket Pool nodeを実行する主なメリットは次のとおりです。
 
 - 各validatorのETH報酬のあなたの部分と手数料を獲得します。
-  - ステーキングされたRPLがない8 ETH-bonded minipoolの場合、これはソロステーキングよりも30%多くなります(`(8+24*.1)/8 = 1.3`)
-  - RPLをステーキングすると、手数料がブーストされます。総borrowed ETHの10%以上の価値があるRPLステークの場合、ETH報酬はソロステーキングよりも42%多くなります(`(8+24*.14)/8 = 1.42`)
-  - **注意:** smoothing poolに参加しない場合、代わりにソロステーキングよりも15%多く受け取ります(`(8+24*.05)/8 = 1.15`) -- 2024-10-28以降に作成されたminipoolを持つユーザーは、smoothing poolにオプトインすることを強くお勧めします。
-- ステーキングしたRPLの発行報酬も獲得します。
-  - 期間の終わり(28日ごと)に、RPLのスナップショットがあります。
-  - 総borrowed ETHの価値の**最大15%まで**のRPLで最大利回りを獲得できます。
-    - それを超えるRPLで利回りを獲得しますが、減少レベルで。
-  - ステーキングされたRPLの平方根に基づいて投票権を獲得します。
+  - 自己資金はわずか4 ETHでvalidatorを運用でき、残りの28 ETHはliquid stakerから調達されます。
+  - 各Megapoolバリデーターは、28 ETHのプロトコル資金から生じた報酬に対して5%の手数料を獲得します。これはsolo stakingより35%多い計算になります(`(4 bonded + 28 borrowed * 0.05) / 4 = 1.35`)。
+  - [Smoothing Pool](fee-distrib-sp#smoothing-pool)に参加すると、execution layerの報酬(priority feeとMEV)を他の参加者と分け合うことになり、ブロック提案の運に頼るのではなく、より安定したリターンが得られます。
+- RPLをステーキングすると、追加の報酬が得られます。
+  - RPLステーカーは、ステーキングしたRPLに比例して[プロトコル手数料の分配分](megapools/staking-and-claiming-rewards#voter-shareがmegapool-rplステーカーにどのように分配されるか)(ETHで支払われます)を獲得します。
+  - また、ステーキングしたRPLに対して発行報酬(RPLで支払われます)も獲得できます。
+    - 期間の終わり(28日ごと)に、あなたのRPLのスナップショットが取得されます。
+    - 借入ETH総額の**15%まで**のRPLに対して最大利回りを獲得できます。
+    - 15%を超える分についても利回りは得られますが、逓減します。
+  - ステーキングしたRPLの平方根に基づいて、bonded ETHの150%を上限とする投票権が得られます。
 
 ### 制限事項
 
 上記の報酬には、いくつかの制限事項があります。
 
-- nodeのパフォーマンスが悪く、minipoolを終了することを決定するまでに実際にETHを失った場合、失われたETHはすべてあなたのシェアから出ます。
-  - 例:30 ETHの残高で終了した場合、minipoolは最初の32 ETHの預金から2 ETHを失いました。あなたは6 ETHを受け取り、24 ETHがステーキングプールに返されます。
-- ステーキングされたRPLは流動性が低くなります
-  - bonded ETHの60%の価値を超えるRPLステークのみを引き出すことができます。
-  - 過去28日間にステーキングした場合、RPLを引き出すことはできません
+- nodeのパフォーマンスが悪く、Megapoolバリデーターを終了することを決定するまでに実際にETHを失った場合、失われたETHはすべてあなたのシェアから出ます。
+  - 例:31 ETHの残高で終了した場合、Megapoolバリデーターは当初の32 ETHのデポジットから1 ETHを失ったことになります。あなたは3 ETHを受け取り、28 ETHがステーキングプールに返還されます。
+- ステーキングされたRPLは流動性が低くなります:
+  - MegapoolでステーキングしたRPLのアンステーク量に上限はありませんが、アンステークを開始してから引き出しまでに28日待つ必要があります。これにより、28日間の報酬期間に間に合うようにRPLをステーキングし、期間終了直後に引き出すことで報酬システムを悪用することを防ぎます。
 
 ### あなたならできます
 

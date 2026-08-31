@@ -11,11 +11,11 @@ RPIP-32 consente a un account di [depositare ETH per conto](https://rpips.rocket
 - Integrazioni di protocollo in cui la custodia dei fondi è gestita da smart contract.
 - DAO o organizzazioni in cui la custodia dei fondi è gestita da una tesoreria.
 
-Sebbene l'obiettivo principale di questa funzionalità sia facilitare scenari con un singolo depositante, vale la pena notare che anche più depositanti indipendenti possono sfruttare questa capacità creando smart contract sovrapposti. Rocket Pool ha anche introdotto la possibilità di [depositare RPL per conto](../../node-staking/create-validator#whitelisting-an-address-to-stake-on-behalf) di un nodo nella nostra precedente versione Atlas.
+Sebbene l'obiettivo principale di questa funzionalità sia facilitare scenari con un singolo depositante, vale la pena notare che anche più depositanti indipendenti possono sfruttare questa capacità creando smart contract sovrapposti. Rocket Pool ha anche introdotto la possibilità di [depositare RPL per conto](../../node-staking/create-validator#aggiunta-di-un-indirizzo-alla-whitelist-per-fare-staking-per-conto-terzi) di un nodo nella nostra precedente versione Atlas.
 
 ### Prerequisito
 
-Assicurati di aver configurato correttamente l'[indirizzo di prelievo primario](../../node-staking/prepare-node#setting-your-primary-withdrawal-address) del nodo che intendi finanziare. Segui il link sopra per una guida su come funzionano gli indirizzi di prelievo dopo Houston.
+Assicurati di aver configurato correttamente l'[indirizzo di prelievo primario](../../node-staking/prepare-node#impostazione-del-tuo-indirizzo-di-prelievo-primario) del nodo che intendi finanziare. Segui il link sopra per una guida su come funzionano gli indirizzi di prelievo dopo Houston.
 
 ::: tip NOTA
 Non saltare questo passaggio! Tutti i bond/ricompense ETH saranno prelevati all'indirizzo di prelievo primario. In altre parole, l'indirizzo che fornisce ETH per un nodo dovrebbe essere utilizzato come indirizzo di prelievo primario! Assicurati che l'indirizzo di prelievo primario del nodo sia impostato su un wallet di cui hai la custodia.
@@ -63,7 +63,7 @@ Il processo è leggermente diverso per Hoodi Testnet e Mainnet, quindi scegli la
       <img src={mmNetwork} width="100%" height="auto"/>
 
       Ora che hai un indirizzo wallet in MetaMask, devi riempirlo con un po' di ETH di test.
-      Vai alla pagina [Praticare con la Rete di Test](../../node-staking/testnet/overview#getting-test-eth-on-hoodi) per una guida rapida su come utilizzare un faucet testnet per ottenere un po' di ETH di test su Hoodi.
+      Vai alla pagina [Praticare con la Rete di Test](../../node-staking/testnet/overview#ottenere-eth-di-test-su-hoodi) per una guida rapida su come utilizzare un faucet testnet per ottenere un po' di ETH di test su Hoodi.
 
       Una volta che hai un po' di ETH Hoodi per testare, vai su [https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node](https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node).
 
@@ -127,13 +127,13 @@ Ora stai facendo staking con Rocket Pool.
   <Tabs>
     <Tab label="Preparazione su Hoodi Testnet">
       Quando sei pronto per prelevare ETH che hai depositato per conto di un nodo, vai su [https://testnet.node.rocketpool.net/withdraw-eth](https://testnet.node.rocketpool.net/withdraw-eth). Dopo
-      aver effettuato l'accesso come [indirizzo di prelievo primario](../../node-staking/prepare-node#setting-your-primary-withdrawal-address) del nodo, dovresti essere accolto con un menu familiare.
-      Ti verrà chiesto di inserire l'indirizzo del nodo da cui vuoi prelevare:
+      aver effettuato l'accesso come [indirizzo di prelievo primario](../../node-staking/prepare-node#impostazione-del-tuo-indirizzo-di-prelievo-primario) del nodo, dovresti essere accolto con un menu
+      familiare. Ti verrà chiesto di inserire l'indirizzo del nodo da cui vuoi prelevare:
     </Tab>
     <Tab label="Preparazione su Ethereum Mainnet">
       Quando sei pronto per prelevare ETH che hai depositato per conto di un nodo, vai su [https://node.rocketpool.net/withdraw-eth](https://node.rocketpool.net/withdraw-eth). Dopo aver effettuato
-      l'accesso come [indirizzo di prelievo primario](../../node-staking/prepare-node#setting-your-primary-withdrawal-address) del nodo, dovresti essere accolto con un menu familiare. Ti verrà chiesto
-      di inserire l'indirizzo del nodo da cui vuoi prelevare:
+      l'accesso come [indirizzo di prelievo primario](../../node-staking/prepare-node#impostazione-del-tuo-indirizzo-di-prelievo-primario) del nodo, dovresti essere accolto con un menu familiare. Ti
+      verrà chiesto di inserire l'indirizzo del nodo da cui vuoi prelevare:
     </Tab>
   </Tabs>
 </div>

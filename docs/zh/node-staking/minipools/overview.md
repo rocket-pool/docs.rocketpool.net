@@ -20,7 +20,7 @@ Minipool 存款当前已禁用，正在为 Saturn 1 做准备。
 - 已在其上[安装](../installing/overview)并[配置](../config/overview) Smartnode
 - 在 Smartnode 上加载了节点钱包
 - 同步了执行和共识客户端
-- 为节点配置了[提款地址](../prepare-node.mdx#setting-your-withdrawal-address)，设置了[备用客户端](../fallback)（可选），选择加入[平滑池](../fee-distrib-sp#the-smoothing-pool)（可选），并配置了 [MEV](../mev.mdx)
+- 为节点配置了[提款地址](../prepare-node.mdx#设置主提款地址)，设置了[备用客户端](../fallback)（可选），选择加入[平滑池](../fee-distrib-sp#平滑池)（可选），并配置了 [MEV](../mev.mdx)
 
 ## 指南
 

@@ -16,7 +16,7 @@ Antes de configurar tu Smartnode, asegúrate de:
 - Tener el Smartnode [instalado](/es/node-staking/installing/overview) y [configurado](/es/node-staking/config/overview) en él
 - Tener una billetera de nodo cargada en tu Smartnode
 - Haber sincronizado tus clientes de Ejecución y Consenso
-- Haber provisionado tu nodo con [una dirección de retiro](/es/node-staking/prepare-node#setting-your-withdrawal-address), configurado tus [clientes de respaldo](/es/node-staking/fallback) (opcional), optado por el [Smoothing Pool](/es/node-staking/fee-distrib-sp#the-smoothing-pool) (opcional), y configurado [MEV](/es/node-staking/mev)
+- Haber provisionado tu nodo con [una dirección de retiro](/es/node-staking/prepare-node#establecer-tu-dirección-de-retiro-principal), configurado tus [clientes de respaldo](/es/node-staking/fallback) (opcional), optado por el [Smoothing Pool](/es/node-staking/fee-distrib-sp#el-smoothing-pool) (opcional), y configurado [MEV](/es/node-staking/mev)
 - Haber creado al menos un [minipool](/es/node-staking/create-validator)
 
 ## Hay tres direcciones involucradas en la votación
@@ -33,20 +33,20 @@ Antes de configurar tu Smartnode, asegúrate de:
 
 [Configuración de votación para usuarios que no usan smartnode](/es/legacy/houston/nonsmartnode-setup) muestra a los usuarios que no usan smartnode (como usuarios de Allnodes) cómo configurar la votación.
 
-[Inicializando el poder de voto](/es/pdao/participate#initializing-voting) te muestra cómo inicializar el poder de voto de tu nodo. Este paso solo es necesario si tu nodo fue registrado antes de la Actualización Houston.
+[Inicializando el poder de voto](/es/pdao/participate#inicializando-la-votación) te muestra cómo inicializar el poder de voto de tu nodo. Este paso solo es necesario si tu nodo fue registrado antes de la Actualización Houston.
 
-[Configurando tu dirección de señalización de Snapshot](/es/pdao/participate#setting-your-snapshot-signalling-address) te guiará a través de los pasos para configurar una dirección de señalización. Te permitirá votar en Snapshot usando el poder de voto de tu nodo sin necesidad de cargar la clave privada de tu nodo en una billetera caliente. Asegúrate de tener tu CLI de Smartnode a mano y prepara una dirección (que no sea tu billetera de nodo) para esta guía.
+[Configurando tu dirección de señalización de Snapshot](/es/pdao/participate#configurando-tu-dirección-de-señalización-de-snapshot) te guiará a través de los pasos para configurar una dirección de señalización. Te permitirá votar en Snapshot usando el poder de voto de tu nodo sin necesidad de cargar la clave privada de tu nodo en una billetera caliente. Asegúrate de tener tu CLI de Smartnode a mano y prepara una dirección (que no sea tu billetera de nodo) para esta guía.
 
-[Delegando el poder de voto](/es/pdao/participate#delegating-voting-power) es un comando rápido que puedes usar para delegar el poder de voto en lugar de votar directamente en propuestas.
+[Delegando el poder de voto](/es/pdao/participate#delegando-el-poder-de-voto) es un comando rápido que puedes usar para delegar el poder de voto en lugar de votar directamente en propuestas.
 
-[Viendo el estado de una propuesta](/es/pdao/participate#viewing-the-state-of-a-proposal) es una guía sobre cómo puedes ver una lista de propuestas on-chain pasadas y en curso. Podrás verificar el estado y leer los detalles de cualquier propuesta on-chain dada.
+[Viendo el estado de una propuesta](/es/pdao/participate#viendo-el-estado-de-una-propuesta) es una guía sobre cómo puedes ver una lista de propuestas on-chain pasadas y en curso. Podrás verificar el estado y leer los detalles de cualquier propuesta on-chain dada.
 
-[Votando en una propuesta](/es/pdao/participate#voting-on-a-proposal) te muestra cómo emitir un voto en una propuesta on-chain. Esta guía también repasa las cuatro opciones: **Abstención**, **A favor**, **En contra** y **Veto**.
+[Votando en una propuesta](/es/pdao/participate#votando-en-una-propuesta) te muestra cómo emitir un voto en una propuesta on-chain. Esta guía también repasa las cuatro opciones: **Abstención**, **A favor**, **En contra** y **Veto**.
 
-[Creando una propuesta](/es/pdao/participate#creating-a-proposal) te guía a través de los requisitos y pasos para presentar una propuesta on-chain.
+[Creando una propuesta](/es/pdao/participate#creando-una-propuesta) te guía a través de los requisitos y pasos para presentar una propuesta on-chain.
 
-[Ejecutando una propuesta exitosa](/es/pdao/participate#executing-a-successful-proposal) te mostrará cómo aplicar los efectos de una propuesta exitosa al Protocolo Rocket Pool.
+[Ejecutando una propuesta exitosa](/es/pdao/participate#ejecutando-una-propuesta-exitosa) te mostrará cómo aplicar los efectos de una propuesta exitosa al Protocolo Rocket Pool.
 
-[Reclamando bonos y recompensas](/es/pdao/participate#claiming-bonds-and-rewards) discute las condiciones bajo las cuales los bonos o recompensas pueden ser reclamados por un proponente o retador.
+[Reclamando bonos y recompensas](/es/pdao/participate#reclamando-bonos-y-recompensas) discute las condiciones bajo las cuales los bonos o recompensas pueden ser reclamados por un proponente o retador.
 
-[Creando y reclamando un gasto recurrente del tesoro](/es/pdao/participate#creating-a-recurring-treasury-spend) es una característica que otorga al pDAO control total sobre agregar, modificar y eliminar pagos recurrentes.
+[Creando y reclamando un gasto recurrente del tesoro](/es/pdao/participate#creando-un-gasto-recurrente-del-tesoro) es una característica que otorga al pDAO control total sobre agregar, modificar y eliminar pagos recurrentes.

@@ -131,11 +131,58 @@ uname -m
 **Обратите внимание, что `aarch64` - это то же самое, что `arm64`.**
 :::
 
-Шаги для обновления зависят от того, какой режим использует ваш узел. Выберите из вариантов ниже:
+Шаги для обновления зависят от того, какой режим использует ваш узел. Лучший способ обновить Smart Node — использовать встроенную команду обновления CLI. Выберите из вариантов ниже:
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Linux (Docker или Hybrid Mode)">
+    <Tab label="Команда обновления CLI (Docker Mode - Linux/macOS)">
+
+      Чтобы обновить Smart Node с помощью встроенной команды обновления, выполните:
+
+      ```shell
+      rocketpool update
+      ```
+      Эта команда:
+      1. Загрузит и проверит последний бинарный файл CLI
+      2. При желании автоматически остановит, обновит и перезапустит сервис
+
+      Следуйте интерактивным подсказкам, чтобы завершить обновление.
+      ```
+      Your detected os/architecture is linux/amd64.
+
+      The cli at ~/bin/rocketpool will be replaced. Continue? [y/n]
+      y
+      ```
+
+      Затем Smart Node загрузит и проверит последний бинарный файл CLI:
+
+      ```
+      Replacing the cli at ~/bin/rocketpool with the latest version...
+      Downloading the new binary from https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-amd64
+
+      Verifying the binary signature
+      Downloading the signature from https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-amd64.sig
+      Signed by 651023D62E70B5DD
+        Fornax <dante@rocketpool.net>
+      Updating from 1.22.0 to 1.22.1
+
+      The cli has been updated.
+
+      Would you like to automatically stop, upgrade, and restart the service to complete the update? [y/n]
+      y
+      ```
+      На этом этапе вы можете выбрать `y` во всех интерактивных подсказках, чтобы Smart Node провёл вас через остальные шаги.
+      По завершении вы увидите сообщение, подтверждающее успешное обновление:
+      ```
+      The upgrade to Smart Node 1.22.1 has been completed.
+      Please monitor your validators for a few minutes for issues.
+      ```
+
+
+
+
+    </Tab>
+    <Tab label="Ручное обновление - Linux (Docker или Hybrid Mode)">
       Остановите службы Rocket Pool:
 
       ```shell
@@ -187,8 +234,8 @@ uname -m
       ```
       Your Smartnode is currently using the Hoodi Test Network.
 
-      Rocket Pool client version: 1.5.0
-      Rocket Pool service version: 1.5.0
+      Rocket Pool client version: 1.22.1
+      Rocket Pool service version: 1.22.1
       Selected Eth 1.0 client: Geth (Locally managed)
       Image: ethereum/client-go:v1.10.21
       Selected Eth 2.0 client: Lighthouse (Locally managed)
@@ -197,7 +244,7 @@ uname -m
 
       И клиент, и служба должны соответствовать новой версии релиза.
     </Tab>
-    <Tab label="Linux (Native Mode)">
+    <Tab label="Ручное обновление - Linux (Native Mode)">
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">ПРИМЕЧАНИЕ</p>
         Это обновит только сам стек Smartnode - это **не** обновит ваши клиенты Execution или Consensus.
@@ -257,15 +304,15 @@ uname -m
       ```
       rocketpool service version
 
-      Rocket Pool client version: 1.0.0-rc3
-      Rocket Pool service version: 1.0.0-rc3
-      Selected Eth 1.0 client: Geth (rocketpool/client-go:v1.10.4)
-      Selected Eth 2.0 client: Nimbus (statusim/nimbus:v1.4.0)
+      Rocket Pool client version: 1.22.1
+      Rocket Pool service version: 1.22.1
+      Selected Eth 1.0 client: Geth (Locally managed)
+      Selected Eth 2.0 client: Nimbus (Locally managed)
       ```
 
       И клиент, и служба должны соответствовать новой версии релиза.
     </Tab>
-    <Tab label="macOS (Docker или Hybrid Mode)">
+    <Tab label="Ручное обновление - macOS (Docker или Hybrid Mode)">
       Остановите службы Rocket Pool:
 
       ```shell
@@ -311,10 +358,10 @@ uname -m
       ```shell
       rocketpool service version
 
-      Rocket Pool client version: 1.0.0-rc3
-      Rocket Pool service version: 1.0.0-rc3
-      Selected Eth 1.0 client: Geth (rocketpool/client-go:v1.10.4)
-      Selected Eth 2.0 client: Nimbus (statusim/nimbus:v1.4.0)
+      Rocket Pool client version: 1.22.1
+      Rocket Pool service version: 1.22.1
+      Selected Eth 1.0 client: Geth (Locally managed)
+      Selected Eth 2.0 client: Nimbus (Locally managed)
       ```
 
       И клиент, и служба должны соответствовать новой версии релиза.

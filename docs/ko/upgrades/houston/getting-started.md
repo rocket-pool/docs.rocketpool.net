@@ -6,7 +6,7 @@
 
 ### 투표권 초기화
 
-무엇보다도, **노드 운영자**라면 가장 중요한 단계는 투표권을 잠금 해제하기 위해 [투표 초기화](../houston/participate#initializing-voting)를 하는 것입니다. 투표를 초기화한 노드는 네트워크의 총 투표권을 계산할 때 포함됩니다.
+무엇보다도, **노드 운영자**라면 가장 중요한 단계는 투표권을 잠금 해제하기 위해 [투표 초기화](../houston/participate#투표-초기화)를 하는 것입니다. 투표를 초기화한 노드는 네트워크의 총 투표권을 계산할 때 포함됩니다.
 
 Houston의 시작 시점에서는 충분한 수의 노드가 투표를 초기화할 때까지 pDAO 투표가 비활성화됩니다. 이는 총 투표권과 정족수가 낮을 때 악의적인 제안이 통과되는 것을 방지하기 위함입니다. 충분한 노드가 투표를 초기화한 후에는 스위치가 전환되어 pDAO가 주도권을 갖게 됩니다.
 
@@ -23,11 +23,11 @@ rocketpool pdao initialize-voting
 둘째로, Snapshot 신호 주소를 설정해야 합니다. 이를 통해 노드 운영자는 노드 키를 핫 월렛에 노출하지 않고도 브라우저나 모바일 기기에서 Snapshot 투표에 참여할 수 있습니다.
 
 이 설정에는 몇 가지 단계가 포함되므로 다음 가이드를 따르세요:
-[Snapshot 신호 주소 설정](../houston/participate#setting-your-snapshot-signalling-address).
+[Snapshot 신호 주소 설정](../houston/participate#스냅샷-시그널링-주소-설정).
 
 ### 온체인 투표권 위임
 
-선택한 커뮤니티 구성원에게 온체인 투표권을 위임하려면 [여기](../houston/participate#delegating-voting-power)를 클릭하여 방법을 알아보세요.
+선택한 커뮤니티 구성원에게 온체인 투표권을 위임하려면 [여기](../houston/participate#투표권-위임)를 클릭하여 방법을 알아보세요.
 
 ##
 

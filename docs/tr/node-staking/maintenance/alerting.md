@@ -8,7 +8,7 @@ Bildirim işlevselliği, uyarıları iletmek için [Alertmanager](https://promet
 
 ## Discord Bildirimlerini Kurma
 
-Şu anda, bildirimler Discord kanallarına gönderilebilir. Discord bildirimlerini Rocket Pool Metin Kullanıcı Arayüzü (TUI) içinde "Monitoring / Alerting" sayfasında yapılandırabilirsiniz.
+Şu anda, bildirimler Discord kanallarına ve Telegram sohbetlerine gönderilebilir. Rocket Pool Metin Kullanıcı Arayüzü (TUI) içinde "Monitoring / Alerting" sayfasından bu hedeflerden birini veya her ikisini yapılandırabilirsiniz.
 
 ### Discord Webhook URL'si Ekleme:
 
@@ -19,6 +19,30 @@ Bildirim işlevselliği, uyarıları iletmek için [Alertmanager](https://promet
 5. Sağlanan Webhook URL'sini kopyalayın.
 6. Rocket Pool TUI içinde, "Monitoring / Alerting" sayfasına gidin.
 7. Kopyalanan Webhook URL'sini belirlenen alana yapıştırın ve yapılandırmayı kaydedin.
+
+## Telegram Bildirimlerini Ayarlama
+
+Telegram bildirimlerini Rocket Pool Metin Kullanıcı Arayüzü (TUI) içinde "Monitoring / Alerting" sayfasında yapılandırabilirsiniz. Telegram bildirimleri Telegram Bot API üzerinden gönderilir. Hem bir bot token'ı hem de sayısal bir sohbet kimliği (chat ID) gereklidir; yalnızca birini doldurmak hiçbir işe yaramaz.
+
+### Telegram Bot Token'ı ve Sohbet Kimliği Ekleme:
+
+1. Telegram'da [@BotFather](https://t.me/BotFather) hesabını açın ve yeni bir bot oluşturun.
+2. BotFather'ın verdiği bot token'ını kopyalayın (yalnızca token — `bot` önekini eklemeyin).
+3. Uyarıların sizinle olan özel bir sohbete (DM), bir gruba mı yoksa bir kanala mı gideceğine karar verin.
+4. Uyarıları DM olarak almak istiyorsanız, önce botunuza `/start` gönderin. Ardından tarayıcıda `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates` adresini açın (`<YOUR_BOT_TOKEN>` yerine 2. adımdaki token'ı yazın) ve `"chat"` nesnesini arayın:
+
+```json
+"chat": {
+  "id": 123456789,
+  "type": "private"
+}
+```
+
+`"id"` değeri, Telegram Chat ID alanına girmeniz gereken sohbet kimliğidir.
+
+5. Uyarıları bir grupta veya kanalda almak istiyorsanız, botu üye olarak ekleyin (kanallar için botun yönetici olması gerekir). Grup ve kanal kimlikleri negatiftir ve genellikle `-100` ile başlar. Bot sohbeti görebildikten sonra, sayısal sohbet kimliğini bulmak için aynı `getUpdates` URL'sini kullanın. `@mychannel` gibi kullanıcı adları çalışmayacaktır.
+6. Rocket Pool TUI içinde "Monitoring / Alerting" sayfasına gidin.
+7. Bot token'ını ve sayısal sohbet kimliğini ilgili alanlara yapıştırıp yapılandırmayı kaydedin.
 
 ::: tip İPUCU
 En sevdiğiniz bildirim eksik mi? Rocket Pool ekibi, ek bildirim hedefleri konusunda topluluktan aktif olarak geri bildirim arıyor. https://github.com/rocket-pool/smartnode/issues adresinden yeni bildirim hedefleri önerebilirsiniz.

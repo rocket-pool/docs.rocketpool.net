@@ -123,7 +123,7 @@ Oracle DAO 能够惩罚不遵守协议规则的节点运营者。
 
 除上述有效地址之外的费用接收者被视为**无效**。
 
-Smart Node 软件根据您的配置(是否加入平滑池,以及是否拥有 megapool 验证者、minipool 或两者)自动设置正确的费用接收者。对于同时拥有 megapool 验证者和 minipool 且未加入的节点,费用接收者通过 keymanager API 按验证者设置。完整的条件列表总结在[此处](/node-staking/fee-distrib-sp#fee-recipients)。
+Smart Node 软件根据您的配置(是否加入平滑池,以及是否拥有 megapool 验证者、minipool 或两者)自动设置正确的费用接收者。对于同时拥有 megapool 验证者和 minipool 且未加入的节点,费用接收者通过 keymanager API 按验证者设置。完整的条件列表总结在[此处](/node-staking/fee-distrib-sp#费用接收者)。
 
 Smartnode 软件旨在确保诚实的用户永远不会受到惩罚,即使它必须使 Validator Client 离线才能做到这一点。
 如果发生这种情况,您将停止证明,并在日志文件中看到关于 Smartnode 无法正确设置费用接收者的错误消息。

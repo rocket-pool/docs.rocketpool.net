@@ -11,11 +11,11 @@ RPIP-32 允许帐户[代表](https://rpips.rocketpool.net/RPIPs/RPIP-32)在协�
 - 协议集成，由智能合约管理资金托管。
 - DAO 或组织，由国库管理资金托管。
 
-虽然此功能的主要目的是促进单个存款人的场景，但值得注意的是，多个独立存款人也可以通过在其上创建智能合约层来利用此功能。Rocket Pool 还在我们之前的 Atlas 版本中引入了[代表节点质押 RPL](../../node-staking/create-validator#whitelisting-an-address-to-stake-on-behalf) 的能力。
+虽然此功能的主要目的是促进单个存款人的场景，但值得注意的是，多个独立存款人也可以通过在其上创建智能合约层来利用此功能。Rocket Pool 还在我们之前的 Atlas 版本中引入了[代表节点质押 RPL](../../node-staking/create-validator#将地址列入白名单以代表质押) 的能力。
 
 ### 前提条件
 
-确保您已正确配置您打算资助的节点的[主提取地址](../../node-staking/prepare-node#setting-your-primary-withdrawal-address)。点击上面的链接，了解有关 houston 升级后提取地址如何工作的指南。
+确保您已正确配置您打算资助的节点的[主提取地址](../../node-staking/prepare-node#设置主提款地址)。点击上面的链接，了解有关 houston 升级后提取地址如何工作的指南。
 
 ::: tip 注意
 不要跳过这一步！所有 ETH 保证金/奖励将提取到主提取地址。换句话说，为节点提供 ETH 的地址应该用作主提取地址！请确保节点的主提取地址设置为您拥有托管权的钱包。
@@ -63,7 +63,7 @@ Hoodi 测试网和主网的过程略有不同，因此请从下面的标签中�
       <img src={mmNetwork} width="100%" height="auto"/>
 
       现在您在 MetaMask 中有了钱包地址，您需要用一些测试 ETH 填充它。
-      前往[在测试网络上练习](../../node-staking/testnet/overview#getting-test-eth-on-hoodi)页面，快速了解如何使用测试网水龙头在 Hoodi 上获取一些测试 ETH。
+      前往[在测试网络上练习](../../node-staking/testnet/overview#在-hoodi-上获取测试-eth)页面，快速了解如何使用测试网水龙头在 Hoodi 上获取一些测试 ETH。
 
       一旦您有了一些 Hoodi ETH 可供测试，请前往 [https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node](https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node)。
 
@@ -127,11 +127,11 @@ The node has 0.000000 ETH in its credit balance and 8.000000 ETH staked on its b
   <Tabs>
     <Tab label="在 Hoodi 测试网上准备">
       当您准备好提取代表节点质押的 ETH 时，请前往
-      [https://testnet.node.rocketpool.net/withdraw-eth](https://testnet.node.rocketpool.net/withdraw-eth)。作为节点的[主提取地址](../../node-staking/prepare-node#setting-your-primary-withdrawal-address)登录后，您应该会看到一个熟悉的菜单。系统将提示您输入要从中提取的节点地址：
+      [https://testnet.node.rocketpool.net/withdraw-eth](https://testnet.node.rocketpool.net/withdraw-eth)。作为节点的[主提取地址](../../node-staking/prepare-node#设置主提款地址)登录后，您应该会看到一个熟悉的菜单。系统将提示您输入要从中提取的节点地址：
     </Tab>
     <Tab label="在 Ethereum 主网上准备">
       当您准备好提取代表节点质押的 ETH 时，请前往
-      [https://node.rocketpool.net/withdraw-eth](https://node.rocketpool.net/withdraw-eth)。作为节点的[主提取地址](../../node-staking/prepare-node#setting-your-primary-withdrawal-address)登录后，您应该会看到一个熟悉的菜单。系统将提示您输入要从中提取的节点地址：
+      [https://node.rocketpool.net/withdraw-eth](https://node.rocketpool.net/withdraw-eth)。作为节点的[主提取地址](../../node-staking/prepare-node#设置主提款地址)登录后，您应该会看到一个熟悉的菜单。系统将提示您输入要从中提取的节点地址：
     </Tab>
   </Tabs>
 </div>

@@ -131,11 +131,58 @@ La sortie de cette commande affichera votre architecture.
 **Notez que `aarch64` est la même chose que `arm64`.**
 :::
 
-Les étapes de mise à niveau dépendent du mode utilisé par votre nœud. Sélectionnez parmi les options ci-dessous :
+Les étapes de mise à niveau dépendent du mode utilisé par votre nœud. La meilleure façon de mettre à jour le Smart Node est d'utiliser la commande de mise à jour intégrée de la CLI. Sélectionnez parmi les options ci-dessous :
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Linux (Mode Docker ou Hybride)">
+    <Tab label="Commande de mise à jour CLI (Mode Docker - Linux/macOS)">
+
+      Pour mettre à jour le Smart Node à l'aide de la commande de mise à jour intégrée, exécutez :
+
+      ```shell
+      rocketpool update
+      ```
+      Cette commande va :
+      1. Télécharger et vérifier le dernier binaire de la CLI
+      2. Éventuellement arrêter, mettre à niveau et redémarrer le service automatiquement
+
+      Suivez les invites interactives pour terminer la mise à jour.
+      ```
+      Your detected os/architecture is linux/amd64.
+
+      The cli at ~/bin/rocketpool will be replaced. Continue? [y/n]
+      y
+      ```
+
+      Ensuite, le Smart Node téléchargera et vérifiera le dernier binaire de la CLI :
+
+      ```
+      Replacing the cli at ~/bin/rocketpool with the latest version...
+      Downloading the new binary from https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-amd64
+
+      Verifying the binary signature
+      Downloading the signature from https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-amd64.sig
+      Signed by 651023D62E70B5DD
+        Fornax <dante@rocketpool.net>
+      Updating from 1.22.0 to 1.22.1
+
+      The cli has been updated.
+
+      Would you like to automatically stop, upgrade, and restart the service to complete the update? [y/n]
+      y
+      ```
+      À ce stade, vous pouvez sélectionner `y` à toutes les invites interactives pour laisser le Smart Node vous guider dans le reste des étapes.
+      Une fois terminé, vous verrez un message confirmant que la mise à niveau a réussi :
+      ```
+      The upgrade to Smart Node 1.22.1 has been completed.
+      Please monitor your validators for a few minutes for issues.
+      ```
+
+
+
+
+    </Tab>
+    <Tab label="Mise à jour manuelle - Linux (Mode Docker ou Hybride)">
       Arrêtez les services Rocket Pool :
 
       ```shell
@@ -187,8 +234,8 @@ Les étapes de mise à niveau dépendent du mode utilisé par votre nœud. Séle
       ```
       Your Smartnode is currently using the Hoodi Test Network.
 
-      Rocket Pool client version: 1.5.0
-      Rocket Pool service version: 1.5.0
+      Rocket Pool client version: 1.22.1
+      Rocket Pool service version: 1.22.1
       Selected Eth 1.0 client: Geth (Locally managed)
       Image: ethereum/client-go:v1.10.21
       Selected Eth 2.0 client: Lighthouse (Locally managed)
@@ -197,7 +244,7 @@ Les étapes de mise à niveau dépendent du mode utilisé par votre nœud. Séle
 
       Le client et le service doivent tous deux correspondre à la nouvelle version de publication.
     </Tab>
-    <Tab label="Linux (Mode natif)">
+    <Tab label="Mise à jour manuelle - Linux (Mode natif)">
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOTE</p>
         Cela ne mettra à jour que la pile Smartnode elle-même - cela **ne mettra pas** à jour vos clients d'exécution ou de consensus.
@@ -257,15 +304,15 @@ Les étapes de mise à niveau dépendent du mode utilisé par votre nœud. Séle
       ```
       rocketpool service version
 
-      Rocket Pool client version: 1.0.0-rc3
-      Rocket Pool service version: 1.0.0-rc3
-      Selected Eth 1.0 client: Geth (rocketpool/client-go:v1.10.4)
-      Selected Eth 2.0 client: Nimbus (statusim/nimbus:v1.4.0)
+      Rocket Pool client version: 1.22.1
+      Rocket Pool service version: 1.22.1
+      Selected Eth 1.0 client: Geth (Locally managed)
+      Selected Eth 2.0 client: Nimbus (Locally managed)
       ```
 
       Le client et le service doivent tous deux correspondre à la nouvelle version de publication.
     </Tab>
-    <Tab label="macOS (Mode Docker ou Hybride)">
+    <Tab label="Mise à jour manuelle - macOS (Mode Docker ou Hybride)">
       Arrêtez les services Rocket Pool :
 
       ```shell
@@ -311,10 +358,10 @@ Les étapes de mise à niveau dépendent du mode utilisé par votre nœud. Séle
       ```shell
       rocketpool service version
 
-      Rocket Pool client version: 1.0.0-rc3
-      Rocket Pool service version: 1.0.0-rc3
-      Selected Eth 1.0 client: Geth (rocketpool/client-go:v1.10.4)
-      Selected Eth 2.0 client: Nimbus (statusim/nimbus:v1.4.0)
+      Rocket Pool client version: 1.22.1
+      Rocket Pool service version: 1.22.1
+      Selected Eth 1.0 client: Geth (Locally managed)
+      Selected Eth 2.0 client: Nimbus (Locally managed)
       ```
 
       Le client et le service doivent tous deux correspondre à la nouvelle version de publication.

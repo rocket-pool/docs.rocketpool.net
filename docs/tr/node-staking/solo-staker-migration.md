@@ -28,8 +28,8 @@ Geçiş herkes için uygun olmayabilir, ancak Rocket Pool megapool doğrulayıc�
 
 - Pool stakerlarından ödünç aldıkları ETH kısmı üzerinden (doğrulayıcı başına 28 ETH) **komisyon kazanırlar**.
 - Mevcut 32 ETH'lik stake'iniz, en fazla **sekiz megapool doğrulayıcısı** oluşturmak için kullanılabilir (mevcut bond her biri 4 ETH) ve 224 ETH'ye kadar ödünç alınan ETH üzerinden komisyon kazanabilirsiniz.
-- Tüm Execution katmanı ödüllerini (örneğin blok önerileri ve [MEV ödülleri](/tr/node-staking/mev)) bir havuzda toplayan ve her ödül aralığında katılımcılar arasında adil şekilde dağıtan [Smoothing Pool](/tr/node-staking/fee-distrib-sp#the-smoothing-pool)'a katılmaya uygundurlar.
-- Megapoolunuzda RPL stake ederseniz, RPL enflasyon ödüllerine ek olarak [voter share ödülleri](/tr/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers) (protokol ETH gelirinin bir payı) kazanır ve [pDAO yönetişiminde](/tr/pdao/overview) oy hakkı elde edersiniz. RPL stake etmek tamamen isteğe bağlıdır.
+- Tüm Execution katmanı ödüllerini (örneğin blok önerileri ve [MEV ödülleri](/tr/node-staking/mev)) bir havuzda toplayan ve her ödül aralığında katılımcılar arasında adil şekilde dağıtan [Smoothing Pool](/tr/node-staking/fee-distrib-sp#smoothing-pool)'a katılmaya uygundurlar.
+- Megapoolunuzda RPL stake ederseniz, RPL enflasyon ödüllerine ek olarak [voter share ödülleri](/tr/node-staking/megapools/staking-and-claiming-rewards#voter-sharein-megapool-rpl-stakerlarına-nasıl-dağıtıldığı) (protokol ETH gelirinin bir payı) kazanır ve [pDAO yönetişiminde](/tr/pdao/overview) oy hakkı elde edersiniz. RPL stake etmek tamamen isteğe bağlıdır.
 
 Bununla birlikte, vurgulanması gereken bazı önemli farklar da var:
 
@@ -37,7 +37,7 @@ Bununla birlikte, vurgulanması gereken bazı önemli farklar da var:
 - Geleneksel düğüm operatörlüğü **Smartnode yazılım yığınını** kullanır; bu yazılımı düğümünüze kurup çalıştırmanın getirdiği riskleri kabul etmeniz gerekir.
 - Düğüm operatörü olmak bazı yeni kavramlar öğrenmeyi gerektirir, dolayısıyla bir **öğrenme eğrisi** vardır.
 - Megapool doğrulayıcıları ödüllerini pool stakerlarıyla paylaşır; bu nedenle doğrulayıcılarınızın çekim adresi, Execution katmanındaki megapool sözleşmeniz olacaktır - **sizin kontrol ettiğiniz bir EOA değil**. Bu, Execution katmanı ödülleri için **fee recipient** adresiniz için de geçerlidir.
-- **Sermayeniz geçiş sürecindeyken hiçbir şey kazanmaz.** Solo doğrulayıcınızın çıkışı ile megapool doğrulayıcılarınızın aktifleşmesi arasında hiçbir ödül kazanmazsınız. Yeni megapool doğrulayıcılarının attestation görevlerine başlamadan önce hem Rocket Pool deposit kuyruğundan _hem de_ Beacon Chain kuyruğundan geçmesi gerekir; bu yüzden herhangi bir çıkış yapmadan önce aşağıdaki **Zamanlama konuları** bölümünü okuyun.
+- **Sermayeniz geçiş sürecindeyken hiçbir şey kazanmaz.** Solo doğrulayıcınızın çıkışı ile megapool doğrulayıcılarınızın aktifleşmesi arasında hiçbir ödül kazanmazsınız. Yeni megapool doğrulayıcılarının attestation görevlerine başlamadan önce hem Rocket Pool deposit kuyruğundan _hem de_ Beacon Chain kuyruğundan geçmesi gerekir; bu yüzden herhangi bir çıkış yapmadan önce aşağıdaki [Zamanlama konuları](#zamanlama-konuları) bölümünü okuyun.
 
 Geçişe karar vermeden önce bu artıları ve eksileri dikkatlice değerlendirmenizi öneririz.
 Sürece devam etmek istiyorsanız, adımlar aşağıda açıklanmıştır.
@@ -52,7 +52,7 @@ Sürece devam etmek istiyorsanız, adımlar aşağıda açıklanmıştır.
 
 ::: warning UYARI
 Gönüllü çıkış **geri alınamaz**. Doğrulayıcınız bir kez çıkış yaptığında bir daha asla doğrulama yapamaz - geri dönüşün tek yolu yeni bir doğrulayıcı oluşturmaktır.
-Çıkış yapmadan önce bu sayfanın tamamını (özellikle **Zamanlama konuları** bölümünü) okuduğunuzdan emin olun.
+Çıkış yapmadan önce bu sayfanın tamamını (özellikle [Zamanlama konuları](#zamanlama-konuları) bölümünü) okuduğunuzdan emin olun.
 :::
 
 [validatorqueue.com](https://www.validatorqueue.com/), Beacon Chain çıkış kuyruğunun güncel uzunluğunu kontrol etmek için faydalı bir sitedir.
@@ -62,7 +62,7 @@ Gönüllü çıkış **geri alınamaz**. Doğrulayıcınız bir kez çıkış ya
 Çıkışınızın işlenmesini beklerken Rocket Pool düğümünüzü hazırlayabilirsiniz.
 
 Rocket Pool düğüm operatörlüğünde yeniyseniz, donanım seçiminden [Smartnode yığınının kurulumuna](/tr/node-staking/installing/overview) ve [düğümünüzün kaydına](/tr/node-staking/prepare-node) kadar her şeyi kapsayan [Düğüm Operatörü kılavuzuyla](/tr/node-staking/responsibilities) başlayın.
-Kendi doğrulayıcınızı çalıştırdığınız için bunların çoğu size tanıdık gelecektir - ayrıca kendi Execution ve Consensus clientlarınızı zaten çalıştırıyorsanız, [harici clientlarla hibrit yapılandırma](/tr/node-staking/install-modes#the-hybrid-configuration-with-external-clients) ilginizi çekebilir.
+Kendi doğrulayıcınızı çalıştırdığınız için bunların çoğu size tanıdık gelecektir - ayrıca kendi Execution ve Consensus clientlarınızı zaten çalıştırıyorsanız, [harici clientlarla hibrit yapılandırma](/tr/node-staking/install-modes#harici-clientlar-ile-hibrit-konfigürasyon) ilginizi çekebilir.
 
 ## Adım 3: Megapool Doğrulayıcılarınızı Oluşturun
 
@@ -92,7 +92,7 @@ Solo doğrulayıcınız çıkış yaptığı andan megapool doğrulayıcıların
 [validatorqueue.com](https://www.validatorqueue.com/), Beacon Chain kuyruğunun uzunluğunu kontrol etmek için faydalı bir sitedir. Bu kuyruk, Beacon Chain'e giren ve çıkan ETH miktarına bağlıdır.
 :::
 
-Deposit kuyruğu beklediğinizden uzun çıkarsa, doğrulayıcınıza ETH atanmadan önce istediğiniz zaman [doğrulayıcıyı Rocket Pool deposit kuyruğundan çıkarabilir](/tr/node-staking/megapools/create-megapool-validator#exit-a-validator-from-the-rocket-pool-deposit-queue) ve bond'unuzu rETH ile takas edilebilir [deposit kredisi](/tr/node-staking/megapools/credit) olarak geri alabilirsiniz.
+Deposit kuyruğu beklediğinizden uzun çıkarsa, doğrulayıcınıza ETH atanmadan önce istediğiniz zaman [doğrulayıcıyı Rocket Pool deposit kuyruğundan çıkarabilir](/tr/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-kuyruğundan-doğrulayıcı-çıkarma) ve bond'unuzu rETH ile takas edilebilir [deposit kredisi](/tr/node-staking/megapools/credit) olarak geri alabilirsiniz.
 
 ## Alternatif: Düğüm Çalıştırmadan Staking
 

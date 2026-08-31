@@ -24,9 +24,9 @@ Wenn Sie den nativen Modus ohne Docker verwenden, besuchen Sie stattdessen bitte
 
 Es gibt drei Möglichkeiten, ihn zu konfigurieren:
 
-- Über die [Assistenten-UI](#konfiguration-uber-den-assistenten) - dies ist der einfachste Weg. Es werden nur ein paar grundlegende Fragen gestellt und bewährte Standardeinstellungen für den Rest verwendet. Dies wird Ihnen präsentiert, wenn Sie `rocketpool service config` zum ersten Mal ausführen.
-- Über die [Einstellungsverwaltungs-UI](#konfiguration-uber-die-einstellungsverwaltung) - dies gibt Ihnen Zugriff auf alle Einstellungen des Smartnode, sodass Sie alles so weit anpassen können, wie Sie möchten.
-- Kopflos über die [Kommandozeile](#konfiguration-uber-die-kommandozeile) - dies ist eine Option für Personen, die den Smartnode in einer kopflosen (nicht-interaktiven) Umgebung ausführen und ihn automatisch konfigurieren müssen.
+- Über die [Assistenten-UI](#konfiguration-über-den-assistenten) - dies ist der einfachste Weg. Es werden nur ein paar grundlegende Fragen gestellt und bewährte Standardeinstellungen für den Rest verwendet. Dies wird Ihnen präsentiert, wenn Sie `rocketpool service config` zum ersten Mal ausführen.
+- Über die [Einstellungsverwaltungs-UI](#konfiguration-über-die-einstellungsverwaltung) - dies gibt Ihnen Zugriff auf alle Einstellungen des Smartnode, sodass Sie alles so weit anpassen können, wie Sie möchten.
+- Kopflos über die [Kommandozeile](#konfiguration-über-die-kommandozeile) - dies ist eine Option für Personen, die den Smartnode in einer kopflosen (nicht-interaktiven) Umgebung ausführen und ihn automatisch konfigurieren müssen.
 
 Wählen Sie aus der obigen Liste, über welchen Modus Sie mehr erfahren möchten, oder scrollen Sie einfach durch jede Option unten.
 
@@ -41,7 +41,7 @@ rocketpool service config
 Dies startet eine terminalbasierte Benutzeroberfläche, mit der Sie Ihren Node schnell und einfach konfigurieren können und optional eine detaillierte Kontrolle über jede Einstellung für erweiterte Anpassungen bietet.
 
 ::: tip HINWEIS
-Wenn Sie den Smartnode bereits konfiguriert haben, werden Sie stattdessen mit der [Einstellungsverwaltung](#konfiguration-uber-die-einstellungsverwaltung) begrüßt.
+Wenn Sie den Smartnode bereits konfiguriert haben, werden Sie stattdessen mit der [Einstellungsverwaltung](#konfiguration-über-die-einstellungsverwaltung) begrüßt.
 Sie können von dort aus den Assistenten erneut öffnen, wenn Sie ihn bevorzugen, und alle Ihre vorhandenen Einstellungen werden für Sie vorausgewählt.
 :::
 
@@ -120,9 +120,11 @@ Wählen Sie aus, welchen Modus Sie für die Verwaltung Ihres Execution-Clients v
       Bitte beziehen Sie sich auf den Abschnitt [Auswahl Ihrer ETH-Clients](/de/node-staking/eth-clients#execution-clients) für eine Beschreibung jeder Option.
       Sobald Sie Ihre Wahl getroffen haben, klicken Sie auf die entsprechende Registerkarte unten, um zu erfahren, wie Sie ihn konfigurieren:
 
-      Wenn Sie **Geth**, **Besu** oder **Nethermind** wählen, übernimmt der Assistent die gesamte Konfiguration für Sie.
+      Wenn Sie **Geth**, **Besu**, **Nethermind**, **Reth** oder **Erigon** wählen, übernimmt der Assistent die gesamte Konfiguration für Sie.
       Sie können einige seiner Parameter am Ende dieses Prozesses manuell anpassen, aber die verwendeten Standardeinstellungen sind für den Node-Betrieb völlig angemessen.
       Sie können mit dem nächsten Abschnitt fortfahren.
+
+      Wenn Sie **Erigon** wählen, leiten Sie zusätzlich dessen **Torrent Port** (Standard **42069**, TCP und UDP) sowie den P2P-Port **30303** weiter, damit Snapshot-Sync und Peering funktionieren. Für alles andere verwendet der Assistent weiterhin sinnvolle Standardwerte.
 
 
       <p className="rspress-directive warning">
@@ -181,7 +183,7 @@ Wählen Sie aus den folgenden Registerkarten den Modus, den Sie zuvor ausgewähl
 
       **Die bevorzugte Wahl** für die allgemeine Gesundheit und Vielfalt des Netzwerks ist die **Random (Recommended)**-Wahl, die zufällig einen der vier unterstützten Consensus-Clients für Sie auswählt.
 
-      Wenn Sie lieber einen expliziten Client auswählen möchten, beziehen Sie sich bitte auf den Abschnitt [Auswahl Ihrer ETH-Clients](./eth-clients#eth2-clients) für eine Beschreibung jeder Option, damit Sie eine fundierte Entscheidung treffen können.
+      Wenn Sie lieber einen expliziten Client auswählen möchten, beziehen Sie sich bitte auf den Abschnitt [Auswahl Ihrer ETH-Clients](./eth-clients#consensus-clients) für eine Beschreibung jeder Option, damit Sie eine fundierte Entscheidung treffen können.
 
 
       <p className="rspress-directive warning">
@@ -637,7 +639,7 @@ Sie werden den folgenden Dialog sehen:
 
 Wenn Sie mit Ihrer Einrichtung zufrieden sind und bereit sind, den Smartnode zu starten, klicken Sie hier auf `Save and Exit` und gehen Sie als Nächstes zum Abschnitt [Sicherung Ihres Nodes](./securing-your-node).
 
-Wenn Sie alle Einstellungen überprüfen und viele zusätzliche Einstellungen anpassen möchten, die nicht im Assistenten enthalten waren, klicken Sie auf `Review All Settings` und gehen Sie zum [nächsten Abschnitt](#konfiguration-uber-die-einstellungsverwaltung).
+Wenn Sie alle Einstellungen überprüfen und viele zusätzliche Einstellungen anpassen möchten, die nicht im Assistenten enthalten waren, klicken Sie auf `Review All Settings` und gehen Sie zum [nächsten Abschnitt](#konfiguration-über-die-einstellungsverwaltung).
 
 ## Konfiguration über die Einstellungsverwaltung
 
@@ -649,7 +651,7 @@ Es gibt drei Hauptfunktionen auf diesem Bildschirm:
 
 1. Die **Kategorieliste**, mit der Sie in die Einstellungen für jede Kategorie des Smartnode-Stacks einsteigen können
 2. Die Schaltfläche **Änderungen überprüfen und speichern**, die Sie verwenden können, wenn Sie bereit sind zu sehen, welche Einstellungen Sie geändert haben, und die aktualisierte Konfiguration zu speichern
-3. Die Schaltfläche **Konfigurations-Assistenten öffnen**, die Sie zum [Setup-Assistenten](#konfiguration-uber-den-assistenten) führt, wenn Sie diese Oberfläche stattdessen bevorzugen
+3. Die Schaltfläche **Konfigurations-Assistenten öffnen**, die Sie zum [Setup-Assistenten](#konfiguration-über-den-assistenten) führt, wenn Sie diese Oberfläche stattdessen bevorzugen
 
 ::: tip TIPP
 Um die Einstellungsverwaltung zu verwenden, **drücken Sie die `Pfeiltasten` (hoch/runter/links/rechts), um zwischen Optionen auf der Startseite zu navigieren**.

@@ -18,7 +18,7 @@ Validator가 오프라인 상태이고 증명 또는 블록 제안을 놓치면 
 
 Validator는 증명, 블록 제안, 동기화 위원회(드물게), 슬래싱 보상(극히 드물게)으로부터 합의 레이어 보상을 얻습니다. 또한 우선순위 수수료 및 MEV로부터 실행 레이어 보상을 얻습니다.
 
-2024년 10월 기준으로, 전체 APR은 약 3.5%이며, 합의 레이어 APR이 2.8%, 실행 레이어 APR이 0.7%입니다. 이 정보를 찾을 수 있는 한 곳은 [rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake)입니다.
+2026년 5월 기준으로, 전체 APR은 약 2.634%이며, 합의 레이어 APR이 2.8%, 실행 레이어 APR이 0.22%입니다. 이 정보를 찾을 수 있는 한 곳은 [rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake)입니다.
 
 ### 페널티
 
@@ -49,22 +49,21 @@ Validator가 Beacon chain의 핵심 규칙 중 하나를 위반하고 네트워�
 
 ## Rocket Pool 노드의 작동 방식
 
-새로운 validator를 생성하기 위해 32 ETH를 예치해야 하는 단독 스테이커와 달리, Rocket Pool 노드는 validator당 8 ETH만 예치하면 됩니다("bond ETH"라고 함).
-이것은 staking pool의 24 ETH("borrowed ETH"라고 하며, rETH와 교환하여 liquid staker 예치금에서 나온 것)와 결합되어 새로운 validator를 생성합니다.
-이 새로운 validator는 **minipool**에 속합니다.
+새로운 validator를 생성하기 위해 32 ETH를 예치해야 하는 단독 스테이커와 달리, Rocket Pool 노드는 validator당 4 ETH("bonded ETH"라고 함)만 예치하면 됩니다.
+이것은 staking pool의 28 ETH("borrowed ETH"라고 하며, liquid staker가 rETH와 교환하여 예치한 자금에서 나옵니다)와 결합되어 새로운 메가풀 검증자를 생성합니다.
 
-Beacon chain에게 minipool은 일반 validator와 정확히 동일하게 보입니다.
+Beacon chain에게 메가풀 검증자는 일반 validator와 정확히 동일하게 보입니다.
 동일한 책임, 따라야 할 동일한 규칙, 동일한 보상 등을 가지고 있습니다.
-유일한 차이점은 minipool이 실행 레이어에서 생성된 방식과 노드 운영자가 자발적으로 minipool을 종료하기로 결정할 때 출금이 작동하는 방식입니다.
+유일한 차이점은 메가풀 검증자가 실행 레이어에서 생성된 방식과 노드 운영자가 자발적으로 메가풀 검증자를 종료할 때 출금이 작동하는 방식입니다.
 모든 생성, 출금 및 보상 위임은 Ethereum 체인의 Rocket Pool **스마트 컨트랙트**에 의해 처리됩니다.
 이것은 완전히 탈중앙화되어 있습니다.
 
 Rocket Pool **노드**는 Rocket Pool의 스마트 컨트랙트에 등록된 Ethereum 지갑이 있는 단일 컴퓨터입니다.
-노드는 감당할 수 있는 만큼 많은 minipool을 생성할 수 있으며, 모두 동일한 머신에서 행복하게 함께 실행됩니다.
-**단일 Rocket Pool 노드는 많은 minipool을 실행할 수 있습니다.**
-각 minipool은 전체 시스템 성능에 무시할 수 있는 영향을 미칩니다; 일부 사람들은 단일 노드에서 수백 개를 실행할 수 있었습니다.
+노드는 감당할 수 있는 만큼 많은 메가풀 검증자를 생성할 수 있으며, 모두 동일한 머신에서 행복하게 함께 실행됩니다.
+**단일 Rocket Pool 노드는 많은 메가풀 검증자를 실행할 수 있습니다.**
+각 메가풀 검증자는 전체 시스템 성능에 무시할 수 있는 영향을 미칩니다; 일부 사람들은 단일 노드에서 수백 개를 실행할 수 있었습니다.
 
-minipool의 선불 비용은 8 ETH입니다. 또한, 노드 운영자는 추가 보상을 받고 프로토콜 DAO 내에서 투표권을 얻기 위해 노드에 RPL을 스테이킹할 수 있습니다.
+메가풀 검증자의 선불 비용은 4 ETH입니다. 또한, 노드 운영자는 추가 보상을 받고 프로토콜 DAO 내에서 투표권을 얻기 위해 선택적으로 노드에 RPL을 스테이킹할 수 있습니다.
 
 ## Rocket Pool 노드 운영자
 
@@ -73,14 +72,14 @@ minipool의 선불 비용은 8 ETH입니다. 또한, 노드 운영자는 추가 
 
 ### 책임
 
-그들은 staking pool의 ETH를 사용하여 minipool을 실행함으로써 작동시키며, 이는 Rocket Pool 프로토콜에 대한 스테이킹 보상을 얻습니다(따라서 rETH의 가치를 증가시킵니다).
+그들은 staking pool의 ETH를 사용하여 메가풀 검증자를 실행함으로써 작동시키며, 이는 Rocket Pool 프로토콜에 대한 스테이킹 보상을 얻습니다(따라서 rETH의 가치를 증가시킵니다).
 그들의 일은 간단하지만 매우 중요합니다: _최고 품질로 validator를 실행하고 스테이킹 보상을 극대화합니다_.
 
 노드 운영자는 다음에 대한 책임이 있습니다:
 
 - 컴퓨터(물리적 또는 가상) 설정
 - 해당하는 경우 홈 네트워크를 포함하여 올바르게 구성
-- Rocket Pool을 설치하고 검증을 수행하기 위한 minipool 설정
+- Rocket Pool을 설치하고 검증을 수행하기 위한 validator 설정
 - 외부 및 내부 위협으로부터 보호
 - validator의 수명 동안 유지 관리
 
@@ -92,24 +91,25 @@ minipool의 선불 비용은 8 ETH입니다. 또한, 노드 운영자는 추가 
 Rocket Pool 노드를 실행하는 주요 이점은 다음과 같습니다:
 
 - 각 validator의 ETH 보상 중 귀하의 몫과 수수료를 얻습니다.
-  - 스테이킹된 RPL이 없는 8 ETH 본드 minipool의 경우, 단독 스테이킹보다 30% 더 많이 얻습니다 (`(8+24*.1)/8 = 1.3`)
-  - RPL 스테이킹은 향상된 수수료를 제공합니다. 총 borrowed ETH의 10% 이상의 가치로 평가된 RPL 스테이크를 보유한 경우, ETH 보상은 단독 스테이킹보다 42% 더 많이 얻습니다 (`(8+24*.14)/8 = 1.42`)
-  - **참고:** smoothing pool에 참여하지 않으면 대신 단독 스테이킹보다 15% 더 많이 얻습니다 (`(8+24*.05)/8 = 1.15`) -- 2024-10-28 이후에 만들어진 minipool을 보유한 사용자는 smoothing pool에 옵트인하는 것이 좋습니다.
-- 스테이킹한 RPL에 대한 발행 보상도 얻습니다.
-  - 기간(28일마다) 종료 시 RPL의 스냅샷이 있습니다.
-  - 총 borrowed ETH 가치의 **최대 15%**까지 RPL에 대한 최대 수익률을 얻을 수 있습니다.
-    - 그 이상의 RPL에 대해서도 수익률을 얻지만 감소하는 수준입니다.
-  - 스테이킹된 RPL의 제곱근을 기반으로 투표권을 얻습니다.
+  - 자기 자본 4 ETH만으로 validator를 운영하며, 나머지 28 ETH는 liquid staker로부터 조달됩니다.
+  - 각 메가풀 검증자는 28 ETH의 프로토콜 자금에서 발생한 보상에 대해 5% 수수료를 얻습니다. 이는 단독 스테이킹보다 35% 더 많습니다(`(4 bonded + 28 borrowed * 0.05) / 4 = 1.35`).
+  - [Smoothing Pool](fee-distrib-sp#smoothing-pool)에 참여하면 실행 레이어 보상(우선 수수료 및 MEV)을 다른 참가자와 공유하게 되어, 블록 제안의 운에 의존하는 대신 더 일관된 수익을 얻을 수 있습니다.
+- RPL을 스테이킹하면 추가 보상을 얻습니다.
+  - RPL 스테이커는 스테이킹한 RPL에 비례하여 [프로토콜 수수료의 일부](megapools/staking-and-claiming-rewards#메가풀-rpl-스테이커에게-투표자-공유-분배-방식)(ETH로 지급)를 얻습니다.
+  - 또한 스테이킹한 RPL에 대해 발행 보상(RPL로 지급)도 얻습니다.
+    - 기간이 끝날 때(28일마다) RPL의 스냅샷이 생성됩니다.
+    - 총 차입 ETH 가치의 **최대 15%**까지 RPL에 대해 최대 수익률을 얻을 수 있습니다.
+    - 15%를 초과하는 RPL에 대해서도 수익을 얻지만, 수익률은 감소합니다.
+  - 스테이킹한 RPL의 제곱근에 기반하여 bonded ETH의 최대 150%까지 투표권을 얻습니다.
 
 ### 제한 사항
 
 위의 보상과 함께 제공되는 몇 가지 제한 사항이 있습니다:
 
-- 노드가 제대로 수행되지 않고 minipool을 종료하기로 결정할 때 실제로 ETH를 잃는 경우, 손실된 모든 ETH는 귀하의 몫에서 나옵니다.
-  - 예를 들어: 30 ETH의 잔액으로 종료하면 minipool이 초기 32 ETH 예치금에서 2 ETH를 잃은 것입니다. 귀하는 6 ETH를 받게 되고 24 ETH는 staking pool로 반환됩니다.
-- 스테이킹된 RPL은 유동성이 떨어집니다
-  - 본드된 ETH의 60%의 가치를 초과하는 RPL 스테이크만 출금할 수 있습니다.
-  - 지난 28일 동안 스테이킹한 경우 RPL을 출금할 수 없습니다
+- 노드가 제대로 수행되지 않고 메가풀 검증자를 종료하기로 결정할 때 실제로 ETH를 잃는 경우, 손실된 모든 ETH는 귀하의 몫에서 나옵니다.
+  - 예를 들어: 31 ETH의 잔액으로 종료하면 메가풀 검증자는 초기 32 ETH 예치금에서 1 ETH를 잃은 것입니다. 귀하는 3 ETH를 받고 28 ETH는 staking pool로 반환됩니다.
+- 스테이킹된 RPL은 유동성이 떨어집니다:
+  - 메가풀에 스테이킹된 RPL의 언스테이킹 한도는 없지만, 언스테이킹을 시작한 후 출금까지 28일을 기다려야 합니다. 이는 사용자가 28일 보상 기간에 딱 맞춰 RPL을 스테이킹한 뒤 기간 종료 직후 인출하는 방식으로 보상 시스템을 악용하는 것을 방지합니다.
 
 ### 할 수 있습니다
 

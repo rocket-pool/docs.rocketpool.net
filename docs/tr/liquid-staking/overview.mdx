@@ -38,14 +38,13 @@ Bu da doğrudan Execution layer'da mevcuttur ve priority fee'lerle aynı anda sa
 
 ## Rocket Pool Nasıl Çalışır
 
-Yeni bir validator oluşturmak için 32 ETH yatırmak zorunda olan solo staker'ların aksine, Rocket Pool node'ları validator başına sadece 8 ETH veya 16 ETH yatırmak zorundadır.
-Bu, yeni bir Ethereum validator'ı oluşturmak için staking pool'dan (staker'ların rETH karşılığında yatırdığı) sırasıyla 24 ETH veya 16 ETH ile eşleştirilecektir.
-Bu yeni validator'a **minipool** adı verilir.
+Yeni bir validator oluşturmak için 32 ETH yatırmak zorunda olan solo staker'ların aksine, Rocket Pool node'ları validator başına sadece 4 ETH ("bonded ETH" olarak adlandırılır) yatırmak zorundadır.
+Bu, yeni bir megapool doğrulayıcısı oluşturmak için staking pool'dan 28 ETH ("borrowed ETH" olarak adlandırılır ve liquid staker'ların rETH karşılığında yatırdığı mevduatlardan gelir) ile eşleştirilecektir.
 
-Beacon chain'e göre, bir minipool normal bir validator'la tamamen aynı görünür.
+Beacon chain'e göre, bir megapool doğrulayıcısı normal bir validator'la tamamen aynı görünür.
 Aynı sorumluluklara, uyması gereken aynı kurallara, aynı ödüllere sahiptir vb.
-Tek fark, minipool'un nasıl oluşturulduğu ve node operatörü minipool'dan gönüllü olarak çıkmaya karar verdiğinde veya slash edildiğinde çekimlerin nasıl çalıştığıdır.
-Tüm oluşturma, çekme ve ödül dağıtımı Rocket Pool'un Execution layer'daki **smart contract'ları** tarafından yönetilir.
+Tek fark, megapool doğrulayıcısının execution layer üzerinde nasıl oluşturulduğu ve node operatörü megapool doğrulayıcısından gönüllü olarak çıkmaya karar verdiğinde çekimlerin nasıl çalıştığıdır.
+Tüm oluşturma, çekme ve ödül dağıtımı Rocket Pool'un Ethereum zincirindeki **smart contract'ları** tarafından yönetilir.
 Bu onu tamamen merkeziyetsiz yapar.
 
 ## rETH Token'ı

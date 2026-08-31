@@ -14,7 +14,7 @@ Rocket Poolのノードオペレーターとして、RPLトークンの形で定
 新しいチェックポイントで、Oracle DAOは共同でRocket Poolネットワーク内のノードオペレーターの状態の**真のスナップショット**を作成し、それを使用してその間隔中の各ノードのRPLおよびSmoothing Pool ETH報酬を決定します。Saturn 0 minipoolの「ボーナス手数料」はSmoothing Pool報酬を使用して分配されることに注意してください（Saturn 0 minipoolは2024/10/28以降に作成され、契約手数料が5%のものです）。
 
 この情報は[Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree)にコンパイルされます。これは、すべての詳細をスマートコントラクトで利用できるようにする非常に効率的な方法です。
-Merkle TreeはJSONファイルに構築され、[InterPlanetary File System（IPFS）](https://en.wikipedia.org/wiki/InterPlanetary_File_System)でホストされ、[私たちが管理するGitHubリポジトリ](https://github.com/rocket-pool/rewards-trees/)でミラーリングされます。
+Merkle TreeはJSONファイルに構築され、[私たちが管理するGitHubリポジトリ](https://github.com/rocket-pool/rewards-trees/)でホストされます。Smartnodeは報酬インターバルの**イベント**をそのGitHubリポジトリから読み込むこともできるため、積極的な履歴削除によって古いExecutionレイヤーのログが削除された後でも請求できます。
 
 ツリーが送信されると、Rocket Poolスマートコントラクトは新しいRPLトークンをミントし、Smoothing Poolの全ETH残高とともに、安全な保管のためにRocket Poolボールトに移動します。
 その後、その間隔中に獲得したRPLとETHの報酬の量を確認し、それらの報酬を請求できます。
@@ -152,7 +152,7 @@ You may claim these rewards at any time. You no longer need to claim them within
 
 ## Fee Distributorでのexecution-Layer報酬
 
-Smoothing Poolにオプトイン**していない**場合、ブロック提案からのExecution-layer部分の報酬（トランザクション手数料とMEVを含む）は、代わりにノードの[Fee Distributor](./fee-distrib-sp#fee-distributors-and-the-smoothing-pool)コントラクトに送信されます。
+Smoothing Poolにオプトイン**していない**場合、ブロック提案からのExecution-layer部分の報酬（トランザクション手数料とMEVを含む）は、代わりにノードの[Fee Distributor](./fee-distrib-sp#fee-distributorとsmoothing-pool)コントラクトに送信されます。
 
 Fee Distributorの残高を確認するには、[https://etherscan.io](https://etherscan.io)などのチェーンエクスプローラーを使用するか、単に`rocketpool node status`を実行します。**Fee Distributor and Smoothing Pool**というセクションがあり、それが表示されます。
 

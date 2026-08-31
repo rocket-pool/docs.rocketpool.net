@@ -38,7 +38,7 @@ Uma representação visual prática deste processo pode ser encontrada no
 
 ## Pré-requisito
 
-Por favor, leia o [ciclo de vida de uma proposta](./pdao#lifecycle-of-a-pdao-proposal) antes de prosseguir. Ele explicará
+Por favor, leia o [ciclo de vida de uma proposta](./pdao#ciclo-de-vida-de-uma-proposta-pdao) antes de prosseguir. Ele explicará
 as diferenças entre todos os períodos de votação e as ações que podem ser tomadas durante cada período.
 
 O resto desta página o guiará através dos passos necessários para participar em propostas pDAO on-chain.
@@ -77,7 +77,7 @@ Por favor, digite `direct` ou `delegate` para continuar:
 - Se você responder com `direct`, o poder de voto será inicializado para o seu nó e você poderá votar diretamente em
   propostas da DAO do Protocolo.
 - Se você responder com `delegate`, você terá a oportunidade de economizar um pouco de gas ao inicializar a votação
-  e [definir um delegado](./participate#delegating-voting-power) dentro da mesma transação.
+  e [definir um delegado](./participate#delegando-o-poder-de-voto) dentro da mesma transação.
 
 Você só precisa fazer isso uma vez. Ele configura a informação de snapshot inicial para um nó. Depois de inicializar a votação,
 toda ação tomada irá atualizar a informação de snapshot do seu nó. Uma vez que o seu poder de voto esteja inicializado, você pode verificar
@@ -236,15 +236,15 @@ conte para a proposta. O seu voto na fase 1 valerá o seu **poder de voto local 
 
 Para ser elegível para propor, um nó deve cumprir alguns requisitos:
 
-- Incluído no snapshot (seja ao [inicializar a votação](./participate#initializing-voting) ou ao
+- Incluído no snapshot (seja ao [inicializar a votação](./participate#inicializando-votação) ou ao
   registrar pós Houston)
 - Deve ter pelo menos um minipool
 - Tem poder de voto não-zero
-- Permitiu [bloqueio RPL](./participate#allowing-rpl-locking)
+- Permitiu [bloqueio RPL](./participate#permitindo-bloqueio-rpl)
 - Tem uma stake RPL (menos qualquer RPL já bloqueado) maior que a garantia da proposta
 
 Propostas existem para alterar parâmetros e executar código ao nível do protocolo! Deve haver discussão e consenso
-através do processo de [governança](./participate#governance-process) antes que uma proposta seja criada on chain.
+através do processo de [governança](./participate#processo-de-governança) antes que uma proposta seja criada on chain.
 
 Use o comando `rocketpool pdao propose` para trazer um menu de opções
 
@@ -256,9 +256,12 @@ COMANDOS:
    recurring-spend-update, rsu  Propor uma atualização a um plano de gasto recorrente existente
    security-council, sc         Modificar o conselho de segurança
    setting, s                   Fazer uma proposta de configuração da DAO do Protocolo
+   submit-batch, sb            Enviar uma única proposta que altera várias configurações da DAO do Protocolo a partir de um arquivo JSON
 ```
 
-Cada um destes comandos irá solicitá-lo com uma lista de inputs para criar a sua proposta desejada. Neste guia, vamos
+Cada um destes comandos irá solicitá-lo com uma lista de inputs para criar a sua proposta desejada. Os comandos de proposta de configuração aceitam `--to-json` para escrever ou anexar uma alteração de configuração a um arquivo JSON em vez de enviar uma transação. Quando o arquivo estiver pronto, envie-o com `rocketpool pdao propose submit-batch`.
+
+Neste guia, vamos
 convidar um nó para o conselho de segurança para servir como exemplo. Para levantar uma proposta para convidar um nó para o conselho de segurança, você usaria o comando:
 
 ```shell
@@ -281,7 +284,7 @@ Tem certeza de que deseja propor convidar test-member (0xBdbcb42DD8E39323a395B2B
 ```
 
 Depois que isso for incluído em um bloco, uma proposta pDAO será criada! A proposta entrará no
-[período de atraso de voto](./pdao#vote-delay-period) após a criação.
+[período de atraso de voto](./pdao#período-de-atraso-de-voto) após a criação.
 
 ## Visualizando o Estado de uma Proposta
 
@@ -322,10 +325,10 @@ sobre uma proposta específica.
       ```
 
       Aqui podemos ver que nossa proposta `convidar test-member` tem um ID de 71 e está no estado pendente. Neste estado,
-      [desafiantes](/pt/pdao/pdao#challenge-process) podem disputar a validade da
+      [desafiantes](/pt/pdao/pdao#processo-de-desafio) podem disputar a validade da
       árvore Merkle-sum (usada para calcular o poder de voto) fornecida pelo proponente. Quando `proposal.vote.delay.time` terminar,
       a proposta fará a transição para as fases de votação ativas. Sinta-se livre para revisar o [ciclo de vida de uma
-      proposta](./pdao#lifecycle-of-a-pdao-proposal) para uma atualização.
+      proposta](./pdao#ciclo-de-vida-de-uma-proposta-pdao) para uma atualização.
     </Tab>
     <Tab label="Visualizando Detalhes da Proposta">
       Agora que você tem o ID da proposta, você pode visualizar o status da sua proposta usando este comando:

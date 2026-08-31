@@ -21,7 +21,7 @@ next:
 - Установили и настроили Smartnode [установлен](../installing/overview) и [настроен](../config/overview) на ней
 - Загрузили кошелек ноды на ваш Smartnode
 - Синхронизировали ваши клиенты исполнения и консенсуса
-- Обеспечили вашу ноду [адресом вывода](../prepare-node.mdx#setting-your-withdrawal-address), настроили ваши [резервные клиенты](../fallback) (опционально), присоединились к [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (опционально) и настроили [MEV](../mev.mdx)
+- Обеспечили вашу ноду [адресом вывода](../prepare-node.mdx#установка-основного-адреса-для-вывода-средств), настроили ваши [резервные клиенты](../fallback) (опционально), присоединились к [Smoothing Pool](../fee-distrib-sp#smoothing-pool) (опционально) и настроили [MEV](../mev.mdx)
 
 ## Руководства
 

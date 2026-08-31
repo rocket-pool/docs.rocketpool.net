@@ -17,8 +17,8 @@ permalink: /protocol/contracts-integrations
 | Hoodi\* | Deposit  | [0x320f3aAB9405e38b955178BBe75c477dECBA0C27](https://hoodi.etherscan.io/address/0x320f3aAB9405e38b955178BBe75c477dECBA0C27) |
 | &nbsp;  | Storage  | [0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1](https://hoodi.etherscan.io/address/0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1) |
 
-Внутри протокола контракт Storage используется для поиска всех других адресов развёрнутых контрактов по мере необходимости (см. этот [пример](/ru/protocol/contracts-usage#interacting-with-rocket-pool)).
-См. раздел [Все активные развёрнутые контракты протокола](#all-active-deployed-protocol-contracts) ниже для полного списка адресов.
+Внутри протокола контракт Storage используется для поиска всех других адресов развёрнутых контрактов по мере необходимости (см. этот [пример](/ru/protocol/contracts-usage#взаимодействие-с-rocket-pool)).
+См. раздел [Все активные развёрнутые контракты протокола](#все-активные-развёрнутые-контракты-протокола) ниже для полного списка адресов.
 
 <small>\* Testnet</small>
 
@@ -261,4 +261,4 @@ permalink: /protocol/contracts-integrations
 
 Этот список был обновлён 09/02/2026
 
-Адреса можно запросить в блокчейне, как показано в этом [примере](/ru/protocol/contracts-usage#interacting-with-rocket-pool).
+Адреса можно запросить в блокчейне, как показано в этом [примере](/ru/protocol/contracts-usage#взаимодействие-с-rocket-pool).

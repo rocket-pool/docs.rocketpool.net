@@ -1,4 +1,4 @@
-# 分配 Skimmed 奖励
+# 分配 Skimmed Minipool 奖励
 
 您因为为 Ethereum 运行验证者而获得的 ETH 奖励会定期通过一个称为"skimming"的过程发送到您的 minipool。
 skim 的频率取决于信标链上活跃验证者的数量。在撰写本文时，验证者的数量约为

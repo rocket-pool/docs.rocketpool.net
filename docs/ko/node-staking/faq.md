@@ -5,7 +5,7 @@
 단일 솔로 validator를 운영하면 32 ETH에 대해 100%의 보상을 받습니다.
 16 ETH minipool 두 개를 운영하면 32 ETH에 대해 100%의 보상을 받으며 **추가로** Rocket Pool 프로토콜이 제공하는 32 ETH에 대한 보상의 14%를 받습니다.
 8 ETH minipool 네 개를 운영하면 32 ETH에 대해 100%의 보상을 받으며 **추가로** Rocket Pool 프로토콜이 제공하는 96 ETH에 대한 보상의 14%를 받습니다.
-또한 Rocket Pool의 [Smoothing Pool](./prepare-node.mdx#smoothing-pool) 기능을 사용할 수 있는 옵션도 있습니다.
+또한 Rocket Pool의 [Smoothing Pool](./fee-distrib-sp#smoothing-pool) 기능을 사용할 수 있는 옵션도 있습니다.
 
 ### rETH의 가치를 어떻게 알 수 있습니까? 리베이스가 됩니까?
 
@@ -19,7 +19,7 @@ rETH 토큰은 리베이스되지 않습니다.
 
 ### minipool을 생성하고 운영하는 실험을 위해 테스트 ETH를 어떻게 얻을 수 있습니까? faucet 채널에 메시지를 게시할 수 없습니다.
 
-[Hoodi에서 테스트 ETH 받기](./testnet/overview#getting-test-eth-on-hoodi)를 참조하세요.
+[Hoodi에서 테스트 ETH 받기](./testnet/overview#hoodi에서-테스트-eth-얻기)를 참조하세요.
 
 ### 기기가 고장 나면 노드를 어떻게 복구합니까?
 

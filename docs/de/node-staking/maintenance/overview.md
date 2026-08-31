@@ -16,7 +16,7 @@ Bevor Sie Ihren Smartnode konfigurieren, stellen Sie bitte sicher, dass Sie:
 - Den Smartnode darauf [installiert](../installing/overview) und [konfiguriert](../config/overview) haben
 - Eine Node Wallet auf Ihrem Smartnode geladen haben
 - Ihre Execution und Consensus Clients synchronisiert haben
-- Ihren Node mit [einer Withdrawal-Adresse](../prepare-node.mdx#setting-your-withdrawal-address) bereitgestellt, Ihre [Fallback Clients](../fallback) eingerichtet (optional), sich für den [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) entschieden (optional) und [MEV](../mev.mdx) konfiguriert haben
+- Ihren Node mit [einer Withdrawal-Adresse](../prepare-node.mdx#ihre-primäre-auszahlungsadresse-festlegen) bereitgestellt, Ihre [Fallback Clients](../fallback) eingerichtet (optional), sich für den [Smoothing Pool](../fee-distrib-sp#der-smoothing-pool) entschieden (optional) und [MEV](../mev.mdx) konfiguriert haben
 - Mindestens einen [Minipool](../create-validator.mdx) erstellt haben
 
 ## Anleitungen

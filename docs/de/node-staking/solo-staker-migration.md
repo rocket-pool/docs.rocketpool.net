@@ -28,8 +28,8 @@ Die Migration ist nicht für jeden das Richtige, aber Rocket Pool Megapool-Valid
 
 - Sie **verdienen eine Provision** auf den Anteil an ETH, den sie von den Pool-Stakern leihen (28 ETH pro Validator).
 - Dein bestehender Stake von 32 ETH könnte verwendet werden, um bis zu **acht Megapool-Validatoren** zu erstellen (beim aktuellen Bond von je 4 ETH), die auf bis zu 224 ETH geliehenes ETH Provision verdienen.
-- Sie sind zur Teilnahme am [Smoothing Pool](/de/node-staking/fee-distrib-sp#the-smoothing-pool) berechtigt, der alle Execution-Layer-Belohnungen (z. B. aus Blockvorschlägen und [MEV-Belohnungen](/de/node-staking/mev)) bündelt und in jedem Belohnungsintervall fair unter den Teilnehmern verteilt.
-- Wenn du RPL auf deinem Megapool stakst, verdienst du [Voter-Share-Belohnungen](/de/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers) (einen Anteil an den ETH-Einnahmen des Protokolls) zusätzlich zu den RPL-Inflationsbelohnungen, sowie Stimmrecht in der [pDAO-Governance](/de/pdao/overview). RPL-Staking ist völlig optional.
+- Sie sind zur Teilnahme am [Smoothing Pool](/de/node-staking/fee-distrib-sp#der-smoothing-pool) berechtigt, der alle Execution-Layer-Belohnungen (z. B. aus Blockvorschlägen und [MEV-Belohnungen](/de/node-staking/mev)) bündelt und in jedem Belohnungsintervall fair unter den Teilnehmern verteilt.
+- Wenn du RPL auf deinem Megapool stakst, verdienst du [Voter-Share-Belohnungen](/de/node-staking/megapools/staking-and-claiming-rewards#wie-voter-share-an-megapool-rpl-staker-verteilt-wird) (einen Anteil an den ETH-Einnahmen des Protokolls) zusätzlich zu den RPL-Inflationsbelohnungen, sowie Stimmrecht in der [pDAO-Governance](/de/pdao/overview). RPL-Staking ist völlig optional.
 
 Dennoch gibt es einige wichtige Unterschiede, die hervorzuheben sind:
 
@@ -37,7 +37,7 @@ Dennoch gibt es einige wichtige Unterschiede, die hervorzuheben sind:
 - Der herkömmliche Node-Betrieb nutzt den **Smartnode-Stack**; du musst alle Risiken akzeptieren, die mit der Installation und dem Betrieb dieser Software auf deinem Node verbunden sind.
 - Node-Operator zu sein bedeutet, einige neue Konzepte zu lernen - es gibt also eine gewisse **Lernkurve**.
 - Megapool-Validatoren teilen ihre Belohnungen mit den Pool-Stakern, daher ist die Withdrawal-Adresse deiner Validatoren dein Megapool-Vertrag auf dem Execution Layer, **keine EOA, die du kontrollierst**. Das gilt auch für deinen **Fee Recipient** für Execution-Layer-Belohnungen.
-- **Dein Kapital verdient nichts, während es unterwegs ist.** Zwischen dem Beenden deines Solo-Validators und der Aktivierung deiner Megapool-Validatoren erhältst du keine Belohnungen. Neue Megapool-Validatoren müssen die Rocket Pool Deposit Queue _und_ die Beacon-Chain-Queue durchlaufen, bevor sie mit dem Attestieren beginnen. Lies daher den Abschnitt **Zeitliche Überlegungen** weiter unten, bevor du irgendetwas beendest.
+- **Dein Kapital verdient nichts, während es unterwegs ist.** Zwischen dem Beenden deines Solo-Validators und der Aktivierung deiner Megapool-Validatoren erhältst du keine Belohnungen. Neue Megapool-Validatoren müssen die Rocket Pool Deposit Queue _und_ die Beacon-Chain-Queue durchlaufen, bevor sie mit dem Attestieren beginnen. Lies daher den Abschnitt [Zeitliche Überlegungen](#zeitliche-überlegungen) weiter unten, bevor du irgendetwas beendest.
 
 Wir empfehlen dir, diese Vor- und Nachteile sorgfältig abzuwägen, bevor du dich für die Migration entscheidest.
 Wenn du mit dem Prozess fortfahren möchtest, findest du die Schritte unten beschrieben.
@@ -52,7 +52,7 @@ Der erste Schritt besteht darin, deinen Solo-Validator von der Beacon Chain zu b
 
 ::: warning WARNUNG
 Ein freiwilliger Exit ist **unumkehrbar**. Sobald dein Validator beendet ist, kann er nie wieder validieren - der einzige Weg zurück ist die Erstellung eines neuen Validators.
-Stelle sicher, dass du diese gesamte Seite gelesen hast (insbesondere den Abschnitt **Zeitliche Überlegungen**), bevor du den Exit durchführst.
+Stelle sicher, dass du diese gesamte Seite gelesen hast (insbesondere den Abschnitt [Zeitliche Überlegungen](#zeitliche-überlegungen)), bevor du den Exit durchführst.
 :::
 
 [validatorqueue.com](https://www.validatorqueue.com/) ist eine hilfreiche Seite, um die aktuelle Länge der Beacon-Chain-Exit-Queue zu prüfen.
@@ -62,7 +62,7 @@ Stelle sicher, dass du diese gesamte Seite gelesen hast (insbesondere den Abschn
 Während du auf die Verarbeitung deines Exits wartest, kannst du deinen Rocket Pool Node vorbereiten.
 
 Wenn du neu im Rocket Pool Node-Betrieb bist, beginne mit dem [Node-Operator-Leitfaden](/de/node-staking/responsibilities), der alles abdeckt - von der Hardwareauswahl über die [Installation des Smartnode-Stacks](/de/node-staking/installing/overview) bis zur [Registrierung deines Nodes](/de/node-staking/prepare-node).
-Da du bereits deinen eigenen Validator betrieben hast, wird dir vieles davon vertraut vorkommen - und wenn du bereits eigene Execution- und Consensus-Clients betreibst, könnte dich die [Hybrid-Konfiguration mit externen Clients](/de/node-staking/install-modes#the-hybrid-configuration-with-external-clients) interessieren.
+Da du bereits deinen eigenen Validator betrieben hast, wird dir vieles davon vertraut vorkommen - und wenn du bereits eigene Execution- und Consensus-Clients betreibst, könnte dich die [Hybrid-Konfiguration mit externen Clients](/de/node-staking/install-modes#die-hybrid-konfiguration-mit-externen-clients) interessieren.
 
 ## Schritt 3: Erstelle deine Megapool-Validatoren
 
@@ -92,7 +92,7 @@ Vom Moment des Exits deines Solo-Validators bis zur Aktivierung deiner Megapool-
 [validatorqueue.com](https://www.validatorqueue.com/) ist eine hilfreiche Seite zur Überprüfung der Länge der Beacon-Chain-Queue. Diese Queue hängt von der Menge an ETH ab, die in die Beacon Chain ein- und austritt.
 :::
 
-Sollte die Deposit Queue länger sein, als dir lieb ist, kannst du [einen Validator jederzeit aus der Rocket Pool Deposit Queue entfernen](/de/node-staking/megapools/create-megapool-validator#exit-a-validator-from-the-rocket-pool-deposit-queue), bevor ihm ETH zugewiesen wurde, und erhältst deinen Bond als [Einzahlungsguthaben](/de/node-staking/megapools/credit) zurück, das gegen rETH einlösbar ist.
+Sollte die Deposit Queue länger sein, als dir lieb ist, kannst du [einen Validator jederzeit aus der Rocket Pool Deposit Queue entfernen](/de/node-staking/megapools/create-megapool-validator#einen-validator-aus-der-rocket-pool-deposit-queue-entfernen), bevor ihm ETH zugewiesen wurde, und erhältst deinen Bond als [Einzahlungsguthaben](/de/node-staking/megapools/credit) zurück, das gegen rETH einlösbar ist.
 
 ## Alternative: Staking ohne eigenen Node
 

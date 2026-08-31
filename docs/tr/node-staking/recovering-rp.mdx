@@ -22,8 +22,9 @@ Herhangi bir nedenle cüzdanı kurtarmak istiyorsanız ancak düğümünüzün m
 rocketpool wallet recover -k
 ```
 
-Bu bayrağı belirtmezseniz, Smartnode minipool'larınız için doğrulayıcı anahtarlarını kurtarmaya çalışacaktır; ancak bunun Execution istemciniz senkronizasyonu bitirene kadar çalışmayacağını unutmayın.
-Ne zaman bittiğini görmek için log dosyasını izleyin; bittiğinde bu adımı çalıştırabilirsiniz.
+Bu bayrağı belirtmezseniz, Smartnode minipool'larınız veya megapool doğrulayıcılarınız için doğrulayıcı anahtarlarını kurtarmaya çalışacaktır. Bu adım senkronize edilmiş Execution ve Beacon istemcileri gerektirir.
+
+`-k` ile **yalnızca cüzdanı** kurtarmak, istemcilerin senkronize olmasını beklemeyi gerektirmez. Onlar hâlâ senkronize olurken bunu yapabilirsiniz.
 :::
 
 Bu önce cüzdanınızı şifrelemek için kullanmak istediğiniz bir şifre isteyecektir.
@@ -124,7 +125,7 @@ Smartnode, sonraki adımlarda buraya yerleştirdiğiniz herhangi bir keystore do
 İçe aktarma işlemi _yalnızca_ içe aktardığınız adrese kayıtlı minipool'lara bağlı doğrulayıcı anahtarlarını arayacaktır.
 Solo staking doğrulayıcıları gibi diğer doğrulayıcı anahtarlarını Smartnode yığını tarafından yönetilen Validator istemcisine aktarmak için bu işlemi **kullanamazsınız**.
 
-Bunu yapmakla ilgileniyorsanız lütfen [Reverse Hybrid Mode](./advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode)'da çalıştırma belgelerine bakın.
+Bunu yapmakla ilgileniyorsanız lütfen [Reverse Hybrid Mode](./advanced-config#harici-doğrulayıcı-i̇stemcilerinin-smartnodea-bağlanmasına-i̇zin-verme)'da çalıştırma belgelerine bakın.
 :::
 
 ### Adım 2 (İsteğe Bağlı): Adresin İçe Aktarma Testini Yapma

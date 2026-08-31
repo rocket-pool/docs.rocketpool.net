@@ -35,7 +35,7 @@ USAGE:
    rocketpoolcli [global options] command [command options] [arguments...]
 
 VERSION:
-   1.19.1
+   1.22.1
 
 COMMANDS:
    auction, a   Manage Rocket Pool RPL auctions
@@ -50,6 +50,7 @@ COMMANDS:
    security, c  Manage the Rocket Pool security council
    service, s   Manage Rocket Pool service
    wallet, w    Manage the node wallet
+   update       Update the cli binary
    help, h      Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
@@ -69,6 +70,14 @@ COPYRIGHT:
    (c) 2026 Rocket Pool Pty Ltd
 ```
 
+`pdao` 组用于 Protocol DAO 的投票和提案。投票通过 `rocketpool pdao proposals vote` 完成。若要在单个提案中更改**多项** Protocol DAO 设置，请使用设置提案命令的 `--to-json` 标志将它们写入 JSON 文件，然后使用以下命令提交：
+
+```shell
+rocketpool pdao propose submit-batch
+```
+
+治理操作指南：[参与链上 pDAO 提案](/zh/pdao/participate)。
+
 ## Service 命令
 
 service 组涉及管理 Smart Node 为您管理的各种服务。
@@ -83,7 +92,7 @@ USAGE:
    rocketpool service [global options] command [command options] [arguments...]
 
 VERSION:
-   1.19.1
+   1.22.1
 
 COMMANDS:
    install, i                 Install the Rocket Pool service
@@ -95,10 +104,10 @@ COMMANDS:
    reset-docker, rd           Cleanup Docker resources, including stopped containers, unused images and networks. Stops and restarts Smart Node.
    prune-docker, pd           Cleanup unused Docker resources, including stopped containers, unused images, networks and volumes. Does not restart smartnode, so the running containers and the images and networks they reference will not be pruned.
    logs, l                    View the Rocket Pool service logs
-   stats, a                   (DEPRECATED) No longer supported. Use 'docker stats -a' instead
    compose                    View the Rocket Pool service docker compose config
    version, v                 View the Rocket Pool service version information
    prune-eth1, n              Shuts down the main ETH1 client and prunes its database, freeing up disk space, then restarts it when it's done.
+   migrate-geth               Shuts down Geth and migrates its database from Pebble v1 to Pebble v2, then restarts it when it's done.
    install-update-tracker, d  Install the update tracker that provides the available system update count to the metrics dashboard
    get-config-yaml            Generate YAML that shows the current configuration schema, including all of the parameters and their descriptions
    resync-eth1                Deletes the main ETH1 client's chain data and resyncs it from scratch. Only use this as a last resort!
@@ -155,6 +164,16 @@ rocketpool_watchtower   /go/bin/rocketpool watchtower   Up
 
 您可以随时调用此命令,但更改要到您调用 `rocketpool service stop` 和 `rocketpool service start` 后才会生效。
 
+### `migrate-geth`
+
+数据库仍使用 Pebble v1 的 Geth 运营者可以使用以下命令就地迁移：
+
+```shell
+rocketpool service migrate-geth
+```
+
+该命令会**关闭 Geth**，将数据库从 Pebble v1 迁移到 Pebble v2，然后重新启动它。请为执行客户端的停机时间做好准备（[备用节点](./fallback)可以让您继续证明）。输入 `y` 确认，或传入 `--yes` 跳过提示。
+
 ### `terminate`
 
 此命令将关闭 Docker 容器,然后删除它们、删除 Rocket Pool 虚拟网络,并删除 ETH1 和 ETH2 链数据卷。
@@ -167,6 +186,16 @@ rocketpool_watchtower   /go/bin/rocketpool watchtower   Up
 这**不会**删除您的钱包和密码文件、您配置的设置或您的验证者密钥。
 要删除这些,您需要删除 Docker 或混合模式下的 `~/.rocketpool/data` 文件夹,或原生模式下的相应目录。
 :::
+
+## Update 命令
+
+要替换 CLI 二进制文件（并可选地停止、升级并重启整个堆栈），请运行：
+
+```shell
+rocketpool update
+```
+
+这是更新 Docker 或混合模式节点的常规方式。完整步骤请参见[检查更新](./updates)。
 
 ## Node 命令
 
@@ -480,7 +509,7 @@ USAGE:
    rocketpool megapool [global options] command [command options] [arguments...]
 
 VERSION:
-   1.19.1
+   1.22.1
 
 COMMANDS:
    deposit, d                Make a deposit and create a new validator on the megapool. Optionally specify count to make multiple deposits.

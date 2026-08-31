@@ -21,7 +21,7 @@ Prima di eseguire minipool, assicurati di:
 - Aver [installato](../installing/overview) e [configurato](../config/overview) lo Smartnode su di essa
 - Avere un wallet del nodo caricato sul tuo Smartnode
 - Aver sincronizzato i tuoi client Execution e Consensus
-- Aver fornito al tuo nodo [un indirizzo di prelievo](../prepare-node.mdx#setting-your-withdrawal-address), configurato i tuoi [client di fallback](../fallback) (opzionale), aderito alla [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (opzionale) e configurato [MEV](../mev.mdx)
+- Aver fornito al tuo nodo [un indirizzo di prelievo](../prepare-node.mdx#impostazione-del-tuo-indirizzo-di-prelievo-primario), configurato i tuoi [client di fallback](../fallback) (opzionale), aderito alla [Smoothing Pool](../fee-distrib-sp#lo-smoothing-pool) (opzionale) e configurato [MEV](../mev.mdx)
 
 ## Guide
 

@@ -35,7 +35,7 @@ USAGE:
    rocketpoolcli [global options] command [command options] [arguments...]
 
 VERSION:
-   1.19.1
+   1.22.1
 
 COMMANDS:
    auction, a   Manage Rocket Pool RPL auctions
@@ -50,6 +50,7 @@ COMMANDS:
    security, c  Manage the Rocket Pool security council
    service, s   Manage Rocket Pool service
    wallet, w    Manage the node wallet
+   update       Update the cli binary
    help, h      Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
@@ -69,6 +70,14 @@ COPYRIGHT:
    (c) 2026 Rocket Pool Pty Ltd
 ```
 
+El grupo `pdao` sirve para las votaciones y propuestas de la Protocol DAO. La votación se realiza con `rocketpool pdao proposals vote`. Para cambiar **varias** configuraciones de la Protocol DAO en una sola propuesta, escríbelas en un archivo JSON usando el flag `--to-json` en los comandos de propuesta de configuración, y luego envíalo con:
+
+```shell
+rocketpool pdao propose submit-batch
+```
+
+Guía de gobernanza: [Participando en propuestas on-chain del pDAO](/es/pdao/participate).
+
 ## Comandos de Servicio
 
 El grupo de servicio implica administrar los diversos servicios que el smart node administra por ti.
@@ -83,7 +92,7 @@ USAGE:
    rocketpool service [global options] command [command options] [arguments...]
 
 VERSION:
-   1.19.1
+   1.22.1
 
 COMMANDS:
    install, i                 Install the Rocket Pool service
@@ -95,10 +104,10 @@ COMMANDS:
    reset-docker, rd           Cleanup Docker resources, including stopped containers, unused images and networks. Stops and restarts Smart Node.
    prune-docker, pd           Cleanup unused Docker resources, including stopped containers, unused images, networks and volumes. Does not restart smartnode, so the running containers and the images and networks they reference will not be pruned.
    logs, l                    View the Rocket Pool service logs
-   stats, a                   (DEPRECATED) No longer supported. Use 'docker stats -a' instead
    compose                    View the Rocket Pool service docker compose config
    version, v                 View the Rocket Pool service version information
    prune-eth1, n              Shuts down the main ETH1 client and prunes its database, freeing up disk space, then restarts it when it's done.
+   migrate-geth               Shuts down Geth and migrates its database from Pebble v1 to Pebble v2, then restarts it when it's done.
    install-update-tracker, d  Install the update tracker that provides the available system update count to the metrics dashboard
    get-config-yaml            Generate YAML that shows the current configuration schema, including all of the parameters and their descriptions
    resync-eth1                Deletes the main ETH1 client's chain data and resyncs it from scratch. Only use this as a last resort!
@@ -155,6 +164,16 @@ Puedes usarlo si quieres cambiar tu selección de cliente Execution o Consensus,
 
 Puedes llamar a este comando en cualquier momento, pero los cambios no surtirán efecto hasta que llames a `rocketpool service stop` y `rocketpool service start`.
 
+### `migrate-geth`
+
+Los operadores de Geth que todavía tengan una base de datos Pebble v1 pueden migrarla in situ con:
+
+```shell
+rocketpool service migrate-geth
+```
+
+Esto **apaga Geth**, migra la base de datos de Pebble v1 a Pebble v2 y luego lo reinicia. Prevé un tiempo de inactividad del cliente de Ejecución (un [nodo de respaldo](./fallback) te mantiene atestando). Confirma con `y`, o pasa `--yes` para omitir el mensaje.
+
 ### `terminate`
 
 Este comando apagará los contenedores Docker, luego los eliminará, eliminará la red virtual de Rocket Pool y eliminará los volúmenes de datos de la cadena ETH1 y ETH2.
@@ -167,6 +186,16 @@ Esto eliminará irreversiblemente tus datos de cadena, lo que significa que tend
 Esto **no** eliminará tus archivos de wallet y contraseña, tu configuración establecida o tus claves de validador.
 Para eliminar esos, deberás eliminar la carpeta `~/.rocketpool/data` en Docker o Modo Híbrido, o el directorio correspondiente en Modo Nativo.
 :::
+
+## Comando de Actualización
+
+Para reemplazar el binario de la CLI (y opcionalmente detener, actualizar y reiniciar el stack), ejecuta:
+
+```shell
+rocketpool update
+```
+
+Esta es la forma habitual de actualizar un nodo Docker o Híbrido. El recorrido completo está en [Verificando Actualizaciones](./updates).
 
 ## Comandos de Nodo
 
@@ -480,7 +509,7 @@ USAGE:
    rocketpool megapool [global options] command [command options] [arguments...]
 
 VERSION:
-   1.19.1
+   1.22.1
 
 COMMANDS:
    deposit, d                Make a deposit and create a new validator on the megapool. Optionally specify count to make multiple deposits.

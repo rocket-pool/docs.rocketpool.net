@@ -5,7 +5,7 @@
 単一のソロvalidatorを実行することで、32 ETHに対して100%の報酬を受け取ることができます。
 2つの16 ETH minipoolを実行することで、32 ETHに対して100%の報酬**プラス**Rocket Poolプロトコルによって提供される32 ETHの報酬の14%を受け取ることができます。
 4つの8 ETH minipoolを実行することで、32 ETHに対して100%の報酬**プラス**Rocket Poolプロトコルによって提供される96 ETHの報酬の14%を受け取ることができます。
-Rocket Poolの[Smoothing Pool](./prepare-node.mdx#smoothing-pool)機能を使用するオプションもあります。
+Rocket Poolの[Smoothing Pool](./fee-distrib-sp#smoothing-pool)機能を使用するオプションもあります。
 
 ### rETHの価値はどのようにわかりますか? リベースしますか?
 
@@ -19,7 +19,7 @@ rETHトークンはリベースしません。
 
 ### minipoolの作成と実行を試すために、テストETHを取得するにはどうすればよいですか? faucetチャンネルにメッセージを投稿できません。
 
-[HoodiでテストETHを取得する](./testnet/overview#getting-test-eth-on-hoodi)を参照してください。
+[HoodiでテストETHを取得する](./testnet/overview#hoodi-でのテスト-eth-の取得)を参照してください。
 
 ### マシンが壊れた場合、ノードを復旧するにはどうすればよいですか?
 
@@ -39,7 +39,7 @@ rETHトークンはリベースしません。
 
 ### Consensus clientの同期に時間がかかりすぎます。どうすればよいですか?
 
-[Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing)を使用して同期プロセスを開始しなかった場合、Consensus clientの同期には長時間かかる可能性があります。
+[Checkpoint Sync](./config-docker#beacon-chainチェックポイント同期)を使用して同期プロセスを開始しなかった場合、Consensus clientの同期には長時間かかる可能性があります。
 長時間実行していても、通常はcheckpoint sync URLを設定し、`rocketpool service resync-eth2`で現在の同期データをクリアして最初からやり直す方が速いです。
 クライアントは1分以内に同期されるはずです。
 

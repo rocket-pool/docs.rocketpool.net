@@ -32,7 +32,7 @@ RPL 的通货膨胀率为 5%。根据 [RPIP-25](https://rpips.rocketpool.net/RPI
 
 ## pDAO 提案的生命周期
 
-提案应在进入链上之前通过[治理流程](./participate#governance-process)进行预告。它由 4 个期间组成，所有这些都是 pDAO [可控参数](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table)：
+提案应在进入链上之前通过[治理流程](./participate#治理流程)进行预告。它由 4 个期间组成，所有这些都是 pDAO [可控参数](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table)：
 
 - 投票延迟期：`proposal.vote.delay.time`
 - 投票第 1 阶段：`proposal.vote.phase1.time`
@@ -50,7 +50,7 @@ RPL 的通货膨胀率为 5%。根据 [RPIP-25](https://rpips.rocketpool.net/RPI
 - `proposal.bond` 激励有效提案并抑制垃圾邮件。
 - `proposal.challenge.bond` 激励撤销无效/恶意提案。
 
-挑战者提供他们声称不正确的 Merkle-sum 树的索引。任何节点运营商都可以参与挑战欺诈性提案（并因此获得奖励）。如果您有兴趣选择加入，请随时阅读 [pDAO 挑战流程](./pdao#challenge-process)。在投票延迟期结束时未在挑战中被击败的提案将进入投票阶段。
+挑战者提供他们声称不正确的 Merkle-sum 树的索引。任何节点运营商都可以参与挑战欺诈性提案（并因此获得奖励）。如果您有兴趣选择加入，请随时阅读 [pDAO 挑战流程](./pdao#挑战流程)。在投票延迟期结束时未在挑战中被击败的提案将进入投票阶段。
 
 ::: tip 注意
 当 `proposal.vote.delay.time` 到期时，提案不再能够被挑战或击败。
@@ -101,7 +101,7 @@ rocketpool pdao proposals execute
 
 您将被提示选择要执行的提案，在此步骤后提案将应用于协议！
 
-在提案通过投票期后，提案者可以[领取](./participate#claiming-bonds-and-rewards)其锁定的 RPL 保证金，除非提案被挑战击败或被否决。
+在提案通过投票期后，提案者可以[领取](./participate#领取保证金和奖励)其锁定的 RPL 保证金，除非提案被挑战击败或被否决。
 
 ::: tip 注意
 有一个窗口 `proposal.execute.time`，可以在其中执行提案。如果此计时器达到其结束时间，提案将过期。
@@ -117,7 +117,7 @@ rocketpool pdao proposals execute
 
 <img src={proposal_checker} width="100%" height="auto" />
 
-启用此设置后，节点将检查新提案，验证其正确性，并向无效提案提交挑战。唯一的先决条件是启用 [RPL 锁定](./participate#allowing-rpl-locking)。
+启用此设置后，节点将检查新提案，验证其正确性，并向无效提案提交挑战。唯一的先决条件是启用 [RPL 锁定](./participate#允许-rpl-锁定)。
 
 此检查每 5 分钟运行一次，与其他一些与节点相关的任务一起运行。我们将通过一个挑战欺诈性提案的示例来进行说明。我们可以使用 smartnode 命令 `rocketpool service logs node` 监控进度：
 
@@ -166,6 +166,6 @@ rocketpool3_node  | 2024/04/05 02:57:13 Successfully defeated proposal.
 参与击败提案的挑战者如果提交了被证明不正确的索引，将获得提案者保证金的比例金额。所有其他挑战者仅收回其保证金。
 :::
 
-现在提案被击败了，我们的节点（挑战者）可以[领取](./participate#claiming-bonds-and-rewards)其原始 RPL 保证金以及提案者的 RPL 保证金作为击败欺诈性提案的奖励。
+现在提案被击败了，我们的节点（挑战者）可以[领取](./participate#领取保证金和奖励)其原始 RPL 保证金以及提案者的 RPL 保证金作为击败欺诈性提案的奖励。
 
 如果您想深入了解 pDAO 提案和挑战系统的详细信息，请查看[技术规范](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#draft-protocol-dao-proposal-challenge-system-specification)。如果您有兴趣研究深入低级细节的示例，请随时跳到[挑战流程](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#challenge-process)这一节。

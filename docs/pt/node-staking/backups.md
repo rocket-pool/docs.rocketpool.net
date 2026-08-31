@@ -64,7 +64,7 @@ Nós **recomendamos fortemente** que você não faça backup desses arquivos e a
 
 ### Dados da Cadeia do Cliente Consensus
 
-Ao contrário dos dados da camada Execution, os dados da camada Consensus não são tão importantes para o seu nó graças ao [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
+Ao contrário dos dados da camada Execution, os dados da camada Consensus não são tão importantes para o seu nó graças ao [Checkpoint Sync](./config-docker#sincronização-de-checkpoint-da-beacon-chain).
 Clientes Consensus podem facilmente usar essa técnica para ressincronizar imediatamente com a cabeça da Beacon chain e retomar os deveres de validação.
 
 ## Fazendo Backup dos Seus Dados da Cadeia Execution

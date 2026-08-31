@@ -11,11 +11,11 @@ RPIP-32, bir hesabın Rocket Pool protokolüne kayıtlı bir node adına [ETH st
 - Fonların akıllı sözleşmeler tarafından yönetildiği protokol entegrasyonları.
 - Fonların bir hazine tarafından yönetildiği DAO'lar veya organizasyonlar.
 
-Bu özelliğin birincil amacı tek yatırımcı senaryolarını kolaylaştırmak olsa da, birden fazla bağımsız yatırımcının da üzerine katmanlı akıllı sözleşmeler oluşturarak bu yeteneği kullanabileceğini belirtmekte fayda var. Rocket Pool ayrıca önceki Atlas sürümümüzde bir node adına [RPL stake etme](../../node-staking/create-validator#whitelisting-an-address-to-stake-on-behalf) yeteneğini de tanıttı.
+Bu özelliğin birincil amacı tek yatırımcı senaryolarını kolaylaştırmak olsa da, birden fazla bağımsız yatırımcının da üzerine katmanlı akıllı sözleşmeler oluşturarak bu yeteneği kullanabileceğini belirtmekte fayda var. Rocket Pool ayrıca önceki Atlas sürümümüzde bir node adına [RPL stake etme](../../node-staking/create-validator#adına-stake-etmek-için-bir-adresi-beyaz-listeye-alma) yeteneğini de tanıttı.
 
 ### Ön koşul
 
-Fonlamayı düşündüğünüz node'un [birincil çekim adresini](../../node-staking/prepare-node#setting-your-primary-withdrawal-address) düzgün şekilde yapılandırdığınızdan emin olun. Houston sonrası çekim adreslerinin nasıl çalıştığına dair bir kılavuz için yukarıdaki bağlantıyı takip edin.
+Fonlamayı düşündüğünüz node'un [birincil çekim adresini](../../node-staking/prepare-node#birincil-çekim-adresinizi-ayarlama) düzgün şekilde yapılandırdığınızdan emin olun. Houston sonrası çekim adreslerinin nasıl çalıştığına dair bir kılavuz için yukarıdaki bağlantıyı takip edin.
 
 ::: tip NOT
 Bu adımı atlamayın! Tüm ETH bonusu/ödülleri birincil çekim adresine çekilecektir. Başka bir deyişle, bir node için ETH sağlayan adres birincil çekim adresi olarak kullanılmalıdır! Lütfen node'un birincil çekim adresinin sahip olduğunuz bir cüzdana ayarlandığından emin olun.
@@ -63,7 +63,7 @@ Süreç Hoodi Testnet ve Mainnet için biraz farklıdır, bu yüzden aşağıdak
       <img src={mmNetwork} width="100%" height="auto"/>
 
       Artık MetaMask'ta bir cüzdan adresiniz olduğuna göre, onu test ETH'si ile doldurmanız gerekiyor.
-      Hoodi'de test ETH'si almak için bir testnet musluk nasıl kullanılacağına dair hızlı bir kılavuz için [Test Ağı ile Pratik Yapma](../../node-staking/testnet/overview#getting-test-eth-on-hoodi) sayfasına gidin.
+      Hoodi'de test ETH'si almak için bir testnet musluk nasıl kullanılacağına dair hızlı bir kılavuz için [Test Ağı ile Pratik Yapma](../../node-staking/testnet/overview#hoodide-test-ethsi-almak) sayfasına gidin.
 
       Test etmek için biraz Hoodi ETH'ye sahip olduğunuzda, [https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node](https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node) adresine gidin.
 
@@ -127,12 +127,12 @@ Artık Rocket Pool ile stake ediyorsunuz.
   <Tabs>
     <Tab label="Hoodi Testnet'te Hazırlık">
       Bir node adına stake ettiğiniz ETH'yi çekmeye hazır olduğunuzda, [https://testnet.node.rocketpool.net/withdraw-eth](https://testnet.node.rocketpool.net/withdraw-eth) adresine gidin. Node'un
-      [birincil çekim adresi](../../node-staking/prepare-node#setting-your-primary-withdrawal-address) olarak oturum açtıktan sonra, tanıdık bir menü ile karşılaşmalısınız. Çekmek istediğiniz node
-      adresini girmeniz istenecektir:
+      [birincil çekim adresi](../../node-staking/prepare-node#birincil-çekim-adresinizi-ayarlama) olarak oturum açtıktan sonra, tanıdık bir menü ile karşılaşmalısınız. Çekmek istediğiniz node adresini
+      girmeniz istenecektir:
     </Tab>
     <Tab label="Ethereum Mainnet'te Hazırlık">
       Bir node adına stake ettiğiniz ETH'yi çekmeye hazır olduğunuzda, [https://node.rocketpool.net/withdraw-eth](https://node.rocketpool.net/withdraw-eth) adresine gidin. Node'un [birincil çekim
-      adresi](../../node-staking/prepare-node#setting-your-primary-withdrawal-address) olarak oturum açtıktan sonra, tanıdık bir menü ile karşılaşmalısınız. Çekmek istediğiniz node adresini girmeniz
+      adresi](../../node-staking/prepare-node#birincil-çekim-adresinizi-ayarlama) olarak oturum açtıktan sonra, tanıdık bir menü ile karşılaşmalısınız. Çekmek istediğiniz node adresini girmeniz
       istenecektir:
     </Tab>
   </Tabs>

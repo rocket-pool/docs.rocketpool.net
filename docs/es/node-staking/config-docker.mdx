@@ -41,7 +41,7 @@ rocketpool service config
 Esto lanzará una interfaz de usuario basada en terminal que te permitirá configurar tu nodo de manera rápida y fácil, además de proporcionar un control opcional de grano fino sobre cada configuración para personalización avanzada.
 
 ::: tip NOTA
-Si ya has configurado Smartnode, en su lugar serás recibido con el [Administrador de Configuración](#configuración-del-stack-de-smartnode-a-través-del-administrador-de-configuración).
+Si ya has configurado Smartnode, en su lugar serás recibido con el [Administrador de Configuración](#configuración-a-través-del-administrador-de-configuración).
 Puedes elegir volver a abrir el Asistente desde allí si lo prefieres, y todas tus configuraciones existentes estarán preseleccionadas para ti.
 :::
 
@@ -117,12 +117,14 @@ Elige qué modo te gustaría usar para administrar tu cliente de Ejecución y si
 
       <img src={ECSelection} width="100%" height="auto"/>
 
-      Consulta la sección [Elegir tus clientes ETH](/es/node-staking/eth-clients#execution-clients) para una descripción de cada opción.
+      Consulta la sección [Elegir tus clientes ETH](/es/node-staking/eth-clients#clientes-de-ejecución) para una descripción de cada opción.
       Una vez que hayas hecho tu elección, haz clic en la pestaña apropiada a continuación para aprender cómo configurarlo:
 
-      Si eliges **Geth**, **Besu**, o **Nethermind**, el Asistente manejará toda la configuración por ti.
+      Si eliges **Geth**, **Besu**, **Nethermind**, **Reth** o **Erigon**, el Asistente manejará toda la configuración por ti.
       Puedes ajustar manualmente algunos de sus parámetros al final de este proceso, pero los valores predeterminados que usa son completamente apropiados para la operación del nodo.
       Puedes proceder a la siguiente sección.
+
+      Si eliges **Erigon**, redirige también su **Torrent Port** (por defecto **42069**, TCP y UDP) además del puerto P2P **30303**, para que la sincronización por instantáneas y el emparejamiento funcionen. El Asistente sigue usando valores predeterminados sensatos para todo lo demás.
 
 
       <p className="rspress-directive warning">
@@ -181,7 +183,7 @@ Elige qué modo seleccionaste anteriormente de las pestañas a continuación:
 
       **La opción preferida** para la salud general y diversidad de la red es la opción **Random (Recommended)**, que elegirá aleatoriamente entre uno de los cuatro clientes de Consenso compatibles por ti.
 
-      Si prefieres elegir un cliente explícito, consulta la sección [Elegir tus clientes ETH](./eth-clients#eth2-clients) para una descripción de cada opción para que puedas tomar una decisión informada.
+      Si prefieres elegir un cliente explícito, consulta la sección [Elegir tus clientes ETH](./eth-clients#clientes-de-consenso) para una descripción de cada opción para que puedas tomar una decisión informada.
 
 
       <p className="rspress-directive warning">
@@ -649,7 +651,7 @@ Hay tres características principales de esta pantalla:
 
 1. La **Lista de Categorías**, que te permite profundizar en las configuraciones de cada categoría del stack de Smartnode
 2. El botón **Review Changes and Save**, que puedes usar cuando estés listo para ver qué configuraciones has cambiado y guardar la configuración actualizada
-3. El botón **Open the Config Wizard**, que te llevará al [Asistente de Configuración](#configuración-del-stack-de-smartnode-a-través-del-asistente) si prefieres esa interfaz
+3. El botón **Open the Config Wizard**, que te llevará al [Asistente de Configuración](#configuración-a-través-del-asistente) si prefieres esa interfaz
 
 ::: tip CONSEJO
 Para usar el Administrador de Configuración, **presiona las `Teclas de Flecha` (arriba/abajo/izquierda/derecha) para navegar entre opciones en la página de inicio**.

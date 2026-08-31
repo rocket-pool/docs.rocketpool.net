@@ -18,7 +18,7 @@
 信用系统对节点运营者是**透明的**；在执行 `rocketpool node deposit` 或 `rocketpool node create-vacant-minipool` 操作时，如果可能的话，系统会自动使用信用（Smartnode CLI 会通知将使用信用）。
 如果无法使用，Smartnode 会提醒用户无法使用信用，并且在执行任一操作时需要正常的 ETH 质押。
 
-更多详情请参阅下面的[信用可用性](#credit-availability)部分。
+更多详情请参阅下面的[信用可用性](#信用可用性)部分。
 
 ## 示例
 
@@ -47,7 +47,7 @@ Your consensus client is synced, you may safely create a minipool.
 
 第二组提示是相关的：它们告诉您在信用余额中有足够的 ETH 来支付此次存款*并且可以使用*，因此系统会自动使用余额，不需要从您的节点钱包中提供任何额外的 ETH。
 
-有关信用余额可用性的详细信息，请参阅[下面的可用性部分](#credit-availability)。
+有关信用余额可用性的详细信息，请参阅[下面的可用性部分](#信用可用性)。
 
 ## 查看您当前的信用余额
 

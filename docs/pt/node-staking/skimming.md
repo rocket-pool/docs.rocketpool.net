@@ -1,4 +1,4 @@
-# Distribuindo Recompensas Skimmed
+# Distribuindo Recompensas Skimmed de Minipool
 
 As recompensas ETH que você recebe por executar um validador para Ethereum são enviadas rotineiramente para seus minipools em um processo chamado de "skimming".
 A frequência dos skims depende do número de validadores ativos na Beacon Chain. No momento da redação, o número de validadores está em torno de
@@ -32,7 +32,7 @@ Definir o parâmetro como 0 desabilitará as distribuições automáticas.
 
 ::: warning AVISO
 Se você decidir desabilitar a distribuição automática, é importante que você ainda realize uma distribuição manual regularmente.
-Leia a [seção de distribuição manual](#distribuicao-manual) que segue sobre como fazer isso.
+Leia a [seção de distribuição manual](#distribuição-manual) que segue sobre como fazer isso.
 
 Após um longo período de tempo, suas recompensas skimmed podem exceder 8 ETH. Se esta situação ocorrer, você não poderá mais
 distribuí-las e precisará sair do seu validador para acessar suas recompensas acumuladas.

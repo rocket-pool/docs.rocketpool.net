@@ -25,7 +25,7 @@ Se você estiver usando o modo Nativo sem Docker, visite o [guia de configuraç�
 Existem três maneiras de configurá-lo:
 
 - Via [Interface do Assistente](#configurando-via-assistente) - esta é a maneira mais fácil. Ele só faz algumas perguntas básicas e usa padrões bem testados para o resto. Isso será o que você verá quando executar `rocketpool service config` pela primeira vez.
-- Via [Interface do Gerenciador de Configurações](#configurando-via-gerenciador-de-configuracoes) - isso oferece acesso a todas as configurações do Smartnode para que você possa personalizar tudo o quanto quiser.
+- Via [Interface do Gerenciador de Configurações](#configurando-via-gerenciador-de-configurações) - isso oferece acesso a todas as configurações do Smartnode para que você possa personalizar tudo o quanto quiser.
 - Sem interface via [Linha de Comando](#configurando-via-linha-de-comando) - esta é uma opção para pessoas que executam o Smartnode em um ambiente sem interface (não interativo) e precisam configurá-lo automaticamente.
 
 Escolha qual modo você gostaria de aprender mais na lista acima, ou simplesmente percorra cada opção abaixo.
@@ -41,7 +41,7 @@ rocketpool service config
 Isso iniciará uma interface baseada em terminal que permitirá configurar seu node de forma rápida e fácil, além de fornecer controle opcional refinado sobre cada configuração para personalização avançada.
 
 ::: tip NOTA
-Se você já configurou o Smartnode, em vez disso, você será recebido com o [Gerenciador de Configurações](#configurando-a-stack-do-smartnode-via-gerenciador-de-configuracoes).
+Se você já configurou o Smartnode, em vez disso, você será recebido com o [Gerenciador de Configurações](#configurando-via-gerenciador-de-configurações).
 Você pode optar por reabrir o Assistente de lá, se preferir, e todas as suas configurações existentes serão pré-selecionadas para você.
 :::
 
@@ -117,12 +117,14 @@ Escolha qual modo você gostaria de usar para gerenciar seu cliente de Execuçã
 
       <img src={ECSelection} width="100%" height="auto"/>
 
-      Consulte a seção [Escolhendo seus clientes ETH](/pt/node-staking/eth-clients#execution-clients) para uma descrição de cada opção.
+      Consulte a seção [Escolhendo seus clientes ETH](/pt/node-staking/eth-clients#clientes-de-execution) para uma descrição de cada opção.
       Depois de fazer sua escolha, clique na aba apropriada abaixo para aprender como configurá-lo:
 
-      Se você escolher **Geth**, **Besu** ou **Nethermind**, o Assistente cuidará de toda a configuração para você.
+      Se você escolher **Geth**, **Besu**, **Nethermind**, **Reth** ou **Erigon**, o Assistente cuidará de toda a configuração para você.
       Você pode ajustar manualmente alguns de seus parâmetros no final deste processo, mas os padrões que ele usa são completamente apropriados para operação de node.
       Você pode prosseguir para a próxima seção.
+
+      Se você escolher **Erigon**, encaminhe também a **Torrent Port** dele (padrão **42069**, TCP e UDP) além da porta P2P **30303**, para que a sincronização por snapshot e o peering funcionem. O Assistente continua usando padrões sensatos para todo o resto.
 
 
       <p className="rspress-directive warning">
@@ -181,7 +183,7 @@ Escolha qual modo você selecionou anteriormente nas abas abaixo:
 
       **A escolha preferida** para a saúde e diversidade geral da rede é a escolha **Aleatório (Recomendado)**, que escolherá aleatoriamente entre um dos quatro clientes de Consenso suportados para você.
 
-      Se você preferir escolher um cliente explícito, consulte a seção [Escolhendo seus clientes ETH](./eth-clients#eth2-clients) para uma descrição de cada opção para que você possa tomar uma decisão informada.
+      Se você preferir escolher um cliente explícito, consulte a seção [Escolhendo seus clientes ETH](./eth-clients#clientes-de-consensus) para uma descrição de cada opção para que você possa tomar uma decisão informada.
 
 
       <p className="rspress-directive warning">
@@ -222,7 +224,7 @@ Escolha qual modo você selecionou anteriormente nas abas abaixo:
 
             Você pode inserir a URL de qualquer Beacon Node que forneça acesso à sua API REST aqui.
 
-            Veja [a seção abaixo sobre Checkpoint Syncing](#sincronizacao-de-checkpoint-da-beacon-chain) se você gostaria de usá-lo.
+            Veja [a seção abaixo sobre Checkpoint Syncing](#sincronização-de-checkpoint-da-beacon-chain) se você gostaria de usá-lo.
 
             A pergunta final perguntará se você deseja habilitar a Proteção Doppelgänger:
 
@@ -269,7 +271,7 @@ Escolha qual modo você selecionou anteriormente nas abas abaixo:
 
             Você pode inserir a URL de qualquer Beacon Node que forneça acesso à sua API REST aqui.
 
-            Veja [a seção abaixo sobre Checkpoint Syncing](#sincronizacao-de-checkpoint-da-beacon-chain) se você gostaria de usá-lo.
+            Veja [a seção abaixo sobre Checkpoint Syncing](#sincronização-de-checkpoint-da-beacon-chain) se você gostaria de usá-lo.
 
             A pergunta final perguntará se você deseja habilitar a Proteção Doppelgänger:
 
@@ -313,7 +315,7 @@ Escolha qual modo você selecionou anteriormente nas abas abaixo:
 
             You can enter the URL of any Beacon Node that provides access to its REST API here.
 
-            See [the section below on Checkpoint Syncing](#beacon-chain-checkpoint-syncing) if you'd like to use it.
+            See [the section below on Checkpoint Syncing](#sincronização-de-checkpoint-da-beacon-chain) if you'd like to use it.
 
             The final question will ask if you want to enable Doppelgänger Protection:
 
@@ -357,7 +359,7 @@ Escolha qual modo você selecionou anteriormente nas abas abaixo:
 
             Você pode inserir a URL de qualquer Beacon Node que forneça acesso à sua API REST aqui.
 
-            Veja [a seção abaixo sobre Checkpoint Syncing](#sincronizacao-de-checkpoint-da-beacon-chain) se você gostaria de usá-lo.
+            Veja [a seção abaixo sobre Checkpoint Syncing](#sincronização-de-checkpoint-da-beacon-chain) se você gostaria de usá-lo.
           </Tab>
           <Tab label="Lodestar">
             A primeira opção na configuração do Lodestar perguntará sobre a mensagem **graffiti** do seu validador:
@@ -381,7 +383,7 @@ Escolha qual modo você selecionou anteriormente nas abas abaixo:
 
             Você pode inserir a URL de qualquer Beacon Node que forneça acesso à sua API REST aqui.
 
-            Veja [a seção abaixo sobre Checkpoint Syncing](#sincronizacao-de-checkpoint-da-beacon-chain) se você gostaria de usá-lo.
+            Veja [a seção abaixo sobre Checkpoint Syncing](#sincronização-de-checkpoint-da-beacon-chain) se você gostaria de usá-lo.
 
             A pergunta final perguntará se você deseja habilitar a Proteção Doppelgänger:
 
@@ -637,7 +639,7 @@ Você verá o seguinte diálogo:
 
 Se você está satisfeito com sua configuração e está pronto para iniciar o Smartnode, clique em `Save and Exit` aqui e vá para a seção [Protegendo seu Node](./securing-your-node) em seguida.
 
-Se você gostaria de revisar todas as configurações e personalizar muitas configurações adicionais que não foram incluídas no Assistente, clique em `Review All Settings` e vá para a [próxima seção](#configurando-via-gerenciador-de-configuracoes).
+Se você gostaria de revisar todas as configurações e personalizar muitas configurações adicionais que não foram incluídas no Assistente, clique em `Review All Settings` e vá para a [próxima seção](#configurando-via-gerenciador-de-configurações).
 
 ## Configurando via Gerenciador de Configurações
 
@@ -649,7 +651,7 @@ Existem três recursos principais desta tela:
 
 1. A **Lista de Categorias**, que permite detalhar as configurações de cada categoria da stack do Smartnode
 2. O botão **Review Changes and Save**, que você pode usar quando estiver pronto para ver quais configurações você alterou e salvar a configuração atualizada
-3. O botão **Open the Config Wizard**, que levará você ao [Assistente de Configuração](#configurando-a-stack-do-smartnode-via-assistente) se você preferir essa interface
+3. O botão **Open the Config Wizard**, que levará você ao [Assistente de Configuração](#configurando-via-assistente) se você preferir essa interface
 
 ::: tip DICA
 Para usar o Gerenciador de Configurações, **pressione as `Setas` (cima/baixo/esquerda/direita) para navegar entre as opções na página inicial**.

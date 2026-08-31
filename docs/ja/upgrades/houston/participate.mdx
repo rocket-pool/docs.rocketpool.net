@@ -24,7 +24,7 @@ Rocket Poolプロトコルの変更は、厳格でありながら透明性のあ
 
 ## 前提条件
 
-先に進む前に、[提案のライフサイクル](../houston/pdao#lifecycle-of-a-pdao-proposal)をお読みください。すべての投票期間と各期間中に実行できるアクションの違いを説明します。
+先に進む前に、[提案のライフサイクル](../houston/pdao#pdao-提案のライフサイクル)をお読みください。すべての投票期間と各期間中に実行できるアクションの違いを説明します。
 
 このページの残りの部分では、オンチェーンpDAO提案に参加するために必要な手順を説明します。
 
@@ -60,7 +60,7 @@ rocketpool pdao initialize-voting
 ```
 
 - `direct`と応答すると、投票権があなたのノードに初期化され、プロトコルDAO提案に直接投票できるようになります。
-- `delegate`と応答すると、同じトランザクション内で投票を初期化し、[代理人を設定](../houston/participate#delegating-voting-power)することで、少しガスを節約する機会があります。
+- `delegate`と応答すると、同じトランザクション内で投票を初期化し、[代理人を設定](../houston/participate#投票権の委任)することで、少しガスを節約する機会があります。
 
 これを行う必要があるのは1回だけです。ノードの初期スナップショット情報を設定します。投票を初期化した後、実行されるすべてのアクションがノードのスナップショット情報を更新します。投票権が初期化されたら、以下のsmartnodeコマンドを使用して、保有している量を確認できます。
 
@@ -188,13 +188,13 @@ rocketpool pdao set-voting-delegate `address`
 
 提案する資格を得るには、ノードはいくつかの要件を満たす必要があります。
 
-- スナップショットに含まれている（[投票の初期化](../houston/participate#initializing-voting)によるか、Houston後の登録による）
+- スナップショットに含まれている（[投票の初期化](../houston/participate#投票の初期化)によるか、Houston後の登録による）
 - 少なくとも1つのミニプールが必要
 - ゼロでない投票権を持つ
-- [RPLロック](../houston/participate#allowing-rpl-locking)を許可している
+- [RPLロック](../houston/participate#rplロックの許可)を許可している
 - RPLステーク（すでにロックされているRPLを除く）が提案ボンドより大きい
 
-提案はパラメーターを変更し、プロトコルレベルでコードを実行するために存在します！提案がオンチェーンで作成される前に、[ガバナンス](../houston/participate#governance-process)プロセスを通じて議論と合意がなされるべきです。
+提案はパラメーターを変更し、プロトコルレベルでコードを実行するために存在します！提案がオンチェーンで作成される前に、[ガバナンス](../houston/participate#ガバナンスプロセス)プロセスを通じて議論と合意がなされるべきです。
 
 `rocketpool pdao propose`コマンドを使用してオプションメニューを表示します。
 
@@ -228,7 +228,7 @@ Please enter the member's address:
 Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council? [y/n]
 ```
 
-これがブロックに含まれると、pDAO提案が作成されます！提案は作成時に[投票遅延期間](../houston/pdao#vote-delay-period)に入ります。
+これがブロックに含まれると、pDAO提案が作成されます！提案は作成時に[投票遅延期間](../houston/pdao#投票遅延期間)に入ります。
 
 ## 提案の状態の表示
 
@@ -265,7 +265,7 @@ Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B
 
       ```
 
-      ここで、提案`invite test-member`のIDが71で、保留中の状態にあることがわかります。この状態では、[チャレンジャー](/ja/legacy/houston/pdao#challenge-process)が提案者によって提供されたマークルポラード（投票権を計算するために使用される）の妥当性に異議を唱えることができます。`proposal.vote.delay.time`が終了すると、提案はアクティブな投票フェーズに移行します。復習のために、[提案のライフサイクル](../houston/pdao#lifecycle-of-a-pdao-proposal)を自由に確認してください。
+      ここで、提案`invite test-member`のIDが71で、保留中の状態にあることがわかります。この状態では、[チャレンジャー](/ja/legacy/houston/pdao#チャレンジプロセス)が提案者によって提供されたマークルポラード（投票権を計算するために使用される）の妥当性に異議を唱えることができます。`proposal.vote.delay.time`が終了すると、提案はアクティブな投票フェーズに移行します。復習のために、[提案のライフサイクル](../houston/pdao#pdao-提案のライフサイクル)を自由に確認してください。
     </Tab>
     <Tab label="提案の詳細表示">
       提案IDを取得したら、このコマンドを使用して提案の状態を表示できます。

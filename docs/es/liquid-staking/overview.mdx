@@ -38,14 +38,13 @@ Esto _también_ está disponible directamente en la capa de Ejecución y se prop
 
 ## Cómo Funciona Rocket Pool
 
-A diferencia de los stakers en solitario, que deben depositar 32 ETH para crear un nuevo validador, los nodos de Rocket Pool solo necesitan depositar 8 ETH o 16 ETH por validador.
-Esto se combinará con 24 ETH o 16 ETH respectivamente del pool de staking (que los stakers depositaron a cambio de rETH) para crear un nuevo validador de Ethereum.
-Este nuevo validador se llama **minipool**.
+A diferencia de los stakers en solitario, que deben depositar 32 ETH para crear un nuevo validador, los nodos de Rocket Pool solo necesitan depositar 4 ETH por validador (llamado "bonded ETH").
+Esto se combinará con 28 ETH del pool de staking (llamado "borrowed ETH", que proviene de los depósitos de los liquid stakers a cambio de rETH) para crear un nuevo validador megapool.
 
-Para la Beacon Chain, un minipool se ve exactamente igual que un validador normal.
+Para la Beacon chain, un validador megapool se ve exactamente igual que un validador normal.
 Tiene las mismas responsabilidades, mismas reglas que debe seguir, mismas recompensas, y así sucesivamente.
-La única diferencia está en cómo se creó el minipool y cómo funcionan los retiros cuando el operador del nodo decide salir voluntariamente del minipool o es penalizado con slashing.
-Toda la creación, retiros y delegación de recompensas se maneja mediante los **contratos inteligentes** de Rocket Pool en la capa de Ejecución.
+La única diferencia está en cómo se creó el validador megapool en la capa de ejecución y cómo funcionan los retiros cuando el operador del nodo decide salir voluntariamente del validador megapool.
+Toda la creación, retiros y delegación de recompensas se maneja mediante los **contratos inteligentes** de Rocket Pool en la cadena Ethereum.
 Esto lo hace completamente descentralizado.
 
 ## El Token rETH

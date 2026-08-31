@@ -17,7 +17,7 @@ permalink: /protocol/contracts-integrations
 | Hoodi\* | Deposit | [0x320f3aAB9405e38b955178BBe75c477dECBA0C27](https://hoodi.etherscan.io/address/0x320f3aAB9405e38b955178BBe75c477dECBA0C27) |
 | &nbsp;  | Storage | [0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1](https://hoodi.etherscan.io/address/0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1) |
 
-在协议内部，Storage 合约用于根据需要查找所有其他已部署的合约地址（参见此[示例](/zh/protocol/contracts-usage#interacting-with-rocket-pool)）。
+在协议内部，Storage 合约用于根据需要查找所有其他已部署的合约地址（参见此[示例](/zh/protocol/contracts-usage#与-rocket-pool-交互)）。
 请参阅下方的[所有活跃部署的协议合约](#all-active-deployed-protocol-contracts)获取完整地址列表。
 
 <small>\* 测试网</small>
@@ -261,4 +261,4 @@ permalink: /protocol/contracts-integrations
 
 This list was updated 09/02/2026
 
-The addresses can be queried on chain as shown in this [example](/en/protocol/contracts-usage#interacting-with-rocket-pool).
+The addresses can be queried on chain as shown in this [example](/en/protocol/contracts-usage#与-rocket-pool-交互).

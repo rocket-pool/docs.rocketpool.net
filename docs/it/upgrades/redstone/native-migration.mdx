@@ -33,7 +33,7 @@ Ti mostreremo come configurare il tuo Validator client in modo che utilizzi il f
 ## Aggiornamento alla v1.5.0
 
 L'aggiornamento dello stack Smartnode alla v1.5.0 non è diverso da qualsiasi altro aggiornamento.
-Segui semplicemente [le normali istruzioni qui](../../node-staking/updates#updating-the-smartnode-stack).
+Segui semplicemente [le normali istruzioni qui](../../node-staking/updates#aggiornamento-dello-stack-smartnode).
 
 ## Cose che Dovresti Fare Dopo l'Aggiornamento
 
@@ -51,7 +51,7 @@ Considera di seguire questi passaggi:
 ### Configura il Fee Recipient nel tuo Validator Client
 
 Uno dei dettagli **critici** da configurare prima del Merge è il **fee recipient** specificato dal tuo validator client.
-Come descritto nell'[articolo panoramica](./whats-new#fee-recipients-and-your-distributor), questo può essere uno di due valori:
+Come descritto nell'[articolo panoramica](./whats-new#fee-recipient-e-il-tuo-distributor), questo può essere uno di due valori:
 
 - Se hai **scelto** la Smoothing Pool, deve essere l'indirizzo del **contratto Smoothing Pool**. Puoi ottenere l'indirizzo dalla [pagina ufficiale dei contratti](/it/protocol/contracts-integrations).
 - Se **non** sei nella Smoothing Pool, deve essere l'indirizzo del **contratto fee distributor** del tuo nodo. Puoi ottenere l'indirizzo eseguendo `rocketpool node status`, nella sezione `Fee Distributor and Smoothing Pool`.
@@ -192,9 +192,9 @@ Seleziona il tuo Consensus client qui sotto per imparare come configurarlo.
 
       Dove `address` è:
 
-      - L'[indirizzo rETH](/it/protocol/contracts-integrations/#token-contracts) **prima** del deploy dell'aggiornamento Redstone (es., `0xae78736Cd615f374D3085123A210448E74Fc6393` su Mainnet)
+      - L'[indirizzo rETH](/it/protocol/contracts-integrations/#contratti-dei-token) **prima** del deploy dell'aggiornamento Redstone (es., `0xae78736Cd615f374D3085123A210448E74Fc6393` su Mainnet)
       - Il **fee distributor** del tuo nodo dopo il deploy di Redstone, che puoi recuperare con `rocketpool node status` una volta avvenuto l'aggiornamento del contratto
-      - L'[indirizzo Smoothing Pool](/it/protocol/contracts-integrations/#protocol-contracts) se scegli la Smoothing Pool
+      - L'[indirizzo Smoothing Pool](/it/protocol/contracts-integrations/#contratti-principali-del-protocollo) se scegli la Smoothing Pool
 
       Come promemoria, `rocketpool node status` ti mostrerà sempre il fee recipient corretto da utilizzare.
 
@@ -209,9 +209,9 @@ Seleziona il tuo Consensus client qui sotto per imparare come configurarlo.
 
       Dove `address` è:
 
-      - L'[indirizzo rETH](/it/protocol/contracts-integrations/#token-contracts) **prima** del deploy dell'aggiornamento Redstone (es., `0xae78736Cd615f374D3085123A210448E74Fc6393` su Mainnet)
+      - L'[indirizzo rETH](/it/protocol/contracts-integrations/#contratti-dei-token) **prima** del deploy dell'aggiornamento Redstone (es., `0xae78736Cd615f374D3085123A210448E74Fc6393` su Mainnet)
       - Il **fee distributor** del tuo nodo dopo il deploy di Redstone, che puoi recuperare con `rocketpool node status` una volta avvenuto l'aggiornamento del contratto
-      - L'[indirizzo Smoothing Pool](/it/protocol/contracts-integrations/#protocol-contracts) se scegli la Smoothing Pool
+      - L'[indirizzo Smoothing Pool](/it/protocol/contracts-integrations/#contratti-principali-del-protocollo) se scegli la Smoothing Pool
 
       Come promemoria, `rocketpool node status` ti mostrerà sempre il fee recipient corretto da utilizzare.
 
@@ -226,9 +226,9 @@ Seleziona il tuo Consensus client qui sotto per imparare come configurarlo.
 
       Dove `address` è:
 
-      - L'[indirizzo rETH](/it/protocol/contracts-integrations/#token-contracts) **prima** del deploy dell'aggiornamento Redstone (es., `0xae78736Cd615f374D3085123A210448E74Fc6393` su Mainnet)
+      - L'[indirizzo rETH](/it/protocol/contracts-integrations/#contratti-dei-token) **prima** del deploy dell'aggiornamento Redstone (es., `0xae78736Cd615f374D3085123A210448E74Fc6393` su Mainnet)
       - Il **fee distributor** del tuo nodo dopo il deploy di Redstone, che puoi recuperare con `rocketpool node status` una volta avvenuto l'aggiornamento del contratto
-      - L'[indirizzo Smoothing Pool](/it/protocol/contracts-integrations/#protocol-contracts) se scegli la Smoothing Pool
+      - L'[indirizzo Smoothing Pool](/it/protocol/contracts-integrations/#contratti-principali-del-protocollo) se scegli la Smoothing Pool
 
       Come promemoria, `rocketpool node status` ti mostrerà sempre il fee recipient corretto da utilizzare.
 
@@ -243,9 +243,9 @@ Seleziona il tuo Consensus client qui sotto per imparare come configurarlo.
 
       Dove `address` è:
 
-      - L'[indirizzo rETH](/it/protocol/contracts-integrations/#token-contracts) **prima** del deploy dell'aggiornamento Redstone (es., `0xae78736Cd615f374D3085123A210448E74Fc6393` su Mainnet)
+      - L'[indirizzo rETH](/it/protocol/contracts-integrations/#contratti-dei-token) **prima** del deploy dell'aggiornamento Redstone (es., `0xae78736Cd615f374D3085123A210448E74Fc6393` su Mainnet)
       - Il **fee distributor** del tuo nodo dopo il deploy di Redstone, che puoi recuperare con `rocketpool node status` una volta avvenuto l'aggiornamento del contratto
-      - L'[indirizzo Smoothing Pool](/it/protocol/contracts-integrations/#protocol-contracts) se scegli la Smoothing Pool
+      - L'[indirizzo Smoothing Pool](/it/protocol/contracts-integrations/#contratti-principali-del-protocollo) se scegli la Smoothing Pool
 
       Come promemoria, `rocketpool node status` ti mostrerà sempre il fee recipient corretto da utilizzare.
 
@@ -285,7 +285,7 @@ Per maggiori informazioni sulla configurazione di un nodo di fallback, consulta 
 
 ### Inizializza il tuo Fee Distributor
 
-Se non intendi scegliere la [Smoothing Pool](./whats-new#smoothing-pool) e richiedere tutte le tue priority fee e ricompense MEV al tuo [contratto fee distributor](./whats-new#fee-recipients-and-your-distributor), dovrai eventualmente inizializzarlo (creare l'istanza del contratto sulla chain) per richiedere le ricompense da esso al tuo indirizzo di prelievo.
+Se non intendi scegliere la [Smoothing Pool](./whats-new#smoothing-pool) e richiedere tutte le tue priority fee e ricompense MEV al tuo [contratto fee distributor](./whats-new#fee-recipient-e-il-tuo-distributor), dovrai eventualmente inizializzarlo (creare l'istanza del contratto sulla chain) per richiedere le ricompense da esso al tuo indirizzo di prelievo.
 
 Questa è un'operazione abbastanza economica e deve essere fatta solo una volta.
 
@@ -310,7 +310,7 @@ rocketpool node join-smoothing-pool
 
 ### Richiedi le Ricompense
 
-L'aggiornamento Redstone sostituisce il vecchio sistema di ricompense costoso e problematico con uno [nuovo di zecca](./whats-new#new-rewards-system) che è molto più economico, supporta il restaking automatico di RPL (sia in importi parziali che completi), e - cosa più importante - **ti permette di richiedere le tue ricompense quando vuoi**.
+L'aggiornamento Redstone sostituisce il vecchio sistema di ricompense costoso e problematico con uno [nuovo di zecca](./whats-new#nuovo-sistema-di-ricompense) che è molto più economico, supporta il restaking automatico di RPL (sia in importi parziali che completi), e - cosa più importante - **ti permette di richiedere le tue ricompense quando vuoi**.
 
 Poiché non c'è più un limite di tempo per richiedere le ricompense, e poiché è più economico richiedere molti intervalli di ricompense contemporaneamente, la funzionalità di richiesta automatica delle ricompense dello Smartnode **è stata rimossa**.
 Ora potrai richiedere le ricompense tramite il seguente comando:

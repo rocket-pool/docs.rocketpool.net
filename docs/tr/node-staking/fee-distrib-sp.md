@@ -123,7 +123,7 @@ Bir node Smoothing Pool'a _katılmışsa_, aşağıdaki adres geçerli bir ücre
 
 Yukarıdaki geçerli adreslerden biri dışında bir ücret alıcısı **geçersiz** kabul edilir.
 
-Smart Node yazılımı, yapılandırmanıza göre (Smoothing Pool'a katılıp katılmadığınız ve megapool validator'larınız, minipool'larınız veya her ikisi olup olmadığına göre) doğru ücret alıcısını otomatik olarak ayarlar. Her ikisine de sahip olan node'lar için çıkmış durumdayken, ücret alıcısı keymanager API kullanılarak validator başına ayarlanır. Koşulların tam listesi [burada](/node-staking/fee-distrib-sp#fee-recipients) özetlenmiştir.
+Smart Node yazılımı, yapılandırmanıza göre (Smoothing Pool'a katılıp katılmadığınız ve megapool validator'larınız, minipool'larınız veya her ikisi olup olmadığına göre) doğru ücret alıcısını otomatik olarak ayarlar. Her ikisine de sahip olan node'lar için çıkmış durumdayken, ücret alıcısı keymanager API kullanılarak validator başına ayarlanır. Koşulların tam listesi [burada](/node-staking/fee-distrib-sp#ücret-alıcıları) özetlenmiştir.
 
 Smartnode yazılımı, dürüst kullanıcıların asla cezalandırılmamasını sağlamak üzere tasarlanmıştır, hatta bunu yapmak için Validator Client'ı çevrimdışına almak zorunda kalsa bile.
 Bu olursa, onaylama yapmayı durduracaksınız ve log dosyalarınızda Smartnode'un ücret alıcınızı neden doğru şekilde ayarlayamadığına dair hata mesajları göreceksiniz.

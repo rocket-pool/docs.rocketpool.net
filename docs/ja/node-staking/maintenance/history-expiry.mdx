@@ -1,15 +1,26 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# マージ前履歴の削除
+# Execution clientの履歴削除
 
-すべてのExecution clientは、[EIP-4444](https://eips.ethereum.org/EIPS/eip-4444)に従って部分履歴削除をサポートするようになりました。Smartnodeバージョン`v1.17.0`以降、ユーザーはマージ前のブロック履歴を削除することで、ノードのストレージ要件を大幅に削減できます。部分履歴削除の詳細については、こちらのブログ記事をご覧ください: https://blog.ethereum.org/2025/07/08/partial-history-exp
+Execution clientは古いブロックボディとレシートを破棄することで、チェーンデータを扱いやすいサイズに保つことができます。これはSmartnodeの**Pruning Mode**設定（Execution Client → Pruning Mode）で制御します。
+
+**Rolling History Expiry**がデフォルトです。Nethermind、Besu、Reth、Erigonは、約1年より古いボディとレシートを破棄します。Gethはまだこのモードを実装しておらず、代わりにPrague以前の履歴削除を使用します。
+
+その他の選択肢:
+
+- **History Expiry** — *マージ前*のボディとレシートのみを破棄します（部分的な[EIP-4444](https://eips.ethereum.org/EIPS/eip-4444)削除）。Erigonはマージ前のみの削除には対応していません。
+- **Full node** — ボディとレシートを含む通常のフルノードデータを保持します。Erigonのフルノードモードはレシートを保持します。
+- **Archive** — 履歴と履歴ステートを保持します（大幅に多くのディスク容量が必要です）。
+
+部分履歴削除の概要については、こちらをご覧ください: https://blog.ethereum.org/2025/07/08/partial-history-exp
 
 ::: tip 注意
 
-    マージ前履歴を削除する手順は、ノードで選択されているExecution clientによって異なります:
-    - Nethermindユーザーは、マージ前履歴を削除するために完全な再同期が必要です。
-    - Gethユーザーは、`rocketpool service prune-eth1`コマンドを使用するか、完全な再同期を実行できます。
-    - BesuおよびRethユーザーは、ノードがアテステーションを継続しながらオンラインプルーニングを実行できます。
+新規インストールではすでにRolling History Expiryが使用されています。以前に別のPruning Modeを選択していた場合は、TUIで**Rolling History Expiry**を選択し、Execution clientを**再同期**して反映させてください。
+
+- **Nethermind、Reth、Erigon** — モード変更後に再同期してください（`rocketpool service resync-eth1`）。
+- **Geth** — `rocketpool service prune-eth1`でプルーニングするか再同期してください。Gethは1年のローリング削除ではなく、引き続きPrague以前の削除を使用します。
+- **Besu** — オンラインのままです。
 
 :::
 
@@ -22,6 +33,8 @@ rocketpool service config
 ```
 
 Execution Clientのプルーニングモードを変更するには、`Execution Client (ETH1)`メニューに移動し、`Pruning Mode`のドロップダウンメニューで`History Expiry`設定を選択します
+
+より多くの履歴を保持する理由がない限り、**Rolling History Expiry**を選択してください。
 
 ![](../images/tui-history-expiry.png)
 
@@ -78,7 +91,7 @@ Would you like to restart them automatically now? [y/n]
         ```shell
         rocketpool service prune-eth1
         ```
-        プルーニングの詳細については[こちら](/ja/node-staking/pruning#starting-a-prune)をクリックしてください。
+        プルーニングの詳細については[こちら](/ja/node-staking/pruning#プルーニングの開始)をクリックしてください。
 
         これで完了です！ノードはマージ前のデータを保存しなくなり、2TBドライブにノードを収める実現可能性が大幅に向上します。次のコマンドを使用して進行状況を監視することをお勧めします。
         ```shell
@@ -98,10 +111,25 @@ Would you like to restart them automatically now? [y/n]
 
     <Tab label="Reth">
 
-        これで完了です！Rethノードは、アテステーションとブロック提案を継続しながらオンラインプルーニングを実行します。ノードはマージ前のデータを保存しなくなり、2TBドライブにノードを収める実現可能性が大幅に向上します。次のコマンドを使用して進行状況を監視することをお勧めします。
+        これで完了です！Rethノードは、アテステーションとブロック提案を継続しながらオンラインプルーニングを実行します。MainnetでRolling History Expiryを選択している場合、Rethは初回起動時に公式のローリング履歴スナップショットをダウンロードします。ノードはマージ前のデータを保存しなくなり、2TBドライブにノードを収める実現可能性が大幅に向上します。次のコマンドを使用して進行状況を監視することをお勧めします。
         ```shell
         rocketpool service logs eth1
          ```
+
+    </Tab>
+
+    <Tab label="Erigon">
+        Erigonノードは、Rolling History Expiryを適用するために完全な再同期が必要です。Pruning Mode設定を保存し、`eth1`コンテナを再起動した後、Execution clientを再同期する必要があります。
+
+        次のコマンドを使用してExecution clientを再同期します:
+        ```shell
+        rocketpool service resync-eth1
+        ```
+
+        これで完了です！ノードは約1年より古いボディとレシートを破棄します。再同期中はRescue Nodeを使用し、次のコマンドで進行状況を監視することをお勧めします。
+        ```shell
+        rocketpool service logs eth1
+        ```
 
     </Tab>
 

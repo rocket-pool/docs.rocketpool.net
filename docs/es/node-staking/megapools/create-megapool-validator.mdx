@@ -10,21 +10,21 @@ Tu megapool se despliega automáticamente en el momento de tu primer depósito d
 desplegar un nuevo megapool cada vez que crees un nuevo validador.
 
 ::: warning ADVERTENCIA
-Los validadores megapool necesitan superar la cola de la Beacon Chain dos veces. 
-1. Prestake (1 ETH). Cuando se asigna ETH a tu validador megapool desde el deposit pool, solo se envía 1 ETH
-a la Beacon Chain. En este punto, tu validador entra en la cola de la Beacon Chain. 
-2. Stake (31 ETH). Después de que el validador es procesado por la Beacon Chain, el protocolo Rocket Pool verificará
-las credenciales de retiro del validador y luego hará stake de los 31 ETH restantes en la Beacon Chain. En este punto, el validador entra en la cola de
-la Beacon Chain por segunda y última vez. 
+Los validadores megapool necesitan superar la cola de la Beacon Chain dos veces.
 
-Anteriormente con los minipools, el [Oracle DAO (oDAO)](/es/odao/overview#the-rocket-pool-oracle-dao) era responsable de verificar las credenciales de retiro de cada
-validador minipool. Este nuevo sistema extiende el tiempo en cola pero elimina un requisito de confianza impuesto por el oDAO. 
+1. Prestake (1 ETH). Cuando se asigna ETH a tu validador megapool desde el deposit pool, solo se envía 1 ETH
+   a la Beacon Chain. En este punto, tu validador entra en la cola de la Beacon Chain.
+2. Stake (31 ETH). Después de que el validador es procesado por la Beacon Chain, el protocolo Rocket Pool verificará
+   las credenciales de retiro del validador y luego hará stake de los 31 ETH restantes en la Beacon Chain. En este punto, el validador entra en la cola de
+   la Beacon Chain por segunda y última vez.
+
+Anteriormente con los minipools, el [Oracle DAO (oDAO)](/es/odao/overview#el-oracle-dao-de-rocket-pool) era responsable de verificar las credenciales de retiro de cada
+validador minipool. Este nuevo sistema extiende el tiempo en cola pero elimina un requisito de confianza impuesto por el oDAO.
 
 [validatorqueue.com](https://www.validatorqueue.com/) es una herramienta útil para monitorear la longitud de la cola de la Beacon Chain. Por favor considera este factor
-al migrar tu stake de minipool a un megapool. 
+al migrar tu stake de minipool a un megapool.
 
 :::
-
 
 ::: tip NOTA
 
@@ -65,7 +65,7 @@ Los operadores de nodo existentes reciben tickets de cola exprés basados en su 
 Por ejemplo, un operador de nodo con un minipool heredado de 8 ETH obtiene 2 tickets de cola exprés. Esto es suficiente para migrar completamente a dos validadores megapool de 4 ETH usando la cola exprés.
 [RPIP-59: Deposit Mechanics](https://rpips.rocketpool.net/RPIPs/RPIP-59#deposit-queue) entra en los detalles de cómo se manejan los depósitos.
 
-Tu nodo recibirá un reembolso de un ticket de cola exprés si decides [retirar tu validador de la cola exprés](./create-megapool-validator#salir-de-un-validador-de-la-cola-de-depositos-de-rocket-pool).
+Tu nodo recibirá un reembolso de un ticket de cola exprés si decides [retirar tu validador de la cola exprés](./create-megapool-validator#salir-de-un-validador-de-la-cola-de-depósitos-de-rocket-pool).
 
 ## Depositar ETH y Crear un Validador
 
@@ -88,7 +88,7 @@ Si un validador en prelaunch falla en hacer stake dentro de 365 días, el valida
 El operador de nodo recibe los 3 ETH restantes de su bono (menos una penalización de disolución de 0.05 ETH aplicada como deuda) como reembolso en su megapool, para un reembolso neto de 2.95 ETH.
 Esto puede reclamarse usando `rocketpool megapool claim` o `rocketpool claims claim-all`.
 
-[Aprende más sobre cómo confirmar un stake exitoso](./create-megapool-validator#confirmacion-de-un-stake-exitoso)
+[Aprende más sobre cómo confirmar un stake exitoso](./create-megapool-validator#confirmación-de-un-stake-exitoso)
 
 :::
 
@@ -116,7 +116,7 @@ Would you like to continue? [y/n]
 y
 ```
 
-El siguiente prompt mostrará el estado de la [cola de depósitos de Rocket Pool](/es/node-staking/megapools/create-megapool-validator#cola-de-depositos-y-cola-expres-de-rocket-pool).
+El siguiente prompt mostrará el estado de la [cola de depósitos de Rocket Pool](/es/node-staking/megapools/create-megapool-validator#cola-de-depósitos-y-cola-exprés-de-rocket-pool).
 Esto muestra cuántos validadores están esperando antes de ti para ser emparejados con ETH. La cola exprés es principalmente para operadores de nodo ya existentes, ya que los nuevos nodos no tendrán tickets de cola exprés. `The express queue rate is 4` significa que se emparejan 4 validadores de la cola exprés por cada 1 validador en la cola estándar.
 
 ```
@@ -227,7 +227,7 @@ Validator Queue Position:     14
 Express Ticket Used:          no
 ```
 
-Una vez que tu validador reciba ETH de la [cola de depósitos de Rocket Pool](/es/node-staking/megapools/create-megapool-validator#cola-de-depositos-y-cola-expres-de-rocket-pool), pasará al estado `Prelaunch`. En este punto, 1 ETH de tu saldo de megapool se depositará
+Una vez que tu validador reciba ETH de la [cola de depósitos de Rocket Pool](/es/node-staking/megapools/create-megapool-validator#cola-de-depósitos-y-cola-exprés-de-rocket-pool), pasará al estado `Prelaunch`. En este punto, 1 ETH de tu saldo de megapool se depositará
 en la Beacon Chain. El pubkey de tu validador también se registrará en la Beacon Chain, lo que significa que puedes ver el estado de tu validador `Prelaunch` en un explorador como https://beaconcha.in/ (o https://hoodi.beaconcha.in/ si estás usando testnet).
 Puedes observar tu validador buscando el pubkey en https://beaconcha.in/ o visitando este enlace con el formato: `https://beaconcha.in/validator/<your-validator-pubkey>`
 
@@ -245,8 +245,11 @@ Express Ticket Used:          no
 
 <img src="../images/prestaking.png" width="100%" height="auto" />
 Después de que tu validador `Prelaunch` sea procesado por la Beacon Chain y se acredite el depósito inicial de 1 ETH. Tu nodo realizará automáticamente una transacción `stake` para completar el
-depósito completo de 32 ETH en la Beacon Chain. La transacción `stake` avanzará tu validador `Prelaunch` a un validador `Staking`. En este punto, tu validador `Staking` tiene: - 32 ETH depositados en
-la Beacon Chain - Asignado un número de índice de validador - Activación pendiente en la Beacon Chain
+depósito completo de 32 ETH en la Beacon Chain. La transacción `stake` avanzará tu validador `Prelaunch` a un validador `Staking`. En este punto, tu validador `Staking` tiene:
+
+- 32 ETH depositados en la Beacon Chain
+- Asignado un número de índice de validador
+- Activación pendiente en la Beacon Chain
 
 ```
 1 Staking validator(s):

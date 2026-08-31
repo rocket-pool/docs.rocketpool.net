@@ -22,8 +22,9 @@ rocketpool wallet recover
 rocketpool wallet recover -k
 ```
 
-このフラグを指定しない場合、Smartnodeはminipoolのvalidatorキーを復元しようとします。ただし、Execution clientが同期を完了するまでは機能しないことに注意してください。
-ログファイルを監視して、いつ完了するかを確認してください。完了したら、このステップを実行できます。
+このフラグを指定しない場合、Smartnodeはminipoolまたはmegapoolのvalidatorキーを復元しようとします。このステップには同期済みのExecution clientとBeacon clientが必要です。
+
+`-k`を使用する場合、**ウォレットのみ**の復元はクライアントの同期を待つ必要がありません。同期中でも実行できます。
 :::
 
 まず、ウォレットを暗号化するために使用したいパスワードを尋ねられます。
@@ -124,7 +125,7 @@ Smartnodeは、次のステップでここに配置したキーストアファ�
 インポートプロセスは、インポートするアドレスに登録されたminipoolに関連付けられたvalidatorキー*のみ*を検索します。
 このプロセスを使用して、ソロステーキングvalidatorなどの他のvalidatorキーを、Smartnodeスタックが管理するValidator clientにインポートすることは**できません**。
 
-これに興味がある場合は、[Reverse Hybridモード](./advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode)での実行に関するドキュメントを参照してください。
+これに興味がある場合は、[Reverse Hybridモード](./advanced-config#外部バリデータークライアントをsmartnodeに接続できるようにする)での実行に関するドキュメントを参照してください。
 :::
 
 ### ステップ2（オプション）: アドレスのインポートのテスト

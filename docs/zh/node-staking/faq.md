@@ -5,7 +5,7 @@
 通过运行单个单独验证者,您将在 32 ETH 上获得 100% 的奖励。
 通过运行两个 16 ETH minipool,您将在 32 ETH 上获得 100% 的奖励**加上** Rocket Pool 协议提供的 32 ETH 上 14% 的奖励。
 通过运行四个 8 ETH minipool,您将在 32 ETH 上获得 100% 的奖励**加上** Rocket Pool 协议提供的 96 ETH 上 14% 的奖励。
-您还可以选择使用 Rocket Pool 的 [Smoothing Pool](./prepare-node.mdx#smoothing-pool) 功能。
+您还可以选择使用 Rocket Pool 的 [Smoothing Pool](./fee-distrib-sp#平滑池) 功能。
 
 ### 如何知道我的 rETH 值多少钱?它会重新调整基数吗?
 
@@ -19,7 +19,7 @@ rETH 代币不会重新调整基数。
 
 ### 如何获取测试 ETH 来试验创建和运行 minipool?我无法在水龙头频道发布消息。
 
-请参阅[在 Hoodi 上获取测试 ETH](./testnet/overview#getting-test-eth-on-hoodi)。
+请参阅[在 Hoodi 上获取测试 ETH](./testnet/overview#在-hoodi-上获取测试-eth)。
 
 ### 如果我的机器损坏,如何恢复我的节点?
 
@@ -39,7 +39,7 @@ rETH 代币不会重新调整基数。
 
 ### 我的共识客户端同步时间太长。我应该怎么办?
 
-如果您没有使用[检查点同步](./config-docker#beacon-chain-checkpoint-syncing)启动同步过程,共识客户端可能需要很长时间才能同步。
+如果您没有使用[检查点同步](./config-docker#信标链检查点同步)启动同步过程,共识客户端可能需要很长时间才能同步。
 即使您运行了很长时间,通常配置检查点同步 URL、使用 `rocketpool service resync-eth2` 清除当前同步数据并重新开始会更快。
 您的客户端应该在不到一分钟的时间内同步。
 

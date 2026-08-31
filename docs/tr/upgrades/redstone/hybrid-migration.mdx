@@ -23,7 +23,7 @@ v1.5'ten başlayarak, bu yapılandırma artık desteklenmemektedir.
 Ya yerel olarak yönetilen bir Execution ve Consensus client'a ([Docker Modu](./docker-migration.mdx) olarak da bilinir) geçmeniz gerekecek ya da kendi başınıza yönettiğiniz hem bir Execution hem de bir Consensus client kurmanız gerekecek.
 
 ::: tip İPUCU
-Smartnode'un kendi Execution ve Consensus client'ını sürdürmesine izin vermek ancak kendi Validator client'ınız üzerinde kontrolü elinizde tutmak istiyorsanız (örneğin, ona bağlı kendi solo staking validator anahtarlarınız varsa), tam olarak bunu yapan [Ters Hibrit Modu](../../node-staking/advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode)'nu değerlendirmek isteyebilirsiniz!
+Smartnode'un kendi Execution ve Consensus client'ını sürdürmesine izin vermek ancak kendi Validator client'ınız üzerinde kontrolü elinizde tutmak istiyorsanız (örneğin, ona bağlı kendi solo staking validator anahtarlarınız varsa), tam olarak bunu yapan [Ters Hibrit Modu](../../node-staking/advanced-config#harici-doğrulayıcı-i̇stemcilerinin-smartnodea-bağlanmasına-i̇zin-verme)'nu değerlendirmek isteyebilirsiniz!
 :::
 
 ### Engine API'yi Ayarlayın
@@ -45,7 +45,7 @@ Her zaman olduğu gibi, Rocket Pool kendi Validator client'ını yönetecektir, 
 ## v1.5.0'a Yükseltme
 
 Smartnode stack'ini v1.5.0'a yükseltmek, diğer yükseltmelerden farklı değildir.
-Sadece [buradaki normal talimatları](../../node-staking/updates#updating-the-smartnode-stack) izleyin.
+Sadece [buradaki normal talimatları](../../node-staking/updates#smartnode-yığınını-güncelleme) izleyin.
 
 ## Smartnode'un Otomatik Olarak Hallettiği Şeyler
 
@@ -61,7 +61,7 @@ Validator client'ınız ilk başladığında ona sağlanan bir ayardır.
 Smartnode, v1.5'e yükseltme yaptığınızda yönettiği Validator client'ta bunu doğru adrese ayarlamayı halledecek ve yanlışlıkla [cezalandırılmamanız](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) için doğru olanı kullandığınızdan sürekli emin olacaktır.
 
 [Smoothing Pool'a](./whats-new#smoothing-pool) katılmayı seçtiyseniz, bu sizin fee recipient'ınız olacaktır.
-Katılmadıysanız, [fee distributor sözleşmeniz](./whats-new#fee-recipients-and-your-distributor) fee recipient olacaktır.
+Katılmadıysanız, [fee distributor sözleşmeniz](./whats-new#fee-recipientler-ve-distributorünüz) fee recipient olacaktır.
 
 ## Yükseltme Sonrası Yapmanız Gerekenler
 
@@ -106,7 +106,7 @@ Fallback düğümü kurma hakkında daha fazla bilgi için [Fallback düğümü 
 
 ### Fee Distributor'ınızı Başlatın
 
-[Smoothing Pool'a](./whats-new#smoothing-pool) katılmayı planlamıyorsanız ve tüm öncelik ücretlerinizi ve MEV ödüllerinizi [fee distributor sözleşmenize](./whats-new#fee-recipients-and-your-distributor) talep edecekseniz, sonunda ödüllerinizi çekim adresinize talep edebilmek için onu başlatmanız (zincirde sözleşme örneğini oluşturmanız) gerekecektir.
+[Smoothing Pool'a](./whats-new#smoothing-pool) katılmayı planlamıyorsanız ve tüm öncelik ücretlerinizi ve MEV ödüllerinizi [fee distributor sözleşmenize](./whats-new#fee-recipientler-ve-distributorünüz) talep edecekseniz, sonunda ödüllerinizi çekim adresinize talep edebilmek için onu başlatmanız (zincirde sözleşme örneğini oluşturmanız) gerekecektir.
 
 Bu oldukça ucuz bir işlemdir ve yalnızca bir kez yapılması gerekir.
 
@@ -131,7 +131,7 @@ rocketpool node join-smoothing-pool
 
 ### Ödülleri Talep Edin
 
-Redstone yükseltmesi, pahalı, sorunlu eski ödül sistemini çok daha ucuz olan, RPL'nin otomatik yeniden stake edilmesini destekleyen (hem kısmi hem de tam miktarlar) ve - en önemlisi - **ödüllerinizi istediğiniz zaman talep etmenize izin veren** [yepyeni bir sistemle](./whats-new#new-rewards-system) değiştirir.
+Redstone yükseltmesi, pahalı, sorunlu eski ödül sistemini çok daha ucuz olan, RPL'nin otomatik yeniden stake edilmesini destekleyen (hem kısmi hem de tam miktarlar) ve - en önemlisi - **ödüllerinizi istediğiniz zaman talep etmenize izin veren** [yepyeni bir sistemle](./whats-new#yeni-ödül-sistemi) değiştirir.
 
 Artık ödülleri talep etmek için zaman sınırı olmadığından ve birçok ödül aralığını bir kerede talep etmek daha ucuz olduğundan, Smartnode'un otomatik ödül talep etme özelliği **kaldırılmıştır**.
 Artık ödülleri aşağıdaki komut aracılığıyla talep edebileceksiniz:

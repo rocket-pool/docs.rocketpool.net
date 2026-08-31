@@ -11,11 +11,11 @@ O RPIP-32 permite que uma conta [faça stake de ETH em nome](https://rpips.rocke
 - Integrações de protocolo onde a custódia dos fundos é gerenciada por contratos inteligentes.
 - DAOs ou organizações onde a custódia dos fundos é gerenciada por um tesouro.
 
-Embora o objetivo principal deste recurso seja facilitar cenários de depositante único, vale notar que vários depositantes independentes também podem aproveitar essa capacidade criando contratos inteligentes em camadas por cima. O Rocket Pool também introduziu a capacidade de [fazer stake de RPL em nome](../../node-staking/create-validator#whitelisting-an-address-to-stake-on-behalf) de um nó em nosso lançamento anterior Atlas.
+Embora o objetivo principal deste recurso seja facilitar cenários de depositante único, vale notar que vários depositantes independentes também podem aproveitar essa capacidade criando contratos inteligentes em camadas por cima. O Rocket Pool também introduziu a capacidade de [fazer stake de RPL em nome](../../node-staking/create-validator#adicionando-um-endereço-à-whitelist-para-staking-em-nome-de) de um nó em nosso lançamento anterior Atlas.
 
 ### Pré-requisito
 
-Certifique-se de ter configurado corretamente o [endereço de retirada primário](../../node-staking/prepare-node#setting-your-primary-withdrawal-address) do nó que você pretende financiar. Siga o link acima para um guia sobre como os endereços de retirada funcionam pós-houston.
+Certifique-se de ter configurado corretamente o [endereço de retirada primário](../../node-staking/prepare-node#definindo-seu-endereço-de-retirada-primário) do nó que você pretende financiar. Siga o link acima para um guia sobre como os endereços de retirada funcionam pós-houston.
 
 ::: tip NOTA
 Não pule esta etapa! Todo ETH de vínculo/recompensas será retirado para o endereço de retirada primário. Em outras palavras, o endereço que fornece ETH para um nó deve ser usado como o endereço de retirada primário! Por favor, certifique-se de que o endereço de retirada primário do nó esteja definido para uma carteira que você tenha custódia.
@@ -63,7 +63,7 @@ O processo é ligeiramente diferente para a Hoodi Testnet e Mainnet, então esco
       <img src={mmNetwork} width="100%" height="auto"/>
 
       Agora que você tem um endereço de carteira no MetaMask, você precisa preenchê-lo com algum ETH de teste.
-      Vá para a página [Praticando com a Rede de Teste](../../node-staking/testnet/overview#getting-test-eth-on-hoodi) para um guia rápido sobre como usar uma faucet de testnet para obter algum ETH de teste na Hoodi.
+      Vá para a página [Praticando com a Rede de Teste](../../node-staking/testnet/overview#obtendo-eth-de-teste-no-hoodi) para um guia rápido sobre como usar uma faucet de testnet para obter algum ETH de teste na Hoodi.
 
       Depois de ter algum ETH Hoodi para testar, vá para [https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node](https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node).
 
@@ -127,12 +127,12 @@ Você está agora fazendo staking com o Rocket Pool.
   <Tabs>
     <Tab label="Preparando na Hoodi Testnet">
       Quando estiver pronto para retirar o ETH que você fez stake em nome de um nó, vá para [https://testnet.node.rocketpool.net/withdraw-eth](https://testnet.node.rocketpool.net/withdraw-eth). Depois
-      de fazer login como o [endereço de retirada primário](../../node-staking/prepare-node#setting-your-primary-withdrawal-address) do nó, você deve ser recebido com um menu familiar. Será solicitado
-      que você insira o endereço do nó do qual deseja retirar:
+      de fazer login como o [endereço de retirada primário](../../node-staking/prepare-node#definindo-seu-endereço-de-retirada-primário) do nó, você deve ser recebido com um menu familiar. Será
+      solicitado que você insira o endereço do nó do qual deseja retirar:
     </Tab>
     <Tab label="Preparando na Ethereum Mainnet">
       Quando estiver pronto para retirar o ETH que você fez stake em nome de um nó, vá para [https://node.rocketpool.net/withdraw-eth](https://node.rocketpool.net/withdraw-eth). Depois de fazer login
-      como o [endereço de retirada primário](../../node-staking/prepare-node#setting-your-primary-withdrawal-address) do nó, você deve ser recebido com um menu familiar. Será solicitado que você
+      como o [endereço de retirada primário](../../node-staking/prepare-node#definindo-seu-endereço-de-retirada-primário) do nó, você deve ser recebido com um menu familiar. Será solicitado que você
       insira o endereço do nó do qual deseja retirar:
     </Tab>
   </Tabs>

@@ -62,7 +62,7 @@ _그러나_ 솔로 validator에 대한 이 새로운 요구 사항의 일부로 
 
 - 하나의 validator(32 ETH 본드 포함)를 **4개의 minipool**(각각 8 ETH 본드 포함)로 변환하여 Beacon Chain에서의 존재를 효과적으로 **4배로 늘릴 수 있는** 능력
 - rETH 스테이커가 제공하는 minipool 부분에 대한 수수료
-- 블록 제안 및 MEV의 보상을 풀링하고 균등하게 분배하기 위한 Rocket Pool의 [Smoothing Pool](../../node-staking/fee-distrib-sp#the-smoothing-pool)에 대한 접근
+- 블록 제안 및 MEV의 보상을 풀링하고 균등하게 분배하기 위한 Rocket Pool의 [Smoothing Pool](../../node-staking/fee-distrib-sp#smoothing-pool)에 대한 접근
 
 솔로 validator를 minipool로 변환하는 방법에 대해 자세히 알아보려면 [솔로 Validator를 Minipool로 변환](../../node-staking/solo-staker-migration) 가이드를 방문하세요.
 

@@ -23,7 +23,7 @@ Se hai modificato manualmente la configurazione dello Smartnode in precedenza, d
 - I file YAML `docker-compose` sono stati rimossi. Ogni container ora ottiene il proprio file nella cartella `templates`. Dopo `rocketpool service start`, questi template vengono compilati con le tue impostazioni e inseriti automaticamente nella cartella `runtime`.
   - Modificare i template o i file runtime non è consigliato. Invece, inserisci le tue personalizzazioni del container utilizzando i file **override** per ciascun container nella cartella `override`. Questi file sovrascriveranno i file Docker in `runtime`, così sei libero di personalizzarli come preferisci.
   - I file in `override` **persisteranno durante gli aggiornamenti e la reinstallazione dello Smartnode**, quindi devi crearli solo una volta.
-  - Se sei interessato a modificare i file `docker-compose` tramite questo meccanismo di override, consulta [questa sezione](../node-staking/advanced-config#customizing-the-docker-compose-definition-files)
+  - Se sei interessato a modificare i file `docker-compose` tramite questo meccanismo di override, consulta [questa sezione](../node-staking/advanced-config#personalizzazione-dei-file-di-definizione-docker-compose)
 
 ## Installazione della Nuova Versione
 
@@ -93,7 +93,7 @@ Inizia arrestando i servizi e scaricando la nuova CLI come al solito:
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOTA</p>
         Questo aggiornerà solo lo stack Smartnode stesso - **non** aggiornerà i tuoi client Execution e Consensus.
-        Dovrai farlo manualmente (vedi [la guida all'aggiornamento manuale](../node-staking/updates#manually-updating-the-eth1-or-eth2-client) per imparare come farlo).
+        Dovrai farlo manualmente (vedi [la guida all'aggiornamento manuale](../node-staking/updates#aggiornamento-manuale-del-client-execution-o-consensus) per imparare come farlo).
       </p>
 
       Arresta i servizi Rocket Pool:

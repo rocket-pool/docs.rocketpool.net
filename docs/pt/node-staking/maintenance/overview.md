@@ -16,7 +16,7 @@ Antes de configurar seu Smartnode, certifique-se de:
 - Ter o Smartnode [instalado](../installing/overview) e [configurado](../config/overview) nela
 - Ter uma carteira de nó carregada no seu Smartnode
 - Ter sincronizado seus clientes Execution e Consensus
-- Ter provisionado seu nó com [um withdrawal address](../prepare-node.mdx#setting-your-withdrawal-address), configurado seus [fallback clients](../fallback) (opcional), optado pelo [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (opcional), e configurado [MEV](../mev.mdx)
+- Ter provisionado seu nó com [um withdrawal address](../prepare-node.mdx#definindo-seu-endereço-de-retirada-primário), configurado seus [fallback clients](../fallback) (opcional), optado pelo [Smoothing Pool](../fee-distrib-sp#o-smoothing-pool) (opcional), e configurado [MEV](../mev.mdx)
 - Ter criado pelo menos um [minipool](../create-validator.mdx)
 
 ## Guias

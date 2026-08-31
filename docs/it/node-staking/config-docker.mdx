@@ -117,12 +117,14 @@ Scegli quale modalità vuoi utilizzare per gestire il tuo client di Esecuzione e
 
       <img src={ECSelection} width="100%" height="auto"/>
 
-      Consulta la sezione [Scelta dei tuoi client ETH](/it/node-staking/eth-clients#execution-clients) per una descrizione di ciascuna opzione.
+      Consulta la sezione [Scelta dei tuoi client ETH](/it/node-staking/eth-clients#client-execution) per una descrizione di ciascuna opzione.
       Una volta effettuata la scelta, fai clic sulla scheda appropriata di seguito per imparare come configurarlo:
 
-      Se scegli **Geth**, **Besu** o **Nethermind**, la Procedura Guidata gestirà tutta la configurazione per te.
+      Se scegli **Geth**, **Besu**, **Nethermind**, **Reth** o **Erigon**, la Procedura Guidata gestirà tutta la configurazione per te.
       Puoi regolare manualmente alcuni dei suoi parametri alla fine di questo processo, ma le impostazioni predefinite che utilizza sono completamente appropriate per l'operatività del nodo.
       Puoi procedere alla sezione successiva.
+
+      Se scegli **Erigon**, inoltra anche la sua **Torrent Port** (predefinita **42069**, TCP e UDP) oltre alla porta P2P **30303**, in modo che la sincronizzazione tramite snapshot e il peering funzionino. La Procedura Guidata continua a usare valori predefiniti sensati per tutto il resto.
 
 
       <p className="rspress-directive warning">
@@ -181,7 +183,7 @@ Scegli quale modalità hai selezionato in precedenza dalle schede di seguito:
 
       **La scelta preferita** per la salute generale e la diversità della rete è l'opzione **Random (Recommended)**, che sceglierà casualmente tra uno dei quattro client di Consenso supportati per te.
 
-      Se preferisci scegliere un client esplicito, consulta la sezione [Scelta dei tuoi client ETH](./eth-clients#eth2-clients) per una descrizione di ciascuna opzione in modo da poter prendere una decisione informata.
+      Se preferisci scegliere un client esplicito, consulta la sezione [Scelta dei tuoi client ETH](./eth-clients#client-consensus) per una descrizione di ciascuna opzione in modo da poter prendere una decisione informata.
 
 
       <p className="rspress-directive warning">

@@ -16,7 +16,7 @@ Avant de configurer votre Smartnode, assurez-vous d'avoir :
 - [Installé](../installing/overview) et [configuré](../config/overview) le Smartnode dessus
 - Chargé un portefeuille de nœud sur votre Smartnode
 - Synchronisé vos clients Execution et Consensus
-- Provisionné votre nœud avec [une adresse de retrait](../prepare-node.mdx#setting-your-withdrawal-address), configuré vos [clients de secours](../fallback) (optionnel), opté pour le [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (optionnel), et configuré [MEV](../mev.mdx)
+- Provisionné votre nœud avec [une adresse de retrait](../prepare-node.mdx#définition-de-votre-adresse-de-retrait-principale), configuré vos [clients de secours](../fallback) (optionnel), opté pour le [Smoothing Pool](../fee-distrib-sp#la-smoothing-pool) (optionnel), et configuré [MEV](../mev.mdx)
 - Créé au moins un [minipool](../create-validator.mdx)
 
 ## Guides

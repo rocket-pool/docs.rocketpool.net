@@ -33,7 +33,7 @@ RPL 的通胀率为 5%。根据 [RPIP-25](https://rpips.rocketpool.net/RPIPs/RPI
 
 ## pDAO 提案的生命周期
 
-提案应该在最终上链之前通过[治理流程](../houston/participate#governance-process)进行预测。它由 4 个阶段组成，所有这些阶段都是 pDAO [可控参数](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table):
+提案应该在最终上链之前通过[治理流程](../houston/participate#治理流程)进行预测。它由 4 个阶段组成，所有这些阶段都是 pDAO [可控参数](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table):
 
 - 投票延迟期: `proposal.vote.delay.time`
 - 投票阶段 1: `proposal.vote.phase1.time`
@@ -51,7 +51,7 @@ RPL 的通胀率为 5%。根据 [RPIP-25](https://rpips.rocketpool.net/RPIPs/RPI
 - `proposal.bond` 激励有效提案并抑制垃圾邮件。
 - `proposal.challenge.bond` 激励删除无效/恶意提案。
 
-挑战者提供他们声称不正确的默克尔和树的索引。任何节点运营者都可以参与挑战欺诈性提案（并因此获得奖励）。如果您有兴趣选择加入，请随时阅读有关 [pDAO 挑战流程](../houston/pdao#challenge-process)的内容。在投票延迟期结束时未在挑战中被击败的提案将进入投票阶段。
+挑战者提供他们声称不正确的默克尔和树的索引。任何节点运营者都可以参与挑战欺诈性提案（并因此获得奖励）。如果您有兴趣选择加入，请随时阅读有关 [pDAO 挑战流程](../houston/pdao#挑战流程)的内容。在投票延迟期结束时未在挑战中被击败的提案将进入投票阶段。
 
 ::: tip 注意
 当 `proposal.vote.delay.time` 到期时，提案不再能够被挑战或击败。
@@ -102,7 +102,7 @@ rocketpool pdao proposals execute
 
 您将被提示选择要执行的提案，提案将在此步骤后应用于协议！
 
-在提案通过投票期后，提议者可以[领取](../houston/participate#claiming-bonds-and-rewards)其锁定的 RPL 保证金，除非提案被挑战击败或被否决。
+在提案通过投票期后，提议者可以[领取](../houston/participate#领取保证金和奖励)其锁定的 RPL 保证金，除非提案被挑战击败或被否决。
 
 ::: tip 注意
 有一个窗口 `proposal.execute.time`，在此期间可以执行提案。如果此计时器到期，提案将过期。
@@ -118,7 +118,7 @@ rocketpool pdao proposals execute
 
 <img src={proposal_checker} width="100%" height="auto" />
 
-启用此设置后，节点将检查新提案，验证其正确性，并向无效提案提交挑战。唯一的先决条件是启用 [RPL 锁定](../houston/participate#allowing-rpl-locking)。
+启用此设置后，节点将检查新提案，验证其正确性，并向无效提案提交挑战。唯一的先决条件是启用 [RPL 锁定](../houston/participate#允许-rpl-锁定)。
 
 此检查每 5 分钟运行一次，与其他一些节点相关职责一起运行。我们将通过一个挑战欺诈性提案的示例进行说明。我们可以使用 smartnode 命令 `rocketpool service logs node` 来监控进度:
 
@@ -167,6 +167,6 @@ rocketpool3_node  | 2024/04/05 02:57:13 Successfully defeated proposal.
 参与击败提案的挑战者如果提交被证明不正确的索引，将按比例支付提议者保证金的一部分。所有其他挑战者仅收回其保证金。
 :::
 
-现在提案被击败了，我们的节点（挑战者）可以[领取](../houston/participate#claiming-bonds-and-rewards)他们的原始 RPL 保证金以及提议者的 RPL 保证金作为击败欺诈性提案的奖励。
+现在提案被击败了，我们的节点（挑战者）可以[领取](../houston/participate#领取保证金和奖励)他们的原始 RPL 保证金以及提议者的 RPL 保证金作为击败欺诈性提案的奖励。
 
 如果您想深入了解 pDAO 提案和挑战系统的细节，请查看[技术规范](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#draft-protocol-dao-proposal-challenge-system-specification)。如果您有兴趣研究深入低级细节的示例，请随时跳到[挑战流程](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#challenge-process)部分。

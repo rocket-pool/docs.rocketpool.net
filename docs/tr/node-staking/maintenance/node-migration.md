@@ -49,7 +49,7 @@ Bu, maksimum güvenlik için tasarlanmıştır, bu nedenle bazı adımların ger
 4. **Eski node'unuzda doğrulamayı durdurun** (örneğin, validator istemcisini kapatmak için `rocketpool service stop` kullanarak).
 5. **Eski node'unuzdan anahtarlarınızı silin** (örneğin, `rocketpool wallet purge` kullanarak).
    1. Anahtarların kaldırıldığını node'unuzun `data` klasörüne bakarak **DOĞRULAYIN** (varsayılan `~/.rocketpool/data/validators/`'dır) - her Consensus İstemcisi, o veri klasörü altında anahtarların kendi kopyası ile kendi klasörüne sahip olacaktır.
-   2. Lütfen bunu nasıl yapacağınıza dair talimatlar için aşağıdaki [Anahtar Kaldırmayı Doğrulama](#verifying-key-removal) bölümüne bakın.
+   2. Lütfen bunu nasıl yapacağınıza dair talimatlar için aşağıdaki [Anahtar Kaldırmayı Doğrulama](#anahtar-kaldırmayı-doğrulama) bölümüne bakın.
    3. Ensure **Hepsinin** silindiğinden emin olun.
 
 6. **Eski node'unuzu kapatın** ve Ethernet kablosunu veya Wi-Fi modülünü çıkararak İnternetten bağlantısını kesin.

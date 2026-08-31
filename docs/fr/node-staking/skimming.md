@@ -1,4 +1,4 @@
-# Distribution des Récompenses Prélevées
+# Distribution des Récompenses Prélevées des Minipools
 
 Les récompenses ETH que vous recevez pour l'exécution d'un validateur pour Ethereum sont régulièrement envoyées à vos minipools dans un processus appelé "skimming".
 La fréquence des prélèvements dépend du nombre de validateurs actifs sur la Beacon Chain. Au moment de la rédaction, le nombre de validateurs est d'environ
@@ -32,7 +32,7 @@ Définir le paramètre à 0 désactivera les distributions automatiques.
 
 ::: warning AVERTISSEMENT
 Si vous décidez de désactiver la distribution automatique, il est important que vous effectuiez toujours une distribution manuelle régulièrement.
-Lisez la [section distribution manuelle](#manual-distribution) qui suit pour savoir comment faire.
+Lisez la [section distribution manuelle](#distribution-manuelle) qui suit pour savoir comment faire.
 
 Après une longue période de temps, vos récompenses prélevées peuvent dépasser 8 ETH. Si cette situation se produit, vous ne pourrez plus
 les distribuer et devrez sortir votre validateur pour accéder à vos récompenses accumulées.

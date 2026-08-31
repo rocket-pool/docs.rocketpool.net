@@ -117,12 +117,14 @@ Execution 클라이언트를 관리하는 데 사용할 모드를 선택하고 �
 
       <img src={ECSelection} width="100%" height="auto"/>
 
-      각 옵션에 대한 설명은 [ETH 클라이언트 선택하기](/ko/node-staking/eth-clients#execution-clients) 섹션을 참조하세요.
+      각 옵션에 대한 설명은 [ETH 클라이언트 선택하기](/ko/node-staking/eth-clients#execution-클라이언트) 섹션을 참조하세요.
       선택을 마쳤으면 아래의 해당 탭을 클릭하여 구성 방법을 알아보세요:
 
-      **Geth**, **Besu** 또는 **Nethermind**를 선택하면 마법사가 모든 구성을 처리합니다.
+      **Geth**, **Besu**, **Nethermind**, **Reth** 또는 **Erigon**을 선택하면 마법사가 모든 구성을 처리합니다.
       이 프로세스가 끝날 때 일부 매개변수를 수동으로 조정할 수 있지만, 사용하는 기본값은 노드 작동에 완전히 적합합니다.
       다음 섹션으로 진행할 수 있습니다.
+
+      **Erigon**을 선택한 경우, 스냅샷 동기화와 피어링이 작동하도록 P2P 포트 **30303**과 함께 **Torrent Port**(기본값 **42069**, TCP 및 UDP)도 포워딩하세요. 나머지 항목에 대해서는 마법사가 계속 합리적인 기본값을 사용합니다.
 
 
       <p className="rspress-directive warning">
@@ -181,7 +183,7 @@ Execution 클라이언트를 관리하는 데 사용할 모드를 선택하고 �
 
       네트워크의 전반적인 건강과 다양성을 위한 **선호되는 선택**은 **Random (Recommended)** 선택이며, 이는 지원되는 네 가지 Consensus 클라이언트 중 하나를 무작위로 선택합니다.
 
-      명시적인 클라이언트를 선택하려면 [ETH 클라이언트 선택하기](./eth-clients#eth2-clients) 섹션을 참조하여 각 옵션에 대한 설명을 확인하고 정보에 입각한 결정을 내리세요.
+      명시적인 클라이언트를 선택하려면 [ETH 클라이언트 선택하기](./eth-clients#consensus-클라이언트) 섹션을 참조하여 각 옵션에 대한 설명을 확인하고 정보에 입각한 결정을 내리세요.
 
 
       <p className="rspress-directive warning">

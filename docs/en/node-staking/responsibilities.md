@@ -109,7 +109,7 @@ There are some limitations that come along with the rewards above:
 - If your node performs poorly and you actually end up losing ETH by the time you decide to exit your megapool validator, all of the lost ETH is coming out of your share.
   - For example: if you exit with a balance of 31 ETH, then your megapool validator lost 1 ETH from its initial 32 ETH deposit. You will receive 3 ETH, and 28 ETH will be returned to the staking pool.
 - Your staked RPL will be less liquid:
-  - There's no limit on how much megapool staked RPL you can unstake, but you must wait 28 days after initiating unstaking before withdrawal. This prevents users from gaming the rewards system by staking RPL just in time for the 28-day rewards period, then withdrawing it immediately after the period. 
+  - There's no limit on how much megapool staked RPL you can unstake, but you must wait 28 days after initiating unstaking before withdrawal. This prevents users from gaming the rewards system by staking RPL just in time for the 28-day rewards period, then withdrawing it immediately after the period.
 
 ### You've got this
 

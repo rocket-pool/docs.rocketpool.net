@@ -18,7 +18,7 @@ Yine de cezalar oldukça küçüktür; genel bir kural olarak, bir validator X s
 
 Validatorler konsensus katmanı ödüllerini Onay, Blok Önerileri, Senkronizasyon Komiteleri (nadir) ve Slashing Ödüllerinden (son derece nadir) kazanırlar. Ayrıca execution katmanı ödüllerini Öncelik Ücretleri ve MEV'den kazanırlar.
 
-10/2024 itibarıyla, genel APR ~%3.5'tir, %2.8'i konsensus katmanı APR'si ve %0.7'si execution katmanı APR'sidir. Bu bilgiyi bulabileceğiniz bir yer [rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake)'dir.
+5/2026 itibarıyla, genel APR ~%2.634'tir, %2.8'i konsensus katmanı APR'si ve %0.22'si execution katmanı APR'sidir. Bu bilgiyi bulabileceğiniz bir yer [rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake)'dir.
 
 ### Cezalar
 
@@ -49,22 +49,21 @@ Genel bir kural olarak, X saat çevrimdışıysanız (ve bir senkronizasyon komi
 
 ## Rocket Pool Node'ları Nasıl Çalışır
 
-Yeni bir validator oluşturmak için 32 ETH yatırması gereken solo staker'ların aksine, Rocket Pool node'ları validator başına yalnızca 8 ETH yatırması gerekir ("bond ETH" olarak adlandırılır).
-Bu, yeni bir validator oluşturmak için staking havuzundan 24 ETH ile ("borrowed ETH" olarak adlandırılır, rETH karşılığında liquid staker depozitolarından gelir) birleştirilecektir.
-Bu yeni validator bir **minipool**'a aittir.
+Yeni bir validator oluşturmak için 32 ETH yatırmak zorunda olan solo staker'ların aksine, Rocket Pool node'ları validator başına sadece 4 ETH ("bonded ETH" olarak adlandırılır) yatırmak zorundadır.
+Bu, yeni bir megapool doğrulayıcısı oluşturmak için staking pool'dan 28 ETH ("borrowed ETH" olarak adlandırılır ve liquid staker'ların rETH karşılığında yatırdığı mevduatlardan gelir) ile eşleştirilecektir.
 
-Beacon zinciri için bir minipool, normal bir validator ile tamamen aynı görünür.
+Beacon chain'e göre, bir megapool doğrulayıcısı normal bir validator'la tamamen aynı görünür.
 Aynı sorumluluklara, uyması gereken aynı kurallara, aynı ödüllere vb. sahiptir.
-Tek fark, minipool'un execution katmanında nasıl oluşturulduğu ve node operator minipool'dan gönüllü olarak çıkmaya karar verdiğinde para çekme işlemlerinin nasıl çalıştığıdır.
+Tek fark, megapool doğrulayıcısının execution layer üzerinde nasıl oluşturulduğu ve node operatörü megapool doğrulayıcısından gönüllü olarak çıkmaya karar verdiğinde çekimlerin nasıl çalıştığıdır.
 Oluşturma, para çekme ve ödül delegasyonunun tümü Ethereum zincirindeki Rocket Pool'un **akıllı sözleşmeleri** tarafından yönetilir.
 Bu onu tamamen merkeziyetsiz yapar.
 
 Bir Rocket Pool **Node**'u, Rocket Pool'un akıllı sözleşmelerine kayıtlı bir Ethereum cüzdanına sahip tek bir bilgisayardır.
-Node daha sonra karşılayabildiği kadar minipool oluşturabilir ve hepsi aynı makinede mutlu bir şekilde birlikte çalışabilir.
-**Tek bir Rocket Pool node'u birçok, birçok minipool çalıştırabilir.**
-Her minipool'un genel sistem performansı üzerinde ihmal edilebilir bir etkisi vardır; bazı insanlar tek bir node'da yüzlercesini çalıştırabilmiştir.
+Node daha sonra karşılayabildiği kadar megapool doğrulayıcısı oluşturabilir ve hepsi aynı makinede mutlu bir şekilde birlikte çalışabilir.
+**Tek bir Rocket Pool node'u birçok, birçok megapool doğrulayıcısı çalıştırabilir.**
+Her megapool doğrulayıcısının genel sistem performansı üzerinde ihmal edilebilir bir etkisi vardır; bazı insanlar tek bir node'da yüzlercesini çalıştırabilmiştir.
 
-Bir minipool'un ön maliyeti 8 ETH'dir. Ayrıca, bir node operator ek ödüller almak ve protokol DAO'su içinde oy gücü kazanmak için node'una RPL stake edebilir.
+Bir megapool doğrulayıcısının ön maliyeti 4 ETH'dir. Ayrıca, bir node operator ek ödüller almak ve protokol DAO'su içinde oy gücü kazanmak için isteğe bağlı olarak node'una RPL stake edebilir.
 
 ## Rocket Pool Node Operatorleri
 
@@ -73,14 +72,14 @@ Onlar Rocket Pool node'larını çalıştıran bireylerdir.
 
 ### Sorumluluklar
 
-Staking havuzundan ETH'yi onunla minipooller çalıştırarak işe koyarlar, bu da Rocket Pool protokolü için staking ödülleri kazanır (ve böylece rETH'nin değerini artırır).
+Staking havuzundan ETH'yi onunla megapool doğrulayıcıları çalıştırarak işe koyarlar, bu da Rocket Pool protokolü için staking ödülleri kazanır (ve böylece rETH'nin değerini artırır).
 İşleri basittir, ancak son derece önemlidir: _mümkün olan en yüksek kalitede validatorler çalıştırın ve staking ödüllerini maksimize edin_.
 
 Node operatorleri şunlardan sorumludur:
 
 - Bir bilgisayar kurma (fiziksel veya sanal)
 - Uygulanabilirse ev ağları dahil olmak üzere doğru şekilde yapılandırma
-- Üzerine Rocket Pool yükleme ve doğrulama gerçekleştirmek için minipooller kurma
+- Üzerine Rocket Pool yükleme ve doğrulama gerçekleştirmek için validator kurma
 - Hem dış hem de iç tehditlerden güvenli hale getirme
 - Validatorlerinin ömrü boyunca bakımını yapma
 
@@ -92,24 +91,25 @@ Ancak büyük sorumlulukla birlikte büyük ödüller gelir.
 Bir Rocket Pool node'u çalıştırmanın başlıca faydaları şunlardır:
 
 - Her validatorün ETH ödüllerinden payınızı ve komisyon kazanırsınız.
-  - Stake edilmiş RPL olmayan 8 ETH bağlı minipooller için bu, solo staking'den %30 daha fazladır (`(8+24*.1)/8 = 1.3`)
-  - RPL stake etmek artırılmış komisyon sağlar. Toplam ödünç alınan ETH'nizin %10'u veya daha fazlası değerinde RPL stake ile, ETH ödülleri solo staking'den %42 daha fazla gelir (`(8+24*.14)/8 = 1.42`)
-  - **Not:** smoothing pool'a katılmazsanız, bunun yerine solo staking'den %15 daha fazla alacaksınız (`(8+24*.05)/8 = 1.15`) -- 2024-10-28'de veya sonrasında yapılan minipoolları olan kullanıcıların smoothing pool'u seçmeleri şiddetle tavsiye edilir.
-- Ayrıca stake ettiğiniz RPL üzerinden ihraç ödülleri kazanırsınız.
-  - Bir dönemin sonunda (her 28 günde bir), RPL'nizin bir anlık görüntüsü alınır.
-  - Toplam ödünç alınan ETH'nizin değerinin **%15'ine kadar** RPL üzerinde maksimum verim kazanabilirsiniz.
-    - Bunun ötesindeki RPL üzerinde azalan bir seviyede verim kazanacaksınız.
-  - Stake edilmiş RPL'nizin karekökü temelinde oy gücü alacaksınız.
+  - Yalnızca 4 ETH kendi sermayenizle bir validator çalıştırırsınız; kalan 28 ETH liquid staker'lardan sağlanır.
+  - Her megapool doğrulayıcısı, 28 ETH'lik protokol fonundan elde edilen ödüller üzerinden %5 komisyon kazanır. Bu, solo staking'den %35 daha fazlaya denk gelir (`(4 bonded + 28 borrowed * 0.05) / 4 = 1.35`).
+  - [Smoothing Pool](fee-distrib-sp#smoothing-pool)'a katılarak, execution katmanı ödüllerini (öncelik ücretleri ve MEV) diğer katılımcılarla paylaşırsınız; bu da blok önerilerinin şansına bağlı kalmak yerine daha tutarlı getiriler sağlar.
+- RPL stake etmek size ek ödüller kazandırır.
+  - RPL stake edenler, stake ettikleri RPL ile orantılı olarak [protokol komisyonundan bir pay](megapools/staking-and-claiming-rewards#voter-sharein-megapool-rpl-stakerlarına-nasıl-dağıtıldığı) (ETH olarak ödenir) kazanır.
+  - Ayrıca stake ettiğiniz RPL üzerinden ihraç ödülleri (RPL olarak ödenir) kazanırsınız.
+    - Bir dönemin sonunda (her 28 günde bir), RPL'nizin bir anlık görüntüsü alınır.
+    - Toplam ödünç alınan ETH değerinizin **%15'ine kadar** olan RPL üzerinde maksimum getiri elde edebilirsiniz.
+    - %15'in ötesindeki RPL üzerinde de azalan bir seviyede getiri elde edersiniz.
+  - Stake ettiğiniz RPL'nin karekökü temelinde, bonded ETH'nizin %150'sine kadar oy gücü elde edersiniz.
 
 ### Sınırlamalar
 
 Yukarıdaki ödüllerle birlikte gelen bazı sınırlamalar vardır:
 
-- Node'unuz kötü performans gösterirse ve minipool'unuzdan çıkmaya karar verene kadar aslında ETH kaybederseniz, kaybedilen tüm ETH payınızdan çıkar.
-  - Örneğin: 30 ETH bakiyesiyle çıkarsanız, minipool'unuz başlangıçtaki 32 ETH depozitosundan 2 ETH kaybetmiştir. 6 ETH alacaksınız ve 24 ETH staking havuzuna iade edilecektir.
-- Stake edilmiş RPL'niz daha az likit olacaktır
-  - Bağlı ETH'nizin %60'ı değerinde olanın ötesindeki RPL stake'ini yalnızca çekebilirsiniz.
-  - Son 28 gün içinde stake ettiyseniz RPL çekemezsiniz
+- Node'unuz kötü performans gösterirse ve megapool doğrulayıcınızdan çıkmaya karar verene kadar aslında ETH kaybederseniz, kaybedilen tüm ETH payınızdan çıkar.
+  - Örneğin: 31 ETH bakiye ile çıkarsanız, megapool doğrulayıcınız ilk 32 ETH mevduatından 1 ETH kaybetmiş demektir. Siz 3 ETH alırsınız ve 28 ETH staking havuzuna geri döner.
+- Stake edilmiş RPL'niz daha az likit olacaktır:
+  - Megapool'da stake edilmiş RPL'nizin ne kadarını unstake edebileceğinize dair bir sınır yoktur, ancak unstake işlemini başlattıktan sonra çekim için 28 gün beklemeniz gerekir. Bu, kullanıcıların 28 günlük ödül dönemine tam zamanında RPL stake edip dönemin hemen ardından çekerek ödül sistemini istismar etmesini önler.
 
 ### Bunu yapabilirsiniz
 

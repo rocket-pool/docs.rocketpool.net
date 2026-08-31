@@ -3,9 +3,9 @@
 O sistema de crédito de depósito é um mecanismo para rastrear ETH que foi anteriormente vinculado por operadores de nó, mas que não é mais necessário, tornando-o disponível para uso novamente.
 A origem deste crédito vem de alguns lugares:
 
-- [Remover um validador da fila de depósitos do Rocket Pool](./create-megapool-validator#exit-a-validator-from-the-rocket-pool-deposit-queue). Remover um validador da fila creditará o operador do nó com o valor do bond (4 ETH)
+- [Remover um validador da fila de depósitos do Rocket Pool](./create-megapool-validator#remover-um-validador-da-fila-de-depósitos-do-rocket-pool). Remover um validador da fila creditará o operador do nó com o valor do bond (4 ETH)
 - **Redução do valor do seu bond**. Se o seu bond atual exceder o requisito mínimo do protocolo, você pode reduzir o bond excedente e recebê-lo como crédito de depósito. Note que os dois primeiros validadores sempre requerem bonds de 4 ETH cada
-(independentemente das configurações do pDAO). A redução de bond beneficia principalmente operadores de nó com 3+ validadores quando o pDAO reduz o parâmetro `reduced_bond`. Use `rocketpool megapool reduce-bond` para realizar uma redução de bond.
+  (independentemente das configurações do pDAO). A redução de bond beneficia principalmente operadores de nó com 3+ validadores quando o pDAO reduz o parâmetro `reduced_bond`. Use `rocketpool megapool reduce-bond` para realizar uma redução de bond.
 
 Os próximos dois são apenas para operadores de nó que fizeram migrações pré-saturn. Eles não são mais possíveis:
 
@@ -20,7 +20,7 @@ Esse ETH não é liquidado e devolvido ao operador do nó; em vez disso, pode se
 O sistema de crédito é **transparente** para o operador do nó; ele será automaticamente utilizado (com notificações no CLI do Smartnode explicando que será usado) durante as operações `rocketpool node deposit`, se possível.
 Se _não puder_ ser utilizado, o Smartnode alertará o usuário que não pode ser usado e exigirá um bond normal de ETH durante a operação.
 
-Consulte a seção [Disponibilidade de Crédito](#credit-availability) abaixo para mais detalhes.
+Consulte a seção [Disponibilidade de Crédito](#disponibilidade-de-crédito) abaixo para mais detalhes.
 
 ## Visualizando seu Saldo de Crédito Atual
 

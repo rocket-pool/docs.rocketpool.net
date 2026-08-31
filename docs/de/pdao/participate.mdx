@@ -39,7 +39,7 @@ der [Rocket Pool Website](https://rocketpool.net/governance/process).
 
 ## Voraussetzung
 
-Bitte lesen Sie den [Lebenszyklus eines Vorschlags](./pdao#lifecycle-of-a-pdao-proposal), bevor Sie fortfahren. Dies erklärt
+Bitte lesen Sie den [Lebenszyklus eines Vorschlags](./pdao#lebenszyklus-eines-pdao-vorschlags), bevor Sie fortfahren. Dies erklärt
 die Unterschiede zwischen allen Abstimmungsperioden und den Aktionen, die während jeder Periode durchgeführt werden können.
 
 Der Rest dieser Seite führt Sie durch die Schritte, die für die Teilnahme an on-chain pDAO Vorschlägen erforderlich sind.
@@ -79,7 +79,7 @@ Please type `direct` or `delegate` to continue:
 - Wenn Sie mit `direct` antworten, wird die Stimmkraft auf Ihren Knoten initialisiert und Sie können direkt über
   Protocol DAO Vorschläge abstimmen.
 - Wenn Sie mit `delegate` antworten, haben Sie die Möglichkeit, etwas Gas zu sparen, indem Sie die Abstimmung initialisieren
-  und [einen Delegierten festlegen](./participate#delegating-voting-power) innerhalb derselben Transaktion.
+  und [einen Delegierten festlegen](./participate#delegierung-der-stimmkraft) innerhalb derselben Transaktion.
 
 Sie müssen dies nur einmal tun. Es konfiguriert die anfänglichen snapshot Informationen für einen Knoten. Nachdem Sie die Abstimmung initialisiert haben,
 aktualisiert jede durchgeführte Aktion die snapshot Informationen Ihres Knotens. Sobald Ihre Stimmkraft initialisiert ist, können Sie
@@ -238,15 +238,15 @@ zum Vorschlag zählt. Ihre Stimme in Phase 1 ist Ihre **lokale Stimmkraft + dele
 
 Um berechtigt zu sein, einen Vorschlag einzureichen, muss ein Knoten einige Anforderungen erfüllen:
 
-- Im Snapshotting enthalten (entweder durch [Initialisierung der Abstimmung](./participate#initializing-voting) oder durch
+- Im Snapshotting enthalten (entweder durch [Initialisierung der Abstimmung](./participate#initialisierung-der-abstimmung) oder durch
   Registrierung nach Houston)
 - Muss mindestens einen minipool haben
 - Hat eine Stimmkraft ungleich Null
-- Hat [RPL Locking](./participate#allowing-rpl-locking) zugelassen
+- Hat [RPL Locking](./participate#zulassen-von-rpl-locking) zugelassen
 - Hat einen RPL Stake (abzüglich bereits gesperrtem RPL) größer als die Vorschlagsbindung
 
 Vorschläge existieren, um Parameter zu ändern und Code auf Protokollebene auszuführen! Es sollte Diskussion und Konsens
-durch den [Governance](./participate#governance-process) Prozess geben, bevor ein Vorschlag on-chain erstellt wird.
+durch den [Governance](./participate#governance-prozess) Prozess geben, bevor ein Vorschlag on-chain erstellt wird.
 
 Verwenden Sie den Befehl `rocketpool pdao propose`, um ein Menü mit Optionen aufzurufen
 
@@ -258,9 +258,12 @@ COMMANDS:
    recurring-spend-update, rsu  Propose an update to an existing recurring spend plan
    security-council, sc         Modify the security council
    setting, s                   Make a Protocol DAO setting proposal
+   submit-batch, sb            Submit a single proposal that changes multiple Protocol DAO settings from a JSON file
 ```
 
-Jeder dieser Befehle fordert Sie mit einer Liste von Eingaben auf, um Ihren gewünschten Vorschlag zu erstellen. In diesem Leitfaden werden wir
+Jeder dieser Befehle fordert Sie mit einer Liste von Eingaben auf, um Ihren gewünschten Vorschlag zu erstellen. Die Befehle für Einstellungsvorschläge akzeptieren `--to-json`, um eine Einstellungsänderung in eine JSON-Datei zu schreiben oder anzuhängen, anstatt eine Transaktion einzureichen. Wenn die Datei fertig ist, reichen Sie sie mit `rocketpool pdao propose submit-batch` ein.
+
+In diesem Leitfaden werden wir
 einen Knoten zum Security Council einladen, um als Beispiel zu dienen. Um einen Vorschlag einzureichen, einen Knoten zum Security
 Council einzuladen, würden Sie den Befehl verwenden:
 
@@ -328,7 +331,7 @@ Details zu einem bestimmten Vorschlag an.
       können [Challengers](/de/pdao/pdao#challenge-process) die Gültigkeit des
       Merkle Pollard (zur Berechnung der Stimmkraft) anfechten, der vom Proposer bereitgestellt wurde. Wenn `proposal.vote.delay.time` endet,
       geht der Vorschlag in aktive Abstimmungsphasen über. Lesen Sie gerne [Lebenszyklus eines
-      Vorschlags](./pdao#lifecycle-of-a-pdao-proposal) zur Auffrischung.
+      Vorschlags](./pdao#lebenszyklus-eines-pdao-vorschlags) zur Auffrischung.
     </Tab>
     <Tab label="Anzeigen von Vorschlagsdetails">
       Jetzt, da Sie die Vorschlags-ID haben, können Sie den Status Ihres Vorschlags mit diesem Befehl anzeigen:

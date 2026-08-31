@@ -33,7 +33,7 @@ CoinCashewには、ExecutionおよびConsensusクライアントでEngine APIを
 ## v1.5.0へのアップグレード
 
 Smartnodeスタックをv1.5.0にアップグレードすることは、他のアップグレードと変わりません。
-単に[こちらの通常の手順](../../node-staking/updates#updating-the-smartnode-stack)に従ってください。
+単に[こちらの通常の手順](../../node-staking/updates#smartnodeスタックの更新)に従ってください。
 
 ## アップグレード後にすべきこと
 
@@ -51,7 +51,7 @@ Smartnodeスタックをv1.5.0にアップグレードすることは、他の�
 ### Validator ClientでFee Recipientをセットアップ
 
 Merge前にセットアップすべき**重要な**詳細の1つは、Validator Clientによって指定された**fee recipient**です。
-[概要記事](./whats-new#fee-recipients-and-your-distributor)で説明されているように、これは次の2つの値のいずれかになります：
+[概要記事](./whats-new#fee-recipientとdistributor)で説明されているように、これは次の2つの値のいずれかになります：
 
 - Smoothing Poolに**オプトイン**している場合、これは**Smoothing Pool契約**のアドレスである必要があります。アドレスは[公式契約ページ](/ja/protocol/contracts-integrations)から取得できます。
 - Smoothing Poolに**いない**場合、これはノードの**fee distributor契約**のアドレスである必要があります。アドレスは、`Fee Distributor and Smoothing Pool`セクションの下の`rocketpool node status`を実行して取得できます。
@@ -194,7 +194,7 @@ Smoothing Poolにオプトイン*していない*場合、fee distributorアド�
 
       - Redstoneアップデートがデプロイされる**前**は[rETHアドレス](/ja/protocol/contracts-integrations/#token-contracts)（例：Mainnetの`0xae78736Cd615f374D3085123A210448E74Fc6393`）
       - Redstoneがデプロイされた後はノードの**fee distributor**で、契約アップグレードが発生したら`rocketpool node status`で取得できます
-      - Smoothing Poolにオプトインする場合は[Smoothing Poolアドレス](/ja/protocol/contracts-integrations/#protocol-contracts)
+      - Smoothing Poolにオプトインする場合は[Smoothing Poolアドレス](/ja/protocol/contracts-integrations/#key-protocol-contracts)
 
       念のため、`rocketpool node status`はいつでも使用する正しいfee recipientを表示します。
 
@@ -211,7 +211,7 @@ Smoothing Poolにオプトイン*していない*場合、fee distributorアド�
 
       - Redstoneアップデートがデプロイされる**前**は[rETHアドレス](/ja/protocol/contracts-integrations/#token-contracts)（例：Mainnetの`0xae78736Cd615f374D3085123A210448E74Fc6393`）
       - Redstoneがデプロイされた後はノードの**fee distributor**で、契約アップグレードが発生したら`rocketpool node status`で取得できます
-      - Smoothing Poolにオプトインする場合は[Smoothing Poolアドレス](/ja/protocol/contracts-integrations/#protocol-contracts)
+      - Smoothing Poolにオプトインする場合は[Smoothing Poolアドレス](/ja/protocol/contracts-integrations/#key-protocol-contracts)
 
       念のため、`rocketpool node status`はいつでも使用する正しいfee recipientを表示します。
 
@@ -228,7 +228,7 @@ Smoothing Poolにオプトイン*していない*場合、fee distributorアド�
 
       - Redstoneアップデートがデプロイされる**前**は[rETHアドレス](/ja/protocol/contracts-integrations/#token-contracts)（例：Mainnetの`0xae78736Cd615f374D3085123A210448E74Fc6393`）
       - Redstoneがデプロイされた後はノードの**fee distributor**で、契約アップグレードが発生したら`rocketpool node status`で取得できます
-      - Smoothing Poolにオプトインする場合は[Smoothing Poolアドレス](/ja/protocol/contracts-integrations/#protocol-contracts)
+      - Smoothing Poolにオプトインする場合は[Smoothing Poolアドレス](/ja/protocol/contracts-integrations/#key-protocol-contracts)
 
       念のため、`rocketpool node status`はいつでも使用する正しいfee recipientを表示します。
 
@@ -245,7 +245,7 @@ Smoothing Poolにオプトイン*していない*場合、fee distributorアド�
 
       - Redstoneアップデートがデプロイされる**前**は[rETHアドレス](/ja/protocol/contracts-integrations/#token-contracts)（例：Mainnetの`0xae78736Cd615f374D3085123A210448E74Fc6393`）
       - Redstoneがデプロイされた後はノードの**fee distributor**で、契約アップグレードが発生したら`rocketpool node status`で取得できます
-      - Smoothing Poolにオプトインする場合は[Smoothing Poolアドレス](/ja/protocol/contracts-integrations/#protocol-contracts)
+      - Smoothing Poolにオプトインする場合は[Smoothing Poolアドレス](/ja/protocol/contracts-integrations/#key-protocol-contracts)
 
       念のため、`rocketpool node status`はいつでも使用する正しいfee recipientを表示します。
 
@@ -285,7 +285,7 @@ Smartnodeには依然としてフォールバックExecutionクライアント�
 
 ### Fee Distributorの初期化
 
-[Smoothing Pool](./whats-new#smoothing-pool)にオプトインせず、すべてのpriority feesとMEV報酬を[fee distributor契約](./whats-new#fee-recipients-and-your-distributor)に請求する予定がない場合、最終的には初期化（チェーン上に契約インスタンスを作成）して、そこから出金アドレスに報酬を請求する必要があります。
+[Smoothing Pool](./whats-new#smoothing-pool)にオプトインせず、すべてのpriority feesとMEV報酬を[fee distributor契約](./whats-new#fee-recipientとdistributor)に請求する予定がない場合、最終的には初期化（チェーン上に契約インスタンスを作成）して、そこから出金アドレスに報酬を請求する必要があります。
 
 これはかなり安価な操作であり、一度だけ行う必要があります。
 
@@ -310,7 +310,7 @@ rocketpool node join-smoothing-pool
 
 ### 報酬の請求
 
-Redstoneアップグレードは、高価で問題のある古い報酬システムを、はるかに安価で、RPLの自動再ステーク（部分的および完全な金額の両方）をサポートし、そして最も重要なことに**いつでも報酬を請求できる**[真新しいもの](./whats-new#new-rewards-system)に置き換えます。
+Redstoneアップグレードは、高価で問題のある古い報酬システムを、はるかに安価で、RPLの自動再ステーク（部分的および完全な金額の両方）をサポートし、そして最も重要なことに**いつでも報酬を請求できる**[真新しいもの](./whats-new#新しい報酬システム)に置き換えます。
 
 報酬請求に時間制限がなくなり、多くの報酬間隔を一度に請求する方が安価になるため、Smartnodeの自動報酬請求機能は**削除されました**。
 次のコマンドを介して報酬を請求できるようになります：

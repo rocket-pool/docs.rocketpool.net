@@ -7,7 +7,7 @@ next:
 # Genel Bakış
 
 Bu bölüm, Smartnode'u kurduktan ve yapılandırdıktan sonra düğümünüzü Rocket Pool ile staking için nasıl hazırlayacağınızın ayrıntılarını kapsar.
-Staking ile ilgili kapsanacak çok fazla bilgi olduğu için uzun bir bölümdür, bu nedenle **lütfen ilk minipool'unuzu oluşturmadan önce her kılavuzu okuyun!**
+Staking ile ilgili kapsanacak çok fazla bilgi olduğu için uzun bir bölümdür, bu nedenle **lütfen ilk megapool doğrulayıcınızı oluşturmadan önce her kılavuzu okuyun!**
 
 ## Ön Koşullar
 

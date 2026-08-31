@@ -33,7 +33,7 @@ Pour plus de détails et de justification, référez-vous aux [types de proposit
 
 ## Cycle de vie d'une proposition de la pDAO
 
-Une proposition doit être annoncée par le [processus de gouvernance](../houston/participate#governance-process) avant de se retrouver on-chain. Elle se compose de 4 périodes, qui sont toutes des [paramètres contrôlables](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table) de la pDAO :
+Une proposition doit être annoncée par le [processus de gouvernance](../houston/participate#processus-de-gouvernance) avant de se retrouver on-chain. Elle se compose de 4 périodes, qui sont toutes des [paramètres contrôlables](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table) de la pDAO :
 
 - Période de délai de vote : `proposal.vote.delay.time`
 - Phase de vote 1 : `proposal.vote.phase1.time`
@@ -51,7 +51,7 @@ Quelques raisons pour lesquelles les proposeurs et les challengers sont tenus de
 - `proposal.bond` incite les propositions valides et décourage le spam.
 - `proposal.challenge.bond` incite à la suppression des propositions invalides/malveillantes.
 
-Les challengers fournissent un index dans l'arbre Merkle-sum qu'ils allèguent être incorrect. Tout Node Operator peut participer au défi des propositions frauduleuses (et gagner une récompense en le faisant). N'hésitez pas à lire sur le [processus de défi de la pDAO](../houston/pdao#challenge-process) si vous êtes intéressé à y participer. Une proposition non défaite lors d'un défi à la fin de la période de délai de vote entrera dans les étapes de vote.
+Les challengers fournissent un index dans l'arbre Merkle-sum qu'ils allèguent être incorrect. Tout Node Operator peut participer au défi des propositions frauduleuses (et gagner une récompense en le faisant). N'hésitez pas à lire sur le [processus de défi de la pDAO](../houston/pdao#processus-de-défi) si vous êtes intéressé à y participer. Une proposition non défaite lors d'un défi à la fin de la période de délai de vote entrera dans les étapes de vote.
 
 ::: tip REMARQUE
 Lorsque `proposal.vote.delay.time` expire, la proposition ne peut plus être contestée ou défaite.
@@ -102,7 +102,7 @@ rocketpool pdao proposals execute
 
 Vous serez invité à sélectionner une proposition à exécuter, la proposition sera appliquée au protocole après cette étape !
 
-Après que la proposition ait passé les périodes de vote, le proposeur peut [réclamer](../houston/participate#claiming-bonds-and-rewards) sa caution RPL verrouillée, sauf si la proposition a été défaite par un défi ou vétoée.
+Après que la proposition ait passé les périodes de vote, le proposeur peut [réclamer](../houston/participate#réclamation-des-cautions-et-récompenses) sa caution RPL verrouillée, sauf si la proposition a été défaite par un défi ou vétoée.
 
 ::: tip REMARQUE
 Il y a une fenêtre `proposal.execute.time` où une proposition peut être exécutée. Une proposition expirera si ce minuteur atteint sa fin.
@@ -118,7 +118,7 @@ Tout nœud peut participer au suivi et à la vérification de l'exactitude des p
 
 <img src={proposal_checker} width="100%" height="auto" />
 
-Lorsque ce paramètre est activé, le nœud vérifiera les nouvelles propositions, vérifiera leur exactitude et soumettra des défis aux propositions invalides. La seule condition préalable est que le [verrouillage RPL](../houston/participate#allowing-rpl-locking) soit activé.
+Lorsque ce paramètre est activé, le nœud vérifiera les nouvelles propositions, vérifiera leur exactitude et soumettra des défis aux propositions invalides. La seule condition préalable est que le [verrouillage RPL](../houston/participate#autorisation-du-verrouillage-rpl) soit activé.
 
 Cette vérification s'exécute toutes les 5 minutes en conjonction avec quelques autres tâches liées au nœud. Nous allons passer en revue un exemple de ce à quoi ressemble le défi d'une proposition frauduleuse. Nous pouvons utiliser la commande smartnode `rocketpool service logs node` pour surveiller la progression :
 
@@ -167,6 +167,6 @@ rocketpool3_node  | 2024/04/05 02:57:13 Successfully defeated proposal.
 Les challengers qui participent à la défaite de la proposition reçoivent un montant proportionnel de la caution du proposeur s'ils soumettent un index prouvé incorrect. Tous les autres challengers ne récupèrent que leur caution.
 :::
 
-Maintenant que la proposition est défaite, notre nœud (le challenger) peut [réclamer](../houston/participate#claiming-bonds-and-rewards) sa caution RPL d'origine ainsi que la caution RPL du proposeur en récompense pour avoir défait une proposition frauduleuse.
+Maintenant que la proposition est défaite, notre nœud (le challenger) peut [réclamer](../houston/participate#réclamation-des-cautions-et-récompenses) sa caution RPL d'origine ainsi que la caution RPL du proposeur en récompense pour avoir défait une proposition frauduleuse.
 
 Si vous êtes curieux d'approfondir les détails du système de proposition et de défi de la pDAO, consultez les [spécifications techniques](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#draft-protocol-dao-proposal-challenge-system-specification). N'hésitez pas à passer à cette section sur le [processus de défi](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#challenge-process) si vous êtes intéressé à étudier un exemple qui entre dans les détails de bas niveau.

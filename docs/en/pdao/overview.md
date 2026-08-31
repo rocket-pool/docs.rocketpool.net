@@ -16,7 +16,7 @@ Before configuring your Smartnode, please make sure you:
 - Have the Smartnode [installed](/en/node-staking/installing/overview) and [configured](/en/node-staking/config/overview) on it
 - Have a node wallet loaded on your Smartnode
 - Synced your Execution and Consensus clients
-- Provisioned your node with [a withdrawal address](/en/node-staking/prepare-node#setting-your-withdrawal-address), set up your [fallback clients](/en/node-staking/fallback) (optional), opted into the [Smoothing Pool](/en/node-staking/fee-distrib-sp#the-smoothing-pool) (optional), and configured [MEV](/en/node-staking/mev)
+- Provisioned your node with [a withdrawal address](/en/node-staking/prepare-node#setting-your-primary-withdrawal-address), set up your [fallback clients](/en/node-staking/fallback) (optional), opted into the [Smoothing Pool](/en/node-staking/fee-distrib-sp#the-smoothing-pool) (optional), and configured [MEV](/en/node-staking/mev)
 - Created at least one [minipool](/en/node-staking/create-validator)
 
 ## There are three addresses involved in voting

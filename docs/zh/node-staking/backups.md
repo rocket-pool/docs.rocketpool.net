@@ -64,7 +64,7 @@ Execution 客户端的链数据可能是最重要的备份项。
 
 ### Consensus 客户端链数据
 
-与 Execution 层数据不同，Consensus 层数据对您的节点来说并不那么重要，这要归功于[检查点同步](./config-docker#beacon-chain-checkpoint-syncing)。
+与 Execution 层数据不同，Consensus 层数据对您的节点来说并不那么重要，这要归功于[检查点同步](./config-docker#信标链检查点同步)。
 Consensus 客户端可以轻松使用此技术立即重新同步到 Beacon 链的头部并恢复验证职责。
 
 ## 备份您的 Execution 链数据

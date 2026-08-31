@@ -8,7 +8,7 @@ Smartnode 알림 알림 기능을 사용하면 Rocket Pool Smartnode의 상태 �
 
 ## Discord 알림 설정
 
-현재 알림은 Discord 채널로 전송할 수 있습니다. "모니터링/알림" 페이지의 Rocket Pool 텍스트 사용자 인터페이스(TUI) 내에서 Discord 알림을 구성할 수 있습니다.
+현재 알림은 Discord 채널과 Telegram 채팅으로 전송할 수 있습니다. Rocket Pool 텍스트 사용자 인터페이스(TUI)의 "Monitoring / Alerting" 페이지에서 하나 또는 두 대상을 모두 구성할 수 있습니다.
 
 ### Discord Webhook URL 추가:
 
@@ -19,6 +19,30 @@ Smartnode 알림 알림 기능을 사용하면 Rocket Pool Smartnode의 상태 �
 5. 제공된 Webhook URL을 복사합니다.
 6. Rocket Pool TUI 내에서 "모니터링/알림" 페이지로 이동합니다.
 7. 복사한 Webhook URL을 지정된 필드에 붙여넣고 구성을 저장합니다.
+
+## Telegram 알림 설정
+
+Rocket Pool 텍스트 사용자 인터페이스(TUI)의 "Monitoring / Alerting" 페이지에서 Telegram 알림을 구성할 수 있습니다. Telegram 알림은 Telegram Bot API를 통해 전송됩니다. 봇 토큰과 숫자 채팅 ID가 모두 필요하며, 하나만 입력하면 아무것도 작동하지 않습니다.
+
+### Telegram 봇 토큰 및 채팅 ID 추가:
+
+1. Telegram에서 [@BotFather](https://t.me/BotFather)를 열고 새 봇을 생성합니다.
+2. BotFather가 제공하는 봇 토큰을 복사합니다(토큰만 복사하고 `bot` 접두사는 포함하지 마십시오).
+3. 알림을 본인과의 개인 채팅(DM), 그룹, 채널 중 어디로 보낼지 결정합니다.
+4. DM으로 알림을 받으려면 먼저 봇에게 `/start`를 보냅니다. 그런 다음 브라우저에서 `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates`를 열고(`<YOUR_BOT_TOKEN>`을 2단계의 토큰으로 교체) `"chat"` 객체를 찾습니다:
+
+```json
+"chat": {
+  "id": 123456789,
+  "type": "private"
+}
+```
+
+`"id"` 값이 Telegram Chat ID 필드에 설정해야 하는 채팅 ID입니다.
+
+5. 그룹이나 채널에서 알림을 받으려면 봇을 멤버로 추가합니다(채널의 경우 봇이 관리자여야 합니다). 그룹 및 채널 ID는 음수이며 일반적으로 `-100`으로 시작합니다. 봇이 해당 채팅을 인식할 수 있게 되면 동일한 `getUpdates` URL을 사용하여 숫자 채팅 ID를 찾습니다. `@mychannel`과 같은 사용자 이름은 작동하지 않습니다.
+6. Rocket Pool TUI에서 "Monitoring / Alerting" 페이지로 이동합니다.
+7. 봇 토큰과 숫자 채팅 ID를 지정된 필드에 붙여넣고 설정을 저장합니다.
 
 ::: tip 팁
 좋아하는 알림이 누락되었나요? Rocket Pool 팀은 추가 알림 대상에 대한 커뮤니티의 피드백을 적극적으로 찾고 있습니다. https://github.com/rocket-pool/smartnode/issues에서 새로운 알림 대상을 제안해 주시기 바랍니다.

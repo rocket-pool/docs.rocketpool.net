@@ -1,4 +1,4 @@
-# Skimmed Ödüllerin Dağıtımı
+# Skimmed Minipool Ödüllerinin Dağıtımı
 
 Ethereum için bir validator çalıştırmanız karşılığında aldığınız ETH ödülleri, "skimming" olarak adlandırılan bir süreçte düzenli olarak minipool'larınıza gönderilir.
 Skim'lerin sıklığı Beacon Chain'deki aktif validator sayısına bağlıdır. Bu yazının yazıldığı sırada validator sayısı yaklaşık
@@ -32,7 +32,7 @@ Parametreyi 0'a ayarlamak otomatik dağıtımları devre dışı bırakacaktır.
 
 ::: warning UYARI
 Otomatik dağıtımı devre dışı bırakmaya karar verirseniz, yine de düzenli olarak
-manuel dağıtım yapmanız önemlidir. Bunu nasıl yapacağınızı öğrenmek için takip eden [manuel dağıtım bölümünü](#manuel-dagitim) okuyun.
+manuel dağıtım yapmanız önemlidir. Bunu nasıl yapacağınızı öğrenmek için takip eden [manuel dağıtım bölümünü](#manuel-dağıtım) okuyun.
 
 Uzun bir süre sonra skimmed ödülleriniz 8 ETH'yi aşabilir. Bu durum gerçekleşirse, artık onları
 dağıtamayacaksınız ve birikmiş ödüllerinize erişmek için validator'ınızdan çıkış yapmanız gerekecektir.

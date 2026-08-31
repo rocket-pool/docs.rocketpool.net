@@ -25,7 +25,7 @@ Une représentation visuelle pratique de ce processus peut être trouvée sur le
 
 ## Prérequis
 
-Veuillez lire le [cycle de vie d'une proposition](../houston/pdao#lifecycle-of-a-pdao-proposal) avant de continuer. Cela expliquera les différences entre toutes les périodes de vote et les actions qui peuvent être prises durant chaque période.
+Veuillez lire le [cycle de vie d'une proposition](../houston/pdao#cycle-de-vie-dune-proposition-de-la-pdao) avant de continuer. Cela expliquera les différences entre toutes les périodes de vote et les actions qui peuvent être prises durant chaque période.
 
 Le reste de cette page vous guidera à travers les étapes requises pour participer aux propositions on-chain du pDAO.
 
@@ -230,7 +230,7 @@ Please enter the member's address:
 Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council? [y/n]
 ```
 
-Après que cela soit inclus dans un bloc, une proposition pDAO sera créée ! La proposition entrera dans la [période de délai de vote](../houston/pdao#vote-delay-period) lors de sa création.
+Après que cela soit inclus dans un bloc, une proposition pDAO sera créée ! La proposition entrera dans la [période de délai de vote](../houston/pdao#période-de-délai-de-vote) lors de sa création.
 
 ## Visualisation de l'état d'une proposition
 
@@ -267,7 +267,7 @@ Chaque proposition se voit attribuer un `proposalID`. Dans ce cas, notre proposi
 
       ```
 
-      Ici, nous pouvons voir que notre proposition `invite test-member` a un ID de 71 et est dans l'état en attente. Dans cet état, les [contestataires](/fr/legacy/houston/pdao#challenge-process) peuvent contester la validité du pollard de Merkle (utilisé pour calculer le pouvoir de vote) fourni par le proposant. Lorsque `proposal.vote.delay.time` se termine, la proposition passera en phases de vote actives. N'hésitez pas à revoir le [cycle de vie d'une proposition](../houston/pdao#lifecycle-of-a-pdao-proposal) pour un rappel.
+      Ici, nous pouvons voir que notre proposition `invite test-member` a un ID de 71 et est dans l'état en attente. Dans cet état, les [contestataires](/fr/legacy/houston/pdao#processus-de-défi) peuvent contester la validité du pollard de Merkle (utilisé pour calculer le pouvoir de vote) fourni par le proposant. Lorsque `proposal.vote.delay.time` se termine, la proposition passera en phases de vote actives. N'hésitez pas à revoir le [cycle de vie d'une proposition](../houston/pdao#cycle-de-vie-dune-proposition-de-la-pdao) pour un rappel.
     </Tab>
     <Tab label="Visualisation des détails de la proposition">
       Maintenant que vous avez l'ID de la proposition, vous pouvez voir l'état de votre proposition en utilisant cette commande :

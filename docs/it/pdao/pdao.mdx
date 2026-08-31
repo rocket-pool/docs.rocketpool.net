@@ -33,7 +33,7 @@ Per maggiori dettagli e motivazioni, fare riferimento ai [tipi di proposta](http
 
 ## Ciclo di vita di una proposta pDAO
 
-Una proposta dovrebbe essere preannunciata dal [processo di governance](./participate#governance-process) prima che finisca on-chain. Consiste di 4 periodi, tutti parametri [controllabili dalla pDAO](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table):
+Una proposta dovrebbe essere preannunciata dal [processo di governance](./participate#processo-di-governance) prima che finisca on-chain. Consiste di 4 periodi, tutti parametri [controllabili dalla pDAO](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table):
 
 - Periodo di ritardo del voto: `proposal.vote.delay.time`
 - Fase di voto 1: `proposal.vote.phase1.time`
@@ -51,7 +51,7 @@ Alcuni motivi per cui i proponenti e gli sfidanti sono tenuti a bloccare RPL.
 - `proposal.bond` incentiva proposte valide e disincentiva lo spam.
 - `proposal.challenge.bond` incentiva l'abbattimento di proposte non valide/dannose.
 
-Gli sfidanti forniscono un indice nell'albero Merkle-sum che stanno sostenendo essere errato. Qualsiasi operatore di nodo può partecipare alla sfida di proposte fraudolente (e guadagnare una ricompensa nel farlo). Sentiti libero di leggere sul [processo di sfida della pDAO](./pdao#challenge-process) se sei interessato ad aderire. Una proposta non sconfitta in una sfida entro la fine del periodo di ritardo del voto entrerà nelle fasi di voto.
+Gli sfidanti forniscono un indice nell'albero Merkle-sum che stanno sostenendo essere errato. Qualsiasi operatore di nodo può partecipare alla sfida di proposte fraudolente (e guadagnare una ricompensa nel farlo). Sentiti libero di leggere sul [processo di sfida della pDAO](./pdao#processo-di-sfida) se sei interessato ad aderire. Una proposta non sconfitta in una sfida entro la fine del periodo di ritardo del voto entrerà nelle fasi di voto.
 
 ::: tip NOTA
 Quando `proposal.vote.delay.time` scade, la proposta non può più essere sfidata o sconfitta.
@@ -102,7 +102,7 @@ rocketpool pdao proposals execute
 
 Ti verrà richiesto di selezionare una proposta da eseguire, la proposta verrà applicata al protocollo dopo questo passaggio!
 
-Dopo che la proposta ha superato i periodi di voto, il proponente può [richiedere](./participate#claiming-bonds-and-rewards) la sua garanzia RPL bloccata, a meno che la proposta non sia stata sconfitta da una sfida o sottoposta a veto.
+Dopo che la proposta ha superato i periodi di voto, il proponente può [richiedere](./participate#richiedere-garanzie-e-ricompense) la sua garanzia RPL bloccata, a meno che la proposta non sia stata sconfitta da una sfida o sottoposta a veto.
 
 ::: tip NOTA
 C'è una finestra `proposal.execute.time` in cui una proposta può essere eseguita. Una proposta scadrà se questo timer raggiunge la fine.
@@ -118,7 +118,7 @@ Qualsiasi nodo può partecipare al tracciamento e alla verifica della correttezz
 
 <img src={proposal_checker} width="100%" height="auto" />
 
-Quando questa impostazione è abilitata, il nodo controllerà le nuove proposte, verificherà la loro correttezza e invierà sfide alle proposte non valide. L'unico prerequisito è che il [blocco RPL](./participate#allowing-rpl-locking) sia abilitato.
+Quando questa impostazione è abilitata, il nodo controllerà le nuove proposte, verificherà la loro correttezza e invierà sfide alle proposte non valide. L'unico prerequisito è che il [blocco RPL](./participate#consentire-il-blocco-rpl) sia abilitato.
 
 Questo controllo viene eseguito ogni 5 minuti in concomitanza con alcuni altri compiti relativi al nodo. Esamineremo un esempio di come sfidare una proposta fraudolenta. Possiamo usare il comando smartnode `rocketpool service logs node` per monitorare i progressi:
 
@@ -167,6 +167,6 @@ Poiché le informazioni di voto del proponente sono errate, non sarà in grado d
 Gli sfidanti che partecipano alla sconfitta della proposta ricevono un importo proporzionale della garanzia del proponente se inviano un indice dimostrato essere errato. Tutti gli altri sfidanti ricevono solo la loro garanzia indietro.
 :::
 
-Ora che la proposta è sconfitta, il nostro nodo (lo sfidante) può [richiedere](./participate#claiming-bonds-and-rewards) la sua garanzia RPL originale e la garanzia RPL del proponente come ricompensa per aver sconfitto una proposta fraudolenta.
+Ora che la proposta è sconfitta, il nostro nodo (lo sfidante) può [richiedere](./participate#richiedere-garanzie-e-ricompense) la sua garanzia RPL originale e la garanzia RPL del proponente come ricompensa per aver sconfitto una proposta fraudolenta.
 
 Se sei curioso di approfondire i dettagli del sistema di proposte e sfide della pDAO, dai un'occhiata alle [specifiche tecniche](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#draft-protocol-dao-proposal-challenge-system-specification). Sentiti libero di saltare a questa sezione sul [processo di sfida](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#challenge-process) se sei interessato a studiare un esempio che entra nei dettagli di basso livello.

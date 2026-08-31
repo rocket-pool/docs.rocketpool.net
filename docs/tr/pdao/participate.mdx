@@ -25,7 +25,7 @@ Bu sürecin kullanışlı bir görsel temsili [Rocket Pool web sitesinde](https:
 
 ## Ön Koşul
 
-Devam etmeden önce lütfen [bir teklifin yaşam döngüsünü](./pdao#lifecycle-of-a-pdao-proposal) okuyun. Tüm oylama dönemleri arasındaki farkları ve her dönemde alınabilecek eylemleri açıklayacaktır.
+Devam etmeden önce lütfen [bir teklifin yaşam döngüsünü](./pdao#bir-pdao-teklifinin-yaşam-döngüsü) okuyun. Tüm oylama dönemleri arasındaki farkları ve her dönemde alınabilecek eylemleri açıklayacaktır.
 
 Bu sayfanın geri kalanı, on-chain pDAO tekliflerine katılmak için gereken adımlarda size yol gösterecektir.
 
@@ -61,7 +61,7 @@ Devam etmek için lütfen `direct` veya `delegate` yazın:
 ```
 
 - `direct` ile yanıt verirseniz, oy gücü düğümünüze başlatılacak ve Protokol DAO teklifleri üzerinde doğrudan oy kullanabileceksiniz.
-- `delegate` ile yanıt verirseniz, aynı işlem içinde oylamayı başlatarak ve [bir delege belirleyerek](./participate#delegating-voting-power) biraz gaz tasarrufu yapma fırsatınız olacaktır.
+- `delegate` ile yanıt verirseniz, aynı işlem içinde oylamayı başlatarak ve [bir delege belirleyerek](./participate#oy-gücünü-devretme) biraz gaz tasarrufu yapma fırsatınız olacaktır.
 
 Bunu yalnızca bir kez yapmanız gerekir. Bir düğüm için ilk snapshot bilgilerini yapılandırır. Oylamayı başlattıktan sonra, alınan her eylem düğümünüzün snapshot bilgilerini güncelleyecektir. Oy gücünüz başlatıldıktan sonra, aşağıdaki smartnode komutunu kullanarak ne kadarınız olduğunu kontrol edebilirsiniz:
 
@@ -190,13 +190,13 @@ Devredilmiş oy gücüne sahip bir düğüm operatörüyseniz, devredilmiş oy g
 
 Teklif önerisinde bulunmaya uygun olmak için bir düğümün birkaç gereksinimi karşılaması gerekir:
 
-- Snapshot'a dahil edilmiş (ya [oylamayı başlatarak](./participate#initializing-voting) ya da Houston sonrası kaydolarak)
+- Snapshot'a dahil edilmiş (ya [oylamayı başlatarak](./participate#oylamayı-başlatma) ya da Houston sonrası kaydolarak)
 - En az bir minipool'a sahip olmalı
 - Sıfır olmayan oy gücüne sahip olmalı
-- [RPL kilitlemeye](./participate#allowing-rpl-locking) izin vermiş olmalı
+- [RPL kilitlemeye](./participate#rpl-kilitlemeye-i̇zin-verme) izin vermiş olmalı
 - Teklif bonusundan daha büyük bir RPL stake'ine (zaten kilitli olan RPL hariç) sahip olmalı
 
-Teklifler, parametreleri değiştirmek ve protokol düzeyinde kod yürütmek için vardır! Bir teklif zincirde oluşturulmadan önce [yönetişim](./participate#governance-process) süreci aracılığıyla tartışma ve konsensüs olmalıdır.
+Teklifler, parametreleri değiştirmek ve protokol düzeyinde kod yürütmek için vardır! Bir teklif zincirde oluşturulmadan önce [yönetişim](./participate#yönetişim-süreci) süreci aracılığıyla tartışma ve konsensüs olmalıdır.
 
 Bir seçenek menüsü açmak için `rocketpool pdao propose` komutunu kullanın
 
@@ -208,9 +208,12 @@ COMMANDS:
    recurring-spend-update, rsu  Propose an update to an existing recurring spend plan
    security-council, sc         Modify the security council
    setting, s                   Make a Protocol DAO setting proposal
+   submit-batch, sb            Submit a single proposal that changes multiple Protocol DAO settings from a JSON file
 ```
 
-Bu komutların her biri, istediğiniz teklifi oluşturmak için size bir girdi listesi isteyecektir. Bu rehberde, bir örnek olarak güvenlik konseyine bir düğümü davet edeceğiz. Güvenlik konseyine bir düğümü davet etmek için bir teklif oluşturmak için şu komutu kullanırsınız:
+Bu komutların her biri, istediğiniz teklifi oluşturmak için size bir girdi listesi isteyecektir. Ayar teklifi komutları, bir işlem göndermek yerine bir ayar değişikliğini bir JSON dosyasına yazmak veya eklemek için `--to-json` seçeneğini kabul eder. Dosya hazır olduğunda, `rocketpool pdao propose submit-batch` ile gönderin.
+
+Bu rehberde, bir örnek olarak güvenlik konseyine bir düğümü davet edeceğiz. Güvenlik konseyine bir düğümü davet etmek için şu komutu kullanırsınız:
 
 ```shell
 rocketpool pdao propose security-council invite
@@ -231,7 +234,7 @@ Please enter the member's address:
 Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council? [y/n]
 ```
 
-Bu bir bloka dahil edildikten sonra, bir pDAO teklifi oluşturulacaktır! Teklif, oluşturulduğunda [oy gecikmesi süresine](./pdao#vote-delay-period) girecektir.
+Bu bir bloka dahil edildikten sonra, bir pDAO teklifi oluşturulacaktır! Teklif, oluşturulduğunda [oy gecikmesi süresine](./pdao#oy-gecikmesi-dönemi) girecektir.
 
 ## Bir Teklifin Durumunu Görüntüleme
 
@@ -269,9 +272,9 @@ Her teklife bir `proposalID` atanır. Bu durumda, `0xBdbc...`'yi güvenlik konse
       ```
 
       Burada `invite test-member` teklifimizin 71 ID'sine sahip olduğunu ve beklemede durumunda olduğunu görebiliriz. Bu durumda,
-      [itiraz edenler](/tr/pdao/pdao#challenge-process), teklif sahibi tarafından sağlanan
+      [itiraz edenler](/tr/pdao/pdao#i̇tiraz-süreci), teklif sahibi tarafından sağlanan
       merkle pollard'ın (oy gücünü hesaplamak için kullanılır) geçerliliğine itiraz edebilir. `proposal.vote.delay.time` sona erdiğinde,
-      teklif aktif oylama aşamalarına geçecektir. Yenilemek için [bir teklifin yaşam döngüsünü](./pdao#lifecycle-of-a-pdao-proposal) gözden geçirmekten çekinmeyin.
+      teklif aktif oylama aşamalarına geçecektir. Yenilemek için [bir teklifin yaşam döngüsünü](./pdao#bir-pdao-teklifinin-yaşam-döngüsü) gözden geçirmekten çekinmeyin.
     </Tab>
     <Tab label="Teklif Ayrıntılarını Görüntüleme">
       Artık teklif kimliğine sahip olduğunuza göre, bu komutu kullanarak teklifinizin durumunu görüntüleyebilirsiniz:

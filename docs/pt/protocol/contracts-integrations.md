@@ -17,7 +17,7 @@ Se você gostaria de contribuir ajudando a integrar o Rocket Pool em mais servi�
 | Hoodi\* | Deposit  | [0x320f3aAB9405e38b955178BBe75c477dECBA0C27](https://hoodi.etherscan.io/address/0x320f3aAB9405e38b955178BBe75c477dECBA0C27) |
 | &nbsp;  | Storage  | [0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1](https://hoodi.etherscan.io/address/0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1) |
 
-Dentro do protocolo, o contrato de Storage é usado para encontrar todos os outros endereços de contratos implantados conforme necessário (veja este [exemplo](/pt/protocol/contracts-usage#interacting-with-rocket-pool)).
+Dentro do protocolo, o contrato de Storage é usado para encontrar todos os outros endereços de contratos implantados conforme necessário (veja este [exemplo](/pt/protocol/contracts-usage#interagindo-com-o-rocket-pool)).
 Veja [Todos os Contratos de Protocolo Ativos Implantados](#all-active-deployed-protocol-contracts) abaixo para uma lista completa de endereços.
 
 <small>\* Testnet</small>
@@ -261,4 +261,4 @@ Veja [Todos os Contratos de Protocolo Ativos Implantados](#all-active-deployed-p
 
 This list was updated 09/02/2026
 
-The addresses can be queried on chain as shown in this [example](/en/protocol/contracts-usage#interacting-with-rocket-pool).
+The addresses can be queried on chain as shown in this [example](/en/protocol/contracts-usage#interagindo-com-o-rocket-pool).

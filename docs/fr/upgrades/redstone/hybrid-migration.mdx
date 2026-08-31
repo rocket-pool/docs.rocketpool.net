@@ -23,7 +23,7 @@ Par exemple, vous pouviez avoir un client d'exécution géré par le Smartnode e
 Vous devrez passer soit à un client d'exécution et de consensus gérés localement (également connu sous le nom de [mode Docker](./docker-migration.mdx)), soit configurer à la fois un client d'exécution et un client de consensus que vous gérez vous-même.
 
 ::: tip TIP
-Si vous êtes intéressé par le fait de laisser le Smartnode maintenir son propre client d'exécution et de consensus mais que vous souhaitez garder le contrôle de votre propre client de validation (par exemple, si vous avez vos propres clés de validation de solo staking attachées à celui-ci), vous pourriez envisager le [mode Hybride Inversé](../../node-staking/advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode) qui fait exactement cela !
+Si vous êtes intéressé par le fait de laisser le Smartnode maintenir son propre client d'exécution et de consensus mais que vous souhaitez garder le contrôle de votre propre client de validation (par exemple, si vous avez vos propres clés de validation de solo staking attachées à celui-ci), vous pourriez envisager le [mode Hybride Inversé](../../node-staking/advanced-config#autoriser-les-clients-validateurs-externes-à-se-connecter-au-smartnode) qui fait exactement cela !
 :::
 
 ### Configurer l'Engine API
@@ -45,7 +45,7 @@ Comme toujours, Rocket Pool gérera son propre client de validation, vous n'avez
 ## Mise à jour vers v1.5.0
 
 La mise à jour de la pile Smartnode vers la v1.5.0 n'est pas différente de toute autre mise à jour.
-Suivez simplement [les instructions habituelles ici](../../node-staking/updates#updating-the-smartnode-stack).
+Suivez simplement [les instructions habituelles ici](../../node-staking/updates#mise-à-jour-de-la-pile-smartnode).
 
 ## Choses que le Smartnode gère automatiquement
 
@@ -61,7 +61,7 @@ C'est un paramètre fourni à votre client de validation lorsqu'il démarre pour
 Le Smartnode gérera sa configuration à la bonne adresse sur le client de validation qu'il gère lorsque vous mettrez à jour vers la v1.5, et vérifiera constamment que vous utilisez la bonne pour que vous ne soyez pas [pénalisé accidentellement](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
 
 Si vous avez adhéré au [Smoothing Pool](./whats-new#smoothing-pool), il en fera votre destinataire de frais.
-Sinon, il fera de votre [contrat de distributeur de frais](./whats-new#fee-recipients-and-your-distributor) le destinataire de frais.
+Sinon, il fera de votre [contrat de distributeur de frais](./whats-new#destinataires-de-frais-et-votre-distributeur) le destinataire de frais.
 
 ## Choses que vous devriez faire après la mise à jour
 
@@ -106,7 +106,7 @@ Pour plus d'informations sur la configuration d'un nœud de secours, consultez l
 
 ### Initialiser votre distributeur de frais
 
-Si vous ne prévoyez pas d'adhérer au [Smoothing Pool](./whats-new#smoothing-pool) et de réclamer tous vos frais prioritaires et récompenses MEV à votre [contrat de distributeur de frais](./whats-new#fee-recipients-and-your-distributor), vous devrez éventuellement l'initialiser (créer l'instance de contrat sur la chaîne) pour réclamer les récompenses vers votre adresse de retrait.
+Si vous ne prévoyez pas d'adhérer au [Smoothing Pool](./whats-new#smoothing-pool) et de réclamer tous vos frais prioritaires et récompenses MEV à votre [contrat de distributeur de frais](./whats-new#destinataires-de-frais-et-votre-distributeur), vous devrez éventuellement l'initialiser (créer l'instance de contrat sur la chaîne) pour réclamer les récompenses vers votre adresse de retrait.
 
 C'est une opération assez peu coûteuse et ne doit être effectuée qu'une seule fois.
 
@@ -131,7 +131,7 @@ rocketpool node join-smoothing-pool
 
 ### Réclamer les récompenses
 
-La mise à jour Redstone remplace l'ancien système de récompenses coûteux et problématique par un [tout nouveau système](./whats-new#new-rewards-system) qui est beaucoup moins cher, prend en charge le re-staking automatique de RPL (montants partiels et complets), et - plus important encore - **vous permet de réclamer vos récompenses quand vous le souhaitez**.
+La mise à jour Redstone remplace l'ancien système de récompenses coûteux et problématique par un [tout nouveau système](./whats-new#nouveau-système-de-récompenses) qui est beaucoup moins cher, prend en charge le re-staking automatique de RPL (montants partiels et complets), et - plus important encore - **vous permet de réclamer vos récompenses quand vous le souhaitez**.
 
 Parce qu'il n'y a plus de limite de temps pour réclamer les récompenses, et parce qu'il est moins cher de réclamer plusieurs intervalles de récompenses à la fois, la fonctionnalité de réclamation automatique des récompenses du Smartnode **a été supprimée**.
 Vous pourrez maintenant réclamer les récompenses via la commande suivante :

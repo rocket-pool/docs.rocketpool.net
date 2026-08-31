@@ -6,7 +6,7 @@ Que vous soyez un opérateur de nœud chevronné, un détenteur de rETH ou un ob
 
 ### Initialisation du pouvoir de vote
 
-Tout d'abord et avant tout, l'étape la plus importante si vous êtes **opérateur de nœud** est d'[initialiser le vote](../houston/participate#initializing-voting) pour déverrouiller votre pouvoir de vote. Les nœuds qui ont initialisé le vote sont inclus lors du calcul du pouvoir de vote total du réseau.
+Tout d'abord et avant tout, l'étape la plus importante si vous êtes **opérateur de nœud** est d'[initialiser le vote](../houston/participate#initialisation-du-vote) pour déverrouiller votre pouvoir de vote. Les nœuds qui ont initialisé le vote sont inclus lors du calcul du pouvoir de vote total du réseau.
 
 À la genèse de Houston, le vote pDAO est désactivé jusqu'à ce qu'un nombre suffisant de nœuds aient initialisé le vote. Ceci afin d'empêcher des propositions malveillantes de passer alors que le pouvoir de vote total et le quorum sont faibles. Après qu'assez de nœuds aient initialisé le vote, un interrupteur sera activé et pDAO aura la barre.
 
@@ -23,11 +23,11 @@ Vous n'avez besoin de le faire qu'une seule fois. L'initialisation du vote garan
 Deuxièmement, vous voudrez définir votre adresse de signalisation Snapshot. Cela permet aux opérateurs de nœuds de participer aux votes Snapshot dans leur navigateur ou appareil mobile sans avoir à exposer leurs clés de nœud à un portefeuille chaud.
 
 La configuration implique quelques étapes, vous voudrez donc suivre ce guide :
-[Définir votre adresse de signalisation Snapshot](../houston/participate#setting-your-snapshot-signalling-address).
+[Définir votre adresse de signalisation Snapshot](../houston/participate#définition-de-votre-adresse-de-signalement-snapshot).
 
 ### Déléguer le pouvoir de vote on-chain
 
-Si vous souhaitez déléguer le pouvoir de vote on-chain à un membre de la communauté de votre choix, cliquez [ici](../houston/participate#delegating-voting-power) pour apprendre comment.
+Si vous souhaitez déléguer le pouvoir de vote on-chain à un membre de la communauté de votre choix, cliquez [ici](../houston/participate#délégation-du-pouvoir-de-vote) pour apprendre comment.
 
 ##
 

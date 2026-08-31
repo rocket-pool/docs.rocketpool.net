@@ -33,7 +33,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 ## Обновление до версии 1.5.0
 
 Обновление стека Smartnode до версии 1.5.0 не отличается от любого другого обновления.
-Просто следуйте [обычным инструкциям здесь](../../node-staking/updates#updating-the-smartnode-stack).
+Просто следуйте [обычным инструкциям здесь](../../node-staking/updates#обновление-стека-smartnode).
 
 ## Что вы должны сделать после обновления
 
@@ -51,7 +51,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 ### Настройте получателя комиссий в вашем клиенте валидатора
 
 Одна из **критических** деталей, которую нужно настроить перед слиянием, это **получатель комиссий**, указанный вашим клиентом валидатора.
-Как описано в [обзорной статье](./whats-new#fee-recipients-and-your-distributor), это может быть одно из двух значений:
+Как описано в [обзорной статье](./whats-new#получатели-комиссий-и-ваш-дистрибьютор), это может быть одно из двух значений:
 
 - Если вы **подписаны** на Smoothing Pool, это должен быть адрес **контракта Smoothing Pool**. Вы можете получить адрес на [официальной странице контрактов](/ru/protocol/contracts-integrations).
 - Если вы **не** в Smoothing Pool, это должен быть адрес **контракта дистрибьютора комиссий** вашей ноды. Вы можете получить адрес, выполнив `rocketpool node status`, в разделе `Fee Distributor and Smoothing Pool`.
@@ -192,9 +192,9 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
       Где `address` это:
 
-      - [Адрес rETH](/ru/protocol/contracts-integrations/#token-contracts) **до** развертывания обновления Redstone (например, `0xae78736Cd615f374D3085123A210448E74Fc6393` на Mainnet)
+      - [Адрес rETH](/ru/protocol/contracts-integrations/#контракты-токенов) **до** развертывания обновления Redstone (например, `0xae78736Cd615f374D3085123A210448E74Fc6393` на Mainnet)
       - **Дистрибьютор комиссий** вашей ноды после развертывания Redstone, который вы можете получить с помощью `rocketpool node status` после обновления контракта
-      - [Адрес Smoothing Pool](/ru/protocol/contracts-integrations/#protocol-contracts), если вы подписаны на Smoothing Pool
+      - [Адрес Smoothing Pool](/ru/protocol/contracts-integrations/#основные-контракты-протокола), если вы подписаны на Smoothing Pool
 
       Напоминаем, что `rocketpool node status` покажет вам правильного получателя комиссий для использования в любое время.
 
@@ -209,9 +209,9 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
       Где `address` это:
 
-      - [Адрес rETH](/ru/protocol/contracts-integrations/#token-contracts) **до** развертывания обновления Redstone (например, `0xae78736Cd615f374D3085123A210448E74Fc6393` на Mainnet)
+      - [Адрес rETH](/ru/protocol/contracts-integrations/#контракты-токенов) **до** развертывания обновления Redstone (например, `0xae78736Cd615f374D3085123A210448E74Fc6393` на Mainnet)
       - **Дистрибьютор комиссий** вашей ноды после развертывания Redstone, который вы можете получить с помощью `rocketpool node status` после обновления контракта
-      - [Адрес Smoothing Pool](/ru/protocol/contracts-integrations/#protocol-contracts), если вы подписаны на Smoothing Pool
+      - [Адрес Smoothing Pool](/ru/protocol/contracts-integrations/#основные-контракты-протокола), если вы подписаны на Smoothing Pool
 
       Напоминаем, что `rocketpool node status` покажет вам правильного получателя комиссий для использования в любое время.
 
@@ -226,9 +226,9 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
       Где `address` это:
 
-      - [Адрес rETH](/ru/protocol/contracts-integrations/#token-contracts) **до** развертывания обновления Redstone (например, `0xae78736Cd615f374D3085123A210448E74Fc6393` на Mainnet)
+      - [Адрес rETH](/ru/protocol/contracts-integrations/#контракты-токенов) **до** развертывания обновления Redstone (например, `0xae78736Cd615f374D3085123A210448E74Fc6393` на Mainnet)
       - **Дистрибьютор комиссий** вашей ноды после развертывания Redstone, который вы можете получить с помощью `rocketpool node status` после обновления контракта
-      - [Адрес Smoothing Pool](/ru/protocol/contracts-integrations/#protocol-contracts), если вы подписаны на Smoothing Pool
+      - [Адрес Smoothing Pool](/ru/protocol/contracts-integrations/#основные-контракты-протокола), если вы подписаны на Smoothing Pool
 
       Напоминаем, что `rocketpool node status` покажет вам правильного получателя комиссий для использования в любое время.
 
@@ -243,9 +243,9 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
       Где `address` это:
 
-      - [Адрес rETH](/ru/protocol/contracts-integrations/#token-contracts) **до** развертывания обновления Redstone (например, `0xae78736Cd615f374D3085123A210448E74Fc6393` на Mainnet)
+      - [Адрес rETH](/ru/protocol/contracts-integrations/#контракты-токенов) **до** развертывания обновления Redstone (например, `0xae78736Cd615f374D3085123A210448E74Fc6393` на Mainnet)
       - **Дистрибьютор комиссий** вашей ноды после развертывания Redstone, который вы можете получить с помощью `rocketpool node status` после обновления контракта
-      - [Адрес Smoothing Pool](/ru/protocol/contracts-integrations/#protocol-contracts), если вы подписаны на Smoothing Pool
+      - [Адрес Smoothing Pool](/ru/protocol/contracts-integrations/#основные-контракты-протокола), если вы подписаны на Smoothing Pool
 
       Напоминаем, что `rocketpool node status` покажет вам правильного получателя комиссий для использования в любое время.
 
@@ -285,7 +285,7 @@ Smartnode все еще имеет возможность предоставит
 
 ### Инициализируйте ваш дистрибьютор комиссий
 
-Если вы не планируете подписываться на [Smoothing Pool](./whats-new#smoothing-pool) и требовать все ваши приоритетные комиссии и вознаграждения MEV в ваш [контракт дистрибьютора комиссий](./whats-new#fee-recipients-and-your-distributor), вам в конечном итоге придется инициализировать его (создать экземпляр контракта в цепи), чтобы получить вознаграждения с него на ваш адрес вывода.
+Если вы не планируете подписываться на [Smoothing Pool](./whats-new#smoothing-pool) и требовать все ваши приоритетные комиссии и вознаграждения MEV в ваш [контракт дистрибьютора комиссий](./whats-new#получатели-комиссий-и-ваш-дистрибьютор), вам в конечном итоге придется инициализировать его (создать экземпляр контракта в цепи), чтобы получить вознаграждения с него на ваш адрес вывода.
 
 Это довольно недорогая операция, и ее нужно сделать только один раз.
 
@@ -310,7 +310,7 @@ rocketpool node join-smoothing-pool
 
 ### Получите вознаграждения
 
-Обновление Redstone заменяет дорогую, проблематичную старую систему вознаграждений [совершенно новой](./whats-new#new-rewards-system), которая намного дешевле, поддерживает автоматический рестейкинг RPL (как частичные, так и полные суммы), и - что наиболее важно - **позволяет вам получать ваши вознаграждения, когда вы хотите**.
+Обновление Redstone заменяет дорогую, проблематичную старую систему вознаграждений [совершенно новой](./whats-new#новая-система-вознаграждений), которая намного дешевле, поддерживает автоматический рестейкинг RPL (как частичные, так и полные суммы), и - что наиболее важно - **позволяет вам получать ваши вознаграждения, когда вы хотите**.
 
 Поскольку больше нет временного ограничения на получение вознаграждений, и поскольку дешевле получать много интервалов вознаграждений сразу, функция автоматического получения вознаграждений Smartnode **была удалена**.
 Теперь вы сможете получать вознаграждения с помощью следующей команды:

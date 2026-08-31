@@ -11,11 +11,11 @@ RPIP-32 permite que una cuenta [deposite ETH en nombre](https://rpips.rocketpool
 - Integraciones de protocolo donde la custodia de fondos es administrada por contratos inteligentes.
 - DAOs u organizaciones donde la custodia de fondos es administrada por una tesorería.
 
-Aunque el objetivo principal de esta función es facilitar escenarios de depositante único, vale la pena señalar que múltiples depositantes independientes también pueden aprovechar esta capacidad creando contratos inteligentes en capas superiores. Rocket Pool también introdujo la capacidad de [depositar RPL en nombre](../../node-staking/create-validator#whitelisting-an-address-to-stake-on-behalf) de un nodo en nuestro lanzamiento anterior de Atlas.
+Aunque el objetivo principal de esta función es facilitar escenarios de depositante único, vale la pena señalar que múltiples depositantes independientes también pueden aprovechar esta capacidad creando contratos inteligentes en capas superiores. Rocket Pool también introdujo la capacidad de [depositar RPL en nombre](../../node-staking/create-validator#añadir-una-dirección-a-la-lista-blanca-para-hacer-staking-en-nombre-de) de un nodo en nuestro lanzamiento anterior de Atlas.
 
 ### Requisito previo
 
-Asegúrese de haber configurado correctamente la [dirección de retiro principal](../../node-staking/prepare-node#setting-your-primary-withdrawal-address) del nodo que pretende financiar. Siga el enlace de arriba para obtener una guía sobre cómo funcionan las direcciones de retiro después de houston.
+Asegúrese de haber configurado correctamente la [dirección de retiro principal](../../node-staking/prepare-node#establecer-tu-dirección-de-retiro-principal) del nodo que pretende financiar. Siga el enlace de arriba para obtener una guía sobre cómo funcionan las direcciones de retiro después de houston.
 
 ::: tip NOTA
 ¡No omita este paso! Todo el bono/recompensas de ETH se retirarán a la dirección de retiro principal. En otras palabras, ¡la dirección que suministra ETH para un nodo debe usarse como la dirección de retiro principal! Por favor, asegúrese de que la dirección de retiro principal del nodo esté configurada a una billetera que usted controle.
@@ -63,7 +63,7 @@ El proceso es ligeramente diferente para la Testnet Hoodi y Mainnet, así que el
       <img src={mmNetwork} width="100%" height="auto"/>
 
       Ahora que tiene una dirección de billetera en MetaMask, necesita llenarla con algo de ETH de prueba.
-      Diríjase a la página [Practicando con la Red de Prueba](../../node-staking/testnet/overview#getting-test-eth-on-hoodi) para obtener una guía rápida sobre cómo usar un faucet de testnet para obtener algo de ETH de prueba en Hoodi.
+      Diríjase a la página [Practicando con la Red de Prueba](../../node-staking/testnet/overview#obteniendo-eth-de-prueba-en-hoodi) para obtener una guía rápida sobre cómo usar un faucet de testnet para obtener algo de ETH de prueba en Hoodi.
 
       Una vez que tenga algo de ETH de Hoodi para probar, diríjase a [https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node](https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node).
 
@@ -127,12 +127,12 @@ Ahora está haciendo staking con Rocket Pool.
   <Tabs>
     <Tab label="Preparación en la Testnet Hoodi">
       Cuando esté listo para retirar el ETH que ha depositado en nombre de un nodo, diríjase a [https://testnet.node.rocketpool.net/withdraw-eth](https://testnet.node.rocketpool.net/withdraw-eth).
-      Después de iniciar sesión como la [dirección de retiro principal](../../node-staking/prepare-node#setting-your-primary-withdrawal-address) del nodo, debería ser recibido con un menú familiar. Se
-      le pedirá que ingrese la dirección del nodo del que desea retirar:
+      Después de iniciar sesión como la [dirección de retiro principal](../../node-staking/prepare-node#establecer-tu-dirección-de-retiro-principal) del nodo, debería ser recibido con un menú
+      familiar. Se le pedirá que ingrese la dirección del nodo del que desea retirar:
     </Tab>
     <Tab label="Preparación en la Mainnet de Ethereum">
       Cuando esté listo para retirar el ETH que ha depositado en nombre de un nodo, diríjase a [https://node.rocketpool.net/withdraw-eth](https://node.rocketpool.net/withdraw-eth). Después de iniciar
-      sesión como la [dirección de retiro principal](../../node-staking/prepare-node#setting-your-primary-withdrawal-address) del nodo, debería ser recibido con un menú familiar. Se le pedirá que
+      sesión como la [dirección de retiro principal](../../node-staking/prepare-node#establecer-tu-dirección-de-retiro-principal) del nodo, debería ser recibido con un menú familiar. Se le pedirá que
       ingrese la dirección del nodo del que desea retirar:
     </Tab>
   </Tabs>

@@ -120,7 +120,7 @@ Le _nouveau_ système de réclamation résout tous ces problèmes.
 
 À chaque intervalle, l'Oracle DAO créera collectivement un **véritable instantané** de l'état des opérateurs de nœuds dans le réseau Rocket Pool, incluant tous leurs montants de stake effectifs.
 Ces informations sont compilées dans un [Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree) - une manière extrêmement efficace de rendre tous les détails disponibles aux contrats intelligents.
-Le Merkle Tree est construit dans un fichier JSON et hébergé sur le [InterPlanetary File System (IPFS)](https://en.wikipedia.org/wiki/InterPlanetary_File_System), et la racine du Merkle Tree est soumise aux contrats.
+Le Merkle Tree est construit dans un fichier JSON et hébergé sur GitHub, et la racine du Merkle Tree est soumise aux contrats.
 
 Ce nouveau système présente les caractéristiques suivantes :
 

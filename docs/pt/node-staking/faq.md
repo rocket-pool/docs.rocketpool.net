@@ -5,7 +5,7 @@
 Ao executar um único validador solo, você receberia 100% das recompensas nos seus 32 ETH.
 Ao executar dois minipools de 16 ETH, você receberia 100% das recompensas nos seus 32 ETH **mais** 14% das recompensas em 32 ETH fornecidos pelo protocolo Rocket Pool.
 Ao executar quatro minipools de 8 ETH, você receberia 100% das recompensas nos seus 32 ETH **mais** 14% das recompensas em 96 ETH fornecidos pelo protocolo Rocket Pool.
-Você também teria a opção de usar o recurso [Smoothing Pool](./prepare-node.mdx#smoothing-pool) do Rocket Pool.
+Você também teria a opção de usar o recurso [Smoothing Pool](./fee-distrib-sp#o-smoothing-pool) do Rocket Pool.
 
 ### Como eu sei quanto meu rETH vale? Ele faz rebase?
 
@@ -19,7 +19,7 @@ Se isso não ajudar, você pode fazer sua pergunta no canal **#support** do Rock
 
 ### Como posso obter ETH de teste para experimentar criar e executar um minipool? Não consigo postar mensagens no canal de faucet.
 
-Veja [Obtendo ETH de teste no Hoodi](./testnet/overview#getting-test-eth-on-hoodi).
+Veja [Obtendo ETH de teste no Hoodi](./testnet/overview#obtendo-eth-de-teste-no-hoodi).
 
 ### Como recupero meu node se minha máquina quebrar?
 
@@ -39,7 +39,7 @@ Além disso, certifique-se de que seu node tem um endereço IP local estático p
 
 ### Meu cliente de consenso está demorando muito para sincronizar. O que devo fazer?
 
-Os clientes de consenso podem levar muito tempo para sincronizar se você não iniciou o processo de sincronização usando [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
+Os clientes de consenso podem levar muito tempo para sincronizar se você não iniciou o processo de sincronização usando [Checkpoint Sync](./config-docker#sincronização-de-checkpoint-da-beacon-chain).
 Mesmo se você estiver executando por muito tempo, geralmente é mais rápido configurar a URL de checkpoint sync, limpar os dados de sincronização atuais com `rocketpool service resync-eth2` e começar de novo.
 Seu cliente deve estar sincronizado em menos de um minuto.
 

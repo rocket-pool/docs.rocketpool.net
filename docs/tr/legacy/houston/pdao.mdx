@@ -33,7 +33,7 @@ Daha fazla ayrıntı ve gerekçe için [teklif türlerine](https://rpips.rocketp
 
 ## Bir pDAO teklifinin yaşam döngüsü
 
-Bir teklif, zincir üstünde yer almadan önce [yönetişim süreci](../houston/participate#governance-process) tarafından öngörülmelidir. pDAO [kontrolündeki parametreler](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table) olan 4 Dönemden oluşur:
+Bir teklif, zincir üstünde yer almadan önce [yönetişim süreci](../houston/participate#yönetişim-süreci) tarafından öngörülmelidir. pDAO [kontrolündeki parametreler](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table) olan 4 Dönemden oluşur:
 
 - Vote Delay Period: `proposal.vote.delay.time`
 - Vote Phase 1: `proposal.vote.phase1.time`
@@ -51,7 +51,7 @@ Teklif sahiplerinin ve meydan okuyanların RPL kilitlemesinin gerekli olmasını
 - `proposal.bond` geçerli teklifleri teşvik eder ve spam'i caydırır.
 - `proposal.challenge.bond` geçersiz/kötü niyetli tekliflerin kaldırılmasını teşvik eder.
 
-Meydan okuyanlar, yanlış olduğunu iddia ettikleri Merkle-toplam ağacına bir dizin sağlar. Herhangi bir node operatörü sahte tekliflere meydan okumaya katılabilir (ve bunu yaparken ödül kazanabilir). İlgileniyorsanız [pDAO Meydan Okuma Süreci](../houston/pdao#challenge-process) hakkında bilgi edinin. Oy gecikmesi döneminin sonunda bir meydan okumada yenilmeyen bir teklif, oylama aşamalarına girecektir.
+Meydan okuyanlar, yanlış olduğunu iddia ettikleri Merkle-toplam ağacına bir dizin sağlar. Herhangi bir node operatörü sahte tekliflere meydan okumaya katılabilir (ve bunu yaparken ödül kazanabilir). İlgileniyorsanız [pDAO Meydan Okuma Süreci](../houston/pdao#meydan-okuma-süreci) hakkında bilgi edinin. Oy gecikmesi döneminin sonunda bir meydan okumada yenilmeyen bir teklif, oylama aşamalarına girecektir.
 
 ::: tip NOT
 `proposal.vote.delay.time` süresi dolduğunda, teklife artık meydan okunamaz veya yenilemez.
@@ -102,7 +102,7 @@ rocketpool pdao proposals execute
 
 Yürütülecek bir teklif seçmeniz istenecek, bu adımdan sonra teklif protokole uygulanacak!
 
-Teklif oylama dönemlerini geçtikten sonra, teklif sahibi meydan okuma tarafından yenilmedikçe veya veto edilmedikçe kilitli RPL bonusunu [talep](../houston/participate#claiming-bonds-and-rewards) edebilir.
+Teklif oylama dönemlerini geçtikten sonra, teklif sahibi meydan okuma tarafından yenilmedikçe veya veto edilmedikçe kilitli RPL bonusunu [talep](../houston/participate#tahvilleri-ve-ödülleri-talep-etme) edebilir.
 
 ::: tip NOT
 Bir teklifin yürütülebileceği bir `proposal.execute.time` penceresi vardır. Bu zamanlayıcı sonuna ulaşırsa bir teklif sona erer.
@@ -118,7 +118,7 @@ Herhangi bir node, tekliflerin doğruluğunu izleme ve doğrulamaya katılabilir
 
 <img src={proposal_checker} width="100%" height="auto" />
 
-Bu ayar etkinleştirildiğinde, node yeni teklifleri kontrol edecek, doğruluklarını doğrulayacak ve geçersiz tekliflere meydan okumaları gönderecektir. Tek ön koşul [RPL Locking](../houston/participate#allowing-rpl-locking)'in etkinleştirilmiş olmasıdır.
+Bu ayar etkinleştirildiğinde, node yeni teklifleri kontrol edecek, doğruluklarını doğrulayacak ve geçersiz tekliflere meydan okumaları gönderecektir. Tek ön koşul [RPL Locking](../houston/participate#rpl-kilitlenmesine-i̇zin-verme)'in etkinleştirilmiş olmasıdır.
 
 Bu kontrol, diğer birkaç node ile ilgili görevle birlikte her 5 dakikada bir çalışır. Sahte bir teklife meydan okumanın nasıl göründüğüne dair bir örnekten geçeceğiz. İlerlemeyi izlemek için smartnode komutu `rocketpool service logs node` kullanabiliriz:
 
@@ -167,6 +167,6 @@ Teklif sahibinin oylama bilgisi yanlış olduğu için, zamanında meydan okumay
 Teklifi yenmeye katılan meydan okuyanlar, yanlış olduğu kanıtlanan bir dizin gönderirlerse teklif sahibinin bonusunun orantılı bir miktarını alırlar. Diğer tüm meydan okuyanlar sadece bonuslarını geri alır.
 :::
 
-Artık teklif yenildiğine göre, node'umuz (meydan okuyan) orijinal RPL bonuslarını ve sahte bir teklifi yenmek için ödül olarak teklif sahibinin RPL bonusunu [talep](../houston/participate#claiming-bonds-and-rewards) edebilir.
+Artık teklif yenildiğine göre, node'umuz (meydan okuyan) orijinal RPL bonuslarını ve sahte bir teklifi yenmek için ödül olarak teklif sahibinin RPL bonusunu [talep](../houston/participate#tahvilleri-ve-ödülleri-talep-etme) edebilir.
 
 pDAO teklif ve meydan okuma sisteminin ayrıntılarını incelemek isterseniz [teknik spesifikasyonlara](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#draft-protocol-dao-proposal-challenge-system-specification) göz atın. Düşük seviye ayrıntılara giren bir örneği incelemekle ilgileniyorsanız [meydan okuma süreci](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#challenge-process) ile ilgili bu bölüme geçmekten çekinmeyin.

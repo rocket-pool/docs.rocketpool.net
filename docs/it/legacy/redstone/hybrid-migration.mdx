@@ -23,7 +23,7 @@ A partire dalla v1.5, questa configurazione non è più supportata.
 Dovrai passare a un client di Esecuzione e Consenso gestiti localmente (noto anche come [Modalità Docker](./docker-migration.mdx)), oppure configurare sia un client di Esecuzione che uno di Consenso che gestisci da solo.
 
 ::: tip SUGGERIMENTO
-Se sei interessato a lasciare che lo Smartnode mantenga il proprio client di Esecuzione e Consenso ma vuoi mantenere il controllo sul tuo client Validator (ad esempio, se hai le tue chiavi di validatore solo staking collegate ad esso), potresti voler considerare la [Modalità Ibrida Inversa](../../node-staking/advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode) che fa esattamente questo!
+Se sei interessato a lasciare che lo Smartnode mantenga il proprio client di Esecuzione e Consenso ma vuoi mantenere il controllo sul tuo client Validator (ad esempio, se hai le tue chiavi di validatore solo staking collegate ad esso), potresti voler considerare la [Modalità Ibrida Inversa](../../node-staking/advanced-config#consentire-ai-client-validator-esterni-di-connettersi-allo-smartnode) che fa esattamente questo!
 :::
 
 ### Configurare l'Engine API
@@ -45,7 +45,7 @@ Come sempre, Rocket Pool gestirà il proprio client Validator quindi non devi pr
 ## Aggiornamento alla v1.5.0
 
 L'aggiornamento dello stack Smartnode alla v1.5.0 non è diverso da qualsiasi altro aggiornamento.
-Basta seguire [le normali istruzioni qui](../../node-staking/updates#updating-the-smartnode-stack).
+Basta seguire [le normali istruzioni qui](../../node-staking/updates#aggiornamento-dello-stack-smartnode).
 
 ## Cose che lo Smartnode Gestisce Automaticamente
 
@@ -61,7 +61,7 @@ Il **fee recipient** è l'indirizzo sulla catena del layer di Esecuzione (eth1) 
 Lo Smartnode gestirà la configurazione dell'indirizzo corretto sul client Validator che gestisce quando aggiorni alla v1.5 e controllerà costantemente che tu stia utilizzando quello corretto in modo da non essere [penalizzato accidentalmente](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
 
 Se hai optato per il [Smoothing Pool](./whats-new#smoothing-pool), questo diventerà il tuo fee recipient.
-Se non l'hai fatto, il tuo [contratto di distribuzione delle commissioni](./whats-new#fee-recipients-and-your-distributor) diventerà il fee recipient.
+Se non l'hai fatto, il tuo [contratto di distribuzione delle commissioni](./whats-new#fee-recipient-e-il-tuo-distributor) diventerà il fee recipient.
 
 ## Cose che Dovresti Fare Dopo l'Aggiornamento
 
@@ -106,7 +106,7 @@ Per maggiori informazioni sulla configurazione di un nodo di fallback, consulta 
 
 ### Inizializzare il Tuo Fee Distributor
 
-Se non prevedi di aderire al [Smoothing Pool](./whats-new#smoothing-pool) e richiedere tutte le tue commissioni prioritarie e ricompense MEV al tuo [contratto di distribuzione delle commissioni](./whats-new#fee-recipients-and-your-distributor), alla fine dovrai inizializzarlo (creare l'istanza del contratto sulla catena) per poter richiedere le ricompense da esso al tuo indirizzo di prelievo.
+Se non prevedi di aderire al [Smoothing Pool](./whats-new#smoothing-pool) e richiedere tutte le tue commissioni prioritarie e ricompense MEV al tuo [contratto di distribuzione delle commissioni](./whats-new#fee-recipient-e-il-tuo-distributor), alla fine dovrai inizializzarlo (creare l'istanza del contratto sulla catena) per poter richiedere le ricompense da esso al tuo indirizzo di prelievo.
 
 Questa è un'operazione abbastanza economica e deve essere eseguita solo una volta.
 
@@ -131,7 +131,7 @@ rocketpool node join-smoothing-pool
 
 ### Richiedere Ricompense
 
-L'aggiornamento Redstone sostituisce il vecchio sistema di ricompense costoso e problematico con uno [completamente nuovo](./whats-new#new-rewards-system) che è molto più economico, supporta il restaking automatico di RPL (sia importi parziali che completi) e - cosa più importante - **ti consente di richiedere le tue ricompense quando vuoi**.
+L'aggiornamento Redstone sostituisce il vecchio sistema di ricompense costoso e problematico con uno [completamente nuovo](./whats-new#nuovo-sistema-di-ricompense) che è molto più economico, supporta il restaking automatico di RPL (sia importi parziali che completi) e - cosa più importante - **ti consente di richiedere le tue ricompense quando vuoi**.
 
 Poiché non c'è più un limite di tempo per richiedere le ricompense e poiché è più economico richiedere molti intervalli di ricompense contemporaneamente, la funzione di richiesta automatica delle ricompense dello Smartnode **è stata rimossa**.
 Ora potrai richiedere le ricompense tramite il seguente comando:

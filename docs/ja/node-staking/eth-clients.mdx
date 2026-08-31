@@ -7,7 +7,7 @@ Rocket PoolのSmartnodeインストーラーは、お使いのマシンを完全
 ETH1/ETH2という用語は廃止されました。
 これ以降のガイドでは、チェーンを**Execution Layer (ETH1)**と**Beacon ChainまたはConsensus Layer (ETH2)**と呼びます。
 
-別のマシンでExecutionクライアントとConsensusクライアントを既に稼働させている場合(例えば、既にソロステーキングを行っている場合)、このセクションをスキップして[外部クライアントを使用したハイブリッドRocket Poolノードの設定](./install-modes#the-hybrid-configuration-with-external-clients)セクションに進んでください。
+別のマシンでExecutionクライアントとConsensusクライアントを既に稼働させている場合(例えば、既にソロステーキングを行っている場合)、このセクションをスキップして[外部クライアントを使用したハイブリッドRocket Poolノードの設定](./install-modes#外部クライアントを使用したハイブリッド構成)セクションに進んでください。
 
 それ以外の場合は、ExecutionクライアントとConsensusクライアントの選択肢について詳しく学ぶために読み進めてください。
 
@@ -43,7 +43,7 @@ Execution Layer(旧ETH1)とBeacon Chain(旧ETH2)の健全性をサポートす�
 
 ## Execution Clients
 
-Rocket Poolは4つの異なるExecution clientをサポートしています:**Geth**、**Besu**、**Nethermind**、および**Reth**です。
+Rocket Poolは5つのExecution clientをサポートしています:**Geth**、**Besu**、**Nethermind**、**Reth**、および**Erigon**です。
 
 Execution clientを実行すると、マシン上にExecution layerブロックチェーンのコピーが保存されます。
 他のECノードとピアツーピア通信で相互作用し、新しいブロックとトランザクションを記録および検証します。
@@ -58,7 +58,7 @@ Gethは最も古く、世界中で最も広く使用されているExecution Cli
 非常に安定していて信頼性があると評判です。
 
 マルチスレッド対応で、CPUを最大限に活用できます。
-RAM使用量は設定可能で、**Mainnetで最小約4GB**まで下げられます。
+最小RAM要件は8 GBですが、16 GBを推奨します。
 これにより、低電力システムと高電力システムの両方で使用可能です。
 
 ::: warning 注意
@@ -109,14 +109,27 @@ Rethは効率性、パフォーマンス、モジュール性を念頭に一か�
 エコシステム内で最も新しいクライアントとして、Rethは急速に進化し、採用が広がっています。RAMとCPUの要件は柔軟ですが、最も重要な要件はディスクです。優れた[TLCディスク](https://gist.github.com/yorickdowne/f3a3e79a573bf35767cd002cc977b038)の使用をお勧めします。
 Rethは完全ノードには**少なくとも8 GBのRAM**、アーカイブノードには**16 GBのRAM**が必要です。
 
+### Erigon
+
+[Erigon](https://erigon.tech/)は[Go](https://go.dev/)で書かれたExecution clientです。ステージド同期アーキテクチャを採用しており、初回起動時にBitTorrent経由でスナップショットを取得できるため、torrentポートに到達可能であれば初期同期は比較的高速です。
+
+設定マネージャーでは、Erigonは通常のP2Pポート(`30303`)に加えて**Torrent Port**(デフォルト`42069`、TCPおよびUDP)を公開します。LAN外からスナップショット同期とピア接続を正常に動作させたい場合は、両方を転送してください。
+
+Erigonは**Rolling History Expiry**(約1年より古いボディとレシートを破棄)をサポートしています。マージ前のみのHistory Expiryは**サポートしていません**。そのモードを選択した場合、残りのブロック履歴はフルモードのステートプルーニングとともに保持されます。**フルノード**として実行する場合、レシートは保持されます。
+
+他のクライアントと同様に、RAM要件は柔軟ですが、ディスクの品質が重要です。Gethの`30303`と同じように、ルーター(およびホストのファイアウォール)でtorrentポートとP2Pポートを開放してください。
+
 ### クライアント比較表
 
-| Client     | Type | CPU使用量 | 最小RAM使用量 | 同期時間 |
-| ---------- | ---- | --------- | ------------- | -------- |
-| Geth       | Full | 中程度    | 4 GB          | 中程度   |
-| Besu       | Full | 中程度    | 6 GB          | 遅い     |
-| Nethermind | Full | 中程度    | 16 GB         | 速い     |
-| Reth       | Full | 中程度    | 8 GB          | 速い     |
+| Client     | Type | RAM使用量 |
+| ---------- | ---- | --------- |
+| Geth       | Full | ~8 GB     |
+| Besu       | Full | ~10 GB    |
+| Nethermind | Full | ~7-15 GB  |
+| Reth       | Full | ~14 GB    |
+| Erigon     | Full | ~10 GB    |
+
+_RAM使用量のデータは[eth-docker](https://ethdocker.com/Usage/ResourceUsage/)より。実際の使用量は構成やネットワーク状況によって異なる場合があります。_
 
 ## Consensus Clients
 
@@ -153,7 +166,7 @@ Lodestarのニッチは、実装言語である[Typescript](https://www.typescri
 ### Nimbus
 
 [Nimbus](https://nimbus.team/)は、使用するリソースの点でできるだけ軽量であることを目指すEthereum 2.0とEthereum 1.0の両方のクライアント実装です。
-これにより、組み込みシステムやリソース制限デバイスでも優れたパフォーマンスを発揮できます。
+これにより、組み込みシステムやリソース制限デバイスでも優れたパフォーマンスを発揮できます。ノードでExecution clientとConsensus clientのペアを合計16GBのRAMで実行する予定の場合は、nimbusを推奨します。
 
 ただし、リソース制限ハードウェアだけがNimbusが得意とする分野ではありません。
 リソース消費が低いため、サーバー上で他のワークロードと一緒にNimbusを実行することが容易になります(これは、サーバーインスタンスのコストを下げようとするステーカーにとって特に価値があります)。
@@ -175,10 +188,12 @@ TekuはApache 2.0ライセンスでJavaで書かれており、Javaはその成�
 
 ### クライアント比較表
 
-| Client     | CPU使用量 | 最小RAM使用量 | 同期時間                   |
-| ---------- | --------- | ------------- | -------------------------- |
-| Lighthouse | 中程度    | 2 GB          | チェックポイント同期で即座 |
-| Lodestar   | 中程度    | 4 GB          | チェックポイント同期で即座 |
-| Nimbus     | 低        | 0.75 GB       | チェックポイント同期で即座 |
-| Prysm      | 中程度    | 2 GB          | チェックポイント同期で即座 |
-| Teku       | 中程度    | 4 GB          | チェックポイント同期で即座 |
+| Client     | RAM使用量 | 同期時間                   |
+| ---------- | --------- | -------------------------- |
+| Lighthouse | ~14 GB    | チェックポイント同期で即座 |
+| Lodestar   | ~12 GB    | チェックポイント同期で即座 |
+| Nimbus     | ~5 GB     | チェックポイント同期で即座 |
+| Prysm      | ~9 GB     | チェックポイント同期で即座 |
+| Teku       | ~10 GB    | チェックポイント同期で即座 |
+
+_RAM使用量のデータは[eth-docker](https://ethdocker.com/Usage/ResourceUsage/)より。実際の使用量は構成やネットワーク状況によって異なる場合があります。_

@@ -14,7 +14,7 @@ Düzenli aralıklarla, Rocket Pool ağda bir **kontrol noktası** işaretleyecek
 Yeni bir kontrol noktasında, Oracle DAO toplu olarak Rocket Pool ağındaki node operatörlerinin durumunun **gerçek bir anlık görüntüsünü** oluşturacak ve bu aralıkta her node için RPL ve Smoothing Pool ETH ödüllerini belirlemek için bunu kullanacaktır. "Bonus komisyon"un Saturn 0 minipool'lar için smoothing pool ödülleri kullanılarak dağıtıldığını unutmayın (Saturn 0 minipool'lar, 2024/10/28'den sonra oluşturulan ve sözleşme komisyonu %5 olan minipool'lardır).
 
 Bu bilgi bir [Merkle Ağacı](https://en.wikipedia.org/wiki/Merkle_tree)'na derlenir - tüm detayları akıllı sözleşmelere sunmanın son derece verimli bir yolu.
-Merkle Ağacı bir JSON dosyasına yerleştirilir ve [InterPlanetary File System (IPFS)](https://en.wikipedia.org/wiki/InterPlanetary_File_System) üzerinde barındırılır ve [bakımını yaptığımız bir GitHub deposunda](https://github.com/rocket-pool/rewards-trees/) yansıtılır.
+Merkle Ağacı bir JSON dosyasına yerleştirilir ve [bakımını yaptığımız bir GitHub deposunda](https://github.com/rocket-pool/rewards-trees/) barındırılır. Smartnode ayrıca ödül aralığı **olaylarını** bu GitHub deposundan yükleyebilir, böylece agresif geçmiş sona erdirme eski Execution katmanı günlüklerini sildikten sonra bile talep edebilirsiniz.
 
 Ağaç gönderildikten sonra, Rocket Pool akıllı sözleşmeleri yeni RPL token'ları basacak ve bunları Smoothing Pool'un tüm ETH bakiyesiyle birlikte güvenli depolama için Rocket Pool vault'una taşıyacaktır.
 Daha sonra o aralıkta kaç RPL ve ETH ödülü kazandığınızı görüntüleyebilir ve bu ödülleri talep edebilirsiniz.
@@ -152,7 +152,7 @@ You may claim these rewards at any time. You no longer need to claim them within
 
 ## Fee Distributor'ınızdaki Execution-Layer Ödülleri
 
-Smoothing Pool'a katılmadıysanız, blok tekliflerinden gelen ödüllerinizin Execution-layer kısmı (işlem ücretleri ve MEV dahil) bunun yerine node'unuzun [Fee Distributor](./fee-distrib-sp#fee-distributors-and-the-smoothing-pool) sözleşmesine gönderilecektir.
+Smoothing Pool'a katılmadıysanız, blok tekliflerinden gelen ödüllerinizin Execution-layer kısmı (işlem ücretleri ve MEV dahil) bunun yerine node'unuzun [Fee Distributor](./fee-distrib-sp#ücret-dağıtıcıları-ve-smoothing-pool) sözleşmesine gönderilecektir.
 
 Fee Distributor'ınızın bakiyesini kontrol etmek için [https://etherscan.io](https://etherscan.io) gibi bir zincir gezgini kullanabilir veya basitçe `rocketpool node status` çalıştırabilirsiniz - onu gösteren **Fee Distributor and Smoothing Pool** adlı bir bölüm olacaktır:
 

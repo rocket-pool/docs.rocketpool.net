@@ -6,7 +6,7 @@ Seja você um Node Operator experiente, detentor de rETH ou um observador curios
 
 ### Inicializando o Poder de Voto
 
-Primeiro e acima de tudo, o passo mais importante se você é **Node Operator** é [inicializar o voto](../houston/participate#initializing-voting) para desbloquear seu poder de voto. Os nós que inicializaram o voto são incluídos quando o poder de voto total da rede é calculado.
+Primeiro e acima de tudo, o passo mais importante se você é **Node Operator** é [inicializar o voto](../houston/participate#inicializando-a-votação) para desbloquear seu poder de voto. Os nós que inicializaram o voto são incluídos quando o poder de voto total da rede é calculado.
 
 Na gênese do Houston, a votação do pDAO está desabilitada até que um número suficiente de nós tenha inicializado o voto. Isso é para evitar que propostas desonestas sejam aprovadas enquanto o poder de voto total e o quórum estão baixos. Depois que nós suficientes tiverem inicializado o voto, um interruptor será acionado e o pDAO terá o comando.
 
@@ -23,11 +23,11 @@ Você só precisa fazer isso uma vez. Inicializar o voto garantirá que o poder 
 Em segundo lugar, você vai querer definir seu endereço de sinalização Snapshot. Isso permite que os Node Operators participem de votações Snapshot em seu navegador ou dispositivo móvel sem ter que expor suas chaves de nó a uma carteira quente.
 
 Configurar isso envolve alguns passos, então você vai querer seguir este guia:
-[Definindo seu Endereço de Sinalização Snapshot](../houston/participate#setting-your-snapshot-signalling-address).
+[Definindo seu Endereço de Sinalização Snapshot](../houston/participate#definindo-seu-endereço-de-sinalização-do-snapshot).
 
 ### Delegando Poder de Voto On-Chain
 
-Se você deseja delegar poder de voto on-chain para um membro da comunidade de sua escolha, clique [aqui](../houston/participate#delegating-voting-power) para aprender como.
+Se você deseja delegar poder de voto on-chain para um membro da comunidade de sua escolha, clique [aqui](../houston/participate#delegando-poder-de-voto) para aprender como.
 
 ##
 

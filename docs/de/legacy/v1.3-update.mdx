@@ -23,7 +23,7 @@ Wenn Sie die Smartnode-Konfiguration zuvor manuell geändert haben, sollten Sie 
 - Die YAML-Dateien für `docker-compose` wurden entfernt. Jeder Container erhält jetzt seine eigene Datei im Ordner `templates`. Bei `rocketpool service start` werden diese Templates mit Ihren Einstellungen ausgefüllt und automatisch in den Ordner `runtime` eingefügt.
   - Das Ändern der Templates oder Runtime-Dateien wird nicht empfohlen. Füllen Sie stattdessen Ihre Container-Anpassungen mit den **Override**-Dateien für jeden Container im Ordner `override` ein. Diese Dateien überschreiben die Docker-Dateien in `runtime`, sodass Sie sie nach Belieben anpassen können.
   - Die Dateien in `override` **bleiben bei Smartnode-Upgrades und Neuinstallationen erhalten**, sodass Sie sie nur einmal erstellen müssen.
-  - Wenn Sie daran interessiert sind, die `docker-compose`-Dateien über diesen Override-Mechanismus zu ändern, lesen Sie bitte [diesen Abschnitt](../node-staking/advanced-config#customizing-the-docker-compose-definition-files)
+  - Wenn Sie daran interessiert sind, die `docker-compose`-Dateien über diesen Override-Mechanismus zu ändern, lesen Sie bitte [diesen Abschnitt](../node-staking/advanced-config#anpassen-der-docker-compose-definitionsdateien)
 
 ## Installation der neuen Version
 
@@ -93,7 +93,7 @@ Beginnen Sie wie gewohnt damit, die Dienste zu stoppen und die neue CLI herunter
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">HINWEIS</p>
         Dies aktualisiert nur den Smartnode-Stack selbst - es aktualisiert **nicht** Ihre Execution- und Consensus-Clients.
-        Sie müssen dies manuell tun (siehe [die manuelle Update-Anleitung](../node-staking/updates#manually-updating-the-eth1-or-eth2-client), um zu erfahren, wie das geht).
+        Sie müssen dies manuell tun (siehe [die manuelle Update-Anleitung](../node-staking/updates#manuelles-aktualisieren-des-execution-oder-consensus-clients), um zu erfahren, wie das geht).
       </p>
 
       Stoppen Sie die Rocket-Pool-Dienste:
@@ -195,7 +195,7 @@ Beginnen Sie wie gewohnt damit, die Dienste zu stoppen und die neue CLI herunter
 Nach der Installation werden alle Ihre alten Konfigurationsdateien in einen Ordner namens `old_config_backup` in Ihrem Smartnode-Verzeichnis verschoben (standardmäßig `~/.rocketpool/old_config_backup`).
 Sie können sie dort finden, falls Sie sie jemals aus irgendeinem Grund konsultieren müssen.
 
-**Wenn Sie nach Anweisungen zum Zurückkehren zu v1.2.4 aus diesem Backup suchen, scrollen Sie bitte zum Abschnitt [Zurückkehren zu Ihrer vorherigen Konfiguration](#reverting-to-your-previous-configuration) am Ende dieser Seite.**
+**Wenn Sie nach Anweisungen zum Zurückkehren zu v1.2.4 aus diesem Backup suchen, scrollen Sie bitte zum Abschnitt [Zurückkehren zu Ihrer vorherigen Konfiguration](#zurückkehren-zu-ihrer-vorherigen-konfiguration) am Ende dieser Seite.**
 
 ## Konfiguration der Smartnode mit der Terminal-UI
 

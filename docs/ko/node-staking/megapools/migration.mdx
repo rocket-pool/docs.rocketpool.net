@@ -2,18 +2,15 @@
 
 미니풀 스테이크를 메가풀로 마이그레이션하려는 기존 노드 운영자라면, 이 페이지에서 단계별 가이드를 확인할 수 있습니다. 마이그레이션은 미니풀 종료, 새 메가풀 검증자 생성, 레거시 RPL 언스테이킹, 그 다음 메가풀에 RPL 재스테이킹을 포함합니다. 메가풀 검증자 본드는 4 ETH이므로, 보유한 8 ETH 미니풀 검증자 1개당 메가풀 검증자 2개를 생성할 수 있습니다.
 
-
-프로토콜 ETH 수익의 9%는 메가풀 검증자를 보유한 RPL 스테이커에게 [보터 셰어 보상](/ko/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers) 형태로 비례 배분됩니다.
+프로토콜 ETH 수익의 9%는 메가풀 검증자를 보유한 RPL 스테이커에게 [보터 셰어 보상](/ko/node-staking/megapools/staking-and-claiming-rewards#메가풀-rpl-스테이커에게-투표자-공유-분배-방식) 형태로 비례 배분됩니다.
 이는 기존 표준 RPL 인플레이션 보상에 더해 지급됩니다.
-
-
 
 별도의 단계들이 있습니다:
 
 1. 미니풀 종료. 미니풀을 완전히 종료하고 Beacon Chain에서 전체 잔액을 출금합니다.
 2. 새 메가풀 검증자 생성
 3. [선택 사항] 레거시 RPL 언스테이킹 및 출금
-4. [선택 사항] 메가풀에 RPL 재스테이킹. 이 작업을 수행하면 RPL 인플레이션 보상에 더해 ETH 수익으로부터 [보터 셰어 보상](/ko/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers)을 얻을 수 있습니다.
+4. [선택 사항] 메가풀에 RPL 재스테이킹. 이 작업을 수행하면 RPL 인플레이션 보상에 더해 ETH 수익으로부터 [보터 셰어 보상](/ko/node-staking/megapools/staking-and-claiming-rewards#메가풀-rpl-스테이커에게-투표자-공유-분배-방식)을 얻을 수 있습니다.
 
 미니풀 스테이크를 메가풀로 마이그레이션하기 전에, Rocket Pool 입금 대기열과 Beacon Chain 대기열의 상태를 고려해야 합니다.
 두 대기열 모두 대기 시간이 가변적이며 서로 독립적입니다. Rocket Pool 입금 대기열은 새 메가풀 검증자 생성과 rETH 스테이커의 ETH와 매칭되는 시점을 관리합니다. 한편, Beacon Chain 대기열은 미니풀 검증자가 얼마나 빨리 종료될 수 있는지 결정합니다. 더 중요한 것은, 새 메가풀 검증자가 증명 업무에 참여하기 시작하는 시점도 결정한다는 것입니다.
@@ -40,10 +37,11 @@ B. 미니풀이 Beacon Chain에서 완전히 종료된 후에는, 메가풀 검�
 
 ::: warning 경고
 메가풀 검증자는 Beacon Chain 대기열을 두 번 통과해야 합니다.
+
 1. 프리스테이크 (1 ETH). ETH가 입금 풀에서 메가풀 검증자에 배정될 때, 1 ETH만 Beacon Chain으로 전송됩니다. 이 시점에서 검증자는 Beacon Chain 대기열에 진입합니다.
 2. 스테이크 (31 ETH). 검증자가 Beacon Chain에 의해 처리된 후, Rocket Pool 프로토콜은 검증자의 출금 자격 증명을 확인한 다음 나머지 31 ETH를 Beacon Chain에 스테이킹합니다. 이 시점에서 검증자는 두 번째이자 마지막으로 Beacon Chain 대기열에 진입합니다.
 
-이전에 미니풀에서는 [Oracle DAO (oDAO)](/ko/odao/overview#the-rocket-pool-oracle-dao)가 모든 미니풀 검증자의 출금 자격 증명 확인을 담당했습니다. 이 새로운 시스템은 대기 시간을 늘리지만 oDAO가 시행하는 신뢰 요건을 제거합니다.
+이전에 미니풀에서는 [Oracle DAO (oDAO)](/ko/odao/overview#rocket-pool-oracle-dao)가 모든 미니풀 검증자의 출금 자격 증명 확인을 담당했습니다. 이 새로운 시스템은 대기 시간을 늘리지만 oDAO가 시행하는 신뢰 요건을 제거합니다.
 
 [validatorqueue.com](https://www.validatorqueue.com/)은 Beacon Chain 대기열 길이를 모니터링하는 데 유용한 도구입니다. 미니풀 스테이크를 메가풀로 마이그레이션할 때 이 요소를 고려하시기 바랍니다.
 
@@ -57,9 +55,8 @@ https://docs.rocketpool.net/node-staking/withdraw
 
 이 과정은 Beacon Chain 종료 대기열에 따라 보통 며칠이 소요됩니다. 이 페이지를 북마크하고 완료되면 다시 방문하세요.
 
-[전체 보상 분배](/ko/node-staking/withdraw#distributing-full-rewards)를 통해 미니풀을 완전히 종료하는 것을 잊지 마세요.
+[전체 보상 분배](/ko/node-staking/withdraw#전체-보상-분배)를 통해 미니풀을 완전히 종료하는 것을 잊지 마세요.
 이 작업은 미니풀에서 획득한 보상을 청구하고 레거시 RPL 전체 잔액을 언스테이킹할 수 있게 해줍니다.
-
 
 ## 2단계: 메가풀 검증자 생성
 
@@ -73,16 +70,18 @@ https://docs.rocketpool.net/node-staking/megapools/create-megapool-validator
 이 티켓들은 자동으로 제공됩니다.
 
 Rocket Pool 입금 대기열은 일반 대기열 검증자 1개당 급행 대기열 검증자 4개 비율로 입금을 처리합니다.
-ETH가 새 메가풀 검증자에게 배정되는 방법에 대해 더 알아보려면 [Rocket Pool 입금 대기열 및 급행 대기열](/ko/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-and-express-queue)을 읽어보세요.
+ETH가 새 메가풀 검증자에게 배정되는 방법에 대해 더 알아보려면 [Rocket Pool 입금 대기열 및 급행 대기열](/ko/node-staking/megapools/create-megapool-validator#rocket-pool-입금-대기열-및-급행-대기열)을 읽어보세요.
 
 ## 3단계: 레거시 RPL 언스테이킹 및 출금
 
 최소 레거시 RPL 스테이킹 요건은 미니풀 차용 ETH의 15%입니다. 레거시 RPL 전체 잔액을 언스테이킹하려면, 먼저 모든 미니풀을 종료해야 합니다 (차용 ETH를 0으로 만들기).
 
 준비가 되면 다음 명령어를 사용하여 레거시 RPL을 언스테이킹하고 출금할 수 있습니다:
+
 ```
 rocketpool node withdraw-rpl
 ```
+
 레거시 RPL을 출금하기 전에 28일의 언스테이킹 기간이 있습니다.
 레거시 RPL 언스테이킹 및 출금에 대한 자세한 지침은 다음 링크를 따르세요.
 
@@ -99,6 +98,6 @@ https://docs.rocketpool.net/node-staking/megapools/staking-and-claiming-rewards#
 - 보터 셰어(프로토콜 수익의 9%)는 총 메가풀 RPL 스테이킹 중 각자의 지분에 따라 모든 노드 운영자에게 비례 배분됩니다.
 
 메가풀 검증자를 보유한 RPL 스테이커에게 보터 셰어가 어떻게 분배되는지에 대한 더 자세한 정보는 다음 가이드를 읽어보세요:
-[메가풀 RPL 스테이커에게 보터 셰어가 분배되는 방법](/ko/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers)
+[메가풀 RPL 스테이커에게 보터 셰어가 분배되는 방법](/ko/node-staking/megapools/staking-and-claiming-rewards#메가풀-rpl-스테이커에게-투표자-공유-분배-방식)
 
 이제 완료했습니다! 언제나처럼, 필요하다면 [모니터링 및 유지 관리](/ko/node-staking/maintenance/overview) 가이드를 복습하는 것을 잊지 마세요. 이 섹션은 소프트웨어 업데이트 및 노드 상태 모니터링 방법을 포함하여 노드를 최상의 상태로 유지하는 데 관련된 모든 주제를 다룹니다.

@@ -120,7 +120,7 @@ Das _neue_ Anspruchssystem löst alle diese Probleme.
 
 Bei jedem Intervall erstellt das Oracle DAO gemeinsam einen **echten Snapshot** des Zustands der Node Operators im Rocket Pool-Netzwerk, einschließlich aller ihrer effektiven Stake-Beträge.
 Diese Informationen werden in einem [Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree) zusammengestellt - eine äußerst effiziente Methode, um alle Details für Smart Contracts verfügbar zu machen.
-Der Merkle Tree wird in eine JSON-Datei eingebettet und auf dem [InterPlanetary File System (IPFS)](https://en.wikipedia.org/wiki/InterPlanetary_File_System) gehostet, und die Wurzel des Merkle Tree wird an die Verträge übermittelt.
+Der Merkle Tree wird in eine JSON-Datei eingebettet und auf GitHub gehostet, und die Wurzel des Merkle Tree wird an die Verträge übermittelt.
 
 Dieses neue System hat folgende Eigenschaften:
 

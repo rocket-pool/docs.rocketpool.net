@@ -8,7 +8,7 @@ Smartnodeアラート通知機能により、Rocket Pool Smartnodeの健全性�
 
 ## Discord通知の設定
 
-現在、通知はDiscordチャンネルに送信できます。Discord通知は、Rocket Poolテキストユーザーインターフェース(TUI)の「Monitoring / Alerting」ページ内で設定できます。
+現在、通知はDiscordチャンネルとTelegramチャットに送信できます。Rocket Poolテキストユーザーインターフェース(TUI)の「Monitoring / Alerting」ページで、いずれか一方または両方の送信先を設定できます。
 
 ### Discord Webhook URLの追加:
 
@@ -19,6 +19,30 @@ Smartnodeアラート通知機能により、Rocket Pool Smartnodeの健全性�
 5. 提供されたWebhook URLをコピーします。
 6. Rocket Pool TUI内で、「Monitoring / Alerting」ページに移動します。
 7. コピーしたWebhook URLを指定されたフィールドに貼り付けて、設定を保存します。
+
+## Telegram通知の設定
+
+Telegram通知は、Rocket Poolテキストユーザーインターフェース(TUI)の「Monitoring / Alerting」ページ内で設定できます。Telegram通知はTelegram Bot API経由で送信されます。ボットトークンと数値のチャットIDの両方が必要で、一方だけを入力しても機能しません。
+
+### TelegramボットトークンとチャットIDの追加:
+
+1. Telegramで [@BotFather](https://t.me/BotFather) を開き、新しいボットを作成します。
+2. BotFatherが提供するボットトークンをコピーします(トークンのみ — `bot` プレフィックスは含めないでください)。
+3. アラートの送信先を、自分とのプライベートチャット(DM)、グループ、チャンネルのいずれにするかを決めます。
+4. DMでアラートを受け取りたい場合は、まずボットに `/start` を送信します。次にブラウザで `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates` を開き(`<YOUR_BOT_TOKEN>` はステップ2のトークンに置き換えてください)、`"chat"` オブジェクトを探します:
+
+```json
+"chat": {
+  "id": 123456789,
+  "type": "private"
+}
+```
+
+`"id"` の値が、Telegram Chat IDフィールドに設定すべきチャットIDです。
+
+5. グループまたはチャンネルでアラートを受け取りたい場合は、ボットをメンバーとして追加します(チャンネルの場合、ボットは管理者である必要があります)。グループおよびチャンネルのIDは負の値で、通常 `-100` で始まります。ボットがそのチャットを認識できるようになったら、同じ `getUpdates` URLを使用して数値のチャットIDを確認します。`@mychannel` のようなユーザー名は機能しません。
+6. Rocket Pool TUIで「Monitoring / Alerting」ページに移動します。
+7. ボットトークンと数値のチャットIDを指定されたフィールドに貼り付け、設定を保存します。
 
 ::: tip ヒント
 お気に入りの通知方法が見つかりませんか? Rocket Poolチームは、追加の通知先に関するコミュニティからのフィードバックを積極的に求めています。https://github.com/rocket-pool/smartnode/issuesで新しい通知先を提案してください。

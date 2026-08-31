@@ -64,7 +64,7 @@ Cualquiera que obtenga acceso a estos archivos obtendrá acceso a tu wallet de n
 
 ### Datos de Cadena del Cliente de Consensus
 
-A diferencia de los datos de la capa de Execution, los datos de la capa de Consensus no son tan importantes para tu nodo gracias al [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
+A diferencia de los datos de la capa de Execution, los datos de la capa de Consensus no son tan importantes para tu nodo gracias al [Checkpoint Sync](./config-docker#sincronización-de-punto-de-control-de-beacon-chain).
 Los clientes de Consensus pueden usar fácilmente esta técnica para resincronizar inmediatamente a la cabeza de la cadena Beacon y reanudar las tareas de validación.
 
 ## Respaldo de tus Datos de Cadena de Execution

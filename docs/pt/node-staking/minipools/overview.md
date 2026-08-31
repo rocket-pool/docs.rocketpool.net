@@ -21,7 +21,7 @@ Antes de executar minipools, certifique-se de que você:
 - Instalou o Smartnode [instalado](../installing/overview) e [configurado](../config/overview) nela
 - Tem uma carteira de node carregada no seu Smartnode
 - Sincronizou seus clientes de Execution e Consensus
-- Provisionou seu node com [um endereço de retirada](../prepare-node.mdx#setting-your-withdrawal-address), configurou seus [clientes de fallback](../fallback) (opcional), optou pelo [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (opcional) e configurou [MEV](../mev.mdx)
+- Provisionou seu node com [um endereço de retirada](../prepare-node.mdx#definindo-seu-endereço-de-retirada-primário), configurou seus [clientes de fallback](../fallback) (opcional), optou pelo [Smoothing Pool](../fee-distrib-sp#o-smoothing-pool) (opcional) e configurou [MEV](../mev.mdx)
 
 ## Guias
 

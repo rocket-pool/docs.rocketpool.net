@@ -16,12 +16,12 @@ v1.5.0ではこれらがなくなり、完全なExecution Clientを選択する�
 この変更により、v1.4のままで完全なクライアントに切り替え、同期が完了するまで待ってから、v1.5にアップグレードする必要があります。
 
 DockerモードではクライアントをとてもVery easyに切り替えることができます。
-[このガイド](../../node-staking/change-clients#changing-execution-clients)でプロセスの手順を説明しています。
+[このガイド](../../node-staking/change-clients#executionクライアントの変更)でプロセスの手順を説明しています。
 
 ## v1.5.0へのアップグレード
 
 Smartnodeスタックをv1.5.0にアップグレードすることは、他のアップグレードと変わりません。
-単に[ここの通常の手順](../../node-staking/updates#updating-the-smartnode-stack)に従ってください。
+単に[ここの通常の手順](../../node-staking/updates#smartnodeスタックの更新)に従ってください。
 
 ## Smartnodeが自動的に処理すること
 
@@ -46,7 +46,7 @@ Smartnodeは、Execution ClientとConsensus Clientの両方で認証トークン
 Smartnodeは、v1.5にアップグレードしたときに正しいアドレスに設定することを処理し、[誤ってペナルティを受ける](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)ことがないように、正しいアドレスを使用していることを常に確認します。
 
 [Smoothing Pool](./whats-new#smoothing-pool)にオプトインした場合、それがfee recipientになります。
-オプトインしなかった場合、[fee distributorコントラクト](./whats-new#fee-recipients-and-your-distributor)がfee recipientになります。
+オプトインしなかった場合、[fee distributorコントラクト](./whats-new#fee-recipientとdistributor)がfee recipientになります。
 
 ### MEV-Boost
 
@@ -76,7 +76,7 @@ Smartnodeには依然としてフォールバックExecution Client（および�
 
 ### Fee Distributorの初期化
 
-[Smoothing Pool](./whats-new#smoothing-pool)にオプトインせず、すべてのpriority feesとMEV報酬を[fee distributorコントラクト](./whats-new#fee-recipients-and-your-distributor)に請求する場合、最終的にそれを初期化（チェーン上にコントラクトインスタンスを作成）して、withdrawal addressに報酬を請求できるようにする必要があります。
+[Smoothing Pool](./whats-new#smoothing-pool)にオプトインせず、すべてのpriority feesとMEV報酬を[fee distributorコントラクト](./whats-new#fee-recipientとdistributor)に請求する場合、最終的にそれを初期化（チェーン上にコントラクトインスタンスを作成）して、withdrawal addressに報酬を請求できるようにする必要があります。
 
 これは比較的安価な操作で、一度だけ実行する必要があります。
 
@@ -101,7 +101,7 @@ rocketpool node join-smoothing-pool
 
 ### 報酬の請求
 
-Redstoneアップグレードは、高額で問題のある古い報酬システムを、はるかに安価で、RPLの自動再ステーク（部分的および全額の両方）をサポートし、そして最も重要なことに**いつでも報酬を請求できる**[全く新しいシステム](./whats-new#new-rewards-system)に置き換えます。
+Redstoneアップグレードは、高額で問題のある古い報酬システムを、はるかに安価で、RPLの自動再ステーク（部分的および全額の両方）をサポートし、そして最も重要なことに**いつでも報酬を請求できる**[全く新しいシステム](./whats-new#新しい報酬システム)に置き換えます。
 
 報酬の請求に時間制限がなくなり、多くの報酬インターバルを一度に請求する方がコスト効率が良いため、Smartnodeの自動報酬請求機能は**削除されました**。
 次のコマンドで報酬を請求できるようになります。

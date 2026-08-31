@@ -100,9 +100,9 @@ Recomendamos una unidad con caché **DRAM**.
 :::
 
 La consideración final es el tamaño de la unidad.
-A partir de 10/2024, el tamaño de la base de datos del cliente de ejecución `geth` requiere aproximadamente 1.2TB de espacio después de terminar su sincronización inicial (o después de que acabas de terminar de podarlo).
+A partir de 4/2026, el tamaño de la base de datos del cliente de ejecución `geth` requiere aproximadamente 1.2TB de espacio después de terminar su sincronización inicial (o después de que acabas de terminar de podarlo).
 Esto crecerá constantemente con el tiempo, y aunque la poda puede recuperar algo de ese espacio, el estado recién podado _sí_ crece con el tiempo.
-Tendrás tranquilidad con una unidad más grande.
+Tendrás tranquilidad con una unidad más grande. El tamaño de esta base de datos se puede reducir si [decides no almacenar el historial anterior a la fusión](/node-staking/maintenance/history-expiry).
 
 ### Accesorios Comunes
 

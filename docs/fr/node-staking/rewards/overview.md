@@ -16,11 +16,11 @@ Avant de configurer votre Smartnode, assurez-vous de :
 - Avoir le Smartnode [installé](../installing/overview) et [configuré](../config/overview) dessus
 - Avoir un portefeuille de nœud chargé sur votre Smartnode
 - Synchronisé vos clients d'exécution et de consensus
-- Provisionné votre nœud avec [une adresse de retrait](../prepare-node.mdx#setting-your-withdrawal-address), configuré vos [clients de secours](../fallback) (optionnel), opté pour le [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (optionnel), et configuré [MEV](../mev.mdx)
+- Provisionné votre nœud avec [une adresse de retrait](../prepare-node.mdx#définition-de-votre-adresse-de-retrait-principale), configuré vos [clients de secours](../fallback) (optionnel), opté pour le [Smoothing Pool](../fee-distrib-sp#la-smoothing-pool) (optionnel), et configuré [MEV](../mev.mdx)
 - Créé au moins un [minipool](../create-validator.mdx)
 
 ## Guides
 
 [Réclamation des Récompenses d'Opérateur de Nœud](../rewards) explique comment fonctionnent les récompenses RPL et les récompenses de la couche d'exécution, et comment y accéder.
 
-[Distribution des Récompenses Écrémées](../skimming) couvre l'accès aux récompenses de la Beacon Chain qui sont périodiquement "écrémées" par le protocole et livrées à vos minipools.
+[Distribution des Récompenses Prélevées des Minipools](../skimming) couvre l'accès aux récompenses de la Beacon Chain qui sont périodiquement "écrémées" par le protocole et livrées à vos minipools.

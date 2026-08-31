@@ -14,7 +14,7 @@ import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
 
 本质上，这相当于一种**"反向混合"模式**；Smartnode 不再管理自己的验证者客户端并连接到外部执行客户端和共识客户端，而是管理这三者，外部验证者客户端可以使用其自己的客户端。
 
-使用[设置管理器](./config-docker#configuring-via-the-settings-manager)可以轻松启用此功能。
+使用[设置管理器](./config-docker#通过设置管理器配置)可以轻松启用此功能。
 
 ### 执行客户端
 
@@ -120,9 +120,9 @@ volumes:
 节点守护进程提供一个 HTTP API（默认端口 **8280**），供本地 `rocketpool` CLI 和自定义工具使用。
 可在 `rocketpool service config` 的 **API** 类别中进行配置。Native 模式使用相同的类别。
 
-| 设置 | 用途 |
-|---|---|
-| **API Port** | 监听端口。默认为 `8280`。 |
+| 设置                | 用途                                                                                                                                                                 |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **API Port**        | 监听端口。默认为 `8280`。                                                                                                                                            |
 | **Expose API Port** | **Closed**——不发布端口；在 Docker 下主机上的 CLI 无法访问该 API。**Open to Localhost**（默认）——`127.0.0.1:8280`。**Open to External hosts**——在所有网络接口上发布。 |
 
 更改这些设置需要重启节点容器。设置管理器会为你提示这一点。
@@ -145,12 +145,12 @@ Authorization: Bearer <token>
 查询字符串中的令牌会被忽略。本机上的 `rocketpool` CLI 会从数据目录加载写入令牌并自动发送。
 如果 CLI 返回 `unauthorized`，请将 `-c` 指向守护进程所使用的同一配置目录，或复制该安装的 `data/api-tokens.json`。
 
-| 设置 | 用途 |
-|---|---|
-| **API Token** | 具有写入权限的密钥。格式为 `rpsn_` 后跟 64 个十六进制字符。请像对待密码一样对待它。清空该字段并保存会重新生成令牌。它存储在 `api-tokens.json` 中，而不是 `user-settings.yml` 中。 |
-| **API Token Comment** | 与令牌一起存储的非机密标签。默认为 `rocketpool CLI`。 |
+| 设置                      | 用途                                                                                                                                                                                                                                                                                         |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **API Token**             | 具有写入权限的密钥。格式为 `rpsn_` 后跟 64 个十六进制字符。请像对待密码一样对待它。清空该字段并保存会重新生成令牌。它存储在 `api-tokens.json` 中，而不是 `user-settings.yml` 中。                                                                                                            |
+| **API Token Comment**     | 与令牌一起存储的非机密标签。默认为 `rocketpool CLI`。                                                                                                                                                                                                                                        |
 | **Unauthenticated Reads** | 这是服务器策略，而不是单个令牌的权限。默认为 **Require a token for read routes**：除 `/healthz` 外的每个路由都需要有效的 bearer 令牌。选择 **Allow unauthenticated reads** 后，状态、余额和 `can-*` 估算可以在没有令牌的情况下运行。钱包操作、交易和其他写入路由仍然需要具有写入权限的令牌。 |
-| **API Rate Limit** | 每秒最大请求数。`0` 表示禁用限制（这是默认值）。突发额度等于一秒的配额。超出限制时，API 返回 HTTP 429 并附带 `Retry-After: 1`。 |
+| **API Rate Limit**        | 每秒最大请求数。`0` 表示禁用限制（这是默认值）。突发额度等于一秒的配额。超出限制时，API 返回 HTTP 429 并附带 `Retry-After: 1`。                                                                                                                                                              |
 
 `/healthz` 永远不需要令牌。
 
@@ -230,11 +230,11 @@ curl -s -X POST \
 }
 ```
 
-| 状态 | 响应体 | 触发条件 |
-|---|---|---|
-| 401 | `{"status":"error","error":"unauthorized"}` 以及 `WWW-Authenticate: Bearer` | 缺少令牌或令牌无效 |
-| 403 | `{"status":"error","error":"forbidden"}` | 在写入路由上使用了读取令牌 |
-| 429 | `{"status":"error","error":"too many requests"}` 以及 `Retry-After: 1` | 超出速率限制 |
+| 状态 | 响应体                                                                      | 触发条件                   |
+| ---- | --------------------------------------------------------------------------- | -------------------------- |
+| 401  | `{"status":"error","error":"unauthorized"}` 以及 `WWW-Authenticate: Bearer` | 缺少令牌或令牌无效         |
+| 403  | `{"status":"error","error":"forbidden"}`                                    | 在写入路由上使用了读取令牌 |
+| 429  | `{"status":"error","error":"too many requests"}` 以及 `Retry-After: 1`      | 超出速率限制               |
 
 ## （实验性）启用双栈（IPv4 + IPv6）网络
 
@@ -243,7 +243,6 @@ curl -s -X POST \
 
 启用后，您的共识客户端可以连接到 IPv4 和 IPv6 对等节点，可能改善对等节点发现。
 如果您的网络位于 CGNAT 后端且难以通过 IPv4 进行对等连接，此功能也非常有用。
-
 
 ::: tip 提示
 以下网站提供了以太坊 IPv6 支持状态的概述。
@@ -269,39 +268,40 @@ IPv6 支持目前处于实验阶段。虽然已对所有支持的共识客户端
 
 不同共识客户端对 IPv6 的支持程度各有不同：
 
-| 客户端 | IPv6 监听 | IPv6 广播（ENR） | 对等连接行为 | 备注 |
-|--------|-----------|-----------------|--------------|------|
-| **Teku** | 完整支持 | 完整支持 | 优先 IPv6 | 优先使用 IPv6 连接（如可用）。使用独立 IPv6 端口（默认：9090）。 |
-| **Lighthouse** | 完整支持 | 完整支持 | 无偏好 | 连接到最先响应的地址（IPv4 或 IPv6）。通常约有 1-2% 的 IPv6 对等节点。 |
-| **Lodestar** | 完整支持 | 完整支持 | 优先 IPv4 | 同时监听和广播 IPv4 和 IPv6，但仅在对方节点禁用 IPv4 时才通过 IPv6 对等连接。 |
-| **Nimbus** | 完整支持 | 仅 IPv4* | 主要使用 IPv4 | 可接受入站 IPv6 连接，但在 ENR 中仅广播 IPv4。 |
-| **Prysm** | 完整支持 | 仅 IPv4* | 主要使用 IPv4 | 可接受入站 IPv6 连接，但在 ENR 中仅广播 IPv4。 |
+| 客户端         | IPv6 监听 | IPv6 广播（ENR） | 对等连接行为  | 备注                                                                          |
+| -------------- | --------- | ---------------- | ------------- | ----------------------------------------------------------------------------- |
+| **Teku**       | 完整支持  | 完整支持         | 优先 IPv6     | 优先使用 IPv6 连接（如可用）。使用独立 IPv6 端口（默认：9090）。              |
+| **Lighthouse** | 完整支持  | 完整支持         | 无偏好        | 连接到最先响应的地址（IPv4 或 IPv6）。通常约有 1-2% 的 IPv6 对等节点。        |
+| **Lodestar**   | 完整支持  | 完整支持         | 优先 IPv4     | 同时监听和广播 IPv4 和 IPv6，但仅在对方节点禁用 IPv4 时才通过 IPv6 对等连接。 |
+| **Nimbus**     | 完整支持  | 仅 IPv4\*        | 主要使用 IPv4 | 可接受入站 IPv6 连接，但在 ENR 中仅广播 IPv4。                                |
+| **Prysm**      | 完整支持  | 仅 IPv4\*        | 主要使用 IPv4 | 可接受入站 IPv6 连接，但在 ENR 中仅广播 IPv4。                                |
 
 \* 默认广播 IPv4 地址。在仅 IPv6 的主机上，将广播 IPv6。
-
 
 ### 前提条件
 
 启用 IPv6 之前，请确保：
 
 1. 您的 ISP/主机提供 IPv6 连接 - 通过 [ipv6test.google.com/](https://ipv6test.google.com/) 测试，
-或在 CLI 中运行此命令：`curl -6 https://icanhazip.com`。如果命令返回如下格式的 IPv6 地址：`xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx`，则表示可以正常使用。
+   或在 CLI 中运行此命令：`curl -6 https://icanhazip.com`。如果命令返回如下格式的 IPv6 地址：`xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx`，则表示可以正常使用。
 2. 您的防火墙允许共识客户端 P2P 端口上的 IPv6 流量。默认 P2P 端口为 `9001`。Teku 需要一个额外的专用 IPv6 端口，默认 Teku P2P IPv6 端口为 `9090`。
 3. 您在 Docker 模式下使用本地管理的客户端（非外部管理的客户端）
 
 ### 如何启用 IPv6
 
-
 要启用 IPv6，请转到 Smart Node 和 TX 费用类别，
 勾选 **Enable IPv6** 复选框，然后保存并重启 Smart Node 堆栈。
+
 <img src={tui_enable_ipv6} width="100%" height="auto" />
 
 ::: warning 注意
 如果您启用了 IPv6 但没有公共 IPv6 地址，Smart node 将在启动时显示警告：
+
 ```
 Warning: IPv6 is enabled but no public IPv6 address was detected.
 Your node will not be reachable by IPv6 peers.
 ```
+
 您的节点将继续正常使用 IPv4 工作。
 :::
 

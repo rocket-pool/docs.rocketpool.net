@@ -6,7 +6,7 @@
 
 ### 初始化投票权
 
-首先,如果您是**节点运营者**,最重要的步骤是[初始化投票](../houston/participate#initializing-voting)以解锁您的投票权。已初始化投票的节点将被计入网络总投票权的计算中。
+首先,如果您是**节点运营者**,最重要的步骤是[初始化投票](../houston/participate#初始化投票)以解锁您的投票权。已初始化投票的节点将被计入网络总投票权的计算中。
 
 在 Houston 创世时,pDAO 投票被禁用,直到足够数量的节点初始化了投票。这是为了防止在总投票权和法定人数较低时恶意提案通过。在足够多的节点初始化投票后,开关将被打开,pDAO 将掌舵。
 
@@ -23,11 +23,11 @@ rocketpool pdao initialize-voting
 其次,您需要设置 Snapshot 信号地址。这允许节点运营者在浏览器或移动设备中参与 Snapshot 投票,而无需将其节点密钥暴露给热钱包。
 
 设置此功能涉及几个步骤,因此您需要遵循本指南:
-[设置您的 Snapshot 信号地址](../houston/participate#setting-your-snapshot-signalling-address)。
+[设置您的 Snapshot 信号地址](../houston/participate#设置您的-snapshot-信号地址)。
 
 ### 委托链上投票权
 
-如果您想将链上投票权委托给您选择的社区成员,请点击[此处](../houston/participate#delegating-voting-power)了解如何操作。
+如果您想将链上投票权委托给您选择的社区成员,请点击[此处](../houston/participate#委托投票权)了解如何操作。
 
 ##
 

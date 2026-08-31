@@ -18,7 +18,7 @@ Bu ETH likit hale _getirilmez_ ve node operatörüne iade edilmez; bunun yerine,
 Kredi sistemi node operatörü için **şeffaftır**; mümkünse `rocketpool node deposit` veya `rocketpool node create-vacant-minipool` işlemleri sırasında otomatik olarak kullanılacaktır (Smartnode CLI'da kullanılacağını açıklayan bildirimlerle).
 Eğer kullanıla*mazsa*, Smartnode kullanıcıya kullanılamayacağını bildirecek ve her iki işlem için de normal bir ETH bağı gerektirecektir.
 
-Daha fazla ayrıntı için aşağıdaki [Kredi Kullanılabilirliği](#kredi-kullanilabilirligi) bölümüne bakın.
+Daha fazla ayrıntı için aşağıdaki [Kredi Kullanılabilirliği](#kredi-kullanılabilirliği) bölümüne bakın.
 
 ## Bir Örnek
 
@@ -47,7 +47,7 @@ Your consensus client is synced, you may safely create a minipool.
 
 Buradaki ikinci satır seti ilgili olandır: bu depoziti karşılamak için kredi bakiyenizde yeterli ETH'ye sahip olduğunuzu _ve kullanılabilir olduğunu_ söyler, bu nedenle bakiyeyi otomatik olarak kullanacak ve node cüzdanınızdan herhangi bir ek ETH gerektirmeyecektir.
 
-Kredi bakiyesi kullanılabilirliği hakkında ayrıntılar için [aşağıdaki kullanılabilirlik bölümüne](#kredi-kullanilabilirligi) bakın.
+Kredi bakiyesi kullanılabilirliği hakkında ayrıntılar için [aşağıdaki kullanılabilirlik bölümüne](#kredi-kullanılabilirliği) bakın.
 
 ## Mevcut Kredi Bakiyenizi Görüntüleme
 

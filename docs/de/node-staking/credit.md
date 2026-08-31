@@ -18,7 +18,7 @@ Dieses ETH wird _nicht_ liquide gemacht und an den Node-Betreiber zurückgegeben
 Das Credit-System ist **transparent** für den Node-Betreiber; es wird automatisch verwendet (mit Benachrichtigungen in der Smartnode-CLI, die erklären, dass es verwendet wird) während der Operationen `rocketpool node deposit` oder `rocketpool node create-vacant-minipool`, falls möglich.
 Wenn es _nicht_ verwendet werden kann, wird der Smartnode den Benutzer darauf hinweisen, dass es nicht verwendet werden kann und bei beiden Operationen eine normale ETH-Einzahlung erforderlich ist.
 
-Weitere Details finden Sie im Abschnitt [Credit-Verfügbarkeit](#credit-verfugbarkeit) unten.
+Weitere Details finden Sie im Abschnitt [Credit-Verfügbarkeit](#credit-verfügbarkeit) unten.
 
 ## Ein Beispiel
 
@@ -47,7 +47,7 @@ Your consensus client is synced, you may safely create a minipool.
 
 Die zweite Zeile hier ist die relevante: Sie teilt Ihnen mit, dass Sie genug ETH in Ihrem Credit-Saldo haben, um diese Einzahlung zu decken _und dass es zur Verwendung verfügbar ist_, sodass es den Saldo automatisch verwendet und keine zusätzlichen ETH von Ihrem Node-Wallet benötigt.
 
-Weitere Details zur Verfügbarkeit des Credit-Saldos finden Sie [im Verfügbarkeitsabschnitt unten](#credit-verfugbarkeit).
+Weitere Details zur Verfügbarkeit des Credit-Saldos finden Sie [im Verfügbarkeitsabschnitt unten](#credit-verfügbarkeit).
 
 ## Anzeigen Ihres aktuellen Credit-Saldos
 

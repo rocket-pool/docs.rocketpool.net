@@ -8,14 +8,14 @@ ETH를 회수하고 RPL 잠금을 해제하여 unstake할 수 있도록 아래 �
 
 이 프로세스를 수행할 때 최신 minipool delegate를 사용하는 것이 좋습니다. 이전 delegate에는
 닫힐 때 `selfdestruct` 작업이 포함되어 있어 프로세스가 지정된 순서대로 올바르게 완료되지 않으면
-자금이 영원히 잠길 수 있습니다. [Delegate 업그레이드](./minipools/delegates#upgrading-your-delegate)를 시도하여
+자금이 영원히 잠길 수 있습니다. [Delegate 업그레이드](./minipools/delegates#delegate-업그레이드)를 시도하여
 minipool이 최신 delegate에 있는지 확인할 수 있습니다. minipool이 업그레이드할 수 있는 minipool 목록에 나타나지 않으면
 아래로 계속 진행할 수 있습니다.
 
 ## 사용하지 않은 예치 잔액 회수하기
 
 ::: tip 참고
-minipool이 Atlas 이전에 dissolved된 경우 이 단계를 건너뛰고 [Beaconchain 잔액을 32 ETH로 늘리기](#increase-your-beaconchain-balance-to-32-eth)로 바로 이동할 수 있습니다.
+minipool이 Atlas 이전에 dissolved된 경우 이 단계를 건너뛰고 [Beaconchain 잔액을 32 ETH로 늘리기](#beaconchain-잔액을-32-eth로-늘리기)로 바로 이동할 수 있습니다.
 Atlas 이전에는 전체 본드 금액이 beaconchain에 예치되었기 때문에 사용하지 않은 예치 잔액을 회수할 필요가 없습니다.
 :::
 
@@ -23,7 +23,7 @@ Atlas 이전에는 전체 본드 금액이 beaconchain에 예치되었기 때문
 나머지 금액은 예치 풀에서 ETH가 할당될 때 minipool에 예치됩니다.
 
 minipool이 dissolved되면 사용자 ETH는 예치 풀로 반환되고 ETH는 귀하에게 반환될 준비가 된 minipool에 남아 있습니다.
-[수동 분배](./skimming#manual-distribution) 보상 기능을 사용하여 이 ETH를 회수한 다음 다음 단계에서 validator를 활성화하는 데 사용할 수 있습니다.
+[수동 분배](./skimming#수동-분배) 보상 기능을 사용하여 이 ETH를 회수한 다음 다음 단계에서 validator를 활성화하는 데 사용할 수 있습니다.
 
 ## Beaconchain 잔액을 32 ETH로 늘리기
 
@@ -74,7 +74,7 @@ validator를 수동으로 다시 시작하여 validator 키를 로드하고 복�
 
 ### Validator 종료하기
 
-validator가 최소 256 epoch 동안 활성화되면 [Validator 종료](./withdraw#exiting-your-validator) 가이드를 따라
+validator가 최소 256 epoch 동안 활성화되면 [Validator 종료](./withdraw#검증자-종료) 가이드를 따라
 다른 minipool과 동일한 프로세스를 통해 minipool을 종료할 수 있습니다.
 
 전체 32 ETH 잔액이 minipool로 반환되고 dissolved된 minipool은 잔액의 100%를 node operator의 출금 주소에 분배합니다.

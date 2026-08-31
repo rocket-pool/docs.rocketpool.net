@@ -21,7 +21,7 @@ Bevor Sie Minipools betreiben, stellen Sie bitte sicher, dass Sie:
 - Den Smartnode darauf [installiert](../installing/overview) und [konfiguriert](../config/overview) haben
 - Ein Node Wallet auf Ihrem Smartnode geladen haben
 - Ihre Execution und Consensus Clients synchronisiert haben
-- Ihren Node mit [einer Withdrawal Address](../prepare-node.mdx#setting-your-withdrawal-address) ausgestattet, Ihre [Fallback Clients](../fallback) eingerichtet (optional), sich für den [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) angemeldet (optional) und [MEV](../mev.mdx) konfiguriert haben
+- Ihren Node mit [einer Withdrawal Address](../prepare-node.mdx#ihre-primäre-auszahlungsadresse-festlegen) ausgestattet, Ihre [Fallback Clients](../fallback) eingerichtet (optional), sich für den [Smoothing Pool](../fee-distrib-sp#der-smoothing-pool) angemeldet (optional) und [MEV](../mev.mdx) konfiguriert haben
 
 ## Leitfäden
 

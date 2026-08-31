@@ -24,7 +24,7 @@ Eine praktische visuelle Darstellung dieses Prozesses finden Sie auf der [Rocket
 
 ## Voraussetzung
 
-Bitte lesen Sie den [Lebenszyklus eines Vorschlags](/de/legacy/houston/pdao#lifecycle-of-a-pdao-proposal), bevor Sie fortfahren. Er erklärt die Unterschiede zwischen allen Abstimmungsperioden und den Aktionen, die während jeder Periode durchgeführt werden können.
+Bitte lesen Sie den [Lebenszyklus eines Vorschlags](/de/legacy/houston/pdao#lebenszyklus-eines-pdao-vorschlags), bevor Sie fortfahren. Er erklärt die Unterschiede zwischen allen Abstimmungsperioden und den Aktionen, die während jeder Periode durchgeführt werden können.
 
 Der Rest dieser Seite führt Sie durch die erforderlichen Schritte zur Teilnahme an on-chain pDAO-Vorschlägen.
 
@@ -60,7 +60,7 @@ Please type `direct` or `delegate` to continue:
 ```
 
 - Wenn Sie mit `direct` antworten, wird die Abstimmungskraft auf Ihre Node initialisiert und Sie können direkt über Protocol DAO-Vorschläge abstimmen.
-- Wenn Sie mit `delegate` antworten, haben Sie die Möglichkeit, etwas Gas zu sparen, indem Sie die Abstimmung initialisieren und [einen Delegierten festlegen](/de/legacy/houston/participate#delegating-voting-power) innerhalb derselben Transaktion.
+- Wenn Sie mit `delegate` antworten, haben Sie die Möglichkeit, etwas Gas zu sparen, indem Sie die Abstimmung initialisieren und [einen Delegierten festlegen](/de/legacy/houston/participate#abstimmungskraft-delegieren) innerhalb derselben Transaktion.
 
 Sie müssen dies nur einmal tun. Es konfiguriert die anfänglichen Snapshot-Informationen für eine Node. Nachdem Sie die Abstimmung initialisiert haben, aktualisiert jede durchgeführte Aktion die Snapshot-Informationen Ihrer Node. Sobald Ihre Abstimmungskraft initialisiert ist, können Sie überprüfen, wie viel Sie haben, indem Sie den folgenden Smartnode-Befehl verwenden:
 
@@ -185,13 +185,13 @@ Wenn Sie ein Node-Betreiber mit delegierter Abstimmungskraft sind, müssen Sie w
 
 Um berechtigt zu sein, einen Vorschlag einzubringen, muss eine Node einige Anforderungen erfüllen:
 
-- Im Snapshotting enthalten (entweder durch [Abstimmung initialisieren](/de/legacy/houston/participate#initializing-voting) oder durch Registrierung nach Houston)
+- Im Snapshotting enthalten (entweder durch [Abstimmung initialisieren](/de/legacy/houston/participate#abstimmung-initialisieren) oder durch Registrierung nach Houston)
 - Muss mindestens einen Minipool haben
 - Hat eine von Null verschiedene Abstimmungskraft
-- Hat [RPL-Sperrung erlaubt](/de/legacy/houston/participate#allowing-rpl-locking)
+- Hat [RPL-Sperrung erlaubt](/de/legacy/houston/participate#rpl-sperrung-erlauben)
 - Hat einen RPL-Stake (abzüglich bereits gesperrtem RPL), der größer ist als die Vorschlagsbindung
 
-Vorschläge existieren, um Parameter zu ändern und Code auf Protokollebene auszuführen! Es sollte Diskussion und Konsens durch den [Governance](/de/legacy/houston/participate#governance-process)-Prozess geben, bevor ein Vorschlag on-chain erstellt wird.
+Vorschläge existieren, um Parameter zu ändern und Code auf Protokollebene auszuführen! Es sollte Diskussion und Konsens durch den [Governance](/de/legacy/houston/participate#governance-prozess)-Prozess geben, bevor ein Vorschlag on-chain erstellt wird.
 
 Verwenden Sie den Befehl `rocketpool pdao propose`, um ein Menü mit Optionen aufzurufen
 
@@ -262,7 +262,7 @@ Jedem Vorschlag wird eine `proposalID` zugewiesen. In diesem Fall wird unser Vor
 
       ```
 
-      Hier können wir sehen, dass unser Vorschlag `invite test-member` eine ID von 71 hat und sich im ausstehenden Zustand befindet. In diesem Zustand können [Anfechtende](/de/legacy/houston/pdao#challenge-process) die Gültigkeit des vom Einbringer bereitgestellten Merkle Pollard (zur Berechnung der Abstimmungskraft) bestreiten. Wenn `proposal.vote.delay.time` endet, geht der Vorschlag in aktive Abstimmungsphasen über. Sie können gerne [Lebenszyklus eines Vorschlags](/de/legacy/houston/pdao#lifecycle-of-a-pdao-proposal) zur Auffrischung lesen.
+      Hier können wir sehen, dass unser Vorschlag `invite test-member` eine ID von 71 hat und sich im ausstehenden Zustand befindet. In diesem Zustand können [Anfechtende](/de/legacy/houston/pdao#challenge-process) die Gültigkeit des vom Einbringer bereitgestellten Merkle Pollard (zur Berechnung der Abstimmungskraft) bestreiten. Wenn `proposal.vote.delay.time` endet, geht der Vorschlag in aktive Abstimmungsphasen über. Sie können gerne [Lebenszyklus eines Vorschlags](/de/legacy/houston/pdao#lebenszyklus-eines-pdao-vorschlags) zur Auffrischung lesen.
     </Tab>
     <Tab label="Vorschlagsdetails anzeigen">
       Jetzt, da Sie die Vorschlags-ID haben, können Sie den Status Ihres Vorschlags mit diesem Befehl anzeigen:

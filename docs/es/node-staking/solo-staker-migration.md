@@ -28,8 +28,8 @@ La migración no es para todos, pero los validadores megapool de Rocket Pool dis
 
 - **Ganan comisión** sobre la porción de ETH que toman prestada de los stakers del pool (28 ETH por validador).
 - Tu stake existente de 32 ETH podría usarse para crear hasta **ocho validadores megapool** (con el bono actual de 4 ETH cada uno), ganando comisión sobre hasta 224 ETH de ETH prestado.
-- Son elegibles para participar en el [Smoothing Pool](/es/node-staking/fee-distrib-sp#the-smoothing-pool), que agrupa todas las recompensas de la capa de ejecución (por ejemplo, de propuestas de bloques y [recompensas MEV](/es/node-staking/mev)) y las distribuye de forma justa entre los participantes durante cada intervalo de recompensas.
-- Si stakeas RPL en tu megapool, ganarás [recompensas de voter share](/es/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers) (una parte de los ingresos de ETH del protocolo) además de las recompensas de inflación de RPL, junto con poder de voto en la [gobernanza del pDAO](/es/pdao/overview). El staking de RPL es totalmente opcional.
+- Son elegibles para participar en el [Smoothing Pool](/es/node-staking/fee-distrib-sp#el-smoothing-pool), que agrupa todas las recompensas de la capa de ejecución (por ejemplo, de propuestas de bloques y [recompensas MEV](/es/node-staking/mev)) y las distribuye de forma justa entre los participantes durante cada intervalo de recompensas.
+- Si stakeas RPL en tu megapool, ganarás [recompensas de voter share](/es/node-staking/megapools/staking-and-claiming-rewards#cómo-se-distribuye-el-voter-share-a-los-stakers-de-rpl-del-megapool) (una parte de los ingresos de ETH del protocolo) además de las recompensas de inflación de RPL, junto con poder de voto en la [gobernanza del pDAO](/es/pdao/overview). El staking de RPL es totalmente opcional.
 
 Dicho esto, hay algunas diferencias importantes que conviene destacar:
 
@@ -37,7 +37,7 @@ Dicho esto, hay algunas diferencias importantes que conviene destacar:
 - La operación de nodo convencional utiliza el **stack Smartnode**; tendrás que aceptar los riesgos asociados con instalar y ejecutar ese software en tu nodo.
 - Ser operador de nodo implica aprender algunos conceptos nuevos, por lo que existe una **curva de aprendizaje** asociada.
 - Los validadores megapool comparten sus recompensas con los stakers del pool, por lo que la dirección de retiro de tus validadores será tu contrato megapool en la capa de ejecución, **no una EOA que tú controles**. Esto también aplica a tu **fee recipient** para las recompensas de la capa de ejecución.
-- **Tu capital no genera nada mientras está en tránsito.** Entre la salida de tu validador solo y la activación de tus validadores megapool no ganarás recompensas. Los nuevos validadores megapool deben pasar por la cola de depósitos de Rocket Pool _y_ por la cola de la Beacon Chain antes de comenzar a atestiguar, así que lee la sección **Consideraciones de tiempo** más abajo antes de salir de nada.
+- **Tu capital no genera nada mientras está en tránsito.** Entre la salida de tu validador solo y la activación de tus validadores megapool no ganarás recompensas. Los nuevos validadores megapool deben pasar por la cola de depósitos de Rocket Pool _y_ por la cola de la Beacon Chain antes de comenzar a atestiguar, así que lee la sección [Consideraciones de tiempo](#consideraciones-de-tiempo) más abajo antes de salir de nada.
 
 Te animamos a revisar cuidadosamente estos pros y contras antes de decidirte a migrar.
 Si deseas continuar con el proceso, los pasos se describen a continuación.
@@ -52,7 +52,7 @@ El primer paso es salir de tu validador solo de la Beacon Chain y retirar su sal
 
 ::: warning ADVERTENCIA
 Una salida voluntaria es **irreversible**. Una vez que tu validador ha salido, no podrá volver a validar nunca - el único camino de regreso es crear un validador nuevo.
-Asegúrate de haber leído esta página completa (especialmente la sección **Consideraciones de tiempo**) antes de salir.
+Asegúrate de haber leído esta página completa (especialmente la sección [Consideraciones de tiempo](#consideraciones-de-tiempo)) antes de salir.
 :::
 
 [validatorqueue.com](https://www.validatorqueue.com/) es un sitio útil para consultar la longitud actual de la cola de salida de la Beacon Chain.
@@ -62,7 +62,7 @@ Asegúrate de haber leído esta página completa (especialmente la sección **Co
 Mientras esperas a que se procese tu salida, puedes ir preparando tu nodo de Rocket Pool.
 
 Si eres nuevo en la operación de nodos de Rocket Pool, comienza con la [guía del Operador de Nodo](/es/node-staking/responsibilities), que cubre todo, desde la selección de hardware hasta la [instalación del stack Smartnode](/es/node-staking/installing/overview) y el [registro de tu nodo](/es/node-staking/prepare-node).
-Como has estado ejecutando tu propio validador, gran parte de esto te resultará familiar - y si ya ejecutas tus propios clientes de Ejecución y Consenso, puede interesarte la [configuración híbrida con clientes externos](/es/node-staking/install-modes#the-hybrid-configuration-with-external-clients).
+Como has estado ejecutando tu propio validador, gran parte de esto te resultará familiar - y si ya ejecutas tus propios clientes de Ejecución y Consenso, puede interesarte la [configuración híbrida con clientes externos](/es/node-staking/install-modes#la-configuración-híbrida-con-clientes-externos).
 
 ## Paso 3: Crea tus validadores megapool
 
@@ -92,7 +92,7 @@ No ganas recompensas desde el momento en que tu validador solo sale hasta que tu
 [validatorqueue.com](https://www.validatorqueue.com/) es un sitio útil para consultar la longitud de la cola de la Beacon Chain. Esta cola depende de la cantidad de ETH que entra y sale de la Beacon Chain.
 :::
 
-Si la cola de depósitos resulta ser más larga de lo que te gustaría, puedes [sacar un validador de la cola de depósitos de Rocket Pool](/es/node-staking/megapools/create-megapool-validator#exit-a-validator-from-the-rocket-pool-deposit-queue) en cualquier momento antes de que se le asigne ETH y recibir tu bono de vuelta como [crédito de depósito](/es/node-staking/megapools/credit), canjeable por rETH.
+Si la cola de depósitos resulta ser más larga de lo que te gustaría, puedes [sacar un validador de la cola de depósitos de Rocket Pool](/es/node-staking/megapools/create-megapool-validator#salir-de-un-validador-de-la-cola-de-depósitos-de-rocket-pool) en cualquier momento antes de que se le asigne ETH y recibir tu bono de vuelta como [crédito de depósito](/es/node-staking/megapools/credit), canjeable por rETH.
 
 ## Alternativa: hacer staking sin operar un nodo
 

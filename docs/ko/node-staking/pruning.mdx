@@ -3,8 +3,10 @@ import { Tab, Tabs } from "@rspress/core/theme";
 # Execution Client 정리하기
 
 ::: tip 참고
-이것은 `geth` 및 `nethermind` 사용자를 위한 것입니다.
-Besu는 정리할 필요가 _없습니다_.
+이 페이지는 `geth` 및 `nethermind`를 위한 **오프라인 / 온라인 가지치기** 경로입니다(`rocketpool service prune-eth1`).
+
+디스크 사용량을 관리하는 일반적인 방법은 **Rolling History Expiry**(기본 Pruning Mode)입니다. Nethermind, Besu, Reth 및 Erigon은 약 1년보다 오래된 바디와 영수증을 삭제하며, Geth는 대신 Prague 이전 히스토리 만료를 사용합니다. [Execution 클라이언트 히스토리 만료](./maintenance/history-expiry)를 참조하세요.
+
 :::
 
 기본 Execution client로 `geth` 또는 `nethermind`를 사용하는 경우, 노드의 여유 디스크 공간이 시간이 지남에 따라 천천히 감소하는 것을 알 수 있습니다.
@@ -173,3 +175,25 @@ Execution client를 정리하는 방법을 알아보려면 Execution client의 �
 
   </Tabs>
 </div>
+
+## Geth를 Pebble v2로 마이그레이션하기
+
+**Geth**를 실행 중이고 데이터베이스가 여전히 Pebble v1이라면, 다음 명령으로 제자리에서 마이그레이션할 수 있습니다:
+
+```shell
+rocketpool service migrate-geth
+```
+
+이 명령은 Geth를 종료하고 Pebble v1 → v2로 마이그레이션한 다음 다시 시작합니다. `prune-eth1`과는 **다르며**, 명령 이름은 **`migrate-geth`**입니다(`migrate-eth1`이 아닙니다).
+
+::: warning 경고
+마이그레이션이 진행되는 동안 Geth는 오프라인 상태입니다. [폴백 노드](./fallback)가 없으면 마이그레이션이 끝날 때까지 증명과 블록 제안을 놓치게 됩니다.
+:::
+
+프롬프트를 확인하거나 `--yes`를 전달하여 건너뛰세요. 진행 상황은 다음 명령으로 확인합니다:
+
+```shell
+rocketpool service logs eth1
+```
+
+마이그레이션이 완료될 때까지 컨테이너를 중단하지 마세요.

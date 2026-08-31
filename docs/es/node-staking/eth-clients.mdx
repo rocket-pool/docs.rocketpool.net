@@ -45,7 +45,7 @@ Las opciones a continuación ayudan a describir cada cliente para que pueda toma
 
 ## Clientes de Ejecución
 
-Rocket Pool admite cuatro clientes de Ejecución diferentes: **Geth**, **Besu**, **Nethermind** y **Reth**.
+Rocket Pool admite cinco clientes de Ejecución: **Geth**, **Besu**, **Nethermind**, **Reth** y **Erigon**.
 
 Ejecutar un cliente de Ejecución implica almacenar una copia de la blockchain de la capa de Ejecución en su máquina.
 Interactúa a través de comunicaciones peer-to-peer con otros nodos EC para registrar y verificar nuevos bloques y transacciones.
@@ -60,7 +60,7 @@ Geth es el Cliente de Ejecución más antiguo y más utilizado en todo el mundo.
 Tiene una reputación de ser muy estable y confiable.
 
 Es multihilo, lo que significa que puede aprovechar toda su CPU.
-Su uso de RAM es configurable, hasta un **mínimo de aproximadamente 4 GB para Mainnet**.
+Su requisito mínimo de RAM es de 8 GB, pero se recomiendan 16 GB.
 Esto lo hace viable tanto para sistemas de baja potencia como para sistemas de alta potencia.
 
 ::: warning NOTA
@@ -113,14 +113,27 @@ Como el cliente más nuevo en el ecosistema, Reth está evolucionando rápidamen
 es, con mucho, el disco. Sugerimos usar un buen [disco TLC](https://gist.github.com/yorickdowne/f3a3e79a573bf35767cd002cc977b038).
 Reth requiere **al menos 8 GB de RAM** para un nodo completo o **16 GB de RAM** para un nodo de archivo.
 
+### Erigon
+
+[Erigon](https://erigon.tech/) es un cliente de Ejecución escrito en [Go](https://go.dev/). Utiliza una arquitectura de staged-sync y puede descargar instantáneas por BitTorrent en el primer arranque, lo que hace que la sincronización inicial sea comparativamente rápida si el puerto torrent es accesible.
+
+En el Administrador de Configuración, Erigon expone un **Torrent Port** (por defecto `42069`, TCP y UDP) además del puerto P2P habitual (`30303`). Redirige ambos si quieres que la sincronización por instantáneas y el emparejamiento funcionen bien desde fuera de tu LAN.
+
+Erigon admite **Rolling History Expiry** (descartar cuerpos y recibos de más de un año de antigüedad aproximadamente). **No** admite la History Expiry limitada a pre-merge; si eliges ese modo, conserva el historial de bloques restante con la poda de estado del modo completo. Si lo ejecutas como **nodo completo**, conserva los recibos.
+
+Como con los demás clientes, las necesidades de RAM son flexibles y la calidad del disco importa. Abre los puertos torrent y P2P en tu router (y en el firewall del host) igual que harías para el `30303` de Geth.
+
 ### Tabla Comparativa de Clientes
 
-| Cliente    | Tipo     | Uso de CPU | Uso Mínimo de RAM | Tiempo de Sincronización |
-| ---------- | -------- | ---------- | ----------------- | ------------------------ |
-| Geth       | Completo | Moderado   | 4 GB              | Moderado                 |
-| Besu       | Completo | Moderado   | 6 GB              | Lento                    |
-| Nethermind | Completo | Moderado   | 16 GB             | Rápido                   |
-| Reth       | Completo | Moderado   | 8 GB              | Rápido                   |
+| Cliente    | Tipo     | Uso de RAM |
+| ---------- | -------- | ---------- |
+| Geth       | Completo | ~8 GB      |
+| Besu       | Completo | ~10 GB     |
+| Nethermind | Completo | ~7-15 GB   |
+| Reth       | Completo | ~14 GB     |
+| Erigon     | Completo | ~10 GB     |
+
+_Datos de uso de RAM obtenidos de [eth-docker](https://ethdocker.com/Usage/ResourceUsage/). El uso real puede variar según la configuración y las condiciones de la red._
 
 ## Clientes de Consenso
 
@@ -157,7 +170,7 @@ El nicho de Lodestar está en su lenguaje de implementación, [Typescript](https
 ### Nimbus
 
 [Nimbus](https://nimbus.team/) es una implementación de cliente tanto para Ethereum 2.0 como para Ethereum 1.0 que se esfuerza por ser lo más liviano posible en términos de recursos utilizados.
-Esto le permite funcionar bien en sistemas embebidos y dispositivos con recursos restringidos.
+Esto le permite funcionar bien en sistemas embebidos y dispositivos con recursos restringidos. Si planeas ejecutar un par de clientes de Ejecución y Consenso con 16GB de RAM en total en tu nodo, se recomienda nimbus.
 
 Sin embargo, el hardware con recursos restringidos no es lo único para lo que Nimbus es bueno.
 Su bajo consumo de recursos hace que sea fácil ejecutar Nimbus junto con otras cargas de trabajo en su servidor (esto es especialmente valioso para los stakers que buscan reducir el costo de sus instancias de servidor).
@@ -179,10 +192,12 @@ Teku tiene licencia Apache 2.0 y está escrito en Java, un lenguaje notable por 
 
 ### Tabla Comparativa de Clientes
 
-| Cliente    | Uso de CPU | Uso Mínimo de RAM | Tiempo de Sincronización                  |
-| ---------- | ---------- | ----------------- | ----------------------------------------- |
-| Lighthouse | Moderado   | 2 GB              | Instantáneo con sincronización checkpoint |
-| Lodestar   | Moderado   | 4 GB              | Instantáneo con sincronización checkpoint |
-| Nimbus     | Bajo       | 0.75 GB           | Instantáneo con sincronización checkpoint |
-| Prysm      | Moderado   | 2 GB              | Instantáneo con sincronización checkpoint |
-| Teku       | Moderado   | 4 GB              | Instantáneo con sincronización checkpoint |
+| Cliente    | Uso de RAM | Tiempo de Sincronización                  |
+| ---------- | ---------- | ----------------------------------------- |
+| Lighthouse | ~14 GB     | Instantáneo con sincronización checkpoint |
+| Lodestar   | ~12 GB     | Instantáneo con sincronización checkpoint |
+| Nimbus     | ~5 GB      | Instantáneo con sincronización checkpoint |
+| Prysm      | ~9 GB      | Instantáneo con sincronización checkpoint |
+| Teku       | ~10 GB     | Instantáneo con sincronización checkpoint |
+
+_Datos de uso de RAM obtenidos de [eth-docker](https://ethdocker.com/Usage/ResourceUsage/). El uso real puede variar según la configuración y las condiciones de la red._

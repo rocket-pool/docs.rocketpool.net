@@ -31,7 +31,7 @@ Prima di cambiare il tuo Execution client, vale la pena notare i seguenti punti:
 Il primo passo nel processo è opzionale: se vuoi, puoi esportare i dati della chain esistenti per il tuo Execution client attuale.
 Questo ti permetterà di liberare spazio prezioso sul disco del tuo nodo per il tuo nuovo Execution client, e puoi conservare i vecchi dati della chain nel caso in cui desideri tornare al vecchio client e riprendere da dove avevi lasciato.
 
-Fai riferimento alla guida [Backup del tuo Nodo](./backups##backup-dei-dati-della-chain-execution) per i dettagli.
+Fai riferimento alla guida [Backup del tuo Nodo](./backups#backup-dei-dati-della-chain-execution) per i dettagli.
 
 ### Cambiare il tuo Execution Client Selezionato
 
@@ -81,7 +81,7 @@ Dovresti farlo il prima possibile dopo aver cambiato client per evitare perdite 
 
 ## Cambiare Consensus Client
 
-Cambiare Consensus client è ancora più facile degli Execution client, grazie alla [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
+Cambiare Consensus client è ancora più facile degli Execution client, grazie alla [Checkpoint Sync](./config-docker#sincronizzazione-checkpoint-della-beacon-chain).
 Questa funzionalità ti consente di sincronizzare immediatamente un nuovo Consensus client con la rete, quindi non è necessario conservare i vecchi dati della chain.
 
 Inizia utilizzando l'interfaccia `rocketpool service config` e naviga nella sezione `Consensus Client (ETH2)`.
@@ -98,7 +98,7 @@ Successivamente, verifica che stai utilizzando un provider Checkpoint Sync:
 
 <img src={tui_checkpoint_sync} width="100%" height="auto" />
 
-Se non hai un provider Checkpoint Sync configurato, [puoi facilmente utilizzare le istruzioni qui per farlo gratuitamente](./config-docker#beacon-chain-checkpoint-syncing)!
+Se non hai un provider Checkpoint Sync configurato, [puoi facilmente utilizzare le istruzioni qui per farlo gratuitamente](./config-docker#sincronizzazione-checkpoint-della-beacon-chain)!
 
 Quando sei soddisfatto della tua scelta, premi `Esc` per tornare al menu principale, quindi `Tab` per evidenziare il pulsante `Review Changes and Save`.
 Ti verrà presentata la schermata di revisione, che mostrerà la modifica della selezione del client:

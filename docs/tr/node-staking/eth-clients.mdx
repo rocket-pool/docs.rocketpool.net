@@ -7,7 +7,7 @@ Rocket Pool'un Smartnode yükleyicisi, makinenizi tam bir Ethereum düğümüne 
 ETH1/ETH2 terimleri kullanımdan kaldırılmıştır.
 Bu kılavuzların geri kalanında zincirler **Execution Layer (ETH1)** ve **Beacon Chain veya Consensus Layer (ETH2)** olarak anılacaktır.
 
-Eğer zaten ayrı bir makinede Execution ve Consensus istemcileriniz çalışıyorsa (örneğin, zaten solo staking yapıyorsanız), bu bölümü atlayın ve [Harici İstemcilerle Hibrit Rocket Pool Düğümü Yapılandırma](./install-modes#the-hybrid-configuration-with-external-clients) bölümüne geçin.
+Eğer zaten ayrı bir makinede Execution ve Consensus istemcileriniz çalışıyorsa (örneğin, zaten solo staking yapıyorsanız), bu bölümü atlayın ve [Harici İstemcilerle Hibrit Rocket Pool Düğümü Yapılandırma](./install-modes#harici-clientlar-ile-hibrit-konfigürasyon) bölümüne geçin.
 
 Aksi takdirde, Execution ve Consensus istemcileri için seçenekleriniz hakkında daha fazla bilgi edinmek için okumaya devam edin.
 
@@ -43,7 +43,7 @@ Aşağıdaki seçenekler, hangisini istediğinizi belirtmek isterseniz bilinçli
 
 ## Execution İstemcileri
 
-Rocket Pool dört farklı Execution istemcisini destekler: **Geth**, **Besu**, **Nethermind** ve **Reth**.
+Rocket Pool beş Execution istemcisini destekler: **Geth**, **Besu**, **Nethermind**, **Reth** ve **Erigon**.
 
 Bir Execution istemcisi çalıştırmak, Execution katmanı blockchain'inin bir kopyasını makinenizde saklamayı içerir.
 Yeni blokları ve işlemleri kaydetmek ve doğrulamak için diğer EC düğümleriyle eşler arası iletişim yoluyla etkileşime girer.
@@ -58,7 +58,7 @@ Geth, dünya çapında en eski ve en yaygın kullanılan Execution Client'tır.
 Çok kararlı ve güvenilir olma konusunda bir üne sahiptir.
 
 Çok iş parçacıklıdır, yani CPU'nuzun tamamından yararlanabilir.
-RAM kullanımı yapılandırılabilir, **Mainnet için minimum yaklaşık 4 GB**'a kadar düşürülebilir.
+Minimum RAM gereksinimi 8 GB'dır, ancak 16 GB önerilir.
 Bu, onu düşük güçlü sistemler ve yüksek güçlü sistemler için uygun hale getirir.
 
 ::: warning NOT
@@ -109,14 +109,27 @@ Reth, verimlilik, performans ve modülerlik düşünülerek sıfırdan tasarlanm
 Ekosistemde en yeni istemci olan Reth, hızla gelişiyor ve benimseniyor. RAM ve CPU gereksinimleri esnektir, en önemli gereksinim açık ara disktir. İyi bir [TLC disk](https://gist.github.com/yorickdowne/f3a3e79a573bf35767cd002cc977b038) kullanmanızı öneririz.
 Reth, tam bir düğüm için **en az 8 GB RAM** veya bir arşiv düğümü için **16 GB RAM** gerektirir.
 
+### Erigon
+
+[Erigon](https://erigon.tech/), [Go](https://go.dev/) ile yazılmış bir Execution istemcisidir. Aşamalı senkronizasyon mimarisi kullanır ve ilk başlatmada anlık görüntüleri BitTorrent üzerinden çekebilir; torrent portuna erişilebiliyorsa bu, ilk senkronizasyonu görece hızlı hale getirir.
+
+Ayarlar Yöneticisinde Erigon, olağan P2P portuna (`30303`) ek olarak bir **Torrent Port** (varsayılan `42069`, TCP ve UDP) sunar. Anlık görüntü senkronizasyonunun ve eş bağlantılarının LAN dışından da düzgün çalışmasını istiyorsanız her ikisini de yönlendirin.
+
+Erigon **Rolling History Expiry** desteği sunar (yaklaşık bir yıldan eski gövdeleri ve makbuzları atar). Yalnızca merge öncesine yönelik History Expiry'yi **desteklemez**; bu modu seçerseniz, kalan blok geçmişini tam mod durum budamasıyla birlikte saklar. **Tam node** olarak çalıştırırsanız makbuzları saklar.
+
+Diğer istemcilerde olduğu gibi RAM ihtiyaçları esnektir ve disk kalitesi önemlidir. Torrent ve P2P portlarını yönlendiricinizde (ve ana makine güvenlik duvarınızda) Geth'in `30303` portu için yaptığınız gibi açın.
+
 ### İstemci Karşılaştırma Tablosu
 
-| İstemci    | Tip | CPU Kullanımı | Minimum RAM Kullanımı | Senkronizasyon Süresi |
-| ---------- | --- | ------------- | --------------------- | --------------------- |
-| Geth       | Tam | Orta          | 4 GB                  | Orta                  |
-| Besu       | Tam | Orta          | 6 GB                  | Yavaş                 |
-| Nethermind | Tam | Orta          | 16 GB                 | Hızlı                 |
-| Reth       | Tam | Orta          | 8 GB                  | Hızlı                 |
+| İstemci    | Tür | RAM Kullanımı |
+| ---------- | --- | ------------- |
+| Geth       | Tam | ~8 GB         |
+| Besu       | Tam | ~10 GB        |
+| Nethermind | Tam | ~7-15 GB      |
+| Reth       | Tam | ~14 GB        |
+| Erigon     | Tam | ~10 GB        |
+
+_RAM kullanım verileri [eth-docker](https://ethdocker.com/Usage/ResourceUsage/) kaynağından alınmıştır. Gerçek kullanım yapılandırmaya ve ağ koşullarına göre değişebilir._
 
 ## Consensus İstemcileri
 
@@ -153,7 +166,7 @@ Lodestar'ın niş alanı, uygulama dili olan [Typescript](https://www.typescript
 ### Nimbus
 
 [Nimbus](https://nimbus.team/), Ethereum 2.0 ve Ethereum 1.0 için, kullanılan kaynaklar açısından mümkün olduğunca hafif olmaya çalışan bir istemci uygulamasıdır.
-Bu, gömülü sistemler ve kaynak kısıtlı cihazlarda iyi performans göstermesini sağlar.
+Bu, gömülü sistemler ve kaynak kısıtlı cihazlarda iyi performans göstermesini sağlar. Node'unuzda toplam 16GB RAM ile bir Execution ve Consensus istemci çifti çalıştırmayı planlıyorsanız nimbus önerilir.
 
 Ancak, kaynak kısıtlı donanım Nimbus'un iyi olduğu tek şey değildir.
 Düşük kaynak tüketimi, Nimbus'u sunucunuzda diğer iş yükleriyle birlikte çalıştırmayı kolaylaştırır (bu, özellikle sunucu örneklerinin maliyetini düşürmek isteyen stake edenler için değerlidir).
@@ -175,10 +188,12 @@ Teku, Apache 2.0 lisanslıdır ve Java dilinde yazılmıştır, bu dil olgunluğ
 
 ### İstemci Karşılaştırma Tablosu
 
-| İstemci    | CPU Kullanımı | Minimum RAM Kullanımı | Senkronizasyon Süresi      |
-| ---------- | ------------- | --------------------- | -------------------------- |
-| Lighthouse | Orta          | 2 GB                  | Checkpoint sync ile anında |
-| Lodestar   | Orta          | 4 GB                  | Checkpoint sync ile anında |
-| Nimbus     | Düşük         | 0.75 GB               | Checkpoint sync ile anında |
-| Prysm      | Orta          | 2 GB                  | Checkpoint sync ile anında |
-| Teku       | Orta          | 4 GB                  | Checkpoint sync ile anında |
+| İstemci    | RAM Kullanımı | Senkronizasyon Süresi      |
+| ---------- | ------------- | -------------------------- |
+| Lighthouse | ~14 GB        | Checkpoint sync ile anında |
+| Lodestar   | ~12 GB        | Checkpoint sync ile anında |
+| Nimbus     | ~5 GB         | Checkpoint sync ile anında |
+| Prysm      | ~9 GB         | Checkpoint sync ile anında |
+| Teku       | ~10 GB        | Checkpoint sync ile anında |
+
+_RAM kullanım verileri [eth-docker](https://ethdocker.com/Usage/ResourceUsage/) kaynağından alınmıştır. Gerçek kullanım yapılandırmaya ve ağ koşullarına göre değişebilir._

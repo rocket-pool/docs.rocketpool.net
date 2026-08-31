@@ -13,7 +13,7 @@ Seit dem Start von Rocket Pool hat die Community [umfangreiche Forschung](https:
 Für alle praktischen Zwecke wurde ein Slashing von 16 ETH als unrealistisch eingestuft, und eine 16-ETH-Sicherheit bot effektiv die gleichen Sicherheitsvorteile wie eine Sicherheit von nur 8 ETH (zuzüglich der ergänzenden RPL-Anforderung).
 Auf der Grundlage dieser Forschung führt das Atlas-Upgrade eine neue Art von Minipool in die Liste ein: die **8-ETH-Sicherheit**, von der Rocket-Pool-Community umgangssprachlich als "LEB8" (Lower ETH Bond - 8 ETH) bezeichnet.
 
-Um einen 8-ETH-Minipool zu erstellen, muss der Node-Betreiber nur **8 eigene ETH** bereitstellen (plus genug RPL, um die Sicherheitenanforderung zu decken - mehr dazu unter [RPL-Sicherheit](#rpl-collateral)).
+Um einen 8-ETH-Minipool zu erstellen, muss der Node-Betreiber nur **8 eigene ETH** bereitstellen (plus genug RPL, um die Sicherheitenanforderung zu decken - mehr dazu unter [RPL-Sicherheit](#rpl-sicherheit)).
 Er wird dann **24 ETH** aus dem Deposit-Pool ziehen, um den Validator zu vervollständigen und mit der Arbeit auf der Beacon Chain zu beginnen.
 
 Dies **öffnet die Tür für neue potenzielle Node-Betreiber**, die einen Node betreiben möchten, aber nicht ganz 16 ETH haben.

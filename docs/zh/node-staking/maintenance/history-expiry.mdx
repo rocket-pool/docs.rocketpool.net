@@ -1,16 +1,26 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# 过期合并前历史
+# 执行客户端历史过期
 
-所有执行客户端现在都支持符合 [EIP-4444](https://eips.ethereum.org/EIPS/eip-4444) 的部分历史过期。从 Smartnode 版本 `v1.17.0` 开始，用户可以通过删除合并前的区块历史来大幅减少节点的存储需求。请随意查看
-此博客文章以了解有关部分历史过期的更多信息：https://blog.ethereum.org/2025/07/08/partial-history-exp
+执行客户端可以删除旧的区块体和收据，从而将链数据保持在可管理的大小。Smartnode 的 **Pruning Mode**（修剪模式）设置（Execution Client → Pruning Mode）控制此行为。
+
+**Rolling History Expiry**（滚动历史过期）是默认选项。Nethermind、Besu、Reth 和 Erigon 会删除大约一年以前的区块体和收据。Geth 尚未实现该模式，而是使用 Prague 之前的历史过期方式。
+
+其他选项：
+
+- **History Expiry** — 仅删除*合并前*的区块体和收据（部分 [EIP-4444](https://eips.ethereum.org/EIPS/eip-4444) 过期）。Erigon 不支持仅删除合并前历史。
+- **Full node** — 保留常规的全节点数据，包括区块体和收据。Erigon 的全节点模式会保留收据。
+- **Archive** — 保留历史记录和历史状态（这需要更多的磁盘空间）。
+
+请随意阅读这篇关于部分历史过期的概述：https://blog.ethereum.org/2025/07/08/partial-history-exp
 
 ::: tip 注意
 
-    请记住，删除合并前历史的步骤取决于节点选择的执行客户端：
-    - Nethermind 用户需要完全重新同步才能删除合并前历史。
-    - Geth 用户可以使用 `rocketpool service prune-eth1` 命令或进行完全重新同步。
-    - Besu 和 Reth 用户可以在节点继续证明时执行在线修剪。
+新安装的节点已经使用 Rolling History Expiry。如果您之前选择了其他修剪模式，请在 TUI 中选择 **Rolling History Expiry** 并**重新同步**执行客户端，使其生效。
+
+- **Nethermind、Reth 和 Erigon** — 更改模式后需要重新同步（`rocketpool service resync-eth1`）。
+- **Geth** — 使用 `rocketpool service prune-eth1` 修剪或重新同步；Geth 仍使用 Prague 之前的过期方式，而非一年期滚动过期。
+- **Besu** — 保持在线。
 
 :::
 
@@ -23,6 +33,8 @@ rocketpool service config
 ```
 
 要更改执行客户端修剪模式，请转到 `Execution Client (ETH1)` 菜单并在下拉菜单中为 `Pruning Mode` 选择 `History Expiry` 设置
+
+除非您有理由保留更多历史记录，否则请选择 **Rolling History Expiry**。
 
 ![](../images/tui-history-expiry.png)
 
@@ -85,7 +97,7 @@ Would you like to restart them automatically now? [y/n]
         ```shell
         rocketpool service prune-eth1
         ```
-        您可以单击[此处](/zh/node-staking/pruning#starting-a-prune)了解有关修剪的更多信息。
+        您可以单击[此处](/zh/node-staking/pruning#开始修剪)了解有关修剪的更多信息。
 
         一切就绪！节点将不再存储合并前数据，大大提高了在 2 TB 驱动器上安装节点的可行性。
         我们建议使用以下命令监控进度。
@@ -109,11 +121,28 @@ Would you like to restart them automatically now? [y/n]
     <Tab label="Reth">
 
         一切就绪！Reth 节点将在继续证明和提出区块的同时执行在线修剪。
+        在主网上选择 Rolling History Expiry 后，Reth 会在首次启动时下载官方的滚动历史快照。
         节点将不再存储合并前数据，大大提高了在 2 TB 驱动器上安装节点的可行性。
         我们建议使用以下命令监控进度。
         ```shell
         rocketpool service logs eth1
          ```
+
+    </Tab>
+
+    <Tab label="Erigon">
+        Erigon 节点需要完全重新同步才能应用 Rolling History Expiry。在保存 Pruning Mode 设置并重新启动 `eth1` 容器后，您必须重新同步执行客户端。
+
+        使用以下命令重新同步您的执行客户端：
+        ```shell
+        rocketpool service resync-eth1
+        ```
+
+        一切就绪！节点将删除大约一年以前的区块体和收据。
+        我们建议在重新同步期间使用 Rescue Node，并使用以下命令监控进度。
+        ```shell
+        rocketpool service logs eth1
+        ```
 
     </Tab>
 

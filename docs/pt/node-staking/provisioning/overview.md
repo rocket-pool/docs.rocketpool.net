@@ -7,7 +7,7 @@ next:
 # Visão Geral
 
 Esta seção cobre os detalhes de como provisionar seu nó para staking com Rocket Pool depois de ter instalado e configurado o Smartnode.
-É uma seção longa porque há muita informação sobre staking para cobrir, então **por favor leia cada guia antes de criar seu primeiro minipool!**
+É uma seção longa porque há muita informação sobre staking para cobrir, então **por favor leia cada guia antes de criar seu primeiro validador de megapool!**
 
 ## Pré-requisitos
 

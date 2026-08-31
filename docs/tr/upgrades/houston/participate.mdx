@@ -24,7 +24,7 @@ Bu sürecin kullanışlı bir görsel temsili [Rocket Pool web sitesinde](https:
 
 ## Ön koşul
 
-Devam etmeden önce lütfen [bir teklifin yaşam döngüsünü](../houston/pdao#lifecycle-of-a-pdao-proposal) okuyun. Bu, tüm oylama dönemleri arasındaki farkları ve her dönemde gerçekleştirilebilecek eylemleri açıklayacaktır.
+Devam etmeden önce lütfen [bir teklifin yaşam döngüsünü](../houston/pdao#bir-pdao-teklifinin-yaşam-döngüsü) okuyun. Bu, tüm oylama dönemleri arasındaki farkları ve her dönemde gerçekleştirilebilecek eylemleri açıklayacaktır.
 
 Bu sayfanın geri kalanı, on-chain pDAO tekliflerine katılmak için gereken adımlardan geçecektir.
 
@@ -60,7 +60,7 @@ Please type `direct` or `delegate` to continue:
 ```
 
 - `direct` ile yanıt verirseniz, oy gücü node'unuza başlatılacak ve Protokol DAO teklifleri üzerinde doğrudan oy kullanabileceksiniz.
-- `delegate` ile yanıt verirseniz, oylamayı başlatarak ve aynı işlem içinde [bir delege belirleyerek](../houston/participate#delegating-voting-power) biraz gaz tasarrufu etme fırsatınız olacak.
+- `delegate` ile yanıt verirseniz, oylamayı başlatarak ve aynı işlem içinde [bir delege belirleyerek](../houston/participate#oy-gücünü-delege-etme) biraz gaz tasarrufu etme fırsatınız olacak.
 
 Bunu yalnızca bir kez yapmanız gerekir. Bir node için ilk snapshot bilgilerini yapılandırır. Oylamayı başlattıktan sonra, gerçekleştirilen her eylem node'unuzun snapshot bilgilerini güncelleyecektir. Oy gücünüz başlatıldıktan sonra, aşağıdaki smartnode komutunu kullanarak ne kadar oy gücünüze sahip olduğunuzu kontrol edebilirsiniz:
 
@@ -189,13 +189,13 @@ Delege edilmiş oy gücüne sahip bir node operatörüyseniz, delege edilmiş oy
 
 Teklif sunma yeterliliği için bir node'un birkaç gereksinimi karşılaması gerekir:
 
-- Snapshot'a dahil edilmiş (ya [oylamayı başlatarak](../houston/participate#initializing-voting) ya da Houston sonrası kayıt olarak)
+- Snapshot'a dahil edilmiş (ya [oylamayı başlatarak](../houston/participate#oylamayı-başlatma) ya da Houston sonrası kayıt olarak)
 - En az bir minipool'a sahip olmalı
 - Sıfır olmayan oy gücüne sahip
-- [RPL kilitlemeye](../houston/participate#allowing-rpl-locking) izin vermiş
+- [RPL kilitlemeye](../houston/participate#rpl-kilitlemeye-i̇zin-verme) izin vermiş
 - Teklif bonosundan daha fazla bir RPL stake'ine sahip (zaten kilitlenmiş herhangi bir RPL hariç)
 
-Teklifler protokol seviyesinde parametreleri değiştirmek ve kodu yürütmek için mevcuttur! Bir teklif on-chain'de oluşturulmadan önce [yönetişim](../houston/participate#governance-process) süreci aracılığıyla tartışma ve fikir birliği olmalıdır.
+Teklifler protokol seviyesinde parametreleri değiştirmek ve kodu yürütmek için mevcuttur! Bir teklif on-chain'de oluşturulmadan önce [yönetişim](../houston/participate#yönetişim-süreci) süreci aracılığıyla tartışma ve fikir birliği olmalıdır.
 
 Seçenekler menüsünü açmak için `rocketpool pdao propose` komutunu kullanın
 
@@ -268,8 +268,8 @@ Her teklife bir `proposalID` atanır. Bu durumda, güvenlik konseyine `0xBdbc...
       ```
 
       Burada `invite test-member` teklifimizin 71 ID'sine sahip olduğunu ve beklemede durumunda olduğunu görebiliriz. Bu durumda,
-      [itiraz edenler](/tr/legacy/houston/pdao#challenge-process) önerici tarafından sağlanan merkle pollard'ın (oy gücünü hesaplamak için kullanılır) geçerliliğine itiraz edebilirler. `proposal.vote.delay.time` sona erdiğinde,
-      teklif aktif oylama aşamalarına geçecektir. Bir tazeleme için [bir teklifin yaşam döngüsünü](../houston/pdao#lifecycle-of-a-pdao-proposal) gözden geçirmekten çekinmeyin.
+      [itiraz edenler](/tr/legacy/houston/pdao#meydan-okuma-süreci) önerici tarafından sağlanan merkle pollard'ın (oy gücünü hesaplamak için kullanılır) geçerliliğine itiraz edebilirler. `proposal.vote.delay.time` sona erdiğinde,
+      teklif aktif oylama aşamalarına geçecektir. Bir tazeleme için [bir teklifin yaşam döngüsünü](../houston/pdao#bir-pdao-teklifinin-yaşam-döngüsü) gözden geçirmekten çekinmeyin.
     </Tab>
     <Tab label="Teklif Ayrıntılarını Görüntüleme">
       Artık teklif ID'sine sahip olduğunuza göre, bu komutu kullanarak teklifinizin durumunu görüntüleyebilirsiniz:

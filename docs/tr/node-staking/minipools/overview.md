@@ -21,7 +21,7 @@ Minipool'ları çalıştırmadan önce lütfen şunlardan emin olun:
 - Smartnode'u üzerine [kurdunuz](../installing/overview) ve [yapılandırdınız](../config/overview)
 - Smartnode'unuzda yüklenmiş bir düğüm cüzdanınız var
 - Execution ve Consensus istemcilerinizi senkronize ettiniz
-- Düğümünüzü [bir çekim adresiyle](../prepare-node.mdx#setting-your-withdrawal-address) sağladınız, [yedek istemcilerinizi](../fallback) kurdunuz (isteğe bağlı), [Smoothing Pool'a](../fee-distrib-sp#the-smoothing-pool) katıldınız (isteğe bağlı) ve [MEV](../mev.mdx)'yi yapılandırdınız
+- Düğümünüzü [bir çekim adresiyle](../prepare-node.mdx#birincil-çekim-adresinizi-ayarlama) sağladınız, [yedek istemcilerinizi](../fallback) kurdunuz (isteğe bağlı), [Smoothing Pool'a](../fee-distrib-sp#smoothing-pool) katıldınız (isteğe bağlı) ve [MEV](../mev.mdx)'yi yapılandırdınız
 
 ## Kılavuzlar
 

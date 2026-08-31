@@ -16,7 +16,7 @@ Prima di configurare il vostro Smartnode, assicuratevi di:
 - Avere lo Smartnode [installato](../installing/overview) e [configurato](../config/overview) su di essa
 - Avere un portafoglio nodo caricato sul vostro Smartnode
 - Sincronizzato i vostri client di esecuzione e consenso
-- Fornito il vostro nodo con [un indirizzo di prelievo](../prepare-node.mdx#setting-your-withdrawal-address), configurato i vostri [client di fallback](../fallback) (opzionale), aderito alla [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (opzionale) e configurato [MEV](../mev.mdx)
+- Fornito il vostro nodo con [un indirizzo di prelievo](../prepare-node.mdx#impostazione-del-tuo-indirizzo-di-prelievo-primario), configurato i vostri [client di fallback](../fallback) (opzionale), aderito alla [Smoothing Pool](../fee-distrib-sp#lo-smoothing-pool) (opzionale) e configurato [MEV](../mev.mdx)
 - Creato almeno un [minipool](../create-validator.mdx)
 
 ## Guide

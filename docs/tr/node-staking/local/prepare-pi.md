@@ -13,7 +13,7 @@ Bu kurulum Pi'de **tam bir Execution node'u** ve **tam bir Consensus node'u** ç
 ## Ön Hazırlık
 
 Raspberry Pi'de bir Rocket Pool node'u çalıştırmak için önce çalışan bir Raspberry Pi'ye sahip olmanız gerekir.
-Zaten çalışan bir tane varsa - harika! [SSD'yi Bağlama](#mounting-the-ssd) bölümüne atlayabilirsiniz.
+Zaten çalışan bir tane varsa - harika! [SSD'yi Bağlama](#ssdyi-bağlama) bölümüne atlayabilirsiniz.
 Devam etmeden önce **bir fan takılı** olduğundan emin olun.
 Sıfırdan başlıyorsanız, okumaya devam edin.
 
@@ -49,7 +49,7 @@ Ancak, parçaları ayrı olarak alırsanız hepsini daha ucuza alabilirsiniz (ve
 - Bir **USB 3.0+ Katı Hal Sürücüsü**. Genel öneri **2 TB sürücü** içindir.
   - [Samsung T5](https://www.amazon.com/Samsung-T5-Portable-SSD-MU-PA2T0B/dp/B073H4GPLQ) iyi çalıştığı bilinen mükemmel bir örnektir.
   - :warning: SATA-USB adaptörü ile SATA SSD kullanmak [bunun gibi sorunlar](https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=245931) nedeniyle **önerilmez**.
-    Bu yolu tercih ederseniz, çalışıp çalışmayacağını kontrol etmek için kullanabileceğiniz bir performans testini [SSD'nin Performansını Test Etme](#testing-the-ssd-s-performance) bölümüne ekledik.
+    Bu yolu tercih ederseniz, çalışıp çalışmayacağını kontrol etmek için kullanabileceğiniz bir performans testini [SSD'nin Performansını Test Etme](#ssdnin-performansını-test-etme) bölümüne ekledik.
 - İnternet erişimi için bir **ethernet kablosu**. En az **Cat 5e** derecelendirmeli olmalıdır.
   - Wi-Fi üzerinden bir node çalıştırmak **önerilmez**, ancak başka seçeneğiniz yoksa, ethernet kablosu kullanmak yerine bunu yapabilirsiniz.
 - Elektrik kesintisi yaşarsanız güç kaynağı görevi görecek bir **UPS**.

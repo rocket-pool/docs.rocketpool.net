@@ -21,7 +21,7 @@ minipoolを実行する前に、以下を確認してください。
 - Smartnodeを[インストール](../installing/overview)し、[設定](../config/overview)していること
 - Smartnodeにノードウォレットをロードしていること
 - ExecutionクライアントとConsensusクライアントを同期していること
-- ノードに[出金アドレス](../prepare-node.mdx#setting-your-withdrawal-address)をプロビジョニングし、[フォールバッククライアント](../fallback)を設定し（オプション）、[Smoothing Pool](../fee-distrib-sp#the-smoothing-pool)にオプトインし（オプション）、[MEV](../mev.mdx)を設定していること
+- ノードに[出金アドレス](../prepare-node.mdx#primary-withdrawal-addressの設定)をプロビジョニングし、[フォールバッククライアント](../fallback)を設定し（オプション）、[Smoothing Pool](../fee-distrib-sp#smoothing-pool)にオプトインし（オプション）、[MEV](../mev.mdx)を設定していること
 
 ## ガイド
 

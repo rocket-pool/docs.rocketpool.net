@@ -100,9 +100,9 @@ Nous **ne recommandons pas les disques sans DRAM**.
 :::
 
 La dernière considération est la taille du disque.
-En octobre 2024, la taille de la base de données du client d'exécution `geth` nécessite environ 1,2 To d'espace après avoir terminé sa synchronisation initiale (ou après avoir terminé l'élagage).
+En avril 2026, la taille de la base de données du client d'exécution `geth` nécessite environ 1,2 To d'espace après avoir terminé sa synchronisation initiale (ou après avoir terminé l'élagage).
 Cela augmentera régulièrement au fil du temps, et bien que l'élagage puisse récupérer une partie de cet espace, l'état fraîchement élagué _augmente_ au fil du temps.
-Vous aurez la tranquillité d'esprit avec un disque plus grand.
+Vous aurez la tranquillité d'esprit avec un disque plus grand. La taille de cette base de données peut être réduite si vous [décidez de ne pas stocker l'historique antérieur à la fusion](/node-staking/maintenance/history-expiry).
 
 ### Accessoires Communs
 

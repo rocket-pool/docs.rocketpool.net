@@ -33,7 +33,7 @@ Für weitere Details und Begründungen siehe [Vorschlagstypen](https://rpips.roc
 
 ## Lebenszyklus eines pDAO Vorschlags
 
-Ein Vorschlag sollte durch den [Governance-Prozess](./participate#governance-process) angekündigt werden, bevor er on-chain endet. Er besteht aus 4 Perioden, die alle pDAO [kontrollierbare Parameter](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table) sind:
+Ein Vorschlag sollte durch den [Governance-Prozess](./participate#governance-prozess) angekündigt werden, bevor er on-chain endet. Er besteht aus 4 Perioden, die alle pDAO [kontrollierbare Parameter](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table) sind:
 
 - Vote Delay Period: `proposal.vote.delay.time`
 - Vote Phase 1: `proposal.vote.phase1.time`
@@ -102,7 +102,7 @@ rocketpool pdao proposals execute
 
 Sie werden aufgefordert, einen Vorschlag zur Ausführung auszuwählen, der Vorschlag wird nach diesem Schritt auf das Protokoll angewendet!
 
-Nachdem der Vorschlag die Abstimmungsperioden bestanden hat, kann der Proposer seine gesperrte RPL Bindung [anfordern](./participate#claiming-bonds-and-rewards), es sei denn, der Vorschlag wurde durch eine Challenge besiegt oder mit Veto belegt.
+Nachdem der Vorschlag die Abstimmungsperioden bestanden hat, kann der Proposer seine gesperrte RPL Bindung [anfordern](./participate#anfordern-von-bonds-und-belohnungen), es sei denn, der Vorschlag wurde durch eine Challenge besiegt oder mit Veto belegt.
 
 ::: tip HINWEIS
 Es gibt ein Zeitfenster `proposal.execute.time`, in dem ein Vorschlag ausgeführt werden kann. Ein Vorschlag läuft ab, wenn dieser Timer sein Ende erreicht.
@@ -118,7 +118,7 @@ Jeder Knoten kann an der Verfolgung und Verifizierung der Korrektheit von Vorsch
 
 <img src={proposal_checker} width="100%" height="auto" />
 
-Wenn diese Einstellung aktiviert ist, überprüft der Knoten auf neue Vorschläge, verifiziert deren Korrektheit und reicht Challenges gegen ungültige Vorschläge ein. Die einzige Voraussetzung ist, dass [RPL Locking](./participate#allowing-rpl-locking) aktiviert ist.
+Wenn diese Einstellung aktiviert ist, überprüft der Knoten auf neue Vorschläge, verifiziert deren Korrektheit und reicht Challenges gegen ungültige Vorschläge ein. Die einzige Voraussetzung ist, dass [RPL Locking](./participate#zulassen-von-rpl-locking) aktiviert ist.
 
 Diese Überprüfung läuft alle 5 Minuten in Verbindung mit einigen anderen knotenbezogenen Aufgaben. Wir werden ein Beispiel durchgehen, wie die Anfechtung eines betrügerischen Vorschlags aussieht. Wir können den Smartnode-Befehl `rocketpool service logs node` verwenden, um den Fortschritt zu überwachen:
 
@@ -167,6 +167,6 @@ Da die Abstimmungsinformationen des Proposers falsch sind, kann er nicht rechtze
 Challengers, die an der Niederschlagung des Vorschlags teilnehmen, erhalten einen proportionalen Anteil der Bindung des Proposers, wenn sie einen Index einreichen, der als falsch nachgewiesen wurde. Alle anderen Challengers erhalten nur ihre Bindung zurück.
 :::
 
-Jetzt, da der Vorschlag besiegt ist, kann unser Knoten (der Challenger) seine ursprüngliche RPL Bindung sowie die RPL Bindung des Proposers als Belohnung für die Niederschlagung eines betrügerischen Vorschlags [anfordern](./participate#claiming-bonds-and-rewards).
+Jetzt, da der Vorschlag besiegt ist, kann unser Knoten (der Challenger) seine ursprüngliche RPL Bindung sowie die RPL Bindung des Proposers als Belohnung für die Niederschlagung eines betrügerischen Vorschlags [anfordern](./participate#anfordern-von-bonds-und-belohnungen).
 
 Wenn Sie neugierig sind, sich mit den Details des pDAO Vorschlags- und Challenge-Systems zu befassen, schauen Sie sich die [technischen Spezifikationen](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#draft-protocol-dao-proposal-challenge-system-specification) an. Sie können gerne zu diesem Abschnitt über den [Challenge Process](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#challenge-process) springen, wenn Sie daran interessiert sind, ein Beispiel zu studieren, das in Details auf niedriger Ebene geht.

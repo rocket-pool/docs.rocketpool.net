@@ -1,17 +1,26 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Expiração do Histórico Pré-Merge
+# Expiração do Histórico do Cliente de Execução
 
-Todos os clientes de Execução agora suportam expiração parcial de histórico de acordo com [EIP-4444](https://eips.ethereum.org/EIPS/eip-4444). Os usuários podem reduzir substancialmente
-os requisitos de armazenamento para seu nó removendo o histórico de blocos pré-merge começando na versão `v1.17.0` do Smartnode. Fique à vontade para conferir
-esta postagem do blog para saber mais sobre expiração parcial de histórico: https://blog.ethereum.org/2025/07/08/partial-history-exp
+Os clientes de Execução podem descartar corpos de bloco e recibos antigos para que os dados da cadeia mantenham um tamanho gerenciável. A configuração **Pruning Mode** do Smartnode (Execution Client → Pruning Mode) controla esse comportamento.
+
+**Rolling History Expiry** é o padrão. Nethermind, Besu, Reth e Erigon descartam corpos e recibos com mais de aproximadamente um ano. O Geth ainda não implementa esse modo e usa a expiração de histórico anterior ao Prague.
+
+As outras opções:
+
+- **History Expiry** — descarta apenas os corpos e recibos _pré-merge_ (expiração parcial [EIP-4444](https://eips.ethereum.org/EIPS/eip-4444)). O Erigon não suporta a expiração exclusivamente pré-merge.
+- **Full node** — mantém os dados usuais de um nó completo, incluindo corpos e recibos. O modo de nó completo do Erigon mantém os recibos.
+- **Archive** — mantém o histórico e o estado histórico (o que exige muito mais disco).
+
+Fique à vontade para ler esta visão geral sobre expiração parcial de histórico: https://blog.ethereum.org/2025/07/08/partial-history-exp
 
 ::: tip NOTA
 
-    Tenha em mente que as etapas para remover o histórico pré-merge dependem do cliente de Execução selecionado do seu nó:
-    - Usuários do Nethermind precisarão fazer uma ressincronização completa para remover o histórico pré-merge.
-    - Usuários do Geth podem usar o comando `rocketpool service prune-eth1` ou fazer uma ressincronização completa.
-    - Usuários do Besu e Reth podem realizar uma poda online enquanto seu nó continua a atestar.
+Instalações novas já usam Rolling History Expiry. Se você escolheu anteriormente um Pruning Mode diferente, selecione **Rolling History Expiry** na TUI e **ressincronize** o cliente de Execução para que a mudança tenha efeito.
+
+- **Nethermind, Reth e Erigon** — ressincronize após alterar o modo (`rocketpool service resync-eth1`).
+- **Geth** — faça a poda com `rocketpool service prune-eth1` ou ressincronize; o Geth ainda usa a expiração anterior ao Prague em vez da expiração rolante de um ano.
+- **Besu** — permanece online.
 
 :::
 
@@ -25,6 +34,8 @@ rocketpool service config
 ```
 
 Para alterar o modo de poda do Cliente de Execução, vá ao menu `Execution Client (ETH1)` e selecione a configuração `History Expiry` no menu suspenso para `Pruning Mode`
+
+Escolha **Rolling History Expiry** a menos que você tenha um motivo para manter mais histórico.
 
 ![](../images/tui-history-expiry.png)
 
@@ -90,7 +101,7 @@ A partir deste ponto, as etapas diferem dependendo de qual cliente de Execução
         ```shell
         rocketpool service prune-eth1
         ```
-        Você pode clicar [aqui](/pt/node-staking/pruning#starting-a-prune) para saber mais sobre poda.
+        Você pode clicar [aqui](/pt/node-staking/pruning#iniciando-um-pruning) para saber mais sobre poda.
 
         Pronto! O nó não armazenará mais dados pré-merge, melhorando substancialmente a viabilidade de colocar um nó em um drive de 2 TB.
         Recomendamos monitorar o progresso usando o seguinte comando.
@@ -114,11 +125,29 @@ A partir deste ponto, as etapas diferem dependendo de qual cliente de Execução
     <Tab label="Reth">
 
         Pronto! Nós Reth vão realizar uma poda online enquanto continuam a atestar e propor blocos.
+        Na Mainnet, com Rolling History Expiry selecionado, o Reth baixa o snapshot oficial de histórico rolante na primeira inicialização.
         O nó não armazenará mais dados pré-merge, melhorando substancialmente a viabilidade de colocar um nó em um drive de 2 TB.
         Recomendamos monitorar o progresso usando o seguinte comando.
         ```shell
         rocketpool service logs eth1
          ```
+
+    </Tab>
+
+    <Tab label="Erigon">
+        Nós Erigon requerem uma ressincronização completa para aplicar o Rolling History Expiry. Você deve ressincronizar seu cliente de Execução após salvar
+        a configuração Pruning Mode e reiniciar seu contêiner `eth1`.
+
+        Use o seguinte comando para ressincronizar seu cliente de Execução:
+        ```shell
+        rocketpool service resync-eth1
+        ```
+
+        Pronto! O nó vai descartar corpos e recibos com mais de aproximadamente um ano.
+        Recomendamos usar o Rescue Node durante a ressincronização e monitorar o progresso usando o seguinte comando.
+        ```shell
+        rocketpool service logs eth1
+        ```
 
     </Tab>
 

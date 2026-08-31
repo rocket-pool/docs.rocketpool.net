@@ -16,7 +16,7 @@ next:
 - 在其上[安装](../installing/overview)并[配置](../config/overview)了 Smartnode
 - 在 Smartnode 上加载了节点钱包
 - 同步了执行客户端和共识客户端
-- 为节点提供了[提款地址](../prepare-node.mdx#setting-your-withdrawal-address),设置了[后备客户端](../fallback)(可选),选择加入[平滑池](../fee-distrib-sp#the-smoothing-pool)(可选),并配置了 [MEV](../mev.mdx)
+- 为节点提供了[提款地址](../prepare-node.mdx#设置主提款地址),设置了[后备客户端](../fallback)(可选),选择加入[平滑池](../fee-distrib-sp#平滑池)(可选),并配置了 [MEV](../mev.mdx)
 - 创建了至少一个 [minipool](../create-validator.mdx)
 
 ## 指南

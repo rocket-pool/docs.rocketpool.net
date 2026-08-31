@@ -50,7 +50,7 @@ Other components you'll need:
 - A **USB 3.0+ Solid State Drive**. The general recommendation is for a **2 TB drive**.
   - The [Samsung T5](https://www.amazon.com/Samsung-T5-Portable-SSD-MU-PA2T0B/dp/B073H4GPLQ) is an excellent example of one that is known to work well.
   - :warning: Using a SATA SSD with a SATA-to-USB adapter is **not recommended** because of [problems like this](https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=245931).
-    If you go this route, we've included a performance test you can use to check if it will work or not in the [Testing the SSD's Performance](#testing-the-ssd-s-performance) section.
+    If you go this route, we've included a performance test you can use to check if it will work or not in the [Testing the SSD's Performance](#testing-the-ssds-performance) section.
 - An **ethernet cable** for internet access. It should be at least **Cat 5e** rated.
   - Running a node over Wi-Fi is **not recommended**, but if you have no other option, you can do it instead of using an ethernet cable.
 - A **UPS** to act as a power source if you ever lose electricity.

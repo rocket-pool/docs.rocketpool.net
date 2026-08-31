@@ -49,7 +49,7 @@ Isso é projetado para máxima segurança, então embora você possa pensar que 
 4. **Pare de validar** em seu nó antigo (por exemplo, usando `rocketpool service stop` para desligar o validator client).
 5. **Delete suas keys** do seu nó antigo (por exemplo, usando `rocketpool wallet purge`).
    1. **VERIFIQUE** se as keys foram removidas olhando a pasta `data` do seu nó (padrão é `~/.rocketpool/data/validators/`) - cada Consensus Client terá sua própria pasta sob essa pasta de dados com sua própria cópia das keys.
-   2. Por favor veja a seção [Verifying Key Removal](#verificando-remocao-de-chaves) abaixo para instruções sobre como fazer isso.
+   2. Por favor veja a seção [Verifying Key Removal](#verificando-remoção-de-chaves) abaixo para instruções sobre como fazer isso.
    3. Garanta que **todas elas** foram deletadas.
 
 6. **Desligue** seu nó antigo e desconecte-o da Internet, removendo o cabo Ethernet ou módulo Wi-Fi.

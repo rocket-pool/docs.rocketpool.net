@@ -22,8 +22,9 @@ Wenn Sie aus irgendeinem Grund die Wallet wiederherstellen möchten, aber _nicht
 rocketpool wallet recover -k
 ```
 
-Wenn Sie dieses Flag nicht angeben, versucht der Smartnode, die Validator-Schlüssel für Ihre Minipools wiederherzustellen. Beachten Sie jedoch, dass dies erst funktioniert, wenn Ihr Execution-Client die Synchronisierung abgeschlossen hat.
-Bitte beobachten Sie die Logdatei, um zu sehen, wann dies abgeschlossen ist. Sobald dies der Fall ist, können Sie diesen Schritt ausführen.
+Wenn Sie dieses Flag nicht angeben, versucht der Smartnode, die Validator-Schlüssel für Ihre Minipools oder Megapool-Validatoren wiederherzustellen. Dieser Schritt erfordert synchronisierte Execution- und Beacon-Clients.
+
+Mit `-k` muss die Wiederherstellung **nur der Wallet** nicht auf synchronisierte Clients warten. Sie können dies tun, während diese noch synchronisieren.
 :::
 
 Dies wird Sie zuerst nach einem Passwort fragen, das Sie zum Verschlüsseln Ihrer Wallet verwenden möchten.
@@ -124,7 +125,7 @@ Der Smartnode wird in diesem Verzeichnis nach allen Keystore-Dateien suchen, die
 Der Importprozess wird _nur_ nach Validator-Schlüsseln suchen, die an Minipools angehängt sind, die auf die Adresse registriert sind, die Sie importieren.
 Sie **können** diesen Prozess **nicht** verwenden, um andere Validator-Schlüssel, wie z.B. für Solo-Staking-Validatoren, in den vom Smartnode-Stack verwalteten Validator-Client zu importieren.
 
-Bitte sehen Sie sich die Dokumentation für den Betrieb im [Reverse Hybrid Mode](./advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode) an, wenn Sie daran interessiert sind.
+Bitte sehen Sie sich die Dokumentation für den Betrieb im [Reverse Hybrid Mode](./advanced-config#externe-validator-clients-mit-dem-smartnode-verbinden) an, wenn Sie daran interessiert sind.
 :::
 
 ### Schritt 2 (Optional): Testen des Imports der Adresse

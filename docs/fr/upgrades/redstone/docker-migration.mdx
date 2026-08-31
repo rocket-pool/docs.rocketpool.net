@@ -16,12 +16,12 @@ La v1.5.0 ne les aura plus, et ne vous permettra pas de démarrer la pile tant q
 En raison de ce changement, vous devriez passer à un client complet pendant que vous êtes encore sur la v1.4, le laisser se synchroniser complètement, puis mettre à jour vers la v1.5.
 
 Le mode Docker facilite grandement le changement de clients.
-[Ce guide](../../node-staking/change-clients#changing-execution-clients) fournit une procédure pas à pas du processus.
+[Ce guide](../../node-staking/change-clients#changer-de-client-dexécution) fournit une procédure pas à pas du processus.
 
 ## Mise à jour vers v1.5.0
 
 La mise à jour de la pile Smartnode vers la v1.5.0 n'est pas différente de toute autre mise à jour.
-Suivez simplement [les instructions habituelles ici](../../node-staking/updates#updating-the-smartnode-stack).
+Suivez simplement [les instructions habituelles ici](../../node-staking/updates#mise-à-jour-de-la-pile-smartnode).
 
 ## Choses que le Smartnode gère automatiquement
 
@@ -46,7 +46,7 @@ C'est un paramètre fourni à votre client de validation lorsqu'il démarre pour
 Le Smartnode gérera sa configuration à la bonne adresse lorsque vous mettrez à jour vers la v1.5, et vérifiera constamment que vous utilisez la bonne pour que vous ne soyez pas [pénalisé accidentellement](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
 
 Si vous avez adhéré au [Smoothing Pool](./whats-new#smoothing-pool), il en fera votre destinataire de frais.
-Sinon, il fera de votre [contrat de distributeur de frais](./whats-new#fee-recipients-and-your-distributor) le destinataire de frais.
+Sinon, il fera de votre [contrat de distributeur de frais](./whats-new#destinataires-de-frais-et-votre-distributeur) le destinataire de frais.
 
 ### MEV-Boost
 
@@ -76,7 +76,7 @@ Pour plus d'informations sur la configuration d'un nœud de secours, consultez l
 
 ### Initialiser votre distributeur de frais
 
-Si vous ne prévoyez pas d'adhérer au [Smoothing Pool](./whats-new#smoothing-pool) et de réclamer tous vos frais prioritaires et récompenses MEV à votre [contrat de distributeur de frais](./whats-new#fee-recipients-and-your-distributor), vous devrez éventuellement l'initialiser (créer l'instance de contrat sur la chaîne) pour réclamer les récompenses vers votre adresse de retrait.
+Si vous ne prévoyez pas d'adhérer au [Smoothing Pool](./whats-new#smoothing-pool) et de réclamer tous vos frais prioritaires et récompenses MEV à votre [contrat de distributeur de frais](./whats-new#destinataires-de-frais-et-votre-distributeur), vous devrez éventuellement l'initialiser (créer l'instance de contrat sur la chaîne) pour réclamer les récompenses vers votre adresse de retrait.
 
 C'est une opération assez peu coûteuse et ne doit être effectuée qu'une seule fois.
 
@@ -101,7 +101,7 @@ rocketpool node join-smoothing-pool
 
 ### Réclamer les récompenses
 
-La mise à jour Redstone remplace l'ancien système de récompenses coûteux et problématique par un [tout nouveau système](./whats-new#new-rewards-system) qui est beaucoup moins cher, prend en charge le re-staking automatique de RPL (montants partiels et complets), et - plus important encore - **vous permet de réclamer vos récompenses quand vous le souhaitez**.
+La mise à jour Redstone remplace l'ancien système de récompenses coûteux et problématique par un [tout nouveau système](./whats-new#nouveau-système-de-récompenses) qui est beaucoup moins cher, prend en charge le re-staking automatique de RPL (montants partiels et complets), et - plus important encore - **vous permet de réclamer vos récompenses quand vous le souhaitez**.
 
 Parce qu'il n'y a plus de limite de temps pour réclamer les récompenses, et parce qu'il est moins cher de réclamer plusieurs intervalles de récompenses à la fois, la fonctionnalité de réclamation automatique des récompenses du Smartnode **a été supprimée**.
 Vous pourrez maintenant réclamer les récompenses via la commande suivante :

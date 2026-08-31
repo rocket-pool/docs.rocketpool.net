@@ -24,9 +24,9 @@ Docker olmadan Native mod kullanıyorsanız, lütfen bunun yerine [Native yapıl
 
 Onu yapılandırmanın üç yolu vardır:
 
-- [Wizard UI](#configuring-via-the-wizard) aracılığıyla - bu en kolay yoldur. Sadece birkaç temel soru sorar ve test için iyi test edilmiş varsayılanları kullanır. İlk kez `rocketpool service config` komutunu çalıştırdığınızda size sunulan bu olacaktır.
-- [Settings Manager UI](#configuring-via-the-settings-manager) aracılığıyla - bu size Smartnode'un tüm ayarlarına erişim sağlar, böylece istediğiniz kadar her şeyi özelleştirebilirsiniz.
-- [Komut Satırı](#configuring-via-the-command-line) aracılığıyla başsız olarak - bu, Smartnode'u başsız (etkileşimli olmayan) bir ortamda çalıştıran ve otomatik olarak yapılandırması gereken kişiler için bir seçenektir.
+- [Wizard UI](#wizard-aracılığıyla-yapılandırma) aracılığıyla - bu en kolay yoldur. Sadece birkaç temel soru sorar ve test için iyi test edilmiş varsayılanları kullanır. İlk kez `rocketpool service config` komutunu çalıştırdığınızda size sunulan bu olacaktır.
+- [Settings Manager UI](#settings-manager-aracılığıyla-yapılandırma) aracılığıyla - bu size Smartnode'un tüm ayarlarına erişim sağlar, böylece istediğiniz kadar her şeyi özelleştirebilirsiniz.
+- [Komut Satırı](#komut-satırı-aracılığıyla-yapılandırma) aracılığıyla başsız olarak - bu, Smartnode'u başsız (etkileşimli olmayan) bir ortamda çalıştıran ve otomatik olarak yapılandırması gereken kişiler için bir seçenektir.
 
 Yukarıdaki listeden hangisini öğrenmek istediğinizi seçin veya aşağıdaki her seçeneği kaydırın.
 
@@ -41,7 +41,7 @@ rocketpool service config
 Bu, düğümünüzü hızlı ve kolay bir şekilde yapılandırmanıza olanak tanıyan ve gelişmiş özelleştirme için her ayar üzerinde isteğe bağlı ince ayarlı kontrol sağlayan terminal tabanlı bir kullanıcı arayüzü başlatacaktır.
 
 ::: tip NOT
-Smartnode'u zaten yapılandırdıysanız, bunun yerine [Settings Manager](#configuring-the-smartnode-stack-via-the-settings-manager) ile karşılanacaksınız.
+Smartnode'u zaten yapılandırdıysanız, bunun yerine [Settings Manager](#settings-manager-aracılığıyla-yapılandırma) ile karşılanacaksınız.
 Tercih ederseniz oradan Wizard'ı yeniden açmayı seçebilirsiniz ve mevcut tüm ayarlarınız sizin için önceden seçilecektir.
 :::
 
@@ -117,12 +117,14 @@ Execution istemcinizi yönetmek için hangi modu kullanmak istediğinizi seçin 
 
       <img src={ECSelection} width="100%" height="auto"/>
 
-      Lütfen her seçeneğin açıklaması için [ETH istemcilerinizi seçme](/tr/node-staking/eth-clients#execution-clients) bölümüne bakın.
+      Lütfen her seçeneğin açıklaması için [ETH istemcilerinizi seçme](/tr/node-staking/eth-clients#execution-i̇stemcileri) bölümüne bakın.
       Seçiminizi yaptıktan sonra, nasıl yapılandırılacağını öğrenmek için aşağıdaki uygun sekmeye tıklayın:
 
-      **Geth**, **Besu** veya **Nethermind** seçerseniz, Wizard tüm yapılandırmayı sizin için halledecektir.
+      **Geth**, **Besu**, **Nethermind**, **Reth** veya **Erigon** seçerseniz, Wizard tüm yapılandırmayı sizin için halledecektir.
       Bu işlemin sonunda bazı parametrelerini manuel olarak ayarlayabilirsiniz, ancak kullandığı varsayılanlar düğüm işlemi için tamamen uygundur.
       Bir sonraki bölüme geçebilirsiniz.
+
+      **Erigon** seçerseniz, anlık görüntü senkronizasyonu ve eş bağlantıları çalışsın diye P2P portu **30303**'ün yanı sıra **Torrent Port**'unu da (varsayılan **42069**, TCP ve UDP) yönlendirin. Wizard diğer her şey için makul varsayılanları kullanmaya devam eder.
 
 
       <p className="rspress-directive warning">
@@ -181,7 +183,7 @@ Daha önce hangi modu seçtiğinizi aşağıdaki sekmelerden seçin:
 
       Ağın genel sağlığı ve çeşitliliği için **tercih edilen seçim**, sizin için desteklenen dört Consensus istemcisinden birini rastgele seçecek olan **Random (Recommended)** seçimidir.
 
-      Açık bir istemci seçmeyi tercih ederseniz, bilinçli bir karar verebilmeniz için lütfen her seçeneğin açıklaması için [ETH istemcilerinizi seçme](./eth-clients#eth2-clients) bölümüne bakın.
+      Açık bir istemci seçmeyi tercih ederseniz, bilinçli bir karar verebilmeniz için lütfen her seçeneğin açıklaması için [ETH istemcilerinizi seçme](./eth-clients#consensus-i̇stemcileri) bölümüne bakın.
 
 
       <p className="rspress-directive warning">
@@ -637,7 +639,7 @@ Aşağıdaki diyaloğu göreceksiniz:
 
 Kurulumunuzdan memnunsanız ve Smartnode'u başlatmaya hazırsanız, burada `Save and Exit` tuşuna tıklayın ve bir sonraki [Düğümünüzü Güvenceye Alma](./securing-your-node) bölümüne gidin.
 
-Tüm ayarları gözden geçirmek ve Wizard'a dahil olmayan birçok ek ayarı özelleştirmek isterseniz, `Review All Settings`'e tıklayın ve [bir sonraki bölüme](#configuring-via-the-settings-manager) gidin.
+Tüm ayarları gözden geçirmek ve Wizard'a dahil olmayan birçok ek ayarı özelleştirmek isterseniz, `Review All Settings`'e tıklayın ve [bir sonraki bölüme](#settings-manager-aracılığıyla-yapılandırma) gidin.
 
 ## Settings Manager Aracılığıyla Yapılandırma
 
@@ -649,7 +651,7 @@ Bu ekranın üç ana özelliği vardır:
 
 1. **Kategori Listesi**, Smartnode stack'inin her kategorisi için ayarları detaylandırmanıza olanak tanır
 2. **Değişiklikleri Gözden Geçir ve Kaydet** düğmesi, hangi ayarları değiştirdiğinizi görmek ve güncellenmiş yapılandırmayı kaydetmek istediğinizde kullanabilirsiniz
-3. **Yapılandırma Sihirbazını Aç** düğmesi, bunun yerine bu arayüzü tercih ediyorsanız sizi [Kurulum Sihirbazı](#configuring-the-smartnode-stack-via-the-wizard)'na götürecektir
+3. **Yapılandırma Sihirbazını Aç** düğmesi, bunun yerine bu arayüzü tercih ediyorsanız sizi [Kurulum Sihirbazı](#wizard-aracılığıyla-yapılandırma)'na götürecektir
 
 ::: tip İPUCU
 Settings Manager'ı kullanmak için, **ana sayfadaki seçenekler arasında gezinmek için `Ok Tuşlarına` (yukarı/aşağı/sol/sağ) basın**.

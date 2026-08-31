@@ -16,12 +16,12 @@ v1.5.0 将不再有它们，并且在您选择完整执行客户端之前不会�
 由于这一变化，您应该在 v1.4 版本时切换到完整客户端，让它同步完成，然后再升级到 v1.5。
 
 Docker 模式使切换客户端非常容易。
-[本指南](../../node-staking/change-clients#changing-execution-clients)提供了该过程的演练。
+[本指南](../../node-staking/change-clients#更改-execution-客户端)提供了该过程的演练。
 
 ## 升级到 v1.5.0
 
 将 Smartnode 堆栈升级到 v1.5.0 与任何其他升级没有什么不同。
-只需遵循[这里的正常说明](../../node-staking/updates#updating-the-smartnode-stack)。
+只需遵循[这里的正常说明](../../node-staking/updates#更新-smartnode-堆栈)。
 
 ## Smartnode 自动处理的事情
 
@@ -45,8 +45,8 @@ Smartnode 将自动处理在您的执行客户端和共识客户端上设置身�
 
 当您升级到 v1.5 时，Smartnode 将处理将其设置为正确的地址，并将不断检查以确保您使用的是正确的地址，这样您就不会[意外受到惩罚](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)。
 
-如果您选择加入[平滑池](./whats-new#smoothing-pool)，它将使其成为您的费用接收者。
-如果您没有，它将使您的[费用分配器合约](./whats-new#fee-recipients-and-your-distributor)成为费用接收者。
+如果您选择加入[平滑池](./whats-new#平滑池)，它将使其成为您的费用接收者。
+如果您没有，它将使您的[费用分配器合约](./whats-new#费用接收者和您的分配器)成为费用接收者。
 
 ### MEV-Boost
 
@@ -76,7 +76,7 @@ Smartnode 仍然有提供备用执行客户端（现在还有备用共识客户�
 
 ### 初始化您的费用分配器
 
-如果您不打算选择加入[平滑池](./whats-new#smoothing-pool)，并将所有优先费用和 MEV 奖励领取到您的[费用分配器合约](./whats-new#fee-recipients-and-your-distributor)，您最终将必须初始化它（在链上创建合约实例），以便从它向您的提款地址领取奖励。
+如果您不打算选择加入[平滑池](./whats-new#平滑池)，并将所有优先费用和 MEV 奖励领取到您的[费用分配器合约](./whats-new#费用接收者和您的分配器)，您最终将必须初始化它（在链上创建合约实例），以便从它向您的提款地址领取奖励。
 
 这是一个相当便宜的操作，只需要做一次。
 
@@ -91,7 +91,7 @@ Smartnode 仍然有提供备用执行客户端（现在还有备用共识客户�
 
 ### 选择加入平滑池
 
-如果您计划立即利用[平滑池](./whats-new#smoothing-pool)，您应该在第一个 Redstone 奖励期结束之前选择加入，以最大化您的"资格"金额。
+如果您计划立即利用[平滑池](./whats-new#平滑池)，您应该在第一个 Redstone 奖励期结束之前选择加入，以最大化您的"资格"金额。
 
 可以通过运行以下命令来选择加入:
 
@@ -101,7 +101,7 @@ rocketpool node join-smoothing-pool
 
 ### 领取奖励
 
-Redstone 升级用[全新的奖励系统](./whats-new#new-rewards-system)替换了昂贵、有问题的旧奖励系统，该系统更便宜，支持 RPL 的自动重新质押（部分和全部金额），最重要的是 - **让您随时领取奖励**。
+Redstone 升级用[全新的奖励系统](./whats-new#新的奖励系统)替换了昂贵、有问题的旧奖励系统，该系统更便宜，支持 RPL 的自动重新质押（部分和全部金额），最重要的是 - **让您随时领取奖励**。
 
 因为不再有领取奖励的时间限制，而且一次领取多个奖励间隔更便宜，所以 Smartnode 的自动奖励领取功能**已被删除**。
 您现在可以通过以下命令领取奖励:

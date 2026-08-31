@@ -23,7 +23,7 @@ v1.5以降、この構成はサポートされなくなりました。
 ローカル管理されるExecution ClientとConsensus Client（[Dockerモード](./docker-migration.mdx)とも呼ばれます）のいずれかに切り替えるか、自分で管理するExecution ClientとConsensus Clientの両方をセットアップする必要があります。
 
 ::: tip ヒント
-SmartnodeにそれぞれのExecution ClientとConsensus Clientを維持させたいが、独自のValidator Client（たとえば、独自のソロステーキングバリデータキーが接続されている場合など）を制御し続けたい場合は、まさにそれを実現する[Reverse Hybridモード](../../node-staking/advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode)を検討することをお勧めします！
+SmartnodeにそれぞれのExecution ClientとConsensus Clientを維持させたいが、独自のValidator Client（たとえば、独自のソロステーキングバリデータキーが接続されている場合など）を制御し続けたい場合は、まさにそれを実現する[Reverse Hybridモード](../../node-staking/advanced-config#外部バリデータークライアントをsmartnodeに接続できるようにする)を検討することをお勧めします！
 :::
 
 ### Engine APIのセットアップ
@@ -45,7 +45,7 @@ CoinCashewには、Execution ClientとConsensus ClientでEngine APIをセット�
 ## v1.5.0へのアップグレード
 
 Smartnodeスタックをv1.5.0にアップグレードすることは、他のアップグレードと変わりません。
-単に[ここの通常の手順](../../node-staking/updates#updating-the-smartnode-stack)に従ってください。
+単に[ここの通常の手順](../../node-staking/updates#smartnodeスタックの更新)に従ってください。
 
 ## Smartnodeが自動的に処理すること
 
@@ -61,7 +61,7 @@ Hybridモードでは、v1.5.0にアップデートすると、Redstoneをサポ
 Smartnodeは、v1.5にアップグレードしたときに管理するValidator Clientで正しいアドレスに設定することを処理し、[誤ってペナルティを受ける](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)ことがないように、正しいアドレスを使用していることを常に確認します。
 
 [Smoothing Pool](./whats-new#smoothing-pool)にオプトインした場合、それがfee recipientになります。
-オプトインしなかった場合、[fee distributorコントラクト](./whats-new#fee-recipients-and-your-distributor)がfee recipientになります。
+オプトインしなかった場合、[fee distributorコントラクト](./whats-new#fee-recipientとdistributor)がfee recipientになります。
 
 ## アップグレード後に実施すべきこと
 
@@ -106,7 +106,7 @@ Smartnodeには依然としてフォールバックExecution Client（および�
 
 ### Fee Distributorの初期化
 
-[Smoothing Pool](./whats-new#smoothing-pool)にオプトインせず、すべてのpriority feesとMEV報酬を[fee distributorコントラクト](./whats-new#fee-recipients-and-your-distributor)に請求する場合、最終的にそれを初期化（チェーン上にコントラクトインスタンスを作成）して、withdrawal addressに報酬を請求できるようにする必要があります。
+[Smoothing Pool](./whats-new#smoothing-pool)にオプトインせず、すべてのpriority feesとMEV報酬を[fee distributorコントラクト](./whats-new#fee-recipientとdistributor)に請求する場合、最終的にそれを初期化（チェーン上にコントラクトインスタンスを作成）して、withdrawal addressに報酬を請求できるようにする必要があります。
 
 これは比較的安価な操作で、一度だけ実行する必要があります。
 
@@ -131,7 +131,7 @@ rocketpool node join-smoothing-pool
 
 ### 報酬の請求
 
-Redstoneアップグレードは、高額で問題のある古い報酬システムを、はるかに安価で、RPLの自動再ステーク（部分的および全額の両方）をサポートし、そして最も重要なことに**いつでも報酬を請求できる**[全く新しいシステム](./whats-new#new-rewards-system)に置き換えます。
+Redstoneアップグレードは、高額で問題のある古い報酬システムを、はるかに安価で、RPLの自動再ステーク（部分的および全額の両方）をサポートし、そして最も重要なことに**いつでも報酬を請求できる**[全く新しいシステム](./whats-new#新しい報酬システム)に置き換えます。
 
 報酬の請求に時間制限がなくなり、多くの報酬インターバルを一度に請求する方がコスト効率が良いため、Smartnodeの自動報酬請求機能は**削除されました**。
 次のコマンドで報酬を請求できるようになります。

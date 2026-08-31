@@ -17,8 +17,8 @@ Se desideri contribuire aiutando a integrare Rocket Pool in più servizi e proto
 | Hoodi\* | Deposit  | [0x320f3aAB9405e38b955178BBe75c477dECBA0C27](https://hoodi.etherscan.io/address/0x320f3aAB9405e38b955178BBe75c477dECBA0C27) |
 | &nbsp;  | Storage  | [0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1](https://hoodi.etherscan.io/address/0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1) |
 
-All'interno del protocollo, il contratto Storage viene utilizzato per trovare tutti gli altri indirizzi dei contratti deployati secondo necessità (vedi questo [esempio](/it/protocol/contracts-usage#interacting-with-rocket-pool)).
-Vedi [Tutti i Contratti Attivi del Protocollo](#all-active-deployed-protocol-contracts) sotto per l'elenco completo degli indirizzi.
+All'interno del protocollo, il contratto Storage viene utilizzato per trovare tutti gli altri indirizzi dei contratti deployati secondo necessità (vedi questo [esempio](/it/protocol/contracts-usage#interagire-con-rocket-pool)).
+Vedi [Tutti i Contratti Attivi del Protocollo](#tutti-i-contratti-attivi-del-protocollo) sotto per l'elenco completo degli indirizzi.
 
 <small>\* Testnet</small>
 
@@ -261,4 +261,4 @@ Vedi [Tutti i Contratti Attivi del Protocollo](#all-active-deployed-protocol-con
 
 Questa lista è stata aggiornata il 09/02/2026
 
-Gli indirizzi possono essere interrogati on-chain come mostrato in questo [esempio](/it/protocol/contracts-usage#interacting-with-rocket-pool).
+Gli indirizzi possono essere interrogati on-chain come mostrato in questo [esempio](/it/protocol/contracts-usage#interagire-con-rocket-pool).

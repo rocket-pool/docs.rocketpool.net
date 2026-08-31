@@ -23,7 +23,7 @@ Daha önce Smartnode yapılandırmasını manuel olarak değiştirdiyseniz, aşa
 - `docker-compose` YAML dosyaları kaldırılmıştır. Her container artık `templates` klasöründe kendi dosyasını alır. `rocketpool service start` çalıştırıldığında, bu şablonlar ayarlarınızla doldurulur ve otomatik olarak `runtime` klasörüne yerleştirilir.
   - Şablonları veya runtime dosyalarını değiştirmek önerilmez. Bunun yerine, `override` klasöründeki her container için **override** dosyalarını kullanarak container özelleştirmelerinizi doldurun. Bu dosyalar `runtime`'daki Docker dosyalarının üzerine yazacaktır, bu nedenle bunları istediğiniz gibi özelleştirmekte özgürsünüz.
   - `override` içindeki dosyalar **Smartnode yükseltmeleri ve yeniden kurulumlar sırasında korunacaktır**, bu yüzden onları yalnızca bir kez oluşturmanız gerekir.
-  - Bu override mekanizması aracılığıyla `docker-compose` dosyalarını değiştirmekle ilgileniyorsanız, lütfen [bu bölüme](../node-staking/advanced-config#customizing-the-docker-compose-definition-files) bakın
+  - Bu override mekanizması aracılığıyla `docker-compose` dosyalarını değiştirmekle ilgileniyorsanız, lütfen [bu bölüme](../node-staking/advanced-config#docker-compose-tanım-dosyalarını-özelleştirme) bakın
 
 ## Yeni Sürümü Yükleme
 
@@ -93,7 +93,7 @@ Hizmetleri durdurup yeni CLI'yı her zamanki gibi indirerek başlayın:
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOT</p>
         Bu yalnızca Smartnode stack'inin kendisini güncelleyecektir - Execution ve Consensus client'larınızı **güncellemeyecektir**.
-        Bunu manuel olarak yapmanız gerekecektir (bunu nasıl yapacağınızı öğrenmek için [manuel güncelleme kılavuzuna](../node-staking/updates#manually-updating-the-eth1-or-eth2-client) bakın).
+        Bunu manuel olarak yapmanız gerekecektir (bunu nasıl yapacağınızı öğrenmek için [manuel güncelleme kılavuzuna](../node-staking/updates#yürütüm-veya-fikir-birliği-i̇stemcisini-manuel-olarak-güncelleme) bakın).
       </p>
 
       Rocket Pool hizmetlerini durdurun:

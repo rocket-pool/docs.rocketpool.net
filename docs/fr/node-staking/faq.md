@@ -5,7 +5,7 @@
 En exécutant un seul validateur solo, vous recevriez 100 % des récompenses sur vos 32 ETH.
 En exécutant deux minipools de 16 ETH, vous recevriez 100 % des récompenses sur vos 32 ETH **plus** 14 % des récompenses sur 32 ETH fournis par le protocole Rocket Pool.
 En exécutant quatre minipools de 8 ETH, vous recevriez 100 % des récompenses sur vos 32 ETH **plus** 14 % des récompenses sur 96 ETH fournis par le protocole Rocket Pool.
-Vous auriez également la possibilité d'utiliser la fonctionnalité [Smoothing Pool](./prepare-node.mdx#smoothing-pool) de Rocket Pool.
+Vous auriez également la possibilité d'utiliser la fonctionnalité [Smoothing Pool](./fee-distrib-sp#la-smoothing-pool) de Rocket Pool.
 
 ### Comment savoir combien vaut mon rETH ? Est-ce qu'il rebase ?
 
@@ -19,7 +19,7 @@ Si cela ne vous aide pas, vous pouvez poser votre question sur le canal **#suppo
 
 ### Comment puis-je obtenir de l'ETH de test pour expérimenter la création et l'exécution d'un minipool ? Je ne peux pas publier de messages sur le canal faucet.
 
-Voir [Obtenir de l'ETH de test sur Hoodi](./testnet/overview#getting-test-eth-on-hoodi).
+Voir [Obtenir de l'ETH de test sur Hoodi](./testnet/overview#obtenir-de-leth-de-test-sur-hoodi).
 
 ### Comment récupérer mon nœud si ma machine tombe en panne ?
 
@@ -39,7 +39,7 @@ Assurez-vous également que votre nœud a une adresse IP locale statique afin qu
 
 ### Mon client de consensus met trop de temps à se synchroniser. Que dois-je faire ?
 
-Les clients de consensus peuvent prendre beaucoup de temps à se synchroniser si vous n'avez pas démarré le processus de synchronisation en utilisant [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
+Les clients de consensus peuvent prendre beaucoup de temps à se synchroniser si vous n'avez pas démarré le processus de synchronisation en utilisant [Checkpoint Sync](./config-docker#synchronisation-par-point-de-contrôle-beacon-chain).
 Même si vous l'exécutez depuis longtemps, il est généralement plus rapide de configurer l'URL de synchronisation de checkpoint, d'effacer les données de synchronisation actuelles avec `rocketpool service resync-eth2` et de recommencer.
 Votre client devrait être synchronisé en moins d'une minute.
 

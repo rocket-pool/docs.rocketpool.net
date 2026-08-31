@@ -16,11 +16,11 @@ Smartnode'unuzu yapılandırmadan önce, lütfen aşağıdakileri yaptığınız
 - Üzerine Smartnode'u [kurdunuz](../installing/overview) ve [yapılandırdınız](../config/overview)
 - Smartnode'unuza bir node wallet yüklediniz
 - Execution ve Consensus istemcilerinizi senkronize ettiniz
-- Node'unuzu [bir withdrawal adresi](../prepare-node.mdx#setting-your-withdrawal-address) ile sağladınız, [yedek istemcilerinizi](../fallback) kurdunuz (isteğe bağlı), [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool)'a katıldınız (isteğe bağlı) ve [MEV](../mev.mdx)'yi yapılandırdınız
+- Node'unuzu [bir withdrawal adresi](../prepare-node.mdx#birincil-çekim-adresinizi-ayarlama) ile sağladınız, [yedek istemcilerinizi](../fallback) kurdunuz (isteğe bağlı), [Smoothing Pool](../fee-distrib-sp#smoothing-pool)'a katıldınız (isteğe bağlı) ve [MEV](../mev.mdx)'yi yapılandırdınız
 - En az bir [minipool](../create-validator.mdx) oluşturdunuz
 
 ## Kılavuzlar
 
 [Claiming Node Operator Rewards](../rewards), RPL ödüllerinin ve Execution-layer ödüllerinin nasıl çalıştığını ve bunlara nasıl erişeceğinizi açıklar.
 
-[Distributing Skimmed Rewards](../skimming), protokol tarafından periyodik olarak "skimmed" edilen ve minipool'larınıza teslim edilen Beacon Chain'den ödüllere erişmeyi kapsar.
+[Skimmed Minipool Ödüllerinin Dağıtımı](../skimming), protokol tarafından periyodik olarak "skimmed" edilen ve minipool'larınıza teslim edilen Beacon Chain'den ödüllere erişmeyi kapsar.

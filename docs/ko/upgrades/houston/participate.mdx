@@ -24,7 +24,7 @@ Rocket Pool 프로토콜의 변경 사항은 엄격하면서도 투명한 거버
 
 ## 전제 조건
 
-계속하기 전에 [제안의 라이프사이클](/ko/upgrades/houston/pdao#lifecycle-of-a-pdao-proposal)을 읽어주세요. 모든 투표 기간 간의 차이점과 각 기간 동안 취할 수 있는 조치를 설명합니다.
+계속하기 전에 [제안의 라이프사이클](/ko/upgrades/houston/pdao#pdao-제안의-수명-주기)을 읽어주세요. 모든 투표 기간 간의 차이점과 각 기간 동안 취할 수 있는 조치를 설명합니다.
 
 이 페이지의 나머지 부분에서는 온체인 pDAO 제안 참여에 필요한 단계를 안내합니다.
 
@@ -60,7 +60,7 @@ https://delegates.rocketpool.net에서 기존 공개 위임자 목록을 볼 수
 ```
 
 - `direct`로 응답하면, 투표권이 노드에 초기화되고 프로토콜 DAO 제안에 직접 투표할 수 있습니다.
-- `delegate`로 응답하면, 동일한 트랜잭션 내에서 투표를 초기화하고 [위임자를 설정](/ko/upgrades/houston/participate#delegating-voting-power)하여 약간의 가스를 절약할 수 있는 기회가 있습니다.
+- `delegate`로 응답하면, 동일한 트랜잭션 내에서 투표를 초기화하고 [위임자를 설정](/ko/upgrades/houston/participate#투표권-위임)하여 약간의 가스를 절약할 수 있는 기회가 있습니다.
 
 한 번만 수행하면 됩니다. 노드에 대한 초기 스냅샷 정보를 구성합니다. 투표를 초기화한 후, 취해진 모든 조치는 노드의 스냅샷 정보를 업데이트합니다. 투표권이 초기화되면 다음 스마트노드 명령을 사용하여 얼마나 있는지 확인할 수 있습니다:
 
@@ -188,13 +188,13 @@ rocketpool pdao set-voting-delegate `address`
 
 제안할 자격을 갖추려면 노드가 몇 가지 요구 사항을 충족해야 합니다:
 
-- 스냅샷에 포함됨([투표 초기화](/ko/upgrades/houston/participate#initializing-voting) 또는 Houston 이후 등록을 통해)
+- 스냅샷에 포함됨([투표 초기화](/ko/upgrades/houston/participate#투표-초기화) 또는 Houston 이후 등록을 통해)
 - 최소 하나의 미니풀이 있어야 함
 - 투표권이 0이 아니어야 함
-- [RPL 잠금](/ko/upgrades/houston/participate#allowing-rpl-locking)을 허용해야 함
+- [RPL 잠금](/ko/upgrades/houston/participate#rpl-잠금-허용)을 허용해야 함
 - 이미 잠긴 RPL을 제외한 RPL 스테이크가 제안 본드보다 커야 함
 
-제안은 프로토콜 수준에서 매개변수를 변경하고 코드를 실행하기 위해 존재합니다! 제안이 온체인에서 생성되기 전에 [거버넌스](/ko/upgrades/houston/participate#governance-process) 프로세스를 통한 논의와 합의가 있어야 합니다.
+제안은 프로토콜 수준에서 매개변수를 변경하고 코드를 실행하기 위해 존재합니다! 제안이 온체인에서 생성되기 전에 [거버넌스](/ko/upgrades/houston/participate#거버넌스-프로세스) 프로세스를 통한 논의와 합의가 있어야 합니다.
 
 `rocketpool pdao propose` 명령을 사용하여 옵션 메뉴를 표시합니다
 
@@ -269,7 +269,7 @@ Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B
       [이의 제기자](/ko/legacy/houston/pdao#challenge-process)는 제안자가 제공한
       머클 폴라드(투표권 계산에 사용됨)의 유효성에 이의를 제기할 수 있습니다. `proposal.vote.delay.time`이 끝나면
       제안은 활성 투표 단계로 전환됩니다. [제안의
-      라이프사이클](/ko/upgrades/houston/pdao#lifecycle-of-a-pdao-proposal)을 복습해보세요.
+      라이프사이클](/ko/upgrades/houston/pdao#pdao-제안의-수명-주기)을 복습해보세요.
     </Tab>
     <Tab label="제안 세부 정보 보기">
       이제 제안 ID를 얻었으므로 이 명령을 사용하여 제안 상태를 볼 수 있습니다:

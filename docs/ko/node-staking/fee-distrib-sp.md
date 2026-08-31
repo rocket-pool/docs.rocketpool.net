@@ -123,7 +123,7 @@ Oracle DAO는 프로토콜 규칙을 따르지 않는 노드 운영자에게 패
 
 위의 유효한 주소 중 하나가 아닌 fee recipient는 **유효하지 않은** 것으로 간주됩니다.
 
-Smart Node 소프트웨어는 구성에 따라 올바른 fee recipient를 자동으로 설정합니다(Smoothing Pool 가입 여부, megapool validator, minipool 또는 둘 다 보유 여부). megapool validator와 minipool을 모두 보유하면서 미가입한 노드의 경우 keymanager API를 사용하여 validator별로 fee recipient가 설정됩니다. 전체 조건 목록은 [여기](/node-staking/fee-distrib-sp#fee-recipients)에 요약되어 있습니다.
+Smart Node 소프트웨어는 구성에 따라 올바른 fee recipient를 자동으로 설정합니다(Smoothing Pool 가입 여부, megapool validator, minipool 또는 둘 다 보유 여부). megapool validator와 minipool을 모두 보유하면서 미가입한 노드의 경우 keymanager API를 사용하여 validator별로 fee recipient가 설정됩니다. 전체 조건 목록은 [여기](/node-staking/fee-distrib-sp#fee-recipient)에 요약되어 있습니다.
 
 Smartnode 소프트웨어는 정직한 사용자가 패널티를 받지 않도록 설계되었으며, 이를 위해 Validator 클라이언트를 오프라인으로 전환해야 하는 경우에도 그렇게 합니다.
 이 경우 증명을 중지하고 Smartnode가 fee recipient를 올바르게 설정할 수 없는 이유에 대한 오류 메시지가 로그 파일에 표시됩니다.

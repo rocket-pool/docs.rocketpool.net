@@ -23,6 +23,8 @@ En general, los megapools deberían mejorar la experiencia de los node operators
 
 El contrato delegado sirve como dirección de retiro de Ethereum y gestiona las actividades de los validators. Los node operators actualmente pueden elegir actualizar o permanecer con los mismos delegados minipool, lo que dificulta el diseño de futuras actualizaciones. La Actualización Saturn 1 introduce las [Actualizaciones Forzadas de Delegados](https://rpips.rocketpool.net/RPIPs/RPIP-47), permitiendo al protocolo iterar de manera más eficiente. Las actualizaciones forzadas de delegados en los contratos megapool significan que el protocolo de Rocket Pool no se verá obstaculizado por la compatibilidad con versiones anteriores al diseñar futuras actualizaciones, y da al pDAO más flexibilidad para mejorar Rocket Pool con el tiempo.
 
+Si eres un node operator nuevo o que regresa y quieres explorar la creación de un megapool, no dudes en consultar la guía [Creación de un Megapool (Validador)](/node-staking/megapools/create-megapool-validator#creación-de-un-megapool-validador).
+
 ## Requisitos de bond más bajos
 
 Los megapools reducen los costos operativos, permitiendo a Rocket Pool reducir el requisito de bond por validator de 8 ETH a 4 ETH.
@@ -54,6 +56,8 @@ UARS divide los ingresos de ETH entre cuatro grupos. Cada participación es ajus
 
 Cada node operator recibe una participación de voto basada en su proporción de RPL elegible para voto stakeado en su megapool.
 En Saturn 1, las recompensas por inflación de RPL continúan junto con este nuevo mecanismo de participación de voto, proporcionando incentivos adicionales para los node operators que stakean RPL.
+
+Puedes obtener más información sobre RPL Revenue Share y UARS [aquí](/node-staking/megapools/staking-and-claiming-rewards#qué-ha-cambiado-en-saturn-1).
 
 ## Mecánicas de depósito rediseñadas
 
@@ -88,7 +92,7 @@ Los informes finales de auditoría para Saturn 1 se encuentran a continuación:
 - [Sigma Prime](https://rocketpool.net/files/audits/sigma-prime-audit-saturn-1.pdf)
 
 Para un historial completo de auditorías, visita la página de [Seguridad del Protocolo](https://rocketpool.net/protocol/security).
-Rocket Pool también mantiene un [programa activo de bug bounty en Immunefi](https://immunefi.com/bug-bounty/rocketpool/information/) con recompensas de hasta $500,000 por vulnerabilidades críticas.
+Rocket Pool también mantiene un [programa activo de bug bounty en Immunefi](https://immunefi.com/bug-bounty/rocketpool/information/) con recompensas de hasta $150,000 por vulnerabilidades críticas.
 
 ## Guía del Node Operator
 

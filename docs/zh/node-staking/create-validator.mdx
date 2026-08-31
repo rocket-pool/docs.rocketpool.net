@@ -212,7 +212,7 @@ rocketpool node deposit
 
 失败的交易（由于调整的 gas 设置或 ETH 不足）可能会使您的 minipool 过渡到 `dissolved` 状态，这是您想要避免的。
 
-[了解有关如何确认成功质押的更多信息](./create-validator#confirming-a-successful-stake)
+[了解有关如何确认成功质押的更多信息](./create-validator#确认成功质押)
 
 :::
 
@@ -225,7 +225,7 @@ rocketpool node deposit --salt <your salt, e.g. 0x1234abcd>
 
 :::
 
-您首先会看到一条注释，说明存入新 minipool 将**自动分配**节点的[费用分配器](./fee-distrib-sp)合约中的任何余额（如果您未选择加入 [Smoothing Pool](./fee-distrib-sp#the-smoothing-pool)，则用于捕获 MEV 奖励）：
+您首先会看到一条注释，说明存入新 minipool 将**自动分配**节点的[费用分配器](./fee-distrib-sp)合约中的任何余额（如果您未选择加入 [Smoothing Pool](./fee-distrib-sp#平滑池)，则用于捕获 MEV 奖励）：
 
 ```
 Your eth2 client is on the correct network.

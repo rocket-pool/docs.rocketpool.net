@@ -5,7 +5,7 @@
 Indem Sie einen einzelnen Solo-Validator betreiben, würden Sie 100% der Belohnungen auf Ihre 32 ETH erhalten.
 Indem Sie zwei 16 ETH Minipools betreiben, würden Sie 100% der Belohnungen auf Ihre 32 ETH **plus** 14% der Belohnungen auf 32 ETH erhalten, die vom Rocket Pool-Protokoll bereitgestellt werden.
 Indem Sie vier 8 ETH Minipools betreiben, würden Sie 100% der Belohnungen auf Ihre 32 ETH **plus** 14% der Belohnungen auf 96 ETH erhalten, die vom Rocket Pool-Protokoll bereitgestellt werden.
-Sie hätten auch die Möglichkeit, die [Smoothing Pool](./prepare-node.mdx#smoothing-pool)-Funktion von Rocket Pool zu nutzen.
+Sie hätten auch die Möglichkeit, die [Smoothing Pool](./fee-distrib-sp#der-smoothing-pool)-Funktion von Rocket Pool zu nutzen.
 
 ### Wie weiß ich, wie viel mein rETH wert ist? Macht es ein Rebase?
 
@@ -19,7 +19,7 @@ Wenn das nicht hilft, können Sie Ihre Frage im **#support**-Kanal von Rocket Po
 
 ### Wie kann ich Test-ETH bekommen, um mit der Erstellung und dem Betrieb eines Minipools zu experimentieren? Ich kann keine Nachrichten im Faucet-Kanal posten.
 
-Siehe [Test-ETH auf Hoodi erhalten](./testnet/overview#getting-test-eth-on-hoodi).
+Siehe [Test-ETH auf Hoodi erhalten](./testnet/overview#test-eth-auf-hoodi-erhalten).
 
 ### Wie kann ich meinen Node wiederherstellen, wenn meine Maschine kaputt geht?
 

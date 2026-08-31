@@ -16,7 +16,7 @@ Smartnodeを設定する前に、次のことを確認してください。
 - Smartnodeが[インストール](../installing/overview)され、[設定](../config/overview)されている
 - Smartnodeにノードウォレットがロードされている
 - Execution ClientとConsensus Clientが同期されている
-- ノードに[出金アドレス](../prepare-node.mdx#setting-your-withdrawal-address)が準備され、[フォールバッククライアント](../fallback)がセットアップされ(オプション)、[Smoothing Pool](../fee-distrib-sp#the-smoothing-pool)にオプトインし(オプション)、[MEV](../mev.mdx)が設定されている
+- ノードに[出金アドレス](../prepare-node.mdx#primary-withdrawal-addressの設定)が準備され、[フォールバッククライアント](../fallback)がセットアップされ(オプション)、[Smoothing Pool](../fee-distrib-sp#smoothing-pool)にオプトインし(オプション)、[MEV](../mev.mdx)が設定されている
 - 少なくとも1つの[minipool](../create-validator.mdx)を作成している
 
 ## ガイド

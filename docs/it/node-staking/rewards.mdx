@@ -14,7 +14,7 @@ Attualmente, i checkpoint si verificano **ogni 28 giorni**.
 A un nuovo checkpoint, l'Oracle DAO creerà collettivamente uno **snapshot vero** dello stato dei Node Operator nella rete Rocket Pool, che utilizzerà per determinare le ricompense in RPL e ETH dello Smoothing Pool per ciascun nodo durante quell'intervallo. Si noti che la "commissione bonus" per i minipool Saturn 0 viene distribuita utilizzando le ricompense dello Smoothing Pool (i minipool Saturn 0 sono quelli creati dopo il 28/10/2024, che hanno una commissione contrattuale del 5%).
 
 Queste informazioni vengono compilate in un [Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree) - un modo estremamente efficiente per rendere tutti i dettagli disponibili agli smart contract.
-Il Merkle Tree viene costruito in un file JSON e ospitato sull'[InterPlanetary File System (IPFS)](https://en.wikipedia.org/wiki/InterPlanetary_File_System) e replicato su [un repository GitHub che manteniamo](https://github.com/rocket-pool/rewards-trees/).
+Il Merkle Tree viene costruito in un file JSON e ospitato su [un repository GitHub che manteniamo](https://github.com/rocket-pool/rewards-trees/). Lo Smartnode può anche caricare gli **eventi** di intervallo delle ricompense da quel repository GitHub, quindi puoi ancora richiedere le ricompense dopo che una scadenza aggressiva della cronologia ha eliminato i vecchi log del livello Execution.
 
 Una volta inviato l'albero, gli smart contract di Rocket Pool creeranno nuovi token RPL e li sposteranno, insieme all'intero saldo ETH dello Smoothing Pool, nel vault di Rocket Pool per l'archiviazione sicura.
 Potrai quindi visualizzare quanti RPL e ETH hai guadagnato durante quell'intervallo e richiedere quelle ricompense.
@@ -152,7 +152,7 @@ You may claim these rewards at any time. You no longer need to claim them within
 
 ## Ricompense del Livello di Execution nel tuo Fee Distributor
 
-Se **non** sei iscritto allo Smoothing Pool, la parte del livello di Execution delle tue ricompense dalle proposte di blocchi (incluse le commissioni di transazione e MEV) verrà inviata al contratto [Fee Distributor](./fee-distrib-sp#fee-distributors-and-the-smoothing-pool) del tuo nodo.
+Se **non** sei iscritto allo Smoothing Pool, la parte del livello di Execution delle tue ricompense dalle proposte di blocchi (incluse le commissioni di transazione e MEV) verrà inviata al contratto [Fee Distributor](./fee-distrib-sp#fee-distributor-e-lo-smoothing-pool) del tuo nodo.
 
 Per verificare il saldo del tuo Fee Distributor, puoi utilizzare un chain explorer come [https://etherscan.io](https://etherscan.io) o semplicemente eseguire `rocketpool node status` - ci sarà una sezione chiamata **Fee Distributor and Smoothing Pool** che lo mostra:
 

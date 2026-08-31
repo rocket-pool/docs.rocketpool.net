@@ -123,7 +123,7 @@ Contracts, die als "internal" gekennzeichnet sind, stellen keine Methoden bereit
 
 Der Hauptgrund für die Erweiterung des Rocket Pool Netzwerks besteht darin, benutzerdefinierte Einzahlungslogik zu implementieren, die Nutzereinzahlungen in den Deposit Pool leitet. Beispielsweise möchte ein Fondsmanager möglicherweise das ETH seiner Nutzer über eigene Smart Contracts in Rocket Pool staken und die Verwendung von Rocket Pool selbst von seinen Nutzern abstrahieren.
 
-Hinweis: Die `RocketDepositPool` Contract-Adresse sollte nicht in Ihren Contracts fest codiert werden, sondern dynamisch aus `RocketStorage` abgerufen werden. Siehe [Interaktion mit Rocket Pool](#interacting-with-rocket-pool) für weitere Details.
+Hinweis: Die `RocketDepositPool` Contract-Adresse sollte nicht in Ihren Contracts fest codiert werden, sondern dynamisch aus `RocketStorage` abgerufen werden. Siehe [Interaktion mit Rocket Pool](#interaktion-mit-rocket-pool) für weitere Details.
 
 ### Implementierung
 

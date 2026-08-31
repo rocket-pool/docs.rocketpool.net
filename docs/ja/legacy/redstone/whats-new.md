@@ -120,7 +120,7 @@ Redstoneアップデートで導入された最も重要な変更の1つは、**
 
 すべてのインターバルで、Oracle DAOは、すべての有効なステーク量を含む、Rocket Poolネットワーク内のnode operatorの状態の**真のスナップショット**を集合的に作成します。
 この情報は[Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree)にコンパイルされます - スマートコントラクトですべての詳細を利用可能にするための非常に効率的な方法です。
-Merkle TreeはJSONファイルに構築され、[InterPlanetary File System (IPFS)](https://en.wikipedia.org/wiki/InterPlanetary_File_System)にホストされ、Merkle Treeのルートがコントラクトに送信されます。
+Merkle TreeはJSONファイルに構築され、GitHubにホストされ、Merkle Treeのルートがコントラクトに送信されます。
 
 この新しいシステムには以下の機能があります。
 

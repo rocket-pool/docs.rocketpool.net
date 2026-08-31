@@ -23,7 +23,7 @@ Si vous avez modifié manuellement la configuration du Smartnode auparavant, vou
 - Les fichiers YAML `docker-compose` ont été supprimés. Chaque conteneur obtient maintenant son propre fichier dans le dossier `templates`. Lors du `rocketpool service start`, ces modèles sont remplis avec vos paramètres et placés automatiquement dans le dossier `runtime`.
   - La modification des modèles ou des fichiers runtime n'est pas recommandée. Au lieu de cela, remplissez vos personnalisations de conteneur en utilisant les fichiers de **remplacement** pour chaque conteneur dans le dossier `override`. Ces fichiers remplaceront les fichiers Docker dans `runtime`, vous êtes donc libre de les personnaliser comme bon vous semble.
   - Les fichiers dans `override` **persisteront lors des mises à niveau et réinstallations du Smartnode**, vous n'avez donc besoin de les créer qu'une seule fois.
-  - Si vous souhaitez modifier les fichiers `docker-compose` via ce mécanisme de remplacement, veuillez consulter [cette section](../node-staking/advanced-config#customizing-the-docker-compose-definition-files)
+  - Si vous souhaitez modifier les fichiers `docker-compose` via ce mécanisme de remplacement, veuillez consulter [cette section](../node-staking/advanced-config#personnaliser-les-fichiers-de-définition-docker-compose)
 
 ## Installation de la Nouvelle Version
 
@@ -93,7 +93,7 @@ Commencez par arrêter les services et télécharger le nouveau CLI comme d'habi
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">REMARQUE</p>
         Cela ne mettra à jour que la pile Smartnode elle-même - cela **ne mettra pas à jour** vos clients d'exécution et de consensus.
-        Vous devrez le faire manuellement (consultez [le guide de mise à jour manuelle](../node-staking/updates#manually-updating-the-eth1-or-eth2-client) pour apprendre comment le faire).
+        Vous devrez le faire manuellement (consultez [le guide de mise à jour manuelle](../node-staking/updates#mise-à-jour-manuelle-du-client-dexécution-ou-de-consensus) pour apprendre comment le faire).
       </p>
 
       Arrêtez les services Rocket Pool :

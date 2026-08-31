@@ -120,7 +120,7 @@ Redstone 更新引入的最重要变化之一是**新的奖励系统**。
 
 在每个间隔，Oracle DAO 将共同创建 Rocket Pool 网络中节点运营者状态的**真实快照**，包括他们所有的有效质押金额。
 此信息被编译成[默克尔树](https://en.wikipedia.org/wiki/Merkle_tree) - 一种将所有细节提供给智能合约的极其高效的方式。
-默克尔树被构建成 JSON 文件并托管在[星际文件系统（IPFS）](https://en.wikipedia.org/wiki/InterPlanetary_File_System)上，默克尔树的根被提交到合约。
+默克尔树被构建成 JSON 文件并托管在 GitHub 上，默克尔树的根被提交到合约。
 
 这个新系统具有以下特点:
 

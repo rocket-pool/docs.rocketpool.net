@@ -33,7 +33,7 @@ Mostraremos a você como configurar seu cliente Validator para que ele use o des
 ## Atualizando para v1.5.0
 
 Atualizar a pilha Smartnode para v1.5.0 não é diferente de qualquer outra atualização.
-Simplesmente siga [as instruções normais aqui](../../node-staking/updates#updating-the-smartnode-stack).
+Simplesmente siga [as instruções normais aqui](../../node-staking/updates#atualizando-o-smartnode-stack).
 
 ## Coisas que Você Deve Fazer Após Atualizar
 
@@ -51,7 +51,7 @@ Considere seguir as seguintes etapas:
 ### Configurar o Destinatário de Taxa em seu Cliente Validator
 
 Um dos detalhes **críticos** a configurar antes do Merge é o **destinatário de taxa** especificado por seu cliente validator.
-Como descrito no [artigo de visão geral](./whats-new#fee-recipients-and-your-distributor), isso pode ser um de dois valores:
+Como descrito no [artigo de visão geral](./whats-new#destinatários-de-taxas-e-seu-distribuidor), isso pode ser um de dois valores:
 
 - Se você **está inscrito** no Smoothing Pool, este deve ser o endereço do **contrato Smoothing Pool**. Você pode obter o endereço da [página de contratos oficiais](/pt/protocol/contracts-integrations).
 - Se você **não está** no Smoothing Pool, este deve ser o endereço do **contrato distribuidor de taxas** do seu nó. Você pode obter o endereço executando `rocketpool node status`, na seção `Fee Distributor and Smoothing Pool`.
@@ -192,9 +192,9 @@ Selecione seu cliente de Consenso abaixo para aprender como configurá-lo.
 
       Onde `address` é:
 
-      - O [endereço rETH](/pt/protocol/contracts-integrations/#token-contracts) **antes** da implantação da atualização Redstone (por exemplo, `0xae78736Cd615f374D3085123A210448E74Fc6393` na Mainnet)
+      - O [endereço rETH](/pt/protocol/contracts-integrations/#contratos-de-token) **antes** da implantação da atualização Redstone (por exemplo, `0xae78736Cd615f374D3085123A210448E74Fc6393` na Mainnet)
       - O **distribuidor de taxas** do seu nó após o Redstone ser implantado, que você pode recuperar com `rocketpool node status` uma vez que a atualização do contrato ocorra
-      - O [endereço do Smoothing Pool](/pt/protocol/contracts-integrations/#protocol-contracts) se você optar por entrar no Smoothing Pool
+      - O [endereço do Smoothing Pool](/pt/protocol/contracts-integrations/#principais-contratos-de-protocolo) se você optar por entrar no Smoothing Pool
 
       Como lembrete, `rocketpool node status` mostrará o destinatário de taxa correto a ser usado a qualquer momento.
 
@@ -209,9 +209,9 @@ Selecione seu cliente de Consenso abaixo para aprender como configurá-lo.
 
       Onde `address` é:
 
-      - O [endereço rETH](/pt/protocol/contracts-integrations/#token-contracts) **antes** da implantação da atualização Redstone (por exemplo, `0xae78736Cd615f374D3085123A210448E74Fc6393` na Mainnet)
+      - O [endereço rETH](/pt/protocol/contracts-integrations/#contratos-de-token) **antes** da implantação da atualização Redstone (por exemplo, `0xae78736Cd615f374D3085123A210448E74Fc6393` na Mainnet)
       - O **distribuidor de taxas** do seu nó após o Redstone ser implantado, que você pode recuperar com `rocketpool node status` uma vez que a atualização do contrato ocorra
-      - O [endereço do Smoothing Pool](/pt/protocol/contracts-integrations/#protocol-contracts) se você optar por entrar no Smoothing Pool
+      - O [endereço do Smoothing Pool](/pt/protocol/contracts-integrations/#principais-contratos-de-protocolo) se você optar por entrar no Smoothing Pool
 
       Como lembrete, `rocketpool node status` mostrará o destinatário de taxa correto a ser usado a qualquer momento.
 
@@ -226,9 +226,9 @@ Selecione seu cliente de Consenso abaixo para aprender como configurá-lo.
 
       Onde `address` é:
 
-      - O [endereço rETH](/pt/protocol/contracts-integrations/#token-contracts) **antes** da implantação da atualização Redstone (por exemplo, `0xae78736Cd615f374D3085123A210448E74Fc6393` na Mainnet)
+      - O [endereço rETH](/pt/protocol/contracts-integrations/#contratos-de-token) **antes** da implantação da atualização Redstone (por exemplo, `0xae78736Cd615f374D3085123A210448E74Fc6393` na Mainnet)
       - O **distribuidor de taxas** do seu nó após o Redstone ser implantado, que você pode recuperar com `rocketpool node status` uma vez que a atualização do contrato ocorra
-      - O [endereço do Smoothing Pool](/pt/protocol/contracts-integrations/#protocol-contracts) se você optar por entrar no Smoothing Pool
+      - O [endereço do Smoothing Pool](/pt/protocol/contracts-integrations/#principais-contratos-de-protocolo) se você optar por entrar no Smoothing Pool
 
       Como lembrete, `rocketpool node status` mostrará o destinatário de taxa correto a ser usado a qualquer momento.
 
@@ -243,9 +243,9 @@ Selecione seu cliente de Consenso abaixo para aprender como configurá-lo.
 
       Onde `address` é:
 
-      - O [endereço rETH](/pt/protocol/contracts-integrations/#token-contracts) **antes** da implantação da atualização Redstone (por exemplo, `0xae78736Cd615f374D3085123A210448E74Fc6393` na Mainnet)
+      - O [endereço rETH](/pt/protocol/contracts-integrations/#contratos-de-token) **antes** da implantação da atualização Redstone (por exemplo, `0xae78736Cd615f374D3085123A210448E74Fc6393` na Mainnet)
       - O **distribuidor de taxas** do seu nó após o Redstone ser implantado, que você pode recuperar com `rocketpool node status` uma vez que a atualização do contrato ocorra
-      - O [endereço do Smoothing Pool](/pt/protocol/contracts-integrations/#protocol-contracts) se você optar por entrar no Smoothing Pool
+      - O [endereço do Smoothing Pool](/pt/protocol/contracts-integrations/#principais-contratos-de-protocolo) se você optar por entrar no Smoothing Pool
 
       Como lembrete, `rocketpool node status` mostrará o destinatário de taxa correto a ser usado a qualquer momento.
 
@@ -285,7 +285,7 @@ Para mais informações sobre como configurar um nó de fallback, veja o [guia d
 
 ### Inicializar seu Distribuidor de Taxas
 
-Se você não está planejando optar pelo [Smoothing Pool](./whats-new#smoothing-pool) e reivindicar todas as suas taxas de prioridade e recompensas MEV para seu [contrato distribuidor de taxas](./whats-new#fee-recipients-and-your-distributor), você eventualmente terá que inicializá-lo (criar a instância do contrato na cadeia) para reivindicar recompensas dele para seu endereço de retirada.
+Se você não está planejando optar pelo [Smoothing Pool](./whats-new#smoothing-pool) e reivindicar todas as suas taxas de prioridade e recompensas MEV para seu [contrato distribuidor de taxas](./whats-new#destinatários-de-taxas-e-seu-distribuidor), você eventualmente terá que inicializá-lo (criar a instância do contrato na cadeia) para reivindicar recompensas dele para seu endereço de retirada.
 
 Esta é uma operação bastante barata e só precisa ser feita uma vez.
 
@@ -310,7 +310,7 @@ rocketpool node join-smoothing-pool
 
 ### Reivindicar Recompensas
 
-A atualização Redstone substitui o antigo sistema de recompensas caro e problemático por um [totalmente novo](./whats-new#new-rewards-system) que é muito mais barato, suporta restaking automático de RPL (tanto quantidades parciais quanto totais) e - mais importante - **permite que você reivindique suas recompensas quando quiser**.
+A atualização Redstone substitui o antigo sistema de recompensas caro e problemático por um [totalmente novo](./whats-new#novo-sistema-de-recompensas) que é muito mais barato, suporta restaking automático de RPL (tanto quantidades parciais quanto totais) e - mais importante - **permite que você reivindique suas recompensas quando quiser**.
 
 Como não há mais um limite de tempo para reivindicar recompensas, e porque é mais barato reivindicar muitos intervalos de recompensas de uma vez, o recurso de reivindicação automática de recompensas do Smartnode **foi removido**.
 Você agora poderá reivindicar recompensas através do seguinte comando:

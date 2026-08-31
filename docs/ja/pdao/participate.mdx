@@ -24,7 +24,7 @@ Rocket Poolプロトコルへの変更は、厳格でありながら透明性の
 
 ## 前提条件
 
-続行する前に、[プロポーザルのライフサイクル](./pdao#lifecycle-of-a-pdao-proposal)をお読みください。すべての投票期間の違いと、各期間中に実行できるアクションについて説明します。
+続行する前に、[プロポーザルのライフサイクル](./pdao#pdaoプロポーザルのライフサイクル)をお読みください。すべての投票期間の違いと、各期間中に実行できるアクションについて説明します。
 
 このページの残りの部分では、オンチェーンpDAOプロポーザルへの参加に必要な手順を説明します。
 
@@ -60,7 +60,7 @@ Please type `direct` or `delegate` to continue:
 ```
 
 - `direct`と応答すると、投票権がノードに初期化され、Protocol DAOプロポーザルに直接投票できるようになります。
-- `delegate`と応答すると、同じトランザクション内で投票の初期化と[委任先の設定](./participate#delegating-voting-power)を行うことで、ガスを節約できます。
+- `delegate`と応答すると、同じトランザクション内で投票の初期化と[委任先の設定](./participate#投票権の委任)を行うことで、ガスを節約できます。
 
 これは一度だけ行う必要があります。ノードの初期スナップショット情報を設定します。投票を初期化した後、実行されるすべてのアクションによって、ノードのスナップショット情報が更新されます。投票権が初期化されたら、次のsmartnodeコマンドを使用して、投票権がどれだけあるかを確認できます:
 
@@ -187,13 +187,13 @@ rocketpool pdao set-voting-delegate `address`
 
 提案する資格を得るには、ノードはいくつかの要件を満たす必要があります:
 
-- スナップショットに含まれている([投票の初期化](./participate#initializing-voting)またはHouston後の登録による)
+- スナップショットに含まれている([投票の初期化](./participate#投票の初期化)またはHouston後の登録による)
 - 少なくとも1つのminipoolを持っている
 - ゼロでない投票権を持っている
-- [RPLロック](./participate#allowing-rpl-locking)を許可している
+- [RPLロック](./participate#rplロックの許可)を許可している
 - プロポーザルボンドよりも大きいRPLステーク(すでにロックされているRPLを除く)を持っている
 
-プロポーザルは、パラメータを変更し、プロトコルレベルでコードを実行するために存在します! プロポーザルがオンチェーンで作成される前に、[ガバナンス](./participate#governance-process)プロセスを通じて議論と合意が必要です。
+プロポーザルは、パラメータを変更し、プロトコルレベルでコードを実行するために存在します! プロポーザルがオンチェーンで作成される前に、[ガバナンス](./participate#ガバナンスプロセス)プロセスを通じて議論と合意が必要です。
 
 コマンド`rocketpool pdao propose`を使用して、オプションのメニューを表示します
 
@@ -205,9 +205,12 @@ COMMANDS:
    recurring-spend-update, rsu  Propose an update to an existing recurring spend plan
    security-council, sc         Modify the security council
    setting, s                   Make a Protocol DAO setting proposal
+   submit-batch, sb            Submit a single proposal that changes multiple Protocol DAO settings from a JSON file
 ```
 
-これらの各コマンドは、目的のプロポーザルを作成するための入力のリストを求めます。このガイドでは、例として、ノードをsecurity councilに招待します。security councilにノードを招待するプロポーザルを提起するには、次のコマンドを使用します:
+これらの各コマンドは、目的のプロポーザルを作成するための入力のリストを求めます。設定のプロポーザルコマンドは`--to-json`を受け付け、トランザクションを送信する代わりに設定変更をJSONファイルに書き込むか追記できます。ファイルの準備ができたら、`rocketpool pdao propose submit-batch`で送信します。
+
+このガイドでは、例として、ノードをsecurity councilに招待します。security councilにノードを招待するプロポーザルを提起するには、次のコマンドを使用します:
 
 ```shell
 rocketpool pdao propose security-council invite
@@ -264,7 +267,7 @@ Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B
 
       ```
 
-      ここでは、プロポーザル`invite test-member`のIDが71で、保留中の状態にあることがわかります。この状態では、[チャレンジャー](/ja/pdao/pdao#challenge-process)が提案者によって提供されたmerkle pollard(投票権の計算に使用)の有効性に異議を唱えることができます。`proposal.vote.delay.time`が終了すると、プロポーザルはアクティブな投票フェーズに移行します。リフレッシャーとして[プロポーザルのライフサイクル](./pdao#lifecycle-of-a-pdao-proposal)を確認してください。
+      ここでは、プロポーザル`invite test-member`のIDが71で、保留中の状態にあることがわかります。この状態では、[チャレンジャー](/ja/pdao/pdao#challenge-process)が提案者によって提供されたmerkle pollard(投票権の計算に使用)の有効性に異議を唱えることができます。`proposal.vote.delay.time`が終了すると、プロポーザルはアクティブな投票フェーズに移行します。リフレッシャーとして[プロポーザルのライフサイクル](./pdao#pdaoプロポーザルのライフサイクル)を確認してください。
     </Tab>
     <Tab label="Viewing Proposal Details">
       プロポーザルIDを取得したら、次のコマンドを使用してプロポーザルのステータスを表示できます:

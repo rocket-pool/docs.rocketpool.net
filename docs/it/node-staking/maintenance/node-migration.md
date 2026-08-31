@@ -49,7 +49,7 @@ Questo è progettato per la massima sicurezza, quindi mentre potreste pensare ch
 4. **Interrompete la validazione** sul vostro vecchio nodo (ad esempio, utilizzando `rocketpool service stop` per arrestare il Validator Client).
 5. **Eliminate le vostre chiavi** dal vostro vecchio nodo (ad esempio, utilizzando `rocketpool wallet purge`).
    1. **VERIFICATE** che le chiavi siano state rimosse controllando la cartella `data` del vostro nodo (il predefinito è `~/.rocketpool/data/validators/`) - ogni client di consenso avrà la propria cartella sotto quella cartella dati con la propria copia delle chiavi.
-   2. Consultate la sezione [Verifica della Rimozione delle Chiavi](#verifying-key-removal) di seguito per le istruzioni su come farlo.
+   2. Consultate la sezione [Verifica della Rimozione delle Chiavi](#verifica-della-rimozione-delle-chiavi) di seguito per le istruzioni su come farlo.
    3. Assicuratevi che **tutte** siano state eliminate.
 
 6. **Spegnete** il vostro vecchio nodo e disconnettetelo da Internet, rimuovendo il cavo Ethernet o il modulo Wi-Fi.

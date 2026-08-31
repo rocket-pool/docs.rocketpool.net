@@ -23,6 +23,8 @@ Megapool은 node operator당 하나의 스마트 컨트랙트로, 여러 validat
 
 델리게이트 컨트랙트는 Ethereum 출금 주소 역할을 하며 validator 활동을 관리합니다. Node operators는 현재 minipool 델리게이트를 업그레이드하거나 동일한 것을 유지할 수 있어 향후 업그레이드 설계가 어렵습니다. Saturn 1 업그레이드는 [강제 델리게이트 업그레이드](https://rpips.rocketpool.net/RPIPs/RPIP-47)를 도입하여 프로토콜이 더 효율적으로 반복할 수 있게 합니다. Megapool 컨트랙트의 강제 델리게이트 업그레이드는 Rocket Pool 프로토콜이 향후 업그레이드 설계 시 하위 호환성에 제약받지 않게 하며, pDAO에 시간이 지남에 따라 Rocket Pool을 개선할 수 있는 더 큰 유연성을 부여합니다.
 
+신규 또는 복귀하는 노드 운영자이며 메가풀 생성을 살펴보고 싶다면 [메가풀 생성 (검증자)](/node-staking/megapools/create-megapool-validator#메가풀-생성-검증자) 가이드를 확인해 보세요.
+
 ## 더 낮은 Bond 요건
 
 Megapools는 운영 비용을 줄여 Rocket Pool이 validator당 bond 요건을 8 ETH에서 4 ETH로 낮출 수 있게 합니다.
@@ -54,6 +56,8 @@ UARS는 ETH 수익을 네 그룹으로 나눕니다. 각 지분은 pDAO 거버�
 
 각 node operator는 megapool에 스테이킹한 투표 자격 RPL의 비율에 따라 투표 지분을 받습니다.
 Saturn 1에서는 RPL 인플레이션 보상이 이 새로운 투표 지분 메커니즘과 함께 계속되어 RPL을 스테이킹하는 node operators에게 추가적인 인센티브를 제공합니다.
+
+RPL Revenue Share와 UARS에 대한 자세한 내용은 [여기](/node-staking/megapools/staking-and-claiming-rewards#saturn-1에서-변경된-사항)에서 확인할 수 있습니다.
 
 ## 개편된 예치금 메커니즘
 
@@ -88,7 +92,7 @@ Saturn 1의 최종 감사 보고서는 아래에서 확인할 수 있습니다:
 - [Sigma Prime](https://rocketpool.net/files/audits/sigma-prime-audit-saturn-1.pdf)
 
 전체 감사 이력은 [프로토콜 보안](https://rocketpool.net/protocol/security) 페이지를 방문하세요.
-Rocket Pool은 또한 치명적 취약점에 대해 최대 $500,000의 보상을 제공하는 활성 [Immunefi 버그 바운티 프로그램](https://immunefi.com/bug-bounty/rocketpool/information/)을 유지하고 있습니다.
+Rocket Pool은 또한 치명적 취약점에 대해 최대 $150,000의 보상을 제공하는 활성 [Immunefi 버그 바운티 프로그램](https://immunefi.com/bug-bounty/rocketpool/information/)을 유지하고 있습니다.
 
 ## Node Operator 가이드
 

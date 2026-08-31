@@ -64,7 +64,7 @@ Chiunque ottenga accesso a questi file otterrà accesso al tuo wallet del nodo, 
 
 ### Dati della Chain del Consensus Client
 
-A differenza dei dati dell'Execution layer, i dati del Consensus layer non sono così importanti per il tuo nodo grazie alla [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
+A differenza dei dati dell'Execution layer, i dati del Consensus layer non sono così importanti per il tuo nodo grazie alla [Checkpoint Sync](./config-docker#sincronizzazione-checkpoint-della-beacon-chain).
 I Consensus client possono facilmente utilizzare questa tecnica per risincronizzarsi immediatamente all'head della Beacon chain e riprendere i compiti di validazione.
 
 ## Backup dei dati della Chain Execution

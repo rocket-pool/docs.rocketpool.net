@@ -1,15 +1,26 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Expiration de l'Historique Pré-Fusion
+# Expiration de l'Historique du Client d'Exécution
 
-Tous les clients d'exécution prennent désormais en charge l'expiration partielle de l'historique conformément à [EIP-4444](https://eips.ethereum.org/EIPS/eip-4444). Les utilisateurs peuvent réduire considérablement les besoins de stockage de leur nœud en supprimant l'historique des blocs pré-fusion à partir de la version Smartnode `v1.17.0`. N'hésitez pas à consulter cet article de blog pour en savoir plus sur l'expiration partielle de l'historique : https://blog.ethereum.org/2025/07/08/partial-history-exp
+Les clients d'exécution peuvent supprimer les anciens corps de blocs et reçus afin que les données de la chaîne conservent une taille gérable. Le paramètre **Pruning Mode** du Smartnode (Execution Client → Pruning Mode) contrôle ce comportement.
+
+**Rolling History Expiry** est l'option par défaut. Nethermind, Besu, Reth et Erigon suppriment les corps et reçus datant de plus d'un an environ. Geth n'implémente pas encore ce mode et utilise à la place l'expiration de l'historique antérieure à Prague.
+
+Les autres choix :
+
+- **History Expiry** — supprime uniquement les corps et reçus _pré-fusion_ (expiration partielle [EIP-4444](https://eips.ethereum.org/EIPS/eip-4444)). Erigon ne prend pas en charge l'expiration limitée au pré-fusion.
+- **Full node** — conserve les données habituelles d'un nœud complet, y compris les corps et les reçus. Le mode nœud complet d'Erigon conserve les reçus.
+- **Archive** — conserve l'historique et l'état historique (ce qui nécessite beaucoup plus d'espace disque).
+
+N'hésitez pas à lire cette présentation de l'expiration partielle de l'historique : https://blog.ethereum.org/2025/07/08/partial-history-exp
 
 ::: tip NOTE
 
-    Veuillez garder à l'esprit que les étapes pour supprimer l'historique pré-fusion dépendent du client d'exécution sélectionné par votre nœud :
-    - Les utilisateurs de Nethermind devront effectuer une resynchronisation complète pour supprimer l'historique pré-fusion.
-    - Les utilisateurs de Geth peuvent utiliser la commande `rocketpool service prune-eth1` ou effectuer une resynchronisation complète.
-    - Les utilisateurs de Besu et Reth peuvent effectuer un élagage en ligne pendant que leur nœud continue d'attester.
+Les nouvelles installations utilisent déjà Rolling History Expiry. Si vous aviez précédemment choisi un autre Pruning Mode, sélectionnez **Rolling History Expiry** dans le TUI et **resynchronisez** le client d'exécution pour que le changement prenne effet.
+
+- **Nethermind, Reth et Erigon** — resynchronisez après avoir changé de mode (`rocketpool service resync-eth1`).
+- **Geth** — élaguez avec `rocketpool service prune-eth1` ou resynchronisez ; Geth utilise toujours l'expiration antérieure à Prague plutôt que l'expiration glissante d'un an.
+- **Besu** — reste en ligne.
 
 :::
 
@@ -22,6 +33,8 @@ rocketpool service config
 ```
 
 Pour modifier le mode d'élagage du client d'exécution, accédez au menu `Execution Client (ETH1)` et sélectionnez le paramètre `History Expiry` dans le menu déroulant pour `Pruning Mode`
+
+Choisissez **Rolling History Expiry** sauf si vous avez une raison de conserver davantage d'historique.
 
 ![](../images/tui-history-expiry.png)
 
@@ -78,7 +91,7 @@ Would you like to restart them automatically now? [y/n]
         ```shell
         rocketpool service prune-eth1
         ```
-        Vous pouvez cliquer [ici](/fr/node-staking/pruning#starting-a-prune) pour en savoir plus sur l'élagage.
+        Vous pouvez cliquer [ici](/fr/node-staking/pruning#démarrer-un-élagage) pour en savoir plus sur l'élagage.
 
         Vous êtes prêt ! Le nœud ne stockera plus les données pré-fusion, améliorant considérablement la faisabilité d'installer un nœud sur un disque de 2 To. Nous vous recommandons de surveiller la progression à l'aide de la commande suivante.
         ```shell
@@ -98,10 +111,25 @@ Would you like to restart them automatically now? [y/n]
 
     <Tab label="Reth">
 
-        Vous êtes prêt ! Les nœuds Reth effectueront un élagage en ligne tout en continuant à attester et à proposer des blocs. Le nœud ne stockera plus les données pré-fusion, améliorant considérablement la faisabilité d'installer un nœud sur un disque de 2 To. Nous vous recommandons de surveiller la progression à l'aide de la commande suivante.
+        Vous êtes prêt ! Les nœuds Reth effectueront un élagage en ligne tout en continuant à attester et à proposer des blocs. Sur le Mainnet, avec Rolling History Expiry sélectionné, Reth télécharge l'instantané officiel d'historique glissant au premier démarrage. Le nœud ne stockera plus les données pré-fusion, améliorant considérablement la faisabilité d'installer un nœud sur un disque de 2 To. Nous vous recommandons de surveiller la progression à l'aide de la commande suivante.
         ```shell
         rocketpool service logs eth1
          ```
+
+    </Tab>
+
+    <Tab label="Erigon">
+        Les nœuds Erigon nécessitent une resynchronisation complète pour appliquer Rolling History Expiry. Vous devez resynchroniser votre client d'exécution après avoir enregistré le paramètre Pruning Mode et redémarré votre conteneur `eth1`.
+
+        Utilisez la commande suivante pour resynchroniser votre client d'exécution :
+        ```shell
+        rocketpool service resync-eth1
+        ```
+
+        Vous êtes prêt ! Le nœud supprimera les corps et reçus datant de plus d'un an environ. Nous vous recommandons d'utiliser le Rescue Node pendant la resynchronisation et de surveiller la progression à l'aide de la commande suivante.
+        ```shell
+        rocketpool service logs eth1
+        ```
 
     </Tab>
 

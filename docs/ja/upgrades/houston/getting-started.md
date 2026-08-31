@@ -6,7 +6,7 @@
 
 ### 投票権の初期化
 
-まず第一に、**Node Operator**である場合の最も重要なステップは、投票権のロックを解除するために[投票を初期化する](../houston/participate#initializing-voting)ことです。投票を初期化したノードは、ネットワークの総投票権が計算されるときに含まれます。
+まず第一に、**Node Operator**である場合の最も重要なステップは、投票権のロックを解除するために[投票を初期化する](../houston/participate#投票の初期化)ことです。投票を初期化したノードは、ネットワークの総投票権が計算されるときに含まれます。
 
 Houstonの開始時点では、十分な数のノードが投票を初期化するまでpDAO投票は無効になっています。これは、総投票権と定足数が低い間に不正な提案が通過するのを防ぐためです。十分な数のノードが投票を初期化した後、スイッチが切り替わり、pDAOが舵を取ります。
 
@@ -23,11 +23,11 @@ rocketpool pdao initialize-voting
 次に、Snapshotシグナリングアドレスを設定する必要があります。これにより、Node Operatorはノードキーをホットウォレットに公開することなく、ブラウザーやモバイルデバイスでSnapshot投票に参加できます。
 
 これを設定するにはいくつかのステップが必要なので、次のガイドに従ってください。
-[Snapshotシグナリングアドレスの設定](../houston/participate#setting-your-snapshot-signalling-address)
+[Snapshotシグナリングアドレスの設定](../houston/participate#snapshotシグナリングアドレスの設定)
 
 ### オンチェーン投票権の委任
 
-選択したコミュニティメンバーにオンチェーン投票権を委任したい場合は、[こちら](../houston/participate#delegating-voting-power)をクリックして方法を学んでください。
+選択したコミュニティメンバーにオンチェーン投票権を委任したい場合は、[こちら](../houston/participate#投票権の委任)をクリックして方法を学んでください。
 
 ##
 

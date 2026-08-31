@@ -38,7 +38,7 @@ el [sitio web de Rocket Pool](https://rocketpool.net/governance/process).
 
 ## Requisito previo
 
-Por favor lee el [ciclo de vida de una propuesta](../houston/pdao#lifecycle-of-a-pdao-proposal) antes de continuar. Explicará
+Por favor lee el [ciclo de vida de una propuesta](../houston/pdao#ciclo-de-vida-de-una-propuesta-del-pdao) antes de continuar. Explicará
 las diferencias entre todos los períodos de votación y las acciones que se pueden tomar durante cada período.
 
 El resto de esta página te guiará a través de los pasos requeridos para participar en propuestas on-chain del pDAO.
@@ -78,7 +78,7 @@ Por favor escribe `direct` o `delegate` para continuar:
 - Si respondes con `direct`, el poder de voto se inicializará para tu nodo y podrás votar directamente en
   propuestas del DAO de Protocolo.
 - Si respondes con `delegate`, tendrás la oportunidad de ahorrar un poco de gas inicializando la votación
-  y [estableciendo un delegado](../houston/participate#delegating-voting-power) dentro de la misma transacción.
+  y [estableciendo un delegado](../houston/participate#delegar-poder-de-voto) dentro de la misma transacción.
 
 Solo necesitas hacer esto una vez. Configura la información de snapshot inicial para un nodo. Después de inicializar la votación,
 cada acción tomada actualizará la información de snapshot de tu nodo. Una vez que tu poder de voto esté inicializado, puedes verificar
@@ -236,15 +236,15 @@ cuente hacia la propuesta. Tu voto en la fase 1 valdrá tu **poder de voto local
 
 Para ser elegible para proponer, un nodo debe cumplir algunos requisitos:
 
-- Incluido en el snapshot (ya sea [inicializando la votación](../houston/participate#initializing-voting) o por
+- Incluido en el snapshot (ya sea [inicializando la votación](../houston/participate#inicializar-la-votación) o por
   registrarse post Houston)
 - Debe tener al menos un minipool
 - Tiene poder de voto no nulo
-- Ha permitido el [bloqueo de RPL](../houston/participate#allowing-rpl-locking)
+- Ha permitido el [bloqueo de RPL](../houston/participate#permitir-el-bloqueo-de-rpl)
 - Tiene un stake de RPL (menos cualquier RPL ya bloqueado) mayor que el bono de propuesta
 
 ¡Las propuestas existen para cambiar parámetros y ejecutar código a nivel de protocolo! Debe haber discusión y consenso
-a través del proceso de [gobernanza](../houston/participate#governance-process) antes de que una propuesta sea creada on-chain.
+a través del proceso de [gobernanza](../houston/participate#proceso-de-gobernanza) antes de que una propuesta sea creada on-chain.
 
 Usa el comando `rocketpool pdao propose` para abrir un menú de opciones
 
@@ -281,7 +281,7 @@ Por favor ingresa la dirección del miembro:
 ```
 
 ¡Después de que esto se incluya en un bloque, se creará una propuesta del pDAO! La propuesta entrará en
-el [período de retraso de voto](../houston/pdao#vote-delay-period) tras su creación.
+el [período de retraso de voto](../houston/pdao#período-de-demora-de-voto) tras su creación.
 
 ## Ver el Estado de una Propuesta
 
@@ -322,10 +322,10 @@ sobre una propuesta específica.
       ```
 
       Aquí podemos ver que nuestra propuesta `invitar a test-member` tiene un ID de 71 y está en estado pendiente. En este estado,
-      los [desafiantes](/es/legacy/houston/pdao#challenge-process) pueden disputar la validez del
+      los [desafiantes](/es/legacy/houston/pdao#proceso-de-desafío) pueden disputar la validez del
       pollard de merkle (usado para calcular el poder de voto) proporcionado por el proponente. Cuando termine `proposal.vote.delay.time`,
       la propuesta pasará a fases de votación activas. Siéntete libre de revisar [ciclo de vida de una
-      propuesta](../houston/pdao#lifecycle-of-a-pdao-proposal) para un repaso.
+      propuesta](../houston/pdao#ciclo-de-vida-de-una-propuesta-del-pdao) para un repaso.
     </Tab>
     <Tab label="Ver Detalles de la Propuesta">
       Ahora que tienes el ID de la propuesta, puedes ver el estado de tu propuesta usando este comando:

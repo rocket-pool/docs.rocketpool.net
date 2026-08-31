@@ -33,7 +33,7 @@ RPLには5%のインフレ率があります。このインフレの22%は、[RP
 
 ## pDAOプロポーザルのライフサイクル
 
-プロポーザルは、オンチェーンに到達する前に、[ガバナンスプロセス](./participate#governance-process)によって予測される必要があります。これは、すべてpDAO[制御可能なパラメータ](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table)である4つの期間で構成されています:
+プロポーザルは、オンチェーンに到達する前に、[ガバナンスプロセス](./participate#ガバナンスプロセス)によって予測される必要があります。これは、すべてpDAO[制御可能なパラメータ](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table)である4つの期間で構成されています:
 
 - Vote Delay Period: `proposal.vote.delay.time`
 - Vote Phase 1: `proposal.vote.phase1.time`
@@ -102,7 +102,7 @@ rocketpool pdao proposals execute
 
 実行するプロポーザルを選択するようにプロンプトが表示されます。このステップの後、プロポーザルがプロトコルに適用されます!
 
-プロポーザルが投票期間を通過した後、提案者はチャレンジまたは拒否によって敗北しない限り、ロックされたRPLボンドを[請求](./participate#claiming-bonds-and-rewards)できます。
+プロポーザルが投票期間を通過した後、提案者はチャレンジまたは拒否によって敗北しない限り、ロックされたRPLボンドを[請求](./participate#ボンドと報酬の請求)できます。
 
 ::: tip NOTE
 プロポーザルを実行できるウィンドウ`proposal.execute.time`があります。このタイマーが終了に達すると、プロポーザルは期限切れになります。
@@ -118,7 +118,7 @@ rocketpool pdao proposals execute
 
 <img src={proposal_checker} width="100%" height="auto" />
 
-この設定が有効になっている場合、ノードは新しいプロポーザルをチェックし、正確性を検証し、無効なプロポーザルにチャレンジを提出します。唯一の前提条件は、[RPL Locking](./participate#allowing-rpl-locking)が有効になっていることです。
+この設定が有効になっている場合、ノードは新しいプロポーザルをチェックし、正確性を検証し、無効なプロポーザルにチャレンジを提出します。唯一の前提条件は、[RPL Locking](./participate#rplロックの許可)が有効になっていることです。
 
 このチェックは、他のいくつかのノード関連の任務と連携して5分ごとに実行されます。詐欺的なプロポーザルにチャレンジする例を見ていきます。smartnodeコマンド`rocketpool service logs node`を使用して進行状況を監視できます:
 
@@ -167,6 +167,6 @@ rocketpool3_node  | 2024/04/05 02:57:13 Successfully defeated proposal.
 プロポーザルの敗北に参加したチャレンジャーは、誤りであることが証明されたインデックスを提出した場合、提案者のボンドの比例額を支払われます。他のすべてのチャレンジャーは、ボンドのみを取り戻します。
 :::
 
-プロポーザルが敗北したので、ノード(チャレンジャー)は、元のRPLボンドと、詐欺的なプロポーザルを敗北させたことに対する報酬として提案者のRPLボンドを[請求](./participate#claiming-bonds-and-rewards)できます。
+プロポーザルが敗北したので、ノード(チャレンジャー)は、元のRPLボンドと、詐欺的なプロポーザルを敗北させたことに対する報酬として提案者のRPLボンドを[請求](./participate#ボンドと報酬の請求)できます。
 
 pDAOプロポーザルとチャレンジシステムの詳細に興味がある場合は、[技術仕様](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#draft-protocol-dao-proposal-challenge-system-specification)をご覧ください。低レベルの詳細に入る例を研究することに興味がある場合は、[challenge process](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#challenge-process)のこのセクションに自由にスキップしてください。

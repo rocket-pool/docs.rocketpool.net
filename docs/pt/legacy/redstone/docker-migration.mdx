@@ -16,12 +16,12 @@ v1.5.0 não os terá mais, e não permitirá que você inicie a stack até que v
 Por causa dessa mudança, você deve mudar para um cliente completo enquanto ainda estiver na v1.4, deixá-lo sincronizar até completar, e então atualizar para v1.5.
 
 O Modo Docker torna a mudança de clientes muito fácil.
-[Este guia](../../node-staking/change-clients#changing-execution-clients) fornece um passo a passo do processo.
+[Este guia](../../node-staking/change-clients#alterando-clientes-execution) fornece um passo a passo do processo.
 
 ## Atualizando para v1.5.0
 
 Atualizar a stack do Smartnode para v1.5.0 não é diferente de qualquer outra atualização.
-Simplesmente siga [as direções normais aqui](../../node-staking/updates#updating-the-smartnode-stack).
+Simplesmente siga [as direções normais aqui](../../node-staking/updates#atualizando-o-smartnode-stack).
 
 ## Coisas que o Smartnode Lida Automaticamente
 
@@ -46,7 +46,7 @@ O **fee recipient** é o endereço na camada de Execução que receberá todas a
 O Smartnode cuidará de configurá-lo para o endereço correto quando você atualizar para v1.5, e verificará constantemente para garantir que você está usando o correto para que você não seja [penalizado acidentalmente](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
 
 Se você optou pelo [Smoothing Pool](./whats-new#smoothing-pool), ele fará dele seu fee recipient.
-Se você não optou, ele fará seu [contrato distribuidor de taxas](./whats-new#fee-recipients-and-your-distributor) o fee recipient.
+Se você não optou, ele fará seu [contrato distribuidor de taxas](./whats-new#destinatários-de-taxas-e-seu-distribuidor) o fee recipient.
 
 ### MEV-Boost
 
@@ -76,7 +76,7 @@ Para mais informações sobre configurar um nó de fallback, veja o [guia de nó
 
 ### Inicializar seu Distribuidor de Taxas
 
-Se você não planeja optar pelo [Smoothing Pool](./whats-new#smoothing-pool) e reivindicar todas as suas taxas de prioridade e recompensas MEV para seu [contrato distribuidor de taxas](./whats-new#fee-recipients-and-your-distributor), você eventualmente terá que inicializá-lo (criar a instância do contrato na cadeia) para reivindicar recompensas dele para seu endereço de retirada.
+Se você não planeja optar pelo [Smoothing Pool](./whats-new#smoothing-pool) e reivindicar todas as suas taxas de prioridade e recompensas MEV para seu [contrato distribuidor de taxas](./whats-new#destinatários-de-taxas-e-seu-distribuidor), você eventualmente terá que inicializá-lo (criar a instância do contrato na cadeia) para reivindicar recompensas dele para seu endereço de retirada.
 
 Esta é uma operação razoavelmente barata e só precisa ser feita uma vez.
 
@@ -101,7 +101,7 @@ rocketpool node join-smoothing-pool
 
 ### Reivindicar Recompensas
 
-A atualização Redstone substitui o antigo sistema de recompensas caro e problemático por um [totalmente novo](./whats-new#new-rewards-system) que é muito mais barato, suporta restaking automático de RPL (tanto quantidades parciais quanto completas), e - mais importante - **permite que você reivindique suas recompensas quando quiser**.
+A atualização Redstone substitui o antigo sistema de recompensas caro e problemático por um [totalmente novo](./whats-new#novo-sistema-de-recompensas) que é muito mais barato, suporta restaking automático de RPL (tanto quantidades parciais quanto completas), e - mais importante - **permite que você reivindique suas recompensas quando quiser**.
 
 Como não há mais um limite de tempo para reivindicar recompensas, e porque é mais barato reivindicar muitos intervalos de recompensas de uma vez, a funcionalidade de reivindicação automática de recompensas do Smartnode **foi removida**.
 Agora você poderá reivindicar recompensas através do seguinte comando:

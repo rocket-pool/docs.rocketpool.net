@@ -35,7 +35,7 @@ USAGE:
    rocketpoolcli [global options] command [command options] [arguments...]
 
 VERSION:
-   1.19.1
+   1.22.1
 
 COMMANDS:
    auction, a   Manage Rocket Pool RPL auctions
@@ -50,6 +50,7 @@ COMMANDS:
    security, c  Manage the Rocket Pool security council
    service, s   Manage Rocket Pool service
    wallet, w    Manage the node wallet
+   update       Update the cli binary
    help, h      Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
@@ -69,6 +70,14 @@ COPYRIGHT:
    (c) 2026 Rocket Pool Pty Ltd
 ```
 
+`pdao` grubu Protocol DAO oylamaları ve teklifleri içindir. Oylama `rocketpool pdao proposals vote` ile yapılır. Tek bir teklifte **birden fazla** Protocol DAO ayarını değiştirmek için, ayar teklifi komutlarındaki `--to-json` bayrağını kullanarak bunları bir JSON dosyasına yazın ve ardından şununla gönderin:
+
+```shell
+rocketpool pdao propose submit-batch
+```
+
+Yönetişim rehberi: [On-chain pDAO Tekliflerine Katılma](/tr/pdao/participate).
+
 ## Service Komutları
 
 Service grubu, smart node'un sizin için yönettiği çeşitli servisleri yönetmeyi içerir.
@@ -83,7 +92,7 @@ USAGE:
    rocketpool service [global options] command [command options] [arguments...]
 
 VERSION:
-   1.19.1
+   1.22.1
 
 COMMANDS:
    install, i                 Install the Rocket Pool service
@@ -95,10 +104,10 @@ COMMANDS:
    reset-docker, rd           Cleanup Docker resources, including stopped containers, unused images and networks. Stops and restarts Smart Node.
    prune-docker, pd           Cleanup unused Docker resources, including stopped containers, unused images, networks and volumes. Does not restart smartnode, so the running containers and the images and networks they reference will not be pruned.
    logs, l                    View the Rocket Pool service logs
-   stats, a                   (DEPRECATED) No longer supported. Use 'docker stats -a' instead
    compose                    View the Rocket Pool service docker compose config
    version, v                 View the Rocket Pool service version information
    prune-eth1, n              Shuts down the main ETH1 client and prunes its database, freeing up disk space, then restarts it when it's done.
+   migrate-geth               Shuts down Geth and migrates its database from Pebble v1 to Pebble v2, then restarts it when it's done.
    install-update-tracker, d  Install the update tracker that provides the available system update count to the metrics dashboard
    get-config-yaml            Generate YAML that shows the current configuration schema, including all of the parameters and their descriptions
    resync-eth1                Deletes the main ETH1 client's chain data and resyncs it from scratch. Only use this as a last resort!
@@ -155,6 +164,16 @@ Execution veya Consensus istemci seçiminizi değiştirmek veya onları seçtiğ
 
 Bu komutu istediğiniz zaman çağırabilirsiniz, ancak değişiklikler `rocketpool service stop` ve `rocketpool service start` komutlarını çağırana kadar etkili olmayacaktır.
 
+### `migrate-geth`
+
+Hâlâ Pebble v1 veritabanına sahip Geth operatörleri, veritabanını yerinde şu komutla taşıyabilir:
+
+```shell
+rocketpool service migrate-geth
+```
+
+Bu komut **Geth'i kapatır**, veritabanını Pebble v1'den Pebble v2'ye taşır ve ardından yeniden başlatır. Execution istemcisi için kesinti süresi planlayın (bir [yedek node](./fallback) attestation yapmaya devam etmenizi sağlar). `y` ile onaylayın veya istemi atlamak için `--yes` geçin.
+
 ### `terminate`
 
 Bu komut Docker konteynerlerini kapatacak, ardından onları, Rocket Pool sanal ağını ve ETH1 ve ETH2 zincir veri hacimlerini silecektir.
@@ -167,6 +186,16 @@ Bu, zincir verilerinizi geri döndürülemez şekilde kaldıracaktır, bu da ETH
 Bu, cüzdan ve şifre dosyalarınızı, yapılandırılmış ayarlarınızı veya validator anahtarlarınızı **kaldırmayacaktır**.
 Bunları kaldırmak için, Docker veya Hybrid Mode'da `~/.rocketpool/data` klasörünü veya Native Mode'da ilgili dizini silmeniz gerekecektir.
 :::
+
+## Update Komutu
+
+CLI ikili dosyasını değiştirmek (ve isteğe bağlı olarak yığını durdurmak, yükseltmek ve yeniden başlatmak) için şunu çalıştırın:
+
+```shell
+rocketpool update
+```
+
+Bu, bir Docker veya Hybrid node'u güncellemenin olağan yoludur. Adım adım anlatım [Güncellemeleri Kontrol Etme](./updates) sayfasındadır.
 
 ## Node Komutları
 
@@ -480,7 +509,7 @@ USAGE:
    rocketpool megapool [global options] command [command options] [arguments...]
 
 VERSION:
-   1.19.1
+   1.22.1
 
 COMMANDS:
    deposit, d                Make a deposit and create a new validator on the megapool. Optionally specify count to make multiple deposits.

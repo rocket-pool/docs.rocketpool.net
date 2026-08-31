@@ -23,7 +23,7 @@ Smartnode 堆栈的早期版本允许您让一个客户端由本地管理,另一
 您必须切换到本地管理的执行客户端和共识客户端(也称为 [Docker 模式](./docker-migration.mdx)),或设置您自己管理的执行客户端和共识客户端。
 
 ::: tip 提示
-如果您有兴趣让 Smartnode 维护自己的执行客户端和共识客户端,但希望保持对自己的验证器客户端的控制(例如,如果您有自己的单独质押验证器密钥附加到它),您可能需要考虑[反向混合模式](../../node-staking/advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode),它正是这样做的!
+如果您有兴趣让 Smartnode 维护自己的执行客户端和共识客户端,但希望保持对自己的验证器客户端的控制(例如,如果您有自己的单独质押验证器密钥附加到它),您可能需要考虑[反向混合模式](../../node-staking/advanced-config#允许外部验证者客户端连接到-smartnode),它正是这样做的!
 :::
 
 ### 设置 Engine API
@@ -45,7 +45,7 @@ CoinCashew 有[一个很棒且简洁的指南](https://www.coincashew.com/coins/
 ## 升级到 v1.5.0
 
 将 Smartnode 堆栈升级到 v1.5.0 与任何其他升级没有区别。
-只需遵循[此处的正常说明](../../node-staking/updates#updating-the-smartnode-stack)。
+只需遵循[此处的正常说明](../../node-staking/updates#更新-smartnode-堆栈)。
 
 ## Smartnode 自动处理的事项
 
@@ -61,7 +61,7 @@ CoinCashew 有[一个很棒且简洁的指南](https://www.coincashew.com/coins/
 当您升级到 v1.5 时,Smartnode 将处理在其管理的验证器客户端上将其设置为正确的地址,并将不断检查以确保您使用正确的地址,这样您就不会[意外受到惩罚](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)。
 
 如果您选择加入[平滑池](./whats-new#smoothing-pool),它将使其成为您的费用接收者。
-如果您没有,它将使您的[费用分配器合约](./whats-new#fee-recipients-and-your-distributor)成为费用接收者。
+如果您没有,它将使您的[费用分配器合约](./whats-new#费用接收者和您的分配器)成为费用接收者。
 
 ## 升级后您应该做的事情
 
@@ -106,7 +106,7 @@ Smartnode 仍然能够提供后备执行客户端(现在还有后备共识客户
 
 ### 初始化您的费用分配器
 
-如果您不打算选择加入[平滑池](./whats-new#smoothing-pool)并将所有优先费用和 MEV 奖励申领到您的[费用分配器合约](./whats-new#fee-recipients-and-your-distributor),您最终将必须初始化它(在链上创建合约实例),以便将奖励从其申领到您的提款地址。
+如果您不打算选择加入[平滑池](./whats-new#smoothing-pool)并将所有优先费用和 MEV 奖励申领到您的[费用分配器合约](./whats-new#费用接收者和您的分配器),您最终将必须初始化它(在链上创建合约实例),以便将奖励从其申领到您的提款地址。
 
 这是一个相当便宜的操作,只需要做一次。
 
@@ -131,7 +131,7 @@ rocketpool node join-smoothing-pool
 
 ### 申领奖励
 
-Redstone 升级用[全新系统](./whats-new#new-rewards-system)取代了昂贵且有问题的旧奖励系统,该系统更便宜,支持 RPL 的自动重新质押(部分和全额),最重要的是 - **让您随时申领奖励**。
+Redstone 升级用[全新系统](./whats-new#新的奖励系统)取代了昂贵且有问题的旧奖励系统,该系统更便宜,支持 RPL 的自动重新质押(部分和全额),最重要的是 - **让您随时申领奖励**。
 
 由于申领奖励不再有时间限制,而且一次申领多个奖励间隔更便宜,Smartnode 的自动奖励申领功能**已被移除**。
 您现在可以通过以下命令申领奖励:

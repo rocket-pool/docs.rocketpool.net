@@ -25,7 +25,7 @@ Una comoda rappresentazione visiva di questo processo può essere trovata sul [s
 
 ## Prerequisito
 
-Si prega di leggere il [ciclo di vita di una proposta](./pdao#lifecycle-of-a-pdao-proposal) prima di procedere. Spiegherà le differenze tra tutti i periodi di voto e le azioni che possono essere intraprese durante ciascun periodo.
+Si prega di leggere il [ciclo di vita di una proposta](./pdao#ciclo-di-vita-di-una-proposta-pdao) prima di procedere. Spiegherà le differenze tra tutti i periodi di voto e le azioni che possono essere intraprese durante ciascun periodo.
 
 Il resto di questa pagina ti guiderà attraverso i passaggi necessari per partecipare alle proposte on-chain della pDAO.
 
@@ -61,7 +61,7 @@ Si prega di digitare `direct` o `delegate` per continuare:
 ```
 
 - Se rispondi con `direct`, il potere di voto verrà inizializzato sul tuo nodo e sarai in grado di votare direttamente sulle proposte della Protocol DAO.
-- Se rispondi con `delegate`, avrai l'opportunità di risparmiare un po' di gas inizializzando il voto e [impostando un delegato](./participate#delegating-voting-power) all'interno della stessa transazione.
+- Se rispondi con `delegate`, avrai l'opportunità di risparmiare un po' di gas inizializzando il voto e [impostando un delegato](./participate#delegare-il-potere-di-voto) all'interno della stessa transazione.
 
 Devi farlo solo una volta. Configura le informazioni di snapshot iniziali per un nodo. Dopo aver inizializzato il voto, ogni azione intrapresa aggiornerà le informazioni di snapshot del tuo nodo. Una volta che il tuo potere di voto è inizializzato, puoi controllare quanto ne hai usando il seguente comando smartnode:
 
@@ -190,13 +190,13 @@ Se sei un operatore di nodo con potere di voto delegato, devi votare durante la 
 
 Per essere idoneo a proporre, un nodo deve soddisfare alcuni requisiti:
 
-- Incluso nello snapshotting (sia [inizializzando il voto](./participate#initializing-voting) o registrandosi dopo Houston)
+- Incluso nello snapshotting (sia [inizializzando il voto](./participate#inizializzare-il-voto) o registrandosi dopo Houston)
 - Deve avere almeno un minipool
 - Ha un potere di voto non nullo
-- Ha consentito il [blocco RPL](./participate#allowing-rpl-locking)
+- Ha consentito il [blocco RPL](./participate#consentire-il-blocco-rpl)
 - Ha uno stake RPL (meno qualsiasi RPL già bloccato) maggiore della garanzia della proposta
 
-Le proposte esistono per modificare i parametri ed eseguire codice a livello di protocollo! Dovrebbe esserci discussione e consenso attraverso il [processo di governance](./participate#governance-process) prima che una proposta venga creata on-chain.
+Le proposte esistono per modificare i parametri ed eseguire codice a livello di protocollo! Dovrebbe esserci discussione e consenso attraverso il [processo di governance](./participate#processo-di-governance) prima che una proposta venga creata on-chain.
 
 Usa il comando `rocketpool pdao propose` per visualizzare un menu di opzioni
 
@@ -208,9 +208,12 @@ COMMANDS:
    recurring-spend-update, rsu  Proponi un aggiornamento a un piano di spesa ricorrente esistente
    security-council, sc         Modifica il Security Council
    setting, s                   Crea una proposta di impostazione della Protocol DAO
+   submit-batch, sb            Invia una singola proposta che modifica più impostazioni della Protocol DAO da un file JSON
 ```
 
-Ciascuno di questi comandi ti chiederà un elenco di input per creare la proposta desiderata. In questa guida, inviteremo un nodo al Security Council come esempio. Per sollevare una proposta per invitare un nodo al Security Council, useresti il comando:
+Ciascuno di questi comandi ti chiederà un elenco di input per creare la proposta desiderata. I comandi di proposta delle impostazioni accettano `--to-json` per scrivere o aggiungere una modifica di impostazione a un file JSON invece di inviare una transazione. Quando il file è pronto, invialo con `rocketpool pdao propose submit-batch`.
+
+In questa guida, inviteremo un nodo al Security Council come esempio. Per sollevare una proposta per invitare un nodo al Security Council, useresti il comando:
 
 ```shell
 rocketpool pdao propose security-council invite
@@ -231,7 +234,7 @@ Inserisci l'indirizzo del membro:
 Sei sicuro di voler proporre di invitare test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) al Security Council? [y/n]
 ```
 
-Dopo che questo è incluso in un blocco, verrà creata una proposta pDAO! La proposta entrerà nel [periodo di ritardo del voto](./pdao#vote-delay-period) al momento della creazione.
+Dopo che questo è incluso in un blocco, verrà creata una proposta pDAO! La proposta entrerà nel [periodo di ritardo del voto](./pdao#periodo-di-ritardo-del-voto) al momento della creazione.
 
 ## Visualizzare lo stato di una proposta
 
@@ -269,10 +272,10 @@ Ad ogni proposta viene assegnato un `proposalID`. In questo caso, la nostra prop
       ```
 
       Qui possiamo vedere che la nostra proposta `invita test-member` ha un ID di 71 ed è nello stato in sospeso. In questo stato,
-      gli [sfidanti](/it/pdao/pdao#challenge-process) possono contestare la validità del
+      gli [sfidanti](/it/pdao/pdao#processo-di-sfida) possono contestare la validità del
       pollard di Merkle (usato per calcolare il potere di voto) fornito dal proponente. Quando `proposal.vote.delay.time` termina,
       la proposta passerà alle fasi di voto attive. Sentiti libero di rivedere il [ciclo di vita di una
-      proposta](./pdao#lifecycle-of-a-pdao-proposal) per un ripasso.
+      proposta](./pdao#ciclo-di-vita-di-una-proposta-pdao) per un ripasso.
     </Tab>
     <Tab label="Visualizzare i dettagli della proposta">
       Ora che hai l'ID della proposta, puoi visualizzare lo stato della tua proposta usando questo comando:

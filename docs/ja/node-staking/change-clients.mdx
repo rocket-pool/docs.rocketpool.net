@@ -31,7 +31,7 @@ Executionクライアントを変更する前に、以下の点に注意して�
 プロセスの最初のステップはオプションです。必要に応じて、現在のExecutionクライアントの既存のチェーンデータをエクスポートできます。
 これにより、新しいExecutionクライアント用のノードの貴重なディスクスペースを解放でき、古いクライアントに戻して中断したところから再開したい場合に備えて、古いチェーンデータを保持できます。
 
-詳細については、[ノードのバックアップ](./backups##backing-up-your-execution-chain-data)ガイドを参照してください。
+詳細については、[ノードのバックアップ](./backups#executionチェーンデータのバックアップ)ガイドを参照してください。
 
 ### 選択したExecutionクライアントを変更する
 
@@ -81,7 +81,7 @@ rocketpool service resync-eth1
 
 ## コンセンサスクライアントの変更
 
-[チェックポイント同期](./config-docker#beacon-chain-checkpoint-syncing)のおかげで、コンセンサスクライアントの変更はExecutionクライアントよりもさらに簡単です。
+[チェックポイント同期](./config-docker#beacon-chainチェックポイント同期)のおかげで、コンセンサスクライアントの変更はExecutionクライアントよりもさらに簡単です。
 この機能により、新しいコンセンサスクライアントをネットワークと即座に同期できるため、古いチェーンデータを保持する必要はありません。
 
 まず、`rocketpool service config` UIを使用して`Consensus Client (ETH2)`セクションに移動します。
@@ -98,7 +98,7 @@ rocketpool service resync-eth1
 
 <img src={tui_checkpoint_sync} width="100%" height="auto" />
 
-チェックポイント同期プロバイダーが設定されていない場合、[こちらの手順を使用して無料で簡単に設定できます](./config-docker#beacon-chain-checkpoint-syncing)。
+チェックポイント同期プロバイダーが設定されていない場合、[こちらの手順を使用して無料で簡単に設定できます](./config-docker#beacon-chainチェックポイント同期)。
 
 選択に満足したら、`Esc`を押してメインメニューに戻り、`Tab`を押して`Review Changes and Save`ボタンをハイライトします。
 レビュー画面が表示され、クライアント選択の変更が表示されます。

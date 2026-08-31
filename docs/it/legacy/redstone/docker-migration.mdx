@@ -16,12 +16,12 @@ La v1.5.0 non li avrà più e non ti permetterà di avviare lo stack finché non
 A causa di questo cambiamento, dovresti passare a un client completo mentre sei ancora sulla v1.4, lasciarlo sincronizzare completamente e poi aggiornare alla v1.5.
 
 La Modalità Docker rende molto semplice il cambio di client.
-[Questa guida](../../node-staking/change-clients#changing-execution-clients) fornisce una procedura dettagliata del processo.
+[Questa guida](../../node-staking/change-clients#cambiare-execution-client) fornisce una procedura dettagliata del processo.
 
 ## Aggiornamento alla v1.5.0
 
 L'aggiornamento dello stack Smartnode alla v1.5.0 non è diverso da qualsiasi altro aggiornamento.
-Basta seguire [le normali istruzioni qui](../../node-staking/updates#updating-the-smartnode-stack).
+Basta seguire [le normali istruzioni qui](../../node-staking/updates#aggiornamento-dello-stack-smartnode).
 
 ## Cose che lo Smartnode Gestisce Automaticamente
 
@@ -46,7 +46,7 @@ Il **fee recipient** è l'indirizzo sulla catena del layer di Esecuzione che ric
 Lo Smartnode gestirà la configurazione dell'indirizzo corretto quando aggiorni alla v1.5 e controllerà costantemente che tu stia utilizzando quello corretto in modo da non essere [penalizzato accidentalmente](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
 
 Se hai optato per il [Smoothing Pool](./whats-new#smoothing-pool), questo diventerà il tuo fee recipient.
-Se non l'hai fatto, il tuo [contratto di distribuzione delle commissioni](./whats-new#fee-recipients-and-your-distributor) diventerà il fee recipient.
+Se non l'hai fatto, il tuo [contratto di distribuzione delle commissioni](./whats-new#fee-recipient-e-il-tuo-distributor) diventerà il fee recipient.
 
 ### MEV-Boost
 
@@ -76,7 +76,7 @@ Per maggiori informazioni sulla configurazione di un nodo di fallback, consulta 
 
 ### Inizializzare il Tuo Fee Distributor
 
-Se non prevedi di aderire al [Smoothing Pool](./whats-new#smoothing-pool) e richiedere tutte le tue commissioni prioritarie e ricompense MEV al tuo [contratto di distribuzione delle commissioni](./whats-new#fee-recipients-and-your-distributor), alla fine dovrai inizializzarlo (creare l'istanza del contratto sulla catena) per poter richiedere le ricompense da esso al tuo indirizzo di prelievo.
+Se non prevedi di aderire al [Smoothing Pool](./whats-new#smoothing-pool) e richiedere tutte le tue commissioni prioritarie e ricompense MEV al tuo [contratto di distribuzione delle commissioni](./whats-new#fee-recipient-e-il-tuo-distributor), alla fine dovrai inizializzarlo (creare l'istanza del contratto sulla catena) per poter richiedere le ricompense da esso al tuo indirizzo di prelievo.
 
 Questa è un'operazione abbastanza economica e deve essere eseguita solo una volta.
 
@@ -101,7 +101,7 @@ rocketpool node join-smoothing-pool
 
 ### Richiedere Ricompense
 
-L'aggiornamento Redstone sostituisce il vecchio sistema di ricompense costoso e problematico con uno [completamente nuovo](./whats-new#new-rewards-system) che è molto più economico, supporta il restaking automatico di RPL (sia importi parziali che completi) e - cosa più importante - **ti consente di richiedere le tue ricompense quando vuoi**.
+L'aggiornamento Redstone sostituisce il vecchio sistema di ricompense costoso e problematico con uno [completamente nuovo](./whats-new#nuovo-sistema-di-ricompense) che è molto più economico, supporta il restaking automatico di RPL (sia importi parziali che completi) e - cosa più importante - **ti consente di richiedere le tue ricompense quando vuoi**.
 
 Poiché non c'è più un limite di tempo per richiedere le ricompense e poiché è più economico richiedere molti intervalli di ricompense contemporaneamente, la funzione di richiesta automatica delle ricompense dello Smartnode **è stata rimossa**.
 Ora potrai richiedere le ricompense tramite il seguente comando:

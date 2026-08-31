@@ -14,14 +14,14 @@ En ucuz seçenektir ve her yerde kullanılan bulut platformlarından daha az sı
 Ancak, nadiren yüksek erişilebilirlik desteğine sahiptirler; fiziksel sunucu çökerse, üzerinde barındırılan VPS'nizin de çökmesi muhtemeldir.
 Ayrıca, sabit bir kaynak ayak izine sahiptirler; genellikle CPU ve RAM gibi kaynakları talep üzerine artırmak veya azaltmak mümkün değildir.
 
-10/2024 itibarıyla, iyi fiyatlı ve performanslı bir seçenek [Netcup](https://www.netcup.eu/vserver/vps.php)'tan RS 12000 G11 idi.
+5/2026 itibarıyla, iyi fiyatlı ve performanslı bir seçenek [Netcup](https://www.netcup.eu/vserver/vps.php)'tan RS 12000 G12 idi.
 Bir uyarı, depolamanın başkalarıyla paylaşılmasıdır, bu nedenle depolama IOPs potansiyel bir darboğazdır.
 
 ## Özel Sunucu Barındırma
 
 VPS'den farklı olarak, özel sunucu sizin tarafınızdan kiralanan tam bir fiziksel cihazdır. Nispeten uygun fiyatlı bir seçenektir ve her yerde kullanılan bulut platformlarından daha az sıklıkla kullanılırlar, bu nedenle Ethereum ağının merkeziyetsizliğine daha fazla katkıda bulunma eğilimindedirler.
 
-10/2024 itibarıyla, iyi fiyatlı ve performanslı iki seçenek [OVH](https://us.ovhcloud.com/)'den Rise ve Advanced bare-metal sunuculardı. Zaman içinde değişen bunlardan çeşitli olanları ve önemli indirimler bulunmaktadır. [Donanım yönergelerinin](../local/hardware.md) karşılandığını kontrol etmeniz gerekir.
+5/2026 itibarıyla, iyi fiyatlı ve performanslı iki seçenek [OVH](https://us.ovhcloud.com/)'den Rise ve Advance bare-metal sunuculardı. Zaman içinde değişen bunlardan çeşitli olanları ve önemli indirimler bulunmaktadır. [Donanım yönergelerinin](../local/hardware.md) karşılandığını kontrol etmeniz gerekir.
 
 ## Bulut Barındırma
 
@@ -40,7 +40,7 @@ Fiyat ve merkezileşme endişeleri nedeniyle bulut barındırma kullanılmasın�
 ### Fiyat
 
 Maliyet bir öncelik değilse, bulut barındırma çözümleri genellikle daha güvenli bir seçimdir.
-Aşağıdaki bölümde maliyet tahminlerinin daha detaylı bir dökümü bulunmaktadır ancak burada bir VPS seçeneği ile bir bulut seçeneği arasında genel bir karşılaştırma bulunmaktadır:
+Aşağıdaki bölümde maliyet tahminlerinin daha detaylı bir dökümü bulunmaktadır ancak burada bir VPS seçeneği ile bir özel sunucu seçeneği arasında genel bir karşılaştırma bulunmaktadır:
 
-- OVH Özel Sunucu: $90-160/ay
-- Netcup VPS: $90/ay
+- OVH Özel Sunucu: $118-243/ay
+- Netcup VPS: $81-117/ay

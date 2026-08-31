@@ -31,7 +31,7 @@ Avant de changer de client d'exécution, il est important de noter les points su
 La première étape du processus est optionnelle : si vous le souhaitez, vous pouvez exporter les données de chaîne existantes de votre client d'exécution actuel.
 Cela vous permettra de libérer un espace disque précieux sur votre nœud pour votre nouveau client d'exécution, et vous pouvez conserver les anciennes données de chaîne au cas où vous voudriez revenir à l'ancien client et reprendre là où vous vous étiez arrêté.
 
-Veuillez vous référer au guide [Sauvegarder votre nœud](./backups##backing-up-your-execution-chain-data) pour plus de détails.
+Veuillez vous référer au guide [Sauvegarder votre nœud](./backups#sauvegarde-de-vos-données-de-chaîne-execution) pour plus de détails.
 
 ### Changer votre client d'exécution sélectionné
 
@@ -81,7 +81,7 @@ Vous devriez le faire dès que possible après avoir changé de client pour évi
 
 ## Changer de client de consensus
 
-Changer de client de consensus est encore plus facile que changer de client d'exécution, grâce à [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
+Changer de client de consensus est encore plus facile que changer de client d'exécution, grâce à [Checkpoint Sync](./config-docker#synchronisation-par-point-de-contrôle-beacon-chain).
 Cette fonctionnalité vous permet de synchroniser immédiatement un nouveau client de consensus avec le réseau, il n'est donc pas nécessaire de conserver vos anciennes données de chaîne.
 
 Commencez par utiliser l'interface `rocketpool service config` et naviguez jusqu'à la section `Consensus Client (ETH2)`.
@@ -98,7 +98,7 @@ Ensuite, vérifiez que vous utilisez un fournisseur Checkpoint Sync :
 
 <img src={tui_checkpoint_sync} width="100%" height="auto" />
 
-Si vous n'avez pas de fournisseur Checkpoint Sync configuré, [vous pouvez facilement utiliser les instructions ici pour le faire gratuitement](./config-docker#beacon-chain-checkpoint-syncing) !
+Si vous n'avez pas de fournisseur Checkpoint Sync configuré, [vous pouvez facilement utiliser les instructions ici pour le faire gratuitement](./config-docker#synchronisation-par-point-de-contrôle-beacon-chain) !
 
 Lorsque vous êtes satisfait de votre choix, appuyez sur `Échap` pour revenir au menu principal, puis sur `Tab` pour mettre en surbrillance le bouton `Review Changes and Save`.
 Vous verrez apparaître l'écran de révision, qui affichera votre changement de sélection de client :

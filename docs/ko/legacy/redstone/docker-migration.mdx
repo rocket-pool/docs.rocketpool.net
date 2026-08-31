@@ -16,12 +16,12 @@ v1.5.0에는 더 이상 해당 공급자가 없으며 전체 Execution client를
 이러한 변경으로 인해 v1.4를 사용하는 동안 전체 클라이언트로 전환하고 동기화가 완료되면 v1.5로 업그레이드해야 합니다.
 
 Docker Mode는 클라이언트 전환을 매우 쉽게 만듭니다.
-[이 가이드](../../node-staking/change-clients#changing-execution-clients)에서 프로세스에 대한 안내를 제공합니다.
+[이 가이드](../../node-staking/change-clients#execution-클라이언트-변경하기)에서 프로세스에 대한 안내를 제공합니다.
 
 ## v1.5.0으로 업그레이드
 
 Smartnode 스택을 v1.5.0으로 업그레이드하는 것은 다른 업그레이드와 다르지 않습니다.
-[여기의 일반 지침](../../node-staking/updates#updating-the-smartnode-stack)을 따르기만 하면 됩니다.
+[여기의 일반 지침](../../node-staking/updates#smartnode-스택-업데이트)을 따르기만 하면 됩니다.
 
 ## Smartnode가 자동으로 처리하는 사항
 
@@ -46,7 +46,7 @@ Smartnode는 Execution 및 Consensus client 모두에서 인증 토큰 및 Engin
 Smartnode는 v1.5로 업그레이드할 때 올바른 주소로 설정하고 [실수로 벌금을 받지](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) 않도록 올바른 주소를 사용하고 있는지 지속적으로 확인합니다.
 
 [Smoothing Pool](./whats-new#smoothing-pool)에 가입한 경우 해당 주소가 fee recipient가 됩니다.
-그렇지 않은 경우 [fee distributor contract](./whats-new#fee-recipients-and-your-distributor)가 fee recipient가 됩니다.
+그렇지 않은 경우 [fee distributor contract](./whats-new#fee-recipients-및-distributor)가 fee recipient가 됩니다.
 
 ### MEV-Boost
 
@@ -76,7 +76,7 @@ fallback node 설정에 대한 자세한 내용은 [Fallback node 가이드](../
 
 ### Fee Distributor 초기화
 
-[Smoothing Pool](./whats-new#smoothing-pool)에 가입하지 않고 모든 우선 수수료 및 MEV 보상을 [fee distributor contract](./whats-new#fee-recipients-and-your-distributor)로 청구하려는 경우, 출금 주소로 보상을 청구하려면 결국 초기화(체인에 계약 인스턴스 생성)해야 합니다.
+[Smoothing Pool](./whats-new#smoothing-pool)에 가입하지 않고 모든 우선 수수료 및 MEV 보상을 [fee distributor contract](./whats-new#fee-recipients-및-distributor)로 청구하려는 경우, 출금 주소로 보상을 청구하려면 결국 초기화(체인에 계약 인스턴스 생성)해야 합니다.
 
 이것은 상당히 저렴한 작업이며 한 번만 수행하면 됩니다.
 
@@ -101,7 +101,7 @@ rocketpool node join-smoothing-pool
 
 ### 보상 청구
 
-Redstone 업그레이드는 비용이 많이 들고 문제가 있는 기존 보상 시스템을 [새로운 시스템](./whats-new#new-rewards-system)으로 교체합니다. 이 시스템은 훨씬 저렴하고 RPL의 자동 재스테이킹(부분 및 전체 금액 모두)을 지원하며 가장 중요한 것은 **원하는 때에 보상을 청구할 수 있다**는 것입니다.
+Redstone 업그레이드는 비용이 많이 들고 문제가 있는 기존 보상 시스템을 [새로운 시스템](./whats-new#새로운-보상-시스템)으로 교체합니다. 이 시스템은 훨씬 저렴하고 RPL의 자동 재스테이킹(부분 및 전체 금액 모두)을 지원하며 가장 중요한 것은 **원하는 때에 보상을 청구할 수 있다**는 것입니다.
 
 보상 청구에 더 이상 시간 제한이 없고 많은 보상 기간을 한 번에 청구하는 것이 더 저렴하기 때문에 Smartnode의 자동 보상 청구 기능이 **제거되었습니다**.
 이제 다음 명령을 통해 보상을 청구할 수 있습니다:

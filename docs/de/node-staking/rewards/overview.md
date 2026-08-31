@@ -16,11 +16,11 @@ Bevor Sie Ihren Smartnode konfigurieren, stellen Sie bitte sicher, dass Sie:
 - Den Smartnode darauf [installiert](../installing/overview) und [konfiguriert](../config/overview) haben
 - Eine Node Wallet auf Ihrem Smartnode geladen haben
 - Ihre Execution- und Consensus-Clients synchronisiert haben
-- Ihren Node mit [einer Withdrawal-Adresse](../prepare-node.mdx#setting-your-withdrawal-address) bereitgestellt haben, Ihre [Fallback-Clients](../fallback) eingerichtet (optional), sich für den [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) entschieden (optional) und [MEV](../mev.mdx) konfiguriert haben
+- Ihren Node mit [einer Withdrawal-Adresse](../prepare-node.mdx#ihre-primäre-auszahlungsadresse-festlegen) bereitgestellt haben, Ihre [Fallback-Clients](../fallback) eingerichtet (optional), sich für den [Smoothing Pool](../fee-distrib-sp#der-smoothing-pool) entschieden (optional) und [MEV](../mev.mdx) konfiguriert haben
 - Mindestens einen [Minipool](../create-validator.mdx) erstellt haben
 
 ## Leitfäden
 
 [Claiming Node Operator Rewards](../rewards) erklärt, wie RPL-Belohnungen und Execution-Layer-Belohnungen funktionieren und wie Sie darauf zugreifen.
 
-[Distributing Skimmed Rewards](../skimming) behandelt den Zugriff auf Belohnungen von der Beacon Chain, die periodisch vom Protokoll "abgeschöpft" und an Ihre Minipools geliefert werden.
+[Verteilung von Skimmed-Minipool-Belohnungen](../skimming) behandelt den Zugriff auf Belohnungen von der Beacon Chain, die periodisch vom Protokoll "abgeschöpft" und an Ihre Minipools geliefert werden.

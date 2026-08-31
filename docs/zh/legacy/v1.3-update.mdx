@@ -23,7 +23,7 @@ v1.3.0 在 Smartnode 配置管理方式上引入了一些重大变化。
 - `docker-compose` YAML 文件已被删除。每个容器现在在 `templates` 文件夹中都有自己的文件。在 `rocketpool service start` 时,这些模板将用您的设置填写并自动放入 `runtime` 文件夹。
   - 不建议修改模板或运行时文件。相反,请使用 `override` 文件夹中每个容器的**覆盖**文件填写您的容器自定义。这些文件将覆盖 `runtime` 中的 Docker 文件,因此您可以根据需要自定义它们。
   - `override` 中的文件**将在 Smartnode 升级和重新安装时保留**,因此您只需创建一次。
-  - 如果您有兴趣通过此覆盖机制修改 `docker-compose` 文件,请参阅[此部分](../node-staking/advanced-config#customizing-the-docker-compose-definition-files)
+  - 如果您有兴趣通过此覆盖机制修改 `docker-compose` 文件,请参阅[此部分](../node-staking/advanced-config#自定义-docker-compose-定义文件)
 
 ## 安装新版本
 
@@ -93,7 +93,7 @@ v1.3.0 在 Smartnode 配置管理方式上引入了一些重大变化。
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">注意</p>
         这只会更新 Smartnode 堆栈本身 - 它**不会**更新您的执行和共识客户端。
-        您必须手动执行此操作(请参阅[手动更新指南](../node-staking/updates#manually-updating-the-eth1-or-eth2-client)以了解如何操作)。
+        您必须手动执行此操作(请参阅[手动更新指南](../node-staking/updates#手动更新执行层或共识层客户端)以了解如何操作)。
       </p>
 
       停止 Rocket Pool 服务:

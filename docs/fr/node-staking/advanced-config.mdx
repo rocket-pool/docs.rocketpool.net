@@ -14,7 +14,7 @@ Une demande courante des utilisateurs est la possibilité d'attacher un client v
 
 En substance, cela agit comme une sorte de **mode "Hybride inversé"** ; au lieu que le Smartnode gère son propre client validateur et se connecte à un client d'exécution et de consensus externe, il gère les trois éléments et un client validateur externe peut utiliser ses propres clients à la place.
 
-L'activation de cette option est triviale en utilisant le [Gestionnaire de paramètres](./config-docker#configuring-via-the-settings-manager).
+L'activation de cette option est triviale en utilisant le [Gestionnaire de paramètres](./config-docker#configuration-via-le-gestionnaire-de-paramètres).
 
 ### Client d'exécution
 
@@ -120,9 +120,9 @@ Pour plus d'informations sur le fonctionnement des remplacements `docker-compose
 Le daemon de nœud sert une API HTTP (port par défaut **8280**) utilisée par la CLI locale `rocketpool` et par des outils personnalisés.
 Configurez-la dans `rocketpool service config`, sous la catégorie **API**. Le mode natif utilise la même catégorie.
 
-| Paramètre | Rôle |
-|---|---|
-| **Port API** | Port d'écoute. Par défaut `8280`. |
+| Paramètre               | Rôle                                                                                                                                                                                                           |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Port API**            | Port d'écoute. Par défaut `8280`.                                                                                                                                                                              |
 | **Exposer le port API** | **Fermé** — non publié ; la CLI de l'hôte ne peut pas atteindre l'API sous Docker. **Ouvert sur localhost** (par défaut) — `127.0.0.1:8280`. **Ouvert aux hôtes externes** — publié sur toutes les interfaces. |
 
 La modification de ces paramètres nécessite un redémarrage du conteneur du nœud. Le Gestionnaire de paramètres vous le signale.
@@ -145,12 +145,12 @@ Authorization: Bearer <token>
 Les jetons passés dans la query string sont ignorés. La CLI `rocketpool` de cette machine charge le jeton d'écriture depuis le répertoire de données et l'envoie automatiquement.
 Si la CLI renvoie `unauthorized`, pointez `-c` vers le même répertoire de configuration que celui utilisé par le daemon, ou copiez le fichier `data/api-tokens.json` de cette installation.
 
-| Paramètre | Rôle |
-|---|---|
-| **Jeton API** | Secret à portée écriture. Le format est `rpsn_` suivi de 64 caractères hexadécimaux. Traitez-le comme un mot de passe. Vider le champ puis enregistrer le régénère. Il est stocké dans `api-tokens.json`, pas dans `user-settings.yml`. |
-| **Commentaire du jeton API** | Étiquette non secrète stockée avec le jeton. Par défaut `rocketpool CLI`. |
+| Paramètre                      | Rôle                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Jeton API**                  | Secret à portée écriture. Le format est `rpsn_` suivi de 64 caractères hexadécimaux. Traitez-le comme un mot de passe. Vider le champ puis enregistrer le régénère. Il est stocké dans `api-tokens.json`, pas dans `user-settings.yml`.                                                                                                                                                                                                                                        |
+| **Commentaire du jeton API**   | Étiquette non secrète stockée avec le jeton. Par défaut `rocketpool CLI`.                                                                                                                                                                                                                                                                                                                                                                                                      |
 | **Lectures non authentifiées** | Politique du serveur, pas un privilège par jeton. Le comportement par défaut est **Exiger un jeton pour les routes de lecture** : chaque route, à l'exception de `/healthz`, nécessite un jeton bearer valide. Choisir **Autoriser les lectures non authentifiées** permet d'exécuter sans jeton le statut, les soldes et les estimations `can-*`. Les opérations de wallet, les transactions et les autres routes d'écriture nécessitent toujours un jeton à portée écriture. |
-| **Limite de débit de l'API** | Nombre maximal de requêtes par seconde. `0` désactive la limite (c'est la valeur par défaut). La rafale équivaut à une seconde de quota. Au-delà de la limite, l'API renvoie HTTP 429 avec `Retry-After: 1`. |
+| **Limite de débit de l'API**   | Nombre maximal de requêtes par seconde. `0` désactive la limite (c'est la valeur par défaut). La rafale équivaut à une seconde de quota. Au-delà de la limite, l'API renvoie HTTP 429 avec `Retry-After: 1`.                                                                                                                                                                                                                                                                   |
 
 `/healthz` n'exige jamais de jeton.
 
@@ -230,11 +230,11 @@ curl -s -X POST \
 }
 ```
 
-| Statut | Corps | Quand |
-|---|---|---|
-| 401 | `{"status":"error","error":"unauthorized"}` avec `WWW-Authenticate: Bearer` | Jeton manquant ou invalide |
-| 403 | `{"status":"error","error":"forbidden"}` | Jeton de lecture utilisé sur une route d'écriture |
-| 429 | `{"status":"error","error":"too many requests"}` avec `Retry-After: 1` | Limite de débit dépassée |
+| Statut | Corps                                                                       | Quand                                             |
+| ------ | --------------------------------------------------------------------------- | ------------------------------------------------- |
+| 401    | `{"status":"error","error":"unauthorized"}` avec `WWW-Authenticate: Bearer` | Jeton manquant ou invalide                        |
+| 403    | `{"status":"error","error":"forbidden"}`                                    | Jeton de lecture utilisé sur une route d'écriture |
+| 429    | `{"status":"error","error":"too many requests"}` avec `Retry-After: 1`      | Limite de débit dépassée                          |
 
 ## (Expérimental) Activer le réseau dual-stack (IPv4 + IPv6)
 
@@ -243,7 +243,6 @@ Cette option est destinée aux utilisateurs exécutant des configurations en mod
 
 Lorsqu'elle est activée, votre client de consensus peut se connecter à des pairs IPv4 et IPv6, ce qui peut améliorer la découverte de pairs.
 Cette fonctionnalité est également utile si votre réseau est derrière un CGNAT et rencontre des difficultés à se connecter via IPv4.
-
 
 ::: tip CONSEIL
 Le site suivant donne un aperçu du statut de la prise en charge d'IPv6 par Ethereum.
@@ -269,40 +268,41 @@ Lorsque vous activez la prise en charge d'IPv6 :
 
 Les différents clients de consensus gèrent IPv6 avec des niveaux de support variables :
 
-| Client | Écoute IPv6 | Diffusion IPv6 (ENR) | Comportement de peering | Notes |
-|--------|-------------|----------------------|-------------------------|-------|
-| **Teku** | Complète | Complète | Priorité à IPv6 | Préfère les connexions IPv6 lorsque disponibles. Utilise un port IPv6 dédié séparé (par défaut : 9090). |
-| **Lighthouse** | Complète | Complète | Aucune préférence | Se connecte à l'adresse (IPv4 ou IPv6) qui répond en premier. Voit généralement ~1-2 % de pairs IPv6. |
-| **Lodestar** | Complète | Complète | Priorité à IPv4 | Écoute et diffuse sur IPv4 et IPv6, mais ne s'associe via IPv6 que si l'autre nœud a IPv4 désactivé. |
-| **Nimbus** | Complète | IPv4 uniquement* | Principalement IPv4 | Peut accepter des connexions IPv6 entrantes, mais diffuse uniquement IPv4 dans l'ENR. |
-| **Prysm** | Complète | IPv4 uniquement* | Principalement IPv4 | Peut accepter des connexions IPv6 entrantes, mais diffuse uniquement IPv4 dans l'ENR. |
+| Client         | Écoute IPv6 | Diffusion IPv6 (ENR) | Comportement de peering | Notes                                                                                                   |
+| -------------- | ----------- | -------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------- |
+| **Teku**       | Complète    | Complète             | Priorité à IPv6         | Préfère les connexions IPv6 lorsque disponibles. Utilise un port IPv6 dédié séparé (par défaut : 9090). |
+| **Lighthouse** | Complète    | Complète             | Aucune préférence       | Se connecte à l'adresse (IPv4 ou IPv6) qui répond en premier. Voit généralement ~1-2 % de pairs IPv6.   |
+| **Lodestar**   | Complète    | Complète             | Priorité à IPv4         | Écoute et diffuse sur IPv4 et IPv6, mais ne s'associe via IPv6 que si l'autre nœud a IPv4 désactivé.    |
+| **Nimbus**     | Complète    | IPv4 uniquement\*    | Principalement IPv4     | Peut accepter des connexions IPv6 entrantes, mais diffuse uniquement IPv4 dans l'ENR.                   |
+| **Prysm**      | Complète    | IPv4 uniquement\*    | Principalement IPv4     | Peut accepter des connexions IPv6 entrantes, mais diffuse uniquement IPv4 dans l'ENR.                   |
 
 \* Par défaut, diffuse l'adresse IPv4. Sur les hôtes IPv6 uniquement, diffusera IPv6 à la place.
-
 
 ### Prérequis
 
 Avant d'activer IPv6, assurez-vous que :
 
 1. Votre FAI/hôte fournit une connectivité IPv6 - Testez cela avec [ipv6test.google.com/](https://ipv6test.google.com/)
-ou en exécutant cette commande dans votre CLI : `curl -6 https://icanhazip.com`. Si la commande retourne une adresse IPv6 dans ce format : `xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx`, vous êtes prêt.
+   ou en exécutant cette commande dans votre CLI : `curl -6 https://icanhazip.com`. Si la commande retourne une adresse IPv6 dans ce format : `xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx`, vous êtes prêt.
 2. Votre pare-feu autorise le trafic IPv6 sur le port P2P du client de consensus. Le port P2P par défaut est `9001`. Teku nécessite un port dédié supplémentaire
-pour IPv6. Le port P2P IPv6 par défaut de Teku est `9090`.
+   pour IPv6. Le port P2P IPv6 par défaut de Teku est `9090`.
 3. Vous utilisez des clients gérés localement en mode Docker (pas des clients gérés en externe)
 
 ### Comment activer IPv6
 
-
 Pour activer IPv6, accédez à la catégorie Smart Node et frais TX
 et cochez la case **Activer IPv6**, puis sauvegardez et redémarrez la pile Smart Node.
+
 <img src={tui_enable_ipv6} width="100%" height="auto" />
 
 ::: warning REMARQUE
 Si vous activez IPv6 mais n'avez pas d'adresse IPv6 publique, le Smart Node affichera un avertissement au démarrage :
+
 ```
 Warning: IPv6 is enabled but no public IPv6 address was detected.
 Your node will not be reachable by IPv6 peers.
 ```
+
 Votre nœud continuera à fonctionner normalement en utilisant IPv4.
 :::
 

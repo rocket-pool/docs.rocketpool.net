@@ -10,21 +10,21 @@ Your megapool is automatically deployed at the time of your first validator depo
 to deploy a new megapool every time you create a new validator.
 
 ::: warning WARNING
-Megapool validators need to clear the Beacon Chain queue twice. 
+Megapool validators need to clear the Beacon Chain queue twice.
+
 1. Prestake (1 ETH). When ETH is assigned to your megapool validator from the deposit pool, only 1 ETH is sent
-to the Beacon Chain. At this point, your validator enters the Beacon Chain queue. 
+   to the Beacon Chain. At this point, your validator enters the Beacon Chain queue.
 2. Stake (31 ETH). After the validator is processed by the Beacon Chain, the Rocket Pool protocol will verify the
-withdrawal credentials for the validator then stake the remaining 31 ETH on the Beacon Chain. At this point, the validator enters the Beacon
-Chain queue a second and final time. 
+   withdrawal credentials for the validator then stake the remaining 31 ETH on the Beacon Chain. At this point, the validator enters the Beacon
+   Chain queue a second and final time.
 
 Previously with minipools, the [Oracle DAO (oDAO)](/odao/overview#the-rocket-pool-oracle-dao) was responsible for verifying the withdrawal credentials for every
-minipool validator. This new system extends the queue time but removes a trust requirement enforced by the oDAO. 
+minipool validator. This new system extends the queue time but removes a trust requirement enforced by the oDAO.
 
 [validatorqueue.com](https://www.validatorqueue.com/) is a helpful tool for monitoring the length of the Beacon Chain queue. Please consider this factor
-when migrating your minipool stake to a megapool. 
+when migrating your minipool stake to a megapool.
 
 :::
-
 
 ::: tip NOTE
 
@@ -85,7 +85,7 @@ While the CLI does automate a lot of the next steps for you, we <strong>strongly
 Failed transactions (due to adjusted gas settings, insufficient ETH for gas, or the node being offline for 28 days after the initial deposit) could make your megapool validator transition to the `dissolved` state, which you want to avoid.
 
 If a prelaunch validator fails to stake within 365 days, the validator will be dissolved. The 1 ETH (of a 4 ETH bond) sent to the Beacon Chain during the prelaunch process is **not recoverable**.
-The node operator receives the remaining 3 ETH from their bond (minus a 0.05 ETH dissolve penalty applied as debt) as a refund in their megapool, for a net refund of 2.95 ETH. 
+The node operator receives the remaining 3 ETH from their bond (minus a 0.05 ETH dissolve penalty applied as debt) as a refund in their megapool, for a net refund of 2.95 ETH.
 This can be claimed using `rocketpool megapool claim` or `rocketpool claims claim-all`.
 
 [Learn more about how to confirm a successful stake](./create-megapool-validator#confirming-a-successful-stake)
@@ -206,7 +206,7 @@ While the CLI does automate a lot of the next steps for you, we <strong>strongly
 Failed transactions (due to adjusted gas settings, insufficient ETH for gas, or the node being offline for 28 days after the initial deposit) could make your megapool validator transition to the `dissolved` state, which you want to avoid.
 
 If a prelaunch validator fails to stake within 365 days, the validator will be dissolved. The 1 ETH (of a 4 ETH bond) sent to the Beacon Chain during the prelaunch process is **not recoverable**.
-The node operator receives the remaining 3 ETH from their bond (minus a 0.05 ETH dissolve penalty applied as debt) as a refund in their megapool, for a net refund of 2.95 ETH. 
+The node operator receives the remaining 3 ETH from their bond (minus a 0.05 ETH dissolve penalty applied as debt) as a refund in their megapool, for a net refund of 2.95 ETH.
 This can be claimed using `rocketpool megapool claim` or `rocketpool claims claim-all`.
 
 :::
@@ -247,8 +247,11 @@ Express Ticket Used:          no
 
 <img src="../images/prestaking.png" width="100%" height="auto" />
 After your `Prelaunch` validator is processed by the Beacon Chain and the initial 1 ETH deposit is credited. Your node will automatically perform a `stake` transaction to complete the full 32 ETH
-Beacon Chain deposit. The `stake` transaction will progress your `Prelaunch` validator into a `Staking` validator. At this point your `Staking` validator has: - 32 ETH deposited into the Beacon Chain
-- Assigned a validator index number - Pending activation on the Beacon Chain
+Beacon Chain deposit. The `stake` transaction will progress your `Prelaunch` validator into a `Staking` validator. At this point your `Staking` validator has:
+
+- 32 ETH deposited into the Beacon Chain
+- Assigned a validator index number
+- Pending activation on the Beacon Chain
 
 ```
 1 Staking validator(s):

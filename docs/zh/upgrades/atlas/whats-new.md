@@ -62,7 +62,7 @@ _然而_，作为对 solo 验证者的这一新要求的一部分，Atlas 带来
 
 - 能够将您的一个验证者（具有 32 ETH 保证金）转换为**四个 minipool**（每个具有 8 ETH 保证金），有效地**四倍**您在信标链上的存在
 - 对 rETH 质押者提供的那些 minipool 部分的佣金
-- 访问 Rocket Pool 的 [Smoothing Pool](../../node-staking/fee-distrib-sp#the-smoothing-pool) 以汇集和均匀分配来自区块提议和 MEV 的奖励
+- 访问 Rocket Pool 的 [Smoothing Pool](../../node-staking/fee-distrib-sp#平滑池) 以汇集和均匀分配来自区块提议和 MEV 的奖励
 
 要了解有关将 solo 验证者转换为 minipool 的更多信息，请访问[将 Solo 验证者转换为 Minipool](../../node-staking/solo-staker-migration) 指南。
 

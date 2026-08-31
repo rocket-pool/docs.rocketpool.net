@@ -25,7 +25,7 @@ Si vous utilisez le mode natif sans Docker, veuillez consulter le [guide de conf
 Il existe trois façons de le configurer :
 
 - Via l'[interface utilisateur de l'assistant](#configuration-via-lassistant) - c'est la façon la plus simple. Il ne vous pose que quelques questions de base et utilise des paramètres par défaut bien testés pour le reste. C'est ce qui vous sera présenté lorsque vous exécuterez `rocketpool service config` pour la première fois.
-- Via l'[interface utilisateur du gestionnaire de paramètres](#configuration-via-le-gestionnaire-de-parametres) - cela vous donne accès à tous les paramètres du Smartnode afin que vous puissiez tout personnaliser autant que vous le souhaitez.
+- Via l'[interface utilisateur du gestionnaire de paramètres](#configuration-via-le-gestionnaire-de-paramètres) - cela vous donne accès à tous les paramètres du Smartnode afin que vous puissiez tout personnaliser autant que vous le souhaitez.
 - Sans interface via la [ligne de commande](#configuration-via-la-ligne-de-commande) - c'est une option pour les personnes qui exécutent le Smartnode dans un environnement sans interface (non interactif) et qui doivent le configurer automatiquement.
 
 Choisissez le mode sur lequel vous souhaitez en savoir plus dans la liste ci-dessus, ou parcourez simplement chaque option ci-dessous.
@@ -41,7 +41,7 @@ rocketpool service config
 Cela lancera une interface utilisateur basée sur le terminal qui vous permettra de configurer rapidement et facilement votre nœud, tout en offrant un contrôle facultatif à grain fin sur chaque paramètre pour une personnalisation avancée.
 
 ::: tip NOTE
-Si vous avez déjà configuré le Smartnode, vous serez plutôt accueilli par le [gestionnaire de paramètres](#configuration-via-le-gestionnaire-de-parametres).
+Si vous avez déjà configuré le Smartnode, vous serez plutôt accueilli par le [gestionnaire de paramètres](#configuration-via-le-gestionnaire-de-paramètres).
 Vous pouvez choisir de rouvrir l'assistant à partir de là si vous le préférez, et tous vos paramètres existants seront présélectionnés pour vous.
 :::
 
@@ -117,12 +117,14 @@ Choisissez le mode que vous souhaitez utiliser pour gérer votre client d'exécu
 
       <img src={ECSelection} width="100%" height="auto"/>
 
-      Veuillez vous référer à la section [Choisir vos clients ETH](/fr/node-staking/eth-clients#execution-clients) pour une description de chaque option.
+      Veuillez vous référer à la section [Choisir vos clients ETH](/fr/node-staking/eth-clients#clients-dexécution) pour une description de chaque option.
       Une fois que vous avez fait votre choix, cliquez sur l'onglet approprié ci-dessous pour apprendre à le configurer :
 
-      Si vous choisissez **Geth**, **Besu** ou **Nethermind**, l'assistant gérera toute la configuration pour vous.
+      Si vous choisissez **Geth**, **Besu**, **Nethermind**, **Reth** ou **Erigon**, l'assistant gérera toute la configuration pour vous.
       Vous pouvez ajuster manuellement certains de ses paramètres à la fin de ce processus, mais les valeurs par défaut qu'il utilise sont tout à fait appropriées pour l'exploitation du nœud.
       Vous pouvez passer à la section suivante.
+
+      Si vous choisissez **Erigon**, redirigez également son **Torrent Port** (par défaut **42069**, TCP et UDP) ainsi que le port P2P **30303**, afin que la synchronisation par instantanés et l'appairage fonctionnent. L'assistant utilise toujours des valeurs par défaut raisonnables pour tout le reste.
 
 
       <p className="rspress-directive warning">
@@ -181,7 +183,7 @@ Choisissez le mode que vous avez sélectionné précédemment dans les onglets c
 
       **Le choix préféré** pour la santé globale et la diversité du réseau est le choix **Aléatoire (recommandé)**, qui choisira au hasard parmi l'un des quatre clients de consensus pris en charge pour vous.
 
-      Si vous préférez choisir un client explicite, veuillez vous référer à la section [Choisir vos clients ETH](./eth-clients#eth2-clients) pour une description de chaque option afin que vous puissiez prendre une décision éclairée.
+      Si vous préférez choisir un client explicite, veuillez vous référer à la section [Choisir vos clients ETH](./eth-clients#clients-de-consensus) pour une description de chaque option afin que vous puissiez prendre une décision éclairée.
 
 
       <p className="rspress-directive warning">
@@ -222,7 +224,7 @@ Choisissez le mode que vous avez sélectionné précédemment dans les onglets c
 
             Vous pouvez entrer l'URL de n'importe quel nœud Beacon qui fournit un accès à son API REST ici.
 
-            Voir [la section ci-dessous sur la synchronisation par point de contrôle](#synchronisation-par-point-de-controle-beacon-chain) si vous souhaitez l'utiliser.
+            Voir [la section ci-dessous sur la synchronisation par point de contrôle](#synchronisation-par-point-de-contrôle-beacon-chain) si vous souhaitez l'utiliser.
 
             La dernière question vous demandera si vous souhaitez activer la protection Doppelgänger :
 
@@ -269,7 +271,7 @@ Choisissez le mode que vous avez sélectionné précédemment dans les onglets c
 
             Vous pouvez entrer l'URL de n'importe quel nœud Beacon qui fournit un accès à son API REST ici.
 
-            Voir [la section ci-dessous sur la synchronisation par point de contrôle](#synchronisation-par-point-de-controle-beacon-chain) si vous souhaitez l'utiliser.
+            Voir [la section ci-dessous sur la synchronisation par point de contrôle](#synchronisation-par-point-de-contrôle-beacon-chain) si vous souhaitez l'utiliser.
 
             La dernière question vous demandera si vous souhaitez activer la protection Doppelgänger :
 
@@ -313,7 +315,7 @@ Choisissez le mode que vous avez sélectionné précédemment dans les onglets c
 
             Vous pouvez entrer l'URL de n'importe quel nœud Beacon qui fournit un accès à son API REST ici.
 
-            Voir [la section ci-dessous sur la synchronisation par point de contrôle](#synchronisation-par-point-de-controle-beacon-chain) si vous souhaitez l'utiliser.
+            Voir [la section ci-dessous sur la synchronisation par point de contrôle](#synchronisation-par-point-de-contrôle-beacon-chain) si vous souhaitez l'utiliser.
 
             La dernière question vous demandera si vous souhaitez activer la protection Doppelgänger :
 
@@ -357,7 +359,7 @@ Choisissez le mode que vous avez sélectionné précédemment dans les onglets c
 
             Vous pouvez entrer l'URL de n'importe quel nœud Beacon qui fournit un accès à son API REST ici.
 
-            Voir [la section ci-dessous sur la synchronisation par point de contrôle](#synchronisation-par-point-de-controle-beacon-chain) si vous souhaitez l'utiliser.
+            Voir [la section ci-dessous sur la synchronisation par point de contrôle](#synchronisation-par-point-de-contrôle-beacon-chain) si vous souhaitez l'utiliser.
           </Tab>
           <Tab label="Lodestar">
             La première option dans la configuration de Lodestar vous demandera le message **graffiti** de votre validateur :
@@ -381,7 +383,7 @@ Choisissez le mode que vous avez sélectionné précédemment dans les onglets c
 
             Vous pouvez entrer l'URL de n'importe quel nœud Beacon qui fournit un accès à son API REST ici.
 
-            Voir [la section ci-dessous sur la synchronisation par point de contrôle](#synchronisation-par-point-de-controle-beacon-chain) si vous souhaitez l'utiliser.
+            Voir [la section ci-dessous sur la synchronisation par point de contrôle](#synchronisation-par-point-de-contrôle-beacon-chain) si vous souhaitez l'utiliser.
 
             La dernière question vous demandera si vous souhaitez activer la protection Doppelgänger :
 
@@ -637,7 +639,7 @@ Vous verrez la boîte de dialogue suivante :
 
 Si vous êtes satisfait de votre configuration et êtes prêt à démarrer le Smartnode, cliquez sur `Save and Exit` ici et passez à la section [Sécurisation de votre nœud](./securing-your-node) ensuite.
 
-Si vous souhaitez examiner tous les paramètres et personnaliser de nombreux paramètres supplémentaires qui n'ont pas été inclus dans l'assistant, cliquez sur `Review All Settings` et passez à la [section suivante](#configuration-via-le-gestionnaire-de-parametres).
+Si vous souhaitez examiner tous les paramètres et personnaliser de nombreux paramètres supplémentaires qui n'ont pas été inclus dans l'assistant, cliquez sur `Review All Settings` et passez à la [section suivante](#configuration-via-le-gestionnaire-de-paramètres).
 
 ## Configuration via le gestionnaire de paramètres
 

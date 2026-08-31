@@ -23,7 +23,7 @@ v1.3.0では、Smartnodeの設定管理方法に重要な変更が導入され�
 - `docker-compose` YAMLファイルが削除されました。各コンテナは`templates`フォルダに独自のファイルを持つようになりました。`rocketpool service start`を実行すると、これらのテンプレートが設定で埋められ、自動的に`runtime`フォルダに配置されます。
   - テンプレートまたはランタイムファイルを変更することはお勧めしません。代わりに、`override`フォルダの各コンテナの**override**ファイルを使用してコンテナのカスタマイズを入力してください。これらのファイルは`runtime`のDockerファイルを上書きするため、自由にカスタマイズできます。
   - `override`のファイルは**Smartnodeのアップグレードと再インストール時に保持される**ため、一度だけ作成する必要があります。
-  - このオーバーライドメカニズムを介して`docker-compose`ファイルを変更することに興味がある場合は、[このセクション](../node-staking/advanced-config#customizing-the-docker-compose-definition-files)を参照してください
+  - このオーバーライドメカニズムを介して`docker-compose`ファイルを変更することに興味がある場合は、[このセクション](../node-staking/advanced-config#docker-compose定義ファイルのカスタマイズ)を参照してください
 
 ## 新しいバージョンのインストール
 
@@ -93,7 +93,7 @@ v1.3.0では、Smartnodeの設定管理方法に重要な変更が導入され�
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">注意</p>
         これはSmartnodeスタック自体のみを更新します - ExecutionクライアントとConsensusクライアントは**更新されません**。
-        これは手動で行う必要があります([手動更新ガイド](../node-staking/updates#manually-updating-the-eth1-or-eth2-client)を参照して、その方法を学んでください)。
+        これは手動で行う必要があります([手動更新ガイド](../node-staking/updates#execution-clientまたはconsensus-clientの手動更新)を参照して、その方法を学んでください)。
       </p>
 
       Rocket Poolサービスを停止します。
@@ -195,7 +195,7 @@ v1.3.0では、Smartnodeの設定管理方法に重要な変更が導入され�
 インストール後、すべての古い設定ファイルは、Smartnodeディレクトリの`old_config_backup`という名前のフォルダに移動されます(デフォルトでは`~/.rocketpool/old_config_backup`)。
 何らかの理由で参照する必要がある場合は、そこで見つけることができます。
 
-**このバックアップからv1.2.4に戻す手順を探している場合は、このページの最後の[以前の設定に戻す](#reverting-to-your-previous-configuration)セクションまでスクロールしてください。**
+**このバックアップからv1.2.4に戻す手順を探している場合は、このページの最後の[以前の設定に戻す](#以前の設定に戻す)セクションまでスクロールしてください。**
 
 ## Terminal UIでSmartnodeを設定する
 

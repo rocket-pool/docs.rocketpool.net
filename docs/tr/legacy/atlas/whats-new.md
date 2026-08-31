@@ -62,7 +62,7 @@ Bu, Rocket Pool minipool'larının tüm avantajlarını elde edeceğiniz anlamı
 
 - Bir validator'ınızı (32 ETH bond ile) **dört minipool'a** (her biri 8 ETH bond ile) dönüştürme yeteneği, Beacon Chain'deki varlığınızı etkili bir şekilde **dört katına çıkarma**
 - rETH staker'ları tarafından sağlanan minipool'ların kısmında komisyon
-- Blok önerilerinden ve MEV'den gelen ödülleri havuzlamak ve eşit şekilde dağıtmak için Rocket Pool'un [Smoothing Pool'una](../../node-staking/fee-distrib-sp#the-smoothing-pool) erişim
+- Blok önerilerinden ve MEV'den gelen ödülleri havuzlamak ve eşit şekilde dağıtmak için Rocket Pool'un [Smoothing Pool'una](../../node-staking/fee-distrib-sp#smoothing-pool) erişim
 
 Bir solo validator'ı minipool'a dönüştürme hakkında daha fazla bilgi için lütfen [Solo Validator'ı Minipool'a Dönüştürme](../../node-staking/solo-staker-migration) rehberine bakın.
 

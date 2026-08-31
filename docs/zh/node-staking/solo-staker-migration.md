@@ -28,8 +28,8 @@ Saturn 1 升级用 [megapool](/zh/node-staking/megapools/overview) 取代了 min
 
 - 它们可以就从质押池借入的 ETH 部分（每个验证者 28 ETH）**赚取佣金**。
 - 您现有的 32 ETH 质押最多可用于创建**八个 megapool 验证者**（按当前每个 4 ETH 的质押金额计算），从而就最多 224 ETH 的借入 ETH 赚取佣金。
-- 它们有资格参与 [Smoothing Pool（平滑池）](/zh/node-staking/fee-distrib-sp#the-smoothing-pool)，该池汇集所有执行层奖励（例如来自区块提议和 [MEV 奖励](/zh/node-staking/mev)），并在每个奖励周期内公平地分配给参与者。
-- 如果您在 megapool 上质押 RPL，除了 RPL 通胀奖励外，您还将获得[投票份额奖励](/zh/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers)（协议 ETH 收益的一部分），并在 [pDAO 治理](/zh/pdao/overview)中获得投票权。RPL 质押完全是可选的。
+- 它们有资格参与 [Smoothing Pool（平滑池）](/zh/node-staking/fee-distrib-sp#平滑池)，该池汇集所有执行层奖励（例如来自区块提议和 [MEV 奖励](/zh/node-staking/mev)），并在每个奖励周期内公平地分配给参与者。
+- 如果您在 megapool 上质押 RPL，除了 RPL 通胀奖励外，您还将获得[投票份额奖励](/zh/node-staking/megapools/staking-and-claiming-rewards#选民份额如何分配给-megapool-rpl-质押者)（协议 ETH 收益的一部分），并在 [pDAO 治理](/zh/pdao/overview)中获得投票权。RPL 质押完全是可选的。
 
 话虽如此，也有一些重要的差异需要强调：
 
@@ -37,7 +37,7 @@ Saturn 1 升级用 [megapool](/zh/node-staking/megapools/overview) 取代了 min
 - 传统的节点运营依赖 **Smartnode 软件栈**；您必须接受在节点上安装和运行该软件所带来的任何风险。
 - 成为节点运营者需要学习一些新概念，因此存在一定的**学习曲线**。
 - Megapool 验证者需要与质押池分享奖励，因此您验证者的提款地址将是执行层上的 megapool 合约，**而不是您控制的外部账户（EOA）**。这同样适用于您执行层奖励的**费用接收地址（fee recipient）**。
-- **您的资金在转移期间不会产生任何收益。** 从退出单独验证者到 megapool 验证者激活之间，您不会获得任何奖励。新的 megapool 验证者必须先通过 Rocket Pool 存款队列*和*信标链队列才能开始证明工作，因此在退出任何验证者之前，请先阅读下面的**时机考量**部分。
+- **您的资金在转移期间不会产生任何收益。** 从退出单独验证者到 megapool 验证者激活之间，您不会获得任何奖励。新的 megapool 验证者必须先通过 Rocket Pool 存款队列*和*信标链队列才能开始证明工作，因此在退出任何验证者之前，请先阅读下面的[时机考量](#时机考量)部分。
 
 我们建议您在决定迁移之前仔细权衡这些利弊。
 如果您想继续此过程，下面将介绍具体步骤。
@@ -52,7 +52,7 @@ Saturn 1 升级用 [megapool](/zh/node-staking/megapools/overview) 取代了 min
 
 ::: warning 警告
 自愿退出是**不可逆的**。验证者一旦退出，就永远无法再次进行验证-唯一的出路是创建新的验证者。
-在退出之前，请确保您已阅读完本页全部内容（尤其是下面的**时机考量**部分）。
+在退出之前，请确保您已阅读完本页全部内容（尤其是下面的[时机考量](#时机考量)部分）。
 :::
 
 [validatorqueue.com](https://www.validatorqueue.com/) 是查看当前信标链退出队列长度的实用网站。
@@ -62,7 +62,7 @@ Saturn 1 升级用 [megapool](/zh/node-staking/megapools/overview) 取代了 min
 在等待退出处理期间，您可以着手准备您的 Rocket Pool 节点。
 
 如果您是 Rocket Pool 节点运营的新手，请从[节点运营者指南](/zh/node-staking/responsibilities)开始，其中涵盖了从硬件选择到[安装 Smartnode 软件栈](/zh/node-staking/installing/overview)以及[注册节点](/zh/node-staking/prepare-node)的所有内容。
-由于您一直在运行自己的验证者，其中大部分内容会让您感到熟悉-如果您已经在运行自己的执行和共识客户端，您可能会对[使用外部客户端的混合配置](/zh/node-staking/install-modes#the-hybrid-configuration-with-external-clients)感兴趣。
+由于您一直在运行自己的验证者，其中大部分内容会让您感到熟悉-如果您已经在运行自己的执行和共识客户端，您可能会对[使用外部客户端的混合配置](/zh/node-staking/install-modes#使用外部客户端的混合配置)感兴趣。
 
 ## 第 3 步：创建您的 megapool 验证者
 
@@ -92,7 +92,7 @@ Saturn 1 升级用 [megapool](/zh/node-staking/megapools/overview) 取代了 min
 [validatorqueue.com](https://www.validatorqueue.com/) 是查看信标链队列长度的实用网站。该队列取决于进出信标链的 ETH 数量。
 :::
 
-如果存款队列比您预期的更长，您可以在验证者被分配 ETH 之前随时[将其退出 Rocket Pool 存款队列](/zh/node-staking/megapools/create-megapool-validator#exit-a-validator-from-the-rocket-pool-deposit-queue)，并以[存款信用](/zh/node-staking/megapools/credit)的形式取回您的质押金额，该信用可兑换为 rETH。
+如果存款队列比您预期的更长，您可以在验证者被分配 ETH 之前随时[将其退出 Rocket Pool 存款队列](/zh/node-staking/megapools/create-megapool-validator#从-rocket-pool-存款队列中退出验证者)，并以[存款信用](/zh/node-staking/megapools/credit)的形式取回您的质押金额，该信用可兑换为 rETH。
 
 ## 另一种选择：无需运行节点的质押
 

@@ -6,7 +6,7 @@ Ob Sie ein erfahrener Node Operator, rETH-Inhaber oder neugieriger Beobachter si
 
 ### Initialisierung der Stimmkraft
 
-Zunächst und vor allem ist der wichtigste Schritt, wenn Sie **Node Operator** sind, [die Abstimmung zu initialisieren](../houston/participate#initializing-voting), um Ihre Stimmkraft freizuschalten. Knoten, die die Abstimmung initialisiert haben, werden einbezogen, wenn die gesamte Stimmkraft des Netzwerks berechnet wird.
+Zunächst und vor allem ist der wichtigste Schritt, wenn Sie **Node Operator** sind, [die Abstimmung zu initialisieren](../houston/participate#abstimmung-initialisieren), um Ihre Stimmkraft freizuschalten. Knoten, die die Abstimmung initialisiert haben, werden einbezogen, wenn die gesamte Stimmkraft des Netzwerks berechnet wird.
 
 Bei der Entstehung von Houston ist die pDAO-Abstimmung deaktiviert, bis eine ausreichende Anzahl von Knoten die Abstimmung initialisiert hat. Dies soll verhindern, dass betrügerische Vorschläge angenommen werden, während die gesamte Stimmkraft und das Quorum niedrig sind. Nachdem genügend Knoten die Abstimmung initialisiert haben, wird ein Schalter umgelegt und die pDAO übernimmt das Ruder.
 
@@ -23,11 +23,11 @@ Sie müssen dies nur einmal tun. Die Initialisierung der Abstimmung stellt siche
 Zweitens möchten Sie Ihre Snapshot-Signalisierungsadresse festlegen. Dies ermöglicht Node Operators, an Snapshot-Abstimmungen in ihrem Browser oder mobilen Gerät teilzunehmen, ohne ihre Knotenschlüssel einem Hot Wallet aussetzen zu müssen.
 
 Das Einrichten hiervon umfasst eine Handvoll Schritte, daher sollten Sie dieser Anleitung folgen:
-[Festlegen Ihrer Snapshot-Signalisierungsadresse](../houston/participate#setting-your-snapshot-signalling-address).
+[Festlegen Ihrer Snapshot-Signalisierungsadresse](../houston/participate#ihre-snapshot-signalisierungsadresse-festlegen).
 
 ### Delegierung der On-Chain-Stimmkraft
 
-Wenn Sie die On-Chain-Stimmkraft an ein Community-Mitglied Ihrer Wahl delegieren möchten, klicken Sie [hier](../houston/participate#delegating-voting-power), um zu erfahren, wie.
+Wenn Sie die On-Chain-Stimmkraft an ein Community-Mitglied Ihrer Wahl delegieren möchten, klicken Sie [hier](../houston/participate#abstimmungskraft-delegieren), um zu erfahren, wie.
 
 ##
 

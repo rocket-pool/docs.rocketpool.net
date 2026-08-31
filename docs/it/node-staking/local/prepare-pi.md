@@ -14,7 +14,7 @@ Questa configurazione eseguirà **un nodo Execution completo** e **un nodo Conse
 ## Configurazione preliminare
 
 Per eseguire un nodo Rocket Pool su un Raspberry Pi, dovrai prima avere un Raspberry Pi funzionante.
-Se ne hai già uno attivo e funzionante - ottimo! Puoi passare alla sezione [Montaggio dell'SSD](#montaggio-dell-ssd).
+Se ne hai già uno attivo e funzionante - ottimo! Puoi passare alla sezione [Montaggio dell'SSD](#montaggio-dellssd).
 Assicurati solo di avere **una ventola collegata** prima di procedere.
 Se stai partendo da zero, continua a leggere.
 
@@ -50,7 +50,7 @@ Altri componenti di cui avrai bisogno:
 - Un **disco a stato solido USB 3.0+**. La raccomandazione generale è per un **disco da 2 TB**.
   - Il [Samsung T5](https://www.amazon.com/Samsung-T5-Portable-SSD-MU-PA2T0B/dp/B073H4GPLQ) è un eccellente esempio di uno che funziona bene.
   - :warning: L'utilizzo di un SSD SATA con un adattatore SATA-USB **non è raccomandato** a causa di [problemi come questo](https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=245931).
-    Se segui questa strada, abbiamo incluso un test di prestazioni che puoi utilizzare per verificare se funzionerà o meno nella sezione [Test delle prestazioni dell'SSD](#test-delle-prestazioni-dell-ssd).
+    Se segui questa strada, abbiamo incluso un test di prestazioni che puoi utilizzare per verificare se funzionerà o meno nella sezione [Test delle prestazioni dell'SSD](#test-delle-prestazioni-dellssd).
 - Un **cavo ethernet** per l'accesso a Internet. Dovrebbe essere almeno di categoria **Cat 5e**.
   - Eseguire un nodo tramite Wi-Fi **non è raccomandato**, ma se non hai altre opzioni, puoi farlo invece di utilizzare un cavo ethernet.
 - Un **UPS** per fungere da fonte di alimentazione se mai perdi l'elettricità.

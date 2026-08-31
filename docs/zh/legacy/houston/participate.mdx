@@ -24,7 +24,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 ## 前提条件
 
-在继续之前,请阅读[提案的生命周期](/zh/legacy/houston/pdao#lifecycle-of-a-pdao-proposal)。它将解释所有投票期之间的差异以及在每个期间可以采取的行动。
+在继续之前,请阅读[提案的生命周期](/zh/legacy/houston/pdao#pdao-提案的生命周期)。它将解释所有投票期之间的差异以及在每个期间可以采取的行动。
 
 本页的其余部分将引导您完成参与链上 pDAO 提案所需的步骤。
 
@@ -60,7 +60,7 @@ rocketpool pdao initialize-voting
 ```
 
 - 如果您回答 `direct`,投票权将初始化到您的节点,您将能够直接对 Protocol DAO 提案进行投票。
-- 如果您回答 `delegate`,您将有机会通过在同一交易中初始化投票和[设置委托人](/zh/legacy/houston/participate#delegating-voting-power)来节省一些 gas。
+- 如果您回答 `delegate`,您将有机会通过在同一交易中初始化投票和[设置委托人](/zh/legacy/houston/participate#委托投票权)来节省一些 gas。
 
 您只需执行一次此操作。它为节点配置初始快照信息。初始化投票后,采取的每个操作都会更新节点的快照信息。初始化投票权后,您可以使用以下智能节点命令检查您拥有多少投票权:
 
@@ -188,13 +188,13 @@ rocketpool pdao set-voting-delegate `地址`
 
 为了有资格提出提案,节点必须满足一些要求:
 
-- 包含在快照中(通过[初始化投票](/zh/legacy/houston/participate#initializing-voting)或在 Houston 后注册)
+- 包含在快照中(通过[初始化投票](/zh/legacy/houston/participate#初始化投票)或在 Houston 后注册)
 - 必须至少有一个迷你池
 - 拥有非零投票权
-- 已允许 [RPL 锁定](/zh/legacy/houston/participate#allowing-rpl-locking)
+- 已允许 [RPL 锁定](/zh/legacy/houston/participate#允许-rpl-锁定)
 - RPL 质押(减去任何已锁定的 RPL)大于提案保证金
 
-提案的存在是为了在协议层面更改参数和执行代码! 在链上创建提案之前,应该通过[治理](/zh/legacy/houston/participate#governance-process)流程进行讨论和达成共识。
+提案的存在是为了在协议层面更改参数和执行代码! 在链上创建提案之前,应该通过[治理](/zh/legacy/houston/participate#治理流程)流程进行讨论和达成共识。
 
 使用命令 `rocketpool pdao propose` 调出选项菜单
 
@@ -228,7 +228,7 @@ test-member
 您确定要提议邀请 test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) 加入安全委员会吗? [y/n]
 ```
 
-将此包含在区块中后,将创建一个 pDAO 提案! 提案将在创建时进入[投票延迟期](/zh/legacy/houston/pdao#vote-delay-period)。
+将此包含在区块中后,将创建一个 pDAO 提案! 提案将在创建时进入[投票延迟期](/zh/legacy/houston/pdao#投票延迟期)。
 
 ## 查看提案状态
 
@@ -266,8 +266,8 @@ test-member
       ```
 
       在这里我们可以看到我们的提案 `邀请 test-member` 的 ID 为 71,并且处于待处理状态。在此状态下,
-      [挑战者](/zh/legacy/houston/pdao#challenge-process)可以对提议者提供的 merkle pollard(用于计算投票权)的有效性提出异议。当 `proposal.vote.delay.time` 结束时,
-      提案将过渡到活跃投票阶段。请随意查看[提案的生命周期](/zh/legacy/houston/pdao#lifecycle-of-a-pdao-proposal)以进行复习。
+      [挑战者](/zh/legacy/houston/pdao#挑战流程)可以对提议者提供的 merkle pollard(用于计算投票权)的有效性提出异议。当 `proposal.vote.delay.time` 结束时,
+      提案将过渡到活跃投票阶段。请随意查看[提案的生命周期](/zh/legacy/houston/pdao#pdao-提案的生命周期)以进行复习。
     </Tab>
     <Tab label="查看提案详情">
       现在您有了提案 ID,您可以使用此命令查看提案状态:

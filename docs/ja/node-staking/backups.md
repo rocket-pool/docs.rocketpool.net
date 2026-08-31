@@ -44,7 +44,7 @@ Merge後、これは数時間から数日のダウンタイムと利益の損失
 ファイルが存在しない場合は、デフォルトの場所を使用しています。
 :::
 
-Executionチェーンデータを効率的にバックアップする方法の詳細な手順については、以下の[Executionチェーンデータのバックアップ](#backing-up-your-execution-chain-data)セクションをご覧ください。
+Executionチェーンデータを効率的にバックアップする方法の詳細な手順については、以下の[Executionチェーンデータのバックアップ](#executionチェーンデータのバックアップ)セクションをご覧ください。
 
 ### モニタリングとメトリクスデータ
 
@@ -64,7 +64,7 @@ Executionチェーンデータを効率的にバックアップする方法の�
 
 ### Consensusクライアントチェーンデータ
 
-Executionレイヤーデータとは異なり、Consensusレイヤーデータは[チェックポイント同期](./config-docker#beacon-chain-checkpoint-syncing)のおかげで、ノードにとってそれほど重要ではありません。
+Executionレイヤーデータとは異なり、Consensusレイヤーデータは[チェックポイント同期](./config-docker#beacon-chainチェックポイント同期)のおかげで、ノードにとってそれほど重要ではありません。
 Consensusクライアントは、このテクニックを使用してBeacon chainの先頭にすぐに再同期し、検証業務を再開できます。
 
 ## Executionチェーンデータのバックアップ

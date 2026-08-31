@@ -24,7 +24,7 @@ Una práctica representación visual de este proceso se puede encontrar en el [s
 
 ## Prerequisito
 
-Por favor lee el [ciclo de vida de una propuesta](../houston/pdao#lifecycle-of-a-pdao-proposal) antes de proceder. Te explicará las diferencias entre todos los períodos de votación y las acciones que se pueden tomar durante cada período.
+Por favor lee el [ciclo de vida de una propuesta](../houston/pdao#ciclo-de-vida-de-una-propuesta-pdao) antes de proceder. Te explicará las diferencias entre todos los períodos de votación y las acciones que se pueden tomar durante cada período.
 
 El resto de esta página te guiará a través de los pasos requeridos para participar en propuestas pDAO on-chain.
 
@@ -60,7 +60,7 @@ Please type `direct` or `delegate` to continue:
 ```
 
 - Si respondes con `direct`, el poder de voto se inicializará a tu nodo y podrás votar directamente en propuestas del DAO del Protocolo.
-- Si respondes con `delegate`, tendrás la oportunidad de ahorrar un poco de gas al inicializar la votación y [establecer un delegado](../houston/participate#delegating-voting-power) dentro de la misma transacción.
+- Si respondes con `delegate`, tendrás la oportunidad de ahorrar un poco de gas al inicializar la votación y [establecer un delegado](../houston/participate#delegar-el-poder-de-voto) dentro de la misma transacción.
 
 Solo necesitas hacer esto una vez. Configura la información inicial de snapshot para un nodo. Después de inicializar la votación, cada acción tomada actualizará la información de snapshot de tu nodo. Una vez que tu poder de voto esté inicializado, puedes verificar cuánto tienes usando el siguiente comando del smartnode:
 
@@ -188,13 +188,13 @@ Si eres un operador de nodo con poder de voto delegado, debes votar durante la f
 
 Para ser elegible para proponer, un nodo debe cumplir algunos requisitos:
 
-- Incluido en el snapshotting (ya sea [inicializando la votación](../houston/participate#initializing-voting) o registrándose después de Houston)
+- Incluido en el snapshotting (ya sea [inicializando la votación](../houston/participate#inicializar-la-votación) o registrándose después de Houston)
 - Debe tener al menos un minipool
 - Tiene poder de voto no nulo
-- Ha permitido el [bloqueo de RPL](../houston/participate#allowing-rpl-locking)
+- Ha permitido el [bloqueo de RPL](../houston/participate#permitir-el-bloqueo-de-rpl)
 - Tiene un stake de RPL (menos cualquier RPL ya bloqueado) mayor que el bono de propuesta
 
-¡Las propuestas existen para cambiar parámetros y ejecutar código a nivel de protocolo! Debe haber discusión y consenso a través del proceso de [gobernanza](../houston/participate#governance-process) antes de que una propuesta se cree on-chain.
+¡Las propuestas existen para cambiar parámetros y ejecutar código a nivel de protocolo! Debe haber discusión y consenso a través del proceso de [gobernanza](../houston/participate#proceso-de-gobernanza) antes de que una propuesta se cree on-chain.
 
 Usa el comando `rocketpool pdao propose` para abrir un menú de opciones
 
@@ -228,7 +228,7 @@ Please enter the member's address:
 Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council? [y/n]
 ```
 
-Después de que esto sea incluido en un bloque, ¡se creará una propuesta pDAO! La propuesta entrará en el [período de retraso de voto](../houston/pdao#vote-delay-period) al momento de la creación.
+Después de que esto sea incluido en un bloque, ¡se creará una propuesta pDAO! La propuesta entrará en el [período de retraso de voto](../houston/pdao#período-de-retraso-de-voto) al momento de la creación.
 
 ## Ver el Estado de una Propuesta
 
@@ -266,10 +266,10 @@ A cada propuesta se le asigna un `proposalID`. En este caso, nuestra propuesta p
       ```
 
       Aquí podemos ver que nuestra propuesta `invite test-member` tiene un ID de 71 y está en estado pendiente. En este estado,
-      [los desafiantes](/es/legacy/houston/pdao#challenge-process) pueden disputar la validez del
+      [los desafiantes](/es/legacy/houston/pdao#proceso-de-desafío) pueden disputar la validez del
       pollard de Merkle (usado para calcular el poder de voto) suministrado por el proponente. Cuando `proposal.vote.delay.time` termine,
       la propuesta entrará en fases de votación activas. Siéntete libre de revisar el [ciclo de vida de una
-      propuesta](../houston/pdao#lifecycle-of-a-pdao-proposal) para un repaso.
+      propuesta](../houston/pdao#ciclo-de-vida-de-una-propuesta-pdao) para un repaso.
     </Tab>
     <Tab label="Ver Detalles de Propuesta">
       Ahora que tienes el ID de propuesta, puedes ver el estado de tu propuesta usando este comando:

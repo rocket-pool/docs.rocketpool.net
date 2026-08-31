@@ -3,9 +3,9 @@
 Deposit kredi sistemi, daha önce düğüm operatörleri tarafından bond'lanan ancak artık gerekli olmayan ETH'yi takip etmek ve yeniden kullanıma sunmak için bir mekanizmadır.
 Bu kredinin kaynağı birkaç yerden gelir:
 
-- [Rocket Pool deposit kuyruğundan doğrulayıcı çıkarma](./create-megapool-validator#exit-a-validator-from-the-rocket-pool-deposit-queue). Bir doğrulayıcıyı sıradan çıkarmak, düğüm operatörüne bonded miktarı (4 ETH) kredi olarak verecektir.
+- [Rocket Pool deposit kuyruğundan doğrulayıcı çıkarma](./create-megapool-validator#rocket-pool-deposit-kuyruğundan-doğrulayıcı-çıkarma). Bir doğrulayıcıyı sıradan çıkarmak, düğüm operatörüne bonded miktarı (4 ETH) kredi olarak verecektir.
 - **Bond miktarınızı azaltma**. Mevcut bond'unuz protokolün minimum gereksinimini aşıyorsa, fazla bond'unuzu azaltabilir ve deposit kredisi olarak alabilirsiniz. İlk iki doğrulayıcının her zaman 4 ETH bond gerektirdiğini unutmayın
-(pDAO ayarlarından bağımsız olarak). Bond azaltma, pDAO `reduced_bond` parametresini düşürdüğünde öncelikle 3+ doğrulayıcıya sahip düğüm operatörlerine fayda sağlar. Bond azaltma gerçekleştirmek için `rocketpool megapool reduce-bond` kullanın.
+  (pDAO ayarlarından bağımsız olarak). Bond azaltma, pDAO `reduced_bond` parametresini düşürdüğünde öncelikle 3+ doğrulayıcıya sahip düğüm operatörlerine fayda sağlar. Bond azaltma gerçekleştirmek için `rocketpool megapool reduce-bond` kullanın.
 
 Sonraki ikisi yalnızca saturn öncesi geçiş yapan düğüm operatörleri içindir. Artık mümkün değildir:
 
@@ -20,7 +20,7 @@ Bu ETH likit hale getirilip düğüm operatörüne iade edilmez; bunun yerine e�
 Kredi sistemi, düğüm operatörüne **şeffaf**tır; mümkünse `rocketpool node deposit` işlemleri sırasında otomatik olarak kullanılacaktır (Smartnode CLI'da kullanılacağını açıklayan bildirimlerle birlikte).
 Kullanıla*mıyorsa*, Smartnode kullanıcıyı kullanılamayacağı konusunda uyaracak ve her iki işlem sırasında da normal ETH bond gerektirecektir.
 
-Daha fazla ayrıntı için aşağıdaki [Kredi Kullanılabilirliği](#credit-availability) bölümüne bakın.
+Daha fazla ayrıntı için aşağıdaki [Kredi Kullanılabilirliği](#kredi-kullanılabilirliği) bölümüne bakın.
 
 ## Mevcut Kredi Bakiyenizi Görüntüleme
 

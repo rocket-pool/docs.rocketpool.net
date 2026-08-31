@@ -232,7 +232,7 @@ CLIは次のステップの多くを自動化しますが、`prelaunch`から`st
 
 失敗したトランザクション（調整されたガス設定や不十分なETHのため）により、minipoolが`dissolved`状態に移行する可能性があり、これは避けたいものです。
 
-[正常なステーキングを確認する方法の詳細](/ja/node-staking/create-validator#confirming-a-successful-stake)
+[正常なステーキングを確認する方法の詳細](/ja/node-staking/create-validator#正常なステーキングの確認)
 
 :::
 
@@ -245,7 +245,7 @@ rocketpool node deposit --salt <your salt, e.g. 0x1234abcd>
 
 :::
 
-まず、新しいminipoolをデポジットすると、ノードの[fee distributor](/ja/node-staking/fee-distrib-sp)コントラクト（[Smoothing Pool](/ja/node-staking/fee-distrib-sp#the-smoothing-pool)にオプトインしていない場合、MEV報酬をキャプチャするために使用されます）内の残高が**自動的に分配される**ことに関する注記が表示されます：
+まず、新しいminipoolをデポジットすると、ノードの[fee distributor](/ja/node-staking/fee-distrib-sp)コントラクト（[Smoothing Pool](/ja/node-staking/fee-distrib-sp#smoothing-pool)にオプトインしていない場合、MEV報酬をキャプチャするために使用されます）内の残高が**自動的に分配される**ことに関する注記が表示されます：
 
 ```
 Your eth2 client is on the correct network.

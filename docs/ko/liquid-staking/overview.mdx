@@ -38,14 +38,13 @@ validator가 다른 사람이 만든 블록을 제안하기 위해 [MEV 네트�
 
 ## Rocket Pool의 작동 방식
 
-새로운 validator를 생성하기 위해 32 ETH를 예치해야 하는 단독 스테이커와 달리, Rocket Pool 노드는 validator당 8 ETH 또는 16 ETH만 예치하면 됩니다.
-이것은 staking pool의 24 ETH 또는 16 ETH(스테이커가 rETH와 교환하여 예치한 것)와 결합되어 새로운 Ethereum validator를 생성합니다.
-이 새로운 validator를 **minipool**이라고 합니다.
+새로운 validator를 생성하기 위해 32 ETH를 예치해야 하는 단독 스테이커와 달리, Rocket Pool 노드는 validator당 4 ETH("bonded ETH"라고 함)만 예치하면 됩니다.
+이것은 staking pool의 28 ETH("borrowed ETH"라고 하며, liquid staker가 rETH와 교환하여 예치한 자금에서 나옵니다)와 결합되어 새로운 메가풀 검증자를 생성합니다.
 
-Beacon chain에게 minipool은 일반 validator와 정확히 동일하게 보입니다.
+Beacon chain에게 메가풀 검증자는 일반 validator와 정확히 동일하게 보입니다.
 동일한 책임, 따라야 할 동일한 규칙, 동일한 보상 등을 가지고 있습니다.
-유일한 차이점은 minipool이 생성된 방식과 노드 운영자가 자발적으로 minipool을 종료하거나 슬래시될 때 출금이 작동하는 방식입니다.
-모든 생성, 출금 및 보상 위임은 실행 레이어의 Rocket Pool **스마트 컨트랙트**에 의해 처리됩니다.
+유일한 차이점은 메가풀 검증자가 실행 레이어에서 생성된 방식과 노드 운영자가 자발적으로 메가풀 검증자를 종료할 때 출금이 작동하는 방식입니다.
+모든 생성, 출금 및 보상 위임은 Ethereum 체인의 Rocket Pool **스마트 컨트랙트**에 의해 처리됩니다.
 이것은 완전히 탈중앙화되어 있습니다.
 
 ## rETH 토큰

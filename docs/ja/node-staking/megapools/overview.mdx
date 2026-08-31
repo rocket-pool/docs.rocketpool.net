@@ -17,7 +17,7 @@ Megapoolバリデーターを実行する前に、次の条件を満たしてい
 - Smartnodeが[インストール](../installing/overview)され、それに[設定](../config/overview)されている
 - Smartnodeにノードウォレットが読み込まれている
 - 実行クライアントとコンセンサスクライアントが同期されている
-- [引き出しアドレス](../prepare-node.mdx#setting-your-withdrawal-address)でノードをプロビジョニングし、[フォールバッククライアント](../fallback)を設定し（オプション）、[Smoothing Pool](../fee-distrib-sp#the-smoothing-pool)にオプトインし（オプション）、[MEV](../mev.mdx)を設定している
+- [引き出しアドレス](../prepare-node.mdx#primary-withdrawal-addressの設定)でノードをプロビジョニングし、[フォールバッククライアント](../fallback)を設定し（オプション）、[Smoothing Pool](../fee-distrib-sp#smoothing-pool)にオプトインし（オプション）、[MEV](../mev.mdx)を設定している
 
 ## ガイド
 
@@ -27,7 +27,7 @@ Megapoolバリデーターを実行する前に、次の条件を満たしてい
 [MinipoolからMegapoolバリデーターへの移行](./migration.mdx)では、minipoolのステークをmegapoolに移行しようとしているノードオペレーターのためのステップバイステップガイドを提供します。
 このガイドでは、minipoolの退出、新しいmegapoolバリデーターの作成、レガシーRPLのアンステーキング、およびVoter Share報酬とRPLインフレーション報酬を得るためのRPLの再ステーキングについて説明します。
 
-[ノードに代わってETHをステークする](/ja/upgrades/houston/stake-eth-on-behalf#stake-eth-on-behalf-of-node)では、独立したアドレス（ハードウェアウォレットなど）を使用してノードに代わってETHをステークする方法を説明します。ノードがETHに直接アクセスせずにバリデーターデポジットを作成したい場合に非常に便利です。
+[ノードに代わってETHをステークする](/ja/upgrades/houston/stake-eth-on-behalf#ノードの代理でethをステーキング)では、独立したアドレス（ハードウェアウォレットなど）を使用してノードに代わってETHをステークする方法を説明します。ノードがETHに直接アクセスせずにバリデーターデポジットを作成したい場合に非常に便利です。
 
 [RPLのステーキングと報酬の請求](/ja/node-staking/megapools/staking-and-claiming-rewards)では、megapoolにRPLをステークし、ETHとRPL報酬を請求し、Saturn 1の新しい収益分配システムを理解する方法を説明します。
 レガシーRPLステークを移行する場合でも新規に始める場合でも、このガイドではステーキング、アンステーキング、プロトコル収益の取得について説明します。

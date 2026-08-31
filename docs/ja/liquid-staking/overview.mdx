@@ -9,7 +9,7 @@ next:
 このガイドでは、Rocket Poolでのstakingがどのように機能するか（ETHがどのように活用され、報酬がどのように生成されるか）を紹介し、stakeできる方法を要約します。
 
 ::: tip 注意
-stakingの仕組みに興味がなく、stakingの方法を学びたいだけの場合は、[**こちらをクリックしてそのセクションにスキップしてください。**](#how-to-stake-with-rocket-pool)
+stakingの仕組みに興味がなく、stakingの方法を学びたいだけの場合は、[**こちらをクリックしてそのセクションにスキップしてください。**](#rocket-poolでステークする方法)
 :::
 
 ## Ethereum Stakingの仕組み
@@ -38,14 +38,13 @@ validatorが[MEVネットワーク](https://ethereum.org/en/developers/docs/mev/
 
 ## Rocket Poolの仕組み
 
-新しいvalidatorを作成するために32 ETHを預ける必要があるsolo stakerとは異なり、Rocket Pool nodeはvalidatorごとに8 ETHまたは16 ETHのいずれかを預けるだけで済みます。
-これは、staking pool（stakerがrETHと引き換えに預けた）からそれぞれ24 ETHまたは16 ETHと組み合わされて、新しいEthereum validatorを作成します。
-この新しいvalidatorは**minipool**と呼ばれます。
+新しいvalidatorを作成するために32 ETHを預ける必要があるsolo stakerとは異なり、Rocket Pool nodeはvalidatorごとに4 ETH（「bonded ETH」と呼ばれます）を預けるだけで済みます。
+これは、staking poolからの28 ETH（「borrowed ETH」と呼ばれ、liquid stakerがrETHと引き換えに預けた資金に由来します）と組み合わされて、新しいMegapoolバリデーターを作成します。
 
-Beacon chainにとって、minipoolは通常のvalidatorとまったく同じように見えます。
+Beacon chainにとって、Megapoolバリデーターは通常のvalidatorとまったく同じように見えます。
 同じ責任、従わなければならない同じルール、同じ報酬などがあります。
-唯一の違いは、minipoolがどのように作成されたか、node operatorが自発的にminipoolを終了するか、slashされたときにwithdrawalがどのように機能するかです。
-作成、withdraw、および報酬の委任のすべては、Execution layerのRocket Poolの**smart contracts**によって処理されます。
+唯一の違いは、Megapoolバリデーターがexecution layer上でどのように作成されたか、そしてnode operatorが自発的にMegapoolバリデーターを終了するときにwithdrawalがどのように機能するかです。
+作成、withdraw、および報酬の委任のすべては、EthereumチェーンのRocket Poolの**smart contracts**によって処理されます。
 これにより、完全に分散化されます。
 
 ## rETHトークン

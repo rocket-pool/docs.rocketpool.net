@@ -14,7 +14,7 @@ Rocket Pool 노드 운영자로서, RPL 토큰 형태로 정기적인 보상을 
 새로운 체크포인트에서 Oracle DAO는 Rocket Pool 네트워크의 노드 운영자 상태에 대한 **실제 스냅샷**을 집단적으로 생성하며, 이를 사용하여 해당 기간 동안 각 노드에 대한 RPL 및 Smoothing Pool ETH 보상을 결정합니다. Saturn 0 minipool에 대한 "보너스 커미션"은 smoothing pool 보상을 사용하여 분배됩니다 (Saturn 0 minipool은 2024/10/28 이후에 생성된 것으로, 계약 커미션이 5%입니다).
 
 이 정보는 [Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree)로 컴파일됩니다 - 모든 세부 정보를 스마트 컨트랙트에서 사용할 수 있도록 하는 매우 효율적인 방법입니다.
-Merkle Tree는 JSON 파일로 구축되어 [InterPlanetary File System (IPFS)](https://en.wikipedia.org/wiki/InterPlanetary_File_System)에 호스팅되며 [우리가 유지 관리하는 GitHub 저장소](https://github.com/rocket-pool/rewards-trees/)에 미러링됩니다.
+Merkle Tree는 JSON 파일로 구축되어 [우리가 유지 관리하는 GitHub 저장소](https://github.com/rocket-pool/rewards-trees/)에 호스팅됩니다. Smartnode는 해당 GitHub 저장소에서 보상 인터벌 **이벤트**를 불러올 수도 있으므로, 공격적인 히스토리 만료로 오래된 Execution 레이어 로그가 삭제된 후에도 청구할 수 있습니다.
 
 트리가 제출되면 Rocket Pool 스마트 컨트랙트는 새로운 RPL 토큰을 발행하고 Smoothing Pool의 전체 ETH 잔액과 함께 안전한 보관을 위해 Rocket Pool vault로 이동합니다.
 그런 다음 해당 기간 동안 얻은 RPL 및 ETH 보상의 양을 확인하고 해당 보상을 청구할 수 있습니다.
@@ -152,7 +152,7 @@ You may claim these rewards at any time. You no longer need to claim them within
 
 ## Fee Distributor의 Execution-Layer 보상
 
-Smoothing Pool에 참여하지 **않은** 경우 블록 제안의 Execution-layer 부분 보상 (거래 수수료 및 MEV 포함)이 노드의 [Fee Distributor](./fee-distrib-sp#fee-distributors-and-the-smoothing-pool) 계약으로 전송됩니다.
+Smoothing Pool에 참여하지 **않은** 경우 블록 제안의 Execution-layer 부분 보상 (거래 수수료 및 MEV 포함)이 노드의 [Fee Distributor](./fee-distrib-sp#fee-distributor와-smoothing-pool) 계약으로 전송됩니다.
 
 Fee Distributor의 잔액을 확인하려면 [https://etherscan.io](https://etherscan.io)와 같은 체인 탐색기를 사용하거나 간단히 `rocketpool node status`를 실행하십시오. **Fee Distributor and Smoothing Pool**이라는 섹션이 표시됩니다:
 

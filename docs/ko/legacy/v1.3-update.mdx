@@ -23,7 +23,7 @@ v1.3.0은 Smartnode 구성 관리 방식에 중요한 변경 사항을 도입합
 - `docker-compose` YAML 파일이 제거되었습니다. 이제 각 컨테이너는 `templates` 폴더에 자체 파일을 가지고 있습니다. `rocketpool service start` 시 이러한 템플릿은 설정으로 채워지고 자동으로 `runtime` 폴더에 배치됩니다.
   - 템플릿 또는 런타임 파일을 수정하는 것은 권장되지 않습니다. 대신 `override` 폴더의 각 컨테이너에 대한 **오버라이드** 파일을 사용하여 컨테이너 사용자 지정을 입력하세요. 이러한 파일은 `runtime`의 Docker 파일을 덮어쓰므로 원하는 대로 자유롭게 사용자 지정할 수 있습니다.
   - `override`의 파일은 **Smartnode 업그레이드 및 재설치 시 유지되므로** 한 번만 생성하면 됩니다.
-  - 이 오버라이드 메커니즘을 통해 `docker-compose` 파일을 수정하는 데 관심이 있다면 [이 섹션](../node-staking/advanced-config#customizing-the-docker-compose-definition-files)을 참조하세요
+  - 이 오버라이드 메커니즘을 통해 `docker-compose` 파일을 수정하는 데 관심이 있다면 [이 섹션](../node-staking/advanced-config#docker-compose-정의-파일-사용자-지정)을 참조하세요
 
 ## 새 버전 설치
 
@@ -93,7 +93,7 @@ v1.3.0은 Smartnode 구성 관리 방식에 중요한 변경 사항을 도입합
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">참고</p>
         이것은 Smartnode 스택 자체만 업데이트합니다 - 실행 클라이언트 및 합의 클라이언트는 **업데이트하지 않습니다**.
-        수동으로 업데이트해야 합니다([수동 업데이트 가이드](../node-staking/updates#manually-updating-the-eth1-or-eth2-client)를 참조하여 방법을 배우세요).
+        수동으로 업데이트해야 합니다([수동 업데이트 가이드](../node-staking/updates#execution-또는-consensus-클라이언트-수동-업데이트)를 참조하여 방법을 배우세요).
       </p>
 
       Rocket Pool 서비스를 중지합니다:

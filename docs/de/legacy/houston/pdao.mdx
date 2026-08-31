@@ -33,7 +33,7 @@ Für weitere Details und Begründung siehe [Vorschlagstypen](https://rpips.rocke
 
 ## Lebenszyklus eines pDAO-Vorschlags
 
-Ein Vorschlag sollte durch den [Governance-Prozess](../houston/participate#governance-process) angekündigt werden, bevor er On-Chain geht. Er besteht aus 4 Perioden, die alle pDAO-[kontrollierbare Parameter](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table) sind:
+Ein Vorschlag sollte durch den [Governance-Prozess](../houston/participate#governance-prozess) angekündigt werden, bevor er On-Chain geht. Er besteht aus 4 Perioden, die alle pDAO-[kontrollierbare Parameter](https://rpips.rocketpool.net/RPIPs/RPIP-33#parameter-table) sind:
 
 - Vote Delay Period: `proposal.vote.delay.time`
 - Vote Phase 1: `proposal.vote.phase1.time`
@@ -102,7 +102,7 @@ rocketpool pdao proposals execute
 
 Sie werden aufgefordert, einen auszuführenden Vorschlag auszuwählen. Der Vorschlag wird nach diesem Schritt auf das Protokoll angewendet!
 
-Nachdem der Vorschlag die Abstimmungsperioden bestanden hat, kann der Antragsteller seine gesperrte RPL-Kaution [beanspruchen](../houston/participate#claiming-bonds-and-rewards), es sei denn, der Vorschlag wurde durch eine Challenge besiegt oder abgelehnt.
+Nachdem der Vorschlag die Abstimmungsperioden bestanden hat, kann der Antragsteller seine gesperrte RPL-Kaution [beanspruchen](../houston/participate#bindungen-und-belohnungen-beanspruchen), es sei denn, der Vorschlag wurde durch eine Challenge besiegt oder abgelehnt.
 
 ::: tip HINWEIS
 Es gibt ein Zeitfenster `proposal.execute.time`, in dem ein Vorschlag ausgeführt werden kann. Ein Vorschlag läuft ab, wenn dieser Timer sein Ende erreicht.
@@ -118,7 +118,7 @@ Jeder Node kann an der Verfolgung und Überprüfung der Richtigkeit von Vorschl�
 
 <img src={proposal_checker} width="100%" height="auto" />
 
-Wenn diese Einstellung aktiviert ist, überprüft der Node neue Vorschläge, verifiziert ihre Richtigkeit und reicht Challenges für ungültige Vorschläge ein. Die einzige Voraussetzung ist, dass [RPL Locking](../houston/participate#allowing-rpl-locking) aktiviert ist.
+Wenn diese Einstellung aktiviert ist, überprüft der Node neue Vorschläge, verifiziert ihre Richtigkeit und reicht Challenges für ungültige Vorschläge ein. Die einzige Voraussetzung ist, dass [RPL Locking](../houston/participate#rpl-sperrung-erlauben) aktiviert ist.
 
 Diese Überprüfung läuft alle 5 Minuten in Verbindung mit einigen anderen Node-bezogenen Aufgaben. Wir werden ein Beispiel durchgehen, wie das Anfechten eines betrügerischen Vorschlags aussieht. Wir können den Smartnode-Befehl `rocketpool service logs node` verwenden, um den Fortschritt zu überwachen:
 
@@ -167,6 +167,6 @@ Da die Abstimmungsinformationen des Antragstellers falsch sind, kann er nicht re
 Herausforderer, die an der Besiegung des Vorschlags teilnehmen, erhalten einen proportionalen Betrag der Kaution des Antragstellers, wenn sie einen Index einreichen, der als falsch erwiesen wurde. Alle anderen Herausforderer erhalten nur ihre Kaution zurück.
 :::
 
-Da der Vorschlag nun besiegt ist, kann unser Node (der Herausforderer) seine ursprüngliche RPL-Kaution sowie die RPL-Kaution des Antragstellers als Belohnung für die Besiegung eines betrügerischen Vorschlags [beanspruchen](../houston/participate#claiming-bonds-and-rewards).
+Da der Vorschlag nun besiegt ist, kann unser Node (der Herausforderer) seine ursprüngliche RPL-Kaution sowie die RPL-Kaution des Antragstellers als Belohnung für die Besiegung eines betrügerischen Vorschlags [beanspruchen](../houston/participate#bindungen-und-belohnungen-beanspruchen).
 
 Wenn Sie sich für die Details des pDAO-Vorschlags- und Challenge-Systems interessieren, schauen Sie sich die [technischen Spezifikationen](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#draft-protocol-dao-proposal-challenge-system-specification) an. Springen Sie gerne zu diesem Abschnitt über den [Challenge Process](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#challenge-process), wenn Sie ein Beispiel mit vielen technischen Details studieren möchten.

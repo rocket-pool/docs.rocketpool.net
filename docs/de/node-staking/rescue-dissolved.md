@@ -4,18 +4,18 @@ Im unwahrscheinlichen Fall, dass Ihr Minipool nicht innerhalb des Auflösungsfen
 
 ## Aktualisieren Sie Ihren Minipool Delegate
 
-Es wird dringend empfohlen, dass Sie den neuesten Minipool Delegate verwenden, wenn Sie diesen Prozess durchführen. Ältere Delegates enthalten eine `selfdestruct`-Operation, wenn sie geschlossen werden, was bedeutet, dass, falls der Prozess nicht korrekt in der angegebenen Reihenfolge abgeschlossen wird, Mittel möglicherweise für immer gesperrt werden. Sie können überprüfen, ob Ihr Minipool auf dem neuesten Delegate ist, indem Sie versuchen, [Ihren Delegate zu upgraden](./minipools/delegates#upgrading-your-delegate). Wenn Ihr Minipool nicht in der Liste der Minipools erscheint, die geupgradet werden können, können Sie unten fortfahren.
+Es wird dringend empfohlen, dass Sie den neuesten Minipool Delegate verwenden, wenn Sie diesen Prozess durchführen. Ältere Delegates enthalten eine `selfdestruct`-Operation, wenn sie geschlossen werden, was bedeutet, dass, falls der Prozess nicht korrekt in der angegebenen Reihenfolge abgeschlossen wird, Mittel möglicherweise für immer gesperrt werden. Sie können überprüfen, ob Ihr Minipool auf dem neuesten Delegate ist, indem Sie versuchen, [Ihren Delegate zu upgraden](./minipools/delegates#upgrade-ihres-delegate). Wenn Ihr Minipool nicht in der Liste der Minipools erscheint, die geupgradet werden können, können Sie unten fortfahren.
 
 ## Abrufen Ihres ungenutzten Einzahlungsbetrags
 
 ::: tip HINWEIS
-Wenn Ihr Minipool vor Atlas aufgelöst wurde, können Sie diesen Schritt überspringen und direkt zu [Erhöhen Sie Ihr Beaconchain-Guthaben auf 32 ETH](#increase-your-beaconchain-balance-to-32-eth) gehen.
+Wenn Ihr Minipool vor Atlas aufgelöst wurde, können Sie diesen Schritt überspringen und direkt zu [Erhöhen Sie Ihr Beaconchain-Guthaben auf 32 ETH](#erhöhen-sie-ihr-beaconchain-guthaben-auf-32-eth) gehen.
 Sie müssen Ihren ungenutzten Einzahlungsbetrag nicht abrufen, da der gesamte Bond-Betrag vor Atlas auf die Beaconchain eingezahlt wurde.
 :::
 
 1 ETH aus Ihrer anfänglichen Bond-Einzahlung wird als anfängliche Einzahlung auf die Beaconchain verwendet, um die Withdrawal-Credentials Ihres Validators zu sichern. Der verbleibende Betrag wird in Ihren Minipool eingezahlt, wenn ihm ETH aus dem Deposit Pool zugewiesen wird.
 
-Wenn Ihr Minipool aufgelöst wird, wird das Benutzer-ETH an den Deposit Pool zurückgegeben und Ihr ETH verbleibt im Minipool bereit, an Sie zurückgegeben zu werden. Verwenden Sie die [Manuelle Verteilung](./skimming#manual-distribution) von Belohnungen-Funktion, um dieses ETH abzurufen, das dann im nächsten Schritt verwendet werden kann, um Ihren Validator zu aktivieren.
+Wenn Ihr Minipool aufgelöst wird, wird das Benutzer-ETH an den Deposit Pool zurückgegeben und Ihr ETH verbleibt im Minipool bereit, an Sie zurückgegeben zu werden. Verwenden Sie die [Manuelle Verteilung](./skimming#manuelle-verteilung) von Belohnungen-Funktion, um dieses ETH abzurufen, das dann im nächsten Schritt verwendet werden kann, um Ihren Validator zu aktivieren.
 
 ## Erhöhen Sie Ihr Beaconchain-Guthaben auf 32 ETH
 
@@ -61,6 +61,6 @@ Sobald dieser Schritt abgeschlossen ist, wird Ihr Validator in die Entry-Queue e
 
 ### Beenden Ihres Validators
 
-Sobald Ihr Validator mindestens 256 Epochen aktiv war, können Sie Ihren Minipool über denselben Prozess wie jeden anderen Minipool beenden, indem Sie dem [Beenden Ihres Validators](./withdraw#exiting-your-validator)-Leitfaden folgen.
+Sobald Ihr Validator mindestens 256 Epochen aktiv war, können Sie Ihren Minipool über denselben Prozess wie jeden anderen Minipool beenden, indem Sie dem [Beenden Ihres Validators](./withdraw#ihren-validator-beenden)-Leitfaden folgen.
 
 Das vollständige 32 ETH-Guthaben wird an Ihren Minipool zurückgegeben und aufgelöste Minipools verteilen 100% ihres Guthabens an die Withdrawal-Adresse des Node Operators.

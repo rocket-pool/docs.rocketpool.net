@@ -63,7 +63,7 @@ Nous **recommandons vivement** de ne pas sauvegarder ces fichiers et d'utiliser 
 
 ### Données de Chaîne du Client Consensus
 
-Contrairement aux données de la couche Execution, les données de la couche Consensus ne sont pas aussi importantes pour votre nœud grâce à [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing). Les clients Consensus peuvent facilement utiliser cette technique pour se resynchroniser immédiatement à la tête de la Beacon chain et reprendre les tâches de validation.
+Contrairement aux données de la couche Execution, les données de la couche Consensus ne sont pas aussi importantes pour votre nœud grâce à [Checkpoint Sync](./config-docker#synchronisation-par-point-de-contrôle-beacon-chain). Les clients Consensus peuvent facilement utiliser cette technique pour se resynchroniser immédiatement à la tête de la Beacon chain et reprendre les tâches de validation.
 
 ## Sauvegarde de Vos Données de Chaîne Execution
 

@@ -117,12 +117,14 @@ rocketpool service config
 
       <img src={ECSelection} width="100%" height="auto"/>
 
-      请参阅[选择您的 ETH 客户端](/zh/node-staking/eth-clients#execution-clients)部分以获取每个选项的说明。
+      请参阅[选择您的 ETH 客户端](/zh/node-staking/eth-clients#执行层客户端)部分以获取每个选项的说明。
       一旦您做出选择，请单击下面的相应选项卡以了解如何配置它：
 
-      如果您选择 **Geth**、**Besu** 或 **Nethermind**，向导将为您处理所有配置。
+      如果您选择 **Geth**、**Besu**、**Nethermind**、**Reth** 或 **Erigon**，向导将为您处理所有配置。
       您可以在此过程结束时手动调整其某些参数，但它使用的默认值完全适合节点操作。
       您可以继续下一节。
+
+      如果您选择 **Erigon**，还请转发它的 **Torrent Port**（默认 **42069**，TCP 和 UDP）以及 P2P 端口 **30303**，以便快照同步和对等连接正常工作。向导对其他所有设置仍会使用合理的默认值。
 
 
       <p className="rspress-directive warning">
@@ -181,7 +183,7 @@ rocketpool service config
 
       对于网络整体健康和多样性的**首选选择**是 **Random (Recommended)** 选择，它将为您在四个受支持的共识客户端中随机选择一个。
 
-      如果您更喜欢选择明确的客户端，请参阅[选择您的 ETH 客户端](./eth-clients#eth2-clients)部分以获取每个选项的说明，以便您可以做出明智的决定。
+      如果您更喜欢选择明确的客户端，请参阅[选择您的 ETH 客户端](./eth-clients#共识层客户端)部分以获取每个选项的说明，以便您可以做出明智的决定。
 
 
       <p className="rspress-directive warning">
@@ -222,7 +224,7 @@ rocketpool service config
 
             您可以在此处输入提供对其 REST API 访问权限的任何信标节点的 URL。
 
-            如果您想使用它，请参阅[下面关于检查点同步的部分](#beacon-chain-checkpoint-syncing)。
+            如果您想使用它，请参阅[下面关于检查点同步的部分](#信标链检查点同步)。
 
             最后一个问题将询问您是否要启用 Doppelgänger Protection：
 
@@ -269,7 +271,7 @@ rocketpool service config
 
             您可以在此处输入提供对其 REST API 访问权限的任何信标节点的 URL。
 
-            如果您想使用它，请参阅[下面关于检查点同步的部分](#beacon-chain-checkpoint-syncing)。
+            如果您想使用它，请参阅[下面关于检查点同步的部分](#信标链检查点同步)。
 
             最后一个问题将询问您是否要启用 Doppelgänger Protection：
 
@@ -313,7 +315,7 @@ rocketpool service config
 
             您可以在此处输入提供对其 REST API 访问权限的任何信标节点的 URL。
 
-            如果您想使用它，请参阅[下面关于检查点同步的部分](#beacon-chain-checkpoint-syncing)。
+            如果您想使用它，请参阅[下面关于检查点同步的部分](#信标链检查点同步)。
 
             最后一个问题将询问您是否要启用 Doppelgänger Protection：
 
@@ -357,7 +359,7 @@ rocketpool service config
 
             您可以在此处输入提供对其 REST API 访问权限的任何信标节点的 URL。
 
-            如果您想使用它，请参阅[下面关于检查点同步的部分](#beacon-chain-checkpoint-syncing)。
+            如果您想使用它，请参阅[下面关于检查点同步的部分](#信标链检查点同步)。
           </Tab>
           <Tab label="Lodestar">
             Lodestar 配置中的第一个选项将询问您的验证者的 **graffiti** 消息：
@@ -381,7 +383,7 @@ rocketpool service config
 
             您可以在此处输入提供对其 REST API 访问权限的任何信标节点的 URL。
 
-            如果您想使用它，请参阅[下面关于检查点同步的部分](#beacon-chain-checkpoint-syncing)。
+            如果您想使用它，请参阅[下面关于检查点同步的部分](#信标链检查点同步)。
 
             最后一个问题将询问您是否要启用 Doppelgänger Protection：
 

@@ -6,7 +6,7 @@ Ya seas un operador de nodo experimentado, titular de rETH o un observador curio
 
 ### Inicializando el Poder de Voto
 
-Primero y ante todo, el paso más importante si eres **operador de nodo** es [inicializar el voto](../houston/participate#initializing-voting) para desbloquear tu poder de voto. Los nodos que han inicializado el voto se incluyen cuando se calcula el poder de voto total de la red.
+Primero y ante todo, el paso más importante si eres **operador de nodo** es [inicializar el voto](../houston/participate#inicializar-la-votación) para desbloquear tu poder de voto. Los nodos que han inicializado el voto se incluyen cuando se calcula el poder de voto total de la red.
 
 En el génesis de Houston, el voto pDAO está deshabilitado hasta que un número suficiente de nodos hayan inicializado el voto. Esto es para prevenir que propuestas deshonestas pasen mientras el poder de voto total y el quórum sean bajos. Después de que suficientes nodos hayan inicializado el voto, se accionará un interruptor y el pDAO tendrá el timón.
 
@@ -23,11 +23,11 @@ Solo necesitas hacer esto una vez. Inicializar el voto asegurará que el poder d
 En segundo lugar, querrás configurar tu dirección de señalización de Snapshot. Esto permite a los operadores de nodo participar en votos de Snapshot en su navegador o dispositivo móvil sin tener que exponer sus claves de nodo a una billetera caliente.
 
 Configurar esto implica un puñado de pasos, así que querrás seguir esta guía:
-[Configurando tu Dirección de Señalización de Snapshot](../houston/participate#setting-your-snapshot-signalling-address).
+[Configurando tu Dirección de Señalización de Snapshot](../houston/participate#configurar-tu-dirección-de-señalización-de-snapshot).
 
 ### Delegando el Poder de Voto On-Chain
 
-Si deseas delegar el poder de voto on-chain a un miembro de la comunidad de tu elección, haz clic [aquí](../houston/participate#delegating-voting-power) para aprender cómo.
+Si deseas delegar el poder de voto on-chain a un miembro de la comunidad de tu elección, haz clic [aquí](../houston/participate#delegar-el-poder-de-voto) para aprender cómo.
 
 ##
 

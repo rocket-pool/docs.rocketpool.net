@@ -29,7 +29,7 @@ Bu sürecin kullanışlı bir görsel temsili
 
 ## Ön Koşul
 
-Devam etmeden önce lütfen [bir teklifin yaşam döngüsünü](/tr/legacy/houston/pdao#lifecycle-of-a-pdao-proposal) okuyun. Bu, tüm oylama dönemleri arasındaki farkları ve her dönem boyunca alınabilecek eylemleri açıklayacaktır.
+Devam etmeden önce lütfen [bir teklifin yaşam döngüsünü](/tr/legacy/houston/pdao#bir-pdao-teklifinin-yaşam-döngüsü) okuyun. Bu, tüm oylama dönemleri arasındaki farkları ve her dönem boyunca alınabilecek eylemleri açıklayacaktır.
 
 Bu sayfanın geri kalanı, zincir üzerinde pDAO tekliflerine katılmak için gereken adımları size anlatacaktır.
 
@@ -65,7 +65,7 @@ Devam etmek için lütfen `direct` veya `delegate` yazın:
 ```
 
 - `direct` ile yanıt verirseniz, oy gücü node'unuza başlatılacak ve Protokol DAO teklifleri üzerinde doğrudan oy kullanabileceksiniz.
-- `delegate` ile yanıt verirseniz, oylamayı başlatarak ve aynı işlem içinde [bir temsilci belirleyerek](../houston/participate#delegating-voting-power) biraz gas tasarrufu yapma fırsatına sahip olacaksınız.
+- `delegate` ile yanıt verirseniz, oylamayı başlatarak ve aynı işlem içinde [bir temsilci belirleyerek](../houston/participate#oy-gücünü-devretme) biraz gas tasarrufu yapma fırsatına sahip olacaksınız.
 
 Bunu yalnızca bir kez yapmanız gerekir. Bu, bir node için ilk snapshot bilgilerini yapılandırır. Oylamayı başlattıktan sonra, alınan her eylem node'unuzun snapshot bilgilerini güncelleyecektir. Oy gücünüz başlatıldıktan sonra, aşağıdaki smartnode komutunu kullanarak ne kadar olduğunu kontrol edebilirsiniz:
 
@@ -194,13 +194,13 @@ Devredilmiş oy gücüne sahip bir node operatörüyseniz, devredilen oy gücün
 
 Teklif vermeye uygun olmak için, bir node birkaç gereksinimi karşılamalıdır:
 
-- Anlık görüntü almaya dahil edilmiş (ya [oylamayı başlatarak](../houston/participate#initializing-voting) ya da Houston sonrası kaydolarak)
+- Anlık görüntü almaya dahil edilmiş (ya [oylamayı başlatarak](../houston/participate#oylamayı-başlatma) ya da Houston sonrası kaydolarak)
 - En az bir minipool'a sahip olmalı
 - Sıfır olmayan oy gücüne sahip
-- [RPL kilitlenmesine](../houston/participate#allowing-rpl-locking) izin vermiş
+- [RPL kilitlenmesine](../houston/participate#rpl-kilitlenmesine-i̇zin-verme) izin vermiş
 - Teklif tahvilinden daha büyük bir RPL stake'ine sahip (zaten kilitli RPL hariç)
 
-Teklifler, protokol seviyesinde parametreleri değiştirmek ve kod yürütmek için var olur! Zincir üzerinde bir teklif oluşturulmadan önce [yönetişim](../houston/participate#governance-process) süreci boyunca tartışma ve konsensüs olmalıdır.
+Teklifler, protokol seviyesinde parametreleri değiştirmek ve kod yürütmek için var olur! Zincir üzerinde bir teklif oluşturulmadan önce [yönetişim](../houston/participate#yönetişim-süreci) süreci boyunca tartışma ve konsensüs olmalıdır.
 
 Seçenekler menüsünü açmak için `rocketpool pdao propose` komutunu kullanın
 
@@ -273,8 +273,8 @@ Her teklife bir `proposalID` atanır. Bu durumda, güvenlik konseyine `0xBdbc...
       ```
 
       Burada `test-member'ı davet et` teklifimizin 71 ID'sine sahip olduğunu ve beklemede durumunda olduğunu görebiliriz. Bu durumda,
-      [itiraz edenler](/tr/legacy/houston/pdao#challenge-process) teklif verenin sağladığı merkle pollard'ın (oy gücünü hesaplamak için kullanılır) geçerliliğine itiraz edebilir. `proposal.vote.delay.time` sona erdiğinde,
-      teklif aktif oylama aşamalarına geçecektir. Yenilemek için [bir teklifin yaşam döngüsünü](../houston/pdao#lifecycle-of-a-pdao-proposal) incelemeye çekinmeyin.
+      [itiraz edenler](/tr/legacy/houston/pdao#meydan-okuma-süreci) teklif verenin sağladığı merkle pollard'ın (oy gücünü hesaplamak için kullanılır) geçerliliğine itiraz edebilir. `proposal.vote.delay.time` sona erdiğinde,
+      teklif aktif oylama aşamalarına geçecektir. Yenilemek için [bir teklifin yaşam döngüsünü](../houston/pdao#bir-pdao-teklifinin-yaşam-döngüsü) incelemeye çekinmeyin.
     </Tab>
     <Tab label="Teklif Ayrıntılarını Görüntüleme">
       Teklif ID'sine sahip olduğunuza göre, bu komutu kullanarak teklifinizin durumunu görüntüleyebilirsiniz:

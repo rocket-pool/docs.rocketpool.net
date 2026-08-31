@@ -24,7 +24,7 @@ Une représentation visuelle pratique de ce processus peut être trouvée sur le
 
 ## Prérequis
 
-Veuillez lire le [cycle de vie d'une proposition](./pdao#lifecycle-of-a-pdao-proposal) avant de continuer. Cela expliquera les différences entre toutes les périodes de vote et les actions qui peuvent être prises pendant chaque période.
+Veuillez lire le [cycle de vie d'une proposition](./pdao#cycle-de-vie-dune-proposition-pdao) avant de continuer. Cela expliquera les différences entre toutes les périodes de vote et les actions qui peuvent être prises pendant chaque période.
 
 Le reste de cette page vous guidera à travers les étapes requises pour participer aux propositions pDAO on-chain.
 
@@ -60,7 +60,7 @@ Veuillez taper `direct` ou `delegate` pour continuer :
 ```
 
 - Si vous répondez avec `direct`, le pouvoir de vote sera initialisé à votre nœud et vous pourrez voter directement sur les propositions de la DAO de Protocole.
-- Si vous répondez avec `delegate`, vous aurez l'opportunité d'économiser un peu de gaz en initialisant le vote et en [définissant un délégué](./participate#delegating-voting-power) dans la même transaction.
+- Si vous répondez avec `delegate`, vous aurez l'opportunité d'économiser un peu de gaz en initialisant le vote et en [définissant un délégué](./participate#déléguer-le-pouvoir-de-vote) dans la même transaction.
 
 Vous ne devez faire cela qu'une seule fois. Cela configure les informations de snapshot initiales pour un nœud. Après avoir initialisé le vote, chaque action prise mettra à jour les informations de snapshot de votre nœud. Une fois votre pouvoir de vote initialisé, vous pouvez vérifier combien vous en avez en utilisant la commande smartnode suivante :
 
@@ -186,13 +186,13 @@ Si vous êtes un opérateur de nœud avec un pouvoir de vote délégué, vous de
 
 Pour être éligible à proposer, un nœud doit répondre à quelques exigences :
 
-- Inclus dans le snapshotting (soit en [initialisant le vote](./participate#initializing-voting) soit en s'enregistrant après Houston)
+- Inclus dans le snapshotting (soit en [initialisant le vote](./participate#initialiser-le-vote) soit en s'enregistrant après Houston)
 - Doit avoir au moins un minipool
 - A un pouvoir de vote non nul
-- A autorisé le [verrouillage de RPL](./participate#allowing-rpl-locking)
+- A autorisé le [verrouillage de RPL](./participate#autoriser-le-verrouillage-de-rpl)
 - A un stake RPL (moins tout RPL déjà verrouillé) supérieur à la caution de proposition
 
-Les propositions existent pour changer les paramètres et exécuter du code au niveau du protocole ! Il devrait y avoir discussion et consensus à travers le [processus de gouvernance](./participate#governance-process) avant qu'une proposition ne soit créée on-chain.
+Les propositions existent pour changer les paramètres et exécuter du code au niveau du protocole ! Il devrait y avoir discussion et consensus à travers le [processus de gouvernance](./participate#processus-de-gouvernance) avant qu'une proposition ne soit créée on-chain.
 
 Utilisez la commande `rocketpool pdao propose` pour afficher un menu d'options
 
@@ -204,9 +204,12 @@ COMMANDES :
    recurring-spend-update, rsu  Proposer une mise à jour d'un plan de dépenses récurrentes existant
    security-council, sc         Modifier le conseil de sécurité
    setting, s                   Faire une proposition de paramètre de la DAO de Protocole
+   submit-batch, sb            Soumettre une seule proposition qui modifie plusieurs paramètres de la DAO de Protocole à partir d'un fichier JSON
 ```
 
-Chacune de ces commandes vous invitera avec une liste d'entrées pour créer votre proposition souhaitée. Dans ce guide, nous inviterons un nœud au conseil de sécurité pour servir d'exemple. Pour créer une proposition pour inviter un nœud au conseil de sécurité, vous utiliseriez la commande :
+Chacune de ces commandes vous invitera avec une liste d'entrées pour créer votre proposition souhaitée. Les commandes de proposition de paramètre acceptent `--to-json` pour écrire ou ajouter une modification de paramètre dans un fichier JSON au lieu de soumettre une transaction. Lorsque le fichier est prêt, soumettez-le avec `rocketpool pdao propose submit-batch`.
+
+Dans ce guide, nous inviterons un nœud au conseil de sécurité pour servir d'exemple. Pour créer une proposition pour inviter un nœud au conseil de sécurité, vous utiliseriez la commande :
 
 ```shell
 rocketpool pdao propose security-council invite
@@ -226,7 +229,7 @@ Veuillez entrer l'adresse du membre :
 Êtes-vous sûr de vouloir proposer d'inviter test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) au conseil de sécurité ? [y/n]
 ```
 
-Après que cela soit inclus dans un bloc, une proposition pDAO sera créée ! La proposition entrera dans la [période de délai de vote](./pdao#vote-delay-period) dès sa création.
+Après que cela soit inclus dans un bloc, une proposition pDAO sera créée ! La proposition entrera dans la [période de délai de vote](./pdao#période-de-délai-de-vote) dès sa création.
 
 ## Voir l'état d'une proposition
 
@@ -263,7 +266,7 @@ Chaque proposition se voit attribuer un `proposalID`. Dans ce cas, notre proposi
 
       ```
 
-      Ici, nous pouvons voir que notre proposition `inviter test-member` a un ID de 71 et est dans l'état en attente. Dans cet état, les [contestataires](/fr/pdao/pdao#challenge-process) peuvent contester la validité du pollard merkle (utilisé pour calculer le pouvoir de vote) fourni par le proposeur. Lorsque `proposal.vote.delay.time` se termine, la proposition passera aux phases de vote actives. N'hésitez pas à revoir le [cycle de vie d'une proposition](./pdao#lifecycle-of-a-pdao-proposal) pour un rappel.
+      Ici, nous pouvons voir que notre proposition `inviter test-member` a un ID de 71 et est dans l'état en attente. Dans cet état, les [contestataires](/fr/pdao/pdao#processus-de-contestation) peuvent contester la validité du pollard merkle (utilisé pour calculer le pouvoir de vote) fourni par le proposeur. Lorsque `proposal.vote.delay.time` se termine, la proposition passera aux phases de vote actives. N'hésitez pas à revoir le [cycle de vie d'une proposition](./pdao#cycle-de-vie-dune-proposition-pdao) pour un rappel.
     </Tab>
     <Tab label="Voir les détails d'une proposition">
       Maintenant que vous avez l'ID de proposition, vous pouvez voir l'état de votre proposition en utilisant cette commande :

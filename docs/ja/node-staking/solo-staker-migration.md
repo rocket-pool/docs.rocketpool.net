@@ -28,8 +28,8 @@ Saturn 1アップグレードでは、新しいバリデーターを作成する
 
 - プールステーカーから借りたETHの部分（バリデーターごとに28 ETH）に対して**コミッションを獲得**できます。
 - 既存の32 ETHのステークで、最大**8つのmegapoolバリデーター**を作成できます（現在のボンド額は各4 ETH）。最大224 ETHの借入ETHに対してコミッションを得られます。
-- [Smoothing Pool](/ja/node-staking/fee-distrib-sp#the-smoothing-pool)への参加資格があります。Smoothing Poolは、すべての実行レイヤー報酬（ブロック提案や[MEV報酬](/ja/node-staking/mev)など）をプールし、各報酬インターバルで参加者に公平に分配します。
-- MegapoolにRPLをステークすると、RPLインフレーション報酬に加えて[Voter Share報酬](/ja/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers)（プロトコルのETH収益の一部）を獲得でき、[pDAOガバナンス](/ja/pdao/overview)での投票権も得られます。RPLステーキングは完全に任意です。
+- [Smoothing Pool](/ja/node-staking/fee-distrib-sp#smoothing-pool)への参加資格があります。Smoothing Poolは、すべての実行レイヤー報酬（ブロック提案や[MEV報酬](/ja/node-staking/mev)など）をプールし、各報酬インターバルで参加者に公平に分配します。
+- MegapoolにRPLをステークすると、RPLインフレーション報酬に加えて[Voter Share報酬](/ja/node-staking/megapools/staking-and-claiming-rewards#voter-shareがmegapool-rplステーカーにどのように分配されるか)（プロトコルのETH収益の一部）を獲得でき、[pDAOガバナンス](/ja/pdao/overview)での投票権も得られます。RPLステーキングは完全に任意です。
 
 とはいえ、強調しておくべき重要な違いもあります：
 
@@ -37,7 +37,7 @@ Saturn 1アップグレードでは、新しいバリデーターを作成する
 - 従来のノード運用は**Smartnodeスタック**を利用します。そのソフトウェアをノードにインストールして実行することに伴うリスクを受け入れる必要があります。
 - ノードオペレーターになるには新しい概念をいくつか学ぶ必要があるため、**学習コスト**が伴います。
 - Megapoolバリデーターは報酬をプールステーカーと分け合うため、バリデーターの出金アドレスは実行レイヤー上のmegapoolコントラクトとなり、**自分が管理するEOAではありません**。これは実行レイヤー報酬の**フィー受取先（fee recipient）**にも当てはまります。
-- **移行中の資金は何も生み出しません。** ソロバリデーターの退出からmegapoolバリデーターのアクティブ化までの間、報酬は得られません。新しいmegapoolバリデーターはアテステーションを開始する前に、Rocket PoolデポジットキューとBeacon Chainキューの*両方*を通過する必要があります。退出する前に、必ず下記の**タイミングに関する考慮事項**セクションをお読みください。
+- **移行中の資金は何も生み出しません。** ソロバリデーターの退出からmegapoolバリデーターのアクティブ化までの間、報酬は得られません。新しいmegapoolバリデーターはアテステーションを開始する前に、Rocket PoolデポジットキューとBeacon Chainキューの*両方*を通過する必要があります。退出する前に、必ず下記の[タイミングに関する考慮事項](#タイミングに関する考慮事項)セクションをお読みください。
 
 移行を決断する前に、これらの長所と短所を慎重に検討することをお勧めします。
 プロセスを進めたい場合は、以下の手順をご覧ください。
@@ -52,7 +52,7 @@ Saturn 1アップグレードでは、新しいバリデーターを作成する
 
 ::: warning 警告
 自発的退出は**取り消せません**。一度退出したバリデーターは二度とバリデーションを行えません-戻る唯一の方法は新しいバリデーターを作成することです。
-退出する前に、このページ全体（特に下記の**タイミングに関する考慮事項**セクション）を必ずお読みください。
+退出する前に、このページ全体（特に下記の[タイミングに関する考慮事項](#タイミングに関する考慮事項)セクション）を必ずお読みください。
 :::
 
 [validatorqueue.com](https://www.validatorqueue.com/)は、現在のBeacon Chain退出キューの長さを確認できる便利なサイトです。
@@ -62,7 +62,7 @@ Saturn 1アップグレードでは、新しいバリデーターを作成する
 退出処理を待つ間に、Rocket Poolノードの準備を進められます。
 
 Rocket Poolのノード運用が初めての場合は、[ノードオペレーターガイド](/ja/node-staking/responsibilities)から始めてください。ハードウェアの選定から[Smartnodeスタックのインストール](/ja/node-staking/installing/overview)、[ノードの登録](/ja/node-staking/prepare-node)まですべてをカバーしています。
-これまで自分のバリデーターを運用してきた方なら、多くの内容が馴染み深く感じられるでしょう。すでに独自の実行クライアントとコンセンサスクライアントを運用している場合は、[外部クライアントを使用するハイブリッド構成](/ja/node-staking/install-modes#the-hybrid-configuration-with-external-clients)も参考になるはずです。
+これまで自分のバリデーターを運用してきた方なら、多くの内容が馴染み深く感じられるでしょう。すでに独自の実行クライアントとコンセンサスクライアントを運用している場合は、[外部クライアントを使用するハイブリッド構成](/ja/node-staking/install-modes#外部クライアントを使用したハイブリッド構成)も参考になるはずです。
 
 ## ステップ3：Megapoolバリデーターを作成する
 
@@ -92,7 +92,7 @@ Megapoolコントラクトは最初のバリデーターデポジット時に自
 [validatorqueue.com](https://www.validatorqueue.com/)は、Beacon Chainキューの長さを確認できる便利なサイトです。このキューはBeacon Chainに出入りするETHの量に左右されます。
 :::
 
-デポジットキューが想定より長い場合は、ETHが割り当てられる前であればいつでも[バリデーターをRocket Poolデポジットキューから退出](/ja/node-staking/megapools/create-megapool-validator#exit-a-validator-from-the-rocket-pool-deposit-queue)させ、ボンドを[デポジットクレジット](/ja/node-staking/megapools/credit)として受け取ることができます。このクレジットはrETHと交換可能です。
+デポジットキューが想定より長い場合は、ETHが割り当てられる前であればいつでも[バリデーターをRocket Poolデポジットキューから退出](/ja/node-staking/megapools/create-megapool-validator#rocket-poolデポジットキューからバリデーターを退出する)させ、ボンドを[デポジットクレジット](/ja/node-staking/megapools/credit)として受け取ることができます。このクレジットはrETHと交換可能です。
 
 ## 代替案：ノードを運用せずにステーキングする
 

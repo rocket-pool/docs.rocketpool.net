@@ -14,14 +14,14 @@ Son la opción más económica, y se emplean con menos frecuencia que las ubicua
 Sin embargo, rara vez tienen soporte de alta disponibilidad; si el servidor físico falla, es probable que tu VPS alojado en él también falle.
 Además, tienen una huella de recursos fija; generalmente no es posible aumentar o disminuir recursos como CPU y RAM bajo demanda.
 
-A partir de 10/2024, una opción de buen precio y rendimiento fue el RS 12000 G11 de [Netcup](https://www.netcup.eu/vserver/vps.php).
+A partir de 5/2026, una opción de buen precio y rendimiento fue el RS 12000 G12 de [Netcup](https://www.netcup.eu/vserver/vps.php).
 Una advertencia es que el almacenamiento se comparte con otros, por lo que los IOPs de almacenamiento son un posible cuello de botella.
 
 ## Alojamiento de Servidor Dedicado
 
 A diferencia de un VPS, un servidor dedicado es un dispositivo físico completo que es alquilado por ti. Son una opción relativamente asequible, y se emplean con menos frecuencia que las ubicuas plataformas en la nube, por lo que tienden a contribuir más a la descentralización de la red Ethereum.
 
-A partir de 10/2024, dos opciones de buen precio y rendimiento fueron los servidores bare-metal Rise y Advanced de [OVH](https://us.ovhcloud.com/). Hay una variedad de estos que cambian con el tiempo, así como ventas significativas. Necesitarás verificar que se cumplan las [directrices de hardware](../local/hardware.md).
+A partir de 5/2026, dos opciones de buen precio y rendimiento fueron los servidores bare-metal Rise y Advance de [OVH](https://us.ovhcloud.com/). Hay una variedad de estos que cambian con el tiempo, así como ventas significativas. Necesitarás verificar que se cumplan las [directrices de hardware](../local/hardware.md).
 
 ## Alojamiento en la Nube
 
@@ -40,7 +40,7 @@ No recomendamos usar alojamiento en la nube debido a preocupaciones de precio y 
 ### Precio
 
 Las soluciones de alojamiento en la nube suelen ser una opción más segura si el costo no es una prioridad.
-La sección a continuación tiene un desglose más detallado de las estimaciones de costos, pero aquí hay una comparación general entre una opción VPS y una opción en la nube:
+La sección a continuación tiene un desglose más detallado de las estimaciones de costos, pero aquí hay una comparación general entre una opción VPS y una opción de servidor dedicado:
 
-- OVH Servidor Dedicado: $90-160/mes
-- Netcup VPS: $90/mes
+- OVH Servidor Dedicado: $118-243/mes
+- Netcup VPS: $81-117/mes

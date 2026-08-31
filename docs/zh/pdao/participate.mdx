@@ -23,7 +23,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 ## 前置条件
 
-请在继续之前阅读[提案的生命周期](./pdao#lifecycle-of-a-pdao-proposal)。它将解释所有投票期之间的差异以及在每个期间可以采取的行动。
+请在继续之前阅读[提案的生命周期](./pdao#pdao-提案的生命周期)。它将解释所有投票期之间的差异以及在每个期间可以采取的行动。
 
 本页的其余部分将引导您完成参与链上 pDAO 提案所需的步骤。
 
@@ -59,7 +59,7 @@ Please type `direct` or `delegate` to continue:
 ```
 
 - 如果您回复 `direct`，投票权将初始化到您的节点，您将能够直接对 Protocol DAO 提案进行投票。
-- 如果您回复 `delegate`，您将有机会通过在同一笔交易中初始化投票和[设置委托人](./participate#delegating-voting-power)来节省一些 gas。
+- 如果您回复 `delegate`，您将有机会通过在同一笔交易中初始化投票和[设置委托人](./participate#委托投票权)来节省一些 gas。
 
 您只需执行一次此操作。它为节点配置初始快照信息。在您初始化投票后，采取的每个操作都将更新您节点的快照信息。一旦您的投票权被初始化，您可以使用以下 smartnode 命令检查您拥有多少投票权：
 
@@ -184,13 +184,13 @@ rocketpool pdao set-voting-delegate `address`
 
 为了有资格提出提案，节点必须满足一些要求：
 
-- 包含在快照中（通过[初始化投票](./participate#initializing-voting)或在 Houston 后注册）
+- 包含在快照中（通过[初始化投票](./participate#初始化投票)或在 Houston 后注册）
 - 必须至少有一个 minipool
 - 具有非零投票权
-- 已允许 [RPL 锁定](./participate#allowing-rpl-locking)
+- 已允许 [RPL 锁定](./participate#允许-rpl-锁定)
 - 拥有大于提案保证金的 RPL 质押（减去任何已锁定的 RPL）
 
-提案的存在是为了在协议层面更改参数和执行代码！在链上创建提案之前，应该通过[治理](./participate#governance-process)流程进行讨论并达成共识。
+提案的存在是为了在协议层面更改参数和执行代码！在链上创建提案之前，应该通过[治理](./participate#治理流程)流程进行讨论并达成共识。
 
 使用命令 `rocketpool pdao propose` 调出选项菜单
 
@@ -202,9 +202,12 @@ COMMANDS:
    recurring-spend-update, rsu  Propose an update to an existing recurring spend plan
    security-council, sc         Modify the security council
    setting, s                   Make a Protocol DAO setting proposal
+   submit-batch, sb            Submit a single proposal that changes multiple Protocol DAO settings from a JSON file
 ```
 
-这些命令中的每一个都会提示您输入一系列输入以创建所需的提案。在本指南中，我们将邀请一个节点加入安全委员会作为示例。要提出邀请节点加入安全委员会的提案，您将使用以下命令：
+这些命令中的每一个都会提示您输入一系列输入以创建所需的提案。设置提案命令接受 `--to-json`，可以将设置更改写入或追加到 JSON 文件，而不是直接提交交易。文件准备好后，使用 `rocketpool pdao propose submit-batch` 提交。
+
+在本指南中，我们将邀请一个节点加入安全委员会作为示例。要提出邀请节点加入安全委员会的提案，您将使用以下命令：
 
 ```shell
 rocketpool pdao propose security-council invite
@@ -224,7 +227,7 @@ Please enter the member's address:
 Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council? [y/n]
 ```
 
-在此包含在区块中后，将创建 pDAO 提案！提案将在创建时进入[投票延迟期](./pdao#vote-delay-period)。
+在此包含在区块中后，将创建 pDAO 提案！提案将在创建时进入[投票延迟期](./pdao#投票延迟期)。
 
 ## 查看提案的状态
 
@@ -261,7 +264,7 @@ Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B
 
       ```
 
-      在这里，我们可以看到我们的提案 `invite test-member` 的 ID 为 71，处于待处理状态。在此状态下，[挑战者](/zh/pdao/pdao#challenge-process)可以对提案者提供的 merkle pollard（用于计算投票权）的有效性提出异议。当 `proposal.vote.delay.time` 结束时，提案将过渡到活跃投票阶段。请随时查看[提案的生命周期](./pdao#lifecycle-of-a-pdao-proposal)以进行复习。
+      在这里，我们可以看到我们的提案 `invite test-member` 的 ID 为 71，处于待处理状态。在此状态下，[挑战者](/zh/pdao/pdao#挑战流程)可以对提案者提供的 merkle pollard（用于计算投票权）的有效性提出异议。当 `proposal.vote.delay.time` 结束时，提案将过渡到活跃投票阶段。请随时查看[提案的生命周期](./pdao#pdao-提案的生命周期)以进行复习。
     </Tab>
     <Tab label="查看提案详情">
       现在您有了提案 ID，可以使用此命令查看提案的状态：

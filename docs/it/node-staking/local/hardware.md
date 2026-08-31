@@ -100,9 +100,9 @@ Consigliamo un'unità con cache **DRAM**.
 :::
 
 La considerazione finale è la dimensione dell'unità.
-A partire da 10/2024, la dimensione del database del client execution `geth` richiede circa 1,2TB di spazio dopo aver completato la sincronizzazione iniziale (o dopo aver appena finito di eseguire il pruning).
+A partire da 4/2026, la dimensione del database del client execution `geth` richiede circa 1,2TB di spazio dopo aver completato la sincronizzazione iniziale (o dopo aver appena finito di eseguire il pruning).
 Questo crescerà costantemente nel tempo e, sebbene il pruning possa recuperare parte di quello spazio, lo stato appena potato _cresce_ nel tempo.
-Avrai tranquillità con un'unità più grande.
+Avrai tranquillità con un'unità più grande. La dimensione di questo database può essere ridotta se [decidi di non memorizzare la cronologia precedente al merge](/node-staking/maintenance/history-expiry).
 
 ### Accessori Comuni
 

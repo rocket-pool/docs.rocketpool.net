@@ -18,7 +18,7 @@ Validators 被分配证明和区块提案**按照随机化的时间表**。
 
 Validators 从证明、区块提案、同步委员会(罕见)和罚没奖励(极其罕见)中获得共识层奖励。他们还从优先费用和 MEV 中获得执行层奖励。
 
-截至 2024 年 10 月,总体 APR 约为 3.5%,其中 2.8% 为共识层 APR,0.7% 为执行层 APR。可以在 [rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake) 找到此信息的一个来源。
+截至 2026 年 5 月,总体 APR 约为 2.634%,其中 2.8% 为共识层 APR,0.22% 为执行层 APR。可以在 [rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake) 找到此信息的一个来源。
 
 ### 惩罚
 
@@ -49,22 +49,21 @@ Slashing *不会*因维护而离线而发生。
 
 ## Rocket Pool Nodes 的运作方式
 
-与需要存入 32 ETH 来创建新 validator 的单独 stakers 不同,Rocket Pool nodes 每个 validator 只需要存入 8 ETH(称为"bond ETH")。
-这将与来自 staking 池的 24 ETH(称为"borrowed ETH",来自流动性 staker 存款以换取 rETH)结合,创建一个新的 validator。
-这个新的 validator 属于一个 **minipool**。
+与需要存入 32 ETH 来创建新验证器的单独质押者不同，Rocket Pool 节点每个验证器只需要存入 4 ETH（称为"bonded ETH"）。
+这将与来自质押池的 28 ETH（称为"borrowed ETH"，来自流动性质押者为换取 rETH 而存入的资金）配对，以创建一个新的 megapool 验证者。
 
-对于 Beacon chain,minipool 看起来与普通 validator 完全相同。
+对于 Beacon chain，megapool 验证者看起来与普通验证器完全相同。
 它具有相同的职责、必须遵循相同的规则、相同的奖励等等。
-唯一的区别在于 minipool 在执行层上的创建方式,以及当 node operator 决定自愿退出 minipool 时提款的工作方式。
+唯一的区别在于 megapool 验证者是如何在执行层上创建的，以及当节点运营者决定自愿退出 megapool 验证者时提取如何进行。
 所有的创建、提款和奖励委托都由 Ethereum 链上的 Rocket Pool 的**智能合约**处理。
 这使其完全去中心化。
 
 Rocket Pool **Node** 是一台带有 Ethereum 钱包的单一计算机,已在 Rocket Pool 的智能合约中注册。
-然后,节点可以创建尽可能多的 minipools,所有这些 minipools 都在同一台机器上愉快地运行。
-**单个 Rocket Pool node 可以运行许多许多 minipools。**
-每个 minipool 对整体系统性能的影响微乎其微;有些人已经能够在单个节点上运行数百个 minipools。
+然后,节点可以创建尽可能多的 megapool 验证者,所有这些验证者都在同一台机器上愉快地运行。
+**单个 Rocket Pool node 可以运行许多许多 megapool 验证者。**
+每个 megapool 验证者对整体系统性能的影响微乎其微;有些人已经能够在单个节点上运行数百个。
 
-minipool 的前期成本是 8 ETH。此外,node operator 可以向其节点 stake RPL,以获得额外奖励的资格并在协议 DAO 中获得投票权。
+megapool 验证者的前期成本是 4 ETH。此外,node operator 可以选择向其节点 stake RPL,以获得额外奖励的资格并在协议 DAO 中获得投票权。
 
 ## Rocket Pool Node Operators
 
@@ -73,14 +72,14 @@ minipool 的前期成本是 8 ETH。此外,node operator 可以向其节点 stak
 
 ### 职责
 
-他们通过运行 minipools 来利用 staking 池中的 ETH,这为 Rocket Pool 协议赚取 staking 奖励(因此,增加 rETH 的价值)。
+他们通过运行 megapool 验证者来利用 staking 池中的 ETH,这为 Rocket Pool 协议赚取 staking 奖励(因此,增加 rETH 的价值)。
 他们的工作很简单,但至关重要:_以尽可能高的质量运行 validators,并最大化 staking 奖励_。
 
 Node operators 负责:
 
 - 设置计算机(物理或虚拟)
 - 正确配置它,包括在适用的情况下配置他们的家庭网络
-- 在其上安装 Rocket Pool 并设置 minipools 以执行验证
+- 在其上安装 Rocket Pool 并设置 validator 以执行验证
 - 保护它免受外部和内部威胁
 - 在其 validators 的整个生命周期中维护它
 
@@ -92,24 +91,25 @@ Node operators 负责:
 以下是运行 Rocket Pool node 的主要好处:
 
 - 您赚取每个 validator 的 ETH 奖励的一部分,外加佣金。
-  - 对于没有 stake RPL 的 8 ETH-bonded minipools,这比单独 staking 多 30%(`(8+24*.1)/8 = 1.3`)
-  - Staking RPL 提供提升的佣金。如果 RPL stake 价值达到或超过您借用的 ETH 总额的 10%,ETH 奖励比单独 staking 多 42%(`(8+24*.14)/8 = 1.42`)
-  - **注意:**如果您不参与 smoothing pool,您将获得比单独 staking 多 15%(`(8+24*.05)/8 = 1.15`)——强烈建议在 2024-10-28 或之后创建 minipools 的用户选择加入 smoothing pool。
-- 您还可以从您 stake 的 RPL 中获得发行奖励。
-  - 在一个周期结束时(每 28 天),会对您的 RPL 进行快照。
-  - 您可以在 RPL 上获得最高收益**最多达到**您借用的 ETH 总价值的 15%。
-    - 您将从超出该部分的 RPL 中获得收益,但收益水平会递减。
-  - 您将根据您 stake 的 RPL 的平方根获得投票权。
+  - 您只需投入自己的 4 ETH 资本即可运行一个验证器,其余 28 ETH 来自流动性质押者。
+  - 每个 megapool 验证者从 28 ETH 协议资金产生的奖励中赚取 5% 的佣金。这相当于比单独质押多 35%(`(4 bonded + 28 borrowed * 0.05) / 4 = 1.35`)。
+  - 通过加入[平滑池](fee-distrib-sp#平滑池),您可以与其他参与者分享执行层奖励(优先费和 MEV),从而获得更稳定的回报,而不必依赖出块的运气。
+- Stake RPL 可为您赚取额外奖励。
+  - RPL 质押者按其质押的 RPL 比例赚取[协议佣金份额](megapools/staking-and-claiming-rewards#选民份额如何分配给-megapool-rpl-质押者)(以 ETH 支付)。
+  - 您还可以从质押的 RPL 中赚取发行奖励(以 RPL 支付)。
+    - 在每个周期结束时(每 28 天),会对您的 RPL 进行快照。
+    - 您可以对借入 ETH 总价值 **最多 15%** 的 RPL 赚取最高收益。
+    - 超过 15% 的部分仍会产生收益,但收益率递减。
+  - 您将根据质押 RPL 的平方根获得投票权,最高可达抵押 ETH 的 150%。
 
 ### 限制
 
 伴随上述奖励而来的还有一些限制:
 
-- 如果您的节点表现不佳,并且在您决定退出 minipool 时实际上失去了 ETH,所有损失的 ETH 都将从您的份额中扣除。
-  - 例如:如果您以 30 ETH 的余额退出,那么您的 minipool 从其初始 32 ETH 存款中损失了 2 ETH。您将收到 6 ETH,24 ETH 将退还给 staking 池。
-- 您 stake 的 RPL 将流动性较低
-  - 您只能提取超过您 bonded ETH 价值 60% 的 RPL stake。
-  - 如果您在过去 28 天内 stake 过,则无法提取 RPL
+- 如果您的节点表现不佳,并且在您决定退出 megapool 验证者时实际上损失了 ETH,所有损失的 ETH 都将从您的份额中扣除。
+  - 例如:如果您以 31 ETH 的余额退出,则您的 megapool 验证者从最初的 32 ETH 存款中损失了 1 ETH。您将收到 3 ETH,28 ETH 将返还给质押池。
+- 您 stake 的 RPL 流动性会较低:
+  - 您可以解除质押的 megapool RPL 数量没有限制,但在发起解除质押后必须等待 28 天才能提取。这可以防止用户刚好赶在 28 天奖励周期前质押 RPL,然后在周期结束后立即提取,从而操纵奖励系统。
 
 ### 您能做到
 

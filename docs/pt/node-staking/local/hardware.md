@@ -100,9 +100,9 @@ Recomendamos um disco com cache **DRAM**.
 :::
 
 A consideração final é o tamanho do disco.
-A partir de 10/2024, o tamanho do banco de dados do cliente de execution `geth` requer cerca de 1.2TB de espaço após concluir sua sincronização inicial (ou após você ter acabado de fazer o prune dele).
+A partir de 4/2026, o tamanho do banco de dados do cliente de execution `geth` requer cerca de 1.2TB de espaço após concluir sua sincronização inicial (ou após você ter acabado de fazer o prune dele).
 Isso crescerá constantemente ao longo do tempo, e embora o pruning possa recuperar parte desse espaço, o estado recém-limpo _cresce_ ao longo do tempo.
-Você terá paz de espírito com um disco maior.
+Você terá paz de espírito com um disco maior. O tamanho deste banco de dados pode ser reduzido se você [decidir não armazenar o histórico anterior ao merge](/node-staking/maintenance/history-expiry).
 
 ### Acessórios Comuns
 

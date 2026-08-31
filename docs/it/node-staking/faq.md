@@ -5,7 +5,7 @@
 Gestendo un singolo validator solo, riceveresti il 100% delle ricompense sui tuoi 32 ETH.
 Gestendo due minipool da 16 ETH, riceveresti il 100% delle ricompense sui tuoi 32 ETH **più** il 14% delle ricompense sui 32 ETH forniti dal protocollo Rocket Pool.
 Gestendo quattro minipool da 8 ETH, riceveresti il 100% delle ricompense sui tuoi 32 ETH **più** il 14% delle ricompense sui 96 ETH forniti dal protocollo Rocket Pool.
-Avresti anche l'opzione di utilizzare la funzionalità [Smoothing Pool](./prepare-node.mdx#smoothing-pool) di Rocket Pool.
+Avresti anche l'opzione di utilizzare la funzionalità [Smoothing Pool](./fee-distrib-sp#lo-smoothing-pool) di Rocket Pool.
 
 ### Come faccio a sapere quanto vale il mio rETH? Fa rebase?
 
@@ -19,7 +19,7 @@ Se questo non aiuta, puoi fare la tua domanda sul canale **#support** di Rocket 
 
 ### Come posso ottenere ETH di test per sperimentare con la creazione e l'esecuzione di un minipool? Non posso pubblicare messaggi sul canale faucet.
 
-Vedi [Ottenere ETH di test su Hoodi](./testnet/overview#getting-test-eth-on-hoodi).
+Vedi [Ottenere ETH di test su Hoodi](./testnet/overview#ottenere-eth-di-test-su-hoodi).
 
 ### Come recupero il mio nodo se la mia macchina si rompe?
 
@@ -39,7 +39,7 @@ Inoltre, assicurati che il tuo nodo abbia un indirizzo IP locale statico in modo
 
 ### Il mio client consensus sta impiegando troppo tempo per sincronizzarsi. Cosa dovrei fare?
 
-I client consensus possono impiegare molto tempo per sincronizzarsi se non hai avviato il processo di sincronizzazione usando [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
+I client consensus possono impiegare molto tempo per sincronizzarsi se non hai avviato il processo di sincronizzazione usando [Checkpoint Sync](./config-docker#sincronizzazione-checkpoint-della-beacon-chain).
 Anche se lo stai eseguendo da molto tempo, di solito è più veloce configurare l'URL di checkpoint sync, cancellare i dati di sincronizzazione correnti con `rocketpool service resync-eth2` e ricominciare.
 Il tuo client dovrebbe essere sincronizzato in meno di un minuto.
 

@@ -58,7 +58,7 @@ type SidebarTranslation = {
     megapoolsOverview: string;
     createMegapoolValidator: string;
     stakingAndClaimingRewards: string;
-    megapoolMigration: string; 
+    megapoolMigration: string;
     credit: string;
     exitMegapoolValidator: string;
     stakeOnBehalf: string;

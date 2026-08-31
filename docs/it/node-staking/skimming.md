@@ -1,4 +1,4 @@
-# Distribuzione delle Ricompense Skimmate
+# Distribuzione delle Ricompense Skimmate dei Minipool
 
 Le ricompense ETH che ricevi per gestire un validator per Ethereum vengono routinamente inviate ai tuoi minipool in un processo chiamato "skimming".
 La frequenza degli skim dipende dal numero di validator attivi sulla Beacon Chain. Al momento della scrittura, il numero di validator è di circa 500.000, il che comporta uno skim che si verifica approssimativamente ogni 2-3 giorni.
@@ -28,7 +28,7 @@ Modificare questa impostazione regolerà la soglia alla quale lo Smartnode distr
 Impostare il parametro a 0 disabiliterà le distribuzioni automatiche.
 
 ::: warning AVVISO
-Se decidi di disabilitare la distribuzione automatica, è importante che tu esegua comunque una distribuzione manuale su base regolare. Leggi la [sezione sulla distribuzione manuale](#manual-distribution) che segue su come farlo.
+Se decidi di disabilitare la distribuzione automatica, è importante che tu esegua comunque una distribuzione manuale su base regolare. Leggi la [sezione sulla distribuzione manuale](#distribuzione-manuale) che segue su come farlo.
 
 Dopo un lungo periodo di tempo, le tue ricompense skimmate potrebbero superare gli 8 ETH. Se si verifica questa situazione, non sarai più in grado di distribuirle e dovrai uscire dal tuo validator per accedere alle ricompense accumulate.
 

@@ -120,7 +120,7 @@ _새로운_ 청구 시스템은 이러한 모든 문제를 해결합니다.
 
 모든 기간마다 Oracle DAO는 Rocket Pool 네트워크의 노드 운영자 상태에 대한 **실제 스냅샷**을 집단적으로 생성하며, 여기에는 모든 유효 스테이크 양이 포함됩니다.
 이 정보는 [Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree)로 컴파일됩니다 - 모든 세부 정보를 스마트 컨트랙트에서 사용할 수 있도록 하는 매우 효율적인 방법입니다.
-Merkle Tree는 JSON 파일로 구축되어 [InterPlanetary File System (IPFS)](https://en.wikipedia.org/wiki/InterPlanetary_File_System)에 호스팅되며 Merkle Tree의 루트가 계약에 제출됩니다.
+Merkle Tree는 JSON 파일로 구축되어 GitHub에 호스팅되며 Merkle Tree의 루트가 계약에 제출됩니다.
 
 이 새로운 시스템의 특징은 다음과 같습니다:
 

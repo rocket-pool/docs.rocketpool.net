@@ -16,7 +16,7 @@ next:
 - 已在其上[安装](/zh/node-staking/installing/overview)并[配置](/zh/node-staking/config/overview) Smartnode
 - 已在 Smartnode 上加载节点钱包
 - 已同步执行层和共识层客户端
-- 已为节点配置[提款地址](/zh/node-staking/prepare-node#setting-your-withdrawal-address)，设置[后备客户端](/zh/node-staking/fallback)（可选），选择加入[平滑池](/zh/node-staking/fee-distrib-sp#the-smoothing-pool)（可选），并配置 [MEV](/zh/node-staking/mev)
+- 已为节点配置[提款地址](/zh/node-staking/prepare-node#设置主提款地址)，设置[后备客户端](/zh/node-staking/fallback)（可选），选择加入[平滑池](/zh/node-staking/fee-distrib-sp#平滑池)（可选），并配置 [MEV](/zh/node-staking/mev)
 - 已创建至少一个 [minipool](/zh/node-staking/create-validator)
 
 ## 投票涉及三个地址
@@ -33,20 +33,20 @@ next:
 
 [非 smartnode 用户的投票设置](/zh/legacy/houston/nonsmartnode-setup)向非 smartnode 用户（如 Allnodes 用户）展示如何设置投票。
 
-[初始化投票权](/zh/pdao/participate#initializing-voting)向您展示如何初始化节点的投票权。仅当您的节点在 Houston 升级之前注册时才需要此步骤。
+[初始化投票权](/zh/pdao/participate#初始化投票)向您展示如何初始化节点的投票权。仅当您的节点在 Houston 升级之前注册时才需要此步骤。
 
-[设置您的 Snapshot 信号地址](/zh/pdao/participate#setting-your-snapshot-signalling-address)将引导您完成设置信号地址的步骤。它将允许您使用节点的投票权在 Snapshot 上投票，而无需将节点的私钥加载到热钱包中。确保您手头有 Smartnode CLI，并为本指南准备一个地址（不是您的节点钱包）。
+[设置您的 Snapshot 信号地址](/zh/pdao/participate#设置您的-snapshot-信号地址)将引导您完成设置信号地址的步骤。它将允许您使用节点的投票权在 Snapshot 上投票，而无需将节点的私钥加载到热钱包中。确保您手头有 Smartnode CLI，并为本指南准备一个地址（不是您的节点钱包）。
 
-[委托投票权](/zh/pdao/participate#delegating-voting-power)是一个快速命令，您可以使用它来委托投票权，而不是直接对提案进行投票。
+[委托投票权](/zh/pdao/participate#委托投票权)是一个快速命令，您可以使用它来委托投票权，而不是直接对提案进行投票。
 
-[查看提案的状态](/zh/pdao/participate#viewing-the-state-of-a-proposal)是关于如何查看过去和正在进行的链上提案列表的指南。您将能够检查状态并阅读任何给定链上提案的详细信息。
+[查看提案的状态](/zh/pdao/participate#查看提案的状态)是关于如何查看过去和正在进行的链上提案列表的指南。您将能够检查状态并阅读任何给定链上提案的详细信息。
 
-[对提案进行投票](/zh/pdao/participate#voting-on-a-proposal)向您展示如何对链上提案进行投票。本指南还介绍了四个选项：**弃权**、**赞成**、**反对**和**否决**。
+[对提案进行投票](/zh/pdao/participate#对提案进行投票)向您展示如何对链上提案进行投票。本指南还介绍了四个选项：**弃权**、**赞成**、**反对**和**否决**。
 
-[创建提案](/zh/pdao/participate#creating-a-proposal)引导您完成提出链上提案的要求和步骤。
+[创建提案](/zh/pdao/participate#创建提案)引导您完成提出链上提案的要求和步骤。
 
-[执行成功的提案](/zh/pdao/participate#executing-a-successful-proposal)将向您展示如何将成功提案的效果应用于 Rocket Pool 协议。
+[执行成功的提案](/zh/pdao/participate#执行成功的提案)将向您展示如何将成功提案的效果应用于 Rocket Pool 协议。
 
-[领取保证金和奖励](/zh/pdao/participate#claiming-bonds-and-rewards)讨论了提案者或挑战者可以领取保证金或奖励的条件。
+[领取保证金和奖励](/zh/pdao/participate#领取保证金和奖励)讨论了提案者或挑战者可以领取保证金或奖励的条件。
 
-[创建和领取定期国库支出](/zh/pdao/participate#creating-a-recurring-treasury-spend)是一项功能，使 pDAO 能够完全控制添加、修改和删除定期付款。
+[创建和领取定期国库支出](/zh/pdao/participate#创建定期国库支出)是一项功能，使 pDAO 能够完全控制添加、修改和删除定期付款。

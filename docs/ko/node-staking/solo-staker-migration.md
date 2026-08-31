@@ -28,8 +28,8 @@ Saturn 1 업그레이드는 새 검증자를 생성하는 방식을 미니풀에
 
 - 풀 스테이커로부터 빌린 ETH(검증자당 28 ETH)에 대해 **커미션을 획득**합니다.
 - 기존 32 ETH 스테이크로 최대 **8개의 메가풀 검증자**를 생성할 수 있으며(현재 본드는 각 4 ETH), 최대 224 ETH의 차입 ETH에 대해 커미션을 얻을 수 있습니다.
-- [Smoothing Pool](/ko/node-staking/fee-distrib-sp#the-smoothing-pool)에 참여할 자격이 있습니다. Smoothing Pool은 모든 실행 계층 보상(예: 블록 제안 및 [MEV 보상](/ko/node-staking/mev))을 모아 각 보상 기간마다 참여자에게 공정하게 분배합니다.
-- 메가풀에 RPL을 스테이킹하면 RPL 인플레이션 보상에 더해 [보터 셰어 보상](/ko/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers)(프로토콜 ETH 수익의 일부)을 얻고, [pDAO 거버넌스](/ko/pdao/overview)에서 투표권도 갖게 됩니다. RPL 스테이킹은 전적으로 선택 사항입니다.
+- [Smoothing Pool](/ko/node-staking/fee-distrib-sp#smoothing-pool)에 참여할 자격이 있습니다. Smoothing Pool은 모든 실행 계층 보상(예: 블록 제안 및 [MEV 보상](/ko/node-staking/mev))을 모아 각 보상 기간마다 참여자에게 공정하게 분배합니다.
+- 메가풀에 RPL을 스테이킹하면 RPL 인플레이션 보상에 더해 [보터 셰어 보상](/ko/node-staking/megapools/staking-and-claiming-rewards#메가풀-rpl-스테이커에게-투표자-공유-분배-방식)(프로토콜 ETH 수익의 일부)을 얻고, [pDAO 거버넌스](/ko/pdao/overview)에서 투표권도 갖게 됩니다. RPL 스테이킹은 전적으로 선택 사항입니다.
 
 다만, 짚고 넘어가야 할 중요한 차이점도 있습니다:
 
@@ -37,7 +37,7 @@ Saturn 1 업그레이드는 새 검증자를 생성하는 방식을 미니풀에
 - 일반적인 노드 운영은 **Smartnode 스택**을 활용합니다. 해당 소프트웨어를 노드에 설치하고 실행하는 데 따르는 리스크를 감수해야 합니다.
 - 노드 운영자가 되려면 새로운 개념을 배워야 하므로 **학습 곡선**이 존재합니다.
 - 메가풀 검증자는 보상을 풀 스테이커와 나누므로, 검증자의 출금 주소는 실행 계층의 메가풀 컨트랙트가 되며 **본인이 통제하는 EOA가 아닙니다**. 이는 실행 계층 보상의 **수수료 수령 주소(fee recipient)**에도 동일하게 적용됩니다.
-- **이동 중인 자본은 아무것도 벌지 못합니다.** 솔로 검증자 종료부터 메가풀 검증자 활성화까지 보상을 받지 못합니다. 새 메가풀 검증자는 증명을 시작하기 전에 Rocket Pool 입금 대기열*과* Beacon Chain 대기열을 모두 통과해야 하므로, 종료하기 전에 아래의 **타이밍 고려 사항** 섹션을 꼭 읽어보세요.
+- **이동 중인 자본은 아무것도 벌지 못합니다.** 솔로 검증자 종료부터 메가풀 검증자 활성화까지 보상을 받지 못합니다. 새 메가풀 검증자는 증명을 시작하기 전에 Rocket Pool 입금 대기열*과* Beacon Chain 대기열을 모두 통과해야 하므로, 종료하기 전에 아래의 [타이밍 고려 사항](#타이밍-고려-사항) 섹션을 꼭 읽어보세요.
 
 마이그레이션을 결정하기 전에 이러한 장단점을 신중히 검토하시기 바랍니다.
 절차를 계속 진행하고 싶다면 아래 단계를 참고하세요.
@@ -52,7 +52,7 @@ Saturn 1 업그레이드는 새 검증자를 생성하는 방식을 미니풀에
 
 ::: warning 경고
 자발적 종료는 **되돌릴 수 없습니다**. 한번 종료된 검증자는 다시는 검증할 수 없으며, 돌아갈 유일한 방법은 새 검증자를 생성하는 것뿐입니다.
-종료하기 전에 이 페이지 전체(특히 아래의 **타이밍 고려 사항** 섹션)를 반드시 읽어보세요.
+종료하기 전에 이 페이지 전체(특히 아래의 [타이밍 고려 사항](#타이밍-고려-사항) 섹션)를 반드시 읽어보세요.
 :::
 
 [validatorqueue.com](https://www.validatorqueue.com/)은 현재 Beacon Chain 종료 대기열의 길이를 확인할 수 있는 유용한 사이트입니다.
@@ -62,7 +62,7 @@ Saturn 1 업그레이드는 새 검증자를 생성하는 방식을 미니풀에
 종료가 처리되는 동안 Rocket Pool 노드를 준비할 수 있습니다.
 
 Rocket Pool 노드 운영이 처음이라면 [노드 운영자 가이드](/ko/node-staking/responsibilities)부터 시작하세요. 하드웨어 선택부터 [Smartnode 스택 설치](/ko/node-staking/installing/overview), [노드 등록](/ko/node-staking/prepare-node)까지 모든 것을 다룹니다.
-직접 검증자를 운영해 왔으므로 많은 부분이 익숙하게 느껴질 것입니다. 이미 자체 실행 및 합의 클라이언트를 운영 중이라면 [외부 클라이언트를 사용하는 하이브리드 구성](/ko/node-staking/install-modes#the-hybrid-configuration-with-external-clients)에도 관심이 있을 수 있습니다.
+직접 검증자를 운영해 왔으므로 많은 부분이 익숙하게 느껴질 것입니다. 이미 자체 실행 및 합의 클라이언트를 운영 중이라면 [외부 클라이언트를 사용하는 하이브리드 구성](/ko/node-staking/install-modes#외부-클라이언트를-사용한-하이브리드-구성)에도 관심이 있을 수 있습니다.
 
 ## 3단계: 메가풀 검증자 생성하기
 
@@ -92,7 +92,7 @@ Rocket Pool 노드 운영이 처음이라면 [노드 운영자 가이드](/ko/no
 [validatorqueue.com](https://www.validatorqueue.com/)은 Beacon Chain 대기열의 길이를 확인할 수 있는 유용한 사이트입니다. 이 대기열은 Beacon Chain에 들어오고 나가는 ETH의 양에 따라 달라집니다.
 :::
 
-입금 대기열이 생각보다 길다면, ETH가 할당되기 전 언제든지 [검증자를 Rocket Pool 입금 대기열에서 종료](/ko/node-staking/megapools/create-megapool-validator#exit-a-validator-from-the-rocket-pool-deposit-queue)하고 본드를 [입금 크레딧](/ko/node-staking/megapools/credit)으로 돌려받을 수 있습니다. 이 크레딧은 rETH로 교환 가능합니다.
+입금 대기열이 생각보다 길다면, ETH가 할당되기 전 언제든지 [검증자를 Rocket Pool 입금 대기열에서 종료](/ko/node-staking/megapools/create-megapool-validator#rocket-pool-입금-대기열에서-검증자-제거)하고 본드를 [입금 크레딧](/ko/node-staking/megapools/credit)으로 돌려받을 수 있습니다. 이 크레딧은 rETH로 교환 가능합니다.
 
 ## 대안: 노드 운영 없이 스테이킹하기
 

@@ -62,7 +62,7 @@ _ただし_、ソロ validator のこの新しい要件の一部として、Atla
 
 - 1 つの validator (32 ETH ボンド付き) を **4 つの minipool** (それぞれ 8 ETH ボンド付き) に変換する機能。Beacon Chain での存在を効果的に **4 倍**にします
 - rETH ステーカーによって提供される minipool の部分に対する手数料
-- ブロック提案と MEV からの報酬をプールして均等に分配する Rocket Pool の [Smoothing Pool](../../node-staking/fee-distrib-sp#the-smoothing-pool) へのアクセス
+- ブロック提案と MEV からの報酬をプールして均等に分配する Rocket Pool の [Smoothing Pool](../../node-staking/fee-distrib-sp#smoothing-pool) へのアクセス
 
 ソロ validator を minipool に変換する方法の詳細については、[ソロ validator を minipool に変換する](../../node-staking/solo-staker-migration)ガイドをご覧ください。
 

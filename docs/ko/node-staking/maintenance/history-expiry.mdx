@@ -1,15 +1,26 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Pre-Merge 히스토리 만료
+# Execution 클라이언트 히스토리 만료
 
-모든 Execution 클라이언트는 이제 [EIP-4444](https://eips.ethereum.org/EIPS/eip-4444)에 따라 부분 히스토리 만료를 지원합니다. 사용자는 Smartnode 버전 `v1.17.0`부터 pre-merge 블록 히스토리를 제거하여 노드의 스토리지 요구사항을 상당히 줄일 수 있습니다. 부분 히스토리 만료에 대해 자세히 알아보려면 이 블로그 게시물을 확인하세요: https://blog.ethereum.org/2025/07/08/partial-history-exp
+Execution 클라이언트는 오래된 블록 바디와 영수증을 삭제하여 체인 데이터를 관리 가능한 크기로 유지할 수 있습니다. Smartnode의 **Pruning Mode** 설정(Execution Client → Pruning Mode)이 이를 제어합니다.
+
+**Rolling History Expiry**가 기본값입니다. Nethermind, Besu, Reth 및 Erigon은 약 1년보다 오래된 바디와 영수증을 삭제합니다. Geth는 아직 이 모드를 구현하지 않았으며 대신 Prague 이전 히스토리 만료를 사용합니다.
+
+기타 선택지:
+
+- **History Expiry** — _pre-merge_ 바디와 영수증만 삭제합니다(부분 [EIP-4444](https://eips.ethereum.org/EIPS/eip-4444) 만료). Erigon은 pre-merge 전용 만료를 지원하지 않습니다.
+- **Full node** — 바디와 영수증을 포함한 일반적인 풀 노드 데이터를 유지합니다. Erigon의 풀 노드 모드는 영수증을 유지합니다.
+- **Archive** — 히스토리와 과거 상태를 유지합니다(훨씬 더 많은 디스크가 필요합니다).
+
+부분 히스토리 만료에 대한 개요는 여기에서 확인하세요: https://blog.ethereum.org/2025/07/08/partial-history-exp
 
 ::: tip 참고
 
-    pre-merge 히스토리를 제거하는 단계는 노드에서 선택한 Execution 클라이언트에 따라 다릅니다:
-    - Nethermind 사용자는 pre-merge 히스토리를 제거하려면 전체 재동기화가 필요합니다.
-    - Geth 사용자는 `rocketpool service prune-eth1` 명령을 사용하거나 전체 재동기화를 수행할 수 있습니다.
-    - Besu 및 Reth 사용자는 노드가 계속 증명하는 동안 온라인 가지치기를 수행할 수 있습니다.
+새로 설치한 노드는 이미 Rolling History Expiry를 사용합니다. 이전에 다른 Pruning Mode를 선택했다면, TUI에서 **Rolling History Expiry**를 선택하고 Execution 클라이언트를 **재동기화**해야 적용됩니다.
+
+- **Nethermind, Reth 및 Erigon** — 모드를 변경한 후 재동기화하세요(`rocketpool service resync-eth1`).
+- **Geth** — `rocketpool service prune-eth1`으로 가지치기하거나 재동기화하세요. Geth는 1년 롤링 만료가 아닌 Prague 이전 만료를 계속 사용합니다.
+- **Besu** — 온라인 상태를 유지합니다.
 
 :::
 
@@ -22,6 +33,8 @@ rocketpool service config
 ```
 
 Execution Client 가지치기 모드를 변경하려면 `Execution Client (ETH1)` 메뉴로 이동하여 `Pruning Mode` 드롭다운 메뉴에서 `History Expiry` 설정을 선택합니다
+
+더 많은 히스토리를 유지할 이유가 없다면 **Rolling History Expiry**를 선택하세요.
 
 ![](../images/tui-history-expiry.png)
 
@@ -79,7 +92,7 @@ Would you like to restart them automatically now? [y/n]
         ```shell
         rocketpool service prune-eth1
         ```
-        가지치기에 대해 자세히 알아보려면 [여기](/ko/node-staking/pruning#starting-a-prune)를 클릭하세요.
+        가지치기에 대해 자세히 알아보려면 [여기](/ko/node-staking/pruning#정리-시작하기)를 클릭하세요.
 
         모두 완료되었습니다! 이제 노드는 pre-merge 데이터를 저장하지 않으므로 2 TB 드라이브에 노드를 맞추는 것이 훨씬 쉬워집니다.
         다음 명령을 사용하여 진행 상황을 모니터링하는 것이 좋습니다.
@@ -103,11 +116,28 @@ Would you like to restart them automatically now? [y/n]
     <Tab label="Reth">
 
         모두 완료되었습니다! Reth 노드는 증명 및 블록 제안을 계속하면서 온라인 가지치기를 수행합니다.
+        Mainnet에서 Rolling History Expiry를 선택한 경우, Reth는 첫 시작 시 공식 롤링 히스토리 스냅샷을 다운로드합니다.
         이제 노드는 pre-merge 데이터를 저장하지 않으므로 2 TB 드라이브에 노드를 맞추는 것이 훨씬 쉬워집니다.
         다음 명령을 사용하여 진행 상황을 모니터링하는 것이 좋습니다.
         ```shell
         rocketpool service logs eth1
          ```
+
+    </Tab>
+
+    <Tab label="Erigon">
+        Erigon 노드는 Rolling History Expiry를 적용하려면 전체 재동기화가 필요합니다. Pruning Mode 설정을 저장하고 `eth1` 컨테이너를 재시작한 후 Execution 클라이언트를 재동기화해야 합니다.
+
+        다음 명령을 사용하여 Execution 클라이언트를 재동기화합니다:
+        ```shell
+        rocketpool service resync-eth1
+        ```
+
+        모두 완료되었습니다! 노드는 약 1년보다 오래된 바디와 영수증을 삭제합니다.
+        재동기화하는 동안 Rescue Node를 사용하고 다음 명령으로 진행 상황을 모니터링하는 것이 좋습니다.
+        ```shell
+        rocketpool service logs eth1
+        ```
 
     </Tab>
 

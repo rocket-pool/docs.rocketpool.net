@@ -14,7 +14,7 @@ import autostake from "./images/autostake.png";
 На новой контрольной точке Oracle DAO коллективно создает **истинный снимок** состояния операторов узлов в сети Rocket Pool, который используется для определения вознаграждений RPL и Smoothing Pool ETH для каждого узла в течение этого интервала. Обратите внимание, что "бонусная комиссия" для minipools Saturn 0 распределяется с использованием вознаграждений smoothing pool (minipools Saturn 0 - это те, которые были созданы после 28.10.2024 и имеют контрактную комиссию 5%).
 
 Эта информация компилируется в [дерево Меркла](https://en.wikipedia.org/wiki/Merkle_tree) - чрезвычайно эффективный способ сделать все детали доступными для смарт-контрактов.
-Дерево Меркла встраивается в JSON-файл и размещается в [InterPlanetary File System (IPFS)](https://en.wikipedia.org/wiki/InterPlanetary_File_System) и дублируется в [репозитории GitHub, который мы поддерживаем](https://github.com/rocket-pool/rewards-trees/).
+Дерево Меркла встраивается в JSON-файл и размещается в [репозитории GitHub, который мы поддерживаем](https://github.com/rocket-pool/rewards-trees/). Smartnode также может загружать **события** интервала вознаграждений из этого репозитория GitHub, поэтому вы сможете получить вознаграждение даже после того, как агрессивное удаление истории удалило старые логи уровня выполнения.
 
 После отправки дерева смарт-контракты Rocket Pool создадут новые токены RPL и переместят их вместе со всем балансом ETH Smoothing Pool в хранилище Rocket Pool для безопасного хранения.
 Затем вы можете посмотреть, сколько вознаграждений RPL и ETH вы заработали в течение этого интервала и получить эти вознаграждения.
@@ -152,7 +152,7 @@ You may claim these rewards at any time. You no longer need to claim them within
 
 ## Вознаграждения Execution-Layer в вашем Fee Distributor
 
-Если вы **не** присоединились к Smoothing Pool, часть ваших вознаграждений Execution-layer от предложений блоков (включая комиссии за транзакции и MEV) будет отправлена в контракт [Fee Distributor](./fee-distrib-sp#fee-distributors-and-the-smoothing-pool) вашего узла.
+Если вы **не** присоединились к Smoothing Pool, часть ваших вознаграждений Execution-layer от предложений блоков (включая комиссии за транзакции и MEV) будет отправлена в контракт [Fee Distributor](./fee-distrib-sp#распределители-комиссий-и-smoothing-pool) вашего узла.
 
 Чтобы проверить баланс вашего Fee Distributor, вы можете использовать обозреватель цепи, такой как [https://etherscan.io](https://etherscan.io), или просто выполнить `rocketpool node status` - там будет раздел **Fee Distributor and Smoothing Pool**, который показывает это:
 

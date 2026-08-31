@@ -11,11 +11,11 @@ RPIP-32 permet à un compte de [staker de l'ETH au nom](https://rpips.rocketpool
 - Intégrations protocolaires où la garde des fonds est gérée par des contrats intelligents.
 - DAO ou organisations où la garde des fonds est gérée par une trésorerie.
 
-Bien que l'objectif principal de cette fonctionnalité soit de faciliter les scénarios à déposant unique, il convient de noter que plusieurs déposants indépendants peuvent également tirer parti de cette capacité en créant des contrats intelligents superposés. Rocket Pool a également introduit la possibilité de [staker du RPL au nom](../../node-staking/create-validator#whitelisting-an-address-to-stake-on-behalf) d'un nœud lors de notre précédente version Atlas.
+Bien que l'objectif principal de cette fonctionnalité soit de faciliter les scénarios à déposant unique, il convient de noter que plusieurs déposants indépendants peuvent également tirer parti de cette capacité en créant des contrats intelligents superposés. Rocket Pool a également introduit la possibilité de [staker du RPL au nom](../../node-staking/create-validator#mettre-en-liste-blanche-une-adresse-pour-staker-au-nom-de) d'un nœud lors de notre précédente version Atlas.
 
 ### Prérequis
 
-Assurez-vous d'avoir correctement configuré l'[adresse de retrait principale](../../node-staking/prepare-node#setting-your-primary-withdrawal-address) du nœud que vous avez l'intention de financer. Suivez le lien ci-dessus pour un guide sur le fonctionnement des adresses de retrait après Houston.
+Assurez-vous d'avoir correctement configuré l'[adresse de retrait principale](../../node-staking/prepare-node#définition-de-votre-adresse-de-retrait-principale) du nœud que vous avez l'intention de financer. Suivez le lien ci-dessus pour un guide sur le fonctionnement des adresses de retrait après Houston.
 
 ::: tip NOTE
 Ne sautez pas cette étape ! Tous les bonds ETH/récompenses seront retirés vers l'adresse de retrait principale. En d'autres termes, l'adresse qui fournit l'ETH pour un nœud doit être utilisée comme adresse de retrait principale ! Veuillez vous assurer que l'adresse de retrait principale du nœud est définie sur un portefeuille que vous contrôlez.
@@ -63,7 +63,7 @@ Le processus est légèrement différent pour le Hoodi Testnet et le Mainnet, al
       <img src={mmNetwork} width="100%" height="auto"/>
 
       Maintenant que vous avez une adresse de portefeuille dans MetaMask, vous devez la remplir avec des ETH de test.
-      Rendez-vous sur la page [Pratiquer avec le réseau de test](../../node-staking/testnet/overview#getting-test-eth-on-hoodi) pour un guide rapide sur l'utilisation d'un faucet de testnet pour obtenir des ETH de test sur Hoodi.
+      Rendez-vous sur la page [Pratiquer avec le réseau de test](../../node-staking/testnet/overview#obtenir-de-leth-de-test-sur-hoodi) pour un guide rapide sur l'utilisation d'un faucet de testnet pour obtenir des ETH de test sur Hoodi.
 
       Une fois que vous avez des ETH Hoodi pour tester, rendez-vous sur [https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node](https://testnet.node.rocketpool.net/deposit-eth-on-behalf-of-node).
 
@@ -127,13 +127,13 @@ Vous stakez maintenant avec Rocket Pool.
   <Tabs>
     <Tab label="Préparation sur le Hoodi Testnet">
       Lorsque vous êtes prêt à retirer l'ETH que vous avez staké au nom d'un nœud, rendez-vous sur [https://testnet.node.rocketpool.net/withdraw-eth](https://testnet.node.rocketpool.net/withdraw-eth).
-      Après vous être connecté en tant qu'[adresse de retrait principale](../../node-staking/prepare-node#setting-your-primary-withdrawal-address) du nœud, vous devriez être accueilli par un menu
-      familier. Il vous sera demandé d'entrer l'adresse du nœud depuis lequel vous souhaitez retirer :
+      Après vous être connecté en tant qu'[adresse de retrait principale](../../node-staking/prepare-node#définition-de-votre-adresse-de-retrait-principale) du nœud, vous devriez être accueilli par un
+      menu familier. Il vous sera demandé d'entrer l'adresse du nœud depuis lequel vous souhaitez retirer :
     </Tab>
     <Tab label="Préparation sur le Ethereum Mainnet">
       Lorsque vous êtes prêt à retirer l'ETH que vous avez staké au nom d'un nœud, rendez-vous sur [https://node.rocketpool.net/withdraw-eth](https://node.rocketpool.net/withdraw-eth). Après vous être
-      connecté en tant qu' [adresse de retrait principale](../../node-staking/prepare-node#setting-your-primary-withdrawal-address) du nœud, vous devriez être accueilli par un menu familier. Il vous
-      sera demandé d'entrer l'adresse du nœud depuis lequel vous souhaitez retirer :
+      connecté en tant qu' [adresse de retrait principale](../../node-staking/prepare-node#définition-de-votre-adresse-de-retrait-principale) du nœud, vous devriez être accueilli par un menu familier.
+      Il vous sera demandé d'entrer l'adresse du nœud depuis lequel vous souhaitez retirer :
     </Tab>
   </Tabs>
 </div>

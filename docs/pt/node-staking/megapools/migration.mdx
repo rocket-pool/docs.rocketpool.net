@@ -4,18 +4,15 @@ Se você é um operador de nó que deseja migrar seu stake de minipool para um m
 como fazê-lo. A migração envolve sair do seu minipool, criar novos validadores de megapool, remover o stake de RPL legado e depois restakear o RPL
 no seu megapool. O bond do validador de megapool é de 4 ETH, o que significa que você poderá criar dois validadores de megapool para cada validador de minipool de 8 ETH que tiver.
 
-
-9% da receita de ETH do protocolo é distribuída proporcionalmente aos stakers de RPL com validadores de megapool na forma de [recompensas de voter share](/pt/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers).
+9% da receita de ETH do protocolo é distribuída proporcionalmente aos stakers de RPL com validadores de megapool na forma de [recompensas de voter share](/pt/node-staking/megapools/staking-and-claiming-rewards#como-a-participação-de-votação-é-distribuída-para-stakers-de-rpl-de-megapool).
 Isso é adicional às recompensas de inflação de RPL anteriormente padrão.
-
-
 
 Há algumas etapas separadas:
 
 1. Sair do seu minipool. Isso significa finalizar seu minipool e retirar seu saldo completo da Beacon Chain.
 2. Criar um novo validador de megapool
 3. [Opcional] Remover o stake e retirar seu RPL legado
-4. [Opcional] Restakear o RPL em um megapool. Fazer isso renderá [recompensas de voter share](/pt/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers) da receita de ETH, além das recompensas de inflação de RPL.
+4. [Opcional] Restakear o RPL em um megapool. Fazer isso renderá [recompensas de voter share](/pt/node-staking/megapools/staking-and-claiming-rewards#como-a-participação-de-votação-é-distribuída-para-stakers-de-rpl-de-megapool) da receita de ETH, além das recompensas de inflação de RPL.
 
 Antes de se comprometer a migrar seu stake de minipool para um megapool, você vai querer considerar o status da fila de depósitos do Rocket Pool
 e da fila da Beacon Chain. Ambas têm tempos de espera variáveis e são independentes entre si. A fila de depósitos do Rocket Pool governa
@@ -38,20 +35,21 @@ Há duas coisas a considerar em relação ao ganho de recompensas:
 A. Seu nó não ganhará recompensas de inflação de RPL a menos que tenha pelo menos um validador de minipool ou megapool ativo.
 
 B. Depois que seu minipool sair completamente da Beacon Chain, você não estará ganhando recompensas de ETH (comissão ou voter share) até que seu validador de megapool esteja ativamente validando.
-Ele precisa ser processado pela fila de depósitos do Rocket Pool *e* pela fila de depósitos da Beacon Chain antes de poder começar seus deveres de atestação.
+Ele precisa ser processado pela fila de depósitos do Rocket Pool _e_ pela fila de depósitos da Beacon Chain antes de poder começar seus deveres de atestação.
 Você vai querer monitorar o comprimento da fila para decidir quando migrar.
 
 :::
 
 ::: warning AVISO
 Os validadores de megapool precisam passar pela fila da Beacon Chain duas vezes.
-1. Prestake (1 ETH). Quando ETH é atribuído ao seu validador de megapool do pool de depósitos, apenas 1 ETH é enviado
-para a Beacon Chain. Nesse ponto, seu validador entra na fila da Beacon Chain.
-2. Stake (31 ETH). Após o validador ser processado pela Beacon Chain, o protocolo Rocket Pool verificará as
-credenciais de retirada do validador e então fará stake dos 31 ETH restantes na Beacon Chain. Nesse ponto, o validador entra na fila da
-Beacon Chain pela segunda e última vez.
 
-Anteriormente com minipools, o [Oracle DAO (oDAO)](/pt/odao/overview#the-rocket-pool-oracle-dao) era responsável por verificar as credenciais de retirada de cada
+1. Prestake (1 ETH). Quando ETH é atribuído ao seu validador de megapool do pool de depósitos, apenas 1 ETH é enviado
+   para a Beacon Chain. Nesse ponto, seu validador entra na fila da Beacon Chain.
+2. Stake (31 ETH). Após o validador ser processado pela Beacon Chain, o protocolo Rocket Pool verificará as
+   credenciais de retirada do validador e então fará stake dos 31 ETH restantes na Beacon Chain. Nesse ponto, o validador entra na fila da
+   Beacon Chain pela segunda e última vez.
+
+Anteriormente com minipools, o [Oracle DAO (oDAO)](/pt/odao/overview#o-oracle-dao-do-rocket-pool) era responsável por verificar as credenciais de retirada de cada
 validador de minipool. Este novo sistema estende o tempo de fila, mas remove um requisito de confiança imposto pelo oDAO.
 
 [validatorqueue.com](https://www.validatorqueue.com/) é uma ferramenta útil para monitorar o comprimento da fila da Beacon Chain. Por favor, considere este fator
@@ -68,9 +66,8 @@ https://docs.rocketpool.net/node-staking/withdraw
 
 Este processo normalmente leva alguns dias dependendo da fila de saída da Beacon Chain. Sinta-se à vontade para marcar esta página e revisitá-la quando estiver concluído.
 
-Não se esqueça de finalizar seu minipool [distribuindo as recompensas completas](/pt/node-staking/withdraw#distributing-full-rewards).
+Não se esqueça de finalizar seu minipool [distribuindo as recompensas completas](/pt/node-staking/withdraw#distribuindo-recompensas-completas).
 Isso irá resgatar quaisquer recompensas ganhas no minipool e permitirá que você retire seu saldo completo de RPL legado.
-
 
 ## Passo 2: Criando um Validador de Megapool
 
@@ -84,7 +81,7 @@ Como operador de nó que está retornando, você receberá um ticket de fila exp
 Esses tickets estão disponíveis para você automaticamente.
 
 A fila de depósitos do Rocket Pool processa depósitos a uma taxa de 4 validadores da fila expressa para cada validador da fila padrão.
-Por favor, leia [Fila de Depósitos e Fila Expressa do Rocket Pool](/pt/node-staking/megapools/create-megapool-validator#rocket-pool-deposit-queue-and-express-queue)
+Por favor, leia [Fila de Depósitos e Fila Expressa do Rocket Pool](/pt/node-staking/megapools/create-megapool-validator#fila-de-depósitos-e-fila-expressa-do-rocket-pool)
 para saber mais sobre como o ETH é atribuído aos novos validadores de megapool.
 
 ## Passo 3: Removendo o Stake e Retirando RPL Legado
@@ -93,9 +90,11 @@ O requisito mínimo de stake de RPL legado é 15% do ETH emprestado do minipool.
 fechar todos os seus minipools primeiro (reduzindo o ETH emprestado a 0).
 
 Quando estiver pronto, você pode usar o seguinte comando para remover o stake e retirar RPL Legado:
+
 ```
 rocketpool node withdraw-rpl
 ```
+
 Há um período de 28 dias de remoção de stake antes que você possa retirar seu RPL Legado.
 Por favor, siga este link para instruções detalhadas sobre como remover o stake e retirar RPL legado.
 
@@ -114,7 +113,7 @@ quiser ganhar recompensas de voter share, recompensas de inflação de RPL
 - O voter share (9% da receita do protocolo) é distribuído proporcionalmente entre todos os operadores de nó com base na sua parcela do total de RPL em stake no megapool.
 
 Para informações mais detalhadas sobre como o voter share é distribuído aos stakers de RPL com validadores de megapool, leia este guia:
-[Como o Voter Share é Distribuído aos Stakers de RPL de Megapool](/pt/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers)
+[Como o Voter Share é Distribuído aos Stakers de RPL de Megapool](/pt/node-staking/megapools/staking-and-claiming-rewards#como-a-participação-de-votação-é-distribuída-para-stakers-de-rpl-de-megapool)
 
 E pronto! Como sempre, não se esqueça de revisar o guia de [Monitoramento e Manutenção](/pt/node-staking/maintenance/overview) se necessário. Esta seção cobre
 todos os tópicos relacionados para manter seu nó em ótimas condições, incluindo atualizações de software e como monitorar a saúde do seu nó.

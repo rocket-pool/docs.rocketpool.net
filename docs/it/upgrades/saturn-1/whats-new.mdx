@@ -23,6 +23,8 @@ Nel complesso, i megapools dovrebbero migliorare l'esperienza dei node operators
 
 Il contratto delegato funge da indirizzo di prelievo Ethereum e gestisce le attività dei validators. I node operators possono attualmente scegliere di aggiornare o rimanere sugli stessi delegati minipool, rendendo difficile progettare futuri aggiornamenti. L'Aggiornamento Saturn 1 introduce gli [Aggiornamenti Forzati dei Delegati](https://rpips.rocketpool.net/RPIPs/RPIP-47), permettendo al protocollo di iterare in modo più efficiente. Gli aggiornamenti forzati dei delegati sui contratti megapool significano che il protocollo Rocket Pool non sarà ostacolato dalla retrocompatibilità nella progettazione di futuri aggiornamenti, e dà al pDAO maggiore flessibilità per migliorare Rocket Pool nel tempo.
 
+Se sei un node operator nuovo o di ritorno e vuoi approfondire la creazione di un megapool, dai pure un'occhiata alla guida [Creazione di un Megapool (Validator)](/node-staking/megapools/create-megapool-validator#creazione-di-un-megapool-validator).
+
 ## Requisiti di bond più bassi
 
 I megapools riducono i costi operativi, permettendo a Rocket Pool di abbassare il requisito di bond per validator da 8 ETH a 4 ETH.
@@ -54,6 +56,8 @@ UARS suddivide i ricavi ETH tra quattro gruppi. Ogni quota è regolabile tramite
 
 Ogni node operator riceve una quota di voto basata sulla propria proporzione di RPL idoneo al voto stakeato sul proprio megapool.
 In Saturn 1, le ricompense per inflazione RPL continuano insieme a questo nuovo meccanismo di quota di voto, fornendo incentivi aggiuntivi per i node operators che stakeano RPL.
+
+Puoi saperne di più su RPL Revenue Share e UARS [qui](/node-staking/megapools/staking-and-claiming-rewards#cosa-è-cambiato-in-saturn-1).
 
 ## Meccaniche di deposito rielaborate
 
@@ -88,7 +92,7 @@ I rapporti finali di audit per Saturn 1 possono essere trovati di seguito:
 - [Sigma Prime](https://rocketpool.net/files/audits/sigma-prime-audit-saturn-1.pdf)
 
 Per una cronologia completa degli audit, visita la pagina [Sicurezza del Protocollo](https://rocketpool.net/protocol/security).
-Rocket Pool mantiene anche un [programma attivo di bug bounty su Immunefi](https://immunefi.com/bug-bounty/rocketpool/information/) con ricompense fino a $500.000 per vulnerabilità critiche.
+Rocket Pool mantiene anche un [programma attivo di bug bounty su Immunefi](https://immunefi.com/bug-bounty/rocketpool/information/) con ricompense fino a $150.000 per vulnerabilità critiche.
 
 ## Guida del Node Operator
 

@@ -33,7 +33,7 @@ Validator client'ınızı Smartnode yazılımının otomatik olarak gerektirdiğ
 ## v1.5.0'a Yükseltme
 
 Smartnode stack'ini v1.5.0'a yükseltmek, diğer yükseltmelerden farklı değildir.
-Sadece [buradaki normal talimatları](../../node-staking/updates#updating-the-smartnode-stack) izleyin.
+Sadece [buradaki normal talimatları](../../node-staking/updates#smartnode-yığınını-güncelleme) izleyin.
 
 ## Yükseltme Sonrası Yapmanız Gerekenler
 
@@ -51,7 +51,7 @@ Aşağıdaki adımları atmayı düşünün:
 ### Validator Client'ınızda Fee Recipient'ı Ayarlayın
 
 Birleşme öncesinde kurulması gereken **kritik** detaylardan biri, validator client'ınız tarafından belirtilen **fee recipient**tır.
-[Genel bakış makalesinde](./whats-new#fee-recipients-and-your-distributor) açıklandığı gibi, bu iki değerden biri olabilir:
+[Genel bakış makalesinde](./whats-new#fee-recipientler-ve-distributorünüz) açıklandığı gibi, bu iki değerden biri olabilir:
 
 - Smoothing Pool'a **katıldıysanız**, bu **Smoothing Pool sözleşmesinin** adresi olmalıdır. Adresi [resmi sözleşmeler sayfasından](/tr/protocol/contracts-integrations) alabilirsiniz.
 - Smoothing Pool'da **değilseniz**, bu düğümünüzün **fee distributor sözleşmesinin** adresi olmalıdır. Adresi `rocketpool node status` komutunu çalıştırarak, `Fee Distributor and Smoothing Pool` bölümünde görebilirsiniz.
@@ -194,7 +194,7 @@ Nasıl yapılandıracağınızı öğrenmek için aşağıdan Consensus client'�
 
       - Redstone güncellemesi dağıtılmadan **önce** [rETH adresi](/tr/protocol/contracts-integrations/#token-contracts) (örneğin, Mainnet'te `0xae78736Cd615f374D3085123A210448E74Fc6393`)
       - Redstone dağıtıldıktan sonra düğümünüzün **fee distributor**'ı, sözleşme yükseltmesi gerçekleştikten sonra `rocketpool node status` ile alabileceğiniz
-      - Smoothing Pool'a katılırsanız [Smoothing Pool adresi](/tr/protocol/contracts-integrations/#protocol-contracts)
+      - Smoothing Pool'a katılırsanız [Smoothing Pool adresi](/tr/protocol/contracts-integrations/#temel-protokol-sözleşmeleri)
 
       Hatırlatma olarak, `rocketpool node status` her zaman kullanmanız gereken doğru fee recipient'ı gösterecektir.
 
@@ -211,7 +211,7 @@ Nasıl yapılandıracağınızı öğrenmek için aşağıdan Consensus client'�
 
       - Redstone güncellemesi dağıtılmadan **önce** [rETH adresi](/tr/protocol/contracts-integrations/#token-contracts) (örneğin, Mainnet'te `0xae78736Cd615f374D3085123A210448E74Fc6393`)
       - Redstone dağıtıldıktan sonra düğümünüzün **fee distributor**'ı, sözleşme yükseltmesi gerçekleştikten sonra `rocketpool node status` ile alabileceğiniz
-      - Smoothing Pool'a katılırsanız [Smoothing Pool adresi](/tr/protocol/contracts-integrations/#protocol-contracts)
+      - Smoothing Pool'a katılırsanız [Smoothing Pool adresi](/tr/protocol/contracts-integrations/#temel-protokol-sözleşmeleri)
 
       Hatırlatma olarak, `rocketpool node status` her zaman kullanmanız gereken doğru fee recipient'ı gösterecektir.
 
@@ -228,7 +228,7 @@ Nasıl yapılandıracağınızı öğrenmek için aşağıdan Consensus client'�
 
       - Redstone güncellemesi dağıtılmadan **önce** [rETH adresi](/tr/protocol/contracts-integrations/#token-contracts) (örneğin, Mainnet'te `0xae78736Cd615f374D3085123A210448E74Fc6393`)
       - Redstone dağıtıldıktan sonra düğümünüzün **fee distributor**'ı, sözleşme yükseltmesi gerçekleştikten sonra `rocketpool node status` ile alabileceğiniz
-      - Smoothing Pool'a katılırsanız [Smoothing Pool adresi](/tr/protocol/contracts-integrations/#protocol-contracts)
+      - Smoothing Pool'a katılırsanız [Smoothing Pool adresi](/tr/protocol/contracts-integrations/#temel-protokol-sözleşmeleri)
 
       Hatırlatma olarak, `rocketpool node status` her zaman kullanmanız gereken doğru fee recipient'ı gösterecektir.
 
@@ -245,7 +245,7 @@ Nasıl yapılandıracağınızı öğrenmek için aşağıdan Consensus client'�
 
       - Redstone güncellemesi dağıtılmadan **önce** [rETH adresi](/tr/protocol/contracts-integrations/#token-contracts) (örneğin, Mainnet'te `0xae78736Cd615f374D3085123A210448E74Fc6393`)
       - Redstone dağıtıldıktan sonra düğümünüzün **fee distributor**'ı, sözleşme yükseltmesi gerçekleştikten sonra `rocketpool node status` ile alabileceğiniz
-      - Smoothing Pool'a katılırsanız [Smoothing Pool adresi](/tr/protocol/contracts-integrations/#protocol-contracts)
+      - Smoothing Pool'a katılırsanız [Smoothing Pool adresi](/tr/protocol/contracts-integrations/#temel-protokol-sözleşmeleri)
 
       Hatırlatma olarak, `rocketpool node status` her zaman kullanmanız gereken doğru fee recipient'ı gösterecektir.
 
@@ -285,7 +285,7 @@ Fallback düğümü kurma hakkında daha fazla bilgi için [Fallback düğümü 
 
 ### Fee Distributor'ınızı Başlatın
 
-[Smoothing Pool'a](./whats-new#smoothing-pool) katılmayı planlamıyorsanız ve tüm öncelik ücretlerinizi ve MEV ödüllerinizi [fee distributor sözleşmenize](./whats-new#fee-recipients-and-your-distributor) talep edecekseniz, sonunda ödüllerinizi çekim adresinize talep edebilmek için onu başlatmanız (zincirde sözleşme örneğini oluşturmanız) gerekecektir.
+[Smoothing Pool'a](./whats-new#smoothing-pool) katılmayı planlamıyorsanız ve tüm öncelik ücretlerinizi ve MEV ödüllerinizi [fee distributor sözleşmenize](./whats-new#fee-recipientler-ve-distributorünüz) talep edecekseniz, sonunda ödüllerinizi çekim adresinize talep edebilmek için onu başlatmanız (zincirde sözleşme örneğini oluşturmanız) gerekecektir.
 
 Bu oldukça ucuz bir işlemdir ve yalnızca bir kez yapılması gerekir.
 
@@ -310,7 +310,7 @@ rocketpool node join-smoothing-pool
 
 ### Ödülleri Talep Edin
 
-Redstone yükseltmesi, pahalı, sorunlu eski ödül sistemini çok daha ucuz olan, RPL'nin otomatik yeniden stake edilmesini destekleyen (hem kısmi hem de tam miktarlar) ve - en önemlisi - **ödüllerinizi istediğiniz zaman talep etmenize izin veren** [yepyeni bir sistemle](./whats-new#new-rewards-system) değiştirir.
+Redstone yükseltmesi, pahalı, sorunlu eski ödül sistemini çok daha ucuz olan, RPL'nin otomatik yeniden stake edilmesini destekleyen (hem kısmi hem de tam miktarlar) ve - en önemlisi - **ödüllerinizi istediğiniz zaman talep etmenize izin veren** [yepyeni bir sistemle](./whats-new#yeni-ödül-sistemi) değiştirir.
 
 Artık ödülleri talep etmek için zaman sınırı olmadığından ve birçok ödül aralığını bir kerede talep etmek daha ucuz olduğundan, Smartnode'un otomatik ödül talep etme özelliği **kaldırılmıştır**.
 Artık ödülleri aşağıdaki komut aracılığıyla talep edebileceksiniz:

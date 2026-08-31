@@ -3,8 +3,10 @@ import { Tab, Tabs } from "@rspress/core/theme";
 # Élagage du client d'exécution
 
 ::: tip NOTE
-Ceci est destiné aux utilisateurs de `geth` et `nethermind`.
-Besu n'a _pas_ besoin d'être élagué.
+Cette page décrit le chemin d'**élagage hors ligne / en ligne** pour `geth` et `nethermind` (`rocketpool service prune-eth1`).
+
+La manière habituelle de maîtriser l'utilisation du disque est **Rolling History Expiry** (le Pruning Mode par défaut). Nethermind, Besu, Reth et Erigon suppriment les corps et reçus datant de plus d'un an environ ; Geth utilise à la place l'expiration de l'historique antérieure à Prague. Voir [Expiration de l'Historique du Client d'Exécution](./maintenance/history-expiry).
+
 :::
 
 Si vous utilisez `geth` ou `nethermind` comme client d'exécution principal, vous remarquerez probablement que l'espace disque libre de votre nœud diminue lentement au fil du temps.
@@ -173,3 +175,25 @@ Sélectionnez le client que vous utilisez dans les onglets ci-dessous.
 
   </Tabs>
 </div>
+
+## Migrer Geth vers Pebble v2
+
+Si vous exécutez **Geth** et que la base de données est encore en Pebble v1, migrez-la sur place avec :
+
+```shell
+rocketpool service migrate-geth
+```
+
+Cette commande arrête Geth, migre la base de données de Pebble v1 → v2, puis la redémarre. Ce n'est **pas** la même chose que `prune-eth1`, et le nom de la commande est **`migrate-geth`** (et non `migrate-eth1`).
+
+::: warning WARNING
+Geth est hors ligne pendant toute la durée de la migration. Sans [nœud de secours](./fallback), vous manquerez des attestations et des propositions jusqu'à ce qu'elle soit terminée.
+:::
+
+Confirmez l'invite, ou passez `--yes` pour la sauter. Suivez la progression avec :
+
+```shell
+rocketpool service logs eth1
+```
+
+N'interrompez pas le conteneur avant la fin de la migration.

@@ -64,7 +64,7 @@
 
 ### Данные цепи Consensus Client
 
-В отличие от данных Execution layer, данные Consensus layer не так важны для вашей ноды благодаря [Checkpoint Sync](./config-docker#beacon-chain-checkpoint-syncing).
+В отличие от данных Execution layer, данные Consensus layer не так важны для вашей ноды благодаря [Checkpoint Sync](./config-docker#синхронизация-контрольных-точек-beacon-chain).
 Consensus client могут легко использовать эту технику для немедленной повторной синхронизации с головой цепи Beacon и возобновления обязанностей по валидации.
 
 ## Резервное копирование данных цепи Execution

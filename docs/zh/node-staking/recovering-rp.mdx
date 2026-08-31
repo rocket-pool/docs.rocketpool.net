@@ -22,8 +22,9 @@ rocketpool wallet recover
 rocketpool wallet recover -k
 ```
 
-如果您不指定此标志，Smartnode 将尝试恢复您的 minipool 的验证器密钥；但是，请注意，在您的 Execution 客户端完成同步之前，这不会起作用。
-请查看其日志文件以了解何时完成；完成后，您可以运行此步骤。
+如果您不指定此标志，Smartnode 将尝试恢复您的 minipool 或 megapool 验证器的验证器密钥。该步骤需要已同步的 Execution 客户端和 Beacon 客户端。
+
+使用 `-k` 时，**仅恢复钱包**无需等待客户端同步完成。您可以在它们仍在同步时执行此操作。
 :::
 
 这将首先要求您输入要用于加密钱包的密码。
@@ -124,7 +125,7 @@ Smartnode 将在下一步中查找您放置在此目录中的任何密钥库文�
 导入过程将*仅*查找附加到注册到您导入的地址的 minipool 的验证器密钥。
 您**不能**使用此过程将其他验证器密钥（例如用于单独质押验证器）导入到 Smartnode 堆栈管理的验证器客户端中。
 
-如果您有兴趣这样做，请参阅[反向混合模式](./advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode)运行文档。
+如果您有兴趣这样做，请参阅[反向混合模式](./advanced-config#允许外部验证者客户端连接到-smartnode)运行文档。
 :::
 
 ### 步骤 2（可选）：测试导入地址

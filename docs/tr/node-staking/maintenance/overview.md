@@ -16,7 +16,7 @@ Smartnode'unuzu yapılandırmadan önce, lütfen şunları yaptığınızdan emi
 - Smartnode'u üzerine [yüklediğinizi](../installing/overview) ve [yapılandırdığınızı](../config/overview)
 - Smartnode'unuzda bir node cüzdanı yüklediğinizi
 - Execution ve Consensus istemcilerinizi senkronize ettiğinizi
-- Node'unuzu [bir çekim adresi](../prepare-node.mdx#setting-your-withdrawal-address) ile tedarik ettiğinizi, [yedek istemcilerinizi](../fallback) kurduğunuzu (isteğe bağlı), [Smoothing Pool'a](../fee-distrib-sp#the-smoothing-pool) katıldığınızı (isteğe bağlı) ve [MEV'yi](../mev.mdx) yapılandırdığınızı
+- Node'unuzu [bir çekim adresi](../prepare-node.mdx#birincil-çekim-adresinizi-ayarlama) ile tedarik ettiğinizi, [yedek istemcilerinizi](../fallback) kurduğunuzu (isteğe bağlı), [Smoothing Pool'a](../fee-distrib-sp#smoothing-pool) katıldığınızı (isteğe bağlı) ve [MEV'yi](../mev.mdx) yapılandırdığınızı
 - En az bir [minipool](../create-validator.mdx) oluşturduğunuzu
 
 ## Rehberler

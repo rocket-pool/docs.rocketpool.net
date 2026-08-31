@@ -120,7 +120,7 @@ O _novo_ sistema de reivindicações resolve todos esses problemas.
 
 Em cada intervalo, o Oracle DAO criará coletivamente um **snapshot verdadeiro** do estado dos operadores de nó na rede Rocket Pool, incluindo todas as suas quantidades de stake efetivas.
 Essa informação é compilada em uma [Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree) - uma maneira extremamente eficiente de disponibilizar todos os detalhes para contratos inteligentes.
-A Merkle Tree é construída em um arquivo JSON e hospedada no [InterPlanetary File System (IPFS)](https://en.wikipedia.org/wiki/InterPlanetary_File_System), e a raiz da Merkle Tree é submetida aos contratos.
+A Merkle Tree é construída em um arquivo JSON e hospedada no GitHub, e a raiz da Merkle Tree é submetida aos contratos.
 
 Este novo sistema tem as seguintes características:
 

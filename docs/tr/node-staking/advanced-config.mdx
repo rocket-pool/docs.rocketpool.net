@@ -14,7 +14,7 @@ Kullanıcıların sık dile getirdiği bir istek, harici olarak yönetilen bir D
 
 Bu, özünde bir tür **"Ters Hibrit" mod** olarak işlev görür; Smartnode kendi Doğrulayıcı istemcisini yönetip harici bir Yürütme ve Konsensüs istemcisine bağlanmak yerine, üçünü birden yönetir ve harici bir Doğrulayıcı istemcisi kendi istemcilerini kullanabilir.
 
-Bunu etkinleştirmek, [Ayarlar Yöneticisi](./config-docker#configuring-via-the-settings-manager)'ni kullanarak son derece basittir.
+Bunu etkinleştirmek, [Ayarlar Yöneticisi](./config-docker#settings-manager-aracılığıyla-yapılandırma)'ni kullanarak son derece basittir.
 
 ### Yürütme İstemcisi
 
@@ -120,9 +120,9 @@ Bu işlem, parametreleri `eth1clientdata` birim spesifikasyonuyla birleştirerek
 Node daemon'ı, yerel `rocketpool` CLI ve özel araçlar tarafından kullanılan bir HTTP API sunar (varsayılan port **8280**).
 Bunu `rocketpool service config` içindeki **API** kategorisinden yapılandırın. Native mod aynı kategoriyi kullanır.
 
-| Ayar | Amaç |
-|---|---|
-| **API Portu** | Dinleme portu. Varsayılan `8280`. |
+| Ayar               | Amaç                                                                                                                                                                                           |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **API Portu**      | Dinleme portu. Varsayılan `8280`.                                                                                                                                                              |
 | **API Portunu Aç** | **Kapalı** — yayınlanmaz; Docker'da ana makinedeki CLI API'ye erişemez. **Localhost'a Açık** (varsayılan) — `127.0.0.1:8280`. **Harici ana bilgisayarlara açık** — tüm arayüzlerde yayınlanır. |
 
 Bu ayarları değiştirmek, node konteynerinin yeniden başlatılmasını gerektirir. Ayarlar Yöneticisi bunu sizin için işaretler.
@@ -145,12 +145,12 @@ Authorization: Bearer <token>
 Sorgu dizesindeki token'lar yok sayılır. Bu makinedeki `rocketpool` CLI, yazma token'ını veri dizininden yükler ve otomatik olarak gönderir.
 CLI `unauthorized` döndürürse, `-c` parametresini daemon'ın kullandığı yapılandırma diziniyle aynı dizine yönlendirin veya o kurulumun `data/api-tokens.json` dosyasını kopyalayın.
 
-| Ayar | Amaç |
-|---|---|
-| **API Token** | Yazma kapsamlı gizli anahtar. Biçimi `rpsn_` ve ardından 64 onaltılık karakterdir. Bir parola gibi davranın. Alanı temizleyip kaydetmek token'ı yeniden oluşturur. `user-settings.yml` içinde değil, `api-tokens.json` içinde saklanır. |
-| **API Token Açıklaması** | Token ile birlikte saklanan, gizli olmayan bir etiket. Varsayılan `rocketpool CLI`. |
+| Ayar                             | Amaç                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **API Token**                    | Yazma kapsamlı gizli anahtar. Biçimi `rpsn_` ve ardından 64 onaltılık karakterdir. Bir parola gibi davranın. Alanı temizleyip kaydetmek token'ı yeniden oluşturur. `user-settings.yml` içinde değil, `api-tokens.json` içinde saklanır.                                                                                                                                                                                   |
+| **API Token Açıklaması**         | Token ile birlikte saklanan, gizli olmayan bir etiket. Varsayılan `rocketpool CLI`.                                                                                                                                                                                                                                                                                                                                       |
 | **Kimlik Doğrulamasız Okumalar** | Token bazlı bir ayrıcalık değil, sunucu politikasıdır. Varsayılan, **Okuma rotaları için token zorunlu** seçeneğidir: `/healthz` dışındaki her rota geçerli bir bearer token gerektirir. **Kimlik doğrulamasız okumalara izin ver** seçildiğinde durum, bakiyeler ve `can-*` tahminleri token olmadan çalışabilir. Cüzdan işlemleri, transaction'lar ve diğer yazma rotaları yine de yazma kapsamlı bir token gerektirir. |
-| **API Hız Sınırı** | Saniyedeki en fazla istek sayısı. `0` sınırı devre dışı bırakır (varsayılan budur). Ani yük (burst), bir saniyelik kotaya eşittir. Sınır aşıldığında API, `Retry-After: 1` ile birlikte HTTP 429 döndürür. |
+| **API Hız Sınırı**               | Saniyedeki en fazla istek sayısı. `0` sınırı devre dışı bırakır (varsayılan budur). Ani yük (burst), bir saniyelik kotaya eşittir. Sınır aşıldığında API, `Retry-After: 1` ile birlikte HTTP 429 döndürür.                                                                                                                                                                                                                |
 
 `/healthz` hiçbir zaman token gerektirmez.
 
@@ -230,11 +230,11 @@ curl -s -X POST \
 }
 ```
 
-| Durum | Gövde | Ne zaman |
-|---|---|---|
-| 401 | `{"status":"error","error":"unauthorized"}` ve `WWW-Authenticate: Bearer` | Eksik veya geçersiz token |
-| 403 | `{"status":"error","error":"forbidden"}` | Yazma rotasında okuma token'ı kullanıldı |
-| 429 | `{"status":"error","error":"too many requests"}` ve `Retry-After: 1` | Hız sınırı aşıldı |
+| Durum | Gövde                                                                     | Ne zaman                                 |
+| ----- | ------------------------------------------------------------------------- | ---------------------------------------- |
+| 401   | `{"status":"error","error":"unauthorized"}` ve `WWW-Authenticate: Bearer` | Eksik veya geçersiz token                |
+| 403   | `{"status":"error","error":"forbidden"}`                                  | Yazma rotasında okuma token'ı kullanıldı |
+| 429   | `{"status":"error","error":"too many requests"}` ve `Retry-After: 1`      | Hız sınırı aşıldı                        |
 
 ## (Deneysel) Çift Yığın (IPv4 + IPv6) Ağını Etkinleştirme
 
@@ -243,7 +243,6 @@ Smart node v1.20.2'den itibaren Rocket Pool, Ethereum istemcileriniz için çift
 
 Etkinleştirildiğinde, konsensüs istemciniz hem IPv4 hem de IPv6 eşleriyle bağlantı kurabilir; bu da potansiyel olarak eş keşfini iyileştirir.
 Bu özellik aynı zamanda ağınız CGNAT arkasında olup IPv4 kullanarak eşleşmekte güçlük çekiyorsa da kullanışlıdır.
-
 
 ::: tip İPUCU
 Aşağıdaki site, Ethereum IPv6 Desteği'nin durumuna ilişkin bir özet sunmaktadır.
@@ -269,39 +268,40 @@ IPv6 desteğini etkinleştirdiğinizde:
 
 Farklı konsensüs istemcileri IPv6'yı farklı destek düzeylerinde ele alır:
 
-| İstemci | IPv6 Dinleme | IPv6 Yayını (ENR) | Eşleşme Davranışı | Notlar |
-|---------|--------------|-------------------|-------------------|--------|
-| **Teku** | Tam | Tam | IPv6'ya Öncelik Verir | Mevcut olduğunda IPv6 bağlantılarını tercih eder. Ayrı bir IPv6 portu kullanır (varsayılan: 9090). |
-| **Lighthouse** | Tam | Tam | Tercih Yok | İlk yanıt veren adrese (IPv4 veya IPv6) bağlanır. Tipik olarak ~%1-2 IPv6 eşi görür. |
-| **Lodestar** | Tam | Tam | IPv4'e Öncelik Verir | Hem IPv4 hem de IPv6'yı dinler ve yayınlar, ancak yalnızca diğer düğümün IPv4'ü devre dışıysa IPv6 üzerinden eşleşir. |
-| **Nimbus** | Tam | Yalnızca IPv4* | Ağırlıklı IPv4 | Gelen IPv6 bağlantılarını kabul edebilir, ancak ENR'de yalnızca IPv4 yayınlar. |
-| **Prysm** | Tam | Yalnızca IPv4* | Ağırlıklı IPv4 | Gelen IPv6 bağlantılarını kabul edebilir, ancak ENR'de yalnızca IPv4 yayınlar. |
+| İstemci        | IPv6 Dinleme | IPv6 Yayını (ENR) | Eşleşme Davranışı     | Notlar                                                                                                                |
+| -------------- | ------------ | ----------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| **Teku**       | Tam          | Tam               | IPv6'ya Öncelik Verir | Mevcut olduğunda IPv6 bağlantılarını tercih eder. Ayrı bir IPv6 portu kullanır (varsayılan: 9090).                    |
+| **Lighthouse** | Tam          | Tam               | Tercih Yok            | İlk yanıt veren adrese (IPv4 veya IPv6) bağlanır. Tipik olarak ~%1-2 IPv6 eşi görür.                                  |
+| **Lodestar**   | Tam          | Tam               | IPv4'e Öncelik Verir  | Hem IPv4 hem de IPv6'yı dinler ve yayınlar, ancak yalnızca diğer düğümün IPv4'ü devre dışıysa IPv6 üzerinden eşleşir. |
+| **Nimbus**     | Tam          | Yalnızca IPv4\*   | Ağırlıklı IPv4        | Gelen IPv6 bağlantılarını kabul edebilir, ancak ENR'de yalnızca IPv4 yayınlar.                                        |
+| **Prysm**      | Tam          | Yalnızca IPv4\*   | Ağırlıklı IPv4        | Gelen IPv6 bağlantılarını kabul edebilir, ancak ENR'de yalnızca IPv4 yayınlar.                                        |
 
 \* Varsayılan olarak IPv4 adresini yayınlar. Yalnızca IPv6'ya sahip konakçılarda IPv6 yayınlayacaktır.
-
 
 ### Ön Koşullar
 
 IPv6'yı etkinleştirmeden önce şunları sağlayın:
 
 1. ISP/konakçınız IPv6 bağlantısı sağlamaktadır - Bunu [ipv6test.google.com/](https://ipv6test.google.com/) ile test edin
-veya CLI'nızda şu komutu çalıştırın: `curl -6 https://icanhazip.com`. Komut `xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx` formatında bir IPv6 adresi döndürürse hazırsınız demektir.
+   veya CLI'nızda şu komutu çalıştırın: `curl -6 https://icanhazip.com`. Komut `xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx` formatında bir IPv6 adresi döndürürse hazırsınız demektir.
 2. Güvenlik duvarınız konsensüs istemcisi P2P portundan IPv6 trafiğine izin vermektedir. Varsayılan P2P portu `9001`'dir. Teku, IPv6 için ek bir özel port gerektirir. Varsayılan Teku P2P IPv6 portu `9090`'dır.
 3. Docker modunda yerel olarak yönetilen istemciler kullanıyorsunuz (harici olarak yönetilen istemciler değil)
 
 ### IPv6 Nasıl Etkinleştirilir
 
-
 IPv6'yı etkinleştirmek için Smart Node ve TX Ücretleri kategorisine gidin
 ve **IPv6'yı Etkinleştir** kutusunu işaretleyin, ardından kaydedin ve Smart Node yığınını yeniden başlatın.
+
 <img src={tui_enable_ipv6} width="100%" height="auto" />
 
 ::: warning NOT
 IPv6'yı etkinleştirirseniz ancak genel bir IPv6 adresiniz yoksa, Smart node başlatma sırasında bir uyarı görüntüler:
+
 ```
 Warning: IPv6 is enabled but no public IPv6 address was detected.
 Your node will not be reachable by IPv6 peers.
 ```
+
 Düğümünüz IPv4 kullanarak normal şekilde çalışmaya devam edecektir.
 :::
 

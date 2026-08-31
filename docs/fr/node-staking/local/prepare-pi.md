@@ -49,7 +49,7 @@ Autres composants dont vous aurez besoin :
 - Un **disque SSD USB 3.0+**. La recommandation générale est pour un **disque de 2 To**.
   - Le [Samsung T5](https://www.amazon.com/Samsung-T5-Portable-SSD-MU-PA2T0B/dp/B073H4GPLQ) est un excellent exemple de disque connu pour bien fonctionner.
   - :warning: L'utilisation d'un SSD SATA avec un adaptateur SATA vers USB n'est **pas recommandée** en raison de [problèmes comme celui-ci](https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=245931).
-    Si vous empruntez cette voie, nous avons inclus un test de performance que vous pouvez utiliser pour vérifier s'il fonctionnera ou non dans la section [Test de la Performance du SSD](#testing-the-ssd-s-performance).
+    Si vous empruntez cette voie, nous avons inclus un test de performance que vous pouvez utiliser pour vérifier s'il fonctionnera ou non dans la section [Test de la Performance du SSD](#test-de-la-performance-du-ssd).
 - Un **câble ethernet** pour l'accès Internet. Il doit être au moins de catégorie **Cat 5e**.
   - Exécuter un nœud via Wi-Fi n'est **pas recommandé**, mais si vous n'avez pas d'autre option, vous pouvez le faire au lieu d'utiliser un câble ethernet.
 - Un **UPS** pour servir de source d'alimentation si vous perdez de l'électricité.

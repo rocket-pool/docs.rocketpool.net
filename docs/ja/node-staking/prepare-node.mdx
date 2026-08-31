@@ -31,7 +31,7 @@ RPLをステーキングする時期になったら、このガイドの後半�
       Hoodiテストネットワークで実行している場合は、テストETHの取得方法について[テストネットワークでの練習](/ja/node-staking/testnet/overview)セクションを参照してください。
 
       テストRPLについては、CLIに直接同様のfaucet機能を追加しました。
-      取得方法については[HoodiでテストRPLを取得する](/ja/node-staking/testnet/overview#getting-test-rpl-on-hoodi)ガイドを参照してください。
+      取得方法については[HoodiでテストRPLを取得する](/ja/node-staking/testnet/overview#hoodi-でのテスト-rpl-の取得)ガイドを参照してください。
     </Tab>
     <Tab label="Mainnetで実行中">
       ETHを保持している別のEthereum互換ウォレットをすでに持っていることを前提としています。
@@ -239,7 +239,7 @@ rocketpool pdao clear-signalling-address
 
 ## RPL Withdrawal Addressの設定
 
-[primary withdrawal address](./prepare-node#setting-your-primary-withdrawal-address)とRPL withdrawal addressの違いを理解することが重要です。デフォルトでは、RPL withdrawal addressは設定されておらず、Primary withdrawal addressがすべてのRPLチェックポイント報酬、ステーキングされたRPL、およびBeacon Chain ETHの送信先になります。
+[primary withdrawal address](./prepare-node#primary-withdrawal-addressの設定)とRPL withdrawal addressの違いを理解することが重要です。デフォルトでは、RPL withdrawal addressは設定されておらず、Primary withdrawal addressがすべてのRPLチェックポイント報酬、ステーキングされたRPL、およびBeacon Chain ETHの送信先になります。
 
 希望する場合は、[RPL用に別のwithdrawal address](https://rpips.rocketpool.net/RPIPs/RPIP-31)を設定できます。RPL withdrawal addressが設定されている場合、インフレーション報酬からRPLをトリガーして請求できるようになり、ETHコンセンサス報酬やETHに関連する何かには影響しません。この場合、Primary withdrawal addressはRPL関連のアクションに対する権限を持たなくなります。
 
