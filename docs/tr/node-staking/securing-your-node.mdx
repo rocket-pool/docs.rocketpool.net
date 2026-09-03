@@ -581,7 +581,7 @@ sudo ufw allow 9001/tcp comment 'Consensus client port, standardized by Rocket P
 sudo ufw allow 9001/udp comment 'Consensus client port, standardized by Rocket Pool'
 ```
 
-Lighthouse istemci v4.5.0+ çalıştırıyorsanız, gecikmeyi azaltmak / bant genişliğini artırmak için quic protokolünü kullanabilirsiniz, quic protokolü varsayılan olarak lighthouse'un --port + 1'ini quic mesajlarını dinlemek için kullanır: https://lighthouse-blog.sigmaprime.io/Quic,%20Networking.html
+QUIC üzerinden P2P gossip'i destekleyen Smart Node consensus istemcileri varsayılan olarak UDP **8001** portunu dinler. Bu özelliği etkinleştirirseniz, portu ana makine güvenlik duvarınızda açın:
 
 ```shell
 sudo ufw allow 8001/udp comment 'Consensus client port, standardised by Rocket Pool'

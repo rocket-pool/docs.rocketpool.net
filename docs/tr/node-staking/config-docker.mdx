@@ -86,6 +86,10 @@ Hoodi test ağında ücretsiz olarak alabileceğiniz sahte ETH ve RPL ile bir Ro
 
 Gerçek ödüller kazanmak için Mainnet'te gerçek bir Rocket Pool düğümü oluşturmaya hazırsanız, **Mainnet**'i seçin.
 
+::: tip NOT
+Resmi ağlar (Mainnet, Hoodi Testnet ve Devnet) `networks-default.yml` dosyasından gelir. Smart Node'u yeniden derlemeden `~/.rocketpool/networks-extra.yml` içinde ağ ekleyebilir veya geçersiz kılabilirsiniz. Ayrıntılar için [Özel ve geçersiz kılma ağları](./advanced-config#özel-ve-geçersiz-kılma-ağları) bölümüne bakın.
+:::
+
 ### İstemci Modu
 
 İstemci modu için iki seçenekle karşılaşacaksınız:
@@ -291,6 +295,8 @@ Daha önce hangi modu seçtiğinizi aşağıdaki sekmelerden seçin:
             Ancak, doğrulayıcınızı yeni bir makineye taşıdığınız veya yeni bir Beacon istemcisine geçtiğiniz durumlarda, **doppelgänger tespiti yanlışlıkla çift onaylama yaparak slashlanmanızı önleyebilir**.
 
             Bunu minipoollarınız için ucuz bir sigorta olarak düşünün; her yeniden başlattığınızda önemsiz bir miktar kâr kaçıracaksınız, ancak anahtarlarınızı iki yerde kazara çalıştırmayacağınız ve bunun için slashlanmayacağınız konusunda oldukça emin olabilirsiniz.
+
+            Nimbus, [QUIC protokolü](https://en.wikipedia.org/wiki/QUIC) üzerinden P2P gossip'i destekler. Ayarlar Yöneticisi'nde, Nimbus ayarları altında **P2P QUIC Port** değerini ayarlayın (varsayılan **8001**, UDP), yönlendiricinizin port yönlendirme ayarlarında bu portu node'unuza yönlendirin ve bir ana makine güvenlik duvarı kullanıyorsanız portu orada da açın (`ufw status`). Aynı makinedeki diğer node'larla (veya yedek / testnet node'larıyla) çakışmalardan kaçının.
 
           </Tab>
           <Tab label="Prysm">

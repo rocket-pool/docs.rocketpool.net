@@ -681,6 +681,10 @@ Votre écran devrait ressembler à ceci :
 
 Si le vôtre correspond, cliquez sur le bouton **Import** et vous serez immédiatement dirigé vers votre nouveau tableau de bord.
 
+::: tip NOTE
+Smart Node v1.23.0 est livré avec **Rocket Pool Dashboard v1.4.2** dans sa pile de métriques. Cette révision ajoute les comptages de validateurs minipool et megapool par statut à l'échelle du nœud et supprime les panneaux d'état megapool à l'échelle du réseau qui dépendaient de métriques du supply-collector désormais retirées. Si votre Grafana a déjà importé un tableau de bord plus ancien, réimportez-le (ou chargez le JSON fourni avec Smart Node) afin que ces panneaux correspondent aux métriques exportées par votre nœud.
+:::
+
 Au premier coup d'œil, vous devriez voir beaucoup d'informations sur votre nœud et vos validateurs.
 Chaque boîte est livrée avec une info-bulle pratique dans le coin supérieur gauche (l'icône `i`) sur laquelle vous pouvez survoler pour en savoir plus.
 Par exemple, voici l'info-bulle pour la boîte **Your Validator Share** :

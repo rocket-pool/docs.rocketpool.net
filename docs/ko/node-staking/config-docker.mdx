@@ -86,6 +86,10 @@ rocketpool service config
 
 실제 보상을 얻기 위해 메인넷에서 실제 Rocket Pool 노드를 만들 준비가 되었다면 **Mainnet**을 선택하세요.
 
+::: tip 참고
+공식 네트워크(Mainnet, Hoodi Testnet, Devnet)는 `networks-default.yml`에서 제공됩니다. Smart Node를 다시 빌드하지 않고도 `~/.rocketpool/networks-extra.yml`에서 네트워크를 추가하거나 오버라이드할 수 있습니다. 자세한 내용은 [사용자 지정 및 오버라이드 네트워크](./advanced-config#사용자-지정-및-오버라이드-네트워크)를 참조하세요.
+:::
+
 ### 클라이언트 모드
 
 클라이언트 모드에 대한 두 가지 옵션이 표시됩니다:
@@ -291,6 +295,8 @@ Execution 클라이언트를 관리하는 데 사용할 모드를 선택하고 �
             그러나 검증자를 새 머신으로 이동하거나 새 Beacon 클라이언트로 변경하는 상황에서는 **doppelgänger 감지가 실수로 이중 증명을 하여 슬래싱되는 것을 방지할 수 있습니다**.
 
             minipool에 대한 저렴한 보험이라고 생각하세요. 재시작할 때마다 사소한 이익을 놓치겠지만, 실수로 두 곳에서 키를 실행하여 슬래싱되지 않을 것이라고 상당히 확신할 수 있습니다.
+
+            Nimbus는 [QUIC 프로토콜](https://en.wikipedia.org/wiki/QUIC)을 통한 P2P gossip을 지원합니다. 설정 관리자의 Nimbus 설정에서 **P2P QUIC Port**(기본값 **8001**, UDP)를 설정하고, 라우터의 포트 포워딩 설정에서 해당 포트를 노드로 전달하며, 호스트 방화벽을 사용하는 경우 해당 포트를 열어주세요(`ufw status`). 같은 머신의 다른 노드(또는 폴백/테스트넷 노드)와 충돌하지 않도록 주의하세요.
 
           </Tab>
           <Tab label="Prysm">

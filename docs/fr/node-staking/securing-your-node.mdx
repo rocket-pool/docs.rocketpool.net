@@ -581,7 +581,7 @@ sudo ufw allow 9001/tcp comment 'Consensus client port, standardized by Rocket P
 sudo ufw allow 9001/udp comment 'Consensus client port, standardized by Rocket Pool'
 ```
 
-Si vous exécutez le client lighthouse v4.5.0+, vous pouvez utiliser le protocole quic pour réduire la latence / augmenter la bande passante, le protocole quic utilise le --port de lighthouse + 1 pour écouter les messages quic par défaut : https://lighthouse-blog.sigmaprime.io/Quic,%20Networking.html
+Les clients de consensus de Smart Node qui prennent en charge le gossip P2P via QUIC écoutent par défaut sur le port UDP **8001**. Si vous activez cette fonctionnalité, autorisez ce port dans le pare-feu de votre hôte :
 
 ```shell
 sudo ufw allow 8001/udp comment 'Consensus client port, standardised by Rocket Pool'

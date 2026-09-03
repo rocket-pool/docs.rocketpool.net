@@ -115,6 +115,46 @@ Esto fusionará los parámetros en la especificación del volumen `eth1clientdat
 
 Para más información sobre cómo funcionan los overrides de `docker-compose`, visita [https://docs.docker.com/compose/extends/#adding-and-overriding-configuration](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration).
 
+## Redes personalizadas y de sobrescritura
+
+Smart Node carga las definiciones de las redes oficiales desde YAML en lugar de tenerlas codificadas en el programa.
+
+- Las redes oficiales se distribuyen en `networks-default.yml`. En cada `rocketpool service install`, Smart Node sobrescribe `~/.rocketpool/networks-default.yml` con el archivo empaquetado, así que no edites ese archivo si quieres que los cambios perduren.
+- Para añadir una red o sobrescribir una oficial sin recompilar, crea `~/.rocketpool/networks-extra.yml` usando el mismo esquema (`version` más una lista `networks`). Las entradas con el mismo nombre reemplazan a las oficiales; los nombres nuevos se añaden y aparecen en `rocketpool service config`.
+- Las redes extra pueden omitir las direcciones de los contratos de Rocket Pool. Usa esa opción cuando solo necesites que tus clientes de ejecución y consenso sincronicen una cadena que no tenga un despliegue de Rocket Pool.
+
+::: tip NOTA
+Después de cambiar `networks-extra.yml`, ejecuta `rocketpool service config`, selecciona la red que quieras, guarda y reinicia los contenedores afectados para que se aplique la nueva definición.
+:::
+
+Ejemplo — añadir una cadena de solo sincronización, sin contratos de Rocket Pool:
+
+```yaml
+version: 1
+networks:
+  - name: plataberget
+    label: Platåberget
+    description: |
+      Platåberget is the public Glamsterdam / Gloas testnet (ethpandaops glamsterdam-devnet-8).
+      It launched 13 August 2026 (chain ID 7091047534) with the Gloas fork at epoch 1536.
+      There are no Rocket Pool contracts on this network; use it to run execution and consensus clients.
+    chainID: 7091047534
+    txWatchUrl: https://dora.plataberget.ethpandaops.io
+    beaconExplorerUrl: https://dora.plataberget.ethpandaops.io
+    beaconNetwork: plataberget
+    commitBoostChainName: plataberget
+    clientTagSet: test
+    customChainConfigDir: plataberget
+    supportsMevBoost: false
+    allowNonBlsWithdrawalCredentials: false
+    isProduction: false
+    nethermindPruneThresholdMb: 51200
+```
+
+::: warning NOTA
+Si eliges una red sin dirección de storage de Rocket Pool, los comandos de nodo/protocolo de Smart Node que necesitan los contratos de Rocket Pool no funcionarán en esa red. La sincronización de los clientes sí puede continuar.
+:::
+
 ## API HTTP del Node Daemon
 
 El daemon del nodo sirve una API HTTP (puerto por defecto **8280**) utilizada por la CLI local de `rocketpool` y por herramientas personalizadas.

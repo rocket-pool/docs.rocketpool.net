@@ -86,6 +86,10 @@ Se você quiser praticar executando um node Rocket Pool na rede de testes Hoodi 
 
 Se você estiver pronto para criar um node Rocket Pool real na Mainnet para ganhar recompensas reais, selecione **Mainnet**.
 
+::: tip NOTA
+As redes oficiais (Mainnet, Hoodi Testnet e Devnet) vêm de `networks-default.yml`. Você pode adicionar ou substituir redes em `~/.rocketpool/networks-extra.yml` sem recompilar o Smart Node. Consulte [Redes personalizadas e de substituição](./advanced-config#redes-personalizadas-e-de-substituição) para mais detalhes.
+:::
+
 ### Modo de Cliente
 
 Você será apresentado com duas opções para modo de cliente:
@@ -291,6 +295,8 @@ Escolha qual modo você selecionou anteriormente nas abas abaixo:
             Em situações onde você está movendo seu validador para uma nova máquina ou está mudando para um novo cliente Beacon, no entanto, **a detecção doppelgänger pode evitar que você sofra slashing por atestar em duplicidade acidentalmente**.
 
             Pense nisso como um seguro barato para seus minipools; você perderá um pouco trivial de lucro toda vez que reiniciar, mas pode ter bastante certeza de que não executará acidentalmente suas chaves em dois lugares e sofrerá slashing por isso.
+
+            O Nimbus suporta gossip P2P sobre o [protocolo QUIC](https://en.wikipedia.org/wiki/QUIC). No Gerenciador de Configurações, defina **P2P QUIC Port** nas configurações do Nimbus (padrão **8001**, UDP), encaminhe essa porta para o seu node no port forwarding do seu roteador e abra-a no firewall do host, se você usar um (`ufw status`). Evite colisões com outros nodes na mesma máquina (ou com nodes de fallback / testnet).
 
           </Tab>
           <Tab label="Prysm">

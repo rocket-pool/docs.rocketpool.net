@@ -114,6 +114,46 @@ volumes:
 
 `docker-compose`オーバーライドの動作の詳細については、[https://docs.docker.com/compose/extends/#adding-and-overriding-configuration](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration)をご覧ください。
 
+## カスタムネットワークとオーバーライドネットワーク
+
+Smart Nodeは、公式ネットワークの定義をハードコードするのではなく、YAMLから読み込みます。
+
+- 公式ネットワークは`networks-default.yml`として同梱されています。`rocketpool service install`を実行するたびに、Smart Nodeは同梱ファイルで`~/.rocketpool/networks-default.yml`を上書きするため、恒久的な変更のためにこのファイルを編集しないでください。
+- 再ビルドせずにネットワークを追加したり公式ネットワークを上書きしたりするには、同じスキーマ（`version`と`networks`リスト）を使って`~/.rocketpool/networks-extra.yml`を作成します。同名のエントリーは公式の定義を置き換え、新しい名前は追加されて`rocketpool service config`に表示されます。
+- 追加ネットワークではRocket Poolのコントラクトアドレスを省略できます。Rocket Poolがデプロイされていないチェーンをexecution clientとconsensus clientで同期させたいだけの場合に使用してください。
+
+::: tip 注意
+`networks-extra.yml`を変更した後は、`rocketpool service config`を実行して目的のネットワークを選択し、保存してから該当するコンテナを再起動すると、新しい定義が反映されます。
+:::
+
+例——Rocket Poolのコントラクトがない同期専用チェーンを追加する場合:
+
+```yaml
+version: 1
+networks:
+  - name: plataberget
+    label: Platåberget
+    description: |
+      Platåberget is the public Glamsterdam / Gloas testnet (ethpandaops glamsterdam-devnet-8).
+      It launched 13 August 2026 (chain ID 7091047534) with the Gloas fork at epoch 1536.
+      There are no Rocket Pool contracts on this network; use it to run execution and consensus clients.
+    chainID: 7091047534
+    txWatchUrl: https://dora.plataberget.ethpandaops.io
+    beaconExplorerUrl: https://dora.plataberget.ethpandaops.io
+    beaconNetwork: plataberget
+    commitBoostChainName: plataberget
+    clientTagSet: test
+    customChainConfigDir: plataberget
+    supportsMevBoost: false
+    allowNonBlsWithdrawalCredentials: false
+    isProduction: false
+    nethermindPruneThresholdMb: 51200
+```
+
+::: warning 注意
+Rocket Poolのstorageアドレスがないネットワークを選択した場合、Rocket Poolのコントラクトを必要とするSmart Nodeのnode/protocolコマンドはそのネットワークでは動作しません。クライアントの同期は引き続き実行できます。
+:::
+
 ## Node Daemon HTTP API
 
 ノードデーモンは、ローカルの`rocketpool` CLIやカスタムツールから利用されるHTTP API（デフォルトポート**8280**）を提供します。

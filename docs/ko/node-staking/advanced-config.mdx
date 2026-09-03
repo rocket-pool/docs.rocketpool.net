@@ -115,6 +115,46 @@ volumes:
 
 `docker-compose` 오버라이드 작동 방식에 대한 자세한 내용은 [https://docs.docker.com/compose/extends/#adding-and-overriding-configuration](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration)을 방문하세요.
 
+## 사용자 지정 및 오버라이드 네트워크
+
+Smart Node는 공식 네트워크 정의를 하드코딩하는 대신 YAML에서 로드합니다.
+
+- 공식 네트워크는 `networks-default.yml`에 포함되어 제공됩니다. `rocketpool service install`을 실행할 때마다 Smart Node가 패키지된 파일로 `~/.rocketpool/networks-default.yml`을 덮어쓰므로, 지속적인 변경을 위해 이 파일을 편집하지 마세요.
+- 다시 빌드하지 않고 네트워크를 추가하거나 공식 네트워크를 오버라이드하려면 동일한 스키마(`version`과 `networks` 목록)를 사용하여 `~/.rocketpool/networks-extra.yml`을 생성하세요. 이름이 같은 항목은 공식 항목을 대체하고, 새로운 이름은 추가되어 `rocketpool service config`에 표시됩니다.
+- 추가 네트워크에서는 Rocket Pool 컨트랙트 주소를 생략할 수 있습니다. Rocket Pool이 배포되지 않은 체인을 execution 및 consensus 클라이언트로 동기화하기만 하면 되는 경우에 사용하세요.
+
+::: tip 참고
+`networks-extra.yml`을 변경한 후에는 `rocketpool service config`를 실행하여 원하는 네트워크를 선택하고 저장한 다음, 새 정의가 적용되도록 영향을 받는 컨테이너를 재시작하세요.
+:::
+
+예시 — Rocket Pool 컨트랙트가 없는 동기화 전용 체인 추가:
+
+```yaml
+version: 1
+networks:
+  - name: plataberget
+    label: Platåberget
+    description: |
+      Platåberget is the public Glamsterdam / Gloas testnet (ethpandaops glamsterdam-devnet-8).
+      It launched 13 August 2026 (chain ID 7091047534) with the Gloas fork at epoch 1536.
+      There are no Rocket Pool contracts on this network; use it to run execution and consensus clients.
+    chainID: 7091047534
+    txWatchUrl: https://dora.plataberget.ethpandaops.io
+    beaconExplorerUrl: https://dora.plataberget.ethpandaops.io
+    beaconNetwork: plataberget
+    commitBoostChainName: plataberget
+    clientTagSet: test
+    customChainConfigDir: plataberget
+    supportsMevBoost: false
+    allowNonBlsWithdrawalCredentials: false
+    isProduction: false
+    nethermindPruneThresholdMb: 51200
+```
+
+::: warning 참고
+Rocket Pool storage 주소가 없는 네트워크를 선택하면, Rocket Pool 컨트랙트가 필요한 Smart Node의 node/protocol 명령은 해당 네트워크에서 작동하지 않습니다. 클라이언트 동기화는 계속 진행할 수 있습니다.
+:::
+
 ## Node Daemon HTTP API
 
 노드 데몬은 로컬 `rocketpool` CLI와 사용자 지정 도구에서 사용하는 HTTP API(기본 포트 **8280**)를 제공합니다.

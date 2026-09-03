@@ -581,7 +581,7 @@ sudo ufw allow 9001/tcp comment 'Consensus client port, standardized by Rocket P
 sudo ufw allow 9001/udp comment 'Consensus client port, standardized by Rocket Pool'
 ```
 
-lighthouse 클라이언트 v4.5.0+를 실행하는 경우 quic 프로토콜을 사용하여 지연 시간을 줄이고/대역폭을 늘릴 수 있으며, quic 프로토콜은 기본적으로 lighthouse의 --port + 1을 사용하여 quic 메시지를 수신합니다: https://lighthouse-blog.sigmaprime.io/Quic,%20Networking.html
+QUIC를 통한 P2P gossip을 지원하는 Smart Node consensus 클라이언트는 기본적으로 UDP 포트 **8001**에서 수신 대기합니다. 이 기능을 활성화하는 경우 호스트 방화벽에서 해당 포트를 허용하세요:
 
 ```shell
 sudo ufw allow 8001/udp comment 'Consensus client port, standardised by Rocket Pool'

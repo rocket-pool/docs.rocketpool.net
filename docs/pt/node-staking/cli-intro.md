@@ -35,7 +35,7 @@ USAGE:
    rocketpoolcli [global options] command [command options] [arguments...]
 
 VERSION:
-   1.22.1
+   1.23.0
 
 COMMANDS:
    auction, a   Manage Rocket Pool RPL auctions
@@ -92,7 +92,7 @@ USAGE:
    rocketpool service [global options] command [command options] [arguments...]
 
 VERSION:
-   1.22.1
+   1.23.0
 
 COMMANDS:
    install, i                 Install the Rocket Pool service
@@ -509,7 +509,7 @@ USAGE:
    rocketpool megapool [global options] command [command options] [arguments...]
 
 VERSION:
-   1.22.1
+   1.23.0
 
 COMMANDS:
    deposit, d                Make a deposit and create a new validator on the megapool. Optionally specify count to make multiple deposits.

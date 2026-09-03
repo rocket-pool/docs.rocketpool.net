@@ -115,6 +115,46 @@ volumes:
 
 Для получения дополнительной информации о том, как работают переопределения `docker-compose`, посетите [https://docs.docker.com/compose/extends/#adding-and-overriding-configuration](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration).
 
+## Пользовательские и переопределяющие сети
+
+Smart Node загружает определения официальных сетей из YAML, а не жёстко зашивает их в код.
+
+- Официальные сети поставляются в файле `networks-default.yml`. При каждом выполнении `rocketpool service install` Smart Node перезаписывает `~/.rocketpool/networks-default.yml` файлом из поставки, поэтому не редактируйте его, если хотите сохранить изменения.
+- Чтобы добавить сеть или переопределить официальную без пересборки, создайте `~/.rocketpool/networks-extra.yml` с той же схемой (`version` плюс список `networks`). Записи с совпадающими именами заменяют официальные; новые имена добавляются и появляются в `rocketpool service config`.
+- В дополнительных сетях адреса контрактов Rocket Pool можно не указывать. Используйте это, если вам нужно лишь синхронизировать execution- и consensus-клиенты с сетью, в которой Rocket Pool не развёрнут.
+
+::: tip ПРИМЕЧАНИЕ
+После изменения `networks-extra.yml` выполните `rocketpool service config`, выберите нужную сеть, сохраните и перезапустите затронутые контейнеры, чтобы новое определение вступило в силу.
+:::
+
+Пример — добавление сети только для синхронизации, без контрактов Rocket Pool:
+
+```yaml
+version: 1
+networks:
+  - name: plataberget
+    label: Platåberget
+    description: |
+      Platåberget is the public Glamsterdam / Gloas testnet (ethpandaops glamsterdam-devnet-8).
+      It launched 13 August 2026 (chain ID 7091047534) with the Gloas fork at epoch 1536.
+      There are no Rocket Pool contracts on this network; use it to run execution and consensus clients.
+    chainID: 7091047534
+    txWatchUrl: https://dora.plataberget.ethpandaops.io
+    beaconExplorerUrl: https://dora.plataberget.ethpandaops.io
+    beaconNetwork: plataberget
+    commitBoostChainName: plataberget
+    clientTagSet: test
+    customChainConfigDir: plataberget
+    supportsMevBoost: false
+    allowNonBlsWithdrawalCredentials: false
+    isProduction: false
+    nethermindPruneThresholdMb: 51200
+```
+
+::: warning ПРИМЕЧАНИЕ
+Если вы выберете сеть без адреса storage-контракта Rocket Pool, команды node/protocol в Smart Node, которым нужны контракты Rocket Pool, не будут работать в этой сети. Синхронизация клиентов при этом продолжится.
+:::
+
 ## HTTP API демона ноды
 
 Демон ноды предоставляет HTTP API (порт по умолчанию **8280**), который используется локальным CLI `rocketpool` и пользовательскими инструментами.

@@ -115,6 +115,46 @@ volumes:
 
 有关 `docker-compose` 覆盖如何工作的更多信息，请访问 [https://docs.docker.com/compose/extends/#adding-and-overriding-configuration](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration)。
 
+## 自定义网络和覆盖网络
+
+Smart Node 从 YAML 加载官方网络定义，而不是将其硬编码。
+
+- 官方网络随 `networks-default.yml` 一起提供。每次执行 `rocketpool service install` 时，Smart Node 都会用打包的文件覆盖 `~/.rocketpool/networks-default.yml`，因此请不要通过编辑该文件来进行持久化更改。
+- 要在不重新构建的情况下添加网络或覆盖官方网络，请使用相同的架构（`version` 加上 `networks` 列表）创建 `~/.rocketpool/networks-extra.yml`。同名条目会替换官方条目；新名称会被追加，并出现在 `rocketpool service config` 中。
+- 额外网络可以省略 Rocket Pool 合约地址。当您只需要执行层和共识层客户端同步一条没有部署 Rocket Pool 的链时，可以使用此方式。
+
+::: tip 注意
+更改 `networks-extra.yml` 后，请运行 `rocketpool service config`，选择所需的网络，保存，然后重启受影响的容器，以便应用新的定义。
+:::
+
+示例——添加一条没有 Rocket Pool 合约的仅同步链：
+
+```yaml
+version: 1
+networks:
+  - name: plataberget
+    label: Platåberget
+    description: |
+      Platåberget is the public Glamsterdam / Gloas testnet (ethpandaops glamsterdam-devnet-8).
+      It launched 13 August 2026 (chain ID 7091047534) with the Gloas fork at epoch 1536.
+      There are no Rocket Pool contracts on this network; use it to run execution and consensus clients.
+    chainID: 7091047534
+    txWatchUrl: https://dora.plataberget.ethpandaops.io
+    beaconExplorerUrl: https://dora.plataberget.ethpandaops.io
+    beaconNetwork: plataberget
+    commitBoostChainName: plataberget
+    clientTagSet: test
+    customChainConfigDir: plataberget
+    supportsMevBoost: false
+    allowNonBlsWithdrawalCredentials: false
+    isProduction: false
+    nethermindPruneThresholdMb: 51200
+```
+
+::: warning 注意
+如果您选择的网络没有 Rocket Pool 存储合约地址，那么需要 Rocket Pool 合约的 Smart Node 节点/协议命令将无法在该网络上工作。客户端同步仍可正常进行。
+:::
+
 ## Node Daemon HTTP API
 
 节点守护进程提供一个 HTTP API（默认端口 **8280**），供本地 `rocketpool` CLI 和自定义工具使用。

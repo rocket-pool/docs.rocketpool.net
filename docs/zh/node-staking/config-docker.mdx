@@ -86,6 +86,10 @@ rocketpool service config
 
 如果您准备在主网上创建真正的 Rocket Pool 节点以获得真正的奖励，请选择 **Mainnet**。
 
+::: tip 注意
+官方网络（Mainnet、Hoodi Testnet 和 Devnet）来自 `networks-default.yml`。您可以在 `~/.rocketpool/networks-extra.yml` 中添加或覆盖网络，而无需重新构建 Smart Node。详情请参阅[自定义网络和覆盖网络](./advanced-config#自定义网络和覆盖网络)。
+:::
+
 ### 客户端模式
 
 您将看到两个客户端模式选项：
@@ -291,6 +295,8 @@ rocketpool service config
             然而，在您将验证者移动到新机器或更改为新信标客户端的情况下，**doppelgänger 检测可以防止您因意外双重证明而被罚没**。
 
             将其视为您的 minipool 的廉价保险；每次重启时，您都会错过微不足道的利润，但您可以相当确信您不会意外地在两个地方运行您的密钥并因此被罚没。
+
+            Nimbus 支持通过 [QUIC 协议](https://en.wikipedia.org/wiki/QUIC)进行 P2P gossip。在设置管理器中，于 Nimbus 设置下设置 **P2P QUIC Port**（默认为 **8001**，UDP），在路由器的端口转发设置中将该端口转发到您的节点，如果您使用主机防火墙，也请开放该端口（`ufw status`）。请避免与同一台机器上的其他节点（或备用/测试网节点）发生冲突。
 
           </Tab>
           <Tab label="Prysm">

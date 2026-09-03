@@ -115,6 +115,46 @@ Bu işlem, parametreleri `eth1clientdata` birim spesifikasyonuyla birleştirerek
 
 `docker-compose` geçersiz kılmalarının nasıl çalıştığı hakkında daha fazla bilgi için lütfen [https://docs.docker.com/compose/extends/#adding-and-overriding-configuration](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration) adresini ziyaret edin.
 
+## Özel ve geçersiz kılma ağları
+
+Smart Node, resmi ağ tanımlarını koda gömmek yerine YAML'den yükler.
+
+- Resmi ağlar `networks-default.yml` içinde gelir. Her `rocketpool service install` çalıştırmasında Smart Node, `~/.rocketpool/networks-default.yml` dosyasını paketlenmiş dosyayla değiştirir; bu nedenle kalıcı değişiklikler için bu dosyayı düzenlemeyin.
+- Yeniden derlemeden bir ağ eklemek veya resmi bir ağı geçersiz kılmak için aynı şemayı (`version` ve bir `networks` listesi) kullanarak `~/.rocketpool/networks-extra.yml` dosyasını oluşturun. Aynı ada sahip girdiler resmi olanların yerini alır; yeni adlar eklenir ve `rocketpool service config` içinde görünür.
+- Ek ağlar Rocket Pool kontrat adreslerini atlayabilir. Yalnızca execution ve consensus istemcilerinizin Rocket Pool dağıtımı olmayan bir zinciri senkronize etmesini istiyorsanız bunu kullanın.
+
+::: tip NOT
+`networks-extra.yml` dosyasını değiştirdikten sonra `rocketpool service config` komutunu çalıştırın, istediğiniz ağı seçin, kaydedin ve yeni tanımın uygulanması için etkilenen konteynerleri yeniden başlatın.
+:::
+
+Örnek — Rocket Pool kontratları olmayan, yalnızca senkronizasyon için bir zincir ekleme:
+
+```yaml
+version: 1
+networks:
+  - name: plataberget
+    label: Platåberget
+    description: |
+      Platåberget is the public Glamsterdam / Gloas testnet (ethpandaops glamsterdam-devnet-8).
+      It launched 13 August 2026 (chain ID 7091047534) with the Gloas fork at epoch 1536.
+      There are no Rocket Pool contracts on this network; use it to run execution and consensus clients.
+    chainID: 7091047534
+    txWatchUrl: https://dora.plataberget.ethpandaops.io
+    beaconExplorerUrl: https://dora.plataberget.ethpandaops.io
+    beaconNetwork: plataberget
+    commitBoostChainName: plataberget
+    clientTagSet: test
+    customChainConfigDir: plataberget
+    supportsMevBoost: false
+    allowNonBlsWithdrawalCredentials: false
+    isProduction: false
+    nethermindPruneThresholdMb: 51200
+```
+
+::: warning NOT
+Rocket Pool storage adresi olmayan bir ağ seçerseniz, Rocket Pool kontratlarına ihtiyaç duyan Smart Node node/protocol komutları o ağda çalışmaz. İstemci senkronizasyonu yine de devam edebilir.
+:::
+
 ## Node Daemon HTTP API
 
 Node daemon'ı, yerel `rocketpool` CLI ve özel araçlar tarafından kullanılan bir HTTP API sunar (varsayılan port **8280**).
