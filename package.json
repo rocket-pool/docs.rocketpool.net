@@ -16,13 +16,13 @@
   },
   "devDependencies": {
     "@headlessui/react": "^2.2.10",
-    "@types/node": "^26.5.0",
-    "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.7",
+    "@types/node": "^26.5.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "oxfmt": "^0.67.0",
     "oxlint": "^1.82.0",
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
     "taze": "^21.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^7.0.2"
