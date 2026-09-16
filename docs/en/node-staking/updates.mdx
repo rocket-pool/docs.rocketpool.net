@@ -165,7 +165,7 @@ the CLI's built-in update command. Select from the options below:
       Downloading the signature from https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-amd64.sig
       Signed by 651023D62E70B5DD
         Fornax <dante@rocketpool.net>
-      Updating from 1.22.1 to 1.23.0
+      Updating from 1.23.0 to 1.24.0
 
       The cli has been updated.
 
@@ -176,7 +176,7 @@ the CLI's built-in update command. Select from the options below:
       guide you through the rest of the steps.
       When finished, you'll see a message confirming the upgrade was successful:
       ```
-      The upgrade to Smart Node 1.23.0 has been completed.
+      The upgrade to Smart Node 1.24.0 has been completed.
       Please monitor your validators for a few minutes for issues.
       ```
 
@@ -236,8 +236,8 @@ the CLI's built-in update command. Select from the options below:
       ```
       Your Smartnode is currently using the Hoodi Test Network.
 
-      Rocket Pool client version: 1.23.0
-      Rocket Pool service version: 1.23.0
+      Rocket Pool client version: 1.24.0
+      Rocket Pool service version: 1.24.0
       Selected Eth 1.0 client: Geth (Locally managed)
       Image: ethereum/client-go:v1.10.21
       Selected Eth 2.0 client: Lighthouse (Locally managed)
@@ -306,8 +306,8 @@ the CLI's built-in update command. Select from the options below:
       ```
       rocketpool service version
 
-      Rocket Pool client version: 1.23.0
-      Rocket Pool service version: 1.23.0
+      Rocket Pool client version: 1.24.0
+      Rocket Pool service version: 1.24.0
       Selected Eth 1.0 client: Geth (Locally managed)
       Selected Eth 2.0 client: Nimbus (Locally managed)
       ```
@@ -360,8 +360,8 @@ the CLI's built-in update command. Select from the options below:
       ```shell
       rocketpool service version
 
-      Rocket Pool client version: 1.23.0
-      Rocket Pool service version: 1.23.0
+      Rocket Pool client version: 1.24.0
+      Rocket Pool service version: 1.24.0
       Selected Eth 1.0 client: Geth (Locally managed)
       Selected Eth 2.0 client: Nimbus (Locally managed)
       ```
@@ -375,14 +375,16 @@ the CLI's built-in update command. Select from the options below:
 
 ## Manually Updating the Execution or Consensus Client
 
-Each new release of the Smartnode stack will come with updated references to the latest compatible versions to the Execution and Consensus Docker containers.
-In some cases, however, you might want to upgrade one of those clients _before_ waiting for a new Smartnode stack release.
-This section will show you how to do just that.
+Each new Smart Node release ships pinned Docker image digests for the Execution, Consensus, and Smart Node containers (`repo:tag@sha256:…` in `~/.rocketpool/mainnet.env`). `rocketpool service install` overwrites those official pin files. In some cases you might want to run a different client image *before* waiting for a new Smart Node release. This section shows you how.
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker Mode">
       Updating to new client versions is easy in Docker mode.
+
+      Smart Node now pins client and Smart Node images by digest.
+      Changing **Container Tag** in the TUI still lets you run a different tag or digest before the next Smart Node release.
+      After `rocketpool service install` or `rocketpool update`, the official pins in `mainnet.env` are replaced; a TUI override still wins until you clear it.
 
       Start by opening the Settings Manager:
 
@@ -401,7 +403,11 @@ This section will show you how to do just that.
       <img src={tuiCcContainerTag} width="100%" height="auto"/>
 
       When you're happy with your changes, save and exit as usual.
-      The Smartnode will offer to restart all of the affected containers automatically.
+      The Smart Node will offer to restart all of the affected containers automatically.
+
+      ::: tip NOTE
+      Official pins live in `~/.rocketpool/mainnet.env`. Do not edit that file for lasting changes; install overwrites it. Optional per-network overrides go in `~/.rocketpool/testnet.env` or `~/.rocketpool/devnet.env` (only keys you set replace the mainnet pin). A **Container Tag** you set in the Settings Manager overrides the pin for that service. Leave it at the default to keep the official digest.
+      :::
     </Tab>
     <Tab label="Native Mode">
       First, shut down your Execution client, Beacon Node, and/or Validator client service depending on what you'd like to update.

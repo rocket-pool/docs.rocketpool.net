@@ -155,6 +155,14 @@ networks:
 If you pick a network with no Rocket Pool storage address, Smart Node node/protocol commands that need Rocket Pool contracts will not work on that network. Client syncing can still proceed.
 :::
 
+## Docker image pins
+
+Smart Node pins official client and Smart Node images by digest so a retagged image cannot be pulled.
+
+- Defaults live in `~/.rocketpool/mainnet.env` as `repo:tag@sha256:…`. `rocketpool service install` always overwrites this file (and `testnet.env` / `devnet.env`).
+- To pin a different image for one network only, put that key in the matching `{network}.env` file. Keys you omit inherit the mainnet pin.
+- TUI tag fields still override the pins. They win over both env files until you restore the default.
+
 ## Node Daemon HTTP API
 
 The node daemon serves an HTTP API (default port **8280**) used by the local `rocketpool` CLI and by custom tooling.

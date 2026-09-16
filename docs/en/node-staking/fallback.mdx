@@ -74,6 +74,7 @@ Once you have a fallback node prepared, you can connect it to your main node.
 2. Check the `Use Fallback Clients` box.
 3. Enter the RPC URL for your Execution client in the `Execution Client URL` box. For example, if your fallback node's IP address is `192.168.1.45` and you have its Execution client on the default port of `8545`, you would enter `http://192.168.1.45:8545` here.
 4. Do the same for the RPC URL of your fallback Consensus client. Following the same example, if you have it on the default port of `5052`, you would enter `http://192.168.1.45:5052` here.
+5. Optionally check **Prefer Fallback Clients** (default off). If enabled, the Smart Node will send API, node, and watchtower requests to your fallback Execution and Consensus clients first, and only use the primary pair if the fallback is unavailable. This keeps Smart Node load off the primary clients so they can focus on validator duties. Your Validator Client is not affected and still uses the primary pair first.
 
 The final page should look like this:
 
