@@ -54,6 +54,7 @@ type SidebarTranslation = {
     fallback: string;
     feeDistrib: string;
     mev: string;
+    commitBoost: string;
     megapools: string;
     megapoolsOverview: string;
     createMegapoolValidator: string;
@@ -170,6 +171,7 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       fallback: "Specifying a Fallback Node",
       feeDistrib: "Fee Distributors and the Smoothing Pool",
       mev: "MEV, MEV-Boost & MEV Rewards",
+      commitBoost: "Commit-Boost",
       megapools: "Creating a Megapool Validator",
       megapoolsOverview: "Overview",
       createMegapoolValidator: "Creating a new Megapool (Validator)",
@@ -284,6 +286,7 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       fallback: "指定备用节点",
       feeDistrib: "费用分配器和平滑池",
       mev: "MEV、MEV-Boost 和 MEV 奖励",
+      commitBoost: "Commit-Boost",
       megapools: "创建或迁移 Minipools",
       megapoolsOverview: "概述",
       createMegapoolValidator: "创建新的 Minipool (验证器)",
@@ -412,6 +415,7 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       fallback: "Especificando un Nodo de Respaldo",
       feeDistrib: "Distribuidores de Tarifas y el Smoothing Pool",
       mev: "MEV, MEV-Boost y Recompensas MEV",
+      commitBoost: "Commit-Boost",
       megapools: "Creando o Migrando Minipools",
       megapoolsOverview: "Descripción general",
       createMegapoolValidator: "Creando un nuevo Minipool (Validador)",
@@ -533,6 +537,7 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       fallback: "Spécifier un Nœud de Secours",
       feeDistrib: "Distributeurs de Frais et le Smoothing Pool",
       mev: "MEV, MEV-Boost et Récompenses MEV",
+      commitBoost: "Commit-Boost",
       megapools: "Créer ou Migrer des Minipools",
       megapoolsOverview: "Aperçu",
       createMegapoolValidator: "Créer un nouveau Minipool (Validateur)",
@@ -654,6 +659,7 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       fallback: "Einen Fallback-Node angeben",
       feeDistrib: "Gebührenverteiler und der Smoothing Pool",
       mev: "MEV, MEV-Boost & MEV-Belohnungen",
+      commitBoost: "Commit-Boost",
       megapools: "Minipools erstellen oder migrieren",
       megapoolsOverview: "Übersicht",
       createMegapoolValidator: "Einen neuen Minipool (Validator) erstellen",
@@ -775,6 +781,7 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       fallback: "フォールバックノードの指定",
       feeDistrib: "手数料分配とスムージングプール",
       mev: "MEV、MEV-Boost、MEV報酬",
+      commitBoost: "Commit-Boost",
       megapools: "Minipoolの作成または移行",
       megapoolsOverview: "概要",
       createMegapoolValidator: "新しいMinipool (バリデーター) の作成",
@@ -896,6 +903,7 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       fallback: "폴백 노드 지정",
       feeDistrib: "수수료 분배기와 스무딩 풀",
       mev: "MEV, MEV-Boost 및 MEV 보상",
+      commitBoost: "Commit-Boost",
       megapools: "Minipool 생성 또는 마이그레이션",
       megapoolsOverview: "개요",
       createMegapoolValidator: "새 Minipool (검증자) 생성",
@@ -1017,6 +1025,7 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       fallback: "Especificando um Nó de Fallback",
       feeDistrib: "Distribuidores de Taxas e o Smoothing Pool",
       mev: "MEV, MEV-Boost e Recompensas MEV",
+      commitBoost: "Commit-Boost",
       megapools: "Criando ou Migrando Minipools",
       megapoolsOverview: "Visão Geral",
       createMegapoolValidator: "Criando um novo Minipool (Validador)",
@@ -1138,6 +1147,7 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       fallback: "Указание резервной ноды",
       feeDistrib: "Распределители комиссий и Smoothing Pool",
       mev: "MEV, MEV-Boost и вознаграждения MEV",
+      commitBoost: "Commit-Boost",
       megapools: "Создание или миграция Minipool",
       megapoolsOverview: "Обзор",
       createMegapoolValidator: "Создание нового Minipool (валидатора)",
@@ -1259,6 +1269,7 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       fallback: "Specifica di un Nodo di Fallback",
       feeDistrib: "Distributori di Commissioni e lo Smoothing Pool",
       mev: "MEV, MEV-Boost e Ricompense MEV",
+      commitBoost: "Commit-Boost",
       megapools: "Creazione o Migrazione di Minipool",
       megapoolsOverview: "Panoramica",
       createMegapoolValidator: "Creazione di un nuovo Minipool (Validatore)",
@@ -1380,6 +1391,7 @@ const sidebarTranslations: Record<string, SidebarTranslation> = {
       fallback: "Yedek Düğüm Belirleme",
       feeDistrib: "Ücret Dağıtıcıları ve Smoothing Pool",
       mev: "MEV, MEV-Boost ve MEV Ödülleri",
+      commitBoost: "Commit-Boost",
       megapools: "Minipool Oluşturma veya Taşıma",
       megapoolsOverview: "Genel Bakış",
       createMegapoolValidator: "Yeni Minipool (Doğrulayıcı) Oluşturma",
@@ -1644,6 +1656,7 @@ function nodeStaking(prefix: string, lang: string) {
             { text: t.fallback, link: `${prefix}/node-staking/fallback` },
             { text: t.feeDistrib, link: `${prefix}/node-staking/fee-distrib-sp` },
             { text: t.mev, link: `${prefix}/node-staking/mev` },
+            { text: t.commitBoost, link: `${prefix}/node-staking/commit-boost` },
           ],
         },
         {
