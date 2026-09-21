@@ -27,7 +27,13 @@ If you do not specify this flag, the Smartnode will attempt to recover the valid
 With `-k`, recovering the **wallet only** does not need to wait for synced clients. You can do that while they are still syncing.
 :::
 
-This will first ask you for a password you want to use to encrypt your wallet.
+By default, the Smart Node generates a random password to encrypt the recovered wallet.
+To choose your own password instead, pass `-p` / `--password`.
+
+::: tip NOTE
+You do not need to know or remember this password. The **24-word node mnemonic** is enough to fully recover your wallet.
+:::
+
 After that, it will ask for your **24 word mnemonic recovery phrase**.
 Enter it carefully - it will not be shown on-screen for safety, and it is very easy to make a mistake while typing it so take your time.
 
@@ -35,10 +41,6 @@ When you're done, you should see output similar to this:
 
 ```shell
 $ rocketpool wallet recover
-
-Please enter a password to secure your wallet with:
-
-Please confirm your password:
 
 Please enter your recovery mnemonic phrase:
 
@@ -228,13 +230,11 @@ The process is exactly the same as the above, but use the `recover` command inst
 rocketpool wallet recover -a 0x1234abcd...
 ```
 
-When you run this command, you will first be prompted for a password to encrypt your imported node wallet with.
+When you run this command, the Smart Node generates a random password to encrypt your imported node wallet unless you pass `-p` / `--password`.
 
-```
-Please enter a password to secure your wallet with:
-
-Please confirm your password:
-```
+::: tip NOTE
+You do not need to know or remember this password. The **24-word node mnemonic** is enough to fully recover your wallet.
+:::
 
 After that, the mnemonic and custom validator keystore password prompts will proceed as they did before.
 

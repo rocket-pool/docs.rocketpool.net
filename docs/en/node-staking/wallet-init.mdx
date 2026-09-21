@@ -18,7 +18,13 @@ Please choose which option you'd like from the tabs below.
       rocketpool wallet init
       ```
 
-      You will first be prompted for a password to protect your wallet's private key.
+      By default, the Smart Node generates a random password to encrypt your wallet's private key (stored in the password file below).
+      To choose your own password instead, pass `-p` / `--password`.
+
+      ::: tip NOTE
+      You do not need to know or remember this password. The **24-word node mnemonic** is enough to fully recover your wallet.
+      :::
+
       Next, you will be presented the **unique 24-word mnemonic** for your new wallet.
       This is the **recovery phrase** for your wallet.
       If you ever lose your machine, you can use this phrase to regenerate your wallet and resurrect all of the Consensus validators attached to it.
