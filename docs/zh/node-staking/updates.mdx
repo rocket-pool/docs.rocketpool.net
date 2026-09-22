@@ -99,9 +99,9 @@ import tuiCcContainerTag from "./images/tui-cc-container-tag.png";
   </Tabs>
 </div>
 
-## 更新 Smartnode 堆栈
+## 更新 Smart Node 堆栈
 
-Rocket Pool 偶尔会发布新版本的 Smartnode 堆栈。
+Rocket Pool 偶尔会发布新版本的 Smart Node 堆栈。
 更新可能包含 CLI 或 Rocket Pool Docker 容器的新版本,以及执行层和共识层客户端的新版本。
 
 了解新版本的最一致方法是订阅 Rocket Pool Discord 服务器;它们将始终发布在发布频道中,您将收到通知。
@@ -112,7 +112,7 @@ Rocket Pool 偶尔会发布新版本的 Smartnode 堆栈。
 :::
 
 ::: tip 提示
-完成 Smartnode 升级后,Grafana 仪表板仍会指示有可用更新。
+完成 Smart Node 升级后,Grafana 仪表板仍会指示有可用更新。
 当系统下次自动检查更新时,它将在一天内自动清除。
 
 如果您想在更新后立即清除它,只需运行:
@@ -164,7 +164,7 @@ uname -m
       Downloading the signature from https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-amd64.sig
       Signed by 651023D62E70B5DD
         Fornax <dante@rocketpool.net>
-      Updating from 1.22.1 to 1.23.0
+      Updating from 1.24.0 to 1.24.2
 
       The cli has been updated.
 
@@ -174,7 +174,7 @@ uname -m
       此时,您可以在所有交互式提示中选择 `y`,让 Smart Node 引导您完成其余步骤。
       完成后,您将看到一条确认升级成功的消息:
       ```
-      The upgrade to Smart Node 1.23.0 has been completed.
+      The upgrade to Smart Node 1.24.2 has been completed.
       Please monitor your validators for a few minutes for issues.
       ```
 
@@ -189,7 +189,7 @@ uname -m
       rocketpool service stop
       ```
 
-      下载新的 Smartnode CLI:
+      下载新的 Smart Node CLI:
 
       对于 `x64` 系统(大多数普通机器):
 
@@ -223,7 +223,7 @@ uname -m
       rocketpool service start
       ```
 
-      最后,检查版本以确保 CLI 和 Smartnode 堆栈都是最新的:
+      最后,检查版本以确保 CLI 和 Smart Node 堆栈都是最新的:
 
       ```shell
       rocketpool service version
@@ -234,8 +234,8 @@ uname -m
       ```
       Your Smartnode is currently using the Hoodi Test Network.
 
-      Rocket Pool client version: 1.23.0
-      Rocket Pool service version: 1.23.0
+      Rocket Pool client version: 1.24.2
+      Rocket Pool service version: 1.24.2
       Selected Eth 1.0 client: Geth (Locally managed)
       Image: ethereum/client-go:v1.10.21
       Selected Eth 2.0 client: Lighthouse (Locally managed)
@@ -247,7 +247,7 @@ uname -m
     <Tab label="手动更新 - Linux(原生模式)">
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">注意</p>
-        这只会更新 Smartnode 堆栈本身 - **不会**更新执行层或共识层客户端。
+        这只会更新 Smart Node 堆栈本身 - **不会**更新执行层或共识层客户端。
         您必须手动执行此操作(请参见下面的下一部分)。
       </p>
 
@@ -257,7 +257,7 @@ uname -m
       sudo systemctl stop rp-node rp-watchtower
       ```
 
-      下载新的 Smartnode CLI 并备份旧的 CLI 和守护程序二进制文件,以防需要恢复它们:
+      下载新的 Smart Node CLI 并备份旧的 CLI 和守护程序二进制文件,以防需要恢复它们:
 
       对于 `x64` 系统(大多数普通机器):
 
@@ -299,13 +299,13 @@ uname -m
       sudo systemctl start rp-node rp-watchtower
       ```
 
-      最后,检查版本以确保 CLI 和 Smartnode 堆栈都是最新的:
+      最后,检查版本以确保 CLI 和 Smart Node 堆栈都是最新的:
 
       ```
       rocketpool service version
 
-      Rocket Pool client version: 1.23.0
-      Rocket Pool service version: 1.23.0
+      Rocket Pool client version: 1.24.2
+      Rocket Pool service version: 1.24.2
       Selected Eth 1.0 client: Geth (Locally managed)
       Selected Eth 2.0 client: Nimbus (Locally managed)
       ```
@@ -319,7 +319,7 @@ uname -m
       rocketpool service stop
       ```
 
-      下载新的 Smartnode CLI:
+      下载新的 Smart Node CLI:
 
       对于 `x64` 系统(大多数 Mac):
 
@@ -353,13 +353,13 @@ uname -m
       rocketpool service start
       ```
 
-      最后,检查版本以确保 CLI 和 Smartnode 堆栈都是最新的:
+      最后,检查版本以确保 CLI 和 Smart Node 堆栈都是最新的:
 
       ```shell
       rocketpool service version
 
-      Rocket Pool client version: 1.23.0
-      Rocket Pool service version: 1.23.0
+      Rocket Pool client version: 1.24.2
+      Rocket Pool service version: 1.24.2
       Selected Eth 1.0 client: Geth (Locally managed)
       Selected Eth 2.0 client: Nimbus (Locally managed)
       ```
@@ -373,14 +373,16 @@ uname -m
 
 ## 手动更新执行层或共识层客户端
 
-Smartnode 堆栈的每个新版本都将附带对执行层和共识层 Docker 容器的最新兼容版本的更新引用。
-但是,在某些情况下,您可能希望在等待新的 Smartnode 堆栈发布之前升级其中一个客户端。
-本节将向您展示如何做到这一点。
+每个新的 Smart Node 版本都会为 Execution、Consensus 和 Smart Node 容器提供固定的 Docker 镜像摘要（在 `~/.rocketpool/mainnet.env` 中以 `repo:tag@sha256:…` 的形式存在）。`rocketpool service install` 会覆盖这些官方固定文件。在某些情况下，您可能希望在等待新的 Smart Node 版本发布*之前*运行不同的客户端镜像。本节将向您展示如何操作。
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker 模式">
       在 Docker 模式下更新到新客户端版本很简单。
+
+      Smart Node 现在通过摘要固定客户端镜像和 Smart Node 镜像。
+      在 TUI 中更改 **Container Tag** 仍然可以让您在下一个 Smart Node 版本发布之前运行不同的标签或摘要。
+      执行 `rocketpool service install` 或 `rocketpool update` 后，`mainnet.env` 中的官方固定值会被替换；在您清除之前，TUI 中的覆盖设置仍然优先。
 
       首先打开设置管理器:
 
@@ -399,7 +401,11 @@ Smartnode 堆栈的每个新版本都将附带对执行层和共识层 Docker �
       <img src={tuiCcContainerTag} width="100%" height="auto"/>
 
       对更改满意后,像往常一样保存并退出。
-      Smartnode 将提供自动重启所有受影响的容器。
+      Smart Node 将提供自动重启所有受影响的容器。
+
+      ::: tip 注意
+      官方固定值位于 `~/.rocketpool/mainnet.env` 中。请勿通过编辑该文件来做持久修改；安装时会覆盖它。可选的按网络覆盖应放在 `~/.rocketpool/testnet.env` 或 `~/.rocketpool/devnet.env` 中（只有您设置的键才会替换 mainnet 的固定值）。您在设置管理器中设置的 **Container Tag** 会覆盖该服务的固定值。保持默认值即可继续使用官方摘要。
+      :::
     </Tab>
     <Tab label="原生模式">
       首先,关闭您的执行层客户端、信标节点和/或验证者客户端服务,具体取决于您想要更新的内容。

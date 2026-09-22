@@ -14,7 +14,7 @@ Düzenli aralıklarla, Rocket Pool ağda bir **kontrol noktası** işaretleyecek
 Yeni bir kontrol noktasında, Oracle DAO toplu olarak Rocket Pool ağındaki node operatörlerinin durumunun **gerçek bir anlık görüntüsünü** oluşturacak ve bu aralıkta her node için RPL ve Smoothing Pool ETH ödüllerini belirlemek için bunu kullanacaktır. "Bonus komisyon"un Saturn 0 minipool'lar için smoothing pool ödülleri kullanılarak dağıtıldığını unutmayın (Saturn 0 minipool'lar, 2024/10/28'den sonra oluşturulan ve sözleşme komisyonu %5 olan minipool'lardır).
 
 Bu bilgi bir [Merkle Ağacı](https://en.wikipedia.org/wiki/Merkle_tree)'na derlenir - tüm detayları akıllı sözleşmelere sunmanın son derece verimli bir yolu.
-Merkle Ağacı bir JSON dosyasına yerleştirilir ve [bakımını yaptığımız bir GitHub deposunda](https://github.com/rocket-pool/rewards-trees/) barındırılır. Smartnode ayrıca ödül aralığı **olaylarını** bu GitHub deposundan yükleyebilir, böylece agresif geçmiş sona erdirme eski Execution katmanı günlüklerini sildikten sonra bile talep edebilirsiniz.
+Merkle Ağacı bir JSON dosyasına yerleştirilir ve [bakımını yaptığımız bir GitHub deposunda](https://github.com/rocket-pool/rewards-trees/) barındırılır. Smart Node ayrıca ödül aralığı **olaylarını** bu GitHub deposundan yükleyebilir, böylece agresif geçmiş sona erdirme eski Execution katmanı günlüklerini sildikten sonra bile talep edebilirsiniz.
 
 Ağaç gönderildikten sonra, Rocket Pool akıllı sözleşmeleri yeni RPL token'ları basacak ve bunları Smoothing Pool'un tüm ETH bakiyesiyle birlikte güvenli depolama için Rocket Pool vault'una taşıyacaktır.
 Daha sonra o aralıkta kaç RPL ve ETH ödülü kazandığınızı görüntüleyebilir ve bu ödülleri talep edebilirsiniz.
@@ -84,10 +84,10 @@ Oracle DAO'dan önceden oluşturulmuş olanı indirmek yerine ağacı kendiniz o
 - `Rewards Tree Mode`'u `Download`'dan `Generate`'e değiştirin.
 - Birincil Execution istemciniz bir arşiv node'u değilse, `Archive-Mode EC URL` kutusuna ayrı bir arşiv node'u için bir URL ekleyebilirsiniz.
   - Bu, tarihsel ödül ağaçlarını oluşturmak için gereklidir.
-  - Archive EC yalnızca ağaç oluşturma için kullanılacaktır; diğer Smartnode görevleri için kullanılmayacaktır.
+  - Archive EC yalnızca ağaç oluşturma için kullanılacaktır; diğer Smart Node görevleri için kullanılmayacaktır.
   - [Infura](https://infura.io/product/ethereum) ve [Alchemy](https://www.alchemy.com/supernode) arşiv node'u erişimi sunar. **Ücretsiz katmanların genellikle ağaç oluşturmayı kaldırmak için yeterli olmadığını unutmayın, bu nedenle ücretli katmanlardan birine ihtiyacınız olacaktır.**
 
-Artık Smartnode'unuz, Oracle DAO'dan tamamen bağımsız olarak, yalnızca Execution ve Consensus istemcileriniz tarafından sağlanan verileri kullanarak ağacı oluşturacaktır.
+Artık Smart Node'unuz, Oracle DAO'dan tamamen bağımsız olarak, yalnızca Execution ve Consensus istemcileriniz tarafından sağlanan verileri kullanarak ağacı oluşturacaktır.
 Bir ödül aralığı kontrol noktası sırasında `rocketpool service logs watchtower` ile izleyebilirsiniz.
 
 Önceki aralıklardan geçmiş ağaçları yeniden oluşturmak isterseniz, bunu aşağıdaki komutla yapabilirsiniz:

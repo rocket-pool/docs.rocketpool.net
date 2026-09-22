@@ -88,7 +88,7 @@ Burada **Execution Client URL**'sinin farklı olduğuna dikkat edin: Interval 2 
 
 ::: warning NOT
 İstemci yapılandırmanıza bağlı olarak, bu ağacı oluşturmak _saatler_ sürebilir.
-Smartnode, aşağıdaki örnekte görebileceğiniz gibi, yol boyunca ilerleme hakkında durum göstergeleri verecektir.
+Smart Node, aşağıdaki örnekte görebileceğiniz gibi, yol boyunca ilerleme hakkında durum göstergeleri verecektir.
 :::
 
 Çıktı şöyle görünecektir (kısalık için kesilmiştir):
@@ -144,7 +144,7 @@ Your Merkle tree's root of 0x278fd75797e2a9eddc128c0199b448877e30d1196c12306bdc9
 Bunu alırsanız, watchtower'ınız ağacı doğru şekilde oluşturabilir demektir.
 
 ::: danger NOT
-Bu, ağacı oluşturabileceğinizi kanıtlarken, sonuç ağacını IPFS'ye yükleyebilmesi için Web3.Storage API token'ınızın Smartnode yapılandırmasına girilmiş olduğundan emin olmalısınız.
+Bu, ağacı oluşturabileceğinizi kanıtlarken, sonuç ağacını IPFS'ye yükleyebilmesi için Web3.Storage API token'ınızın Smart Node yapılandırmasına girilmiş olduğundan emin olmalısınız.
 :::
 
 ### Sonraki Adımlar

@@ -18,8 +18,8 @@ Saturn 1の準備のため、現在minipoolの入金は無効になっていま�
 minipoolを実行する前に、以下を確認してください。
 
 - ノードマシン（または仮想マシン）をセットアップし、セキュリティを確保していること（[ノードのセキュリティ確保](../securing-your-node)ガイドを参照）
-- Smartnodeを[インストール](../installing/overview)し、[設定](../config/overview)していること
-- Smartnodeにノードウォレットをロードしていること
+- Smart Nodeを[インストール](../installing/overview)し、[設定](../config/overview)していること
+- Smart Nodeにノードウォレットをロードしていること
 - ExecutionクライアントとConsensusクライアントを同期していること
 - ノードに[出金アドレス](../prepare-node.mdx#primary-withdrawal-addressの設定)をプロビジョニングし、[フォールバッククライアント](../fallback)を設定し（オプション）、[Smoothing Pool](../fee-distrib-sp#smoothing-pool)にオプトインし（オプション）、[MEV](../mev.mdx)を設定していること
 

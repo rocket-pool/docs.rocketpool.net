@@ -22,7 +22,7 @@ Chaque client de validateur maintient une base de données de slashing pour gara
 Le problème, alors, vient des situations où vous commencez à valider **sans** base de données de slashing et n'avez donc aucun enregistrement de ce pour quoi vos validateurs ont précédemment voté.
 Cela peut se produire dans plusieurs situations :
 
-1. Vous venez de changer de client de consensus, et le nouveau client ne transfère pas la base de données de slashing de l'ancien (ce que le Smartnode ne fait pas lors d'un changement de client).
+1. Vous venez de changer de client de consensus, et le nouveau client ne transfère pas la base de données de slashing de l'ancien (ce que le Smart Node ne fait pas lors d'un changement de client).
 2. Vous avez votre portefeuille chargé sur une machine et attestez activement avec lui, puis vous chargez votre portefeuille sur une deuxième machine _pendant que la première machine atteste toujours activement_.
 3. Vous arrêtez de valider sur une machine et chargez votre portefeuille sur une deuxième machine, mais vous n'avez pas attendu assez longtemps pour que l'epoch actuel soit finalisé, donc votre deuxième machine atteste pour des slots pour lesquels vos validateurs ont déjà attesté.
 
@@ -39,12 +39,12 @@ Attendre 15 minutes garantit que vous avez manqué au moins un epoch et attendu 
 Avec le contexte ci-dessus à l'esprit, voici une liste de vérification utile que vous pouvez suivre lors de la migration de votre nœud pour vous assurer de ne pas être slashé.
 Elle est conçue pour une sécurité maximale, donc même si vous pensez que certaines étapes sont inutiles, nous vous **encourageons fortement** à toutes les suivre jusqu'à la fin.
 
-1. **Préparez le nouveau nœud** en suivant ces guides, en commençant par la section "Préparer un nœud" et en terminant une fois que vous avez installé le Smartnode et que vous synchronisez un client d'exécution et de consensus.
+1. **Préparez le nouveau nœud** en suivant ces guides, en commençant par la section "Préparer un nœud" et en terminant une fois que vous avez installé le Smart Node et que vous synchronisez un client d'exécution et de consensus.
    - :warning: **NE PAS** initialiser un nouveau portefeuille ou récupérer votre ancien portefeuille sur le nœud. Laissez-le synchroniser les clients _sans portefeuille présent_.
 
 2. **ATTENDEZ** jusqu'à ce que vos clients soient entièrement synchronisés sur le nouveau nœud.
 3. Confirmez que vous avez correctement enregistré votre mnémonique en exécutant `rocketpool wallet test-recovery` sur votre nouvelle machine. Cela va _simuler_ la récupération des clés pour confirmer que le portefeuille de votre nœud et toutes les clés de validateur de vos minipools peuvent être récupérés correctement, mais ne les _récupérera pas réellement_ et ne les enregistrera pas sur le disque, il n'y a donc aucun risque de slashing.
-   1. Si le Smartnode ne parvient pas à récupérer le portefeuille de votre nœud en utilisant le mnémonique que vous avez fourni, alors votre mnémonique peut être invalide. **ARRÊTEZ** de suivre ce processus ; retirer les clés de votre ancien nœud signifie qu'elles pourraient être **perdues pour toujours**.
+   1. Si le Smart Node ne parvient pas à récupérer le portefeuille de votre nœud en utilisant le mnémonique que vous avez fourni, alors votre mnémonique peut être invalide. **ARRÊTEZ** de suivre ce processus ; retirer les clés de votre ancien nœud signifie qu'elles pourraient être **perdues pour toujours**.
    2. Dans cette situation, nous vous recommandons de faire sortir vos validateurs et de retirer votre capital dès que possible, afin que vous puissiez recommencer avec un nouveau nœud pour lequel vous avez le mnémonique fonctionnel.
 4. **Arrêtez de valider** sur votre ancien nœud (par exemple, en utilisant `rocketpool service stop` pour arrêter le client de validateur).
 5. **Supprimez vos clés** de votre ancien nœud (par exemple, en utilisant `rocketpool wallet purge`).

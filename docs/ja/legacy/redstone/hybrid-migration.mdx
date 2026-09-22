@@ -6,7 +6,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 ## v1.5.0へのアップグレード前にすべきこと
 
-Smartnodeのv1.5.0以降にアップグレードする前に、次のチェックリストを確認して準備ができていることを確認してください。
+Smart Nodeのv1.5.0以降にアップグレードする前に、次のチェックリストを確認して準備ができていることを確認してください。
 
 ### 完全なExecution Clientへの切り替え
 
@@ -16,14 +16,14 @@ Mergeでは独自のExecution Clientを実行する必要があるため、Infur
 
 ### ECとCCの両方が外部管理されていることを確認
 
-以前のバージョンのSmartnodeスタックでは、1つのクライアントをローカル管理、もう1つを外部管理することができました。
-たとえば、Smartnodeが管理するExecution Clientと、外部で管理するConsensus Clientに接続することができました。
+以前のバージョンのSmart Nodeスタックでは、1つのクライアントをローカル管理、もう1つを外部管理することができました。
+たとえば、Smart Nodeが管理するExecution Clientと、外部で管理するConsensus Clientに接続することができました。
 
 v1.5以降、この構成はサポートされなくなりました。
 ローカル管理されるExecution ClientとConsensus Client（[Dockerモード](./docker-migration.mdx)とも呼ばれます）のいずれかに切り替えるか、自分で管理するExecution ClientとConsensus Clientの両方をセットアップする必要があります。
 
 ::: tip ヒント
-SmartnodeにそれぞれのExecution ClientとConsensus Clientを維持させたいが、独自のValidator Client（たとえば、独自のソロステーキングバリデータキーが接続されている場合など）を制御し続けたい場合は、まさにそれを実現する[Reverse Hybridモード](../../node-staking/advanced-config#外部バリデータークライアントをsmartnodeに接続できるようにする)を検討することをお勧めします！
+Smart NodeにそれぞれのExecution ClientとConsensus Clientを維持させたいが、独自のValidator Client（たとえば、独自のソロステーキングバリデータキーが接続されている場合など）を制御し続けたい場合は、まさにそれを実現する[Reverse Hybridモード](../../node-staking/advanced-config#外部バリデータークライアントをsmartnodeに接続できるようにする)を検討することをお勧めします！
 :::
 
 ### Engine APIのセットアップ
@@ -44,28 +44,28 @@ CoinCashewには、Execution ClientとConsensus ClientでEngine APIをセット�
 
 ## v1.5.0へのアップグレード
 
-Smartnodeスタックをv1.5.0にアップグレードすることは、他のアップグレードと変わりません。
+Smart Nodeスタックをv1.5.0にアップグレードすることは、他のアップグレードと変わりません。
 単に[ここの通常の手順](../../node-staking/updates#smartnodeスタックの更新)に従ってください。
 
-## Smartnodeが自動的に処理すること
+## Smart Nodeが自動的に処理すること
 
-Hybridモードでは、v1.5.0にアップデートすると、Redstoneをサポートするために必要な変更の一部をSmartnodeが自動的に処理しますが、Hybridモードでは他のものを手動で処理する必要があります。
+Hybridモードでは、v1.5.0にアップデートすると、Redstoneをサポートするために必要な変更の一部をSmart Nodeが自動的に処理しますが、Hybridモードでは他のものを手動で処理する必要があります。
 
-手動で介入することなくSmartnodeが実行することの簡単なリストを以下に示します。
+手動で介入することなくSmart Nodeが実行することの簡単なリストを以下に示します。
 
 ### Fee Recipient
 
 **fee recipient**は、提案するブロックのすべてのpriority feesを受け取るExecution Layer（eth1）チェーン上のアドレスです。
 これは、Validator Clientが最初に起動するときに提供される設定です。
 
-Smartnodeは、v1.5にアップグレードしたときに管理するValidator Clientで正しいアドレスに設定することを処理し、[誤ってペナルティを受ける](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)ことがないように、正しいアドレスを使用していることを常に確認します。
+Smart Nodeは、v1.5にアップグレードしたときに管理するValidator Clientで正しいアドレスに設定することを処理し、[誤ってペナルティを受ける](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)ことがないように、正しいアドレスを使用していることを常に確認します。
 
 [Smoothing Pool](./whats-new#smoothing-pool)にオプトインした場合、それがfee recipientになります。
 オプトインしなかった場合、[fee distributorコントラクト](./whats-new#fee-recipientとdistributor)がfee recipientになります。
 
 ## アップグレード後に実施すべきこと
 
-Smartnodeがほとんどの変更を処理しますが、手動で実施すべきいくつかの追加事項があります。
+Smart Nodeがほとんどの変更を処理しますが、手動で実施すべきいくつかの追加事項があります。
 
 ### アップグレードが成功したことを確認
 
@@ -100,7 +100,7 @@ Flashbotsがその時点で従うべき手順を提供し、ここにリンク�
 
 Mergeは、InfuraやPocketなどのリモートプロバイダーと互換性がないため、プライマリがオフラインになったときにフォールバックExecution Clientとしてそれらを使用する機能を失います。
 
-Smartnodeには依然としてフォールバックExecution Client（および現在はフォールバックConsensus Clientも）を提供する機能がありますが、自分で制御するExecution ClientとConsensus Clientを使用する必要があります。
+Smart Nodeには依然としてフォールバックExecution Client（および現在はフォールバックConsensus Clientも）を提供する機能がありますが、自分で制御するExecution ClientとConsensus Clientを使用する必要があります。
 
 フォールバックノードのセットアップの詳細については、[フォールバックノードガイド](../../node-staking/fallback)をご覧ください。
 
@@ -133,7 +133,7 @@ rocketpool node join-smoothing-pool
 
 Redstoneアップグレードは、高額で問題のある古い報酬システムを、はるかに安価で、RPLの自動再ステーク（部分的および全額の両方）をサポートし、そして最も重要なことに**いつでも報酬を請求できる**[全く新しいシステム](./whats-new#新しい報酬システム)に置き換えます。
 
-報酬の請求に時間制限がなくなり、多くの報酬インターバルを一度に請求する方がコスト効率が良いため、Smartnodeの自動報酬請求機能は**削除されました**。
+報酬の請求に時間制限がなくなり、多くの報酬インターバルを一度に請求する方がコスト効率が良いため、Smart Nodeの自動報酬請求機能は**削除されました**。
 次のコマンドで報酬を請求できるようになります。
 
 ```shell
@@ -144,8 +144,8 @@ rocketpool node claim-rewards
 
 ## v1.4.3への復元
 
-何らかの理由で気に入らないことがあり、以前のSmartnodeリリースに復元したい場合、簡単に実施できます。
-Smartnodeはアップグレード時に以前のバージョンの設定を自動的にバックアップするため、単に以前のバージョン（ここでは**v1.4.3**を示します）を取得して、設定をバックアップに置き換えるだけです。
+何らかの理由で気に入らないことがあり、以前のSmart Nodeリリースに復元したい場合、簡単に実施できます。
+Smart Nodeはアップグレード時に以前のバージョンの設定を自動的にバックアップするため、単に以前のバージョン（ここでは**v1.4.3**を示します）を取得して、設定をバックアップに置き換えるだけです。
 
 1. サービスを停止します。
 
@@ -182,7 +182,7 @@ cp ~/.rocketpool/user-settings-backup.yml ~/.rocketpool/user-settings.yml
 rocketpool service config
 ```
 
-1. 問題がなければ、Smartnodeスタックを起動します。
+1. 問題がなければ、Smart Nodeスタックを起動します。
 
 ```shell
 rocketpool service start

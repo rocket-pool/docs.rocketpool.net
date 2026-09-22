@@ -27,7 +27,7 @@ Resposta curta: seu mnemônico é tudo que você precisa para recuperar totalmen
 Sempre certifique-se de mantê-lo seguro.
 
 Para recuperar seu node em uma nova máquina, comece certificando-se de que **sua máquina anterior não ficará online novamente** com as chaves disponíveis, pois dois nodes executando com as mesmas chaves **farão você ser slashed**.
-Siga os [passos](./install-modes) para instalar o Smartnode em uma nova máquina.
+Siga os [passos](./install-modes) para instalar o Smart Node em uma nova máquina.
 Depois, recupere sua carteira de node e chaves de validador executando o comando `rocketpool wallet recover` e insira seu mnemônico de 24 palavras.
 
 ### Por que meus clientes não estão sincronizando? Tenho um número baixo de peers.

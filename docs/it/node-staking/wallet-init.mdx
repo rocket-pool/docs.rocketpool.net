@@ -2,7 +2,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # Creazione di un Nuovo Wallet
 
-Se i servizi Smartnode sono attivi e funzionanti, il passo successivo è configurare un wallet Ethereum per il tuo nodo.
+Se i servizi Smart Node sono attivi e funzionanti, il passo successivo è configurare un wallet Ethereum per il tuo nodo.
 Si tratta semplicemente di un indirizzo Execution Layer che conterrà i fondi del tuo nodo - lo utilizzerà per inviare ETH al tuo validator megapool quando inizi lo staking, pagare il gas durante varie transazioni e altre operazioni.
 
 Hai la possibilità di creare un wallet completamente nuovo da zero, oppure importare / recuperare un wallet o indirizzo esistente.
@@ -12,13 +12,19 @@ Scegli l'opzione che preferisci dalle schede qui sotto.
   <Tabs>
     <Tab label="Creazione di un Nuovo Wallet">
       Il modo più comune per eseguire un nodo è creare un nuovo indirizzo Ethereum dedicato al nodo.
-      La CLI Smartnode fornisce un modo semplice per farlo:
+      La CLI Smart Node fornisce un modo semplice per farlo:
 
       ```shell
       rocketpool wallet init
       ```
 
-      Ti verrà prima richiesta una password per proteggere la chiave privata del tuo wallet.
+      Per impostazione predefinita, lo Smart Node genera una password casuale per crittografare la chiave privata del tuo wallet (memorizzata nel file della password indicato qui sotto).
+      Per scegliere invece una password tua, passa `-p` / `--password`.
+
+      ::: tip NOTA
+      Non hai bisogno di conoscere o ricordare questa password. Il **mnemonic di 24 parole del nodo** è sufficiente per recuperare completamente il tuo wallet.
+      :::
+
       Successivamente, ti verrà presentato il **mnemonic unico di 24 parole** per il tuo nuovo wallet.
       Questa è la **frase di recupero** per il tuo wallet.
       Se dovessi perdere la tua macchina, puoi utilizzare questa frase per rigenerare il tuo wallet e ripristinare tutti i validator Consensus ad esso collegati.
@@ -37,7 +43,7 @@ Scegli l'opzione che preferisci dalle schede qui sotto.
         Node account: LungaStringaDiLettereENumeri"
       Questo è l'indirizzo pubblico a cui dovrai inviare ETH in "Preparazione del tuo Nodo per l'Operatività". Puoi anche verificarlo digitando "rocketpool wallet status".
 
-      Se hai già un wallet nodo che hai creato in una precedente installazione di Smartnode, o se vuoi importare un indirizzo che hai creato altrove (come ad esempio con **Allnodes**), segui le istruzioni nella guida [Importazione di un Wallet Esistente per il tuo Nodo](./recovering-rp).
+      Se hai già un wallet nodo che hai creato in una precedente installazione di Smart Node, o se vuoi importare un indirizzo che hai creato altrove (come ad esempio con **Allnodes**), segui le istruzioni nella guida [Importazione di un Wallet Esistente per il tuo Nodo](./recovering-rp).
 
       Torna qui quando hai finito.
     </Tab>

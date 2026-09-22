@@ -3,7 +3,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 # Migration du Réseau de Test vers le Réseau Principal
 
 Si vous avez déjà utilisé Rocket Pool sur notre réseau de test Hoodi, que vous êtes à l'aise avec son fonctionnement et que vous êtes prêt à staker de l'ETH ou à exploiter un nœud pour de vrai sur la chaîne Ethereum principale, alors ce guide est pour vous !
-Vous trouverez ici des instructions sur la façon de migrer une stack Smartnode existante du réseau de test Hoodi vers une stack connectée au réseau principal Ethereum, prête pour le staking de vos propres ETH et RPL réels.
+Vous trouverez ici des instructions sur la façon de migrer une stack Smart Node existante du réseau de test Hoodi vers une stack connectée au réseau principal Ethereum, prête pour le staking de vos propres ETH et RPL réels.
 
 ## Staking de Pool sur le Réseau Principal
 
@@ -13,10 +13,10 @@ Suivez le [Guide de Staking](../../liquid-staking/overview), qui a été mis à 
 
 ### Différences Entre le Réseau de Test et le Réseau Principal
 
-- Le Smartnode du réseau de test dispose d'un robinet pour l'ETH de test. Le Smartnode du réseau principal **n'a pas de robinet**. Vous devrez fournir votre propre ETH pour staker.
+- Le Smart Node du réseau de test dispose d'un robinet pour l'ETH de test. Le Smart Node du réseau principal **n'a pas de robinet**. Vous devrez fournir votre propre ETH pour staker.
 - Le réseau principal prend en charge de nombreux portefeuilles Ethereum via WalletConnect, vous pouvez donc utiliser d'autres portefeuilles que vous ne pouviez pas utiliser sur le réseau de test. **Vous n'êtes plus limité à l'utilisation de Metamask pour staker**.
 
-## Exploitation d'un Smartnode sur le Réseau Principal
+## Exploitation d'un Smart Node sur le Réseau Principal
 
 ::: danger NOTE
 **Rien** du réseau de test ne peut être migré vers le réseau principal.
@@ -31,7 +31,7 @@ Si vous souhaitez conserver votre configuration de réseau de test, vous devez s
 
 ### Différences Entre le Réseau de Test et le Réseau Principal
 
-- Le Smartnode du réseau de test dispose d'un robinet pour l'ETH et le RPL. Le Smartnode du réseau principal **n'a pas de robinet**. Vous devrez fournir votre propre ETH et votre propre RPL.
+- Le Smart Node du réseau de test dispose d'un robinet pour l'ETH et le RPL. Le Smart Node du réseau principal **n'a pas de robinet**. Vous devrez fournir votre propre ETH et votre propre RPL.
 - Si vous utilisez Geth, la charge de travail de votre nœud sera **considérablement plus élevée**. Geth nécessite environ 40 fois l'espace de stockage de Hoodi et nécessite plus de puissance CPU et de RAM pour traiter. Si vous utilisez le tableau de bord Grafana de Rocket Pool, préparez-vous à voir une utilisation beaucoup plus élevée.
   Un nœud Geth complet utilise 1,4 To au 19 septembre 2025. [L'expiration des données de bloc avant la fusion](../maintenance/history-expiry) peut réduire l'utilisation du stockage d'environ 300 à 500 Go.
 - Vos pairs de Beacon Chain (et donc votre efficacité d'attestation) seront **plus élevés** que sur le réseau de test. Les pairs sur le réseau principal sont beaucoup plus diversifiés et ont tendance à être de meilleure qualité que sur le réseau de test.
@@ -40,7 +40,7 @@ Si vous souhaitez conserver votre configuration de réseau de test, vous devez s
 
 ### Migration Automatique (Mode Docker Uniquement)
 
-Pour les utilisateurs du mode Docker, le Smartnode peut migrer vers le réseau principal pour vous automatiquement.
+Pour les utilisateurs du mode Docker, le Smart Node peut migrer vers le réseau principal pour vous automatiquement.
 
 **Pendant que vous avez encore le réseau de test configuré**, sortez vos validateurs sur Hoodi :
 
@@ -57,7 +57,7 @@ Une fois cela fait, ouvrez le Gestionnaire de Paramètres :
 rocketpool service config
 ```
 
-Ensuite, ouvrez la catégorie **Smartnode and TX Fees** et changez le menu déroulant **Network** de `Hoodi Testnet` à `Ethereum Mainnet` :
+Ensuite, ouvrez la catégorie **Smart Node and TX Fees** et changez le menu déroulant **Network** de `Hoodi Testnet` à `Ethereum Mainnet` :
 
 <img src="../images/tui-change-network.png" width="100%" height="auto" />
 
@@ -74,14 +74,14 @@ Would you like the Smartnode to automatically switch networks for you? This will
 ```
 
 Sauvegardez tout ce que vous souhaitez conserver (comme votre dossier `data` qui contient votre portefeuille de nœud et vos clés de validateur), puis appuyez sur `y` et `Entrée` lorsque vous êtes prêt.
-Le Smartnode gérera le changement automatiquement.
+Le Smart Node gérera le changement automatiquement.
 
 Lorsque c'est terminé, vous aurez une installation fraîche sur le réseau principal.
 Tous vos paramètres (comme le choix du client) seront préservés, mais vous devrez créer un nouveau portefeuille. De plus, vous n'aurez probablement pas d'_URL de Synchronisation de Point de Contrôle_ sur le réseau principal et devriez en configurer une comme expliqué [ici](../config-docker#synchronisation-par-point-de-contrôle-beacon-chain) ; sinon, il faudra beaucoup de temps pour synchroniser la beacon chain du réseau principal.
 
 ### Migration Manuelle
 
-Si pour une raison quelconque vous ne pouvez pas utiliser le processus de migration automatique du Smartnode, vous pouvez le faire manuellement en quelques étapes simples :
+Si pour une raison quelconque vous ne pouvez pas utiliser le processus de migration automatique du Smart Node, vous pouvez le faire manuellement en quelques étapes simples :
 
 <div className="p-3">
   <Tabs>

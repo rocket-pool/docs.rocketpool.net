@@ -35,7 +35,7 @@ USAGE:
    rocketpoolcli [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    auction, a   Manage Rocket Pool RPL auctions
@@ -92,7 +92,7 @@ USAGE:
    rocketpool service [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    install, i                 Install the Rocket Pool service
@@ -509,7 +509,7 @@ USAGE:
    rocketpool megapool [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    deposit, d                Make a deposit and create a new validator on the megapool. Optionally specify count to make multiple deposits.
@@ -781,7 +781,7 @@ Depois de tê-lo, simplesmente chame qualquer transação com a CLI usando os si
 ::: warning NOTA
 Você **deve** incluir o sinalizador `-i` (taxa de prioridade) para sobrescrever uma transação anterior.
 Este número deve ser pelo menos 10% maior que a taxa de prioridade que sua transação antiga usou.
-O Smartnode usa uma taxa de prioridade de 2 gwei por padrão, então um valor de `2.2` geralmente é suficiente para uma substituição.
+O Smart Node usa uma taxa de prioridade de 2 gwei por padrão, então um valor de `2.2` geralmente é suficiente para uma substituição.
 
 Se sua transação antiga usou uma taxa personalizada (digamos, 10 gwei), você precisará defini-la pelo menos 10% maior na transação de substituição (então, neste exemplo, 11 gwei).
 :::
@@ -798,7 +798,7 @@ Total cost: 0.0032 to 0.0032 ETH
 Are you sure you want to send 0.000100 eth to <node wallet address>? This action cannot be undone! [y/n]
 ```
 
-A pilha Smartnode verificará automaticamente para garantir que o `nonce` que você forneceu seja válido (ele se refere a uma transação pendente) antes de enviá-lo e desperdiçar seu gas acidentalmente.
+A pilha Smart Node verificará automaticamente para garantir que o `nonce` que você forneceu seja válido (ele se refere a uma transação pendente) antes de enviá-lo e desperdiçar seu gas acidentalmente.
 Caso contrário, retornará uma mensagem de erro.
 Caso contrário, ele passará e fornecerá os detalhes da transação para que você possa monitorá-la e confirmar que ela, de fato, sobrescreveu sua antiga transação travada.
 

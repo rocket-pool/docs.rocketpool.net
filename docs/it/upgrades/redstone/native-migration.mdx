@@ -6,7 +6,7 @@ Questa guida coprirà tutto ciò che devi sapere per preparare il tuo nodo all'a
 
 ## Cose da Fare Prima di Aggiornare alla v1.5.0
 
-Prima di aggiornare alla v1.5.0 e successive dello Smartnode, segui questa checklist per assicurarti di essere preparato:
+Prima di aggiornare alla v1.5.0 e successive dello Smart Node, segui questa checklist per assicurarti di essere preparato:
 
 ### Passa a un Execution Client Completo
 
@@ -28,11 +28,11 @@ Come farlo dipende interamente da quali client stai utilizzando.
 CoinCashew ha [una guida ottima e concisa](https://www.coincashew.com/coins/overview-eth/ethereum-merge-upgrade-checklist-for-home-stakers-and-validators) su come configurare l'Engine API sui tuoi Execution e Consensus client.
 Dai un'occhiata, e testa la nuova configurazione verificando che continui ad attestare correttamente prima di aggiornare.
 
-Ti mostreremo come configurare il tuo Validator client in modo che utilizzi il fee recipient corretto richiesto dal software Smartnode automaticamente qui sotto.
+Ti mostreremo come configurare il tuo Validator client in modo che utilizzi il fee recipient corretto richiesto dal software Smart Node automaticamente qui sotto.
 
 ## Aggiornamento alla v1.5.0
 
-L'aggiornamento dello stack Smartnode alla v1.5.0 non è diverso da qualsiasi altro aggiornamento.
+L'aggiornamento dello stack Smart Node alla v1.5.0 non è diverso da qualsiasi altro aggiornamento.
 Segui semplicemente [le normali istruzioni qui](../../node-staking/updates#aggiornamento-dello-stack-smartnode).
 
 ## Cose che Dovresti Fare Dopo l'Aggiornamento
@@ -44,7 +44,7 @@ In modalità Nativa, ci sono diverse cose che dovrai fare manualmente dopo l'agg
 La prima cosa da fare è assicurarti che il tuo nodo funzioni correttamente.
 Considera di seguire questi passaggi:
 
-- Controlla gli script di log per l'Execution client, il Consensus client, il Validator client e il daemon Smartnode (il servizio `rp-node`) per assicurarti che funzionino tutti normalmente senza errori.
+- Controlla gli script di log per l'Execution client, il Consensus client, il Validator client e il daemon Smart Node (il servizio `rp-node`) per assicurarti che funzionino tutti normalmente senza errori.
 - Conferma con un Block Explorer (come il tuo dashboard Grafana e [https://beaconcha.in](https://beaconcha.in)) che stai ancora attestando correttamente
   - Ricorda che se hai abilitato la protezione Doppelganger, perderai alcune attestazioni dopo il riavvio. Questo è normale!
 
@@ -56,12 +56,12 @@ Come descritto nell'[articolo panoramica](./whats-new#fee-recipient-e-il-tuo-dis
 - Se hai **scelto** la Smoothing Pool, deve essere l'indirizzo del **contratto Smoothing Pool**. Puoi ottenere l'indirizzo dalla [pagina ufficiale dei contratti](/it/protocol/contracts-integrations).
 - Se **non** sei nella Smoothing Pool, deve essere l'indirizzo del **contratto fee distributor** del tuo nodo. Puoi ottenere l'indirizzo eseguendo `rocketpool node status`, nella sezione `Fee Distributor and Smoothing Pool`.
 
-In modalità Nativa, hai la scelta di lasciare che lo Smartnode lo gestisca per te se utilizzi il servizio daemon Smartnode, `rp-node`, o gestirlo tu stesso se non utilizzi il daemon.
+In modalità Nativa, hai la scelta di lasciare che lo Smart Node lo gestisca per te se utilizzi il servizio daemon Smart Node, `rp-node`, o gestirlo tu stesso se non utilizzi il daemon.
 
 #### Gestione Automatica tramite il Daemon
 
-Il daemon Smartnode determinerà automaticamente il fee recipient appropriato per il tuo nodo e lo gestirà nel caso cambi (come entrare e uscire dalla Smoothing Pool).
-Questa è l'opzione **più sicura**, perché lo Smartnode assicurerà sempre che sia impostato su un valore che **previene la [penalizzazione](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)**.
+Il daemon Smart Node determinerà automaticamente il fee recipient appropriato per il tuo nodo e lo gestirà nel caso cambi (come entrare e uscire dalla Smoothing Pool).
+Questa è l'opzione **più sicura**, perché lo Smart Node assicurerà sempre che sia impostato su un valore che **previene la [penalizzazione](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)**.
 
 Il modo in cui lo fa è mantenendo un file con il fee recipient corretto al suo interno, e aggiornandolo regolarmente per garantirne la correttezza.
 Quando deve essere aggiornato, modifica il file e riavvia automaticamente il tuo Validator client così carica il nuovo recipient - in modo simile a come riavvia il tuo Validator client dopo aver stakato un nuovo minipool.
@@ -89,7 +89,7 @@ Seleziona il tuo client qui sotto per imparare come configurarlo:
       --suggested-fee-recipient ${FEE_RECIPIENT}
       ```
 
-      Il tuo VC ora utilizzerà il file gestito dal daemon Smartnode e verrà automaticamente riavviato ogni volta che il fee recipient cambia.
+      Il tuo VC ora utilizzerà il file gestito dal daemon Smart Node e verrà automaticamente riavviato ogni volta che il fee recipient cambia.
     </Tab>
     <Tab label="Nimbus">
       Modifica il servizio Validator Client aggiungendo la seguente riga _prima_ della riga `ExecStart`:
@@ -110,7 +110,7 @@ Seleziona il tuo client qui sotto per imparare come configurarlo:
       --suggested-fee-recipient=${FEE_RECIPIENT}
       ```
 
-      Il tuo VC ora utilizzerà il file gestito dal daemon Smartnode e verrà automaticamente riavviato ogni volta che il fee recipient cambia.
+      Il tuo VC ora utilizzerà il file gestito dal daemon Smart Node e verrà automaticamente riavviato ogni volta che il fee recipient cambia.
     </Tab>
     <Tab label="Prysm">
       Modifica il servizio Validator Client aggiungendo la seguente riga _prima_ della riga `ExecStart`:
@@ -131,7 +131,7 @@ Seleziona il tuo client qui sotto per imparare come configurarlo:
       --suggested-fee-recipient ${FEE_RECIPIENT}
       ```
 
-      Il tuo VC ora utilizzerà il file gestito dal daemon Smartnode e verrà automaticamente riavviato ogni volta che il fee recipient cambia.
+      Il tuo VC ora utilizzerà il file gestito dal daemon Smart Node e verrà automaticamente riavviato ogni volta che il fee recipient cambia.
     </Tab>
     <Tab label="Teku">
       Modifica il servizio Validator Client aggiungendo la seguente riga _prima_ della riga `ExecStart`:
@@ -152,7 +152,7 @@ Seleziona il tuo client qui sotto per imparare come configurarlo:
       --validators-proposer-default-fee-recipient=${FEE_RECIPIENT}
       ```
 
-      Il tuo VC ora utilizzerà il file gestito dal daemon Smartnode e verrà automaticamente riavviato ogni volta che il fee recipient cambia.
+      Il tuo VC ora utilizzerà il file gestito dal daemon Smart Node e verrà automaticamente riavviato ogni volta che il fee recipient cambia.
     </Tab>
 
   </Tabs>
@@ -279,7 +279,7 @@ Non farlo comporterà la [penalizzazione](https://github.com/rocket-pool/rocketp
 
 Poiché il Merge non è compatibile con provider remoti come Infura e Pocket, perderai la possibilità di utilizzarli come Execution client di fallback quando il tuo primario va offline.
 
-Lo Smartnode ha ancora la capacità di fornire un Execution client di fallback (e ora anche un Consensus client di fallback), ma ora dovrai utilizzare Execution e Consensus client che controlli tu.
+Lo Smart Node ha ancora la capacità di fornire un Execution client di fallback (e ora anche un Consensus client di fallback), ma ora dovrai utilizzare Execution e Consensus client che controlli tu.
 
 Per maggiori informazioni sulla configurazione di un nodo di fallback, consulta la [guida al nodo di fallback](../../node-staking/fallback).
 
@@ -312,7 +312,7 @@ rocketpool node join-smoothing-pool
 
 L'aggiornamento Redstone sostituisce il vecchio sistema di ricompense costoso e problematico con uno [nuovo di zecca](./whats-new#nuovo-sistema-di-ricompense) che è molto più economico, supporta il restaking automatico di RPL (sia in importi parziali che completi), e - cosa più importante - **ti permette di richiedere le tue ricompense quando vuoi**.
 
-Poiché non c'è più un limite di tempo per richiedere le ricompense, e poiché è più economico richiedere molti intervalli di ricompense contemporaneamente, la funzionalità di richiesta automatica delle ricompense dello Smartnode **è stata rimossa**.
+Poiché non c'è più un limite di tempo per richiedere le ricompense, e poiché è più economico richiedere molti intervalli di ricompense contemporaneamente, la funzionalità di richiesta automatica delle ricompense dello Smart Node **è stata rimossa**.
 Ora potrai richiedere le ricompense tramite il seguente comando:
 
 ```shell

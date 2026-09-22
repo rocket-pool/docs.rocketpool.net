@@ -6,7 +6,7 @@ Ce guide couvrira tout ce que vous devez savoir pour préparer votre nœud à la
 
 ## Choses à faire avant la mise à jour vers v1.5.0
 
-Avant de mettre à jour vers la v1.5.0 et les versions supérieures du Smartnode, veuillez parcourir la liste de contrôle suivante pour vous assurer que vous êtes prêt :
+Avant de mettre à jour vers la v1.5.0 et les versions supérieures du Smart Node, veuillez parcourir la liste de contrôle suivante pour vous assurer que vous êtes prêt :
 
 ### Passer à un client d'exécution complet
 
@@ -28,11 +28,11 @@ La façon de le faire dépend entièrement des clients que vous exécutez.
 CoinCashew a [un guide excellent et concis](https://www.coincashew.com/coins/overview-eth/ethereum-merge-upgrade-checklist-for-home-stakers-and-validators) sur la façon de configurer l'API Engine sur vos clients d'exécution et de consensus.
 Jetez-y un œil et testez la nouvelle configuration en vous assurant qu'elle atteste toujours correctement avant de mettre à jour.
 
-Nous vous montrerons comment configurer votre client de validateur afin qu'il utilise automatiquement le destinataire de frais correct requis par le logiciel Smartnode ci-dessous.
+Nous vous montrerons comment configurer votre client de validateur afin qu'il utilise automatiquement le destinataire de frais correct requis par le logiciel Smart Node ci-dessous.
 
 ## Mise à jour vers v1.5.0
 
-La mise à jour de la pile Smartnode vers v1.5.0 n'est pas différente de toute autre mise à jour.
+La mise à jour de la pile Smart Node vers v1.5.0 n'est pas différente de toute autre mise à jour.
 Suivez simplement [les instructions normales ici](../../node-staking/updates#mise-à-jour-de-la-pile-smartnode).
 
 ## Choses à faire après la mise à jour
@@ -44,7 +44,7 @@ En mode natif, il y a plusieurs choses que vous devrez faire manuellement après
 La première chose à faire est de s'assurer que votre nœud fonctionne correctement.
 Envisagez de prendre les mesures suivantes :
 
-- Vérifiez vos scripts de journalisation pour le client d'exécution, le client de consensus, le client de validateur et le démon Smartnode (le service `rp-node`) pour vous assurer qu'ils fonctionnent tous normalement sans erreurs.
+- Vérifiez vos scripts de journalisation pour le client d'exécution, le client de consensus, le client de validateur et le démon Smart Node (le service `rp-node`) pour vous assurer qu'ils fonctionnent tous normalement sans erreurs.
 - Confirmez avec un explorateur de blocs (tel que votre tableau de bord Grafana et [https://beaconcha.in](https://beaconcha.in)) que vous attestez toujours correctement
   - N'oubliez pas que si vous avez la protection Doppelganger activée, vous manquerez quelques attestations après le redémarrage. C'est normal !
 
@@ -56,12 +56,12 @@ Comme décrit dans [l'article de présentation](./whats-new#destinataires-de-fra
 - Si vous **avez opté** pour le Smoothing Pool, cela doit être l'adresse du **contrat Smoothing Pool**. Vous pouvez obtenir l'adresse à partir de [la page officielle des contrats](/fr/protocol/contracts-integrations).
 - Si vous n'êtes **pas** dans le Smoothing Pool, cela doit être l'adresse du **contrat de distributeur de frais** de votre nœud. Vous pouvez obtenir l'adresse en exécutant `rocketpool node status`, sous la section `Fee Distributor and Smoothing Pool`.
 
-En mode natif, vous avez le choix de laisser le Smartnode gérer cela pour vous si vous utilisez le service démon Smartnode, `rp-node`, ou de le gérer vous-même si vous n'utilisez pas le démon.
+En mode natif, vous avez le choix de laisser le Smart Node gérer cela pour vous si vous utilisez le service démon Smart Node, `rp-node`, ou de le gérer vous-même si vous n'utilisez pas le démon.
 
 #### Gestion automatique via le démon
 
-Le démon Smartnode déterminera automatiquement le destinataire de frais approprié pour votre nœud et le gérera au cas où il changerait (comme l'adhésion et le désabonnement du Smoothing Pool).
-C'est l'option la **plus sûre**, car le Smartnode s'assurera toujours qu'il est défini sur une valeur qui **empêche la [pénalisation](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)**.
+Le démon Smart Node déterminera automatiquement le destinataire de frais approprié pour votre nœud et le gérera au cas où il changerait (comme l'adhésion et le désabonnement du Smoothing Pool).
+C'est l'option la **plus sûre**, car le Smart Node s'assurera toujours qu'il est défini sur une valeur qui **empêche la [pénalisation](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)**.
 
 La façon dont il procède est en maintenant un fichier avec le destinataire de frais correct dedans, et en le rafraîchissant régulièrement pour assurer son exactitude.
 Lorsqu'il doit être mis à jour, il modifie le fichier et redémarre automatiquement votre client de validateur afin qu'il charge le nouveau destinataire - de la même manière qu'il redémarre votre client de validateur après avoir staké un nouveau minipool.
@@ -89,7 +89,7 @@ Sélectionnez votre client ci-dessous pour apprendre comment le configurer :
       --suggested-fee-recipient ${FEE_RECIPIENT}
       ```
 
-      Votre VC utilisera maintenant le fichier géré par le démon Smartnode et sera automatiquement redémarré chaque fois que le destinataire de frais change.
+      Votre VC utilisera maintenant le fichier géré par le démon Smart Node et sera automatiquement redémarré chaque fois que le destinataire de frais change.
     </Tab>
     <Tab label="Nimbus">
       Modifiez votre service de client de validateur en ajoutant la ligne suivante _avant_ la ligne `ExecStart` :
@@ -110,7 +110,7 @@ Sélectionnez votre client ci-dessous pour apprendre comment le configurer :
       --suggested-fee-recipient=${FEE_RECIPIENT}
       ```
 
-      Votre VC utilisera maintenant le fichier géré par le démon Smartnode et sera automatiquement redémarré chaque fois que le destinataire de frais change.
+      Votre VC utilisera maintenant le fichier géré par le démon Smart Node et sera automatiquement redémarré chaque fois que le destinataire de frais change.
     </Tab>
     <Tab label="Prysm">
       Modifiez votre service de client de validateur en ajoutant la ligne suivante _avant_ la ligne `ExecStart` :
@@ -131,7 +131,7 @@ Sélectionnez votre client ci-dessous pour apprendre comment le configurer :
       --suggested-fee-recipient ${FEE_RECIPIENT}
       ```
 
-      Votre VC utilisera maintenant le fichier géré par le démon Smartnode et sera automatiquement redémarré chaque fois que le destinataire de frais change.
+      Votre VC utilisera maintenant le fichier géré par le démon Smart Node et sera automatiquement redémarré chaque fois que le destinataire de frais change.
     </Tab>
     <Tab label="Teku">
       Modifiez votre service de client de validateur en ajoutant la ligne suivante _avant_ la ligne `ExecStart` :
@@ -152,7 +152,7 @@ Sélectionnez votre client ci-dessous pour apprendre comment le configurer :
       --validators-proposer-default-fee-recipient=${FEE_RECIPIENT}
       ```
 
-      Votre VC utilisera maintenant le fichier géré par le démon Smartnode et sera automatiquement redémarré chaque fois que le destinataire de frais change.
+      Votre VC utilisera maintenant le fichier géré par le démon Smart Node et sera automatiquement redémarré chaque fois que le destinataire de frais change.
     </Tab>
 
   </Tabs>
@@ -279,7 +279,7 @@ Ne pas le faire entraînera la [pénalisation](https://github.com/rocket-pool/ro
 
 Parce que le Merge n'est pas compatible avec les fournisseurs distants comme Infura et Pocket, vous perdrez la possibilité de les utiliser comme clients d'exécution de secours lorsque votre client principal est hors ligne.
 
-Le Smartnode a toujours la possibilité de fournir un client d'exécution de secours (et maintenant un client de consensus de secours également), mais vous devrez maintenant utiliser des clients d'exécution et de consensus que vous contrôlez.
+Le Smart Node a toujours la possibilité de fournir un client d'exécution de secours (et maintenant un client de consensus de secours également), mais vous devrez maintenant utiliser des clients d'exécution et de consensus que vous contrôlez.
 
 Pour plus d'informations sur la configuration d'un nœud de secours, consultez le [guide du nœud de secours](../../node-staking/fallback).
 
@@ -312,7 +312,7 @@ rocketpool node join-smoothing-pool
 
 La mise à jour Redstone remplace l'ancien système de récompenses coûteux et problématique par un [tout nouveau système](./whats-new#nouveau-système-de-récompenses) qui est beaucoup moins cher, prend en charge le restaking automatique de RPL (montants partiels et complets), et - plus important encore - **vous permet de réclamer vos récompenses quand vous le souhaitez**.
 
-Comme il n'y a plus de limite de temps pour réclamer les récompenses, et parce qu'il est moins cher de réclamer de nombreux intervalles de récompenses en une seule fois, la fonctionnalité de réclamation automatique des récompenses du Smartnode **a été supprimée**.
+Comme il n'y a plus de limite de temps pour réclamer les récompenses, et parce qu'il est moins cher de réclamer de nombreux intervalles de récompenses en une seule fois, la fonctionnalité de réclamation automatique des récompenses du Smart Node **a été supprimée**.
 Vous pourrez maintenant réclamer les récompenses via la commande suivante :
 
 ```shell

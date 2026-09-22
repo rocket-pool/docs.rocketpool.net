@@ -14,7 +14,7 @@ Eski Redstone delegate, minipool'un bakiyesini dağıtmak için kullanılamaz.
 
 ## Otomatik Dağıtım
 
-Varsayılan olarak, Smartnode bireysel bakiyeleri **1 ETH**'ye ulaştığında minipool'larınızdan herhangi birini otomatik olarak dağıtacak şekilde yapılandırılmıştır. Bu
+Varsayılan olarak, Smart Node bireysel bakiyeleri **1 ETH**'ye ulaştığında minipool'larınızdan herhangi birini otomatik olarak dağıtacak şekilde yapılandırılmıştır. Bu
 eşik, aşağıdaki adımları izleyerek TUI'de yapılandırılabilir.
 
 Şunu çalıştırın:
@@ -27,7 +27,7 @@ Aşağıda gösterilen `Smartnode and TX Fee Settings > Auto Distribute Threshol
 
 ![](./images/tui-automatic-skimming.png)
 
-Bu ayarı değiştirmek, Smartnode'un minipool'larınızı otomatik olarak dağıtacağı eşiği ayarlayacaktır.
+Bu ayarı değiştirmek, Smart Node'un minipool'larınızı otomatik olarak dağıtacağı eşiği ayarlayacaktır.
 Parametreyi 0'a ayarlamak otomatik dağıtımları devre dışı bırakacaktır.
 
 ::: warning UYARI
@@ -38,7 +38,7 @@ Uzun bir süre sonra skimmed ödülleriniz 8 ETH'yi aşabilir. Bu durum gerçekl
 dağıtamayacaksınız ve birikmiş ödüllerinize erişmek için validator'ınızdan çıkış yapmanız gerekecektir.
 
 Rocket Pool, uzun bir bekleme süresinden sonra, bakiyesi 8 ETH'yi aştığında herhangi birinin minipool'unuzu dağıtmasına izin veren
-bir güvenlik önlemi tasarımına sahiptir. Sermayenizi korumak için, Smartnode bu durumu izler ve gerçekleşirse
+bir güvenlik önlemi tasarımına sahiptir. Sermayenizi korumak için, Smart Node bu durumu izler ve gerçekleşirse
 minipool'unuzdan otomatik olarak çıkış yapacaktır.
 :::
 

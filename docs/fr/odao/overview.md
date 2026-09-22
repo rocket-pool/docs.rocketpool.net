@@ -30,8 +30,8 @@ Pour exécuter un nœud de la DAO Oracle, vous aurez besoin de ce qui suit :
 - Accès à un **client d'exécution en mode archive**, qui peut agir comme votre client principal ou un client supplémentaire (de secours). Il ne sera utilisé que dans de rares circonstances où les tâches nécessitent que votre nœud rappelle un état de la couche d'exécution qui a été élagué de votre client d'exécution. Néanmoins, il est **critique** que vous ayez accès à un nœud d'archive pendant ces périodes pour vous assurer que vos tâches peuvent être accomplies avec succès.
   - Nous **recommandons fortement** d'utiliser un nœud d'archive sur site pour cela, car des services tels que [Infura](https://infura.io/pricing) ou [Alchemy](https://www.alchemy.com/pricing) ont montré quelques difficultés à suivre la demande pendant les périodes critiques telles que la construction de l'arbre de récompenses.
 - Accès au **point de terminaison de l'API REST d'un nœud Beacon en mode archive** (via HTTP). Il peut s'agir d'un client exécuté localement, comme c'est le cas avec la plupart des nœuds Rocket Pool, ou il peut se connecter à des clients externes que vous ou votre organisation maintenez indépendamment.
-- La CLI Smartnode standard.
-- Le démon Smartnode est configuré et fonctionne en mode `watchtower` (ceci est inclus avec le bundle Smartnode standard pour tous les utilisateurs, mais n'effectue activement des tâches que pour les nœuds de la DAO Oracle).
+- La CLI Smart Node standard.
+- Le démon Smart Node est configuré et fonctionne en mode `watchtower` (ceci est inclus avec le bundle Smart Node standard pour tous les utilisateurs, mais n'effectue activement des tâches que pour les nœuds de la DAO Oracle).
   - Cela peut être exécuté dans un conteneur Docker (configuration standard) ou comme un simple service `systemd` (mode "Natif").
 - Suffisamment d'ETH pour payer les coûts de gaz de vos tâches (discuté plus tard).
 
@@ -50,6 +50,6 @@ Le niveau gratuit n'est pas suffisant.
 Les tâches de la DAO Oracle sont divisées en deux parties.
 
 1. **Tâches automatisées** : ce sont des tâches liées au fonctionnement routinier de Rocket Pool, telles que le transfert d'informations de la couche de consensus vers la couche d'exécution, le calcul de divers aspects du protocole hors chaîne et leur soumission en tant que mises à jour aux contrats intelligents. Chacune d'elles est effectuée automatiquement par le processus démon `watchtower` et ne nécessite pas d'intervention manuelle tant que vos clients d'exécution et de consensus, et votre démon `watchtower`, fonctionnent tous normalement.
-2. **Tâches manuelles** : ce sont des tâches qui nécessitent votre propre prise de décision et une communication hors bande avec le reste de la DAO Oracle pour être effectuées. Elles incluent des choses telles que voter sur les mises à niveau de contrats, modifier les paramètres et inviter ou expulser des membres vers/de la DAO Oracle. Tout cela peut être fait via la CLI Smartnode standard.
+2. **Tâches manuelles** : ce sont des tâches qui nécessitent votre propre prise de décision et une communication hors bande avec le reste de la DAO Oracle pour être effectuées. Elles incluent des choses telles que voter sur les mises à niveau de contrats, modifier les paramètres et inviter ou expulser des membres vers/de la DAO Oracle. Tout cela peut être fait via la CLI Smart Node standard.
 
 Lisez la section suivante pour apprendre à configurer votre nœud de la DAO Oracle.

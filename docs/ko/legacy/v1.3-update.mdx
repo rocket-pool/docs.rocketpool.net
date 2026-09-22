@@ -1,28 +1,28 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Smartnode v1.3.x로 업그레이드
+# Smart Node v1.3.x로 업그레이드
 
-Smartnode 스택의 버전 1.3.0은 사용자가 알아야 할 몇 가지 중요한 변경 사항을 제공합니다.
+Smart Node 스택의 버전 1.3.0은 사용자가 알아야 할 몇 가지 중요한 변경 사항을 제공합니다.
 이들은 노드 운영자 경험을 크게 개선하고 Rocket Pool 출시 이후 사용자들이 요청한 많은 기능을 해결하기 위해 설계되었습니다.
 
-이 가이드에서는 이전 버전의 Smartnode에서 v1.3.x 이상으로 마이그레이션하는 프로세스를 안내합니다.
+이 가이드에서는 이전 버전의 Smart Node에서 v1.3.x 이상으로 마이그레이션하는 프로세스를 안내합니다.
 
 ## 구성 파일 변경 사항
 
-v1.3.0은 Smartnode 구성 관리 방식에 중요한 변경 사항을 도입합니다.
-이전에 Smartnode 구성을 수동으로 수정한 경우 다음 변경 사항을 알아야 합니다:
+v1.3.0은 Smart Node 구성 관리 방식에 중요한 변경 사항을 도입합니다.
+이전에 Smart Node 구성을 수동으로 수정한 경우 다음 변경 사항을 알아야 합니다:
 
-- `config.yml` 파일이 제거되었습니다. 모든 정보는 이제 Smartnode 스택에 직접 포함되어 있으므로 사용자가 실수로 Smartnode가 제대로 작동하지 않도록 파일을 수정할 수 없습니다.
+- `config.yml` 파일이 제거되었습니다. 모든 정보는 이제 Smart Node 스택에 직접 포함되어 있으므로 사용자가 실수로 Smart Node가 제대로 작동하지 않도록 파일을 수정할 수 없습니다.
   - 이전에 이 파일의 일부였던 모든 사용자 구성 가능한 매개변수는 이제 새로운 `service config` 터미널 UI의 설정입니다.
 
-- `settings.yml` 파일이 `user-settings.yml`이라는 새 파일로 대체되었습니다. 여기에는 Smartnode의 모든 사용자 구성 가능한 부분에 대한 모든 설정이 포함됩니다.
+- `settings.yml` 파일이 `user-settings.yml`이라는 새 파일로 대체되었습니다. 여기에는 Smart Node의 모든 사용자 구성 가능한 부분에 대한 모든 설정이 포함됩니다.
   - 이 파일은 **직접 수정하도록 설계되지 않았습니다**. 대신 새로운 `service config` 터미널 UI를 통해 수정해야 합니다.
 
 - `chains` 폴더가 제거되었습니다. 실행 클라이언트(ETH1), 비콘 노드 및 검증자 클라이언트를 시작하는 스크립트는 이제 `scripts` 폴더에 있습니다.
 
 - `docker-compose` YAML 파일이 제거되었습니다. 이제 각 컨테이너는 `templates` 폴더에 자체 파일을 가지고 있습니다. `rocketpool service start` 시 이러한 템플릿은 설정으로 채워지고 자동으로 `runtime` 폴더에 배치됩니다.
   - 템플릿 또는 런타임 파일을 수정하는 것은 권장되지 않습니다. 대신 `override` 폴더의 각 컨테이너에 대한 **오버라이드** 파일을 사용하여 컨테이너 사용자 지정을 입력하세요. 이러한 파일은 `runtime`의 Docker 파일을 덮어쓰므로 원하는 대로 자유롭게 사용자 지정할 수 있습니다.
-  - `override`의 파일은 **Smartnode 업그레이드 및 재설치 시 유지되므로** 한 번만 생성하면 됩니다.
+  - `override`의 파일은 **Smart Node 업그레이드 및 재설치 시 유지되므로** 한 번만 생성하면 됩니다.
   - 이 오버라이드 메커니즘을 통해 `docker-compose` 파일을 수정하는 데 관심이 있다면 [이 섹션](../node-staking/advanced-config#docker-compose-정의-파일-사용자-지정)을 참조하세요
 
 ## 새 버전 설치
@@ -40,7 +40,7 @@ v1.3.0은 Smartnode 구성 관리 방식에 중요한 변경 사항을 도입합
       rocketpool service stop
       ```
 
-      시스템에 맞는 새 Smartnode CLI를 다운로드합니다(아래 탭에서 선택):
+      시스템에 맞는 새 Smart Node CLI를 다운로드합니다(아래 탭에서 선택):
 
       <div className="p-3">
         <Tabs>
@@ -86,13 +86,13 @@ v1.3.0은 Smartnode 구성 관리 방식에 중요한 변경 사항을 도입합
       <p className="rspress-directive tip">
         <p className="rspress-directive-title">참고</p>
         v1.3.0부터는 **설치할 네트워크를 더 이상 지정할 필요가 없습니다!**
-        새 Smartnode는 이미 사용 중인 네트워크를 알고 있으며, 새 터미널 UI를 사용하여 네트워크를 동적으로 변경할 수 있습니다.
+        새 Smart Node는 이미 사용 중인 네트워크를 알고 있으며, 새 터미널 UI를 사용하여 네트워크를 동적으로 변경할 수 있습니다.
       </p>
     </Tab>
     <Tab label="Native 모드">
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">참고</p>
-        이것은 Smartnode 스택 자체만 업데이트합니다 - 실행 클라이언트 및 합의 클라이언트는 **업데이트하지 않습니다**.
+        이것은 Smart Node 스택 자체만 업데이트합니다 - 실행 클라이언트 및 합의 클라이언트는 **업데이트하지 않습니다**.
         수동으로 업데이트해야 합니다([수동 업데이트 가이드](../node-staking/updates#execution-또는-consensus-클라이언트-수동-업데이트)를 참조하여 방법을 배우세요).
       </p>
 
@@ -102,7 +102,7 @@ v1.3.0은 Smartnode 구성 관리 방식에 중요한 변경 사항을 도입합
       sudo systemctl stop rp-node rp-watchtower
       ```
 
-      새 Smartnode CLI 및 데몬 바이너리를 다운로드합니다:
+      새 Smart Node CLI 및 데몬 바이너리를 다운로드합니다:
 
       <div className="p-3">
         <Tabs>
@@ -150,10 +150,10 @@ v1.3.0은 Smartnode 구성 관리 방식에 중요한 변경 사항을 도입합
         v1.3.0부터 `config.yml`이 제거되었습니다.
         **더 이상 설치 프로그램 패키지를 다운로드하고 추출할 필요가 없습니다.**
       </p>
-      다음으로, Smartnode 디렉토리에 `old_config_backup`이라는 백업 폴더를 만들고 이전 구성 파일(`config.yml` 및 `settings.yml`)을 이동합니다.
-      Smartnode는 이것들을 사용하여 설정을 새 시스템으로 마이그레이션합니다.
+      다음으로, Smart Node 디렉토리에 `old_config_backup`이라는 백업 폴더를 만들고 이전 구성 파일(`config.yml` 및 `settings.yml`)을 이동합니다.
+      Smart Node는 이것들을 사용하여 설정을 새 시스템으로 마이그레이션합니다.
 
-      예를 들어, Native 설정 가이드를 따랐고 Smartnode 디렉토리가 `/srv/rocketpool`인 경우:
+      예를 들어, Native 설정 가이드를 따랐고 Smart Node 디렉토리가 `/srv/rocketpool`인 경우:
 
       ```shell
       cd /srv/rocketpool
@@ -192,16 +192,16 @@ v1.3.0은 Smartnode 구성 관리 방식에 중요한 변경 사항을 도입합
   </Tabs>
 </div>
 
-설치 후 모든 이전 구성 파일은 Smartnode 디렉토리의 `old_config_backup`이라는 폴더로 이동됩니다(기본값은 `~/.rocketpool/old_config_backup`).
+설치 후 모든 이전 구성 파일은 Smart Node 디렉토리의 `old_config_backup`이라는 폴더로 이동됩니다(기본값은 `~/.rocketpool/old_config_backup`).
 어떤 이유로든 참조해야 하는 경우 거기에서 찾을 수 있습니다.
 
 **이 백업에서 v1.2.4로 되돌리는 지침을 찾고 있다면 이 페이지 끝의 [이전 구성으로 되돌리기](#이전-구성으로-되돌리기) 섹션으로 스크롤하세요.**
 
-## 터미널 UI로 Smartnode 구성
+## 터미널 UI로 Smart Node 구성
 
 이제 새 CLI 및 패키지가 설치되었으므로 이전 설정이 모두 보존되고 새 시스템으로 마이그레이션되었습니다.
 다음 단계에서는 `rocketpool service config`를 실행해야 합니다.
-이는 이 기능의 이전 버전과 상당히 다르게 보일 것입니다. v1.3.0은 **터미널 UI**: Smartnode 구성을 위한 터미널 기반 동적 사용자 인터페이스를 도입합니다.
+이는 이 기능의 이전 버전과 상당히 다르게 보일 것입니다. v1.3.0은 **터미널 UI**: Smart Node 구성을 위한 터미널 기반 동적 사용자 인터페이스를 도입합니다.
 
 마이그레이션 프로세스 후 Docker 컨테이너를 시작하기 전에 구성을 보고, 모든 변경 사항이 성공적으로 마이그레이션되었는지 확인하고, 원하는 다른 설정을 업데이트하려면 이를 실행해야 합니다.
 
@@ -210,10 +210,10 @@ v1.3.0은 Smartnode 구성 관리 방식에 중요한 변경 사항을 도입합
 <img src="../node-staking/images/tui-migrate.png" width="100%" height="auto" />
 
 :::tip 참고
-**Native 모드 사용자**는 약간 다른 문구로 이 화면을 보게 되며, Smartnode가 Native 모드로 작동 중임을 나타냅니다.
+**Native 모드 사용자**는 약간 다른 문구로 이 화면을 보게 되며, Smart Node가 Native 모드로 작동 중임을 나타냅니다.
 :::
 
-TUI는 **마법사**로 시작하며, 이를 통해 Smartnode의 가장 중요한 매개변수(예: 클라이언트 모드 및 선택)를 빠르고 쉽게 변경할 수 있습니다.
+TUI는 **마법사**로 시작하며, 이를 통해 Smart Node의 가장 중요한 매개변수(예: 클라이언트 모드 및 선택)를 빠르고 쉽게 변경할 수 있습니다.
 
 **마법사의 각 페이지를 탐색할 때 이전 설정이 모두 강조 표시되어야 하므로 이전 구성이 무엇이었는지 기억할 필요가 없습니다.**
 
@@ -222,7 +222,7 @@ TUI는 **마법사**로 시작하며, 이를 통해 Smartnode의 가장 중요�
 
 - **Docker 모드**의 경우 [새 Docker 구성 가이드](../node-staking/config-docker)를 참조하세요.
 
-- **Hybrid 모드** 사용자: Hybrid 모드는 이제 Smartnode의 **일급 기능**이며 구성이 _훨씬 쉬워졌습니다_. [새 Docker 구성 가이드](../node-staking/config-docker)를 참조하고 따라가세요. 실행 클라이언트 모드와 합의 클라이언트 모드를 선택하라는 메시지가 표시되면 그에 따라 **외부 관리**를 선택하세요.
+- **Hybrid 모드** 사용자: Hybrid 모드는 이제 Smart Node의 **일급 기능**이며 구성이 _훨씬 쉬워졌습니다_. [새 Docker 구성 가이드](../node-staking/config-docker)를 참조하고 따라가세요. 실행 클라이언트 모드와 합의 클라이언트 모드를 선택하라는 메시지가 표시되면 그에 따라 **외부 관리**를 선택하세요.
 
 - **Native 모드**의 경우 [새 Native 구성 가이드](../node-staking/config-native)를 참조하세요.
 
@@ -246,13 +246,13 @@ TUI는 **마법사**로 시작하며, 이를 통해 Smartnode의 가장 중요�
 
 카테고리 편집을 마치면 `Esc`를 눌러 이 홈 화면으로 돌아갑니다.
 
-변경 사항을 저장하고 Smartnode 스택을 시작할 준비가 되면 `Tab`을 눌러 화면 하단의 버튼으로 이동하고 `Review Changes and Save`를 선택합니다(화살표 키를 통해 녹색으로 만들어).
+변경 사항을 저장하고 Smart Node 스택을 시작할 준비가 되면 `Tab`을 눌러 화면 하단의 버튼으로 이동하고 `Review Changes and Save`를 선택합니다(화살표 키를 통해 녹색으로 만들어).
 `Enter`를 눌러 **검토 페이지**로 이동하면 마지막으로 `rocketpool service config`를 실행한 이후 변경한 모든 내용을 볼 수 있습니다.
 
 모든 변경 사항이 있는지 확인한 다음 `Enter`를 다시 눌러 저장하세요.
 화면에는 변경 사항을 적용하기 위해 다시 시작해야 하는 컨테이너가 표시되지만 마이그레이션 중이므로 이미 컨테이너를 끄고 모두 다시 시작됩니다.
 
-## Smartnode 스택 시작
+## Smart Node 스택 시작
 
 구성을 저장한 후 터미널에서 컨테이너를 자동으로 다시 시작할지 묻습니다(Native 모드를 사용하지 않는 한).
 자동으로 시작하도록 허용하지 않거나 허용할 수 없는 경우 다음 명령으로 수동으로 시작할 수 있습니다:
@@ -266,7 +266,7 @@ TUI는 **마법사**로 시작하며, 이를 통해 Smartnode의 가장 중요�
 
 실행되면 모든 것이 의도한 대로 작동하는지 확인할 수 있습니다.
 
-`rocketpool service version` 명령을 사용하여 올바른 버전의 Smartnode 및 클라이언트 컨테이너가 있는지 확인하세요:
+`rocketpool service version` 명령을 사용하여 올바른 버전의 Smart Node 및 클라이언트 컨테이너가 있는지 확인하세요:
 
 ```
 $ rocketpool service version
@@ -286,7 +286,7 @@ Selected Eth 2.0 client: Nimbus (Locally managed)
 
 ## 이전 구성으로 되돌리기
 
-어떤 이유로든 Smartnode 스택의 v1.2.4로 되돌아가야 하는 경우 걱정하지 마세요!
+어떤 이유로든 Smart Node 스택의 v1.2.4로 되돌아가야 하는 경우 걱정하지 마세요!
 모든 이전 구성 파일은 백업 디렉토리에 보존되어 있으며 쉽게 검색하여 이전 설정을 복원할 수 있습니다.
 
 아래 탭에서 사용하는 모드를 선택하고 지침을 따르세요.
@@ -328,7 +328,7 @@ Selected Eth 2.0 client: Nimbus (Locally managed)
         </Tabs>
       </div>
 
-      다음으로 `old_config_backup` 폴더의 모든 이전 구성 파일을 Smartnode 폴더로 다시 복사하세요:
+      다음으로 `old_config_backup` 폴더의 모든 이전 구성 파일을 Smart Node 폴더로 다시 복사하세요:
 
       ```shell
       cd ~/.rocketpool
@@ -387,7 +387,7 @@ Selected Eth 2.0 client: Nimbus (Locally managed)
           </Tab>
         </Tabs>
       </div>
-      이전 설정 파일을 Smartnode 디렉토리로 다시 복사하세요:
+      이전 설정 파일을 Smart Node 디렉토리로 다시 복사하세요:
 
       ```shell
       cd /srv/rocketpool

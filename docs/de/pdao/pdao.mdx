@@ -76,7 +76,7 @@ Dies kann mit dem Befehl durchgeführt werden:
 rocketpool pdao proposals vote
 ```
 
-Wenn das Veto-Quorum (wie durch den Parameter `proposal.veto.quorum` definiert) erreicht wird, wird der Vorschlag sofort besiegt und der Proposer verliert seine Bindung. Dies soll Spam, qualitativ minderwertige Vorschläge oder Vorschläge abschrecken, die nicht zuerst off-chain Prozesse durchlaufen haben. Der Smartnode-Befehl `rocketpool pdao proposals finalize` wird verwendet, um einen mit Veto belegten Vorschlag zu finalisieren, indem die gesperrte RPL Bindung des Proposers verbrannt wird.
+Wenn das Veto-Quorum (wie durch den Parameter `proposal.veto.quorum` definiert) erreicht wird, wird der Vorschlag sofort besiegt und der Proposer verliert seine Bindung. Dies soll Spam, qualitativ minderwertige Vorschläge oder Vorschläge abschrecken, die nicht zuerst off-chain Prozesse durchlaufen haben. Der Smart Node-Befehl `rocketpool pdao proposals finalize` wird verwendet, um einen mit Veto belegten Vorschlag zu finalisieren, indem die gesperrte RPL Bindung des Proposers verbrannt wird.
 
 Die Dauer von Periode 1 wird durch den Parameter `proposal.vote.phase1.time` bestimmt. Der Vorschlag geht in Phase 2 über, unabhängig davon, ob `proposal.quorum` erreicht wird oder nicht.
 
@@ -114,13 +114,13 @@ Und das war's! Beachten Sie, dass alle oben genannten Variablen pDAO kontrollier
 
 Der vollständige Netzwerk-Abstimmungskraft-Baum wird aufgrund von Gas-Limits off-chain gespeichert. Wenn ein Benutzer einen neuen Vorschlag einreicht, ist er dafür verantwortlich, den Netzwerk-Abstimmungsbaum zur Ziel-Blocknummer zu konstruieren. Dieser Baum wird off-chain generiert, ist aber über Merkle-Wurzeln verifizierbar, die on-chain eingereicht werden. Das Protokoll verlässt sich auf **Verifizierer**, um die vom Proposer eingereichten Details zu überprüfen.
 
-Jeder Knoten kann an der Verfolgung und Verifizierung der Korrektheit von Vorschlägen teilnehmen. Um sich für diese Verantwortung anzumelden, verwenden Sie den Befehl `rocketpool service config`, navigieren Sie zum Menü **Smartnode and TX Fee Settings** und aktivieren Sie das Kontrollkästchen `Enable PDAO Proposal Checker`.
+Jeder Knoten kann an der Verfolgung und Verifizierung der Korrektheit von Vorschlägen teilnehmen. Um sich für diese Verantwortung anzumelden, verwenden Sie den Befehl `rocketpool service config`, navigieren Sie zum Menü **Smart Node and TX Fee Settings** und aktivieren Sie das Kontrollkästchen `Enable PDAO Proposal Checker`.
 
 <img src={proposal_checker} width="100%" height="auto" />
 
 Wenn diese Einstellung aktiviert ist, überprüft der Knoten auf neue Vorschläge, verifiziert deren Korrektheit und reicht Challenges gegen ungültige Vorschläge ein. Die einzige Voraussetzung ist, dass [RPL Locking](./participate#zulassen-von-rpl-locking) aktiviert ist.
 
-Diese Überprüfung läuft alle 5 Minuten in Verbindung mit einigen anderen knotenbezogenen Aufgaben. Wir werden ein Beispiel durchgehen, wie die Anfechtung eines betrügerischen Vorschlags aussieht. Wir können den Smartnode-Befehl `rocketpool service logs node` verwenden, um den Fortschritt zu überwachen:
+Diese Überprüfung läuft alle 5 Minuten in Verbindung mit einigen anderen knotenbezogenen Aufgaben. Wir werden ein Beispiel durchgehen, wie die Anfechtung eines betrügerischen Vorschlags aussieht. Wir können den Smart Node-Befehl `rocketpool service logs node` verwenden, um den Fortschritt zu überwachen:
 
 ```
 rocketpool_node  | 2024/04/05 02:19:16 Checking for Protocol DAO proposal challenges to defend...

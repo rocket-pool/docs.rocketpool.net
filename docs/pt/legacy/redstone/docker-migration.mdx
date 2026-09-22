@@ -6,7 +6,7 @@ Este guia cobrirá tudo o que você precisa saber para preparar seu nó para a A
 
 ## Coisas a Fazer Antes de Atualizar para v1.5.0
 
-Antes de atualizar para v1.5.0 e superior do Smartnode, por favor passe pela seguinte checklist para garantir que você está preparado:
+Antes de atualizar para v1.5.0 e superior do Smart Node, por favor passe pela seguinte checklist para garantir que você está preparado:
 
 ### Mudar para um Cliente de Execução Completo
 
@@ -20,12 +20,12 @@ O Modo Docker torna a mudança de clientes muito fácil.
 
 ## Atualizando para v1.5.0
 
-Atualizar a stack do Smartnode para v1.5.0 não é diferente de qualquer outra atualização.
+Atualizar a stack do Smart Node para v1.5.0 não é diferente de qualquer outra atualização.
 Simplesmente siga [as direções normais aqui](../../node-staking/updates#atualizando-o-smartnode-stack).
 
-## Coisas que o Smartnode Lida Automaticamente
+## Coisas que o Smart Node Lida Automaticamente
 
-No modo Docker, o Smartnode cuidará da maioria das mudanças necessárias para suportar Redstone e o Merge automaticamente uma vez que você atualizar para v1.5.0.
+No modo Docker, o Smart Node cuidará da maioria das mudanças necessárias para suportar Redstone e o Merge automaticamente uma vez que você atualizar para v1.5.0.
 Aqui está uma breve lista do que ele fará por você sem qualquer intervenção manual:
 
 ### A Engine API
@@ -36,14 +36,14 @@ Em vez de usar o antigo sistema RPC baseado em HTTP ou Websocket, o Merge requer
 Esta é uma conexão especial que permite ao cliente de Consenso substituir o antigo sistema de mineração Proof-of-Work por Proof-of-Stake; é o coração do Merge.
 Também é **autenticada** com um token secreto, então apenas seu cliente de Consenso pode conectar ao seu cliente de Execução - nada mais pode.
 
-O Smartnode cuidará da configuração do token de autenticação e da Engine API em ambos seus clientes de Execução e Consenso automaticamente.
+O Smart Node cuidará da configuração do token de autenticação e da Engine API em ambos seus clientes de Execução e Consenso automaticamente.
 
 ### Seu Fee Recipient
 
 O **fee recipient** é o endereço na camada de Execução que receberá todas as taxas de prioridade para blocos que você propuser.
 É uma configuração fornecida ao seu cliente Validator quando ele inicia pela primeira vez.
 
-O Smartnode cuidará de configurá-lo para o endereço correto quando você atualizar para v1.5, e verificará constantemente para garantir que você está usando o correto para que você não seja [penalizado acidentalmente](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
+O Smart Node cuidará de configurá-lo para o endereço correto quando você atualizar para v1.5, e verificará constantemente para garantir que você está usando o correto para que você não seja [penalizado acidentalmente](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
 
 Se você optou pelo [Smoothing Pool](./whats-new#smoothing-pool), ele fará dele seu fee recipient.
 Se você não optou, ele fará seu [contrato distribuidor de taxas](./whats-new#destinatários-de-taxas-e-seu-distribuidor) o fee recipient.
@@ -51,11 +51,11 @@ Se você não optou, ele fará seu [contrato distribuidor de taxas](./whats-new#
 ### MEV-Boost
 
 [MEV-boost](https://boost.flashbots.net/) é o sistema que a Flashbots fornece para dar recompensas MEV aos validadores Proof-of-Stake após o Merge.
-O Rocket Pool tem MEV-Boost integrado no Smartnode e configura automaticamente seu nó para usá-lo, então suas propostas obtêm a quantidade máxima de recompensas.
+O Rocket Pool tem MEV-Boost integrado no Smart Node e configura automaticamente seu nó para usá-lo, então suas propostas obtêm a quantidade máxima de recompensas.
 
 ## Coisas que Você Deve Fazer Após Atualizar
 
-Embora o Smartnode lide com a maioria das mudanças para você, há algumas coisas adicionais que você deve fazer manualmente:
+Embora o Smart Node lide com a maioria das mudanças para você, há algumas coisas adicionais que você deve fazer manualmente:
 
 ### Garantir uma Atualização Bem-Sucedida
 
@@ -70,7 +70,7 @@ Considere tomar os seguintes passos:
 
 Como o Merge não é compatível com provedores remotos como Infura e Pocket, você perderá a capacidade de usá-los como clientes de Execução de fallback quando seu primário ficar offline.
 
-O Smartnode ainda tem a capacidade de fornecer um cliente de Execução de fallback (e agora um cliente de Consenso de fallback também), mas agora você precisará usar clientes de Execução e Consenso que você controla.
+O Smart Node ainda tem a capacidade de fornecer um cliente de Execução de fallback (e agora um cliente de Consenso de fallback também), mas agora você precisará usar clientes de Execução e Consenso que você controla.
 
 Para mais informações sobre configurar um nó de fallback, veja o [guia de nó de Fallback](../../node-staking/fallback).
 
@@ -103,7 +103,7 @@ rocketpool node join-smoothing-pool
 
 A atualização Redstone substitui o antigo sistema de recompensas caro e problemático por um [totalmente novo](./whats-new#novo-sistema-de-recompensas) que é muito mais barato, suporta restaking automático de RPL (tanto quantidades parciais quanto completas), e - mais importante - **permite que você reivindique suas recompensas quando quiser**.
 
-Como não há mais um limite de tempo para reivindicar recompensas, e porque é mais barato reivindicar muitos intervalos de recompensas de uma vez, a funcionalidade de reivindicação automática de recompensas do Smartnode **foi removida**.
+Como não há mais um limite de tempo para reivindicar recompensas, e porque é mais barato reivindicar muitos intervalos de recompensas de uma vez, a funcionalidade de reivindicação automática de recompensas do Smart Node **foi removida**.
 Agora você poderá reivindicar recompensas através do seguinte comando:
 
 ```
@@ -114,8 +114,8 @@ Isso mostrará todas as recompensas que você acumulou em todos os intervalos de
 
 ## Revertendo para v1.4.3
 
-Se, por qualquer motivo, algo não for do seu agrado e você quiser reverter para a versão anterior do Smartnode, você pode fazer isso facilmente.
-O Smartnode faz backup automático de suas configurações da versão anterior quando você o atualiza, então simplesmente obtenha a versão anterior (aqui estamos demonstrando **v1.4.3**) e substitua as configurações pelo backup:
+Se, por qualquer motivo, algo não for do seu agrado e você quiser reverter para a versão anterior do Smart Node, você pode fazer isso facilmente.
+O Smart Node faz backup automático de suas configurações da versão anterior quando você o atualiza, então simplesmente obtenha a versão anterior (aqui estamos demonstrando **v1.4.3**) e substitua as configurações pelo backup:
 
 1. Pare o serviço:
 
@@ -152,7 +152,7 @@ cp ~/.rocketpool/user-settings-backup.yml ~/.rocketpool/user-settings.yml
 rocketpool service config
 ```
 
-1. Se parecer bom, inicie a stack do Smartnode:
+1. Se parecer bom, inicie a stack do Smart Node:
 
 ```shell
 rocketpool service start

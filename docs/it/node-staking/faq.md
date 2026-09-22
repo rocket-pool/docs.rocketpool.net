@@ -27,7 +27,7 @@ Risposta breve: il tuo mnemonico è tutto ciò di cui hai bisogno per recuperare
 Assicurati sempre di tenerlo al sicuro.
 
 Per recuperare il tuo nodo su una nuova macchina, inizia assicurandoti che **la tua macchina precedente non sarà online di nuovo** con le chiavi disponibili, poiché due nodi in esecuzione con le stesse chiavi **ti faranno slashare**.
-Segui i [passaggi](./install-modes) per installare lo Smartnode su una nuova macchina.
+Segui i [passaggi](./install-modes) per installare lo Smart Node su una nuova macchina.
 Quindi, recupera il tuo wallet del nodo e le chiavi validator eseguendo il comando `rocketpool wallet recover` e inserendo il tuo mnemonico di 24 parole.
 
 ### Perché i miei client non si sincronizzano? Ho un numero basso di peer.

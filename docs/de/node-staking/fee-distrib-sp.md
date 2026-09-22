@@ -123,10 +123,10 @@ Wenn ein Node am Smoothing Pool _teilnimmt_, gilt die folgende Adresse als gült
 
 Ein Fee Recipient, der keine der oben genannten gültigen Adressen ist, wird als **ungültig** betrachtet.
 
-Die Smartnode-Software setzt automatisch den korrekten Fee Recipient basierend auf Ihrer Konfiguration (ob Sie am Smoothing Pool teilnehmen und ob Sie Megapool-Validatoren, Minipools oder beides haben). Für Nodes mit sowohl Megapool-Validatoren als auch Minipools bei abgemeldeten Status wird der Fee Recipient pro Validator über die Keymanager API gesetzt. Die vollständige Liste der Bedingungen ist [hier](/de/node-staking/fee-distrib-sp#fee-recipients) zusammengefasst.
+Die Smart Node-Software setzt automatisch den korrekten Fee Recipient basierend auf Ihrer Konfiguration (ob Sie am Smoothing Pool teilnehmen und ob Sie Megapool-Validatoren, Minipools oder beides haben). Für Nodes mit sowohl Megapool-Validatoren als auch Minipools bei abgemeldeten Status wird der Fee Recipient pro Validator über die Keymanager API gesetzt. Die vollständige Liste der Bedingungen ist [hier](/de/node-staking/fee-distrib-sp#fee-recipients) zusammengefasst.
 
-Die Smartnode-Software ist so konzipiert, dass ehrliche Benutzer niemals bestraft werden, selbst wenn sie den Validator Client dafür offline nehmen muss.
-Wenn dies passiert, hören Sie auf zu attestieren und sehen Fehlermeldungen in Ihren Log-Dateien darüber, warum die Smartnode Ihren Fee Recipient nicht korrekt setzen kann.
+Die Smart Node-Software ist so konzipiert, dass ehrliche Benutzer niemals bestraft werden, selbst wenn sie den Validator Client dafür offline nehmen muss.
+Wenn dies passiert, hören Sie auf zu attestieren und sehen Fehlermeldungen in Ihren Log-Dateien darüber, warum die Smart Node Ihren Fee Recipient nicht korrekt setzen kann.
 
 ## Der Smoothing Pool
 

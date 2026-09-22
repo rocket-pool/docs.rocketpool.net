@@ -20,13 +20,13 @@ Per gli utenti di SSD da 1 TB, dovrai eseguire il pruning più frequentemente.
 
 Se hai abilitato la [dashboard Grafana](./grafana), una buona regola generale è iniziare a pensare al pruning del tuo client Execution quando lo spazio su disco utilizzato del tuo nodo supera l'80%.
 
-Quando decidi che è il momento, lo Smartnode viene fornito con la possibilità di eseguire il pruning per te su richiesta.
+Quando decidi che è il momento, lo Smart Node viene fornito con la possibilità di eseguire il pruning per te su richiesta.
 Leggi di seguito per sapere come funziona e cosa aspettarti.
 
 ::: warning NOTA
 Il pruning del tuo client Execution è possibile solo in Docker Mode.
 
-Se utilizzi il tuo client Execution, come un client esterno in modalità Hybrid o Native mode, non puoi utilizzare lo Smartnode per eseguire il pruning del client Execution.
+Se utilizzi il tuo client Execution, come un client esterno in modalità Hybrid o Native mode, non puoi utilizzare lo Smart Node per eseguire il pruning del client Execution.
 Dovrai farlo manualmente.
 Si prega di fare riferimento alla documentazione del tuo client Execution per imparare come eseguirne il pruning.
 :::
@@ -39,10 +39,10 @@ Seleziona il client che stai utilizzando dalle schede qui sotto.
   <Tabs>
     <Tab label="Geth">
       Il pruning di Geth significa mettere offline il client Execution primario in modo che possa pulirsi.
-      Quando ciò accade, lo Smartnode (e il tuo Consensus client) avranno bisogno di un altro modo per accedere alla catena ETH1 per funzionare correttamente.
+      Quando ciò accade, lo Smart Node (e il tuo Consensus client) avranno bisogno di un altro modo per accedere alla catena ETH1 per funzionare correttamente.
 
       Il modo più semplice per fornire questo è con un **nodo di fallback**.
-      Se hai [configurato un nodo di fallback](./fallback) usando `rocketpool service config`, allora lo Smartnode passerà automaticamente ad esso quando il tuo container Geth si interrompe per manutenzione per te.
+      Se hai [configurato un nodo di fallback](./fallback) usando `rocketpool service config`, allora lo Smart Node passerà automaticamente ad esso quando il tuo container Geth si interrompe per manutenzione per te.
       Informerà anche il tuo Consensus client di utilizzare il fallback.
 
       <p className="rspress-directive warning">
@@ -102,7 +102,7 @@ Seleziona il client che stai utilizzando dalle schede qui sotto.
       Are you sure you want to prune your main execution client? [y/n]
       ```
 
-      Se accetti, vedrai alcuni dettagli mentre lo Smartnode prepara le cose; dovrebbe terminare con un messaggio di successo:
+      Se accetti, vedrai alcuni dettagli mentre lo Smart Node prepara le cose; dovrebbe terminare con un messaggio di successo:
 
       ```
       Are you sure you want to prune your main ETH1 client? [y/n]
@@ -126,7 +126,7 @@ Seleziona il client che stai utilizzando dalle schede qui sotto.
       rocketpool service logs eth1
       ```
 
-      Una volta terminato il pruning, si riavvierà automaticamente e lo Smartnode riprenderà a utilizzarlo di nuovo invece del tuo fallback.
+      Una volta terminato il pruning, si riavvierà automaticamente e lo Smart Node riprenderà a utilizzarlo di nuovo invece del tuo fallback.
     </Tab>
     <Tab label="Nethermind">
       Quando vuoi eseguire il pruning di Nethermind, esegui semplicemente questo comando:

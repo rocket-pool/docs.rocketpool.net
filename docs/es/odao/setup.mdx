@@ -5,10 +5,10 @@ import tuiOdao from "./images/tui-odao.png";
 
 Como mínimo, un nodo estándar de Rocket Pool ejecuta lo siguiente:
 
-- El CLI de Smartnode
-- El daemon API de Smartnode
-- El daemon `node` de Smartnode
-- El daemon `watchtower` de Smartnode
+- El CLI de Smart Node
+- El daemon API de Smart Node
+- El daemon `node` de Smart Node
+- El daemon `watchtower` de Smart Node
 
 Opcionalmente, el nodo también puede ejecutar los siguientes componentes:
 
@@ -20,7 +20,7 @@ Opcionalmente, el nodo también puede ejecutar los siguientes componentes:
 - El Prometheus Node Exporter
 - Grafana
 
-Cada uno de estos componentes puede ejecutarse como contenedores Docker en la configuración estándar, como servicios `systemd` en la configuración de "Modo Nativo", o ejecutarse como entidades gestionadas externamente a las que el Smartnode puede conectarse a través de sus respectivas rutas API.
+Cada uno de estos componentes puede ejecutarse como contenedores Docker en la configuración estándar, como servicios `systemd` en la configuración de "Modo Nativo", o ejecutarse como entidades gestionadas externamente a las que el Smart Node puede conectarse a través de sus respectivas rutas API.
 
 Convenientemente, los nodos Oracle DAO son iguales a los nodos normales de Rocket Pool, pero el daemon `watchtower` realiza los deberes suplementarios del Oracle DAO y hay más métricas de Prometheus recopiladas para fines de monitoreo de rendimiento.
 
@@ -32,7 +32,7 @@ Ese proceso te ayudará a determinar cómo te gustaría configurar y ejecutar tu
 Si deseas ejecutar minipools (validadores) en tu nodo, sigue la documentación normal del nodo de principio a fin y regresa aquí cuando hayas terminado.
 
 Si _no_ pretendes ejecutar minipools y en su lugar lo usarás puramente para deberes del Oracle DAO, puedes omitir todos los pasos relacionados con el staking de RPL y la creación de minipools.
-Los otros pasos como el registro del nodo, establecer una buena postura de seguridad, monitorear la salud y el rendimiento del nodo, y actualizar el Smartnode después de una actualización aún se aplican a ti y debes revisarlos cuidadosamente antes de continuar.
+Los otros pasos como el registro del nodo, establecer una buena postura de seguridad, monitorear la salud y el rendimiento del nodo, y actualizar el Smart Node después de una actualización aún se aplican a ti y debes revisarlos cuidadosamente antes de continuar.
 Regresa aquí cuando hayas terminado.
 
 ## Configuración Adicional del Oracle DAO
@@ -67,7 +67,7 @@ Selecciona el modo que usas para configurar tu nodo a continuación de las pesta
       Finalmente, reinicia tu daemon `watchtower` (es decir, con `docker restart rocketpool_watchtower` en modo Docker o Híbrido, o `sudo systemctl restart rp_watchtower` en modo Nativo) para que la configuración surta efecto.
     </Tab>
     <Tab label="Archivo de Configuración Directo">
-      Abre el archivo `user-settings.yml` en tu directorio de Smartnode (`~/.rocketpool` por defecto) en un editor de texto.
+      Abre el archivo `user-settings.yml` en tu directorio de Smart Node (`~/.rocketpool` por defecto) en un editor de texto.
       Desplázate hacia abajo a la sección `smartnode`:
 
       ```
@@ -93,9 +93,9 @@ Selecciona el modo que usas para configurar tu nodo a continuación de las pesta
   </Tabs>
 </div>
 
-## Comandos de Smartnode del Oracle DAO
+## Comandos de Smart Node del Oracle DAO
 
-El grupo de comandos `odao` del CLI de Smartnode se usa para interactuar con los contratos y deberes del Oracle DAO en cadena:
+El grupo de comandos `odao` del CLI de Smart Node se usa para interactuar con los contratos y deberes del Oracle DAO en cadena:
 
 ```
 NAME:

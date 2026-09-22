@@ -10,11 +10,11 @@ Questa sezione copre come accedere alle ricompense generate dal tuo nodo durante
 
 ## Prerequisiti
 
-Prima di configurare il tuo Smartnode, assicurati di:
+Prima di configurare il tuo Smart Node, assicurati di:
 
 - Aver configurato una macchina nodo (o macchina virtuale) e averla protetta (tramite la guida [Proteggere il tuo Nodo](../securing-your-node))
-- Avere lo Smartnode [installato](../installing/overview) e [configurato](../config/overview) su di esso
-- Avere un wallet del nodo caricato sul tuo Smartnode
+- Avere lo Smart Node [installato](../installing/overview) e [configurato](../config/overview) su di esso
+- Avere un wallet del nodo caricato sul tuo Smart Node
 - Sincronizzato i tuoi client Execution e Consensus
 - Provvisionato il tuo nodo con [un indirizzo di prelievo](../prepare-node.mdx#impostazione-del-tuo-indirizzo-di-prelievo-primario), configurato i tuoi [client di fallback](../fallback) (opzionale), attivato nel [Smoothing Pool](../fee-distrib-sp#lo-smoothing-pool) (opzionale), e configurato [MEV](../mev.mdx)
 - Creato almeno un [minipool](../create-validator.mdx)

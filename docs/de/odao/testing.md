@@ -88,7 +88,7 @@ Beachten Sie, dass die **Execution-Client-URL** hier anders ist: Es _muss_ ein A
 
 ::: warning HINWEIS
 Abhängig von Ihrer Client-Konfiguration kann das Erstellen dieses Trees _Stunden_ dauern.
-Der Smartnode gibt Ihnen Statusindikatoren über seinen Fortschritt, wie Sie im Beispiel unten sehen können.
+Der Smart Node gibt Ihnen Statusindikatoren über seinen Fortschritt, wie Sie im Beispiel unten sehen können.
 :::
 
 Die Ausgabe sieht folgendermaßen aus (der Kürze halber gekürzt):
@@ -144,7 +144,7 @@ Your Merkle tree's root of 0x278fd75797e2a9eddc128c0199b448877e30d1196c12306bdc9
 Wenn Sie diese erhalten, kann Ihr Watchtower den Tree korrekt erstellen.
 
 ::: danger HINWEIS
-Obwohl dies beweist, dass Sie den Tree erstellen können, _müssen_ Sie sicherstellen, dass Ihr Web3.Storage-API-Token in die Konfiguration des Smartnode eingegeben wurde, damit dieser den resultierenden Tree auf IPFS hochladen kann.
+Obwohl dies beweist, dass Sie den Tree erstellen können, _müssen_ Sie sicherstellen, dass Ihr Web3.Storage-API-Token in die Konfiguration des Smart Node eingegeben wurde, damit dieser den resultierenden Tree auf IPFS hochladen kann.
 :::
 
 ### Nächste Schritte

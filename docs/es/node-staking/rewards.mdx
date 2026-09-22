@@ -14,7 +14,7 @@ Actualmente, los puntos de control ocurren **cada 28 días**.
 En un nuevo punto de control, el Oracle DAO creará colectivamente una **instantánea verdadera** del estado de los operadores de nodo en la red de Rocket Pool, que utilizará para determinar las recompensas de RPL y ETH del Smoothing Pool para cada nodo durante ese intervalo. Ten en cuenta que la "comisión adicional" para los minipools Saturn 0 se distribuye usando las recompensas del smoothing pool (los minipools Saturn 0 son los creados después del 28/10/2024, que tienen una comisión de contrato del 5%).
 
 Esta información se compila en un [Árbol de Merkle](https://en.wikipedia.org/wiki/Merkle_tree) - una forma extremadamente eficiente de hacer que todos los detalles estén disponibles para los contratos inteligentes.
-El Árbol de Merkle se construye en un archivo JSON y se aloja en [un repositorio de GitHub que mantenemos](https://github.com/rocket-pool/rewards-trees/). El Smartnode también puede cargar los **eventos** de intervalo de recompensas desde ese repositorio de GitHub, por lo que aún puedes reclamar después de que una caducidad agresiva del historial haya descartado los registros antiguos de la capa de Ejecución.
+El Árbol de Merkle se construye en un archivo JSON y se aloja en [un repositorio de GitHub que mantenemos](https://github.com/rocket-pool/rewards-trees/). El Smart Node también puede cargar los **eventos** de intervalo de recompensas desde ese repositorio de GitHub, por lo que aún puedes reclamar después de que una caducidad agresiva del historial haya descartado los registros antiguos de la capa de Ejecución.
 
 Una vez que se envía el árbol, los contratos inteligentes de Rocket Pool acuñarán nuevos tokens RPL y los moverán, junto con el saldo completo de ETH del Smoothing Pool, a la bóveda de Rocket Pool para almacenamiento seguro.
 Luego puedes ver cuántas recompensas de RPL y ETH ganaste durante ese intervalo y reclamar esas recompensas.
@@ -84,10 +84,10 @@ Si deseas generar el árbol tú mismo en lugar de descargar el preconstruido del
 - Cambia el `Rewards Tree Mode` de `Download` a `Generate`.
 - Si tu cliente de Ejecución principal no es un nodo de archivo, puedes agregar una URL para un nodo de archivo separado en el cuadro `Archive-Mode EC URL`.
   - Esto es necesario para generar árboles de recompensas históricos.
-  - El EC de Archivo solo se usará para la generación de árboles; no se usará para ninguna otra tarea del Smartnode.
+  - El EC de Archivo solo se usará para la generación de árboles; no se usará para ninguna otra tarea del Smart Node.
   - [Infura](https://infura.io/product/ethereum) y [Alchemy](https://www.alchemy.com/supernode) ofrecen acceso a nodos de archivo. **Ten en cuenta que los niveles gratuitos generalmente no son suficientes para manejar la generación de árboles, por lo que necesitarás uno de los niveles pagos.**
 
-Ahora tu Smartnode construirá el árbol completamente independiente del Oracle DAO, usando solo los datos proporcionados por tus clientes de Ejecución y Consenso.
+Ahora tu Smart Node construirá el árbol completamente independiente del Oracle DAO, usando solo los datos proporcionados por tus clientes de Ejecución y Consenso.
 Puedes verlo durante un punto de control de intervalo de recompensas con `rocketpool service logs watchtower`.
 
 Si deseas reconstruir árboles pasados de intervalos anteriores, puedes hacerlo con el siguiente comando:

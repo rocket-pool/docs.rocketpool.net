@@ -131,9 +131,9 @@ ls /sys/class/net
 Ethernet-(Kabel-)Geräte beginnen normalerweise mit `e`, wie die obigen Beispiele.
 Wireless-Geräte beginnen normalerweise mit `w`.
 
-## Smartnode-Alarmbenachrichtigungen
+## Smart Node-Alarmbenachrichtigungen
 
-[Überwachung Ihres Smartnode-Stacks mit Alarmbenachrichtigungen](./maintenance/alerting.md) führt Sie durch die Verwendung der Smartnode-Alarmbenachrichtigungsfunktion, um Benachrichtigungen über die Gesundheit und wichtige Ereignisse Ihres Rocket Pool Smartnode zu erhalten.
+[Überwachung Ihres Smart Node-Stacks mit Alarmbenachrichtigungen](./maintenance/alerting.md) führt Sie durch die Verwendung der Smart Node-Alarmbenachrichtigungsfunktion, um Benachrichtigungen über die Gesundheit und wichtige Ereignisse Ihres Rocket Pool Smart Node zu erhalten.
 
 ## Drittanbieter-Leistungsüberwachung
 
@@ -200,7 +200,7 @@ Die Beaconcha.in-Website hat eine Funktion, mit der Benutzer ihre Validators umb
 
 Um diese Funktion nutzen zu können, müssen Sie eine Nachricht mit dem privaten Schlüssel Ihrer Node-Wallet signieren, um zu beweisen, dass Sie die Person sind, die diesen Validator kontrolliert.
 
-Der Smartnode v1.5.1 enthält die Möglichkeit, Nachrichten mit dem privaten Schlüssel Ihrer Node-Wallet zu signieren, indem Sie den Befehl `rocketpool node sign-message` verwenden und dann die Nachricht angeben, die Sie signieren möchten.
+Der Smart Node v1.5.1 enthält die Möglichkeit, Nachrichten mit dem privaten Schlüssel Ihrer Node-Wallet zu signieren, indem Sie den Befehl `rocketpool node sign-message` verwenden und dann die Nachricht angeben, die Sie signieren möchten.
 Sie muss den Begriff 'beaconcha.in' enthalten, um zum Umbenennen Ihrer Validators verwendet zu werden.
 
 ![](../node-staking/images/sign-message.png)
@@ -230,7 +230,7 @@ Die zu überwachende IP ist die externe IP Ihres Nodes, die Sie finden können, 
 curl icanhazip.com
 ```
 
-Der zu überwachende Port hängt von Ihrem Node-Setup ab; Benutzer, die die typische Smartnode-Installation ausführen, haben wahrscheinlich die Ports 30303 und 9001 für die Execution- bzw. Consensus-Clients weitergeleitet, daher sind dies gute Optionen für die Uptime-Überwachung.
+Der zu überwachende Port hängt von Ihrem Node-Setup ab; Benutzer, die die typische Smart Node-Installation ausführen, haben wahrscheinlich die Ports 30303 und 9001 für die Execution- bzw. Consensus-Clients weitergeleitet, daher sind dies gute Optionen für die Uptime-Überwachung.
 
 ### Rocketpool Metrics Dashboards
 
@@ -239,7 +239,7 @@ Es gibt mehrere von der Community geführte Initiativen, um einen Überblick üb
 ### Skripting mit Pushover (erweitert)
 
 ::: tip HINWEIS
-[Überwachung Ihres Smartnode-Stacks mit Alarmbenachrichtigungen](./maintenance/alerting.md) führt Sie durch die Verwendung der Smartnode-Alarmbenachrichtigungsfunktion, die eine Benachrichtigung enthält, wenn Updates für Ihren Node verfügbar sind.
+[Überwachung Ihres Smart Node-Stacks mit Alarmbenachrichtigungen](./maintenance/alerting.md) führt Sie durch die Verwendung der Smart Node-Alarmbenachrichtigungsfunktion, die eine Benachrichtigung enthält, wenn Updates für Ihren Node verfügbar sind.
 :::
 
 Der [Pushover](https://pushover.net/)-Dienst ermöglicht es Ihnen, sich selbst Push-Benachrichtigungen zu senden.

@@ -16,16 +16,16 @@ Questa guida presuppone che tu abbia già la tua macchina fisicamente costruita 
 
 ### Sistemi Operativi Supportati
 
-Il client Smartnode di Rocket Pool supporta attualmente i sistemi **Linux** e **macOS**.
+Il client Smart Node di Rocket Pool supporta attualmente i sistemi **Linux** e **macOS**.
 
-Al momento, **Windows** può essere utilizzato per gestire remotamente una macchina Linux o Mac remota, ma lo Smartnode stesso non può attualmente essere eseguito su un sistema Windows. Tuttavia, Rocket Pool _può_ essere eseguito su una [macchina virtuale](https://en.wikipedia.org/wiki/System_virtual_machine) Linux ospitata da una macchina Windows.
+Al momento, **Windows** può essere utilizzato per gestire remotamente una macchina Linux o Mac remota, ma lo Smart Node stesso non può attualmente essere eseguito su un sistema Windows. Tuttavia, Rocket Pool _può_ essere eseguito su una [macchina virtuale](https://en.wikipedia.org/wiki/System_virtual_machine) Linux ospitata da una macchina Windows.
 Questa configurazione non è consigliata rispetto alla semplice installazione di Linux come sistema operativo host, ma funziona se necessario.
 Nota che richiederà overhead di risorse extra e viene fornito con i propri rischi di sicurezza, quindi sconsigliamo di utilizzare questa configurazione quando si fa staking di Ether reale sulla rete principale.
 
 Rocket Pool è nativamente compatibile con le architetture CPU **AMD64 (x64)** e **arm64 (aarch64)**.
 Per altre architetture, dovrai compilare i client smartnode dal codice sorgente.
 
-Nota che l'utente deve avere accesso **root / Amministratore** (o privilegi **sudo**) per installare lo Smartnode.
+Nota che l'utente deve avere accesso **root / Amministratore** (o privilegi **sudo**) per installare lo Smart Node.
 
 #### Supporto Linux
 
@@ -36,10 +36,10 @@ Se prevedi di utilizzare Ubuntu, ti consigliamo vivamente di utilizzare una vers
 Queste versioni sono attivamente mantenute per periodi di tempo più lunghi, il che aiuta con la sicurezza e la stabilità del tuo nodo.
 :::
 
-Per l'installazione su altre distro, l'installer Smartnode non sarà in grado di installare automaticamente alcune dipendenze di sistema (come `docker-compose`).
+Per l'installazione su altre distro, l'installer Smart Node non sarà in grado di installare automaticamente alcune dipendenze di sistema (come `docker-compose`).
 Saranno necessari alcuni passaggi manuali durante l'installazione.
 
-Per i sistemi `arm64`, l'installer Smartnode supporta nativamente solo Debian e distro basate su Debian come Ubuntu.
+Per i sistemi `arm64`, l'installer Smart Node supporta nativamente solo Debian e distro basate su Debian come Ubuntu.
 Per altre distro, saranno necessari passaggi manuali durante l'installazione.
 
 ## Installazione del Sistema Operativo

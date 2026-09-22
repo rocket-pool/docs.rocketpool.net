@@ -88,7 +88,7 @@ Docker 컨테이너 태그는 `rocketpool/treegen:latest`입니다.
 
 ::: warning 참고
 클라이언트 구성에 따라 이 트리를 빌드하는 데 *몇 시간*이 걸릴 수 있습니다.
-Smartnode는 아래 예에서 볼 수 있듯이 진행 상황에 대한 상태 표시기를 제공합니다.
+Smart Node는 아래 예에서 볼 수 있듯이 진행 상황에 대한 상태 표시기를 제공합니다.
 :::
 
 출력은 다음과 같습니다(간결성을 위해 잘림):
@@ -144,7 +144,7 @@ Your Merkle tree's root of 0x278fd75797e2a9eddc128c0199b448877e30d1196c12306bdc9
 이를 받으면 watchtower가 트리를 올바르게 빌드할 수 있습니다.
 
 ::: danger 참고
-이것이 트리를 빌드할 수 있음을 증명하지만, 결과 트리를 IPFS에 업로드할 수 있도록 Web3.Storage API 토큰이 Smartnode의 구성에 입력되었는지 _확인해야_ 합니다.
+이것이 트리를 빌드할 수 있음을 증명하지만, 결과 트리를 IPFS에 업로드할 수 있도록 Web3.Storage API 토큰이 Smart Node의 구성에 입력되었는지 _확인해야_ 합니다.
 :::
 
 ### 다음 단계

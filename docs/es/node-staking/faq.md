@@ -27,7 +27,7 @@ Respuesta corta: tu mnemónico es todo lo que necesitas para recuperar completam
 Siempre asegúrate de mantenerlo seguro.
 
 Para recuperar tu nodo en una nueva máquina, comienza asegurándote de que **tu máquina anterior no volverá a estar en línea** con las claves disponibles, ya que dos nodos ejecutándose con las mismas claves **te harán slashing**.
-Sigue los [pasos](./install-modes) para instalar el Smartnode en una nueva máquina.
+Sigue los [pasos](./install-modes) para instalar el Smart Node en una nueva máquina.
 Luego, recupera tu billetera de nodo y claves de validador ejecutando el comando `rocketpool wallet recover` e inserta tu mnemónico de 24 palabras.
 
 ### ¿Por qué mis clientes no están sincronizando? Tengo una cantidad baja de peers.

@@ -3,12 +3,12 @@ import { Tab, Tabs } from "@rspress/core/theme";
 # Docker Olmadan Native Rocket Pool Node Oluşturma
 
 ::: tip NOT
-Bu kılavuz **Smartnode v1.6.5 ve üzeri** için tasarlanmıştır.
+Bu kılavuz **Smart Node v1.6.5 ve üzeri** için tasarlanmıştır.
 
 Daha önceki bir sürüm kullanıyorsanız, Native modu yapılandırmadan önce v1.6.5 veya üzerine yükseltmelisiniz.
 :::
 
-Bu bölümde, Docker konteynerları kullanmadan Rocket Pool Smartnode yığınını sisteminize doğrudan kurma sürecini adım adım anlatacağız.
+Bu bölümde, Docker konteynerları kullanmadan Rocket Pool Smart Node yığınını sisteminize doğrudan kurma sürecini adım adım anlatacağız.
 
 Genel plan şu şekildedir:
 
@@ -32,7 +32,7 @@ Bu aktivitelere aşina olduğunuzu varsayıyoruz - altyapının büyük bölüm�
 
 ## Adım 1: Execution ve Consensus İstemcilerini Kurun
 
-Native Mode, standart bir solo-staking kurulumunu etkili bir şekilde genişletir ve Smartnode yazılımının zaten çalıştırdığı istemcilere (birkaç küçük değişiklikle) bağlanmasına olanak tanır.
+Native Mode, standart bir solo-staking kurulumunu etkili bir şekilde genişletir ve Smart Node yazılımının zaten çalıştırdığı istemcilere (birkaç küçük değişiklikle) bağlanmasına olanak tanır.
 
 Bu amaçla, topluluk tarafından sağlanan geleneksel solo staking kılavuzlarından bazılarını takip ederek başlamanızı öneririz:
 
@@ -48,7 +48,7 @@ Sadece bir Execution Client servisi, bir Consensus Client / Beacon Node servisi 
 Ayrıca, **fee recipient** için özel bir durum var - kılavuzun Validator Client yapılandırmanızda fee recipient'i belirttiğiniz kısmına geldiğinizde, **şimdilik boş bırakın**.
 Rocket Pool validator'ları için nasıl ayarlanacağını aşağıda açıklayacağız.
 
-İstemcileriniz kurulduktan ve loglarında zincirleri düzgün bir şekilde senkronize ettiklerini gördükten sonra, Rocket Pool Smartnode'u kurmak ve istemcilerinize bağlamak için sonraki adımları takip edebilirsiniz.
+İstemcileriniz kurulduktan ve loglarında zincirleri düzgün bir şekilde senkronize ettiklerini gördükten sonra, Rocket Pool Smart Node'u kurmak ve istemcilerinize bağlamak için sonraki adımları takip edebilirsiniz.
 
 ## Adım 2: Rocket Pool'u Kurun
 
@@ -149,13 +149,13 @@ sudo chmod u+sx,g+sx,o-rwx /usr/local/bin/rocketpoold
 Bu, daemon'ın her zaman `rp` kullanıcısı olarak çalışmasını ve her zaman uygun izinlere sahip olmasını sağlayacaktır.
 
 ::: danger NOT
-Bunu yapmazsanız Smartnode büyük olasılıkla izin hataları ile başarısız olacaktır.
+Bunu yapmazsanız Smart Node büyük olasılıkla izin hataları ile başarısız olacaktır.
 Lütfen bu komutu çalıştırdığınızdan emin olun!
 :::
 
 ### Kurulum Klasörünü Ayarlama
 
-CLI ve Daemon kurulumu tamamlandıktan sonra, Smartnode'un var olmasını beklediği klasör yapısını ve eşlik eden dosyaları ayarlamanız gerekecektir.
+CLI ve Daemon kurulumu tamamlandıktan sonra, Smart Node'un var olmasını beklediği klasör yapısını ve eşlik eden dosyaları ayarlamanız gerekecektir.
 Aşağıdaki klasörleri oluşturarak başlayın:
 
 ```
@@ -341,11 +341,11 @@ Ayrıca `/srv/rocketpool/stop-validator.sh` dosyasını değiştirin:
 Hazır!
 `node` süreci artık gerektiğinde VC'nizi otomatik olarak yeniden başlatabilir veya durdurabilir.
 
-## Adım 3: Smartnode'u Yapılandırın
+## Adım 3: Smart Node'u Yapılandırın
 
-Artık servisleriniz oluşturulduğuna göre, Smartnode yığınını yapılandırmanın zamanı geldi.
+Artık servisleriniz oluşturulduğuna göre, Smart Node yığınını yapılandırmanın zamanı geldi.
 
-Lütfen [Smartnode Yığınını Yapılandırma (Native Mode)](./config-native) kılavuzunu ziyaret edin ve bitirdiğinizde buraya geri dönün.
+Lütfen [Smart Node Yığınını Yapılandırma (Native Mode)](./config-native) kılavuzunu ziyaret edin ve bitirdiğinizde buraya geri dönün.
 
 ### Servisleri Etkinleştirme ve Çalıştırma
 
@@ -524,7 +524,7 @@ Aşağıdaki sekmelerde kullandığınız istemciye tıklayın:
 ### `umask` Gevşetme
 
 Varsayılan olarak, sisteminiz genellikle `node` daemon'ı yeni bir klasör oluşturduğunda grup izinlerinden `+w` bitini kaldıracak bir `umask` yapılandırmasıyla gelir.
-Bu, birkaç consensus istemci için sorunludur, çünkü minipool deposit sırasında yeni validator anahtarları oluşturduğunda Smartnode'un oluşturduğu dizinlere kilit dosyaları veya diğer meta veriler gibi şeyler yazarlar.
+Bu, birkaç consensus istemci için sorunludur, çünkü minipool deposit sırasında yeni validator anahtarları oluşturduğunda Smart Node'un oluşturduğu dizinlere kilit dosyaları veya diğer meta veriler gibi şeyler yazarlar.
 
 Bununla mücadele etmek ve VC'nizin düzgün çalıştığından emin olmak için lütfen **`umask` ayarlarınızı gevşetin**.
 Örneğin, `0022` yerine `rp` kullanıcısı için `0002` olarak ayarlamayı düşünmelisiniz.

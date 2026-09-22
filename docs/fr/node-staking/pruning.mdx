@@ -20,13 +20,13 @@ Pour les utilisateurs de SSD de 1 To, vous devrez élaguer plus fréquemment.
 
 Si vous avez [le tableau de bord Grafana](./grafana) activé, une bonne règle générale est de commencer à penser à élaguer votre client d'exécution lorsque l'espace disque utilisé de votre nœud dépasse 80 %.
 
-Lorsque vous décidez qu'il est temps, le Smartnode est livré avec la capacité de l'élaguer pour vous sur demande.
+Lorsque vous décidez qu'il est temps, le Smart Node est livré avec la capacité de l'élaguer pour vous sur demande.
 Lisez ci-dessous pour savoir comment cela fonctionne et à quoi vous attendre.
 
 ::: warning NOTE
 L'élagage de votre client d'exécution n'est possible qu'en Docker Mode.
 
-Si vous utilisez votre propre client d'exécution, comme un client externe en mode Hybrid ou en mode Native, vous ne pouvez pas utiliser le Smartnode pour élaguer le client d'exécution.
+Si vous utilisez votre propre client d'exécution, comme un client externe en mode Hybrid ou en mode Native, vous ne pouvez pas utiliser le Smart Node pour élaguer le client d'exécution.
 Vous devrez le faire manuellement.
 Veuillez vous référer à la documentation de votre client d'exécution pour apprendre comment l'élaguer.
 :::
@@ -39,10 +39,10 @@ Sélectionnez le client que vous utilisez dans les onglets ci-dessous.
   <Tabs>
     <Tab label="Geth">
       L'élagage de Geth signifie mettre le client d'exécution principal hors ligne afin qu'il puisse se nettoyer.
-      Lorsque cela se produit, le Smartnode (et votre client de consensus) aura besoin d'une autre façon d'accéder à la chaîne ETH1 pour fonctionner correctement.
+      Lorsque cela se produit, le Smart Node (et votre client de consensus) aura besoin d'une autre façon d'accéder à la chaîne ETH1 pour fonctionner correctement.
 
       Le moyen le plus simple de fournir cela est avec un **nœud de secours**.
-      Si vous [avez configuré un nœud de secours](./fallback) en utilisant `rocketpool service config` déjà, alors le Smartnode basculera automatiquement vers celui-ci lorsque votre conteneur Geth sera arrêté pour maintenance.
+      Si vous [avez configuré un nœud de secours](./fallback) en utilisant `rocketpool service config` déjà, alors le Smart Node basculera automatiquement vers celui-ci lorsque votre conteneur Geth sera arrêté pour maintenance.
       Il informera également votre client de consensus d'utiliser le secours également.
 
       <p className="rspress-directive warning">
@@ -102,7 +102,7 @@ Sélectionnez le client que vous utilisez dans les onglets ci-dessous.
       Are you sure you want to prune your main execution client? [y/n]
       ```
 
-      Si vous acceptez, vous verrez quelques détails pendant que le Smartnode prépare les choses ; cela devrait se terminer par un message de succès :
+      Si vous acceptez, vous verrez quelques détails pendant que le Smart Node prépare les choses ; cela devrait se terminer par un message de succès :
 
       ```
       Are you sure you want to prune your main ETH1 client? [y/n]
@@ -126,7 +126,7 @@ Sélectionnez le client que vous utilisez dans les onglets ci-dessous.
       rocketpool service logs eth1
       ```
 
-      Une fois l'élagage terminé, il redémarrera automatiquement et le Smartnode recommencera à l'utiliser au lieu de votre secours.
+      Une fois l'élagage terminé, il redémarrera automatiquement et le Smart Node recommencera à l'utiliser au lieu de votre secours.
     </Tab>
     <Tab label="Nethermind">
       Lorsque vous souhaitez élaguer Nethermind, exécutez simplement cette commande :

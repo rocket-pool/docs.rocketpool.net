@@ -2,10 +2,10 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # Docker를 사용한 표준 Rocket Pool 노드 만들기
 
-이 섹션에서는 표준 [Docker](https://www.docker.com/resources/what-container) 기반 설정을 사용하여 Rocket Pool Smartnode 스택을 설치하는 프로세스를 안내합니다.
+이 섹션에서는 표준 [Docker](https://www.docker.com/resources/what-container) 기반 설정을 사용하여 Rocket Pool Smart Node 스택을 설치하는 프로세스를 안내합니다.
 다음을 포함하여 전체 노드를 실행하는 데 필요한 모든 것을 설치하고 구성합니다:
 
-- Rocket Pool **Smartnode** 소프트웨어
+- Rocket Pool **Smart Node** 소프트웨어
 - 선택한 **Execution** (이전 ETH1) 클라이언트 또는 이미 관리하고 있는 기존 클라이언트에 대한 연결
 - 선택한 **Consensus** (이전 ETH2) 클라이언트 또는 이미 관리하고 있는 기존 클라이언트에 대한 연결
 - Beacon Chain validation 의무를 처리하는 **Validator** 클라이언트
@@ -25,8 +25,8 @@ SSH를 통해 노드 머신에 연결된 경우 이미 이 작업을 수행하�
 높은 수준에서 Rocket Pool 설치와 관련된 내용은 다음과 같습니다:
 
 1. Rocket Pool command-line interface (CLI) 다운로드
-1. CLI를 사용하여 Smartnode 스택 설치
-1. 터미널에서 사용하기 쉬운 UI로 Smartnode 스택 구성
+1. CLI를 사용하여 Smart Node 스택 설치
+1. 터미널에서 사용하기 쉬운 UI로 Smart Node 스택 구성
 1. 완료!
 
 ## 시작하기 전에
@@ -34,7 +34,7 @@ SSH를 통해 노드 머신에 연결된 경우 이미 이 작업을 수행하�
 ::: warning
 Ubuntu를 사용하는 경우 Rocket Pool을 설치하기 전에 운영 체제와 함께 docker가 설치되지 않았는지 다시 확인하는 것이 좋습니다.
 
-Ubuntu 설치 프로그램은 snap 패키지 관리자에서 docker를 가져오는데, 이는 Smartnode가 설치하는 docker 버전과 충돌합니다.
+Ubuntu 설치 프로그램은 snap 패키지 관리자에서 docker를 가져오는데, 이는 Smart Node가 설치하는 docker 버전과 충돌합니다.
 
 `snap list`를 실행하고 `docker`가 설치되지 않았는지 확인하십시오.
 
@@ -132,7 +132,7 @@ CLI 다운로드 지침은 운영 체제에 따라 다릅니다.
       ```
 
       ```shell
-      rocketpool version 1.23.0
+      rocketpool version 1.24.2
       ```
 
       <p className="rspress-directive tip">
@@ -198,7 +198,7 @@ CLI 다운로드 지침은 운영 체제에 따라 다릅니다.
       ```
 
       ```
-      rocketpool version 1.23.0
+      rocketpool version 1.24.2
       ```
 
       <p className="rspress-directive tip">
@@ -218,19 +218,19 @@ CLI 다운로드 지침은 운영 체제에 따라 다릅니다.
   </Tabs>
 </div>
 
-## Smartnode 스택 설치
+## Smart Node 스택 설치
 
-이제 CLI가 설치되었으므로 Smartnode 스택을 배포할 수 있습니다.
-이렇게 하면 Docker, [docker-compose](https://docs.docker.com/compose/)로 시스템을 준비하고 Smartnode 파일을 로드하여 준비가 됩니다.
+이제 CLI가 설치되었으므로 Smart Node 스택을 배포할 수 있습니다.
+이렇게 하면 Docker, [docker-compose](https://docs.docker.com/compose/)로 시스템을 준비하고 Smart Node 파일을 로드하여 준비가 됩니다.
 실제로는 아직 아무것도 실행하지 않습니다. 나중에 실행됩니다.
 
-Smartnode 스택을 배포하려면 노드 머신에서 다음 명령을 실행해야 합니다 (로컬로 로그인하거나 SSH를 통해 원격으로 연결):
+Smart Node 스택을 배포하려면 노드 머신에서 다음 명령을 실행해야 합니다 (로컬로 로그인하거나 SSH를 통해 원격으로 연결):
 
 ```shell
 rocketpool service install
 ```
 
-최신 버전의 Smartnode 스택을 가져와서 설정합니다.
+최신 버전의 Smart Node 스택을 가져와서 설정합니다.
 다음과 같은 출력이 표시되어야 합니다 (_끝에 인쇄될 최신 버전의 릴리스 노트 위에_):
 
 <img src="./images/rp-install-screen.png" width="100%" height="auto" />
@@ -239,7 +239,7 @@ rocketpool service install
 기본적으로 사용자 계정의 홈 폴더 내부 `~/.rocketpool` 디렉토리에 배치됩니다.
 
 ::: warning NOTE
-Smartnode 설치 프로그램은 모든 플랫폼에서 `docker` 및 `docker-compose`를 자동으로 설치할 수 없습니다.
+Smart Node 설치 프로그램은 모든 플랫폼에서 `docker` 및 `docker-compose`를 자동으로 설치할 수 없습니다.
 설치 중 다음과 같은 오류 메시지가 표시되면:
 
 ```
@@ -271,7 +271,7 @@ rocketpool service install -d
 
 이 후 설정이 적용되도록 **로그아웃했다가 다시 로그인하거나 SSH 세션을 다시 시작**하십시오.
 
-이 작업이 완료되면 Smartnode 스택이 실행할 준비가 됩니다.
+이 작업이 완료되면 Smart Node 스택이 실행할 준비가 됩니다.
 
 ## Docker의 저장소 위치 구성
 
@@ -314,7 +314,7 @@ sudo systemctl restart docker
 
 그 후 Docker는 원하는 디스크에 데이터를 저장합니다.
 
-## Smartnode 스택 구성
+## Smart Node 스택 구성
 
 설치 프로세스의 다음 단계는 노드의 초기 구성을 수행하는 것입니다.
 이 프로세스의 안내는 [Rocketpool 구성](./config/overview) 섹션으로 이동하십시오.

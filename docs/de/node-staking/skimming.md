@@ -12,7 +12,7 @@ Der alte Redstone-Delegat kann nicht verwendet werden, um das Guthaben des Minip
 
 ## Automatische Verteilung
 
-Standardmäßig ist der Smartnode so konfiguriert, dass er automatisch alle Ihre Minipools verteilt, wenn deren individuelle Guthaben **1 ETH** erreichen. Diese Schwelle kann in der TUI konfiguriert werden, indem Sie die folgenden Schritte ausführen.
+Standardmäßig ist der Smart Node so konfiguriert, dass er automatisch alle Ihre Minipools verteilt, wenn deren individuelle Guthaben **1 ETH** erreichen. Diese Schwelle kann in der TUI konfiguriert werden, indem Sie die folgenden Schritte ausführen.
 
 Führen Sie aus:
 
@@ -24,7 +24,7 @@ Navigieren Sie zur Einstellung `Smartnode and TX Fee Settings > Auto Distribute 
 
 ![](./images/tui-automatic-skimming.png)
 
-Das Ändern dieser Einstellung passt die Schwelle an, bei der der Smartnode Ihre Minipools automatisch verteilt.
+Das Ändern dieser Einstellung passt die Schwelle an, bei der der Smart Node Ihre Minipools automatisch verteilt.
 Wenn Sie den Parameter auf 0 setzen, wird die automatische Verteilung deaktiviert.
 
 ::: warning WARNUNG
@@ -33,7 +33,7 @@ Lesen Sie den Abschnitt [manuelle Verteilung](#manuelle-verteilung), der folgt, 
 
 Nach einer langen Zeit können Ihre skimmed-Belohnungen 8 ETH überschreiten. Wenn diese Situation eintritt, können Sie sie nicht mehr verteilen und müssen Ihren Validator beenden, um auf Ihre angesammelten Belohnungen zuzugreifen.
 
-Rocket Pool verfügt über ein Failsafe-Design, das es jedem nach einer langen Wartezeit ermöglicht, Ihren Minipool zu verteilen, wenn sein Guthaben 8 ETH überschreitet. Um Ihr Kapital zu schützen, überwacht der Smartnode diese Situation und wird Ihren Minipool automatisch beenden, wenn sie auftritt.
+Rocket Pool verfügt über ein Failsafe-Design, das es jedem nach einer langen Wartezeit ermöglicht, Ihren Minipool zu verteilen, wenn sein Guthaben 8 ETH überschreitet. Um Ihr Kapital zu schützen, überwacht der Smart Node diese Situation und wird Ihren Minipool automatisch beenden, wenn sie auftritt.
 :::
 
 ## Manuelle Verteilung

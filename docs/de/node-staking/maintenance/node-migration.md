@@ -22,7 +22,7 @@ Jeder Validator Client führt eine Slashing-Datenbank, um sicherzustellen, dass 
 Das Problem tritt dann in Situationen auf, in denen Sie mit der Validierung **ohne** eine Slashing-Datenbank beginnen und somit keine Aufzeichnung darüber haben, wofür Ihre Validatoren zuvor gestimmt haben.
 Dies kann in mehreren Situationen passieren:
 
-1. Sie haben gerade die Consensus Clients gewechselt, und der neue Client übernimmt die Slashing-Datenbank nicht vom alten (was der Smartnode bei einem Client-Wechsel nicht tut).
+1. Sie haben gerade die Consensus Clients gewechselt, und der neue Client übernimmt die Slashing-Datenbank nicht vom alten (was der Smart Node bei einem Client-Wechsel nicht tut).
 2. Sie haben Ihre Wallet auf einer Maschine geladen und attestieren aktiv damit, und laden dann Ihre Wallet auf eine zweite Maschine, _während die erste Maschine noch aktiv attestiert_.
 3. Sie hören auf, auf einer Maschine zu validieren, und laden Ihre Wallet in eine zweite Maschine, aber Sie haben nicht lange genug gewartet, bis die aktuelle Epoche finalisiert ist, sodass Ihre zweite Maschine für Slots attestiert, für die Ihre Validatoren bereits attestiert haben.
 
@@ -39,12 +39,12 @@ Das Warten von 15 Minuten stellt sicher, dass Sie mindestens eine Epoche verpass
 Mit dem obigen Kontext im Hinterkopf finden Sie hier eine hilfreiche Checkliste, die Sie bei der Migration Ihres Nodes befolgen können, um sicherzustellen, dass Sie nicht geslasht werden.
 Diese ist auf maximale Sicherheit ausgelegt, sodass Sie zwar einige Schritte für unnötig halten mögen, wir jedoch **dringend** empfehlen, sie alle bis zum Abschluss zu befolgen.
 
-1. **Bereiten Sie den neuen Node vor**, indem Sie diese Anleitungen befolgen, beginnend mit dem Abschnitt "Vorbereitung eines Nodes" und endend, sobald Sie den Smartnode installiert haben und einen Execution und Consensus Client synchronisieren.
+1. **Bereiten Sie den neuen Node vor**, indem Sie diese Anleitungen befolgen, beginnend mit dem Abschnitt "Vorbereitung eines Nodes" und endend, sobald Sie den Smart Node installiert haben und einen Execution und Consensus Client synchronisieren.
    - :warning: **INITIALISIEREN SIE KEINE** neue Wallet oder stellen Sie Ihre alte Wallet auf dem Node wieder her. Lassen Sie ihn die Clients _ohne vorhandene Wallet_ synchronisieren.
 
 2. **WARTEN SIE**, bis Ihre Clients auf dem neuen Node vollständig synchronisiert sind.
 3. Bestätigen Sie, dass Sie Ihre Mnemonic korrekt aufgezeichnet haben, indem Sie `rocketpool wallet test-recovery` auf Ihrer neuen Maschine ausführen. Dies wird die Schlüsselwiederherstellung _simulieren_, um zu bestätigen, dass Ihre Node Wallet und alle Validator-Schlüssel Ihrer Minipools korrekt wiederhergestellt werden können, wird sie aber nicht _tatsächlich_ wiederherstellen und auf der Festplatte speichern, sodass kein Risiko von Slashing besteht.
-   1. Wenn der Smartnode Ihre Node Wallet nicht mit der von Ihnen bereitgestellten Mnemonic wiederherstellen kann, ist Ihre Mnemonic möglicherweise ungültig. **STOPPEN SIE** diesen Prozess; das Entfernen der Schlüssel von Ihrem alten Node bedeutet, dass sie **für immer verloren** sein könnten.
+   1. Wenn der Smart Node Ihre Node Wallet nicht mit der von Ihnen bereitgestellten Mnemonic wiederherstellen kann, ist Ihre Mnemonic möglicherweise ungültig. **STOPPEN SIE** diesen Prozess; das Entfernen der Schlüssel von Ihrem alten Node bedeutet, dass sie **für immer verloren** sein könnten.
    2. In dieser Situation empfehlen wir, Ihre Validatoren zu beenden und Ihr Kapital so schnell wie möglich abzuheben, damit Sie mit einem neuen Node neu beginnen können, für den Sie die funktionierende Mnemonic haben.
 4. **Stoppen Sie die Validierung** auf Ihrem alten Node (zum Beispiel mit `rocketpool service stop`, um den Validator Client herunterzufahren).
 5. **Löschen Sie Ihre Schlüssel** von Ihrem alten Node (zum Beispiel mit `rocketpool wallet purge`).

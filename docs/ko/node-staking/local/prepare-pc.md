@@ -16,16 +16,16 @@ Rocket Pool 노드를 실행하기 위한 전용 머신을 만드는 것을 강�
 
 ### 지원되는 운영 체제
 
-Rocket Pool의 Smartnode 클라이언트는 현재 **Linux** 및 **macOS** 시스템을 지원합니다.
+Rocket Pool의 Smart Node 클라이언트는 현재 **Linux** 및 **macOS** 시스템을 지원합니다.
 
-현재 **Windows**는 원격 Linux 또는 Mac 머신을 원격으로 관리하는 데 사용할 수 있지만, Smartnode 자체는 현재 Windows 시스템에서 실행할 수 없습니다. 그러나 Rocket Pool은 Windows 머신에서 호스팅되는 Linux [가상 머신](https://en.wikipedia.org/wiki/System_virtual_machine)에서 실행할 수 있습니다.
+현재 **Windows**는 원격 Linux 또는 Mac 머신을 원격으로 관리하는 데 사용할 수 있지만, Smart Node 자체는 현재 Windows 시스템에서 실행할 수 없습니다. 그러나 Rocket Pool은 Windows 머신에서 호스팅되는 Linux [가상 머신](https://en.wikipedia.org/wiki/System_virtual_machine)에서 실행할 수 있습니다.
 이 설정은 Linux를 호스트 운영 체제로 설치하는 것보다 권장되지 않지만 필요한 경우 작동합니다.
 추가 리소스 오버헤드가 필요하고 자체적인 보안 위험이 있으므로 메인넷에서 실제 Ether를 스테이킹할 때 이 설정을 사용하는 것은 권장하지 않습니다.
 
 Rocket Pool은 **AMD64 (x64)** 및 **arm64 (aarch64)** CPU 아키텍처와 기본적으로 호환됩니다.
 다른 아키텍처의 경우 소스에서 smartnode 클라이언트를 컴파일해야 합니다.
 
-Smartnode를 설치하려면 사용자가 **root / Administrator** 액세스 권한(또는 **sudo** 권한)을 가져야 합니다.
+Smart Node를 설치하려면 사용자가 **root / Administrator** 액세스 권한(또는 **sudo** 권한)을 가져야 합니다.
 
 #### Linux 지원
 
@@ -36,10 +36,10 @@ Ubuntu를 사용할 계획이라면 24.04와 같은 **LTS** 릴리스를 사용�
 이러한 릴리스는 더 오랜 기간 동안 적극적으로 유지 관리되므로 노드의 보안과 안정성에 도움이 됩니다.
 :::
 
-다른 배포판에 설치하는 경우 Smartnode 설치 프로그램이 일부 시스템 종속성(예: `docker-compose`)을 자동으로 설치할 수 없습니다.
+다른 배포판에 설치하는 경우 Smart Node 설치 프로그램이 일부 시스템 종속성(예: `docker-compose`)을 자동으로 설치할 수 없습니다.
 설치 중에 일부 수동 단계가 필요합니다.
 
-`arm64` 시스템의 경우 Smartnode 설치 프로그램은 Debian 및 Ubuntu와 같은 Debian 기반 배포판만 기본적으로 지원합니다.
+`arm64` 시스템의 경우 Smart Node 설치 프로그램은 Debian 및 Ubuntu와 같은 Debian 기반 배포판만 기본적으로 지원합니다.
 다른 배포판의 경우 설치 중에 수동 단계가 필요합니다.
 
 ## 운영 체제 설치하기

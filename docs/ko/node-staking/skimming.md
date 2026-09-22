@@ -14,7 +14,7 @@ minipool의 잔액에 액세스하려면 먼저 [Atlas delegate](./minipools/del
 
 ## 자동 분배
 
-기본적으로 Smartnode는 개별 잔액이 **1 ETH**에 도달하면 minipool을 자동으로 분배하도록 구성되어 있습니다. 이
+기본적으로 Smart Node는 개별 잔액이 **1 ETH**에 도달하면 minipool을 자동으로 분배하도록 구성되어 있습니다. 이
 임계값은 아래 단계에 따라 TUI에서 구성할 수 있습니다.
 
 다음을 실행합니다:
@@ -27,7 +27,7 @@ rocketpool service config
 
 ![](./images/tui-automatic-skimming.png)
 
-이 설정을 변경하면 Smartnode가 minipool을 자동으로 분배하는 임계값이 조정됩니다.
+이 설정을 변경하면 Smart Node가 minipool을 자동으로 분배하는 임계값이 조정됩니다.
 매개변수를 0으로 설정하면 자동 분배가 비활성화됩니다.
 
 ::: warning 경고
@@ -38,7 +38,7 @@ rocketpool service config
 분배할 수 없으며 누적된 보상에 액세스하려면 validator를 종료해야 합니다.
 
 Rocket Pool은 장기간의 대기 기간 후 누구나 잔액이 8 ETH를 초과할 때 minipool을 분배할 수 있는
-안전 장치 설계를 제공합니다. 자본을 보호하기 위해 Smartnode는 이러한 상황을 모니터링하고 발생할 경우
+안전 장치 설계를 제공합니다. 자본을 보호하기 위해 Smart Node는 이러한 상황을 모니터링하고 발생할 경우
 자동으로 minipool을 종료합니다.
 :::
 

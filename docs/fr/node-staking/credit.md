@@ -15,8 +15,8 @@ L'une ou l'autre de ces deux actions augmentera ce solde en conséquence.
 
 Cet ETH n'est _pas_ rendu liquide et retourné au Node Operator ; au lieu de cela, il peut être utilisé pour **créer des minipools supplémentaires** sans nécessiter d'ETH de la part du Node Operator.
 
-Le système de crédit est **transparent** pour le Node Operator ; il sera automatiquement utilisé (avec des notifications dans la CLI Smartnode expliquant qu'il sera utilisé) lors des opérations `rocketpool node deposit` ou `rocketpool node create-vacant-minipool` si possible.
-S'il _ne peut pas_ être utilisé, le Smartnode alertera l'utilisateur qu'il ne peut pas être utilisé et nécessitera une caution ETH normale lors de l'une ou l'autre opération.
+Le système de crédit est **transparent** pour le Node Operator ; il sera automatiquement utilisé (avec des notifications dans la CLI Smart Node expliquant qu'il sera utilisé) lors des opérations `rocketpool node deposit` ou `rocketpool node create-vacant-minipool` si possible.
+S'il _ne peut pas_ être utilisé, le Smart Node alertera l'utilisateur qu'il ne peut pas être utilisé et nécessitera une caution ETH normale lors de l'une ou l'autre opération.
 
 Consultez la section [Disponibilité du crédit](#disponibilité-du-crédit) ci-dessous pour plus de détails.
 
@@ -76,5 +76,5 @@ L'ETH pour votre solde de crédit est prélevé sur le **deposit pool**.
 Ainsi, si vous voulez utiliser 8 ETH en crédit pour créer un nouveau minipool de 8 ETH, cela finira par prendre **les 32 ETH pour ce minipool** du deposit pool et n'en nécessitera aucun de votre part.
 Pour cette raison, si le deposit pool n'a pas assez d'ETH pour couvrir la valeur de pré-dépôt (actuellement fixée à 1 ETH), **le solde ne sera pas disponible**.
 
-Dans cette situation, le Smartnode vous alertera lors d'une opération `rocketpool node deposit` qu'il **ne peut pas** utiliser votre solde de crédit, et doit plutôt utiliser l'ETH de votre portefeuille de nœud pour compléter la caution.
+Dans cette situation, le Smart Node vous alertera lors d'une opération `rocketpool node deposit` qu'il **ne peut pas** utiliser votre solde de crédit, et doit plutôt utiliser l'ETH de votre portefeuille de nœud pour compléter la caution.
 Cela **ne consommera pas** votre solde de crédit ; il restera tel quel et sera disponible pour utilisation ultérieure une fois que le deposit pool aura suffisamment de solde pour le couvrir.

@@ -10,11 +10,11 @@ Questa sezione descrive il processo di configurazione del tuo nodo per partecipa
 
 ## Prerequisiti
 
-Prima di configurare il tuo Smartnode, assicurati di:
+Prima di configurare il tuo Smart Node, assicurati di:
 
 - Aver configurato una macchina nodo (o macchina virtuale) e averla messa in sicurezza (tramite la guida [Mettere in sicurezza il tuo nodo](/it/node-staking/securing-your-node))
-- Avere lo Smartnode [installato](/it/node-staking/installing/overview) e [configurato](/it/node-staking/config/overview) su di esso
-- Avere un wallet nodo caricato sul tuo Smartnode
+- Avere lo Smart Node [installato](/it/node-staking/installing/overview) e [configurato](/it/node-staking/config/overview) su di esso
+- Avere un wallet nodo caricato sul tuo Smart Node
 - Aver sincronizzato i tuoi client di Esecuzione e Consenso
 - Aver provvisto il tuo nodo con [un indirizzo di prelievo](/it/node-staking/prepare-node#impostazione-del-tuo-indirizzo-di-prelievo-primario), configurato i tuoi [client di fallback](/it/node-staking/fallback) (opzionale), aderito alla [Smoothing Pool](/it/node-staking/fee-distrib-sp#lo-smoothing-pool) (opzionale), e configurato [MEV](/it/node-staking/mev)
 - Creato almeno un [minipool](/it/node-staking/create-validator)
@@ -35,7 +35,7 @@ Prima di configurare il tuo Smartnode, assicurati di:
 
 [Inizializzazione del potere di voto](/it/pdao/participate#inizializzare-il-voto) ti mostra come inizializzare il potere di voto del tuo nodo. Questo passaggio è richiesto solo se il tuo nodo è stato registrato prima dell'Houston Upgrade.
 
-[Impostazione dell'indirizzo di segnalazione Snapshot](/it/pdao/participate#impostare-lindirizzo-di-segnalazione-snapshot) ti guiderà attraverso i passaggi per impostare un indirizzo di segnalazione. Ti consentirà di votare su Snapshot utilizzando il potere di voto del tuo nodo senza dover caricare la chiave privata del tuo nodo su un wallet caldo. Assicurati di avere a portata di mano il tuo Smartnode CLI e prepara un indirizzo (che non sia il tuo wallet nodo) per questa guida.
+[Impostazione dell'indirizzo di segnalazione Snapshot](/it/pdao/participate#impostare-lindirizzo-di-segnalazione-snapshot) ti guiderà attraverso i passaggi per impostare un indirizzo di segnalazione. Ti consentirà di votare su Snapshot utilizzando il potere di voto del tuo nodo senza dover caricare la chiave privata del tuo nodo su un wallet caldo. Assicurati di avere a portata di mano il tuo Smart Node CLI e prepara un indirizzo (che non sia il tuo wallet nodo) per questa guida.
 
 [Delegare il potere di voto](/it/pdao/participate#delegare-il-potere-di-voto) è un rapido comando che puoi utilizzare per delegare il potere di voto invece di votare direttamente sulle proposte.
 

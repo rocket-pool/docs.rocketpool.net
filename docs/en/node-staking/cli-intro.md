@@ -781,7 +781,7 @@ Once you have it, simply call any transaction with the CLI using the `--nonce <v
 ::: warning NOTE
 You **must** include the `-i` (priority fee) flag in order to overwrite a previous transaction.
 This number must be at least 10% higher than whatever priority fee your old transaction used.
-The Smartnode uses a priority fee of 2 gwei by default, so a value of `2.2` is usually sufficient for an override.
+The Smart Node uses a priority fee of 2 gwei by default, so a value of `2.2` is usually sufficient for an override.
 
 If your old transaction used a custom fee (say, 10 gwei), you will need to set it at least 10% higher in the overriding transaction (so in this example, 11 gwei).
 :::
@@ -798,7 +798,7 @@ Total cost: 0.0032 to 0.0032 ETH
 Are you sure you want to send 0.000100 eth to <node wallet address>? This action cannot be undone! [y/n]
 ```
 
-The Smartnode stack will automatically check to make sure that the `nonce` you have provided is valid (it refers to a pending transaction) before sending it and wasting your gas accidentally.
+The Smart Node stack will automatically check to make sure that the `nonce` you have provided is valid (it refers to a pending transaction) before sending it and wasting your gas accidentally.
 If not, it will return an error message.
 Otherwise, it will go through and provide you with the transaction details so you can monitor it to confirm that it did, in fact, overwrite your old stuck transaction.
 

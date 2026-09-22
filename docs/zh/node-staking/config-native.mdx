@@ -17,9 +17,9 @@ import tui_native_settings_home from "./images/tui-native-settings-home.png";
 import tui_native_smartnode from "./images/tui-native-smartnode.png";
 import tui_textbox from "./images/tui-textbox.png";
 
-# 配置 Smartnode 堆栈(Native 模式)
+# 配置 Smart Node 堆栈(Native 模式)
 
-在本节中,我们将介绍如果您使用完全不使用 Docker 的 **Native 设置**来配置 Smartnode 的各种方法。
+在本节中,我们将介绍如果您使用完全不使用 Docker 的 **Native 设置**来配置 Smart Node 的各种方法。
 
 ::: warning 注意
 如果您使用基于 Docker 的设置,请访问 [Docker 配置指南](./config-docker)。
@@ -28,14 +28,14 @@ import tui_textbox from "./images/tui-textbox.png";
 有三种配置方法:
 
 - 通过[向导 UI](#通过向导配置) - 这是最简单的方法。它只会问您几个基本问题,并对其余部分使用经过充分测试的默认值。这是您首次运行 `rocketpool service config` 时看到的内容。
-- 通过[设置管理器 UI](#通过设置管理器配置) - 这使您可以访问 Smartnode 的所有设置,因此您可以根据需要自定义所有内容。
-- 通过[命令行](#通过命令行配置)无头配置 - 这是为在无头(非交互式)环境中运行 Smartnode 并需要自动配置的用户提供的选项。
+- 通过[设置管理器 UI](#通过设置管理器配置) - 这使您可以访问 Smart Node 的所有设置,因此您可以根据需要自定义所有内容。
+- 通过[命令行](#通过命令行配置)无头配置 - 这是为在无头(非交互式)环境中运行 Smart Node 并需要自动配置的用户提供的选项。
 
 从上面的列表中选择您想了解更多的模式,或者简单地向下滚动浏览下面的每个选项。
 
 ## 通过向导配置
 
-要配置 Smartnode,运行配置命令:
+要配置 Smart Node,运行配置命令:
 
 ```shell
 rp service config
@@ -44,7 +44,7 @@ rp service config
 这将启动一个基于终端的 UI,让您快速轻松地配置节点,并提供对 Native 模式相关设置的可选细粒度控制。
 
 ::: tip 注意
-如果您已经配置过 Smartnode,您将看到[设置管理器](#通过设置管理器配置)。
+如果您已经配置过 Smart Node,您将看到[设置管理器](#通过设置管理器配置)。
 如果您愿意,可以从那里选择重新打开向导,您所有现有的设置都将为您预选。
 :::
 
@@ -99,7 +99,7 @@ rp service config
 
 <img src={tui_native_ec} width="100%" height="auto" />
 
-如果您计划在与 Smartnode 相同的机器上运行执行客户端,请在此处输入 `http://127.0.0.1:8545`(在本指南的其余部分中,我们将假设这是您计划做的)。
+如果您计划在与 Smart Node 相同的机器上运行执行客户端,请在此处输入 `http://127.0.0.1:8545`(在本指南的其余部分中,我们将假设这是您计划做的)。
 但是,如果您已经在其他地方设置了执行客户端,请改用其 URL。
 
 请注意,您随时可以通过再次运行 `rp service config` 来更改此设置。
@@ -107,7 +107,7 @@ rp service config
 ### 共识客户端设置
 
 接下来,您将被问到您正在使用(或计划使用)哪个共识客户端。
-因为每个共识客户端的行为略有不同,Smartnode 需要知道您使用的是哪一个,以便相应地调整其自身行为。
+因为每个共识客户端的行为略有不同,Smart Node 需要知道您使用的是哪一个,以便相应地调整其自身行为。
 从以下屏幕的列表中选择您的客户端:
 
 <img src={tui_native_cc} width="100%" height="auto" />
@@ -116,7 +116,7 @@ rp service config
 
 <img src={tui_native_cc_url} width="100%" height="auto" />
 
-如果您计划在与 Smartnode 相同的机器上运行共识客户端的 Beacon Node,请在此处输入 `http://127.0.0.1:5052`(在本指南的其余部分中,我们将假设这是您计划做的)。
+如果您计划在与 Smart Node 相同的机器上运行共识客户端的 Beacon Node,请在此处输入 `http://127.0.0.1:5052`(在本指南的其余部分中,我们将假设这是您计划做的)。
 但是,如果您已经在其他地方设置了 Beacon Node,请改用其 URL。
 
 ### 其他设置
@@ -125,11 +125,11 @@ rp service config
 
 <img src={tui_native_other} width="100%" height="auto" />
 
-除非您决定为 Smartnode 安装使用 `/srv/rocketpool` 以外的目录,否则将这些保留为默认选项。
+除非您决定为 Smart Node 安装使用 `/srv/rocketpool` 以外的目录,否则将这些保留为默认选项。
 
 ### 回退客户端
 
-从 Smartnode 堆栈的 1.5.0 版本开始,您可以提供一个"回退"执行客户端和共识客户端对,如果您的主要客户端离线(例如因为您使用 Geth 并需要修剪它),它们可以接管。
+从 Smart Node 堆栈的 1.5.0 版本开始,您可以提供一个"回退"执行客户端和共识客户端对,如果您的主要客户端离线(例如因为您使用 Geth 并需要修剪它),它们可以接管。
 在这种情况下,您的主节点机器仍将负责使用您的 minipool 的验证器密钥进行证明和提议区块,但它将连接到外部机器以与执行层和 Beacon 链交互。
 
 [要了解有关回退节点的更多信息,请参阅本节](./fallback)并在完成后返回这里。
@@ -156,7 +156,7 @@ Rocket Pool 不会收集任何遥测数据或将其发送到单独的服务。
 
 自 2022 年 9 月执行层和共识层合并以来,Ethereum 验证者现在能够赚取优先费并参与最大可提取价值(简称 MEV)。
 
-从 Smartnode v1.7.0 开始,MEV 现在是*选择退出*,因此在初始设置过程中会显示有关配置它的通知,如您在下一个屏幕中所见:
+从 Smart Node v1.7.0 开始,MEV 现在是*选择退出*,因此在初始设置过程中会显示有关配置它的通知,如您在下一个屏幕中所见:
 
 <img src={tui_native_mev} width="100%" height="auto" />
 
@@ -165,12 +165,12 @@ Rocket Pool 不会收集任何遥测数据或将其发送到单独的服务。
 
 ### 完成
 
-在这个问题之后,您已经完成了 Smartnode 配置的设置。
+在这个问题之后,您已经完成了 Smart Node 配置的设置。
 您将看到以下对话框:
 
 <img src={tui_native_finished} width="100%" height="auto" />
 
-如果您对设置满意并准备启动 Smartnode,请单击此处的`Save and Exit`。
+如果您对设置满意并准备启动 Smart Node,请单击此处的`Save and Exit`。
 
 如果您还没有完成安装 Rocket Pool,现在返回 Native 设置指南。
 否则,下一步是使用以下命令重新启动守护进程服务:
@@ -189,7 +189,7 @@ sudo systemctl restart rp-node rp-watchtower
 
 此屏幕有三个主要功能:
 
-1. **类别列表**,让您深入了解与 Native 模式相关的 Smartnode 堆栈的每个类别的设置
+1. **类别列表**,让您深入了解与 Native 模式相关的 Smart Node 堆栈的每个类别的设置
 2. **查看更改并保存**按钮,当您准备查看已更改的设置并保存更新的配置时可以使用
 3. **打开配置向导**按钮,如果您更喜欢该界面,它将带您进入[设置向导](#通过向导配置)
 
@@ -210,7 +210,7 @@ sudo systemctl restart rp-node rp-watchtower
 ### 配置设置
 
 从主屏幕,使用`Enter`键选择任何类别以查看该类别的设置。
-例如,这是**Smartnode 和 TX 费用**类别的屏幕:
+例如,这是**Smart Node 和 TX 费用**类别的屏幕:
 
 <img src={tui_native_smartnode} width="100%" height="auto" />
 
@@ -305,7 +305,7 @@ sudo systemctl restart rp-node rp-watchtower
 
 ## 通过命令行配置
 
-如果您在无法与终端 UI 交互的无头环境中使用 Smartnode,您可以通过命令行配置节点。
+如果您在无法与终端 UI 交互的无头环境中使用 Smart Node,您可以通过命令行配置节点。
 
 `rocketpool service config` 命令接受作为参数的每个设置,这些设置通常可以通过终端 UI 进行配置。
 运行以下命令查看它们的列表(请注意,它相当长):

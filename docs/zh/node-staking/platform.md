@@ -24,7 +24,7 @@
 
 ::: warning 注意
 目前,仅支持 **Linux** 和 **macOS** 平台。
-**Windows 目前不支持** Smartnode 操作。
+**Windows 目前不支持** Smart Node 操作。
 :::
 
 ## 运行本地节点

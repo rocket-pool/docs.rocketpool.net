@@ -3,16 +3,16 @@ import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
 import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
 
-# Erweiterte Smartnode-Konfiguration für den Docker-Modus
+# Erweiterte Smart Node-Konfiguration für den Docker-Modus
 
-In diesem Abschnitt werden einige Techniken behandelt, die die Anpassungsmöglichkeiten und Funktionalität des Smartnodes erweitern.
+In diesem Abschnitt werden einige Techniken behandelt, die die Anpassungsmöglichkeiten und Funktionalität des Smart Nodes erweitern.
 
-## Externe Validator-Clients mit dem Smartnode verbinden
+## Externe Validator-Clients mit dem Smart Node verbinden
 
-Da der Smartnode den Execution Client und den Beacon Node verwaltet, übernimmt er einen Großteil ihrer Konfiguration (einschließlich Updates) automatisch.
-Ein häufiger Wunsch von Benutzern ist die Möglichkeit, einen extern verwalteten Validator-Client an die Execution und Consensus Clients des Smartnodes anzuhängen.
+Da der Smart Node den Execution Client und den Beacon Node verwaltet, übernimmt er einen Großteil ihrer Konfiguration (einschließlich Updates) automatisch.
+Ein häufiger Wunsch von Benutzern ist die Möglichkeit, einen extern verwalteten Validator-Client an die Execution und Consensus Clients des Smart Nodes anzuhängen.
 
-Im Wesentlichen fungiert dies als eine Art **„Reverse-Hybrid"-Modus**: Anstatt dass der Smartnode seinen eigenen Validator-Client verwaltet und sich mit einem externen Execution und Consensus Client verbindet, verwaltet er alle drei Komponenten, und ein externer Validator-Client kann stattdessen seine eigenen Clients verwenden.
+Im Wesentlichen fungiert dies als eine Art **„Reverse-Hybrid"-Modus**: Anstatt dass der Smart Node seinen eigenen Validator-Client verwaltet und sich mit einem externen Execution und Consensus Client verbindet, verwaltet er alle drei Komponenten, und ein externer Validator-Client kann stattdessen seine eigenen Clients verwenden.
 
 Die Aktivierung ist trivial mit dem [Einstellungsmanager](./config-docker#konfiguration-über-die-einstellungsverwaltung).
 
@@ -59,11 +59,11 @@ Wenn die lokale IP-Adresse deines Nodes beispielsweise `192.168.1.45` wäre, kö
 ## Anpassen der Docker-Compose-Definitionsdateien
 
 Obwohl der Einstellungsmanager viele Optionen zur Anpassung deines Nodes bietet, deckt er nicht alle Funktionen ab, die `docker-compose` bereitstellt.
-Einige Benutzer benötigen ergänzende Anpassungen an den `docker-compose`-Dateien des Smartnodes.
+Einige Benutzer benötigen ergänzende Anpassungen an den `docker-compose`-Dateien des Smart Nodes.
 
 Da die `docker-compose`-Dateien bei jedem Aufruf von `rocketpool service start` aus ihren Vorlagen (im Verzeichnis `templates`) neu generiert werden (in das Verzeichnis `runtime`), wird von einer Änderung der Runtime-Dateien abgeraten.
 Stattdessen nutzen wir die [inherente Override-Funktionalität](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration) von `docker-compose`, um dir beliebige Änderungen zu ermöglichen, die auch nach Neustarts erhalten bleiben.
-Darüber hinaus **bewahrt dieses System deine Änderungen auch nach einem Upgrade oder einer Neuinstallation des Smartnode-Stacks**.
+Darüber hinaus **bewahrt dieses System deine Änderungen auch nach einem Upgrade oder einer Neuinstallation des Smart Node-Stacks**.
 
 Öffne dazu einfach die Datei für den Container deiner Wahl im Ordner `override` und füge dort deine Anpassungen hinzu.
 Alles, was du in diese Dateien einträgst, **überschreibt** die entsprechenden Einstellungen in den `docker-compose`-Dateien aus dem Ordner `runtime`.
@@ -154,6 +154,14 @@ networks:
 ::: warning HINWEIS
 Wenn du ein Netzwerk ohne Rocket Pool-Storage-Adresse wählst, funktionieren Smart Node-Node-/Protokollbefehle, die Rocket Pool-Contracts benötigen, auf diesem Netzwerk nicht. Die Client-Synchronisierung kann dennoch weiterlaufen.
 :::
+
+## Docker-Image-Pins
+
+Der Smart Node pinnt offizielle Client- und Smart Node-Images per Digest, damit ein neu getaggtes Image nicht gezogen werden kann.
+
+- Die Standardwerte stehen in `~/.rocketpool/mainnet.env` im Format `repo:tag@sha256:…`. `rocketpool service install` überschreibt diese Datei immer (ebenso `testnet.env` / `devnet.env`).
+- Um nur für ein Netzwerk ein anderes Image zu pinnen, trage diesen Schlüssel in die passende `{network}.env`-Datei ein. Schlüssel, die du auslässt, erben den Mainnet-Pin.
+- Die Tag-Felder in der TUI überschreiben die Pins weiterhin. Sie haben Vorrang vor beiden env-Dateien, bis du den Standardwert wiederherstellst.
 
 ## Node-Daemon HTTP API
 

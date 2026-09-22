@@ -4,13 +4,13 @@ import tui_fallback_clients from "./images/tui-fallback-clients.png";
 
 # Yedek Node Belirtme
 
-Smartnode stack'inin **1.5.0** sürümünden başlayarak, birincil istemcileriniz çevrimdışı olduğunda (örneğin [Geth kullanıyorsanız ve budamanız gerekiyorsa](./pruning)) onların yerini alabilecek bir "yedek" Execution client ve Consensus client çifti sağlayabilirsiniz.
+Smart Node stack'inin **1.5.0** sürümünden başlayarak, birincil istemcileriniz çevrimdışı olduğunda (örneğin [Geth kullanıyorsanız ve budamanız gerekiyorsa](./pruning)) onların yerini alabilecek bir "yedek" Execution client ve Consensus client çifti sağlayabilirsiniz.
 Bu durumda, birincil node makineniz hala megapool'unuzun validator anahtarlarıyla onaylama ve blok önerme işlemlerinden sorumlu olacaktır, ancak Execution katmanı ve Beacon zinciriyle etkileşim kurmak için harici bir makineye bağlanacaktır.
 
 Esasen, zinciri sorgulama, işlem gönderme ve onaylanacak blokları alma gibi şeyler için geçici olarak başka bir istemci çifti kullanmanıza olanak tanır.
 Bu çift harici olarak yönetilebilir (Hibrit modu gibi) veya başka bir Rocket Pool node'u olabilir (API portları açık olan başka bir Docker modu makinesi, aşağıda ele alacağız).
 
-Node'unuzun birincil istemcileri tekrar çevrimiçi olduğunda, Smartnode ve Validator client'ınız otomatik olarak onlara geri dönecektir.
+Node'unuzun birincil istemcileri tekrar çevrimiçi olduğunda, Smart Node ve Validator client'ınız otomatik olarak onlara geri dönecektir.
 
 ::: warning NOT
 Bir yedek node, "backup" node ile **aynı değildir**.
@@ -35,14 +35,14 @@ v1.9.0 itibarıyla, desteklenen tüm validator client'larımız sadece birkaç s
 
 Yedek node olarak yerel olarak sahip olduğunuz ikinci bir makineyi, VPS'de barındırılan uzak bir node'u veya bulut tabanlı bir node'u kullanabilirsiniz.
 
-Bu örnek, yedek node olarak hizmet verebilecek Docker modunu kullanan farklı bir makinede ikinci bir Smartnode oluşturmanın nasıl yapılacağını gösterir.
+Bu örnek, yedek node olarak hizmet verebilecek Docker modunu kullanan farklı bir makinede ikinci bir Smart Node oluşturmanın nasıl yapılacağını gösterir.
 
 ::: tip İPUCU
 Zaten hazır ikinci bir node'unuz varsa ve RPC portları açıksa, bu bölümü atlamaktan çekinmeyin.
 :::
 
 1. Node kurma kılavuzundaki adımları izleyin ([yerel](./local/hardware) veya [uzak](./vps/providers)).
-2. Makine hazır olduğunda, [Smartnode stack'i kurun](./docker).
+2. Makine hazır olduğunda, [Smart Node stack'i kurun](./docker).
 3. Hangi istemcileri kullanmak istediğinizi belirtmek için `rocketpool service config` komutunu çalıştırın.
    1. Sihirbazın sonuna geldiğinizde ve ayarlarınızı gözden geçirmek isteyip istemediğinizi sorduğunda, **Evet**'i seçin.
    2. `Execution Client` ayarlarına girin.
@@ -52,7 +52,7 @@ Zaten hazır ikinci bir node'unuz varsa ve RPC portları açıksa, bu bölümü 
    4. Geri dönün ve `Consensus Client` ayarlarına girin. 5. `Expose API Port` kutusunu işaretleyin (**Prysm** kullanıyorsanız `Expose RPC Port` kutusunu da işaretleyin):
 
    <img src={tui_cc_expose_ports} width="100%" height="auto" />
-   6. Ayarları kaydedin ve Smartnode'u başlatın.
+   6. Ayarları kaydedin ve Smart Node'u başlatın.
 
 4. SSH kurmak ve uygun güvenlik duruşunu ayarlamak için [Node'unuzu Güvence Altına Alma](./securing-your-node) kılavuzuna atlayın.
    1. `ufw` kuruluysa, API portlarına gelen trafiğe izin vermek için kurallar eklemeniz gerekecektir (varsayılan olarak `8545`, `8546` ve `5052`; **Prysm** kullanıyorsanız `5053` de).
@@ -74,6 +74,7 @@ Bir yedek node hazırladıktan sonra, bunu ana node'unuza bağlayabilirsiniz.
 2. `Use Fallback Clients` kutusunu işaretleyin.
 3. Execution client'ınız için RPC URL'sini `Execution Client URL` kutusuna girin. Örneğin, yedek node'unuzun IP adresi `192.168.1.45` ise ve Execution client'ı varsayılan `8545` portundaysa, buraya `http://192.168.1.45:8545` girersiniz.
 4. Yedek Consensus client'ınızın RPC URL'si için de aynısını yapın. Aynı örneği takip ederek, varsayılan `5052` portundaysa, buraya `http://192.168.1.45:5052` girersiniz.
+5. İsteğe bağlı olarak **Prefer Fallback Clients** seçeneğini işaretleyin (varsayılan olarak kapalıdır). Etkinleştirilirse Smart Node, API, node ve watchtower isteklerini önce yedek Execution ve Consensus client'larınıza gönderir ve yalnızca yedek kullanılamıyorsa birincil çifti kullanır. Bu, Smart Node yükünü birincil client'lardan uzak tutarak onların validator görevlerine odaklanmasını sağlar. Validator Client'ınız bundan etkilenmez ve önce birincil çifti kullanmaya devam eder.
 
 Son sayfa şöyle görünmelidir:
 
@@ -82,7 +83,7 @@ Son sayfa şöyle görünmelidir:
 ::: tip NOT
 **Native mod** kullanıcıları aynı adımları takip edebilir, ancak TUI yukarıdaki ekran görüntüsünden biraz farklı görünecektir.
 
-Bunun sadece **Smartnode'un kendisine** (daemon servisi) yedek desteği sağlayacağını unutmayın; **Validator client servisinizin argümanlarını yedek istemcilere erişim sağlamak için manuel olarak güncellemeniz gerekecektir.**
+Bunun sadece **Smart Node'un kendisine** (daemon servisi) yedek desteği sağlayacağını unutmayın; **Validator client servisinizin argümanlarını yedek istemcilere erişim sağlamak için manuel olarak güncellemeniz gerekecektir.**
 :::
 
 Onaylandığından emin olmak için son kutuda `enter` tuşuna basın, ardından ayarları kaydedin ve değişiklikleri uygulayın.

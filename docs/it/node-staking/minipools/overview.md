@@ -18,8 +18,8 @@ Qui imparerai come iniziare a validare la rete Ethereum e guadagnare ricompense 
 Prima di eseguire minipool, assicurati di:
 
 - Aver configurato una macchina nodo (o macchina virtuale) e averla messa in sicurezza (tramite la guida [Mettere in Sicurezza il tuo Nodo](../securing-your-node))
-- Aver [installato](../installing/overview) e [configurato](../config/overview) lo Smartnode su di essa
-- Avere un wallet del nodo caricato sul tuo Smartnode
+- Aver [installato](../installing/overview) e [configurato](../config/overview) lo Smart Node su di essa
+- Avere un wallet del nodo caricato sul tuo Smart Node
 - Aver sincronizzato i tuoi client Execution e Consensus
 - Aver fornito al tuo nodo [un indirizzo di prelievo](../prepare-node.mdx#impostazione-del-tuo-indirizzo-di-prelievo-primario), configurato i tuoi [client di fallback](../fallback) (opzionale), aderito alla [Smoothing Pool](../fee-distrib-sp#lo-smoothing-pool) (opzionale) e configurato [MEV](../mev.mdx)
 

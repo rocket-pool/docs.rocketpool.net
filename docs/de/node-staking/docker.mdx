@@ -2,10 +2,10 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # Erstellen eines Standard-Rocket-Pool-Nodes mit Docker
 
-In diesem Abschnitt werden wir den Prozess der Installation des Rocket Pool Smartnode-Stacks mit dem Standard-[Docker](https://www.docker.com/resources/what-container)-basierten Setup durchgehen.
+In diesem Abschnitt werden wir den Prozess der Installation des Rocket Pool Smart Node-Stacks mit dem Standard-[Docker](https://www.docker.com/resources/what-container)-basierten Setup durchgehen.
 Dies wird alles installieren und konfigurieren, was Sie benötigen, um einen vollständigen Node zu betreiben, einschließlich:
 
-- Die Rocket Pool **Smartnode**-Software
+- Die Rocket Pool **Smart Node**-Software
 - Einen **Execution** (früher ETH1) Client Ihrer Wahl oder eine Verbindung zu einem bestehenden Client, den Sie bereits verwalten
 - Einen **Consensus** (früher ETH2) Client Ihrer Wahl oder eine Verbindung zu einem bestehenden Client, den Sie bereits verwalten
 - Einen **Validator**-Client, der Ihre Beacon Chain-Validierungsaufgaben übernimmt
@@ -25,8 +25,8 @@ Informieren Sie sich über die Anweisungen Ihres Betriebssystems, um zu erfahren
 Auf hoher Ebene ist Folgendes an der Installation von Rocket Pool beteiligt:
 
 1. Herunterladen der Rocket Pool-Befehlszeilenschnittstelle (CLI)
-1. Verwenden Sie die CLI, um den Smartnode-Stack zu installieren
-1. Konfigurieren Sie den Smartnode-Stack mit einer einfach zu bedienenden Benutzeroberfläche im Terminal
+1. Verwenden Sie die CLI, um den Smart Node-Stack zu installieren
+1. Konfigurieren Sie den Smart Node-Stack mit einer einfach zu bedienenden Benutzeroberfläche im Terminal
 1. Fertig!
 
 ## Bevor Sie beginnen
@@ -34,7 +34,7 @@ Auf hoher Ebene ist Folgendes an der Installation von Rocket Pool beteiligt:
 ::: warning
 Wenn Sie Ubuntu verwenden, wird empfohlen, dass Sie vor der Installation von Rocket Pool überprüfen, ob Docker nicht zusammen mit dem Betriebssystem installiert wurde.
 
-Der Ubuntu-Installer erhält Docker vom Snap-Paketmanager, der mit der vom Smartnode installierten Docker-Version in Konflikt steht.
+Der Ubuntu-Installer erhält Docker vom Snap-Paketmanager, der mit der vom Smart Node installierten Docker-Version in Konflikt steht.
 
 Führen Sie `snap list` aus und stellen Sie sicher, dass `docker` nicht installiert wurde.
 
@@ -132,7 +132,7 @@ Wenn Sie keine Tastatur und keinen Monitor verwenden, die direkt mit Ihrer Node-
       ```
 
       ```shell
-      rocketpool version 1.23.0
+      rocketpool version 1.24.2
       ```
 
       <p className="rspress-directive tip">
@@ -198,7 +198,7 @@ Wenn Sie keine Tastatur und keinen Monitor verwenden, die direkt mit Ihrer Node-
       ```
 
       ```
-      rocketpool version 1.23.0
+      rocketpool version 1.24.2
       ```
 
       <p className="rspress-directive tip">
@@ -218,19 +218,19 @@ Wenn Sie keine Tastatur und keinen Monitor verwenden, die direkt mit Ihrer Node-
   </Tabs>
 </div>
 
-## Installation des Smartnode-Stacks
+## Installation des Smart Node-Stacks
 
-Nachdem Sie die CLI installiert haben, können Sie den Smartnode-Stack bereitstellen.
-Dies bereitet Ihr System mit Docker, [docker-compose](https://docs.docker.com/compose/) vor und lädt die Smartnode-Dateien, damit sie einsatzbereit sind.
+Nachdem Sie die CLI installiert haben, können Sie den Smart Node-Stack bereitstellen.
+Dies bereitet Ihr System mit Docker, [docker-compose](https://docs.docker.com/compose/) vor und lädt die Smart Node-Dateien, damit sie einsatzbereit sind.
 Es wird noch nichts tatsächlich ausgeführt; das kommt später.
 
-Um den Smartnode-Stack bereitzustellen, müssen Sie den folgenden Befehl auf Ihrer Node-Maschine ausführen (entweder durch lokales Anmelden oder durch Remote-Verbindung wie über SSH):
+Um den Smart Node-Stack bereitzustellen, müssen Sie den folgenden Befehl auf Ihrer Node-Maschine ausführen (entweder durch lokales Anmelden oder durch Remote-Verbindung wie über SSH):
 
 ```shell
 rocketpool service install
 ```
 
-Dies ruft die neueste Version des Smartnode-Stacks ab und richtet ihn ein.
+Dies ruft die neueste Version des Smart Node-Stacks ab und richtet ihn ein.
 Sie sollten eine Ausgabe wie diese sehen (_über einigen Release Notes für die neueste Version, die am Ende gedruckt werden_):
 
 <img src="./images/rp-install-screen.png" width="100%" height="auto" />
@@ -239,7 +239,7 @@ Wenn keine Fehlermeldungen vorhanden sind, war die Installation erfolgreich.
 Standardmäßig wird es im Verzeichnis `~/.rocketpool` innerhalb des Home-Ordners Ihres Benutzerkontos abgelegt.
 
 ::: warning HINWEIS
-Beachten Sie, dass das Smartnode-Installationsprogramm `docker` und `docker-compose` nicht auf allen Plattformen automatisch installieren kann.
+Beachten Sie, dass das Smart Node-Installationsprogramm `docker` und `docker-compose` nicht auf allen Plattformen automatisch installieren kann.
 Wenn Sie während der Installation eine Fehlermeldung wie diese erhalten:
 
 ```
@@ -271,7 +271,7 @@ rocketpool service install -d
 
 Danach **melden Sie sich ab und wieder an oder starten Sie Ihre SSH-Sitzung neu**, damit die Einstellungen wirksam werden.
 
-Sobald dies abgeschlossen ist, ist der Smartnode-Stack einsatzbereit.
+Sobald dies abgeschlossen ist, ist der Smart Node-Stack einsatzbereit.
 
 ## Konfigurieren des Speicherorts von Docker
 
@@ -314,7 +314,7 @@ sudo systemctl restart docker
 
 Danach speichert Docker seine Daten auf Ihrer gewünschten Festplatte.
 
-## Konfigurieren des Smartnode-Stacks
+## Konfigurieren des Smart Node-Stacks
 
 Der nächste Schritt im Installationsprozess besteht darin, eine anfängliche Konfiguration Ihres Nodes durchzuführen.
 Fahren Sie mit dem Abschnitt [Konfiguration von Rocketpool](./config/overview) fort, um eine Anleitung zu diesem Prozess zu erhalten.

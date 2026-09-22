@@ -22,7 +22,7 @@ Every Validator Client maintains a Slashing Database to ensure your node never d
 The problem, then, comes from situations where you begin validating **without** a slashing database and thus have no record of what your validators have previously voted on.
 This can happen in several situations:
 
-1. You just changed Consensus Clients, and the new client doesn't carry the Slashing Database over from the old one (which the Smartnode does not do during a client change).
+1. You just changed Consensus Clients, and the new client doesn't carry the Slashing Database over from the old one (which the Smart Node does not do during a client change).
 2. You have your wallet loaded on one machine and are actively attesting with it, and then load your wallet onto a second machine _while the first machine is still actively attesting_.
 3. You stop validating on one machine and load your wallet into a second machine, but you haven't waited long enough for the current epoch to be finalized so your second machine attests for slots that your validators have already attested to.
 
@@ -39,12 +39,12 @@ Waiting for 15 minutes ensures that you've missed at least one epoch, and waited
 With the above context in mind, here is a helpful checklist you can follow when migrating your node to ensure you won't be slashed.
 This is designed for maximum safety, so while you may think some of the steps are unnecessary, we **strongly** encourage you to follow them all to completion.
 
-1. **Prepare the new node** by following these guides, starting from the "Preparing a Node" section and ending once you have the Smartnode installed and are syncing an Execution and Consensus client.
+1. **Prepare the new node** by following these guides, starting from the "Preparing a Node" section and ending once you have the Smart Node installed and are syncing an Execution and Consensus client.
    - :warning: **DO NOT** initialize a new wallet or recover your old wallet on the node. Allow it to sync the clients _without a wallet present_.
 
 2. **WAIT** until your clients are fully synced on the new node.
 3. Confirm that you have recorded your mnemonic correctly by running `rocketpool wallet test-recovery` on your new machine. This will _simulate_ key recovery to confirm your node wallet and all of your minipools' validator keys can be recovered correctly, but will not _actually_ recover them and save them to disk so there is no risk of slashing.
-   1. If the Smartnode fails to recover your node wallet using the mnemonic you provided, then your mnemonic may be invalid. **STOP** going through this process; removing the keys from your old node means they could be **lost forever**.
+   1. If the Smart Node fails to recover your node wallet using the mnemonic you provided, then your mnemonic may be invalid. **STOP** going through this process; removing the keys from your old node means they could be **lost forever**.
    2. In this situation we recommend exiting your validators and withdrawing your capital as soon as possible, so you can start over with a new node that you have the working mnemonic for.
 4. **Stop validating** on your old node (for example, using `rocketpool service stop` to shut down the validator client).
 5. **Delete your keys** from your old node (for example, using `rocketpool wallet purge`).

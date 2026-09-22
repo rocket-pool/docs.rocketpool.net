@@ -4,13 +4,13 @@ import tui_fallback_clients from "./images/tui-fallback-clients.png";
 
 # Angabe einer Fallback-Node
 
-Ab **Version 1.5.0** des Smartnode-Stacks können Sie ein "Fallback"-Execution-Client- und Consensus-Client-Paar angeben, das für Ihre primären Clients übernehmen kann, falls diese jemals offline gehen (z.B. weil [Sie Geth verwenden und es prunen müssen](./pruning)).
+Ab **Version 1.5.0** des Smart Node-Stacks können Sie ein "Fallback"-Execution-Client- und Consensus-Client-Paar angeben, das für Ihre primären Clients übernehmen kann, falls diese jemals offline gehen (z.B. weil [Sie Geth verwenden und es prunen müssen](./pruning)).
 In dieser Situation ist Ihre primäre Node-Maschine weiterhin für das Attestieren und Vorschlagen von Blöcken mit den Validator-Schlüsseln Ihres Megapools verantwortlich, aber sie wird sich mit einer externen Maschine verbinden, um mit der Execution-Layer und den Beacon-Chains zu interagieren.
 
 Im Wesentlichen ermöglicht es Ihnen, _vorübergehend_ ein anderes Client-Paar für Dinge wie das Abfragen der Chains, das Senden von Transaktionen und das Empfangen von Blöcken zum Attestieren zu verwenden.
 Dieses Paar kann extern verwaltet werden (wie im Hybrid-Modus) oder es kann eine andere Rocket Pool Node sein (eine andere Docker-Modus-Maschine, deren API-Ports freigelegt sind, was wir unten behandeln werden).
 
-Sobald die primären Clients Ihrer Node wieder online sind, werden der Smartnode und Ihr Validator-Client automatisch zu ihnen zurückwechseln.
+Sobald die primären Clients Ihrer Node wieder online sind, werden der Smart Node und Ihr Validator-Client automatisch zu ihnen zurückwechseln.
 
 ::: warning HINWEIS
 Eine Fallback-Node ist **nicht** dasselbe wie eine "Backup"-Node.
@@ -35,14 +35,14 @@ Ab Version 1.9.0 haben alle unsere unterstützten Validator-Clients Fallback-Unt
 
 Sie können eine zweite Maschine verwenden, die Sie lokal besitzen, eine entfernte Node auf einem VPS oder eine cloudbasierte Node als Fallback-Node.
 
-Dieses Beispiel zeigt Ihnen, wie Sie einen zweiten Smartnode auf einer anderen Maschine im Docker-Modus erstellen, der als Fallback-Node dienen kann.
+Dieses Beispiel zeigt Ihnen, wie Sie einen zweiten Smart Node auf einer anderen Maschine im Docker-Modus erstellen, der als Fallback-Node dienen kann.
 
 ::: tip TIPP
 Wenn Sie bereits eine zweite Node bereit haben und deren RPC-Ports freigelegt sind, können Sie diesen Abschnitt gerne überspringen.
 :::
 
 1. Folgen Sie den Schritten in der Anleitung zum Einrichten einer Node ([lokal](./local/hardware) oder [remote](./vps/providers)).
-2. Sobald die Maschine bereit ist, [installieren Sie den Smartnode-Stack](./docker).
+2. Sobald die Maschine bereit ist, [installieren Sie den Smart Node-Stack](./docker).
 3. Führen Sie `rocketpool service config` aus, um anzugeben, welche Clients Sie verwenden möchten.
    1. Wenn Sie am Ende des Assistenten angelangt sind und gefragt werden, ob Sie Ihre Einstellungen überprüfen möchten, wählen Sie **Ja**.
    2. Geben Sie die `Execution Client`-Einstellungen ein.
@@ -53,7 +53,7 @@ Wenn Sie bereits eine zweite Node bereit haben und deren RPC-Ports freigelegt si
    `Expose RPC Port`):
 
    <img src={tui_cc_expose_ports} width="100%" height="auto" />
-   6. Speichern Sie die Einstellungen und starten Sie den Smartnode.
+   6. Speichern Sie die Einstellungen und starten Sie den Smart Node.
 
 4. Springen Sie zur Anleitung [Sichern Ihrer Node](./securing-your-node), um SSH und die richtige Sicherheitshaltung einzurichten.
    1. Wenn Sie `ufw` installiert haben, müssen Sie Regeln hinzufügen, um eingehenden Datenverkehr zu den API-Ports zu erlauben (`8545`, `8546` und `5052` standardmäßig; auch `5053`, falls Sie **Prysm** verwenden).
@@ -75,6 +75,7 @@ Sobald Sie eine Fallback-Node vorbereitet haben, können Sie sie mit Ihrer Haupt
 2. Aktivieren Sie das Kontrollkästchen `Use Fallback Clients`.
 3. Geben Sie die RPC-URL für Ihren Execution-Client in das Feld `Execution Client URL` ein. Wenn beispielsweise die IP-Adresse Ihrer Fallback-Node `192.168.1.45` ist und Sie Ihren Execution-Client auf dem Standard-Port `8545` haben, würden Sie hier `http://192.168.1.45:8545` eingeben.
 4. Machen Sie dasselbe für die RPC-URL Ihres Fallback-Consensus-Clients. Wenn Sie dem gleichen Beispiel folgen und ihn auf dem Standard-Port `5052` haben, würden Sie hier `http://192.168.1.45:5052` eingeben.
+5. Aktivieren Sie optional **Prefer Fallback Clients** (standardmäßig aus). Wenn aktiviert, sendet der Smart Node API-, Node- und Watchtower-Anfragen zuerst an Ihre Fallback-Execution- und Consensus-Clients und verwendet das primäre Paar nur, wenn der Fallback nicht verfügbar ist. Dadurch bleibt die Smart Node-Last von den primären Clients fern, sodass diese sich auf die Validator-Aufgaben konzentrieren können. Ihr Validator Client ist davon nicht betroffen und verwendet weiterhin zuerst das primäre Paar.
 
 Die finale Seite sollte so aussehen:
 
@@ -83,7 +84,7 @@ Die finale Seite sollte so aussehen:
 ::: tip HINWEIS
 **Native-Modus**-Benutzer können den gleichen Schritten folgen, obwohl die TUI etwas anders aussieht als der obige Screenshot.
 
-Beachten Sie, dass dies nur dem **Smartnode selbst** (dem Daemon-Service) Fallback-Unterstützung bietet; **Sie müssen die Argumente Ihres Validator-Client-Service manuell aktualisieren, um ihm Zugriff auf die Fallback-Clients zu geben.**
+Beachten Sie, dass dies nur dem **Smart Node selbst** (dem Daemon-Service) Fallback-Unterstützung bietet; **Sie müssen die Argumente Ihres Validator-Client-Service manuell aktualisieren, um ihm Zugriff auf die Fallback-Clients zu geben.**
 :::
 
 Drücken Sie `Enter` auf dem letzten Feld, um sicherzustellen, dass es bestätigt ist, speichern Sie dann die Einstellungen und wenden Sie die Änderungen an.

@@ -6,7 +6,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 ## v1.5.0へのアップグレード前にすべきこと
 
-Smartnodeのv1.5.0以降にアップグレードする前に、次のチェックリストを確認して準備が整っていることを確認してください：
+Smart Nodeのv1.5.0以降にアップグレードする前に、次のチェックリストを確認して準備が整っていることを確認してください：
 
 ### フルExecutionクライアントへの切り替え
 
@@ -28,11 +28,11 @@ MergeはExecutionクライアントとConsensusクライアントの通信方法
 CoinCashewには、ExecutionおよびConsensusクライアントでEngine APIをセットアップする方法についての[優れた簡潔なガイド](https://www.coincashew.com/coins/overview-eth/ethereum-merge-upgrade-checklist-for-home-stakers-and-validators)があります。
 それを見て、アップグレードする前に正しくattestすることを確認して新しい構成をテストしてください。
 
-以下で、Smartnodeソフトウェアが自動的に必要とする正しいfee recipientを使用するようにValidator Clientをセットアップする方法を示します。
+以下で、Smart Nodeソフトウェアが自動的に必要とする正しいfee recipientを使用するようにValidator Clientをセットアップする方法を示します。
 
 ## v1.5.0へのアップグレード
 
-Smartnodeスタックをv1.5.0にアップグレードすることは、他のアップグレードと変わりません。
+Smart Nodeスタックをv1.5.0にアップグレードすることは、他のアップグレードと変わりません。
 単に[こちらの通常の手順](../../node-staking/updates#smartnodeスタックの更新)に従ってください。
 
 ## アップグレード後にすべきこと
@@ -44,7 +44,7 @@ Smartnodeスタックをv1.5.0にアップグレードすることは、他の�
 最初にすべきことは、ノードが正しく動作していることを確認することです。
 次の手順を検討してください：
 
-- Executionクライアント、Consensusクライアント、Validator Client、およびSmartnodeデーモン（`rp-node`サービス）のログスクリプトをチェックして、エラーなく正常に機能していることを確認します。
+- Executionクライアント、Consensusクライアント、Validator Client、およびSmart Nodeデーモン（`rp-node`サービス）のログスクリプトをチェックして、エラーなく正常に機能していることを確認します。
 - Block Explorer（Grafanaダッシュボードや[https://beaconcha.in](https://beaconcha.in)など）で、まだ適切にattestしていることを確認します
   - Doppelganger保護を有効にしている場合、再起動後にいくつかのattestationを失うことを忘れないでください。これは正常です！
 
@@ -56,12 +56,12 @@ Merge前にセットアップすべき**重要な**詳細の1つは、Validator 
 - Smoothing Poolに**オプトイン**している場合、これは**Smoothing Pool契約**のアドレスである必要があります。アドレスは[公式契約ページ](/ja/protocol/contracts-integrations)から取得できます。
 - Smoothing Poolに**いない**場合、これはノードの**fee distributor契約**のアドレスである必要があります。アドレスは、`Fee Distributor and Smoothing Pool`セクションの下の`rocketpool node status`を実行して取得できます。
 
-ネイティブモードでは、Smartnodeデーモンサービス`rp-node`を使用する場合はSmartnodeにこれを管理させるか、デーモンを使用しない場合は自分で管理するかを選択できます。
+ネイティブモードでは、Smart Nodeデーモンサービス`rp-node`を使用する場合はSmart Nodeにこれを管理させるか、デーモンを使用しない場合は自分で管理するかを選択できます。
 
 #### デーモンによる自動管理
 
-Smartnodeデーモンは、ノードに適切なfee recipientを自動的に決定し、変更された場合（Smoothing Poolへのオプトインおよびアウトなど）に管理します。
-これは**最も安全な**オプションです。Smartnodeは常に[ペナルティ](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)を防ぐ値に設定されることを保証するためです。
+Smart Nodeデーモンは、ノードに適切なfee recipientを自動的に決定し、変更された場合（Smoothing Poolへのオプトインおよびアウトなど）に管理します。
+これは**最も安全な**オプションです。Smart Nodeは常に[ペナルティ](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)を防ぐ値に設定されることを保証するためです。
 
 これを行う方法は、正しいfee recipientを含むファイルを維持し、定期的に更新して正確性を確保することです。
 更新が必要な場合、ファイルを変更し、Validator Clientを自動的に再起動して新しいrecipientをロードします。新しいminipoolをステークした後にValidator Clientを再起動する方法と同様です。
@@ -89,7 +89,7 @@ Smartnodeデーモンは、ノードに適切なfee recipientを自動的に決�
       --suggested-fee-recipient ${FEE_RECIPIENT}
       ```
 
-      VCは、Smartnodeデーモンによって管理されるファイルを使用するようになり、fee recipientが変更されるたびに自動的に再起動されます。
+      VCは、Smart Nodeデーモンによって管理されるファイルを使用するようになり、fee recipientが変更されるたびに自動的に再起動されます。
     </Tab>
     <Tab label="Nimbus">
       `ExecStart`行の_前_に次の行を追加して、Validator Clientサービスを変更します：
@@ -110,7 +110,7 @@ Smartnodeデーモンは、ノードに適切なfee recipientを自動的に決�
       --suggested-fee-recipient=${FEE_RECIPIENT}
       ```
 
-      VCは、Smartnodeデーモンによって管理されるファイルを使用するようになり、fee recipientが変更されるたびに自動的に再起動されます。
+      VCは、Smart Nodeデーモンによって管理されるファイルを使用するようになり、fee recipientが変更されるたびに自動的に再起動されます。
     </Tab>
     <Tab label="Prysm">
       `ExecStart`行の_前_に次の行を追加して、Validator Clientサービスを変更します：
@@ -131,7 +131,7 @@ Smartnodeデーモンは、ノードに適切なfee recipientを自動的に決�
       --suggested-fee-recipient ${FEE_RECIPIENT}
       ```
 
-      VCは、Smartnodeデーモンによって管理されるファイルを使用するようになり、fee recipientが変更されるたびに自動的に再起動されます。
+      VCは、Smart Nodeデーモンによって管理されるファイルを使用するようになり、fee recipientが変更されるたびに自動的に再起動されます。
     </Tab>
     <Tab label="Teku">
       `ExecStart`行の_前_に次の行を追加して、Validator Clientサービスを変更します：
@@ -152,7 +152,7 @@ Smartnodeデーモンは、ノードに適切なfee recipientを自動的に決�
       --validators-proposer-default-fee-recipient=${FEE_RECIPIENT}
       ```
 
-      VCは、Smartnodeデーモンによって管理されるファイルを使用するようになり、fee recipientが変更されるたびに自動的に再起動されます。
+      VCは、Smart Nodeデーモンによって管理されるファイルを使用するようになり、fee recipientが変更されるたびに自動的に再起動されます。
     </Tab>
 
   </Tabs>
@@ -279,7 +279,7 @@ MEV-boostは現在HoodiまたはMainnetで利用できないため、現時点�
 
 Mergeは、InfuraやPocketなどのリモートプロバイダーと互換性がないため、プライマリがオフラインになったときにフォールバックExecutionクライアントとして使用する能力を失います。
 
-Smartnodeには依然としてフォールバックExecutionクライアント（および現在はフォールバックConsensusクライアントも）を提供する能力がありますが、制御するExecutionおよびConsensusクライアントを使用する必要があります。
+Smart Nodeには依然としてフォールバックExecutionクライアント（および現在はフォールバックConsensusクライアントも）を提供する能力がありますが、制御するExecutionおよびConsensusクライアントを使用する必要があります。
 
 フォールバックノードのセットアップの詳細については、[フォールバックノードガイド](../../node-staking/fallback)を参照してください。
 
@@ -312,7 +312,7 @@ rocketpool node join-smoothing-pool
 
 Redstoneアップグレードは、高価で問題のある古い報酬システムを、はるかに安価で、RPLの自動再ステーク（部分的および完全な金額の両方）をサポートし、そして最も重要なことに**いつでも報酬を請求できる**[真新しいもの](./whats-new#新しい報酬システム)に置き換えます。
 
-報酬請求に時間制限がなくなり、多くの報酬間隔を一度に請求する方が安価になるため、Smartnodeの自動報酬請求機能は**削除されました**。
+報酬請求に時間制限がなくなり、多くの報酬間隔を一度に請求する方が安価になるため、Smart Nodeの自動報酬請求機能は**削除されました**。
 次のコマンドを介して報酬を請求できるようになります：
 
 ```shell

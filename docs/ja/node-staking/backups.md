@@ -5,7 +5,7 @@
 HybridまたはNativeユーザーの場合、一部の場所が異なる可能性があります。
 :::
 
-一般的に、Smartnode経由でノードウォレットとminipoolを作成した場合、完全な障害からノードを回復するために本当に必要なのは**ノードウォレットのニーモニック**だけです。
+一般的に、Smart Node経由でノードウォレットとminipoolを作成した場合、完全な障害からノードを回復するために本当に必要なのは**ノードウォレットのニーモニック**だけです。
 それ以外のすべては、そこから簡単に回復できます。
 
 外部生成されたvalidatorキーを持つminipool（例：**Allnodes**から自己ホスト型ノードに移行した場合）がある場合は、ノードウォレットから回復できないため、validatorのプライベートキーストアファイルも必要になります。
@@ -17,16 +17,16 @@ Executionクライアントの障害（データベースの破損、SSDの故�
 このガイドでは、ノードの回復力を向上させ、不要なダウンタイムを最小限に抑えるために、これらのいくつかをバックアップする方法を示します。
 
 ::: warning 注記
-このガイドは、Smartnodeをデフォルトディレクトリ（`~/.rocketpool`）にインストールしていることを前提としています。
+このガイドは、Smart Nodeをデフォルトディレクトリ（`~/.rocketpool`）にインストールしていることを前提としています。
 別のインストールディレクトリを指定した場合は、以下の手順で適宜置き換えてください。
 :::
 
 ## バックアップ可能なアイテム
 
-### Smartnode設定
+### Smart Node設定
 
-Smartnodeの設定は`~/.rocketpool/user-settings.yml`に保存されています。
-これを保存して置き換えることで、すべてのSmartnode設定（つまり、`rocketpool service config`で指定したもの）を復元できます。
+Smart Nodeの設定は`~/.rocketpool/user-settings.yml`に保存されています。
+これを保存して置き換えることで、すべてのSmart Node設定（つまり、`rocketpool service config`で指定したもの）を復元できます。
 
 ### Executionクライアント / ETH1クライアントチェーンデータ
 
@@ -38,7 +38,7 @@ Merge後、これは数時間から数日のダウンタイムと利益の損失
 このフォルダは通常、権限のないユーザーアカウントではアクセスできないことに注意してください。表示するには`root`ユーザーに昇格する必要があります。
 
 ::: tip 注記
-初期Smartnodeインストール時にDockerのストレージ場所を変更した場合（2番目のSSDでDockerを実行している人など）、ボリュームは`/<外部マウントポイント>/docker/volumes/rocketpool_eth1clientdata`にあります。
+初期Smart Nodeインストール時にDockerのストレージ場所を変更した場合（2番目のSSDでDockerを実行している人など）、ボリュームは`/<外部マウントポイント>/docker/volumes/rocketpool_eth1clientdata`にあります。
 
 使用しているインストールパスがわからない場合は、`/etc/docker/daemon.json`でその場所を確認できます。
 ファイルが存在しない場合は、デフォルトの場所を使用しています。
@@ -69,7 +69,7 @@ Consensusクライアントは、このテクニックを使用してBeacon chai
 
 ## Executionチェーンデータのバックアップ
 
-Smartnodeには、`rocketpool service export-eth1-data`コマンドを使用してExecutionチェーンデータをバックアップする機能が付属しています。
+Smart Nodeには、`rocketpool service export-eth1-data`コマンドを使用してExecutionチェーンデータをバックアップする機能が付属しています。
 内部的には、Linux内の強力なバックアップ/コピーツールである`rsync`を利用しています。
 
 `rsync`は、ソースディレクトリ（Dockerボリューム）とターゲットディレクトリ（バックアップ場所）のファイルを比較します。

@@ -18,8 +18,8 @@ Burada Ethereum ağını doğrulamaya nasıl başlayacağınızı ve bunun için
 Minipool'ları çalıştırmadan önce lütfen şunlardan emin olun:
 
 - Bir düğüm makinesi (veya sanal makine) kurdunuz ve güvenliğini sağladınız ([Düğümünüzü Güvence Altına Alma](../securing-your-node) kılavuzu ile)
-- Smartnode'u üzerine [kurdunuz](../installing/overview) ve [yapılandırdınız](../config/overview)
-- Smartnode'unuzda yüklenmiş bir düğüm cüzdanınız var
+- Smart Node'u üzerine [kurdunuz](../installing/overview) ve [yapılandırdınız](../config/overview)
+- Smart Node'unuzda yüklenmiş bir düğüm cüzdanınız var
 - Execution ve Consensus istemcilerinizi senkronize ettiniz
 - Düğümünüzü [bir çekim adresiyle](../prepare-node.mdx#birincil-çekim-adresinizi-ayarlama) sağladınız, [yedek istemcilerinizi](../fallback) kurdunuz (isteğe bağlı), [Smoothing Pool'a](../fee-distrib-sp#smoothing-pool) katıldınız (isteğe bağlı) ve [MEV](../mev.mdx)'yi yapılandırdınız
 

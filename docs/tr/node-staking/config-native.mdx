@@ -17,9 +17,9 @@ import tui_native_settings_home from "./images/tui-native-settings-home.png";
 import tui_native_smartnode from "./images/tui-native-smartnode.png";
 import tui_textbox from "./images/tui-textbox.png";
 
-# Smartnode Stack'i Yapılandırma (Native Modu)
+# Smart Node Stack'i Yapılandırma (Native Modu)
 
-Bu bölümde, Docker kullanmayan **Native kurulum** kullanıyorsanız Smartnode'u yapılandırmanın çeşitli yöntemlerini ele alacağız.
+Bu bölümde, Docker kullanmayan **Native kurulum** kullanıyorsanız Smart Node'u yapılandırmanın çeşitli yöntemlerini ele alacağız.
 
 ::: warning NOT
 Docker tabanlı bir kurulum kullanıyorsanız, lütfen bunun yerine [Docker yapılandırma kılavuzunu](./config-docker) ziyaret edin.
@@ -28,14 +28,14 @@ Docker tabanlı bir kurulum kullanıyorsanız, lütfen bunun yerine [Docker yap�
 Üç yapılandırma yöntemi vardır:
 
 - [Sihirbaz UI](#sihirbaz-ile-yapılandırma) ile - bu en kolay yoldur. Sadece birkaç temel soru sorar ve geri kalanı için iyi test edilmiş varsayılanları kullanır. İlk kez `rocketpool service config` komutunu çalıştırdığınızda size sunulacak olan budur.
-- [Ayarlar Yöneticisi UI](#ayarlar-yöneticisi-ile-yapılandırma) ile - bu size Smartnode'un tüm ayarlarına erişim sağlar, böylece istediğiniz kadar her şeyi özelleştirebilirsiniz.
-- [Komut Satırı](#komut-satırı-ile-yapılandırma) ile başsız olarak - bu, Smartnode'u başsız (etkileşimsiz) bir ortamda çalıştıran ve otomatik olarak yapılandırması gereken kişiler için bir seçenektir.
+- [Ayarlar Yöneticisi UI](#ayarlar-yöneticisi-ile-yapılandırma) ile - bu size Smart Node'un tüm ayarlarına erişim sağlar, böylece istediğiniz kadar her şeyi özelleştirebilirsiniz.
+- [Komut Satırı](#komut-satırı-ile-yapılandırma) ile başsız olarak - bu, Smart Node'u başsız (etkileşimsiz) bir ortamda çalıştıran ve otomatik olarak yapılandırması gereken kişiler için bir seçenektir.
 
 Yukarıdaki listeden hangi mod hakkında daha fazla bilgi edinmek istediğinizi seçin veya aşağıdaki her seçeneği kaydırın.
 
 ## Sihirbaz ile Yapılandırma
 
-Smartnode'u yapılandırmak için yapılandırma komutunu çalıştırın:
+Smart Node'u yapılandırmak için yapılandırma komutunu çalıştırın:
 
 ```shell
 rp service config
@@ -44,7 +44,7 @@ rp service config
 Bu, node'unuzu hızlı ve kolay bir şekilde yapılandırmanıza olanak tanıyan terminal tabanlı bir UI başlatacak ve Native modu ile ilgili ayarlar üzerinde isteğe bağlı ince ayarlı kontrol sağlayacaktır.
 
 ::: tip NOT
-Smartnode'u zaten yapılandırdıysanız, bunun yerine [Ayarlar Yöneticisi](#ayarlar-yöneticisi-ile-yapılandırma) ile karşılaşacaksınız.
+Smart Node'u zaten yapılandırdıysanız, bunun yerine [Ayarlar Yöneticisi](#ayarlar-yöneticisi-ile-yapılandırma) ile karşılaşacaksınız.
 Tercih ederseniz Sihirbazı oradan yeniden açmayı seçebilirsiniz ve mevcut tüm ayarlarınız sizin için önceden seçilmiş olacaktır.
 :::
 
@@ -99,7 +99,7 @@ Bir sonraki ekran, Execution client'ınızın HTTP tabanlı RPC API'sinin URL'si
 
 <img src={tui_native_ec} width="100%" height="auto" />
 
-Smartnode ile aynı makinede bir Execution client çalıştırmayı planlıyorsanız buraya `http://127.0.0.1:8545` girin (bu kılavuzun geri kalanında, bunu yapmayı planladığınızı varsayacağız).
+Smart Node ile aynı makinede bir Execution client çalıştırmayı planlıyorsanız buraya `http://127.0.0.1:8545` girin (bu kılavuzun geri kalanında, bunu yapmayı planladığınızı varsayacağız).
 Ancak, başka bir yerde zaten kurulmuş bir Execution client'ınız varsa, bunun yerine burada onun URL'sini kullanın.
 
 Daha sonra `rp service config` komutunu tekrar çalıştırarak bunu her zaman değiştirebileceğinizi unutmayın.
@@ -107,7 +107,7 @@ Daha sonra `rp service config` komutunu tekrar çalıştırarak bunu her zaman d
 ### Consensus Client Kurulumu
 
 Ardından, hangi Consensus client'ı kullandığınız (veya kullanmayı planladığınız) sorulacaktır.
-Her Consensus client biraz farklı davrandığı için, Smartnode kendi davranışını buna göre uyarlayabilmesi için hangisini kullandığınızı bilmesi gerekir.
+Her Consensus client biraz farklı davrandığı için, Smart Node kendi davranışını buna göre uyarlayabilmesi için hangisini kullandığınızı bilmesi gerekir.
 Aşağıdaki ekrandaki listeden client'ınızı seçin:
 
 <img src={tui_native_cc} width="100%" height="auto" />
@@ -116,7 +116,7 @@ Ardından, client'ınızın API URL'sini isteyen bir ekran göreceksiniz:
 
 <img src={tui_native_cc_url} width="100%" height="auto" />
 
-Consensus client'ınızın Beacon Node'unu Smartnode ile aynı makinede çalıştırmayı planlıyorsanız buraya `http://127.0.0.1:5052` girin (bu kılavuzun geri kalanında, bunu yapmayı planladığınızı varsayacağız).
+Consensus client'ınızın Beacon Node'unu Smart Node ile aynı makinede çalıştırmayı planlıyorsanız buraya `http://127.0.0.1:5052` girin (bu kılavuzun geri kalanında, bunu yapmayı planladığınızı varsayacağız).
 Ancak, başka bir yerde zaten kurulmuş bir Beacon Node'unuz varsa, bunun yerine burada onun URL'sini kullanın.
 
 ### Diğer Ayarlar
@@ -125,11 +125,11 @@ Bir sonraki ekranda birkaç başka çeşitli ayar olacaktır:
 
 <img src={tui_native_other} width="100%" height="auto" />
 
-Smartnode kurulumunuz için `/srv/rocketpool` dışında bir dizin kullanmaya karar vermediyseniz, bunları varsayılan seçenekler olarak bırakın.
+Smart Node kurulumunuz için `/srv/rocketpool` dışında bir dizin kullanmaya karar vermediyseniz, bunları varsayılan seçenekler olarak bırakın.
 
 ### Yedek Client'lar
 
-Smartnode stack'in 1.5.0 sürümünden itibaren, birincil client'larınız herhangi bir zamanda çevrimdışı olursa (örneğin Geth kullanıyorsanız ve onu budamanız gerekiyorsa) onların yerini alabilecek bir "yedek" Execution client ve Consensus client çifti sağlayabilirsiniz.
+Smart Node stack'in 1.5.0 sürümünden itibaren, birincil client'larınız herhangi bir zamanda çevrimdışı olursa (örneğin Geth kullanıyorsanız ve onu budamanız gerekiyorsa) onların yerini alabilecek bir "yedek" Execution client ve Consensus client çifti sağlayabilirsiniz.
 Bu durumda, birincil node makineniz hala minipool'larınızın validator anahtarları ile tanıklık etmekten ve bloklar önermekten sorumlu olacaktır, ancak Execution katmanı ve Beacon zincirleri ile etkileşim kurmak için harici bir makineye bağlanacaktır.
 
 [Yedek node'lar hakkında daha fazla bilgi edinmek için bu bölüme bakın](./fallback) ve bittiğinizde buraya geri dönün.
@@ -156,7 +156,7 @@ Tamamen kendi node'unuzu izleyebilmeniz için oradadır!
 
 Eylül 2022'de Execution ve Consensus katmanlarının birleşmesinden bu yana, Ethereum validator'ları artık öncelik ücretleri kazanma ve Maksimum Çıkarılabilir Değere (kısaca MEV) katılma yeteneğine sahiptir.
 
-Smartnode v1.7.0 ile başlayarak, MEV artık _devre dışı bırakma seçeneği_ olduğundan, yapılandırması hakkında bir bildirim, bir sonraki ekranda gördüğünüz gibi ilk kurulumun bir parçası olarak sunulur:
+Smart Node v1.7.0 ile başlayarak, MEV artık _devre dışı bırakma seçeneği_ olduğundan, yapılandırması hakkında bir bildirim, bir sonraki ekranda gördüğünüz gibi ilk kurulumun bir parçası olarak sunulur:
 
 <img src={tui_native_mev} width="100%" height="auto" />
 
@@ -165,12 +165,12 @@ Bitirdiğinizde buraya geri dönün.
 
 ### Tamamlama
 
-Bu sorudan sonra, Smartnode yapılandırmasını kurmayı tamamladınız.
+Bu sorudan sonra, Smart Node yapılandırmasını kurmayı tamamladınız.
 Aşağıdaki iletişim kutusunu göreceksiniz:
 
 <img src={tui_native_finished} width="100%" height="auto" />
 
-Kurulumunuzdan memnunsanız ve Smartnode'u başlatmaya hazırsanız, burada `Save and Exit`'e tıklayın.
+Kurulumunuzdan memnunsanız ve Smart Node'u başlatmaya hazırsanız, burada `Save and Exit`'e tıklayın.
 
 Henüz Rocket Pool'u kurmayı bitirmediyseniz, şimdi Native kurulum kılavuzuna geri dönün.
 Aksi takdirde, bir sonraki adım daemon servislerinizi şununla yeniden başlatmaktır:
@@ -189,7 +189,7 @@ Zaten `rp service config` komutunu çalıştırdıysanız, Sihirbaz ile karşıl
 
 Bu ekranın üç ana özelliği vardır:
 
-1. **Kategori Listesi**, Native modu ile ilgili Smartnode stack'inin her kategorisi için ayarları detaylandırmanıza olanak tanır
+1. **Kategori Listesi**, Native modu ile ilgili Smart Node stack'inin her kategorisi için ayarları detaylandırmanıza olanak tanır
 2. **Değişiklikleri Gözden Geçir ve Kaydet** düğmesi, hangi ayarları değiştirdiğinizi görmek ve güncellenmiş yapılandırmayı kaydetmek için hazır olduğunuzda kullanabileceğiniz
 3. **Yapılandırma Sihirbazını Aç** düğmesi, bunun yerine o arayüzü tercih ederseniz sizi [Kurulum Sihirbazı](#sihirbaz-ile-yapılandırma)'na götürecektir
 
@@ -210,7 +210,7 @@ Bunları keşfetmekten çekinmeyin; **Değişiklikleri Gözden Geçir ve Kaydet*
 ### Ayarları Yapılandırma
 
 Ana ekrandan, o kategorinin ayarlarını görüntülemek için `Enter` tuşu ile kategorilerden herhangi birini seçin.
-Örneğin, işte **Smartnode ve TX Ücretleri** kategorisi için ekran:
+Örneğin, işte **Smart Node ve TX Ücretleri** kategorisi için ekran:
 
 <img src={tui_native_smartnode} width="100%" height="auto" />
 
@@ -305,7 +305,7 @@ sudo systemctl restart rp-node rp-watchtower
 
 ## Komut Satırı ile Yapılandırma
 
-Smartnode'u Terminal UI ile etkileşime giremeyeceğiniz başsız bir ortamda kullanıyorsanız, bunun yerine node'unuzu komut satırı aracılığıyla yapılandırabilirsiniz.
+Smart Node'u Terminal UI ile etkileşime giremeyeceğiniz başsız bir ortamda kullanıyorsanız, bunun yerine node'unuzu komut satırı aracılığıyla yapılandırabilirsiniz.
 
 `rocketpool service config` komutu, normalde Terminal UI aracılığıyla yapılandırılabilen her ayarı argüman olarak kabul eder.
 Bunların bir listesini görmek için aşağıdaki komutu çalıştırın (oldukça uzun olduğunu unutmayın):

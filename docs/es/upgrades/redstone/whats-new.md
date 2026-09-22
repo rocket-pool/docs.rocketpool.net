@@ -1,7 +1,7 @@
 # La Actualización Redstone de Rocket Pool
 
 La próxima actualización importante de Rocket Pool, titulada **Redstone**, ha sido lanzada para pruebas beta en las redes de prueba Ropsten y Holesky.
-Esta página describe los principales cambios que Redstone trae, incluyendo actualizaciones tanto a la pila del Smartnode como al protocolo Rocket Pool en general.
+Esta página describe los principales cambios que Redstone trae, incluyendo actualizaciones tanto a la pila del Smart Node como al protocolo Rocket Pool en general.
 
 Por favor lee esta página detenidamente para entender todas las diferencias entre la versión anterior de Rocket Pool y Redstone.
 
@@ -49,7 +49,7 @@ Esta es la dirección en la Capa de Ejecución (ETH1) a la que se enviarán toda
 
 Rocket Pool está diseñado para distribuir estas recompensas de manera justa, de la misma manera que distribuye de manera justa tus recompensas de la Beacon chain: la mitad de cualquier tarifa de prioridad que tus validadores de minipool ganen irá para ti (más la comisión promedio de todos tus minipools), y la otra mitad irá a los stakers del pool (menos tu comisión promedio).
 
-Para ese fin, el Smartnode configurará automáticamente el `fee recipient` de tu cliente Validator a una dirección especial conocida como el **distribuidor de tarifas** de tu nodo.
+Para ese fin, el Smart Node configurará automáticamente el `fee recipient` de tu cliente Validator a una dirección especial conocida como el **distribuidor de tarifas** de tu nodo.
 Tu distribuidor de tarifas es un contrato único en la Capa de Ejecución que es **específico para tu nodo**.
 Mantendrá todas las tarifas de prioridad que hayas ganado con el tiempo, y contiene la lógica necesaria para dividirlas y distribuirlas de manera justa.
 Este proceso de distribución es controlado por ti (el operador del nodo), y se puede hacer cuando gustes.
@@ -57,11 +57,11 @@ No tiene un límite de tiempo.
 
 La dirección para el distribuidor de tarifas de tu nodo está **determinísticamente basada en tu dirección de nodo**.
 Eso significa que se conoce de antemano, antes de que se cree el distribuidor de tarifas.
-**El Smartnode usará esta dirección como tu destinatario de tarifas.**
+**El Smart Node usará esta dirección como tu destinatario de tarifas.**
 
 ::: tip NOTA
-Por defecto, tu destinatario de tarifas se establecerá en la **dirección de rETH** cuando instales Smartnode v1.5.0 (si las actualizaciones del contrato Redstone aún no se han implementado).
-El Smartnode actualizará automáticamente esto a la dirección del distribuidor de tarifas de tu nodo una vez que se haya implementado la actualización Redstone.
+Por defecto, tu destinatario de tarifas se establecerá en la **dirección de rETH** cuando instales Smart Node v1.5.0 (si las actualizaciones del contrato Redstone aún no se han implementado).
+El Smart Node actualizará automáticamente esto a la dirección del distribuidor de tarifas de tu nodo una vez que se haya implementado la actualización Redstone.
 
 Una excepción a esta regla es si has optado por el **Smoothing Pool** - consulta la sección al final de esta página para más información al respecto.
 :::
@@ -230,8 +230,8 @@ En la tercera advertencia, el minipool comenzará a recibir **infracciones** - c
 
 Las infracciones están a nivel de **minipool**, no a nivel de **nodo**.
 
-El software Smartnode está diseñado para asegurar que los usuarios honestos nunca sean penalizados, incluso si debe desconectar el cliente Validator para hacerlo.
-Si esto sucede, dejarás de atestiguar y verás mensajes de error en tus archivos de registro sobre por qué el Smartnode no puede configurar correctamente tu destinatario de tarifas.
+El software Smart Node está diseñado para asegurar que los usuarios honestos nunca sean penalizados, incluso si debe desconectar el cliente Validator para hacerlo.
+Si esto sucede, dejarás de atestiguar y verás mensajes de error en tus archivos de registro sobre por qué el Smart Node no puede configurar correctamente tu destinatario de tarifas.
 
 ## Guías para Pre y Post-Actualización
 

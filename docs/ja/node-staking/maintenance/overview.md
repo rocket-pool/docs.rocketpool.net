@@ -10,11 +10,11 @@ next:
 
 ## 前提条件
 
-Smartnodeを設定する前に、次のことを確認してください。
+Smart Nodeを設定する前に、次のことを確認してください。
 
 - ノードマシン(または仮想マシン)をセットアップし、保護している([ノードの保護](../securing-your-node)ガイドを参照)
-- Smartnodeが[インストール](../installing/overview)され、[設定](../config/overview)されている
-- Smartnodeにノードウォレットがロードされている
+- Smart Nodeが[インストール](../installing/overview)され、[設定](../config/overview)されている
+- Smart Nodeにノードウォレットがロードされている
 - Execution ClientとConsensus Clientが同期されている
 - ノードに[出金アドレス](../prepare-node.mdx#primary-withdrawal-addressの設定)が準備され、[フォールバッククライアント](../fallback)がセットアップされ(オプション)、[Smoothing Pool](../fee-distrib-sp#smoothing-pool)にオプトインし(オプション)、[MEV](../mev.mdx)が設定されている
 - 少なくとも1つの[minipool](../create-validator.mdx)を作成している
@@ -24,12 +24,12 @@ Smartnodeを設定する前に、次のことを確認してください。
 [ノードのパフォーマンスの監視](../performance)では、ノードの健全性(CPUやRAM消費などのリソースの観点から)とBeacon Chain上のvalidatorのパフォーマンスを監視するためのツールとチュートリアルをいくつか提供しています。
 Ethereum validatorとしての在任中に使用する多くの基本的なツールをカバーしています。
 
-[Grafanaダッシュボードのセットアップ](../grafana.mdx)では、SmartnodeスタックのメトリクストラッカーとGrafanaダッシュボードのセットアップについて説明します。これは、ノードとvalidatorに関するすべてを監視するためのワンストップショップであり、各Node Operatorの武器庫の定番です。
+[Grafanaダッシュボードのセットアップ](../grafana.mdx)では、Smart NodeスタックのメトリクストラッカーとGrafanaダッシュボードのセットアップについて説明します。これは、ノードとvalidatorに関するすべてを監視するためのワンストップショップであり、各Node Operatorの武器庫の定番です。
 Grafanaダッシュボードを探索し、定期的にチェックすることを*強く*お勧めします。
 
-[Smartnodeスタックアラート通知](./alerting.md)では、Smartnodeアラート通知機能を使用して、Rocket Pool Smartnodeの健全性と重要なイベントに関する通知を受信する方法について説明します。
+[Smart Nodeスタックアラート通知](./alerting.md)では、Smart Nodeアラート通知機能を使用して、Rocket Pool Smart Nodeの健全性と重要なイベントに関する通知を受信する方法について説明します。
 
-[更新の確認](../updates)では、新しいセキュリティパッチでノードを定期的に更新する重要なプロセス、新しいリリース後にSmartnodeを更新する方法、および選択したクライアントが新しいバージョンをリリースした場合にSmartnodeの最新リリースにまだ含まれていない場合にクライアントバージョンを手動で更新する方法について説明します。
+[更新の確認](../updates)では、新しいセキュリティパッチでノードを定期的に更新する重要なプロセス、新しいリリース後にSmart Nodeを更新する方法、および選択したクライアントが新しいバージョンをリリースした場合にSmart Nodeの最新リリースにまだ含まれていない場合にクライアントバージョンを手動で更新する方法について説明します。
 更新がリリースされるたびに参照する必要がある場合があるため、このセクション全体をよく理解しておく必要があります。
 
 [ノードのバックアップ](../backups)は、ハードウェア障害が発生した場合に備えて、ノードの設定とチェーンデータをバックアップする方法を説明するオプションのガイドです。

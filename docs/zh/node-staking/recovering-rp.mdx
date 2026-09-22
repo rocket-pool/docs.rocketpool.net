@@ -2,14 +2,14 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # 导入/恢复现有钱包
 
-如果您已经有一个想要用于节点的钱包，或者您正在恢复之前使用 Smartnode 创建的钱包，本指南将帮助您完成导入/恢复过程。
+如果您已经有一个想要用于节点的钱包，或者您正在恢复之前使用 Smart Node 创建的钱包，本指南将帮助您完成导入/恢复过程。
 
 请从以下部分中选择适当的选项。
 
-## 恢复 Smartnode 钱包
+## 恢复 Smart Node 钱包
 
-如果您使用 Smartnode 生成了节点钱包，并且只是在新机器上恢复它，过程非常简单。
-确保您已经安装了 Smartnode 软件，然后在安装完成后只需运行以下命令：
+如果您使用 Smart Node 生成了节点钱包，并且只是在新机器上恢复它，过程非常简单。
+确保您已经安装了 Smart Node 软件，然后在安装完成后只需运行以下命令：
 
 ```shell
 rocketpool wallet recover
@@ -22,12 +22,18 @@ rocketpool wallet recover
 rocketpool wallet recover -k
 ```
 
-如果您不指定此标志，Smartnode 将尝试恢复您的 minipool 或 megapool 验证器的验证器密钥。该步骤需要已同步的 Execution 客户端和 Beacon 客户端。
+如果您不指定此标志，Smart Node 将尝试恢复您的 minipool 或 megapool 验证器的验证器密钥。该步骤需要已同步的 Execution 客户端和 Beacon 客户端。
 
 使用 `-k` 时，**仅恢复钱包**无需等待客户端同步完成。您可以在它们仍在同步时执行此操作。
 :::
 
-这将首先要求您输入要用于加密钱包的密码。
+默认情况下，Smart Node 会生成一个随机密码来加密恢复的钱包。
+如果您想改用自己的密码，请传入 `-p` / `--password`。
+
+::: tip 注意
+您不需要知道或记住此密码。**24 个单词的节点助记词**足以完全恢复您的钱包。
+:::
+
 之后，它会要求您输入您的 **24 个单词助记恢复短语**。
 小心输入 - 出于安全考虑，它不会显示在屏幕上，并且在输入时很容易出错，所以请慢慢来。
 
@@ -35,10 +41,6 @@ rocketpool wallet recover -k
 
 ```shell
 $ rocketpool wallet recover
-
-Please enter a password to secure your wallet with:
-
-Please confirm your password:
 
 Please enter your recovery mnemonic phrase:
 
@@ -62,7 +64,7 @@ docker restart rocketpool_validator
 
 ## 将现有地址导入为节点钱包
 
-如果您有一个想用于节点的地址，但*没有*使用 Smartnode 创建它（例如，您使用 MetaMask 或硬件钱包创建了它），那么这是要遵循的部分。
+如果您有一个想用于节点的地址，但*没有*使用 Smart Node 创建它（例如，您使用 MetaMask 或硬件钱包创建了它），那么这是要遵循的部分。
 
 ::: danger 警告
 通过这样做，您的地址将成为**热钱包**。
@@ -75,7 +77,7 @@ docker restart rocketpool_validator
 在导入您的地址作为节点钱包之前，请按照[保护您的节点](./securing-your-node)指南中的步骤尽可能地保护您的机器。
 :::
 
-此功能仅适用于 Smartnode **v1.4.3 或更高版本**。
+此功能仅适用于 Smart Node **v1.4.3 或更高版本**。
 如果您的版本较低，您需要先升级。
 
 这是一个多步骤过程，因此请仔细遵循以下部分。
@@ -84,7 +86,7 @@ docker restart rocketpool_validator
 
 **如果您没有附加到要导入的地址的任何现有 minipool，则可以跳过此步骤。**
 
-如果您的地址已经注册为 Rocket Pool 节点钱包（例如通过 **Allnodes** 等服务），并且已经有活跃的 minipool，并且您想将它们与您的地址一起导入到 Smartnode 堆栈中，您将需要为每个相应验证器提供私有密钥库文件。
+如果您的地址已经注册为 Rocket Pool 节点钱包（例如通过 **Allnodes** 等服务），并且已经有活跃的 minipool，并且您想将它们与您的地址一起导入到 Smart Node 堆栈中，您将需要为每个相应验证器提供私有密钥库文件。
 这些文件将使用您自己选择的密码加密，因此您将需要每个文件的密码。
 
 您需要从当前运行您节点的服务获取这些文件才能导入它。
@@ -96,7 +98,7 @@ docker restart rocketpool_validator
 <div className="p-3">
   <Tabs>
     <Tab label="Docker 和 Hybrid 模式">
-      首先，确保您已使用 `rocketpool service start` 启动了 Smartnode。
+      首先，确保您已使用 `rocketpool service start` 启动了 Smart Node。
       这将创建一个特殊文件夹，可用于保存验证器的加密密钥库文件。
 
       默认情况下，该文件夹位于 `~/.rocketpool/data/custom-keys`。
@@ -110,7 +112,7 @@ docker restart rocketpool_validator
       ```
     </Tab>
     <Tab label="Native 模式">
-      在 Smartnode 的 `data` 文件夹内创建一个名为 `custom-keys` 的文件夹（例如，`/srv/rocketpool/data/custom-keys`）。
+      在 Smart Node 的 `data` 文件夹内创建一个名为 `custom-keys` 的文件夹（例如，`/srv/rocketpool/data/custom-keys`）。
     </Tab>
 
   </Tabs>
@@ -119,11 +121,11 @@ docker restart rocketpool_validator
 接下来，将每个验证器密钥库文件放入此文件夹。
 文件的名称无关紧要，但它们必须是符合 [EIP-2335](https://eips.ethereum.org/EIPS/eip-2335#scrypt-test-vector) 格式的 JSON 文件。
 
-Smartnode 将在下一步中查找您放置在此目录中的任何密钥库文件。
+Smart Node 将在下一步中查找您放置在此目录中的任何密钥库文件。
 
 ::: warning 注意
 导入过程将*仅*查找附加到注册到您导入的地址的 minipool 的验证器密钥。
-您**不能**使用此过程将其他验证器密钥（例如用于单独质押验证器）导入到 Smartnode 堆栈管理的验证器客户端中。
+您**不能**使用此过程将其他验证器密钥（例如用于单独质押验证器）导入到 Smart Node 堆栈管理的验证器客户端中。
 
 如果您有兴趣这样做，请参阅[反向混合模式](./advanced-config#允许外部验证者客户端连接到-smartnode)运行文档。
 :::
@@ -149,7 +151,7 @@ rocketpool wallet test-recovery -a 0x1234abcd... -k
 
 :::
 
-Smartnode 将自动搜索最流行的派生路径（例如 Ledger Live、MyEtherWallet、Trezor 和 Smartnode 堆栈使用的路径）和地址索引，以找到与您提供的地址相对应的设置。
+Smart Node 将自动搜索最流行的派生路径（例如 Ledger Live、MyEtherWallet、Trezor 和 Smart Node 堆栈使用的路径）和地址索引，以找到与您提供的地址相对应的设置。
 
 ::: tip 提示
 如果您有自定义派生路径，请使用 `-d` 标志指定它。
@@ -180,7 +182,7 @@ Please enter the number of words in your mnemonic phrase (24 by default):
 Enter Word Number 1 of your mnemonic:
 ```
 
-小心输入，Smartnode 将开始搜索所有标准选项以找到它（除非您使用 `-d` 和/或 `-i` 标志明确指定它们）。
+小心输入，Smart Node 将开始搜索所有标准选项以找到它（除非您使用 `-d` 和/或 `-i` 标志明确指定它们）。
 
 接下来，如果您有要从步骤 1 导入的私有密钥库文件，系统将提示您输入每个密钥库文件的密码：
 
@@ -212,13 +214,13 @@ Validator keys:
 ### 步骤 3：导入地址
 
 ::: danger 警告
-如果您的地址是*不是*由您自己的自托管 Smartnode 管理的 Rocket Pool 节点（例如由 **Allnodes** 等外部服务托管），**在开始此导入过程之前**与运行您节点的服务协调**至关重要**，并告知他们您想迁移到自己的自托管系统。
+如果您的地址是*不是*由您自己的自托管 Smart Node 管理的 Rocket Pool 节点（例如由 **Allnodes** 等外部服务托管），**在开始此导入过程之前**与运行您节点的服务协调**至关重要**，并告知他们您想迁移到自己的自托管系统。
 
 您**必须确认**他们已关闭您节点的验证，并且**永远不会恢复它**，并使用 Blockchain 浏览器（如 [https://beaconcha.in](https://beaconcha.in)）手动确认您的验证器不再进行证明。
 您必须确认每个验证器至少错过了 **2 次证明**，以确保您可以安全迁移。
 否则，您将同时进行证明，**您的 MINIPOOL 将被罚没！**
 
-Smartnode 将要求您在允许您继续导入过程之前确认您已完成此操作。
+Smart Node 将要求您在允许您继续导入过程之前确认您已完成此操作。
 :::
 
 如果测试恢复成功，或者如果您跳过了它，您接下来将导入钱包并重新生成其所有关联的密钥文件。
@@ -228,17 +230,15 @@ Smartnode 将要求您在允许您继续导入过程之前确认您已完成此�
 rocketpool wallet recover -a 0x1234abcd...
 ```
 
-运行此命令时，系统将首先提示您输入密码以加密您导入的节点钱包。
+运行此命令时，除非您传入 `-p` / `--password`，否则 Smart Node 会生成一个随机密码来加密您导入的节点钱包。
 
-```
-Please enter a password to secure your wallet with:
-
-Please confirm your password:
-```
+::: tip 注意
+您不需要知道或记住此密码。**24 个单词的节点助记词**足以完全恢复您的钱包。
+:::
 
 之后，助记词和自定义验证器密钥库密码提示将像以前一样继续。
 
-输入所有这些信息后，Smartnode 将恢复您的地址和（如果未禁用）您的 minipool 的自定义验证器密钥：
+输入所有这些信息后，Smart Node 将恢复您的地址和（如果未禁用）您的 minipool 的自定义验证器密钥：
 
 ```
 Searching for the derivation path and index for wallet 0x1234abcd...
@@ -253,7 +253,7 @@ Validator keys:
 
 您地址的私钥现在将存储在 `data/wallet` 文件中（例如 `~/.rocketpool/data/wallet`），其密码将存储在 `data/password` 文件中（例如 `~/.rocketpool/data/password`）。
 
-每个验证器的私钥将存储在 Smartnode 支持的每个共识客户端的 `data/validators` 文件夹中。
+每个验证器的私钥将存储在 Smart Node 支持的每个共识客户端的 `data/validators` 文件夹中。
 
 ::: danger 注意
 通过以这种方式导入地址，验证器密钥**不是**从您的节点钱包派生的，因此它们**以后不能**通过简单运行 `rocketpool wallet recover` 来恢复，就像使用普通节点钱包一样。
@@ -266,10 +266,10 @@ Validator keys:
 ### 步骤 4：清理
 
 此时，您现在可以删除 `data/custom-keys` 目录中的所有私有密钥库文件。
-Smartnode 将已经导入它们并为它们分配了随机密码，因此这些密钥库文件不再需要。
+Smart Node 将已经导入它们并为它们分配了随机密码，因此这些密钥库文件不再需要。
 
 最后，确保您的 `data` 目录中**没有**名为 `custom-key-passwords` 的文件（例如 `~/.rocketpool/data/custom-key-passwords`）。
-Smartnode 将仅在恢复过程中构建此临时文件，无论恢复过程是否成功，都将自动删除它；如果出于任何原因未能删除它，它将在控制台输出中提醒您。
+Smart Node 将仅在恢复过程中构建此临时文件，无论恢复过程是否成功，都将自动删除它；如果出于任何原因未能删除它，它将在控制台输出中提醒您。
 但是，过于小心总是没有坏处的。
 
 ## 下一步

@@ -11,7 +11,7 @@ Rocket Pool 将定期在网络上标记一个**检查点**。目前，检查点*
 
 在新的检查点，Oracle DAO 将共同创建 Rocket Pool 网络中节点运营者状态的**真实快照**，它将使用该快照来确定该间隔期间每个节点的 RPL 和 Smoothing Pool ETH 奖励。请注意，Saturn 0 minipool 的"奖励佣金"使用 smoothing pool 奖励分配（Saturn 0 minipool 是 2024/10/28 之后创建的，合约佣金为 5%）。
 
-此信息被编译成[默克尔树](https://en.wikipedia.org/wiki/Merkle_tree) - 一种极其高效的方式，使所有详细信息可供智能合约使用。默克尔树被构建成 JSON 文件并托管在[我们维护的 GitHub 存储库](https://github.com/rocket-pool/rewards-trees/)上。Smartnode 还可以从该 GitHub 存储库加载奖励周期**事件**，因此即使激进的历史过期已删除旧的执行层日志，您仍然可以领取奖励。
+此信息被编译成[默克尔树](https://en.wikipedia.org/wiki/Merkle_tree) - 一种极其高效的方式，使所有详细信息可供智能合约使用。默克尔树被构建成 JSON 文件并托管在[我们维护的 GitHub 存储库](https://github.com/rocket-pool/rewards-trees/)上。Smart Node 还可以从该 GitHub 存储库加载奖励周期**事件**，因此即使激进的历史过期已删除旧的执行层日志，您仍然可以领取奖励。
 
 一旦提交树，Rocket Pool 智能合约将铸造新的 RPL 代币并将它们与 Smoothing Pool 的全部 ETH 余额一起移入 Rocket Pool 保险库进行安全存储。然后，您可以查看在该间隔期间赚取了多少 RPL 和 ETH 奖励并领取这些奖励。
 
@@ -70,10 +70,10 @@ RPL 的当前奖励率为**每年 5% 的通胀**，奖励每 28 天支付一次�
 - 将 `Rewards Tree Mode` 从 `Download` 更改为 `Generate`。
 - 如果您的主 Execution 客户端不是归档节点，您可以在 `Archive-Mode EC URL` 框中为单独的归档节点添加 URL。
   - 这是生成历史奖励树所必需的。
-  - Archive EC 仅用于树生成；它不会用于任何其他 Smartnode 任务。
+  - Archive EC 仅用于树生成；它不会用于任何其他 Smart Node 任务。
   - [Infura](https://infura.io/product/ethereum) 和 [Alchemy](https://www.alchemy.com/supernode) 提供归档节点访问。**请注意，免费层通常不足以处理树生成，因此您需要付费层之一。**
 
-现在，您的 Smartnode 将完全独立于 Oracle DAO 构建树，仅使用 Execution 和 Consensus 客户端提供的数据。您可以在奖励间隔检查点期间使用 `rocketpool service logs watchtower` 观察它。
+现在，您的 Smart Node 将完全独立于 Oracle DAO 构建树，仅使用 Execution 和 Consensus 客户端提供的数据。您可以在奖励间隔检查点期间使用 `rocketpool service logs watchtower` 观察它。
 
 如果您想从以前的间隔重建过去的树，可以使用以下命令执行此操作：
 

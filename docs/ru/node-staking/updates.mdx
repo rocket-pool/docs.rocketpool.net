@@ -99,9 +99,9 @@ Slashing происходит только в том случае, если вы
   </Tabs>
 </div>
 
-## Обновление стека Smartnode
+## Обновление стека Smart Node
 
-Иногда Rocket Pool выпускает новую версию стека Smartnode.
+Иногда Rocket Pool выпускает новую версию стека Smart Node.
 Обновления могут содержать новые версии CLI или Docker-контейнеров Rocket Pool, а также новые версии клиентов Execution и Consensus.
 
 Наиболее последовательный способ узнать о новых релизах - подписаться на сервер Discord Rocket Pool; они всегда будут опубликованы в канале Releases, и вы получите уведомление.
@@ -112,7 +112,7 @@ Slashing происходит только в том случае, если вы
 :::
 
 ::: tip СОВЕТ
-Когда вы завершите обновление Smartnode, панель Grafana все еще будет указывать, что доступно обновление.
+Когда вы завершите обновление Smart Node, панель Grafana все еще будет указывать, что доступно обновление.
 Оно автоматически очистится в течение дня, когда система в следующий раз автоматически проверит наличие обновлений.
 
 Если вы хотите очистить его немедленно после обновления, просто выполните:
@@ -164,7 +164,7 @@ uname -m
       Downloading the signature from https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-amd64.sig
       Signed by 651023D62E70B5DD
         Fornax <dante@rocketpool.net>
-      Updating from 1.22.1 to 1.23.0
+      Updating from 1.24.0 to 1.24.2
 
       The cli has been updated.
 
@@ -174,7 +174,7 @@ uname -m
       На этом этапе вы можете выбрать `y` во всех интерактивных подсказках, чтобы Smart Node провёл вас через остальные шаги.
       По завершении вы увидите сообщение, подтверждающее успешное обновление:
       ```
-      The upgrade to Smart Node 1.23.0 has been completed.
+      The upgrade to Smart Node 1.24.2 has been completed.
       Please monitor your validators for a few minutes for issues.
       ```
 
@@ -189,7 +189,7 @@ uname -m
       rocketpool service stop
       ```
 
-      Загрузите новый Smartnode CLI:
+      Загрузите новый Smart Node CLI:
 
       Для систем `x64` (большинство обычных машин):
 
@@ -223,7 +223,7 @@ uname -m
       rocketpool service start
       ```
 
-      Наконец, проверьте версию, чтобы убедиться, что CLI и стек Smartnode оба обновлены:
+      Наконец, проверьте версию, чтобы убедиться, что CLI и стек Smart Node оба обновлены:
 
       ```shell
       rocketpool service version
@@ -234,8 +234,8 @@ uname -m
       ```
       Your Smartnode is currently using the Hoodi Test Network.
 
-      Rocket Pool client version: 1.23.0
-      Rocket Pool service version: 1.23.0
+      Rocket Pool client version: 1.24.2
+      Rocket Pool service version: 1.24.2
       Selected Eth 1.0 client: Geth (Locally managed)
       Image: ethereum/client-go:v1.10.21
       Selected Eth 2.0 client: Lighthouse (Locally managed)
@@ -247,7 +247,7 @@ uname -m
     <Tab label="Ручное обновление - Linux (Native Mode)">
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">ПРИМЕЧАНИЕ</p>
-        Это обновит только сам стек Smartnode - это **не** обновит ваши клиенты Execution или Consensus.
+        Это обновит только сам стек Smart Node - это **не** обновит ваши клиенты Execution или Consensus.
         Вам придется сделать это вручную (см. следующий раздел ниже).
       </p>
 
@@ -257,7 +257,7 @@ uname -m
       sudo systemctl stop rp-node rp-watchtower
       ```
 
-      Загрузите новый Smartnode CLI и создайте резервную копию старых бинарных файлов CLI и демона, если вам нужно вернуть их:
+      Загрузите новый Smart Node CLI и создайте резервную копию старых бинарных файлов CLI и демона, если вам нужно вернуть их:
 
       Для систем `x64` (большинство обычных машин):
 
@@ -299,13 +299,13 @@ uname -m
       sudo systemctl start rp-node rp-watchtower
       ```
 
-      Наконец, проверьте версию, чтобы убедиться, что CLI и стек Smartnode оба обновлены:
+      Наконец, проверьте версию, чтобы убедиться, что CLI и стек Smart Node оба обновлены:
 
       ```
       rocketpool service version
 
-      Rocket Pool client version: 1.23.0
-      Rocket Pool service version: 1.23.0
+      Rocket Pool client version: 1.24.2
+      Rocket Pool service version: 1.24.2
       Selected Eth 1.0 client: Geth (Locally managed)
       Selected Eth 2.0 client: Nimbus (Locally managed)
       ```
@@ -319,7 +319,7 @@ uname -m
       rocketpool service stop
       ```
 
-      Загрузите новый Smartnode CLI:
+      Загрузите новый Smart Node CLI:
 
       Для систем `x64` (большинство Mac):
 
@@ -353,13 +353,13 @@ uname -m
       rocketpool service start
       ```
 
-      Наконец, проверьте версию, чтобы убедиться, что CLI и стек Smartnode оба обновлены:
+      Наконец, проверьте версию, чтобы убедиться, что CLI и стек Smart Node оба обновлены:
 
       ```shell
       rocketpool service version
 
-      Rocket Pool client version: 1.23.0
-      Rocket Pool service version: 1.23.0
+      Rocket Pool client version: 1.24.2
+      Rocket Pool service version: 1.24.2
       Selected Eth 1.0 client: Geth (Locally managed)
       Selected Eth 2.0 client: Nimbus (Locally managed)
       ```
@@ -373,14 +373,16 @@ uname -m
 
 ## Ручное обновление клиента Execution или Consensus
 
-Каждый новый релиз стека Smartnode будет содержать обновленные ссылки на последние совместимые версии Docker-контейнеров Execution и Consensus.
-Однако в некоторых случаях вы можете захотеть обновить один из этих клиентов _до_ ожидания нового релиза стека Smartnode.
-В этом разделе показано, как это сделать.
+Каждый новый релиз Smart Node поставляется с закреплёнными digest'ами Docker-образов для контейнеров Execution, Consensus и Smart Node (`repo:tag@sha256:…` в `~/.rocketpool/mainnet.env`). Команда `rocketpool service install` перезаписывает эти официальные файлы закреплений. В некоторых случаях вы можете захотеть запустить другой образ клиента _до_ выхода нового релиза Smart Node. В этом разделе показано, как это сделать.
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker Mode">
       Обновление до новых версий клиентов легко в режиме Docker.
+
+      Теперь Smart Node закрепляет образы клиентов и самого Smart Node по digest.
+      Изменение **Container Tag** в TUI по-прежнему позволяет запустить другой тег или digest до следующего релиза Smart Node.
+      После `rocketpool service install` или `rocketpool update` официальные закрепления в `mainnet.env` заменяются; переопределение из TUI всё равно имеет приоритет, пока вы его не уберёте.
 
       Начните с открытия менеджера настроек:
 
@@ -399,7 +401,11 @@ uname -m
       <img src={tuiCcContainerTag} width="100%" height="auto"/>
 
       Когда вы довольны своими изменениями, сохраните и выйдите, как обычно.
-      Smartnode предложит автоматически перезапустить все затронутые контейнеры.
+      Smart Node предложит автоматически перезапустить все затронутые контейнеры.
+
+      ::: tip ПРИМЕЧАНИЕ
+      Официальные закрепления находятся в `~/.rocketpool/mainnet.env`. Не редактируйте этот файл для постоянных изменений — установка перезапишет его. Необязательные переопределения для отдельных сетей помещайте в `~/.rocketpool/testnet.env` или `~/.rocketpool/devnet.env` (закрепление mainnet заменяют только заданные вами ключи). **Container Tag**, заданный в менеджере настроек, переопределяет закрепление для этого сервиса. Оставьте значение по умолчанию, чтобы сохранить официальный digest.
+      :::
     </Tab>
     <Tab label="Native Mode">
       Сначала выключите службу вашего клиента Execution, Beacon Node и/или клиента Validator в зависимости от того, что вы хотите обновить.

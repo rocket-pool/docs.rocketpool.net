@@ -22,7 +22,7 @@ Cada cliente de validador mantiene una base de datos de penalización para asegu
 El problema, entonces, proviene de situaciones en las que comienzas a validar **sin** una base de datos de penalización y, por lo tanto, no tienes registro de lo que tus validadores han votado previamente.
 Esto puede suceder en varias situaciones:
 
-1. Acabas de cambiar de clientes de Consenso, y el nuevo cliente no transfiere la base de datos de penalización del antiguo (lo cual el Smartnode no hace durante un cambio de cliente).
+1. Acabas de cambiar de clientes de Consenso, y el nuevo cliente no transfiere la base de datos de penalización del antiguo (lo cual el Smart Node no hace durante un cambio de cliente).
 2. Tienes tu billetera cargada en una máquina y estás atestiguando activamente con ella, y luego cargas tu billetera en una segunda máquina _mientras la primera máquina todavía está atestiguando activamente_.
 3. Dejas de validar en una máquina y cargas tu billetera en una segunda máquina, pero no has esperado lo suficiente para que la época actual se finalice, por lo que tu segunda máquina atestigua para slots para los que tus validadores ya han atestiguado.
 
@@ -39,12 +39,12 @@ Esperar 15 minutos asegura que hayas perdido al menos una época y esperado lo s
 Con el contexto anterior en mente, aquí hay una lista de verificación útil que puedes seguir al migrar tu nodo para asegurar que no serás penalizado.
 Esto está diseñado para máxima seguridad, por lo que aunque puedas pensar que algunos de los pasos son innecesarios, te **recomendamos enfáticamente** que los sigas todos hasta completarlos.
 
-1. **Prepara el nuevo nodo** siguiendo estas guías, comenzando desde la sección "Preparar un nodo" y terminando una vez que tengas el Smartnode instalado y estés sincronizando un cliente de Ejecución y Consenso.
+1. **Prepara el nuevo nodo** siguiendo estas guías, comenzando desde la sección "Preparar un nodo" y terminando una vez que tengas el Smart Node instalado y estés sincronizando un cliente de Ejecución y Consenso.
    - :warning: **NO** inicialices una nueva billetera o recuperes tu billetera antigua en el nodo. Permite que sincronice los clientes _sin una billetera presente_.
 
 2. **ESPERA** hasta que tus clientes estén completamente sincronizados en el nuevo nodo.
 3. Confirma que has registrado tu mnemónico correctamente ejecutando `rocketpool wallet test-recovery` en tu nueva máquina. Esto _simulará_ la recuperación de claves para confirmar que tu billetera de nodo y todas las claves de validador de tus minipools se pueden recuperar correctamente, pero no las _recuperará realmente_ y las guardará en disco, por lo que no hay riesgo de penalización.
-   1. Si el Smartnode no puede recuperar tu billetera de nodo usando el mnemónico que proporcionaste, entonces tu mnemónico puede ser inválido. **DETÉN** este proceso; eliminar las claves de tu nodo antiguo significa que podrían **perderse para siempre**.
+   1. Si el Smart Node no puede recuperar tu billetera de nodo usando el mnemónico que proporcionaste, entonces tu mnemónico puede ser inválido. **DETÉN** este proceso; eliminar las claves de tu nodo antiguo significa que podrían **perderse para siempre**.
    2. En esta situación, recomendamos salir de tus validadores y retirar tu capital lo antes posible, para que puedas comenzar de nuevo con un nuevo nodo del que tengas el mnemónico funcional.
 4. **Deja de validar** en tu nodo antiguo (por ejemplo, usando `rocketpool service stop` para apagar el cliente de validador).
 5. **Elimina tus claves** de tu nodo antiguo (por ejemplo, usando `rocketpool wallet purge`).

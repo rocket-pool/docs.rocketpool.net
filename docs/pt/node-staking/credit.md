@@ -15,8 +15,8 @@ Qualquer uma dessas duas ações aumentará esse saldo de acordo.
 
 Este ETH _não_ se torna líquido e não é devolvido ao operador de nó; em vez disso, pode ser usado para **criar minipools adicionais** sem exigir qualquer ETH do operador de nó.
 
-O sistema de crédito é **transparente** para o operador de nó; ele será usado automaticamente (com notificações na CLI do Smartnode explicando que será usado) durante operações de `rocketpool node deposit` ou `rocketpool node create-vacant-minipool` se possível.
-Se _não puder_ ser usado, o Smartnode alertará o usuário de que não pode ser usado e exigirá um vínculo normal de ETH durante qualquer uma das operações.
+O sistema de crédito é **transparente** para o operador de nó; ele será usado automaticamente (com notificações na CLI do Smart Node explicando que será usado) durante operações de `rocketpool node deposit` ou `rocketpool node create-vacant-minipool` se possível.
+Se _não puder_ ser usado, o Smart Node alertará o usuário de que não pode ser usado e exigirá um vínculo normal de ETH durante qualquer uma das operações.
 
 Veja a seção [Disponibilidade de Crédito](#disponibilidade-de-crédito) abaixo para mais detalhes.
 
@@ -76,5 +76,5 @@ O ETH para seu saldo de crédito é retirado do **pool de depósito**.
 Assim, se você quiser usar 8 ETH em crédito para criar um novo minipool de 8 ETH, acabará retirando **todos os 32 ETH para esse minipool** do pool de depósito e não exigirá nenhum de você.
 Por causa disso, se o pool de depósito não tiver ETH suficiente para cobrir o valor de pré-depósito (atualmente definido em 1 ETH), **o saldo não estará disponível**.
 
-Nessa situação, o Smartnode alertará você durante uma operação `rocketpool node deposit` de que **não pode** usar seu saldo de crédito e deve, em vez disso, usar ETH da sua carteira de nó para completar o vínculo.
+Nessa situação, o Smart Node alertará você durante uma operação `rocketpool node deposit` de que **não pode** usar seu saldo de crédito e deve, em vez disso, usar ETH da sua carteira de nó para completar o vínculo.
 Fazer isso **não** consumirá seu saldo de crédito; ele será deixado como está e disponível para uso posterior assim que o pool de depósito tiver saldo suficiente para cobri-lo.

@@ -7,14 +7,14 @@
 - 실행 및/또는 합의 클라이언트의 상태 모니터링(로컬 클라이언트를 실행하는 경우)
 - 노드가 상태 업데이트를 위해 필요한 트랜잭션을 체인에 정기적으로 제출하는지 확인
 - 해당 트랜잭션을 실행하기 위해 노드 지갑에 충분한 ETH 잔액이 있는지 확인
-- Smartnode, 클라이언트(해당하는 경우) 및 운영 체제에 대한 업데이트를 정기적으로 적용
+- Smart Node, 클라이언트(해당하는 경우) 및 운영 체제에 대한 업데이트를 정기적으로 적용
 - 다른 Oracle DAO 구성원의 상태를 모니터링하고 노드가 제대로 작동하지 않는다고 생각되면 그들과 소통
 
-이 섹션에서는 Smartnode의 내장 [Grafana](https://grafana.com/) 지원을 통해 이를 수행하는 몇 가지 예를 설명합니다.
+이 섹션에서는 Smart Node의 내장 [Grafana](https://grafana.com/) 지원을 통해 이를 수행하는 몇 가지 예를 설명합니다.
 
 ## 표준 Rocket Pool 대시보드
 
-Smartnode는 위에 나열된 많은 메트릭을 모니터링할 수 있는 편리한 대시보드를 제공합니다.
+Smart Node는 위에 나열된 많은 메트릭을 모니터링할 수 있는 편리한 대시보드를 제공합니다.
 각 합의 클라이언트에 대한 대시보드가 하나씩 있습니다.
 다음은 Nimbus용 대시보드의 예입니다:
 
@@ -24,13 +24,13 @@ Smartnode는 위에 나열된 많은 메트릭을 모니터링할 수 있는 편
 - 왼쪽 하단 사분면의 네트워크 통계가 채워지면 실행 클라이언트가 제대로 작동합니다.
 - 오른쪽 상단 사분면의 피어 수가 0이 아닌 숫자로 업데이트되면 합의 클라이언트가 제대로 작동합니다. 정확한 숫자는 클라이언트 선택과 네트워크 구성에 따라 다릅니다.
 - 노드의 ETH 잔액은 오른쪽 하단의 표에 표시됩니다.
-- 운영 체제 업데이트 또는 Smartnode 업데이트는 상단 중간 패널의 `Available Updates` 상자에 표시됩니다.
+- 운영 체제 업데이트 또는 Smart Node 업데이트는 상단 중간 패널의 `Available Updates` 상자에 표시됩니다.
 
 ::: tip 참고
-운영 체제 및 Smartnode 업데이트에는 `rocketpool service install-update-tracker`를 통해 설치할 수 있는 업데이트 추적기가 필요합니다.
+운영 체제 및 Smart Node 업데이트에는 `rocketpool service install-update-tracker`를 통해 설치할 수 있는 업데이트 추적기가 필요합니다.
 :::
 
-메트릭 시스템 및 Smartnode 대시보드를 준비하는 방법에 대한 자세한 내용은 Smartnode 문서의 [노드 성능 모니터링](../node-staking/performance) 및 [Grafana 대시보드 설정](../node-staking/grafana.mdx) 페이지를 참조하세요.
+메트릭 시스템 및 Smart Node 대시보드를 준비하는 방법에 대한 자세한 내용은 Smart Node 문서의 [노드 성능 모니터링](../node-staking/performance) 및 [Grafana 대시보드 설정](../node-staking/grafana.mdx) 페이지를 참조하세요.
 
 ## Oracle DAO 대시보드
 

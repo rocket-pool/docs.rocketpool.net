@@ -16,16 +16,16 @@ Bu kılavuz, makinenizi fiziksel olarak kurduğunuzu ve işletim sistemini kurdu
 
 ### Desteklenen İşletim Sistemleri
 
-Rocket Pool'un Smartnode istemcisi şu anda **Linux** ve **macOS** sistemlerini desteklemektedir.
+Rocket Pool'un Smart Node istemcisi şu anda **Linux** ve **macOS** sistemlerini desteklemektedir.
 
-Şu anda, **Windows** uzak bir Linux veya Mac makinesini yönetmek için kullanılabilir, ancak Smartnode'un kendisi şu anda Windows sisteminde çalışamamaktadır. Ancak, Rocket Pool bir Windows makinesi tarafından barındırılan Linux [sanal makinesinde](https://en.wikipedia.org/wiki/System_virtual_machine) çalıştırılabilir.
+Şu anda, **Windows** uzak bir Linux veya Mac makinesini yönetmek için kullanılabilir, ancak Smart Node'un kendisi şu anda Windows sisteminde çalışamamaktadır. Ancak, Rocket Pool bir Windows makinesi tarafından barındırılan Linux [sanal makinesinde](https://en.wikipedia.org/wiki/System_virtual_machine) çalıştırılabilir.
 Bu kurulum, Linux'u ana işletim sistemi olarak kurmak yerine tercih edilmez, ancak gerekirse çalışır.
 Ekstra kaynak yükü gerektireceğini ve kendi güvenlik risklerini getireceğini unutmayın, bu nedenle ana ağda gerçek Ether stake ederken bu kurulumu kullanmanızı tavsiye etmiyoruz.
 
 Rocket Pool, **AMD64 (x64)** ve **arm64 (aarch64)** CPU mimarileri ile yerel olarak uyumludur.
 Diğer mimariler için smartnode istemcilerini kaynaktan derlemeniz gerekecektir.
 
-Kullanıcının Smartnode'u kurmak için **root / Yönetici** erişimine (veya **sudo** ayrıcalıklarına) sahip olması gerektiğini unutmayın.
+Kullanıcının Smart Node'u kurmak için **root / Yönetici** erişimine (veya **sudo** ayrıcalıklarına) sahip olması gerektiğini unutmayın.
 
 #### Linux Desteği
 
@@ -36,10 +36,10 @@ Ubuntu kullanmayı planlıyorsanız, 24.04 gibi bir **LTS** sürümü kullanman�
 Bu sürümler daha uzun süreler boyunca aktif olarak bakımı yapılır, bu da node'unuzun güvenliğine ve kararlılığına yardımcı olur.
 :::
 
-Diğer dağıtımlara kurulum için, Smartnode yükleyicisi bazı sistem bağımlılıklarını (örneğin `docker-compose`) otomatik olarak kuramayacaktır.
+Diğer dağıtımlara kurulum için, Smart Node yükleyicisi bazı sistem bağımlılıklarını (örneğin `docker-compose`) otomatik olarak kuramayacaktır.
 Kurulum sırasında bazı manuel adımlar gerekecektir.
 
-`arm64` sistemleri için, Smartnode yükleyicisi yalnızca Debian ve Ubuntu gibi Debian tabanlı dağıtımları yerel olarak destekler.
+`arm64` sistemleri için, Smart Node yükleyicisi yalnızca Debian ve Ubuntu gibi Debian tabanlı dağıtımları yerel olarak destekler.
 Diğer dağıtımlar için kurulum sırasında manuel adımlar gerekecektir.
 
 ## İşletim Sistemini Kurma

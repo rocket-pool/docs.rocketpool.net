@@ -27,7 +27,7 @@ Kurze Antwort: Ihre Mnemonic ist alles, was Sie benötigen, um Ihren Node vollst
 Stellen Sie immer sicher, dass Sie sie sicher aufbewahren.
 
 Um Ihren Node auf einer neuen Maschine wiederherzustellen, stellen Sie zunächst sicher, dass **Ihre vorherige Maschine nicht wieder online sein wird** mit den verfügbaren Schlüsseln, da zwei Nodes, die mit denselben Schlüsseln laufen, **Sie geslasht werden**.
-Folgen Sie den [Schritten](./install-modes), um den Smartnode auf einer neuen Maschine zu installieren.
+Folgen Sie den [Schritten](./install-modes), um den Smart Node auf einer neuen Maschine zu installieren.
 Stellen Sie dann Ihre Node-Wallet und Validator-Schlüssel wieder her, indem Sie den Befehl `rocketpool wallet recover` ausführen und Ihre 24-Wort-Mnemonic eingeben.
 
 ### Warum synchronisieren meine Clients nicht? Ich habe eine geringe Anzahl von Peers.

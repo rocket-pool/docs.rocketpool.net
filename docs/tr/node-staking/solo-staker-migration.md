@@ -18,7 +18,7 @@ Saturn 1 yükseltmesi, yeni doğrulayıcı oluşturma yöntemi olarak minipoolla
 - **Minipool oluşturma protokol düzeyinde devre dışı bırakıldı** ve buna vacant minipoollar da dahil. Mevcut bir doğrulayıcının çekim kimlik bilgilerini yönlendirebileceğiniz bir minipool sözleşmesi artık yok.
 - **Megapool doğrulayıcıları, Rocket Pool deposit kuyruğu üzerinden** yeni bir Beacon Chain depozitosuyla oluşturulur: önce 1 ETH'lik bir prestake yapılır, ardından protokol doğrulayıcının çekim kimlik bilgilerini zincir üzerinde doğruladıktan sonra kalan 31 ETH yatırılır.
   Halihazırda aktif olan bir doğrulayıcı bu akıştan geçemez; dolayısıyla mevcut bir solo doğrulayıcıyı bir megapoola dahil edecek bir mekanizma bulunmuyor.
-- Dönüşüm için kullanılan Smartnode komutları (`rocketpool node create-vacant-minipool` ve `rocketpool minipool promote` gibi) CLI'dan kaldırıldı.
+- Dönüşüm için kullanılan Smart Node komutları (`rocketpool node create-vacant-minipool` ve `rocketpool minipool promote` gibi) CLI'dan kaldırıldı.
 
 Kısacası: bugün solo staking'den geçiş yapmanın tek yolu, **doğrulayıcınızı Beacon Chain'den çıkarmak ve çekilen ETH ile yeni megapool doğrulayıcıları oluşturmaktır**.
 
@@ -34,7 +34,7 @@ Geçiş herkes için uygun olmayabilir, ancak Rocket Pool megapool doğrulayıc�
 Bununla birlikte, vurgulanması gereken bazı önemli farklar da var:
 
 - Protokol bir dizi akıllı sözleşme olarak uygulandığından **akıllı sözleşme riskini** kabul etmeniz gerekir.
-- Geleneksel düğüm operatörlüğü **Smartnode yazılım yığınını** kullanır; bu yazılımı düğümünüze kurup çalıştırmanın getirdiği riskleri kabul etmeniz gerekir.
+- Geleneksel düğüm operatörlüğü **Smart Node yazılım yığınını** kullanır; bu yazılımı düğümünüze kurup çalıştırmanın getirdiği riskleri kabul etmeniz gerekir.
 - Düğüm operatörü olmak bazı yeni kavramlar öğrenmeyi gerektirir, dolayısıyla bir **öğrenme eğrisi** vardır.
 - Megapool doğrulayıcıları ödüllerini pool stakerlarıyla paylaşır; bu nedenle doğrulayıcılarınızın çekim adresi, Execution katmanındaki megapool sözleşmeniz olacaktır - **sizin kontrol ettiğiniz bir EOA değil**. Bu, Execution katmanı ödülleri için **fee recipient** adresiniz için de geçerlidir.
 - **Sermayeniz geçiş sürecindeyken hiçbir şey kazanmaz.** Solo doğrulayıcınızın çıkışı ile megapool doğrulayıcılarınızın aktifleşmesi arasında hiçbir ödül kazanmazsınız. Yeni megapool doğrulayıcılarının attestation görevlerine başlamadan önce hem Rocket Pool deposit kuyruğundan _hem de_ Beacon Chain kuyruğundan geçmesi gerekir; bu yüzden herhangi bir çıkış yapmadan önce aşağıdaki [Zamanlama konuları](#zamanlama-konuları) bölümünü okuyun.
@@ -61,7 +61,7 @@ Gönüllü çıkış **geri alınamaz**. Doğrulayıcınız bir kez çıkış ya
 
 Çıkışınızın işlenmesini beklerken Rocket Pool düğümünüzü hazırlayabilirsiniz.
 
-Rocket Pool düğüm operatörlüğünde yeniyseniz, donanım seçiminden [Smartnode yığınının kurulumuna](/tr/node-staking/installing/overview) ve [düğümünüzün kaydına](/tr/node-staking/prepare-node) kadar her şeyi kapsayan [Düğüm Operatörü kılavuzuyla](/tr/node-staking/responsibilities) başlayın.
+Rocket Pool düğüm operatörlüğünde yeniyseniz, donanım seçiminden [Smart Node yığınının kurulumuna](/tr/node-staking/installing/overview) ve [düğümünüzün kaydına](/tr/node-staking/prepare-node) kadar her şeyi kapsayan [Düğüm Operatörü kılavuzuyla](/tr/node-staking/responsibilities) başlayın.
 Kendi doğrulayıcınızı çalıştırdığınız için bunların çoğu size tanıdık gelecektir - ayrıca kendi Execution ve Consensus clientlarınızı zaten çalıştırıyorsanız, [harici clientlarla hibrit yapılandırma](/tr/node-staking/install-modes#harici-clientlar-ile-hibrit-konfigürasyon) ilginizi çekebilir.
 
 ## Adım 3: Megapool Doğrulayıcılarınızı Oluşturun
@@ -73,8 +73,8 @@ Megapool sözleşmeniz ilk doğrulayıcı depozitonuzla birlikte otomatik olarak
 [Megapool (Doğrulayıcı) Oluşturma](/tr/node-staking/megapools/create-megapool-validator) kılavuzu, deposit kuyruğunun nasıl çalıştığı ve başarılı bir stake'in nasıl doğrulanacağı dahil olmak üzere tüm süreci adım adım anlatır.
 
 ::: tip NOT
-Eski dönüşüm sürecinin aksine, yeni doğrulayıcılarınız Smartnode cüzdanınızdan üretilen **yeni doğrulayıcı anahtarları** kullanacaktır.
-Eski solo doğrulayıcı anahtarlarınız yeniden kullanılmaz ve Smartnode'un Validator Client'ı yeni anahtarları sizin için yönetir - artık bir anahtar içe aktarma adımı yoktur.
+Eski dönüşüm sürecinin aksine, yeni doğrulayıcılarınız Smart Node cüzdanınızdan üretilen **yeni doğrulayıcı anahtarları** kullanacaktır.
+Eski solo doğrulayıcı anahtarlarınız yeniden kullanılmaz ve Smart Node'un Validator Client'ı yeni anahtarları sizin için yönetir - artık bir anahtar içe aktarma adımı yoktur.
 :::
 
 ## Zamanlama konuları

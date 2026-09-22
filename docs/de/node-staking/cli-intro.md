@@ -35,7 +35,7 @@ USAGE:
    rocketpoolcli [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    auction, a   Manage Rocket Pool RPL auctions
@@ -92,7 +92,7 @@ USAGE:
    rocketpool service [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    install, i                 Install the Rocket Pool service
@@ -509,7 +509,7 @@ USAGE:
    rocketpool megapool [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    deposit, d                Make a deposit and create a new validator on the megapool. Optionally specify count to make multiple deposits.
@@ -781,7 +781,7 @@ Sobald Sie sie haben, rufen Sie einfach eine beliebige Transaktion mit der CLI u
 ::: warning HINWEIS
 Sie **müssen** das `-i` (Priority Fee)-Flag einschließen, um eine vorherige Transaktion zu überschreiben.
 Diese Zahl muss mindestens 10% höher sein als die Priority Fee, die Ihre alte Transaktion verwendet hat.
-Der Smartnode verwendet standardmäßig eine Priority Fee von 2 gwei, sodass ein Wert von `2.2` normalerweise für eine Überschreibung ausreichend ist.
+Der Smart Node verwendet standardmäßig eine Priority Fee von 2 gwei, sodass ein Wert von `2.2` normalerweise für eine Überschreibung ausreichend ist.
 
 Wenn Ihre alte Transaktion eine benutzerdefinierte Gebühr verwendet hat (z. B. 10 gwei), müssen Sie sie in der überschreibenden Transaktion mindestens 10% höher festlegen (in diesem Beispiel also 11 gwei).
 :::
@@ -798,7 +798,7 @@ Total cost: 0.0032 to 0.0032 ETH
 Are you sure you want to send 0.000100 eth to <node wallet address>? This action cannot be undone! [y/n]
 ```
 
-Der Smartnode-Stack wird automatisch überprüfen, ob die von Ihnen angegebene `nonce` gültig ist (sie bezieht sich auf eine ausstehende Transaktion), bevor er sie sendet und Ihr Gas versehentlich verschwendet.
+Der Smart Node-Stack wird automatisch überprüfen, ob die von Ihnen angegebene `nonce` gültig ist (sie bezieht sich auf eine ausstehende Transaktion), bevor er sie sendet und Ihr Gas versehentlich verschwendet.
 Wenn nicht, wird eine Fehlermeldung zurückgegeben.
 Andernfalls wird sie durchgehen und Ihnen die Transaktionsdetails zur Verfügung stellen, damit Sie sie überwachen können, um zu bestätigen, dass sie tatsächlich Ihre alte festsitzende Transaktion überschrieben hat.
 

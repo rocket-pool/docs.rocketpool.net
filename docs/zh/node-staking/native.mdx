@@ -3,12 +3,12 @@ import { Tab, Tabs } from "@rspress/core/theme";
 # 创建不使用 Docker 的原生 Rocket Pool 节点
 
 ::: tip 注意
-本指南适用于 **Smartnode v1.6.5 及更高版本**。
+本指南适用于 **Smart Node v1.6.5 及更高版本**。
 
 如果您使用的是旧版本,必须先升级到 v1.6.5 或更高版本,然后再配置原生模式。
 :::
 
-在本节中,我们将介绍如何在系统上原生安装 Rocket Pool Smartnode 堆栈,而不使用 Docker 容器。
+在本节中,我们将介绍如何在系统上原生安装 Rocket Pool Smart Node 堆栈,而不使用 Docker 容器。
 
 总体计划如下:
 
@@ -27,7 +27,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 ## 步骤 1:设置执行客户端和共识客户端
 
-原生模式实际上是对标准独立质押设置的扩展,只需允许 Smartnode 软件连接到它已经运行的客户端(需要进行一些小的修改)。
+原生模式实际上是对标准独立质押设置的扩展,只需允许 Smart Node 软件连接到它已经运行的客户端(需要进行一些小的修改)。
 
 为此,我们建议您首先遵循社区提供的一些常规独立质押指南:
 
@@ -40,7 +40,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 此外,**费用接收者**有一个特殊情况 - 当您进入指南中指定验证器客户端配置中费用接收者的部分时,**暂时将其留空**。我们将在下面描述如何为 Rocket Pool 验证器设置它。
 
-一旦安装了客户端,并且您可以在其日志中看到它们正在正确同步链,就可以按照后续步骤设置 Rocket Pool Smartnode 并将其连接到您的客户端。
+一旦安装了客户端,并且您可以在其日志中看到它们正在正确同步链,就可以按照后续步骤设置 Rocket Pool Smart Node 并将其连接到您的客户端。
 
 ## 步骤 2:安装 Rocket Pool
 
@@ -137,12 +137,12 @@ sudo chmod u+sx,g+sx,o-rwx /usr/local/bin/rocketpoold
 这将确保守护进程始终以 `rp` 用户身份运行,因此它始终具有正确的权限集。
 
 ::: danger 注意
-如果您不执行此操作,Smartnode 很可能会因权限错误而失败。请务必运行此命令!
+如果您不执行此操作,Smart Node 很可能会因权限错误而失败。请务必运行此命令!
 :::
 
 ### 设置安装文件夹
 
-安装了 CLI 和守护进程后,您需要设置 Smartnode 期望存在的文件夹结构和附带文件。首先创建以下文件夹:
+安装了 CLI 和守护进程后,您需要设置 Smart Node 期望存在的文件夹结构和附带文件。首先创建以下文件夹:
 
 ```
 mkdir -p /srv/rocketpool/data/validators && sudo chmod 775 /srv/rocketpool/data/validators
@@ -324,11 +324,11 @@ rp    ALL=(ALL) NOPASSWD: RP_RESTART, RP_STOP
 
 完成!`node` 进程现在可以根据需要自动重新启动或停止您的 VC。
 
-## 步骤 3:配置 Smartnode
+## 步骤 3:配置 Smart Node
 
-现在所有服务都已创建,是时候配置 Smartnode 堆栈了。
+现在所有服务都已创建,是时候配置 Smart Node 堆栈了。
 
-请访问[配置 Smartnode 堆栈(原生模式)](./config-native)指南,完成后返回这里。
+请访问[配置 Smart Node 堆栈(原生模式)](./config-native)指南,完成后返回这里。
 
 ### 启用和运行服务
 
@@ -498,7 +498,7 @@ EnvironmentFile=/srv/rocketpool/data/validators/rp-fee-recipient-env.txt
 
 ### 放宽 `umask`
 
-默认情况下,您的系统通常会附带一个 `umask` 配置,每当 `node` 守护进程创建新文件夹时,它都会从组权限中剥离 `+w` 位。这对于几个共识客户端来说是有问题的,因为当 Smartnode 在 minipool 存款期间生成新验证器密钥时,它们实际上会将锁文件或其他元数据等内容写入到 Smartnode 创建的目录中。
+默认情况下,您的系统通常会附带一个 `umask` 配置,每当 `node` 守护进程创建新文件夹时,它都会从组权限中剥离 `+w` 位。这对于几个共识客户端来说是有问题的,因为当 Smart Node 在 minipool 存款期间生成新验证器密钥时,它们实际上会将锁文件或其他元数据等内容写入到 Smart Node 创建的目录中。
 
 为了解决这个问题并确保您的 VC 正常工作,请**放宽您的 `umask` 设置**。例如,您应该考虑将 `rp` 用户的 `umask` 从 `0022` 设置为 `0002`。
 

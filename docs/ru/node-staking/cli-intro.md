@@ -35,7 +35,7 @@ USAGE:
    rocketpoolcli [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    auction, a   Manage Rocket Pool RPL auctions
@@ -92,7 +92,7 @@ USAGE:
    rocketpool service [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    install, i                 Install the Rocket Pool service
@@ -509,7 +509,7 @@ USAGE:
    rocketpool megapool [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    deposit, d                Make a deposit and create a new validator on the megapool. Optionally specify count to make multiple deposits.
@@ -781,7 +781,7 @@ Are you sure you want to set your timezone? [y/n]
 ::: warning ПРИМЕЧАНИЕ
 Вы **должны** включить флаг `-i` (приоритетная комиссия), чтобы перезаписать предыдущую транзакцию.
 Это число должно быть как минимум на 10% выше, чем любая приоритетная комиссия, использованная вашей старой транзакцией.
-Smartnode использует приоритетную комиссию 2 gwei по умолчанию, поэтому значения `2.2` обычно достаточно для переопределения.
+Smart Node использует приоритетную комиссию 2 gwei по умолчанию, поэтому значения `2.2` обычно достаточно для переопределения.
 
 Если ваша старая транзакция использовала пользовательскую комиссию (скажем, 10 gwei), вам нужно будет установить ее как минимум на 10% выше в переопределяющей транзакции (в этом примере 11 gwei).
 :::
@@ -798,7 +798,7 @@ Total cost: 0.0032 to 0.0032 ETH
 Are you sure you want to send 0.000100 eth to <node wallet address>? This action cannot be undone! [y/n]
 ```
 
-Стек Smartnode автоматически проверит, что предоставленный вами `nonce` действителен (он относится к ожидающей транзакции), прежде чем отправлять его и случайно тратить ваш газ.
+Стек Smart Node автоматически проверит, что предоставленный вами `nonce` действителен (он относится к ожидающей транзакции), прежде чем отправлять его и случайно тратить ваш газ.
 Если нет, он вернет сообщение об ошибке.
 В противном случае он пройдет и предоставит вам детали транзакции, чтобы вы могли отслеживать ее, чтобы подтвердить, что она действительно перезаписала вашу старую застрявшую транзакцию.
 

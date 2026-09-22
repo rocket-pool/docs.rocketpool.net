@@ -1,7 +1,7 @@
 # Rocket Pool Redstone Güncellemesi
 
 Rocket Pool'un bir sonraki büyük güncellemesi olan **Redstone**, Ropsten ve Holesky test ağlarında beta testi için yayınlandı.
-Bu sayfa, Redstone'un getirdiği önemli değişiklikleri, hem Smartnode stack'ine hem de genel olarak Rocket Pool protokolüne yapılan güncellemeleri açıklamaktadır.
+Bu sayfa, Redstone'un getirdiği önemli değişiklikleri, hem Smart Node stack'ine hem de genel olarak Rocket Pool protokolüne yapılan güncellemeleri açıklamaktadır.
 
 Rocket Pool'un önceki sürümü ile Redstone arasındaki tüm farklılıkları anlamak için lütfen bu sayfayı baştan sona okuyun.
 
@@ -49,7 +49,7 @@ Bu, blok önerileri sırasında node'unuzun kazandığı tüm öncelik ücretler
 
 Rocket Pool, bu ödülleri Beacon chain ödüllerinizi adil bir şekilde dağıttığı gibi adil bir şekilde dağıtmak üzere tasarlanmıştır: minipool validator'larınızın kazandığı öncelik ücretlerinin yarısı size gidecektir (artı tüm minipool'larınızın ortalama komisyonu), diğer yarısı ise pool staker'lara gidecektir (eksi ortalama komisyonunuz).
 
-Bu amaçla, Smartnode, Validator Client'ınızın `fee recipient`'ini otomatik olarak node'unuzun **fee distributor**'ı olarak bilinen özel bir adrese ayarlayacaktır.
+Bu amaçla, Smart Node, Validator Client'ınızın `fee recipient`'ini otomatik olarak node'unuzun **fee distributor**'ı olarak bilinen özel bir adrese ayarlayacaktır.
 Fee distributor'ünüz, Execution Layer'da **node'unuza özel** benzersiz bir sözleşmedir.
 Zaman içinde kazandığınız tüm öncelik ücretlerini tutacak ve bunları adil bir şekilde bölmek ve dağıtmak için gereken mantığı içerir.
 Bu dağıtım süreci sizin (node operatörü) tarafınızdan kontrol edilir ve istediğiniz zaman yapılabilir.
@@ -57,11 +57,11 @@ Bir zaman sınırı yoktur.
 
 Node'unuzun fee distributor'ünün adresi **node adresinize göre deterministik olarak belirlenir**.
 Bu, fee distributor oluşturulmadan önce bile önceden bilindiği anlamına gelir.
-**Smartnode bu adresi fee recipient olarak kullanacaktır.**
+**Smart Node bu adresi fee recipient olarak kullanacaktır.**
 
 ::: tip NOT
-Varsayılan olarak, fee recipient'iniz Smartnode v1.5.0'ı yüklediğinizde **rETH adresine** ayarlanacaktır (Redstone sözleşme güncellemeleri henüz dağıtılmadıysa).
-Smartnode, Redstone güncellemesi dağıtıldığında bunu otomatik olarak node'unuzun fee distributor adresine güncelleyecektir.
+Varsayılan olarak, fee recipient'iniz Smart Node v1.5.0'ı yüklediğinizde **rETH adresine** ayarlanacaktır (Redstone sözleşme güncellemeleri henüz dağıtılmadıysa).
+Smart Node, Redstone güncellemesi dağıtıldığında bunu otomatik olarak node'unuzun fee distributor adresine güncelleyecektir.
 
 Bunun bir istisnası, **Smoothing Pool**'a katıldıysanızdır - daha fazla bilgi için bu sayfanın sonundaki bölüme bakın.
 :::
@@ -230,8 +230,8 @@ Aşağıdaki adreslerden biri dışında bir fee recipient'e sahip herhangi bir 
 
 İhlaller **minipool** düzeyindedir, **node** düzeyinde değil.
 
-Smartnode yazılımı, dürüst kullanıcıların asla cezalandırılmamasını sağlamak için tasarlanmıştır, bunu yapmak için Validator Client'ı çevrimdışı duruma getirmesi gerekse bile.
-Bu olursa, attestation yapmayı durduracaksınız ve Smartnode'un fee recipient'inizi neden doğru şekilde ayarlayamadığına dair log dosyalarınızda hata mesajları göreceksiniz.
+Smart Node yazılımı, dürüst kullanıcıların asla cezalandırılmamasını sağlamak için tasarlanmıştır, bunu yapmak için Validator Client'ı çevrimdışı duruma getirmesi gerekse bile.
+Bu olursa, attestation yapmayı durduracaksınız ve Smart Node'un fee recipient'inizi neden doğru şekilde ayarlayamadığına dair log dosyalarınızda hata mesajları göreceksiniz.
 
 ## Yükseltme Öncesi ve Sonrası için Kılavuzlar
 

@@ -1,7 +1,7 @@
 # Rocket Pool Redstoneアップデート
 
 Rocket Poolの次期メジャーアップデート**Redstone**が、RopstenおよびHoleskyテストネットワークでベータテスト用にリリースされました。
-このページでは、Smartnodeスタックとプロトコル全般の両方への更新を含む、Redstoneによってもたらされる主な変更点について説明します。
+このページでは、Smart Nodeスタックとプロトコル全般の両方への更新を含む、Redstoneによってもたらされる主な変更点について説明します。
 
 以前のバージョンのRocket PoolとRedstoneの違いをすべて理解するために、このページを十分にお読みください。
 
@@ -49,7 +49,7 @@ Beacon ChainにロックされたETHとは異なり、**priority feesにアク�
 
 Rocket Poolは、Beacon Chainの報酬を公平に分配するのと同じ方法で、これらの報酬を公平に分配するように設計されています。minipoolバリデータが獲得したpriority feesの半分があなたに行き（さらにすべてのminipoolの平均手数料を加算）、残りの半分はプールステーカーに行きます（平均手数料を差し引いた分）。
 
-そのため、Smartnodeは自動的にValidator Clientの`fee recipient`を、ノードの**fee distributor**と呼ばれる特別なアドレスに設定します。
+そのため、Smart Nodeは自動的にValidator Clientの`fee recipient`を、ノードの**fee distributor**と呼ばれる特別なアドレスに設定します。
 fee distributorは、Execution Layer上の**ノード固有の**ユニークなコントラクトです。
 これは時間の経過とともに獲得したすべてのpriority feesを保持し、それらを公平に分配して配分するために必要なロジックを含んでいます。
 この配布プロセスはあなた（node operator）によって制御され、いつでも実行できます。
@@ -57,11 +57,11 @@ fee distributorは、Execution Layer上の**ノード固有の**ユニークな�
 
 ノードのfee distributorのアドレスは、**ノードアドレスに基づいて決定論的に決定されます**。
 つまり、fee distributorが作成される前から事前にわかっています。
-**Smartnodeはこのアドレスをfee recipientとして使用します。**
+**Smart Nodeはこのアドレスをfee recipientとして使用します。**
 
 ::: tip 注
-デフォルトでは、Smartnode v1.5.0をインストールすると、fee recipientは**rETHアドレス**に設定されます（Redstoneコントラクトのアップデートがまだデプロイされていない場合）。
-RedstoneアップデートがデプロイされるとSmartnodeは自動的にこれをノードのfee distributorアドレスに更新します。
+デフォルトでは、Smart Node v1.5.0をインストールすると、fee recipientは**rETHアドレス**に設定されます（Redstoneコントラクトのアップデートがまだデプロイされていない場合）。
+RedstoneアップデートがデプロイされるとSmart Nodeは自動的にこれをノードのfee distributorアドレスに更新します。
 
 このルールの例外は、**Smoothing Pool**にオプトインしている場合です - 詳細については、このページの最後のセクションをご覧ください。
 :::
@@ -230,8 +230,8 @@ Oracle DAOは、Rocket Pool node operatorによって生成された各ブロッ
 
 インフラクションは**ノード**レベルではなく、**minipool**レベルです。
 
-Smartnodeソフトウェアは、正直なユーザーがペナルティを受けないように設計されています。たとえそのためにValidator Clientをオフラインにする必要があるとしてもです。
-これが発生した場合、アテステーションを停止し、SmartnodeがなぜあなたのFee recipientを正しく設定できないかについてのエラーメッセージがログファイルに表示されます。
+Smart Nodeソフトウェアは、正直なユーザーがペナルティを受けないように設計されています。たとえそのためにValidator Clientをオフラインにする必要があるとしてもです。
+これが発生した場合、アテステーションを停止し、Smart NodeがなぜあなたのFee recipientを正しく設定できないかについてのエラーメッセージがログファイルに表示されます。
 
 ## アップグレードの前後のガイド
 

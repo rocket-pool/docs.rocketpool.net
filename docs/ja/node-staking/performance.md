@@ -131,9 +131,9 @@ ls /sys/class/net
 イーサネット(有線)デバイスは通常、上記の例のように`e`で始まります。
 ワイヤレスデバイスは通常`w`で始まります。
 
-## Smartnodeアラート通知
+## Smart Nodeアラート通知
 
-[アラート通知でSmartnodeスタックを監視する](./maintenance/alerting.md)では、Smartnodeアラート通知機能を使用して、Rocket Pool Smartnodeの健全性と重要なイベントに関する通知を受け取る方法について説明します。
+[アラート通知でSmart Nodeスタックを監視する](./maintenance/alerting.md)では、Smart Nodeアラート通知機能を使用して、Rocket Pool Smart Nodeの健全性と重要なイベントに関する通知を受け取る方法について説明します。
 
 ## サードパーティパフォーマンス監視
 
@@ -200,7 +200,7 @@ Beaconcha.inウェブサイトには、ユーザーがvalidatorの名前を変�
 
 この機能を使用するには、そのvalidatorを制御している人物であることを証明するために、ノードウォレットの秘密鍵を使用してメッセージに署名する必要があります。
 
-Smartnode v1.5.1には、`rocketpool node sign-message`コマンドを使用してノードウォレットの秘密鍵でメッセージに署名する機能が含まれています。次に、署名したいメッセージを提供します。
+Smart Node v1.5.1には、`rocketpool node sign-message`コマンドを使用してノードウォレットの秘密鍵でメッセージに署名する機能が含まれています。次に、署名したいメッセージを提供します。
 validatorの名前を変更するために使用するには、「beaconcha.in」という用語を含める必要があります。
 
 ![](../node-staking/images/sign-message.png)
@@ -230,7 +230,7 @@ sign-messageコマンドの結果をコピーして、"Signature"フィールド
 curl icanhazip.com
 ```
 
-監視するポートは、ノードのセットアップによって異なります。一般的なSmartnodeインストールを実行しているユーザーは、ExecutionクライアントとConsensusクライアント用にそれぞれポート30303と9001を転送している可能性があるため、これらはアップタイム監視に適した選択肢です。
+監視するポートは、ノードのセットアップによって異なります。一般的なSmart Nodeインストールを実行しているユーザーは、ExecutionクライアントとConsensusクライアント用にそれぞれポート30303と9001を転送している可能性があるため、これらはアップタイム監視に適した選択肢です。
 
 ### Rocketpool Metrics Dashboards
 
@@ -239,7 +239,7 @@ curl icanhazip.com
 ### Pushoverを使用したスクリプト(上級)
 
 ::: tip 注意
-[アラート通知でSmartnodeスタックを監視する](./maintenance/alerting.md)では、ノードのアップデートが利用可能な場合の通知を含む、Smartnodeアラート通知機能の使用方法について説明します。
+[アラート通知でSmart Nodeスタックを監視する](./maintenance/alerting.md)では、ノードのアップデートが利用可能な場合の通知を含む、Smart Nodeアラート通知機能の使用方法について説明します。
 :::
 
 [Pushover](https://pushover.net/)サービスを使用すると、自分自身にプッシュ通知を送信できます。

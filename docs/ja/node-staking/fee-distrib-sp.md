@@ -125,8 +125,8 @@ Oracle DAOは、プロトコルルールに従わないノードオペレータ�
 
 Smart Nodeソフトウェアは、設定に基づいて正しいfee recipientを自動的に設定します（Smoothing Poolにオプトインしているかどうか、megapool validatorがあるか、minipoolがあるか、またはその両方）。オプトアウト状態でmegapool validatorとminipoolの両方を持つノードの場合、keymanager APIを使用してvalidatorごとにfee recipientが設定されます。条件の完全なリストは[こちら](/ja/node-staking/fee-distrib-sp#fee-recipients)にまとめられています。
 
-Smartnodeソフトウェアは、正直なユーザーがペナルティを受けないように設計されており、そのためにValidator Clientをオフラインにする必要がある場合でもそうします。
-これが発生すると、attestationを停止し、Smartnodeがfee recipientを正しく設定できない理由についてのエラーメッセージがログファイルに表示されます。
+Smart Nodeソフトウェアは、正直なユーザーがペナルティを受けないように設計されており、そのためにValidator Clientをオフラインにする必要がある場合でもそうします。
+これが発生すると、attestationを停止し、Smart Nodeがfee recipientを正しく設定できない理由についてのエラーメッセージがログファイルに表示されます。
 
 ## Smoothing Pool
 

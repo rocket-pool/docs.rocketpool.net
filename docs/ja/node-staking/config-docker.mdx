@@ -11,12 +11,12 @@ import tuiExternalDD from "./images/tui-external-dd.png";
 import tuiExternalPrysm from "./images/tui-external-prysm.png";
 import tuiExternalTeku from "./images/tui-external-teku.png";
 
-# Smartnodeスタックの設定（Docker / Hybridモード）
+# Smart Nodeスタックの設定（Docker / Hybridモード）
 
 完全なExecution層とConsensus層のクライアントを実行することは困難に思えるかもしれません。選択できるオプションがいくつかあり、それぞれに多数の異なる設定があります。
-幸いなことに、Smartnodeはそのような複雑さをすべて隠すように設計されており、迅速かつ簡単に設定できる一方で、必要に応じてすべてをカスタマイズする自由も提供します。
+幸いなことに、Smart Nodeはそのような複雑さをすべて隠すように設計されており、迅速かつ簡単に設定できる一方で、必要に応じてすべてをカスタマイズする自由も提供します。
 
-このセクションでは、**Dockerベースのセットアップ**を使用している場合、または外部で管理されているExecutionまたはConsensusクライアント（例えば、ソロステーキング用にSmartnode外で管理しているクライアント）に接続する**Hybridセットアップ**を使用している場合の、Smartnodeを設定するさまざまな方法について説明します。
+このセクションでは、**Dockerベースのセットアップ**を使用している場合、または外部で管理されているExecutionまたはConsensusクライアント（例えば、ソロステーキング用にSmart Node外で管理しているクライアント）に接続する**Hybridセットアップ**を使用している場合の、Smart Nodeを設定するさまざまな方法について説明します。
 
 ::: warning 注意
 Dockerを使用しないNativeモードを使用している場合は、代わりに[Native設定ガイド](./config-native)をご覧ください。
@@ -25,8 +25,8 @@ Dockerを使用しないNativeモードを使用している場合は、代わ�
 設定には3つの方法があります。
 
 - [ウィザードUI](#ウィザードによる設定)経由 - これが最も簡単な方法です。いくつかの基本的な質問だけを行い、十分にテストされたデフォルト値を使用します。これは初めて`rocketpool service config`を実行したときに表示されます。
-- [設定マネージャーUI](#設定マネージャーによる設定)経由 - これにより、Smartnodeのすべての設定にアクセスでき、必要なだけカスタマイズできます。
-- [コマンドライン](#コマンドラインによる設定)によるヘッドレス設定 - これは、Smartnodeをヘッドレス（非対話型）環境で実行し、自動的に設定する必要がある人向けのオプションです。
+- [設定マネージャーUI](#設定マネージャーによる設定)経由 - これにより、Smart Nodeのすべての設定にアクセスでき、必要なだけカスタマイズできます。
+- [コマンドライン](#コマンドラインによる設定)によるヘッドレス設定 - これは、Smart Nodeをヘッドレス（非対話型）環境で実行し、自動的に設定する必要がある人向けのオプションです。
 
 上記のリストから詳しく知りたいモードを選択するか、以下の各オプションをスクロールしてください。
 
@@ -41,7 +41,7 @@ rocketpool service config
 これにより、ターミナルベースのUIが起動し、ノードを迅速かつ簡単に設定できるとともに、高度なカスタマイズのためのすべての設定に対するオプションの詳細な制御も提供されます。
 
 ::: tip 注意
-すでにSmartnodeを設定している場合は、代わりに[設定マネージャー](#設定マネージャーによる設定)が表示されます。
+すでにSmart Nodeを設定している場合は、代わりに[設定マネージャー](#設定マネージャーによる設定)が表示されます。
 そこからウィザードを再度開くこともでき、既存の設定がすべて事前選択されています。
 :::
 
@@ -97,12 +97,12 @@ rocketpool service config
 <img src="./images/tui-client-mode.png" width="100%" height="auto" />
 
 **Locally Managed**（**「Dockerモード」**とも呼ばれます）がデフォルトの選択肢です。
-すでにクライアントペアを持っておらず、Smartnodeに管理してもらいたい場合に使用します。
-これを選択すると、SmartnodeはDockerコンテナとしてExecution & Consensusクライアントペアを作成、設定、管理します。
+すでにクライアントペアを持っておらず、Smart Nodeに管理してもらいたい場合に使用します。
+これを選択すると、Smart NodeはDockerコンテナとしてExecution & Consensusクライアントペアを作成、設定、管理します。
 心配しないでください、次に実行する*どの*クライアントを選択するかを決めることができます。
 
 **Externally Managed**（**「Hybridモード」**とも呼ばれます）は、すでに別の場所で手動で管理しているExecution & Consensusクライアントペアを実行しているユーザーにとって便利な選択肢です。
-これを選択すると、Smartnodeは既存のクライアントに接続するだけで、独自のクライアントは実行しません。
+これを選択すると、Smart Nodeは既存のクライアントに接続するだけで、独自のクライアントは実行しません。
 たとえば、ユーザーは現在ソロステーキングに使用しているクライアントにプラグインすることができます。そうすれば、クライアントの2つの別々のコピーを持つ必要がありません。
 
 :::warning 注意
@@ -117,7 +117,7 @@ Executionクライアントを管理するために使用するモードを選�
 <div className="p-3">
   <Tabs>
     <Tab label="Locally Managed">
-      SmartnodeにExecutionクライアントを管理してもらいたい場合、次の画面でクライアントを選択するよう求められます。
+      Smart NodeにExecutionクライアントを管理してもらいたい場合、次の画面でクライアントを選択するよう求められます。
 
       <img src={ECSelection} width="100%" height="auto"/>
 
@@ -141,8 +141,8 @@ Executionクライアントを管理するために使用するモードを選�
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">注意</p>
-        Smartnodeは独自のDockerコンテナで実行されるため、Dockerの内部ネットワークを使用します。
-        ここでは`localhost`や`127.0.0.1`のようなホスト名を使用できません。Executionクライアントが Smartnodeと同じマシンで実行されている場合は、代わりにマシンのLAN IPアドレスを提供する必要があります。
+        Smart Nodeは独自のDockerコンテナで実行されるため、Dockerの内部ネットワークを使用します。
+        ここでは`localhost`や`127.0.0.1`のようなホスト名を使用できません。Executionクライアントが Smart Nodeと同じマシンで実行されている場合は、代わりにマシンのLAN IPアドレスを提供する必要があります。
       </p>
 
       これで、Executionクライアントの設定はすべて完了です。
@@ -152,17 +152,17 @@ Executionクライアントを管理するために使用するモードを選�
 
       <img src={tuiExternalEC} width="100%" height="auto"/>
 
-      SmartNodeはHTTP URLを使用して通信し、チェーンの状態のクエリやトランザクションの送信などのブロックチェーンアクティビティを実行します。
-      **まだクライアントのAPIポートを有効にしてSmartNodeマシンからアクセスできるようにしていない場合は、今すぐ設定する必要があります。**
+      Smart NodeはHTTP URLを使用して通信し、チェーンの状態のクエリやトランザクションの送信などのブロックチェーンアクティビティを実行します。
+      **まだクライアントのAPIポートを有効にしてSmart Nodeマシンからアクセスできるようにしていない場合は、今すぐ設定する必要があります。**
       これに関する手順はクライアントごとに異なります。HTTP RPCエンドポイントの設定方法については、クライアントのドキュメントを参照してください。
 
-      Websocket URLは、自分で使用する必要がある場合にのみ関連します。Smartnodeは使用しません。
+      Websocket URLは、自分で使用する必要がある場合にのみ関連します。Smart Nodeは使用しません。
       必要ない場合は空白のままにできます。
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">注意</p>
-        Smartnodeは独自のDockerコンテナで実行されるため、Dockerの内部ネットワークを使用します。
-        ここでは`localhost`や`127.0.0.1`のようなホスト名を使用できません。フォールバックExecutionクライアントがSmartnodeと同じマシンで実行されている場合は、代わりにマシンのLAN IPアドレスを提供する必要があります。
+        Smart Nodeは独自のDockerコンテナで実行されるため、Dockerの内部ネットワークを使用します。
+        ここでは`localhost`や`127.0.0.1`のようなホスト名を使用できません。フォールバックExecutionクライアントがSmart Nodeと同じマシンで実行されている場合は、代わりにマシンのLAN IPアドレスを提供する必要があります。
       </p>
 
       フォールバックExecutionクライアントの選択に満足したら、次のステップに進みます。
@@ -181,7 +181,7 @@ Executionクライアントの準備ができたので、次のタスクはConse
 <div className="p-3">
   <Tabs>
     <Tab label="Locally Managed">
-      SmartnodeにConsensusクライアントを管理してもらいたい場合、次の画面でクライアントを選択するよう求められます。
+      Smart NodeにConsensusクライアントを管理してもらいたい場合、次の画面でクライアントを選択するよう求められます。
 
       <img src={tuiLocalCC} width="100%" height="auto"/>
 
@@ -423,7 +423,7 @@ Executionクライアントの準備ができたので、次のタスクはConse
       </p>
     </Tab>
     <Tab label="Externally Managed">
-      各Consensusクライアントの動作は若干異なるため、Smartnodeは外部で使用しているクライアントを知る必要があり、それに応じて自身の動作を適応させることができます。
+      各Consensusクライアントの動作は若干異なるため、Smart Nodeは外部で使用しているクライアントを知る必要があり、それに応じて自身の動作を適応させることができます。
       次の画面のリストから使用しているクライアントを選択することから始めます。
 
       <img src="./images/tui-external-cc.png" width="100%" height="auto"/>
@@ -444,14 +444,14 @@ Executionクライアントの準備ができたので、次のタスクはConse
 
             <img src={tuiExternalLH} width="100%" height="auto"/>
 
-            Smartnodeは、HTTP URLを使用して通信し、チェーンの状態のクエリやメッセージの送信などのブロックチェーンアクティビティを実行します。
-            **まだAPIポートを有効にしてSmartnodeマシンからアクセスできるようにしていない場合は、今すぐ設定する必要があります。**
+            Smart Nodeは、HTTP URLを使用して通信し、チェーンの状態のクエリやメッセージの送信などのブロックチェーンアクティビティを実行します。
+            **まだAPIポートを有効にしてSmart Nodeマシンからアクセスできるようにしていない場合は、今すぐ設定する必要があります。**
             これを行う方法については、[Lighthouseのドキュメント](https://lighthouse-book.sigmaprime.io/api-bn.html)を参照してください。
 
             <p className="rspress-directive warning">
               <p className="rspress-directive-title">注意</p>
-              Smartnodeは独自のDockerコンテナで実行されるため、Dockerの内部ネットワークを使用します。
-              ここでは`localhost`や`127.0.0.1`のようなホスト名を使用できません。クライアントがSmartnodeと同じマシンで実行されている場合は、代わりにマシンのLAN IPアドレスを提供する必要があります。
+              Smart Nodeは独自のDockerコンテナで実行されるため、Dockerの内部ネットワークを使用します。
+              ここでは`localhost`や`127.0.0.1`のようなホスト名を使用できません。クライアントがSmart Nodeと同じマシンで実行されている場合は、代わりにマシンのLAN IPアドレスを提供する必要があります。
             </p>
 
 
@@ -491,17 +491,17 @@ Executionクライアントの準備ができたので、次のタスクはConse
 
             <img src={tuiExternalPrysm} width="100%" height="auto"/>
 
-            Smartnodeは、HTTP URLを使用して通信し、チェーンの状態のクエリやメッセージの送信などのブロックチェーンアクティビティを実行します。
+            Smart Nodeは、HTTP URLを使用して通信し、チェーンの状態のクエリやメッセージの送信などのブロックチェーンアクティビティを実行します。
             JSON-RPC URLでPrysm Validator Clientを準備し、Beacon Nodeと通信できるようにします。_PrysmのValidator ClientはHTTP APIを介して動作できないためです。_
 
-            **まだAPIポートを有効にしてSmartnodeマシンからアクセスできるようにしていない場合は、今すぐ設定する必要があります。**
+            **まだAPIポートを有効にしてSmart Nodeマシンからアクセスできるようにしていない場合は、今すぐ設定する必要があります。**
             これを行う方法については、[Prysmのドキュメント](https://docs.prylabs.network/docs/prysm-usage/parameters)を参照してください。
             **`grpc-gateway`_および_`rpc-host`を有効にする必要があります。**
 
             <p className="rspress-directive warning">
               <p className="rspress-directive-title">注意</p>
-              Smartnodeは独自のDockerコンテナで実行されるため、Dockerの内部ネットワークを使用します。
-              ここでは`localhost`や`127.0.0.1`のようなホスト名を使用できません。クライアントがSmartnodeと同じマシンで実行されている場合は、代わりにマシンのLAN IPアドレスを提供する必要があります。
+              Smart Nodeは独自のDockerコンテナで実行されるため、Dockerの内部ネットワークを使用します。
+              ここでは`localhost`や`127.0.0.1`のようなホスト名を使用できません。クライアントがSmart Nodeと同じマシンで実行されている場合は、代わりにマシンのLAN IPアドレスを提供する必要があります。
             </p>
 
 
@@ -541,15 +541,15 @@ Executionクライアントの準備ができたので、次のタスクはConse
 
             <img src={tuiExternalTeku} width="100%" height="auto"/>
 
-            Smartnodeは、HTTP URLを使用して通信し、チェーンの状態のクエリやメッセージの送信などのブロックチェーンアクティビティを実行します。
-            **まだAPIポートを有効にしてSmartnodeマシンからアクセスできるようにしていない場合は、今すぐ設定する必要があります。**
+            Smart Nodeは、HTTP URLを使用して通信し、チェーンの状態のクエリやメッセージの送信などのブロックチェーンアクティビティを実行します。
+            **まだAPIポートを有効にしてSmart Nodeマシンからアクセスできるようにしていない場合は、今すぐ設定する必要があります。**
             これを行う方法については、[Tekuのドキュメント](https://docs.teku.consensys.net/en/latest/Reference/CLI/CLI-Syntax/#rest-api-enabled)を参照してください。
 
 
             <p className="rspress-directive warning">
               <p className="rspress-directive-title">注意</p>
-              Smartnodeは独自のDockerコンテナで実行されるため、Dockerの内部ネットワークを使用します。
-              ここでは`localhost`や`127.0.0.1`のようなホスト名を使用できません。クライアントがSmartnodeと同じマシンで実行されている場合は、代わりにマシンのLAN IPアドレスを提供する必要があります。
+              Smart Nodeは独自のDockerコンテナで実行されるため、Dockerの内部ネットワークを使用します。
+              ここでは`localhost`や`127.0.0.1`のようなホスト名を使用できません。クライアントがSmart Nodeと同じマシンで実行されている場合は、代わりにマシンのLAN IPアドレスを提供する必要があります。
             </p>
 
             次に、バリデータの**graffiti**メッセージについて尋ねます。
@@ -602,7 +602,7 @@ rocketpool service resync-eth2
 
 ### フォールバックノード
 
-Smartnodeスタックの1.5.0以降、プライマリクライアントがオフラインになった場合（Gethを使用していてプルーニングする必要がある場合など）に引き継ぐことができる「フォールバック」ExecutionクライアントとConsensusクライアントのペアを提供できます。
+Smart Nodeスタックの1.5.0以降、プライマリクライアントがオフラインになった場合（Gethを使用していてプルーニングする必要がある場合など）に引き継ぐことができる「フォールバック」ExecutionクライアントとConsensusクライアントのペアを提供できます。
 この状況では、プライマリノードマシンは、ミニプールのバリデータキーでアテステーションとブロック提案を行う責任を引き続き負いますが、Execution層とBeacon Chainと対話するために外部マシンに接続します。
 
 [フォールバックノードの詳細については、このセクションを参照してください](./fallback)。完了したらここに戻ってください。
@@ -629,7 +629,7 @@ Rocket Poolはテレメトリを収集したり、別のサービスに送信し
 
 2022年9月のExecution層とConsensus層のMerge以降、Ethereumバリデータは優先手数料を獲得し、Maximal Extractable Value（略してMEV）に参加する能力を持つようになりました。
 
-Smartnode v1.7.0以降、MEVは*オプトアウト*になったため、初期設定の一部として構成が提示されます。次の画面に表示されます。
+Smart Node v1.7.0以降、MEVは*オプトアウト*になったため、初期設定の一部として構成が提示されます。次の画面に表示されます。
 
 <img src="./images/tui-mev-mode.png" width="100%" height="auto" />
 
@@ -638,12 +638,12 @@ Smartnode v1.7.0以降、MEVは*オプトアウト*になったため、初期�
 
 ### 完了
 
-この質問の後、Smartnodeの設定が完了しました。
+この質問の後、Smart Nodeの設定が完了しました。
 次のダイアログが表示されます。
 
 <img src="./images/tui-finished.png" width="100%" height="auto" />
 
-セットアップに満足していてSmartnodeを開始する準備ができている場合は、ここで`Save and Exit`をクリックして、次に[ノードの保護](./securing-your-node)セクションに進んでください。
+セットアップに満足していてSmart Nodeを開始する準備ができている場合は、ここで`Save and Exit`をクリックして、次に[ノードの保護](./securing-your-node)セクションに進んでください。
 
 すべての設定を確認し、ウィザードに含まれていない多くの追加設定をカスタマイズしたい場合は、`Review All Settings`をクリックして、[次のセクション](#設定マネージャーによる設定)に進んでください。
 
@@ -655,7 +655,7 @@ Smartnode v1.7.0以降、MEVは*オプトアウト*になったため、初期�
 
 この画面には3つの主な機能があります。
 
-1. **カテゴリリスト**。Smartnodeスタックの各カテゴリの設定にドリルダウンできます
+1. **カテゴリリスト**。Smart Nodeスタックの各カテゴリの設定にドリルダウンできます
 2. **Review Changes and Save**ボタン。変更した設定を確認して更新された設定を保存する準備ができたときに使用できます
 3. **Open the Config Wizard**ボタン。代わりにそのインターフェイスを希望する場合は、[セットアップウィザード](#ウィザードによる設定)に移動します
 
@@ -676,7 +676,7 @@ Smartnode v1.7.0以降、MEVは*オプトアウト*になったため、初期�
 ### 設定の構成
 
 ホーム画面から、`Enter`キーを使用して任意のカテゴリを選択し、そのカテゴリの設定を表示します。
-たとえば、これは**Smartnode and TX Fees**カテゴリの画面です。
+たとえば、これは**Smart Node and TX Fees**カテゴリの画面です。
 
 <img src="./images/tui-smartnode.png" width="100%" height="auto" />
 
@@ -693,7 +693,7 @@ Smartnode v1.7.0以降、MEVは*オプトアウト*になったため、初期�
 
 ::: tip ヒント
 思い出してください。**Review Changes and Save**ボタンを介してReviewダイアログを通過するまで、何もディスクに保存されません。
-すべての設定を探索して、Smartnodeができることを学ぶことをお勧めします。
+すべての設定を探索して、Smart Nodeができることを学ぶことをお勧めします。
 :::
 
 ### 設定タイプとその使用方法
@@ -815,7 +815,7 @@ services:
 
 ## コマンドラインによる設定
 
-ターミナルUIと対話できないヘッドレス環境でSmartnodeを使用する場合は、代わりにコマンドラインでノードを設定できます。
+ターミナルUIと対話できないヘッドレス環境でSmart Nodeを使用する場合は、代わりにコマンドラインでノードを設定できます。
 
 `rocketpool service config`コマンドは、引数として、通常ターミナルUI経由で設定できるすべての設定を受け入れます。
 次のコマンドを実行して、それらのリストを表示します（非常に長いことに注意してください）。

@@ -29,15 +29,15 @@ Bu kılavuzdaki tüm komutlarda olduğu gibi, `ssh` kullanarak node'unuzun komut
 ## TEMEL: İstemci Makinenizi Güvende Tutun
 
 ::: warning NOT
-Smartnode'unuzu yerel olarak kullanıyorsanız (doğrudan bağlı bir klavye ve monitör ile fiziksel olarak giriş yaparak), **bu bölüm sizinle ilgili değildir - atlayabilirsiniz**.
+Smart Node'unuzu yerel olarak kullanıyorsanız (doğrudan bağlı bir klavye ve monitör ile fiziksel olarak giriş yaparak), **bu bölüm sizinle ilgili değildir - atlayabilirsiniz**.
 :::
 
-Çoğu Smartnode operatörü, `ssh` kullanarak başka bir bilgisayardan terminaline bağlanarak node'larıyla uzaktan etkileşime girer:
+Çoğu Smart Node operatörü, `ssh` kullanarak başka bir bilgisayardan terminaline bağlanarak node'larıyla uzaktan etkileşime girer:
 
 - Bağlandığınız makine (bu durumda, node makineniz) **sunucu** olarak adlandırılır.
 - Bağlandığınız makine (dizüstü bilgisayarınız, masaüstünüz veya hatta telefonunuz gibi) **istemci** olarak adlandırılır.
 
-Smartnode'unuzu güvence altına almak için yapabileceğiniz en önemli şeylerden biri **istemci makinenizi güvende tutmaktır**.
+Smart Node'unuzu güvence altına almak için yapabileceğiniz en önemli şeylerden biri **istemci makinenizi güvende tutmaktır**.
 İstemci makineniz tehlikeye girerse ve node'unuza giriş yapmak için kullanırsanız, node'a uyguladığınız güvenlik ayarlarının çoğu atlanabilir.
 
 Örneğin: SSH istemcisi olarak bir dizüstü bilgisayar kullanıyorsanız ve üzerinde bir [keylogger](https://en.wikipedia.org/wiki/Keystroke_logging) yüklüyse, SSH üzerinden bağlandığınızda node'da yazdığınız gizli şeyler (şifreniz veya kurtarma anımsatıcınız gibi) çalınır.
@@ -56,10 +56,10 @@ Maksimum güvenlik için, SSH istemciniz olarak **özel bir makine** kullanmak i
 ## TEMEL: SSH Erişiminizi Güvence Altına Alın
 
 ::: warning NOT
-Smartnode'unuzu yerel olarak kullanıyorsanız (doğrudan bağlı bir klavye ve monitör ile fiziksel olarak giriş yaparak), **bu bölüm sizinle ilgili değildir - atlayabilirsiniz**.
+Smart Node'unuzu yerel olarak kullanıyorsanız (doğrudan bağlı bir klavye ve monitör ile fiziksel olarak giriş yaparak), **bu bölüm sizinle ilgili değildir - atlayabilirsiniz**.
 :::
 
-Smartnode'unuzu evde çalıştırıyor olsanız da uzak bir veri merkezinde VPS kullanıyor olsanız da, muhtemelen SSH üzerinden erişiyorsunuz veya SSH'yi **kullanmasanız bile** etkinleştirilmiştir.
+Smart Node'unuzu evde çalıştırıyor olsanız da uzak bir veri merkezinde VPS kullanıyor olsanız da, muhtemelen SSH üzerinden erişiyorsunuz veya SSH'yi **kullanmasanız bile** etkinleştirilmiştir.
 
 SSH bağlantıları güvenli kriptografiye dayanır, ancak herhangi bir güvenli sistemde olduğu gibi, gerçek güvenlik onu doğru kullanmaktan gelir.
 SSH ayarlarınız için yapmanız gereken iki ana şey vardır:
@@ -543,7 +543,7 @@ sudo systemctl restart unattended-upgrades
 
 ## TEMEL: Güvenlik Duvarı Etkinleştirme
 
-Genel olarak, makineniz yalnızca Execution istemcinizin, Consensus istemcinizin ve Smartnode yığınınızın kullandığı bağlantı noktalarında ağ trafiğini kabul etmelidir.
+Genel olarak, makineniz yalnızca Execution istemcinizin, Consensus istemcinizin ve Smart Node yığınınızın kullandığı bağlantı noktalarında ağ trafiğini kabul etmelidir.
 Bunu uygulamak ve beklenmedik veya istenmeyen trafiği önlemek için node'a bir **güvenlik duvarı** kurabiliriz.
 
 ::: tip NOT
@@ -552,7 +552,7 @@ Rocketpool kurulumu sırasında farklı bir execution/consensus istemci portu se
 
 Ubuntu varsayılan olarak `ufw` (**u**ncomplicated **f**ire **w**all) ile birlikte gelir; bu, node'unuzun güvenlik duvarı ayarlarını yönetmek için kullanışlı bir yardımcı programdır.
 
-Aşağıdaki komutlar `ufw`'yi Smartnode'unuz için iyi bir varsayılan yapılandırmayla kuracaktır.
+Aşağıdaki komutlar `ufw`'yi Smart Node'unuz için iyi bir varsayılan yapılandırmayla kuracaktır.
 **Bunları node makinenizde çalıştırın**.
 
 Sonraki kurallarca açıkça izin verilmedikçe bağlantıları devre dışı bırakın:

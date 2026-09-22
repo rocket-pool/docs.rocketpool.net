@@ -6,7 +6,7 @@ Ce guide couvrira tout ce que vous devez savoir pour préparer votre nœud pour 
 
 ## Choses à faire avant la mise à jour vers v1.5.0
 
-Avant de mettre à jour vers la v1.5.0 et versions ultérieures du Smartnode, veuillez passer en revue la liste de contrôle suivante pour vous assurer que vous êtes prêt :
+Avant de mettre à jour vers la v1.5.0 et versions ultérieures du Smart Node, veuillez passer en revue la liste de contrôle suivante pour vous assurer que vous êtes prêt :
 
 ### Passer à un client d'exécution complet
 
@@ -16,14 +16,14 @@ En raison de ce changement, si vous utilisez actuellement un client d'exécution
 
 ### S'assurer que le client d'exécution et le client de consensus sont tous deux gérés en externe
 
-Les versions précédentes de la pile Smartnode vous permettaient d'avoir un client géré localement, et l'autre géré en externe.
-Par exemple, vous pouviez avoir un client d'exécution géré par le Smartnode et le connecter à un client de consensus que vous gérez en externe.
+Les versions précédentes de la pile Smart Node vous permettaient d'avoir un client géré localement, et l'autre géré en externe.
+Par exemple, vous pouviez avoir un client d'exécution géré par le Smart Node et le connecter à un client de consensus que vous gérez en externe.
 
 À partir de la v1.5, cette configuration n'est plus prise en charge.
 Vous devrez passer soit à un client d'exécution et de consensus gérés localement (également connu sous le nom de [mode Docker](./docker-migration.mdx)), soit configurer à la fois un client d'exécution et un client de consensus que vous gérez vous-même.
 
 ::: tip TIP
-Si vous êtes intéressé par le fait de laisser le Smartnode maintenir son propre client d'exécution et de consensus mais que vous souhaitez garder le contrôle de votre propre client de validation (par exemple, si vous avez vos propres clés de validation de solo staking attachées à celui-ci), vous pourriez envisager le [mode Hybride Inversé](../../node-staking/advanced-config#autoriser-les-clients-validateurs-externes-à-se-connecter-au-smartnode) qui fait exactement cela !
+Si vous êtes intéressé par le fait de laisser le Smart Node maintenir son propre client d'exécution et de consensus mais que vous souhaitez garder le contrôle de votre propre client de validation (par exemple, si vous avez vos propres clés de validation de solo staking attachées à celui-ci), vous pourriez envisager le [mode Hybride Inversé](../../node-staking/advanced-config#autoriser-les-clients-validateurs-externes-à-se-connecter-au-smartnode) qui fait exactement cela !
 :::
 
 ### Configurer l'Engine API
@@ -44,12 +44,12 @@ Comme toujours, Rocket Pool gérera son propre client de validation, vous n'avez
 
 ## Mise à jour vers v1.5.0
 
-La mise à jour de la pile Smartnode vers la v1.5.0 n'est pas différente de toute autre mise à jour.
+La mise à jour de la pile Smart Node vers la v1.5.0 n'est pas différente de toute autre mise à jour.
 Suivez simplement [les instructions habituelles ici](../../node-staking/updates#mise-à-jour-de-la-pile-smartnode).
 
-## Choses que le Smartnode gère automatiquement
+## Choses que le Smart Node gère automatiquement
 
-En mode Hybride, le Smartnode prendra en charge certains des changements nécessaires pour prendre en charge Redstone automatiquement une fois que vous aurez mis à jour vers la v1.5.0, mais vous devrez gérer d'autres manuellement en mode Hybride.
+En mode Hybride, le Smart Node prendra en charge certains des changements nécessaires pour prendre en charge Redstone automatiquement une fois que vous aurez mis à jour vers la v1.5.0, mais vous devrez gérer d'autres manuellement en mode Hybride.
 
 Voici une brève liste de ce qu'il fera pour vous sans aucune intervention manuelle :
 
@@ -58,14 +58,14 @@ Voici une brève liste de ce qu'il fera pour vous sans aucune intervention manue
 Le **destinataire de frais** est l'adresse sur la chaîne de la couche d'exécution (eth1) qui recevra tous les frais prioritaires pour les blocs que vous proposez.
 C'est un paramètre fourni à votre client de validation lorsqu'il démarre pour la première fois.
 
-Le Smartnode gérera sa configuration à la bonne adresse sur le client de validation qu'il gère lorsque vous mettrez à jour vers la v1.5, et vérifiera constamment que vous utilisez la bonne pour que vous ne soyez pas [pénalisé accidentellement](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
+Le Smart Node gérera sa configuration à la bonne adresse sur le client de validation qu'il gère lorsque vous mettrez à jour vers la v1.5, et vérifiera constamment que vous utilisez la bonne pour que vous ne soyez pas [pénalisé accidentellement](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
 
 Si vous avez adhéré au [Smoothing Pool](./whats-new#smoothing-pool), il en fera votre destinataire de frais.
 Sinon, il fera de votre [contrat de distributeur de frais](./whats-new#destinataires-de-frais-et-votre-distributeur) le destinataire de frais.
 
 ## Choses que vous devriez faire après la mise à jour
 
-Bien que le Smartnode gère la plupart des changements pour vous, il y a quelques choses supplémentaires que vous devriez faire manuellement :
+Bien que le Smart Node gère la plupart des changements pour vous, il y a quelques choses supplémentaires que vous devriez faire manuellement :
 
 ### S'assurer d'une mise à jour réussie
 
@@ -100,7 +100,7 @@ Ne pas le faire entraînera la [pénalisation](https://github.com/rocket-pool/ro
 
 Parce que The Merge n'est pas compatible avec les fournisseurs distants comme Infura et Pocket, vous perdrez la capacité de les utiliser comme clients d'exécution de secours lorsque votre client principal est hors ligne.
 
-Le Smartnode a toujours la capacité de fournir un client d'exécution de secours (et maintenant aussi un client de consensus de secours), mais vous devrez maintenant utiliser des clients d'exécution et de consensus que vous contrôlez.
+Le Smart Node a toujours la capacité de fournir un client d'exécution de secours (et maintenant aussi un client de consensus de secours), mais vous devrez maintenant utiliser des clients d'exécution et de consensus que vous contrôlez.
 
 Pour plus d'informations sur la configuration d'un nœud de secours, consultez le [guide du nœud de secours](../../node-staking/fallback).
 
@@ -133,7 +133,7 @@ rocketpool node join-smoothing-pool
 
 La mise à jour Redstone remplace l'ancien système de récompenses coûteux et problématique par un [tout nouveau système](./whats-new#nouveau-système-de-récompenses) qui est beaucoup moins cher, prend en charge le re-staking automatique de RPL (montants partiels et complets), et - plus important encore - **vous permet de réclamer vos récompenses quand vous le souhaitez**.
 
-Parce qu'il n'y a plus de limite de temps pour réclamer les récompenses, et parce qu'il est moins cher de réclamer plusieurs intervalles de récompenses à la fois, la fonctionnalité de réclamation automatique des récompenses du Smartnode **a été supprimée**.
+Parce qu'il n'y a plus de limite de temps pour réclamer les récompenses, et parce qu'il est moins cher de réclamer plusieurs intervalles de récompenses à la fois, la fonctionnalité de réclamation automatique des récompenses du Smart Node **a été supprimée**.
 Vous pourrez maintenant réclamer les récompenses via la commande suivante :
 
 ```shell
@@ -144,8 +144,8 @@ Cela vous montrera toutes les récompenses que vous avez accumulées à travers 
 
 ## Retour à v1.4.3
 
-Si, pour une raison quelconque, quelque chose ne vous convient pas et que vous souhaitez revenir à la version précédente du Smartnode, vous pouvez le faire facilement.
-Le Smartnode sauvegarde automatiquement vos paramètres de la version précédente lorsque vous le mettez à jour, donc récupérez simplement la version précédente (ici nous démontrons la **v1.4.3**) et remplacez les paramètres par la sauvegarde :
+Si, pour une raison quelconque, quelque chose ne vous convient pas et que vous souhaitez revenir à la version précédente du Smart Node, vous pouvez le faire facilement.
+Le Smart Node sauvegarde automatiquement vos paramètres de la version précédente lorsque vous le mettez à jour, donc récupérez simplement la version précédente (ici nous démontrons la **v1.4.3**) et remplacez les paramètres par la sauvegarde :
 
 1. Arrêtez le service :
 
@@ -182,7 +182,7 @@ cp ~/.rocketpool/user-settings-backup.yml ~/.rocketpool/user-settings.yml
 rocketpool service config
 ```
 
-1. Si tout semble bon, démarrez la pile Smartnode :
+1. Si tout semble bon, démarrez la pile Smart Node :
 
 ```shell
 rocketpool service start

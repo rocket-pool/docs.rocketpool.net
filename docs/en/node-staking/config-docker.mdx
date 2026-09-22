@@ -11,12 +11,12 @@ import tuiExternalDD from "./images/tui-external-dd.png";
 import tuiExternalPrysm from "./images/tui-external-prysm.png";
 import tuiExternalTeku from "./images/tui-external-teku.png";
 
-# Configuring the Smartnode Stack (Docker / Hybrid Mode)
+# Configuring the Smart Node Stack (Docker / Hybrid Mode)
 
 Running complete Execution layer and Consensus layer clients can be daunting; there are several options to choose from and each of them has a plethora of different settings.
-Luckily, the Smartnode is designed to hide all of that complexity so it's quick and easy to configure, while still giving you the freedom to customize everything if you so desire.
+Luckily, the Smart Node is designed to hide all of that complexity so it's quick and easy to configure, while still giving you the freedom to customize everything if you so desire.
 
-In this section, we'll go over the various methods for configuring the Smartnode if you're using the **Docker-based setup** or a **Hybrid setup** where you connect to externally managed Execution or Consensus clients (e.g., clients you manage outside of the Smartnode for solo staking).
+In this section, we'll go over the various methods for configuring the Smart Node if you're using the **Docker-based setup** or a **Hybrid setup** where you connect to externally managed Execution or Consensus clients (e.g., clients you manage outside of the Smart Node for solo staking).
 
 ::: warning NOTE
 If you're using Native mode without Docker, please visit the [Native configuration guide](./config-native) instead.
@@ -25,8 +25,8 @@ If you're using Native mode without Docker, please visit the [Native configurati
 There are three ways to configure it:
 
 - Via the [Wizard UI](#configuring-via-the-wizard) - this is the easiest way. It only asks you a few basic questions and uses well-tested defaults for the test. This will be what you are presented with when you run `rocketpool service config` for the first time.
-- Via the [Settings Manager UI](#configuring-via-the-settings-manager) - this gives you access to all of the Smartnode's settings so you can customize everything as much as you want.
-- Headlessly via the [Command Line](#configuring-via-the-command-line) - this is an option for people who run the Smartnode in a headless (non-interactive) environment and need to configure it automatically.
+- Via the [Settings Manager UI](#configuring-via-the-settings-manager) - this gives you access to all of the Smart Node's settings so you can customize everything as much as you want.
+- Headlessly via the [Command Line](#configuring-via-the-command-line) - this is an option for people who run the Smart Node in a headless (non-interactive) environment and need to configure it automatically.
 
 Choose which mode you'd like to learn more about from the list above, or simply scroll through each option below.
 
@@ -41,7 +41,7 @@ rocketpool service config
 This will launch a terminal-based UI that will allow you to quickly and easily configure your node, as well as provide optional fine-grained control over every setting for advanced customization.
 
 ::: tip NOTE
-If you've already configured the Smartnode, you will instead be greeted with the [Settings Manager](#configuring-via-the-settings-manager).
+If you've already configured the Smart Node, you will instead be greeted with the [Settings Manager](#configuring-via-the-settings-manager).
 You can choose to re-open the Wizard from there if you prefer it, and all of your existing settings will be pre-selected for you.
 :::
 
@@ -97,12 +97,12 @@ You will be presented with two options for client mode:
 <img src="./images/tui-client-mode.png" width="100%" height="auto" />
 
 **Locally Managed** (also known as **"Docker Mode"**) is the default choice.
-Use it if you don't already have a client pair and you want the Smartnode to manage one for you.
-By choosing this, the Smartnode will create, configure and manage an Execution & Consensus Client pair as Docker containers.
+Use it if you don't already have a client pair and you want the Smart Node to manage one for you.
+By choosing this, the Smart Node will create, configure and manage an Execution & Consensus Client pair as Docker containers.
 Don't worry, you'll get to choose _which_ client you want to run next.
 
 **Externally Managed** (also known as **"Hybrid Mode"**) is a convenient choice for users that already have an Execution & Consensus client pair running elsewhere that they manage manually.
-By choosing this, the Smartnode will simply connect to your existing clients and will not run one of its own.
+By choosing this, the Smart Node will simply connect to your existing clients and will not run one of its own.
 For example, users can use this to plug into the clients that they currently use for solo staking; that way, they don't need to have two separate copies of the clients.
 
 :::warning NOTE
@@ -117,7 +117,7 @@ Choose which mode you'd like to use for managing your Execution client and follo
 <div className="p-3">
   <Tabs>
     <Tab label="Locally Managed">
-      If you want the Smartnode to manage an Execution client for you, the next screen will ask you to pick a client:
+      If you want the Smart Node to manage an Execution client for you, the next screen will ask you to pick a client:
 
       <img src={ECSelection} width="100%" height="auto"/>
 
@@ -141,8 +141,8 @@ Choose which mode you'd like to use for managing your Execution client and follo
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOTE</p>
-        Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-        You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your Execution client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+        Because the Smart Node will run in its own Docker container, it will use Docker's internal network.
+        You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your Execution client is running on the same machine as the Smart Node, you will need to provide the machine's LAN IP address instead.
       </p>
 
       And with that, your Execution client is all set!
@@ -152,17 +152,17 @@ Choose which mode you'd like to use for managing your Execution client and follo
 
       <img src={tuiExternalEC} width="100%" height="auto"/>
 
-      The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting transactions.
-      **If you don't already have your client's API port enabled and accessible from your Smartnode machine, you will need to set it up now.**
+      The Smart Node will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting transactions.
+      **If you don't already have your client's API port enabled and accessible from your Smart Node machine, you will need to set it up now.**
       Instructions on this vary from client to client; consult your client's documentation to learn how to set up the HTTP RPC endpoint.
 
-      The Websocket URL is only relevant if you need it for your own usage; the Smartnode does not use it.
+      The Websocket URL is only relevant if you need it for your own usage; the Smart Node does not use it.
       You can leave it blank if you do not need it.
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOTE</p>
-        Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-        You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your fallback Execution client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+        Because the Smart Node will run in its own Docker container, it will use Docker's internal network.
+        You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your fallback Execution client is running on the same machine as the Smart Node, you will need to provide the machine's LAN IP address instead.
       </p>
 
       When you're happy with your fallback Execution client choices, proceed to the next step.
@@ -181,7 +181,7 @@ Choose which mode you selected earlier from the tabs below:
 <div className="p-3">
   <Tabs>
     <Tab label="Locally Managed">
-      If you want the Smartnode to manage a Consensus client for you, the next screen will ask you to pick a client:
+      If you want the Smart Node to manage a Consensus client for you, the next screen will ask you to pick a client:
 
       <img src={tuiLocalCC} width="100%" height="auto"/>
 
@@ -423,7 +423,7 @@ Choose which mode you selected earlier from the tabs below:
       </p>
     </Tab>
     <Tab label="Externally Managed">
-      Because each Consensus client has slightly different behavior, the Smartnode needs to know which one you're using externally so it can adapt its own behavior accordingly.
+      Because each Consensus client has slightly different behavior, the Smart Node needs to know which one you're using externally so it can adapt its own behavior accordingly.
       Start by choosing which client you have from the list in the next screen:
 
       <img src="./images/tui-external-cc.png" width="100%" height="auto"/>
@@ -444,14 +444,14 @@ Choose which mode you selected earlier from the tabs below:
 
             <img src={tuiExternalLH} width="100%" height="auto"/>
 
-            The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
-            **If you don't already have the API port enabled and accessible from your Smartnode machine, you will need to set it up now.**
+            The Smart Node will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
+            **If you don't already have the API port enabled and accessible from your Smart Node machine, you will need to set it up now.**
             See [Lighthouse's documentation](https://lighthouse-book.sigmaprime.io/api-bn.html) for instructions on how to do this.
 
             <p className="rspress-directive warning">
               <p className="rspress-directive-title">NOTE</p>
-              Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-              You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+              Because the Smart Node will run in its own Docker container, it will use Docker's internal network.
+              You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smart Node, you will need to provide the machine's LAN IP address instead.
             </p>
 
 
@@ -491,17 +491,17 @@ Choose which mode you selected earlier from the tabs below:
 
             <img src={tuiExternalPrysm} width="100%" height="auto"/>
 
-            The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
+            The Smart Node will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
             It will prepare its Prysm Validator Client with the JSON-RPC URL so it can communicate with your Beacon Node, as _Prysm's Validator Client currently cannot work over the HTTP API._
 
-            **If you don't already have the API ports enabled and accessible from your Smartnode machine, you will need to set them up now.**
+            **If you don't already have the API ports enabled and accessible from your Smart Node machine, you will need to set them up now.**
             See [Prysm's documentation](https://docs.prylabs.network/docs/prysm-usage/parameters) for instructions on how to do this.
             **You will need the `grpc-gateway` _and_ the `rpc-host` enabled.**
 
             <p className="rspress-directive warning">
               <p className="rspress-directive-title">NOTE</p>
-              Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-              You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+              Because the Smart Node will run in its own Docker container, it will use Docker's internal network.
+              You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smart Node, you will need to provide the machine's LAN IP address instead.
             </p>
 
 
@@ -541,15 +541,15 @@ Choose which mode you selected earlier from the tabs below:
 
             <img src={tuiExternalTeku} width="100%" height="auto"/>
 
-            The Smartnode will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
-            **If you don't already have the API port enabled and accessible from your Smartnode machine, you will need to set it up now.**
+            The Smart Node will use the HTTP URL to communicate with it and perform blockchain activities, such as querying the chain's state and submitting messages.
+            **If you don't already have the API port enabled and accessible from your Smart Node machine, you will need to set it up now.**
             See [Teku's documentation](https://docs.teku.consensys.net/en/latest/Reference/CLI/CLI-Syntax/#rest-api-enabled) for instructions on how to do this.
 
 
             <p className="rspress-directive warning">
               <p className="rspress-directive-title">NOTE</p>
-              Because the Smartnode will run in its own Docker container, it will use Docker's internal network.
-              You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smartnode, you will need to provide the machine's LAN IP address instead.
+              Because the Smart Node will run in its own Docker container, it will use Docker's internal network.
+              You won't be able to use hostnames like `localhost` or `127.0.0.1` here; if your client is running on the same machine as the Smart Node, you will need to provide the machine's LAN IP address instead.
             </p>
 
             Next, it will ask about your validator's **graffiti** message:
@@ -602,7 +602,7 @@ rocketpool service resync-eth2
 
 ### Fallback Node
 
-Starting with 1.5.0 of the Smartnode stack, you can provide a "fallback" Execution client and Consensus client pair that can take over for your primary clients if they ever go offline (such as because you use Geth and need to prune it).
+Starting with 1.5.0 of the Smart Node stack, you can provide a "fallback" Execution client and Consensus client pair that can take over for your primary clients if they ever go offline (such as because you use Geth and need to prune it).
 In this situation, your primary node machine will still be responsible for attesting and proposing blocks with your minipools' validator keys, but it will connect to an external machine to interact with the Execution layer and Beacon chains.
 
 [To learn more about fall back nodes, see this section](./fallback) and return here when you're done.
@@ -629,7 +629,7 @@ It's purely there for you to use so you can monitor your own node!
 
 Since the Merge of the Execution and Consensus layers in September 2022, Ethereum validators now have the ability to earn priority fees and participate in Maximal Extractable Value (or MEV for short).
 
-Starting with Smartnode v1.7.0, MEV is now _opt-out_ so its configuration is presented as part of the initial setup, as you see in the next screen:
+Starting with Smart Node v1.7.0, MEV is now _opt-out_ so its configuration is presented as part of the initial setup, as you see in the next screen:
 
 <img src="./images/tui-mev-mode.png" width="100%" height="auto" />
 
@@ -638,12 +638,12 @@ Return here when you're finished.
 
 ### Completion
 
-After this question, you've finished setting up the Smartnode!
+After this question, you've finished setting up the Smart Node!
 You will see the following dialog:
 
 <img src="./images/tui-finished.png" width="100%" height="auto" />
 
-If you're happy with your setup and are ready to start the Smartnode, click `Save and Exit` here and go to the [Securing your Node](./securing-your-node) section next.
+If you're happy with your setup and are ready to start the Smart Node, click `Save and Exit` here and go to the [Securing your Node](./securing-your-node) section next.
 
 If you would like to review all of the settings and customize many additional settings that weren't included in the Wizard, click `Review All Settings` and go to the [next section](#configuring-via-the-settings-manager).
 
@@ -655,7 +655,7 @@ If you've already run `rocketpool service config`, instead of being greeted by t
 
 There are three main features of this screen:
 
-1. The **Category List**, which lets you drill down into the settings for each category of the Smartnode stack
+1. The **Category List**, which lets you drill down into the settings for each category of the Smart Node stack
 2. The **Review Changes and Save** button, which you can use when you're ready to see what settings you've changed and save the updated configuration
 3. The **Open the Config Wizard** button, which will bring you to the [Setup Wizard](#configuring-via-the-wizard) if you prefer that interface instead
 
@@ -676,7 +676,7 @@ Feel free to explore them; nothing you do will be saved until you go through the
 ### Configuring the Settings
 
 From the home screen, select any one of the categories with the `Enter` key to view the settings for that category.
-For example, here is the screen for the **Smartnode and TX Fees** category:
+For example, here is the screen for the **Smart Node and TX Fees** category:
 
 <img src="./images/tui-smartnode.png" width="100%" height="auto" />
 
@@ -693,7 +693,7 @@ It has been changed to `40`, but you can see that it has a default of `150` in t
 
 ::: tip TIP
 As a reminder, nothing will be saved to disk until you go through the Review dialog via the **Review Changes and Save** button.
-You are encouraged to explore all of the settings to learn about them and see what your Smartnode can do!
+You are encouraged to explore all of the settings to learn about them and see what your Smart Node can do!
 :::
 
 ### The Setting Types and How to Use Them
@@ -815,7 +815,7 @@ then finally `rocketpool service start`.
 
 ## Configuring via the Command Line
 
-If you use the Smartnode in a headless environment where you can't interact with the Terminal UI, you can configure your node via the command line instead.
+If you use the Smart Node in a headless environment where you can't interact with the Terminal UI, you can configure your node via the command line instead.
 
 The `rocketpool service config` command accepts, as arguments, every setting that can normally be configured via the Terminal UI.
 Run the following command to see a list of them (note that it's quite long):

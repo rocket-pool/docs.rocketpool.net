@@ -7,14 +7,14 @@ Bunu yapmak şunları içerir:
 - Execution ve/veya Consensus istemcilerinizin sağlığını izlemek (yerel istemciler çalıştırıyorsanız)
 - Node'unuzun durum güncellemeleri için gerekli işlemleri zincire düzenli olarak gönderdiğinden emin olmak
 - Bu işlemleri gerçekleştirmek için node cüzdanınızda yeterli ETH bakiyesine sahip olduğunuzdan emin olmak
-- Smartnode, istemcileriniz (varsa) ve İşletim Sisteminiz için güncellemeleri rutin olarak uygulamak
+- Smart Node, istemcileriniz (varsa) ve İşletim Sisteminiz için güncellemeleri rutin olarak uygulamak
 - Diğer Oracle DAO üyelerinin sağlığını izlemek ve node'larının düzgün çalışmadığını düşünüyorsanız onlarla iletişim kurmak
 
-Bu bölümde, bunları Smartnode'un yerleşik [Grafana](https://grafana.com/) desteği aracılığıyla nasıl yapacağınıza dair birkaç örnek açıklayacağız.
+Bu bölümde, bunları Smart Node'un yerleşik [Grafana](https://grafana.com/) desteği aracılığıyla nasıl yapacağınıza dair birkaç örnek açıklayacağız.
 
 ## Standart Rocket Pool Kontrol Paneli
 
-Smartnode, yukarıda listelenen metriklerden çoğunu izlemenize olanak tanıyan kullanışlı bir kontrol paneli sağlar.
+Smart Node, yukarıda listelenen metriklerden çoğunu izlemenize olanak tanıyan kullanışlı bir kontrol paneli sağlar.
 Her Consensus Client için bir kontrol paneli vardır.
 Aşağıda Nimbus için kontrol panelinin bir örneği bulunmaktadır:
 
@@ -24,13 +24,13 @@ Aşağıda Nimbus için kontrol panelinin bir örneği bulunmaktadır:
 - Execution istemciniz, sol alt çeyrekteki Ağ İstatistikleri dolduruluyorsa düzgün çalışıyor demektir.
 - Consensus istemciniz, sağ üst çeyrekteki peer sayısı sıfır olmayan bir sayıyla güncelleniyorsa düzgün çalışıyor demektir; tam sayı, istemci seçiminize ve ağ yapılandırmanıza bağlıdır.
 - Node'unuzun ETH bakiyesi sağ alttaki tabloda görüntülenir.
-- Herhangi bir İşletim Sistemi güncellemesi veya Smartnode güncellemesi, üst ortadaki panelde bulunan `Available Updates` kutusunda sunulur.
+- Herhangi bir İşletim Sistemi güncellemesi veya Smart Node güncellemesi, üst ortadaki panelde bulunan `Available Updates` kutusunda sunulur.
 
 ::: tip NOT
-İşletim Sistemi ve Smartnode güncellemeleri, `rocketpool service install-update-tracker` komutuyla yükleyebileceğiniz güncelleme izleyicisini gerektirir.
+İşletim Sistemi ve Smart Node güncellemeleri, `rocketpool service install-update-tracker` komutuyla yükleyebileceğiniz güncelleme izleyicisini gerektirir.
 :::
 
-Metrik sistemini ve Smartnode kontrol panelini nasıl hazırlayacağınız hakkında bilgi için lütfen Smartnode belgelerinin [Node'unuzun Performansını İzleme](../node-staking/performance) ve [Grafana Kontrol Panelini Kurma](../node-staking/grafana.mdx) sayfalarını ziyaret edin.
+Metrik sistemini ve Smart Node kontrol panelini nasıl hazırlayacağınız hakkında bilgi için lütfen Smart Node belgelerinin [Node'unuzun Performansını İzleme](../node-staking/performance) ve [Grafana Kontrol Panelini Kurma](../node-staking/grafana.mdx) sayfalarını ziyaret edin.
 
 ## Oracle DAO Kontrol Paneli
 

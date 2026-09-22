@@ -7,14 +7,14 @@
 - 监控 Execution 和/或 Consensus 客户端的健康状况（如果你运行本地客户端）
 - 确保你的节点定期向链提交所需的交易以进行状态更新
 - 确保你的节点钱包中有足够的 ETH 余额来执行这些交易
-- 定期对 Smartnode、你的客户端（如果适用）和操作系统应用更新
+- 定期对 Smart Node、你的客户端（如果适用）和操作系统应用更新
 - 监控其他 Oracle DAO 成员的健康状况，如果你认为他们的节点运行不正常，请与他们沟通
 
-在本节中，我们将通过 Smartnode 内置的 [Grafana](https://grafana.com/) 支持介绍一些如何执行这些操作的示例。
+在本节中，我们将通过 Smart Node 内置的 [Grafana](https://grafana.com/) 支持介绍一些如何执行这些操作的示例。
 
 ## 标准 Rocket Pool 仪表板
 
-Smartnode 提供了一个方便的仪表板，允许你监控上面列出的许多指标。
+Smart Node 提供了一个方便的仪表板，允许你监控上面列出的许多指标。
 每个 Consensus Client 都有一个仪表板。
 以下是 Nimbus 仪表板的示例：
 
@@ -24,13 +24,13 @@ Smartnode 提供了一个方便的仪表板，允许你监控上面列出的许�
 - 如果左下象限中的网络统计数据正在填充，则你的 Execution 客户端运行正常。
 - 如果右上象限中的对等体计数正在更新且为非零数字，则你的 Consensus 客户端运行正常；确切的数字取决于你选择的客户端和网络配置。
 - 你的节点 ETH 余额显示在右下角的表格中。
-- 任何操作系统更新或 Smartnode 更新都会显示在顶部中间面板的 `Available Updates` 框中。
+- 任何操作系统更新或 Smart Node 更新都会显示在顶部中间面板的 `Available Updates` 框中。
 
 ::: tip 注意
-操作系统和 Smartnode 更新需要更新跟踪器，你可以通过 `rocketpool service install-update-tracker` 安装。
+操作系统和 Smart Node 更新需要更新跟踪器，你可以通过 `rocketpool service install-update-tracker` 安装。
 :::
 
-有关如何准备指标系统和 Smartnode 仪表板的信息，请访问 Smartnode 文档的[监控节点性能](../node-staking/performance)和[设置 Grafana 仪表板](../node-staking/grafana.mdx)页面。
+有关如何准备指标系统和 Smart Node 仪表板的信息，请访问 Smart Node 文档的[监控节点性能](../node-staking/performance)和[设置 Grafana 仪表板](../node-staking/grafana.mdx)页面。
 
 ## Oracle DAO 仪表板
 

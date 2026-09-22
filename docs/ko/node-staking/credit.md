@@ -15,8 +15,8 @@ Saturn 1 준비를 위해 Minipool 예치가 현재 비활성화되어 있습니
 
 이 ETH는 유동화되어 Node Operator에게 반환되지 _않습니다_. 대신 Node Operator로부터 ETH가 필요 없이 **추가 minipool을 생성**하는 데 사용될 수 있습니다.
 
-크레딧 시스템은 Node Operator에게 **투명합니다**. 가능한 경우 `rocketpool node deposit` 또는 `rocketpool node create-vacant-minipool` 작업 중에 자동으로 사용됩니다(사용될 것임을 설명하는 Smartnode CLI의 알림과 함께).
-사용할 _수 없는_ 경우 Smartnode는 사용자에게 사용할 수 없음을 알리고 두 작업 중 하나에서 일반 ETH 본드가 필요할 것입니다.
+크레딧 시스템은 Node Operator에게 **투명합니다**. 가능한 경우 `rocketpool node deposit` 또는 `rocketpool node create-vacant-minipool` 작업 중에 자동으로 사용됩니다(사용될 것임을 설명하는 Smart Node CLI의 알림과 함께).
+사용할 _수 없는_ 경우 Smart Node는 사용자에게 사용할 수 없음을 알리고 두 작업 중 하나에서 일반 ETH 본드가 필요할 것입니다.
 
 자세한 내용은 아래 [크레딧 가용성](#크레딧-가용성) 섹션을 참조하십시오.
 
@@ -76,5 +76,5 @@ The node has 8.000000 ETH in its credit balance, which can be used to make new m
 따라서 8 ETH의 크레딧을 사용하여 새 8-ETH minipool을 생성하려는 경우 해당 minipool의 **전체 32 ETH**를 deposit pool에서 가져오고 귀하로부터는 아무것도 필요하지 않게 됩니다.
 이 때문에 deposit pool에 사전 예치 값(현재 1 ETH로 설정)을 커버할 충분한 ETH가 없으면 **잔액을 사용할 수 없습니다**.
 
-이 상황에서 Smartnode는 `rocketpool node deposit` 작업 중에 크레딧 잔액을 사용할 **수 없으며** 본드를 완료하기 위해 노드 지갑의 ETH를 대신 사용해야 한다고 알려줍니다.
+이 상황에서 Smart Node는 `rocketpool node deposit` 작업 중에 크레딧 잔액을 사용할 **수 없으며** 본드를 완료하기 위해 노드 지갑의 ETH를 대신 사용해야 한다고 알려줍니다.
 이렇게 하면 크레딧 잔액이 소비되지 **않습니다**. 그대로 남아 있으며 나중에 deposit pool에 이를 커버할 충분한 잔액이 있을 때 사용할 수 있습니다.

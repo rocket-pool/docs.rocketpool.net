@@ -1,28 +1,28 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Smartnode v1.3.x'e Yükseltme
+# Smart Node v1.3.x'e Yükseltme
 
-Smartnode stack'inin 1.3.0 sürümü, kullanıcıların bilmesi gereken bazı önemli değişiklikler getiriyor.
+Smart Node stack'inin 1.3.0 sürümü, kullanıcıların bilmesi gereken bazı önemli değişiklikler getiriyor.
 Bu değişiklikler, node operatörü deneyiminizi önemli ölçüde geliştirmek ve Rocket Pool'un lansmanından bu yana kullanıcılarımızın talep ettiği birçok özelliği ele almak için tasarlanmıştır.
 
-Bu kılavuzda, Smartnode'un eski bir sürümünden v1.3.x ve sonraki sürümlere geçiş sürecinde size yol göstereceğiz.
+Bu kılavuzda, Smart Node'un eski bir sürümünden v1.3.x ve sonraki sürümlere geçiş sürecinde size yol göstereceğiz.
 
 ## Yapılandırma Dosyası Değişiklikleri
 
-v1.3.0, Smartnode'un yapılandırmasının yönetilme şeklinde bazı önemli değişiklikler sunar.
-Daha önce Smartnode yapılandırmasını manuel olarak değiştirdiyseniz, aşağıdaki değişikliklerden haberdar olmalısınız:
+v1.3.0, Smart Node'un yapılandırmasının yönetilme şeklinde bazı önemli değişiklikler sunar.
+Daha önce Smart Node yapılandırmasını manuel olarak değiştirdiyseniz, aşağıdaki değişikliklerden haberdar olmalısınız:
 
-- `config.yml` dosyası kaldırılmıştır. Tüm bilgileri artık doğrudan Smartnode stack'ine yerleştirilmiştir, böylece kullanıcılar artık dosyayı Smartnode'un düzgün çalışmasını engelleyecek şekilde yanlışlıkla değiştiremezler.
+- `config.yml` dosyası kaldırılmıştır. Tüm bilgileri artık doğrudan Smart Node stack'ine yerleştirilmiştir, böylece kullanıcılar artık dosyayı Smart Node'un düzgün çalışmasını engelleyecek şekilde yanlışlıkla değiştiremezler.
   - Daha önce bunun bir parçası olan tüm kullanıcı tarafından yapılandırılabilir parametreler artık yeni `service config` Terminal UI'da ayarlardır.
 
-- `settings.yml` dosyası, `user-settings.yml` adlı yeni bir dosya ile değiştirilmiştir. Bu, Smartnode'un her kullanıcı tarafından yapılandırılabilir bölümü için tüm ayarlarınızı içerir.
+- `settings.yml` dosyası, `user-settings.yml` adlı yeni bir dosya ile değiştirilmiştir. Bu, Smart Node'un her kullanıcı tarafından yapılandırılabilir bölümü için tüm ayarlarınızı içerir.
   - Bu dosyanın **doğrudan değiştirilmesi amaçlanmamıştır**. Değişiklik, bunun yerine yeni `service config` Terminal UI aracılığıyla yapılmalıdır.
 
 - `chains` klasörü kaldırılmıştır. Execution Client (ETH1), Beacon Node ve Validator Client'ı başlatmak için kullanılan scriptler artık `scripts` klasöründe bulunuyor.
 
 - `docker-compose` YAML dosyaları kaldırılmıştır. Her container artık `templates` klasöründe kendi dosyasını alır. `rocketpool service start` çalıştırıldığında, bu şablonlar ayarlarınızla doldurulur ve otomatik olarak `runtime` klasörüne yerleştirilir.
   - Şablonları veya runtime dosyalarını değiştirmek önerilmez. Bunun yerine, `override` klasöründeki her container için **override** dosyalarını kullanarak container özelleştirmelerinizi doldurun. Bu dosyalar `runtime`'daki Docker dosyalarının üzerine yazacaktır, bu nedenle bunları istediğiniz gibi özelleştirmekte özgürsünüz.
-  - `override` içindeki dosyalar **Smartnode yükseltmeleri ve yeniden kurulumlar sırasında korunacaktır**, bu yüzden onları yalnızca bir kez oluşturmanız gerekir.
+  - `override` içindeki dosyalar **Smart Node yükseltmeleri ve yeniden kurulumlar sırasında korunacaktır**, bu yüzden onları yalnızca bir kez oluşturmanız gerekir.
   - Bu override mekanizması aracılığıyla `docker-compose` dosyalarını değiştirmekle ilgileniyorsanız, lütfen [bu bölüme](../node-staking/advanced-config#docker-compose-tanım-dosyalarını-özelleştirme) bakın
 
 ## Yeni Sürümü Yükleme
@@ -40,7 +40,7 @@ Hizmetleri durdurup yeni CLI'yı her zamanki gibi indirerek başlayın:
       rocketpool service stop
       ```
 
-      Sisteminiz için yeni Smartnode CLI'yı indirin (aşağıdaki sekmelerden birini seçin):
+      Sisteminiz için yeni Smart Node CLI'yı indirin (aşağıdaki sekmelerden birini seçin):
 
       <div className="p-3">
         <Tabs>
@@ -86,13 +86,13 @@ Hizmetleri durdurup yeni CLI'yı her zamanki gibi indirerek başlayın:
       <p className="rspress-directive tip">
         <p className="rspress-directive-title">NOT</p>
         v1.3.0 itibarıyla, **artık hangi ağ için kurulum yapmak istediğinizi belirtmeniz gerekmiyor!**
-        Yeni Smartnode hangi ağı zaten kullandığınızı bilecek ve yeni Terminal UI'yi kullanarak ağınızı dinamik olarak değiştirmenize izin verecektir.
+        Yeni Smart Node hangi ağı zaten kullandığınızı bilecek ve yeni Terminal UI'yi kullanarak ağınızı dinamik olarak değiştirmenize izin verecektir.
       </p>
     </Tab>
     <Tab label="Native Mode">
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOT</p>
-        Bu yalnızca Smartnode stack'inin kendisini güncelleyecektir - Execution ve Consensus client'larınızı **güncellemeyecektir**.
+        Bu yalnızca Smart Node stack'inin kendisini güncelleyecektir - Execution ve Consensus client'larınızı **güncellemeyecektir**.
         Bunu manuel olarak yapmanız gerekecektir (bunu nasıl yapacağınızı öğrenmek için [manuel güncelleme kılavuzuna](../node-staking/updates#yürütüm-veya-fikir-birliği-i̇stemcisini-manuel-olarak-güncelleme) bakın).
       </p>
 
@@ -102,7 +102,7 @@ Hizmetleri durdurup yeni CLI'yı her zamanki gibi indirerek başlayın:
       sudo systemctl stop rp-node rp-watchtower
       ```
 
-      Yeni Smartnode CLI ve daemon binary'lerini indirin:
+      Yeni Smart Node CLI ve daemon binary'lerini indirin:
 
       <div className="p-3">
         <Tabs>
@@ -150,10 +150,10 @@ Hizmetleri durdurup yeni CLI'yı her zamanki gibi indirerek başlayın:
         v1.3.0 itibarıyla, `config.yml` kaldırılmıştır.
         **Artık yükleyici paketini indirip çıkarmanız gerekmiyor.**
       </p>
-      Ardından, Smartnode dizininizde `old_config_backup` adlı bir yedekleme klasörü oluşturun ve eski yapılandırma dosyalarınızı (`config.yml` ve `settings.yml`) buraya taşıyın.
-      Smartnode, ayarlarınızı yeni sisteme taşımak için bunları kullanacaktır.
+      Ardından, Smart Node dizininizde `old_config_backup` adlı bir yedekleme klasörü oluşturun ve eski yapılandırma dosyalarınızı (`config.yml` ve `settings.yml`) buraya taşıyın.
+      Smart Node, ayarlarınızı yeni sisteme taşımak için bunları kullanacaktır.
 
-      Örneğin, Native kurulum kılavuzunu takip ettiyseniz ve Smartnode dizininiz `/srv/rocketpool` ise:
+      Örneğin, Native kurulum kılavuzunu takip ettiyseniz ve Smart Node dizininiz `/srv/rocketpool` ise:
 
       ```shell
       cd /srv/rocketpool
@@ -192,16 +192,16 @@ Hizmetleri durdurup yeni CLI'yı her zamanki gibi indirerek başlayın:
   </Tabs>
 </div>
 
-Kurulumdan sonra, tüm eski yapılandırma dosyalarınız Smartnode dizininizdeki `old_config_backup` adlı bir klasöre taşınacaktır (varsayılan olarak `~/.rocketpool/old_config_backup`).
+Kurulumdan sonra, tüm eski yapılandırma dosyalarınız Smart Node dizininizdeki `old_config_backup` adlı bir klasöre taşınacaktır (varsayılan olarak `~/.rocketpool/old_config_backup`).
 Herhangi bir nedenle onlara başvurmanız gerekirse bunları orada bulabilirsiniz.
 
 **Bu yedekten v1.2.4'e geri dönme talimatlarını arıyorsanız, lütfen bu sayfanın sonundaki [Önceki Yapılandırmanıza Geri Dönme](#önceki-yapılandırmanıza-geri-dönme) bölümüne gidin.**
 
-## Terminal UI ile Smartnode'u Yapılandırma
+## Terminal UI ile Smart Node'u Yapılandırma
 
 Artık yeni CLI ve pakete sahip olduğunuza göre, tüm önceki ayarlarınız korunmuş ve yeni sisteme taşınmıştır.
 Bir sonraki adımda, `rocketpool service config` komutunu çalıştırmalısınız.
-Bu, bu fonksiyonun önceki sürümlerine kıyasla oldukça farklı görünecektir; v1.3.0, Smartnode'unuzu yapılandırmak için terminal tabanlı dinamik bir kullanıcı arayüzü olan **Terminal UI**'yi sunar.
+Bu, bu fonksiyonun önceki sürümlerine kıyasla oldukça farklı görünecektir; v1.3.0, Smart Node'unuzu yapılandırmak için terminal tabanlı dinamik bir kullanıcı arayüzü olan **Terminal UI**'yi sunar.
 
 Geçiş işleminden sonra Docker container'larını başlatmadan önce yapılandırmayı görüntülemek, tüm değişikliklerinizin başarıyla taşındığını doğrulamak ve istediğiniz diğer ayarları güncellemek için çalıştırmalısınız.
 
@@ -210,10 +210,10 @@ Geçiş işleminden sonra Docker container'larını başlatmadan önce yapıland
 <img src="../node-staking/images/tui-migrate.png" width="100%" height="auto" />
 
 :::tip NOT
-**Native Mode kullanıcıları** bu ekranı, Smartnode'un Native mode'da çalıştığını belirten biraz farklı bir ifadeyle görecektir.
+**Native Mode kullanıcıları** bu ekranı, Smart Node'un Native mode'da çalıştığını belirten biraz farklı bir ifadeyle görecektir.
 :::
 
-TUI, Smartnode'un en önemli parametrelerini (client modu ve seçimi gibi) hızlı ve kolay bir şekilde değiştirmenize olanak tanıyan **Sihirbaz** ile başlayacaktır.
+TUI, Smart Node'un en önemli parametrelerini (client modu ve seçimi gibi) hızlı ve kolay bir şekilde değiştirmenize olanak tanıyan **Sihirbaz** ile başlayacaktır.
 
 **Sihirbazın her sayfasında gezinirken tüm önceki ayarlarınız zaten vurgulanmış olmalıdır, böylece önceki yapılandırmanızın ne olduğunu aklınızdan hatırlamak zorunda kalmazsınız.**
 
@@ -222,7 +222,7 @@ TUI, Smartnode'un en önemli parametrelerini (client modu ve seçimi gibi) hızl
 
 - **Docker Mode** için, lütfen [yeni Docker yapılandırma kılavuzunu](../node-staking/config-docker) ziyaret edin.
 
-- **Hybrid Mode** kullanıcıları: Hybrid Mode artık Smartnode'un **birinci sınıf bir özelliğidir** ve yapılandırması eskisinden _çok daha kolaydır_. Lütfen [yeni Docker yapılandırma kılavuzunu](../node-staking/config-docker) ziyaret edin ve takip edin. Bir Execution client modu ve Consensus client modu seçmeniz istendiğinde, bunlar için uygun şekilde **Externally Managed**'ı seçin.
+- **Hybrid Mode** kullanıcıları: Hybrid Mode artık Smart Node'un **birinci sınıf bir özelliğidir** ve yapılandırması eskisinden _çok daha kolaydır_. Lütfen [yeni Docker yapılandırma kılavuzunu](../node-staking/config-docker) ziyaret edin ve takip edin. Bir Execution client modu ve Consensus client modu seçmeniz istendiğinde, bunlar için uygun şekilde **Externally Managed**'ı seçin.
 
 - **Native Mode** için, lütfen [yeni Native yapılandırma kılavuzunu](../node-staking/config-native) ziyaret edin.
 
@@ -246,13 +246,13 @@ Gezinmek için `Ok Tuşlarını` kullanın ve bir kategori girmek veya yaptığ�
 
 Bir kategoriyi düzenlemeyi bitirdiğinizde bu ana ekrana dönmek için `Esc`'ye basın.
 
-Değişikliklerinizi kaydetmeye ve Smartnode stack'ini başlatmaya hazır olduğunuzda, ekranın altındaki düğmelere gitmek için `Tab`'a basın, `Review Changes and Save`'i seçin (ok tuşlarıyla yeşil yaparak).
+Değişikliklerinizi kaydetmeye ve Smart Node stack'ini başlatmaya hazır olduğunuzda, ekranın altındaki düğmelere gitmek için `Tab`'a basın, `Review Changes and Save`'i seçin (ok tuşlarıyla yeşil yaparak).
 **İnceleme Sayfası**'na getirilmek için `Enter`'a basın, burada son `rocketpool service config` çalıştırdığınızdan beri değiştirdiğiniz her şeyi görebilirsiniz.
 
 Tüm değişikliklerinizin mevcut olduğunu onaylayın ve ardından bunları kaydetmek için tekrar `Enter`'a basın.
 Ekran, değişikliklerin uygulanması için hangi container'ların yeniden başlatılması gerektiğini gösterecektir, ancak geçiş yaptığınız için zaten container'ları kapattınız ve hepsi yine de yeniden başlatılacaktır.
 
-## Smartnode Stack'ini Başlatma
+## Smart Node Stack'ini Başlatma
 
 Yapılandırmanızı kaydettikten sonra, terminal container'ların otomatik olarak yeniden başlatılmasını isteyip istemediğinizi soracaktır (Native mode kullanmıyorsanız).
 Otomatik olarak başlamalarına izin vermiyorsanız / veremiyorsanız, aşağıdaki komutlarla manuel olarak başlatabilirsiniz:
@@ -266,7 +266,7 @@ Otomatik olarak başlamalarına izin vermiyorsanız / veremiyorsanız, aşağıd
 
 Başlatıldıktan sonra, her şeyin amaçlandığı gibi çalıştığını doğrulayabilirsiniz.
 
-Smartnode ve client container'larının doğru sürümüne sahip olduğunuzu kontrol etmek için `rocketpool service version` komutunu kullanın:
+Smart Node ve client container'larının doğru sürümüne sahip olduğunuzu kontrol etmek için `rocketpool service version` komutunu kullanın:
 
 ```
 $ rocketpool service version
@@ -286,7 +286,7 @@ Herhangi bir hata olup olmadığına dikkat edin ve karşılaşırsanız [lütfe
 
 ## Önceki Yapılandırmanıza Geri Dönme
 
-Herhangi bir nedenle Smartnode stack'inin v1.2.4 sürümüne geri dönmeniz gerekirse, endişelenmeyin!
+Herhangi bir nedenle Smart Node stack'inin v1.2.4 sürümüne geri dönmeniz gerekirse, endişelenmeyin!
 Tüm eski yapılandırma dosyalarınız bir yedekleme dizininde korunmuştur ve önceki kurulumunuzu geri yüklemek için kolayca alınabilir.
 
 Aşağıdaki sekmelerden hangi modu kullandığınızı seçin ve talimatları izleyin.
@@ -328,7 +328,7 @@ Aşağıdaki sekmelerden hangi modu kullandığınızı seçin ve talimatları i
         </Tabs>
       </div>
 
-      Ardından, tüm eski yapılandırma dosyalarınızı `old_config_backup` klasöründen Smartnode klasörüne kopyalayın:
+      Ardından, tüm eski yapılandırma dosyalarınızı `old_config_backup` klasöründen Smart Node klasörüne kopyalayın:
 
       ```shell
       cd ~/.rocketpool
@@ -387,7 +387,7 @@ Aşağıdaki sekmelerden hangi modu kullandığınızı seçin ve talimatları i
           </Tab>
         </Tabs>
       </div>
-      Önceki ayar dosyalarını Smartnode dizininize kopyalayın:
+      Önceki ayar dosyalarını Smart Node dizininize kopyalayın:
 
       ```shell
       cd /srv/rocketpool

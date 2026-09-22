@@ -1,6 +1,6 @@
-# Abstimmungseinrichtung für Nutzer ohne Smartnode
+# Abstimmungseinrichtung für Nutzer ohne Smart Node
 
-Einige Nutzer (z.B. Allnodes-Nutzer) verwenden den Smartnode nicht und müssen die Abstimmung möglicherweise über direkte Vertragsinteraktion einrichten.
+Einige Nutzer (z.B. Allnodes-Nutzer) verwenden den Smart Node nicht und müssen die Abstimmung möglicherweise über direkte Vertragsinteraktion einrichten.
 Dieser Leitfaden enthält sowohl eine minimale als auch eine vollständige Einrichtungsanleitung für solche Nutzer.
 
 ::: tip

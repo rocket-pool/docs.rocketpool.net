@@ -23,14 +23,14 @@ In diesem Leitfaden zeigen wir Ihnen, wie Sie das Metriken-System von Rocket Poo
 
 ## Übersicht über den Rocket Pool Metrics Stack
 
-Wenn Sie sich während des Smartnode-Konfigurationsprozesses dafür entscheiden, Metriken zu aktivieren, fügt Ihr Node die folgenden Prozesse hinzu:
+Wenn Sie sich während des Smart Node-Konfigurationsprozesses dafür entscheiden, Metriken zu aktivieren, fügt Ihr Node die folgenden Prozesse hinzu:
 
 - [Prometheus](https://prometheus.io/) - ein Datenerfassungs-, Speicher- und Berichtssystem, das alle oben genannten Metriken (und viele mehr) erfasst und speichert, damit sie im Laufe der Zeit betrachtet werden können
 - Der Prometheus [Node Exporter](https://github.com/prometheus/node_exporter) - ein Dienst, der Informationen über die Gesundheit Ihrer Maschine sammelt (wie CPU-Auslastung, RAM-Auslastung, freier Festplattenspeicher und Swap-Speicher usw.) und an Prometheus meldet
 - Grafana, das Tool, das die Daten von Prometheus über eine praktische Website auf Ihrem Node verfügbar macht
 - Ein optionales benutzerdefiniertes Set von Skripten, das alle verfügbaren Betriebssystem-Updates an Prometheus meldet, damit Sie wissen, ob Ihr System gepatcht werden muss
 
-Die Standardkonfiguration erstellt Docker-Container mit all diesen Diensten, die neben den restlichen Docker-Containern der Smartnode leben.
+Die Standardkonfiguration erstellt Docker-Container mit all diesen Diensten, die neben den restlichen Docker-Containern der Smart Node leben.
 Sie öffnet einen Port auf Ihrer Node-Maschine für Grafana, damit Sie von jedem Gerät in Ihrem lokalen Netzwerk mit einem Browser auf das Dashboard zugreifen können.
 
 ## Aktivieren des Metrics Server
@@ -40,7 +40,7 @@ Sie öffnet einen Port auf Ihrer Node-Maschine für Grafana, damit Sie von jedem
     <Tab label="Docker">
       Die Aktivierung von Metriken im Docker-Modus ist am einfachsten.
 
-      Führen Sie zunächst den Smartnode-Konfigurationsbefehl erneut aus:
+      Führen Sie zunächst den Smart Node-Konfigurationsbefehl erneut aus:
 
       ```shell
       rocketpool service config
@@ -51,7 +51,7 @@ Sie öffnet einen Port auf Ihrer Node-Maschine für Grafana, damit Sie von jedem
       Für diejenigen, die ihre Port-Einstellungen feinabstimmen möchten, können Sie dies hier tun.
       Beachten Sie, dass alle diese Ports auf das interne Docker-Netzwerk beschränkt sind, mit Ausnahme des Grafana-Ports - dieser wird auf Ihrer Maschine geöffnet (damit Sie von anderen Geräten wie Ihrem Desktop oder Telefon mit einem Browser darauf zugreifen können), daher möchten Sie dies möglicherweise ändern, wenn der Standardport mit etwas kollidiert, das Sie bereits haben.
 
-      Speichern und beenden Sie, und die Smartnode startet die Prometheus-, Node Exporter- und Grafana-Docker-Container für Sie.
+      Speichern und beenden Sie, und die Smart Node startet die Prometheus-, Node Exporter- und Grafana-Docker-Container für Sie.
 
       Sie modifiziert auch Ihre Consensus und Validator Clients, damit sie ihre eigenen Metriken an Prometheus weitergeben.
 
@@ -78,7 +78,7 @@ Sie öffnet einen Port auf Ihrer Node-Maschine für Grafana, damit Sie von jedem
       </p>
 
 
-      Während dieser Überprüfung vergleicht es auch Ihre installierte Rocket Pool Smartnode-Version mit der neuesten Version und informiert Sie, wenn eine neue Version verfügbar ist.
+      Während dieser Überprüfung vergleicht es auch Ihre installierte Rocket Pool Smart Node-Version mit der neuesten Version und informiert Sie, wenn eine neue Version verfügbar ist.
 
       Wenn Sie den Update-Tracker aktiviert haben, besteht der letzte Schritt darin, den Node Exporter mit folgendem Befehl neu zu starten:
 
@@ -606,7 +606,7 @@ Sie können dann die Firewall öffnen, um externen Geräten Zugriff auf Ihr Graf
 
 Jetzt, da der Metrics Server bereit ist, können Sie mit jedem Browser in Ihrem lokalen Netzwerk darauf zugreifen.
 
-Beziehen Sie sich auf die nachstehenden Tabs für Ihren Smartnode-Installationsmodus.
+Beziehen Sie sich auf die nachstehenden Tabs für Ihren Smart Node-Installationsmodus.
 
 Navigieren Sie zur folgenden URL und ersetzen Sie die Variablen entsprechend Ihrem Setup:
 
@@ -696,7 +696,7 @@ Wir sind jedoch noch nicht fertig mit der Einrichtung - es gibt noch ein wenig m
 ::: warning HINWEIS
 Einige der Boxen (insbesondere die APR-Boxen) wurden vorübergehend deaktiviert aufgrund der Art und Weise, wie Shapella abgeschöpfte Belohnungen bereitstellt.
 
-Sie werden in einer zukünftigen Version der Smartnode, die historische Belohnungen ordnungsgemäß verfolgen kann, wieder aktiviert.
+Sie werden in einer zukünftigen Version der Smart Node, die historische Belohnungen ordnungsgemäß verfolgen kann, wieder aktiviert.
 :::
 
 ## Anpassen des Hardware-Monitors an Ihr System
@@ -789,7 +789,7 @@ nvme0n1     259:0    0 238,5G  0 disk
 └─nvme0n1p4 259:4    0   527M  0 part
 ```
 
-Wenn Sie Dockers Standardspeicherort während Ihrer Smartnode-Installation nicht auf ein anderes Laufwerk geändert haben, ist das Laufwerk, das Sie verfolgen möchten, dasjenige, auf dem Ihr Betriebssystem installiert ist.
+Wenn Sie Dockers Standardspeicherort während Ihrer Smart Node-Installation nicht auf ein anderes Laufwerk geändert haben, ist das Laufwerk, das Sie verfolgen möchten, dasjenige, auf dem Ihr Betriebssystem installiert ist.
 Suchen Sie in der Spalte `MOUNTPOINT` nach einem Eintrag mit der einfachen Bezeichnung `/`, und folgen Sie diesem zurück zu seinem übergeordneten Gerät (dasjenige mit `disk` in der Spalte `TYPE`).
 
 Normalerweise ist dies `sda` für SATA-Laufwerke oder `nvme0n1` für NVMe-Laufwerke.

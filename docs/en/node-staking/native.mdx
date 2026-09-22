@@ -3,12 +3,12 @@ import { Tab, Tabs } from "@rspress/core/theme";
 # Creating a Native Rocket Pool Node without Docker
 
 ::: tip NOTE
-This guide is designed for **Smartnode v1.6.5 and higher**.
+This guide is designed for **Smart Node v1.6.5 and higher**.
 
 If you are using a previous version, you must upgrade to v1.6.5 or higher before configuring Native mode.
 :::
 
-In this section, we will walk through the process of installing the Rocket Pool Smartnode stack natively onto your system, without the use of Docker containers.
+In this section, we will walk through the process of installing the Rocket Pool Smart Node stack natively onto your system, without the use of Docker containers.
 
 The general plan is as follows:
 
@@ -32,7 +32,7 @@ We assume you are familiar with these activities - as you will be managing the b
 
 ## Step 1: Set up the Execution and Consensus Clients
 
-Native Mode effectively extends a standard solo-staking setup, and simply allows the Smartnode software to attach to the clients that it already runs (with a few small modifications).
+Native Mode effectively extends a standard solo-staking setup, and simply allows the Smart Node software to attach to the clients that it already runs (with a few small modifications).
 
 To that end, we recommend you start by following some of the conventional solo staking guides provided by the community:
 
@@ -48,7 +48,7 @@ You simply need to follow the guides to the point where you have an Execution Cl
 Also, there is a special case for the **fee recipient** - when you get to the portion of the guide where you specify the fee recipient in your Validator Client configuration, **leave it blank for now**.
 We will describe how to set it up for Rocket Pool validators below.
 
-Once your clients are installed and you can see in their logs that they are syncing the chains properly, you can follow the next steps to set up the Rocket Pool Smartnode and connect it to your clients.
+Once your clients are installed and you can see in their logs that they are syncing the chains properly, you can follow the next steps to set up the Rocket Pool Smart Node and connect it to your clients.
 
 ## Step 2: Install Rocket Pool
 
@@ -149,13 +149,13 @@ sudo chmod u+sx,g+sx,o-rwx /usr/local/bin/rocketpoold
 This will ensure that the daemon always runs as the `rp` user, so it always has the proper permissions set.
 
 ::: danger NOTE
-The Smartnode will most likely fail with permissions errors if you don't do this.
+The Smart Node will most likely fail with permissions errors if you don't do this.
 Please be sure to run this command!
 :::
 
 ### Setting up the Installation Folder
 
-With the CLI and Daemon installed, you'll need to next set up the folder structure and accompanying files that the Smartnode expects to exist.
+With the CLI and Daemon installed, you'll need to next set up the folder structure and accompanying files that the Smart Node expects to exist.
 Start by creating the following folders:
 
 ```
@@ -341,11 +341,11 @@ Also modify `/srv/rocketpool/stop-validator.sh`:
 All set!
 The `node` process can now restart or stop your VC as required automatically.
 
-## Step 3: Configure the Smartnode
+## Step 3: Configure the Smart Node
 
-Now that your services are all created, it's time to configure the Smartnode stack.
+Now that your services are all created, it's time to configure the Smart Node stack.
 
-Please visit the [Configuring the Smartnode Stack (Native Mode)](./config-native) guide, and return here when you are finished.
+Please visit the [Configuring the Smart Node Stack (Native Mode)](./config-native) guide, and return here when you are finished.
 
 ### Enabling and Running the Services
 
@@ -524,7 +524,7 @@ Click on the client you use in the tabs below:
 ### Relaxing `umask`
 
 By default, your system will typically come with a `umask` configuration that will strip the `+w` bit from the group permissions whenever the `node` daemon creates a new folder.
-This is problematic for several consensus clients, because they will actually write things such as lock files or other metadata into the directories that the Smartnode creates when it generates new validator keys during a minipool deposit.
+This is problematic for several consensus clients, because they will actually write things such as lock files or other metadata into the directories that the Smart Node creates when it generates new validator keys during a minipool deposit.
 
 To combat this and ensure your VC works correctly, please **relax your `umask` settings**.
 For example, instead of `0022`, you should consider setting it to `0002` for the `rp` user.

@@ -18,7 +18,7 @@ Saturn 1 升级用 [megapool](/zh/node-staking/megapools/overview) 取代了 min
 - **Minipool 的创建已在协议层面被禁用**，其中包括空置 minipool。不再存在可以将现有验证者提款凭证指向的 minipool 合约。
 - **Megapool 验证者通过 Rocket Pool 存款队列创建**，需要全新的信标链存款：先进行 1 ETH 的预质押（prestake），在协议于链上验证该验证者的提款凭证后，再存入剩余的 31 ETH。
   已经处于活跃状态的验证者无法走这一流程，因此不存在将现有单独验证者吸收进 megapool 的机制。
-- 用于转换的 Smartnode 命令（如 `rocketpool node create-vacant-minipool` 和 `rocketpool minipool promote`）已从 CLI 中移除。
+- 用于转换的 Smart Node 命令（如 `rocketpool node create-vacant-minipool` 和 `rocketpool minipool promote`）已从 CLI 中移除。
 
 简而言之：如今从单独质押迁移的唯一方式是**将您的验证者从信标链退出，并使用提取的 ETH 创建新的 megapool 验证者**。
 
@@ -34,7 +34,7 @@ Saturn 1 升级用 [megapool](/zh/node-staking/megapools/overview) 取代了 min
 话虽如此，也有一些重要的差异需要强调：
 
 - 您必须接受**智能合约风险**，因为该协议是由一系列智能合约实现的。
-- 传统的节点运营依赖 **Smartnode 软件栈**；您必须接受在节点上安装和运行该软件所带来的任何风险。
+- 传统的节点运营依赖 **Smart Node 软件栈**；您必须接受在节点上安装和运行该软件所带来的任何风险。
 - 成为节点运营者需要学习一些新概念，因此存在一定的**学习曲线**。
 - Megapool 验证者需要与质押池分享奖励，因此您验证者的提款地址将是执行层上的 megapool 合约，**而不是您控制的外部账户（EOA）**。这同样适用于您执行层奖励的**费用接收地址（fee recipient）**。
 - **您的资金在转移期间不会产生任何收益。** 从退出单独验证者到 megapool 验证者激活之间，您不会获得任何奖励。新的 megapool 验证者必须先通过 Rocket Pool 存款队列*和*信标链队列才能开始证明工作，因此在退出任何验证者之前，请先阅读下面的[时机考量](#时机考量)部分。
@@ -61,7 +61,7 @@ Saturn 1 升级用 [megapool](/zh/node-staking/megapools/overview) 取代了 min
 
 在等待退出处理期间，您可以着手准备您的 Rocket Pool 节点。
 
-如果您是 Rocket Pool 节点运营的新手，请从[节点运营者指南](/zh/node-staking/responsibilities)开始，其中涵盖了从硬件选择到[安装 Smartnode 软件栈](/zh/node-staking/installing/overview)以及[注册节点](/zh/node-staking/prepare-node)的所有内容。
+如果您是 Rocket Pool 节点运营的新手，请从[节点运营者指南](/zh/node-staking/responsibilities)开始，其中涵盖了从硬件选择到[安装 Smart Node 软件栈](/zh/node-staking/installing/overview)以及[注册节点](/zh/node-staking/prepare-node)的所有内容。
 由于您一直在运行自己的验证者，其中大部分内容会让您感到熟悉-如果您已经在运行自己的执行和共识客户端，您可能会对[使用外部客户端的混合配置](/zh/node-staking/install-modes#使用外部客户端的混合配置)感兴趣。
 
 ## 第 3 步：创建您的 megapool 验证者
@@ -73,8 +73,8 @@ Saturn 1 升级用 [megapool](/zh/node-staking/megapools/overview) 取代了 min
 [创建 Megapool（验证者）](/zh/node-staking/megapools/create-megapool-validator)指南将分步引导您完成整个过程，包括存款队列的运作方式以及如何确认质押成功。
 
 ::: tip 注意
-与旧的转换流程不同，您的新验证者将使用从您的 Smartnode 钱包生成的**新验证者密钥**。
-您旧的单独验证者密钥不会被重复使用，Smartnode 的验证者客户端将为您管理新密钥-不再需要密钥导入步骤。
+与旧的转换流程不同，您的新验证者将使用从您的 Smart Node 钱包生成的**新验证者密钥**。
+您旧的单独验证者密钥不会被重复使用，Smart Node 的验证者客户端将为您管理新密钥-不再需要密钥导入步骤。
 :::
 
 ## 时机考量

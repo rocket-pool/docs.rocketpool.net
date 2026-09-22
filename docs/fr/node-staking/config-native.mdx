@@ -17,9 +17,9 @@ import tui_native_settings_home from "./images/tui-native-settings-home.png";
 import tui_native_smartnode from "./images/tui-native-smartnode.png";
 import tui_textbox from "./images/tui-textbox.png";
 
-# Configuration de la pile Smartnode (mode natif)
+# Configuration de la pile Smart Node (mode natif)
 
-Dans cette section, nous allons passer en revue les différentes méthodes pour configurer le Smartnode si vous utilisez la **configuration native** qui n'utilise pas du tout Docker.
+Dans cette section, nous allons passer en revue les différentes méthodes pour configurer le Smart Node si vous utilisez la **configuration native** qui n'utilise pas du tout Docker.
 
 ::: warning NOTE
 Si vous utilisez une configuration basée sur Docker, veuillez consulter le [guide de configuration Docker](./config-docker) à la place.
@@ -28,14 +28,14 @@ Si vous utilisez une configuration basée sur Docker, veuillez consulter le [gui
 Il existe trois façons de le configurer :
 
 - Via l'[interface de l'assistant](#configuration-via-lassistant) - c'est la façon la plus simple. Il ne vous pose que quelques questions de base et utilise des valeurs par défaut bien testées pour le reste. C'est ce qui vous sera présenté lorsque vous exécuterez `rocketpool service config` pour la première fois.
-- Via l'[interface du gestionnaire de paramètres](#configuration-via-le-gestionnaire-de-paramètres) - cela vous donne accès à tous les paramètres du Smartnode afin que vous puissiez tout personnaliser autant que vous le souhaitez.
-- Sans interface via la [ligne de commande](#configuration-via-la-ligne-de-commande) - c'est une option pour les personnes qui exécutent le Smartnode dans un environnement sans interface (non interactif) et doivent le configurer automatiquement.
+- Via l'[interface du gestionnaire de paramètres](#configuration-via-le-gestionnaire-de-paramètres) - cela vous donne accès à tous les paramètres du Smart Node afin que vous puissiez tout personnaliser autant que vous le souhaitez.
+- Sans interface via la [ligne de commande](#configuration-via-la-ligne-de-commande) - c'est une option pour les personnes qui exécutent le Smart Node dans un environnement sans interface (non interactif) et doivent le configurer automatiquement.
 
 Choisissez le mode sur lequel vous souhaitez en savoir plus dans la liste ci-dessus, ou parcourez simplement chaque option ci-dessous.
 
 ## Configuration via l'assistant
 
-Pour configurer le Smartnode, exécutez la commande de configuration :
+Pour configurer le Smart Node, exécutez la commande de configuration :
 
 ```shell
 rp service config
@@ -44,7 +44,7 @@ rp service config
 Cela lancera une interface basée sur le terminal qui vous permettra de configurer rapidement et facilement votre nœud, et fournira également un contrôle optionnel à grain fin sur les paramètres pertinents pour le mode natif.
 
 ::: tip NOTE
-Si vous avez déjà configuré le Smartnode, vous serez plutôt accueilli par le [gestionnaire de paramètres](#configuration-via-le-gestionnaire-de-paramètres).
+Si vous avez déjà configuré le Smart Node, vous serez plutôt accueilli par le [gestionnaire de paramètres](#configuration-via-le-gestionnaire-de-paramètres).
 Vous pouvez choisir de rouvrir l'assistant à partir de là si vous le préférez, et tous vos paramètres existants seront présélectionnés pour vous.
 :::
 
@@ -99,7 +99,7 @@ L'écran suivant vous demandera l'URL de l'API RPC basée sur HTTP de votre clie
 
 <img src={tui_native_ec} width="100%" height="auto" />
 
-Entrez `http://127.0.0.1:8545` ici si vous prévoyez d'exécuter un client d'exécution sur la même machine que le Smartnode (dans le reste de ce guide, nous supposerons que c'est ce que vous prévoyez de faire).
+Entrez `http://127.0.0.1:8545` ici si vous prévoyez d'exécuter un client d'exécution sur la même machine que le Smart Node (dans le reste de ce guide, nous supposerons que c'est ce que vous prévoyez de faire).
 Cependant, si vous avez déjà un client d'exécution configuré ailleurs, utilisez plutôt son URL ici.
 
 Notez que vous pouvez toujours modifier cela en exécutant `rp service config` à nouveau plus tard.
@@ -107,7 +107,7 @@ Notez que vous pouvez toujours modifier cela en exécutant `rp service config` �
 ### Configuration du client de consensus
 
 Ensuite, il vous sera demandé quel client de consensus vous utilisez (ou prévoyez d'utiliser).
-Parce que chaque client de consensus a un comportement légèrement différent, le Smartnode doit savoir lequel vous utilisez afin qu'il puisse adapter son propre comportement en conséquence.
+Parce que chaque client de consensus a un comportement légèrement différent, le Smart Node doit savoir lequel vous utilisez afin qu'il puisse adapter son propre comportement en conséquence.
 Choisissez votre client dans la liste de l'écran suivant :
 
 <img src={tui_native_cc} width="100%" height="auto" />
@@ -116,7 +116,7 @@ Ensuite, vous verrez un écran vous demandant l'URL de l'API de votre client :
 
 <img src={tui_native_cc_url} width="100%" height="auto" />
 
-Entrez `http://127.0.0.1:5052` ici si vous prévoyez d'exécuter le nœud Beacon de votre client de consensus sur la même machine que le Smartnode (dans le reste de ce guide, nous supposerons que c'est ce que vous prévoyez de faire).
+Entrez `http://127.0.0.1:5052` ici si vous prévoyez d'exécuter le nœud Beacon de votre client de consensus sur la même machine que le Smart Node (dans le reste de ce guide, nous supposerons que c'est ce que vous prévoyez de faire).
 Cependant, si vous avez déjà un nœud Beacon configuré ailleurs, utilisez plutôt son URL ici.
 
 ### Autres paramètres
@@ -125,11 +125,11 @@ L'écran suivant aura quelques autres paramètres divers :
 
 <img src={tui_native_other} width="100%" height="auto" />
 
-Laissez ces options par défaut à moins que vous n'ayez décidé d'utiliser un répertoire autre que `/srv/rocketpool` pour votre installation Smartnode.
+Laissez ces options par défaut à moins que vous n'ayez décidé d'utiliser un répertoire autre que `/srv/rocketpool` pour votre installation Smart Node.
 
 ### Clients de secours
 
-À partir de la version 1.5.0 de la pile Smartnode, vous pouvez fournir une paire de client d'exécution et de client de consensus de "secours" qui peut prendre le relais de vos clients principaux s'ils se déconnectent (par exemple parce que vous utilisez Geth et devez l'élaguer).
+À partir de la version 1.5.0 de la pile Smart Node, vous pouvez fournir une paire de client d'exécution et de client de consensus de "secours" qui peut prendre le relais de vos clients principaux s'ils se déconnectent (par exemple parce que vous utilisez Geth et devez l'élaguer).
 Dans cette situation, votre machine de nœud principale sera toujours responsable de l'attestation et de la proposition de blocs avec les clés de validateur de vos minipools, mais elle se connectera à une machine externe pour interagir avec la couche d'exécution et les chaînes Beacon.
 
 [Pour en savoir plus sur les nœuds de secours, consultez cette section](./fallback) et revenez ici lorsque vous avez terminé.
@@ -156,7 +156,7 @@ C'est uniquement là pour que vous puissiez surveiller votre propre nœud !
 
 Depuis la fusion des couches d'exécution et de consensus en septembre 2022, les validateurs Ethereum ont maintenant la capacité de gagner des frais prioritaires et de participer à la valeur extractible maximale (ou MEV en abrégé).
 
-À partir de Smartnode v1.7.0, le MEV est maintenant _opt-out_, donc une notification concernant sa configuration est présentée dans le cadre de la configuration initiale, comme vous le voyez sur l'écran suivant :
+À partir de Smart Node v1.7.0, le MEV est maintenant _opt-out_, donc une notification concernant sa configuration est présentée dans le cadre de la configuration initiale, comme vous le voyez sur l'écran suivant :
 
 <img src={tui_native_mev} width="100%" height="auto" />
 
@@ -165,12 +165,12 @@ Revenez ici lorsque vous avez terminé.
 
 ### Achèvement
 
-Après cette question, vous avez terminé la configuration du Smartnode.
+Après cette question, vous avez terminé la configuration du Smart Node.
 Vous verrez la boîte de dialogue suivante :
 
 <img src={tui_native_finished} width="100%" height="auto" />
 
-Si vous êtes satisfait de votre configuration et êtes prêt à démarrer le Smartnode, cliquez sur `Save and Exit` ici.
+Si vous êtes satisfait de votre configuration et êtes prêt à démarrer le Smart Node, cliquez sur `Save and Exit` ici.
 
 Si vous n'avez pas encore fini d'installer Rocket Pool, revenez au guide de configuration native maintenant.
 Sinon, l'étape suivante consiste à redémarrer vos services daemon avec :
@@ -189,7 +189,7 @@ Si vous avez déjà exécuté `rp service config`, au lieu d'être accueilli par
 
 Il existe trois fonctionnalités principales de cet écran :
 
-1. La **liste des catégories**, qui vous permet d'explorer les paramètres de chaque catégorie de la pile Smartnode pertinente pour le mode natif
+1. La **liste des catégories**, qui vous permet d'explorer les paramètres de chaque catégorie de la pile Smart Node pertinente pour le mode natif
 2. Le bouton **Review Changes and Save**, que vous pouvez utiliser lorsque vous êtes prêt à voir quels paramètres vous avez modifiés et à enregistrer la configuration mise à jour
 3. Le bouton **Open the Config Wizard**, qui vous amènera à l'[assistant de configuration](#configuration-via-lassistant) si vous préférez cette interface
 
@@ -210,7 +210,7 @@ N'hésitez pas à les explorer ; rien de ce que vous faites ne sera sauvegardé 
 ### Configuration des paramètres
 
 Depuis l'écran d'accueil, sélectionnez l'une des catégories avec la touche `Entrée` pour afficher les paramètres de cette catégorie.
-Par exemple, voici l'écran de la catégorie **Smartnode and TX Fees** :
+Par exemple, voici l'écran de la catégorie **Smart Node and TX Fees** :
 
 <img src={tui_native_smartnode} width="100%" height="auto" />
 
@@ -305,7 +305,7 @@ sudo systemctl restart rp-node rp-watchtower
 
 ## Configuration via la ligne de commande
 
-Si vous utilisez le Smartnode dans un environnement sans interface où vous ne pouvez pas interagir avec l'interface du terminal, vous pouvez configurer votre nœud via la ligne de commande à la place.
+Si vous utilisez le Smart Node dans un environnement sans interface où vous ne pouvez pas interagir avec l'interface du terminal, vous pouvez configurer votre nœud via la ligne de commande à la place.
 
 La commande `rocketpool service config` accepte, en tant qu'arguments, chaque paramètre qui peut normalement être configuré via l'interface du terminal.
 Exécutez la commande suivante pour voir une liste de ceux-ci (notez que c'est assez long) :

@@ -6,7 +6,7 @@ next:
 
 # 概要
 
-このセクションでは、ノードマシンにRocket Pool Smartnodeスタックをインストールする方法を学びます。
+このセクションでは、ノードマシンにRocket Pool Smart Nodeスタックをインストールする方法を学びます。
 インストールにはいくつかの異なる種類があります。自分に適したものを学び、そのインストールプロセスを順を追って説明します。
 
 ## 前提条件
@@ -23,7 +23,7 @@ next:
 [ETHクライアントの選択](../eth-clients)では、Execution Layer(旧ETH1)とConsensus Layer(旧ETH2)の両方のEthereumクライアントのさまざまなオプションを紹介します。
 ノードを実行するには、それぞれ1つずつ必要です。このセクションでは、実行したいクライアントを選択するのに役立ちます。
 
-[Rocket Poolモードの選択](../install-modes)では、Rocket Pool Smartnodeをインストールできるさまざまなモードを示し、最適なモードを選択するのに役立ちます。
+[Rocket Poolモードの選択](../install-modes)では、Rocket Pool Smart Nodeをインストールできるさまざまなモードを示し、最適なモードを選択するのに役立ちます。
 
 [Dockerを使用した標準的なRocket Poolノードの作成](../docker)では、**Dockerモード**と**Hybridモード**のインストールプロセスを順を追って説明します。
 

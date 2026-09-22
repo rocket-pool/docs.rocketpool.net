@@ -1,28 +1,28 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# 升级到 Smartnode v1.3.x
+# 升级到 Smart Node v1.3.x
 
-Smartnode 堆栈的 1.3.0 版本带来了一些用户应该注意的重要变化。
+Smart Node 堆栈的 1.3.0 版本带来了一些用户应该注意的重要变化。
 它们旨在显著改善您的节点运营者体验,并解决自 Rocket Pool 启动以来我们的用户请求的许多功能。
 
-在本指南中,我们将引导您完成从旧版本的 Smartnode 迁移到 v1.3.x 及更高版本的过程。
+在本指南中,我们将引导您完成从旧版本的 Smart Node 迁移到 v1.3.x 及更高版本的过程。
 
 ## 配置文件变更
 
-v1.3.0 在 Smartnode 配置管理方式上引入了一些重大变化。
-如果您以前手动修改过 Smartnode 配置,则应注意以下变化:
+v1.3.0 在 Smart Node 配置管理方式上引入了一些重大变化。
+如果您以前手动修改过 Smart Node 配置,则应注意以下变化:
 
-- `config.yml` 文件已被删除。其所有信息现在直接烘焙到 Smartnode 堆栈中,因此用户不再会意外地以阻止 Smartnode 正常工作的方式修改文件。
+- `config.yml` 文件已被删除。其所有信息现在直接烘焙到 Smart Node 堆栈中,因此用户不再会意外地以阻止 Smart Node 正常工作的方式修改文件。
   - 所有以前是其一部分的用户可配置参数现在都是新的 `service config` 终端 UI 中的设置。
 
-- `settings.yml` 文件已被名为 `user-settings.yml` 的新文件取代。这包含 Smartnode 每个用户可配置部分的所有设置。
+- `settings.yml` 文件已被名为 `user-settings.yml` 的新文件取代。这包含 Smart Node 每个用户可配置部分的所有设置。
   - 此文件**不应直接修改**。应通过新的 `service config` 终端 UI 进行修改。
 
 - `chains` 文件夹已被删除。用于启动执行客户端(ETH1)、信标节点和验证者客户端的脚本现在位于 `scripts` 文件夹中。
 
 - `docker-compose` YAML 文件已被删除。每个容器现在在 `templates` 文件夹中都有自己的文件。在 `rocketpool service start` 时,这些模板将用您的设置填写并自动放入 `runtime` 文件夹。
   - 不建议修改模板或运行时文件。相反,请使用 `override` 文件夹中每个容器的**覆盖**文件填写您的容器自定义。这些文件将覆盖 `runtime` 中的 Docker 文件,因此您可以根据需要自定义它们。
-  - `override` 中的文件**将在 Smartnode 升级和重新安装时保留**,因此您只需创建一次。
+  - `override` 中的文件**将在 Smart Node 升级和重新安装时保留**,因此您只需创建一次。
   - 如果您有兴趣通过此覆盖机制修改 `docker-compose` 文件,请参阅[此部分](../node-staking/advanced-config#自定义-docker-compose-定义文件)
 
 ## 安装新版本
@@ -40,7 +40,7 @@ v1.3.0 在 Smartnode 配置管理方式上引入了一些重大变化。
       rocketpool service stop
       ```
 
-      为您的系统下载新的 Smartnode CLI(从下面的选项卡中选择):
+      为您的系统下载新的 Smart Node CLI(从下面的选项卡中选择):
 
       <div className="p-3">
         <Tabs>
@@ -86,13 +86,13 @@ v1.3.0 在 Smartnode 配置管理方式上引入了一些重大变化。
       <p className="rspress-directive tip">
         <p className="rspress-directive-title">注意</p>
         从 v1.3.0 开始,您**不再需要指定要安装的网络!**
-        新的 Smartnode 将知道您已经使用的网络,并且它将允许您使用新的终端 UI 动态更改网络。
+        新的 Smart Node 将知道您已经使用的网络,并且它将允许您使用新的终端 UI 动态更改网络。
       </p>
     </Tab>
     <Tab label="Native Mode">
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">注意</p>
-        这只会更新 Smartnode 堆栈本身 - 它**不会**更新您的执行和共识客户端。
+        这只会更新 Smart Node 堆栈本身 - 它**不会**更新您的执行和共识客户端。
         您必须手动执行此操作(请参阅[手动更新指南](../node-staking/updates#手动更新执行层或共识层客户端)以了解如何操作)。
       </p>
 
@@ -102,7 +102,7 @@ v1.3.0 在 Smartnode 配置管理方式上引入了一些重大变化。
       sudo systemctl stop rp-node rp-watchtower
       ```
 
-      下载新的 Smartnode CLI 和守护进程二进制文件:
+      下载新的 Smart Node CLI 和守护进程二进制文件:
 
       <div className="p-3">
         <Tabs>
@@ -150,10 +150,10 @@ v1.3.0 在 Smartnode 配置管理方式上引入了一些重大变化。
         从 v1.3.0 开始,`config.yml` 已被删除。
         **您不再需要下载安装程序包并解压它。**
       </p>
-      接下来,在 Smartnode 目录中创建一个名为 `old_config_backup` 的备份文件夹,并将旧配置文件移入其中(`config.yml` 和 `settings.yml`)。
-      Smartnode 将使用这些将您的设置迁移到新系统。
+      接下来,在 Smart Node 目录中创建一个名为 `old_config_backup` 的备份文件夹,并将旧配置文件移入其中(`config.yml` 和 `settings.yml`)。
+      Smart Node 将使用这些将您的设置迁移到新系统。
 
-      例如,如果您遵循 Native 设置指南并且您的 Smartnode 目录是 `/srv/rocketpool`:
+      例如,如果您遵循 Native 设置指南并且您的 Smart Node 目录是 `/srv/rocketpool`:
 
       ```shell
       cd /srv/rocketpool
@@ -192,16 +192,16 @@ v1.3.0 在 Smartnode 配置管理方式上引入了一些重大变化。
   </Tabs>
 </div>
 
-安装后,所有旧配置文件将被移动到 Smartnode 目录中名为 `old_config_backup` 的文件夹(默认为 `~/.rocketpool/old_config_backup`)。
+安装后,所有旧配置文件将被移动到 Smart Node 目录中名为 `old_config_backup` 的文件夹(默认为 `~/.rocketpool/old_config_backup`)。
 如果您出于任何原因需要参考它们,可以在那里找到它们。
 
 **如果您正在寻找从此备份恢复到 v1.2.4 的说明,请滚动到本页末尾的[恢复到之前的配置](#恢复到之前的配置)部分。**
 
-## 使用终端 UI 配置 Smartnode
+## 使用终端 UI 配置 Smart Node
 
 现在您已经安装了新的 CLI 和包,所有以前的设置都已保留并迁移到新系统。
 在下一步中,您应该运行 `rocketpool service config`。
-与此功能的以前版本相比,这将看起来非常不同;v1.3.0 引入了**终端 UI**:一个基于终端的动态用户界面,用于配置您的 Smartnode。
+与此功能的以前版本相比,这将看起来非常不同;v1.3.0 引入了**终端 UI**:一个基于终端的动态用户界面,用于配置您的 Smart Node。
 
 在迁移过程后启动 Docker 容器之前,您必须运行它以查看配置,验证所有更改是否已成功迁移,并更新您希望的任何其他设置。
 
@@ -210,10 +210,10 @@ v1.3.0 在 Smartnode 配置管理方式上引入了一些重大变化。
 <img src="../node-staking/images/tui-migrate.png" width="100%" height="auto" />
 
 :::tip 注意
-**Native 模式用户**将看到措辞略有不同的屏幕,说明 Smartnode 正在 Native 模式下运行。
+**Native 模式用户**将看到措辞略有不同的屏幕,说明 Smart Node 正在 Native 模式下运行。
 :::
 
-TUI 将从**向导**开始,它允许您快速轻松地更改 Smartnode 的最重要参数(例如客户端模式和选择)。
+TUI 将从**向导**开始,它允许您快速轻松地更改 Smart Node 的最重要参数(例如客户端模式和选择)。
 
 **当您遍历向导的每个页面时,所有以前的设置都应该已经突出显示,因此您不必凭记忆记住之前的配置是什么。**
 
@@ -222,7 +222,7 @@ TUI 将从**向导**开始,它允许您快速轻松地更改 Smartnode 的最重
 
 - 对于 **Docker 模式**,请访问[新的 Docker 配置指南](../node-staking/config-docker)。
 
-- **Hybrid 模式**用户:Hybrid 模式现在是 Smartnode 的**一流功能**,配置它比以前*容易得多*。请访问[新的 Docker 配置指南](../node-staking/config-docker)并遵循它。当提示您选择执行客户端模式和共识客户端模式时,相应地为它们选择**外部管理**。
+- **Hybrid 模式**用户:Hybrid 模式现在是 Smart Node 的**一流功能**,配置它比以前*容易得多*。请访问[新的 Docker 配置指南](../node-staking/config-docker)并遵循它。当提示您选择执行客户端模式和共识客户端模式时,相应地为它们选择**外部管理**。
 
 - 对于 **Native 模式**,请访问[新的 Native 配置指南](../node-staking/config-native)。
 
@@ -246,13 +246,13 @@ TUI 将从**向导**开始,它允许您快速轻松地更改 Smartnode 的最重
 
 完成编辑类别后按 `Esc` 返回此主屏幕。
 
-当您准备保存更改并启动 Smartnode 堆栈时,只需按 `Tab` 向下移动到屏幕底部的按钮,选择 `Review Changes and Save`(通过箭头键使其变绿)。
+当您准备保存更改并启动 Smart Node 堆栈时,只需按 `Tab` 向下移动到屏幕底部的按钮,选择 `Review Changes and Save`(通过箭头键使其变绿)。
 按 `Enter` 进入**审查页面**,您可以在其中查看自上次运行 `rocketpool service config` 以来所做的所有更改。
 
 确认所有更改都存在,然后再次按 `Enter` 保存它们。
 屏幕将显示需要重新启动哪些容器才能应用更改,尽管由于您正在迁移,您已经关闭了容器,它们都将被重新启动。
 
-## 启动 Smartnode 堆栈
+## 启动 Smart Node 堆栈
 
 保存配置后,终端将询问您是否要自动重新启动容器(除非您使用 Native 模式)。
 如果您不能/不能允许它们自动启动,您可以使用以下命令手动启动它们:
@@ -266,7 +266,7 @@ TUI 将从**向导**开始,它允许您快速轻松地更改 Smartnode 的最重
 
 启动后,您可以验证一切是否按预期工作。
 
-使用 `rocketpool service version` 命令检查您是否拥有正确版本的 Smartnode 和客户端容器:
+使用 `rocketpool service version` 命令检查您是否拥有正确版本的 Smart Node 和客户端容器:
 
 ```
 $ rocketpool service version
@@ -286,7 +286,7 @@ Selected Eth 2.0 client: Nimbus (Locally managed)
 
 ## 恢复到之前的配置
 
-如果出于任何原因,您需要恢复到 Smartnode 堆栈的 v1.2.4,不用担心!
+如果出于任何原因,您需要恢复到 Smart Node 堆栈的 v1.2.4,不用担心!
 您的所有旧配置文件都已保留在备份目录中,可以轻松检索以恢复您以前的设置。
 
 从下面的选项卡中选择您使用的模式并按照说明操作。
@@ -328,7 +328,7 @@ Selected Eth 2.0 client: Nimbus (Locally managed)
         </Tabs>
       </div>
 
-      接下来,将所有旧配置文件从 `old_config_backup` 文件夹复制回 Smartnode 的文件夹:
+      接下来,将所有旧配置文件从 `old_config_backup` 文件夹复制回 Smart Node 的文件夹:
 
       ```shell
       cd ~/.rocketpool
@@ -387,7 +387,7 @@ Selected Eth 2.0 client: Nimbus (Locally managed)
           </Tab>
         </Tabs>
       </div>
-      将以前的设置文件复制回您的 Smartnode 目录:
+      将以前的设置文件复制回您的 Smart Node 目录:
 
       ```shell
       cd /srv/rocketpool

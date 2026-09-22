@@ -6,7 +6,7 @@ next:
 
 # Genel Bakış
 
-Bu bölüm, Smartnode'u kurduktan ve yapılandırdıktan sonra düğümünüzü Rocket Pool ile staking için nasıl hazırlayacağınızın ayrıntılarını kapsar.
+Bu bölüm, Smart Node'u kurduktan ve yapılandırdıktan sonra düğümünüzü Rocket Pool ile staking için nasıl hazırlayacağınızın ayrıntılarını kapsar.
 Staking ile ilgili kapsanacak çok fazla bilgi olduğu için uzun bir bölümdür, bu nedenle **lütfen ilk megapool doğrulayıcınızı oluşturmadan önce her kılavuzu okuyun!**
 
 ## Ön Koşullar
@@ -14,13 +14,13 @@ Staking ile ilgili kapsanacak çok fazla bilgi olduğu için uzun bir bölümdü
 Düğümünüzü staking için hazırlamadan önce, lütfen aşağıdakileri yaptığınızdan emin olun:
 
 - Bir düğüm makinesi (veya sanal makine) kurun ve güvenliğini sağlayın ([Securing your Node](/tr/node-staking/securing-your-node) kılavuzu aracılığıyla)
-- Smartnode'u üzerine [kurduğunuzdan](../installing/overview) ve [yapılandırdığınızdan](../config/overview) emin olun
+- Smart Node'u üzerine [kurduğunuzdan](../installing/overview) ve [yapılandırdığınızdan](../config/overview) emin olun
 
 ## Kılavuzlar
 
-[Starting Rocket Pool](../starting-rp) size her mod için Smartnode hizmetlerini nasıl başlatacağınızı ve Execution ve Consensus istemcilerinizin senkronizasyon ilerlemesini nasıl kontrol edeceğinizi gösterecektir.
+[Starting Rocket Pool](../starting-rp) size her mod için Smart Node hizmetlerini nasıl başlatacağınızı ve Execution ve Consensus istemcilerinizin senkronizasyon ilerlemesini nasıl kontrol edeceğinizi gösterecektir.
 
-[Creating a New Wallet](../wallet-init) eğer ilk kez bir düğüm kuruyorsanız Smartnode ile yepyeni bir cüzdan oluşturma sürecini anlatır.
+[Creating a New Wallet](../wallet-init) eğer ilk kez bir düğüm kuruyorsanız Smart Node ile yepyeni bir cüzdan oluşturma sürecini anlatır.
 
 [Importing / Recovering an Existing Wallet](../recovering-rp.mdx) yeni bir cüzdan oluşturmaya alternatiftir.
 Halihazırda düğümünüze kurtarmak istediğiniz bir düğüm cüzdanınız varsa (veya Allnodes gibi bir hizmetten kendi donanımınıza geçiş yapıyorsanız) bu kılavuzu kullanın.
@@ -31,4 +31,4 @@ Halihazırda düğümünüze kurtarmak istediğiniz bir düğüm cüzdanınız v
 
 [Fee Distributors and the Smoothing Pool](../fee-distrib-sp) doğrulayıcılarınızdan biri bir blok önerdiği her seferde Execution katmanı ödüllerinin düğümünüze nasıl sağlandığını, bu ödülleri nasıl toplayacağınızı tartışır ve Rocket Pool'un **Smoothing Pool**'unu açıklar - herkesten Execution katmanı ödüllerini birleştiren ve Rocket Pool'un düzenli ödül aralıklarında eşit olarak dağıtan popüler bir özellik.
 
-[MEV, MEV-Boost, and MEV Rewards](../mev.mdx) **Maximum-Extractable Value** (MEV), staking ekosistemindeki rolünü ve Smartnode kullanarak bunu istediğiniz gibi nasıl yapılandırabileceğinizi açıklar.
+[MEV, MEV-Boost, and MEV Rewards](../mev.mdx) **Maximum-Extractable Value** (MEV), staking ekosistemindeki rolünü ve Smart Node kullanarak bunu istediğiniz gibi nasıl yapılandırabileceğinizi açıklar.

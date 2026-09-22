@@ -99,9 +99,9 @@ The exact instructions vary for each Operating System and can be found with your
   </Tabs>
 </div>
 
-## Updating the Smartnode Stack
+## Updating the Smart Node Stack
 
-Occasionally, Rocket Pool will release a new version of the Smartnode stack.
+Occasionally, Rocket Pool will release a new version of the Smart Node stack.
 Updates can contain new versions of the CLI or the Rocket Pool Docker containers, as well as new versions of the Execution and Consensus clients.
 
 The most consistent way to find out about new releases is to subscribe to the Rocket Pool Discord server; they will always be posted in the Releases channel and you will receive a notification.
@@ -112,7 +112,7 @@ This must be done manually using the steps below.
 :::
 
 ::: tip TIP
-When you have completed the Smartnode upgrade, the Grafana dashboard will still indicate there is still an update available.
+When you have completed the Smart Node upgrade, the Grafana dashboard will still indicate there is still an update available.
 It will automatically clear within a day when the system next auto-checks for updates.
 
 If you want to clear it immediately after the update, simply run:
@@ -191,7 +191,7 @@ the CLI's built-in update command. Select from the options below:
       rocketpool service stop
       ```
 
-      Download the new Smartnode CLI:
+      Download the new Smart Node CLI:
 
       For `x64` systems (most normal machines):
 
@@ -225,7 +225,7 @@ the CLI's built-in update command. Select from the options below:
       rocketpool service start
       ```
 
-      Finally, check the version to make sure the CLI and Smartnode stack are both up to date:
+      Finally, check the version to make sure the CLI and Smart Node stack are both up to date:
 
       ```shell
       rocketpool service version
@@ -249,7 +249,7 @@ the CLI's built-in update command. Select from the options below:
     <Tab label="Manual Update - Linux (Native Mode)">
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOTE</p>
-        This will only update the Smartnode stack itself - it **will not** update your Execution or Consensus clients.
+        This will only update the Smart Node stack itself - it **will not** update your Execution or Consensus clients.
         You will have to do this manually (see the next section below).
       </p>
 
@@ -259,7 +259,7 @@ the CLI's built-in update command. Select from the options below:
       sudo systemctl stop rp-node rp-watchtower
       ```
 
-      Download the new Smartnode CLI and back up the old CLI and daemon binaries if you need to bring them back:
+      Download the new Smart Node CLI and back up the old CLI and daemon binaries if you need to bring them back:
 
       For `x64` systems (most normal machines):
 
@@ -301,7 +301,7 @@ the CLI's built-in update command. Select from the options below:
       sudo systemctl start rp-node rp-watchtower
       ```
 
-      Finally, check the version to make sure the CLI and Smartnode stack are both up to date:
+      Finally, check the version to make sure the CLI and Smart Node stack are both up to date:
 
       ```
       rocketpool service version
@@ -321,7 +321,7 @@ the CLI's built-in update command. Select from the options below:
       rocketpool service stop
       ```
 
-      Download the new Smartnode CLI:
+      Download the new Smart Node CLI:
 
       For `x64` systems (most Macs):
 
@@ -355,7 +355,7 @@ the CLI's built-in update command. Select from the options below:
       rocketpool service start
       ```
 
-      Finally, check the version to make sure the CLI and Smartnode stack are both up to date:
+      Finally, check the version to make sure the CLI and Smart Node stack are both up to date:
 
       ```shell
       rocketpool service version
@@ -375,7 +375,7 @@ the CLI's built-in update command. Select from the options below:
 
 ## Manually Updating the Execution or Consensus Client
 
-Each new Smart Node release ships pinned Docker image digests for the Execution, Consensus, and Smart Node containers (`repo:tag@sha256:…` in `~/.rocketpool/mainnet.env`). `rocketpool service install` overwrites those official pin files. In some cases you might want to run a different client image *before* waiting for a new Smart Node release. This section shows you how.
+Each new Smart Node release ships pinned Docker image digests for the Execution, Consensus, and Smart Node containers (`repo:tag@sha256:…` in `~/.rocketpool/mainnet.env`). `rocketpool service install` overwrites those official pin files. In some cases you might want to run a different client image _before_ waiting for a new Smart Node release. This section shows you how.
 
 <div className="p-3">
   <Tabs>

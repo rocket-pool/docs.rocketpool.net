@@ -2,14 +2,14 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # 既存のウォレットのインポート / 復元
 
-ノードに使用したいウォレットが既にある場合、または以前にSmartnodeで作成したウォレットを復元している場合、このガイドがインポート / 復元プロセスを案内します。
+ノードに使用したいウォレットが既にある場合、または以前にSmart Nodeで作成したウォレットを復元している場合、このガイドがインポート / 復元プロセスを案内します。
 
 以下のセクションから適切なオプションを選択してください。
 
-## Smartnodeウォレットの復元
+## Smart Nodeウォレットの復元
 
-Smartnodeを使用してノードウォレットを生成し、新しいマシンで単に復元している場合、プロセスは非常に簡単です。
-Smartnodeソフトウェアが既にインストールされていることを確認してから、インストール後に次のコマンドを実行するだけです。
+Smart Nodeを使用してノードウォレットを生成し、新しいマシンで単に復元している場合、プロセスは非常に簡単です。
+Smart Nodeソフトウェアが既にインストールされていることを確認してから、インストール後に次のコマンドを実行するだけです。
 
 ```shell
 rocketpool wallet recover
@@ -22,12 +22,18 @@ rocketpool wallet recover
 rocketpool wallet recover -k
 ```
 
-このフラグを指定しない場合、Smartnodeはminipoolまたはmegapoolのvalidatorキーを復元しようとします。このステップには同期済みのExecution clientとBeacon clientが必要です。
+このフラグを指定しない場合、Smart Nodeはminipoolまたはmegapoolのvalidatorキーを復元しようとします。このステップには同期済みのExecution clientとBeacon clientが必要です。
 
 `-k`を使用する場合、**ウォレットのみ**の復元はクライアントの同期を待つ必要がありません。同期中でも実行できます。
 :::
 
-まず、ウォレットを暗号化するために使用したいパスワードを尋ねられます。
+デフォルトでは、Smart Nodeは復元したウォレットを暗号化するためのパスワードをランダムに生成します。
+代わりに自分でパスワードを指定したい場合は、`-p` / `--password` を渡してください。
+
+::: tip 注意
+このパスワードを知っている必要も、覚えておく必要もありません。**24単語のノードニーモニック**があれば、ウォレットを完全に復元できます。
+:::
+
 その後、**24単語のニーモニック復元フレーズ**を尋ねられます。
 慎重に入力してください。安全のため画面には表示されず、入力中にミスをしやすいため、時間をかけて行ってください。
 
@@ -35,10 +41,6 @@ rocketpool wallet recover -k
 
 ```shell
 $ rocketpool wallet recover
-
-Please enter a password to secure your wallet with:
-
-Please confirm your password:
 
 Please enter your recovery mnemonic phrase:
 
@@ -62,7 +64,7 @@ docker restart rocketpool_validator
 
 ## 既存のアドレスをノードウォレットとしてインポート
 
-ノードに使用したいアドレスがあるが、Smartnodeで作成*していない*場合（例: MetaMaskやハードウェアウォレットで作成した場合）、このセクションに従ってください。
+ノードに使用したいアドレスがあるが、Smart Nodeで作成*していない*場合（例: MetaMaskやハードウェアウォレットで作成した場合）、このセクションに従ってください。
 
 ::: danger 警告
 これを行うと、アドレスは**ホットウォレット**になります。
@@ -75,7 +77,7 @@ docker restart rocketpool_validator
 ノードウォレットとしてアドレスをインポートする前に、[ノードのセキュリティ保護](./securing-your-node)ガイドの手順に従って、マシンを可能な限り保護してください。
 :::
 
-この機能はSmartnodeの**v1.4.3以降**でのみ利用可能です。
+この機能はSmart Nodeの**v1.4.3以降**でのみ利用可能です。
 それより低いバージョンの場合は、まずアップグレードする必要があります。
 
 これは複数ステップのプロセスなので、以下のセクションを注意深く従ってください。
@@ -84,7 +86,7 @@ docker restart rocketpool_validator
 
 **インポートするアドレスに既存のminipoolが関連付けられていない場合は、このステップをスキップできます。**
 
-アドレスが既にRocket Poolノードウォレットとして登録されており（**Allnodes**などのサービスを介して）、既にアクティブなminipoolがあり、それらをアドレスと一緒にSmartnodeスタックにインポートしたい場合、対応する各validatorの秘密キーストアファイルを提供する必要があります。
+アドレスが既にRocket Poolノードウォレットとして登録されており（**Allnodes**などのサービスを介して）、既にアクティブなminipoolがあり、それらをアドレスと一緒にSmart Nodeスタックにインポートしたい場合、対応する各validatorの秘密キーストアファイルを提供する必要があります。
 これらのファイルは独自に選択したパスワードで暗号化されるため、各ファイルのパスワードも必要になります。
 
 これらのファイルをインポートするには、現在ノードを実行しているサービスから取得する必要があります。
@@ -96,7 +98,7 @@ Allnodesを使用している場合、初期セットアッププロセス中に
 <div className="p-3">
   <Tabs>
     <Tab label="Docker and Hybrid Mode">
-      まず、`rocketpool service start`でSmartnodeを起動したことを確認してください。
+      まず、`rocketpool service start`でSmart Nodeを起動したことを確認してください。
       これにより、validatorの暗号化されたキーストアファイルを保持するために使用できる特別なフォルダが作成されます。
 
       デフォルトでは、フォルダは`~/.rocketpool/data/custom-keys`にあります。
@@ -110,7 +112,7 @@ Allnodesを使用している場合、初期セットアッププロセス中に
       ```
     </Tab>
     <Tab label="Native Mode">
-      Smartnodeの`data`フォルダ内に`custom-keys`というフォルダを作成してください（例: `/srv/rocketpool/data/custom-keys`）。
+      Smart Nodeの`data`フォルダ内に`custom-keys`というフォルダを作成してください（例: `/srv/rocketpool/data/custom-keys`）。
     </Tab>
 
   </Tabs>
@@ -119,11 +121,11 @@ Allnodesを使用している場合、初期セットアッププロセス中に
 次に、各validatorキーストアファイルをこのフォルダに配置します。
 ファイルの名前は重要ではありませんが、[EIP-2335](https://eips.ethereum.org/EIPS/eip-2335#scrypt-test-vector)形式に準拠したJSONファイルである必要があります。
 
-Smartnodeは、次のステップでここに配置したキーストアファイルをこのディレクトリで検索します。
+Smart Nodeは、次のステップでここに配置したキーストアファイルをこのディレクトリで検索します。
 
 ::: warning 注記
 インポートプロセスは、インポートするアドレスに登録されたminipoolに関連付けられたvalidatorキー*のみ*を検索します。
-このプロセスを使用して、ソロステーキングvalidatorなどの他のvalidatorキーを、Smartnodeスタックが管理するValidator clientにインポートすることは**できません**。
+このプロセスを使用して、ソロステーキングvalidatorなどの他のvalidatorキーを、Smart Nodeスタックが管理するValidator clientにインポートすることは**できません**。
 
 これに興味がある場合は、[Reverse Hybridモード](./advanced-config#外部バリデータークライアントをsmartnodeに接続できるようにする)での実行に関するドキュメントを参照してください。
 :::
@@ -149,7 +151,7 @@ rocketpool wallet test-recovery -a 0x1234abcd... -k
 
 :::
 
-Smartnodeは、最も一般的な派生パス（例: Ledger Live、MyEtherWallet、Trezor、Smartnodeスタックで使用されるもの）とアドレスインデックスを自動的に検索し、提供したアドレスに対応する設定を見つけます。
+Smart Nodeは、最も一般的な派生パス（例: Ledger Live、MyEtherWallet、Trezor、Smart Nodeスタックで使用されるもの）とアドレスインデックスを自動的に検索し、提供したアドレスに対応する設定を見つけます。
 
 ::: tip ヒント
 カスタム派生パスがある場合は、`-d`フラグを使用して指定してください。
@@ -180,7 +182,7 @@ Please enter the number of words in your mnemonic phrase (24 by default):
 Enter Word Number 1 of your mnemonic:
 ```
 
-慎重に入力すると、Smartnodeはすべての標準オプションを検索してアドレスを見つけます（`-d`および/または`-i`フラグを使用して明示的に指定した場合を除く）。
+慎重に入力すると、Smart Nodeはすべての標準オプションを検索してアドレスを見つけます（`-d`および/または`-i`フラグを使用して明示的に指定した場合を除く）。
 
 次に、ステップ1から秘密キーストアファイルをインポートした場合、各キーストアファイルのパスワードの入力を求められます。
 
@@ -212,13 +214,13 @@ Validator keys:
 ### ステップ3: アドレスのインポート
 
 ::: danger 警告
-アドレスが自分自身のセルフホスティングSmartnodeで管理\_されていない\_Rocket Poolノード（例: **Allnodes**などの外部サービスでホストされている）の場合、このインポートプロセスを開始する**前に**、ノードを実行しているサービスと調整し、自分自身のセルフホスティングシステムに移行したいことを通知することが**重要**です。
+アドレスが自分自身のセルフホスティングSmart Nodeで管理\_されていない\_Rocket Poolノード（例: **Allnodes**などの外部サービスでホストされている）の場合、このインポートプロセスを開始する**前に**、ノードを実行しているサービスと調整し、自分自身のセルフホスティングシステムに移行したいことを通知することが**重要**です。
 
 ノードの検証を停止し、**決して再開しない**ことを**確認する必要があり**、[https://beaconcha.in](https://beaconcha.in)などのBlockchainエクスプローラーを使用して、validatorがもはやアテステーションしていないことを手動で確認する必要があります。
 安全に移行できるように、各validatorが**少なくとも2回のアテステーションを逃した**ことを確認する必要があります。
 そうしないと、両方が同時にアテステーションし、**minipoolがスラッシュされます！**
 
-Smartnodeは、インポートプロセスを続行する前に、これを実行したことを確認するよう要求します。
+Smart Nodeは、インポートプロセスを続行する前に、これを実行したことを確認するよう要求します。
 :::
 
 テスト復元が成功した場合、またはスキップした場合、次にウォレットをインポートし、関連するすべてのキーファイルを再生成します。
@@ -228,17 +230,15 @@ Smartnodeは、インポートプロセスを続行する前に、これを実�
 rocketpool wallet recover -a 0x1234abcd...
 ```
 
-このコマンドを実行すると、まず、インポートされたノードウォレットを暗号化するためのパスワードの入力を求められます。
+このコマンドを実行すると、`-p` / `--password` を渡さない限り、Smart Nodeはインポートしたノードウォレットを暗号化するためのパスワードをランダムに生成します。
 
-```
-Please enter a password to secure your wallet with:
-
-Please confirm your password:
-```
+::: tip 注意
+このパスワードを知っている必要も、覚えておく必要もありません。**24単語のノードニーモニック**があれば、ウォレットを完全に復元できます。
+:::
 
 その後、ニーモニックとカスタムvalidatorキーストアのパスワードプロンプトが以前と同じように進みます。
 
-これらすべての情報を入力すると、Smartnodeはアドレスと（無効化されていなければ）minipoolのカスタムvalidatorキーを復元します。
+これらすべての情報を入力すると、Smart Nodeはアドレスと（無効化されていなければ）minipoolのカスタムvalidatorキーを復元します。
 
 ```
 Searching for the derivation path and index for wallet 0x1234abcd...
@@ -253,7 +253,7 @@ Validator keys:
 
 アドレスの秘密鍵は`data/wallet`ファイル（例: `~/.rocketpool/data/wallet`）に保存され、そのパスワードは`data/password`ファイル（例: `~/.rocketpool/data/password`）に保存されます。
 
-各validatorの秘密鍵は、SmartnodeがサポートするConsensus clientごとの`data/validators`フォルダに保存されます。
+各validatorの秘密鍵は、Smart NodeがサポートするConsensus clientごとの`data/validators`フォルダに保存されます。
 
 ::: danger 注記
 この方法でアドレスをインポートすると、validatorキーはノードウォレットから**派生されていない**ため、通常のノードウォレットのように単に`rocketpool wallet recover`を実行して後で復元することは**できません**。
@@ -266,10 +266,10 @@ Validator keys:
 ### ステップ4: クリーンアップ
 
 この時点で、`data/custom-keys`ディレクトリ内のすべての秘密キーストアファイルを削除できます。
-Smartnodeは既にそれらをインポートし、ランダム化されたパスワードを割り当てているため、これらのキーストアファイルは不要になりました。
+Smart Nodeは既にそれらをインポートし、ランダム化されたパスワードを割り当てているため、これらのキーストアファイルは不要になりました。
 
 最後に、`data`ディレクトリ（例: `~/.rocketpool/data/custom-key-passwords`）に`custom-key-passwords`という名前のファイルが**存在しない**ことを確認してください。
-Smartnodeは復元プロセス中にのみこの一時ファイルを作成し、復元プロセスが成功したかどうかに関係なく自動的に削除します。何らかの理由で削除に失敗した場合は、コンソール出力で警告が表示されます。
+Smart Nodeは復元プロセス中にのみこの一時ファイルを作成し、復元プロセスが成功したかどうかに関係なく自動的に削除します。何らかの理由で削除に失敗した場合は、コンソール出力で警告が表示されます。
 ただし、慎重になりすぎても問題はありません。
 
 ## 次のステップ

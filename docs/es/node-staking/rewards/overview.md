@@ -10,11 +10,11 @@ Esta sección cubre cómo acceder a las recompensas que tu nodo genera mientras 
 
 ## Requisitos Previos
 
-Antes de configurar tu Smartnode, asegúrate de que:
+Antes de configurar tu Smart Node, asegúrate de que:
 
 - Hayas configurado una máquina de nodo (o máquina virtual) y la hayas asegurado (mediante la guía [Asegurar tu Nodo](../securing-your-node))
-- Tengas el Smartnode [instalado](../installing/overview) y [configurado](../config/overview) en ella
-- Tengas una wallet de nodo cargada en tu Smartnode
+- Tengas el Smart Node [instalado](../installing/overview) y [configurado](../config/overview) en ella
+- Tengas una wallet de nodo cargada en tu Smart Node
 - Hayas sincronizado tus clientes de Ejecución y Consenso
 - Hayas aprovisionado tu nodo con [una dirección de retiro](../prepare-node.mdx#establecer-tu-dirección-de-retiro-principal), configurado tus [clientes de respaldo](../fallback) (opcional), optado por el [Smoothing Pool](../fee-distrib-sp#el-smoothing-pool) (opcional), y configurado [MEV](../mev.mdx)
 - Hayas creado al menos un [minipool](../create-validator.mdx)

@@ -23,14 +23,14 @@ Neste guia, vamos mostrar como habilitar o sistema de métricas do Rocket Pool p
 
 ## Visão Geral da Pilha de Métricas do Rocket Pool
 
-Se você optar por habilitar métricas durante o processo de configuração do Smartnode, seu nó adicionará os seguintes processos:
+Se você optar por habilitar métricas durante o processo de configuração do Smart Node, seu nó adicionará os seguintes processos:
 
 - [Prometheus](https://prometheus.io/) - um sistema de coleta, armazenamento e relatório de dados que captura todas as métricas que você vê acima (e muitas mais) e as armazena, para que possam ser consultadas ao longo do tempo
 - O [Node Exporter](https://github.com/prometheus/node_exporter) do Prometheus - um serviço que coleta informações sobre a saúde da sua máquina (como uso de CPU, uso de RAM, espaço livre em disco e espaço de swap, etc.) e relata para o Prometheus
 - Grafana, a ferramenta que expõe os dados do Prometheus através de um site conveniente hospedado no seu nó
 - Um conjunto opcional de scripts personalizados que relatará quaisquer atualizações de Sistema Operacional disponíveis ao Prometheus, para que você saiba se seu sistema precisa ser atualizado
 
-A configuração padrão criará contêineres Docker com todos esses serviços que vivem ao lado dos outros contêineres Docker do Smartnode.
+A configuração padrão criará contêineres Docker com todos esses serviços que vivem ao lado dos outros contêineres Docker do Smart Node.
 Ela abrirá uma porta na sua máquina de nó para Grafana, para que você possa acessar seu dashboard de qualquer máquina na sua rede local com um navegador.
 
 ## Habilitando o Servidor de Métricas
@@ -40,7 +40,7 @@ Ela abrirá uma porta na sua máquina de nó para Grafana, para que você possa 
     <Tab label="Docker">
       Habilitar métricas no modo Docker é o mais fácil de todos.
 
-      Comece executando o comando de configuração do Smartnode novamente:
+      Comece executando o comando de configuração do Smart Node novamente:
 
       ```shell
       rocketpool service config
@@ -78,7 +78,7 @@ Ela abrirá uma porta na sua máquina de nó para Grafana, para que você possa 
       </p>
 
 
-      Durante essa verificação, ele também comparará sua versão instalada do Rocket Pool Smartnode com a versão mais recente, e informará se há uma nova versão disponível.
+      Durante essa verificação, ele também comparará sua versão instalada do Rocket Pool Smart Node com a versão mais recente, e informará se há uma nova versão disponível.
 
       Se você habilitou o rastreador de atualizações, o último passo é reiniciar o Node Exporter com o seguinte comando:
 
@@ -606,7 +606,7 @@ Você pode então abrir o firewall para permitir que dispositivos externos acess
 
 Agora que o servidor de métricas está pronto, você pode acessá-lo com qualquer navegador na sua rede local.
 
-Consulte as abas abaixo para o seu modo de instalação do Smartnode.
+Consulte as abas abaixo para o seu modo de instalação do Smart Node.
 
 Navegue para a seguinte URL, substituindo as variáveis pela sua configuração conforme necessário:
 
@@ -696,7 +696,7 @@ No entanto, ainda não terminamos de configurar as coisas - ainda há um pouco m
 ::: warning NOTA
 Algumas das caixas (notadamente as de APR) foram temporariamente desabilitadas devido à maneira como Shapella fornece recompensas skimmed.
 
-Elas serão habilitadas novamente em uma versão futura do Smartnode que pode rastrear recompensas históricas adequadamente.
+Elas serão habilitadas novamente em uma versão futura do Smart Node que pode rastrear recompensas históricas adequadamente.
 :::
 
 ## Ajustando o Monitor de Hardware ao seu Sistema
@@ -789,7 +789,7 @@ nvme0n1     259:0    0 238,5G  0 disk
 └─nvme0n1p4 259:4    0   527M  0 part
 ```
 
-Se você não mudou a localização padrão do Docker para um drive diferente durante sua instalação do Smartnode, então o disco que você quer rastrear será aquele em que seu Sistema Operacional está instalado.
+Se você não mudou a localização padrão do Docker para um drive diferente durante sua instalação do Smart Node, então o disco que você quer rastrear será aquele em que seu Sistema Operacional está instalado.
 Procure na coluna `MOUNTPOINT` por uma entrada simplesmente rotulada `/`, então siga isso de volta para seu dispositivo pai (aquele com `disk` na coluna `TYPE`).
 
 Tipicamente isso será `sda` para drives SATA ou `nvme0n1` para drives NVMe.

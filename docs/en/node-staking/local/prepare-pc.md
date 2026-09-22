@@ -18,9 +18,9 @@ This guide assumes that you already have your machine physically built, and the 
 
 ### Supported Operating Systems
 
-Rocket Pool's Smartnode client currently supports **Linux** and **macOS** systems.
+Rocket Pool's Smart Node client currently supports **Linux** and **macOS** systems.
 
-At this time, **Windows** can be used to remotely manage a remote Linux or Mac machine, but the Smartnode itself cannot
+At this time, **Windows** can be used to remotely manage a remote Linux or Mac machine, but the Smart Node itself cannot
 currently run on a Windows system. However, Rocket Pool _can_ be run on a
 Linux [virtual machine](https://en.wikipedia.org/wiki/System_virtual_machine) hosted by a Windows machine.
 This setup is not recommended over simply installing Linux as the host operating system, but it does work if necessary.
@@ -30,7 +30,7 @@ using this setup when staking real Ether on the main network.
 Rocket Pool is natively compatible with **AMD64 (x64)** and **arm64 (aarch64)** CPU architectures.
 For other architectures, you will need to compile the smartnode clients from source.
 
-Note that the user must have **root / Administrator** access (or **sudo** privileges) to install the Smartnode.
+Note that the user must have **root / Administrator** access (or **sudo** privileges) to install the Smart Node.
 
 #### Linux Support
 
@@ -45,11 +45,11 @@ These releases are actively maintained for longer periods of time, which helps w
 node.
 :::
 
-For installation on other distros, the Smartnode installer will not be able to automatically install some system
+For installation on other distros, the Smart Node installer will not be able to automatically install some system
 dependencies (such as `docker-compose`).
 Some manual steps will be required during installation.
 
-For `arm64` systems, the Smartnode installer only natively supports Debian and Debian-based distros such as Ubuntu.
+For `arm64` systems, the Smart Node installer only natively supports Debian and Debian-based distros such as Ubuntu.
 For other distros, manual steps will be required during installation.
 
 ## Installing the Operating System

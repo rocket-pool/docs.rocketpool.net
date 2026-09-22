@@ -15,8 +15,8 @@ Beide Aktionen erhöhen diesen Saldo entsprechend.
 
 Dieses ETH wird _nicht_ liquide gemacht und an den Node-Betreiber zurückgegeben; stattdessen kann es verwendet werden, um **zusätzliche Minipools zu erstellen**, ohne dass ETH vom Node-Betreiber erforderlich ist.
 
-Das Credit-System ist **transparent** für den Node-Betreiber; es wird automatisch verwendet (mit Benachrichtigungen in der Smartnode-CLI, die erklären, dass es verwendet wird) während der Operationen `rocketpool node deposit` oder `rocketpool node create-vacant-minipool`, falls möglich.
-Wenn es _nicht_ verwendet werden kann, wird der Smartnode den Benutzer darauf hinweisen, dass es nicht verwendet werden kann und bei beiden Operationen eine normale ETH-Einzahlung erforderlich ist.
+Das Credit-System ist **transparent** für den Node-Betreiber; es wird automatisch verwendet (mit Benachrichtigungen in der Smart Node-CLI, die erklären, dass es verwendet wird) während der Operationen `rocketpool node deposit` oder `rocketpool node create-vacant-minipool`, falls möglich.
+Wenn es _nicht_ verwendet werden kann, wird der Smart Node den Benutzer darauf hinweisen, dass es nicht verwendet werden kann und bei beiden Operationen eine normale ETH-Einzahlung erforderlich ist.
 
 Weitere Details finden Sie im Abschnitt [Credit-Verfügbarkeit](#credit-verfügbarkeit) unten.
 
@@ -76,5 +76,5 @@ Das ETH für Ihren Credit-Saldo wird aus dem **Deposit-Pool** entnommen.
 Wenn Sie also 8 ETH als Credit verwenden möchten, um einen neuen 8-ETH-Minipool zu erstellen, werden letztendlich **alle 32 ETH für diesen Minipool** aus dem Deposit-Pool entnommen und keine von Ihnen benötigt.
 Daher wird, wenn der Deposit-Pool nicht genug ETH hat, um den Pre-Deposit-Wert zu decken (derzeit auf 1 ETH festgelegt), **der Saldo nicht verfügbar sein**.
 
-In dieser Situation wird der Smartnode Sie während einer `rocketpool node deposit`-Operation darauf hinweisen, dass er **nicht** Ihren Credit-Saldo verwenden kann und stattdessen ETH aus Ihrem Node-Wallet verwenden muss, um die Einzahlung abzuschließen.
+In dieser Situation wird der Smart Node Sie während einer `rocketpool node deposit`-Operation darauf hinweisen, dass er **nicht** Ihren Credit-Saldo verwenden kann und stattdessen ETH aus Ihrem Node-Wallet verwenden muss, um die Einzahlung abzuschließen.
 Dies wird **nicht** Ihren Credit-Saldo verbrauchen; er bleibt unverändert und ist zur späteren Verwendung verfügbar, sobald der Deposit-Pool genug Guthaben hat, um ihn zu decken.

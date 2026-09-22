@@ -35,7 +35,7 @@ USAGE:
    rocketpoolcli [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    auction, a   Manage Rocket Pool RPL auctions
@@ -92,7 +92,7 @@ USAGE:
    rocketpool service [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    install, i                 Install the Rocket Pool service
@@ -509,7 +509,7 @@ USAGE:
    rocketpool megapool [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    deposit, d                Make a deposit and create a new validator on the megapool. Optionally specify count to make multiple deposits.
@@ -781,7 +781,7 @@ Une fois que vous l'avez, appelez simplement n'importe quelle transaction avec l
 ::: warning NOTE
 Vous **devez** inclure l'indicateur `-i` (frais prioritaires) pour écraser une transaction précédente.
 Ce nombre doit être au moins 10 % plus élevé que les frais prioritaires utilisés par votre ancienne transaction.
-Le Smartnode utilise des frais prioritaires de 2 gwei par défaut, donc une valeur de `2.2` est généralement suffisante pour un remplacement.
+Le Smart Node utilise des frais prioritaires de 2 gwei par défaut, donc une valeur de `2.2` est généralement suffisante pour un remplacement.
 
 Si votre ancienne transaction a utilisé des frais personnalisés (disons, 10 gwei), vous devrez les définir au moins 10 % plus haut dans la transaction de remplacement (donc dans cet exemple, 11 gwei).
 :::
@@ -798,7 +798,7 @@ Total cost: 0.0032 to 0.0032 ETH
 Are you sure you want to send 0.000100 eth to <node wallet address>? This action cannot be undone! [y/n]
 ```
 
-La pile Smartnode vérifiera automatiquement pour s'assurer que le `nonce` que vous avez fourni est valide (il fait référence à une transaction en attente) avant de l'envoyer et de gaspiller accidentellement votre gaz.
+La pile Smart Node vérifiera automatiquement pour s'assurer que le `nonce` que vous avez fourni est valide (il fait référence à une transaction en attente) avant de l'envoyer et de gaspiller accidentellement votre gaz.
 Sinon, elle renverra un message d'erreur.
 Sinon, elle passera et vous fournira les détails de la transaction afin que vous puissiez la surveiller pour confirmer qu'elle a, en fait, écrasé votre ancienne transaction bloquée.
 

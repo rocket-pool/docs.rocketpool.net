@@ -6,7 +6,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 ## v1.5.0으로 업그레이드하기 전에 해야 할 일
 
-Smartnode를 v1.5.0 이상으로 업그레이드하기 전에 다음 체크리스트를 확인하여 준비가 되었는지 확인하세요:
+Smart Node를 v1.5.0 이상으로 업그레이드하기 전에 다음 체크리스트를 확인하여 준비가 되었는지 확인하세요:
 
 ### 전체 Execution Client로 전환
 
@@ -20,12 +20,12 @@ Docker Mode는 클라이언트 전환을 매우 쉽게 만듭니다.
 
 ## v1.5.0으로 업그레이드
 
-Smartnode 스택을 v1.5.0으로 업그레이드하는 것은 다른 업그레이드와 다르지 않습니다.
+Smart Node 스택을 v1.5.0으로 업그레이드하는 것은 다른 업그레이드와 다르지 않습니다.
 [여기의 일반 지침](../../node-staking/updates#smartnode-스택-업데이트)을 따르기만 하면 됩니다.
 
-## Smartnode가 자동으로 처리하는 사항
+## Smart Node가 자동으로 처리하는 사항
 
-Docker mode에서 Smartnode는 v1.5.0으로 업데이트하면 Redstone 및 The Merge를 지원하는 데 필요한 대부분의 변경 사항을 자동으로 처리합니다.
+Docker mode에서 Smart Node는 v1.5.0으로 업데이트하면 Redstone 및 The Merge를 지원하는 데 필요한 대부분의 변경 사항을 자동으로 처리합니다.
 수동 개입 없이 자동으로 수행할 작업에 대한 간략한 목록은 다음과 같습니다:
 
 ### Engine API
@@ -36,14 +36,14 @@ The Merge는 Execution client가 Consensus client와 통신하는 방식을 변�
 이것은 Consensus client가 기존 Proof-of-Work 마이닝 시스템을 Proof-of-Stake로 대체할 수 있게 하는 특별한 연결입니다. 이것이 The Merge의 핵심입니다.
 또한 비밀 토큰으로 **인증**되므로 Consensus client만 Execution client에 연결할 수 있으며 다른 것은 연결할 수 없습니다.
 
-Smartnode는 Execution 및 Consensus client 모두에서 인증 토큰 및 Engine API 설정을 자동으로 처리합니다.
+Smart Node는 Execution 및 Consensus client 모두에서 인증 토큰 및 Engine API 설정을 자동으로 처리합니다.
 
 ### Fee Recipient
 
 **fee recipient**는 제안한 블록에 대한 모든 우선 수수료를 받을 Execution layer 체인의 주소입니다.
 이는 Validator client가 처음 시작할 때 제공되는 설정입니다.
 
-Smartnode는 v1.5로 업그레이드할 때 올바른 주소로 설정하고 [실수로 벌금을 받지](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) 않도록 올바른 주소를 사용하고 있는지 지속적으로 확인합니다.
+Smart Node는 v1.5로 업그레이드할 때 올바른 주소로 설정하고 [실수로 벌금을 받지](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) 않도록 올바른 주소를 사용하고 있는지 지속적으로 확인합니다.
 
 [Smoothing Pool](./whats-new#smoothing-pool)에 가입한 경우 해당 주소가 fee recipient가 됩니다.
 그렇지 않은 경우 [fee distributor contract](./whats-new#fee-recipients-및-distributor)가 fee recipient가 됩니다.
@@ -51,11 +51,11 @@ Smartnode는 v1.5로 업그레이드할 때 올바른 주소로 설정하고 [�
 ### MEV-Boost
 
 [MEV-boost](https://boost.flashbots.net/)는 Flashbots가 The Merge 이후 Proof-of-Stake validator에게 MEV 보상을 제공하는 시스템입니다.
-Rocket Pool은 Smartnode에 MEV-Boost를 내장하고 이를 사용하도록 노드를 자동으로 구성하므로 제안이 최대 보상을 받습니다.
+Rocket Pool은 Smart Node에 MEV-Boost를 내장하고 이를 사용하도록 노드를 자동으로 구성하므로 제안이 최대 보상을 받습니다.
 
 ## 업그레이드 후 수행해야 할 작업
 
-Smartnode가 대부분의 변경 사항을 처리하지만 수동으로 수행해야 하는 몇 가지 추가 작업이 있습니다:
+Smart Node가 대부분의 변경 사항을 처리하지만 수동으로 수행해야 하는 몇 가지 추가 작업이 있습니다:
 
 ### 성공적인 업그레이드 확인
 
@@ -70,7 +70,7 @@ Smartnode가 대부분의 변경 사항을 처리하지만 수동으로 수행�
 
 The Merge는 Infura 및 Pocket과 같은 원격 공급자와 호환되지 않으므로 기본 Execution client가 오프라인 상태일 때 해당 공급자를 fallback Execution client로 사용할 수 없습니다.
 
-Smartnode는 여전히 fallback Execution client(및 이제 fallback Consensus client도)를 제공할 수 있지만 이제 제어하는 Execution 및 Consensus client를 사용해야 합니다.
+Smart Node는 여전히 fallback Execution client(및 이제 fallback Consensus client도)를 제공할 수 있지만 이제 제어하는 Execution 및 Consensus client를 사용해야 합니다.
 
 fallback node 설정에 대한 자세한 내용은 [Fallback node 가이드](../../node-staking/fallback)를 참조하세요.
 
@@ -103,7 +103,7 @@ rocketpool node join-smoothing-pool
 
 Redstone 업그레이드는 비용이 많이 들고 문제가 있는 기존 보상 시스템을 [새로운 시스템](./whats-new#새로운-보상-시스템)으로 교체합니다. 이 시스템은 훨씬 저렴하고 RPL의 자동 재스테이킹(부분 및 전체 금액 모두)을 지원하며 가장 중요한 것은 **원하는 때에 보상을 청구할 수 있다**는 것입니다.
 
-보상 청구에 더 이상 시간 제한이 없고 많은 보상 기간을 한 번에 청구하는 것이 더 저렴하기 때문에 Smartnode의 자동 보상 청구 기능이 **제거되었습니다**.
+보상 청구에 더 이상 시간 제한이 없고 많은 보상 기간을 한 번에 청구하는 것이 더 저렴하기 때문에 Smart Node의 자동 보상 청구 기능이 **제거되었습니다**.
 이제 다음 명령을 통해 보상을 청구할 수 있습니다:
 
 ```
@@ -114,8 +114,8 @@ rocketpool node claim-rewards
 
 ## v1.4.3으로 되돌리기
 
-어떤 이유로든 마음에 들지 않아 이전 Smartnode 릴리스로 되돌리고 싶다면 쉽게 할 수 있습니다.
-Smartnode는 업그레이드 시 이전 버전의 설정을 자동으로 백업하므로 이전 버전(여기서는 **v1.4.3**을 시연합니다)을 가져와서 백업으로 설정을 교체하기만 하면 됩니다:
+어떤 이유로든 마음에 들지 않아 이전 Smart Node 릴리스로 되돌리고 싶다면 쉽게 할 수 있습니다.
+Smart Node는 업그레이드 시 이전 버전의 설정을 자동으로 백업하므로 이전 버전(여기서는 **v1.4.3**을 시연합니다)을 가져와서 백업으로 설정을 교체하기만 하면 됩니다:
 
 1. 서비스를 중지합니다:
 
@@ -152,7 +152,7 @@ cp ~/.rocketpool/user-settings-backup.yml ~/.rocketpool/user-settings.yml
 rocketpool service config
 ```
 
-1. 문제가 없으면 Smartnode 스택을 시작합니다:
+1. 문제가 없으면 Smart Node 스택을 시작합니다:
 
 ```shell
 rocketpool service start

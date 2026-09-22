@@ -18,7 +18,7 @@ The Saturn 1 upgrade replaced minipools with [megapools](/node-staking/megapools
 - **Minipool creation is disabled at the protocol level**, and that includes vacant minipools. There is no longer a minipool contract you can point an existing validator's withdrawal credentials at.
 - **Megapool validators are created through the Rocket Pool deposit queue** with a fresh Beacon Chain deposit: a 1 ETH prestake, followed by the remaining 31 ETH once the protocol has verified the validator's withdrawal credentials on-chain.
   An already-active validator cannot go through this flow, so there is no mechanism for absorbing an existing solo validator into a megapool.
-- The Smartnode commands used for conversion (such as `rocketpool node create-vacant-minipool` and `rocketpool minipool promote`) have been removed from the CLI.
+- The Smart Node commands used for conversion (such as `rocketpool node create-vacant-minipool` and `rocketpool minipool promote`) have been removed from the CLI.
 
 In short: the only way to migrate from solo staking today is to **exit your validator from the Beacon Chain and use the withdrawn ETH to create new megapool validators**.
 
@@ -34,7 +34,7 @@ Migration is not for everyone, but Rocket Pool megapool validators enjoy several
 That being said, there are some differences that are important to highlight:
 
 - You will have to accept **smart contract risk**, as the protocol is implemented as a series of smart contracts.
-- Conventional node operation leverages the **Smartnode stack**; you will have to accept any risks associated with installing and running that software on your node.
+- Conventional node operation leverages the **Smart Node stack**; you will have to accept any risks associated with installing and running that software on your node.
 - Being a node operator does involve learning some new concepts, so there is a **learning curve** associated with becoming one.
 - Megapool validators split their rewards with the pool stakers, so your validators' withdrawal address will be your megapool contract on the Execution layer, **not an EOA that you control**. This also applies to your **fee recipient** for Execution layer rewards.
 - **Your capital earns nothing while it is in transit.** Between exiting your solo validator and your megapool validators activating, you will earn no rewards. New megapool validators must pass through the Rocket Pool deposit queue _and_ the Beacon Chain queue before they begin attesting, so read the [Timing Considerations](#timing-considerations) section below before you exit anything.
@@ -61,7 +61,7 @@ Make sure you have read this entire page (especially the [Timing Considerations]
 
 While you wait for your exit to process, you can prepare your Rocket Pool node.
 
-If you are new to Rocket Pool node operation, start with the [Node Operator's guide](/node-staking/responsibilities), which covers everything from hardware selection to [installing the Smartnode stack](/node-staking/installing/overview) and [registering your node](/node-staking/prepare-node).
+If you are new to Rocket Pool node operation, start with the [Node Operator's guide](/node-staking/responsibilities), which covers everything from hardware selection to [installing the Smart Node stack](/node-staking/installing/overview) and [registering your node](/node-staking/prepare-node).
 Since you have been running your own validator, much of this will feel familiar - and if you already run your own Execution and Consensus clients, you may be interested in the [Hybrid configuration with external clients](/node-staking/install-modes#the-hybrid-configuration-with-external-clients).
 
 ## Step 3: Create Your Megapool Validators
@@ -73,8 +73,8 @@ Your megapool contract is deployed automatically with your first validator depos
 The [Creating a Megapool (Validator)](/node-staking/megapools/create-megapool-validator) guide walks you through the whole process step-by-step, including how the deposit queue works and how to confirm a successful stake.
 
 ::: tip NOTE
-Unlike the old conversion process, your new validators will use **new validator keys** generated from your Smartnode wallet.
-Your old solo validator keys are not reused, and the Smartnode's Validator Client will manage the new keys for you - there is no key import step.
+Unlike the old conversion process, your new validators will use **new validator keys** generated from your Smart Node wallet.
+Your old solo validator keys are not reused, and the Smart Node's Validator Client will manage the new keys for you - there is no key import step.
 :::
 
 ## Timing Considerations

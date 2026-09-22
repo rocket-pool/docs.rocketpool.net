@@ -6,7 +6,7 @@ Ce guide couvrira tout ce que vous devez savoir pour préparer votre nœud pour 
 
 ## Choses à faire avant la mise à jour vers v1.5.0
 
-Avant de mettre à jour vers la v1.5.0 et versions ultérieures du Smartnode, veuillez passer en revue la liste de contrôle suivante pour vous assurer que vous êtes prêt :
+Avant de mettre à jour vers la v1.5.0 et versions ultérieures du Smart Node, veuillez passer en revue la liste de contrôle suivante pour vous assurer que vous êtes prêt :
 
 ### Passer à un client d'exécution complet
 
@@ -20,12 +20,12 @@ Le mode Docker facilite grandement le changement de clients.
 
 ## Mise à jour vers v1.5.0
 
-La mise à jour de la pile Smartnode vers la v1.5.0 n'est pas différente de toute autre mise à jour.
+La mise à jour de la pile Smart Node vers la v1.5.0 n'est pas différente de toute autre mise à jour.
 Suivez simplement [les instructions habituelles ici](../../node-staking/updates#mise-à-jour-de-la-pile-smartnode).
 
-## Choses que le Smartnode gère automatiquement
+## Choses que le Smart Node gère automatiquement
 
-En mode Docker, le Smartnode prendra en charge la plupart des changements nécessaires pour prendre en charge Redstone et The Merge automatiquement une fois que vous aurez mis à jour vers la v1.5.0.
+En mode Docker, le Smart Node prendra en charge la plupart des changements nécessaires pour prendre en charge Redstone et The Merge automatiquement une fois que vous aurez mis à jour vers la v1.5.0.
 Voici une brève liste de ce qu'il fera pour vous sans aucune intervention manuelle :
 
 ### L'Engine API
@@ -36,14 +36,14 @@ Au lieu d'utiliser l'ancien système RPC basé sur HTTP ou Websocket, The Merge 
 Il s'agit d'une connexion spéciale qui permet au client de consensus de remplacer l'ancien système de minage par preuve de travail par la preuve d'enjeu ; c'est le cœur de The Merge.
 Elle est également **authentifiée** avec un jeton secret, donc seul votre client de consensus peut se connecter à votre client d'exécution - rien d'autre ne le peut.
 
-Le Smartnode gérera la configuration du jeton d'authentification et de l'Engine API sur vos clients d'exécution et de consensus automatiquement.
+Le Smart Node gérera la configuration du jeton d'authentification et de l'Engine API sur vos clients d'exécution et de consensus automatiquement.
 
 ### Votre destinataire de frais
 
 Le **destinataire de frais** est l'adresse sur la chaîne de la couche d'exécution qui recevra tous les frais prioritaires pour les blocs que vous proposez.
 C'est un paramètre fourni à votre client de validation lorsqu'il démarre pour la première fois.
 
-Le Smartnode gérera sa configuration à la bonne adresse lorsque vous mettrez à jour vers la v1.5, et vérifiera constamment que vous utilisez la bonne pour que vous ne soyez pas [pénalisé accidentellement](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
+Le Smart Node gérera sa configuration à la bonne adresse lorsque vous mettrez à jour vers la v1.5, et vérifiera constamment que vous utilisez la bonne pour que vous ne soyez pas [pénalisé accidentellement](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
 
 Si vous avez adhéré au [Smoothing Pool](./whats-new#smoothing-pool), il en fera votre destinataire de frais.
 Sinon, il fera de votre [contrat de distributeur de frais](./whats-new#destinataires-de-frais-et-votre-distributeur) le destinataire de frais.
@@ -51,11 +51,11 @@ Sinon, il fera de votre [contrat de distributeur de frais](./whats-new#destinata
 ### MEV-Boost
 
 [MEV-boost](https://boost.flashbots.net/) est le système que Flashbots fournit pour donner des récompenses MEV aux validateurs de preuve d'enjeu après The Merge.
-Rocket Pool a MEV-Boost intégré dans le Smartnode et configure automatiquement votre nœud pour l'utiliser, afin que vos propositions obtiennent le maximum de récompenses.
+Rocket Pool a MEV-Boost intégré dans le Smart Node et configure automatiquement votre nœud pour l'utiliser, afin que vos propositions obtiennent le maximum de récompenses.
 
 ## Choses que vous devriez faire après la mise à jour
 
-Bien que le Smartnode gère la plupart des changements pour vous, il y a quelques choses supplémentaires que vous devriez faire manuellement :
+Bien que le Smart Node gère la plupart des changements pour vous, il y a quelques choses supplémentaires que vous devriez faire manuellement :
 
 ### S'assurer d'une mise à jour réussie
 
@@ -70,7 +70,7 @@ Envisagez de suivre les étapes suivantes :
 
 Parce que The Merge n'est pas compatible avec les fournisseurs distants comme Infura et Pocket, vous perdrez la capacité de les utiliser comme clients d'exécution de secours lorsque votre client principal est hors ligne.
 
-Le Smartnode a toujours la capacité de fournir un client d'exécution de secours (et maintenant aussi un client de consensus de secours), mais vous devrez maintenant utiliser des clients d'exécution et de consensus que vous contrôlez.
+Le Smart Node a toujours la capacité de fournir un client d'exécution de secours (et maintenant aussi un client de consensus de secours), mais vous devrez maintenant utiliser des clients d'exécution et de consensus que vous contrôlez.
 
 Pour plus d'informations sur la configuration d'un nœud de secours, consultez le [guide du nœud de secours](../../node-staking/fallback).
 
@@ -103,7 +103,7 @@ rocketpool node join-smoothing-pool
 
 La mise à jour Redstone remplace l'ancien système de récompenses coûteux et problématique par un [tout nouveau système](./whats-new#nouveau-système-de-récompenses) qui est beaucoup moins cher, prend en charge le re-staking automatique de RPL (montants partiels et complets), et - plus important encore - **vous permet de réclamer vos récompenses quand vous le souhaitez**.
 
-Parce qu'il n'y a plus de limite de temps pour réclamer les récompenses, et parce qu'il est moins cher de réclamer plusieurs intervalles de récompenses à la fois, la fonctionnalité de réclamation automatique des récompenses du Smartnode **a été supprimée**.
+Parce qu'il n'y a plus de limite de temps pour réclamer les récompenses, et parce qu'il est moins cher de réclamer plusieurs intervalles de récompenses à la fois, la fonctionnalité de réclamation automatique des récompenses du Smart Node **a été supprimée**.
 Vous pourrez maintenant réclamer les récompenses via la commande suivante :
 
 ```
@@ -114,8 +114,8 @@ Cela vous montrera toutes les récompenses que vous avez accumulées à travers 
 
 ## Retour à v1.4.3
 
-Si, pour une raison quelconque, quelque chose ne vous convient pas et que vous souhaitez revenir à la version précédente du Smartnode, vous pouvez le faire facilement.
-Le Smartnode sauvegarde automatiquement vos paramètres de la version précédente lorsque vous le mettez à jour, donc récupérez simplement la version précédente (ici nous démontrons la **v1.4.3**) et remplacez les paramètres par la sauvegarde :
+Si, pour une raison quelconque, quelque chose ne vous convient pas et que vous souhaitez revenir à la version précédente du Smart Node, vous pouvez le faire facilement.
+Le Smart Node sauvegarde automatiquement vos paramètres de la version précédente lorsque vous le mettez à jour, donc récupérez simplement la version précédente (ici nous démontrons la **v1.4.3**) et remplacez les paramètres par la sauvegarde :
 
 1. Arrêtez le service :
 
@@ -152,7 +152,7 @@ cp ~/.rocketpool/user-settings-backup.yml ~/.rocketpool/user-settings.yml
 rocketpool service config
 ```
 
-1. Si tout semble bon, démarrez la pile Smartnode :
+1. Si tout semble bon, démarrez la pile Smart Node :
 
 ```shell
 rocketpool service start

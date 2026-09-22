@@ -17,9 +17,9 @@ import tui_native_settings_home from "./images/tui-native-settings-home.png";
 import tui_native_smartnode from "./images/tui-native-smartnode.png";
 import tui_textbox from "./images/tui-textbox.png";
 
-# Konfiguration des Smartnode-Stacks (Native Mode)
+# Konfiguration des Smart Node-Stacks (Native Mode)
 
-In diesem Abschnitt werden wir die verschiedenen Methoden zur Konfiguration des Smartnode behandeln, wenn Sie das **Native Setup** verwenden, das Docker überhaupt nicht nutzt.
+In diesem Abschnitt werden wir die verschiedenen Methoden zur Konfiguration des Smart Node behandeln, wenn Sie das **Native Setup** verwenden, das Docker überhaupt nicht nutzt.
 
 ::: warning HINWEIS
 Wenn Sie ein Docker-basiertes Setup verwenden, besuchen Sie bitte stattdessen den [Docker-Konfigurationsleitfaden](./config-docker).
@@ -28,14 +28,14 @@ Wenn Sie ein Docker-basiertes Setup verwenden, besuchen Sie bitte stattdessen de
 Es gibt drei Möglichkeiten zur Konfiguration:
 
 - Über die [Wizard UI](#konfiguration-über-den-wizard) - dies ist der einfachste Weg. Sie stellt nur ein paar grundlegende Fragen und verwendet für den Rest gut getestete Standardwerte. Dies wird Ihnen präsentiert, wenn Sie `rocketpool service config` zum ersten Mal ausführen.
-- Über die [Settings Manager UI](#konfiguration-über-den-settings-manager) - dies gibt Ihnen Zugriff auf alle Einstellungen des Smartnode, sodass Sie alles nach Belieben anpassen können.
-- Headless über die [Befehlszeile](#konfiguration-über-die-befehlszeile) - dies ist eine Option für Personen, die den Smartnode in einer headless (nicht-interaktiven) Umgebung betreiben und ihn automatisch konfigurieren müssen.
+- Über die [Settings Manager UI](#konfiguration-über-den-settings-manager) - dies gibt Ihnen Zugriff auf alle Einstellungen des Smart Node, sodass Sie alles nach Belieben anpassen können.
+- Headless über die [Befehlszeile](#konfiguration-über-die-befehlszeile) - dies ist eine Option für Personen, die den Smart Node in einer headless (nicht-interaktiven) Umgebung betreiben und ihn automatisch konfigurieren müssen.
 
 Wählen Sie aus der obigen Liste aus, über welchen Modus Sie mehr erfahren möchten, oder scrollen Sie einfach durch jede Option unten.
 
 ## Konfiguration über den Wizard
 
-Um den Smartnode zu konfigurieren, führen Sie den Konfigurationsbefehl aus:
+Um den Smart Node zu konfigurieren, führen Sie den Konfigurationsbefehl aus:
 
 ```shell
 rp service config
@@ -44,7 +44,7 @@ rp service config
 Dadurch wird eine terminalbasierte UI gestartet, mit der Sie Ihren Node schnell und einfach konfigurieren können und die Ihnen optionale feinkörnige Kontrolle über die Einstellungen bietet, die für den Native Mode relevant sind.
 
 ::: tip HINWEIS
-Wenn Sie den Smartnode bereits konfiguriert haben, werden Sie stattdessen mit dem [Settings Manager](#konfiguration-über-den-settings-manager) begrüßt.
+Wenn Sie den Smart Node bereits konfiguriert haben, werden Sie stattdessen mit dem [Settings Manager](#konfiguration-über-den-settings-manager) begrüßt.
 Sie können von dort aus wählen, den Wizard erneut zu öffnen, wenn Sie dies bevorzugen, und alle Ihre vorhandenen Einstellungen werden für Sie vorausgewählt.
 :::
 
@@ -99,7 +99,7 @@ Der nächste Bildschirm fordert Sie zur Eingabe der URL der HTTP-basierten RPC-A
 
 <img src={tui_native_ec} width="100%" height="auto" />
 
-Geben Sie hier `http://127.0.0.1:8545` ein, wenn Sie planen, einen Execution Client auf demselben Rechner wie den Smartnode auszuführen (im Rest dieses Leitfadens gehen wir davon aus, dass Sie dies vorhaben).
+Geben Sie hier `http://127.0.0.1:8545` ein, wenn Sie planen, einen Execution Client auf demselben Rechner wie den Smart Node auszuführen (im Rest dieses Leitfadens gehen wir davon aus, dass Sie dies vorhaben).
 Wenn Sie jedoch bereits einen Execution Client an anderer Stelle eingerichtet haben, verwenden Sie stattdessen dessen URL.
 
 Beachten Sie, dass Sie dies jederzeit ändern können, indem Sie später erneut `rp service config` ausführen.
@@ -107,7 +107,7 @@ Beachten Sie, dass Sie dies jederzeit ändern können, indem Sie später erneut 
 ### Consensus Client Setup
 
 Als Nächstes werden Sie gefragt, welchen Consensus Client Sie verwenden (oder verwenden möchten).
-Da jeder Consensus Client ein etwas anderes Verhalten aufweist, muss der Smartnode wissen, welchen Sie verwenden, damit er sein eigenes Verhalten entsprechend anpassen kann.
+Da jeder Consensus Client ein etwas anderes Verhalten aufweist, muss der Smart Node wissen, welchen Sie verwenden, damit er sein eigenes Verhalten entsprechend anpassen kann.
 Wählen Sie Ihren Client aus der Liste auf dem folgenden Bildschirm:
 
 <img src={tui_native_cc} width="100%" height="auto" />
@@ -116,7 +116,7 @@ Als Nächstes sehen Sie einen Bildschirm, der Sie zur Eingabe der API-URL Ihres 
 
 <img src={tui_native_cc_url} width="100%" height="auto" />
 
-Geben Sie hier `http://127.0.0.1:5052` ein, wenn Sie planen, den Beacon Node Ihres Consensus Clients auf demselben Rechner wie den Smartnode auszuführen (im Rest dieses Leitfadens gehen wir davon aus, dass Sie dies vorhaben).
+Geben Sie hier `http://127.0.0.1:5052` ein, wenn Sie planen, den Beacon Node Ihres Consensus Clients auf demselben Rechner wie den Smart Node auszuführen (im Rest dieses Leitfadens gehen wir davon aus, dass Sie dies vorhaben).
 Wenn Sie jedoch bereits einen Beacon Node an anderer Stelle eingerichtet haben, verwenden Sie stattdessen dessen URL.
 
 ### Weitere Einstellungen
@@ -125,11 +125,11 @@ Der nächste Bildschirm enthält einige weitere verschiedene Einstellungen:
 
 <img src={tui_native_other} width="100%" height="auto" />
 
-Belassen Sie diese bei den Standardoptionen, es sei denn, Sie haben sich entschieden, ein anderes Verzeichnis als `/srv/rocketpool` für Ihre Smartnode-Installation zu verwenden.
+Belassen Sie diese bei den Standardoptionen, es sei denn, Sie haben sich entschieden, ein anderes Verzeichnis als `/srv/rocketpool` für Ihre Smart Node-Installation zu verwenden.
 
 ### Fallback Clients
 
-Ab Version 1.5.0 des Smartnode-Stacks können Sie ein "Fallback"-Execution-Client- und Consensus-Client-Paar bereitstellen, das für Ihre primären Clients übernehmen kann, falls diese jemals offline gehen (z. B. weil Sie Geth verwenden und es bereinigen müssen).
+Ab Version 1.5.0 des Smart Node-Stacks können Sie ein "Fallback"-Execution-Client- und Consensus-Client-Paar bereitstellen, das für Ihre primären Clients übernehmen kann, falls diese jemals offline gehen (z. B. weil Sie Geth verwenden und es bereinigen müssen).
 In dieser Situation ist Ihr primärer Node-Rechner weiterhin für das Attestieren und Vorschlagen von Blöcken mit den validator Keys Ihrer Minipools verantwortlich, aber er wird sich mit einem externen Rechner verbinden, um mit der Execution Layer und den Beacon Chains zu interagieren.
 
 [Um mehr über Fallback Nodes zu erfahren, siehe diesen Abschnitt](./fallback) und kehren Sie hierher zurück, wenn Sie fertig sind.
@@ -156,7 +156,7 @@ Es ist rein für Sie da, damit Sie Ihren eigenen Node überwachen können!
 
 Seit dem Merge der Execution und Consensus Layers im September 2022 haben Ethereum Validators nun die Möglichkeit, Prioritätsgebühren zu verdienen und an Maximal Extractable Value (oder kurz MEV) teilzunehmen.
 
-Ab Smartnode v1.7.0 ist MEV nun _opt-out_, sodass eine Benachrichtigung über die Konfiguration als Teil der anfänglichen Einrichtung präsentiert wird, wie Sie auf dem nächsten Bildschirm sehen:
+Ab Smart Node v1.7.0 ist MEV nun _opt-out_, sodass eine Benachrichtigung über die Konfiguration als Teil der anfänglichen Einrichtung präsentiert wird, wie Sie auf dem nächsten Bildschirm sehen:
 
 <img src={tui_native_mev} width="100%" height="auto" />
 
@@ -165,12 +165,12 @@ Kehren Sie hierher zurück, wenn Sie fertig sind.
 
 ### Abschluss
 
-Nach dieser Frage haben Sie die Einrichtung der Smartnode-Konfiguration abgeschlossen.
+Nach dieser Frage haben Sie die Einrichtung der Smart Node-Konfiguration abgeschlossen.
 Sie werden den folgenden Dialog sehen:
 
 <img src={tui_native_finished} width="100%" height="auto" />
 
-Wenn Sie mit Ihrem Setup zufrieden sind und bereit sind, den Smartnode zu starten, klicken Sie hier auf `Save and Exit`.
+Wenn Sie mit Ihrem Setup zufrieden sind und bereit sind, den Smart Node zu starten, klicken Sie hier auf `Save and Exit`.
 
 Wenn Sie die Installation von Rocket Pool noch nicht abgeschlossen haben, kehren Sie jetzt zum Native-Setup-Leitfaden zurück.
 Andernfalls besteht der nächste Schritt darin, Ihre Daemon-Dienste neu zu starten mit:
@@ -189,7 +189,7 @@ Wenn Sie bereits `rp service config` ausgeführt haben, werden Sie anstelle des 
 
 Dieser Bildschirm hat drei Hauptfunktionen:
 
-1. Die **Kategorienliste**, mit der Sie die Einstellungen für jede Kategorie des Smartnode-Stacks aufrufen können, die für den Native Mode relevant ist
+1. Die **Kategorienliste**, mit der Sie die Einstellungen für jede Kategorie des Smart Node-Stacks aufrufen können, die für den Native Mode relevant ist
 2. Die Schaltfläche **Review Changes and Save**, die Sie verwenden können, wenn Sie bereit sind, die geänderten Einstellungen anzuzeigen und die aktualisierte Konfiguration zu speichern
 3. Die Schaltfläche **Open the Config Wizard**, die Sie zum [Setup Wizard](#konfiguration-über-den-wizard) bringt, wenn Sie diese Benutzeroberfläche bevorzugen
 
@@ -210,7 +210,7 @@ Erkunden Sie sie gerne; nichts wird gespeichert, bis Sie den Review-Dialog über
 ### Konfiguration der Einstellungen
 
 Wählen Sie vom Startbildschirm aus eine der Kategorien mit der `Enter`-Taste, um die Einstellungen für diese Kategorie anzuzeigen.
-Hier ist zum Beispiel der Bildschirm für die Kategorie **Smartnode and TX Fees**:
+Hier ist zum Beispiel der Bildschirm für die Kategorie **Smart Node and TX Fees**:
 
 <img src={tui_native_smartnode} width="100%" height="auto" />
 
@@ -305,7 +305,7 @@ sudo systemctl restart rp-node rp-watchtower
 
 ## Konfiguration über die Befehlszeile
 
-Wenn Sie den Smartnode in einer headless-Umgebung verwenden, in der Sie nicht mit der Terminal UI interagieren können, können Sie Ihren Node stattdessen über die Befehlszeile konfigurieren.
+Wenn Sie den Smart Node in einer headless-Umgebung verwenden, in der Sie nicht mit der Terminal UI interagieren können, können Sie Ihren Node stattdessen über die Befehlszeile konfigurieren.
 
 Der Befehl `rocketpool service config` akzeptiert als Argumente jede Einstellung, die normalerweise über die Terminal UI konfiguriert werden kann.
 Führen Sie den folgenden Befehl aus, um eine Liste davon zu sehen (beachten Sie, dass sie recht lang ist):

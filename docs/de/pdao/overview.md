@@ -10,11 +10,11 @@ Dieser Abschnitt beschreibt den Prozess zur Einrichtung Ihres Knotens, um an on-
 
 ## Voraussetzungen
 
-Bevor Sie Ihren Smartnode konfigurieren, stellen Sie bitte sicher, dass Sie:
+Bevor Sie Ihren Smart Node konfigurieren, stellen Sie bitte sicher, dass Sie:
 
 - Eine Knotenmaschine (oder virtuelle Maschine) eingerichtet und gesichert haben (über den [Absichern Ihres Knotens](/de/node-staking/securing-your-node) Leitfaden)
-- Den Smartnode darauf [installiert](/de/node-staking/installing/overview) und [konfiguriert](/de/node-staking/config/overview) haben
-- Eine Knoten-Wallet auf Ihrem Smartnode geladen haben
+- Den Smart Node darauf [installiert](/de/node-staking/installing/overview) und [konfiguriert](/de/node-staking/config/overview) haben
+- Eine Knoten-Wallet auf Ihrem Smart Node geladen haben
 - Ihre Execution und Consensus Clients synchronisiert haben
 - Ihren Knoten mit [einer Auszahlungsadresse](/de/node-staking/prepare-node#ihre-primäre-auszahlungsadresse-festlegen) ausgestattet haben, Ihre [Fallback-Clients](/de/node-staking/fallback) eingerichtet haben (optional), sich für den [Smoothing Pool](/de/node-staking/fee-distrib-sp#der-smoothing-pool) entschieden haben (optional) und [MEV](/de/node-staking/mev) konfiguriert haben
 - Mindestens einen [minipool](/de/node-staking/create-validator) erstellt haben
@@ -31,11 +31,11 @@ Bevor Sie Ihren Smartnode konfigurieren, stellen Sie bitte sicher, dass Sie:
 
 [Die Protocol DAO](/de/pdao/pdao) diskutiert wer und wie die pDAO Rocket Pool regiert. Diese Seite wird Sie darüber informieren, wie pDAO Aufgaben wie Treasury-Ausgaben on-chain ausgeführt werden können, zusammen mit der Rolle des brandneuen Security Council. Sie führt Sie auch durch den Lebenszyklus eines pDAO Vorschlags und erklärt einige der Maßnahmen, die ergriffen wurden, um Spam zu verhindern und böswillige Vorschläge niederzuschlagen.
 
-[Abstimmungseinrichtung für Nicht-Smartnode-Benutzer](/de/legacy/houston/nonsmartnode-setup) zeigt Nicht-Smartnode-Benutzern (wie Allnodes-Benutzern), wie sie die Abstimmung einrichten.
+[Abstimmungseinrichtung für Nicht-Smart Node-Benutzer](/de/legacy/houston/nonsmartnode-setup) zeigt Nicht-Smart Node-Benutzern (wie Allnodes-Benutzern), wie sie die Abstimmung einrichten.
 
 [Initialisierung der Stimmkraft](/de/pdao/participate#initialisierung-der-abstimmung) zeigt Ihnen, wie Sie die Stimmkraft Ihres Knotens initialisieren. Dieser Schritt ist nur erforderlich, wenn Ihr Knoten vor dem Houston Upgrade registriert wurde.
 
-[Festlegen Ihrer Snapshot Signalling Address](/de/pdao/participate#festlegen-ihrer-snapshot-signalling-address) führt Sie durch die Schritte zum Festlegen einer Signalling Address. Es ermöglicht Ihnen, auf snapshot mit der Stimmkraft Ihres Knotens abzustimmen, ohne den privaten Schlüssel Ihres Knotens in eine Hot Wallet laden zu müssen. Stellen Sie sicher, dass Sie Ihre Smartnode CLI zur Hand haben und bereiten Sie eine Adresse (die nicht Ihre Knoten-Wallet ist) für diesen Leitfaden vor.
+[Festlegen Ihrer Snapshot Signalling Address](/de/pdao/participate#festlegen-ihrer-snapshot-signalling-address) führt Sie durch die Schritte zum Festlegen einer Signalling Address. Es ermöglicht Ihnen, auf snapshot mit der Stimmkraft Ihres Knotens abzustimmen, ohne den privaten Schlüssel Ihres Knotens in eine Hot Wallet laden zu müssen. Stellen Sie sicher, dass Sie Ihre Smart Node CLI zur Hand haben und bereiten Sie eine Adresse (die nicht Ihre Knoten-Wallet ist) für diesen Leitfaden vor.
 
 [Delegierung der Stimmkraft](/de/pdao/participate#delegierung-der-stimmkraft) ist ein schneller Befehl, den Sie verwenden können, um Stimmkraft zu delegieren, anstatt direkt über Vorschläge abzustimmen.
 

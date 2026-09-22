@@ -10,11 +10,11 @@ next:
 
 ## 先决条件
 
-在配置 Smartnode 之前,请确保您:
+在配置 Smart Node 之前,请确保您:
 
 - 已设置节点机器(或虚拟机)并对其进行了保护(通过[保护您的节点](../securing-your-node)指南)
-- 在其上[安装](../installing/overview)并[配置](../config/overview)了 Smartnode
-- 在 Smartnode 上加载了节点钱包
+- 在其上[安装](../installing/overview)并[配置](../config/overview)了 Smart Node
+- 在 Smart Node 上加载了节点钱包
 - 同步了您的执行和共识客户端
 - 为您的节点配置了[提款地址](../prepare-node.mdx#设置主提款地址),设置了[后备客户端](../fallback)(可选),选择加入[Smoothing Pool](../fee-distrib-sp#平滑池)(可选),并配置了 [MEV](../mev.mdx)
 - 创建了至少一个 [minipool](../create-validator.mdx)

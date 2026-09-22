@@ -1,7 +1,7 @@
 # A Atualização Redstone do Rocket Pool
 
 A próxima grande atualização do Rocket Pool, intitulada **Redstone**, foi lançada para testes beta nas redes de teste Ropsten e Holesky.
-Esta página descreve as principais mudanças que a Redstone traz, incluindo atualizações tanto para a stack do Smartnode quanto para o protocolo Rocket Pool em geral.
+Esta página descreve as principais mudanças que a Redstone traz, incluindo atualizações tanto para a stack do Smart Node quanto para o protocolo Rocket Pool em geral.
 
 Por favor, leia esta página cuidadosamente para entender todas as diferenças entre a versão anterior do Rocket Pool e a Redstone.
 
@@ -49,7 +49,7 @@ Este é o endereço na Camada de Execução (ETH1) para onde todas as taxas de p
 
 O Rocket Pool foi projetado para distribuir essas recompensas de forma justa, da mesma forma que distribui de forma justa suas recompensas da Beacon chain: metade de quaisquer taxas de prioridade que seus validadores de minipool ganhem irá para você (mais a comissão média de todos os seus minipools), e a outra metade irá para os stakers do pool (menos sua comissão média).
 
-Para esse fim, o Smartnode definirá automaticamente o `fee recipient` do seu Validator Client para um endereço especial conhecido como **distribuidor de taxas** do seu nó.
+Para esse fim, o Smart Node definirá automaticamente o `fee recipient` do seu Validator Client para um endereço especial conhecido como **distribuidor de taxas** do seu nó.
 Seu distribuidor de taxas é um contrato único na Camada de Execução que é **específico para o seu nó**.
 Ele guardará todas as taxas de prioridade que você ganhou ao longo do tempo, e contém a lógica necessária para dividi-las e distribuí-las de forma justa.
 Este processo de distribuição é controlado por você (o operador do nó), e pode ser feito quando você quiser.
@@ -57,11 +57,11 @@ Não tem limite de tempo.
 
 O endereço do distribuidor de taxas do seu nó é **deterministicamente baseado no endereço do seu nó**.
 Isso significa que é conhecido antecipadamente, antes mesmo de o distribuidor de taxas ser criado.
-**O Smartnode usará este endereço como seu fee recipient.**
+**O Smart Node usará este endereço como seu fee recipient.**
 
 ::: tip NOTA
-Por padrão, seu fee recipient será definido para o **endereço rETH** quando você instalar o Smartnode v1.5.0 (se as atualizações do contrato Redstone ainda não tiverem sido implantadas).
-O Smartnode atualizará automaticamente isso para o endereço do distribuidor de taxas do seu nó assim que a atualização Redstone for implantada.
+Por padrão, seu fee recipient será definido para o **endereço rETH** quando você instalar o Smart Node v1.5.0 (se as atualizações do contrato Redstone ainda não tiverem sido implantadas).
+O Smart Node atualizará automaticamente isso para o endereço do distribuidor de taxas do seu nó assim que a atualização Redstone for implantada.
 
 Uma exceção a esta regra é se você optou pelo **Smoothing Pool** - veja a seção no final desta página para mais informações sobre isso.
 :::
@@ -230,8 +230,8 @@ Na terceira falta, o minipool começará a receber **infrações** - cada infra�
 
 As infrações são em nível de **minipool**, não em nível de **nó**.
 
-O software Smartnode foi projetado para garantir que usuários honestos nunca sejam penalizados, mesmo que tenha que colocar o Validator Client offline para fazer isso.
-Se isso acontecer, você parará de atestar e verá mensagens de erro em seus arquivos de log sobre por que o Smartnode não pode definir corretamente seu fee recipient.
+O software Smart Node foi projetado para garantir que usuários honestos nunca sejam penalizados, mesmo que tenha que colocar o Validator Client offline para fazer isso.
+Se isso acontecer, você parará de atestar e verá mensagens de erro em seus arquivos de log sobre por que o Smart Node não pode definir corretamente seu fee recipient.
 
 ## Guias para Pré e Pós-Atualização
 

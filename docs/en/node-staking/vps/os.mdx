@@ -61,11 +61,11 @@ However, for the sake of your own peace of mind, you should change the size to o
 
 Leave the default values for the other settings and click **Next**.
 
-In the **Add Tags** step, you should click the **click to add a Name tag** button and give it an easy-to-remember name that you can use to identify the server later; something like **Rocket Pool Smartnode** will work if you need inspiration.
+In the **Add Tags** step, you should click the **click to add a Name tag** button and give it an easy-to-remember name that you can use to identify the server later; something like **Rocket Pool Smart Node** will work if you need inspiration.
 Click **Next** when you're done.
 
 In the **Security Group** section, keep the **Create a new security group** option selected.
-Enter a name and description such as **Smartnode** and **Smartnode Group**.
+Enter a name and description such as **Smart Node** and **Smart Node Group**.
 Remove all of the existing rules in the table and add the following rules:
 
 | Type       | Port Range | Source                           | Description |
@@ -91,7 +91,7 @@ The security group table should now resemble this:
 
 Now, review all of the instance details to make sure you're happy with them, and click **Launch** when you're satisfied.
 When the **SSH key pair** prompt appears, select **Create a new key pair**.
-Give it a memorable name such as **Smartnode Key**, then click **Download Key Pair**.
+Give it a memorable name such as **Smart Node Key**, then click **Download Key Pair**.
 Store these files somewhere secure, such as `~/.ssh/` (or `C:\Users\[your username]\.ssh\` on Windows) where your other keys commonly reside.
 
 ::: danger
@@ -113,7 +113,7 @@ The default settings are all fine, so just click through the prompts and return 
 
 Next, select the new address in the list.
 Click the **Actions** button above it, then click **Associate Elastic IP Address**.
-Leave the resource type set to **Instance** and select the Rocket Pool Smartnode instance you just created from the list.
+Leave the resource type set to **Instance** and select the Rocket Pool Smart Node instance you just created from the list.
 Click **Associate** to assign the address to your virtual server.
 Now, if you look under the \*Associated Instance ID\*\* column of the address, you can verify that it has your machine assigned to it.
 

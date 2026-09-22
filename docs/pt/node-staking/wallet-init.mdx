@@ -2,7 +2,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # Criando uma Nova Carteira
 
-Se os serviços do Smartnode estiverem funcionando, o próximo passo é configurar uma carteira Ethereum para seu nó.
+Se os serviços do Smart Node estiverem funcionando, o próximo passo é configurar uma carteira Ethereum para seu nó.
 Esta é simplesmente um endereço da Camada de Execução que manterá os fundos do seu nó - ele usará isso para enviar ETH ao seu validador de megapool quando você começar a fazer staking, pagar por gas durante várias transações e outras operações diversas.
 
 Você tem a opção de criar uma carteira totalmente nova do zero, ou importar / recuperar uma carteira ou endereço existente.
@@ -12,13 +12,19 @@ Por favor, escolha qual opção você deseja nas abas abaixo.
   <Tabs>
     <Tab label="Criando uma Nova Carteira">
       A maneira mais comum de executar um nó é criar um novo endereço Ethereum dedicado ao nó.
-      A CLI do Smartnode oferece uma maneira fácil de fazer isso:
+      A CLI do Smart Node oferece uma maneira fácil de fazer isso:
 
       ```shell
       rocketpool wallet init
       ```
 
-      Primeiro, você será solicitado a fornecer uma senha para proteger a chave privada da sua carteira.
+      Por padrão, o Smart Node gera uma senha aleatória para criptografar a chave privada da sua carteira (armazenada no arquivo de senha indicado abaixo).
+      Para escolher sua própria senha, passe `-p` / `--password`.
+
+      ::: tip NOTA
+      Você não precisa saber nem lembrar esta senha. O **mnemônico de 24 palavras do nó** é suficiente para recuperar completamente sua carteira.
+      :::
+
       Em seguida, você verá o **mnemônico único de 24 palavras** para sua nova carteira.
       Esta é a **frase de recuperação** da sua carteira.
       Se você perder sua máquina, pode usar esta frase para regenerar sua carteira e ressuscitar todos os validadores da Camada de Consenso anexados a ela.
@@ -37,7 +43,7 @@ Por favor, escolha qual opção você deseja nas abas abaixo.
         Node account: LongStringOfLettersAndNumbers"
       Este é o endereço público para o qual você enviará ETH em "Preparando seu Nó para Operação". Você também pode verificá-lo digitando "rocketpool wallet status".
 
-      Se você já tem uma carteira de nó que criou em uma instalação anterior do Smartnode, ou se deseja importar um endereço que criou em outro lugar (como com **Allnodes**), siga as instruções no guia [Importando uma Carteira Existente para seu Nó](./recovering-rp).
+      Se você já tem uma carteira de nó que criou em uma instalação anterior do Smart Node, ou se deseja importar um endereço que criou em outro lugar (como com **Allnodes**), siga as instruções no guia [Importando uma Carteira Existente para seu Nó](./recovering-rp).
 
       Retorne aqui quando terminar.
     </Tab>

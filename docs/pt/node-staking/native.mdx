@@ -3,12 +3,12 @@ import { Tab, Tabs } from "@rspress/core/theme";
 # Criando um Node Nativo do Rocket Pool sem Docker
 
 ::: tip NOTA
-Este guia foi projetado para o **Smartnode v1.6.5 e superior**.
+Este guia foi projetado para o **Smart Node v1.6.5 e superior**.
 
 Se você estiver usando uma versão anterior, deve atualizar para v1.6.5 ou superior antes de configurar o modo Nativo.
 :::
 
-Nesta seção, vamos percorrer o processo de instalação da stack do Smartnode do Rocket Pool nativamente no seu sistema, sem o uso de containers Docker.
+Nesta seção, vamos percorrer o processo de instalação da stack do Smart Node do Rocket Pool nativamente no seu sistema, sem o uso de containers Docker.
 
 O plano geral é o seguinte:
 
@@ -32,7 +32,7 @@ Assumimos que você está familiarizado com essas atividades - como você estar�
 
 ## Passo 1: Configurar os Clientes de Execução e Consenso
 
-O Modo Nativo efetivamente estende uma configuração padrão de solo-staking e simplesmente permite que o software Smartnode se conecte aos clientes que ele já executa (com algumas pequenas modificações).
+O Modo Nativo efetivamente estende uma configuração padrão de solo-staking e simplesmente permite que o software Smart Node se conecte aos clientes que ele já executa (com algumas pequenas modificações).
 
 Para isso, recomendamos que você comece seguindo alguns dos guias convencionais de solo staking fornecidos pela comunidade:
 
@@ -48,7 +48,7 @@ Você simplesmente precisa seguir os guias até o ponto em que você tenha um se
 Além disso, há um caso especial para o **destinatário de taxa** - quando você chegar à parte do guia onde especifica o destinatário de taxa na configuração do seu Cliente Validador, **deixe em branco por enquanto**.
 Descreveremos como configurá-lo para validadores do Rocket Pool abaixo.
 
-Depois que seus clientes estiverem instalados e você puder ver em seus logs que eles estão sincronizando as chains corretamente, você pode seguir os próximos passos para configurar o Smartnode do Rocket Pool e conectá-lo aos seus clientes.
+Depois que seus clientes estiverem instalados e você puder ver em seus logs que eles estão sincronizando as chains corretamente, você pode seguir os próximos passos para configurar o Smart Node do Rocket Pool e conectá-lo aos seus clientes.
 
 ## Passo 2: Instalar o Rocket Pool
 
@@ -149,13 +149,13 @@ sudo chmod u+sx,g+sx,o-rwx /usr/local/bin/rocketpoold
 Isso garantirá que o daemon sempre seja executado como usuário `rp`, para que sempre tenha as permissões adequadas definidas.
 
 ::: danger NOTA
-O Smartnode provavelmente falhará com erros de permissão se você não fizer isso.
+O Smart Node provavelmente falhará com erros de permissão se você não fizer isso.
 Por favor, certifique-se de executar este comando!
 :::
 
 ### Configurando a Pasta de Instalação
 
-Com a CLI e o Daemon instalados, você precisará configurar a estrutura de pastas e os arquivos que o Smartnode espera que existam.
+Com a CLI e o Daemon instalados, você precisará configurar a estrutura de pastas e os arquivos que o Smart Node espera que existam.
 Comece criando as seguintes pastas:
 
 ```
@@ -341,11 +341,11 @@ Também modifique `/srv/rocketpool/stop-validator.sh`:
 Tudo pronto!
 O processo `node` agora pode reiniciar ou parar seu VC conforme necessário automaticamente.
 
-## Passo 3: Configurar o Smartnode
+## Passo 3: Configurar o Smart Node
 
-Agora que todos os seus serviços estão criados, é hora de configurar a stack Smartnode.
+Agora que todos os seus serviços estão criados, é hora de configurar a stack Smart Node.
 
-Por favor, visite o guia [Configurando a Stack Smartnode (Modo Nativo)](./config-native) e retorne aqui quando terminar.
+Por favor, visite o guia [Configurando a Stack Smart Node (Modo Nativo)](./config-native) e retorne aqui quando terminar.
 
 ### Habilitando e Executando os Serviços
 
@@ -524,7 +524,7 @@ Clique no cliente que você usa nas abas abaixo:
 ### Relaxando `umask`
 
 Por padrão, seu sistema normalmente virá com uma configuração `umask` que removerá o bit `+w` das permissões do grupo sempre que o daemon `node` criar uma nova pasta.
-Isso é problemático para vários clientes de consenso, porque eles realmente escreverão coisas como arquivos de bloqueio ou outros metadados nos diretórios que o Smartnode cria quando gera novas chaves de validador durante um depósito de minipool.
+Isso é problemático para vários clientes de consenso, porque eles realmente escreverão coisas como arquivos de bloqueio ou outros metadados nos diretórios que o Smart Node cria quando gera novas chaves de validador durante um depósito de minipool.
 
 Para combater isso e garantir que seu VC funcione corretamente, por favor **relaxe suas configurações de `umask`**.
 Por exemplo, em vez de `0022`, você deve considerar configurá-lo para `0002` para o usuário `rp`.

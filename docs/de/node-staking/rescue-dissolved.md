@@ -47,7 +47,7 @@ Nach Auswahl des Minipools, den Sie retten möchten, werden Sie gefragt, welchen
 Option 1 wird in den meisten Fällen verwendet. Dies ist der erforderliche Betrag, um Ihr Beaconchain-Guthaben auf die erforderlichen 32 ETH zu bringen. Die anderen Optionen werden für fortgeschrittene Anwendungsfälle bereitgestellt.
 
 ::: tip HINWEIS
-Wenn Sie Ihr Beaconchain-Guthaben auf 32 ETH bringen, bedeutet dies, dass Ihr Validator aktiv an Ethereum-Validierungsaufgaben teilnehmen kann. Der Smartnode hat möglicherweise noch keine Gelegenheit gehabt, Ihren Validator seit der Auflösung neu zu starten. Daher ist es eine gute Idee, Ihren Validator manuell neu zu starten, um sicherzustellen, dass er Ihre Validator-Schlüssel geladen hat und Validierungsaufgaben ausführen kann, um Strafen während des Rettungsprozesses zu vermeiden.
+Wenn Sie Ihr Beaconchain-Guthaben auf 32 ETH bringen, bedeutet dies, dass Ihr Validator aktiv an Ethereum-Validierungsaufgaben teilnehmen kann. Der Smart Node hat möglicherweise noch keine Gelegenheit gehabt, Ihren Validator seit der Auflösung neu zu starten. Daher ist es eine gute Idee, Ihren Validator manuell neu zu starten, um sicherzustellen, dass er Ihre Validator-Schlüssel geladen hat und Validierungsaufgaben ausführen kann, um Strafen während des Rettungsprozesses zu vermeiden.
 
 Wenn Sie den Standard-Docker-Modus ausführen, kann dies mit `docker restart rocketpool_validator` durchgeführt werden.
 :::

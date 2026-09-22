@@ -2,7 +2,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # Créer un nouveau portefeuille
 
-Si les services Smartnode sont opérationnels, l'étape suivante consiste à configurer un portefeuille Ethereum pour votre nœud.
+Si les services Smart Node sont opérationnels, l'étape suivante consiste à configurer un portefeuille Ethereum pour votre nœud.
 Il s'agit simplement d'une adresse de la couche d'exécution qui contiendra les fonds de votre nœud - elle sera utilisée pour envoyer de l'ETH à votre validateur megapool lorsque vous commencerez le staking, payer les frais de gas lors de diverses transactions et autres opérations diverses.
 
 Vous avez la possibilité soit de créer un tout nouveau portefeuille à partir de zéro, soit d'importer ou de récupérer un portefeuille ou une adresse existante.
@@ -12,13 +12,19 @@ Veuillez choisir l'option souhaitée parmi les onglets ci-dessous.
   <Tabs>
     <Tab label="Créer un nouveau portefeuille">
       La façon la plus courante d'exécuter un nœud est de créer une nouvelle adresse Ethereum dédiée au nœud.
-      L'interface CLI Smartnode offre un moyen simple de le faire :
+      L'interface CLI Smart Node offre un moyen simple de le faire :
 
       ```shell
       rocketpool wallet init
       ```
 
-      Vous serez d'abord invité à saisir un mot de passe pour protéger la clé privée de votre portefeuille.
+      Par défaut, le Smart Node génère un mot de passe aléatoire pour chiffrer la clé privée de votre portefeuille (stocké dans le fichier de mot de passe indiqué ci-dessous).
+      Pour choisir votre propre mot de passe à la place, utilisez `-p` / `--password`.
+
+      ::: tip NOTE
+      Vous n'avez pas besoin de connaître ni de retenir ce mot de passe. La **phrase mnémonique de 24 mots du nœud** suffit à récupérer entièrement votre portefeuille.
+      :::
+
       Ensuite, vous recevrez la **phrase mnémonique unique de 24 mots** pour votre nouveau portefeuille.
       Il s'agit de la **phrase de récupération** de votre portefeuille.
       Si vous perdez votre machine, vous pouvez utiliser cette phrase pour régénérer votre portefeuille et restaurer tous les validateurs de la couche de consensus qui y sont attachés.
@@ -37,7 +43,7 @@ Veuillez choisir l'option souhaitée parmi les onglets ci-dessous.
         Compte du nœud : LongueChaineDeLettresEtDeChiffres"
       Il s'agit de l'adresse publique à laquelle vous enverrez de l'ETH dans "Préparer votre nœud pour le fonctionnement". Vous pouvez également la vérifier en tapant "rocketpool wallet status".
 
-      Si vous avez déjà un portefeuille de nœud que vous avez créé lors d'une installation précédente du Smartnode, ou si vous souhaitez importer une adresse que vous avez créée ailleurs (comme avec **Allnodes**), veuillez suivre les instructions du guide [Importer un portefeuille existant pour votre nœud](./recovering-rp).
+      Si vous avez déjà un portefeuille de nœud que vous avez créé lors d'une installation précédente du Smart Node, ou si vous souhaitez importer une adresse que vous avez créée ailleurs (comme avec **Allnodes**), veuillez suivre les instructions du guide [Importer un portefeuille existant pour votre nœud](./recovering-rp).
 
       Revenez ici une fois que vous avez terminé.
     </Tab>

@@ -23,14 +23,14 @@ In this guide, we'll show you how to enable Rocket Pool's metrics system so you 
 
 ## Overview of the Rocket Pool Metrics Stack
 
-If you choose to enable metrics during the Smartnode configuration process, your node will add the following processes:
+If you choose to enable metrics during the Smart Node configuration process, your node will add the following processes:
 
 - [Prometheus](https://prometheus.io/) - a data collection, storage, and reporting system that captures all of the metrics you see above (any many more) and stores them, so they can be looked at over time
 - The Prometheus [Node Exporter](https://github.com/prometheus/node_exporter) - a service that collects information about your machine's health (such as CPU usage, RAM usage, free disk space and swap space, etc.) and reports it to Prometheus
 - Grafana, the tool that exposes Prometheus's data through a convenient website hosted on your node
 - An optional custom set of scripts that will report any available Operating System updates to Prometheus, so you know if your system needs to be patched
 
-The default configuration will create Docker containers with all of these services that live alongside the rest of the Smartnode's Docker containers.
+The default configuration will create Docker containers with all of these services that live alongside the rest of the Smart Node's Docker containers.
 It will open up a port on your node machine for Grafana, so you can access its dashboard from any machine on your local network with a browser.
 
 ## Enabling the Metrics Server
@@ -40,7 +40,7 @@ It will open up a port on your node machine for Grafana, so you can access its d
     <Tab label="Docker">
       Enabling metrics in Docker mode is the easiest of all.
 
-      Start by running the Smartnode configuration command again:
+      Start by running the Smart Node configuration command again:
 
       ```shell
       rocketpool service config
@@ -78,7 +78,7 @@ It will open up a port on your node machine for Grafana, so you can access its d
       </p>
 
 
-      During this check, it will also compare your installed Rocket Pool Smartnode version with the latest release, and inform you if there's a new release available.
+      During this check, it will also compare your installed Rocket Pool Smart Node version with the latest release, and inform you if there's a new release available.
 
       If you enabled the update tracker, then the last step is to restart the Node Exporter with the following command:
 
@@ -606,7 +606,7 @@ You can then open the firewall to allow external devices access to your Grafana 
 
 Now that the metrics server is ready, you can access it with any browser on your local network.
 
-Refer to the tabs below for your Smartnode installation mode.
+Refer to the tabs below for your Smart Node installation mode.
 
 Navigate to the following URL, substituting the variables with your setup as necessary:
 
@@ -696,7 +696,7 @@ However, we aren't done setting things up yet - there is still a little more con
 ::: warning NOTE
 Some of the boxes (notably the APR ones) have been temporarily disabled due to the way Shapella provides skimmed rewards.
 
-They will be enabled again in a future version of the Smartnode that can track historical rewards properly.
+They will be enabled again in a future version of the Smart Node that can track historical rewards properly.
 :::
 
 ## Tailoring the Hardware Monitor to your System
@@ -789,7 +789,7 @@ nvme0n1     259:0    0 238,5G  0 disk
 └─nvme0n1p4 259:4    0   527M  0 part
 ```
 
-If you didn't change Docker's default location to a different drive during your Smartnode installation, then the disk you want to track will be the one that your Operating System is installed on.
+If you didn't change Docker's default location to a different drive during your Smart Node installation, then the disk you want to track will be the one that your Operating System is installed on.
 Look in the `MOUNTPOINT` column for an entry simply labeled `/`, then follow that back up to its parent device (the one with `disk` in the `TYPE` column).
 
 Typically this will be `sda` for SATA drives or `nvme0n1` for NVMe drives.

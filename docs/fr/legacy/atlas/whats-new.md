@@ -4,7 +4,7 @@
 Atlas a été déployé le `18 avril 2023, 00:00 UTC`. Veuillez visiter [ici](../houston/whats-new) pour en savoir plus sur Houston, la dernière mise à niveau du protocole.
 :::
 
-Cette page décrit les changements majeurs que la prochaine mise à jour importante de Rocket Pool, intitulée **Atlas**, apporte au protocole, y compris les mises à jour de la stack Smartnode et du protocole Rocket Pool en général.
+Cette page décrit les changements majeurs que la prochaine mise à jour importante de Rocket Pool, intitulée **Atlas**, apporte au protocole, y compris les mises à jour de la stack Smart Node et du protocole Rocket Pool en général.
 
 Veuillez lire attentivement cette page pour comprendre toutes les différences entre la version précédente de Rocket Pool (Redstone) et Atlas.
 
@@ -66,9 +66,9 @@ Cela signifie que vous obtiendrez tous les avantages des minipools Rocket Pool, 
 
 Pour en savoir plus sur la conversion d'un validateur solo en minipool, veuillez visiter le guide [Conversion d'un validateur solo en minipool](../../node-staking/solo-staker-migration).
 
-## Nouvelles fonctionnalités du Smartnode
+## Nouvelles fonctionnalités du Smart Node
 
-En plus des changements fondamentaux au protocole Rocket Pool, Atlas apporte également des mises à niveau passionnantes à la stack Smartnode elle-même, qui sont présentes dans la v1.9.0.
+En plus des changements fondamentaux au protocole Rocket Pool, Atlas apporte également des mises à niveau passionnantes à la stack Smart Node elle-même, qui sont présentes dans la v1.9.0.
 
 ### Distributions automatiques de récompenses
 
@@ -106,11 +106,11 @@ Ce nouveau tableau de bord a été un travail d'amour qui a impliqué l'aide con
 
 ### Changements Nimbus
 
-Smartnode v1.9.0 introduit le **support du mode split** pour Nimbus !
-Au lieu d'exécuter le Beacon Node et le Validator Client à l'intérieur d'un seul processus / conteneur, le Smartnode les exécutera maintenant dans des conteneurs séparés comme les autres clients. Cela présente les avantages suivants :
+Smart Node v1.9.0 introduit le **support du mode split** pour Nimbus !
+Au lieu d'exécuter le Beacon Node et le Validator Client à l'intérieur d'un seul processus / conteneur, le Smart Node les exécutera maintenant dans des conteneurs séparés comme les autres clients. Cela présente les avantages suivants :
 
 - Nimbus prend désormais en charge les **clients de secours** (un client Execution secondaire et un Beacon Node auxquels le Validator Client de Nimbus peut se connecter lorsque vos clients principaux sont en panne pour maintenance, comme la resynchronisation).
-- Nimbus est maintenant pris en charge en **mode géré en externe (hybride)**, vous pouvez donc coupler le Validator Client que le Smartnode gère à un Beacon Node externe que vous maintenez vous-même.
+- Nimbus est maintenant pris en charge en **mode géré en externe (hybride)**, vous pouvez donc coupler le Validator Client que le Smart Node gère à un Beacon Node externe que vous maintenez vous-même.
 - Le Beacon Node n'a plus besoin d'être redémarré après l'ajout de nouveaux minipools, ce qui signifie que vous ne perdez pas d'attestations pendant qu'il se reconnecte à ses pairs.
 
 ### Support Lodestar

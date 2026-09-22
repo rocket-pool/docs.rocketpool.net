@@ -3,16 +3,16 @@ import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
 import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
 
-# Advanced Smartnode Configuration for Docker Mode
+# Advanced Smart Node Configuration for Docker Mode
 
-In this section, we will cover a few techniques that expand the Smartnode's customization and functionality.
+In this section, we will cover a few techniques that expand the Smart Node's customization and functionality.
 
-## Allowing External Validator Clients to Connect to the Smartnode
+## Allowing External Validator Clients to Connect to the Smart Node
 
-Because the Smartnode manages the Execution client and Beacon Node, it handles much of their configuration (including updates) automatically.
-One common request from users is for the ability to attach an externally-managed Validator client to the Smartnode's Execution and Consensus clients.
+Because the Smart Node manages the Execution client and Beacon Node, it handles much of their configuration (including updates) automatically.
+One common request from users is for the ability to attach an externally-managed Validator client to the Smart Node's Execution and Consensus clients.
 
-Essentially, this acts as a sort of **"Reverse Hybrid" mode**; instead of the Smartnode managing its own Validator client and connecting to an external Execution and Consensus client, it manages all three things and an external Validator client can use its own clients instead.
+Essentially, this acts as a sort of **"Reverse Hybrid" mode**; instead of the Smart Node managing its own Validator client and connecting to an external Execution and Consensus client, it manages all three things and an external Validator client can use its own clients instead.
 
 Enabling this is trivial using the [Settings Manager](./config-docker#configuring-via-the-settings-manager).
 
@@ -59,11 +59,11 @@ For example, if your node's local IP address were `192.168.1.45`, then by enabli
 ## Customizing the Docker-Compose Definition Files
 
 While the Settings Manager contains many options you can use to customize your node, it doesn't wrap all of the features that `docker-compose` provides.
-Some users require supplemental customizations to the Smartnode's `docker-compose` files.
+Some users require supplemental customizations to the Smart Node's `docker-compose` files.
 
 Because the `docker-compose` files are regenerated (into the `runtime` directory) from their templates (in the `templates` directory) each time `rocketpool service start` is called, modifying the runtime files is not advised.
 Instead, we leverage `docker-compose`'s [inherent override functionality](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration) to let you make any modifications you need to which will be preserved upon restarts.
-Furthermore, this system _also_ **preserves your modifications after an upgrade to or reinstallation of the Smartnode stack**.
+Furthermore, this system _also_ **preserves your modifications after an upgrade to or reinstallation of the Smart Node stack**.
 
 To do this, simply open the file for the container of your choice in the `override` folder, and add your customizations to it there.
 Anything you put in these files will **override** whatever the corresponding settings are in the `docker-compose` files from the `runtime` folder.

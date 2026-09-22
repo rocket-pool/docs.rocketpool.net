@@ -20,13 +20,13 @@ Geth veya Nethermind kullanan her düğüm operatörü sonunda onu budamak zorun
 
 [Grafana panosunu](./grafana) etkinleştirdiyseniz, iyi bir kural düğümünüzün kullanılan disk alanı %80'i aştığında Execution istemcinizi budamayı düşünmeye başlamaktır.
 
-Zamanı geldiğine karar verdiğinizde, Smartnode talep üzerine sizin için bunu budama yeteneğiyle gelir.
+Zamanı geldiğine karar verdiğinizde, Smart Node talep üzerine sizin için bunu budama yeteneğiyle gelir.
 Nasıl çalıştığını ve ne bekleyeceğinizi öğrenmek için aşağıyı okuyun.
 
 ::: warning NOT
 Execution istemcinizi budama yalnızca Docker Mode'da mümkündür.
 
-Hybrid modda veya Native modda harici bir istemci gibi kendi Execution istemcinizi kullanıyorsanız, Execution istemcisini budamak için Smartnode'u kullanamazsınız.
+Hybrid modda veya Native modda harici bir istemci gibi kendi Execution istemcinizi kullanıyorsanız, Execution istemcisini budamak için Smart Node'u kullanamazsınız.
 Bunu manuel olarak yapmanız gerekecektir.
 Nasıl budayacağınızı öğrenmek için lütfen Execution istemcinizin belgelerine başvurun.
 :::
@@ -39,10 +39,10 @@ Aşağıdaki sekmelerden kullandığınız istemciyi seçin.
   <Tabs>
     <Tab label="Geth">
       Geth'i budamak, birincil Execution istemcisini çevrimdışı almak anlamına gelir, böylece kendini temizleyebilir.
-      Bu olduğunda, Smartnode (ve Consensus istemciniz) düzgün çalışmak için ETH1 zincirine erişmek için başka bir yola ihtiyaç duyacaktır.
+      Bu olduğunda, Smart Node (ve Consensus istemciniz) düzgün çalışmak için ETH1 zincirine erişmek için başka bir yola ihtiyaç duyacaktır.
 
       Bunu sağlamanın en kolay yolu bir **fallback node** ile olur.
-      `rocketpool service config` kullanarak halihazırda [bir fallback node yapılandırdıysanız](./fallback), Geth container'ınız bakım için düştüğünde Smartnode otomatik olarak ona geçecektir.
+      `rocketpool service config` kullanarak halihazırda [bir fallback node yapılandırdıysanız](./fallback), Geth container'ınız bakım için düştüğünde Smart Node otomatik olarak ona geçecektir.
       Ayrıca Consensus istemcinize de fallback'i kullanması gerektiğini bildirecektir.
 
       <p className="rspress-directive warning">
@@ -102,7 +102,7 @@ Aşağıdaki sekmelerden kullandığınız istemciyi seçin.
       Are you sure you want to prune your main execution client? [y/n]
       ```
 
-      Kabul ederseniz, Smartnode hazırlıklarını yaparken birkaç ayrıntı göreceksiniz; bir başarı mesajıyla bitmelidir:
+      Kabul ederseniz, Smart Node hazırlıklarını yaparken birkaç ayrıntı göreceksiniz; bir başarı mesajıyla bitmelidir:
 
       ```
       Are you sure you want to prune your main ETH1 client? [y/n]
@@ -126,7 +126,7 @@ Aşağıdaki sekmelerden kullandığınız istemciyi seçin.
       rocketpool service logs eth1
       ```
 
-      Budama tamamlandığında, otomatik olarak yeniden başlayacak ve Smartnode fallback'iniz yerine tekrar onu kullanmaya devam edecektir.
+      Budama tamamlandığında, otomatik olarak yeniden başlayacak ve Smart Node fallback'iniz yerine tekrar onu kullanmaya devam edecektir.
     </Tab>
     <Tab label="Nethermind">
       Nethermind'ı budamak istediğinizde, basitçe bu komutu çalıştırın:

@@ -35,7 +35,7 @@ Beacon Chain 验证者队列激活（和退出）时间可能会因网络的当�
 
 #### 将地址列入白名单以代表质押
 
-为了代表节点质押，必须将地址列入白名单。您的提款地址始终列入白名单，如果您的 RPL 由提款地址持有，则可以跳过此步骤。您只需将地址列入白名单一次即可从中质押。您可以通过以下 Smartnode 命令执行此操作：
+为了代表节点质押，必须将地址列入白名单。您的提款地址始终列入白名单，如果您的 RPL 由提款地址持有，则可以跳过此步骤。您只需将地址列入白名单一次即可从中质押。您可以通过以下 Smart Node 命令执行此操作：
 
 ```shell
 rocketpool node add-address-to-stake-rpl-whitelist address-or-ens
@@ -89,7 +89,7 @@ RPL 获得批准后，您将能够代表节点质押。
 
 #### 从质押白名单中删除地址
 
-如果您想从代表质押白名单中删除地址，可以使用以下 Smartnode 命令执行此操作：
+如果您想从代表质押白名单中删除地址，可以使用以下 Smart Node 命令执行此操作：
 
 ```shell
 rocketpool node remove-address-from-stake-rpl-whitelist address-or-ens
@@ -140,7 +140,7 @@ It can earn max apy on up to 151.209677 RPL (15% of borrowed ETH), and still ear
 
 ## （可选）为 Minipool 查找自定义虚荣地址
 
-默认情况下，当您创建新的 minipool 时，Rocket Pool 将为其生成随机唯一地址。但是，Smartnode 提供了为 minipool 搜索自定义**虚荣地址**的能力。
+默认情况下，当您创建新的 minipool 时，Rocket Pool 将为其生成随机唯一地址。但是，Smart Node 提供了为 minipool 搜索自定义**虚荣地址**的能力。
 
 虚荣地址是您个人选择地址开头字符的地址。这纯粹是美观性练习，不会对 minipool 的运行产生任何实际影响。由于 Ethereum 地址是十六进制的，以下任何字符都是合法的：
 

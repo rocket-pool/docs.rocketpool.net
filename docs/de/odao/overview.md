@@ -30,8 +30,8 @@ Um einen Oracle DAO Node zu betreiben, benötigen Sie Folgendes:
 - Zugang zu einem **Execution Client im Archiv-Modus**, der entweder als Ihr primärer Client oder als ergänzender (Fallback-)Client fungieren kann. Er wird nur in seltenen Fällen verwendet, in denen Aufgaben erfordern, dass Ihr Node einen Execution Layer-Status abruft, der aus Ihrem Execution Client entfernt wurde. Dennoch ist es **kritisch**, dass Sie während dieser Perioden Zugang zu einem Archiv-Node haben, um sicherzustellen, dass Ihre Aufgaben erfolgreich erfüllt werden können.
   - Wir **empfehlen dringend**, dass Sie hierfür einen lokalen Archiv-Node verwenden, da Dienste wie [Infura](https://infura.io/pricing) oder [Alchemy](https://www.alchemy.com/pricing) Schwierigkeiten gezeigt haben, während kritischer Perioden wie dem Erstellen des Rewards-Trees mit der Nachfrage Schritt zu halten.
 - Zugang zu einem **REST-API-Endpunkt eines Beacon Nodes im Archiv-Modus** (über HTTP). Dies kann ein lokal betriebener Client sein, wie es bei den meisten Rocket Pool Nodes der Fall ist, oder er kann auf externe Clients verweisen, die Sie oder Ihre Organisation unabhängig verwalten.
-- Die Standard Smartnode CLI.
-- Der Smartnode Daemon ist konfiguriert und läuft im `watchtower`-Modus (dies ist im Standard-Smartnode-Bundle für alle Benutzer enthalten, führt aber nur Aufgaben für Oracle DAO Nodes aus).
+- Die Standard Smart Node CLI.
+- Der Smart Node Daemon ist konfiguriert und läuft im `watchtower`-Modus (dies ist im Standard-Smart Node-Bundle für alle Benutzer enthalten, führt aber nur Aufgaben für Oracle DAO Nodes aus).
   - Dies kann in einem Docker-Container (Standard-Setup) oder als einfacher `systemd`-Dienst ("Native"-Modus) ausgeführt werden.
 - Genügend ETH, um die Gaskosten Ihrer Aufgaben zu bezahlen (später besprochen).
 
@@ -50,6 +50,6 @@ Der kostenlose Tarif ist nicht ausreichend.
 Oracle DAO Aufgaben sind in zwei Teile aufgeteilt.
 
 1. **Automatisierte Aufgaben**: Dies sind Aufgaben im Zusammenhang mit dem routinemäßigen Rocket Pool Betrieb, wie z.B. das Übertragen von Informationen von der Consensus Layer zur Execution Layer, das Off-Chain-Berechnen verschiedener Aspekte des Protokolls und das Einreichen als Updates in die Smart Contracts. Jede davon wird automatisch vom `watchtower` Daemon-Prozess durchgeführt und erfordert keine manuelle Intervention, solange Ihre Execution und Consensus Clients sowie Ihr `watchtower` Daemon alle normal funktionieren.
-2. **Manuelle Aufgaben**: Dies sind Aufgaben, die Ihre eigene Entscheidungsfindung und Out-of-Band-Kommunikation mit dem Rest des Oracle DAO erfordern. Sie umfassen Dinge wie Abstimmungen über Vertrags-Upgrades, Änderung von Parametern und Einladen oder Entfernen von Mitgliedern zum/vom Oracle DAO. Diese können alle über die Standard Smartnode CLI durchgeführt werden.
+2. **Manuelle Aufgaben**: Dies sind Aufgaben, die Ihre eigene Entscheidungsfindung und Out-of-Band-Kommunikation mit dem Rest des Oracle DAO erfordern. Sie umfassen Dinge wie Abstimmungen über Vertrags-Upgrades, Änderung von Parametern und Einladen oder Entfernen von Mitgliedern zum/vom Oracle DAO. Diese können alle über die Standard Smart Node CLI durchgeführt werden.
 
 Lesen Sie den nächsten Abschnitt, um zu erfahren, wie Sie Ihren Oracle DAO Node einrichten.

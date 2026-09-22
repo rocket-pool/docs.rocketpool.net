@@ -15,16 +15,16 @@ Here are a few examples:
 - You want to try a new feature that a different client offers
 - A different client is better suited to your node's hardware (e.g. some clients are better on ARM systems than others)
 
-Luckily, the Smartnode stack makes changing clients extremely easy.
+Luckily, the Smart Node stack makes changing clients extremely easy.
 All it takes is a few changes in the Configuration TUI, and some optional extra commands to back up your existing client data before changing clients.
 
 ## Changing Execution Clients
 
 Prior to changing your Execution client, it's worth noting the following points:
 
-- Chain data **is not shared** between clients. Your new client will need to resync the Mainnet chain data, which can take some time (though each client supports snap sync, which the Smartnode uses to speed up resyncing).
-- By default, the Smartnode will leave your old client's chain data on your drive in case you want to revert back to your old Execution client and pick up where you left off. You may want to **export it to a different location** and delete it to free up space prior to changing clients, since Execution clients can use hundreds of gigabytes. We have steps below on how to do this.
-- While your new client is resyncing, most of the Smartnode CLI functions will be offline since they rely on the Execution client. **You should have a fallback Execution client available before doing this to mitigate the downtime on your Smartnode.**
+- Chain data **is not shared** between clients. Your new client will need to resync the Mainnet chain data, which can take some time (though each client supports snap sync, which the Smart Node uses to speed up resyncing).
+- By default, the Smart Node will leave your old client's chain data on your drive in case you want to revert back to your old Execution client and pick up where you left off. You may want to **export it to a different location** and delete it to free up space prior to changing clients, since Execution clients can use hundreds of gigabytes. We have steps below on how to do this.
+- While your new client is resyncing, most of the Smart Node CLI functions will be offline since they rely on the Execution client. **You should have a fallback Execution client available before doing this to mitigate the downtime on your Smart Node.**
 
 ### (Optional) Export your Execution Client's Database
 

@@ -24,7 +24,7 @@ Il computer deve soddisfare le [linee guida hardware](./local/hardware.md)
 
 ::: warning NOTA
 Al momento, sono supportate solo le piattaforme **Linux** e **macOS**.
-**Windows non è attualmente supportato** per il funzionamento di Smartnode.
+**Windows non è attualmente supportato** per il funzionamento di Smart Node.
 :::
 
 ## Esecuzione di un Nodo Locale

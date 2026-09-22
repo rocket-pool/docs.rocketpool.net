@@ -3,16 +3,16 @@ import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
 import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
 
-# DockerモードのSmartnode高度な設定
+# DockerモードのSmart Node高度な設定
 
-このセクションでは、Smartnodeのカスタマイズと機能を拡張するいくつかのテクニックを説明します。
+このセクションでは、Smart Nodeのカスタマイズと機能を拡張するいくつかのテクニックを説明します。
 
-## 外部バリデータークライアントをSmartnodeに接続できるようにする
+## 外部バリデータークライアントをSmart Nodeに接続できるようにする
 
-SmartnodeはExecution ClientとBeacon Nodeを管理しているため、それらの設定（アップデートを含む）の多くを自動的に処理します。
-ユーザーからよくあるリクエストの一つは、外部管理のバリデータークライアントをSmartnodeのExecution ClientおよびConsensus Clientに接続する機能です。
+Smart NodeはExecution ClientとBeacon Nodeを管理しているため、それらの設定（アップデートを含む）の多くを自動的に処理します。
+ユーザーからよくあるリクエストの一つは、外部管理のバリデータークライアントをSmart NodeのExecution ClientおよびConsensus Clientに接続する機能です。
 
-本質的に、これは一種の**「リバースハイブリッド」モード**として機能します。SmartnodeはExecution ClientとConsensus Clientを自前で管理し、外部のバリデータークライアントがそのクライアントを利用できます。
+本質的に、これは一種の**「リバースハイブリッド」モード**として機能します。Smart NodeはExecution ClientとConsensus Clientを自前で管理し、外部のバリデータークライアントがそのクライアントを利用できます。
 
 これを有効にするのは、[設定マネージャー](./config-docker#設定マネージャーによる設定)を使えば簡単です。
 
@@ -59,11 +59,11 @@ MEV-Boostへのアクセスを有効にするには、**MEV-Boost**カテゴリ�
 ## Docker-Compose定義ファイルのカスタマイズ
 
 設定マネージャーにはノードをカスタマイズするための多くのオプションが含まれていますが、`docker-compose`が提供するすべての機能を網羅しているわけではありません。
-一部のユーザーはSmartnodeの`docker-compose`ファイルに補足的なカスタマイズを必要とします。
+一部のユーザーはSmart Nodeの`docker-compose`ファイルに補足的なカスタマイズを必要とします。
 
 `docker-compose`ファイルは`rocketpool service start`が呼び出されるたびにテンプレート（`templates`ディレクトリ内）からランタイムファイル（`runtime`ディレクトリ内）に再生成されるため、ランタイムファイルを直接変更することはお勧めしません。
 代わりに、`docker-compose`の[組み込みオーバーライド機能](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration)を活用して、再起動後も保持される必要なカスタマイズを行います。
-さらに、このシステムはSmartnodeスタックのアップグレードまたは再インストール後も**変更を保持します**。
+さらに、このシステムはSmart Nodeスタックのアップグレードまたは再インストール後も**変更を保持します**。
 
 これを行うには、`override`フォルダー内の対象コンテナのファイルを開き、カスタマイズを追加するだけです。
 これらのファイルに記述した内容は、`runtime`フォルダーの`docker-compose`ファイルにある対応する設定を**オーバーライド**します。
@@ -153,6 +153,14 @@ networks:
 ::: warning 注意
 Rocket Poolのstorageアドレスがないネットワークを選択した場合、Rocket Poolのコントラクトを必要とするSmart Nodeのnode/protocolコマンドはそのネットワークでは動作しません。クライアントの同期は引き続き実行できます。
 :::
+
+## Dockerイメージのピン留め
+
+Smart Nodeは、公式のクライアントイメージおよびSmart Nodeイメージをダイジェストでピン留めするため、再タグ付けされたイメージがプルされることはありません。
+
+- デフォルト値は `~/.rocketpool/mainnet.env` に `repo:tag@sha256:…` の形式で保存されています。`rocketpool service install` は常にこのファイル（および `testnet.env` / `devnet.env`）を上書きします。
+- 特定のネットワークだけで別のイメージをピン留めするには、そのキーを対応する `{network}.env` ファイルに記述してください。省略したキーはmainnetのピン留めを継承します。
+- TUIのタグフィールドは引き続きピン留めを上書きします。デフォルトに戻すまで、どちらのenvファイルよりも優先されます。
 
 ## Node Daemon HTTP API
 

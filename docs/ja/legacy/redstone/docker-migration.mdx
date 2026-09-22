@@ -6,7 +6,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 ## v1.5.0へのアップグレード前にすべきこと
 
-Smartnodeのv1.5.0以降にアップグレードする前に、次のチェックリストを確認して準備ができていることを確認してください。
+Smart Nodeのv1.5.0以降にアップグレードする前に、次のチェックリストを確認して準備ができていることを確認してください。
 
 ### 完全なExecution Clientへの切り替え
 
@@ -20,13 +20,13 @@ DockerモードではクライアントをとてもVery easyに切り替える�
 
 ## v1.5.0へのアップグレード
 
-Smartnodeスタックをv1.5.0にアップグレードすることは、他のアップグレードと変わりません。
+Smart Nodeスタックをv1.5.0にアップグレードすることは、他のアップグレードと変わりません。
 単に[ここの通常の手順](../../node-staking/updates#smartnodeスタックの更新)に従ってください。
 
-## Smartnodeが自動的に処理すること
+## Smart Nodeが自動的に処理すること
 
-Dockerモードでは、v1.5.0にアップデートすると、RedstoneとMergeをサポートするために必要な変更のほとんどをSmartnodeが自動的に処理します。
-手動で介入することなくSmartnodeが実行することの簡単なリストを以下に示します。
+Dockerモードでは、v1.5.0にアップデートすると、RedstoneとMergeをサポートするために必要な変更のほとんどをSmart Nodeが自動的に処理します。
+手動で介入することなくSmart Nodeが実行することの簡単なリストを以下に示します。
 
 ### Engine API
 
@@ -36,14 +36,14 @@ Mergeでは、Execution ClientとConsensus Clientの通信方法が変わりま�
 これは、Consensus Clientが古いProof-of-WorkマイニングシステムをProof-of-Stakeに置き換えることを可能にする特別な接続です。これがMergeの中核です。
 また、シークレットトークンで**認証**されているため、Consensus ClientのみがExecution Clientに接続でき、他は何も接続できません。
 
-Smartnodeは、Execution ClientとConsensus Clientの両方で認証トークンとEngine APIのセットアップを自動的に処理します。
+Smart Nodeは、Execution ClientとConsensus Clientの両方で認証トークンとEngine APIのセットアップを自動的に処理します。
 
 ### Fee Recipient
 
 **fee recipient**は、提案するブロックのすべてのpriority feesを受け取るExecution Layerチェーン上のアドレスです。
 これは、Validator Clientが最初に起動するときに提供される設定です。
 
-Smartnodeは、v1.5にアップグレードしたときに正しいアドレスに設定することを処理し、[誤ってペナルティを受ける](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)ことがないように、正しいアドレスを使用していることを常に確認します。
+Smart Nodeは、v1.5にアップグレードしたときに正しいアドレスに設定することを処理し、[誤ってペナルティを受ける](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)ことがないように、正しいアドレスを使用していることを常に確認します。
 
 [Smoothing Pool](./whats-new#smoothing-pool)にオプトインした場合、それがfee recipientになります。
 オプトインしなかった場合、[fee distributorコントラクト](./whats-new#fee-recipientとdistributor)がfee recipientになります。
@@ -51,11 +51,11 @@ Smartnodeは、v1.5にアップグレードしたときに正しいアドレス�
 ### MEV-Boost
 
 [MEV-boost](https://boost.flashbots.net/)は、Merge後にProof-of-StakeバリデータにMEV報酬を提供するためにFlashbotsが提供するシステムです。
-Rocket PoolにはMEV-BoostがSmartnodeに組み込まれており、ノードが自動的にそれを使用するように設定されるため、提案で最大の報酬が得られます。
+Rocket PoolにはMEV-BoostがSmart Nodeに組み込まれており、ノードが自動的にそれを使用するように設定されるため、提案で最大の報酬が得られます。
 
 ## アップグレード後に実施すべきこと
 
-Smartnodeがほとんどの変更を処理しますが、手動で実施すべきいくつかの追加事項があります。
+Smart Nodeがほとんどの変更を処理しますが、手動で実施すべきいくつかの追加事項があります。
 
 ### アップグレードが成功したことを確認
 
@@ -70,7 +70,7 @@ Smartnodeがほとんどの変更を処理しますが、手動で実施すべ�
 
 Mergeは、InfuraやPocketなどのリモートプロバイダーと互換性がないため、プライマリがオフラインになったときにフォールバックExecution Clientとしてそれらを使用する機能を失います。
 
-Smartnodeには依然としてフォールバックExecution Client（および現在はフォールバックConsensus Clientも）を提供する機能がありますが、自分で制御するExecution ClientとConsensus Clientを使用する必要があります。
+Smart Nodeには依然としてフォールバックExecution Client（および現在はフォールバックConsensus Clientも）を提供する機能がありますが、自分で制御するExecution ClientとConsensus Clientを使用する必要があります。
 
 フォールバックノードのセットアップの詳細については、[フォールバックノードガイド](../../node-staking/fallback)をご覧ください。
 
@@ -103,7 +103,7 @@ rocketpool node join-smoothing-pool
 
 Redstoneアップグレードは、高額で問題のある古い報酬システムを、はるかに安価で、RPLの自動再ステーク（部分的および全額の両方）をサポートし、そして最も重要なことに**いつでも報酬を請求できる**[全く新しいシステム](./whats-new#新しい報酬システム)に置き換えます。
 
-報酬の請求に時間制限がなくなり、多くの報酬インターバルを一度に請求する方がコスト効率が良いため、Smartnodeの自動報酬請求機能は**削除されました**。
+報酬の請求に時間制限がなくなり、多くの報酬インターバルを一度に請求する方がコスト効率が良いため、Smart Nodeの自動報酬請求機能は**削除されました**。
 次のコマンドで報酬を請求できるようになります。
 
 ```
@@ -114,8 +114,8 @@ rocketpool node claim-rewards
 
 ## v1.4.3への復元
 
-何らかの理由で気に入らないことがあり、以前のSmartnodeリリースに復元したい場合、簡単に実施できます。
-Smartnodeはアップグレード時に以前のバージョンの設定を自動的にバックアップするため、単に以前のバージョン（ここでは**v1.4.3**を示します）を取得して、設定をバックアップに置き換えるだけです。
+何らかの理由で気に入らないことがあり、以前のSmart Nodeリリースに復元したい場合、簡単に実施できます。
+Smart Nodeはアップグレード時に以前のバージョンの設定を自動的にバックアップするため、単に以前のバージョン（ここでは**v1.4.3**を示します）を取得して、設定をバックアップに置き換えるだけです。
 
 1. サービスを停止します。
 
@@ -152,7 +152,7 @@ cp ~/.rocketpool/user-settings-backup.yml ~/.rocketpool/user-settings.yml
 rocketpool service config
 ```
 
-1. 問題がなければ、Smartnodeスタックを起動します。
+1. 問題がなければ、Smart Nodeスタックを起動します。
 
 ```shell
 rocketpool service start

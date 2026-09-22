@@ -131,9 +131,9 @@ ls /sys/class/net
 Les périphériques Ethernet (câble dur) commencent généralement par `e`, comme dans les exemples ci-dessus.
 Les périphériques sans fil commencent généralement par `w`.
 
-## Notifications d'alerte Smartnode
+## Notifications d'alerte Smart Node
 
-[Surveillance de votre pile Smartnode avec des notifications d'alerte](./maintenance/alerting.md) explique comment utiliser la fonctionnalité de notification d'alerte Smartnode pour recevoir des notifications sur la santé et les événements importants de votre Smartnode Rocket Pool.
+[Surveillance de votre pile Smart Node avec des notifications d'alerte](./maintenance/alerting.md) explique comment utiliser la fonctionnalité de notification d'alerte Smart Node pour recevoir des notifications sur la santé et les événements importants de votre Smart Node Rocket Pool.
 
 ## Surveillance des performances par des tiers
 
@@ -200,7 +200,7 @@ Le site Web Beaconcha.in a une fonctionnalité qui permet aux utilisateurs de re
 
 Pour pouvoir utiliser cette fonctionnalité, vous devez signer un message en utilisant la clé privée de votre portefeuille de nœud, afin de prouver que vous êtes la personne qui contrôle ce validateur.
 
-Le Smartnode v1.5.1 inclut la possibilité de signer des messages avec la clé privée de votre portefeuille de nœud en utilisant la commande `rocketpool node sign-message`, puis en fournissant le message que vous souhaitez signer.
+Le Smart Node v1.5.1 inclut la possibilité de signer des messages avec la clé privée de votre portefeuille de nœud en utilisant la commande `rocketpool node sign-message`, puis en fournissant le message que vous souhaitez signer.
 Il doit contenir le terme 'beaconcha.in' pour être utilisé pour renommer vos validateurs.
 
 ![](../node-staking/images/sign-message.png)
@@ -230,7 +230,7 @@ L'IP à surveiller est l'IP externe de votre nœud, que vous pouvez trouver en v
 curl icanhazip.com
 ```
 
-Le port à surveiller dépend de la configuration de votre nœud ; les utilisateurs exécutant l'installation Smartnode typique auront probablement transféré les ports 30303 et 9001 pour les clients d'exécution et de consensus respectivement, ce sont donc de bons choix pour la surveillance de la disponibilité.
+Le port à surveiller dépend de la configuration de votre nœud ; les utilisateurs exécutant l'installation Smart Node typique auront probablement transféré les ports 30303 et 9001 pour les clients d'exécution et de consensus respectivement, ce sont donc de bons choix pour la surveillance de la disponibilité.
 
 ### Tableaux de bord des métriques Rocketpool
 
@@ -239,7 +239,7 @@ Il existe plusieurs initiatives menées par la communauté pour fournir un aper�
 ### Script avec Pushover (avancé)
 
 ::: tip NOTE
-[Surveillance de votre pile Smartnode avec des notifications d'alerte](./maintenance/alerting.md) explique comment utiliser la fonctionnalité de notification d'alerte Smartnode qui inclut une notification lorsqu'il y a des mises à jour disponibles pour votre nœud.
+[Surveillance de votre pile Smart Node avec des notifications d'alerte](./maintenance/alerting.md) explique comment utiliser la fonctionnalité de notification d'alerte Smart Node qui inclut une notification lorsqu'il y a des mises à jour disponibles pour votre nœud.
 :::
 
 Le service [Pushover](https://pushover.net/) vous permet de vous envoyer des notifications push.

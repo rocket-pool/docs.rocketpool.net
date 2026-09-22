@@ -131,9 +131,9 @@ ls /sys/class/net
 Ethernet (hard-wire) devices usually start with `e`, such as the examples above.
 Wireless devices usually start with `w`.
 
-## Smartnode Alert Notifications
+## Smart Node Alert Notifications
 
-[Monitoring your Smartnode Stack with Alert Notifications](./maintenance/alerting.md) walks through using the Smartnode alert notification functionality to receive notifications about the health and important events of your Rocket Pool Smartnode.
+[Monitoring your Smart Node Stack with Alert Notifications](./maintenance/alerting.md) walks through using the Smart Node alert notification functionality to receive notifications about the health and important events of your Rocket Pool Smart Node.
 
 ## Third-Party Performance Monitoring
 
@@ -200,7 +200,7 @@ The Beaconcha.in website has a feature that allows users to rename their validat
 
 To be able to use this feature you need to sign a message using your node wallet's private key, in order to prove you're the person who controls that validator.
 
-The Smartnode v1.5.1 includes the ability to sign messages with your node wallets's private key by using the command `rocketpool node sign-message`, then providing the message that you want to sign.
+The Smart Node v1.5.1 includes the ability to sign messages with your node wallets's private key by using the command `rocketpool node sign-message`, then providing the message that you want to sign.
 It must contain the term 'beaconcha.in' to be used to rename your validators.
 
 ![](../node-staking/images/sign-message.png)
@@ -230,7 +230,7 @@ The IP to monitor is the external IP of your node, which you can find by logging
 curl icanhazip.com
 ```
 
-The port to monitor depends on your node setup; users running the typical Smartnode installation will likely have forwarded ports 30303 and 9001 for the Execution and Consensus clients respectively, so these are good choices for uptime monitoring.
+The port to monitor depends on your node setup; users running the typical Smart Node installation will likely have forwarded ports 30303 and 9001 for the Execution and Consensus clients respectively, so these are good choices for uptime monitoring.
 
 ### Rocketpool Metrics Dashboards
 
@@ -239,7 +239,7 @@ There are multiple community-lead initiatives to provide an overview of your nod
 ### Scripting with Pushover (advanced)
 
 ::: tip NOTE
-[Monitoring your Smartnode Stack with Alert Notifications](./maintenance/alerting.md) walks through using the Smartnode alert notification functionality which includes a notification when there are updates available for your node.
+[Monitoring your Smart Node Stack with Alert Notifications](./maintenance/alerting.md) walks through using the Smart Node alert notification functionality which includes a notification when there are updates available for your node.
 :::
 
 The [Pushover](https://pushover.net/) service allows you to send yourself push notifications.

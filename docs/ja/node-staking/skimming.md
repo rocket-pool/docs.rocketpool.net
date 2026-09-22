@@ -14,7 +14,7 @@ minipoolの残高にアクセスするには、最初に[Atlas delegate](./minip
 
 ## 自動分配
 
-デフォルトでは、Smartnodeは個々の残高が**1 ETH**に達したときに、minipoolのいずれかを自動的に分配するように構成されています。
+デフォルトでは、Smart Nodeは個々の残高が**1 ETH**に達したときに、minipoolのいずれかを自動的に分配するように構成されています。
 この閾値は、以下の手順に従ってTUIで構成できます。
 
 実行:
@@ -27,7 +27,7 @@ rocketpool service config
 
 ![](./images/tui-automatic-skimming.png)
 
-この設定を変更すると、Smartnodeがminipoolを自動的に分配する閾値が調整されます。
+この設定を変更すると、Smart Nodeがminipoolを自動的に分配する閾値が調整されます。
 パラメータを0に設定すると、自動分配が無効になります。
 
 ::: warning WARNING
@@ -38,7 +38,7 @@ rocketpool service config
 蓄積された報酬にアクセスするにはvalidatorを終了する必要があります。
 
 Rocket Poolには、長い待機期間の後、誰でも残高が8 ETHを超えたときにminipoolを分配できるフェイルセーフ設計が備わっています。
-資本を保護するために、Smartnodeはこの状況を監視し、発生した場合に自動的にminipoolを終了します。
+資本を保護するために、Smart Nodeはこの状況を監視し、発生した場合に自動的にminipoolを終了します。
 :::
 
 ## 手動分配

@@ -1,10 +1,10 @@
-# Мониторинг вашего стека Smartnode с помощью уведомлений о предупреждениях
+# Мониторинг вашего стека Smart Node с помощью уведомлений о предупреждениях
 
-Функциональность уведомлений о предупреждениях Smartnode позволяет вам получать уведомления о состоянии и важных событиях вашего Rocket Pool Smartnode.
+Функциональность уведомлений о предупреждениях Smart Node позволяет вам получать уведомления о состоянии и важных событиях вашего Rocket Pool Smart Node.
 
 ## Обзор системы предупреждений
 
-Функциональность уведомлений использует [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) для доставки предупреждений. Предупреждения требуют, чтобы вы уже следовали [Настройке панели Grafana](../grafana.mdx), которая описывает настройку системы отслеживания метрик стека Smartnode. Предупреждения срабатывают, когда важные метрики вашего Smartnode превышают определённые пороговые значения или когда происходят определённые события, например, когда изменяется получатель комиссии вашей ноды.
+Функциональность уведомлений использует [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) для доставки предупреждений. Предупреждения требуют, чтобы вы уже следовали [Настройке панели Grafana](../grafana.mdx), которая описывает настройку системы отслеживания метрик стека Smart Node. Предупреждения срабатывают, когда важные метрики вашего Smart Node превышают определённые пороговые значения или когда происходят определённые события, например, когда изменяется получатель комиссии вашей ноды.
 
 ## Настройка уведомлений Discord
 
@@ -58,4 +58,4 @@ TUI Rocket Pool предоставляет удобный интерфейс д�
 Этот раздел предназначен для опытных пользователей, имеющих опыт работы с Prometheus и изменением файлов YAML.
 :::
 
-Для более расширенной конфигурации предупреждений вы можете добавить свои собственные на основе любой метрики, доступной в контейнере Prometheus, управляемом стеком Smartnode. Добавьте ваш собственный yaml файл, содержащий [правила предупреждений Prometheus](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/), в каталог `~/.rocketpool/alerting/rules/` и эти правила, и перезапустите контейнер Prometheus с помощью `docker stop rocketpool_prometheus`, а затем `docker start rocketpool_prometheus`. Затем выполните `docker logs rocketpool_prometheus`, чтобы подтвердить, что Prometheus успешно загрузил ваш файл конфигурации (вы хотите увидеть строку с _msg="Completed loading of configuration file" filename=/etc/prometheus/prometheus.yml_, а не _err="error loading config from \"/etc/prometheus/prometheus.yml\"..._)
+Для более расширенной конфигурации предупреждений вы можете добавить свои собственные на основе любой метрики, доступной в контейнере Prometheus, управляемом стеком Smart Node. Добавьте ваш собственный yaml файл, содержащий [правила предупреждений Prometheus](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/), в каталог `~/.rocketpool/alerting/rules/` и эти правила, и перезапустите контейнер Prometheus с помощью `docker stop rocketpool_prometheus`, а затем `docker start rocketpool_prometheus`. Затем выполните `docker logs rocketpool_prometheus`, чтобы подтвердить, что Prometheus успешно загрузил ваш файл конфигурации (вы хотите увидеть строку с _msg="Completed loading of configuration file" filename=/etc/prometheus/prometheus.yml_, а не _err="error loading config from \"/etc/prometheus/prometheus.yml\"..._)

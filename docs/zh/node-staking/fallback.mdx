@@ -4,13 +4,13 @@ import tui_fallback_clients from "./images/tui-fallback-clients.png";
 
 # 指定备用节点
 
-从Smartnode stack的**1.5.0**版本开始,您可以提供一对"备用"Execution客户端和Consensus客户端,在您的主客户端离线时接管(例如[您使用Geth并需要裁剪它](./pruning))。
+从Smart Node stack的**1.5.0**版本开始,您可以提供一对"备用"Execution客户端和Consensus客户端,在您的主客户端离线时接管(例如[您使用Geth并需要裁剪它](./pruning))。
 在这种情况下,您的主节点机器仍然负责使用megapool的验证者密钥进行证明和提议区块,但它将连接到外部机器与Execution层和Beacon链交互。
 
 本质上,它允许您*临时*使用另一对客户端来完成查询链、发送交易和接收要证明的区块等任务。
 这对客户端可以是外部管理的(如混合模式),也可以是另一个Rocket Pool节点(另一台暴露了API端口的Docker模式机器,我们将在下面介绍)。
 
-一旦您节点的主客户端重新上线,Smartnode和您的Validator客户端将自动切换回主客户端。
+一旦您节点的主客户端重新上线,Smart Node和您的Validator客户端将自动切换回主客户端。
 
 ::: warning 注意
 备用节点**不**等同于"备份"节点。
@@ -35,14 +35,14 @@ import tui_fallback_clients from "./images/tui-fallback-clients.png";
 
 您可以使用本地拥有的第二台机器、托管在VPS上的远程节点或基于云的节点作为备用节点。
 
-此示例向您展示如何使用Docker模式在不同的机器上创建第二个Smartnode,它可以作为备用节点。
+此示例向您展示如何使用Docker模式在不同的机器上创建第二个Smart Node,它可以作为备用节点。
 
 ::: tip 提示
 如果您已经有第二个节点并且已暴露其RPC端口,请随意跳过本节。
 :::
 
 1. 按照设置节点的指南中的步骤操作([本地](./local/hardware)或[远程](./vps/providers))。
-2. 一旦机器准备就绪,[安装Smartnode stack](./docker)。
+2. 一旦机器准备就绪,[安装Smart Node stack](./docker)。
 3. 运行`rocketpool service config`来指定您想使用哪些客户端。
    1. 当您到达向导末尾并询问您是否要查看设置时,选择**是**。
    2. 进入`Execution Client`设置。
@@ -52,7 +52,7 @@ import tui_fallback_clients from "./images/tui-fallback-clients.png";
    4. 返回并进入`Consensus Client`设置。 5. 勾选`Expose API Port`框(如果您使用**Prysm**,还需勾选`Expose RPC Port`框):
 
    <img src={tui_cc_expose_ports} width="100%" height="auto" />
-   6. 保存设置并启动Smartnode。
+   6. 保存设置并启动Smart Node。
 
 4. 跳转到[保护您的节点](./securing-your-node)指南,设置SSH和适当的安全措施。
    1. 如果您安装了`ufw`,您需要添加规则以允许到API端口的入站流量(默认为`8545`、`8546`和`5052`;如果您使用**Prysm**,还需`5053`)。
@@ -74,6 +74,7 @@ import tui_fallback_clients from "./images/tui-fallback-clients.png";
 2. 勾选`Use Fallback Clients`框。
 3. 在`Execution Client URL`框中输入您Execution客户端的RPC URL。例如,如果您的备用节点IP地址是`192.168.1.45`,并且Execution客户端在默认端口`8545`上,您将在此处输入`http://192.168.1.45:8545`。
 4. 对您的备用Consensus客户端的RPC URL执行相同操作。按照相同的示例,如果它在默认端口`5052`上,您将在此处输入`http://192.168.1.45:5052`。
+5. 可选勾选 **Prefer Fallback Clients**（默认关闭）。启用后，Smart Node 会优先将 API、节点和 watchtower 请求发送到您的备用 Execution 和 Consensus 客户端，只有在备用客户端不可用时才使用主客户端。这样可以减轻主客户端上的 Smart Node 负载，使其能够专注于验证者职责。您的验证者客户端不受影响，仍会优先使用主客户端。
 
 最终页面应如下所示:
 
@@ -82,7 +83,7 @@ import tui_fallback_clients from "./images/tui-fallback-clients.png";
 ::: tip 注意
 **Native模式**用户可以按照相同的步骤操作,尽管TUI看起来会与上面的截图略有不同。
 
-请注意,这只会为**Smartnode本身**(守护进程服务)提供备用支持;**您必须手动更新Validator客户端服务的参数才能让它访问备用客户端。**
+请注意,这只会为**Smart Node本身**(守护进程服务)提供备用支持;**您必须手动更新Validator客户端服务的参数才能让它访问备用客户端。**
 :::
 
 在最后一个框上按`enter`以确保它已确认,然后保存设置并应用更改。

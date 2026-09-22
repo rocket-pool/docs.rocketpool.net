@@ -97,7 +97,7 @@ Below is a good visual depiction of how the entire MEV ecosystem functions, and 
 
 _Image courtesy of Flashbots_
 
-The Rocket Pool Smartnode comes with MEV-Boost directly bundled in by default, enabling our **Docker Mode** and **Hybrid Mode** node operators to seamlessly take advantage of it.
+The Rocket Pool Smart Node comes with MEV-Boost directly bundled in by default, enabling our **Docker Mode** and **Hybrid Mode** node operators to seamlessly take advantage of it.
 **Native Mode** users will need to set it up manually.
 
 ## Rocket Pool and MEV
@@ -129,7 +129,7 @@ This phase ended in November 2022.
 
 In phase 2, MEV-Boost is enabled by default for all node operators.
 Node operators can elect to use **one or more** of the trusted relays listed above but cannot use a custom (untrusted) relay.
-Node operators that choose to opt-out of MEV-boost must do so explicitly before starting the Smartnode.
+Node operators that choose to opt-out of MEV-boost must do so explicitly before starting the Smart Node.
 
 This is the **current phase**.
 
@@ -140,21 +140,21 @@ Node operators **must** elect to use **one or more** of the trusted relays liste
 
 There is currently **no scheduled date** for this phase.
 
-## Configuring MEV-Boost in the Smartnode
+## Configuring MEV-Boost in the Smart Node
 
 To learn how to configure MEV-Boost, please select which mode you are using below.
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker Mode">
-      Configuring MEV-Boost is easy with the Smartnode's configuration TUI.
+      Configuring MEV-Boost is easy with the Smart Node's configuration TUI.
       Start by running `rocketpool service config` and navigate to the `MEV-Boost` option:
 
       <img src={tuiMeVBoost} width="100%" height="auto"/>
 
       Check the box labeled `Enable MEV-Boost` to enable it.
 
-      Once enabled, The screen will look like this (_as of Smartnode v1.17.2_):
+      Once enabled, The screen will look like this (_as of Smart Node v1.17.2_):
 
       <img src={tuiMeVBoostMain} width="100%" height="auto"/>
 
@@ -173,23 +173,23 @@ To learn how to configure MEV-Boost, please select which mode you are using belo
 
       - The `Port` box is not important for Docker mode users.
       - The `Expose API Port` box is not important for Docker mode users.
-      - The `Container Tag` box is useful to manually upgrade the version of MEV-Boost that the Smartnode runs if Flashbots releases a new high-priority version you want to use before a Smartnode update with it is released.
+      - The `Container Tag` box is useful to manually upgrade the version of MEV-Boost that the Smart Node runs if Flashbots releases a new high-priority version you want to use before a Smart Node update with it is released.
       - The `Additional Flags` box is used if you want to add supplemental config flags or parameters directly to the MEV-Boost container. Normally, it will not be useful.
 
       Once you've enabled MEV-Boost and enabled the relays you'd like, simply save and exit.
-      The Smartnode will restart the relevant containers for you, and automatically set it all up for you.
+      The Smart Node will restart the relevant containers for you, and automatically set it all up for you.
 
       See below for instructions on how to check that it's working as expected.
     </Tab>
     <Tab label="Hybrid Mode">
-      Configuring MEV-Boost is easy with the Smartnode's configuration TUI.
+      Configuring MEV-Boost is easy with the Smart Node's configuration TUI.
       Start by running `rocketpool service config` and navigate to the `MEV-Boost` option:
 
       <img src={tuiMeVBoost} width="100%" height="auto"/>
 
       Check the box labeled `Enable MEV-Boost` to enable it.
 
-      Once enabled, The screen will look like this (_as of Smartnode v1.17.2_):
+      Once enabled, The screen will look like this (_as of Smart Node v1.17.2_):
 
       <img src={tuiMeVBoostMain} width="100%" height="auto"/>
 
@@ -215,7 +215,7 @@ To learn how to configure MEV-Boost, please select which mode you are using belo
 
       - The `Port` box determines which port MEV-Boost will listen for incoming connections from your Beacon Node on. If you need to change it because of a port conflict within your node, you can do it here.
       - The `Expose API Port` box **should be checked** so that your externally-managed BN can communicate with the MEV-Boost instance Rocket Pool will manage. Select `Open to Localhost` if your externally-managed BN is running on the same machine. Only select `Open to External hosts` if your externally-managed BN is running on a different machine *and* you've followed the proper steps to secure your node from unwanted traffic: [Securing Your Node](./securing-your-node)
-      - The `Container Tag` box is useful to manually upgrade the version of MEV-Boost that the Smartnode runs if Flashbots releases a new high-priority version you want to use before a Smartnode update with it is released.
+      - The `Container Tag` box is useful to manually upgrade the version of MEV-Boost that the Smart Node runs if Flashbots releases a new high-priority version you want to use before a Smart Node update with it is released.
       - The `Additional Flags` box is used if you want to add supplemental config flags or parameters directly to the MEV-Boost container. Normally, it will not be useful.
 
       Once you've enabled MEV-Boost and enabled the relays you'd like, simply save and exit.

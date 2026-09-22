@@ -2,7 +2,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # 启动 Rocket Pool
 
-此时,您应该已经运行了完整的 Rocket Pool 基础设施,包括 Smartnode 堆栈、执行层和共识层客户端。
+此时,您应该已经运行了完整的 Rocket Pool 基础设施,包括 Smart Node 堆栈、执行层和共识层客户端。
 您还应该已经加固了操作系统以防御外部攻击者。
 如果您完成了这两个步骤,就可以创建 Rocket Pool 节点并开始质押了。
 如果还没有,请回顾前面的部分,完成这些步骤后再返回这里。
@@ -12,7 +12,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 <div className="p-3">
   <Tabs>
     <Tab label="Docker(默认)模式">
-      现在您已安装 Smartnode,启动堆栈很简单。
+      现在您已安装 Smart Node,启动堆栈很简单。
       只需输入以下命令:
 
       ```shell
@@ -43,7 +43,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
       Creating rocketpool_watchtower ... done
       ```
 
-      如果是这样,那么 Smartnode 堆栈已成功初始化并正在运行。
+      如果是这样,那么 Smart Node 堆栈已成功初始化并正在运行。
 
       如果您需要停止服务(例如,在升级期间或因为需要进行维护),可以使用 `rocketpool service stop` 关闭所有服务。
       输出应该是这样的:
@@ -75,7 +75,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
       </p>
     </Tab>
     <Tab label="混合模式">
-      现在您已安装 Smartnode,启动堆栈很简单。
+      现在您已安装 Smart Node,启动堆栈很简单。
       只需输入以下命令:
 
       ```shell
@@ -98,7 +98,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
       Creating rocketpool_watchtower ... done
       ```
 
-      如果是这样,那么 Smartnode 堆栈已成功初始化并正在运行。
+      如果是这样,那么 Smart Node 堆栈已成功初始化并正在运行。
 
       请注意,您的外部执行层和/或共识层客户端不会在此处列出,因为 Rocket Pool 不管理它们,因此无法启动它们。
       您必须确保已使用最初创建它们的任何机制单独启动它们。
@@ -130,7 +130,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
     </Tab>
     <Tab label="原生模式">
-      在原生模式下,您已经在[配置不使用 Docker 的原生 Rocket Pool 节点](./native)部分中设置并启动了 Smartnode 服务。
+      在原生模式下,您已经在[配置不使用 Docker 的原生 Rocket Pool 节点](./native)部分中设置并启动了 Smart Node 服务。
 
       假设您将它们设置为 `systemd` 服务,可以使用 `sudo systemctl start ...` 启动它们。
       例如,如果您使用 Geth 作为执行层和 Teku 作为共识层:
@@ -173,7 +173,7 @@ MEV-Boost client: Disabled
 Commit-Boost client: Disabled
 ```
 
-第一行将告诉您 Smartnode 是配置为以太坊主网还是 Hoodi 测试网。
+第一行将告诉您 Smart Node 是配置为以太坊主网还是 Hoodi 测试网。
 
 ::: warning 注意
 **对于 Docker / 混合模式用户:**
@@ -188,7 +188,7 @@ Commit-Boost client: Disabled
 
 ## 检查服务状态和日志
 
-现在 Smartnode 服务已启动,最好检查它们是否正常运行而没有错误。
+现在 Smart Node 服务已启动,最好检查它们是否正常运行而没有错误。
 
 <div className="p-3">
   <Tabs>
@@ -283,7 +283,7 @@ Commit-Boost client: Disabled
       您可以根据外部维护的客户端忽略 `eth1` 和/或 `eth2`,但如果您让 Rocket Pool 管理其中一个,现在应该使用此命令检查其状态。
     </Tab>
     <Tab label="原生模式">
-      在原生模式下检查状态和日志的最简单方法是使用您首次设置 Smartnode 服务时创建的日志记录脚本。
+      在原生模式下检查状态和日志的最简单方法是使用您首次设置 Smart Node 服务时创建的日志记录脚本。
 
       例如,要检查 Geth 的日志,您只需运行:
 

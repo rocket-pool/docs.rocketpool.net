@@ -125,8 +125,8 @@ Um destinatário de taxa diferente de um dos endereços válidos acima é consid
 
 O software Smart Node define automaticamente o destinatário de taxa correto com base na sua configuração (se você está participando do Smoothing Pool, e se você tem validadores de megapool, minipools, ou ambos). Para nós com validadores de megapool e minipools enquanto estão fora, o destinatário de taxa é definido por validador usando a keymanager API. A lista completa de condições está resumida [aqui](/pt/node-staking/fee-distrib-sp#destinatários-de-taxas).
 
-O software Smartnode é projetado para garantir que usuários honestos nunca sejam penalizados, mesmo que precise colocar o Cliente Validador offline para fazer isso.
-Se isso acontecer, você parará de atestar e verá mensagens de erro em seus arquivos de log sobre por que o Smartnode não pode definir corretamente seu destinatário de taxa.
+O software Smart Node é projetado para garantir que usuários honestos nunca sejam penalizados, mesmo que precise colocar o Cliente Validador offline para fazer isso.
+Se isso acontecer, você parará de atestar e verá mensagens de erro em seus arquivos de log sobre por que o Smart Node não pode definir corretamente seu destinatário de taxa.
 
 ## O Smoothing Pool
 

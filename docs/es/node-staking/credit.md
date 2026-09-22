@@ -15,8 +15,8 @@ Cualquiera de estas dos acciones aumentará ese saldo en consecuencia.
 
 Este ETH _no_ se hace líquido y se devuelve al operador del nodo; en su lugar, puede ser usado para **crear minipools adicionales** sin requerir ningún ETH del operador del nodo.
 
-El sistema de crédito es **transparente** para el operador del nodo; se usará automáticamente (con notificaciones en la CLI de Smartnode explicando que se usará) durante las operaciones de `rocketpool node deposit` o `rocketpool node create-vacant-minipool` si es posible.
-Si _no_ puede ser usado, el Smartnode alertará al usuario que no puede ser usado y requerirá un bono normal de ETH durante cualquiera de las operaciones.
+El sistema de crédito es **transparente** para el operador del nodo; se usará automáticamente (con notificaciones en la CLI de Smart Node explicando que se usará) durante las operaciones de `rocketpool node deposit` o `rocketpool node create-vacant-minipool` si es posible.
+Si _no_ puede ser usado, el Smart Node alertará al usuario que no puede ser usado y requerirá un bono normal de ETH durante cualquiera de las operaciones.
 
 Consulte la sección [Disponibilidad de Crédito](#disponibilidad-de-crédito) a continuación para más detalles.
 
@@ -76,5 +76,5 @@ El ETH para su saldo de crédito se toma del **deposit pool**.
 Por lo tanto, si desea usar 8 ETH en crédito para crear un nuevo minipool de 8 ETH, terminará tomando **los 32 ETH completos para ese minipool** del deposit pool y no requerirá ninguno de usted.
 Debido a esto, si el deposit pool no tiene suficiente ETH en él para cubrir el valor de pre-depósito (actualmente establecido en 1 ETH), **el saldo no estará disponible**.
 
-En esta situación, el Smartnode le alertará durante una operación de `rocketpool node deposit` que **no puede** usar su saldo de crédito, y en su lugar debe usar ETH de su billetera de nodo para completar el bono.
+En esta situación, el Smart Node le alertará durante una operación de `rocketpool node deposit` que **no puede** usar su saldo de crédito, y en su lugar debe usar ETH de su billetera de nodo para completar el bono.
 Hacerlo **no** consumirá su saldo de crédito; se dejará tal como está y disponible para su uso más adelante una vez que el deposit pool tenga suficiente saldo para cubrirlo.

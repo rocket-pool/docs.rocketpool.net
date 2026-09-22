@@ -10,11 +10,11 @@ This section outlines the process of setting up your node to participate in on-c
 
 ## Prerequisites
 
-Before configuring your Smartnode, please make sure you:
+Before configuring your Smart Node, please make sure you:
 
 - Have set up a node machine (or virtual machine) and secured it (via the [Securing your Node](/en/node-staking/securing-your-node) guide)
-- Have the Smartnode [installed](/en/node-staking/installing/overview) and [configured](/en/node-staking/config/overview) on it
-- Have a node wallet loaded on your Smartnode
+- Have the Smart Node [installed](/en/node-staking/installing/overview) and [configured](/en/node-staking/config/overview) on it
+- Have a node wallet loaded on your Smart Node
 - Synced your Execution and Consensus clients
 - Provisioned your node with [a withdrawal address](/en/node-staking/prepare-node#setting-your-primary-withdrawal-address), set up your [fallback clients](/en/node-staking/fallback) (optional), opted into the [Smoothing Pool](/en/node-staking/fee-distrib-sp#the-smoothing-pool) (optional), and configured [MEV](/en/node-staking/mev)
 - Created at least one [minipool](/en/node-staking/create-validator)
@@ -35,7 +35,7 @@ Before configuring your Smartnode, please make sure you:
 
 [Initializing Voting Power](/en/pdao/participate#initializing-voting) shows you how to initialize your node's voting power. This step is only required if your node was registered before the Houston Upgrade.
 
-[Setting your Snapshot Signalling Address](/en/pdao/participate#setting-your-snapshot-signalling-address) will walk you through the steps for setting a Signalling Address. It'll allow you to vote on Snapshot using your node's voting power without needing to load your node's private key onto a hot wallet. Make sure you have your Smartnode CLI handy and prepare a address (that isn't your node wallet) for this guide.
+[Setting your Snapshot Signalling Address](/en/pdao/participate#setting-your-snapshot-signalling-address) will walk you through the steps for setting a Signalling Address. It'll allow you to vote on Snapshot using your node's voting power without needing to load your node's private key onto a hot wallet. Make sure you have your Smart Node CLI handy and prepare a address (that isn't your node wallet) for this guide.
 
 [Delegating Voting Power](/en/pdao/participate#delegating-voting-power) is a quick command you can use to delegate voting power instead of voting directly on proposals.
 

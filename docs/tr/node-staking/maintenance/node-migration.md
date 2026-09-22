@@ -22,7 +22,7 @@ Her Validator İstemcisi, node'unuzun asla double attestation veya double propos
 Sorun, **olmadan** doğrulama yapmaya başladığınız durumlardan gelir ve bu nedenle validator'larınızın daha önce neye oy verdiğinin kaydı yoktur.
 Bu durum birkaç durumda gerçekleşebilir:
 
-1. Consensus İstemcisini yeni değiştirdiniz ve yeni istemci Slashing Veritabanını eskisinden taşımıyor (Smartnode bir istemci değişikliği sırasında bunu yapmaz).
+1. Consensus İstemcisini yeni değiştirdiniz ve yeni istemci Slashing Veritabanını eskisinden taşımıyor (Smart Node bir istemci değişikliği sırasında bunu yapmaz).
 2. Cüzdanınız bir makinede yüklü ve aktif olarak attestation yapıyorsunuz, ardından cüzdanınızı ikinci bir makineye yüklüyorsunuz _birinci makine hala aktif olarak attestation yaparken_.
 3. Bir makinede doğrulamayı durduruyorsunuz ve cüzdanınızı ikinci bir makineye yüklüyorsunuz, ancak mevcut epoch'un finalize olması için yeterince beklemediğiniz için ikinci makineniz validator'larınızın zaten attestation yaptığı slot'lar için attestation yapıyor.
 
@@ -39,12 +39,12 @@ Finality sağlandığında, validator'ınız artık finalize edilmiş epoch içi
 Yukarıdaki bağlamı göz önünde bulundurarak, işte node'unuzu taşırken slashing'e uğramamanızı sağlamak için takip edebileceğiniz yararlı bir kontrol listesi.
 Bu, maksimum güvenlik için tasarlanmıştır, bu nedenle bazı adımların gereksiz olduğunu düşünseniz de, hepsini tamamlamanızı **şiddetle** tavsiye ederiz.
 
-1. **Yeni node'u hazırlayın** ve bu rehberleri takip edin, "Bir Node Hazırlama" bölümünden başlayıp Smartnode'u yükleyip Execution ve Consensus istemcisini senkronize etmeye kadar devam edin.
+1. **Yeni node'u hazırlayın** ve bu rehberleri takip edin, "Bir Node Hazırlama" bölümünden başlayıp Smart Node'u yükleyip Execution ve Consensus istemcisini senkronize etmeye kadar devam edin.
    - :warning: **YENİ bir cüzdan başlatMAYIN** veya eski cüzdanınızı node üzerinde kurtarMAYIN. İstemcilerin _cüzdan olmadan_ senkronize olmasına izin verin.
 
 2. Yeni node'da istemcileriniz tamamen senkronize olana kadar **BEKLEYİN**.
 3. Mnemonic'inizi doğru kaydettiğinizi yeni makinenizde `rocketpool wallet test-recovery` komutunu çalıştırarak doğrulayın. Bu, node cüzdanınızın ve tüm minipool'larınızın validator anahtarlarının doğru şekilde kurtarılabileceğini doğrulamak için anahtar kurtarmayı _simüle edecek_, ancak bunları gerçekten kurtarıp diske _kaydetmeyecek_, bu nedenle slashing riski yoktur.
-   1. Smartnode, sağladığınız mnemonic'i kullanarak node cüzdanınızı kurtaramazsa, mnemonic'iniz geçersiz olabilir. Bu süreci **DURDURUN**; eski node'unuzdaki anahtarları kaldırmak, onların **sonsuza kadar kaybolması** anlamına gelebilir.
+   1. Smart Node, sağladığınız mnemonic'i kullanarak node cüzdanınızı kurtaramazsa, mnemonic'iniz geçersiz olabilir. Bu süreci **DURDURUN**; eski node'unuzdaki anahtarları kaldırmak, onların **sonsuza kadar kaybolması** anlamına gelebilir.
    2. Bu durumda validator'larınızdan çıkmanızı ve sermayenizi mümkün olan en kısa sürede çekmenizi öneririz, böylece çalışan mnemonic'e sahip olduğunuz yeni bir node ile yeniden başlayabilirsiniz.
 4. **Eski node'unuzda doğrulamayı durdurun** (örneğin, validator istemcisini kapatmak için `rocketpool service stop` kullanarak).
 5. **Eski node'unuzdan anahtarlarınızı silin** (örneğin, `rocketpool wallet purge` kullanarak).

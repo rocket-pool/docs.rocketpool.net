@@ -15,16 +15,16 @@ Hier sind ein paar Beispiele:
 - Sie möchten eine neue Funktion ausprobieren, die ein anderer Client bietet
 - Ein anderer Client ist besser für die Hardware Ihres Nodes geeignet (z.B. einige Clients sind besser auf ARM-Systemen als andere)
 
-Glücklicherweise macht der Smartnode-Stack das Wechseln von Clients extrem einfach.
+Glücklicherweise macht der Smart Node-Stack das Wechseln von Clients extrem einfach.
 Alles, was es braucht, sind ein paar Änderungen in der Konfigurations-TUI und einige optional zusätzliche Befehle, um Ihre vorhandenen Client-Daten zu sichern, bevor Sie Clients wechseln.
 
 ## Wechsel von Execution-Clients
 
 Bevor Sie Ihren Execution-Client wechseln, ist es erwähnenswert, die folgenden Punkte zu beachten:
 
-- Chain-Daten **werden nicht** zwischen Clients geteilt. Ihr neuer Client muss die Mainnet-Chain-Daten neu synchronisieren, was einige Zeit dauern kann (obwohl jeder Client Snap Sync unterstützt, was die Smartnode verwendet, um das erneute Synchronisieren zu beschleunigen).
-- Standardmäßig lässt die Smartnode die Chain-Daten Ihres alten Clients auf Ihrer Festplatte, falls Sie zu Ihrem alten Execution-Client zurückkehren und dort weitermachen möchten, wo Sie aufgehört haben. Sie möchten sie möglicherweise **an einen anderen Ort exportieren** und löschen, um Speicherplatz freizugeben, bevor Sie Clients wechseln, da Execution-Clients Hunderte von Gigabyte verwenden können. Wir haben unten Schritte dazu, wie dies zu tun ist.
-- Während Ihr neuer Client neu synchronisiert, sind die meisten Smartnode-CLI-Funktionen offline, da sie auf den Execution-Client angewiesen sind. **Sie sollten einen Fallback-Execution-Client verfügbar haben, bevor Sie dies tun, um die Ausfallzeit Ihrer Smartnode zu mindern.**
+- Chain-Daten **werden nicht** zwischen Clients geteilt. Ihr neuer Client muss die Mainnet-Chain-Daten neu synchronisieren, was einige Zeit dauern kann (obwohl jeder Client Snap Sync unterstützt, was die Smart Node verwendet, um das erneute Synchronisieren zu beschleunigen).
+- Standardmäßig lässt die Smart Node die Chain-Daten Ihres alten Clients auf Ihrer Festplatte, falls Sie zu Ihrem alten Execution-Client zurückkehren und dort weitermachen möchten, wo Sie aufgehört haben. Sie möchten sie möglicherweise **an einen anderen Ort exportieren** und löschen, um Speicherplatz freizugeben, bevor Sie Clients wechseln, da Execution-Clients Hunderte von Gigabyte verwenden können. Wir haben unten Schritte dazu, wie dies zu tun ist.
+- Während Ihr neuer Client neu synchronisiert, sind die meisten Smart Node-CLI-Funktionen offline, da sie auf den Execution-Client angewiesen sind. **Sie sollten einen Fallback-Execution-Client verfügbar haben, bevor Sie dies tun, um die Ausfallzeit Ihrer Smart Node zu mindern.**
 
 ### (Optional) Export der Datenbank Ihres Execution-Clients
 

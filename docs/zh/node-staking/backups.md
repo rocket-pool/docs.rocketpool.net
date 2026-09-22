@@ -5,7 +5,7 @@
 对于 Hybrid 或 Native 用户，某些位置可能有所不同。
 :::
 
-一般来说，如果您通过 Smartnode 创建了节点钱包和 minipool，您唯一真正需要保存的用于从完全故障中恢复节点的东西是**节点钱包的助记词**
+一般来说，如果您通过 Smart Node 创建了节点钱包和 minipool，您唯一真正需要保存的用于从完全故障中恢复节点的东西是**节点钱包的助记词**
 其他所有内容都可以从中轻松恢复。
 
 如果您的 minipool 使用外部生成的验证者密钥（例如，您从 **Allnodes** 迁移到自己的自托管节点），您还需要验证者的私钥库文件，因为它们无法从节点钱包中恢复。
@@ -17,16 +17,16 @@
 在本指南中，我们将向您展示如何备份其中一些内容，以帮助提高节点的弹性并最大程度地减少不必要的停机时间。
 
 ::: warning 注意
-本指南假设您已将 Smartnode 安装到默认目录（`~/.rocketpool`）。
+本指南假设您已将 Smart Node 安装到默认目录（`~/.rocketpool`）。
 如果您指定了不同的安装目录，请在以下说明中相应地替换它。
 :::
 
 ## 可以备份的项目
 
-### Smartnode 配置
+### Smart Node 配置
 
-Smartnode 的配置存储在 `~/.rocketpool/user-settings.yml` 中。
-您可以保存并替换它以恢复所有 Smartnode 设置（即您在 `rocketpool service config` 中指定的内容）。
+Smart Node 的配置存储在 `~/.rocketpool/user-settings.yml` 中。
+您可以保存并替换它以恢复所有 Smart Node 设置（即您在 `rocketpool service config` 中指定的内容）。
 
 ### Execution 客户端 / ETH1 客户端链数据
 
@@ -38,7 +38,7 @@ Execution 客户端的链数据可能是最重要的备份项。
 请注意，此文件夹通常无法被非特权用户帐户访问；您需要提升到 `root` 用户才能看到它。
 
 ::: tip 注意
-如果您在初始 Smartnode 安装期间更改了 Docker 的存储位置（例如在第二块 SSD 上运行 Docker 的用户），您将在 `/<您的外部挂载点>/docker/volumes/rocketpool_eth1clientdata` 中找到该卷
+如果您在初始 Smart Node 安装期间更改了 Docker 的存储位置（例如在第二块 SSD 上运行 Docker 的用户），您将在 `/<您的外部挂载点>/docker/volumes/rocketpool_eth1clientdata` 中找到该卷
 
 如果您不记得使用了哪个安装路径，可以检查 `/etc/docker/daemon.json` 以获取其位置。
 如果该文件不存在，则使用默认位置。
@@ -69,7 +69,7 @@ Consensus 客户端可以轻松使用此技术立即重新同步到 Beacon 链�
 
 ## 备份您的 Execution 链数据
 
-Smartnode 带有通过 `rocketpool service export-eth1-data` 命令备份您的 Execution 链数据的能力。
+Smart Node 带有通过 `rocketpool service export-eth1-data` 命令备份您的 Execution 链数据的能力。
 在底层，这利用了 `rsync`，这是 Linux 中强大的备份/复制工具。
 
 `rsync` 比较源目录（您的 Docker 卷）和目标目录（您的备份位置）中的文件。

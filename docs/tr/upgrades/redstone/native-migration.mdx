@@ -6,7 +6,7 @@ Bu rehber, **Native Mod** kullanıyorsanız düğümünüzü Redstone Güncellem
 
 ## v1.5.0'a Yükseltmeden Önce Yapılacaklar
 
-Smartnode'un v1.5.0 ve üzeri sürümlerine yükseltmeden önce, hazırlıklı olduğunuzdan emin olmak için lütfen aşağıdaki kontrol listesini gözden geçirin:
+Smart Node'un v1.5.0 ve üzeri sürümlerine yükseltmeden önce, hazırlıklı olduğunuzdan emin olmak için lütfen aşağıdaki kontrol listesini gözden geçirin:
 
 ### Tam Execution Client'a Geçiş
 
@@ -28,11 +28,11 @@ Bunu nasıl yapacağınız tamamen hangi client'ları çalıştırdığınıza b
 CoinCashew, Execution ve Consensus client'larınızda Engine API'nin nasıl kurulacağına dair [harika ve özlü bir rehbere](https://www.coincashew.com/coins/overview-eth/ethereum-merge-upgrade-checklist-for-home-stakers-and-validators) sahiptir.
 Ona bir göz atın ve yükseltmeden önce yeni yapılandırmayı test edin ve hala düzgün şekilde onay verdiğinden emin olun.
 
-Validator client'ınızı Smartnode yazılımının otomatik olarak gerektirdiği doğru fee recipient'ı kullanacak şekilde nasıl kuracağınızı aşağıda göstereceğiz.
+Validator client'ınızı Smart Node yazılımının otomatik olarak gerektirdiği doğru fee recipient'ı kullanacak şekilde nasıl kuracağınızı aşağıda göstereceğiz.
 
 ## v1.5.0'a Yükseltme
 
-Smartnode stack'ini v1.5.0'a yükseltmek, diğer yükseltmelerden farklı değildir.
+Smart Node stack'ini v1.5.0'a yükseltmek, diğer yükseltmelerden farklı değildir.
 Sadece [buradaki normal talimatları](../../node-staking/updates#smartnode-yığınını-güncelleme) izleyin.
 
 ## Yükseltme Sonrası Yapmanız Gerekenler
@@ -44,7 +44,7 @@ Native modda, yükseltme sonrasında manuel olarak yapmanız gereken birkaç şe
 Yapılacak ilk şey düğümünüzün doğru çalıştığından emin olmaktır.
 Aşağıdaki adımları atmayı düşünün:
 
-- Execution client, Consensus client, Validator client ve Smartnode daemon (`rp-node` servisi) için log scriptlerinizi kontrol ederek hepsinin hatasız normal şekilde çalıştığından emin olun.
+- Execution client, Consensus client, Validator client ve Smart Node daemon (`rp-node` servisi) için log scriptlerinizi kontrol ederek hepsinin hatasız normal şekilde çalıştığından emin olun.
 - Bir Block Explorer (Grafana panonuz ve [https://beaconcha.in](https://beaconcha.in) gibi) ile hala düzgün şekilde onay verdiğinizi doğrulayın
   - Doppelganger koruması etkinse, yeniden başlatmadan sonra birkaç onayı kaçıracağınızı unutmayın. Bu normaldir!
 
@@ -56,12 +56,12 @@ Birleşme öncesinde kurulması gereken **kritik** detaylardan biri, validator c
 - Smoothing Pool'a **katıldıysanız**, bu **Smoothing Pool sözleşmesinin** adresi olmalıdır. Adresi [resmi sözleşmeler sayfasından](/tr/protocol/contracts-integrations) alabilirsiniz.
 - Smoothing Pool'da **değilseniz**, bu düğümünüzün **fee distributor sözleşmesinin** adresi olmalıdır. Adresi `rocketpool node status` komutunu çalıştırarak, `Fee Distributor and Smoothing Pool` bölümünde görebilirsiniz.
 
-Native modda, Smartnode daemon servisi `rp-node`'u kullanırsanız Smartnode'un bunu sizin için yönetmesine izin verme veya daemon'u kullanmazsanız kendiniz yönetme seçeneğiniz vardır.
+Native modda, Smart Node daemon servisi `rp-node`'u kullanırsanız Smart Node'un bunu sizin için yönetmesine izin verme veya daemon'u kullanmazsanız kendiniz yönetme seçeneğiniz vardır.
 
 #### Daemon Üzerinden Otomatik Yönetim
 
-Smartnode daemon, düğümünüz için uygun fee recipient'ı otomatik olarak belirleyecek ve değişmesi durumunda yönetecektir (Smoothing Pool'a katılma ve çıkma gibi).
-Bu **en güvenli** seçenektir, çünkü Smartnode her zaman [cezalandırmayı](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) **önleyen** bir değere ayarlandığından emin olacaktır.
+Smart Node daemon, düğümünüz için uygun fee recipient'ı otomatik olarak belirleyecek ve değişmesi durumunda yönetecektir (Smoothing Pool'a katılma ve çıkma gibi).
+Bu **en güvenli** seçenektir, çünkü Smart Node her zaman [cezalandırmayı](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) **önleyen** bir değere ayarlandığından emin olacaktır.
 
 Bunu yapma şekli, içinde doğru fee recipient'ın bulunduğu bir dosyayı sürdürmek ve doğruluğunu sağlamak için düzenli olarak yenilemektir.
 Güncellenmesi gerektiğinde, dosyayı değiştirir ve Validator client'ınızı yeni alıcıyı yüklemesi için otomatik olarak yeniden başlatır - yeni bir minipool stake ettikten sonra Validator client'ınızı yeniden başlatmasına benzer şekilde.
@@ -89,7 +89,7 @@ Nasıl kuracağınızı öğrenmek için aşağıdan client'ınızı seçin:
       --suggested-fee-recipient ${FEE_RECIPIENT}
       ```
 
-      VC'niz artık Smartnode daemon tarafından yönetilen dosyayı kullanacak ve fee recipient her değiştiğinde otomatik olarak yeniden başlatılacaktır.
+      VC'niz artık Smart Node daemon tarafından yönetilen dosyayı kullanacak ve fee recipient her değiştiğinde otomatik olarak yeniden başlatılacaktır.
     </Tab>
     <Tab label="Nimbus">
       Validator Client servisinizi, `ExecStart` satırından _önce_ aşağıdaki satırı ekleyerek değiştirin:
@@ -110,7 +110,7 @@ Nasıl kuracağınızı öğrenmek için aşağıdan client'ınızı seçin:
       --suggested-fee-recipient=${FEE_RECIPIENT}
       ```
 
-      VC'niz artık Smartnode daemon tarafından yönetilen dosyayı kullanacak ve fee recipient her değiştiğinde otomatik olarak yeniden başlatılacaktır.
+      VC'niz artık Smart Node daemon tarafından yönetilen dosyayı kullanacak ve fee recipient her değiştiğinde otomatik olarak yeniden başlatılacaktır.
     </Tab>
     <Tab label="Prysm">
       Validator Client servisinizi, `ExecStart` satırından _önce_ aşağıdaki satırı ekleyerek değiştirin:
@@ -131,7 +131,7 @@ Nasıl kuracağınızı öğrenmek için aşağıdan client'ınızı seçin:
       --suggested-fee-recipient ${FEE_RECIPIENT}
       ```
 
-      VC'niz artık Smartnode daemon tarafından yönetilen dosyayı kullanacak ve fee recipient her değiştiğinde otomatik olarak yeniden başlatılacaktır.
+      VC'niz artık Smart Node daemon tarafından yönetilen dosyayı kullanacak ve fee recipient her değiştiğinde otomatik olarak yeniden başlatılacaktır.
     </Tab>
     <Tab label="Teku">
       Validator Client servisinizi, `ExecStart` satırından _önce_ aşağıdaki satırı ekleyerek değiştirin:
@@ -152,7 +152,7 @@ Nasıl kuracağınızı öğrenmek için aşağıdan client'ınızı seçin:
       --validators-proposer-default-fee-recipient=${FEE_RECIPIENT}
       ```
 
-      VC'niz artık Smartnode daemon tarafından yönetilen dosyayı kullanacak ve fee recipient her değiştiğinde otomatik olarak yeniden başlatılacaktır.
+      VC'niz artık Smart Node daemon tarafından yönetilen dosyayı kullanacak ve fee recipient her değiştiğinde otomatik olarak yeniden başlatılacaktır.
     </Tab>
 
   </Tabs>
@@ -279,7 +279,7 @@ Bunu yapmamanız minipool'unuzun [cezalandırılması](https://github.com/rocket
 
 Birleşme, Infura ve Pocket gibi uzak sağlayıcılarla uyumlu olmadığı için, birincil düğümünüz çevrimdışı olduğunda onları fallback Execution client olarak kullanma yeteneğinizi kaybedeceksiniz.
 
-Smartnode hala fallback Execution client (ve artık fallback Consensus client) sağlama yeteneğine sahiptir, ancak artık kontrol ettiğiniz Execution ve Consensus client'larını kullanmanız gerekecektir.
+Smart Node hala fallback Execution client (ve artık fallback Consensus client) sağlama yeteneğine sahiptir, ancak artık kontrol ettiğiniz Execution ve Consensus client'larını kullanmanız gerekecektir.
 
 Fallback düğümü kurma hakkında daha fazla bilgi için [Fallback düğümü rehberine](../../node-staking/fallback) bakın.
 
@@ -312,7 +312,7 @@ rocketpool node join-smoothing-pool
 
 Redstone yükseltmesi, pahalı, sorunlu eski ödül sistemini çok daha ucuz olan, RPL'nin otomatik yeniden stake edilmesini destekleyen (hem kısmi hem de tam miktarlar) ve - en önemlisi - **ödüllerinizi istediğiniz zaman talep etmenize izin veren** [yepyeni bir sistemle](./whats-new#yeni-ödül-sistemi) değiştirir.
 
-Artık ödülleri talep etmek için zaman sınırı olmadığından ve birçok ödül aralığını bir kerede talep etmek daha ucuz olduğundan, Smartnode'un otomatik ödül talep etme özelliği **kaldırılmıştır**.
+Artık ödülleri talep etmek için zaman sınırı olmadığından ve birçok ödül aralığını bir kerede talep etmek daha ucuz olduğundan, Smart Node'un otomatik ödül talep etme özelliği **kaldırılmıştır**.
 Artık ödülleri aşağıdaki komut aracılığıyla talep edebileceksiniz:
 
 ```shell

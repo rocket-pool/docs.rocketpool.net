@@ -99,9 +99,9 @@ Kesin talimatlar her İşletim Sistemi için değişir ve sisteminizin belgeleri
   </Tabs>
 </div>
 
-## Smartnode Yığınını Güncelleme
+## Smart Node Yığınını Güncelleme
 
-Zaman zaman, Rocket Pool Smartnode yığınının yeni bir sürümünü yayınlayacaktır.
+Zaman zaman, Rocket Pool Smart Node yığınının yeni bir sürümünü yayınlayacaktır.
 Güncellemeler, CLI'nin veya Rocket Pool Docker konteynerlerinin yeni sürümlerini ve ayrıca Yürütüm ve Fikir Birliği istemcilerinin yeni sürümlerini içerebilir.
 
 Yeni sürümler hakkında bilgi almanın en tutarlı yolu Rocket Pool Discord sunucusuna abone olmaktır; her zaman Releases kanalında yayınlanacaklar ve bir bildirim alacaksınız.
@@ -112,7 +112,7 @@ Bu, aşağıdaki adımlar kullanılarak manuel olarak yapılmalıdır.
 :::
 
 ::: tip İPUCU
-Smartnode yükseltmesini tamamladığınızda, Grafana panosu hala bir güncellemenin mevcut olduğunu gösterecektir.
+Smart Node yükseltmesini tamamladığınızda, Grafana panosu hala bir güncellemenin mevcut olduğunu gösterecektir.
 Sistem bir sonraki otomatik güncelleme kontrolünü yaptığında bir gün içinde otomatik olarak temizlenecektir.
 
 Güncellemeden hemen sonra temizlemek istiyorsanız, sadece şunu çalıştırın:
@@ -164,7 +164,7 @@ Yükseltme adımları düğümünüzün hangi modu kullandığına bağlıdır. 
       Downloading the signature from https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-amd64.sig
       Signed by 651023D62E70B5DD
         Fornax <dante@rocketpool.net>
-      Updating from 1.22.1 to 1.23.0
+      Updating from 1.24.0 to 1.24.2
 
       The cli has been updated.
 
@@ -174,7 +174,7 @@ Yükseltme adımları düğümünüzün hangi modu kullandığına bağlıdır. 
       Bu noktada, Smart Node'un kalan adımlarda size rehberlik etmesi için tüm etkileşimli istemlerde `y` seçebilirsiniz.
       İşlem bitince, yükseltmenin başarılı olduğunu doğrulayan bir mesaj görürsünüz:
       ```
-      The upgrade to Smart Node 1.23.0 has been completed.
+      The upgrade to Smart Node 1.24.2 has been completed.
       Please monitor your validators for a few minutes for issues.
       ```
 
@@ -189,7 +189,7 @@ Yükseltme adımları düğümünüzün hangi modu kullandığına bağlıdır. 
       rocketpool service stop
       ```
 
-      Yeni Smartnode CLI'yi indirin:
+      Yeni Smart Node CLI'yi indirin:
 
       `x64` sistemler için (çoğu normal makine):
 
@@ -223,7 +223,7 @@ Yükseltme adımları düğümünüzün hangi modu kullandığına bağlıdır. 
       rocketpool service start
       ```
 
-      Son olarak, CLI ve Smartnode yığınının her ikisinin de güncel olduğundan emin olmak için sürümü kontrol edin:
+      Son olarak, CLI ve Smart Node yığınının her ikisinin de güncel olduğundan emin olmak için sürümü kontrol edin:
 
       ```shell
       rocketpool service version
@@ -234,8 +234,8 @@ Yükseltme adımları düğümünüzün hangi modu kullandığına bağlıdır. 
       ```
       Your Smartnode is currently using the Hoodi Test Network.
 
-      Rocket Pool client version: 1.23.0
-      Rocket Pool service version: 1.23.0
+      Rocket Pool client version: 1.24.2
+      Rocket Pool service version: 1.24.2
       Selected Eth 1.0 client: Geth (Locally managed)
       Image: ethereum/client-go:v1.10.21
       Selected Eth 2.0 client: Lighthouse (Locally managed)
@@ -247,7 +247,7 @@ Yükseltme adımları düğümünüzün hangi modu kullandığına bağlıdır. 
     <Tab label="Manuel Güncelleme - Linux (Yerel Mod)">
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOT</p>
-        Bu yalnızca Smartnode yığınının kendisini güncelleyecektir - Yürütüm veya Fikir Birliği istemcilerinizi **güncellemeyecektir**.
+        Bu yalnızca Smart Node yığınının kendisini güncelleyecektir - Yürütüm veya Fikir Birliği istemcilerinizi **güncellemeyecektir**.
         Bunu manuel olarak yapmanız gerekecektir (aşağıdaki bir sonraki bölüme bakın).
       </p>
 
@@ -257,7 +257,7 @@ Yükseltme adımları düğümünüzün hangi modu kullandığına bağlıdır. 
       sudo systemctl stop rp-node rp-watchtower
       ```
 
-      Yeni Smartnode CLI'yi indirin ve geri getirmeniz gerekebilecek eski CLI ve daemon ikili dosyalarını yedekleyin:
+      Yeni Smart Node CLI'yi indirin ve geri getirmeniz gerekebilecek eski CLI ve daemon ikili dosyalarını yedekleyin:
 
       `x64` sistemler için (çoğu normal makine):
 
@@ -299,13 +299,13 @@ Yükseltme adımları düğümünüzün hangi modu kullandığına bağlıdır. 
       sudo systemctl start rp-node rp-watchtower
       ```
 
-      Son olarak, CLI ve Smartnode yığınının her ikisinin de güncel olduğundan emin olmak için sürümü kontrol edin:
+      Son olarak, CLI ve Smart Node yığınının her ikisinin de güncel olduğundan emin olmak için sürümü kontrol edin:
 
       ```
       rocketpool service version
 
-      Rocket Pool client version: 1.23.0
-      Rocket Pool service version: 1.23.0
+      Rocket Pool client version: 1.24.2
+      Rocket Pool service version: 1.24.2
       Selected Eth 1.0 client: Geth (Locally managed)
       Selected Eth 2.0 client: Nimbus (Locally managed)
       ```
@@ -319,7 +319,7 @@ Yükseltme adımları düğümünüzün hangi modu kullandığına bağlıdır. 
       rocketpool service stop
       ```
 
-      Yeni Smartnode CLI'yi indirin:
+      Yeni Smart Node CLI'yi indirin:
 
       `x64` sistemler için (çoğu Mac):
 
@@ -353,13 +353,13 @@ Yükseltme adımları düğümünüzün hangi modu kullandığına bağlıdır. 
       rocketpool service start
       ```
 
-      Son olarak, CLI ve Smartnode yığınının her ikisinin de güncel olduğundan emin olmak için sürümü kontrol edin:
+      Son olarak, CLI ve Smart Node yığınının her ikisinin de güncel olduğundan emin olmak için sürümü kontrol edin:
 
       ```shell
       rocketpool service version
 
-      Rocket Pool client version: 1.23.0
-      Rocket Pool service version: 1.23.0
+      Rocket Pool client version: 1.24.2
+      Rocket Pool service version: 1.24.2
       Selected Eth 1.0 client: Geth (Locally managed)
       Selected Eth 2.0 client: Nimbus (Locally managed)
       ```
@@ -373,14 +373,16 @@ Yükseltme adımları düğümünüzün hangi modu kullandığına bağlıdır. 
 
 ## Yürütüm veya Fikir Birliği İstemcisini Manuel Olarak Güncelleme
 
-Smartnode yığınının her yeni sürümü, Yürütüm ve Fikir Birliği Docker konteynerlerinin en son uyumlu sürümlerine güncellenmiş referanslarla gelecektir.
-Ancak bazı durumlarda, yeni bir Smartnode yığını sürümünü beklemeden _önce_ bu istemcilerden birini yükseltmek isteyebilirsiniz.
-Bu bölüm size tam olarak bunu nasıl yapacağınızı gösterecektir.
+Her yeni Smart Node sürümü, Execution, Consensus ve Smart Node konteynerleri için sabitlenmiş Docker imaj digest'leriyle birlikte gelir (`~/.rocketpool/mainnet.env` içinde `repo:tag@sha256:…`). `rocketpool service install` bu resmi sabitleme dosyalarının üzerine yazar. Bazı durumlarda, yeni bir Smart Node sürümünü beklemeden _önce_ farklı bir istemci imajı çalıştırmak isteyebilirsiniz. Bu bölüm bunu nasıl yapacağınızı gösterir.
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker Modu">
       Docker modunda yeni istemci sürümlerine güncelleme kolaydır.
+
+      Smart Node artık istemci imajlarını ve Smart Node imajlarını digest ile sabitliyor.
+      TUI'de **Container Tag** değerini değiştirmek, bir sonraki Smart Node sürümünden önce farklı bir etiket veya digest çalıştırmanıza yine de olanak tanır.
+      `rocketpool service install` veya `rocketpool update` sonrasında `mainnet.env` içindeki resmi sabitlemeler değiştirilir; TUI'de yaptığınız geçersiz kılma, siz temizleyene kadar yine de geçerli kalır.
 
       Ayarlar Yöneticisini açarak başlayın:
 
@@ -399,7 +401,11 @@ Bu bölüm size tam olarak bunu nasıl yapacağınızı gösterecektir.
       <img src={tuiCcContainerTag} width="100%" height="auto"/>
 
       Değişikliklerinizden memnun olduğunuzda, her zamanki gibi kaydedin ve çıkın.
-      Smartnode, etkilenen tüm konteynerleri otomatik olarak yeniden başlatmayı teklif edecektir.
+      Smart Node, etkilenen tüm konteynerleri otomatik olarak yeniden başlatmayı teklif edecektir.
+
+      ::: tip NOT
+      Resmi sabitlemeler `~/.rocketpool/mainnet.env` dosyasında bulunur. Kalıcı değişiklikler için bu dosyayı düzenlemeyin; kurulum dosyanın üzerine yazar. İsteğe bağlı ağ bazlı geçersiz kılmalar `~/.rocketpool/testnet.env` veya `~/.rocketpool/devnet.env` dosyalarına yazılır (yalnızca belirlediğiniz anahtarlar mainnet sabitlemesinin yerine geçer). Ayarlar Yöneticisi'nde belirlediğiniz bir **Container Tag**, o servis için sabitlemeyi geçersiz kılar. Resmi digest'i korumak için varsayılan değerde bırakın.
+      :::
     </Tab>
     <Tab label="Yerel Mod">
       İlk olarak, neyi güncellemek istediğinize bağlı olarak Yürütüm istemcinizi, Beacon Node'unuzu ve/veya Doğrulayıcı istemci hizmetinizi kapatın.

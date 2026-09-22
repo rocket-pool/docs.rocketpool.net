@@ -35,7 +35,7 @@ USAGE:
    rocketpoolcli [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    auction, a   Manage Rocket Pool RPL auctions
@@ -92,7 +92,7 @@ USAGE:
    rocketpool service [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    install, i                 Install the Rocket Pool service
@@ -509,7 +509,7 @@ USAGE:
    rocketpool megapool [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    deposit, d                Make a deposit and create a new validator on the megapool. Optionally specify count to make multiple deposits.
@@ -781,7 +781,7 @@ Una volta che ce l'hai, chiama semplicemente qualsiasi transazione con la CLI us
 ::: warning NOTA
 **Devi** includere il flag `-i` (priority fee) per sovrascrivere una transazione precedente.
 Questo numero deve essere almeno il 10% più alto di qualsiasi priority fee utilizzata dalla tua vecchia transazione.
-Lo Smartnode usa una priority fee di 2 gwei per impostazione predefinita, quindi un valore di `2.2` è solitamente sufficiente per una sovrascrittura.
+Lo Smart Node usa una priority fee di 2 gwei per impostazione predefinita, quindi un valore di `2.2` è solitamente sufficiente per una sovrascrittura.
 
 Se la tua vecchia transazione ha utilizzato una tariffa personalizzata (diciamo, 10 gwei), dovrai impostarla almeno il 10% più alta nella transazione di sovrascrittura (quindi in questo esempio, 11 gwei).
 :::
@@ -798,7 +798,7 @@ Total cost: 0.0032 to 0.0032 ETH
 Are you sure you want to send 0.000100 eth to <node wallet address>? This action cannot be undone! [y/n]
 ```
 
-Lo stack Smartnode controllerà automaticamente per assicurarsi che il `nonce` che hai fornito sia valido (si riferisce a una transazione in sospeso) prima di inviarlo e sprecare accidentalmente il tuo gas.
+Lo stack Smart Node controllerà automaticamente per assicurarsi che il `nonce` che hai fornito sia valido (si riferisce a una transazione in sospeso) prima di inviarlo e sprecare accidentalmente il tuo gas.
 In caso contrario, restituirà un messaggio di errore.
 Altrimenti, passerà e ti fornirà i dettagli della transazione così puoi monitorarla per confermare che ha, infatti, sovrascritto la tua vecchia transazione bloccata.
 

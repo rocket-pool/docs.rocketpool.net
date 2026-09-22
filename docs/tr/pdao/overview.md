@@ -10,11 +10,11 @@ Bu bölüm, düğümünüzü on-chain ve snapshot tekliflerine katılacak şekil
 
 ## Ön Koşullar
 
-Smartnode'unuzu yapılandırmadan önce lütfen aşağıdakileri yaptığınızdan emin olun:
+Smart Node'unuzu yapılandırmadan önce lütfen aşağıdakileri yaptığınızdan emin olun:
 
 - Bir düğüm makinesi (veya sanal makine) kurduğunuzu ve güvenliğini sağladığınızı ([Düğümünüzü Güvence Altına Alma](/tr/node-staking/securing-your-node) rehberi aracılığıyla)
-- Smartnode'un üzerine [kurulduğunu](/tr/node-staking/installing/overview) ve [yapılandırıldığını](/tr/node-staking/config/overview)
-- Smartnode'unuza yüklenmiş bir düğüm cüzdanınız olduğunu
+- Smart Node'un üzerine [kurulduğunu](/tr/node-staking/installing/overview) ve [yapılandırıldığını](/tr/node-staking/config/overview)
+- Smart Node'unuza yüklenmiş bir düğüm cüzdanınız olduğunu
 - Execution ve Consensus istemcilerinizi senkronize ettiğinizi
 - Düğümünüzü [bir çekim adresi](/tr/node-staking/prepare-node#birincil-çekim-adresinizi-ayarlama) ile yapılandırdığınızı, [yedek istemcilerinizi](/tr/node-staking/fallback) kurduğunuzu (opsiyonel), [Smoothing Pool](/tr/node-staking/fee-distrib-sp#smoothing-pool)'a katıldığınızı (opsiyonel) ve [MEV](/tr/node-staking/mev)'i yapılandırdığınızı
 - En az bir [minipool](/tr/node-staking/create-validator) oluşturduğunuzu
@@ -31,11 +31,11 @@ Smartnode'unuzu yapılandırmadan önce lütfen aşağıdakileri yaptığınızd
 
 [Protokol DAO](/tr/pdao/pdao), pDAO'nun Rocket Pool'u kimin ve nasıl yönettiğini tartışır. Bu sayfa, hazine harcamaları gibi pDAO görevlerinin on-chain üzerinde nasıl yürütülebileceği ve yepyeni Güvenlik Konseyi'nin rolü hakkında sizi bilgilendirecektir. Ayrıca bir pDAO teklifinin yaşam döngüsünde size yol gösterecek ve spam'i önlemek ve kötü niyetli teklifleri engellemek için alınan bazı önlemleri açıklayacaktır.
 
-[Smartnode olmayan kullanıcılar için oylama kurulumu](/tr/legacy/houston/nonsmartnode-setup), smartnode olmayan kullanıcılara (Allnodes kullanıcıları gibi) oylamayı nasıl kuracaklarını gösterir.
+[Smart Node olmayan kullanıcılar için oylama kurulumu](/tr/legacy/houston/nonsmartnode-setup), smartnode olmayan kullanıcılara (Allnodes kullanıcıları gibi) oylamayı nasıl kuracaklarını gösterir.
 
 [Oy Gücünü Başlatma](/tr/pdao/participate#oylamayı-başlatma), düğümünüzün oy gücünü nasıl başlatacağınızı gösterir. Bu adım yalnızca düğümünüz Houston Güncellemesinden önce kaydedildiyse gereklidir.
 
-[Snapshot Signalling Address Ayarlama](/tr/pdao/participate#snapshot-signalling-address-ayarlama), bir Signalling Address ayarlama adımlarında size yol gösterecektir. Düğümünüzün özel anahtarını hot wallet'a yüklemenize gerek kalmadan düğümünüzün oy gücünü kullanarak Snapshot'ta oy kullanmanıza izin verecektir. Bu rehber için Smartnode CLI'ınızı hazır bulundurun ve (düğüm cüzdanınız olmayan) bir adres hazırlayın.
+[Snapshot Signalling Address Ayarlama](/tr/pdao/participate#snapshot-signalling-address-ayarlama), bir Signalling Address ayarlama adımlarında size yol gösterecektir. Düğümünüzün özel anahtarını hot wallet'a yüklemenize gerek kalmadan düğümünüzün oy gücünü kullanarak Snapshot'ta oy kullanmanıza izin verecektir. Bu rehber için Smart Node CLI'ınızı hazır bulundurun ve (düğüm cüzdanınız olmayan) bir adres hazırlayın.
 
 [Oy Gücünü Devretme](/tr/pdao/participate#oy-gücünü-devretme), teklifler üzerinde doğrudan oy kullanmak yerine oy gücünü devretmek için kullanabileceğiniz hızlı bir komuttur.
 

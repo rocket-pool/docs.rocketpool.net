@@ -6,7 +6,7 @@ Bu rehber, **Hibrit Mod** kullanıyorsanız düğümünüzü Redstone Güncellem
 
 ## v1.5.0'a Yükseltmeden Önce Yapılacaklar
 
-Smartnode'un v1.5.0 ve üzeri sürümlerine yükseltmeden önce, hazırlıklı olduğunuzdan emin olmak için lütfen aşağıdaki kontrol listesini gözden geçirin:
+Smart Node'un v1.5.0 ve üzeri sürümlerine yükseltmeden önce, hazırlıklı olduğunuzdan emin olmak için lütfen aşağıdaki kontrol listesini gözden geçirin:
 
 ### Tam Execution Client'a Geçiş
 
@@ -16,14 +16,14 @@ Bu değişiklik nedeniyle, şu anda hafif bir Execution client kullanıyorsanız
 
 ### EC ve CC'nin Her İkisinin de Harici Yönetildiğinden Emin Olun
 
-Smartnode stack'inin önceki sürümleri, bir client'ın yerel olarak yönetilmesine ve diğerinin harici olarak yönetilmesine izin veriyordu.
-Örneğin, Smartnode'un yönettiği bir Execution client'a sahip olabilir ve bunu harici olarak yönettiğiniz bir Consensus client'a bağlayabilirsiniz.
+Smart Node stack'inin önceki sürümleri, bir client'ın yerel olarak yönetilmesine ve diğerinin harici olarak yönetilmesine izin veriyordu.
+Örneğin, Smart Node'un yönettiği bir Execution client'a sahip olabilir ve bunu harici olarak yönettiğiniz bir Consensus client'a bağlayabilirsiniz.
 
 v1.5'ten başlayarak, bu yapılandırma artık desteklenmemektedir.
 Ya yerel olarak yönetilen bir Execution ve Consensus client'a ([Docker Modu](./docker-migration.mdx) olarak da bilinir) geçmeniz gerekecek ya da kendi başınıza yönettiğiniz hem bir Execution hem de bir Consensus client kurmanız gerekecek.
 
 ::: tip İPUCU
-Smartnode'un kendi Execution ve Consensus client'ını sürdürmesine izin vermek ancak kendi Validator client'ınız üzerinde kontrolü elinizde tutmak istiyorsanız (örneğin, ona bağlı kendi solo staking validator anahtarlarınız varsa), tam olarak bunu yapan [Ters Hibrit Modu](../../node-staking/advanced-config#harici-doğrulayıcı-i̇stemcilerinin-smartnodea-bağlanmasına-i̇zin-verme)'nu değerlendirmek isteyebilirsiniz!
+Smart Node'un kendi Execution ve Consensus client'ını sürdürmesine izin vermek ancak kendi Validator client'ınız üzerinde kontrolü elinizde tutmak istiyorsanız (örneğin, ona bağlı kendi solo staking validator anahtarlarınız varsa), tam olarak bunu yapan [Ters Hibrit Modu](../../node-staking/advanced-config#harici-doğrulayıcı-i̇stemcilerinin-smartnodea-bağlanmasına-i̇zin-verme)'nu değerlendirmek isteyebilirsiniz!
 :::
 
 ### Engine API'yi Ayarlayın
@@ -44,12 +44,12 @@ Her zaman olduğu gibi, Rocket Pool kendi Validator client'ını yönetecektir, 
 
 ## v1.5.0'a Yükseltme
 
-Smartnode stack'ini v1.5.0'a yükseltmek, diğer yükseltmelerden farklı değildir.
+Smart Node stack'ini v1.5.0'a yükseltmek, diğer yükseltmelerden farklı değildir.
 Sadece [buradaki normal talimatları](../../node-staking/updates#smartnode-yığınını-güncelleme) izleyin.
 
-## Smartnode'un Otomatik Olarak Hallettiği Şeyler
+## Smart Node'un Otomatik Olarak Hallettiği Şeyler
 
-Hibrit modda, v1.5.0'a güncelleme yaptığınızda Smartnode Redstone'u desteklemek için gereken bazı değişiklikleri otomatik olarak halledecektir, ancak Hibrit Mod'da bazılarını manuel olarak ele almanız gerekecektir.
+Hibrit modda, v1.5.0'a güncelleme yaptığınızda Smart Node Redstone'u desteklemek için gereken bazı değişiklikleri otomatik olarak halledecektir, ancak Hibrit Mod'da bazılarını manuel olarak ele almanız gerekecektir.
 
 İşte sizin için herhangi bir manuel müdahale olmadan yapacağı şeylerin kısa bir listesi:
 
@@ -58,14 +58,14 @@ Hibrit modda, v1.5.0'a güncelleme yaptığınızda Smartnode Redstone'u destekl
 **Fee recipient**, önerdiğiniz bloklar için tüm öncelik ücretlerini alacak olan Execution katmanı (eth1) zincirindeki adrestir.
 Validator client'ınız ilk başladığında ona sağlanan bir ayardır.
 
-Smartnode, v1.5'e yükseltme yaptığınızda yönettiği Validator client'ta bunu doğru adrese ayarlamayı halledecek ve yanlışlıkla [cezalandırılmamanız](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) için doğru olanı kullandığınızdan sürekli emin olacaktır.
+Smart Node, v1.5'e yükseltme yaptığınızda yönettiği Validator client'ta bunu doğru adrese ayarlamayı halledecek ve yanlışlıkla [cezalandırılmamanız](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system) için doğru olanı kullandığınızdan sürekli emin olacaktır.
 
 [Smoothing Pool'a](./whats-new#smoothing-pool) katılmayı seçtiyseniz, bu sizin fee recipient'ınız olacaktır.
 Katılmadıysanız, [fee distributor sözleşmeniz](./whats-new#fee-recipientler-ve-distributorünüz) fee recipient olacaktır.
 
 ## Yükseltme Sonrası Yapmanız Gerekenler
 
-Smartnode değişikliklerin çoğunu sizin için hallederken, manuel olarak yapmanız gereken birkaç ek şey var:
+Smart Node değişikliklerin çoğunu sizin için hallederken, manuel olarak yapmanız gereken birkaç ek şey var:
 
 ### Başarılı Bir Yükseltme Sağlayın
 
@@ -100,7 +100,7 @@ Bunu yapmamanız minipool'unuzun [cezalandırılması](https://github.com/rocket
 
 Birleşme, Infura ve Pocket gibi uzak sağlayıcılarla uyumlu olmadığı için, birincil düğümünüz çevrimdışı olduğunda onları fallback Execution client olarak kullanma yeteneğinizi kaybedeceksiniz.
 
-Smartnode hala fallback Execution client (ve artık fallback Consensus client) sağlama yeteneğine sahiptir, ancak artık kontrol ettiğiniz Execution ve Consensus client'larını kullanmanız gerekecektir.
+Smart Node hala fallback Execution client (ve artık fallback Consensus client) sağlama yeteneğine sahiptir, ancak artık kontrol ettiğiniz Execution ve Consensus client'larını kullanmanız gerekecektir.
 
 Fallback düğümü kurma hakkında daha fazla bilgi için [Fallback düğümü rehberine](../../node-staking/fallback) bakın.
 
@@ -133,7 +133,7 @@ rocketpool node join-smoothing-pool
 
 Redstone yükseltmesi, pahalı, sorunlu eski ödül sistemini çok daha ucuz olan, RPL'nin otomatik yeniden stake edilmesini destekleyen (hem kısmi hem de tam miktarlar) ve - en önemlisi - **ödüllerinizi istediğiniz zaman talep etmenize izin veren** [yepyeni bir sistemle](./whats-new#yeni-ödül-sistemi) değiştirir.
 
-Artık ödülleri talep etmek için zaman sınırı olmadığından ve birçok ödül aralığını bir kerede talep etmek daha ucuz olduğundan, Smartnode'un otomatik ödül talep etme özelliği **kaldırılmıştır**.
+Artık ödülleri talep etmek için zaman sınırı olmadığından ve birçok ödül aralığını bir kerede talep etmek daha ucuz olduğundan, Smart Node'un otomatik ödül talep etme özelliği **kaldırılmıştır**.
 Artık ödülleri aşağıdaki komut aracılığıyla talep edebileceksiniz:
 
 ```shell
@@ -144,8 +144,8 @@ Bu, Redstone yükseltmesinden başlayarak tüm ödül aralıkları boyunca birik
 
 ## v1.4.3'e Geri Dönme
 
-Herhangi bir nedenle, bir şey beğeninize uygun değilse ve önceki Smartnode sürümüne geri dönmek isterseniz, bunu kolayca yapabilirsiniz.
-Smartnode, onu yükselttiğinizde önceki sürümdeki ayarlarınızı otomatik olarak yedekler, bu nedenle sadece önceki sürümü alın (burada **v1.4.3** gösteriyoruz) ve ayarları yedeğiyle değiştirin:
+Herhangi bir nedenle, bir şey beğeninize uygun değilse ve önceki Smart Node sürümüne geri dönmek isterseniz, bunu kolayca yapabilirsiniz.
+Smart Node, onu yükselttiğinizde önceki sürümdeki ayarlarınızı otomatik olarak yedekler, bu nedenle sadece önceki sürümü alın (burada **v1.4.3** gösteriyoruz) ve ayarları yedeğiyle değiştirin:
 
 1. Servisi durdurun:
 
@@ -182,7 +182,7 @@ cp ~/.rocketpool/user-settings-backup.yml ~/.rocketpool/user-settings.yml
 rocketpool service config
 ```
 
-1. İyi görünüyorsa, Smartnode stack'ini başlatın:
+1. İyi görünüyorsa, Smart Node stack'ini başlatın:
 
 ```shell
 rocketpool service start

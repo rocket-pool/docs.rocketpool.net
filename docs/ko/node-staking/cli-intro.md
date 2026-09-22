@@ -35,7 +35,7 @@ USAGE:
    rocketpoolcli [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    auction, a   Manage Rocket Pool RPL auctions
@@ -92,7 +92,7 @@ USAGE:
    rocketpool service [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    install, i                 Install the Rocket Pool service
@@ -508,7 +508,7 @@ USAGE:
    rocketpool megapool [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    deposit, d                Make a deposit and create a new validator on the megapool. Optionally specify count to make multiple deposits.
@@ -780,7 +780,7 @@ node 지갑을 포함한 모든 Ethereum 지갑은 트랜잭션을 순차적으�
 ::: warning 참고
 이전 트랜잭션을 덮어쓰려면 `-i`(priority fee) 플래그를 **반드시** 포함해야 합니다.
 이 숫자는 이전 트랜잭션이 사용한 priority fee보다 최소 10% 높아야 합니다.
-Smartnode는 기본적으로 2 gwei의 priority fee를 사용하므로 일반적으로 재정의에는 `2.2` 값이면 충분합니다.
+Smart Node는 기본적으로 2 gwei의 priority fee를 사용하므로 일반적으로 재정의에는 `2.2` 값이면 충분합니다.
 
 이전 트랜잭션이 사용자 정의 수수료(예: 10 gwei)를 사용한 경우 재정의 트랜잭션에서 최소 10% 더 높게 설정해야 합니다(이 예에서는 11 gwei).
 :::
@@ -797,7 +797,7 @@ Total cost: 0.0032 to 0.0032 ETH
 Are you sure you want to send 0.000100 eth to <node wallet address>? This action cannot be undone! [y/n]
 ```
 
-Smartnode 스택은 제공한 `nonce`가 유효한지(보류 중인 트랜잭션을 참조하는지) 자동으로 확인한 후 전송하여 실수로 가스를 낭비하지 않도록 합니다.
+Smart Node 스택은 제공한 `nonce`가 유효한지(보류 중인 트랜잭션을 참조하는지) 자동으로 확인한 후 전송하여 실수로 가스를 낭비하지 않도록 합니다.
 그렇지 않으면 오류 메시지가 반환됩니다.
 그렇지 않으면 계속 진행되어 트랜잭션 세부 정보가 제공되므로 모니터링하여 실제로 이전의 막힌 트랜잭션을 덮어썼는지 확인할 수 있습니다.
 

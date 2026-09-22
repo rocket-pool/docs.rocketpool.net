@@ -18,8 +18,8 @@ Hier lernen Sie, wie Sie mit der Validierung des Ethereum-Netzwerks beginnen und
 Bevor Sie Minipools betreiben, stellen Sie bitte sicher, dass Sie:
 
 - Eine Node-Maschine (oder virtuelle Maschine) eingerichtet und gesichert haben (über den Leitfaden [Sichern Ihres Nodes](../securing-your-node))
-- Den Smartnode darauf [installiert](../installing/overview) und [konfiguriert](../config/overview) haben
-- Ein Node Wallet auf Ihrem Smartnode geladen haben
+- Den Smart Node darauf [installiert](../installing/overview) und [konfiguriert](../config/overview) haben
+- Ein Node Wallet auf Ihrem Smart Node geladen haben
 - Ihre Execution und Consensus Clients synchronisiert haben
 - Ihren Node mit [einer Withdrawal Address](../prepare-node.mdx#ihre-primäre-auszahlungsadresse-festlegen) ausgestattet, Ihre [Fallback Clients](../fallback) eingerichtet (optional), sich für den [Smoothing Pool](../fee-distrib-sp#der-smoothing-pool) angemeldet (optional) und [MEV](../mev.mdx) konfiguriert haben
 

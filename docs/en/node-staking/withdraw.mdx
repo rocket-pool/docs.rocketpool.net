@@ -57,7 +57,7 @@ Beaconcha.in also conveniently provides the local timestamps for when your valid
 Once it has entered the **withdrawable** state, your validator will be enqueued by the Beacon Chain for rewards distribution.
 This queue depends on how many validators are currently withdrawing.
 Once it's your turn, the Beacon Chain will _automatically_ send your balance to your minipool's address on the Execution layer.
-At this point, you can access it using the Smartnode CLI to do a distribution.
+At this point, you can access it using the Smart Node CLI to do a distribution.
 
 ### Distributing Full Rewards
 
@@ -121,7 +121,7 @@ The first point is clearly no longer relevant now that Ethereum is being upgrade
 The second point is _also_ no longer true, because the Oracle DAO is **no longer** going to flag "withdrawable" minipools.
 This was an intentional design decision to reduce the power that the Oracle DAO yields over Rocket Pool node operators and allow them to access rewards without any supplemental requirement on trusted parties.
 
-Because of these deficiencies, the Smartnode CLI **no longer supports** withdrawals or fund distribution on the original minipool delegate.
+Because of these deficiencies, the Smart Node CLI **no longer supports** withdrawals or fund distribution on the original minipool delegate.
 If you'd like to access your rewards, you **must** upgrade to the Atlas delegate which supports the new withdrawal conditions listed above.
 
 ::: danger DANGER

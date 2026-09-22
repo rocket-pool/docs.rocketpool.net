@@ -1,7 +1,7 @@
 # Rocket Pool Redstone 업데이트
 
 **Redstone**이라는 제목의 Rocket Pool의 다음 주요 업데이트가 Ropsten 및 Holesky 테스트 네트워크에서 베타 테스트를 위해 출시되었습니다.
-이 페이지에서는 Smartnode 스택 및 Rocket Pool 프로토콜 전반에 대한 업데이트를 포함하여 Redstone이 가져오는 주요 변경 사항을 설명합니다.
+이 페이지에서는 Smart Node 스택 및 Rocket Pool 프로토콜 전반에 대한 업데이트를 포함하여 Redstone이 가져오는 주요 변경 사항을 설명합니다.
 
 Rocket Pool의 이전 버전과 Redstone 간의 모든 차이점을 이해하려면 이 페이지를 철저히 읽어보십시오.
 
@@ -49,7 +49,7 @@ Beacon Chain에 잠긴 ETH와 달리 **우선 수수료에 액세스하기 위�
 
 Rocket Pool은 Beacon 체인 보상을 공정하게 분배하는 것과 같은 방식으로 이러한 보상을 공정하게 분배하도록 설계되었습니다: minipool validator가 얻은 우선 수수료의 절반은 귀하에게 (모든 minipool의 평균 커미션 포함) 전달되고 나머지 절반은 pool staker에게 (평균 커미션을 뺀) 전달됩니다.
 
-이를 위해 Smartnode는 Validator Client의 `fee recipient`를 노드의 **fee distributor**라는 특수 주소로 자동 설정합니다.
+이를 위해 Smart Node는 Validator Client의 `fee recipient`를 노드의 **fee distributor**라는 특수 주소로 자동 설정합니다.
 fee distributor는 **노드에 특정한** Execution Layer의 고유한 계약입니다.
 시간이 지남에 따라 얻은 모든 우선 수수료를 보유하며 이를 공정하게 분할하고 분배하는 데 필요한 로직을 포함합니다.
 이 분배 프로세스는 귀하 (노드 운영자)가 제어하며 원하는 때 수행할 수 있습니다.
@@ -57,11 +57,11 @@ fee distributor는 **노드에 특정한** Execution Layer의 고유한 계약�
 
 노드의 fee distributor 주소는 **노드 주소를 기반으로 결정론적으로 결정됩니다**.
 즉, fee distributor가 생성되기 전에 미리 알려져 있습니다.
-**Smartnode는 이 주소를 fee recipient로 사용합니다.**
+**Smart Node는 이 주소를 fee recipient로 사용합니다.**
 
 ::: tip 참고
-기본적으로 fee recipient는 Smartnode v1.5.0을 설치할 때 **rETH 주소**로 설정됩니다 (Redstone 계약 업데이트가 아직 배포되지 않은 경우).
-Smartnode는 Redstone 업데이트가 배포되면 이를 노드의 fee distributor 주소로 자동 업데이트합니다.
+기본적으로 fee recipient는 Smart Node v1.5.0을 설치할 때 **rETH 주소**로 설정됩니다 (Redstone 계약 업데이트가 아직 배포되지 않은 경우).
+Smart Node는 Redstone 업데이트가 배포되면 이를 노드의 fee distributor 주소로 자동 업데이트합니다.
 
 이 규칙의 한 가지 예외는 **Smoothing Pool**에 참여한 경우입니다 - 자세한 내용은 이 페이지의 끝 부분에 있는 섹션을 참조하십시오.
 :::
@@ -230,8 +230,8 @@ Oracle DAO는 Rocket Pool 노드 운영자가 생성한 각 블록을 지속적�
 
 위반은 **노드** 수준이 아닌 **minipool** 수준입니다.
 
-Smartnode 소프트웨어는 정직한 사용자가 페널티를 받지 않도록 설계되었습니다. 그렇게 하기 위해 Validator Client를 오프라인으로 전환해야 하는 경우에도 마찬가지입니다.
-이런 일이 발생하면 증명을 중지하고 Smartnode가 fee recipient를 올바르게 설정할 수 없는 이유에 대한 오류 메시지가 로그 파일에 표시됩니다.
+Smart Node 소프트웨어는 정직한 사용자가 페널티를 받지 않도록 설계되었습니다. 그렇게 하기 위해 Validator Client를 오프라인으로 전환해야 하는 경우에도 마찬가지입니다.
+이런 일이 발생하면 증명을 중지하고 Smart Node가 fee recipient를 올바르게 설정할 수 없는 이유에 대한 오류 메시지가 로그 파일에 표시됩니다.
 
 ## 업그레이드 전후 가이드
 

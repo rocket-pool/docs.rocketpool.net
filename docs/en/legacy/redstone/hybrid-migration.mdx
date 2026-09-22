@@ -6,7 +6,7 @@ This guide will cover everything you need to know in order to prepare your node 
 
 ## Things to Do Before Upgrading to v1.5.0
 
-Before upgrading to v1.5.0 and higher of the Smartnode, please go through the following checklist to make sure you're prepared:
+Before upgrading to v1.5.0 and higher of the Smart Node, please go through the following checklist to make sure you're prepared:
 
 ### Switch to a Full Execution Client
 
@@ -16,14 +16,14 @@ Because of this change, if you're currently using a light Execution client, you 
 
 ### Ensure the EC and CC are Both Externally Managed
 
-Previous versions of the Smartnode stack allowed you to have one client locally managed, and the other externally managed.
-For example, you could have an Execution client that the Smartnode manages and connect it to a Consensus client that you manage externally.
+Previous versions of the Smart Node stack allowed you to have one client locally managed, and the other externally managed.
+For example, you could have an Execution client that the Smart Node manages and connect it to a Consensus client that you manage externally.
 
 Starting with v1.5, this configuration is no longer supported.
 You'll have to switch to either a locally managed Execution and Consensus client (also known as [Docker Mode](./docker-migration.mdx)), or set up both an Execution and a Consensus client that you manage on your own.
 
 ::: tip TIP
-If you are interested in letting the Smartnode maintain its own Execution and Consensus client but want to keep control over your own Validator client (e.g., if you have your own solo staking validator keys attached to it), you may want to consider [Reverse Hybrid Mode](../../node-staking/advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode) which does exactly this!
+If you are interested in letting the Smart Node maintain its own Execution and Consensus client but want to keep control over your own Validator client (e.g., if you have your own solo staking validator keys attached to it), you may want to consider [Reverse Hybrid Mode](../../node-staking/advanced-config#allowing-external-validator-clients-to-connect-to-the-smartnode) which does exactly this!
 :::
 
 ### Set Up the Engine API
@@ -44,12 +44,12 @@ As always, Rocket Pool will manage its own Validator client so you don't need to
 
 ## Upgrading to v1.5.0
 
-Upgrading the Smartnode stack to v1.5.0 is no different than any other upgrade.
+Upgrading the Smart Node stack to v1.5.0 is no different than any other upgrade.
 Simply follow [the normal directions here](../../node-staking/updates#updating-the-smartnode-stack).
 
-## Things the Smartnode Handles Automatically
+## Things the Smart Node Handles Automatically
 
-In Hybrid mode, the Smartnode will take care of some of the changes needed to support Redstone automatically once you update to v1.5.0, but you will need to handle others manually in Hybrid Mode.
+In Hybrid mode, the Smart Node will take care of some of the changes needed to support Redstone automatically once you update to v1.5.0, but you will need to handle others manually in Hybrid Mode.
 
 Here's a brief list of what it will do for you without any manual intervention:
 
@@ -58,14 +58,14 @@ Here's a brief list of what it will do for you without any manual intervention:
 The **fee recipient** is the address on the Execution layer (eth1) chain that will receive all of the priority fees for blocks you propose.
 It is a setting provided to your Validator client when it first starts.
 
-The Smartnode will handle setting it up to the correct address on the Validator client it manages when you upgrade to v1.5, and will constantly check to make sure you're using the correct one so you don't get [penalized accidentally](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
+The Smart Node will handle setting it up to the correct address on the Validator client it manages when you upgrade to v1.5, and will constantly check to make sure you're using the correct one so you don't get [penalized accidentally](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
 
 If you opted into the [Smoothing Pool](./whats-new#smoothing-pool), it will make that your fee recipient.
 If you didn't, it will make your [fee distributor contract](./whats-new#fee-recipients-and-your-distributor) the fee recipient.
 
 ## Things You Should Do After Upgrading
 
-While the Smartnode handles most of the changes for you, there are a few additional things you should do manually:
+While the Smart Node handles most of the changes for you, there are a few additional things you should do manually:
 
 ### Ensure a Successful Upgrade
 
@@ -100,7 +100,7 @@ Not doing so will result in your minipool being [penalized](https://github.com/r
 
 Because The Merge is not compatible with remote providers like Infura and Pocket, you'll lose the ability to use them as fallback Execution clients when your primary goes offline.
 
-The Smartnode still has the ability to provide a fallback Execution client (and now a fallback Consensus client as well), but you will now need to use Execution and Consensus clients that you control.
+The Smart Node still has the ability to provide a fallback Execution client (and now a fallback Consensus client as well), but you will now need to use Execution and Consensus clients that you control.
 
 For more information on setting up a fallback node, see the [Fallback node guide](../../node-staking/fallback).
 
@@ -133,7 +133,7 @@ rocketpool node join-smoothing-pool
 
 The Redstone upgrade replaces the expensive, problematic old rewards system with a [brand new one](./whats-new#new-rewards-system) that's much cheaper, supports automatic restaking of RPL (both partial and full amounts), and - most importantly - **lets you claim your rewards whenever you want**.
 
-Because there is no longer a time limit on claiming rewards, and because it's cheaper to claim many rewards intervals at once, the automatic rewards claiming feature of the Smartnode **has been removed**.
+Because there is no longer a time limit on claiming rewards, and because it's cheaper to claim many rewards intervals at once, the automatic rewards claiming feature of the Smart Node **has been removed**.
 You will now be able to claim rewards via the following command:
 
 ```shell
@@ -144,8 +144,8 @@ This will show you all of the rewards you've accumulated across all of the rewar
 
 ## Reverting to v1.4.3
 
-If, for any reason, something isn't to your liking and you want to revert to the previous Smartnode release, you can do so easily.
-The Smartnode automatically backs up your settings from the previous version when you upgrade it, so simply get the previous version (here we're demonstrating **v1.4.3**) and replace the settings with the backup:
+If, for any reason, something isn't to your liking and you want to revert to the previous Smart Node release, you can do so easily.
+The Smart Node automatically backs up your settings from the previous version when you upgrade it, so simply get the previous version (here we're demonstrating **v1.4.3**) and replace the settings with the backup:
 
 1. Stop the service:
 
@@ -182,7 +182,7 @@ cp ~/.rocketpool/user-settings-backup.yml ~/.rocketpool/user-settings.yml
 rocketpool service config
 ```
 
-1. If it looks good, start the Smartnode stack:
+1. If it looks good, start the Smart Node stack:
 
 ```shell
 rocketpool service start

@@ -14,7 +14,7 @@ Actuellement, les checkpoints se produisent **tous les 28 jours**.
 Lors d'un nouveau checkpoint, l'Oracle DAO créera collectivement un **véritable instantané** de l'état des Node Operators du réseau Rocket Pool, qu'il utilisera pour déterminer les récompenses RPL et ETH du Smoothing Pool pour chaque nœud pendant cet intervalle. Notez que la "commission bonus" pour les minipools Saturn 0 est distribuée via les récompenses du Smoothing Pool (les minipools Saturn 0 sont ceux créés après le 28/10/2024, qui ont une commission de contrat de 5%).
 
 Ces informations sont compilées dans un [Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree) - un moyen extrêmement efficace de rendre tous les détails disponibles aux smart contracts.
-Le Merkle Tree est construit dans un fichier JSON et hébergé sur [un dépôt GitHub que nous maintenons](https://github.com/rocket-pool/rewards-trees/). Le Smartnode peut également charger les **événements** d'intervalle de récompenses depuis ce dépôt GitHub, ce qui vous permet de réclamer même après qu'une expiration agressive de l'historique a supprimé les anciens journaux de la couche d'exécution.
+Le Merkle Tree est construit dans un fichier JSON et hébergé sur [un dépôt GitHub que nous maintenons](https://github.com/rocket-pool/rewards-trees/). Le Smart Node peut également charger les **événements** d'intervalle de récompenses depuis ce dépôt GitHub, ce qui vous permet de réclamer même après qu'une expiration agressive de l'historique a supprimé les anciens journaux de la couche d'exécution.
 
 Une fois l'arbre soumis, les smart contracts Rocket Pool créeront de nouveaux jetons RPL et les déplaceront, avec le solde ETH complet du Smoothing Pool, dans le coffre-fort Rocket Pool pour un stockage sécurisé.
 Vous pouvez ensuite voir combien de récompenses RPL et ETH vous avez gagnées pendant cet intervalle et réclamer ces récompenses.
@@ -84,10 +84,10 @@ Si vous souhaitez générer l'arbre vous-même au lieu de télécharger celui pr
 - Changez le `Rewards Tree Mode` de `Download` à `Generate`.
 - Si votre client Execution principal n'est pas un nœud d'archive, vous pouvez ajouter une URL pour un nœud d'archive séparé dans la boîte `Archive-Mode EC URL`.
   - Ceci est nécessaire pour générer les arbres de récompenses historiques.
-  - L'Archive EC ne sera utilisé que pour la génération d'arbres ; il ne sera utilisé pour aucune autre tâche du Smartnode.
+  - L'Archive EC ne sera utilisé que pour la génération d'arbres ; il ne sera utilisé pour aucune autre tâche du Smart Node.
   - [Infura](https://infura.io/product/ethereum) et [Alchemy](https://www.alchemy.com/supernode) offrent un accès aux nœuds d'archive. **Notez que les niveaux gratuits ne sont généralement pas suffisants pour gérer la génération d'arbres, vous aurez donc besoin d'un des niveaux payants.**
 
-Maintenant, votre Smartnode construira l'arbre complètement indépendamment de l'Oracle DAO, en utilisant uniquement les données fournies par vos clients Execution et Consensus.
+Maintenant, votre Smart Node construira l'arbre complètement indépendamment de l'Oracle DAO, en utilisant uniquement les données fournies par vos clients Execution et Consensus.
 Vous pouvez le surveiller lors d'un checkpoint d'intervalle de récompenses avec `rocketpool service logs watchtower`.
 
 Si vous souhaitez reconstruire les arbres passés des intervalles précédents, vous pouvez le faire avec la commande suivante :

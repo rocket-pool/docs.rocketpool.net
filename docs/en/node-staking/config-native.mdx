@@ -17,9 +17,9 @@ import tui_native_settings_home from "./images/tui-native-settings-home.png";
 import tui_native_smartnode from "./images/tui-native-smartnode.png";
 import tui_textbox from "./images/tui-textbox.png";
 
-# Configuring the Smartnode Stack (Native Mode)
+# Configuring the Smart Node Stack (Native Mode)
 
-In this section, we'll go over the various methods for configuring the Smartnode if you're using the **Native setup** that doesn't use Docker at all.
+In this section, we'll go over the various methods for configuring the Smart Node if you're using the **Native setup** that doesn't use Docker at all.
 
 ::: warning NOTE
 If you're using a Docker-based setup, please visit the [Docker configuration guide](./config-docker) instead.
@@ -28,14 +28,14 @@ If you're using a Docker-based setup, please visit the [Docker configuration gui
 There are three ways to configure it:
 
 - Via the [Wizard UI](#configuring-via-the-wizard) - this is the easiest way. It only asks you a few basic question and uses well-tested defaults for the test. This will be what you are presented with when you run `rocketpool service config` for the first time.
-- Via the [Settings Manager UI](#configuring-via-the-settings-manager) - this gives you access to all of the Smartnode's settings so you can customize everything as much as you want.
-- Headlessly via the [Command Line](#configuring-via-the-command-line) - this is an option for people who run the Smartnode in a headless (non-interactive) environment and need to configure it automatically.
+- Via the [Settings Manager UI](#configuring-via-the-settings-manager) - this gives you access to all of the Smart Node's settings so you can customize everything as much as you want.
+- Headlessly via the [Command Line](#configuring-via-the-command-line) - this is an option for people who run the Smart Node in a headless (non-interactive) environment and need to configure it automatically.
 
 Choose which mode you'd like to learn more about from the list above, or simply scroll through each option below.
 
 ## Configuring via the Wizard
 
-To configure the Smartnode, run the configuration command:
+To configure the Smart Node, run the configuration command:
 
 ```shell
 rp service config
@@ -44,7 +44,7 @@ rp service config
 This will launch a terminal-based UI that will allow you to quickly and easily configure your node, as well as provide optional fine-grained control over the settings that are relevant to Native mode.
 
 ::: tip NOTE
-If you've already configured the Smartnode, you will instead be greeted with the [Settings Manager](#configuring-via-the-settings-manager).
+If you've already configured the Smart Node, you will instead be greeted with the [Settings Manager](#configuring-via-the-settings-manager).
 You can choose to re-open the Wizard from there if you prefer it, and all of your existing settings will be pre-selected for you.
 :::
 
@@ -99,7 +99,7 @@ The next screen will prompt you for the URL of your Execution client's HTTP-base
 
 <img src={tui_native_ec} width="100%" height="auto" />
 
-Enter `http://127.0.0.1:8545` here if you plan to run an Execution client on the same machine as the Smartnode (in the rest of this guide, we will assume this is what you plan to do).
+Enter `http://127.0.0.1:8545` here if you plan to run an Execution client on the same machine as the Smart Node (in the rest of this guide, we will assume this is what you plan to do).
 However, if you already have an Execution client set up elsewhere, use its URL here instead.
 
 Note that you can always change this by running `rp service config` again later.
@@ -107,7 +107,7 @@ Note that you can always change this by running `rp service config` again later.
 ### Consensus Client Setup
 
 Next, you'll be asked which Consensus client you are using (or plan to use).
-Because each Consensus client has slightly different behavior, the Smartnode needs to know which one you're using so it can adapt its own behavior accordingly.
+Because each Consensus client has slightly different behavior, the Smart Node needs to know which one you're using so it can adapt its own behavior accordingly.
 Choose your client from the list in the following screen:
 
 <img src={tui_native_cc} width="100%" height="auto" />
@@ -116,7 +116,7 @@ Next, you will see a screen prompting you for your client's API URL:
 
 <img src={tui_native_cc_url} width="100%" height="auto" />
 
-Enter `http://127.0.0.1:5052` here if you plan to run the Beacon Node of your Consensus client on the same machine as the Smartnode (in the rest of this guide, we will assume this is what you plan to do).
+Enter `http://127.0.0.1:5052` here if you plan to run the Beacon Node of your Consensus client on the same machine as the Smart Node (in the rest of this guide, we will assume this is what you plan to do).
 However, if you already have a Beacon Node set up elsewhere, use its URL here instead.
 
 ### Other Settings
@@ -125,11 +125,11 @@ The next screen will have a few other miscellaneous settings:
 
 <img src={tui_native_other} width="100%" height="auto" />
 
-Leave these as the default options unless you have decided to use a directory other than `/srv/rocketpool` for your Smartnode installation.
+Leave these as the default options unless you have decided to use a directory other than `/srv/rocketpool` for your Smart Node installation.
 
 ### Fallback Clients
 
-Starting with 1.5.0 of the Smartnode stack, you can provide a "fallback" Execution client and Consensus client pair that can take over for your primary clients if they ever go offline (such as because you use Geth and need to prune it).
+Starting with 1.5.0 of the Smart Node stack, you can provide a "fallback" Execution client and Consensus client pair that can take over for your primary clients if they ever go offline (such as because you use Geth and need to prune it).
 In this situation, your primary node machine will still be responsible for attesting and proposing blocks with your minipools' validator keys, but it will connect to an external machine to interact with the Execution layer and Beacon chains.
 
 [To learn more about fall back nodes, see this section](./fallback) and return here when you're done.
@@ -156,7 +156,7 @@ It's purely there for you to use so you can monitor your own node!
 
 Since the Merge of the Execution and Consensus layers in September 2022, Ethereum validators now have the ability to earn priority fees and participate in Maximal Extractable Value (or MEV for short).
 
-Starting with Smartnode v1.7.0, MEV is now _opt-out_ so a notification about configuring it is presented as part of the initial setup, as you see in the next screen:
+Starting with Smart Node v1.7.0, MEV is now _opt-out_ so a notification about configuring it is presented as part of the initial setup, as you see in the next screen:
 
 <img src={tui_native_mev} width="100%" height="auto" />
 
@@ -165,12 +165,12 @@ Return here when you're finished.
 
 ### Completion
 
-After this question, you've finished setting up the Smartnode configuration.
+After this question, you've finished setting up the Smart Node configuration.
 You will see the following dialog:
 
 <img src={tui_native_finished} width="100%" height="auto" />
 
-If you're happy with your setup and are ready to start the Smartnode, click `Save and Exit` here.
+If you're happy with your setup and are ready to start the Smart Node, click `Save and Exit` here.
 
 If you haven't finished installing Rocket Pool yet, return to the Native setup guide now.
 Otherwise, the next step is to restart your daemon services with:
@@ -189,7 +189,7 @@ If you've already run `rp service config`, instead of being greeted by the Wizar
 
 There are three main features of this screen:
 
-1. The **Category List**, which lets you drill down into the settings for each category of the Smartnode stack that is relevant to Native mode
+1. The **Category List**, which lets you drill down into the settings for each category of the Smart Node stack that is relevant to Native mode
 2. The **Review Changes and Save** button, which you can use when you're ready to see what settings you've changed and save the updated configuration
 3. The **Open the Config Wizard** button, which will bring you to the [Setup Wizard](#configuring-via-the-wizard) if you prefer that interface instead
 
@@ -210,7 +210,7 @@ Feel free to explore them; nothing you do will be saved until you go through the
 ### Configuring the Settings
 
 From the home screen, select any one of the categories with the `Enter` key to view the settings for that category.
-For example, here is the screen for the **Smartnode and TX Fees** category:
+For example, here is the screen for the **Smart Node and TX Fees** category:
 
 <img src={tui_native_smartnode} width="100%" height="auto" />
 
@@ -305,7 +305,7 @@ sudo systemctl restart rp-node rp-watchtower
 
 ## Configuring via the Command Line
 
-If you use the Smartnode in a headless environment where you can't interact with the Terminal UI, you can configure your node via the command line instead.
+If you use the Smart Node in a headless environment where you can't interact with the Terminal UI, you can configure your node via the command line instead.
 
 The `rocketpool service config` command accepts, as arguments, every setting that can normally be configured via the Terminal UI.
 Run the following command to see a list of them (note that it's quite long):

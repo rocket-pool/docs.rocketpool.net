@@ -3,16 +3,16 @@ import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
 import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
 
-# Configuración Avanzada del Smartnode para el Modo Docker
+# Configuración Avanzada del Smart Node para el Modo Docker
 
-En esta sección, cubriremos algunas técnicas que amplían la personalización y funcionalidad del Smartnode.
+En esta sección, cubriremos algunas técnicas que amplían la personalización y funcionalidad del Smart Node.
 
-## Permitir que Clientes Validadores Externos se Conecten al Smartnode
+## Permitir que Clientes Validadores Externos se Conecten al Smart Node
 
-Dado que el Smartnode gestiona el cliente de Ejecución y el Nodo Beacon, maneja gran parte de su configuración (incluidas las actualizaciones) automáticamente.
-Una solicitud común de los usuarios es la capacidad de conectar un cliente Validador gestionado externamente a los clientes de Ejecución y Consenso del Smartnode.
+Dado que el Smart Node gestiona el cliente de Ejecución y el Nodo Beacon, maneja gran parte de su configuración (incluidas las actualizaciones) automáticamente.
+Una solicitud común de los usuarios es la capacidad de conectar un cliente Validador gestionado externamente a los clientes de Ejecución y Consenso del Smart Node.
 
-Esencialmente, esto actúa como una especie de **modo "Híbrido Inverso"**; en lugar de que el Smartnode gestione su propio cliente Validador y se conecte a un cliente de Ejecución y Consenso externo, gestiona las tres cosas y un cliente Validador externo puede usar sus propios clientes en su lugar.
+Esencialmente, esto actúa como una especie de **modo "Híbrido Inverso"**; en lugar de que el Smart Node gestione su propio cliente Validador y se conecte a un cliente de Ejecución y Consenso externo, gestiona las tres cosas y un cliente Validador externo puede usar sus propios clientes en su lugar.
 
 Habilitarlo es trivial usando el [Gestor de Configuración](./config-docker#configuración-a-través-del-administrador-de-configuración).
 
@@ -59,11 +59,11 @@ Por ejemplo, si la dirección IP local de tu nodo fuera `192.168.1.45`, al habil
 ## Personalizar los Archivos de Definición de Docker-Compose
 
 Si bien el Gestor de Configuración contiene muchas opciones para personalizar tu nodo, no incluye todas las funciones que proporciona `docker-compose`.
-Algunos usuarios requieren personalizaciones adicionales a los archivos `docker-compose` del Smartnode.
+Algunos usuarios requieren personalizaciones adicionales a los archivos `docker-compose` del Smart Node.
 
 Dado que los archivos `docker-compose` se regeneran (en el directorio `runtime`) desde sus plantillas (en el directorio `templates`) cada vez que se llama a `rocketpool service start`, no se recomienda modificar los archivos de runtime.
 En su lugar, aprovechamos la [funcionalidad de override inherente de `docker-compose`](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration) para que puedas realizar las modificaciones que necesites y que se conservarán al reiniciar.
-Además, este sistema _también_ **conserva tus modificaciones tras una actualización o reinstalación del stack del Smartnode**.
+Además, este sistema _también_ **conserva tus modificaciones tras una actualización o reinstalación del stack del Smart Node**.
 
 Para hacerlo, simplemente abre el archivo del contenedor de tu elección en la carpeta `override` y agrega tus personalizaciones ahí.
 Todo lo que pongas en estos archivos **sobreescribirá** la configuración correspondiente en los archivos `docker-compose` de la carpeta `runtime`.
@@ -154,6 +154,14 @@ networks:
 ::: warning NOTA
 Si eliges una red sin dirección de storage de Rocket Pool, los comandos de nodo/protocolo de Smart Node que necesitan los contratos de Rocket Pool no funcionarán en esa red. La sincronización de los clientes sí puede continuar.
 :::
+
+## Anclaje de imágenes Docker
+
+El Smart Node ancla por digest las imágenes oficiales de los clientes y del propio Smart Node, de modo que no se pueda descargar una imagen reetiquetada.
+
+- Los valores por defecto están en `~/.rocketpool/mainnet.env` con el formato `repo:tag@sha256:…`. `rocketpool service install` siempre sobrescribe este archivo (y también `testnet.env` / `devnet.env`).
+- Para anclar una imagen diferente en una sola red, pon esa clave en el archivo `{network}.env` correspondiente. Las claves que omitas heredan el anclaje de mainnet.
+- Los campos de tag de la TUI siguen teniendo prioridad sobre los anclajes. Prevalecen sobre ambos archivos env hasta que restaures el valor por defecto.
 
 ## API HTTP del Node Daemon
 

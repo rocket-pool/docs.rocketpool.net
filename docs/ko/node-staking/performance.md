@@ -131,9 +131,9 @@ ls /sys/class/net
 이더넷(유선) 장치는 일반적으로 위의 예와 같이 `e`로 시작합니다.
 무선 장치는 일반적으로 `w`로 시작합니다.
 
-## Smartnode 알림 알림
+## Smart Node 알림 알림
 
-[알림 알림으로 Smartnode 스택 모니터링](./maintenance/alerting.md)은 Rocket Pool Smartnode의 건강과 중요한 이벤트에 대한 알림을 받기 위해 Smartnode 알림 알림 기능을 사용하는 방법을 안내합니다.
+[알림 알림으로 Smart Node 스택 모니터링](./maintenance/alerting.md)은 Rocket Pool Smart Node의 건강과 중요한 이벤트에 대한 알림을 받기 위해 Smart Node 알림 알림 기능을 사용하는 방법을 안내합니다.
 
 ## 타사 성능 모니터링
 
@@ -200,7 +200,7 @@ Beaconcha.in 웹사이트에는 사용자가 validator의 이름을 바꿀 수 �
 
 이 기능을 사용하려면 노드 지갑의 개인 키를 사용하여 메시지에 서명해야 해당 validator를 제어하는 사람임을 증명할 수 있습니다.
 
-Smartnode v1.5.1에는 `rocketpool node sign-message` 명령을 사용한 다음 서명하려는 메시지를 제공하여 노드 지갑의 개인 키로 메시지에 서명하는 기능이 포함되어 있습니다.
+Smart Node v1.5.1에는 `rocketpool node sign-message` 명령을 사용한 다음 서명하려는 메시지를 제공하여 노드 지갑의 개인 키로 메시지에 서명하는 기능이 포함되어 있습니다.
 validator의 이름을 바꾸는 데 사용하려면 'beaconcha.in'이라는 용어가 포함되어야 합니다.
 
 ![](../node-staking/images/sign-message.png)
@@ -230,7 +230,7 @@ sign-message 명령의 결과를 복사하여 "Signature" 필드에 붙여넣으
 curl icanhazip.com
 ```
 
-모니터링할 포트는 노드 설정에 따라 다릅니다. 일반적인 Smartnode 설치를 실행하는 사용자는 Execution 및 Consensus 클라이언트에 대해 각각 포트 30303 및 9001을 전달했을 가능성이 높으므로 가동 시간 모니터링에 좋은 선택입니다.
+모니터링할 포트는 노드 설정에 따라 다릅니다. 일반적인 Smart Node 설치를 실행하는 사용자는 Execution 및 Consensus 클라이언트에 대해 각각 포트 30303 및 9001을 전달했을 가능성이 높으므로 가동 시간 모니터링에 좋은 선택입니다.
 
 ### Rocketpool Metrics 대시보드
 
@@ -239,7 +239,7 @@ Rocket Pool 네트워크 전체뿐만 아니라 노드 성능 개요를 제공�
 ### Pushover로 스크립팅(고급)
 
 ::: tip 참고
-[알림 알림으로 Smartnode 스택 모니터링](./maintenance/alerting.md)은 노드에 사용 가능한 업데이트가 있을 때 알림을 포함하는 Smartnode 알림 알림 기능을 사용하는 방법을 안내합니다.
+[알림 알림으로 Smart Node 스택 모니터링](./maintenance/alerting.md)은 노드에 사용 가능한 업데이트가 있을 때 알림을 포함하는 Smart Node 알림 알림 기능을 사용하는 방법을 안내합니다.
 :::
 
 [Pushover](https://pushover.net/) 서비스를 사용하면 푸시 알림을 보낼 수 있습니다.

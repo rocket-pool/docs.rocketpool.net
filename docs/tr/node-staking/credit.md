@@ -15,8 +15,8 @@ Bu iki işlemden herhangi biri bu bakiyeyi buna göre artıracaktır.
 
 Bu ETH likit hale _getirilmez_ ve node operatörüne iade edilmez; bunun yerine, node operatöründen herhangi bir ETH gerektirmeden **ek minipool'lar oluşturmak** için kullanılabilir.
 
-Kredi sistemi node operatörü için **şeffaftır**; mümkünse `rocketpool node deposit` veya `rocketpool node create-vacant-minipool` işlemleri sırasında otomatik olarak kullanılacaktır (Smartnode CLI'da kullanılacağını açıklayan bildirimlerle).
-Eğer kullanıla*mazsa*, Smartnode kullanıcıya kullanılamayacağını bildirecek ve her iki işlem için de normal bir ETH bağı gerektirecektir.
+Kredi sistemi node operatörü için **şeffaftır**; mümkünse `rocketpool node deposit` veya `rocketpool node create-vacant-minipool` işlemleri sırasında otomatik olarak kullanılacaktır (Smart Node CLI'da kullanılacağını açıklayan bildirimlerle).
+Eğer kullanıla*mazsa*, Smart Node kullanıcıya kullanılamayacağını bildirecek ve her iki işlem için de normal bir ETH bağı gerektirecektir.
 
 Daha fazla ayrıntı için aşağıdaki [Kredi Kullanılabilirliği](#kredi-kullanılabilirliği) bölümüne bakın.
 
@@ -76,5 +76,5 @@ Kredi bakiyeniz için ETH, **deposit pool**'dan alınır.
 Bu nedenle, yeni bir 8-ETH minipool oluşturmak için kredide 8 ETH kullanmak istiyorsanız, bu minipool için **tüm 32 ETH**'yi deposit pool'dan alacak ve sizden hiçbiri gerekmeyecektir.
 Bu nedenle, deposit pool'da ön depozito değerini karşılamak için yeterli ETH yoksa (şu anda 1 ETH olarak ayarlanmıştır), **bakiye kullanılabilir olmayacaktır**.
 
-Bu durumda, Smartnode bir `rocketpool node deposit` işlemi sırasında kredi bakiyenizi **kullanamayacağını** ve bunun yerine bağı tamamlamak için node cüzdanınızdan ETH kullanması gerektiğini size bildirecektir.
+Bu durumda, Smart Node bir `rocketpool node deposit` işlemi sırasında kredi bakiyenizi **kullanamayacağını** ve bunun yerine bağı tamamlamak için node cüzdanınızdan ETH kullanması gerektiğini size bildirecektir.
 Bunu yapmak kredi bakiyenizi **tüketmeyecektir**; olduğu gibi bırakılacak ve deposit pool'da onu karşılayacak yeterli bakiye olduğunda daha sonra kullanılabilir olacaktır.

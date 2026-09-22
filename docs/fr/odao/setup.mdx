@@ -5,10 +5,10 @@ import tuiOdao from "./images/tui-odao.png";
 
 Au strict minimum, un nœud Rocket Pool standard exécute les éléments suivants :
 
-- La CLI Smartnode
-- Le démon API Smartnode
-- Le démon `node` Smartnode
-- Le démon `watchtower` Smartnode
+- La CLI Smart Node
+- Le démon API Smart Node
+- Le démon `node` Smart Node
+- Le démon `watchtower` Smart Node
 
 En option, le nœud peut également exécuter les composants suivants :
 
@@ -20,7 +20,7 @@ En option, le nœud peut également exécuter les composants suivants :
 - Le Prometheus Node Exporter
 - Grafana
 
-Chacun de ces composants peut être exécuté en tant que conteneurs Docker dans la configuration standard, en tant que services `systemd` dans la configuration "Native Mode", ou exécuté en tant qu'entités gérées en externe auxquelles le Smartnode peut se connecter via leurs routes API respectives.
+Chacun de ces composants peut être exécuté en tant que conteneurs Docker dans la configuration standard, en tant que services `systemd` dans la configuration "Native Mode", ou exécuté en tant qu'entités gérées en externe auxquelles le Smart Node peut se connecter via leurs routes API respectives.
 
 Heureusement, les nœuds Oracle DAO sont les mêmes que les nœuds Rocket Pool normaux, mais le démon `watchtower` effectue les tâches supplémentaires de l'Oracle DAO et il y a plus de métriques Prometheus collectées à des fins de surveillance des performances.
 
@@ -32,7 +32,7 @@ Ce processus vous aidera à déterminer comment vous souhaitez configurer et ex�
 Si vous souhaitez exécuter des minipools (validateurs) sur votre nœud, veuillez suivre la documentation normale du nœud du début à la fin et revenir ici lorsque vous avez terminé.
 
 Si vous n'avez _pas_ l'intention d'exécuter des minipools et que vous l'utiliserez plutôt uniquement pour les tâches de l'Oracle DAO, vous pouvez ignorer toutes les étapes relatives au staking de RPL et à la création de minipool.
-Les autres étapes telles que l'enregistrement du nœud, l'établissement d'une bonne posture de sécurité, la surveillance de la santé et des performances du nœud, et la mise à jour du Smartnode après une mise à jour s'appliquent toujours à vous et vous devriez les examiner attentivement avant de continuer.
+Les autres étapes telles que l'enregistrement du nœud, l'établissement d'une bonne posture de sécurité, la surveillance de la santé et des performances du nœud, et la mise à jour du Smart Node après une mise à jour s'appliquent toujours à vous et vous devriez les examiner attentivement avant de continuer.
 Revenez ici lorsque vous aurez terminé.
 
 ## Configuration supplémentaire de l'Oracle DAO
@@ -67,7 +67,7 @@ Veuillez sélectionner le mode que vous utilisez pour configurer votre nœud ci-
       Enfin, redémarrez votre démon `watchtower` (c'est-à-dire avec `docker restart rocketpool_watchtower` en mode Docker ou Hybrid, ou `sudo systemctl restart rp_watchtower` en mode Native) pour que les paramètres prennent effet.
     </Tab>
     <Tab label="Fichier de configuration direct">
-      Ouvrez le fichier `user-settings.yml` dans votre répertoire Smartnode (`~/.rocketpool` par défaut) dans un éditeur de texte.
+      Ouvrez le fichier `user-settings.yml` dans votre répertoire Smart Node (`~/.rocketpool` par défaut) dans un éditeur de texte.
       Faites défiler jusqu'à la section `smartnode` :
 
       ```
@@ -93,9 +93,9 @@ Veuillez sélectionner le mode que vous utilisez pour configurer votre nœud ci-
   </Tabs>
 </div>
 
-## Commandes Smartnode de l'Oracle DAO
+## Commandes Smart Node de l'Oracle DAO
 
-Le groupe de commandes `odao` de la CLI Smartnode est utilisé pour interagir avec les contrats et les tâches de l'Oracle DAO on-chain :
+Le groupe de commandes `odao` de la CLI Smart Node est utilisé pour interagir avec les contrats et les tâches de l'Oracle DAO on-chain :
 
 ```
 NAME:

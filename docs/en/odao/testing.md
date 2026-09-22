@@ -88,7 +88,7 @@ Note that the **Execution Client URL** is different here: it _must be_ an Archiv
 
 ::: warning NOTE
 Depending on your client configuration, building this tree can take _hours_.
-The Smartnode will give you status indicators about its progress along the way, as you can see in the example below.
+The Smart Node will give you status indicators about its progress along the way, as you can see in the example below.
 :::
 
 The output will look like this (truncated for previty):
@@ -144,7 +144,7 @@ Your Merkle tree's root of 0x278fd75797e2a9eddc128c0199b448877e30d1196c12306bdc9
 If you receive this, then your watchtower can build the tree correctly.
 
 ::: danger NOTE
-While this proves you can build the tree, you _must_ ensure your Web3.Storage API token has been entered into the Smartnode's configuration so it can upload the resulting tree to IPFS.
+While this proves you can build the tree, you _must_ ensure your Web3.Storage API token has been entered into the Smart Node's configuration so it can upload the resulting tree to IPFS.
 :::
 
 ### Next Steps

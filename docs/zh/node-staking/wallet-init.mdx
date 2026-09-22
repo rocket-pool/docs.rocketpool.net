@@ -2,7 +2,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # 创建新钱包
 
-如果Smartnode服务已启动并运行,下一步是为您的节点设置Ethereum钱包。
+如果Smart Node服务已启动并运行,下一步是为您的节点设置Ethereum钱包。
 这只是一个执行层地址,用于持有您节点的资金 - 当您开始质押时,它将使用这个地址向您的 megapool 验证者发送 ETH,在各种交易中支付gas费用,以及执行其他各种操作。
 
 您可以选择从头创建一个全新的钱包,或导入/恢复现有的钱包或地址。
@@ -12,13 +12,19 @@ import { Tab, Tabs } from "@rspress/core/theme";
   <Tabs>
     <Tab label="创建新钱包">
       运行节点最常见的方式是创建一个专门用于节点的新Ethereum地址。
-      Smartnode CLI提供了一种简单的方法来实现这一点:
+      Smart Node CLI提供了一种简单的方法来实现这一点:
 
       ```shell
       rocketpool wallet init
       ```
 
-      首先,系统会提示您输入密码以保护钱包的私钥。
+      默认情况下，Smart Node 会生成一个随机密码来加密您钱包的私钥（保存在下面提到的密码文件中）。
+      如果您想改用自己的密码，请传入 `-p` / `--password`。
+
+      ::: tip 注意
+      您不需要知道或记住此密码。**24 个单词的节点助记词**足以完全恢复您的钱包。
+      :::
+
       接下来,您将看到钱包的**唯一24个单词的助记词**。
       这是您钱包的**恢复短语**。
       如果您丢失了机器,可以使用此短语重新生成钱包并恢复与之关联的所有共识层验证者。
@@ -37,7 +43,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
         Node account: LongStringOfLettersAndNumbers"
       这是您将在"准备节点运行"中发送ETH的公共地址。您也可以通过输入"rocketpool       wallet status"来验证它。
 
-      如果您已经有在之前安装的Smartnode中创建的节点钱包,或者如果您想导入在其他地方创建的地址(例如使用**Allnodes**),请按照[为您的节点导入现有钱包](./recovering-rp)指南中的说明操作。
+      如果您已经有在之前安装的Smart Node中创建的节点钱包,或者如果您想导入在其他地方创建的地址(例如使用**Allnodes**),请按照[为您的节点导入现有钱包](./recovering-rp)指南中的说明操作。
 
       完成后返回这里。
     </Tab>

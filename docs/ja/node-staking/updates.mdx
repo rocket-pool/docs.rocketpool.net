@@ -99,9 +99,9 @@ import tuiCcContainerTag from "./images/tui-cc-container-tag.png";
   </Tabs>
 </div>
 
-## Smartnodeスタックの更新
+## Smart Nodeスタックの更新
 
-時折、Rocket PoolはSmartnodeスタックの新しいバージョンをリリースします。
+時折、Rocket PoolはSmart Nodeスタックの新しいバージョンをリリースします。
 更新には、CLIやRocket Pool Dockerコンテナの新しいバージョン、およびExecution ClientとConsensus Clientの新しいバージョンが含まれることがあります。
 
 新しいリリースについて知る最も一貫した方法は、Rocket Pool Discordサーバーを購読することです。新しいリリースは常にReleasesチャンネルに投稿され、通知を受け取ります。
@@ -112,7 +112,7 @@ import tuiCcContainerTag from "./images/tui-cc-container-tag.png";
 :::
 
 ::: tip ヒント
-Smartnodeのアップグレードが完了した後も、Grafanaダッシュボードには引き続きアップデートが利用可能であることが表示されます。
+Smart Nodeのアップグレードが完了した後も、Grafanaダッシュボードには引き続きアップデートが利用可能であることが表示されます。
 システムが次に自動的にアップデートを確認すると、1日以内に自動的にクリアされます。
 
 アップデート後すぐにクリアしたい場合は、次を実行してください。
@@ -164,7 +164,7 @@ uname -m
       Downloading the signature from https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-amd64.sig
       Signed by 651023D62E70B5DD
         Fornax <dante@rocketpool.net>
-      Updating from 1.22.1 to 1.23.0
+      Updating from 1.24.0 to 1.24.2
 
       The cli has been updated.
 
@@ -174,7 +174,7 @@ uname -m
       この時点で、すべての対話式プロンプトで`y`を選択すると、Smart Nodeが残りの手順を案内します。
       完了すると、アップグレードが成功したことを確認するメッセージが表示されます:
       ```
-      The upgrade to Smart Node 1.23.0 has been completed.
+      The upgrade to Smart Node 1.24.2 has been completed.
       Please monitor your validators for a few minutes for issues.
       ```
 
@@ -189,7 +189,7 @@ uname -m
       rocketpool service stop
       ```
 
-      新しいSmartnode CLIをダウンロードします。
+      新しいSmart Node CLIをダウンロードします。
 
       `x64`システムの場合（ほとんどの通常のマシン）。
 
@@ -223,7 +223,7 @@ uname -m
       rocketpool service start
       ```
 
-      最後に、バージョンを確認して、CLIとSmartnodeスタックの両方が最新であることを確認します。
+      最後に、バージョンを確認して、CLIとSmart Nodeスタックの両方が最新であることを確認します。
 
       ```shell
       rocketpool service version
@@ -234,8 +234,8 @@ uname -m
       ```
       Your Smartnode is currently using the Hoodi Test Network.
 
-      Rocket Pool client version: 1.23.0
-      Rocket Pool service version: 1.23.0
+      Rocket Pool client version: 1.24.2
+      Rocket Pool service version: 1.24.2
       Selected Eth 1.0 client: Geth (Locally managed)
       Image: ethereum/client-go:v1.10.21
       Selected Eth 2.0 client: Lighthouse (Locally managed)
@@ -247,7 +247,7 @@ uname -m
     <Tab label="手動更新 - Linux (Native Mode)">
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">注意</p>
-        これはSmartnodeスタック自体のみを更新します - Execution ClientまたはConsensus Clientは**更新されません**。
+        これはSmart Nodeスタック自体のみを更新します - Execution ClientまたはConsensus Clientは**更新されません**。
         これは手動で行う必要があります（以下の次のセクションを参照してください）。
       </p>
 
@@ -257,7 +257,7 @@ uname -m
       sudo systemctl stop rp-node rp-watchtower
       ```
 
-      新しいSmartnode CLIをダウンロードし、必要に応じて復元できるように古いCLIとデーモンバイナリをバックアップします。
+      新しいSmart Node CLIをダウンロードし、必要に応じて復元できるように古いCLIとデーモンバイナリをバックアップします。
 
       `x64`システムの場合（ほとんどの通常のマシン）。
 
@@ -299,13 +299,13 @@ uname -m
       sudo systemctl start rp-node rp-watchtower
       ```
 
-      最後に、バージョンを確認して、CLIとSmartnodeスタックの両方が最新であることを確認します。
+      最後に、バージョンを確認して、CLIとSmart Nodeスタックの両方が最新であることを確認します。
 
       ```
       rocketpool service version
 
-      Rocket Pool client version: 1.23.0
-      Rocket Pool service version: 1.23.0
+      Rocket Pool client version: 1.24.2
+      Rocket Pool service version: 1.24.2
       Selected Eth 1.0 client: Geth (Locally managed)
       Selected Eth 2.0 client: Nimbus (Locally managed)
       ```
@@ -319,7 +319,7 @@ uname -m
       rocketpool service stop
       ```
 
-      新しいSmartnode CLIをダウンロードします。
+      新しいSmart Node CLIをダウンロードします。
 
       `x64`システムの場合（ほとんどのMac）。
 
@@ -353,13 +353,13 @@ uname -m
       rocketpool service start
       ```
 
-      最後に、バージョンを確認して、CLIとSmartnodeスタックの両方が最新であることを確認します。
+      最後に、バージョンを確認して、CLIとSmart Nodeスタックの両方が最新であることを確認します。
 
       ```shell
       rocketpool service version
 
-      Rocket Pool client version: 1.23.0
-      Rocket Pool service version: 1.23.0
+      Rocket Pool client version: 1.24.2
+      Rocket Pool service version: 1.24.2
       Selected Eth 1.0 client: Geth (Locally managed)
       Selected Eth 2.0 client: Nimbus (Locally managed)
       ```
@@ -373,14 +373,16 @@ uname -m
 
 ## Execution ClientまたはConsensus Clientの手動更新
 
-Smartnodeスタックの各新しいリリースには、Execution ClientとConsensus ClientのDockerコンテナの最新の互換性のあるバージョンへの更新された参照が含まれます。
-ただし、場合によっては、新しいSmartnodeスタックのリリースを待つ*前に*、それらのクライアントのいずれかをアップグレードしたい場合があります。
-このセクションでは、その方法を説明します。
+Smart Nodeの各新リリースには、Execution、Consensus、Smart Nodeの各コンテナ用にピン留めされたDockerイメージのダイジェストが同梱されます（`~/.rocketpool/mainnet.env` 内の `repo:tag@sha256:…`）。`rocketpool service install` はこれらの公式ピン留めファイルを上書きします。場合によっては、新しいSmart Nodeのリリースを待つ*前に*別のクライアントイメージを実行したいことがあります。このセクションではその方法を説明します。
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker Mode">
       Dockerモードでは、新しいクライアントバージョンへの更新は簡単です。
+
+      Smart Nodeは現在、クライアントイメージとSmart Nodeイメージをダイジェストでピン留めしています。
+      TUIで **Container Tag** を変更すれば、次のSmart Nodeリリースを待つ前に別のタグやダイジェストを実行できます。
+      `rocketpool service install` または `rocketpool update` を実行すると、`mainnet.env` 内の公式ピン留めは置き換えられます。TUIでの上書きは、解除するまで引き続き優先されます。
 
       まず、設定マネージャーを開きます。
 
@@ -399,7 +401,11 @@ Smartnodeスタックの各新しいリリースには、Execution ClientとCons
       <img src={tuiCcContainerTag} width="100%" height="auto"/>
 
       変更に満足したら、通常どおり保存して終了します。
-      Smartnodeは影響を受けるすべてのコンテナを自動的に再起動することを提案します。
+      Smart Nodeは影響を受けるすべてのコンテナを自動的に再起動することを提案します。
+
+      ::: tip 注意
+      公式のピン留めは `~/.rocketpool/mainnet.env` にあります。永続的な変更のためにこのファイルを編集しないでください。インストール時に上書きされます。ネットワークごとの任意の上書きは `~/.rocketpool/testnet.env` または `~/.rocketpool/devnet.env` に記述します（設定したキーのみがmainnetのピン留めを置き換えます）。設定マネージャーで設定した **Container Tag** は、そのサービスのピン留めを上書きします。公式のダイジェストを使い続けるには、デフォルトのままにしてください。
+      :::
     </Tab>
     <Tab label="Native Mode">
       まず、更新したいものに応じて、Execution Client、Beacon Node、および/またはValidator Clientサービスをシャットダウンします。

@@ -6,7 +6,7 @@ next:
 
 # Resumen
 
-Esta sección cubre los detalles de cómo aprovisionar tu nodo para hacer staking con Rocket Pool una vez que hayas instalado y configurado el Smartnode.
+Esta sección cubre los detalles de cómo aprovisionar tu nodo para hacer staking con Rocket Pool una vez que hayas instalado y configurado el Smart Node.
 Es larga porque hay mucha información sobre staking que cubrir, ¡así que **por favor lee cada guía antes de crear tu primer validador megapool!**
 
 ## Prerrequisitos
@@ -14,13 +14,13 @@ Es larga porque hay mucha información sobre staking que cubrir, ¡así que **po
 Antes de aprovisionar tu nodo para hacer staking, asegúrate de haber hecho lo siguiente:
 
 - Configurar una máquina de nodo (o máquina virtual) y asegurarla (a través de la guía [Securing your Node](../securing-your-node))
-- Tener el Smartnode [instalado](../installing/overview) y [configurado](../config/overview) en ella
+- Tener el Smart Node [instalado](../installing/overview) y [configurado](../config/overview) en ella
 
 ## Guías
 
-[Starting Rocket Pool](../starting-rp) te mostrará cómo iniciar los servicios del Smartnode para cada modo y cómo verificar el progreso de sincronización de tus clientes de Ejecución y Consenso.
+[Starting Rocket Pool](../starting-rp) te mostrará cómo iniciar los servicios del Smart Node para cada modo y cómo verificar el progreso de sincronización de tus clientes de Ejecución y Consenso.
 
-[Creating a New Wallet](../wallet-init) recorre el proceso de crear una nueva wallet con el Smartnode si esta es tu primera vez configurando un nodo.
+[Creating a New Wallet](../wallet-init) recorre el proceso de crear una nueva wallet con el Smart Node si esta es tu primera vez configurando un nodo.
 
 [Importing / Recovering an Existing Wallet](../recovering-rp.mdx) es una alternativa a crear una nueva wallet.
 Usa esta guía si ya tienes una wallet de nodo que deseas recuperar en tu nodo (o si estás migrando desde un servicio como Allnodes a tu propio hardware).
@@ -31,4 +31,4 @@ Usa esta guía si ya tienes una wallet de nodo que deseas recuperar en tu nodo (
 
 [Fee Distributors and the Smoothing Pool](../fee-distrib-sp) discuten la forma en que las recompensas de la capa de Ejecución se proporcionan a tu nodo cada vez que uno de tus validadores propone un bloque, cómo cobrar esas recompensas y describe el **Smoothing Pool** de Rocket Pool - una característica popular que combina las recompensas de la capa de Ejecución de todos y las distribuye uniformemente durante los intervalos regulares de recompensas de Rocket Pool.
 
-[MEV, MEV-Boost, and MEV Rewards](../mev.mdx) explica **Maximum-Extractable Value** (MEV), su papel en el ecosistema de staking y cómo puedes configurarlo a tu gusto usando el Smartnode.
+[MEV, MEV-Boost, and MEV Rewards](../mev.mdx) explica **Maximum-Extractable Value** (MEV), su papel en el ecosistema de staking y cómo puedes configurarlo a tu gusto usando el Smart Node.

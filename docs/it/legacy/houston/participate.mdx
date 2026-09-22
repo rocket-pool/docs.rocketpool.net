@@ -74,7 +74,7 @@ Ogni volta che viene creata una nuova proposta, viene creato un albero di voto c
 
 ## Auto Initialize Vote Power
 
-La versione Smartnode `1.13.8` introduce una nuova funzionalità **Auto Initialize Vote Power**, che è progettata per inizializzare automaticamente il potere di voto sui nodi che non lo hanno ancora fatto. Il potere di voto inizializzato automaticamente è auto-delegato. Questa funzionalità può essere configurata nelle impostazioni dello Smartnode eseguendo `rocketpool service config` e navigando nella sezione **Smartnode and TX Fees**.
+La versione Smart Node `1.13.8` introduce una nuova funzionalità **Auto Initialize Vote Power**, che è progettata per inizializzare automaticamente il potere di voto sui nodi che non lo hanno ancora fatto. Il potere di voto inizializzato automaticamente è auto-delegato. Questa funzionalità può essere configurata nelle impostazioni dello Smart Node eseguendo `rocketpool service config` e navigando nella sezione **Smart Node and TX Fees**.
 
 <img src="./images/auto_init_vp.png" width="100%" height="auto" />
 
@@ -146,7 +146,7 @@ rocketpool pdao clear-signalling-address
 
 Puoi ignorare questo passaggio se sei interessato solo a votare su una proposta. Consentire il blocco RPL è richiesto solo per coloro che desiderano proporre o sfidare una proposta.
 
-Il blocco RPL è richiesto per proporre e sfidare. Per impostazione predefinita, il blocco di RPL per qualsiasi scopo sarà disabilitato. Gli operatori di nodo acconsentiranno a svolgere attività di governance abilitando il blocco di RPL dal loro nodo o dall'indirizzo di prelievo primario. Puoi farlo usando questo comando nello Smartnode:
+Il blocco RPL è richiesto per proporre e sfidare. Per impostazione predefinita, il blocco di RPL per qualsiasi scopo sarà disabilitato. Gli operatori di nodo acconsentiranno a svolgere attività di governance abilitando il blocco di RPL dal loro nodo o dall'indirizzo di prelievo primario. Puoi farlo usando questo comando nello Smart Node:
 
 ```shell
 rocketpool node allow-rpl-locking

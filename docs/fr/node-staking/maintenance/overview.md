@@ -10,11 +10,11 @@ Dans cette section, vous apprendrez comment surveiller la santé de votre nœud 
 
 ## Prérequis
 
-Avant de configurer votre Smartnode, assurez-vous d'avoir :
+Avant de configurer votre Smart Node, assurez-vous d'avoir :
 
 - Configuré une machine de nœud (ou machine virtuelle) et sécurisé celle-ci (via le guide [Sécuriser votre Nœud](../securing-your-node))
-- [Installé](../installing/overview) et [configuré](../config/overview) le Smartnode dessus
-- Chargé un portefeuille de nœud sur votre Smartnode
+- [Installé](../installing/overview) et [configuré](../config/overview) le Smart Node dessus
+- Chargé un portefeuille de nœud sur votre Smart Node
 - Synchronisé vos clients Execution et Consensus
 - Provisionné votre nœud avec [une adresse de retrait](../prepare-node.mdx#définition-de-votre-adresse-de-retrait-principale), configuré vos [clients de secours](../fallback) (optionnel), opté pour le [Smoothing Pool](../fee-distrib-sp#la-smoothing-pool) (optionnel), et configuré [MEV](../mev.mdx)
 - Créé au moins un [minipool](../create-validator.mdx)
@@ -24,12 +24,12 @@ Avant de configurer votre Smartnode, assurez-vous d'avoir :
 [Surveiller les Performances de votre Nœud](../performance) fournit des outils et des tutoriels pour garder un œil sur la santé de votre nœud (du point de vue des ressources, comme la consommation de CPU et de RAM) et les performances de vos validateurs sur la Beacon Chain.
 Il couvre beaucoup d'outils fondamentaux que vous utiliserez pendant votre mandat en tant que validateur Ethereum.
 
-[Configuration du Tableau de Bord Grafana](../grafana.mdx) explique comment configurer le tracker de métriques de la stack Smartnode et le tableau de bord Grafana - un guichet unique pour surveiller tout ce qui concerne votre nœud et vos validateurs, et un incontournable dans l'arsenal de chaque opérateur de nœud.
+[Configuration du Tableau de Bord Grafana](../grafana.mdx) explique comment configurer le tracker de métriques de la stack Smart Node et le tableau de bord Grafana - un guichet unique pour surveiller tout ce qui concerne votre nœud et vos validateurs, et un incontournable dans l'arsenal de chaque opérateur de nœud.
 Nous recommandons _fortement_ d'explorer le tableau de bord Grafana et de le consulter régulièrement.
 
-[Notifications d'Alertes de la Stack Smartnode](./alerting.md) explique comment utiliser la fonctionnalité de notification d'alerte du Smartnode pour recevoir des notifications sur la santé et les événements importants de votre Rocket Pool Smartnode.
+[Notifications d'Alertes de la Stack Smart Node](./alerting.md) explique comment utiliser la fonctionnalité de notification d'alerte du Smart Node pour recevoir des notifications sur la santé et les événements importants de votre Rocket Pool Smart Node.
 
-[Vérifier les Mises à Jour](../updates) couvre les processus cruciaux de mise à jour régulière de votre nœud avec de nouveaux correctifs de sécurité, comment mettre à jour le Smartnode après une nouvelle version, et comment mettre à jour manuellement les versions des clients si vos clients de choix publient une nouvelle version que la dernière version du Smartnode n'inclut pas encore.
+[Vérifier les Mises à Jour](../updates) couvre les processus cruciaux de mise à jour régulière de votre nœud avec de nouveaux correctifs de sécurité, comment mettre à jour le Smart Node après une nouvelle version, et comment mettre à jour manuellement les versions des clients si vos clients de choix publient une nouvelle version que la dernière version du Smart Node n'inclut pas encore.
 Vous devriez vous familiariser avec toute cette section, car vous pourriez avoir besoin de vous y référer chaque fois qu'une mise à jour est publiée.
 
 [Sauvegarder votre Nœud](../backups) est un guide optionnel qui décrit comment sauvegarder la configuration de votre nœud et ses données de chaîne en cas de panne matérielle.

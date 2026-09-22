@@ -10,11 +10,11 @@ Dieser Abschnitt behandelt, wie Sie auf die Belohnungen zugreifen, die Ihr Node 
 
 ## Voraussetzungen
 
-Bevor Sie Ihren Smartnode konfigurieren, stellen Sie bitte sicher, dass Sie:
+Bevor Sie Ihren Smart Node konfigurieren, stellen Sie bitte sicher, dass Sie:
 
 - Eine Node-Maschine (oder virtuelle Maschine) eingerichtet und gesichert haben (über den [Absichern Ihres Nodes](../securing-your-node)-Leitfaden)
-- Den Smartnode darauf [installiert](../installing/overview) und [konfiguriert](../config/overview) haben
-- Eine Node Wallet auf Ihrem Smartnode geladen haben
+- Den Smart Node darauf [installiert](../installing/overview) und [konfiguriert](../config/overview) haben
+- Eine Node Wallet auf Ihrem Smart Node geladen haben
 - Ihre Execution- und Consensus-Clients synchronisiert haben
 - Ihren Node mit [einer Withdrawal-Adresse](../prepare-node.mdx#ihre-primäre-auszahlungsadresse-festlegen) bereitgestellt haben, Ihre [Fallback-Clients](../fallback) eingerichtet (optional), sich für den [Smoothing Pool](../fee-distrib-sp#der-smoothing-pool) entschieden (optional) und [MEV](../mev.mdx) konfiguriert haben
 - Mindestens einen [Minipool](../create-validator.mdx) erstellt haben

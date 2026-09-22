@@ -2,7 +2,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # Avvio di Rocket Pool
 
-A questo punto, dovresti avere l'intera infrastruttura Rocket Pool in esecuzione, incluso lo stack Smartnode, un client Execution e un client Consensus.
+A questo punto, dovresti avere l'intera infrastruttura Rocket Pool in esecuzione, incluso lo stack Smart Node, un client Execution e un client Consensus.
 Dovresti anche aver protetto il tuo sistema operativo dagli attacchi esterni.
 Se hai completato entrambi questi passaggi, sei pronto per creare un nodo Rocket Pool e iniziare lo staking.
 In caso contrario, rivedi le sezioni precedenti e torna qui una volta completati tali passaggi.
@@ -12,7 +12,7 @@ In caso contrario, rivedi le sezioni precedenti e torna qui una volta completati
 <div className="p-3">
   <Tabs>
     <Tab label="Modalità Docker (Predefinita)">
-      Ora che hai installato lo Smartnode, avviare lo stack è semplice.
+      Ora che hai installato lo Smart Node, avviare lo stack è semplice.
       Inserisci semplicemente il seguente comando:
 
       ```shell
@@ -43,7 +43,7 @@ In caso contrario, rivedi le sezioni precedenti e torna qui una volta completati
       Creating rocketpool_watchtower ... done
       ```
 
-      Se è così, allora lo stack Smartnode è stato inizializzato con successo ed è ora in esecuzione.
+      Se è così, allora lo stack Smart Node è stato inizializzato con successo ed è ora in esecuzione.
 
       Se hai mai bisogno di arrestare i servizi (ad esempio, durante un aggiornamento o perché devi eseguire la manutenzione), puoi usare `rocketpool service stop` per spegnere tutto.
       L'output dovrebbe apparire così:
@@ -75,7 +75,7 @@ In caso contrario, rivedi le sezioni precedenti e torna qui una volta completati
       </p>
     </Tab>
     <Tab label="Modalità Ibrida">
-      Ora che hai installato lo Smartnode, avviare lo stack è semplice.
+      Ora che hai installato lo Smart Node, avviare lo stack è semplice.
       Inserisci semplicemente il seguente comando:
 
       ```shell
@@ -98,7 +98,7 @@ In caso contrario, rivedi le sezioni precedenti e torna qui una volta completati
       Creating rocketpool_watchtower ... done
       ```
 
-      Se è così, allora lo stack Smartnode è stato inizializzato con successo ed è ora in esecuzione.
+      Se è così, allora lo stack Smart Node è stato inizializzato con successo ed è ora in esecuzione.
 
       Nota che i tuoi client Execution e/o Consensus esterni non saranno elencati qui, poiché Rocket Pool non li gestisce e quindi non può avviarli.
       Dovrai assicurarti di averli avviati separatamente, utilizzando qualunque meccanismo li abbia originariamente creati.
@@ -130,7 +130,7 @@ In caso contrario, rivedi le sezioni precedenti e torna qui una volta completati
 
     </Tab>
     <Tab label="Modalità Nativa">
-      In modalità nativa, hai già configurato e avviato i servizi Smartnode come parte della sezione [Configurazione di un Nodo Rocket Pool Nativo senza Docker](./native).
+      In modalità nativa, hai già configurato e avviato i servizi Smart Node come parte della sezione [Configurazione di un Nodo Rocket Pool Nativo senza Docker](./native).
 
       Supponendo che tu li abbia configurati come servizi `systemd`, puoi avviarli con `sudo systemctl start ...`.
       Ad esempio, se stai utilizzando Geth per Execution e Teku per Consensus:
@@ -173,7 +173,7 @@ MEV-Boost client: Disabled
 Commit-Boost client: Disabled
 ```
 
-La prima riga ti dirà se il tuo Smartnode è configurato per la mainnet Ethereum o per la testnet Hoodi.
+La prima riga ti dirà se il tuo Smart Node è configurato per la mainnet Ethereum o per la testnet Hoodi.
 
 ::: warning NOTA
 **Per gli utenti Docker / Ibridi:**
@@ -188,7 +188,7 @@ Il secondo gruppo di righe ti dirà quali client stai utilizzando e quali versio
 
 ## Controllo dello Stato del Servizio e dei Log
 
-Ora che i servizi Smartnode sono stati avviati, è una buona idea controllare che stiano funzionando correttamente senza errori.
+Ora che i servizi Smart Node sono stati avviati, è una buona idea controllare che stiano funzionando correttamente senza errori.
 
 <div className="p-3">
   <Tabs>
@@ -283,7 +283,7 @@ Ora che i servizi Smartnode sono stati avviati, è una buona idea controllare ch
       Puoi ignorare `eth1` e/o `eth2` in base a quali stai gestendo esternamente, ma se stai lasciando che Rocket Pool ne gestisca uno, dovresti controllarne lo stato ora utilizzando questo comando.
     </Tab>
     <Tab label="Modalità Nativa">
-      Il modo più semplice per controllare lo stato e i log in modalità nativa è utilizzare gli script di logging che hai creato quando hai configurato per la prima volta i servizi Smartnode.
+      Il modo più semplice per controllare lo stato e i log in modalità nativa è utilizzare gli script di logging che hai creato quando hai configurato per la prima volta i servizi Smart Node.
 
       Ad esempio, per controllare il log di Geth, eseguiresti semplicemente:
 

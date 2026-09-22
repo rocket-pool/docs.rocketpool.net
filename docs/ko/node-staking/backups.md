@@ -5,7 +5,7 @@
 Hybrid 또는 Native 사용자의 경우 일부 위치가 다를 수 있습니다.
 :::
 
-일반적으로 Smartnode를 통해 노드 지갑과 minipool을 생성한 경우, 완전한 장애로부터 노드를 복구하기 위해 실제로 필요한 것은 **노드 지갑의 니모닉**뿐입니다.
+일반적으로 Smart Node를 통해 노드 지갑과 minipool을 생성한 경우, 완전한 장애로부터 노드를 복구하기 위해 실제로 필요한 것은 **노드 지갑의 니모닉**뿐입니다.
 나머지는 모두 니모닉으로부터 쉽게 복구할 수 있습니다.
 
 외부에서 생성된 validator 키가 있는 minipool이 있는 경우(예: **Allnodes**에서 자체 호스팅 노드로 마이그레이션한 경우), validator의 개인 keystore 파일도 필요합니다. 이러한 키는 노드 지갑에서 복구할 수 없기 때문입니다.
@@ -17,16 +17,16 @@ Execution 클라이언트 장애(손상된 데이터베이스, SSD 오작동 또
 이 가이드에서는 노드의 복원력을 개선하고 불필요한 다운타임을 최소화하기 위해 이러한 항목들을 백업하는 방법을 보여드리겠습니다.
 
 ::: warning 참고
-이 가이드는 Smartnode를 기본 디렉토리(`~/.rocketpool`)에 설치했다고 가정합니다.
+이 가이드는 Smart Node를 기본 디렉토리(`~/.rocketpool`)에 설치했다고 가정합니다.
 다른 설치 디렉토리를 지정한 경우, 아래 지침에서 해당 디렉토리로 적절히 대체하십시오.
 :::
 
 ## 백업 가능한 항목
 
-### Smartnode 설정
+### Smart Node 설정
 
-Smartnode의 설정은 `~/.rocketpool/user-settings.yml`에 저장됩니다.
-이 파일을 저장하고 교체하여 모든 Smartnode 설정(즉, `rocketpool service config`에서 지정한 항목들)을 복원할 수 있습니다.
+Smart Node의 설정은 `~/.rocketpool/user-settings.yml`에 저장됩니다.
+이 파일을 저장하고 교체하여 모든 Smart Node 설정(즉, `rocketpool service config`에서 지정한 항목들)을 복원할 수 있습니다.
 
 ### Execution 클라이언트 / ETH1 클라이언트 체인 데이터
 
@@ -38,7 +38,7 @@ Merge 이후에는 이것이 몇 시간에서 며칠간의 다운타임과 수�
 이 폴더는 일반적으로 권한 없는 사용자 계정에서 액세스할 수 없으므로 `root` 사용자로 전환해야 합니다.
 
 ::: tip 참고
-초기 Smartnode 설치 중에 Docker 저장 위치를 변경한 경우(두 번째 SSD에 Docker를 실행하는 사용자 등), `/<외부 마운트 지점>/docker/volumes/rocketpool_eth1clientdata`에서 볼륨을 찾을 수 있습니다.
+초기 Smart Node 설치 중에 Docker 저장 위치를 변경한 경우(두 번째 SSD에 Docker를 실행하는 사용자 등), `/<외부 마운트 지점>/docker/volumes/rocketpool_eth1clientdata`에서 볼륨을 찾을 수 있습니다.
 
 어떤 설치 경로를 사용하는지 기억나지 않는다면 `/etc/docker/daemon.json`에서 위치를 확인할 수 있습니다.
 파일이 존재하지 않으면 기본 위치를 사용하는 것입니다.
@@ -69,7 +69,7 @@ Consensus 클라이언트는 이 기술을 사용하여 Beacon 체인의 헤드�
 
 ## Execution 체인 데이터 백업하기
 
-Smartnode는 `rocketpool service export-eth1-data` 명령을 통해 Execution 체인 데이터를 백업할 수 있는 기능을 제공합니다.
+Smart Node는 `rocketpool service export-eth1-data` 명령을 통해 Execution 체인 데이터를 백업할 수 있는 기능을 제공합니다.
 내부적으로 이것은 Linux의 강력한 백업/복사 도구인 `rsync`를 활용합니다.
 
 `rsync`는 소스 디렉토리(Docker 볼륨)와 대상 디렉토리(백업 위치)의 파일을 비교합니다.

@@ -3,16 +3,16 @@ import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
 import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
 
-# Docker 모드를 위한 고급 Smartnode 구성
+# Docker 모드를 위한 고급 Smart Node 구성
 
-이 섹션에서는 Smartnode의 사용자 지정 및 기능을 확장하는 몇 가지 기술을 다룹니다.
+이 섹션에서는 Smart Node의 사용자 지정 및 기능을 확장하는 몇 가지 기술을 다룹니다.
 
-## 외부 검증자 클라이언트의 Smartnode 연결 허용
+## 외부 검증자 클라이언트의 Smart Node 연결 허용
 
-Smartnode는 실행 클라이언트와 Beacon Node를 관리하므로, 구성(업데이트 포함)을 자동으로 처리합니다.
-사용자들의 일반적인 요청 중 하나는 외부에서 관리되는 검증자 클라이언트를 Smartnode의 실행 클라이언트 및 합의 클라이언트에 연결하는 기능입니다.
+Smart Node는 실행 클라이언트와 Beacon Node를 관리하므로, 구성(업데이트 포함)을 자동으로 처리합니다.
+사용자들의 일반적인 요청 중 하나는 외부에서 관리되는 검증자 클라이언트를 Smart Node의 실행 클라이언트 및 합의 클라이언트에 연결하는 기능입니다.
 
-기본적으로, 이는 일종의 **"역 하이브리드" 모드**처럼 작동합니다. Smartnode가 자체 검증자 클라이언트를 관리하고 외부 실행 클라이언트 및 합의 클라이언트에 연결하는 대신, 세 가지 모두를 관리하고 외부 검증자 클라이언트가 자체 클라이언트를 사용할 수 있습니다.
+기본적으로, 이는 일종의 **"역 하이브리드" 모드**처럼 작동합니다. Smart Node가 자체 검증자 클라이언트를 관리하고 외부 실행 클라이언트 및 합의 클라이언트에 연결하는 대신, 세 가지 모두를 관리하고 외부 검증자 클라이언트가 자체 클라이언트를 사용할 수 있습니다.
 
 이를 활성화하는 것은 [설정 관리자](./config-docker#설정-관리자를-통한-구성)를 사용하면 간단합니다.
 
@@ -59,11 +59,11 @@ MEV-Boost에 대한 접근을 활성화하려면, **MEV-Boost** 카테고리로 
 ## Docker-Compose 정의 파일 사용자 지정
 
 설정 관리자에는 노드를 사용자 지정하는 데 사용할 수 있는 많은 옵션이 있지만, `docker-compose`가 제공하는 모든 기능을 포함하지는 않습니다.
-일부 사용자는 Smartnode의 `docker-compose` 파일에 대한 추가 사용자 지정이 필요합니다.
+일부 사용자는 Smart Node의 `docker-compose` 파일에 대한 추가 사용자 지정이 필요합니다.
 
 `docker-compose` 파일은 `rocketpool service start`가 호출될 때마다 템플릿(`templates` 디렉토리)에서 (`runtime` 디렉토리로) 재생성되므로, 런타임 파일을 직접 수정하는 것은 권장되지 않습니다.
 대신, `docker-compose`의 [고유한 오버라이드 기능](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration)을 활용하여 재시작 후에도 유지될 수 있는 필요한 수정 사항을 만들 수 있습니다.
-또한, 이 시스템은 **Smartnode 스택 업그레이드 또는 재설치 후에도 수정 사항을 보존**합니다.
+또한, 이 시스템은 **Smart Node 스택 업그레이드 또는 재설치 후에도 수정 사항을 보존**합니다.
 
 이를 위해, `override` 폴더에서 원하는 컨테이너 파일을 열고 사용자 지정 내용을 추가하면 됩니다.
 이 파일에 넣은 모든 내용은 `runtime` 폴더의 `docker-compose` 파일에 있는 해당 설정을 **오버라이드**합니다.
@@ -154,6 +154,14 @@ networks:
 ::: warning 참고
 Rocket Pool storage 주소가 없는 네트워크를 선택하면, Rocket Pool 컨트랙트가 필요한 Smart Node의 node/protocol 명령은 해당 네트워크에서 작동하지 않습니다. 클라이언트 동기화는 계속 진행할 수 있습니다.
 :::
+
+## Docker 이미지 고정
+
+Smart Node는 공식 클라이언트 이미지와 Smart Node 이미지를 다이제스트로 고정하므로, 태그가 다시 지정된 이미지는 가져올 수 없습니다.
+
+- 기본값은 `~/.rocketpool/mainnet.env`에 `repo:tag@sha256:…` 형식으로 들어 있습니다. `rocketpool service install`은 항상 이 파일(그리고 `testnet.env` / `devnet.env`)을 덮어씁니다.
+- 특정 네트워크에서만 다른 이미지를 고정하려면 해당 키를 대응하는 `{network}.env` 파일에 넣으십시오. 생략한 키는 mainnet 고정값을 상속합니다.
+- TUI의 태그 필드는 여전히 고정값을 재정의합니다. 기본값으로 되돌리기 전까지 두 env 파일보다 우선합니다.
 
 ## Node Daemon HTTP API
 

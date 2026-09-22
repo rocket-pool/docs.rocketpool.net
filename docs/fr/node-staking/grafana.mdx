@@ -23,14 +23,14 @@ Dans ce guide, nous vous montrerons comment activer le système de métriques de
 
 ## Vue d'ensemble de la pile de métriques Rocket Pool
 
-Si vous choisissez d'activer les métriques pendant le processus de configuration Smartnode, votre nœud ajoutera les processus suivants :
+Si vous choisissez d'activer les métriques pendant le processus de configuration Smart Node, votre nœud ajoutera les processus suivants :
 
 - [Prometheus](https://prometheus.io/) - un système de collecte, de stockage et de reporting de données qui capture toutes les métriques que vous voyez ci-dessus (et bien d'autres) et les stocke, afin qu'elles puissent être consultées au fil du temps
 - Le [Node Exporter](https://github.com/prometheus/node_exporter) de Prometheus - un service qui collecte des informations sur la santé de votre machine (telles que l'utilisation du CPU, l'utilisation de la RAM, l'espace disque libre et l'espace swap, etc.) et les rapporte à Prometheus
 - Grafana, l'outil qui expose les données de Prometheus via un site Web pratique hébergé sur votre nœud
 - Un ensemble optionnel de scripts personnalisés qui signalera toutes les mises à jour disponibles du système d'exploitation à Prometheus, afin que vous sachiez si votre système doit être corrigé
 
-La configuration par défaut créera des conteneurs Docker avec tous ces services qui vivent aux côtés du reste des conteneurs Docker du Smartnode.
+La configuration par défaut créera des conteneurs Docker avec tous ces services qui vivent aux côtés du reste des conteneurs Docker du Smart Node.
 Il ouvrira un port sur votre machine de nœud pour Grafana, afin que vous puissiez accéder à son tableau de bord depuis n'importe quelle machine de votre réseau local avec un navigateur.
 
 ## Activation du serveur de métriques
@@ -40,7 +40,7 @@ Il ouvrira un port sur votre machine de nœud pour Grafana, afin que vous puissi
     <Tab label="Docker">
       Activer les métriques en mode Docker est le plus facile de tous.
 
-      Commencez par exécuter à nouveau la commande de configuration Smartnode :
+      Commencez par exécuter à nouveau la commande de configuration Smart Node :
 
       ```shell
       rocketpool service config
@@ -78,7 +78,7 @@ Il ouvrira un port sur votre machine de nœud pour Grafana, afin que vous puissi
       </p>
 
 
-      Pendant cette vérification, il comparera également votre version installée de Rocket Pool Smartnode avec la dernière version, et vous informera s'il y a une nouvelle version disponible.
+      Pendant cette vérification, il comparera également votre version installée de Rocket Pool Smart Node avec la dernière version, et vous informera s'il y a une nouvelle version disponible.
 
       Si vous avez activé le tracker de mise à jour, la dernière étape consiste à redémarrer le Node Exporter avec la commande suivante :
 
@@ -606,7 +606,7 @@ Vous pouvez ensuite ouvrir le pare-feu pour permettre aux appareils externes d'a
 
 Maintenant que le serveur de métriques est prêt, vous pouvez y accéder avec n'importe quel navigateur sur votre réseau local.
 
-Référez-vous aux onglets ci-dessous pour votre mode d'installation Smartnode.
+Référez-vous aux onglets ci-dessous pour votre mode d'installation Smart Node.
 
 Accédez à l'URL suivante, en remplaçant les variables par votre configuration si nécessaire :
 
@@ -696,7 +696,7 @@ Cependant, nous n'avons pas encore fini de tout configurer - il y a encore un pe
 ::: warning NOTE
 Certaines des boîtes (notamment celles d'APR) ont été temporairement désactivées en raison de la façon dont Shapella fournit les récompenses écrémées.
 
-Elles seront réactivées dans une future version du Smartnode qui pourra suivre correctement les récompenses historiques.
+Elles seront réactivées dans une future version du Smart Node qui pourra suivre correctement les récompenses historiques.
 :::
 
 ## Adapter le moniteur matériel à votre système
@@ -789,7 +789,7 @@ nvme0n1     259:0    0 238,5G  0 disk
 └─nvme0n1p4 259:4    0   527M  0 part
 ```
 
-Si vous n'avez pas modifié l'emplacement par défaut de Docker sur un autre disque lors de l'installation de votre Smartnode, alors le disque que vous voulez suivre sera celui sur lequel votre système d'exploitation est installé.
+Si vous n'avez pas modifié l'emplacement par défaut de Docker sur un autre disque lors de l'installation de votre Smart Node, alors le disque que vous voulez suivre sera celui sur lequel votre système d'exploitation est installé.
 Regardez dans la colonne `MOUNTPOINT` pour une entrée simplement étiquetée `/`, puis remontez jusqu'à son appareil parent (celui avec `disk` dans la colonne `TYPE`).
 
 Typiquement, ce sera `sda` pour les disques SATA ou `nvme0n1` pour les disques NVMe.

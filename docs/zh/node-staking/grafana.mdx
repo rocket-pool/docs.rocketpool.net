@@ -23,14 +23,14 @@ Rocket Pool 开箱即支持 Grafana 及其依赖项;它甚至为每个共识客�
 
 ## Rocket Pool 指标堆栈概述
 
-如果您在 Smartnode 配置过程中选择启用指标,您的节点将添加以下进程:
+如果您在 Smart Node 配置过程中选择启用指标,您的节点将添加以下进程:
 
 - [Prometheus](https://prometheus.io/) - 一个数据收集、存储和报告系统,可捕获您在上面看到的所有指标(以及更多指标)并存储它们,以便可以随时间查看它们
 - Prometheus [Node Exporter](https://github.com/prometheus/node_exporter) - 一种收集有关您机器健康状况的信息(例如 CPU 使用率、RAM 使用率、可用磁盘空间和交换空间等)并将其报告给 Prometheus 的服务
 - Grafana,通过在您的节点上托管的便捷网站公开 Prometheus 数据的工具
 - 一组可选的自定义脚本,将向 Prometheus 报告任何可用的操作系统更新,以便您知道系统是否需要修补
 
-默认配置将创建包含所有这些服务的 Docker 容器,这些容器与 Smartnode 的其余 Docker 容器一起运行。
+默认配置将创建包含所有这些服务的 Docker 容器,这些容器与 Smart Node 的其余 Docker 容器一起运行。
 它将在您的节点机器上打开一个端口用于 Grafana,以便您可以使用浏览器从本地网络上的任何机器访问其仪表板。
 
 ## 启用指标服务器
@@ -40,7 +40,7 @@ Rocket Pool 开箱即支持 Grafana 及其依赖项;它甚至为每个共识客�
     <Tab label="Docker">
       在 Docker 模式下启用指标是最简单的。
 
-      首先再次运行 Smartnode 配置命令:
+      首先再次运行 Smart Node 配置命令:
 
       ```shell
       rocketpool service config
@@ -78,7 +78,7 @@ Rocket Pool 开箱即支持 Grafana 及其依赖项;它甚至为每个共识客�
       </p>
 
 
-      在此检查期间,它还会将您安装的 Rocket Pool Smartnode 版本与最新版本进行比较,如果有新版本可用,它会通知您。
+      在此检查期间,它还会将您安装的 Rocket Pool Smart Node 版本与最新版本进行比较,如果有新版本可用,它会通知您。
 
       如果您启用了更新跟踪器,则最后一步是使用以下命令重新启动 Node Exporter:
 
@@ -605,7 +605,7 @@ Rocket Pool 开箱即支持 Grafana 及其依赖项;它甚至为每个共识客�
 
 现在指标服务器已准备就绪,您可以使用本地网络上的任何浏览器访问它。
 
-有关 Smartnode 安装模式,请参阅下面的选项卡。
+有关 Smart Node 安装模式,请参阅下面的选项卡。
 
 导航到以下 URL,根据您的设置替换变量:
 
@@ -695,7 +695,7 @@ Smart Node v1.23.0 随其指标堆栈一起提供 **Rocket Pool Dashboard v1.4.2
 ::: warning 注意
 由于 Shapella 提供 skimmed 奖励的方式,一些框(特别是 APR 框)已被暂时禁用。
 
-它们将在可以正确跟踪历史奖励的 Smartnode 未来版本中再次启用。
+它们将在可以正确跟踪历史奖励的 Smart Node 未来版本中再次启用。
 :::
 
 ## 根据您的系统定制硬件监视器
@@ -788,7 +788,7 @@ nvme0n1     259:0    0 238,5G  0 disk
 └─nvme0n1p4 259:4    0   527M  0 part
 ```
 
-如果您在 Smartnode 安装期间没有将 Docker 的默认位置更改为其他驱动器,那么您要跟踪的磁盘将是安装操作系统的磁盘。
+如果您在 Smart Node 安装期间没有将 Docker 的默认位置更改为其他驱动器,那么您要跟踪的磁盘将是安装操作系统的磁盘。
 在 `MOUNTPOINT` 列中查找标记为 `/` 的条目,然后按照该条目返回到其父设备(`TYPE` 列中带有 `disk` 的设备)。
 
 通常,SATA 驱动器为 `sda`,NVMe 驱动器为 `nvme0n1`。

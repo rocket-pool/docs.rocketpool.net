@@ -6,7 +6,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 ## 升级到 v1.5.0 之前要做的事情
 
-在升级到 Smartnode 的 v1.5.0 及更高版本之前,请检查以下清单以确保您已准备好:
+在升级到 Smart Node 的 v1.5.0 及更高版本之前,请检查以下清单以确保您已准备好:
 
 ### 切换到完整执行客户端
 
@@ -16,14 +16,14 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 ### 确保 EC 和 CC 都是外部管理的
 
-Smartnode 堆栈的早期版本允许您让一个客户端由本地管理,另一个由外部管理。
-例如,您可以拥有 Smartnode 管理的执行客户端并将其连接到您外部管理的共识客户端。
+Smart Node 堆栈的早期版本允许您让一个客户端由本地管理,另一个由外部管理。
+例如,您可以拥有 Smart Node 管理的执行客户端并将其连接到您外部管理的共识客户端。
 
 从 v1.5 开始,不再支持此配置。
 您必须切换到本地管理的执行客户端和共识客户端(也称为 [Docker 模式](./docker-migration.mdx)),或设置您自己管理的执行客户端和共识客户端。
 
 ::: tip 提示
-如果您有兴趣让 Smartnode 维护自己的执行客户端和共识客户端,但希望保持对自己的验证器客户端的控制(例如,如果您有自己的单独质押验证器密钥附加到它),您可能需要考虑[反向混合模式](../../node-staking/advanced-config#允许外部验证者客户端连接到-smartnode),它正是这样做的!
+如果您有兴趣让 Smart Node 维护自己的执行客户端和共识客户端,但希望保持对自己的验证器客户端的控制(例如,如果您有自己的单独质押验证器密钥附加到它),您可能需要考虑[反向混合模式](../../node-staking/advanced-config#允许外部验证者客户端连接到-smartnode),它正是这样做的!
 :::
 
 ### 设置 Engine API
@@ -44,12 +44,12 @@ CoinCashew 有[一个很棒且简洁的指南](https://www.coincashew.com/coins/
 
 ## 升级到 v1.5.0
 
-将 Smartnode 堆栈升级到 v1.5.0 与任何其他升级没有区别。
+将 Smart Node 堆栈升级到 v1.5.0 与任何其他升级没有区别。
 只需遵循[此处的正常说明](../../node-staking/updates#更新-smartnode-堆栈)。
 
-## Smartnode 自动处理的事项
+## Smart Node 自动处理的事项
 
-在混合模式下,一旦您更新到 v1.5.0,Smartnode 将自动处理支持 Redstone 所需的一些更改,但您需要在混合模式下手动处理其他更改。
+在混合模式下,一旦您更新到 v1.5.0,Smart Node 将自动处理支持 Redstone 所需的一些更改,但您需要在混合模式下手动处理其他更改。
 
 以下是它将在无需任何手动干预的情况下为您执行的操作的简要列表:
 
@@ -58,14 +58,14 @@ CoinCashew 有[一个很棒且简洁的指南](https://www.coincashew.com/coins/
 **费用接收者**是执行层(eth1)链上的地址,将接收您提议的区块的所有优先费用。
 这是在验证器客户端首次启动时提供给它的设置。
 
-当您升级到 v1.5 时,Smartnode 将处理在其管理的验证器客户端上将其设置为正确的地址,并将不断检查以确保您使用正确的地址,这样您就不会[意外受到惩罚](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)。
+当您升级到 v1.5 时,Smart Node 将处理在其管理的验证器客户端上将其设置为正确的地址,并将不断检查以确保您使用正确的地址,这样您就不会[意外受到惩罚](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)。
 
 如果您选择加入[平滑池](./whats-new#smoothing-pool),它将使其成为您的费用接收者。
 如果您没有,它将使您的[费用分配器合约](./whats-new#费用接收者和您的分配器)成为费用接收者。
 
 ## 升级后您应该做的事情
 
-虽然 Smartnode 为您处理了大部分更改,但您仍应手动执行一些其他操作:
+虽然 Smart Node 为您处理了大部分更改,但您仍应手动执行一些其他操作:
 
 ### 确保成功升级
 
@@ -100,7 +100,7 @@ Flashbots 将在那时提供您可以遵循的说明,我们将在此处链接到
 
 由于合并与 Infura 和 Pocket 等远程提供商不兼容,当您的主执行客户端离线时,您将失去将它们用作后备执行客户端的能力。
 
-Smartnode 仍然能够提供后备执行客户端(现在还有后备共识客户端),但您现在需要使用您控制的执行客户端和共识客户端。
+Smart Node 仍然能够提供后备执行客户端(现在还有后备共识客户端),但您现在需要使用您控制的执行客户端和共识客户端。
 
 有关设置后备节点的更多信息,请参阅[后备节点指南](../../node-staking/fallback)。
 
@@ -133,7 +133,7 @@ rocketpool node join-smoothing-pool
 
 Redstone 升级用[全新系统](./whats-new#新的奖励系统)取代了昂贵且有问题的旧奖励系统,该系统更便宜,支持 RPL 的自动重新质押(部分和全额),最重要的是 - **让您随时申领奖励**。
 
-由于申领奖励不再有时间限制,而且一次申领多个奖励间隔更便宜,Smartnode 的自动奖励申领功能**已被移除**。
+由于申领奖励不再有时间限制,而且一次申领多个奖励间隔更便宜,Smart Node 的自动奖励申领功能**已被移除**。
 您现在可以通过以下命令申领奖励:
 
 ```shell
@@ -144,8 +144,8 @@ rocketpool node claim-rewards
 
 ## 恢复到 v1.4.3
 
-如果出于任何原因,某些内容不符合您的喜好,并且您想恢复到以前的 Smartnode 版本,您可以轻松做到这一点。
-Smartnode 在升级时会自动备份您以前版本的设置,因此只需获取以前的版本(这里我们演示 **v1.4.3**)并用备份替换设置:
+如果出于任何原因,某些内容不符合您的喜好,并且您想恢复到以前的 Smart Node 版本,您可以轻松做到这一点。
+Smart Node 在升级时会自动备份您以前版本的设置,因此只需获取以前的版本(这里我们演示 **v1.4.3**)并用备份替换设置:
 
 1. 停止服务:
 
@@ -182,7 +182,7 @@ cp ~/.rocketpool/user-settings-backup.yml ~/.rocketpool/user-settings.yml
 rocketpool service config
 ```
 
-1. 如果看起来不错,启动 Smartnode 堆栈:
+1. 如果看起来不错,启动 Smart Node 堆栈:
 
 ```shell
 rocketpool service start

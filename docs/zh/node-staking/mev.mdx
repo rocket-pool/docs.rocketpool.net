@@ -96,7 +96,7 @@ MEV-Boost 是[开源的](https://github.com/flashbots/mev-boost),并已经过[�
 
 _图片由 Flashbots 提供_
 
-Rocket Pool Smartnode 默认直接捆绑了 MEV-Boost,使我们的 **Docker 模式**和**混合模式**节点运营者能够无缝利用它。
+Rocket Pool Smart Node 默认直接捆绑了 MEV-Boost,使我们的 **Docker 模式**和**混合模式**节点运营者能够无缝利用它。
 **原生模式**用户需要手动设置它。
 
 ## Rocket Pool 和 MEV
@@ -128,7 +128,7 @@ Rocket Pool Smartnode 默认直接捆绑了 MEV-Boost,使我们的 **Docker 模�
 
 在第 2 阶段,MEV-Boost 默认为所有节点运营者启用。
 节点运营者可以选择使用上面列出的一个或多个可信中继,但不能使用自定义(不受信任的)中继。
-选择退出 MEV-boost 的节点运营者必须在启动 Smartnode 之前明确这样做。
+选择退出 MEV-boost 的节点运营者必须在启动 Smart Node 之前明确这样做。
 
 这是**当前阶段**。
 
@@ -139,21 +139,21 @@ Rocket Pool Smartnode 默认直接捆绑了 MEV-Boost,使我们的 **Docker 模�
 
 此阶段目前**没有预定日期**。
 
-## 在 Smartnode 中配置 MEV-Boost
+## 在 Smart Node 中配置 MEV-Boost
 
 要了解如何配置 MEV-Boost,请在下面选择您正在使用的模式。
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker 模式">
-      使用 Smartnode 的配置 TUI 配置 MEV-Boost 很容易。
+      使用 Smart Node 的配置 TUI 配置 MEV-Boost 很容易。
       首先运行 `rocketpool service config` 并导航到 `MEV-Boost` 选项:
 
       <img src={tuiMeVBoost} width="100%" height="auto"/>
 
       选中标记为 `Enable MEV-Boost` 的复选框以启用它。
 
-      启用后,屏幕将如下所示(_截至 Smartnode v1.17.2_):
+      启用后,屏幕将如下所示(_截至 Smart Node v1.17.2_):
 
       <img src={tuiMeVBoostMain} width="100%" height="auto"/>
 
@@ -172,23 +172,23 @@ Rocket Pool Smartnode 默认直接捆绑了 MEV-Boost,使我们的 **Docker 模�
 
       - `Port` 框对 Docker 模式用户不重要。
       - `Expose API Port` 框对 Docker 模式用户不重要。
-      - `Container Tag` 框对于手动升级 Smartnode 运行的 MEV-Boost 版本很有用,如果 Flashbots 发布了一个新的高优先级版本,您想在包含它的 Smartnode 更新发布之前使用它。
+      - `Container Tag` 框对于手动升级 Smart Node 运行的 MEV-Boost 版本很有用,如果 Flashbots 发布了一个新的高优先级版本,您想在包含它的 Smart Node 更新发布之前使用它。
       - `Additional Flags` 框用于如果您想直接向 MEV-Boost 容器添加补充配置标志或参数。通常,它不会有用。
 
       启用 MEV-Boost 并启用您想要的中继后,只需保存并退出。
-      Smartnode 将为您重新启动相关容器,并自动为您设置所有内容。
+      Smart Node 将为您重新启动相关容器,并自动为您设置所有内容。
 
       有关如何检查它是否按预期工作的说明,请参见下文。
     </Tab>
     <Tab label="混合模式">
-      使用 Smartnode 的配置 TUI 配置 MEV-Boost 很容易。
+      使用 Smart Node 的配置 TUI 配置 MEV-Boost 很容易。
       首先运行 `rocketpool service config` 并导航到 `MEV-Boost` 选项:
 
       <img src={tuiMeVBoost} width="100%" height="auto"/>
 
       选中标记为 `Enable MEV-Boost` 的复选框以启用它。
 
-      启用后,屏幕将如下所示(_截至 Smartnode v1.17.2_):
+      启用后,屏幕将如下所示(_截至 Smart Node v1.17.2_):
 
       <img src={tuiMeVBoostMain} width="100%" height="auto"/>
 
@@ -214,7 +214,7 @@ Rocket Pool Smartnode 默认直接捆绑了 MEV-Boost,使我们的 **Docker 模�
 
       - `Port` 框确定 MEV-Boost 将在哪个端口侦听来自 Beacon Node 的传入连接。如果由于节点内的端口冲突而需要更改它,可以在此处执行。
       - `Expose API Port` 框**应该被选中**,以便您外部管理的 BN 可以与 Rocket Pool 将管理的 MEV-Boost 实例通信。如果您外部管理的 BN 在同一台机器上运行,则选择 `Open to Localhost`。仅当您外部管理的 BN 在不同的机器上运行*并且*您已按照适当的步骤保护节点免受不需要的流量时才选择 `Open to External hosts`:[保护您的节点](./securing-your-node)
-      - `Container Tag` 框对于手动升级 Smartnode 运行的 MEV-Boost 版本很有用,如果 Flashbots 发布了一个新的高优先级版本,您想在包含它的 Smartnode 更新发布之前使用它。
+      - `Container Tag` 框对于手动升级 Smart Node 运行的 MEV-Boost 版本很有用,如果 Flashbots 发布了一个新的高优先级版本,您想在包含它的 Smart Node 更新发布之前使用它。
       - `Additional Flags` 框用于如果您想直接向 MEV-Boost 容器添加补充配置标志或参数。通常,它不会有用。
 
       启用 MEV-Boost 并启用您想要的中继后,只需保存并退出。

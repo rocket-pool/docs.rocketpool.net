@@ -24,7 +24,7 @@ Bilgisayar [donanım yönergelerini](./local/hardware.md) karşılamalıdır
 
 ::: warning NOT
 Şu anda yalnızca **Linux** ve **macOS** platformları desteklenmektedir.
-**Windows şu anda Smartnode işletimi için desteklenmemektedir**.
+**Windows şu anda Smart Node işletimi için desteklenmemektedir**.
 :::
 
 ## Yerel Bir Node Çalıştırma

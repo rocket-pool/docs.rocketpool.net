@@ -29,15 +29,15 @@ Si vous avez besoin d'un rappel sur l'utilisation de `ssh`, consultez d'abord le
 ## ESSENTIEL : Sécurisez votre machine cliente
 
 ::: warning REMARQUE
-Si vous utilisez votre Smartnode localement (en vous connectant physiquement avec un clavier et un moniteur directement attachés), alors **cette section ne vous concerne pas - vous pouvez la passer**.
+Si vous utilisez votre Smart Node localement (en vous connectant physiquement avec un clavier et un moniteur directement attachés), alors **cette section ne vous concerne pas - vous pouvez la passer**.
 :::
 
-La plupart des opérateurs Smartnode interagissent avec leur nœud à distance en se connectant à son terminal depuis un autre ordinateur en utilisant `ssh` :
+La plupart des opérateurs Smart Node interagissent avec leur nœud à distance en se connectant à son terminal depuis un autre ordinateur en utilisant `ssh` :
 
 - La machine à laquelle vous vous connectez (dans ce cas, votre machine de nœud) est appelée le **serveur**.
 - La machine depuis laquelle vous vous connectez (comme votre ordinateur portable, ordinateur de bureau, ou même votre téléphone) est le **client**.
 
-L'une des choses les plus importantes que vous puissiez faire pour sécuriser votre Smartnode est de **maintenir votre machine cliente sécurisée**.
+L'une des choses les plus importantes que vous puissiez faire pour sécuriser votre Smart Node est de **maintenir votre machine cliente sécurisée**.
 Si votre machine cliente est compromise et que vous l'utilisez pour vous connecter à votre nœud, la plupart des paramètres de sécurité que vous appliquez au nœud peuvent être contournés.
 
 Par exemple : si vous utilisez un ordinateur portable comme client SSH, et qu'il a un [enregistreur de frappe](https://en.wikipedia.org/wiki/Keystroke_logging) installé, alors toutes les choses secrètes que vous tapez sur le nœud (comme votre mot de passe ou votre mnémonique de récupération) lorsque vous êtes connecté via SSH seront volées.
@@ -56,10 +56,10 @@ Pour une sécurité maximale, vous pourriez vouloir utiliser une **machine dédi
 ## ESSENTIEL : Sécurisez votre accès SSH
 
 ::: warning REMARQUE
-Si vous utilisez votre Smartnode localement (en vous connectant physiquement avec un clavier et un moniteur directement attachés), alors **cette section ne vous concerne pas - vous pouvez la passer**.
+Si vous utilisez votre Smart Node localement (en vous connectant physiquement avec un clavier et un moniteur directement attachés), alors **cette section ne vous concerne pas - vous pouvez la passer**.
 :::
 
-Que vous exécutiez votre Smartnode chez vous ou que vous utilisiez un VPS dans un centre de données distant, il est probable que vous y accédiez via SSH, ou que SSH soit activé **même si vous ne l'utilisez pas**.
+Que vous exécutiez votre Smart Node chez vous ou que vous utilisiez un VPS dans un centre de données distant, il est probable que vous y accédiez via SSH, ou que SSH soit activé **même si vous ne l'utilisez pas**.
 
 Les connexions SSH sont basées sur une cryptographie sécurisée, mais comme pour tout système sécurisé, la vraie sécurité vient d'une utilisation correcte.
 Il y a deux choses principales à faire pour vos paramètres SSH :
@@ -543,7 +543,7 @@ sudo systemctl restart unattended-upgrades
 
 ## ESSENTIEL : Activer un pare-feu
 
-En général, votre machine ne devrait accepter que le trafic réseau sur les ports que votre client Execution, client Consensus et pile Smartnode utilisent.
+En général, votre machine ne devrait accepter que le trafic réseau sur les ports que votre client Execution, client Consensus et pile Smart Node utilisent.
 Pour appliquer cela et empêcher tout trafic inattendu ou indésirable, nous pouvons installer un **pare-feu** sur le nœud.
 
 ::: tip REMARQUE
@@ -552,7 +552,7 @@ Si vous avez sélectionné un port de client execution/consensus différent lors
 
 Ubuntu est livré avec `ufw` installé par défaut (le **u**ncomplicated **f**ire **w**all), qui est un utilitaire pratique pour gérer les paramètres de pare-feu de votre nœud.
 
-Les commandes suivantes configureront `ufw` avec une bonne configuration par défaut pour votre Smartnode.
+Les commandes suivantes configureront `ufw` avec une bonne configuration par défaut pour votre Smart Node.
 **Exécutez-les sur votre machine de nœud**.
 
 Refusez les connexions sauf si elles sont explicitement autorisées par des règles ultérieures :

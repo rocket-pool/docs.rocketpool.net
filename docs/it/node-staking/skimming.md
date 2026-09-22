@@ -12,7 +12,7 @@ Il vecchio delegate Redstone non può essere utilizzato per distribuire il saldo
 
 ## Distribuzione Automatica
 
-Per impostazione predefinita, lo Smartnode è configurato per distribuire automaticamente qualsiasi tuo minipool quando i loro saldi individuali raggiungono **1 ETH**. Questa soglia può essere configurata nella TUI seguendo i passaggi qui sotto.
+Per impostazione predefinita, lo Smart Node è configurato per distribuire automaticamente qualsiasi tuo minipool quando i loro saldi individuali raggiungono **1 ETH**. Questa soglia può essere configurata nella TUI seguendo i passaggi qui sotto.
 
 Esegui:
 
@@ -24,7 +24,7 @@ Vai all'impostazione `Smartnode and TX Fee Settings > Auto Distribute Threshold`
 
 ![](./images/tui-automatic-skimming.png)
 
-Modificare questa impostazione regolerà la soglia alla quale lo Smartnode distribuirà automaticamente i tuoi minipool.
+Modificare questa impostazione regolerà la soglia alla quale lo Smart Node distribuirà automaticamente i tuoi minipool.
 Impostare il parametro a 0 disabiliterà le distribuzioni automatiche.
 
 ::: warning AVVISO
@@ -32,7 +32,7 @@ Se decidi di disabilitare la distribuzione automatica, è importante che tu eseg
 
 Dopo un lungo periodo di tempo, le tue ricompense skimmate potrebbero superare gli 8 ETH. Se si verifica questa situazione, non sarai più in grado di distribuirle e dovrai uscire dal tuo validator per accedere alle ricompense accumulate.
 
-Rocket Pool dispone di un design di sicurezza che consente a chiunque, dopo un lungo periodo di attesa, di distribuire il tuo minipool quando il suo saldo supera gli 8 ETH. Per proteggere il tuo capitale, lo Smartnode monitora questa situazione e uscirà automaticamente dal tuo minipool se si verifica.
+Rocket Pool dispone di un design di sicurezza che consente a chiunque, dopo un lungo periodo di attesa, di distribuire il tuo minipool quando il suo saldo supera gli 8 ETH. Per proteggere il tuo capitale, lo Smart Node monitora questa situazione e uscirà automaticamente dal tuo minipool se si verifica.
 :::
 
 ## Distribuzione Manuale

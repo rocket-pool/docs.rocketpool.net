@@ -10,11 +10,11 @@ In this section, you'll learn about how to monitor the health of your node and y
 
 ## Prerequisites
 
-Before configuring your Smartnode, please make sure you:
+Before configuring your Smart Node, please make sure you:
 
 - Have set up a node machine (or virtual machine) and secured it (via the [Securing your Node](../securing-your-node) guide)
-- Have the Smartnode [installed](../installing/overview) and [configured](../config/overview) on it
-- Have a node wallet loaded on your Smartnode
+- Have the Smart Node [installed](../installing/overview) and [configured](../config/overview) on it
+- Have a node wallet loaded on your Smart Node
 - Synced your Execution and Consensus clients
 - Provisioned your node with [a withdrawal address](../prepare-node.mdx#setting-your-primary-withdrawal-address), set up your [fallback clients](../fallback) (optional), opted into the [Smoothing Pool](../fee-distrib-sp#the-smoothing-pool) (optional), and configured [MEV](../mev.mdx)
 - Created at least one [minipool](../create-validator.mdx)
@@ -24,12 +24,12 @@ Before configuring your Smartnode, please make sure you:
 [Monitoring your Node's Performance](../performance) provides some tools and tutorials for keeping tabs on your node's health (from a resource perspective, such as CPU and RAM consumption) and your validators' performance on the Beacon Chain.
 It covers a lot of fundamental tools you'll use during your tenure as an Ethereum validator.
 
-[Setting up the Grafana Dashboard](../grafana.mdx) walks through setting up the Smartnode stack's metrics tracker and the Grafana dashboard - a one stop shop for monitoring everything about your node and validators, and a staple in each node operator's arsenal.
+[Setting up the Grafana Dashboard](../grafana.mdx) walks through setting up the Smart Node stack's metrics tracker and the Grafana dashboard - a one stop shop for monitoring everything about your node and validators, and a staple in each node operator's arsenal.
 We _strongly_ recommend exploring the Grafana dashboard and regularly checking in on it.
 
-[Smartnode Stack Alert Notifications](./alerting.md) walks through using the Smartnode alert notification functionality to receive notifications about the health and important events of your Rocket Pool Smartnode.
+[Smart Node Stack Alert Notifications](./alerting.md) walks through using the Smart Node alert notification functionality to receive notifications about the health and important events of your Rocket Pool Smart Node.
 
-[Checking for Updates](../updates) covers the crucial processes of regularly updating your node with new security patches, how to update the Smartnode after a new release, and how to manually update client versions if your clients of choice release a new version that the Smartnode's latest release doesn't include yet.
+[Checking for Updates](../updates) covers the crucial processes of regularly updating your node with new security patches, how to update the Smart Node after a new release, and how to manually update client versions if your clients of choice release a new version that the Smart Node's latest release doesn't include yet.
 You should familiarize yourself with this entire section, as you may need to refer to it whenever an update is released.
 
 [Backing Up Your Node](../backups) is an optional guide that describes how to back up your node's configuration and its chain data in case of a hardware failure.

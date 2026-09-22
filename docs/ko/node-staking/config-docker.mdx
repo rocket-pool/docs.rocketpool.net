@@ -11,12 +11,12 @@ import tuiExternalDD from "./images/tui-external-dd.png";
 import tuiExternalPrysm from "./images/tui-external-prysm.png";
 import tuiExternalTeku from "./images/tui-external-teku.png";
 
-# Smartnode 스택 구성하기 (Docker / Hybrid 모드)
+# Smart Node 스택 구성하기 (Docker / Hybrid 모드)
 
 완전한 Execution layer와 Consensus layer 클라이언트를 실행하는 것은 부담스러울 수 있습니다. 선택할 수 있는 여러 옵션이 있고 각각은 수많은 다양한 설정을 가지고 있습니다.
-다행히도 Smartnode는 이 모든 복잡성을 숨기도록 설계되어 빠르고 쉽게 구성할 수 있으며, 원하는 경우 모든 것을 사용자 정의할 수 있는 자유를 제공합니다.
+다행히도 Smart Node는 이 모든 복잡성을 숨기도록 설계되어 빠르고 쉽게 구성할 수 있으며, 원하는 경우 모든 것을 사용자 정의할 수 있는 자유를 제공합니다.
 
-이 섹션에서는 **Docker 기반 설정** 또는 외부에서 관리되는 Execution 또는 Consensus 클라이언트에 연결하는 **Hybrid 설정**(예: 솔로 스테이킹을 위해 Smartnode 외부에서 관리하는 클라이언트)을 사용하는 경우 Smartnode를 구성하는 다양한 방법을 살펴보겠습니다.
+이 섹션에서는 **Docker 기반 설정** 또는 외부에서 관리되는 Execution 또는 Consensus 클라이언트에 연결하는 **Hybrid 설정**(예: 솔로 스테이킹을 위해 Smart Node 외부에서 관리하는 클라이언트)을 사용하는 경우 Smart Node를 구성하는 다양한 방법을 살펴보겠습니다.
 
 ::: warning 참고
 Docker 없이 Native 모드를 사용하는 경우 [Native 구성 가이드](./config-native)를 참조하세요.
@@ -25,8 +25,8 @@ Docker 없이 Native 모드를 사용하는 경우 [Native 구성 가이드](./c
 구성하는 세 가지 방법이 있습니다:
 
 - [마법사 UI](#마법사를-통한-구성)를 통해 - 가장 쉬운 방법입니다. 몇 가지 기본 질문만 하고 잘 테스트된 기본값을 사용합니다. 처음으로 `rocketpool service config`를 실행할 때 표시됩니다.
-- [설정 관리자 UI](#설정-관리자를-통한-구성)를 통해 - Smartnode의 모든 설정에 액세스할 수 있어 원하는 만큼 모든 것을 사용자 정의할 수 있습니다.
-- [명령줄](#명령줄을-통한-구성)을 통한 헤드리스 방식 - 헤드리스(비대화형) 환경에서 Smartnode를 실행하고 자동으로 구성해야 하는 사용자를 위한 옵션입니다.
+- [설정 관리자 UI](#설정-관리자를-통한-구성)를 통해 - Smart Node의 모든 설정에 액세스할 수 있어 원하는 만큼 모든 것을 사용자 정의할 수 있습니다.
+- [명령줄](#명령줄을-통한-구성)을 통한 헤드리스 방식 - 헤드리스(비대화형) 환경에서 Smart Node를 실행하고 자동으로 구성해야 하는 사용자를 위한 옵션입니다.
 
 위 목록에서 자세히 알아보고 싶은 모드를 선택하거나 아래의 각 옵션을 스크롤하십시오.
 
@@ -41,7 +41,7 @@ rocketpool service config
 이렇게 하면 노드를 빠르고 쉽게 구성할 수 있는 터미널 기반 UI가 시작되며, 고급 사용자 정의를 위한 모든 설정에 대한 세밀한 제어도 선택적으로 제공됩니다.
 
 ::: tip 참고
-이미 Smartnode를 구성한 경우 대신 [설정 관리자](#설정-관리자를-통한-구성)가 표시됩니다.
+이미 Smart Node를 구성한 경우 대신 [설정 관리자](#설정-관리자를-통한-구성)가 표시됩니다.
 원하는 경우 거기에서 마법사를 다시 열 수 있으며 기존 설정이 모두 미리 선택됩니다.
 :::
 
@@ -97,12 +97,12 @@ rocketpool service config
 <img src="./images/tui-client-mode.png" width="100%" height="auto" />
 
 **Locally Managed**(**"Docker 모드"**라고도 함)가 기본 선택입니다.
-클라이언트 쌍이 아직 없고 Smartnode가 클라이언트를 관리하도록 하려면 이것을 사용하세요.
-이것을 선택하면 Smartnode가 Execution & Consensus 클라이언트 쌍을 Docker 컨테이너로 생성, 구성 및 관리합니다.
+클라이언트 쌍이 아직 없고 Smart Node가 클라이언트를 관리하도록 하려면 이것을 사용하세요.
+이것을 선택하면 Smart Node가 Execution & Consensus 클라이언트 쌍을 Docker 컨테이너로 생성, 구성 및 관리합니다.
 걱정하지 마세요, 다음에 _어떤_ 클라이언트를 실행할지 선택할 수 있습니다.
 
 **Externally Managed**(**"Hybrid 모드"**라고도 함)는 이미 다른 곳에서 수동으로 관리하는 Execution & Consensus 클라이언트 쌍이 있는 사용자에게 편리한 선택입니다.
-이것을 선택하면 Smartnode는 단순히 기존 클라이언트에 연결하고 자체 클라이언트를 실행하지 않습니다.
+이것을 선택하면 Smart Node는 단순히 기존 클라이언트에 연결하고 자체 클라이언트를 실행하지 않습니다.
 예를 들어, 사용자는 현재 솔로 스테이킹에 사용하는 클라이언트에 연결할 수 있습니다. 이렇게 하면 두 개의 별도 클라이언트 사본이 필요하지 않습니다.
 
 :::warning 참고
@@ -117,7 +117,7 @@ Execution 클라이언트를 관리하는 데 사용할 모드를 선택하고 �
 <div className="p-3">
   <Tabs>
     <Tab label="Locally Managed">
-      Smartnode가 Execution 클라이언트를 관리하도록 하려면 다음 화면에서 클라이언트를 선택하라는 메시지가 표시됩니다:
+      Smart Node가 Execution 클라이언트를 관리하도록 하려면 다음 화면에서 클라이언트를 선택하라는 메시지가 표시됩니다:
 
       <img src={ECSelection} width="100%" height="auto"/>
 
@@ -141,8 +141,8 @@ Execution 클라이언트를 관리하는 데 사용할 모드를 선택하고 �
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">참고</p>
-        Smartnode는 자체 Docker 컨테이너에서 실행되므로 Docker의 내부 네트워크를 사용합니다.
-        여기서는 `localhost` 또는 `127.0.0.1`과 같은 호스트명을 사용할 수 없습니다. Execution 클라이언트가 Smartnode와 동일한 머신에서 실행 중인 경우 대신 머신의 LAN IP 주소를 제공해야 합니다.
+        Smart Node는 자체 Docker 컨테이너에서 실행되므로 Docker의 내부 네트워크를 사용합니다.
+        여기서는 `localhost` 또는 `127.0.0.1`과 같은 호스트명을 사용할 수 없습니다. Execution 클라이언트가 Smart Node와 동일한 머신에서 실행 중인 경우 대신 머신의 LAN IP 주소를 제공해야 합니다.
       </p>
 
       이제 Execution 클라이언트가 모두 설정되었습니다!
@@ -152,17 +152,17 @@ Execution 클라이언트를 관리하는 데 사용할 모드를 선택하고 �
 
       <img src={tuiExternalEC} width="100%" height="auto"/>
 
-      Smartnode는 HTTP URL을 사용하여 통신하고 체인 상태 쿼리 및 트랜잭션 제출과 같은 블록체인 활동을 수행합니다.
-      **클라이언트의 API 포트가 이미 활성화되어 있지 않고 Smartnode 머신에서 액세스할 수 없는 경우 지금 설정해야 합니다.**
+      Smart Node는 HTTP URL을 사용하여 통신하고 체인 상태 쿼리 및 트랜잭션 제출과 같은 블록체인 활동을 수행합니다.
+      **클라이언트의 API 포트가 이미 활성화되어 있지 않고 Smart Node 머신에서 액세스할 수 없는 경우 지금 설정해야 합니다.**
       이에 대한 지침은 클라이언트마다 다릅니다. HTTP RPC 엔드포인트를 설정하는 방법은 클라이언트 문서를 참조하세요.
 
-      Websocket URL은 자체 사용에 필요한 경우에만 관련이 있습니다. Smartnode는 이를 사용하지 않습니다.
+      Websocket URL은 자체 사용에 필요한 경우에만 관련이 있습니다. Smart Node는 이를 사용하지 않습니다.
       필요하지 않은 경우 비워둘 수 있습니다.
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">참고</p>
-        Smartnode는 자체 Docker 컨테이너에서 실행되므로 Docker의 내부 네트워크를 사용합니다.
-        여기서는 `localhost` 또는 `127.0.0.1`과 같은 호스트명을 사용할 수 없습니다. 폴백 Execution 클라이언트가 Smartnode와 동일한 머신에서 실행 중인 경우 대신 머신의 LAN IP 주소를 제공해야 합니다.
+        Smart Node는 자체 Docker 컨테이너에서 실행되므로 Docker의 내부 네트워크를 사용합니다.
+        여기서는 `localhost` 또는 `127.0.0.1`과 같은 호스트명을 사용할 수 없습니다. 폴백 Execution 클라이언트가 Smart Node와 동일한 머신에서 실행 중인 경우 대신 머신의 LAN IP 주소를 제공해야 합니다.
       </p>
 
       폴백 Execution 클라이언트 선택이 만족스러우면 다음 단계로 진행하세요.
@@ -181,7 +181,7 @@ Execution 클라이언트를 관리하는 데 사용할 모드를 선택하고 �
 <div className="p-3">
   <Tabs>
     <Tab label="Locally Managed">
-      Smartnode가 Consensus 클라이언트를 관리하도록 하려면 다음 화면에서 클라이언트를 선택하라는 메시지가 표시됩니다:
+      Smart Node가 Consensus 클라이언트를 관리하도록 하려면 다음 화면에서 클라이언트를 선택하라는 메시지가 표시됩니다:
 
       <img src={tuiLocalCC} width="100%" height="auto"/>
 
@@ -423,7 +423,7 @@ Execution 클라이언트를 관리하는 데 사용할 모드를 선택하고 �
       </p>
     </Tab>
     <Tab label="Externally Managed">
-      각 Consensus 클라이언트는 약간 다른 동작을 하기 때문에 Smartnode는 외부에서 사용 중인 클라이언트를 알아야 그에 따라 자체 동작을 조정할 수 있습니다.
+      각 Consensus 클라이언트는 약간 다른 동작을 하기 때문에 Smart Node는 외부에서 사용 중인 클라이언트를 알아야 그에 따라 자체 동작을 조정할 수 있습니다.
       다음 화면의 목록에서 가지고 있는 클라이언트를 선택하는 것으로 시작하세요:
 
       <img src="./images/tui-external-cc.png" width="100%" height="auto"/>
@@ -444,14 +444,14 @@ Execution 클라이언트를 관리하는 데 사용할 모드를 선택하고 �
 
             <img src={tuiExternalLH} width="100%" height="auto"/>
 
-            Smartnode는 HTTP URL을 사용하여 통신하고 체인 상태 쿼리 및 메시지 제출과 같은 블록체인 활동을 수행합니다.
-            **API 포트가 이미 활성화되어 있지 않고 Smartnode 머신에서 액세스할 수 없는 경우 지금 설정해야 합니다.**
+            Smart Node는 HTTP URL을 사용하여 통신하고 체인 상태 쿼리 및 메시지 제출과 같은 블록체인 활동을 수행합니다.
+            **API 포트가 이미 활성화되어 있지 않고 Smart Node 머신에서 액세스할 수 없는 경우 지금 설정해야 합니다.**
             이를 수행하는 방법은 [Lighthouse 문서](https://lighthouse-book.sigmaprime.io/api-bn.html)를 참조하세요.
 
             <p className="rspress-directive warning">
               <p className="rspress-directive-title">참고</p>
-              Smartnode는 자체 Docker 컨테이너에서 실행되므로 Docker의 내부 네트워크를 사용합니다.
-              여기서는 `localhost` 또는 `127.0.0.1`과 같은 호스트명을 사용할 수 없습니다. 클라이언트가 Smartnode와 동일한 머신에서 실행 중인 경우 대신 머신의 LAN IP 주소를 제공해야 합니다.
+              Smart Node는 자체 Docker 컨테이너에서 실행되므로 Docker의 내부 네트워크를 사용합니다.
+              여기서는 `localhost` 또는 `127.0.0.1`과 같은 호스트명을 사용할 수 없습니다. 클라이언트가 Smart Node와 동일한 머신에서 실행 중인 경우 대신 머신의 LAN IP 주소를 제공해야 합니다.
             </p>
 
 
@@ -491,17 +491,17 @@ Execution 클라이언트를 관리하는 데 사용할 모드를 선택하고 �
 
             <img src={tuiExternalPrysm} width="100%" height="auto"/>
 
-            Smartnode는 HTTP URL을 사용하여 통신하고 체인 상태 쿼리 및 메시지 제출과 같은 블록체인 활동을 수행합니다.
+            Smart Node는 HTTP URL을 사용하여 통신하고 체인 상태 쿼리 및 메시지 제출과 같은 블록체인 활동을 수행합니다.
             Prysm Validator Client에 JSON-RPC URL을 준비하여 Beacon Node와 통신할 수 있도록 합니다. _Prysm의 Validator Client는 현재 HTTP API를 통해 작동할 수 없기 때문입니다._
 
-            **API 포트가 이미 활성화되어 있지 않고 Smartnode 머신에서 액세스할 수 없는 경우 지금 설정해야 합니다.**
+            **API 포트가 이미 활성화되어 있지 않고 Smart Node 머신에서 액세스할 수 없는 경우 지금 설정해야 합니다.**
             이를 수행하는 방법은 [Prysm 문서](https://docs.prylabs.network/docs/prysm-usage/parameters)를 참조하세요.
             **`grpc-gateway` _및_ `rpc-host`를 활성화해야 합니다.**
 
             <p className="rspress-directive warning">
               <p className="rspress-directive-title">참고</p>
-              Smartnode는 자체 Docker 컨테이너에서 실행되므로 Docker의 내부 네트워크를 사용합니다.
-              여기서는 `localhost` 또는 `127.0.0.1`과 같은 호스트명을 사용할 수 없습니다. 클라이언트가 Smartnode와 동일한 머신에서 실행 중인 경우 대신 머신의 LAN IP 주소를 제공해야 합니다.
+              Smart Node는 자체 Docker 컨테이너에서 실행되므로 Docker의 내부 네트워크를 사용합니다.
+              여기서는 `localhost` 또는 `127.0.0.1`과 같은 호스트명을 사용할 수 없습니다. 클라이언트가 Smart Node와 동일한 머신에서 실행 중인 경우 대신 머신의 LAN IP 주소를 제공해야 합니다.
             </p>
 
 
@@ -541,15 +541,15 @@ Execution 클라이언트를 관리하는 데 사용할 모드를 선택하고 �
 
             <img src={tuiExternalTeku} width="100%" height="auto"/>
 
-            Smartnode는 HTTP URL을 사용하여 통신하고 체인 상태 쿼리 및 메시지 제출과 같은 블록체인 활동을 수행합니다.
-            **API 포트가 이미 활성화되어 있지 않고 Smartnode 머신에서 액세스할 수 없는 경우 지금 설정해야 합니다.**
+            Smart Node는 HTTP URL을 사용하여 통신하고 체인 상태 쿼리 및 메시지 제출과 같은 블록체인 활동을 수행합니다.
+            **API 포트가 이미 활성화되어 있지 않고 Smart Node 머신에서 액세스할 수 없는 경우 지금 설정해야 합니다.**
             이를 수행하는 방법은 [Teku 문서](https://docs.teku.consensys.net/en/latest/Reference/CLI/CLI-Syntax/#rest-api-enabled)를 참조하세요.
 
 
             <p className="rspress-directive warning">
               <p className="rspress-directive-title">참고</p>
-              Smartnode는 자체 Docker 컨테이너에서 실행되므로 Docker의 내부 네트워크를 사용합니다.
-              여기서는 `localhost` 또는 `127.0.0.1`과 같은 호스트명을 사용할 수 없습니다. 클라이언트가 Smartnode와 동일한 머신에서 실행 중인 경우 대신 머신의 LAN IP 주소를 제공해야 합니다.
+              Smart Node는 자체 Docker 컨테이너에서 실행되므로 Docker의 내부 네트워크를 사용합니다.
+              여기서는 `localhost` 또는 `127.0.0.1`과 같은 호스트명을 사용할 수 없습니다. 클라이언트가 Smart Node와 동일한 머신에서 실행 중인 경우 대신 머신의 LAN IP 주소를 제공해야 합니다.
             </p>
 
             다음으로 검증자의 **graffiti** 메시지에 대해 묻습니다:
@@ -602,7 +602,7 @@ rocketpool service resync-eth2
 
 ### 폴백 노드
 
-Smartnode 스택 1.5.0부터 기본 클라이언트가 오프라인 상태가 되면(예: Geth를 사용하고 프루닝해야 하는 경우) 대신 사용할 수 있는 "폴백" Execution 클라이언트와 Consensus 클라이언트 쌍을 제공할 수 있습니다.
+Smart Node 스택 1.5.0부터 기본 클라이언트가 오프라인 상태가 되면(예: Geth를 사용하고 프루닝해야 하는 경우) 대신 사용할 수 있는 "폴백" Execution 클라이언트와 Consensus 클라이언트 쌍을 제공할 수 있습니다.
 이 상황에서 기본 노드 머신은 여전히 minipool의 검증자 키로 증명 및 블록 제안을 담당하지만 외부 머신에 연결하여 Execution layer 및 Beacon 체인과 상호 작용합니다.
 
 [폴백 노드에 대해 자세히 알아보려면 이 섹션을 참조하고](./fallback) 완료되면 여기로 돌아오세요.
@@ -629,7 +629,7 @@ Rocket Pool은 원격 측정을 수집하거나 별도의 서비스로 보내지
 
 2022년 9월 Execution 및 Consensus 레이어 병합 이후 Ethereum 검증자는 이제 우선 수수료를 받고 MEV(Maximal Extractable Value)에 참여할 수 있습니다.
 
-Smartnode v1.7.0부터 MEV는 이제 *opt-out*이므로 다음 화면에서 볼 수 있듯이 초기 설정의 일부로 구성이 제공됩니다:
+Smart Node v1.7.0부터 MEV는 이제 *opt-out*이므로 다음 화면에서 볼 수 있듯이 초기 설정의 일부로 구성이 제공됩니다:
 
 <img src="./images/tui-mev-mode.png" width="100%" height="auto" />
 
@@ -638,12 +638,12 @@ Smartnode v1.7.0부터 MEV는 이제 *opt-out*이므로 다음 화면에서 볼 
 
 ### 완료
 
-이 질문 후에 Smartnode 설정이 완료되었습니다!
+이 질문 후에 Smart Node 설정이 완료되었습니다!
 다음 대화 상자가 표시됩니다:
 
 <img src="./images/tui-finished.png" width="100%" height="auto" />
 
-설정이 만족스럽고 Smartnode를 시작할 준비가 되었다면 여기에서 `Save and Exit`를 클릭하고 다음으로 [노드 보안](./securing-your-node) 섹션으로 이동하세요.
+설정이 만족스럽고 Smart Node를 시작할 준비가 되었다면 여기에서 `Save and Exit`를 클릭하고 다음으로 [노드 보안](./securing-your-node) 섹션으로 이동하세요.
 
 모든 설정을 검토하고 마법사에 포함되지 않은 많은 추가 설정을 사용자 정의하려면 `Review All Settings`를 클릭하고 [다음 섹션](#설정-관리자를-통한-구성)으로 이동하세요.
 
@@ -655,7 +655,7 @@ Smartnode v1.7.0부터 MEV는 이제 *opt-out*이므로 다음 화면에서 볼 
 
 이 화면에는 세 가지 주요 기능이 있습니다:
 
-1. **Category List** - Smartnode 스택의 각 카테고리에 대한 설정을 드릴다운할 수 있습니다
+1. **Category List** - Smart Node 스택의 각 카테고리에 대한 설정을 드릴다운할 수 있습니다
 2. **Review Changes and Save** 버튼 - 변경한 설정을 검토하고 업데이트된 구성을 저장할 준비가 되었을 때 사용할 수 있습니다
 3. **Open the Config Wizard** 버튼 - 해당 인터페이스를 선호하는 경우 [설정 마법사](#마법사를-통한-구성)로 이동합니다
 
@@ -676,7 +676,7 @@ Smartnode v1.7.0부터 MEV는 이제 *opt-out*이므로 다음 화면에서 볼 
 ### 설정 구성
 
 홈 화면에서 `Enter` 키로 카테고리 중 하나를 선택하여 해당 카테고리의 설정을 확인하세요.
-예를 들어 **Smartnode and TX Fees** 카테고리의 화면은 다음과 같습니다:
+예를 들어 **Smart Node and TX Fees** 카테고리의 화면은 다음과 같습니다:
 
 <img src="./images/tui-smartnode.png" width="100%" height="auto" />
 
@@ -693,7 +693,7 @@ Smartnode v1.7.0부터 MEV는 이제 *opt-out*이므로 다음 화면에서 볼 
 
 ::: tip 팁
 다시 말하지만, **Review Changes and Save** 버튼을 통해 Review 대화 상자를 거치기 전까지는 아무것도 디스크에 저장되지 않습니다.
-모든 설정을 탐색하여 Smartnode가 무엇을 할 수 있는지 배우는 것이 좋습니다!
+모든 설정을 탐색하여 Smart Node가 무엇을 할 수 있는지 배우는 것이 좋습니다!
 :::
 
 ### 설정 유형 및 사용 방법
@@ -815,7 +815,7 @@ services:
 
 ## 명령줄을 통한 구성
 
-터미널 UI와 상호 작용할 수 없는 헤드리스 환경에서 Smartnode를 사용하는 경우 대신 명령줄을 통해 노드를 구성할 수 있습니다.
+터미널 UI와 상호 작용할 수 없는 헤드리스 환경에서 Smart Node를 사용하는 경우 대신 명령줄을 통해 노드를 구성할 수 있습니다.
 
 `rocketpool service config` 명령은 터미널 UI를 통해 일반적으로 구성할 수 있는 모든 설정을 인수로 허용합니다.
 다음 명령을 실행하여 목록을 확인하세요(상당히 깁니다):

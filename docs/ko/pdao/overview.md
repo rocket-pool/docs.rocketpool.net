@@ -10,11 +10,11 @@ next:
 
 ## 전제 조건
 
-Smartnode를 구성하기 전에 다음을 확인해주세요:
+Smart Node를 구성하기 전에 다음을 확인해주세요:
 
 - 노드 머신(또는 가상 머신)을 설정하고 보안을 설정했는지 확인([노드 보안](/ko/node-staking/securing-your-node) 가이드를 통해)
-- Smartnode를 [설치](/ko/node-staking/installing/overview)하고 [구성](/ko/node-staking/config/overview)했는지 확인
-- Smartnode에 노드 지갑을 로드했는지 확인
+- Smart Node를 [설치](/ko/node-staking/installing/overview)하고 [구성](/ko/node-staking/config/overview)했는지 확인
+- Smart Node에 노드 지갑을 로드했는지 확인
 - Execution 및 Consensus 클라이언트를 동기화했는지 확인
 - [출금 주소](/ko/node-staking/prepare-node#primary-withdrawal-address-설정하기)로 노드를 프로비저닝하고, [폴백 클라이언트](/ko/node-staking/fallback) 설정(선택 사항), [Smoothing Pool](/ko/node-staking/fee-distrib-sp#smoothing-pool) 가입(선택 사항), [MEV](/ko/node-staking/mev) 구성을 완료했는지 확인
 - 최소 하나의 [minipool](/ko/node-staking/create-validator)을 생성했는지 확인
@@ -31,11 +31,11 @@ Smartnode를 구성하기 전에 다음을 확인해주세요:
 
 [The Protocol DAO](/ko/pdao/pdao)는 pDAO가 누구이며 Rocket Pool을 어떻게 관리하는지 설명합니다. 이 페이지는 재무 지출과 같은 pDAO 업무가 온체인에서 어떻게 실행되는지, 그리고 완전히 새로운 Security Council의 역할을 알려줍니다. 또한 pDAO 제안의 라이프사이클을 안내하고 스팸을 방지하고 악의적인 제안을 차단하기 위한 조치를 설명합니다.
 
-[Voting setup for non-smartnode users](/ko/legacy/houston/nonsmartnode-setup)는 Smartnode를 사용하지 않는 사용자(예: Allnodes 사용자)가 투표를 설정하는 방법을 보여줍니다.
+[Voting setup for non-smartnode users](/ko/legacy/houston/nonsmartnode-setup)는 Smart Node를 사용하지 않는 사용자(예: Allnodes 사용자)가 투표를 설정하는 방법을 보여줍니다.
 
 [Initializing Voting Power](/ko/pdao/participate#투표-초기화)는 노드의 투표권을 초기화하는 방법을 보여줍니다. 이 단계는 Houston 업그레이드 이전에 노드를 등록한 경우에만 필요합니다.
 
-[Setting your Snapshot Signalling Address](/ko/pdao/participate#snapshot-signalling-address-설정)는 Signalling Address를 설정하는 단계를 안내합니다. 이를 통해 노드의 개인 키를 핫 월렛에 로드하지 않고도 노드의 투표권을 사용하여 Snapshot에서 투표할 수 있습니다. Smartnode CLI를 준비하고 이 가이드를 위해 노드 지갑이 아닌 주소를 준비하세요.
+[Setting your Snapshot Signalling Address](/ko/pdao/participate#snapshot-signalling-address-설정)는 Signalling Address를 설정하는 단계를 안내합니다. 이를 통해 노드의 개인 키를 핫 월렛에 로드하지 않고도 노드의 투표권을 사용하여 Snapshot에서 투표할 수 있습니다. Smart Node CLI를 준비하고 이 가이드를 위해 노드 지갑이 아닌 주소를 준비하세요.
 
 [Delegating Voting Power](/ko/pdao/participate#투표권-위임)는 제안에 직접 투표하는 대신 투표권을 위임하는 데 사용할 수 있는 빠른 명령입니다.
 

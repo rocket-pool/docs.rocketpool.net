@@ -22,7 +22,7 @@ Todo Validator Client mantém uma Slashing Database para garantir que seu nó nu
 O problema, então, vem de situações onde você começa a validar **sem** uma slashing database e, portanto, não tem registro do que seus validators votaram anteriormente.
 Isso pode acontecer em várias situações:
 
-1. Você acabou de mudar Consensus Clients, e o novo cliente não carrega a Slashing Database do antigo (o que o Smartnode não faz durante uma mudança de cliente).
+1. Você acabou de mudar Consensus Clients, e o novo cliente não carrega a Slashing Database do antigo (o que o Smart Node não faz durante uma mudança de cliente).
 2. Você tem sua carteira carregada em uma máquina e está ativamente atestando com ela, e então carrega sua carteira em uma segunda máquina _enquanto a primeira máquina ainda está ativamente atestando_.
 3. Você para de validar em uma máquina e carrega sua carteira em uma segunda máquina, mas você não esperou tempo suficiente para a epoch atual ser finalizada então sua segunda máquina atesta para slots que seus validators já atestaram.
 
@@ -39,12 +39,12 @@ Esperar 15 minutos garante que você perdeu pelo menos uma epoch e esperou tempo
 Com o contexto acima em mente, aqui está um checklist útil que você pode seguir ao migrar seu nó para garantir que não será slashed.
 Isso é projetado para máxima segurança, então embora você possa pensar que algumas das etapas são desnecessárias, nós **fortemente** encorajamos você a seguir todas elas até a conclusão.
 
-1. **Prepare o novo nó** seguindo estes guias, começando da seção "Preparing a Node" e terminando uma vez que você tenha o Smartnode instalado e esteja sincronizando um Execution e Consensus client.
+1. **Prepare o novo nó** seguindo estes guias, começando da seção "Preparing a Node" e terminando uma vez que você tenha o Smart Node instalado e esteja sincronizando um Execution e Consensus client.
    - :warning: **NÃO** inicialize uma nova carteira ou recupere sua carteira antiga no nó. Permita que ele sincronize os clientes _sem uma carteira presente_.
 
 2. **ESPERE** até que seus clientes estejam totalmente sincronizados no novo nó.
 3. Confirme que você registrou seu mnemonic corretamente executando `rocketpool wallet test-recovery` em sua nova máquina. Isso _simulará_ a recuperação de keys para confirmar que sua node wallet e todas as validator keys dos seus minipools podem ser recuperadas corretamente, mas não _realmente_ as recuperará e salvará no disco então não há risco de slashing.
-   1. Se o Smartnode falhar em recuperar sua node wallet usando o mnemonic que você forneceu, então seu mnemonic pode ser inválido. **PARE** de passar por este processo; remover as keys do seu nó antigo significa que elas poderiam ser **perdidas para sempre**.
+   1. Se o Smart Node falhar em recuperar sua node wallet usando o mnemonic que você forneceu, então seu mnemonic pode ser inválido. **PARE** de passar por este processo; remover as keys do seu nó antigo significa que elas poderiam ser **perdidas para sempre**.
    2. Nesta situação recomendamos sair de seus validators e retirar seu capital o mais rápido possível, para que você possa começar de novo com um novo nó para o qual você tem o mnemonic funcionando.
 4. **Pare de validar** em seu nó antigo (por exemplo, usando `rocketpool service stop` para desligar o validator client).
 5. **Delete suas keys** do seu nó antigo (por exemplo, usando `rocketpool wallet purge`).

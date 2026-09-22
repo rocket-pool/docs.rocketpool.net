@@ -27,7 +27,7 @@ Kısa cevap: düğümünüzü tamamen kurtarmak için ihtiyacınız olan tek şe
 Her zaman güvende tuttuğunuzdan emin olun.
 
 Düğümünüzü yeni bir makinede kurtarmak için, **önceki makinenizin anahtarlarla tekrar çevrimiçi olmayacağından** emin olarak başlayın, çünkü aynı anahtarlarla çalışan iki düğüm **sizi slashing'e uğratacaktır**.
-Yeni bir makineye Smartnode'u yüklemek için [adımları](./install-modes) izleyin.
+Yeni bir makineye Smart Node'u yüklemek için [adımları](./install-modes) izleyin.
 Ardından, `rocketpool wallet recover` komutunu çalıştırarak ve 24 kelimelik mnemonic'inizi girerek düğüm cüzdanınızı ve validatör anahtarlarınızı kurtarın.
 
 ### İstemcilerim neden senkronize olmuyor? Düşük sayıda eş var.

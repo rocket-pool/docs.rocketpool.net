@@ -11,12 +11,12 @@ import tuiExternalDD from "./images/tui-external-dd.png";
 import tuiExternalPrysm from "./images/tui-external-prysm.png";
 import tuiExternalTeku from "./images/tui-external-teku.png";
 
-# 配置 Smartnode 堆栈（Docker / Hybrid 模式）
+# 配置 Smart Node 堆栈（Docker / Hybrid 模式）
 
 运行完整的执行层和共识层客户端可能令人生畏；有多个选项可供选择，每个选项都有大量不同的设置。
-幸运的是，Smartnode 旨在隐藏所有这些复杂性，使其快速且易于配置，同时仍然给您自由定制所有内容的自由。
+幸运的是，Smart Node 旨在隐藏所有这些复杂性，使其快速且易于配置，同时仍然给您自由定制所有内容的自由。
 
-在本节中，如果您使用**基于 Docker 的设置**或**混合设置**（连接到外部管理的执行或共识客户端，例如，您在 Smartnode 之外管理的用于单独质押的客户端），我们将介绍配置 Smartnode 的各种方法。
+在本节中，如果您使用**基于 Docker 的设置**或**混合设置**（连接到外部管理的执行或共识客户端，例如，您在 Smart Node 之外管理的用于单独质押的客户端），我们将介绍配置 Smart Node 的各种方法。
 
 ::: warning 注意
 如果您在不使用 Docker 的情况下使用原生模式，请访问[原生配置指南](./config-native)。
@@ -25,8 +25,8 @@ import tuiExternalTeku from "./images/tui-external-teku.png";
 有三种配置方式：
 
 - 通过[向导 UI](#通过向导配置) - 这是最简单的方法。它只会问您几个基本问题，并使用经过充分测试的默认值。这是您首次运行 `rocketpool service config` 时将看到的内容。
-- 通过[设置管理器 UI](#通过设置管理器配置) - 这使您可以访问 Smartnode 的所有设置，以便您可以随意自定义所有内容。
-- 通过[命令行](#通过命令行配置)无头配置 - 这是为在无头（非交互式）环境中运行 Smartnode 并需要自动配置的人提供的选项。
+- 通过[设置管理器 UI](#通过设置管理器配置) - 这使您可以访问 Smart Node 的所有设置，以便您可以随意自定义所有内容。
+- 通过[命令行](#通过命令行配置)无头配置 - 这是为在无头（非交互式）环境中运行 Smart Node 并需要自动配置的人提供的选项。
 
 从上面的列表中选择您想了解更多的模式，或简单地滚动浏览下面的每个选项。
 
@@ -41,7 +41,7 @@ rocketpool service config
 这将启动一个基于终端的 UI，可让您快速轻松地配置节点，并为高级自定义提供可选的细粒度控制。
 
 ::: tip 注意
-如果您已经配置了 Smartnode，您将看到[设置管理器](#通过设置管理器配置)。
+如果您已经配置了 Smart Node，您将看到[设置管理器](#通过设置管理器配置)。
 如果您喜欢，可以选择从那里重新打开向导，所有现有设置都将为您预先选择。
 :::
 
@@ -97,12 +97,12 @@ rocketpool service config
 <img src="./images/tui-client-mode.png" width="100%" height="auto" />
 
 **Locally Managed**（也称为 **"Docker 模式"**）是默认选择。
-如果您还没有客户端对，并且希望 Smartnode 为您管理一个，请使用它。
-通过选择此选项，Smartnode 将创建、配置和管理执行和共识客户端对作为 Docker 容器。
+如果您还没有客户端对，并且希望 Smart Node 为您管理一个，请使用它。
+通过选择此选项，Smart Node 将创建、配置和管理执行和共识客户端对作为 Docker 容器。
 别担心，您将在下一步选择要运行*哪个*客户端。
 
 **Externally Managed**（也称为 **"混合模式"**）对于已经在其他地方运行手动管理的执行和共识客户端对的用户来说是一个方便的选择。
-通过选择此选项，Smartnode 将简单地连接到您现有的客户端，而不会运行自己的客户端。
+通过选择此选项，Smart Node 将简单地连接到您现有的客户端，而不会运行自己的客户端。
 例如，用户可以使用它来插入他们当前用于单独质押的客户端；这样，他们就不需要有两个单独的客户端副本。
 
 :::warning 注意
@@ -117,7 +117,7 @@ rocketpool service config
 <div className="p-3">
   <Tabs>
     <Tab label="Locally Managed">
-      如果您希望 Smartnode 为您管理执行客户端，下一个屏幕将要求您选择一个客户端：
+      如果您希望 Smart Node 为您管理执行客户端，下一个屏幕将要求您选择一个客户端：
 
       <img src={ECSelection} width="100%" height="auto"/>
 
@@ -141,8 +141,8 @@ rocketpool service config
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">注意</p>
-        由于 Smartnode 将在其自己的 Docker 容器中运行，它将使用 Docker 的内部网络。
-        您将无法在此处使用 `localhost` 或 `127.0.0.1` 等主机名；如果您的执行客户端在与 Smartnode 相同的机器上运行，则需要提供机器的局域网 IP 地址。
+        由于 Smart Node 将在其自己的 Docker 容器中运行，它将使用 Docker 的内部网络。
+        您将无法在此处使用 `localhost` 或 `127.0.0.1` 等主机名；如果您的执行客户端在与 Smart Node 相同的机器上运行，则需要提供机器的局域网 IP 地址。
       </p>
 
       这样，您的执行客户端就设置好了！
@@ -152,17 +152,17 @@ rocketpool service config
 
       <img src={tuiExternalEC} width="100%" height="auto"/>
 
-      Smartnode 将使用 HTTP URL 与其通信并执行区块链活动，例如查询链的状态和提交交易。
-      **如果您还没有启用客户端的 API 端口并使其可从 Smartnode 机器访问，则需要立即设置它。**
+      Smart Node 将使用 HTTP URL 与其通信并执行区块链活动，例如查询链的状态和提交交易。
+      **如果您还没有启用客户端的 API 端口并使其可从 Smart Node 机器访问，则需要立即设置它。**
       有关此操作的说明因客户端而异；请查阅客户端的文档以了解如何设置 HTTP RPC 端点。
 
-      Websocket URL 仅在您需要用于自己的用途时才相关；Smartnode 不使用它。
+      Websocket URL 仅在您需要用于自己的用途时才相关；Smart Node 不使用它。
       如果您不需要它，可以将其留空。
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">注意</p>
-        由于 Smartnode 将在其自己的 Docker 容器中运行，它将使用 Docker 的内部网络。
-        您将无法在此处使用 `localhost` 或 `127.0.0.1` 等主机名；如果您的备用执行客户端在与 Smartnode 相同的机器上运行，则需要提供机器的局域网 IP 地址。
+        由于 Smart Node 将在其自己的 Docker 容器中运行，它将使用 Docker 的内部网络。
+        您将无法在此处使用 `localhost` 或 `127.0.0.1` 等主机名；如果您的备用执行客户端在与 Smart Node 相同的机器上运行，则需要提供机器的局域网 IP 地址。
       </p>
 
       当您对备用执行客户端选择满意时，请继续下一步。
@@ -181,7 +181,7 @@ rocketpool service config
 <div className="p-3">
   <Tabs>
     <Tab label="Locally Managed">
-      如果您希望 Smartnode 为您管理共识客户端，下一个屏幕将要求您选择一个客户端：
+      如果您希望 Smart Node 为您管理共识客户端，下一个屏幕将要求您选择一个客户端：
 
       <img src={tuiLocalCC} width="100%" height="auto"/>
 
@@ -423,7 +423,7 @@ rocketpool service config
       </p>
     </Tab>
     <Tab label="Externally Managed">
-      由于每个共识客户端的行为略有不同，Smartnode 需要知道您在外部使用哪个客户端，以便它可以相应地调整自己的行为。
+      由于每个共识客户端的行为略有不同，Smart Node 需要知道您在外部使用哪个客户端，以便它可以相应地调整自己的行为。
       首先从下一个屏幕的列表中选择您拥有的客户端：
 
       <img src="./images/tui-external-cc.png" width="100%" height="auto"/>
@@ -444,14 +444,14 @@ rocketpool service config
 
             <img src={tuiExternalLH} width="100%" height="auto"/>
 
-            Smartnode 将使用 HTTP URL 与其通信并执行区块链活动，例如查询链的状态和提交消息。
-            **如果您还没有启用 API 端口并使其可从 Smartnode 机器访问，则需要立即设置它。**
+            Smart Node 将使用 HTTP URL 与其通信并执行区块链活动，例如查询链的状态和提交消息。
+            **如果您还没有启用 API 端口并使其可从 Smart Node 机器访问，则需要立即设置它。**
             有关如何执行此操作的说明，请参阅 [Lighthouse 的文档](https://lighthouse-book.sigmaprime.io/api-bn.html)。
 
             <p className="rspress-directive warning">
               <p className="rspress-directive-title">注意</p>
-              由于 Smartnode 将在其自己的 Docker 容器中运行，它将使用 Docker 的内部网络。
-              您将无法在此处使用 `localhost` 或 `127.0.0.1` 等主机名；如果您的客户端在与 Smartnode 相同的机器上运行，则需要提供机器的局域网 IP 地址。
+              由于 Smart Node 将在其自己的 Docker 容器中运行，它将使用 Docker 的内部网络。
+              您将无法在此处使用 `localhost` 或 `127.0.0.1` 等主机名；如果您的客户端在与 Smart Node 相同的机器上运行，则需要提供机器的局域网 IP 地址。
             </p>
 
 
@@ -491,17 +491,17 @@ rocketpool service config
 
             <img src={tuiExternalPrysm} width="100%" height="auto"/>
 
-            Smartnode 将使用 HTTP URL 与其通信并执行区块链活动，例如查询链的状态和提交消息。
+            Smart Node 将使用 HTTP URL 与其通信并执行区块链活动，例如查询链的状态和提交消息。
             它将使用 JSON-RPC URL 准备其 Prysm 验证者客户端，以便它可以与您的信标节点通信，因为 _Prysm 的验证者客户端目前无法通过 HTTP API 工作。_
 
-            **如果您还没有启用 API 端口并使其可从 Smartnode 机器访问，则需要立即设置它们。**
+            **如果您还没有启用 API 端口并使其可从 Smart Node 机器访问，则需要立即设置它们。**
             有关如何执行此操作的说明，请参阅 [Prysm 的文档](https://docs.prylabs.network/docs/prysm-usage/parameters)。
             **您需要启用 `grpc-gateway` _和_ `rpc-host`。**
 
             <p className="rspress-directive warning">
               <p className="rspress-directive-title">注意</p>
-              由于 Smartnode 将在其自己的 Docker 容器中运行，它将使用 Docker 的内部网络。
-              您将无法在此处使用 `localhost` 或 `127.0.0.1` 等主机名；如果您的客户端在与 Smartnode 相同的机器上运行，则需要提供机器的局域网 IP 地址。
+              由于 Smart Node 将在其自己的 Docker 容器中运行，它将使用 Docker 的内部网络。
+              您将无法在此处使用 `localhost` 或 `127.0.0.1` 等主机名；如果您的客户端在与 Smart Node 相同的机器上运行，则需要提供机器的局域网 IP 地址。
             </p>
 
 
@@ -541,15 +541,15 @@ rocketpool service config
 
             <img src={tuiExternalTeku} width="100%" height="auto"/>
 
-            Smartnode 将使用 HTTP URL 与其通信并执行区块链活动，例如查询链的状态和提交消息。
-            **如果您还没有启用 API 端口并使其可从 Smartnode 机器访问，则需要立即设置它。**
+            Smart Node 将使用 HTTP URL 与其通信并执行区块链活动，例如查询链的状态和提交消息。
+            **如果您还没有启用 API 端口并使其可从 Smart Node 机器访问，则需要立即设置它。**
             有关如何执行此操作的说明，请参阅 [Teku 的文档](https://docs.teku.consensys.net/en/latest/Reference/CLI/CLI-Syntax/#rest-api-enabled)。
 
 
             <p className="rspress-directive warning">
               <p className="rspress-directive-title">注意</p>
-              由于 Smartnode 将在其自己的 Docker 容器中运行，它将使用 Docker 的内部网络。
-              您将无法在此处使用 `localhost` 或 `127.0.0.1` 等主机名；如果您的客户端在与 Smartnode 相同的机器上运行，则需要提供机器的局域网 IP 地址。
+              由于 Smart Node 将在其自己的 Docker 容器中运行，它将使用 Docker 的内部网络。
+              您将无法在此处使用 `localhost` 或 `127.0.0.1` 等主机名；如果您的客户端在与 Smart Node 相同的机器上运行，则需要提供机器的局域网 IP 地址。
             </p>
 
             接下来，它将询问您的验证者的 **graffiti** 消息：
@@ -602,7 +602,7 @@ rocketpool service resync-eth2
 
 ### 备用节点
 
-从 Smartnode 堆栈的 1.5.0 版本开始，您可以提供一个"备用"执行客户端和共识客户端对，如果您的主要客户端离线（例如因为您使用 Geth 并需要修剪它），它可以接管。
+从 Smart Node 堆栈的 1.5.0 版本开始，您可以提供一个"备用"执行客户端和共识客户端对，如果您的主要客户端离线（例如因为您使用 Geth 并需要修剪它），它可以接管。
 在这种情况下，您的主节点机器仍将负责使用 minipool 的验证者密钥进行证明和提出区块，但它将连接到外部机器以与执行层和信标链交互。
 
 [要了解有关备用节点的更多信息，请参阅本节](./fallback)，完成后返回此处。
@@ -629,7 +629,7 @@ Rocket Pool 不会收集任何遥测数据或将其发送到单独的服务。
 
 自 2022 年 9 月执行层和共识层合并以来，Ethereum 验证者现在能够获得优先费用并参与最大可提取价值（简称 MEV）。
 
-从 Smartnode v1.7.0 开始，MEV 现在是*选择退出*，因此其配置作为初始设置的一部分呈现，如您在下一个屏幕中看到的：
+从 Smart Node v1.7.0 开始，MEV 现在是*选择退出*，因此其配置作为初始设置的一部分呈现，如您在下一个屏幕中看到的：
 
 <img src="./images/tui-mev-mode.png" width="100%" height="auto" />
 
@@ -638,12 +638,12 @@ Rocket Pool 不会收集任何遥测数据或将其发送到单独的服务。
 
 ### 完成
 
-在回答这个问题后，您已经完成了 Smartnode 的设置！
+在回答这个问题后，您已经完成了 Smart Node 的设置！
 您将看到以下对话框：
 
 <img src="./images/tui-finished.png" width="100%" height="auto" />
 
-如果您对设置满意并准备启动 Smartnode，请在此处单击 `Save and Exit`，然后转到[保护您的节点](./securing-your-node)部分。
+如果您对设置满意并准备启动 Smart Node，请在此处单击 `Save and Exit`，然后转到[保护您的节点](./securing-your-node)部分。
 
 如果您想查看所有设置并自定义向导中未包含的许多其他设置，请单击 `Review All Settings` 并转到[下一节](#通过设置管理器配置)。
 
@@ -655,7 +655,7 @@ Rocket Pool 不会收集任何遥测数据或将其发送到单独的服务。
 
 此屏幕有三个主要功能：
 
-1. **类别列表**，可让您深入了解 Smartnode 堆栈每个类别的设置
+1. **类别列表**，可让您深入了解 Smart Node 堆栈每个类别的设置
 2. **Review Changes and Save** 按钮，当您准备查看已更改的设置并保存更新的配置时可以使用
 3. **Open the Config Wizard** 按钮，如果您更喜欢该界面，它将带您进入[设置向导](#通过向导配置)
 
@@ -676,7 +676,7 @@ Rocket Pool 不会收集任何遥测数据或将其发送到单独的服务。
 ### 配置设置
 
 从主屏幕，使用 `Enter` 键选择任何类别以查看该类别的设置。
-例如，这是 **Smartnode and TX Fees** 类别的屏幕：
+例如，这是 **Smart Node and TX Fees** 类别的屏幕：
 
 <img src="./images/tui-smartnode.png" width="100%" height="auto" />
 
@@ -693,7 +693,7 @@ Rocket Pool 不会收集任何遥测数据或将其发送到单独的服务。
 
 ::: tip 提示
 提醒一下，在您通过 **Review Changes and Save** 按钮完成审查对话框之前，不会将任何内容保存到磁盘。
-我们鼓励您探索所有设置以了解它们并查看您的 Smartnode 可以做什么！
+我们鼓励您探索所有设置以了解它们并查看您的 Smart Node 可以做什么！
 :::
 
 ### 设置类型及其使用方法
@@ -815,7 +815,7 @@ services:
 
 ## 通过命令行配置
 
-如果您在无法与终端 UI 交互的无头环境中使用 Smartnode，则可以通过命令行配置节点。
+如果您在无法与终端 UI 交互的无头环境中使用 Smart Node，则可以通过命令行配置节点。
 
 `rocketpool service config` 命令接受通常可以通过终端 UI 配置的每个设置作为参数。
 运行以下命令以查看它们的列表（请注意它相当长）：

@@ -35,7 +35,7 @@ USAGE:
    rocketpoolcli [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    auction, a   Manage Rocket Pool RPL auctions
@@ -92,7 +92,7 @@ USAGE:
    rocketpool service [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    install, i                 Install the Rocket Pool service
@@ -509,7 +509,7 @@ USAGE:
    rocketpool megapool [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    deposit, d                Make a deposit and create a new validator on the megapool. Optionally specify count to make multiple deposits.
@@ -781,7 +781,7 @@ Bunu aldığınızda, `--nonce <value> -i 2.2` bayraklarını `rocketpool`'dan s
 ::: warning NOT
 Önceki bir işlemin üzerine yazmak için `-i` (öncelik ücreti) bayrağını **dahil etmeniz gerekir**.
 Bu sayı, eski işleminizin kullandığı öncelik ücretinden en az %10 daha yüksek olmalıdır.
-Smartnode varsayılan olarak 2 gwei öncelik ücreti kullanır, bu nedenle bir geçersiz kılma için `2.2` değeri genellikle yeterlidir.
+Smart Node varsayılan olarak 2 gwei öncelik ücreti kullanır, bu nedenle bir geçersiz kılma için `2.2` değeri genellikle yeterlidir.
 
 Eski işleminiz özel bir ücret kullandıysa (örneğin, 10 gwei), geçersiz kılma işleminde en az %10 daha yüksek ayarlamanız gerekecektir (bu örnekte, 11 gwei).
 :::
@@ -798,7 +798,7 @@ Total cost: 0.0032 to 0.0032 ETH
 Are you sure you want to send 0.000100 eth to <node wallet address>? This action cannot be undone! [y/n]
 ```
 
-Smartnode yığını, sağladığınız `nonce`'un geçerli olduğunu (bekleyen bir işleme atıfta bulunduğunu) göndermeden ve kazara gazınızı boşa harcamadan önce otomatik olarak kontrol edecektir.
+Smart Node yığını, sağladığınız `nonce`'un geçerli olduğunu (bekleyen bir işleme atıfta bulunduğunu) göndermeden ve kazara gazınızı boşa harcamadan önce otomatik olarak kontrol edecektir.
 Değilse, bir hata mesajı döndürecektir.
 Aksi takdirde, geçecek ve size işlem ayrıntılarını sağlayacak, böylece eski sıkışmış işleminizin üzerine gerçekten yazdığını doğrulamak için izleyebilirsiniz.
 

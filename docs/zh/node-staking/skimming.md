@@ -13,7 +13,7 @@ Skimmed 奖励将累积在您的每个 minipool 中，直到您"分配"它们。
 
 ## 自动分配
 
-默认情况下，Smartnode 配置为在任何 minipool 的单个余额达到 **1 ETH** 时自动分配它们。此
+默认情况下，Smart Node 配置为在任何 minipool 的单个余额达到 **1 ETH** 时自动分配它们。此
 阈值可以通过以下步骤在 TUI 中配置。
 
 运行：
@@ -26,7 +26,7 @@ rocketpool service config
 
 ![](./images/tui-automatic-skimming.png)
 
-更改此设置将调整 Smartnode 自动分配 minipool 的阈值。
+更改此设置将调整 Smart Node 自动分配 minipool 的阈值。
 将参数设置为 0 将禁用自动分配。
 
 ::: warning 警告
@@ -37,7 +37,7 @@ rocketpool service config
 分配它们，并且需要退出验证者才能访问您累积的奖励。
 
 Rocket Pool 具有一项故障安全设计，允许任何人在长时间等待后，当
-minipool 余额超过 8 ETH 时分配您的 minipool。为了保护您的资本，Smartnode 监控这种情况，并将在发生时自动退出
+minipool 余额超过 8 ETH 时分配您的 minipool。为了保护您的资本，Smart Node 监控这种情况，并将在发生时自动退出
 您的 minipool。
 :::
 

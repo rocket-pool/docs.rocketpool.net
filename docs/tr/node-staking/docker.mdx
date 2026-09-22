@@ -2,10 +2,10 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # Docker ile Standart Rocket Pool Node Oluşturma
 
-Bu bölümde, standart [Docker](https://www.docker.com/resources/what-container) tabanlı kurulum kullanarak Rocket Pool Smartnode yığınını kurma sürecini adım adım anlatacağız.
+Bu bölümde, standart [Docker](https://www.docker.com/resources/what-container) tabanlı kurulum kullanarak Rocket Pool Smart Node yığınını kurma sürecini adım adım anlatacağız.
 Bu kurulum, eksiksiz bir node çalıştırmak için ihtiyacınız olan her şeyi kuracak ve yapılandıracaktır:
 
-- Rocket Pool **Smartnode** yazılımı
+- Rocket Pool **Smart Node** yazılımı
 - Tercih ettiğiniz bir **Execution** (eski adıyla ETH1) istemcisi veya halihazırda yönettiğiniz mevcut bir istemciye bağlantı
 - Tercih ettiğiniz bir **Consensus** (eski adıyla ETH2) istemcisi veya halihazırda yönettiğiniz mevcut bir istemciye bağlantı
 - Beacon Chain doğrulama görevlerinizi yerine getirecek bir **Validator** istemcisi
@@ -25,8 +25,8 @@ Bunu nasıl yapacağınızı bilmiyorsanız, işletim sisteminizin talimatların
 Üst düzey olarak, Rocket Pool'u kurmak için gerekenler şunlardır:
 
 1. Rocket Pool komut satırı arayüzünü (CLI) indirin
-1. CLI'yı kullanarak Smartnode yığınını kurun
-1. Smartnode yığınını terminalde kullanımı kolay bir arayüz ile yapılandırın
+1. CLI'yı kullanarak Smart Node yığınını kurun
+1. Smart Node yığınını terminalde kullanımı kolay bir arayüz ile yapılandırın
 1. Tamamdır!
 
 ## Başlamadan Önce
@@ -34,7 +34,7 @@ Bunu nasıl yapacağınızı bilmiyorsanız, işletim sisteminizin talimatların
 ::: warning
 Ubuntu kullanıyorsanız, Rocket Pool'u kurmadan önce docker'ın işletim sistemiyle birlikte kurulmadığını iki kez kontrol etmeniz önerilir.
 
-Ubuntu yükleyicisi docker'ı snap paket yöneticisinden alır ve bu, Smartnode tarafından kurulan docker sürümüyle çakışacaktır.
+Ubuntu yükleyicisi docker'ı snap paket yöneticisinden alır ve bu, Smart Node tarafından kurulan docker sürümüyle çakışacaktır.
 
 `snap list` komutunu çalıştırın ve `docker`'ın kurulmadığından emin olun.
 
@@ -132,7 +132,7 @@ Node makinenize doğrudan bağlı bir klavye ve monitör kullanmıyorsanız, uza
       ```
 
       ```shell
-      rocketpool version 1.23.0
+      rocketpool version 1.24.2
       ```
 
       <p className="rspress-directive tip">
@@ -198,7 +198,7 @@ Node makinenize doğrudan bağlı bir klavye ve monitör kullanmıyorsanız, uza
       ```
 
       ```
-      rocketpool version 1.23.0
+      rocketpool version 1.24.2
       ```
 
       <p className="rspress-directive tip">
@@ -218,19 +218,19 @@ Node makinenize doğrudan bağlı bir klavye ve monitör kullanmıyorsanız, uza
   </Tabs>
 </div>
 
-## Smartnode Yığınını Kurma
+## Smart Node Yığınını Kurma
 
-Artık CLI kurulu olduğuna göre, Smartnode yığınını dağıtabilirsiniz.
-Bu, sisteminizi Docker, [docker-compose](https://docs.docker.com/compose/) ile hazırlayacak ve Smartnode dosyalarını yükleyerek kullanıma hazır hale getirecektir.
+Artık CLI kurulu olduğuna göre, Smart Node yığınını dağıtabilirsiniz.
+Bu, sisteminizi Docker, [docker-compose](https://docs.docker.com/compose/) ile hazırlayacak ve Smart Node dosyalarını yükleyerek kullanıma hazır hale getirecektir.
 Henüz hiçbir şey çalıştırmayacaktır; bu daha sonra gelir.
 
-Smartnode yığınını dağıtmak için, node makinenizde aşağıdaki komutu çalıştırmanız gerekir (yerel olarak oturum açarak veya SSH gibi uzaktan bağlanarak):
+Smart Node yığınını dağıtmak için, node makinenizde aşağıdaki komutu çalıştırmanız gerekir (yerel olarak oturum açarak veya SSH gibi uzaktan bağlanarak):
 
 ```shell
 rocketpool service install
 ```
 
-Bu, Smartnode yığınının en son sürümünü alacak ve kuracaktır.
+Bu, Smart Node yığınının en son sürümünü alacak ve kuracaktır.
 Şöyle bir çıktı görmelisiniz (_sonunda yazdırılacak en son sürüm için bazı sürüm notlarının üstünde_):
 
 <img src="./images/rp-install-screen.png" width="100%" height="auto" />
@@ -239,7 +239,7 @@ Herhangi bir hata mesajı yoksa, kurulum başarılı olmuştur.
 Varsayılan olarak, kullanıcı hesabınızın ana klasörü içindeki `~/.rocketpool` dizinine yerleştirilecektir.
 
 ::: warning NOT
-Smartnode yükleyicisinin tüm platformlarda `docker` ve `docker-compose`'u otomatik olarak kuramayacağını unutmayın.
+Smart Node yükleyicisinin tüm platformlarda `docker` ve `docker-compose`'u otomatik olarak kuramayacağını unutmayın.
 Kurulum sırasında şöyle bir hata mesajı alırsanız:
 
 ```
@@ -271,7 +271,7 @@ rocketpool service install -d
 
 Bundan sonra, ayarların etkili olması için **oturumu kapatıp tekrar açın veya SSH oturumunuzu yeniden başlatın**.
 
-Bu tamamlandığında, Smartnode yığını çalışmaya hazır olacaktır.
+Bu tamamlandığında, Smart Node yığını çalışmaya hazır olacaktır.
 
 ## Docker'ın Depolama Konumunu Yapılandırma
 
@@ -314,7 +314,7 @@ sudo systemctl restart docker
 
 Bundan sonra, Docker verilerini istediğiniz diskte saklayacaktır.
 
-## Smartnode Yığınını Yapılandırma
+## Smart Node Yığınını Yapılandırma
 
 Kurulum sürecindeki bir sonraki adım, node'unuzun ilk yapılandırmasını yapmaktır.
 Bu sürecin adım adım anlatımı için [Rocketpool'u Yapılandırma](./config/overview) bölümüne geçin.

@@ -131,9 +131,9 @@ ls /sys/class/net
 以太网(有线)设备通常以 `e` 开头,例如上面的示例。
 无线设备通常以 `w` 开头。
 
-## Smartnode 警报通知
+## Smart Node 警报通知
 
-[使用警报通知监控您的 Smartnode 堆栈](./maintenance/alerting.md)介绍了如何使用 Smartnode 警报通知功能来接收有关 Rocket Pool Smartnode 健康状况和重要事件的通知。
+[使用警报通知监控您的 Smart Node 堆栈](./maintenance/alerting.md)介绍了如何使用 Smart Node 警报通知功能来接收有关 Rocket Pool Smart Node 健康状况和重要事件的通知。
 
 ## 第三方性能监控
 
@@ -200,7 +200,7 @@ Beaconcha.in 网站有一个功能,允许用户重命名他们的验证者,使�
 
 要使用此功能,您需要使用节点钱包的私钥签署消息,以证明您是控制该验证者的人。
 
-Smartnode v1.5.1 包括使用命令 `rocketpool node sign-message` 使用节点钱包的私钥签署消息的能力,然后提供您想要签署的消息。
+Smart Node v1.5.1 包括使用命令 `rocketpool node sign-message` 使用节点钱包的私钥签署消息的能力,然后提供您想要签署的消息。
 它必须包含术语 'beaconcha.in' 才能用于重命名您的验证者。
 
 ![](../node-staking/images/sign-message.png)
@@ -230,7 +230,7 @@ Smartnode v1.5.1 包括使用命令 `rocketpool node sign-message` 使用节点�
 curl icanhazip.com
 ```
 
-要监控的端口取决于您的节点设置;运行典型 Smartnode 安装的用户可能已转发端口 30303 和 9001,分别用于执行层和共识层客户端,因此这些是正常运行时间监控的良好选择。
+要监控的端口取决于您的节点设置;运行典型 Smart Node 安装的用户可能已转发端口 30303 和 9001,分别用于执行层和共识层客户端,因此这些是正常运行时间监控的良好选择。
 
 ### Rocketpool 指标仪表板
 
@@ -239,7 +239,7 @@ curl icanhazip.com
 ### 使用 Pushover 编写脚本(高级)
 
 ::: tip 注意
-[使用警报通知监控您的 Smartnode 堆栈](./maintenance/alerting.md)介绍了如何使用 Smartnode 警报通知功能,其中包括在您的节点有可用更新时发出通知。
+[使用警报通知监控您的 Smart Node 堆栈](./maintenance/alerting.md)介绍了如何使用 Smart Node 警报通知功能,其中包括在您的节点有可用更新时发出通知。
 :::
 
 [Pushover](https://pushover.net/) 服务允许您向自己发送推送通知。

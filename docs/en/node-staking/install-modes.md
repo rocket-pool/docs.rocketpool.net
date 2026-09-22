@@ -1,19 +1,19 @@
 # Selecting a Rocket Pool Mode
 
-Rocket Pool's Smartnode stack is quite flexible; there are several different ways to run it.
+Rocket Pool's Smart Node stack is quite flexible; there are several different ways to run it.
 It can stand up an entire full node from scratch, it can integrate with existing Execution or Consensus client deployments, and it can even run natively as a set of system services.
-In this section, we will cover the typical ways of configuring and using the Smartnode stack.
+In this section, we will cover the typical ways of configuring and using the Smart Node stack.
 
 ## The Default Docker-Based Configuration
 
-The default mode, and the most common way to run a Smartnode, is to have it create an entire full node instance on your local machine that Rocket Pool manages.
+The default mode, and the most common way to run a Smart Node, is to have it create an entire full node instance on your local machine that Rocket Pool manages.
 
-To accomplish this, the Smartnode uses [Docker containers](https://www.docker.com/resources/what-container).
+To accomplish this, the Smart Node uses [Docker containers](https://www.docker.com/resources/what-container).
 In essence, a Docker container is a small sandbox that comes pre-configured with a program, all of its dependencies, and all of the configuration needed to run correctly.
 When it's no longer needed, it can simply be thrown away.
 It's a nice little self-contained bundle that lets things work without making a mess of your actual filesystem or other programs.
 
-This mode is what the Smartnode Installer will deploy for you.
+This mode is what the Smart Node Installer will deploy for you.
 It uses the following Docker containers:
 
 - `rocketpool_node` - This is a background process that will periodically check for and claim RPL rewards after a reward checkpoint (if you have auto-claim enabled, more on this later), and is responsible for actually staking new validators when you create a minipool.
@@ -24,7 +24,7 @@ It uses the following Docker containers:
 
 In most situations, this is a good option to choose when creating a new node from scratch.
 It's the fastest, most hands-off procedure.
-It will also handle updates to the Execution and Consensus clients with every new Smartnode release, so you don't have to worry about them (though you can manually upgrade them at any time if you desire).
+It will also handle updates to the Execution and Consensus clients with every new Smart Node release, so you don't have to worry about them (though you can manually upgrade them at any time if you desire).
 
 ::: warning NOTE
 Currently, some of the Docker containers need to run as the `root` user to function correctly.
@@ -41,7 +41,7 @@ The hybrid configuration is well-suited for users that are interested in running
 In this mode, Rocket Pool will deploy Docker containers for its own processes and for a Validator client it manages, but will ignore the Execution client and Beacon Node containers for whichever external clients you already run and maintain.
 **As Rocket Pool will be creating and maintaining new validator keys for each of your node's minipools, it is important that it runs its own Validator client.**
 
-When using this configuration, the Smartnode will use the following Docker containers (which were described above):
+When using this configuration, the Smart Node will use the following Docker containers (which were described above):
 
 - `rocketpool_node`
 - `rocketpool_watchtower`
@@ -55,14 +55,14 @@ When prompted to choose a management mode for your Execution and/or Consensus cl
 ## The Native Configuration without Docker
 
 This configuration bypasses Docker entirely.
-Instead of running the Smartnode stack via Docker, each process will be installed as a local system service (e.g. via `systemd`).
+Instead of running the Smart Node stack via Docker, each process will be installed as a local system service (e.g. via `systemd`).
 This includes the `node`, `watchtower`, `eth1`, `eth2`, and `validator` processes.
 
 This configuration offers the most flexibility because it allows you to fine-tune Rocket Pool's parameters (such as its security posture, where the Execution and Consensus clients live, where the chain data lives, where your keys live, and so on).
 It is also the most difficult to set up and maintain.
 
-In this mode, the Smartnode Installer is no longer relevant.
-You are responsible for manually instantiating, maintaining, and upgrading the Smartnode infrastructure, the ETH clients, and the validator clients.
+In this mode, the Smart Node Installer is no longer relevant.
+You are responsible for manually instantiating, maintaining, and upgrading the Smart Node infrastructure, the ETH clients, and the validator clients.
 
 ::: danger WARNING
 While we provide some example documentation on how to do this, we suggest that this mode should only be used by **experienced system administrators**.

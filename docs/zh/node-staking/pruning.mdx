@@ -20,13 +20,13 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 如果您启用了 [Grafana 仪表板](./grafana),一个好的经验法则是当节点的已用磁盘空间超过 80% 时开始考虑修剪执行客户端。
 
-当您决定是时候修剪时,Smartnode 可以根据您的请求为您修剪。
+当您决定是时候修剪时,Smart Node 可以根据您的请求为您修剪。
 请阅读下文以了解它的工作原理以及预期结果。
 
 ::: warning 注意
 修剪执行客户端仅在 Docker 模式下可用。
 
-如果您使用自己的执行客户端,例如混合模式或原生模式中的外部客户端,则无法使用 Smartnode 修剪执行客户端。
+如果您使用自己的执行客户端,例如混合模式或原生模式中的外部客户端,则无法使用 Smart Node 修剪执行客户端。
 您需要手动进行。
 请参考您的执行客户端的文档以了解如何修剪它。
 :::
@@ -39,10 +39,10 @@ import { Tab, Tabs } from "@rspress/core/theme";
   <Tabs>
     <Tab label="Geth">
       修剪 Geth 意味着使主执行客户端离线以便它可以清理自己。
-      当这种情况发生时,Smartnode(和您的共识客户端)将需要其他方式来访问 ETH1 链以正常运行。
+      当这种情况发生时,Smart Node(和您的共识客户端)将需要其他方式来访问 ETH1 链以正常运行。
 
       提供这一点的最简单方法是使用**后备节点**。
-      如果您已经使用 `rocketpool service config` [配置了后备节点](./fallback),那么当您的 Geth 容器停机维护时,Smartnode 将自动切换到它。
+      如果您已经使用 `rocketpool service config` [配置了后备节点](./fallback),那么当您的 Geth 容器停机维护时,Smart Node 将自动切换到它。
       它还会通知您的共识客户端使用后备节点。
 
       <p className="rspress-directive warning">
@@ -102,7 +102,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
       Are you sure you want to prune your main execution client? [y/n]
       ```
 
-      如果您接受,您将看到 Smartnode 准备过程的一些详细信息;它应该以成功消息结束:
+      如果您接受,您将看到 Smart Node 准备过程的一些详细信息;它应该以成功消息结束:
 
       ```
       Are you sure you want to prune your main ETH1 client? [y/n]
@@ -126,7 +126,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
       rocketpool service logs eth1
       ```
 
-      修剪完成后,它将自动重启,Smartnode 将恢复使用它而不是您的后备节点。
+      修剪完成后,它将自动重启,Smart Node 将恢复使用它而不是您的后备节点。
     </Tab>
     <Tab label="Nethermind">
       当您想要修剪 Nethermind 时,只需运行此命令:

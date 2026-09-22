@@ -17,9 +17,9 @@ import tui_native_settings_home from "./images/tui-native-settings-home.png";
 import tui_native_smartnode from "./images/tui-native-smartnode.png";
 import tui_textbox from "./images/tui-textbox.png";
 
-# Smartnodeスタックの設定（Nativeモード）
+# Smart Nodeスタックの設定（Nativeモード）
 
-このセクションでは、Dockerを全く使用しない**Nativeセットアップ**を使用している場合のSmartnodeの設定方法について説明します。
+このセクションでは、Dockerを全く使用しない**Nativeセットアップ**を使用している場合のSmart Nodeの設定方法について説明します。
 
 ::: warning 注意
 Dockerベースのセットアップを使用している場合は、代わりに[Docker設定ガイド](./config-docker)をご覧ください。
@@ -28,14 +28,14 @@ Dockerベースのセットアップを使用している場合は、代わり�
 設定方法は3つあります：
 
 - [ウィザードUI](#ウィザードを使用した設定) - これが最も簡単な方法です。いくつかの基本的な質問のみを行い、その他については十分にテストされたデフォルト値を使用します。初めて`rocketpool service config`を実行したときに表示されます。
-- [設定マネージャーUI](#設定マネージャーを使用した設定) - Smartnodeのすべての設定にアクセスできるため、必要に応じてすべてをカスタマイズできます。
-- [コマンドライン](#コマンドラインを使用した設定)によるヘッドレス設定 - Smartnodeをヘッドレス（非対話型）環境で実行し、自動的に設定する必要がある人向けのオプションです。
+- [設定マネージャーUI](#設定マネージャーを使用した設定) - Smart Nodeのすべての設定にアクセスできるため、必要に応じてすべてをカスタマイズできます。
+- [コマンドライン](#コマンドラインを使用した設定)によるヘッドレス設定 - Smart Nodeをヘッドレス（非対話型）環境で実行し、自動的に設定する必要がある人向けのオプションです。
 
 上記のリストから詳しく知りたいモードを選択するか、以下の各オプションをスクロールしてください。
 
 ## ウィザードを使用した設定
 
-Smartnodeを設定するには、設定コマンドを実行します：
+Smart Nodeを設定するには、設定コマンドを実行します：
 
 ```shell
 rp service config
@@ -44,7 +44,7 @@ rp service config
 これにより、ターミナルベースのUIが起動し、ノードを迅速かつ簡単に設定できます。また、Nativeモードに関連する設定をオプションで細かく制御することもできます。
 
 ::: tip 注意
-すでにSmartnodeを設定している場合は、代わりに[設定マネージャー](#設定マネージャーを使用した設定)が表示されます。
+すでにSmart Nodeを設定している場合は、代わりに[設定マネージャー](#設定マネージャーを使用した設定)が表示されます。
 お好みであれば、そこからウィザードを再度開くこともでき、既存の設定がすべて事前選択されています。
 :::
 
@@ -99,7 +99,7 @@ rp service config
 
 <img src={tui_native_ec} width="100%" height="auto" />
 
-Smartnodeと同じマシンでExecution clientを実行する予定の場合は、ここに`http://127.0.0.1:8545`と入力してください（このガイドの残りの部分では、これを行うと想定します）。
+Smart Nodeと同じマシンでExecution clientを実行する予定の場合は、ここに`http://127.0.0.1:8545`と入力してください（このガイドの残りの部分では、これを行うと想定します）。
 ただし、すでに他の場所にExecution clientをセットアップしている場合は、代わりにそのURLをここに使用してください。
 
 後で`rp service config`を再度実行することで、いつでもこれを変更できることに注意してください。
@@ -107,7 +107,7 @@ Smartnodeと同じマシンでExecution clientを実行する予定の場合は�
 ### Consensus Clientのセットアップ
 
 次に、使用している（または使用する予定の）Consensus clientを尋ねられます。
-各Consensus clientは動作が若干異なるため、Smartnodeはどれを使用しているかを知る必要があり、それに応じて独自の動作を適応させることができます。
+各Consensus clientは動作が若干異なるため、Smart Nodeはどれを使用しているかを知る必要があり、それに応じて独自の動作を適応させることができます。
 次の画面のリストからクライアントを選択してください：
 
 <img src={tui_native_cc} width="100%" height="auto" />
@@ -116,7 +116,7 @@ Smartnodeと同じマシンでExecution clientを実行する予定の場合は�
 
 <img src={tui_native_cc_url} width="100%" height="auto" />
 
-Smartnodeと同じマシンでConsensus clientのBeacon Nodeを実行する予定の場合は、ここに`http://127.0.0.1:5052`と入力してください（このガイドの残りの部分では、これを行うと想定します）。
+Smart Nodeと同じマシンでConsensus clientのBeacon Nodeを実行する予定の場合は、ここに`http://127.0.0.1:5052`と入力してください（このガイドの残りの部分では、これを行うと想定します）。
 ただし、すでに他の場所にBeacon Nodeをセットアップしている場合は、代わりにそのURLをここに使用してください。
 
 ### その他の設定
@@ -125,11 +125,11 @@ Smartnodeと同じマシンでConsensus clientのBeacon Nodeを実行する予�
 
 <img src={tui_native_other} width="100%" height="auto" />
 
-Smartnodeインストールに`/srv/rocketpool`以外のディレクトリを使用することを決定していない限り、これらをデフォルトオプションのままにしてください。
+Smart Nodeインストールに`/srv/rocketpool`以外のディレクトリを使用することを決定していない限り、これらをデフォルトオプションのままにしてください。
 
 ### フォールバッククライアント
 
-Smartnodeスタックの1.5.0以降、プライマリクライアントがオフラインになった場合（Gethを使用していてプルーニングする必要がある場合など）に引き継ぐことができる「フォールバック」Execution clientとConsensus clientのペアを提供できます。
+Smart Nodeスタックの1.5.0以降、プライマリクライアントがオフラインになった場合（Gethを使用していてプルーニングする必要がある場合など）に引き継ぐことができる「フォールバック」Execution clientとConsensus clientのペアを提供できます。
 この状況では、プライマリノードマシンは引き続きminipoolのvalidatorキーを使用してアテステーションとブロック提案を行いますが、Execution layerとBeacon chainとのやり取りには外部マシンに接続します。
 
 [フォールバックノードの詳細については、このセクションを参照し](./fallback)、完了したらここに戻ってください。
@@ -156,7 +156,7 @@ Rocket Poolはテレメトリを収集したり、別のサービスに送信し
 
 2022年9月のExecution layerとConsensus layerのMerge以降、Ethereumのvalidatorは優先手数料を獲得し、MEV（Maximal Extractable Value）に参加できるようになりました。
 
-Smartnode v1.7.0以降、MEVは現在*オプトアウト*になっているため、初期セットアップの一環として、次の画面に示すように設定に関する通知が表示されます：
+Smart Node v1.7.0以降、MEVは現在*オプトアウト*になっているため、初期セットアップの一環として、次の画面に示すように設定に関する通知が表示されます：
 
 <img src={tui_native_mev} width="100%" height="auto" />
 
@@ -165,12 +165,12 @@ Smartnode v1.7.0以降、MEVは現在*オプトアウト*になっているた�
 
 ### 完了
 
-この質問の後、Smartnode設定のセットアップが完了しました。
+この質問の後、Smart Node設定のセットアップが完了しました。
 次のダイアログが表示されます：
 
 <img src={tui_native_finished} width="100%" height="auto" />
 
-セットアップに満足し、Smartnodeを起動する準備ができている場合は、ここで`Save and Exit`をクリックしてください。
+セットアップに満足し、Smart Nodeを起動する準備ができている場合は、ここで`Save and Exit`をクリックしてください。
 
 まだRocket Poolのインストールが完了していない場合は、今すぐNativeセットアップガイドに戻ってください。
 それ以外の場合、次のステップはdaemonサービスを再起動することです：
@@ -189,7 +189,7 @@ sudo systemctl restart rp-node rp-watchtower
 
 この画面には3つの主要な機能があります：
 
-1. **カテゴリリスト**：Nativeモードに関連するSmartnodeスタックの各カテゴリの設定を詳しく見ることができます
+1. **カテゴリリスト**：Nativeモードに関連するSmart Nodeスタックの各カテゴリの設定を詳しく見ることができます
 2. **変更を確認して保存**ボタン：変更した設定を確認し、更新された設定を保存する準備ができたときに使用できます
 3. **設定ウィザードを開く**ボタン：お好みであれば[セットアップウィザード](#ウィザードを使用した設定)に移動できます
 
@@ -210,7 +210,7 @@ sudo systemctl restart rp-node rp-watchtower
 ### 設定の構成
 
 ホーム画面から、`Enter`キーでいずれかのカテゴリを選択して、そのカテゴリの設定を表示します。
-たとえば、これは**Smartnode and TX Fees**カテゴリの画面です：
+たとえば、これは**Smart Node and TX Fees**カテゴリの画面です：
 
 <img src={tui_native_smartnode} width="100%" height="auto" />
 
@@ -305,7 +305,7 @@ sudo systemctl restart rp-node rp-watchtower
 
 ## コマンドラインを使用した設定
 
-ターミナルUIと対話できないヘッドレス環境でSmartnodeを使用する場合、代わりにコマンドラインを使用してノードを設定できます。
+ターミナルUIと対話できないヘッドレス環境でSmart Nodeを使用する場合、代わりにコマンドラインを使用してノードを設定できます。
 
 `rocketpool service config`コマンドは、引数として、通常ターミナルUIを介して設定できるすべての設定を受け入れます。
 次のコマンドを実行して、それらのリストを表示します（かなり長いことに注意してください）：

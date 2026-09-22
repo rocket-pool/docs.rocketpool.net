@@ -10,11 +10,11 @@ Esta seção cobre como acessar as recompensas que seu node gera durante a valid
 
 ## Pré-requisitos
 
-Antes de configurar seu Smartnode, certifique-se de:
+Antes de configurar seu Smart Node, certifique-se de:
 
 - Ter configurado uma máquina de node (ou máquina virtual) e protegido-a (através do guia [Protegendo seu Node](../securing-your-node))
-- Ter o Smartnode [instalado](../installing/overview) e [configurado](../config/overview) nela
-- Ter uma carteira de node carregada em seu Smartnode
+- Ter o Smart Node [instalado](../installing/overview) e [configurado](../config/overview) nela
+- Ter uma carteira de node carregada em seu Smart Node
 - Sincronizado seus clientes Execution e Consensus
 - Provisionado seu node com [um endereço de retirada](../prepare-node.mdx#definindo-seu-endereço-de-retirada-primário), configurado seus [clientes de fallback](../fallback) (opcional), optado pelo [Smoothing Pool](../fee-distrib-sp#o-smoothing-pool) (opcional), e configurado [MEV](../mev.mdx)
 - Criado pelo menos um [minipool](../create-validator.mdx)

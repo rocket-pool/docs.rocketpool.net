@@ -5,7 +5,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 Hatırlatma olarak, iki tür Oracle DAO görevi vardır:
 
 1. **Otomatik görevler** - bunlar, Consensus Layer'dan Execution Layer'a bilgi taşıma, protokolün çeşitli yönlerini zincir dışında hesaplama ve bunları Smart Contract'lara güncellemeler olarak gönderme gibi rutin Rocket Pool işlemleriyle ilgili görevlerdir. Bunların her biri, Execution ve Consensus Client'larınız ve `watchtower` daemon'unuz normal şekilde çalıştığı sürece `watchtower` daemon süreci tarafından otomatik olarak gerçekleştirilir ve manuel müdahale gerektirmez. `watchtower` daemon'unu önceki adımlarda zaten kurmuştunuz, bu nedenle bu bölüm onları tekrar ele almayacaktır.
-2. **Manuel görevler** - bunlar, kendi karar vermenizi ve gerçekleştirmek için Oracle DAO'nun geri kalanıyla bant dışı iletişim gerektiren görevlerdir. Contract yükseltmeleri üzerinde oylama, parametreleri değiştirme ve Oracle DAO'ya üyeleri davet etme veya çıkarma gibi şeyleri içerir. Bunların tümü standart Smartnode CLI aracılığıyla yapılabilir. Bu bölüm bu görevlerin her birini ve nasıl gerçekleştirileceğini açıklar.
+2. **Manuel görevler** - bunlar, kendi karar vermenizi ve gerçekleştirmek için Oracle DAO'nun geri kalanıyla bant dışı iletişim gerektiren görevlerdir. Contract yükseltmeleri üzerinde oylama, parametreleri değiştirme ve Oracle DAO'ya üyeleri davet etme veya çıkarma gibi şeyleri içerir. Bunların tümü standart Smart Node CLI aracılığıyla yapılabilir. Bu bölüm bu görevlerin her birini ve nasıl gerçekleştirileceğini açıklar.
 
 Teklifler, otomatik `watchtower` görevlerinin dışındaki sorumluluklarınızın çekirdeğini oluşturur.
 Esasen şu şekilde çalışırlar:

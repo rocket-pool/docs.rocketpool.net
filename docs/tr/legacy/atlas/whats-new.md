@@ -4,7 +4,7 @@
 Atlas `18 Nisan 2023, 00:00 UTC` tarihinde dağıtıldı. En son protokol yükseltmesi olan Houston hakkında bilgi almak için lütfen [buraya](../houston/whats-new) bakın.
 :::
 
-Bu sayfa, Rocket Pool'un **Atlas** başlıklı bir sonraki büyük güncellemesinin protokole getirdiği, hem Smartnode stack'ine hem de Rocket Pool protokolüne genel olarak getirdiği önemli değişiklikleri açıklamaktadır.
+Bu sayfa, Rocket Pool'un **Atlas** başlıklı bir sonraki büyük güncellemesinin protokole getirdiği, hem Smart Node stack'ine hem de Rocket Pool protokolüne genel olarak getirdiği önemli değişiklikleri açıklamaktadır.
 
 Rocket Pool'un önceki sürümü (Redstone) ile Atlas arasındaki tüm farklılıkları anlamak için lütfen bu sayfayı baştan sona okuyun.
 
@@ -66,9 +66,9 @@ Bu, Rocket Pool minipool'larının tüm avantajlarını elde edeceğiniz anlamı
 
 Bir solo validator'ı minipool'a dönüştürme hakkında daha fazla bilgi için lütfen [Solo Validator'ı Minipool'a Dönüştürme](../../node-staking/solo-staker-migration) rehberine bakın.
 
-## Yeni Smartnode Özellikleri
+## Yeni Smart Node Özellikleri
 
-Rocket Pool protokolündeki temel değişikliklere ek olarak, Atlas ayrıca v1.9.0'da bulunan Smartnode stack'inin kendisine bazı heyecan verici yükseltmeler getiriyor.
+Rocket Pool protokolündeki temel değişikliklere ek olarak, Atlas ayrıca v1.9.0'da bulunan Smart Node stack'inin kendisine bazı heyecan verici yükseltmeler getiriyor.
 
 ### Otomatik Ödül Dağıtımları
 
@@ -106,11 +106,11 @@ Bu yeni dashboard, topluluk üyesi **0xFornax**'ın kapsamlı yardımını içer
 
 ### Nimbus Değişiklikleri
 
-Smartnode v1.9.0, Nimbus için **split mode desteği** sunuyor!
-Beacon Node ve Validator Client'ı tek bir süreç / container içinde çalıştırmak yerine, Smartnode artık onları diğer client'lar gibi ayrı container'larda çalıştıracak. Bunun aşağıdaki faydaları vardır:
+Smart Node v1.9.0, Nimbus için **split mode desteği** sunuyor!
+Beacon Node ve Validator Client'ı tek bir süreç / container içinde çalıştırmak yerine, Smart Node artık onları diğer client'lar gibi ayrı container'larda çalıştıracak. Bunun aşağıdaki faydaları vardır:
 
 - Nimbus artık **fallback client'ları** destekliyor (birincil client'larınız bakım için kapalıyken, yeniden senkronize olurken gibi Nimbus'un Validator Client'ının bağlanabileceği ikincil bir Execution client ve Beacon Node).
-- Nimbus artık **Harici Yönetilen (Hibrit) Mod**'da destekleniyor, böylece Smartnode'un yönettiği Validator Client'ı kendi başınıza sürdürdüğünüz harici bir Beacon Node'a eşleştirebilirsiniz.
+- Nimbus artık **Harici Yönetilen (Hibrit) Mod**'da destekleniyor, böylece Smart Node'un yönettiği Validator Client'ı kendi başınıza sürdürdüğünüz harici bir Beacon Node'a eşleştirebilirsiniz.
 - Yeni minipool'ların eklenmesinden sonra Beacon Node'un yeniden başlatılmasına gerek kalmadı, yani peer'larına yeniden bağlanırken onayları kaybetmiyorsunuz.
 
 ### Lodestar Desteği

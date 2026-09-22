@@ -30,8 +30,8 @@ Per eseguire un nodo Oracle DAO, avrai bisogno di quanto segue:
 - Accesso a un **Execution Client in modalità Archive**, che può fungere da client primario o da client supplementare (fallback). Verrà utilizzato solo in rare circostanze in cui i compiti richiedono al tuo nodo di richiamare uno stato dell'Execution Layer che è stato rimosso dal tuo Execution Client. Tuttavia, è **fondamentale** avere accesso a un Archive Node durante questi periodi per garantire che i tuoi compiti possano essere svolti con successo.
   - Ti **consigliamo vivamente** di utilizzare un archive node locale per questo, poiché servizi come [Infura](https://infura.io/pricing) o [Alchemy](https://www.alchemy.com/pricing) hanno mostrato alcune difficoltà nel tenere il passo con la domanda durante periodi critici come la costruzione del rewards tree.
 - Accesso all'**endpoint REST API di un Beacon Node in modalità Archive** (tramite HTTP). Può essere un client eseguito localmente, come nel caso della maggior parte dei nodi Rocket Pool, oppure può collegarsi a client esterni che tu o la tua organizzazione mantenete in modo indipendente.
-- La CLI standard dello Smartnode.
-- Il daemon Smartnode è configurato ed in esecuzione in modalità `watchtower` (questo è incluso con il bundle Smartnode standard per tutti gli utenti, ma svolge attivamente i compiti solo per i nodi Oracle DAO).
+- La CLI standard dello Smart Node.
+- Il daemon Smart Node è configurato ed in esecuzione in modalità `watchtower` (questo è incluso con il bundle Smart Node standard per tutti gli utenti, ma svolge attivamente i compiti solo per i nodi Oracle DAO).
   - Può essere eseguito in un container Docker (configurazione standard) o come semplice servizio `systemd` (modalità "Native").
 - Abbastanza ETH per pagare i costi del gas per i tuoi compiti (discusso più avanti).
 
@@ -50,6 +50,6 @@ Il tier gratuito non è sufficiente.
 I compiti dell'Oracle DAO sono suddivisi in due parti.
 
 1. **Compiti automatizzati**: questi sono compiti relativi alla routine operativa di Rocket Pool, come il trasferimento di informazioni dal Consensus Layer all'Execution Layer, il calcolo di vari aspetti del protocollo off-chain e l'invio come aggiornamenti agli Smart Contract. Ognuno di questi viene eseguito automaticamente dal processo daemon `watchtower` e non richiede intervento manuale fintanto che i tuoi client Execution e Consensus e il tuo daemon `watchtower` operano normalmente.
-2. **Compiti manuali**: questi sono compiti che richiedono il tuo processo decisionale e la comunicazione fuori banda con il resto dell'Oracle DAO per essere eseguiti. Includono cose come votare su aggiornamenti dei contratti, modifiche ai parametri e inviti o rimozioni di membri da/verso l'Oracle DAO. Questi possono essere tutti eseguiti tramite la CLI Smartnode standard.
+2. **Compiti manuali**: questi sono compiti che richiedono il tuo processo decisionale e la comunicazione fuori banda con il resto dell'Oracle DAO per essere eseguiti. Includono cose come votare su aggiornamenti dei contratti, modifiche ai parametri e inviti o rimozioni di membri da/verso l'Oracle DAO. Questi possono essere tutti eseguiti tramite la CLI Smart Node standard.
 
 Leggi la sezione successiva per imparare come configurare il tuo nodo Oracle DAO.

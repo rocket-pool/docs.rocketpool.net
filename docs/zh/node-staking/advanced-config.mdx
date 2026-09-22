@@ -3,16 +3,16 @@ import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
 import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
 
-# Docker 模式下的高级 Smartnode 配置
+# Docker 模式下的高级 Smart Node 配置
 
-在本节中，我们将介绍一些扩展 Smartnode 自定义功能的技巧。
+在本节中，我们将介绍一些扩展 Smart Node 自定义功能的技巧。
 
-## 允许外部验证者客户端连接到 Smartnode
+## 允许外部验证者客户端连接到 Smart Node
 
-由于 Smartnode 管理执行客户端和信标节点，它会自动处理大部分配置（包括更新）。
-用户的一个常见需求是能够将外部管理的验证者客户端连接到 Smartnode 的执行客户端和共识客户端。
+由于 Smart Node 管理执行客户端和信标节点，它会自动处理大部分配置（包括更新）。
+用户的一个常见需求是能够将外部管理的验证者客户端连接到 Smart Node 的执行客户端和共识客户端。
 
-本质上，这相当于一种**"反向混合"模式**；Smartnode 不再管理自己的验证者客户端并连接到外部执行客户端和共识客户端，而是管理这三者，外部验证者客户端可以使用其自己的客户端。
+本质上，这相当于一种**"反向混合"模式**；Smart Node 不再管理自己的验证者客户端并连接到外部执行客户端和共识客户端，而是管理这三者，外部验证者客户端可以使用其自己的客户端。
 
 使用[设置管理器](./config-docker#通过设置管理器配置)可以轻松启用此功能。
 
@@ -59,11 +59,11 @@ import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
 ## 自定义 Docker-Compose 定义文件
 
 虽然设置管理器包含许多用于自定义节点的选项，但它并未封装 `docker-compose` 提供的所有功能。
-某些用户需要对 Smartnode 的 `docker-compose` 文件进行额外自定义。
+某些用户需要对 Smart Node 的 `docker-compose` 文件进行额外自定义。
 
 由于每次调用 `rocketpool service start` 时，`docker-compose` 文件都会从模板（位于 `templates` 目录）重新生成到 `runtime` 目录，因此不建议直接修改运行时文件。
 相反，我们利用 `docker-compose` 的[内置覆盖功能](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration)，让您进行任何所需的修改，并在重启后保留这些修改。
-此外，该系统还**在升级或重新安装 Smartnode 堆栈后保留您的修改**。
+此外，该系统还**在升级或重新安装 Smart Node 堆栈后保留您的修改**。
 
 为此，只需在 `override` 文件夹中打开您选择的容器对应文件，然后在其中添加自定义内容即可。
 您放入这些文件的任何内容都将**覆盖** `runtime` 文件夹中 `docker-compose` 文件的相应设置。
@@ -154,6 +154,14 @@ networks:
 ::: warning 注意
 如果您选择的网络没有 Rocket Pool 存储合约地址，那么需要 Rocket Pool 合约的 Smart Node 节点/协议命令将无法在该网络上工作。客户端同步仍可正常进行。
 :::
+
+## Docker 镜像固定
+
+Smart Node 通过摘要（digest）固定官方客户端镜像和 Smart Node 镜像，因此无法拉取被重新打标签的镜像。
+
+- 默认值位于 `~/.rocketpool/mainnet.env` 中，格式为 `repo:tag@sha256:…`。`rocketpool service install` 总会覆盖此文件（以及 `testnet.env` / `devnet.env`）。
+- 若只想为某一个网络固定不同的镜像，请将该键放入对应的 `{network}.env` 文件中。未设置的键将继承 mainnet 的固定值。
+- TUI 中的标签字段仍会覆盖这些固定值。在您恢复默认值之前，它们的优先级高于这两个 env 文件。
 
 ## Node Daemon HTTP API
 

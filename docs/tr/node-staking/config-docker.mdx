@@ -11,12 +11,12 @@ import tuiExternalDD from "./images/tui-external-dd.png";
 import tuiExternalPrysm from "./images/tui-external-prysm.png";
 import tuiExternalTeku from "./images/tui-external-teku.png";
 
-# Smartnode Stack'ini Yapılandırma (Docker / Hybrid Modu)
+# Smart Node Stack'ini Yapılandırma (Docker / Hybrid Modu)
 
 Tam Execution katmanı ve Consensus katmanı istemcilerini çalıştırmak göz korkutucu olabilir; aralarından seçim yapabileceğiniz birçok seçenek vardır ve her birinin çok sayıda farklı ayarı bulunur.
-Neyse ki, Smartnode tüm bu karmaşıklığı gizlemek için tasarlanmıştır, böylece hızlı ve kolay bir şekilde yapılandırılabilir, aynı zamanda isterseniz her şeyi özelleştirme özgürlüğü sunar.
+Neyse ki, Smart Node tüm bu karmaşıklığı gizlemek için tasarlanmıştır, böylece hızlı ve kolay bir şekilde yapılandırılabilir, aynı zamanda isterseniz her şeyi özelleştirme özgürlüğü sunar.
 
-Bu bölümde, **Docker tabanlı kurulum** veya harici olarak yönetilen Execution veya Consensus istemcilerine bağlandığınız bir **Hybrid kurulum** kullanıyorsanız (örneğin, solo staking için Smartnode dışında yönettiğiniz istemciler), Smartnode'u yapılandırmanın çeşitli yöntemlerini ele alacağız.
+Bu bölümde, **Docker tabanlı kurulum** veya harici olarak yönetilen Execution veya Consensus istemcilerine bağlandığınız bir **Hybrid kurulum** kullanıyorsanız (örneğin, solo staking için Smart Node dışında yönettiğiniz istemciler), Smart Node'u yapılandırmanın çeşitli yöntemlerini ele alacağız.
 
 ::: warning NOT
 Docker olmadan Native mod kullanıyorsanız, lütfen bunun yerine [Native yapılandırma kılavuzunu](./config-native) ziyaret edin.
@@ -25,8 +25,8 @@ Docker olmadan Native mod kullanıyorsanız, lütfen bunun yerine [Native yapıl
 Onu yapılandırmanın üç yolu vardır:
 
 - [Wizard UI](#wizard-aracılığıyla-yapılandırma) aracılığıyla - bu en kolay yoldur. Sadece birkaç temel soru sorar ve test için iyi test edilmiş varsayılanları kullanır. İlk kez `rocketpool service config` komutunu çalıştırdığınızda size sunulan bu olacaktır.
-- [Settings Manager UI](#settings-manager-aracılığıyla-yapılandırma) aracılığıyla - bu size Smartnode'un tüm ayarlarına erişim sağlar, böylece istediğiniz kadar her şeyi özelleştirebilirsiniz.
-- [Komut Satırı](#komut-satırı-aracılığıyla-yapılandırma) aracılığıyla başsız olarak - bu, Smartnode'u başsız (etkileşimli olmayan) bir ortamda çalıştıran ve otomatik olarak yapılandırması gereken kişiler için bir seçenektir.
+- [Settings Manager UI](#settings-manager-aracılığıyla-yapılandırma) aracılığıyla - bu size Smart Node'un tüm ayarlarına erişim sağlar, böylece istediğiniz kadar her şeyi özelleştirebilirsiniz.
+- [Komut Satırı](#komut-satırı-aracılığıyla-yapılandırma) aracılığıyla başsız olarak - bu, Smart Node'u başsız (etkileşimli olmayan) bir ortamda çalıştıran ve otomatik olarak yapılandırması gereken kişiler için bir seçenektir.
 
 Yukarıdaki listeden hangisini öğrenmek istediğinizi seçin veya aşağıdaki her seçeneği kaydırın.
 
@@ -41,7 +41,7 @@ rocketpool service config
 Bu, düğümünüzü hızlı ve kolay bir şekilde yapılandırmanıza olanak tanıyan ve gelişmiş özelleştirme için her ayar üzerinde isteğe bağlı ince ayarlı kontrol sağlayan terminal tabanlı bir kullanıcı arayüzü başlatacaktır.
 
 ::: tip NOT
-Smartnode'u zaten yapılandırdıysanız, bunun yerine [Settings Manager](#settings-manager-aracılığıyla-yapılandırma) ile karşılanacaksınız.
+Smart Node'u zaten yapılandırdıysanız, bunun yerine [Settings Manager](#settings-manager-aracılığıyla-yapılandırma) ile karşılanacaksınız.
 Tercih ederseniz oradan Wizard'ı yeniden açmayı seçebilirsiniz ve mevcut tüm ayarlarınız sizin için önceden seçilecektir.
 :::
 
@@ -97,12 +97,12 @@ Resmi ağlar (Mainnet, Hoodi Testnet ve Devnet) `networks-default.yml` dosyasın
 <img src="./images/tui-client-mode.png" width="100%" height="auto" />
 
 **Locally Managed** (**"Docker Modu"** olarak da bilinir) varsayılan seçimdir.
-Henüz bir istemci çiftiniz yoksa ve Smartnode'un sizin için birini yönetmesini istiyorsanız bunu kullanın.
-Bunu seçerek, Smartnode bir Execution & Consensus İstemci çiftini Docker konteynerleri olarak oluşturacak, yapılandıracak ve yönetecektir.
+Henüz bir istemci çiftiniz yoksa ve Smart Node'un sizin için birini yönetmesini istiyorsanız bunu kullanın.
+Bunu seçerek, Smart Node bir Execution & Consensus İstemci çiftini Docker konteynerleri olarak oluşturacak, yapılandıracak ve yönetecektir.
 Merak etmeyin, bir sonraki adımda _hangi_ istemciyi çalıştırmak istediğinizi seçeceksiniz.
 
 **Externally Managed** (**"Hybrid Modu"** olarak da bilinir), başka bir yerde manuel olarak yönettikleri bir Execution & Consensus istemci çiftine zaten sahip olan kullanıcılar için uygun bir seçenektir.
-Bunu seçerek, Smartnode mevcut istemcilerinize bağlanacak ve kendisi bir tane çalıştırmayacaktır.
+Bunu seçerek, Smart Node mevcut istemcilerinize bağlanacak ve kendisi bir tane çalıştırmayacaktır.
 Örneğin, kullanıcılar bunu şu anda solo staking için kullandıkları istemcilere bağlanmak için kullanabilirler; bu şekilde, istemcilerin iki ayrı kopyasına sahip olmaları gerekmez.
 
 :::warning NOT
@@ -117,7 +117,7 @@ Execution istemcinizi yönetmek için hangi modu kullanmak istediğinizi seçin 
 <div className="p-3">
   <Tabs>
     <Tab label="Locally Managed">
-      Smartnode'un sizin için bir Execution istemcisi yönetmesini istiyorsanız, bir sonraki ekran size bir istemci seçmenizi isteyecektir:
+      Smart Node'un sizin için bir Execution istemcisi yönetmesini istiyorsanız, bir sonraki ekran size bir istemci seçmenizi isteyecektir:
 
       <img src={ECSelection} width="100%" height="auto"/>
 
@@ -141,8 +141,8 @@ Execution istemcinizi yönetmek için hangi modu kullanmak istediğinizi seçin 
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOT</p>
-        Smartnode kendi Docker konteynerinde çalışacağı için, Docker'ın dahili ağını kullanacaktır.
-        Burada `localhost` veya `127.0.0.1` gibi ana bilgisayar adlarını kullanamazsınız; Execution istemciniz Smartnode ile aynı makinede çalışıyorsa, bunun yerine makinenizin yerel ağ IP adresini sağlamanız gerekir.
+        Smart Node kendi Docker konteynerinde çalışacağı için, Docker'ın dahili ağını kullanacaktır.
+        Burada `localhost` veya `127.0.0.1` gibi ana bilgisayar adlarını kullanamazsınız; Execution istemciniz Smart Node ile aynı makinede çalışıyorsa, bunun yerine makinenizin yerel ağ IP adresini sağlamanız gerekir.
       </p>
 
       Ve bununla, Execution istemciniz tamamen hazır!
@@ -152,17 +152,17 @@ Execution istemcinizi yönetmek için hangi modu kullanmak istediğinizi seçin 
 
       <img src={tuiExternalEC} width="100%" height="auto"/>
 
-      Smartnode, onunla iletişim kurmak ve zincirin durumunu sorgulamak ve işlemleri göndermek gibi blokzinciri faaliyetlerini gerçekleştirmek için HTTP URL'sini kullanacaktır.
-      **İstemcinizin API portunu henüz etkinleştirmediyseniz ve Smartnode makinenizden erişilebilir değilse, şimdi kurmanız gerekir.**
+      Smart Node, onunla iletişim kurmak ve zincirin durumunu sorgulamak ve işlemleri göndermek gibi blokzinciri faaliyetlerini gerçekleştirmek için HTTP URL'sini kullanacaktır.
+      **İstemcinizin API portunu henüz etkinleştirmediyseniz ve Smart Node makinenizden erişilebilir değilse, şimdi kurmanız gerekir.**
       Bununla ilgili talimatlar istemciden istemciye değişir; HTTP RPC uç noktasının nasıl kurulacağını öğrenmek için istemcinizin belgelerine başvurun.
 
-      Websocket URL'si yalnızca kendi kullanımınız için ihtiyacınız varsa geçerlidir; Smartnode bunu kullanmaz.
+      Websocket URL'si yalnızca kendi kullanımınız için ihtiyacınız varsa geçerlidir; Smart Node bunu kullanmaz.
       İhtiyacınız yoksa boş bırakabilirsiniz.
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOT</p>
-        Smartnode kendi Docker konteynerinde çalışacağı için, Docker'ın dahili ağını kullanacaktır.
-        Burada `localhost` veya `127.0.0.1` gibi ana bilgisayar adlarını kullanamazsınız; yedek Execution istemciniz Smartnode ile aynı makinede çalışıyorsa, bunun yerine makinenizin yerel ağ IP adresini sağlamanız gerekir.
+        Smart Node kendi Docker konteynerinde çalışacağı için, Docker'ın dahili ağını kullanacaktır.
+        Burada `localhost` veya `127.0.0.1` gibi ana bilgisayar adlarını kullanamazsınız; yedek Execution istemciniz Smart Node ile aynı makinede çalışıyorsa, bunun yerine makinenizin yerel ağ IP adresini sağlamanız gerekir.
       </p>
 
       Yedek Execution istemci seçimlerinizden memnun olduğunuzda, bir sonraki adıma geçin.
@@ -181,7 +181,7 @@ Daha önce hangi modu seçtiğinizi aşağıdaki sekmelerden seçin:
 <div className="p-3">
   <Tabs>
     <Tab label="Locally Managed">
-      Smartnode'un sizin için bir Consensus istemcisi yönetmesini istiyorsanız, bir sonraki ekran size bir istemci seçmenizi isteyecektir:
+      Smart Node'un sizin için bir Consensus istemcisi yönetmesini istiyorsanız, bir sonraki ekran size bir istemci seçmenizi isteyecektir:
 
       <img src={tuiLocalCC} width="100%" height="auto"/>
 
@@ -423,7 +423,7 @@ Daha önce hangi modu seçtiğinizi aşağıdaki sekmelerden seçin:
       </p>
     </Tab>
     <Tab label="Externally Managed">
-      Her Consensus istemcisinin biraz farklı davranışı olduğu için, Smartnode'un hangisini harici olarak kullandığınızı bilmesi gerekir, böylece kendi davranışını buna göre uyarlayabilir.
+      Her Consensus istemcisinin biraz farklı davranışı olduğu için, Smart Node'un hangisini harici olarak kullandığınızı bilmesi gerekir, böylece kendi davranışını buna göre uyarlayabilir.
       Bir sonraki ekrandaki listeden hangi istemciye sahip olduğunuzu seçerek başlayın:
 
       <img src="./images/tui-external-cc.png" width="100%" height="auto"/>
@@ -444,14 +444,14 @@ Daha önce hangi modu seçtiğinizi aşağıdaki sekmelerden seçin:
 
             <img src={tuiExternalLH} width="100%" height="auto"/>
 
-            Smartnode, onunla iletişim kurmak ve zincirin durumunu sorgulamak ve mesajları göndermek gibi blokzinciri faaliyetlerini gerçekleştirmek için HTTP URL'sini kullanacaktır.
-            **API portunu henüz etkinleştirmediyseniz ve Smartnode makinenizden erişilebilir değilse, şimdi kurmanız gerekir.**
+            Smart Node, onunla iletişim kurmak ve zincirin durumunu sorgulamak ve mesajları göndermek gibi blokzinciri faaliyetlerini gerçekleştirmek için HTTP URL'sini kullanacaktır.
+            **API portunu henüz etkinleştirmediyseniz ve Smart Node makinenizden erişilebilir değilse, şimdi kurmanız gerekir.**
             Bunu nasıl yapacağınıza dair talimatlar için [Lighthouse'un belgelerine](https://lighthouse-book.sigmaprime.io/api-bn.html) bakın.
 
             <p className="rspress-directive warning">
               <p className="rspress-directive-title">NOT</p>
-              Smartnode kendi Docker konteynerinde çalışacağı için, Docker'ın dahili ağını kullanacaktır.
-              Burada `localhost` veya `127.0.0.1` gibi ana bilgisayar adlarını kullanamazsınız; istemciniz Smartnode ile aynı makinede çalışıyorsa, bunun yerine makinenizin yerel ağ IP adresini sağlamanız gerekir.
+              Smart Node kendi Docker konteynerinde çalışacağı için, Docker'ın dahili ağını kullanacaktır.
+              Burada `localhost` veya `127.0.0.1` gibi ana bilgisayar adlarını kullanamazsınız; istemciniz Smart Node ile aynı makinede çalışıyorsa, bunun yerine makinenizin yerel ağ IP adresini sağlamanız gerekir.
             </p>
 
 
@@ -491,17 +491,17 @@ Daha önce hangi modu seçtiğinizi aşağıdaki sekmelerden seçin:
 
             <img src={tuiExternalPrysm} width="100%" height="auto"/>
 
-            Smartnode, onunla iletişim kurmak ve zincirin durumunu sorgulamak ve mesajları göndermek gibi blokzinciri faaliyetlerini gerçekleştirmek için HTTP URL'sini kullanacaktır.
+            Smart Node, onunla iletişim kurmak ve zincirin durumunu sorgulamak ve mesajları göndermek gibi blokzinciri faaliyetlerini gerçekleştirmek için HTTP URL'sini kullanacaktır.
             Prysm Validator Client'ını, Beacon Node'unuzla iletişim kurabilmesi için JSON-RPC URL'si ile hazırlayacaktır, çünkü _Prysm'in Validator Client'ı şu anda HTTP API üzerinden çalışamaz._
 
-            **API portlarını henüz etkinleştirmediyseniz ve Smartnode makinenizden erişilebilir değilse, şimdi kurmanız gerekir.**
+            **API portlarını henüz etkinleştirmediyseniz ve Smart Node makinenizden erişilebilir değilse, şimdi kurmanız gerekir.**
             Bunu nasıl yapacağınıza dair talimatlar için [Prysm'in belgelerine](https://docs.prylabs.network/docs/prysm-usage/parameters) bakın.
             **`grpc-gateway` _ve_ `rpc-host`'un etkinleştirilmiş olması gerekir.**
 
             <p className="rspress-directive warning">
               <p className="rspress-directive-title">NOT</p>
-              Smartnode kendi Docker konteynerinde çalışacağı için, Docker'ın dahili ağını kullanacaktır.
-              Burada `localhost` veya `127.0.0.1` gibi ana bilgisayar adlarını kullanamazsınız; istemciniz Smartnode ile aynı makinede çalışıyorsa, bunun yerine makinenizin yerel ağ IP adresini sağlamanız gerekir.
+              Smart Node kendi Docker konteynerinde çalışacağı için, Docker'ın dahili ağını kullanacaktır.
+              Burada `localhost` veya `127.0.0.1` gibi ana bilgisayar adlarını kullanamazsınız; istemciniz Smart Node ile aynı makinede çalışıyorsa, bunun yerine makinenizin yerel ağ IP adresini sağlamanız gerekir.
             </p>
 
 
@@ -541,15 +541,15 @@ Daha önce hangi modu seçtiğinizi aşağıdaki sekmelerden seçin:
 
             <img src={tuiExternalTeku} width="100%" height="auto"/>
 
-            Smartnode, onunla iletişim kurmak ve zincirin durumunu sorgulamak ve mesajları göndermek gibi blokzinciri faaliyetlerini gerçekleştirmek için HTTP URL'sini kullanacaktır.
-            **API portunu henüz etkinleştirmediyseniz ve Smartnode makinenizden erişilebilir değilse, şimdi kurmanız gerekir.**
+            Smart Node, onunla iletişim kurmak ve zincirin durumunu sorgulamak ve mesajları göndermek gibi blokzinciri faaliyetlerini gerçekleştirmek için HTTP URL'sini kullanacaktır.
+            **API portunu henüz etkinleştirmediyseniz ve Smart Node makinenizden erişilebilir değilse, şimdi kurmanız gerekir.**
             Bunu nasıl yapacağınıza dair talimatlar için [Teku'nun belgelerine](https://docs.teku.consensys.net/en/latest/Reference/CLI/CLI-Syntax/#rest-api-enabled) bakın.
 
 
             <p className="rspress-directive warning">
               <p className="rspress-directive-title">NOT</p>
-              Smartnode kendi Docker konteynerinde çalışacağı için, Docker'ın dahili ağını kullanacaktır.
-              Burada `localhost` veya `127.0.0.1` gibi ana bilgisayar adlarını kullanamazsınız; istemciniz Smartnode ile aynı makinede çalışıyorsa, bunun yerine makinenizin yerel ağ IP adresini sağlamanız gerekir.
+              Smart Node kendi Docker konteynerinde çalışacağı için, Docker'ın dahili ağını kullanacaktır.
+              Burada `localhost` veya `127.0.0.1` gibi ana bilgisayar adlarını kullanamazsınız; istemciniz Smart Node ile aynı makinede çalışıyorsa, bunun yerine makinenizin yerel ağ IP adresini sağlamanız gerekir.
             </p>
 
             Ardından, doğrulayıcınızın **graffiti** mesajı hakkında sorulacaktır:
@@ -602,7 +602,7 @@ rocketpool service resync-eth2
 
 ### Yedek Düğüm
 
-Smartnode stack'inin 1.5.0 sürümünden itibaren, birincil istemcileriniz herhangi bir zamanda çevrimdışı olursa (örneğin Geth kullanıyorsanız ve budamanız gerekiyorsa) onların yerine geçebilecek bir "yedek" Execution istemcisi ve Consensus istemcisi çifti sağlayabilirsiniz.
+Smart Node stack'inin 1.5.0 sürümünden itibaren, birincil istemcileriniz herhangi bir zamanda çevrimdışı olursa (örneğin Geth kullanıyorsanız ve budamanız gerekiyorsa) onların yerine geçebilecek bir "yedek" Execution istemcisi ve Consensus istemcisi çifti sağlayabilirsiniz.
 Bu durumda, birincil düğüm makineniz hala minipoollarınızın doğrulayıcı anahtarlarıyla onaylama ve blok önerme sorumluluğunda olacaktır, ancak Execution katmanı ve Beacon chain'leriyle etkileşim kurmak için harici bir makineye bağlanacaktır.
 
 [Yedek düğümler hakkında daha fazla bilgi edinmek için bu bölüme bakın](./fallback) ve bittiğinizde buraya geri dönün.
@@ -629,7 +629,7 @@ Sadece kendi düğümünüzü izleyebilmeniz için oradadır!
 
 Eylül 2022'deki Execution ve Consensus katmanlarının Birleşmesinden bu yana, Ethereum doğrulayıcıları artık öncelik ücretleri kazanma ve Maksimum Çıkarılabilir Değer'e (kısaca MEV) katılma yeteneğine sahiptir.
 
-Smartnode v1.7.0'dan itibaren, MEV artık _opt-out_ olduğundan, yapılandırması bir sonraki ekranda gördüğünüz gibi ilk kurulumun bir parçası olarak sunulmaktadır:
+Smart Node v1.7.0'dan itibaren, MEV artık _opt-out_ olduğundan, yapılandırması bir sonraki ekranda gördüğünüz gibi ilk kurulumun bir parçası olarak sunulmaktadır:
 
 <img src="./images/tui-mev-mode.png" width="100%" height="auto" />
 
@@ -638,12 +638,12 @@ Bitirdiğinizde buraya geri dönün.
 
 ### Tamamlama
 
-Bu sorudan sonra, Smartnode'u kurmayı bitirdiniz!
+Bu sorudan sonra, Smart Node'u kurmayı bitirdiniz!
 Aşağıdaki diyaloğu göreceksiniz:
 
 <img src="./images/tui-finished.png" width="100%" height="auto" />
 
-Kurulumunuzdan memnunsanız ve Smartnode'u başlatmaya hazırsanız, burada `Save and Exit` tuşuna tıklayın ve bir sonraki [Düğümünüzü Güvenceye Alma](./securing-your-node) bölümüne gidin.
+Kurulumunuzdan memnunsanız ve Smart Node'u başlatmaya hazırsanız, burada `Save and Exit` tuşuna tıklayın ve bir sonraki [Düğümünüzü Güvenceye Alma](./securing-your-node) bölümüne gidin.
 
 Tüm ayarları gözden geçirmek ve Wizard'a dahil olmayan birçok ek ayarı özelleştirmek isterseniz, `Review All Settings`'e tıklayın ve [bir sonraki bölüme](#settings-manager-aracılığıyla-yapılandırma) gidin.
 
@@ -655,7 +655,7 @@ Zaten `rocketpool service config` komutunu çalıştırdıysanız, Wizard ile ka
 
 Bu ekranın üç ana özelliği vardır:
 
-1. **Kategori Listesi**, Smartnode stack'inin her kategorisi için ayarları detaylandırmanıza olanak tanır
+1. **Kategori Listesi**, Smart Node stack'inin her kategorisi için ayarları detaylandırmanıza olanak tanır
 2. **Değişiklikleri Gözden Geçir ve Kaydet** düğmesi, hangi ayarları değiştirdiğinizi görmek ve güncellenmiş yapılandırmayı kaydetmek istediğinizde kullanabilirsiniz
 3. **Yapılandırma Sihirbazını Aç** düğmesi, bunun yerine bu arayüzü tercih ediyorsanız sizi [Kurulum Sihirbazı](#wizard-aracılığıyla-yapılandırma)'na götürecektir
 
@@ -676,7 +676,7 @@ Onları keşfetmekten çekinmeyin; **Değişiklikleri Gözden Geçir ve Kaydet**
 ### Ayarları Yapılandırma
 
 Ana ekrandan, bu kategorinin ayarlarını görüntülemek için kategorilerden herhangi birini `Enter` tuşuyla seçin.
-Örneğin, **Smartnode and TX Fees** kategorisinin ekranı şöyledir:
+Örneğin, **Smart Node and TX Fees** kategorisinin ekranı şöyledir:
 
 <img src="./images/tui-smartnode.png" width="100%" height="auto" />
 
@@ -693,7 +693,7 @@ Bu örnekte, **RPL Claim Gas Threshold** ayarı şu anda seçilidir (ekranın so
 
 ::: tip İPUCU
 Hatırlatma olarak, **Değişiklikleri Gözden Geçir ve Kaydet** düğmesi aracılığıyla Gözden Geçir diyaloğundan geçene kadar hiçbir şey diske kaydedilmeyecektir.
-Onlar hakkında bilgi edinmek ve Smartnode'unuzun neler yapabileceğini görmek için tüm ayarları keşfetmeniz teşvik edilir!
+Onlar hakkında bilgi edinmek ve Smart Node'unuzun neler yapabileceğini görmek için tüm ayarları keşfetmeniz teşvik edilir!
 :::
 
 ### Ayar Türleri ve Nasıl Kullanılır
@@ -815,7 +815,7 @@ ardından son olarak `rocketpool service start`.
 
 ## Komut Satırı Aracılığıyla Yapılandırma
 
-Smartnode'u başsız bir ortamda kullanıyorsanız ve Terminal kullanıcı arayüzü ile etkileşim kuramıyorsanız, düğümünüzü bunun yerine komut satırı aracılığıyla yapılandırabilirsiniz.
+Smart Node'u başsız bir ortamda kullanıyorsanız ve Terminal kullanıcı arayüzü ile etkileşim kuramıyorsanız, düğümünüzü bunun yerine komut satırı aracılığıyla yapılandırabilirsiniz.
 
 `rocketpool service config` komutu, argüman olarak, Terminal kullanıcı arayüzü aracılığıyla normalde yapılandırılabilen her ayarı kabul eder.
 Bunların bir listesini görmek için aşağıdaki komutu çalıştırın (oldukça uzun olduğunu unutmayın):

@@ -6,7 +6,7 @@ next:
 
 # Visão Geral
 
-Esta seção cobre os detalhes de como provisionar seu nó para staking com Rocket Pool depois de ter instalado e configurado o Smartnode.
+Esta seção cobre os detalhes de como provisionar seu nó para staking com Rocket Pool depois de ter instalado e configurado o Smart Node.
 É uma seção longa porque há muita informação sobre staking para cobrir, então **por favor leia cada guia antes de criar seu primeiro validador de megapool!**
 
 ## Pré-requisitos
@@ -14,13 +14,13 @@ Esta seção cobre os detalhes de como provisionar seu nó para staking com Rock
 Antes de provisionar seu nó para staking, por favor certifique-se de que fez o seguinte:
 
 - Configurou uma máquina de nó (ou máquina virtual) e a protegeu (através do guia [Protegendo seu Nó](../securing-your-node))
-- Tem o Smartnode [instalado](../installing/overview) e [configurado](../config/overview) nela
+- Tem o Smart Node [instalado](../installing/overview) e [configurado](../config/overview) nela
 
 ## Guias
 
-[Iniciando o Rocket Pool](../starting-rp) mostrará como iniciar os serviços do Smartnode para cada modo e como verificar o progresso de sincronização dos seus clientes Execution e Consensus.
+[Iniciando o Rocket Pool](../starting-rp) mostrará como iniciar os serviços do Smart Node para cada modo e como verificar o progresso de sincronização dos seus clientes Execution e Consensus.
 
-[Criando uma Nova Carteira](../wallet-init) apresenta o processo de criar uma carteira completamente nova com o Smartnode se esta for sua primeira vez configurando um nó.
+[Criando uma Nova Carteira](../wallet-init) apresenta o processo de criar uma carteira completamente nova com o Smart Node se esta for sua primeira vez configurando um nó.
 
 [Importando / Recuperando uma Carteira Existente](../recovering-rp.mdx) é uma alternativa para criar uma nova carteira.
 Use este guia se você já tem uma carteira de nó que deseja recuperar no seu nó (ou se está migrando de um serviço como Allnodes para seu próprio hardware).
@@ -31,4 +31,4 @@ Use este guia se você já tem uma carteira de nó que deseja recuperar no seu n
 
 [Distribuidores de Taxa e a Smoothing Pool](../fee-distrib-sp) discutem a forma como as recompensas da camada Execution são fornecidas ao seu nó toda vez que um de seus validadores propõe um bloco, como coletar essas recompensas, e descreve a **Smoothing Pool** do Rocket Pool - um recurso popular que combina recompensas da camada Execution de todos e as distribui uniformemente durante os intervalos de recompensas regulares do Rocket Pool.
 
-[MEV, MEV-Boost e Recompensas MEV](../mev.mdx) explica **Maximum-Extractable Value** (MEV), seu papel no ecossistema de staking, e como você pode configurá-lo ao seu gosto usando o Smartnode.
+[MEV, MEV-Boost e Recompensas MEV](../mev.mdx) explica **Maximum-Extractable Value** (MEV), seu papel no ecossistema de staking, e como você pode configurá-lo ao seu gosto usando o Smart Node.

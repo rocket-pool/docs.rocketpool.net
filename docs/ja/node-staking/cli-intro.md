@@ -35,7 +35,7 @@ USAGE:
    rocketpoolcli [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    auction, a   Manage Rocket Pool RPL auctions
@@ -92,7 +92,7 @@ USAGE:
    rocketpool service [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    install, i                 Install the Rocket Pool service
@@ -509,7 +509,7 @@ USAGE:
    rocketpool megapool [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    deposit, d                Make a deposit and create a new validator on the megapool. Optionally specify count to make multiple deposits.
@@ -781,7 +781,7 @@ Are you sure you want to set your timezone? [y/n]
 ::: warning 注意
 以前のトランザクションを上書きするには、`-i`(優先手数料)フラグを含める**必要があります**。
 この数値は、古いトランザクションが使用した優先手数料よりも少なくとも10%高い必要があります。
-Smartnodeはデフォルトで2 gweiの優先手数料を使用するため、通常は`2.2`の値で十分です。
+Smart Nodeはデフォルトで2 gweiの優先手数料を使用するため、通常は`2.2`の値で十分です。
 
 古いトランザクションがカスタム手数料(たとえば、10 gwei)を使用した場合、上書きトランザクションでは少なくとも10%高く設定する必要があります(この例では11 gwei)。
 :::
@@ -798,7 +798,7 @@ Total cost: 0.0032 to 0.0032 ETH
 Are you sure you want to send 0.000100 eth to <node wallet address>? This action cannot be undone! [y/n]
 ```
 
-Smartnodeスタックは、送信する前に、提供した`nonce`が有効(保留中のトランザクションを参照している)かどうかを自動的にチェックし、誤ってガスを無駄にしないようにします。
+Smart Nodeスタックは、送信する前に、提供した`nonce`が有効(保留中のトランザクションを参照している)かどうかを自動的にチェックし、誤ってガスを無駄にしないようにします。
 そうでない場合は、エラーメッセージを返します。
 それ以外の場合は、処理され、トランザクションの詳細が提供されるため、実際に古いスタックしたトランザクションが上書きされたことを確認するために監視できます。
 

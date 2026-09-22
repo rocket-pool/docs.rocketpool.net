@@ -1,28 +1,28 @@
 import { Tab, Tabs } from "@rspress/core/theme";
 
-# Actualización a Smartnode v1.3.x
+# Actualización a Smart Node v1.3.x
 
-La versión 1.3.0 del stack de Smartnode trae algunos cambios importantes de los que los usuarios deben estar conscientes.
+La versión 1.3.0 del stack de Smart Node trae algunos cambios importantes de los que los usuarios deben estar conscientes.
 Están diseñados para mejorar significativamente tu experiencia como operador de nodo y abordar muchas de las características que nuestros usuarios han solicitado desde el lanzamiento de Rocket Pool.
 
-En esta guía, te guiaremos a través del proceso de migración de una versión anterior del Smartnode a v1.3.x y posteriores.
+En esta guía, te guiaremos a través del proceso de migración de una versión anterior del Smart Node a v1.3.x y posteriores.
 
 ## Cambios en el archivo de configuración
 
-v1.3.0 introduce algunos cambios significativos en la forma en que se gestiona la configuración del Smartnode.
-Si has modificado manualmente la configuración del Smartnode antes, debes estar consciente de los siguientes cambios:
+v1.3.0 introduce algunos cambios significativos en la forma en que se gestiona la configuración del Smart Node.
+Si has modificado manualmente la configuración del Smart Node antes, debes estar consciente de los siguientes cambios:
 
-- El archivo `config.yml` ha sido eliminado. Toda su información ahora está integrada directamente en el stack de Smartnode, para que los usuarios ya no puedan modificar accidentalmente el archivo de una manera que impida que el Smartnode funcione correctamente.
+- El archivo `config.yml` ha sido eliminado. Toda su información ahora está integrada directamente en el stack de Smart Node, para que los usuarios ya no puedan modificar accidentalmente el archivo de una manera que impida que el Smart Node funcione correctamente.
   - Todos los parámetros configurables por el usuario que anteriormente formaban parte de él ahora son configuraciones en la nueva interfaz de usuario de terminal `service config`.
 
-- El archivo `settings.yml` ha sido reemplazado con un nuevo archivo llamado `user-settings.yml`. Este contiene todas tus configuraciones para cada parte configurable del Smartnode.
+- El archivo `settings.yml` ha sido reemplazado con un nuevo archivo llamado `user-settings.yml`. Este contiene todas tus configuraciones para cada parte configurable del Smart Node.
   - Este archivo **no está destinado a ser modificado directamente**. La modificación debe hacerse a través de la nueva interfaz de usuario de terminal `service config` en su lugar.
 
 - La carpeta `chains` ha sido eliminada. Los scripts para lanzar el cliente de ejecución (ETH1), el nodo Beacon y el cliente validador ahora residen en la carpeta `scripts`.
 
 - Los archivos YAML de `docker-compose` han sido eliminados. Cada contenedor ahora obtiene su propio archivo en la carpeta `templates`. Al ejecutar `rocketpool service start`, estas plantillas se completan con tus configuraciones y se colocan en la carpeta `runtime` automáticamente.
   - No se recomienda modificar las plantillas o los archivos de runtime. En su lugar, completa tus personalizaciones de contenedor usando los archivos **override** para cada contenedor en la carpeta `override`. Estos archivos sobrescribirán los archivos Docker en `runtime`, por lo que eres libre de personalizarlos como desees.
-  - Los archivos en `override` **persistirán al actualizar y reinstalar el Smartnode**, por lo que solo necesitas crearlos una vez.
+  - Los archivos en `override` **persistirán al actualizar y reinstalar el Smart Node**, por lo que solo necesitas crearlos una vez.
   - Si estás interesado en modificar los archivos `docker-compose` a través de este mecanismo de override, por favor consulta [esta sección](../node-staking/advanced-config#personalizar-los-archivos-de-definición-de-docker-compose)
 
 ## Instalando la nueva versión
@@ -40,7 +40,7 @@ Comienza deteniendo los servicios y descargando el nuevo CLI como de costumbre:
       rocketpool service stop
       ```
 
-      Descarga el nuevo CLI de Smartnode para tu sistema (elige de las pestañas a continuación):
+      Descarga el nuevo CLI de Smart Node para tu sistema (elige de las pestañas a continuación):
 
       <div className="p-3">
         <Tabs>
@@ -86,13 +86,13 @@ Comienza deteniendo los servicios y descargando el nuevo CLI como de costumbre:
       <p className="rspress-directive tip">
         <p className="rspress-directive-title">NOTA</p>
         A partir de v1.3.0, **¡ya no tienes que especificar para qué red deseas instalar!**
-        El nuevo Smartnode sabrá qué red estás usando ya, y te permitirá cambiar tu red dinámicamente usando la nueva interfaz de usuario de terminal.
+        El nuevo Smart Node sabrá qué red estás usando ya, y te permitirá cambiar tu red dinámicamente usando la nueva interfaz de usuario de terminal.
       </p>
     </Tab>
     <Tab label="Modo nativo">
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOTA</p>
-        Esto solo actualizará el stack de Smartnode en sí - **no** actualizará tus clientes de ejecución y consenso.
+        Esto solo actualizará el stack de Smart Node en sí - **no** actualizará tus clientes de ejecución y consenso.
         Tendrás que hacer esto manualmente (consulta [la guía de actualización manual](../node-staking/updates#actualizando-manualmente-el-cliente-de-ejecución-o-consenso) para aprender cómo hacerlo).
       </p>
 
@@ -102,7 +102,7 @@ Comienza deteniendo los servicios y descargando el nuevo CLI como de costumbre:
       sudo systemctl stop rp-node rp-watchtower
       ```
 
-      Descarga los nuevos binarios del CLI y daemon de Smartnode:
+      Descarga los nuevos binarios del CLI y daemon de Smart Node:
 
       <div className="p-3">
         <Tabs>
@@ -150,10 +150,10 @@ Comienza deteniendo los servicios y descargando el nuevo CLI como de costumbre:
         A partir de v1.3.0, `config.yml` ha sido eliminado.
         **Ya no necesitas descargar el paquete de instalación y extraerlo.**
       </p>
-      A continuación, crea una carpeta de respaldo llamada `old_config_backup` en tu directorio de Smartnode y mueve tus archivos de configuración antiguos a ella (`config.yml` y `settings.yml`).
-      El Smartnode usará estos para migrar tus configuraciones al nuevo sistema.
+      A continuación, crea una carpeta de respaldo llamada `old_config_backup` en tu directorio de Smart Node y mueve tus archivos de configuración antiguos a ella (`config.yml` y `settings.yml`).
+      El Smart Node usará estos para migrar tus configuraciones al nuevo sistema.
 
-      Por ejemplo, si seguiste la guía de configuración nativa y tu directorio de Smartnode es `/srv/rocketpool`:
+      Por ejemplo, si seguiste la guía de configuración nativa y tu directorio de Smart Node es `/srv/rocketpool`:
 
       ```shell
       cd /srv/rocketpool
@@ -192,16 +192,16 @@ Comienza deteniendo los servicios y descargando el nuevo CLI como de costumbre:
   </Tabs>
 </div>
 
-Después de la instalación, todos tus archivos de configuración antiguos se moverán a una carpeta llamada `old_config_backup` en tu directorio de Smartnode (por defecto `~/.rocketpool/old_config_backup`).
+Después de la instalación, todos tus archivos de configuración antiguos se moverán a una carpeta llamada `old_config_backup` en tu directorio de Smart Node (por defecto `~/.rocketpool/old_config_backup`).
 Puedes encontrarlos allí si alguna vez necesitas consultarlos por cualquier razón.
 
 **Si estás buscando instrucciones para revertir a v1.2.4 desde esta copia de seguridad, por favor desplázate a la sección [Revertir a tu configuración anterior](#revertir-a-tu-configuración-anterior) al final de esta página.**
 
-## Configurando el Smartnode con la interfaz de usuario de terminal
+## Configurando el Smart Node con la interfaz de usuario de terminal
 
 Ahora que tienes el nuevo CLI y paquete instalado, todas tus configuraciones anteriores se han preservado y migrado al nuevo sistema.
 En el siguiente paso, debes ejecutar `rocketpool service config`.
-Esto se verá bastante diferente en comparación con versiones anteriores de esta función; v1.3.0 introduce la **interfaz de usuario de terminal**: una interfaz de usuario dinámica basada en terminal para configurar tu Smartnode.
+Esto se verá bastante diferente en comparación con versiones anteriores de esta función; v1.3.0 introduce la **interfaz de usuario de terminal**: una interfaz de usuario dinámica basada en terminal para configurar tu Smart Node.
 
 Debes ejecutarla antes de iniciar los contenedores Docker después del proceso de migración para ver la configuración, verificar que todos tus cambios se migraron con éxito y actualizar cualquier otra configuración que desees.
 
@@ -210,10 +210,10 @@ Cuando la ejecutes por primera vez, se te presentará esta pantalla de bienvenid
 <img src="../node-staking/images/tui-migrate.png" width="100%" height="auto" />
 
 :::tip NOTA
-**Los usuarios de modo nativo** verán esta pantalla con redacción ligeramente diferente, que indica que el Smartnode está operando en modo nativo.
+**Los usuarios de modo nativo** verán esta pantalla con redacción ligeramente diferente, que indica que el Smart Node está operando en modo nativo.
 :::
 
-La TUI comenzará con **el Asistente**, que te permite cambiar rápida y fácilmente los parámetros más importantes del Smartnode (como el modo y selección del cliente).
+La TUI comenzará con **el Asistente**, que te permite cambiar rápida y fácilmente los parámetros más importantes del Smart Node (como el modo y selección del cliente).
 
 **Todas tus configuraciones anteriores ya deberían estar resaltadas mientras atraviesas cada página del asistente para que no tengas que recordar cuál era tu configuración anterior de memoria.**
 
@@ -222,7 +222,7 @@ La TUI comenzará con **el Asistente**, que te permite cambiar rápida y fácilm
 
 - Para **modo Docker**, por favor visita [la nueva guía de configuración de Docker](../node-staking/config-docker).
 
-- **Usuarios de modo híbrido**: el modo híbrido ahora es una **característica de primera clase** del Smartnode y configurarlo es _mucho_ más fácil de lo que solía ser. Por favor visita [la nueva guía de configuración de Docker](../node-staking/config-docker) y síguelo. Cuando se te solicite elegir un modo de cliente de ejecución y modo de cliente de consenso, elige **Gestionado externamente** para ellos en consecuencia.
+- **Usuarios de modo híbrido**: el modo híbrido ahora es una **característica de primera clase** del Smart Node y configurarlo es _mucho_ más fácil de lo que solía ser. Por favor visita [la nueva guía de configuración de Docker](../node-staking/config-docker) y síguelo. Cuando se te solicite elegir un modo de cliente de ejecución y modo de cliente de consenso, elige **Gestionado externamente** para ellos en consecuencia.
 
 - Para **modo nativo**, por favor visita [la nueva guía de configuración nativa](../node-staking/config-native).
 
@@ -246,13 +246,13 @@ Usa las `Teclas de flecha` para navegar, y presiona `Enter` para entrar en una c
 
 Presiona `Esc` cuando hayas terminado de editar una categoría para volver a esta pantalla de inicio.
 
-Cuando estés listo para guardar tus cambios e iniciar el stack de Smartnode, simplemente presiona `Tab` para moverte a los botones en la parte inferior de la pantalla, selecciona `Review Changes and Save` (haciéndolo verde a través de las teclas de flecha).
+Cuando estés listo para guardar tus cambios e iniciar el stack de Smart Node, simplemente presiona `Tab` para moverte a los botones en la parte inferior de la pantalla, selecciona `Review Changes and Save` (haciéndolo verde a través de las teclas de flecha).
 Presiona `Enter` para ser llevado a la **Página de Revisión**, donde puedes ver todo lo que has cambiado desde la última vez que ejecutaste `rocketpool service config`.
 
 Confirma que todos tus cambios están presentes, y luego presiona `Enter` nuevamente para guardarlos.
 La pantalla te mostrará qué contenedores necesitan ser reiniciados para que los cambios se apliquen, aunque dado que estás migrando, ya has apagado los contenedores y todos se reiniciarán de todos modos.
 
-## Iniciando el stack de Smartnode
+## Iniciando el stack de Smart Node
 
 Una vez que hayas guardado tu configuración, la terminal te preguntará si deseas reiniciar los contenedores automáticamente (a menos que estés usando el modo nativo).
 Si no deseas / no puedes permitir que se inicien automáticamente, puedes iniciarlos manualmente con los siguientes comandos:
@@ -266,7 +266,7 @@ Si no deseas / no puedes permitir que se inicien automáticamente, puedes inicia
 
 Una vez que estén activos, puedes verificar que todo esté funcionando según lo previsto.
 
-Usa el comando `rocketpool service version` para verificar que tengas la versión correcta del Smartnode y contenedores de cliente:
+Usa el comando `rocketpool service version` para verificar que tengas la versión correcta del Smart Node y contenedores de cliente:
 
 ```
 $ rocketpool service version
@@ -286,7 +286,7 @@ Busca cualquier error y [por favor visita nuestro servidor de Discord para obten
 
 ## Revertir a tu configuración anterior
 
-Si, por alguna razón, necesitas revertir a v1.2.4 del stack de Smartnode, ¡no te preocupes!
+Si, por alguna razón, necesitas revertir a v1.2.4 del stack de Smart Node, ¡no te preocupes!
 Todos tus archivos de configuración antiguos se han conservado en un directorio de respaldo y se pueden recuperar fácilmente para restaurar tu configuración anterior.
 
 Selecciona qué modo usas de las pestañas a continuación y sigue las instrucciones.
@@ -328,7 +328,7 @@ Selecciona qué modo usas de las pestañas a continuación y sigue las instrucci
         </Tabs>
       </div>
 
-      A continuación, copia todos tus archivos de configuración antiguos de la carpeta `old_config_backup` de vuelta a la carpeta del Smartnode:
+      A continuación, copia todos tus archivos de configuración antiguos de la carpeta `old_config_backup` de vuelta a la carpeta del Smart Node:
 
       ```shell
       cd ~/.rocketpool
@@ -387,7 +387,7 @@ Selecciona qué modo usas de las pestañas a continuación y sigue las instrucci
           </Tab>
         </Tabs>
       </div>
-      Copia los archivos de configuración anteriores de vuelta a tu directorio de Smartnode:
+      Copia los archivos de configuración anteriores de vuelta a tu directorio de Smart Node:
 
       ```shell
       cd /srv/rocketpool

@@ -74,7 +74,7 @@ rocketpool pdao status
 
 ## 投票権の自動初期化
 
-Smartnodeバージョン`1.13.8`は、まだ投票権を初期化していないノードで自動的に投票権を初期化するように設計された新機能**Auto Initialize Vote Power**を導入しています。自動的に初期化された投票権は自己委任されます。この機能は、`rocketpool service config`を実行し、**Smartnode and TX Fees**セクションに移動することで、Smartnode設定で設定できます。
+Smart Nodeバージョン`1.13.8`は、まだ投票権を初期化していないノードで自動的に投票権を初期化するように設計された新機能**Auto Initialize Vote Power**を導入しています。自動的に初期化された投票権は自己委任されます。この機能は、`rocketpool service config`を実行し、**Smart Node and TX Fees**セクションに移動することで、Smart Node設定で設定できます。
 
 <img src="./images/auto_init_vp.png" width="100%" height="auto" />
 
@@ -147,7 +147,7 @@ rocketpool pdao clear-signalling-address
 
 プロポーザルへの投票にのみ関心がある場合は、この手順を無視できます。RPLロックの許可は、プロポーザルを提案またはチャレンジしたい人にのみ必要です。
 
-提案とチャレンジにはRPLロックが必要です。デフォルトでは、任意の目的でのRPLのロックは無効になっています。Node Operatorは、ノードまたはプライマリ出金アドレスからRPLのロックを有効にすることで、ガバナンス活動の実行にオプトインします。Smartnodeでこのコマンドを使用して実行できます:
+提案とチャレンジにはRPLロックが必要です。デフォルトでは、任意の目的でのRPLのロックは無効になっています。Node Operatorは、ノードまたはプライマリ出金アドレスからRPLのロックを有効にすることで、ガバナンス活動の実行にオプトインします。Smart Nodeでこのコマンドを使用して実行できます:
 
 ```shell
 rocketpool node allow-rpl-locking

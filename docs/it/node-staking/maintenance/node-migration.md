@@ -22,7 +22,7 @@ Ogni Validator Client mantiene un Database di Slashing per garantire che il vost
 Il problema, quindi, deriva da situazioni in cui iniziate a validare **senza** un database di slashing e quindi non avete alcun record di ciò su cui i vostri validatori hanno precedentemente votato.
 Questo può accadere in diverse situazioni:
 
-1. Avete appena cambiato client di consenso e il nuovo client non trasferisce il Database di Slashing dal vecchio (cosa che lo Smartnode non fa durante un cambio di client).
+1. Avete appena cambiato client di consenso e il nuovo client non trasferisce il Database di Slashing dal vecchio (cosa che lo Smart Node non fa durante un cambio di client).
 2. Avete il vostro portafoglio caricato su una macchina e state attestando attivamente con esso, e poi caricate il vostro portafoglio su una seconda macchina _mentre la prima macchina sta ancora attestando attivamente_.
 3. Smettete di validare su una macchina e caricate il vostro portafoglio in una seconda macchina, ma non avete aspettato abbastanza a lungo affinché l'epoca corrente venga finalizzata, quindi la vostra seconda macchina attesta per slot per cui i vostri validatori hanno già attestato.
 
@@ -39,12 +39,12 @@ Attendere 15 minuti garantisce che abbiate perso almeno un'epoca e che abbiate a
 Con il contesto di cui sopra in mente, ecco una checklist utile che potete seguire quando migrate il vostro nodo per assicurarvi di non essere slashati.
 Questo è progettato per la massima sicurezza, quindi mentre potreste pensare che alcuni dei passaggi siano inutili, vi **incoraggiamo vivamente** a seguirli tutti fino al completamento.
 
-1. **Preparate il nuovo nodo** seguendo queste guide, partendo dalla sezione "Preparazione di un Nodo" e terminando una volta installato lo Smartnode e sincronizzati un client di esecuzione e consenso.
+1. **Preparate il nuovo nodo** seguendo queste guide, partendo dalla sezione "Preparazione di un Nodo" e terminando una volta installato lo Smart Node e sincronizzati un client di esecuzione e consenso.
    - :warning: **NON** inizializzare un nuovo portafoglio o recuperare il vostro vecchio portafoglio sul nodo. Consentite la sincronizzazione dei client _senza un portafoglio presente_.
 
 2. **ATTENDETE** fino a quando i vostri client sono completamente sincronizzati sul nuovo nodo.
 3. Confermate di aver registrato correttamente il vostro mnemonico eseguendo `rocketpool wallet test-recovery` sulla vostra nuova macchina. Questo _simulerà_ il recupero delle chiavi per confermare che il portafoglio del vostro nodo e tutte le chiavi validatore dei vostri minipool possono essere recuperate correttamente, ma non le _recupererà effettivamente_ e non le salverà su disco, quindi non c'è rischio di slashing.
-   1. Se lo Smartnode non riesce a recuperare il portafoglio del vostro nodo utilizzando il mnemonico che avete fornito, allora il vostro mnemonico potrebbe essere non valido. **INTERROMPETE** questo processo; rimuovere le chiavi dal vostro vecchio nodo significa che potrebbero essere **perse per sempre**.
+   1. Se lo Smart Node non riesce a recuperare il portafoglio del vostro nodo utilizzando il mnemonico che avete fornito, allora il vostro mnemonico potrebbe essere non valido. **INTERROMPETE** questo processo; rimuovere le chiavi dal vostro vecchio nodo significa che potrebbero essere **perse per sempre**.
    2. In questa situazione consigliamo di uscire dai vostri validatori e prelevare il vostro capitale il prima possibile, in modo da poter ricominciare con un nuovo nodo per il quale avete il mnemonico funzionante.
 4. **Interrompete la validazione** sul vostro vecchio nodo (ad esempio, utilizzando `rocketpool service stop` per arrestare il Validator Client).
 5. **Eliminate le vostre chiavi** dal vostro vecchio nodo (ad esempio, utilizzando `rocketpool wallet purge`).

@@ -35,7 +35,7 @@ USAGE:
    rocketpoolcli [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    auction, a   Manage Rocket Pool RPL auctions
@@ -92,7 +92,7 @@ USAGE:
    rocketpool service [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    install, i                 Install the Rocket Pool service
@@ -509,7 +509,7 @@ USAGE:
    rocketpool megapool [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    deposit, d                Make a deposit and create a new validator on the megapool. Optionally specify count to make multiple deposits.
@@ -781,7 +781,7 @@ Una vez que lo tengas, simplemente llama a cualquier transacción con la CLI usa
 ::: warning NOTA
 **Debes** incluir el flag `-i` (tarifa de prioridad) para sobrescribir una transacción anterior.
 Este número debe ser al menos un 10% más alto que la tarifa de prioridad que usó tu transacción anterior.
-El Smartnode usa una tarifa de prioridad de 2 gwei por defecto, por lo que un valor de `2.2` suele ser suficiente para una sobrescritura.
+El Smart Node usa una tarifa de prioridad de 2 gwei por defecto, por lo que un valor de `2.2` suele ser suficiente para una sobrescritura.
 
 Si tu transacción anterior usó una tarifa personalizada (digamos, 10 gwei), necesitarás establecerla al menos un 10% más alta en la transacción de sobrescritura (así que en este ejemplo, 11 gwei).
 :::
@@ -798,7 +798,7 @@ Total cost: 0.0032 to 0.0032 ETH
 Are you sure you want to send 0.000100 eth to <node wallet address>? This action cannot be undone! [y/n]
 ```
 
-El stack de Smartnode verificará automáticamente para asegurarse de que el `nonce` que has proporcionado es válido (se refiere a una transacción pendiente) antes de enviarlo y desperdiciar tu gas accidentalmente.
+El stack de Smart Node verificará automáticamente para asegurarse de que el `nonce` que has proporcionado es válido (se refiere a una transacción pendiente) antes de enviarlo y desperdiciar tu gas accidentalmente.
 Si no, devolverá un mensaje de error.
 De lo contrario, pasará y te proporcionará los detalles de la transacción para que puedas monitorearlo y confirmar que, de hecho, sobrescribió tu transacción atascada anterior.
 

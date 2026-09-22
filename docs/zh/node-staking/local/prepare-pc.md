@@ -16,16 +16,16 @@
 
 ### 支持的操作系统
 
-Rocket Pool 的 Smartnode 客户端目前支持 **Linux** 和 **macOS** 系统。
+Rocket Pool 的 Smart Node 客户端目前支持 **Linux** 和 **macOS** 系统。
 
-目前，**Windows** 可用于远程管理远程 Linux 或 Mac 机器，但 Smartnode 本身目前无法在 Windows 系统上运行。但是，Rocket Pool *可以*在 Windows 机器托管的 Linux [虚拟机](https://en.wikipedia.org/wiki/System_virtual_machine)上运行。
+目前，**Windows** 可用于远程管理远程 Linux 或 Mac 机器，但 Smart Node 本身目前无法在 Windows 系统上运行。但是，Rocket Pool *可以*在 Windows 机器托管的 Linux [虚拟机](https://en.wikipedia.org/wiki/System_virtual_machine)上运行。
 不建议使用此设置而不是简单地将 Linux 安装为主机操作系统，但如果必要，它确实可以工作。
 请注意，它将需要额外的资源开销，并带有自己的一套安全风险，因此我们不建议在主网上质押真实以太币时使用此设置。
 
 Rocket Pool 原生兼容 **AMD64 (x64)** 和 **arm64 (aarch64)** CPU 架构。
 对于其他架构，您需要从源代码编译 smartnode 客户端。
 
-请注意，用户必须具有 **root / 管理员**访问权限（或 **sudo** 权限）才能安装 Smartnode。
+请注意，用户必须具有 **root / 管理员**访问权限（或 **sudo** 权限）才能安装 Smart Node。
 
 #### Linux 支持
 
@@ -36,10 +36,10 @@ Linux 操作系统有许多变体（称为发行版或简称 **distro**）。虽
 这些版本会被积极维护更长的时间，这有助于节点的安全性和稳定性。
 :::
 
-对于在其他发行版上的安装，Smartnode 安装程序将无法自动安装某些系统依赖项（例如 `docker-compose`）。
+对于在其他发行版上的安装，Smart Node 安装程序将无法自动安装某些系统依赖项（例如 `docker-compose`）。
 安装过程中将需要一些手动步骤。
 
-对于 `arm64` 系统，Smartnode 安装程序仅原生支持 Debian 和基于 Debian 的发行版，例如 Ubuntu。
+对于 `arm64` 系统，Smart Node 安装程序仅原生支持 Debian 和基于 Debian 的发行版，例如 Ubuntu。
 对于其他发行版，安装过程中将需要手动步骤。
 
 ## 安装操作系统

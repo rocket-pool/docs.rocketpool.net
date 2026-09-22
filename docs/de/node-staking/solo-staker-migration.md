@@ -18,7 +18,7 @@ Das Saturn 1 Upgrade hat Minipools durch [Megapools](/de/node-staking/megapools/
 - **Die Erstellung von Minipools ist auf Protokollebene deaktiviert**, und das schließt vacant Minipools ein. Es gibt keinen Minipool-Vertrag mehr, auf den du die Withdrawal Credentials eines bestehenden Validators richten könntest.
 - **Megapool-Validatoren werden über die Rocket Pool Deposit Queue erstellt**, mit einer neuen Beacon-Chain-Einzahlung: ein Prestake von 1 ETH, gefolgt von den restlichen 31 ETH, sobald das Protokoll die Withdrawal Credentials des Validators on-chain verifiziert hat.
   Ein bereits aktiver Validator kann diesen Ablauf nicht durchlaufen, daher gibt es keinen Mechanismus, um einen bestehenden Solo-Validator in einen Megapool aufzunehmen.
-- Die für die Konvertierung verwendeten Smartnode-Befehle (wie `rocketpool node create-vacant-minipool` und `rocketpool minipool promote`) wurden aus der CLI entfernt.
+- Die für die Konvertierung verwendeten Smart Node-Befehle (wie `rocketpool node create-vacant-minipool` und `rocketpool minipool promote`) wurden aus der CLI entfernt.
 
 Kurz gesagt: Der einzige Weg, heute vom Solo Staking zu migrieren, ist, **deinen Validator von der Beacon Chain zu beenden und mit dem abgehobenen ETH neue Megapool-Validatoren zu erstellen**.
 
@@ -34,7 +34,7 @@ Die Migration ist nicht für jeden das Richtige, aber Rocket Pool Megapool-Valid
 Dennoch gibt es einige wichtige Unterschiede, die hervorzuheben sind:
 
 - Du musst das **Smart-Contract-Risiko** akzeptieren, da das Protokoll als eine Reihe von Smart Contracts implementiert ist.
-- Der herkömmliche Node-Betrieb nutzt den **Smartnode-Stack**; du musst alle Risiken akzeptieren, die mit der Installation und dem Betrieb dieser Software auf deinem Node verbunden sind.
+- Der herkömmliche Node-Betrieb nutzt den **Smart Node-Stack**; du musst alle Risiken akzeptieren, die mit der Installation und dem Betrieb dieser Software auf deinem Node verbunden sind.
 - Node-Operator zu sein bedeutet, einige neue Konzepte zu lernen - es gibt also eine gewisse **Lernkurve**.
 - Megapool-Validatoren teilen ihre Belohnungen mit den Pool-Stakern, daher ist die Withdrawal-Adresse deiner Validatoren dein Megapool-Vertrag auf dem Execution Layer, **keine EOA, die du kontrollierst**. Das gilt auch für deinen **Fee Recipient** für Execution-Layer-Belohnungen.
 - **Dein Kapital verdient nichts, während es unterwegs ist.** Zwischen dem Beenden deines Solo-Validators und der Aktivierung deiner Megapool-Validatoren erhältst du keine Belohnungen. Neue Megapool-Validatoren müssen die Rocket Pool Deposit Queue _und_ die Beacon-Chain-Queue durchlaufen, bevor sie mit dem Attestieren beginnen. Lies daher den Abschnitt [Zeitliche Überlegungen](#zeitliche-überlegungen) weiter unten, bevor du irgendetwas beendest.
@@ -61,7 +61,7 @@ Stelle sicher, dass du diese gesamte Seite gelesen hast (insbesondere den Abschn
 
 Während du auf die Verarbeitung deines Exits wartest, kannst du deinen Rocket Pool Node vorbereiten.
 
-Wenn du neu im Rocket Pool Node-Betrieb bist, beginne mit dem [Node-Operator-Leitfaden](/de/node-staking/responsibilities), der alles abdeckt - von der Hardwareauswahl über die [Installation des Smartnode-Stacks](/de/node-staking/installing/overview) bis zur [Registrierung deines Nodes](/de/node-staking/prepare-node).
+Wenn du neu im Rocket Pool Node-Betrieb bist, beginne mit dem [Node-Operator-Leitfaden](/de/node-staking/responsibilities), der alles abdeckt - von der Hardwareauswahl über die [Installation des Smart Node-Stacks](/de/node-staking/installing/overview) bis zur [Registrierung deines Nodes](/de/node-staking/prepare-node).
 Da du bereits deinen eigenen Validator betrieben hast, wird dir vieles davon vertraut vorkommen - und wenn du bereits eigene Execution- und Consensus-Clients betreibst, könnte dich die [Hybrid-Konfiguration mit externen Clients](/de/node-staking/install-modes#die-hybrid-konfiguration-mit-externen-clients) interessieren.
 
 ## Schritt 3: Erstelle deine Megapool-Validatoren
@@ -73,8 +73,8 @@ Dein Megapool-Vertrag wird automatisch mit deiner ersten Validator-Einzahlung be
 Der Leitfaden [Einen Megapool (Validator) erstellen](/de/node-staking/megapools/create-megapool-validator) führt dich Schritt für Schritt durch den gesamten Prozess, einschließlich der Funktionsweise der Deposit Queue und der Bestätigung eines erfolgreichen Stakes.
 
 ::: tip HINWEIS
-Anders als beim alten Konvertierungsprozess verwenden deine neuen Validatoren **neue Validator-Schlüssel**, die aus deiner Smartnode-Wallet generiert werden.
-Deine alten Solo-Validator-Schlüssel werden nicht wiederverwendet, und der Validator Client des Smartnode verwaltet die neuen Schlüssel für dich - einen Schlüsselimport-Schritt gibt es nicht mehr.
+Anders als beim alten Konvertierungsprozess verwenden deine neuen Validatoren **neue Validator-Schlüssel**, die aus deiner Smart Node-Wallet generiert werden.
+Deine alten Solo-Validator-Schlüssel werden nicht wiederverwendet, und der Validator Client des Smart Node verwaltet die neuen Schlüssel für dich - einen Schlüsselimport-Schritt gibt es nicht mehr.
 :::
 
 ## Zeitliche Überlegungen

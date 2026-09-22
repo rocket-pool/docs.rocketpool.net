@@ -30,8 +30,8 @@ Para executar um nó Oracle DAO, você precisará do seguinte:
 - Acesso a um **Execution Client em Modo Archive**, que pode atuar como seu cliente primário ou como um cliente suplementar (fallback). Ele será usado apenas em raras circunstâncias em que as tarefas exigem que seu nó recupere um estado da Execution Layer que foi podado do seu Execution Client. No entanto, é **crítico** que você tenha acesso a um Archive Node durante esses períodos para garantir que suas tarefas possam ser cumpridas com sucesso.
   - **Recomendamos fortemente** que você use um archive node local para isso, pois serviços como [Infura](https://infura.io/pricing) ou [Alchemy](https://www.alchemy.com/pricing) mostraram alguma dificuldade em acompanhar a demanda durante períodos críticos, como a construção da árvore de recompensas.
 - Acesso ao **endpoint da API REST de um Beacon Node em Modo Archive** (via HTTP). Este pode ser um cliente executado localmente, como é o caso com a maioria dos nós Rocket Pool, ou pode se conectar a clientes externos que você ou sua organização mantém independentemente.
-- O CLI padrão do Smartnode.
-- O daemon do Smartnode está configurado e executando no modo `watchtower` (isso está incluído no bundle padrão do Smartnode para todos os usuários, mas executa tarefas ativamente apenas para nós Oracle DAO).
+- O CLI padrão do Smart Node.
+- O daemon do Smart Node está configurado e executando no modo `watchtower` (isso está incluído no bundle padrão do Smart Node para todos os usuários, mas executa tarefas ativamente apenas para nós Oracle DAO).
   - Isso pode ser executado em um container Docker (configuração padrão) ou como um simples serviço `systemd` (modo "Nativo").
 - ETH suficiente para pagar pelos custos de gas de suas tarefas (discutido mais tarde).
 
@@ -50,6 +50,6 @@ O tier gratuito não é suficiente.
 As tarefas do Oracle DAO são divididas em duas partes.
 
 1. **Tarefas automatizadas**: essas são tarefas relacionadas à operação rotineira do Rocket Pool, como transportar informações da Consensus Layer para a Execution Layer, calcular vários aspectos do protocolo off-chain e submetê-los como atualizações para os Smart Contracts. Cada uma delas é realizada automaticamente pelo processo daemon `watchtower` e não requer intervenção manual, desde que seus clientes Execution e Consensus, e seu daemon `watchtower`, estejam todos operando normalmente.
-2. **Tarefas manuais**: essas são tarefas que requerem sua própria tomada de decisão e comunicação fora da banda com o resto do Oracle DAO para executar. Elas incluem coisas como votar em atualizações de contratos, mudar parâmetros e convidar ou expulsar membros para/do Oracle DAO. Todas essas podem ser feitas via CLI padrão do Smartnode.
+2. **Tarefas manuais**: essas são tarefas que requerem sua própria tomada de decisão e comunicação fora da banda com o resto do Oracle DAO para executar. Elas incluem coisas como votar em atualizações de contratos, mudar parâmetros e convidar ou expulsar membros para/do Oracle DAO. Todas essas podem ser feitas via CLI padrão do Smart Node.
 
 Leia a próxima seção para aprender como configurar seu nó Oracle DAO.

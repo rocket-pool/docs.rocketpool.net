@@ -5,7 +5,7 @@ This is currently written for **Docker Mode** installations.
 Some locations may vary for Hybrid or Native users.
 :::
 
-In general, if you created your node wallet and minipools via the Smartnode, the only thing you truly need on hand to recover your node from a complete failure is the **mnemonic for your node wallet**
+In general, if you created your node wallet and minipools via the Smart Node, the only thing you truly need on hand to recover your node from a complete failure is the **mnemonic for your node wallet**
 Everything else can be recovered from that quite easily.
 
 If you have minipools that have externally-generated validator keys (e.g. you migrated from **Allnodes** to your own self-hosted node), you will need the private keystore files for your validators as well since they cannot be recovered from the node wallet.
@@ -17,16 +17,16 @@ Having a fast, reliable way to recover from an Execution client failure (such as
 In this guide, we'll show you how to back up some of these things to help improve your node's resilience and minimize unnecessary downtime.
 
 ::: warning NOTE
-This guide assumes you have installed the Smartnode to the default directory (`~/.rocketpool`).
+This guide assumes you have installed the Smart Node to the default directory (`~/.rocketpool`).
 If you specified a different installation directory, substitute it accordingly in the instructions below.
 :::
 
 ## Items That Can Be Backed Up
 
-### Smartnode Configuration
+### Smart Node Configuration
 
-The Smartnode's configuration is stored in `~/.rocketpool/user-settings.yml`.
-You can save this and replace it to restore all of your Smartnode settings (i.e., the things you specified in `rocketpool service config`).
+The Smart Node's configuration is stored in `~/.rocketpool/user-settings.yml`.
+You can save this and replace it to restore all of your Smart Node settings (i.e., the things you specified in `rocketpool service config`).
 
 ### Execution Client / ETH1 Client Chain Data
 
@@ -38,7 +38,7 @@ The chain data is stored within the `rocketpool_eth1clientdata` Docker volume, w
 Note this folder is typically not accessible by unprivileged user accounts; you will need to elevate to the `root` user to see it.
 
 ::: tip NOTE
-If you changed Docker's storage location during the initial Smartnode installation (such as people that run Docker on a second SSD), you will find the volume in `/<your external mount point>/docker/volumes/rocketpool_eth1clientdata`
+If you changed Docker's storage location during the initial Smart Node installation (such as people that run Docker on a second SSD), you will find the volume in `/<your external mount point>/docker/volumes/rocketpool_eth1clientdata`
 
 If you don't recall which installation path you use, you can check `/etc/docker/daemon.json` for its location.
 If the file doesn't exist, you use the default location.
@@ -69,7 +69,7 @@ Consensus clients can easily use this technique to immediately resync to the hea
 
 ## Backing up your Execution Chain Data
 
-The Smartnode comes with the ability to back up your Execution chain data via the `rocketpool service export-eth1-data` command.
+The Smart Node comes with the ability to back up your Execution chain data via the `rocketpool service export-eth1-data` command.
 Under the hood, this utilizes `rsync`, a powerful backup/copy tool within Linux.
 
 `rsync` compares the files in the source directory (your Docker volume) and the target directory (your backup location).

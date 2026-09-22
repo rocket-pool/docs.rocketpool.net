@@ -2,7 +2,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # Execution clientの履歴削除
 
-Execution clientは古いブロックボディとレシートを破棄することで、チェーンデータを扱いやすいサイズに保つことができます。これはSmartnodeの**Pruning Mode**設定（Execution Client → Pruning Mode）で制御します。
+Execution clientは古いブロックボディとレシートを破棄することで、チェーンデータを扱いやすいサイズに保つことができます。これはSmart Nodeの**Pruning Mode**設定（Execution Client → Pruning Mode）で制御します。
 
 **Rolling History Expiry**がデフォルトです。Nethermind、Besu、Reth、Erigonは、約1年より古いボディとレシートを破棄します。Gethはまだこのモードを実装しておらず、代わりにPrague以前の履歴削除を使用します。
 

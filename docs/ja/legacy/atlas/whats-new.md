@@ -4,7 +4,7 @@
 Atlasは`2023年4月18日00:00 UTC`にデプロイされました。最新のプロトコルアップグレードであるHoustonについて読むには[こちら](../houston/whats-new)をご覧ください。
 :::
 
-このページでは、Rocket Poolの次期メジャーアップデートである**Atlas**がプロトコルにもたらす主要な変更について説明します。これには、Smartnodeスタックと一般的なRocket Poolプロトコルの両方のアップデートが含まれます。
+このページでは、Rocket Poolの次期メジャーアップデートである**Atlas**がプロトコルにもたらす主要な変更について説明します。これには、Smart Nodeスタックと一般的なRocket Poolプロトコルの両方のアップデートが含まれます。
 
 このページをよく読んで、Rocket Poolの以前のバージョン（Redstone）とAtlasの違いをすべて理解してください。
 
@@ -66,9 +66,9 @@ _ただし_、ソロvalidatorに対するこの新しい要件の一部として
 
 ソロvalidatorをminipoolに変換する方法の詳細については、[ソロvalidatorをminipoolに変換する](../../node-staking/solo-staker-migration)ガイドをご覧ください。
 
-## 新しいSmartnode機能
+## 新しいSmart Node機能
 
-Rocket Poolプロトコルのコア変更に加えて、Atlasはv1.9.0に存在するSmartnodeスタック自体にいくつかのエキサイティングなアップグレードももたらします。
+Rocket Poolプロトコルのコア変更に加えて、Atlasはv1.9.0に存在するSmart Nodeスタック自体にいくつかのエキサイティングなアップグレードももたらします。
 
 ### 自動報酬配分
 
@@ -106,11 +106,11 @@ minipoolのいずれかがユーザー指定のしきい値（デフォルトは
 
 ### Nimbusの変更
 
-Smartnode v1.9.0は、Nimbusの**スプリットモードサポート**を導入します！
-単一のプロセス/コンテナ内でBeacon NodeとValidator Clientを実行する代わりに、Smartnodeは他のクライアントと同様に別々のコンテナでそれらを実行します。これには次の利点があります：
+Smart Node v1.9.0は、Nimbusの**スプリットモードサポート**を導入します！
+単一のプロセス/コンテナ内でBeacon NodeとValidator Clientを実行する代わりに、Smart Nodeは他のクライアントと同様に別々のコンテナでそれらを実行します。これには次の利点があります：
 
 - Nimbusは**フォールバッククライアント**をサポートするようになりました（プライマリクライアントがメンテナンスのためダウンしている場合に、NimbusのValidator Clientが接続できるセカンダリExecutionクライアントとBeacon Node。例えば再同期など）。
-- Nimbusは**外部管理（ハイブリッド）モード**でサポートされるようになり、Smartnodeが管理するValidator Clientを、自分で独自に維持する外部Beacon Nodeと結合できるようになります。
+- Nimbusは**外部管理（ハイブリッド）モード**でサポートされるようになり、Smart Nodeが管理するValidator Clientを、自分で独自に維持する外部Beacon Nodeと結合できるようになります。
 - 新しいminipoolの追加後にBeacon Nodeを再起動する必要がなくなり、ピアに再接続している間にattestationを失うことがなくなります。
 
 ### Lodestarサポート

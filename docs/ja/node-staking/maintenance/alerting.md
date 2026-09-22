@@ -1,10 +1,10 @@
-# アラート通知によるSmartnodeスタックの監視
+# アラート通知によるSmart Nodeスタックの監視
 
-Smartnodeアラート通知機能により、Rocket Pool Smartnodeの健全性と重要なイベントに関する通知を受け取ることができます。
+Smart Nodeアラート通知機能により、Rocket Pool Smart Nodeの健全性と重要なイベントに関する通知を受け取ることができます。
 
 ## アラートシステムの概要
 
-通知機能は[Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/)を利用してアラートを配信します。アラート機能を使用するには、Smartnodeスタックのメトリックトラッカーの設定方法を説明している[Grafanaダッシュボードの設定](../grafana.mdx)に既に従っている必要があります。アラートは、Smartnodeの重要なメトリックが特定のしきい値を超えた場合、またはノードの手数料受取人が変更されたときなどの特定のイベントが発生した場合にトリガーされます。
+通知機能は[Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/)を利用してアラートを配信します。アラート機能を使用するには、Smart Nodeスタックのメトリックトラッカーの設定方法を説明している[Grafanaダッシュボードの設定](../grafana.mdx)に既に従っている必要があります。アラートは、Smart Nodeの重要なメトリックが特定のしきい値を超えた場合、またはノードの手数料受取人が変更されたときなどの特定のイベントが発生した場合にトリガーされます。
 
 ## Discord通知の設定
 
@@ -58,4 +58,4 @@ Rocket Pool TUIは、アラートを管理するためのユーザーフレン�
 このセクションは、Prometheusの経験があり、YAMLファイルの変更に慣れている上級ユーザー向けです。
 :::
 
-アラートのより高度な設定を行う場合、Smartnodeスタックによって管理されるPrometheusコンテナで利用可能な任意のメトリックに基づいて独自のアラートを追加できます。[Prometheus Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/)を含む独自のyamlファイルを`~/.rocketpool/alerting/rules/`ディレクトリに追加し、`docker stop rocketpool_prometheus`に続いて`docker start rocketpool_prometheus`でPrometheusコンテナを再起動します。次に、`docker logs rocketpool_prometheus`を実行して、Prometheusが設定ファイルを正常にロードしたことを確認します(*msg="Completed loading of configuration file" filename=/etc/prometheus/prometheus.yml*という行が表示され、*err="error loading config from \"/etc/prometheus/prometheus.yml\"...*が表示されないことを確認します)。
+アラートのより高度な設定を行う場合、Smart Nodeスタックによって管理されるPrometheusコンテナで利用可能な任意のメトリックに基づいて独自のアラートを追加できます。[Prometheus Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/)を含む独自のyamlファイルを`~/.rocketpool/alerting/rules/`ディレクトリに追加し、`docker stop rocketpool_prometheus`に続いて`docker start rocketpool_prometheus`でPrometheusコンテナを再起動します。次に、`docker logs rocketpool_prometheus`を実行して、Prometheusが設定ファイルを正常にロードしたことを確認します(*msg="Completed loading of configuration file" filename=/etc/prometheus/prometheus.yml*という行が表示され、*err="error loading config from \"/etc/prometheus/prometheus.yml\"...*が表示されないことを確認します)。

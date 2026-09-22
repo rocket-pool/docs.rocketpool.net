@@ -1,6 +1,6 @@
-# Voting-Einrichtung für Nicht-Smartnode-Benutzer
+# Voting-Einrichtung für Nicht-Smart Node-Benutzer
 
-Einige Benutzer (z.B. Allnodes-Benutzer) verwenden die Smartnode nicht und müssen möglicherweise das Voting über direkte Contract-Interaktion einrichten.
+Einige Benutzer (z.B. Allnodes-Benutzer) verwenden die Smart Node nicht und müssen möglicherweise das Voting über direkte Contract-Interaktion einrichten.
 Dieser Leitfaden enthält sowohl eine minimale als auch eine vollständige Einrichtungsanleitung für solche Benutzer.
 
 ::: tip

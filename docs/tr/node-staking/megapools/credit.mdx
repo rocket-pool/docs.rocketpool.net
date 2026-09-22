@@ -17,8 +17,8 @@ Her düğüm operatörü **0 ETH** kredi bakiyesiyle başlar.
 Bu ETH likit hale getirilip düğüm operatörüne iade edilmez; bunun yerine eşdeğer rETH miktarı karşılığında kullanılabilir. Ayrıca kredi, düğüm operatöründen herhangi bir ETH gerektirmeden
 **ek megapool doğrulayıcıları oluşturmak** için kullanılabilir.
 
-Kredi sistemi, düğüm operatörüne **şeffaf**tır; mümkünse `rocketpool node deposit` işlemleri sırasında otomatik olarak kullanılacaktır (Smartnode CLI'da kullanılacağını açıklayan bildirimlerle birlikte).
-Kullanıla*mıyorsa*, Smartnode kullanıcıyı kullanılamayacağı konusunda uyaracak ve her iki işlem sırasında da normal ETH bond gerektirecektir.
+Kredi sistemi, düğüm operatörüne **şeffaf**tır; mümkünse `rocketpool node deposit` işlemleri sırasında otomatik olarak kullanılacaktır (Smart Node CLI'da kullanılacağını açıklayan bildirimlerle birlikte).
+Kullanıla*mıyorsa*, Smart Node kullanıcıyı kullanılamayacağı konusunda uyaracak ve her iki işlem sırasında da normal ETH bond gerektirecektir.
 
 Daha fazla ayrıntı için aşağıdaki [Kredi Kullanılabilirliği](#kredi-kullanılabilirliği) bölümüne bakın.
 
@@ -60,7 +60,7 @@ Bazı durumlarda, düğümünüzün kullanılabilir kredi bakiyesi olabilir anca
 Yeni bir 4 ETH megapool doğrulayıcısı oluşturmak için 4 ETH kredi kullanmak istiyorsanız, deposit havuzundan 4 ETH gerektirecek ve sizden hiç ETH almayacaktır.
 Bu nedenle, deposit havuzu bond değerini (şu anda 4 ETH olarak belirlenmiş) karşılayacak kadar ETH içermiyorsa, yatırımınız bir doğrulayıcı oluşturmak için düğüm cüzdanınızdan ETH gerektirecektir.
 
-Smartnode, deposit havuzundan gelen ETH ile kredinizin bir bölümünü kullanarak bir doğrulayıcı oluşturabilecektir. Krediniz varsa ve bir doğrulayıcı oluşturmak için düğüm cüzdanınızdan ETH kullanmanız gerekiyorsa, Smartnode sizi `rocketpool megapool deposit` işlemi sırasında bilgilendirecektir.
+Smart Node, deposit havuzundan gelen ETH ile kredinizin bir bölümünü kullanarak bir doğrulayıcı oluşturabilecektir. Krediniz varsa ve bir doğrulayıcı oluşturmak için düğüm cüzdanınızdan ETH kullanmanız gerekiyorsa, Smart Node sizi `rocketpool megapool deposit` işlemi sırasında bilgilendirecektir.
 
 Aşağıdaki örnekte düğüm operatörünün `4 ETH` kredisi bulunmaktadır ancak deposit havuzunda yalnızca `3,431627 ETH` bulunmakta olup, yatırımı tamamlamak için düğüm cüzdanından `0,568373 ETH` gerekmektedir:
 

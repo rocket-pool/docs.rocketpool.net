@@ -14,7 +14,7 @@ Rocket Poolのノードオペレーターとして、RPLトークンの形で定
 新しいチェックポイントで、Oracle DAOは共同でRocket Poolネットワーク内のノードオペレーターの状態の**真のスナップショット**を作成し、それを使用してその間隔中の各ノードのRPLおよびSmoothing Pool ETH報酬を決定します。Saturn 0 minipoolの「ボーナス手数料」はSmoothing Pool報酬を使用して分配されることに注意してください（Saturn 0 minipoolは2024/10/28以降に作成され、契約手数料が5%のものです）。
 
 この情報は[Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree)にコンパイルされます。これは、すべての詳細をスマートコントラクトで利用できるようにする非常に効率的な方法です。
-Merkle TreeはJSONファイルに構築され、[私たちが管理するGitHubリポジトリ](https://github.com/rocket-pool/rewards-trees/)でホストされます。Smartnodeは報酬インターバルの**イベント**をそのGitHubリポジトリから読み込むこともできるため、積極的な履歴削除によって古いExecutionレイヤーのログが削除された後でも請求できます。
+Merkle TreeはJSONファイルに構築され、[私たちが管理するGitHubリポジトリ](https://github.com/rocket-pool/rewards-trees/)でホストされます。Smart Nodeは報酬インターバルの**イベント**をそのGitHubリポジトリから読み込むこともできるため、積極的な履歴削除によって古いExecutionレイヤーのログが削除された後でも請求できます。
 
 ツリーが送信されると、Rocket Poolスマートコントラクトは新しいRPLトークンをミントし、Smoothing Poolの全ETH残高とともに、安全な保管のためにRocket Poolボールトに移動します。
 その後、その間隔中に獲得したRPLとETHの報酬の量を確認し、それらの報酬を請求できます。
@@ -84,10 +84,10 @@ Oracle DAOから事前に構築されたツリーをダウンロードする代�
 - `Rewards Tree Mode`を`Download`から`Generate`に変更します。
 - プライマリのExecution clientがアーカイブノードでない場合は、`Archive-Mode EC URL`ボックスに別のアーカイブノードのURLを追加できます。
   - これは履歴報酬ツリーを生成するために必要です。
-  - Archive ECはツリー生成にのみ使用されます。他のSmartnodeの職務には使用されません。
+  - Archive ECはツリー生成にのみ使用されます。他のSmart Nodeの職務には使用されません。
   - [Infura](https://infura.io/product/ethereum)と[Alchemy](https://www.alchemy.com/supernode)はアーカイブノードアクセスを提供しています。**無料ティアは通常、ツリー生成を処理するのに十分ではないため、有料ティアのいずれかが必要になることに注意してください。**
 
-これで、SmartnodeはOracle DAOから完全に独立してツリーを構築し、Execution clientとConsensus clientによって提供されるデータのみを使用します。
+これで、Smart NodeはOracle DAOから完全に独立してツリーを構築し、Execution clientとConsensus clientによって提供されるデータのみを使用します。
 `rocketpool service logs watchtower`を使用して、報酬間隔チェックポイント中にそれを確認できます。
 
 以前の間隔から過去のツリーを再構築したい場合は、次のコマンドを使用して実行できます。

@@ -10,11 +10,11 @@ next:
 
 ## 前提条件
 
-Smartnodeを設定する前に、以下を確認してください:
+Smart Nodeを設定する前に、以下を確認してください:
 
 - ノードマシン(または仮想マシン)をセットアップし、セキュリティ保護を完了している([ノードのセキュリティ保護](/ja/node-staking/securing-your-node)ガイドを参照)
-- Smartnodeを[インストール](/ja/node-staking/installing/overview)し、[設定](/ja/node-staking/config/overview)している
-- Smartnodeにノードウォレットを読み込んでいる
+- Smart Nodeを[インストール](/ja/node-staking/installing/overview)し、[設定](/ja/node-staking/config/overview)している
+- Smart Nodeにノードウォレットを読み込んでいる
 - ExecutionクライアントとConsensusクライアントを同期している
 - ノードに[出金アドレス](/ja/node-staking/prepare-node#primary-withdrawal-addressの設定)を設定し、[フォールバッククライアント](/ja/node-staking/fallback)を設定し(オプション)、[Smoothing Pool](/ja/node-staking/fee-distrib-sp#smoothing-pool)にオプトイン(オプション)し、[MEV](/ja/node-staking/mev)を設定している
 - 少なくとも1つの[minipool](/ja/node-staking/create-validator)を作成している
@@ -35,7 +35,7 @@ Smartnodeを設定する前に、以下を確認してください:
 
 [Initializing Voting Power](/ja/pdao/participate#投票の初期化)では、ノードの投票権を初期化する方法を説明します。このステップは、Houston Upgradeの前にノードを登録した場合にのみ必要です。
 
-[Setting your Snapshot Signalling Address](/ja/pdao/participate#snapshot-signalling-addressの設定)では、Signalling Addressを設定する手順を説明します。これにより、ノードの秘密鍵をホットウォレットに読み込むことなく、ノードの投票権を使用してsnapshotで投票できるようになります。このガイドには、Smartnode CLIと、ノードウォレットではないアドレスを準備してください。
+[Setting your Snapshot Signalling Address](/ja/pdao/participate#snapshot-signalling-addressの設定)では、Signalling Addressを設定する手順を説明します。これにより、ノードの秘密鍵をホットウォレットに読み込むことなく、ノードの投票権を使用してsnapshotで投票できるようになります。このガイドには、Smart Node CLIと、ノードウォレットではないアドレスを準備してください。
 
 [Delegating Voting Power](/ja/pdao/participate#投票権の委任)は、プロポーザルに直接投票する代わりに投票権を委任するために使用できる簡単なコマンドです。
 

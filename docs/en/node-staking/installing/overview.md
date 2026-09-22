@@ -6,7 +6,7 @@ next:
 
 # Overview
 
-In this section, you'll learn how to install the Rocket Pool Smartnode stack onto your node machine.
+In this section, you'll learn how to install the Rocket Pool Smart Node stack onto your node machine.
 There are several different flavors of installation; you'll learn which one is right for you and walk through the installation process for it.
 
 ## Prerequisites
@@ -23,7 +23,7 @@ Before diving into this section, please make sure you've:
 [Choosing your ETH Clients](../eth-clients) presents the various options for Ethereum clients - both on the Execution Layer (formerly ETH1) and the Consensus Layer (formerly ETH2).
 You'll need one of each in order to run your node, and this section will help you choose which ones you'd like to run.
 
-[Selecting a Rocket Pool Mode](../install-modes) will show you the different modes the Rocket Pool Smartnode can be installed with and will help you pick the mode that's best for you.
+[Selecting a Rocket Pool Mode](../install-modes) will show you the different modes the Rocket Pool Smart Node can be installed with and will help you pick the mode that's best for you.
 
 [Creating a Standard Rocket Pool Node with Docker](../docker) will walk you through the installation process for **Docker Mode** and **Hybrid Mode**.
 

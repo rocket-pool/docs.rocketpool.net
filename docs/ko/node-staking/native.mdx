@@ -3,12 +3,12 @@ import { Tab, Tabs } from "@rspress/core/theme";
 # Docker 없이 Native Rocket Pool 노드 생성하기
 
 ::: tip 참고
-이 가이드는 **Smartnode v1.6.5 이상** 버전용으로 설계되었습니다.
+이 가이드는 **Smart Node v1.6.5 이상** 버전용으로 설계되었습니다.
 
 이전 버전을 사용 중이라면 Native 모드를 구성하기 전에 v1.6.5 이상으로 업그레이드해야 합니다.
 :::
 
-이 섹션에서는 Docker 컨테이너를 사용하지 않고 시스템에 Rocket Pool Smartnode 스택을 네이티브로 설치하는 과정을 안내합니다.
+이 섹션에서는 Docker 컨테이너를 사용하지 않고 시스템에 Rocket Pool Smart Node 스택을 네이티브로 설치하는 과정을 안내합니다.
 
 전반적인 계획은 다음과 같습니다:
 
@@ -32,7 +32,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 ## 1단계: Execution 및 Consensus Client 설정
 
-Native Mode는 기본적으로 표준 솔로 스테이킹 설정을 확장하며, 이미 실행 중인 클라이언트에 Smartnode 소프트웨어를 연결할 수 있도록 합니다(몇 가지 작은 수정 포함).
+Native Mode는 기본적으로 표준 솔로 스테이킹 설정을 확장하며, 이미 실행 중인 클라이언트에 Smart Node 소프트웨어를 연결할 수 있도록 합니다(몇 가지 작은 수정 포함).
 
 이를 위해 커뮤니티에서 제공하는 기존 솔로 스테이킹 가이드를 먼저 따르는 것이 좋습니다:
 
@@ -48,7 +48,7 @@ Execution Client 서비스, Consensus Client / Beacon Node 서비스, Validator 
 또한 **fee recipient**에 대한 특별한 경우가 있습니다 - Validator Client 구성에서 fee recipient를 지정하는 가이드 부분에 도달하면 **지금은 비워 두세요**.
 아래에서 Rocket Pool validator를 위해 설정하는 방법을 설명하겠습니다.
 
-클라이언트가 설치되고 로그에서 체인을 제대로 동기화하고 있는 것을 확인하면 다음 단계에 따라 Rocket Pool Smartnode를 설정하고 클라이언트에 연결할 수 있습니다.
+클라이언트가 설치되고 로그에서 체인을 제대로 동기화하고 있는 것을 확인하면 다음 단계에 따라 Rocket Pool Smart Node를 설정하고 클라이언트에 연결할 수 있습니다.
 
 ## 2단계: Rocket Pool 설치
 
@@ -149,13 +149,13 @@ sudo chmod u+sx,g+sx,o-rwx /usr/local/bin/rocketpoold
 이렇게 하면 데몬이 항상 `rp` 사용자로 실행되어 항상 적절한 권한이 설정됩니다.
 
 ::: danger 참고
-이 작업을 수행하지 않으면 Smartnode가 권한 오류로 실패할 가능성이 높습니다.
+이 작업을 수행하지 않으면 Smart Node가 권한 오류로 실패할 가능성이 높습니다.
 이 명령을 반드시 실행하세요!
 :::
 
 ### 설치 폴더 설정
 
-CLI 및 Daemon이 설치되면 Smartnode가 존재할 것으로 예상하는 폴더 구조와 관련 파일을 설정해야 합니다.
+CLI 및 Daemon이 설치되면 Smart Node가 존재할 것으로 예상하는 폴더 구조와 관련 파일을 설정해야 합니다.
 먼저 다음 폴더를 생성하세요:
 
 ```
@@ -341,11 +341,11 @@ rp    ALL=(ALL) NOPASSWD: RP_RESTART, RP_STOP
 완료되었습니다!
 이제 `node` 프로세스가 필요에 따라 자동으로 VC를 재시작하거나 중지할 수 있습니다.
 
-## 3단계: Smartnode 구성
+## 3단계: Smart Node 구성
 
-이제 모든 서비스가 생성되었으므로 Smartnode 스택을 구성할 차례입니다.
+이제 모든 서비스가 생성되었으므로 Smart Node 스택을 구성할 차례입니다.
 
-[Smartnode 스택 구성(Native Mode)](./config-native) 가이드를 방문하고 완료되면 여기로 돌아오세요.
+[Smart Node 스택 구성(Native Mode)](./config-native) 가이드를 방문하고 완료되면 여기로 돌아오세요.
 
 ### 서비스 활성화 및 실행
 
@@ -524,7 +524,7 @@ Rocket Pool 서비스보다 먼저 Validator Client를 시작하면 이 파일�
 ### `umask` 완화
 
 기본적으로 시스템은 일반적으로 `node` 데몬이 새 폴더를 생성할 때마다 그룹 권한에서 `+w` 비트를 제거하는 `umask` 구성으로 제공됩니다.
-이것은 여러 consensus client에 문제가 됩니다. minipool 예치 중 새 validator 키를 생성할 때 Smartnode가 생성하는 디렉토리에 잠금 파일이나 기타 메타데이터와 같은 것을 실제로 작성하기 때문입니다.
+이것은 여러 consensus client에 문제가 됩니다. minipool 예치 중 새 validator 키를 생성할 때 Smart Node가 생성하는 디렉토리에 잠금 파일이나 기타 메타데이터와 같은 것을 실제로 작성하기 때문입니다.
 
 이를 방지하고 VC가 올바르게 작동하도록 하려면 **`umask` 설정을 완화**하세요.
 예를 들어 `0022` 대신 `rp` 사용자에 대해 `0002`로 설정하는 것을 고려해야 합니다.

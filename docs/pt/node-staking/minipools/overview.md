@@ -18,8 +18,8 @@ Esta seção cobre os processos de criação e migração de minipools (validato
 Antes de executar minipools, certifique-se de que você:
 
 - Configurou uma máquina de node (ou máquina virtual) e a protegeu (através do guia [Protegendo seu Node](../securing-your-node))
-- Instalou o Smartnode [instalado](../installing/overview) e [configurado](../config/overview) nela
-- Tem uma carteira de node carregada no seu Smartnode
+- Instalou o Smart Node [instalado](../installing/overview) e [configurado](../config/overview) nela
+- Tem uma carteira de node carregada no seu Smart Node
 - Sincronizou seus clientes de Execution e Consensus
 - Provisionou seu node com [um endereço de retirada](../prepare-node.mdx#definindo-seu-endereço-de-retirada-primário), configurou seus [clientes de fallback](../fallback) (opcional), optou pelo [Smoothing Pool](../fee-distrib-sp#o-smoothing-pool) (opcional) e configurou [MEV](../mev.mdx)
 

@@ -2,14 +2,14 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # Mevcut Bir Cüzdanı İçe Aktarma / Kurtarma
 
-Düğümünüz için kullanmak istediğiniz bir cüzdanınız varsa veya daha önce Smartnode ile oluşturduğunuz bir cüzdanı kurtarıyorsanız, bu kılavuz size içe aktarma / kurtarma sürecinde yardımcı olacaktır.
+Düğümünüz için kullanmak istediğiniz bir cüzdanınız varsa veya daha önce Smart Node ile oluşturduğunuz bir cüzdanı kurtarıyorsanız, bu kılavuz size içe aktarma / kurtarma sürecinde yardımcı olacaktır.
 
 Lütfen aşağıdaki bölümlerden uygun seçeneği seçin.
 
-## Smartnode Cüzdanını Kurtarma
+## Smart Node Cüzdanını Kurtarma
 
-Smartnode kullanarak düğüm cüzdanınızı oluşturduysanız ve sadece yeni bir makinede kurtarıyorsanız, süreç oldukça basittir.
-Smartnode yazılımını halihazırda kurduğunuzdan emin olun ve ardından kurulduktan sonra basitçe şu komutu çalıştırın:
+Smart Node kullanarak düğüm cüzdanınızı oluşturduysanız ve sadece yeni bir makinede kurtarıyorsanız, süreç oldukça basittir.
+Smart Node yazılımını halihazırda kurduğunuzdan emin olun ve ardından kurulduktan sonra basitçe şu komutu çalıştırın:
 
 ```shell
 rocketpool wallet recover
@@ -22,12 +22,18 @@ Herhangi bir nedenle cüzdanı kurtarmak istiyorsanız ancak düğümünüzün m
 rocketpool wallet recover -k
 ```
 
-Bu bayrağı belirtmezseniz, Smartnode minipool'larınız veya megapool doğrulayıcılarınız için doğrulayıcı anahtarlarını kurtarmaya çalışacaktır. Bu adım senkronize edilmiş Execution ve Beacon istemcileri gerektirir.
+Bu bayrağı belirtmezseniz, Smart Node minipool'larınız veya megapool doğrulayıcılarınız için doğrulayıcı anahtarlarını kurtarmaya çalışacaktır. Bu adım senkronize edilmiş Execution ve Beacon istemcileri gerektirir.
 
 `-k` ile **yalnızca cüzdanı** kurtarmak, istemcilerin senkronize olmasını beklemeyi gerektirmez. Onlar hâlâ senkronize olurken bunu yapabilirsiniz.
 :::
 
-Bu önce cüzdanınızı şifrelemek için kullanmak istediğiniz bir şifre isteyecektir.
+Varsayılan olarak Smart Node, kurtarılan cüzdanı şifrelemek için rastgele bir şifre üretir.
+Bunun yerine kendi şifrenizi belirlemek isterseniz `-p` / `--password` parametresini kullanın.
+
+::: tip NOT
+Bu şifreyi bilmeniz veya hatırlamanız gerekmez. **24 kelimelik node anımsatıcısı** cüzdanınızı tamamen kurtarmak için yeterlidir.
+:::
+
 Bundan sonra, **24 kelimelik anımsatıcı kurtarma ifadenizi** isteyecektir.
 Dikkatli girin - güvenlik için ekranda gösterilmeyecektir ve yazarken hata yapmak çok kolaydır, bu yüzden acele etmeyin.
 
@@ -35,10 +41,6 @@ Bitirdiğinizde, buna benzer bir çıktı görmelisiniz:
 
 ```shell
 $ rocketpool wallet recover
-
-Please enter a password to secure your wallet with:
-
-Please confirm your password:
 
 Please enter your recovery mnemonic phrase:
 
@@ -62,7 +64,7 @@ Bu, VC'nin yeni geri yüklenen doğrulayıcı anahtarlarının tümünü alması
 
 ## Mevcut Bir Adresi Düğüm Cüzdanı Olarak İçe Aktarma
 
-Bir düğüm için kullanmak istediğiniz bir adresiniz varsa, ancak bunu Smartnode ile oluştur*madıysanız* (örneğin, MetaMask veya bir donanım cüzdanı ile oluşturduysanız), takip edilecek bölüm budur.
+Bir düğüm için kullanmak istediğiniz bir adresiniz varsa, ancak bunu Smart Node ile oluştur*madıysanız* (örneğin, MetaMask veya bir donanım cüzdanı ile oluşturduysanız), takip edilecek bölüm budur.
 
 ::: danger UYARI
 Bunu yaparak, adresiniz bir **hot wallet** haline gelecektir.
@@ -75,7 +77,7 @@ Bu cüzdanı _herhangi bir başka kripto para birimi faaliyeti için kullanıyor
 Lütfen adresinizi düğüm cüzdanı olarak içe aktarmadan önce [Securing your Node](./securing-your-node) kılavuzundaki adımları izleyerek makinenizi mümkün olduğunca güvence altına aldığınızdan emin olun.
 :::
 
-Bu yetenek yalnızca Smartnode **v1.4.3 veya üzeri** ile kullanılabilir.
+Bu yetenek yalnızca Smart Node **v1.4.3 veya üzeri** ile kullanılabilir.
 Daha düşük bir sürümünüz varsa, önce yükseltmeniz gerekecektir.
 
 Bu çok adımlı bir süreçtir, bu nedenle aşağıdaki bölümleri dikkatle izleyin.
@@ -84,7 +86,7 @@ Bu çok adımlı bir süreçtir, bu nedenle aşağıdaki bölümleri dikkatle iz
 
 **İçe aktardığınız adrese bağlı mevcut minipool'larınız yoksa, bu adımı atlayabilirsiniz.**
 
-Adresiniz halihazırda bir Rocket Pool düğüm cüzdanı olarak kaydedildiyse (örneğin **Allnodes** gibi bir hizmet aracılığıyla) ve halihazırda aktif minipool'ları varsa ve bunları adresinizle birlikte Smartnode yığınına aktarmak istiyorsanız, bunların her biri için karşılık gelen doğrulayıcıların özel keystore dosyalarını sağlamanız gerekecektir.
+Adresiniz halihazırda bir Rocket Pool düğüm cüzdanı olarak kaydedildiyse (örneğin **Allnodes** gibi bir hizmet aracılığıyla) ve halihazırda aktif minipool'ları varsa ve bunları adresinizle birlikte Smart Node yığınına aktarmak istiyorsanız, bunların her biri için karşılık gelen doğrulayıcıların özel keystore dosyalarını sağlamanız gerekecektir.
 Bu dosyalar kendi seçtiğiniz bir şifre ile şifrelenecektir, bu nedenle her dosya için o şifreye de ihtiyacınız olacaktır.
 
 İçe aktarmak için şu anda düğümünüzü çalıştıran hizmetten bu dosyaları almanız gerekir.
@@ -96,7 +98,7 @@ Kurulum modunuzu seçin ve aşağıdaki adımları izleyin.
 <div className="p-3">
   <Tabs>
     <Tab label="Docker and Hybrid Mode">
-      Önce, Smartnode'u `rocketpool service start` ile başlattığınızdan emin olun.
+      Önce, Smart Node'u `rocketpool service start` ile başlattığınızdan emin olun.
       Bu, doğrulayıcılarınız için şifrelenmiş keystore dosyalarını tutmak için kullanılabilecek özel bir klasör oluşturacaktır.
 
       Varsayılan olarak, klasör `~/.rocketpool/data/custom-keys` konumundadır.
@@ -110,7 +112,7 @@ Kurulum modunuzu seçin ve aşağıdaki adımları izleyin.
       ```
     </Tab>
     <Tab label="Native Mode">
-      Smartnode'unuzun `data` klasörünün içinde `custom-keys` adlı bir klasör oluşturun (örneğin, `/srv/rocketpool/data/custom-keys`).
+      Smart Node'unuzun `data` klasörünün içinde `custom-keys` adlı bir klasör oluşturun (örneğin, `/srv/rocketpool/data/custom-keys`).
     </Tab>
 
   </Tabs>
@@ -119,11 +121,11 @@ Kurulum modunuzu seçin ve aşağıdaki adımları izleyin.
 Ardından, doğrulayıcı keystore dosyalarının her birini bu klasöre yerleştirin.
 Dosyaların adları önemli değildir, ancak [EIP-2335](https://eips.ethereum.org/EIPS/eip-2335#scrypt-test-vector) formatına uygun JSON dosyaları olmalıdır.
 
-Smartnode, sonraki adımlarda buraya yerleştirdiğiniz herhangi bir keystore dosyası için bu dizinde arama yapacaktır.
+Smart Node, sonraki adımlarda buraya yerleştirdiğiniz herhangi bir keystore dosyası için bu dizinde arama yapacaktır.
 
 ::: warning NOT
 İçe aktarma işlemi _yalnızca_ içe aktardığınız adrese kayıtlı minipool'lara bağlı doğrulayıcı anahtarlarını arayacaktır.
-Solo staking doğrulayıcıları gibi diğer doğrulayıcı anahtarlarını Smartnode yığını tarafından yönetilen Validator istemcisine aktarmak için bu işlemi **kullanamazsınız**.
+Solo staking doğrulayıcıları gibi diğer doğrulayıcı anahtarlarını Smart Node yığını tarafından yönetilen Validator istemcisine aktarmak için bu işlemi **kullanamazsınız**.
 
 Bunu yapmakla ilgileniyorsanız lütfen [Reverse Hybrid Mode](./advanced-config#harici-doğrulayıcı-i̇stemcilerinin-smartnodea-bağlanmasına-i̇zin-verme)'da çalıştırma belgelerine bakın.
 :::
@@ -149,7 +151,7 @@ rocketpool wallet test-recovery -a 0x1234abcd... -k
 
 :::
 
-Smartnode, sağladığınız adrese karşılık gelen ayarları bulmak için en popüler türetme yollarını (örneğin Ledger Live, MyEtherWallet, Trezor ve Smartnode yığını tarafından kullanılanlar) ve adres indekslerini otomatik olarak arayacaktır.
+Smart Node, sağladığınız adrese karşılık gelen ayarları bulmak için en popüler türetme yollarını (örneğin Ledger Live, MyEtherWallet, Trezor ve Smart Node yığını tarafından kullanılanlar) ve adres indekslerini otomatik olarak arayacaktır.
 
 ::: tip İPUCU
 Özel bir türetme yolunuz varsa, belirtmek için `-d` bayrağını kullanın.
@@ -180,7 +182,7 @@ Please enter the number of words in your mnemonic phrase (24 by default):
 Enter Word Number 1 of your mnemonic:
 ```
 
-Enter it carefully, and the Smartnode will begin searching through all of the standard options to find it (unless you explicitly specified them using the `-d` and/or `-i` flags).
+Enter it carefully, and the Smart Node will begin searching through all of the standard options to find it (unless you explicitly specified them using the `-d` and/or `-i` flags).
 
 Next, if you have private keystore files to import from Step 1, you will be prompted for the passwords to each of those keystore files:
 
@@ -212,13 +214,13 @@ The above indicates a successful test recovery.
 ### Adım 3: Adresi İçe Aktarma
 
 ::: danger UYARI
-Adresiniz kendi barındırdığınız Smartnode tarafından yönetil*meyen* bir Rocket Pool düğümü ise (örneğin **Allnodes** gibi bir harici hizmet tarafından barındırılıyorsa), **bu içe aktarma sürecine başlamadan önce** düğümünüzü çalıştıran hizmetle koordine etmeniz ve kendi barındırdığınız sisteme geçmek istediğinizi bildirmeniz **KRİTİK ÖNEM TAŞIR**.
+Adresiniz kendi barındırdığınız Smart Node tarafından yönetil*meyen* bir Rocket Pool düğümü ise (örneğin **Allnodes** gibi bir harici hizmet tarafından barındırılıyorsa), **bu içe aktarma sürecine başlamadan önce** düğümünüzü çalıştıran hizmetle koordine etmeniz ve kendi barındırdığınız sisteme geçmek istediğinizi bildirmeniz **KRİTİK ÖNEM TAŞIR**.
 
 Düğümünüz için doğrulamayı kapattıklarını ve **ASLA tekrar başlatmayacaklarını** **ONAYLAMANIZ GEREKİR** ve [https://beaconcha.in](https://beaconcha.in) gibi bir Blockchain gezgini kullanarak doğrulayıcılarınızın artık tasdik etmediğini manuel olarak onaylamanız gerekir.
 Güvenli bir şekilde geçiş yapabileceğinizden emin olmak için her doğrulayıcının **EN AZ 2 TASDİKİ** kaçırdığını onaylamanız gerekir.
 Aksi takdirde, her ikiniz de aynı anda tasdik edeceksiniz ve **MİNİPOOL'LARİNİZ CEZALANDIRILACAK!**
 
-Smartnode, içe aktarma işlemine devam etmenize izin vermeden önce bunu yaptığınızı onaylamanızı gerektirecektir.
+Smart Node, içe aktarma işlemine devam etmenize izin vermeden önce bunu yaptığınızı onaylamanızı gerektirecektir.
 :::
 
 If the test recovery succeeded, or if you skipped it, you will next import the wallet and regenerate all of its associated key files.
@@ -228,17 +230,15 @@ The process is exactly the same as the above, but use the `recover` command inst
 rocketpool wallet recover -a 0x1234abcd...
 ```
 
-When you run this command, you will first be prompted for a password to encrypt your imported node wallet with.
+Bu komutu çalıştırdığınızda, `-p` / `--password` parametresini kullanmadığınız sürece Smart Node, içe aktardığınız node cüzdanını şifrelemek için rastgele bir şifre üretir.
 
-```
-Please enter a password to secure your wallet with:
-
-Please confirm your password:
-```
+::: tip NOT
+Bu şifreyi bilmeniz veya hatırlamanız gerekmez. **24 kelimelik node anımsatıcısı** cüzdanınızı tamamen kurtarmak için yeterlidir.
+:::
 
 After that, the mnemonic and custom validator keystore password prompts will proceed as they did before.
 
-Once you've entered all of this information, the Smartnode will recover your address and (if not disabled) the custom validator keys for your minipools:
+Once you've entered all of this information, the Smart Node will recover your address and (if not disabled) the custom validator keys for your minipools:
 
 ```
 Searching for the derivation path and index for wallet 0x1234abcd...
@@ -253,7 +253,7 @@ Validator keys:
 
 Your address's private key will now be stored in the `data/wallet` file (e.g. `~/.rocketpool/data/wallet`), and the password for it will be stored in the `data/password` file (e.g. `~/.rocketpool/data/password`).
 
-The private keys for each of your validators will be stored in the `data/validators` folders for each of the Consensus clients that the Smartnode supports.
+The private keys for each of your validators will be stored in the `data/validators` folders for each of the Consensus clients that the Smart Node supports.
 
 ::: danger NOT
 Bu şekilde bir adres içe aktararak, doğrulayıcı anahtarları düğüm cüzdanınızdan türetil*memiştir* ve bu nedenle normal bir düğüm cüzdanında olduğu gibi sadece `rocketpool wallet recover` komutunu çalıştırarak daha sonra kurtarıla**mazlar**.
@@ -266,10 +266,10 @@ Onları kaybederseniz, **artık bu doğrulayıcı anahtarlarını kurtaramayacak
 ### Adım 4: Temizlik
 
 Bu noktada, artık `data/custom-keys` dizinindeki tüm özel keystore dosyalarını silebilirsiniz.
-Smartnode bunları halihazırda içe aktarmış ve onlara rastgele şifreler atamış olacaktır, bu nedenle bu keystore dosyaları artık gerekli değildir.
+Smart Node bunları halihazırda içe aktarmış ve onlara rastgele şifreler atamış olacaktır, bu nedenle bu keystore dosyaları artık gerekli değildir.
 
 Son olarak, `data` dizininizde (örneğin `~/.rocketpool/data/custom-key-passwords`) `custom-key-passwords` adlı bir dosya **olmadığından** emin olun.
-Smartnode bu geçici dosyayı yalnızca kurtarma işlemi sırasında oluşturacak ve kurtarma işleminin başarılı olup olmadığına bakılmaksızın otomatik olarak kaldıracaktır; herhangi bir nedenle kaldıramadıysa, konsol çıktısında sizi uyaracaktır.
+Smart Node bu geçici dosyayı yalnızca kurtarma işlemi sırasında oluşturacak ve kurtarma işleminin başarılı olup olmadığına bakılmaksızın otomatik olarak kaldıracaktır; herhangi bir nedenle kaldıramadıysa, konsol çıktısında sizi uyaracaktır.
 Ancak, çok dikkatli olmak asla zarar vermez.
 
 ## Sonraki Adımlar

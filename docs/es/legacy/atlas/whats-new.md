@@ -4,7 +4,7 @@
 Atlas fue implementado el `18 de abril de 2023, 00:00 UTC`. Por favor visita [aquí](../houston/whats-new) para leer sobre Houston, la última actualización del protocolo.
 :::
 
-Esta página describe los cambios importantes que trae la siguiente actualización importante de Rocket Pool, titulada **Atlas**, al protocolo, incluyendo actualizaciones tanto al stack de Smartnode como al protocolo de Rocket Pool en general.
+Esta página describe los cambios importantes que trae la siguiente actualización importante de Rocket Pool, titulada **Atlas**, al protocolo, incluyendo actualizaciones tanto al stack de Smart Node como al protocolo de Rocket Pool en general.
 
 Por favor, lee esta página detenidamente para comprender todas las diferencias entre la versión anterior de Rocket Pool (Redstone) y Atlas.
 
@@ -66,9 +66,9 @@ Esto significa que obtendrás todos los beneficios de los minipools de Rocket Po
 
 Para obtener más información sobre la conversión de un validador solo en un minipool, visita la guía [Convertir un Validador Solo en un Minipool](../../node-staking/solo-staker-migration).
 
-## Nuevas Características de Smartnode
+## Nuevas Características de Smart Node
 
-Además de los cambios principales en el protocolo de Rocket Pool, Atlas también trae algunas actualizaciones emocionantes al stack de Smartnode en sí que están presentes en v1.9.0.
+Además de los cambios principales en el protocolo de Rocket Pool, Atlas también trae algunas actualizaciones emocionantes al stack de Smart Node en sí que están presentes en v1.9.0.
 
 ### Distribuciones Automáticas de Recompensas
 
@@ -106,11 +106,11 @@ Este nuevo panel fue un trabajo de amor que involucró ayuda extensa del miembro
 
 ### Cambios de Nimbus
 
-¡Smartnode v1.9.0 introduce **soporte de modo dividido** para Nimbus!
-En lugar de ejecutar el Beacon Node y el Cliente Validador dentro de un solo proceso / contenedor, el Smartnode ahora los ejecutará en contenedores separados como los otros clientes. Esto tiene los siguientes beneficios:
+¡Smart Node v1.9.0 introduce **soporte de modo dividido** para Nimbus!
+En lugar de ejecutar el Beacon Node y el Cliente Validador dentro de un solo proceso / contenedor, el Smart Node ahora los ejecutará en contenedores separados como los otros clientes. Esto tiene los siguientes beneficios:
 
 - Nimbus ahora admite **clientes de respaldo** (un cliente de Ejecución secundario y Beacon Node a los que el Cliente Validador de Nimbus puede conectarse cuando tus clientes principales están caídos por mantenimiento, como resincronización).
-- Nimbus ahora es compatible con el **Modo Gestionado Externamente (Híbrido)**, para que puedas emparejar el Cliente Validador que gestiona el Smartnode con un Beacon Node externo que mantienes por tu cuenta.
+- Nimbus ahora es compatible con el **Modo Gestionado Externamente (Híbrido)**, para que puedas emparejar el Cliente Validador que gestiona el Smart Node con un Beacon Node externo que mantienes por tu cuenta.
 - El Beacon Node ya no necesita reiniciarse después de la adición de nuevos minipools, lo que significa que no pierdes atestaciones mientras se reconecta a sus peers.
 
 ### Soporte de Lodestar

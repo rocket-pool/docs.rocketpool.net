@@ -5,10 +5,10 @@ import tuiOdao from "./images/tui-odao.png";
 
 최소한으로, 표준 Rocket Pool 노드는 다음을 실행합니다:
 
-- Smartnode CLI
-- Smartnode API 데몬
-- Smartnode `node` 데몬
-- Smartnode `watchtower` 데몬
+- Smart Node CLI
+- Smart Node API 데몬
+- Smart Node `node` 데몬
+- Smart Node `watchtower` 데몬
 
 선택적으로, 노드는 다음 구성 요소도 실행할 수 있습니다:
 
@@ -20,7 +20,7 @@ import tuiOdao from "./images/tui-odao.png";
 - Prometheus Node Exporter
 - Grafana
 
-이러한 각 구성 요소는 표준 설정에서 Docker 컨테이너로, "Native Mode" 설정에서 `systemd` 서비스로 실행되거나, Smartnode가 각각의 API 경로를 통해 연결할 수 있는 외부 관리 엔티티로 실행될 수 있습니다.
+이러한 각 구성 요소는 표준 설정에서 Docker 컨테이너로, "Native Mode" 설정에서 `systemd` 서비스로 실행되거나, Smart Node가 각각의 API 경로를 통해 연결할 수 있는 외부 관리 엔티티로 실행될 수 있습니다.
 
 편리하게도, Oracle DAO 노드는 일반 Rocket Pool 노드와 동일하지만 `watchtower` 데몬이 추가 Oracle DAO 임무를 수행하며 성능 모니터링 목적으로 더 많은 Prometheus 메트릭이 수집됩니다.
 
@@ -32,7 +32,7 @@ import tuiOdao from "./images/tui-odao.png";
 노드에서 minipool(검증자)을 실행하고 싶다면, 처음부터 끝까지 일반 노드 문서를 따르고 완료되면 여기로 돌아오십시오.
 
 minipool을 실행할 의도가 _없고_ 순수하게 Oracle DAO 임무만을 위해 사용할 경우, RPL 스테이킹 및 minipool 생성과 관련된 모든 단계를 건너뛸 수 있습니다.
-노드 등록, 좋은 보안 태세 확립, 노드의 상태 및 성능 모니터링, 업데이트 후 Smartnode 업데이트 등의 다른 단계는 여전히 적용되므로 진행하기 전에 신중하게 검토해야 합니다.
+노드 등록, 좋은 보안 태세 확립, 노드의 상태 및 성능 모니터링, 업데이트 후 Smart Node 업데이트 등의 다른 단계는 여전히 적용되므로 진행하기 전에 신중하게 검토해야 합니다.
 완료되면 여기로 돌아오십시오.
 
 ## 추가 Oracle DAO 구성
@@ -67,7 +67,7 @@ Oracle DAO 책임을 충족하기 위해 제공해야 하는 두 가지 추가 �
       마지막으로, 설정을 적용하려면 `watchtower` 데몬을 재시작합니다(Docker 또는 Hybrid 모드에서는 `docker restart rocketpool_watchtower`, Native 모드에서는 `sudo systemctl restart rp_watchtower`).
     </Tab>
     <Tab label="Direct Config File">
-      Smartnode 디렉토리(기본값 `~/.rocketpool`)의 `user-settings.yml` 파일을 텍스트 편집기로 엽니다.
+      Smart Node 디렉토리(기본값 `~/.rocketpool`)의 `user-settings.yml` 파일을 텍스트 편집기로 엽니다.
       `smartnode` 섹션으로 스크롤합니다:
 
       ```
@@ -93,9 +93,9 @@ Oracle DAO 책임을 충족하기 위해 제공해야 하는 두 가지 추가 �
   </Tabs>
 </div>
 
-## Oracle DAO Smartnode 명령
+## Oracle DAO Smart Node 명령
 
-Smartnode CLI의 `odao` 명령 그룹은 Oracle DAO 계약 및 온체인 임무와 상호 작용하는 데 사용됩니다:
+Smart Node CLI의 `odao` 명령 그룹은 Oracle DAO 계약 및 온체인 임무와 상호 작용하는 데 사용됩니다:
 
 ```
 NAME:

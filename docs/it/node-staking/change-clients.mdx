@@ -15,16 +15,16 @@ Ecco alcuni esempi:
 - Vuoi provare una nuova funzionalità offerta da un client diverso
 - Un client diverso è più adatto all'hardware del tuo nodo (ad esempio alcuni client sono migliori sui sistemi ARM rispetto ad altri)
 
-Fortunatamente, lo stack Smartnode rende estremamente facile cambiare client.
+Fortunatamente, lo stack Smart Node rende estremamente facile cambiare client.
 Tutto ciò che serve sono alcune modifiche nella TUI di configurazione e alcuni comandi extra opzionali per eseguire il backup dei dati del client esistente prima di cambiare client.
 
 ## Cambiare Execution Client
 
 Prima di cambiare il tuo Execution client, vale la pena notare i seguenti punti:
 
-- I dati della chain **non sono condivisi** tra i client. Il tuo nuovo client dovrà risincronizzare i dati della chain Mainnet, il che può richiedere del tempo (anche se ogni client supporta la snap sync, che lo Smartnode utilizza per velocizzare la risincronizzazione).
-- Per impostazione predefinita, lo Smartnode lascerà i dati della chain del tuo vecchio client sul tuo drive nel caso in cui desideri tornare al tuo vecchio Execution client e riprendere da dove avevi lasciato. Potresti voler **esportarlo in una posizione diversa** ed eliminarlo per liberare spazio prima di cambiare client, poiché gli Execution client possono utilizzare centinaia di gigabyte. Abbiamo i passaggi qui sotto su come farlo.
-- Mentre il tuo nuovo client si sta risincronizzando, la maggior parte delle funzioni CLI dello Smartnode sarà offline poiché si basano sull'Execution client. **Dovresti avere un Execution client di ripiego disponibile prima di farlo per mitigare i tempi di inattività sul tuo Smartnode.**
+- I dati della chain **non sono condivisi** tra i client. Il tuo nuovo client dovrà risincronizzare i dati della chain Mainnet, il che può richiedere del tempo (anche se ogni client supporta la snap sync, che lo Smart Node utilizza per velocizzare la risincronizzazione).
+- Per impostazione predefinita, lo Smart Node lascerà i dati della chain del tuo vecchio client sul tuo drive nel caso in cui desideri tornare al tuo vecchio Execution client e riprendere da dove avevi lasciato. Potresti voler **esportarlo in una posizione diversa** ed eliminarlo per liberare spazio prima di cambiare client, poiché gli Execution client possono utilizzare centinaia di gigabyte. Abbiamo i passaggi qui sotto su come farlo.
+- Mentre il tuo nuovo client si sta risincronizzando, la maggior parte delle funzioni CLI dello Smart Node sarà offline poiché si basano sull'Execution client. **Dovresti avere un Execution client di ripiego disponibile prima di farlo per mitigare i tempi di inattività sul tuo Smart Node.**
 
 ### (Opzionale) Esportare il Database del tuo Execution Client
 

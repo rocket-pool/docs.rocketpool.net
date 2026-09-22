@@ -24,7 +24,7 @@ The computer must meet the [hardware guidelines](./local/hardware.md)
 
 ::: warning NOTE
 At this time, only **Linux** and **macOS** platforms are supported.
-**Windows is not currently supported** for Smartnode operation.
+**Windows is not currently supported** for Smart Node operation.
 :::
 
 ## Running a Local Node

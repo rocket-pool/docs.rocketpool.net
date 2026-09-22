@@ -6,7 +6,7 @@ This guide will cover everything you need to know in order to prepare your node 
 
 ## Things to Do Before Upgrading to v1.5.0
 
-Before upgrading to v1.5.0 and higher of the Smartnode, please go through the following checklist to make sure you're prepared:
+Before upgrading to v1.5.0 and higher of the Smart Node, please go through the following checklist to make sure you're prepared:
 
 ### Switch to a Full Execution Client
 
@@ -28,11 +28,11 @@ How to do it depends entirely on which clients you're running.
 CoinCashew has [a great and concise guide](https://www.coincashew.com/coins/overview-eth/ethereum-merge-upgrade-checklist-for-home-stakers-and-validators) on how to set up the Engine API on your Execution and Consensus clients.
 Give that a look, and test the new configuration out by making sure it still attests properly before upgrading.
 
-We'll show you how to set up your Validator client so that it uses the correct fee recipient required by the Smartnode software automatically below.
+We'll show you how to set up your Validator client so that it uses the correct fee recipient required by the Smart Node software automatically below.
 
 ## Upgrading to v1.5.0
 
-Upgrading the Smartnode stack to v1.5.0 is no different than any other upgrade.
+Upgrading the Smart Node stack to v1.5.0 is no different than any other upgrade.
 Simply follow [the normal directions here](../../node-staking/updates#updating-the-smartnode-stack).
 
 ## Things You Should Do After Upgrading
@@ -44,7 +44,7 @@ In Native mode, there are several things you will need to do manually after upgr
 The first thing to do is ensure that your node is working correctly.
 Consider taking the following steps:
 
-- Check your log scripts for the Execution client, the Consensus client, the Validator client, and the Smartnode daemon (the `rp-node` service) to ensure they're all functioning normally without errors.
+- Check your log scripts for the Execution client, the Consensus client, the Validator client, and the Smart Node daemon (the `rp-node` service) to ensure they're all functioning normally without errors.
 - Confirm with a Block Explorer (such as your Grafana dashboard and [https://beaconcha.in](https://beaconcha.in)) that you are still attesting properly
   - Remember that if you have Doppelganger protection enabled, you will miss a few attestations after the restart. This is normal!
 
@@ -56,12 +56,12 @@ As described in the [overview article](./whats-new#fee-recipients-and-your-distr
 - If you **are opted into** the Smoothing Pool, this must be the address of the **Smoothing Pool contract**. You can get the address from [the official contracts page](/en/protocol/contracts-integrations).
 - If you are **not** in the Smoothing Pool, this must be the address of your node's **fee distributor contract**. You can get the address by running `rocketpool node status`, under the `Fee Distributor and Smoothing Pool` section.
 
-In Native mode, you have the choice of letting the Smartnode manage this for you if you use the Smartnode daemon service, `rp-node`, or managing it yourself if you do not use the daemon.
+In Native mode, you have the choice of letting the Smart Node manage this for you if you use the Smart Node daemon service, `rp-node`, or managing it yourself if you do not use the daemon.
 
 #### Automatic Management via the Daemon
 
-The Smartnode daemon will automatically determine the appropriate fee recipient for your node and manage it in case it changes (such as opting into and out of the Smoothing Pool).
-This is the **safest** option, because the Smartnode will always ensure it's set to a value that **prevents [penalization](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)**.
+The Smart Node daemon will automatically determine the appropriate fee recipient for your node and manage it in case it changes (such as opting into and out of the Smoothing Pool).
+This is the **safest** option, because the Smart Node will always ensure it's set to a value that **prevents [penalization](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)**.
 
 The way it does this is by maintaining a file with the correct fee recipient in it, and regularly refreshing it to ensure its correctness.
 When it needs to be updated, it modifies the file and restarts your Validator client automatically so it loads the new recipient - similarly to how it restarts your Validator client after staking a new minipool.
@@ -89,7 +89,7 @@ Select your client below to learn how to set it up:
       --suggested-fee-recipient ${FEE_RECIPIENT}
       ```
 
-      Your VC will now use the file managed by the Smartnode daemon, and will automatically be restarted whenever the fee recipient changes.
+      Your VC will now use the file managed by the Smart Node daemon, and will automatically be restarted whenever the fee recipient changes.
     </Tab>
     <Tab label="Nimbus">
       Modify your Validator Client service by adding the following line _before_ the `ExecStart` line:
@@ -110,7 +110,7 @@ Select your client below to learn how to set it up:
       --suggested-fee-recipient=${FEE_RECIPIENT}
       ```
 
-      Your VC will now use the file managed by the Smartnode daemon, and will automatically be restarted whenever the fee recipient changes.
+      Your VC will now use the file managed by the Smart Node daemon, and will automatically be restarted whenever the fee recipient changes.
     </Tab>
     <Tab label="Prysm">
       Modify your Validator Client service by adding the following line _before_ the `ExecStart` line:
@@ -131,7 +131,7 @@ Select your client below to learn how to set it up:
       --suggested-fee-recipient ${FEE_RECIPIENT}
       ```
 
-      Your VC will now use the file managed by the Smartnode daemon, and will automatically be restarted whenever the fee recipient changes.
+      Your VC will now use the file managed by the Smart Node daemon, and will automatically be restarted whenever the fee recipient changes.
     </Tab>
     <Tab label="Teku">
       Modify your Validator Client service by adding the following line _before_ the `ExecStart` line:
@@ -152,7 +152,7 @@ Select your client below to learn how to set it up:
       --validators-proposer-default-fee-recipient=${FEE_RECIPIENT}
       ```
 
-      Your VC will now use the file managed by the Smartnode daemon, and will automatically be restarted whenever the fee recipient changes.
+      Your VC will now use the file managed by the Smart Node daemon, and will automatically be restarted whenever the fee recipient changes.
     </Tab>
 
   </Tabs>
@@ -279,7 +279,7 @@ Not doing so will result in your minipool being [penalized](https://github.com/r
 
 Because The Merge is not compatible with remote providers like Infura and Pocket, you'll lose the ability to use them as fallback Execution clients when your primary goes offline.
 
-The Smartnode still has the ability to provide a fallback Execution client (and now a fallback Consensus client as well), but you will now need to use Execution and Consensus clients that you control.
+The Smart Node still has the ability to provide a fallback Execution client (and now a fallback Consensus client as well), but you will now need to use Execution and Consensus clients that you control.
 
 For more information on setting up a fallback node, see the [Fallback node guide](../../node-staking/fallback).
 
@@ -312,7 +312,7 @@ rocketpool node join-smoothing-pool
 
 The Redstone upgrade replaces the expensive, problematic old rewards system with a [brand new one](./whats-new#new-rewards-system) that's much cheaper, supports automatic restaking of RPL (both partial and full amounts), and - most importantly - **lets you claim your rewards whenever you want**.
 
-Because there is no longer a time limit on claiming rewards, and because it's cheaper to claim many rewards intervals at once, the automatic rewards claiming feature of the Smartnode **has been removed**.
+Because there is no longer a time limit on claiming rewards, and because it's cheaper to claim many rewards intervals at once, the automatic rewards claiming feature of the Smart Node **has been removed**.
 You will now be able to claim rewards via the following command:
 
 ```shell

@@ -6,7 +6,7 @@ Esta guía cubrirá todo lo que necesita saber para preparar su nodo para la Act
 
 ## Cosas que hacer antes de actualizar a v1.5.0
 
-Antes de actualizar a v1.5.0 y versiones superiores del Smartnode, por favor revise la siguiente lista de verificación para asegurarse de que está preparado:
+Antes de actualizar a v1.5.0 y versiones superiores del Smart Node, por favor revise la siguiente lista de verificación para asegurarse de que está preparado:
 
 ### Cambiar a un Cliente de Ejecución Completo
 
@@ -16,14 +16,14 @@ Debido a este cambio, si actualmente está usando un cliente de Ejecución liger
 
 ### Asegurar que el EC y el CC sean ambos gestionados externamente
 
-Las versiones anteriores del stack Smartnode le permitían tener un cliente gestionado localmente y el otro gestionado externamente.
-Por ejemplo, podría tener un cliente de Ejecución que el Smartnode gestiona y conectarlo a un cliente de Consenso que usted gestiona externamente.
+Las versiones anteriores del stack Smart Node le permitían tener un cliente gestionado localmente y el otro gestionado externamente.
+Por ejemplo, podría tener un cliente de Ejecución que el Smart Node gestiona y conectarlo a un cliente de Consenso que usted gestiona externamente.
 
 A partir de v1.5, esta configuración ya no es compatible.
 Tendrá que cambiar a un cliente de Ejecución y Consenso gestionados localmente (también conocido como [Modo Docker](./docker-migration.mdx)), o configurar tanto un cliente de Ejecución como un cliente de Consenso que gestione por su cuenta.
 
 ::: tip CONSEJO
-Si está interesado en dejar que el Smartnode mantenga su propio cliente de Ejecución y Consenso pero desea mantener el control sobre su propio cliente Validator (por ejemplo, si tiene sus propias claves de validador de staking solo adjuntas a él), es posible que desee considerar el [Modo Híbrido Inverso](../../node-staking/advanced-config#permitir-que-clientes-validadores-externos-se-conecten-al-smartnode) que hace exactamente esto.
+Si está interesado en dejar que el Smart Node mantenga su propio cliente de Ejecución y Consenso pero desea mantener el control sobre su propio cliente Validator (por ejemplo, si tiene sus propias claves de validador de staking solo adjuntas a él), es posible que desee considerar el [Modo Híbrido Inverso](../../node-staking/advanced-config#permitir-que-clientes-validadores-externos-se-conecten-al-smartnode) que hace exactamente esto.
 :::
 
 ### Configurar la Engine API
@@ -44,12 +44,12 @@ Como siempre, Rocket Pool gestionará su propio cliente Validator, por lo que no
 
 ## Actualizar a v1.5.0
 
-Actualizar el stack Smartnode a v1.5.0 no es diferente a cualquier otra actualización.
+Actualizar el stack Smart Node a v1.5.0 no es diferente a cualquier otra actualización.
 Simplemente siga [las instrucciones normales aquí](../../node-staking/updates#actualizando-el-stack-del-smartnode).
 
-## Cosas que el Smartnode maneja automáticamente
+## Cosas que el Smart Node maneja automáticamente
 
-En Modo Híbrido, el Smartnode se encargará de algunos de los cambios necesarios para admitir Redstone automáticamente una vez que actualice a v1.5.0, pero necesitará manejar otros manualmente en Modo Híbrido.
+En Modo Híbrido, el Smart Node se encargará de algunos de los cambios necesarios para admitir Redstone automáticamente una vez que actualice a v1.5.0, pero necesitará manejar otros manualmente en Modo Híbrido.
 
 Aquí hay una breve lista de lo que hará por usted sin ninguna intervención manual:
 
@@ -58,14 +58,14 @@ Aquí hay una breve lista de lo que hará por usted sin ninguna intervención ma
 El **destinatario de tarifas** es la dirección en la cadena de la capa de Ejecución (eth1) que recibirá todas las tarifas de prioridad de los bloques que propone.
 Es una configuración proporcionada a su cliente Validator cuando se inicia por primera vez.
 
-El Smartnode manejará su configuración a la dirección correcta en el cliente Validator que gestiona cuando actualice a v1.5, y constantemente verificará para asegurarse de que está usando la correcta para que no sea [penalizado accidentalmente](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
+El Smart Node manejará su configuración a la dirección correcta en el cliente Validator que gestiona cuando actualice a v1.5, y constantemente verificará para asegurarse de que está usando la correcta para que no sea [penalizado accidentalmente](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
 
 Si optó por el [Smoothing Pool](./whats-new#smoothing-pool), lo hará su destinatario de tarifas.
 Si no lo hizo, hará que su [contrato distribuidor de tarifas](./whats-new#destinatarios-de-tarifas-y-tu-distribuidor) sea el destinatario de tarifas.
 
 ## Cosas que debe hacer después de actualizar
 
-Si bien el Smartnode maneja la mayoría de los cambios por usted, hay algunas cosas adicionales que debe hacer manualmente:
+Si bien el Smart Node maneja la mayoría de los cambios por usted, hay algunas cosas adicionales que debe hacer manualmente:
 
 ### Asegurar una actualización exitosa
 
@@ -100,7 +100,7 @@ No hacerlo resultará en que su minipool sea [penalizado](https://github.com/roc
 
 Debido a que The Merge no es compatible con proveedores remotos como Infura y Pocket, perderá la capacidad de usarlos como clientes de Ejecución de respaldo cuando su principal se desconecte.
 
-El Smartnode todavía tiene la capacidad de proporcionar un cliente de Ejecución de respaldo (y ahora también un cliente de Consenso de respaldo), pero ahora necesitará usar clientes de Ejecución y Consenso que usted controle.
+El Smart Node todavía tiene la capacidad de proporcionar un cliente de Ejecución de respaldo (y ahora también un cliente de Consenso de respaldo), pero ahora necesitará usar clientes de Ejecución y Consenso que usted controle.
 
 Para obtener más información sobre cómo configurar un nodo de respaldo, consulte la [guía de nodo de respaldo](../../node-staking/fallback).
 
@@ -133,7 +133,7 @@ rocketpool node join-smoothing-pool
 
 La actualización Redstone reemplaza el costoso y problemático sistema de recompensas antiguo con [uno completamente nuevo](./whats-new#nuevo-sistema-de-recompensas) que es mucho más económico, admite el re-staking automático de RPL (tanto en cantidades parciales como completas), y - lo más importante - **le permite reclamar sus recompensas cuando quiera**.
 
-Debido a que ya no hay un límite de tiempo para reclamar recompensas, y debido a que es más económico reclamar muchos intervalos de recompensas a la vez, la función de reclamación automática de recompensas del Smartnode **ha sido eliminada**.
+Debido a que ya no hay un límite de tiempo para reclamar recompensas, y debido a que es más económico reclamar muchos intervalos de recompensas a la vez, la función de reclamación automática de recompensas del Smart Node **ha sido eliminada**.
 Ahora podrá reclamar recompensas a través del siguiente comando:
 
 ```shell
@@ -144,8 +144,8 @@ Esto le mostrará todas las recompensas que ha acumulado en todos los intervalos
 
 ## Revertir a v1.4.3
 
-Si, por alguna razón, algo no es de su agrado y desea revertir a la versión anterior del Smartnode, puede hacerlo fácilmente.
-El Smartnode hace automáticamente una copia de seguridad de su configuración de la versión anterior cuando lo actualiza, así que simplemente obtenga la versión anterior (aquí estamos demostrando **v1.4.3**) y reemplace la configuración con la copia de seguridad:
+Si, por alguna razón, algo no es de su agrado y desea revertir a la versión anterior del Smart Node, puede hacerlo fácilmente.
+El Smart Node hace automáticamente una copia de seguridad de su configuración de la versión anterior cuando lo actualiza, así que simplemente obtenga la versión anterior (aquí estamos demostrando **v1.4.3**) y reemplace la configuración con la copia de seguridad:
 
 1. Detenga el servicio:
 
@@ -182,7 +182,7 @@ cp ~/.rocketpool/user-settings-backup.yml ~/.rocketpool/user-settings.yml
 rocketpool service config
 ```
 
-1. Si se ve bien, inicie el stack Smartnode:
+1. Si se ve bien, inicie el stack Smart Node:
 
 ```shell
 rocketpool service start

@@ -2,7 +2,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # Rocket Poolの起動
 
-この時点で、Smartnodeスタック、Executionクライアント、Consensusクライアントを含む完全なRocket Poolインフラストラクチャが実行されているはずです。
+この時点で、Smart Nodeスタック、Executionクライアント、Consensusクライアントを含む完全なRocket Poolインフラストラクチャが実行されているはずです。
 また、外部攻撃者からオペレーティングシステムを強化しているはずです。
 これらの両方の手順を完了している場合、Rocket Poolノードを作成してステーキングを開始する準備が整っています。
 まだ完了していない場合は、前のセクションを確認し、これらの手順を完了してからここに戻ってください。
@@ -12,7 +12,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 <div className="p-3">
   <Tabs>
     <Tab label="Docker（デフォルト）モード">
-      Smartnodeがインストールされたので、スタックの起動は簡単です。
+      Smart Nodeがインストールされたので、スタックの起動は簡単です。
       次のコマンドを入力するだけです:
 
       ```shell
@@ -43,7 +43,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
       Creating rocketpool_watchtower ... done
       ```
 
-      このようになっていれば、Smartnodeスタックが正常に初期化され、実行されています。
+      このようになっていれば、Smart Nodeスタックが正常に初期化され、実行されています。
 
       サービスを停止する必要がある場合（例えば、アップグレード中やメンテナンスが必要な場合）、`rocketpool service stop`を使用してすべてをシャットダウンできます。
       出力は次のようになります:
@@ -75,7 +75,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
       </p>
     </Tab>
     <Tab label="ハイブリッドモード">
-      Smartnodeがインストールされたので、スタックの起動は簡単です。
+      Smart Nodeがインストールされたので、スタックの起動は簡単です。
       次のコマンドを入力するだけです:
 
       ```shell
@@ -98,7 +98,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
       Creating rocketpool_watchtower ... done
       ```
 
-      このようになっていれば、Smartnodeスタックが正常に初期化され、実行されています。
+      このようになっていれば、Smart Nodeスタックが正常に初期化され、実行されています。
 
       外部のExecutionクライアントやConsensusクライアントはここにリストされないことに注意してください。Rocket Poolはそれらを管理していないため、起動できません。
       それらを最初に作成したときに使用したメカニズムを使用して、別々に起動したことを確認する必要があります。
@@ -130,7 +130,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
     </Tab>
     <Tab label="ネイティブモード">
-      ネイティブモードでは、[Dockerを使用しないネイティブRocket Poolノードの設定](./native)セクションの一部として、すでにSmartnodeサービスを設定して起動しています。
+      ネイティブモードでは、[Dockerを使用しないネイティブRocket Poolノードの設定](./native)セクションの一部として、すでにSmart Nodeサービスを設定して起動しています。
 
       それらを`systemd`サービスとして設定した場合、`sudo systemctl start ...`で起動できます。
       例えば、ExecutionにGeth、ConsensusにTekuを使用している場合:
@@ -173,7 +173,7 @@ MEV-Boost client: Disabled
 Commit-Boost client: Disabled
 ```
 
-最初の行は、SmartnodeがEthereumメインネットとHoodiテストネットのどちらに設定されているかを示します。
+最初の行は、Smart NodeがEthereumメインネットとHoodiテストネットのどちらに設定されているかを示します。
 
 ::: warning 注意
 **Docker / ハイブリッドユーザーの場合:**
@@ -188,7 +188,7 @@ Commit-Boost client: Disabled
 
 ## サービスのステータスとログの確認
 
-Smartnodeサービスが起動したので、エラーなく正しく実行されているかどうかを確認することをお勧めします。
+Smart Nodeサービスが起動したので、エラーなく正しく実行されているかどうかを確認することをお勧めします。
 
 <div className="p-3">
   <Tabs>
@@ -283,7 +283,7 @@ Smartnodeサービスが起動したので、エラーなく正しく実行さ�
       外部で保守している方に基づいて、`eth1`や`eth2`を無視できますが、Rocket Poolに管理させている場合は、このコマンドを使用して今すぐそのステータスを確認する必要があります。
     </Tab>
     <Tab label="ネイティブモード">
-      ネイティブモードでステータスとログを確認する最も簡単な方法は、Smartnodeサービスを最初に設定したときに作成したログスクリプトを使用することです。
+      ネイティブモードでステータスとログを確認する最も簡単な方法は、Smart Nodeサービスを最初に設定したときに作成したログスクリプトを使用することです。
 
       例えば、Gethのログを確認するには、次を実行します:
 

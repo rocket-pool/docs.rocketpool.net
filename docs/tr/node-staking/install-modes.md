@@ -1,19 +1,19 @@
 # Bir Rocket Pool Modu Seçimi
 
-Rocket Pool'un Smartnode stack'i oldukça esnektir; çalıştırmanın birkaç farklı yolu vardır.
+Rocket Pool'un Smart Node stack'i oldukça esnektir; çalıştırmanın birkaç farklı yolu vardır.
 Sıfırdan tam bir node örneği oluşturabilir, mevcut Execution veya Consensus client dağıtımlarıyla entegre olabilir ve hatta bir sistem hizmetleri seti olarak yerel olarak çalışabilir.
-Bu bölümde, Smartnode stack'ini yapılandırmanın ve kullanmanın tipik yollarını ele alacağız.
+Bu bölümde, Smart Node stack'ini yapılandırmanın ve kullanmanın tipik yollarını ele alacağız.
 
 ## Varsayılan Docker Tabanlı Konfigürasyon
 
-Varsayılan mod ve bir Smartnode çalıştırmanın en yaygın yolu, Rocket Pool'un yönettiği yerel makinenizde tam bir node örneği oluşturmasını sağlamaktır.
+Varsayılan mod ve bir Smart Node çalıştırmanın en yaygın yolu, Rocket Pool'un yönettiği yerel makinenizde tam bir node örneği oluşturmasını sağlamaktır.
 
-Bunu başarmak için Smartnode, [Docker containerları](https://www.docker.com/resources/what-container) kullanır.
+Bunu başarmak için Smart Node, [Docker containerları](https://www.docker.com/resources/what-container) kullanır.
 Esasen, bir Docker containerı, bir program, tüm bağımlılıkları ve doğru çalışması için gereken tüm konfigürasyonla önceden yapılandırılmış küçük bir korumalı alandır.
 Artık gerekli olmadığında, basitçe atılabilir.
 Gerçek dosya sisteminizi veya diğer programları karıştırmadan işlerin çalışmasını sağlayan güzel, küçük, bağımsız bir pakettir.
 
-Bu mod, Smartnode Installer'ın sizin için dağıtacağı şeydir.
+Bu mod, Smart Node Installer'ın sizin için dağıtacağı şeydir.
 Aşağıdaki Docker containerlarını kullanır:
 
 - `rocketpool_node` - Bu, bir ödül kontrol noktasından sonra RPL ödüllerini periyodik olarak kontrol edecek ve talep edecek bir arka plan işlemidir (otomatik talep etkinse, bununla ilgili daha fazlası daha sonra) ve bir minipool oluşturduğunuzda yeni validatorleri gerçekten stake etmekten sorumludur.
@@ -24,7 +24,7 @@ Aşağıdaki Docker containerlarını kullanır:
 
 Çoğu durumda, sıfırdan yeni bir node oluştururken seçilecek iyi bir seçenektir.
 En hızlı, en az müdahale gerektiren prosedürdür.
-Ayrıca her yeni Smartnode sürümünde Execution ve Consensus clientlarına yapılan güncellemeleri de yönetecektir, bu nedenle onlar hakkında endişelenmenize gerek kalmaz (istediğiniz zaman manuel olarak yükseltebilirsiniz).
+Ayrıca her yeni Smart Node sürümünde Execution ve Consensus clientlarına yapılan güncellemeleri de yönetecektir, bu nedenle onlar hakkında endişelenmenize gerek kalmaz (istediğiniz zaman manuel olarak yükseltebilirsiniz).
 
 ::: warning NOT
 Şu anda, Docker containerlarından bazılarının doğru çalışması için `root` kullanıcısı olarak çalışması gerekir.
@@ -41,7 +41,7 @@ Hibrit konfigürasyon, bir Rocket Pool node'u çalıştırmakla ilgilenen, ancak
 Bu modda, Rocket Pool kendi işlemleri ve yönettiği bir Validator client için Docker containerları dağıtacaktır, ancak zaten çalıştırdığınız ve bakımını yaptığınız harici clientlar için Execution client ve Beacon Node containerlarını görmezden gelecektir.
 **Rocket Pool node'unuzun her bir minipoolü için yeni validator anahtarları oluşturacağı ve bunları koruyacağı için, kendi Validator clientını çalıştırması önemlidir.**
 
-Bu konfigürasyonu kullanırken, Smartnode aşağıdaki Docker containerlarını kullanacaktır (yukarıda açıklanmıştır):
+Bu konfigürasyonu kullanırken, Smart Node aşağıdaki Docker containerlarını kullanacaktır (yukarıda açıklanmıştır):
 
 - `rocketpool_node`
 - `rocketpool_watchtower`
@@ -55,14 +55,14 @@ Execution ve/veya Consensus clientlarınız için bir yönetim modu seçmeniz is
 ## Docker Olmadan Native Konfigürasyon
 
 Bu konfigürasyon Docker'ı tamamen atlar.
-Smartnode stack'ini Docker aracılığıyla çalıştırmak yerine, her işlem yerel bir sistem hizmeti olarak kurulacaktır (örneğin `systemd` aracılığıyla).
+Smart Node stack'ini Docker aracılığıyla çalıştırmak yerine, her işlem yerel bir sistem hizmeti olarak kurulacaktır (örneğin `systemd` aracılığıyla).
 Bu, `node`, `watchtower`, `eth1`, `eth2` ve `validator` işlemlerini içerir.
 
 Bu konfigürasyon en fazla esnekliği sunar çünkü Rocket Pool'un parametrelerini (güvenlik duruşu, Execution ve Consensus clientların nerede yaşadığı, zincir verilerinin nerede yaşadığı, anahtarlarınızın nerede yaşadığı vb. gibi) ince ayar yapmanıza olanak tanır.
 Aynı zamanda kurmak ve bakımını yapmak en zor olanıdır.
 
-Bu modda, Smartnode Installer artık alakalı değildir.
-Smartnode altyapısını, ETH clientlarını ve validator clientlarını manuel olarak başlatmaktan, bakımını yapmaktan ve yükseltmekten siz sorumlusunuz.
+Bu modda, Smart Node Installer artık alakalı değildir.
+Smart Node altyapısını, ETH clientlarını ve validator clientlarını manuel olarak başlatmaktan, bakımını yapmaktan ve yükseltmekten siz sorumlusunuz.
 
 ::: danger UYARI
 Bunu nasıl yapacağınıza dair bazı örnek belgeler sağlasak da, bu modun yalnızca **deneyimli sistem yöneticileri** tarafından kullanılması gerektiğini öneririz.

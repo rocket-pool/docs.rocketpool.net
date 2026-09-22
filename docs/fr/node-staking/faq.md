@@ -27,7 +27,7 @@ Réponse courte : votre mnémonique est tout ce dont vous avez besoin pour récu
 Assurez-vous toujours de le garder en sécurité.
 
 Pour récupérer votre nœud sur une nouvelle machine, commencez par vous assurer que **votre machine précédente ne sera plus en ligne** avec les clés disponibles, car deux nœuds fonctionnant avec les mêmes clés **vous feront slasher**.
-Suivez les [étapes](./install-modes) pour installer le Smartnode sur une nouvelle machine.
+Suivez les [étapes](./install-modes) pour installer le Smart Node sur une nouvelle machine.
 Ensuite, récupérez votre portefeuille de nœud et vos clés de validateur en exécutant la commande `rocketpool wallet recover` et insérez votre mnémonique de 24 mots.
 
 ### Pourquoi mes clients ne se synchronisent-ils pas ? J'ai un faible nombre de pairs.

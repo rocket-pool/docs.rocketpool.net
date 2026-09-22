@@ -61,11 +61,11 @@ Rocket Pool 노드의 경우, **Ubuntu Server 24.04 LTS (HVM)** 이미지를 사
 
 다른 설정은 기본값으로 두고 **Next**를 클릭합니다.
 
-**Add Tags** 단계에서는 **click to add a Name tag** 버튼을 클릭하고 나중에 서버를 식별하는 데 사용할 수 있는 기억하기 쉬운 이름을 지정해야 합니다. 영감이 필요하다면 **Rocket Pool Smartnode**와 같은 이름이 좋습니다.
+**Add Tags** 단계에서는 **click to add a Name tag** 버튼을 클릭하고 나중에 서버를 식별하는 데 사용할 수 있는 기억하기 쉬운 이름을 지정해야 합니다. 영감이 필요하다면 **Rocket Pool Smart Node**와 같은 이름이 좋습니다.
 완료되면 **Next**를 클릭합니다.
 
 **Security Group** 섹션에서는 **Create a new security group** 옵션을 선택한 상태로 유지합니다.
-**Smartnode** 및 **Smartnode Group**과 같은 이름과 설명을 입력합니다.
+**Smart Node** 및 **Smart Node Group**과 같은 이름과 설명을 입력합니다.
 테이블의 모든 기존 규칙을 제거하고 다음 규칙을 추가합니다:
 
 | Type       | Port Range | Source                           | Description |
@@ -91,7 +91,7 @@ SSH 액세스의 경우, **고정 공인 IP 주소**가 있어야만 작동합�
 
 이제 모든 인스턴스 세부 정보를 검토하여 만족하는지 확인하고 만족하면 **Launch**를 클릭합니다.
 **SSH key pair** 프롬프트가 나타나면 **Create a new key pair**를 선택합니다.
-**Smartnode Key**와 같은 기억하기 쉬운 이름을 지정한 다음 **Download Key Pair**를 클릭합니다.
+**Smart Node Key**와 같은 기억하기 쉬운 이름을 지정한 다음 **Download Key Pair**를 클릭합니다.
 다른 키가 일반적으로 있는 `~/.ssh/` (또는 Windows의 경우 `C:\Users\[your username]\.ssh\`)와 같이 안전한 곳에 이러한 파일을 저장합니다.
 
 :::danger
@@ -113,7 +113,7 @@ Rocket Pool 노드가 구성 및 상태에 대한 일부 세부 정보와 함께
 
 다음으로, 목록에서 새 주소를 선택합니다.
 그 위에 있는 **Actions** 버튼을 클릭한 다음 **Associate Elastic IP Address**를 클릭합니다.
-리소스 유형을 **Instance**로 설정된 상태로 두고 방금 생성한 Rocket Pool Smartnode 인스턴스를 목록에서 선택합니다.
+리소스 유형을 **Instance**로 설정된 상태로 두고 방금 생성한 Rocket Pool Smart Node 인스턴스를 목록에서 선택합니다.
 **Associate**를 클릭하여 가상 서버에 주소를 할당합니다.
 이제 주소의 **Associated Instance ID** 열 아래를 보면 머신이 할당되어 있는지 확인할 수 있습니다.
 

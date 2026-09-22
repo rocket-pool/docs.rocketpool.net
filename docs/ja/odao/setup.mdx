@@ -5,10 +5,10 @@ import tuiOdao from "./images/tui-odao.png";
 
 最低限、標準のRocket Poolノードは次のものを実行します:
 
-- Smartnode CLI
-- Smartnode APIデーモン
-- Smartnode `node`デーモン
-- Smartnode `watchtower`デーモン
+- Smart Node CLI
+- Smart Node APIデーモン
+- Smart Node `node`デーモン
+- Smart Node `watchtower`デーモン
 
 オプションで、ノードは次のコンポーネントも実行できます:
 
@@ -20,7 +20,7 @@ import tuiOdao from "./images/tui-odao.png";
 - Prometheus Node Exporter
 - Grafana
 
-これらの各コンポーネントは、標準セットアップではDockerコンテナとして、「Native Mode」セットアップでは`systemd`サービスとして実行でき、またはSmartnodeがそれぞれのAPIルートを介して接続できる外部管理エンティティとして実行できます。
+これらの各コンポーネントは、標準セットアップではDockerコンテナとして、「Native Mode」セットアップでは`systemd`サービスとして実行でき、またはSmart NodeがそれぞれのAPIルートを介して接続できる外部管理エンティティとして実行できます。
 
 便利なことに、Oracle DAOノードは通常のRocket Poolノードと同じですが、`watchtower`デーモンが補足的なOracle DAOの役割を実行し、パフォーマンス監視のためにより多くのPrometheusメトリクスが収集されます。
 
@@ -32,7 +32,7 @@ import tuiOdao from "./images/tui-odao.png";
 ノードでminipools(validators)を実行したい場合は、通常のノードドキュメントに最初から最後まで従い、完了したらここに戻ってください。
 
 minipoolsを実行する予定が*ない*場合で、純粋にOracle DAOの役割のためにそれを使用する場合は、RPLのステーキングとminipool作成に関連するすべてのステップをスキップできます。
-ノード登録、優れたセキュリティ体制の確立、ノードの健全性とパフォーマンスの監視、アップデート後のSmartnodeの更新などの他のステップはすべてあなたに適用されるため、先に進む前に慎重に確認する必要があります。
+ノード登録、優れたセキュリティ体制の確立、ノードの健全性とパフォーマンスの監視、アップデート後のSmart Nodeの更新などの他のステップはすべてあなたに適用されるため、先に進む前に慎重に確認する必要があります。
 完了したらここに戻ってください。
 
 ## 追加のOracle DAO設定
@@ -67,7 +67,7 @@ Oracle DAOの責任を満たすために、プロビジョニングする必要�
       最後に、設定を有効にするために`watchtower`デーモンを再起動します(DockerまたはHybridモードでは`docker restart rocketpool_watchtower`、Nativeモードでは`sudo systemctl restart rp_watchtower`で)。
     </Tab>
     <Tab label="Direct Config File">
-      Smartnodeディレクトリ(デフォルトでは`~/.rocketpool`)の`user-settings.yml`ファイルをテキストエディタで開きます。
+      Smart Nodeディレクトリ(デフォルトでは`~/.rocketpool`)の`user-settings.yml`ファイルをテキストエディタで開きます。
       `smartnode`セクションまでスクロールします:
 
       ```
@@ -93,9 +93,9 @@ Oracle DAOの責任を満たすために、プロビジョニングする必要�
   </Tabs>
 </div>
 
-## Oracle DAO Smartnodeコマンド
+## Oracle DAO Smart Nodeコマンド
 
-Smartnode CLIの`odao`コマンドグループは、Oracle DAOコントラクトおよびオンチェーンの役割とやり取りするために使用されます:
+Smart Node CLIの`odao`コマンドグループは、Oracle DAOコントラクトおよびオンチェーンの役割とやり取りするために使用されます:
 
 ```
 NAME:

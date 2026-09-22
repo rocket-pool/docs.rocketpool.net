@@ -17,8 +17,8 @@ Minipool 存款当前已禁用，正在为 Saturn 1 做准备。
 在运行 minipool 之前，请确保您：
 
 - 已设置节点机器（或虚拟机）并对其进行了保护（通过[保护您的节点](../securing-your-node)指南）
-- 已在其上[安装](../installing/overview)并[配置](../config/overview) Smartnode
-- 在 Smartnode 上加载了节点钱包
+- 已在其上[安装](../installing/overview)并[配置](../config/overview) Smart Node
+- 在 Smart Node 上加载了节点钱包
 - 同步了执行和共识客户端
 - 为节点配置了[提款地址](../prepare-node.mdx#设置主提款地址)，设置了[备用客户端](../fallback)（可选），选择加入[平滑池](../fee-distrib-sp#平滑池)（可选），并配置了 [MEV](../mev.mdx)
 

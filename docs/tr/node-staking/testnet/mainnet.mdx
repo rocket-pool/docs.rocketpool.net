@@ -3,7 +3,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 # Test Ağından Mainnet'e Geçiş
 
 Rocket Pool'u Hoodi test ağında zaten kullandıysanız, tüm özellikleriyle rahat ettiyseniz ve ana Ethereum zincirinde gerçekten ETH stake etmeye veya node çalıştırmaya hazırsanız, bu kılavuz tam size göre!
-Burada mevcut bir Smartnode yığınını Hoodi test ağından Ethereum mainnet'e bağlı bir yapıya nasıl taşıyacağınıza dair talimatlar bulacaksınız, kendi gerçek ETH ve RPL'nizi stake etmeye hazır hale geleceksiniz.
+Burada mevcut bir Smart Node yığınını Hoodi test ağından Ethereum mainnet'e bağlı bir yapıya nasıl taşıyacağınıza dair talimatlar bulacaksınız, kendi gerçek ETH ve RPL'nizi stake etmeye hazır hale geleceksiniz.
 
 ## Mainnet'te Pool Staking
 
@@ -13,10 +13,10 @@ Mainnet için güncellenmiş talimatları içeren [Staking Kılavuzu](../../liqu
 
 ### Testnet ve Mainnet Arasındaki Farklar
 
-- Testnet Smartnode'da test ETH için bir musluk (faucet) vardır. Mainnet Smartnode'da **musluk yoktur**. Stake etmek için kendi ETH'nizi sağlamanız gerekecek.
+- Testnet Smart Node'da test ETH için bir musluk (faucet) vardır. Mainnet Smart Node'da **musluk yoktur**. Stake etmek için kendi ETH'nizi sağlamanız gerekecek.
 - Mainnet, WalletConnect aracılığıyla birçok Ethereum cüzdanını destekler, böylece testnet'te kullanamadığınız diğer cüzdanları kullanabilirsiniz. **Artık stake etmek için sadece Metamask kullanmakla sınırlı değilsiniz**.
 
-## Mainnet'te Smartnode İşletimi
+## Mainnet'te Smart Node İşletimi
 
 ::: danger NOT
 Test ağından **hiçbir şey** mainnet'e taşınamaz.
@@ -31,7 +31,7 @@ Test ağı kurulumunuzu korumak istiyorsanız, sabit diskinizi yedeklemeniz veya
 
 ### Testnet ve Mainnet Arasındaki Farklar
 
-- Testnet Smartnode'da ETH ve RPL için musluk vardır. Mainnet Smartnode'da **musluk yoktur**. Kendi ETH'nizi ve kendi RPL'nizi sağlamanız gerekecek.
+- Testnet Smart Node'da ETH ve RPL için musluk vardır. Mainnet Smart Node'da **musluk yoktur**. Kendi ETH'nizi ve kendi RPL'nizi sağlamanız gerekecek.
 - Geth kullanıyorsanız, node'unuzun iş yükü **önemli ölçüde daha yüksek** olacaktır. Geth, Hoodi'nin yaklaşık 40 katı depolama alanı alır ve işlemek için daha fazla CPU gücü ve RAM gerektirir. Rocket Pool Grafana panosunu kullanıyorsanız, çok daha yüksek kullanım görmeye hazır olun.
   Tam bir Geth node'u 2025-09-19 itibariyle 1,4 TB kullanır. [Merge öncesi blok verilerinin süresinin dolmasını sağlamak](../maintenance/history-expiry) depolama kullanımını yaklaşık 300-500 GB azaltabilir.
 - Beacon Chain eşleriniz (ve dolayısıyla attestation etkinliğiniz) testnet'ten **daha yüksek** olacaktır. Mainnet'teki eşler çok daha çeşitlidir ve testnet'tekilere göre daha yüksek kaliteli olma eğilimindedir.
@@ -40,7 +40,7 @@ Test ağı kurulumunuzu korumak istiyorsanız, sabit diskinizi yedeklemeniz veya
 
 ### Otomatik Geçiş (Sadece Docker Modu)
 
-Docker Modu kullanıcıları için Smartnode, Mainnet'e otomatik olarak geçiş yapabilir.
+Docker Modu kullanıcıları için Smart Node, Mainnet'e otomatik olarak geçiş yapabilir.
 
 **Hala testnet yapılandırılmışken**, Hoodi'deki validator'larınızdan çıkış yapın:
 
@@ -57,7 +57,7 @@ Bu işlem tamamlandıktan sonra, Ayarlar Yöneticisini açın:
 rocketpool service config
 ```
 
-Ardından, **Smartnode and TX Fees** kategorisini açın ve **Network** açılır menüsünü `Hoodi Testnet`'ten `Ethereum Mainnet`'e değiştirin:
+Ardından, **Smart Node and TX Fees** kategorisini açın ve **Network** açılır menüsünü `Hoodi Testnet`'ten `Ethereum Mainnet`'e değiştirin:
 
 <img src="../images/tui-change-network.png" width="100%" height="auto" />
 
@@ -74,14 +74,14 @@ Would you like the Smartnode to automatically switch networks for you? This will
 ```
 
 Saklamak istediğiniz her şeyi yedekleyin (node cüzdanınızı ve validator anahtarlarınızı içeren `data` klasörünüz gibi), ardından hazır olduğunuzda `y` ve `Enter` tuşlarına basın.
-Smartnode geçişi otomatik olarak halledecektir.
+Smart Node geçişi otomatik olarak halledecektir.
 
 İşlem tamamlandığında, Mainnet'te yeni bir kurulumla kalacaksınız.
 Tüm ayarlarınız (istemci seçimi gibi) korunacaktır, ancak yeni bir cüzdan oluşturmanız gerekecek. Ayrıca, muhtemelen mainnet'te bir _Checkpoint Sync URL_'niz olmayacak ve [burada](../config-docker#beacon-chain-checkpoint-syncing) açıklandığı gibi bir tane kurmanız gerekecek; aksi takdirde mainnet beacon chain'ini senkronize etmek uzun zaman alacaktır.
 
 ### Manuel Geçiş
 
-Herhangi bir nedenle Smartnode'un otomatik geçiş sürecinden yararlanamıyorsanız, bunu birkaç basit adımda manuel olarak yapabilirsiniz:
+Herhangi bir nedenle Smart Node'un otomatik geçiş sürecinden yararlanamıyorsanız, bunu birkaç basit adımda manuel olarak yapabilirsiniz:
 
 <div className="p-3">
   <Tabs>

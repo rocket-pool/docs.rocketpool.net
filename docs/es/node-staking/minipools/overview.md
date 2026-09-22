@@ -18,8 +18,8 @@ Aquí aprenderás cómo comenzar a validar la red Ethereum y ganar recompensas p
 Antes de ejecutar minipools, asegúrate de:
 
 - Haber configurado una máquina de nodo (o máquina virtual) y haberla asegurado (a través de la guía [Asegurando tu Nodo](../securing-your-node))
-- Tener el Smartnode [instalado](../installing/overview) y [configurado](../config/overview) en ella
-- Tener una wallet de nodo cargada en tu Smartnode
+- Tener el Smart Node [instalado](../installing/overview) y [configurado](../config/overview) en ella
+- Tener una wallet de nodo cargada en tu Smart Node
 - Sincronizado tus clientes de Ejecución y Consenso
 - Provisionado tu nodo con [una dirección de retiro](../prepare-node.mdx#establecer-tu-dirección-de-retiro-principal), configurado tus [clientes de respaldo](../fallback) (opcional), optado por el [Smoothing Pool](../fee-distrib-sp#el-smoothing-pool) (opcional), y configurado [MEV](../mev.mdx)
 

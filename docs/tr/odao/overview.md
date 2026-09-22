@@ -30,8 +30,8 @@ Bir Oracle DAO node'u çalıştırmak için aşağıdakilere ihtiyacınız olaca
 - Bir **Arşiv Modu Execution Client'a** erişim, bu ya birincil istemciniz ya da ek (yedek) bir istemci olarak işlev görebilir. Yalnızca görevlerinizin Execution Client'ınızdan temizlenmiş bir Execution Layer durumunu geri çağırmasını gerektiren nadir durumlarda kullanılacaktır. Bununla birlikte, bu dönemlerde görevlerinizin başarıyla yerine getirilebilmesini sağlamak için bir Arşiv Node'a erişiminizin olması **kritiktir**.
   - Bunun için yerinde bir arşiv node'u kullanmanızı **şiddetle** öneririz, çünkü [Infura](https://infura.io/pricing) veya [Alchemy](https://www.alchemy.com/pricing) gibi hizmetler, ödül ağacını oluşturma gibi kritik dönemlerde taleple başa çıkmakta bazı zorluklar göstermiştir.
 - Bir **Arşiv Modu Beacon Node'unun REST API endpoint'ine** (HTTP üzerinden) erişim. Bu, çoğu Rocket Pool node'unda olduğu gibi yerel olarak çalıştırılan bir istemci olabilir veya sizin veya kuruluşunuzun bağımsız olarak sürdürdüğü harici istemcilere bağlanabilir.
-- Standart Smartnode CLI.
-- Smartnode daemon'u `watchtower` modunda yapılandırılmış ve çalışıyor (bu, tüm kullanıcılar için standart Smartnode paketi ile birlikte gelir, ancak yalnızca Oracle DAO node'ları için aktif olarak görevleri yerine getirir).
+- Standart Smart Node CLI.
+- Smart Node daemon'u `watchtower` modunda yapılandırılmış ve çalışıyor (bu, tüm kullanıcılar için standart Smart Node paketi ile birlikte gelir, ancak yalnızca Oracle DAO node'ları için aktif olarak görevleri yerine getirir).
   - Bu bir Docker konteynerinde (standart kurulum) veya basit bir `systemd` hizmeti ("Native" modu) olarak çalıştırılabilir.
 - Görevlerinizin gaz maliyetlerini ödemek için yeterli ETH (daha sonra tartışılacaktır).
 
@@ -50,6 +50,6 @@ Arşiv Modu yedekleme için **Infura** kullanmayı planlıyorsanız, en azından
 Oracle DAO görevleri iki bölüme ayrılır.
 
 1. **Otomatik görevler**: bunlar, Consensus Layer'dan Execution Layer'a bilgi taşıma, protokolün çeşitli yönlerini zincir dışı hesaplama ve bunları Akıllı Sözleşmelere güncellemeler olarak gönderme gibi rutin Rocket Pool operasyonuyla ilgili görevlerdir. Bunların her biri, Execution ve Consensus Client'larınız ve `watchtower` daemon'unuz normal şekilde çalıştığı sürece `watchtower` daemon süreci tarafından otomatik olarak gerçekleştirilir ve manuel müdahale gerektirmez.
-2. **Manuel görevler**: bunlar, kendi karar vermenizi ve gerçekleştirmek için Oracle DAO'nun geri kalanıyla bant dışı iletişimi gerektiren görevlerdir. Bunlar, sözleşme yükseltmelerine oy verme, parametreleri değiştirme ve Oracle DAO'dan üyeleri davet etme veya çıkarma gibi şeyleri içerir. Bunların hepsi standart Smartnode CLI aracılığıyla yapılabilir.
+2. **Manuel görevler**: bunlar, kendi karar vermenizi ve gerçekleştirmek için Oracle DAO'nun geri kalanıyla bant dışı iletişimi gerektiren görevlerdir. Bunlar, sözleşme yükseltmelerine oy verme, parametreleri değiştirme ve Oracle DAO'dan üyeleri davet etme veya çıkarma gibi şeyleri içerir. Bunların hepsi standart Smart Node CLI aracılığıyla yapılabilir.
 
 Oracle DAO node'unuzu nasıl kuracağınızı öğrenmek için sonraki bölümü okuyun.

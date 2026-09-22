@@ -131,9 +131,9 @@ ls /sys/class/net
 Ethernet (kablolu) cihazlar genellikle yukarıdaki örnekler gibi `e` ile başlar.
 Kablosuz cihazlar genellikle `w` ile başlar.
 
-## Smartnode Uyarı Bildirimleri
+## Smart Node Uyarı Bildirimleri
 
-[Smartnode Stack'inizi Uyarı Bildirimleriyle İzleme](./maintenance/alerting.md), Rocket Pool Smartnode'unuzun sağlığı ve önemli olayları hakkında bildirimler almak için Smartnode uyarı bildirimi işlevselliğini kullanmayı açıklar.
+[Smart Node Stack'inizi Uyarı Bildirimleriyle İzleme](./maintenance/alerting.md), Rocket Pool Smart Node'unuzun sağlığı ve önemli olayları hakkında bildirimler almak için Smart Node uyarı bildirimi işlevselliğini kullanmayı açıklar.
 
 ## Üçüncü Taraf Performans İzleme
 
@@ -200,7 +200,7 @@ Beaconcha.in web sitesinin, kullanıcıların validatörlerini yeniden adlandır
 
 Bu özelliği kullanabilmek için, o validatörü kontrol eden kişi olduğunuzu kanıtlamak amacıyla düğüm cüzdanınızın özel anahtarını kullanarak bir mesaj imzalamanız gerekir.
 
-Smartnode v1.5.1, `rocketpool node sign-message` komutunu kullanarak düğüm cüzdanınızın özel anahtarıyla mesaj imzalama yeteneğini içerir, ardından imzalamak istediğiniz mesajı sağlayın.
+Smart Node v1.5.1, `rocketpool node sign-message` komutunu kullanarak düğüm cüzdanınızın özel anahtarıyla mesaj imzalama yeteneğini içerir, ardından imzalamak istediğiniz mesajı sağlayın.
 Validatörlerinizi yeniden adlandırmak için kullanılması için 'beaconcha.in' terimini içermelidir.
 
 ![](../node-staking/images/sign-message.png)
@@ -230,7 +230,7 @@ Kurulum ekranı şuna benzer görünür:
 curl icanhazip.com
 ```
 
-İzlenecek port, düğüm kurulumunuza bağlıdır; tipik Smartnode kurulumunu çalıştıran kullanıcılar muhtemelen Execution ve Consensus istemcileri için sırasıyla 30303 ve 9001 portlarını yönlendirmiştir, bu nedenle bunlar çalışma süresi izleme için iyi seçimlerdir.
+İzlenecek port, düğüm kurulumunuza bağlıdır; tipik Smart Node kurulumunu çalıştıran kullanıcılar muhtemelen Execution ve Consensus istemcileri için sırasıyla 30303 ve 9001 portlarını yönlendirmiştir, bu nedenle bunlar çalışma süresi izleme için iyi seçimlerdir.
 
 ### Rocketpool Metrics Dashboards
 
@@ -239,7 +239,7 @@ Düğüm performansınıza ve bir bütün olarak Rocket Pool ağına genel bir b
 ### Pushover ile Scriptleme (gelişmiş)
 
 ::: tip NOT
-[Smartnode Stack'inizi Uyarı Bildirimleriyle İzleme](./maintenance/alerting.md), düğümünüz için güncellemeler mevcut olduğunda bir bildirim içeren Smartnode uyarı bildirimi işlevselliğini kullanmayı açıklar.
+[Smart Node Stack'inizi Uyarı Bildirimleriyle İzleme](./maintenance/alerting.md), düğümünüz için güncellemeler mevcut olduğunda bir bildirim içeren Smart Node uyarı bildirimi işlevselliğini kullanmayı açıklar.
 :::
 
 [Pushover](https://pushover.net/) hizmeti, kendinize push bildirimleri göndermenize olanak tanır.

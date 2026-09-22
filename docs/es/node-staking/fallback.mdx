@@ -4,13 +4,13 @@ import tui_fallback_clients from "./images/tui-fallback-clients.png";
 
 # Especificar un Nodo de Respaldo
 
-A partir de **1.5.0** del stack de Smartnode, puedes proporcionar un par de cliente de Execution "de respaldo" y cliente de Consensus que puede asumir el control de tus clientes primarios si alguna vez se desconectan (como por ejemplo [si usas Geth y necesitas podarlo](./pruning)).
+A partir de **1.5.0** del stack de Smart Node, puedes proporcionar un par de cliente de Execution "de respaldo" y cliente de Consensus que puede asumir el control de tus clientes primarios si alguna vez se desconectan (como por ejemplo [si usas Geth y necesitas podarlo](./pruning)).
 En esta situación, tu máquina de nodo primaria seguirá siendo responsable de atestiguar y proponer bloques con las claves de validador de tu megapool, pero se conectará a una máquina externa para interactuar con las cadenas de Execution y Beacon.
 
 Esencialmente, te permite usar _temporalmente_ otro par de clientes para cosas como consultar las cadenas, enviar transacciones y recibir bloques para atestiguar.
 Este par puede ser administrado externamente (como en modo Híbrido), o puede ser otro nodo de Rocket Pool (otra máquina en modo Docker que tiene los puertos API expuestos, lo cual cubriremos a continuación).
 
-Una vez que los clientes primarios de tu nodo estén de vuelta en línea, el Smartnode y tu cliente Validator volverán a ellos automáticamente.
+Una vez que los clientes primarios de tu nodo estén de vuelta en línea, el Smart Node y tu cliente Validator volverán a ellos automáticamente.
 
 ::: warning NOTA
 Un nodo de respaldo **no** es lo mismo que un nodo de "backup".
@@ -35,14 +35,14 @@ A partir de v1.9.0, todos nuestros clientes de validador compatibles han agregad
 
 Puedes usar una segunda máquina que poseas localmente, un nodo remoto alojado en un VPS, o un nodo basado en la nube como un nodo de respaldo.
 
-Este ejemplo te muestra cómo crear un segundo Smartnode en una máquina diferente usando el modo Docker, que puede servir como un nodo de respaldo.
+Este ejemplo te muestra cómo crear un segundo Smart Node en una máquina diferente usando el modo Docker, que puede servir como un nodo de respaldo.
 
 ::: tip SUGERENCIA
 Si ya tienes un segundo nodo listo y tiene sus puertos RPC expuestos, siéntete libre de omitir esta sección.
 :::
 
 1. Sigue los pasos en la guía sobre configuración de un nodo ([local](./local/hardware) o [remoto](./vps/providers)).
-2. Una vez que la máquina esté lista, [instala el stack de Smartnode](./docker).
+2. Una vez que la máquina esté lista, [instala el stack de Smart Node](./docker).
 3. Ejecuta `rocketpool service config` para especificar qué clientes te gustaría usar.
    1. Cuando llegues al final del asistente y te pregunte si deseas revisar tu configuración, selecciona **Yes**.
    2. Entra a la configuración de `Execution Client`.
@@ -52,7 +52,7 @@ Si ya tienes un segundo nodo listo y tiene sus puertos RPC expuestos, siéntete 
    4. Regresa y entra a la configuración de `Consensus Client`. 5. Marca la casilla `Expose API Port` (y, si estás usando **Prysm**, la casilla `Expose RPC Port` también):
 
    <img src={tui_cc_expose_ports} width="100%" height="auto" />
-   6. Guarda la configuración e inicia el Smartnode.
+   6. Guarda la configuración e inicia el Smart Node.
 
 4. Salta a la guía [Asegurando tu Nodo](./securing-your-node) para configurar SSH y la postura de seguridad adecuada en él.
    1. Si tienes `ufw` instalado, necesitarás agregar reglas para permitir tráfico entrante a los puertos API (`8545`, `8546`, y `5052` por defecto; también `5053` si estás usando **Prysm**).
@@ -74,6 +74,7 @@ Una vez que tengas un nodo de respaldo preparado, puedes conectarlo a tu nodo pr
 2. Marca la casilla `Use Fallback Clients`.
 3. Ingresa la URL RPC para tu cliente de Execution en la casilla `Execution Client URL`. Por ejemplo, si la dirección IP de tu nodo de respaldo es `192.168.1.45` y tienes tu cliente de Execution en el puerto predeterminado de `8545`, ingresarías `http://192.168.1.45:8545` aquí.
 4. Haz lo mismo para la URL RPC de tu cliente de Consensus de respaldo. Siguiendo el mismo ejemplo, si lo tienes en el puerto predeterminado de `5052`, ingresarías `http://192.168.1.45:5052` aquí.
+5. Opcionalmente, marca **Prefer Fallback Clients** (desactivado por defecto). Si lo activas, el Smart Node enviará primero las peticiones de API, de nodo y de watchtower a tus clientes de Execution y Consensus de respaldo, y solo usará el par principal si el de respaldo no está disponible. Esto mantiene la carga del Smart Node fuera de los clientes principales para que puedan centrarse en las tareas de validación. Tu cliente Validator no se ve afectado y sigue usando primero el par principal.
 
 La página final debería verse así:
 
@@ -82,7 +83,7 @@ La página final debería verse así:
 ::: tip NOTA
 Los usuarios de **modo nativo** pueden seguir los mismos pasos, aunque el TUI se verá ligeramente diferente de la captura de pantalla anterior.
 
-Ten en cuenta que esto solo proporcionará **al Smartnode mismo** (el servicio daemon) con soporte de respaldo; **tendrás que actualizar manualmente los argumentos del servicio de tu cliente Validator para darle acceso a los clientes de respaldo.**
+Ten en cuenta que esto solo proporcionará **al Smart Node mismo** (el servicio daemon) con soporte de respaldo; **tendrás que actualizar manualmente los argumentos del servicio de tu cliente Validator para darle acceso a los clientes de respaldo.**
 :::
 
 Presiona `enter` en la casilla final para asegurarte de que esté confirmada, luego guarda la configuración y aplica los cambios.

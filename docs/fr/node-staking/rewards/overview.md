@@ -10,11 +10,11 @@ Cette section couvre comment accéder aux récompenses que votre nœud génère 
 
 ## Prérequis
 
-Avant de configurer votre Smartnode, assurez-vous de :
+Avant de configurer votre Smart Node, assurez-vous de :
 
 - Avoir configuré une machine de nœud (ou machine virtuelle) et l'avoir sécurisée (via le guide [Sécurisation de votre Nœud](../securing-your-node))
-- Avoir le Smartnode [installé](../installing/overview) et [configuré](../config/overview) dessus
-- Avoir un portefeuille de nœud chargé sur votre Smartnode
+- Avoir le Smart Node [installé](../installing/overview) et [configuré](../config/overview) dessus
+- Avoir un portefeuille de nœud chargé sur votre Smart Node
 - Synchronisé vos clients d'exécution et de consensus
 - Provisionné votre nœud avec [une adresse de retrait](../prepare-node.mdx#définition-de-votre-adresse-de-retrait-principale), configuré vos [clients de secours](../fallback) (optionnel), opté pour le [Smoothing Pool](../fee-distrib-sp#la-smoothing-pool) (optionnel), et configuré [MEV](../mev.mdx)
 - Créé au moins un [minipool](../create-validator.mdx)

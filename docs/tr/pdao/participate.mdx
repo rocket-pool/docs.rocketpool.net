@@ -75,8 +75,8 @@ Yeni bir teklif oluşturulduğunda, ağın oy gücünün ve delege bilgilerinin 
 
 ## Oy Gücünü Otomatik Başlatma
 
-Smartnode sürüm `1.13.8`, henüz bunu yapmamış düğümlerde oy gücünü otomatik olarak başlatmak üzere tasarlanmış yeni bir özellik olan **Auto Initialize Vote Power**'ı tanıtır. Otomatik olarak başlatılan oy gücü kendine devredilir.
-Bu özellik, `rocketpool service config` çalıştırılarak ve **Smartnode and TX Fees** bölümüne gidilerek Smartnode ayarlarında yapılandırılabilir.
+Smart Node sürüm `1.13.8`, henüz bunu yapmamış düğümlerde oy gücünü otomatik olarak başlatmak üzere tasarlanmış yeni bir özellik olan **Auto Initialize Vote Power**'ı tanıtır. Otomatik olarak başlatılan oy gücü kendine devredilir.
+Bu özellik, `rocketpool service config` çalıştırılarak ve **Smart Node and TX Fees** bölümüne gidilerek Smart Node ayarlarında yapılandırılabilir.
 
 <img src="./images/auto_init_vp.png" width="100%" height="auto" />
 
@@ -150,7 +150,7 @@ rocketpool pdao clear-signalling-address
 
 Yalnızca bir teklife oy vermekle ilgileniyorsanız bu adımı yoksayabilirsiniz. RPL kilitlemeye izin verme, yalnızca bir teklif önerisinde bulunmak veya bir teklife itiraz etmek isteyenler için gereklidir.
 
-Teklif önerisinde bulunma ve itiraz etme için RPL kilitleme gereklidir. Varsayılan olarak, herhangi bir amaç için RPL kilitleme devre dışı bırakılacaktır. Düğüm operatörleri, düğümlerinden veya birincil çekim adreslerinden RPL'nin kilitlenmesini etkinleştirerek yönetişim faaliyetlerini gerçekleştirmeyi kabul edeceklerdir. Smartnode'da bu komutu kullanarak bunu yapabilirsiniz:
+Teklif önerisinde bulunma ve itiraz etme için RPL kilitleme gereklidir. Varsayılan olarak, herhangi bir amaç için RPL kilitleme devre dışı bırakılacaktır. Düğüm operatörleri, düğümlerinden veya birincil çekim adreslerinden RPL'nin kilitlenmesini etkinleştirerek yönetişim faaliyetlerini gerçekleştirmeyi kabul edeceklerdir. Smart Node'da bu komutu kullanarak bunu yapabilirsiniz:
 
 ```shell
 rocketpool node allow-rpl-locking

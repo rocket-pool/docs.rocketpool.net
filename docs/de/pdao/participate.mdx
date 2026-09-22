@@ -83,7 +83,7 @@ Please type `direct` or `delegate` to continue:
 
 Sie müssen dies nur einmal tun. Es konfiguriert die anfänglichen snapshot Informationen für einen Knoten. Nachdem Sie die Abstimmung initialisiert haben,
 aktualisiert jede durchgeführte Aktion die snapshot Informationen Ihres Knotens. Sobald Ihre Stimmkraft initialisiert ist, können Sie
-überprüfen, wie viel Sie haben, mit folgendem Smartnode-Befehl:
+überprüfen, wie viel Sie haben, mit folgendem Smart Node-Befehl:
 
 ```shell
 rocketpool pdao status
@@ -98,10 +98,10 @@ neuesten Block an, was möglicherweise nicht repräsentativ für Ihre Stimmkraft
 
 ## Auto Initialize Vote Power
 
-Smartnode Version `1.13.8` führt eine neue Funktion **Auto Initialize Vote Power** ein, die darauf ausgelegt ist, automatisch
+Smart Node Version `1.13.8` führt eine neue Funktion **Auto Initialize Vote Power** ein, die darauf ausgelegt ist, automatisch
 die Stimmkraft auf Knoten zu initialisieren, die dies noch nicht getan haben. Automatisch initialisierte Stimmkraft ist selbst-delegiert.
-Diese Funktion kann in den Smartnode-Einstellungen konfiguriert werden, indem Sie `rocketpool service config` ausführen und zum Abschnitt \*
-\*Smartnode and TX Fees\*\* navigieren.
+Diese Funktion kann in den Smart Node-Einstellungen konfiguriert werden, indem Sie `rocketpool service config` ausführen und zum Abschnitt \*
+\*Smart Node and TX Fees\*\* navigieren.
 
 <img src="./images/auto_init_vp.png" width="100%" height="auto" />
 
@@ -158,7 +158,7 @@ Ihrer Wallet-Erweiterungs-App, um die folgende Nachricht zu signieren:
 ```
 
 Das Signieren kostet Sie kein Gas, aber das Festlegen schon. Nachdem Sie signiert haben, gibt Ihnen das Frontend einen Befehl, den Sie in den
-Smartnode einfügen können. Fügen Sie ihn in die CLI Ihres Smartnodes ein und folgen Sie den angezeigten Schritten. Der Befehl sollte
+Smart Node einfügen können. Fügen Sie ihn in die CLI Ihres Smart Nodes ein und folgen Sie den angezeigten Schritten. Der Befehl sollte
 ungefähr so aussehen:
 
 ```shell
@@ -193,7 +193,7 @@ diejenigen erforderlich, die einen Vorschlag einreichen oder anfechten möchten.
 
 RPL Locking ist für das Einreichen und Anfechten erforderlich. Standardmäßig ist das Sperren von RPL für jeden Zweck deaktiviert. Node
 Operators werden sich für die Durchführung von Governance-Aktivitäten entscheiden, indem sie das Sperren von RPL von ihrem Knoten oder ihrer primären
-Auszahlungsadresse aktivieren. Sie können dies mit diesem Befehl im Smartnode tun:
+Auszahlungsadresse aktivieren. Sie können dies mit diesem Befehl im Smart Node tun:
 
 ```shell
 rocketpool node allow-rpl-locking
@@ -548,7 +548,7 @@ Der Empfänger muss sich den Vertragsnamen notieren, um Zahlungen anzufordern. K
 Informationen gespeichert sind und mit dem Befehl `rocketpool pdao proposals details <proposal-id>` abgerufen werden können
 :::
 
-Um einen Vorschlag zur Einrichtung einer wiederkehrenden Treasury-Ausgabe einzureichen, verwenden Sie den folgenden Smartnode-Befehl und folgen Sie den Eingabeaufforderungen:
+Um einen Vorschlag zur Einrichtung einer wiederkehrenden Treasury-Ausgabe einzureichen, verwenden Sie den folgenden Smart Node-Befehl und folgen Sie den Eingabeaufforderungen:
 
 ```shell
 rocketpool pdao propose recurring-spend

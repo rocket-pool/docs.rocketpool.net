@@ -15,8 +15,8 @@
 
 这些 ETH 不会被流动化并返还给节点运营者；相反，它可以用于**创建额外的 minipool**，而无需节点运营者提供任何 ETH。
 
-信用系统对节点运营者是**透明的**；在执行 `rocketpool node deposit` 或 `rocketpool node create-vacant-minipool` 操作时，如果可能的话，系统会自动使用信用（Smartnode CLI 会通知将使用信用）。
-如果无法使用，Smartnode 会提醒用户无法使用信用，并且在执行任一操作时需要正常的 ETH 质押。
+信用系统对节点运营者是**透明的**；在执行 `rocketpool node deposit` 或 `rocketpool node create-vacant-minipool` 操作时，如果可能的话，系统会自动使用信用（Smart Node CLI 会通知将使用信用）。
+如果无法使用，Smart Node 会提醒用户无法使用信用，并且在执行任一操作时需要正常的 ETH 质押。
 
 更多详情请参阅下面的[信用可用性](#信用可用性)部分。
 
@@ -76,5 +76,5 @@ The node has 8.000000 ETH in its credit balance, which can be used to make new m
 因此，如果您想使用 8 ETH 信用来创建一个新的 8-ETH minipool，最终将从存款池中取出该 minipool 的**全部 32 ETH**，而不需要您提供任何 ETH。
 因此，如果存款池中没有足够的 ETH 来覆盖预存款值（目前设置为 1 ETH），**余额将不可用**。
 
-在这种情况下，Smartnode 会在 `rocketpool node deposit` 操作期间提醒您**无法**使用您的信用余额，必须使用节点钱包中的 ETH 来完成质押。
+在这种情况下，Smart Node 会在 `rocketpool node deposit` 操作期间提醒您**无法**使用您的信用余额，必须使用节点钱包中的 ETH 来完成质押。
 这样做**不会**消耗您的信用余额；它将保持原样，并在存款池有足够余额后可供使用。

@@ -2,7 +2,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # Rocket Pool'u Başlatma
 
-Bu noktada, Smartnode yığını, bir Yürütüm ve bir Fikir Birliği istemcisi dahil olmak üzere eksiksiz Rocket Pool altyapısına sahip olmalısınız.
+Bu noktada, Smart Node yığını, bir Yürütüm ve bir Fikir Birliği istemcisi dahil olmak üzere eksiksiz Rocket Pool altyapısına sahip olmalısınız.
 Ayrıca işletim sisteminizi dışarıdan gelen saldırganlara karşı sağlamlaştırmış olmalısınız.
 Bu adımların her ikisini de tamamladıysanız, bir Rocket Pool düğümü oluşturmaya ve stake etmeye başlamaya hazırsınız.
 Değilse, lütfen önceki bölümleri gözden geçirin ve bu adımları tamamladıktan sonra buraya geri dönün.
@@ -12,7 +12,7 @@ Değilse, lütfen önceki bölümleri gözden geçirin ve bu adımları tamamlad
 <div className="p-3">
   <Tabs>
     <Tab label="Docker (Varsayılan) Modu">
-      Artık Smartnode yüklü olduğuna göre, yığını başlatmak kolaydır.
+      Artık Smart Node yüklü olduğuna göre, yığını başlatmak kolaydır.
       Sadece aşağıdaki komutu girin:
 
       ```shell
@@ -43,7 +43,7 @@ Değilse, lütfen önceki bölümleri gözden geçirin ve bu adımları tamamlad
       Creating rocketpool_watchtower ... done
       ```
 
-      Eğer öyleyse, Smartnode yığını başarıyla başlatılmış ve şu anda çalışıyor demektir.
+      Eğer öyleyse, Smart Node yığını başarıyla başlatılmış ve şu anda çalışıyor demektir.
 
       Hizmetleri durdurmanız gerekirse (örneğin, bir yükseltme sırasında veya bakım yapmanız gerektiği için), her şeyi kapatmak için `rocketpool service stop` komutunu kullanabilirsiniz.
       Çıktı şöyle görünmelidir:
@@ -75,7 +75,7 @@ Değilse, lütfen önceki bölümleri gözden geçirin ve bu adımları tamamlad
       </p>
     </Tab>
     <Tab label="Hibrit Mod">
-      Artık Smartnode yüklü olduğuna göre, yığını başlatmak kolaydır.
+      Artık Smart Node yüklü olduğuna göre, yığını başlatmak kolaydır.
       Sadece aşağıdaki komutu girin:
 
       ```shell
@@ -98,7 +98,7 @@ Değilse, lütfen önceki bölümleri gözden geçirin ve bu adımları tamamlad
       Creating rocketpool_watchtower ... done
       ```
 
-      Eğer öyleyse, Smartnode yığını başarıyla başlatılmış ve şu anda çalışıyor demektir.
+      Eğer öyleyse, Smart Node yığını başarıyla başlatılmış ve şu anda çalışıyor demektir.
 
       Harici Yürütüm ve/veya Fikir Birliği istemcilerinizin burada listelenmeyeceğini unutmayın, çünkü Rocket Pool bunları yönetmez ve dolayısıyla başlatamaz.
       Bunları başlangıçta oluşturduğunuz mekanizmayı kullanarak ayrı olarak başlattığınızdan emin olmanız gerekecektir.
@@ -130,7 +130,7 @@ Değilse, lütfen önceki bölümleri gözden geçirin ve bu adımları tamamlad
 
     </Tab>
     <Tab label="Yerel Mod">
-      Yerel modda, [Docker Olmadan Yerel Rocket Pool Düğümü Yapılandırma](./native) bölümünün bir parçası olarak Smartnode hizmetlerini zaten kurdunuz ve başlattınız.
+      Yerel modda, [Docker Olmadan Yerel Rocket Pool Düğümü Yapılandırma](./native) bölümünün bir parçası olarak Smart Node hizmetlerini zaten kurdunuz ve başlattınız.
 
       Bunları `systemd` hizmetleri olarak kurduğunuzu varsayarsak, `sudo systemctl start ...` ile başlatabilirsiniz.
       Örneğin, Yürütüm için Geth ve Fikir Birliği için Teku kullanıyorsanız:
@@ -173,7 +173,7 @@ MEV-Boost client: Disabled
 Commit-Boost client: Disabled
 ```
 
-İlk satır, Smartnode'unuzun Ethereum mainnet'i için mi yoksa Hoodi testnet'i için mi yapılandırıldığını söyleyecektir.
+İlk satır, Smart Node'unuzun Ethereum mainnet'i için mi yoksa Hoodi testnet'i için mi yapılandırıldığını söyleyecektir.
 
 ::: warning NOT
 **Docker / Hibrit kullanıcıları için:**
@@ -188,7 +188,7 @@ Beklediğiniz ağda değilseniz, Rocket Pool Kurulumu bölümüne geri dönün v
 
 ## Hizmet Durumunu ve Günlüklerini Kontrol Etme
 
-Artık Smartnode hizmetleri başlatıldığına göre, hatasız bir şekilde doğru çalıştıklarını kontrol etmek iyi bir fikirdir.
+Artık Smart Node hizmetleri başlatıldığına göre, hatasız bir şekilde doğru çalıştıklarını kontrol etmek iyi bir fikirdir.
 
 <div className="p-3">
   <Tabs>
@@ -283,7 +283,7 @@ Artık Smartnode hizmetleri başlatıldığına göre, hatasız bir şekilde do�
       Harici olarak hangi istemcileri yönettiğinize bağlı olarak `eth1` ve/veya `eth2`'yi görmezden gelebilirsiniz, ancak Rocket Pool'un bunlardan birini yönetmesine izin veriyorsanız, şimdi bu komutu kullanarak durumunu kontrol etmelisiniz.
     </Tab>
     <Tab label="Yerel Mod">
-      Yerel modda durum ve günlükleri kontrol etmenin en kolay yolu, Smartnode hizmetlerini ilk kurduğunuzda oluşturduğunuz günlük betiklerini kullanmaktır.
+      Yerel modda durum ve günlükleri kontrol etmenin en kolay yolu, Smart Node hizmetlerini ilk kurduğunuzda oluşturduğunuz günlük betiklerini kullanmaktır.
 
       Örneğin, Geth'in günlüğünü kontrol etmek için şunu çalıştırırsınız:
 

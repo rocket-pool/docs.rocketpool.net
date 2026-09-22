@@ -3,16 +3,16 @@ import tui_cc_expose_ports from "./images/tui-cc-expose-ports.png";
 import tui_mev_expose_port from "./images/tui-mev-expose-ports.png";
 import tui_enable_ipv6 from "./images/tui-enable-ipv6.png";
 
-# Docker Modu için Gelişmiş Smartnode Yapılandırması
+# Docker Modu için Gelişmiş Smart Node Yapılandırması
 
-Bu bölümde, Smartnode'un özelleştirme ve işlevselliğini genişleten birkaç tekniği ele alacağız.
+Bu bölümde, Smart Node'un özelleştirme ve işlevselliğini genişleten birkaç tekniği ele alacağız.
 
-## Harici Doğrulayıcı İstemcilerinin Smartnode'a Bağlanmasına İzin Verme
+## Harici Doğrulayıcı İstemcilerinin Smart Node'a Bağlanmasına İzin Verme
 
-Smartnode, Yürütme istemcisini ve Beacon Node'u yönettiğinden, yapılandırmalarının (güncellemeler dahil) büyük bölümünü otomatik olarak halleder.
-Kullanıcıların sık dile getirdiği bir istek, harici olarak yönetilen bir Doğrulayıcı istemcisini Smartnode'un Yürütme ve Konsensüs istemcilerine bağlayabilme yeteneğidir.
+Smart Node, Yürütme istemcisini ve Beacon Node'u yönettiğinden, yapılandırmalarının (güncellemeler dahil) büyük bölümünü otomatik olarak halleder.
+Kullanıcıların sık dile getirdiği bir istek, harici olarak yönetilen bir Doğrulayıcı istemcisini Smart Node'un Yürütme ve Konsensüs istemcilerine bağlayabilme yeteneğidir.
 
-Bu, özünde bir tür **"Ters Hibrit" mod** olarak işlev görür; Smartnode kendi Doğrulayıcı istemcisini yönetip harici bir Yürütme ve Konsensüs istemcisine bağlanmak yerine, üçünü birden yönetir ve harici bir Doğrulayıcı istemcisi kendi istemcilerini kullanabilir.
+Bu, özünde bir tür **"Ters Hibrit" mod** olarak işlev görür; Smart Node kendi Doğrulayıcı istemcisini yönetip harici bir Yürütme ve Konsensüs istemcisine bağlanmak yerine, üçünü birden yönetir ve harici bir Doğrulayıcı istemcisi kendi istemcilerini kullanabilir.
 
 Bunu etkinleştirmek, [Ayarlar Yöneticisi](./config-docker#settings-manager-aracılığıyla-yapılandırma)'ni kullanarak son derece basittir.
 
@@ -59,11 +59,11 @@ Bu işlem, HTTP API portunu (varsayılan 18550) düğümünüzde açarak yerel a
 ## Docker-Compose Tanım Dosyalarını Özelleştirme
 
 Ayarlar Yöneticisi, düğümünüzü özelleştirmek için kullanabileceğiniz birçok seçenek içerse de `docker-compose`'un sağladığı tüm özellikleri kapsamaz.
-Bazı kullanıcılar, Smartnode'un `docker-compose` dosyalarına ek özelleştirmeler yapmayı gerektirir.
+Bazı kullanıcılar, Smart Node'un `docker-compose` dosyalarına ek özelleştirmeler yapmayı gerektirir.
 
 `docker-compose` dosyaları, `rocketpool service start` çağrıldığında her seferinde şablonlardan (`templates` dizini) yeniden oluşturulduğundan (`runtime` dizinine), çalışma zamanı dosyalarını değiştirmek önerilmez.
 Bunun yerine, `docker-compose`'un [yerleşik geçersiz kılma işlevselliğinden](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration) yararlanarak yeniden başlatmalarda korunan gerekli değişiklikleri yapabilirsiniz.
-Üstelik bu sistem, **Smartnode yığınının yükseltmesinden veya yeniden kurulumundan sonra da değişikliklerinizi korur**.
+Üstelik bu sistem, **Smart Node yığınının yükseltmesinden veya yeniden kurulumundan sonra da değişikliklerinizi korur**.
 
 Bunu yapmak için, `override` klasöründe tercih ettiğiniz konteynere ait dosyayı açın ve özelleştirmelerinizi buraya ekleyin.
 Bu dosyalara koyduğunuz her şey, `runtime` klasöründeki `docker-compose` dosyalarındaki ilgili ayarları **geçersiz kılacaktır**.
@@ -154,6 +154,14 @@ networks:
 ::: warning NOT
 Rocket Pool storage adresi olmayan bir ağ seçerseniz, Rocket Pool kontratlarına ihtiyaç duyan Smart Node node/protocol komutları o ağda çalışmaz. İstemci senkronizasyonu yine de devam edebilir.
 :::
+
+## Docker imaj sabitlemeleri
+
+Smart Node, resmi istemci ve Smart Node imajlarını digest ile sabitler; böylece yeniden etiketlenmiş bir imaj çekilemez.
+
+- Varsayılanlar `~/.rocketpool/mainnet.env` dosyasında `repo:tag@sha256:…` biçiminde bulunur. `rocketpool service install` bu dosyanın (ve `testnet.env` / `devnet.env` dosyalarının) her zaman üzerine yazar.
+- Yalnızca tek bir ağ için farklı bir imaj sabitlemek isterseniz, ilgili anahtarı eşleşen `{network}.env` dosyasına yazın. Yazmadığınız anahtarlar mainnet sabitlemesini devralır.
+- TUI'deki etiket alanları sabitlemeleri yine geçersiz kılar. Varsayılanı geri yükleyene kadar her iki env dosyasına da üstün gelirler.
 
 ## Node Daemon HTTP API
 

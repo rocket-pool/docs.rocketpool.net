@@ -38,7 +38,7 @@ validatorがアクティブになるまでの待機時間の目安を知るた�
 
 #### アドレスをステーキングのために代理でホワイトリストに追加する
 
-ノードの代理でステーキングするには、アドレスをホワイトリストに登録する必要があります。withdrawal addressは常にホワイトリストに登録されているため、RPLがwithdrawal addressで保持されている場合は、このステップをスキップできます。アドレスからステーキングするために、アドレスをホワイトリストに登録する必要があるのは一度だけです。以下のSmartnodeコマンドでこれを実行できます：
+ノードの代理でステーキングするには、アドレスをホワイトリストに登録する必要があります。withdrawal addressは常にホワイトリストに登録されているため、RPLがwithdrawal addressで保持されている場合は、このステップをスキップできます。アドレスからステーキングするために、アドレスをホワイトリストに登録する必要があるのは一度だけです。以下のSmart Nodeコマンドでこれを実行できます：
 
 ```shell
 rocketpool node add-address-to-stake-rpl-whitelist address-or-ens
@@ -93,7 +93,7 @@ RPLが承認されると、ノードの代理でステーキングできるよ�
 
 #### ステーキングホワイトリストからアドレスを削除する
 
-stake-on-behalfホワイトリストからアドレスを削除したい場合は、以下のSmartnodeコマンドで削除できます：
+stake-on-behalfホワイトリストからアドレスを削除したい場合は、以下のSmart Nodeコマンドで削除できます：
 
 ```shell
 rocketpool node remove-address-from-stake-rpl-whitelist address-or-ens
@@ -147,7 +147,7 @@ It can earn max apy on up to 151.209677 RPL (15% of borrowed ETH), and still ear
 ## （オプション）Minipool用のカスタムバニティアドレスの検索
 
 デフォルトでは、新しいminipoolを作成すると、Rocket Poolはランダムなユニークアドレスを生成します。
-ただし、Smartnodeはminipoolの**バニティアドレス**をカスタム検索する機能を提供しています。
+ただし、Smart Nodeはminipoolの**バニティアドレス**をカスタム検索する機能を提供しています。
 
 バニティアドレスとは、アドレスが始まる文字を個人的に選択するアドレスです。
 これは純粋に装飾的な演習であり、minipoolの動作に実質的な影響はありません。

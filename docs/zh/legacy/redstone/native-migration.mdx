@@ -6,7 +6,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 ## 升级到 v1.5.0 之前需要做的事情
 
-在升级到 Smartnode v1.5.0 及更高版本之前,请检查以下清单以确保您已准备就绪:
+在升级到 Smart Node v1.5.0 及更高版本之前,请检查以下清单以确保您已准备就绪:
 
 ### 切换到完整执行客户端
 
@@ -28,11 +28,11 @@ import { Tab, Tabs } from "@rspress/core/theme";
 CoinCashew 有[一份很棒且简明的指南](https://www.coincashew.com/coins/overview-eth/ethereum-merge-upgrade-checklist-for-home-stakers-and-validators),介绍如何在执行客户端和共识客户端上设置引擎 API。
 看看那个指南,并在升级之前通过确保它仍然正常证明来测试新配置。
 
-我们将在下面向您展示如何设置验证器客户端,使其自动使用 Smartnode 软件所需的正确费用接收者。
+我们将在下面向您展示如何设置验证器客户端,使其自动使用 Smart Node 软件所需的正确费用接收者。
 
 ## 升级到 v1.5.0
 
-将 Smartnode 栈升级到 v1.5.0 与任何其他升级没有什么不同。
+将 Smart Node 栈升级到 v1.5.0 与任何其他升级没有什么不同。
 只需遵循[此处的常规说明](../../node-staking/updates#更新-smartnode-堆栈)。
 
 ## 升级后应该做的事情
@@ -44,7 +44,7 @@ CoinCashew 有[一份很棒且简明的指南](https://www.coincashew.com/coins/
 首先要做的是确保您的节点正常工作。
 考虑采取以下步骤:
 
-- 检查执行客户端、共识客户端、验证器客户端和 Smartnode 守护程序(`rp-node` 服务)的日志脚本,以确保它们都正常运行且没有错误。
+- 检查执行客户端、共识客户端、验证器客户端和 Smart Node 守护程序(`rp-node` 服务)的日志脚本,以确保它们都正常运行且没有错误。
 - 通过区块浏览器(例如您的 Grafana 仪表板和 [https://beaconcha.in](https://beaconcha.in))确认您仍在正确证明
   - 请记住,如果您启用了 Doppelganger 保护,重启后您会错过几次证明。这是正常的!
 
@@ -56,12 +56,12 @@ CoinCashew 有[一份很棒且简明的指南](https://www.coincashew.com/coins/
 - 如果您**选择加入**平滑池,这必须是**平滑池合约**的地址。您可以从[官方合约页面](/zh/protocol/contracts-integrations)获取地址。
 - 如果您**未**加入平滑池,这必须是您节点的**费用分配器合约**的地址。您可以通过运行 `rocketpool node status`,在 `Fee Distributor and Smoothing Pool` 部分下获取地址。
 
-在原生模式下,如果您使用 Smartnode 守护程序服务 `rp-node`,您可以选择让 Smartnode 为您管理此项,或者如果您不使用守护程序,则自行管理。
+在原生模式下,如果您使用 Smart Node 守护程序服务 `rp-node`,您可以选择让 Smart Node 为您管理此项,或者如果您不使用守护程序,则自行管理。
 
 #### 通过守护程序自动管理
 
-Smartnode 守护程序将自动确定您节点的适当费用接收者,并在其发生变化时进行管理(例如选择加入和退出平滑池)。
-这是**最安全的**选项,因为 Smartnode 将始终确保将其设置为**防止[处罚](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)**的值。
+Smart Node 守护程序将自动确定您节点的适当费用接收者,并在其发生变化时进行管理(例如选择加入和退出平滑池)。
+这是**最安全的**选项,因为 Smart Node 将始终确保将其设置为**防止[处罚](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)**的值。
 
 它的工作方式是维护一个包含正确费用接收者的文件,并定期刷新以确保其正确性。
 当需要更新时,它会修改文件并自动重启您的验证器客户端,以便加载新接收者 - 类似于在质押新 minipool 后重启验证器客户端的方式。
@@ -89,7 +89,7 @@ Smartnode 守护程序将自动确定您节点的适当费用接收者,并在其
       --suggested-fee-recipient ${FEE_RECIPIENT}
       ```
 
-      您的验证器客户端现在将使用由 Smartnode 守护程序管理的文件,并在费用接收者更改时自动重启。
+      您的验证器客户端现在将使用由 Smart Node 守护程序管理的文件,并在费用接收者更改时自动重启。
     </Tab>
     <Tab label="Nimbus">
       在 `ExecStart` 行_之前_添加以下行来修改您的验证器客户端服务:
@@ -110,7 +110,7 @@ Smartnode 守护程序将自动确定您节点的适当费用接收者,并在其
       --suggested-fee-recipient=${FEE_RECIPIENT}
       ```
 
-      您的验证器客户端现在将使用由 Smartnode 守护程序管理的文件,并在费用接收者更改时自动重启。
+      您的验证器客户端现在将使用由 Smart Node 守护程序管理的文件,并在费用接收者更改时自动重启。
     </Tab>
     <Tab label="Prysm">
       在 `ExecStart` 行_之前_添加以下行来修改您的验证器客户端服务:
@@ -131,7 +131,7 @@ Smartnode 守护程序将自动确定您节点的适当费用接收者,并在其
       --suggested-fee-recipient ${FEE_RECIPIENT}
       ```
 
-      您的验证器客户端现在将使用由 Smartnode 守护程序管理的文件,并在费用接收者更改时自动重启。
+      您的验证器客户端现在将使用由 Smart Node 守护程序管理的文件,并在费用接收者更改时自动重启。
     </Tab>
     <Tab label="Teku">
       在 `ExecStart` 行_之前_添加以下行来修改您的验证器客户端服务:
@@ -152,7 +152,7 @@ Smartnode 守护程序将自动确定您节点的适当费用接收者,并在其
       --validators-proposer-default-fee-recipient=${FEE_RECIPIENT}
       ```
 
-      您的验证器客户端现在将使用由 Smartnode 守护程序管理的文件,并在费用接收者更改时自动重启。
+      您的验证器客户端现在将使用由 Smart Node 守护程序管理的文件,并在费用接收者更改时自动重启。
     </Tab>
 
   </Tabs>
@@ -279,7 +279,7 @@ Flashbots 届时将提供您可以遵循的说明,我们将在此处链接到它
 
 由于合并与 Infura 和 Pocket 等远程提供商不兼容,当您的主执行客户端离线时,您将失去将它们用作后备执行客户端的能力。
 
-Smartnode 仍然具有提供后备执行客户端(现在也提供后备共识客户端)的能力,但您现在需要使用您控制的执行客户端和共识客户端。
+Smart Node 仍然具有提供后备执行客户端(现在也提供后备共识客户端)的能力,但您现在需要使用您控制的执行客户端和共识客户端。
 
 有关设置后备节点的更多信息,请参阅[后备节点指南](../../node-staking/fallback)。
 
@@ -312,7 +312,7 @@ rocketpool node join-smoothing-pool
 
 Redstone 升级用[全新系统](./whats-new#新的奖励系统)替换了昂贵且有问题的旧奖励系统,该系统更便宜,支持 RPL 的自动重新质押(部分和全部金额),并且 - 最重要的是 - **让您可以随时索取奖励**。
 
-由于不再有索取奖励的时间限制,并且一次索取多个奖励间隔更便宜,Smartnode 的自动奖励索取功能**已被删除**。
+由于不再有索取奖励的时间限制,并且一次索取多个奖励间隔更便宜,Smart Node 的自动奖励索取功能**已被删除**。
 您现在可以通过以下命令索取奖励:
 
 ```shell

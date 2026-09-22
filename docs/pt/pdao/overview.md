@@ -10,11 +10,11 @@ Esta seção descreve o processo de configuração do seu nó para participar em
 
 ## Pré-requisitos
 
-Antes de configurar o seu Smartnode, certifique-se de que você:
+Antes de configurar o seu Smart Node, certifique-se de que você:
 
 - Configurou uma máquina de nó (ou máquina virtual) e a protegeu (através do guia [Protegendo o seu Nó](/pt/node-staking/securing-your-node))
-- Tem o Smartnode [instalado](/pt/node-staking/installing/overview) e [configurado](/pt/node-staking/config/overview) nele
-- Tem uma carteira de nó carregada no seu Smartnode
+- Tem o Smart Node [instalado](/pt/node-staking/installing/overview) e [configurado](/pt/node-staking/config/overview) nele
+- Tem uma carteira de nó carregada no seu Smart Node
 - Sincronizou os seus clientes de Execução e Consenso
 - Provisionou o seu nó com [um endereço de retirada](/pt/node-staking/prepare-node#definindo-seu-endereço-de-retirada-primário), configurou os seus [clientes de fallback](/pt/node-staking/fallback) (opcional), optou pelo [Smoothing Pool](/pt/node-staking/fee-distrib-sp#o-smoothing-pool) (opcional), e configurou [MEV](/pt/node-staking/mev)
 - Criou pelo menos um [minipool](/pt/node-staking/create-validator)
@@ -35,7 +35,7 @@ Antes de configurar o seu Smartnode, certifique-se de que você:
 
 [Inicializando o Poder de Voto](/pt/pdao/participate#inicializando-votação) mostra como inicializar o poder de voto do seu nó. Este passo é necessário apenas se o seu nó foi registrado antes da Atualização Houston.
 
-[Definindo o seu Endereço de Sinalização Snapshot](/pt/pdao/participate#definindo-o-seu-endereço-de-sinalização-snapshot) irá guiá-lo através dos passos para definir um Endereço de Sinalização. Isso permitirá que você vote no Snapshot usando o poder de voto do seu nó sem precisar carregar a chave privada do seu nó em uma carteira quente. Certifique-se de ter o CLI do seu Smartnode à mão e prepare um endereço (que não seja a carteira do seu nó) para este guia.
+[Definindo o seu Endereço de Sinalização Snapshot](/pt/pdao/participate#definindo-o-seu-endereço-de-sinalização-snapshot) irá guiá-lo através dos passos para definir um Endereço de Sinalização. Isso permitirá que você vote no Snapshot usando o poder de voto do seu nó sem precisar carregar a chave privada do seu nó em uma carteira quente. Certifique-se de ter o CLI do seu Smart Node à mão e prepare um endereço (que não seja a carteira do seu nó) para este guia.
 
 [Delegando o Poder de Voto](/pt/pdao/participate#delegando-o-poder-de-voto) é um comando rápido que você pode usar para delegar o poder de voto em vez de votar diretamente nas propostas.
 

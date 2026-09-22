@@ -5,7 +5,7 @@ Isso está atualmente escrito para instalações em **Modo Docker**.
 Alguns locais podem variar para usuários Hybrid ou Native.
 :::
 
-Em geral, se você criou sua carteira de nó e minipools através do Smartnode, a única coisa que você realmente precisa ter em mãos para recuperar seu nó de uma falha completa é o **mnemônico da sua carteira de nó**
+Em geral, se você criou sua carteira de nó e minipools através do Smart Node, a única coisa que você realmente precisa ter em mãos para recuperar seu nó de uma falha completa é o **mnemônico da sua carteira de nó**
 Todo o resto pode ser recuperado a partir dele com bastante facilidade.
 
 Se você tiver minipools que possuem chaves de validador geradas externamente (por exemplo, você migrou do **Allnodes** para seu próprio nó auto-hospedado), você precisará dos arquivos keystore privados para seus validadores também, já que eles não podem ser recuperados da carteira do nó.
@@ -17,16 +17,16 @@ Ter uma maneira rápida e confiável de se recuperar de uma falha do cliente Exe
 Neste guia, mostraremos como fazer backup de algumas dessas coisas para ajudar a melhorar a resiliência do seu nó e minimizar o tempo de inatividade desnecessário.
 
 ::: warning NOTA
-Este guia assume que você instalou o Smartnode no diretório padrão (`~/.rocketpool`).
+Este guia assume que você instalou o Smart Node no diretório padrão (`~/.rocketpool`).
 Se você especificou um diretório de instalação diferente, substitua-o adequadamente nas instruções abaixo.
 :::
 
 ## Itens Que Podem Ser Copiados em Backup
 
-### Configuração do Smartnode
+### Configuração do Smart Node
 
-A configuração do Smartnode é armazenada em `~/.rocketpool/user-settings.yml`.
-Você pode salvá-la e substituí-la para restaurar todas as suas configurações do Smartnode (ou seja, as coisas que você especificou em `rocketpool service config`).
+A configuração do Smart Node é armazenada em `~/.rocketpool/user-settings.yml`.
+Você pode salvá-la e substituí-la para restaurar todas as suas configurações do Smart Node (ou seja, as coisas que você especificou em `rocketpool service config`).
 
 ### Dados da Cadeia do Cliente Execution / Cliente ETH1
 
@@ -38,7 +38,7 @@ Os dados da cadeia são armazenados dentro do volume Docker `rocketpool_eth1clie
 Observe que esta pasta normalmente não é acessível por contas de usuário sem privilégios; você precisará elevar para o usuário `root` para vê-la.
 
 ::: tip NOTA
-Se você alterou o local de armazenamento do Docker durante a instalação inicial do Smartnode (como pessoas que executam Docker em um segundo SSD), você encontrará o volume em `/<seu ponto de montagem externo>/docker/volumes/rocketpool_eth1clientdata`
+Se você alterou o local de armazenamento do Docker durante a instalação inicial do Smart Node (como pessoas que executam Docker em um segundo SSD), você encontrará o volume em `/<seu ponto de montagem externo>/docker/volumes/rocketpool_eth1clientdata`
 
 Se você não se lembra de qual caminho de instalação você usa, você pode verificar `/etc/docker/daemon.json` para sua localização.
 Se o arquivo não existir, você usa o local padrão.
@@ -69,7 +69,7 @@ Clientes Consensus podem facilmente usar essa técnica para ressincronizar imedi
 
 ## Fazendo Backup dos Seus Dados da Cadeia Execution
 
-O Smartnode vem com a capacidade de fazer backup dos seus dados da cadeia Execution através do comando `rocketpool service export-eth1-data`.
+O Smart Node vem com a capacidade de fazer backup dos seus dados da cadeia Execution através do comando `rocketpool service export-eth1-data`.
 Por baixo dos panos, isso utiliza `rsync`, uma poderosa ferramenta de backup/cópia dentro do Linux.
 
 `rsync` compara os arquivos no diretório de origem (seu volume Docker) e o diretório de destino (sua localização de backup).

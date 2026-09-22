@@ -10,11 +10,11 @@ Cette section décrit le processus de configuration de votre nœud pour particip
 
 ## Prérequis
 
-Avant de configurer votre Smartnode, assurez-vous d'avoir :
+Avant de configurer votre Smart Node, assurez-vous d'avoir :
 
 - Configuré une machine de nœud (ou machine virtuelle) et sécurisé celle-ci (via le guide [Sécuriser votre nœud](/fr/node-staking/securing-your-node))
-- [Installé](/fr/node-staking/installing/overview) et [configuré](/fr/node-staking/config/overview) le Smartnode dessus
-- Chargé un portefeuille de nœud sur votre Smartnode
+- [Installé](/fr/node-staking/installing/overview) et [configuré](/fr/node-staking/config/overview) le Smart Node dessus
+- Chargé un portefeuille de nœud sur votre Smart Node
 - Synchronisé vos clients Execution et Consensus
 - Provisionné votre nœud avec [une adresse de retrait](/fr/node-staking/prepare-node#définition-de-votre-adresse-de-retrait-principale), configuré vos [clients de secours](/fr/node-staking/fallback) (optionnel), opté pour le [Smoothing Pool](/fr/node-staking/fee-distrib-sp#la-smoothing-pool) (optionnel), et configuré [MEV](/fr/node-staking/mev)
 - Créé au moins un [minipool](/fr/node-staking/create-validator)
@@ -35,7 +35,7 @@ Avant de configurer votre Smartnode, assurez-vous d'avoir :
 
 [Initialiser le pouvoir de vote](/fr/pdao/participate#initialiser-le-vote) vous montre comment initialiser le pouvoir de vote de votre nœud. Cette étape n'est requise que si votre nœud a été enregistré avant la mise à niveau Houston.
 
-[Définir votre adresse de signalisation snapshot](/fr/pdao/participate#définir-votre-adresse-de-signalisation-snapshot) vous guidera à travers les étapes pour définir une adresse de signalisation. Cela vous permettra de voter sur snapshot en utilisant le pouvoir de vote de votre nœud sans avoir besoin de charger la clé privée de votre nœud sur un portefeuille actif. Assurez-vous d'avoir votre CLI Smartnode à portée de main et préparez une adresse (qui n'est pas votre portefeuille de nœud) pour ce guide.
+[Définir votre adresse de signalisation snapshot](/fr/pdao/participate#définir-votre-adresse-de-signalisation-snapshot) vous guidera à travers les étapes pour définir une adresse de signalisation. Cela vous permettra de voter sur snapshot en utilisant le pouvoir de vote de votre nœud sans avoir besoin de charger la clé privée de votre nœud sur un portefeuille actif. Assurez-vous d'avoir votre CLI Smart Node à portée de main et préparez une adresse (qui n'est pas votre portefeuille de nœud) pour ce guide.
 
 [Déléguer le pouvoir de vote](/fr/pdao/participate#déléguer-le-pouvoir-de-vote) est une commande rapide que vous pouvez utiliser pour déléguer le pouvoir de vote au lieu de voter directement sur les propositions.
 

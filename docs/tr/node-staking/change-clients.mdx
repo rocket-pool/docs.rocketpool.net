@@ -15,16 +15,16 @@ Ancak, client seçiminizi değiştirmek isteyebileceğiniz birkaç durum vardır
 - Farklı bir client'ın sunduğu yeni bir özelliği denemek istersiniz
 - Farklı bir client node'unuzun donanımına daha uygun (örneğin bazı client'lar ARM sistemlerinde diğerlerinden daha iyidir)
 
-Neyse ki, Smartnode stack'i client'ları değiştirmeyi son derece kolaylaştırır.
+Neyse ki, Smart Node stack'i client'ları değiştirmeyi son derece kolaylaştırır.
 Yapılandırma TUI'sinde birkaç değişiklik ve client'ları değiştirmeden önce mevcut client verilerinizi yedeklemek için bazı isteğe bağlı ekstra komutlar yeterlidir.
 
 ## Execution Client'larını Değiştirme
 
 Execution client'ınızı değiştirmeden önce, aşağıdaki noktaları not etmekte fayda vardır:
 
-- Zincir verisi client'lar arasında **paylaşılmaz**. Yeni client'ınızın Mainnet zincir verisini yeniden senkronize etmesi gerekecektir, bu biraz zaman alabilir (ancak her client, Smartnode'un yeniden senkronizasyonu hızlandırmak için kullandığı snap sync'i destekler).
-- Varsayılan olarak, Smartnode eski client'ınızın zincir verisini sürücünüzde bırakacaktır, böylece eski Execution client'ınıza geri dönmek ve kaldığınız yerden devam etmek isterseniz. Client'ları değiştirmeden önce **başka bir konuma dışa aktarmak** ve alan açmak için silmek isteyebilirsiniz, çünkü Execution client'lar yüzlerce gigabayt kullanabilir. Bunu nasıl yapacağınıza dair aşağıda adımlar bulunmaktadır.
-- Yeni client'ınız yeniden senkronize olurken, Smartnode CLI fonksiyonlarının çoğu çevrimdışı olacaktır çünkü Execution client'a güvenirler. **Smartnode'unuzdaki kesinti süresini azaltmak için bunu yapmadan önce bir yedek Execution client'ınız olmalıdır.**
+- Zincir verisi client'lar arasında **paylaşılmaz**. Yeni client'ınızın Mainnet zincir verisini yeniden senkronize etmesi gerekecektir, bu biraz zaman alabilir (ancak her client, Smart Node'un yeniden senkronizasyonu hızlandırmak için kullandığı snap sync'i destekler).
+- Varsayılan olarak, Smart Node eski client'ınızın zincir verisini sürücünüzde bırakacaktır, böylece eski Execution client'ınıza geri dönmek ve kaldığınız yerden devam etmek isterseniz. Client'ları değiştirmeden önce **başka bir konuma dışa aktarmak** ve alan açmak için silmek isteyebilirsiniz, çünkü Execution client'lar yüzlerce gigabayt kullanabilir. Bunu nasıl yapacağınıza dair aşağıda adımlar bulunmaktadır.
+- Yeni client'ınız yeniden senkronize olurken, Smart Node CLI fonksiyonlarının çoğu çevrimdışı olacaktır çünkü Execution client'a güvenirler. **Smart Node'unuzdaki kesinti süresini azaltmak için bunu yapmadan önce bir yedek Execution client'ınız olmalıdır.**
 
 ### (İsteğe Bağlı) Execution Client'ınızın Veritabanını Dışa Aktarma
 

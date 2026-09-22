@@ -62,7 +62,7 @@ Please type `direct` or `delegate` to continue:
 - Wenn Sie mit `direct` antworten, wird die Abstimmungskraft auf Ihre Node initialisiert und Sie können direkt über Protocol DAO-Vorschläge abstimmen.
 - Wenn Sie mit `delegate` antworten, haben Sie die Möglichkeit, etwas Gas zu sparen, indem Sie die Abstimmung initialisieren und [einen Delegierten festlegen](/de/legacy/houston/participate#abstimmungskraft-delegieren) innerhalb derselben Transaktion.
 
-Sie müssen dies nur einmal tun. Es konfiguriert die anfänglichen Snapshot-Informationen für eine Node. Nachdem Sie die Abstimmung initialisiert haben, aktualisiert jede durchgeführte Aktion die Snapshot-Informationen Ihrer Node. Sobald Ihre Abstimmungskraft initialisiert ist, können Sie überprüfen, wie viel Sie haben, indem Sie den folgenden Smartnode-Befehl verwenden:
+Sie müssen dies nur einmal tun. Es konfiguriert die anfänglichen Snapshot-Informationen für eine Node. Nachdem Sie die Abstimmung initialisiert haben, aktualisiert jede durchgeführte Aktion die Snapshot-Informationen Ihrer Node. Sobald Ihre Abstimmungskraft initialisiert ist, können Sie überprüfen, wie viel Sie haben, indem Sie den folgenden Smart Node-Befehl verwenden:
 
 ```shell
 rocketpool pdao status
@@ -74,7 +74,7 @@ Immer wenn ein neuer Vorschlag erstellt wird, wird ein Abstimmungsbaum erstellt,
 
 ## Auto Initialize Vote Power
 
-Smartnode Version `1.13.8` führt eine neue Funktion **Auto Initialize Vote Power** ein, die entwickelt wurde, um die Abstimmungskraft auf Nodes, die dies noch nicht getan haben, automatisch zu initialisieren. Automatisch initialisierte Abstimmungskraft ist selbst-delegiert. Diese Funktion kann in den Smartnode-Einstellungen konfiguriert werden, indem Sie `rocketpool service config` ausführen und zum Abschnitt **Smartnode and TX Fees** navigieren.
+Smart Node Version `1.13.8` führt eine neue Funktion **Auto Initialize Vote Power** ein, die entwickelt wurde, um die Abstimmungskraft auf Nodes, die dies noch nicht getan haben, automatisch zu initialisieren. Automatisch initialisierte Abstimmungskraft ist selbst-delegiert. Diese Funktion kann in den Smart Node-Einstellungen konfiguriert werden, indem Sie `rocketpool service config` ausführen und zum Abschnitt **Smart Node and TX Fees** navigieren.
 
 <img src="./images/auto_init_vp.png" width="100%" height="auto" />
 
@@ -118,7 +118,7 @@ Sobald Sie sich angemeldet und Ihre Node-Adresse bestätigt haben, sehen Sie Ihr
 `snapshot signalling address` may delegate to me for Rocket Pool governance
 ```
 
-Das Signieren kostet Sie kein Gas, aber das Festlegen schon. Nachdem Sie signiert haben, gibt Ihnen das Frontend einen Befehl zum Einfügen in den Smartnode. Fügen Sie ihn in die CLI Ihres Smartnodes ein und folgen Sie den angezeigten Schritten. Der Befehl sollte etwa so aussehen:
+Das Signieren kostet Sie kein Gas, aber das Festlegen schon. Nachdem Sie signiert haben, gibt Ihnen das Frontend einen Befehl zum Einfügen in den Smart Node. Fügen Sie ihn in die CLI Ihres Smart Nodes ein und folgen Sie den angezeigten Schritten. Der Befehl sollte etwa so aussehen:
 
 ```shell
 rocketpool pdao set-signalling-address
@@ -146,7 +146,7 @@ rocketpool pdao clear-signalling-address
 
 Sie können diesen Schritt ignorieren, wenn Sie nur daran interessiert sind, über einen Vorschlag abzustimmen. RPL-Sperrung erlauben ist nur für diejenigen erforderlich, die einen Vorschlag einbringen oder anfechten möchten.
 
-RPL-Sperrung ist für das Einbringen und Anfechten erforderlich. Standardmäßig ist das Sperren von RPL für jeden Zweck deaktiviert. Node-Betreiber werden sich für die Durchführung von Governance-Aktivitäten entscheiden, indem sie die Sperrung von RPL von ihrer Node oder primären Auszahlungsadresse aktivieren. Sie können dies mit diesem Befehl im Smartnode tun:
+RPL-Sperrung ist für das Einbringen und Anfechten erforderlich. Standardmäßig ist das Sperren von RPL für jeden Zweck deaktiviert. Node-Betreiber werden sich für die Durchführung von Governance-Aktivitäten entscheiden, indem sie die Sperrung von RPL von ihrer Node oder primären Auszahlungsadresse aktivieren. Sie können dies mit diesem Befehl im Smart Node tun:
 
 ```shell
 rocketpool node allow-rpl-locking
@@ -455,7 +455,7 @@ Sie müssen einige Eingaben vorbereiten, um eine wiederkehrende Treasury-Ausgabe
 Der Empfänger muss sich den Vertragsnamen merken, um Zahlungen zu beanspruchen. Machen Sie sich keine Sorgen, da diese Informationen gespeichert werden und mit dem Befehl `rocketpool pdao proposals details <proposal-id>` abgerufen werden können
 :::
 
-Um einen Vorschlag zur Einrichtung einer wiederkehrenden Treasury-Ausgabe einzubringen, verwenden Sie den folgenden Smartnode-Befehl und folgen Sie den Aufforderungen:
+Um einen Vorschlag zur Einrichtung einer wiederkehrenden Treasury-Ausgabe einzubringen, verwenden Sie den folgenden Smart Node-Befehl und folgen Sie den Aufforderungen:
 
 ```shell
 rocketpool pdao propose recurring-spend

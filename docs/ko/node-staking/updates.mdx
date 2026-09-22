@@ -99,9 +99,9 @@ import tuiCcContainerTag from "./images/tui-cc-container-tag.png";
   </Tabs>
 </div>
 
-## Smartnode 스택 업데이트
+## Smart Node 스택 업데이트
 
-때때로 Rocket Pool은 Smartnode 스택의 새 버전을 릴리스합니다.
+때때로 Rocket Pool은 Smart Node 스택의 새 버전을 릴리스합니다.
 업데이트에는 CLI 또는 Rocket Pool Docker 컨테이너의 새 버전과 Execution 및 Consensus 클라이언트의 새 버전이 포함될 수 있습니다.
 
 새 릴리스에 대해 알아보는 가장 일관된 방법은 Rocket Pool Discord 서버를 구독하는 것입니다. 항상 Releases 채널에 게시되며 알림을 받게 됩니다.
@@ -112,7 +112,7 @@ import tuiCcContainerTag from "./images/tui-cc-container-tag.png";
 :::
 
 ::: tip 팁
-Smartnode 업그레이드를 완료하면 Grafana 대시보드에 여전히 업데이트를 사용할 수 있다고 표시됩니다.
+Smart Node 업그레이드를 완료하면 Grafana 대시보드에 여전히 업데이트를 사용할 수 있다고 표시됩니다.
 시스템이 다음에 업데이트를 자동으로 확인할 때 하루 이내에 자동으로 지워집니다.
 
 업데이트 후 즉시 지우려면 다음을 실행하기만 하면 됩니다:
@@ -164,7 +164,7 @@ uname -m
       Downloading the signature from https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-amd64.sig
       Signed by 651023D62E70B5DD
         Fornax <dante@rocketpool.net>
-      Updating from 1.22.1 to 1.23.0
+      Updating from 1.24.0 to 1.24.2
 
       The cli has been updated.
 
@@ -174,7 +174,7 @@ uname -m
       이 시점에서 모든 대화형 프롬프트에 `y`를 선택하면 Smart Node가 나머지 단계를 안내합니다.
       완료되면 업그레이드가 성공했음을 확인하는 메시지가 표시됩니다:
       ```
-      The upgrade to Smart Node 1.23.0 has been completed.
+      The upgrade to Smart Node 1.24.2 has been completed.
       Please monitor your validators for a few minutes for issues.
       ```
 
@@ -189,7 +189,7 @@ uname -m
       rocketpool service stop
       ```
 
-      새 Smartnode CLI를 다운로드합니다:
+      새 Smart Node CLI를 다운로드합니다:
 
       `x64` 시스템의 경우(대부분의 일반 머신):
 
@@ -223,7 +223,7 @@ uname -m
       rocketpool service start
       ```
 
-      마지막으로 버전을 확인하여 CLI와 Smartnode 스택이 모두 최신 상태인지 확인합니다:
+      마지막으로 버전을 확인하여 CLI와 Smart Node 스택이 모두 최신 상태인지 확인합니다:
 
       ```shell
       rocketpool service version
@@ -234,8 +234,8 @@ uname -m
       ```
       Your Smartnode is currently using the Hoodi Test Network.
 
-      Rocket Pool client version: 1.23.0
-      Rocket Pool service version: 1.23.0
+      Rocket Pool client version: 1.24.2
+      Rocket Pool service version: 1.24.2
       Selected Eth 1.0 client: Geth (Locally managed)
       Image: ethereum/client-go:v1.10.21
       Selected Eth 2.0 client: Lighthouse (Locally managed)
@@ -247,7 +247,7 @@ uname -m
     <Tab label="수동 업데이트 - Linux (Native Mode)">
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">참고</p>
-        이것은 Smartnode 스택 자체만 업데이트합니다. Execution 또는 Consensus 클라이언트를 업데이트하지 **않습니다**.
+        이것은 Smart Node 스택 자체만 업데이트합니다. Execution 또는 Consensus 클라이언트를 업데이트하지 **않습니다**.
         이것은 수동으로 수행해야 합니다(아래 다음 섹션 참조).
       </p>
 
@@ -257,7 +257,7 @@ uname -m
       sudo systemctl stop rp-node rp-watchtower
       ```
 
-      새 Smartnode CLI를 다운로드하고 필요한 경우 이전 CLI 및 데몬 바이너리를 백업합니다:
+      새 Smart Node CLI를 다운로드하고 필요한 경우 이전 CLI 및 데몬 바이너리를 백업합니다:
 
       `x64` 시스템의 경우(대부분의 일반 머신):
 
@@ -299,13 +299,13 @@ uname -m
       sudo systemctl start rp-node rp-watchtower
       ```
 
-      마지막으로 버전을 확인하여 CLI와 Smartnode 스택이 모두 최신 상태인지 확인합니다:
+      마지막으로 버전을 확인하여 CLI와 Smart Node 스택이 모두 최신 상태인지 확인합니다:
 
       ```
       rocketpool service version
 
-      Rocket Pool client version: 1.23.0
-      Rocket Pool service version: 1.23.0
+      Rocket Pool client version: 1.24.2
+      Rocket Pool service version: 1.24.2
       Selected Eth 1.0 client: Geth (Locally managed)
       Selected Eth 2.0 client: Nimbus (Locally managed)
       ```
@@ -319,7 +319,7 @@ uname -m
       rocketpool service stop
       ```
 
-      새 Smartnode CLI를 다운로드합니다:
+      새 Smart Node CLI를 다운로드합니다:
 
       `x64` 시스템의 경우(대부분의 Mac):
 
@@ -353,13 +353,13 @@ uname -m
       rocketpool service start
       ```
 
-      마지막으로 버전을 확인하여 CLI와 Smartnode 스택이 모두 최신 상태인지 확인합니다:
+      마지막으로 버전을 확인하여 CLI와 Smart Node 스택이 모두 최신 상태인지 확인합니다:
 
       ```shell
       rocketpool service version
 
-      Rocket Pool client version: 1.23.0
-      Rocket Pool service version: 1.23.0
+      Rocket Pool client version: 1.24.2
+      Rocket Pool service version: 1.24.2
       Selected Eth 1.0 client: Geth (Locally managed)
       Selected Eth 2.0 client: Nimbus (Locally managed)
       ```
@@ -373,14 +373,16 @@ uname -m
 
 ## Execution 또는 Consensus 클라이언트 수동 업데이트
 
-Smartnode 스택의 각 새 릴리스에는 Execution 및 Consensus Docker 컨테이너의 최신 호환 버전에 대한 업데이트된 참조가 포함됩니다.
-그러나 경우에 따라 새 Smartnode 스택 릴리스를 기다리기 _전에_ 해당 클라이언트 중 하나를 업그레이드하고 싶을 수 있습니다.
-이 섹션에서는 바로 그 방법을 보여줍니다.
+Smart Node의 각 새 릴리스에는 Execution, Consensus 및 Smart Node 컨테이너에 대해 고정된 Docker 이미지 다이제스트가 포함됩니다(`~/.rocketpool/mainnet.env`의 `repo:tag@sha256:…`). `rocketpool service install`은 이러한 공식 고정 파일을 덮어씁니다. 경우에 따라 새 Smart Node 릴리스를 기다리기 _전에_ 다른 클라이언트 이미지를 실행하고 싶을 수 있습니다. 이 섹션에서는 그 방법을 설명합니다.
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker Mode">
       Docker 모드에서 새 클라이언트 버전으로 업데이트하는 것은 쉽습니다.
+
+      Smart Node는 이제 클라이언트 이미지와 Smart Node 이미지를 다이제스트로 고정합니다.
+      TUI에서 **Container Tag**를 변경하면 다음 Smart Node 릴리스 전에도 다른 태그나 다이제스트를 실행할 수 있습니다.
+      `rocketpool service install` 또는 `rocketpool update`를 실행하면 `mainnet.env`의 공식 고정값이 교체됩니다. TUI에서 지정한 재정의는 이를 지우기 전까지 계속 우선합니다.
 
       먼저 Settings Manager를 엽니다:
 
@@ -399,7 +401,11 @@ Smartnode 스택의 각 새 릴리스에는 Execution 및 Consensus Docker 컨�
       <img src={tuiCcContainerTag} width="100%" height="auto"/>
 
       변경 사항에 만족하면 평소대로 저장하고 종료합니다.
-      Smartnode는 영향을 받는 모든 컨테이너를 자동으로 재시작할 것을 제안합니다.
+      Smart Node는 영향을 받는 모든 컨테이너를 자동으로 재시작할 것을 제안합니다.
+
+      ::: tip 참고
+      공식 고정값은 `~/.rocketpool/mainnet.env`에 있습니다. 지속적인 변경을 위해 이 파일을 편집하지 마십시오. 설치 시 덮어써집니다. 선택적인 네트워크별 재정의는 `~/.rocketpool/testnet.env` 또는 `~/.rocketpool/devnet.env`에 넣습니다(설정한 키만 mainnet 고정값을 대체합니다). Settings Manager에서 설정한 **Container Tag**는 해당 서비스의 고정값을 재정의합니다. 공식 다이제스트를 유지하려면 기본값으로 두십시오.
+      :::
     </Tab>
     <Tab label="Native Mode">
       먼저 업데이트하려는 항목에 따라 Execution 클라이언트, Beacon Node 및/또는 Validator 클라이언트 서비스를 종료합니다.

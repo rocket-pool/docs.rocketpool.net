@@ -14,7 +14,7 @@ Derzeit erfolgen Checkpoints **alle 28 Tage**.
 Bei einem neuen Checkpoint erstellt das Oracle DAO gemeinsam einen **echten Snapshot** des Zustands der Node Operators im Rocket Pool-Netzwerk, mit dem die RPL- und Smoothing Pool ETH-Belohnungen für jeden Node während dieses Intervalls ermittelt werden. Beachten Sie, dass "Bonuskommission" für Saturn 0 Minipools über Smoothing Pool Belohnungen verteilt wird (Saturn 0 Minipools sind diejenigen, die nach dem 28.10.2024 erstellt wurden und eine Vertragskommission von 5% haben).
 
 Diese Informationen werden in einem [Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree) zusammengestellt - eine äußerst effiziente Methode, um alle Details für Smart Contracts verfügbar zu machen.
-Der Merkle Tree wird in eine JSON-Datei eingebettet und in [einem GitHub-Repository, das wir pflegen](https://github.com/rocket-pool/rewards-trees/), gehostet. Der Smartnode kann die **Events** eines Belohnungsintervalls auch aus diesem GitHub-Repository laden, sodass Sie auch dann noch beanspruchen können, wenn ein aggressiver Ablauf der Historie alte Logs der Execution-Ebene entfernt hat.
+Der Merkle Tree wird in eine JSON-Datei eingebettet und in [einem GitHub-Repository, das wir pflegen](https://github.com/rocket-pool/rewards-trees/), gehostet. Der Smart Node kann die **Events** eines Belohnungsintervalls auch aus diesem GitHub-Repository laden, sodass Sie auch dann noch beanspruchen können, wenn ein aggressiver Ablauf der Historie alte Logs der Execution-Ebene entfernt hat.
 
 Sobald der Tree eingereicht wurde, prägen die Rocket Pool Smart Contracts neue RPL-Token und verschieben sie zusammen mit dem gesamten ETH-Guthaben des Smoothing Pools zur sicheren Aufbewahrung in den Rocket Pool-Tresor.
 Sie können dann sehen, wie viele RPL- und ETH-Belohnungen Sie während dieses Intervalls verdient haben, und diese Belohnungen beanspruchen.
@@ -84,10 +84,10 @@ Wenn Sie den Baum lieber selbst generieren möchten, anstatt den vorbereiteten v
 - Ändern Sie den `Rewards Tree Mode` von `Download` auf `Generate`.
 - Wenn Ihr primärer Execution Client kein Archiv-Node ist, können Sie eine URL für einen separaten Archiv-Node im Feld `Archive-Mode EC URL` hinzufügen.
   - Dies ist erforderlich, um historische Belohnungsbäume zu generieren.
-  - Der Archiv-EC wird nur zur Baumgenerierung verwendet; er wird nicht für andere Smartnode-Aufgaben verwendet.
+  - Der Archiv-EC wird nur zur Baumgenerierung verwendet; er wird nicht für andere Smart Node-Aufgaben verwendet.
   - [Infura](https://infura.io/product/ethereum) und [Alchemy](https://www.alchemy.com/supernode) bieten Archiv-Node-Zugriff an. **Beachten Sie, dass die kostenlosen Stufen normalerweise nicht ausreichen, um die Baumgenerierung zu bewältigen, sodass Sie eine der kostenpflichtigen Stufen benötigen.**
 
-Jetzt erstellt Ihr Smartnode den Baum vollständig unabhängig vom Oracle DAO, nur unter Verwendung der von Ihren Execution- und Consensus-Clients bereitgestellten Daten.
+Jetzt erstellt Ihr Smart Node den Baum vollständig unabhängig vom Oracle DAO, nur unter Verwendung der von Ihren Execution- und Consensus-Clients bereitgestellten Daten.
 Sie können es während eines Belohnungsintervall-Checkpoints mit `rocketpool service logs watchtower` beobachten.
 
 Wenn Sie vergangene Bäume aus früheren Intervallen neu erstellen möchten, können Sie dies mit folgendem Befehl tun:

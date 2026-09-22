@@ -2,10 +2,10 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # 使用 Docker 创建标准 Rocket Pool 节点
 
-在本节中，我们将逐步介绍使用基于标准 [Docker](https://www.docker.com/resources/what-container) 的设置来安装 Rocket Pool Smartnode 堆栈的过程。
+在本节中，我们将逐步介绍使用基于标准 [Docker](https://www.docker.com/resources/what-container) 的设置来安装 Rocket Pool Smart Node 堆栈的过程。
 这将安装和配置运行完整节点所需的一切，包括：
 
-- Rocket Pool **Smartnode** 软件
+- Rocket Pool **Smart Node** 软件
 - 您选择的**执行**（原 ETH1）客户端，或连接到您已经管理的现有客户端
 - 您选择的**共识**（原 ETH2）客户端，或连接到您已经管理的现有客户端
 - 处理您的信标链验证职责的**验证器**客户端
@@ -25,8 +25,8 @@ import { Tab, Tabs } from "@rspress/core/theme";
 在高层次上，以下是安装 Rocket Pool 所涉及的内容：
 
 1. 下载 Rocket Pool 命令行界面（CLI）
-1. 使用 CLI 安装 Smartnode 堆栈
-1. 在终端中使用易于使用的 UI 配置 Smartnode 堆栈
+1. 使用 CLI 安装 Smart Node 堆栈
+1. 在终端中使用易于使用的 UI 配置 Smart Node 堆栈
 1. 完成！
 
 ## 开始之前
@@ -34,7 +34,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 ::: warning
 如果使用 Ubuntu，建议在安装 Rocket Pool 之前仔细检查操作系统安装时是否一同安装了 docker。
 
-Ubuntu 安装程序从 snap 软件包管理器获取 docker，这将与 Smartnode 安装的 docker 版本冲突。
+Ubuntu 安装程序从 snap 软件包管理器获取 docker，这将与 Smart Node 安装的 docker 版本冲突。
 
 运行 `snap list`，并确保未安装 `docker`。
 
@@ -132,7 +132,7 @@ sudo snap remove --purge docker
       ```
 
       ```shell
-      rocketpool version 1.23.0
+      rocketpool version 1.24.2
       ```
 
       <p className="rspress-directive tip">
@@ -198,7 +198,7 @@ sudo snap remove --purge docker
       ```
 
       ```
-      rocketpool version 1.23.0
+      rocketpool version 1.24.2
       ```
 
       <p className="rspress-directive tip">
@@ -218,19 +218,19 @@ sudo snap remove --purge docker
   </Tabs>
 </div>
 
-## 安装 Smartnode 堆栈
+## 安装 Smart Node 堆栈
 
-现在您已经安装了 CLI，可以部署 Smartnode 堆栈了。
-这将使用 Docker、[docker-compose](https://docs.docker.com/compose/) 准备您的系统，并加载 Smartnode 文件，使它们准备就绪。
+现在您已经安装了 CLI，可以部署 Smart Node 堆栈了。
+这将使用 Docker、[docker-compose](https://docs.docker.com/compose/) 准备您的系统，并加载 Smart Node 文件，使它们准备就绪。
 它实际上还不会运行任何东西；那将在稍后进行。
 
-要部署 Smartnode 堆栈，您需要在节点机器上运行以下命令（通过本地登录或通过 SSH 等方式远程连接）：
+要部署 Smart Node 堆栈，您需要在节点机器上运行以下命令（通过本地登录或通过 SSH 等方式远程连接）：
 
 ```shell
 rocketpool service install
 ```
 
-这将获取最新版本的 Smartnode 堆栈并进行设置。
+这将获取最新版本的 Smart Node 堆栈并进行设置。
 您应该看到这样的输出（_在最后将打印最新版本的一些发行说明的上方_）：
 
 <img src="./images/rp-install-screen.png" width="100%" height="auto" />
@@ -239,7 +239,7 @@ rocketpool service install
 默认情况下，它将被放入您用户帐户主文件夹内的 `~/.rocketpool` 目录中。
 
 ::: warning 注意
-请注意，Smartnode 安装程序无法在所有平台上自动安装 `docker` 和 `docker-compose`。
+请注意，Smart Node 安装程序无法在所有平台上自动安装 `docker` 和 `docker-compose`。
 如果您在安装过程中收到这样的错误消息：
 
 ```
@@ -271,7 +271,7 @@ rocketpool service install -d
 
 在此之后，**注销并重新登录或重启您的 SSH 会话**以使设置生效。
 
-完成此操作后，Smartnode 堆栈将准备就绪可以运行。
+完成此操作后，Smart Node 堆栈将准备就绪可以运行。
 
 ## 配置 Docker 的存储位置
 
@@ -314,7 +314,7 @@ sudo systemctl restart docker
 
 之后，Docker 将在您所需的磁盘上存储其数据。
 
-## 配置 Smartnode 堆栈
+## 配置 Smart Node 堆栈
 
 安装过程的下一步是对节点进行初始配置。
 继续到[配置 Rocketpool](./config/overview)部分以获取此过程的演练。

@@ -20,13 +20,13 @@ GethまたはNethermindを使用するすべてのNode Operatorは、いずれ�
 
 [Grafanaダッシュボード](./grafana)を有効にしている場合、ノードの使用済みディスク容量が80%を超えたら、Execution clientのプルーニングを検討し始める良い目安になります。
 
-プルーニングの時期が来たと判断したら、Smartnodeはリクエストに応じてプルーニングを実行する機能を備えています。
+プルーニングの時期が来たと判断したら、Smart Nodeはリクエストに応じてプルーニングを実行する機能を備えています。
 以下を読んで、仕組みと予想される動作を学んでください。
 
 ::: warning 注記
 Execution clientのプルーニングはDockerモードでのみ可能です。
 
-Hybridモードの外部クライアントやNativeモードなど、独自のExecution clientを使用している場合、Smartnodeを使用してExecution clientをプルーニングすることはできません。
+Hybridモードの外部クライアントやNativeモードなど、独自のExecution clientを使用している場合、Smart Nodeを使用してExecution clientをプルーニングすることはできません。
 手動で行う必要があります。
 Execution clientのドキュメントを参照して、プルーニング方法を学んでください。
 :::
@@ -39,10 +39,10 @@ Execution clientのドキュメントを参照して、プルーニング方法�
   <Tabs>
     <Tab label="Geth">
       Gethをプルーニングするということは、主要なExecution clientをオフラインにして、自身をクリーンアップさせることを意味します。
-      これが発生すると、Smartnode（およびConsensus client）は正常に機能するためにETH1チェーンにアクセスする他の方法が必要になります。
+      これが発生すると、Smart Node（およびConsensus client）は正常に機能するためにETH1チェーンにアクセスする他の方法が必要になります。
 
       これを提供する最も簡単な方法は**fallbackノード**を使用することです。
-      `rocketpool service config`を使用して既に[fallbackノードを設定](./fallback)している場合、Gethコンテナがメンテナンスのためにダウンすると、Smartnodeは自動的にそれに切り替わります。
+      `rocketpool service config`を使用して既に[fallbackノードを設定](./fallback)している場合、Gethコンテナがメンテナンスのためにダウンすると、Smart Nodeは自動的にそれに切り替わります。
       また、Consensus clientにもfallbackを使用するよう通知します。
 
       <p className="rspress-directive warning">
@@ -102,7 +102,7 @@ Execution clientのドキュメントを参照して、プルーニング方法�
       Are you sure you want to prune your main execution client? [y/n]
       ```
 
-      承認すると、Smartnodeが準備を進める際にいくつかの詳細が表示され、最後に成功メッセージが表示されるはずです。
+      承認すると、Smart Nodeが準備を進める際にいくつかの詳細が表示され、最後に成功メッセージが表示されるはずです。
 
       ```
       Are you sure you want to prune your main ETH1 client? [y/n]
@@ -126,7 +126,7 @@ Execution clientのドキュメントを参照して、プルーニング方法�
       rocketpool service logs eth1
       ```
 
-      プルーニングが完了すると自動的に再起動し、Smartnodeはfallbackの代わりに再びGethを使用するようになります。
+      プルーニングが完了すると自動的に再起動し、Smart Nodeはfallbackの代わりに再びGethを使用するようになります。
     </Tab>
     <Tab label="Nethermind">
       Nethermindをプルーニングする場合は、このコマンドを実行するだけです。

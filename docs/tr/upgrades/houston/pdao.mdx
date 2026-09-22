@@ -76,7 +76,7 @@ Bu aşağıdaki komut kullanılarak yapılabilir:
 rocketpool pdao proposals vote
 ```
 
-Veto çoğunluğu (`proposal.veto.quorum` parametresi tarafından tanımlandığı gibi) karşılanırsa, teklif hemen yenilir ve teklif sahibi bonusunu kaybeder. Bu, spam'i, düşük kaliteli teklifleri veya önce zincir dışı süreçlerden geçmemiş teklifleri caydırmak içindir. Smartnode komutu `rocketpool pdao proposals finalize`, veto edilen bir teklifi, teklif sahibinin kilitli RPL bonusunu yakarak sonlandırmak için kullanılır.
+Veto çoğunluğu (`proposal.veto.quorum` parametresi tarafından tanımlandığı gibi) karşılanırsa, teklif hemen yenilir ve teklif sahibi bonusunu kaybeder. Bu, spam'i, düşük kaliteli teklifleri veya önce zincir dışı süreçlerden geçmemiş teklifleri caydırmak içindir. Smart Node komutu `rocketpool pdao proposals finalize`, veto edilen bir teklifi, teklif sahibinin kilitli RPL bonusunu yakarak sonlandırmak için kullanılır.
 
 1. dönemin süresi `proposal.vote.phase1.time` parametresi tarafından belirlenir. Teklif, `proposal.quorum`'a ulaşılıp ulaşılmadığına bakılmaksızın 2. aşamaya geçecektir.
 
@@ -114,7 +114,7 @@ Bir teklifin yürütülebileceği bir `proposal.execute.time` penceresi vardır.
 
 Tam ağ oy gücü ağacı, gas sınırları nedeniyle zincir dışında depolanır. Bir kullanıcı yeni bir teklif gönderdiğinde, hedef blok numarasında ağ oylama ağacını oluşturmaktan sorumludur. Bu ağaç zincir dışında oluşturulur ancak zincir üzerinde gönderilen Merkle kökleri aracılığıyla doğrulanabilir. Protokol, teklif sahibi tarafından gönderilen ayrıntıları kontrol etmek için **doğrulayıcılara** güvenir.
 
-Herhangi bir node, tekliflerin doğruluğunu izleme ve doğrulamaya katılabilir. Bu sorumluluğa katılmak için `rocketpool service config` komutunu kullanın, **Smartnode and TX Fee Settings** menüsüne gidin ve `Enable PDAO Proposal Checker` kutusunu işaretleyin.
+Herhangi bir node, tekliflerin doğruluğunu izleme ve doğrulamaya katılabilir. Bu sorumluluğa katılmak için `rocketpool service config` komutunu kullanın, **Smart Node and TX Fee Settings** menüsüne gidin ve `Enable PDAO Proposal Checker` kutusunu işaretleyin.
 
 <img src={proposal_checker} width="100%" height="auto" />
 

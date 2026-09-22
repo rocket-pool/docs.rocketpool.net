@@ -29,15 +29,15 @@ Si necesitas un repaso sobre cómo usar `ssh`, echa un vistazo primero a la guí
 ## ESENCIAL: Mantén Segura tu Máquina Cliente
 
 ::: warning NOTA
-Si usas tu Smartnode localmente (iniciando sesión físicamente en él con un teclado y monitor conectados directamente), entonces **esta sección no es relevante para ti - puedes omitirla**.
+Si usas tu Smart Node localmente (iniciando sesión físicamente en él con un teclado y monitor conectados directamente), entonces **esta sección no es relevante para ti - puedes omitirla**.
 :::
 
-La mayoría de los operadores de Smartnode interactúan con su nodo remotamente conectándose a su terminal desde otra computadora usando `ssh`:
+La mayoría de los operadores de Smart Node interactúan con su nodo remotamente conectándose a su terminal desde otra computadora usando `ssh`:
 
 - La máquina a la que te conectas (en este caso, tu máquina de nodo) se llama el **servidor**.
 - La máquina desde la que te conectas (como tu laptop, escritorio, o incluso tu teléfono) es el **cliente**.
 
-Una de las cosas más importantes que puedes hacer para asegurar tu Smartnode es **mantener segura tu máquina cliente**.
+Una de las cosas más importantes que puedes hacer para asegurar tu Smart Node es **mantener segura tu máquina cliente**.
 Si tu máquina cliente está comprometida y la usas para iniciar sesión en tu nodo, entonces la mayoría de las configuraciones de seguridad que apliques al nodo pueden ser evitadas.
 
 Por ejemplo: si usas una laptop como cliente SSH, y tiene un [keylogger](https://en.wikipedia.org/wiki/Keystroke_logging) instalado, entonces cualquier cosa secreta que escribas en el nodo (como tu contraseña o mnemónico de recuperación) cuando estés conectado vía SSH será robada.
@@ -56,10 +56,10 @@ Para máxima seguridad, podrías querer usar una **máquina dedicada** como tu c
 ## ESENCIAL: Asegura tu Acceso SSH
 
 ::: warning NOTA
-Si usas tu Smartnode localmente (iniciando sesión físicamente en él con un teclado y monitor conectados directamente), entonces **esta sección no es relevante para ti - puedes omitirla**.
+Si usas tu Smart Node localmente (iniciando sesión físicamente en él con un teclado y monitor conectados directamente), entonces **esta sección no es relevante para ti - puedes omitirla**.
 :::
 
-Ya sea que ejecutes tu Smartnode en casa o uses un VPS en un datacenter remoto, es probable que o bien accedas a él a través de SSH, o que SSH esté habilitado **incluso si no lo usas**.
+Ya sea que ejecutes tu Smart Node en casa o uses un VPS en un datacenter remoto, es probable que o bien accedas a él a través de SSH, o que SSH esté habilitado **incluso si no lo usas**.
 
 Las conexiones SSH se basan en criptografía segura, pero como con cualquier sistema seguro, la seguridad real proviene de usarlo correctamente.
 Hay dos cosas principales que hacer para tus configuraciones de SSH:
@@ -543,7 +543,7 @@ sudo systemctl restart unattended-upgrades
 
 ## ESENCIAL: Habilitar un Firewall
 
-En general, tu máquina solo debería aceptar tráfico de red en puertos que tu cliente de Ejecución, cliente de Consenso y stack de Smartnode usen.
+En general, tu máquina solo debería aceptar tráfico de red en puertos que tu cliente de Ejecución, cliente de Consenso y stack de Smart Node usen.
 Para hacer cumplir eso y prevenir cualquier tráfico inesperado o indeseable, podemos instalar un **firewall** en el nodo.
 
 ::: tip NOTA
@@ -552,7 +552,7 @@ Si seleccionaste un puerto diferente de cliente de ejecución/consenso durante l
 
 Ubuntu viene con `ufw` instalado por defecto (el firewall **u**ncomplicated **f**ire **w**all), que es una utilidad conveniente para administrar la configuración de firewall de tu nodo.
 
-Los siguientes comandos configurarán `ufw` con una buena configuración predeterminada para tu Smartnode.
+Los siguientes comandos configurarán `ufw` con una buena configuración predeterminada para tu Smart Node.
 **Ejecuta estos en tu máquina de nodo**.
 
 Deshabilita las conexiones a menos que estén explícitamente permitidas por reglas posteriores:

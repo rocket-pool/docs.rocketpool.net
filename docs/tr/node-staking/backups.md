@@ -5,7 +5,7 @@ Bu şu anda **Docker Mode** kurulumları için yazılmıştır.
 Hybrid veya Native kullanıcılar için bazı konumlar farklılık gösterebilir.
 :::
 
-Genel olarak, node cüzdanınızı ve minipool'larınızı Smartnode üzerinden oluşturduysanız, node'unuzu tam bir arızadan kurtarmak için gerçekten ihtiyacınız olan tek şey **node cüzdanınızın anımsatıcısıdır**.
+Genel olarak, node cüzdanınızı ve minipool'larınızı Smart Node üzerinden oluşturduysanız, node'unuzu tam bir arızadan kurtarmak için gerçekten ihtiyacınız olan tek şey **node cüzdanınızın anımsatıcısıdır**.
 Diğer her şey bundan oldukça kolay bir şekilde kurtarılabilir.
 
 Harici olarak oluşturulmuş validator anahtarlarına sahip minipool'larınız varsa (örneğin **Allnodes**'tan kendi barındırdığınız node'a geçiş yaptıysanız), validator'larınız için özel keystore dosyalarına da ihtiyacınız olacaktır çünkü bunlar node cüzdanından kurtarılamaz.
@@ -17,16 +17,16 @@ Bir Execution client arızasından (bozuk veritabanı, SSD arızası veya ele ge
 Bu rehberde, node'unuzun dayanıklılığını artırmaya ve gereksiz kesinti süresini en aza indirmeye yardımcı olmak için bunlardan bazılarını nasıl yedekleyeceğinizi göstereceğiz.
 
 ::: warning NOT
-Bu rehber, Smartnode'u varsayılan dizine (`~/.rocketpool`) kurduğunuzu varsayar.
+Bu rehber, Smart Node'u varsayılan dizine (`~/.rocketpool`) kurduğunuzu varsayar.
 Farklı bir kurulum dizini belirttiyseniz, aşağıdaki talimatlarda bunu uygun şekilde değiştirin.
 :::
 
 ## Yedeklenebilecek Öğeler
 
-### Smartnode Yapılandırması
+### Smart Node Yapılandırması
 
-Smartnode yapılandırması `~/.rocketpool/user-settings.yml` içinde saklanır.
-Bunu kaydedebilir ve tüm Smartnode ayarlarınızı (yani `rocketpool service config` içinde belirttiğiniz şeyleri) geri yüklemek için değiştirebilirsiniz.
+Smart Node yapılandırması `~/.rocketpool/user-settings.yml` içinde saklanır.
+Bunu kaydedebilir ve tüm Smart Node ayarlarınızı (yani `rocketpool service config` içinde belirttiğiniz şeyleri) geri yüklemek için değiştirebilirsiniz.
 
 ### Execution Client / ETH1 Client Zincir Verisi
 
@@ -38,7 +38,7 @@ Zincir verisi, varsayılan olarak `/var/lib/docker/volumes/rocketpool_eth1client
 Bu klasörün genellikle ayrıcalıksız kullanıcı hesapları tarafından erişilebilir olmadığını unutmayın; görmek için `root` kullanıcısına yükseltmeniz gerekecektir.
 
 ::: tip NOT
-İlk Smartnode kurulumu sırasında Docker'ın depolama konumunu değiştirdiyseniz (Docker'ı ikinci bir SSD'de çalıştıran kişiler gibi), volume'ü `/<harici bağlama noktanız>/docker/volumes/rocketpool_eth1clientdata` konumunda bulacaksınız.
+İlk Smart Node kurulumu sırasında Docker'ın depolama konumunu değiştirdiyseniz (Docker'ı ikinci bir SSD'de çalıştıran kişiler gibi), volume'ü `/<harici bağlama noktanız>/docker/volumes/rocketpool_eth1clientdata` konumunda bulacaksınız.
 
 Hangi kurulum yolunu kullandığınızı hatırlamıyorsanız, konumu için `/etc/docker/daemon.json` kontrol edebilirsiniz.
 Dosya mevcut değilse, varsayılan konumu kullanıyorsunuz demektir.
@@ -69,7 +69,7 @@ Consensus client'lar, Beacon zincirinin başına hemen yeniden senkronize olmak 
 
 ## Execution Zincir Verinizi Yedekleme
 
-Smartnode, `rocketpool service export-eth1-data` komutu aracılığıyla Execution zincir verinizi yedekleme yeteneği ile birlikte gelir.
+Smart Node, `rocketpool service export-eth1-data` komutu aracılığıyla Execution zincir verinizi yedekleme yeteneği ile birlikte gelir.
 Perde arkasında, bu Linux içindeki güçlü bir yedekleme/kopyalama aracı olan `rsync` kullanır.
 
 `rsync`, kaynak dizindeki (Docker volume'ünüz) ve hedef dizindeki (yedekleme konumunuz) dosyaları karşılaştırır.

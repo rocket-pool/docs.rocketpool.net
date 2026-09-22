@@ -3,7 +3,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 # 테스트 네트워크에서 메인넷으로 마이그레이션
 
 Hoodi 테스트 네트워크에서 Rocket Pool을 이미 사용해보셨고, 그 세부 사항에 익숙하며, 실제 이더리움 메인 체인에서 ETH를 스테이킹하거나 노드를 운영할 준비가 되셨다면, 이 가이드가 적합합니다!
-여기서는 기존 Smartnode 스택을 Hoodi 테스트 네트워크에서 이더리움 메인넷에 연결된 것으로 마이그레이션하는 방법에 대한 지침을 찾을 수 있습니다. 이는 실제 ETH 및 RPL을 스테이킹할 준비가 된 상태입니다.
+여기서는 기존 Smart Node 스택을 Hoodi 테스트 네트워크에서 이더리움 메인넷에 연결된 것으로 마이그레이션하는 방법에 대한 지침을 찾을 수 있습니다. 이는 실제 ETH 및 RPL을 스테이킹할 준비가 된 상태입니다.
 
 ## 메인넷에서의 풀 스테이킹
 
@@ -13,10 +13,10 @@ URL이 다르고 rETH 토큰의 주소가 다를 수 있지만, 워크플로우�
 
 ### 테스트넷과 메인넷의 차이점
 
-- 테스트넷 Smartnode에는 테스트 ETH를 위한 faucet이 있습니다. 메인넷 Smartnode에는 **faucet이 없습니다**. 스테이킹하려면 자신의 ETH를 제공해야 합니다.
+- 테스트넷 Smart Node에는 테스트 ETH를 위한 faucet이 있습니다. 메인넷 Smart Node에는 **faucet이 없습니다**. 스테이킹하려면 자신의 ETH를 제공해야 합니다.
 - 메인넷은 WalletConnect를 통해 많은 이더리움 지갑을 지원하므로 테스트넷에서 사용할 수 없었던 다른 지갑을 사용할 수 있습니다. **스테이킹을 위해 더 이상 Metamask만 사용해야 하는 것은 아닙니다**.
 
-## 메인넷에서의 Smartnode 운영
+## 메인넷에서의 Smart Node 운영
 
 ::: danger 주의
 테스트 네트워크의 **아무것도** 메인넷으로 마이그레이션할 수 없습니다.
@@ -31,7 +31,7 @@ URL이 다르고 rETH 토큰의 주소가 다를 수 있지만, 워크플로우�
 
 ### 테스트넷과 메인넷의 차이점
 
-- 테스트넷 Smartnode에는 ETH와 RPL을 위한 faucet이 있습니다. 메인넷 Smartnode에는 **faucet이 없습니다**. 자신의 ETH와 자신의 RPL을 제공해야 합니다.
+- 테스트넷 Smart Node에는 ETH와 RPL을 위한 faucet이 있습니다. 메인넷 Smart Node에는 **faucet이 없습니다**. 자신의 ETH와 자신의 RPL을 제공해야 합니다.
 - Geth를 사용하는 경우 노드의 작업 부하가 **상당히 높아집니다**. Geth는 Hoodi보다 약 40배의 저장 공간이 필요하며, 처리를 위해 더 많은 CPU 성능과 RAM이 필요합니다. Rocket Pool Grafana 대시보드를 사용하는 경우 훨씬 더 높은 사용량을 볼 준비를 하세요.
   전체 Geth 노드는 2025-09-19 기준으로 1.4TB를 사용합니다. [병합 이전 블록 데이터 만료](../maintenance/history-expiry)를 통해 저장 공간 사용량을 약 300-500GB 줄일 수 있습니다.
 - Beacon Chain 피어(따라서 증명 효율성)는 테스트넷보다 **높습니다**. 메인넷의 피어는 훨씬 더 다양하며 테스트넷보다 더 높은 품질을 갖는 경향이 있습니다.
@@ -40,7 +40,7 @@ URL이 다르고 rETH 토큰의 주소가 다를 수 있지만, 워크플로우�
 
 ### 자동 마이그레이션 (Docker 모드만 해당)
 
-Docker 모드 사용자의 경우 Smartnode가 자동으로 메인넷으로 마이그레이션할 수 있습니다.
+Docker 모드 사용자의 경우 Smart Node가 자동으로 메인넷으로 마이그레이션할 수 있습니다.
 
 **테스트넷이 구성된 상태에서** Hoodi에서 검증자를 종료하세요:
 
@@ -57,7 +57,7 @@ rocketpool minipool exit
 rocketpool service config
 ```
 
-다음으로 **Smartnode and TX Fees** 카테고리를 열고 **Network** 드롭다운을 `Hoodi Testnet`에서 `Ethereum Mainnet`으로 변경하세요:
+다음으로 **Smart Node and TX Fees** 카테고리를 열고 **Network** 드롭다운을 `Hoodi Testnet`에서 `Ethereum Mainnet`으로 변경하세요:
 
 <img src="../images/tui-change-network.png" width="100%" height="auto" />
 
@@ -74,14 +74,14 @@ Would you like the Smartnode to automatically switch networks for you? This will
 ```
 
 보관하려는 항목(노드 지갑과 검증자 키가 포함된 `data` 폴더 등)을 백업한 다음 준비가 되면 `y`를 누르고 `Enter`를 누르세요.
-Smartnode가 자동으로 전환을 처리합니다.
+Smart Node가 자동으로 전환을 처리합니다.
 
 완료되면 메인넷에 새로 설치된 상태가 됩니다.
 모든 설정(클라이언트 선택 등)은 보존되지만 새 지갑을 만들어야 합니다. 또한 메인넷에서는 *Checkpoint Sync URL*이 없을 가능성이 높으므로 [여기](../config-docker#beacon-chain-checkpoint-syncing)에 설명된 대로 설정해야 합니다. 그렇지 않으면 메인넷 비콘 체인을 동기화하는 데 오랜 시간이 걸릴 것입니다.
 
 ### 수동으로 마이그레이션
 
-어떤 이유로든 Smartnode의 자동 마이그레이션 프로세스를 활용할 수 없는 경우 몇 가지 간단한 단계로 수동으로 수행할 수 있습니다:
+어떤 이유로든 Smart Node의 자동 마이그레이션 프로세스를 활용할 수 없는 경우 몇 가지 간단한 단계로 수동으로 수행할 수 있습니다:
 
 <div className="p-3">
   <Tabs>

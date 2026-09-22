@@ -15,16 +15,16 @@ Aquí hay algunos ejemplos:
 - Deseas probar una nueva función que ofrece un cliente diferente
 - Un cliente diferente es más adecuado para el hardware de tu nodo (por ejemplo, algunos clientes son mejores en sistemas ARM que otros)
 
-Afortunadamente, el stack del Smartnode hace que cambiar de clientes sea extremadamente fácil.
+Afortunadamente, el stack del Smart Node hace que cambiar de clientes sea extremadamente fácil.
 Todo lo que se necesita son algunos cambios en el TUI de Configuración, y algunos comandos adicionales opcionales para respaldar los datos de tu cliente existente antes de cambiar de cliente.
 
 ## Cambiar Clientes de Execution
 
 Antes de cambiar tu cliente de Execution, vale la pena señalar los siguientes puntos:
 
-- Los datos de cadena **no se comparten** entre clientes. Tu nuevo cliente necesitará resincronizar los datos de cadena de Mainnet, lo que puede tomar algún tiempo (aunque cada cliente admite snap sync, que el Smartnode usa para acelerar la resincronización).
-- Por defecto, el Smartnode dejará los datos de cadena de tu cliente antiguo en tu disco en caso de que desees volver a tu antiguo cliente de Execution y continuar donde lo dejaste. Es posible que desees **exportarlos a una ubicación diferente** y eliminarlos para liberar espacio antes de cambiar de cliente, ya que los clientes de Execution pueden usar cientos de gigabytes. Tenemos pasos a continuación sobre cómo hacer esto.
-- Mientras tu nuevo cliente se resincroniza, la mayoría de las funciones del CLI del Smartnode estarán fuera de línea ya que dependen del cliente de Execution. **Deberías tener un cliente de Execution de respaldo disponible antes de hacer esto para mitigar el tiempo de inactividad en tu Smartnode.**
+- Los datos de cadena **no se comparten** entre clientes. Tu nuevo cliente necesitará resincronizar los datos de cadena de Mainnet, lo que puede tomar algún tiempo (aunque cada cliente admite snap sync, que el Smart Node usa para acelerar la resincronización).
+- Por defecto, el Smart Node dejará los datos de cadena de tu cliente antiguo en tu disco en caso de que desees volver a tu antiguo cliente de Execution y continuar donde lo dejaste. Es posible que desees **exportarlos a una ubicación diferente** y eliminarlos para liberar espacio antes de cambiar de cliente, ya que los clientes de Execution pueden usar cientos de gigabytes. Tenemos pasos a continuación sobre cómo hacer esto.
+- Mientras tu nuevo cliente se resincroniza, la mayoría de las funciones del CLI del Smart Node estarán fuera de línea ya que dependen del cliente de Execution. **Deberías tener un cliente de Execution de respaldo disponible antes de hacer esto para mitigar el tiempo de inactividad en tu Smart Node.**
 
 ### (Opcional) Exportar la Base de Datos de tu Cliente de Execution
 

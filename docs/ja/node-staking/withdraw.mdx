@@ -57,7 +57,7 @@ Beaconcha.inは、バリデータが終了する時刻と引き出し可能に�
 **withdrawable**状態に入ると、バリデータはBeacon Chainによって報酬分配のためにエンキューされます。
 このキューは、現在引き出し中のバリデータの数によって異なります。
 順番が来ると、Beacon Chainは*自動的に*残高をExecution Layer上のminipoolのアドレスに送信します。
-この時点で、Smartnode CLIを使用して分配を実行してアクセスできます。
+この時点で、Smart Node CLIを使用して分配を実行してアクセスできます。
 
 ### 全報酬の分配
 
@@ -121,7 +121,7 @@ Rocket Poolの立ち上げからAtlasのデプロイまですべてのminipool�
 2番目のポイントも*もはや真実ではありません*。なぜなら、Oracle DAOは「withdrawable」minipoolをフラグ**しなくなった**からです。
 これは、Oracle DAOがRocket Poolノードオペレーターに対して持つ権限を減らし、信頼された当事者に対する追加要件なしに報酬にアクセスできるようにするための意図的な設計上の決定でした。
 
-これらの欠陥のため、Smartnode CLIは、オリジナルのminipool delegateでの引き出しまたは資金分配を**もはやサポートしていません**。
+これらの欠陥のため、Smart Node CLIは、オリジナルのminipool delegateでの引き出しまたは資金分配を**もはやサポートしていません**。
 報酬にアクセスしたい場合は、上記の新しい引き出し条件をサポートするAtlas delegateに**アップグレードする必要があります**。
 
 ::: danger 危険

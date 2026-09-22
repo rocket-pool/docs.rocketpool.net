@@ -23,14 +23,14 @@ Bu kılavuzda, bu kontrol panelini kullanabilmeniz için Rocket Pool'un metrik s
 
 ## Rocket Pool Metrik Yığınına Genel Bakış
 
-Smartnode yapılandırma sürecinde metrikleri etkinleştirmeyi seçerseniz, node'unuz aşağıdaki işlemleri ekleyecektir:
+Smart Node yapılandırma sürecinde metrikleri etkinleştirmeyi seçerseniz, node'unuz aşağıdaki işlemleri ekleyecektir:
 
 - [Prometheus](https://prometheus.io/) - yukarıda gördüğünüz tüm metrikleri (ve çok daha fazlasını) yakalayan ve saklayan, böylece zaman içinde incelenebilmeleri için bir veri toplama, depolama ve raporlama sistemi
 - Prometheus [Node Exporter](https://github.com/prometheus/node_exporter) - makinenizin sağlığı hakkında bilgi toplayan (CPU kullanımı, RAM kullanımı, boş disk alanı ve swap alanı vb.) ve bunu Prometheus'a raporlayan bir servis
 - Grafana, Prometheus'un verilerini node'unuzda barındırılan kullanışlı bir web sitesi aracılığıyla sunan araç
 - Mevcut İşletim Sistemi güncellemelerini Prometheus'a raporlayacak isteğe bağlı özel bir script seti, böylece sisteminizin yamalanması gerekip gerekmediğini bilirsiniz
 
-Varsayılan yapılandırma, Smartnode'un Docker container'larının geri kalanıyla birlikte yaşayan tüm bu servislere sahip Docker container'ları oluşturacaktır.
+Varsayılan yapılandırma, Smart Node'un Docker container'larının geri kalanıyla birlikte yaşayan tüm bu servislere sahip Docker container'ları oluşturacaktır.
 Grafana için node makinenizde bir port açacaktır, böylece yerel ağınızdaki herhangi bir makineden bir tarayıcı ile kontrol paneline erişebilirsiniz.
 
 ## Metrik Sunucusunu Etkinleştirme
@@ -40,7 +40,7 @@ Grafana için node makinenizde bir port açacaktır, böylece yerel ağınızdak
     <Tab label="Docker">
       Docker modunda metrikleri etkinleştirmek en kolayıdır.
 
-      Smartnode yapılandırma komutunu tekrar çalıştırarak başlayın:
+      Smart Node yapılandırma komutunu tekrar çalıştırarak başlayın:
 
       ```shell
       rocketpool service config
@@ -78,7 +78,7 @@ Grafana için node makinenizde bir port açacaktır, böylece yerel ağınızdak
       </p>
 
 
-      Bu kontrol sırasında, ayrıca yüklü Rocket Pool Smartnode sürümünüzü en son sürümle karşılaştıracak ve yeni bir sürüm mevcutsa sizi bilgilendirecektir.
+      Bu kontrol sırasında, ayrıca yüklü Rocket Pool Smart Node sürümünüzü en son sürümle karşılaştıracak ve yeni bir sürüm mevcutsa sizi bilgilendirecektir.
 
       Güncelleme takipçisini etkinleştirdiyseniz, son adım Node Exporter'ı aşağıdaki komutla yeniden başlatmaktır:
 
@@ -605,7 +605,7 @@ Ardından güvenlik duvarını dış cihazların Grafana kontrol panelinize eri�
 
 Artık metrik sunucusu hazır olduğuna göre, yerel ağınızdaki herhangi bir tarayıcı ile erişebilirsiniz.
 
-Smartnode kurulum modunuz için aşağıdaki sekmelere bakın.
+Smart Node kurulum modunuz için aşağıdaki sekmelere bakın.
 
 Gerektiğinde değişkenleri kurulumunuzla değiştirerek aşağıdaki URL'ye gidin:
 
@@ -695,7 +695,7 @@ Ancak, işleri kurmayı henüz bitirmedik - hala yapılacak biraz daha yapıland
 ::: warning NOT
 Bazı kutular (özellikle APR olanlar), Shapella'nın skimmed ödülleri sağlama şekli nedeniyle geçici olarak devre dışı bırakılmıştır.
 
-Geçmiş ödülleri düzgün bir şekilde takip edebilen Smartnode'un gelecekteki bir sürümünde tekrar etkinleştirileceklerdir.
+Geçmiş ödülleri düzgün bir şekilde takip edebilen Smart Node'un gelecekteki bir sürümünde tekrar etkinleştirileceklerdir.
 :::
 
 ## Donanım İzleyicisini Sisteminize Uyarlama
@@ -788,7 +788,7 @@ nvme0n1     259:0    0 238,5G  0 disk
 └─nvme0n1p4 259:4    0   527M  0 part
 ```
 
-Smartnode kurulumunuz sırasında Docker'ın varsayılan konumunu farklı bir sürücüye değiştirmediyseniz, izlemek istediğiniz disk, İşletim Sisteminizin yüklü olduğu disk olacaktır.
+Smart Node kurulumunuz sırasında Docker'ın varsayılan konumunu farklı bir sürücüye değiştirmediyseniz, izlemek istediğiniz disk, İşletim Sisteminizin yüklü olduğu disk olacaktır.
 `MOUNTPOINT` sütununda sadece `/` etiketli bir giriş arayın, ardından bunu üst cihazına kadar takip edin (`TYPE` sütununda `disk` olan).
 
 Tipik olarak bu, SATA sürücüler için `sda` veya NVMe sürücüler için `nvme0n1` olacaktır.

@@ -6,7 +6,7 @@ Questa guida coprirà tutto ciò che devi sapere per preparare il tuo nodo all'a
 
 ## Cose da Fare Prima di Aggiornare alla v1.5.0
 
-Prima di aggiornare alla v1.5.0 e versioni successive dello Smartnode, esamina la seguente checklist per assicurarti di essere preparato:
+Prima di aggiornare alla v1.5.0 e versioni successive dello Smart Node, esamina la seguente checklist per assicurarti di essere preparato:
 
 ### Passare a un Client di Esecuzione Completo
 
@@ -16,14 +16,14 @@ A causa di questo cambiamento, se stai attualmente utilizzando un client di Esec
 
 ### Assicurarsi che EC e CC Siano Entrambi Gestiti Esternamente
 
-Le versioni precedenti dello stack Smartnode ti permettevano di avere un client gestito localmente e l'altro gestito esternamente.
-Ad esempio, potresti avere un client di Esecuzione gestito dallo Smartnode e connetterlo a un client di Consenso che gestisci esternamente.
+Le versioni precedenti dello stack Smart Node ti permettevano di avere un client gestito localmente e l'altro gestito esternamente.
+Ad esempio, potresti avere un client di Esecuzione gestito dallo Smart Node e connetterlo a un client di Consenso che gestisci esternamente.
 
 A partire dalla v1.5, questa configurazione non è più supportata.
 Dovrai passare a un client di Esecuzione e Consenso gestiti localmente (noto anche come [Modalità Docker](./docker-migration.mdx)), oppure configurare sia un client di Esecuzione che uno di Consenso che gestisci da solo.
 
 ::: tip SUGGERIMENTO
-Se sei interessato a lasciare che lo Smartnode mantenga il proprio client di Esecuzione e Consenso ma vuoi mantenere il controllo sul tuo client Validator (ad esempio, se hai le tue chiavi di validatore solo staking collegate ad esso), potresti voler considerare la [Modalità Ibrida Inversa](../../node-staking/advanced-config#consentire-ai-client-validator-esterni-di-connettersi-allo-smartnode) che fa esattamente questo!
+Se sei interessato a lasciare che lo Smart Node mantenga il proprio client di Esecuzione e Consenso ma vuoi mantenere il controllo sul tuo client Validator (ad esempio, se hai le tue chiavi di validatore solo staking collegate ad esso), potresti voler considerare la [Modalità Ibrida Inversa](../../node-staking/advanced-config#consentire-ai-client-validator-esterni-di-connettersi-allo-smartnode) che fa esattamente questo!
 :::
 
 ### Configurare l'Engine API
@@ -44,12 +44,12 @@ Come sempre, Rocket Pool gestirà il proprio client Validator quindi non devi pr
 
 ## Aggiornamento alla v1.5.0
 
-L'aggiornamento dello stack Smartnode alla v1.5.0 non è diverso da qualsiasi altro aggiornamento.
+L'aggiornamento dello stack Smart Node alla v1.5.0 non è diverso da qualsiasi altro aggiornamento.
 Basta seguire [le normali istruzioni qui](../../node-staking/updates#aggiornamento-dello-stack-smartnode).
 
-## Cose che lo Smartnode Gestisce Automaticamente
+## Cose che lo Smart Node Gestisce Automaticamente
 
-In modalità Ibrida, lo Smartnode si occuperà di alcune delle modifiche necessarie per supportare Redstone automaticamente una volta aggiornato alla v1.5.0, ma dovrai gestire altre manualmente in Modalità Ibrida.
+In modalità Ibrida, lo Smart Node si occuperà di alcune delle modifiche necessarie per supportare Redstone automaticamente una volta aggiornato alla v1.5.0, ma dovrai gestire altre manualmente in Modalità Ibrida.
 
 Ecco un breve elenco di ciò che farà per te senza alcun intervento manuale:
 
@@ -58,14 +58,14 @@ Ecco un breve elenco di ciò che farà per te senza alcun intervento manuale:
 Il **fee recipient** è l'indirizzo sulla catena del layer di Esecuzione (eth1) che riceverà tutte le commissioni prioritarie per i blocchi che proponi.
 È un'impostazione fornita al tuo client Validator quando viene avviato per la prima volta.
 
-Lo Smartnode gestirà la configurazione dell'indirizzo corretto sul client Validator che gestisce quando aggiorni alla v1.5 e controllerà costantemente che tu stia utilizzando quello corretto in modo da non essere [penalizzato accidentalmente](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
+Lo Smart Node gestirà la configurazione dell'indirizzo corretto sul client Validator che gestisce quando aggiorni alla v1.5 e controllerà costantemente che tu stia utilizzando quello corretto in modo da non essere [penalizzato accidentalmente](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system).
 
 Se hai optato per il [Smoothing Pool](./whats-new#smoothing-pool), questo diventerà il tuo fee recipient.
 Se non l'hai fatto, il tuo [contratto di distribuzione delle commissioni](./whats-new#fee-recipient-e-il-tuo-distributor) diventerà il fee recipient.
 
 ## Cose che Dovresti Fare Dopo l'Aggiornamento
 
-Anche se lo Smartnode gestisce la maggior parte delle modifiche per te, ci sono alcune cose aggiuntive che dovresti fare manualmente:
+Anche se lo Smart Node gestisce la maggior parte delle modifiche per te, ci sono alcune cose aggiuntive che dovresti fare manualmente:
 
 ### Assicurarsi che l'Aggiornamento Sia Riuscito
 
@@ -100,7 +100,7 @@ Non farlo comporterà che il tuo minipool venga [penalizzato](https://github.com
 
 Poiché il Merge non è compatibile con provider remoti come Infura e Pocket, perderai la possibilità di utilizzarli come client di Esecuzione di fallback quando il tuo primario va offline.
 
-Lo Smartnode ha ancora la capacità di fornire un client di Esecuzione di fallback (e ora anche un client di Consenso di fallback), ma ora dovrai utilizzare client di Esecuzione e Consenso che controlli tu.
+Lo Smart Node ha ancora la capacità di fornire un client di Esecuzione di fallback (e ora anche un client di Consenso di fallback), ma ora dovrai utilizzare client di Esecuzione e Consenso che controlli tu.
 
 Per maggiori informazioni sulla configurazione di un nodo di fallback, consulta la [guida al nodo di fallback](../../node-staking/fallback).
 
@@ -133,7 +133,7 @@ rocketpool node join-smoothing-pool
 
 L'aggiornamento Redstone sostituisce il vecchio sistema di ricompense costoso e problematico con uno [completamente nuovo](./whats-new#nuovo-sistema-di-ricompense) che è molto più economico, supporta il restaking automatico di RPL (sia importi parziali che completi) e - cosa più importante - **ti consente di richiedere le tue ricompense quando vuoi**.
 
-Poiché non c'è più un limite di tempo per richiedere le ricompense e poiché è più economico richiedere molti intervalli di ricompense contemporaneamente, la funzione di richiesta automatica delle ricompense dello Smartnode **è stata rimossa**.
+Poiché non c'è più un limite di tempo per richiedere le ricompense e poiché è più economico richiedere molti intervalli di ricompense contemporaneamente, la funzione di richiesta automatica delle ricompense dello Smart Node **è stata rimossa**.
 Ora potrai richiedere le ricompense tramite il seguente comando:
 
 ```shell
@@ -144,8 +144,8 @@ Questo ti mostrerà tutte le ricompense che hai accumulato attraverso tutti gli 
 
 ## Ripristino alla v1.4.3
 
-Se, per qualsiasi motivo, qualcosa non è di tuo gradimento e desideri ripristinare la versione precedente dello Smartnode, puoi farlo facilmente.
-Lo Smartnode esegue automaticamente il backup delle impostazioni della versione precedente quando lo aggiorni, quindi basta ottenere la versione precedente (qui stiamo dimostrando la **v1.4.3**) e sostituire le impostazioni con il backup:
+Se, per qualsiasi motivo, qualcosa non è di tuo gradimento e desideri ripristinare la versione precedente dello Smart Node, puoi farlo facilmente.
+Lo Smart Node esegue automaticamente il backup delle impostazioni della versione precedente quando lo aggiorni, quindi basta ottenere la versione precedente (qui stiamo dimostrando la **v1.4.3**) e sostituire le impostazioni con il backup:
 
 1. Ferma il servizio:
 
@@ -182,7 +182,7 @@ cp ~/.rocketpool/user-settings-backup.yml ~/.rocketpool/user-settings.yml
 rocketpool service config
 ```
 
-1. Se sembra a posto, avvia lo stack Smartnode:
+1. Se sembra a posto, avvia lo stack Smart Node:
 
 ```shell
 rocketpool service start

@@ -20,13 +20,13 @@ Para usuarios de SSD de 1 TB, tendrás que podar con más frecuencia.
 
 Si tienes [el panel de Grafana](./grafana) habilitado, una buena regla general es comenzar a pensar en podar tu cliente de Ejecución cuando el espacio en disco usado de tu nodo supere el 80%.
 
-Cuando decidas que es hora, el Smartnode viene con la capacidad de podarlo por ti bajo petición.
+Cuando decidas que es hora, el Smart Node viene con la capacidad de podarlo por ti bajo petición.
 Lee a continuación para aprender cómo funciona y qué esperar.
 
 ::: warning NOTA
 Podar tu cliente de Ejecución solo es posible en Docker Mode.
 
-Si usas tu propio cliente de Ejecución, como un cliente externo en modo Hybrid o modo Native, no puedes usar el Smartnode para podar el cliente de Ejecución.
+Si usas tu propio cliente de Ejecución, como un cliente externo en modo Hybrid o modo Native, no puedes usar el Smart Node para podar el cliente de Ejecución.
 Tendrás que hacerlo manualmente.
 Consulta la documentación de tu cliente de Ejecución para aprender cómo podarlo.
 :::
@@ -39,10 +39,10 @@ Selecciona el cliente que estás usando en las pestañas a continuación.
   <Tabs>
     <Tab label="Geth">
       Podar Geth significa poner el cliente de Ejecución principal fuera de línea para que pueda limpiarse.
-      Cuando esto sucede, el Smartnode (y tu cliente de Consenso) necesitarán alguna otra forma de acceder a la cadena ETH1 para funcionar correctamente.
+      Cuando esto sucede, el Smart Node (y tu cliente de Consenso) necesitarán alguna otra forma de acceder a la cadena ETH1 para funcionar correctamente.
 
       La forma más fácil de proporcionar esto es con un **nodo de respaldo**.
-      Si ya [configuraste un nodo de respaldo](./fallback) usando `rocketpool service config`, entonces el Smartnode cambiará automáticamente a él cuando tu contenedor Geth se caiga para mantenimiento.
+      Si ya [configuraste un nodo de respaldo](./fallback) usando `rocketpool service config`, entonces el Smart Node cambiará automáticamente a él cuando tu contenedor Geth se caiga para mantenimiento.
       También informará a tu cliente de Consenso que use el respaldo también.
 
       <p className="rspress-directive warning">
@@ -102,7 +102,7 @@ Selecciona el cliente que estás usando en las pestañas a continuación.
       Are you sure you want to prune your main execution client? [y/n]
       ```
 
-      Si aceptas, verás algunos detalles mientras el Smartnode prepara las cosas; debería terminar con un mensaje de éxito:
+      Si aceptas, verás algunos detalles mientras el Smart Node prepara las cosas; debería terminar con un mensaje de éxito:
 
       ```
       Are you sure you want to prune your main ETH1 client? [y/n]
@@ -126,7 +126,7 @@ Selecciona el cliente que estás usando en las pestañas a continuación.
       rocketpool service logs eth1
       ```
 
-      Una vez que haya terminado de podar, se reiniciará automáticamente y el Smartnode reanudará su uso en lugar de tu respaldo.
+      Una vez que haya terminado de podar, se reiniciará automáticamente y el Smart Node reanudará su uso en lugar de tu respaldo.
     </Tab>
     <Tab label="Nethermind">
       Cuando quieras podar Nethermind, simplemente ejecuta este comando:

@@ -5,7 +5,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 상기시켜 드리면, Oracle DAO 임무에는 두 가지 유형이 있습니다:
 
 1. **자동화된 임무** - 이는 Consensus Layer에서 Execution Layer로 정보를 전송하고, 프로토콜의 다양한 측면을 오프체인에서 계산하고, Smart Contract에 업데이트로 제출하는 것과 같은 일상적인 Rocket Pool 운영과 관련된 임무입니다. 이들은 Execution 및 Consensus Client와 `watchtower` 데몬이 모두 정상적으로 작동하는 한 `watchtower` 데몬 프로세스에 의해 자동으로 수행되며 수동 개입이 필요하지 않습니다. 이전 단계에서 이미 `watchtower` 데몬을 설정했으므로 이 섹션에서는 다시 다루지 않습니다.
-2. **수동 임무** - 이는 자신의 의사 결정과 나머지 Oracle DAO와의 대역외 통신을 필요로 하는 임무입니다. 여기에는 계약 업그레이드 투표, 매개변수 변경, Oracle DAO에 멤버 초대 또는 제명 등이 포함됩니다. 이들은 모두 표준 Smartnode CLI를 통해 수행할 수 있습니다. 이 섹션에서는 이러한 각 임무와 수행 방법을 설명합니다.
+2. **수동 임무** - 이는 자신의 의사 결정과 나머지 Oracle DAO와의 대역외 통신을 필요로 하는 임무입니다. 여기에는 계약 업그레이드 투표, 매개변수 변경, Oracle DAO에 멤버 초대 또는 제명 등이 포함됩니다. 이들은 모두 표준 Smart Node CLI를 통해 수행할 수 있습니다. 이 섹션에서는 이러한 각 임무와 수행 방법을 설명합니다.
 
 제안은 자동화된 `watchtower` 임무 외의 책임의 핵심을 형성합니다.
 기본적으로 다음과 같이 작동합니다:

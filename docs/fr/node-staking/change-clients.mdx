@@ -15,16 +15,16 @@ Voici quelques exemples :
 - Vous voulez essayer une nouvelle fonctionnalité qu'offre un autre client
 - Un autre client est mieux adapté au matériel de votre nœud (par exemple, certains clients sont meilleurs sur les systèmes ARM que d'autres)
 
-Heureusement, la stack Smartnode rend le changement de client extrêmement facile.
+Heureusement, la stack Smart Node rend le changement de client extrêmement facile.
 Il suffit de quelques modifications dans l'interface TUI de configuration, et quelques commandes supplémentaires optionnelles pour sauvegarder les données de votre client existant avant de changer de client.
 
 ## Changer de client d'exécution
 
 Avant de changer de client d'exécution, il est important de noter les points suivants :
 
-- Les données de chaîne **ne sont pas partagées** entre les clients. Votre nouveau client devra resynchroniser les données de la chaîne Mainnet, ce qui peut prendre du temps (bien que chaque client prenne en charge la synchronisation rapide, que le Smartnode utilise pour accélérer la resynchronisation).
-- Par défaut, le Smartnode laissera les données de chaîne de votre ancien client sur votre disque au cas où vous voudriez revenir à votre ancien client d'exécution et reprendre là où vous vous étiez arrêté. Vous pouvez **l'exporter vers un emplacement différent** et le supprimer pour libérer de l'espace avant de changer de client, car les clients d'exécution peuvent utiliser des centaines de gigaoctets. Nous avons des étapes ci-dessous sur la façon de procéder.
-- Pendant que votre nouveau client se resynchronise, la plupart des fonctions CLI du Smartnode seront hors ligne car elles dépendent du client d'exécution. **Vous devriez avoir un client d'exécution de secours disponible avant de faire cela pour atténuer les temps d'arrêt sur votre Smartnode.**
+- Les données de chaîne **ne sont pas partagées** entre les clients. Votre nouveau client devra resynchroniser les données de la chaîne Mainnet, ce qui peut prendre du temps (bien que chaque client prenne en charge la synchronisation rapide, que le Smart Node utilise pour accélérer la resynchronisation).
+- Par défaut, le Smart Node laissera les données de chaîne de votre ancien client sur votre disque au cas où vous voudriez revenir à votre ancien client d'exécution et reprendre là où vous vous étiez arrêté. Vous pouvez **l'exporter vers un emplacement différent** et le supprimer pour libérer de l'espace avant de changer de client, car les clients d'exécution peuvent utiliser des centaines de gigaoctets. Nous avons des étapes ci-dessous sur la façon de procéder.
+- Pendant que votre nouveau client se resynchronise, la plupart des fonctions CLI du Smart Node seront hors ligne car elles dépendent du client d'exécution. **Vous devriez avoir un client d'exécution de secours disponible avant de faire cela pour atténuer les temps d'arrêt sur votre Smart Node.**
 
 ### (Optionnel) Exporter la base de données de votre client d'exécution
 

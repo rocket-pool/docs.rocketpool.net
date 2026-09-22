@@ -10,11 +10,11 @@ Esta sección describe el proceso de configuración de tu nodo para participar e
 
 ## Requisitos previos
 
-Antes de configurar tu Smartnode, asegúrate de:
+Antes de configurar tu Smart Node, asegúrate de:
 
 - Haber configurado una máquina de nodo (o máquina virtual) y haberla asegurado (mediante la guía [Asegurando tu nodo](/es/node-staking/securing-your-node))
-- Tener el Smartnode [instalado](/es/node-staking/installing/overview) y [configurado](/es/node-staking/config/overview) en él
-- Tener una billetera de nodo cargada en tu Smartnode
+- Tener el Smart Node [instalado](/es/node-staking/installing/overview) y [configurado](/es/node-staking/config/overview) en él
+- Tener una billetera de nodo cargada en tu Smart Node
 - Haber sincronizado tus clientes de Ejecución y Consenso
 - Haber provisionado tu nodo con [una dirección de retiro](/es/node-staking/prepare-node#establecer-tu-dirección-de-retiro-principal), configurado tus [clientes de respaldo](/es/node-staking/fallback) (opcional), optado por el [Smoothing Pool](/es/node-staking/fee-distrib-sp#el-smoothing-pool) (opcional), y configurado [MEV](/es/node-staking/mev)
 - Haber creado al menos un [minipool](/es/node-staking/create-validator)
@@ -35,7 +35,7 @@ Antes de configurar tu Smartnode, asegúrate de:
 
 [Inicializando el poder de voto](/es/pdao/participate#inicializando-la-votación) te muestra cómo inicializar el poder de voto de tu nodo. Este paso solo es necesario si tu nodo fue registrado antes de la Actualización Houston.
 
-[Configurando tu dirección de señalización de Snapshot](/es/pdao/participate#configurando-tu-dirección-de-señalización-de-snapshot) te guiará a través de los pasos para configurar una dirección de señalización. Te permitirá votar en Snapshot usando el poder de voto de tu nodo sin necesidad de cargar la clave privada de tu nodo en una billetera caliente. Asegúrate de tener tu CLI de Smartnode a mano y prepara una dirección (que no sea tu billetera de nodo) para esta guía.
+[Configurando tu dirección de señalización de Snapshot](/es/pdao/participate#configurando-tu-dirección-de-señalización-de-snapshot) te guiará a través de los pasos para configurar una dirección de señalización. Te permitirá votar en Snapshot usando el poder de voto de tu nodo sin necesidad de cargar la clave privada de tu nodo en una billetera caliente. Asegúrate de tener tu CLI de Smart Node a mano y prepara una dirección (que no sea tu billetera de nodo) para esta guía.
 
 [Delegando el poder de voto](/es/pdao/participate#delegando-el-poder-de-voto) es un comando rápido que puedes usar para delegar el poder de voto en lugar de votar directamente en propuestas.
 

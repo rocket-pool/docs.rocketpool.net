@@ -35,7 +35,7 @@ USAGE:
    rocketpoolcli [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    auction, a   Manage Rocket Pool RPL auctions
@@ -92,7 +92,7 @@ USAGE:
    rocketpool service [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    install, i                 Install the Rocket Pool service
@@ -509,7 +509,7 @@ USAGE:
    rocketpool megapool [global options] command [command options] [arguments...]
 
 VERSION:
-   1.23.0
+   1.24.2
 
 COMMANDS:
    deposit, d                Make a deposit and create a new validator on the megapool. Optionally specify count to make multiple deposits.
@@ -781,7 +781,7 @@ Are you sure you want to set your timezone? [y/n]
 ::: warning 注意
 您**必须**包含 `-i`(优先费用)标志才能覆盖先前的交易。
 此数字必须至少比您旧交易使用的优先费用高 10%。
-Smartnode 默认使用 2 gwei 的优先费用,因此对于覆盖来说,值 `2.2` 通常就足够了。
+Smart Node 默认使用 2 gwei 的优先费用,因此对于覆盖来说,值 `2.2` 通常就足够了。
 
 如果您的旧交易使用了自定义费用(例如 10 gwei),则在覆盖交易中您需要将其设置为至少高 10%(因此在此示例中为 11 gwei)。
 :::
@@ -798,7 +798,7 @@ Total cost: 0.0032 to 0.0032 ETH
 Are you sure you want to send 0.000100 eth to <node wallet address>? This action cannot be undone! [y/n]
 ```
 
-Smartnode 堆栈将自动检查以确保您提供的 `nonce` 有效(它引用待处理的交易),然后再发送它并意外浪费您的 gas。
+Smart Node 堆栈将自动检查以确保您提供的 `nonce` 有效(它引用待处理的交易),然后再发送它并意外浪费您的 gas。
 如果不是,它将返回错误消息。
 否则,它将通过并为您提供交易详细信息,以便您可以监控它以确认它确实覆盖了您的旧卡住交易。
 

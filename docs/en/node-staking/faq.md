@@ -27,7 +27,7 @@ Short answer: your mnemonic is all that you need to fully recover your node.
 Always make sure to keep it safe.
 
 To recover your node on a new machine, start by making sure **your previous machine is not going to be online again** with the keys available, as two nodes running with the same keys **will get you slashed**.
-Follow the [steps](./install-modes) to install the Smartnode on a new machine.
+Follow the [steps](./install-modes) to install the Smart Node on a new machine.
 Then, recover your node wallet and validator keys by running the command `rocketpool wallet recover` and insert your 24-word mnemonic.
 
 ### Why aren't my clients syncing? I have a low amount of peers.

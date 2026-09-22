@@ -1,4 +1,4 @@
-# Smartnode olmayan kullanıcılar için oylama kurulumu
+# Smart Node olmayan kullanıcılar için oylama kurulumu
 
 Bazı kullanıcılar (örneğin Allnodes kullanıcıları) smartnode kullanmazlar ve doğrudan sözleşme etkileşimi kullanarak oylama kurmaya ihtiyaç duyabilirler.
 Bu kılavuz, bu tür kullanıcılar için hem minimal hem de eksiksiz bir kurulum kılavuzu içerir.

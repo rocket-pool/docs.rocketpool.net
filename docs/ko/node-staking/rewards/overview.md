@@ -10,11 +10,11 @@ next:
 
 ## 전제 조건
 
-Smartnode를 구성하기 전에 다음을 확인하십시오:
+Smart Node를 구성하기 전에 다음을 확인하십시오:
 
 - 노드 머신(또는 가상 머신)을 설정하고 보안을 유지했습니다([노드 보안](../securing-your-node) 가이드를 통해)
-- Smartnode가 [설치](../installing/overview)되고 [구성](../config/overview)되었습니다
-- Smartnode에 노드 지갑이 로드되어 있습니다
+- Smart Node가 [설치](../installing/overview)되고 [구성](../config/overview)되었습니다
+- Smart Node에 노드 지갑이 로드되어 있습니다
 - Execution 및 Consensus 클라이언트가 동기화되었습니다
 - [출금 주소](../prepare-node.mdx#primary-withdrawal-address-설정하기)로 노드를 프로비저닝하고, [대체 클라이언트](../fallback)를 설정했으며(선택 사항), [Smoothing Pool](../fee-distrib-sp#smoothing-pool)에 참여했으며(선택 사항), [MEV](../mev.mdx)를 구성했습니다
 - 최소 하나의 [minipool](../create-validator.mdx)을 생성했습니다

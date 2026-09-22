@@ -29,15 +29,15 @@ Wenn Sie eine Auffrischung zur Verwendung von `ssh` benötigen, werfen Sie zuers
 ## WESENTLICH: Halten Sie Ihre Client-Maschine sicher
 
 ::: warning HINWEIS
-Wenn Sie Ihren Smartnode lokal verwenden (indem Sie sich physisch mit einer direkt angeschlossenen Tastatur und einem Monitor anmelden), dann **ist dieser Abschnitt für Sie nicht relevant - Sie können ihn überspringen**.
+Wenn Sie Ihren Smart Node lokal verwenden (indem Sie sich physisch mit einer direkt angeschlossenen Tastatur und einem Monitor anmelden), dann **ist dieser Abschnitt für Sie nicht relevant - Sie können ihn überspringen**.
 :::
 
-Die meisten Smartnode-Betreiber interagieren remote mit ihrem Knoten, indem sie sich von einem anderen Computer aus mit dessen Terminal über `ssh` verbinden:
+Die meisten Smart Node-Betreiber interagieren remote mit ihrem Knoten, indem sie sich von einem anderen Computer aus mit dessen Terminal über `ssh` verbinden:
 
 - Die Maschine, mit der Sie sich verbinden _zu_ (in diesem Fall Ihre Knotenmaschine) wird als **Server** bezeichnet.
 - Die Maschine, von der Sie sich verbinden _von_ (wie Ihr Laptop, Desktop oder sogar Ihr Telefon) ist der **Client**.
 
-Eine der wichtigsten Maßnahmen, die Sie ergreifen können, um Ihren Smartnode zu sichern, ist es, **Ihre Client-Maschine sicher zu halten**.
+Eine der wichtigsten Maßnahmen, die Sie ergreifen können, um Ihren Smart Node zu sichern, ist es, **Ihre Client-Maschine sicher zu halten**.
 Wenn Ihre Client-Maschine kompromittiert ist und Sie sie verwenden, um sich bei Ihrem Knoten anzumelden, können die meisten Sicherheitseinstellungen, die Sie auf den Knoten anwenden, umgangen werden.
 
 Zum Beispiel: Wenn Sie einen Laptop als SSH-Client verwenden und er einen [Keylogger](https://en.wikipedia.org/wiki/Keystroke_logging) installiert hat, werden alle geheimen Dinge, die Sie auf dem Knoten eingeben (wie Ihr Passwort oder Ihre Wiederherstellungs-Mnemonic), wenn Sie über SSH verbunden sind, gestohlen.
@@ -56,10 +56,10 @@ Für maximale Sicherheit möchten Sie möglicherweise eine **dedizierte Maschine
 ## WESENTLICH: Sichern Sie Ihren SSH-Zugang
 
 ::: warning HINWEIS
-Wenn Sie Ihren Smartnode lokal verwenden (indem Sie sich physisch mit einer direkt angeschlossenen Tastatur und einem Monitor anmelden), dann **ist dieser Abschnitt für Sie nicht relevant - Sie können ihn überspringen**.
+Wenn Sie Ihren Smart Node lokal verwenden (indem Sie sich physisch mit einer direkt angeschlossenen Tastatur und einem Monitor anmelden), dann **ist dieser Abschnitt für Sie nicht relevant - Sie können ihn überspringen**.
 :::
 
-Ob Sie Ihren Smartnode zu Hause betreiben oder einen VPS in einem entfernten Rechenzentrum verwenden, es ist wahrscheinlich, dass Sie entweder über SSH darauf zugreifen oder dass SSH aktiviert ist, **auch wenn Sie es nicht verwenden**.
+Ob Sie Ihren Smart Node zu Hause betreiben oder einen VPS in einem entfernten Rechenzentrum verwenden, es ist wahrscheinlich, dass Sie entweder über SSH darauf zugreifen oder dass SSH aktiviert ist, **auch wenn Sie es nicht verwenden**.
 
 SSH-Verbindungen basieren auf sicherer Kryptographie, aber wie bei jedem sicheren System kommt die eigentliche Sicherheit von der korrekten Verwendung.
 Es gibt zwei Hauptdinge für Ihre SSH-Einstellungen zu tun:
@@ -543,7 +543,7 @@ sudo systemctl restart unattended-upgrades
 
 ## WESENTLICH: Eine Firewall aktivieren
 
-Im Allgemeinen sollte Ihre Maschine nur Netzwerkverkehr auf Ports akzeptieren, die Ihr Execution-Client, Consensus-Client und Smartnode-Stack verwenden.
+Im Allgemeinen sollte Ihre Maschine nur Netzwerkverkehr auf Ports akzeptieren, die Ihr Execution-Client, Consensus-Client und Smart Node-Stack verwenden.
 Um dies durchzusetzen und unerwarteten oder unerwünschten Verkehr zu verhindern, können wir eine **Firewall** auf dem Knoten installieren.
 
 ::: tip HINWEIS
@@ -552,7 +552,7 @@ Wenn Sie während der Rocketpool-Einrichtung einen anderen Execution-/Consensus-
 
 Ubuntu wird standardmäßig mit `ufw` geliefert (der **u**nkomplizierte **F**ire**w**all), ein praktisches Dienstprogramm zur Verwaltung der Firewall-Einstellungen Ihres Knotens.
 
-Die folgenden Befehle richten `ufw` mit einer guten Standardkonfiguration für Ihren Smartnode ein.
+Die folgenden Befehle richten `ufw` mit einer guten Standardkonfiguration für Ihren Smart Node ein.
 **Führen Sie diese auf Ihrer Knotenmaschine aus**.
 
 Deaktivieren Sie Verbindungen, es sei denn, sie sind durch spätere Regeln ausdrücklich erlaubt:

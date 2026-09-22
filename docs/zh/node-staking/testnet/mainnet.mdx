@@ -3,7 +3,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 # 从测试网络迁移至主网
 
 如果您已经在我们的 Hoodi 测试网上使用过 Rocket Pool，熟悉其运作方式，并准备好在以太坊主链上真正质押 ETH 或运行节点，那么本指南适合您！
-在这里，您将找到如何将现有的 Smartnode 堆栈从 Hoodi 测试网迁移到连接至以太坊主网的说明,为质押您自己的真实 ETH 和 RPL 做好准备。
+在这里，您将找到如何将现有的 Smart Node 堆栈从 Hoodi 测试网迁移到连接至以太坊主网的说明,为质押您自己的真实 ETH 和 RPL 做好准备。
 
 ## 在主网上进行池质押
 
@@ -13,10 +13,10 @@ URL 会有所不同，rETH 代币的地址可能也不同，但工作流程没�
 
 ### 测试网与主网之间的差异
 
-- 测试网 Smartnode 有测试 ETH 水龙头。主网 Smartnode **没有水龙头**。您需要自己提供 ETH 才能进行质押。
+- 测试网 Smart Node 有测试 ETH 水龙头。主网 Smart Node **没有水龙头**。您需要自己提供 ETH 才能进行质押。
 - 主网通过 WalletConnect 支持许多以太坊钱包，因此您可以使用在测试网上无法使用的其他钱包。**您不再仅限于使用 Metamask 进行质押**。
 
-## 在主网上运行 Smartnode
+## 在主网上运行 Smart Node
 
 ::: danger 注意
 测试网络中的**任何内容**都无法迁移到主网。
@@ -31,7 +31,7 @@ URL 会有所不同，rETH 代币的地址可能也不同，但工作流程没�
 
 ### 测试网与主网之间的差异
 
-- 测试网 Smartnode 有 ETH 和 RPL 水龙头。主网 Smartnode **没有水龙头**。您需要自己提供 ETH 和 RPL。
+- 测试网 Smart Node 有 ETH 和 RPL 水龙头。主网 Smart Node **没有水龙头**。您需要自己提供 ETH 和 RPL。
 - 如果您使用 Geth，您的节点工作负载将**大幅增加**。Geth 的存储空间约为 Hoodi 的 40 倍，需要更多的 CPU 处理能力和 RAM。如果您使用 Rocket Pool Grafana 仪表板，请准备好看到更高的使用率。
   截至 2025 年 9 月 19 日，完整的 Geth 节点使用 1.4 TB。[过期合并前的区块数据](../maintenance/history-expiry)可以将存储使用量减少约 300-500 GB。
 - 您的信标链对等节点（以及您的证明有效性）将**高于**测试网。主网上的对等节点更加多样化，往往比测试网上的质量更高。
@@ -40,7 +40,7 @@ URL 会有所不同，rETH 代币的地址可能也不同，但工作流程没�
 
 ### 自动迁移（仅限 Docker 模式）
 
-对于 Docker 模式用户，Smartnode 可以自动为您迁移到主网。
+对于 Docker 模式用户，Smart Node 可以自动为您迁移到主网。
 
 **在您仍然配置了测试网时**，退出您在 Hoodi 上的验证者：
 
@@ -57,7 +57,7 @@ rocketpool minipool exit
 rocketpool service config
 ```
 
-接下来，打开 **Smartnode and TX Fees** 类别，将 **Network** 下拉菜单从 `Hoodi Testnet` 更改为 `Ethereum Mainnet`：
+接下来，打开 **Smart Node and TX Fees** 类别，将 **Network** 下拉菜单从 `Hoodi Testnet` 更改为 `Ethereum Mainnet`：
 
 <img src="../images/tui-change-network.png" width="100%" height="auto" />
 
@@ -74,14 +74,14 @@ Would you like the Smartnode to automatically switch networks for you? This will
 ```
 
 备份您想保留的任何内容（例如包含您的节点钱包和验证者密钥的 `data` 文件夹），然后在准备好时按 `y` 和 `Enter`。
-Smartnode 将自动处理切换。
+Smart Node 将自动处理切换。
 
 完成后，您将获得一个在主网上的全新安装。
 您的所有设置（例如客户端选择）都将保留，但您需要创建一个新钱包。此外，您在主网上可能没有 _Checkpoint Sync URL_，应该按照[这里](../config-docker#信标链检查点同步)的说明进行设置；否则同步主网信标链将需要很长时间。
 
 ### 手动迁移
 
-如果由于任何原因无法利用 Smartnode 的自动迁移流程，您可以通过几个简单的步骤手动完成：
+如果由于任何原因无法利用 Smart Node 的自动迁移流程，您可以通过几个简单的步骤手动完成：
 
 <div className="p-3">
   <Tabs>

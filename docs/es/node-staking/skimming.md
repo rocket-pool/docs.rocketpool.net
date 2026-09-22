@@ -14,7 +14,7 @@ El antiguo delegado Redstone no se puede usar para distribuir el saldo del minip
 
 ## Distribución Automática
 
-Por defecto, el Smartnode está configurado para distribuir automáticamente cualquiera de tus minipools cuando sus saldos individuales alcancen **1 ETH**. Este
+Por defecto, el Smart Node está configurado para distribuir automáticamente cualquiera de tus minipools cuando sus saldos individuales alcancen **1 ETH**. Este
 umbral se puede configurar en el TUI siguiendo los pasos a continuación.
 
 Ejecuta:
@@ -27,7 +27,7 @@ Navega a la configuración `Smartnode and TX Fee Settings > Auto Distribute Thre
 
 ![](./images/tui-automatic-skimming.png)
 
-Cambiar esta configuración ajustará el umbral en el que el Smartnode distribuirá automáticamente tus minipools.
+Cambiar esta configuración ajustará el umbral en el que el Smart Node distribuirá automáticamente tus minipools.
 Establecer el parámetro en 0 deshabilitará las distribuciones automáticas.
 
 ::: warning ADVERTENCIA
@@ -38,7 +38,7 @@ Después de un largo período de tiempo, tus recompensas skimmed pueden exceder 
 distribuirlas y necesitarás salir de tu validador para acceder a tus recompensas acumuladas.
 
 Rocket Pool cuenta con un diseño de seguridad que permite a cualquiera, después de un largo período de espera, distribuir tu minipool cuando
-su saldo exceda 8 ETH. Para proteger tu capital, el Smartnode monitorea esta situación y saldrá automáticamente de
+su saldo exceda 8 ETH. Para proteger tu capital, el Smart Node monitorea esta situación y saldrá automáticamente de
 tu minipool si ocurre.
 :::
 

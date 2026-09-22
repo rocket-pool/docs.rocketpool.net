@@ -131,9 +131,9 @@ ls /sys/class/net
 Los dispositivos Ethernet (cableados) generalmente comienzan con `e`, como los ejemplos anteriores.
 Los dispositivos inalámbricos generalmente comienzan con `w`.
 
-## Notificaciones de Alerta del Smartnode
+## Notificaciones de Alerta del Smart Node
 
-[Monitoreo de tu Stack Smartnode con Notificaciones de Alerta](./maintenance/alerting.md) te guía a través del uso de la funcionalidad de notificación de alertas del Smartnode para recibir notificaciones sobre la salud y eventos importantes de tu Rocket Pool Smartnode.
+[Monitoreo de tu Stack Smart Node con Notificaciones de Alerta](./maintenance/alerting.md) te guía a través del uso de la funcionalidad de notificación de alertas del Smart Node para recibir notificaciones sobre la salud y eventos importantes de tu Rocket Pool Smart Node.
 
 ## Monitoreo de Rendimiento de Terceros
 
@@ -200,7 +200,7 @@ El sitio web de Beaconcha.in tiene una función que permite a los usuarios renom
 
 Para poder usar esta función, necesitas firmar un mensaje usando la clave privada de la billetera de tu nodo, para demostrar que eres la persona que controla ese validador.
 
-El Smartnode v1.5.1 incluye la capacidad de firmar mensajes con la clave privada de tu billetera de nodo usando el comando `rocketpool node sign-message`, luego proporcionando el mensaje que deseas firmar.
+El Smart Node v1.5.1 incluye la capacidad de firmar mensajes con la clave privada de tu billetera de nodo usando el comando `rocketpool node sign-message`, luego proporcionando el mensaje que deseas firmar.
 Debe contener el término 'beaconcha.in' para poder usarlo para renombrar tus validadores.
 
 ![](../node-staking/images/sign-message.png)
@@ -230,7 +230,7 @@ La IP a monitorear es la IP externa de tu nodo, que puedes encontrar iniciando s
 curl icanhazip.com
 ```
 
-El puerto a monitorear depende de la configuración de tu nodo; los usuarios que ejecutan la instalación típica del Smartnode probablemente hayan reenviado los puertos 30303 y 9001 para los clientes de Ejecución y Consenso respectivamente, por lo que estas son buenas opciones para el monitoreo del tiempo de actividad.
+El puerto a monitorear depende de la configuración de tu nodo; los usuarios que ejecutan la instalación típica del Smart Node probablemente hayan reenviado los puertos 30303 y 9001 para los clientes de Ejecución y Consenso respectivamente, por lo que estas son buenas opciones para el monitoreo del tiempo de actividad.
 
 ### Paneles de Métricas de Rocketpool
 
@@ -239,7 +239,7 @@ Hay múltiples iniciativas lideradas por la comunidad para proporcionar una desc
 ### Scripting con Pushover (avanzado)
 
 ::: tip NOTA
-[Monitoreo de tu Stack Smartnode con Notificaciones de Alerta](./maintenance/alerting.md) te guía a través del uso de la funcionalidad de notificación de alertas del Smartnode que incluye una notificación cuando hay actualizaciones disponibles para tu nodo.
+[Monitoreo de tu Stack Smart Node con Notificaciones de Alerta](./maintenance/alerting.md) te guía a través del uso de la funcionalidad de notificación de alertas del Smart Node que incluye una notificación cuando hay actualizaciones disponibles para tu nodo.
 :::
 
 El servicio [Pushover](https://pushover.net/) te permite enviarte notificaciones push.

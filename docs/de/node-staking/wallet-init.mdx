@@ -2,7 +2,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # Eine neue Wallet erstellen
 
-Wenn die Smartnode-Dienste aktiv und betriebsbereit sind, ist der nächste Schritt die Einrichtung einer Ethereum-Wallet für Ihren Node.
+Wenn die Smart Node-Dienste aktiv und betriebsbereit sind, ist der nächste Schritt die Einrichtung einer Ethereum-Wallet für Ihren Node.
 Dies ist einfach eine Execution Layer-Adresse, die die Mittel Ihres Nodes verwahrt - sie wird verwendet, um ETH an Ihren Megapool-Validator zu senden, wenn Sie mit dem Staking beginnen, Gas für verschiedene Transaktionen zu bezahlen und andere verschiedene Operationen durchzuführen.
 
 Sie haben die Möglichkeit, entweder eine völlig neue Wallet von Grund auf zu erstellen oder eine bestehende Wallet oder Adresse zu importieren bzw. wiederherzustellen.
@@ -12,13 +12,19 @@ Bitte wählen Sie aus den folgenden Registerkarten die gewünschte Option aus.
   <Tabs>
     <Tab label="Eine neue Wallet erstellen">
       Die üblichste Methode zum Betreiben eines Nodes ist die Erstellung einer neuen Ethereum-Adresse, die ausschließlich für den Node bestimmt ist.
-      Die Smartnode CLI bietet eine einfache Möglichkeit, dies zu tun:
+      Die Smart Node CLI bietet eine einfache Möglichkeit, dies zu tun:
 
       ```shell
       rocketpool wallet init
       ```
 
-      Sie werden zunächst nach einem Passwort gefragt, um den privaten Schlüssel Ihrer Wallet zu schützen.
+      Standardmäßig erzeugt der Smart Node ein zufälliges Passwort, um den privaten Schlüssel Ihrer Wallet zu verschlüsseln (gespeichert in der unten genannten Passwortdatei).
+      Wenn Sie stattdessen ein eigenes Passwort wählen möchten, übergeben Sie `-p` / `--password`.
+
+      ::: tip HINWEIS
+      Sie müssen dieses Passwort weder kennen noch sich merken. Die **24-Wort-Mnemonic der Node** genügt, um Ihre Wallet vollständig wiederherzustellen.
+      :::
+
       Anschließend wird Ihnen die **einzigartige 24-Wort-Mnemonic** für Ihre neue Wallet präsentiert.
       Dies ist die **Wiederherstellungsphrase** für Ihre Wallet.
       Sollten Sie jemals Ihre Maschine verlieren, können Sie mit dieser Phrase Ihre Wallet wiederherstellen und alle damit verbundenen Consensus-Validatoren wiederherstellen.
@@ -37,7 +43,7 @@ Bitte wählen Sie aus den folgenden Registerkarten die gewünschte Option aus.
         Node-Konto: LangeZeichenfolgeAusBuchstabenUndZahlen"
       Dies ist die öffentliche Adresse, an die Sie ETH senden werden, wie in „Vorbereitung Ihres Nodes für den Betrieb" beschrieben. Sie können sie auch durch Eingabe von „rocketpool wallet status" überprüfen.
 
-      Wenn Sie bereits eine Node-Wallet haben, die Sie in einer früheren Installation des Smartnode erstellt haben, oder wenn Sie eine Adresse importieren möchten, die Sie anderswo erstellt haben (z. B. mit **Allnodes**), folgen Sie bitte den Anweisungen im Leitfaden [Importieren einer bestehenden Wallet für Ihren Node](./recovering-rp).
+      Wenn Sie bereits eine Node-Wallet haben, die Sie in einer früheren Installation des Smart Node erstellt haben, oder wenn Sie eine Adresse importieren möchten, die Sie anderswo erstellt haben (z. B. mit **Allnodes**), folgen Sie bitte den Anweisungen im Leitfaden [Importieren einer bestehenden Wallet für Ihren Node](./recovering-rp).
 
       Kehren Sie hierher zurück, wenn Sie fertig sind.
     </Tab>

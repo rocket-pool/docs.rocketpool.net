@@ -10,11 +10,11 @@ next:
 
 ## 前置条件
 
-在配置 Smartnode 之前，请确保您：
+在配置 Smart Node 之前，请确保您：
 
 - 已设置节点机器（或虚拟机）并对其进行了安全加固（通过[保护您的节点](/zh/node-staking/securing-your-node)指南）
-- 已在其上[安装](/zh/node-staking/installing/overview)并[配置](/zh/node-staking/config/overview) Smartnode
-- 已在 Smartnode 上加载节点钱包
+- 已在其上[安装](/zh/node-staking/installing/overview)并[配置](/zh/node-staking/config/overview) Smart Node
+- 已在 Smart Node 上加载节点钱包
 - 已同步执行层和共识层客户端
 - 已为节点配置[提款地址](/zh/node-staking/prepare-node#设置主提款地址)，设置[后备客户端](/zh/node-staking/fallback)（可选），选择加入[平滑池](/zh/node-staking/fee-distrib-sp#平滑池)（可选），并配置 [MEV](/zh/node-staking/mev)
 - 已创建至少一个 [minipool](/zh/node-staking/create-validator)
@@ -35,7 +35,7 @@ next:
 
 [初始化投票权](/zh/pdao/participate#初始化投票)向您展示如何初始化节点的投票权。仅当您的节点在 Houston 升级之前注册时才需要此步骤。
 
-[设置您的 Snapshot 信号地址](/zh/pdao/participate#设置您的-snapshot-信号地址)将引导您完成设置信号地址的步骤。它将允许您使用节点的投票权在 Snapshot 上投票，而无需将节点的私钥加载到热钱包中。确保您手头有 Smartnode CLI，并为本指南准备一个地址（不是您的节点钱包）。
+[设置您的 Snapshot 信号地址](/zh/pdao/participate#设置您的-snapshot-信号地址)将引导您完成设置信号地址的步骤。它将允许您使用节点的投票权在 Snapshot 上投票，而无需将节点的私钥加载到热钱包中。确保您手头有 Smart Node CLI，并为本指南准备一个地址（不是您的节点钱包）。
 
 [委托投票权](/zh/pdao/participate#委托投票权)是一个快速命令，您可以使用它来委托投票权，而不是直接对提案进行投票。
 

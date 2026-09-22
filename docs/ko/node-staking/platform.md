@@ -24,7 +24,7 @@ Merge가 발생한 이후 Rocket Pool 노드는 이 구성을 실행해야 합�
 
 ::: warning 참고
 현재 **Linux** 및 **macOS** 플랫폼만 지원됩니다.
-**Windows는 현재 Smartnode 운영을 지원하지 않습니다**.
+**Windows는 현재 Smart Node 운영을 지원하지 않습니다**.
 :::
 
 ## 로컬 노드 실행

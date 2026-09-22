@@ -5,10 +5,10 @@ import tuiOdao from "./images/tui-odao.png";
 
 En azından, standart bir Rocket Pool node'u aşağıdakileri çalıştırır:
 
-- Smartnode CLI
-- Smartnode API daemon
-- Smartnode `node` daemon
-- Smartnode `watchtower` daemon
+- Smart Node CLI
+- Smart Node API daemon
+- Smart Node `node` daemon
+- Smart Node `watchtower` daemon
 
 İsteğe bağlı olarak, node aşağıdaki bileşenleri de çalıştırabilir:
 
@@ -20,7 +20,7 @@ En azından, standart bir Rocket Pool node'u aşağıdakileri çalıştırır:
 - Prometheus Node Exporter
 - Grafana
 
-Bu bileşenlerin her biri standart kurulumda Docker container'ları olarak, "Native Mode" kurulumunda `systemd` servisleri olarak veya Smartnode'un ilgili API rotaları aracılığıyla bağlanabileceği harici olarak yönetilen varlıklar olarak çalıştırılabilir.
+Bu bileşenlerin her biri standart kurulumda Docker container'ları olarak, "Native Mode" kurulumunda `systemd` servisleri olarak veya Smart Node'un ilgili API rotaları aracılığıyla bağlanabileceği harici olarak yönetilen varlıklar olarak çalıştırılabilir.
 
 Uygun bir şekilde, Oracle DAO node'ları normal Rocket Pool node'ları ile aynıdır, ancak `watchtower` daemon ek Oracle DAO görevlerini yerine getirir ve performans izleme amaçları için daha fazla Prometheus metriği toplanır.
 
@@ -32,7 +32,7 @@ Bu süreç, node'unuzu nasıl yapılandırmak ve çalıştırmak istediğinizi b
 Node'unuzda minipool'lar (validator'lar) çalıştırmak istiyorsanız, lütfen normal node belgelerini baştan sona takip edin ve işiniz bittiğinde buraya geri dönün.
 
 Minipool'lar çalıştırmayı _düşünmüyorsanız_ ve bunun yerine yalnızca Oracle DAO görevleri için kullanacaksanız, RPL stake etme ve minipool oluşturmayla ilgili tüm adımları atlayabilirsiniz.
-Node kaydı, iyi bir güvenlik duruşu oluşturma, node'un sağlığını ve performansını izleme ve bir güncellemeden sonra Smartnode'u güncelleme gibi diğer adımlar hala sizin için geçerlidir ve devam etmeden önce bunları dikkatle incelemelisiniz.
+Node kaydı, iyi bir güvenlik duruşu oluşturma, node'un sağlığını ve performansını izleme ve bir güncellemeden sonra Smart Node'u güncelleme gibi diğer adımlar hala sizin için geçerlidir ve devam etmeden önce bunları dikkatle incelemelisiniz.
 İşiniz bittiğinde buraya geri dönün.
 
 ## Ek Oracle DAO Yapılandırması
@@ -67,7 +67,7 @@ Lütfen node'unuzu yapılandırmak için kullandığınız modu aşağıdaki sek
       Son olarak, ayarların etkili olması için `watchtower` daemon'unuzu yeniden başlatın (örneğin, Docker veya Hybrid modda `docker restart rocketpool_watchtower` ile veya Native modda `sudo systemctl restart rp_watchtower` ile).
     </Tab>
     <Tab label="Doğrudan Config Dosyası">
-      Smartnode dizininizdeki (`~/.rocketpool` varsayılan olarak) `user-settings.yml` dosyasını bir metin düzenleyicide açın.
+      Smart Node dizininizdeki (`~/.rocketpool` varsayılan olarak) `user-settings.yml` dosyasını bir metin düzenleyicide açın.
       `smartnode` bölümüne gidin:
 
       ```
@@ -93,9 +93,9 @@ Lütfen node'unuzu yapılandırmak için kullandığınız modu aşağıdaki sek
   </Tabs>
 </div>
 
-## Oracle DAO Smartnode Komutları
+## Oracle DAO Smart Node Komutları
 
-Smartnode CLI'nin `odao` komut grubu, Oracle DAO contract'ları ve görevleriyle zincir üstünde etkileşim kurmak için kullanılır:
+Smart Node CLI'nin `odao` komut grubu, Oracle DAO contract'ları ve görevleriyle zincir üstünde etkileşim kurmak için kullanılır:
 
 ```
 NAME:

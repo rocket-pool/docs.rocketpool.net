@@ -15,8 +15,8 @@ Una di queste due azioni aumenterà quel saldo di conseguenza.
 
 Questo ETH _non_ viene reso liquido e restituito al Node Operator; invece, può essere utilizzato per **creare minipool aggiuntivi** senza richiedere alcun ETH dal Node Operator.
 
-Il sistema di credito è **trasparente** per il Node Operator; verrà utilizzato automaticamente (con notifiche nella CLI dello Smartnode che spiegano che verrà utilizzato) durante le operazioni `rocketpool node deposit` o `rocketpool node create-vacant-minipool` se possibile.
-Se _non può_ essere utilizzato, lo Smartnode avviserà l'utente che non può essere utilizzato e richiederà un normale bond in ETH durante entrambe le operazioni.
+Il sistema di credito è **trasparente** per il Node Operator; verrà utilizzato automaticamente (con notifiche nella CLI dello Smart Node che spiegano che verrà utilizzato) durante le operazioni `rocketpool node deposit` o `rocketpool node create-vacant-minipool` se possibile.
+Se _non può_ essere utilizzato, lo Smart Node avviserà l'utente che non può essere utilizzato e richiederà un normale bond in ETH durante entrambe le operazioni.
 
 Vedi la sezione [Disponibilità del Credito](#disponibilità-del-credito) qui sotto per maggiori dettagli.
 
@@ -76,5 +76,5 @@ L'ETH per il tuo saldo di credito è preso dal **deposit pool**.
 Quindi, se vuoi utilizzare 8 ETH in credito per creare un nuovo minipool da 8 ETH, finirà per prendere **tutti i 32 ETH per quel minipool** dal deposit pool e non ne richiederà nessuno da te.
 Per questo motivo, se il deposit pool non ha abbastanza ETH per coprire il valore di pre-deposito (attualmente impostato a 1 ETH), **il saldo non sarà disponibile**.
 
-In questa situazione, lo Smartnode ti avviserà durante un'operazione `rocketpool node deposit` che **non può** utilizzare il tuo saldo di credito e deve invece utilizzare ETH dal tuo wallet del nodo per completare il bond.
+In questa situazione, lo Smart Node ti avviserà durante un'operazione `rocketpool node deposit` che **non può** utilizzare il tuo saldo di credito e deve invece utilizzare ETH dal tuo wallet del nodo per completare il bond.
 Farlo **non** consumerà il tuo saldo di credito; verrà lasciato così com'è e disponibile per l'uso successivo una volta che il deposit pool avrà abbastanza saldo per coprirlo.

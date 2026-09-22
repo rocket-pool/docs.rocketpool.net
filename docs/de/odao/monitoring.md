@@ -7,14 +7,14 @@ Dazu gehört Folgendes:
 - Überwachung der Gesundheit Ihrer Execution- und/oder Consensus-Clients (wenn Sie lokale Clients betreiben)
 - Sicherstellen, dass Ihr Node regelmäßig die erforderlichen Transaktionen für Statusaktualisierungen an die Chain übermittelt
 - Sicherstellen, dass Sie einen ausreichenden ETH-Saldo in Ihrer Node-Wallet haben, um diese Transaktionen auszuführen
-- Routinemäßiges Anwenden von Updates für den Smartnode, Ihre Clients (falls zutreffend) und Ihr Betriebssystem
+- Routinemäßiges Anwenden von Updates für den Smart Node, Ihre Clients (falls zutreffend) und Ihr Betriebssystem
 - Überwachung der Gesundheit der anderen Oracle DAO-Mitglieder und Kommunikation mit ihnen, wenn Sie glauben, dass ihre Node(s) nicht ordnungsgemäß funktionierenS
 
-In diesem Abschnitt beschreiben wir einige Beispiele, wie dies über die eingebaute [Grafana](https://grafana.com/)-Unterstützung des Smartnode erfolgen kann.
+In diesem Abschnitt beschreiben wir einige Beispiele, wie dies über die eingebaute [Grafana](https://grafana.com/)-Unterstützung des Smart Node erfolgen kann.
 
 ## Das Standard-Rocket-Pool-Dashboard
 
-Der Smartnode bietet ein praktisches Dashboard, mit dem Sie viele der oben aufgeführten Metriken überwachen können.
+Der Smart Node bietet ein praktisches Dashboard, mit dem Sie viele der oben aufgeführten Metriken überwachen können.
 Es gibt ein Dashboard für jeden Consensus Client.
 Unten ist ein Beispiel des Dashboards für Nimbus:
 
@@ -24,13 +24,13 @@ Unten ist ein Beispiel des Dashboards für Nimbus:
 - Ihr Execution Client funktioniert ordnungsgemäß, wenn die Netzwerkstatistiken im unteren linken Quadranten ausgefüllt werden.
 - Ihr Consensus Client funktioniert ordnungsgemäß, wenn die Peer-Anzahl im oberen rechten Quadranten mit einer Zahl ungleich Null aktualisiert wird; die genaue Zahl hängt von Ihrer Wahl des Clients und Ihrer Netzwerkkonfiguration ab.
 - Der ETH-Saldo Ihres Nodes wird in der Tabelle unten rechts angezeigt.
-- Alle Betriebssystem-Updates oder Smartnode-Updates werden im Feld `Available Updates` im oberen mittleren Panel angezeigt.
+- Alle Betriebssystem-Updates oder Smart Node-Updates werden im Feld `Available Updates` im oberen mittleren Panel angezeigt.
 
 ::: tip HINWEIS
-Betriebssystem- und Smartnode-Updates erfordern den Update-Tracker, den Sie über `rocketpool service install-update-tracker` installieren können.
+Betriebssystem- und Smart Node-Updates erfordern den Update-Tracker, den Sie über `rocketpool service install-update-tracker` installieren können.
 :::
 
-Informationen zur Vorbereitung des Metriksystems und des Smartnode-Dashboards finden Sie auf den Seiten [Überwachung der Leistung Ihres Nodes](../node-staking/performance) und [Einrichten des Grafana-Dashboards](../node-staking/grafana.mdx) der Smartnode-Dokumentation.
+Informationen zur Vorbereitung des Metriksystems und des Smart Node-Dashboards finden Sie auf den Seiten [Überwachung der Leistung Ihres Nodes](../node-staking/performance) und [Einrichten des Grafana-Dashboards](../node-staking/grafana.mdx) der Smart Node-Dokumentation.
 
 ## Das Oracle DAO Dashboard
 

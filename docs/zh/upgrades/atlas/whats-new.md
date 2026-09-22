@@ -4,7 +4,7 @@
 Atlas 于 `2023 年 4 月 18 日 00:00 UTC` 部署。请访问[这里](../houston/whats-new)阅读有关 Houston（最新协议升级）的信息。
 :::
 
-本页面描述了 Rocket Pool 的下一个主要更新（名为 **Atlas**）给协议带来的主要变化，包括对 Smartnode 堆栈和 Rocket Pool 协议本身的更新。
+本页面描述了 Rocket Pool 的下一个主要更新（名为 **Atlas**）给协议带来的主要变化，包括对 Smart Node 堆栈和 Rocket Pool 协议本身的更新。
 
 请仔细阅读此页面，以了解 Rocket Pool 先前版本（Redstone）和 Atlas 之间的所有差异。
 
@@ -66,9 +66,9 @@ _然而_，作为对 solo 验证者的这一新要求的一部分，Atlas 带来
 
 要了解有关将 solo 验证者转换为 minipool 的更多信息，请访问[将 Solo 验证者转换为 Minipool](../../node-staking/solo-staker-migration) 指南。
 
-## 新 Smartnode 功能
+## 新 Smart Node 功能
 
-除了对 Rocket Pool 协议的核心更改外，Atlas 还为 Smartnode 堆栈本身带来了一些令人兴奋的升级，这些升级存在于 v1.9.0 中。
+除了对 Rocket Pool 协议的核心更改外，Atlas 还为 Smart Node 堆栈本身带来了一些令人兴奋的升级，这些升级存在于 v1.9.0 中。
 
 ### 自动奖励分配
 
@@ -106,11 +106,11 @@ _然而_，作为对 solo 验证者的这一新要求的一部分，Atlas 带来
 
 ### Nimbus 更改
 
-Smartnode v1.9.0 引入了 Nimbus 的**拆分模式支持**！
-Smartnode 现在将在单独的容器中运行它们，而不是在单个进程/容器中运行信标节点和验证客户端，就像其他客户端一样。这具有以下好处：
+Smart Node v1.9.0 引入了 Nimbus 的**拆分模式支持**！
+Smart Node 现在将在单独的容器中运行它们，而不是在单个进程/容器中运行信标节点和验证客户端，就像其他客户端一样。这具有以下好处：
 
 - Nimbus 现在支持**备用客户端**（当您的主客户端因维护而停机时，Nimbus 的验证客户端可以连接的辅助执行客户端和信标节点，例如重新同步）。
-- Nimbus 现在在**外部管理（混合）模式**中受支持，因此您可以将 Smartnode 管理的验证客户端与您自己维护的外部信标节点配对。
+- Nimbus 现在在**外部管理（混合）模式**中受支持，因此您可以将 Smart Node 管理的验证客户端与您自己维护的外部信标节点配对。
 - 信标节点不再需要在添加新 minipool 后重启，这意味着您在它重新连接到其对等点时不会失去证明。
 
 ### Lodestar 支持

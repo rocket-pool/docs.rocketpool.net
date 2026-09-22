@@ -125,8 +125,8 @@ Un fee recipient diverso da uno degli indirizzi validi sopra è considerato **no
 
 Il software Smart Node imposta automaticamente il fee recipient corretto in base alla tua configurazione (se sei iscritto allo Smoothing Pool e se hai validator megapool, minipool, o entrambi). Per i nodi con sia validator megapool che minipool mentre non sono iscritti, il fee recipient viene impostato per validator usando la keymanager API. L'elenco completo delle condizioni è riassunto [qui](/it/node-staking/fee-distrib-sp#fee-recipient).
 
-Il software Smartnode è progettato per garantire che gli utenti onesti non vengano mai penalizzati, anche se deve portare offline il client Validator per farlo.
-Se questo accade, smetterai di attestare e vedrai messaggi di errore nei tuoi file di log sul motivo per cui lo Smartnode non può impostare correttamente il tuo fee recipient.
+Il software Smart Node è progettato per garantire che gli utenti onesti non vengano mai penalizzati, anche se deve portare offline il client Validator per farlo.
+Se questo accade, smetterai di attestare e vedrai messaggi di errore nei tuoi file di log sul motivo per cui lo Smart Node non può impostare correttamente il tuo fee recipient.
 
 ## Lo Smoothing Pool
 

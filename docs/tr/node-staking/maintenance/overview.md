@@ -10,11 +10,11 @@ Bu bölümde, node'unuzun ve validator'larınızın sağlığını nasıl izleye
 
 ## Ön Koşullar
 
-Smartnode'unuzu yapılandırmadan önce, lütfen şunları yaptığınızdan emin olun:
+Smart Node'unuzu yapılandırmadan önce, lütfen şunları yaptığınızdan emin olun:
 
 - Bir node makinesi (veya sanal makine) kurduğunuzu ve güvenliğini sağladığınızı ([Node'unuzu Güvence Altına Alma](../securing-your-node) rehberi ile)
-- Smartnode'u üzerine [yüklediğinizi](../installing/overview) ve [yapılandırdığınızı](../config/overview)
-- Smartnode'unuzda bir node cüzdanı yüklediğinizi
+- Smart Node'u üzerine [yüklediğinizi](../installing/overview) ve [yapılandırdığınızı](../config/overview)
+- Smart Node'unuzda bir node cüzdanı yüklediğinizi
 - Execution ve Consensus istemcilerinizi senkronize ettiğinizi
 - Node'unuzu [bir çekim adresi](../prepare-node.mdx#birincil-çekim-adresinizi-ayarlama) ile tedarik ettiğinizi, [yedek istemcilerinizi](../fallback) kurduğunuzu (isteğe bağlı), [Smoothing Pool'a](../fee-distrib-sp#smoothing-pool) katıldığınızı (isteğe bağlı) ve [MEV'yi](../mev.mdx) yapılandırdığınızı
 - En az bir [minipool](../create-validator.mdx) oluşturduğunuzu
@@ -24,12 +24,12 @@ Smartnode'unuzu yapılandırmadan önce, lütfen şunları yaptığınızdan emi
 [Node'unuzun Performansını İzleme](../performance), node'unuzun sağlığını (CPU ve RAM tüketimi gibi kaynak perspektifinden) ve validator'larınızın Beacon Chain üzerindeki performansını takip etmek için bazı araçlar ve eğitimler sağlar.
 Ethereum validator'u olarak görev süreniz boyunca kullanacağınız pek çok temel aracı kapsar.
 
-[Grafana Dashboard'unu Kurma](../grafana.mdx), Smartnode stack'inin metrik takipçisini ve Grafana dashboard'unu kurma sürecini anlatır - node'unuz ve validator'larınız hakkında her şeyi izlemek için tek durak noktası ve her node operatörünün cephaneliğindeki temel araç.
+[Grafana Dashboard'unu Kurma](../grafana.mdx), Smart Node stack'inin metrik takipçisini ve Grafana dashboard'unu kurma sürecini anlatır - node'unuz ve validator'larınız hakkında her şeyi izlemek için tek durak noktası ve her node operatörünün cephaneliğindeki temel araç.
 Grafana dashboard'unu keşfetmenizi ve düzenli olarak kontrol etmenizi _şiddetle_ tavsiye ederiz.
 
-[Smartnode Stack Uyarı Bildirimleri](./alerting.md), Rocket Pool Smartnode'unuzun sağlığı ve önemli olayları hakkında bildirim almak için Smartnode uyarı bildirimi işlevselliğini kullanmayı anlatır.
+[Smart Node Stack Uyarı Bildirimleri](./alerting.md), Rocket Pool Smart Node'unuzun sağlığı ve önemli olayları hakkında bildirim almak için Smart Node uyarı bildirimi işlevselliğini kullanmayı anlatır.
 
-[Güncellemeleri Kontrol Etme](../updates), yeni güvenlik yamalarıyla node'unuzu düzenli olarak güncellemenin kritik süreçlerini, yeni bir sürümden sonra Smartnode'u nasıl güncelleyeceğinizi ve seçtiğiniz istemciler Smartnode'un en son sürümünün henüz içermediği yeni bir sürüm yayınlarsa istemci sürümlerini manuel olarak nasıl güncelleyeceğinizi kapsar.
+[Güncellemeleri Kontrol Etme](../updates), yeni güvenlik yamalarıyla node'unuzu düzenli olarak güncellemenin kritik süreçlerini, yeni bir sürümden sonra Smart Node'u nasıl güncelleyeceğinizi ve seçtiğiniz istemciler Smart Node'un en son sürümünün henüz içermediği yeni bir sürüm yayınlarsa istemci sürümlerini manuel olarak nasıl güncelleyeceğinizi kapsar.
 Bir güncelleme yayınlandığında ona başvurmanız gerekebileceğinden, bu bölümün tamamını tanımanız gerekir.
 
 [Node'unuzu Yedekleme](../backups), donanım arızası durumunda node'unuzun yapılandırmasını ve zincir verilerini nasıl yedekleyeceğinizi açıklayan isteğe bağlı bir rehberdir.

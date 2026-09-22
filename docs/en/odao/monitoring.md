@@ -7,14 +7,14 @@ Doing so involves the following:
 - Monitoring the health of your Execution and/or Consensus clients (if you run local clients)
 - Ensuring your node is regularly submitting the required transactions to the chain for status updates
 - Ensuring you have a sufficient ETH balance in your node wallet to execute those transactions
-- Routinely applying updates to the Smartnode, your clients (if applicable), and your Operating System
+- Routinely applying updates to the Smart Node, your clients (if applicable), and your Operating System
 - Monitoring the health of the other Oracle DAO members, and communicating with them if you believe their node(s) are not functioning properlyS
 
-In this section, we'll describe a few examples of how to do these via the Smartnode's built-in [Grafana](https://grafana.com/) support.
+In this section, we'll describe a few examples of how to do these via the Smart Node's built-in [Grafana](https://grafana.com/) support.
 
 ## The Standard Rocket Pool Dashboard
 
-The Smartnode provides a convenient dashboard that allows you to monitor many of the metrics listed above.
+The Smart Node provides a convenient dashboard that allows you to monitor many of the metrics listed above.
 There is one dashboard for each Consensus Client.
 Below is an example of the dashboard for Nimbus:
 
@@ -24,13 +24,13 @@ Below is an example of the dashboard for Nimbus:
 - Your Execution client is functioning properly if the Network Stats in the lower-left quadrant are being populated.
 - Your Consensus client is functioning properly if the peer count in the upper-right quadrant is updating with a non-zero number; the exact number depends on your choice of client and your network configuration.
 - Your node's ETH balance is displayed in the table at the bottom right.
-- Any Operating System updates or Smartnode updates are presented in the `Available Updates` box in the top-middle panel.
+- Any Operating System updates or Smart Node updates are presented in the `Available Updates` box in the top-middle panel.
 
 ::: tip NOTE
-Operating System and Smartnode updates require the update tracker, which you can install via `rocketpool service install-update-tracker`.
+Operating System and Smart Node updates require the update tracker, which you can install via `rocketpool service install-update-tracker`.
 :::
 
-For information on how to prepare the metrics system and the Smartnode dashboard, please visit the [Monitoring your Node's Performance](../node-staking/performance) and the [Setting up the Grafana Dashboard](../node-staking/grafana.mdx) pages of the Smartnode documentation.
+For information on how to prepare the metrics system and the Smart Node dashboard, please visit the [Monitoring your Node's Performance](../node-staking/performance) and the [Setting up the Grafana Dashboard](../node-staking/grafana.mdx) pages of the Smart Node documentation.
 
 ## The Oracle DAO Dashboard
 

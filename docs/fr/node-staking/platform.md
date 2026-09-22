@@ -24,7 +24,7 @@ L'ordinateur doit répondre aux [directives matérielles](./local/hardware.md)
 
 ::: warning NOTE
 À l'heure actuelle, seules les plateformes **Linux** et **macOS** sont prises en charge.
-**Windows n'est actuellement pas pris en charge** pour l'exploitation du Smartnode.
+**Windows n'est actuellement pas pris en charge** pour l'exploitation du Smart Node.
 :::
 
 ## Exécuter un Node Local

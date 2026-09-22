@@ -1,10 +1,10 @@
-# Monitorare il tuo Stack Smartnode con Notifiche di Allerta
+# Monitorare il tuo Stack Smart Node con Notifiche di Allerta
 
-La funzionalità di notifica degli alert dello Smartnode ti consente di ricevere notifiche sulla salute e sugli eventi importanti del tuo Smartnode Rocket Pool.
+La funzionalità di notifica degli alert dello Smart Node ti consente di ricevere notifiche sulla salute e sugli eventi importanti del tuo Smart Node Rocket Pool.
 
 ## Panoramica del Sistema di Allerta
 
-La funzionalità di notifica utilizza [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) per recapitare gli alert. L'alerting richiede che tu abbia già seguito la guida [Configurare la Dashboard Grafana](../grafana.mdx) che spiega come configurare il tracker delle metriche dello stack Smartnode. Gli alert vengono attivati quando metriche importanti del tuo Smartnode superano determinate soglie o quando si verificano eventi particolari, come quando il fee recipient del tuo nodo viene modificato.
+La funzionalità di notifica utilizza [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) per recapitare gli alert. L'alerting richiede che tu abbia già seguito la guida [Configurare la Dashboard Grafana](../grafana.mdx) che spiega come configurare il tracker delle metriche dello stack Smart Node. Gli alert vengono attivati quando metriche importanti del tuo Smart Node superano determinate soglie o quando si verificano eventi particolari, come quando il fee recipient del tuo nodo viene modificato.
 
 ## Configurare le Notifiche Discord
 
@@ -58,4 +58,4 @@ La TUI di Rocket Pool fornisce un'interfaccia user-friendly per gestire i tuoi a
 Questa sezione è per utenti avanzati che hanno esperienza con Prometheus e con la modifica di file YAML.
 :::
 
-Per una configurazione più avanzata degli alert puoi aggiungere i tuoi basandoti su qualsiasi metrica disponibile nel container Prometheus gestito dallo Stack Smartnode. Aggiungi il tuo file yaml contenente [Prometheus Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) nella directory `~/.rocketpool/alerting/rules/` e riavvia il container Prometheus con `docker stop rocketpool_prometheus` seguito da `docker start rocketpool_prometheus`. Quindi esegui `docker logs rocketpool_prometheus` per confermare che Prometheus abbia caricato correttamente il tuo file di configurazione (dovresti vedere una riga con _msg="Completed loading of configuration file" filename=/etc/prometheus/prometheus.yml_ e non _err="error loading config from \"/etc/prometheus/prometheus.yml\"..._)
+Per una configurazione più avanzata degli alert puoi aggiungere i tuoi basandoti su qualsiasi metrica disponibile nel container Prometheus gestito dallo Stack Smart Node. Aggiungi il tuo file yaml contenente [Prometheus Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) nella directory `~/.rocketpool/alerting/rules/` e riavvia il container Prometheus con `docker stop rocketpool_prometheus` seguito da `docker start rocketpool_prometheus`. Quindi esegui `docker logs rocketpool_prometheus` per confermare che Prometheus abbia caricato correttamente il tuo file di configurazione (dovresti vedere una riga con _msg="Completed loading of configuration file" filename=/etc/prometheus/prometheus.yml_ e non _err="error loading config from \"/etc/prometheus/prometheus.yml\"..._)

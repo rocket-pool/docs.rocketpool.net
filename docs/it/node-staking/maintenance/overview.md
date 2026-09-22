@@ -10,11 +10,11 @@ In questa sezione, imparerete come monitorare la salute del vostro nodo e dei vo
 
 ## Prerequisiti
 
-Prima di configurare il vostro Smartnode, assicuratevi di:
+Prima di configurare il vostro Smart Node, assicuratevi di:
 
 - Aver configurato una macchina nodo (o macchina virtuale) e averla messa in sicurezza (tramite la guida [Mettere in Sicurezza il Vostro Nodo](../securing-your-node))
-- Avere lo Smartnode [installato](../installing/overview) e [configurato](../config/overview) su di essa
-- Avere un portafoglio nodo caricato sul vostro Smartnode
+- Avere lo Smart Node [installato](../installing/overview) e [configurato](../config/overview) su di essa
+- Avere un portafoglio nodo caricato sul vostro Smart Node
 - Sincronizzato i vostri client di esecuzione e consenso
 - Fornito il vostro nodo con [un indirizzo di prelievo](../prepare-node.mdx#impostazione-del-tuo-indirizzo-di-prelievo-primario), configurato i vostri [client di fallback](../fallback) (opzionale), aderito alla [Smoothing Pool](../fee-distrib-sp#lo-smoothing-pool) (opzionale) e configurato [MEV](../mev.mdx)
 - Creato almeno un [minipool](../create-validator.mdx)
@@ -24,12 +24,12 @@ Prima di configurare il vostro Smartnode, assicuratevi di:
 [Monitoraggio delle Prestazioni del Vostro Nodo](../performance) fornisce alcuni strumenti e tutorial per tenere d'occhio la salute del vostro nodo (dal punto di vista delle risorse, come il consumo di CPU e RAM) e le prestazioni dei vostri validatori sulla Beacon Chain.
 Copre molti strumenti fondamentali che userete durante il vostro mandato come validatore Ethereum.
 
-[Configurazione della Dashboard Grafana](../grafana.mdx) illustra come configurare il tracker delle metriche dello stack Smartnode e la dashboard Grafana - un punto di riferimento unico per monitorare tutto ciò che riguarda il vostro nodo e i validatori, e un elemento fondamentale nell'arsenale di ogni operatore di nodi.
+[Configurazione della Dashboard Grafana](../grafana.mdx) illustra come configurare il tracker delle metriche dello stack Smart Node e la dashboard Grafana - un punto di riferimento unico per monitorare tutto ciò che riguarda il vostro nodo e i validatori, e un elemento fondamentale nell'arsenale di ogni operatore di nodi.
 _Consigliamo vivamente_ di esplorare la dashboard Grafana e di controllarla regolarmente.
 
-[Notifiche di Avviso dello Stack Smartnode](./alerting.md) illustra come utilizzare la funzionalità di notifica avvisi dello Smartnode per ricevere notifiche sulla salute e sugli eventi importanti del vostro Rocket Pool Smartnode.
+[Notifiche di Avviso dello Stack Smart Node](./alerting.md) illustra come utilizzare la funzionalità di notifica avvisi dello Smart Node per ricevere notifiche sulla salute e sugli eventi importanti del vostro Rocket Pool Smart Node.
 
-[Verifica degli Aggiornamenti](../updates) copre i processi cruciali di aggiornamento regolare del vostro nodo con nuove patch di sicurezza, come aggiornare lo Smartnode dopo un nuovo rilascio e come aggiornare manualmente le versioni dei client se i client che avete scelto rilasciano una nuova versione che l'ultimo rilascio dello Smartnode non include ancora.
+[Verifica degli Aggiornamenti](../updates) copre i processi cruciali di aggiornamento regolare del vostro nodo con nuove patch di sicurezza, come aggiornare lo Smart Node dopo un nuovo rilascio e come aggiornare manualmente le versioni dei client se i client che avete scelto rilasciano una nuova versione che l'ultimo rilascio dello Smart Node non include ancora.
 Dovreste familiarizzare con l'intera sezione, poiché potreste dovervi fare riferimento ogni volta che viene rilasciato un aggiornamento.
 
 [Backup del Vostro Nodo](../backups) è una guida opzionale che descrive come eseguire il backup della configurazione del vostro nodo e dei suoi dati della catena in caso di guasto hardware.

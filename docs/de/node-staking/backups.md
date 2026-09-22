@@ -5,7 +5,7 @@ Dies ist derzeit für **Docker Mode** Installationen geschrieben.
 Einige Speicherorte können für Hybrid- oder Native-Benutzer variieren.
 :::
 
-Im Allgemeinen ist das einzige, was Sie wirklich zur Hand haben müssen, um Ihren Node nach einem kompletten Ausfall wiederherzustellen, die **Mnemonic für Ihr Node-Wallet**, wenn Sie Ihr Node-Wallet und Minipools über die Smartnode erstellt haben.
+Im Allgemeinen ist das einzige, was Sie wirklich zur Hand haben müssen, um Ihren Node nach einem kompletten Ausfall wiederherzustellen, die **Mnemonic für Ihr Node-Wallet**, wenn Sie Ihr Node-Wallet und Minipools über die Smart Node erstellt haben.
 Alles andere kann daraus ziemlich einfach wiederhergestellt werden.
 
 Wenn Sie Minipools haben, die extern generierte validator-Schlüssel haben (z.B. Sie sind von **Allnodes** zu Ihrem eigenen selbst gehosteten Node migriert), benötigen Sie auch die privaten Keystore-Dateien für Ihre validators, da diese nicht vom Node-Wallet wiederhergestellt werden können.
@@ -17,16 +17,16 @@ Ein schneller, zuverlässiger Weg zur Wiederherstellung nach einem Execution-Cli
 In diesem Leitfaden zeigen wir Ihnen, wie Sie einige dieser Dinge sichern können, um die Widerstandsfähigkeit Ihres Nodes zu verbessern und unnötige Ausfallzeiten zu minimieren.
 
 ::: warning HINWEIS
-Dieser Leitfaden geht davon aus, dass Sie die Smartnode im Standardverzeichnis (`~/.rocketpool`) installiert haben.
+Dieser Leitfaden geht davon aus, dass Sie die Smart Node im Standardverzeichnis (`~/.rocketpool`) installiert haben.
 Wenn Sie ein anderes Installationsverzeichnis angegeben haben, ersetzen Sie es entsprechend in den Anweisungen unten.
 :::
 
 ## Elemente, die gesichert werden können
 
-### Smartnode-Konfiguration
+### Smart Node-Konfiguration
 
-Die Konfiguration der Smartnode ist in `~/.rocketpool/user-settings.yml` gespeichert.
-Sie können diese speichern und ersetzen, um alle Ihre Smartnode-Einstellungen wiederherzustellen (d.h. die Dinge, die Sie in `rocketpool service config` angegeben haben).
+Die Konfiguration der Smart Node ist in `~/.rocketpool/user-settings.yml` gespeichert.
+Sie können diese speichern und ersetzen, um alle Ihre Smart Node-Einstellungen wiederherzustellen (d.h. die Dinge, die Sie in `rocketpool service config` angegeben haben).
 
 ### Execution-Client / ETH1-Client Chain-Daten
 
@@ -38,7 +38,7 @@ Die Chain-Daten sind innerhalb des `rocketpool_eth1clientdata` Docker-Volumes ge
 Beachten Sie, dass dieser Ordner normalerweise nicht von unprivilegierten Benutzerkonten zugänglich ist; Sie müssen zum `root`-Benutzer wechseln, um ihn zu sehen.
 
 ::: tip HINWEIS
-Wenn Sie während der initialen Smartnode-Installation den Docker-Speicherort geändert haben (wie Personen, die Docker auf einer zweiten SSD ausführen), finden Sie das Volume in `/<Ihr externer Mountpoint>/docker/volumes/rocketpool_eth1clientdata`
+Wenn Sie während der initialen Smart Node-Installation den Docker-Speicherort geändert haben (wie Personen, die Docker auf einer zweiten SSD ausführen), finden Sie das Volume in `/<Ihr externer Mountpoint>/docker/volumes/rocketpool_eth1clientdata`
 
 Wenn Sie sich nicht erinnern, welchen Installationspfad Sie verwenden, können Sie `/etc/docker/daemon.json` auf dessen Speicherort überprüfen.
 Wenn die Datei nicht existiert, verwenden Sie den Standardspeicherort.
@@ -69,7 +69,7 @@ Consensus-Clients können diese Technik leicht verwenden, um sofort mit dem Head
 
 ## Sicherung Ihrer Execution-Chain-Daten
 
-Die Smartnode kommt mit der Fähigkeit, Ihre Execution-Chain-Daten über den Befehl `rocketpool service export-eth1-data` zu sichern.
+Die Smart Node kommt mit der Fähigkeit, Ihre Execution-Chain-Daten über den Befehl `rocketpool service export-eth1-data` zu sichern.
 Unter der Haube nutzt dies `rsync`, ein leistungsstarkes Backup/Kopier-Tool innerhalb von Linux.
 
 `rsync` vergleicht die Dateien im Quellverzeichnis (Ihr Docker-Volume) und dem Zielverzeichnis (Ihr Backup-Speicherort).

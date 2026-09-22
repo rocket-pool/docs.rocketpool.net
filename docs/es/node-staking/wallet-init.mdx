@@ -2,7 +2,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # Creando una Nueva Cartera
 
-Si los servicios de Smartnode están funcionando correctamente, el siguiente paso es configurar una cartera de Ethereum para tu nodo.
+Si los servicios de Smart Node están funcionando correctamente, el siguiente paso es configurar una cartera de Ethereum para tu nodo.
 Esto es simplemente una dirección de la Capa de Ejecución que contendrá los fondos de tu nodo - la usará para enviar ETH a tu validador megapool cuando comiences el staking, pagar por gas durante varias transacciones y otras operaciones diversas.
 
 Tienes la opción de crear una cartera completamente nueva desde cero, o importar/recuperar una cartera o dirección existente.
@@ -12,13 +12,19 @@ Por favor, elige la opción que prefieras en las pestañas a continuación.
   <Tabs>
     <Tab label="Creando una Nueva Cartera">
       La forma más común de ejecutar un nodo es crear una nueva dirección de Ethereum dedicada al nodo.
-      La CLI de Smartnode proporciona una manera fácil de hacer esto:
+      La CLI de Smart Node proporciona una manera fácil de hacer esto:
 
       ```shell
       rocketpool wallet init
       ```
 
-      Primero se te pedirá una contraseña para proteger la clave privada de tu cartera.
+      Por defecto, el Smart Node genera una contraseña aleatoria para cifrar la clave privada de tu cartera (almacenada en el archivo de contraseña que se indica más abajo).
+      Si prefieres elegir tu propia contraseña, pasa `-p` / `--password`.
+
+      ::: tip NOTA
+      No necesitas conocer ni recordar esta contraseña. La **frase mnemotécnica de 24 palabras del nodo** es suficiente para recuperar completamente tu cartera.
+      :::
+
       A continuación, se te presentará la **frase mnemotécnica única de 24 palabras** para tu nueva cartera.
       Esta es la **frase de recuperación** de tu cartera.
       Si alguna vez pierdes tu máquina, puedes usar esta frase para regenerar tu cartera y resucitar todos los validadores de Consensus conectados a ella.
@@ -37,7 +43,7 @@ Por favor, elige la opción que prefieras en las pestañas a continuación.
         Cuenta del nodo: CadenaLargaDeLetrasYNumeros"
       Esta es la dirección pública a la que enviarás ETH en "Preparando tu Nodo para la Operación". También puedes verificarla escribiendo "rocketpool wallet status".
 
-      Si ya tienes una cartera de nodo que creaste en una instalación anterior del Smartnode, o si deseas importar una dirección que creaste en otro lugar (como con **Allnodes**), por favor sigue las instrucciones en la guía [Importando una Cartera Existente para tu Nodo](./recovering-rp).
+      Si ya tienes una cartera de nodo que creaste en una instalación anterior del Smart Node, o si deseas importar una dirección que creaste en otro lugar (como con **Allnodes**), por favor sigue las instrucciones en la guía [Importando una Cartera Existente para tu Nodo](./recovering-rp).
 
       Regresa aquí cuando hayas terminado.
     </Tab>

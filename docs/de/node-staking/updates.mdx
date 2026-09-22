@@ -99,9 +99,9 @@ Die genauen Anweisungen variieren für jedes Betriebssystem und können in der D
   </Tabs>
 </div>
 
-## Aktualisierung des Smartnode Stacks
+## Aktualisierung des Smart Node Stacks
 
-Gelegentlich wird Rocket Pool eine neue Version des Smartnode Stacks veröffentlichen.
+Gelegentlich wird Rocket Pool eine neue Version des Smart Node Stacks veröffentlichen.
 Updates können neue Versionen der CLI oder der Rocket Pool Docker-Container sowie neue Versionen der Execution und Consensus Clients enthalten.
 
 Der zuverlässigste Weg, um über neue Releases informiert zu werden, ist das Abonnement des Rocket Pool Discord-Servers; sie werden immer im Releases-Kanal gepostet und Sie erhalten eine Benachrichtigung.
@@ -112,7 +112,7 @@ Dies muss manuell mit den folgenden Schritten erfolgen.
 :::
 
 ::: tip TIPP
-Wenn Sie das Smartnode-Upgrade abgeschlossen haben, wird das Grafana-Dashboard weiterhin anzeigen, dass ein Update verfügbar ist.
+Wenn Sie das Smart Node-Upgrade abgeschlossen haben, wird das Grafana-Dashboard weiterhin anzeigen, dass ein Update verfügbar ist.
 Es wird automatisch innerhalb eines Tages gelöscht, wenn das System das nächste Mal automatisch nach Updates sucht.
 
 Wenn Sie es sofort nach dem Update löschen möchten, führen Sie einfach aus:
@@ -164,7 +164,7 @@ Die Schritte zum Upgrade hängen davon ab, welchen Modus Ihr Node verwendet. Am 
       Downloading the signature from https://github.com/rocket-pool/smartnode/releases/latest/download/rocketpool-cli-linux-amd64.sig
       Signed by 651023D62E70B5DD
         Fornax <dante@rocketpool.net>
-      Updating from 1.22.1 to 1.23.0
+      Updating from 1.24.0 to 1.24.2
 
       The cli has been updated.
 
@@ -174,7 +174,7 @@ Die Schritte zum Upgrade hängen davon ab, welchen Modus Ihr Node verwendet. Am 
       An dieser Stelle können Sie bei allen interaktiven Abfragen `y` wählen, damit der Smart Node Sie durch die restlichen Schritte führt.
       Wenn Sie fertig sind, sehen Sie eine Meldung, die das erfolgreiche Upgrade bestätigt:
       ```
-      The upgrade to Smart Node 1.23.0 has been completed.
+      The upgrade to Smart Node 1.24.2 has been completed.
       Please monitor your validators for a few minutes for issues.
       ```
 
@@ -189,7 +189,7 @@ Die Schritte zum Upgrade hängen davon ab, welchen Modus Ihr Node verwendet. Am 
       rocketpool service stop
       ```
 
-      Laden Sie die neue Smartnode CLI herunter:
+      Laden Sie die neue Smart Node CLI herunter:
 
       Für `x64`-Systeme (die meisten normalen Maschinen):
 
@@ -223,7 +223,7 @@ Die Schritte zum Upgrade hängen davon ab, welchen Modus Ihr Node verwendet. Am 
       rocketpool service start
       ```
 
-      Überprüfen Sie schließlich die Version, um sicherzustellen, dass sowohl CLI als auch Smartnode Stack auf dem neuesten Stand sind:
+      Überprüfen Sie schließlich die Version, um sicherzustellen, dass sowohl CLI als auch Smart Node Stack auf dem neuesten Stand sind:
 
       ```shell
       rocketpool service version
@@ -234,8 +234,8 @@ Die Schritte zum Upgrade hängen davon ab, welchen Modus Ihr Node verwendet. Am 
       ```
       Your Smartnode is currently using the Hoodi Test Network.
 
-      Rocket Pool client version: 1.23.0
-      Rocket Pool service version: 1.23.0
+      Rocket Pool client version: 1.24.2
+      Rocket Pool service version: 1.24.2
       Selected Eth 1.0 client: Geth (Locally managed)
       Image: ethereum/client-go:v1.10.21
       Selected Eth 2.0 client: Lighthouse (Locally managed)
@@ -247,7 +247,7 @@ Die Schritte zum Upgrade hängen davon ab, welchen Modus Ihr Node verwendet. Am 
     <Tab label="Manuelles Update - Linux (Native-Modus)">
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">HINWEIS</p>
-        Dies aktualisiert nur den Smartnode Stack selbst - es aktualisiert **nicht** Ihre Execution oder Consensus Clients.
+        Dies aktualisiert nur den Smart Node Stack selbst - es aktualisiert **nicht** Ihre Execution oder Consensus Clients.
         Sie müssen dies manuell tun (siehe den nächsten Abschnitt unten).
       </p>
 
@@ -257,7 +257,7 @@ Die Schritte zum Upgrade hängen davon ab, welchen Modus Ihr Node verwendet. Am 
       sudo systemctl stop rp-node rp-watchtower
       ```
 
-      Laden Sie die neue Smartnode CLI herunter und sichern Sie die alten CLI- und Daemon-Binaries, falls Sie sie zurückbringen müssen:
+      Laden Sie die neue Smart Node CLI herunter und sichern Sie die alten CLI- und Daemon-Binaries, falls Sie sie zurückbringen müssen:
 
       Für `x64`-Systeme (die meisten normalen Maschinen):
 
@@ -299,13 +299,13 @@ Die Schritte zum Upgrade hängen davon ab, welchen Modus Ihr Node verwendet. Am 
       sudo systemctl start rp-node rp-watchtower
       ```
 
-      Überprüfen Sie schließlich die Version, um sicherzustellen, dass sowohl CLI als auch Smartnode Stack auf dem neuesten Stand sind:
+      Überprüfen Sie schließlich die Version, um sicherzustellen, dass sowohl CLI als auch Smart Node Stack auf dem neuesten Stand sind:
 
       ```
       rocketpool service version
 
-      Rocket Pool client version: 1.23.0
-      Rocket Pool service version: 1.23.0
+      Rocket Pool client version: 1.24.2
+      Rocket Pool service version: 1.24.2
       Selected Eth 1.0 client: Geth (Locally managed)
       Selected Eth 2.0 client: Nimbus (Locally managed)
       ```
@@ -319,7 +319,7 @@ Die Schritte zum Upgrade hängen davon ab, welchen Modus Ihr Node verwendet. Am 
       rocketpool service stop
       ```
 
-      Laden Sie die neue Smartnode CLI herunter:
+      Laden Sie die neue Smart Node CLI herunter:
 
       Für `x64`-Systeme (die meisten Macs):
 
@@ -353,13 +353,13 @@ Die Schritte zum Upgrade hängen davon ab, welchen Modus Ihr Node verwendet. Am 
       rocketpool service start
       ```
 
-      Überprüfen Sie schließlich die Version, um sicherzustellen, dass sowohl CLI als auch Smartnode Stack auf dem neuesten Stand sind:
+      Überprüfen Sie schließlich die Version, um sicherzustellen, dass sowohl CLI als auch Smart Node Stack auf dem neuesten Stand sind:
 
       ```shell
       rocketpool service version
 
-      Rocket Pool client version: 1.23.0
-      Rocket Pool service version: 1.23.0
+      Rocket Pool client version: 1.24.2
+      Rocket Pool service version: 1.24.2
       Selected Eth 1.0 client: Geth (Locally managed)
       Selected Eth 2.0 client: Nimbus (Locally managed)
       ```
@@ -373,14 +373,16 @@ Die Schritte zum Upgrade hängen davon ab, welchen Modus Ihr Node verwendet. Am 
 
 ## Manuelles Aktualisieren des Execution oder Consensus Clients
 
-Jede neue Version des Smartnode Stacks enthält aktualisierte Referenzen auf die neuesten kompatiblen Versionen der Execution und Consensus Docker-Container.
-In einigen Fällen möchten Sie jedoch möglicherweise einen dieser Clients aktualisieren, _bevor_ Sie auf eine neue Smartnode Stack-Version warten.
-Dieser Abschnitt zeigt Ihnen, wie Sie genau das tun.
+Jede neue Smart Node-Version liefert gepinnte Docker-Image-Digests für die Execution-, Consensus- und Smart Node-Container aus (`repo:tag@sha256:…` in `~/.rocketpool/mainnet.env`). `rocketpool service install` überschreibt diese offiziellen Pin-Dateien. In einigen Fällen möchten Sie möglicherweise ein anderes Client-Image ausführen, _bevor_ Sie auf eine neue Smart Node-Version warten. Dieser Abschnitt zeigt Ihnen, wie das geht.
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker-Modus">
       Das Aktualisieren auf neue Client-Versionen ist im Docker-Modus einfach.
+
+      Der Smart Node pinnt Client- und Smart Node-Images jetzt per Digest.
+      Wenn Sie **Container Tag** in der TUI ändern, können Sie weiterhin einen anderen Tag oder Digest ausführen, bevor die nächste Smart Node-Version erscheint.
+      Nach `rocketpool service install` oder `rocketpool update` werden die offiziellen Pins in `mainnet.env` ersetzt; eine Überschreibung aus der TUI hat trotzdem Vorrang, bis Sie sie entfernen.
 
       Öffnen Sie zunächst den Settings Manager:
 
@@ -399,7 +401,11 @@ Dieser Abschnitt zeigt Ihnen, wie Sie genau das tun.
       <img src={tuiCcContainerTag} width="100%" height="auto"/>
 
       Wenn Sie mit Ihren Änderungen zufrieden sind, speichern und beenden Sie wie gewohnt.
-      Der Smartnode wird anbieten, alle betroffenen Container automatisch neu zu starten.
+      Der Smart Node wird anbieten, alle betroffenen Container automatisch neu zu starten.
+
+      ::: tip HINWEIS
+      Die offiziellen Pins stehen in `~/.rocketpool/mainnet.env`. Bearbeiten Sie diese Datei nicht für dauerhafte Änderungen; die Installation überschreibt sie. Optionale netzwerkspezifische Überschreibungen gehören in `~/.rocketpool/testnet.env` oder `~/.rocketpool/devnet.env` (nur die von Ihnen gesetzten Schlüssel ersetzen den Mainnet-Pin). Ein **Container Tag**, den Sie im Settings Manager setzen, überschreibt den Pin für diesen Service. Belassen Sie ihn beim Standardwert, um den offiziellen Digest zu behalten.
+      :::
     </Tab>
     <Tab label="Native-Modus">
       Fahren Sie zunächst Ihren Execution Client, Beacon Node und/oder Validator Client Service herunter, je nachdem, was Sie aktualisieren möchten.

@@ -10,7 +10,7 @@ Zunächst und vor allem ist der wichtigste Schritt, wenn Sie **Node Operator** s
 
 Bei der Entstehung von Houston ist die pDAO-Abstimmung deaktiviert, bis eine ausreichende Anzahl von Knoten die Abstimmung initialisiert hat. Dies soll verhindern, dass betrügerische Vorschläge angenommen werden, während die gesamte Stimmkraft und das Quorum niedrig sind. Nachdem genügend Knoten die Abstimmung initialisiert haben, wird ein Schalter umgelegt und die pDAO übernimmt das Ruder.
 
-Um die Stimmkraft zu initialisieren, verwenden Sie diesen Befehl im Smartnode:
+Um die Stimmkraft zu initialisieren, verwenden Sie diesen Befehl im Smart Node:
 
 ```shell
 rocketpool pdao initialize-voting

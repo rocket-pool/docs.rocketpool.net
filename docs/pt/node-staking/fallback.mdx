@@ -4,13 +4,13 @@ import tui_fallback_clients from "./images/tui-fallback-clients.png";
 
 # Especificando um Nó de Fallback
 
-A partir da versão **1.5.0** da stack do Smartnode, você pode fornecer um par de cliente de Execution "fallback" e cliente de Consensus que podem assumir o controle dos seus clientes primários se eles ficarem offline (como porque [você usa Geth e precisa fazer poda](./pruning)).
+A partir da versão **1.5.0** da stack do Smart Node, você pode fornecer um par de cliente de Execution "fallback" e cliente de Consensus que podem assumir o controle dos seus clientes primários se eles ficarem offline (como porque [você usa Geth e precisa fazer poda](./pruning)).
 Nessa situação, sua máquina de nó primária ainda será responsável por atestar e propor blocos com as chaves de validador do seu megapool, mas se conectará a uma máquina externa para interagir com a camada de Execution e as cadeias Beacon.
 
 Essencialmente, permite que você use _temporariamente_ outro par de clientes para coisas como consultar as cadeias, enviar transações e receber blocos para atestar.
 Este par pode ser gerenciado externamente (como no modo Híbrido), ou pode ser outro nó da Rocket Pool (outra máquina no modo Docker que tem as portas API expostas, que abordaremos abaixo).
 
-Uma vez que os clientes primários do seu nó estejam novamente online, o Smartnode e seu cliente Validator voltarão para eles automaticamente.
+Uma vez que os clientes primários do seu nó estejam novamente online, o Smart Node e seu cliente Validator voltarão para eles automaticamente.
 
 ::: warning NOTA
 Um nó de fallback **não** é o mesmo que um nó de "backup".
@@ -35,14 +35,14 @@ A partir da v1.9.0, todos os nossos clientes de validador suportados adicionaram
 
 Você pode usar uma segunda máquina que você possui localmente, um nó remoto hospedado em um VPS ou um nó baseado em nuvem como um nó de fallback.
 
-Este exemplo mostra como criar um segundo Smartnode em uma máquina diferente usando o modo Docker, que pode servir como um nó de fallback.
+Este exemplo mostra como criar um segundo Smart Node em uma máquina diferente usando o modo Docker, que pode servir como um nó de fallback.
 
 ::: tip DICA
 Se você já tem um segundo nó pronto e tem suas portas RPC expostas, sinta-se à vontade para pular esta seção.
 :::
 
 1. Siga os passos no guia de configuração de um nó ([local](./local/hardware) ou [remoto](./vps/providers)).
-2. Quando a máquina estiver pronta, [instale a stack do Smartnode](./docker).
+2. Quando a máquina estiver pronta, [instale a stack do Smart Node](./docker).
 3. Execute `rocketpool service config` para especificar quais clientes você gostaria de usar.
    1. Quando chegar ao final do assistente e ele perguntar se você gostaria de revisar suas configurações, selecione **Sim**.
    2. Entre nas configurações do `Execution Client`.
@@ -52,7 +52,7 @@ Se você já tem um segundo nó pronto e tem suas portas RPC expostas, sinta-se 
    4. Volte e entre nas configurações do `Consensus Client`. 5. Marque a caixa `Expose API Port` (e, se você estiver usando **Prysm**, a caixa `Expose RPC Port` também):
 
    <img src={tui_cc_expose_ports} width="100%" height="auto" />
-   6. Salve as configurações e inicie o Smartnode.
+   6. Salve as configurações e inicie o Smart Node.
 
 4. Pule para o guia [Protegendo seu Nó](./securing-your-node) para configurar SSH e a postura de segurança adequada nele.
    1. Se você tiver `ufw` instalado, precisará adicionar regras para permitir tráfego de entrada nas portas API (`8545`, `8546` e `5052` por padrão; também `5053` se você estiver usando **Prysm**).
@@ -74,6 +74,7 @@ Assim que tiver um nó de fallback preparado, você pode conectá-lo ao seu nó 
 2. Marque a caixa `Use Fallback Clients`.
 3. Digite a URL RPC para seu cliente de Execution na caixa `Execution Client URL`. Por exemplo, se o endereço IP do seu nó de fallback for `192.168.1.45` e você tiver seu cliente de Execution na porta padrão de `8545`, você digitaria `http://192.168.1.45:8545` aqui.
 4. Faça o mesmo para a URL RPC do seu cliente de Consensus de fallback. Seguindo o mesmo exemplo, se você o tiver na porta padrão de `5052`, você digitaria `http://192.168.1.45:5052` aqui.
+5. Opcionalmente, marque **Prefer Fallback Clients** (desativado por padrão). Se ativado, o Smart Node enviará as requisições de API, de nó e do watchtower primeiro para seus clientes de Execution e Consensus de fallback, e só usará o par primário se o fallback estiver indisponível. Isso mantém a carga do Smart Node longe dos clientes primários, para que possam se concentrar nas tarefas de validação. Seu Validator Client não é afetado e continua usando o par primário primeiro.
 
 A página final deve ficar assim:
 
@@ -82,7 +83,7 @@ A página final deve ficar assim:
 ::: tip NOTA
 Usuários do **modo nativo** podem seguir os mesmos passos, embora a TUI pareça ligeiramente diferente da captura de tela acima.
 
-Observe que isso fornecerá apenas ao **Smartnode em si** (o serviço daemon) o suporte de fallback; **você terá que atualizar os argumentos do serviço do seu cliente Validator manualmente para dar a ele acesso aos clientes de fallback.**
+Observe que isso fornecerá apenas ao **Smart Node em si** (o serviço daemon) o suporte de fallback; **você terá que atualizar os argumentos do serviço do seu cliente Validator manualmente para dar a ele acesso aos clientes de fallback.**
 :::
 
 Pressione `enter` na caixa final para garantir que seja confirmada, então salve as configurações e aplique as alterações.

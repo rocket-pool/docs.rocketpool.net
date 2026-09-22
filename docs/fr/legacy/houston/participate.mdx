@@ -74,7 +74,7 @@ Chaque fois qu'une nouvelle proposition est créée, un arbre de vote représent
 
 ## Initialisation automatique du pouvoir de vote
 
-La version `1.13.8` du Smartnode introduit une nouvelle fonctionnalité **Auto Initialize Vote Power**, conçue pour initialiser automatiquement le pouvoir de vote sur les nœuds qui ne l'ont pas encore fait. Le pouvoir de vote automatiquement initialisé est auto-délégué. Cette fonctionnalité peut être configurée dans les paramètres du Smartnode en exécutant `rocketpool service config` et en naviguant vers la section **Smartnode and TX Fees**.
+La version `1.13.8` du Smart Node introduit une nouvelle fonctionnalité **Auto Initialize Vote Power**, conçue pour initialiser automatiquement le pouvoir de vote sur les nœuds qui ne l'ont pas encore fait. Le pouvoir de vote automatiquement initialisé est auto-délégué. Cette fonctionnalité peut être configurée dans les paramètres du Smart Node en exécutant `rocketpool service config` et en naviguant vers la section **Smart Node and TX Fees**.
 
 <img src="./images/auto_init_vp.png" width="100%" height="auto" />
 
@@ -147,7 +147,7 @@ rocketpool pdao clear-signalling-address
 
 Vous pouvez ignorer cette étape si vous êtes uniquement intéressé par le vote sur une proposition. Autoriser le verrouillage RPL n'est requis que pour ceux qui souhaitent proposer ou contester une proposition.
 
-Le verrouillage RPL est requis pour proposer et contester. Par défaut, le verrouillage de RPL à quelque fin que ce soit sera désactivé. Les opérateurs de nœuds s'inscriront pour effectuer des activités de gouvernance en activant le verrouillage de RPL depuis leur nœud ou leur adresse de retrait principale. Vous pouvez le faire en utilisant cette commande dans le Smartnode :
+Le verrouillage RPL est requis pour proposer et contester. Par défaut, le verrouillage de RPL à quelque fin que ce soit sera désactivé. Les opérateurs de nœuds s'inscriront pour effectuer des activités de gouvernance en activant le verrouillage de RPL depuis leur nœud ou leur adresse de retrait principale. Vous pouvez le faire en utilisant cette commande dans le Smart Node :
 
 ```shell
 rocketpool node allow-rpl-locking

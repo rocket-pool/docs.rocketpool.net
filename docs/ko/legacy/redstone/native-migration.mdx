@@ -6,7 +6,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 ## v1.5.0으로 업그레이드하기 전에 해야 할 일
 
-Smartnode를 v1.5.0 이상으로 업그레이드하기 전에 다음 체크리스트를 확인하여 준비가 되었는지 확인하세요:
+Smart Node를 v1.5.0 이상으로 업그레이드하기 전에 다음 체크리스트를 확인하여 준비가 되었는지 확인하세요:
 
 ### 전체 Execution Client로 전환
 
@@ -28,11 +28,11 @@ The Merge는 Execution client가 Consensus client와 통신하는 방식을 변�
 CoinCashew는 Execution 및 Consensus client에서 Engine API를 설정하는 방법에 대한 [훌륭하고 간결한 가이드](https://www.coincashew.com/coins/overview-eth/ethereum-merge-upgrade-checklist-for-home-stakers-and-validators)를 제공합니다.
 해당 가이드를 살펴보고 업그레이드하기 전에 여전히 올바르게 증명하는지 확인하여 새 구성을 테스트하세요.
 
-Smartnode 소프트웨어에 필요한 올바른 fee recipient를 사용하도록 Validator client를 설정하는 방법은 아래에서 보여드리겠습니다.
+Smart Node 소프트웨어에 필요한 올바른 fee recipient를 사용하도록 Validator client를 설정하는 방법은 아래에서 보여드리겠습니다.
 
 ## v1.5.0으로 업그레이드
 
-Smartnode 스택을 v1.5.0으로 업그레이드하는 것은 다른 업그레이드와 다르지 않습니다.
+Smart Node 스택을 v1.5.0으로 업그레이드하는 것은 다른 업그레이드와 다르지 않습니다.
 [여기의 일반 지침](../../node-staking/updates#smartnode-스택-업데이트)을 따르기만 하면 됩니다.
 
 ## 업그레이드 후 수행해야 할 작업
@@ -44,7 +44,7 @@ Native mode에서는 업그레이드 후 수동으로 수행해야 하는 몇 �
 가장 먼저 해야 할 일은 노드가 올바르게 작동하는지 확인하는 것입니다.
 다음 단계를 수행하는 것을 고려하세요:
 
-- Execution client, Consensus client, Validator client 및 Smartnode 데몬(`rp-node` 서비스)에 대한 로그 스크립트를 확인하여 모두 정상적으로 작동하고 오류가 없는지 확인합니다.
+- Execution client, Consensus client, Validator client 및 Smart Node 데몬(`rp-node` 서비스)에 대한 로그 스크립트를 확인하여 모두 정상적으로 작동하고 오류가 없는지 확인합니다.
 - Block Explorer(예: Grafana 대시보드 및 [https://beaconcha.in](https://beaconcha.in))를 통해 여전히 올바르게 증명하고 있는지 확인합니다
   - Doppelganger 보호가 활성화된 경우 재시작 후 몇 개의 증명을 놓치게 됩니다. 이것은 정상입니다!
 
@@ -56,12 +56,12 @@ The Merge 전에 설정해야 하는 **중요한** 세부 사항 중 하나는 v
 - Smoothing Pool에 **가입한 경우** **Smoothing Pool contract**의 주소여야 합니다. [공식 계약 페이지](/ko/protocol/contracts-integrations)에서 주소를 얻을 수 있습니다.
 - Smoothing Pool에 **가입하지 않은 경우** 노드의 **fee distributor contract** 주소여야 합니다. `Fee Distributor and Smoothing Pool` 섹션 아래의 `rocketpool node status`를 실행하여 주소를 얻을 수 있습니다.
 
-Native mode에서는 Smartnode 데몬 서비스인 `rp-node`를 사용하는 경우 Smartnode가 이를 관리하도록 하거나 데몬을 사용하지 않는 경우 직접 관리할 수 있습니다.
+Native mode에서는 Smart Node 데몬 서비스인 `rp-node`를 사용하는 경우 Smart Node가 이를 관리하도록 하거나 데몬을 사용하지 않는 경우 직접 관리할 수 있습니다.
 
 #### 데몬을 통한 자동 관리
 
-Smartnode 데몬은 노드에 적합한 fee recipient를 자동으로 결정하고 변경되는 경우(예: Smoothing Pool에 가입 및 탈퇴) 관리합니다.
-이것이 **가장 안전한** 옵션입니다. Smartnode는 항상 [벌금](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)을 **방지하는** 값으로 설정되도록 보장합니다.
+Smart Node 데몬은 노드에 적합한 fee recipient를 자동으로 결정하고 변경되는 경우(예: Smoothing Pool에 가입 및 탈퇴) 관리합니다.
+이것이 **가장 안전한** 옵션입니다. Smart Node는 항상 [벌금](https://github.com/rocket-pool/rocketpool-research/blob/master/Penalties/penalty-system)을 **방지하는** 값으로 설정되도록 보장합니다.
 
 이를 수행하는 방법은 올바른 fee recipient가 포함된 파일을 유지하고 정확성을 보장하기 위해 정기적으로 새로 고치는 것입니다.
 업데이트가 필요한 경우 파일을 수정하고 Validator client를 자동으로 재시작하여 새 recipient를 로드합니다. 이는 새 minipool을 스테이킹한 후 Validator client를 재시작하는 방법과 유사합니다.
@@ -89,7 +89,7 @@ Smartnode 데몬은 노드에 적합한 fee recipient를 자동으로 결정하�
       --suggested-fee-recipient ${FEE_RECIPIENT}
       ```
 
-      이제 VC는 Smartnode 데몬이 관리하는 파일을 사용하며 fee recipient가 변경될 때마다 자동으로 재시작됩니다.
+      이제 VC는 Smart Node 데몬이 관리하는 파일을 사용하며 fee recipient가 변경될 때마다 자동으로 재시작됩니다.
     </Tab>
     <Tab label="Nimbus">
       Validator Client 서비스를 수정하여 `ExecStart` 줄 _이전에_ 다음 줄을 추가합니다:
@@ -110,7 +110,7 @@ Smartnode 데몬은 노드에 적합한 fee recipient를 자동으로 결정하�
       --suggested-fee-recipient=${FEE_RECIPIENT}
       ```
 
-      이제 VC는 Smartnode 데몬이 관리하는 파일을 사용하며 fee recipient가 변경될 때마다 자동으로 재시작됩니다.
+      이제 VC는 Smart Node 데몬이 관리하는 파일을 사용하며 fee recipient가 변경될 때마다 자동으로 재시작됩니다.
     </Tab>
     <Tab label="Prysm">
       Validator Client 서비스를 수정하여 `ExecStart` 줄 _이전에_ 다음 줄을 추가합니다:
@@ -131,7 +131,7 @@ Smartnode 데몬은 노드에 적합한 fee recipient를 자동으로 결정하�
       --suggested-fee-recipient ${FEE_RECIPIENT}
       ```
 
-      이제 VC는 Smartnode 데몬이 관리하는 파일을 사용하며 fee recipient가 변경될 때마다 자동으로 재시작됩니다.
+      이제 VC는 Smart Node 데몬이 관리하는 파일을 사용하며 fee recipient가 변경될 때마다 자동으로 재시작됩니다.
     </Tab>
     <Tab label="Teku">
       Validator Client 서비스를 수정하여 `ExecStart` 줄 _이전에_ 다음 줄을 추가합니다:
@@ -152,7 +152,7 @@ Smartnode 데몬은 노드에 적합한 fee recipient를 자동으로 결정하�
       --validators-proposer-default-fee-recipient=${FEE_RECIPIENT}
       ```
 
-      이제 VC는 Smartnode 데몬이 관리하는 파일을 사용하며 fee recipient가 변경될 때마다 자동으로 재시작됩니다.
+      이제 VC는 Smart Node 데몬이 관리하는 파일을 사용하며 fee recipient가 변경될 때마다 자동으로 재시작됩니다.
     </Tab>
 
   </Tabs>
@@ -279,7 +279,7 @@ Flashbots가 그때 따를 수 있는 지침을 제공할 것이며 여기에 �
 
 The Merge는 Infura 및 Pocket과 같은 원격 공급자와 호환되지 않으므로 기본 Execution client가 오프라인 상태일 때 해당 공급자를 fallback Execution client로 사용할 수 없습니다.
 
-Smartnode는 여전히 fallback Execution client(및 이제 fallback Consensus client도)를 제공할 수 있지만 이제 제어하는 Execution 및 Consensus client를 사용해야 합니다.
+Smart Node는 여전히 fallback Execution client(및 이제 fallback Consensus client도)를 제공할 수 있지만 이제 제어하는 Execution 및 Consensus client를 사용해야 합니다.
 
 fallback node 설정에 대한 자세한 내용은 [Fallback node 가이드](../../node-staking/fallback)를 참조하세요.
 
@@ -312,7 +312,7 @@ rocketpool node join-smoothing-pool
 
 Redstone 업그레이드는 비용이 많이 들고 문제가 있는 기존 보상 시스템을 [새로운 시스템](./whats-new#새로운-보상-시스템)으로 교체합니다. 이 시스템은 훨씬 저렴하고 RPL의 자동 재스테이킹(부분 및 전체 금액 모두)을 지원하며 가장 중요한 것은 **원하는 때에 보상을 청구할 수 있다**는 것입니다.
 
-보상 청구에 더 이상 시간 제한이 없고 많은 보상 기간을 한 번에 청구하는 것이 더 저렴하기 때문에 Smartnode의 자동 보상 청구 기능이 **제거되었습니다**.
+보상 청구에 더 이상 시간 제한이 없고 많은 보상 기간을 한 번에 청구하는 것이 더 저렴하기 때문에 Smart Node의 자동 보상 청구 기능이 **제거되었습니다**.
 이제 다음 명령을 통해 보상을 청구할 수 있습니다:
 
 ```shell

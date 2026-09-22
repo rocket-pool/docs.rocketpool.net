@@ -1,7 +1,7 @@
 # La mise à jour Redstone de Rocket Pool
 
 La prochaine mise à jour majeure de Rocket Pool, intitulée **Redstone**, a été publiée pour des tests bêta sur les réseaux de test Ropsten et Holesky.
-Cette page décrit les changements majeurs apportés par Redstone, incluant les mises à jour de la pile Smartnode et du protocole Rocket Pool en général.
+Cette page décrit les changements majeurs apportés par Redstone, incluant les mises à jour de la pile Smart Node et du protocole Rocket Pool en général.
 
 Veuillez lire attentivement cette page pour comprendre toutes les différences entre la version précédente de Rocket Pool et Redstone.
 
@@ -49,7 +49,7 @@ Il s'agit de l'adresse sur la couche d'exécution (ETH1) où tous les frais prio
 
 Rocket Pool est conçu pour distribuer équitablement ces récompenses, de la même manière qu'il distribue équitablement vos récompenses de la Beacon Chain : la moitié de tous les frais prioritaires que vos validateurs de minipool gagnent ira à vous (plus la commission moyenne de tous vos minipools), et l'autre moitié ira aux stakers du pool (moins votre commission moyenne).
 
-À cette fin, le Smartnode définira automatiquement le `fee recipient` de votre client de validation à une adresse spéciale appelée votre **distributeur de frais** de nœud.
+À cette fin, le Smart Node définira automatiquement le `fee recipient` de votre client de validation à une adresse spéciale appelée votre **distributeur de frais** de nœud.
 Votre distributeur de frais est un contrat unique sur la couche d'exécution qui est **spécifique à votre nœud**.
 Il contiendra tous les frais prioritaires que vous avez gagnés au fil du temps, et contient la logique nécessaire pour les diviser et les distribuer équitablement.
 Ce processus de distribution est contrôlé par vous (l'opérateur de nœud), et peut être effectué quand vous le souhaitez.
@@ -57,11 +57,11 @@ Il n'y a pas de limite de temps.
 
 L'adresse du distributeur de frais de votre nœud est **déterminée de manière déterministe en fonction de l'adresse de votre nœud**.
 Cela signifie qu'elle est connue à l'avance, avant même que le distributeur de frais ne soit créé.
-**Le Smartnode utilisera cette adresse comme votre destinataire de frais.**
+**Le Smart Node utilisera cette adresse comme votre destinataire de frais.**
 
 ::: tip NOTE
-Par défaut, votre destinataire de frais sera défini sur l'**adresse rETH** lorsque vous installez Smartnode v1.5.0 (si les mises à jour du contrat Redstone n'ont pas encore été déployées).
-Le Smartnode mettra automatiquement à jour cela vers l'adresse du distributeur de frais de votre nœud une fois que la mise à jour Redstone aura été déployée.
+Par défaut, votre destinataire de frais sera défini sur l'**adresse rETH** lorsque vous installez Smart Node v1.5.0 (si les mises à jour du contrat Redstone n'ont pas encore été déployées).
+Le Smart Node mettra automatiquement à jour cela vers l'adresse du distributeur de frais de votre nœud une fois que la mise à jour Redstone aura été déployée.
 
 Une exception à cette règle est si vous avez adhéré au **Smoothing Pool** - voir la section à la fin de cette page pour plus d'informations à ce sujet.
 :::
@@ -230,8 +230,8 @@ Au troisième avertissement, le minipool commencera à recevoir des **infraction
 
 Les infractions sont au niveau du **minipool**, et non au niveau du **nœud**.
 
-Le logiciel Smartnode est conçu pour s'assurer que les utilisateurs honnêtes ne seront jamais pénalisés, même s'il doit mettre le client de validation hors ligne pour le faire.
-Si cela se produit, vous cesserez d'attester et verrez des messages d'erreur dans vos fichiers journaux expliquant pourquoi le Smartnode ne peut pas définir correctement votre destinataire de frais.
+Le logiciel Smart Node est conçu pour s'assurer que les utilisateurs honnêtes ne seront jamais pénalisés, même s'il doit mettre le client de validation hors ligne pour le faire.
+Si cela se produit, vous cesserez d'attester et verrez des messages d'erreur dans vos fichiers journaux expliquant pourquoi le Smart Node ne peut pas définir correctement votre destinataire de frais.
 
 ## Guides pour avant et après la mise à jour
 

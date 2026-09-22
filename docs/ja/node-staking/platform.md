@@ -24,7 +24,7 @@ Mergeが発生した今、Rocket Pool nodeはこの構成を実行する必要�
 
 ::: warning 注意
 現時点では、**Linux**と**macOS**プラットフォームのみがサポートされています。
-**Windowsは現在、Smartnode操作ではサポートされていません**。
+**Windowsは現在、Smart Node操作ではサポートされていません**。
 :::
 
 ## ローカルNodeの実行

@@ -3,7 +3,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 # Migrazione dalla Rete di Test alla Mainnet
 
 Se hai già utilizzato Rocket Pool sulla nostra rete di test Hoodi, ti senti a tuo agio con il suo funzionamento e sei pronto a mettere in stake ETH o eseguire un nodo per davvero sulla catena Ethereum principale, allora questa guida fa per te!
-Qui troverai le istruzioni su come migrare uno stack Smartnode esistente dalla rete di test Hoodi a uno connesso alla mainnet di Ethereum, pronto per mettere in stake i tuoi veri ETH e RPL.
+Qui troverai le istruzioni su come migrare uno stack Smart Node esistente dalla rete di test Hoodi a uno connesso alla mainnet di Ethereum, pronto per mettere in stake i tuoi veri ETH e RPL.
 
 ## Pool Staking sulla Mainnet
 
@@ -13,10 +13,10 @@ Segui la [Guida allo Staking](../../liquid-staking/overview), che è stata aggio
 
 ### Differenze tra la Testnet e la Mainnet
 
-- Lo Smartnode della testnet ha un faucet per l'ETH di test. Lo Smartnode della mainnet **non ha un faucet**. Dovrai fornire il tuo ETH per mettere in stake.
+- Lo Smart Node della testnet ha un faucet per l'ETH di test. Lo Smart Node della mainnet **non ha un faucet**. Dovrai fornire il tuo ETH per mettere in stake.
 - La mainnet supporta molti wallet Ethereum tramite WalletConnect, quindi puoi utilizzare altri wallet che non potevi utilizzare sulla testnet. **Non sei più limitato all'uso di Metamask per mettere in stake**.
 
-## Operazione dello Smartnode sulla Mainnet
+## Operazione dello Smart Node sulla Mainnet
 
 ::: danger NOTA
 **Niente** dalla rete di test può essere migrato alla mainnet.
@@ -31,7 +31,7 @@ Se desideri preservare la tua configurazione della rete di test, dovresti esegui
 
 ### Differenze tra la Testnet e la Mainnet
 
-- Lo Smartnode della testnet ha un faucet per ETH e RPL. Lo Smartnode della mainnet **non ha un faucet**. Dovrai fornire il tuo ETH e il tuo RPL.
+- Lo Smart Node della testnet ha un faucet per ETH e RPL. Lo Smart Node della mainnet **non ha un faucet**. Dovrai fornire il tuo ETH e il tuo RPL.
 - Se stai utilizzando Geth, il carico di lavoro del tuo nodo sarà **considerevolmente più alto**. Geth richiede circa 40 volte lo spazio di archiviazione di Hoodi e richiede più potenza CPU e RAM per elaborare. Se stai utilizzando la dashboard Grafana di Rocket Pool, preparati a vedere un utilizzo molto più elevato.
   Un nodo Geth completo utilizza 1,4 TB al 2025-09-19. [Far scadere i dati dei blocchi precedenti al merge](../maintenance/history-expiry) può ridurre l'utilizzo dello storage di circa 300-500 GB.
 - I tuoi peer della Beacon Chain (e quindi, la tua efficacia di attestazione) saranno **più alti** rispetto alla testnet. I peer sulla mainnet sono molto più diversificati e tendono ad essere di qualità superiore rispetto alla testnet.
@@ -40,7 +40,7 @@ Se desideri preservare la tua configurazione della rete di test, dovresti esegui
 
 ### Migrazione Automatica (Solo Modalità Docker)
 
-Per gli utenti della Modalità Docker, lo Smartnode può migrare alla Mainnet per te automaticamente.
+Per gli utenti della Modalità Docker, lo Smart Node può migrare alla Mainnet per te automaticamente.
 
 **Mentre hai ancora la testnet configurata**, esci dai tuoi validatori su Hoodi:
 
@@ -57,7 +57,7 @@ Una volta fatto, apri il Settings Manager:
 rocketpool service config
 ```
 
-Successivamente, apri la categoria **Smartnode and TX Fees** e cambia il menu a tendina **Network** da `Hoodi Testnet` a `Ethereum Mainnet`:
+Successivamente, apri la categoria **Smart Node and TX Fees** e cambia il menu a tendina **Network** da `Hoodi Testnet` a `Ethereum Mainnet`:
 
 <img src="../images/tui-change-network.png" width="100%" height="auto" />
 
@@ -74,14 +74,14 @@ Would you like the Smartnode to automatically switch networks for you? This will
 ```
 
 Esegui il backup di tutto ciò che vuoi conservare (come la tua cartella `data` che contiene il wallet del tuo nodo e le chiavi del validatore), quindi premi `y` e `Invio` quando sei pronto.
-Lo Smartnode gestirà il passaggio automaticamente.
+Lo Smart Node gestirà il passaggio automaticamente.
 
 Quando è terminato, ti ritroverai con un'installazione pulita sulla Mainnet.
 Tutte le tue impostazioni (come la scelta del client) saranno preservate, ma dovrai creare un nuovo wallet. Inoltre, probabilmente non avrai un _Checkpoint Sync URL_ sulla mainnet e dovresti configurarne uno come spiegato [qui](../config-docker#sincronizzazione-checkpoint-della-beacon-chain); altrimenti ci vorrà molto tempo per sincronizzare la beacon chain della mainnet.
 
 ### Migrazione Manuale
 
-Se per qualsiasi motivo non puoi sfruttare il processo di migrazione automatica dello Smartnode, puoi farlo manualmente in pochi semplici passaggi:
+Se per qualsiasi motivo non puoi sfruttare il processo di migrazione automatica dello Smart Node, puoi farlo manualmente in pochi semplici passaggi:
 
 <div className="p-3">
   <Tabs>

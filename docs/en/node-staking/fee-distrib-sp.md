@@ -125,8 +125,8 @@ A fee recipient other than one of the valid addresses above is considered to be 
 
 The Smart Node software automatically sets the correct fee recipient based on your configuration (whether you're opted into the Smoothing Pool, and whether you have megapool validators, minipools, or both). For nodes with both megapool validators and minipools while opted out, the fee recipient is set per validator using the keymanager API. The full list of conditions are summarized [here](/node-staking/fee-distrib-sp#fee-recipients).
 
-The Smartnode software is designed to ensure honest users will never get penalized, even if it must take the Validator Client offline to do so.
-If this happens, you will stop attesting and will see error messages in your log files about why the Smartnode can't correctly set your fee recipient.
+The Smart Node software is designed to ensure honest users will never get penalized, even if it must take the Validator Client offline to do so.
+If this happens, you will stop attesting and will see error messages in your log files about why the Smart Node can't correctly set your fee recipient.
 
 ## The Smoothing Pool
 

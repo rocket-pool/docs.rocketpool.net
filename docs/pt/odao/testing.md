@@ -88,7 +88,7 @@ Note que a **URL do Execution Client** é diferente aqui: _deve ser_ um EC de Ar
 
 ::: warning NOTA
 Dependendo da configuração do seu cliente, construir esta árvore pode levar _horas_.
-O Smartnode fornecerá indicadores de status sobre seu progresso ao longo do caminho, como você pode ver no exemplo abaixo.
+O Smart Node fornecerá indicadores de status sobre seu progresso ao longo do caminho, como você pode ver no exemplo abaixo.
 :::
 
 A saída parecerá com isso (truncada por brevidade):
@@ -144,7 +144,7 @@ Your Merkle tree's root of 0x278fd75797e2a9eddc128c0199b448877e30d1196c12306bdc9
 Se você receber isso, então sua watchtower pode construir a árvore corretamente.
 
 ::: danger NOTA
-Embora isso prove que você pode construir a árvore, você _deve_ garantir que seu token da API Web3.Storage foi inserido na configuração do Smartnode para que possa fazer upload da árvore resultante para IPFS.
+Embora isso prove que você pode construir a árvore, você _deve_ garantir que seu token da API Web3.Storage foi inserido na configuração do Smart Node para que possa fazer upload da árvore resultante para IPFS.
 :::
 
 ### Próximos Passos

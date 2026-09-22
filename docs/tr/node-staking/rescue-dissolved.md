@@ -47,7 +47,7 @@ Kurtarmak istediğiniz minipool'u seçtikten sonra, ne kadar manuel olarak yatı
 Seçenek 1 çoğu durumda kullanılacaktır. Beaconchain bakiyenizi gerekli 32 ETH miktarına getirmek için gereken miktardır. Diğer seçenekler gelişmiş kullanım durumları için sağlanmıştır.
 
 ::: tip NOT
-Beaconchain bakiyenizi 32 ETH'ye getirmek, validator'ünüzün Ethereum doğrulama görevlerine aktif olarak katılabileceği anlamına gelir. Smartnode, fesihten bu yana validator'ünüzü yeniden başlatma şansı bulamayabilir. Bu nedenle, validator'ınızın validator anahtarlarınızı yüklediğinden ve kurtarma işlemi sırasında herhangi bir cezayı önlemek için doğrulama görevlerini yerine getirebileceğinden emin olmak için validator'ünüzü manuel olarak yeniden başlatmak iyi bir fikirdir.
+Beaconchain bakiyenizi 32 ETH'ye getirmek, validator'ünüzün Ethereum doğrulama görevlerine aktif olarak katılabileceği anlamına gelir. Smart Node, fesihten bu yana validator'ünüzü yeniden başlatma şansı bulamayabilir. Bu nedenle, validator'ınızın validator anahtarlarınızı yüklediğinden ve kurtarma işlemi sırasında herhangi bir cezayı önlemek için doğrulama görevlerini yerine getirebileceğinden emin olmak için validator'ünüzü manuel olarak yeniden başlatmak iyi bir fikirdir.
 
 Standart Docker modunu çalıştırıyorsanız, bu `docker restart rocketpool_validator` ile yapılabilir.
 :::

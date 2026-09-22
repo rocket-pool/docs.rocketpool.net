@@ -7,14 +7,14 @@ Fazer isso envolve o seguinte:
 - Monitorar a saúde dos seus clientes de Execução e/ou Consenso (se você executar clientes locais)
 - Garantir que seu nó está enviando regularmente as transações necessárias para a chain para atualizações de status
 - Garantir que você tem um saldo de ETH suficiente na sua carteira do nó para executar essas transações
-- Aplicar rotineiramente atualizações ao Smartnode, seus clientes (se aplicável) e seu Sistema Operacional
+- Aplicar rotineiramente atualizações ao Smart Node, seus clientes (se aplicável) e seu Sistema Operacional
 - Monitorar a saúde dos outros membros do Oracle DAO, e se comunicar com eles se você acreditar que seus nó(s) não estão funcionando adequadamente
 
-Nesta seção, descreveremos alguns exemplos de como fazer isso via o suporte integrado do Smartnode ao [Grafana](https://grafana.com/).
+Nesta seção, descreveremos alguns exemplos de como fazer isso via o suporte integrado do Smart Node ao [Grafana](https://grafana.com/).
 
 ## O Painel Padrão do Rocket Pool
 
-O Smartnode fornece um painel conveniente que permite monitorar muitas das métricas listadas acima.
+O Smart Node fornece um painel conveniente que permite monitorar muitas das métricas listadas acima.
 Há um painel para cada Cliente de Consenso.
 Abaixo está um exemplo do painel para Nimbus:
 
@@ -24,13 +24,13 @@ Abaixo está um exemplo do painel para Nimbus:
 - Seu cliente de Execução está funcionando adequadamente se as Estatísticas de Rede no quadrante inferior esquerdo estiverem sendo populadas.
 - Seu cliente de Consenso está funcionando adequadamente se a contagem de pares no quadrante superior direito estiver atualizando com um número diferente de zero; o número exato depende da sua escolha de cliente e sua configuração de rede.
 - O saldo de ETH do seu nó é exibido na tabela no canto inferior direito.
-- Quaisquer atualizações do Sistema Operacional ou do Smartnode são apresentadas na caixa `Available Updates` no painel superior central.
+- Quaisquer atualizações do Sistema Operacional ou do Smart Node são apresentadas na caixa `Available Updates` no painel superior central.
 
 ::: tip NOTA
-Atualizações do Sistema Operacional e do Smartnode requerem o rastreador de atualizações, que você pode instalar via `rocketpool service install-update-tracker`.
+Atualizações do Sistema Operacional e do Smart Node requerem o rastreador de atualizações, que você pode instalar via `rocketpool service install-update-tracker`.
 :::
 
-Para informações sobre como preparar o sistema de métricas e o painel do Smartnode, visite as páginas [Monitorando o Desempenho do seu Nó](../node-staking/performance) e [Configurando o Painel Grafana](../node-staking/grafana.mdx) da documentação do Smartnode.
+Para informações sobre como preparar o sistema de métricas e o painel do Smart Node, visite as páginas [Monitorando o Desempenho do seu Nó](../node-staking/performance) e [Configurando o Painel Grafana](../node-staking/grafana.mdx) da documentação do Smart Node.
 
 ## O Painel Oracle DAO
 

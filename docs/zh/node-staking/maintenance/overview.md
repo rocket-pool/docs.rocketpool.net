@@ -10,11 +10,11 @@ next:
 
 ## 先决条件
 
-在配置 Smartnode 之前,请确保您:
+在配置 Smart Node 之前,请确保您:
 
 - 已设置节点机器(或虚拟机)并保护其安全(通过[保护您的节点](../securing-your-node)指南)
-- 在其上[安装](../installing/overview)并[配置](../config/overview)了 Smartnode
-- 在 Smartnode 上加载了节点钱包
+- 在其上[安装](../installing/overview)并[配置](../config/overview)了 Smart Node
+- 在 Smart Node 上加载了节点钱包
 - 同步了执行客户端和共识客户端
 - 为节点提供了[提款地址](../prepare-node.mdx#设置主提款地址),设置了[后备客户端](../fallback)(可选),选择加入[平滑池](../fee-distrib-sp#平滑池)(可选),并配置了 [MEV](../mev.mdx)
 - 创建了至少一个 [minipool](../create-validator.mdx)
@@ -24,12 +24,12 @@ next:
 [监控您的节点性能](../performance)提供了一些工具和教程,用于监控节点的健康状况(从资源角度,例如 CPU 和 RAM 消耗)以及验证者在信标链上的性能。
 它涵盖了许多您在担任以太坊验证者期间将使用的基本工具。
 
-[设置 Grafana 仪表板](../grafana.mdx)介绍了如何设置 Smartnode 堆栈的指标跟踪器和 Grafana 仪表板 - 这是一个一站式商店,用于监控节点和验证者的所有内容,是每个节点运营商武器库中的主要工具。
+[设置 Grafana 仪表板](../grafana.mdx)介绍了如何设置 Smart Node 堆栈的指标跟踪器和 Grafana 仪表板 - 这是一个一站式商店,用于监控节点和验证者的所有内容,是每个节点运营商武器库中的主要工具。
 我们*强烈*建议探索 Grafana 仪表板并定期检查它。
 
-[Smartnode 堆栈警报通知](./alerting.md)介绍了如何使用 Smartnode 警报通知功能接收有关 Rocket Pool Smartnode 的健康状况和重要事件的通知。
+[Smart Node 堆栈警报通知](./alerting.md)介绍了如何使用 Smart Node 警报通知功能接收有关 Rocket Pool Smart Node 的健康状况和重要事件的通知。
 
-[检查更新](../updates)涵盖了定期使用新安全补丁更新节点的关键过程、如何在新版本发布后更新 Smartnode,以及如果您选择的客户端发布了 Smartnode 最新版本尚未包含的新版本,如何手动更新客户端版本。
+[检查更新](../updates)涵盖了定期使用新安全补丁更新节点的关键过程、如何在新版本发布后更新 Smart Node,以及如果您选择的客户端发布了 Smart Node 最新版本尚未包含的新版本,如何手动更新客户端版本。
 您应该熟悉整个部分,因为在发布更新时可能需要参考它。
 
 [备份您的节点](../backups)是一个可选指南,描述了如何备份节点的配置及其链数据以防硬件故障。

@@ -97,7 +97,7 @@ Aşağıda tüm MEV ekosisteminin nasıl çalıştığının ve MEV-Boost'un ner
 
 _Görsel Flashbots'un izniyle_
 
-Rocket Pool Smartnode, varsayılan olarak doğrudan MEV-Boost ile paketlenmiş olarak gelir ve **Docker Mode** ve **Hybrid Mode** node operatörlerimizin sorunsuz bir şekilde bundan faydalanmasını sağlar.
+Rocket Pool Smart Node, varsayılan olarak doğrudan MEV-Boost ile paketlenmiş olarak gelir ve **Docker Mode** ve **Hybrid Mode** node operatörlerimizin sorunsuz bir şekilde bundan faydalanmasını sağlar.
 **Native Mode** kullanıcılarının bunu manuel olarak ayarlaması gerekecektir.
 
 ## Rocket Pool ve MEV
@@ -129,7 +129,7 @@ Bu aşama Kasım 2022'de sona erdi.
 
 Aşama 2'de, MEV-Boost tüm node operatörleri için varsayılan olarak etkindir.
 Node operatörleri yukarıda listelenen güvenilir relay'lerden **bir veya daha fazlasını** kullanmayı seçebilir ancak özel (güvenilmez) bir relay kullanamazlar.
-MEV-boost'tan çıkmayı seçen node operatörleri, Smartnode'u başlatmadan önce bunu açıkça yapmalıdır.
+MEV-boost'tan çıkmayı seçen node operatörleri, Smart Node'u başlatmadan önce bunu açıkça yapmalıdır.
 
 Bu **mevcut aşamadır**.
 
@@ -140,21 +140,21 @@ Node operatörleri yukarıda listelenen güvenilir relay'lerden **bir veya daha 
 
 Bu aşama için şu anda **planlanmış bir tarih yoktur**.
 
-## Smartnode'da MEV-Boost Yapılandırma
+## Smart Node'da MEV-Boost Yapılandırma
 
 MEV-Boost'u nasıl yapılandıracağınızı öğrenmek için lütfen aşağıda hangi modu kullandığınızı seçin.
 
 <div className="p-3">
   <Tabs>
     <Tab label="Docker Mode">
-      Smartnode'un yapılandırma TUI'si ile MEV-Boost'u yapılandırmak kolaydır.
+      Smart Node'un yapılandırma TUI'si ile MEV-Boost'u yapılandırmak kolaydır.
       `rocketpool service config` komutunu çalıştırarak başlayın ve `MEV-Boost` seçeneğine gidin:
 
       <img src={tuiMeVBoost} width="100%" height="auto"/>
 
       Etkinleştirmek için `Enable MEV-Boost` etiketli kutuyu işaretleyin.
 
-      Etkinleştirildikten sonra, ekran şöyle görünecektir (_Smartnode v1.17.2 itibariyle_):
+      Etkinleştirildikten sonra, ekran şöyle görünecektir (_Smart Node v1.17.2 itibariyle_):
 
       <img src={tuiMeVBoostMain} width="100%" height="auto"/>
 
@@ -173,23 +173,23 @@ MEV-Boost'u nasıl yapılandıracağınızı öğrenmek için lütfen aşağıda
 
       - `Port` kutusu Docker mode kullanıcıları için önemli değildir.
       - `Expose API Port` kutusu Docker mode kullanıcıları için önemli değildir.
-      - `Container Tag` kutusu, Flashbots Smartnode güncellemesi yayınlanmadan önce kullanmak istediğiniz yeni bir yüksek öncelikli sürüm yayınlarsa, Smartnode'un çalıştırdığı MEV-Boost sürümünü manuel olarak yükseltmek için kullanışlıdır.
+      - `Container Tag` kutusu, Flashbots Smart Node güncellemesi yayınlanmadan önce kullanmak istediğiniz yeni bir yüksek öncelikli sürüm yayınlarsa, Smart Node'un çalıştırdığı MEV-Boost sürümünü manuel olarak yükseltmek için kullanışlıdır.
       - `Additional Flags` kutusu, MEV-Boost container'ına doğrudan ek yapılandırma flag'leri veya parametreleri eklemek istiyorsanız kullanılır. Normalde kullanışlı olmayacaktır.
 
       MEV-Boost'u etkinleştirdikten ve istediğiniz relay'leri etkinleştirdikten sonra, kaydedin ve çıkın.
-      Smartnode ilgili container'ları sizin için yeniden başlatacak ve her şeyi otomatik olarak ayarlayacaktır.
+      Smart Node ilgili container'ları sizin için yeniden başlatacak ve her şeyi otomatik olarak ayarlayacaktır.
 
       Beklendiği gibi çalışıp çalışmadığını kontrol etme talimatları için aşağıya bakın.
     </Tab>
     <Tab label="Hybrid Mode">
-      Smartnode'un yapılandırma TUI'si ile MEV-Boost'u yapılandırmak kolaydır.
+      Smart Node'un yapılandırma TUI'si ile MEV-Boost'u yapılandırmak kolaydır.
       `rocketpool service config` komutunu çalıştırarak başlayın ve `MEV-Boost` seçeneğine gidin:
 
       <img src={tuiMeVBoost} width="100%" height="auto"/>
 
       Etkinleştirmek için `Enable MEV-Boost` etiketli kutuyu işaretleyin.
 
-      Etkinleştirildikten sonra, ekran şöyle görünecektir (_Smartnode v1.17.2 itibariyle_):
+      Etkinleştirildikten sonra, ekran şöyle görünecektir (_Smart Node v1.17.2 itibariyle_):
 
       <img src={tuiMeVBoostMain} width="100%" height="auto"/>
 
@@ -215,7 +215,7 @@ MEV-Boost'u nasıl yapılandıracağınızı öğrenmek için lütfen aşağıda
 
       - `Port` kutusu, MEV-Boost'un Beacon Node'unuzdan gelen bağlantıları dinleyeceği portu belirler. Node'unuzda bir port çakışması nedeniyle değiştirmeniz gerekiyorsa, bunu buradan yapabilirsiniz.
       - `Expose API Port` kutusu **işaretlenmelidir** böylece harici olarak yönetilen BN'niz Rocket Pool'un yöneteceği MEV-Boost instance'ı ile iletişim kurabilir. Harici olarak yönetilen BN'niz aynı makinede çalışıyorsa `Open to Localhost` seçin. Yalnızca harici olarak yönetilen BN'niz farklı bir makinede çalışıyorsa *ve* node'unuzu istenmeyen trafikten korumak için uygun adımları izlediyseniz `Open to External hosts` seçin: [Node'unuzu Güvence Altına Alma](./securing-your-node)
-      - `Container Tag` kutusu, Flashbots Smartnode güncellemesi yayınlanmadan önce kullanmak istediğiniz yeni bir yüksek öncelikli sürüm yayınlarsa, Smartnode'un çalıştırdığı MEV-Boost sürümünü manuel olarak yükseltmek için kullanışlıdır.
+      - `Container Tag` kutusu, Flashbots Smart Node güncellemesi yayınlanmadan önce kullanmak istediğiniz yeni bir yüksek öncelikli sürüm yayınlarsa, Smart Node'un çalıştırdığı MEV-Boost sürümünü manuel olarak yükseltmek için kullanışlıdır.
       - `Additional Flags` kutusu, MEV-Boost container'ına doğrudan ek yapılandırma flag'leri veya parametreleri eklemek istiyorsanız kullanılır. Normalde kullanışlı olmayacaktır.
 
       MEV-Boost'u etkinleştirdikten ve istediğiniz relay'leri etkinleştirdikten sonra, kaydedin ve çıkın.

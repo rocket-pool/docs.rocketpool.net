@@ -4,13 +4,13 @@ import tui_fallback_clients from "./images/tui-fallback-clients.png";
 
 # Spécification d'un nœud de secours
 
-À partir de la version **1.5.0** de la pile Smartnode, vous pouvez fournir une paire de client d'exécution et de client de consensus "de secours" qui peut prendre le relais de vos clients principaux s'ils devaient se déconnecter (par exemple parce que [vous utilisez Geth et devez le tailler](./pruning)).
+À partir de la version **1.5.0** de la pile Smart Node, vous pouvez fournir une paire de client d'exécution et de client de consensus "de secours" qui peut prendre le relais de vos clients principaux s'ils devaient se déconnecter (par exemple parce que [vous utilisez Geth et devez le tailler](./pruning)).
 Dans cette situation, votre machine de nœud principale sera toujours responsable de l'attestation et de la proposition de blocs avec les clés de validator de votre megapool, mais elle se connectera à une machine externe pour interagir avec les chaînes de couche d'exécution et Beacon.
 
 Essentiellement, cela vous permet d'utiliser _temporairement_ une autre paire de clients pour des opérations comme l'interrogation des chaînes, l'envoi de transactions et la réception de blocs pour attester.
 Cette paire peut être gérée en externe (comme en mode hybride), ou il peut s'agir d'un autre nœud Rocket Pool (une autre machine en mode Docker avec les ports API exposés, ce que nous aborderons ci-dessous).
 
-Une fois que les clients principaux de votre nœud sont de nouveau en ligne, le Smartnode et votre client validator repasseront automatiquement sur eux.
+Une fois que les clients principaux de votre nœud sont de nouveau en ligne, le Smart Node et votre client validator repasseront automatiquement sur eux.
 
 ::: warning REMARQUE
 Un nœud de secours n'est **pas** la même chose qu'un nœud de "sauvegarde".
@@ -35,14 +35,14 @@ Depuis la version v1.9.0, tous nos clients validator pris en charge ont ajouté 
 
 Vous pouvez utiliser une 2ème machine que vous possédez localement, un nœud distant hébergé sur un VPS ou un nœud basé sur le cloud comme nœud de secours.
 
-Cet exemple vous montre comment créer un 2ème Smartnode sur une machine différente en utilisant le mode Docker, qui peut servir de nœud de secours.
+Cet exemple vous montre comment créer un 2ème Smart Node sur une machine différente en utilisant le mode Docker, qui peut servir de nœud de secours.
 
 ::: tip CONSEIL
 Si vous avez déjà un 2ème nœud prêt avec ses ports RPC exposés, n'hésitez pas à ignorer cette section.
 :::
 
 1. Suivez les étapes du guide de configuration d'un nœud ([local](./local/hardware) ou [distant](./vps/providers)).
-2. Une fois la machine prête, [installez la pile Smartnode](./docker).
+2. Une fois la machine prête, [installez la pile Smart Node](./docker).
 3. Exécutez `rocketpool service config` pour spécifier les clients que vous souhaitez utiliser.
    1. Lorsque vous arrivez à la fin de l'assistant et qu'il vous demande si vous souhaitez examiner vos paramètres, sélectionnez **Oui**.
    2. Entrez dans les paramètres `Execution Client`.
@@ -52,7 +52,7 @@ Si vous avez déjà un 2ème nœud prêt avec ses ports RPC exposés, n'hésitez
    4. Revenez en arrière et entrez dans les paramètres `Consensus Client`. 5. Cochez la case `Expose API Port` (et, si vous utilisez **Prysm**, la case `Expose RPC Port` également) :
 
    <img src={tui_cc_expose_ports} width="100%" height="auto" />
-   6. Enregistrez les paramètres et démarrez le Smartnode.
+   6. Enregistrez les paramètres et démarrez le Smart Node.
 
 4. Passez au guide [Sécuriser votre nœud](./securing-your-node) pour configurer SSH et la posture de sécurité appropriée.
    1. Si vous avez `ufw` installé, vous devrez ajouter des règles pour autoriser le trafic entrant vers les ports API (`8545`, `8546` et `5052` par défaut ; également `5053` si vous utilisez **Prysm**).
@@ -74,6 +74,7 @@ Une fois que vous avez préparé un nœud de secours, vous pouvez le connecter �
 2. Cochez la case `Use Fallback Clients`.
 3. Entrez l'URL RPC de votre client d'exécution dans la case `Execution Client URL`. Par exemple, si l'adresse IP de votre nœud de secours est `192.168.1.45` et que vous avez votre client d'exécution sur le port par défaut `8545`, vous entreriez `http://192.168.1.45:8545` ici.
 4. Faites de même pour l'URL RPC de votre client de consensus de secours. En suivant le même exemple, si vous l'avez sur le port par défaut `5052`, vous entreriez `http://192.168.1.45:5052` ici.
+5. Cochez éventuellement **Prefer Fallback Clients** (désactivé par défaut). Si cette option est activée, le Smart Node enverra d'abord les requêtes API, nœud et watchtower à vos clients d'exécution et de consensus de secours, et n'utilisera la paire principale que si celle de secours est indisponible. Cela évite de charger les clients principaux avec le trafic du Smart Node, afin qu'ils puissent se consacrer aux tâches de validation. Votre client validateur n'est pas concerné et continue d'utiliser la paire principale en priorité.
 
 La page finale devrait ressembler à ceci :
 
@@ -82,7 +83,7 @@ La page finale devrait ressembler à ceci :
 ::: tip REMARQUE
 Les utilisateurs du **mode natif** peuvent suivre les mêmes étapes, bien que l'interface TUI soit légèrement différente de la capture d'écran ci-dessus.
 
-Notez que cela ne fournira au **Smartnode lui-même** (le service daemon) qu'une prise en charge de secours ; **vous devrez mettre à jour manuellement les arguments du service de votre client validator pour lui donner accès aux clients de secours.**
+Notez que cela ne fournira au **Smart Node lui-même** (le service daemon) qu'une prise en charge de secours ; **vous devrez mettre à jour manuellement les arguments du service de votre client validator pour lui donner accès aux clients de secours.**
 :::
 
 Appuyez sur `entrée` sur la case finale pour vous assurer qu'elle est confirmée, puis enregistrez les paramètres et appliquez les modifications.
