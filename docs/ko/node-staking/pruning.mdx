@@ -31,6 +31,58 @@ Hybrid mode의 외부 client 또는 Native mode와 같은 자체 Execution clien
 Execution client를 정리하는 방법을 알아보려면 Execution client의 문서를 참조하십시오.
 :::
 
+## Nethermind 2.0과 FlatDB
+
+Smart Node v1.24.3부터 Smart Node는 **Nethermind 2.0**을 사용합니다. Nethermind 2.0은 새 데이터베이스를 **FlatDB**라는 형식으로 저장합니다.
+FlatDB는 수동 상태 정리가 필요하지 않으며 지원하지도 않습니다. Nethermind 데이터베이스가 FlatDB를 사용하는 경우 `rocketpool service prune-eth1`이 전혀 필요하지 않습니다.
+
+기존 Nethermind 데이터베이스는 변환되지 **않습니다**. 노드가 Nethermind 2.0 이전에 동기화되었다면 레거시 **Patricia** 데이터베이스를 계속 사용하며, 이 페이지에 설명된 대로 계속 정리할 수 있습니다.
+FlatDB로 전환하는 유일한 방법은 `rocketpool service resync-eth1`로 Execution 클라이언트를 재동기화하는 것입니다.
+
+::: warning 참고
+재동기화하기 전에 [백업 노드를 설정](./fallback)하고 [제대로 작동하는지 테스트](./fallback#백업-클라이언트-테스트하기)하는 것을 고려하세요.
+백업이 구성되어 있으면 기본 Execution 클라이언트가 재동기화되는 동안 Smart Node와 Consensus 클라이언트가 자동으로 백업으로 전환되고, 동기화가 완료되면 다시 돌아옵니다.
+:::
+
+### 사용 중인 데이터베이스 확인하기
+
+다음을 실행하세요:
+
+```shell
+rocketpool service get-db-details
+```
+
+| 출력                                                                            | 의미                                                                 |
+| ------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `Nethermind is using FlatDB. Manual state pruning is not needed or supported.`  | 정리할 필요가 없습니다. 이 페이지의 나머지 내용은 해당되지 않습니다. |
+| `Nethermind is using the legacy Patricia database. State pruning is supported.` | 디스크가 차기 시작하면 아래의 정리 단계를 따르세요.                  |
+| `Nethermind has no persisted state database yet.`                               | Nethermind가 아직 상태를 기록하지 않았습니다(예: 재동기화 직후).     |
+
+::: tip 참고
+`get-db-details`를 사용하려면 Execution 클라이언트 컨테이너가 실행 중이어야 합니다.
+이 명령은 데이터베이스 형식만 보고합니다. Archive 노드에서는 상태 정리가 지원된다고 표시될 수 있지만, Archive 노드는 정리할 수 없습니다.
+:::
+
+### RAM이 16 GiB 이하인 시스템의 FlatInTrie
+
+Nethermind가 **RAM이 16 GiB 이하**인 머신에서 새 데이터베이스를 동기화하면, Smart Node는 메모리가 적은 시스템에 더 적합한 Nethermind의 **FlatInTrie** FlatDB 레이아웃을 선택합니다.
+이 선택은 데이터베이스와 함께 저장되므로 재시작하거나 나중에 RAM을 추가해도 바뀌지 않습니다.
+`rocketpool service resync-eth1`로 재동기화할 때만 초기화됩니다.
+
+### 레거시 데이터베이스에만 적용되는 설정
+
+`rocketpool service config`의 다음 Nethermind 설정은 레거시 Patricia 데이터베이스에만 영향을 미치며 FlatDB에서는 무시됩니다:
+
+- In-Memory Pruning Cache Size
+- Full Prune Memory Budget Size
+- Prune threshold (MB)
+- Full pruning parallelism
+
+::: tip 참고
+FlatDB는 **상태** 정리의 필요성을 없애줍니다. 노드가 보관하는 **기록**(블록 본문과 영수증)의 양은 바뀌지 않습니다.
+이는 여전히 **Pruning Mode** 설정으로 제어됩니다. [Execution 클라이언트 기록 만료](./maintenance/history-expiry)를 참조하세요.
+:::
+
 ## 전제 조건
 
 아래 탭에서 사용 중인 client를 선택하십시오.
@@ -58,10 +110,15 @@ Execution client를 정리하는 방법을 알아보려면 Execution client의 �
       - SSD에 최소 **50GB**의 여유 공간이 남아 있어야 함
     </Tab>
     <Tab label="Nethermind">
+      먼저 `rocketpool service get-db-details`로 사용 중인 데이터베이스를 확인하세요([Nethermind 2.0과 FlatDB](#nethermind-20과-flatdb) 참조).
+      **FlatDB**로 표시되면 정리할 필요가 없습니다.
+
+      **레거시 Patricia** 데이터베이스로 표시되면:
+
       Nethermind는 정리하는 동안 온라인 상태를 유지할 수 있어 attestation을 계속하기 위해 fallback node가 필요하지 않습니다.
       그러나 정리는 **극도로 리소스 집약적인 작업**이며 정리 중에 attestation의 포함 거리가 증가하고 attestation을 놓칠 수 있습니다.
 
-      Nethermind는 특별한 전제 조건이 필요하지 않습니다; 언제든지 정리할 수 있습니다.
+      Mainnet에서 Nethermind를 정리하려면 SSD에 최소 **250 GiB**의 여유 공간이 필요합니다(Hoodi 테스트넷에서는 50 GiB).
     </Tab>
 
   </Tabs>
@@ -135,7 +192,14 @@ Execution client를 정리하는 방법을 알아보려면 Execution client의 �
       rocketpool service prune-eth1
       ```
 
-      다음 프롬프트가 표시됩니다:
+      데이터베이스가 FlatDB를 사용하는 경우 `prune-eth1`은 정리하지 않고 중지되며 다음을 출력합니다:
+
+      ```
+      Nethermind is using FlatDB, which does not need or support manual state pruning.
+      History expiry is managed separately by your configured pruning mode.
+      ```
+
+      데이터베이스가 레거시 Patricia 형식을 사용하는 경우 다음 프롬프트가 표시됩니다:
 
       ```
       This will shut down your main execution client and prune its database, freeing up disk space.

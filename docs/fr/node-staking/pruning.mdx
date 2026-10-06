@@ -31,6 +31,58 @@ Vous devrez le faire manuellement.
 Veuillez vous référer à la documentation de votre client d'exécution pour apprendre comment l'élaguer.
 :::
 
+## Nethermind 2.0 et FlatDB
+
+À partir de Smart Node v1.24.3, le Smart Node utilise **Nethermind 2.0**. Nethermind 2.0 stocke les nouvelles bases de données dans un format appelé **FlatDB**.
+FlatDB n'a pas besoin d'élagage manuel de l'état et ne le prend pas en charge. Si votre base de données Nethermind utilise FlatDB, vous n'avez pas du tout besoin de `rocketpool service prune-eth1`.
+
+Les bases de données Nethermind existantes ne sont **pas** converties. Si votre nœud a été synchronisé avant Nethermind 2.0, il continue d'utiliser l'ancienne base de données **Patricia** et vous pouvez continuer à l'élaguer comme décrit sur cette page.
+La seule façon de passer à FlatDB est de resynchroniser votre client d'exécution avec `rocketpool service resync-eth1`.
+
+::: warning NOTE
+Avant de resynchroniser, envisagez de [configurer un nœud de secours](./fallback) et de [vérifier qu'il fonctionne](./fallback#test-des-clients-de-secours).
+Avec un nœud de secours configuré, le Smart Node et votre client de consensus basculeront automatiquement vers celui-ci pendant la resynchronisation de votre client d'exécution principal, puis reviendront une fois celui-ci synchronisé.
+:::
+
+### Vérifier quelle base de données vous utilisez
+
+Exécutez :
+
+```shell
+rocketpool service get-db-details
+```
+
+| Sortie                                                                          | Signification                                                                            |
+| ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `Nethermind is using FlatDB. Manual state pruning is not needed or supported.`  | Vous n'avez pas besoin d'élaguer. Le reste de cette page ne vous concerne pas.           |
+| `Nethermind is using the legacy Patricia database. State pruning is supported.` | Suivez les étapes d'élagage ci-dessous lorsque votre disque commence à se remplir.       |
+| `Nethermind has no persisted state database yet.`                               | Nethermind n'a encore écrit aucun état (par exemple, juste après une resynchronisation). |
+
+::: tip NOTE
+`get-db-details` nécessite que le conteneur de votre client d'exécution soit en cours d'exécution.
+Il indique uniquement le format de la base de données. Sur un nœud Archive, il peut tout de même indiquer que l'élagage de l'état est pris en charge, mais les nœuds Archive ne peuvent pas être élagués.
+:::
+
+### FlatInTrie sur les systèmes avec 16 Gio de RAM ou moins
+
+Lorsque Nethermind synchronise une nouvelle base de données sur une machine disposant de **16 Gio de RAM ou moins**, le Smart Node sélectionne la disposition FlatDB **FlatInTrie** de Nethermind, mieux adaptée aux systèmes disposant de moins de mémoire.
+Ce choix est enregistré avec la base de données ; il ne changera donc pas si vous redémarrez ou ajoutez de la RAM plus tard.
+Il n'est réinitialisé que lorsque vous resynchronisez avec `rocketpool service resync-eth1`.
+
+### Paramètres qui ne s'appliquent qu'à l'ancienne base de données
+
+Les paramètres Nethermind suivants dans `rocketpool service config` n'affectent que les anciennes bases de données Patricia et sont ignorés avec FlatDB :
+
+- In-Memory Pruning Cache Size
+- Full Prune Memory Budget Size
+- Prune threshold (MB)
+- Full pruning parallelism
+
+::: tip NOTE
+FlatDB supprime le besoin d'élaguer l'**état**. Il ne change pas la quantité d'**historique** (corps de blocs et reçus) que conserve votre nœud.
+Celle-ci reste contrôlée par votre paramètre **Pruning Mode**. Consultez [Expiration de l'historique du client d'exécution](./maintenance/history-expiry).
+:::
+
 ## Prérequis
 
 Sélectionnez le client que vous utilisez dans les onglets ci-dessous.
@@ -58,10 +110,15 @@ Sélectionnez le client que vous utilisez dans les onglets ci-dessous.
       - Au moins **50 Go** d'espace libre restant sur votre SSD
     </Tab>
     <Tab label="Nethermind">
+      Commencez par vérifier quelle base de données vous utilisez avec `rocketpool service get-db-details` (voir [Nethermind 2.0 et FlatDB](#nethermind-20-et-flatdb)).
+      S'il indique **FlatDB**, vous n'avez pas besoin d'élaguer.
+
+      S'il indique l'**ancienne base de données Patricia** :
+
       Nethermind est capable de rester en ligne pendant qu'il élague, ce qui signifie que vous n'avez pas besoin d'un nœud de secours pour continuer à attester.
       Notez, cependant, que l'élagage est **une tâche extrêmement intensive en ressources** et vous pouvez voir une augmentation de la distance d'inclusion de vos attestations et des attestations manquées pendant celle-ci.
 
-      Nethermind ne nécessite aucun prérequis spécial ; vous pouvez l'élaguer à tout moment.
+      Sur le Mainnet, vous avez besoin d'au moins **250 Gio** d'espace libre sur votre SSD pour élaguer Nethermind (50 Gio sur le testnet Hoodi).
     </Tab>
 
   </Tabs>
@@ -135,7 +192,14 @@ Sélectionnez le client que vous utilisez dans les onglets ci-dessous.
       rocketpool service prune-eth1
       ```
 
-      Vous verrez l'invite suivante :
+      Si votre base de données utilise FlatDB, `prune-eth1` s'arrêtera sans élaguer et affichera :
+
+      ```
+      Nethermind is using FlatDB, which does not need or support manual state pruning.
+      History expiry is managed separately by your configured pruning mode.
+      ```
+
+      Si votre base de données utilise l'ancien format Patricia, vous verrez l'invite suivante :
 
       ```
       This will shut down your main execution client and prune its database, freeing up disk space.

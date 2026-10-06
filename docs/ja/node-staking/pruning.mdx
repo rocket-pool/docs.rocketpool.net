@@ -31,6 +31,58 @@ Hybridモードの外部クライアントやNativeモードなど、独自のEx
 Execution clientのドキュメントを参照して、プルーニング方法を学んでください。
 :::
 
+## Nethermind 2.0とFlatDB
+
+Smart Node v1.24.3以降、Smart Nodeは**Nethermind 2.0**を使用します。Nethermind 2.0は、新しいデータベースを**FlatDB**と呼ばれる形式で保存します。
+FlatDBは手動のステートプルーニングを必要とせず、サポートもしていません。NethermindのデータベースがFlatDBを使用している場合、`rocketpool service prune-eth1`はまったく必要ありません。
+
+既存のNethermindデータベースは変換**されません**。Nethermind 2.0より前に同期されたノードは、引き続きレガシーの**Patricia**データベースを使用するため、このページの説明どおりにプルーニングを続けられます。
+FlatDBに移行する唯一の方法は、`rocketpool service resync-eth1`でExecution clientを再同期することです。
+
+::: warning 注記
+再同期する前に、[フォールバックノードを設定](./fallback)し、[正しく動作することをテスト](./fallback#フォールバッククライアントのテスト)することを検討してください。
+フォールバックが設定されていれば、プライマリのExecution clientが再同期している間、Smart NodeとConsensus clientは自動的にフォールバックに切り替わり、同期が完了すると元に戻ります。
+:::
+
+### 使用しているデータベースの確認
+
+次を実行します。
+
+```shell
+rocketpool service get-db-details
+```
+
+| 出力                                                                            | 意味                                                               |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| `Nethermind is using FlatDB. Manual state pruning is not needed or supported.`  | プルーニングは不要です。このページの残りの内容は該当しません。     |
+| `Nethermind is using the legacy Patricia database. State pruning is supported.` | ディスクが埋まり始めたら、以下のプルーニング手順に従ってください。 |
+| `Nethermind has no persisted state database yet.`                               | Nethermindはまだステートを書き込んでいません(例:再同期の直後)。    |
+
+::: tip 注記
+`get-db-details`を使用するには、Execution clientのコンテナが実行中である必要があります。
+このコマンドはデータベース形式のみを報告します。Archiveノードではステートプルーニングがサポートされていると表示される場合がありますが、Archiveノードはプルーニングできません。
+:::
+
+### RAMが16 GiB以下のシステムでのFlatInTrie
+
+**RAMが16 GiB以下**のマシンでNethermindが新しいデータベースを同期する場合、Smart Nodeはメモリの少ないシステムにより適したNethermindの**FlatInTrie** FlatDBレイアウトを選択します。
+この選択はデータベースと一緒に保存されるため、再起動したり後からRAMを増設したりしても変わりません。
+リセットされるのは、`rocketpool service resync-eth1`で再同期した場合のみです。
+
+### レガシーデータベースにのみ適用される設定
+
+`rocketpool service config`の以下のNethermind設定はレガシーのPatriciaデータベースにのみ影響し、FlatDBでは無視されます。
+
+- In-Memory Pruning Cache Size
+- Full Prune Memory Budget Size
+- Prune threshold (MB)
+- Full pruning parallelism
+
+::: tip 注記
+FlatDBにより**ステート**のプルーニングは不要になります。ただし、ノードが保持する**履歴**(ブロック本体とレシート)の量は変わりません。
+これは引き続き**Pruning Mode**設定で制御されます。[Execution clientの履歴削除](./maintenance/history-expiry)を参照してください。
+:::
+
 ## 前提条件
 
 以下のタブから使用しているクライアントを選択してください。
@@ -58,10 +110,15 @@ Execution clientのドキュメントを参照して、プルーニング方法�
       - SSDに少なくとも**50 GB**の空き容量が残っていること
     </Tab>
     <Tab label="Nethermind">
+      まず、`rocketpool service get-db-details`で使用しているデータベースを確認してください([Nethermind 2.0とFlatDB](#nethermind-20とflatdb)を参照)。
+      **FlatDB**と表示された場合、プルーニングは不要です。
+
+      **レガシーのPatricia**データベースと表示された場合:
+
       Nethermindはプルーニング中もオンラインのままでいることができるため、アテステーションを続けるためにfallbackノードは必要ありません。
       ただし、プルーニングは**非常にリソース集約的なタスク**であり、アテステーションのインクルージョン距離の増加や、プルーニング中のアテステーション失敗が増える可能性があることに注意してください。
 
-      Nethermindには特別な前提条件は必要ありません。いつでもプルーニングできます。
+      Mainnetでは、Nethermindをプルーニングするには、SSDに少なくとも**250 GiB**の空き容量が必要です(Hoodiテストネットでは50 GiB)。
     </Tab>
 
   </Tabs>
@@ -135,7 +192,14 @@ Execution clientのドキュメントを参照して、プルーニング方法�
       rocketpool service prune-eth1
       ```
 
-      次のプロンプトが表示されます。
+      データベースがFlatDBを使用している場合、`prune-eth1`はプルーニングせずに停止し、次のように表示します。
+
+      ```
+      Nethermind is using FlatDB, which does not need or support manual state pruning.
+      History expiry is managed separately by your configured pruning mode.
+      ```
+
+      データベースがレガシーのPatricia形式を使用している場合、次のプロンプトが表示されます。
 
       ```
       This will shut down your main execution client and prune its database, freeing up disk space.

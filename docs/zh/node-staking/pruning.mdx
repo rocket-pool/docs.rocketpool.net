@@ -31,6 +31,58 @@ import { Tab, Tabs } from "@rspress/core/theme";
 请参考您的执行客户端的文档以了解如何修剪它。
 :::
 
+## Nethermind 2.0 与 FlatDB
+
+从 Smart Node v1.24.3 开始,Smart Node 使用 **Nethermind 2.0**。Nethermind 2.0 以一种名为 **FlatDB** 的格式存储新数据库。
+FlatDB 不需要手动状态修剪,也不支持手动状态修剪。如果您的 Nethermind 数据库使用 FlatDB,您完全不需要 `rocketpool service prune-eth1`。
+
+现有的 Nethermind 数据库**不会**被转换。如果您的节点在 Nethermind 2.0 之前就已同步,它将继续使用旧版 **Patricia** 数据库,您可以继续按照本页的说明对其进行修剪。
+迁移到 FlatDB 的唯一方法是使用 `rocketpool service resync-eth1` 重新同步您的 Execution 客户端。
+
+::: warning 注意
+在重新同步之前,请考虑[设置备用节点](./fallback)并[测试其是否正常工作](./fallback#测试备用客户端)。
+配置备用节点后,在您的主 Execution 客户端重新同步期间,Smart Node 和您的 Consensus 客户端将自动切换到备用节点,并在同步完成后切换回来。
+:::
+
+### 检查您使用的数据库
+
+运行:
+
+```shell
+rocketpool service get-db-details
+```
+
+| 输出                                                                            | 含义                                                 |
+| ------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| `Nethermind is using FlatDB. Manual state pruning is not needed or supported.`  | 您不需要修剪。本页的其余内容不适用于您。             |
+| `Nethermind is using the legacy Patricia database. State pruning is supported.` | 当您的磁盘开始变满时,请按照下面的修剪步骤操作。      |
+| `Nethermind has no persisted state database yet.`                               | Nethermind 尚未写入任何状态(例如,刚刚重新同步之后)。 |
+
+::: tip 注意
+`get-db-details` 需要您的 Execution 客户端容器正在运行。
+它只报告数据库格式。在 Archive 节点上,它可能仍会显示支持状态修剪,但 Archive 节点无法被修剪。
+:::
+
+### 在 16 GiB 或更少内存的系统上使用 FlatInTrie
+
+当 Nethermind 在 **16 GiB 或更少内存**的机器上同步新数据库时,Smart Node 会选择 Nethermind 的 **FlatInTrie** FlatDB 布局,它更适合内存较少的系统。
+此选择会与数据库一起保存,因此即使您重启或之后增加内存,它也不会改变。
+只有在您使用 `rocketpool service resync-eth1` 重新同步时才会重置。
+
+### 仅适用于旧版数据库的设置
+
+`rocketpool service config` 中的以下 Nethermind 设置仅影响旧版 Patricia 数据库,在使用 FlatDB 时会被忽略:
+
+- In-Memory Pruning Cache Size
+- Full Prune Memory Budget Size
+- Prune threshold (MB)
+- Full pruning parallelism
+
+::: tip 注意
+FlatDB 消除了修剪**状态**的需要。它不会改变您的节点保留多少**历史数据**(区块体和收据)。
+这仍由您的 **Pruning Mode** 设置控制。请参阅[执行客户端历史过期](./maintenance/history-expiry)。
+:::
+
 ## 先决条件
 
 从下面的标签中选择您正在使用的客户端。
@@ -58,10 +110,15 @@ import { Tab, Tabs } from "@rspress/core/theme";
       - SSD 上至少剩余 **50 GB** 的可用空间
     </Tab>
     <Tab label="Nethermind">
+      首先,使用 `rocketpool service get-db-details` 检查您使用的数据库(参见 [Nethermind 2.0 与 FlatDB](#nethermind-20-与-flatdb))。
+      如果它报告 **FlatDB**,您不需要修剪。
+
+      如果它报告**旧版 Patricia** 数据库:
+
       Nethermind 能够在修剪时保持在线,这意味着您不需要后备节点来继续证明。
       但请注意,修剪是**一项极其消耗资源的任务**,在修剪期间您可能会看到证明的包含距离增加和错过的证明。
 
-      Nethermind 不需要任何特殊的先决条件;您可以随时修剪它。
+      在主网上,您的 SSD 需要至少 **250 GiB** 的剩余可用空间才能修剪 Nethermind(Hoodi 测试网上为 50 GiB)。
     </Tab>
 
   </Tabs>
@@ -135,7 +192,14 @@ import { Tab, Tabs } from "@rspress/core/theme";
       rocketpool service prune-eth1
       ```
 
-      您将看到以下提示:
+      如果您的数据库使用 FlatDB,`prune-eth1` 将停止而不进行修剪,并输出:
+
+      ```
+      Nethermind is using FlatDB, which does not need or support manual state pruning.
+      History expiry is managed separately by your configured pruning mode.
+      ```
+
+      如果您的数据库使用旧版 Patricia 格式,您将看到以下提示:
 
       ```
       This will shut down your main execution client and prune its database, freeing up disk space.

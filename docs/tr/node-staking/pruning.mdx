@@ -31,6 +31,58 @@ Bunu manuel olarak yapmanız gerekecektir.
 Nasıl budayacağınızı öğrenmek için lütfen Execution istemcinizin belgelerine başvurun.
 :::
 
+## Nethermind 2.0 ve FlatDB
+
+Smart Node v1.24.3'ten itibaren Smart Node, **Nethermind 2.0** kullanır. Nethermind 2.0, yeni veritabanlarını **FlatDB** adlı bir formatta saklar.
+FlatDB manuel durum budamasına ihtiyaç duymaz ve bunu desteklemez. Nethermind veritabanınız FlatDB kullanıyorsa `rocketpool service prune-eth1` komutuna hiç ihtiyacınız yoktur.
+
+Mevcut Nethermind veritabanları **dönüştürülmez**. Node'unuz Nethermind 2.0'dan önce senkronize edildiyse eski **Patricia** veritabanını kullanmaya devam eder ve bu sayfada açıklandığı gibi budamaya devam edebilirsiniz.
+FlatDB'ye geçmenin tek yolu, Execution client'ınızı `rocketpool service resync-eth1` ile yeniden senkronize etmektir.
+
+::: warning NOT
+Yeniden senkronize etmeden önce [bir yedek node kurmayı](./fallback) ve [çalıştığını test etmeyi](./fallback#yedek-clientları-test-etme) düşünün.
+Bir yedek yapılandırıldığında, birincil Execution client'ınız yeniden senkronize olurken Smart Node ve Consensus client'ınız otomatik olarak yedeğe geçer ve senkronizasyon tamamlandığında geri döner.
+:::
+
+### Hangi veritabanına sahip olduğunuzu kontrol edin
+
+Şunu çalıştırın:
+
+```shell
+rocketpool service get-db-details
+```
+
+| Çıktı                                                                           | Anlamı                                                                                            |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `Nethermind is using FlatDB. Manual state pruning is not needed or supported.`  | Budama yapmanıza gerek yoktur. Bu sayfanın geri kalanı sizin için geçerli değildir.               |
+| `Nethermind is using the legacy Patricia database. State pruning is supported.` | Diskiniz dolmaya başladığında aşağıdaki budama adımlarını izleyin.                                |
+| `Nethermind has no persisted state database yet.`                               | Nethermind henüz herhangi bir durum yazmamıştır (örneğin, yeniden senkronizasyondan hemen sonra). |
+
+::: tip NOT
+`get-db-details`, Execution client container'ınızın çalışıyor olmasını gerektirir.
+Yalnızca veritabanı formatını bildirir. Bir Archive node'da durum budamasının desteklendiğini yine de söyleyebilir, ancak Archive node'lar budanamaz.
+:::
+
+### 16 GiB veya daha az RAM'e sahip sistemlerde FlatInTrie
+
+Nethermind, **16 GiB veya daha az RAM'e** sahip bir makinede yeni bir veritabanını senkronize ettiğinde, Smart Node daha az belleğe sahip sistemler için daha uygun olan Nethermind'ın **FlatInTrie** FlatDB düzenini seçer.
+Bu seçim veritabanıyla birlikte kaydedilir, bu nedenle yeniden başlatsanız veya daha sonra RAM ekleseniz de değişmez.
+Yalnızca `rocketpool service resync-eth1` ile yeniden senkronize ettiğinizde sıfırlanır.
+
+### Yalnızca eski veritabanı için geçerli olan ayarlar
+
+`rocketpool service config` içindeki aşağıdaki Nethermind ayarları yalnızca eski Patricia veritabanlarını etkiler ve FlatDB ile yok sayılır:
+
+- In-Memory Pruning Cache Size
+- Full Prune Memory Budget Size
+- Prune threshold (MB)
+- Full pruning parallelism
+
+::: tip NOT
+FlatDB, **durumu** budama ihtiyacını ortadan kaldırır. Node'unuzun ne kadar **geçmiş** (blok gövdeleri ve makbuzlar) tuttuğunu değiştirmez.
+Bu hâlâ **Pruning Mode** ayarınız tarafından kontrol edilir. Bkz. [Execution Client Geçmiş Süresinin Dolması](./maintenance/history-expiry).
+:::
+
 ## Ön Koşullar
 
 Aşağıdaki sekmelerden kullandığınız istemciyi seçin.
@@ -58,10 +110,15 @@ Aşağıdaki sekmelerden kullandığınız istemciyi seçin.
       - SSD'nizde en az **50 GB** boş alan kalmalı
     </Tab>
     <Tab label="Nethermind">
+      Önce `rocketpool service get-db-details` ile hangi veritabanına sahip olduğunuzu kontrol edin (bkz. [Nethermind 2.0 ve FlatDB](#nethermind-20-ve-flatdb)).
+      **FlatDB** bildiriyorsa budama yapmanıza gerek yoktur.
+
+      **Eski Patricia** veritabanını bildiriyorsa:
+
       Nethermind budarken çevrimiçi kalabilir, bu da tasdik etmeye devam etmek için bir fallback node gerektirmediğiniz anlamına gelir.
       Ancak, budamanın **son derece kaynak yoğun bir görev** olduğunu ve onun sırasında tasdiklerinizin dahil edilme mesafesinde bir artış ve kaçırılan tasdikler görebileceğinizi unutmayın.
 
-      Nethermind özel bir ön koşul gerektirmez; istediğiniz zaman budayabilirsiniz.
+      Mainnet'te Nethermind'ı budamak için SSD'nizde en az **250 GiB** boş alan kalmış olması gerekir (Hoodi testnet'inde 50 GiB).
     </Tab>
 
   </Tabs>
@@ -135,7 +192,14 @@ Aşağıdaki sekmelerden kullandığınız istemciyi seçin.
       rocketpool service prune-eth1
       ```
 
-      Şu istemi göreceksiniz:
+      Veritabanınız FlatDB kullanıyorsa `prune-eth1` budama yapmadan durur ve şunu yazdırır:
+
+      ```
+      Nethermind is using FlatDB, which does not need or support manual state pruning.
+      History expiry is managed separately by your configured pruning mode.
+      ```
+
+      Veritabanınız eski Patricia formatını kullanıyorsa şu istemi göreceksiniz:
 
       ```
       This will shut down your main execution client and prune its database, freeing up disk space.

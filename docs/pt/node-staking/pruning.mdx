@@ -31,6 +31,58 @@ Você precisará fazer isso manualmente.
 Por favor, consulte a documentação do seu cliente Execution para aprender como fazer pruning.
 :::
 
+## Nethermind 2.0 e FlatDB
+
+A partir do Smart Node v1.24.3, o Smart Node usa o **Nethermind 2.0**. O Nethermind 2.0 armazena novos bancos de dados em um formato chamado **FlatDB**.
+O FlatDB não precisa de pruning manual do estado e não oferece suporte a ele. Se o seu banco de dados do Nethermind usa FlatDB, você não precisa de `rocketpool service prune-eth1` de forma alguma.
+
+Bancos de dados existentes do Nethermind **não** são convertidos. Se o seu node foi sincronizado antes do Nethermind 2.0, ele continua usando o banco de dados **Patricia** legado e você pode continuar fazendo pruning dele conforme descrito nesta página.
+A única forma de migrar para o FlatDB é ressincronizar o seu cliente de Execution com `rocketpool service resync-eth1`.
+
+::: warning NOTA
+Antes de ressincronizar, considere [configurar um node de fallback](./fallback) e [testar se ele funciona](./fallback#testando-os-clientes-de-fallback).
+Com um fallback configurado, o Smart Node e o seu cliente de Consensus mudarão automaticamente para ele enquanto o seu cliente de Execution principal ressincroniza, e voltarão assim que ele estiver sincronizado.
+:::
+
+### Verifique qual banco de dados você tem
+
+Execute:
+
+```shell
+rocketpool service get-db-details
+```
+
+| Saída                                                                           | O que significa                                                                            |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `Nethermind is using FlatDB. Manual state pruning is not needed or supported.`  | Você não precisa fazer pruning. O restante desta página não se aplica a você.              |
+| `Nethermind is using the legacy Patricia database. State pruning is supported.` | Siga os passos de pruning abaixo quando o seu disco começar a encher.                      |
+| `Nethermind has no persisted state database yet.`                               | O Nethermind ainda não gravou nenhum estado (por exemplo, logo após uma ressincronização). |
+
+::: tip NOTA
+`get-db-details` requer que o contêiner do seu cliente de Execution esteja em execução.
+Ele informa apenas o formato do banco de dados. Em um node Archive, ele ainda pode indicar que o pruning do estado é suportado, mas nodes Archive não podem passar por pruning.
+:::
+
+### FlatInTrie em sistemas com 16 GiB de RAM ou menos
+
+Quando o Nethermind sincroniza um novo banco de dados em uma máquina com **16 GiB de RAM ou menos**, o Smart Node seleciona o layout FlatDB **FlatInTrie** do Nethermind, que é mais adequado para sistemas com menos memória.
+Essa escolha é salva junto com o banco de dados, portanto não mudará se você reiniciar ou adicionar mais RAM depois.
+Ela só é redefinida quando você ressincroniza com `rocketpool service resync-eth1`.
+
+### Configurações que se aplicam apenas ao banco de dados legado
+
+As seguintes configurações do Nethermind em `rocketpool service config` afetam apenas bancos de dados Patricia legados e são ignoradas com o FlatDB:
+
+- In-Memory Pruning Cache Size
+- Full Prune Memory Budget Size
+- Prune threshold (MB)
+- Full pruning parallelism
+
+::: tip NOTA
+O FlatDB elimina a necessidade de fazer pruning do **estado**. Ele não altera quanto **histórico** (corpos de blocos e recibos) o seu node mantém.
+Isso continua sendo controlado pela sua configuração **Pruning Mode**. Veja [Expiração do Histórico do Cliente de Execution](./maintenance/history-expiry).
+:::
+
 ## Pré-requisitos
 
 Selecione o cliente que você está usando nas abas abaixo.
@@ -58,10 +110,15 @@ Selecione o cliente que você está usando nas abas abaixo.
       - Pelo menos **50 GB** de espaço livre restante no seu SSD
     </Tab>
     <Tab label="Nethermind">
+      Primeiro, verifique qual banco de dados você tem com `rocketpool service get-db-details` (veja [Nethermind 2.0 e FlatDB](#nethermind-20-e-flatdb)).
+      Se ele informar **FlatDB**, você não precisa fazer pruning.
+
+      Se ele informar o banco de dados **Patricia legado**:
+
       Nethermind é capaz de permanecer online enquanto faz pruning, o que significa que você não precisa de um nó de fallback para continuar atestando.
       Note, no entanto, que pruning é **uma tarefa extremamente intensiva em recursos** e você pode ver um aumento na distância de inclusão das suas attestations e attestations perdidas durante o processo.
 
-      Nethermind não requer nenhum pré-requisito especial; você é capaz de fazer pruning a qualquer momento.
+      Na Mainnet, você precisa de pelo menos **250 GiB** de espaço livre no seu SSD para fazer pruning do Nethermind (50 GiB na testnet Hoodi).
     </Tab>
 
   </Tabs>
@@ -135,7 +192,14 @@ Selecione o cliente que você está usando nas abas abaixo.
       rocketpool service prune-eth1
       ```
 
-      Você verá o seguinte prompt:
+      Se o seu banco de dados usa FlatDB, `prune-eth1` será interrompido sem fazer pruning e exibirá:
+
+      ```
+      Nethermind is using FlatDB, which does not need or support manual state pruning.
+      History expiry is managed separately by your configured pruning mode.
+      ```
+
+      Se o seu banco de dados usa o formato Patricia legado, você verá o seguinte prompt:
 
       ```
       This will shut down your main execution client and prune its database, freeing up disk space.
