@@ -173,18 +173,23 @@ Once this is done, you will **no longer be able to change your primary withdrawa
 To change it, you will need to send a signed transaction from your **active** primary withdrawal address (the one you just switched to).
 The Rocket Pool website has a function to help you do this.
 
-## Setting your Snapshot Signalling Address
+## Setting your Signalling Address
 
-Setting your Snapshot signalling address will allow you to participate in Snapshot votes on a browser or mobile device
-without having to expose node keys to a hot wallet.
+Setting your signalling address will allow you to participate in off-chain governance votes on
+[RocketDash](https://rocketdash.net/vote) from a browser or mobile device, without having to expose node keys to a hot wallet.
+
+:::tip NOTE
+RocketDash replaced Snapshot for Rocket Pool's off-chain governance votes. Your signalling address is stored on-chain,
+so if you already set one for Snapshot, RocketDash uses it too and you do not need to set it again.
+:::
 
 There are a few things to prepare:
 
 - Your node's address
-- An address you want to use for snapshot voting (signalling address)
+- An address you want to use for off-chain voting (signalling address)
 
 You'll be signing a message saying that your node's address can delegate to the new address. This message states your
-intent to use your wallet address as a Snapshot signalling address.
+intent to use your wallet address as a signalling address.
 
 Select which network you're using from one of the tabs below.
 
@@ -197,7 +202,7 @@ Select which network you're using from one of the tabs below.
 
 :::danger WARNING
 Do not load your node's private key onto a hot wallet. Please choose another account to be your signalling address.
-After setting the signalling address, you can use it to vote on Snapshot with your node's voting power.
+After setting the signalling address, you can use it to vote on RocketDash with your node's voting power.
 :::
 
 Start by **connecting the address you want to use as a signalling address** to the website using MetaMask,
@@ -212,13 +217,13 @@ node and then bring you to the next step.
 quickly retrieve it via the CLI using the `rocketpool node status` command.
 :::
 
-Once you've signed in and confirmed your node address, you'll see your **Snapshot signalling address**. It should be the
+Once you've signed in and confirmed your node address, you'll see your **signalling address**. It should be the
 same as the account you've signed into the site with. Double check that this is correct before proceeding. Once you're
 confident that you're signed into the desired account, click the orange "Sign Message" button. You'll see a prompt in
 your wallet extension app to sign the following message:
 
 ```
-`snapshot signalling address` may delegate to me for Rocket Pool governance
+`node address` may delegate to me for Rocket Pool governance
 ```
 
 Signing won't cost you any gas but setting will. After you sign, the frontend will give you a command to paste into the
@@ -227,14 +232,14 @@ something like this:
 
 ```shell
 rocketpool pdao set-signalling-address
-`snapshot signalling address`
-`EIP712 signature`
+`signalling address`
+`signature`
 ```
 
 If you see this message in your CLI, you're all set!
 
 ```
-The node's signalling address was successfully set to `snapshot signalling address`
+The node's signalling address was successfully set to `signalling address`
 ```
 
 :::tip TIP

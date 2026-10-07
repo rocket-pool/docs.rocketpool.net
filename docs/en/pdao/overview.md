@@ -6,7 +6,7 @@ next:
 
 # Overview
 
-This section outlines the process of setting up your node to participate in on-chain and snapshot proposals. There's a lot to unpack, so we highly recommend reading through an overview of the [Houston Upgrade](/en/legacy/houston/whats-new). This will help you understand the latest features that enable on-chain governance and how you can participate in shaping the protocol.
+This section outlines the process of setting up your node to participate in on-chain and off-chain ([RocketDash](https://rocketdash.net/vote)) proposals. There's a lot to unpack, so we highly recommend reading through an overview of the [Houston Upgrade](/en/legacy/houston/whats-new). This will help you understand the latest features that enable on-chain governance and how you can participate in shaping the protocol.
 
 ## Prerequisites
 
@@ -21,9 +21,9 @@ Before configuring your Smart Node, please make sure you:
 
 ## There are three addresses involved in voting
 
-- pDAO Signalling Address — will be used as your Snapshot address, if you want to vote directly or if you want to override your delegate's Snapshot vote. This address is only used for Snapshot not on-chain voting.
+- pDAO Signalling Address — will be used as your RocketDash address, if you want to vote directly or if you want to override your delegate's off-chain vote. This address is only used for off-chain voting on RocketDash, not on-chain voting.
 
-- pDAO Delegate Node — if you choose to delegate your vote. You will set this to your delegate's node address. If you choose a delegate they will vote for you on Snapshot and for on-chain proposals.
+- pDAO Delegate Node — if you choose to delegate your vote. You will set this to your delegate's node address. If you choose a delegate they will vote for you on RocketDash and for on-chain proposals.
 
 - Node Address — if you have not delegated your vote or if you wish to override your delegate's on-chain vote you can do this from your node.
 
@@ -35,7 +35,7 @@ Before configuring your Smart Node, please make sure you:
 
 [Initializing Voting Power](/en/pdao/participate#initializing-voting) shows you how to initialize your node's voting power. This step is only required if your node was registered before the Houston Upgrade.
 
-[Setting your Snapshot Signalling Address](/en/pdao/participate#setting-your-snapshot-signalling-address) will walk you through the steps for setting a Signalling Address. It'll allow you to vote on Snapshot using your node's voting power without needing to load your node's private key onto a hot wallet. Make sure you have your Smart Node CLI handy and prepare a address (that isn't your node wallet) for this guide.
+[Setting your Signalling Address](/en/pdao/participate#setting-your-signalling-address) will walk you through the steps for setting a Signalling Address. It'll allow you to vote on RocketDash using your node's voting power without needing to load your node's private key onto a hot wallet. Make sure you have your Smart Node CLI handy and prepare a address (that isn't your node wallet) for this guide.
 
 [Delegating Voting Power](/en/pdao/participate#delegating-voting-power) is a quick command you can use to delegate voting power instead of voting directly on proposals.
 

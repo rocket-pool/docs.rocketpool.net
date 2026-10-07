@@ -28,8 +28,8 @@ is prepared and reviewed by designated RPIP reviewers to ensure its quality and 
 The draft proposal is then presented to the DAO on the forum for further review, feedback, and incorporation of any
 necessary changes. Once the proposal has been refined based on community input, a poll is raised on the DAO forum to
 gauge readiness for finalizing the RPIP text. If the poll passes, indicating community approval, the RPIP is marked
-final and ready for a Protocol DAO vote, which is conducted via Snapshot to determine whether the proposal should be
-implemented.
+final and ready for an off-chain Protocol DAO vote on [RocketDash](https://rocketdash.net/vote) to determine whether
+the proposal should be implemented. RocketDash replaced Snapshot for these votes.
 
 From here, the Oracle DAO will raise an on-chain proposal. There is a window in which the Protocol DAO, Oracle DAO and
 community can review the proposal. If consensus is reached, the proposal is executed and changes are applied to the
@@ -110,18 +110,28 @@ The **Auto-Init Vote Power Gas Threshold** is a limit (in gwei) on this automati
 task by setting the threshold to 0. Feel free to opt out if your node was registered after the Houston upgrade or if
 voting power is already enabled.
 
-## Setting your Snapshot Signalling Address
+<span id="setting-your-snapshot-signalling-address"></span>
 
-Setting your Snapshot signalling address will allow you to participate in Snapshot votes on a browser or mobile device
-without having to expose node keys to a hot wallet.
+## Setting your Signalling Address
+
+Setting your signalling address will allow you to participate in off-chain governance votes on
+[RocketDash](https://rocketdash.net/vote) from a browser or mobile device, without having to expose node keys to a hot wallet.
+
+:::tip NOTE
+RocketDash replaced Snapshot for Rocket Pool's off-chain governance votes. Your signalling address is stored on-chain,
+so if you already set one for Snapshot, RocketDash uses it too and you do not need to set it again.
+:::
+
+Your signalling address can vote and override your delegate on RocketDash, but it cannot change your delegate. To
+delegate, see [Delegating Voting Power](#delegating-voting-power).
 
 There are a few things to prepare:
 
 - Your node's address
-- An address you want to use for snapshot voting (signalling address)
+- An address you want to use for off-chain voting (signalling address)
 
 You'll be signing a message saying that your node's address can delegate to the new address. This message states your
-intent to use your wallet address as a Snapshot signalling address.
+intent to use your wallet address as a signalling address.
 
 Select which network you're using from one of the tabs below.
 
@@ -134,7 +144,7 @@ Select which network you're using from one of the tabs below.
 
 :::danger WARNING
 Do not load your node's private key onto a hot wallet. Please choose another account to be your signalling address.
-After setting the signalling address, you can use it to vote on Snapshot with your node's voting power.
+After setting the signalling address, you can use it to vote on RocketDash with your node's voting power.
 :::
 
 Start by **connecting the address you want to use as a signalling address** to the website using MetaMask,
@@ -149,13 +159,13 @@ node and then bring you to the next step.
 quickly retrieve it via the CLI using the `rocketpool node status` command.
 :::
 
-Once you've signed in and confirmed your node address, you'll see your **Snapshot signalling address**. It should be the
+Once you've signed in and confirmed your node address, you'll see your **signalling address**. It should be the
 same as the account you've signed into the site with. Double check that this is correct before proceeding. Once you're
 confident that you're signed into the desired account, click the orange "Sign Message" button. You'll see a prompt in
 your wallet extension app to sign the following message:
 
 ```
-`snapshot signalling address` may delegate to me for Rocket Pool governance
+`node address` may delegate to me for Rocket Pool governance
 ```
 
 Signing won't cost you any gas but setting will. After you sign, the frontend will give you a command to paste into the
@@ -164,14 +174,14 @@ something like this:
 
 ```shell
 rocketpool pdao set-signalling-address
-`snapshot signalling address`
-`EIP712 signature`
+`signalling address`
+`signature`
 ```
 
 If you see this message in your CLI, you're all set!
 
 ```
-The node's signalling address was successfully set to `snapshot signalling address`
+The node's signalling address was successfully set to `signalling address`
 ```
 
 :::tip TIP
@@ -217,11 +227,14 @@ Locked RPL is not counted towards thresholds for withdrawing RPL.
 A node operator can elect to delegate their voting power to another node operator. The only requirement is that your
 delegate is a registered node.
 
-To delegate on-chain voting power to another node, use the following command:
+To delegate your voting power to another node, run this command from your node:
 
 ```shell
 rocketpool pdao set-voting-delegate `address`
 ```
+
+Your delegate votes for you on both on-chain proposals and off-chain votes on [RocketDash](https://rocketdash.net/vote).
+Delegation can only be set from your node. You cannot delegate from your signalling address or on RocketDash.
 
 ::: tip NOTE
 If you've delegated your voting power to another node operator, you can reset this by setting the delegate address to
