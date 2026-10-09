@@ -173,18 +173,23 @@ Una vez que esto esté hecho, **ya no podrás cambiar tu dirección de retiro pr
 Para cambiarla, necesitarás enviar una transacción firmada desde tu dirección de retiro principal **activa** (la que acabas de cambiar).
 El sitio web de Rocket Pool tiene una función para ayudarte a hacer esto.
 
-## Establecer tu Dirección de Señalización de Snapshot
+## Establecer tu Dirección de Señalización
 
-Establecer tu dirección de señalización de Snapshot te permitirá participar en votaciones de Snapshot en un navegador o dispositivo móvil
-sin tener que exponer las claves del nodo a una billetera caliente.
+Establecer tu dirección de señalización te permitirá participar en votaciones de gobernanza off-chain en
+[RocketDash](https://rocketdash.net/vote) desde un navegador o dispositivo móvil, sin tener que exponer las claves del nodo a una billetera caliente.
+
+:::tip NOTA
+RocketDash reemplazó a Snapshot para las votaciones de gobernanza off-chain de Rocket Pool. Tu dirección de señalización se almacena on-chain,
+por lo que, si ya configuraste una para Snapshot, RocketDash también la utiliza y no necesitas volver a configurarla.
+:::
 
 Hay algunas cosas que preparar:
 
 - La dirección de tu nodo
-- Una dirección que quieres usar para votación de snapshot (dirección de señalización)
+- Una dirección que quieres usar para votación off-chain (dirección de señalización)
 
-Estarás firmando un mensaje diciendo que la dirección de tu nodo puede delegar a la nueva dirección. Este mensaje establece tu
-intención de usar tu dirección de billetera como una dirección de señalización de Snapshot.
+Firmarás un mensaje que indica que la dirección de tu nodo puede delegar en la nueva dirección. Este mensaje declara tu
+intención de usar la dirección de tu billetera como dirección de señalización.
 
 Selecciona qué red estás usando de una de las pestañas a continuación.
 
@@ -196,51 +201,51 @@ Selecciona qué red estás usando de una de las pestañas a continuación.
 </div>
 
 :::danger ADVERTENCIA
-No cargues la clave privada de tu nodo en una billetera caliente. Por favor elige otra cuenta para que sea tu dirección de señalización.
-Después de establecer la dirección de señalización, puedes usarla para votar en Snapshot con el poder de voto de tu nodo.
+No cargues la clave privada de tu nodo en una billetera caliente. Elige otra cuenta para que sea tu dirección de señalización.
+Después de establecer la dirección de señalización, puedes usarla para votar en RocketDash con el poder de voto de tu nodo.
 :::
 
 Comienza **conectando la dirección que quieres usar como dirección de señalización** al sitio web usando MetaMask,
-WalletConnect, o cualquiera de los otros métodos que el sitio web admite. Luego se te presentará este cuadro de diálogo para buscar
+WalletConnect o cualquiera de los otros métodos que el sitio web admite. Luego se te presentará este cuadro de diálogo para buscar
 tu dirección de nodo.
 
 A continuación, ingresarás tu dirección de nodo y luego harás clic en el botón naranja "Find". Esto verificará si la dirección es un nodo
 registrado y luego te llevará al siguiente paso.
 
 :::tip CONSEJO
-**¡Asegúrate de tener la dirección de nodo correcta antes de hacer esto!** si necesitas confirmar la dirección de tu nodo, puedes
+**¡Asegúrate de tener la dirección de nodo correcta antes de hacer esto!** Si necesitas confirmar la dirección de tu nodo, puedes
 recuperarla rápidamente a través de la CLI usando el comando `rocketpool node status`.
 :::
 
-Una vez que hayas iniciado sesión y confirmado tu dirección de nodo, verás tu **dirección de señalización de Snapshot**. Debería ser la
+Una vez que hayas iniciado sesión y confirmado tu dirección de nodo, verás tu **dirección de señalización**. Debería ser la
 misma que la cuenta con la que has iniciado sesión en el sitio. Verifica que esto sea correcto antes de proceder. Una vez que estés
 seguro de que has iniciado sesión en la cuenta deseada, haz clic en el botón naranja "Sign Message". Verás un mensaje en
 tu aplicación de extensión de billetera para firmar el siguiente mensaje:
 
 ```
-`snapshot signalling address` may delegate to me for Rocket Pool governance
+`node address` may delegate to me for Rocket Pool governance
 ```
 
-Firmar no te costará gas pero establecer sí. Después de firmar, el frontend te dará un comando para pegar en el
-smartnode. Ve adelante y pégalo en la CLI de tu smartnode y sigue los pasos solicitados. El comando debería verse
+Firmar no te costará gas, pero establecer la dirección sí. Después de firmar, el frontend te dará un comando para pegar en el
+Smart Node. Pégalo en la CLI de tu Smart Node y sigue los pasos solicitados. El comando debería verse
 algo como esto:
 
 ```shell
 rocketpool pdao set-signalling-address
-`snapshot signalling address`
-`EIP712 signature`
+`signalling address`
+`signature`
 ```
 
-Si ves este mensaje en tu CLI, ¡estás todo listo!
+Si ves este mensaje en tu CLI, ¡está todo listo!
 
 ```
-The node's signalling address was successfully set to `snapshot signalling address`
+The node's signalling address was successfully set to `signalling address`
 ```
 
 :::tip CONSEJO
 No te preocupes si accidentalmente cierras el sitio o pierdes el rastro del comando. Simplemente puedes repetir los pasos y **firmar
-nuevamente usando la misma dirección de nodo y dirección de señalización**. El frontend usa `signer.Signmessage()` de la biblioteca ethers
-, lo que significa que tu firma es determinística dado el mismo input.
+nuevamente usando la misma dirección de nodo y dirección de señalización**. El frontend usa `signer.Signmessage()` de la biblioteca ethers,
+lo que significa que tu firma es determinística dado el mismo input.
 Haz clic [aquí](https://docs.ethers.org/v6/api/providers/#cid_865) para aprender más.
 :::
 

@@ -17,7 +17,7 @@ Bir pDAO teklifinin protokol düzeyinde değişiklikleri yürütmek için var ol
 Bir teklif, on-chain üzerinde ortaya çıkmadan önce yönetişim süreci tarafından öngörülmelidir.
 
 Rocket Pool protokolüne yapılan değişiklikler, katı ancak şeffaf bir yönetişim süreci kullanılarak önerilir, oylanır ve yürütülür. Süreç, Discord topluluğu içinde bir fikrin gayri resmi tartışmasıyla başlar. Bu fikir daha sonra Discord'daki [#governance](https://discordapp.com/channels/405159462932971535/774497904559783947) kanalında ve [DAO Forum](https://dao.rocketpool.net/)'unda resmi tartışmalara ilerler, burada [Rocket Pool Improvement Proposal (RPIP)](https://rpips.rocketpool.net/) için hazırlık olarak kapsamlı araştırma, modelleme ve incelemeye tabi tutulur. Bunu takiben, bir RPIP taslağı hazırlanır ve DAO'ya sunulmaya hazır olduğundan ve kalitesinden emin olmak için belirlenmiş RPIP inceleyicileri tarafından gözden geçirilir.
-Taslak teklif daha sonra daha fazla inceleme, geri bildirim ve gerekli değişikliklerin dahil edilmesi için forum üzerinde DAO'ya sunulur. Teklif topluluk girdisine dayalı olarak rafine edildikten sonra, RPIP metnini sonuçlandırmaya hazır olup olmadığını ölçmek için DAO forumunda bir anket oluşturulur. Anket geçerse, topluluk onayını göstererek, RPIP son olarak işaretlenir ve teklifin uygulanıp uygulanmayacağını belirlemek için Snapshot aracılığıyla yürütülen bir Protokol DAO oylaması için hazır hale gelir.
+Taslak teklif daha sonra daha fazla inceleme, geri bildirim ve gerekli değişikliklerin dahil edilmesi için forum üzerinde DAO'ya sunulur. Teklif topluluk girdisine dayalı olarak rafine edildikten sonra, RPIP metnini sonuçlandırmaya hazır olup olmadığını ölçmek için DAO forumunda bir anket oluşturulur. Anket geçip topluluk onayını gösterirse RPIP son olarak işaretlenir ve teklifin uygulanıp uygulanmayacağını belirlemek üzere [RocketDash](https://rocketdash.net/vote) üzerinde off-chain bir Protocol DAO oylamasına hazır hale gelir. Bu oylamalarda Snapshot'ın yerini RocketDash almıştır.
 
 Buradan, Oracle DAO bir on-chain teklif oluşturacaktır. Protokol DAO, Oracle DAO ve topluluğun teklifi gözden geçirebileceği bir pencere vardır. Konsensüs sağlanırsa, teklif yürütülür ve değişiklikler protokole uygulanır.
 
@@ -82,18 +82,26 @@ Bu özellik, `rocketpool service config` çalıştırılarak ve **Smart Node and
 
 **Auto-Init Vote Power Gas Threshold**, bu otomatik işlem üzerinde bir sınırdır (gwei cinsinden). Eşiği 0'a ayarlayarak bu görevden vazgeçebilirsiniz. Düğümünüz Houston güncellemesinden sonra kaydedildiyse veya oy gücü zaten etkinleştirildiyse vazgeçmekten çekinmeyin.
 
-## Snapshot Signalling Address Ayarlama
+<span id="setting-your-snapshot-signalling-address"></span>
 
-Snapshot signalling address'inizi ayarlamak, düğüm anahtarlarını hot wallet'a maruz bırakmak zorunda kalmadan bir tarayıcıda veya mobil cihazda Snapshot oylamasına katılmanıza olanak tanıyacaktır.
+## Signalling Address Ayarlama
 
-Hazırlanacak birkaç şey var:
+Signalling address'inizi ayarlamak, düğüm anahtarlarını bir hot wallet'a maruz bırakmak zorunda kalmadan bir tarayıcıdan veya mobil cihazdan [RocketDash](https://rocketdash.net/vote) üzerindeki off-chain yönetişim oylamalarına katılmanızı sağlar.
+
+:::tip NOT
+Rocket Pool'un off-chain yönetişim oylamalarında Snapshot'ın yerini RocketDash aldı. Signalling address'iniz on-chain olarak saklanır; dolayısıyla daha önce Snapshot için bir adres ayarladıysanız RocketDash de bu adresi kullanır ve yeniden ayarlamanız gerekmez.
+:::
+
+Signalling address'iniz RocketDash'te oy verebilir ve delegenizin oyunu geçersiz kılabilir, ancak delegenizi değiştiremez. Oy gücünü devretmek için [Oy Gücünü Devretme](#oy-gücünü-devretme) bölümüne bakın.
+
+Hazırlamanız gereken birkaç şey vardır:
 
 - Düğümünüzün adresi
-- Snapshot oylaması için kullanmak istediğiniz bir adres (signalling address)
+- Off-chain oylama için kullanmak istediğiniz bir adres (signalling address)
 
-Düğümünüzün adresinin yeni adrese devredebileceğini söyleyen bir mesaj imzalayacaksınız. Bu mesaj, cüzdan adresinizi Snapshot signalling address olarak kullanma niyetinizi belirtir.
+Düğümünüzün adresinin yeni adrese yetki verebileceğini belirten bir mesaj imzalayacaksınız. Bu mesaj, cüzdan adresinizi signalling address olarak kullanma niyetinizi belirtir.
 
-Aşağıdaki sekmelerden birinden kullandığınız ağı seçin.
+Aşağıdaki sekmelerden kullandığınız ağı seçin.
 
 <div className="p-3">
   <Tabs>
@@ -103,44 +111,44 @@ Aşağıdaki sekmelerden birinden kullandığınız ağı seçin.
 </div>
 
 :::danger UYARI
-Düğümünüzün özel anahtarını hot wallet'a yüklemeyin. Lütfen signalling address olarak başka bir hesap seçin.
-Signalling address'i ayarladıktan sonra, düğümünüzün oy gücüyle Snapshot'ta oy kullanmak için kullanabilirsiniz.
+Düğümünüzün özel anahtarını bir hot wallet'a yüklemeyin. Lütfen signalling address'iniz olarak başka bir hesap seçin.
+Signalling address'i ayarladıktan sonra, düğümünüzün oy gücüyle RocketDash'te oy vermek için bu adresi kullanabilirsiniz.
 :::
 
-MetaMask, WalletConnect veya web sitesinin desteklediği diğer yöntemlerden birini kullanarak **signalling address olarak kullanmak istediğiniz adresi** web sitesine bağlayarak başlayın. Daha sonra düğüm adresinizi aramak için bu iletişim kutusu sunulacaktır.
+MetaMask, WalletConnect veya web sitesinin desteklediği diğer yöntemlerden birini kullanarak **signalling address olarak kullanmak istediğiniz adresi** web sitesine bağlayarak başlayın. Ardından düğüm adresinizi aramak için bu iletişim kutusu görüntülenecektir.
 
-Ardından, düğüm adresinizi girecek ve ardından turuncu "Find" düğmesine tıklayacaksınız. Bu, adresin kayıtlı bir düğüm olup olmadığını kontrol edecek ve ardından sizi bir sonraki adıma getirecektir.
+Düğüm adresinizi girip turuncu "Find" düğmesine tıklayın. Bu işlem, adresin kayıtlı bir düğüm olup olmadığını kontrol edip sizi bir sonraki adıma götürecektir.
 
 :::tip İPUCU
-**Bunu yapmadan önce doğru düğüm adresine sahip olduğunuzdan emin olun!** Düğümünüzün adresini onaylamanız gerekiyorsa, `rocketpool node status` komutunu kullanarak CLI aracılığıyla hızlı bir şekilde alabilirsiniz.
+**Bunu yapmadan önce doğru düğüm adresine sahip olduğunuzdan emin olun!** Düğümünüzün adresini doğrulamanız gerekiyorsa `rocketpool node status` komutunu kullanarak CLI aracılığıyla hızla öğrenebilirsiniz.
 :::
 
-Oturum açtıktan ve düğüm adresinizi onayladıktan sonra, **Snapshot signalling address**'inizi göreceksiniz. Siteye oturum açtığınız hesapla aynı olmalıdır. Devam etmeden önce bunun doğru olduğunu iki kez kontrol edin. İstediğiniz hesaba oturum açtığınızdan emin olduğunuzda, turuncu "Sign Message" düğmesine tıklayın. Cüzdan uzantısı uygulamanızda aşağıdaki mesajı imzalamanız için bir istem göreceksiniz:
+Oturum açıp düğüm adresinizi doğruladıktan sonra **signalling address'inizi** göreceksiniz. Bu adres, sitede oturum açtığınız hesapla aynı olmalıdır. Devam etmeden önce doğru olduğunu iki kez kontrol edin. İstediğiniz hesapta oturum açtığınızdan emin olduğunuzda turuncu "Sign Message" düğmesine tıklayın. Cüzdan uzantısı uygulamanızda aşağıdaki mesajı imzalamanız istenecektir:
 
 ```
-`snapshot signalling address` may delegate to me for Rocket Pool governance
+`node address` may delegate to me for Rocket Pool governance
 ```
 
-İmzalama size gaz maliyeti getirmeyecek ancak ayarlama getirecektir. İmzaladıktan sonra, frontend size smartnode'a yapıştırmanız için bir komut verecektir. Devam edin ve smartnode'unuzun CLI'sine yapıştırın ve istenilen adımları izleyin. Komut şuna benzer bir şey olmalıdır:
+İmzalama gaz maliyeti oluşturmaz, ancak adresi ayarlamak oluşturur. İmzaladıktan sonra frontend, Smart Node'a yapıştırmanız için bir komut verecektir. Komutu Smart Node CLI'ınıza yapıştırın ve görüntülenen adımları izleyin. Komut şuna benzer:
 
 ```shell
 rocketpool pdao set-signalling-address
-`snapshot signalling address`
-`EIP712 signature`
+`signalling address`
+`signature`
 ```
 
-CLI'nizde bu mesajı görüyorsanız, hazırsınız demektir!
+CLI'ınızda bu mesajı görürseniz işlem tamamlanmıştır!
 
 ```
-The node's signalling address was successfully set to `snapshot signalling address`
+The node's signalling address was successfully set to `signalling address`
 ```
 
 :::tip İPUCU
-Yanlışlıkla siteyi kapatırsanız veya komutu kaybederseniz endişelenmeyin. Adımları tekrarlayabilir ve **aynı düğüm adresini ve signalling address'i kullanarak tekrar imzalayabilirsiniz**. Frontend, ethers kütüphanesinden `signer.Signmessage()` kullanır, bu da imzanızın aynı girdi verildiğinde deterministik olduğu anlamına gelir.
+Siteyi yanlışlıkla kapatırsanız veya komutu kaybederseniz endişelenmeyin. Adımları tekrarlayıp **aynı düğüm adresini ve signalling address'i kullanarak yeniden imzalayabilirsiniz**. Frontend, ethers kütüphanesindeki `signer.Signmessage()` işlevini kullanır; bu da aynı girdi verildiğinde imzanızın deterministik olduğu anlamına gelir.
 Daha fazla bilgi için [buraya](https://docs.ethers.org/v6/api/providers/#cid_865) tıklayın.
 :::
 
-Signalling address'inizi temizlemek oldukça kolaydır, CLI'de bu komutu kullanmanız yeterlidir:
+Signalling address'inizi temizlemek oldukça kolaydır; CLI'da şu komutu kullanmanız yeterlidir:
 
 ```shell
 rocketpool pdao clear-signalling-address
@@ -169,72 +177,121 @@ Kilitli RPL, RPL çekme eşikleri için sayılmaz.
 
 ## Oy Gücünü Devretme
 
-Bir düğüm operatörü, oy gücünü başka bir düğüm operatörüne devretmeyi seçebilir. Tek gereklilik delegenizin kayıtlı bir düğüm olmasıdır.
+Bir düğüm operatörü, oy gücünü başka bir düğüm operatörüne devretmeyi seçebilir. Tek gereklilik, delegenizin kayıtlı bir düğüm olmasıdır.
 
-On-chain oy gücünü başka bir düğüme devretmek için aşağıdaki komutu kullanın:
+Oy gücünüzü başka bir düğüme devretmek için aşağıdaki komutu kendi düğümünüzden çalıştırın:
 
 ```shell
 rocketpool pdao set-voting-delegate `address`
 ```
 
+Delegeniz hem on-chain tekliflerde hem de [RocketDash](https://rocketdash.net/vote) üzerindeki off-chain oylamalarda sizin adınıza oy kullanır. Delegasyon yalnızca düğümünüzden ayarlanabilir. Signalling address'inizden veya RocketDash üzerinden delegasyon yapamazsınız.
+
 ::: tip NOT
 Oy gücünüzü başka bir düğüm operatörüne devrettiyseniz, delege adresini kendi düğümünüzün adresine ayarlayarak bunu sıfırlayabilirsiniz.
 :::
 
-- Bir teklifin 1. aşamasında: **Seçmenler** ve **Delegeler** bir teklife oylarını kullanabilir.
-- Bir teklifin 2. aşamasında: Oylarını devreden **Düğüm Operatörleri**, katılmadıkları takdirde Delegelerinin oyunu geçersiz kılma fırsatı elde ederler.
+### Ne Zaman Oy Verilmeli
 
-Devredilmiş oy gücüne sahip bir düğüm operatörüyseniz, devredilmiş oy gücünün teklife sayılması için oylama aşaması 1'de oy kullanmalısınız. Aşama 1'deki oyunuz **yerel oy gücünüz + devredilmiş oy gücünüz** değerinde olacaktır. Aşama 2'deki oyunuz yalnızca **yerel oy gücünüz** değerindedir.
+On-chain tekliflerin iki oylama aşaması vardır. Hangi aşamada oy vermeniz gerektiği, oy gücünüzü devredip devretmediğinize bağlıdır. Bu aşamalar yalnızca on-chain teklifler için geçerlidir; RocketDash üzerindeki off-chain oylamalarda bulunmaz.
 
-## Bir Teklif Oluşturma
+- **Pending:** Henüz kimse oy veremez.
+- **Phase 1:** Oyunuzu devretmediyseniz bu aşamada oy verirsiniz. Bir delegeyseniz oyunuz, oy gücünü size devreden tüm düğümler adına da sayılır; bu nedenle Phase 1'de oy verin. Aksi takdirde onların oy gücü yalnızca Phase 2'de kendileri oy verirse sayılır. Oyunuzu devrettiyseniz delegeniz bu aşamada sizin adınıza oy verir.
+- **Phase 2:** Oyunuzu devrettiyseniz ve delegenizin kullandığı oya katılmıyorsanız ya da delegeniz oy vermediyse artık kendiniz oy verebilirsiniz. Oyunuz, yalnızca size ait pay için delegenizin oyunun yerini alır. Henüz oy vermemiş olan herkes Phase 2'de oy verebilir; ancak bir delege için bile oy yalnızca kendi oy gücü kadar sayılır.
 
-Teklif önerisinde bulunmaya uygun olmak için bir düğümün birkaç gereksinimi karşılaması gerekir:
+Mainnet'te yeni bir teklif **bir hafta** Pending durumunda kalır; ardından Phase 1 **bir hafta**, Phase 2 de **bir hafta** sürer. Bu süreler pDAO ayarlarıdır ve oylamayla değiştirilebilir. Güncel değerleri görmek için `rocketpool pdao settings` komutunu çalıştırın.
 
-- Snapshot'a dahil edilmiş (ya [oylamayı başlatarak](./participate#oylamayı-başlatma) ya da Houston sonrası kaydolarak)
-- En az bir minipool'a sahip olmalı
-- Sıfır olmayan oy gücüne sahip olmalı
-- [RPL kilitlemeye](./participate#rpl-kilitlemeye-i̇zin-verme) izin vermiş olmalı
-- Teklif bonusundan daha büyük bir RPL stake'ine (zaten kilitli olan RPL hariç) sahip olmalı
+Bir düğüm, bir teklife iki aşamadan yalnızca birinde ve yalnızca bir kez oy verebilir.
 
-Teklifler, parametreleri değiştirmek ve protokol düzeyinde kod yürütmek için vardır! Bir teklif zincirde oluşturulmadan önce [yönetişim](./participate#yönetişim-süreci) süreci aracılığıyla tartışma ve konsensüs olmalıdır.
+| Durumunuz                                                                                    | Ne zaman oy vermelisiniz?                                                                                                                |
+| -------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Kendi adınıza oy veriyorsunuz (varsayılan)                                                   | Phase 1. Bu aşamayı kaçırırsanız Phase 2'de de oy verebilirsiniz.                                                                        |
+| Delegesiniz                                                                                  | **Phase 1.** Phase 1'i kaçırırsanız size devredilen oy gücü sayılmaz. Oy gücünü size devredenler Phase 2'de kendileri için oy verebilir. |
+| Başka bir düğüme delegasyon yaptınız ve onun oyuna katılıyorsunuz                            | Oy vermeniz gerekmez.                                                                                                                    |
+| Başka bir düğüme delegasyon yaptınız ve onun oyuna katılmıyorsunuz veya delegeniz oy vermedi | Phase 2.                                                                                                                                 |
 
-Bir seçenek menüsü açmak için `rocketpool pdao propose` komutunu kullanın
-
-```
-COMMANDS:
-   rewards-percentages, rp      Propose updating the RPL rewards allocation percentages for node operators, the Oracle DAO, and the Protocol DAO
-   one-time-spend, ots          Propose a one-time spend of the Protocol DAO's treasury
-   recurring-spend, rs          Propose a recurring spend of the Protocol DAO's treasury
-   recurring-spend-update, rsu  Propose an update to an existing recurring spend plan
-   security-council, sc         Modify the security council
-   setting, s                   Make a Protocol DAO setting proposal
-   submit-batch, sb            Submit a single proposal that changes multiple Protocol DAO settings from a JSON file
-```
-
-Bu komutların her biri, istediğiniz teklifi oluşturmak için size bir girdi listesi isteyecektir. Ayar teklifi komutları, bir işlem göndermek yerine bir ayar değişikliğini bir JSON dosyasına yazmak veya eklemek için `--to-json` seçeneğini kabul eder. Dosya hazır olduğunda, `rocketpool pdao propose submit-batch` ile gönderin.
-
-Bu rehberde, bir örnek olarak güvenlik konseyine bir düğümü davet edeceğiz. Güvenlik konseyine bir düğümü davet etmek için şu komutu kullanırsınız:
+Bir teklifin hangi aşamada olduğunu ve sizin ya da delegenizin oy verip vermediğini görmek için şu komutu çalıştırın:
 
 ```shell
-rocketpool pdao propose security-council invite
+rocketpool pdao proposals details <proposal-id>
 ```
 
-Bu adımın teklif türüne bağlı olarak hafif bir değişiklik göstereceğini unutmayın. Bu özel komut:
-`rocketpool pdao propose security-council invite` size bir ID ve ardından bir üye adresi girmenizi isteyecektir.
+`State`, `Phase 1 end`, `Phase 2 end`, `Node has voted` ve `Delegate has voted` satırlarını kontrol edin. Ayrıca her teklifin aşamasını [RocketDash](https://rocketdash.net/pdao-proposals) üzerinde görebilirsiniz.
+
+`rocketpool pdao proposals vote` ile oy verdiğinizde Smart Node, mevcut aşama için doğru oy türünü otomatik olarak kullanır.
+
+## Bir Teklife Oy Verme
+
+Bir oylama döneminde, **Düğüm Operatörleri** ve **Delegeler** dört seçenekten biriyle oy kullanabilir:
 
 ```
-Please enter an ID for the member you'd like to invite: (no spaces)
-test-member
-
-Please enter the member's address:
-0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145
-
-... gas estimations ...
-
-Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council? [y/n]
+1. Abstain: Seçmenin oy gücü çoğunluğa katkıda bulunur ancak teklif lehinde veya aleyhinde değildir.
+2. For: Seçmen teklifin yürütülmesi lehinde oy kullanır.
+3. Against: Seçmen teklifin yürütülmesine karşı oy kullanır.
+4. Veto: Seçmen teklife karşı oy kullanır ve ayrıca teklifi spam veya kötü niyetli olarak değerlendirdiklerini belirtir.
 ```
 
-Bu bir bloka dahil edildikten sonra, bir pDAO teklifi oluşturulacaktır! Teklif, oluşturulduğunda [oy gecikmesi süresine](./pdao#oy-gecikmesi-dönemi) girecektir.
+Oy güçleri seçtikleri seçeneğe uygulanacaktır. Oy gücü, "etkili RPL stake" fonksiyonudur.
+Daha ayrıntılı bir okuma [rocketpool-research repo](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting)'sunda bulunabilir.
+
+::: tip NOT
+Bir düğüm, bir teklife yalnızca bir kez oy verebilir; bu nedenle dikkatle seçin. Hangi aşamada oy vermeniz gerektiğini öğrenmek için [Ne Zaman Oy Verilmeli](#ne-zaman-oy-verilmeli) bölümüne bakın.
+:::
+
+Bir oy kullanmak için bu komutu kullanın:
+
+```shell
+rocketpool pdao proposals vote
+```
+
+Aktif oylama aşamasında en az bir teklif varsa, oy vermek için bir teklif seçmeniz istenecektir.
+Menü, düğümünüzün oy vermeye uygun olduğu tüm teklifleri görüntülemelidir:
+
+```
+1: proposal 71 (message: 'invite test-member', payload: proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145), phase 1 end: 14 Mar 24 05:40 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
+2: proposal 72 (message: 'replace langers-not-his-eoa (0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E) on the security council with tpan (0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E)', payload: proposalSecurityReplace(0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E,tpan,0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E), phase 1 end: 14 Mar 24 05:40 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0xe2fC31d61E28BB16c0857D4682AB3616FA7A793d)
+3: proposal 73 (message: 'set proposal.vote.delay.time', payload: proposalSettingUint(rocketDAOProtocolSettingsProposals,proposal.vote.delay.time,60), phase 1 end: 14 Mar 24 05:41 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
+```
+
+Bir seçenek seçtikten sonra, oyunuzu nasıl kullanmak istediğiniz sorulacaktır.
+
+```
+How would you like to vote on the proposal?
+1: Abstain
+2: In Favor
+3: Against
+4: Veto
+```
+
+Bir seçenek seçmek daha sonra oy gücünüzü görüntüleyecek ve ardından işlemi göndermenizi isteyecektir:
+
+```
+Your current voting power: 20123617964
+
++============== Suggested Gas Prices ==============+
+| Avg Wait Time |  Max Fee  |    Total Gas Cost    |
+| 15 Seconds    | 76 gwei   | 0.0176 to 0.0265 ETH |
+| 1 Minute      | 56 gwei   | 0.0127 to 0.0190 ETH |
+| 3 Minutes     | 56 gwei   | 0.0127 to 0.0190 ETH |
+| >10 Minutes   | 56 gwei   | 0.0127 to 0.0190 ETH |
++==================================================+
+These prices include a maximum priority fee of 2.00 gwei.
+Please enter your max fee (including the priority fee) or leave blank for the default of 56 gwei:
+```
+
+İşlem bloka dahil edildiğinde teklife başarıyla oy verdiniz! Bu noktada, teklifin durumunu görüntülemek için `rocketpool pdao proposal details <proposal-id>` kullanabilirsiniz. Bir teklifin başarılı olması için `proposal.quorum` **gerekli oy gücüne** ve çoğunluk **lehte oy gücüne** ulaşması gerekir.
+
+```
+Voting power required:  140970562215
+Voting power for:       197980809837
+Voting power against:   0
+Voting power abstained: 0
+Voting power against:   0
+Node has voted:         In Favor
+```
+
+Yukarıdaki örneğin geçmesi için, oy gücünün `140970562215` oy gücü çoğunluğunu aşması gerekir. Lehte `197980809837` oy gücü var ve aleyhte veya çekimser oy yok. Teklif başarıya hazır ve
+`proposal.vote.phase2.time` sonunda yürütülmeye hazır.
 
 ## Bir Teklifin Durumunu Görüntüleme
 
@@ -315,78 +372,55 @@ Her teklife bir `proposalID` atanır. Bu durumda, `0xBdbc...`'yi güvenlik konse
   </Tabs>
 </div>
 
-## Bir Teklife Oy Verme
+## Bir Teklif Oluşturma
 
-Bir oylama döneminde, **Düğüm Operatörleri** ve **Delegeler** dört seçenekten biriyle oy kullanabilir:
+Teklif önerisinde bulunmaya uygun olmak için bir düğümün birkaç gereksinimi karşılaması gerekir:
+
+- Snapshot'a dahil edilmiş (ya [oylamayı başlatarak](./participate#oylamayı-başlatma) ya da Houston sonrası kaydolarak)
+- En az bir minipool'a sahip olmalı
+- Sıfır olmayan oy gücüne sahip olmalı
+- [RPL kilitlemeye](./participate#rpl-kilitlemeye-i̇zin-verme) izin vermiş olmalı
+- Teklif bonusundan daha büyük bir RPL stake'ine (zaten kilitli olan RPL hariç) sahip olmalı
+
+Teklifler, parametreleri değiştirmek ve protokol düzeyinde kod yürütmek için vardır! Bir teklif zincirde oluşturulmadan önce [yönetişim](./participate#yönetişim-süreci) süreci aracılığıyla tartışma ve konsensüs olmalıdır.
+
+Bir seçenek menüsü açmak için `rocketpool pdao propose` komutunu kullanın
 
 ```
-1. Abstain: Seçmenin oy gücü çoğunluğa katkıda bulunur ancak teklif lehinde veya aleyhinde değildir.
-2. For: Seçmen teklifin yürütülmesi lehinde oy kullanır.
-3. Against: Seçmen teklifin yürütülmesine karşı oy kullanır.
-4. Veto: Seçmen teklife karşı oy kullanır ve ayrıca teklifi spam veya kötü niyetli olarak değerlendirdiklerini belirtir.
+COMMANDS:
+   rewards-percentages, rp      Propose updating the RPL rewards allocation percentages for node operators, the Oracle DAO, and the Protocol DAO
+   one-time-spend, ots          Propose a one-time spend of the Protocol DAO's treasury
+   recurring-spend, rs          Propose a recurring spend of the Protocol DAO's treasury
+   recurring-spend-update, rsu  Propose an update to an existing recurring spend plan
+   security-council, sc         Modify the security council
+   setting, s                   Make a Protocol DAO setting proposal
+   submit-batch, sb            Submit a single proposal that changes multiple Protocol DAO settings from a JSON file
 ```
 
-Oy güçleri seçtikleri seçeneğe uygulanacaktır. Oy gücü, "etkili RPL stake" fonksiyonudur.
-Daha ayrıntılı bir okuma [rocketpool-research repo](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting)'sunda bulunabilir.
+Bu komutların her biri, istediğiniz teklifi oluşturmak için size bir girdi listesi isteyecektir. Ayar teklifi komutları, bir işlem göndermek yerine bir ayar değişikliğini bir JSON dosyasına yazmak veya eklemek için `--to-json` seçeneğini kabul eder. Dosya hazır olduğunda, `rocketpool pdao propose submit-batch` ile gönderin.
 
-::: tip NOT
-Devredilmiş oy gücüne sahip bir düğüm operatörüyseniz, devredilmiş oy gücünün teklife sayılması için oylama aşaması 1'de oy kullanmalısınız. Aşama 1'deki oyunuz yerel oy gücünüz + devredilmiş oy gücünüz değerinde olacaktır. Aşama 2'deki oyunuz yalnızca yerel oy gücünüz değerindedir. Lütfen bir düğümün bir teklife bir kez ve yalnızca bir kez oy verebileceğini unutmayın, bu nedenle dikkatle seçin.
-:::
-
-Bir oy kullanmak için bu komutu kullanın:
+Bu rehberde, bir örnek olarak güvenlik konseyine bir düğümü davet edeceğiz. Güvenlik konseyine bir düğümü davet etmek için şu komutu kullanırsınız:
 
 ```shell
-rocketpool pdao proposals vote
+rocketpool pdao propose security-council invite
 ```
 
-Aktif oylama aşamasında en az bir teklif varsa, oy vermek için bir teklif seçmeniz istenecektir.
-Menü, düğümünüzün oy vermeye uygun olduğu tüm teklifleri görüntülemelidir:
+Bu adımın teklif türüne bağlı olarak hafif bir değişiklik göstereceğini unutmayın. Bu özel komut:
+`rocketpool pdao propose security-council invite` size bir ID ve ardından bir üye adresi girmenizi isteyecektir.
 
 ```
-1: proposal 71 (message: 'invite test-member', payload: proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145), phase 1 end: 14 Mar 24 05:40 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
-2: proposal 72 (message: 'replace langers-not-his-eoa (0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E) on the security council with tpan (0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E)', payload: proposalSecurityReplace(0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E,tpan,0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E), phase 1 end: 14 Mar 24 05:40 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0xe2fC31d61E28BB16c0857D4682AB3616FA7A793d)
-3: proposal 73 (message: 'set proposal.vote.delay.time', payload: proposalSettingUint(rocketDAOProtocolSettingsProposals,proposal.vote.delay.time,60), phase 1 end: 14 Mar 24 05:41 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
+Please enter an ID for the member you'd like to invite: (no spaces)
+test-member
+
+Please enter the member's address:
+0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145
+
+... gas estimations ...
+
+Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council? [y/n]
 ```
 
-Bir seçenek seçtikten sonra, oyunuzu nasıl kullanmak istediğiniz sorulacaktır.
-
-```
-How would you like to vote on the proposal?
-1: Abstain
-2: In Favor
-3: Against
-4: Veto
-```
-
-Bir seçenek seçmek daha sonra oy gücünüzü görüntüleyecek ve ardından işlemi göndermenizi isteyecektir:
-
-```
-Your current voting power: 20123617964
-
-+============== Suggested Gas Prices ==============+
-| Avg Wait Time |  Max Fee  |    Total Gas Cost    |
-| 15 Seconds    | 76 gwei   | 0.0176 to 0.0265 ETH |
-| 1 Minute      | 56 gwei   | 0.0127 to 0.0190 ETH |
-| 3 Minutes     | 56 gwei   | 0.0127 to 0.0190 ETH |
-| >10 Minutes   | 56 gwei   | 0.0127 to 0.0190 ETH |
-+==================================================+
-These prices include a maximum priority fee of 2.00 gwei.
-Please enter your max fee (including the priority fee) or leave blank for the default of 56 gwei:
-```
-
-İşlem bloka dahil edildiğinde teklife başarıyla oy verdiniz! Bu noktada, teklifin durumunu görüntülemek için `rocketpool pdao proposal details <proposal-id>` kullanabilirsiniz. Bir teklifin başarılı olması için `proposal.quorum` **gerekli oy gücüne** ve çoğunluk **lehte oy gücüne** ulaşması gerekir.
-
-```
-Voting power required:  140970562215
-Voting power for:       197980809837
-Voting power against:   0
-Voting power abstained: 0
-Voting power against:   0
-Node has voted:         In Favor
-```
-
-Yukarıdaki örneğin geçmesi için, oy gücünün `140970562215` oy gücü çoğunluğunu aşması gerekir. Lehte `197980809837` oy gücü var ve aleyhte veya çekimser oy yok. Teklif başarıya hazır ve
-`proposal.vote.phase2.time` sonunda yürütülmeye hazır.
+Bu bir bloka dahil edildikten sonra, bir pDAO teklifi oluşturulacaktır! Teklif, oluşturulduğunda [oy gecikmesi süresine](./pdao#oy-gecikmesi-dönemi) girecektir.
 
 ## Başarılı Bir Teklifi Yürütme
 

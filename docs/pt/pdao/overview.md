@@ -6,7 +6,7 @@ next:
 
 # Visão Geral
 
-Esta seção descreve o processo de configuração do seu nó para participar em propostas on-chain e snapshot. Há muito para absorver, por isso recomendamos fortemente a leitura de uma visão geral da [Atualização Houston](/pt/legacy/houston/whats-new). Isso irá ajudá-lo a entender os recursos mais recentes que permitem a governança on-chain e como você pode participar na definição do protocolo.
+Esta seção descreve o processo de configuração do seu nó para participar de propostas on-chain e off-chain ([RocketDash](https://rocketdash.net/vote)). Há muito para absorver, por isso recomendamos fortemente a leitura de uma visão geral da [Atualização Houston](/pt/legacy/houston/whats-new). Isso ajudará você a entender os recursos mais recentes que permitem a governança on-chain e como você pode participar da definição do protocolo.
 
 ## Pré-requisitos
 
@@ -21,9 +21,9 @@ Antes de configurar o seu Smart Node, certifique-se de que você:
 
 ## Existem três endereços envolvidos na votação
 
-- Endereço de Sinalização pDAO — será usado como o seu endereço Snapshot, se você quiser votar diretamente ou se quiser sobrepor o voto Snapshot do seu delegado. Este endereço é usado apenas para Snapshot, não para votação on-chain.
+- Endereço de Sinalização pDAO — será usado como o seu endereço RocketDash, caso você queira votar diretamente ou substituir o voto off-chain do seu delegado. Este endereço é usado apenas para votações off-chain no RocketDash, não para votações on-chain.
 
-- Nó Delegado pDAO — se você optar por delegar o seu voto. Você irá configurá-lo para o endereço do nó do seu delegado. Se você escolher um delegado, ele votará por você no Snapshot e em propostas on-chain.
+- Nó Delegado pDAO — se você optar por delegar o seu voto. Você irá configurá-lo para o endereço do nó do seu delegado. Se você escolher um delegado, ele votará por você no RocketDash e em propostas on-chain.
 
 - Endereço do Nó — se você não delegou o seu voto ou se desejar sobrepor o voto on-chain do seu delegado, você pode fazer isso a partir do seu nó.
 
@@ -35,7 +35,7 @@ Antes de configurar o seu Smart Node, certifique-se de que você:
 
 [Inicializando o Poder de Voto](/pt/pdao/participate#inicializando-votação) mostra como inicializar o poder de voto do seu nó. Este passo é necessário apenas se o seu nó foi registrado antes da Atualização Houston.
 
-[Definindo o seu Endereço de Sinalização Snapshot](/pt/pdao/participate#definindo-o-seu-endereço-de-sinalização-snapshot) irá guiá-lo através dos passos para definir um Endereço de Sinalização. Isso permitirá que você vote no Snapshot usando o poder de voto do seu nó sem precisar carregar a chave privada do seu nó em uma carteira quente. Certifique-se de ter o CLI do seu Smart Node à mão e prepare um endereço (que não seja a carteira do seu nó) para este guia.
+[Definindo seu Endereço de Sinalização](/pt/pdao/participate#definindo-seu-endereço-de-sinalização) guiará você pelas etapas para definir um Endereço de Sinalização. Isso permitirá que você vote no RocketDash usando o poder de voto do seu nó sem precisar carregar a chave privada do nó em uma carteira quente. Tenha o CLI do Smart Node à mão e prepare um endereço (que não seja a carteira do seu nó) para este guia.
 
 [Delegando o Poder de Voto](/pt/pdao/participate#delegando-o-poder-de-voto) é um comando rápido que você pode usar para delegar o poder de voto em vez de votar diretamente nas propostas.
 

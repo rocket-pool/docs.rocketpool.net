@@ -16,7 +16,7 @@ pDAOプロポーザルは、プロトコルレベルで変更を実行するた�
 
 プロポーザルは、オンチェーンに到達する前に、ガバナンスプロセスによって予測される必要があります。
 
-Rocket Poolプロトコルへの変更は、厳格でありながら透明性のあるガバナンスプロセスを使用して提案、投票、実行されます。プロセスは、Discordコミュニティ内でのアイデアの非公式な議論から始まります。このアイデアは、Discordの[#governance](https://discordapp.com/channels/405159462932971535/774497904559783947)チャンネルと[DAO Forum](https://dao.rocketpool.net/)での正式な議論に進み、[Rocket Pool Improvement Proposal (RPIP)](https://rpips.rocketpool.net/)の準備のために、徹底的な調査、モデリング、精査を受けます。その後、RPIPドラフトが作成され、指定されたRPIPレビュアーによってレビューされ、DAOへの提示に向けて品質と準備状況が確認されます。ドラフトプロポーザルは、さらなるレビュー、フィードバック、必要な変更の組み込みのために、フォーラムでDAOに提示されます。コミュニティの意見に基づいてプロポーザルが洗練されると、RPIPテキストを最終化する準備ができているかを測るために、DAOフォーラムで投票が行われます。投票が通過し、コミュニティの承認を示すと、RPIPは最終版としてマークされ、snapshotを介して実施されるProtocol DAO投票の準備が整います。
+Rocket Poolプロトコルへの変更は、厳格でありながら透明性のあるガバナンスプロセスを使用して提案、投票、実行されます。プロセスは、Discordコミュニティ内でのアイデアの非公式な議論から始まります。このアイデアは、Discordの[#governance](https://discordapp.com/channels/405159462932971535/774497904559783947)チャンネルと[DAO Forum](https://dao.rocketpool.net/)での正式な議論に進み、[Rocket Pool Improvement Proposal (RPIP)](https://rpips.rocketpool.net/)の準備のために、徹底的な調査、モデリング、精査を受けます。その後、RPIPドラフトが作成され、指定されたRPIPレビュアーによってレビューされ、DAOへの提示に向けて品質と準備状況が確認されます。ドラフトプロポーザルは、さらなるレビュー、フィードバック、必要な変更の組み込みのために、フォーラムでDAOに提示されます。コミュニティの意見に基づいてプロポーザルが洗練されると、RPIPテキストを最終化する準備ができているかを測るために、DAOフォーラムで投票が行われます。投票が通過し、コミュニティの承認を示すと、RPIPは最終版としてマークされ、プロポーザルを実装すべきかを決定するため、[RocketDash](https://rocketdash.net/vote)でのオフチェーンProtocol DAO投票にかけられる準備が整います。これらの投票では、RocketDashがSnapshotに代わって使用されています。
 
 ここから、Oracle DAOがオンチェーンプロポーザルを提起します。Protocol DAO、Oracle DAO、コミュニティがプロポーザルをレビューできる期間があります。合意が得られると、プロポーザルが実行され、プロトコルに変更が適用されます。
 
@@ -80,16 +80,26 @@ Smart Nodeバージョン`1.13.8`は、まだ投票権を初期化していな�
 
 **Auto-Init Vote Power Gas Threshold**は、この自動トランザクションの制限(gwei単位)です。しきい値を0に設定することで、このタスクをオプトアウトできます。ノードがHouston upgradeの後に登録された場合、または投票権がすでに有効になっている場合は、オプトアウトしてください。
 
-## Snapshot Signalling Addressの設定
+<span id="setting-your-snapshot-signalling-address"></span>
 
-Snapshot signalling addressを設定すると、ノードキーをホットウォレットに公開することなく、ブラウザまたはモバイルデバイスでsnapshot投票に参加できます。
+## Signalling Addressの設定
+
+signalling addressを設定すると、ノードキーをホットウォレットに公開することなく、ブラウザまたはモバイルデバイスから
+[RocketDash](https://rocketdash.net/vote)のオフチェーンガバナンス投票に参加できます。
+
+:::tip NOTE
+RocketDashは、Rocket Poolのオフチェーンガバナンス投票においてSnapshotに代わるものです。signalling addressはオンチェーンに保存されるため、
+Snapshot用にすでに設定している場合はRocketDashでもそのアドレスが使用され、再設定する必要はありません。
+:::
+
+signalling addressはRocketDashで投票し、委任先の投票を上書きできますが、委任先を変更することはできません。委任するには、[投票権の委任](#投票権の委任)を参照してください。
 
 準備すべきことがいくつかあります:
 
 - ノードのアドレス
-- snapshot投票に使用したいアドレス(signalling address)
+- オフチェーン投票に使用したいアドレス（signalling address）
 
-ノードのアドレスが新しいアドレスに委任できることを示すメッセージに署名します。このメッセージは、ウォレットアドレスをSnapshot signalling addressとして使用する意図を示しています。
+ノードのアドレスが新しいアドレスに委任できることを示すメッセージに署名します。このメッセージは、ウォレットアドレスをsignalling addressとして使用する意図を示しています。
 
 使用しているネットワークを以下のタブから選択してください。
 
@@ -101,7 +111,8 @@ Snapshot signalling addressを設定すると、ノードキーをホットウ�
 </div>
 
 :::danger WARNING
-ノードの秘密鍵をホットウォレットに読み込まないでください。signalling addressとして別のアカウントを選択してください。signalling addressを設定した後、ノードの投票権を使用してsnapshotで投票できます。
+ノードの秘密鍵をホットウォレットに読み込まないでください。signalling addressとして別のアカウントを選択してください。
+signalling addressを設定した後、ノードの投票権を使用してRocketDashで投票できます。
 :::
 
 まず、MetaMask、WalletConnect、またはウェブサイトがサポートするその他の方法を使用して、**signalling addressとして使用したいアドレス**をウェブサイトに接続します。次に、ノードアドレスを検索するためのダイアログが表示されます。
@@ -112,24 +123,24 @@ Snapshot signalling addressを設定すると、ノードキーをホットウ�
 **これを行う前に、正しいノードアドレスを持っていることを確認してください!** ノードのアドレスを確認する必要がある場合は、`rocketpool node status`コマンドを使用してCLI経由ですばやく取得できます。
 :::
 
-サインインしてノードアドレスを確認すると、**Snapshot signalling address**が表示されます。これは、サイトにサインインしたアカウントと同じである必要があります。続行する前に、これが正しいことを再確認してください。目的のアカウントにサインインしていることを確信したら、オレンジ色の「Sign Message」ボタンをクリックします。ウォレット拡張アプリで次のメッセージに署名するプロンプトが表示されます:
+サインインしてノードアドレスを確認すると、**signalling address**が表示されます。これは、サイトにサインインしたアカウントと同じである必要があります。続行する前に、これが正しいことを再確認してください。目的のアカウントにサインインしていることを確信したら、オレンジ色の「Sign Message」ボタンをクリックします。ウォレット拡張アプリで次のメッセージに署名するプロンプトが表示されます:
 
 ```
-`snapshot signalling address` may delegate to me for Rocket Pool governance
+`node address` may delegate to me for Rocket Pool governance
 ```
 
 署名にはガスはかかりませんが、設定にはガスがかかります。署名した後、フロントエンドはsmartnodeに貼り付けるコマンドを提供します。先に進み、smartnodeのCLIに貼り付けて、プロンプトに従ってください。コマンドは次のようになります:
 
 ```shell
 rocketpool pdao set-signalling-address
-`snapshot signalling address`
-`EIP712 signature`
+`signalling address`
+`signature`
 ```
 
 CLIでこのメッセージが表示されたら、すべて設定完了です!
 
 ```
-The node's signalling address was successfully set to `snapshot signalling address`
+The node's signalling address was successfully set to `signalling address`
 ```
 
 :::tip TIP
@@ -168,69 +179,123 @@ rocketpool node deny-rpl-locking
 
 Node Operatorは、投票権を別のNode Operatorに委任することを選択できます。唯一の要件は、委任先が登録されたノードであることです。
 
-別のノードにオンチェーン投票権を委任するには、次のコマンドを使用します:
+投票権を別のノードに委任するには、ノードから次のコマンドを実行します:
 
 ```shell
 rocketpool pdao set-voting-delegate `address`
 ```
 
+委任先は、オンチェーンプロポーザルと[RocketDash](https://rocketdash.net/vote)でのオフチェーン投票の両方で、あなたに代わって投票します。
+委任はノードからのみ設定できます。signalling addressやRocketDashから委任することはできません。
+
 ::: tip NOTE
 投票権を別のNode Operatorに委任した場合、委任先アドレスを自分のノードのアドレスに設定することでリセットできます。
 :::
 
-- プロポーザルのフェーズ1中:**Voters**と**Delegates**はプロポーザルに投票できます。
-- プロポーザルのフェーズ2中:投票を委任した**Node Operators**は、委任先の投票に同意しない場合、投票を覆す機会を得ます。
+### 投票するタイミング
 
-委任された投票権を持つNode Operatorの場合、委任された投票権がプロポーザルにカウントされるためには、投票フェーズ1で投票する必要があります。フェーズ1での投票は、**ローカル投票権 + 委任された投票権**の価値があります。フェーズ2での投票は、**ローカル投票権**のみの価値があります。
+オンチェーンプロポーザルには2つの投票フェーズがあります。どのフェーズで投票すべきかは、投票権を委任しているかどうかによって異なります。
+これらのフェーズはオンチェーンプロポーザルにのみ適用されます。RocketDashでのオフチェーン投票には適用されません。
 
-## プロポーザルの作成
+- **Pending:** まだ誰も投票できません。
+- **Phase 1:** 投票権を委任していない場合は、このフェーズで投票します。あなたが委任先の場合、あなたの投票は、あなたに委任したすべてのノードの投票としてもカウントされるため、Phase 1で投票してください。そうしないと、それらのノードがPhase 2で自ら投票した場合にのみ、その投票権がカウントされます。投票権を委任している場合、このフェーズでは委任先があなたに代わって投票します。
+- **Phase 2:** 投票権を委任していて委任先の投票に同意できない場合、または委任先が投票しなかった場合は、このフェーズで自ら投票できます。あなたの投票は、自分の持ち分についてのみ委任先の投票に置き換わります。まだ投票していない人もPhase 2で投票できますが、委任先であっても、自分自身の投票権のみがカウントされます。
 
-提案する資格を得るには、ノードはいくつかの要件を満たす必要があります:
+Mainnetでは、新しいプロポーザルは**1週間**Pendingとなり、その後Phase 1が**1週間**、Phase 2が**1週間**続きます。
+これらの期間はpDAO設定であり、投票によって変更できます。現在の値を確認するには、`rocketpool pdao settings`を実行してください。
 
-- スナップショットに含まれている([投票の初期化](./participate#投票の初期化)またはHouston後の登録による)
-- 少なくとも1つのminipoolを持っている
-- ゼロでない投票権を持っている
-- [RPLロック](./participate#rplロックの許可)を許可している
-- プロポーザルボンドよりも大きいRPLステーク(すでにロックされているRPLを除く)を持っている
+ノードがプロポーザルに投票できるのは、いずれかのフェーズで1回だけです。
 
-プロポーザルは、パラメータを変更し、プロトコルレベルでコードを実行するために存在します! プロポーザルがオンチェーンで作成される前に、[ガバナンス](./participate#ガバナンスプロセス)プロセスを通じて議論と合意が必要です。
+| あなたの状況                                                                 | 投票するタイミング                                                                                                       |
+| ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| 自分で投票する（デフォルト）                                                 | Phase 1。投票し損ねても、Phase 2で投票できます。                                                                         |
+| 委任先である                                                                 | **Phase 1。** Phase 1で投票し損ねると、あなたに委任された投票権はカウントされません。委任元はPhase 2で自ら投票できます。 |
+| 別のノードに委任しており、その投票に同意する                                 | 投票する必要はありません。                                                                                               |
+| 別のノードに委任しており、その投票に同意しない、または委任先が投票しなかった | Phase 2。                                                                                                                |
 
-コマンド`rocketpool pdao propose`を使用して、オプションのメニューを表示します
-
-```
-COMMANDS:
-   rewards-percentages, rp      Propose updating the RPL rewards allocation percentages for node operators, the Oracle DAO, and the Protocol DAO
-   one-time-spend, ots          Propose a one-time spend of the Protocol DAO's treasury
-   recurring-spend, rs          Propose a recurring spend of the Protocol DAO's treasury
-   recurring-spend-update, rsu  Propose an update to an existing recurring spend plan
-   security-council, sc         Modify the security council
-   setting, s                   Make a Protocol DAO setting proposal
-   submit-batch, sb            Submit a single proposal that changes multiple Protocol DAO settings from a JSON file
-```
-
-これらの各コマンドは、目的のプロポーザルを作成するための入力のリストを求めます。設定のプロポーザルコマンドは`--to-json`を受け付け、トランザクションを送信する代わりに設定変更をJSONファイルに書き込むか追記できます。ファイルの準備ができたら、`rocketpool pdao propose submit-batch`で送信します。
-
-このガイドでは、例として、ノードをsecurity councilに招待します。security councilにノードを招待するプロポーザルを提起するには、次のコマンドを使用します:
+プロポーザルがどのフェーズにあり、自分または委任先が投票済みかを確認するには、次を実行します:
 
 ```shell
-rocketpool pdao propose security-council invite
+rocketpool pdao proposals details <proposal-id>
 ```
 
-この手順は、プロポーザルのタイプによってわずかに異なることに注意してください。この特定のコマンド:`rocketpool pdao propose security-council invite`は、IDとメンバーアドレスを入力するようにプロンプトを表示します。
+`State`、`Phase 1 end`、`Phase 2 end`、`Node has voted`、`Delegate has voted`の各行を確認してください。
+[RocketDash](https://rocketdash.net/pdao-proposals)でも、すべてのプロポーザルのフェーズを確認できます。
+
+`rocketpool pdao proposals vote`で投票すると、Smart Nodeは現在のフェーズに適した種類の投票を自動的に行います。
+
+## プロポーザルへの投票
+
+投票期間中、**Node Operators**と**Delegates**は4つのオプションのいずれかで投票できます:
 
 ```
-Please enter an ID for the member you'd like to invite: (no spaces)
-test-member
-
-Please enter the member's address:
-0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145
-
-... gas estimations ...
-
-Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council? [y/n]
+1. Abstain: 投票者の投票権は定足数に貢献しますが、プロポーザルに賛成でも反対でもありません。
+2. For: 投票者はプロポーザルの実行に賛成票を投じます。
+3. Against: 投票者はプロポーザルの実行に反対票を投じます。
+4. Veto: 投票者はプロポーザルに反対票を投じ、プロポーザルをスパムまたは悪意のあるものと見なしていることを示します。
 ```
 
-これがブロックに含まれると、pDAOプロポーザルが作成されます! プロポーザルは作成時に[vote delay period](./pdao#vote-delay-period)に入ります。
+投票権は、選択したオプションに適用されます。投票権は「有効なRPLステーク」の関数です。
+より詳細な説明は、[rocketpool-researchリポジトリ](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting)で見つけることができます。
+
+::: tip NOTE
+ノードがプロポーザルに投票できるのは1回だけです。慎重に選択してください。どのフェーズで投票すべきかについては、
+[投票するタイミング](#投票するタイミング)を参照してください。
+:::
+
+投票するには、このコマンドを使用します:
+
+```shell
+rocketpool pdao proposals vote
+```
+
+アクティブな投票フェーズに少なくとも1つのプロポーザルがある場合、投票するプロポーザルを選択するようにプロンプトが表示されます。
+メニューには、ノードが投票できるすべてのプロポーザルが表示されます:
+
+```
+1: proposal 71 (message: 'invite test-member', payload: proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145), phase 1 end: 14 Mar 24 05:40 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
+2: proposal 72 (message: 'replace langers-not-his-eoa (0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E) on the security council with tpan (0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E)', payload: proposalSecurityReplace(0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E,tpan,0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E), phase 1 end: 14 Mar 24 05:40 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0xe2fC31d61E28BB16c0857D4682AB3616FA7A793d)
+3: proposal 73 (message: 'set proposal.vote.delay.time', payload: proposalSettingUint(rocketDAOProtocolSettingsProposals,proposal.vote.delay.time,60), phase 1 end: 14 Mar 24 05:41 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
+```
+
+オプションを選択すると、投票方法を尋ねられます。
+
+```
+How would you like to vote on the proposal?
+1: Abstain
+2: In Favor
+3: Against
+4: Veto
+```
+
+オプションを選択すると、投票権が表示され、トランザクションを送信するようにプロンプトが表示されます:
+
+```
+Your current voting power: 20123617964
+
++============== Suggested Gas Prices ==============+
+| Avg Wait Time |  Max Fee  |    Total Gas Cost    |
+| 15 Seconds    | 76 gwei   | 0.0176 to 0.0265 ETH |
+| 1 Minute      | 56 gwei   | 0.0127 to 0.0190 ETH |
+| 3 Minutes     | 56 gwei   | 0.0127 to 0.0190 ETH |
+| >10 Minutes   | 56 gwei   | 0.0127 to 0.0190 ETH |
++==================================================+
+These prices include a maximum priority fee of 2.00 gwei.
+Please enter your max fee (including the priority fee) or leave blank for the default of 56 gwei:
+```
+
+トランザクションがブロックに含まれたら、プロポーザルへの投票が完了しました! この時点で、`rocketpool pdao proposal details <proposal-id>`を使用してプロポーザルの状態を表示できます。プロポーザルが成功するには、`proposal.quorum` **投票権が必要**に達し、過半数の**投票権が賛成**が必要です。
+
+```
+Voting power required:  140970562215
+Voting power for:       197980809837
+Voting power against:   0
+Voting power abstained: 0
+Voting power against:   0
+Node has voted:         In Favor
+```
+
+上記の例が通過するには、投票権が定足数`140970562215`投票権を超える必要があります。賛成の投票権が`197980809837`あり、反対または棄権の投票はありません。プロポーザルは成功する準備ができており、`proposal.vote.phase2.time`の終わりまでに実行の準備が整います。
 
 ## プロポーザルの状態の表示
 
@@ -306,77 +371,54 @@ Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B
   </Tabs>
 </div>
 
-## プロポーザルへの投票
+## プロポーザルの作成
 
-投票期間中、**Node Operators**と**Delegates**は4つのオプションのいずれかで投票できます:
+提案する資格を得るには、ノードはいくつかの要件を満たす必要があります:
+
+- スナップショットに含まれている([投票の初期化](./participate#投票の初期化)またはHouston後の登録による)
+- 少なくとも1つのminipoolを持っている
+- ゼロでない投票権を持っている
+- [RPLロック](./participate#rplロックの許可)を許可している
+- プロポーザルボンドよりも大きいRPLステーク(すでにロックされているRPLを除く)を持っている
+
+プロポーザルは、パラメータを変更し、プロトコルレベルでコードを実行するために存在します! プロポーザルがオンチェーンで作成される前に、[ガバナンス](./participate#ガバナンスプロセス)プロセスを通じて議論と合意が必要です。
+
+コマンド`rocketpool pdao propose`を使用して、オプションのメニューを表示します
 
 ```
-1. Abstain: 投票者の投票権は定足数に貢献しますが、プロポーザルに賛成でも反対でもありません。
-2. For: 投票者はプロポーザルの実行に賛成票を投じます。
-3. Against: 投票者はプロポーザルの実行に反対票を投じます。
-4. Veto: 投票者はプロポーザルに反対票を投じ、プロポーザルをスパムまたは悪意のあるものと見なしていることを示します。
+COMMANDS:
+   rewards-percentages, rp      Propose updating the RPL rewards allocation percentages for node operators, the Oracle DAO, and the Protocol DAO
+   one-time-spend, ots          Propose a one-time spend of the Protocol DAO's treasury
+   recurring-spend, rs          Propose a recurring spend of the Protocol DAO's treasury
+   recurring-spend-update, rsu  Propose an update to an existing recurring spend plan
+   security-council, sc         Modify the security council
+   setting, s                   Make a Protocol DAO setting proposal
+   submit-batch, sb            Submit a single proposal that changes multiple Protocol DAO settings from a JSON file
 ```
 
-投票権は、選択したオプションに適用されます。投票権は「有効なRPLステーク」の関数です。
-より詳細な説明は、[rocketpool-researchリポジトリ](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting)で見つけることができます。
+これらの各コマンドは、目的のプロポーザルを作成するための入力のリストを求めます。設定のプロポーザルコマンドは`--to-json`を受け付け、トランザクションを送信する代わりに設定変更をJSONファイルに書き込むか追記できます。ファイルの準備ができたら、`rocketpool pdao propose submit-batch`で送信します。
 
-::: tip NOTE
-委任された投票権を持つNode Operatorの場合、委任された投票権がプロポーザルにカウントされるためには、投票フェーズ1で投票する必要があります。フェーズ1での投票は、ローカル投票権 + 委任された投票権の価値があります。フェーズ2での投票は、ローカル投票権のみの価値があります。ノードはプロポーザルに対して一度だけ投票できることに注意してください。慎重に選択してください。
-:::
-
-投票するには、このコマンドを使用します:
+このガイドでは、例として、ノードをsecurity councilに招待します。security councilにノードを招待するプロポーザルを提起するには、次のコマンドを使用します:
 
 ```shell
-rocketpool pdao proposals vote
+rocketpool pdao propose security-council invite
 ```
 
-アクティブな投票フェーズに少なくとも1つのプロポーザルがある場合、投票するプロポーザルを選択するようにプロンプトが表示されます。
-メニューには、ノードが投票できるすべてのプロポーザルが表示されます:
+この手順は、プロポーザルのタイプによってわずかに異なることに注意してください。この特定のコマンド:`rocketpool pdao propose security-council invite`は、IDとメンバーアドレスを入力するようにプロンプトを表示します。
 
 ```
-1: proposal 71 (message: 'invite test-member', payload: proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145), phase 1 end: 14 Mar 24 05:40 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
-2: proposal 72 (message: 'replace langers-not-his-eoa (0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E) on the security council with tpan (0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E)', payload: proposalSecurityReplace(0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E,tpan,0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E), phase 1 end: 14 Mar 24 05:40 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0xe2fC31d61E28BB16c0857D4682AB3616FA7A793d)
-3: proposal 73 (message: 'set proposal.vote.delay.time', payload: proposalSettingUint(rocketDAOProtocolSettingsProposals,proposal.vote.delay.time,60), phase 1 end: 14 Mar 24 05:41 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
+Please enter an ID for the member you'd like to invite: (no spaces)
+test-member
+
+Please enter the member's address:
+0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145
+
+... gas estimations ...
+
+Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council? [y/n]
 ```
 
-オプションを選択すると、投票方法を尋ねられます。
-
-```
-How would you like to vote on the proposal?
-1: Abstain
-2: In Favor
-3: Against
-4: Veto
-```
-
-オプションを選択すると、投票権が表示され、トランザクションを送信するようにプロンプトが表示されます:
-
-```
-Your current voting power: 20123617964
-
-+============== Suggested Gas Prices ==============+
-| Avg Wait Time |  Max Fee  |    Total Gas Cost    |
-| 15 Seconds    | 76 gwei   | 0.0176 to 0.0265 ETH |
-| 1 Minute      | 56 gwei   | 0.0127 to 0.0190 ETH |
-| 3 Minutes     | 56 gwei   | 0.0127 to 0.0190 ETH |
-| >10 Minutes   | 56 gwei   | 0.0127 to 0.0190 ETH |
-+==================================================+
-These prices include a maximum priority fee of 2.00 gwei.
-Please enter your max fee (including the priority fee) or leave blank for the default of 56 gwei:
-```
-
-トランザクションがブロックに含まれたら、プロポーザルへの投票が完了しました! この時点で、`rocketpool pdao proposal details <proposal-id>`を使用してプロポーザルの状態を表示できます。プロポーザルが成功するには、`proposal.quorum` **投票権が必要**に達し、過半数の**投票権が賛成**が必要です。
-
-```
-Voting power required:  140970562215
-Voting power for:       197980809837
-Voting power against:   0
-Voting power abstained: 0
-Voting power against:   0
-Node has voted:         In Favor
-```
-
-上記の例が通過するには、投票権が定足数`140970562215`投票権を超える必要があります。賛成の投票権が`197980809837`あり、反対または棄権の投票はありません。プロポーザルは成功する準備ができており、`proposal.vote.phase2.time`の終わりまでに実行の準備が整います。
+これがブロックに含まれると、pDAOプロポーザルが作成されます! プロポーザルは作成時に[vote delay period](./pdao#vote-delay-period)に入ります。
 
 ## 成功したプロポーザルの実行
 

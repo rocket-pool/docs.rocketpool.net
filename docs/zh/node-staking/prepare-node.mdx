@@ -173,77 +173,69 @@ rocketpool node register
 要更改它,您需要从**活动的**主提款地址(您刚刚切换到的地址)发送签名交易。
 Rocket Pool 网站有一个功能可以帮助您执行此操作。
 
-## 设置 Snapshot 信号地址
+## 设置信号地址
 
-设置 Snapshot 信号地址将允许您在浏览器或移动设备上参与 Snapshot 投票,
-而无需将节点密钥暴露给热钱包。
+设置您的信号地址后，您可以通过浏览器或移动设备参与 [RocketDash](https://rocketdash.net/vote) 上的链下治理投票，而无需将节点密钥暴露给热钱包。
 
-需要准备几件事:
+:::tip 注意
+RocketDash 已取代 Snapshot，用于 Rocket Pool 的链下治理投票。您的信号地址存储在链上，因此如果您已经为 Snapshot 设置了信号地址，RocketDash 也会使用该地址，无需重新设置。
+:::
+
+需要准备几件事：
 
 - 您的节点地址
-- 您想用于 snapshot 投票的地址(信号地址)
+- 您想用于链下投票的地址（信号地址）
 
-您将签署一条消息,表明您的节点地址可以委托给新地址。此消息声明您
-打算使用您的钱包地址作为 Snapshot 信号地址。
+您将签署一条消息，表明您的节点地址可以委托给新地址。此消息声明您打算使用您的钱包地址作为信号地址。
 
 从下面的选项卡中选择您正在使用的网络。
 
 <div className="p-3">
   <Tabs>
-    <Tab label="Hoodi 测试网">如果您在 Hoodi 测试网上试用,可以在此页面上签名:https://testnet.node.rocketpool.net/signalling-address</Tab>
-    <Tab label="主网">如果您准备在主网上配置,请访问:https://node.rocketpool.net/signalling-address</Tab>
+    <Tab label="Hoodi 测试网">如果您在 Hoodi 测试网上试用，可以在此页面上签名：https://testnet.node.rocketpool.net/signalling-address</Tab>
+    <Tab label="主网">如果您准备在主网上配置，请访问：https://node.rocketpool.net/signalling-address</Tab>
   </Tabs>
 </div>
 
 :::danger 警告
 不要将节点的私钥加载到热钱包上。请选择另一个账户作为您的信号地址。
-设置信号地址后,您可以使用它在 Snapshot 上用节点的投票权进行投票。
+设置信号地址后，您可以使用它在 RocketDash 上用节点的投票权进行投票。
 :::
 
-首先使用 MetaMask、
-WalletConnect 或网站支持的任何其他方法**连接您想用作信号地址的地址**到网站。然后系统会显示此对话框以查找
-您的节点地址。
+首先使用 MetaMask、WalletConnect 或网站支持的任何其他方法，**将您想用作信号地址的地址连接**到网站。然后系统会显示一个对话框，用于查找您的节点地址。
 
-接下来,您将输入节点地址,然后点击橙色"Find"按钮。这将检查该地址是否是注册的
-节点,然后带您进入下一步。
+接下来，输入节点地址并点击橙色的“Find”按钮。系统会检查该地址是否为已注册节点，然后带您进入下一步。
 
 :::tip 提示
-**在执行此操作之前,请确保您拥有正确的节点地址!** 如果您需要确认节点地址,可以
-使用 `rocketpool node status` 命令通过 CLI 快速检索它。
+**执行此操作前，请确保节点地址正确！** 如果需要确认节点地址，可以通过 CLI 使用 `rocketpool node status` 命令快速检索。
 :::
 
-登录并确认节点地址后,您将看到您的 **Snapshot 信号地址**。它应该与
-您登录网站的账户相同。在继续之前,请仔细检查这是否正确。一旦您
-确信已登录到所需的账户,请点击橙色"Sign Message"按钮。您将在
-钱包扩展应用中看到提示签署以下消息:
+登录并确认节点地址后，您将看到自己的**信号地址**。它应与您登录网站所用的账户相同。继续之前，请仔细检查是否正确。确认已登录所需账户后，点击橙色的“Sign Message”按钮。您的钱包扩展应用会提示您签署以下消息：
 
 ```
-`snapshot signalling address` may delegate to me for Rocket Pool governance
+`node address` may delegate to me for Rocket Pool governance
 ```
 
-签名不会花费您任何 gas,但设置会。签名后,前端将为您提供一个命令以粘贴到
-smartnode 中。继续将其粘贴到 smartnode 的 CLI 中并按照提示的步骤操作。该命令应该看起来
-类似这样:
+签名本身不会花费 gas，但设置地址会花费。签名后，前端会提供一条命令供您粘贴到 smartnode。将其粘贴到 smartnode 的 CLI 中，然后按照提示操作。该命令应类似于：
 
 ```shell
 rocketpool pdao set-signalling-address
-`snapshot signalling address`
-`EIP712 signature`
+`signalling address`
+`signature`
 ```
 
-如果您在 CLI 中看到此消息,就完成了!
+如果 CLI 中出现以下消息，就表示设置完成！
 
 ```
-The node's signalling address was successfully set to `snapshot signalling address`
+The node's signalling address was successfully set to `signalling address`
 ```
 
 :::tip 提示
-如果您不小心关闭了网站或丢失了命令,不用担心。您可以简单地重复这些步骤并**使用相同的节点地址和信号地址再次签名**。前端使用 ethers
-库中的 `signer.Signmessage()`,这意味着给定相同的输入,您的签名是确定性的。
+如果您不小心关闭了网站或丢失了命令，不用担心。只需重复这些步骤，并**使用相同的节点地址和信号地址再次签名**。前端使用 ethers 库中的 `signer.Signmessage()`，这意味着在输入相同的情况下，签名是确定的。
 点击[此处](https://docs.ethers.org/v6/api/providers/#cid_865)了解更多。
 :::
 
-清除信号地址非常简单,只需在 CLI 中使用此命令:
+清除信号地址非常简单，只需在 CLI 中使用此命令：
 
 ```shell
 rocketpool pdao clear-signalling-address

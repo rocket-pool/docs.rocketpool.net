@@ -173,16 +173,22 @@ Ethereum Foundationのウォレットセキュリティの基本については[
 変更するには、**アクティブな**primary withdrawal address（先ほど切り替えたもの）から署名されたトランザクションを送信する必要があります。
 Rocket Poolウェブサイトには、これを支援する機能があります。
 
-## Snapshot Signalling Addressの設定
+## Signalling Addressの設定
 
-Snapshot signalling addressを設定すると、ブラウザまたはモバイルデバイスでSnapshot投票に参加できるようになります。ノードキーをホットウォレットに公開する必要はありません。
+signalling addressを設定すると、ノードキーをホットウォレットに公開することなく、ブラウザまたはモバイルデバイスから
+[RocketDash](https://rocketdash.net/vote)のオフチェーンガバナンス投票に参加できます。
+
+:::tip NOTE
+RocketDashは、Rocket Poolのオフチェーンガバナンス投票においてSnapshotに代わるものです。signalling addressはオンチェーンに保存されるため、
+Snapshot用にすでに設定している場合はRocketDashでもそのアドレスが使用され、再設定する必要はありません。
+:::
 
 準備するものがいくつかあります:
 
 - ノードのアドレス
-- snapshot投票に使用したいアドレス（signalling address）
+- オフチェーン投票に使用したいアドレス（signalling address）
 
-ノードのアドレスが新しいアドレスに委任できることを示すメッセージに署名します。このメッセージは、ウォレットアドレスをSnapshot signalling addressとして使用する意図を示します。
+ノードのアドレスが新しいアドレスに委任できることを示すメッセージに署名します。このメッセージは、ウォレットアドレスをsignalling addressとして使用する意図を示します。
 
 以下のタブから使用しているネットワークを選択してください。
 
@@ -195,7 +201,7 @@ Snapshot signalling addressを設定すると、ブラウザまたはモバイ�
 
 :::danger 警告
 ノードの秘密鍵をホットウォレットに読み込まないでください。signalling addressとして別のアカウントを選択してください。
-signalling addressを設定した後、ノードの投票力でSnapshotで投票するために使用できます。
+signalling addressを設定した後、ノードの投票権を使用してRocketDashで投票できます。
 :::
 
 まず、**signalling addressとして使用したいアドレスを接続して**ウェブサイトにMetaMask、WalletConnect、またはウェブサイトがサポートする他の方法を使用して接続します。次のダイアログが表示され、ノードアドレスを検索できます。
@@ -206,24 +212,24 @@ signalling addressを設定した後、ノードの投票力でSnapshotで投票
 **これを行う前に正しいノードアドレスを持っていることを確認してください！**ノードのアドレスを確認する必要がある場合は、`rocketpool node status`コマンドを使用してCLI経由ですばやく取得できます。
 :::
 
-サインインしてノードアドレスを確認すると、**Snapshot signalling address**が表示されます。これはサイトにサインインしたアカウントと同じである必要があります。続行する前にこれが正しいことを再確認してください。目的のアカウントにサインインしていることを確認したら、オレンジ色の「Sign Message」ボタンをクリックします。ウォレット拡張アプリで次のメッセージに署名するよう求められます:
+サインインしてノードアドレスを確認すると、**signalling address**が表示されます。これはサイトにサインインしたアカウントと同じである必要があります。続行する前にこれが正しいことを再確認してください。目的のアカウントにサインインしていることを確認したら、オレンジ色の「Sign Message」ボタンをクリックします。ウォレット拡張アプリで次のメッセージに署名するよう求められます:
 
 ```
-`snapshot signalling address` may delegate to me for Rocket Pool governance
+`node address` may delegate to me for Rocket Pool governance
 ```
 
 署名にはガスはかかりませんが、設定にはかかります。署名後、フロントエンドはsmartnodeに貼り付けるコマンドを提供します。それをsmartnodeのCLIに貼り付け、プロンプトに従ってください。コマンドは次のようになります:
 
 ```shell
 rocketpool pdao set-signalling-address
-`snapshot signalling address`
-`EIP712 signature`
+`signalling address`
+`signature`
 ```
 
 CLIでこのメッセージが表示されたら、完了です！
 
 ```
-The node's signalling address was successfully set to `snapshot signalling address`
+The node's signalling address was successfully set to `signalling address`
 ```
 
 :::tip ヒント

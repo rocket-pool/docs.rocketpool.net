@@ -6,7 +6,7 @@ next:
 
 # Panoramica
 
-Questa sezione descrive il processo di configurazione del tuo nodo per partecipare a proposte on-chain e Snapshot. C'è molto da comprendere, quindi consigliamo vivamente di leggere una panoramica dell'[Houston Upgrade](/it/legacy/houston/whats-new). Questo ti aiuterà a comprendere le ultime funzionalità che abilitano la governance on-chain e come puoi partecipare nel plasmare il protocollo.
+Questa sezione descrive il processo di configurazione del tuo nodo per partecipare alle proposte on-chain e off-chain ([RocketDash](https://rocketdash.net/vote)). C'è molto da comprendere, quindi consigliamo vivamente di leggere una panoramica dell'[Houston Upgrade](/it/legacy/houston/whats-new). Questo ti aiuterà a comprendere le ultime funzionalità che abilitano la governance on-chain e come puoi partecipare nel plasmare il protocollo.
 
 ## Prerequisiti
 
@@ -21,9 +21,9 @@ Prima di configurare il tuo Smart Node, assicurati di:
 
 ## Ci sono tre indirizzi coinvolti nel voto
 
-- Indirizzo di segnalazione pDAO — verrà utilizzato come tuo indirizzo Snapshot, se vuoi votare direttamente o se vuoi sovrascrivere il voto Snapshot del tuo delegato. Questo indirizzo è utilizzato solo per Snapshot, non per il voto on-chain.
+- Indirizzo di segnalazione pDAO — verrà utilizzato come tuo indirizzo RocketDash, se vuoi votare direttamente o se vuoi sovrascrivere il voto off-chain del tuo delegato. Questo indirizzo è utilizzato solo per il voto off-chain su RocketDash, non per il voto on-chain.
 
-- Nodo delegato pDAO — se scegli di delegare il tuo voto. Lo imposterai sull'indirizzo del nodo del tuo delegato. Se scegli un delegato, questi voterà per te su Snapshot e per le proposte on-chain.
+- Nodo delegato pDAO — se scegli di delegare il tuo voto. Lo imposterai sull'indirizzo del nodo del tuo delegato. Se scegli un delegato, questi voterà per te su RocketDash e per le proposte on-chain.
 
 - Indirizzo del nodo — se non hai delegato il tuo voto o se desideri sovrascrivere il voto on-chain del tuo delegato, puoi farlo dal tuo nodo.
 
@@ -35,7 +35,7 @@ Prima di configurare il tuo Smart Node, assicurati di:
 
 [Inizializzazione del potere di voto](/it/pdao/participate#inizializzare-il-voto) ti mostra come inizializzare il potere di voto del tuo nodo. Questo passaggio è richiesto solo se il tuo nodo è stato registrato prima dell'Houston Upgrade.
 
-[Impostazione dell'indirizzo di segnalazione Snapshot](/it/pdao/participate#impostare-lindirizzo-di-segnalazione-snapshot) ti guiderà attraverso i passaggi per impostare un indirizzo di segnalazione. Ti consentirà di votare su Snapshot utilizzando il potere di voto del tuo nodo senza dover caricare la chiave privata del tuo nodo su un wallet caldo. Assicurati di avere a portata di mano il tuo Smart Node CLI e prepara un indirizzo (che non sia il tuo wallet nodo) per questa guida.
+[Impostazione dell'indirizzo di segnalazione](/it/pdao/participate#impostare-lindirizzo-di-segnalazione) ti guiderà attraverso i passaggi per impostare un indirizzo di segnalazione. Ti consentirà di votare su RocketDash utilizzando il potere di voto del tuo nodo senza dover caricare la chiave privata del tuo nodo su un hot wallet. Assicurati di avere a portata di mano la CLI dello Smart Node e prepara un indirizzo (che non sia il wallet del tuo nodo) per questa guida.
 
 [Delegare il potere di voto](/it/pdao/participate#delegare-il-potere-di-voto) è un rapido comando che puoi utilizzare per delegare il potere di voto invece di votare direttamente sulle proposte.
 

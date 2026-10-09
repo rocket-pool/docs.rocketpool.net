@@ -173,18 +173,23 @@ Depois disso, você **não poderá mais alterar seu endereço de retirada primá
 Para alterá-lo, você precisará enviar uma transação assinada do seu endereço de retirada primário **ativo** (aquele para o qual você acabou de mudar).
 O site da Rocket Pool tem uma função para ajudá-lo a fazer isso.
 
-## Definindo seu Endereço de Sinalização Snapshot
+## Definindo seu Endereço de Sinalização
 
-Definir seu endereço de sinalização Snapshot permitirá que você participe de votações Snapshot em um navegador ou dispositivo móvel
-sem ter que expor as chaves do nó a uma carteira quente.
+Definir seu endereço de sinalização permitirá que você participe de votações de governança off-chain no
+[RocketDash](https://rocketdash.net/vote) em um navegador ou dispositivo móvel, sem precisar expor as chaves do nó a uma carteira quente.
+
+:::tip NOTA
+O RocketDash substituiu o Snapshot nas votações de governança off-chain da Rocket Pool. Seu endereço de sinalização é armazenado on-chain;
+portanto, se você já definiu um para o Snapshot, o RocketDash também o utiliza e não é necessário defini-lo novamente.
+:::
 
 Há algumas coisas para preparar:
 
 - O endereço do seu nó
-- Um endereço que você deseja usar para votação snapshot (endereço de sinalização)
+- Um endereço que você deseja usar para votações off-chain (endereço de sinalização)
 
-Você estará assinando uma mensagem dizendo que o endereço do seu nó pode delegar ao novo endereço. Esta mensagem declara sua
-intenção de usar o endereço da sua carteira como um endereço de sinalização Snapshot.
+Você assinará uma mensagem dizendo que o endereço do seu nó pode delegar ao novo endereço. Essa mensagem declara sua
+intenção de usar o endereço da sua carteira como endereço de sinalização.
 
 Selecione qual rede você está usando em uma das abas abaixo.
 
@@ -197,54 +202,54 @@ Selecione qual rede você está usando em uma das abas abaixo.
 
 :::danger AVISO
 Não carregue a chave privada do seu nó em uma carteira quente. Escolha outra conta para ser seu endereço de sinalização.
-Depois de definir o endereço de sinalização, você pode usá-lo para votar no Snapshot com o poder de voto do seu nó.
+Depois de definir o endereço de sinalização, você poderá usá-lo para votar no RocketDash com o poder de voto do seu nó.
 :::
 
 Comece **conectando o endereço que você deseja usar como endereço de sinalização** ao site usando MetaMask,
-WalletConnect ou qualquer um dos outros métodos que o site suporta. Você será então apresentado com esta caixa de diálogo para procurar
-seu endereço de nó.
+WalletConnect ou qualquer um dos outros métodos que o site suporta. Você verá uma caixa de diálogo para procurar
+o endereço do seu nó.
 
-Em seguida, você digitará seu endereço de nó e clicará no botão laranja "Find". Isso verificará se o endereço é um
-nó registrado e então o levará para a próxima etapa.
+Em seguida, insira o endereço do seu nó e clique no botão laranja "Find". Isso verificará se o endereço é um
+nó registrado e levará você à próxima etapa.
 
 :::tip DICA
-**Certifique-se de ter o endereço de nó correto antes de fazer isso!** se você precisar confirmar o endereço do seu nó, você pode
-recuperá-lo rapidamente via CLI usando o comando `rocketpool node status`.
+**Certifique-se de ter o endereço de nó correto antes de fazer isso!** Se precisar confirmar o endereço do seu nó, você pode
+recuperá-lo rapidamente pelo CLI usando o comando `rocketpool node status`.
 :::
 
-Depois de fazer login e confirmar o endereço do seu nó, você verá seu **endereço de sinalização Snapshot**. Deve ser o
+Depois de fazer login e confirmar o endereço do seu nó, você verá seu **endereço de sinalização**. Ele deve ser o
 mesmo da conta com a qual você entrou no site. Verifique se isso está correto antes de prosseguir. Quando tiver
 certeza de que está conectado à conta desejada, clique no botão laranja "Sign Message". Você verá um prompt no
 aplicativo de extensão da sua carteira para assinar a seguinte mensagem:
 
 ```
-`snapshot signalling address` may delegate to me for Rocket Pool governance
+`node address` may delegate to me for Rocket Pool governance
 ```
 
-Assinar não custará nenhum gas, mas definir custará. Depois de assinar, o frontend fornecerá um comando para colar no
-smartnode. Vá em frente e cole-o no CLI do seu smartnode e siga as etapas solicitadas. O comando deve se parecer
+Assinar não custará nenhum gas, mas definir o endereço custará. Depois de assinar, o frontend fornecerá um comando para colar no
+Smart Node. Cole-o no CLI do Smart Node e siga as etapas solicitadas. O comando deve se parecer
 com isto:
 
 ```shell
 rocketpool pdao set-signalling-address
-`snapshot signalling address`
-`EIP712 signature`
+`signalling address`
+`signature`
 ```
 
 Se você vir esta mensagem em seu CLI, está tudo pronto!
 
 ```
-The node's signalling address was successfully set to `snapshot signalling address`
+The node's signalling address was successfully set to `signalling address`
 ```
 
 :::tip DICA
-Não se preocupe se você fechar acidentalmente o site ou perder o rastro do comando. Você pode simplesmente repetir as etapas e **assinar
+Não se preocupe se você fechar acidentalmente o site ou perder o comando. Basta repetir as etapas e **assinar
 novamente usando o mesmo endereço de nó e endereço de sinalização**. O frontend usa `signer.Signmessage()` da biblioteca ethers,
-o que significa que sua assinatura é determinística dado o mesmo input.
+o que significa que sua assinatura é determinística para a mesma entrada.
 Clique [aqui](https://docs.ethers.org/v6/api/providers/#cid_865) para saber mais.
 :::
 
-Limpar seu endereço de sinalização é bem fácil, basta usar este comando no CLI:
+Limpar seu endereço de sinalização é bem fácil; basta usar este comando no CLI:
 
 ```shell
 rocketpool pdao clear-signalling-address

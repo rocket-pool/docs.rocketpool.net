@@ -173,16 +173,22 @@ Sobald dies erledigt ist, können Sie **Ihre primäre Auszahlungsadresse nicht m
 Um sie zu ändern, müssen Sie eine signierte Transaktion von Ihrer **aktiven** primären Auszahlungsadresse (derjenigen, zu der Sie gerade gewechselt sind) senden.
 Die Rocket Pool-Website verfügt über eine Funktion, die Ihnen dabei hilft.
 
-## Ihre Snapshot-Signalisierungsadresse festlegen
+## Ihre Signalling Address festlegen
 
-Das Festlegen Ihrer Snapshot-Signalisierungsadresse ermöglicht es Ihnen, an Snapshot-Abstimmungen auf einem Browser oder Mobilgerät teilzunehmen, ohne Node-Schlüssel einem Hot Wallet aussetzen zu müssen.
+Das Festlegen Ihrer Signalling Address ermöglicht Ihnen, von einem Browser oder Mobilgerät aus an off-chain Governance-Abstimmungen auf
+[RocketDash](https://rocketdash.net/vote) teilzunehmen, ohne Node-Schlüssel einem Hot Wallet aussetzen zu müssen.
+
+:::tip HINWEIS
+RocketDash hat Snapshot für die off-chain Governance-Abstimmungen von Rocket Pool ersetzt. Ihre Signalling Address wird on-chain gespeichert.
+Wenn Sie bereits eine für Snapshot festgelegt haben, verwendet RocketDash diese ebenfalls und Sie müssen sie nicht erneut festlegen.
+:::
 
 Es gibt ein paar Dinge vorzubereiten:
 
 - Die Adresse Ihres Nodes
-- Eine Adresse, die Sie für Snapshot-Abstimmungen verwenden möchten (Signalisierungsadresse)
+- Eine Adresse, die Sie für off-chain Abstimmungen verwenden möchten (Signalling Address)
 
-Sie signieren eine Nachricht, die besagt, dass die Adresse Ihres Nodes an die neue Adresse delegieren kann. Diese Nachricht drückt Ihre Absicht aus, Ihre Wallet-Adresse als Snapshot-Signalisierungsadresse zu verwenden.
+Sie signieren eine Nachricht, die besagt, dass die Adresse Ihres Nodes an die neue Adresse delegieren kann. Diese Nachricht drückt Ihre Absicht aus, Ihre Wallet-Adresse als Signalling Address zu verwenden.
 
 Wählen Sie aus einem der folgenden Tabs aus, welches Netzwerk Sie verwenden.
 
@@ -194,11 +200,11 @@ Wählen Sie aus einem der folgenden Tabs aus, welches Netzwerk Sie verwenden.
 </div>
 
 :::danger WARNUNG
-Laden Sie den privaten Schlüssel Ihres Nodes nicht in ein Hot Wallet. Bitte wählen Sie ein anderes Konto als Ihre Signalisierungsadresse.
-Nachdem Sie die Signalisierungsadresse festgelegt haben, können Sie damit auf Snapshot mit der Abstimmungskraft Ihres Nodes abstimmen.
+Laden Sie den privaten Schlüssel Ihres Nodes nicht in ein Hot Wallet. Bitte wählen Sie ein anderes Konto als Ihre Signalling Address.
+Nachdem Sie die Signalling Address festgelegt haben, können Sie damit auf RocketDash mit der Stimmkraft Ihres Nodes abstimmen.
 :::
 
-Beginnen Sie damit, **die Adresse, die Sie als Signalisierungsadresse verwenden möchten**, mit der Website über MetaMask, WalletConnect oder eine der anderen von der Website unterstützten Methoden zu verbinden. Ihnen wird dann dieser Dialog angezeigt, um Ihre Node-Adresse nachzuschlagen.
+Beginnen Sie damit, **die Adresse, die Sie als Signalling Address verwenden möchten**, über MetaMask, WalletConnect oder eine der anderen von der Website unterstützten Methoden mit der Website zu verbinden. Ihnen wird dann dieser Dialog angezeigt, um Ihre Node-Adresse nachzuschlagen.
 
 Als Nächstes geben Sie Ihre Node-Adresse ein und klicken auf die orangefarbene Schaltfläche „Find". Dies prüft, ob die Adresse ein registrierter Node ist, und führt Sie dann zum nächsten Schritt.
 
@@ -206,32 +212,32 @@ Als Nächstes geben Sie Ihre Node-Adresse ein und klicken auf die orangefarbene 
 **Stellen Sie sicher, dass Sie die richtige Node-Adresse haben, bevor Sie dies tun!** Wenn Sie Ihre Node-Adresse bestätigen müssen, können Sie sie schnell über die CLI mit dem Befehl `rocketpool node status` abrufen.
 :::
 
-Sobald Sie sich angemeldet und Ihre Node-Adresse bestätigt haben, sehen Sie Ihre **Snapshot-Signalisierungsadresse**. Sie sollte mit dem Konto übereinstimmen, mit dem Sie sich auf der Website angemeldet haben. Überprüfen Sie dies, bevor Sie fortfahren. Sobald Sie sicher sind, dass Sie mit dem gewünschten Konto angemeldet sind, klicken Sie auf die orangefarbene Schaltfläche „Sign Message". Sie sehen eine Aufforderung in Ihrer Wallet-Erweiterung, die folgende Nachricht zu signieren:
+Sobald Sie sich angemeldet und Ihre Node-Adresse bestätigt haben, sehen Sie Ihre **Signalling Address**. Sie sollte mit dem Konto übereinstimmen, mit dem Sie sich auf der Website angemeldet haben. Überprüfen Sie dies, bevor Sie fortfahren. Sobald Sie sicher sind, dass Sie mit dem gewünschten Konto angemeldet sind, klicken Sie auf die orangefarbene Schaltfläche „Sign Message". Sie sehen eine Aufforderung in Ihrer Wallet-Erweiterung, die folgende Nachricht zu signieren:
 
 ```
-`snapshot signalling address` may delegate to me for Rocket Pool governance
+`node address` may delegate to me for Rocket Pool governance
 ```
 
 Das Signieren kostet Sie kein Gas, aber das Festlegen schon. Nachdem Sie signiert haben, gibt Ihnen das Frontend einen Befehl zum Einfügen in den Smart Node. Fügen Sie ihn in die CLI Ihres Smart Nodes ein und folgen Sie den angezeigten Schritten. Der Befehl sollte etwa so aussehen:
 
 ```shell
 rocketpool pdao set-signalling-address
-`snapshot signalling address`
-`EIP712 signature`
+`signalling address`
+`signature`
 ```
 
 Wenn Sie diese Nachricht in Ihrer CLI sehen, sind Sie fertig!
 
 ```
-The node's signalling address was successfully set to `snapshot signalling address`
+The node's signalling address was successfully set to `signalling address`
 ```
 
 :::tip TIPP
-Machen Sie sich keine Sorgen, wenn Sie die Website versehentlich schließen oder den Befehl verlieren. Sie können die Schritte einfach wiederholen und **erneut mit derselben Node-Adresse und Signalisierungsadresse signieren**. Das Frontend verwendet `signer.Signmessage()` aus der ethers-Bibliothek, was bedeutet, dass Ihre Signatur bei derselben Eingabe deterministisch ist.
+Machen Sie sich keine Sorgen, wenn Sie die Website versehentlich schließen oder den Befehl verlieren. Sie können die Schritte einfach wiederholen und **erneut mit derselben Node-Adresse und Signalling Address signieren**. Das Frontend verwendet `signer.Signmessage()` aus der ethers-Bibliothek, was bedeutet, dass Ihre Signatur bei derselben Eingabe deterministisch ist.
 Klicken Sie [hier](https://docs.ethers.org/v6/api/providers/#cid_865), um mehr zu erfahren.
 :::
 
-Das Löschen Ihrer Signalisierungsadresse ist ziemlich einfach, verwenden Sie einfach diesen Befehl in der CLI:
+Das Löschen Ihrer Signalling Address ist ziemlich einfach. Verwenden Sie einfach diesen Befehl in der CLI:
 
 ```shell
 rocketpool pdao clear-signalling-address

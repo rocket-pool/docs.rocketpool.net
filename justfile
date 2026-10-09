@@ -5,7 +5,6 @@ alias s := ui-serve
 alias serve := ui-serve
 alias chk := ui-check
 alias u := ui-upgrade
-alias t := translate-check
 
 # Serve the site for dev usage
 ui-serve:

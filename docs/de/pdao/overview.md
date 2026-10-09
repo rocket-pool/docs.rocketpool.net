@@ -6,7 +6,7 @@ next:
 
 # Übersicht
 
-Dieser Abschnitt beschreibt den Prozess zur Einrichtung Ihres Knotens, um an on-chain und snapshot Vorschlägen teilzunehmen. Es gibt viel zu entpacken, daher empfehlen wir dringend, eine Übersicht über das [Houston Upgrade](/de/legacy/houston/whats-new) zu lesen. Dies wird Ihnen helfen, die neuesten Funktionen zu verstehen, die on-chain Governance ermöglichen und wie Sie an der Gestaltung des Protokolls teilnehmen können.
+Dieser Abschnitt beschreibt den Prozess zur Einrichtung Ihres Knotens, um an on-chain und off-chain Vorschlägen ([RocketDash](https://rocketdash.net/vote)) teilzunehmen. Es gibt viel zu entpacken, daher empfehlen wir dringend, eine Übersicht über das [Houston Upgrade](/de/legacy/houston/whats-new) zu lesen. Dies wird Ihnen helfen, die neuesten Funktionen zu verstehen, die on-chain Governance ermöglichen und wie Sie an der Gestaltung des Protokolls teilnehmen können.
 
 ## Voraussetzungen
 
@@ -21,9 +21,9 @@ Bevor Sie Ihren Smart Node konfigurieren, stellen Sie bitte sicher, dass Sie:
 
 ## Es gibt drei Adressen, die am Abstimmen beteiligt sind
 
-- pDAO Signalling Address — wird als Ihre snapshot Adresse verwendet, wenn Sie direkt abstimmen möchten oder wenn Sie die snapshot Abstimmung Ihres Delegierten überschreiben möchten. Diese Adresse wird nur für snapshot verwendet, nicht für on-chain Abstimmungen.
+- pDAO Signalling Address — wird als Ihre RocketDash-Adresse verwendet, wenn Sie direkt abstimmen oder die off-chain Stimme Ihres Delegierten überschreiben möchten. Diese Adresse wird nur für off-chain Abstimmungen auf RocketDash verwendet, nicht für on-chain Abstimmungen.
 
-- pDAO Delegate Node — wenn Sie Ihre Stimme delegieren möchten. Sie werden dies auf die Knotenadresse Ihres Delegierten setzen. Wenn Sie einen Delegierten wählen, wird dieser für Sie auf snapshot und für on-chain Vorschläge abstimmen.
+- pDAO Delegate Node — wenn Sie Ihre Stimme delegieren möchten. Sie werden dies auf die Knotenadresse Ihres Delegierten setzen. Wenn Sie einen Delegierten wählen, wird dieser für Sie auf RocketDash und über on-chain Vorschläge abstimmen.
 
 - Node Address — wenn Sie Ihre Stimme nicht delegiert haben oder wenn Sie die on-chain Abstimmung Ihres Delegierten überschreiben möchten, können Sie dies von Ihrem Knoten aus tun.
 
@@ -35,7 +35,7 @@ Bevor Sie Ihren Smart Node konfigurieren, stellen Sie bitte sicher, dass Sie:
 
 [Initialisierung der Stimmkraft](/de/pdao/participate#initialisierung-der-abstimmung) zeigt Ihnen, wie Sie die Stimmkraft Ihres Knotens initialisieren. Dieser Schritt ist nur erforderlich, wenn Ihr Knoten vor dem Houston Upgrade registriert wurde.
 
-[Festlegen Ihrer Snapshot Signalling Address](/de/pdao/participate#festlegen-ihrer-snapshot-signalling-address) führt Sie durch die Schritte zum Festlegen einer Signalling Address. Es ermöglicht Ihnen, auf snapshot mit der Stimmkraft Ihres Knotens abzustimmen, ohne den privaten Schlüssel Ihres Knotens in eine Hot Wallet laden zu müssen. Stellen Sie sicher, dass Sie Ihre Smart Node CLI zur Hand haben und bereiten Sie eine Adresse (die nicht Ihre Knoten-Wallet ist) für diesen Leitfaden vor.
+[Ihre Signalling Address festlegen](/de/pdao/participate#ihre-signalling-address-festlegen) führt Sie durch die Schritte zum Festlegen einer Signalling Address. Damit können Sie auf RocketDash mit der Stimmkraft Ihres Knotens abstimmen, ohne den privaten Schlüssel Ihres Knotens in eine Hot Wallet laden zu müssen. Halten Sie Ihre Smart Node CLI bereit und bereiten Sie für diesen Leitfaden eine Adresse vor, die nicht Ihre Knoten-Wallet ist.
 
 [Delegierung der Stimmkraft](/de/pdao/participate#delegierung-der-stimmkraft) ist ein schneller Befehl, den Sie verwenden können, um Stimmkraft zu delegieren, anstatt direkt über Vorschläge abzustimmen.
 

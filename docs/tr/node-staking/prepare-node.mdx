@@ -173,18 +173,22 @@ Bu işlem tamamlandıktan sonra, **artık `set-primary-withdrawal-address` komut
 Değiştirmek için **etkin** birincil çekim adresinizden (az önce geçtiğiniz adresten) imzalı bir işlem göndermeniz gerekecektir.
 Rocket Pool web sitesinde bunu yapmanıza yardımcı olacak bir işlev vardır.
 
-## Snapshot Sinyal Adresinizi Ayarlama
+## Signalling Address'inizi Ayarlama
 
-Snapshot sinyal adresinizi ayarlamak, node anahtarlarını bir hot wallet'a maruz bırakmak zorunda kalmadan bir tarayıcıda veya mobil cihazda Snapshot oylamalarına katılmanızı sağlayacaktır.
+Signalling address'inizi ayarlamak, düğüm anahtarlarını bir hot wallet'a maruz bırakmak zorunda kalmadan bir tarayıcıdan veya mobil cihazdan [RocketDash](https://rocketdash.net/vote) üzerindeki off-chain yönetişim oylamalarına katılmanızı sağlar.
+
+:::tip NOT
+Rocket Pool'un off-chain yönetişim oylamalarında Snapshot'ın yerini RocketDash aldı. Signalling address'iniz on-chain olarak saklanır; dolayısıyla daha önce Snapshot için bir adres ayarladıysanız RocketDash de bu adresi kullanır ve yeniden ayarlamanız gerekmez.
+:::
 
 Hazırlamanız gereken birkaç şey vardır:
 
 - Node'unuzun adresi
-- Snapshot oylaması için kullanmak istediğiniz bir adres (sinyal adresi)
+- Off-chain oylama için kullanmak istediğiniz bir adres (signalling address)
 
-Node'unuzun adresinin yeni adrese temsilci verebileceğini söyleyen bir mesaj imzalayacaksınız. Bu mesaj, cüzdan adresinizi Snapshot sinyal adresi olarak kullanma niyetinizi belirtir.
+Node'unuzun adresinin yeni adrese yetki verebileceğini belirten bir mesaj imzalayacaksınız. Bu mesaj, cüzdan adresinizi signalling address olarak kullanma niyetinizi belirtir.
 
-Aşağıdaki sekmelerden hangisini kullandığınızı seçin.
+Aşağıdaki sekmelerden kullandığınız ağı seçin.
 
 <div className="p-3">
   <Tabs>
@@ -194,44 +198,44 @@ Aşağıdaki sekmelerden hangisini kullandığınızı seçin.
 </div>
 
 :::danger UYARI
-Node'unuzun özel anahtarını bir hot wallet'a yüklemeyin. Lütfen sinyal adresiniz olmak üzere başka bir hesap seçin.
-Sinyal adresini ayarladıktan sonra, node'unuzun oylama gücüyle Snapshot'ta oy vermek için kullanabilirsiniz.
+Node'unuzun özel anahtarını bir hot wallet'a yüklemeyin. Lütfen signalling address'iniz olarak başka bir hesap seçin.
+Signalling address'i ayarladıktan sonra, node'unuzun oy gücüyle RocketDash'te oy vermek için bu adresi kullanabilirsiniz.
 :::
 
-MetaMask, WalletConnect veya web sitesinin desteklediği diğer yöntemlerden herhangi birini kullanarak **sinyal adresi olarak kullanmak istediğiniz adresi** web sitesine bağlayarak başlayın. Ardından node adresinizi aramak için bu diyalog sunulacaktır.
+MetaMask, WalletConnect veya web sitesinin desteklediği diğer yöntemlerden herhangi birini kullanarak **signalling address olarak kullanmak istediğiniz adresi** web sitesine bağlayarak başlayın. Ardından node adresinizi aramak için bu iletişim kutusu görüntülenecektir.
 
-Ardından, node adresinizi girecek ve turuncu "Find" düğmesine tıklayacaksınız. Bu, adresin kayıtlı bir node olup olmadığını kontrol edecek ve ardından sizi bir sonraki adıma götürecektir.
+Ardından node adresinizi girip turuncu "Find" düğmesine tıklayın. Bu işlem, adresin kayıtlı bir node olup olmadığını kontrol edip sizi bir sonraki adıma götürecektir.
 
 :::tip İPUCU
-**Bunu yapmadan önce doğru node adresine sahip olduğunuzdan emin olun!** Node'unuzun adresini onaylamanız gerekiyorsa, `rocketpool node status` komutunu kullanarak CLI aracılığıyla hızla alabilirsiniz.
+**Bunu yapmadan önce doğru node adresine sahip olduğunuzdan emin olun!** Node'unuzun adresini doğrulamanız gerekiyorsa `rocketpool node status` komutunu kullanarak CLI aracılığıyla hızla öğrenebilirsiniz.
 :::
 
-Oturum açtıktan ve node adresinizi onayladıktan sonra **Snapshot sinyal adresinizi** göreceksiniz. Siteye oturum açtığınız hesapla aynı olmalıdır. Devam etmeden önce bunun doğru olduğunu iki kez kontrol edin. İstediğiniz hesaba oturum açtığınızdan emin olduğunuzda, turuncu "Sign Message" düğmesine tıklayın. Cüzdan uzantı uygulamanızda aşağıdaki mesajı imzalama istemi göreceksiniz:
+Oturum açıp node adresinizi doğruladıktan sonra **signalling address'inizi** göreceksiniz. Bu adres, sitede oturum açtığınız hesapla aynı olmalıdır. Devam etmeden önce doğru olduğunu iki kez kontrol edin. İstediğiniz hesapta oturum açtığınızdan emin olduğunuzda turuncu "Sign Message" düğmesine tıklayın. Cüzdan uzantısı uygulamanızda aşağıdaki mesajı imzalamanız istenecektir:
 
 ```
-`snapshot signalling address` may delegate to me for Rocket Pool governance
+`node address` may delegate to me for Rocket Pool governance
 ```
 
-İmzalama size gaz maliyeti olmayacak ancak ayarlama olacaktır. İmzaladıktan sonra, frontend size smartnode'a yapıştırmanız için bir komut verecektir. Devam edin ve smartnode'unuzun CLI'sine yapıştırın ve istenilen adımları izleyin. Komut şuna benzer bir şey olmalıdır:
+İmzalama gaz maliyeti oluşturmaz, ancak adresi ayarlamak oluşturur. İmzaladıktan sonra frontend, Smart Node'a yapıştırmanız için bir komut verecektir. Komutu Smart Node CLI'ınıza yapıştırın ve görüntülenen adımları izleyin. Komut şuna benzer:
 
 ```shell
 rocketpool pdao set-signalling-address
-`snapshot signalling address`
-`EIP712 signature`
+`signalling address`
+`signature`
 ```
 
-CLI'nizde bu mesajı görürseniz, hazırsınız!
+CLI'ınızda bu mesajı görürseniz işlem tamamlanmıştır!
 
 ```
-The node's signalling address was successfully set to `snapshot signalling address`
+The node's signalling address was successfully set to `signalling address`
 ```
 
 :::tip İPUCU
-Yanlışlıkla siteyi kapatırsanız veya komutu kaybederseniz endişelenmeyin. Adımları tekrarlayabilir ve **aynı node adresi ve sinyal adresini kullanarak tekrar imzalayabilirsiniz**. Frontend, ethers kütüphanesinden `signer.Signmessage()` kullanır, bu da imzanızın aynı girdi verildiğinde deterministik olduğu anlamına gelir.
-Daha fazla bilgi edinmek için [buraya](https://docs.ethers.org/v6/api/providers/#cid_865) tıklayın.
+Siteyi yanlışlıkla kapatırsanız veya komutu kaybederseniz endişelenmeyin. Adımları tekrarlayıp **aynı node adresini ve signalling address'i kullanarak yeniden imzalayabilirsiniz**. Frontend, ethers kütüphanesindeki `signer.Signmessage()` işlevini kullanır; bu da aynı girdi verildiğinde imzanızın deterministik olduğu anlamına gelir.
+Daha fazla bilgi için [buraya](https://docs.ethers.org/v6/api/providers/#cid_865) tıklayın.
 :::
 
-Sinyal adresinizi temizlemek oldukça kolay, CLI'de bu komutu kullanmanız yeterli:
+Signalling address'inizi temizlemek oldukça kolaydır; CLI'da şu komutu kullanmanız yeterlidir:
 
 ```shell
 rocketpool pdao clear-signalling-address

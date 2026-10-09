@@ -173,18 +173,23 @@ Una volta fatto ciò, **non potrai più cambiare il tuo indirizzo di prelievo pr
 Per cambiarlo, dovrai inviare una transazione firmata dal tuo indirizzo di prelievo primario **attivo** (quello a cui hai appena cambiato).
 Il sito web Rocket Pool ha una funzione per aiutarti a farlo.
 
-## Impostazione del tuo Indirizzo di Segnalazione Snapshot
+## Impostazione del tuo Indirizzo di Segnalazione
 
-Impostare il tuo indirizzo di segnalazione Snapshot ti consentirà di partecipare alle votazioni Snapshot su un browser o dispositivo mobile
-senza dover esporre le chiavi del nodo a un hot wallet.
+Impostare il tuo indirizzo di segnalazione ti consentirà di partecipare alle votazioni di governance off-chain su
+[RocketDash](https://rocketdash.net/vote) da un browser o dispositivo mobile, senza dover esporre le chiavi del nodo a un hot wallet.
+
+:::tip NOTA
+RocketDash ha sostituito Snapshot per le votazioni di governance off-chain di Rocket Pool. Il tuo indirizzo di segnalazione è memorizzato on-chain,
+quindi, se ne hai già impostato uno per Snapshot, RocketDash lo utilizza e non devi impostarlo di nuovo.
+:::
 
 Ci sono alcune cose da preparare:
 
 - L'indirizzo del tuo nodo
-- Un indirizzo che vuoi utilizzare per votare su snapshot (indirizzo di segnalazione)
+- Un indirizzo che vuoi utilizzare per il voto off-chain (indirizzo di segnalazione)
 
-Firmerai un messaggio dicendo che l'indirizzo del tuo nodo può delegare al nuovo indirizzo. Questo messaggio indica la tua
-intenzione di utilizzare il tuo indirizzo wallet come indirizzo di segnalazione Snapshot.
+Firmerai un messaggio che autorizza l'indirizzo del tuo nodo a delegare al nuovo indirizzo. Questo messaggio esprime la tua
+intenzione di utilizzare l'indirizzo del tuo wallet come indirizzo di segnalazione.
 
 Seleziona la rete che stai utilizzando da una delle schede qui sotto.
 
@@ -197,54 +202,53 @@ Seleziona la rete che stai utilizzando da una delle schede qui sotto.
 
 :::danger ATTENZIONE
 Non caricare la chiave privata del tuo nodo su un hot wallet. Scegli un altro account come indirizzo di segnalazione.
-Dopo aver impostato l'indirizzo di segnalazione, potrai usarlo per votare su Snapshot con il potere di voto del tuo nodo.
+Dopo aver impostato l'indirizzo di segnalazione, potrai usarlo per votare su RocketDash con il potere di voto del tuo nodo.
 :::
 
 Inizia **collegando l'indirizzo che vuoi utilizzare come indirizzo di segnalazione** al sito web usando MetaMask,
-WalletConnect o uno qualsiasi degli altri metodi supportati dal sito web. Ti verrà quindi presentata questa finestra per cercare
-il tuo indirizzo del nodo.
+WalletConnect o uno qualsiasi degli altri metodi supportati dal sito web. Ti verrà quindi presentata una finestra per cercare
+l'indirizzo del tuo nodo.
 
-Successivamente, inserirai l'indirizzo del tuo nodo e poi cliccherai il pulsante arancione "Find". Questo verificherà se l'indirizzo è un nodo
-registrato e poi ti porterà al passaggio successivo.
+Successivamente, inserisci l'indirizzo del tuo nodo e fai clic sul pulsante arancione "Find". Il sito verificherà se l'indirizzo appartiene a un nodo
+registrato e ti porterà al passaggio successivo.
 
 :::tip SUGGERIMENTO
-**Assicurati di avere l'indirizzo del nodo corretto prima di farlo!** se devi confermare l'indirizzo del tuo nodo, puoi
+**Assicurati di avere l'indirizzo del nodo corretto prima di farlo!** Se devi confermare l'indirizzo del tuo nodo, puoi
 recuperarlo rapidamente tramite la CLI usando il comando `rocketpool node status`.
 :::
 
-Una volta effettuato l'accesso e confermato l'indirizzo del tuo nodo, vedrai il tuo **indirizzo di segnalazione Snapshot**. Dovrebbe essere lo
-stesso dell'account con cui hai effettuato l'accesso al sito. Ricontrolla che questo sia corretto prima di procedere. Una volta che sei
-sicuro di aver effettuato l'accesso all'account desiderato, clicca il pulsante arancione "Sign Message". Vedrai un prompt nella
-tua app wallet extension per firmare il seguente messaggio:
+Una volta effettuato l'accesso e confermato l'indirizzo del tuo nodo, vedrai il tuo **indirizzo di segnalazione**. Dovrebbe essere lo
+stesso dell'account con cui hai effettuato l'accesso al sito. Ricontrolla che sia corretto prima di procedere. Quando sei
+sicuro di aver effettuato l'accesso all'account desiderato, fai clic sul pulsante arancione "Sign Message". Nell'estensione
+del tuo wallet vedrai una richiesta di firma per il seguente messaggio:
 
 ```
-`snapshot signalling address` may delegate to me for Rocket Pool governance
+`node address` may delegate to me for Rocket Pool governance
 ```
 
-Firmare non ti costerà alcun gas ma l'impostazione sì. Dopo aver firmato, il frontend ti darà un comando da incollare nello
-smartnode. Vai avanti e incollalo nella CLI del tuo smartnode e segui i passaggi richiesti. Il comando dovrebbe assomigliare
-a qualcosa del genere:
+La firma non comporta costi di gas, ma l'impostazione dell'indirizzo sì. Dopo la firma, il frontend ti fornirà un comando da incollare nello
+Smart Node. Incollalo nella CLI dello Smart Node e segui i passaggi richiesti. Il comando dovrebbe essere simile a questo:
 
 ```shell
 rocketpool pdao set-signalling-address
-`snapshot signalling address`
-`EIP712 signature`
+`signalling address`
+`signature`
 ```
 
-Se vedi questo messaggio nella tua CLI, sei a posto!
+Se vedi questo messaggio nella CLI, hai completato la procedura:
 
 ```
-The node's signalling address was successfully set to `snapshot signalling address`
+The node's signalling address was successfully set to `signalling address`
 ```
 
 :::tip SUGGERIMENTO
-Non preoccuparti se chiudi accidentalmente il sito o perdi traccia del comando. Puoi semplicemente ripetere i passaggi e **firmare
-di nuovo usando lo stesso indirizzo del nodo e indirizzo di segnalazione**. Il frontend usa `signer.Signmessage()` dalla libreria ethers,
-il che significa che la tua firma è deterministica dato lo stesso input.
-Clicca [qui](https://docs.ethers.org/v6/api/providers/#cid_865) per saperne di più.
+Non preoccuparti se chiudi accidentalmente il sito o perdi il comando. Puoi semplicemente ripetere i passaggi e **firmare
+di nuovo usando gli stessi indirizzi del nodo e di segnalazione**. Il frontend usa `signer.Signmessage()` dalla libreria ethers,
+quindi la firma è deterministica a parità di input.
+Fai clic [qui](https://docs.ethers.org/v6/api/providers/#cid_865) per saperne di più.
 :::
 
-Cancellare il tuo indirizzo di segnalazione è abbastanza facile, usa semplicemente questo comando nella CLI:
+Per cancellare il tuo indirizzo di segnalazione, usa semplicemente questo comando nella CLI:
 
 ```shell
 rocketpool pdao clear-signalling-address

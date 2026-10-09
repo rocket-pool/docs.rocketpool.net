@@ -27,8 +27,8 @@ vorbereitet und von designierten RPIP-Reviewern überprüft, um seine Qualität 
 Der Entwurf wird dann der DAO im Forum zur weiteren Überprüfung, Rückmeldung und Einarbeitung notwendiger
 Änderungen vorgestellt. Sobald der Vorschlag auf Basis des Community-Inputs verfeinert wurde, wird eine Umfrage im DAO Forum
 gestartet, um die Bereitschaft zur Finalisierung des RPIP-Texts zu prüfen. Wenn die Umfrage bestanden wird und die Zustimmung der Community anzeigt, wird der RPIP als
-final markiert und ist bereit für eine Protocol DAO Abstimmung, die über snapshot durchgeführt wird, um zu bestimmen, ob der Vorschlag
-implementiert werden soll.
+final markiert und ist bereit für eine off-chain Protocol DAO Abstimmung auf [RocketDash](https://rocketdash.net/vote), um zu bestimmen, ob der Vorschlag
+implementiert werden soll. RocketDash hat Snapshot für diese Abstimmungen ersetzt.
 
 Von hier aus wird die Oracle DAO einen on-chain Vorschlag einreichen. Es gibt ein Zeitfenster, in dem die Protocol DAO, Oracle DAO und
 Community den Vorschlag überprüfen können. Wenn Konsens erreicht wird, wird der Vorschlag ausgeführt und Änderungen werden auf das
@@ -109,52 +109,62 @@ Der **Auto-Init Vote Power Gas Threshold** ist ein Limit (in gwei) für diese au
 Aufgabe deaktivieren, indem Sie den Schwellenwert auf 0 setzen. Fühlen Sie sich frei, sich abzumelden, wenn Ihr Knoten nach dem Houston Upgrade registriert wurde oder wenn
 die Stimmkraft bereits aktiviert ist.
 
-## Festlegen Ihrer Snapshot Signalling Address
+<span id="setting-your-snapshot-signalling-address"></span>
 
-Das Festlegen Ihrer snapshot Signalling Address ermöglicht es Ihnen, an snapshot Abstimmungen auf einem Browser oder Mobilgerät teilzunehmen,
-ohne Knotenschlüssel in eine Hot Wallet laden zu müssen.
+## Ihre Signalling Address festlegen
 
-Es gibt einige Dinge vorzubereiten:
+Das Festlegen Ihrer Signalling Address ermöglicht Ihnen, von einem Browser oder Mobilgerät aus an off-chain Governance-Abstimmungen auf
+[RocketDash](https://rocketdash.net/vote) teilzunehmen, ohne Knotenschlüssel einer Hot Wallet aussetzen zu müssen.
+
+:::tip HINWEIS
+RocketDash hat Snapshot für die off-chain Governance-Abstimmungen von Rocket Pool ersetzt. Ihre Signalling Address wird on-chain gespeichert.
+Wenn Sie bereits eine für Snapshot festgelegt haben, verwendet RocketDash diese ebenfalls und Sie müssen sie nicht erneut festlegen.
+:::
+
+Ihre Signalling Address kann auf RocketDash abstimmen und die Stimme Ihres Delegierten überschreiben, aber sie kann Ihren Delegierten nicht ändern.
+Informationen zum Delegieren finden Sie unter [Delegierung der Stimmkraft](#delegierung-der-stimmkraft).
+
+Es gibt ein paar Dinge vorzubereiten:
 
 - Die Adresse Ihres Knotens
-- Eine Adresse, die Sie für snapshot Abstimmungen verwenden möchten (Signalling Address)
+- Eine Adresse, die Sie für off-chain Abstimmungen verwenden möchten (Signalling Address)
 
-Sie werden eine Nachricht signieren, die besagt, dass die Adresse Ihres Knotens an die neue Adresse delegieren kann. Diese Nachricht erklärt Ihre
-Absicht, Ihre Wallet-Adresse als snapshot Signalling Address zu verwenden.
+Sie signieren eine Nachricht, die besagt, dass die Adresse Ihres Knotens an die neue Adresse delegieren kann. Diese Nachricht drückt Ihre
+Absicht aus, Ihre Wallet-Adresse als Signalling Address zu verwenden.
 
-Wählen Sie aus, welches Netzwerk Sie verwenden, aus einem der untenstehenden Tabs.
+Wählen Sie in den folgenden Tabs das Netzwerk aus, das Sie verwenden.
 
 <div className="p-3">
   <Tabs>
     <Tab label="Hoodi Testnet">Wenn Sie dies auf dem Hoodi Testnet ausprobieren, können Sie auf dieser Seite signieren: https://testnet.node.rocketpool.net/signalling-address</Tab>
-    <Tab label="Mainnet">Wenn Sie bereit sind, dies auf Mainnet zu konfigurieren, gehen Sie stattdessen hier hin: https://node.rocketpool.net/signalling-address</Tab>
+    <Tab label="Mainnet">Wenn Sie bereit sind, dies auf Mainnet zu konfigurieren, gehen Sie stattdessen hierhin: https://node.rocketpool.net/signalling-address</Tab>
   </Tabs>
 </div>
 
 :::danger WARNUNG
 Laden Sie den privaten Schlüssel Ihres Knotens nicht in eine Hot Wallet. Bitte wählen Sie ein anderes Konto als Ihre Signalling Address.
-Nachdem Sie die Signalling Address festgelegt haben, können Sie damit auf snapshot mit der Stimmkraft Ihres Knotens abstimmen.
+Nachdem Sie die Signalling Address festgelegt haben, können Sie damit auf RocketDash mit der Stimmkraft Ihres Knotens abstimmen.
 :::
 
-Beginnen Sie damit, **die Adresse zu verbinden, die Sie als Signalling Address verwenden möchten** mit der Website über MetaMask,
-WalletConnect oder eine der anderen Methoden, die die Website unterstützt. Sie werden dann mit diesem Dialog aufgefordert, Ihre
+Beginnen Sie damit, **die Adresse, die Sie als Signalling Address verwenden möchten**, über MetaMask,
+WalletConnect oder eine der anderen von der Website unterstützten Methoden mit der Website zu verbinden. Ihnen wird dann dieser Dialog angezeigt, um Ihre
 Knotenadresse nachzuschlagen.
 
-Als Nächstes geben Sie Ihre Knotenadresse ein und klicken dann auf die orangefarbene Schaltfläche "Find". Dies überprüft, ob die Adresse ein registrierter
-Knoten ist und bringt Sie dann zum nächsten Schritt.
+Als Nächstes geben Sie Ihre Knotenadresse ein und klicken auf die orangefarbene Schaltfläche „Find". Dies prüft, ob die Adresse ein registrierter
+Knoten ist, und führt Sie dann zum nächsten Schritt.
 
 :::tip TIPP
 **Stellen Sie sicher, dass Sie die richtige Knotenadresse haben, bevor Sie dies tun!** Wenn Sie Ihre Knotenadresse bestätigen müssen, können Sie
 sie schnell über die CLI mit dem Befehl `rocketpool node status` abrufen.
 :::
 
-Sobald Sie sich angemeldet und Ihre Knotenadresse bestätigt haben, sehen Sie Ihre **snapshot Signalling Address**. Sie sollte
-identisch mit dem Konto sein, mit dem Sie sich auf der Website angemeldet haben. Überprüfen Sie dies noch einmal, bevor Sie fortfahren. Sobald Sie
-sicher sind, dass Sie mit dem gewünschten Konto angemeldet sind, klicken Sie auf die orangefarbene Schaltfläche "Sign Message". Sie sehen eine Eingabeaufforderung in
-Ihrer Wallet-Erweiterungs-App, um die folgende Nachricht zu signieren:
+Sobald Sie sich angemeldet und Ihre Knotenadresse bestätigt haben, sehen Sie Ihre **Signalling Address**. Sie sollte
+mit dem Konto übereinstimmen, mit dem Sie sich auf der Website angemeldet haben. Überprüfen Sie dies, bevor Sie fortfahren. Sobald Sie
+sicher sind, dass Sie mit dem gewünschten Konto angemeldet sind, klicken Sie auf die orangefarbene Schaltfläche „Sign Message". Sie sehen in
+Ihrer Wallet-Erweiterung eine Aufforderung, die folgende Nachricht zu signieren:
 
 ```
-`snapshot signalling address` may delegate to me for Rocket Pool governance
+`node address` may delegate to me for Rocket Pool governance
 ```
 
 Das Signieren kostet Sie kein Gas, aber das Festlegen schon. Nachdem Sie signiert haben, gibt Ihnen das Frontend einen Befehl, den Sie in den
@@ -163,24 +173,24 @@ ungefähr so aussehen:
 
 ```shell
 rocketpool pdao set-signalling-address
-`snapshot signalling address`
-`EIP712 signature`
+`signalling address`
+`signature`
 ```
 
 Wenn Sie diese Nachricht in Ihrer CLI sehen, sind Sie fertig!
 
 ```
-The node's signalling address was successfully set to `snapshot signalling address`
+The node's signalling address was successfully set to `signalling address`
 ```
 
 :::tip TIPP
 Machen Sie sich keine Sorgen, wenn Sie die Website versehentlich schließen oder den Befehl verlieren. Sie können die Schritte einfach wiederholen und **erneut
-mit derselben Knotenadresse und Signalling Address signieren**. Das Frontend verwendet `signer.Signmessage()` aus der ethers
+mit derselben Knotenadresse und Signalling Address signieren**. Das Frontend verwendet `signer.Signmessage()` aus der ethers-
 Bibliothek, was bedeutet, dass Ihre Signatur bei gleicher Eingabe deterministisch ist.
 Klicken Sie [hier](https://docs.ethers.org/v6/api/providers/#cid_865), um mehr zu erfahren.
 :::
 
-Das Löschen Ihrer Signalling Address ist ziemlich einfach, verwenden Sie einfach diesen Befehl in der CLI:
+Das Löschen Ihrer Signalling Address ist ziemlich einfach. Verwenden Sie einfach diesen Befehl in der CLI:
 
 ```shell
 rocketpool pdao clear-signalling-address
@@ -213,185 +223,77 @@ Gesperrtes RPL wird nicht auf Schwellenwerte für die Abhebung von RPL angerechn
 
 ## Delegierung der Stimmkraft
 
-Ein Node Operator kann wählen, seine Stimmkraft an einen anderen Node Operator zu delegieren. Die einzige Voraussetzung ist, dass Ihr
+Ein Node Operator kann seine Stimmkraft an einen anderen Node Operator delegieren. Die einzige Voraussetzung ist, dass Ihr
 Delegierter ein registrierter Knoten ist.
 
-Um die on-chain Stimmkraft an einen anderen Knoten zu delegieren, verwenden Sie den folgenden Befehl:
+Um Ihre Stimmkraft an einen anderen Knoten zu delegieren, führen Sie diesen Befehl auf Ihrem Knoten aus:
 
 ```shell
 rocketpool pdao set-voting-delegate `address`
 ```
+
+Ihr Delegierter stimmt sowohl bei on-chain Vorschlägen als auch bei off-chain Abstimmungen auf [RocketDash](https://rocketdash.net/vote) für Sie ab.
+Die Delegierung kann nur von Ihrem Knoten aus festgelegt werden. Sie können weder von Ihrer Signalling Address noch auf RocketDash delegieren.
 
 ::: tip HINWEIS
 Wenn Sie Ihre Stimmkraft an einen anderen Node Operator delegiert haben, können Sie dies zurücksetzen, indem Sie die Delegiertenadresse auf
 die Adresse Ihres eigenen Knotens setzen.
 :::
 
-- Während Phase 1 eines Vorschlags: **Voters** und **Delegates** können ihre Stimme zu einem Vorschlag abgeben.
-- Während Phase 2 eines Vorschlags: **Node Operators**, die ihre Stimme delegiert haben, erhalten die Gelegenheit, die Stimme ihres
-  Delegierten zu überstimmen, wenn sie nicht einverstanden sind.
+### Wann abstimmen
 
-Wenn Sie ein Node Operator mit delegierter Stimmkraft sind, müssen Sie während der Abstimmungsphase 1 abstimmen, damit die delegierte Stimmkraft
-zum Vorschlag zählt. Ihre Stimme in Phase 1 ist Ihre **lokale Stimmkraft + delegierte Stimmkraft** wert. Ihre Stimme in Phase 2 ist nur Ihre **lokale Stimmkraft** wert.
+On-chain Vorschläge haben zwei Abstimmungsphasen. In welcher Phase Sie abstimmen sollten, hängt davon ab, ob Sie Ihre
+Stimmkraft delegiert haben. Diese Phasen gelten nur für on-chain Vorschläge. Off-chain Abstimmungen auf RocketDash haben sie nicht.
 
-## Erstellen eines Vorschlags
+- **Pending:** Noch kann niemand abstimmen.
+- **Phase 1:** Wenn Sie Ihre Stimme nicht delegiert haben, stimmen Sie in dieser Phase ab. Wenn Sie ein Delegierter sind, zählt Ihre Stimme auch
+  für jeden Knoten, der an Sie delegiert hat. Stimmen Sie daher in Phase 1 ab. Andernfalls zählt deren Stimmkraft nur, wenn sie
+  in Phase 2 selbst abstimmen. Wenn Sie Ihre Stimme delegiert haben, stimmt Ihr Delegierter in dieser Phase für Sie ab.
+- **Phase 2:** Wenn Sie Ihre Stimme delegiert haben und mit der Stimme Ihres Delegierten nicht einverstanden sind oder Ihr Delegierter nicht abgestimmt hat,
+  können Sie jetzt selbst abstimmen. Ihre Stimme ersetzt nur für Ihren Anteil die Stimme Ihres Delegierten. Wer noch nicht abgestimmt hat,
+  kann ebenfalls in Phase 2 abstimmen, doch die Stimme zählt nur die eigene Stimmkraft – auch bei einem Delegierten.
 
-Um berechtigt zu sein, einen Vorschlag einzureichen, muss ein Knoten einige Anforderungen erfüllen:
+Im Mainnet befindet sich ein neuer Vorschlag **eine Woche** lang im Status Pending. Anschließend dauern Phase 1 und Phase 2 jeweils **eine Woche**.
+Diese Zeiträume sind pDAO Einstellungen und können durch eine Abstimmung geändert werden. Mit `rocketpool pdao settings` können Sie die aktuellen Werte anzeigen.
 
-- Im Snapshotting enthalten (entweder durch [Initialisierung der Abstimmung](./participate#initialisierung-der-abstimmung) oder durch
-  Registrierung nach Houston)
-- Muss mindestens einen minipool haben
-- Hat eine Stimmkraft ungleich Null
-- Hat [RPL Locking](./participate#zulassen-von-rpl-locking) zugelassen
-- Hat einen RPL Stake (abzüglich bereits gesperrtem RPL) größer als die Vorschlagsbindung
+Ein Knoten kann über einen Vorschlag nur einmal abstimmen, entweder in Phase 1 oder in Phase 2.
 
-Vorschläge existieren, um Parameter zu ändern und Code auf Protokollebene auszuführen! Es sollte Diskussion und Konsens
-durch den [Governance](./participate#governance-prozess) Prozess geben, bevor ein Vorschlag on-chain erstellt wird.
+| Sie sind ...                                                                                      | Wann Sie abstimmen sollten                                                                                                                                     |
+| ------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Sie stimmen für sich selbst ab (Standardeinstellung)                                              | Phase 1. Wenn Sie sie verpassen, können Sie noch in Phase 2 abstimmen.                                                                                         |
+| Ein Delegierter                                                                                   | **Phase 1.** Wenn Sie Phase 1 verpassen, wird die an Sie delegierte Stimmkraft nicht gezählt. Ihre Delegierenden können in Phase 2 weiterhin selbst abstimmen. |
+| Sie haben an einen anderen Knoten delegiert und stimmen seiner Entscheidung zu                    | Sie müssen nicht abstimmen.                                                                                                                                    |
+| Sie haben an einen anderen Knoten delegiert und sind anderer Meinung oder er hat nicht abgestimmt | Phase 2.                                                                                                                                                       |
 
-Verwenden Sie den Befehl `rocketpool pdao propose`, um ein Menü mit Optionen aufzurufen
-
-```
-COMMANDS:
-   rewards-percentages, rp      Propose updating the RPL rewards allocation percentages for node operators, the Oracle DAO, and the Protocol DAO
-   one-time-spend, ots          Propose a one-time spend of the Protocol DAO's treasury
-   recurring-spend, rs          Propose a recurring spend of the Protocol DAO's treasury
-   recurring-spend-update, rsu  Propose an update to an existing recurring spend plan
-   security-council, sc         Modify the security council
-   setting, s                   Make a Protocol DAO setting proposal
-   submit-batch, sb            Submit a single proposal that changes multiple Protocol DAO settings from a JSON file
-```
-
-Jeder dieser Befehle fordert Sie mit einer Liste von Eingaben auf, um Ihren gewünschten Vorschlag zu erstellen. Die Befehle für Einstellungsvorschläge akzeptieren `--to-json`, um eine Einstellungsänderung in eine JSON-Datei zu schreiben oder anzuhängen, anstatt eine Transaktion einzureichen. Wenn die Datei fertig ist, reichen Sie sie mit `rocketpool pdao propose submit-batch` ein.
-
-In diesem Leitfaden werden wir
-einen Knoten zum Security Council einladen, um als Beispiel zu dienen. Um einen Vorschlag einzureichen, einen Knoten zum Security
-Council einzuladen, würden Sie den Befehl verwenden:
+Um zu sehen, in welcher Phase sich ein Vorschlag befindet und ob Sie oder Ihr Delegierter abgestimmt haben, führen Sie Folgendes aus:
 
 ```shell
-rocketpool pdao propose security-council invite
+rocketpool pdao proposals details <proposal-id>
 ```
 
-Beachten Sie, dass dieser Schritt je nach Art des Vorschlags leicht variieren wird. Dieser spezielle Befehl:
-`rocketpool pdao propose security-council invite` fordert Sie auf, eine ID gefolgt von einer Mitgliedsadresse einzugeben.
+Prüfen Sie die Zeilen `State`, `Phase 1 end`, `Phase 2 end`, `Node has voted` und `Delegate has voted`. Sie können die
+Phase jedes Vorschlags auch auf [RocketDash](https://rocketdash.net/pdao-proposals) sehen.
 
-```
-Please enter an ID for the member you'd like to invite: (no spaces)
-test-member
-
-Please enter the member's address:
-0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145
-
-... gas estimations ...
-
-Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council? [y/n]
-```
-
-Nachdem dies in einen Block aufgenommen wurde, wird ein pDAO Vorschlag erstellt! Der Vorschlag tritt
-in die [Vote Delay Period](./pdao#vote-delay-period) bei Erstellung ein.
-
-## Anzeigen des Status eines Vorschlags
-
-Jedem Vorschlag wird eine `proposalID` zugewiesen. In diesem Fall wird unser Vorschlag, `0xBdbc...` zum Security Council einzuladen, mit
-`ID 71` dargestellt. Es gibt einige Möglichkeiten, den Status des Vorschlags anzuzeigen. Eine Methode zeigt eine Liste von
-jedem pDAO Vorschlag zusammen mit seinem Status an (ausstehend, erfolgreich, ausgeführt usw.). Die zweite Methode zeigt detaillierte
-Details zu einem bestimmten Vorschlag an.
-
-<div className="p-3">
-  <Tabs>
-    <Tab label="Anzeigen einer Liste von Vorschlägen">
-      Um alle Vorschläge aufzulisten, verwenden Sie den folgenden Befehl:
-
-      ```shell
-      rocketpool pdao proposals list
-      ```
-
-      Dies zeigt eine Liste aller Vorschläge und ihren Status an
-
-      ```
-      1 Pending proposal(s):
-
-      71: invite test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council - Proposed by:
-      0x681B8BBf08708e64694005c7Dc307b381b4D1A7D
-
-      Succeeded proposal(s):
-
-      Executed proposal(s):
-
-      Destroyed proposal(s):
-
-      Quorum not Met proposal(s):
-
-      Defeated proposal(s):
-
-      Expired proposal(s):
-
-      ```
-
-      Hier können wir sehen, dass unser Vorschlag `invite test-member` eine ID von 71 hat und sich im ausstehenden Zustand befindet. In diesem Zustand
-      können [Challengers](/de/pdao/pdao#challenge-process) die Gültigkeit des
-      Merkle Pollard (zur Berechnung der Stimmkraft) anfechten, der vom Proposer bereitgestellt wurde. Wenn `proposal.vote.delay.time` endet,
-      geht der Vorschlag in aktive Abstimmungsphasen über. Lesen Sie gerne [Lebenszyklus eines
-      Vorschlags](./pdao#lebenszyklus-eines-pdao-vorschlags) zur Auffrischung.
-    </Tab>
-    <Tab label="Anzeigen von Vorschlagsdetails">
-      Jetzt, da Sie die Vorschlags-ID haben, können Sie den Status Ihres Vorschlags mit diesem Befehl anzeigen:
-
-      ```shell
-      rocketpool pdao proposals details `proposal-id`
-      ```
-
-      Hier können Sie alle Informationen in Bezug auf einen bestimmten Vorschlag anzeigen. Zum Beispiel die Ausführungs-
-      Payload, in welcher Phase sich der Vorschlag befindet und die Abstimmungsrichtung.
-
-      ```
-      Proposal ID: 71
-      Message: invite test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council
-      Payload: proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145)
-      Payload (bytes):
-      f944c19f0000000000000000000000000000000000000000000000000000000000000040000000000000000000000000bdbcb42dd8e39323a395b2b72d2c8e7039f1f145000000000000000000000000000000000000000000000000000000000000000b746573742d6d656d626572000000000000000000000000000000000000000000
-      Proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D
-      Created at: 12 Mar 24 06:15 UTC
-      State: Pending
-      Voting start: 12 Mar 24 06:20 UTC
-      Challenge window: 30m0s
-      Voting power required: 90943818825
-      Voting power for: 0
-      Voting power against: 0
-      Voting power abstained: 0
-      Voting power against: 0
-      Node has voted: no
-      ```
-
-      <p className="rspress-directive tip">
-        <p className="rspress-directive-title">HINWEIS</p>
-        Der Status dieses Beispielvorschlags ist `Pending`. Dies zeigt an, dass der Vorschlag angefochten werden kann, bevor
-        er zu `Active (Phase 1)` übergeht. Während des `Pending` Status kann keine Abstimmung stattfinden.
-      </p>
-    </Tab>
-
-  </Tabs>
-</div>
+Wenn Sie mit `rocketpool pdao proposals vote` abstimmen, gibt der Smart Node automatisch die richtige Art von Stimme für die aktuelle Phase ab.
 
 ## Abstimmen über einen Vorschlag
 
 Während einer Abstimmungsperiode können **Node Operators** und **Delegates** mit einer von vier Optionen abstimmen:
 
 ```
-1. Abstain: Die Stimmkraft des Voters trägt zum Quorum bei, ist aber weder für noch gegen den Vorschlag.
-2. For: Der Voter stimmt für die Ausführung des Vorschlags.
-3. Against: Der Voter stimmt gegen die Ausführung des Vorschlags.
-4. Veto: Der Voter stimmt gegen den Vorschlag und zeigt an, dass er den Vorschlag als Spam oder böswillig betrachtet.
+1. Abstain: The voter's voting power is contributed to quorum but is neither for nor against the proposal.
+2. For: The voter votes in favor of the proposal being executed.
+3. Against: The voter votes against the proposal being executed.
+4. Veto: The voter votes against the proposal as well as indicating they deem the proposal as spam or malicious.
 ```
 
-Ihre Stimmkraft wird auf die Option ihrer Wahl angewendet. Stimmkraft ist eine Funktion des "effektiven RPL Stake."
-Eine detailliertere Lektüre finden Sie im
-[rocketpool-research repo](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting).
+Ihre Stimmkraft wird auf die gewählte Option angewendet. Die Stimmkraft ist eine Funktion des „effektiven RPL Stake".
+Eine ausführlichere Beschreibung finden Sie im
+[rocketpool-research Repo](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting).
 
 ::: tip HINWEIS
-Wenn Sie ein Node Operator mit delegierter Stimmkraft sind, müssen Sie während der Abstimmungsphase 1 abstimmen, damit die delegierte Stimmkraft
-zum Vorschlag zählt. Ihre Stimme in Phase 1 ist Ihre lokale Stimmkraft + delegierte Stimmkraft wert.
-Ihre Stimme in Phase 2 ist nur Ihre lokale Stimmkraft wert. Bitte beachten Sie, dass ein Knoten nur einmal über
-einen Vorschlag abstimmen kann, also wählen Sie sorgfältig.
+Ein Knoten kann über einen Vorschlag nur einmal abstimmen. Wählen Sie daher sorgfältig. Welche Phase für Sie die richtige ist, erfahren Sie unter
+[Wann abstimmen](#wann-abstimmen).
 :::
 
 Verwenden Sie diesen Befehl, um eine Stimme abzugeben:
@@ -451,6 +353,144 @@ Node has voted:         In Favor
 Damit das obige Beispiel besteht, muss die Stimmkraft ein Quorum von `140970562215` Stimmkraft überschreiten. Es gibt
 `197980809837` Stimmkraft dafür und keine Stimmen dagegen oder Enthaltungen. Der Vorschlag ist auf Erfolgskurs und bereit
 für die Ausführung bis zum Ende von `proposal.vote.phase2.time`.
+
+## Anzeigen des Status eines Vorschlags
+
+Jedem Vorschlag wird eine `proposalID` zugewiesen. In diesem Fall wird unser Vorschlag, `0xBdbc...` zum Security Council einzuladen, mit
+`ID 71` dargestellt. Es gibt einige Möglichkeiten, den Status des Vorschlags anzuzeigen. Eine Methode zeigt eine Liste von
+jedem pDAO Vorschlag zusammen mit seinem Status an (ausstehend, erfolgreich, ausgeführt usw.). Die zweite Methode zeigt detaillierte
+Details zu einem bestimmten Vorschlag an.
+
+<div className="p-3">
+  <Tabs>
+    <Tab label="Anzeigen einer Liste von Vorschlägen">
+      Um alle Vorschläge aufzulisten, verwenden Sie den folgenden Befehl:
+
+      ```shell
+      rocketpool pdao proposals list
+      ```
+
+      Dies zeigt eine Liste aller Vorschläge und ihren Status an
+
+      ```
+      1 Pending proposal(s):
+
+      71: invite test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council - Proposed by:
+      0x681B8BBf08708e64694005c7Dc307b381b4D1A7D
+
+      Succeeded proposal(s):
+
+      Executed proposal(s):
+
+      Destroyed proposal(s):
+
+      Quorum not Met proposal(s):
+
+      Defeated proposal(s):
+
+      Expired proposal(s):
+
+      ```
+
+      Hier können wir sehen, dass unser Vorschlag `invite test-member` eine ID von 71 hat und sich im ausstehenden Zustand befindet. In diesem Zustand
+      können [Challengers](/de/pdao/pdao#challenge-process) die Gültigkeit des
+      Merkle Pollard (zur Berechnung der Stimmkraft) anfechten, der vom Proposer bereitgestellt wurde. Wenn `proposal.vote.delay.time` endet,
+      geht der Vorschlag in aktive Abstimmungsphasen über. Lesen Sie gerne den [Lebenszyklus eines
+      Vorschlags](./pdao#lebenszyklus-eines-pdao-vorschlags) zur Auffrischung.
+    </Tab>
+    <Tab label="Anzeigen von Vorschlagsdetails">
+      Jetzt, da Sie die Vorschlags-ID haben, können Sie den Status Ihres Vorschlags mit diesem Befehl anzeigen:
+
+      ```shell
+      rocketpool pdao proposals details `proposal-id`
+      ```
+
+      Hier können Sie alle Informationen in Bezug auf einen bestimmten Vorschlag anzeigen. Zum Beispiel die Ausführungs-
+      Payload, in welcher Phase sich der Vorschlag befindet und die Abstimmungsrichtung.
+
+      ```
+      Proposal ID: 71
+      Message: invite test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council
+      Payload: proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145)
+      Payload (bytes):
+      f944c19f0000000000000000000000000000000000000000000000000000000000000040000000000000000000000000bdbcb42dd8e39323a395b2b72d2c8e7039f1f145000000000000000000000000000000000000000000000000000000000000000b746573742d6d656d626572000000000000000000000000000000000000000000
+      Proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D
+      Created at: 12 Mar 24 06:15 UTC
+      State: Pending
+      Voting start: 12 Mar 24 06:20 UTC
+      Challenge window: 30m0s
+      Voting power required: 90943818825
+      Voting power for: 0
+      Voting power against: 0
+      Voting power abstained: 0
+      Voting power against: 0
+      Node has voted: no
+      ```
+
+      <p className="rspress-directive tip">
+        <p className="rspress-directive-title">HINWEIS</p>
+        Der Status dieses Beispielvorschlags ist `Pending`. Dies zeigt an, dass der Vorschlag angefochten werden kann, bevor
+        er zu `Active (Phase 1)` übergeht. Während des Status `Pending` kann keine Abstimmung stattfinden.
+      </p>
+    </Tab>
+
+  </Tabs>
+</div>
+
+## Erstellen eines Vorschlags
+
+Um berechtigt zu sein, einen Vorschlag einzureichen, muss ein Knoten einige Anforderungen erfüllen:
+
+- Im Snapshotting enthalten (entweder durch [Initialisierung der Abstimmung](./participate#initialisierung-der-abstimmung) oder durch
+  Registrierung nach Houston)
+- Muss mindestens einen minipool haben
+- Hat eine Stimmkraft ungleich Null
+- Hat [RPL Locking](./participate#zulassen-von-rpl-locking) zugelassen
+- Hat einen RPL Stake (abzüglich bereits gesperrtem RPL) größer als die Vorschlagsbindung
+
+Vorschläge existieren, um Parameter zu ändern und Code auf Protokollebene auszuführen! Es sollte Diskussion und Konsens
+durch den [Governance](./participate#governance-prozess) Prozess geben, bevor ein Vorschlag on-chain erstellt wird.
+
+Verwenden Sie den Befehl `rocketpool pdao propose`, um ein Menü mit Optionen aufzurufen
+
+```
+COMMANDS:
+   rewards-percentages, rp      Propose updating the RPL rewards allocation percentages for node operators, the Oracle DAO, and the Protocol DAO
+   one-time-spend, ots          Propose a one-time spend of the Protocol DAO's treasury
+   recurring-spend, rs          Propose a recurring spend of the Protocol DAO's treasury
+   recurring-spend-update, rsu  Propose an update to an existing recurring spend plan
+   security-council, sc         Modify the security council
+   setting, s                   Make a Protocol DAO setting proposal
+   submit-batch, sb            Submit a single proposal that changes multiple Protocol DAO settings from a JSON file
+```
+
+Jeder dieser Befehle fordert Sie mit einer Liste von Eingaben auf, um Ihren gewünschten Vorschlag zu erstellen. Die Befehle für Einstellungsvorschläge akzeptieren `--to-json`, um eine Einstellungsänderung in eine JSON-Datei zu schreiben oder anzuhängen, anstatt eine Transaktion einzureichen. Wenn die Datei fertig ist, reichen Sie sie mit `rocketpool pdao propose submit-batch` ein.
+
+In diesem Leitfaden werden wir
+einen Knoten zum Security Council einladen, um als Beispiel zu dienen. Um einen Vorschlag einzureichen, einen Knoten zum Security
+Council einzuladen, würden Sie den Befehl verwenden:
+
+```shell
+rocketpool pdao propose security-council invite
+```
+
+Beachten Sie, dass dieser Schritt je nach Art des Vorschlags leicht variieren wird. Dieser spezielle Befehl:
+`rocketpool pdao propose security-council invite` fordert Sie auf, eine ID gefolgt von einer Mitgliedsadresse einzugeben.
+
+```
+Please enter an ID for the member you'd like to invite: (no spaces)
+test-member
+
+Please enter the member's address:
+0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145
+
+... gas estimations ...
+
+Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council? [y/n]
+```
+
+Nachdem dies in einen Block aufgenommen wurde, wird ein pDAO Vorschlag erstellt! Der Vorschlag tritt
+bei Erstellung in die [Vote Delay Period](./pdao#vote-delay-period) ein.
 
 ## Ausführen eines erfolgreichen Vorschlags
 

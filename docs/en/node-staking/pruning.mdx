@@ -52,10 +52,10 @@ Run:
 rocketpool service get-db-details
 ```
 
-| Output                                                                          | What it means                                                                  |
-| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| `Nethermind is using FlatDB. Manual state pruning is not needed or supported.`  | You do not need to prune. The rest of this page does not apply to you.         |
-| `Nethermind is using the legacy Patricia database. State pruning is supported.` | Follow the pruning steps below when your disk starts to fill up.               |
+| Output                                                                          | What it means                                                                 |
+| ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `Nethermind is using FlatDB. Manual state pruning is not needed or supported.`  | You do not need to prune. The rest of this page does not apply to you.        |
+| `Nethermind is using the legacy Patricia database. State pruning is supported.` | Follow the pruning steps below when your disk starts to fill up.              |
 | `Nethermind has no persisted state database yet.`                               | Nethermind has not written any state yet (for example, right after a resync). |
 
 ::: tip NOTE
@@ -82,7 +82,6 @@ The following Nethermind settings in `rocketpool service config` only affect leg
 FlatDB removes the need to prune **state**. It does not change how much **history** (block bodies and receipts) your node keeps.
 That is still controlled by your **Pruning Mode** setting. See [Execution Client History Expiry](./maintenance/history-expiry).
 :::
-
 
 ## Prerequisites
 

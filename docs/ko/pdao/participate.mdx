@@ -16,7 +16,7 @@ pDAO 제안은 프로토콜 수준에서 변경 사항을 실행하기 위해 �
 
 제안은 온체인에 올라가기 전에 거버넌스 프로세스를 통해 예고되어야 합니다.
 
-Rocket Pool 프로토콜의 변경 사항은 엄격하면서도 투명한 거버넌스 프로세스를 사용하여 제안되고, 투표되고, 실행됩니다. 이 프로세스는 Discord 커뮤니티 내에서 아이디어에 대한 비공식 논의로 시작됩니다. 그런 다음 이 아이디어는 Discord의 [#governance](https://discordapp.com/channels/405159462932971535/774497904559783947) 채널과 [DAO Forum](https://dao.rocketpool.net/)에서 공식 논의로 진행되며, [Rocket Pool Improvement Proposal (RPIP)](https://rpips.rocketpool.net/)을 준비하기 위해 철저한 연구, 모델링 및 검토를 거칩니다. 그런 다음 RPIP 초안이 준비되고 지정된 RPIP 검토자에 의해 품질과 DAO에 제출할 준비가 되었는지 확인하기 위해 검토됩니다. 그런 다음 초안 제안은 추가 검토, 피드백 및 필요한 변경 사항을 반영하기 위해 포럼의 DAO에 제시됩니다. 커뮤니티 의견을 바탕으로 제안이 개선되면 RPIP 텍스트를 최종화할 준비가 되었는지 확인하기 위해 DAO 포럼에서 투표가 진행됩니다. 투표가 통과되어 커뮤니티 승인을 나타내면 RPIP가 최종으로 표시되고 Protocol DAO 투표를 위한 준비가 완료되며, 제안 구현 여부를 결정하기 위해 Snapshot을 통해 투표가 진행됩니다.
+Rocket Pool 프로토콜의 변경 사항은 엄격하면서도 투명한 거버넌스 프로세스를 사용하여 제안되고, 투표되고, 실행됩니다. 이 프로세스는 Discord 커뮤니티 내에서 아이디어에 대한 비공식 논의로 시작됩니다. 그런 다음 이 아이디어는 Discord의 [#governance](https://discordapp.com/channels/405159462932971535/774497904559783947) 채널과 [DAO Forum](https://dao.rocketpool.net/)에서 공식 논의로 진행되며, [Rocket Pool Improvement Proposal (RPIP)](https://rpips.rocketpool.net/)을 준비하기 위해 철저한 연구, 모델링 및 검토를 거칩니다. 그런 다음 RPIP 초안이 준비되고 지정된 RPIP 검토자에 의해 품질과 DAO에 제출할 준비가 되었는지 확인하기 위해 검토됩니다. 그런 다음 초안 제안은 추가 검토, 피드백 및 필요한 변경 사항을 반영하기 위해 포럼의 DAO에 제시됩니다. 커뮤니티 의견을 바탕으로 제안이 개선되면 RPIP 텍스트를 최종화할 준비가 되었는지 확인하기 위해 DAO 포럼에서 투표가 진행됩니다. 투표가 통과되어 커뮤니티 승인을 나타내면 RPIP가 최종으로 표시되고, 제안 구현 여부를 결정하기 위한 [RocketDash](https://rocketdash.net/vote)의 오프체인 Protocol DAO 투표를 진행할 준비가 완료됩니다. RocketDash는 이러한 투표에서 Snapshot을 대체했습니다.
 
 여기에서 Oracle DAO는 온체인 제안을 제기합니다. Protocol DAO, Oracle DAO 및 커뮤니티가 제안을 검토할 수 있는 기간이 있습니다. 합의에 도달하면 제안이 실행되고 변경 사항이 프로토콜에 적용됩니다.
 
@@ -81,16 +81,27 @@ Smart Node 버전 `1.13.8`은 아직 투표권을 초기화하지 않은 노드�
 
 **Auto-Init Vote Power Gas Threshold**는 이 자동 트랜잭션에 대한 제한(gwei 단위)입니다. 임계값을 0으로 설정하여 이 작업을 선택 해제할 수 있습니다. Houston 업그레이드 후에 노드를 등록했거나 투표권이 이미 활성화된 경우 자유롭게 선택 해제하세요.
 
-## Snapshot Signalling Address 설정
+<span id="setting-your-snapshot-signalling-address"></span>
 
-Snapshot signalling 주소를 설정하면 노드 키를 핫 월렛에 노출하지 않고도 브라우저 또는 모바일 장치에서 Snapshot 투표에 참여할 수 있습니다.
+## Signalling Address 설정
+
+signalling 주소를 설정하면 노드 키를 핫 월렛에 노출하지 않고도 브라우저 또는 모바일 장치에서
+[RocketDash](https://rocketdash.net/vote)의 오프체인 거버넌스 투표에 참여할 수 있습니다.
+
+:::tip 참고
+RocketDash는 Rocket Pool의 오프체인 거버넌스 투표에서 Snapshot을 대체했습니다. signalling 주소는 온체인에 저장되므로,
+Snapshot용으로 이미 설정한 주소가 있다면 RocketDash에서도 해당 주소를 사용하며 다시 설정할 필요가 없습니다.
+:::
+
+signalling 주소는 RocketDash에서 투표하고 위임자의 투표를 재정의할 수 있지만, 위임자를 변경할 수는 없습니다. 위임하려면
+[투표권 위임](#투표권-위임)을 참조하세요.
 
 준비해야 할 몇 가지 사항:
 
 - 노드의 주소
-- snapshot 투표에 사용할 주소 (signalling 주소)
+- 오프체인 투표에 사용할 주소 (signalling 주소)
 
-노드의 주소가 새 주소에 위임할 수 있다는 메시지에 서명합니다. 이 메시지는 지갑 주소를 Snapshot signalling 주소로 사용하려는 의도를 나타냅니다.
+노드의 주소가 새 주소에 위임할 수 있다는 메시지에 서명합니다. 이 메시지는 지갑 주소를 signalling 주소로 사용하려는 의도를 나타냅니다.
 
 아래 탭 중 하나에서 사용 중인 네트워크를 선택하세요.
 
@@ -103,7 +114,7 @@ Snapshot signalling 주소를 설정하면 노드 키를 핫 월렛에 노출하
 
 :::danger 경고
 노드의 개인 키를 핫 월렛에 로드하지 마세요. signalling 주소로 사용할 다른 계정을 선택하세요.
-signalling 주소를 설정한 후 노드의 투표권을 사용하여 Snapshot에서 투표할 수 있습니다.
+signalling 주소를 설정한 후 노드의 투표권을 사용하여 RocketDash에서 투표할 수 있습니다.
 :::
 
 MetaMask, WalletConnect 또는 웹사이트가 지원하는 다른 방법을 사용하여 **signalling 주소로 사용할 주소를 웹사이트에 연결**하는 것으로 시작합니다. 그러면 노드 주소를 조회하기 위한 이 대화 상자가 표시됩니다.
@@ -114,24 +125,24 @@ MetaMask, WalletConnect 또는 웹사이트가 지원하는 다른 방법을 사
 **이 작업을 수행하기 전에 올바른 노드 주소가 있는지 확인하세요!** 노드의 주소를 확인해야 하는 경우 `rocketpool node status` 명령을 사용하여 CLI를 통해 빠르게 검색할 수 있습니다.
 :::
 
-로그인하고 노드 주소를 확인하면 **Snapshot signalling 주소**가 표시됩니다. 사이트에 로그인한 계정과 동일해야 합니다. 진행하기 전에 올바른지 다시 확인하세요. 원하는 계정에 로그인했다고 확신하면 주황색 "Sign Message" 버튼을 클릭합니다. 지갑 확장 앱에서 다음 메시지에 서명하라는 프롬프트가 표시됩니다:
+로그인하고 노드 주소를 확인하면 **signalling 주소**가 표시됩니다. 사이트에 로그인한 계정과 동일해야 합니다. 진행하기 전에 올바른지 다시 확인하세요. 원하는 계정에 로그인했다고 확신하면 주황색 "Sign Message" 버튼을 클릭합니다. 지갑 확장 앱에서 다음 메시지에 서명하라는 프롬프트가 표시됩니다:
 
 ```
-`snapshot signalling address` may delegate to me for Rocket Pool governance
+`node address` may delegate to me for Rocket Pool governance
 ```
 
 서명하는 데 가스 비용이 들지 않지만 설정하는 데는 비용이 듭니다. 서명한 후 프론트엔드는 smartnode에 붙여넣을 명령을 제공합니다. 계속해서 smartnode의 CLI에 붙여넣고 프롬프트의 단계를 따르세요. 명령은 다음과 같아야 합니다:
 
 ```shell
 rocketpool pdao set-signalling-address
-`snapshot signalling address`
-`EIP712 signature`
+`signalling address`
+`signature`
 ```
 
 CLI에서 이 메시지가 표시되면 모든 준비가 완료된 것입니다!
 
 ```
-The node's signalling address was successfully set to `snapshot signalling address`
+The node's signalling address was successfully set to `signalling address`
 ```
 
 :::tip 팁
@@ -170,70 +181,123 @@ rocketpool node deny-rpl-locking
 
 노드 운영자는 투표권을 다른 노드 운영자에게 위임하도록 선택할 수 있습니다. 유일한 요구 사항은 위임자가 등록된 노드여야 한다는 것입니다.
 
-다른 노드에 온체인 투표권을 위임하려면 다음 명령을 사용하세요:
+다른 노드에 투표권을 위임하려면 노드에서 다음 명령을 실행하세요:
 
 ```shell
 rocketpool pdao set-voting-delegate `address`
 ```
 
+위임자는 온체인 제안과 [RocketDash](https://rocketdash.net/vote)의 오프체인 투표 모두에서 대신 투표합니다.
+위임은 노드에서만 설정할 수 있습니다. signalling 주소나 RocketDash에서는 위임할 수 없습니다.
+
 ::: tip 참고
 투표권을 다른 노드 운영자에게 위임한 경우 위임 주소를 자신의 노드 주소로 설정하여 이를 재설정할 수 있습니다.
 :::
 
-- 제안의 1단계 동안: **투표자** 및 **위임자**는 제안에 투표할 수 있습니다.
-- 제안의 2단계 동안: 투표를 위임한 **노드 운영자**는 동의하지 않는 경우 위임자의 투표를 뒤집을 기회를 얻습니다.
+### 투표 시점
 
-위임된 투표권을 가진 노드 운영자인 경우, 위임된 투표권이 제안에 포함되도록 하려면 투표 1단계 동안 투표해야 합니다. 1단계의 투표는 **로컬 투표권 + 위임된 투표권**의 가치가 있습니다. 2단계의 투표는 **로컬 투표권**만 가치가 있습니다.
+온체인 제안에는 두 개의 투표 단계가 있습니다. 어느 단계에서 투표해야 하는지는 투표권을 위임했는지 여부에 따라 달라집니다.
+이 단계는 온체인 제안에만 적용됩니다. RocketDash의 오프체인 투표에는 이러한 단계가 없습니다.
 
-## 제안 생성
+- **Pending:** 아직 아무도 투표할 수 없습니다.
+- **Phase 1:** 투표를 위임하지 않았다면 이 단계에서 투표합니다. 위임자인 경우에는 자신에게 위임한 모든 노드의 투표권도 투표에 반영되므로 Phase 1에서 투표하세요. 그렇지 않으면 해당 노드가 Phase 2에서 직접 투표해야만 투표권이 반영됩니다. 투표를 위임했다면 이 단계에서는 위임자가 대신 투표합니다.
+- **Phase 2:** 투표를 위임했지만 위임자의 투표에 동의하지 않거나 위임자가 투표하지 않은 경우, 이 단계에서 직접 투표할 수 있습니다. 직접 투표하면 자신의 지분에 대해서만 위임자의 투표가 대체됩니다. 아직 투표하지 않은 사람도 Phase 2에서 투표할 수 있지만, 위임자인 경우에도 자신의 투표권만 반영됩니다.
 
-제안할 자격을 얻으려면 노드가 몇 가지 요구 사항을 충족해야 합니다:
+Mainnet에서 새 제안은 **1주일** 동안 pending 상태로 유지된 후 Phase 1이 **1주일**, Phase 2가 **1주일** 동안 진행됩니다.
+이 기간은 pDAO 설정이며 투표로 변경할 수 있습니다. 현재 값은 `rocketpool pdao settings`를 실행하여 확인하세요.
 
-- 스냅샷에 포함됨 ([투표 초기화](./participate#투표-초기화) 또는 Houston 이후 등록)
-- 최소 하나의 minipool 보유
-- 0이 아닌 투표권 보유
-- [RPL 잠금](./participate#rpl-잠금-허용) 허용
-- RPL 스테이크(이미 잠긴 RPL 제외)가 제안 보증금보다 큼
+노드는 어느 단계에서든 하나의 제안에 한 번만 투표할 수 있습니다.
 
-제안은 프로토콜 수준에서 매개변수를 변경하고 코드를 실행하기 위해 존재합니다! 제안이 체인에 생성되기 전에 [거버넌스](./participate#거버넌스-프로세스) 프로세스를 통해 논의와 합의가 있어야 합니다.
+| 현재 상황                                                                                | 투표할 시점                                                                                                                    |
+| ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| 직접 투표하는 경우(기본값)                                                               | Phase 1. 놓쳤다면 Phase 2에서도 투표할 수 있습니다.                                                                            |
+| 위임자인 경우                                                                            | **Phase 1.** Phase 1을 놓치면 자신에게 위임된 투표권은 반영되지 않습니다. 위임한 노드들은 Phase 2에서 직접 투표할 수 있습니다. |
+| 다른 노드에 위임했고 해당 노드의 투표에 동의하는 경우                                    | 투표할 필요가 없습니다.                                                                                                        |
+| 다른 노드에 위임했지만 해당 노드의 투표에 동의하지 않거나 해당 노드가 투표하지 않은 경우 | Phase 2.                                                                                                                       |
 
-`rocketpool pdao propose` 명령을 사용하여 옵션 메뉴를 표시합니다
-
-```
-COMMANDS:
-   rewards-percentages, rp      Propose updating the RPL rewards allocation percentages for node operators, the Oracle DAO, and the Protocol DAO
-   one-time-spend, ots          Propose a one-time spend of the Protocol DAO's treasury
-   recurring-spend, rs          Propose a recurring spend of the Protocol DAO's treasury
-   recurring-spend-update, rsu  Propose an update to an existing recurring spend plan
-   security-council, sc         Modify the security council
-   setting, s                   Make a Protocol DAO setting proposal
-   submit-batch, sb            Submit a single proposal that changes multiple Protocol DAO settings from a JSON file
-```
-
-이러한 각 명령은 원하는 제안을 생성하기 위한 입력 목록을 요청합니다. 설정 제안 명령은 `--to-json`을 지원하여, 트랜잭션을 제출하는 대신 설정 변경 사항을 JSON 파일에 쓰거나 추가할 수 있습니다. 파일이 준비되면 `rocketpool pdao propose submit-batch`로 제출하세요.
-
-이 가이드에서는 예를 들어 security council에 노드를 초대합니다. security council에 노드를 초대하는 제안을 제기하려면 다음 명령을 사용합니다:
+제안이 어느 단계에 있는지, 본인 또는 위임자가 투표했는지 확인하려면 다음을 실행하세요:
 
 ```shell
-rocketpool pdao propose security-council invite
+rocketpool pdao proposals details <proposal-id>
 ```
 
-이 단계는 제안 유형에 따라 약간의 변형이 있다는 점을 명심하세요. 이 특정 명령:
-`rocketpool pdao propose security-council invite`는 ID를 입력한 다음 구성원 주소를 입력하라는 메시지를 표시합니다.
+`State`, `Phase 1 end`, `Phase 2 end`, `Node has voted`, `Delegate has voted` 행을 확인하세요. [RocketDash](https://rocketdash.net/pdao-proposals)에서도 모든 제안의 단계를 확인할 수 있습니다.
+
+`rocketpool pdao proposals vote`로 투표하면 Smart Node가 현재 단계에 맞는 투표 유형을 자동으로 선택합니다.
+
+## 제안 투표
+
+투표 기간 동안 **노드 운영자** 및 **위임자**는 네 가지 옵션 중 하나로 투표할 수 있습니다:
 
 ```
-Please enter an ID for the member you'd like to invite: (no spaces)
-test-member
-
-Please enter the member's address:
-0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145
-
-... gas estimations ...
-
-Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council? [y/n]
+1. Abstain: The voter's voting power is contributed to quorum but is neither for nor against the proposal.
+2. For: The voter votes in favor of the proposal being executed.
+3. Against: The voter votes against the proposal being executed.
+4. Veto: The voter votes against the proposal as well as indicating they deem the proposal as spam or malicious.
 ```
 
-이것이 블록에 포함되면 pDAO 제안이 생성됩니다! 제안은 생성 시 [투표 지연 기간](./pdao#투표-지연-기간)에 들어갑니다.
+투표권은 선택한 옵션에 적용됩니다. 투표권은 "유효 RPL 스테이크"의 함수입니다.
+더 자세한 내용은
+[rocketpool-research repo](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting)에서 찾을 수 있습니다.
+
+::: tip 참고
+노드는 하나의 제안에 한 번만 투표할 수 있으므로 신중하게 선택하세요. 어느 단계에서 투표해야 하는지는
+[투표 시점](#투표-시점)을 참조하세요.
+:::
+
+이 명령을 사용하여 투표하세요:
+
+```shell
+rocketpool pdao proposals vote
+```
+
+활성 투표 단계에 최소 하나의 제안이 있는 경우 투표할 제안을 선택하라는 메시지가 표시됩니다.
+메뉴에는 노드가 투표할 자격이 있는 모든 제안이 표시됩니다:
+
+```
+1: proposal 71 (message: 'invite test-member', payload: proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145), phase 1 end: 14 Mar 24 05:40 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
+2: proposal 72 (message: 'replace langers-not-his-eoa (0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E) on the security council with tpan (0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E)', payload: proposalSecurityReplace(0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E,tpan,0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E), phase 1 end: 14 Mar 24 05:40 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0xe2fC31d61E28BB16c0857D4682AB3616FA7A793d)
+3: proposal 73 (message: 'set proposal.vote.delay.time', payload: proposalSettingUint(rocketDAOProtocolSettingsProposals,proposal.vote.delay.time,60), phase 1 end: 14 Mar 24 05:41 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
+```
+
+옵션을 선택하면 어떻게 투표할 것인지 묻는 메시지가 표시됩니다.
+
+```
+How would you like to vote on the proposal?
+1: Abstain
+2: In Favor
+3: Against
+4: Veto
+```
+
+옵션을 선택하면 투표권이 표시되고 트랜잭션을 전송하라는 메시지가 표시됩니다:
+
+```
+Your current voting power: 20123617964
+
++============== Suggested Gas Prices ==============+
+| Avg Wait Time |  Max Fee  |    Total Gas Cost    |
+| 15 Seconds    | 76 gwei   | 0.0176 to 0.0265 ETH |
+| 1 Minute      | 56 gwei   | 0.0127 to 0.0190 ETH |
+| 3 Minutes     | 56 gwei   | 0.0127 to 0.0190 ETH |
+| >10 Minutes   | 56 gwei   | 0.0127 to 0.0190 ETH |
++==================================================+
+These prices include a maximum priority fee of 2.00 gwei.
+Please enter your max fee (including the priority fee) or leave blank for the default of 56 gwei:
+```
+
+트랜잭션이 블록에 포함되면 제안에 성공적으로 투표한 것입니다! 이 시점에서 `rocketpool pdao proposal details <proposal-id>`를 사용하여 제안의 상태를 볼 수 있습니다. 제안이 성공하려면 `proposal.quorum` **voting power required**에 도달하고 과반수 **voting power for**가 필요합니다.
+
+```
+Voting power required:  140970562215
+Voting power for:       197980809837
+Voting power against:   0
+Voting power abstained: 0
+Voting power against:   0
+Node has voted:         In Favor
+```
+
+위의 예가 통과하려면 투표권이 `140970562215` 투표권의 정족수를 초과해야 합니다. 찬성하는 투표권이 `197980809837`이고 반대하거나 기권한 표가 없습니다. 제안은 성공할 것으로 예상되며 `proposal.vote.phase2.time`이 끝나면 실행할 준비가 됩니다.
 
 ## 제안 상태 보기
 
@@ -314,78 +378,55 @@ Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B
   </Tabs>
 </div>
 
-## 제안 투표
+## 제안 생성
 
-투표 기간 동안 **노드 운영자** 및 **위임자**는 네 가지 옵션 중 하나로 투표할 수 있습니다:
+제안할 자격을 얻으려면 노드가 몇 가지 요구 사항을 충족해야 합니다:
+
+- 스냅샷에 포함됨 ([투표 초기화](./participate#투표-초기화) 또는 Houston 이후 등록)
+- 최소 하나의 minipool 보유
+- 0이 아닌 투표권 보유
+- [RPL 잠금](./participate#rpl-잠금-허용) 허용
+- RPL 스테이크(이미 잠긴 RPL 제외)가 제안 보증금보다 큼
+
+제안은 프로토콜 수준에서 매개변수를 변경하고 코드를 실행하기 위해 존재합니다! 제안이 체인에 생성되기 전에 [거버넌스](./participate#거버넌스-프로세스) 프로세스를 통해 논의와 합의가 있어야 합니다.
+
+`rocketpool pdao propose` 명령을 사용하여 옵션 메뉴를 표시합니다
 
 ```
-1. Abstain: 투표자의 투표권은 정족수에 기여하지만 제안에 찬성하거나 반대하지 않습니다.
-2. For: 투표자는 제안이 실행되는 것에 찬성합니다.
-3. Against: 투표자는 제안이 실행되는 것에 반대합니다.
-4. Veto: 투표자는 제안에 반대하며 제안을 스팸 또는 악의적인 것으로 간주한다는 것을 나타냅니다.
+COMMANDS:
+   rewards-percentages, rp      Propose updating the RPL rewards allocation percentages for node operators, the Oracle DAO, and the Protocol DAO
+   one-time-spend, ots          Propose a one-time spend of the Protocol DAO's treasury
+   recurring-spend, rs          Propose a recurring spend of the Protocol DAO's treasury
+   recurring-spend-update, rsu  Propose an update to an existing recurring spend plan
+   security-council, sc         Modify the security council
+   setting, s                   Make a Protocol DAO setting proposal
+   submit-batch, sb            Submit a single proposal that changes multiple Protocol DAO settings from a JSON file
 ```
 
-투표권은 선택한 옵션에 적용됩니다. 투표권은 "효과적인 RPL 스테이크"의 함수입니다.
-더 자세한 내용은
-[rocketpool-research repo](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting)에서 찾을 수 있습니다.
+이러한 각 명령은 원하는 제안을 생성하기 위한 입력 목록을 요청합니다. 설정 제안 명령은 `--to-json`을 지원하여, 트랜잭션을 제출하는 대신 설정 변경 사항을 JSON 파일에 쓰거나 추가할 수 있습니다. 파일이 준비되면 `rocketpool pdao propose submit-batch`로 제출하세요.
 
-::: tip 참고
-위임된 투표권을 가진 노드 운영자인 경우, 위임된 투표권이 제안에 포함되도록 하려면 투표 1단계 동안 투표해야 합니다. 1단계의 투표는 로컬 투표권 + 위임된 투표권의 가치가 있습니다. 2단계의 투표는 로컬 투표권만 가치가 있습니다. 노드는 제안에 한 번만 투표할 수 있으므로 신중하게 선택하세요.
-:::
-
-이 명령을 사용하여 투표하세요:
+이 가이드에서는 예를 들어 security council에 노드를 초대합니다. security council에 노드를 초대하는 제안을 제기하려면 다음 명령을 사용합니다:
 
 ```shell
-rocketpool pdao proposals vote
+rocketpool pdao propose security-council invite
 ```
 
-활성 투표 단계에 최소 하나의 제안이 있는 경우 투표할 제안을 선택하라는 메시지가 표시됩니다.
-메뉴에는 노드가 투표할 자격이 있는 모든 제안이 표시됩니다:
+이 단계는 제안 유형에 따라 약간의 변형이 있다는 점을 명심하세요. 이 특정 명령:
+`rocketpool pdao propose security-council invite`는 ID를 입력한 다음 구성원 주소를 입력하라는 메시지를 표시합니다.
 
 ```
-1: proposal 71 (message: 'invite test-member', payload: proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145), phase 1 end: 14 Mar 24 05:40 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
-2: proposal 72 (message: 'replace langers-not-his-eoa (0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E) on the security council with tpan (0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E)', payload: proposalSecurityReplace(0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E,tpan,0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E), phase 1 end: 14 Mar 24 05:40 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0xe2fC31d61E28BB16c0857D4682AB3616FA7A793d)
-3: proposal 73 (message: 'set proposal.vote.delay.time', payload: proposalSettingUint(rocketDAOProtocolSettingsProposals,proposal.vote.delay.time,60), phase 1 end: 14 Mar 24 05:41 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
+Please enter an ID for the member you'd like to invite: (no spaces)
+test-member
+
+Please enter the member's address:
+0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145
+
+... gas estimations ...
+
+Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council? [y/n]
 ```
 
-옵션을 선택하면 어떻게 투표할 것인지 묻는 메시지가 표시됩니다.
-
-```
-How would you like to vote on the proposal?
-1: Abstain
-2: In Favor
-3: Against
-4: Veto
-```
-
-옵션을 선택하면 투표권이 표시되고 트랜잭션을 전송하라는 메시지가 표시됩니다:
-
-```
-Your current voting power: 20123617964
-
-+============== Suggested Gas Prices ==============+
-| Avg Wait Time |  Max Fee  |    Total Gas Cost    |
-| 15 Seconds    | 76 gwei   | 0.0176 to 0.0265 ETH |
-| 1 Minute      | 56 gwei   | 0.0127 to 0.0190 ETH |
-| 3 Minutes     | 56 gwei   | 0.0127 to 0.0190 ETH |
-| >10 Minutes   | 56 gwei   | 0.0127 to 0.0190 ETH |
-+==================================================+
-These prices include a maximum priority fee of 2.00 gwei.
-Please enter your max fee (including the priority fee) or leave blank for the default of 56 gwei:
-```
-
-트랜잭션이 블록에 포함되면 제안에 성공적으로 투표한 것입니다! 이 시점에서 `rocketpool pdao proposal details <proposal-id>`를 사용하여 제안의 상태를 볼 수 있습니다. 제안이 성공하려면 `proposal.quorum` **voting power required**에 도달하고 과반수 **voting power for**가 필요합니다.
-
-```
-Voting power required:  140970562215
-Voting power for:       197980809837
-Voting power against:   0
-Voting power abstained: 0
-Voting power against:   0
-Node has voted:         In Favor
-```
-
-위의 예가 통과하려면 투표권이 `140970562215` 투표권의 정족수를 초과해야 합니다. 찬성하는 투표권이 `197980809837`이고 반대하거나 기권한 표가 없습니다. 제안은 성공할 준비가 되어 있으며 `proposal.vote.phase2.time`이 끝날 때까지 실행 준비가 되어 있습니다.
+이것이 블록에 포함되면 pDAO 제안이 생성됩니다! 제안은 생성 시 [투표 지연 기간](./pdao#투표-지연-기간)에 들어갑니다.
 
 ## 성공한 제안 실행
 

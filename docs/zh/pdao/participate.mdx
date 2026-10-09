@@ -15,7 +15,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 提案应在进入链上之前通过治理流程进行预告。
 
-对 Rocket Pool 协议的更改使用严格但透明的治理流程进行提议、投票和执行。该流程始于 Discord 社区内对一个想法的非正式讨论。然后，这个想法发展到 Discord 上的 [#governance](https://discordapp.com/channels/405159462932971535/774497904559783947) 频道和 [DAO Forum](https://dao.rocketpool.net/) 上的正式讨论，在那里它经过彻底的研究、建模和审查，为 [Rocket Pool 改进提案 (RPIP)](https://rpips.rocketpool.net/) 做准备。随后，准备 RPIP 草案并由指定的 RPIP 审查者审查，以确保其质量和向 DAO 展示的准备情况。然后将草案提案提交给论坛上的 DAO 进行进一步审查、反馈和纳入任何必要的更改。一旦提案根据社区意见进行了完善，就会在 DAO 论坛上进行投票，以衡量最终确定 RPIP 文本的准备情况。如果投票通过，表明社区批准，RPIP 将被标记为最终版本，并准备好进行 Protocol DAO 投票，该投票通过 Snapshot 进行，以确定是否应实施该提案。
+对 Rocket Pool 协议的更改使用严格但透明的治理流程进行提议、投票和执行。该流程始于 Discord 社区内对一个想法的非正式讨论。然后，这个想法发展到 Discord 上的 [#governance](https://discordapp.com/channels/405159462932971535/774497904559783947) 频道和 [DAO Forum](https://dao.rocketpool.net/) 上的正式讨论，在那里它经过彻底的研究、建模和审查，为 [Rocket Pool 改进提案 (RPIP)](https://rpips.rocketpool.net/) 做准备。随后，准备 RPIP 草案并由指定的 RPIP 审查者审查，以确保其质量和向 DAO 展示的准备情况。然后将草案提案提交给论坛上的 DAO 进行进一步审查、反馈和纳入任何必要的更改。一旦提案根据社区意见进行了完善，就会在 DAO 论坛上进行投票，以衡量最终确定 RPIP 文本的准备情况。如果投票通过，表明社区批准，RPIP 将被标记为最终版本，并准备好在 [RocketDash](https://rocketdash.net/vote) 上进行链下 Protocol DAO 投票，以确定是否应实施该提案。RocketDash 已取代 Snapshot，用于这些投票。
 
 从这里开始，Oracle DAO 将提出链上提案。Protocol DAO、Oracle DAO 和社区有一个审查提案的窗口期。如果达成共识，则执行提案并将更改应用于协议。
 
@@ -79,16 +79,24 @@ Smart Node 版本 `1.13.8` 引入了一项新功能 **自动初始化投票权**
 
 **Auto-Init Vote Power Gas Threshold** 是此自动交易的限制（以 gwei 为单位）。您可以通过将阈值设置为 0 来选择退出此任务。如果您的节点在 Houston 升级后注册或投票权已启用，请随时选择退出。
 
-## 设置您的 Snapshot 信号地址
+<span id="setting-your-snapshot-signalling-address"></span>
 
-设置您的 Snapshot 信号地址将允许您在浏览器或移动设备上参与 Snapshot 投票，而无需将节点密钥暴露给热钱包。
+## 设置您的信号地址
+
+设置您的信号地址后，您可以通过浏览器或移动设备参与 [RocketDash](https://rocketdash.net/vote) 上的链下治理投票，而无需将节点密钥暴露给热钱包。
+
+:::tip 注意
+RocketDash 已取代 Snapshot，用于 Rocket Pool 的链下治理投票。您的信号地址存储在链上，因此如果您已经为 Snapshot 设置了信号地址，RocketDash 也会使用该地址，无需重新设置。
+:::
+
+您的信号地址可以在 RocketDash 上投票并覆盖委托人的投票，但不能更改委托人。如需委托，请参阅[委托投票权](#委托投票权)。
 
 需要准备一些东西：
 
 - 您的节点地址
-- 您想用于 snapshot 投票的地址（信号地址）
+- 您想用于链下投票的地址（信号地址）
 
-您将签署一条消息，说明您的节点地址可以委托给新地址。此消息表明您打算使用您的钱包地址作为 Snapshot 信号地址。
+您将签署一条消息，说明您的节点地址可以委托给新地址。此消息表明您打算使用您的钱包地址作为信号地址。
 
 从下面的选项卡中选择您正在使用的网络。
 
@@ -100,39 +108,40 @@ Smart Node 版本 `1.13.8` 引入了一项新功能 **自动初始化投票权**
 </div>
 
 :::danger 警告
-不要将节点的私钥加载到热钱包中。请选择另一个账户作为您的信号地址。设置信号地址后，您可以使用它在 Snapshot 上使用节点的投票权进行投票。
+不要将节点的私钥加载到热钱包中。请选择另一个账户作为您的信号地址。设置信号地址后，您可以使用它在 RocketDash 上使用节点的投票权进行投票。
 :::
 
-首先，使用 MetaMask、WalletConnect 或网站支持的任何其他方法**将您想用作信号地址的地址连接**到网站。然后，您将看到此对话框以查找您的节点地址。
+首先，使用 MetaMask、WalletConnect 或网站支持的任何其他方法，**将您想用作信号地址的地址连接**到网站。然后，您将看到一个用于查找节点地址的对话框。
 
-接下来，您将输入您的节点地址，然后单击橙色的"Find"按钮。这将检查该地址是否为已注册的节点，然后将您带到下一步。
+接下来，输入您的节点地址，然后点击橙色的“Find”按钮。系统会检查该地址是否为已注册节点，然后带您进入下一步。
 
 :::tip 提示
-**在执行此操作之前，请确保您拥有正确的节点地址！** 如果您需要确认节点的地址，可以使用 `rocketpool node status` 命令通过 CLI 快速检索。
+**执行此操作前，请确保节点地址正确！** 如果需要确认节点地址，可以通过 CLI 使用 `rocketpool node status` 命令快速检索。
 :::
 
-登录并确认节点地址后，您将看到您的 **Snapshot 信号地址**。它应该与您登录网站的账户相同。在继续之前，请仔细检查这是否正确。一旦确信您已登录到所需的账户，请单击橙色的"Sign Message"按钮。您将在钱包扩展程序中看到一个提示，要求签署以下消息：
+登录并确认节点地址后，您将看到自己的**信号地址**。它应与您登录网站所用的账户相同。继续之前，请仔细检查是否正确。确认已登录所需账户后，点击橙色的“Sign Message”按钮。您的钱包扩展应用会提示您签署以下消息：
 
 ```
-`snapshot signalling address` may delegate to me for Rocket Pool governance
+`node address` may delegate to me for Rocket Pool governance
 ```
 
-签名不会花费任何 gas，但设置会花费。签名后，前端将为您提供一个命令，粘贴到 smartnode 中。继续并将其粘贴到 smartnode 的 CLI 中，然后按照提示的步骤操作。该命令应如下所示：
+签名本身不会花费 gas，但设置地址会花费。签名后，前端会提供一条命令供您粘贴到 smartnode。将其粘贴到 smartnode 的 CLI 中，然后按照提示操作。该命令应类似于：
 
 ```shell
 rocketpool pdao set-signalling-address
-`snapshot signalling address`
-`EIP712 signature`
+`signalling address`
+`signature`
 ```
 
-如果您在 CLI 中看到此消息，则一切就绪！
+如果 CLI 中出现以下消息，就表示设置完成！
 
 ```
-The node's signalling address was successfully set to `snapshot signalling address`
+The node's signalling address was successfully set to `signalling address`
 ```
 
 :::tip 提示
-如果您不小心关闭了网站或丢失了命令，请不要担心。您可以简单地重复这些步骤，并**使用相同的节点地址和信号地址再次签名**。前端使用 ethers 库中的 `signer.Signmessage()`，这意味着您的签名对于相同的输入是确定性的。单击[此处](https://docs.ethers.org/v6/api/providers/#cid_865)了解更多信息。
+如果您不小心关闭了网站或丢失了命令，不用担心。只需重复这些步骤，并**使用相同的节点地址和信号地址再次签名**。前端使用 ethers 库中的 `signer.Signmessage()`，这意味着在输入相同的情况下，签名是确定的。
+点击[此处](https://docs.ethers.org/v6/api/providers/#cid_865)了解更多。
 :::
 
 清除信号地址非常简单，只需在 CLI 中使用此命令：
@@ -165,69 +174,116 @@ rocketpool node deny-rpl-locking
 
 节点运营商可以选择将其投票权委托给另一个节点运营商。唯一的要求是您的委托人是注册节点。
 
-要将链上投票权委托给另一个节点，请使用以下命令：
+要将投票权委托给另一个节点，请从您的节点运行以下命令：
 
 ```shell
 rocketpool pdao set-voting-delegate `address`
 ```
 
+您的委托人会代表您对链上提案和 [RocketDash](https://rocketdash.net/vote) 上的链下投票进行投票。只能从您的节点设置委托；您无法通过信号地址或 RocketDash 进行委托。
+
 ::: tip 注意
 如果您已将投票权委托给另一个节点运营商，则可以通过将委托地址设置为您自己节点的地址来重置此设置。
 :::
 
-- 在提案的第 1 阶段：**投票者**和**委托人**可以对提案进行投票。
-- 在提案的第 2 阶段：已委托投票的**节点运营商**有机会推翻其委托人的投票（如果他们不同意）。
+### 何时投票
 
-如果您是具有委托投票权的节点运营商，则必须在投票第 1 阶段进行投票，委托的投票权才能计入提案。您在第 1 阶段的投票价值为您的**本地投票权 + 委托投票权**。您在第 2 阶段的投票仅价值您的**本地投票权**。
+链上提案有两个投票阶段。您应在哪个阶段投票取决于是否委托了投票权。这些阶段仅适用于链上提案；RocketDash 上的链下投票没有这些阶段。
 
-## 创建提案
+- **待处理：** 此时任何人都不能投票。
+- **第 1 阶段：** 如果您没有委托投票权，应在此阶段投票。如果您是委托人，您的投票也会计入所有委托给您的节点，因此请在第 1 阶段投票；否则，这些节点的投票权只有在它们于第 2 阶段自行投票时才会计入。如果您委托了投票权，您的委托人会在此阶段代表您投票。
+- **第 2 阶段：** 如果您委托了投票权，但不同意委托人的投票，或者委托人没有投票，此时可以自行投票。您的投票只会替换委托人代表您所投的那部分票。尚未投票的任何人也可以在第 2 阶段投票，但即使是委托人，也只会计入其自身的投票权。
 
-为了有资格提出提案，节点必须满足一些要求：
+在主网上，新提案会处于**一周**的待处理状态，随后第 1 阶段持续**一周**，第 2 阶段持续**一周**。这些时长由 pDAO 设置决定，可以通过投票更改。运行 `rocketpool pdao settings` 查看当前值。
 
-- 包含在快照中（通过[初始化投票](./participate#初始化投票)或在 Houston 后注册）
-- 必须至少有一个 minipool
-- 具有非零投票权
-- 已允许 [RPL 锁定](./participate#允许-rpl-锁定)
-- 拥有大于提案保证金的 RPL 质押（减去任何已锁定的 RPL）
+一个节点只能在两个阶段之一对提案投票一次。
 
-提案的存在是为了在协议层面更改参数和执行代码！在链上创建提案之前，应该通过[治理](./participate#治理流程)流程进行讨论并达成共识。
+| 您的身份……                                         | 投票时机                                                                                           |
+| -------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| 为自己投票（默认）                                 | 第 1 阶段。如果错过，仍可在第 2 阶段投票。                                                         |
+| 委托人                                             | **第 1 阶段。** 如果错过第 1 阶段，委托给您的投票权将不会计入。您的委托者仍可在第 2 阶段自行投票。 |
+| 已委托给另一个节点，并且同意其投票                 | 无需投票。                                                                                         |
+| 已委托给另一个节点，但不同意其投票，或对方没有投票 | 第 2 阶段。                                                                                        |
 
-使用命令 `rocketpool pdao propose` 调出选项菜单
-
-```
-COMMANDS:
-   rewards-percentages, rp      Propose updating the RPL rewards allocation percentages for node operators, the Oracle DAO, and the Protocol DAO
-   one-time-spend, ots          Propose a one-time spend of the Protocol DAO's treasury
-   recurring-spend, rs          Propose a recurring spend of the Protocol DAO's treasury
-   recurring-spend-update, rsu  Propose an update to an existing recurring spend plan
-   security-council, sc         Modify the security council
-   setting, s                   Make a Protocol DAO setting proposal
-   submit-batch, sb            Submit a single proposal that changes multiple Protocol DAO settings from a JSON file
-```
-
-这些命令中的每一个都会提示您输入一系列输入以创建所需的提案。设置提案命令接受 `--to-json`，可以将设置更改写入或追加到 JSON 文件，而不是直接提交交易。文件准备好后，使用 `rocketpool pdao propose submit-batch` 提交。
-
-在本指南中，我们将邀请一个节点加入安全委员会作为示例。要提出邀请节点加入安全委员会的提案，您将使用以下命令：
+要查看提案所处的阶段，以及您或您的委托人是否已投票，请运行：
 
 ```shell
-rocketpool pdao propose security-council invite
+rocketpool pdao proposals details <proposal-id>
 ```
 
-请记住，此步骤会根据提案类型略有不同。此特定命令：`rocketpool pdao propose security-council invite` 将提示您输入 ID，然后输入成员地址。
+检查 `State`、`Phase 1 end`、`Phase 2 end`、`Node has voted` 和 `Delegate has voted` 行。您还可以在 [RocketDash](https://rocketdash.net/pdao-proposals) 上查看每项提案所处的阶段。
+
+当您使用 `rocketpool pdao proposals vote` 投票时，Smart Node 会自动针对当前阶段投出正确类型的票。
+
+## 对提案进行投票
+
+在投票期间，**节点运营商**和**委托人**可以使用四个选项之一进行投票：
 
 ```
-Please enter an ID for the member you'd like to invite: (no spaces)
-test-member
-
-Please enter the member's address:
-0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145
-
-... gas estimations ...
-
-Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council? [y/n]
+1. Abstain: 投票者的投票权计入法定人数，但既不赞成也不反对提案。
+2. For: 投票者投票赞成执行提案。
+3. Against: 投票者投票反对执行提案。
+4. Veto: 投票者投票反对提案，并表明他们认为该提案是垃圾邮件或恶意的。
 ```
 
-在此包含在区块中后，将创建 pDAO 提案！提案将在创建时进入[投票延迟期](./pdao#投票延迟期)。
+他们的投票权将应用于他们选择的选项。投票权是"有效 RPL 质押"的函数。可以在 [rocketpool-research 仓库](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting)中找到更详细的阅读材料。
+
+::: tip 注意
+每个节点对一项提案只能投票一次，因此请谨慎选择。要了解应在哪个阶段投票，请参阅[何时投票](#何时投票)。
+:::
+
+使用此命令进行投票：
+
+```shell
+rocketpool pdao proposals vote
+```
+
+如果至少有一个提案处于活跃投票阶段，您将被提示选择要投票的提案。菜单应显示您的节点有资格投票的所有提案：
+
+```
+1: proposal 71 (message: 'invite test-member', payload: proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145), phase 1 end: 14 Mar 24 05:40 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
+2: proposal 72 (message: 'replace langers-not-his-eoa (0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E) on the security council with tpan (0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E)', payload: proposalSecurityReplace(0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E,tpan,0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E), phase 1 end: 14 Mar 24 05:40 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0xe2fC31d61E28BB16c0857D4682AB3616FA7A793d)
+3: proposal 73 (message: 'set proposal.vote.delay.time', payload: proposalSettingUint(rocketDAOProtocolSettingsProposals,proposal.vote.delay.time,60), phase 1 end: 14 Mar 24 05:41 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
+```
+
+选择一个选项后，系统将询问您如何进行投票。
+
+```
+How would you like to vote on the proposal?
+1: Abstain
+2: In Favor
+3: Against
+4: Veto
+```
+
+选择一个选项将显示您的投票权，然后提示您发送交易：
+
+```
+Your current voting power: 20123617964
+
++============== Suggested Gas Prices ==============+
+| Avg Wait Time |  Max Fee  |    Total Gas Cost    |
+| 15 Seconds    | 76 gwei   | 0.0176 to 0.0265 ETH |
+| 1 Minute      | 56 gwei   | 0.0127 to 0.0190 ETH |
+| 3 Minutes     | 56 gwei   | 0.0127 to 0.0190 ETH |
+| >10 Minutes   | 56 gwei   | 0.0127 to 0.0190 ETH |
++==================================================+
+These prices include a maximum priority fee of 2.00 gwei.
+Please enter your max fee (including the priority fee) or leave blank for the default of 56 gwei:
+```
+
+一旦交易包含在区块中，您就已成功对提案进行投票！此时，您可以使用 `rocketpool pdao proposal details <proposal-id>` 查看提案的状态。提案需要达到 `proposal.quorum` **所需投票权**和多数**赞成投票权**才能成功。
+
+```
+Voting power required:  140970562215
+Voting power for:       197980809837
+Voting power against:   0
+Voting power abstained: 0
+Voting power against:   0
+Node has voted:         In Favor
+```
+
+对于上面的示例，投票权需要超过 `140970562215` 投票权的法定人数。有 `197980809837` 投票权赞成，没有反对或弃权的投票。该提案有望成功，并准备在 `proposal.vote.phase2.time` 结束前执行。
 
 ## 查看提案的状态
 
@@ -303,75 +359,54 @@ Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B
   </Tabs>
 </div>
 
-## 对提案进行投票
+## 创建提案
 
-在投票期间，**节点运营商**和**委托人**可以使用四个选项之一进行投票：
+为了有资格提出提案，节点必须满足一些要求：
+
+- 包含在快照中（通过[初始化投票](./participate#初始化投票)或在 Houston 后注册）
+- 必须至少有一个 minipool
+- 具有非零投票权
+- 已允许 [RPL 锁定](./participate#允许-rpl-锁定)
+- 拥有大于提案保证金的 RPL 质押（减去任何已锁定的 RPL）
+
+提案的存在是为了在协议层面更改参数和执行代码！在链上创建提案之前，应该通过[治理](./participate#治理流程)流程进行讨论并达成共识。
+
+使用命令 `rocketpool pdao propose` 调出选项菜单
 
 ```
-1. Abstain: 投票者的投票权计入法定人数，但既不赞成也不反对提案。
-2. For: 投票者投票赞成执行提案。
-3. Against: 投票者投票反对执行提案。
-4. Veto: 投票者投票反对提案，并表明他们认为该提案是垃圾邮件或恶意的。
+COMMANDS:
+   rewards-percentages, rp      Propose updating the RPL rewards allocation percentages for node operators, the Oracle DAO, and the Protocol DAO
+   one-time-spend, ots          Propose a one-time spend of the Protocol DAO's treasury
+   recurring-spend, rs          Propose a recurring spend of the Protocol DAO's treasury
+   recurring-spend-update, rsu  Propose an update to an existing recurring spend plan
+   security-council, sc         Modify the security council
+   setting, s                   Make a Protocol DAO setting proposal
+   submit-batch, sb            Submit a single proposal that changes multiple Protocol DAO settings from a JSON file
 ```
 
-他们的投票权将应用于他们选择的选项。投票权是"有效 RPL 质押"的函数。可以在 [rocketpool-research 仓库](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting)中找到更详细的阅读材料。
+这些命令中的每一个都会提示您输入一系列输入以创建所需的提案。设置提案命令接受 `--to-json`，可以将设置更改写入或追加到 JSON 文件，而不是直接提交交易。文件准备好后，使用 `rocketpool pdao propose submit-batch` 提交。
 
-::: tip 注意
-如果您是具有委托投票权的节点运营商，则必须在投票第 1 阶段进行投票，委托的投票权才能计入提案。您在第 1 阶段的投票价值为您的本地投票权 + 委托投票权。您在第 2 阶段的投票仅价值您的本地投票权。请记住，节点只能对提案投票一次，因此请仔细选择。
-:::
-
-使用此命令进行投票：
+在本指南中，我们将邀请一个节点加入安全委员会作为示例。要提出邀请节点加入安全委员会的提案，您将使用以下命令：
 
 ```shell
-rocketpool pdao proposals vote
+rocketpool pdao propose security-council invite
 ```
 
-如果至少有一个提案处于活跃投票阶段，您将被提示选择要投票的提案。菜单应显示您的节点有资格投票的所有提案：
+请记住，此步骤会根据提案类型略有不同。此特定命令：`rocketpool pdao propose security-council invite` 将提示您输入 ID，然后输入成员地址。
 
 ```
-1: proposal 71 (message: 'invite test-member', payload: proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145), phase 1 end: 14 Mar 24 05:40 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
-2: proposal 72 (message: 'replace langers-not-his-eoa (0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E) on the security council with tpan (0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E)', payload: proposalSecurityReplace(0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E,tpan,0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E), phase 1 end: 14 Mar 24 05:40 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0xe2fC31d61E28BB16c0857D4682AB3616FA7A793d)
-3: proposal 73 (message: 'set proposal.vote.delay.time', payload: proposalSettingUint(rocketDAOProtocolSettingsProposals,proposal.vote.delay.time,60), phase 1 end: 14 Mar 24 05:41 UTC, vp required: 0.00, for: 0.00, against: 0.00, abstained: 0.00, veto: 0.00, proposed by: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
+Please enter an ID for the member you'd like to invite: (no spaces)
+test-member
+
+Please enter the member's address:
+0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145
+
+... gas estimations ...
+
+Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) to the security council? [y/n]
 ```
 
-选择一个选项后，系统将询问您如何进行投票。
-
-```
-How would you like to vote on the proposal?
-1: Abstain
-2: In Favor
-3: Against
-4: Veto
-```
-
-选择一个选项将显示您的投票权，然后提示您发送交易：
-
-```
-Your current voting power: 20123617964
-
-+============== Suggested Gas Prices ==============+
-| Avg Wait Time |  Max Fee  |    Total Gas Cost    |
-| 15 Seconds    | 76 gwei   | 0.0176 to 0.0265 ETH |
-| 1 Minute      | 56 gwei   | 0.0127 to 0.0190 ETH |
-| 3 Minutes     | 56 gwei   | 0.0127 to 0.0190 ETH |
-| >10 Minutes   | 56 gwei   | 0.0127 to 0.0190 ETH |
-+==================================================+
-These prices include a maximum priority fee of 2.00 gwei.
-Please enter your max fee (including the priority fee) or leave blank for the default of 56 gwei:
-```
-
-一旦交易包含在区块中，您就已成功对提案进行投票！此时，您可以使用 `rocketpool pdao proposal details <proposal-id>` 查看提案的状态。提案需要达到 `proposal.quorum` **所需投票权**和多数**赞成投票权**才能成功。
-
-```
-Voting power required:  140970562215
-Voting power for:       197980809837
-Voting power against:   0
-Voting power abstained: 0
-Voting power against:   0
-Node has voted:         In Favor
-```
-
-对于上面的示例，投票权需要超过 `140970562215` 投票权的法定人数。有 `197980809837` 投票权赞成，没有反对或弃权的投票。该提案有望成功，并准备在 `proposal.vote.phase2.time` 结束前执行。
+在此包含在区块中后，将创建 pDAO 提案！提案将在创建时进入[投票延迟期](./pdao#投票延迟期)。
 
 ## 执行成功的提案
 

@@ -6,7 +6,7 @@ next:
 
 # Vue d'ensemble
 
-Cette section décrit le processus de configuration de votre nœud pour participer aux propositions on-chain et snapshot. Il y a beaucoup à déballer, nous recommandons donc fortement de lire un aperçu de la [Mise à niveau Houston](/fr/legacy/houston/whats-new). Cela vous aidera à comprendre les dernières fonctionnalités qui permettent la gouvernance on-chain et comment vous pouvez participer à façonner le protocole.
+Cette section décrit le processus de configuration de votre nœud pour participer aux propositions on-chain et off-chain ([RocketDash](https://rocketdash.net/vote)). Il y a beaucoup à déballer, nous recommandons donc fortement de lire un aperçu de la [mise à niveau Houston](/fr/legacy/houston/whats-new). Cela vous aidera à comprendre les dernières fonctionnalités qui permettent la gouvernance on-chain et comment vous pouvez participer à façonner le protocole.
 
 ## Prérequis
 
@@ -21,9 +21,9 @@ Avant de configurer votre Smart Node, assurez-vous d'avoir :
 
 ## Il y a trois adresses impliquées dans le vote
 
-- Adresse de signalisation pDAO — sera utilisée comme votre adresse snapshot, si vous souhaitez voter directement ou si vous souhaitez remplacer le vote snapshot de votre délégué. Cette adresse est uniquement utilisée pour snapshot et non pour le vote on-chain.
+- Adresse de signalisation pDAO — sera utilisée comme votre adresse RocketDash, si vous souhaitez voter directement ou remplacer le vote off-chain de votre délégué. Cette adresse est uniquement utilisée pour les votes off-chain sur RocketDash, et non pour les votes on-chain.
 
-- Nœud délégué pDAO — si vous choisissez de déléguer votre vote. Vous définirez ceci à l'adresse de nœud de votre délégué. Si vous choisissez un délégué, il votera pour vous sur snapshot et pour les propositions on-chain.
+- Nœud délégué pDAO — si vous choisissez de déléguer votre vote. Vous définirez ceci à l'adresse de nœud de votre délégué. Si vous choisissez un délégué, il votera pour vous sur RocketDash et pour les propositions on-chain.
 
 - Adresse de nœud — si vous n'avez pas délégué votre vote ou si vous souhaitez remplacer le vote on-chain de votre délégué, vous pouvez le faire depuis votre nœud.
 
@@ -35,7 +35,7 @@ Avant de configurer votre Smart Node, assurez-vous d'avoir :
 
 [Initialiser le pouvoir de vote](/fr/pdao/participate#initialiser-le-vote) vous montre comment initialiser le pouvoir de vote de votre nœud. Cette étape n'est requise que si votre nœud a été enregistré avant la mise à niveau Houston.
 
-[Définir votre adresse de signalisation snapshot](/fr/pdao/participate#définir-votre-adresse-de-signalisation-snapshot) vous guidera à travers les étapes pour définir une adresse de signalisation. Cela vous permettra de voter sur snapshot en utilisant le pouvoir de vote de votre nœud sans avoir besoin de charger la clé privée de votre nœud sur un portefeuille actif. Assurez-vous d'avoir votre CLI Smart Node à portée de main et préparez une adresse (qui n'est pas votre portefeuille de nœud) pour ce guide.
+[Définir votre adresse de signalisation](/fr/pdao/participate#définir-votre-adresse-de-signalisation) vous guidera à travers les étapes permettant de définir une adresse de signalisation. Cela vous permettra de voter sur RocketDash en utilisant le pouvoir de vote de votre nœud sans avoir à charger la clé privée de votre nœud dans un portefeuille chaud. Assurez-vous d'avoir votre CLI Smart Node à portée de main et préparez une adresse (qui n'est pas votre portefeuille de nœud) pour ce guide.
 
 [Déléguer le pouvoir de vote](/fr/pdao/participate#déléguer-le-pouvoir-de-vote) est une commande rapide que vous pouvez utiliser pour déléguer le pouvoir de vote au lieu de voter directement sur les propositions.
 

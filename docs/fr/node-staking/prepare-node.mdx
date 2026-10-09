@@ -173,16 +173,22 @@ Une fois cela fait, vous ne pourrez **plus modifier votre adresse de retrait pri
 Pour la modifier, vous devrez envoyer une transaction signée depuis votre adresse de retrait principale **active** (celle vers laquelle vous venez de basculer).
 Le site Web Rocket Pool dispose d'une fonction pour vous aider à le faire.
 
-## Définition de votre Adresse de Signalisation Snapshot
+## Définition de votre Adresse de Signalisation
 
-Définir votre adresse de signalisation Snapshot vous permettra de participer aux votes Snapshot sur un navigateur ou un appareil mobile sans avoir à exposer les clés du nœud à un portefeuille chaud.
+Définir votre adresse de signalisation vous permettra de participer aux votes de gouvernance off-chain sur
+[RocketDash](https://rocketdash.net/vote) depuis un navigateur ou un appareil mobile, sans avoir à exposer les clés du nœud à un portefeuille chaud.
+
+:::tip NOTE
+RocketDash a remplacé Snapshot pour les votes de gouvernance off-chain de Rocket Pool. Votre adresse de signalisation est stockée on-chain :
+si vous en aviez déjà défini une pour Snapshot, RocketDash l'utilise également et vous n'avez pas besoin de la définir à nouveau.
+:::
 
 Il y a quelques éléments à préparer :
 
 - L'adresse de votre nœud
-- Une adresse que vous souhaitez utiliser pour le vote snapshot (adresse de signalisation)
+- Une adresse que vous souhaitez utiliser pour le vote off-chain (adresse de signalisation)
 
-Vous signerez un message indiquant que l'adresse de votre nœud peut déléguer à la nouvelle adresse. Ce message indique votre intention d'utiliser votre adresse de portefeuille comme adresse de signalisation Snapshot.
+Vous signerez un message indiquant que l'adresse de votre nœud peut déléguer à la nouvelle adresse. Ce message indique votre intention d'utiliser votre adresse de portefeuille comme adresse de signalisation.
 
 Sélectionnez le réseau que vous utilisez parmi l'un des onglets ci-dessous.
 
@@ -195,7 +201,7 @@ Sélectionnez le réseau que vous utilisez parmi l'un des onglets ci-dessous.
 
 :::danger WARNING
 Ne chargez pas la clé privée de votre nœud sur un portefeuille chaud. Veuillez choisir un autre compte pour être votre adresse de signalisation.
-Après avoir défini l'adresse de signalisation, vous pouvez l'utiliser pour voter sur Snapshot avec le pouvoir de vote de votre nœud.
+Après avoir défini l'adresse de signalisation, vous pouvez l'utiliser pour voter sur RocketDash avec le pouvoir de vote de votre nœud.
 :::
 
 Commencez par **connecter l'adresse que vous souhaitez utiliser comme adresse de signalisation** au site Web en utilisant MetaMask, WalletConnect, ou l'une des autres méthodes prises en charge par le site Web. Vous serez ensuite présenté avec cette boîte de dialogue pour rechercher votre adresse de nœud.
@@ -206,24 +212,24 @@ Ensuite, vous entrerez votre adresse de nœud puis cliquerez sur le bouton orang
 **Assurez-vous d'avoir la bonne adresse de nœud avant de faire cela !** si vous devez confirmer l'adresse de votre nœud, vous pouvez la récupérer rapidement via la CLI en utilisant la commande `rocketpool node status`.
 :::
 
-Une fois que vous vous êtes connecté et avez confirmé votre adresse de nœud, vous verrez votre **adresse de signalisation Snapshot**. Elle devrait être la même que le compte avec lequel vous vous êtes connecté au site. Vérifiez que c'est correct avant de continuer. Une fois que vous êtes sûr d'être connecté au compte souhaité, cliquez sur le bouton orange "Sign Message". Vous verrez une invite dans votre application d'extension de portefeuille pour signer le message suivant :
+Une fois que vous vous êtes connecté et avez confirmé votre adresse de nœud, vous verrez votre **adresse de signalisation**. Elle devrait être la même que le compte avec lequel vous vous êtes connecté au site. Vérifiez que c'est correct avant de continuer. Une fois que vous êtes sûr d'être connecté au compte souhaité, cliquez sur le bouton orange "Sign Message". Vous verrez une invite dans votre application d'extension de portefeuille pour signer le message suivant :
 
 ```
-`snapshot signalling address` may delegate to me for Rocket Pool governance
+`node address` may delegate to me for Rocket Pool governance
 ```
 
 La signature ne vous coûtera aucun gaz, mais la définition en coûtera. Après avoir signé, le frontend vous donnera une commande à coller dans le smartnode. Allez-y et collez-la dans la CLI de votre smartnode et suivez les étapes demandées. La commande devrait ressembler à quelque chose comme ceci :
 
 ```shell
 rocketpool pdao set-signalling-address
-`snapshot signalling address`
-`EIP712 signature`
+`signalling address`
+`signature`
 ```
 
 Si vous voyez ce message dans votre CLI, vous êtes prêt !
 
 ```
-The node's signalling address was successfully set to `snapshot signalling address`
+The node's signalling address was successfully set to `signalling address`
 ```
 
 :::tip TIP

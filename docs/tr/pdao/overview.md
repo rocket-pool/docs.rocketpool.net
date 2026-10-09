@@ -6,7 +6,7 @@ next:
 
 # Genel Bakış
 
-Bu bölüm, düğümünüzü on-chain ve snapshot tekliflerine katılacak şekilde yapılandırma sürecini özetlemektedir. Anlatılacak çok şey var, bu nedenle [Houston Güncellemesi](/tr/legacy/houston/whats-new) hakkındaki genel bakışı okumanızı şiddetle tavsiye ederiz. Bu, on-chain yönetimi etkinleştiren en son özellikleri ve protokolü şekillendirmeye nasıl katılabileceğinizi anlamanıza yardımcı olacaktır.
+Bu bölüm, düğümünüzü on-chain ve off-chain ([RocketDash](https://rocketdash.net/vote)) tekliflere katılacak şekilde yapılandırma sürecini özetlemektedir. Anlatılacak çok şey var, bu nedenle [Houston Güncellemesi](/tr/legacy/houston/whats-new) hakkındaki genel bakışı okumanızı şiddetle tavsiye ederiz. Bu, on-chain yönetimi etkinleştiren en son özellikleri ve protokolü şekillendirmeye nasıl katılabileceğinizi anlamanıza yardımcı olacaktır.
 
 ## Ön Koşullar
 
@@ -21,9 +21,9 @@ Smart Node'unuzu yapılandırmadan önce lütfen aşağıdakileri yaptığınız
 
 ## Oylamada üç adres rol alır
 
-- pDAO Signalling Address — Doğrudan oy kullanmak istiyorsanız veya delegenizin Snapshot oyunu geçersiz kılmak istiyorsanız Snapshot adresiniz olarak kullanılacaktır. Bu adres yalnızca Snapshot için kullanılır, on-chain oylama için değil.
+- pDAO Signalling Address — Doğrudan oy kullanmak veya delegenizin off-chain oyunu geçersiz kılmak istiyorsanız RocketDash adresiniz olarak kullanılacaktır. Bu adres yalnızca RocketDash'teki off-chain oylamalar için kullanılır, on-chain oylamalar için kullanılmaz.
 
-- pDAO Delegate Node — Oyunuzu devretmeyi seçerseniz. Bunu delegenizin düğüm adresine ayarlayacaksınız. Bir delege seçerseniz, onlar sizin için Snapshot'ta ve on-chain tekliflerde oy kullanacaktır.
+- pDAO Delegate Node — Oyunuzu devretmeyi seçerseniz bunu delegenizin düğüm adresine ayarlayacaksınız. Bir delege seçerseniz, sizin için RocketDash'te ve on-chain tekliflerde oy kullanacaktır.
 
 - Node Address — Oyunuzu devretmediyseniz veya delegenizin on-chain oyunu geçersiz kılmak istiyorsanız bunu düğümünüzden yapabilirsiniz.
 
@@ -35,7 +35,7 @@ Smart Node'unuzu yapılandırmadan önce lütfen aşağıdakileri yaptığınız
 
 [Oy Gücünü Başlatma](/tr/pdao/participate#oylamayı-başlatma), düğümünüzün oy gücünü nasıl başlatacağınızı gösterir. Bu adım yalnızca düğümünüz Houston Güncellemesinden önce kaydedildiyse gereklidir.
 
-[Snapshot Signalling Address Ayarlama](/tr/pdao/participate#snapshot-signalling-address-ayarlama), bir Signalling Address ayarlama adımlarında size yol gösterecektir. Düğümünüzün özel anahtarını hot wallet'a yüklemenize gerek kalmadan düğümünüzün oy gücünü kullanarak Snapshot'ta oy kullanmanıza izin verecektir. Bu rehber için Smart Node CLI'ınızı hazır bulundurun ve (düğüm cüzdanınız olmayan) bir adres hazırlayın.
+[Signalling Address Ayarlama](/tr/pdao/participate#signalling-address-ayarlama), bir Signalling Address ayarlama adımlarında size yol gösterecektir. Düğümünüzün özel anahtarını hot wallet'a yüklemenize gerek kalmadan düğümünüzün oy gücünü kullanarak RocketDash'te oy kullanmanıza olanak tanır. Bu rehber için Smart Node CLI'ınızı hazır bulundurun ve (düğüm cüzdanınız olmayan) bir adres hazırlayın.
 
 [Oy Gücünü Devretme](/tr/pdao/participate#oy-gücünü-devretme), teklifler üzerinde doğrudan oy kullanmak yerine oy gücünü devretmek için kullanabileceğiniz hızlı bir komuttur.
 

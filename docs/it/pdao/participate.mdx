@@ -17,7 +17,7 @@ Per maggiori dettagli e motivazioni, fare riferimento ai [tipi di proposta](http
 Una proposta dovrebbe essere preannunciata dal processo di governance prima che finisca on-chain.
 
 Le modifiche al protocollo Rocket Pool vengono proposte, votate ed eseguite utilizzando un processo di governance rigoroso ma trasparente. Il processo inizia con una discussione informale di un'idea all'interno della comunità Discord. Questa idea progredisce poi in discussioni formali nel canale [#governance](https://discordapp.com/channels/405159462932971535/774497904559783947) su Discord e nel [DAO Forum](https://dao.rocketpool.net/), dove subisce ricerche approfondite, modellazione e analisi in preparazione per una [Rocket Pool Improvement Proposal (RPIP)](https://rpips.rocketpool.net/). Successivamente, viene preparata una bozza di RPIP e rivista da revisori RPIP designati per garantirne la qualità e la prontezza per la presentazione alla DAO.
-La bozza di proposta viene quindi presentata alla DAO sul forum per ulteriori revisioni, feedback e incorporazione di eventuali modifiche necessarie. Una volta che la proposta è stata perfezionata in base al feedback della comunità, viene aperto un sondaggio sul forum DAO per valutare la prontezza per finalizzare il testo RPIP. Se il sondaggio viene approvato, indicando l'approvazione della comunità, l'RPIP viene contrassegnato come finale e pronto per un voto della Protocol DAO, che viene condotto tramite Snapshot per determinare se la proposta debba essere implementata.
+La bozza di proposta viene quindi presentata alla DAO sul forum per ulteriori revisioni, feedback e incorporazione di eventuali modifiche necessarie. Una volta che la proposta è stata perfezionata in base al feedback della comunità, viene aperto un sondaggio sul forum DAO per valutare la prontezza per finalizzare il testo RPIP. Se il sondaggio viene approvato, indicando l'approvazione della comunità, l'RPIP viene contrassegnato come finale e pronto per un voto off-chain della Protocol DAO su [RocketDash](https://rocketdash.net/vote), volto a stabilire se la proposta debba essere implementata. RocketDash ha sostituito Snapshot per queste votazioni.
 
 Da qui, l'Oracle DAO solleverà una proposta on-chain. C'è una finestra in cui la Protocol DAO, l'Oracle DAO e la comunità possono rivedere la proposta. Se si raggiunge il consenso, la proposta viene eseguita e le modifiche vengono applicate al protocollo.
 
@@ -82,16 +82,28 @@ Questa funzionalità può essere configurata nelle impostazioni dello Smart Node
 
 Il **Auto-Init Vote Power Gas Threshold** è un limite (in gwei) su questa transazione automatica. Puoi rinunciare a questa attività impostando la soglia su 0. Sentiti libero di rinunciare se il tuo nodo è stato registrato dopo l'aggiornamento Houston o se il potere di voto è già abilitato.
 
-## Impostare l'indirizzo di segnalazione Snapshot
+<span id="setting-your-snapshot-signalling-address"></span>
 
-L'impostazione del tuo indirizzo di segnalazione Snapshot ti consentirà di partecipare ai voti Snapshot su un browser o dispositivo mobile senza dover esporre le chiavi del nodo a un wallet caldo.
+## Impostare l'indirizzo di segnalazione
+
+Impostare il tuo indirizzo di segnalazione ti consentirà di partecipare alle votazioni di governance off-chain su
+[RocketDash](https://rocketdash.net/vote) da un browser o dispositivo mobile, senza dover esporre le chiavi del nodo a un hot wallet.
+
+:::tip NOTA
+RocketDash ha sostituito Snapshot per le votazioni di governance off-chain di Rocket Pool. Il tuo indirizzo di segnalazione è memorizzato on-chain,
+quindi, se ne hai già impostato uno per Snapshot, RocketDash lo utilizza e non devi impostarlo di nuovo.
+:::
+
+Il tuo indirizzo di segnalazione può votare e sostituire il voto del tuo delegato su RocketDash, ma non può cambiare il delegato. Per
+delegare, consulta [Delegare il potere di voto](#delegare-il-potere-di-voto).
 
 Ci sono alcune cose da preparare:
 
 - L'indirizzo del tuo nodo
-- Un indirizzo che vuoi usare per il voto su Snapshot (indirizzo di segnalazione)
+- Un indirizzo che vuoi usare per il voto off-chain (indirizzo di segnalazione)
 
-Firmerai un messaggio dicendo che l'indirizzo del tuo nodo può delegare al nuovo indirizzo. Questo messaggio indica la tua intenzione di usare il tuo indirizzo wallet come indirizzo di segnalazione Snapshot.
+Firmerai un messaggio che autorizza l'indirizzo del tuo nodo a delegare al nuovo indirizzo. Questo messaggio esprime la tua
+intenzione di utilizzare l'indirizzo del tuo wallet come indirizzo di segnalazione.
 
 Seleziona quale rete stai utilizzando da una delle schede qui sotto.
 
@@ -103,44 +115,44 @@ Seleziona quale rete stai utilizzando da una delle schede qui sotto.
 </div>
 
 :::danger ATTENZIONE
-Non caricare la chiave privata del tuo nodo su un wallet caldo. Si prega di scegliere un altro account come indirizzo di segnalazione.
-Dopo aver impostato l'indirizzo di segnalazione, puoi usarlo per votare su Snapshot con il potere di voto del tuo nodo.
+Non caricare la chiave privata del tuo nodo su un hot wallet. Scegli un altro account come indirizzo di segnalazione.
+Dopo aver impostato l'indirizzo di segnalazione, puoi usarlo per votare su RocketDash con il potere di voto del tuo nodo.
 :::
 
-Inizia **collegando l'indirizzo che vuoi usare come indirizzo di segnalazione** al sito web usando MetaMask, WalletConnect o uno qualsiasi degli altri metodi supportati dal sito web. Ti verrà quindi presentata questa finestra di dialogo per cercare il tuo indirizzo nodo.
+Inizia **collegando l'indirizzo che vuoi usare come indirizzo di segnalazione** al sito web usando MetaMask, WalletConnect o uno qualsiasi degli altri metodi supportati dal sito web. Ti verrà quindi presentata questa finestra di dialogo per cercare l'indirizzo del tuo nodo.
 
-Successivamente, inserirai l'indirizzo del tuo nodo e poi cliccherai il pulsante arancione "Find". Questo verificherà se l'indirizzo è un nodo registrato e poi ti porterà al passaggio successivo.
+Successivamente, inserisci l'indirizzo del tuo nodo e fai clic sul pulsante arancione "Find". Il sito verificherà se l'indirizzo appartiene a un nodo registrato e ti porterà al passaggio successivo.
 
 :::tip SUGGERIMENTO
-**Assicurati di avere l'indirizzo del nodo corretto prima di farlo!** se hai bisogno di confermare l'indirizzo del tuo nodo, puoi recuperarlo rapidamente tramite la CLI usando il comando `rocketpool node status`.
+**Assicurati di avere l'indirizzo del nodo corretto prima di farlo!** Se devi confermare l'indirizzo del tuo nodo, puoi recuperarlo rapidamente tramite la CLI usando il comando `rocketpool node status`.
 :::
 
-Una volta che ti sei registrato e hai confermato l'indirizzo del tuo nodo, vedrai il tuo **indirizzo di segnalazione Snapshot**. Dovrebbe essere lo stesso dell'account con cui ti sei registrato sul sito. Controlla due volte che questo sia corretto prima di procedere. Una volta che sei sicuro di essere registrato nell'account desiderato, fai clic sul pulsante arancione "Sign Message". Vedrai un prompt nella tua app wallet per firmare il seguente messaggio:
+Una volta effettuato l'accesso e confermato l'indirizzo del tuo nodo, vedrai il tuo **indirizzo di segnalazione**. Dovrebbe essere lo stesso dell'account con cui hai effettuato l'accesso al sito. Ricontrolla che sia corretto prima di procedere. Quando sei sicuro di aver effettuato l'accesso all'account desiderato, fai clic sul pulsante arancione "Sign Message". Nell'estensione del tuo wallet vedrai una richiesta di firma per il seguente messaggio:
 
 ```
-`indirizzo di segnalazione snapshot` può delegare a me per la governance di Rocket Pool
+`node address` may delegate to me for Rocket Pool governance
 ```
 
-Firmare non ti costerà alcun gas ma impostare sì. Dopo aver firmato, il frontend ti darà un comando da incollare nello smartnode. Vai avanti e incollalo nella CLI del tuo smartnode e segui i passaggi richiesti. Il comando dovrebbe apparire così:
+La firma non comporta costi di gas, ma l'impostazione dell'indirizzo sì. Dopo la firma, il frontend ti fornirà un comando da incollare nello Smart Node. Incollalo nella CLI dello Smart Node e segui i passaggi richiesti. Il comando dovrebbe essere simile a questo:
 
 ```shell
 rocketpool pdao set-signalling-address
-`indirizzo di segnalazione snapshot`
-`firma EIP712`
+`signalling address`
+`signature`
 ```
 
-Se vedi questo messaggio nella tua CLI, sei a posto!
+Se vedi questo messaggio nella CLI, hai completato la procedura:
 
 ```
-L'indirizzo di segnalazione del nodo è stato impostato con successo su `indirizzo di segnalazione snapshot`
+The node's signalling address was successfully set to `signalling address`
 ```
 
 :::tip SUGGERIMENTO
-Non preoccuparti se chiudi accidentalmente il sito o perdi traccia del comando. Puoi semplicemente ripetere i passaggi e **firmare di nuovo usando lo stesso indirizzo nodo e indirizzo di segnalazione**. Il frontend usa `signer.Signmessage()` dalla libreria ethers, il che significa che la tua firma è deterministica dato lo stesso input.
-Clicca [qui](https://docs.ethers.org/v6/api/providers/#cid_865) per saperne di più.
+Non preoccuparti se chiudi accidentalmente il sito o perdi il comando. Puoi semplicemente ripetere i passaggi e **firmare di nuovo usando gli stessi indirizzi del nodo e di segnalazione**. Il frontend usa `signer.Signmessage()` dalla libreria ethers, quindi la firma è deterministica a parità di input.
+Fai clic [qui](https://docs.ethers.org/v6/api/providers/#cid_865) per saperne di più.
 :::
 
-Cancellare il tuo indirizzo di segnalazione è piuttosto facile, usa semplicemente questo comando nella CLI:
+Per cancellare il tuo indirizzo di segnalazione, usa semplicemente questo comando nella CLI:
 
 ```shell
 rocketpool pdao clear-signalling-address
@@ -169,72 +181,130 @@ Il RPL bloccato non viene conteggiato per le soglie di prelievo RPL.
 
 ## Delegare il potere di voto
 
-Un operatore di nodo può scegliere di delegare il proprio potere di voto a un altro operatore di nodo. L'unico requisito è che il tuo delegato sia un nodo registrato.
+Un operatore di nodo può scegliere di delegare il proprio potere di voto a un altro operatore di nodo. L'unico requisito è che il delegato sia un nodo registrato.
 
-Per delegare il potere di voto on-chain a un altro nodo, usa il seguente comando:
+Per delegare il potere di voto a un altro nodo, esegui questo comando dal tuo nodo:
 
 ```shell
-rocketpool pdao set-voting-delegate `indirizzo`
+rocketpool pdao set-voting-delegate `address`
 ```
+
+Il tuo delegato vota per te sia sulle proposte on-chain sia nelle votazioni off-chain su [RocketDash](https://rocketdash.net/vote).
+La delega può essere impostata soltanto dal tuo nodo. Non puoi delegare dal tuo indirizzo di segnalazione o su RocketDash.
 
 ::: tip NOTA
-Se hai delegato il tuo potere di voto a un altro operatore di nodo, puoi reimpostarlo impostando l'indirizzo del delegato sul tuo indirizzo del nodo.
+Se hai delegato il tuo potere di voto a un altro operatore di nodo, puoi annullare la delega impostando come indirizzo del delegato
+l'indirizzo del tuo nodo.
 :::
 
-- Durante la fase 1 di una proposta: **Votanti** e **Delegati** possono esprimere il loro voto su una proposta.
-- Durante la fase 2 di una proposta: **Gli operatori di nodo** che hanno delegato il loro voto hanno l'opportunità di ribaltare il voto del loro delegato, se non sono d'accordo.
+### Quando votare
 
-Se sei un operatore di nodo con potere di voto delegato, devi votare durante la fase di voto 1 affinché il potere di voto delegato conti per la proposta. Il tuo voto nella fase 1 varrà il tuo **potere di voto locale + potere di voto delegato**. Il tuo voto nella fase 2 vale solo il tuo **potere di voto locale**.
+Le proposte on-chain prevedono due fasi di voto. La fase in cui dovresti votare dipende dal fatto che tu abbia delegato o meno il
+tuo potere di voto. Queste fasi si applicano soltanto alle proposte on-chain. Le votazioni off-chain su RocketDash non le prevedono.
 
-## Creare una proposta
+- **In sospeso:** nessuno può ancora votare.
+- **Fase 1:** se non hai delegato il tuo voto, questa è la fase in cui votare. Se sei un delegato, il tuo voto vale anche
+  per ogni nodo che ti ha delegato il proprio potere, quindi vota nella fase 1. In caso contrario, il loro potere di voto sarà conteggiato soltanto se voteranno
+  personalmente nella fase 2. Se hai delegato il tuo voto, il delegato vota per te in questa fase.
+- **Fase 2:** se hai delegato il tuo voto e non concordi con il voto del delegato, oppure il delegato non ha votato,
+  ora puoi votare personalmente. Il tuo voto sostituisce quello del delegato soltanto per la tua quota. Chiunque non abbia ancora votato
+  può votare anche nella fase 2, ma il voto conta soltanto il proprio potere di voto, anche nel caso di un delegato.
 
-Per essere idoneo a proporre, un nodo deve soddisfare alcuni requisiti:
+Su Mainnet, una nuova proposta rimane in sospeso per **una settimana**, poi la fase 1 dura **una settimana** e la fase 2 dura **una settimana**.
+Queste durate sono impostazioni della pDAO e possono essere modificate con una votazione. Esegui `rocketpool pdao settings` per vedere i valori correnti.
 
-- Incluso nello snapshotting (sia [inizializzando il voto](./participate#inizializzare-il-voto) o registrandosi dopo Houston)
-- Deve avere almeno un minipool
-- Ha un potere di voto non nullo
-- Ha consentito il [blocco RPL](./participate#consentire-il-blocco-rpl)
-- Ha uno stake RPL (meno qualsiasi RPL già bloccato) maggiore della garanzia della proposta
+Un nodo può votare una sola volta su una proposta, in una delle due fasi.
 
-Le proposte esistono per modificare i parametri ed eseguire codice a livello di protocollo! Dovrebbe esserci discussione e consenso attraverso il [processo di governance](./participate#processo-di-governance) prima che una proposta venga creata on-chain.
+| Il tuo ruolo è...                                                 | Quando votare                                                                                                                                                          |
+| ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Voti per te stesso (impostazione predefinita)                     | Fase 1. Se non voti in tempo, puoi comunque votare nella fase 2.                                                                                                       |
+| Sei un delegato                                                   | **Fase 1.** Se non voti nella fase 1, il potere di voto che ti è stato delegato non viene conteggiato. I deleganti possono comunque votare personalmente nella fase 2. |
+| Hai delegato a un altro nodo e concordi con il suo voto           | Non devi votare.                                                                                                                                                       |
+| Hai delegato a un altro nodo e non concordi, oppure non ha votato | Fase 2.                                                                                                                                                                |
 
-Usa il comando `rocketpool pdao propose` per visualizzare un menu di opzioni
-
-```
-COMMANDS:
-   rewards-percentages, rp      Proponi l'aggiornamento delle percentuali di allocazione delle ricompense RPL per gli operatori di nodo, l'Oracle DAO e la Protocol DAO
-   one-time-spend, ots          Proponi una spesa una tantum del tesoro della Protocol DAO
-   recurring-spend, rs          Proponi una spesa ricorrente del tesoro della Protocol DAO
-   recurring-spend-update, rsu  Proponi un aggiornamento a un piano di spesa ricorrente esistente
-   security-council, sc         Modifica il Security Council
-   setting, s                   Crea una proposta di impostazione della Protocol DAO
-   submit-batch, sb            Invia una singola proposta che modifica più impostazioni della Protocol DAO da un file JSON
-```
-
-Ciascuno di questi comandi ti chiederà un elenco di input per creare la proposta desiderata. I comandi di proposta delle impostazioni accettano `--to-json` per scrivere o aggiungere una modifica di impostazione a un file JSON invece di inviare una transazione. Quando il file è pronto, invialo con `rocketpool pdao propose submit-batch`.
-
-In questa guida, inviteremo un nodo al Security Council come esempio. Per sollevare una proposta per invitare un nodo al Security Council, useresti il comando:
+Per vedere in quale fase si trova una proposta e se tu o il tuo delegato avete votato, esegui:
 
 ```shell
-rocketpool pdao propose security-council invite
+rocketpool pdao proposals details <proposal-id>
 ```
 
-Tieni presente che questo passaggio avrà qualche leggera variazione a seconda del tipo di proposta. Questo comando particolare:
-`rocketpool pdao propose security-council invite` ti chiederà di inserire un ID seguito da un indirizzo del membro.
+Controlla le righe `State`, `Phase 1 end`, `Phase 2 end`, `Node has voted` e `Delegate has voted`. Puoi vedere anche la
+fase di ogni proposta su [RocketDash](https://rocketdash.net/pdao-proposals).
+
+Quando voti con `rocketpool pdao proposals vote`, lo Smart Node esprime automaticamente il tipo di voto corretto per la fase corrente.
+
+## Votare su una proposta
+
+Durante un periodo di voto, **Gli operatori di nodo** e **Delegati** possono esprimere un voto con una delle quattro opzioni:
 
 ```
-Inserisci un ID per il membro che vorresti invitare: (nessuno spazio)
-test-member
-
-Inserisci l'indirizzo del membro:
-0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145
-
-... stime gas ...
-
-Sei sicuro di voler proporre di invitare test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) al Security Council? [y/n]
+1. Astieniti: il potere di voto del votante contribuisce al quorum ma non è né a favore né contro la proposta.
+2. A favore: il votante vota a favore dell'esecuzione della proposta.
+3. Contro: il votante vota contro l'esecuzione della proposta.
+4. Veto: il votante vota contro la proposta e indica che ritiene la proposta spam o dannosa.
 ```
 
-Dopo che questo è incluso in un blocco, verrà creata una proposta pDAO! La proposta entrerà nel [periodo di ritardo del voto](./pdao#periodo-di-ritardo-del-voto) al momento della creazione.
+Il loro potere di voto verrà applicato all'opzione di loro scelta. Il potere di voto è una funzione dello "stake RPL effettivo."
+Una lettura più dettagliata può essere trovata nel [repository rocketpool-research](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting).
+
+::: tip NOTA
+Un nodo può votare una sola volta su una proposta, quindi scegli con attenzione. Per sapere in quale fase dovresti votare, consulta
+[Quando votare](#quando-votare).
+:::
+
+Usa questo comando per esprimere un voto:
+
+```shell
+rocketpool pdao proposals vote
+```
+
+Ti verrà richiesto di selezionare una proposta su cui votare se c'è almeno una proposta in una fase di voto attiva.
+Il menu dovrebbe visualizzare tutte le proposte su cui il tuo nodo è idoneo a votare:
+
+```
+1: proposta 71 (messaggio: 'invita test-member', payload: proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145), fine fase 1: 14 Mar 24 05:40 UTC, vp richiesto: 0.00, a favore: 0.00, contro: 0.00, astenuto: 0.00, veto: 0.00, proposto da: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
+2: proposta 72 (messaggio: 'sostituisci langers-not-his-eoa (0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E) nel Security Council con tpan (0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E)', payload: proposalSecurityReplace(0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E,tpan,0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E), fine fase 1: 14 Mar 24 05:40 UTC, vp richiesto: 0.00, a favore: 0.00, contro: 0.00, astenuto: 0.00, veto: 0.00, proposto da: 0xe2fC31d61E28BB16c0857D4682AB3616FA7A793d)
+3: proposta 73 (messaggio: 'imposta proposal.vote.delay.time', payload: proposalSettingUint(rocketDAOProtocolSettingsProposals,proposal.vote.delay.time,60), fine fase 1: 14 Mar 24 05:41 UTC, vp richiesto: 0.00, a favore: 0.00, contro: 0.00, astenuto: 0.00, veto: 0.00, proposto da: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
+```
+
+Dopo aver selezionato un'opzione, ti verrà chiesto come vuoi esprimere il tuo voto.
+
+```
+Come vorresti votare sulla proposta?
+1: Astieniti
+2: A favore
+3: Contro
+4: Veto
+```
+
+Selezionando un'opzione verrà quindi visualizzato il tuo potere di voto e poi ti verrà richiesto di inviare la transazione:
+
+```
+Il tuo attuale potere di voto: 20123617964
+
++============== Prezzi Gas suggeriti ==============+
+| Tempo di attesa medio |  Tariffa massima  |    Costo gas totale    |
+| 15 secondi    | 76 gwei   | 0.0176 a 0.0265 ETH |
+| 1 minuto      | 56 gwei   | 0.0127 a 0.0190 ETH |
+| 3 minuti     | 56 gwei   | 0.0127 a 0.0190 ETH |
+| >10 minuti   | 56 gwei   | 0.0127 a 0.0190 ETH |
++==================================================+
+Questi prezzi includono una tariffa di priorità massima di 2.00 gwei.
+Inserisci la tua tariffa massima (inclusa la tariffa di priorità) o lascia vuoto per l'impostazione predefinita di 56 gwei:
+```
+
+Hai votato con successo sulla proposta una volta che la transazione è inclusa nel blocco! A questo punto, puoi usare `rocketpool pdao proposal details <proposal-id>` per visualizzare lo stato della proposta. Una proposta deve raggiungere il **potere di voto richiesto** di `proposal.quorum` e la maggioranza del **potere di voto a favore** affinché abbia successo.
+
+```
+Potere di voto richiesto:  140970562215
+Potere di voto a favore:       197980809837
+Potere di voto contro:   0
+Potere di voto astenuto: 0
+Potere di voto contro:   0
+Il nodo ha votato:         A favore
+```
+
+Affinché l'esempio sopra passi, il potere di voto deve superare un quorum di `140970562215` potere di voto. C'è `197980809837` potere di voto a favore e nessun voto contro o astenuto. La proposta è pronta per il successo e pronta per l'esecuzione entro la fine di `proposal.vote.phase2.time`.
 
 ## Visualizzare lo stato di una proposta
 
@@ -316,77 +386,55 @@ Ad ogni proposta viene assegnato un `proposalID`. In questo caso, la nostra prop
   </Tabs>
 </div>
 
-## Votare su una proposta
+## Creare una proposta
 
-Durante un periodo di voto, **Gli operatori di nodo** e **Delegati** possono esprimere un voto con una delle quattro opzioni:
+Per essere idoneo a proporre, un nodo deve soddisfare alcuni requisiti:
+
+- Incluso nello snapshotting (sia [inizializzando il voto](./participate#inizializzare-il-voto) o registrandosi dopo Houston)
+- Deve avere almeno un minipool
+- Ha un potere di voto non nullo
+- Ha consentito il [blocco RPL](./participate#consentire-il-blocco-rpl)
+- Ha uno stake RPL (meno qualsiasi RPL già bloccato) maggiore della garanzia della proposta
+
+Le proposte esistono per modificare i parametri ed eseguire codice a livello di protocollo! Dovrebbe esserci discussione e consenso attraverso il [processo di governance](./participate#processo-di-governance) prima che una proposta venga creata on-chain.
+
+Usa il comando `rocketpool pdao propose` per visualizzare un menu di opzioni
 
 ```
-1. Astieniti: il potere di voto del votante contribuisce al quorum ma non è né a favore né contro la proposta.
-2. A favore: il votante vota a favore dell'esecuzione della proposta.
-3. Contro: il votante vota contro l'esecuzione della proposta.
-4. Veto: il votante vota contro la proposta e indica che ritiene la proposta spam o dannosa.
+COMMANDS:
+   rewards-percentages, rp      Proponi l'aggiornamento delle percentuali di allocazione delle ricompense RPL per gli operatori di nodo, l'Oracle DAO e la Protocol DAO
+   one-time-spend, ots          Proponi una spesa una tantum del tesoro della Protocol DAO
+   recurring-spend, rs          Proponi una spesa ricorrente del tesoro della Protocol DAO
+   recurring-spend-update, rsu  Proponi un aggiornamento a un piano di spesa ricorrente esistente
+   security-council, sc         Modifica il Security Council
+   setting, s                   Crea una proposta di impostazione della Protocol DAO
+   submit-batch, sb            Invia una singola proposta che modifica più impostazioni della Protocol DAO da un file JSON
 ```
 
-Il loro potere di voto verrà applicato all'opzione di loro scelta. Il potere di voto è una funzione dello "stake RPL effettivo."
-Una lettura più dettagliata può essere trovata nel [repository rocketpool-research](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting).
+Ciascuno di questi comandi ti chiederà un elenco di input per creare la proposta desiderata. I comandi di proposta delle impostazioni accettano `--to-json` per scrivere o aggiungere una modifica di impostazione a un file JSON invece di inviare una transazione. Quando il file è pronto, invialo con `rocketpool pdao propose submit-batch`.
 
-::: tip NOTA
-Se sei un operatore di nodo con potere di voto delegato, devi votare durante la fase di voto 1 affinché il potere di voto delegato conti per la proposta. Il tuo voto nella fase 1 varrà il tuo potere di voto locale + potere di voto delegato. Il tuo voto nella fase 2 vale solo il tuo potere di voto locale. Si prega di tenere presente che un nodo può votare una sola volta su una proposta, quindi scegli con attenzione.
-:::
-
-Usa questo comando per esprimere un voto:
+In questa guida, inviteremo un nodo al Security Council come esempio. Per sollevare una proposta per invitare un nodo al Security Council, useresti il comando:
 
 ```shell
-rocketpool pdao proposals vote
+rocketpool pdao propose security-council invite
 ```
 
-Ti verrà richiesto di selezionare una proposta su cui votare se c'è almeno una proposta in una fase di voto attiva.
-Il menu dovrebbe visualizzare tutte le proposte su cui il tuo nodo è idoneo a votare:
+Tieni presente che questo passaggio avrà qualche leggera variazione a seconda del tipo di proposta. Questo comando particolare:
+`rocketpool pdao propose security-council invite` ti chiederà di inserire un ID seguito da un indirizzo del membro.
 
 ```
-1: proposta 71 (messaggio: 'invita test-member', payload: proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145), fine fase 1: 14 Mar 24 05:40 UTC, vp richiesto: 0.00, a favore: 0.00, contro: 0.00, astenuto: 0.00, veto: 0.00, proposto da: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
-2: proposta 72 (messaggio: 'sostituisci langers-not-his-eoa (0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E) nel Security Council con tpan (0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E)', payload: proposalSecurityReplace(0xaC1396c21Eaf6630113516C69d63b7CB59B98b3E,tpan,0x6E9E4Cc0A8172349E049128574E1fb85B8D3CE9E), fine fase 1: 14 Mar 24 05:40 UTC, vp richiesto: 0.00, a favore: 0.00, contro: 0.00, astenuto: 0.00, veto: 0.00, proposto da: 0xe2fC31d61E28BB16c0857D4682AB3616FA7A793d)
-3: proposta 73 (messaggio: 'imposta proposal.vote.delay.time', payload: proposalSettingUint(rocketDAOProtocolSettingsProposals,proposal.vote.delay.time,60), fine fase 1: 14 Mar 24 05:41 UTC, vp richiesto: 0.00, a favore: 0.00, contro: 0.00, astenuto: 0.00, veto: 0.00, proposto da: 0x681B8BBf08708e64694005c7Dc307b381b4D1A7D)
+Inserisci un ID per il membro che vorresti invitare: (nessuno spazio)
+test-member
+
+Inserisci l'indirizzo del membro:
+0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145
+
+... stime gas ...
+
+Sei sicuro di voler proporre di invitare test-member (0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145) al Security Council? [y/n]
 ```
 
-Dopo aver selezionato un'opzione, ti verrà chiesto come vuoi esprimere il tuo voto.
-
-```
-Come vorresti votare sulla proposta?
-1: Astieniti
-2: A favore
-3: Contro
-4: Veto
-```
-
-Selezionando un'opzione verrà quindi visualizzato il tuo potere di voto e poi ti verrà richiesto di inviare la transazione:
-
-```
-Il tuo attuale potere di voto: 20123617964
-
-+============== Prezzi Gas suggeriti ==============+
-| Tempo di attesa medio |  Tariffa massima  |    Costo gas totale    |
-| 15 secondi    | 76 gwei   | 0.0176 a 0.0265 ETH |
-| 1 minuto      | 56 gwei   | 0.0127 a 0.0190 ETH |
-| 3 minuti     | 56 gwei   | 0.0127 a 0.0190 ETH |
-| >10 minuti   | 56 gwei   | 0.0127 a 0.0190 ETH |
-+==================================================+
-Questi prezzi includono una tariffa di priorità massima di 2.00 gwei.
-Inserisci la tua tariffa massima (inclusa la tariffa di priorità) o lascia vuoto per l'impostazione predefinita di 56 gwei:
-```
-
-Hai votato con successo sulla proposta una volta che la transazione è inclusa nel blocco! A questo punto, puoi usare `rocketpool pdao proposal details <proposal-id>` per visualizzare lo stato della proposta. Una proposta deve raggiungere il **potere di voto richiesto** di `proposal.quorum` e la maggioranza del **potere di voto a favore** affinché abbia successo.
-
-```
-Potere di voto richiesto:  140970562215
-Potere di voto a favore:       197980809837
-Potere di voto contro:   0
-Potere di voto astenuto: 0
-Potere di voto contro:   0
-Il nodo ha votato:         A favore
-```
-
-Affinché l'esempio sopra passi, il potere di voto deve superare un quorum di `140970562215` potere di voto. C'è `197980809837` potere di voto a favore e nessun voto contro o astenuto. La proposta è pronta per il successo e pronta per l'esecuzione entro la fine di `proposal.vote.phase2.time`.
+Dopo che questo è incluso in un blocco, verrà creata una proposta pDAO! La proposta entrerà nel [periodo di ritardo del voto](./pdao#periodo-di-ritardo-del-voto) al momento della creazione.
 
 ## Eseguire una proposta riuscita
 
