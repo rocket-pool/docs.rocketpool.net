@@ -43,69 +43,19 @@ as diferenças entre todos os períodos de votação e as ações que podem ser 
 
 O resto desta página o guiará através dos passos necessários para participar em propostas pDAO on-chain.
 
-## Inicializando Votação
+<span id="initializing-voting"></span>
 
-Se você é um operador de nó que se registrou antes da atualização Houston, você precisa inicializar a votação para desbloquear o poder de voto. Tenha em mente que ter pelo menos um minipool é um requisito para ter poder de voto.
+## Verificando seu Poder de Voto
 
-```shell
-rocketpool pdao initialize-voting
-```
-
-Este comando irá apresentar o prompt abaixo. Por favor, leia-o cuidadosamente:
-
-```
-Obrigado por inicializar o seu poder de voto!
-
-Você tem duas opções:
-
-1. Votar diretamente (delegar poder de voto a si mesmo)
-   Isso permitirá que você vote em propostas diretamente,
-   permitindo que você pessoalmente molde a direção do protocolo.
-
-2. Delegar o seu voto
-   Isso irá delegar o seu poder de voto a alguém em quem você confia,
-   dando-lhes o poder de votar em seu nome. Você terá a opção de sobrepor.
-
-Você pode ver uma lista de delegados públicos existentes em https://delegates.rocketpool.net,
-no entanto, você pode delegar para qualquer endereço de nó.
-
-Saiba mais sobre como tudo isso funciona via: /pt/pdao/participate#participating-in-on-chain-pdao-proposals
-
-Por favor, digite `direct` ou `delegate` para continuar:
-```
-
-- Se você responder com `direct`, o poder de voto será inicializado para o seu nó e você poderá votar diretamente em
-  propostas da DAO do Protocolo.
-- Se você responder com `delegate`, você terá a oportunidade de economizar um pouco de gas ao inicializar a votação
-  e [definir um delegado](./participate#delegando-o-poder-de-voto) dentro da mesma transação.
-
-Você só precisa fazer isso uma vez. Ele configura a informação de snapshot inicial para um nó. Depois de inicializar a votação,
-toda ação tomada irá atualizar a informação de snapshot do seu nó. Uma vez que o seu poder de voto esteja inicializado, você pode verificar
-quanto você tem usando o seguinte comando smartnode:
+O poder de voto não precisa mais ser inicializado. Para ver o poder de voto e o delegado do seu nó, execute:
 
 ```shell
 rocketpool pdao status
 ```
 
 :::tip NOTA
-Sempre que uma nova proposta é criada, uma árvore de votação representando um snapshot do poder de voto da rede e informações de delegado
-é criada em conjunto com a nova proposta. Isso significa que o poder de voto do seu nó não será incluído em uma proposta se
-ela foi levantada antes de você inicializar a votação. `rocketpool pdao status` irá exibir o poder de voto do seu nó no
-bloco mais recente, que pode ou não ser representativo do seu poder de voto em uma proposta particular.
+Sempre que uma nova proposta é criada, uma árvore de votação representando um snapshot do poder de voto da rede e das informações de delegados é criada junto com a nova proposta. Seu poder de voto em uma proposta é fixado no bloco em que a proposta foi criada, então alterações feitas depois não contam para essa proposta. `rocketpool pdao status` exibe o poder de voto do seu nó no bloco mais recente, que pode ou não corresponder ao seu poder de voto em uma proposta específica.
 :::
-
-## Auto Inicializar Poder de Voto
-
-A versão `1.13.8` do Smart Node introduz um novo recurso **Auto Inicializar Poder de Voto**, que foi projetado para inicializar automaticamente
-o poder de voto em nós que ainda não o fizeram. O poder de voto inicializado automaticamente é auto-delegado.
-Este recurso pode ser configurado nas configurações do Smart Node executando `rocketpool service config` e navegando para a seção \*
-\*Smart Node e Taxas TX\*\*.
-
-<img src="./images/auto_init_vp.png" width="100%" height="auto" />
-
-O **Limite de Gas Auto-Init Poder de Voto** é um limite (em gwei) nesta transação automática. Você pode optar por não participar desta
-tarefa definindo o limite para 0. Sinta-se livre para optar por não participar se o seu nó foi registrado após a atualização Houston ou se
-o poder de voto já está habilitado.
 
 <span id="setting-your-snapshot-signalling-address"></span>
 
@@ -336,7 +286,7 @@ Por favor, insira a sua taxa máxima (incluindo a taxa de prioridade) ou deixe e
 ```
 
 Você votou com sucesso na proposta uma vez que a transação é incluída no bloco! Neste ponto, você pode usar
-`rocketpool pdao proposal details <proposal-id>` para visualizar o estado da proposta. Uma proposta precisa alcançar
+`rocketpool pdao proposals details <proposal-id>` para visualizar o estado da proposta. Uma proposta precisa alcançar
 `proposal.quorum` **poder de voto necessário** e uma maioria **poder de voto a favor** para ser bem-sucedida.
 
 ```
@@ -440,8 +390,6 @@ sobre uma proposta específica.
 
 Para ser elegível para propor, um nó deve cumprir alguns requisitos:
 
-- Incluído no snapshot (seja ao [inicializar a votação](./participate#inicializando-votação) ou ao
-  registrar pós Houston)
 - Deve ter pelo menos um minipool
 - Tem poder de voto não-zero
 - Permitiu [bloqueio RPL](./participate#permitindo-bloqueio-rpl)
@@ -497,7 +445,7 @@ pode
 ser o executor de uma proposta. Para executar uma proposta bem-sucedida, digite o comando:
 
 ```shell
-rocketpool pdao execute
+rocketpool pdao proposals execute
 ```
 
 Selecionar uma opção irá solicitá-lo a enviar uma transação. Uma vez que esta transação seja incluída em um bloco, a mudança

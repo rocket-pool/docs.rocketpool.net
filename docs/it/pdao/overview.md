@@ -33,7 +33,7 @@ Prima di configurare il tuo Smart Node, assicurati di:
 
 [Configurazione del voto per utenti non-smartnode](/it/legacy/houston/nonsmartnode-setup) mostra agli utenti non-smartnode (come gli utenti Allnodes) come configurare il voto.
 
-[Inizializzazione del potere di voto](/it/pdao/participate#inizializzare-il-voto) ti mostra come inizializzare il potere di voto del tuo nodo. Questo passaggio è richiesto solo se il tuo nodo è stato registrato prima dell'Houston Upgrade.
+[Verificare il tuo potere di voto](/it/pdao/participate#verificare-il-tuo-potere-di-voto) ti mostra come verificare il potere di voto e il delegato del tuo nodo. Il potere di voto non deve più essere inizializzato.
 
 [Impostazione dell'indirizzo di segnalazione](/it/pdao/participate#impostare-lindirizzo-di-segnalazione) ti guiderà attraverso i passaggi per impostare un indirizzo di segnalazione. Ti consentirà di votare su RocketDash utilizzando il potere di voto del tuo nodo senza dover caricare la chiave privata del tuo nodo su un hot wallet. Assicurati di avere a portata di mano la CLI dello Smart Node e prepara un indirizzo (che non sia il wallet del tuo nodo) per questa guida.
 

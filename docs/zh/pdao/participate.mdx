@@ -27,57 +27,19 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 本页的其余部分将引导您完成参与链上 pDAO 提案所需的步骤。
 
-## 初始化投票
+<span id="initializing-voting"></span>
 
-如果您是在 Houston 升级之前注册的节点运营商，则需要初始化投票以解锁投票权。请记住，拥有至少一个 minipool 是拥有投票权的要求。
+## 查看您的投票权
 
-```shell
-rocketpool pdao initialize-voting
-```
-
-此命令将显示以下提示。请仔细阅读：
-
-```
-Thanks for initializing your voting power!
-
-You have two options:
-
-1. Vote directly (delegate vote power to yourself)
-   This will allow you to vote on proposals directly,
-   allowing you to personally shape the direction of the protocol.
-
-2. Delegate your vote
-   This will delegate your vote power to someone you trust,
-   giving them the power to vote on your behalf. You will have the option to override.
-
-You can see a list of existing public delegates at https://delegates.rocketpool.net,
-however, you can delegate to any node address.
-
-Learn more about how this all works via: /zh/pdao/participate#participating-in-on-chain-pdao-proposals
-
-Please type `direct` or `delegate` to continue:
-```
-
-- 如果您回复 `direct`，投票权将初始化到您的节点，您将能够直接对 Protocol DAO 提案进行投票。
-- 如果您回复 `delegate`，您将有机会通过在同一笔交易中初始化投票和[设置委托人](./participate#委托投票权)来节省一些 gas。
-
-您只需执行一次此操作。它为节点配置初始快照信息。在您初始化投票后，采取的每个操作都将更新您节点的快照信息。一旦您的投票权被初始化，您可以使用以下 smartnode 命令检查您拥有多少投票权：
+投票权不再需要初始化。要查看节点的投票权和委托信息，请运行：
 
 ```shell
 rocketpool pdao status
 ```
 
 :::tip 注意
-每当创建新提案时，都会创建一个投票树，代表网络投票权和委托信息的快照，与新提案一起创建。这意味着如果提案是在您初始化投票之前提出的，则您节点的投票权将不会包含在提案中。`rocketpool pdao status` 将显示您节点在最新区块的投票权，这可能代表也可能不代表您在特定提案上的投票权。
+每当创建新提案时，都会同时创建一个投票树，代表网络投票权和委托信息的快照。您在某个提案上的投票权在提案创建时的区块即已固定，因此之后所做的更改不计入该提案。`rocketpool pdao status` 显示的是您的节点在最新区块的投票权，可能与您在特定提案上的投票权不一致。
 :::
-
-## 自动初始化投票权
-
-Smart Node 版本 `1.13.8` 引入了一项新功能 **自动初始化投票权**，旨在自动初始化尚未初始化的节点的投票权。自动初始化的投票权是自我委托的。可以通过运行 `rocketpool service config` 并导航到 **Smart Node and TX Fees** 部分在 Smart Node 设置中配置此功能。
-
-<img src="./images/auto_init_vp.png" width="100%" height="auto" />
-
-**Auto-Init Vote Power Gas Threshold** 是此自动交易的限制（以 gwei 为单位）。您可以通过将阈值设置为 0 来选择退出此任务。如果您的节点在 Houston 升级后注册或投票权已启用，请随时选择退出。
 
 <span id="setting-your-snapshot-signalling-address"></span>
 
@@ -272,7 +234,7 @@ These prices include a maximum priority fee of 2.00 gwei.
 Please enter your max fee (including the priority fee) or leave blank for the default of 56 gwei:
 ```
 
-一旦交易包含在区块中，您就已成功对提案进行投票！此时，您可以使用 `rocketpool pdao proposal details <proposal-id>` 查看提案的状态。提案需要达到 `proposal.quorum` **所需投票权**和多数**赞成投票权**才能成功。
+一旦交易包含在区块中，您就已成功对提案进行投票！此时，您可以使用 `rocketpool pdao proposals details <proposal-id>` 查看提案的状态。提案需要达到 `proposal.quorum` **所需投票权**和多数**赞成投票权**才能成功。
 
 ```
 Voting power required:  140970562215
@@ -363,7 +325,6 @@ Node has voted:         In Favor
 
 为了有资格提出提案，节点必须满足一些要求：
 
-- 包含在快照中（通过[初始化投票](./participate#初始化投票)或在 Houston 后注册）
 - 必须至少有一个 minipool
 - 具有非零投票权
 - 已允许 [RPL 锁定](./participate#允许-rpl-锁定)
@@ -413,7 +374,7 @@ Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B
 恭喜！您的提案通过了！现在剩下要做的就是执行提案。请记住，任何人都可以成为提案的执行者。要执行成功的提案，请输入以下命令：
 
 ```shell
-rocketpool pdao execute
+rocketpool pdao proposals execute
 ```
 
 选择一个选项将提示您发送交易。一旦此交易包含在区块中，更改将应用于 Rocket Pool 协议！

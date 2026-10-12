@@ -33,7 +33,7 @@ Avant de configurer votre Smart Node, assurez-vous d'avoir :
 
 [Configuration du vote pour les utilisateurs non-smartnode](/fr/legacy/houston/nonsmartnode-setup) montre aux utilisateurs non-smartnode (tels que les utilisateurs Allnodes) comment configurer le vote.
 
-[Initialiser le pouvoir de vote](/fr/pdao/participate#initialiser-le-vote) vous montre comment initialiser le pouvoir de vote de votre nœud. Cette étape n'est requise que si votre nœud a été enregistré avant la mise à niveau Houston.
+[Vérifier votre pouvoir de vote](/fr/pdao/participate#vérifier-votre-pouvoir-de-vote) vous montre comment vérifier le pouvoir de vote et le délégué de votre nœud. Le pouvoir de vote n'a plus besoin d'être initialisé.
 
 [Définir votre adresse de signalisation](/fr/pdao/participate#définir-votre-adresse-de-signalisation) vous guidera à travers les étapes permettant de définir une adresse de signalisation. Cela vous permettra de voter sur RocketDash en utilisant le pouvoir de vote de votre nœud sans avoir à charger la clé privée de votre nœud dans un portefeuille chaud. Assurez-vous d'avoir votre CLI Smart Node à portée de main et préparez une adresse (qui n'est pas votre portefeuille de nœud) pour ce guide.
 

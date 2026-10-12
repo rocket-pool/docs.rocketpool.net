@@ -33,7 +33,7 @@ Bevor Sie Ihren Smart Node konfigurieren, stellen Sie bitte sicher, dass Sie:
 
 [Abstimmungseinrichtung für Nicht-Smart Node-Benutzer](/de/legacy/houston/nonsmartnode-setup) zeigt Nicht-Smart Node-Benutzern (wie Allnodes-Benutzern), wie sie die Abstimmung einrichten.
 
-[Initialisierung der Stimmkraft](/de/pdao/participate#initialisierung-der-abstimmung) zeigt Ihnen, wie Sie die Stimmkraft Ihres Knotens initialisieren. Dieser Schritt ist nur erforderlich, wenn Ihr Knoten vor dem Houston Upgrade registriert wurde.
+[Überprüfen Ihrer Stimmkraft](/de/pdao/participate#überprüfen-ihrer-stimmkraft) zeigt Ihnen, wie Sie die Stimmkraft und den Delegierten Ihres Knotens überprüfen. Die Stimmkraft muss nicht mehr initialisiert werden.
 
 [Ihre Signalling Address festlegen](/de/pdao/participate#ihre-signalling-address-festlegen) führt Sie durch die Schritte zum Festlegen einer Signalling Address. Damit können Sie auf RocketDash mit der Stimmkraft Ihres Knotens abstimmen, ohne den privaten Schlüssel Ihres Knotens in eine Hot Wallet laden zu müssen. Halten Sie Ihre Smart Node CLI bereit und bereiten Sie für diesen Leitfaden eine Adresse vor, die nicht Ihre Knoten-Wallet ist.
 

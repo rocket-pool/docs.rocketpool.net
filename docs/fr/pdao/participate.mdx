@@ -28,57 +28,19 @@ Veuillez lire le [cycle de vie d'une proposition](./pdao#cycle-de-vie-dune-propo
 
 Le reste de cette page vous guidera à travers les étapes requises pour participer aux propositions pDAO on-chain.
 
-## Initialiser le vote
+<span id="initializing-voting"></span>
 
-Si vous êtes un opérateur de nœud qui s'est enregistré avant la mise à niveau Houston, vous devez initialiser le vote pour débloquer le pouvoir de vote. Gardez à l'esprit qu'avoir au moins un minipool est une exigence pour avoir un pouvoir de vote.
+## Vérifier votre pouvoir de vote
 
-```shell
-rocketpool pdao initialize-voting
-```
-
-Cette commande affichera l'invite ci-dessous. Veuillez la lire attentivement :
-
-```
-Merci d'initialiser votre pouvoir de vote !
-
-Vous avez deux options :
-
-1. Voter directement (déléguer le pouvoir de vote à vous-même)
-   Cela vous permettra de voter directement sur les propositions,
-   vous permettant de façonner personnellement l'orientation du protocole.
-
-2. Déléguer votre vote
-   Cela déléguera votre pouvoir de vote à quelqu'un en qui vous avez confiance,
-   lui donnant le pouvoir de voter en votre nom. Vous aurez l'option de remplacer.
-
-Vous pouvez voir une liste des délégués publics existants sur https://delegates.rocketpool.net,
-cependant, vous pouvez déléguer à n'importe quelle adresse de nœud.
-
-En savoir plus sur le fonctionnement via : /fr/pdao/participate#participating-in-on-chain-pdao-proposals
-
-Veuillez taper `direct` ou `delegate` pour continuer :
-```
-
-- Si vous répondez avec `direct`, le pouvoir de vote sera initialisé à votre nœud et vous pourrez voter directement sur les propositions de la DAO de Protocole.
-- Si vous répondez avec `delegate`, vous aurez l'opportunité d'économiser un peu de gaz en initialisant le vote et en [définissant un délégué](./participate#déléguer-le-pouvoir-de-vote) dans la même transaction.
-
-Vous ne devez faire cela qu'une seule fois. Cela configure les informations de snapshot initiales pour un nœud. Après avoir initialisé le vote, chaque action prise mettra à jour les informations de snapshot de votre nœud. Une fois votre pouvoir de vote initialisé, vous pouvez vérifier combien vous en avez en utilisant la commande smartnode suivante :
+Le pouvoir de vote n'a plus besoin d'être initialisé. Pour voir le pouvoir de vote et le délégué de votre nœud, exécutez :
 
 ```shell
 rocketpool pdao status
 ```
 
 :::tip NOTE
-Chaque fois qu'une nouvelle proposition est créée, un arbre de vote représentant un snapshot du pouvoir de vote du réseau et des informations de délégué est créé en conjonction avec la nouvelle proposition. Cela signifie que le pouvoir de vote de votre nœud ne sera pas inclus dans une proposition si elle a été créée avant que vous n'initialisiez le vote. `rocketpool pdao status` affichera le pouvoir de vote de votre nœud au dernier bloc, qui peut ou non être représentatif de votre pouvoir de vote sur une proposition particulière.
+Chaque fois qu'une nouvelle proposition est créée, un arbre de vote représentant un snapshot du pouvoir de vote du réseau et des informations de délégué est créé en même temps. Votre pouvoir de vote sur une proposition est figé au bloc où la proposition a été créée ; les changements effectués ensuite ne comptent donc pas pour cette proposition. `rocketpool pdao status` affiche le pouvoir de vote de votre nœud au dernier bloc, qui peut ou non correspondre à votre pouvoir de vote sur une proposition particulière.
 :::
-
-## Initialisation automatique du pouvoir de vote
-
-La version `1.13.8` du Smart Node introduit une nouvelle fonctionnalité **Initialisation automatique du pouvoir de vote**, conçue pour initialiser automatiquement le pouvoir de vote sur les nœuds qui ne l'ont pas encore fait. Le pouvoir de vote initialisé automatiquement est auto-délégué. Cette fonctionnalité peut être configurée dans les paramètres du Smart Node en exécutant `rocketpool service config` et en naviguant vers la section **Smart Node and TX Fees**.
-
-<img src="./images/auto_init_vp.png" width="100%" height="auto" />
-
-Le **Seuil de gaz pour l'initialisation automatique du pouvoir de vote** est une limite (en gwei) sur cette transaction automatique. Vous pouvez vous désinscrire de cette tâche en définissant le seuil à 0. N'hésitez pas à vous désinscrire si votre nœud a été enregistré après la mise à niveau Houston ou si le pouvoir de vote est déjà activé.
 
 <span id="setting-your-snapshot-signalling-address"></span>
 
@@ -277,7 +239,7 @@ Ces prix incluent des frais de priorité maximums de 2.00 gwei.
 Veuillez entrer vos frais max (incluant les frais de priorité) ou laissez vide pour la valeur par défaut de 56 gwei :
 ```
 
-Vous avez voté avec succès sur la proposition une fois la transaction incluse dans le bloc ! À ce stade, vous pouvez utiliser `rocketpool pdao proposal details <proposal-id>` pour voir l'état de la proposition. Une proposition doit atteindre le **pouvoir de vote requis** `proposal.quorum` et une majorité de **pouvoir de vote pour** pour réussir.
+Vous avez voté avec succès sur la proposition une fois la transaction incluse dans le bloc ! À ce stade, vous pouvez utiliser `rocketpool pdao proposals details <proposal-id>` pour voir l'état de la proposition. Une proposition doit atteindre le **pouvoir de vote requis** `proposal.quorum` et une majorité de **pouvoir de vote pour** pour réussir.
 
 ```
 Pouvoir de vote requis :  140970562215
@@ -368,7 +330,6 @@ Chaque proposition se voit attribuer un `proposalID`. Dans ce cas, notre proposi
 
 Pour être éligible à proposer, un nœud doit répondre à quelques exigences :
 
-- Inclus dans le snapshotting (soit en [initialisant le vote](./participate#initialiser-le-vote) soit en s'enregistrant après Houston)
 - Doit avoir au moins un minipool
 - A un pouvoir de vote non nul
 - A autorisé le [verrouillage de RPL](./participate#autoriser-le-verrouillage-de-rpl)
@@ -418,7 +379,7 @@ Après que cela soit inclus dans un bloc, une proposition pDAO sera créée ! La
 Félicitations ! Votre proposition a été adoptée ! Maintenant, tout ce qu'il reste à faire est d'exécuter la proposition. Gardez à l'esprit que n'importe qui peut être l'exécuteur d'une proposition. Pour exécuter une proposition réussie, tapez la commande :
 
 ```shell
-rocketpool pdao execute
+rocketpool pdao proposals execute
 ```
 
 Sélectionner une option vous invitera à envoyer une transaction. Une fois cette transaction incluse dans un bloc, le changement sera appliqué au protocole Rocket Pool !

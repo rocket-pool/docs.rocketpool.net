@@ -33,7 +33,7 @@ Smart Node'unuzu yapılandırmadan önce lütfen aşağıdakileri yaptığınız
 
 [Smart Node olmayan kullanıcılar için oylama kurulumu](/tr/legacy/houston/nonsmartnode-setup), smartnode olmayan kullanıcılara (Allnodes kullanıcıları gibi) oylamayı nasıl kuracaklarını gösterir.
 
-[Oy Gücünü Başlatma](/tr/pdao/participate#oylamayı-başlatma), düğümünüzün oy gücünü nasıl başlatacağınızı gösterir. Bu adım yalnızca düğümünüz Houston Güncellemesinden önce kaydedildiyse gereklidir.
+[Oy Gücünüzü Kontrol Etme](/tr/pdao/participate#oy-gücünüzü-kontrol-etme), düğümünüzün oy gücünü ve temsilcisini nasıl kontrol edeceğinizi gösterir. Oy gücünün artık başlatılması gerekmez.
 
 [Signalling Address Ayarlama](/tr/pdao/participate#signalling-address-ayarlama), bir Signalling Address ayarlama adımlarında size yol gösterecektir. Düğümünüzün özel anahtarını hot wallet'a yüklemenize gerek kalmadan düğümünüzün oy gücünü kullanarak RocketDash'te oy kullanmanıza olanak tanır. Bu rehber için Smart Node CLI'ınızı hazır bulundurun ve (düğüm cüzdanınız olmayan) bir adres hazırlayın.
 

@@ -33,7 +33,7 @@ Smart Node를 구성하기 전에 다음을 확인해주세요:
 
 [Voting setup for non-smartnode users](/ko/legacy/houston/nonsmartnode-setup)는 Smart Node를 사용하지 않는 사용자(예: Allnodes 사용자)가 투표를 설정하는 방법을 보여줍니다.
 
-[Initializing Voting Power](/ko/pdao/participate#투표-초기화)는 노드의 투표권을 초기화하는 방법을 보여줍니다. 이 단계는 Houston 업그레이드 이전에 노드를 등록한 경우에만 필요합니다.
+[Checking your Voting Power](/ko/pdao/participate#투표권-확인)는 노드의 투표권과 위임 대상을 확인하는 방법을 보여줍니다. 더 이상 투표권을 초기화할 필요가 없습니다.
 
 [Signalling Address 설정](/ko/pdao/participate#signalling-address-설정)은 Signalling Address를 설정하는 단계를 안내합니다. 이를 통해 노드의 개인 키를 핫 월렛에 로드하지 않고도 노드의 투표권을 사용하여 RocketDash에서 투표할 수 있습니다. Smart Node CLI를 준비하고 이 가이드를 위해 노드 지갑이 아닌 주소를 준비하세요.
 

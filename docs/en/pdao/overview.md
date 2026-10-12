@@ -33,7 +33,7 @@ Before configuring your Smart Node, please make sure you:
 
 [Voting setup for non-smartnode users](/en/legacy/houston/nonsmartnode-setup) shows non-smartnode users (such as Allnodes users) how to set up voting.
 
-[Initializing Voting Power](/en/pdao/participate#initializing-voting) shows you how to initialize your node's voting power. This step is only required if your node was registered before the Houston Upgrade.
+[Checking your Voting Power](/en/pdao/participate#checking-your-voting-power) shows you how to check your node's voting power and delegate. Voting power no longer needs to be initialized.
 
 [Setting your Signalling Address](/en/pdao/participate#setting-your-signalling-address) will walk you through the steps for setting a Signalling Address. It'll allow you to vote on RocketDash using your node's voting power without needing to load your node's private key onto a hot wallet. Make sure you have your Smart Node CLI handy and prepare a address (that isn't your node wallet) for this guide.
 

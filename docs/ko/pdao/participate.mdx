@@ -28,58 +28,19 @@ Rocket Pool 프로토콜의 변경 사항은 엄격하면서도 투명한 거버
 
 이 페이지의 나머지 부분에서는 온체인 pDAO 제안에 참여하는 데 필요한 단계를 안내합니다.
 
-## 투표 초기화
+<span id="initializing-voting"></span>
 
-Houston 업그레이드 전에 등록한 노드 운영자인 경우 투표권을 잠금 해제하려면 투표를 초기화해야 합니다. 투표권을 갖기 위한 요구 사항으로 최소 하나의 minipool이 필요합니다.
+## 투표권 확인
 
-```shell
-rocketpool pdao initialize-voting
-```
-
-이 명령은 아래 프롬프트를 표시합니다. 주의 깊게 읽어주세요:
-
-```
-Thanks for initializing your voting power!
-
-You have two options:
-
-1. Vote directly (delegate vote power to yourself)
-   This will allow you to vote on proposals directly,
-   allowing you to personally shape the direction of the protocol.
-
-2. Delegate your vote
-   This will delegate your vote power to someone you trust,
-   giving them the power to vote on your behalf. You will have the option to override.
-
-You can see a list of existing public delegates at https://delegates.rocketpool.net,
-however, you can delegate to any node address.
-
-Learn more about how this all works via: /ko/pdao/participate#participating-in-on-chain-pdao-proposals
-
-Please type `direct` or `delegate` to continue:
-```
-
-- `direct`로 응답하면 투표권이 노드로 초기화되고 Protocol DAO 제안에 직접 투표할 수 있습니다.
-- `delegate`로 응답하면 동일한 트랜잭션 내에서 투표를 초기화하고 [위임자를 설정](./participate#투표권-위임)하여 약간의 가스를 절약할 수 있습니다.
-
-이 작업은 한 번만 수행하면 됩니다. 노드의 초기 snapshot 정보를 구성합니다. 투표를 초기화한 후 수행하는 모든 작업은 노드의 snapshot 정보를 업데이트합니다. 투표권이 초기화되면 다음 smartnode 명령을 사용하여 얼마나 있는지 확인할 수 있습니다:
+더 이상 투표권을 초기화할 필요가 없습니다. 노드의 투표권과 위임 대상을 확인하려면 다음을 실행하세요:
 
 ```shell
 rocketpool pdao status
 ```
 
 :::tip 참고
-새 제안이 생성될 때마다 네트워크의 투표권과 위임 정보의 snapshot을 나타내는 투표 트리가 새 제안과 함께 생성됩니다. 즉, 투표를 초기화하기 전에 제안이 제기된 경우 노드의 투표권은 해당 제안에 포함되지 않습니다. `rocketpool pdao status`는 최신 블록에서 노드의 투표권을 표시하며, 이는 특정 제안에 대한 투표권을 대표하거나 대표하지 않을 수 있습니다.
+새 제안이 생성될 때마다 네트워크의 투표권과 위임 정보의 스냅샷을 나타내는 투표 트리가 제안과 함께 생성됩니다. 제안에 대한 투표권은 제안이 생성된 블록 시점에 고정되므로, 이후의 변경 사항은 해당 제안에 반영되지 않습니다. `rocketpool pdao status`는 최신 블록 기준의 노드 투표권을 표시하며, 이는 특정 제안에 대한 투표권과 다를 수 있습니다.
 :::
-
-## 자동 투표권 초기화
-
-Smart Node 버전 `1.13.8`은 아직 투표권을 초기화하지 않은 노드에서 자동으로 투표권을 초기화하도록 설계된 새로운 기능 **Auto Initialize Vote Power**를 도입합니다. 자동으로 초기화된 투표권은 자체 위임됩니다.
-이 기능은 `rocketpool service config`를 실행하고 **Smart Node and TX Fees** 섹션으로 이동하여 Smart Node 설정에서 구성할 수 있습니다.
-
-<img src="./images/auto_init_vp.png" width="100%" height="auto" />
-
-**Auto-Init Vote Power Gas Threshold**는 이 자동 트랜잭션에 대한 제한(gwei 단위)입니다. 임계값을 0으로 설정하여 이 작업을 선택 해제할 수 있습니다. Houston 업그레이드 후에 노드를 등록했거나 투표권이 이미 활성화된 경우 자유롭게 선택 해제하세요.
 
 <span id="setting-your-snapshot-signalling-address"></span>
 
@@ -286,7 +247,7 @@ These prices include a maximum priority fee of 2.00 gwei.
 Please enter your max fee (including the priority fee) or leave blank for the default of 56 gwei:
 ```
 
-트랜잭션이 블록에 포함되면 제안에 성공적으로 투표한 것입니다! 이 시점에서 `rocketpool pdao proposal details <proposal-id>`를 사용하여 제안의 상태를 볼 수 있습니다. 제안이 성공하려면 `proposal.quorum` **voting power required**에 도달하고 과반수 **voting power for**가 필요합니다.
+트랜잭션이 블록에 포함되면 제안에 성공적으로 투표한 것입니다! 이 시점에서 `rocketpool pdao proposals details <proposal-id>`를 사용하여 제안의 상태를 볼 수 있습니다. 제안이 성공하려면 `proposal.quorum` **voting power required**에 도달하고 과반수 **voting power for**가 필요합니다.
 
 ```
 Voting power required:  140970562215
@@ -382,7 +343,6 @@ Node has voted:         In Favor
 
 제안할 자격을 얻으려면 노드가 몇 가지 요구 사항을 충족해야 합니다:
 
-- 스냅샷에 포함됨 ([투표 초기화](./participate#투표-초기화) 또는 Houston 이후 등록)
 - 최소 하나의 minipool 보유
 - 0이 아닌 투표권 보유
 - [RPL 잠금](./participate#rpl-잠금-허용) 허용
@@ -433,7 +393,7 @@ Are you sure you want to propose inviting test-member (0xBdbcb42DD8E39323a395B2B
 축하합니다! 제안이 통과되었습니다! 이제 남은 일은 제안을 실행하는 것뿐입니다. 누구나 제안의 실행자가 될 수 있다는 점을 명심하세요. 성공한 제안을 실행하려면 다음 명령을 입력하세요:
 
 ```shell
-rocketpool pdao execute
+rocketpool pdao proposals execute
 ```
 
 옵션을 선택하면 트랜잭션을 전송하라는 메시지가 표시됩니다. 이 트랜잭션이 블록에 포함되면 변경 사항이 Rocket Pool 프로토콜에 적용됩니다!

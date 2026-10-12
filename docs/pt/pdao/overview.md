@@ -33,7 +33,7 @@ Antes de configurar o seu Smart Node, certifique-se de que você:
 
 [Configuração de votação para usuários não-smartnode](/pt/legacy/houston/nonsmartnode-setup) mostra aos usuários não-smartnode (como usuários Allnodes) como configurar a votação.
 
-[Inicializando o Poder de Voto](/pt/pdao/participate#inicializando-votação) mostra como inicializar o poder de voto do seu nó. Este passo é necessário apenas se o seu nó foi registrado antes da Atualização Houston.
+[Verificando seu Poder de Voto](/pt/pdao/participate#verificando-seu-poder-de-voto) mostra como verificar o poder de voto e o delegado do seu nó. O poder de voto não precisa mais ser inicializado.
 
 [Definindo seu Endereço de Sinalização](/pt/pdao/participate#definindo-seu-endereço-de-sinalização) guiará você pelas etapas para definir um Endereço de Sinalização. Isso permitirá que você vote no RocketDash usando o poder de voto do seu nó sem precisar carregar a chave privada do nó em uma carteira quente. Tenha o CLI do Smart Node à mão e prepare um endereço (que não seja a carteira do seu nó) para este guia.
 

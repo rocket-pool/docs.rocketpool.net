@@ -33,7 +33,7 @@ next:
 
 [非 smartnode 用户的投票设置](/zh/legacy/houston/nonsmartnode-setup)向非 smartnode 用户（如 Allnodes 用户）展示如何设置投票。
 
-[初始化投票权](/zh/pdao/participate#初始化投票)向您展示如何初始化节点的投票权。仅当您的节点在 Houston 升级之前注册时才需要此步骤。
+[查看您的投票权](/zh/pdao/participate#查看您的投票权)向您展示如何查看节点的投票权和委托信息。投票权不再需要初始化。
 
 [设置您的信号地址](/zh/pdao/participate#设置您的信号地址)将引导您完成设置信号地址的步骤。它允许您使用节点的投票权在 RocketDash 上投票，而无需将节点的私钥加载到热钱包中。请确保手边有 Smart Node CLI，并为本指南准备一个地址（不能是您的节点钱包）。
 

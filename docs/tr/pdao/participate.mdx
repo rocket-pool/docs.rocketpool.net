@@ -29,58 +29,19 @@ Devam etmeden önce lütfen [bir teklifin yaşam döngüsünü](./pdao#bir-pdao-
 
 Bu sayfanın geri kalanı, on-chain pDAO tekliflerine katılmak için gereken adımlarda size yol gösterecektir.
 
-## Oylamayı Başlatma
+<span id="initializing-voting"></span>
 
-Houston güncellemesinden önce kayıt olan bir düğüm operatörüyseniz, oy gücünün kilidini açmak için oylamayı başlatmanız gerekir. En az bir minipool'a sahip olmanın oy gücüne sahip olmanın bir gereksinimi olduğunu unutmayın.
+## Oy Gücünüzü Kontrol Etme
 
-```shell
-rocketpool pdao initialize-voting
-```
-
-Bu komut aşağıdaki istemi gösterecektir. Lütfen dikkatle okuyun:
-
-```
-Oy gücünüzü başlattığınız için teşekkürler!
-
-İki seçeneğiniz var:
-
-1. Doğrudan oy kullanın (oy gücünü kendinize devredin)
-   Bu, tekliflere doğrudan oy kullanmanıza izin verecek ve
-   protokolün yönünü kişisel olarak şekillendirmenize olanak sağlayacaktır.
-
-2. Oyunuzu devredin
-   Bu, oy gücünüzü güvendiğiniz birine devredecek ve
-   onlara sizin adınıza oy kullanma yetkisi verecektir. Geçersiz kılma seçeneğiniz olacaktır.
-
-https://delegates.rocketpool.net adresinde mevcut kamu delegelerinin bir listesini görebilirsiniz,
-ancak herhangi bir düğüm adresine devredebilirsiniz.
-
-Bunun nasıl çalıştığı hakkında daha fazla bilgi için: /tr/pdao/participate#participating-in-on-chain-pdao-proposals
-
-Devam etmek için lütfen `direct` veya `delegate` yazın:
-```
-
-- `direct` ile yanıt verirseniz, oy gücü düğümünüze başlatılacak ve Protokol DAO teklifleri üzerinde doğrudan oy kullanabileceksiniz.
-- `delegate` ile yanıt verirseniz, aynı işlem içinde oylamayı başlatarak ve [bir delege belirleyerek](./participate#oy-gücünü-devretme) biraz gaz tasarrufu yapma fırsatınız olacaktır.
-
-Bunu yalnızca bir kez yapmanız gerekir. Bir düğüm için ilk snapshot bilgilerini yapılandırır. Oylamayı başlattıktan sonra, alınan her eylem düğümünüzün snapshot bilgilerini güncelleyecektir. Oy gücünüz başlatıldıktan sonra, aşağıdaki smartnode komutunu kullanarak ne kadarınız olduğunu kontrol edebilirsiniz:
+Oy gücünün artık başlatılması gerekmez. Düğümünüzün oy gücünü ve temsilcisini görmek için şunu çalıştırın:
 
 ```shell
 rocketpool pdao status
 ```
 
 :::tip NOT
-Yeni bir teklif oluşturulduğunda, ağın oy gücünün ve delege bilgilerinin snapshot'ını temsil eden bir oylama ağacı yeni teklifle birlikte oluşturulur. Bu, oylamayı başlatmadan önce oluşturulmuşsa düğümünüzün oy gücünün bir teklife dahil edilmeyeceği anlamına gelir. `rocketpool pdao status` düğümünüzün en son bloktaki oy gücünü gösterecektir, bu belirli bir teklifteki oy gücünüzü temsil edebilir veya etmeyebilir.
+Yeni bir teklif oluşturulduğunda, ağın oy gücünün ve temsilci bilgilerinin anlık görüntüsünü temsil eden bir oylama ağacı teklifle birlikte oluşturulur. Bir teklif üzerindeki oy gücünüz, teklifin oluşturulduğu blokta sabitlenir; bu nedenle sonradan yapılan değişiklikler o teklif için geçerli olmaz. `rocketpool pdao status`, düğümünüzün en son bloktaki oy gücünü gösterir ve bu, belirli bir teklif üzerindeki oy gücünüzle eşleşmeyebilir.
 :::
-
-## Oy Gücünü Otomatik Başlatma
-
-Smart Node sürüm `1.13.8`, henüz bunu yapmamış düğümlerde oy gücünü otomatik olarak başlatmak üzere tasarlanmış yeni bir özellik olan **Auto Initialize Vote Power**'ı tanıtır. Otomatik olarak başlatılan oy gücü kendine devredilir.
-Bu özellik, `rocketpool service config` çalıştırılarak ve **Smart Node and TX Fees** bölümüne gidilerek Smart Node ayarlarında yapılandırılabilir.
-
-<img src="./images/auto_init_vp.png" width="100%" height="auto" />
-
-**Auto-Init Vote Power Gas Threshold**, bu otomatik işlem üzerinde bir sınırdır (gwei cinsinden). Eşiği 0'a ayarlayarak bu görevden vazgeçebilirsiniz. Düğümünüz Houston güncellemesinden sonra kaydedildiyse veya oy gücü zaten etkinleştirildiyse vazgeçmekten çekinmeyin.
 
 <span id="setting-your-snapshot-signalling-address"></span>
 
@@ -279,7 +240,7 @@ These prices include a maximum priority fee of 2.00 gwei.
 Please enter your max fee (including the priority fee) or leave blank for the default of 56 gwei:
 ```
 
-İşlem bloka dahil edildiğinde teklife başarıyla oy verdiniz! Bu noktada, teklifin durumunu görüntülemek için `rocketpool pdao proposal details <proposal-id>` kullanabilirsiniz. Bir teklifin başarılı olması için `proposal.quorum` **gerekli oy gücüne** ve çoğunluk **lehte oy gücüne** ulaşması gerekir.
+İşlem bloka dahil edildiğinde teklife başarıyla oy verdiniz! Bu noktada, teklifin durumunu görüntülemek için `rocketpool pdao proposals details <proposal-id>` kullanabilirsiniz. Bir teklifin başarılı olması için `proposal.quorum` **gerekli oy gücüne** ve çoğunluk **lehte oy gücüne** ulaşması gerekir.
 
 ```
 Voting power required:  140970562215
@@ -376,7 +337,6 @@ Her teklife bir `proposalID` atanır. Bu durumda, `0xBdbc...`'yi güvenlik konse
 
 Teklif önerisinde bulunmaya uygun olmak için bir düğümün birkaç gereksinimi karşılaması gerekir:
 
-- Snapshot'a dahil edilmiş (ya [oylamayı başlatarak](./participate#oylamayı-başlatma) ya da Houston sonrası kaydolarak)
 - En az bir minipool'a sahip olmalı
 - Sıfır olmayan oy gücüne sahip olmalı
 - [RPL kilitlemeye](./participate#rpl-kilitlemeye-i̇zin-verme) izin vermiş olmalı
@@ -427,7 +387,7 @@ Bu bir bloka dahil edildikten sonra, bir pDAO teklifi oluşturulacaktır! Teklif
 Tebrikler! Teklifiniz geçti! Şimdi yapılması gereken tek şey teklifi yürütmek. Herhangi birinin bir teklifin yürütücüsü olabileceğini unutmayın. Başarılı bir teklifi yürütmek için komutu yazın:
 
 ```shell
-rocketpool pdao execute
+rocketpool pdao proposals execute
 ```
 
 Bir seçenek seçmek size bir işlem göndermenizi isteyecektir. Bu işlem bir bloka dahil edildiğinde, değişiklik Rocket Pool protokolüne uygulanacaktır!

@@ -33,7 +33,7 @@ Smart Nodeを設定する前に、以下を確認してください:
 
 [Voting setup for non-smartnode users](/ja/legacy/houston/nonsmartnode-setup)では、非smartnodeユーザー(Allnodesユーザーなど)が投票を設定する方法を説明します。
 
-[Initializing Voting Power](/ja/pdao/participate#投票の初期化)では、ノードの投票権を初期化する方法を説明します。このステップは、Houston Upgradeの前にノードを登録した場合にのみ必要です。
+[Checking your Voting Power](/ja/pdao/participate#投票権の確認)では、ノードの投票権と委任先を確認する方法を説明します。投票権を初期化する必要はなくなりました。
 
 [Setting your Signalling Address](/ja/pdao/participate#signalling-addressの設定)では、Signalling Addressを設定する手順を説明します。これにより、ノードの秘密鍵をホットウォレットに読み込むことなく、ノードの投票権を使用してRocketDashで投票できるようになります。このガイドを進める際は、Smart Node CLIを使用できる状態にし、ノードウォレットとは別のアドレスを準備してください。
 
