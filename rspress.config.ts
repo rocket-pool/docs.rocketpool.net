@@ -1578,7 +1578,6 @@ function nodeStaking(prefix: string, lang: string) {
         { text: t.platform, link: `${prefix}/node-staking/platform` },
         {
           text: t.localNode,
-          link: `${prefix}/node-staking/local/overview`,
           collapsed: true,
           items: [
             { text: t.localOverview, link: `${prefix}/node-staking/local/overview` },
@@ -1590,7 +1589,6 @@ function nodeStaking(prefix: string, lang: string) {
         },
         {
           text: t.serverNode,
-          link: `${prefix}/node-staking/vps/overview`,
           collapsed: true,
           items: [
             { text: t.serverOverview, link: `${prefix}/node-staking/vps/overview` },
@@ -1600,7 +1598,6 @@ function nodeStaking(prefix: string, lang: string) {
         },
         {
           text: t.securing,
-          link: `${prefix}/node-staking/securing-your-node`,
           collapsed: true,
           items: [
             { text: t.securing, link: `${prefix}/node-staking/securing-your-node` },
@@ -1609,7 +1606,6 @@ function nodeStaking(prefix: string, lang: string) {
         },
         {
           text: t.installing,
-          link: `${prefix}/node-staking/installing/overview`,
           collapsed: true,
           items: [
             { text: t.installOverview, link: `${prefix}/node-staking/installing/overview` },
@@ -1621,7 +1617,6 @@ function nodeStaking(prefix: string, lang: string) {
         },
         {
           text: t.configuring,
-          link: `${prefix}/node-staking/config/overview`,
           collapsed: true,
           items: [
             { text: t.configOverview, link: `${prefix}/node-staking/config/overview` },
@@ -1632,7 +1627,6 @@ function nodeStaking(prefix: string, lang: string) {
         },
         {
           text: t.provisioning,
-          link: `${prefix}/node-staking/provisioning/overview`,
           collapsed: true,
           items: [
             { text: t.provisioningOverview, link: `${prefix}/node-staking/provisioning/overview` },
@@ -1648,7 +1642,6 @@ function nodeStaking(prefix: string, lang: string) {
         },
         {
           text: t.megapools,
-          link: `${prefix}/node-staking/megapools/overview`,
           collapsed: true,
           items: [
             { text: t.megapoolsOverview, link: `${prefix}/node-staking/megapools/overview` },
@@ -1662,7 +1655,6 @@ function nodeStaking(prefix: string, lang: string) {
         },
         {
           text: t.maintenance,
-          link: `${prefix}/node-staking/maintenance/overview`,
           collapsed: true,
           items: [
             { text: t.maintenanceOverview, link: `${prefix}/node-staking/maintenance/overview` },
@@ -1679,7 +1671,6 @@ function nodeStaking(prefix: string, lang: string) {
         },
         {
           text: t.rewards,
-          link: `${prefix}/node-staking/rewards/overview`,
           collapsed: true,
           items: [
             { text: t.rewardsOverview, link: `${prefix}/node-staking/rewards/overview` },
@@ -1689,7 +1680,6 @@ function nodeStaking(prefix: string, lang: string) {
         },
         {
           text: t.exiting,
-          link: `${prefix}/node-staking/withdraw`,
           collapsed: true,
           items: [{ text: t.shutdown, link: `${prefix}/node-staking/withdraw` }],
         },
@@ -1724,7 +1714,6 @@ function nodeStaking(prefix: string, lang: string) {
         { text: sidebarTranslations[lang].upgrades.saturn0, link: `${prefix}/upgrades/saturn-0/whats-new` },
         {
           text: sidebarTranslations[lang].upgrades.houston,
-          link: `${prefix}/upgrades/houston/whats-new`,
           collapsed: true,
           items: [
             { text: sidebarTranslations[lang].upgrades.houstonOverview, link: `${prefix}/upgrades/houston/whats-new` },
@@ -1740,7 +1729,6 @@ function nodeStaking(prefix: string, lang: string) {
         },
         {
           text: sidebarTranslations[lang].upgrades.redstone,
-          link: `${prefix}/upgrades/redstone/whats-new`,
           collapsed: true,
           items: [
             { text: sidebarTranslations[lang].upgrades.redstoneWhatsNew, link: `${prefix}/upgrades/redstone/whats-new` },
