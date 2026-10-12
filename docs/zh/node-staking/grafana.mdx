@@ -247,7 +247,8 @@ Rocket Pool 开箱即支持 Grafana 及其依赖项;它甚至为每个共识客�
         如果您的执行客户端是 geth,还要调整 `metrics_path` - 它公开非标准的指标端点。
       </p>
 
-      创建 `/etc/alertmanager/alertmanager.yml`,内容如下:
+      创建 `/etc/alertmanager/alertmanager.yml`,内容如下。
+      将两个 `webhook_url` 值都替换为您自己的 [Discord webhook URL](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks)：
 
       ```yaml
       global:
@@ -287,11 +288,11 @@ Rocket Pool 开箱即支持 Grafana 及其依赖项;它甚至为每个共识客�
       receivers:
       - name: "node_operator_default"
       discord_configs:
-      - webhook_url: "https://discord.com/api/webhooks/1206697259694170212/_Pk1eVVgXFLdwU1k0rfwehSvNLiAQJytVV_Ze8QYOhupHnhiB5c8awPBTfuw41lN9GJk"
+      - webhook_url: "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN"
 
       - name: "node_operator_no_resolved"
       discord_configs:
-      - webhook_url: "https://discord.com/api/webhooks/1206697259694170212/_Pk1eVVgXFLdwU1k0rfwehSvNLiAQJytVV_Ze8QYOhupHnhiB5c8awPBTfuw41lN9GJk"
+      - webhook_url: "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN"
       send_resolved: false
 
       inhibit_rules:

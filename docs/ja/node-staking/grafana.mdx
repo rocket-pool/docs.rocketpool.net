@@ -248,6 +248,7 @@ Grafana用にノードマシンでポートが開かれるため、ローカル�
       </p>
 
       次の内容で`/etc/alertmanager/alertmanager.yml`を作成します。
+      両方の`webhook_url`の値を、ご自身の[Discord webhook URL](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks)に置き換えてください:
 
       ```yaml
       global:
@@ -287,11 +288,11 @@ Grafana用にノードマシンでポートが開かれるため、ローカル�
       receivers:
       - name: "node_operator_default"
       discord_configs:
-      - webhook_url: "https://discord.com/api/webhooks/1206697259694170212/_Pk1eVVgXFLdwU1k0rfwehSvNLiAQJytVV_Ze8QYOhupHnhiB5c8awPBTfuw41lN9GJk"
+      - webhook_url: "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN"
 
       - name: "node_operator_no_resolved"
       discord_configs:
-      - webhook_url: "https://discord.com/api/webhooks/1206697259694170212/_Pk1eVVgXFLdwU1k0rfwehSvNLiAQJytVV_Ze8QYOhupHnhiB5c8awPBTfuw41lN9GJk"
+      - webhook_url: "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN"
       send_resolved: false
 
       inhibit_rules:

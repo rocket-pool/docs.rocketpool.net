@@ -247,7 +247,8 @@ Grafana용 노드 머신에 포트를 열어 로컬 네트워크의 모든 머�
         또한 Execution Client가 geth인 경우 `metrics_path`를 조정합니다. geth는 메트릭에 대한 비표준 엔드포인트를 노출합니다.
       </p>
 
-      다음 내용으로 `/etc/alertmanager/alertmanager.yml`을 만듭니다:
+      다음 내용으로 `/etc/alertmanager/alertmanager.yml`을 만듭니다.
+      두 `webhook_url` 값을 모두 본인의 [Discord 웹훅 URL](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks)로 바꾸세요:
 
       ```yaml
       global:
@@ -287,11 +288,11 @@ Grafana용 노드 머신에 포트를 열어 로컬 네트워크의 모든 머�
       receivers:
       - name: "node_operator_default"
       discord_configs:
-      - webhook_url: "https://discord.com/api/webhooks/1206697259694170212/_Pk1eVVgXFLdwU1k0rfwehSvNLiAQJytVV_Ze8QYOhupHnhiB5c8awPBTfuw41lN9GJk"
+      - webhook_url: "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN"
 
       - name: "node_operator_no_resolved"
       discord_configs:
-      - webhook_url: "https://discord.com/api/webhooks/1206697259694170212/_Pk1eVVgXFLdwU1k0rfwehSvNLiAQJytVV_Ze8QYOhupHnhiB5c8awPBTfuw41lN9GJk"
+      - webhook_url: "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN"
       send_resolved: false
 
       inhibit_rules:

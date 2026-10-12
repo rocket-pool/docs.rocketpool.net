@@ -247,7 +247,8 @@ Abrirá un puerto en tu máquina de nodo para Grafana, para que puedas acceder a
         También ajusta `metrics_path` si tu cliente de ejecución es geth - expone un endpoint no estándar para métricas.
       </p>
 
-      Crea el `/etc/alertmanager/alertmanager.yml` con el siguiente contenido:
+      Crea el `/etc/alertmanager/alertmanager.yml` con el siguiente contenido.
+      Reemplaza ambos valores de `webhook_url` por tu propia [URL de webhook de Discord](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks):
 
       ```yaml
       global:
@@ -287,11 +288,11 @@ Abrirá un puerto en tu máquina de nodo para Grafana, para que puedas acceder a
       receivers:
       - name: "node_operator_default"
       discord_configs:
-      - webhook_url: "https://discord.com/api/webhooks/1206697259694170212/_Pk1eVVgXFLdwU1k0rfwehSvNLiAQJytVV_Ze8QYOhupHnhiB5c8awPBTfuw41lN9GJk"
+      - webhook_url: "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN"
 
       - name: "node_operator_no_resolved"
       discord_configs:
-      - webhook_url: "https://discord.com/api/webhooks/1206697259694170212/_Pk1eVVgXFLdwU1k0rfwehSvNLiAQJytVV_Ze8QYOhupHnhiB5c8awPBTfuw41lN9GJk"
+      - webhook_url: "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN"
       send_resolved: false
 
       inhibit_rules:
