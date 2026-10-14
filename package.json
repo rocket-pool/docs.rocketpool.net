@@ -21,8 +21,8 @@
     "@types/react-dom": "^19.3.0",
     "oxfmt": "^0.73.0",
     "oxlint": "^1.88.0",
-    "react": "^19.3.0",
-    "react-dom": "^19.3.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "taze": "^21.3.0",
     "ts-node": "^10.9.2",
     "typescript": "^7.0.2"
