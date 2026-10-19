@@ -53,7 +53,7 @@ This is a very compelling feature for node operators that don't want to worry ab
 We'll cover both of these below so you understand the difference and whether or not you want to join the Smoothing Pool.
 
 ::: tip NOTE
-For minipools created after 2024-10-28, the smoothing pool is STRONGLY recommended, as it is used to distribute bonus commission. If you opt out of the smoothing pool, these minipools will get 5% commission total. If you opt into the smoothing pool, these minipools will get between 10% (no RPL staked) and 14% (RPL stake is valued at 10% of borrowed ETH or more) commission.
+Minipools created after 2024-10-28 used to earn bonus commission (up to 14% in total) through the Smoothing Pool. As defined in [RPIP-62](https://rpips.rocketpool.net/RPIPs/RPIP-62), the bonus ended four rewards intervals after Saturn 1 (the last one was paid in June 2026). These minipools now earn their 5% contract commission, whether or not you are in the Smoothing Pool.
 :::
 
 ## Your Fee Distributor
@@ -61,6 +61,7 @@ For minipools created after 2024-10-28, the smoothing pool is STRONGLY recommend
 Your Fee Distributor is a unique contract on the Execution Layer that's **specific to your node**.
 It will hold all of the priority fees you've earned over time, and it contains the logic required to fairly split and distribute them to the rETH pool stakers and your withdrawal address.
 This distribution process **can be called by anyone** (including rETH stakers), and can be done **at any time**.
+If someone other than you distributes it, your share is held as [unclaimed rewards](#claiming-unclaimed-rewards) until you claim it.
 It does not have a time limit before rewards expire.
 
 The address for your node's Fee Distributor is **deterministically based on your node address**.
@@ -95,14 +96,35 @@ rocketpool node distribute-fees
 This will send your share of the rewards to your **withdrawal address**.
 
 ::: warning NOTE ON TAXABLE EVENTS
-Whenever you create a new minipool, Rocket Pool will automatically call `distribute-fees`.
-This is to ensure that whatever fees you had accumulated are distributed using your node's average commission, which could change when you create the new minipool. This does not apply to megapool validator creation.
-
-Also, note that anyone can call `distribute-fees` on your fee distributor (to prevent you from holding rETH rewards hostage).
-You may have a taxable event whenever this method is called.
+Anyone can distribute your fee distributor (to prevent you from holding rETH rewards hostage).
+Rocket Pool also distributes it automatically whenever one of your minipools is closed, so that the fees you had accumulated are split using your node's average commission before it changes.
+You may have a taxable event whenever your fee distributor is distributed.
 
 Please keep these conditions in mind when deciding whether or not to use the Smoothing Pool (discussed below).
 :::
+
+### Claiming Unclaimed Rewards
+
+Your share goes straight to your withdrawal address only when the fee distributor is distributed by your node address or your withdrawal address, for example with `rocketpool node distribute-fees`.
+Since the Saturn 1 upgrade, when anyone else distributes it (including Rocket Pool itself when you close a minipool), your share is set aside as **unclaimed rewards** instead.
+Unclaimed rewards do not expire, and only your node address or withdrawal address can claim them.
+
+To check for unclaimed rewards and claim them, run:
+
+```shell
+rocketpool node claim-unclaimed-rewards
+```
+
+If you have any, it will show the amount before asking you to confirm the claim:
+
+```
+The node's withdrawal address is 0x4ACb4E5E5A9a5EfB1f4D3eE2f6E5A13bB0E8f0a7
+You have 0.012345 ETH in unclaimed rewards.
+Your node 0xE8325F5f4486c2FF2AC7B522Fbc9eB249d46C936 has rewards that were distributed to its unclaimed rewards balance instead of its withdrawal address. This happens whenever your fee distributor is distributed by anyone other than your node or withdrawal address.
+Claiming will send them to your current withdrawal address.
+```
+
+The rewards are sent to your **current** withdrawal address.
 
 ### The Penalty System
 

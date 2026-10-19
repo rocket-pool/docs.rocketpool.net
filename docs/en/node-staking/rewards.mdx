@@ -11,7 +11,7 @@ This section will describe how these rewards work and how you can claim them.
 At regular intervals, Rocket Pool will flag a **checkpoint** on the network.
 Currently, checkpoints occur **every 28 days**.
 
-At a new checkpoint, the Oracle DAO will collectively create a **true snapshot** of the state of the node operators in the Rocket Pool network, which it will use to determine the RPL and Smoothing Pool ETH rewards for each node during that interval. Note that "bonus commission" for Saturn 0 minipools is distributed using smoothing pool rewards (Saturn 0 minipools are the ones created after 2024/10/28, which have a contract commission of 5%).
+At a new checkpoint, the Oracle DAO will collectively create a **true snapshot** of the state of the node operators in the Rocket Pool network, which it will use to determine the RPL and Smoothing Pool ETH rewards for each node during that interval. Until June 2026, this snapshot was also used to pay "bonus commission" to Saturn 0 minipools (the ones created after 2024/10/28, which have a contract commission of 5%) out of Smoothing Pool rewards. That bonus has now ended.
 
 This information is compiled into a [Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree) - an extremely efficient way to make all of the details available to smart contracts.
 The Merkle Tree is built into a JSON file and hosted on [a GitHub repository that we maintain](https://github.com/rocket-pool/rewards-trees/). The Smart Node can also load rewards-interval **events** from that GitHub repo, so you can still claim after aggressive history expiry has dropped old Execution-layer logs.
@@ -188,3 +188,5 @@ Your fee distributor's balance of 1.143599 ETH will be distributed as follows:
 
 Simply confirm the gas price you want and submit the transaction.
 Once it's been completed, your portion of the rewards will be available in your node's withdrawal address.
+
+If someone else distributes your fee distributor instead, your portion is held as unclaimed rewards. See [Claiming Unclaimed Rewards](/node-staking/fee-distrib-sp#claiming-unclaimed-rewards).
