@@ -64,12 +64,13 @@ Diese Website ist sehr praktisch, um die aktuelle Warteschlangenzeit zu überpr�
 In der vorherigen Phase `active_exiting` führte dein Node Attestierungen durch, während er der Beacon Chain Exit-Warteschlange unterlag. Die Zeit variiert je nachdem,
 wie viel ETH auf den Exit wartet.
 
-Nachdem dein Validator das Ende dieser Warteschlange erreicht hat, wechselt er in den `exited_unslashed`-Zustand. In dieser Phase ruft dein Smart Node automatisch `notify validator exit` auf, um
-dem Rocket Pool Protokoll zu signalisieren, dass dein Validator beendet wurde und bald abgehoben werden kann.
+Nachdem dein Validator das Ende dieser Warteschlange erreicht hat, wechselt er in den `exited_unslashed`-Zustand. Sobald deine Exit-Anfrage verarbeitet wurde, ruft dein Smart Node automatisch `notify validator exit` auf, um
+dem Rocket Pool Protokoll zu signalisieren, dass sich dein Validator im Zustand `active_exiting` befindet und bald abgehoben werden kann.
 
 ::: warning WARNUNG
-Dieser Schritt wird vollständig vom Smart Node innerhalb der `rocketpool_node`-Task-Schleife automatisiert. Es ist sehr wichtig, deinen Node während des Prozesses online zu halten, da du sonst eine Strafe von `0,05 ETH` für Offline-Sein bekommst. Die Strafe wird von
-deinem Auszahlungsguthaben abgezogen. Bitte überwache den Status deines Nodes während des gesamten Validator-Exit-Prozesses.
+Dieser Schritt wird vom Smart Node innerhalb der `rocketpool_node`-Task-Schleife vollständig automatisiert, daher ist es sehr wichtig, deinen Node während des Vorgangs online zu halten.
+Der Exit muss mindestens 112 Epochen (etwa 12 Stunden) bevor dein Validator abhebbar wird gemeldet werden. Wird er später gemeldet, wird eine Strafe von `0.05 ETH` zu den Schulden deines Nodes hinzugefügt,
+die von deinem Anteil am finalen Guthaben abgezogen wird. Bitte überwache den Status deines Nodes während des gesamten Exit-Vorgangs.
 :::
 
 ```
@@ -92,3 +93,22 @@ Nach 256 Epochen auf der Beacon Chain werden die vollen 32 ETH zusammen mit ande
 An diesem Punkt ist dein Validator vollständig von der Beacon Chain beendet und die endgültige Auszahlung wird von der Beacon Chain an deinen Megapool gesendet. Dein Smart Node ruft automatisch `notify final balance` auf.
 Dieser Aufruf beendet vollständig die Pflichten deines Megapool-Validators und verteilt deinen Anteil am Guthaben an die ETH-Withdrawal-Adresse deines Nodes. Wenn du deinen Node online gehalten und automatische Aufgaben wie `notify
 validator exit` und `notify final balance` durchgeführt wurden, sind von deiner Seite keine weiteren Schritte erforderlich.
+
+## Manuell melden
+
+Die meisten Node-Betreiber können diesen Abschnitt überspringen.
+Dein Node prüft alle paar Minuten, ob eine der beiden Meldungen fällig ist, und sendet sie selbstständig. War er während des Exits offline, holt er sie nach, sobald er wieder online und synchronisiert ist.
+
+Du musst sie nur selbst senden, wenn dein Node das nicht tut: wenn automatische Transaktionen deaktiviert sind (**Automatic TX Gas Threshold** in den **Smart Node and TX Fees**-Einstellungen ist `0`) oder wenn der Gaspreis über deinem Schwellenwert bleibt. Führe in diesem Fall diese Befehle in dieser Reihenfolge aus:
+
+```shell
+rocketpool megapool notify-validator-exit
+rocketpool megapool notify-final-balance
+```
+
+Jeder Befehl listet die Validatoren auf, die gemeldet werden können.
+`notify-validator-exit` funktioniert, sobald die Beacon Chain deine Exit-Anfrage verarbeitet hat; sende die Meldung mindestens 112 Epochen (etwa 12 Stunden) bevor der Validator abhebbar wird, um die Strafe zu vermeiden.
+`notify-final-balance` funktioniert, sobald der Exit gemeldet wurde und die Beacon Chain die finale Auszahlung des Validators an deinen Megapool gesendet hat.
+
+Lass die Meldungen nicht ungesendet. Zwischen den beiden Meldungen kann dein Megapool keine Belohnungen verteilen, und wenn der Exit nicht rechtzeitig gemeldet wird, kann das Oracle DAO die Verteilung der Belohnungen deines Megapools pausieren, bis er gemeldet ist.
+Wenn du das finale Guthaben nicht selbst meldest, kann es jeder andere für dich tun, sobald seit der finalen Auszahlung 7 Tage vergangen sind (länger, wenn der Validator ETH verloren hat). Dein Anteil bleibt dann in deinem Megapool, statt an deine Withdrawal-Adresse zu gehen, und du kannst ihn mit `rocketpool megapool claim` beanspruchen.

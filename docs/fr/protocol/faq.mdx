@@ -157,7 +157,7 @@ Du point de vue de l'opérateur de nœud:
 
 - À partir de Saturn 1, le RPL staké éligible au vote recevra une part du revenu total du protocole
 - La [majorité](https://rpips.rocketpool.net/RPIPs/RPIP-25) de l'inflation du RPL est donnée comme récompenses aux opérateurs de nœud en fonction du RPL staké; ces récompenses sont prévues à être éliminées progressivement avec Saturn 2
-- Pour les minipools Saturn 0 créés après le 28/10/2024: le RPL stakéfournit jusqu'à 4% de commission bonus supplémentaire; la commission bonus devrait être progressivement supprimée quelques mois après le lancement de Saturn 1.
+- Pour les minipools Saturn 0 créés après le 28/10/2024: le RPL staké fournissait jusqu'à 4 % de commission bonus supplémentaire. Le bonus a pris fin en juin 2026, quatre intervalles de récompenses après le lancement de Saturn 1.
 - Le Staked fournit le pouvoir de vote pour la gouvernance
 
 Du point de vue du protocole:
@@ -199,7 +199,7 @@ Si vous voulez exploiter un nœud dans le réseau, vous pouvez staker en tant qu
 
 ### Quelles commissions sont possibles lors du staking avec Rocket Pool?
 
-Les commissions des opérateurs de nœuds proviennent des récompenses générées par le 16 ou 24 ETH regroupés des stakeurs non-opérateurs. La commission est fixée à 14%.
+Avec l'Universal Adjustable Revenue Split (UARS, [RPIP-46](https://rpips.rocketpool.net/RPIPs/RPIP-46)) de Saturn 1, les commissions des opérateurs de nœuds proviennent des récompenses générées par les 28 ETH empruntés au pool de staking rETH pour chaque validateur megapool. La commission totale est de 14%, répartie entre une commission de base de 5% versée à chaque opérateur de nœud megapool et un [voter share](/fr/node-staking/megapools/staking-and-claiming-rewards#comment-le-voter-share-est-distribué-aux-stakers-de-rpl-megapool) de 9% distribué proportionnellement aux opérateurs de nœuds qui stakent du RPL sur leur megapool. La commission et sa répartition ne sont pas fixes : elles peuvent être ajustées par un vote de gouvernance du pDAO ; les valeurs ci-dessus sont celles en vigueur au lancement de Saturn 1. Les minipools existants ne font pas partie de cette répartition et conservent la commission fixée dans leur propre contrat.
 
 ### Comment le protocole protège-t-il la valeur de rETH?
 
@@ -245,7 +245,7 @@ En tant qu'opérateur de nœud, vous pouvez bénéficier des avantages suivants:
 
 ### Quel est le montant minimum de staking pour un opérateur de nœud?
 
-Le montant minimum de staking pour un opérateur de nœud est de 8 ETH. Mais vous pouvez facilement staker dans les multiples de 8 ETH sur votre propre nœud en utilisant notre logiciel de nœud intelligent. Vous aurez également besoin d'un peu de RPL pour servir de garantie en cas de temps d'arrêt grave ou de pénalités. Cette garantie est traitée comme une promesse d'assurance au protocole qui vous gagne plus de RPL plus longtemps vous stakez.
+Depuis la mise à niveau Saturn 1, le montant minimum de staking pour un opérateur de nœud est de 4 ETH. Chaque validateur associe votre bond de 4 ETH à 28 ETH du pool de staking rETH pour former un validateur de 32 ETH au sein d'un megapool, qui peut regrouper de nombreux validateurs sous un même nœud. (Les anciens minipools de 8 ETH et 16 ETH ne peuvent plus être créés : la file d'attente des minipools a été fermée avant Saturn 1 par le [RPIP-74](https://rpips.rocketpool.net/RPIPs/RPIP-74).) Le RPL n'est plus requis comme garantie pour faire fonctionner un validateur megapool, mais staker du RPL sur votre megapool vous rapporte une part proportionnelle des revenus en ETH du protocole (le [voter share](/fr/node-staking/megapools/staking-and-claiming-rewards#comment-le-voter-share-est-distribué-aux-stakers-de-rpl-megapool)) ainsi que des récompenses d'inflation RPL. Consultez les [guides megapool](/fr/node-staking/megapools/overview) pour plus de détails.
 
 ### Qu'implique de gérer un nœud Rocket Pool?
 

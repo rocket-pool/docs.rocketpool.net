@@ -157,7 +157,7 @@ Node Operatorの観点から:
 
 - Saturn 1の時点で、投票資格のあるステークされたRPLは、プロトコルの総収益のシェアを取得します
 - RPLインフレーションの[大部分](https://rpips.rocketpool.net/RPIPs/RPIP-25)は、ステークされたRPLに基づいてNode Operatorへの報酬として与えられます。これらの報酬はSaturn 2で段階的に廃止される予定です
-- 2024年10月28日以降に作成されたSaturn 0ミニプールの場合:ステークされたRPLは最大4%の追加ボーナス手数料を提供します。ボーナス手数料はSaturn 1の発売の数か月後に段階的に廃止される予定です
+- 2024年10月28日以降に作成されたSaturn 0ミニプールの場合: ステークされたRPLは最大4%の追加ボーナス手数料を提供していました。このボーナスは、Saturn 1のローンチから4回の報酬インターバル後の2026年6月に終了しました。
 - ステークされたRPLはガバナンスのための投票権を提供します
 
 プロトコルの観点から:
@@ -199,7 +199,7 @@ Rocket Poolプロトコルでは、誰でも0.01 ETHという少額で報酬を�
 
 ### Rocket Poolでステーキングする際の手数料はどうなりますか?
 
-Node Operatorの手数料は、非オペレーターステーカーからプールされた16または24 ETHから生成された報酬から得られます。手数料は14%に固定されています。
+Saturn 1のUniversal Adjustable Revenue Split（UARS、[RPIP-46](https://rpips.rocketpool.net/RPIPs/RPIP-46)）では、Node Operatorの手数料は、各megapoolバリデーターのためにrETHステーキングプールから借りた28 ETHが生み出す報酬から得られます。手数料の合計は14%で、すべてのmegapool Node Operatorに支払われる5%の基本手数料と、megapoolにRPLをステークしているNode Operatorに比例配分される9%の[voter share](/ja/node-staking/megapools/staking-and-claiming-rewards#voter-shareがmegapool-rplステーカーにどのように分配されるか)に分かれます。手数料とその配分は固定ではなく、pDAOのガバナンス投票によって変更できます。上記の値はSaturn 1のローンチ時の値です。レガシーminipoolはこの配分の対象外で、それぞれのコントラクトで設定された手数料がそのまま適用されます。
 
 ### プロトコルはどのようにrETHの価値を保護しますか?
 
@@ -245,7 +245,7 @@ Node Operatorとして、次のような利点を活用できます:
 
 ### Node Operatorの最低ステーキング額はいくらですか?
 
-Node Operatorの最低ステーキング額は8 ETHです。しかし、Smart Nodeソフトウェアを使用して、自分のノードで簡単に8 ETHの倍数でステークできます。また、深刻なダウンタイムやペナルティの場合の担保として、いくらかのRPLも必要になります。この担保は、ステークする期間が長いほどより多くのRPLを獲得するプロトコルへの保険の約束として扱われます。
+Saturn 1アップグレード以降、Node Operatorの最低ステーキング額は4 ETHです。各バリデーターは、あなたの4 ETHのボンドとrETHステーキングプールからの28 ETHを組み合わせて、megapool内の32 ETHのバリデーターになります。megapoolは1つのノードの下で多数のバリデーターをまとめることができます。（8 ETHおよび16 ETHのレガシーminipoolは新規作成できなくなりました。minipoolキューはSaturn 1の前に[RPIP-74](https://rpips.rocketpool.net/RPIPs/RPIP-74)によって閉鎖されています。）megapoolバリデーターを運用するために担保としてのRPLは不要になりましたが、megapoolにRPLをステークすると、プロトコルのETH収益の比例配分（[voter share](/ja/node-staking/megapools/staking-and-claiming-rewards#voter-shareがmegapool-rplステーカーにどのように分配されるか)）とRPLインフレーション報酬を受け取れます。詳しくは[megapoolガイド](/ja/node-staking/megapools/overview)を参照してください。
 
 ### Rocket Poolノードの実行には何が含まれますか?
 

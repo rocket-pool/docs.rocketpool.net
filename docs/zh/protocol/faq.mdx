@@ -157,7 +157,7 @@ RPL 是将用于协议治理的主要协议代币，也可以在 Rocket Pool 节
 
 - 从 Saturn 1 开始，符合投票条件的质押 RPL 将获得总协议收入的份额
 - RPL 通胀的[大部分](https://rpips.rocketpool.net/RPIPs/RPIP-25)作为奖励根据质押的 RPL 分配给节点运营商；这些奖励计划在 Saturn 2 中逐步取消
-- 对于 2024 年 10 月 28 日之后创建的 Saturn 0 minipool：质押的 RPL 可提供高达 4% 的额外奖励佣金；奖励佣金计划在 Saturn 1 启动几个月后逐步取消
+- 对于 2024 年 10 月 28 日之后创建的 Saturn 0 minipool：质押的 RPL 曾可提供高达 4% 的额外奖励佣金。该奖励已于 2026 年 6 月结束，即 Saturn 1 上线后的第四个奖励周期之后。
 - 质押提供治理投票权
 
 从协议角度来看：
@@ -199,7 +199,7 @@ Rocket Pool 协议允许任何人以最低 0.01 ETH 的存款赚取奖励。当�
 
 ### 使用 Rocket Pool 质押可能有哪些佣金？
 
-节点运营商的佣金来自非运营商质押者汇集的 16 或 24 ETH 产生的奖励。佣金固定为 14%。
+根据 Saturn 1 的通用可调节收益分割（UARS，[RPIP-46](https://rpips.rocketpool.net/RPIPs/RPIP-46)），节点运营商的佣金来自每个 megapool 验证者从 rETH 质押池借入的 28 ETH 所产生的奖励。总佣金为 14%，分为支付给每个 megapool 节点运营商的 5% 基础佣金，以及按比例分配给在其 megapool 上质押 RPL 的节点运营商的 9% [选民份额](/zh/node-staking/megapools/staking-and-claiming-rewards#选民份额如何分配给-megapool-rpl-质押者)。佣金及其分配比例并非固定，可以通过 pDAO 治理投票调整；上述数值是 Saturn 1 上线时的数值。传统 minipool 不参与这一分配，仍按其自身合约中设定的佣金执行。
 
 ### 协议如何保护 rETH 的价值？
 
@@ -245,7 +245,7 @@ Rocket Pool 是一个包含去中心化节点运营商网络的协议。每个�
 
 ### 节点运营商的最低质押金额是多少？
 
-节点运营商的最低质押金额是 8 ETH。但你可以使用我们的智能节点软件轻松地在自己的节点上以 8 ETH 的倍数进行质押。你还需要一些 RPL 作为抵押品，以防严重停机或处罚。这种抵押品被视为对协议的保险承诺，质押时间越长，你赚取的 RPL 越多。
+自 Saturn 1 升级以来，节点运营商的最低质押金额为 4 ETH。每个验证者将你的 4 ETH 保证金与来自 rETH 质押池的 28 ETH 组合，在 megapool 中组成一个 32 ETH 的验证者；一个 megapool 可以在同一个节点下容纳多个验证者。（8 ETH 和 16 ETH 的传统 minipool 已无法再创建：minipool 队列已在 Saturn 1 之前根据 [RPIP-74](https://rpips.rocketpool.net/RPIPs/RPIP-74) 关闭。）运行 megapool 验证者不再需要 RPL 作为抵押品，但在你的 megapool 上质押 RPL 可以让你按比例获得协议 ETH 收入的一部分（[选民份额](/zh/node-staking/megapools/staking-and-claiming-rewards#选民份额如何分配给-megapool-rpl-质押者)），以及 RPL 通胀奖励。详情请参阅 [megapool 指南](/zh/node-staking/megapools/overview)。
 
 ### 运行 Rocket Pool 节点需要什么？
 

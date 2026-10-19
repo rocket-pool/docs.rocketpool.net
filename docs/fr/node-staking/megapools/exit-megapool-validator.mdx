@@ -65,12 +65,13 @@ Ce site est pratique pour vérifier le temps d'attente actuel de la file : https
 Dans l'étape précédente `active_exiting`, votre nœud effectuait des attestations pendant qu'il était soumis à la file d'attente de sortie de la Beacon Chain. Le temps varie selon
 la quantité d'ETH en attente de sortie.
 
-Après que votre validateur atteint la fin de cette file, il passe à l'état `exited_unslashed`. À ce stade, votre smart node appellera automatiquement `notify validator exit`, signalant
-au protocole Rocket Pool que votre validateur est sorti et est presque en attente de retrait.
+Après que votre validateur atteint la fin de cette file, il passe à l'état `exited_unslashed`. Dès que votre demande de sortie est traitée, votre smart node appellera automatiquement `notify validator exit`, signalant
+au protocole Rocket Pool que votre validateur est dans l'état `active_exiting` et est presque en attente de retrait.
 
 ::: warning AVERTISSEMENT
-Cette étape est entièrement automatisée par le smart node dans la boucle de tâches `rocketpool_node`. Il est très important de garder votre nœud en ligne pendant le processus, sinon vous encourrez une amende de `0,05 ETH` pour être hors ligne. L'amende est déduite
-de votre solde de retrait. Veuillez surveiller l'état de votre nœud tout au long du processus de sortie du validateur.
+Cette étape est entièrement automatisée par le Smart Node dans la boucle de tâches `rocketpool_node`, il est donc très important de garder votre nœud en ligne pendant le processus.
+La sortie doit être notifiée au moins 112 époques (environ 12 heures) avant que votre validateur ne devienne retirable. Si elle est notifiée plus tard, une amende de `0.05 ETH` est ajoutée à la dette de votre nœud,
+qui est déduite de votre part du solde final. Veuillez surveiller l'état de votre nœud pendant tout le processus de sortie du validateur.
 :::
 
 ```
@@ -93,3 +94,22 @@ Après 256 époques sur la Beacon Chain, les 32 ETH complets ainsi que les autre
 À ce stade, votre validateur est entièrement sorti de la Beacon Chain et le retrait final est envoyé de la Beacon Chain à votre megapool. Votre smart node appellera automatiquement `notify final balance`.
 Cet appel met fin aux fonctions de votre validateur megapool et distribue également votre part du solde à l'adresse de retrait ETH de votre nœud. Si vous avez gardé votre nœud en ligne et que les tâches automatiques telles que `notify
 validator exit` et `notify final balance` ont été effectuées, aucune autre étape n'est requise de votre part.
+
+## Notifier manuellement
+
+La plupart des opérateurs de nœuds peuvent ignorer cette section.
+Votre nœud vérifie les deux notifications toutes les quelques minutes et les envoie de lui-même. S'il était hors ligne pendant la sortie, il rattrape son retard dès qu'il est de nouveau en ligne et synchronisé.
+
+Vous n'avez besoin de les envoyer vous-même que si votre nœud ne le fait pas : lorsque les transactions automatiques sont désactivées (**Automatic TX Gas Threshold** dans les paramètres **Smart Node and TX Fees** vaut `0`), ou lorsque le prix du gaz reste au-dessus de votre seuil. Dans ce cas, exécutez ces commandes dans l'ordre :
+
+```shell
+rocketpool megapool notify-validator-exit
+rocketpool megapool notify-final-balance
+```
+
+Chaque commande liste les validateurs prêts à être notifiés.
+`notify-validator-exit` fonctionne dès que la Beacon Chain a traité votre demande de sortie ; envoyez-la au moins 112 époques (environ 12 heures) avant que le validateur ne devienne retirable pour éviter l'amende.
+`notify-final-balance` fonctionne une fois que la sortie a été notifiée et que la Beacon Chain a envoyé le retrait final du validateur à votre megapool.
+
+Ne les laissez pas en suspens. Votre megapool ne peut pas distribuer de récompenses entre les deux notifications, et si la sortie n'est pas notifiée à temps, l'Oracle DAO peut suspendre la distribution des récompenses de votre megapool jusqu'à ce qu'elle le soit.
+Si vous ne notifiez pas vous-même le solde final, n'importe qui d'autre peut le faire à votre place une fois que 7 jours se sont écoulés depuis le retrait final (plus longtemps si le validateur a perdu de l'ETH). Votre part reste alors dans votre megapool au lieu d'être envoyée à votre adresse de retrait, et vous pouvez la réclamer avec `rocketpool megapool claim`.

@@ -1,7 +1,6 @@
 # 命令行界面简介
 
-作为节点运营者,CLI 是您与 Rocket Pool 交互的主要工具。
-您将使用它来创建新的 minipool,检查所有状态,领取定期的 RPL 奖励,在准备好时从 minipool 退出和提取,以及执行许多其他活动。
+作为节点运营者,CLI 是您与 Rocket Pool 交互的主要工具。您将使用它来创建新的 megapool 验证者、检查各项状态、领取定期的 RPL 奖励、在准备好时退出 minipool 并提款，以及完成许多其他操作。
 
 一旦您完成了 Execution 和 Beacon 链的同步,所有命令就都可供您使用了。
 在本节中,我们将简要介绍一些较常用的命令以及 CLI 可以执行的其他一些技巧。
@@ -176,15 +175,12 @@ rocketpool service migrate-geth
 
 ### `terminate`
 
-此命令将关闭 Docker 容器,然后删除它们、删除 Rocket Pool 虚拟网络,并删除 ETH1 和 ETH2 链数据卷。
-它基本上从您的 Docker 设置中删除所有 Rocket Pool 项目。
-当您想清理 Rocket Pool 安装的那部分时使用它。
+此命令将关闭 Docker 容器，然后删除它们，删除 Rocket Pool 虚拟网络，并删除 ETH1 和 ETH2 链数据卷以及您的 Prometheus 指标数据库。随后，它会删除整个 Smart Node 配置文件夹（默认为 `~/.rocketpool`）。仅当您想完全移除 Smart Node 并重新开始时才使用它。
 
 ::: warning
-这将不可逆转地删除您的链数据,这意味着您需要再次同步 ETH1 和 ETH2。
+此操作不可撤销。它会删除您的链数据，这意味着您需要重新同步 ETH1 和 ETH2。
 
-这**不会**删除您的钱包和密码文件、您配置的设置或您的验证者密钥。
-要删除这些,您需要删除 Docker 或混合模式下的 `~/.rocketpool/data` 文件夹,或原生模式下的相应目录。
+它**还会删除您的节点钱包、密码和验证者密钥**，以及您的配置设置。运行之前，请确保您已记下并验证了节点的恢复助记词（例如使用 `rocketpool wallet test-recovery`），否则您将无法访问节点钱包和验证者密钥。
 :::
 
 ## Update 命令
@@ -232,8 +228,6 @@ COMMANDS:
    withdraw-eth, h                               Withdraw ETH staked on behalf of the node
    withdraw-credit, wc                           (Saturn) Withdraw ETH credit from the node as rETH
    send, n                                       Send ETH or tokens from the node account to an address. ENS names supported. Use 'all' as the amount to send the entire balance. <token> can be 'rpl', 'eth', 'fsrpl' (for the old RPL v1 token), 'reth', or the address of an arbitrary token you want to send (including the 0x prefix).
-   set-voting-delegate, sv                       (DEPRECATED) Use `rocketpool pdao set-signalling-address` instead
-   clear-voting-delegate, cv                     (DEPRECATED) Use `rocketpool pdao clear-signalling-address` instead
    initialize-fee-distributor, z                 Create the fee distributor contract for your node, so you can withdraw priority fees and MEV rewards after the merge
    distribute-fees, b                            Distribute the priority fee and MEV rewards from your fee distributor to your withdrawal address and the rETH contract (based on your node's average commission)
    join-smoothing-pool, js                       Opt your node into the Smoothing Pool
@@ -270,10 +264,10 @@ The node has 0 express queue ticket(s).
 === Penalty Status ===
 The node does not have any penalties for cheating with an invalid fee recipient.
 
-=== Signalling on Snapshot ===
-The node does not currently have a snapshot signalling address set.
-To learn more about snapshot signalling, please visit https://docs.rocketpool.net/pdao/participate#setting-your-snapshot-signalling-address.
-Rocket Pool has no Snapshot governance proposals being voted on.
+=== Signalling on RocketDash ===
+The node does not currently have an offchain signalling address set.
+To learn more about offchain signalling, please visit https://docs.rocketpool.net/pdao/participate#setting-your-snapshot-signalling-address.
+Rocket Pool has no RocketDash governance proposals being voted on.
 
 === Onchain Voting ===
 The node doesn't have a delegate, which means it can vote directly on onchain proposals. You can have another node represent you by running `rocketpool p svd <address>`.
@@ -291,8 +285,6 @@ The node's fee distributor 0x84c1f488CDecb2E335c40901E3Fe58925f4cC9A7 has a bala
 NOTE: You are in Native Mode; you MUST ensure that your Validator Client is using this address as its fee recipient!
 The node is not opted into the Smoothing Pool.
 To learn more about the Smoothing Pool, please visit https://docs.rocketpool.net/upgrades/redstone/whats-new#smoothing-pool.
-You have 3 minipools that would earn extra commission if you opted into the smoothing pool!
-See https://rpips.rocketpool.net/RPIPs/RPIP-62 for more information about bonus commission, or run `rocketpool node join-smoothing-pool` to opt in.
 
 === RPL Stake ===
 NOTE: The following figures take *any pending bond reductions* into account.
@@ -332,8 +324,7 @@ You do not have a fallback consensus client enabled.
 
 ### `stake-rpl`
 
-当您想向节点添加更多 RPL 抵押品时,您将使用此命令。
-这样做将增加您的抵押率,这将增加您在每个检查点的 RPL 奖励(稍后会详细介绍)。
+当您想在节点上质押更多 RPL 时，可以使用此命令。质押在 megapool 上的 RPL 可以获得协议 ETH 收入的一部分，并为您的节点提供投票权；详情请参阅[质押 RPL 和领取奖励](/zh/node-staking/megapools/staking-and-claiming-rewards)。
 
 与目前为止的其他命令不同,这个命令实际上是*交互式*的,因为它将触发一个交易 - 它不仅仅是信息性的。
 
@@ -391,7 +382,7 @@ These prices include a maximum priority fee of 2.00 gwei.
 Please enter your max fee (including the priority fee) or leave blank for the default of 4 gwei:
 
 Using a max fee of 4.00 gwei and a priority fee of 2.00 gwei.
-Are you sure you want to stake 733.993925 RPL? You will not be able to unstake this RPL until you exit your validators and close your minipools, or reach 2201.981777 staked RPL (15% of bonded eth)! [y/n]
+Are you sure you want to stake 733.993925 RPL? You may request to unstake your staked RPL at any time. The unstaked RPL will be withdrawable after an unstaking period of 672h0m0s. [y/n]
 ```
 
 如果您确认,您将看到交易哈希并获得一个指向 [Etherscan](https://etherscan.io) 的链接,以便您可以跟踪其进度:

@@ -53,7 +53,7 @@ Esta es una característica muy atractiva para los operadores de nodos que no qu
 Cubriremos ambos a continuación para que entiendas la diferencia y si deseas unirte o no al Smoothing Pool.
 
 ::: tip NOTA
-Para minipools creados después del 2024-10-28, se recomienda FUERTEMENTE el smoothing pool, ya que se usa para distribuir comisión de bonificación. Si optas por no participar en el smoothing pool, estos minipools obtendrán una comisión total del 5%. Si optas por participar en el smoothing pool, estos minipools obtendrán entre 10% (sin RPL en stake) y 14% (el stake de RPL tiene un valor del 10% del ETH prestado o más) de comisión.
+Los minipools creados después del 2024-10-28 recibían antes una comisión de bonificación (hasta un 14 % en total) a través del Smoothing Pool. Según lo definido en [RPIP-62](https://rpips.rocketpool.net/RPIPs/RPIP-62), la bonificación terminó cuatro intervalos de recompensas después de Saturn 1 (la última se pagó en junio de 2026). Estos minipools ahora reciben su comisión de contrato del 5 %, estés o no en el Smoothing Pool.
 :::
 
 ## Tu Fee Distributor
@@ -61,6 +61,7 @@ Para minipools creados después del 2024-10-28, se recomienda FUERTEMENTE el smo
 Tu Fee Distributor es un contrato único en la capa de Execution que es **específico para tu nodo**.
 Contendrá todas las priority fees que has ganado con el tiempo, y contiene la lógica requerida para dividirlas y distribuirlas equitativamente a los stakers del pool de rETH y tu dirección de retiro.
 Este proceso de distribución **puede ser llamado por cualquiera** (incluidos los stakers de rETH), y puede hacerse **en cualquier momento**.
+Si alguien que no seas tú lo distribuye, tu parte se retiene como [recompensas no reclamadas](#claiming-unclaimed-rewards) hasta que la reclames.
 No tiene un límite de tiempo antes de que las recompensas expiren.
 
 La dirección de tu Fee Distributor de nodo es **determinísticamente basada en tu dirección de nodo**.
@@ -95,14 +96,37 @@ rocketpool node distribute-fees
 Esto enviará tu parte de las recompensas a tu **dirección de retiro**.
 
 ::: warning NOTA SOBRE EVENTOS IMPONIBLES
-Siempre que crees un nuevo minipool, Rocket Pool llamará automáticamente a `distribute-fees`.
-Esto es para asegurar que cualquier tarifa que hayas acumulado se distribuya usando la comisión promedio de tu nodo, que podría cambiar cuando crees el nuevo minipool. Esto no aplica a la creación de validadores de megapool.
-
-Además, ten en cuenta que cualquiera puede llamar a `distribute-fees` en tu fee distributor (para evitar que retengas las recompensas de rETH como rehén).
-Puedes tener un evento imponible siempre que se llame a este método.
+Cualquiera puede distribuir tu distribuidor de tarifas (para evitar que retengas las recompensas de rETH como rehén).
+Rocket Pool también lo distribuye automáticamente cada vez que se cierra uno de tus minipools, para que las tarifas acumuladas se repartan con la comisión media de tu nodo antes de que cambie.
+Puedes tener un evento imponible cada vez que se distribuye tu distribuidor de tarifas.
 
 Por favor, ten en cuenta estas condiciones al decidir si usar o no el Smoothing Pool (discutido a continuación).
 :::
+
+<span id="claiming-unclaimed-rewards"></span>
+
+### Reclamar recompensas no reclamadas
+
+Tu parte va directamente a tu dirección de retiro solo cuando el distribuidor de tarifas es distribuido por la dirección de tu nodo o tu dirección de retiro, por ejemplo con `rocketpool node distribute-fees`.
+Desde la actualización Saturn 1, cuando cualquier otra persona lo distribuye (incluido el propio Rocket Pool cuando cierras un minipool), tu parte se reserva como **recompensas no reclamadas**.
+Las recompensas no reclamadas no caducan, y solo la dirección de tu nodo o tu dirección de retiro pueden reclamarlas.
+
+Para comprobar si tienes recompensas no reclamadas y reclamarlas, ejecuta:
+
+```shell
+rocketpool node claim-unclaimed-rewards
+```
+
+Si tienes alguna, mostrará la cantidad antes de pedirte que confirmes la reclamación:
+
+```
+The node's withdrawal address is 0x4ACb4E5E5A9a5EfB1f4D3eE2f6E5A13bB0E8f0a7
+You have 0.012345 ETH in unclaimed rewards.
+Your node 0xE8325F5f4486c2FF2AC7B522Fbc9eB249d46C936 has rewards that were distributed to its unclaimed rewards balance instead of its withdrawal address. This happens whenever your fee distributor is distributed by anyone other than your node or withdrawal address.
+Claiming will send them to your current withdrawal address.
+```
+
+Las recompensas se envían a tu dirección de retiro **actual**.
 
 ### El Sistema de Penalización
 

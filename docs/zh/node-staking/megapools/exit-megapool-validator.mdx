@@ -60,10 +60,10 @@ Express Ticket Used:          no
 
 在上一阶段 `active_exiting` 中，您的节点在等待信标链退出队列期间一直在进行验证。等待时间取决于等待退出的 ETH 数量。
 
-您的验证者到达队列末尾后，将过渡到 `exited_unslashed` 状态。在此阶段，您的 Smart Node 将自动调用 `notify validator exit`，向 Rocket Pool 协议发送信号，表明您的验证者已退出并即将可提取。
+您的验证者到达队列末尾后，将过渡到 `exited_unslashed` 状态。您的退出请求一经处理，您的 Smart Node 就会自动调用 `notify validator exit`，向 Rocket Pool 协议发送信号，表明您的验证者处于 `active_exiting` 状态并即将可提取。
 
 ::: warning 警告
-此步骤由 Smart Node 在 `rocketpool_node` 任务循环中完全自动化。在此过程中保持节点在线非常重要，否则您将因离线而被罚款 `0.05 ETH`。该罚款将从您的提款余额中扣除。请在整个验证者退出过程中监控您的节点状态。
+此步骤由 Smart Node 在 `rocketpool_node` 任务循环中完全自动化，因此在此过程中保持节点在线非常重要。退出必须在您的验证者变为可提款状态之前至少 112 个 epoch（约 12 小时）通知。如果通知晚于此时间，将有 `0.05 ETH` 的罚款计入您节点的债务，并从您在最终余额中的份额里扣除。请在整个验证者退出过程中监控您节点的状态。
 :::
 
 ```
@@ -85,3 +85,18 @@ beaconcha.in 上的状态应如下所示：
 
 此时，您的验证者已完全从信标链退出，最终提款从信标链发送到您的 megapool。您的 Smart Node 将自动调用 `notify final balance`。
 此调用完全结束您的 megapool 验证者职责，并将您的余额份额分配到您节点的 ETH 提款地址。如果您保持节点在线，并且 `notify validator exit` 和 `notify final balance` 等自动职责已执行，则无需您进行进一步操作。
+
+## 手动通知
+
+大多数节点运营者可以跳过本节。您的节点每隔几分钟就会检查这两种通知，并自动发送。如果节点在退出期间处于离线状态，它会在重新上线并完成同步后立即补发。
+
+只有在节点不会自动发送时，您才需要自己发送：即自动交易已被禁用（**Smart Node and TX Fees** 设置中的 **Automatic TX Gas Threshold** 为 `0`），或 gas 价格一直高于您的阈值。在这种情况下，请按顺序运行以下命令：
+
+```shell
+rocketpool megapool notify-validator-exit
+rocketpool megapool notify-final-balance
+```
+
+每个命令都会列出可以通知的验证者。`notify-validator-exit` 在信标链处理完您的退出请求后即可执行；为避免罚款，请在验证者变为可提款状态之前至少 112 个 epoch（约 12 小时）发送。`notify-final-balance` 在退出已被通知、且信标链已将验证者的最终提款发送到您的 megapool 后即可执行。
+
+不要让它们一直不发送。在两次通知之间，您的 megapool 无法分配奖励；如果退出未能按时通知，Oracle DAO 可以暂停您的 megapool 的奖励分配，直到退出被通知为止。如果您没有自己通知最终余额，那么在最终提款满 7 天后（如果验证者损失了 ETH，则时间更长），任何其他人都可以代您通知。此时您的份额会留在您的 megapool 中，而不会发送到您的提款地址，您可以使用 `rocketpool megapool claim` 领取。

@@ -9,7 +9,7 @@ import autostake from "./images/autostake.png";
 
 Rocket Pool 将定期在网络上标记一个**检查点**。目前，检查点**每 28 天**发生一次。
 
-在新的检查点，Oracle DAO 将共同创建 Rocket Pool 网络中节点运营者状态的**真实快照**，它将使用该快照来确定该间隔期间每个节点的 RPL 和 Smoothing Pool ETH 奖励。请注意，Saturn 0 minipool 的"奖励佣金"使用 smoothing pool 奖励分配（Saturn 0 minipool 是 2024/10/28 之后创建的，合约佣金为 5%）。
+在新的检查点，Oracle DAO 将共同创建 Rocket Pool 网络中节点运营者状态的**真实快照**，它将使用该快照来确定该间隔期间每个节点的 RPL 和 Smoothing Pool ETH 奖励。在 2026 年 6 月之前，该快照还用于从 smoothing pool 奖励中向 Saturn 0 minipool（2024/10/28 之后创建、合约佣金为 5% 的 minipool）发放"奖励佣金"。该奖励现已结束。
 
 此信息被编译成[默克尔树](https://en.wikipedia.org/wiki/Merkle_tree) - 一种极其高效的方式，使所有详细信息可供智能合约使用。默克尔树被构建成 JSON 文件并托管在[我们维护的 GitHub 存储库](https://github.com/rocket-pool/rewards-trees/)上。Smart Node 还可以从该 GitHub 存储库加载奖励周期**事件**，因此即使激进的历史过期已删除旧的执行层日志，您仍然可以领取奖励。
 
@@ -169,3 +169,5 @@ Your fee distributor's balance of 1.143599 ETH will be distributed as follows:
 ```
 
 只需确认您想要的 gas 价格并提交交易。完成后，您的奖励部分将在您节点的提款地址中可用。
+
+如果是其他人分配了您的费用分配器，您的份额将作为未领取奖励保留。请参阅[领取未领取奖励](/zh/node-staking/fee-distrib-sp#claiming-unclaimed-rewards)。

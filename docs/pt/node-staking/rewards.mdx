@@ -11,7 +11,7 @@ Esta seção descreverá como essas recompensas funcionam e como você pode reiv
 Em intervalos regulares, o Rocket Pool sinalizará um **checkpoint** na rede.
 Atualmente, os checkpoints ocorrem **a cada 28 dias**.
 
-Em um novo checkpoint, o Oracle DAO criará coletivamente um **snapshot verdadeiro** do estado dos node operators na rede Rocket Pool, que será usado para determinar as recompensas de RPL e ETH do Smoothing Pool para cada node durante esse intervalo. Note que a "comissão bônus" para minipools Saturn 0 é distribuída usando recompensas do smoothing pool (minipools Saturn 0 são aqueles criados após 28/10/2024, que têm uma comissão de contrato de 5%).
+Em um novo checkpoint, o Oracle DAO criará coletivamente um **snapshot verdadeiro** do estado dos node operators na rede Rocket Pool, que será usado para determinar as recompensas de RPL e ETH do Smoothing Pool para cada node durante esse intervalo. Até junho de 2026, este snapshot também era usado para pagar a "comissão bônus" aos minipools Saturn 0 (aqueles criados após 28/10/2024, que têm uma comissão de contrato de 5%) a partir das recompensas do smoothing pool. Esse bônus já terminou.
 
 Esta informação é compilada em uma [Árvore de Merkle](https://en.wikipedia.org/wiki/Merkle_tree) - uma maneira extremamente eficiente de disponibilizar todos os detalhes para contratos inteligentes.
 A Árvore de Merkle é construída em um arquivo JSON e hospedada em [um repositório GitHub que mantemos](https://github.com/rocket-pool/rewards-trees/). O Smart Node também pode carregar os **eventos** de intervalo de recompensas desse repositório do GitHub, então você ainda pode reivindicar depois que uma expiração agressiva de histórico tiver descartado logs antigos da camada de Execução.
@@ -188,3 +188,5 @@ Your fee distributor's balance of 1.143599 ETH will be distributed as follows:
 
 Simplesmente confirme o preço de gas que você deseja e submeta a transação.
 Uma vez concluída, sua porção das recompensas estará disponível no endereço de retirada do seu node.
+
+Se outra pessoa distribuir seu fee distributor, sua parte fica retida como recompensas não resgatadas. Veja [Resgatando recompensas não resgatadas](/pt/node-staking/fee-distrib-sp#claiming-unclaimed-rewards).

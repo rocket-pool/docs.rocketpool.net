@@ -157,7 +157,7 @@ De uma perspectiva de Operador de Nó:
 
 - A partir do Saturn 1, RPL em stake elegível para votação receberá uma parte da receita total do protocolo
 - A [maioria](https://rpips.rocketpool.net/RPIPs/RPIP-25) da inflação de RPL é dada como recompensas aos Operadores de Nós com base no RPL em stake; essas recompensas estão planejadas para serem eliminadas com o Saturn 2
-- Para minipools Saturn 0 feitos após 28/10/2024: RPL em stake fornece até 4% de comissão bônus adicional; comissão bônus está planejada para ser eliminada alguns meses após o lançamento do Saturn 1.
+- Para minipools Saturn 0 feitos após 28/10/2024: RPL em stake fornecia até 4% de comissão bônus adicional. O bônus terminou em junho de 2026, quatro intervalos de recompensas após o lançamento do Saturn 1.
 - Em stake fornece poder de voto para governança
 
 De uma perspectiva de protocolo:
@@ -199,7 +199,7 @@ Se você quer executar um nó na rede, você pode fazer staking como nó por tan
 
 ### Quais comissões são possíveis ao fazer staking com o Rocket Pool?
 
-Comissões para operadores de nós vêm de recompensas geradas dos 16 ou 24 ETH agrupados de stakers não operadores. A comissão é fixa em 14%.
+Com o Universal Adjustable Revenue Split (UARS, [RPIP-46](https://rpips.rocketpool.net/RPIPs/RPIP-46)) do Saturn 1, as comissões dos operadores de nó vêm das recompensas geradas pelos 28 ETH emprestados do pool de staking de rETH para cada validador de megapool. A comissão total é de 14%, dividida em uma comissão base de 5% paga a cada operador de nó com megapool e uma [participação de votação](/pt/node-staking/megapools/staking-and-claiming-rewards#como-a-participação-de-votação-é-distribuída-para-stakers-de-rpl-de-megapool) de 9% distribuída proporcionalmente aos operadores de nó que fazem staking de RPL em seu megapool. A comissão e sua divisão não são fixas e podem ser ajustadas por votação de governança do pDAO; os valores acima são os do lançamento do Saturn 1. Minipools legados não fazem parte dessa divisão e mantêm a comissão definida em seu próprio contrato.
 
 ### Como o protocolo protege o valor do rETH?
 
@@ -245,7 +245,7 @@ Como operador de nó, você pode aproveitar os seguintes benefícios:
 
 ### Qual é o valor mínimo de staking para um operador de nó?
 
-O valor mínimo de staking para um operador de nó é 8 ETH. Mas você pode facilmente fazer stake em múltiplos de 8 ETH em seu próprio nó usando nosso software de nó inteligente. Você também precisará de algum RPL para atuar como colateral no caso de tempo de inatividade sério ou penalidades. Este colateral é tratado como uma promessa de seguro ao protocolo que lhe rende mais RPL quanto mais tempo você faz stake.
+Desde a atualização Saturn 1, o valor mínimo de staking para um operador de nó é de 4 ETH. Cada validador combina seu bond de 4 ETH com 28 ETH do pool de staking de rETH para formar um validador de 32 ETH dentro de um megapool, que pode reunir muitos validadores em um único nó. (Minipools legados de 8 ETH e 16 ETH não podem mais ser criados: a fila de minipools foi fechada antes do Saturn 1 pelo [RPIP-74](https://rpips.rocketpool.net/RPIPs/RPIP-74).) O RPL não é mais exigido como garantia para operar um validador de megapool, mas fazer staking de RPL no seu megapool rende a você uma parte proporcional da receita em ETH do protocolo (a [participação de votação](/pt/node-staking/megapools/staking-and-claiming-rewards#como-a-participação-de-votação-é-distribuída-para-stakers-de-rpl-de-megapool)), além de recompensas de inflação de RPL. Veja os [guias de megapool](/pt/node-staking/megapools/overview) para mais detalhes.
 
 ### O que está envolvido em executar um nó Rocket Pool?
 

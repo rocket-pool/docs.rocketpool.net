@@ -53,7 +53,7 @@ Rocket Pool은 Beacon 체인 보상을 공정하게 분배하는 것과 같은 �
 아래에서 이 두 가지를 모두 다루어 차이점과 Smoothing Pool에 가입할지 여부를 이해할 수 있도록 하겠습니다.
 
 ::: tip 참고
-2024-10-28 이후에 생성된 미니풀의 경우 보너스 수수료를 분배하는 데 사용되므로 Smoothing Pool이 강력히 권장됩니다. Smoothing Pool을 선택 해제하면 이러한 미니풀은 총 5% 수수료를 받습니다. Smoothing Pool을 선택하면 이러한 미니풀은 10%(RPL 스테이킹 없음)에서 14%(RPL 스테이크가 차용된 ETH의 10% 이상으로 평가됨) 사이의 수수료를 받습니다.
+2024-10-28 이후에 생성된 미니풀은 이전에 Smoothing Pool을 통해 보너스 수수료(합계 최대 14%)를 받았습니다. [RPIP-62](https://rpips.rocketpool.net/RPIPs/RPIP-62)에 정의된 대로, 이 보너스는 Saturn 1 이후 네 번의 보상 기간이 지난 뒤 종료되었습니다(마지막 지급은 2026년 6월). 이제 이 미니풀들은 Smoothing Pool 참여 여부와 관계없이 5%의 계약 수수료를 받습니다.
 :::
 
 ## 귀하의 Fee Distributor
@@ -61,6 +61,7 @@ Rocket Pool은 Beacon 체인 보상을 공정하게 분배하는 것과 같은 �
 귀하의 Fee Distributor는 **귀하의 노드에 특정한** Execution 레이어의 고유한 계약입니다.
 시간이 지남에 따라 획득한 모든 우선 수수료를 보유하며, rETH 풀 스테이커와 출금 주소에 공정하게 분할하고 분배하는 데 필요한 로직을 포함합니다.
 이 분배 프로세스는 **누구나**(rETH 스테이커 포함) **언제든지** 호출할 수 있습니다.
+본인이 아닌 다른 사람이 분배하면, 본인의 몫은 청구할 때까지 [미청구 보상](#claiming-unclaimed-rewards)으로 보관됩니다.
 보상이 만료되기 전의 시간 제한이 없습니다.
 
 노드의 Fee Distributor 주소는 **노드 주소를 기반으로 결정론적으로** 결정됩니다.
@@ -95,14 +96,37 @@ rocketpool node distribute-fees
 이렇게 하면 보상의 귀하 몫이 **출금 주소**로 전송됩니다.
 
 ::: warning 과세 사건에 대한 참고 사항
-새 미니풀을 생성할 때마다 Rocket Pool은 자동으로 `distribute-fees`를 호출합니다.
-이는 새 미니풀을 생성할 때 변경될 수 있는 노드의 평균 수수료를 사용하여 누적된 수수료를 분배하기 위한 것입니다. 이는 megapool validator 생성에는 적용되지 않습니다.
-
-또한 누구나 fee distributor에서 `distribute-fees`를 호출할 수 있다는 점에 유의하세요(rETH 보상을 인질로 잡는 것을 방지하기 위해).
-이 메서드가 호출될 때마다 과세 사건이 발생할 수 있습니다.
+누구나 귀하의 Fee Distributor를 분배할 수 있습니다(rETH 보상을 볼모로 잡는 것을 방지하기 위해).
+또한 Rocket Pool은 귀하의 minipool이 종료될 때마다 자동으로 분배하여, 누적된 수수료가 노드의 평균 커미션이 바뀌기 전에 그 비율로 분할되도록 합니다.
+Fee Distributor가 분배될 때마다 과세 대상 이벤트가 발생할 수 있습니다.
 
 Smoothing Pool 사용 여부를 결정할 때 이러한 조건을 염두에 두세요(아래에서 논의).
 :::
+
+<span id="claiming-unclaimed-rewards"></span>
+
+### 미청구 보상 청구
+
+본인의 몫이 출금 주소로 바로 전송되는 것은 Fee Distributor가 노드 주소나 출금 주소에서 분배될 때뿐입니다(예: `rocketpool node distribute-fees`).
+Saturn 1 업그레이드 이후로는, 다른 사람이 분배하면(minipool을 종료할 때 Rocket Pool 자체가 분배하는 경우 포함) 본인의 몫이 대신 **미청구 보상**으로 적립됩니다.
+미청구 보상은 만료되지 않으며, 노드 주소나 출금 주소만 청구할 수 있습니다.
+
+미청구 보상을 확인하고 청구하려면 다음을 실행하세요:
+
+```shell
+rocketpool node claim-unclaimed-rewards
+```
+
+미청구 보상이 있으면 청구를 확인하기 전에 금액이 표시됩니다:
+
+```
+The node's withdrawal address is 0x4ACb4E5E5A9a5EfB1f4D3eE2f6E5A13bB0E8f0a7
+You have 0.012345 ETH in unclaimed rewards.
+Your node 0xE8325F5f4486c2FF2AC7B522Fbc9eB249d46C936 has rewards that were distributed to its unclaimed rewards balance instead of its withdrawal address. This happens whenever your fee distributor is distributed by anyone other than your node or withdrawal address.
+Claiming will send them to your current withdrawal address.
+```
+
+보상은 **현재** 출금 주소로 전송됩니다.
 
 ### 패널티 시스템
 

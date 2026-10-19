@@ -11,7 +11,7 @@ Dieser Abschnitt beschreibt, wie diese Belohnungen funktionieren und wie Sie sie
 In regelmäßigen Abständen markiert Rocket Pool einen **Checkpoint** im Netzwerk.
 Derzeit erfolgen Checkpoints **alle 28 Tage**.
 
-Bei einem neuen Checkpoint erstellt das Oracle DAO gemeinsam einen **echten Snapshot** des Zustands der Node Operators im Rocket Pool-Netzwerk, mit dem die RPL- und Smoothing Pool ETH-Belohnungen für jeden Node während dieses Intervalls ermittelt werden. Beachten Sie, dass "Bonuskommission" für Saturn 0 Minipools über Smoothing Pool Belohnungen verteilt wird (Saturn 0 Minipools sind diejenigen, die nach dem 28.10.2024 erstellt wurden und eine Vertragskommission von 5% haben).
+Bei einem neuen Checkpoint erstellt das Oracle DAO gemeinsam einen **echten Snapshot** des Zustands der Node Operators im Rocket Pool-Netzwerk, mit dem die RPL- und Smoothing Pool ETH-Belohnungen für jeden Node während dieses Intervalls ermittelt werden. Bis Juni 2026 wurde dieser Snapshot auch verwendet, um Saturn 0 Minipools (diejenigen, die nach dem 28.10.2024 erstellt wurden und eine Vertragskommission von 5% haben) eine "Bonuskommission" aus den Smoothing Pool Belohnungen auszuzahlen. Dieser Bonus ist inzwischen beendet.
 
 Diese Informationen werden in einem [Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree) zusammengestellt - eine äußerst effiziente Methode, um alle Details für Smart Contracts verfügbar zu machen.
 Der Merkle Tree wird in eine JSON-Datei eingebettet und in [einem GitHub-Repository, das wir pflegen](https://github.com/rocket-pool/rewards-trees/), gehostet. Der Smart Node kann die **Events** eines Belohnungsintervalls auch aus diesem GitHub-Repository laden, sodass Sie auch dann noch beanspruchen können, wenn ein aggressiver Ablauf der Historie alte Logs der Execution-Ebene entfernt hat.
@@ -188,3 +188,5 @@ Your fee distributor's balance of 1.143599 ETH will be distributed as follows:
 
 Bestätigen Sie einfach den gewünschten Gaspreis und übermitteln Sie die Transaktion.
 Sobald sie abgeschlossen ist, steht Ihr Anteil an den Belohnungen in der Withdrawal-Adresse Ihres Nodes zur Verfügung.
+
+Wenn stattdessen jemand anderes Ihren Fee Distributor verteilt, wird Ihr Anteil als nicht beanspruchte Belohnungen zurückgehalten. Siehe [Nicht beanspruchte Belohnungen beanspruchen](/de/node-staking/fee-distrib-sp#claiming-unclaimed-rewards).

@@ -1,7 +1,7 @@
 # Komut Satırı Arayüzüne Giriş
 
 Node operatörü olarak, CLI Rocket Pool ile etkileşim kurmak için kullanacağınız birincil araçtır.
-Bunu yeni minipool'lar oluşturmak, her şeyin durumunu kontrol etmek, periyodik RPL ödüllerini talep etmek, hazır olduğunuzda minipool'larınızdan çıkmak ve para çekmek ve diğer birçok faaliyet için kullanacaksınız.
+Bunu yeni megapool doğrulayıcıları oluşturmak, her şeyin durumunu kontrol etmek, periyodik RPL ödüllerini talep etmek, hazır olduğunuzda minipool'larınızdan çıkış yapıp çekim yapmak ve daha birçok iş için kullanacaksınız.
 
 Execution ve Beacon zincirlerini senkronize etmeyi tamamladıktan sonra, tüm komutlar kullanımınız için hazır olacaktır.
 Bu bölümde, daha yaygın olanlardan bazılarına ve CLI'nin yapabileceği diğer bazı püf noktalara kısa bir tur atacağız.
@@ -176,15 +176,15 @@ Bu komut **Geth'i kapatır**, veritabanını Pebble v1'den Pebble v2'ye taşır 
 
 ### `terminate`
 
-Bu komut Docker konteynerlerini kapatacak, ardından onları, Rocket Pool sanal ağını ve ETH1 ve ETH2 zincir veri hacimlerini silecektir.
-Temelde Docker kurulumunuzdan tüm Rocket Pool öğelerini kaldırır.
-Rocket Pool kurulumunun bu bölümünü temizlemek istediğinizde bunu kullanın.
+Bu komut Docker konteynerlerini kapatır, ardından siler; Rocket Pool sanal ağını, ETH1 ve ETH2 zincir veri birimlerini ve Prometheus metrik veritabanınızı siler.
+Ardından tüm Smart Node yapılandırma klasörünüzü (varsayılan olarak `~/.rocketpool`) siler.
+Yalnızca Smart Node'u tamamen kaldırıp baştan başlamak istediğinizde kullanın.
 
 ::: warning
-Bu, zincir verilerinizi geri döndürülemez şekilde kaldıracaktır, bu da ETH1 ve ETH2'yi tekrar senkronize etmeniz gerektiği anlamına gelir.
+Bu işlem geri alınamaz. Zincir verileriniz silinir, bu nedenle ETH1 ve ETH2'yi yeniden senkronize etmeniz gerekir.
 
-Bu, cüzdan ve şifre dosyalarınızı, yapılandırılmış ayarlarınızı veya validator anahtarlarınızı **kaldırmayacaktır**.
-Bunları kaldırmak için, Docker veya Hybrid Mode'da `~/.rocketpool/data` klasörünü veya Native Mode'da ilgili dizini silmeniz gerekecektir.
+Ayrıca **düğüm cüzdanınızı, parolanızı ve doğrulayıcı anahtarlarınızı da siler**; yapılandırma ayarlarınız da silinir.
+Çalıştırmadan önce düğümünüzün kurtarma anımsatıcısını (mnemonic) not ettiğinizden ve doğruladığınızdan emin olun (örneğin `rocketpool wallet test-recovery` ile); aksi halde düğüm cüzdanınıza ve doğrulayıcı anahtarlarınıza erişimi kaybedersiniz.
 :::
 
 ## Update Komutu
@@ -232,8 +232,6 @@ COMMANDS:
    withdraw-eth, h                               Withdraw ETH staked on behalf of the node
    withdraw-credit, wc                           (Saturn) Withdraw ETH credit from the node as rETH
    send, n                                       Send ETH or tokens from the node account to an address. ENS names supported. Use 'all' as the amount to send the entire balance. <token> can be 'rpl', 'eth', 'fsrpl' (for the old RPL v1 token), 'reth', or the address of an arbitrary token you want to send (including the 0x prefix).
-   set-voting-delegate, sv                       (DEPRECATED) Use `rocketpool pdao set-signalling-address` instead
-   clear-voting-delegate, cv                     (DEPRECATED) Use `rocketpool pdao clear-signalling-address` instead
    initialize-fee-distributor, z                 Create the fee distributor contract for your node, so you can withdraw priority fees and MEV rewards after the merge
    distribute-fees, b                            Distribute the priority fee and MEV rewards from your fee distributor to your withdrawal address and the rETH contract (based on your node's average commission)
    join-smoothing-pool, js                       Opt your node into the Smoothing Pool
@@ -270,10 +268,10 @@ The node has 0 express queue ticket(s).
 === Penalty Status ===
 The node does not have any penalties for cheating with an invalid fee recipient.
 
-=== Signalling on Snapshot ===
-The node does not currently have a snapshot signalling address set.
-To learn more about snapshot signalling, please visit https://docs.rocketpool.net/pdao/participate#setting-your-snapshot-signalling-address.
-Rocket Pool has no Snapshot governance proposals being voted on.
+=== Signalling on RocketDash ===
+The node does not currently have an offchain signalling address set.
+To learn more about offchain signalling, please visit https://docs.rocketpool.net/pdao/participate#setting-your-snapshot-signalling-address.
+Rocket Pool has no RocketDash governance proposals being voted on.
 
 === Onchain Voting ===
 The node doesn't have a delegate, which means it can vote directly on onchain proposals. You can have another node represent you by running `rocketpool p svd <address>`.
@@ -291,8 +289,6 @@ The node's fee distributor 0x84c1f488CDecb2E335c40901E3Fe58925f4cC9A7 has a bala
 NOTE: You are in Native Mode; you MUST ensure that your Validator Client is using this address as its fee recipient!
 The node is not opted into the Smoothing Pool.
 To learn more about the Smoothing Pool, please visit https://docs.rocketpool.net/upgrades/redstone/whats-new#smoothing-pool.
-You have 3 minipools that would earn extra commission if you opted into the smoothing pool!
-See https://rpips.rocketpool.net/RPIPs/RPIP-62 for more information about bonus commission, or run `rocketpool node join-smoothing-pool` to opt in.
 
 === RPL Stake ===
 NOTE: The following figures take *any pending bond reductions* into account.
@@ -332,8 +328,8 @@ You do not have a fallback consensus client enabled.
 
 ### `stake-rpl`
 
-Bu komut, node'unuza daha fazla RPL teminatı eklemek istediğinizde kullanacağınız komuttur.
-Bunu yapmak teminat oranınızı artıracaktır, bu da her kontrol noktasında RPL ödüllerinizi artıracaktır (bunun hakkında daha sonra).
+Bu komut, düğümünüzde daha fazla RPL stake etmek istediğinizde kullanacağınız komuttur.
+Megapool'unuzda stake edilen RPL, protokolün ETH gelirinden pay alır ve düğümünüze oy gücü kazandırır; ayrıntılar için [RPL Stake Etme ve Ödülleri Talep Etme](/tr/node-staking/megapools/staking-and-claiming-rewards) sayfasına bakın.
 
 Şimdiye kadarki diğer komutların aksine, bu aslında _etkileşimlidir_ çünkü bir işlemi tetikleyecektir - sadece bilgilendirici değildir.
 
@@ -391,7 +387,7 @@ These prices include a maximum priority fee of 2.00 gwei.
 Please enter your max fee (including the priority fee) or leave blank for the default of 4 gwei:
 
 Using a max fee of 4.00 gwei and a priority fee of 2.00 gwei.
-Are you sure you want to stake 733.993925 RPL? You will not be able to unstake this RPL until you exit your validators and close your minipools, or reach 2201.981777 staked RPL (15% of bonded eth)! [y/n]
+Are you sure you want to stake 733.993925 RPL? You may request to unstake your staked RPL at any time. The unstaked RPL will be withdrawable after an unstaking period of 672h0m0s. [y/n]
 ```
 
 Onaylarsanız, size işlem hash'i gösterilecek ve ilerlemesini takip edebilmeniz için [Etherscan](https://etherscan.io)'e bir bağlantı verilecektir:

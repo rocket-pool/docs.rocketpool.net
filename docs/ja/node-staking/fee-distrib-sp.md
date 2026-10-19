@@ -53,15 +53,12 @@ Rocket Poolは、Beacon chain報酬を公平に分配するのと同じ方法で
 以下では、違いとSmoothing Poolに参加するかどうかを理解できるように、両方について説明します。
 
 ::: tip 注記
-2024-10-28以降に作成されたminipoolについては、Smoothing poolが強く推奨されます。ボーナス手数料の分配に使用されるためです。Smoothing poolをオプトアウトすると、これらのminipoolは合計5%の手数料を取得します。Smoothing poolにオプトインすると、これらのminipoolは10%（RPLステーキングなし）から14%（RPLステークが借りたETHの10%以上の価値がある）の手数料を取得します。
+2024-10-28以降に作成されたminipoolは、以前はSmoothing Poolを通じてボーナス手数料（合計で最大14%）を受け取っていました。[RPIP-62](https://rpips.rocketpool.net/RPIPs/RPIP-62)で定められている通り、このボーナスはSaturn 1から4回の報酬インターバル後に終了しました（最後の支払いは2026年6月）。現在、これらのminipoolはSmoothing Poolに参加しているかどうかに関係なく、5%の契約手数料を受け取ります。
 :::
 
 ## あなたのFee Distributor
 
-Fee DistributorはExecutionレイヤーのユニークなコントラクトで、**ノードに固有**です。
-時間の経過とともに獲得したすべてのpriority feesを保持し、rETHプールステーカーとwithdrawal addressに公平に分割して分配するために必要なロジックが含まれています。
-この分配プロセスは**誰でも呼び出すことができ**（rETHステーカーを含む）、**いつでも**実行できます。
-報酬が期限切れになる前の時間制限はありません。
+Fee DistributorはExecutionレイヤーのユニークなコントラクトで、**ノードに固有**です。時間の経過とともに獲得したすべてのpriority feesを保持し、rETHプールステーカーとwithdrawal addressに公平に分割して分配するために必要なロジックが含まれています。この分配プロセスは**誰でも呼び出すことができ**（rETHステーカーを含む）、**いつでも**実行できます。あなた以外の誰かが分配した場合、あなたの取り分は請求するまで[未請求報酬](#claiming-unclaimed-rewards)として保留されます。報酬が期限切れになる前の時間制限はありません。
 
 ノードのFee Distributorのアドレスは、**ノードアドレスに基づいて決定論的**です。
 つまり、Fee Distributorが作成される前から、事前に知られています。
@@ -95,14 +92,33 @@ rocketpool node distribute-fees
 これにより、報酬のあなたの取り分が**withdrawal address**に送信されます。
 
 ::: warning 課税イベントに関する注記
-新しいminipoolを作成するたびに、Rocket Poolは自動的に`distribute-fees`を呼び出します。
-これは、蓄積された手数料が、新しいminipoolを作成すると変わる可能性のあるノードの平均手数料を使用して分配されることを保証するためです。これはmegapool validatorの作成には適用されません。
-
-また、誰でもfee distributorで`distribute-fees`を呼び出すことができます（rETH報酬を人質にすることを防ぐため）。
-このメソッドが呼び出されるたびに課税イベントが発生する可能性があります。
+誰でもあなたのFee Distributorを分配できます（rETH報酬を人質に取ることを防ぐため）。また、Rocket Poolはあなたのminipoolがクローズされるたびに自動的に分配し、蓄積された手数料がノードの平均手数料率が変わる前のレートで分割されるようにします。Fee Distributorが分配されるたびに、課税イベントが発生する可能性があります。
 
 Smoothing Pool（以下で説明）を使用するかどうかを決定する際は、これらの条件を念頭に置いてください。
 :::
+
+<span id="claiming-unclaimed-rewards"></span>
+
+### 未請求報酬の請求
+
+あなたの取り分が直接引き出しアドレスに送られるのは、Fee Distributorがノードアドレスまたは引き出しアドレスから分配された場合（例：`rocketpool node distribute-fees`）のみです。Saturn 1アップグレード以降、他の誰かが分配した場合（minipoolをクローズしたときのRocket Pool自身を含む）、あなたの取り分は代わりに**未請求報酬**として確保されます。未請求報酬に有効期限はなく、請求できるのはノードアドレスまたは引き出しアドレスのみです。
+
+未請求報酬を確認して請求するには、次を実行します:
+
+```shell
+rocketpool node claim-unclaimed-rewards
+```
+
+未請求報酬がある場合は、請求の確認を求める前に金額が表示されます:
+
+```
+The node's withdrawal address is 0x4ACb4E5E5A9a5EfB1f4D3eE2f6E5A13bB0E8f0a7
+You have 0.012345 ETH in unclaimed rewards.
+Your node 0xE8325F5f4486c2FF2AC7B522Fbc9eB249d46C936 has rewards that were distributed to its unclaimed rewards balance instead of its withdrawal address. This happens whenever your fee distributor is distributed by anyone other than your node or withdrawal address.
+Claiming will send them to your current withdrawal address.
+```
+
+報酬は**現在の**引き出しアドレスに送られます。
 
 ### ペナルティシステム
 

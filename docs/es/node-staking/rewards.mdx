@@ -11,7 +11,7 @@ Esta sección describirá cómo funcionan estas recompensas y cómo puedes recla
 A intervalos regulares, Rocket Pool marcará un **punto de control** en la red.
 Actualmente, los puntos de control ocurren **cada 28 días**.
 
-En un nuevo punto de control, el Oracle DAO creará colectivamente una **instantánea verdadera** del estado de los operadores de nodo en la red de Rocket Pool, que utilizará para determinar las recompensas de RPL y ETH del Smoothing Pool para cada nodo durante ese intervalo. Ten en cuenta que la "comisión adicional" para los minipools Saturn 0 se distribuye usando las recompensas del smoothing pool (los minipools Saturn 0 son los creados después del 28/10/2024, que tienen una comisión de contrato del 5%).
+En un nuevo punto de control, el Oracle DAO creará colectivamente una **instantánea verdadera** del estado de los operadores de nodo en la red de Rocket Pool, que utilizará para determinar las recompensas de RPL y ETH del Smoothing Pool para cada nodo durante ese intervalo. Hasta junio de 2026, esta instantánea también se usaba para pagar la "comisión adicional" a los minipools Saturn 0 (los creados después del 28/10/2024, que tienen una comisión de contrato del 5%) a partir de las recompensas del smoothing pool. Esa bonificación ya ha terminado.
 
 Esta información se compila en un [Árbol de Merkle](https://en.wikipedia.org/wiki/Merkle_tree) - una forma extremadamente eficiente de hacer que todos los detalles estén disponibles para los contratos inteligentes.
 El Árbol de Merkle se construye en un archivo JSON y se aloja en [un repositorio de GitHub que mantenemos](https://github.com/rocket-pool/rewards-trees/). El Smart Node también puede cargar los **eventos** de intervalo de recompensas desde ese repositorio de GitHub, por lo que aún puedes reclamar después de que una caducidad agresiva del historial haya descartado los registros antiguos de la capa de Ejecución.
@@ -188,3 +188,5 @@ Your fee distributor's balance of 1.143599 ETH will be distributed as follows:
 
 Simplemente confirma el precio de gas que deseas y envía la transacción.
 Una vez que se haya completado, tu parte de las recompensas estará disponible en la dirección de retiro de tu nodo.
+
+Si otra persona distribuye tu distribuidor de tarifas, tu parte se retiene como recompensas no reclamadas. Consulta [Reclamar recompensas no reclamadas](/es/node-staking/fee-distrib-sp#claiming-unclaimed-rewards).

@@ -1,7 +1,7 @@
 # Command Line Interface 소개
 
 Node Operator로서 CLI는 Rocket Pool과 상호작용하는 주요 도구입니다.
-새로운 minipool을 생성하고, 모든 것의 상태를 확인하고, 주기적인 RPL 보상을 청구하고, 준비가 되었을 때 minipool에서 exit하고 withdraw하는 등 다양한 활동을 수행하는 데 사용됩니다.
+새로운 megapool 검증자 생성, 모든 상태 확인, 주기적인 RPL 보상 청구, 준비되었을 때 minipool에서 종료 및 출금, 그 밖의 다양한 작업에 사용합니다.
 
 Execution 및 Beacon 체인 동기화를 완료하면 모든 명령을 사용할 수 있습니다.
 이 섹션에서는 일반적으로 사용되는 명령과 CLI가 할 수 있는 다른 기능들을 간단히 살펴보겠습니다.
@@ -176,15 +176,15 @@ rocketpool service migrate-geth
 
 ### `terminate`
 
-이 명령은 Docker 컨테이너를 종료한 다음 삭제하고, Rocket Pool 가상 네트워크를 삭제하고, ETH1 및 ETH2 체인 데이터 볼륨을 삭제합니다.
-기본적으로 Docker 설정에서 모든 Rocket Pool 항목을 제거합니다.
-Rocket Pool 설치의 해당 부분을 정리하려는 경우 사용하세요.
+이 명령은 Docker 컨테이너를 종료한 후 삭제하고, Rocket Pool 가상 네트워크와 ETH1 및 ETH2 체인 데이터 볼륨, Prometheus 메트릭 데이터베이스를 삭제합니다.
+그런 다음 Smart Node 설정 폴더 전체(기본값 `~/.rocketpool`)를 삭제합니다.
+Smart Node를 완전히 제거하고 처음부터 다시 시작하려는 경우에만 사용하세요.
 
 ::: warning
-이렇게 하면 체인 데이터가 되돌릴 수 없이 제거되므로 ETH1 및 ETH2를 다시 동기화해야 합니다.
+이 작업은 되돌릴 수 없습니다. 체인 데이터가 삭제되므로 ETH1과 ETH2를 다시 동기화해야 합니다.
 
-이렇게 해도 지갑 및 비밀번호 파일, 구성된 설정 또는 validator 키는 제거되지 **않습니다**.
-이를 제거하려면 Docker 또는 Hybrid 모드에서는 `~/.rocketpool/data` 폴더를, Native 모드에서는 해당 디렉토리를 삭제해야 합니다.
+**노드 지갑, 비밀번호, 검증자 키도 함께 삭제**되며, 설정도 삭제됩니다.
+실행하기 전에 노드의 복구 니모닉을 적어 두고 검증했는지 확인하세요(예: `rocketpool wallet test-recovery`). 그렇지 않으면 노드 지갑과 검증자 키에 접근할 수 없게 됩니다.
 :::
 
 ## Update 명령어
@@ -232,8 +232,6 @@ COMMANDS:
    withdraw-eth, h                               Withdraw ETH staked on behalf of the node
    withdraw-credit, wc                           (Saturn) Withdraw ETH credit from the node as rETH
    send, n                                       Send ETH or tokens from the node account to an address. ENS names supported. Use 'all' as the amount to send the entire balance. <token> can be 'rpl', 'eth', 'fsrpl' (for the old RPL v1 token), 'reth', or the address of an arbitrary token you want to send (including the 0x prefix).
-   set-voting-delegate, sv                       (DEPRECATED) Use `rocketpool pdao set-signalling-address` instead
-   clear-voting-delegate, cv                     (DEPRECATED) Use `rocketpool pdao clear-signalling-address` instead
    initialize-fee-distributor, z                 Create the fee distributor contract for your node, so you can withdraw priority fees and MEV rewards after the merge
    distribute-fees, b                            Distribute the priority fee and MEV rewards from your fee distributor to your withdrawal address and the rETH contract (based on your node's average commission)
    join-smoothing-pool, js                       Opt your node into the Smoothing Pool
@@ -270,10 +268,10 @@ The node has 0 express queue ticket(s).
 === Penalty Status ===
 The node does not have any penalties for cheating with an invalid fee recipient.
 
-=== Signalling on Snapshot ===
-The node does not currently have a snapshot signalling address set.
-To learn more about snapshot signalling, please visit https://docs.rocketpool.net/pdao/participate#setting-your-snapshot-signalling-address.
-Rocket Pool has no Snapshot governance proposals being voted on.
+=== Signalling on RocketDash ===
+The node does not currently have an offchain signalling address set.
+To learn more about offchain signalling, please visit https://docs.rocketpool.net/pdao/participate#setting-your-snapshot-signalling-address.
+Rocket Pool has no RocketDash governance proposals being voted on.
 
 === Onchain Voting ===
 The node doesn't have a delegate, which means it can vote directly on onchain proposals. You can have another node represent you by running `rocketpool p svd <address>`.
@@ -291,8 +289,6 @@ The node's fee distributor 0x84c1f488CDecb2E335c40901E3Fe58925f4cC9A7 has a bala
 NOTE: You are in Native Mode; you MUST ensure that your Validator Client is using this address as its fee recipient!
 The node is not opted into the Smoothing Pool.
 To learn more about the Smoothing Pool, please visit https://docs.rocketpool.net/upgrades/redstone/whats-new#smoothing-pool.
-You have 3 minipools that would earn extra commission if you opted into the smoothing pool!
-See https://rpips.rocketpool.net/RPIPs/RPIP-62 for more information about bonus commission, or run `rocketpool node join-smoothing-pool` to opt in.
 
 === RPL Stake ===
 NOTE: The following figures take *any pending bond reductions* into account.
@@ -332,8 +328,8 @@ You do not have a fallback consensus client enabled.
 
 ### `stake-rpl`
 
-이 명령은 node에 더 많은 RPL collateral을 추가하려는 경우 사용합니다.
-이렇게 하면 collateral ratio가 증가하여 각 checkpoint에서 RPL 보상이 증가합니다(나중에 자세히 설명).
+이 명령은 노드에 RPL을 추가로 스테이킹하려는 경우에 사용합니다.
+megapool에 스테이킹된 RPL은 프로토콜 ETH 수익의 일부를 받고 노드에 투표권을 부여합니다. 자세한 내용은 [RPL 스테이킹 및 보상 청구](/ko/node-staking/megapools/staking-and-claiming-rewards)를 참조하세요.
 
 지금까지의 다른 명령과 달리 이것은 트랜잭션을 트리거하므로 실제로 대화형입니다. 단순히 정보 제공용이 아닙니다.
 
@@ -391,7 +387,7 @@ These prices include a maximum priority fee of 2.00 gwei.
 Please enter your max fee (including the priority fee) or leave blank for the default of 4 gwei:
 
 Using a max fee of 4.00 gwei and a priority fee of 2.00 gwei.
-Are you sure you want to stake 733.993925 RPL? You will not be able to unstake this RPL until you exit your validators and close your minipools, or reach 2201.981777 staked RPL (15% of bonded eth)! [y/n]
+Are you sure you want to stake 733.993925 RPL? You may request to unstake your staked RPL at any time. The unstaked RPL will be withdrawable after an unstaking period of 672h0m0s. [y/n]
 ```
 
 확인하면 트랜잭션 해시가 표시되고 [Etherscan](https://etherscan.io) 링크가 제공되어 진행 상황을 따라갈 수 있습니다:

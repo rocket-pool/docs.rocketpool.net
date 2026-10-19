@@ -53,7 +53,7 @@ Bu, yüksek öncelik ücretleri olan blok önerileri almanın getirdiği şans f
 Her ikisini de ele alacağız, böylece farkı anlayacak ve Smoothing Pool'a katılıp katılmak istemediğinize karar verebileceksiniz.
 
 ::: tip NOT
-2024-10-28 sonrasında oluşturulan minipool'lar için smoothing pool ŞIDDETLE önerilir, çünkü bonus komisyon dağıtmak için kullanılır. Smoothing pool'dan çıkarsanız, bu minipool'lar toplam %5 komisyon alacaktır. Smoothing pool'a katılırsanız, bu minipool'lar %10 (RPL stake edilmemiş) ile %14 (RPL stake'i ödünç alınan ETH'nin %10'u veya daha fazlası değerindeyse) arasında komisyon alacaktır.
+2024-10-28 sonrasında oluşturulan minipool'lar daha önce Smoothing Pool aracılığıyla bonus komisyon (toplamda %14'e kadar) alıyordu. [RPIP-62](https://rpips.rocketpool.net/RPIPs/RPIP-62) içinde tanımlandığı gibi, bonus Saturn 1'den sonraki dört ödül aralığının ardından sona erdi (sonuncusu Haziran 2026'da ödendi). Bu minipool'lar artık Smoothing Pool'da olup olmamanızdan bağımsız olarak %5 sözleşme komisyonlarını alır.
 :::
 
 ## Ücret Dağıtıcınız
@@ -61,6 +61,7 @@ Her ikisini de ele alacağız, böylece farkı anlayacak ve Smoothing Pool'a kat
 Ücret Dağıtıcınız, Execution Layer'da **node'unuza özgü** benzersiz bir sözleşmedir.
 Zaman içinde kazandığınız tüm öncelik ücretlerini tutacak ve bunları rETH pool staker'lara ve çekim adresinize adil bir şekilde bölmek ve dağıtmak için gereken mantığı içerir.
 Bu dağıtım süreci **herkes tarafından çağrılabilir** (rETH staker'lar dahil) ve **herhangi bir zamanda** yapılabilir.
+Sizden başka biri dağıtırsa, payınız siz talep edene kadar [talep edilmemiş ödüller](#claiming-unclaimed-rewards) olarak tutulur.
 Ödüllerin sona ermeden önce bir zaman sınırı yoktur.
 
 Node'unuzun Ücret Dağıtıcısı adresi, **node adresinize göre deterministiktir**.
@@ -95,14 +96,37 @@ rocketpool node distribute-fees
 Bu, ödüllerin sizin payınızı **çekim adresinize** gönderecektir.
 
 ::: warning VERGİYE TABİ OLAYLARA İLİŞKİN NOT
-Yeni bir minipool oluşturduğunuzda, Rocket Pool otomatik olarak `distribute-fees` çağıracaktır.
-Bu, biriktirdiğiniz ücretlerin node'unuzun ortalama komisyonu kullanılarak dağıtılmasını sağlamak içindir, bu da yeni minipool oluşturduğunuzda değişebilir. Bu, megapool validator oluşturma için geçerli değildir.
-
-Ayrıca, herhangi birinin ücret dağıtıcınızda `distribute-fees` çağırabileceğini unutmayın (rETH ödüllerini rehin tutmanızı önlemek için).
-Bu yöntem her çağrıldığında vergiye tabi bir olay yaşayabilirsiniz.
+Fee distributor'ınızı herkes dağıtabilir (rETH ödüllerini rehin tutmanızı önlemek için).
+Rocket Pool ayrıca minipool'larınızdan biri kapatıldığında onu otomatik olarak dağıtır; böylece biriken ücretler, düğümünüzün ortalama komisyonu değişmeden önce bu orana göre bölünür.
+Fee distributor'ınız her dağıtıldığında vergiye tabi bir olay oluşabilir.
 
 Smoothing Pool'u (aşağıda tartışılacak) kullanıp kullanmamaya karar verirken lütfen bu koşulları aklınızda bulundurun.
 :::
+
+<span id="claiming-unclaimed-rewards"></span>
+
+### Talep Edilmemiş Ödülleri Talep Etme
+
+Payınız yalnızca fee distributor düğüm adresiniz veya çekim adresiniz tarafından dağıtıldığında (örneğin `rocketpool node distribute-fees` ile) doğrudan çekim adresinize gider.
+Saturn 1 güncellemesinden bu yana, başka biri dağıttığında (bir minipool'u kapattığınızda Rocket Pool'un kendisi dahil) payınız bunun yerine **talep edilmemiş ödüller** olarak ayrılır.
+Talep edilmemiş ödüllerin süresi dolmaz ve bunları yalnızca düğüm adresiniz veya çekim adresiniz talep edebilir.
+
+Talep edilmemiş ödülleri kontrol etmek ve talep etmek için şunu çalıştırın:
+
+```shell
+rocketpool node claim-unclaimed-rewards
+```
+
+Varsa, talebi onaylamanızı istemeden önce miktarı gösterir:
+
+```
+The node's withdrawal address is 0x4ACb4E5E5A9a5EfB1f4D3eE2f6E5A13bB0E8f0a7
+You have 0.012345 ETH in unclaimed rewards.
+Your node 0xE8325F5f4486c2FF2AC7B522Fbc9eB249d46C936 has rewards that were distributed to its unclaimed rewards balance instead of its withdrawal address. This happens whenever your fee distributor is distributed by anyone other than your node or withdrawal address.
+Claiming will send them to your current withdrawal address.
+```
+
+Ödüller **mevcut** çekim adresinize gönderilir.
 
 ### Ceza Sistemi
 

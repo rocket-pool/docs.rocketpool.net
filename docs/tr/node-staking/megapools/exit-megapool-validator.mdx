@@ -65,12 +65,13 @@ Mevcut kuyruk süresini kontrol etmek için bu web sitesi oldukça kullanışlı
 Önceki `active_exiting` aşamasında, düğümünüz Beacon Chain çıkış kuyruğuna tabi kalırken onay yapıyordu. Süre,
 ne kadar ETH'nin çıkmayı beklediğine bağlı olarak değişir.
 
-Doğrulayıcınız bu kuyruğun sonuna ulaştıktan sonra `exited_unslashed` durumuna geçer. Bu aşamada, smart node'unuz otomatik olarak `notify validator exit` çağrısını yaparak
-Rocket Pool protokolüne doğrulayıcınızın çıktığını ve yakında çekilebilir olduğunu bildirir.
+Doğrulayıcınız bu kuyruğun sonuna ulaştıktan sonra `exited_unslashed` durumuna geçer. Çıkış talebiniz işlenir işlenmez, smart node'unuz otomatik olarak `notify validator exit` çağrısını yaparak
+Rocket Pool protokolüne doğrulayıcınızın `active_exiting` durumunda olduğunu ve yakında çekilebilir olacağını bildirir.
 
 ::: warning UYARI
-Bu adım, smart node tarafından `rocketpool_node` görev döngüsü içinde tamamen otomatikleştirilmiştir. Bu süreçte düğümünüzü çevrimiçi tutmak çok önemlidir; aksi takdirde çevrimdışı olmak için `0,05 ETH` ceza alırsınız. Ceza,
-çekim bakiyenizden düşülür. Lütfen tüm doğrulayıcı çıkış süreci boyunca düğümünüzün durumunu izleyin.
+Bu adım, `rocketpool_node` görev döngüsü içinde Smart Node tarafından tamamen otomatikleştirilmiştir; bu nedenle süreç boyunca düğümünüzü çevrimiçi tutmanız çok önemlidir.
+Çıkış, doğrulayıcınız çekilebilir hale gelmeden en az 112 epoch (yaklaşık 12 saat) önce bildirilmelidir. Daha geç bildirilirse, düğümünüzün borcuna `0.05 ETH` ceza eklenir
+ve bu, son bakiyedeki payınızdan düşülür. Lütfen doğrulayıcı çıkış sürecinin tamamı boyunca düğümünüzün durumunu izleyin.
 :::
 
 ```
@@ -93,3 +94,22 @@ Beacon Chain'de 256 dönem sonra, diğer birikmiş ödüllerle birlikte tam 32 E
 Bu noktada, doğrulayıcınız tamamen Beacon Chain'den çıkmış ve son çekim Beacon Chain'den megapool'unuza gönderilmiştir. Smart node'unuz otomatik olarak `notify final balance` çağrısını yapacaktır.
 Bu çağrı, megapool doğrulayıcınızın görevlerini tamamen sona erdirir ve aynı zamanda bakiyenizin payını düğümünüzün ETH çekim adresine dağıtır. Düğümünüzü çevrimiçi tuttuysanız ve `notify
 validator exit` ve `notify final balance` gibi otomatik görevler gerçekleştirildiyse, sizden başka herhangi bir adım gerekmemektedir.
+
+## Elle Bildirme
+
+Çoğu düğüm operatörü bu bölümü atlayabilir.
+Düğümünüz her iki bildirimi birkaç dakikada bir kontrol eder ve bunları kendisi gönderir. Çıkış sırasında çevrimdışıysa, yeniden çevrimiçi olup senkronize olur olmaz eksikleri tamamlar.
+
+Bunları yalnızca düğümünüz göndermeyecekse kendiniz göndermeniz gerekir: otomatik işlemler devre dışıysa (**Smart Node and TX Fees** ayarlarındaki **Automatic TX Gas Threshold** değeri `0`) veya gas fiyatı eşiğinizin üzerinde kalıyorsa. Bu durumda şu komutları sırayla çalıştırın:
+
+```shell
+rocketpool megapool notify-validator-exit
+rocketpool megapool notify-final-balance
+```
+
+Her komut, bildirilmeye hazır doğrulayıcıları listeler.
+`notify-validator-exit`, Beacon Chain çıkış talebinizi işler işlemez çalışır; cezadan kaçınmak için bunu doğrulayıcı çekilebilir hale gelmeden en az 112 epoch (yaklaşık 12 saat) önce gönderin.
+`notify-final-balance`, çıkış bildirildikten ve Beacon Chain doğrulayıcının son çekimini megapool'unuza gönderdikten sonra çalışır.
+
+Bunları gönderilmemiş bırakmayın. İki bildirim arasında megapool'unuz ödül dağıtamaz ve çıkış zamanında bildirilmezse Oracle DAO, bildirilene kadar megapool'unuzun ödül dağıtımını duraklatabilir.
+Son bakiyeyi kendiniz bildirmezseniz, son çekimden itibaren 7 gün geçtikten sonra (doğrulayıcı ETH kaybettiyse daha uzun) başka herhangi biri bunu sizin yerinize yapabilir. Bu durumda payınız çekim adresinize gitmek yerine megapool'unuzda kalır ve `rocketpool megapool claim` ile talep edebilirsiniz.

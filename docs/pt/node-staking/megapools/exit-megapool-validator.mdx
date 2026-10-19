@@ -65,12 +65,13 @@ Este site é bastante útil para verificar o tempo atual da fila: https://www.va
 Na etapa anterior `active_exiting`, seu nó estava fazendo atestações enquanto estava sujeito à fila de saída da Beacon Chain. O tempo varia dependendo de
 quanto ETH está aguardando para sair.
 
-Após seu validador chegar ao final desta fila, ele transita para o estado `exited_unslashed`. Neste estágio, seu smart node chamará automaticamente `notify validator exit`, sinalizando
-ao protocolo Rocket Pool que seu validador saiu e está quase disponível para retirada.
+Após seu validador chegar ao final desta fila, ele transita para o estado `exited_unslashed`. Assim que sua solicitação de saída é processada, seu smart node chamará automaticamente `notify validator exit`, sinalizando
+ao protocolo Rocket Pool que seu validador está no estado `active_exiting` e está quase disponível para retirada.
 
 ::: warning AVISO
-Esta etapa é totalmente automatizada pelo smart node dentro do loop de tarefas `rocketpool_node`. É muito importante manter seu nó online durante o processo, caso contrário você incorrerá em uma multa de `0,05 ETH` por estar offline. A multa é deduzida
-do seu saldo de retirada. Por favor, monitore o status do seu nó durante todo o processo de saída do validador.
+Esta etapa é totalmente automatizada pelo Smart Node dentro do loop de tarefas `rocketpool_node`, por isso é muito importante manter seu nó online durante o processo.
+A saída deve ser notificada pelo menos 112 épocas (cerca de 12 horas) antes de seu validador se tornar sacável. Se for notificada depois, uma multa de `0.05 ETH` é adicionada à dívida do seu nó,
+que é deduzida da sua parte do saldo final. Monitore o status do seu nó durante todo o processo de saída do validador.
 :::
 
 ```
@@ -93,3 +94,22 @@ Após 256 épocas na Beacon Chain, os 32 ETH completos junto com outras recompen
 Neste ponto, seu validador está completamente encerrado na Beacon Chain e a retirada final é enviada da Beacon Chain para o seu megapool. Seu smart node chamará automaticamente `notify final balance`.
 Esta chamada encerra completamente as funções do seu validador de megapool e também distribui sua parte do saldo para o endereço de retirada de ETH do seu nó. Se você manteve seu nó online e funções automáticas como `notify
 validator exit` e `notify final balance` foram realizadas, nenhuma etapa adicional é necessária da sua parte.
+
+## Notificando manualmente
+
+A maioria dos operadores de nó pode pular esta seção.
+Seu nó verifica as duas notificações a cada poucos minutos e as envia por conta própria. Se ele estava offline durante a saída, ele recupera o atraso assim que volta a ficar online e sincronizado.
+
+Você só precisa enviá-las por conta própria se o seu nó não o fizer: quando as transações automáticas estão desativadas (**Automatic TX Gas Threshold** nas configurações **Smart Node and TX Fees** é `0`) ou quando o preço do gás permanece acima do seu limite. Nesse caso, execute estes comandos em ordem:
+
+```shell
+rocketpool megapool notify-validator-exit
+rocketpool megapool notify-final-balance
+```
+
+Cada comando lista os validadores prontos para serem notificados.
+`notify-validator-exit` funciona assim que a Beacon Chain processa sua solicitação de saída; envie-o pelo menos 112 épocas (cerca de 12 horas) antes de o validador se tornar sacável para evitar a multa.
+`notify-final-balance` funciona depois que a saída foi notificada e a Beacon Chain enviou o saque final do validador para o seu megapool.
+
+Não deixe de enviá-las. Seu megapool não pode distribuir recompensas entre as duas notificações e, se a saída não for notificada a tempo, o Oracle DAO pode pausar a distribuição de recompensas do seu megapool até que ela seja notificada.
+Se você não notificar o saldo final por conta própria, qualquer outra pessoa pode fazê-lo por você depois que 7 dias tiverem se passado desde o saque final (mais tempo se o validador perdeu ETH). Sua parte então fica no seu megapool em vez de ir para o seu endereço de saque, e você pode resgatá-la com `rocketpool megapool claim`.

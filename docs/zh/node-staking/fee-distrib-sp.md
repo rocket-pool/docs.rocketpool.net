@@ -53,15 +53,12 @@ Rocket Pool 旨在公平地在您和 rETH 池质押者之间分配这些奖励,�
 我们将在下面介绍这两者,以便您了解差异以及您是否想加入平滑池。
 
 ::: tip 注意
-对于 2024-10-28 之后创建的 minipool,强烈建议使用平滑池,因为它用于分配奖励佣金。如果您退出平滑池,这些 minipool 将总共获得 5% 的佣金。如果您选择加入平滑池,这些 minipool 将获得 10%(未质押 RPL)到 14%(RPL 质押价值为借入 ETH 的 10% 或更多)的佣金。
+2024-10-28 之后创建的 minipool 过去会通过平滑池获得奖励佣金（总计最高 14%）。根据 [RPIP-62](https://rpips.rocketpool.net/RPIPs/RPIP-62) 的规定，该奖励已在 Saturn 1 之后的第四个奖励周期结束后终止（最后一次发放于 2026 年 6 月）。现在，无论您是否加入平滑池，这些 minipool 都只获得 5% 的合约佣金。
 :::
 
 ## 您的费用分配器
 
-您的费用分配器是 Execution 层上**特定于您节点**的唯一合约。
-它将保存您随时间累积的所有优先费,并包含公平拆分和分配给 rETH 池质押者和您的提款地址所需的逻辑。
-这个分配过程**可以由任何人调用**(包括 rETH 质押者),并且可以**随时**完成。
-它没有奖励到期之前的时间限制。
+您的费用分配器是 Execution 层上**特定于您节点**的唯一合约。它将保存您随时间累积的所有优先费,并包含公平拆分和分配给 rETH 池质押者和您的提款地址所需的逻辑。这个分配过程**可以由任何人调用**(包括 rETH 质押者),并且可以**随时**完成。如果由您以外的其他人进行分配，您的份额将作为[未领取奖励](#claiming-unclaimed-rewards)保留，直到您领取为止。它没有奖励到期之前的时间限制。
 
 您节点费用分配器的地址**根据您的节点地址确定性地确定**。
 这意味着它是提前知道的,甚至在费用分配器创建之前。
@@ -95,14 +92,33 @@ rocketpool node distribute-fees
 这将把您的奖励份额发送到您的**提款地址**。
 
 ::: warning 关于应税事件的注意事项
-每当您创建新的 minipool 时,Rocket Pool 将自动调用 `distribute-fees`。
-这是为了确保您累积的任何费用都使用您节点的平均佣金分配,这在您创建新 minipool 时可能会改变。此操作不适用于 megapool 验证者的创建。
-
-另外,请注意任何人都可以在您的费用分配器上调用 `distribute-fees`(以防止您扣留 rETH 奖励)。
-每当调用此方法时,您可能会产生应税事件。
+任何人都可以分配您的费用分配器（以防止您扣留 rETH 奖励）。每当您的某个 minipool 被关闭时，Rocket Pool 也会自动进行分配，以便在节点平均佣金发生变化之前，按该佣金拆分已累积的费用。每次分配您的费用分配器都可能产生应税事件。
 
 在决定是否使用平滑池(下文讨论)时,请记住这些条件。
 :::
+
+<span id="claiming-unclaimed-rewards"></span>
+
+### 领取未领取奖励
+
+只有当费用分配器由您的节点地址或提款地址分配时（例如使用 `rocketpool node distribute-fees`），您的份额才会直接发送到您的提款地址。自 Saturn 1 升级以来，当其他任何人进行分配时（包括您关闭 minipool 时由 Rocket Pool 自身进行的分配），您的份额将改为记作**未领取奖励**。未领取奖励不会过期，并且只有您的节点地址或提款地址可以领取。
+
+要检查并领取未领取奖励，请运行：
+
+```shell
+rocketpool node claim-unclaimed-rewards
+```
+
+如果有未领取奖励，它会先显示金额，然后请您确认领取：
+
+```
+The node's withdrawal address is 0x4ACb4E5E5A9a5EfB1f4D3eE2f6E5A13bB0E8f0a7
+You have 0.012345 ETH in unclaimed rewards.
+Your node 0xE8325F5f4486c2FF2AC7B522Fbc9eB249d46C936 has rewards that were distributed to its unclaimed rewards balance instead of its withdrawal address. This happens whenever your fee distributor is distributed by anyone other than your node or withdrawal address.
+Claiming will send them to your current withdrawal address.
+```
+
+奖励将发送到您**当前的**提款地址。
 
 ### 惩罚系统
 

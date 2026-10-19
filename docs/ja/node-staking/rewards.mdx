@@ -11,7 +11,7 @@ Rocket Poolのノードオペレーターとして、RPLトークンの形で定
 定期的な間隔で、Rocket Poolはネットワーク上で**チェックポイント**をフラグします。
 現在、チェックポイントは**28日ごと**に発生します。
 
-新しいチェックポイントで、Oracle DAOは共同でRocket Poolネットワーク内のノードオペレーターの状態の**真のスナップショット**を作成し、それを使用してその間隔中の各ノードのRPLおよびSmoothing Pool ETH報酬を決定します。Saturn 0 minipoolの「ボーナス手数料」はSmoothing Pool報酬を使用して分配されることに注意してください（Saturn 0 minipoolは2024/10/28以降に作成され、契約手数料が5%のものです）。
+新しいチェックポイントで、Oracle DAOは共同でRocket Poolネットワーク内のノードオペレーターの状態の**真のスナップショット**を作成し、それを使用してその間隔中の各ノードのRPLおよびSmoothing Pool ETH報酬を決定します。2026年6月まで、このスナップショットはSaturn 0 minipool（2024/10/28以降に作成され、契約手数料が5%のもの）に「ボーナス手数料」をSmoothing Pool報酬から支払うためにも使用されていました。このボーナスは現在終了しています。
 
 この情報は[Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree)にコンパイルされます。これは、すべての詳細をスマートコントラクトで利用できるようにする非常に効率的な方法です。
 Merkle TreeはJSONファイルに構築され、[私たちが管理するGitHubリポジトリ](https://github.com/rocket-pool/rewards-trees/)でホストされます。Smart Nodeは報酬インターバルの**イベント**をそのGitHubリポジトリから読み込むこともできるため、積極的な履歴削除によって古いExecutionレイヤーのログが削除された後でも請求できます。
@@ -188,3 +188,5 @@ Your fee distributor's balance of 1.143599 ETH will be distributed as follows:
 
 希望するガス価格を確認して、トランザクションを送信するだけです。
 完了すると、報酬のあなたの部分がノードの引き出しアドレスで利用可能になります。
+
+他の誰かがFee Distributorを分配した場合、あなたの取り分は未請求報酬として保留されます。[未請求報酬の請求](/ja/node-staking/fee-distrib-sp#claiming-unclaimed-rewards)を参照してください。

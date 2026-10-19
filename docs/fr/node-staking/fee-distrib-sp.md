@@ -53,7 +53,7 @@ Il s'agit d'une fonctionnalité très intéressante pour les opérateurs de nœu
 Nous allons couvrir ces deux options ci-dessous afin que vous compreniez la différence et si vous souhaitez ou non rejoindre la Smoothing Pool.
 
 ::: tip NOTE
-Pour les minipools créés après le 28/10/2024, la Smoothing Pool est FORTEMENT recommandée, car elle est utilisée pour distribuer des commissions bonus. Si vous refusez la Smoothing Pool, ces minipools obtiendront une commission totale de 5%. Si vous acceptez la Smoothing Pool, ces minipools obtiendront entre 10% (aucun RPL staké) et 14% (le stake RPL est évalué à 10% de l'ETH emprunté ou plus) de commission.
+Les minipools créés après le 28/10/2024 recevaient auparavant une commission bonus (jusqu'à 14 % au total) via la Smoothing Pool. Comme défini dans [RPIP-62](https://rpips.rocketpool.net/RPIPs/RPIP-62), le bonus a pris fin quatre intervalles de récompenses après Saturn 1 (le dernier a été versé en juin 2026). Ces minipools reçoivent désormais leur commission de contrat de 5 %, que vous soyez ou non dans la Smoothing Pool.
 :::
 
 ## Votre distributeur de frais
@@ -61,6 +61,7 @@ Pour les minipools créés après le 28/10/2024, la Smoothing Pool est FORTEMENT
 Votre distributeur de frais est un contrat unique sur la couche d'exécution qui est **spécifique à votre nœud**.
 Il contiendra tous les frais de priorité que vous avez gagnés au fil du temps, et il contient la logique requise pour les répartir et les distribuer équitablement aux stakers du pool rETH et à votre adresse de retrait.
 Ce processus de distribution **peut être appelé par n'importe qui** (y compris les stakers rETH), et peut être effectué **à tout moment**.
+Si quelqu'un d'autre que vous le distribue, votre part est conservée sous forme de [récompenses non réclamées](#claiming-unclaimed-rewards) jusqu'à ce que vous la réclamiez.
 Il n'a pas de limite de temps avant l'expiration des récompenses.
 
 L'adresse du distributeur de frais de votre nœud est **déterminée de manière déterministe en fonction de l'adresse de votre nœud**.
@@ -95,14 +96,37 @@ rocketpool node distribute-fees
 Cela enverra votre part des récompenses à votre **adresse de retrait**.
 
 ::: warning NOTE SUR LES ÉVÉNEMENTS IMPOSABLES
-Chaque fois que vous créez un nouveau minipool, Rocket Pool appellera automatiquement `distribute-fees`.
-Cela permet de garantir que les frais que vous aviez accumulés sont distribués en utilisant la commission moyenne de votre nœud, qui pourrait changer lorsque vous créez le nouveau minipool. Cela ne s'applique pas à la création de validateurs megapool.
-
-De plus, notez que n'importe qui peut appeler `distribute-fees` sur votre distributeur de frais (pour vous empêcher de retenir les récompenses rETH en otage).
-Vous pourriez avoir un événement imposable chaque fois que cette méthode est appelée.
+N'importe qui peut distribuer votre fee distributor (pour vous empêcher de garder les récompenses rETH en otage).
+Rocket Pool le distribue aussi automatiquement chaque fois qu'un de vos minipools est fermé, afin que les frais accumulés soient répartis avec la commission moyenne de votre nœud avant qu'elle ne change.
+Vous pouvez avoir un événement imposable chaque fois que votre fee distributor est distribué.
 
 Veuillez garder ces conditions à l'esprit lorsque vous décidez d'utiliser ou non la Smoothing Pool (abordée ci-dessous).
 :::
+
+<span id="claiming-unclaimed-rewards"></span>
+
+### Réclamer les récompenses non réclamées
+
+Votre part va directement à votre adresse de retrait uniquement lorsque le fee distributor est distribué par l'adresse de votre nœud ou votre adresse de retrait, par exemple avec `rocketpool node distribute-fees`.
+Depuis la mise à niveau Saturn 1, lorsque quelqu'un d'autre le distribue (y compris Rocket Pool lui-même lorsque vous fermez un minipool), votre part est mise de côté sous forme de **récompenses non réclamées**.
+Les récompenses non réclamées n'expirent pas, et seule l'adresse de votre nœud ou votre adresse de retrait peut les réclamer.
+
+Pour vérifier et réclamer vos récompenses non réclamées, exécutez :
+
+```shell
+rocketpool node claim-unclaimed-rewards
+```
+
+S'il y en a, la commande affiche le montant avant de vous demander de confirmer la réclamation :
+
+```
+The node's withdrawal address is 0x4ACb4E5E5A9a5EfB1f4D3eE2f6E5A13bB0E8f0a7
+You have 0.012345 ETH in unclaimed rewards.
+Your node 0xE8325F5f4486c2FF2AC7B522Fbc9eB249d46C936 has rewards that were distributed to its unclaimed rewards balance instead of its withdrawal address. This happens whenever your fee distributor is distributed by anyone other than your node or withdrawal address.
+Claiming will send them to your current withdrawal address.
+```
+
+Les récompenses sont envoyées à votre adresse de retrait **actuelle**.
 
 ### Le système de pénalités
 

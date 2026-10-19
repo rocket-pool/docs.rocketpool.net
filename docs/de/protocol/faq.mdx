@@ -157,7 +157,7 @@ Aus Node-Betreiber-Perspektive:
 
 - Ab Saturn 1 erhält stimmberechtigtes gestaktes RPL einen Anteil am gesamten Protokollumsatz
 - Die [Mehrheit](https://rpips.rocketpool.net/RPIPs/RPIP-25) der RPL-Inflation wird als Belohnungen an Node-Betreiber basierend auf gestaktem RPL gegeben; diese Belohnungen sollen mit Saturn 2 auslaufen
-- Für Saturn-0-Minipools, die nach dem 28.10.2024 erstellt wurden: Gestaktes RPL bietet bis zu 4 % zusätzliche Bonusprovision; die Bonusprovision soll einige Monate nach dem Start von Saturn 1 auslaufen.
+- Für Saturn-0-Minipools, die nach dem 28.10.2024 erstellt wurden: Gestaktes RPL bot bis zu 4 % zusätzliche Bonusprovision. Der Bonus endete im Juni 2026, vier Belohnungsintervalle nach dem Start von Saturn 1.
 - Gestaktes RPL bietet Stimmrecht für Governance
 
 Aus Protokoll-Perspektive:
@@ -199,7 +199,7 @@ Wenn Sie einen Node im Netzwerk betreiben möchten, können Sie als Node so kurz
 
 ### Welche Provisionen sind beim Staking mit Rocket Pool möglich?
 
-Provisionen für Node-Betreiber stammen aus Belohnungen, die aus den 16 oder 24 ETH generiert werden, die von Nicht-Betreiber-Stakern gepoolt wurden. Die Provision ist auf 14 % festgelegt.
+Im Rahmen des Universal Adjustable Revenue Split (UARS, [RPIP-46](https://rpips.rocketpool.net/RPIPs/RPIP-46)) von Saturn 1 stammen die Provisionen für Node-Betreiber aus den Belohnungen, die die 28 ETH erzeugen, die für jeden Megapool-Validator aus dem rETH-Staking-Pool geliehen werden. Die Gesamtprovision beträgt 14 % und teilt sich auf in einen Basis-Provisionsanteil von 5 %, der an jeden Megapool-Node-Betreiber gezahlt wird, und einen [Voter Share](/de/node-staking/megapools/staking-and-claiming-rewards#wie-voter-share-an-megapool-rpl-staker-verteilt-wird) von 9 %, der anteilig an Node-Betreiber verteilt wird, die RPL auf ihrem Megapool staken. Die Provision und ihre Aufteilung sind nicht festgelegt, sondern können per pDAO-Governance-Abstimmung angepasst werden; die oben genannten Werte sind die, mit denen Saturn 1 gestartet ist. Legacy-Minipools sind nicht Teil dieser Aufteilung und behalten die in ihrem eigenen Vertrag festgelegte Provision.
 
 ### Wie schützt das Protokoll den Wert von rETH?
 
@@ -245,7 +245,7 @@ Als Node-Betreiber können Sie die folgenden Vorteile nutzen:
 
 ### Was ist der minimale Staking-Betrag für einen Node-Betreiber?
 
-Der minimale Staking-Betrag für einen Node-Betreiber beträgt 8 ETH. Aber Sie können problemlos Vielfache von 8 ETH auf Ihrem eigenen Node mit unserer Smart Node-Software staken. Sie benötigen auch etwas RPL, das als Sicherheit im Falle schwerwiegender Ausfallzeiten oder Strafen dient. Diese Sicherheit wird als Versicherungsversprechen an das Protokoll behandelt, das Ihnen mehr RPL einbringt, je länger Sie staken.
+Seit dem Saturn 1 Upgrade beträgt der minimale Staking-Betrag für einen Node-Betreiber 4 ETH. Jeder Validator kombiniert Ihren Bond von 4 ETH mit 28 ETH aus dem rETH-Staking-Pool zu einem 32-ETH-Validator innerhalb eines Megapools, der viele Validatoren unter einem Node bündeln kann. (Legacy-Minipools mit 8 ETH und 16 ETH können nicht mehr erstellt werden – die Minipool-Warteschlange wurde vor Saturn 1 durch [RPIP-74](https://rpips.rocketpool.net/RPIPs/RPIP-74) geschlossen.) RPL ist nicht mehr als Sicherheit erforderlich, um einen Megapool-Validator zu betreiben, aber wenn Sie RPL auf Ihrem Megapool staken, erhalten Sie einen anteiligen Teil der ETH-Einnahmen des Protokolls (den [Voter Share](/de/node-staking/megapools/staking-and-claiming-rewards#wie-voter-share-an-megapool-rpl-staker-verteilt-wird)) sowie RPL-Inflationsbelohnungen. Weitere Details finden Sie in den [Megapool-Anleitungen](/de/node-staking/megapools/overview).
 
 ### Was ist mit dem Betrieb eines Rocket Pool-Node verbunden?
 

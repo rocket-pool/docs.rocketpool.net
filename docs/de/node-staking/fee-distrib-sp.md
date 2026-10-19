@@ -53,7 +53,7 @@ Dies ist eine sehr überzeugende Funktion für Node-Betreiber, die sich nicht um
 Wir werden beide unten behandeln, damit Sie den Unterschied verstehen und ob Sie dem Smoothing Pool beitreten möchten oder nicht.
 
 ::: tip HINWEIS
-Für Minipools, die nach dem 2024-10-28 erstellt wurden, wird der Smoothing Pool DRINGEND EMPFOHLEN, da er zur Verteilung der Bonusprovision verwendet wird. Wenn Sie sich gegen den Smoothing Pool entscheiden, erhalten diese Minipools insgesamt 5% Provision. Wenn Sie sich für den Smoothing Pool entscheiden, erhalten diese Minipools zwischen 10% (kein RPL gestaked) und 14% (RPL-Stake ist mit 10% des geliehenen ETH oder mehr bewertet) Provision.
+Minipools, die nach dem 2024-10-28 erstellt wurden, erhielten früher über den Smoothing Pool eine Bonusprovision (insgesamt bis zu 14 %). Wie in [RPIP-62](https://rpips.rocketpool.net/RPIPs/RPIP-62) festgelegt, endete der Bonus vier Belohnungsintervalle nach Saturn 1 (der letzte wurde im Juni 2026 ausgezahlt). Diese Minipools erhalten jetzt ihre Vertragsprovision von 5 %, unabhängig davon, ob Sie im Smoothing Pool sind oder nicht.
 :::
 
 ## Ihr Fee Distributor
@@ -61,6 +61,7 @@ Für Minipools, die nach dem 2024-10-28 erstellt wurden, wird der Smoothing Pool
 Ihr Fee Distributor ist ein einzigartiger Contract auf der Execution Layer, der **spezifisch für Ihren Node** ist.
 Er hält alle Priority Fees, die Sie im Laufe der Zeit verdient haben, und enthält die Logik, die erforderlich ist, um sie fair auf die rETH-Pool-Staker und Ihre Abhebungsadresse zu verteilen.
 Dieser Verteilungsprozess **kann von jedem aufgerufen werden** (einschließlich rETH-Stakern), und kann **jederzeit** durchgeführt werden.
+Wenn jemand anderes als Sie ihn verteilt, wird Ihr Anteil als [nicht beanspruchte Belohnungen](#claiming-unclaimed-rewards) zurückgehalten, bis Sie ihn beanspruchen.
 Es gibt kein Zeitlimit, bevor Belohnungen ablaufen.
 
 Die Adresse Ihres Node-Fee Distributors ist **deterministisch basierend auf Ihrer Node-Adresse**.
@@ -95,14 +96,37 @@ rocketpool node distribute-fees
 Dies sendet Ihren Anteil der Belohnungen an Ihre **Abhebungsadresse**.
 
 ::: warning HINWEIS ZU STEUERPFLICHTIGEN EREIGNISSEN
-Wann immer Sie einen neuen Minipool erstellen, ruft Rocket Pool automatisch `distribute-fees` auf.
-Dies soll sicherstellen, dass alle Gebühren, die Sie angesammelt haben, mit der durchschnittlichen Provision Ihres Nodes verteilt werden, die sich ändern könnte, wenn Sie den neuen Minipool erstellen. Dies gilt nicht für die Erstellung von Megapool-Validatoren.
-
-Beachten Sie auch, dass jeder `distribute-fees` auf Ihrem Fee Distributor aufrufen kann (um zu verhindern, dass Sie rETH-Belohnungen als Geisel halten).
-Sie können ein steuerpflichtiges Ereignis haben, wann immer diese Methode aufgerufen wird.
+Jeder kann Ihren Fee Distributor verteilen (um zu verhindern, dass Sie rETH-Belohnungen als Geisel halten).
+Rocket Pool verteilt ihn außerdem automatisch, wenn einer Ihrer Minipools geschlossen wird, damit die angesammelten Gebühren mit der durchschnittlichen Provision Ihres Nodes aufgeteilt werden, bevor sie sich ändert.
+Bei jeder Verteilung Ihres Fee Distributors kann ein steuerpflichtiges Ereignis entstehen.
 
 Bitte beachten Sie diese Bedingungen, wenn Sie entscheiden, ob Sie den Smoothing Pool verwenden möchten (unten besprochen).
 :::
+
+<span id="claiming-unclaimed-rewards"></span>
+
+### Nicht beanspruchte Belohnungen beanspruchen
+
+Ihr Anteil geht nur dann direkt an Ihre Withdrawal-Adresse, wenn der Fee Distributor von Ihrer Node-Adresse oder Ihrer Withdrawal-Adresse verteilt wird, zum Beispiel mit `rocketpool node distribute-fees`.
+Seit dem Saturn 1 Upgrade wird Ihr Anteil stattdessen als **nicht beanspruchte Belohnungen** zurückgelegt, wenn jemand anderes ihn verteilt (einschließlich Rocket Pool selbst, wenn Sie einen Minipool schließen).
+Nicht beanspruchte Belohnungen verfallen nicht, und nur Ihre Node-Adresse oder Withdrawal-Adresse kann sie beanspruchen.
+
+Um nicht beanspruchte Belohnungen zu prüfen und zu beanspruchen, führen Sie Folgendes aus:
+
+```shell
+rocketpool node claim-unclaimed-rewards
+```
+
+Falls vorhanden, wird der Betrag angezeigt, bevor Sie den Anspruch bestätigen:
+
+```
+The node's withdrawal address is 0x4ACb4E5E5A9a5EfB1f4D3eE2f6E5A13bB0E8f0a7
+You have 0.012345 ETH in unclaimed rewards.
+Your node 0xE8325F5f4486c2FF2AC7B522Fbc9eB249d46C936 has rewards that were distributed to its unclaimed rewards balance instead of its withdrawal address. This happens whenever your fee distributor is distributed by anyone other than your node or withdrawal address.
+Claiming will send them to your current withdrawal address.
+```
+
+Die Belohnungen werden an Ihre **aktuelle** Withdrawal-Adresse gesendet.
 
 ### Das Penalty System
 

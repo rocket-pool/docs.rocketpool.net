@@ -63,12 +63,13 @@ Este sitio web es bastante útil para verificar el tiempo actual de la cola: htt
 En la etapa anterior `active_exiting`, tu nodo estaba haciendo attestations mientras estaba sujeto a la cola de salida de la Beacon Chain. El tiempo varía dependiendo de
 cuánto ETH está esperando para salir.
 
-Después de que tu validador llega al final de esta cola, pasa al estado `exited_unslashed`. En esta etapa, tu Smart Node llamará automáticamente a `notify validator exit`, señalando
-al protocolo Rocket Pool que tu validador ha salido y está casi disponible para retiro.
+Después de que tu validador llega al final de esta cola, pasa al estado `exited_unslashed`. En cuanto se procesa tu solicitud de salida, tu Smart Node llamará automáticamente a `notify validator exit`, señalando
+al protocolo Rocket Pool que tu validador está en el estado `active_exiting` y está casi disponible para retiro.
 
 ::: warning ADVERTENCIA
-Este paso está completamente automatizado por el Smart Node dentro del bucle de tareas `rocketpool_node`. Es muy importante mantener tu nodo en línea durante el proceso, de lo contrario incurrirás en una multa de `0.05 ETH` por estar fuera de línea. La multa se descuenta
-de tu saldo de retiro. Por favor monitorea el estado de tu nodo durante todo el proceso de salida del validador.
+Este paso está completamente automatizado por el Smart Node dentro del bucle de tareas `rocketpool_node`, por lo que es muy importante mantener tu nodo en línea durante el proceso.
+La salida debe notificarse al menos 112 épocas (unas 12 horas) antes de que tu validador pase a ser retirable. Si se notifica más tarde, se añade una multa de `0.05 ETH` a la deuda de tu nodo,
+que se descuenta de tu parte del saldo final. Supervisa el estado de tu nodo durante todo el proceso de salida del validador.
 :::
 
 ```
@@ -91,3 +92,22 @@ Después de 256 épocas en la Beacon Chain, los 32 ETH completos junto con otras
 En este punto, tu validador ha salido completamente de la Beacon Chain y el retiro final se envía desde la Beacon Chain a tu megapool. Tu Smart Node llamará automáticamente a `notify final balance`.
 Esta llamada finaliza completamente los deberes de tu validador megapool y también distribuye tu porción del saldo a la dirección de retiro de ETH de tu nodo. Si has mantenido tu nodo en línea y los deberes automáticos como `notify
 validator exit` y `notify final balance` fueron realizados, no se requieren más pasos de tu parte.
+
+## Notificar manualmente
+
+La mayoría de los operadores de nodos pueden saltarse esta sección.
+Tu nodo comprueba ambas notificaciones cada pocos minutos y las envía por su cuenta. Si estuvo desconectado durante la salida, se pone al día en cuanto vuelve a estar en línea y sincronizado.
+
+Solo necesitas enviarlas tú mismo si tu nodo no lo hace: cuando las transacciones automáticas están desactivadas (**Automatic TX Gas Threshold** en la configuración **Smart Node and TX Fees** es `0`) o cuando el precio del gas se mantiene por encima de tu umbral. En ese caso, ejecuta estos comandos en orden:
+
+```shell
+rocketpool megapool notify-validator-exit
+rocketpool megapool notify-final-balance
+```
+
+Cada comando muestra los validadores que están listos para ser notificados.
+`notify-validator-exit` funciona en cuanto la Beacon Chain ha procesado tu solicitud de salida; envíalo al menos 112 épocas (unas 12 horas) antes de que el validador pase a ser retirable para evitar la multa.
+`notify-final-balance` funciona una vez que se ha notificado la salida y la Beacon Chain ha enviado el retiro final del validador a tu megapool.
+
+No las dejes sin enviar. Tu megapool no puede distribuir recompensas entre las dos notificaciones y, si la salida no se notifica a tiempo, el Oracle DAO puede pausar la distribución de recompensas de tu megapool hasta que se notifique.
+Si no notificas el saldo final tú mismo, cualquier otra persona puede hacerlo por ti una vez que hayan pasado 7 días desde el retiro final (más si el validador perdió ETH). En ese caso, tu parte se queda en tu megapool en lugar de ir a tu dirección de retiro, y puedes reclamarla con `rocketpool megapool claim`.

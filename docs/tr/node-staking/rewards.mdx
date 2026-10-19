@@ -11,7 +11,7 @@ Bu bölüm, bu ödüllerin nasıl çalıştığını ve bunları nasıl talep ed
 Düzenli aralıklarla, Rocket Pool ağda bir **kontrol noktası** işaretleyecektir.
 Şu anda, kontrol noktaları **her 28 günde bir** gerçekleşmektedir.
 
-Yeni bir kontrol noktasında, Oracle DAO toplu olarak Rocket Pool ağındaki node operatörlerinin durumunun **gerçek bir anlık görüntüsünü** oluşturacak ve bu aralıkta her node için RPL ve Smoothing Pool ETH ödüllerini belirlemek için bunu kullanacaktır. "Bonus komisyon"un Saturn 0 minipool'lar için smoothing pool ödülleri kullanılarak dağıtıldığını unutmayın (Saturn 0 minipool'lar, 2024/10/28'den sonra oluşturulan ve sözleşme komisyonu %5 olan minipool'lardır).
+Yeni bir kontrol noktasında, Oracle DAO toplu olarak Rocket Pool ağındaki node operatörlerinin durumunun **gerçek bir anlık görüntüsünü** oluşturacak ve bu aralıkta her node için RPL ve Smoothing Pool ETH ödüllerini belirlemek için bunu kullanacaktır. Haziran 2026'ya kadar bu anlık görüntü, Saturn 0 minipool'lara (2024/10/28'den sonra oluşturulan ve sözleşme komisyonu %5 olan minipool'lar) smoothing pool ödüllerinden "bonus komisyon" ödemek için de kullanılıyordu. Bu bonus artık sona erdi.
 
 Bu bilgi bir [Merkle Ağacı](https://en.wikipedia.org/wiki/Merkle_tree)'na derlenir - tüm detayları akıllı sözleşmelere sunmanın son derece verimli bir yolu.
 Merkle Ağacı bir JSON dosyasına yerleştirilir ve [bakımını yaptığımız bir GitHub deposunda](https://github.com/rocket-pool/rewards-trees/) barındırılır. Smart Node ayrıca ödül aralığı **olaylarını** bu GitHub deposundan yükleyebilir, böylece agresif geçmiş sona erdirme eski Execution katmanı günlüklerini sildikten sonra bile talep edebilirsiniz.
@@ -188,3 +188,5 @@ Your fee distributor's balance of 1.143599 ETH will be distributed as follows:
 
 Sadece istediğiniz gas fiyatını onaylayın ve işlemi gönderin.
 Tamamlandıktan sonra, ödüllerin sizin kısmınız node'unuzun çekim adresinde kullanılabilir olacaktır.
+
+Fee distributor'ınızı başka biri dağıtırsa, payınız talep edilmemiş ödüller olarak tutulur. Bkz. [Talep Edilmemiş Ödülleri Talep Etme](/tr/node-staking/fee-distrib-sp#claiming-unclaimed-rewards).

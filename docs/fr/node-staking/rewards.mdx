@@ -11,7 +11,7 @@ Cette section décrira comment fonctionnent ces récompenses et comment vous pou
 À intervalles réguliers, Rocket Pool marquera un **checkpoint** sur le réseau.
 Actuellement, les checkpoints se produisent **tous les 28 jours**.
 
-Lors d'un nouveau checkpoint, l'Oracle DAO créera collectivement un **véritable instantané** de l'état des Node Operators du réseau Rocket Pool, qu'il utilisera pour déterminer les récompenses RPL et ETH du Smoothing Pool pour chaque nœud pendant cet intervalle. Notez que la "commission bonus" pour les minipools Saturn 0 est distribuée via les récompenses du Smoothing Pool (les minipools Saturn 0 sont ceux créés après le 28/10/2024, qui ont une commission de contrat de 5%).
+Lors d'un nouveau checkpoint, l'Oracle DAO créera collectivement un **véritable instantané** de l'état des Node Operators du réseau Rocket Pool, qu'il utilisera pour déterminer les récompenses RPL et ETH du Smoothing Pool pour chaque nœud pendant cet intervalle. Jusqu'en juin 2026, cet instantané servait aussi à verser la "commission bonus" aux minipools Saturn 0 (ceux créés après le 28/10/2024, qui ont une commission de contrat de 5%) à partir des récompenses du Smoothing Pool. Ce bonus a désormais pris fin.
 
 Ces informations sont compilées dans un [Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree) - un moyen extrêmement efficace de rendre tous les détails disponibles aux smart contracts.
 Le Merkle Tree est construit dans un fichier JSON et hébergé sur [un dépôt GitHub que nous maintenons](https://github.com/rocket-pool/rewards-trees/). Le Smart Node peut également charger les **événements** d'intervalle de récompenses depuis ce dépôt GitHub, ce qui vous permet de réclamer même après qu'une expiration agressive de l'historique a supprimé les anciens journaux de la couche d'exécution.
@@ -188,3 +188,5 @@ Your fee distributor's balance of 1.143599 ETH will be distributed as follows:
 
 Confirmez simplement le prix du gas que vous souhaitez et soumettez la transaction.
 Une fois terminée, votre part des récompenses sera disponible dans l'adresse de retrait de votre nœud.
+
+Si quelqu'un d'autre distribue votre fee distributor, votre part est conservée sous forme de récompenses non réclamées. Voir [Réclamer les récompenses non réclamées](/fr/node-staking/fee-distrib-sp#claiming-unclaimed-rewards).

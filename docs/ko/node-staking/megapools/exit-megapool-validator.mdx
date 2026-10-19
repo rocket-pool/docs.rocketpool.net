@@ -60,10 +60,12 @@ Express Ticket Used:          no
 
 이전 단계인 `active_exiting`에서 노드는 Beacon Chain 종료 대기열 처리를 기다리는 동안 증명을 수행했습니다. 이 시간은 종료를 기다리는 ETH 양에 따라 달라집니다.
 
-검증자가 이 대기열의 끝에 도달하면 `exited_unslashed` 상태로 전환됩니다. 이 단계에서 Smart Node는 자동으로 `notify validator exit`를 호출하여 Rocket Pool 프로토콜에 검증자가 종료되었으며 곧 출금 가능하다는 신호를 보냅니다.
+검증자가 이 대기열의 끝에 도달하면 `exited_unslashed` 상태로 전환됩니다. exit 요청이 처리되는 즉시 Smart Node는 자동으로 `notify validator exit`를 호출하여 Rocket Pool 프로토콜에 검증자가 `active_exiting` 상태이며 곧 출금 가능하다는 신호를 보냅니다.
 
 ::: warning 경고
-이 단계는 `rocketpool_node` 작업 루프 내에서 Smart Node에 의해 완전히 자동화됩니다. 이 과정 동안 노드를 온라인 상태로 유지하는 것이 매우 중요합니다. 그렇지 않으면 오프라인에 대한 `0.05 ETH` 벌금이 부과됩니다. 벌금은 출금 잔액에서 차감됩니다. 전체 검증자 종료 과정 동안 노드 상태를 모니터링하세요.
+이 단계는 `rocketpool_node` 작업 루프 내에서 Smart Node에 의해 완전히 자동화되므로, 이 과정 동안 노드를 온라인 상태로 유지하는 것이 매우 중요합니다.
+exit는 검증자가 출금 가능 상태가 되기 최소 112 에포크(약 12시간) 전까지 알려야 합니다. 그보다 늦게 알리면 `0.05 ETH`의 벌금이 노드의 부채에 추가되며,
+이는 최종 잔액 중 본인 몫에서 차감됩니다. 검증자 exit 과정 전체에 걸쳐 노드 상태를 모니터링하세요.
 :::
 
 ```
@@ -85,3 +87,22 @@ Beacon Chain에서 256 에폭이 지나면 전체 32 ETH와 다른 누적 보상
 
 이 시점에서 검증자는 Beacon Chain에서 완전히 종료되고 최종 출금이 Beacon Chain에서 메가풀로 전송됩니다. Smart Node는 자동으로 `notify final balance`를 호출합니다.
 이 호출은 메가풀 검증자의 역할을 완전히 종료하고 잔액에서 귀하의 몫을 노드의 ETH 출금 주소로 분배합니다. 노드를 온라인 상태로 유지하고 `notify validator exit` 및 `notify final balance`와 같은 자동 작업이 수행된 경우 귀하의 추가 단계는 필요하지 않습니다.
+
+## 수동으로 알리기
+
+대부분의 노드 운영자는 이 섹션을 건너뛰어도 됩니다.
+노드는 몇 분마다 두 알림을 확인하고 자동으로 보냅니다. exit 중에 오프라인이었더라도 다시 온라인 상태가 되어 동기화되면 바로 처리합니다.
+
+노드가 알림을 보내지 않는 경우에만 직접 보내면 됩니다. 즉, 자동 트랜잭션이 비활성화되어 있거나(**Smart Node and TX Fees** 설정의 **Automatic TX Gas Threshold**가 `0`) 가스 가격이 임계값보다 계속 높은 경우입니다. 이 경우 다음 순서로 실행하세요:
+
+```shell
+rocketpool megapool notify-validator-exit
+rocketpool megapool notify-final-balance
+```
+
+각 명령은 알릴 준비가 된 검증자 목록을 보여줍니다.
+`notify-validator-exit`는 Beacon Chain이 exit 요청을 처리하는 즉시 실행할 수 있습니다. 벌금을 피하려면 검증자가 출금 가능 상태가 되기 최소 112 에포크(약 12시간) 전까지 보내세요.
+`notify-final-balance`는 exit가 알려지고 Beacon Chain이 검증자의 최종 출금을 megapool로 보낸 후에 실행할 수 있습니다.
+
+알림을 보내지 않은 채로 두지 마세요. 두 알림 사이에는 megapool이 보상을 분배할 수 없으며, exit가 제때 알려지지 않으면 Oracle DAO가 알려질 때까지 megapool의 보상 분배를 일시 중지할 수 있습니다.
+최종 잔액을 직접 알리지 않으면, 최종 출금 후 7일이 지나면(검증자가 ETH를 잃은 경우에는 더 오래) 다른 누구나 대신 알릴 수 있습니다. 이 경우 본인의 몫은 출금 주소로 가지 않고 megapool에 남으며, `rocketpool megapool claim`으로 청구할 수 있습니다.

@@ -53,7 +53,7 @@ Este é um recurso muito atraente para operadores de nó que não querem se preo
 Cobriremos ambos abaixo para que você entenda a diferença e se deseja ou não entrar no Smoothing Pool.
 
 ::: tip NOTA
-Para minipools criados após 28-10-2024, o smoothing pool é FORTEMENTE recomendado, pois é usado para distribuir comissão bônus. Se você optar por não participar do smoothing pool, esses minipools receberão 5% de comissão total. Se você optar por participar do smoothing pool, esses minipools receberão entre 10% (sem RPL em stake) e 14% (stake de RPL é avaliado em 10% do ETH emprestado ou mais) de comissão.
+Minipools criados após 28-10-2024 recebiam anteriormente uma comissão bônus (até 14% no total) através do Smoothing Pool. Conforme definido no [RPIP-62](https://rpips.rocketpool.net/RPIPs/RPIP-62), o bônus terminou quatro intervalos de recompensas após o Saturn 1 (o último foi pago em junho de 2026). Esses minipools agora recebem sua comissão de contrato de 5%, esteja você ou não no Smoothing Pool.
 :::
 
 ## Seu Distribuidor de Taxas
@@ -61,6 +61,7 @@ Para minipools criados após 28-10-2024, o smoothing pool é FORTEMENTE recomend
 Seu Distribuidor de Taxas é um contrato único na Camada de Execução que é **específico para o seu nó**.
 Ele manterá todas as taxas de prioridade que você ganhou ao longo do tempo, e contém a lógica necessária para dividi-las de forma justa e distribuí-las para os stakers do pool rETH e seu endereço de saque.
 Este processo de distribuição **pode ser chamado por qualquer pessoa** (incluindo stakers do rETH), e pode ser feito **a qualquer momento**.
+Se outra pessoa que não você o distribuir, sua parte fica retida como [recompensas não resgatadas](#claiming-unclaimed-rewards) até que você a resgate.
 Ele não tem um limite de tempo antes que as recompensas expirem.
 
 O endereço para o Distribuidor de Taxas do seu nó é **deterministicamente baseado no endereço do seu nó**.
@@ -95,14 +96,37 @@ rocketpool node distribute-fees
 Isso enviará sua parte das recompensas para seu **endereço de saque**.
 
 ::: warning NOTA SOBRE EVENTOS TRIBUTÁVEIS
-Sempre que você criar um novo minipool, Rocket Pool chamará automaticamente `distribute-fees`.
-Isso é para garantir que quaisquer taxas que você acumulou sejam distribuídas usando a comissão média do seu nó, que pode mudar quando você criar o novo minipool. Isso não se aplica à criação de validadores de megapool.
-
-Além disso, observe que qualquer pessoa pode chamar `distribute-fees` no seu distribuidor de taxas (para evitar que você mantenha recompensas do rETH como refém).
-Você pode ter um evento tributável sempre que este método for chamado.
+Qualquer pessoa pode distribuir seu fee distributor (para impedir que você mantenha as recompensas de rETH como refém).
+O Rocket Pool também o distribui automaticamente sempre que um dos seus minipools é fechado, para que as taxas acumuladas sejam divididas usando a comissão média do seu nó antes que ela mude.
+Você pode ter um evento tributável sempre que seu fee distributor for distribuído.
 
 Por favor, mantenha essas condições em mente ao decidir se deve ou não usar o Smoothing Pool (discutido abaixo).
 :::
+
+<span id="claiming-unclaimed-rewards"></span>
+
+### Resgatando recompensas não resgatadas
+
+Sua parte vai diretamente para o seu endereço de saque apenas quando o fee distributor é distribuído pelo endereço do seu nó ou pelo seu endereço de saque, por exemplo com `rocketpool node distribute-fees`.
+Desde a atualização Saturn 1, quando qualquer outra pessoa o distribui (incluindo o próprio Rocket Pool quando você fecha um minipool), sua parte é reservada como **recompensas não resgatadas**.
+Recompensas não resgatadas não expiram, e apenas o endereço do seu nó ou o seu endereço de saque podem resgatá-las.
+
+Para verificar e resgatar recompensas não resgatadas, execute:
+
+```shell
+rocketpool node claim-unclaimed-rewards
+```
+
+Se houver alguma, o comando mostrará o valor antes de pedir que você confirme o resgate:
+
+```
+The node's withdrawal address is 0x4ACb4E5E5A9a5EfB1f4D3eE2f6E5A13bB0E8f0a7
+You have 0.012345 ETH in unclaimed rewards.
+Your node 0xE8325F5f4486c2FF2AC7B522Fbc9eB249d46C936 has rewards that were distributed to its unclaimed rewards balance instead of its withdrawal address. This happens whenever your fee distributor is distributed by anyone other than your node or withdrawal address.
+Claiming will send them to your current withdrawal address.
+```
+
+As recompensas são enviadas para o seu endereço de saque **atual**.
 
 ### O Sistema de Penalidades
 

@@ -157,7 +157,7 @@ From a Node Operator perspective:
 
 - As of Saturn 1, vote-eligible staked RPL will get a share of total protocol revenue
 - The [majority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation is given as rewards to Node Operators based on staked RPL; these rewards are planned to be phase out with Saturn 2
-- For Saturn 0 minipools made after 10/28/2024: Staked RPL provides up to 4% additional bonus commission; bonus commission is planned to be phased out a few months after Saturn 1's launch.
+- For Saturn 0 minipools made after 10/28/2024: Staked RPL provided up to 4% additional bonus commission. The bonus ended in June 2026, four rewards intervals after Saturn 1's launch.
 - Staked provides voting power for governance
 
 From a protocol perspective:
@@ -199,7 +199,7 @@ Ağda bir düğüm çalıştırmak istiyorsanız, istediğiniz kadar kısa veya 
 
 ### Rocket Pool ile stake ederken mümkün olan komişyonlar nelerdir?
 
-Düğüm operatörleri için komişyonlar, operatör olmayan stakerlardan havuzlanan 16 veya 24 ETH'den oluşturulan ödüllerin elde edilmesinde yapılır. Komişyon %14'te sabittir.
+Saturn 1'in Universal Adjustable Revenue Split (UARS, [RPIP-46](https://rpips.rocketpool.net/RPIPs/RPIP-46)) yapısında düğüm operatörü komisyonları, her megapool doğrulayıcısı için rETH staking havuzundan ödünç alınan 28 ETH'nin ürettiği ödüllerden gelir. Toplam komisyon %14'tür ve her megapool düğüm operatörüne ödenen %5'lik temel komisyon payı ile megapool'unda RPL stake eden düğüm operatörlerine orantılı olarak dağıtılan %9'luk [voter share](/tr/node-staking/megapools/staking-and-claiming-rewards#voter-sharein-megapool-rpl-stakerlarına-nasıl-dağıtıldığı) olarak ikiye ayrılır. Komisyon ve dağılımı sabit değildir, pDAO yönetişim oylamasıyla değiştirilebilir; yukarıdaki değerler Saturn 1'in başlangıçtaki değerleridir. Eski minipool'lar bu dağılıma dahil değildir ve kendi sözleşmelerinde belirlenen komisyonu korur.
 
 ### Protokol rETH'nin değerini nasıl korur?
 
@@ -245,7 +245,7 @@ Bir düğüm operatörü olarak, aşağıdaki avantajlardan yararlanabilirsiniz:
 
 ### Düğüm operatörü için minimum staking miktarı nedir?
 
-Düğüm operatörü için minimum staking miktarı 8 ETH'dir. Ancak akıllı düğüm yazılımımızı kullanarak kendi düğümünüzde 8 ETH'nin katları halinde kolayca stake edebilirsiniz. Ayrıca ciddi kesinti veya cezalar durumunda teminat olarak hareket etmesi için biraz RPL'ye ihtiyacınız olacaktır. Bu teminat, protokole sigorta vaadi olarak kabul edilir; stake ettikçe daha fazla RPL kazanırsınız.
+Saturn 1 yükseltmesinden bu yana bir düğüm operatörü için minimum staking miktarı 4 ETH'dir. Her doğrulayıcı, 4 ETH'lik bond'unuzu rETH staking havuzundan gelen 28 ETH ile birleştirerek bir megapool içinde 32 ETH'lik bir doğrulayıcı oluşturur; bir megapool tek bir düğüm altında çok sayıda doğrulayıcı barındırabilir. (8 ETH ve 16 ETH'lik eski minipool'lar artık oluşturulamaz: minipool kuyruğu Saturn 1'den önce [RPIP-74](https://rpips.rocketpool.net/RPIPs/RPIP-74) ile kapatıldı.) Bir megapool doğrulayıcısı çalıştırmak için artık teminat olarak RPL gerekmez, ancak megapool'unuzda RPL stake etmek size protokolün ETH gelirinden orantılı bir pay ([voter share](/tr/node-staking/megapools/staking-and-claiming-rewards#voter-sharein-megapool-rpl-stakerlarına-nasıl-dağıtıldığı)) ve RPL enflasyon ödülleri kazandırır. Ayrıntılar için [megapool kılavuzlarına](/tr/node-staking/megapools/overview) bakın.
 
 ### Rocket Pool düğümü çalıştırma ne gerektirir?
 

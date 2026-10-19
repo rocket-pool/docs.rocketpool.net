@@ -65,12 +65,13 @@ Questo sito web è molto utile per controllare i tempi attuali della coda: https
 Nella fase precedente `active_exiting`, il tuo nodo stava facendo attestazioni mentre era soggetto alla coda di uscita della Beacon Chain. Il tempo varia a seconda di
 quanti ETH sono in attesa di uscita.
 
-Dopo che il tuo validator raggiunge la fine di questa coda, passa allo stato `exited_unslashed`. In questa fase, il tuo smart node chiamerà automaticamente `notify validator exit`, segnalando
-al protocollo Rocket Pool che il tuo validator è uscito ed è quasi pronto per il prelievo.
+Dopo che il tuo validator raggiunge la fine di questa coda, passa allo stato `exited_unslashed`. Non appena la tua richiesta di uscita viene elaborata, il tuo smart node chiamerà automaticamente `notify validator exit`, segnalando
+al protocollo Rocket Pool che il tuo validator è nello stato `active_exiting` ed è quasi pronto per il prelievo.
 
 ::: warning ATTENZIONE
-Questo passaggio è completamente automatizzato dallo smart node all'interno del ciclo di attività `rocketpool_node`. È molto importante mantenere il tuo nodo online durante il processo, altrimenti si incorre in una multa di `0.05 ETH` per essere offline. La multa viene detratta
-dal saldo di prelievo. Monitora lo stato del tuo nodo durante l'intero processo di uscita del validator.
+Questo passaggio è completamente automatizzato dallo Smart Node all'interno del ciclo di attività `rocketpool_node`, quindi è molto importante mantenere il tuo nodo online durante il processo.
+L'uscita deve essere notificata almeno 112 epoche (circa 12 ore) prima che il tuo validator diventi prelevabile. Se viene notificata più tardi, una multa di `0.05 ETH` viene aggiunta al debito del tuo nodo,
+che viene detratto dalla tua quota del saldo finale. Monitora lo stato del tuo nodo durante l'intero processo di uscita del validator.
 :::
 
 ```
@@ -93,3 +94,22 @@ Dopo 256 epoch sulla Beacon Chain, i 32 ETH completi insieme ad altre ricompense
 A questo punto, il tuo validator è completamente uscito dalla Beacon Chain e il prelievo finale viene inviato dalla Beacon Chain al tuo megapool. Il tuo smart node chiamerà automaticamente `notify final balance`.
 Questa chiamata termina completamente i doveri del tuo validator megapool e distribuisce anche la tua porzione del saldo all'indirizzo di prelievo ETH del tuo nodo. Se hai mantenuto il tuo nodo online e i compiti automatici come `notify
 validator exit` e `notify final balance` sono stati eseguiti, non sono necessari ulteriori passaggi da parte tua.
+
+## Notificare manualmente
+
+La maggior parte degli operatori di nodi può saltare questa sezione.
+Il tuo nodo controlla entrambe le notifiche ogni pochi minuti e le invia autonomamente. Se era offline durante l'uscita, recupera non appena torna online e sincronizzato.
+
+Devi inviarle tu solo se il tuo nodo non lo fa: quando le transazioni automatiche sono disattivate (**Automatic TX Gas Threshold** nelle impostazioni **Smart Node and TX Fees** è `0`) oppure quando il prezzo del gas resta sopra la tua soglia. In questo caso, esegui questi comandi in ordine:
+
+```shell
+rocketpool megapool notify-validator-exit
+rocketpool megapool notify-final-balance
+```
+
+Ogni comando elenca i validator pronti per essere notificati.
+`notify-validator-exit` funziona non appena la Beacon Chain ha elaborato la tua richiesta di uscita; invialo almeno 112 epoche (circa 12 ore) prima che il validator diventi prelevabile per evitare la multa.
+`notify-final-balance` funziona una volta che l'uscita è stata notificata e la Beacon Chain ha inviato il prelievo finale del validator al tuo megapool.
+
+Non lasciarle in sospeso. Il tuo megapool non può distribuire ricompense tra le due notifiche e, se l'uscita non viene notificata in tempo, l'Oracle DAO può sospendere la distribuzione delle ricompense del tuo megapool finché non lo è.
+Se non notifichi tu il saldo finale, chiunque altro può farlo al posto tuo una volta trascorsi 7 giorni dal prelievo finale (di più se il validator ha perso ETH). In tal caso la tua quota resta nel tuo megapool invece di andare al tuo indirizzo di prelievo, e puoi richiederla con `rocketpool megapool claim`.
