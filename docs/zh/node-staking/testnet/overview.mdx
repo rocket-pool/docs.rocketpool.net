@@ -67,23 +67,23 @@ Rocket Pool 在其 [Discord 服务器](https://discord.gg/rocketpool)中提供�
 如果你不打算注册节点，只想要一些 ETH 来测试质押以获得 rETH，请在频道中输入以下命令：
 
 ```
-!hoodiEth <your hoodi address>
+/faucet eth 1
 ```
 
-不带尖括号。
+在 `address` 字段中输入你的 Hoodi 地址。
 如果你的钱包还没有任何 ETH，机器人将向你的钱包发送 1 个 ETH 进行测试。
 
 如果你*计划*运行节点，请执行以下操作：
 
-1. 首先运行上面的 `!hoodiEth` 命令以获取足够的 ETH 来注册你的节点
+1. 首先运行上面的 `/faucet eth 1` 命令以获取足够的 ETH 来注册你的节点
 2. 注册你的节点（有关说明，请参阅[准备节点](../prepare-node)页面）
 3. 运行以下命令以获取 8 个 Hoodi ETH，以便你可以创建 validator：
 
 ```
-!hoodiOperator <your hoodi address>
+/faucet eth 9
 ```
 
-为了使用 `!hoodiOperator`，你提供给它的地址*必须*是已注册的 Rocket Pool 节点。
+为了使用 `/faucet eth 9`，你提供给它的地址*必须*是已注册的 Rocket Pool 节点。
 因此，你必须按照这 3 个步骤的顺序进行。
 
 ## 在 Hoodi 上获取测试 RPL
@@ -104,8 +104,10 @@ Rocket Pool 在其 [Discord 服务器](https://discord.gg/rocketpool)中提供�
 :::
 
 ```
-!hoodiRpl <your hoodi node address>
+/faucet rpl
 ```
+
+在 `address` 字段中输入你的 Hoodi 节点地址。
 
 这将为你提供 600 个**旧版 (v1) RPL** 代币，它类似于主网上的原始 RPL 代币。
 Rocket Pool 使用**新版 (v2) RPL** 代币，它支持用于奖励节点运营商的通货膨胀。

@@ -67,23 +67,23 @@ Sii paziente e qualcuno accederà al faucet per tuo conto.
 Se non stai pianificando di registrare un nodo e vuoi solo un po' di ETH per testare lo staking e ricevere rETH, digita il seguente comando nel canale:
 
 ```
-!hoodiEth <il tuo indirizzo hoodi>
+/faucet eth 1
 ```
 
-senza le parentesi angolari.
+Inserisci il tuo indirizzo Hoodi nel campo `address`.
 Se il tuo wallet non ha già ETH, il bot invierà al tuo wallet 1 ETH per testare.
 
 Se _stai_ pianificando di eseguire un nodo, fai quanto segue:
 
-1. Inizia eseguendo il comando `!hoodiEth` sopra per acquisire abbastanza ETH per registrare il tuo nodo
+1. Inizia eseguendo il comando `/faucet eth 1` sopra per acquisire abbastanza ETH per registrare il tuo nodo
 2. Registra il tuo nodo (vedi la pagina [Preparazione del Nodo](../prepare-node) per le istruzioni)
 3. Esegui il seguente comando per ottenere 8 ETH Hoodi in modo da poter creare un validatore:
 
 ```
-!hoodiOperator <il tuo indirizzo hoodi>
+/faucet eth 9
 ```
 
-Per utilizzare `!hoodiOperator`, l'indirizzo che fornisci _deve_ essere un nodo Rocket Pool registrato.
+Per utilizzare `/faucet eth 9`, l'indirizzo che fornisci _deve_ essere un nodo Rocket Pool registrato.
 Pertanto, devi seguire questi 3 passaggi in quell'ordine.
 
 ## Ottenere RPL di Test su Hoodi
@@ -104,8 +104,10 @@ Sii paziente e qualcuno accederà al faucet per tuo conto.
 :::
 
 ```
-!hoodiRpl <il tuo indirizzo del nodo hoodi>
+/faucet rpl
 ```
+
+Inserisci l'indirizzo del tuo nodo Hoodi nel campo `address`.
 
 Questo ti fornirà 600 token **RPL legacy (v1)**, che è analogo al token RPL originale sulla mainnet.
 Rocket Pool utilizza un token **RPL nuovo (v2)** che supporta l'inflazione utilizzata per ricompensare i node operator.

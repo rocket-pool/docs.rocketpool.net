@@ -67,23 +67,23 @@ Seien Sie geduldig und jemand wird für Sie auf den Faucet zugreifen.
 Wenn Sie nicht planen, einen Node zu registrieren, und nur ETH zum Testen des Stakings möchten, um rETH zu erhalten, geben Sie den folgenden Befehl im Channel ein:
 
 ```
-!hoodiEth <ihre hoodi adresse>
+/faucet eth 1
 ```
 
-ohne die spitzen Klammern.
+Geben Sie Ihre Hoodi-Adresse im Feld `address` ein.
 Wenn Ihr Wallet noch kein ETH hat, sendet der Bot 1 ETH zum Testen an Ihr Wallet.
 
 Wenn Sie _planen_, einen Node zu betreiben, gehen Sie wie folgt vor:
 
-1. Führen Sie zunächst den obigen `!hoodiEth`-Befehl aus, um genügend ETH zu erhalten, um Ihren Node zu registrieren
+1. Führen Sie zunächst den obigen `/faucet eth 1`-Befehl aus, um genügend ETH zu erhalten, um Ihren Node zu registrieren
 2. Registrieren Sie Ihren Node (siehe die Seite [Vorbereitung Ihres Nodes](../prepare-node) für Anweisungen)
 3. Führen Sie den folgenden Befehl aus, um 8 Hoodi-ETH zu erhalten, damit Sie einen Validator erstellen können:
 
 ```
-!hoodiOperator <ihre hoodi adresse>
+/faucet eth 9
 ```
 
-Um `!hoodiOperator` zu verwenden, _muss_ die von Ihnen angegebene Adresse ein registrierter Rocket Pool-Node sein.
+Um `/faucet eth 9` zu verwenden, _muss_ die von Ihnen angegebene Adresse ein registrierter Rocket Pool-Node sein.
 Daher müssen Sie diese 3 Schritte in dieser Reihenfolge befolgen.
 
 ## Test-RPL auf Hoodi erhalten
@@ -104,8 +104,10 @@ Seien Sie geduldig und jemand wird für Sie auf den Faucet zugreifen.
 :::
 
 ```
-!hoodiRpl <ihre hoodi node adresse>
+/faucet rpl
 ```
+
+Geben Sie Ihre Hoodi-Node-Adresse im Feld `address` ein.
 
 Dies stellt Ihnen 600 des **Legacy (v1) RPL**-Tokens zur Verfügung, das analog zum ursprünglichen RPL-Token im Mainnet ist.
 Rocket Pool verwendet einen **neuen (v2) RPL**-Token, der die Inflation zur Belohnung von Node-Operatoren unterstützt.

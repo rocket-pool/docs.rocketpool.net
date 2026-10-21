@@ -67,23 +67,23 @@ Rocket Pool は [Discord サーバー](https://discord.gg/rocketpool)でフォ�
 ノードを登録する予定がなく、rETH を受け取るためにステーキングをテストするための ETH だけが欲しい場合は、チャンネルで次のコマンドを入力します:
 
 ```
-!hoodiEth <your hoodi address>
+/faucet eth 1
 ```
 
-山括弧は付けません。
+`address` 欄に Hoodi アドレスを入力します。
 ウォレットに ETH がまだない場合、ボットはテスト用に 1 ETH をウォレットに送信します。
 
 ノードを実行する予定がある場合は、次の手順に従います:
 
-1. まず上記の `!hoodiEth` コマンドを実行して、ノードを登録するのに十分な ETH を取得します
+1. まず上記の `/faucet eth 1` コマンドを実行して、ノードを登録するのに十分な ETH を取得します
 2. ノードを登録します（手順については[ノードの準備](../prepare-node)ページを参照してください）
 3. 次のコマンドを実行して 8 Hoodi ETH を取得し、バリデーターを作成できるようにします:
 
 ```
-!hoodiOperator <your hoodi address>
+/faucet eth 9
 ```
 
-`!hoodiOperator` を使用するには、提供するアドレスが登録された Rocket Pool ノードである必要があります。
+`/faucet eth 9` を使用するには、提供するアドレスが登録された Rocket Pool ノードである必要があります。
 したがって、この順序でこれらの 3 つの手順に従う必要があります。
 
 ## Hoodi でのテスト RPL の取得
@@ -104,8 +104,10 @@ Rocket Pool は [Discord サーバー](https://discord.gg/rocketpool)でフォ�
 :::
 
 ```
-!hoodiRpl <your hoodi node address>
+/faucet rpl
 ```
+
+`address` 欄に Hoodi ノードアドレスを入力します。
 
 これにより、メインネットのオリジナル RPL トークンに類似した **レガシー（v1）RPL** トークンが 600 提供されます。
 Rocket Pool は、ノードオペレーターに報酬を与えるために使用されるインフレーションをサポートする**新しい（v2）RPL** トークンを使用しています。
