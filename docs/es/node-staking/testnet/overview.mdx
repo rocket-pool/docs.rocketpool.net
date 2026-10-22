@@ -58,32 +58,32 @@ Aquí, puedes solicitar ETH de testnet.
 Necesitarás proporcionar la dirección de tu nodo.
 
 ::: warning NOTA
-El bot del grifo de testnet ya no es directamente accesible al público debido a abusos previos.
-Solo está disponible para el equipo de desarrollo y miembros prominentes de la comunidad.
-Para recibir eth de testnet, ejecuta los comandos a continuación, declara tus intenciones en el canal.
-Ten paciencia y alguien accederá al grifo en tu nombre.
+Cualquiera puede solicitar eth de testnet con el comando de abajo.
+La solicitud incluye los botones Approve y Deny.
+Solo el equipo de desarrollo y los miembros prominentes de la comunidad pueden pulsar esos botones.
+Ten paciencia y alguien con acceso aprobará o rechazará la solicitud.
 :::
 
 Si no estás planeando registrar un nodo y solo quieres algo de ETH para probar el staking y recibir rETH, escribe el siguiente comando en el canal:
 
 ```
-!hoodiEth <tu dirección de hoodi>
+/faucet eth 1
 ```
 
-sin los paréntesis angulares.
+Introduce tu dirección de Hoodi en el campo `address`.
 Si tu cartera no tiene ningún ETH ya, el bot enviará a tu cartera 1 ETH para probar.
 
 Si _estás_ planeando ejecutar un nodo, haz lo siguiente:
 
-1. Comienza ejecutando el comando `!hoodiEth` anterior para adquirir suficiente ETH para registrar tu nodo
+1. Comienza ejecutando el comando `/faucet eth 1` anterior para adquirir suficiente ETH para registrar tu nodo
 2. Registra tu nodo (consulta la página [Preparando tu Nodo](../prepare-node) para instrucciones)
 3. Ejecuta el siguiente comando para obtener 8 ETH de Hoodi para que puedas crear un validador:
 
 ```
-!hoodiOperator <tu dirección de hoodi>
+/faucet eth 9
 ```
 
-Para usar `!hoodiOperator`, la dirección que proporciones _debe_ ser un nodo registrado de Rocket Pool.
+Para usar `/faucet eth 9`, la dirección que proporciones _debe_ ser un nodo registrado de Rocket Pool.
 Por lo tanto, debes seguir estos 3 pasos en ese orden.
 
 ## Obteniendo RPL de Prueba en Hoodi
@@ -97,15 +97,17 @@ Aquí, puedes solicitar RPL de testnet.
 Necesitarás proporcionar la dirección de tu nodo.
 
 ::: warning NOTA
-El bot del grifo de testnet ya no es directamente accesible al público debido a abusos previos.
-Solo está disponible para el equipo de desarrollo y miembros prominentes de la comunidad.
-Para recibir RPL de testnet, ejecuta los comandos a continuación, declara tus intenciones en el canal.
-Ten paciencia y alguien accederá al grifo en tu nombre.
+Cualquiera puede solicitar RPL de testnet con el comando de abajo.
+La solicitud incluye los botones Approve y Deny.
+Solo el equipo de desarrollo y los miembros prominentes de la comunidad pueden pulsar esos botones.
+Ten paciencia y alguien con acceso aprobará o rechazará la solicitud.
 :::
 
 ```
-!hoodiRpl <tu dirección de nodo de hoodi>
+/faucet rpl
 ```
+
+Introduce la dirección de tu nodo de Hoodi en el campo `address`.
 
 Esto te proporcionará 600 del token **RPL heredado (v1)**, que es análogo al token RPL original en mainnet.
 Rocket Pool usa un **nuevo token RPL (v2)** que soporta la inflación utilizada para recompensar a los operadores de nodos.

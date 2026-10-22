@@ -58,32 +58,32 @@ Aqui, você pode pedir ETH da testnet.
 Você precisará fornecer o endereço do seu nó.
 
 ::: warning NOTA
-O bot da faucet da testnet não está mais diretamente acessível ao público devido a abuso anterior.
-Ele está disponível apenas para a equipe de desenvolvimento e membros proeminentes da comunidade.
-Para receber eth da testnet, execute os comandos abaixo, declare suas intenções no canal.
-Seja paciente e alguém acessará a faucet em seu nome.
+Qualquer pessoa pode solicitar eth da testnet com o comando abaixo.
+O pedido inclui os botões Approve e Deny.
+Apenas a equipe de desenvolvimento e membros proeminentes da comunidade podem pressionar esses botões.
+Seja paciente e alguém com acesso aprovará ou negará o pedido.
 :::
 
 Se você não está planejando registrar um nó e apenas quer algum ETH para testar stake e receber rETH, digite o seguinte comando no canal:
 
 ```
-!hoodiEth <seu endereço hoodi>
+/faucet eth 1
 ```
 
-sem os colchetes angulares.
+Informe seu endereço Hoodi no campo `address`.
 Se sua carteira não tem nenhum ETH já, o bot enviará para sua carteira 1 ETH para testar.
 
 Se você _está_ planejando executar um nó, faça o seguinte:
 
-1. Comece executando o comando `!hoodiEth` acima para adquirir ETH suficiente para registrar seu nó
+1. Comece executando o comando `/faucet eth 1` acima para adquirir ETH suficiente para registrar seu nó
 2. Registre seu nó (veja a página [Preparando seu Nó](../prepare-node) para instruções)
 3. Execute o seguinte comando para obter 8 ETH Hoodi para que você possa criar um validador:
 
 ```
-!hoodiOperator <seu endereço hoodi>
+/faucet eth 9
 ```
 
-Para usar `!hoodiOperator`, o endereço que você fornecer _deve_ ser um nó Rocket Pool registrado.
+Para usar `/faucet eth 9`, o endereço que você fornecer _deve_ ser um nó Rocket Pool registrado.
 Portanto, você deve seguir estes 3 passos nessa ordem.
 
 ## Obtendo RPL de Teste no Hoodi
@@ -97,15 +97,17 @@ Aqui, você pode pedir RPL da testnet.
 Você precisará fornecer o endereço do seu nó.
 
 ::: warning NOTA
-O bot da faucet da testnet não está mais diretamente acessível ao público devido a abuso anterior.
-Ele está disponível apenas para a equipe de desenvolvimento e membros proeminentes da comunidade.
-Para receber RPL da testnet, execute os comandos abaixo, declare suas intenções no canal.
-Seja paciente e alguém acessará a faucet em seu nome.
+Qualquer pessoa pode solicitar RPL da testnet com o comando abaixo.
+O pedido inclui os botões Approve e Deny.
+Apenas a equipe de desenvolvimento e membros proeminentes da comunidade podem pressionar esses botões.
+Seja paciente e alguém com acesso aprovará ou negará o pedido.
 :::
 
 ```
-!hoodiRpl <seu endereço de nó hoodi>
+/faucet rpl
 ```
+
+Informe o endereço do seu nó Hoodi no campo `address`.
 
 Isso fornecerá a você 600 do token RPL **legado (v1)**, que é análogo ao token RPL original na mainnet.
 O Rocket Pool usa um token RPL **novo (v2)** que suporta a inflação usada para recompensar operadores de nó.

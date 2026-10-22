@@ -58,32 +58,32 @@ Ici, vous pouvez demander de l'ETH de test.
 Vous devrez fournir l'adresse de votre nœud.
 
 ::: warning NOTE
-Le bot de robinet du réseau de test n'est plus directement accessible au public en raison d'abus antérieurs.
-Il n'est disponible que pour l'équipe de développement et les membres éminents de la communauté.
-Pour recevoir de l'eth de test, exécutez les commandes ci-dessous, indiquez vos intentions dans le canal.
-Soyez patient et quelqu'un accédera au robinet en votre nom.
+Tout le monde peut demander de l'eth de test avec la commande ci-dessous.
+La demande affiche les boutons Approve et Deny.
+Seuls l'équipe de développement et les membres éminents de la communauté peuvent appuyer sur ces boutons.
+Soyez patient et quelqu'un ayant accès approuvera ou refusera la demande.
 :::
 
 Si vous ne prévoyez pas d'enregistrer un nœud et que vous voulez simplement de l'ETH pour tester le staking afin de recevoir du rETH, tapez la commande suivante dans le canal :
 
 ```
-!hoodiEth <votre adresse hoodi>
+/faucet eth 1
 ```
 
-sans les crochets.
+Saisissez votre adresse Hoodi dans le champ `address`.
 Si votre portefeuille n'a pas déjà d'ETH, le bot enverra à votre portefeuille 1 ETH pour tester.
 
 Si vous _prévoyez_ d'exploiter un nœud, procédez comme suit :
 
-1. Commencez par exécuter la commande `!hoodiEth` ci-dessus pour acquérir suffisamment d'ETH pour enregistrer votre nœud
+1. Commencez par exécuter la commande `/faucet eth 1` ci-dessus pour acquérir suffisamment d'ETH pour enregistrer votre nœud
 2. Enregistrez votre nœud (consultez la page [Préparation de votre Nœud](../prepare-node) pour les instructions)
 3. Exécutez la commande suivante pour obtenir 8 ETH Hoodi afin de pouvoir créer un validateur :
 
 ```
-!hoodiOperator <votre adresse hoodi>
+/faucet eth 9
 ```
 
-Pour utiliser `!hoodiOperator`, l'adresse que vous fournissez _doit_ être un nœud Rocket Pool enregistré.
+Pour utiliser `/faucet eth 9`, l'adresse que vous fournissez _doit_ être un nœud Rocket Pool enregistré.
 Par conséquent, vous devez suivre ces 3 étapes dans cet ordre.
 
 ## Obtenir du RPL de Test sur Hoodi
@@ -97,15 +97,17 @@ Ici, vous pouvez demander du RPL de test.
 Vous devrez fournir l'adresse de votre nœud.
 
 ::: warning NOTE
-Le bot de robinet du réseau de test n'est plus directement accessible au public en raison d'abus antérieurs.
-Il n'est disponible que pour l'équipe de développement et les membres éminents de la communauté.
-Pour recevoir du RPL de test, exécutez les commandes ci-dessous, indiquez vos intentions dans le canal.
-Soyez patient et quelqu'un accédera au robinet en votre nom.
+Tout le monde peut demander du RPL de test avec la commande ci-dessous.
+La demande affiche les boutons Approve et Deny.
+Seuls l'équipe de développement et les membres éminents de la communauté peuvent appuyer sur ces boutons.
+Soyez patient et quelqu'un ayant accès approuvera ou refusera la demande.
 :::
 
 ```
-!hoodiRpl <votre adresse de nœud hoodi>
+/faucet rpl
 ```
+
+Saisissez l'adresse de votre nœud Hoodi dans le champ `address`.
 
 Cela vous fournira 600 du token **RPL hérité (v1)**, qui est analogue au token RPL original sur le réseau principal.
 Rocket Pool utilise un **nouveau token RPL (v2)** qui prend en charge l'inflation utilisée pour récompenser les opérateurs de nœuds.
