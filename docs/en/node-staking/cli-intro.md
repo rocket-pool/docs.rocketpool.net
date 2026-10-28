@@ -125,16 +125,32 @@ This command shows you the current running status of each of the Docker containe
 For example, the default Docker install's output looks like this:
 
 ```
-        Name                       Command              State                                                       Ports
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-rocketpool_eth1         sh /setup/start-node.sh         Up      0.0.0.0:30303->30303/tcp,:::30303->30303/tcp, 0.0.0.0:30303->30303/udp,:::30303->30303/udp, 8545/tcp, 8546/tcp
-rocketpool_eth2         sh /setup/start-beacon.sh       Up      0.0.0.0:9001->9001/tcp,:::9001->9001/tcp, 0.0.0.0:9001->9001/udp,:::9001->9001/udp
-rocketpool_node         /go/bin/rocketpool node         Up
-rocketpool_validator    sh /setup/start-validator.sh    Up
-rocketpool_watchtower   /go/bin/rocketpool watchtower   Up
+Your Smart Node is currently using the Hoodi Testnet network.
+
+NAME                    IMAGE                                      COMMAND                  SERVICE         CREATED      STATUS      PORTS
+rocketpool_eth1         ghcr.io/paradigmxyz/reth:v2.8.1@sha256:…   "sh /setup/start-ec.…"   eth1            2 days ago   Up 2 days   0.0.0.0:30303->30303/tcp, [::]:30303->30303/tcp, 0.0.0.0:30303->30303/udp, [::]:30303->30303/udp
+rocketpool_eth2         consensys/teku:26.10.2@sha256:…            "sh /setup/start-bn.…"   eth2            2 days ago   Up 2 days   0.0.0.0:8001->8001/udp, [::]:8001->8001/udp, 0.0.0.0:9001->9001/tcp, [::]:9001->9001/tcp, 0.0.0.0:9001->9001/udp, [::]:9001->9001/udp
+rocketpool_exporter     prom/node-exporter:v1.12.1@sha256:…        "/bin/node_exporter …"   node-exporter   2 days ago   Up 2 days
+rocketpool_grafana      grafana/grafana:13.2.4@sha256:…            "/run.sh"                grafana         2 days ago   Up 2 days   3000/tcp, 0.0.0.0:3100->3100/tcp, [::]:3100->3100/tcp
+rocketpool_node         rocketpool/smartnode:v1.25.1@sha256:…      "/go/bin/rocketpool …"   node            2 days ago   Up 2 days   127.0.0.1:8280->8280/tcp
+rocketpool_prometheus   prom/prometheus:v3.15.1@sha256:…           "/bin/prometheus --w…"   prometheus      2 days ago   Up 2 days   9090/tcp
+rocketpool_validator    consensys/teku:26.10.2@sha256:…            "sh /setup/start-vc.…"   validator       2 days ago   Up 2 days   5051/tcp, 8008/tcp, 9000/tcp, 9000-9001/udp
+rocketpool_watchtower   rocketpool/smartnode:v1.25.1@sha256:…      "/go/bin/rocketpool …"   watchtower      2 days ago   Up 2 days
+
+Volume sizes:
+rocketpool_alertmanager-data  0B
+rocketpool_eth1clientdata     156.6GB
+rocketpool_eth2clientdata     429.3GB
+rocketpool_grafana-storage    3.279MB
+rocketpool_prometheus-data    2.133GB
 ```
 
 You can use it to quickly check if any of the Docker containers are having trouble, or to make sure that a `start` or `stop` command worked correctly.
+
+Starting with Smart Node v1.25.1, the command also lists how much disk space each Smart Node Docker volume uses, below the container table.
+For example, `rocketpool_eth1clientdata` holds your Execution client's chain data and `rocketpool_eth2clientdata` holds your Consensus client's.
+This is a quick way to see what is filling up your disk.
+Measuring the volumes can take a while on a node with a large database, so the list may show up a little later than the table.
 
 ### `start` and `stop`
 
@@ -156,6 +172,25 @@ If you simply do `rocketpool service logs` without any other arguments, it will 
 
 If you want to focus on one container's output, you can add an argument to the end to specify the container.
 Valid values are `eth1`, `eth2`, `validator`, `api`, `node`, `watchtower`, `prometheus`, `grafana`, and `node-exporter`.
+
+By default, it shows the last 100 lines and keeps following new output until you press `Ctrl+C`.
+To look at a specific time window instead, add `--since`, `--until`, or both.
+Both accept a timestamp (such as `2026-10-20T10:00:00Z`) or a relative time (such as `30m` for 30 minutes ago):
+
+```shell
+# Everything from the last 30 minutes, then keep following
+rocketpool service logs --since 30m eth2
+
+# A 5-minute window that started 3 hours ago, using relative times
+rocketpool service logs --since 3h --until 2h55m node
+
+# The same kind of window, using timestamps
+rocketpool service logs --since 2026-10-20T10:00:00Z --until 2026-10-20T10:05:00Z node
+```
+
+With either flag, you get every line in the window rather than only the last 100. With `--until`, the command prints the logs and exits instead of following them.
+Logs only go back to when the container was last created, which happens on every Smart Node update, and the oldest lines are removed once the logs grow large. A window further back than that shows nothing.
+These flags require Smart Node v1.25.1 or newer.
 
 ### `config`
 

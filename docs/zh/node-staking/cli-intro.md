@@ -124,16 +124,29 @@ GLOBAL OPTIONS:
 例如,默认 Docker 安装的输出如下所示:
 
 ```
-        Name                       Command              State                                                       Ports
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-rocketpool_eth1         sh /setup/start-node.sh         Up      0.0.0.0:30303->30303/tcp,:::30303->30303/tcp, 0.0.0.0:30303->30303/udp,:::30303->30303/udp, 8545/tcp, 8546/tcp
-rocketpool_eth2         sh /setup/start-beacon.sh       Up      0.0.0.0:9001->9001/tcp,:::9001->9001/tcp, 0.0.0.0:9001->9001/udp,:::9001->9001/udp
-rocketpool_node         /go/bin/rocketpool node         Up
-rocketpool_validator    sh /setup/start-validator.sh    Up
-rocketpool_watchtower   /go/bin/rocketpool watchtower   Up
+Your Smart Node is currently using the Hoodi Testnet network.
+
+NAME                    IMAGE                                      COMMAND                  SERVICE         CREATED      STATUS      PORTS
+rocketpool_eth1         ghcr.io/paradigmxyz/reth:v2.8.1@sha256:…   "sh /setup/start-ec.…"   eth1            2 days ago   Up 2 days   0.0.0.0:30303->30303/tcp, [::]:30303->30303/tcp, 0.0.0.0:30303->30303/udp, [::]:30303->30303/udp
+rocketpool_eth2         consensys/teku:26.10.2@sha256:…            "sh /setup/start-bn.…"   eth2            2 days ago   Up 2 days   0.0.0.0:8001->8001/udp, [::]:8001->8001/udp, 0.0.0.0:9001->9001/tcp, [::]:9001->9001/tcp, 0.0.0.0:9001->9001/udp, [::]:9001->9001/udp
+rocketpool_exporter     prom/node-exporter:v1.12.1@sha256:…        "/bin/node_exporter …"   node-exporter   2 days ago   Up 2 days
+rocketpool_grafana      grafana/grafana:13.2.4@sha256:…            "/run.sh"                grafana         2 days ago   Up 2 days   3000/tcp, 0.0.0.0:3100->3100/tcp, [::]:3100->3100/tcp
+rocketpool_node         rocketpool/smartnode:v1.25.1@sha256:…      "/go/bin/rocketpool …"   node            2 days ago   Up 2 days   127.0.0.1:8280->8280/tcp
+rocketpool_prometheus   prom/prometheus:v3.15.1@sha256:…           "/bin/prometheus --w…"   prometheus      2 days ago   Up 2 days   9090/tcp
+rocketpool_validator    consensys/teku:26.10.2@sha256:…            "sh /setup/start-vc.…"   validator       2 days ago   Up 2 days   5051/tcp, 8008/tcp, 9000/tcp, 9000-9001/udp
+rocketpool_watchtower   rocketpool/smartnode:v1.25.1@sha256:…      "/go/bin/rocketpool …"   watchtower      2 days ago   Up 2 days
+
+Volume sizes:
+rocketpool_alertmanager-data  0B
+rocketpool_eth1clientdata     156.6GB
+rocketpool_eth2clientdata     429.3GB
+rocketpool_grafana-storage    3.279MB
+rocketpool_prometheus-data    2.133GB
 ```
 
 您可以使用它快速检查任何 Docker 容器是否出现问题,或确保 `start` 或 `stop` 命令正确执行。
+
+从 Smart Node v1.25.1 开始,该命令还会在容器表格下方列出每个 Smart Node Docker 卷占用的磁盘空间。例如,`rocketpool_eth1clientdata` 保存您的 Execution 客户端的链数据,`rocketpool_eth2clientdata` 保存您的 Consensus 客户端的链数据。这是快速查看是什么占满了磁盘的方法。在数据库较大的节点上,计算卷大小可能需要一些时间,因此列表可能会比表格稍晚显示。
 
 ### `start` 和 `stop`
 
@@ -155,6 +168,21 @@ rocketpool_watchtower   /go/bin/rocketpool watchtower   Up
 
 如果您想专注于一个容器的输出,可以在末尾添加一个参数来指定容器。
 有效值为 `eth1`、`eth2`、`validator`、`api`、`node`、`watchtower`、`prometheus`、`grafana` 和 `node-exporter`。
+
+默认情况下,它会显示最后 100 行,并持续跟踪新的输出,直到您按下 `Ctrl+C`。如果要查看特定时间段,请添加 `--since`、`--until` 或两者。两者都接受时间戳(例如 `2026-10-20T10:00:00Z`)或相对时间(例如 `30m` 表示 30 分钟前):
+
+```shell
+# 显示最近 30 分钟的全部日志,然后继续跟踪
+rocketpool service logs --since 30m eth2
+
+# 使用相对时间:从 3 小时前开始的 5 分钟时间段
+rocketpool service logs --since 3h --until 2h55m node
+
+# 同类时间段,使用时间戳
+rocketpool service logs --since 2026-10-20T10:00:00Z --until 2026-10-20T10:05:00Z node
+```
+
+使用任一标志时,您会看到该时间段内的所有行,而不仅仅是最后 100 行。使用 `--until` 时,命令会输出日志后退出,而不会继续跟踪。日志只能追溯到容器上次创建的时间(每次更新 Smart Node 都会重新创建容器),并且日志变大时最旧的行会被删除。早于此的时间段不会显示任何内容。这些标志需要 Smart Node v1.25.1 或更高版本。
 
 ### `config`
 

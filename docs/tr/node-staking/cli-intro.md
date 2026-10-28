@@ -125,16 +125,32 @@ Bu komut, Rocket Pool tarafından yönetilen her bir Docker konteynerinin mevcut
 Örneğin, varsayılan Docker kurulumunun çıktısı şöyle görünür:
 
 ```
-        Name                       Command              State                                                       Ports
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-rocketpool_eth1         sh /setup/start-node.sh         Up      0.0.0.0:30303->30303/tcp,:::30303->30303/tcp, 0.0.0.0:30303->30303/udp,:::30303->30303/udp, 8545/tcp, 8546/tcp
-rocketpool_eth2         sh /setup/start-beacon.sh       Up      0.0.0.0:9001->9001/tcp,:::9001->9001/tcp, 0.0.0.0:9001->9001/udp,:::9001->9001/udp
-rocketpool_node         /go/bin/rocketpool node         Up
-rocketpool_validator    sh /setup/start-validator.sh    Up
-rocketpool_watchtower   /go/bin/rocketpool watchtower   Up
+Your Smart Node is currently using the Hoodi Testnet network.
+
+NAME                    IMAGE                                      COMMAND                  SERVICE         CREATED      STATUS      PORTS
+rocketpool_eth1         ghcr.io/paradigmxyz/reth:v2.8.1@sha256:…   "sh /setup/start-ec.…"   eth1            2 days ago   Up 2 days   0.0.0.0:30303->30303/tcp, [::]:30303->30303/tcp, 0.0.0.0:30303->30303/udp, [::]:30303->30303/udp
+rocketpool_eth2         consensys/teku:26.10.2@sha256:…            "sh /setup/start-bn.…"   eth2            2 days ago   Up 2 days   0.0.0.0:8001->8001/udp, [::]:8001->8001/udp, 0.0.0.0:9001->9001/tcp, [::]:9001->9001/tcp, 0.0.0.0:9001->9001/udp, [::]:9001->9001/udp
+rocketpool_exporter     prom/node-exporter:v1.12.1@sha256:…        "/bin/node_exporter …"   node-exporter   2 days ago   Up 2 days
+rocketpool_grafana      grafana/grafana:13.2.4@sha256:…            "/run.sh"                grafana         2 days ago   Up 2 days   3000/tcp, 0.0.0.0:3100->3100/tcp, [::]:3100->3100/tcp
+rocketpool_node         rocketpool/smartnode:v1.25.1@sha256:…      "/go/bin/rocketpool …"   node            2 days ago   Up 2 days   127.0.0.1:8280->8280/tcp
+rocketpool_prometheus   prom/prometheus:v3.15.1@sha256:…           "/bin/prometheus --w…"   prometheus      2 days ago   Up 2 days   9090/tcp
+rocketpool_validator    consensys/teku:26.10.2@sha256:…            "sh /setup/start-vc.…"   validator       2 days ago   Up 2 days   5051/tcp, 8008/tcp, 9000/tcp, 9000-9001/udp
+rocketpool_watchtower   rocketpool/smartnode:v1.25.1@sha256:…      "/go/bin/rocketpool …"   watchtower      2 days ago   Up 2 days
+
+Volume sizes:
+rocketpool_alertmanager-data  0B
+rocketpool_eth1clientdata     156.6GB
+rocketpool_eth2clientdata     429.3GB
+rocketpool_grafana-storage    3.279MB
+rocketpool_prometheus-data    2.133GB
 ```
 
 Bunu Docker konteynerlerinden herhangi birinin sorun yaşayıp yaşamadığını hızlıca kontrol etmek veya bir `start` veya `stop` komutunun doğru çalıştığından emin olmak için kullanabilirsiniz.
+
+Smart Node v1.25.1'den itibaren komut, konteyner tablosunun altında her Smart Node Docker biriminin ne kadar disk alanı kullandığını da gösterir.
+Örneğin `rocketpool_eth1clientdata` Execution istemcinizin zincir verilerini, `rocketpool_eth2clientdata` ise Consensus istemcinizinkileri tutar.
+Diskinizi neyin doldurduğunu hızlıca görmenin bir yoludur.
+Büyük bir veritabanına sahip bir node'da birimleri ölçmek biraz zaman alabilir, bu yüzden liste tablodan biraz sonra görünebilir.
 
 ### `start` ve `stop`
 
@@ -156,6 +172,25 @@ Eğer başka argüman olmadan sadece `rocketpool service logs` yaparsanız, tüm
 
 Bir konteynerin çıktısına odaklanmak istiyorsanız, konteyneri belirtmek için sonuna bir argüman ekleyebilirsiniz.
 Geçerli değerler: `eth1`, `eth2`, `validator`, `api`, `node`, `watchtower`, `prometheus`, `grafana` ve `node-exporter`.
+
+Varsayılan olarak son 100 satırı gösterir ve siz `Ctrl+C` tuşlarına basana kadar yeni çıktıyı izlemeye devam eder.
+Belirli bir zaman aralığına bakmak için `--since`, `--until` veya ikisini birden ekleyin.
+İkisi de bir zaman damgası (örneğin `2026-10-20T10:00:00Z`) veya göreli bir süre (örneğin 30 dakika önce için `30m`) kabul eder:
+
+```shell
+# Son 30 dakikadaki her şey, ardından izlemeye devam et
+rocketpool service logs --since 30m eth2
+
+# 3 saat önce başlayan 5 dakikalık bir aralık, göreli sürelerle
+rocketpool service logs --since 3h --until 2h55m node
+
+# Aynı türden bir aralık, zaman damgalarıyla
+rocketpool service logs --since 2026-10-20T10:00:00Z --until 2026-10-20T10:05:00Z node
+```
+
+Bu flag'lerden herhangi biriyle yalnızca son 100 satırı değil, aralıktaki her satırı görürsünüz. `--until` ile komut logları yazdırır ve izlemeye devam etmek yerine çıkar.
+Loglar yalnızca konteynerin en son oluşturulduğu zamana kadar gider; bu, her Smart Node güncellemesinde olur. Loglar büyüdüğünde en eski satırlar silinir. Bundan daha eski bir aralık hiçbir şey göstermez.
+Bu flag'ler Smart Node v1.25.1 veya daha yenisini gerektirir.
 
 ### `config`
 

@@ -125,16 +125,32 @@ GLOBAL OPTIONS:
 예를 들어, 기본 Docker 설치의 출력은 다음과 같습니다:
 
 ```
-        Name                       Command              State                                                       Ports
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-rocketpool_eth1         sh /setup/start-node.sh         Up      0.0.0.0:30303->30303/tcp,:::30303->30303/tcp, 0.0.0.0:30303->30303/udp,:::30303->30303/udp, 8545/tcp, 8546/tcp
-rocketpool_eth2         sh /setup/start-beacon.sh       Up      0.0.0.0:9001->9001/tcp,:::9001->9001/tcp, 0.0.0.0:9001->9001/udp,:::9001->9001/udp
-rocketpool_node         /go/bin/rocketpool node         Up
-rocketpool_validator    sh /setup/start-validator.sh    Up
-rocketpool_watchtower   /go/bin/rocketpool watchtower   Up
+Your Smart Node is currently using the Hoodi Testnet network.
+
+NAME                    IMAGE                                      COMMAND                  SERVICE         CREATED      STATUS      PORTS
+rocketpool_eth1         ghcr.io/paradigmxyz/reth:v2.8.1@sha256:…   "sh /setup/start-ec.…"   eth1            2 days ago   Up 2 days   0.0.0.0:30303->30303/tcp, [::]:30303->30303/tcp, 0.0.0.0:30303->30303/udp, [::]:30303->30303/udp
+rocketpool_eth2         consensys/teku:26.10.2@sha256:…            "sh /setup/start-bn.…"   eth2            2 days ago   Up 2 days   0.0.0.0:8001->8001/udp, [::]:8001->8001/udp, 0.0.0.0:9001->9001/tcp, [::]:9001->9001/tcp, 0.0.0.0:9001->9001/udp, [::]:9001->9001/udp
+rocketpool_exporter     prom/node-exporter:v1.12.1@sha256:…        "/bin/node_exporter …"   node-exporter   2 days ago   Up 2 days
+rocketpool_grafana      grafana/grafana:13.2.4@sha256:…            "/run.sh"                grafana         2 days ago   Up 2 days   3000/tcp, 0.0.0.0:3100->3100/tcp, [::]:3100->3100/tcp
+rocketpool_node         rocketpool/smartnode:v1.25.1@sha256:…      "/go/bin/rocketpool …"   node            2 days ago   Up 2 days   127.0.0.1:8280->8280/tcp
+rocketpool_prometheus   prom/prometheus:v3.15.1@sha256:…           "/bin/prometheus --w…"   prometheus      2 days ago   Up 2 days   9090/tcp
+rocketpool_validator    consensys/teku:26.10.2@sha256:…            "sh /setup/start-vc.…"   validator       2 days ago   Up 2 days   5051/tcp, 8008/tcp, 9000/tcp, 9000-9001/udp
+rocketpool_watchtower   rocketpool/smartnode:v1.25.1@sha256:…      "/go/bin/rocketpool …"   watchtower      2 days ago   Up 2 days
+
+Volume sizes:
+rocketpool_alertmanager-data  0B
+rocketpool_eth1clientdata     156.6GB
+rocketpool_eth2clientdata     429.3GB
+rocketpool_grafana-storage    3.279MB
+rocketpool_prometheus-data    2.133GB
 ```
 
 Docker 컨테이너에 문제가 있는지 빠르게 확인하거나 `start` 또는 `stop` 명령이 올바르게 작동했는지 확인하는 데 사용할 수 있습니다.
+
+Smart Node v1.25.1부터 이 명령은 컨테이너 표 아래에 각 Smart Node Docker 볼륨이 사용하는 디스크 공간도 표시합니다.
+예를 들어 `rocketpool_eth1clientdata`에는 Execution client의 체인 데이터가, `rocketpool_eth2clientdata`에는 Consensus client의 체인 데이터가 들어 있습니다.
+무엇이 디스크를 채우고 있는지 빠르게 확인할 수 있습니다.
+데이터베이스가 큰 노드에서는 볼륨 크기를 측정하는 데 시간이 걸릴 수 있으므로, 목록이 표보다 조금 늦게 나타날 수 있습니다.
 
 ### `start`와 `stop`
 
@@ -156,6 +172,25 @@ Docker 컨테이너에 문제가 있는지 빠르게 확인하거나 `start` 또
 
 한 컨테이너의 출력에 집중하려면 컨테이너를 지정하는 인수를 끝에 추가할 수 있습니다.
 유효한 값은 `eth1`, `eth2`, `validator`, `api`, `node`, `watchtower`, `prometheus`, `grafana`, `node-exporter`입니다.
+
+기본적으로 마지막 100줄을 표시하고, `Ctrl+C`를 누를 때까지 새 출력을 계속 따라갑니다.
+특정 시간대를 보려면 `--since`, `--until` 또는 둘 다를 추가하세요.
+둘 다 타임스탬프(예: `2026-10-20T10:00:00Z`) 또는 상대 시간(예: 30분 전을 뜻하는 `30m`)을 받습니다:
+
+```shell
+# 최근 30분간의 모든 로그를 보고 계속 따라가기
+rocketpool service logs --since 30m eth2
+
+# 3시간 전에 시작된 5분 구간, 상대 시간 사용
+rocketpool service logs --since 3h --until 2h55m node
+
+# 같은 종류의 구간, 타임스탬프 사용
+rocketpool service logs --since 2026-10-20T10:00:00Z --until 2026-10-20T10:05:00Z node
+```
+
+두 플래그 중 하나라도 사용하면 마지막 100줄만이 아니라 해당 구간의 모든 줄이 표시됩니다. `--until`을 사용하면 로그를 출력한 뒤 계속 따라가지 않고 종료합니다.
+로그는 컨테이너가 마지막으로 생성된 시점까지만 남아 있으며(Smart Node를 업데이트할 때마다 다시 생성됩니다), 로그가 커지면 가장 오래된 줄부터 삭제됩니다. 그보다 이전 구간을 지정하면 아무것도 표시되지 않습니다.
+이 플래그들은 Smart Node v1.25.1 이상이 필요합니다.
 
 ### `config`
 
