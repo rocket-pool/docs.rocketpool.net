@@ -12,14 +12,14 @@
     "format": "oxfmt --write ."
   },
   "dependencies": {
-    "@rspress/core": "^2.0.23"
+    "@rspress/core": "^2.1.0"
   },
   "devDependencies": {
     "@headlessui/react": "^2.2.10",
     "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "oxfmt": "^0.75.0",
+    "oxfmt": "^0.76.0",
     "oxlint": "^1.90.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
