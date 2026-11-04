@@ -32,3 +32,5 @@ Use este guia se você já tem uma carteira de nó que deseja recuperar no seu n
 [Distribuidores de Taxa e a Smoothing Pool](../fee-distrib-sp) discutem a forma como as recompensas da camada Execution são fornecidas ao seu nó toda vez que um de seus validadores propõe um bloco, como coletar essas recompensas, e descreve a **Smoothing Pool** do Rocket Pool - um recurso popular que combina recompensas da camada Execution de todos e as distribui uniformemente durante os intervalos de recompensas regulares do Rocket Pool.
 
 [MEV, MEV-Boost e Recompensas MEV](../mev.mdx) explica **Maximum-Extractable Value** (MEV), seu papel no ecossistema de staking, e como você pode configurá-lo ao seu gosto usando o Smart Node.
+
+[Commit-Boost](../commit-boost.mdx) aborda o Commit-Boost, uma alternativa ao MEV-Boost que você pode habilitar no Smart Node em seu lugar.

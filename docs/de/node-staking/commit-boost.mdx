@@ -1,0 +1,273 @@
+import { Tab, Tabs } from "@rspress/core/theme";
+import tui_epbs from "./images/tui-epbs.png";
+import tui_commit_boost from "./images/tui-commit-boost.png";
+import tui_enable_commit_boost from "./images/tui-enable-commit-boost.png";
+
+
+# Commit-Boost
+
+Commit-Boost ist ein quelloffener, von der Community getragener Validator-Sidecar, der als Alternative zu MEV-Boost für Proposer-Builder Separation (PBS) dient.
+Neben dem Block Building unterstützt Commit-Boost auch Protokolle für Proposer Commitments, etwa Preconfirmations und Inclusion Lists.
+Der Smart Node führt derzeit nur das PBS-Modul (Block Building) von Commit-Boost aus, daher sind diese zusätzlichen Protokolle über den Smart Node noch nicht verfügbar.
+Wenn Sie neu bei MEV und PBS sind, empfehlen wir, zuerst die Seite [MEV, MEV-Boost & MEV-Belohnungen](./mev) als Hintergrund zu lesen.
+
+## Was ist Commit-Boost?
+
+Commit-Boost ist ein direkter Ersatz für MEV-Boost mit zusätzlichen Funktionen. Sein Hauptziel ist es, die Kommunikation zwischen Ethereum-Validatoren und Drittanbieter-Protokollen zu standardisieren.
+
+- Verwendet dieselbe Builder API wie MEV-Boost (Standardport 18550), sodass Ihr Beacon Node mit ihm genauso kommuniziert wie mit MEV-Boost.
+- Verbindet sich mit MEV-Relays und übernimmt das Block Building, genau wie MEV-Boost.
+- Unterstützt ein modulares Plugin-System für kommende Commitment-Protokolle.
+- Bietet Entwicklern eine einheitliche API für die Interaktion mit Validatoren.
+
+Commit-Boost ist [Open Source](https://github.com/Commit-Boost/commit-boost-client) und wurde im Dezember 2024 von Sigma Prime [auditiert](https://github.com/Commit-Boost/commit-boost-client/blob/main/audit/Sigma_Prime_Commit_Boost_Client_Security_Assessment_Report_v2_0.pdf).
+
+## Commit-Boost vs. MEV-Boost
+
+Sowohl Commit-Boost als auch MEV-Boost wickeln PBS über den Builder-Marktplatz und die MEV-Relay-Infrastruktur ab. So unterscheiden sie sich:
+
+| Merkmal | MEV-Boost | Commit-Boost |
+|---------|-----------|--------------|
+| **Zweck** | Nur PBS | PBS + erweiterbare, modulare Plattform |
+| **Maintainer** | Flashbots | Community / Commit-Boost-Team |
+| **Zukünftige Protokolle** | Statisch | Plugin-System für Drittanbieter-Protokolle (über den Smart Node noch nicht verfügbar) |
+| **Verfügbare Relays (Mainnet)** | 8 Relays | 5 Relays (nur OFAC-filternd) |
+
+Aus Sicht des Smart Node verbinden sich beide auf identische Weise mit Ihrem Beacon Node. Commit-Boost ist zukunftsorientiert, da Ethereum neue Proposer-Commitment-Funktionen wie Preconfirmations hinzufügt.
+
+:::tip HINWEIS
+Sie können MEV-Boost und Commit-Boost nicht gleichzeitig betreiben. Der Smart Node setzt dies beim Speichern Ihrer Konfiguration im TUI durch.
+:::
+
+## Verfügbare Relays
+
+Diese Relays sind in Commit-Boost verfügbar:
+
+| Name | Regulierung | Netzwerke | MEV-Typen |
+|------|-----------|----------|-----------|
+| [Flashbots](https://boost.flashbots.net/) | Entspricht OFAC-Sanktionen* | Mainnet, Hoodi | Alle Typen |
+| [bloXroute Regulated](https://docs.bloxroute.com/eth/block-builders-and-validators/mev-relay-for-validators) | Entspricht OFAC-Sanktionen* | Mainnet, Hoodi | Alle Typen |
+| [Titan Regional](https://docs.titanrelay.xyz/) | Entspricht OFAC-Sanktionen* | Nur Mainnet | Alle Typen |
+| [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/) | Entspricht OFAC-Sanktionen* | Nur Mainnet | Alle Typen |
+| BTCS OFAC+ | Entspricht OFAC-Sanktionen* | Nur Mainnet | Alle Typen |
+| [AESTUS](https://aestus.live/) | Unreguliert | Nur Hoodi | Alle Typen |
+| [Titan Global](https://docs.titanrelay.xyz/) | Unreguliert | Nur Hoodi | Alle Typen |
+
+:::warning HINWEIS
+\*Relays, die OFAC-Sanktionen entsprechen, folgen der Blacklist von Adressen, die das United States Office of Foreign Assets Control (OFAC) führt.
+Wir **empfehlen dringend**, mehr über OFAC-Sanktionen und Netzwerkzensur zu lesen und eine sorgfältig informierte Entscheidung darüber zu treffen, welche Relays Sie verwenden möchten.
+
+Weitere Informationen finden Sie auf der [MEV-Seite](./mev#block-builders-und-relays).
+:::
+
+:::warning WICHTIG
+Im Mainnet unterstützt Commit-Boost im Smart Node **weniger Relays** als MEV-Boost. Konkret enthält Commit-Boost im Mainnet **nicht**:
+- Ultra Sound (nicht filternd)
+- Aestus
+- Titan Global (nicht filternd)
+
+Alle im Mainnet für Commit-Boost verfügbaren Relays sind regulierte/filternde Versionen, die OFAC-Sanktionen entsprechen. Wenn Sie Zugang zu unregulierten Relays benötigen, sollten Sie weiterhin MEV-Boost statt Commit-Boost verwenden.
+:::
+
+
+## Belohnungen und APY
+
+Commit-Boost liefert ähnliche Belohnungen wie MEV-Boost.
+Da Commit-Boost im Mainnet nur regulierte Relays unterstützt, können Ihre MEV-Belohnungen im Vergleich zu MEV-Boost leicht abweichen, wenn Sie zuvor unregulierte Relays verwendet haben.
+
+In Zukunft könnten Proposer-Commitment-Protokolle wie Preconfirmations und Inclusion Lists zusätzliche Erträge zu den normalen MEV-Belohnungen beisteuern.
+
+
+## Commit-Boost im Smart Node konfigurieren
+
+Wählen Sie unten Ihren Modus, um zu erfahren, wie Sie Commit-Boost konfigurieren:
+
+<div className="p-3">
+  <Tabs>
+    <Tab label="Docker Mode">
+      Mit dem Konfigurations-TUI des Smart Node lässt sich Commit-Boost ganz einfach konfigurieren.
+
+      Führen Sie zunächst `rocketpool service config` aus und wählen Sie die Kategorie `ePBS`:
+
+      <img src={tui_epbs} width="100%" height="auto"/>
+
+      Wählen Sie dann `Commit-Boost`:
+
+      <img src={tui_commit_boost} width="100%" height="auto"/>
+
+      Aktivieren Sie das Kontrollkästchen mit der Bezeichnung `Enable Commit-Boost`, um es zu aktivieren.
+
+      <img src={tui_enable_commit_boost} width="100%" height="auto"/>
+
+      :::tip HINWEIS
+      Wenn MEV-Boost derzeit aktiviert ist, müssen Sie es deaktivieren, bevor Sie speichern und das TUI verlassen. Der Smart Node erlaubt nicht, dass beide gleichzeitig aktiviert sind.
+      :::
+
+      Nach der Aktivierung sehen Sie mehrere Konfigurationsoptionen:
+
+      **Commit-Boost Mode**
+      - **Locally Managed** (empfohlen): Der Smart Node betreibt und verwaltet den Commit-Boost-Container für Sie.
+      - **Externally Managed**: Verwenden Sie eine Commit-Boost-Instanz, die Sie selbst verwalten. Geben Sie ihre Adresse im Feld **External URL** ein (z. B. `http://192.168.1.10:18550`). Keine der folgenden Einstellungen gilt in diesem Modus.
+
+      :::warning HINWEIS
+      Wenn Sie Ihre eigene Commit-Boost-Instanz betreiben, **müssen** Sie sich nur bei den oben aufgeführten vertrauenswürdigen Relays registrieren. Die Verwendung nicht vertrauenswürdiger Relays kann zu Strafen durch das Oracle DAO führen.
+      :::
+
+      **Bei Verwendung des Modus Locally Managed:**
+
+      **Relay Selection Mode**
+      - **Use All Relays**: Aktiviert automatisch alle Relays, die für Ihr aktuelles Netzwerk (Mainnet oder Testnet) verfügbar sind. Dies ist die einfachste Option.
+      - **Manual Mode**: Zeigt für jedes verfügbare Relay ein eigenes Kontrollkästchen an, sodass Sie genau auswählen können, welche Relays Sie verwenden.
+
+      **Custom Relays**: Fügen Sie benutzerdefinierte Relay-URLs (durch Kommas getrennt) hinzu, wenn Sie Relays verwenden möchten, die nicht in der Standardliste enthalten sind. Fügen Sie nur Relays aus der obigen vertrauenswürdigen Liste hinzu; die Verwendung nicht vertrauenswürdiger Relays kann zu Strafen durch das Oracle DAO führen.
+
+      **Port**: Standard `18550` (wie bei MEV-Boost). Normalerweise müssen Sie dies nicht ändern.
+
+      **Expose API Port**:
+      - **Closed** (empfohlen): Die API ist nur innerhalb des Docker-Netzwerks erreichbar
+      - **Open to Localhost**: Die API ist über localhost erreichbar
+      - **Open to External hosts**: Die API ist von externen Maschinen aus erreichbar. Wählen Sie dies nur, wenn Sie externen Zugriff benötigen *und* die richtigen Schritte befolgt haben, um Ihren Node vor unerwünschtem Datenverkehr zu schützen: [Securing Your Node](./securing-your-node)
+
+      **Container Tag**: Das Docker-Image-Tag für Commit-Boost. Der Smart Node legt den Standardwert fest und aktualisiert ihn mit jedem Release. Sie können ihn manuell ändern, wenn eine neue Version erscheint, bevor der Smart Node aktualisiert wird.
+
+      Wenn Sie Commit-Boost konfiguriert und Ihre Relays ausgewählt haben, speichern Sie und beenden Sie das TUI. Der Smart Node startet die betroffenen Container neu und konfiguriert Ihren Beacon Node und Validator Client automatisch für die Verwendung von Commit-Boost.
+
+      Anweisungen zur Überprüfung, ob alles korrekt funktioniert, finden Sie unten.
+    </Tab>
+    <Tab label="Hybrid Mode">
+      Mit dem Konfigurations-TUI des Smart Node lässt sich Commit-Boost ganz einfach konfigurieren.
+
+      Führen Sie zunächst `rocketpool service config` aus und wählen Sie die Kategorie `ePBS`:
+
+      <img src={tui_epbs} width="100%" height="auto"/>
+
+      Wählen Sie dann `Commit-Boost`:
+
+      <img src={tui_commit_boost} width="100%" height="auto"/>
+
+      Aktivieren Sie das Kontrollkästchen mit der Bezeichnung `Enable Commit-Boost`, um es zu aktivieren.
+
+      <img src={tui_enable_commit_boost} width="100%" height="auto"/>
+
+      :::tip HINWEIS
+      Wenn MEV-Boost derzeit aktiviert ist, müssen Sie es deaktivieren, bevor Sie speichern und das TUI verlassen. Der Smart Node erlaubt nicht, dass beide gleichzeitig aktiviert sind.
+      :::
+
+      Nach der Aktivierung sehen Sie mehrere Konfigurationsoptionen:
+
+      **Commit-Boost Mode**
+
+      Hier legen Sie fest, ob der Smart Node Commit-Boost für Sie verwaltet oder ob Sie Ihre eigene Instanz betreiben:
+      - **Locally Managed** (empfohlen): Der Smart Node betreibt und verwaltet den Commit-Boost-Container für Sie. Manche Benutzer ziehen es vor, Rocket Pool seine eigene Commit-Boost-Instanz verwalten zu lassen und ihre extern verwalteten Beacon Nodes damit zu verbinden.
+      - **Externally Managed**: Verwenden Sie dies, wenn Ihr extern verwalteter Beacon Node bereits mit seiner eigenen Commit-Boost- (oder MEV-Boost-)Instanz verbunden ist. Es gibt keine URL einzugeben: Der Smart Node aktiviert nur die Builder-Flags in seinem Validator Client, und Sie müssen den Builder-Endpunkt in der Konfiguration Ihres eigenen Beacon Node aktivieren. Andernfalls können Sie möglicherweise keine Blöcke veröffentlichen und verpassen erhebliche Belohnungen.
+
+      :::warning HINWEIS
+      Wenn Sie Ihre eigene Commit-Boost-Instanz betreiben, **müssen** Sie sich nur bei den oben aufgeführten vertrauenswürdigen Relays registrieren. Die Verwendung nicht vertrauenswürdiger Relays kann zu Strafen durch das Oracle DAO führen.
+      :::
+
+      **Bei Verwendung des Modus Locally Managed** (für die meisten Benutzer empfohlen):
+
+      **Relay Selection Mode**
+      - **Use All Relays**: Aktiviert automatisch alle Relays, die für Ihr aktuelles Netzwerk (Mainnet oder Testnet) verfügbar sind. Dies ist die einfachste Option.
+      - **Manual Mode**: Zeigt für jedes verfügbare Relay ein eigenes Kontrollkästchen an, sodass Sie genau auswählen können, welche Relays Sie verwenden.
+
+      **Custom Relays**: Fügen Sie benutzerdefinierte Relay-URLs (durch Kommas getrennt) hinzu, wenn Sie Relays verwenden möchten, die nicht in der Standardliste enthalten sind. Fügen Sie nur Relays aus der obigen vertrauenswürdigen Liste hinzu; die Verwendung nicht vertrauenswürdiger Relays kann zu Strafen durch das Oracle DAO führen.
+
+      **Port**: Standard `18550` (wie bei MEV-Boost). Normalerweise müssen Sie dies nicht ändern.
+
+      **Expose API Port**: Diese Einstellung **sollte vom Standardwert geändert werden**, damit Ihr extern verwalteter Beacon Node mit der von Rocket Pool verwalteten Commit-Boost-Instanz kommunizieren kann.
+      - **Closed** (Standard): Die API ist nur innerhalb des Docker-Netzwerks erreichbar
+      - **Open to Localhost**: Die API ist über localhost erreichbar. Wählen Sie dies, wenn Ihr extern verwalteter BN auf derselben Maschine läuft.
+      - **Open to External hosts**: Die API ist von externen Maschinen aus erreichbar. Wählen Sie dies nur, wenn Ihr extern verwalteter BN auf einer anderen Maschine läuft *und* Sie die richtigen Schritte befolgt haben, um Ihren Node vor unerwünschtem Datenverkehr zu schützen: [Securing Your Node](./securing-your-node)
+
+      **Container Tag**: Das Docker-Image-Tag für Commit-Boost. Der Smart Node legt den Standardwert fest und aktualisiert ihn mit jedem Release. Sie können ihn manuell ändern, wenn eine neue Version erscheint, bevor der Smart Node aktualisiert wird.
+
+      **Bei Verwendung des Modus Externally Managed**:
+
+      Es gibt keine weiteren Einstellungen auszufüllen. Relay-Auswahl, Port und die übrigen Optionen gelten nicht, da Sie Commit-Boost (und die Verbindung Ihres Beacon Node dazu) selbst verwalten.
+
+      Wenn Sie Commit-Boost konfiguriert und Ihre Relays ausgewählt haben, speichern Sie und beenden Sie das TUI.
+
+      **Ihren Beacon Node konfigurieren (Modus Locally Managed)**: Sie müssen Ihren extern verwalteten Beacon Node manuell so konfigurieren, dass er sich mit der Commit-Boost-Instanz des Smart Node verbindet. Setzen Sie den Builder-Endpunkt Ihres Beacon Node auf `http://localhost:18550` (oder verwenden Sie die passende IP, wenn Ihr BN auf einer anderen Maschine läuft). Das genaue Flag zum Aktivieren des Builder-Endpunkts finden Sie in der Dokumentation Ihres Beacon Clients.
+
+      Der Smart Node konfiguriert Ihren Validator Client automatisch mit den nötigen Builder-Flags, wenn Sie Commit-Boost aktivieren.
+
+      :::tip HINWEIS
+      Sie **müssen dies möglicherweise in Ihrer UFW-Konfiguration erlauben**, wenn Sie die Firewall aktiviert haben.
+      :::
+
+      Anweisungen zur Überprüfung, ob alles korrekt funktioniert, finden Sie unten.
+    </Tab>
+    <Tab label="Native Mode">
+
+      Benutzer im Native Mode, die Commit-Boost verwenden möchten, müssen es manuell außerhalb des Smart Node einrichten:
+
+      Anweisungen zur Installation und Konfiguration finden Sie in der [offiziellen Commit-Boost-Dokumentation](https://commit-boost.github.io/commit-boost-client/).
+
+      :::warning HINWEIS
+      Wenn Sie Ihre eigene Commit-Boost-Instanz betreiben, **müssen** Sie sich nur bei den oben aufgeführten vertrauenswürdigen Relays registrieren. Die Verwendung nicht vertrauenswürdiger Relays kann zu Strafen durch das Oracle DAO führen.
+      :::
+    </Tab>
+  </Tabs>
+</div>
+
+## Logs prüfen und Funktion überprüfen
+
+Nachdem Sie Commit-Boost aktiviert haben, können Sie anhand der Logs überprüfen, ob es korrekt läuft:
+
+```bash
+rocketpool service logs commit-boost
+```
+
+Sie sollten eine ähnliche Log-Ausgabe wie diese sehen, die erfolgreiche Validator-Registrierungen bei den Relays zeigt:
+
+```
+rocketpool_commit-boost  | 2026-05-21T03:06:11.039761Z  INFO : new request ua="nim-presto/0.0.3 (amd64/linux)" num_registrations=7 method=/eth/v1/builder/validators req_id=dcbb5e96-709b-4e0f-b336-cca37eb81d6b
+rocketpool_commit-boost  | 2026-05-21T03:06:11.587846Z  INFO : register validator successful method=/eth/v1/builder/validators req_id=dcbb5e96-709b-4e0f-b336-cca37eb81d6b
+rocketpool_commit-boost  | 2026-05-21T03:06:11.587862Z  INFO : Responded with 200 OK in 548 ms method=/eth/v1/builder/validators req_id=dcbb5e96-709b-4e0f-b336-cca37eb81d6b
+rocketpool_commit-boost  | 2026-05-21T03:12:35.037766Z  INFO : new request ua="nim-presto/0.0.3 (amd64/linux)" num_registrations=7 method=/eth/v1/builder/validators req_id=b47edad9-be4d-4a7f-b0d0-6c7ef4808629
+rocketpool_commit-boost  | 2026-05-21T03:12:35.642706Z  INFO : register validator successful method=/eth/v1/builder/validators req_id=b47edad9-be4d-4a7f-b0d0-6c7ef4808629
+rocketpool_commit-boost  | 2026-05-21T03:12:35.642721Z  INFO : Responded with 200 OK in 604 ms method=/eth/v1/builder/validators req_id=b47edad9-be4d-4a7f-b0d0-6c7ef4808629
+```
+
+Worauf Sie in den Logs achten sollten:
+- Einträge mit `new request`, die zeigen, dass sich Ihr Validator Client mit Commit-Boost verbindet
+- `register validator successful`, was bestätigt, dass Ihre Validatoren bei den Relays registriert sind
+- Antworten mit `200 OK`, die eine erfolgreiche Kommunikation anzeigen
+
+Sie können auch mit folgendem Befehl überprüfen, ob Commit-Boost läuft:
+
+```bash
+rocketpool service version
+```
+Gegen Ende der Ausgabe sollten Sie Folgendes sehen:
+
+```
+MEV-Boost client: Disabled
+Commit-Boost client: Enabled (Local Mode)
+	Image: ghcr.io/commit-boost/commit-boost:<version>
+```
+
+Wenn Sie eine extern verwaltete Instanz verwenden, wird stattdessen `Enabled (External Mode)` angezeigt.
+
+## Von MEV-Boost zu Commit-Boost wechseln
+
+Der Wechsel von MEV-Boost zu Commit-Boost ist unkompliziert:
+
+1. Führen Sie `rocketpool service config` aus
+2. Wählen Sie die Kategorie **ePBS**, dann **MEV-Boost**, und deaktivieren Sie `Enable MEV-Boost`
+3. Gehen Sie zurück zur Kategorie **ePBS**, wählen Sie **Commit-Boost** und aktivieren Sie `Enable Commit-Boost`
+4. Konfigurieren Sie Ihre Relay-Einstellungen
+5. Speichern und beenden Sie
+
+Den Rest erledigt der Smart Node. Ihr Beacon Node wird automatisch so aktualisiert, dass er Commit-Boost statt MEV-Boost verwendet.
+
+:::tip HINWEIS
+Beim Wechsel wird Ihr Beacon Node neu gestartet, sodass Ihre Validatoren möglicherweise ein oder zwei Attestierungen verpassen, bis er wieder läuft. Wechseln Sie nicht kurz vor einem geplanten Proposal.
+:::
+
+## Weitere Ressourcen
+
+- [Offizielle Commit-Boost-Dokumentation](https://commit-boost.github.io/commit-boost-client/)
+- [Commit-Boost-GitHub-Repository](https://github.com/Commit-Boost/commit-boost-client)
+- [MEV und PBS verstehen](./mev)

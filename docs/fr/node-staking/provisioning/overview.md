@@ -32,3 +32,5 @@ Utilisez ce guide si vous avez déjà un portefeuille de nœud que vous souhaite
 [Fee Distributors and the Smoothing Pool](../fee-distrib-sp) discutent de la façon dont les récompenses de la couche d'exécution sont fournies à votre nœud chaque fois qu'un de vos validateurs propose un bloc, comment collecter ces récompenses, et décrit la **Smoothing Pool** de Rocket Pool - une fonctionnalité populaire qui combine les récompenses de la couche d'exécution de tout le monde et les distribue uniformément lors des intervalles de récompenses réguliers de Rocket Pool.
 
 [MEV, MEV-Boost, and MEV Rewards](../mev.mdx) explique la **Maximum-Extractable Value** (MEV), son rôle dans l'écosystème de staking, et comment vous pouvez la configurer à votre goût en utilisant le Smart Node.
+
+[Commit-Boost](../commit-boost.mdx) présente Commit-Boost, une alternative à MEV-Boost que vous pouvez activer à la place dans le Smart Node.

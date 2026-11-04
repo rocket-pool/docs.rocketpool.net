@@ -57,13 +57,13 @@ Rocket Pool은 현재 노드 운영자에게 **여러 다른 릴레이**에 대�
 | 이름                                                                                         | 규제             | MEV 유형  |
 | -------------------------------------------------------------------------------------------- | ---------------- | --------- |
 | [Flashbots](https://boost.flashbots.net/)                                                    | OFAC 제재 준수\* | 모든 유형 |
-| [bloXroute Regulated](https://docs.bloxroute.com/apis/mev-solution/mev-relay-for-validators) | OFAC 제재 준수\* | 모든 유형 |
+| [bloXroute Regulated](https://docs.bloxroute.com/eth/block-builders-and-validators/mev-relay-for-validators) | OFAC 제재 준수\* | 모든 유형 |
 | [Ultra Sound](https://relay.ultrasound.money/)                                               | 비규제           | 모든 유형 |
 | [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/)                             | OFAC 제재 준수\* | 모든 유형 |
 | [AESTUS](https://aestus.live/)                                                               | 비규제           | 모든 유형 |
 | [Titan Global](https://docs.titanrelay.xyz/)                                                 | 비규제           | 모든 유형 |
 | [Titan Regional](https://docs.titanrelay.xyz/)                                               | OFAC 제재 준수\* | 모든 유형 |
-| [BTCS OFAC+](https://shop.btcs.com/ofac-relay/)                                              | OFAC 제재 준수\* | 모든 유형 |
+| BTCS OFAC+                                              | OFAC 제재 준수\* | 모든 유형 |
 
 ::: warning 참고
 \*OFAC 제재를 준수하는 릴레이는 미국 외국 자산 통제국(OFAC)이 유지 관리하는 주소 블랙리스트를 따릅니다.
@@ -90,6 +90,8 @@ MEV-Boost는 간단한 프로그램입니다: 사용하려는 릴레이를 알�
 이를 통해 이 빌더-제안자-시장에 수동적으로 참여할 수 있으므로 귀하의 노력 없이 추가 보상을 얻을 수 있습니다.
 
 MEV-Boost는 [오픈 소스](https://github.com/flashbots/mev-boost)이며 [감사](https://github.com/flashbots/mev-boost/blob/main/docs/audit-20220620)를 받았습니다.
+
+Smart Node는 MEV-Boost의 대안인 [Commit-Boost](./commit-boost)도 지원합니다. 둘 중 하나만 활성화할 수 있으며, 둘 다 활성화할 수는 없습니다.
 
 다음은 전체 MEV 생태계가 작동하는 방식과 MEV-Boost가 어디에 맞는지에 대한 좋은 시각적 묘사입니다:
 
@@ -148,7 +150,7 @@ MEV-Boost를 구성하는 방법을 알아보려면 아래에서 사용 중인 �
   <Tabs>
     <Tab label="Docker Mode">
       Smart Node의 구성 TUI를 사용하면 MEV-Boost를 쉽게 구성할 수 있습니다.
-      `rocketpool service config`를 실행하고 `MEV-Boost` 옵션으로 이동하여 시작하십시오:
+      `rocketpool service config`를 실행하고 `ePBS` 카테고리를 선택한 다음 `MEV-Boost`를 선택하여 시작하십시오:
 
       <img src={tuiMeVBoost} width="100%" height="auto"/>
 
@@ -183,7 +185,7 @@ MEV-Boost를 구성하는 방법을 알아보려면 아래에서 사용 중인 �
     </Tab>
     <Tab label="Hybrid Mode">
       Smart Node의 구성 TUI를 사용하면 MEV-Boost를 쉽게 구성할 수 있습니다.
-      `rocketpool service config`를 실행하고 `MEV-Boost` 옵션으로 이동하여 시작하십시오:
+      `rocketpool service config`를 실행하고 `ePBS` 카테고리를 선택한 다음 `MEV-Boost`를 선택하여 시작하십시오:
 
       <img src={tuiMeVBoost} width="100%" height="auto"/>
 

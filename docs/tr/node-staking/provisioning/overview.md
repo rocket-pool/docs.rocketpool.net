@@ -32,3 +32,5 @@ Halihazırda düğümünüze kurtarmak istediğiniz bir düğüm cüzdanınız v
 [Fee Distributors and the Smoothing Pool](../fee-distrib-sp) doğrulayıcılarınızdan biri bir blok önerdiği her seferde Execution katmanı ödüllerinin düğümünüze nasıl sağlandığını, bu ödülleri nasıl toplayacağınızı tartışır ve Rocket Pool'un **Smoothing Pool**'unu açıklar - herkesten Execution katmanı ödüllerini birleştiren ve Rocket Pool'un düzenli ödül aralıklarında eşit olarak dağıtan popüler bir özellik.
 
 [MEV, MEV-Boost, and MEV Rewards](../mev.mdx) **Maximum-Extractable Value** (MEV), staking ekosistemindeki rolünü ve Smart Node kullanarak bunu istediğiniz gibi nasıl yapılandırabileceğinizi açıklar.
+
+[Commit-Boost](../commit-boost.mdx), Smart Node'da MEV-Boost yerine etkinleştirebileceğiniz bir alternatif olan Commit-Boost'u ele alır.

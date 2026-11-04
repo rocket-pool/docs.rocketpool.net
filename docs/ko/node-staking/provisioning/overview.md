@@ -32,3 +32,5 @@ staking을 위해 노드를 프로비저닝하기 전에 다음을 수행했는�
 [Fee Distributors and the Smoothing Pool](../fee-distrib-sp)은 validator 중 하나가 블록을 제안할 때마다 Execution layer 보상이 노드에 제공되는 방식, 해당 보상을 수집하는 방법에 대해 논의하고 Rocket Pool의 **Smoothing Pool**을 설명합니다 - 모든 사람의 Execution layer 보상을 결합하고 Rocket Pool의 정기 보상 간격 동안 균등하게 분배하는 인기 있는 기능입니다.
 
 [MEV, MEV-Boost, and MEV Rewards](../mev.mdx)는 **최대 추출 가능 가치(Maximum-Extractable Value)** (MEV), staking 생태계에서의 역할 및 Smart Node를 사용하여 원하는 대로 구성하는 방법을 설명합니다.
+
+[Commit-Boost](../commit-boost.mdx)는 MEV-Boost 대신 Smart Node에서 활성화할 수 있는 대안인 Commit-Boost를 다룹니다.

@@ -1,0 +1,268 @@
+import { Tab, Tabs } from "@rspress/core/theme";
+import tui_epbs from "./images/tui-epbs.png";
+import tui_commit_boost from "./images/tui-commit-boost.png";
+import tui_enable_commit_boost from "./images/tui-enable-commit-boost.png";
+
+
+# Commit-Boost
+
+Commit-Boost 是一个开源、由社区驱动的验证者 sidecar，可作为 MEV-Boost 的替代方案来处理提议者-构建者分离（PBS）。除了区块构建之外，Commit-Boost 还支持提议者承诺协议，例如预确认（preconfirmations）和包含列表（inclusion lists）。目前 Smart Node 只运行 Commit-Boost 的 PBS（区块构建）模块，因此这些额外的协议暂时还无法通过 Smart Node 使用。如果您刚接触 MEV 和 PBS，建议先阅读 [MEV、MEV-Boost 和 MEV 奖励](./mev) 页面了解背景知识。
+
+## 什么是 Commit-Boost？
+
+Commit-Boost 是 MEV-Boost 的直接替代品，并提供了额外的功能。它的主要目的是标准化以太坊验证者与第三方协议之间的通信。
+
+- 使用与 MEV-Boost 相同的 Builder API（默认端口 18550），因此您的 Beacon Node 与它通信的方式与和 MEV-Boost 通信的方式相同。
+- 与 MEV-Boost 一样，连接到 MEV 中继并处理区块构建。
+- 支持面向未来承诺协议的模块化插件系统。
+- 为开发者提供与验证者交互的统一 API。
+
+Commit-Boost 是[开源的](https://github.com/Commit-Boost/commit-boost-client)，并于 2024 年 12 月经过 Sigma Prime 的[审计](https://github.com/Commit-Boost/commit-boost-client/blob/main/audit/Sigma_Prime_Commit_Boost_Client_Security_Assessment_Report_v2_0.pdf)。
+
+## Commit-Boost 与 MEV-Boost 对比
+
+Commit-Boost 和 MEV-Boost 都通过构建者市场和 MEV 中继基础设施来处理 PBS。它们的区别如下：
+
+| 特性 | MEV-Boost | Commit-Boost |
+|---------|-----------|--------------|
+| **用途** | 仅 PBS | PBS + 可扩展的模块化平台 |
+| **维护方** | Flashbots | 社区 / Commit-Boost 团队 |
+| **未来协议** | 固定 | 面向第三方协议的插件系统（暂时无法通过 Smart Node 使用） |
+| **可用中继（主网）** | 8 个中继 | 5 个中继（仅 OFAC 过滤） |
+
+从 Smart Node 的角度看，两者连接到 Beacon Node 的方式完全相同。随着以太坊加入预确认等新的提议者承诺功能，Commit-Boost 是面向未来的选择。
+
+:::tip 注意
+您不能同时运行 MEV-Boost 和 Commit-Boost。Smart Node 会在您于 TUI 中保存配置时强制执行这一点。
+:::
+
+## 可用中继
+
+以下是 Commit-Boost 中可用的中继：
+
+| 名称 | 监管 | 网络 | MEV 类型 |
+|------|-----------|----------|-----------|
+| [Flashbots](https://boost.flashbots.net/) | 遵守 OFAC 制裁* | 主网、Hoodi | 所有类型 |
+| [bloXroute Regulated](https://docs.bloxroute.com/eth/block-builders-and-validators/mev-relay-for-validators) | 遵守 OFAC 制裁* | 主网、Hoodi | 所有类型 |
+| [Titan Regional](https://docs.titanrelay.xyz/) | 遵守 OFAC 制裁* | 仅主网 | 所有类型 |
+| [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/) | 遵守 OFAC 制裁* | 仅主网 | 所有类型 |
+| BTCS OFAC+ | 遵守 OFAC 制裁* | 仅主网 | 所有类型 |
+| [AESTUS](https://aestus.live/) | 不受监管 | 仅 Hoodi | 所有类型 |
+| [Titan Global](https://docs.titanrelay.xyz/) | 不受监管 | 仅 Hoodi | 所有类型 |
+
+:::warning 注意
+\*遵守 OFAC 制裁的中继会遵循美国外国资产控制办公室（OFAC）维护的地址黑名单。我们**强烈建议**您进一步了解 OFAC 制裁和网络审查，并在充分了解的基础上谨慎决定您愿意使用哪些中继。
+
+更多信息请参阅 [MEV 页面](./mev#区块构建者和中继)。
+:::
+
+:::warning 重要
+在主网上，Smart Node 中的 Commit-Boost 支持的中继**少于** MEV-Boost。具体来说，主网上的 Commit-Boost **不**包括：
+- Ultra Sound（不过滤）
+- Aestus
+- Titan Global（不过滤）
+
+主网上 Commit-Boost 中可用的所有中继都是遵守 OFAC 制裁的受监管/过滤版本。如果您需要使用不受监管的中继，应继续使用 MEV-Boost 而不是 Commit-Boost。
+:::
+
+
+## 奖励和 APY
+
+Commit-Boost 提供的奖励与 MEV-Boost 相近。由于 Commit-Boost 在主网上只支持受监管的中继，如果您之前使用的是不受监管的中继，您的 MEV 奖励可能与使用 MEV-Boost 时略有不同。
+
+将来，预确认和包含列表等提议者承诺协议可能会在标准 MEV 奖励之外带来额外收益。
+
+
+## 在 Smart Node 中配置 Commit-Boost
+
+要了解如何配置 Commit-Boost，请在下方选择您的模式：
+
+<div className="p-3">
+  <Tabs>
+    <Tab label="Docker Mode">
+      使用 Smart Node 的配置 TUI 可以轻松配置 Commit-Boost。
+
+      首先运行 `rocketpool service config`，然后选择 `ePBS` 类别：
+
+      <img src={tui_epbs} width="100%" height="auto"/>
+
+      接着选择 `Commit-Boost`：
+
+      <img src={tui_commit_boost} width="100%" height="auto"/>
+
+      勾选 `Enable Commit-Boost` 复选框以启用它。
+
+      <img src={tui_enable_commit_boost} width="100%" height="auto"/>
+
+      :::tip 注意
+      如果当前已启用 MEV-Boost，您需要在保存并退出 TUI 之前将其禁用。Smart Node 不允许同时启用两者。
+      :::
+
+      启用后，您会看到几个配置选项：
+
+      **Commit-Boost Mode**
+      - **Locally Managed**（推荐）：由 Smart Node 为您运行和管理 Commit-Boost 容器。
+      - **Externally Managed**：使用您自己管理的 Commit-Boost 实例。在 **External URL** 字段中输入其地址（例如 `http://192.168.1.10:18550`）。在此模式下，以下设置均不适用。
+
+      :::warning 注意
+      如果您运行自己的 Commit-Boost 实例，您**必须**只在上面列出的受信任中继注册。使用不受信任的中继可能会导致 Oracle DAO 的处罚。
+      :::
+
+      **如果使用 Locally Managed 模式：**
+
+      **Relay Selection Mode**
+      - **Use All Relays**：自动启用当前网络（主网或测试网）上所有可用的中继。这是最简单的选项。
+      - **Manual Mode**：为每个可用中继显示单独的复选框，让您精确选择要使用的中继。
+
+      **Custom Relays**：如果您想使用默认列表之外的中继，可添加自定义中继 URL（以逗号分隔）。请只添加上面受信任列表中的中继；使用不受信任的中继可能会导致 Oracle DAO 的处罚。
+
+      **Port**：默认 `18550`（与 MEV-Boost 相同）。通常无需更改。
+
+      **Expose API Port**：
+      - **Closed**（推荐）：API 只能在 Docker 网络内部访问
+      - **Open to Localhost**：API 可通过 localhost 访问
+      - **Open to External hosts**：API 可从外部机器访问。仅当您需要外部访问，*并且*已按照正确步骤保护节点免受不必要的流量影响时才选择此项：[Securing Your Node](./securing-your-node)
+
+      **Container Tag**：Commit-Boost 的 Docker 镜像标签。Smart Node 会设置默认值，并在每次发布时更新。如果在 Smart Node 更新之前发布了新版本，您可以手动更改它。
+
+      配置好 Commit-Boost 并选择中继后，保存并退出。Smart Node 会重启相关容器，并自动将您的 Beacon Node 和 Validator Client 配置为使用 Commit-Boost。
+
+      请参阅下文中验证其是否正常工作的说明。
+    </Tab>
+    <Tab label="Hybrid Mode">
+      使用 Smart Node 的配置 TUI 可以轻松配置 Commit-Boost。
+
+      首先运行 `rocketpool service config`，然后选择 `ePBS` 类别：
+
+      <img src={tui_epbs} width="100%" height="auto"/>
+
+      接着选择 `Commit-Boost`：
+
+      <img src={tui_commit_boost} width="100%" height="auto"/>
+
+      勾选 `Enable Commit-Boost` 复选框以启用它。
+
+      <img src={tui_enable_commit_boost} width="100%" height="auto"/>
+
+      :::tip 注意
+      如果当前已启用 MEV-Boost，您需要在保存并退出 TUI 之前将其禁用。Smart Node 不允许同时启用两者。
+      :::
+
+      启用后，您会看到几个配置选项：
+
+      **Commit-Boost Mode**
+
+      此选项决定由 Smart Node 为您管理 Commit-Boost，还是由您运行自己的实例：
+      - **Locally Managed**（推荐）：由 Smart Node 为您运行和管理 Commit-Boost 容器。有些用户更喜欢让 Rocket Pool 管理自己的 Commit-Boost 实例，并将外部管理的 Beacon Node 连接到它。
+      - **Externally Managed**：如果您外部管理的 Beacon Node 已经连接到它自己的 Commit-Boost（或 MEV-Boost）实例，请使用此选项。无需输入 URL：Smart Node 只会在其 Validator Client 上启用 builder 标志，您必须在自己的 Beacon Node 配置中启用 builder 端点。否则，您可能无法发布区块，并会错过可观的奖励。
+
+      :::warning 注意
+      如果您运行自己的 Commit-Boost 实例，您**必须**只在上面列出的受信任中继注册。使用不受信任的中继可能会导致 Oracle DAO 的处罚。
+      :::
+
+      **如果使用 Locally Managed 模式**（推荐大多数用户使用）：
+
+      **Relay Selection Mode**
+      - **Use All Relays**：自动启用当前网络（主网或测试网）上所有可用的中继。这是最简单的选项。
+      - **Manual Mode**：为每个可用中继显示单独的复选框，让您精确选择要使用的中继。
+
+      **Custom Relays**：如果您想使用默认列表之外的中继，可添加自定义中继 URL（以逗号分隔）。请只添加上面受信任列表中的中继；使用不受信任的中继可能会导致 Oracle DAO 的处罚。
+
+      **Port**：默认 `18550`（与 MEV-Boost 相同）。通常无需更改。
+
+      **Expose API Port**：此设置**应从默认值更改**，以便您外部管理的 Beacon Node 能与 Rocket Pool 管理的 Commit-Boost 实例通信。
+      - **Closed**（默认）：API 只能在 Docker 网络内部访问
+      - **Open to Localhost**：API 可通过 localhost 访问。如果您外部管理的 BN 运行在同一台机器上，请选择此项。
+      - **Open to External hosts**：API 可从外部机器访问。仅当您外部管理的 BN 运行在另一台机器上，*并且*您已按照正确步骤保护节点免受不必要的流量影响时才选择此项：[Securing Your Node](./securing-your-node)
+
+      **Container Tag**：Commit-Boost 的 Docker 镜像标签。Smart Node 会设置默认值，并在每次发布时更新。如果在 Smart Node 更新之前发布了新版本，您可以手动更改它。
+
+      **如果使用 Externally Managed 模式**：
+
+      没有其他需要填写的设置。由于您自己管理 Commit-Boost（以及 Beacon Node 与它的连接），中继选择、端口和其他选项均不适用。
+
+      配置好 Commit-Boost 并选择中继后，保存并退出 TUI。
+
+      **配置您的 Beacon Node（Locally Managed 模式）**：您需要手动配置外部管理的 Beacon Node，使其连接到 Smart Node 的 Commit-Boost 实例。将 Beacon Node 的 builder 端点设置为 `http://localhost:18550`（如果 BN 运行在另一台机器上，请使用相应的 IP）。启用 builder 端点的具体标志请参阅您的 Beacon 客户端文档。
+
+      启用 Commit-Boost 后，Smart Node 会自动为您的 Validator Client 配置所需的 builder 标志。
+
+      :::tip 注意
+      如果您启用了防火墙，**可能需要在 UFW 配置中允许此项**。
+      :::
+
+      请参阅下文中验证其是否正常工作的说明。
+    </Tab>
+    <Tab label="Native Mode">
+
+      想要使用 Commit-Boost 的 Native Mode 用户必须在 Smart Node 之外手动进行设置：
+
+      安装和配置说明请参阅 [Commit-Boost 官方文档](https://commit-boost.github.io/commit-boost-client/)。
+
+      :::warning 注意
+      如果您运行自己的 Commit-Boost 实例，您**必须**只在上面列出的受信任中继注册。使用不受信任的中继可能会导致 Oracle DAO 的处罚。
+      :::
+    </Tab>
+  </Tabs>
+</div>
+
+## 检查日志并验证运行状态
+
+启用 Commit-Boost 后，您可以通过检查日志来验证它是否正常运行：
+
+```bash
+rocketpool service logs commit-boost
+```
+
+您应该会看到类似以下的日志输出，显示验证者已成功在中继注册：
+
+```
+rocketpool_commit-boost  | 2026-05-21T03:06:11.039761Z  INFO : new request ua="nim-presto/0.0.3 (amd64/linux)" num_registrations=7 method=/eth/v1/builder/validators req_id=dcbb5e96-709b-4e0f-b336-cca37eb81d6b
+rocketpool_commit-boost  | 2026-05-21T03:06:11.587846Z  INFO : register validator successful method=/eth/v1/builder/validators req_id=dcbb5e96-709b-4e0f-b336-cca37eb81d6b
+rocketpool_commit-boost  | 2026-05-21T03:06:11.587862Z  INFO : Responded with 200 OK in 548 ms method=/eth/v1/builder/validators req_id=dcbb5e96-709b-4e0f-b336-cca37eb81d6b
+rocketpool_commit-boost  | 2026-05-21T03:12:35.037766Z  INFO : new request ua="nim-presto/0.0.3 (amd64/linux)" num_registrations=7 method=/eth/v1/builder/validators req_id=b47edad9-be4d-4a7f-b0d0-6c7ef4808629
+rocketpool_commit-boost  | 2026-05-21T03:12:35.642706Z  INFO : register validator successful method=/eth/v1/builder/validators req_id=b47edad9-be4d-4a7f-b0d0-6c7ef4808629
+rocketpool_commit-boost  | 2026-05-21T03:12:35.642721Z  INFO : Responded with 200 OK in 604 ms method=/eth/v1/builder/validators req_id=b47edad9-be4d-4a7f-b0d0-6c7ef4808629
+```
+
+日志中需要关注的要点：
+- `new request` 条目，表示您的 Validator Client 正在连接 Commit-Boost
+- `register validator successful`，确认您的验证者已在中继注册
+- `200 OK` 响应，表示通信成功
+
+您也可以使用以下命令验证 Commit-Boost 是否正在运行：
+
+```bash
+rocketpool service version
+```
+在输出的末尾附近，您应该会看到：
+
+```
+MEV-Boost client: Disabled
+Commit-Boost client: Enabled (Local Mode)
+	Image: ghcr.io/commit-boost/commit-boost:<version>
+```
+
+如果您使用的是外部管理的实例，则会显示 `Enabled (External Mode)`。
+
+## 从 MEV-Boost 切换到 Commit-Boost
+
+从 MEV-Boost 切换到 Commit-Boost 非常简单：
+
+1. 运行 `rocketpool service config`
+2. 选择 **ePBS** 类别，然后选择 **MEV-Boost**，取消勾选 `Enable MEV-Boost`
+3. 返回 **ePBS** 类别，选择 **Commit-Boost**，并勾选 `Enable Commit-Boost`
+4. 配置您的中继偏好
+5. 保存并退出
+
+其余工作由 Smart Node 处理。您的 Beacon Node 会自动更新为使用 Commit-Boost 而不是 MEV-Boost。
+
+:::tip 注意
+切换会重启您的 Beacon Node，因此在它恢复运行之前，您的验证者可能会错过一两次证明（attestation）。请避免在即将进行区块提议之前切换。
+:::
+
+## 其他资源
+
+- [Commit-Boost 官方文档](https://commit-boost.github.io/commit-boost-client/)
+- [Commit-Boost GitHub 仓库](https://github.com/Commit-Boost/commit-boost-client)
+- [了解 MEV 和 PBS](./mev)

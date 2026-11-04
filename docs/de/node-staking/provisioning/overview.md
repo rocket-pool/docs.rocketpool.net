@@ -32,3 +32,5 @@ Verwenden Sie diesen Leitfaden, wenn Sie bereits ein Node-Wallet haben, das Sie 
 [Fee Distributors and the Smoothing Pool](../fee-distrib-sp) diskutieren die Art und Weise, wie Execution Layer-Belohnungen Ihrem Node jedes Mal bereitgestellt werden, wenn einer Ihrer Validatoren einen Block vorschlägt, wie Sie diese Belohnungen sammeln können, und beschreiben Rocket Pools **Smoothing Pool** - eine beliebte Funktion, die Execution Layer-Belohnungen von allen kombiniert und sie während der regulären Belohnungsintervalle von Rocket Pool gleichmäßig verteilt.
 
 [MEV, MEV-Boost, and MEV Rewards](../mev.mdx) erklärt **Maximum-Extractable Value** (MEV), seine Rolle im Staking-Ökosystem und wie Sie es nach Ihren Wünschen mit dem Smart Node konfigurieren können.
+
+[Commit-Boost](../commit-boost.mdx) behandelt Commit-Boost, eine Alternative zu MEV-Boost, die Sie stattdessen im Smart Node aktivieren können.
