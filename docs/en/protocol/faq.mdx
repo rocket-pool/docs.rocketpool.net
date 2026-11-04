@@ -37,7 +37,7 @@ _It's not aliens or lizard people. Well, fairly sure anyway._
 _I’ll save you a scroll, it’s 0.01 ETH._
 
 [**What is the maximum deposit?**](#what-is-the-maximum-deposit)  
-_I’ll save you another scroll, there is no limit._
+_I’ll save you another scroll, there's no fixed limit, but deposits can only be accepted while the deposit pool has room._
 
 [**What are the staking periods?**](#what-are-the-staking-periods)  
 _None for both stakers and node operators. Come and go as you please._
@@ -60,16 +60,16 @@ _For sure! Betas, audits, audits and more audits._
 ## Node Operators
 
 [**Why would I run a Rocket Pool smart node vs going solo?**](#why-would-i-run-a-rocket-pool-smart-node-vs-going-solo)  
-_Half the ETH required to do so and earn ETH commissions + extra RPL rewards, boom!._
+_A fraction of the ETH required (4 ETH instead of 32) and earn ETH commissions + extra RPL rewards, boom!._
 
 [**What is the minimum staking amount for a node operator?**](#what-is-the-minimum-staking-amount-for-a-node-operator)  
-_It’s 8 ETH, would you like to know more?_
+_It’s 4 ETH, would you like to know more?_
 
 [**What is involved in running a Rocket Pool node?**](#what-is-involved-in-running-a-rocket-pool-node)  
-_Some ETH, RPL and uptime, uptime, uptime._
+_Some ETH and uptime, uptime, uptime._
 
 [**How is the RPL token used?**](#how-is-the-rpl-token-used)  
-_Stake RPL on your node as an insurance promise to the protocol and earn extra RPL rewards!_
+_Stake RPL on your node to earn a share of protocol revenue and extra RPL rewards!_
 
 ## dApps, SaaS Business and more
 
@@ -81,7 +81,7 @@ _Get your dApp connected with decentralised staking or run a node in the network
 [**Website**](https://www.rocketpool.net/)  
 _Contact us here via email or just read up on Rocket Pool._
 
-[**Discord**](https://discordapp.com/invite/tCRG54c)  
+[**Discord**](https://discord.gg/rocketpool)  
 _Drop by for a chat and ask some questions, we’re a friendly bunch._
 
 [**Doc Hub**](https://docs.rocketpool.net/)  
@@ -99,7 +99,7 @@ Ethereum has a Proof of Stake (PoS) chain called the Beacon Chain, which is fast
 
 Rocket Pool is the base layer protocol for decentralised and trustless Ethereum staking.
 
-Designed to support stakers of all shapes and sizes, Rocket Pool was built with the intent to allow anyone to trustlessly stake as little as **0.01** ETH to a network of decentralised node operators with full autonomy underpinned by RPL collateral (a type of bonding or insurance that ensures good behavior). You can stake **ETH** by trading it for **rETH**, a [token which gains staking rewards over time](https://medium.com/rocket-pool/rocket-pool-2-5-tokenised-staking-48601d52d924#92b0) based on the performance of an entire network of decentralised node operators. You can also stake **8 or 16 ETH** as a node operator in the protocol, earn rewards on your own stake fee free, plus earn commissions and RPL rewards from the network, generating a higher ROI by staking in the protocol vs staking outside of it as a solo node operator.
+Designed to support stakers of all shapes and sizes, Rocket Pool was built with the intent to allow anyone to trustlessly stake as little as **0.01** ETH to a network of decentralised node operators with full autonomy underpinned by node operator ETH bonds (a type of collateral that ensures good behavior). You can stake **ETH** by trading it for **rETH**, a [token which gains staking rewards over time](https://medium.com/rocket-pool/rocket-pool-2-5-tokenised-staking-48601d52d924#92b0) based on the performance of an entire network of decentralised node operators. You can also stake **4 ETH** per validator as a node operator in the protocol, earn rewards on your own stake fee free, plus earn commissions and RPL rewards from the network, generating a higher ROI by staking in the protocol vs staking outside of it as a solo node operator.
 
 ### Why would I need to use it?
 
@@ -115,23 +115,19 @@ Rocket Pool removes several high barriers to entry that exist with Proof of Stak
 
 - The Beacon Chain will penalise users who make a deposit but fail to keep their node online. Rocket Pool socialises any penalties or losses that occur on nodes across the whole network which minimises the effect greatly for any single user.
 
-- Some users may be confident in running their own node but do not have the 32 ETH required for the deposit. If they join Rocket Pool's decentralised network of Ethereum node operators, they only need 8 ETH minimum to solo stake. They also get the added benefit of receiving extra income from the network for providing this service which generates a higher ROI than staking solo.
+- Some users may be confident in running their own node but do not have the 32 ETH required for the deposit. If they join Rocket Pool's decentralised network of Ethereum node operators, they only need 4 ETH minimum to solo stake. They also get the added benefit of receiving extra income from the network for providing this service which generates a higher ROI than staking solo.
 
 ### How does it work?
 
-Hold tight, this is a meaty one! The protocol is primarily composed of 3 main elements, smart contracts, the Smart Node Network and Minipool Validators.
+Hold tight, this is a meaty one! The protocol is primarily composed of 3 main elements, smart contracts, the Smart Node Network and Megapools.
 
-- Our smart contracts accept ETH deposits, assigning them to node operators with staking commission rates based on current node operator demand, and also issue and track various tokens.
+- Our smart contracts take ETH deposits from stakers (minting rETH in return), match them with node operators' validators, and manage rewards, governance and the protocol's tokens.
 
 - Our Smart Node Network is a decentralised network of special Ethereum nodes that run our Smart Node software. They feature custom background processes that allow them to communicate with the protocol's smart contracts, and just as importantly, provide the network consensus (validation) required by the Beacon Chain.
 
-- Any user can run one of these Smart Nodes and stake their own ETH fee-free if they have the minimum 8 ETH required. For providing the protocol with a Smart Node, the user also receives extra rewards from the network on top of the rewards they earn staking their own ETH. They earn RPL tokens in return for initially putting up RPL as collateral, insuring or bonding their node against bad behavior or poor performance.
+- Any user can run one of these Smart Nodes and stake their own ETH fee-free if they have the minimum 4 ETH required. For providing the protocol with a Smart Node, the user also receives extra rewards from the network on top of the rewards they earn staking their own ETH. If they also stake RPL on their node, they earn a share of protocol revenue (the [voter share](/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers)) and RPL rewards.
 
-- Minipool Validators are another smart contract, but these are worth defining on their own due to being such a key aspect of the protocol. These smart contracts are created by node operators who deposit 8 or 16 ETH on their node. Let's consider the case where the node operator choses to deposit 8 ETH. When they do this, this smart contract receives 24 ETH in deposits from users who just want to stake but not run a node (rETH stakers). When this contract contains a total of 32 ETH (8 ETH initial deposit plus 24 ETH from rETH stakers), a new validator is created on the node which performs the consensus duties for that deposit to earn staking rewards. Neat!
-
-View the visual guide below to get a glimpse of how these components work together in the Rocket Pool protocol.
-
-[![How staking in the protocol flows](/images/rp-infographic-staking-protocol-flow.png)](https://www.rocketpool.net/images/infographic-rocket-pool-2.png)
+- Megapools are another smart contract, but they're worth defining on their own because they're such a key part of the protocol. Each node has a single megapool that can hold many validators. Each validator pairs a 4 ETH bond from the node operator with 28 ETH from rETH stakers (users who want to stake without running a node). Together that's 32 ETH, which creates a new validator on the node that performs consensus duties and earns staking rewards. Neat!
 
 ### Independent node operator vs Staking as a Service (SaaS) provider?
 
@@ -141,9 +137,9 @@ Web3 is full of highly knowledgeable Staking as a Service providers, helping the
 
 Rocket Pool was designed to support those providers, meaning ETH staked through SaaS solutions can be put to use through Rocket Pool, rather than having to spin up bespoke staking solutions to deal with each client.
 
-ETH holders can choose between paying a SaaS provider or being paid to be an operator themselves. With Rocket Pool, SaaS providers and independent operators maximize their return by being paid to run a node, both in ETH and RPL. The protocol allows teams to run their own infrastructure, and use Rocket Pool to trustlessly stake ETH in batches of 8 or 16 ETH — putting their capital to work further and earn a larger share of returns.
+ETH holders can choose between paying a SaaS provider or being paid to be an operator themselves. With Rocket Pool, SaaS providers and independent operators maximize their return by being paid to run a node, both in ETH and RPL. The protocol allows teams to run their own infrastructure, and use Rocket Pool to trustlessly stake ETH in batches of 4 ETH per validator — putting their capital to work further and earn a larger share of returns.
 
-This design means Bison Trails or Gemini could use Rocket Pool the same as a DeFi power user. Simply show up with 8 or 16 ETH and you’re treated the same as any other node operator. Rocket Pool’s democratized staking system doesn’t favor any one party, as ETH staked through Rocket Pool always directly supports the network.
+This design means a large staking provider or exchange could use Rocket Pool the same as a DeFi power user. Simply show up with 4 ETH and you’re treated the same as any other node operator. Rocket Pool’s democratized staking system doesn’t favor any one party, as ETH staked through Rocket Pool always directly supports the network.
 
 Rocket Pool’s staked ETH wrapper, rETH, is the purest in DeFi because of the Rocket Pool network being fully distributed and trust-minimised. This makes rETH a natural building block for Ethereum and providers of all kinds.
 
@@ -156,15 +152,15 @@ RPL is the primary protocol token that will be used in governance of the protoco
 From a Node Operator perspective:
 
 - As of Saturn 1, vote-eligible staked RPL will get a share of total protocol revenue
-- The [majority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation is given as rewards to Node Operators based on staked RPL; these rewards are planned to be phase out with Saturn 2
+- The [majority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation is given as rewards to Node Operators based on staked RPL; these rewards are planned to be phased out with Saturn 2
 - For Saturn 0 minipools made after 10/28/2024: Staked RPL provided up to 4% additional bonus commission. The bonus ended in June 2026, four rewards intervals after Saturn 1's launch.
-- Staked provides voting power for governance
+- Staked RPL provides voting power for governance
 
 From a protocol perspective:
 
 - A [minority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation provides funding for the pDAO
 - A [minority](https://rpips.rocketpool.net/RPIPs/RPIP-25) of RPL inflation provides funding for the oDAO
-- It can serve as secondary collateral (e.g., against slashing)
+- For legacy minipools, staked RPL serves as secondary collateral
 
 **rETH — Rocket Pool Staking Deposit Token**  
 When a user deposits into the protocol, they will instantly receive the rETH token which represents a tokenised staking deposit and the rewards it gains over time in the Rocket Pool network.
@@ -177,9 +173,9 @@ This token can also be traded back to the protocol for ETH + rewards earned at a
 
 Rocket Pool was originally started in [late 2016 by David Rugendyke](https://medium.com/rocket-pool/rocket-pool-your-new-casper-friendly-ethereum-pos-pool-in-alpha-75709bd19936), a senior developer with over 18 years commercial experience and a computer science background.
 
-In May 2017, an alpha version of the product was released. A vibrant community started to form and the team began expanding. With the help of a enthusiastic community, Rocket Pool ran five public betas with over 100,000 ETH (testnet) staked and hundreds of users participating, before the official launch on Ethereum mainnet in October 2021.
+In May 2017, an alpha version of the product was released. A vibrant community started to form and the team began expanding. With the help of an enthusiastic community, Rocket Pool ran five public betas with over 100,000 ETH (testnet) staked and hundreds of users participating, before the official launch on Ethereum mainnet in October 2021.
 
-## Today there is a great team working on Rocket Pool passionately alongside a fantastic community of more than three thousand node operators
+Today there is a great team working on Rocket Pool passionately alongside a fantastic community of more than three thousand node operators.
 
 ---
 
@@ -189,7 +185,7 @@ Rocket Pool protocol allows anyone to earn rewards on deposits as low as 0.01 ET
 
 ### What is the maximum deposit?
 
-As big as you're comfortable with, unlimited.
+There's no per-user limit. Deposits are accepted as long as the deposit pool has room; its maximum size is set by the pDAO, and a deposit that would exceed it is rejected.
 
 ### What are the staking periods?
 
@@ -205,11 +201,13 @@ Under Saturn 1's Universal Adjustable Revenue Split (UARS, [RPIP-46](https://rpi
 
 Our smart contracts are responsible for holding and moving funds. In the interest of transparency, they are [open source](https://github.com/rocket-pool/rocketpool) for all to analyse. Additionally, before the smart contracts were deployed to mainnet they were fully audited by both Sigma Prime and ConsenSys Diligence, two of the best auditing teams around.
 
-Rocket Pool is a decentralised network of node operators. If you are a non-operator staker, your deposit will be allocated to a node operator who will perform Proof of Stake duties. Node operators are required to stake as much ETH as they are assigned. If there is ETH loss due to poor node performance, the operator must first compensate the pool's lost ETH with their original 8 or 16 ETH and the loss of RPL. If this does not completely make up for the loss, the rest is spread across the entire network through a reduction in the relative value of rETH, rather than one user taking large losses just due to bad luck that their deposit ended up on a bad node.
+Rocket Pool is a decentralised network of node operators. If you are a non-operator staker, your deposit will be allocated to a node operator who will perform Proof of Stake duties. Each validator is backed by the node operator's own ETH bond. If there is ETH loss due to poor node performance, the bond covers the loss before rETH stakers are affected. If the bond doesn't cover all of it, the rest becomes a debt on the operator's megapool. Until the debt is repaid, the node can't add new validators or reduce its bond, and its rewards and any ETH returned to it go toward paying off the debt first. In the meantime, the shortfall is spread across the entire network through a reduction in the relative value of rETH, rather than one user taking large losses just due to bad luck that their deposit ended up on a bad node. Debt repayments go straight back to rETH.
 
-For example, if node operator staked 16 ETH and their node leaves the network with 28 ETH, the operator retains 12 ETH, the network retains 16 ETH - all loss is on the operator. If their node leaves with 15 ETH, the network retains 16 ETH and the operator makes up the missing 1 ETH through the loss of RPL. If the node leaves with 10 ETH, and there is only 1.6 ETH-worth of RPL from the original bond, the network retains 11.6 ETH (10 + 1.6), and the loss of 4.4 ETH (16 - 11.6) is spread across the network.
+For example, if a node operator bonded 4 ETH and their validator leaves the network with 30 ETH, the network retains its 28 ETH and the operator retains 2 ETH - all loss is on the operator. If the validator leaves with 26 ETH, the network retains all 26 ETH, and the missing 2 ETH becomes a debt on the operator's megapool that is paid back from their future rewards.
 
-Node operators thus have a large incentive to perform well. Node operators are also incentivised by the protocol to stake as much RPL as insurance as possible, due to additional rewards that are given for providing a bigger safety net should they perform poorly.
+Legacy minipools still follow the old rules: losses are covered by the operator's 8 or 16 ETH bond first, then by slashing their legacy staked RPL (up to the amount they have staked).
+
+Node operators thus have a large incentive to perform well.
 
 ### What is a decentralised staking protocol exactly?
 
@@ -229,17 +227,15 @@ In the interest of transparency, they are [open source](https://github.com/rocke
 
 ---
 
----
-
 ### Why would I run a Rocket Pool smart node vs going solo?
 
 As a node operator, you can take advantage of the following benefits:
 
 - You get to use our awesome [Smart Node Stack](https://github.com/rocket-pool/smartnode), a super handy setup to make staking very easy. [Get started here with the installer](https://github.com/rocket-pool/smartnode).
-- You need only 8 ETH to stake (as opposed to 32 ETH solo), since Rocket Pool assigns 24 ETH of the protocol's deposits. You can also stake 8 ETH deposits multiple times on the one node.
-- You earn extra rewards by charging Rocket Pool users a commission of 14% of the rewards earned on your node by their ETH.
+- You need only 4 ETH per validator to stake (as opposed to 32 ETH solo), since Rocket Pool assigns 28 ETH of the protocol's deposits. You can also run many validators in the one megapool on your node.
+- You earn extra rewards through a commission on the rewards earned on your node by Rocket Pool users' ETH: a 5% base share, plus a share of a further 9% if you stake RPL ([details](#what-commissions-are-possible-when-staking-with-rocket-pool)).
 - You stake your own ETH, free from any commissions.
-- You stake RPL on your node as collateral and earn more RPL from the protocol for providing this insurance promise.
+- You can stake RPL on your node to earn a share of protocol revenue (the [voter share](/node-staking/megapools/staking-and-claiming-rewards#how-voter-share-is-distributed-to-megapool-rpl-stakers)) plus RPL rewards (optional; RPL is no longer required as collateral).
 - You are always in control of your own node.
 - You can come and go anytime from the network.
 
@@ -256,8 +252,6 @@ Since the [Saturn 0 upgrade](/en/upgrades/saturn-0/whats-new), the Rocket Pool p
 ### How is the RPL token used?
 
 Check out [the tokens section](#what-tokens-does-rocket-pool-use) for a great overview!
-
----
 
 ---
 
