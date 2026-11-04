@@ -581,11 +581,13 @@ sudo ufw allow 9001/tcp comment 'Consensus client port, standardised by Rocket P
 sudo ufw allow 9001/udp comment 'Consensus client port, standardised by Rocket Pool'
 ```
 
-QUICによるP2P gossipをサポートするSmart Nodeのconsensus clientは、デフォルトでUDPポート**8001**をリッスンします。この機能を有効にする場合は、ホストファイアウォールでそのポートを許可してください:
+Smart Nodeのconsensus clientは、常に有効なQUICによるP2P gossipも使用し、デフォルトでUDPポート**8001**をリッスンします。ホストファイアウォールでそのポートを許可してください:
 
 ```shell
 sudo ufw allow 8001/udp comment 'Consensus client port, standardised by Rocket Pool'
 ```
+
+Erigonを使用している場合は、そのtorrentポート（デフォルト`42069`、TCPとUDP）も許可してください。Tekuで[IPv6を有効](./advanced-config#実験的デュアルスタックipv4--ipv6ネットワークの有効化)にしている場合は、そのIPv6ポート（デフォルト`9090`のTCPとUDP、および`8002`のUDP）も許可してください。
 
 最後に、`ufw`を有効にします。
 

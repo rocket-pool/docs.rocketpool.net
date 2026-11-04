@@ -290,6 +290,7 @@ Bu seçenek, yerel olarak yönetilen istemcilerle Docker modu yapılandırmalar�
 Smart node v1.20.2'den itibaren Rocket Pool, Ethereum istemcileriniz için çift yığın (IPv4 + IPv6) ağını desteklemektedir.
 
 Etkinleştirildiğinde, konsensüs istemciniz hem IPv4 hem de IPv6 eşleriyle bağlantı kurabilir; bu da potansiyel olarak eş keşfini iyileştirir.
+Besu (v1.22.0 ve sonrası) veya Reth (v1.24.4 ve sonrası) execution istemcisini kullanıyorsanız, o da IPv6 eşlerine bağlanır.
 Bu özellik aynı zamanda ağınız CGNAT arkasında olup IPv4 kullanarak eşleşmekte güçlük çekiyorsa da kullanışlıdır.
 
 ::: tip İPUCU
@@ -309,8 +310,10 @@ IPv6 desteğini etkinleştirdiğinizde:
 
 - Docker ağınız çift yığın (IPv4 + IPv6) için yapılandırılacaktır
 - Konsensüs istemciniz hem IPv4 hem de IPv6 adreslerini dinleyecektir
+- Besu veya Reth kullanıyorsanız, execution istemciniz her zamanki P2P portunda (varsayılan `30303`) hem IPv4 hem de IPv6 adreslerini dinleyecektir
 - Düğümünüz IPv4 eşlerine ek olarak IPv6 eşlerini keşfedip bağlanabilecektir
-- Düğümünüz IPv6 adresini ENR (Ethereum Düğüm Kaydı) içinde yayınlayacak, böylece diğer IPv6 düğümleri tarafından keşfedilebilir hale gelecektir
+- Düğümünüz IPv6 adresini ENR (Ethereum Düğüm Kaydı) içinde yayınlayacak, böylece diğer IPv6 düğümleri tarafından keşfedilebilir hale gelecektir (konsensüs istemcinize bağlıdır; aşağıdaki tabloya bakın)
+- Ayarı değiştirmek (açmak veya kapatmak) Docker ağını yeniden oluşturur; bu nedenle tüm Rocket Pool konteynerleri durdurulur, kaldırılır ve yeniden oluşturulur. Smart Node önce onayınızı ister. Zincir verileriniz ve cüzdan/doğrulayıcı anahtarlarınız etkilenmez, ancak istemcileriniz yeniden başlarken kısa süreliğine çevrimdışı olur.
 
 ### İstemciye Özgü Davranış
 
@@ -318,13 +321,13 @@ Farklı konsensüs istemcileri IPv6'yı farklı destek düzeylerinde ele alır:
 
 | İstemci        | IPv6 Dinleme | IPv6 Yayını (ENR) | Eşleşme Davranışı     | Notlar                                                                                                                |
 | -------------- | ------------ | ----------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| **Teku**       | Tam          | Tam               | IPv6'ya Öncelik Verir | Mevcut olduğunda IPv6 bağlantılarını tercih eder. Ayrı bir IPv6 portu kullanır (varsayılan: 9090).                    |
+| **Teku** | Tam | Tam | IPv6'ya Öncelik Verir | Mevcut olduğunda IPv6 bağlantılarını tercih eder. Ayrı IPv6 portları kullanır (varsayılan: 9090 ve QUIC için 8002). |
 | **Lighthouse** | Tam          | Tam               | Tercih Yok            | İlk yanıt veren adrese (IPv4 veya IPv6) bağlanır. Tipik olarak ~%1-2 IPv6 eşi görür.                                  |
 | **Lodestar**   | Tam          | Tam               | IPv4'e Öncelik Verir  | Hem IPv4 hem de IPv6'yı dinler ve yayınlar, ancak yalnızca diğer düğümün IPv4'ü devre dışıysa IPv6 üzerinden eşleşir. |
 | **Nimbus**     | Tam          | Yalnızca IPv4\*   | Ağırlıklı IPv4        | Gelen IPv6 bağlantılarını kabul edebilir, ancak ENR'de yalnızca IPv4 yayınlar.                                        |
-| **Prysm**      | Tam          | Yalnızca IPv4\*   | Ağırlıklı IPv4        | Gelen IPv6 bağlantılarını kabul edebilir, ancak ENR'de yalnızca IPv4 yayınlar.                                        |
+| **Prysm** | Yalnızca IPv4\* | Yalnızca IPv4\* | Ağırlıklı IPv4 | Yalnızca IPv4 üzerinde dinler ve yayınlar, bu nedenle IPv6 eşleri ona ulaşamaz. Yine de bazı IPv6 eşlerine giden bağlantı kurabilir. |
 
-\* Varsayılan olarak IPv4 adresini yayınlar. Yalnızca IPv6'ya sahip konakçılarda IPv6 yayınlayacaktır.
+\* Varsayılan olarak IPv4 kullanır. Yalnızca IPv6'ya sahip konakçılarda bunun yerine IPv6 kullanır.
 
 ### Ön Koşullar
 
@@ -332,7 +335,7 @@ IPv6'yı etkinleştirmeden önce şunları sağlayın:
 
 1. ISP/konakçınız IPv6 bağlantısı sağlamaktadır - Bunu [ipv6test.google.com/](https://ipv6test.google.com/) ile test edin
    veya CLI'nızda şu komutu çalıştırın: `curl -6 https://icanhazip.com`. Komut `xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx` formatında bir IPv6 adresi döndürürse hazırsınız demektir.
-2. Güvenlik duvarınız konsensüs istemcisi P2P portundan IPv6 trafiğine izin vermektedir. Varsayılan P2P portu `9001`'dir. Teku, IPv6 için ek bir özel port gerektirir. Varsayılan Teku P2P IPv6 portu `9090`'dır.
+2. Güvenlik duvarınız konsensüs istemcisi P2P portlarında IPv6 trafiğine izin vermektedir. Varsayılanlar `9001` (TCP ve UDP) ve `8001`'dir (UDP, QUIC için). Teku, IPv6 için ek özel portlar gerektirir. Varsayılan Teku IPv6 portları `9090` (TCP ve UDP) ve `8002`'dir (UDP, QUIC için). Besu veya Reth kullanıyorsanız, execution istemcisi P2P portunda da (varsayılan `30303`) IPv6 trafiğine izin verin.
 3. Docker modunda yerel olarak yönetilen istemciler kullanıyorsunuz (harici olarak yönetilen istemciler değil)
 
 ### IPv6 Nasıl Etkinleştirilir
@@ -368,10 +371,10 @@ docker inspect rocketpool_net | grep -i ipv6
 2. Port Bağlamasını Doğrulayın
 
 ```shell
-ss -tlnp | grep 9001
+sudo nsenter -t $(docker inspect -f '{{.State.Pid}}' rocketpool_eth2) -n ss -tlnp | grep 9001
 ```
 
-`[::]:9001` (IPv6 joker adresi) görmelisiniz.
+Bu, konsensüs istemcinizin konteyneri içindeki portu kontrol eder. `*:9001` veya `[::]:9001` görmelisiniz. Bunun yerine bir IPv4 adresi görürseniz (örneğin `172.18.0.x:9001`), konsensüs istemciniz IPv6'yı dinlemiyordur (Prysm için beklenen durumdur, yukarıdaki tabloya bakın).
 
 3. Genel IPv6 Adresinizi Onaylayın
 

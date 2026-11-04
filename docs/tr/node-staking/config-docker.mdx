@@ -134,7 +134,7 @@ Execution istemcinizi yönetmek için hangi modu kullanmak istediğinizi seçin 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOT</p>
         **Yönlendiricinizin port forwarding kurulumunda P2P portunu açın**. Hem TCP hem de UDP üzerinde **port 30303**'ü makinenizin yerel IP adresine yönlendirecek şekilde yapılandırın.
-        Bu şekilde, diğer Consensus istemcileri onu keşfedebilir ve dışarıdan onunla iletişim kurabilir. Bu, Consensus istemcinizin hızlı senkronize olmasına yardımcı olacak ve performansı (ve dolayısıyla ödülleri) artıracaktır.
+        Bu şekilde, diğer Execution istemcileri onu keşfedebilir ve dışarıdan onunla iletişim kurabilir. Bu, Execution istemcinizin hızlı senkronize olmasına yardımcı olacak ve performansı (ve dolayısıyla ödülleri) artıracaktır.
 
         Her yönlendiricinin bunu yapmanın farklı bir yolu vardır, bu nedenle **port forwarding'in nasıl kurulacağı konusunda yönlendiricinizin kılavuzuna bakmanız gerekir**.
       </p>
@@ -249,7 +249,7 @@ Daha önce hangi modu seçtiğinizi aşağıdaki sekmelerden seçin:
 
             Bunu minipoollarınız için ucuz bir sigorta olarak düşünün; her yeniden başlattığınızda önemsiz bir miktar kâr kaçıracaksınız, ancak anahtarlarınızı iki yerde kazara çalıştırmayacağınız ve bunun için slashlanmayacağınız konusunda oldukça emin olabilirsiniz.
 
-            Lighthouse, 4.5.0 sürümünden itibaren [QUIC protokolünü](https://en.wikipedia.org/wiki/QUIC) kullanarak P2P bağlantılarını daha verimli bir şekilde kurma seçeneğine sahiptir. Bu özelliği kullanmak istiyorsanız, ETH2 ayarlarında ekstra bir "P2P QUIC port" alanı tanımlamanız ve yönlendiricinizin port forwarding kurulumunda bunu düğümünüze yönlendirmeniz gerekir. Varsayılan P2P QUIC portu 8001'dir (UDP). Düğümünüz tarafından zaten kullanılan portlarla (veya yedek/test ağı düğümleriyle) çakışmalardan kaçındığınızdan emin olun. Ayrıca düğümünüzde bir güvenlik duvarı kullanıyorsanız aynı portun açık olduğundan emin olun (`ufw status` kontrol edin).
+            Lighthouse ayrıca Smart Node'un her zaman etkinleştirdiği [QUIC protokolü](https://en.wikipedia.org/wiki/QUIC) üzerinden P2P bağlantıları kurar. ETH2 ayarlarındaki **P2P QUIC Port**'u kullanır (varsayılan 8001, UDP), bu nedenle yönlendiricinizin port forwarding kurulumunda bu portu düğümünüze yönlendirin. Düğümünüz tarafından zaten kullanılan portlarla (veya yedek/test ağı düğümleriyle) çakışmalardan kaçındığınızdan emin olun. Ayrıca düğümünüzde bir güvenlik duvarı kullanıyorsanız aynı portun açık olduğundan emin olun (`ufw status` kontrol edin).
             QUIC yapılandırmasının çalışıp çalışmadığını kontrol etmek için `docker run --network rocketpool_net curlimages/curl http://eth2:9100/metrics | grep libp2p_peers_multi` komutunu çalıştırdığınızda `libp2p_quic_peers`'dan sonra 2 haneli bir sayı görmelisiniz.
 
           </Tab>
@@ -296,7 +296,7 @@ Daha önce hangi modu seçtiğinizi aşağıdaki sekmelerden seçin:
 
             Bunu minipoollarınız için ucuz bir sigorta olarak düşünün; her yeniden başlattığınızda önemsiz bir miktar kâr kaçıracaksınız, ancak anahtarlarınızı iki yerde kazara çalıştırmayacağınız ve bunun için slashlanmayacağınız konusunda oldukça emin olabilirsiniz.
 
-            Nimbus, [QUIC protokolü](https://en.wikipedia.org/wiki/QUIC) üzerinden P2P gossip'i destekler. Ayarlar Yöneticisi'nde, Nimbus ayarları altında **P2P QUIC Port** değerini ayarlayın (varsayılan **8001**, UDP), yönlendiricinizin port yönlendirme ayarlarında bu portu node'unuza yönlendirin ve bir ana makine güvenlik duvarı kullanıyorsanız portu orada da açın (`ufw status`). Aynı makinedeki diğer node'larla (veya yedek / testnet node'larıyla) çakışmalardan kaçının.
+            Nimbus, Smart Node'un her zaman etkinleştirdiği [QUIC protokolü](https://en.wikipedia.org/wiki/QUIC) üzerinden P2P gossip'i destekler. Nimbus ayarları altındaki **P2P QUIC Port**'u kullanır (varsayılan **8001**, UDP), bu nedenle yönlendiricinizin port yönlendirme ayarlarında bu portu node'unuza yönlendirin ve bir ana makine güvenlik duvarı kullanıyorsanız portu orada da açın (`ufw status`). Aynı makinedeki diğer node'larla (veya yedek / testnet node'larıyla) çakışmalardan kaçının.
 
           </Tab>
           <Tab label="Prysm">
@@ -416,7 +416,7 @@ Daha önce hangi modu seçtiğinizi aşağıdaki sekmelerden seçin:
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOT</p>
-        **Yönlendiricinizin port forwarding kurulumunda P2P portunu açın**. Hem TCP hem de UDP üzerinde **port 9001**'i makinenizin yerel IP adresine yönlendirecek şekilde yapılandırın.
+        **Yönlendiricinizin port forwarding kurulumunda P2P portunu açın**. Hem TCP hem de UDP üzerinde **port 9001**'i ve UDP üzerinde **port 8001**'i (QUIC üzerinden P2P için kullanılır) makinenizin yerel IP adresine yönlendirecek şekilde yapılandırın.
         Bu şekilde, diğer Consensus istemcileri onu keşfedebilir ve dışarıdan onunla iletişim kurabilir. Bu, Consensus istemcinizin hızlı senkronize olmasına yardımcı olacak ve performansı (ve dolayısıyla ödülleri) artıracaktır.
 
         Her yönlendiricinin bunu yapmanın farklı bir yolu vardır, bu nedenle **port forwarding'in nasıl kurulacağı konusunda yönlendiricinizin kılavuzuna bakmanız gerekir**

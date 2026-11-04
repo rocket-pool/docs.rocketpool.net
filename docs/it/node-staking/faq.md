@@ -33,7 +33,7 @@ Quindi, recupera il tuo wallet del nodo e le chiavi validator eseguendo il coman
 ### Perché i miei client non si sincronizzano? Ho un numero basso di peer.
 
 I client devono avere un numero sano di peer per potersi sincronizzare correttamente.
-Puoi iniziare eseguendo il test [qui](https://www.yougetsignal.com/tools/open-ports/), controllando se le porte 30303 e 9001 sono aperte.
+Puoi iniziare eseguendo il test [qui](https://www.yougetsignal.com/tools/open-ports/), controllando se le porte 30303 e 9001 sono aperte. Il tuo client di Consenso usa anche la porta UDP 8001 per QUIC, quindi inoltra anche quella (questo strumento testa solo TCP).
 Se sono chiuse, dovrai configurare l'inoltro delle porte sul tuo router.
 Inoltre, assicurati che il tuo nodo abbia un indirizzo IP locale statico in modo che l'inoltro delle porte non si interrompa a causa del fatto che il tuo nodo ottiene un nuovo indirizzo.
 

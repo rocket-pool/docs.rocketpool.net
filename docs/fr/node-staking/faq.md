@@ -33,7 +33,7 @@ Ensuite, récupérez votre portefeuille de nœud et vos clés de validateur en e
 ### Pourquoi mes clients ne se synchronisent-ils pas ? J'ai un faible nombre de pairs.
 
 Les clients ont besoin d'un nombre sain de pairs pour pouvoir se synchroniser correctement.
-Vous pouvez commencer par exécuter le test [ici](https://www.yougetsignal.com/tools/open-ports/), en vérifiant si les ports 30303 et 9001 sont ouverts.
+Vous pouvez commencer par exécuter le test [ici](https://www.yougetsignal.com/tools/open-ports/), en vérifiant si les ports 30303 et 9001 sont ouverts. Votre client de consensus utilise également le port UDP 8001 pour QUIC, redirigez-le donc aussi (cet outil ne teste que le TCP).
 S'ils sont fermés, vous devrez configurer le transfert de port sur votre routeur.
 Assurez-vous également que votre nœud a une adresse IP locale statique afin que le transfert de port ne se casse pas en raison de l'obtention d'une nouvelle adresse par votre nœud.
 

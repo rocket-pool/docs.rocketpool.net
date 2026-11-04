@@ -581,11 +581,13 @@ sudo ufw allow 9001/tcp comment 'Consensus client port, standardised by Rocket P
 sudo ufw allow 9001/udp comment 'Consensus client port, standardised by Rocket Pool'
 ```
 
-Os clientes de consenso do Smart Node que suportam gossip P2P sobre QUIC escutam na porta UDP **8001** por padrão. Se você habilitar esse recurso, permita a porta no firewall do seu host:
+Os clientes de consenso do Smart Node também usam gossip P2P sobre QUIC, que está sempre habilitado e escuta na porta UDP **8001** por padrão. Permita a porta no firewall do seu host:
 
 ```shell
 sudo ufw allow 8001/udp comment 'Consensus client port, standardised by Rocket Pool'
 ```
+
+Se você usa Erigon, permita também sua porta de torrent (padrão `42069`, TCP e UDP). Se você usa Teku com [IPv6 habilitado](./advanced-config#experimental-habilitando-rede-dual-stack-ipv4--ipv6), permita também suas portas IPv6 (padrão `9090` TCP e UDP, e `8002` UDP).
 
 Finalmente, habilite o `ufw`:
 

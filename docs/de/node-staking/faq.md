@@ -33,7 +33,7 @@ Stellen Sie dann Ihre Node-Wallet und Validator-Schlüssel wieder her, indem Sie
 ### Warum synchronisieren meine Clients nicht? Ich habe eine geringe Anzahl von Peers.
 
 Clients benötigen eine gesunde Anzahl von Peers, um ordnungsgemäß synchronisieren zu können.
-Sie können zunächst den Test [hier](https://www.yougetsignal.com/tools/open-ports/) durchführen und überprüfen, ob die Ports 30303 und 9001 geöffnet sind.
+Sie können zunächst den Test [hier](https://www.yougetsignal.com/tools/open-ports/) durchführen und überprüfen, ob die Ports 30303 und 9001 geöffnet sind. Ihr Consensus-Client verwendet außerdem UDP-Port 8001 für QUIC, leiten Sie diesen also ebenfalls weiter (dieses Tool testet nur TCP).
 Wenn sie geschlossen sind, müssen Sie die Portweiterleitung auf Ihrem Router einrichten.
 Stellen Sie außerdem sicher, dass Ihr Node eine statische lokale IP-Adresse hat, damit die Portweiterleitung nicht abbricht, weil Ihr Node eine neue Adresse erhält.
 

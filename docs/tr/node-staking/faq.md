@@ -33,7 +33,7 @@ Ardından, `rocketpool wallet recover` komutunu çalıştırarak ve 24 kelimelik
 ### İstemcilerim neden senkronize olmuyor? Düşük sayıda eş var.
 
 İstemcilerin düzgün senkronize olabilmesi için sağlıklı sayıda eşe sahip olması gerekir.
-[Buradaki](https://www.yougetsignal.com/tools/open-ports/) testi çalıştırarak, 30303 ve 9001 portlarının açık olup olmadığını kontrol ederek başlayabilirsiniz.
+[Buradaki](https://www.yougetsignal.com/tools/open-ports/) testi çalıştırarak, 30303 ve 9001 portlarının açık olup olmadığını kontrol ederek başlayabilirsiniz. Consensus istemciniz QUIC için ayrıca UDP 8001 portunu da kullanır, bu yüzden onu da yönlendirin (bu araç yalnızca TCP'yi test eder).
 Kapalıysa, yönlendiricinizde port yönlendirmesi kurmanız gerekecektir.
 Ayrıca, düğümünüzün statik bir yerel IP adresine sahip olduğundan emin olun, böylece düğümünüz yeni bir adres aldığında port yönlendirmesi bozulmaz.
 

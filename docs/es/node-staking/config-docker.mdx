@@ -134,7 +134,7 @@ Elige qué modo te gustaría usar para administrar tu cliente de Ejecución y si
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOTA</p>
         **Abre el puerto P2P en la configuración de reenvío de puertos de tu router**. Configúralo para reenviar el **puerto 30303** en TCP y UDP a la dirección IP local de tu máquina.
-        De esta manera, otros clientes de Consenso pueden descubrirlo y comunicarse con él desde el exterior. Esto ayudará a tu cliente de Consenso a sincronizarse rápidamente y mejorar el rendimiento (y por lo tanto las recompensas).
+        De esta manera, otros clientes de Ejecución pueden descubrirlo y comunicarse con él desde el exterior. Esto ayudará a tu cliente de Ejecución a sincronizarse rápidamente y mejorar el rendimiento (y por lo tanto las recompensas).
 
         Cada router tiene una forma diferente de hacer esto, así que **necesitarás consultar el manual de tu router sobre cómo configurar el reenvío de puertos**.
       </p>
@@ -249,7 +249,7 @@ Elige qué modo seleccionaste anteriormente de las pestañas a continuación:
 
             Piénsalo como un seguro barato para tus minipools; perderás un poco trivial de ganancias cada vez que reinicies, pero puedes estar bastante seguro de que no ejecutarás accidentalmente tus claves en dos lugares y serás sancionado por ello.
 
-            A partir de la versión 4.5.0, Lighthouse tiene una opción para establecer conexiones P2P de una manera más eficiente usando el [protocolo QUIC](https://en.wikipedia.org/wiki/QUIC). Si estás dispuesto a usar esta función, necesitarás definir un campo extra "P2P QUIC port" en la configuración ETH2, y reenviarlo a tu nodo en la configuración de reenvío de puertos de tu router. El puerto P2P QUIC predeterminado es 8001 (UDP). Asegúrate de evitar colisiones con puertos ya en uso por tu nodo (o nodos de respaldo/testnet). También asegúrate de que el mismo puerto esté abierto si estás usando un firewall en tu nodo (verifica `ufw status`).
+            Lighthouse también establece conexiones P2P mediante el [protocolo QUIC](https://en.wikipedia.org/wiki/QUIC), que Smart Node siempre habilita. Usa el **P2P QUIC Port** de la configuración ETH2 (por defecto 8001, UDP), así que reenvía ese puerto a tu nodo en la configuración de reenvío de puertos de tu router. Asegúrate de evitar colisiones con puertos ya en uso por tu nodo (o nodos de respaldo/testnet). También asegúrate de que el mismo puerto esté abierto si estás usando un firewall en tu nodo (verifica `ufw status`).
             Para verificar si la configuración QUIC está funcionando, deberías ver un número de 2 dígitos después de `libp2p_quic_peers` al ejecutar `docker run --network rocketpool_net curlimages/curl http://eth2:9100/metrics | grep libp2p_peers_multi`.
 
           </Tab>
@@ -296,7 +296,7 @@ Elige qué modo seleccionaste anteriormente de las pestañas a continuación:
 
             Piénsalo como un seguro barato para tus minipools; perderás un poco trivial de ganancias cada vez que reinicies, pero puedes estar bastante seguro de que no ejecutarás accidentalmente tus claves en dos lugares y serás sancionado por ello.
 
-            Nimbus admite gossip P2P sobre el [protocolo QUIC](https://en.wikipedia.org/wiki/QUIC). En el Gestor de Configuración, establece **P2P QUIC Port** en los ajustes de Nimbus (por defecto **8001**, UDP), reenvía ese puerto a tu nodo en la configuración de port forwarding de tu router y ábrelo en el firewall del host si usas uno (`ufw status`). Evita colisiones con otros nodos en la misma máquina (o con nodos de respaldo / testnet).
+            Nimbus admite gossip P2P sobre el [protocolo QUIC](https://en.wikipedia.org/wiki/QUIC), que Smart Node siempre habilita. Usa el **P2P QUIC Port** de los ajustes de Nimbus (por defecto **8001**, UDP), así que reenvía ese puerto a tu nodo en la configuración de port forwarding de tu router y ábrelo en el firewall del host si usas uno (`ufw status`). Evita colisiones con otros nodos en la misma máquina (o con nodos de respaldo / testnet).
 
           </Tab>
           <Tab label="Prysm">
@@ -416,7 +416,7 @@ Elige qué modo seleccionaste anteriormente de las pestañas a continuación:
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOTA</p>
-        **Abre el puerto P2P en la configuración de reenvío de puertos de tu router**. Configúralo para reenviar el **puerto 9001** en TCP y UDP a la dirección IP local de tu máquina.
+        **Abre el puerto P2P en la configuración de reenvío de puertos de tu router**. Configúralo para reenviar el **puerto 9001** en TCP y UDP, y el **puerto 8001** en UDP (usado para P2P sobre QUIC), a la dirección IP local de tu máquina.
         De esta manera, otros clientes de Consenso pueden descubrirlo y comunicarse con él desde el exterior. Esto ayudará a tu cliente de Consenso a sincronizarse rápidamente y mejorar el rendimiento (y por lo tanto las recompensas).
 
         Cada router tiene una forma diferente de hacer esto, así que **necesitarás consultar el manual de tu router sobre cómo configurar el reenvío de puertos**

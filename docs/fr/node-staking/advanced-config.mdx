@@ -290,6 +290,7 @@ Cette option est destinée aux utilisateurs exécutant des configurations en mod
 À partir du Smart Node v1.20.2, Rocket Pool prend en charge le réseau dual-stack (IPv4 + IPv6) pour vos clients Ethereum.
 
 Lorsqu'elle est activée, votre client de consensus peut se connecter à des pairs IPv4 et IPv6, ce qui peut améliorer la découverte de pairs.
+Si vous utilisez le client d'exécution Besu (v1.22.0 et ultérieures) ou Reth (v1.24.4 et ultérieures), il se connecte également aux pairs IPv6.
 Cette fonctionnalité est également utile si votre réseau est derrière un CGNAT et rencontre des difficultés à se connecter via IPv4.
 
 ::: tip CONSEIL
@@ -309,8 +310,10 @@ Lorsque vous activez la prise en charge d'IPv6 :
 
 - Votre réseau Docker sera configuré pour le dual-stack (IPv4 + IPv6)
 - Votre client de consensus écoutera sur les adresses IPv4 et IPv6
+- Si vous utilisez Besu ou Reth, votre client d'exécution écoutera sur les adresses IPv4 et IPv6 sur son port P2P habituel (par défaut `30303`)
 - Votre nœud pourra découvrir et se connecter à des pairs IPv6 en plus des pairs IPv4
-- Votre nœud annoncera son adresse IPv6 dans son ENR (Ethereum Node Record), le rendant découvrable par d'autres nœuds IPv6
+- Votre nœud annoncera son adresse IPv6 dans son ENR (Ethereum Node Record), le rendant découvrable par d'autres nœuds IPv6 (selon votre client de consensus ; voir le tableau ci-dessous)
+- Modifier ce paramètre (activation ou désactivation) recrée le réseau Docker : tous les conteneurs Rocket Pool sont arrêtés, supprimés et recréés. Le Smart Node vous demande d'abord confirmation. Vos données de chaîne et vos clés de portefeuille/validateur ne sont pas affectées, mais vos clients seront brièvement hors ligne pendant leur redémarrage.
 
 ### Comportement spécifique aux clients
 
@@ -318,13 +321,13 @@ Les différents clients de consensus gèrent IPv6 avec des niveaux de support va
 
 | Client         | Écoute IPv6 | Diffusion IPv6 (ENR) | Comportement de peering | Notes                                                                                                   |
 | -------------- | ----------- | -------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------- |
-| **Teku**       | Complète    | Complète             | Priorité à IPv6         | Préfère les connexions IPv6 lorsque disponibles. Utilise un port IPv6 dédié séparé (par défaut : 9090). |
+| **Teku** | Complète | Complète | Priorité à IPv6 | Préfère les connexions IPv6 lorsque disponibles. Utilise des ports IPv6 dédiés séparés (par défaut : 9090, et 8002 pour QUIC). |
 | **Lighthouse** | Complète    | Complète             | Aucune préférence       | Se connecte à l'adresse (IPv4 ou IPv6) qui répond en premier. Voit généralement ~1-2 % de pairs IPv6.   |
 | **Lodestar**   | Complète    | Complète             | Priorité à IPv4         | Écoute et diffuse sur IPv4 et IPv6, mais ne s'associe via IPv6 que si l'autre nœud a IPv4 désactivé.    |
 | **Nimbus**     | Complète    | IPv4 uniquement\*    | Principalement IPv4     | Peut accepter des connexions IPv6 entrantes, mais diffuse uniquement IPv4 dans l'ENR.                   |
-| **Prysm**      | Complète    | IPv4 uniquement\*    | Principalement IPv4     | Peut accepter des connexions IPv6 entrantes, mais diffuse uniquement IPv4 dans l'ENR.                   |
+| **Prysm** | IPv4 uniquement\* | IPv4 uniquement\* | Principalement IPv4 | Écoute et diffuse uniquement sur IPv4, les pairs IPv6 ne peuvent donc pas le joindre. Peut tout de même se connecter en sortie à certains pairs IPv6. |
 
-\* Par défaut, diffuse l'adresse IPv4. Sur les hôtes IPv6 uniquement, diffusera IPv6 à la place.
+\* Par défaut, utilise IPv4. Sur les hôtes IPv6 uniquement, utilise IPv6 à la place.
 
 ### Prérequis
 
@@ -332,8 +335,7 @@ Avant d'activer IPv6, assurez-vous que :
 
 1. Votre FAI/hôte fournit une connectivité IPv6 - Testez cela avec [ipv6test.google.com/](https://ipv6test.google.com/)
    ou en exécutant cette commande dans votre CLI : `curl -6 https://icanhazip.com`. Si la commande retourne une adresse IPv6 dans ce format : `xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx`, vous êtes prêt.
-2. Votre pare-feu autorise le trafic IPv6 sur le port P2P du client de consensus. Le port P2P par défaut est `9001`. Teku nécessite un port dédié supplémentaire
-   pour IPv6. Le port P2P IPv6 par défaut de Teku est `9090`.
+2. Votre pare-feu autorise le trafic IPv6 sur les ports P2P du client de consensus. Les ports par défaut sont `9001` (TCP et UDP) et `8001` (UDP, pour QUIC). Teku nécessite des ports dédiés supplémentaires pour IPv6. Les ports IPv6 par défaut de Teku sont `9090` (TCP et UDP) et `8002` (UDP, pour QUIC). Si vous utilisez Besu ou Reth, autorisez également le trafic IPv6 sur le port P2P du client d'exécution (par défaut `30303`).
 3. Vous utilisez des clients gérés localement en mode Docker (pas des clients gérés en externe)
 
 ### Comment activer IPv6
@@ -369,10 +371,10 @@ Vous devriez voir `"EnableIPv6": true` et chaque conteneur devrait avoir une `IP
 2. Vérifier la liaison de port
 
 ```shell
-ss -tlnp | grep 9001
+sudo nsenter -t $(docker inspect -f '{{.State.Pid}}' rocketpool_eth2) -n ss -tlnp | grep 9001
 ```
 
-Vous devriez voir `[::]:9001` (adresse générique IPv6).
+Cette commande vérifie le port à l'intérieur du conteneur de votre client de consensus. Vous devriez voir `*:9001` ou `[::]:9001`. Si vous voyez plutôt une adresse IPv4 (comme `172.18.0.x:9001`), votre client de consensus n'écoute pas sur IPv6 (attendu pour Prysm, voir le tableau ci-dessus).
 
 3. Confirmer votre adresse IPv6 publique
 

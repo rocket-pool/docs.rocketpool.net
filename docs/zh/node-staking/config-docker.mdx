@@ -134,7 +134,7 @@ rocketpool service config
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">注意</p>
         **在路由器的端口转发设置中打开 P2P 端口**。将其配置为将 **端口 30303**（TCP 和 UDP）转发到您机器的本地 IP 地址。
-        这样，其他共识客户端可以发现它并从外部与之通信。这将有助于您的共识客户端快速同步并提高性能（从而提高奖励）。
+        这样，其他执行客户端可以发现它并从外部与之通信。这将有助于您的执行客户端快速同步并提高性能（从而提高奖励）。
 
         每个路由器都有不同的操作方式，因此**您需要查看路由器的手册以了解如何设置端口转发**。
       </p>
@@ -249,7 +249,7 @@ rocketpool service config
 
             将其视为您的 minipool 的廉价保险；每次重启时，您都会错过微不足道的利润，但您可以相当确信您不会意外地在两个地方运行您的密钥并因此被罚没。
 
-            从版本 4.5.0 开始，Lighthouse 有一个选项可以使用 [QUIC 协议](https://en.wikipedia.org/wiki/QUIC)以更高效的方式建立 P2P 连接。如果您愿意使用此功能，您需要在 ETH2 设置上定义一个额外的端口"P2P QUIC port"字段，并在路由器的端口转发设置中将其转发到您的节点。默认 P2P QUIC 端口是 8001 (UDP)。确保避免与节点已经使用的端口（或备用/测试网节点）发生冲突。如果您在节点上使用防火墙，还要确保打开相同的端口（检查 `ufw status`）。
+            Lighthouse 还会通过 [QUIC 协议](https://en.wikipedia.org/wiki/QUIC)建立 P2P 连接，Smart Node 始终启用该协议。它使用 ETH2 设置中的 **P2P QUIC Port**（默认 8001，UDP），因此请在路由器的端口转发设置中将该端口转发到您的节点。确保避免与节点已经使用的端口（或备用/测试网节点）发生冲突。如果您在节点上使用防火墙，还要确保打开相同的端口（检查 `ufw status`）。
             要检查 QUIC 配置是否正常工作，运行 `docker run --network rocketpool_net curlimages/curl http://eth2:9100/metrics | grep libp2p_peers_multi` 时，您应该在 `libp2p_quic_peers` 后看到一个 2 位数字。
 
           </Tab>
@@ -296,7 +296,7 @@ rocketpool service config
 
             将其视为您的 minipool 的廉价保险；每次重启时，您都会错过微不足道的利润，但您可以相当确信您不会意外地在两个地方运行您的密钥并因此被罚没。
 
-            Nimbus 支持通过 [QUIC 协议](https://en.wikipedia.org/wiki/QUIC)进行 P2P gossip。在设置管理器中，于 Nimbus 设置下设置 **P2P QUIC Port**（默认为 **8001**，UDP），在路由器的端口转发设置中将该端口转发到您的节点，如果您使用主机防火墙，也请开放该端口（`ufw status`）。请避免与同一台机器上的其他节点（或备用/测试网节点）发生冲突。
+            Nimbus 支持通过 [QUIC 协议](https://en.wikipedia.org/wiki/QUIC)进行 P2P gossip，Smart Node 始终启用该功能。它使用 Nimbus 设置下的 **P2P QUIC Port**（默认为 **8001**，UDP），因此请在路由器的端口转发设置中将该端口转发到您的节点，如果您使用主机防火墙，也请开放该端口（`ufw status`）。请避免与同一台机器上的其他节点（或备用/测试网节点）发生冲突。
 
           </Tab>
           <Tab label="Prysm">
@@ -416,7 +416,7 @@ rocketpool service config
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">注意</p>
-        **在路由器的端口转发设置中打开 P2P 端口**。将其配置为将 **端口 9001**（TCP 和 UDP）转发到您机器的本地 IP 地址。
+        **在路由器的端口转发设置中打开 P2P 端口**。将其配置为将 **端口 9001**（TCP 和 UDP）以及 **端口 8001**（UDP，用于基于 QUIC 的 P2P）转发到您机器的本地 IP 地址。
         这样，其他共识客户端可以发现它并从外部与之通信。这将有助于您的共识客户端快速同步并提高性能（从而提高奖励）。
 
         每个路由器都有不同的操作方式，因此**您需要查看路由器的手册以了解如何设置端口转发**

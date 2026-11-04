@@ -134,7 +134,7 @@ Choisissez le mode que vous souhaitez utiliser pour gérer votre client d'exécu
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOTE</p>
         **Ouvrez le port P2P dans la configuration de redirection de port de votre routeur**. Configurez-le pour rediriger le **port 30303** sur TCP et UDP vers l'adresse IP locale de votre machine.
-        De cette façon, d'autres clients de consensus peuvent le découvrir et communiquer avec lui de l'extérieur. Cela aidera votre client de consensus à se synchroniser rapidement et à améliorer les performances (et donc les récompenses).
+        De cette façon, d'autres clients d'exécution peuvent le découvrir et communiquer avec lui de l'extérieur. Cela aidera votre client d'exécution à se synchroniser rapidement et à améliorer les performances (et donc les récompenses).
 
         Chaque routeur a une façon différente de faire cela, donc **vous devrez consulter le manuel de votre routeur sur la façon de configurer la redirection de port**.
       </p>
@@ -249,7 +249,7 @@ Choisissez le mode que vous avez sélectionné précédemment dans les onglets c
 
             Considérez-la comme une assurance bon marché pour vos minipools ; vous manquerez un peu de profit insignifiant chaque fois que vous redémarrerez, mais vous pouvez être assez confiant que vous n'exécuterez pas accidentellement vos clés à deux endroits et ne serez pas sanctionné pour cela.
 
-            À partir de la version 4.5.0, Lighthouse a une option pour établir des connexions P2P de manière plus efficace en utilisant le [protocole QUIC](https://en.wikipedia.org/wiki/QUIC). Si vous êtes prêt à utiliser cette fonctionnalité, vous devrez définir un champ supplémentaire "port QUIC P2P" dans les paramètres ETH2, et le rediriger vers votre nœud dans la configuration de redirection de port de votre routeur. Le port QUIC P2P par défaut est 8001 (UDP). Assurez-vous d'éviter les collisions avec les ports déjà utilisés par votre nœud (ou les nœuds de secours/testnet). Assurez-vous également que le même port est ouvert si vous utilisez un pare-feu sur votre nœud (vérifiez `ufw status`).
+            Lighthouse établit également des connexions P2P via le [protocole QUIC](https://en.wikipedia.org/wiki/QUIC), que le Smart Node active toujours. Il utilise le **P2P QUIC Port** dans les paramètres ETH2 (par défaut 8001, UDP) ; redirigez donc ce port vers votre nœud dans la configuration de redirection de port de votre routeur. Assurez-vous d'éviter les collisions avec les ports déjà utilisés par votre nœud (ou les nœuds de secours/testnet). Assurez-vous également que le même port est ouvert si vous utilisez un pare-feu sur votre nœud (vérifiez `ufw status`).
             Pour vérifier si la configuration QUIC fonctionne, vous devriez voir un nombre à 2 chiffres après `libp2p_quic_peers` lors de l'exécution de `docker run --network rocketpool_net curlimages/curl http://eth2:9100/metrics | grep libp2p_peers_multi`.
 
           </Tab>
@@ -296,7 +296,7 @@ Choisissez le mode que vous avez sélectionné précédemment dans les onglets c
 
             Considérez-la comme une assurance bon marché pour vos minipools ; vous manquerez un peu de profit insignifiant chaque fois que vous redémarrerez, mais vous pouvez être assez confiant que vous n'exécuterez pas accidentellement vos clés à deux endroits et ne serez pas sanctionné pour cela.
 
-            Nimbus prend en charge le gossip P2P via le [protocole QUIC](https://en.wikipedia.org/wiki/QUIC). Dans le Gestionnaire de configuration, définissez **P2P QUIC Port** dans les paramètres Nimbus (par défaut **8001**, UDP), redirigez ce port vers votre nœud dans la configuration de redirection de ports de votre routeur, et ouvrez-le dans le pare-feu de l'hôte si vous en utilisez un (`ufw status`). Évitez les collisions avec d'autres nœuds sur la même machine (ou avec des nœuds de secours / testnet).
+            Nimbus prend en charge le gossip P2P via le [protocole QUIC](https://en.wikipedia.org/wiki/QUIC), que le Smart Node active toujours. Il utilise le **P2P QUIC Port** dans les paramètres Nimbus (par défaut **8001**, UDP) ; redirigez donc ce port vers votre nœud dans la configuration de redirection de ports de votre routeur, et ouvrez-le dans le pare-feu de l'hôte si vous en utilisez un (`ufw status`). Évitez les collisions avec d'autres nœuds sur la même machine (ou avec des nœuds de secours / testnet).
 
           </Tab>
           <Tab label="Prysm">
@@ -416,7 +416,7 @@ Choisissez le mode que vous avez sélectionné précédemment dans les onglets c
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOTE</p>
-        **Ouvrez le port P2P dans la configuration de redirection de port de votre routeur**. Configurez-le pour rediriger le **port 9001** sur TCP et UDP vers l'adresse IP locale de votre machine.
+        **Ouvrez le port P2P dans la configuration de redirection de port de votre routeur**. Configurez-le pour rediriger le **port 9001** sur TCP et UDP, ainsi que le **port 8001** sur UDP (utilisé pour le P2P via QUIC), vers l'adresse IP locale de votre machine.
         De cette façon, d'autres clients de consensus peuvent le découvrir et communiquer avec lui de l'extérieur. Cela aidera votre client de consensus à se synchroniser rapidement et à améliorer les performances (et donc les récompenses).
 
         Chaque routeur a une façon différente de faire cela, donc **vous devrez consulter le manuel de votre routeur sur la façon de configurer la redirection de port**

@@ -134,7 +134,7 @@ Scegli quale modalità vuoi utilizzare per gestire il tuo client di Esecuzione e
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOTA</p>
         **Apri la porta P2P nella configurazione di port forwarding del tuo router**. Configurala per inoltrare la **porta 30303** sia su TCP che UDP all'indirizzo IP locale della tua macchina.
-        In questo modo, altri client di Consenso possono scoprirlo e comunicare con esso dall'esterno. Questo aiuterà il tuo client di Consenso a sincronizzarsi rapidamente e a migliorare le prestazioni (e quindi le ricompense).
+        In questo modo, altri client di Esecuzione possono scoprirlo e comunicare con esso dall'esterno. Questo aiuterà il tuo client di Esecuzione a sincronizzarsi rapidamente e a migliorare le prestazioni (e quindi le ricompense).
 
         Ogni router ha un modo diverso di farlo, quindi **dovrai consultare il manuale del tuo router su come configurare il port forwarding**.
       </p>
@@ -249,7 +249,7 @@ Scegli quale modalità hai selezionato in precedenza dalle schede di seguito:
 
             Pensalo come un'assicurazione economica per i tuoi minipool; perderai un po' di profitto banale ogni volta che riavvii, ma puoi essere abbastanza sicuro di non eseguire accidentalmente le tue chiavi in due posti e subire slashing per questo.
 
-            A partire dalla versione 4.5.0 Lighthouse ha un'opzione per stabilire connessioni P2P in modo più efficiente utilizzando il [protocollo QUIC](https://en.wikipedia.org/wiki/QUIC). Se sei disposto a utilizzare questa funzione dovrai definire un campo extra "P2P QUIC port" nelle impostazioni ETH2 e inoltrarlo al tuo nodo nella configurazione di port forwarding del tuo router. La porta P2P QUIC predefinita è 8001 (UDP). Assicurati di evitare collisioni con porte già in uso dal tuo nodo (o nodi di fallback/testnet). Assicurati anche che la stessa porta sia aperta se stai usando un firewall sul tuo nodo (controlla `ufw status`).
+            Lighthouse stabilisce anche connessioni P2P tramite il [protocollo QUIC](https://en.wikipedia.org/wiki/QUIC), che lo Smart Node abilita sempre. Usa la **P2P QUIC Port** nelle impostazioni ETH2 (predefinita 8001, UDP), quindi inoltra quella porta al tuo nodo nella configurazione di port forwarding del tuo router. Assicurati di evitare collisioni con porte già in uso dal tuo nodo (o nodi di fallback/testnet). Assicurati anche che la stessa porta sia aperta se stai usando un firewall sul tuo nodo (controlla `ufw status`).
             Per verificare se la configurazione QUIC funziona dovresti vedere un numero a 2 cifre dopo `libp2p_quic_peers` quando esegui `docker run --network rocketpool_net curlimages/curl http://eth2:9100/metrics | grep libp2p_peers_multi`.
 
           </Tab>
@@ -296,7 +296,7 @@ Scegli quale modalità hai selezionato in precedenza dalle schede di seguito:
 
             Pensalo come un'assicurazione economica per i tuoi minipool; perderai un po' di profitto banale ogni volta che riavvii, ma puoi essere abbastanza sicuro di non eseguire accidentalmente le tue chiavi in due posti e subire slashing per questo.
 
-            Nimbus supporta il gossip P2P sul [protocollo QUIC](https://en.wikipedia.org/wiki/QUIC). Nel Gestore delle impostazioni, imposta **P2P QUIC Port** nelle impostazioni di Nimbus (predefinito **8001**, UDP), inoltra quella porta al tuo nodo nel port forwarding del router e aprila nel firewall dell'host se ne usi uno (`ufw status`). Evita collisioni con altri nodi sulla stessa macchina (o con nodi di fallback / testnet).
+            Nimbus supporta il gossip P2P sul [protocollo QUIC](https://en.wikipedia.org/wiki/QUIC), che lo Smart Node abilita sempre. Usa la **P2P QUIC Port** nelle impostazioni di Nimbus (predefinita **8001**, UDP), quindi inoltra quella porta al tuo nodo nel port forwarding del router e aprila nel firewall dell'host se ne usi uno (`ufw status`). Evita collisioni con altri nodi sulla stessa macchina (o con nodi di fallback / testnet).
 
           </Tab>
           <Tab label="Prysm">
@@ -416,7 +416,7 @@ Scegli quale modalità hai selezionato in precedenza dalle schede di seguito:
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOTA</p>
-        **Apri la porta P2P nella configurazione di port forwarding del tuo router**. Configurala per inoltrare la **porta 9001** sia su TCP che UDP all'indirizzo IP locale della tua macchina.
+        **Apri la porta P2P nella configurazione di port forwarding del tuo router**. Configurala per inoltrare la **porta 9001** sia su TCP che UDP, e la **porta 8001** su UDP (usata per il P2P su QUIC), all'indirizzo IP locale della tua macchina.
         In questo modo, altri client di Consenso possono scoprirlo e comunicare con esso dall'esterno. Questo aiuterà il tuo client di Consenso a sincronizzarsi rapidamente e a migliorare le prestazioni (e quindi le ricompense).
 
         Ogni router ha un modo diverso di farlo, quindi **dovrai consultare il manuale del tuo router su come configurare il port forwarding**

@@ -581,11 +581,13 @@ sudo ufw allow 9001/tcp comment 'Consensus client port, standardised by Rocket P
 sudo ufw allow 9001/udp comment 'Consensus client port, standardised by Rocket Pool'
 ```
 
-QUIC üzerinden P2P gossip'i destekleyen Smart Node consensus istemcileri varsayılan olarak UDP **8001** portunu dinler. Bu özelliği etkinleştirirseniz, portu ana makine güvenlik duvarınızda açın:
+Smart Node consensus istemcileri ayrıca her zaman etkin olan ve varsayılan olarak UDP **8001** portunu dinleyen QUIC üzerinden P2P gossip kullanır. Portu ana makine güvenlik duvarınızda açın:
 
 ```shell
 sudo ufw allow 8001/udp comment 'Consensus client port, standardised by Rocket Pool'
 ```
+
+Erigon kullanıyorsanız, torrent portuna da izin verin (varsayılan `42069`, TCP ve UDP). Teku'yu [IPv6 etkin](./advanced-config#deneysel-çift-yığın-ipv4--ipv6-ağını-etkinleştirme) olarak kullanıyorsanız, IPv6 portlarına da izin verin (varsayılan `9090` TCP ve UDP ile `8002` UDP).
 
 Son olarak, `ufw`'yi etkinleştirin:
 

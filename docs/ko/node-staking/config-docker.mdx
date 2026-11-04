@@ -134,7 +134,7 @@ Execution 클라이언트를 관리하는 데 사용할 모드를 선택하고 �
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">참고</p>
         **라우터의 포트 포워딩 설정에서 P2P 포트를 열어주세요**. TCP와 UDP 모두에서 **포트 30303**을 머신의 로컬 IP 주소로 포워딩하도록 구성하세요.
-        이렇게 하면 다른 Consensus 클라이언트가 이를 발견하고 외부에서 통신할 수 있습니다. 이렇게 하면 Consensus 클라이언트가 빠르게 동기화되고 성능(따라서 보상)이 향상됩니다.
+        이렇게 하면 다른 Execution 클라이언트가 이를 발견하고 외부에서 통신할 수 있습니다. 이렇게 하면 Execution 클라이언트가 빠르게 동기화되고 성능(따라서 보상)이 향상됩니다.
 
         각 라우터는 포트 포워딩 설정 방법이 다르므로 **라우터 설명서를 확인하여 포트 포워딩을 설정하는 방법을 알아보세요**.
       </p>
@@ -249,7 +249,7 @@ Execution 클라이언트를 관리하는 데 사용할 모드를 선택하고 �
 
             minipool에 대한 저렴한 보험이라고 생각하세요. 재시작할 때마다 사소한 이익을 놓치겠지만, 실수로 두 곳에서 키를 실행하여 슬래싱되지 않을 것이라고 상당히 확신할 수 있습니다.
 
-            버전 4.5.0부터 Lighthouse는 [QUIC 프로토콜](https://en.wikipedia.org/wiki/QUIC)을 사용하여 보다 효율적인 방식으로 P2P 연결을 설정하는 옵션이 있습니다. 이 기능을 사용하려면 ETH2 설정에서 "P2P QUIC port" 필드를 추가로 정의하고 라우터의 포트 포워딩 설정에서 노드로 포워딩해야 합니다. 기본 P2P QUIC 포트는 8001(UDP)입니다. 노드에서 이미 사용 중인 포트(또는 폴백/테스트넷 노드)와 충돌하지 않도록 하세요. 또한 노드에서 방화벽을 사용하는 경우 동일한 포트가 열려 있는지 확인하세요(`ufw status` 확인).
+            Lighthouse는 Smart Node가 항상 활성화하는 [QUIC 프로토콜](https://en.wikipedia.org/wiki/QUIC)을 통해서도 P2P 연결을 설정합니다. ETH2 설정의 **P2P QUIC Port**(기본값 8001, UDP)를 사용하므로 라우터의 포트 포워딩 설정에서 해당 포트를 노드로 포워딩하세요. 노드에서 이미 사용 중인 포트(또는 폴백/테스트넷 노드)와 충돌하지 않도록 하세요. 또한 노드에서 방화벽을 사용하는 경우 동일한 포트가 열려 있는지 확인하세요(`ufw status` 확인).
             QUIC 구성이 작동하는지 확인하려면 `docker run --network rocketpool_net curlimages/curl http://eth2:9100/metrics | grep libp2p_peers_multi`를 실행할 때 `libp2p_quic_peers` 뒤에 두 자리 숫자가 표시되어야 합니다.
 
           </Tab>
@@ -296,7 +296,7 @@ Execution 클라이언트를 관리하는 데 사용할 모드를 선택하고 �
 
             minipool에 대한 저렴한 보험이라고 생각하세요. 재시작할 때마다 사소한 이익을 놓치겠지만, 실수로 두 곳에서 키를 실행하여 슬래싱되지 않을 것이라고 상당히 확신할 수 있습니다.
 
-            Nimbus는 [QUIC 프로토콜](https://en.wikipedia.org/wiki/QUIC)을 통한 P2P gossip을 지원합니다. 설정 관리자의 Nimbus 설정에서 **P2P QUIC Port**(기본값 **8001**, UDP)를 설정하고, 라우터의 포트 포워딩 설정에서 해당 포트를 노드로 전달하며, 호스트 방화벽을 사용하는 경우 해당 포트를 열어주세요(`ufw status`). 같은 머신의 다른 노드(또는 폴백/테스트넷 노드)와 충돌하지 않도록 주의하세요.
+            Nimbus는 [QUIC 프로토콜](https://en.wikipedia.org/wiki/QUIC)을 통한 P2P gossip을 지원하며, Smart Node는 이를 항상 활성화합니다. Nimbus 설정의 **P2P QUIC Port**(기본값 **8001**, UDP)를 사용하므로 라우터의 포트 포워딩 설정에서 해당 포트를 노드로 전달하고, 호스트 방화벽을 사용하는 경우 해당 포트를 열어주세요(`ufw status`). 같은 머신의 다른 노드(또는 폴백/테스트넷 노드)와 충돌하지 않도록 주의하세요.
 
           </Tab>
           <Tab label="Prysm">
@@ -416,7 +416,7 @@ Execution 클라이언트를 관리하는 데 사용할 모드를 선택하고 �
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">참고</p>
-        **라우터의 포트 포워딩 설정에서 P2P 포트를 열어주세요**. TCP와 UDP 모두에서 **포트 9001**을 머신의 로컬 IP 주소로 포워딩하도록 구성하세요.
+        **라우터의 포트 포워딩 설정에서 P2P 포트를 열어주세요**. TCP와 UDP 모두에서 **포트 9001**을, UDP에서 **포트 8001**(QUIC를 통한 P2P에 사용)을 머신의 로컬 IP 주소로 포워딩하도록 구성하세요.
         이렇게 하면 다른 Consensus 클라이언트가 이를 발견하고 외부에서 통신할 수 있습니다. 이렇게 하면 Consensus 클라이언트가 빠르게 동기화되고 성능(따라서 보상)이 향상됩니다.
 
         각 라우터는 포트 포워딩 설정 방법이 다르므로 **라우터 설명서를 확인하여 포트 포워딩을 설정하는 방법을 알아보세요**

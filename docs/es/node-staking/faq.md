@@ -33,7 +33,7 @@ Luego, recupera tu billetera de nodo y claves de validador ejecutando el comando
 ### ¿Por qué mis clientes no están sincronizando? Tengo una cantidad baja de peers.
 
 Los clientes necesitan tener un número saludable de peers para poder sincronizar adecuadamente.
-Puedes comenzar ejecutando la prueba [aquí](https://www.yougetsignal.com/tools/open-ports/), verificando si los puertos 30303 y 9001 están abiertos.
+Puedes comenzar ejecutando la prueba [aquí](https://www.yougetsignal.com/tools/open-ports/), verificando si los puertos 30303 y 9001 están abiertos. Tu cliente de Consenso también usa el puerto UDP 8001 para QUIC, así que reenvía ese también (esta herramienta solo prueba TCP).
 Si están cerrados, necesitarás configurar el reenvío de puertos en tu enrutador.
 Además, asegúrate de que tu nodo tenga una dirección IP local estática para que el reenvío de puertos no se rompa debido a que tu nodo obtenga una nueva dirección.
 
