@@ -33,4 +33,4 @@ Use this guide if you already have a node wallet that you want to recover onto y
 
 [MEV, MEV-Boost, and MEV Rewards](../mev.mdx) explains **Maximum-Extractable Value** (MEV), its role in the staking ecosystem, and how you can configure it to your liking using the Smart Node.
 
-[Commit-Boost](../commit-boost.mdx) covers Commit-Boost, an alternative to MEV-Boost that supports additional features like preconfirmations and inclusion lists.
+[Commit-Boost](../commit-boost.mdx) covers Commit-Boost, an alternative to MEV-Boost that you can enable in the Smart Node instead.
