@@ -33,7 +33,7 @@ Then, recover your node wallet and validator keys by running the command `rocket
 ### Why aren't my clients syncing? I have a low amount of peers.
 
 Clients need to have a healthy number of peers to be able to properly sync.
-You can start by running the test [here](https://www.yougetsignal.com/tools/open-ports/), checking if ports 30303 and 9001 are opened.
+You can start by running the test [here](https://www.yougetsignal.com/tools/open-ports/), checking if ports 30303 and 9001 are opened. Your Consensus client also uses UDP port 8001 for QUIC, so forward that one too (this tool only tests TCP).
 If they're closed, you'll need to setup port forwarding on your router.
 Also, make sure your node has a static local IP address so the port forwarding does not break due to your node getting a new address.
 

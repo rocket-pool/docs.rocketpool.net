@@ -134,7 +134,7 @@ Choose which mode you'd like to use for managing your Execution client and follo
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOTE</p>
         **Open up the P2P port in your router's port forwarding setup**. Configure it to forward **port 30303** on both TCP and UDP to your machine's local IP address.
-        This way, other Consensus clients can discover it and communicate with it from the outside. This will help your Consensus client sync quickly and improve performance (and thus rewards).
+        This way, other Execution clients can discover it and communicate with it from the outside. This will help your Execution client sync quickly and improve performance (and thus rewards).
 
         Each router has a different way of doing this, so **you'll need to check out your router's manual on how to set up port forwarding**.
       </p>
@@ -249,7 +249,7 @@ Choose which mode you selected earlier from the tabs below:
 
             Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
 
-            Starting on version 4.5.0 Lighthouse has an option to establish P2P connections in a more efficient way using the [QUIC protocol](https://en.wikipedia.org/wiki/QUIC). If you are willing to use this feature you'll need to define an extra port "P2P QUIC port" field on the ETH2 settings, and forward it to your node in your router's port forwarding setup. The default P2P QUIC port is 8001 (UDP). Make sure to avoid collisions with ports already in use by your node (or fallback/testnet nodes). Also make sure the same port is open if you're using a firewall on your node (check `ufw status`).
+            Lighthouse also establishes P2P connections over the [QUIC protocol](https://en.wikipedia.org/wiki/QUIC), which the Smart Node always enables. It uses the **P2P QUIC Port** in the ETH2 settings (default 8001, UDP), so forward that port to your node in your router's port forwarding setup. Make sure to avoid collisions with ports already in use by your node (or fallback/testnet nodes). Also make sure the same port is open if you're using a firewall on your node (check `ufw status`).
             To check if the QUIC configuration is working you should see a 2-digit number after `libp2p_quic_peers` when running `docker run --network rocketpool_net curlimages/curl http://eth2:9100/metrics | grep libp2p_peers_multi`.
 
           </Tab>
@@ -296,7 +296,7 @@ Choose which mode you selected earlier from the tabs below:
 
             Think of it as cheap insurance for your minipools; you'll miss a trivial bit of profit every time you restart, but you can be fairly confident that you won't accidentally run your keys in two places and get slashed for it.
 
-            Nimbus supports P2P gossip over the [QUIC protocol](https://en.wikipedia.org/wiki/QUIC). In the Settings Manager, set **P2P QUIC Port** under Nimbus settings (default **8001**, UDP), forward that port to your node in your router's port-forwarding setup, and open it in the host firewall if you use one (`ufw status`). Avoid collisions with other nodes on the same machine (or fallback / testnet nodes).
+            Nimbus supports P2P gossip over the [QUIC protocol](https://en.wikipedia.org/wiki/QUIC), which the Smart Node always enables. It uses the **P2P QUIC Port** under Nimbus settings (default **8001**, UDP), so forward that port to your node in your router's port-forwarding setup, and open it in the host firewall if you use one (`ufw status`). Avoid collisions with other nodes on the same machine (or fallback / testnet nodes).
 
           </Tab>
           <Tab label="Prysm">
@@ -416,7 +416,7 @@ Choose which mode you selected earlier from the tabs below:
 
       <p className="rspress-directive warning">
         <p className="rspress-directive-title">NOTE</p>
-        **Open up the P2P port in your router's port forwarding setup**. Configure it to forward **port 9001** on both TCP and UDP to your machine's local IP address.
+        **Open up the P2P port in your router's port forwarding setup**. Configure it to forward **port 9001** on both TCP and UDP, and **port 8001** on UDP (used for P2P over QUIC), to your machine's local IP address.
         This way, other Consensus clients can discover it and communicate with it from the outside. This will help your Consensus client sync quickly and improve performance (and thus rewards).
 
         Each router has a different way of doing this, so **you'll need to check out your router's manual on how to set up port forwarding**
