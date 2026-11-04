@@ -1,0 +1,273 @@
+import { Tab, Tabs } from "@rspress/core/theme";
+import tui_epbs from "./images/tui-epbs.png";
+import tui_commit_boost from "./images/tui-commit-boost.png";
+import tui_enable_commit_boost from "./images/tui-enable-commit-boost.png";
+
+
+# Commit-Boost
+
+Commit-Boost, Proposer-Builder Separation (PBS) işlemleri için MEV-Boost'a alternatif olarak hizmet veren, açık kaynaklı ve topluluk odaklı bir doğrulayıcı sidecar'ıdır.
+Blok oluşturmanın yanı sıra Commit-Boost, ön onaylar (preconfirmations) ve dahil etme listeleri (inclusion lists) gibi teklif veren taahhüt protokollerini de destekler.
+Smart Node şu anda Commit-Boost'un yalnızca PBS (blok oluşturma) modülünü çalıştırır, bu nedenle bu ek protokoller henüz Smart Node üzerinden kullanılamaz.
+MEV ve PBS'de yeniyseniz, arka plan bilgisi için önce [MEV, MEV-Boost ve MEV Ödülleri](./mev) sayfasını okumanızı öneririz.
+
+## Commit-Boost nedir?
+
+Commit-Boost, ek özelliklere sahip, MEV-Boost'un yerine doğrudan kullanılabilen bir alternatiftir. Temel amacı, Ethereum doğrulayıcıları ile üçüncü taraf protokoller arasındaki iletişimi standart hale getirmektir.
+
+- MEV-Boost ile aynı Builder API'yi kullanır (varsayılan port 18550), bu nedenle Beacon Node'unuz onunla MEV-Boost ile iletişim kurduğu şekilde iletişim kurar.
+- MEV relay'lerine bağlanır ve tıpkı MEV-Boost gibi blok oluşturmayı yönetir.
+- Gelecekteki taahhüt protokolleri için modüler bir eklenti sistemini destekler.
+- Geliştiriciler için doğrulayıcılarla etkileşim kurmaya yönelik tek bir API sunar.
+
+Commit-Boost [açık kaynaklıdır](https://github.com/Commit-Boost/commit-boost-client) ve Aralık 2024'te Sigma Prime tarafından [denetlenmiştir](https://github.com/Commit-Boost/commit-boost-client/blob/main/audit/Sigma_Prime_Commit_Boost_Client_Security_Assessment_Report_v2_0.pdf).
+
+## Commit-Boost ve MEV-Boost karşılaştırması
+
+Hem Commit-Boost hem de MEV-Boost, PBS'yi builder pazarı ve MEV relay altyapısı üzerinden yürütür. Aralarındaki farklar şunlardır:
+
+| Özellik | MEV-Boost | Commit-Boost |
+|---------|-----------|--------------|
+| **Amaç** | Yalnızca PBS | PBS + genişletilebilir, modüler platform |
+| **Bakımcı** | Flashbots | Topluluk / Commit-Boost ekibi |
+| **Gelecekteki protokoller** | Sabit | Üçüncü taraf protokoller için eklenti sistemi (henüz Smart Node üzerinden kullanılamaz) |
+| **Kullanılabilir relay'ler (mainnet)** | 8 relay | 5 relay (yalnızca OFAC filtreli) |
+
+Smart Node açısından her ikisi de Beacon Node'unuza aynı şekilde bağlanır. Ethereum'a ön onaylar gibi yeni teklif veren taahhüt özellikleri eklendikçe Commit-Boost geleceğe dönük bir seçenektir.
+
+:::tip NOT
+MEV-Boost ve Commit-Boost'u aynı anda çalıştıramazsınız. Smart Node, yapılandırmanızı TUI'de kaydederken bunu zorunlu kılar.
+:::
+
+## Kullanılabilir relay'ler
+
+Commit-Boost'ta kullanılabilen relay'ler şunlardır:
+
+| Ad | Düzenleme | Ağlar | MEV Türleri |
+|------|-----------|----------|-----------|
+| [Flashbots](https://boost.flashbots.net/) | OFAC yaptırımlarına uyar* | Mainnet, Hoodi | Tüm türler |
+| [bloXroute Regulated](https://docs.bloxroute.com/eth/block-builders-and-validators/mev-relay-for-validators) | OFAC yaptırımlarına uyar* | Mainnet, Hoodi | Tüm türler |
+| [Titan Regional](https://docs.titanrelay.xyz/) | OFAC yaptırımlarına uyar* | Yalnızca mainnet | Tüm türler |
+| [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/) | OFAC yaptırımlarına uyar* | Yalnızca mainnet | Tüm türler |
+| BTCS OFAC+ | OFAC yaptırımlarına uyar* | Yalnızca mainnet | Tüm türler |
+| [AESTUS](https://aestus.live/) | Düzenlenmemiş | Yalnızca Hoodi | Tüm türler |
+| [Titan Global](https://docs.titanrelay.xyz/) | Düzenlenmemiş | Yalnızca Hoodi | Tüm türler |
+
+:::warning NOT
+\*OFAC yaptırımlarına uyan relay'ler, ABD Yabancı Varlıkları Kontrol Ofisi'nin (OFAC) tuttuğu adres kara listesini izler.
+OFAC yaptırımları ve ağ sansürü hakkında daha fazla okumanızı ve hangi relay'leri kullanmaktan rahat olduğunuz konusunda dikkatle bilgilendirilmiş bir karar vermenizi **önemle tavsiye ederiz**.
+
+Daha fazla bilgiyi [MEV sayfasında](./mev#block-builderlar-ve-relayler) bulabilirsiniz.
+:::
+
+:::warning ÖNEMLİ
+Mainnet'te Commit-Boost, Smart Node'da MEV-Boost'tan **daha az relay** destekler. Özellikle mainnet'teki Commit-Boost şunları **içermez**:
+- Ultra Sound (filtresiz)
+- Aestus
+- Titan Global (filtresiz)
+
+Mainnet'te Commit-Boost'ta kullanılabilen tüm relay'ler, OFAC yaptırımlarına uyan düzenlenmiş/filtreli sürümlerdir. Düzenlenmemiş relay'lere erişmeniz gerekiyorsa Commit-Boost yerine MEV-Boost kullanmaya devam etmelisiniz.
+:::
+
+
+## Ödüller ve APY
+
+Commit-Boost, MEV-Boost'a benzer ödüller sağlar.
+Commit-Boost mainnet'te yalnızca düzenlenmiş relay'leri desteklediğinden, daha önce düzenlenmemiş relay'ler kullanıyorsanız MEV ödülleriniz MEV-Boost'a kıyasla biraz farklı olabilir.
+
+Gelecekte ön onaylar ve dahil etme listeleri gibi teklif veren taahhüt protokolleri, standart MEV ödüllerinin üzerine ek getiri sağlayabilir.
+
+
+## Smart Node'da Commit-Boost'u yapılandırma
+
+Commit-Boost'u nasıl yapılandıracağınızı öğrenmek için aşağıdan modunuzu seçin:
+
+<div className="p-3">
+  <Tabs>
+    <Tab label="Docker Mode">
+      Smart Node'un yapılandırma TUI'si ile Commit-Boost'u yapılandırmak kolaydır.
+
+      `rocketpool service config` komutunu çalıştırarak başlayın ve `ePBS` kategorisini seçin:
+
+      <img src={tui_epbs} width="100%" height="auto"/>
+
+      Ardından `Commit-Boost`'u seçin:
+
+      <img src={tui_commit_boost} width="100%" height="auto"/>
+
+      Etkinleştirmek için `Enable Commit-Boost` kutusunu işaretleyin.
+
+      <img src={tui_enable_commit_boost} width="100%" height="auto"/>
+
+      :::tip NOT
+      MEV-Boost şu anda etkinse, kaydedip TUI'den çıkmadan önce onu devre dışı bırakmanız gerekir. Smart Node ikisinin aynı anda etkin olmasına izin vermez.
+      :::
+
+      Etkinleştirdikten sonra birkaç yapılandırma seçeneği göreceksiniz:
+
+      **Commit-Boost Mode**
+      - **Locally Managed** (önerilen): Smart Node, Commit-Boost konteynerini sizin için çalıştırır ve yönetir.
+      - **Externally Managed**: Kendi yönettiğiniz bir Commit-Boost örneğini kullanın. Adresini **External URL** alanına girin (örneğin `http://192.168.1.10:18550`). Bu modda aşağıdaki ayarların hiçbiri geçerli değildir.
+
+      :::warning NOT
+      Kendi Commit-Boost örneğinizi çalıştırıyorsanız, yalnızca yukarıda listelenen güvenilir relay'lere kaydolmanız **gerekir**. Güvenilmeyen relay'lerin kullanılması Oracle DAO tarafından cezalara yol açabilir.
+      :::
+
+      **Locally Managed modu kullanılıyorsa:**
+
+      **Relay Selection Mode**
+      - **Use All Relays**: Mevcut ağınız (mainnet veya testnet) için kullanılabilen tüm relay'leri otomatik olarak etkinleştirir. En basit seçenektir.
+      - **Manual Mode**: Kullanılabilen her relay için ayrı bir onay kutusu gösterir, böylece hangi relay'leri kullanacağınızı tam olarak seçebilirsiniz.
+
+      **Custom Relays**: Varsayılan listede olmayan relay'leri kullanmak istiyorsanız özel relay URL'leri ekleyin (virgülle ayırarak). Yalnızca yukarıdaki güvenilir listeden relay ekleyin; güvenilmeyen relay'lerin kullanılması Oracle DAO tarafından cezalara yol açabilir.
+
+      **Port**: Varsayılan `18550` (MEV-Boost ile aynı). Genellikle bunu değiştirmeniz gerekmez.
+
+      **Expose API Port**:
+      - **Closed** (önerilen): API'ye yalnızca Docker ağı içinden erişilebilir
+      - **Open to Localhost**: API'ye localhost üzerinden erişilebilir
+      - **Open to External hosts**: API'ye harici makinelerden erişilebilir. Bunu yalnızca harici erişime ihtiyacınız varsa *ve* düğümünüzü istenmeyen trafiğe karşı korumak için gerekli adımları izlediyseniz seçin: [Securing Your Node](./securing-your-node)
+
+      **Container Tag**: Commit-Boost'un Docker imaj etiketi. Smart Node varsayılan değeri belirler ve her sürümde günceller. Smart Node güncellenmeden önce yeni bir sürüm çıkarsa bunu elle değiştirebilirsiniz.
+
+      Commit-Boost'u yapılandırıp relay'lerinizi seçtikten sonra kaydedin ve çıkın. Smart Node ilgili konteynerleri yeniden başlatır ve Beacon Node'unuzu ile Validator Client'ınızı Commit-Boost'u kullanacak şekilde otomatik olarak yapılandırır.
+
+      Doğru çalıştığını doğrulama talimatları için aşağıya bakın.
+    </Tab>
+    <Tab label="Hybrid Mode">
+      Smart Node'un yapılandırma TUI'si ile Commit-Boost'u yapılandırmak kolaydır.
+
+      `rocketpool service config` komutunu çalıştırarak başlayın ve `ePBS` kategorisini seçin:
+
+      <img src={tui_epbs} width="100%" height="auto"/>
+
+      Ardından `Commit-Boost`'u seçin:
+
+      <img src={tui_commit_boost} width="100%" height="auto"/>
+
+      Etkinleştirmek için `Enable Commit-Boost` kutusunu işaretleyin.
+
+      <img src={tui_enable_commit_boost} width="100%" height="auto"/>
+
+      :::tip NOT
+      MEV-Boost şu anda etkinse, kaydedip TUI'den çıkmadan önce onu devre dışı bırakmanız gerekir. Smart Node ikisinin aynı anda etkin olmasına izin vermez.
+      :::
+
+      Etkinleştirdikten sonra birkaç yapılandırma seçeneği göreceksiniz:
+
+      **Commit-Boost Mode**
+
+      Bu ayar, Commit-Boost'u Smart Node'un mu yöneteceğini yoksa kendi örneğinizi mi çalıştıracağınızı belirler:
+      - **Locally Managed** (önerilen): Smart Node, Commit-Boost konteynerini sizin için çalıştırır ve yönetir. Bazı kullanıcılar Rocket Pool'un kendi Commit-Boost örneğini yönetmesine izin vermeyi ve harici olarak yönetilen Beacon Node'larını buna bağlamayı tercih eder.
+      - **Externally Managed**: Harici olarak yönetilen Beacon Node'unuz zaten kendi Commit-Boost (veya MEV-Boost) örneğine bağlanıyorsa bunu kullanın. Girilecek bir URL yoktur: Smart Node yalnızca kendi Validator Client'ında builder bayraklarını etkinleştirir ve builder uç noktasını kendi Beacon Node'unuzun yapılandırmasında etkinleştirmeniz gerekir. Bunu yapmazsanız blok yayınlayamayabilir ve önemli ödülleri kaçırabilirsiniz.
+
+      :::warning NOT
+      Kendi Commit-Boost örneğinizi çalıştırıyorsanız, yalnızca yukarıda listelenen güvenilir relay'lere kaydolmanız **gerekir**. Güvenilmeyen relay'lerin kullanılması Oracle DAO tarafından cezalara yol açabilir.
+      :::
+
+      **Locally Managed modu kullanılıyorsa** (çoğu kullanıcı için önerilir):
+
+      **Relay Selection Mode**
+      - **Use All Relays**: Mevcut ağınız (mainnet veya testnet) için kullanılabilen tüm relay'leri otomatik olarak etkinleştirir. En basit seçenektir.
+      - **Manual Mode**: Kullanılabilen her relay için ayrı bir onay kutusu gösterir, böylece hangi relay'leri kullanacağınızı tam olarak seçebilirsiniz.
+
+      **Custom Relays**: Varsayılan listede olmayan relay'leri kullanmak istiyorsanız özel relay URL'leri ekleyin (virgülle ayırarak). Yalnızca yukarıdaki güvenilir listeden relay ekleyin; güvenilmeyen relay'lerin kullanılması Oracle DAO tarafından cezalara yol açabilir.
+
+      **Port**: Varsayılan `18550` (MEV-Boost ile aynı). Genellikle bunu değiştirmeniz gerekmez.
+
+      **Expose API Port**: Harici olarak yönetilen Beacon Node'unuzun Rocket Pool'un yöneteceği Commit-Boost örneğiyle iletişim kurabilmesi için bu ayar **varsayılan değerden değiştirilmelidir**.
+      - **Closed** (varsayılan): API'ye yalnızca Docker ağı içinden erişilebilir
+      - **Open to Localhost**: API'ye localhost üzerinden erişilebilir. Harici olarak yönetilen BN'niz aynı makinede çalışıyorsa bunu seçin.
+      - **Open to External hosts**: API'ye harici makinelerden erişilebilir. Bunu yalnızca harici olarak yönetilen BN'niz farklı bir makinede çalışıyorsa *ve* düğümünüzü istenmeyen trafiğe karşı korumak için gerekli adımları izlediyseniz seçin: [Securing Your Node](./securing-your-node)
+
+      **Container Tag**: Commit-Boost'un Docker imaj etiketi. Smart Node varsayılan değeri belirler ve her sürümde günceller. Smart Node güncellenmeden önce yeni bir sürüm çıkarsa bunu elle değiştirebilirsiniz.
+
+      **Externally Managed modu kullanılıyorsa**:
+
+      Doldurulacak başka ayar yoktur. Commit-Boost'u (ve Beacon Node'unuzun ona bağlantısını) kendiniz yönettiğiniz için relay seçimi, port ve diğer seçenekler geçerli değildir.
+
+      Commit-Boost'u yapılandırıp relay'lerinizi seçtikten sonra kaydedin ve TUI'den çıkın.
+
+      **Beacon Node'unuzu yapılandırma (Locally Managed modu)**: Harici olarak yönetilen Beacon Node'unuzu Smart Node'un Commit-Boost örneğine bağlanacak şekilde elle yapılandırmanız gerekir. Beacon Node'unuzun builder uç noktasını `http://localhost:18550` olarak ayarlayın (BN'niz farklı bir makinede çalışıyorsa uygun IP'yi kullanın). Builder uç noktasını etkinleştiren bayrak için Beacon istemcinizin belgelerine bakın.
+
+      Commit-Boost'u etkinleştirdiğinizde Smart Node, Validator Client'ınızı gerekli builder bayraklarıyla otomatik olarak yapılandırır.
+
+      :::tip NOT
+      Güvenlik duvarınız etkinse **bunu UFW yapılandırmanızda izin vermeniz gerekebilir**.
+      :::
+
+      Doğru çalıştığını doğrulama talimatları için aşağıya bakın.
+    </Tab>
+    <Tab label="Native Mode">
+
+      Commit-Boost kullanmak isteyen Native Mode kullanıcıları, onu Smart Node dışında elle kurmalıdır:
+
+      Kurulum ve yapılandırma talimatları için [resmi Commit-Boost belgelerine](https://commit-boost.github.io/commit-boost-client/) bakın.
+
+      :::warning NOT
+      Kendi Commit-Boost örneğinizi çalıştırıyorsanız, yalnızca yukarıda listelenen güvenilir relay'lere kaydolmanız **gerekir**. Güvenilmeyen relay'lerin kullanılması Oracle DAO tarafından cezalara yol açabilir.
+      :::
+    </Tab>
+  </Tabs>
+</div>
+
+## Logları kontrol etme ve çalışmayı doğrulama
+
+Commit-Boost'u etkinleştirdikten sonra, logları kontrol ederek doğru çalıştığını doğrulayabilirsiniz:
+
+```bash
+rocketpool service logs commit-boost
+```
+
+Relay'lere başarılı doğrulayıcı kayıtlarını gösteren, buna benzer bir log çıktısı görmelisiniz:
+
+```
+rocketpool_commit-boost  | 2026-05-21T03:06:11.039761Z  INFO : new request ua="nim-presto/0.0.3 (amd64/linux)" num_registrations=7 method=/eth/v1/builder/validators req_id=dcbb5e96-709b-4e0f-b336-cca37eb81d6b
+rocketpool_commit-boost  | 2026-05-21T03:06:11.587846Z  INFO : register validator successful method=/eth/v1/builder/validators req_id=dcbb5e96-709b-4e0f-b336-cca37eb81d6b
+rocketpool_commit-boost  | 2026-05-21T03:06:11.587862Z  INFO : Responded with 200 OK in 548 ms method=/eth/v1/builder/validators req_id=dcbb5e96-709b-4e0f-b336-cca37eb81d6b
+rocketpool_commit-boost  | 2026-05-21T03:12:35.037766Z  INFO : new request ua="nim-presto/0.0.3 (amd64/linux)" num_registrations=7 method=/eth/v1/builder/validators req_id=b47edad9-be4d-4a7f-b0d0-6c7ef4808629
+rocketpool_commit-boost  | 2026-05-21T03:12:35.642706Z  INFO : register validator successful method=/eth/v1/builder/validators req_id=b47edad9-be4d-4a7f-b0d0-6c7ef4808629
+rocketpool_commit-boost  | 2026-05-21T03:12:35.642721Z  INFO : Responded with 200 OK in 604 ms method=/eth/v1/builder/validators req_id=b47edad9-be4d-4a7f-b0d0-6c7ef4808629
+```
+
+Loglarda dikkat edilmesi gerekenler:
+- Validator Client'ınızın Commit-Boost'a bağlandığını gösteren `new request` girdileri
+- Doğrulayıcılarınızın relay'lere kayıtlı olduğunu doğrulayan `register validator successful`
+- Başarılı iletişimi gösteren `200 OK` yanıtları
+
+Commit-Boost'un çalıştığını şu komutla da doğrulayabilirsiniz:
+
+```bash
+rocketpool service version
+```
+Çıktının sonuna doğru şunu görmelisiniz:
+
+```
+MEV-Boost client: Disabled
+Commit-Boost client: Enabled (Local Mode)
+	Image: ghcr.io/commit-boost/commit-boost:<version>
+```
+
+Harici olarak yönetilen bir örnek kullanıyorsanız bunun yerine `Enabled (External Mode)` gösterilir.
+
+## MEV-Boost'tan Commit-Boost'a geçiş
+
+MEV-Boost'tan Commit-Boost'a geçmek kolaydır:
+
+1. `rocketpool service config` komutunu çalıştırın
+2. **ePBS** kategorisini, ardından **MEV-Boost**'u seçin ve `Enable MEV-Boost` işaretini kaldırın
+3. **ePBS** kategorisine geri dönün, **Commit-Boost**'u seçin ve `Enable Commit-Boost`'u işaretleyin
+4. Relay tercihlerinizi yapılandırın
+5. Kaydedin ve çıkın
+
+Gerisini Smart Node halleder. Beacon Node'unuz, MEV-Boost yerine Commit-Boost'u kullanacak şekilde otomatik olarak güncellenir.
+
+:::tip NOT
+Geçiş Beacon Node'unuzu yeniden başlatır, bu nedenle doğrulayıcılarınız o yeniden çalışır hale gelene kadar bir veya iki attestation'ı kaçırabilir. Planlanmış bir bloğu önermeden hemen önce geçiş yapmaktan kaçının.
+:::
+
+## Ek kaynaklar
+
+- [Resmi Commit-Boost belgeleri](https://commit-boost.github.io/commit-boost-client/)
+- [Commit-Boost GitHub deposu](https://github.com/Commit-Boost/commit-boost-client)
+- [MEV ve PBS'yi anlamak](./mev)

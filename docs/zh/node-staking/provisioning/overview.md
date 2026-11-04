@@ -32,3 +32,5 @@ next:
 [费用分配器和平滑池](../fee-distrib-sp)讨论了每次你的一个 validator 提议区块时如何将执行层奖励提供给你的节点,如何收集这些奖励,并描述了 Rocket Pool 的**平滑池** - 一个流行的功能,它结合了来自每个人的执行层奖励,并在 Rocket Pool 的定期奖励间隔期间均匀分配它们。
 
 [MEV、MEV-Boost 和 MEV 奖励](../mev.mdx)解释了**最大可提取价值**(MEV)、它在质押生态系统中的作用,以及如何使用 Smart Node 根据你的喜好配置它。
+
+[Commit-Boost](../commit-boost.mdx)介绍了 Commit-Boost，这是一个可以在 Smart Node 中代替 MEV-Boost 启用的替代方案。

@@ -57,13 +57,13 @@ Rocket Pool şu anda node operatörlerine **birden fazla farklı relay'e** eriş
 | İsim                                                                                         | Düzenleme                  | MEV Türleri |
 | -------------------------------------------------------------------------------------------- | -------------------------- | ----------- |
 | [Flashbots](https://boost.flashbots.net/)                                                    | OFAC Yaptırımlarına Uyar\* | Tüm türler  |
-| [bloXroute Regulated](https://docs.bloxroute.com/apis/mev-solution/mev-relay-for-validators) | OFAC Yaptırımlarına Uyar\* | Tüm türler  |
+| [bloXroute Regulated](https://docs.bloxroute.com/eth/block-builders-and-validators/mev-relay-for-validators) | OFAC Yaptırımlarına Uyar\* | Tüm türler  |
 | [Ultra Sound](https://relay.ultrasound.money/)                                               | Düzenlenmemiş              | Tüm türler  |
 | [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/)                             | OFAC Yaptırımlarına Uyar\* | Tüm türler  |
 | [AESTUS](https://aestus.live/)                                                               | Düzenlenmemiş              | Tüm türler  |
 | [Titan Global](https://docs.titanrelay.xyz/)                                                 | Düzenlenmemiş              | Tüm türler  |
 | [Titan Regional](https://docs.titanrelay.xyz/)                                               | OFAC Yaptırımlarına Uyar\* | Tüm türler  |
-| [BTCS OFAC+](https://shop.btcs.com/ofac-relay/)                                              | OFAC Yaptırımlarına Uyar\* | Tüm türler  |
+| BTCS OFAC+                                              | OFAC Yaptırımlarına Uyar\* | Tüm türler  |
 
 ::: warning NOT
 \*OFAC yaptırımlarına uyan relay'ler, Birleşik Devletler Dış Varlıklar Kontrol Ofisi'nin (OFAC) tuttuğu adres kara listesini takip eder.
@@ -90,6 +90,8 @@ MEV-Boost basit bir programdır: ona hangi relay'leri kullanmak istediğinizi s�
 Bu builder-proposer-marketplace'e pasif olarak katılmanıza izin verir ve böylece sizin tarafınızdan sıfır çaba ile ekstra ödüller kazanırsınız.
 
 MEV-Boost [açık kaynaklıdır](https://github.com/flashbots/mev-boost) ve [denetlenmiştir](https://github.com/flashbots/mev-boost/blob/main/docs/audit-20220620).
+
+Smart Node, MEV-Boost'a bir alternatif olan [Commit-Boost](./commit-boost)'u da destekler. İkisinden birini etkinleştirebilirsiniz, ancak ikisini birden etkinleştiremezsiniz.
 
 Aşağıda tüm MEV ekosisteminin nasıl çalıştığının ve MEV-Boost'un nereye uyduğunun iyi bir görsel tasviri bulunmaktadır:
 
@@ -148,7 +150,7 @@ MEV-Boost'u nasıl yapılandıracağınızı öğrenmek için lütfen aşağıda
   <Tabs>
     <Tab label="Docker Mode">
       Smart Node'un yapılandırma TUI'si ile MEV-Boost'u yapılandırmak kolaydır.
-      `rocketpool service config` komutunu çalıştırarak başlayın ve `MEV-Boost` seçeneğine gidin:
+      `rocketpool service config` komutunu çalıştırarak başlayın, `ePBS` kategorisini ve ardından `MEV-Boost`'u seçin:
 
       <img src={tuiMeVBoost} width="100%" height="auto"/>
 
@@ -183,7 +185,7 @@ MEV-Boost'u nasıl yapılandıracağınızı öğrenmek için lütfen aşağıda
     </Tab>
     <Tab label="Hybrid Mode">
       Smart Node'un yapılandırma TUI'si ile MEV-Boost'u yapılandırmak kolaydır.
-      `rocketpool service config` komutunu çalıştırarak başlayın ve `MEV-Boost` seçeneğine gidin:
+      `rocketpool service config` komutunu çalıştırarak başlayın, `ePBS` kategorisini ve ardından `MEV-Boost`'u seçin:
 
       <img src={tuiMeVBoost} width="100%" height="auto"/>
 

@@ -32,3 +32,5 @@ Usa esta guía si ya tienes una wallet de nodo que deseas recuperar en tu nodo (
 [Fee Distributors and the Smoothing Pool](../fee-distrib-sp) discuten la forma en que las recompensas de la capa de Ejecución se proporcionan a tu nodo cada vez que uno de tus validadores propone un bloque, cómo cobrar esas recompensas y describe el **Smoothing Pool** de Rocket Pool - una característica popular que combina las recompensas de la capa de Ejecución de todos y las distribuye uniformemente durante los intervalos regulares de recompensas de Rocket Pool.
 
 [MEV, MEV-Boost, and MEV Rewards](../mev.mdx) explica **Maximum-Extractable Value** (MEV), su papel en el ecosistema de staking y cómo puedes configurarlo a tu gusto usando el Smart Node.
+
+[Commit-Boost](../commit-boost.mdx) trata sobre Commit-Boost, una alternativa a MEV-Boost que puedes habilitar en su lugar en Smart Node.

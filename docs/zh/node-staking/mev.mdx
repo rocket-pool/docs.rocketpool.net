@@ -57,13 +57,13 @@ Rocket Pool 目前为其节点运营者提供对**多个不同中继**的访问:
 | 名称                                                                                         | 监管             | MEV 类型 |
 | -------------------------------------------------------------------------------------------- | ---------------- | -------- |
 | [Flashbots](https://boost.flashbots.net/)                                                    | 遵守 OFAC 制裁\* | 所有类型 |
-| [bloXroute Regulated](https://docs.bloxroute.com/apis/mev-solution/mev-relay-for-validators) | 遵守 OFAC 制裁\* | 所有类型 |
+| [bloXroute Regulated](https://docs.bloxroute.com/eth/block-builders-and-validators/mev-relay-for-validators) | 遵守 OFAC 制裁\* | 所有类型 |
 | [Ultra Sound](https://relay.ultrasound.money/)                                               | 不受监管         | 所有类型 |
 | [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/)                             | 遵守 OFAC 制裁\* | 所有类型 |
 | [AESTUS](https://aestus.live/)                                                               | 不受监管         | 所有类型 |
 | [Titan Global](https://docs.titanrelay.xyz/)                                                 | 不受监管         | 所有类型 |
 | [Titan Regional](https://docs.titanrelay.xyz/)                                               | 遵守 OFAC 制裁\* | 所有类型 |
-| [BTCS OFAC+](https://shop.btcs.com/ofac-relay/)                                              | 遵守 OFAC 制裁\* | 所有类型 |
+| BTCS OFAC+                                              | 遵守 OFAC 制裁\* | 所有类型 |
 
 ::: warning 注意 \*遵守 OFAC 制裁的中继遵循美国外国资产控制办公室 (OFAC) 维护的地址黑名单。
 我们**强烈建议**您阅读更多关于 OFAC 制裁、网络审查的信息,并做出深思熟虑的决定,决定您是否认为应该遵守这些制裁以及您愿意使用哪些中继。
@@ -89,6 +89,8 @@ MEV-Boost 是一个简单的程序:您告诉它您想使用哪些中继,并告�
 它让您被动地参与这个构建者-提议者-市场,从而无需任何努力即可赚取额外奖励。
 
 MEV-Boost 是[开源的](https://github.com/flashbots/mev-boost),并已经过[审计](https://github.com/flashbots/mev-boost/blob/main/docs/audit-20220620)。
+
+Smart Node 还支持 MEV-Boost 的替代方案 [Commit-Boost](./commit-boost)。您可以启用其中之一，但不能同时启用两者。
 
 下面是整个 MEV 生态系统如何运作以及 MEV-Boost 在其中的位置的良好视觉描述:
 
@@ -147,7 +149,7 @@ Rocket Pool Smart Node 默认直接捆绑了 MEV-Boost,使我们的 **Docker 模
   <Tabs>
     <Tab label="Docker 模式">
       使用 Smart Node 的配置 TUI 配置 MEV-Boost 很容易。
-      首先运行 `rocketpool service config` 并导航到 `MEV-Boost` 选项:
+      首先运行 `rocketpool service config`，选择 `ePBS` 类别，然后选择 `MEV-Boost`:
 
       <img src={tuiMeVBoost} width="100%" height="auto"/>
 
@@ -182,7 +184,7 @@ Rocket Pool Smart Node 默认直接捆绑了 MEV-Boost,使我们的 **Docker 模
     </Tab>
     <Tab label="混合模式">
       使用 Smart Node 的配置 TUI 配置 MEV-Boost 很容易。
-      首先运行 `rocketpool service config` 并导航到 `MEV-Boost` 选项:
+      首先运行 `rocketpool service config`，选择 `ePBS` 类别，然后选择 `MEV-Boost`:
 
       <img src={tuiMeVBoost} width="100%" height="auto"/>
 

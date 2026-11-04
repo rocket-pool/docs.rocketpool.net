@@ -57,13 +57,13 @@ Rocket Pool attualmente offre ai suoi operatori dei nodi l'accesso a **più rela
 | Nome                                                                                         | Regolamentazione              | Tipi di MEV |
 | -------------------------------------------------------------------------------------------- | ----------------------------- | ----------- |
 | [Flashbots](https://boost.flashbots.net/)                                                    | Conforme alle sanzioni OFAC\* | Tutti       |
-| [bloXroute Regulated](https://docs.bloxroute.com/apis/mev-solution/mev-relay-for-validators) | Conforme alle sanzioni OFAC\* | Tutti       |
+| [bloXroute Regulated](https://docs.bloxroute.com/eth/block-builders-and-validators/mev-relay-for-validators) | Conforme alle sanzioni OFAC\* | Tutti       |
 | [Ultra Sound](https://relay.ultrasound.money/)                                               | Non regolamentato             | Tutti       |
 | [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/)                             | Conforme alle sanzioni OFAC\* | Tutti       |
 | [AESTUS](https://aestus.live/)                                                               | Non regolamentato             | Tutti       |
 | [Titan Global](https://docs.titanrelay.xyz/)                                                 | Non regolamentato             | Tutti       |
 | [Titan Regional](https://docs.titanrelay.xyz/)                                               | Conforme alle sanzioni OFAC\* | Tutti       |
-| [BTCS OFAC+](https://shop.btcs.com/ofac-relay/)                                              | Conforme alle sanzioni OFAC\* | Tutti       |
+| BTCS OFAC+                                              | Conforme alle sanzioni OFAC\* | Tutti       |
 
 ::: warning NOTA
 \*I relay che rispettano le sanzioni OFAC seguono la lista nera di indirizzi che l'Ufficio per il Controllo dei Beni Esteri degli Stati Uniti (OFAC) mantiene.
@@ -90,6 +90,8 @@ MEV-Boost è un programma semplice: gli dici quali relay vuoi utilizzare e dici 
 Ti permette di partecipare passivamente a questo mercato builder-proposer, e quindi guadagnare ricompense extra con zero sforzo da parte tua.
 
 MEV-Boost è [open source](https://github.com/flashbots/mev-boost) ed è stato [auditato](https://github.com/flashbots/mev-boost/blob/main/docs/audit-20220620).
+
+Lo Smart Node supporta anche [Commit-Boost](./commit-boost), un'alternativa a MEV-Boost. Puoi abilitare l'uno o l'altro, ma non entrambi.
 
 Di seguito è riportata una buona rappresentazione visiva di come funziona l'intero ecosistema MEV e dove si inserisce MEV-Boost:
 
@@ -148,7 +150,7 @@ Per imparare come configurare MEV-Boost, seleziona la modalità che stai utilizz
   <Tabs>
     <Tab label="Docker Mode">
       Configurare MEV-Boost è facile con la TUI di configurazione dello Smart Node.
-      Inizia eseguendo `rocketpool service config` e naviga nell'opzione `MEV-Boost`:
+      Inizia eseguendo `rocketpool service config`, seleziona la categoria `ePBS` e poi `MEV-Boost`:
 
       <img src={tuiMeVBoost} width="100%" height="auto"/>
 
@@ -183,7 +185,7 @@ Per imparare come configurare MEV-Boost, seleziona la modalità che stai utilizz
     </Tab>
     <Tab label="Hybrid Mode">
       Configurare MEV-Boost è facile con la TUI di configurazione dello Smart Node.
-      Inizia eseguendo `rocketpool service config` e naviga nell'opzione `MEV-Boost`:
+      Inizia eseguendo `rocketpool service config`, seleziona la categoria `ePBS` e poi `MEV-Boost`:
 
       <img src={tuiMeVBoost} width="100%" height="auto"/>
 

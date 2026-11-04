@@ -32,3 +32,5 @@ next:
 [Fee DistributorsとSmoothing Pool](../fee-distrib-sp)では、validatorがブロックを提案するたびにノードにExecution layerの報酬が提供される方法、それらの報酬を収集する方法、そしてRocket Poolの**Smoothing Pool**について説明します。これは、全員からのExecution layer報酬を組み合わせて、Rocket Poolの定期的な報酬インターバル中に均等に分配する人気の機能です。
 
 [MEV、MEV-Boost、MEV報酬](../mev.mdx)では、**Maximum-Extractable Value**（MEV）、ステーキングエコシステムにおけるその役割、そしてSmart Nodeを使用してお好みに応じて設定する方法について説明します。
+
+[Commit-Boost](../commit-boost.mdx)では、MEV-Boostの代わりにSmart Nodeで有効にできる代替手段であるCommit-Boostについて説明します。
