@@ -2,8 +2,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # Participando em Propostas pDAO On-Chain
 
-Qualquer nó com poder de voto não-zero pode levantar ou participar em uma proposta pDAO a qualquer momento. As propostas podem ser um dos
-seguintes tipos:
+Qualquer nó registrado pode levantar uma proposta pDAO a qualquer momento, desde que tenha [permitido o bloqueio de RPL](#permitindo-bloqueio-rpl) e tenha RPL em stake desbloqueado suficiente para cobrir a garantia da proposta (veja [Criando uma Proposta](#criando-uma-proposta)). Qualquer nó com poder de voto no bloco de snapshot da proposta pode votar nela. As propostas podem ser um dos seguintes tipos:
 
 - Alteração de configurações pDAO
 - Gastos únicos do tesouro
@@ -29,9 +28,7 @@ avaliar a prontidão para finalizar o texto do RPIP. Se a enquete passar, indica
 como final e pronto para uma votação off-chain da DAO do Protocolo no [RocketDash](https://rocketdash.net/vote), que determinará se
 a proposta deve ser implementada. O RocketDash substituiu o Snapshot nessas votações.
 
-A partir daqui, a Oracle DAO irá levantar uma proposta on-chain. Há uma janela na qual a DAO do Protocolo, Oracle DAO e
-comunidade podem revisar a proposta. Se o consenso for alcançado, a proposta é executada e as mudanças são aplicadas ao
-protocolo.
+A partir daqui, um operador de nó levanta a proposta on-chain (veja [Criando uma Proposta](#criando-uma-proposta)). Ela então passa pelo [ciclo de vida da proposta](./pdao#ciclo-de-vida-de-uma-proposta-pdao) on-chain: uma janela de desafio e duas fases de votação. Se a votação for aprovada, qualquer pessoa pode executar a proposta.
 
 Uma representação visual prática deste processo pode ser encontrada no
 [site Rocket Pool](https://rocketpool.net/governance/process).
@@ -235,9 +232,7 @@ Durante um período de votação, **Operadores de Nó** e **Delegados** podem vo
 4. Veto: O votante vota contra a proposta bem como indicando que considera a proposta como spam ou maliciosa.
 ```
 
-O seu poder de voto será aplicado à opção da sua escolha. O poder de voto é uma função do "effective RPL stake."
-Uma leitura mais detalhada pode ser encontrada no
-[repositório rocketpool-research](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting).
+O seu poder de voto será aplicado à opção da sua escolha. O poder de voto é a raiz quadrada do RPL em stake do seu nó, contando o RPL em stake apenas até um limite definido pela configuração da pDAO `node.voting.power.stake.maximum` (atualmente 150% do seu ETH vinculado, em novembro de 2026).
 
 ::: tip NOTA
 Um nó pode votar uma única vez em uma proposta, portanto escolha com cuidado. Para saber em qual fase você deve votar, consulte
@@ -464,18 +459,15 @@ Proponentes ou Desafiantes podem reivindicar suas garantias após a conclusão d
 um
 Proponente ou Desafiante pode ou não ser capaz de reivindicar sua `proposal.bond` e `proposal.challenge.bond`.
 
-Aqui estão algumas regras que ditam as condições nas quais garantias podem ser reivindicadas:
+Veja o que acontece com as garantias em cada resultado:
 
-- Se uma proposta for derrotada, o proponente perde sua garantia que é dividida proporcionalmente entre os desafiantes
-  que contribuíram para a derrota da proposta. Todos os outros desafiantes recebem apenas sua garantia de volta.
-- Contribuir para a derrota de uma proposta significa que um desafiante submeteu um índice que foi posteriormente provado ser
-  incorreto
-  pela incapacidade do proponente de responder a um desafio. É possível que haja múltiplos índices incorretos mas apenas
-  aqueles que resultaram na derrota da proposta compartilham a recompensa. Todos os outros desafiantes recebem apenas sua garantia de volta.
-- Se um desafiante desafiar um nó, o proponente responder, e a proposta não for derrotada. O proponente pode
-  reivindicar as garantias de desafio dos desafios inválidos.
-- Se uma proposta for derrotada, o proponente perde sua garantia que é dividida proporcionalmente entre os desafiantes
-  que contribuíram para a derrota da proposta.
+| Resultado | Proponente | Desafiantes |
+| --- | --- | --- |
+| **Derrotada por um desafio** | Perde sua garantia | Os desafiantes que ajudaram a derrotar a proposta dividem a garantia do proponente, menos uma queima de 20%. Cada desafiante também recebe sua própria garantia de volta. |
+| **Vetada** | Perde sua garantia. Ela é queimada quando alguém executa `rocketpool pdao proposals finalize`. | — |
+| **Qualquer outro resultado** (executada, expirada, rejeitada na votação ou quórum não atingido) | Recebe sua garantia de volta, mais a garantia de cada desafio ao qual respondeu, menos uma queima de 20% | Desafios aos quais o proponente respondeu: garantia perdida. Desafios aos quais o proponente não respondeu: garantia devolvida. |
+
+Um desafiante "ajudou a derrotar a proposta" se desafiou um índice ao qual o proponente não conseguiu responder, no caminho que levou à derrota.
 
 Use este comando para reivindicar garantias:
 

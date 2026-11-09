@@ -2,7 +2,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # Participer aux propositions pDAO on-chain
 
-Tout nœud avec un pouvoir de vote non nul peut créer ou participer à une proposition pDAO à tout moment. Les propositions peuvent être de l'un des types suivants :
+Tout nœud enregistré peut créer une proposition pDAO à tout moment, à condition d'avoir [autorisé le verrouillage de RPL](#autoriser-le-verrouillage-de-rpl) et de disposer de suffisamment de RPL staké non verrouillé pour couvrir la caution de proposition (voir [Créer une proposition](#créer-une-proposition)). Tout nœud disposant d'un pouvoir de vote au bloc de snapshot de la proposition peut voter. Les propositions peuvent être de l'un des types suivants :
 
 - Modification des paramètres de la pDAO
 - Dépenses uniques du trésor
@@ -18,7 +18,7 @@ Une proposition devrait être anticipée par le processus de gouvernance avant q
 
 Les changements au protocole Rocket Pool sont proposés, votés et exécutés en utilisant un processus de gouvernance strict mais transparent. Le processus commence par une discussion informelle d'une idée au sein de la communauté Discord. Cette idée progresse ensuite vers des discussions formelles dans le canal [#governance](https://discordapp.com/channels/405159462932971535/774497904559783947) sur Discord et le [Forum DAO](https://dao.rocketpool.net/), où elle fait l'objet de recherches approfondies, de modélisation et d'examen minutieux en préparation d'une [Proposition d'amélioration de Rocket Pool (RPIP)](https://rpips.rocketpool.net/). Suite à cela, un projet de RPIP est préparé et examiné par des examinateurs RPIP désignés pour garantir sa qualité et sa préparation à la présentation à la DAO. Le projet de proposition est ensuite présenté à la DAO sur le forum pour examen supplémentaire, retours et intégration de tout changement nécessaire. Une fois la proposition affinée en fonction des commentaires de la communauté, un sondage est lancé sur le forum DAO pour évaluer la disponibilité à finaliser le texte de la RPIP. Si le sondage passe, indiquant l'approbation de la communauté, la RPIP est marquée comme finale et prête pour un vote off-chain de la DAO de Protocole sur [RocketDash](https://rocketdash.net/vote) afin de déterminer si la proposition doit être mise en œuvre. RocketDash a remplacé Snapshot pour ces votes.
 
-À partir de là, l'Oracle DAO créera une proposition on-chain. Il y a une fenêtre durant laquelle la DAO de Protocole, l'Oracle DAO et la communauté peuvent examiner la proposition. Si un consensus est atteint, la proposition est exécutée et les changements sont appliqués au protocole.
+À partir de là, un opérateur de nœud soumet la proposition on-chain (voir [Créer une proposition](#créer-une-proposition)). Elle suit ensuite le [cycle de vie de la proposition](./pdao#cycle-de-vie-dune-proposition-pdao) on-chain : une fenêtre de contestation et deux phases de vote. Si le vote est adopté, n'importe qui peut exécuter la proposition.
 
 Une représentation visuelle pratique de ce processus peut être trouvée sur le [site web de Rocket Pool](https://rocketpool.net/governance/process).
 
@@ -193,7 +193,7 @@ Durant une période de vote, **les opérateurs de nœuds** et **les délégués*
 4. Veto : Le votant vote contre la proposition tout en indiquant qu'il considère la proposition comme du spam ou malveillante.
 ```
 
-Leur pouvoir de vote sera appliqué à l'option de leur choix. Le pouvoir de vote est une fonction du "stake RPL effectif". Une lecture plus détaillée peut être trouvée dans le [dépôt rocketpool-research](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting).
+Leur pouvoir de vote sera appliqué à l'option de leur choix. Le pouvoir de vote est la racine carrée du RPL staké de votre nœud, le RPL staké n'étant compté que jusqu'à un plafond fixé par le paramètre pDAO `node.voting.power.stake.maximum` (actuellement 150% de votre ETH en caution, en novembre 2026). Une lecture plus détaillée peut être trouvée dans le [dépôt rocketpool-research](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting).
 
 ::: tip NOTE
 Un nœud ne peut voter qu'une seule fois sur une proposition : choisissez donc avec soin. Pour savoir durant quelle phase voter, consultez la section [Quand voter](#quand-voter).
@@ -394,12 +394,15 @@ proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145)
 
 Les proposeurs ou contestataires peuvent réclamer leurs cautions à la conclusion d'une proposition. Selon le résultat d'une proposition, un proposeur ou contestataire peut ou non être en mesure de réclamer leur `proposal.bond` et `proposal.challenge.bond`.
 
-Voici quelques règles qui dictent les conditions dans lesquelles les cautions peuvent être réclamées :
+Voici ce qu'il advient des cautions selon chaque résultat :
 
-- Si une proposition est rejetée, le proposeur perd sa caution qui est divisée proportionnellement entre les contestataires qui ont contribué au rejet de la proposition. Tous les autres contestataires reçoivent uniquement leur caution en retour.
-- Contribuer au rejet d'une proposition signifie qu'un contestataire a soumis un index qui a ensuite été prouvé incorrect par l'incapacité du proposeur à répondre à une contestation. Il est possible qu'il y ait plusieurs index incorrects mais seuls ceux qui ont abouti au rejet de la proposition partagent la récompense. Tous les autres contestataires reçoivent uniquement leur caution en retour.
-- Si un contestataire conteste un nœud, que le proposeur répond, et que la proposition ne soit pas rejetée. Le proposeur peut réclamer les cautions de contestation des contestations invalides.
-- Si une proposition est rejetée, le proposeur perd sa caution qui est divisée proportionnellement entre les contestataires qui ont contribué au rejet de la proposition.
+| Résultat | Proposeur | Contestataires |
+| --- | --- | --- |
+| **Vaincue par une contestation** | Perd sa caution | Les contestataires ayant contribué à vaincre la proposition se partagent la caution du proposeur, moins 20% brûlés. Chaque contestataire récupère également sa propre caution. |
+| **Veto** | Perd sa caution. Elle est brûlée lorsque quelqu'un exécute `rocketpool pdao proposals finalize`. | — |
+| **Tout autre résultat** (exécutée, expirée, rejetée par le vote ou quorum non atteint) | Récupère sa caution, plus la caution de chaque contestation à laquelle il a répondu, moins 20% brûlés | Contestations auxquelles le proposeur a répondu : caution perdue. Contestations auxquelles le proposeur n'a pas répondu : caution restituée. |
+
+Un contestataire a « contribué à vaincre la proposition » s'il a contesté un index auquel le proposeur n'a pas pu répondre, sur le chemin ayant mené à la défaite.
 
 Utilisez cette commande pour réclamer les cautions :
 

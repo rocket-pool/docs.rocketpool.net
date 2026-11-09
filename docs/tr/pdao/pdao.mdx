@@ -18,11 +18,11 @@ Houston güncellemesi, protokolde herhangi bir potansiyel sorun durumunda hızl�
 
 ### Yinelenen Hazine Harcamaları
 
-RPL'nin %5 enflasyon oranı vardır. Bu enflasyonun %22'si [RPIP-25](https://rpips.rocketpool.net/RPIPs/RPIP-25)'te tanımlandığı gibi pDAO'ya yönlendirilir. pDAO bu fonları çeşitli amaçlar için kullanabilir. Örneğin, likidite sağlayıcı (LP) bonusları gibi teşvikler, 3. taraf iyileştirmeler ve projeler için hibeler ve ödüller ve Rocket Pool protokolünün geliştirilmesinin finanse edilmesi. Houston güncellemesi ayrıca her ödül döneminde belirli bir yararlanıcıya yapılan yinelenen hazine ödemelerini etkinleştiren yeni bir özellik sunar.
+RPL'nin %5 enflasyon oranı vardır. Bu enflasyonun %47,5'i şu anda [RPIP-81](https://rpips.rocketpool.net/RPIPs/RPIP-81) ile belirlendiği gibi pDAO'ya yönlendirilir. pDAO bu fonları çeşitli amaçlar için kullanabilir. Örneğin, likidite sağlayıcı (LP) bonusları gibi teşvikler, 3. taraf iyileştirmeler ve projeler için hibeler ve ödüller ve Rocket Pool protokolünün geliştirilmesinin finanse edilmesi. Houston güncellemesi ayrıca her ödül döneminde belirli bir yararlanıcıya yapılan yinelenen hazine ödemelerini etkinleştiren yeni bir özellik sunar.
 
 ## Protokol DAO (pDAO) teklifleri
 
-Sıfır olmayan oy gücüne sahip herhangi bir düğüm, herhangi bir zamanda bir pDAO teklifi oluşturabilir veya katılabilir. Teklifler aşağıdaki türlerden biri olabilir:
+Kayıtlı herhangi bir düğüm, [RPL kilitlemeye izin vermiş](./participate#rpl-kilitlemeye-i̇zin-verme) olduğu ve teklif tahvilini karşılayacak kadar kilitlenmemiş stake edilmiş RPL'ye sahip olduğu sürece herhangi bir zamanda bir pDAO teklifi oluşturabilir. Teklifin snapshot bloğunda oy gücüne sahip herhangi bir düğüm teklif üzerinde oy kullanabilir. Teklifler aşağıdaki türlerden biri olabilir:
 
 - pDAO ayarlarını değiştirme
 - Tek seferlik hazine harcamaları
@@ -76,15 +76,15 @@ Bu, şu komut kullanılarak yapılabilir:
 rocketpool pdao proposals vote
 ```
 
-Veto çoğunluğu (`proposal.veto.quorum` parametresi tarafından tanımlandığı gibi) karşılanırsa, teklif derhal yenilir ve teklif sahibi tahvilini kaybeder. Bu, spam, düşük kaliteli teklifleri veya önce off-chain süreçlerden geçmemiş teklifleri caydırmak içindir. Smart Node komutu `rocketpool pdao proposals finalize`, teklif sahibinin kilitli RPL tahvilini yakarak veto edilmiş bir teklifi sonuçlandırmak için kullanılır.
+Veto oyları oy dönemi 2'nin sonuna kadar veto çoğunluğuna (`proposal.veto.quorum` parametresi tarafından tanımlandığı gibi) ulaşırsa, teklif veto edilir ve teklif sahibi tahvilini kaybeder. Veto oyları aynı zamanda aleyhte oy olarak da sayılır. Bu, spam, düşük kaliteli teklifleri veya önce off-chain süreçlerden geçmemiş teklifleri caydırmak içindir. Smart Node komutu `rocketpool pdao proposals finalize`, teklif sahibinin kilitli RPL tahvilini yakarak veto edilmiş bir teklifi sonuçlandırmak için kullanılır.
 
 Dönem 1'in süresi `proposal.vote.phase1.time` parametresi tarafından belirlenir. Teklif, `proposal.quorum`'a ulaşılıp ulaşılmadığına bakılmaksızın aşama 2'ye geçecektir.
 
 ### Oy Dönemi 2
 
-Delegeler oy dönemi 2'de oy kullanabilir, ancak yalnızca oyları yalnızca **yerel oy güçleri** değerindedir. Dönem 1'de oy kullanmayan seçmenler dönem 2'de hala oy kullanabileceklerdir. Delegelerinin seçimiyle aynı fikirde olmayan düğüm operatörleri delegelerinin oyunu geçersiz kılma fırsatına sahip olacaklar.
+Delegeler oy dönemi 2'de oy kullanabilir, ancak oyları yalnızca **yerel oy güçleri** değerindedir. Dönem 1'de oy kullanmayan seçmenler dönem 2'de hala oy kullanabileceklerdir. Delegelerinin seçimiyle aynı fikirde olmayan düğüm operatörleri delegelerinin oyunu geçersiz kılma fırsatına sahip olacaklar.
 
-Bir oyu geçersiz kılma süreci oldukça basittir, oy dönemi 2'de `rocketpool pdao proposals vote` çağrısını yapın ve istemleri izleyin. Delegenin oy gücü, temsilcisinin oy gücü tarafından geçersiz kılınacaktır.
+Bir oyu geçersiz kılma süreci oldukça basittir, oy dönemi 2'de `rocketpool pdao proposals vote` çağrısını yapın ve istemleri izleyin. Kendi oy gücünüz delegenizin oyundan çıkarılır ve bunun yerine kendi seçiminize sayılır.
 
 Bir teklifin sonucu, oy dönemi 2 bittiğinde sonuçlanır. Bir sonucun belirlenmesi (ve yürütülmesi) için, `proposal.vote.phase2.time` sonunda `proposal.quorum` toplam oy gücüne ulaşılmalıdır. Çoğunluk karşılanır ve konsensüs sağlanırsa, teklif oylama dönemlerini geçecek ve başarılı olarak işaretlenecektir.
 
@@ -118,7 +118,7 @@ Herhangi bir düğüm, tekliflerin doğruluğunu izlemeye ve doğrulamaya katıl
 
 <img src={proposal_checker} width="100%" height="auto" />
 
-Bu ayar etkinleştirildiğinde, düğüm yeni teklifleri kontrol edecek, doğruluklarını doğrulayacak ve geçersiz tekliflere itirazlar sunacaktır. Tek ön koşul, [RPL Kilitlemenin](./participate#rpl-kilitlemeye-i̇zin-verme) etkinleştirilmiş olmasıdır.
+Bu ayar etkinleştirildiğinde, düğüm yeni teklifleri kontrol edecek, doğruluklarını doğrulayacak ve geçersiz tekliflere itirazlar sunacaktır. Ön koşullar, [RPL Kilitlemenin](./participate#rpl-kilitlemeye-i̇zin-verme) etkinleştirilmiş olması ve düğümünüzün her itiraz için `proposal.challenge.bond` tutarını karşılayacak kadar kilitlenmemiş stake edilmiş RPL'ye sahip olmasıdır.
 
 Bu kontrol, birkaç diğer düğümle ilgili görevle birlikte her 5 dakikada bir çalışır. Hileli bir teklife itiraz etmenin nasıl göründüğüne dair bir örnek üzerinden geçeceğiz. İlerlemeyi izlemek için smartnode komutu `rocketpool service logs node` kullanabiliriz:
 
@@ -164,9 +164,9 @@ rocketpool3_node  | 2024/04/05 02:57:13 Successfully defeated proposal.
 Teklif sahibinin oylama bilgisi yanlış olduğu için (`proposal.challenge.period` tarafından belirlenen) zamanında itiraza yanıt veremeyecektir. Teklif bu noktada yenilmiş sayılır. Teklif yenildiğinde, düğümümüz teklifi sonlandırmak için otomatik olarak teklif 177 üzerinde indeks 5'te `defeatProposal` sözleşme çağrısını yapar.
 
 ::: tip NOT
-Teklifin yenilgisine katılan itiraz edenler, yanlış olduğu kanıtlanan bir indeks gönderirlerse teklif sahibinin tahvilinin orantılı bir miktarını alırlar. Diğer tüm itiraz edenler yalnızca tahvillerini geri alırlar.
+Teklifin yenilgisine katılan itiraz edenler, yanlış olduğu kanıtlanan bir indeks gönderirlerse teklif sahibinin tahvilinin orantılı bir miktarını alırlar. Bu tutarın %20'si yakılır. Diğer tüm itiraz edenler yalnızca tahvillerini geri alırlar.
 :::
 
-Artık teklif yenildiğine göre, düğümümüz (itiraz eden) hileli bir teklifi yendiği için ödül olarak orijinal RPL tahvilini ve teklif sahibinin RPL tahvilini [talep edebilir](./participate#tahvilleri-ve-ödülleri-talep-etme).
+Artık teklif yenildiğine göre, düğümümüz (itiraz eden) hileli bir teklifi yendiği için ödül olarak orijinal RPL tahvilini ve teklif sahibinin RPL tahvilinden kendi payını [talep edebilir](./participate#tahvilleri-ve-ödülleri-talep-etme). Bu ödülün %20'si yakılır.
 
 pDAO teklif ve itiraz sisteminin ayrıntılarını incelemekle ilgileniyorsanız, [teknik özelliklere](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#draft-protocol-dao-proposal-challenge-system-specification) bir göz atın. Düşük seviye ayrıntılara giden bir örneği incelemekle ilgileniyorsanız [itiraz süreci](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#challenge-process) hakkındaki bu bölüme atlamaktan çekinmeyin.

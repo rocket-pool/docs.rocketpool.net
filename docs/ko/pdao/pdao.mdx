@@ -18,11 +18,11 @@ Houston 업그레이드에는 프로토콜의 잠재적인 문제가 발생할 �
 
 ### 반복 재무 지출
 
-RPL은 5%의 인플레이션율을 가지고 있습니다. 이 인플레이션의 22%는 [RPIP-25](https://rpips.rocketpool.net/RPIPs/RPIP-25)에 정의된 대로 pDAO로 향합니다. pDAO는 이러한 자금을 다양한 목적으로 사용할 수 있습니다. 예를 들어, 유동성 공급자(LP) 보너스와 같은 인센티브, 제3자 개선 및 프로젝트에 대한 보조금 및 현상금, Rocket Pool 프로토콜 개발 자금 조달 등이 있습니다. Houston 업그레이드는 또한 각 보상 기간마다 지정된 수혜자에게 지급되는 반복 재무 지급을 가능하게 하는 새로운 기능을 도입합니다.
+RPL은 5%의 인플레이션율을 가지고 있습니다. 현재 이 인플레이션의 47.5%는 [RPIP-81](https://rpips.rocketpool.net/RPIPs/RPIP-81)에서 정한 대로 pDAO로 향합니다. pDAO는 이러한 자금을 다양한 목적으로 사용할 수 있습니다. 예를 들어, 유동성 공급자(LP) 보너스와 같은 인센티브, 제3자 개선 및 프로젝트에 대한 보조금 및 현상금, Rocket Pool 프로토콜 개발 자금 조달 등이 있습니다. Houston 업그레이드는 또한 각 보상 기간마다 지정된 수혜자에게 지급되는 반복 재무 지급을 가능하게 하는 새로운 기능을 도입합니다.
 
 ## Protocol DAO (pDAO) 제안
 
-0이 아닌 투표권을 가진 모든 노드는 언제든지 pDAO 제안을 제기하거나 참여할 수 있습니다. 제안은 다음 유형 중 하나가 될 수 있습니다:
+등록된 노드라면 [RPL 잠금을 허용](./participate#rpl-잠금-허용)하고 제안 보증금을 충당할 만큼의 잠기지 않은 스테이킹 RPL을 보유하고 있는 한 언제든지 pDAO 제안을 제기할 수 있습니다. 제안의 스냅샷 블록 시점에 투표권을 가진 노드는 해당 제안에 투표할 수 있습니다. 제안은 다음 유형 중 하나가 될 수 있습니다:
 
 - pDAO 설정 변경
 - 일회성 재무 지출
@@ -76,7 +76,7 @@ RPL은 5%의 인플레이션율을 가지고 있습니다. 이 인플레이션�
 rocketpool pdao proposals vote
 ```
 
-veto 정족수(`proposal.veto.quorum` 매개변수로 정의됨)가 충족되면 제안은 즉시 패배하고 제안자는 보증금을 잃습니다. 이것은 스팸, 저품질 제안 또는 오프체인 프로세스를 먼저 거치지 않은 제안을 억제하기 위한 것입니다. smartnode 명령 `rocketpool pdao proposals finalize`는 제안자의 잠긴 RPL 보증금을 소각하여 거부된 제안을 최종화하는 데 사용됩니다.
+투표 기간 2가 끝날 때까지 veto 투표가 veto 정족수(`proposal.veto.quorum` 매개변수로 정의됨)에 도달하면 제안은 거부(veto)되고 제안자는 보증금을 잃습니다. veto 투표는 반대 투표로도 집계됩니다. 이것은 스팸, 저품질 제안 또는 오프체인 프로세스를 먼저 거치지 않은 제안을 억제하기 위한 것입니다. smartnode 명령 `rocketpool pdao proposals finalize`는 제안자의 잠긴 RPL 보증금을 소각하여 거부된 제안을 최종화하는 데 사용됩니다.
 
 1단계의 기간은 `proposal.vote.phase1.time` 매개변수에 의해 결정됩니다. 제안은 `proposal.quorum`에 도달했는지 여부와 관계없이 2단계로 전환됩니다.
 
@@ -84,7 +84,7 @@ veto 정족수(`proposal.veto.quorum` 매개변수로 정의됨)가 충족되면
 
 위임자는 투표 기간 2 동안 투표할 수 있지만 투표는 **로컬 투표권**만 가치가 있습니다. 1단계에서 투표하지 않은 투표자는 여전히 2단계 동안 투표할 수 있습니다. 위임자의 선택에 동의하지 않는 노드 운영자는 위임자의 투표를 뒤집을 기회를 얻습니다.
 
-투표를 뒤집는 과정은 꽤 간단합니다. 투표 기간 2 동안 `rocketpool pdao proposals vote`를 호출하고 프롬프트를 따르세요. 위임자의 투표권은 위임받은 사람의 투표권에 의해 뒤집힙니다.
+투표를 뒤집는 과정은 꽤 간단합니다. 투표 기간 2 동안 `rocketpool pdao proposals vote`를 호출하고 프롬프트를 따르세요. 본인의 투표권은 위임자의 투표에서 빠지고 대신 본인의 선택에 반영됩니다.
 
 제안의 결과는 투표 기간 2가 끝나면 결론이 납니다. 결과가 결정(및 실행)되려면 `proposal.vote.phase2.time`이 끝날 때까지 `proposal.quorum` 총 투표권에 도달해야 합니다. 정족수가 충족되고 합의에 도달하면 제안은 투표 기간을 통과하고 성공으로 표시됩니다.
 
@@ -118,7 +118,7 @@ rocketpool pdao proposals execute
 
 <img src={proposal_checker} width="100%" height="auto" />
 
-이 설정을 활성화하면 노드는 새 제안을 확인하고 정확성을 검증하며 잘못된 제안에 도전을 제출합니다. 유일한 전제 조건은 [RPL 잠금](./participate#rpl-잠금-허용)이 활성화되어 있어야 한다는 것입니다.
+이 설정을 활성화하면 노드는 새 제안을 확인하고 정확성을 검증하며 잘못된 제안에 도전을 제출합니다. 전제 조건은 [RPL 잠금](./participate#rpl-잠금-허용)이 활성화되어 있고, 노드가 각 도전마다 `proposal.challenge.bond`를 충당할 만큼의 잠기지 않은 스테이킹 RPL을 보유하고 있어야 한다는 것입니다.
 
 이 확인은 다른 몇 가지 노드 관련 업무와 함께 5분마다 실행됩니다. 사기성 제안에 도전하는 것이 어떻게 보이는지 예를 살펴보겠습니다. smartnode 명령 `rocketpool service logs node`를 사용하여 진행 상황을 모니터링할 수 있습니다:
 
@@ -164,9 +164,9 @@ rocketpool3_node  | 2024/04/05 02:57:13 Successfully defeated proposal.
 제안자의 투표 정보가 올바르지 않기 때문에 제안자는 도전에 제시간에 응답할 수 없습니다(`proposal.challenge.period`에 의해 결정됨). 이 시점에서 제안은 패배한 것으로 간주됩니다. 제안이 패배하면 노드는 자동으로 제안 177의 인덱스 5에서 계약 호출 `defeatProposal`을 하여 제안을 종료합니다.
 
 ::: tip 참고
-제안 패배에 참여한 도전자는 잘못된 것으로 입증된 인덱스를 제출한 경우 제안자의 보증금의 비례 금액을 지급받습니다. 다른 모든 도전자는 보증금만 돌려받습니다.
+제안 패배에 참여한 도전자는 잘못된 것으로 입증된 인덱스를 제출한 경우 제안자의 보증금의 비례 금액을 지급받습니다. 이 중 20%는 소각됩니다. 다른 모든 도전자는 보증금만 돌려받습니다.
 :::
 
-이제 제안이 패배했으므로 노드(도전자)는 원래 RPL 보증금과 사기성 제안을 패배시킨 보상으로 제안자의 RPL 보증금을 [청구](./participate#보증금-및-보상-청구)할 수 있습니다.
+이제 제안이 패배했으므로 노드(도전자)는 원래 RPL 보증금과 사기성 제안을 패배시킨 보상으로 제안자의 RPL 보증금 중 자신의 몫을 [청구](./participate#보증금-및-보상-청구)할 수 있습니다. 이 보상의 20%는 소각됩니다.
 
 pDAO 제안 및 도전 시스템의 세부 사항을 살펴보고 싶다면 [기술 사양](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#draft-protocol-dao-proposal-challenge-system-specification)을 살펴보세요. 낮은 수준의 세부 사항을 연구하는 데 관심이 있다면 [도전 프로세스](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#challenge-process)에 관한 이 섹션으로 자유롭게 건너뛸 수 있습니다.

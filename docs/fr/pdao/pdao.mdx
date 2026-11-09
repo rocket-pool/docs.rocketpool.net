@@ -18,11 +18,11 @@ La mise à niveau Houston inclut également un nouveau conseil de sécurité pou
 
 ### Dépenses récurrentes du trésor
 
-Le RPL a un taux d'inflation de 5%. 22% de cette inflation est dirigée vers la pDAO tel que défini dans [RPIP-25](https://rpips.rocketpool.net/RPIPs/RPIP-25). La pDAO peut utiliser ces fonds à diverses fins. Par exemple, des incitations telles que des bonus pour les fournisseurs de liquidité (LP), des subventions et primes pour des améliorations et projets tiers, et le financement du développement du protocole Rocket Pool. La mise à niveau Houston introduit également une nouvelle fonctionnalité qui permet des paiements récurrents du trésor versés à un bénéficiaire spécifié à chaque période de récompense.
+Le RPL a un taux d'inflation de 5%. Actuellement, 47,5% de cette inflation est dirigée vers la pDAO, comme établi par [RPIP-81](https://rpips.rocketpool.net/RPIPs/RPIP-81). La pDAO peut utiliser ces fonds à diverses fins. Par exemple, des incitations telles que des bonus pour les fournisseurs de liquidité (LP), des subventions et primes pour des améliorations et projets tiers, et le financement du développement du protocole Rocket Pool. La mise à niveau Houston introduit également une nouvelle fonctionnalité qui permet des paiements récurrents du trésor versés à un bénéficiaire spécifié à chaque période de récompense.
 
 ## Propositions de la DAO de Protocole (pDAO)
 
-Tout nœud avec un pouvoir de vote non nul peut créer ou participer à une proposition pDAO à tout moment. Les propositions peuvent être de l'un des types suivants :
+Tout nœud enregistré peut créer une proposition pDAO à tout moment, à condition d'avoir [autorisé le verrouillage de RPL](./participate#autoriser-le-verrouillage-de-rpl) et de disposer de suffisamment de RPL staké non verrouillé pour couvrir la caution de proposition. Tout nœud disposant d'un pouvoir de vote au bloc de snapshot de la proposition peut voter. Les propositions peuvent être de l'un des types suivants :
 
 - Modification des paramètres de la pDAO
 - Dépenses uniques du trésor
@@ -76,7 +76,7 @@ Cela peut être fait en utilisant la commande :
 rocketpool pdao proposals vote
 ```
 
-Si le quorum de veto (tel que défini par le paramètre `proposal.veto.quorum`) est atteint, la proposition est immédiatement vaincue et le proposeur perd sa caution. Ceci est destiné à dissuader le spam, les propositions de mauvaise qualité ou les propositions qui n'ont pas d'abord suivi les processus off-chain. La commande smartnode `rocketpool pdao proposals finalize` est utilisée pour finaliser une proposition véto en brûlant la caution RPL verrouillée du proposeur.
+Si les votes de veto atteignent le quorum de veto (tel que défini par le paramètre `proposal.veto.quorum`) à la fin de la période de vote 2, la proposition fait l'objet d'un veto et le proposeur perd sa caution. Les votes de veto comptent aussi comme des votes contre. Ceci est destiné à dissuader le spam, les propositions de mauvaise qualité ou les propositions qui n'ont pas d'abord suivi les processus off-chain. La commande smartnode `rocketpool pdao proposals finalize` est utilisée pour finaliser une proposition véto en brûlant la caution RPL verrouillée du proposeur.
 
 La durée de la période 1 est déterminée par le paramètre `proposal.vote.phase1.time`. La proposition passera à la phase 2 que le `proposal.quorum` soit atteint ou non.
 
@@ -84,7 +84,7 @@ La durée de la période 1 est déterminée par le paramètre `proposal.vote.pha
 
 Les délégués peuvent voter durant la période de vote 2, mais leur vote ne vaut que leur **pouvoir de vote local**. Les votants qui n'ont pas voté en période 1 pourront toujours exprimer un vote durant la période 2. Les opérateurs de nœuds qui ne sont pas d'accord avec le choix de leur délégué auront l'opportunité d'annuler le vote de leur délégué.
 
-Le processus d'annulation d'un vote est assez simple, appelez simplement `rocketpool pdao proposals vote` durant la période de vote 2 et suivez les invites. Le pouvoir de vote du délégué sera annulé par le pouvoir de vote du délégant.
+Le processus d'annulation d'un vote est assez simple, appelez simplement `rocketpool pdao proposals vote` durant la période de vote 2 et suivez les invites. Votre propre pouvoir de vote est retiré du vote de votre délégué et compté pour votre choix à la place.
 
 Le résultat d'une proposition est conclu lorsque la période de vote 2 est terminée. Pour qu'un résultat soit déterminé (et exécuté), le pouvoir de vote total `proposal.quorum` doit être atteint d'ici la fin de `proposal.vote.phase2.time`. Si le quorum est atteint et qu'un consensus est obtenu, la proposition passera les périodes de vote et sera marquée comme réussie.
 
@@ -118,7 +118,7 @@ Tout nœud peut participer au suivi et à la vérification de l'exactitude des p
 
 <img src={proposal_checker} width="100%" height="auto" />
 
-Lorsque ce paramètre est activé, le nœud vérifiera les nouvelles propositions, vérifiera leur exactitude et soumettra des contestations aux propositions invalides. Le seul prérequis est que le [verrouillage de RPL](./participate#autoriser-le-verrouillage-de-rpl) soit activé.
+Lorsque ce paramètre est activé, le nœud vérifiera les nouvelles propositions, vérifiera leur exactitude et soumettra des contestations aux propositions invalides. Les prérequis sont que le [verrouillage de RPL](./participate#autoriser-le-verrouillage-de-rpl) soit activé et que votre nœud dispose de suffisamment de RPL staké non verrouillé pour couvrir `proposal.challenge.bond` pour chaque contestation.
 
 Cette vérification s'exécute toutes les 5 minutes en conjonction avec quelques autres tâches liées au nœud. Nous allons parcourir un exemple de ce à quoi ressemble la contestation d'une proposition frauduleuse. Nous pouvons utiliser la commande smartnode `rocketpool service logs node` pour surveiller la progression :
 
@@ -164,9 +164,9 @@ rocketpool3_node  | 2024/04/05 02:57:13 Proposition vaincue avec succès.
 Comme les informations de vote du proposeur sont incorrectes, il ne pourra pas répondre à la contestation dans les temps (déterminé par `proposal.challenge.period`). La proposition est considérée comme vaincue à ce stade. Lorsque la proposition est vaincue, notre nœud effectue automatiquement l'appel de contrat `defeatProposal` sur la proposition 177 à l'index 5 pour terminer la proposition.
 
 ::: tip NOTE
-Les contestataires qui participent à vaincre la proposition reçoivent un montant proportionnel de la caution du proposeur s'ils soumettent un index prouvé incorrect. Tous les autres contestataires reçoivent uniquement leur caution en retour.
+Les contestataires qui participent à vaincre la proposition reçoivent un montant proportionnel de la caution du proposeur s'ils soumettent un index prouvé incorrect. 20% de ce montant est brûlé. Tous les autres contestataires reçoivent uniquement leur caution en retour.
 :::
 
-Maintenant que la proposition est vaincue, notre nœud (le contestataire) peut [réclamer](./participate#réclamer-les-cautions-et-récompenses) sa caution RPL originale ainsi que la caution RPL du proposeur en tant que récompense pour avoir vaincu une proposition frauduleuse.
+Maintenant que la proposition est vaincue, notre nœud (le contestataire) peut [réclamer](./participate#réclamer-les-cautions-et-récompenses) sa caution RPL originale ainsi que sa part de la caution RPL du proposeur en tant que récompense pour avoir vaincu une proposition frauduleuse. 20% de cette récompense est brûlé.
 
 Si vous êtes curieux d'approfondir les détails du système de proposition et de contestation de la pDAO, consultez les [spécifications techniques](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#draft-protocol-dao-proposal-challenge-system-specification). N'hésitez pas à passer à cette section sur le [processus de contestation](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#challenge-process) si vous êtes intéressé à étudier un exemple qui entre dans les détails de bas niveau.

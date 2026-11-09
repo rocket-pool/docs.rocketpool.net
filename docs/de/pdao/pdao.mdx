@@ -18,11 +18,11 @@ Das Houston Upgrade beinhaltet auch einen neuen Security Council, um im Falle po
 
 ### Wiederkehrende Treasury-Ausgaben
 
-RPL hat eine Inflationsrate von 5%. 22% dieser Inflation werden an die pDAO geleitet, wie in [RPIP-25](https://rpips.rocketpool.net/RPIPs/RPIP-25) definiert. Die pDAO kann diese Mittel für verschiedene Zwecke verwenden. Zum Beispiel Anreize wie Liquidity Provider (LP) Boni, Zuschüsse und Prämien für Verbesserungen und Projekte von Drittanbietern sowie Finanzierung der Entwicklung des Rocket Pool Protokolls. Das Houston Upgrade führt auch eine neue Funktion ein, die wiederkehrende Treasury-Zahlungen ermöglicht, die an einen bestimmten Begünstigten in jeder Belohnungsperiode geleistet werden.
+RPL hat eine Inflationsrate von 5%. Derzeit werden 47,5% dieser Inflation an die pDAO geleitet, wie in [RPIP-81](https://rpips.rocketpool.net/RPIPs/RPIP-81) festgelegt. Die pDAO kann diese Mittel für verschiedene Zwecke verwenden. Zum Beispiel Anreize wie Liquidity Provider (LP) Boni, Zuschüsse und Prämien für Verbesserungen und Projekte von Drittanbietern sowie Finanzierung der Entwicklung des Rocket Pool Protokolls. Das Houston Upgrade führt auch eine neue Funktion ein, die wiederkehrende Treasury-Zahlungen ermöglicht, die an einen bestimmten Begünstigten in jeder Belohnungsperiode geleistet werden.
 
 ## Protocol DAO (pDAO) Vorschläge
 
-Jeder Knoten mit einer Stimmkraft ungleich Null kann jederzeit einen pDAO Vorschlag einreichen oder daran teilnehmen. Vorschläge können einen der folgenden Typen haben:
+Jeder registrierte Knoten kann jederzeit einen pDAO Vorschlag einreichen, sofern er [RPL Locking zugelassen](./participate#zulassen-von-rpl-locking) hat und über genügend nicht gesperrtes gestaktes RPL verfügt, um den Proposal Bond abzudecken. Jeder Knoten mit Stimmkraft im Snapshot-Block des Vorschlags kann darüber abstimmen. Vorschläge können einen der folgenden Typen haben:
 
 - Änderung von pDAO Einstellungen
 - Einmalige Treasury-Ausgaben
@@ -76,7 +76,7 @@ Dies kann mit dem Befehl durchgeführt werden:
 rocketpool pdao proposals vote
 ```
 
-Wenn das Veto-Quorum (wie durch den Parameter `proposal.veto.quorum` definiert) erreicht wird, wird der Vorschlag sofort besiegt und der Proposer verliert seine Bindung. Dies soll Spam, qualitativ minderwertige Vorschläge oder Vorschläge abschrecken, die nicht zuerst off-chain Prozesse durchlaufen haben. Der Smart Node-Befehl `rocketpool pdao proposals finalize` wird verwendet, um einen mit Veto belegten Vorschlag zu finalisieren, indem die gesperrte RPL Bindung des Proposers verbrannt wird.
+Wenn die Veto-Stimmen bis zum Ende der Vote Period 2 das Veto-Quorum (wie durch den Parameter `proposal.veto.quorum` definiert) erreichen, wird gegen den Vorschlag ein Veto eingelegt und der Proposer verliert seine Bindung. Veto-Stimmen zählen außerdem als Gegenstimmen. Dies soll Spam, qualitativ minderwertige Vorschläge oder Vorschläge abschrecken, die nicht zuerst off-chain Prozesse durchlaufen haben. Der Smart Node-Befehl `rocketpool pdao proposals finalize` wird verwendet, um einen mit Veto belegten Vorschlag zu finalisieren, indem die gesperrte RPL Bindung des Proposers verbrannt wird.
 
 Die Dauer von Periode 1 wird durch den Parameter `proposal.vote.phase1.time` bestimmt. Der Vorschlag geht in Phase 2 über, unabhängig davon, ob `proposal.quorum` erreicht wird oder nicht.
 
@@ -84,7 +84,7 @@ Die Dauer von Periode 1 wird durch den Parameter `proposal.vote.phase1.time` bes
 
 Delegates können während der Vote Period 2 abstimmen, aber ihre Stimme ist nur ihre **lokale Stimmkraft** wert. Voters, die in Periode 1 nicht abgestimmt haben, können während Periode 2 noch eine Stimme abgeben. Node Operators, die mit der Wahl ihres Delegierten nicht einverstanden sind, haben die Gelegenheit, die Stimme ihres Delegierten zu überstimmen.
 
-Der Prozess der Überstimmung ist ziemlich einfach, rufen Sie einfach `rocketpool pdao proposals vote` während der Vote Period 2 auf und folgen Sie den Eingabeaufforderungen. Die Stimmkraft des Delegierten wird durch die Stimmkraft des Delegierenden überstimmt.
+Der Prozess der Überstimmung ist ziemlich einfach, rufen Sie einfach `rocketpool pdao proposals vote` während der Vote Period 2 auf und folgen Sie den Eingabeaufforderungen. Ihre eigene Stimmkraft wird von der Stimme Ihres Delegierten abgezogen und stattdessen Ihrer Wahl angerechnet.
 
 Das Ergebnis eines Vorschlags wird abgeschlossen, wenn Vote Period 2 vorbei ist. Damit ein Ergebnis bestimmt (und ausgeführt) werden kann, muss `proposal.quorum` Gesamtstimmkraft bis zum Ende von `proposal.vote.phase2.time` erreicht werden. Wenn das Quorum erreicht wird und Konsens erzielt wird, wird der Vorschlag die Abstimmungsperioden bestehen und als erfolgreich markiert werden.
 
@@ -118,7 +118,7 @@ Jeder Knoten kann an der Verfolgung und Verifizierung der Korrektheit von Vorsch
 
 <img src={proposal_checker} width="100%" height="auto" />
 
-Wenn diese Einstellung aktiviert ist, überprüft der Knoten auf neue Vorschläge, verifiziert deren Korrektheit und reicht Challenges gegen ungültige Vorschläge ein. Die einzige Voraussetzung ist, dass [RPL Locking](./participate#zulassen-von-rpl-locking) aktiviert ist.
+Wenn diese Einstellung aktiviert ist, überprüft der Knoten auf neue Vorschläge, verifiziert deren Korrektheit und reicht Challenges gegen ungültige Vorschläge ein. Voraussetzungen sind, dass [RPL Locking](./participate#zulassen-von-rpl-locking) aktiviert ist und Ihr Knoten für jede Challenge genügend nicht gesperrtes gestaktes RPL besitzt, um `proposal.challenge.bond` abzudecken.
 
 Diese Überprüfung läuft alle 5 Minuten in Verbindung mit einigen anderen knotenbezogenen Aufgaben. Wir werden ein Beispiel durchgehen, wie die Anfechtung eines betrügerischen Vorschlags aussieht. Wir können den Smart Node-Befehl `rocketpool service logs node` verwenden, um den Fortschritt zu überwachen:
 
@@ -164,9 +164,9 @@ rocketpool3_node  | 2024/04/05 02:57:13 Successfully defeated proposal.
 Da die Abstimmungsinformationen des Proposers falsch sind, kann er nicht rechtzeitig auf die Challenge antworten (bestimmt durch `proposal.challenge.period`). Der Vorschlag gilt an diesem Punkt als besiegt. Wenn der Vorschlag besiegt ist, führt unser Knoten automatisch den Vertragsaufruf `defeatProposal` auf Vorschlag 177 bei Index 5 aus, um den Vorschlag zu beenden.
 
 ::: tip HINWEIS
-Challengers, die an der Niederschlagung des Vorschlags teilnehmen, erhalten einen proportionalen Anteil der Bindung des Proposers, wenn sie einen Index einreichen, der als falsch nachgewiesen wurde. Alle anderen Challengers erhalten nur ihre Bindung zurück.
+Challengers, die an der Niederschlagung des Vorschlags teilnehmen, erhalten einen proportionalen Anteil der Bindung des Proposers, wenn sie einen Index einreichen, der als falsch nachgewiesen wurde. Davon werden 20% verbrannt. Alle anderen Challengers erhalten nur ihre Bindung zurück.
 :::
 
-Jetzt, da der Vorschlag besiegt ist, kann unser Knoten (der Challenger) seine ursprüngliche RPL Bindung sowie die RPL Bindung des Proposers als Belohnung für die Niederschlagung eines betrügerischen Vorschlags [anfordern](./participate#anfordern-von-bonds-und-belohnungen).
+Da der Vorschlag nun besiegt ist, kann unser Knoten (der Challenger) seine ursprüngliche RPL Bindung sowie seinen Anteil an der RPL Bindung des Proposers als Belohnung für die Niederschlagung eines betrügerischen Vorschlags [anfordern](./participate#anfordern-von-bonds-und-belohnungen). 20% dieser Belohnung werden verbrannt.
 
 Wenn Sie neugierig sind, sich mit den Details des pDAO Vorschlags- und Challenge-Systems zu befassen, schauen Sie sich die [technischen Spezifikationen](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#draft-protocol-dao-proposal-challenge-system-specification) an. Sie können gerne zu diesem Abschnitt über den [Challenge Process](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#challenge-process) springen, wenn Sie daran interessiert sind, ein Beispiel zu studieren, das in Details auf niedriger Ebene geht.

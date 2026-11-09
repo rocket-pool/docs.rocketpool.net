@@ -18,11 +18,11 @@ L'aggiornamento Houston include anche un nuovo Security Council per aiutare a re
 
 ### Spese ricorrenti del tesoro
 
-RPL ha un tasso di inflazione del 5%. Il 22% di questa inflazione è diretto verso la pDAO come definito in [RPIP-25](https://rpips.rocketpool.net/RPIPs/RPIP-25). La pDAO può utilizzare questi fondi per una varietà di scopi. Ad esempio, incentivi come bonus per fornitori di liquidità (LP), sovvenzioni e premi per miglioramenti e progetti di terze parti, e finanziamento dello sviluppo del protocollo Rocket Pool. L'aggiornamento Houston introduce anche una nuova funzionalità che abilita pagamenti ricorrenti del tesoro effettuati a un beneficiario specificato ogni periodo di ricompense.
+RPL ha un tasso di inflazione del 5%. Attualmente il 47,5% di questa inflazione è diretto verso la pDAO, come stabilito da [RPIP-81](https://rpips.rocketpool.net/RPIPs/RPIP-81). La pDAO può utilizzare questi fondi per una varietà di scopi. Ad esempio, incentivi come bonus per fornitori di liquidità (LP), sovvenzioni e premi per miglioramenti e progetti di terze parti, e finanziamento dello sviluppo del protocollo Rocket Pool. L'aggiornamento Houston introduce anche una nuova funzionalità che abilita pagamenti ricorrenti del tesoro effettuati a un beneficiario specificato ogni periodo di ricompense.
 
 ## Proposte della Protocol DAO (pDAO)
 
-Qualsiasi nodo con un potere di voto non nullo può sollevare o partecipare a una proposta pDAO in qualsiasi momento. Le proposte possono essere di uno dei seguenti tipi:
+Qualsiasi nodo registrato può sollevare una proposta pDAO in qualsiasi momento, purché abbia [consentito il blocco RPL](./participate#consentire-il-blocco-rpl) e disponga di abbastanza RPL in staking non bloccato per coprire la garanzia della proposta. Qualsiasi nodo con potere di voto al blocco di snapshot della proposta può votarla. Le proposte possono essere di uno dei seguenti tipi:
 
 - Modifica delle impostazioni pDAO
 - Spese del tesoro una tantum
@@ -76,7 +76,7 @@ Questo può essere fatto usando il comando:
 rocketpool pdao proposals vote
 ```
 
-Se il quorum di veto (come definito dal parametro `proposal.veto.quorum`) viene raggiunto, la proposta viene immediatamente sconfitta e il proponente perde la sua garanzia. Questo serve a dissuadere spam, proposte di bassa qualità o proposte che non hanno seguito prima i processi off-chain. Il comando smartnode `rocketpool pdao proposals finalize` viene utilizzato per finalizzare una proposta sottoposta a veto bruciando la garanzia RPL bloccata del proponente.
+Se i voti di veto raggiungono il quorum di veto (come definito dal parametro `proposal.veto.quorum`) entro la fine del periodo di voto 2, la proposta viene posta sotto veto e il proponente perde la sua garanzia. I voti di veto contano anche come voti contrari. Questo serve a dissuadere spam, proposte di bassa qualità o proposte che non hanno seguito prima i processi off-chain. Il comando smartnode `rocketpool pdao proposals finalize` viene utilizzato per finalizzare una proposta sottoposta a veto bruciando la garanzia RPL bloccata del proponente.
 
 La durata del periodo 1 è determinata dal parametro `proposal.vote.phase1.time`. La proposta passerà alla fase 2 indipendentemente dal fatto che `proposal.quorum` sia raggiunto o meno.
 
@@ -84,7 +84,7 @@ La durata del periodo 1 è determinata dal parametro `proposal.vote.phase1.time`
 
 I delegati possono votare durante il periodo di voto 2, ma il loro voto vale solo il loro **potere di voto locale**. I votanti che non hanno votato nel periodo 1 potranno comunque esprimere un voto durante il periodo 2. Gli operatori di nodo che non sono d'accordo con la scelta del loro delegato avranno l'opportunità di ribaltare il voto del loro delegato.
 
-Il processo di ribaltamento di un voto è abbastanza semplice, basta chiamare `rocketpool pdao proposals vote` durante il periodo di voto 2 e seguire i prompt. Il potere di voto del delegato sarà ribaltato dal potere di voto del delegante.
+Il processo di ribaltamento di un voto è abbastanza semplice, basta chiamare `rocketpool pdao proposals vote` durante il periodo di voto 2 e seguire i prompt. Il tuo potere di voto viene sottratto al voto del tuo delegato e conteggiato invece per la tua scelta.
 
 Il risultato di una proposta si conclude quando il periodo di voto 2 è terminato. Affinché un risultato sia determinato (ed eseguito), il potere di voto totale di `proposal.quorum` deve essere raggiunto entro la fine di `proposal.vote.phase2.time`. Se il quorum viene raggiunto e si raggiunge il consenso, la proposta supererà i periodi di voto e sarà contrassegnata come riuscita.
 
@@ -118,7 +118,7 @@ Qualsiasi nodo può partecipare al tracciamento e alla verifica della correttezz
 
 <img src={proposal_checker} width="100%" height="auto" />
 
-Quando questa impostazione è abilitata, il nodo controllerà le nuove proposte, verificherà la loro correttezza e invierà sfide alle proposte non valide. L'unico prerequisito è che il [blocco RPL](./participate#consentire-il-blocco-rpl) sia abilitato.
+Quando questa impostazione è abilitata, il nodo controllerà le nuove proposte, verificherà la loro correttezza e invierà sfide alle proposte non valide. I prerequisiti sono che il [blocco RPL](./participate#consentire-il-blocco-rpl) sia abilitato e che il tuo nodo disponga di abbastanza RPL in staking non bloccato per coprire `proposal.challenge.bond` per ogni sfida.
 
 Questo controllo viene eseguito ogni 5 minuti in concomitanza con alcuni altri compiti relativi al nodo. Esamineremo un esempio di come sfidare una proposta fraudolenta. Possiamo usare il comando smartnode `rocketpool service logs node` per monitorare i progressi:
 
@@ -164,9 +164,9 @@ rocketpool3_node  | 2024/04/05 02:57:13 Proposta sconfitta con successo.
 Poiché le informazioni di voto del proponente sono errate, non sarà in grado di rispondere alla sfida in tempo (determinato da `proposal.challenge.period`). La proposta è considerata sconfitta a questo punto. Quando la proposta viene sconfitta, il nostro nodo effettua automaticamente la chiamata al contratto `defeatProposal` sulla proposta 177 all'indice 5 per terminare la proposta.
 
 ::: tip NOTA
-Gli sfidanti che partecipano alla sconfitta della proposta ricevono un importo proporzionale della garanzia del proponente se inviano un indice dimostrato essere errato. Tutti gli altri sfidanti ricevono solo la loro garanzia indietro.
+Gli sfidanti che partecipano alla sconfitta della proposta ricevono un importo proporzionale della garanzia del proponente se inviano un indice dimostrato essere errato. Il 20% di tale importo viene bruciato. Tutti gli altri sfidanti ricevono solo la loro garanzia indietro.
 :::
 
-Ora che la proposta è sconfitta, il nostro nodo (lo sfidante) può [richiedere](./participate#richiedere-garanzie-e-ricompense) la sua garanzia RPL originale e la garanzia RPL del proponente come ricompensa per aver sconfitto una proposta fraudolenta.
+Ora che la proposta è sconfitta, il nostro nodo (lo sfidante) può [richiedere](./participate#richiedere-garanzie-e-ricompense) la sua garanzia RPL originale e la sua quota della garanzia RPL del proponente come ricompensa per aver sconfitto una proposta fraudolenta. Il 20% di tale ricompensa viene bruciato.
 
 Se sei curioso di approfondire i dettagli del sistema di proposte e sfide della pDAO, dai un'occhiata alle [specifiche tecniche](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#draft-protocol-dao-proposal-challenge-system-specification). Sentiti libero di saltare a questa sezione sul [processo di sfida](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#challenge-process) se sei interessato a studiare un esempio che entra nei dettagli di basso livello.

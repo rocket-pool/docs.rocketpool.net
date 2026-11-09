@@ -2,7 +2,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # Participando en propuestas on-chain del pDAO
 
-Cualquier nodo con un poder de voto distinto de cero puede presentar o participar en una propuesta del pDAO en cualquier momento. Las propuestas pueden ser de uno de los siguientes tipos:
+Cualquier nodo registrado puede presentar una propuesta del pDAO en cualquier momento, siempre que haya [permitido el bloqueo de RPL](#permitiendo-el-bloqueo-de-rpl) y tenga suficiente RPL apostado desbloqueado para cubrir el bono de la propuesta (consulta [Creando una propuesta](#creando-una-propuesta)). Cualquier nodo con poder de voto en el bloque de snapshot de la propuesta puede votar sobre ella. Las propuestas pueden ser de uno de los siguientes tipos:
 
 - Cambiar configuraciones del pDAO
 - Gastos únicos del tesoro
@@ -18,7 +18,7 @@ Una propuesta debe ser anticipada por el proceso de gobernanza antes de que term
 
 Los cambios al protocolo Rocket Pool se proponen, votan y ejecutan mediante un proceso de gobernanza estricto pero transparente. El proceso comienza con una discusión informal de una idea dentro de la comunidad de Discord. Esta idea luego progresa a discusiones formales en el canal [#governance](https://discordapp.com/channels/405159462932971535/774497904559783947) de Discord y el [Foro DAO](https://dao.rocketpool.net/), donde se somete a investigación exhaustiva, modelado y escrutinio en preparación para una [Propuesta de Mejora de Rocket Pool (RPIP)](https://rpips.rocketpool.net/). Después de esto, se prepara un borrador de RPIP y es revisado por revisores designados de RPIP para garantizar su calidad y preparación para presentación al DAO. El borrador de propuesta se presenta luego al DAO en el foro para una mayor revisión, retroalimentación e incorporación de cualquier cambio necesario. Una vez que la propuesta ha sido refinada según los comentarios de la comunidad, se realiza una encuesta en el foro del DAO para medir la preparación para finalizar el texto del RPIP. Si la encuesta es aprobada, indicando la aprobación de la comunidad, el RPIP se marca como final y listo para una votación off-chain del DAO del Protocolo en [RocketDash](https://rocketdash.net/vote), que determinará si la propuesta debe implementarse. RocketDash reemplazó a Snapshot para estas votaciones.
 
-Desde aquí, el Oracle DAO presentará una propuesta on-chain. Hay una ventana en la que el DAO del Protocolo, el Oracle DAO y la comunidad pueden revisar la propuesta. Si se alcanza un consenso, la propuesta se ejecuta y los cambios se aplican al protocolo.
+A partir de aquí, un operador de nodo presenta la propuesta on-chain (consulta [Creando una propuesta](#creando-una-propuesta)). Luego pasa por el [ciclo de vida de la propuesta](./pdao#ciclo-de-vida-de-una-propuesta-del-pdao) on-chain: una ventana de desafío y dos fases de votación. Si la votación se aprueba, cualquiera puede ejecutar la propuesta.
 
 Una práctica representación visual de este proceso se puede encontrar en el [sitio web de Rocket Pool](https://rocketpool.net/governance/process).
 
@@ -203,7 +203,7 @@ Durante un período de votación, los **operadores de nodo** y los **delegados**
 4. Veto: The voter votes against the proposal as well as indicating they deem the proposal as spam or malicious.
 ```
 
-Su poder de voto se aplicará a la opción de su elección. El poder de voto es una función de la "participación efectiva de RPL".
+Su poder de voto se aplicará a la opción de su elección. El poder de voto es la raíz cuadrada del RPL apostado de tu nodo, contando el RPL apostado solo hasta un límite establecido por el parámetro del pDAO `node.voting.power.stake.maximum` (actualmente el 150% de tu ETH en bono, a noviembre de 2026).
 Una lectura más detallada se puede encontrar en el [repositorio rocketpool-research](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting).
 
 ::: tip NOTA
@@ -419,17 +419,15 @@ proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145)
 
 Los proponentes o retadores pueden reclamar sus bonos al concluir una propuesta. Dependiendo del resultado de una propuesta, un proponente o retador puede o no ser capaz de reclamar su `proposal.bond` y `proposal.challenge.bond`.
 
-Aquí hay algunas reglas que dictan las condiciones bajo las cuales se pueden reclamar los bonos:
+Esto es lo que ocurre con los bonos en cada resultado:
 
-- Si una propuesta es derrotada, el proponente pierde su bono que se divide proporcionalmente entre los retadores
-  que contribuyeron a la derrota de la propuesta. Todos los demás retadores reciben solo su bono de vuelta.
-- Contribuir a la derrota de una propuesta significa que un retador presentó un índice que luego se demostró que era
-  incorrecto por la incapacidad del proponente de responder a un desafío. Es posible que haya múltiples índices incorrectos pero solo
-  aquellos que resultaron en la derrota de la propuesta comparten la recompensa. Todos los demás retadores reciben solo su bono de vuelta.
-- Si un retador desafía a un nodo, el proponente responde, y la propuesta no es derrotada. El proponente puede
-  reclamar los bonos de desafío de los desafíos inválidos.
-- Si una propuesta es derrotada, el proponente pierde su bono que se divide proporcionalmente entre los retadores
-  que contribuyeron a la derrota de la propuesta.
+| Resultado | Proponente | Retadores |
+| --- | --- | --- |
+| **Derrotada por un desafío** | Pierde su bono | Los retadores que ayudaron a derrotar la propuesta se reparten el bono del proponente, menos una quema del 20%. Cada retador también recupera su propio bono. |
+| **Vetada** | Pierde su bono. Se quema cuando alguien ejecuta `rocketpool pdao proposals finalize`. | — |
+| **Cualquier otro resultado** (ejecutada, expirada, rechazada en la votación o sin quórum) | Recupera su bono, más el bono de cada desafío al que respondió, menos una quema del 20% | Desafíos a los que el proponente respondió: bono perdido. Desafíos a los que el proponente no respondió: bono devuelto. |
+
+Un retador "ayudó a derrotar la propuesta" si desafió un índice al que el proponente no pudo responder, en la ruta que condujo a la derrota.
 
 Usa este comando para reclamar bonos:
 

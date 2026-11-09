@@ -2,8 +2,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # Teilnahme an on-chain pDAO Vorschlägen
 
-Jeder Knoten mit einer Stimmkraft ungleich Null kann jederzeit einen pDAO Vorschlag einreichen oder daran teilnehmen. Vorschläge können einen der
-folgenden Typen haben:
+Jeder registrierte Knoten kann jederzeit einen pDAO Vorschlag einreichen, sofern er [RPL Locking zugelassen](#zulassen-von-rpl-locking) hat und über genügend nicht gesperrtes gestaktes RPL verfügt, um den Proposal Bond abzudecken (siehe [Erstellen eines Vorschlags](#erstellen-eines-vorschlags)). Jeder Knoten mit Stimmkraft im Snapshot-Block des Vorschlags kann darüber abstimmen. Vorschläge können einen der folgenden Typen haben:
 
 - Änderung von pDAO Einstellungen
 - Einmalige Treasury-Ausgaben
@@ -30,9 +29,7 @@ gestartet, um die Bereitschaft zur Finalisierung des RPIP-Texts zu prüfen. Wenn
 final markiert und ist bereit für eine off-chain Protocol DAO Abstimmung auf [RocketDash](https://rocketdash.net/vote), um zu bestimmen, ob der Vorschlag
 implementiert werden soll. RocketDash hat Snapshot für diese Abstimmungen ersetzt.
 
-Von hier aus wird die Oracle DAO einen on-chain Vorschlag einreichen. Es gibt ein Zeitfenster, in dem die Protocol DAO, Oracle DAO und
-Community den Vorschlag überprüfen können. Wenn Konsens erreicht wird, wird der Vorschlag ausgeführt und Änderungen werden auf das
-Protokoll angewendet.
+Von hier aus reicht ein Node Operator den Vorschlag on-chain ein (siehe [Erstellen eines Vorschlags](#erstellen-eines-vorschlags)). Anschließend durchläuft er den on-chain [Lebenszyklus eines Vorschlags](./pdao#lebenszyklus-eines-pdao-vorschlags): ein Challenge-Fenster und zwei Abstimmungsphasen. Wird der Vorschlag angenommen, kann ihn jeder ausführen.
 
 Eine praktische visuelle Darstellung dieses Prozesses finden Sie auf
 der [Rocket Pool Website](https://rocketpool.net/governance/process).
@@ -236,7 +233,7 @@ Während einer Abstimmungsperiode können **Node Operators** und **Delegates** m
 4. Veto: The voter votes against the proposal as well as indicating they deem the proposal as spam or malicious.
 ```
 
-Ihre Stimmkraft wird auf die gewählte Option angewendet. Die Stimmkraft ist eine Funktion des „effektiven RPL Stake".
+Ihre Stimmkraft wird auf die gewählte Option angewendet. Die Stimmkraft ist die Quadratwurzel des gestakten RPL Ihres Knotens, wobei gestaktes RPL nur bis zu einer Obergrenze zählt, die durch die pDAO-Einstellung `node.voting.power.stake.maximum` festgelegt ist (derzeit 150% Ihres gebondeten ETH, Stand November 2026).
 Eine ausführlichere Beschreibung finden Sie im
 [rocketpool-research Repo](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting).
 
@@ -462,17 +459,15 @@ proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145)
 Proposer oder Challengers können ihre Bonds bei Abschluss eines Vorschlags anfordern. Abhängig vom Ergebnis eines Vorschlags kann
 ein Proposer oder Challenger seine `proposal.bond` und `proposal.challenge.bond` anfordern oder nicht.
 
-Hier sind einige Regeln, die die Bedingungen bestimmen, unter denen Bonds angefordert werden können:
+Folgendes passiert mit den Bonds bei jedem Ergebnis:
 
-- Wenn ein Vorschlag abgelehnt wird, verwirkt der Proposer seine Bindung, die proportional unter den Challengers aufgeteilt wird,
-  die zur Niederlage des Vorschlags beigetragen haben. Alle anderen Challengers erhalten nur ihre Bindung zurück.
-- Zur Niederlage eines Vorschlags beizutragen bedeutet, dass ein Challenger einen Index eingereicht hat, der später als
-  falsch erwiesen wurde, durch die Unfähigkeit des Proposers, auf eine Herausforderung zu antworten. Es ist möglich, dass es mehrere falsche Indizes gibt, aber nur
-  diejenigen, die zur Niederlage des Vorschlags geführt haben, teilen die Belohnung. Alle anderen Challengers erhalten nur ihre Bindung zurück.
-- Wenn ein Challenger einen Knoten anficht, der Proposer antwortet und der Vorschlag nicht abgelehnt wird, kann der Proposer
-  die Challenge Bonds von den ungültigen Challenges anfordern.
-- Wenn ein Vorschlag abgelehnt wird, verwirkt der Proposer seine Bindung, die proportional unter den Challengers aufgeteilt wird,
-  die zur Niederlage des Vorschlags beigetragen haben.
+| Ergebnis | Proposer | Challengers |
+| --- | --- | --- |
+| **Durch eine Challenge besiegt** | Verliert seinen Bond | Challengers, die zur Niederlage des Vorschlags beigetragen haben, teilen sich den Bond des Proposers, abzüglich einer Verbrennung von 20%. Jeder Challenger erhält außerdem seinen eigenen Bond zurück. |
+| **Per Veto abgelehnt** | Verliert seinen Bond. Er wird verbrannt, sobald jemand `rocketpool pdao proposals finalize` ausführt. | — |
+| **Jedes andere Ergebnis** (ausgeführt, abgelaufen, abgelehnt oder Quorum nicht erreicht) | Erhält seinen Bond zurück, plus den Bond jeder Challenge, auf die er geantwortet hat, abzüglich einer Verbrennung von 20% | Challenges, auf die der Proposer geantwortet hat: Bond verloren. Challenges, auf die der Proposer nicht geantwortet hat: Bond zurück. |
+
+Ein Challenger hat „zur Niederlage des Vorschlags beigetragen“, wenn er einen Index angefochten hat, auf den der Proposer nicht antworten konnte, und zwar auf dem Pfad, der zur Niederlage geführt hat.
 
 Verwenden Sie diesen Befehl, um Bonds anzufordern:
 

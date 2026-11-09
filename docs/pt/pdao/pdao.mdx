@@ -18,11 +18,11 @@ A atualização Houston também inclui um novo conselho de segurança para ajuda
 
 ### Gastos Recorrentes do Tesouro
 
-RPL tem uma taxa de inflação de 5%. 22% desta inflação é direcionada para a pDAO conforme definido em [RPIP-25](https://rpips.rocketpool.net/RPIPs/RPIP-25). A pDAO pode usar esses fundos para uma variedade de propósitos. Por exemplo, incentivos como bônus de provedor de liquidez (LP), subsídios e recompensas por melhorias e projetos de terceiros, e financiamento do desenvolvimento do protocolo Rocket Pool. A atualização Houston também introduz um novo recurso que permite pagamentos recorrentes do tesouro feitos a um beneficiário especificado a cada período de recompensas.
+RPL tem uma taxa de inflação de 5%. Atualmente, 47,5% desta inflação é direcionada para a pDAO, conforme estabelecido pela [RPIP-81](https://rpips.rocketpool.net/RPIPs/RPIP-81). A pDAO pode usar esses fundos para uma variedade de propósitos. Por exemplo, incentivos como bônus de provedor de liquidez (LP), subsídios e recompensas por melhorias e projetos de terceiros, e financiamento do desenvolvimento do protocolo Rocket Pool. A atualização Houston também introduz um novo recurso que permite pagamentos recorrentes do tesouro feitos a um beneficiário especificado a cada período de recompensas.
 
 ## Propostas da DAO do Protocolo (pDAO)
 
-Qualquer nó com poder de voto não-zero pode levantar ou participar em uma proposta pDAO a qualquer momento. As propostas podem ser um dos seguintes tipos:
+Qualquer nó registrado pode levantar uma proposta pDAO a qualquer momento, desde que tenha [permitido o bloqueio de RPL](./participate#permitindo-bloqueio-rpl) e tenha RPL em stake desbloqueado suficiente para cobrir a garantia da proposta. Qualquer nó com poder de voto no bloco de snapshot da proposta pode votar nela. As propostas podem ser um dos seguintes tipos:
 
 - Alteração de configurações pDAO
 - Gastos únicos do tesouro
@@ -76,15 +76,15 @@ Isso pode ser feito usando o comando:
 rocketpool pdao proposals vote
 ```
 
-Se o quórum de veto (conforme definido pelo parâmetro `proposal.veto.quorum`) for alcançado, a proposta é imediatamente derrotada e o proponente perde sua garantia. Isso é para dissuadir spam, propostas de baixa qualidade, ou propostas que não passaram pelos processos off-chain primeiro. O comando smartnode `rocketpool pdao proposals finalize` é usado para finalizar uma proposta vetada queimando a garantia RPL bloqueada do proponente.
+Se os votos de veto atingirem o quórum de veto (conforme definido pelo parâmetro `proposal.veto.quorum`) até o final do período de voto 2, a proposta é vetada e o proponente perde sua garantia. Votos de veto também contam como votos contra. Isso é para dissuadir spam, propostas de baixa qualidade, ou propostas que não passaram pelos processos off-chain primeiro. O comando smartnode `rocketpool pdao proposals finalize` é usado para finalizar uma proposta vetada queimando a garantia RPL bloqueada do proponente.
 
 A duração do período 1 é determinada pelo parâmetro `proposal.vote.phase1.time`. A proposta fará a transição para a fase 2 independentemente de `proposal.quorum` ser alcançado ou não.
 
 ### Período de Voto 2
 
-Delegados podem votar durante o período de voto 2, mas apenas seu voto vale apenas seu **poder de voto local**. Votantes que não votaram no período 1 ainda poderão votar durante o período 2. Operadores de nós que discordarem da escolha do seu delegado terão a oportunidade de reverter o voto do seu delegado.
+Delegados podem votar durante o período de voto 2, mas seu voto vale apenas seu **poder de voto local**. Votantes que não votaram no período 1 ainda poderão votar durante o período 2. Operadores de nós que discordarem da escolha do seu delegado terão a oportunidade de reverter o voto do seu delegado.
 
-O processo de reverter um voto é bem simples, basta chamar `rocketpool pdao proposals vote` durante o período de voto 2 e seguir os prompts. O poder de voto do delegado será revertido pelo poder de voto do delegante.
+O processo de reverter um voto é bem simples, basta chamar `rocketpool pdao proposals vote` durante o período de voto 2 e seguir os prompts. Seu próprio poder de voto é removido do voto do seu delegado e contado para a sua escolha.
 
 O resultado de uma proposta é concluído quando o período de voto 2 termina. Para que um resultado seja determinado (e executado), `proposal.quorum` poder de voto total deve ser alcançado até o final de `proposal.vote.phase2.time`. Se o quórum for alcançado e o consenso for atingido, a proposta passará pelos períodos de votação e será marcada como bem-sucedida.
 
@@ -118,7 +118,7 @@ Qualquer nó pode participar no rastreamento e verificação da correção das p
 
 <img src={proposal_checker} width="100%" height="auto" />
 
-Quando esta configuração está habilitada, o nó verificará novas propostas, verificará sua correção e enviará desafios a propostas inválidas. O único pré-requisito é que o [Bloqueio RPL](./participate#permitindo-bloqueio-rpl) esteja habilitado.
+Quando esta configuração está habilitada, o nó verificará novas propostas, verificará sua correção e enviará desafios a propostas inválidas. Os pré-requisitos são que o [Bloqueio RPL](./participate#permitindo-bloqueio-rpl) esteja habilitado e que seu nó tenha RPL em stake desbloqueado suficiente para cobrir `proposal.challenge.bond` para cada desafio.
 
 Esta verificação é executada a cada 5 minutos em conjunto com algumas outras tarefas relacionadas ao nó. Vamos percorrer um exemplo de como é desafiar uma proposta fraudulenta. Podemos usar o comando smartnode `rocketpool service logs node` para monitorar o progresso:
 
@@ -164,9 +164,9 @@ rocketpool3_node  | 2024/04/05 02:57:13 Proposta derrotada com sucesso.
 Como as informações de votação do proponente estão incorretas, ele não será capaz de responder ao desafio a tempo (determinado por `proposal.challenge.period`). A proposta é considerada derrotada neste ponto. Quando a proposta é derrotada, nosso nó automaticamente faz a chamada de contrato `defeatProposal` na proposta 177 no índice 5 para encerrar a proposta.
 
 ::: tip NOTA
-Desafiantes que participam na derrota da proposta são pagos uma quantia proporcional da garantia do proponente se enviarem um índice provado estar incorreto. Todos os outros desafiantes recebem apenas sua garantia de volta.
+Desafiantes que participam na derrota da proposta são pagos uma quantia proporcional da garantia do proponente se enviarem um índice provado estar incorreto. 20% desse valor é queimado. Todos os outros desafiantes recebem apenas sua garantia de volta.
 :::
 
-Agora que a proposta está derrotada, nosso nó (o desafiante) pode [reivindicar](./participate#reivindicando-garantias-e-recompensas) sua garantia RPL original, bem como a garantia RPL do proponente como uma recompensa por derrotar uma proposta fraudulenta.
+Agora que a proposta está derrotada, nosso nó (o desafiante) pode [reivindicar](./participate#reivindicando-garantias-e-recompensas) sua garantia RPL original, bem como sua parte da garantia RPL do proponente como uma recompensa por derrotar uma proposta fraudulenta. 20% dessa recompensa é queimado.
 
 Se você estiver curioso para mergulhar nos detalhes da proposta pDAO e sistema de desafio, dê uma olhada nas [especificações técnicas](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#draft-protocol-dao-proposal-challenge-system-specification). Sinta-se livre para pular para esta seção sobre o [processo de desafio](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#challenge-process) se você estiver interessado em estudar um exemplo que entra em detalhes de baixo nível.

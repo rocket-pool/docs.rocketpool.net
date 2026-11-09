@@ -2,7 +2,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # 参与链上 pDAO 提案
 
-任何具有非零投票权的节点都可以随时提出或参与 pDAO 提案。提案可以是以下类型之一：
+任何已注册的节点都可以随时提出 pDAO 提案，只要该节点已[允许 RPL 锁定](#允许-rpl-锁定)，并且拥有足够的未锁定质押 RPL 来支付提案保证金（参见[创建提案](#创建提案)）。在提案快照区块时拥有投票权的任何节点都可以对其投票。提案可以是以下类型之一：
 
 - 更改 pDAO 设置
 - 一次性国库支出
@@ -17,7 +17,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 对 Rocket Pool 协议的更改使用严格但透明的治理流程进行提议、投票和执行。该流程始于 Discord 社区内对一个想法的非正式讨论。然后，这个想法发展到 Discord 上的 [#governance](https://discordapp.com/channels/405159462932971535/774497904559783947) 频道和 [DAO Forum](https://dao.rocketpool.net/) 上的正式讨论，在那里它经过彻底的研究、建模和审查，为 [Rocket Pool 改进提案 (RPIP)](https://rpips.rocketpool.net/) 做准备。随后，准备 RPIP 草案并由指定的 RPIP 审查者审查，以确保其质量和向 DAO 展示的准备情况。然后将草案提案提交给论坛上的 DAO 进行进一步审查、反馈和纳入任何必要的更改。一旦提案根据社区意见进行了完善，就会在 DAO 论坛上进行投票，以衡量最终确定 RPIP 文本的准备情况。如果投票通过，表明社区批准，RPIP 将被标记为最终版本，并准备好在 [RocketDash](https://rocketdash.net/vote) 上进行链下 Protocol DAO 投票，以确定是否应实施该提案。RocketDash 已取代 Snapshot，用于这些投票。
 
-从这里开始，Oracle DAO 将提出链上提案。Protocol DAO、Oracle DAO 和社区有一个审查提案的窗口期。如果达成共识，则执行提案并将更改应用于协议。
+从这里开始，由节点运营商在链上提出提案（参见[创建提案](#创建提案)）。随后提案将经历链上的[提案生命周期](./pdao#pdao-提案的生命周期)：一个挑战窗口和两个投票阶段。如果投票通过，任何人都可以执行该提案。
 
 可以在 [Rocket Pool 网站](https://rocketpool.net/governance/process)上找到此流程的便捷可视化表示。
 
@@ -188,7 +188,7 @@ rocketpool pdao proposals details <proposal-id>
 4. Veto: 投票者投票反对提案，并表明他们认为该提案是垃圾邮件或恶意的。
 ```
 
-他们的投票权将应用于他们选择的选项。投票权是"有效 RPL 质押"的函数。可以在 [rocketpool-research 仓库](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting)中找到更详细的阅读材料。
+他们的投票权将应用于他们选择的选项。投票权是您节点质押 RPL 的平方根，质押 RPL 仅计算到 pDAO 设置 `node.voting.power.stake.maximum` 规定的上限（截至 2026 年 11 月，为您绑定 ETH 的 150%）。可以在 [rocketpool-research 仓库](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting)中找到更详细的阅读材料。
 
 ::: tip 注意
 每个节点对一项提案只能投票一次，因此请谨慎选择。要了解应在哪个阶段投票，请参阅[何时投票](#何时投票)。
@@ -389,12 +389,15 @@ proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145)
 
 提案者或挑战者可以在提案结束时领取其保证金。根据提案的结果，提案者或挑战者可能能够或不能够领取其 `proposal.bond` 和 `proposal.challenge.bond`。
 
-以下是一些规定可以领取保证金的条件的规则：
+以下是每种结果下保证金的处理方式：
 
-- 如果提案被击败，提案者将没收其保证金，该保证金将按比例分配给促成提案失败的挑战者。所有其他挑战者仅收回其保证金。
-- 促成提案失败意味着挑战者提交了一个索引，该索引后来被提案者无法回应挑战而证明是错误的。可能存在多个错误索引，但只有那些导致提案失败的索引才能分享奖励。所有其他挑战者仅收回其保证金。
-- 如果挑战者挑战节点，提案者做出回应，并且提案未被击败。提案者可以从无效挑战中领取挑战保证金。
-- 如果提案被击败，提案者将没收其保证金，该保证金将按比例分配给促成提案失败的挑战者。
+| 结果 | 提案者 | 挑战者 |
+| --- | --- | --- |
+| **被挑战击败** | 失去保证金 | 帮助击败提案的挑战者瓜分提案者的保证金，扣除 20% 的销毁部分。每个挑战者也会取回自己的保证金。 |
+| **被否决** | 失去保证金。当任何人运行 `rocketpool pdao proposals finalize` 时，保证金将被销毁。 | — |
+| **其他任何结果**（已执行、已过期、投票未通过或未达到法定人数） | 取回保证金，并获得其回应的每个挑战的保证金，扣除 20% 的销毁部分 | 提案者回应过的挑战：保证金损失。提案者未回应的挑战：保证金退还。 |
+
+如果挑战者在导致提案失败的路径上，挑战了提案者无法回应的索引，则该挑战者被视为“帮助击败了提案”。
 
 使用此命令领取保证金：
 

@@ -17,11 +17,11 @@ Houston 升级还包括一个新的安全委员会，以帮助在协议出现任
 
 ### 定期国库支出
 
-RPL 的通货膨胀率为 5%。根据 [RPIP-25](https://rpips.rocketpool.net/RPIPs/RPIP-25) 的定义，这种通货膨胀的 22% 流向 pDAO。pDAO 可以将这些资金用于各种目的。例如，流动性提供者 (LP) 奖金等激励措施、第三方改进和项目的赠款和赏金，以及资助 Rocket Pool 协议的开发。Houston 升级还引入了一项新功能，可以在每个奖励期向指定受益人进行定期国库付款。
+RPL 的通货膨胀率为 5%。根据 [RPIP-81](https://rpips.rocketpool.net/RPIPs/RPIP-81) 的规定，目前这种通货膨胀的 47.5% 流向 pDAO。pDAO 可以将这些资金用于各种目的。例如，流动性提供者 (LP) 奖金等激励措施、第三方改进和项目的赠款和赏金，以及资助 Rocket Pool 协议的开发。Houston 升级还引入了一项新功能，可以在每个奖励期向指定受益人进行定期国库付款。
 
 ## Protocol DAO (pDAO) 提案
 
-任何具有非零投票权的节点都可以随时提出或参与 pDAO 提案。提案可以是以下类型之一：
+任何已注册的节点都可以随时提出 pDAO 提案，只要该节点已[允许 RPL 锁定](./participate#允许-rpl-锁定)，并且拥有足够的未锁定质押 RPL 来支付提案保证金。在提案快照区块时拥有投票权的任何节点都可以对其投票。提案可以是以下类型之一：
 
 - 更改 pDAO 设置
 - 一次性国库支出
@@ -75,7 +75,7 @@ RPL 的通货膨胀率为 5%。根据 [RPIP-25](https://rpips.rocketpool.net/RPI
 rocketpool pdao proposals vote
 ```
 
-如果达到否决法定人数（由 `proposal.veto.quorum` 参数定义），提案将立即被击败，提案者将失去其保证金。这是为了阻止垃圾邮件、低质量提案或尚未经过链外流程的提案。smartnode 命令 `rocketpool pdao proposals finalize` 用于通过燃烧提案者的锁定 RPL 保证金来最终确定被否决的提案。
+如果在投票期 2 结束时否决票达到否决法定人数（由 `proposal.veto.quorum` 参数定义），提案将被否决，提案者将失去其保证金。否决票也会计为反对票。这是为了阻止垃圾邮件、低质量提案或尚未经过链外流程的提案。smartnode 命令 `rocketpool pdao proposals finalize` 用于通过燃烧提案者的锁定 RPL 保证金来最终确定被否决的提案。
 
 期间 1 的持续时间由 `proposal.vote.phase1.time` 参数决定。无论是否达到 `proposal.quorum`，提案都会过渡到第 2 阶段。
 
@@ -83,7 +83,7 @@ rocketpool pdao proposals vote
 
 委托人可以在投票期 2 期间投票，但他们的投票仅价值他们的**本地投票权**。在期间 1 中未投票的投票者仍然能够在期间 2 期间进行投票。与委托人的选择不同意的节点运营商将有机会推翻其委托人的投票。
 
-推翻投票的过程非常简单，只需在投票期 2 期间调用 `rocketpool pdao proposals vote` 并按照提示操作即可。委托人的投票权将被委托人的投票权推翻。
+推翻投票的过程非常简单，只需在投票期 2 期间调用 `rocketpool pdao proposals vote` 并按照提示操作即可。您自己的投票权将从您的委托人的投票中移除，转而计入您的选择。
 
 当投票期 2 结束时，提案的结果即告结束。为了确定（并执行）结果，必须在 `proposal.vote.phase2.time` 结束时达到 `proposal.quorum` 总投票权。如果达到法定人数并达成共识，提案将通过投票期并被标记为成功。
 
@@ -117,7 +117,7 @@ rocketpool pdao proposals execute
 
 <img src={proposal_checker} width="100%" height="auto" />
 
-启用此设置后，节点将检查新提案，验证其正确性，并向无效提案提交挑战。唯一的先决条件是启用 [RPL 锁定](./participate#允许-rpl-锁定)。
+启用此设置后，节点将检查新提案，验证其正确性，并向无效提案提交挑战。先决条件是启用 [RPL 锁定](./participate#允许-rpl-锁定)，并且您的节点拥有足够的未锁定质押 RPL，能够为每次挑战支付 `proposal.challenge.bond`。
 
 此检查每 5 分钟运行一次，与其他一些与节点相关的任务一起运行。我们将通过一个挑战欺诈性提案的示例来进行说明。我们可以使用 smartnode 命令 `rocketpool service logs node` 监控进度：
 
@@ -163,9 +163,9 @@ rocketpool3_node  | 2024/04/05 02:57:13 Successfully defeated proposal.
 由于提案者的投票信息不正确，它将无法及时响应挑战（由 `proposal.challenge.period` 确定）。此时提案被视为已被击败。当提案被击败时，我们的节点会自动在提案 177 的索引 5 处进行合约调用 `defeatProposal` 以结束提案。
 
 ::: tip 注意
-参与击败提案的挑战者如果提交了被证明不正确的索引，将获得提案者保证金的比例金额。所有其他挑战者仅收回其保证金。
+参与击败提案的挑战者如果提交了被证明不正确的索引，将获得提案者保证金的比例金额。其中 20% 将被销毁。所有其他挑战者仅收回其保证金。
 :::
 
-现在提案被击败了，我们的节点（挑战者）可以[领取](./participate#领取保证金和奖励)其原始 RPL 保证金以及提案者的 RPL 保证金作为击败欺诈性提案的奖励。
+现在提案被击败了，我们的节点（挑战者）可以[领取](./participate#领取保证金和奖励)其原始 RPL 保证金以及其在提案者 RPL 保证金中所占的份额，作为击败欺诈性提案的奖励。该奖励的 20% 将被销毁。
 
 如果您想深入了解 pDAO 提案和挑战系统的详细信息，请查看[技术规范](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#draft-protocol-dao-proposal-challenge-system-specification)。如果您有兴趣研究深入低级细节的示例，请随时跳到[挑战流程](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#challenge-process)这一节。

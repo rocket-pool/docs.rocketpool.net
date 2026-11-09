@@ -2,7 +2,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # Partecipare alle proposte on-chain della pDAO
 
-Qualsiasi nodo con un potere di voto non nullo può sollevare o partecipare a una proposta pDAO in qualsiasi momento. Le proposte possono essere di uno dei seguenti tipi:
+Qualsiasi nodo registrato può sollevare una proposta pDAO in qualsiasi momento, purché abbia [consentito il blocco RPL](#consentire-il-blocco-rpl) e disponga di abbastanza RPL in staking non bloccato per coprire la garanzia della proposta (vedi [Creare una proposta](#creare-una-proposta)). Qualsiasi nodo con potere di voto al blocco di snapshot della proposta può votarla. Le proposte possono essere di uno dei seguenti tipi:
 
 - Modifica delle impostazioni pDAO
 - Spese del tesoro una tantum
@@ -19,7 +19,7 @@ Una proposta dovrebbe essere preannunciata dal processo di governance prima che 
 Le modifiche al protocollo Rocket Pool vengono proposte, votate ed eseguite utilizzando un processo di governance rigoroso ma trasparente. Il processo inizia con una discussione informale di un'idea all'interno della comunità Discord. Questa idea progredisce poi in discussioni formali nel canale [#governance](https://discordapp.com/channels/405159462932971535/774497904559783947) su Discord e nel [DAO Forum](https://dao.rocketpool.net/), dove subisce ricerche approfondite, modellazione e analisi in preparazione per una [Rocket Pool Improvement Proposal (RPIP)](https://rpips.rocketpool.net/). Successivamente, viene preparata una bozza di RPIP e rivista da revisori RPIP designati per garantirne la qualità e la prontezza per la presentazione alla DAO.
 La bozza di proposta viene quindi presentata alla DAO sul forum per ulteriori revisioni, feedback e incorporazione di eventuali modifiche necessarie. Una volta che la proposta è stata perfezionata in base al feedback della comunità, viene aperto un sondaggio sul forum DAO per valutare la prontezza per finalizzare il testo RPIP. Se il sondaggio viene approvato, indicando l'approvazione della comunità, l'RPIP viene contrassegnato come finale e pronto per un voto off-chain della Protocol DAO su [RocketDash](https://rocketdash.net/vote), volto a stabilire se la proposta debba essere implementata. RocketDash ha sostituito Snapshot per queste votazioni.
 
-Da qui, l'Oracle DAO solleverà una proposta on-chain. C'è una finestra in cui la Protocol DAO, l'Oracle DAO e la comunità possono rivedere la proposta. Se si raggiunge il consenso, la proposta viene eseguita e le modifiche vengono applicate al protocollo.
+Da qui, un operatore di nodo solleva la proposta on-chain (vedi [Creare una proposta](#creare-una-proposta)). La proposta attraversa poi il [ciclo di vita della proposta](./pdao#ciclo-di-vita-di-una-proposta-pdao) on-chain: una finestra di sfida e due fasi di voto. Se il voto passa, chiunque può eseguire la proposta.
 
 Una comoda rappresentazione visiva di questo processo può essere trovata sul [sito web di Rocket Pool](https://rocketpool.net/governance/process).
 
@@ -205,8 +205,7 @@ Durante un periodo di voto, **Gli operatori di nodo** e **Delegati** possono esp
 4. Veto: il votante vota contro la proposta e indica che ritiene la proposta spam o dannosa.
 ```
 
-Il loro potere di voto verrà applicato all'opzione di loro scelta. Il potere di voto è una funzione dello "stake RPL effettivo."
-Una lettura più dettagliata può essere trovata nel [repository rocketpool-research](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting).
+Il loro potere di voto verrà applicato all'opzione di loro scelta. Il potere di voto è la radice quadrata dell'RPL in staking del tuo nodo, conteggiando l'RPL in staking solo fino a un limite fissato dall'impostazione pDAO `node.voting.power.stake.maximum` (attualmente il 150% del tuo ETH vincolato, a novembre 2026).
 
 ::: tip NOTA
 Un nodo può votare una sola volta su una proposta, quindi scegli con attenzione. Per sapere in quale fase dovresti votare, consulta
@@ -416,12 +415,15 @@ proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145)
 
 I proponenti o gli sfidanti possono richiedere le loro garanzie al termine di una proposta. A seconda dell'esito di una proposta, un proponente o sfidante può o meno essere in grado di richiedere la loro `proposal.bond` e `proposal.challenge.bond`.
 
-Ecco alcune regole che dettano le condizioni in cui le garanzie possono essere richieste:
+Ecco cosa succede alle garanzie per ciascun esito:
 
-- Se una proposta viene sconfitta, il proponente perde la sua garanzia che viene divisa proporzionalmente tra gli sfidanti che hanno contribuito alla sconfitta della proposta. Tutti gli altri sfidanti ricevono solo la loro garanzia indietro.
-- Contribuire alla sconfitta di una proposta significa che uno sfidante ha presentato un indice che è stato successivamente dimostrato essere errato dall'incapacità del proponente di rispondere a una sfida. È possibile che ci siano più indici errati, ma solo quelli che hanno portato alla sconfitta della proposta condividono la ricompensa. Tutti gli altri sfidanti ricevono solo la loro garanzia indietro.
-- Se uno sfidante sfida un nodo, il proponente risponde e la proposta non viene sconfitta. Il proponente può richiedere le garanzie di sfida dalle sfide non valide.
-- Se una proposta viene sconfitta, il proponente perde la sua garanzia che viene divisa proporzionalmente tra gli sfidanti che hanno contribuito alla sconfitta della proposta.
+| Esito | Proponente | Sfidanti |
+| --- | --- | --- |
+| **Sconfitta da una sfida** | Perde la sua garanzia | Gli sfidanti che hanno contribuito a sconfiggere la proposta si dividono la garanzia del proponente, meno un 20% bruciato. Ogni sfidante riottiene anche la propria garanzia. |
+| **Veto** | Perde la sua garanzia. Viene bruciata quando qualcuno esegue `rocketpool pdao proposals finalize`. | — |
+| **Qualsiasi altro esito** (eseguita, scaduta, respinta dal voto o quorum non raggiunto) | Riottiene la sua garanzia, più la garanzia di ogni sfida a cui ha risposto, meno un 20% bruciato | Sfide a cui il proponente ha risposto: garanzia persa. Sfide a cui il proponente non ha risposto: garanzia restituita. |
+
+Uno sfidante ha "contribuito a sconfiggere la proposta" se ha sfidato un indice a cui il proponente non è riuscito a rispondere, lungo il percorso che ha portato alla sconfitta.
 
 Usa questo comando per richiedere garanzie:
 

@@ -2,7 +2,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # On-chain pDAO Tekliflerine Katılma
 
-Sıfır olmayan oy gücüne sahip herhangi bir düğüm, herhangi bir zamanda bir pDAO teklifi oluşturabilir veya katılabilir. Teklifler aşağıdaki türlerden biri olabilir:
+Kayıtlı herhangi bir düğüm, [RPL kilitlemeye izin vermiş](#rpl-kilitlemeye-i̇zin-verme) olduğu ve teklif tahvilini karşılayacak kadar kilitlenmemiş stake edilmiş RPL'ye sahip olduğu sürece (bkz. [Bir Teklif Oluşturma](#bir-teklif-oluşturma)) herhangi bir zamanda bir pDAO teklifi oluşturabilir. Teklifin snapshot bloğunda oy gücüne sahip herhangi bir düğüm teklif üzerinde oy kullanabilir. Teklifler aşağıdaki türlerden biri olabilir:
 
 - pDAO ayarlarını değiştirme
 - Tek seferlik hazine harcamaları
@@ -19,7 +19,7 @@ Bir teklif, on-chain üzerinde ortaya çıkmadan önce yönetişim süreci taraf
 Rocket Pool protokolüne yapılan değişiklikler, katı ancak şeffaf bir yönetişim süreci kullanılarak önerilir, oylanır ve yürütülür. Süreç, Discord topluluğu içinde bir fikrin gayri resmi tartışmasıyla başlar. Bu fikir daha sonra Discord'daki [#governance](https://discordapp.com/channels/405159462932971535/774497904559783947) kanalında ve [DAO Forum](https://dao.rocketpool.net/)'unda resmi tartışmalara ilerler, burada [Rocket Pool Improvement Proposal (RPIP)](https://rpips.rocketpool.net/) için hazırlık olarak kapsamlı araştırma, modelleme ve incelemeye tabi tutulur. Bunu takiben, bir RPIP taslağı hazırlanır ve DAO'ya sunulmaya hazır olduğundan ve kalitesinden emin olmak için belirlenmiş RPIP inceleyicileri tarafından gözden geçirilir.
 Taslak teklif daha sonra daha fazla inceleme, geri bildirim ve gerekli değişikliklerin dahil edilmesi için forum üzerinde DAO'ya sunulur. Teklif topluluk girdisine dayalı olarak rafine edildikten sonra, RPIP metnini sonuçlandırmaya hazır olup olmadığını ölçmek için DAO forumunda bir anket oluşturulur. Anket geçip topluluk onayını gösterirse RPIP son olarak işaretlenir ve teklifin uygulanıp uygulanmayacağını belirlemek üzere [RocketDash](https://rocketdash.net/vote) üzerinde off-chain bir Protocol DAO oylamasına hazır hale gelir. Bu oylamalarda Snapshot'ın yerini RocketDash almıştır.
 
-Buradan, Oracle DAO bir on-chain teklif oluşturacaktır. Protokol DAO, Oracle DAO ve topluluğun teklifi gözden geçirebileceği bir pencere vardır. Konsensüs sağlanırsa, teklif yürütülür ve değişiklikler protokole uygulanır.
+Buradan sonra bir düğüm operatörü teklifi on-chain olarak oluşturur (bkz. [Bir Teklif Oluşturma](#bir-teklif-oluşturma)). Teklif daha sonra on-chain [teklif yaşam döngüsünden](./pdao#bir-pdao-teklifinin-yaşam-döngüsü) geçer: bir itiraz penceresi ve iki oylama aşaması. Oylama geçerse, teklifi herkes yürütebilir.
 
 Bu sürecin kullanışlı bir görsel temsili [Rocket Pool web sitesinde](https://rocketpool.net/governance/process) bulunabilir.
 
@@ -192,7 +192,7 @@ Bir oylama döneminde, **Düğüm Operatörleri** ve **Delegeler** dört seçene
 4. Veto: Seçmen teklife karşı oy kullanır ve ayrıca teklifi spam veya kötü niyetli olarak değerlendirdiklerini belirtir.
 ```
 
-Oy güçleri seçtikleri seçeneğe uygulanacaktır. Oy gücü, "etkili RPL stake" fonksiyonudur.
+Oy güçleri seçtikleri seçeneğe uygulanacaktır. Oy gücü, düğümünüzün stake edilmiş RPL'sinin kareköküdür; stake edilmiş RPL yalnızca `node.voting.power.stake.maximum` pDAO ayarıyla belirlenen bir üst sınıra kadar sayılır (Kasım 2026 itibarıyla bağlı ETH'nizin %150'si).
 Daha ayrıntılı bir okuma [rocketpool-research repo](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting)'sunda bulunabilir.
 
 ::: tip NOT
@@ -402,12 +402,15 @@ proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145)
 
 Teklif Sahipleri veya İtiraz Edenler, bir teklifin sonuçlanması üzerine tahvillerini talep edebilirler. Bir teklifin sonucuna bağlı olarak, bir Teklif Sahibi veya İtiraz Eden `proposal.bond` ve `proposal.challenge.bond`'larını talep edebilir veya edemeyebilir.
 
-İşte tahvillerin talep edilebileceği koşulları belirleyen bazı kurallar:
+Her sonuçta tahvillere ne olduğu aşağıda açıklanmıştır:
 
-- Bir teklif yenilirse, teklif sahibi tahvilini kaybeder ve bu tahvil, teklifin yenilgisine katkıda bulunan itiraz edenler arasında orantılı olarak bölünür. Diğer tüm itiraz edenler yalnızca tahvillerini geri alırlar.
-- Bir teklifin yenilgisine katkıda bulunmak, bir itiraz edenin daha sonra teklif sahibinin bir itiraza yanıt verememesiyle yanlış olduğu kanıtlanan bir indeks sunması anlamına gelir. Birden fazla yanlış indeks olması mümkündür, ancak yalnızca teklifin yenilgisine neden olanlar ödülü paylaşır. Diğer tüm itiraz edenler yalnızca tahvillerini geri alırlar.
-- Bir itiraz eden bir düğüme itiraz ederse, teklif sahibi yanıt verirse ve teklif yenilmezse. Teklif sahibi, geçersiz itirazlardan itiraz tahvillerini talep edebilir.
-- Bir teklif yenilirse, teklif sahibi tahvilini kaybeder ve bu tahvil, teklifin yenilgisine katkıda bulunan itiraz edenler arasında orantılı olarak bölünür.
+| Sonuç | Teklif sahibi | İtiraz edenler |
+| --- | --- | --- |
+| **Bir itirazla yenildi** | Tahvilini kaybeder | Teklifin yenilmesine katkıda bulunan itiraz edenler, teklif sahibinin tahvilini %20'lik yakım düşüldükten sonra paylaşır. Her itiraz eden ayrıca kendi tahvilini geri alır. |
+| **Veto edildi** | Tahvilini kaybeder. Herhangi biri `rocketpool pdao proposals finalize` komutunu çalıştırdığında yakılır. | — |
+| **Diğer tüm sonuçlar** (yürütüldü, süresi doldu, oylamada reddedildi veya çoğunluk sağlanamadı) | Tahvilini geri alır, ayrıca yanıt verdiği her itirazın tahvilini %20'lik yakım düşüldükten sonra alır | Teklif sahibinin yanıt verdiği itirazlar: tahvil kaybedilir. Teklif sahibinin yanıt vermediği itirazlar: tahvil geri verilir. |
+
+Bir itiraz eden, teklif sahibinin yanıt veremediği bir indekse yenilgiye giden yol üzerinde itiraz ettiyse "teklifin yenilmesine katkıda bulunmuş" sayılır.
 
 Tahvilleri talep etmek için bu komutu kullanın:
 
