@@ -2,7 +2,7 @@ import { Tab, Tabs } from "@rspress/core/theme";
 
 # Participating in on-chain pDAO Proposals
 
-Any node with a non-zero voting power may raise or participate in a pDAO proposal at any time. Proposals can be one of
+Any registered node can raise a pDAO proposal at any time, as long as it has [allowed RPL locking](#allowing-rpl-locking) and has enough unlocked staked RPL to cover the proposal bond (see [Creating a Proposal](#creating-a-proposal)). Any node with voting power at the proposal's snapshot block can vote on it. Proposals can be one of
 the following types:
 
 - Changing pDAO settings
@@ -18,7 +18,7 @@ level.
 
 A proposal should be forecasted by the governance process before it ends up on-chain.
 
-Changes to the Rocket Pool protocol and proposed, voted, and executed using a strict, yet transparent governance
+Changes to the Rocket Pool protocol are proposed, voted, and executed using a strict, yet transparent governance
 process. The process begins with an informal discussion of an idea within the Discord community. This idea then
 progresses to formal discussions in
 the [#governance](https://discordapp.com/channels/405159462932971535/774497904559783947) channel on Discord and
@@ -31,9 +31,9 @@ gauge readiness for finalizing the RPIP text. If the poll passes, indicating com
 final and ready for an off-chain Protocol DAO vote on [RocketDash](https://rocketdash.net/vote) to determine whether
 the proposal should be implemented. RocketDash replaced Snapshot for these votes.
 
-From here, the Oracle DAO will raise an on-chain proposal. There is a window in which the Protocol DAO, Oracle DAO and
-community can review the proposal. If consensus is reached, the proposal is executed and changes are applied to the
-protocol.
+From here, a node operator raises the proposal on-chain (see [Creating a Proposal](#creating-a-proposal)). It then goes
+through the on-chain [proposal lifecycle](./pdao#lifecycle-of-a-pdao-proposal): a challenge window and two voting phases.
+If the vote passes, anyone can execute the proposal.
 
 A handy dandy visual representation of this process can be found on
 the [Rocket Pool website](https://rocketpool.net/governance/process).
@@ -241,7 +241,8 @@ During a voting period, **Node Operators** and **Delegates** can cast a vote wit
 4. Veto: The voter votes against the proposal as well as indicating they deem the proposal as spam or malicious.
 ```
 
-Their voting power will be applied to the option of their choosing. Voting power is a function of "effective RPL stake."
+Their voting power will be applied to the option of their choosing. Voting power is the square root of your node's staked RPL, counting staked RPL only up to a cap set by the
+`node.voting.power.stake.maximum` pDAO setting (currently 150% of your bonded ETH, as of November 2026).
 A more detailed reading can be found in
 the [rocketpool-research repo](https://github.com/rocket-pool/rocketpool-research/blob/master/Protocol%20DAO/kane/pDAO%20Replacement/pDAO.md#overview-of-on-chain-voting).
 
@@ -468,22 +469,17 @@ proposalSecurityInvite(test-member,0xBdbcb42DD8E39323a395B2B72d2c8E7039f1F145)
 ## Claiming Bonds and Rewards
 
 Proposers or Challengers may claim their bonds upon conclusion of a proposal. Depending on the outcome of a proposal,
-a
-Proposer or Challenger may or may not be able to claim their `proposal.bond` and `proposal.challenge.bond`.
+a Proposer or Challenger may or may not be able to claim their `proposal.bond` and `proposal.challenge.bond`.
 
-Here are some rules that dictate the conditions in which bonds can be claimed:
+Here's what happens to bonds for each outcome:
 
-- If a proposal is defeated, the proposer forfeits their bond which is divided proportionally amongst the challengers
-  who contributed to the proposal's defeat. All other challengers receive their bond back only.
-- Contributing to the defeat of a proposal means a challenger submitted an index which was later proven to be
-  incorrect
-  by the proposers inability to reply to a challenge. It is possible that there are multiple incorrect indices but only
-  those that resulted in the defeat of the proposal share the reward. All other challengers receive their bond back
-  only.
-- If a challenger challenges a node, the proposer responds, and the proposal does not get defeated. The proposer can
-  claim the challenge bonds from the invalid challenges.
-- If a proposal is defeated, the proposer forfeits their bond which is divided proportionally amongst the challengers
-  who contributed to the proposal's defeat.
+| Outcome | Proposer | Challengers |
+| --- | --- | --- |
+| **Defeated by a challenge** | Loses their bond | Challengers who helped defeat the proposal split the proposer's bond, minus a 20% burn. Every challenger also gets their own bond back. |
+| **Vetoed** | Loses their bond. It's burned when anyone runs `rocketpool pdao proposals finalize`. | — |
+| **Any other outcome** (executed, expired, voted down, or quorum not met) | Gets their bond back, plus the bond of each challenge they responded to, minus a 20% burn | Challenges the proposer responded to: bond lost. Challenges the proposer didn't respond to: bond back. |
+
+A challenger "helped defeat the proposal" if they challenged an index the proposer couldn't respond to, along the path that led to the defeat.
 
 Use this command to claim bonds:
 

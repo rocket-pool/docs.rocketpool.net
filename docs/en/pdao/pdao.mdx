@@ -18,11 +18,11 @@ The Houston upgrade also includes a new security council to help react quickly i
 
 ### Recurring Treasury Spends
 
-RPL has a 5% inflation rate. 22% of this inflation is directed towards the pDAO as defined in [RPIP-25](https://rpips.rocketpool.net/RPIPs/RPIP-25). The pDAO can use these funds for a variety of purposes. For example, incentives such as liquidity provider (LP) bonuses, grants and bounties for 3rd party improvements and projects, and funding the development of the Rocket Pool protocol. The Houston upgrade also introduces a new feature that enables recurring treasury payments made to a specified beneficiary each rewards period.
+RPL has a 5% inflation rate. 47.5% of this inflation is currently directed towards the pDAO, set by [RPIP-81](https://rpips.rocketpool.net/RPIPs/RPIP-81). The pDAO can use these funds for a variety of purposes. For example, incentives such as liquidity provider (LP) bonuses, grants and bounties for 3rd party improvements and projects, and funding the development of the Rocket Pool protocol. The Houston upgrade also introduces a new feature that enables recurring treasury payments made to a specified beneficiary each rewards period.
 
 ## Protocol DAO (pDAO) proposals
 
-Any node with a non-zero voting power may raise or participate in a pDAO proposal at any time. Proposals can be one of the following types:
+Any registered node can raise a pDAO proposal at any time, as long as it has [allowed RPL locking](./participate#allowing-rpl-locking) and has enough unlocked staked RPL to cover the proposal bond. Any node with voting power at the proposal's snapshot block can vote on it. Proposals can be one of the following types:
 
 - Changing pDAO settings
 - One-time treasury spends
@@ -76,15 +76,15 @@ This can be done using the command:
 rocketpool pdao proposals vote
 ```
 
-If the veto quorum (as defined by the `proposal.veto.quorum` parameter) is met, the proposal is immediately defeated and the proposer loses their bond. This is to dissuade spam, low quality proposals, or proposals that have not gone through off-chain processes first. The smartnode command `rocketpool pdao proposals finalize` is used to finalize a vetoed proposal by burning the proposer's locked RPL bond.
+If veto votes reach the veto quorum (as defined by the `proposal.veto.quorum` parameter) by the end of vote period 2, the proposal is vetoed and the proposer loses their bond. Veto votes also count as votes against. This is to dissuade spam, low quality proposals, or proposals that have not gone through off-chain processes first. The smartnode command `rocketpool pdao proposals finalize` is used to finalize a vetoed proposal by burning the proposer's locked RPL bond.
 
 The duration of period 1 is determined by the `proposal.vote.phase1.time` parameter. The proposal will transition to phase 2 regardless of whether `proposal.quorum` is reached or not.
 
 ### Vote Period 2
 
-Delegates can vote during vote period 2, but only their vote is only worth their **local voting power**. Voters who didn't vote in period 1 will still be able to cast a vote during period 2. Node operators who disagree with their delegate's choice will have the opportunity to overturn their delegate's vote.
+Delegates can vote during vote period 2, but their vote is only worth their **local voting power**. Voters who didn't vote in period 1 will still be able to cast a vote during period 2. Node operators who disagree with their delegate's choice will have the opportunity to overturn their delegate's vote.
 
-The process of overturning a vote is pretty simple, just call `rocketpool pdao proposals vote` during vote period 2 and follow the prompts. The delegate's voting power will be overturned by the delegatee's voting power.
+The process of overturning a vote is pretty simple, just call `rocketpool pdao proposals vote` during vote period 2 and follow the prompts. Your own voting power is removed from your delegate's vote and counted toward your choice instead.
 
 The result of a proposal is concluded when vote period 2 is over. In order for a result to be determined (and executed), `proposal.quorum` total voting power must be reached by the end of `proposal.vote.phase2.time`. If quorum is met and consensus is reached, the proposal will pass the voting periods and be marked as successful.
 
@@ -118,7 +118,7 @@ Any node can participate in tracking and verifying the correctness of proposals.
 
 <img src={proposal_checker} width="100%" height="auto" />
 
-When this setting is enabled, the node will check for new proposals, verify their correctness, and submit challenges to invalid proposals. The only prerequisite is that [RPL Locking](./participate#allowing-rpl-locking) is enabled.
+When this setting is enabled, the node will check for new proposals, verify their correctness, and submit challenges to invalid proposals. The prerequisites are that [RPL Locking](./participate#allowing-rpl-locking) is enabled and your node has enough unlocked staked RPL to cover `proposal.challenge.bond` for each challenge.
 
 This check runs every 5 minutes in conjunction with a few other node related duties. We'll run through an example of what challenging a fraudulent proposal looks like. We can use the smartnode command `rocketpool service logs node` to monitor the progress:
 
@@ -164,9 +164,9 @@ rocketpool3_node  | 2024/04/05 02:57:13 Successfully defeated proposal.
 Since the proposer's voting info is incorrect, it won't be able to respond to the challenge in time (determined by `proposal.challenge.period`). The proposal is considered defeated at this point. When the proposal is defeated, our node automatically makes the contract call `defeatProposal` on proposal 177 at index 5 to end the proposal.
 
 ::: tip NOTE
-Challengers who participate in defeating the proposal are paid a proportional amount of the proposer's bond if they submit an index proven to be incorrect. All other challengers receive their bond back only.
+Challengers who participate in defeating the proposal are paid a proportional amount of the proposer's bond if they submit an index proven to be incorrect, minus a 20% burn. All other challengers receive their bond back only.
 :::
 
-Now that the proposal is defeated, our node (the challenger) can [claim](./participate#claiming-bonds-and-rewards) their original RPL bond as well as the proposer's RPL bond as a reward for defeating a fraudulent proposal.
+Now that the proposal is defeated, our node (the challenger) can [claim](./participate#claiming-bonds-and-rewards) their original RPL bond as well as its share of the proposer's RPL bond as a reward for defeating a fraudulent proposal. 20% of that reward is burned.
 
 If you're curious to dig into the details of the pDAO proposal and challenge system, take a look at the [technical specifications](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#draft-protocol-dao-proposal-challenge-system-specification). Feel free to skip to this section on the [challenge process](https://github.com/rocket-pool/rocketpool-research/blob/houston/Protocol%20DAO/pdao-prop-challenge-spec.md#challenge-process) if you're interested in studying an example that goes into low level details.
