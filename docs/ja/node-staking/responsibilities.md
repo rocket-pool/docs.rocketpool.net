@@ -18,7 +18,7 @@ validatorがオフラインになってattestationやブロック提案を逃す
 
 validatorは、Attestation、Block Proposals、Sync Committees(まれ)、Slashing Rewards(非常にまれ)からコンセンサスレイヤー報酬を獲得します。また、Priority FeesとMEVから実行レイヤー報酬も獲得します。
 
-2026年5月時点では、全体のAPRは約2.634%で、コンセンサスレイヤーAPRが2.8%、実行レイヤーAPRが0.22%です。この情報を見つける場所の1つは、[rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake)です。
+2026年5月時点では、全体のAPRは約2.84%で、コンセンサスレイヤーAPRが2.63%、実行レイヤーAPRが0.22%です。この情報を見つける場所の1つは、[rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake)です。
 
 ### ペナルティ
 

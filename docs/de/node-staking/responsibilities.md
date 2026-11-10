@@ -18,7 +18,7 @@ Die Strafen sind jedoch recht klein; als Faustregel gilt: Wenn ein Validator X S
 
 Validatoren verdienen Consensus-Layer-Belohnungen durch Bestätigungen, Blockvorschläge, Sync-Komitees (selten) und Slashing-Belohnungen (extrem selten). Sie verdienen auch Execution-Layer-Belohnungen durch Priority Fees und MEV.
 
-Seit 5/2026 beträgt der Gesamt-APR etwa 2,634%, wobei 2,8% Consensus-Layer-APR und 0,22% Execution-Layer-APR sind. Eine Quelle für diese Informationen ist der [rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake).
+Seit 5/2026 beträgt der Gesamt-APR etwa 2,84%, wobei 2,63% Consensus-Layer-APR und 0,22% Execution-Layer-APR sind. Eine Quelle für diese Informationen ist der [rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake).
 
 ### Strafen
 

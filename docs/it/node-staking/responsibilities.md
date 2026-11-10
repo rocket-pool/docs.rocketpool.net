@@ -18,7 +18,7 @@ Le penalità sono però piuttosto piccole; come regola generale, se un validator
 
 I validator guadagnano ricompense sul consensus layer da Attestazioni, Proposte di Blocchi, Sync Committees (rare) e Ricompense da Slashing (estremamente rare). Guadagnano anche ricompense sull'execution layer da Priority Fees e MEV.
 
-A partire da 5/2026, l'APR complessivo è ~2.634%, con 2.8% proveniente dal consensus layer APR e 0.22% dall'execution layer APR. Un posto dove trovare queste informazioni è l'[explorer rated](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake).
+A partire da 5/2026, l'APR complessivo è ~2.84%, con 2.63% proveniente dal consensus layer APR e 0.22% dall'execution layer APR. Un posto dove trovare queste informazioni è l'[explorer rated](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake).
 
 ### Penalità
 

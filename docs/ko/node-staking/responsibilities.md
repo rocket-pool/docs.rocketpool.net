@@ -18,7 +18,7 @@ Validator가 오프라인 상태이고 증명 또는 블록 제안을 놓치면 
 
 Validator는 증명, 블록 제안, 동기화 위원회(드물게), 슬래싱 보상(극히 드물게)으로부터 합의 레이어 보상을 얻습니다. 또한 우선순위 수수료 및 MEV로부터 실행 레이어 보상을 얻습니다.
 
-2026년 5월 기준으로, 전체 APR은 약 2.634%이며, 합의 레이어 APR이 2.8%, 실행 레이어 APR이 0.22%입니다. 이 정보를 찾을 수 있는 한 곳은 [rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake)입니다.
+2026년 5월 기준으로, 전체 APR은 약 2.84%이며, 합의 레이어 APR이 2.63%, 실행 레이어 APR이 0.22%입니다. 이 정보를 찾을 수 있는 한 곳은 [rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake)입니다.
 
 ### 페널티
 

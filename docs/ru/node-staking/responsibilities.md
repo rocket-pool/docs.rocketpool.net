@@ -18,7 +18,7 @@
 
 Валидаторы получают вознаграждения уровня консенсуса от аттестаций, предложений блоков, комитетов синхронизации (редко) и вознаграждений за слэшинг (крайне редко). Они также получают вознаграждения уровня исполнения от приоритетных комиссий и MEV.
 
-По состоянию на 5/2026 общий APR составляет ~2.634%, причем 2.8% - это APR уровня консенсуса, а 0.22% - APR уровня исполнения. Одно из мест, где можно найти эту информацию, - это [rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake).
+По состоянию на 5/2026 общий APR составляет ~2.84%, причем 2.63% - это APR уровня консенсуса, а 0.22% - APR уровня исполнения. Одно из мест, где можно найти эту информацию, - это [rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake).
 
 ### Штрафы
 

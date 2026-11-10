@@ -18,7 +18,7 @@ Validators 被分配证明和区块提案**按照随机化的时间表**。
 
 Validators 从证明、区块提案、同步委员会(罕见)和罚没奖励(极其罕见)中获得共识层奖励。他们还从优先费用和 MEV 中获得执行层奖励。
 
-截至 2026 年 5 月,总体 APR 约为 2.634%,其中 2.8% 为共识层 APR,0.22% 为执行层 APR。可以在 [rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake) 找到此信息的一个来源。
+截至 2026 年 5 月,总体 APR 约为 2.84%,其中 2.63% 为共识层 APR,0.22% 为执行层 APR。可以在 [rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake) 找到此信息的一个来源。
 
 ### 惩罚
 

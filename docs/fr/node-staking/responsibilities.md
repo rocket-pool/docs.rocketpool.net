@@ -18,7 +18,7 @@ Les pénalités sont assez faibles cependant ; en règle générale, si un valid
 
 Les validators gagnent des récompenses de la couche consensus grâce aux Attestations, Propositions de Blocs, Sync Committees (rares) et Slashing Rewards (extrêmement rares). Ils gagnent également des récompenses de la couche execution grâce aux Priority Fees et au MEV.
 
-Depuis mai 2026, l'APR global est d'environ 2,634%, avec 2,8% d'APR sur la couche consensus et 0,22% d'APR sur la couche execution. Un endroit pour trouver ces informations est l'[explorateur rated](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake).
+Depuis mai 2026, l'APR global est d'environ 2,84%, avec 2,63% d'APR sur la couche consensus et 0,22% d'APR sur la couche execution. Un endroit pour trouver ces informations est l'[explorateur rated](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake).
 
 ### Pénalités
 

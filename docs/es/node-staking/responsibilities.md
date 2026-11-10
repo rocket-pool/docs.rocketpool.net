@@ -18,7 +18,7 @@ Las penalizaciones son bastante pequeñas; como regla general, si un validador e
 
 Los validadores ganan recompensas de la capa de consenso por Atestiguaciones, Propuestas de Bloques, Comités de Sincronización (raros) y Recompensas por Slashing (extremadamente raras). También ganan recompensas de la capa de ejecución por Tarifas de Prioridad y MEV.
 
-A partir de 5/2026, el APR general es ~2.634%, con 2.8% siendo el APR de la capa de consenso y 0.22% siendo el APR de la capa de ejecución. Un lugar para encontrar esta información es el [explorador rated](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake).
+A partir de 5/2026, el APR general es ~2.84%, con 2.63% siendo el APR de la capa de consenso y 0.22% siendo el APR de la capa de ejecución. Un lugar para encontrar esta información es el [explorador rated](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake).
 
 ### Penalizaciones
 

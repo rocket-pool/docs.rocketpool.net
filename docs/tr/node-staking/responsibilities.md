@@ -18,7 +18,7 @@ Yine de cezalar oldukça küçüktür; genel bir kural olarak, bir validator X s
 
 Validatorler konsensus katmanı ödüllerini Onay, Blok Önerileri, Senkronizasyon Komiteleri (nadir) ve Slashing Ödüllerinden (son derece nadir) kazanırlar. Ayrıca execution katmanı ödüllerini Öncelik Ücretleri ve MEV'den kazanırlar.
 
-5/2026 itibarıyla, genel APR ~%2.634'tir, %2.8'i konsensus katmanı APR'si ve %0.22'si execution katmanı APR'sidir. Bu bilgiyi bulabileceğiniz bir yer [rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake)'dir.
+5/2026 itibarıyla, genel APR ~%2.84'tür, %2.63'ü konsensus katmanı APR'si ve %0.22'si execution katmanı APR'sidir. Bu bilgiyi bulabileceğiniz bir yer [rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake)'dir.
 
 ### Cezalar
 

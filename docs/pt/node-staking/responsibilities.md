@@ -18,7 +18,7 @@ As penalidades são bem pequenas; como regra geral, se um validator estiver offl
 
 Validators ganham recompensas na camada de consenso através de Atestação, Propostas de Blocos, Sync Committees (raro), e Recompensas de Slashing (extremamente raro). Eles também ganham recompensas na camada de execução através de Priority Fees e MEV.
 
-Em 5/2026, o APR geral é ~2.634%, com 2.8% sendo APR da camada de consenso, e 0.22% sendo APR da camada de execução. Um lugar para encontrar esta informação é o [rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake).
+Em 5/2026, o APR geral é ~2.84%, com 2.63% sendo APR da camada de consenso, e 0.22% sendo APR da camada de execução. Um lugar para encontrar esta informação é o [rated explorer](https://explorer.rated.network/network?network=mainnet&timeWindow=30d&rewardsMetric=average&geoDistType=all&hostDistType=all&soloProDist=stake).
 
 ### Penalidades
 
