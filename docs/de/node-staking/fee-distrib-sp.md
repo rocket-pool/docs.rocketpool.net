@@ -61,7 +61,7 @@ Minipools, die nach dem 2024-10-28 erstellt wurden, erhielten früher über den 
 Ihr Fee Distributor ist ein einzigartiger Contract auf der Execution Layer, der **spezifisch für Ihren Node** ist.
 Er hält alle Priority Fees, die Sie im Laufe der Zeit verdient haben, und enthält die Logik, die erforderlich ist, um sie fair auf die rETH-Pool-Staker und Ihre Abhebungsadresse zu verteilen.
 Dieser Verteilungsprozess **kann von jedem aufgerufen werden** (einschließlich rETH-Stakern), und kann **jederzeit** durchgeführt werden.
-Wenn jemand anderes als Sie ihn verteilt, wird Ihr Anteil als [nicht beanspruchte Belohnungen](#claiming-unclaimed-rewards) zurückgehalten, bis Sie ihn beanspruchen.
+Wenn jemand anderes als Sie ihn verteilt, wird Ihr Anteil als [nicht beanspruchte Belohnungen](#nicht-beanspruchte-belohnungen-beanspruchen) zurückgehalten, bis Sie ihn beanspruchen.
 Es gibt kein Zeitlimit, bevor Belohnungen ablaufen.
 
 Die Adresse Ihres Node-Fee Distributors ist **deterministisch basierend auf Ihrer Node-Adresse**.

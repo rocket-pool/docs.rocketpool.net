@@ -61,7 +61,7 @@ I minipool creati dopo il 28-10-2024 ricevevano in passato una commissione bonus
 Il tuo Fee Distributor è un contratto unico sul layer Execution che è **specifico per il tuo nodo**.
 Conterrà tutte le priority fee che hai guadagnato nel tempo e contiene la logica necessaria per dividerle e distribuirle equamente agli staker del pool rETH e al tuo indirizzo di prelievo.
 Questo processo di distribuzione **può essere chiamato da chiunque** (inclusi gli staker rETH) e può essere fatto **in qualsiasi momento**.
-Se qualcun altro lo distribuisce, la tua quota viene trattenuta come [ricompense non riscosse](#claiming-unclaimed-rewards) finché non la riscuoti.
+Se qualcun altro lo distribuisce, la tua quota viene trattenuta come [ricompense non riscosse](#riscuotere-le-ricompense-non-riscosse) finché non la riscuoti.
 Non ha un limite di tempo prima che le ricompense scadano.
 
 L'indirizzo del Fee Distributor del tuo nodo è **deterministicamente basato sul tuo indirizzo nodo**.

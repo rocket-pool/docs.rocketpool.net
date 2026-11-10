@@ -61,7 +61,7 @@ Minipools criados após 28-10-2024 recebiam anteriormente uma comissão bônus (
 Seu Distribuidor de Taxas é um contrato único na Camada de Execução que é **específico para o seu nó**.
 Ele manterá todas as taxas de prioridade que você ganhou ao longo do tempo, e contém a lógica necessária para dividi-las de forma justa e distribuí-las para os stakers do pool rETH e seu endereço de saque.
 Este processo de distribuição **pode ser chamado por qualquer pessoa** (incluindo stakers do rETH), e pode ser feito **a qualquer momento**.
-Se outra pessoa que não você o distribuir, sua parte fica retida como [recompensas não resgatadas](#claiming-unclaimed-rewards) até que você a resgate.
+Se outra pessoa que não você o distribuir, sua parte fica retida como [recompensas não resgatadas](#resgatando-recompensas-não-resgatadas) até que você a resgate.
 Ele não tem um limite de tempo antes que as recompensas expirem.
 
 O endereço para o Distribuidor de Taxas do seu nó é **deterministicamente baseado no endereço do seu nó**.

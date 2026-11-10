@@ -61,7 +61,7 @@ Les minipools créés après le 28/10/2024 recevaient auparavant une commission 
 Votre distributeur de frais est un contrat unique sur la couche d'exécution qui est **spécifique à votre nœud**.
 Il contiendra tous les frais de priorité que vous avez gagnés au fil du temps, et il contient la logique requise pour les répartir et les distribuer équitablement aux stakers du pool rETH et à votre adresse de retrait.
 Ce processus de distribution **peut être appelé par n'importe qui** (y compris les stakers rETH), et peut être effectué **à tout moment**.
-Si quelqu'un d'autre que vous le distribue, votre part est conservée sous forme de [récompenses non réclamées](#claiming-unclaimed-rewards) jusqu'à ce que vous la réclamiez.
+Si quelqu'un d'autre que vous le distribue, votre part est conservée sous forme de [récompenses non réclamées](#réclamer-les-récompenses-non-réclamées) jusqu'à ce que vous la réclamiez.
 Il n'a pas de limite de temps avant l'expiration des récompenses.
 
 L'adresse du distributeur de frais de votre nœud est **déterminée de manière déterministe en fonction de l'adresse de votre nœud**.

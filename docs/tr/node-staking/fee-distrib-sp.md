@@ -61,7 +61,7 @@ Her ikisini de ele alacağız, böylece farkı anlayacak ve Smoothing Pool'a kat
 Ücret Dağıtıcınız, Execution Layer'da **node'unuza özgü** benzersiz bir sözleşmedir.
 Zaman içinde kazandığınız tüm öncelik ücretlerini tutacak ve bunları rETH pool staker'lara ve çekim adresinize adil bir şekilde bölmek ve dağıtmak için gereken mantığı içerir.
 Bu dağıtım süreci **herkes tarafından çağrılabilir** (rETH staker'lar dahil) ve **herhangi bir zamanda** yapılabilir.
-Sizden başka biri dağıtırsa, payınız siz talep edene kadar [talep edilmemiş ödüller](#claiming-unclaimed-rewards) olarak tutulur.
+Sizden başka biri dağıtırsa, payınız siz talep edene kadar [talep edilmemiş ödüller](#talep-edilmemiş-ödülleri-talep-etme) olarak tutulur.
 Ödüllerin sona ermeden önce bir zaman sınırı yoktur.
 
 Node'unuzun Ücret Dağıtıcısı adresi, **node adresinize göre deterministiktir**.
