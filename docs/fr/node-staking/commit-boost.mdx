@@ -3,7 +3,6 @@ import tui_epbs from "./images/tui-epbs.png";
 import tui_commit_boost from "./images/tui-commit-boost.png";
 import tui_enable_commit_boost from "./images/tui-enable-commit-boost.png";
 
-
 # Commit-Boost
 
 Commit-Boost est un sidecar de validateur open source et porté par la communauté, qui sert d'alternative à MEV-Boost pour la séparation proposeur-constructeur (PBS).
@@ -26,12 +25,12 @@ Commit-Boost est [open source](https://github.com/Commit-Boost/commit-boost-clie
 
 Commit-Boost et MEV-Boost gèrent tous deux le PBS en s'appuyant sur le marché des constructeurs et l'infrastructure des relais MEV. Voici leurs différences :
 
-| Caractéristique | MEV-Boost | Commit-Boost |
-|---------|-----------|--------------|
-| **Objectif** | PBS uniquement | PBS + plateforme extensible et modulaire |
-| **Mainteneur** | Flashbots | Communauté / équipe Commit-Boost |
-| **Protocoles futurs** | Statique | Système de plugins pour protocoles tiers (pas encore disponible via le Smart Node) |
-| **Relais disponibles (mainnet)** | 8 relais | 5 relais (filtrage OFAC uniquement) |
+| Caractéristique                  | MEV-Boost      | Commit-Boost                                                                       |
+| -------------------------------- | -------------- | ---------------------------------------------------------------------------------- |
+| **Objectif**                     | PBS uniquement | PBS + plateforme extensible et modulaire                                           |
+| **Mainteneur**                   | Flashbots      | Communauté / équipe Commit-Boost                                                   |
+| **Protocoles futurs**            | Statique       | Système de plugins pour protocoles tiers (pas encore disponible via le Smart Node) |
+| **Relais disponibles (mainnet)** | 8 relais       | 5 relais (filtrage OFAC uniquement)                                                |
 
 Du point de vue du Smart Node, les deux se connectent à votre Beacon Node de manière identique. Commit-Boost est tourné vers l'avenir, alors qu'Ethereum ajoute de nouvelles fonctionnalités d'engagements du proposeur comme les préconfirmations.
 
@@ -43,15 +42,15 @@ Vous ne pouvez pas exécuter MEV-Boost et Commit-Boost en même temps. Le Smart 
 
 Voici les relais disponibles dans Commit-Boost :
 
-| Nom | Réglementation | Réseaux | Types de MEV |
-|------|-----------|----------|-----------|
-| [Flashbots](https://boost.flashbots.net/) | Conforme aux sanctions OFAC* | Mainnet, Hoodi | Tous types |
-| [bloXroute Regulated](https://docs.bloxroute.com/eth/block-builders-and-validators/mev-relay-for-validators) | Conforme aux sanctions OFAC* | Mainnet, Hoodi | Tous types |
-| [Titan Regional](https://docs.titanrelay.xyz/) | Conforme aux sanctions OFAC* | Mainnet uniquement | Tous types |
-| [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/) | Conforme aux sanctions OFAC* | Mainnet uniquement | Tous types |
-| BTCS OFAC+ | Conforme aux sanctions OFAC* | Mainnet uniquement | Tous types |
-| [AESTUS](https://aestus.live/) | Non réglementé | Hoodi uniquement | Tous types |
-| [Titan Global](https://docs.titanrelay.xyz/) | Non réglementé | Hoodi uniquement | Tous types |
+| Nom                                                                                                          | Réglementation                | Réseaux            | Types de MEV |
+| ------------------------------------------------------------------------------------------------------------ | ----------------------------- | ------------------ | ------------ |
+| [Flashbots](https://boost.flashbots.net/)                                                                    | Conforme aux sanctions OFAC\* | Mainnet, Hoodi     | Tous types   |
+| [bloXroute Regulated](https://docs.bloxroute.com/eth/block-builders-and-validators/mev-relay-for-validators) | Conforme aux sanctions OFAC\* | Mainnet, Hoodi     | Tous types   |
+| [Titan Regional](https://docs.titanrelay.xyz/)                                                               | Conforme aux sanctions OFAC\* | Mainnet uniquement | Tous types   |
+| [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/)                                             | Conforme aux sanctions OFAC\* | Mainnet uniquement | Tous types   |
+| BTCS OFAC+                                                                                                   | Conforme aux sanctions OFAC\* | Mainnet uniquement | Tous types   |
+| [AESTUS](https://aestus.live/)                                                                               | Non réglementé                | Hoodi uniquement   | Tous types   |
+| [Titan Global](https://docs.titanrelay.xyz/)                                                                 | Non réglementé                | Hoodi uniquement   | Tous types   |
 
 :::warning REMARQUE
 \*Les relais conformes aux sanctions OFAC suivent la liste noire d'adresses tenue par l'Office of Foreign Assets Control (OFAC) des États-Unis.
@@ -62,6 +61,7 @@ Vous trouverez plus d'informations sur la [page MEV](./mev#constructeurs-de-bloc
 
 :::warning IMPORTANT
 Sur le mainnet, Commit-Boost prend en charge **moins de relais** que MEV-Boost dans le Smart Node. Plus précisément, Commit-Boost sur le mainnet **n'inclut pas** :
+
 - Ultra Sound (sans filtrage)
 - Aestus
 - Titan Global (sans filtrage)
@@ -69,14 +69,12 @@ Sur le mainnet, Commit-Boost prend en charge **moins de relais** que MEV-Boost d
 Tous les relais disponibles dans Commit-Boost sur le mainnet sont des versions réglementées/filtrées conformes aux sanctions OFAC. Si vous avez besoin d'accéder à des relais non réglementés, vous devriez continuer à utiliser MEV-Boost plutôt que Commit-Boost.
 :::
 
-
 ## Récompenses et APY
 
 Commit-Boost offre des récompenses similaires à MEV-Boost.
 Comme Commit-Boost ne prend en charge que des relais réglementés sur le mainnet, vos récompenses MEV peuvent différer légèrement de celles de MEV-Boost si vous utilisiez auparavant des relais non réglementés.
 
 À l'avenir, des protocoles d'engagements du proposeur comme les préconfirmations et les listes d'inclusion pourraient ajouter un rendement supplémentaire aux récompenses MEV habituelles.
-
 
 ## Configurer Commit-Boost dans le Smart Node
 
@@ -208,6 +206,7 @@ Pour savoir comment configurer Commit-Boost, sélectionnez votre mode ci-dessous
       Si vous exécutez votre propre instance Commit-Boost, vous **devez** vous enregistrer uniquement auprès des relais de confiance listés ci-dessus. L'utilisation de relais non fiables peut entraîner des pénalités de la part de l'Oracle DAO.
       :::
     </Tab>
+
   </Tabs>
 </div>
 
@@ -231,6 +230,7 @@ rocketpool_commit-boost  | 2026-05-21T03:12:35.642721Z  INFO : Responded with 20
 ```
 
 Les points clés à rechercher dans les logs :
+
 - Des entrées `new request` montrant que votre Validator Client se connecte à Commit-Boost
 - `register validator successful`, qui confirme que vos validateurs sont enregistrés auprès des relais
 - Des réponses `200 OK` indiquant une communication réussie
@@ -240,6 +240,7 @@ Vous pouvez aussi vérifier que Commit-Boost tourne avec :
 ```bash
 rocketpool service version
 ```
+
 Vers la fin de la sortie, vous devriez voir :
 
 ```

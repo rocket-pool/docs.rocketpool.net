@@ -319,13 +319,13 @@ Cuando habilitas el soporte IPv6:
 
 Los diferentes clientes de consenso manejan IPv6 con distintos niveles de soporte:
 
-| Cliente        | Escucha IPv6 | Transmisión IPv6 (ENR) | Comportamiento de Peering | Notas                                                                                                       |
-| -------------- | ------------ | ---------------------- | ------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| **Teku** | Completo | Completo | Prioriza IPv6 | Prefiere conexiones IPv6 cuando están disponibles. Usa puertos IPv6 dedicados (por defecto: 9090, y 8002 para QUIC). |
-| **Lighthouse** | Completo     | Completo               | Sin preferencia           | Se conecta a la dirección (IPv4 o IPv6) que responde primero. Típicamente ve ~1-2% de pares IPv6.           |
-| **Lodestar**   | Completo     | Completo               | Prioriza IPv4             | Escucha y transmite en IPv4 e IPv6, pero solo se conecta por IPv6 si el otro nodo tiene IPv4 deshabilitado. |
-| **Nimbus**     | Completo     | Solo IPv4\*            | Principalmente IPv4       | Puede aceptar conexiones IPv6 entrantes, pero solo transmite IPv4 en el ENR.                                |
-| **Prysm** | Solo IPv4\* | Solo IPv4\* | Principalmente IPv4 | Escucha y transmite solo en IPv4, por lo que los pares IPv6 no pueden alcanzarlo. Aun así puede conectarse de forma saliente a algunos pares IPv6. |
+| Cliente        | Escucha IPv6 | Transmisión IPv6 (ENR) | Comportamiento de Peering | Notas                                                                                                                                              |
+| -------------- | ------------ | ---------------------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Teku**       | Completo     | Completo               | Prioriza IPv6             | Prefiere conexiones IPv6 cuando están disponibles. Usa puertos IPv6 dedicados (por defecto: 9090, y 8002 para QUIC).                               |
+| **Lighthouse** | Completo     | Completo               | Sin preferencia           | Se conecta a la dirección (IPv4 o IPv6) que responde primero. Típicamente ve ~1-2% de pares IPv6.                                                  |
+| **Lodestar**   | Completo     | Completo               | Prioriza IPv4             | Escucha y transmite en IPv4 e IPv6, pero solo se conecta por IPv6 si el otro nodo tiene IPv4 deshabilitado.                                        |
+| **Nimbus**     | Completo     | Solo IPv4\*            | Principalmente IPv4       | Puede aceptar conexiones IPv6 entrantes, pero solo transmite IPv4 en el ENR.                                                                       |
+| **Prysm**      | Solo IPv4\*  | Solo IPv4\*            | Principalmente IPv4       | Escucha y transmite solo en IPv4, por lo que los pares IPv6 no pueden alcanzarlo. Aun así puede conectarse de forma saliente a algunos pares IPv6. |
 
 \* Por defecto, usa IPv4. En hosts solo IPv6, usa IPv6 en su lugar.
 

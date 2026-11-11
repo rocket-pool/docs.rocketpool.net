@@ -319,13 +319,13 @@ Wenn du IPv6-Unterstützung aktivierst:
 
 Verschiedene Consensus Clients unterstützen IPv6 in unterschiedlichem Maße:
 
-| Client         | IPv6-Listening | IPv6-Broadcasting (ENR) | Peering-Verhalten | Hinweise                                                                                                                          |
-| -------------- | -------------- | ----------------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| **Teku** | Vollständig | Vollständig | Priorisiert IPv6 | Bevorzugt IPv6-Verbindungen, wenn verfügbar. Verwendet separate IPv6-Ports (Standard: 9090 und 8002 für QUIC). |
-| **Lighthouse** | Vollständig    | Vollständig             | Keine Präferenz   | Verbindet sich mit der Adresse (IPv4 oder IPv6), die zuerst antwortet. Typischerweise ~1-2 % IPv6-Peers.                          |
-| **Lodestar**   | Vollständig    | Vollständig             | Priorisiert IPv4  | Hört und sendet auf beiden IPv4 und IPv6, verbindet sich aber nur über IPv6 mit Peers, wenn der andere Node IPv4 deaktiviert hat. |
-| **Nimbus**     | Vollständig    | Nur IPv4\*              | Primär IPv4       | Kann eingehende IPv6-Verbindungen akzeptieren, sendet jedoch nur IPv4 im ENR.                                                     |
-| **Prysm** | Nur IPv4\* | Nur IPv4\* | Primär IPv4 | Hört und sendet nur auf IPv4, daher können IPv6-Peers ihn nicht erreichen. Kann sich aber weiterhin ausgehend mit einigen IPv6-Peers verbinden. |
+| Client         | IPv6-Listening | IPv6-Broadcasting (ENR) | Peering-Verhalten | Hinweise                                                                                                                                        |
+| -------------- | -------------- | ----------------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Teku**       | Vollständig    | Vollständig             | Priorisiert IPv6  | Bevorzugt IPv6-Verbindungen, wenn verfügbar. Verwendet separate IPv6-Ports (Standard: 9090 und 8002 für QUIC).                                  |
+| **Lighthouse** | Vollständig    | Vollständig             | Keine Präferenz   | Verbindet sich mit der Adresse (IPv4 oder IPv6), die zuerst antwortet. Typischerweise ~1-2 % IPv6-Peers.                                        |
+| **Lodestar**   | Vollständig    | Vollständig             | Priorisiert IPv4  | Hört und sendet auf beiden IPv4 und IPv6, verbindet sich aber nur über IPv6 mit Peers, wenn der andere Node IPv4 deaktiviert hat.               |
+| **Nimbus**     | Vollständig    | Nur IPv4\*              | Primär IPv4       | Kann eingehende IPv6-Verbindungen akzeptieren, sendet jedoch nur IPv4 im ENR.                                                                   |
+| **Prysm**      | Nur IPv4\*     | Nur IPv4\*              | Primär IPv4       | Hört und sendet nur auf IPv4, daher können IPv6-Peers ihn nicht erreichen. Kann sich aber weiterhin ausgehend mit einigen IPv6-Peers verbinden. |
 
 \* Verwendet standardmäßig IPv4. Auf reinen IPv6-Hosts wird stattdessen IPv6 verwendet.
 

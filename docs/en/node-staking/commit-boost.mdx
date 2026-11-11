@@ -3,7 +3,6 @@ import tui_epbs from "./images/tui-epbs.png";
 import tui_commit_boost from "./images/tui-commit-boost.png";
 import tui_enable_commit_boost from "./images/tui-enable-commit-boost.png";
 
-
 # Commit-Boost
 
 Commit-Boost is an open-source and community-driven validator sidecar that serves as an alternative to MEV-Boost for handling Proposer-Builder Separation (PBS).
@@ -14,12 +13,12 @@ If you're new to MEV and PBS, we recommend reading the [MEV, MEV-Boost & MEV Rew
 ## What is Commit-Boost?
 
 Commit-Boost is a drop-in alternative for MEV-Boost with additional capabilities. The main purpose is to standardize communication between Ethereum validators
-and third-party protocols. 
+and third-party protocols.
 
 - Uses the same Builder API as MEV-Boost (default port 18550), so your Beacon Node talks to it the same way it talks to MEV-Boost.
 - Connects to MEV relays and handles block building, just like MEV-Boost.
 - Supports a modular plugin system for upcoming commitment protocols.
-- For developers, it provides a single API to interact with validators. 
+- For developers, it provides a single API to interact with validators.
 
 Commit-Boost is [open source](https://github.com/Commit-Boost/commit-boost-client) and was [audited](https://github.com/Commit-Boost/commit-boost-client/blob/main/audit/Sigma_Prime_Commit_Boost_Client_Security_Assessment_Report_v2_0.pdf) by Sigma Prime in Dec 2024.
 
@@ -27,32 +26,32 @@ Commit-Boost is [open source](https://github.com/Commit-Boost/commit-boost-clien
 
 Both Commit-Boost and MEV-Boost handle PBS using the builder marketplace and MEV relay infrastructure. Here's how they differ:
 
-| Feature | MEV-Boost | Commit-Boost |
-|---------|-----------|--------------|
-| **Purpose** | PBS only | PBS + extensible and modular platform |
-| **Maintainer** | Flashbots | Community / Commit-Boost team |
-| **Future protocols** | Static | Plugin system for third-party protocols (not available through the Smart Node yet) |
-| **Available relays (mainnet)** | 8 relays | 5 relays (OFAC-filtering only) |
+| Feature                        | MEV-Boost | Commit-Boost                                                                       |
+| ------------------------------ | --------- | ---------------------------------------------------------------------------------- |
+| **Purpose**                    | PBS only  | PBS + extensible and modular platform                                              |
+| **Maintainer**                 | Flashbots | Community / Commit-Boost team                                                      |
+| **Future protocols**           | Static    | Plugin system for third-party protocols (not available through the Smart Node yet) |
+| **Available relays (mainnet)** | 8 relays  | 5 relays (OFAC-filtering only)                                                     |
 
 From the Smart Node's perspective, both connect to your Beacon Node identically. Commit-Boost is forward-looking as Ethereum adds new proposer commitment features like preconfirmations.
 
 :::tip NOTE
-You cannot run both MEV-Boost and Commit-Boost simultaneously. The Smart Node enforces this when saving your config within the TUI. 
+You cannot run both MEV-Boost and Commit-Boost simultaneously. The Smart Node enforces this when saving your config within the TUI.
 :::
 
 ## Available Relays
 
 Here are the relays available in Commit-Boost:
 
-| Name | Regulation | Networks | MEV Types |
-|------|-----------|----------|-----------|
-| [Flashbots](https://boost.flashbots.net/) | Complies with OFAC Sanctions* | Mainnet, Hoodi | All types |
-| [bloXroute Regulated](https://docs.bloxroute.com/eth/block-builders-and-validators/mev-relay-for-validators) | Complies with OFAC Sanctions* | Mainnet, Hoodi | All types |
-| [Titan Regional](https://docs.titanrelay.xyz/) | Complies with OFAC Sanctions* | Mainnet only | All types |
-| [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/) | Complies with OFAC Sanctions* | Mainnet only | All types |
-| BTCS OFAC+ | Complies with OFAC Sanctions* | Mainnet only | All types |
-| [AESTUS](https://aestus.live/) | Unregulated | Hoodi only | All types |
-| [Titan Global](https://docs.titanrelay.xyz/) | Unregulated | Hoodi only | All types |
+| Name                                                                                                         | Regulation                     | Networks       | MEV Types |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------ | -------------- | --------- |
+| [Flashbots](https://boost.flashbots.net/)                                                                    | Complies with OFAC Sanctions\* | Mainnet, Hoodi | All types |
+| [bloXroute Regulated](https://docs.bloxroute.com/eth/block-builders-and-validators/mev-relay-for-validators) | Complies with OFAC Sanctions\* | Mainnet, Hoodi | All types |
+| [Titan Regional](https://docs.titanrelay.xyz/)                                                               | Complies with OFAC Sanctions\* | Mainnet only   | All types |
+| [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/)                                             | Complies with OFAC Sanctions\* | Mainnet only   | All types |
+| BTCS OFAC+                                                                                                   | Complies with OFAC Sanctions\* | Mainnet only   | All types |
+| [AESTUS](https://aestus.live/)                                                                               | Unregulated                    | Hoodi only     | All types |
+| [Titan Global](https://docs.titanrelay.xyz/)                                                                 | Unregulated                    | Hoodi only     | All types |
 
 :::warning NOTE
 \*Relays that comply with OFAC sanctions follow the blacklist of addresses that the United States Office of Foreign Assets Control (OFAC) maintains.
@@ -63,6 +62,7 @@ More information can be found in the [MEV page](./mev#block-builders-and-relays)
 
 :::warning IMPORTANT
 On mainnet, Commit-Boost supports **fewer relays** than MEV-Boost in the Smart Node. Specifically, Commit-Boost on mainnet does **not** include:
+
 - Ultra Sound (non-filtering)
 - Aestus
 - Titan Global (non-filtering)
@@ -70,14 +70,12 @@ On mainnet, Commit-Boost supports **fewer relays** than MEV-Boost in the Smart N
 All relays available in Commit-Boost on mainnet are regulated/filtered versions that comply with OFAC sanctions. If you need access to unregulated relays, you should continue using MEV-Boost instead of Commit-Boost.
 :::
 
-
 ## Rewards and APY
 
 Commit-Boost provides similar rewards to MEV-Boost.
-Since Commit-Boost only supports regulated relays on mainnet, you may see slightly different MEV rewards compared to MEV-Boost if you were previously using unregulated relays. 
+Since Commit-Boost only supports regulated relays on mainnet, you may see slightly different MEV rewards compared to MEV-Boost if you were previously using unregulated relays.
 
 In the future, proposer commitment protocols such as preconfirmations and inclusion lists could add additional yield on top of standard MEV rewards.
-
 
 ## Configuring Commit-Boost in the Smart Node
 
@@ -209,6 +207,7 @@ To learn how to configure Commit-Boost, select your mode below:
       If you run your own Commit-Boost instance, you **must** only register with the trusted relays listed above. Using untrusted relays may result in penalties from the Oracle DAO.
       :::
     </Tab>
+
   </Tabs>
 </div>
 
@@ -232,6 +231,7 @@ rocketpool_commit-boost  | 2026-05-21T03:12:35.642721Z  INFO : Responded with 20
 ```
 
 Key things to look for in the logs:
+
 - `new request` entries showing your Validator Client connecting to Commit-Boost
 - `register validator successful` confirming your validators are registered with the relays
 - `200 OK` responses indicating successful communication
@@ -241,6 +241,7 @@ You can also verify Commit-Boost is running with:
 ```bash
 rocketpool service version
 ```
+
 Near the end of the output, you should see:
 
 ```

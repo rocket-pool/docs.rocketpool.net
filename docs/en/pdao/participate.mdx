@@ -473,11 +473,11 @@ a Proposer or Challenger may or may not be able to claim their `proposal.bond` a
 
 Here's what happens to bonds for each outcome:
 
-| Outcome | Proposer | Challengers |
-| --- | --- | --- |
-| **Defeated by a challenge** | Loses their bond | Challengers who helped defeat the proposal split the proposer's bond, minus a 20% burn. Every challenger also gets their own bond back. |
-| **Vetoed** | Loses their bond. It's burned when anyone runs `rocketpool pdao proposals finalize`. | — |
-| **Any other outcome** (executed, expired, voted down, or quorum not met) | Gets their bond back, plus the bond of each challenge they responded to, minus a 20% burn | Challenges the proposer responded to: bond lost. Challenges the proposer didn't respond to: bond back. |
+| Outcome                                                                  | Proposer                                                                                  | Challengers                                                                                                                             |
+| ------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| **Defeated by a challenge**                                              | Loses their bond                                                                          | Challengers who helped defeat the proposal split the proposer's bond, minus a 20% burn. Every challenger also gets their own bond back. |
+| **Vetoed**                                                               | Loses their bond. It's burned when anyone runs `rocketpool pdao proposals finalize`.      | —                                                                                                                                       |
+| **Any other outcome** (executed, expired, voted down, or quorum not met) | Gets their bond back, plus the bond of each challenge they responded to, minus a 20% burn | Challenges the proposer responded to: bond lost. Challenges the proposer didn't respond to: bond back.                                  |
 
 A challenger "helped defeat the proposal" if they challenged an index the proposer couldn't respond to, along the path that led to the defeat.
 

@@ -3,7 +3,6 @@ import tui_epbs from "./images/tui-epbs.png";
 import tui_commit_boost from "./images/tui-commit-boost.png";
 import tui_enable_commit_boost from "./images/tui-enable-commit-boost.png";
 
-
 # Commit-Boost
 
 Commit-Boost, Proposer-Builder Separation (PBS) işlemleri için MEV-Boost'a alternatif olarak hizmet veren, açık kaynaklı ve topluluk odaklı bir doğrulayıcı sidecar'ıdır.
@@ -26,12 +25,12 @@ Commit-Boost [açık kaynaklıdır](https://github.com/Commit-Boost/commit-boost
 
 Hem Commit-Boost hem de MEV-Boost, PBS'yi builder pazarı ve MEV relay altyapısı üzerinden yürütür. Aralarındaki farklar şunlardır:
 
-| Özellik | MEV-Boost | Commit-Boost |
-|---------|-----------|--------------|
-| **Amaç** | Yalnızca PBS | PBS + genişletilebilir, modüler platform |
-| **Bakımcı** | Flashbots | Topluluk / Commit-Boost ekibi |
-| **Gelecekteki protokoller** | Sabit | Üçüncü taraf protokoller için eklenti sistemi (henüz Smart Node üzerinden kullanılamaz) |
-| **Kullanılabilir relay'ler (mainnet)** | 8 relay | 5 relay (yalnızca OFAC filtreli) |
+| Özellik                                | MEV-Boost    | Commit-Boost                                                                            |
+| -------------------------------------- | ------------ | --------------------------------------------------------------------------------------- |
+| **Amaç**                               | Yalnızca PBS | PBS + genişletilebilir, modüler platform                                                |
+| **Bakımcı**                            | Flashbots    | Topluluk / Commit-Boost ekibi                                                           |
+| **Gelecekteki protokoller**            | Sabit        | Üçüncü taraf protokoller için eklenti sistemi (henüz Smart Node üzerinden kullanılamaz) |
+| **Kullanılabilir relay'ler (mainnet)** | 8 relay      | 5 relay (yalnızca OFAC filtreli)                                                        |
 
 Smart Node açısından her ikisi de Beacon Node'unuza aynı şekilde bağlanır. Ethereum'a ön onaylar gibi yeni teklif veren taahhüt özellikleri eklendikçe Commit-Boost geleceğe dönük bir seçenektir.
 
@@ -43,15 +42,15 @@ MEV-Boost ve Commit-Boost'u aynı anda çalıştıramazsınız. Smart Node, yap�
 
 Commit-Boost'ta kullanılabilen relay'ler şunlardır:
 
-| Ad | Düzenleme | Ağlar | MEV Türleri |
-|------|-----------|----------|-----------|
-| [Flashbots](https://boost.flashbots.net/) | OFAC yaptırımlarına uyar* | Mainnet, Hoodi | Tüm türler |
-| [bloXroute Regulated](https://docs.bloxroute.com/eth/block-builders-and-validators/mev-relay-for-validators) | OFAC yaptırımlarına uyar* | Mainnet, Hoodi | Tüm türler |
-| [Titan Regional](https://docs.titanrelay.xyz/) | OFAC yaptırımlarına uyar* | Yalnızca mainnet | Tüm türler |
-| [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/) | OFAC yaptırımlarına uyar* | Yalnızca mainnet | Tüm türler |
-| BTCS OFAC+ | OFAC yaptırımlarına uyar* | Yalnızca mainnet | Tüm türler |
-| [AESTUS](https://aestus.live/) | Düzenlenmemiş | Yalnızca Hoodi | Tüm türler |
-| [Titan Global](https://docs.titanrelay.xyz/) | Düzenlenmemiş | Yalnızca Hoodi | Tüm türler |
+| Ad                                                                                                           | Düzenleme                  | Ağlar            | MEV Türleri |
+| ------------------------------------------------------------------------------------------------------------ | -------------------------- | ---------------- | ----------- |
+| [Flashbots](https://boost.flashbots.net/)                                                                    | OFAC yaptırımlarına uyar\* | Mainnet, Hoodi   | Tüm türler  |
+| [bloXroute Regulated](https://docs.bloxroute.com/eth/block-builders-and-validators/mev-relay-for-validators) | OFAC yaptırımlarına uyar\* | Mainnet, Hoodi   | Tüm türler  |
+| [Titan Regional](https://docs.titanrelay.xyz/)                                                               | OFAC yaptırımlarına uyar\* | Yalnızca mainnet | Tüm türler  |
+| [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/)                                             | OFAC yaptırımlarına uyar\* | Yalnızca mainnet | Tüm türler  |
+| BTCS OFAC+                                                                                                   | OFAC yaptırımlarına uyar\* | Yalnızca mainnet | Tüm türler  |
+| [AESTUS](https://aestus.live/)                                                                               | Düzenlenmemiş              | Yalnızca Hoodi   | Tüm türler  |
+| [Titan Global](https://docs.titanrelay.xyz/)                                                                 | Düzenlenmemiş              | Yalnızca Hoodi   | Tüm türler  |
 
 :::warning NOT
 \*OFAC yaptırımlarına uyan relay'ler, ABD Yabancı Varlıkları Kontrol Ofisi'nin (OFAC) tuttuğu adres kara listesini izler.
@@ -62,6 +61,7 @@ Daha fazla bilgiyi [MEV sayfasında](./mev#block-builderlar-ve-relayler) bulabil
 
 :::warning ÖNEMLİ
 Mainnet'te Commit-Boost, Smart Node'da MEV-Boost'tan **daha az relay** destekler. Özellikle mainnet'teki Commit-Boost şunları **içermez**:
+
 - Ultra Sound (filtresiz)
 - Aestus
 - Titan Global (filtresiz)
@@ -69,14 +69,12 @@ Mainnet'te Commit-Boost, Smart Node'da MEV-Boost'tan **daha az relay** destekler
 Mainnet'te Commit-Boost'ta kullanılabilen tüm relay'ler, OFAC yaptırımlarına uyan düzenlenmiş/filtreli sürümlerdir. Düzenlenmemiş relay'lere erişmeniz gerekiyorsa Commit-Boost yerine MEV-Boost kullanmaya devam etmelisiniz.
 :::
 
-
 ## Ödüller ve APY
 
 Commit-Boost, MEV-Boost'a benzer ödüller sağlar.
 Commit-Boost mainnet'te yalnızca düzenlenmiş relay'leri desteklediğinden, daha önce düzenlenmemiş relay'ler kullanıyorsanız MEV ödülleriniz MEV-Boost'a kıyasla biraz farklı olabilir.
 
 Gelecekte ön onaylar ve dahil etme listeleri gibi teklif veren taahhüt protokolleri, standart MEV ödüllerinin üzerine ek getiri sağlayabilir.
-
 
 ## Smart Node'da Commit-Boost'u yapılandırma
 
@@ -208,6 +206,7 @@ Commit-Boost'u nasıl yapılandıracağınızı öğrenmek için aşağıdan mod
       Kendi Commit-Boost örneğinizi çalıştırıyorsanız, yalnızca yukarıda listelenen güvenilir relay'lere kaydolmanız **gerekir**. Güvenilmeyen relay'lerin kullanılması Oracle DAO tarafından cezalara yol açabilir.
       :::
     </Tab>
+
   </Tabs>
 </div>
 
@@ -231,6 +230,7 @@ rocketpool_commit-boost  | 2026-05-21T03:12:35.642721Z  INFO : Responded with 20
 ```
 
 Loglarda dikkat edilmesi gerekenler:
+
 - Validator Client'ınızın Commit-Boost'a bağlandığını gösteren `new request` girdileri
 - Doğrulayıcılarınızın relay'lere kayıtlı olduğunu doğrulayan `register validator successful`
 - Başarılı iletişimi gösteren `200 OK` yanıtları
@@ -240,6 +240,7 @@ Commit-Boost'un çalıştığını şu komutla da doğrulayabilirsiniz:
 ```bash
 rocketpool service version
 ```
+
 Çıktının sonuna doğru şunu görmelisiniz:
 
 ```

@@ -3,7 +3,6 @@ import tui_epbs from "./images/tui-epbs.png";
 import tui_commit_boost from "./images/tui-commit-boost.png";
 import tui_enable_commit_boost from "./images/tui-enable-commit-boost.png";
 
-
 # Commit-Boost
 
 Commit-Boost는 커뮤니티가 주도하는 오픈 소스 검증자 사이드카로, 제안자-빌더 분리(PBS)를 처리하기 위한 MEV-Boost의 대안입니다.
@@ -26,12 +25,12 @@ Commit-Boost는 [오픈 소스](https://github.com/Commit-Boost/commit-boost-cli
 
 Commit-Boost와 MEV-Boost는 모두 빌더 마켓플레이스와 MEV 릴레이 인프라를 사용하여 PBS를 처리합니다. 차이점은 다음과 같습니다:
 
-| 기능 | MEV-Boost | Commit-Boost |
-|---------|-----------|--------------|
-| **목적** | PBS 전용 | PBS + 확장 가능한 모듈식 플랫폼 |
-| **관리 주체** | Flashbots | 커뮤니티 / Commit-Boost 팀 |
-| **향후 프로토콜** | 고정 | 서드파티 프로토콜용 플러그인 시스템(아직 Smart Node를 통해 사용 불가) |
-| **사용 가능한 릴레이(메인넷)** | 릴레이 8개 | 릴레이 5개(OFAC 필터링 릴레이만) |
+| 기능                           | MEV-Boost  | Commit-Boost                                                          |
+| ------------------------------ | ---------- | --------------------------------------------------------------------- |
+| **목적**                       | PBS 전용   | PBS + 확장 가능한 모듈식 플랫폼                                       |
+| **관리 주체**                  | Flashbots  | 커뮤니티 / Commit-Boost 팀                                            |
+| **향후 프로토콜**              | 고정       | 서드파티 프로토콜용 플러그인 시스템(아직 Smart Node를 통해 사용 불가) |
+| **사용 가능한 릴레이(메인넷)** | 릴레이 8개 | 릴레이 5개(OFAC 필터링 릴레이만)                                      |
 
 Smart Node의 관점에서는 두 가지 모두 동일한 방식으로 Beacon Node에 연결됩니다. 이더리움에 사전 확인과 같은 새로운 제안자 약정 기능이 추가됨에 따라 Commit-Boost는 미래 지향적인 선택입니다.
 
@@ -43,15 +42,15 @@ MEV-Boost와 Commit-Boost를 동시에 실행할 수 없습니다. Smart Node는
 
 Commit-Boost에서 사용할 수 있는 릴레이는 다음과 같습니다:
 
-| 이름 | 규제 | 네트워크 | MEV 유형 |
-|------|-----------|----------|-----------|
-| [Flashbots](https://boost.flashbots.net/) | OFAC 제재 준수* | 메인넷, Hoodi | 모든 유형 |
-| [bloXroute Regulated](https://docs.bloxroute.com/eth/block-builders-and-validators/mev-relay-for-validators) | OFAC 제재 준수* | 메인넷, Hoodi | 모든 유형 |
-| [Titan Regional](https://docs.titanrelay.xyz/) | OFAC 제재 준수* | 메인넷 전용 | 모든 유형 |
-| [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/) | OFAC 제재 준수* | 메인넷 전용 | 모든 유형 |
-| BTCS OFAC+ | OFAC 제재 준수* | 메인넷 전용 | 모든 유형 |
-| [AESTUS](https://aestus.live/) | 비규제 | Hoodi 전용 | 모든 유형 |
-| [Titan Global](https://docs.titanrelay.xyz/) | 비규제 | Hoodi 전용 | 모든 유형 |
+| 이름                                                                                                         | 규제             | 네트워크      | MEV 유형  |
+| ------------------------------------------------------------------------------------------------------------ | ---------------- | ------------- | --------- |
+| [Flashbots](https://boost.flashbots.net/)                                                                    | OFAC 제재 준수\* | 메인넷, Hoodi | 모든 유형 |
+| [bloXroute Regulated](https://docs.bloxroute.com/eth/block-builders-and-validators/mev-relay-for-validators) | OFAC 제재 준수\* | 메인넷, Hoodi | 모든 유형 |
+| [Titan Regional](https://docs.titanrelay.xyz/)                                                               | OFAC 제재 준수\* | 메인넷 전용   | 모든 유형 |
+| [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/)                                             | OFAC 제재 준수\* | 메인넷 전용   | 모든 유형 |
+| BTCS OFAC+                                                                                                   | OFAC 제재 준수\* | 메인넷 전용   | 모든 유형 |
+| [AESTUS](https://aestus.live/)                                                                               | 비규제           | Hoodi 전용    | 모든 유형 |
+| [Titan Global](https://docs.titanrelay.xyz/)                                                                 | 비규제           | Hoodi 전용    | 모든 유형 |
 
 :::warning 참고
 \*OFAC 제재를 준수하는 릴레이는 미국 해외자산통제국(OFAC)이 관리하는 주소 블랙리스트를 따릅니다.
@@ -62,6 +61,7 @@ OFAC 제재와 네트워크 검열에 대해 더 자세히 읽어보고, 어떤 
 
 :::warning 중요
 메인넷에서 Smart Node의 Commit-Boost는 MEV-Boost보다 **적은 수의 릴레이**를 지원합니다. 구체적으로 메인넷의 Commit-Boost에는 다음이 포함되지 **않습니다**:
+
 - Ultra Sound(비필터링)
 - Aestus
 - Titan Global(비필터링)
@@ -69,14 +69,12 @@ OFAC 제재와 네트워크 검열에 대해 더 자세히 읽어보고, 어떤 
 메인넷의 Commit-Boost에서 사용할 수 있는 모든 릴레이는 OFAC 제재를 준수하는 규제/필터링 버전입니다. 비규제 릴레이에 접근해야 한다면 Commit-Boost 대신 MEV-Boost를 계속 사용해야 합니다.
 :::
 
-
 ## 보상 및 APY
 
 Commit-Boost는 MEV-Boost와 비슷한 보상을 제공합니다.
 메인넷에서 Commit-Boost는 규제 릴레이만 지원하므로, 이전에 비규제 릴레이를 사용했다면 MEV-Boost와 비교해 MEV 보상이 약간 다를 수 있습니다.
 
 향후에는 사전 확인 및 포함 목록과 같은 제안자 약정 프로토콜이 일반 MEV 보상에 더해 추가 수익을 제공할 수 있습니다.
-
 
 ## Smart Node에서 Commit-Boost 설정하기
 
@@ -208,6 +206,7 @@ Commit-Boost 설정 방법을 알아보려면 아래에서 모드를 선택하�
       자체 Commit-Boost 인스턴스를 실행하는 경우, 위에 나열된 신뢰할 수 있는 릴레이에만 등록**해야 합니다**. 신뢰할 수 없는 릴레이를 사용하면 Oracle DAO로부터 페널티를 받을 수 있습니다.
       :::
     </Tab>
+
   </Tabs>
 </div>
 
@@ -231,6 +230,7 @@ rocketpool_commit-boost  | 2026-05-21T03:12:35.642721Z  INFO : Responded with 20
 ```
 
 로그에서 확인할 주요 사항:
+
 - Validator Client가 Commit-Boost에 연결되고 있음을 보여주는 `new request` 항목
 - 검증자가 릴레이에 등록되었음을 확인하는 `register validator successful`
 - 통신이 성공했음을 나타내는 `200 OK` 응답
@@ -240,6 +240,7 @@ rocketpool_commit-boost  | 2026-05-21T03:12:35.642721Z  INFO : Responded with 20
 ```bash
 rocketpool service version
 ```
+
 출력의 끝부분에 다음이 표시되어야 합니다:
 
 ```

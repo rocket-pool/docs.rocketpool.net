@@ -461,11 +461,11 @@ ein Proposer oder Challenger seine `proposal.bond` und `proposal.challenge.bond`
 
 Folgendes passiert mit den Bonds bei jedem Ergebnis:
 
-| Ergebnis | Proposer | Challengers |
-| --- | --- | --- |
-| **Durch eine Challenge besiegt** | Verliert seinen Bond | Challengers, die zur Niederlage des Vorschlags beigetragen haben, teilen sich den Bond des Proposers, abzüglich einer Verbrennung von 20%. Jeder Challenger erhält außerdem seinen eigenen Bond zurück. |
-| **Per Veto abgelehnt** | Verliert seinen Bond. Er wird verbrannt, sobald jemand `rocketpool pdao proposals finalize` ausführt. | — |
-| **Jedes andere Ergebnis** (ausgeführt, abgelaufen, abgelehnt oder Quorum nicht erreicht) | Erhält seinen Bond zurück, plus den Bond jeder Challenge, auf die er geantwortet hat, abzüglich einer Verbrennung von 20% | Challenges, auf die der Proposer geantwortet hat: Bond verloren. Challenges, auf die der Proposer nicht geantwortet hat: Bond zurück. |
+| Ergebnis                                                                                 | Proposer                                                                                                                  | Challengers                                                                                                                                                                                             |
+| ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Durch eine Challenge besiegt**                                                         | Verliert seinen Bond                                                                                                      | Challengers, die zur Niederlage des Vorschlags beigetragen haben, teilen sich den Bond des Proposers, abzüglich einer Verbrennung von 20%. Jeder Challenger erhält außerdem seinen eigenen Bond zurück. |
+| **Per Veto abgelehnt**                                                                   | Verliert seinen Bond. Er wird verbrannt, sobald jemand `rocketpool pdao proposals finalize` ausführt.                     | —                                                                                                                                                                                                       |
+| **Jedes andere Ergebnis** (ausgeführt, abgelaufen, abgelehnt oder Quorum nicht erreicht) | Erhält seinen Bond zurück, plus den Bond jeder Challenge, auf die er geantwortet hat, abzüglich einer Verbrennung von 20% | Challenges, auf die der Proposer geantwortet hat: Bond verloren. Challenges, auf die der Proposer nicht geantwortet hat: Bond zurück.                                                                   |
 
 Ein Challenger hat „zur Niederlage des Vorschlags beigetragen“, wenn er einen Index angefochten hat, auf den der Proposer nicht antworten konnte, und zwar auf dem Pfad, der zur Niederlage geführt hat.
 

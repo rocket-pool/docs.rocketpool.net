@@ -319,13 +319,13 @@ Lorsque vous activez la prise en charge d'IPv6 :
 
 Les différents clients de consensus gèrent IPv6 avec des niveaux de support variables :
 
-| Client         | Écoute IPv6 | Diffusion IPv6 (ENR) | Comportement de peering | Notes                                                                                                   |
-| -------------- | ----------- | -------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------- |
-| **Teku** | Complète | Complète | Priorité à IPv6 | Préfère les connexions IPv6 lorsque disponibles. Utilise des ports IPv6 dédiés séparés (par défaut : 9090, et 8002 pour QUIC). |
-| **Lighthouse** | Complète    | Complète             | Aucune préférence       | Se connecte à l'adresse (IPv4 ou IPv6) qui répond en premier. Voit généralement ~1-2 % de pairs IPv6.   |
-| **Lodestar**   | Complète    | Complète             | Priorité à IPv4         | Écoute et diffuse sur IPv4 et IPv6, mais ne s'associe via IPv6 que si l'autre nœud a IPv4 désactivé.    |
-| **Nimbus**     | Complète    | IPv4 uniquement\*    | Principalement IPv4     | Peut accepter des connexions IPv6 entrantes, mais diffuse uniquement IPv4 dans l'ENR.                   |
-| **Prysm** | IPv4 uniquement\* | IPv4 uniquement\* | Principalement IPv4 | Écoute et diffuse uniquement sur IPv4, les pairs IPv6 ne peuvent donc pas le joindre. Peut tout de même se connecter en sortie à certains pairs IPv6. |
+| Client         | Écoute IPv6       | Diffusion IPv6 (ENR) | Comportement de peering | Notes                                                                                                                                                 |
+| -------------- | ----------------- | -------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Teku**       | Complète          | Complète             | Priorité à IPv6         | Préfère les connexions IPv6 lorsque disponibles. Utilise des ports IPv6 dédiés séparés (par défaut : 9090, et 8002 pour QUIC).                        |
+| **Lighthouse** | Complète          | Complète             | Aucune préférence       | Se connecte à l'adresse (IPv4 ou IPv6) qui répond en premier. Voit généralement ~1-2 % de pairs IPv6.                                                 |
+| **Lodestar**   | Complète          | Complète             | Priorité à IPv4         | Écoute et diffuse sur IPv4 et IPv6, mais ne s'associe via IPv6 que si l'autre nœud a IPv4 désactivé.                                                  |
+| **Nimbus**     | Complète          | IPv4 uniquement\*    | Principalement IPv4     | Peut accepter des connexions IPv6 entrantes, mais diffuse uniquement IPv4 dans l'ENR.                                                                 |
+| **Prysm**      | IPv4 uniquement\* | IPv4 uniquement\*    | Principalement IPv4     | Écoute et diffuse uniquement sur IPv4, les pairs IPv6 ne peuvent donc pas le joindre. Peut tout de même se connecter en sortie à certains pairs IPv6. |
 
 \* Par défaut, utilise IPv4. Sur les hôtes IPv6 uniquement, utilise IPv6 à la place.
 

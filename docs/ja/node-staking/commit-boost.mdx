@@ -3,7 +3,6 @@ import tui_epbs from "./images/tui-epbs.png";
 import tui_commit_boost from "./images/tui-commit-boost.png";
 import tui_enable_commit_boost from "./images/tui-enable-commit-boost.png";
 
-
 # Commit-Boost
 
 Commit-Boostは、コミュニティ主導のオープンソースのバリデーターサイドカーで、Proposer-Builder Separation（PBS）を処理するためのMEV-Boostの代替手段です。ブロック構築に加えて、Commit-Boostはプレコンファメーション（preconfirmations）やインクルージョンリスト（inclusion lists）などのプロポーザーコミットメントプロトコルにも対応しています。現在、Smart NodeはCommit-BoostのPBS（ブロック構築）モジュールのみを実行するため、これらの追加プロトコルはまだSmart Node経由では利用できません。MEVとPBSを初めて扱う場合は、背景知識としてまず[MEV、MEV-Boost、MEV報酬](./mev)のページを読むことをお勧めします。
@@ -23,12 +22,12 @@ Commit-Boostは[オープンソース](https://github.com/Commit-Boost/commit-bo
 
 Commit-BoostとMEV-Boostはどちらも、ビルダーマーケットプレイスとMEV relayインフラを使ってPBSを処理します。違いは次のとおりです。
 
-| 機能 | MEV-Boost | Commit-Boost |
-|---------|-----------|--------------|
-| **目的** | PBSのみ | PBS + 拡張可能なモジュール式プラットフォーム |
-| **メンテナー** | Flashbots | コミュニティ / Commit-Boostチーム |
-| **将来のプロトコル** | 固定 | サードパーティプロトコル用のプラグインシステム（Smart Node経由ではまだ利用不可） |
-| **利用可能なrelay（メインネット）** | 8個 | 5個（OFACフィルタリングのみ） |
+| 機能                                | MEV-Boost | Commit-Boost                                                                     |
+| ----------------------------------- | --------- | -------------------------------------------------------------------------------- |
+| **目的**                            | PBSのみ   | PBS + 拡張可能なモジュール式プラットフォーム                                     |
+| **メンテナー**                      | Flashbots | コミュニティ / Commit-Boostチーム                                                |
+| **将来のプロトコル**                | 固定      | サードパーティプロトコル用のプラグインシステム（Smart Node経由ではまだ利用不可） |
+| **利用可能なrelay（メインネット）** | 8個       | 5個（OFACフィルタリングのみ）                                                    |
 
 Smart Nodeから見ると、どちらも同じ方法でBeacon Nodeに接続します。Ethereumにプレコンファメーションなどの新しいプロポーザーコミットメント機能が追加されていく中で、Commit-Boostは将来を見据えた選択肢です。
 
@@ -40,15 +39,15 @@ MEV-BoostとCommit-Boostを同時に実行することはできません。Smart
 
 Commit-Boostで利用できるrelayは次のとおりです。
 
-| 名前 | 規制 | ネットワーク | MEVタイプ |
-|------|-----------|----------|-----------|
-| [Flashbots](https://boost.flashbots.net/) | OFAC制裁に準拠* | Mainnet、Hoodi | すべてのタイプ |
-| [bloXroute Regulated](https://docs.bloxroute.com/eth/block-builders-and-validators/mev-relay-for-validators) | OFAC制裁に準拠* | Mainnet、Hoodi | すべてのタイプ |
-| [Titan Regional](https://docs.titanrelay.xyz/) | OFAC制裁に準拠* | Mainnetのみ | すべてのタイプ |
-| [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/) | OFAC制裁に準拠* | Mainnetのみ | すべてのタイプ |
-| BTCS OFAC+ | OFAC制裁に準拠* | Mainnetのみ | すべてのタイプ |
-| [AESTUS](https://aestus.live/) | 規制なし | Hoodiのみ | すべてのタイプ |
-| [Titan Global](https://docs.titanrelay.xyz/) | 規制なし | Hoodiのみ | すべてのタイプ |
+| 名前                                                                                                         | 規制             | ネットワーク   | MEVタイプ      |
+| ------------------------------------------------------------------------------------------------------------ | ---------------- | -------------- | -------------- |
+| [Flashbots](https://boost.flashbots.net/)                                                                    | OFAC制裁に準拠\* | Mainnet、Hoodi | すべてのタイプ |
+| [bloXroute Regulated](https://docs.bloxroute.com/eth/block-builders-and-validators/mev-relay-for-validators) | OFAC制裁に準拠\* | Mainnet、Hoodi | すべてのタイプ |
+| [Titan Regional](https://docs.titanrelay.xyz/)                                                               | OFAC制裁に準拠\* | Mainnetのみ    | すべてのタイプ |
+| [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/)                                             | OFAC制裁に準拠\* | Mainnetのみ    | すべてのタイプ |
+| BTCS OFAC+                                                                                                   | OFAC制裁に準拠\* | Mainnetのみ    | すべてのタイプ |
+| [AESTUS](https://aestus.live/)                                                                               | 規制なし         | Hoodiのみ      | すべてのタイプ |
+| [Titan Global](https://docs.titanrelay.xyz/)                                                                 | 規制なし         | Hoodiのみ      | すべてのタイプ |
 
 :::warning 注意
 \*OFAC制裁に準拠するrelayは、米国財務省外国資産管理局（OFAC）が維持しているアドレスのブラックリストに従います。OFAC制裁とネットワーク検閲についてさらに読み、どのrelayを使用するかについて慎重に情報に基づいた判断をすることを**強くお勧めします**。
@@ -58,6 +57,7 @@ Commit-Boostで利用できるrelayは次のとおりです。
 
 :::warning 重要
 メインネットでは、Smart NodeのCommit-BoostはMEV-Boostよりも**少ないrelay**しかサポートしていません。具体的には、メインネットのCommit-Boostには次のrelayが含まれて**いません**。
+
 - Ultra Sound（非フィルタリング）
 - Aestus
 - Titan Global（非フィルタリング）
@@ -65,13 +65,11 @@ Commit-Boostで利用できるrelayは次のとおりです。
 メインネットのCommit-Boostで利用できるrelayはすべて、OFAC制裁に準拠する規制/フィルタリング版です。規制のないrelayを利用する必要がある場合は、Commit-BoostではなくMEV-Boostを引き続き使用してください。
 :::
 
-
 ## 報酬とAPY
 
 Commit-Boostは、MEV-Boostと同程度の報酬をもたらします。メインネットではCommit-Boostは規制されたrelayのみをサポートしているため、以前に規制のないrelayを使用していた場合、MEV-Boostと比べてMEV報酬がわずかに異なる可能性があります。
 
 将来的には、プレコンファメーションやインクルージョンリストなどのプロポーザーコミットメントプロトコルによって、通常のMEV報酬に加えて追加の収益が得られる可能性があります。
-
 
 ## Smart NodeでのCommit-Boostの設定
 
@@ -203,6 +201,7 @@ Commit-Boostの設定方法については、以下からモードを選択し�
       独自のCommit-Boostインスタンスを実行する場合は、上記の信頼できるrelayにのみ登録する**必要があります**。信頼できないrelayを使用すると、Oracle DAOからペナルティを受ける可能性があります。
       :::
     </Tab>
+
   </Tabs>
 </div>
 
@@ -226,6 +225,7 @@ rocketpool_commit-boost  | 2026-05-21T03:12:35.642721Z  INFO : Responded with 20
 ```
 
 ログで確認すべき主なポイント：
+
 - Validator ClientがCommit-Boostに接続していることを示す`new request`エントリ
 - バリデーターがrelayに登録されたことを確認する`register validator successful`
 - 通信が成功したことを示す`200 OK`レスポンス
@@ -235,6 +235,7 @@ rocketpool_commit-boost  | 2026-05-21T03:12:35.642721Z  INFO : Responded with 20
 ```bash
 rocketpool service version
 ```
+
 出力の終わり近くに、次のように表示されるはずです。
 
 ```

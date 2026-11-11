@@ -3,7 +3,6 @@ import tui_epbs from "./images/tui-epbs.png";
 import tui_commit_boost from "./images/tui-commit-boost.png";
 import tui_enable_commit_boost from "./images/tui-enable-commit-boost.png";
 
-
 # Commit-Boost
 
 Commit-Boost — это sidecar для валидаторов с открытым исходным кодом, развиваемый сообществом. Он служит альтернативой MEV-Boost для разделения ролей предлагающего и строителя блоков (Proposer-Builder Separation, PBS).
@@ -26,12 +25,12 @@ Commit-Boost имеет [открытый исходный код](https://githu
 
 И Commit-Boost, и MEV-Boost реализуют PBS с помощью рынка строителей блоков и инфраструктуры MEV-релеев. Вот чем они различаются:
 
-| Характеристика | MEV-Boost | Commit-Boost |
-|---------|-----------|--------------|
-| **Назначение** | Только PBS | PBS + расширяемая модульная платформа |
-| **Разработчик** | Flashbots | Сообщество / команда Commit-Boost |
-| **Будущие протоколы** | Нет | Система плагинов для сторонних протоколов (пока недоступна через Smart Node) |
-| **Доступные релеи (mainnet)** | 8 релеев | 5 релеев (только с фильтрацией OFAC) |
+| Характеристика                | MEV-Boost  | Commit-Boost                                                                 |
+| ----------------------------- | ---------- | ---------------------------------------------------------------------------- |
+| **Назначение**                | Только PBS | PBS + расширяемая модульная платформа                                        |
+| **Разработчик**               | Flashbots  | Сообщество / команда Commit-Boost                                            |
+| **Будущие протоколы**         | Нет        | Система плагинов для сторонних протоколов (пока недоступна через Smart Node) |
+| **Доступные релеи (mainnet)** | 8 релеев   | 5 релеев (только с фильтрацией OFAC)                                         |
 
 С точки зрения Smart Node оба подключаются к вашему Beacon Node одинаково. Commit-Boost ориентирован на будущее, поскольку в Ethereum появляются новые функции обязательств предлагающего, например предподтверждения.
 
@@ -43,15 +42,15 @@ Commit-Boost имеет [открытый исходный код](https://githu
 
 В Commit-Boost доступны следующие релеи:
 
-| Название | Регулирование | Сети | Типы MEV |
-|------|-----------|----------|-----------|
-| [Flashbots](https://boost.flashbots.net/) | Соблюдает санкции OFAC* | Mainnet, Hoodi | Все типы |
-| [bloXroute Regulated](https://docs.bloxroute.com/eth/block-builders-and-validators/mev-relay-for-validators) | Соблюдает санкции OFAC* | Mainnet, Hoodi | Все типы |
-| [Titan Regional](https://docs.titanrelay.xyz/) | Соблюдает санкции OFAC* | Только mainnet | Все типы |
-| [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/) | Соблюдает санкции OFAC* | Только mainnet | Все типы |
-| BTCS OFAC+ | Соблюдает санкции OFAC* | Только mainnet | Все типы |
-| [AESTUS](https://aestus.live/) | Не регулируется | Только Hoodi | Все типы |
-| [Titan Global](https://docs.titanrelay.xyz/) | Не регулируется | Только Hoodi | Все типы |
+| Название                                                                                                     | Регулирование            | Сети           | Типы MEV |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------ | -------------- | -------- |
+| [Flashbots](https://boost.flashbots.net/)                                                                    | Соблюдает санкции OFAC\* | Mainnet, Hoodi | Все типы |
+| [bloXroute Regulated](https://docs.bloxroute.com/eth/block-builders-and-validators/mev-relay-for-validators) | Соблюдает санкции OFAC\* | Mainnet, Hoodi | Все типы |
+| [Titan Regional](https://docs.titanrelay.xyz/)                                                               | Соблюдает санкции OFAC\* | Только mainnet | Все типы |
+| [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/)                                             | Соблюдает санкции OFAC\* | Только mainnet | Все типы |
+| BTCS OFAC+                                                                                                   | Соблюдает санкции OFAC\* | Только mainnet | Все типы |
+| [AESTUS](https://aestus.live/)                                                                               | Не регулируется          | Только Hoodi   | Все типы |
+| [Titan Global](https://docs.titanrelay.xyz/)                                                                 | Не регулируется          | Только Hoodi   | Все типы |
 
 :::warning ПРИМЕЧАНИЕ
 \*Релеи, соблюдающие санкции OFAC, следуют чёрному списку адресов, который ведёт Управление по контролю за иностранными активами США (OFAC).
@@ -62,6 +61,7 @@ Commit-Boost имеет [открытый исходный код](https://githu
 
 :::warning ВАЖНО
 В mainnet Commit-Boost в Smart Node поддерживает **меньше релеев**, чем MEV-Boost. В частности, Commit-Boost в mainnet **не** включает:
+
 - Ultra Sound (без фильтрации)
 - Aestus
 - Titan Global (без фильтрации)
@@ -69,14 +69,12 @@ Commit-Boost имеет [открытый исходный код](https://githu
 Все релеи, доступные в Commit-Boost в mainnet, — это регулируемые/фильтрующие версии, соблюдающие санкции OFAC. Если вам нужен доступ к нерегулируемым релеям, продолжайте использовать MEV-Boost вместо Commit-Boost.
 :::
 
-
 ## Награды и APY
 
 Commit-Boost приносит награды, сопоставимые с MEV-Boost.
 Поскольку в mainnet Commit-Boost поддерживает только регулируемые релеи, ваши награды MEV могут немного отличаться от MEV-Boost, если раньше вы использовали нерегулируемые релеи.
 
 В будущем протоколы обязательств предлагающего, такие как предподтверждения и списки включения, могут приносить дополнительный доход сверх обычных наград MEV.
-
 
 ## Настройка Commit-Boost в Smart Node
 
@@ -208,6 +206,7 @@ Commit-Boost приносит награды, сопоставимые с MEV-Bo
       Если вы запускаете собственный экземпляр Commit-Boost, вы **должны** регистрироваться только в доверенных релеях, перечисленных выше. Использование недоверенных релеев может привести к штрафам со стороны Oracle DAO.
       :::
     </Tab>
+
   </Tabs>
 </div>
 
@@ -231,6 +230,7 @@ rocketpool_commit-boost  | 2026-05-21T03:12:35.642721Z  INFO : Responded with 20
 ```
 
 На что обратить внимание в логах:
+
 - Записи `new request`, показывающие, что ваш Validator Client подключается к Commit-Boost
 - `register validator successful`, подтверждающие, что ваши валидаторы зарегистрированы в релеях
 - Ответы `200 OK`, указывающие на успешное взаимодействие
@@ -240,6 +240,7 @@ rocketpool_commit-boost  | 2026-05-21T03:12:35.642721Z  INFO : Responded with 20
 ```bash
 rocketpool service version
 ```
+
 Ближе к концу вывода вы должны увидеть:
 
 ```

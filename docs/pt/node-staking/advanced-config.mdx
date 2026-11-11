@@ -319,13 +319,13 @@ Quando você habilita o suporte a IPv6:
 
 Diferentes clientes de consenso lidam com IPv6 com níveis variados de suporte:
 
-| Cliente        | Escuta IPv6 | Transmissão IPv6 (ENR) | Comportamento de Peering | Notas                                                                                                     |
-| -------------- | ----------- | ---------------------- | ------------------------ | --------------------------------------------------------------------------------------------------------- |
-| **Teku** | Completo | Completo | Prioriza IPv6 | Prefere conexões IPv6 quando disponíveis. Usa portas IPv6 dedicadas separadas (padrão: 9090, e 8002 para QUIC). |
-| **Lighthouse** | Completo    | Completo               | Sem preferência          | Conecta-se ao endereço (IPv4 ou IPv6) que responder primeiro. Tipicamente vê ~1-2% de peers IPv6.         |
-| **Lodestar**   | Completo    | Completo               | Prioriza IPv4            | Escuta e transmite em IPv4 e IPv6, mas faz peering via IPv6 apenas se o outro nó tiver IPv4 desabilitado. |
-| **Nimbus**     | Completo    | Somente IPv4\*         | Principalmente IPv4      | Pode aceitar conexões IPv6 de entrada, mas transmite apenas IPv4 no ENR.                                  |
-| **Prysm** | Somente IPv4\* | Somente IPv4\* | Principalmente IPv4 | Escuta e transmite somente em IPv4, então peers IPv6 não conseguem alcançá-lo. Ainda pode se conectar de saída a alguns peers IPv6. |
+| Cliente        | Escuta IPv6    | Transmissão IPv6 (ENR) | Comportamento de Peering | Notas                                                                                                                               |
+| -------------- | -------------- | ---------------------- | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------- |
+| **Teku**       | Completo       | Completo               | Prioriza IPv6            | Prefere conexões IPv6 quando disponíveis. Usa portas IPv6 dedicadas separadas (padrão: 9090, e 8002 para QUIC).                     |
+| **Lighthouse** | Completo       | Completo               | Sem preferência          | Conecta-se ao endereço (IPv4 ou IPv6) que responder primeiro. Tipicamente vê ~1-2% de peers IPv6.                                   |
+| **Lodestar**   | Completo       | Completo               | Prioriza IPv4            | Escuta e transmite em IPv4 e IPv6, mas faz peering via IPv6 apenas se o outro nó tiver IPv4 desabilitado.                           |
+| **Nimbus**     | Completo       | Somente IPv4\*         | Principalmente IPv4      | Pode aceitar conexões IPv6 de entrada, mas transmite apenas IPv4 no ENR.                                                            |
+| **Prysm**      | Somente IPv4\* | Somente IPv4\*         | Principalmente IPv4      | Escuta e transmite somente em IPv4, então peers IPv6 não conseguem alcançá-lo. Ainda pode se conectar de saída a alguns peers IPv6. |
 
 \* Por padrão, usa IPv4. Em hosts somente IPv6, usa IPv6.
 

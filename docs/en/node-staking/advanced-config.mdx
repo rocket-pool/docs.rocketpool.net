@@ -319,12 +319,12 @@ When you enable IPv6 support:
 
 Different consensus clients handle IPv6 with varying levels of support:
 
-| Client         | IPv6 Listening | IPv6 Broadcasting (ENR) | Peering Behavior | Notes                                                                                                      |
-| -------------- | -------------- | ----------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------- |
-| **Teku**       | Full           | Full                    | Prioritizes IPv6 | Prefers IPv6 connections when available. Uses separate IPv6 ports (default: 9090, and 8002 for QUIC).      |
-| **Lighthouse** | Full           | Full                    | No preference    | Connects to whichever address (IPv4 or IPv6) responds first. Typically sees ~1-2% IPv6 peers.              |
-| **Lodestar**   | Full           | Full                    | Prioritizes IPv4 | Listens and broadcasts on both IPv4 and IPv6, but only peers via IPv6 if the other node has IPv4 disabled. |
-| **Nimbus**     | Full           | IPv4 only\*             | Primarily IPv4   | Can accept inbound IPv6 connections, but broadcasts only IPv4 in ENR.                                      |
+| Client         | IPv6 Listening | IPv6 Broadcasting (ENR) | Peering Behavior | Notes                                                                                                        |
+| -------------- | -------------- | ----------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------ |
+| **Teku**       | Full           | Full                    | Prioritizes IPv6 | Prefers IPv6 connections when available. Uses separate IPv6 ports (default: 9090, and 8002 for QUIC).        |
+| **Lighthouse** | Full           | Full                    | No preference    | Connects to whichever address (IPv4 or IPv6) responds first. Typically sees ~1-2% IPv6 peers.                |
+| **Lodestar**   | Full           | Full                    | Prioritizes IPv4 | Listens and broadcasts on both IPv4 and IPv6, but only peers via IPv6 if the other node has IPv4 disabled.   |
+| **Nimbus**     | Full           | IPv4 only\*             | Primarily IPv4   | Can accept inbound IPv6 connections, but broadcasts only IPv4 in ENR.                                        |
 | **Prysm**      | IPv4 only\*    | IPv4 only\*             | Primarily IPv4   | Listens and broadcasts on IPv4 only, so IPv6 peers can't reach it. Can still connect out to some IPv6 peers. |
 
 \* By default, uses IPv4. On IPv6-only hosts, uses IPv6 instead.

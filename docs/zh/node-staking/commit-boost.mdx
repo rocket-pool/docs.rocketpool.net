@@ -3,7 +3,6 @@ import tui_epbs from "./images/tui-epbs.png";
 import tui_commit_boost from "./images/tui-commit-boost.png";
 import tui_enable_commit_boost from "./images/tui-enable-commit-boost.png";
 
-
 # Commit-Boost
 
 Commit-Boost 是一个开源、由社区驱动的验证者 sidecar，可作为 MEV-Boost 的替代方案来处理提议者-构建者分离（PBS）。除了区块构建之外，Commit-Boost 还支持提议者承诺协议，例如预确认（preconfirmations）和包含列表（inclusion lists）。目前 Smart Node 只运行 Commit-Boost 的 PBS（区块构建）模块，因此这些额外的协议暂时还无法通过 Smart Node 使用。如果您刚接触 MEV 和 PBS，建议先阅读 [MEV、MEV-Boost 和 MEV 奖励](./mev) 页面了解背景知识。
@@ -23,12 +22,12 @@ Commit-Boost 是[开源的](https://github.com/Commit-Boost/commit-boost-client)
 
 Commit-Boost 和 MEV-Boost 都通过构建者市场和 MEV 中继基础设施来处理 PBS。它们的区别如下：
 
-| 特性 | MEV-Boost | Commit-Boost |
-|---------|-----------|--------------|
-| **用途** | 仅 PBS | PBS + 可扩展的模块化平台 |
-| **维护方** | Flashbots | 社区 / Commit-Boost 团队 |
-| **未来协议** | 固定 | 面向第三方协议的插件系统（暂时无法通过 Smart Node 使用） |
-| **可用中继（主网）** | 8 个中继 | 5 个中继（仅 OFAC 过滤） |
+| 特性                 | MEV-Boost | Commit-Boost                                             |
+| -------------------- | --------- | -------------------------------------------------------- |
+| **用途**             | 仅 PBS    | PBS + 可扩展的模块化平台                                 |
+| **维护方**           | Flashbots | 社区 / Commit-Boost 团队                                 |
+| **未来协议**         | 固定      | 面向第三方协议的插件系统（暂时无法通过 Smart Node 使用） |
+| **可用中继（主网）** | 8 个中继  | 5 个中继（仅 OFAC 过滤）                                 |
 
 从 Smart Node 的角度看，两者连接到 Beacon Node 的方式完全相同。随着以太坊加入预确认等新的提议者承诺功能，Commit-Boost 是面向未来的选择。
 
@@ -40,15 +39,15 @@ Commit-Boost 和 MEV-Boost 都通过构建者市场和 MEV 中继基础设施来
 
 以下是 Commit-Boost 中可用的中继：
 
-| 名称 | 监管 | 网络 | MEV 类型 |
-|------|-----------|----------|-----------|
-| [Flashbots](https://boost.flashbots.net/) | 遵守 OFAC 制裁* | 主网、Hoodi | 所有类型 |
-| [bloXroute Regulated](https://docs.bloxroute.com/eth/block-builders-and-validators/mev-relay-for-validators) | 遵守 OFAC 制裁* | 主网、Hoodi | 所有类型 |
-| [Titan Regional](https://docs.titanrelay.xyz/) | 遵守 OFAC 制裁* | 仅主网 | 所有类型 |
-| [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/) | 遵守 OFAC 制裁* | 仅主网 | 所有类型 |
-| BTCS OFAC+ | 遵守 OFAC 制裁* | 仅主网 | 所有类型 |
-| [AESTUS](https://aestus.live/) | 不受监管 | 仅 Hoodi | 所有类型 |
-| [Titan Global](https://docs.titanrelay.xyz/) | 不受监管 | 仅 Hoodi | 所有类型 |
+| 名称                                                                                                         | 监管             | 网络        | MEV 类型 |
+| ------------------------------------------------------------------------------------------------------------ | ---------------- | ----------- | -------- |
+| [Flashbots](https://boost.flashbots.net/)                                                                    | 遵守 OFAC 制裁\* | 主网、Hoodi | 所有类型 |
+| [bloXroute Regulated](https://docs.bloxroute.com/eth/block-builders-and-validators/mev-relay-for-validators) | 遵守 OFAC 制裁\* | 主网、Hoodi | 所有类型 |
+| [Titan Regional](https://docs.titanrelay.xyz/)                                                               | 遵守 OFAC 制裁\* | 仅主网      | 所有类型 |
+| [Ultra Sound Filtered](https://relay-filtered.ultrasound.money/)                                             | 遵守 OFAC 制裁\* | 仅主网      | 所有类型 |
+| BTCS OFAC+                                                                                                   | 遵守 OFAC 制裁\* | 仅主网      | 所有类型 |
+| [AESTUS](https://aestus.live/)                                                                               | 不受监管         | 仅 Hoodi    | 所有类型 |
+| [Titan Global](https://docs.titanrelay.xyz/)                                                                 | 不受监管         | 仅 Hoodi    | 所有类型 |
 
 :::warning 注意
 \*遵守 OFAC 制裁的中继会遵循美国外国资产控制办公室（OFAC）维护的地址黑名单。我们**强烈建议**您进一步了解 OFAC 制裁和网络审查，并在充分了解的基础上谨慎决定您愿意使用哪些中继。
@@ -58,6 +57,7 @@ Commit-Boost 和 MEV-Boost 都通过构建者市场和 MEV 中继基础设施来
 
 :::warning 重要
 在主网上，Smart Node 中的 Commit-Boost 支持的中继**少于** MEV-Boost。具体来说，主网上的 Commit-Boost **不**包括：
+
 - Ultra Sound（不过滤）
 - Aestus
 - Titan Global（不过滤）
@@ -65,13 +65,11 @@ Commit-Boost 和 MEV-Boost 都通过构建者市场和 MEV 中继基础设施来
 主网上 Commit-Boost 中可用的所有中继都是遵守 OFAC 制裁的受监管/过滤版本。如果您需要使用不受监管的中继，应继续使用 MEV-Boost 而不是 Commit-Boost。
 :::
 
-
 ## 奖励和 APY
 
 Commit-Boost 提供的奖励与 MEV-Boost 相近。由于 Commit-Boost 在主网上只支持受监管的中继，如果您之前使用的是不受监管的中继，您的 MEV 奖励可能与使用 MEV-Boost 时略有不同。
 
 将来，预确认和包含列表等提议者承诺协议可能会在标准 MEV 奖励之外带来额外收益。
-
 
 ## 在 Smart Node 中配置 Commit-Boost
 
@@ -203,6 +201,7 @@ Commit-Boost 提供的奖励与 MEV-Boost 相近。由于 Commit-Boost 在主网
       如果您运行自己的 Commit-Boost 实例，您**必须**只在上面列出的受信任中继注册。使用不受信任的中继可能会导致 Oracle DAO 的处罚。
       :::
     </Tab>
+
   </Tabs>
 </div>
 
@@ -226,6 +225,7 @@ rocketpool_commit-boost  | 2026-05-21T03:12:35.642721Z  INFO : Responded with 20
 ```
 
 日志中需要关注的要点：
+
 - `new request` 条目，表示您的 Validator Client 正在连接 Commit-Boost
 - `register validator successful`，确认您的验证者已在中继注册
 - `200 OK` 响应，表示通信成功
@@ -235,6 +235,7 @@ rocketpool_commit-boost  | 2026-05-21T03:12:35.642721Z  INFO : Responded with 20
 ```bash
 rocketpool service version
 ```
+
 在输出的末尾附近，您应该会看到：
 
 ```

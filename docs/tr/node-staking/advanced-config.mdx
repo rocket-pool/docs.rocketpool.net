@@ -319,13 +319,13 @@ IPv6 desteğini etkinleştirdiğinizde:
 
 Farklı konsensüs istemcileri IPv6'yı farklı destek düzeylerinde ele alır:
 
-| İstemci        | IPv6 Dinleme | IPv6 Yayını (ENR) | Eşleşme Davranışı     | Notlar                                                                                                                |
-| -------------- | ------------ | ----------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| **Teku** | Tam | Tam | IPv6'ya Öncelik Verir | Mevcut olduğunda IPv6 bağlantılarını tercih eder. Ayrı IPv6 portları kullanır (varsayılan: 9090 ve QUIC için 8002). |
-| **Lighthouse** | Tam          | Tam               | Tercih Yok            | İlk yanıt veren adrese (IPv4 veya IPv6) bağlanır. Tipik olarak ~%1-2 IPv6 eşi görür.                                  |
-| **Lodestar**   | Tam          | Tam               | IPv4'e Öncelik Verir  | Hem IPv4 hem de IPv6'yı dinler ve yayınlar, ancak yalnızca diğer düğümün IPv4'ü devre dışıysa IPv6 üzerinden eşleşir. |
-| **Nimbus**     | Tam          | Yalnızca IPv4\*   | Ağırlıklı IPv4        | Gelen IPv6 bağlantılarını kabul edebilir, ancak ENR'de yalnızca IPv4 yayınlar.                                        |
-| **Prysm** | Yalnızca IPv4\* | Yalnızca IPv4\* | Ağırlıklı IPv4 | Yalnızca IPv4 üzerinde dinler ve yayınlar, bu nedenle IPv6 eşleri ona ulaşamaz. Yine de bazı IPv6 eşlerine giden bağlantı kurabilir. |
+| İstemci        | IPv6 Dinleme    | IPv6 Yayını (ENR) | Eşleşme Davranışı     | Notlar                                                                                                                               |
+| -------------- | --------------- | ----------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| **Teku**       | Tam             | Tam               | IPv6'ya Öncelik Verir | Mevcut olduğunda IPv6 bağlantılarını tercih eder. Ayrı IPv6 portları kullanır (varsayılan: 9090 ve QUIC için 8002).                  |
+| **Lighthouse** | Tam             | Tam               | Tercih Yok            | İlk yanıt veren adrese (IPv4 veya IPv6) bağlanır. Tipik olarak ~%1-2 IPv6 eşi görür.                                                 |
+| **Lodestar**   | Tam             | Tam               | IPv4'e Öncelik Verir  | Hem IPv4 hem de IPv6'yı dinler ve yayınlar, ancak yalnızca diğer düğümün IPv4'ü devre dışıysa IPv6 üzerinden eşleşir.                |
+| **Nimbus**     | Tam             | Yalnızca IPv4\*   | Ağırlıklı IPv4        | Gelen IPv6 bağlantılarını kabul edebilir, ancak ENR'de yalnızca IPv4 yayınlar.                                                       |
+| **Prysm**      | Yalnızca IPv4\* | Yalnızca IPv4\*   | Ağırlıklı IPv4        | Yalnızca IPv4 üzerinde dinler ve yayınlar, bu nedenle IPv6 eşleri ona ulaşamaz. Yine de bazı IPv6 eşlerine giden bağlantı kurabilir. |
 
 \* Varsayılan olarak IPv4 kullanır. Yalnızca IPv6'ya sahip konakçılarda bunun yerine IPv6 kullanır.
 

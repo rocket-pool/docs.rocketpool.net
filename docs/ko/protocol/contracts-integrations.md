@@ -12,9 +12,9 @@ Rocket Pool을 더 많은 서비스와 프로토콜에 통합하는 것을 도�
 
 | Chain   | Contract | Address                                                                                                                     |
 | ------- | -------- | --------------------------------------------------------------------------------------------------------------------------- |
-| Mainnet | Deposit  | [0xDD3f50F8A6CafbE9b31a427582963f465E745AF8](https://etherscan.io/address/0xDD3f50F8A6CafbE9b31a427582963f465E745AF8)       |
+| Mainnet | Deposit  | [0xCE15294273CFb9D9b628F4D61636623decDF4fdC](https://etherscan.io/address/0xCE15294273CFb9D9b628F4D61636623decDF4fdC)       |
 | &nbsp;  | Storage  | [0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46](https://etherscan.io/address/0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46)       |
-| Hoodi\* | Deposit  | [0x320f3aAB9405e38b955178BBe75c477dECBA0C27](https://hoodi.etherscan.io/address/0x320f3aAB9405e38b955178BBe75c477dECBA0C27) |
+| Hoodi\* | Deposit  | [0x425E6f83e27f1676AD78BC39dA79C2C7b33d3Fd8](https://hoodi.etherscan.io/address/0x425E6f83e27f1676AD78BC39dA79C2C7b33d3Fd8) |
 | &nbsp;  | Storage  | [0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1](https://hoodi.etherscan.io/address/0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1) |
 
 프로토콜 내에서 Storage 컨트랙트는 필요에 따라 다른 모든 배포된 컨트랙트 주소를 찾는 데 사용됩니다 (이 [예제](/ko/protocol/contracts-usage#interacting-with-rocket-pool) 참조).
@@ -24,37 +24,36 @@ Rocket Pool을 더 많은 서비스와 프로토콜에 통합하는 것을 도�
 
 ## Token Contracts
 
-| Chain      | Asset | Address                                                                                                                                                                             |
-| ---------- | ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Mainnet    | RPL   | [0xD33526068D116cE69F19A9ee46F0bd304F21A51f](https://etherscan.io/token/0xd33526068d116ce69f19a9ee46f0bd304f21a51f)                                                                 |
-| &nbsp;     | rETH  | [0xae78736Cd615f374D3085123A210448E74Fc6393](https://etherscan.io/token/0xae78736cd615f374d3085123a210448e74fc6393)                                                                 |
-| Arbitrum   | RPL   | [0xb766039cc6db368759c1e56b79affe831d0cc507](https://arbiscan.io/token/0xb766039cc6db368759c1e56b79affe831d0cc507)                                                                  |
-| &nbsp;     | rETH  | [0xec70dcb4a1efa46b8f2d97c310c9c4790ba5ffa8](https://arbiscan.io/token/0xec70dcb4a1efa46b8f2d97c310c9c4790ba5ffa8)                                                                  |
-| Optimism   | RPL   | [0xc81d1f0eb955b0c020e5d5b264e1ff72c14d1401](https://optimistic.etherscan.io/token/0xc81d1f0eb955b0c020e5d5b264e1ff72c14d1401)                                                      |
-| &nbsp;     | rETH  | [0x9bcef72be871e61ed4fbbc7630889bee758eb81d](https://optimistic.etherscan.io/token/0x9bcef72be871e61ed4fbbc7630889bee758eb81d)                                                      |
-| zkSync Era | RPL   | [0x1CF8553Da5a75C20cdC33532cb19Ef7E3bFFf5BC](https://explorer.zksync.io/address/0x1CF8553Da5a75C20cdC33532cb19Ef7E3bFFf5BC)                                                         |
-| &nbsp;     | rETH  | [0x32Fd44bB869620C0EF993754c8a00Be67C464806](https://explorer.zksync.io/address/0x32Fd44bB869620C0EF993754c8a00Be67C464806)                                                         |
-| Polygon    | RPL   | [0x7205705771547cf79201111b4bd8aaf29467b9ec](https://polygonscan.com/token/https://mainnet.infura.io/v3/730706e87a4a41de9b7b8bd4600a72e30x7205705771547cf79201111b4bd8aaf29467b9ec) |
-| &nbsp;     | rETH  | [0x0266F4F08D82372CF0FcbCCc0Ff74309089c74d1](https://polygonscan.com/token/0x0266F4F08D82372CF0FcbCCc0Ff74309089c74d1)                                                              |
-| Hoodi\*    | RPL   | [0x1Cc9cF5586522c6F483E84A19c3C2B0B6d027bF0](https://hoodi.etherscan.io/address/0x1Cc9cF5586522c6F483E84A19c3C2B0B6d027bF0)                                                         |
-| &nbsp;     | rETH  | [0x7322c24752f79c05FFD1E2a6FCB97020C1C264F1](https://hoodi.etherscan.io/address/0x7322c24752f79c05FFD1E2a6FCB97020C1C264F1)                                                         |
-| Base       | RPL   | [0x1f73EAf55d696BFFA9b0EA16fa987B93b0f4d302](https://basescan.org/address/0x1f73EAf55d696BFFA9b0EA16fa987B93b0f4d302)                                                               |
-| &nbsp;     | rETH  | [0xB6fe221Fe9EeF5aBa221c348bA20A1Bf5e73624c](https://basescan.org/address/0xB6fe221Fe9EeF5aBa221c348bA20A1Bf5e73624c)                                                               |
-| Scroll     | rETH  | [0x53878B874283351D26d206FA512aEcE1Bef6C0dD](https://scrollscan.com/address/0x53878b874283351d26d206fa512aece1bef6c0dd)                                                             |
-| Starknet   | rETH  | [0x0319111a5037cbec2b3e638cc34a3474e2d2608299f3e62866e9cc683208c610](https://starkscan.co/token/0x0319111a5037cbec2b3e638cc34a3474e2d2608299f3e62866e9cc683208c610)                 |
-| Unichain   | rETH  | [0x94Cac393f3444cEf63a651FfC18497E7e8bd036a](https://uniscan.xyz/address/0x94Cac393f3444cEf63a651FfC18497E7e8bd036a)                                                                |
+| Chain      | Asset | Address                                                                                                                                                             |
+| ---------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Mainnet    | RPL   | [0xD33526068D116cE69F19A9ee46F0bd304F21A51f](https://etherscan.io/token/0xd33526068d116ce69f19a9ee46f0bd304f21a51f)                                                 |
+| &nbsp;     | rETH  | [0xae78736Cd615f374D3085123A210448E74Fc6393](https://etherscan.io/token/0xae78736cd615f374d3085123a210448e74fc6393)                                                 |
+| Arbitrum   | RPL   | [0xb766039cc6db368759c1e56b79affe831d0cc507](https://arbiscan.io/token/0xb766039cc6db368759c1e56b79affe831d0cc507)                                                  |
+| &nbsp;     | rETH  | [0xec70dcb4a1efa46b8f2d97c310c9c4790ba5ffa8](https://arbiscan.io/token/0xec70dcb4a1efa46b8f2d97c310c9c4790ba5ffa8)                                                  |
+| Optimism   | RPL   | [0xc81d1f0eb955b0c020e5d5b264e1ff72c14d1401](https://optimistic.etherscan.io/token/0xc81d1f0eb955b0c020e5d5b264e1ff72c14d1401)                                      |
+| &nbsp;     | rETH  | [0x9bcef72be871e61ed4fbbc7630889bee758eb81d](https://optimistic.etherscan.io/token/0x9bcef72be871e61ed4fbbc7630889bee758eb81d)                                      |
+| zkSync Era | RPL   | [0x1CF8553Da5a75C20cdC33532cb19Ef7E3bFFf5BC](https://explorer.zksync.io/address/0x1CF8553Da5a75C20cdC33532cb19Ef7E3bFFf5BC)                                         |
+| &nbsp;     | rETH  | [0x32Fd44bB869620C0EF993754c8a00Be67C464806](https://explorer.zksync.io/address/0x32Fd44bB869620C0EF993754c8a00Be67C464806)                                         |
+| Polygon    | RPL   | [0x7205705771547cf79201111b4bd8aaf29467b9ec](https://polygonscan.com/token/0x7205705771547cf79201111b4bd8aaf29467b9ec)                                              |
+| &nbsp;     | rETH  | [0x0266F4F08D82372CF0FcbCCc0Ff74309089c74d1](https://polygonscan.com/token/0x0266F4F08D82372CF0FcbCCc0Ff74309089c74d1)                                              |
+| Hoodi\*    | RPL   | [0x1Cc9cF5586522c6F483E84A19c3C2B0B6d027bF0](https://hoodi.etherscan.io/address/0x1Cc9cF5586522c6F483E84A19c3C2B0B6d027bF0)                                         |
+| &nbsp;     | rETH  | [0x7322c24752f79c05FFD1E2a6FCB97020C1C264F1](https://hoodi.etherscan.io/address/0x7322c24752f79c05FFD1E2a6FCB97020C1C264F1)                                         |
+| Base       | RPL   | [0x1f73EAf55d696BFFA9b0EA16fa987B93b0f4d302](https://basescan.org/address/0x1f73EAf55d696BFFA9b0EA16fa987B93b0f4d302)                                               |
+| &nbsp;     | rETH  | [0xB6fe221Fe9EeF5aBa221c348bA20A1Bf5e73624c](https://basescan.org/address/0xB6fe221Fe9EeF5aBa221c348bA20A1Bf5e73624c)                                               |
+| Scroll     | rETH  | [0x53878B874283351D26d206FA512aEcE1Bef6C0dD](https://scrollscan.com/address/0x53878b874283351d26d206fa512aece1bef6c0dd)                                             |
+| Starknet   | rETH  | [0x0319111a5037cbec2b3e638cc34a3474e2d2608299f3e62866e9cc683208c610](https://starkscan.co/token/0x0319111a5037cbec2b3e638cc34a3474e2d2608299f3e62866e9cc683208c610) |
+| Unichain   | rETH  | [0x94Cac393f3444cEf63a651FfC18497E7e8bd036a](https://uniscan.xyz/address/0x94Cac393f3444cEf63a651FfC18497E7e8bd036a)                                                |
 
 <small>\* Testnet</small>
 
 ## Deposit Pool Contract Version History
 
-| Chain   | RP Version      | Address                                                                                                                |
-| ------- | --------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| Mainnet | v1.2 (Atlas)    | [0xDD3f50F8A6CafbE9b31a427582963f465E745AF8](https://etherscan.io/address/0xDD3f50F8A6CafbE9b31a427582963f465E745AF8) |
-| &nbsp;  | v1.1 (Redstone) | [0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4](https://etherscan.io/address/0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4)  |
-| &nbsp;  | v1.0            | [0x4D05E3d48a938db4b7a9A59A802D5b45011BDe58](https://etherscan.io/address/0x4D05E3d48a938db4b7a9A59A802D5b45011BDe58)  |
-
-<small>\* Testnet</small>
+| Chain   | RP Version      | Address                                                                                                               |
+| ------- | --------------- | --------------------------------------------------------------------------------------------------------------------- |
+| Mainnet | v1.4 (Saturn 1) | [0xCE15294273CFb9D9b628F4D61636623decDF4fdC](https://etherscan.io/address/0xCE15294273CFb9D9b628F4D61636623decDF4fdC) |
+| &nbsp;  | v1.2 (Atlas)    | [0xDD3f50F8A6CafbE9b31a427582963f465E745AF8](https://etherscan.io/address/0xDD3f50F8A6CafbE9b31a427582963f465E745AF8) |
+| &nbsp;  | v1.1 (Redstone) | [0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4](https://etherscan.io/address/0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4) |
+| &nbsp;  | v1.0            | [0x4D05E3d48a938db4b7a9A59A802D5b45011BDe58](https://etherscan.io/address/0x4D05E3d48a938db4b7a9A59A802D5b45011BDe58) |
 
 ## Integrations
 
@@ -108,157 +107,158 @@ Rocket Pool을 더 많은 서비스와 프로토콜에 통합하는 것을 도�
 
 ## All Active Deployed Protocol Contracts
 
-| Chain   | Contract Name                         | Address                                                                                                                      |
-| ------- | ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| Mainnet | addressQueueStorage                   | [0x44E31944E1A6F3b8F805E105B130F8bdb7E2EBd8](https://etherscan.io/address/0x44E31944E1A6F3b8F805E105B130F8bdb7E2EBd8)        |
-| &nbsp;  | addressSetStorage                     | [0xD4ae2511dF21F367792bA4D67c6eb032171c6a16](https://etherscan.io/address/0xD4ae2511dF21F367792bA4D67c6eb032171c6a16)        |
-| &nbsp;  | rocketAuctionManager                  | [0x1a2F00D187C9388fDa3Bf2dc46a6b4740849EcCE](https://etherscan.io/address/0x1a2F00D187C9388fDa3Bf2dc46a6b4740849EcCE)        |
-| &nbsp;  | rocketClaimDAO                        | [0xfB2F2Ab63DCf412ced6cdE5f4f809215ed0c81aa](https://etherscan.io/address/0xfB2F2Ab63DCf412ced6cdE5f4f809215ed0c81aa)        |
-| &nbsp;  | rocketDAONodeTrusted                  | [0xb8e783882b11Ff4f6Cef3C501EA0f4b960152cc9](https://etherscan.io/address/0xb8e783882b11Ff4f6Cef3C501EA0f4b960152cc9)        |
-| &nbsp;  | rocketDAONodeTrustedActions           | [0x029d946F28F93399a5b0D09c879FC8c94E596AEb](https://etherscan.io/address/0x029d946F28F93399a5b0D09c879FC8c94E596AEb)        |
-| &nbsp;  | rocketDAONodeTrustedProposals         | [0xb0ec3F657ef43A615aB480FA8D5A53BF2c2f05d5](https://etherscan.io/address/0xb0ec3F657ef43A615aB480FA8D5A53BF2c2f05d5)        |
-| &nbsp;  | rocketDAONodeTrustedSettingsMembers   | [0xdA1AB39e62E0A5297AF44C7064E501b0613f0D01](https://etherscan.io/address/0xdA1AB39e62E0A5297AF44C7064E501b0613f0D01)        |
-| &nbsp;  | rocketDAONodeTrustedSettingsMinipool  | [0xE535fA45e12d748393C117C6D8EEBe1a7D124d95](https://etherscan.io/address/0xE535fA45e12d748393C117C6D8EEBe1a7D124d95)        |
-| &nbsp;  | rocketDAONodeTrustedSettingsProposals | [0xAD038f8994a6bd51C8A72D3721CEd83401D4d2b0](https://etherscan.io/address/0xAD038f8994a6bd51C8A72D3721CEd83401D4d2b0)        |
-| &nbsp;  | rocketDAONodeTrustedSettingsRewards   | [0x7322c24752f79c05FFD1E2a6FCB97020C1C264F1](https://etherscan.io/address/0x7322c24752f79c05FFD1E2a6FCB97020C1C264F1)        |
-| &nbsp;  | rocketDAONodeTrustedUpgrade           | [0x9290AA076a2F1418a4E414E3D83AE03cA8E1ad10](https://etherscan.io/address/0x9290AA076a2F1418a4E414E3D83AE03cA8E1ad10)        |
-| &nbsp;  | rocketDAOProposal                     | [0x1e94e6131Ba5B4F193d2A1067517136C52ddF102](https://etherscan.io/address/0x1e94e6131Ba5B4F193d2A1067517136C52ddF102)        |
-| &nbsp;  | rocketDAOProtocol                     | [0xCaC25e88276A333cF9d4196d112D93af67ef809A](https://etherscan.io/address/0xCaC25e88276A333cF9d4196d112D93af67ef809A)        |
-| &nbsp;  | rocketDAOProtocolActions              | [0xB50d513de40eE70A662c39207b4382a693f9e08D](https://etherscan.io/address/0xB50d513de40eE70A662c39207b4382a693f9e08D)        |
-| &nbsp;  | rocketDAOProtocolProposals            | [0xcf7F6E23cD8189B7F56b14F66e11241C8ac0F03b](https://etherscan.io/address/0xcf7F6E23cD8189B7F56b14F66e11241C8ac0F03b)        |
-| &nbsp;  | rocketDAOProtocolProposal             | [0x2D627A50Dc1C4EDa73E42858E8460b0eCF300b25](https://etherscan.io/address/0x2D627A50Dc1C4EDa73E42858E8460b0eCF300b25)        |
-| &nbsp;  | rocketDAOProtocolSettingsAuction      | [0x364F989A3C9a1F66cB51b9043680974eA08C0d18](https://etherscan.io/address/0x364F989A3C9a1F66cB51b9043680974eA08C0d18)        |
-| &nbsp;  | rocketDAOProtocolSettingsDeposit      | [0x227BE8dD01DF8ad9BED0178e4F8cEC2996C5c365](https://etherscan.io/address/0x227BE8dD01DF8ad9BED0178e4F8cEC2996C5c365)        |
-| &nbsp;  | rocketDAOProtocolSettingsInflation    | [0x1d4AAEaE7C8b75a8e5ab589a84516853DBDdd735](https://etherscan.io/address/0x1d4AAEaE7C8b75a8e5ab589a84516853DBDdd735)        |
-| &nbsp;  | rocketDAOProtocolSettingsMinipool     | [0xaeF94C3650AA13d7A2456477fc374a16b94B9152](https://etherscan.io/address/0xaeF94C3650AA13d7A2456477fc374a16b94B9152)        |
-| &nbsp;  | rocketDAOProtocolSettingsNetwork      | [0x67Fd03a5095197D1aD1F932BC55E022C420b1153](https://etherscan.io/address/0x67Fd03a5095197D1aD1F932BC55E022C420b1153)        |
-| &nbsp;  | rocketDAOProtocolSettingsNode         | [0xb02B883303e658Ddcd58D3871Dc4Ca0C91f0fc9D](https://etherscan.io/address/0xb02B883303e658Ddcd58D3871Dc4Ca0C91f0fc9D)        |
-| &nbsp;  | rocketDAOProtocolSettingsRewards      | [0x8857610Ba0A7caFD4dBE1120bfF03E9c74fc4124](https://etherscan.io/address/0x8857610Ba0A7caFD4dBE1120bfF03E9c74fc4124)        |
-| &nbsp;  | rocketDepositPool                     | [0xCE15294273CFb9D9b628F4D61636623decDF4fdC](https://etherscan.io/address/0xCE15294273CFb9D9b628F4D61636623decDF4fdC)        |
-| &nbsp;  | rocketMerkleDistributorMainnet        | [0xE4E2612EE8d7fdc8518Faea85770A3b9c886E2f5](https://etherscan.io/address/0xE4E2612EE8d7fdc8518Faea85770A3b9c886E2f5)        |
-| &nbsp;  | rocketMinipoolBase                    | [0x560656C8947564363497E9C78A8BDEff8d3EFF33](https://etherscan.io/address/0x560656C8947564363497E9C78A8BDEff8d3EFF33)        |
-| &nbsp;  | rocketMinipoolBondReducer             | [0xDe8Ab526b19FCA2D5a57c4A78b698041717BE591](https://etherscan.io/address/0xDe8Ab526b19FCA2D5a57c4A78b698041717BE591)        |
-| &nbsp;  | rocketMinipoolDelegate                | [0x03d30466d199Ef540823fe2a22CAE2E3b9343bb0](https://etherscan.io/address/0x03d30466d199Ef540823fe2a22CAE2E3b9343bb0)        |
-| &nbsp;  | rocketMinipoolFactory                 | [0x7B8c48256CaF462670f84c7e849cab216922B8D3](https://etherscan.io/address/0x7B8c48256CaF462670f84c7e849cab216922B8D3)        |
-| &nbsp;  | rocketMinipoolManager                 | [0xe54B8C641fd96dE5D6747f47C19964c6b824D62C](https://etherscan.io/address/0xe54B8C641fd96dE5D6747f47C19964c6b824D62C)        |
-| &nbsp;  | rocketMinipoolPenalty                 | [0xE64AC47b6e2FEcfCDEA35147Fe61af9894A06ba6](https://etherscan.io/address/0xE64AC47b6e2FEcfCDEA35147Fe61af9894A06ba6)        |
-| &nbsp;  | rocketMinipoolQueue                   | [0x9e966733e3E9BFA56aF95f762921859417cF6FaA](https://etherscan.io/address/0x9e966733e3E9BFA56aF95f762921859417cF6FaA)        |
-| &nbsp;  | rocketMinipoolStatus                  | [0xa52451b9d25EEf02BE42B3A8161A18f947F8A6a5](https://etherscan.io/address/0xa52451b9d25EEf02BE42B3A8161A18f947F8A6a5)        |
-| &nbsp;  | rocketNetworkBalances                 | [0x1D9F14C6Bfd8358b589964baD8665AdD248E9473](https://etherscan.io/address/0x1D9F14C6Bfd8358b589964baD8665AdD248E9473)        |
-| &nbsp;  | rocketNetworkFees                     | [0xf824e2d69dc7e7c073162C2bdE87dA4746d27a0f](https://etherscan.io/address/0xf824e2d69dc7e7c073162C2bdE87dA4746d27a0f)        |
-| &nbsp;  | rocketNetworkPenalties                | [0xeD0493DE30e82bE7C16C8925C7204CE9D1136B3a](https://etherscan.io/address/0xeD0493DE30e82bE7C16C8925C7204CE9D1136B3a)        |
-| &nbsp;  | rocketNetworkPrices                   | [0x25E54Bf48369b8FB25bB79d3a3Ff7F3BA448E382](https://etherscan.io/address/0x25E54Bf48369b8FB25bB79d3a3Ff7F3BA448E382)        |
-| &nbsp;  | rocketNodeDeposit                     | [0x6B13698c306a297Fee1383cdC2c65d63781D2D47](https://etherscan.io/address/0x6B13698c306a297Fee1383cdC2c65d63781D2D47)        |
-| &nbsp;  | rocketNodeDistributorDelegate         | [0x35A85d4c115801395e6E3abAa784Fb05826f129D](https://etherscan.io/address/0x35A85d4c115801395e6E3abAa784Fb05826f129D)        |
-| &nbsp;  | rocketNodeDistributorFactory          | [0xe228017f77B3E0785e794e4c0a8A6b935bB4037C](https://etherscan.io/address/0xe228017f77B3E0785e794e4c0a8A6b935bB4037C)        |
-| &nbsp;  | rocketNodeManager                     | [0xcf2d76A7499d3acB5A22ce83c027651e8d76e250](https://etherscan.io/address/0xcf2d76A7499d3acB5A22ce83c027651e8d76e250)        |
-| &nbsp;  | rocketNodeStaking                     | [0xedFc7DCaE43fF954577a2875a9D805874490eE3E](https://etherscan.io/address/0xedFc7DCaE43fF954577a2875a9D805874490eE3E)        |
-| &nbsp;  | rocketRewardsPool                     | [0xCba5951fc706Fc783b7C142DaE8576Ebe29c41FD](https://etherscan.io/address/0xCba5951fc706Fc783b7C142DaE8576Ebe29c41FD)        |
-| &nbsp;  | rocketSmoothingPool                   | [0xd4E96eF8eee8678dBFf4d535E033Ed1a4F7605b7](https://etherscan.io/address/0xd4E96eF8eee8678dBFf4d535E033Ed1a4F7605b7)        |
-| &nbsp;  | rocketStorage                         | [0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46](https://etherscan.io/address/0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46)        |
-| &nbsp;  | rocketTokenRETH                       | [0xae78736Cd615f374D3085123A210448E74Fc6393](https://etherscan.io/address/0xae78736Cd615f374D3085123A210448E74Fc6393)        |
-| &nbsp;  | rocketTokenRPL                        | [0xD33526068D116cE69F19A9ee46F0bd304F21A51f](https://etherscan.io/address/0xD33526068D116cE69F19A9ee46F0bd304F21A51f)        |
-| &nbsp;  | rocketUpgradeOneDotOne                | [0xC680a22b4F03977f69b51A09f3Dbe922eb77C8FE](https://etherscan.io/address/0xc680a22b4f03977f69b51a09f3dbe922eb77c8fe)        |
-| &nbsp;  | rocketUpgradeOneDotTwo                | [0x9a0b5d3101d111EA0edD573d45ef2208CC97984a](https://etherscan.io/address/0x9a0b5d3101d111EA0edD573d45ef2208CC97984a)        |
-| &nbsp;  | rocketUpgradeOneDotThree              | [0x5dC69083B68CDb5c9ca492A0A5eC581e529fb73C](https://etherscan.io/address/0x5dC69083B68CDb5c9ca492A0A5eC581e529fb73C)        |
-| &nbsp;  | rocketUpgradeOneDotThreeDotOne        | [0xc2C81454427b1E53Fdf5d3B45561e3c18F90f9eD](https://etherscan.io/address/0xc2C81454427b1E53Fdf5d3B45561e3c18F90f9eD)        |
-| &nbsp;  | rocketVault                           | [0x3bDC69C4E5e13E52A65f5583c23EFB9636b469d6](https://etherscan.io/address/0x3bDC69C4E5e13E52A65f5583c23EFB9636b469d6)        |
-| &nbsp;  | rocketNetworkSnapshots                | [0xe37F2d9dFb7397caF671DF5190a5dFB601028f17](https://etherscan.io/address/0xe37F2d9dFb7397caF671DF5190a5dFB601028f17)        |
-| &nbsp;  | rocketNetworkVoting                   | [0x994A9C49230FEC0c127B8F42D6c5288F02610AeD](https://etherscan.io/address/0x994A9C49230FEC0c127B8F42D6c5288F02610AeD)        |
-| &nbsp;  | rocketDAOProtocolSettingsProposals    | [0xf6ad771dfB1cd10c66F688E251b5E5c21cbfDF81](https://etherscan.io/address/0xf6ad771dfB1cd10c66F688E251b5E5c21cbfDF81)        |
-| &nbsp;  | rocketDAOProtocolVerifier             | [0xd1f7e573cdC64FC0B201ca37aB50bC7Dd880040A](https://etherscan.io/address/0xd1f7e573cdC64FC0B201ca37aB50bC7Dd880040A)        |
-| &nbsp;  | rocketDAOSecurity                     | [0x84aE6D61Df5c6ba7196b5C76Bcb112B8a689aD37](https://etherscan.io/address/0x84aE6D61Df5c6ba7196b5C76Bcb112B8a689aD37)        |
-| &nbsp;  | rocketDAOSecurityActions              | [0xeaa442dF4Bb5394c66C8024eFb4979bEc89Eb59a](https://etherscan.io/address/0xeaa442dF4Bb5394c66C8024eFb4979bEc89Eb59a)        |
-| &nbsp;  | rocketDAOSecurityProposals            | [0x334B9B1a6F9d7531efb13746482ff40f1c2a0c4e](https://etherscan.io/address/0x334B9B1a6F9d7531efb13746482ff40f1c2a0c4e)        |
-| &nbsp;  | rocketDAOProtocolSettingsSecurity     | [0xC9D771AaF504F33bB3C8a7E67eA9f1881F837cFf](https://etherscan.io/address/0xC9D771AaF504F33bB3C8a7E67eA9f1881F837cFf)        |
-| &nbsp;  | rocketDAOProtocolProposal             | [0x2D627A50Dc1C4EDa73E42858E8460b0eCF300b25](https://etherscan.io/address/0x2D627A50Dc1C4EDa73E42858E8460b0eCF300b25)        |
-| &nbsp;  | rocketSwapRouter                      | [0x16d5a408e807db8ef7c578279beeee6b228f1c1c](https://etherscan.io/address/0x16d5a408e807db8ef7c578279beeee6b228f1c1c)        |
-| &nbsp;  | rocketMegapoolDelegate                | [0xca3DD4bee7C174903dBF66c3897c27E9ADaAEBdD](https://etherscan.io/address/0xca3DD4bee7C174903dBF66c3897c27E9ADaAEBdD)        |
-| &nbsp;  | rocketMegapoolFactory                 | [0xD5bffeaa9f373B9C367132772FAA0b88e3F0E38b](https://etherscan.io/address/0xD5bffeaa9f373B9C367132772FAA0b88e3F0E38b)        |
-| &nbsp;  | rocketMegapoolProxy                   | [0x1B389D76a04d01026c5f5B0a125D4CCF26F9cd51](https://etherscan.io/address/0x1B389D76a04d01026c5f5B0a125D4CCF26F9cd51)        |
-| &nbsp;  | rocketMegapoolManager                 | [0xf2CCd522Ba5fFEda28fe0389963845D61F342034](https://etherscan.io/address/0xf2CCd522Ba5fFEda28fe0389963845D61F342034)        |
-| &nbsp;  | linkedListStorage                     | [0x52590E8aaC140E2020f8F51695719922ebcCb6D6](https://etherscan.io/address/0x52590E8aaC140E2020f8F51695719922ebcCb6D6)        |
-| &nbsp;  | rocketDAOProtocolSettingsMegapool     | [0x40628FAAc22383327b9f7bBc86CD1857050A2dCe](https://etherscan.io/address/0x40628FAAc22383327b9f7bBc86CD1857050A2dCe)        |
-| &nbsp;  | rocketDAOSecurityUpgrade              | [0x950BaF0358164339114914169BF16754789B5Dc4](https://etherscan.io/address/0x950BaF0358164339114914169BF16754789B5Dc4)        |
-| &nbsp;  | rocketNetworkRevenues                 | [0x9D9708dA8E0200Dd8Dd9ad09e0AAf184Ad260842](https://etherscan.io/address/0x9D9708dA8E0200Dd8Dd9ad09e0AAf184Ad260842)        |
-| &nbsp;  | beaconStateVerifier                   | [0xE9a114c50f26001443B91079Ab5573a90D2D8469](https://etherscan.io/address/0xE9a114c50f26001443B91079Ab5573a90D2D8469)        |
-| &nbsp;  | rocketMegapoolPenalties               | [0xa2afC3C2d8ea4eBdbE925cADe17c29517630e6aB](https://etherscan.io/address/0xa2afC3C2d8ea4eBdbE925cADe17c29517630e6aB)        |
-| &nbsp;  | rocketNetworkSnapshotsTime            | [0x569F5b3024054AB4049A50df223a747AFE18a891](https://etherscan.io/address/0x569F5b3024054AB4049A50df223a747AFE18a891)        |
-| &nbsp;  | rocketUpgradeOneDotFour               | [0x5b3B5C76391662e56d0ff72F31B89C409316c8Ba](https://etherscan.io/address/0x5b3B5C76391662e56d0ff72F31B89C409316c8Ba)        |
-| Hoodi\* | addressQueueStorage                   | [0x07FCaBCbe4ff0d80c2b1eb42855C0131b6cba2F4](http://hoodi.etherscan.io/address/0x07FCaBCbe4ff0d80c2b1eb42855C0131b6cba2F4)   |
-| &nbsp;  | addressSetStorage                     | [0xA805d68b61956BC92d556F2bE6d18747adAeEe82](http://hoodi.etherscan.io/address/0xA805d68b61956BC92d556F2bE6d18747adAeEe82)   |
-| &nbsp;  | rocketAuctionManager                  | [0x84D11B65E026F7aA08F5497dd3593fb083410B71](http://hoodi.etherscan.io/address/0x84D11B65E026F7aA08F5497dd3593fb083410B71)   |
-| &nbsp;  | rocketDAONodeTrusted                  | [0x56CD23Baaf2e7cb7056968d85E5EFe343b0E1DC2](http://hoodi.etherscan.io/address/0x56CD23Baaf2e7cb7056968d85E5EFe343b0E1DC2)   |
-| &nbsp;  | rocketDAONodeTrustedActions           | [0xa0f327589B08CEB824c21CDe8eaD5a3e6ca9edF7](http://hoodi.etherscan.io/address/0xa0f327589B08CEB824c21CDe8eaD5a3e6ca9edF7)   |
-| &nbsp;  | rocketDAONodeTrustedProposals         | [0x2d3142a05bDD16a3223B585a7A48132867dA6480](http://hoodi.etherscan.io/address/0x2d3142a05bDD16a3223B585a7A48132867dA6480)   |
-| &nbsp;  | rocketDAONodeTrustedSettingsMembers   | [0x5c2D33A015D132D4f590f00df807Bb1052531ab9](http://hoodi.etherscan.io/address/0x5c2D33A015D132D4f590f00df807Bb1052531ab9)   |
-| &nbsp;  | rocketDAONodeTrustedSettingsMinipool  | [0x5ffe8bD3165e80D51ce834B32a6B6C02233494bF](http://hoodi.etherscan.io/address/0x5ffe8bD3165e80D51ce834B32a6B6C02233494bF)   |
-| &nbsp;  | rocketDAONodeTrustedSettingsProposals | [0xe4C3Ec6A20bE31296032F968cEadeE9e9Aa76535](http://hoodi.etherscan.io/address/0xe4C3Ec6A20bE31296032F968cEadeE9e9Aa76535)   |
-| &nbsp;  | rocketDAONodeTrustedSettingsRewards   | [0x2FB42FfE2d7dF8381853e96304300c6a5E846905](http://hoodi.etherscan.io/address/0x2FB42FfE2d7dF8381853e96304300c6a5E846905)   |
-| &nbsp;  | rocketDAOProposal                     | [0xEFfb0c7350F1293a997112b3C2594Cdc34B36F18](http://hoodi.etherscan.io/address/0xEFfb0c7350F1293a997112b3C2594Cdc34B36F18)   |
-| &nbsp;  | rocketDAOProtocolActions              | [0x1AA4544cE0fd51596B6d51d0f55A40e409B8BAd4](http://hoodi.etherscan.io/address/0x1AA4544cE0fd51596B6d51d0f55A40e409B8BAd4)   |
-| &nbsp;  | rocketDAOProtocolProposal             | [0x17Cf2c5d69E4F222bcaDD86d210FE9dc8BadA60B](http://hoodi.etherscan.io/address/0x17Cf2c5d69E4F222bcaDD86d210FE9dc8BadA60B)   |
-| &nbsp;  | rocketDAOProtocolSettingsAuction      | [0xD9D9202661DE12aaAa478a704eA319B3F24AE711](http://hoodi.etherscan.io/address/0xD9D9202661DE12aaAa478a704eA319B3F24AE711)   |
-| &nbsp;  | rocketDAOProtocolSettingsInflation    | [0xb1029Ac2Be4e08516697093e2AFeC435057f3511](http://hoodi.etherscan.io/address/0xb1029Ac2Be4e08516697093e2AFeC435057f3511)   |
-| &nbsp;  | rocketDAOProtocolSettingsRewards      | [0x614A5be866A0EC908cA9aE0d7D3eB100492A9f4e](http://hoodi.etherscan.io/address/0x614A5be866A0EC908cA9aE0d7D3eB100492A9f4e)   |
-| &nbsp;  | rocketMinipoolBase                    | [0xac2245BE4C2C1E9752499Bcd34861B761d62fC27](http://hoodi.etherscan.io/address/0xac2245BE4C2C1E9752499Bcd34861B761d62fC27)   |
-| &nbsp;  | rocketMinipoolDelegate                | [0xddB6E648D6cbeAB31A34a21cA5229db3FF16C9b6](http://hoodi.etherscan.io/address/0xddB6E648D6cbeAB31A34a21cA5229db3FF16C9b6)   |
-| &nbsp;  | rocketMinipoolFactory                 | [0xDD3f50F8A6CafbE9b31a427582963f465E745AF8](http://hoodi.etherscan.io/address/0xDD3f50F8A6CafbE9b31a427582963f465E745AF8)   |
-| &nbsp;  | rocketMinipoolPenalty                 | [0x54705f80D7C51Fcffd9C659ce3f3C9a7dCCf5788](http://hoodi.etherscan.io/address/0x54705f80D7C51Fcffd9C659ce3f3C9a7dCCf5788)   |
-| &nbsp;  | rocketMinipoolQueue                   | [0x4220EECD69B2e1e70a7001637cc3D839EE2E97f5](http://hoodi.etherscan.io/address/0x4220EECD69B2e1e70a7001637cc3D839EE2E97f5)   |
-| &nbsp;  | rocketNetworkFees                     | [0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4](http://hoodi.etherscan.io/address/0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4)   |
-| &nbsp;  | rocketNetworkPrices                   | [0x029d946F28F93399a5b0D09c879FC8c94E596AEb](http://hoodi.etherscan.io/address/0x029d946F28F93399a5b0D09c879FC8c94E596AEb)   |
-| &nbsp;  | rocketNodeDistributorFactory          | [0x42d4e4B59220dA435A0bd6b5892B90fF50e1D8D4](http://hoodi.etherscan.io/address/0x42d4e4B59220dA435A0bd6b5892B90fF50e1D8D4)   |
-| &nbsp;  | rocketSmoothingPool                   | [0xA347C391bc8f740CAbA37672157c8aAcD08Ac567](http://hoodi.etherscan.io/address/0xA347C391bc8f740CAbA37672157c8aAcD08Ac567)   |
-| &nbsp;  | rocketStorage                         | [0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1](http://hoodi.etherscan.io/address/0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1)   |
-| &nbsp;  | rocketTokenRETH                       | [0x7322c24752f79c05FFD1E2a6FCB97020C1C264F1](http://hoodi.etherscan.io/address/0x7322c24752f79c05FFD1E2a6FCB97020C1C264F1)   |
-| &nbsp;  | rocketTokenRPL                        | [0x1Cc9cF5586522c6F483E84A19c3C2B0B6d027bF0](http://hoodi.etherscan.io/address/0x1Cc9cF5586522c6F483E84A19c3C2B0B6d027bF0)   |
-| &nbsp;  | rocketUpgradeOneDotThree              | [0xa38f23783358e6Ce576441525bE0itAd6Dab5B0eF4](http://hoodi.etherscan.io/address/0xa38f23783358e6Ce576441525bE0Ad6Dab5B0eF4) |
-| &nbsp;  | rocketUpgradeOneDotThreeHotfix        | [0xe068629fe7bf0242387f238Ab1AD66D6C3277f6F](http://hoodi.etherscan.io/address/0xe068629fe7bf0242387f238Ab1AD66D6C3277f6F)   |
-| &nbsp;  | rocketUpgradeOneDotThreeDotOne        | [0xC5bc3adEB85657EB82FB692Ef814760799d9Ab0A](http://hoodi.etherscan.io/address/0xC5bc3adEB85657EB82FB692Ef814760799d9Ab0A)   |
-| &nbsp;  | rocketVault                           | [0x67CdE7AF920682A29fcfea1A179ef0f30F48Df3e](http://hoodi.etherscan.io/address/0x67CdE7AF920682A29fcfea1A179ef0f30F48Df3e)   |
-| &nbsp;  | rocketDAOProtocolVerifier             | [0xf824e2d69dc7e7c073162C2bdE87dA4746d27a0f](http://hoodi.etherscan.io/address/0xf824e2d69dc7e7c073162C2bdE87dA4746d27a0f)   |
-| &nbsp;  | rocketDAOSecurity                     | [0x751826b107672360b764327631cC5764515fFC37](http://hoodi.etherscan.io/address/0x751826b107672360b764327631cC5764515fFC37)   |
-| &nbsp;  | rocketDAOSecurityActions              | [0x560656C8947564363497E9C78A8BDEff8d3EFF33](http://hoodi.etherscan.io/address/0x560656C8947564363497E9C78A8BDEff8d3EFF33)   |
-| &nbsp;  | rocketMegapoolDelegate                | [0xbd96545b6066c9701A55D88B237A70Cd30457d07](https://hoodi.etherscan.io/address/0xbd96545b6066c9701A55D88B237A70Cd30457d07)  |
-| &nbsp;  | rocketMegapoolFactory                 | [0x894d1E83BB08aa50D77D5C4E471A6F94bBE056c5](https://hoodi.etherscan.io/address/0x894d1E83BB08aa50D77D5C4E471A6F94bBE056c5)  |
-| &nbsp;  | rocketMegapoolProxy                   | [0x7791D20668112Ed6b81D46647a661D9997d35922](https://hoodi.etherscan.io/address/0x7791D20668112Ed6b81D46647a661D9997d35922)  |
-| &nbsp;  | rocketMegapoolManager                 | [0x8Fb4399DE1442f28F8DcDbDc1435969aEAF4170E](https://hoodi.etherscan.io/address/0x8Fb4399DE1442f28F8DcDbDc1435969aEAF4170E)  |
-| &nbsp;  | rocketNodeManager                     | [0xa9115EfdA9c4DceEf1321153561dCb375d13B07A](https://hoodi.etherscan.io/address/0xa9115EfdA9c4DceEf1321153561dCb375d13B07A)  |
-| &nbsp;  | rocketNodeDeposit                     | [0x3FB8d496EA722455fB56D3B30CC97c3930F1CbF0](https://hoodi.etherscan.io/address/0x3FB8d496EA722455fB56D3B30CC97c3930F1CbF0)  |
-| &nbsp;  | rocketNodeStaking                     | [0x5520aBac3C9103216D3b23FfEf3AC1aa0CEB24CA](https://hoodi.etherscan.io/address/0x5520aBac3C9103216D3b23FfEf3AC1aa0CEB24CA)  |
-| &nbsp;  | rocketDepositPool                     | [0x425E6f83e27f1676AD78BC39dA79C2C7b33d3Fd8](https://hoodi.etherscan.io/address/0x425E6f83e27f1676AD78BC39dA79C2C7b33d3Fd8)  |
-| &nbsp;  | linkedListStorage                     | [0x50223850F1e0D27C24Cb5Ef1D8158E8b1aB61095](https://hoodi.etherscan.io/address/0x50223850F1e0D27C24Cb5Ef1D8158E8b1aB61095)  |
-| &nbsp;  | rocketDAOProtocol                     | [0xf295b126eA4f42a92F263466609d3945af6EEBc0](https://hoodi.etherscan.io/address/0xf295b126eA4f42a92F263466609d3945af6EEBc0)  |
-| &nbsp;  | rocketDAOProtocolProposals            | [0xC5107991Da31E4113faAeCEbf55588D3c280225e](https://hoodi.etherscan.io/address/0xC5107991Da31E4113faAeCEbf55588D3c280225e)  |
-| &nbsp;  | rocketDAOProtocolSettingsNode         | [0x4C31C7f7aDf948eE5e8501B8E6C65aef5fF12129](https://hoodi.etherscan.io/address/0x4C31C7f7aDf948eE5e8501B8E6C65aef5fF12129)  |
-| &nbsp;  | rocketDAOProtocolSettingsDeposit      | [0x86B455e24A9B5541D7703d07A8CE634f0309d2D2](https://hoodi.etherscan.io/address/0x86B455e24A9B5541D7703d07A8CE634f0309d2D2)  |
-| &nbsp;  | rocketDAOProtocolSettingsNetwork      | [0xaEa4d6AEfF4078b98ef28cC2fc7DdD4cc5226ECA](https://hoodi.etherscan.io/address/0xaEa4d6AEfF4078b98ef28cC2fc7DdD4cc5226ECA)  |
-| &nbsp;  | rocketDAOProtocolSettingsSecurity     | [0x7a75036A7b7F858Ac9fa89547EA952920fB5715D](https://hoodi.etherscan.io/address/0x7a75036A7b7F858Ac9fa89547EA952920fB5715D)  |
-| &nbsp;  | rocketDAOProtocolSettingsMegapool     | [0x9D64a4802db355E6C085B7497C29dd3175668D68](https://hoodi.etherscan.io/address/0x9D64a4802db355E6C085B7497C29dd3175668D68)  |
-| &nbsp;  | rocketDAOProtocolSettingsMinipool     | [0xf9769dA9633Bdf64395bf5d91Edf8F3320db8369](https://hoodi.etherscan.io/address/0xf9769dA9633Bdf64395bf5d91Edf8F3320db8369)  |
-| &nbsp;  | rocketDAOSecurityUpgrade              | [0x9B744A231274F92A481DDC161206Ec1F88442ed9](https://hoodi.etherscan.io/address/0x9B744A231274F92A481DDC161206Ec1F88442ed9)  |
-| &nbsp;  | rocketDAOSecurityProposals            | [0x0e79A9ccB66D740Bb8465165762BF4d75CD466aF](https://hoodi.etherscan.io/address/0x0e79A9ccB66D740Bb8465165762BF4d75CD466aF)  |
-| &nbsp;  | rocketDAONodeTrustedUpgrade           | [0x92d1c21D158a8e451a74C01332d2a3790909cBAF](https://hoodi.etherscan.io/address/0x92d1c21D158a8e451a74C01332d2a3790909cBAF)  |
-| &nbsp;  | rocketNetworkRevenues                 | [0x5Ff34Dde4ac5aF26cE063940065E4D3ebc4c857c](https://hoodi.etherscan.io/address/0x5Ff34Dde4ac5aF26cE063940065E4D3ebc4c857c)  |
-| &nbsp;  | rocketNetworkBalances                 | [0x0737C090618190954F94b4A7C7241372252f803a](https://hoodi.etherscan.io/address/0x0737C090618190954F94b4A7C7241372252f803a)  |
-| &nbsp;  | rocketNetworkSnapshots                | [0x37DC1e910DD70D895Aa0199894Fc7184ed2d64B7](https://hoodi.etherscan.io/address/0x37DC1e910DD70D895Aa0199894Fc7184ed2d64B7)  |
-| &nbsp;  | rocketNetworkPenalties                | [0xc3a18D6Ce3598EA1B938a0411EF16521AF8C010f](https://hoodi.etherscan.io/address/0xc3a18D6Ce3598EA1B938a0411EF16521AF8C010f)  |
-| &nbsp;  | rocketRewardsPool                     | [0x83037aaaF7437e34f4116B33271bF1273f529bd1](https://hoodi.etherscan.io/address/0x83037aaaF7437e34f4116B33271bF1273f529bd1)  |
-| &nbsp;  | beaconStateVerifier                   | [0x1AE88D33a7D0fEC71034480F9d1f19e17Ccf1f33](https://hoodi.etherscan.io/address/0x1AE88D33a7D0fEC71034480F9d1f19e17Ccf1f33)  |
-| &nbsp;  | rocketNodeDistributorDelegate         | [0xBad0Dbd347ED2be40Ce3426c0C6B91bE4f243578](https://hoodi.etherscan.io/address/0xBad0Dbd347ED2be40Ce3426c0C6B91bE4f243578)  |
-| &nbsp;  | rocketClaimDAO                        | [0x27696EA43B7AcDFf5519371F6A4108C9736CD3fd](https://hoodi.etherscan.io/address/0x27696EA43B7AcDFf5519371F6A4108C9736CD3fd)  |
-| &nbsp;  | rocketMinipoolBondReducer             | [0xE04621683Cdf2437a759400FC3dA995a08D38C1b](https://hoodi.etherscan.io/address/0xE04621683Cdf2437a759400FC3dA995a08D38C1b)  |
-| &nbsp;  | rocketMinipoolManager                 | [0x426c08eC5ba0ECf97A6bfE29C1B3Da962051e7CB](https://hoodi.etherscan.io/address/0x426c08eC5ba0ECf97A6bfE29C1B3Da962051e7CB)  |
-| &nbsp;  | rocketNetworkVoting                   | [0xd29b82cC5a06311921db10F156896E3588858169](https://hoodi.etherscan.io/address/0xd29b82cC5a06311921db10F156896E3588858169)  |
-| &nbsp;  | rocketMerkleDistributorMainnet        | [0xcAFb9B62579d1a12207d642d644808E7e97ed910](https://hoodi.etherscan.io/address/0xcAFb9B62579d1a12207d642d644808E7e97ed910)  |
-| &nbsp;  | rocketMegapoolPenalties               | [0xdF3D4bddDf39965F92A8CAD73B1e84dEa02A963C](https://hoodi.etherscan.io/address/0xdF3D4bddDf39965F92A8CAD73B1e84dEa02A963C)  |
-| &nbsp;  | rocketNetworkSnapshotsTime            | [0x95D712ebA0b76aFCF1359d032D242bcBdb842DA6](https://hoodi.etherscan.io/address/0x95D712ebA0b76aFCF1359d032D242bcBdb842DA6)  |
-| &nbsp;  | rocketDAOProtocolSettingsProposals    | [0xDE349540f1FC0259823815811e3D6AE32fAD3ab1](https://hoodi.etherscan.io/address/0xDE349540f1FC0259823815811e3D6AE32fAD3ab1)  |
-| &nbsp;  | rocketUpgradeOneDotFour               | [0xb9b3E78C42e835df2F28b46b8F6B458fD32C6029](https://hoodi.etherscan.io/address/0xb9b3E78C42e835df2F28b46b8F6B458fD32C6029)  |
+| Chain   | Contract Name                         | Address                                                                                                                     |
+| ------- | ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Mainnet | addressQueueStorage                   | [0x44E31944E1A6F3b8F805E105B130F8bdb7E2EBd8](https://etherscan.io/address/0x44E31944E1A6F3b8F805E105B130F8bdb7E2EBd8)       |
+| &nbsp;  | addressSetStorage                     | [0xD4ae2511dF21F367792bA4D67c6eb032171c6a16](https://etherscan.io/address/0xD4ae2511dF21F367792bA4D67c6eb032171c6a16)       |
+| &nbsp;  | rocketAuctionManager                  | [0x1a2F00D187C9388fDa3Bf2dc46a6b4740849EcCE](https://etherscan.io/address/0x1a2F00D187C9388fDa3Bf2dc46a6b4740849EcCE)       |
+| &nbsp;  | rocketClaimDAO                        | [0xfB2F2Ab63DCf412ced6cdE5f4f809215ed0c81aa](https://etherscan.io/address/0xfB2F2Ab63DCf412ced6cdE5f4f809215ed0c81aa)       |
+| &nbsp;  | rocketDAONodeTrusted                  | [0xb8e783882b11Ff4f6Cef3C501EA0f4b960152cc9](https://etherscan.io/address/0xb8e783882b11Ff4f6Cef3C501EA0f4b960152cc9)       |
+| &nbsp;  | rocketDAONodeTrustedActions           | [0x029d946F28F93399a5b0D09c879FC8c94E596AEb](https://etherscan.io/address/0x029d946F28F93399a5b0D09c879FC8c94E596AEb)       |
+| &nbsp;  | rocketDAONodeTrustedProposals         | [0xb0ec3F657ef43A615aB480FA8D5A53BF2c2f05d5](https://etherscan.io/address/0xb0ec3F657ef43A615aB480FA8D5A53BF2c2f05d5)       |
+| &nbsp;  | rocketDAONodeTrustedSettingsMembers   | [0xdA1AB39e62E0A5297AF44C7064E501b0613f0D01](https://etherscan.io/address/0xdA1AB39e62E0A5297AF44C7064E501b0613f0D01)       |
+| &nbsp;  | rocketDAONodeTrustedSettingsMinipool  | [0xE535fA45e12d748393C117C6D8EEBe1a7D124d95](https://etherscan.io/address/0xE535fA45e12d748393C117C6D8EEBe1a7D124d95)       |
+| &nbsp;  | rocketDAONodeTrustedSettingsProposals | [0xAD038f8994a6bd51C8A72D3721CEd83401D4d2b0](https://etherscan.io/address/0xAD038f8994a6bd51C8A72D3721CEd83401D4d2b0)       |
+| &nbsp;  | rocketDAONodeTrustedSettingsRewards   | [0x7322c24752f79c05FFD1E2a6FCB97020C1C264F1](https://etherscan.io/address/0x7322c24752f79c05FFD1E2a6FCB97020C1C264F1)       |
+| &nbsp;  | rocketDAONodeTrustedUpgrade           | [0x9290AA076a2F1418a4E414E3D83AE03cA8E1ad10](https://etherscan.io/address/0x9290AA076a2F1418a4E414E3D83AE03cA8E1ad10)       |
+| &nbsp;  | rocketDAOProposal                     | [0x1e94e6131Ba5B4F193d2A1067517136C52ddF102](https://etherscan.io/address/0x1e94e6131Ba5B4F193d2A1067517136C52ddF102)       |
+| &nbsp;  | rocketDAOProtocol                     | [0xCaC25e88276A333cF9d4196d112D93af67ef809A](https://etherscan.io/address/0xCaC25e88276A333cF9d4196d112D93af67ef809A)       |
+| &nbsp;  | rocketDAOProtocolActions              | [0xB50d513de40eE70A662c39207b4382a693f9e08D](https://etherscan.io/address/0xB50d513de40eE70A662c39207b4382a693f9e08D)       |
+| &nbsp;  | rocketDAOProtocolProposals            | [0xcf7F6E23cD8189B7F56b14F66e11241C8ac0F03b](https://etherscan.io/address/0xcf7F6E23cD8189B7F56b14F66e11241C8ac0F03b)       |
+| &nbsp;  | rocketDAOProtocolProposal             | [0x2D627A50Dc1C4EDa73E42858E8460b0eCF300b25](https://etherscan.io/address/0x2D627A50Dc1C4EDa73E42858E8460b0eCF300b25)       |
+| &nbsp;  | rocketDAOProtocolSettingsAuction      | [0x364F989A3C9a1F66cB51b9043680974eA08C0d18](https://etherscan.io/address/0x364F989A3C9a1F66cB51b9043680974eA08C0d18)       |
+| &nbsp;  | rocketDAOProtocolSettingsDeposit      | [0x227BE8dD01DF8ad9BED0178e4F8cEC2996C5c365](https://etherscan.io/address/0x227BE8dD01DF8ad9BED0178e4F8cEC2996C5c365)       |
+| &nbsp;  | rocketDAOProtocolSettingsInflation    | [0x1d4AAEaE7C8b75a8e5ab589a84516853DBDdd735](https://etherscan.io/address/0x1d4AAEaE7C8b75a8e5ab589a84516853DBDdd735)       |
+| &nbsp;  | rocketDAOProtocolSettingsMinipool     | [0xaeF94C3650AA13d7A2456477fc374a16b94B9152](https://etherscan.io/address/0xaeF94C3650AA13d7A2456477fc374a16b94B9152)       |
+| &nbsp;  | rocketDAOProtocolSettingsNetwork      | [0x67Fd03a5095197D1aD1F932BC55E022C420b1153](https://etherscan.io/address/0x67Fd03a5095197D1aD1F932BC55E022C420b1153)       |
+| &nbsp;  | rocketDAOProtocolSettingsNode         | [0xb02B883303e658Ddcd58D3871Dc4Ca0C91f0fc9D](https://etherscan.io/address/0xb02B883303e658Ddcd58D3871Dc4Ca0C91f0fc9D)       |
+| &nbsp;  | rocketDAOProtocolSettingsRewards      | [0x8857610Ba0A7caFD4dBE1120bfF03E9c74fc4124](https://etherscan.io/address/0x8857610Ba0A7caFD4dBE1120bfF03E9c74fc4124)       |
+| &nbsp;  | rocketDepositPool                     | [0xCE15294273CFb9D9b628F4D61636623decDF4fdC](https://etherscan.io/address/0xCE15294273CFb9D9b628F4D61636623decDF4fdC)       |
+| &nbsp;  | rocketMerkleDistributorMainnet        | [0xE4E2612EE8d7fdc8518Faea85770A3b9c886E2f5](https://etherscan.io/address/0xE4E2612EE8d7fdc8518Faea85770A3b9c886E2f5)       |
+| &nbsp;  | rocketMinipoolBase                    | [0x560656C8947564363497E9C78A8BDEff8d3EFF33](https://etherscan.io/address/0x560656C8947564363497E9C78A8BDEff8d3EFF33)       |
+| &nbsp;  | rocketMinipoolBondReducer             | [0xDe8Ab526b19FCA2D5a57c4A78b698041717BE591](https://etherscan.io/address/0xDe8Ab526b19FCA2D5a57c4A78b698041717BE591)       |
+| &nbsp;  | rocketMinipoolDelegate                | [0x03d30466d199Ef540823fe2a22CAE2E3b9343bb0](https://etherscan.io/address/0x03d30466d199Ef540823fe2a22CAE2E3b9343bb0)       |
+| &nbsp;  | rocketMinipoolFactory                 | [0x7B8c48256CaF462670f84c7e849cab216922B8D3](https://etherscan.io/address/0x7B8c48256CaF462670f84c7e849cab216922B8D3)       |
+| &nbsp;  | rocketMinipoolManager                 | [0xe54B8C641fd96dE5D6747f47C19964c6b824D62C](https://etherscan.io/address/0xe54B8C641fd96dE5D6747f47C19964c6b824D62C)       |
+| &nbsp;  | rocketMinipoolPenalty                 | [0xE64AC47b6e2FEcfCDEA35147Fe61af9894A06ba6](https://etherscan.io/address/0xE64AC47b6e2FEcfCDEA35147Fe61af9894A06ba6)       |
+| &nbsp;  | rocketMinipoolQueue                   | [0x9e966733e3E9BFA56aF95f762921859417cF6FaA](https://etherscan.io/address/0x9e966733e3E9BFA56aF95f762921859417cF6FaA)       |
+| &nbsp;  | rocketMinipoolStatus                  | [0xa52451b9d25EEf02BE42B3A8161A18f947F8A6a5](https://etherscan.io/address/0xa52451b9d25EEf02BE42B3A8161A18f947F8A6a5)       |
+| &nbsp;  | rocketNetworkBalances                 | [0x1D9F14C6Bfd8358b589964baD8665AdD248E9473](https://etherscan.io/address/0x1D9F14C6Bfd8358b589964baD8665AdD248E9473)       |
+| &nbsp;  | rocketNetworkFees                     | [0xf824e2d69dc7e7c073162C2bdE87dA4746d27a0f](https://etherscan.io/address/0xf824e2d69dc7e7c073162C2bdE87dA4746d27a0f)       |
+| &nbsp;  | rocketNetworkPenalties                | [0xeD0493DE30e82bE7C16C8925C7204CE9D1136B3a](https://etherscan.io/address/0xeD0493DE30e82bE7C16C8925C7204CE9D1136B3a)       |
+| &nbsp;  | rocketNetworkPrices                   | [0x25E54Bf48369b8FB25bB79d3a3Ff7F3BA448E382](https://etherscan.io/address/0x25E54Bf48369b8FB25bB79d3a3Ff7F3BA448E382)       |
+| &nbsp;  | rocketNodeDeposit                     | [0x6B13698c306a297Fee1383cdC2c65d63781D2D47](https://etherscan.io/address/0x6B13698c306a297Fee1383cdC2c65d63781D2D47)       |
+| &nbsp;  | rocketNodeDistributorDelegate         | [0x35A85d4c115801395e6E3abAa784Fb05826f129D](https://etherscan.io/address/0x35A85d4c115801395e6E3abAa784Fb05826f129D)       |
+| &nbsp;  | rocketNodeDistributorFactory          | [0xe228017f77B3E0785e794e4c0a8A6b935bB4037C](https://etherscan.io/address/0xe228017f77B3E0785e794e4c0a8A6b935bB4037C)       |
+| &nbsp;  | rocketNodeManager                     | [0xcf2d76A7499d3acB5A22ce83c027651e8d76e250](https://etherscan.io/address/0xcf2d76A7499d3acB5A22ce83c027651e8d76e250)       |
+| &nbsp;  | rocketNodeStaking                     | [0xedFc7DCaE43fF954577a2875a9D805874490eE3E](https://etherscan.io/address/0xedFc7DCaE43fF954577a2875a9D805874490eE3E)       |
+| &nbsp;  | rocketRewardsPool                     | [0xCba5951fc706Fc783b7C142DaE8576Ebe29c41FD](https://etherscan.io/address/0xCba5951fc706Fc783b7C142DaE8576Ebe29c41FD)       |
+| &nbsp;  | rocketSmoothingPool                   | [0xd4E96eF8eee8678dBFf4d535E033Ed1a4F7605b7](https://etherscan.io/address/0xd4E96eF8eee8678dBFf4d535E033Ed1a4F7605b7)       |
+| &nbsp;  | rocketStorage                         | [0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46](https://etherscan.io/address/0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46)       |
+| &nbsp;  | rocketTokenRETH                       | [0xae78736Cd615f374D3085123A210448E74Fc6393](https://etherscan.io/address/0xae78736Cd615f374D3085123A210448E74Fc6393)       |
+| &nbsp;  | rocketTokenRPL                        | [0xD33526068D116cE69F19A9ee46F0bd304F21A51f](https://etherscan.io/address/0xD33526068D116cE69F19A9ee46F0bd304F21A51f)       |
+| &nbsp;  | rocketTokenRPLFixedSupply             | [0xB4EFd85c19999D84251304bDA99E90B92300Bd93](https://etherscan.io/address/0xB4EFd85c19999D84251304bDA99E90B92300Bd93)       |
+| &nbsp;  | rocketUpgradeOneDotOne                | [0xC680a22b4F03977f69b51A09f3Dbe922eb77C8FE](https://etherscan.io/address/0xc680a22b4f03977f69b51a09f3dbe922eb77c8fe)       |
+| &nbsp;  | rocketUpgradeOneDotTwo                | [0x9a0b5d3101d111EA0edD573d45ef2208CC97984a](https://etherscan.io/address/0x9a0b5d3101d111EA0edD573d45ef2208CC97984a)       |
+| &nbsp;  | rocketUpgradeOneDotThree              | [0x5dC69083B68CDb5c9ca492A0A5eC581e529fb73C](https://etherscan.io/address/0x5dC69083B68CDb5c9ca492A0A5eC581e529fb73C)       |
+| &nbsp;  | rocketUpgradeOneDotThreeDotOne        | [0xc2C81454427b1E53Fdf5d3B45561e3c18F90f9eD](https://etherscan.io/address/0xc2C81454427b1E53Fdf5d3B45561e3c18F90f9eD)       |
+| &nbsp;  | rocketVault                           | [0x3bDC69C4E5e13E52A65f5583c23EFB9636b469d6](https://etherscan.io/address/0x3bDC69C4E5e13E52A65f5583c23EFB9636b469d6)       |
+| &nbsp;  | rocketNetworkSnapshots                | [0xe37F2d9dFb7397caF671DF5190a5dFB601028f17](https://etherscan.io/address/0xe37F2d9dFb7397caF671DF5190a5dFB601028f17)       |
+| &nbsp;  | rocketNetworkVoting                   | [0x994A9C49230FEC0c127B8F42D6c5288F02610AeD](https://etherscan.io/address/0x994A9C49230FEC0c127B8F42D6c5288F02610AeD)       |
+| &nbsp;  | rocketDAOProtocolSettingsProposals    | [0xf6ad771dfB1cd10c66F688E251b5E5c21cbfDF81](https://etherscan.io/address/0xf6ad771dfB1cd10c66F688E251b5E5c21cbfDF81)       |
+| &nbsp;  | rocketDAOProtocolVerifier             | [0xc4D85aA3e318c38005F6D73cC53E5A2b4223723a](https://etherscan.io/address/0xc4D85aA3e318c38005F6D73cC53E5A2b4223723a)       |
+| &nbsp;  | rocketDAOSecurity                     | [0x84aE6D61Df5c6ba7196b5C76Bcb112B8a689aD37](https://etherscan.io/address/0x84aE6D61Df5c6ba7196b5C76Bcb112B8a689aD37)       |
+| &nbsp;  | rocketDAOSecurityActions              | [0xeaa442dF4Bb5394c66C8024eFb4979bEc89Eb59a](https://etherscan.io/address/0xeaa442dF4Bb5394c66C8024eFb4979bEc89Eb59a)       |
+| &nbsp;  | rocketDAOSecurityProposals            | [0x334B9B1a6F9d7531efb13746482ff40f1c2a0c4e](https://etherscan.io/address/0x334B9B1a6F9d7531efb13746482ff40f1c2a0c4e)       |
+| &nbsp;  | rocketDAOProtocolSettingsSecurity     | [0xC9D771AaF504F33bB3C8a7E67eA9f1881F837cFf](https://etherscan.io/address/0xC9D771AaF504F33bB3C8a7E67eA9f1881F837cFf)       |
+| &nbsp;  | rocketSwapRouter†                     | [0x16D5A408e807db8eF7c578279BEeEe6b228f1c1C](https://etherscan.io/address/0x16D5A408e807db8eF7c578279BEeEe6b228f1c1C)       |
+| &nbsp;  | rocketMegapoolDelegate                | [0xca3DD4bee7C174903dBF66c3897c27E9ADaAEBdD](https://etherscan.io/address/0xca3DD4bee7C174903dBF66c3897c27E9ADaAEBdD)       |
+| &nbsp;  | rocketMegapoolFactory                 | [0xD5bffeaa9f373B9C367132772FAA0b88e3F0E38b](https://etherscan.io/address/0xD5bffeaa9f373B9C367132772FAA0b88e3F0E38b)       |
+| &nbsp;  | rocketMegapoolProxy                   | [0x1B389D76a04d01026c5f5B0a125D4CCF26F9cd51](https://etherscan.io/address/0x1B389D76a04d01026c5f5B0a125D4CCF26F9cd51)       |
+| &nbsp;  | rocketMegapoolManager                 | [0xf2CCd522Ba5fFEda28fe0389963845D61F342034](https://etherscan.io/address/0xf2CCd522Ba5fFEda28fe0389963845D61F342034)       |
+| &nbsp;  | linkedListStorage                     | [0x52590E8aaC140E2020f8F51695719922ebcCb6D6](https://etherscan.io/address/0x52590E8aaC140E2020f8F51695719922ebcCb6D6)       |
+| &nbsp;  | rocketDAOProtocolSettingsMegapool     | [0x40628FAAc22383327b9f7bBc86CD1857050A2dCe](https://etherscan.io/address/0x40628FAAc22383327b9f7bBc86CD1857050A2dCe)       |
+| &nbsp;  | rocketDAOSecurityUpgrade              | [0x950BaF0358164339114914169BF16754789B5Dc4](https://etherscan.io/address/0x950BaF0358164339114914169BF16754789B5Dc4)       |
+| &nbsp;  | rocketNetworkRevenues                 | [0x9D9708dA8E0200Dd8Dd9ad09e0AAf184Ad260842](https://etherscan.io/address/0x9D9708dA8E0200Dd8Dd9ad09e0AAf184Ad260842)       |
+| &nbsp;  | beaconStateVerifier                   | [0xE9a114c50f26001443B91079Ab5573a90D2D8469](https://etherscan.io/address/0xE9a114c50f26001443B91079Ab5573a90D2D8469)       |
+| &nbsp;  | rocketMegapoolPenalties               | [0xa2afC3C2d8ea4eBdbE925cADe17c29517630e6aB](https://etherscan.io/address/0xa2afC3C2d8ea4eBdbE925cADe17c29517630e6aB)       |
+| &nbsp;  | rocketNetworkSnapshotsTime            | [0x569F5b3024054AB4049A50df223a747AFE18a891](https://etherscan.io/address/0x569F5b3024054AB4049A50df223a747AFE18a891)       |
+| &nbsp;  | rocketUpgradeOneDotFour               | [0x5b3B5C76391662e56d0ff72F31B89C409316c8Ba](https://etherscan.io/address/0x5b3B5C76391662e56d0ff72F31B89C409316c8Ba)       |
+| Hoodi\* | addressQueueStorage                   | [0x07FCaBCbe4ff0d80c2b1eb42855C0131b6cba2F4](https://hoodi.etherscan.io/address/0x07FCaBCbe4ff0d80c2b1eb42855C0131b6cba2F4) |
+| &nbsp;  | addressSetStorage                     | [0xA805d68b61956BC92d556F2bE6d18747adAeEe82](https://hoodi.etherscan.io/address/0xA805d68b61956BC92d556F2bE6d18747adAeEe82) |
+| &nbsp;  | rocketAuctionManager                  | [0x84D11B65E026F7aA08F5497dd3593fb083410B71](https://hoodi.etherscan.io/address/0x84D11B65E026F7aA08F5497dd3593fb083410B71) |
+| &nbsp;  | rocketDAONodeTrusted                  | [0x56CD23Baaf2e7cb7056968d85E5EFe343b0E1DC2](https://hoodi.etherscan.io/address/0x56CD23Baaf2e7cb7056968d85E5EFe343b0E1DC2) |
+| &nbsp;  | rocketDAONodeTrustedActions           | [0xa0f327589B08CEB824c21CDe8eaD5a3e6ca9edF7](https://hoodi.etherscan.io/address/0xa0f327589B08CEB824c21CDe8eaD5a3e6ca9edF7) |
+| &nbsp;  | rocketDAONodeTrustedProposals         | [0x2d3142a05bDD16a3223B585a7A48132867dA6480](https://hoodi.etherscan.io/address/0x2d3142a05bDD16a3223B585a7A48132867dA6480) |
+| &nbsp;  | rocketDAONodeTrustedSettingsMembers   | [0x5c2D33A015D132D4f590f00df807Bb1052531ab9](https://hoodi.etherscan.io/address/0x5c2D33A015D132D4f590f00df807Bb1052531ab9) |
+| &nbsp;  | rocketDAONodeTrustedSettingsMinipool  | [0x5ffe8bD3165e80D51ce834B32a6B6C02233494bF](https://hoodi.etherscan.io/address/0x5ffe8bD3165e80D51ce834B32a6B6C02233494bF) |
+| &nbsp;  | rocketDAONodeTrustedSettingsProposals | [0xe4C3Ec6A20bE31296032F968cEadeE9e9Aa76535](https://hoodi.etherscan.io/address/0xe4C3Ec6A20bE31296032F968cEadeE9e9Aa76535) |
+| &nbsp;  | rocketDAONodeTrustedSettingsRewards   | [0x2FB42FfE2d7dF8381853e96304300c6a5E846905](https://hoodi.etherscan.io/address/0x2FB42FfE2d7dF8381853e96304300c6a5E846905) |
+| &nbsp;  | rocketDAOProposal                     | [0xdFa888bbFF50eacd574a5336f1bcF83546aC430f](https://hoodi.etherscan.io/address/0xdFa888bbFF50eacd574a5336f1bcF83546aC430f) |
+| &nbsp;  | rocketDAOProtocolActions              | [0x1AA4544cE0fd51596B6d51d0f55A40e409B8BAd4](https://hoodi.etherscan.io/address/0x1AA4544cE0fd51596B6d51d0f55A40e409B8BAd4) |
+| &nbsp;  | rocketDAOProtocolProposal             | [0x85cAF0D85eFD17f4a3170fB82D054C2dbD14e53c](https://hoodi.etherscan.io/address/0x85cAF0D85eFD17f4a3170fB82D054C2dbD14e53c) |
+| &nbsp;  | rocketDAOProtocolSettingsAuction      | [0x37C254647779b00FFFE0F9ca57B3ce997FB97D41](https://hoodi.etherscan.io/address/0x37C254647779b00FFFE0F9ca57B3ce997FB97D41) |
+| &nbsp;  | rocketDAOProtocolSettingsInflation    | [0xb1029Ac2Be4e08516697093e2AFeC435057f3511](https://hoodi.etherscan.io/address/0xb1029Ac2Be4e08516697093e2AFeC435057f3511) |
+| &nbsp;  | rocketDAOProtocolSettingsRewards      | [0x614A5be866A0EC908cA9aE0d7D3eB100492A9f4e](https://hoodi.etherscan.io/address/0x614A5be866A0EC908cA9aE0d7D3eB100492A9f4e) |
+| &nbsp;  | rocketMinipoolBase                    | [0xac2245BE4C2C1E9752499Bcd34861B761d62fC27](https://hoodi.etherscan.io/address/0xac2245BE4C2C1E9752499Bcd34861B761d62fC27) |
+| &nbsp;  | rocketMinipoolDelegate                | [0x56903694d881282D33ed0643EAe14263880Dd47F](https://hoodi.etherscan.io/address/0x56903694d881282D33ed0643EAe14263880Dd47F) |
+| &nbsp;  | rocketMinipoolFactory                 | [0xDD3f50F8A6CafbE9b31a427582963f465E745AF8](https://hoodi.etherscan.io/address/0xDD3f50F8A6CafbE9b31a427582963f465E745AF8) |
+| &nbsp;  | rocketMinipoolPenalty                 | [0x54705f80D7C51Fcffd9C659ce3f3C9a7dCCf5788](https://hoodi.etherscan.io/address/0x54705f80D7C51Fcffd9C659ce3f3C9a7dCCf5788) |
+| &nbsp;  | rocketMinipoolQueue                   | [0x4220EECD69B2e1e70a7001637cc3D839EE2E97f5](https://hoodi.etherscan.io/address/0x4220EECD69B2e1e70a7001637cc3D839EE2E97f5) |
+| &nbsp;  | rocketNetworkFees                     | [0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4](https://hoodi.etherscan.io/address/0x2cac916b2A963Bf162f076C0a8a4a8200BCFBfb4) |
+| &nbsp;  | rocketNetworkPrices                   | [0x029d946F28F93399a5b0D09c879FC8c94E596AEb](https://hoodi.etherscan.io/address/0x029d946F28F93399a5b0D09c879FC8c94E596AEb) |
+| &nbsp;  | rocketNodeDistributorFactory          | [0x42d4e4B59220dA435A0bd6b5892B90fF50e1D8D4](https://hoodi.etherscan.io/address/0x42d4e4B59220dA435A0bd6b5892B90fF50e1D8D4) |
+| &nbsp;  | rocketSmoothingPool                   | [0xA347C391bc8f740CAbA37672157c8aAcD08Ac567](https://hoodi.etherscan.io/address/0xA347C391bc8f740CAbA37672157c8aAcD08Ac567) |
+| &nbsp;  | rocketStorage                         | [0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1](https://hoodi.etherscan.io/address/0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1) |
+| &nbsp;  | rocketTokenRETH                       | [0x7322c24752f79c05FFD1E2a6FCB97020C1C264F1](https://hoodi.etherscan.io/address/0x7322c24752f79c05FFD1E2a6FCB97020C1C264F1) |
+| &nbsp;  | rocketTokenRPL                        | [0x1Cc9cF5586522c6F483E84A19c3C2B0B6d027bF0](https://hoodi.etherscan.io/address/0x1Cc9cF5586522c6F483E84A19c3C2B0B6d027bF0) |
+| &nbsp;  | rocketTokenRPLFixedSupply             | [0x7EcCBbd05830EdF593d30005B8F69E965AF4D59f](https://hoodi.etherscan.io/address/0x7EcCBbd05830EdF593d30005B8F69E965AF4D59f) |
+| &nbsp;  | rocketUpgradeOneDotThreeDotOne        | [0x149aE025fFC7E7bbcCc8d373d56797D637bF5D33](https://hoodi.etherscan.io/address/0x149aE025fFC7E7bbcCc8d373d56797D637bF5D33) |
+| &nbsp;  | rocketVault                           | [0x67CdE7AF920682A29fcfea1A179ef0f30F48Df3e](https://hoodi.etherscan.io/address/0x67CdE7AF920682A29fcfea1A179ef0f30F48Df3e) |
+| &nbsp;  | rocketDAOProtocolVerifier             | [0xC78059b79c3a57feC182154F72aEE5a100a57b4A](https://hoodi.etherscan.io/address/0xC78059b79c3a57feC182154F72aEE5a100a57b4A) |
+| &nbsp;  | rocketDAOSecurity                     | [0x751826b107672360b764327631cC5764515fFC37](https://hoodi.etherscan.io/address/0x751826b107672360b764327631cC5764515fFC37) |
+| &nbsp;  | rocketDAOSecurityActions              | [0x560656C8947564363497E9C78A8BDEff8d3EFF33](https://hoodi.etherscan.io/address/0x560656C8947564363497E9C78A8BDEff8d3EFF33) |
+| &nbsp;  | rocketMegapoolDelegate                | [0xbd96545b6066c9701A55D88B237A70Cd30457d07](https://hoodi.etherscan.io/address/0xbd96545b6066c9701A55D88B237A70Cd30457d07) |
+| &nbsp;  | rocketMegapoolFactory                 | [0x894d1E83BB08aa50D77D5C4E471A6F94bBE056c5](https://hoodi.etherscan.io/address/0x894d1E83BB08aa50D77D5C4E471A6F94bBE056c5) |
+| &nbsp;  | rocketMegapoolProxy                   | [0x7791D20668112Ed6b81D46647a661D9997d35922](https://hoodi.etherscan.io/address/0x7791D20668112Ed6b81D46647a661D9997d35922) |
+| &nbsp;  | rocketMegapoolManager                 | [0x8Fb4399DE1442f28F8DcDbDc1435969aEAF4170E](https://hoodi.etherscan.io/address/0x8Fb4399DE1442f28F8DcDbDc1435969aEAF4170E) |
+| &nbsp;  | rocketNodeManager                     | [0xa9115EfdA9c4DceEf1321153561dCb375d13B07A](https://hoodi.etherscan.io/address/0xa9115EfdA9c4DceEf1321153561dCb375d13B07A) |
+| &nbsp;  | rocketNodeDeposit                     | [0x3FB8d496EA722455fB56D3B30CC97c3930F1CbF0](https://hoodi.etherscan.io/address/0x3FB8d496EA722455fB56D3B30CC97c3930F1CbF0) |
+| &nbsp;  | rocketNodeStaking                     | [0x5520aBac3C9103216D3b23FfEf3AC1aa0CEB24CA](https://hoodi.etherscan.io/address/0x5520aBac3C9103216D3b23FfEf3AC1aa0CEB24CA) |
+| &nbsp;  | rocketDepositPool                     | [0x425E6f83e27f1676AD78BC39dA79C2C7b33d3Fd8](https://hoodi.etherscan.io/address/0x425E6f83e27f1676AD78BC39dA79C2C7b33d3Fd8) |
+| &nbsp;  | linkedListStorage                     | [0x50223850F1e0D27C24Cb5Ef1D8158E8b1aB61095](https://hoodi.etherscan.io/address/0x50223850F1e0D27C24Cb5Ef1D8158E8b1aB61095) |
+| &nbsp;  | rocketDAOProtocol                     | [0xf295b126eA4f42a92F263466609d3945af6EEBc0](https://hoodi.etherscan.io/address/0xf295b126eA4f42a92F263466609d3945af6EEBc0) |
+| &nbsp;  | rocketDAOProtocolProposals            | [0xC5107991Da31E4113faAeCEbf55588D3c280225e](https://hoodi.etherscan.io/address/0xC5107991Da31E4113faAeCEbf55588D3c280225e) |
+| &nbsp;  | rocketDAOProtocolSettingsNode         | [0x4C31C7f7aDf948eE5e8501B8E6C65aef5fF12129](https://hoodi.etherscan.io/address/0x4C31C7f7aDf948eE5e8501B8E6C65aef5fF12129) |
+| &nbsp;  | rocketDAOProtocolSettingsDeposit      | [0x86B455e24A9B5541D7703d07A8CE634f0309d2D2](https://hoodi.etherscan.io/address/0x86B455e24A9B5541D7703d07A8CE634f0309d2D2) |
+| &nbsp;  | rocketDAOProtocolSettingsNetwork      | [0xaEa4d6AEfF4078b98ef28cC2fc7DdD4cc5226ECA](https://hoodi.etherscan.io/address/0xaEa4d6AEfF4078b98ef28cC2fc7DdD4cc5226ECA) |
+| &nbsp;  | rocketDAOProtocolSettingsSecurity     | [0x7a75036A7b7F858Ac9fa89547EA952920fB5715D](https://hoodi.etherscan.io/address/0x7a75036A7b7F858Ac9fa89547EA952920fB5715D) |
+| &nbsp;  | rocketDAOProtocolSettingsMegapool     | [0x9D64a4802db355E6C085B7497C29dd3175668D68](https://hoodi.etherscan.io/address/0x9D64a4802db355E6C085B7497C29dd3175668D68) |
+| &nbsp;  | rocketDAOProtocolSettingsMinipool     | [0xf9769dA9633Bdf64395bf5d91Edf8F3320db8369](https://hoodi.etherscan.io/address/0xf9769dA9633Bdf64395bf5d91Edf8F3320db8369) |
+| &nbsp;  | rocketDAOSecurityUpgrade              | [0x9B744A231274F92A481DDC161206Ec1F88442ed9](https://hoodi.etherscan.io/address/0x9B744A231274F92A481DDC161206Ec1F88442ed9) |
+| &nbsp;  | rocketDAOSecurityProposals            | [0x0e79A9ccB66D740Bb8465165762BF4d75CD466aF](https://hoodi.etherscan.io/address/0x0e79A9ccB66D740Bb8465165762BF4d75CD466aF) |
+| &nbsp;  | rocketDAONodeTrustedUpgrade           | [0x92d1c21D158a8e451a74C01332d2a3790909cBAF](https://hoodi.etherscan.io/address/0x92d1c21D158a8e451a74C01332d2a3790909cBAF) |
+| &nbsp;  | rocketNetworkRevenues                 | [0x5Ff34Dde4ac5aF26cE063940065E4D3ebc4c857c](https://hoodi.etherscan.io/address/0x5Ff34Dde4ac5aF26cE063940065E4D3ebc4c857c) |
+| &nbsp;  | rocketNetworkBalances                 | [0x0737C090618190954F94b4A7C7241372252f803a](https://hoodi.etherscan.io/address/0x0737C090618190954F94b4A7C7241372252f803a) |
+| &nbsp;  | rocketNetworkSnapshots                | [0x37DC1e910DD70D895Aa0199894Fc7184ed2d64B7](https://hoodi.etherscan.io/address/0x37DC1e910DD70D895Aa0199894Fc7184ed2d64B7) |
+| &nbsp;  | rocketNetworkPenalties                | [0xc3a18D6Ce3598EA1B938a0411EF16521AF8C010f](https://hoodi.etherscan.io/address/0xc3a18D6Ce3598EA1B938a0411EF16521AF8C010f) |
+| &nbsp;  | rocketRewardsPool                     | [0x83037aaaF7437e34f4116B33271bF1273f529bd1](https://hoodi.etherscan.io/address/0x83037aaaF7437e34f4116B33271bF1273f529bd1) |
+| &nbsp;  | beaconStateVerifier                   | [0x1AE88D33a7D0fEC71034480F9d1f19e17Ccf1f33](https://hoodi.etherscan.io/address/0x1AE88D33a7D0fEC71034480F9d1f19e17Ccf1f33) |
+| &nbsp;  | rocketNodeDistributorDelegate         | [0xBad0Dbd347ED2be40Ce3426c0C6B91bE4f243578](https://hoodi.etherscan.io/address/0xBad0Dbd347ED2be40Ce3426c0C6B91bE4f243578) |
+| &nbsp;  | rocketClaimDAO                        | [0x27696EA43B7AcDFf5519371F6A4108C9736CD3fd](https://hoodi.etherscan.io/address/0x27696EA43B7AcDFf5519371F6A4108C9736CD3fd) |
+| &nbsp;  | rocketMinipoolBondReducer             | [0xE04621683Cdf2437a759400FC3dA995a08D38C1b](https://hoodi.etherscan.io/address/0xE04621683Cdf2437a759400FC3dA995a08D38C1b) |
+| &nbsp;  | rocketMinipoolManager                 | [0x426c08eC5ba0ECf97A6bfE29C1B3Da962051e7CB](https://hoodi.etherscan.io/address/0x426c08eC5ba0ECf97A6bfE29C1B3Da962051e7CB) |
+| &nbsp;  | rocketNetworkVoting                   | [0xd29b82cC5a06311921db10F156896E3588858169](https://hoodi.etherscan.io/address/0xd29b82cC5a06311921db10F156896E3588858169) |
+| &nbsp;  | rocketMerkleDistributorMainnet        | [0xcAFb9B62579d1a12207d642d644808E7e97ed910](https://hoodi.etherscan.io/address/0xcAFb9B62579d1a12207d642d644808E7e97ed910) |
+| &nbsp;  | rocketMegapoolPenalties               | [0xdF3D4bddDf39965F92A8CAD73B1e84dEa02A963C](https://hoodi.etherscan.io/address/0xdF3D4bddDf39965F92A8CAD73B1e84dEa02A963C) |
+| &nbsp;  | rocketNetworkSnapshotsTime            | [0x95D712ebA0b76aFCF1359d032D242bcBdb842DA6](https://hoodi.etherscan.io/address/0x95D712ebA0b76aFCF1359d032D242bcBdb842DA6) |
+| &nbsp;  | rocketDAOProtocolSettingsProposals    | [0xDE349540f1FC0259823815811e3D6AE32fAD3ab1](https://hoodi.etherscan.io/address/0xDE349540f1FC0259823815811e3D6AE32fAD3ab1) |
+| &nbsp;  | rocketUpgradeOneDotFour               | [0xb9b3E78C42e835df2F28b46b8F6B458fD32C6029](https://hoodi.etherscan.io/address/0xb9b3E78C42e835df2F28b46b8F6B458fD32C6029) |
 
 <small>\* Testnet</small>
 
-This list was updated 09/02/2026
+<small>† Not registered in the Storage contract, so it cannot be queried on chain like the other entries.</small>
+
+This list was updated 11/11/2026
 
 The addresses can be queried on chain as shown in this [example](/en/protocol/contracts-usage#interacting-with-rocket-pool).
