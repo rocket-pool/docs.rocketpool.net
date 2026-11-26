@@ -1,11 +1,10 @@
 # FAQ (WIP)
 
-### What are the benefits of running minipools with Rocket Pool compared to a 32 ETH solo validator?
+### How does running a Rocket Pool validator differ from solo staking?
 
-By running a single solo validator, you would receive 100% rewards on your 32 ETH.
-By running two 16 ETH minipools, you would receive 100% rewards on your 32 ETH **plus** 14% of the rewards on 32 ETH provided by the Rocket Pool protocol.
-By running four 8 ETH minipools, you would receive 100% rewards on your 32 ETH **plus** 14% of the rewards on 96 ETH provided by the Rocket Pool protocol.
-You would also have the option to use Rocket Pool's [Smoothing Pool](./fee-distrib-sp#the-smoothing-pool) feature.
+A solo validator requires 32 ETH from its operator. With a Rocket Pool megapool validator, the operator contributes a bond and the Rocket Pool deposit pool supplies the rest. The node operator earns validator rewards on the bonded ETH and may receive a protocol-set commission on rewards from the borrowed ETH. See the [protocol FAQ](../protocol/faq.html) for the current bond and commission terms.
+
+New Rocket Pool validators use [megapools](./megapools/overview.html). Existing legacy minipools continue operating, and new legacy minipool deposits are disabled. Existing operators can use the [migration guide](./megapools/migration.html) to compare their options.
 
 ### How do I know how much my rETH is worth? Does it rebase?
 
